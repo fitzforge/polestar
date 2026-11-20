@@ -12,11 +12,19 @@ next forever/horde/30-40/04-dustwallow-marsh
 
 step Fly to Orgrimmar
   only !Druid
-  when !zone "Orgrimmar"
+  when zone "Desolace"
   zone Desolace
+  tip At Shadowprey Village, ask Thalon for a flight to Orgrimmar. If he cannot take you, make your way to the city by road instead.
   goto 21.6,74.0 "Shadowprey Village flight master"
   fly "Orgrimmar"
   zone Orgrimmar
+
+step Reach Orgrimmar
+  only !Druid
+  zone Orgrimmar
+  tip Head to Orgrimmar from where you are. At Gadgetzan, ask Bulkrek Ragefist for a flight if you know the route and can pay the fare. If you enter the city by road, continue to your next stop there.
+  fly "Orgrimmar" optional
+  enter "Orgrimmar" @45.28,63.75 map 1454 era
 
 step Thunder Bluff
   only Druid

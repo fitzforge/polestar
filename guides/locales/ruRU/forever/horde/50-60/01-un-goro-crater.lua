@@ -201,10 +201,11 @@ return {
 	["{area:340} is built into the cliffs on the {zone:1418}' west edge."] = "{area:340} – крепость в скалах у западного края ({zone:1418}).",
 
 	-- Step 41: The WANTED poster
-	-- {object:164867} WANTED
-	["The {object:164867} poster"] = "Плакат «{object:164867}»",
-	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {object:164867} WANTED · {area:340} Kargath
-	["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "Для подземелья {area:1584}, далее, по пути через {area:254}: плакат «{object:164867}» ({area:340}) просит проредить дворфов из клана Гнева Наковальни внутри.",
+	-- was: ["The {object:164867} poster"] = "Плакат «{object:164867}»"
+	["The WANTED poster"] = "Плакат «РАЗЫСКИВАЕТСЯ»",
+	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {area:340} Kargath
+	-- was: ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "Для подземелья {area:1584}, далее, по пути через {area:254}: плакат «{object:164867}» ({area:340}) просит проредить дворфов из клана Гнева Наковальни внутри."
+	["For your {area:1584} run, next, on the way through {area:254}: the WANTED poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "",
 
 	-- Step 42: Into the Searing Gorge
 	-- {zone:1427} Searing Gorge
@@ -305,6 +306,7 @@ return {
 	-- ["Fly to {area:340}"] = "Летите сюда: {area:340}",
 	-- ["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Езжайте по дороге на восток через край {area:28} и за реку в край {area:139}; сверните на север сюда: {area:2627} – разрушенный город на северо-западе. {npc:12384} сидит в хижине на его краю.",
 	-- ["Follow the road east through the {zone:1422} and across the river into the {zone:1423}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Езжайте по дороге на восток через край {zone:1422} и за реку в край {zone:1423}; сверните на север сюда: {area:2627} – разрушенный город на северо-западе. {npc:12384} сидит в хижине на его краю.",
+	-- ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "Для подземелья {area:1584}, далее, по пути через {area:254}: плакат «{object:164867}» ({area:340}) просит проредить дворфов из клана Гнева Наковальни внутри.",
 	-- ["Free Darrowshire Spirits: talk to them"] = "Освободите духов Дарроушира: поговорите с ними",
 	-- ["From here on pick up every {npc:271301} (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "Отсюда собирайте все {npc:271301} (синие, зеленые, красные, желтые) и все кучи земли ({quest:3761}) по пути: всего 25 земли – 20 для Хамуула и 5 для Пестычинса.",
 	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "От места {area:152} езжайте по дороге на восток в край {zone:1422}. Палатки Алого ордена стоят сразу за фермой Фелстоунов, между местами {area:199} и {area:200}. Подожгите командную палатку ({object:176092}) и установите знамя Плети.",
@@ -351,6 +353,7 @@ return {
 	-- ["The tar pits lie just south of the refuge. Tar Beasts, Lurkers and Creepers drop the {item:11834}."] = "Смоляные ямы – чуть к югу от лагеря. {item:11834} падает со смоляных тварей, скрытней и ползунов.",
 	-- ["The wooden sign beside {npc:9997}"] = "Деревянная табличка рядом с {npc:9997}",
 	-- ["The {npc:9167} fly over the western cliffs around the pylon. Careful: the biggest are 54: pull them one at a time."] = "Жутедактили ({npc:9167}) летают над западными скалами вокруг пилона. Осторожно: самые крупные – 54 уровня, тяните их по одному.",
+	-- ["The {object:164867} poster"] = "Плакат «{object:164867}»",
 	-- ["Theodora's next errand goes to Lotwil east of town and then into {area:1584}: skip it."] = "Следующее поручение Теодоры ведет к Лотвилю к востоку от города, а затем сюда: {area:1584}: пропустите.",
 	-- ["Theodora's quest in {area:340} needs level 52. The Tar Lurkers and Tar Lords just south of the refuge are the closest camp."] = "Задание Теодоры ({area:340}) требует 52-го уровня. Смоляные скрытни и смоляные господа чуть к югу от лагеря – ближайшее место.",
 	-- ["To {area:197}"] = "Сюда: {area:197}",

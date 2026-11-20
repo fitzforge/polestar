@@ -90,7 +90,7 @@ step Zeppelin to Orgrimmar
   when !zone "The Barrens"
   zone Tirisfal Glades
   goto 60.7,58.8 "Zeppelin to Orgrimmar"
-  enter "Durotar"                     -- Ride across; the Tirisfal tower is not the landing
+  enter "Durotar"                     -- Stay aboard until the zeppelin lands in Durotar
 
 step Fly to the Crossroads
   when available 1145
@@ -567,18 +567,34 @@ step Sargeron
 
 step Khan Dez'hepah
   zone Desolace
+  when onquest 1365
+  when !complete 1365
+  when level>=34
   tip South to Kolkar Village. Khan Dez'hepah (35) walks among the tents on the east side with a Battle Lord or two (32-33): clear around him, then pull him alone at full health.
   tip Careful: Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health.
   collect 6066 quest 1365
 
 step Ghost Walker Post
   zone Desolace
-  tip South-west down the road to the post.
+  tip Head south-west to the post. Take your satyr and Burning Blade rewards first. If you're still below 34, keep Khan Dez'hepah for your next visit to Desolace.
   turnin 1434                         -- Takata Steelblade
   turnin 1435                         -- Maurin Bonesplitter
   turnin 1480 optional
   accept 1436                         -- Takata Steelblade: for Keldran in Orgrimmar, next guide
   note Takata's next errand sends you after a demon lord with an elite guard: skip it.
+
+step Khan Dez'hepah after the post
+  zone Desolace
+  when onquest 1365
+  when !complete 1365
+  when level>=34
+  tip If the post's rewards brought you to 34, head east to Kolkar Village for Khan Dez'hepah. He patrols the eastern tents with Battle Lords; clear them first and pull him alone.
+  tip Careful: Battle Lords call nearby allies when low on health.
+  collect 6066 quest 1365
+
+step Felgur Twocuts
+  zone Desolace
+  when complete 1365
   turnin 1365                         -- Felgur Twocuts
   note Felgur now offers Centaur Bounty: the second Desolace visit, at 38, takes it on its way to the Valley of Spears.
 
@@ -661,6 +677,7 @@ step Gazlowe
   when turnedin 1178
   when available 1180
   zone The Barrens
+  tip Gazlowe offers the letter upstairs in the house next to the flight master.
   accept 1180
 
 step Ratchet flight master
@@ -813,3 +830,4 @@ step Fly to Orgrimmar
   goto 51.6,26.0 map 1446 "Gadgetzan flight master"
   fly "Orgrimmar"
   zone Orgrimmar
+  enter "Orgrimmar"

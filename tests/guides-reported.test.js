@@ -2113,9 +2113,9 @@ test('Horde 30-40: Ajeck shares the coastal return unless the hunter is still be
 	}
 });
 
-test('Horde 30-40: Shadowprey after Ratchet uses a usable hearth before a warrior walks back, with a road for an unknown flight', { skip }, () => {
+test('Horde 30-40: the Shadowprey hearth is optional; a flight or the road follows Ratchet and Fray Island', { skip }, () => {
 	const guide = 'forever/horde/30-40/04-dustwallow-marsh.guide';
-	for (const [state, known, expected] of [['ready',true,'hearth'],['away',true,'fly'],['missing',false,'road'],['cooldown',false,'road']]) {
+	for (const [state, known, expected] of [['ready',true,'fly'],['ready',false,'road'],['away',true,'fly'],['missing',false,'road'],['cooldown',false,'road']]) {
 		const out = engineRun(guide, {race:'Orc',raceName:'Orc',faction:'Horde',cls:'WARRIOR',className:'Warrior',level:38}, {
 			before: `w.setZone('The Barrens'); w.bindLocation='${state === 'away' ? 'Orgrimmar' : 'Shadowprey Village'}';
 				${state === 'missing' ? '' : 'w.addItem(6948,1)'}
@@ -2123,13 +2123,75 @@ test('Horde 30-40: Shadowprey after Ratchet uses a usable hearth before a warrio
 			after: `Polestar.CharState().flags.taxi={[38]=${known}}`,
 			script: `local route={}; for i,s in ipairs(E.GetGuide().steps) do for j,g in ipairs(s.goals) do
 				local title=E.GetStepView(i).title; if E.Applies(i,j) then
-				if title=='Hearth to Shadowprey Village' and g.t=='hearth' then route[#route+1]='hearth'
+				if g.t=='hearth' then error('a hearth cast must never hold the route')
 				elseif title=='Fly to Shadowprey Village' and g.t=='fly' then route[#route+1]='fly'
 				elseif title=='Road to Shadowprey Village' and g.t=='goto' then route[#route+1]='road' end end
 			end end; emit(route)`,
 		});
 		assert.equal(out[0], expected, state);
+		const reroute = engineRun(guide, { ...ORC_WARRIOR, level: 38 }, {
+			before: `w.setZone('Desolace','Shadowprey Village'); w.bindLocation='${state === 'away' ? 'Orgrimmar' : 'Shadowprey Village'}'`,
+			after: `Polestar.CharState().flags.taxi={[38]=${known}}`,
+			script: `local exits=0;for i in ipairs(E.GetGuide().steps) do local title=E.GetStepView(i).title;if title=='Ratchet flight master' or title=='Road to Shadowprey Village' or title=='Fly to Shadowprey Village' then if E.Applies(i) then exits=exits+1 end end end;emit(exits)`,
+		});
+		assert.equal(reroute, 0, `already arrived from ${state}: no return to Ratchet`);
 	}
+});
+
+test('Desolace: a carried Khan waits for actual level 34 and opens the bounty only after Felgur pays', { skip }, () => {
+	const who = { race: 'Orc', raceName: 'Orc', faction: 'Horde', cls: 'WARRIOR', className: 'Warrior', level: 33 };
+	const shared = `local w=stub.world
+		local function goals(verb,q)
+			local out={}
+			for i,s in ipairs(E.GetGuide().steps) do for j,g in ipairs(s.goals) do
+				if g.t==verb and g.quest==q then out[#out+1]={s=i,g=j} end
+			end end
+			return out
+		end
+		local function applies(g) return E.Applies(g.s,g.g) end`;
+	const held = 'w.onQuest(1365,{{type="item",required=1}})';
+	const first = engineRun('forever/horde/30-40/02-thousand-needles.guide', who, {
+		before: `${held}; w.onQuest(1434,{}); w.onQuest(1435,{}); w.onQuest(1480,{})`,
+		script: `${shared}
+			local hunt=goals("collect",1365);local pay=goals("turnin",1365)[1];assert(#hunt==2)
+			for _,q in ipairs({1434,1435,1480}) do
+				local reward=goals("turnin",q)[1];assert(hunt[1].s<reward.s and reward.s<hunt[2].s)
+				assert(applies(reward) and not applies(hunt[1]) and not applies(hunt[2]) and not applies(pay))
+				w.turnIn(q);stub.advance(.5)
+			end
+			assert(not applies(hunt[2]),"no level invented by clearing the rewards")
+			w.setLevel(34);stub.advance(.5);assert(applies(hunt[2]))
+			w.addItem(6066,1);w.finish(1365);stub.advance(.5)
+			assert(not applies(hunt[1]) and not applies(hunt[2]) and applies(pay));emit(true)`,
+	});
+	assert.equal(first, true);
+	const guide = 'forever/horde/30-40/04-dustwallow-marsh.guide';
+	for (const level of [33, 34, 36, 37]) {
+		const r = engineRun(guide, { ...who, level }, {
+			before: held,
+			script: `${shared}
+				local hunt=goals("collect",1365)[1];local pay=goals("turnin",1365)[1]
+				local take=goals("accept",1366)[1];local ears=goals("collect",1366)
+				assert(#ears==2 and hunt.s<pay.s and pay.s<take.s and take.s<ears[1].s and ears[1].s<ears[2].s)
+				local first=applies(hunt);assert(not applies(pay) and not applies(take))
+				w.addItem(6066,1);w.finish(1365);stub.advance(.5)
+				assert(not applies(hunt) and applies(pay) and not applies(take),"a ready head is not a paid head")
+				w.turnIn(1365);stub.advance(.5);assert(not applies(hunt) and not applies(pay) and applies(take))
+				w.accept(1366,{{type="item",required=15}});w.accept(93225,{{type="item",required=5}});stub.advance(.5)
+				local low,west=applies(ears[1]),applies(ears[2]);local ep=goals("turnin",1366);local tp=goals("turnin",93225)
+				assert(ep[1].s<ears[1].s and tp[1].s<ears[1].s and #ep==3 and #tp==3);ep,tp=ep[1],tp[1]
+				assert(not applies(ep) and not applies(tp));w.addItem(6067,15);w.finish(1366);stub.advance(.5)
+				local onlyEars=applies(ep) and not applies(tp);w.addItem(254432,5);w.finish(93225);stub.advance(.5)
+				emit({hunt=first,low=low,west=west,earsOnly=onlyEars,totems=applies(tp)})`,
+		});
+		assert.deepEqual(r, { hunt: level >= 34, low: level >= 34 && level < 37, west: level >= 37, earsOnly: true, totems: true });
+	}
+	const fresh = engineRun(guide, who, {
+		script: `${shared}
+			local h=goals("collect",1365)[1];local p=goals("turnin",1365)[1];local a=goals("accept",1366)[1]
+			emit({hunt=applies(h),pay=applies(p),bounty=applies(a),gurda=applies(goals("accept",93225)[1])})`,
+	});
+	assert.deepEqual(fresh, { hunt: false, pay: false, bounty: false, gurda: true });
 });
 
 // Horde 30-40 audit (0.4.0): Centaur Bounty (1366) was taken at the end of the first Desolace visit (33-35) and worked
@@ -2382,11 +2444,29 @@ test('forever/horde/30-40/02-thousand-needles.guide: the southern flats and the 
 	assert.ok((list[toOrg].step.when || []).some((p) => p.k === 'zone' && p.neg && p.name === 'Desolace'), 'not for a character still in Desolace');
 	const stv = goals('forever/horde/30-40/03-stranglethorn-vale.guide');
 	const opener = stv.find(({ goal }) => goal.t === 'fly' && goal.location === 'Orgrimmar');
-	assert.ok((opener.step.when || []).some((p) => p.k === 'zone' && p.neg && p.name === 'Orgrimmar'), 'the next guide\'s first flight only outside Orgrimmar');
+	assert.ok((opener.step.when || []).some((p) => p.k === 'zone' && !p.neg && p.name === 'Desolace'), 'the next guide uses the Shadowprey flight master only from Desolace');
 	const fixes = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'guide-fixes.json'), 'utf8')).fixes;
 	for (const [q, oi] of [[1175, 2], [1147, 1]]) {
 		assert.ok(fixes.some((r) => r.faction === 'Horde' && r.at.quest === q && r.at.objective === oi && r.when === 'level>=34'), `a record the build keeps for ${q}`);
 	}
+});
+
+test('Horde Stranglethorn: point a fresh arrival to the city, not back to Desolace', { skip }, () => {
+	const guide = 'forever/horde/30-40/03-stranglethorn-vale.guide';
+	const points = goals(guide);
+	const west = points.find(({ goal }) => goal.t === 'goto' && goal.map === 1443).s;
+	const city = points.find(({ goal }) => goal.t === 'enter' && goal.location === 'Orgrimmar').s;
+	assert.ok(points.some(({ goal, s }) => s === city && goal.t === 'fly' && goal.node === 23 && goal.optional), 'the flight is optional, the actual city arrival is not');
+	const keldran = points.find(({ goal }) => is('turnin', 1436)(goal)).s;
+	for (const [zone, airborne, target] of [['Tanaris', false, city], ['Desolace', false, west], ['Orgrimmar', true, city], ['Orgrimmar', false, keldran]]) {
+		const state = engineRun(guide, { ...ORC_WARRIOR, level: 34 }, {
+			before: `w.money=0; w.setZone(${JSON.stringify(zone)}); w.onTaxi=${airborne}; w.onQuest(1436,{})`,
+			script: `emit(E.GetLiveStep())`,
+		});
+		assert.equal(state, target, `${zone}, airborne=${airborne}`);
+	}
+	const druid = points.find(({ goal }) => goal.t === 'fly' && goal.location === 'Thunder Bluff').s;
+	assert.ok(points.some(({ goal, s }) => s === druid && goal.t === 'train'), 'training remains actual work in Thunder Bluff');
 });
 
 test('Horde flats: only a funded, unfinished return takes the parts through Ratchet', { skip }, () => {
@@ -3063,15 +3143,14 @@ test('forever/40-50/shendralas.guide: the western pylon is repaired from its qui
 	const st = steps.find((s) => s.goals.some((g) => g.t === 'interact' && g.object === 577959 && g.quest === 96018 && g.oi === 2));
 	assert.ok(st, 'the western pylon\'s repair step');
 	const repair = st.goals.find((g) => g.t === 'interact' && g.object === 577959);
-	const approach = steps[steps.indexOf(st) - 1];
-	const pin = approach.goals.find((g) => g.t === 'goto');
-	assert.ok(approach.label && st.when.some((w) => w.k === 'done' && w.label === approach.label && !w.neg));
-	assert.ok(pin && pin.x <= repair.x && pin.y > repair.y, 'approach the west edge from the south');
+	const approach = steps[steps.indexOf(st) - 1], pin = approach.goals.find((g) => g.t === 'goto');
+	assert.ok(approach.when.some((w) => w.k === 'done' && w.neg && w.label === st.label), 'a player with western repair credit skips the approach');
+	assert.ok(pin && pin.x <= repair.x && pin.y > repair.y, 'approach the west edge from the road to the south');
 	assert.deepEqual(repair.spots.map(({ x, y }) => [x, y]), [[43.97, 35.59], [43.89, 35.64]], 'both repair targets are on the west face');
 	const crystal = steps.flatMap((s) => s.goals).find((g) => g.t === 'collect' && g.quest === 99257);
 	assert.equal(crystal.npc, 252711);
 	assert.deepEqual(crystal.spots.map(({ x, y }) => [x, y]), repair.spots.map(({ x, y }) => [x, y]), 'the heart uses the same west-side pulls');
-	const tips = approach.note || '';
+	const tips = `${approach.note || ''} ${st.note || ''}`;
 	assert.match(tips, /one Decrepit Pylon Protector at a time/, 'the pull');
 	assert.match(tips, /Careful: stay off the pylon's east and north-east side/, 'the side to keep off');
 	assert.match(tips, /Corpsefeeder \(level 45, elite\)/, 'names the Corpsefeeder');
@@ -9406,14 +9485,14 @@ test('#3083: Horde hunter can leave without Tooga, escort him if found, and pay 
 	const text = [header, ...steps.slice(valley, port + 1), 'step Continue\n  task "Continue"'].join('\n');
 	const list = goals(file);
 	const offer = list[at(list, 'Tooga', is('accept', 1560))];
-	assert.equal(offer.s, list[at(list, 'dew gland', collects(8428))].s, 'the offer is visible during the valley hunt');
-	assert.ok(offer.goal.optional);
+	assert.ok(offer.s > list[at(list, 'dew gland', collects(8428))].s, 'skipping the absent turtle must not skip the gland hunt');
 	assert.deepEqual([offer.goal.map, offer.goal.x, offer.goal.y], [1446, 30.2, 70.7]);
 	const escort = list[at(list, 'walk to Torta', is('complete', 1560))].goal;
 	assert.deepEqual([escort.map, escort.x, escort.y], [1446, 66.58, 25.67]);
 	for (const [turtle, spirits, expected] of [
 		['missing', 'ready', 'turnin 3520'], ['missing', 'unfinished', 'continue'],
-		['active', 'ready', 'complete 1560'], ['ready', 'missing', 'turnin 1560'],
+		['active', 'ready', 'complete 1560'], ['carried', 'missing', 'complete 1560'],
+		['ready', 'missing', 'turnin 1560'], ['ready', 'ready', 'turnin 1560'],
 		['paid', 'ready', 'turnin 3520'],
 	]) {
 		const result = engineRun(file, { ...ORC_WARRIOR, cls: 'HUNTER', className: 'Hunter', level: 48 }, {
@@ -9421,11 +9500,11 @@ test('#3083: Horde hunter can leave without Tooga, escort him if found, and pay 
 			before: `w.onQuest(2605, {1})
 				${spirits !== 'missing' ? 'w.onQuest(3520, {3})' : ''}
 				${spirits === 'ready' ? 'w.finish(3520)' : ''}
+				${turtle === 'carried' ? 'w.onQuest(1560, {1})' : ''}
 				${turtle === 'ready' ? 'w.onQuest(1560, {1}); w.finish(1560)' : ''}
 				${turtle === 'paid' ? 'w.complete({1560})' : ''}`,
 			script: `local w = stub.world
 				local hunt = E.GetLiveStep() == 1
-				${turtle === 'active' ? 'w.accept(1560, {1})' : ''}
 				w.finish(2605); stub.advance(1)
 				local function current()
 					for _, g in ipairs(E.GetStepView(E.GetLiveStep()).goals) do
@@ -9433,16 +9512,20 @@ test('#3083: Horde hunter can leave without Tooga, escort him if found, and pay 
 					end
 					return "continue"
 				end
+				local offered = current()
+				${turtle === 'missing' ? 'E.Skip(); stub.advance(1)' : ''}
+				${turtle === 'active' ? 'w.accept(1560, {1}); stub.advance(1)' : ''}
 				local first = current()
 				if first == "complete 1560" then w.finish(1560); stub.advance(1) end
 				local ready = current()
 				if ready == "turnin 1560" then w.turnIn(1560); stub.advance(1) end
-				emit({hunt = hunt, first = first, ready = ready, next = current()})`,
+				emit({hunt = hunt, offered = offered, first = first, ready = ready, next = current()})`,
 		});
 		assert.ok(result.hunt, 'the gland still holds the hunt');
+		if (turtle === 'missing' || turtle === 'active') assert.equal(result.offered, 'accept 1560', 'the ordinary route offers the turtle before a player accepts or skips');
 		assert.equal(result.first, expected, `${turtle} turtle, ${spirits} spirits`);
 		if (turtle === 'active') assert.deepEqual([result.ready, result.next], ['turnin 1560', 'turnin 3520']);
-		if (turtle === 'ready') assert.equal(result.next, 'continue');
+		if (turtle === 'ready') assert.equal(result.next, spirits === 'ready' ? 'turnin 3520' : 'continue');
 	}
 });
 
@@ -9950,11 +10033,18 @@ test('Horde 40-60 fresh start: the guides open at hubs that stand on their own',
 });
 
 test('Horde quest volume: every added quest has its include record in the route fixes', () => {
-	const ov = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides;
+	const { overrides: ov, deliberate } = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
 	// A quest the Alliance route skips can't be included for both sides (include has no faction): its Horde
 	// record is a Horde pair that places it.
 	const horde = (q) => ov.pairs.some((p) => p.faction === 'Horde' && p.b[1] === q && /Quest volume|take and do it there/.test(p.why));
-	for (const q of new Set(Object.values(HORDE_VOLUME).flat())) assert.ok(ov.include.some((e) => e.q === q && /Flow coverage|Quest volume|Route grind review/.test(e.reason)) || horde(q), `include ${q} is recorded`);
+	for (const q of new Set(Object.values(HORDE_VOLUME).flat())) {
+		if (q === 4021) {
+			assert.deepEqual(ov.include.find((e) => e.q === q)?.after, ['turnin', 852], 'Regthar offers Counterattack! after Hezrul');
+			assert.equal(deliberate.group.find((e) => e.q === q)?.size, 3, 'the offer and event are for an opted-in group of three');
+		} else {
+			assert.ok(ov.include.some((e) => e.q === q && /Flow coverage|Quest volume|Route grind review/.test(e.reason)) || horde(q), `include ${q} is recorded`);
+		}
+	}
 });
 
 // Barrens carry-over (2026-11-07, re-chained the same day): the Barrens are two stays, 15-21
@@ -10339,12 +10429,26 @@ test('Every Horde route (Bill, #1004): the Ratchet bind never sends you back to 
 // Crossroads, back into Mulgore and out to the Crossroads again.
 test('Every Horde route (Rohkin, #947): nobody is sent into another zone and straight back with nothing done there', { skip }, () => {
 	const back = new Set();
+	const destinations = new Map(JSON.parse(fs.readFileSync(path.join(DATA, 'travel.json'), 'utf8')).taxi.nodes.map((node) => [node.id, data.zone(node.map)?.areaId]));
+	// Two tickets to the same destination from different, explicitly required departure zones are alternatives.
+	// A pair is mutually exclusive only if both departure points and the common landing confirm it.
+	const alternateTicket = (a, b) => {
+		const first = a.goals.at(-1), second = b.goals.at(-1);
+		if (first.t !== 'fly' || second.t !== 'fly' || !first.node || first.node !== second.node) return false;
+		const origin = ({ goals, when }) => {
+			const gates = (when || []).filter((p) => p.k === 'zone' && !p.neg);
+			const point = goals.findLast((g) => g.t === 'goto');
+			return gates.length === 1 && point && data.zone(point.map)?.areaId === gates[0].area ? gates[0].area : null;
+		};
+		const from = origin(a), other = origin(b), destination = destinations.get(first.node);
+		return from != null && other != null && destination != null && from !== other && destination !== from && destination !== other;
+	};
 	for (const { who, list } of routes('Horde')) {
 		const steps = [];
 		for (const e of list) {
 			const last = steps.at(-1);
 			if (last && last.guide === e.guide && last.s === e.s) last.goals.push(e.goal);
-			else steps.push({ guide: e.guide, s: e.s, goals: [e.goal] });
+			else steps.push({ guide: e.guide, s: e.s, when: e.step.when, goals: [e.goal] });
 		}
 		const travel = (step) => step.goals.every((g) => g.t === 'goto' || g.t === 'fly');
 		const mapOf = (step) => (step.goals.findLast((g) => g.map != null) || {}).map;
@@ -10352,6 +10456,7 @@ test('Every Horde route (Rohkin, #947): nobody is sent into another zone and str
 			const from = mapOf(steps[i - 1]);
 			if (from == null || mapOf(steps[i]) == null || !travel(steps[i]) || mapOf(steps[i]) === from) continue;
 			for (let j = i + 1; j < steps.length && travel(steps[j]); j++) {
+				if (j === i + 1 && alternateTicket(steps[i], steps[j])) continue;
 				if (mapOf(steps[j]) === from) back.add(`${who}: ${where(steps[i])} to ${where(steps[j])}: into map ${mapOf(steps[i])} and back to map ${from} with nothing done there`);
 			}
 		}
@@ -10553,7 +10658,21 @@ test('Horde 1-30: no unfinished zone quests carried into the next zone', { skip 
 			return !!(d && d.skill && d.objectives && d.objectives.length && d.objectives.every((o) => o.type === 'event'));
 		};
 		const lastWork = new Map();
-		list.forEach(({ goal }, i) => { if (WORK.has(goal.t) && goal.quest != null && !goal.optional) lastWork.set(goal.quest, i); });
+		const assignedKills = new Set();
+		list.forEach(({ step, goal }, i) => {
+			if (!WORK.has(goal.t) || goal.quest == null || goal.optional) return;
+			if (goal.t === 'kill') {
+				const key = `${goal.quest}:${goal.oi}:${goal.npc}`;
+				const when = step.when || [];
+				// A player already in the cave can finish the same kill there. The route through
+				// both chapters did the work on its first visit; a new target must still count.
+				if (assignedKills.has(key) && when.some((p) => p.k === 'subzone' && !p.neg)
+					&& when.some((p) => p.k === 'onquest' && !p.neg && [p.q].flat().length === 1 && [p.q].flat()[0] === goal.quest)
+					&& when.some((p) => p.k === 'complete' && p.neg && p.q === goal.quest)) return;
+				if (!when.length) assignedKills.add(key);
+			}
+			lastWork.set(goal.quest, i);
+		});
 		// Pick up now, do later (Fitz, 2026-11-16): Egg Hunt is taken on 02's last Crossroads stop and worked on 04's walk.
 		const pickedUpEarly = new Set([868]);
 		const open = new Map();
@@ -13349,10 +13468,10 @@ test('Horde Azshara: Kroum sends the player to the city with unfinished business
 			[50, 32, [4300], [22], 'fly:22'],
 			[50, 32, [4300, 4494], [], 'accept:3762'],
 		]) {
-			const [next] = runAddon({
+			const [next, landed] = runAddon({
 				stubs: ['stub_world.lua'], addons: [{ name: 'Polestar', files: ['Core/Core.xml'] }],
 				before: `local w=stub.world; w.faction,w.race,w.raceName,w.level="Horde","Orc","Orc",${level}
-					w.addMap(1447,{name="Azshara",c=1,left=0,right=1000,top=1000,bottom=0}); w.moveTo(1447,22,49.7); w.zone="Azshara"`,
+					w.addMap(1447,{name="Azshara",c=1,left=0,right=1000,top=1000,bottom=0}); w.moveTo(1447,22,49.7); w.zone="Azshara"; w.addMap(1456,{name="Thunder Bluff",c=1,left=0,right=1000,top=1000,bottom=0})`,
 				script: `${loads}
 					local w,E=stub.world,Polestar.Engine; stub.login()
 					w.complete({${report ?? ''}})
@@ -13362,9 +13481,15 @@ test('Horde Azshara: Kroum sends the player to the city with unfinished business
 					assert(E.SetGuide(${JSON.stringify(guide.id)})); stub.advance(2)
 					for _,g in ipairs(E.GetGuide().steps[E.GetLiveStep()].goals) do
 						if g.t=="fly" or g.t=="accept" then emit(g.t..":"..tostring(g.node or g.quest)); break end
+					end
+					if ${JSON.stringify(expected)}=="fly:22" then
+						w.onTaxi=true; stub.fire("PLAYER_CONTROL_LOST"); w.moveTo(1456,46.65,49.9); w.setZone("Thunder Bluff", "The Lower Rise")
+						w.onTaxi=false; stub.fire("PLAYER_CONTROL_GAINED"); stub.advance(1)
+						local after=E.GetGuide().steps[E.GetLiveStep()]; local g=after.goals[1];emit(g.t..":"..tostring(g.quest or g.node))
 					end`,
 			}).emitted;
 			assert.equal(next, expected, `level ${level}, report ${report}, carried ${carried}, known flights ${nodes}`);
+			if (expected === 'fly:22') assert.equal(landed, 'accept:3762', 'land at Thunder Bluff and visit Pala, not the Orgrimmar departure tower');
 		}
 	} finally { fs.rmSync(pack.dir, { recursive: true, force: true }); }
 });
@@ -14310,7 +14435,14 @@ test('Desolace: Centaur Bounty: each spot of the Centaur Ear collect names its o
 	const TRIBES = ['Kolkar', 'Magram', 'Gelkis', 'Maraudine'];
 	for (const [file, quest] of [['forever/horde/30-40/04-dustwallow-marsh.guide', 1366], ['forever/alliance/30-40/02-desolace.guide', 1387]]) {
 		const list = goals(file);
-		const { goal } = list[at(list, `collect 6067 quest ${quest}`, (g) => g.t === 'collect' && g.item === 6067 && g.quest === quest)];
+		const farm = list.filter(({ goal }) => goal.t === 'collect' && goal.item === 6067 && goal.quest === quest);
+		const normal = quest === 1366 ? farm.find(({ step }) => step.title === 'Valley of Spears') : farm[0];
+		assert.ok(normal, `collect 6067 quest ${quest} in the regular multi-tribe camp`);
+		const { goal } = normal;
+		if (quest === 1366) {
+			const short = farm.find(({ step }) => step.title === 'Kolkar Village: ears and totems');
+			assert.deepEqual(short.goal.spots.map(({ x, y }) => [x, y]), [[68.7, 50], [69.3, 48.95], [68.62, 45.66]]);
+		}
 		assert.equal(typeof goal.fromNpcsAt, 'string', `${quest}: the goal lists each spot's mobs`);
 		const groups = goal.fromNpcsAt.split(';').map((s) => (s ? s.split(',').map((k) => goal.fromNpcs[Number(k) - 1].npcName) : []));
 		assert.equal(groups.length, goal.spots.length, `${quest}: a list per spot`);
@@ -14335,8 +14467,12 @@ test('Desolace: Centaur Bounty: each spot of the Centaur Ear collect names its o
 test('forever/horde/06-hillsbrad-foothills.guide: Elixir of Suffering: every bear spot of the Gray Bear Tongue collect names Gray Bear (#1869)', { skip }, () => {
 	const list = goals('forever/horde/06-hillsbrad-foothills.guide');
 	const { goal } = list[at(list, 'collect 3476 quest 496', (g) => g.t === 'collect' && g.item === 3476 && g.quest === 496)];
+	for (const { goal: hunt } of list.filter(({ goal }) => goal.t === 'collect' && [496, 501].includes(goal.quest))) {
+		assert.equal(hunt.map, 1424, 'return from the Silverpine cave to Hillsbrad before hunting bears, creepers or lions');
+	}
 	assert.equal(typeof goal.fromNpcsAt, 'string', 'the goal lists each spot\'s mobs');
 	const ids = goal.fromNpcsAt.split(';').filter(Boolean).map((s) => s.split(',').map((k) => goal.fromNpcs[Number(k) - 1].npc));
+	assert.equal(ids.length, goal.spots.length, 'no alternate spot has an empty target list');
 	assert.ok(ids.length > 10, `the bear spots are listed (${ids.length})`);
 	const without = ids.filter((l) => !l.includes(2351)).length;
 	assert.equal(without, 0, `every bear spot names Gray Bear (2351): ${without} of ${ids.length} do not`);
@@ -14533,8 +14669,11 @@ test("Kolbi's report (#1776): Hillsbrad 30-40's catch-up kills Dangerous!'s Kala
 	const stepOf = (pred, what) => list[at(list, what, pred)].step;
 	const kill = (npc, q, oi) => (g) => g.t === 'kill' && g.quest === q && g.oi === oi && g.npc === npc;
 	assert.ok(at(list, 'accept 567', is('accept', 567)) < at(list, 'Farmer Kalaba', kill(2451, 567, 4)), 'taken from the poster first');
-	assert.equal(stepOf(kill(2451, 567, 4), 'Farmer Kalaba'), stepOf(kill(2404, 529, 1), 'the smithy'), 'Kalaba with the smithy');
-	assert.equal(stepOf(kill(2449, 567, 2), 'Citizen Wilkes'), stepOf(kill(2404, 529, 1), 'the smithy'), 'Wilkes at the smithy');
+	const smithy = list[at(list, 'the smithy', kill(2404, 529, 1))].s;
+	for (const [npc, oi] of [[2449, 2], [2451, 4]]) {
+		const target = list[at(list, 'wanted villager', kill(npc, 567, oi))];
+		assert.equal(target.s, smithy + 1, 'on the same visit, without making the poster depend on the iron');
+	}
 	assert.equal(stepOf(kill(2448, 567, 1), 'the clerk'), stepOf(kill(2387, 532, 2), 'the town hall'), 'the clerk in the town hall, with 532');
 	assert.equal(stepOf(kill(2450, 567, 3), 'the miner'), stepOf(kill(2269, 539, 2), 'the mine'), 'the miner in the mine, with 539');
 	// Carried from the 22-25 guide with nothing killed, and Battle of Hillsbrad not done: every kill has an open step.
@@ -14546,6 +14685,34 @@ test("Kolbi's report (#1776): Hillsbrad 30-40's catch-up kills Dangerous!'s Kala
 	const partial = dangerousKills('w.complete({527,528,529}); w.onQuest(567,{1,1,1,1})');
 	for (const oi of ['2','4']) assert.ok(!/skipped|na|done/.test(partial[oi]), 'doing the smithy elsewhere did not kill this target');
 	for (const oi of ['1', '3']) assert.ok(!/skipped|na|done/.test(followed[oi]), `567.${oi} is open: ${followed[oi]}`);
+});
+
+// Both jobs share the visit, not a prerequisite. Getting credit for one must not open or close the other.
+test('Hillsbrad: the smithy and wanted villagers follow the actual unfinished quest', { skip }, () => {
+	const list = goals(HILLSBRAD_3040);
+	const smith = list.find(({ goal }) => is('kill', 529)(goal)).s;
+	const poster = list.find(({ goal }) => is('kill', 567)(goal) && goal.oi === 2).s;
+	const hand = list.find(({ goal }) => is('turnin', 529)(goal));
+	const view = engineRun(HILLSBRAD_3040, TAUREN_DRUID_29, {
+		before: 'w.complete({527,528})',
+		script: `local w = stub.world
+			local function state() stub.advance(.6); return {E.Applies(${smith}), E.Applies(${poster})} end
+			local absent = state(); w.accept(529, {1,4,1}); local smithOnly = state()
+			w.progress(529,1,1); w.accept(567,{1,1,1,1}); local both = state()
+			local partial = E.GetStepView(${smith}).goals
+			local credited = partial[1].status == 'done' and partial[2].status ~= 'done' and partial[3].status ~= 'done'
+			w.finish(529); local ready = state(); local reward = E.GetStepView(${hand.s}).goals[${hand.step.goals.indexOf(hand.goal) + 1}].status
+			w.turnIn(529); local paid = state(); w.finish(567); local finished = state()
+			emit({absent=absent,smithOnly=smithOnly,both=both,credited=credited,ready=ready,reward=reward,paid=paid,finished=finished})`,
+	});
+	assert.deepEqual(view.absent, [false, false]);
+	assert.deepEqual(view.smithOnly, [true, false]);
+	assert.deepEqual(view.both, [true, true]);
+	assert.equal(view.credited, true, 'the delivered kill is not required again');
+	assert.deepEqual(view.ready, [false, true]);
+	assert.doesNotMatch(view.reward, /^(na|skipped|done)$/, 'Darthalia can still reward finished iron');
+	assert.deepEqual(view.paid, [false, true]);
+	assert.deepEqual(view.finished, [false, false]);
 });
 
 // Centaur reputation, Magram (Discord, 2026-11-10: "Magram rep missing from the guide"): the guide went to the Magram
@@ -15112,21 +15279,18 @@ test('Riverglades (Horde route): between Stranglethorn and Feralas, with Sleebo 
 // both on the Feralas & Tanaris guide's way. Twice Misplaced Trust (97332) follows Lozgil's two Stranglethorn quests,
 // which the route takes since the Horde 0.4.0 audit (round 2).
 test("Riverglades (Horde route): the zone's errands are taken and handed in at stops the route makes", () => {
-	const H = (n) => rivergladesSteps(path.join(__dirname, '..', 'guides', 'forever', 'horde', '40-50', n));
-	const stepOf = (steps, verb, q) => steps.find((l) => anyLine(l, new RegExp(`^\\s+${verb} ${q}\\b`)));
-	const stv = H('01-stranglethorn-vale.guide'), glades = rivergladesSteps(RIVERGLADES_HORDE), feralas = H('02-feralas.guide');
-	for (const [q, from, to, at] of [[95141, stv, glades, /^step (Grom'gol Base Camp|Rog'mar)$/],
-		[95033, glades, feralas, /^step (Rog'mar|Camp Mojache)$/], [95296, glades, feralas, /^step (Powderfuse Port|Steamwheedle Port)$/]]) {
-		const take = stepOf(from, 'accept', q), give = stepOf(to, 'turnin', q);
-		assert.ok(take && at.test(take[0]), `${q} taken: ${take && take[0]}`);
-		assert.ok(give && at.test(give[0]), `${q} handed in: ${give && give[0]}`);
+	const prefix = 'forever/horde/40-50/';
+	for (const [quest, source, giver, sourceMap, destination, ender, endMap] of [
+		[95141, '01-stranglethorn-vale', 2464, 1434, '01b-riverglades', 256418, 2548],
+		[95033, '01b-riverglades', 263190, 2548, '02-feralas', 8115, 1444],
+		[95296, '01b-riverglades', 255897, 2548, '02-feralas', 260405, 1446],
+		[97332, '01-stranglethorn-vale', 4631, 1434, '01b-riverglades', 259961, 2548],
+	]) {
+		for (const [guide, verb, npc, map] of [[source, 'accept', giver, sourceMap], [destination, 'turnin', ender, endMap]]) {
+			const visits = goals(prefix + guide + '.guide').filter(({ goal }) => is(verb, quest)(goal));
+			assert.ok(visits.length && visits.every(({ goal }) => goal.npc === npc && goal.map === map), `${verb} ${quest} at its own counter`);
+		}
 	}
-	// Since the Horde 0.4.0 audit (round 2) the route does Anything of Value and Zimmix's Great Escape in the 30-40
-	// Stranglethorn guide, so Lozgil's Twice Misplaced Trust (97332) is taken on the first Booty Bay stop and handed to
-	// Wharfmaster Whizzbuzz on the first Powderfuse Port stop.
-	const tw = stepOf(stv, 'accept', 97332), tg = stepOf(glades, 'turnin', 97332);
-	assert.ok(tw && /^step Booty Bay$/.test(tw[0]), `Twice Misplaced Trust taken in Booty Bay: ${tw && tw[0]}`);
-	assert.ok(tg && /^step Wharfmaster Whizzbuzz$/.test(tg[0]), `and handed in to Whizzbuzz: ${tg && tg[0]}`);
 });
 
 // Clugfist offers Might Makes Right and Unworthy Champion (95424, 95425) only after Land of Giants (95420): all 17

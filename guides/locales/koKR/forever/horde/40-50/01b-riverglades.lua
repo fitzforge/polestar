@@ -235,8 +235,8 @@ return {
 	-- Step 52: WANTED: Scoutmaster Vargas
 	-- {npc:260211} Scoutmaster Vargas · {npc:256728} Na'zok · {npc:258031} Neza Bloodsnout
 	["{npc:260211} is an elite (level 42) at the Alliance scouts' camp in the hills south-east of {npc:256728}, where you go next: grouping up is advised. The poster hangs in the middle of the fort; {npc:258031} takes the eye, later in this guide."] = "{npc:260211}은(는) 다음 목적지인 {npc:256728} 남동쪽 언덕의 얼라이언스 정찰병 야영지에 있는 정예(42레벨)입니다. 파티를 권장합니다. 현상 수배 전단은 요새 한가운데 걸려 있으며, 눈은 이 가이드 후반에 {npc:258031}에게 제출합니다.",
-	-- {object:707249} Wanted (no name in this language: may be words)
-	["the {object:707249} poster"] = "{object:707249} 벽보",
+	-- was: ["the {object:707249} poster"] = "{object:707249} 벽보"
+	["the Wanted poster"] = "",
 
 	-- Step 53: Na'zok's camp
 	-- {npc:256728} Na'zok
@@ -536,6 +536,7 @@ return {
 	-- ["The next guide flies from {area:340} in the {area:3}: north out of {npc:258570}'s valley and up through {area:16685}, the way through to the {area:3}."] = "다음 가이드는 {area:3}의 {area:340}에서 비행으로 시작합니다. {npc:258570}의 골짜기에서 북쪽으로 나가 {area:3}(으)로 통하는 {area:16685}을(를) 지나 올라가세요.",
 	-- ["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244}은(는) 항구 남서쪽, 멀록 해변 아래 얕은 물을 배회합니다. 정예인 {npc:257001}이(가) 근처 해안을 걸어 다니니 거리를 두십시오.",
 	-- ["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, hides in the middle of the town."] = "로그마르 서쪽에서 황혼의 망치단이 농장 마을 {area:16723}을(를) 장악하고 있습니다. 빠져나가고 싶어 하는 코볼트 {npc:259158}이(가) 마을 한가운데 숨어 있습니다.",
+	-- ["the {object:707249} poster"] = "{object:707249} 벽보",
 	-- ["{npc:255897}: {quest:95296}, for {npc:260405} at {area:977} in the {zone:1444} & {zone:1446} guide"] = "{npc:255897}: {quest:95296}, {zone:1444} & {zone:1446} 가이드의 {area:977}에 있는 {npc:260405}에게",
 	-- ["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "민물 악어에게 {npc:263190}의 창 사용",
 	-- ["{quest:95267}: a big beast in the shallows south-west of the port, near {npc:257001}, the elite"] = "{quest:95267}: 항구 남서쪽 얕은 물, 정예 {npc:257001} 근처의 큰 야수",

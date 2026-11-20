@@ -98,10 +98,10 @@ return {
 
 	-- Step 22: Level 36
 	["Level 36"] = "Stufe 36",
-	-- {area:405} Desolace
+	-- {zone:1443} Desolace
 	-- plural, as words: Drywallow Crocolisks = {npc:4341} Drywallow Crocolisk
 	-- was: ["{zone:1443}'s last quests are 36-39. Still below 36 after Brackenwall's hand-ins? The Drywallow Crocolisks (35-36) along the river east of the village are the closest at your level: kill them until level 36."] = "Die letzten Quests in {zone:1443} sind Stufe 36-39. Nach den Abgaben in Brackenwall noch unter Stufe 36? Die Staubsuhlerkrokilisken (35-36) am Fluss östlich des Dorfs sind die nächsten Gegner deiner Stufe: Töte sie bis Stufe 36."
-	["{area:405}'s last quests are 36-39. Still below 36 after Brackenwall's hand-ins? The Drywallow Crocolisks (35-36) along the river east of the village are the closest at your level: kill them until level 36."] = "",
+	["{zone:1443}'s last quests are 36-39. Still below 36 after Brackenwall's hand-ins? The Drywallow Crocolisks (35-36) along the river east of the village are the closest at your level: kill them until level 36."] = "Die letzten Quests in {zone:1443} sind Stufe 36-39. Nach den Abgaben in Brackenwall noch unter Stufe 36? Die Staubsuhlerkrokilisken (35-36) am Fluss östlich des Dorfs sind die nächsten Gegner deiner Stufe: Töte sie bis Stufe 36.",
 	-- plural, as words: Drywallow Crocolisks = {npc:4341} Drywallow Crocolisk
 	["Drywallow Crocolisks"] = "Staubsuhlerkrokilisken",
 	-- {npc:4341} Drywallow Crocolisk
@@ -114,39 +114,32 @@ return {
 	["{area:496} flight master"] = "Flugmeister von {area:496}",
 
 	-- Step 24: Ratchet
-	-- {npc:3446} Mebok Mizzyrix
-	["{npc:3446} stands below Gazlowe's house by the flight master, towards the docks."] = "{npc:3446} steht unterhalb von Gazlowes Haus beim Flugmeister, in Richtung der Docks.",
+	-- {npc:3446} Mebok Mizzyrix · {area:720} Fray Island · {area:2408} Shadowprey Village
+	["{npc:3446} stands below Gazlowe's house, towards the docks. Finish any business on {area:720} before leaving. If your Hearthstone is ready and bound to {area:2408}, you can use it instead of taking the flight or road."] = "",
 
 	-- Step 25: The Affray
 	-- {area:392} Ratchet · {area:720} Fray Island · {npc:6236} Klannoc Macleod · {npc:6238} Big Will
 	["Head south along the coast from {area:392} to {area:720}. {npc:6236} stands by the arena: step on the grate to start the fight; the challengers come one at a time, then {npc:6238} (33)."] = "Geh von {area:392} an der Küste nach Süden zu {area:720}. {npc:6236} steht an der Arena: Betritt das Gitter, um den Kampf zu beginnen; die Herausforderer kommen einzeln, dann {npc:6238} (33).",
 
-	-- Step 26: Hearth to Shadowprey Village
-	-- {area:2408} Shadowprey Village
-	-- was: ["Hearth to Shadowprey"] = "Ruhestein nach Shadowprey"
-	["Hearth to {area:2408}"] = "",
-	-- {area:392} Ratchet · {area:720} Fray Island
-	["Finished in {area:392} or on {area:720}? Use your Hearthstone now, before walking back to a flight master."] = "",
-
-	-- Step 27: Ratchet flight master
+	-- Step 26: Ratchet flight master
 	-- {area:392} Ratchet
 	["{area:392} flight master"] = "Flugmeister in {area:392}",
-	-- {area:392} Ratchet
-	["Back north along the coast to {area:392}'s flight master."] = "Zurück an der Küste nach Norden zum Flugmeister in {area:392}.",
+	-- {area:2408} Shadowprey Village · {area:392} Ratchet · {zone:1442} Stonetalon Mountains · {area:465} Charred Vale
+	["If your Hearthstone is ready and bound to {area:2408}, you can use it here. Otherwise head north along the coast to {area:392} for a flight, or take the road west through {zone:1442} and the {area:465}."] = "",
 
-	-- Step 28: Fly to Shadowprey Village
+	-- Step 27: Fly to Shadowprey Village
 	-- {area:2408} Shadowprey Village
 	["Fly to {area:2408}"] = "Flieg nach {area:2408}",
-	-- {area:2408} Shadowprey Village · {area:405} Desolace · {zone:1442} Stonetalon Mountains · {area:465} Charred Vale
-	["Ask the flight master for {area:2408}. If there is no connecting flight, head for {area:405} through {zone:1442} and the {area:465}."] = "",
+	-- {area:2408} Shadowprey Village · {zone:1442} Stonetalon Mountains · {area:465} Charred Vale · {zone:1443} Desolace
+	["Ask the flight master for {area:2408}. If the route isn't offered or you can't pay the fare, follow the road west through {zone:1442} and the {area:465}, then south-west through {zone:1443} to the village."] = "",
 
-	-- Step 29: Road to Shadowprey Village
+	-- Step 28: Road to Shadowprey Village
 	-- {area:2408} Shadowprey Village
 	["Road to {area:2408}"] = "",
-	-- {area:405} Desolace · {zone:1442} Stonetalon Mountains · {area:465} Charred Vale
-	["If you don't have a flight to Shadowprey, take an offered flight toward {area:405} or follow the road west through {zone:1442} and the {area:465}. In {area:405}, stay on the road to the Horde village on the south-west coast."] = "",
+	-- {area:2408} Shadowprey Village · {zone:1442} Stonetalon Mountains · {area:465} Charred Vale · {zone:1443} Desolace
+	["If your Hearthstone is ready and bound to {area:2408}, you can use it. Otherwise follow the road west through {zone:1442} and the {area:465}. In {zone:1443}, stay on the road to the Horde village on the south-west coast."] = "",
 
-	-- Step 30: Shadowprey Village
+	-- Step 29: Shadowprey Village
 	-- {npc:11624} Taiga Wisemane · {npc:12340} Drulzegar Skraghook
 	["{npc:11624} and {npc:12340} stand in the village."] = "{npc:11624} und {npc:12340} stehen im Dorf.",
 	-- {npc:11624} Taiga Wisemane · {quest:5381} Hand of Iruxos · {area:599} Thunder Axe Fortress
@@ -154,89 +147,104 @@ return {
 	-- {npc:12340} Drulzegar Skraghook · {area:599} Thunder Axe Fortress
 	["{npc:12340}: the Slitherblade of Sar'theris Strand, on the way back from {area:599}"] = "{npc:12340}: die Naga der Zackenkämme am Strand von Sar'theris, auf dem Rückweg von {area:599}",
 
-	-- Step 31: Ghost Walker Post
+	-- Step 30: Khan Dez'hepah, if you still need his head
+	-- {quest:1365} Khan Dez'hepah
+	["{quest:1365}, if you still need his head"] = "",
+	-- {npc:5395} Felgur Twocuts · {area:609} Kolkar Village · {quest:1365} Khan Dez'hepah · {area:597} Ghost Walker Post
+	["If you kept {npc:5395}'s hunt from your first visit, continue east to {area:609}. {quest:1365} (35) patrols the eastern tents; clear his Battle Lords before pulling him alone. Then head back west to {area:597}.\nCareful: The Battle Lords call nearby allies when low on health."] = "",
+
+	-- Step 34: Ghost Walker Post
 	-- {area:597} Ghost Walker Post · {npc:5412} Gurda Wildmane · {npc:5395} Felgur Twocuts
 	["East along the road to {area:597}; {npc:5412} stands beside {npc:5395}."] = "Geh die Straße entlang nach Osten zum {area:597}; {npc:5412} steht neben {npc:5395}.",
-	-- {npc:5395} Felgur Twocuts · {quest:1366} Centaur Bounty
-	["{npc:5395}: his {quest:1366}, from the same Maraudine as Gurda's totems"] = "{npc:5395}: {quest:1366}, von denselben Maraudine wie Gurdas Totems",
 
-	-- Step 32: Valley of Spears
-	-- {area:607} Valley of Spears · {item:254432} Carved Centaur Totem · {npc:5395} Felgur Twocuts · {quest:1366} Centaur Bounty · {npc:5402} Khan Hratha
+	-- Step 35: Ghost Walker Post
+	-- {npc:5395} Felgur Twocuts
+	["{npc:5395} stands beside Gurda. Take his bounty before collecting ears."] = "",
+
+	-- Step 36: Kolkar Village: ears and totems
+	-- {area:609} Kolkar Village
+	["{area:609}: ears and totems"] = "",
+	-- {area:609} Kolkar Village
+	-- plural, as words: Kolkar Scouts = {npc:4633} Kolkar Scout
+	["Take the road east to {area:609}. The Kolkar Scouts (30–31) on the western fringe drop both items. Hunt only for the quests you carry, and stay west of the Battle Lords by the Khan's tents."] = "",
+
+	-- Step 39: Valley of Spears
+	-- {area:607} Valley of Spears · {npc:5395} Felgur Twocuts · {npc:5402} Khan Hratha
 	-- plural, as words: Rock Worms = {npc:11788} Rock Worm
-	["West of the post, the Maraudine centaurs hold the {area:607}; every Maraudine can drop a {item:254432} and an ear for {npc:5395}'s {quest:1366}. Stay with the Scouts and Wranglers (36-38) at the valley's eastern edge; the Maulers and Windchasers (38-39) a little further in are up to two over you at 37: pull them one at a time.\nCareful: {npc:5402} and the Rock Worms (41-42, elite) hold the valley's north-western end with the Khan Guards and Marauders (39-40), and the Magram's village in the south-east has Necromancers (42-43): keep east of the arrow."] = "Westlich des Postens halten die Zentauren der Maraudine das {area:607}; jeder Maraudine kann ein {item:254432} und ein Ohr für {quest:1366} von {npc:5395} fallen lassen. Bleib bei den Spähern und Treibern (36-38) am Ostrand des Tals; die Zerfleischer und Windjäger (38-39) etwas weiter drinnen sind mit Stufe 37 bis zu zwei Stufen über dir: Zieh sie einzeln.\nVorsicht: {npc:5402} und die Felswürmer (41-42, Elite) halten das nordwestliche Ende des Tals mit den Khanwachen und Plünderern (39-40), und das Dorf der Magram im Südosten hat Nekromanten (42-43): Bleib östlich des Pfeils.",
+	["West of the post, the Maraudine centaurs hold the {area:607}. Pull Scouts and Wranglers (36–38) at its eastern edge for Gurda's totems and {npc:5395}'s ears. At 37 leave the Maulers and Windchasers (38–39) alone.\nCareful: {npc:5402} and the Rock Worms (41-42, elite) hold the valley's north-western end with the Khan Guards and Marauders (39-40), and the Magram's village in the south-east has Necromancers (42-43): keep east of the arrow."] = "",
 
-	-- Step 33: Melizza Brimbuzzle
+	-- Step 40: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
 	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} wird im Lager der Maraudine am westlichen Ende des Tals festgehalten; befreie sie und eskortiere sie östlich aus dem Tal.\nVorsicht: Die gescripteten Gruppen sind verbunden und erscheinen nur während der Eskorte, also kannst du sie nicht im Voraus räumen oder einzeln ziehen. Die normalen Zentauren auf dem Weg vor dem Start zu räumen hilft aber.",
 
-	-- Step 34: Hornizz Brimbuzzle
+	-- Step 41: Hornizz Brimbuzzle
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard
 	["{npc:6019} waits at the goblin camp on the west side of the {area:596}."] = "{npc:6019} wartet im Goblinlager auf der Westseite des Friedhofs ({area:596}).",
 	-- {npc:6019} Hornizz Brimbuzzle · {area:602} Mannoroc Coven
 	["{npc:6019}: the ghost-o-plasm, after {area:602} at the end of this visit"] = "{npc:6019}: das Ghost-o-Plasma, nach dem {area:602} am Ende dieses Besuchs",
 
-	-- Step 36: Thunder Axe Fortress
+	-- Step 44: Thunder Axe Fortress
 	-- {area:599} Thunder Axe Fortress · {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal · {npc:11876} Demon Spirit · {item:13542} Demon Box
 	["North up the road to {area:599}. Clear the middle of the largest building, then use the {item:14523} on the red {object:176581} there. A {npc:11876} (37) comes out: kill it for the {item:13542}. The Burning Blade around it are well under you now."] = "Geh die Straße nach Norden hinauf zur {area:599}. Räum die Mitte des größten Gebäudes, dann benutze die {item:14523} am roten {object:176581} dort. Ein {npc:11876} (37) kommt heraus: Töte ihn für den {item:13542}. Die Brennende Klinge drumherum ist jetzt deutlich unter deiner Stufe.",
 	-- {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal
 	["{item:14523}, on the {object:176581}"] = "{item:14523}, am {object:176581}",
 
-	-- Step 37: Sar'theris Strand
+	-- Step 45: Sar'theris Strand
 	-- {area:598} Sar'theris Strand
 	-- plural, as words: Slitherblade Myrmidons = {npc:4714} Slitherblade Myrmidon
 	["West from the fortress to the coast at {area:598}: the Slitherblade Myrmidons, Naga and Sorceresses hold the beach. Pull them one at a time; the Sea Witches and Oracles (34-36) cast from range."] = "Geh von der Festung nach Westen zur Küste am {area:598}: Die Myrmidonen, Naga und Zauberinnen der Zackenkämme halten den Strand. Zieh sie einzeln; die Seehexen und Orakel (34-36) zaubern aus der Ferne.",
 
-	-- Step 38: Shadowprey Village
+	-- Step 46: Shadowprey Village
 	-- {npc:11624} Taiga Wisemane · {area:602} Mannoroc Coven · {npc:12340} Drulzegar Skraghook
 	["South down the coast to Shadowprey: {npc:11624} takes the box and sends you to {area:602} with it; {npc:12340} takes the naga."] = "Geh die Küste nach Süden hinunter nach Schattenflucht: {npc:11624} nimmt den Kasten und schickt dich damit zum {area:602}; {npc:12340} nimmt die Naga.",
 
-	-- Step 39: Portals of the Legion
+	-- Step 47: Portals of the Legion
 	-- {area:602} Mannoroc Coven · {quest:5381} Hand of Iruxos · {npc:11624} Taiga Wisemane · {npc:11937} Demon Portal Guardian
 	-- plural, as words: Burning Blade Summoners = {npc:4668} Burning Blade Summoner
 	["Head east to {area:602}. With the {quest:5381} from {npc:11624} in your bags, open a demon portal's ring: a {npc:11937} (38-39) comes out; kill it to close that portal. Six portals. Careful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake."] = "Geh nach Osten zum {area:602}. Mit der {quest:5381} von {npc:11624} in deinen Taschen öffne den Ring eines Dämonenportals: Ein {npc:11937} (38-39) kommt heraus; töte ihn, um das Portal zu schließen. Sechs Portale. Vorsicht: Höllenbestien, Verdammniswachen und Beschwörer der Brennenden Klinge laufen nahe an vielen Portalen umher und können eingreifen; töte nahe Mobs zuerst oder zieh den Wächter weg, zum Beispiel Richtung des zentralen Sees des Zirkels.",
 
-	-- Step 40: The Valley of Bones
+	-- Step 48: The Valley of Bones
 	-- {area:2657} Valley of Bones
 	["The {area:2657}"] = "Das {area:2657}",
-	-- {area:2657} Valley of Bones · {area:405} Desolace · {item:15848} Crate of Ghost Magnets
+	-- {area:2657} Valley of Bones · {zone:1443} Desolace · {item:15848} Crate of Ghost Magnets
 	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre · Magram Necrokhans = {npc:253274} Magram Necrokhan
 	-- was: ["South-east of the coven, the bone fields of the {area:2657}, where Undead Ravagers roam, at {zone:1443}'s southern edge: keep south of the Magram's village on the way. Use the {item:15848} at the arrow to draw the Magrami Spectres (38-39): they come in numbers, so fight them with your back to the valley's edge. They drop the ghost-o-plasm.\nCareful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields just west of the arrow, well above you: use the crate at the arrow, on the valley's eastern side, and pull the spectres away from them."] = "Südöstlich des Zirkels liegen die Knochenfelder des {area:2657}, wo Untote Verheerer umherstreifen, am Südrand von {zone:1443}: Bleib unterwegs südlich des Dorfs der Magram. Benutze die {item:15848} am Pfeil, um die Magrami-Gespenster (38-39) anzulocken: Sie kommen in Scharen, also kämpf mit dem Rücken zum Rand des Tals. Sie lassen das Ghost-o-Plasma fallen.\nVorsicht: Nekrokhane und Leichenfresser der Magram (45, Elite) laufen über die Knochenfelder direkt westlich des Pfeils, weit über deiner Stufe: Benutze die Kiste am Pfeil, auf der Ostseite des Tals, und zieh die Gespenster von ihnen weg."
-	["South-east of the coven, the bone fields of the {area:2657}, where Undead Ravagers roam, at {area:405}'s southern edge: keep south of the Magram's village on the way. Use the {item:15848} at the arrow to draw the Magrami Spectres (38-39): they come in numbers, so fight them with your back to the valley's edge. They drop the ghost-o-plasm.\nCareful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields just west of the arrow, well above you: use the crate at the arrow, on the valley's eastern side, and pull the spectres away from them."] = "",
+	["South-east of the coven, the bone fields of the {area:2657}, where Undead Ravagers roam, at {zone:1443}'s southern edge: keep south of the Magram's village on the way. Use the {item:15848} at the arrow to draw the Magrami Spectres (38-39): they come in numbers, so fight them with your back to the valley's edge. They drop the ghost-o-plasm.\nCareful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields just west of the arrow, well above you: use the crate at the arrow, on the valley's eastern side, and pull the spectres away from them."] = "Südöstlich des Zirkels liegen die Knochenfelder des {area:2657}, wo Untote Verheerer umherstreifen, am Südrand von {zone:1443}: Bleib unterwegs südlich des Dorfs der Magram. Benutze die {item:15848} am Pfeil, um die Magrami-Gespenster (38-39) anzulocken: Sie kommen in Scharen, also kämpf mit dem Rücken zum Rand des Tals. Sie lassen das Ghost-o-Plasma fallen.\nVorsicht: Nekrokhane und Leichenfresser der Magram (45, Elite) laufen über die Knochenfelder direkt westlich des Pfeils, weit über deiner Stufe: Benutze die Kiste am Pfeil, auf der Ostseite des Tals, und zieh die Gespenster von ihnen weg.",
 
-	-- Step 41: Hornizz Brimbuzzle
+	-- Step 49: Hornizz Brimbuzzle
 	-- {area:596} Kodo Graveyard · {area:602} Mannoroc Coven
 	["North-west to the goblin camp on the west side of the {area:596}, back past {area:602}: keep west of the Magram's village."] = "Geh nach Nordwesten zum Goblinlager auf der Westseite des Friedhofs ({area:596}), zurück am {area:602} vorbei: Bleib westlich des Dorfs der Magram.",
 
-	-- Step 42: Shadowprey
+	-- Step 50: Shadowprey
 	["Shadowprey"] = "Shadowprey",
 	-- {npc:11624} Taiga Wisemane · {area:2408} Shadowprey Village · {area:596} Kodo Graveyard
 	["Return to {npc:11624} in {area:2408}. If your Hearthstone is still bound there and ready, use it; otherwise take the road west around the {area:596}."] = "",
 
-	-- Step 43: Thunder Bluff
+	-- Step 51: Thunder Bluff
 	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
 	["Fly from {area:2408} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "Flieg von {area:2408} nach {area:1638} und lerne bei {npc:3033} auf {area:1639}; flieg von dort weiter nach {zone:1454}.",
 
-	-- Step 44: Fly to Orgrimmar
+	-- Step 52: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Flieg nach {area:1637}",
 	-- {area:2408} Shadowprey Village
 	["{area:2408} flight master"] = "Flugmeister: {area:2408}",
 
-	-- Step 45: Back to Orgrimmar
+	-- Step 53: Back to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Back to {area:1637}"] = "Zurück nach {area:1637}",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "Flugmeister von {zone:1456}",
 
-	-- Step 46: Belgrom Rockmaul
+	-- Step 54: Belgrom Rockmaul
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor
 	["{npc:4485} stands in the {object:172958}."] = "{npc:4485} steht im {object:172958}.",
 
-	-- Step 47: Nogg
+	-- Step 55: Nogg
 	-- {npc:3412} Nogg · {object:172958} Valley of Honor · {npc:4485} Belgrom Rockmaul · {quest:2841} Rig Wars · {area:133} Gnomeregan
 	["{npc:3412}'s workshop is in the {object:172958} beside {npc:4485}: hand in {quest:2841} if you ran {area:133}."] = "Die Werkstatt von {npc:3412} ist im {object:172958} neben {npc:4485}: Gib {quest:2841} ab, wenn du {area:133} gemacht hast.",
 
-	-- Step 48: Orgrimmar trainers
+	-- Step 56: Orgrimmar trainers
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} trainers"] = "Lehrer in {zone:1454}",
 	-- {zone:1458} Undercity
@@ -245,6 +253,7 @@ return {
 	["The next guide takes the {zone:1458} zeppelin from the tower outside the main gate."] = "Der nächste Guide nimmt den Zeppelin der {zone:1458} vom Turm vor dem Haupttor.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back north along the coast to {area:392}'s flight master."] = "Zurück an der Küste nach Norden zum Flugmeister in {area:392}.",
 	-- ["Darkfang spiders"] = "Dunkelzahnspinnen",
 	-- ["Darkmist cavern"] = "Höhle der Darkmist",
 	-- ["Fly to {area:2408} from the flight master you are next to: {area:392}'s, or Brackenwall's if you had no errand in {area:392}."] = "Flieg nach {area:2408} vom Flugmeister, bei dem du gerade bist: dem in {area:392} oder dem in Brackenwall, falls du in {area:392} nichts zu erledigen hattest.",
@@ -296,14 +305,17 @@ return {
 	-- ["The caravan ends at {npc:11596}'s camp on the east side of the {area:596}."] = "Die Karawane endet in {npc:11596}s Lager auf der Ostseite des Friedhofs ({area:596}).",
 	-- ["The next guide takes you back to {zone:1434}."] = "Der nächste Guide bringt dich zurück ins {zone:1434}.",
 	-- ["West of the post, the Maraudine centaurs hold the {area:607}. Every Maraudine can drop a {item:254432} and an ear for {npc:5395}'s {quest:1366}. Stay with the Maraudine (36-39) in the valley: the Magram's village in the south-east has the same drops, but its Necromancers (42-43) and Guardians (39-41) are well above you."] = "Westlich des Postens halten die Zentauren der Maraudine das {area:607}. Jeder Maraudine kann ein {item:254432} und ein Ohr für die {quest:1366} von {npc:5395} fallen lassen. Bleib bei den Maraudine (36-39) im Tal: Das Dorf der Magram im Südosten hat dieselbe Beute, aber seine Nekromanten (42-43) und Wächter (39-41) sind weit über deiner Stufe.",
+	-- ["West of the post, the Maraudine centaurs hold the {area:607}; every Maraudine can drop a {item:254432} and an ear for {npc:5395}'s {quest:1366}. Stay with the Scouts and Wranglers (36-38) at the valley's eastern edge; the Maulers and Windchasers (38-39) a little further in are up to two over you at 37: pull them one at a time.\nCareful: {npc:5402} and the Rock Worms (41-42, elite) hold the valley's north-western end with the Khan Guards and Marauders (39-40), and the Magram's village in the south-east has Necromancers (42-43): keep east of the arrow."] = "Westlich des Postens halten die Zentauren der Maraudine das {area:607}; jeder Maraudine kann ein {item:254432} und ein Ohr für {quest:1366} von {npc:5395} fallen lassen. Bleib bei den Spähern und Treibern (36-38) am Ostrand des Tals; die Zerfleischer und Windjäger (38-39) etwas weiter drinnen sind mit Stufe 37 bis zu zwei Stufen über dir: Zieh sie einzeln.\nVorsicht: {npc:5402} und die Felswürmer (41-42, Elite) halten das nordwestliche Ende des Tals mit den Khanwachen und Plünderern (39-40), und das Dorf der Magram im Südosten hat Nekromanten (42-43): Bleib östlich des Pfeils.",
 	-- ["West to Shadowprey."] = "Nach Westen nach Shadowprey.",
 	-- ["grind on {npc:4377}"] = "grinde an {npc:4377}",
 	-- ["{npc:11624} stands in the village."] = "{npc:11624} steht im Dorf.",
 	-- ["{npc:11626}'s caravan stops on the road at the edge of {area:602}. Escort it east past the coven; demons attack it twice."] = "Die Karawane von {npc:11626} hält auf der Straße am Rand von {area:602}. Eskortiere sie nach Osten am Koven vorbei; Dämonen greifen sie zweimal an.",
 	-- ["{npc:3391}: for {npc:4631} in {area:35}, on the first {area:35} stop of 40-50"] = "{npc:3391}: für {npc:4631} in {area:35}, beim ersten Halt in {area:35} in 40-50",
+	-- ["{npc:3446} stands below Gazlowe's house by the flight master, towards the docks."] = "{npc:3446} steht unterhalb von Gazlowes Haus beim Flugmeister, in Richtung der Docks.",
 	-- ["{npc:4983} waits in the {area:2302} east of the village. Follow him to Reethe and keep him alive through the fight that breaks out."] = "{npc:4983} wartet im Morast ({area:2302}) östlich des Dorfs. Folge ihm zu Reethe und halte ihn im ausbrechenden Kampf am Leben.",
 	-- ["{npc:5395} and {npc:5412} stand in the post just west of {npc:11596}'s camp."] = "{npc:5395} und {npc:5412} stehen im Posten gleich westlich von {npc:11596}s Lager.",
 	-- ["{npc:5395}: his {quest:1366}, from the same Maraudine"] = "{npc:5395}: {quest:1366}, von denselben Maraudine",
+	-- ["{npc:5395}: his {quest:1366}, from the same Maraudine as Gurda's totems"] = "{npc:5395}: {quest:1366}, von denselben Maraudine wie Gurdas Totems",
 	-- ["{npc:6236}: Berserker Stance"] = "{npc:6236}: Berserkerhaltung",
 	-- ["{npc:6791}: the last guide binds here, so this usually ticks at once"] = "{npc:6791}: Der letzte Guide bindet dich hier, daher ist das meist sofort abgehakt",
 	-- ["{quest:1218}, for \"Swamp Eye\" Jarl"] = "{quest:1218}, für „Sumpfauge“ Jarl",

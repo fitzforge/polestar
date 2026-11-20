@@ -197,8 +197,15 @@ step Fly to Grom'gol
   fly "Grom'gol"
 
 step Grom'gol Base Camp
+  when complete 589
+  when complete 573
   tip The flight lands at Grom'gol: Kin'weelay and Far Seer Mok'thardin, then the zeppelin tower.
   turnin 589                          -- Kin'weelay
+  turnin 573                          -- Far Seer Mok'thardin
+
+step Kin'weelay
+  when complete 589
+  turnin 589
 
 step Far Seer Mok'thardin
   when complete 573

@@ -104,18 +104,21 @@ return {
 	["Zhevra Runners graze along the road east toward {area:392}: take their hooves on the way out."] = "",
 
 	-- Step 27: Ratchet
-	-- {area:392} Ratchet · {npc:3391} Gazlowe · {npc:7161} Wrenix the Wretched · {npc:3442} Sputtervalve · {npc:16227} Bragok · {npc:3446} Mebok Mizzyrix · {object:3972} WANTED · {quest:1492} Wharfmaster Dizzywig
-	["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the {object:3972} poster, then {quest:1492} on the dock on the way out south."] = "Sigue el camino al sureste hasta {area:392}, en la costa: {npc:3391} y {npc:7161} en el extremo norte del pueblo, {npc:3442} y {npc:16227}, {npc:3446} y el cartel de {object:3972}, y luego {quest:1492} en el muelle al salir hacia el sur.",
+	-- {area:392} Ratchet · {npc:3391} Gazlowe · {npc:7161} Wrenix the Wretched · {npc:3442} Sputtervalve · {npc:16227} Bragok · {npc:3446} Mebok Mizzyrix · {quest:1492} Wharfmaster Dizzywig
+	-- was: ["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the {object:3972} poster, then {quest:1492} on the dock on the way out south."] = "Sigue el camino al sureste hasta {area:392}, en la costa: {npc:3391} y {npc:7161} en el extremo norte del pueblo, {npc:3442} y {npc:16227}, {npc:3446} y el cartel de {object:3972}, y luego {quest:1492} en el muelle al salir hacia el sur."
+	["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the WANTED poster, then {quest:1492} on the dock on the way out south."] = "",
 	-- {npc:3391} Gazlowe
 	["{npc:3391}, upstairs"] = "{npc:3391}, en el piso de arriba",
 	-- {npc:3442} Sputtervalve · {area:382} Sludge Fen
 	["{npc:3442}: the console is in the {area:382}, later"] = "{npc:3442}: la consola está en {area:382}, más tarde",
 	-- {npc:16227} Bragok · {npc:3442} Sputtervalve
 	["{npc:16227}, beside {npc:3442}"] = "{npc:16227}, junto a {npc:3442}",
-	-- {npc:3446} Mebok Mizzyrix · {object:3972} WANTED · {area:392} Ratchet
-	["{npc:3446}, beside the {object:3972} poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "{npc:3446}, junto al cartel de {object:3972}: los raptores Solescama llegan en la próxima parada en {area:392}, a nivel 18",
-	-- {object:3972} WANTED · {npc:3467} Baron Longshore · {area:392} Ratchet
-	["The {object:3972} poster: {npc:3467} comes on the next {area:392} stop too"] = "El cartel de {object:3972}: {npc:3467} también llega en la próxima parada en {area:392}",
+	-- {npc:3446} Mebok Mizzyrix · {area:392} Ratchet
+	-- was: ["{npc:3446}, beside the {object:3972} poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "{npc:3446}, junto al cartel de {object:3972}: los raptores Solescama llegan en la próxima parada en {area:392}, a nivel 18"
+	["{npc:3446}, beside the WANTED poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "",
+	-- {npc:3467} Baron Longshore · {area:392} Ratchet
+	-- was: ["The {object:3972} poster: {npc:3467} comes on the next {area:392} stop too"] = "El cartel de {object:3972}: {npc:3467} también llega en la próxima parada en {area:392}"
+	["The WANTED poster: {npc:3467} comes on the next {area:392} stop too"] = "",
 	-- {quest:1492} Wharfmaster Dizzywig
 	["{quest:1492}, on the dock"] = "{quest:1492}, en el muelle",
 	-- {quest:1492} Wharfmaster Dizzywig · {area:381} Boulder Lode Mine
@@ -266,8 +269,8 @@ return {
 	["Crossroads flight master"] = "Maestro de vuelo del Cruce",
 
 	-- Step 56: Ratchet
-	-- {object:3972} WANTED
-	["{object:3972} poster"] = "Cartel de {object:3972}",
+	-- was: ["{object:3972} poster"] = "Cartel de {object:3972}"
+	["WANTED poster"] = "",
 
 	-- Step 57: Mebok Mizzyrix
 	-- {area:718} Wailing Caverns · {npc:3446} Mebok Mizzyrix · {quest:1491} Smart Drinks
@@ -307,8 +310,8 @@ return {
 	-- Step 65: Ratchet
 	-- {area:392} Ratchet
 	["Back north along the beach to {area:392}."] = "Vuelve al norte por la playa hasta {area:392}.",
-	-- {npc:3446} Mebok Mizzyrix · {object:3972} WANTED
-	["{npc:3446}, beside the {object:3972} poster"] = "",
+	-- {npc:3446} Mebok Mizzyrix
+	["{npc:3446}, beside the WANTED poster"] = "",
 
 	-- Step 70: Dreadmist Peak
 	-- {area:384} Dreadmist Peak · {item:15842} Empty Dreadmist Peak Sampler · {object:19464} Dreadmist Peak Pool (no name in this language: may be words) · {npc:3448} Tonga Runetotem · {skill:182} Herbalism · {npc:3490} Hula'mahi · {item:2449} Earthroot
@@ -515,8 +518,9 @@ return {
 	-- Step 117: Ratchet: Wailing Caverns quests
 	-- {area:392} Ratchet · {area:718} Wailing Caverns
 	["{area:392}: {area:718} quests"] = "{area:392}: misiones de {area:718}",
-	-- {area:718} Wailing Caverns · {npc:3446} Mebok Mizzyrix · {object:3972} WANTED · {npc:3665} Crane Operator Bigglefuzz · {npc:3396} Hezrul Bloodmark
-	["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the {object:3972} poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "Tus misiones de {area:718}, si aún no las has aceptado: {npc:3446} junto al cartel de {object:3972}, {npc:3665} en el muelle junto al maestro de vuelo. La incursión es más adelante en esta guía, después de {npc:3396}.",
+	-- {area:718} Wailing Caverns · {npc:3446} Mebok Mizzyrix · {npc:3665} Crane Operator Bigglefuzz · {npc:3396} Hezrul Bloodmark
+	-- was: ["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the {object:3972} poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "Tus misiones de {area:718}, si aún no las has aceptado: {npc:3446} junto al cartel de {object:3972}, {npc:3665} en el muelle junto al maestro de vuelo. La incursión es más adelante en esta guía, después de {npc:3396}."
+	["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the WANTED poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "",
 
 	-- Step 118: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
@@ -731,6 +735,7 @@ return {
 	-- ["East to {area:392}, on the coast."] = "Ve al este, a {area:392}, en la costa.",
 	-- ["Follow the road east to the outpost above the {area:814}."] = "Sigue el camino al este hasta el puesto sobre {area:814}.",
 	-- ["Follow the road south-east to {area:392} on the coast."] = "Sigue el camino al sureste hasta {area:392}, en la costa.",
+	-- ["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the {object:3972} poster, then {quest:1492} on the dock on the way out south."] = "Sigue el camino al sureste hasta {area:392}, en la costa: {npc:3391} y {npc:7161} en el extremo norte del pueblo, {npc:3442} y {npc:16227}, {npc:3446} y el cartel de {object:3972}, y luego {quest:1492} en el muelle al salir hacia el sur.",
 	-- ["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "En el campamento, los Buscaqua y Tejespinas ocupan la mitad oeste, y los Cazadores, el centro; las cajas de suministros están en su extremo este.\nLos Zancudos de llanura de aquí cuentan para los picos.\nCuidado: los Comecarnes y Rabiosos Crines de Acero (18-19) son élites; están en el noreste del campamento, junto a las cajas de suministros: atrae a los jabaespines lejos de ellos de uno en uno.",
 	-- ["Keep it: {quest:3923} stands outside {zone:1454}; a later guide hands it in"] = "Guárdalo: {quest:3923} está fuera de {zone:1454}; una guía posterior lo entrega",
 	-- ["Kolkar Wranglers and Stormers hold the camps south of {npc:3389}."] = "Los Vaqueros Kolkar y los clamatormentas ocupan los campamentos al sur de {npc:3389}.",
@@ -750,6 +755,7 @@ return {
 	-- ["The pools lie just north of {npc:3389}. Walk into the water to explore them; the Laden Mushrooms for Helbrim grow around them. Kill every Kolkar you pass for bracers. {npc:3394} stands in the Kolkar camp west of the pools."] = "Las pozas están justo al norte de {npc:3389}. Entra en el agua para explorarlas; los Champiñones cargados para Helbrim crecen a su alrededor. Mata a todo Kolkar que encuentres para conseguir brazales. {npc:3394} está en el campamento Kolkar al oeste de las pozas.",
 	-- ["The three nests sit together in the {area:1697} south-west of the oasis; Sunscale Scytheclaws guard them."] = "Los tres nidos están juntos en {area:1697}, al suroeste del oasis; los Segadores solescama los vigilan.",
 	-- ["The {area:383}"] = "{area:383}",
+	-- ["The {object:3972} poster: {npc:3467} comes on the next {area:392} stop too"] = "El cartel de {object:3972}: {npc:3467} también llega en la próxima parada en {area:392}",
 	-- ["Thun'grim camps beside the road from the {area:380} to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "Thun'grim acampa junto al camino de {area:380} a {area:392}. {object:58369} está en el sur del campamento Crines de Acero, justo al norte de él.",
 	-- ["Thunder Lizards and Lightning Hides graze just across the bridge below {area:379}."] = "Los Truenagartos y los Lomorrayos pastan justo al otro lado del puente, bajo {area:379}.",
 	-- ["Thunder Lizards and Lightning Hides graze just across the bridge below {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "Los Truenagartos y los Lomorrayos pastan justo al otro lado del puente, bajo {area:379}.\nCuidado: Halikor, un élite de nivel 12, recorre {area:369} entre los lagartos: localízalo antes de atraer.",
@@ -760,6 +766,7 @@ return {
 	-- ["Warriors: take {quest:1824} from {npc:6394} now: it runs for 30 minutes from the accept. The eggs and the antennae come first, at the same mounds, then straight back to {npc:6394}; the thunderhawks after."] = "Guerreros: acepta ahora {quest:1824} de {npc:6394}: dura 30 minutos desde que la aceptas. Primero los huevos y las antenas, en los mismos montículos, y luego directo de vuelta con {npc:6394}; los halcones del trueno, después.",
 	-- ["West to the {area:383}. The Witchwing harpies nest all over them; any of them can drop a talon. {quest:819} lies in their hills."] = "Ve al oeste, a {area:383}. Las arpías Alabruja anidan por todas partes; cualquiera puede soltar una garra. {quest:819} está en sus colinas.",
 	-- ["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "Mientras estés en el campamento: los Buscaqua y Tejespinas de {npc:3429} en su mitad oeste, los Cazadores en el centro y las cajas de suministros en su extremo este.\nCuidado: los Comecarnes y Rabiosos Crines de Acero (18-19) son élites; están en el noreste del campamento, junto a las cajas de suministros: atrae a los jabaespines lejos de ellos de uno en uno.",
+	-- ["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the {object:3972} poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "Tus misiones de {area:718}, si aún no las has aceptado: {npc:3446} junto al cartel de {object:3972}, {npc:3665} en el muelle junto al maestro de vuelo. La incursión es más adelante en esta guía, después de {npc:3396}.",
 	-- ["Zhevra"] = "Astacebras",
 	-- ["Zhevra Runners graze north and east of town."] = "Los Galopadores astacebra pastan al norte y al este del pueblo.",
 	-- ["{area:1898} cultists"] = "Fanáticos de {area:1898}",
@@ -769,11 +776,13 @@ return {
 	-- ["{npc:3033}: Cure Poison"] = "{npc:3033}: Curar veneno",
 	-- ["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Oasis Snapjaws crawl in the water around it: their shells are for {npc:3448}."] = "{npc:3395} camina entre los Kolkar de {area:388}, al sureste del Cruce. Los Quijafortes del oasis se arrastran por el agua a su alrededor: sus caparazones son para {npc:3448}.",
 	-- ["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395} camina entre los Kolkar de {area:388}, al sureste del Cruce. Mientras estés allí, prueba las semillas de {npc:3448} en la fisura burbujeante de la orilla este del oasis.",
+	-- ["{npc:3446}, beside the {object:3972} poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "{npc:3446}, junto al cartel de {object:3972}: los raptores Solescama llegan en la próxima parada en {area:392}, a nivel 18",
 	-- ["{npc:3448}: the Oasis Snapjaws at the {area:388}, with {npc:3395}"] = "{npc:3448}: los Quijafortes del oasis de {area:388}, con {npc:3395}",
 	-- ["{npc:3615}, the wind rider master"] = "{npc:3615}, el maestro de jinetes del viento",
 	-- ["{npc:5878} camps beside the road from the {area:380} to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "{npc:5878} acampa junto al camino de {area:380} a {area:392}. {object:58369} está en el sur del campamento Crines de Acero, justo al norte de él.",
 	-- ["{npc:5900} waits on the riverbank south of {area:379}, across the bridge."] = "{npc:5900} espera en la orilla al sur de {area:379}, al otro lado del puente.",
 	-- ["{npc:5907} stands on the ridge north of the Razormane camp."] = "{npc:5907} está en la loma al norte del campamento Crines de Acero.",
+	-- ["{object:3972} poster"] = "Cartel de {object:3972}",
 	-- ["{quest:3301}: the {area:228} in {zone:1421}, next guide"] = "{quest:3301}: {area:228} en {zone:1421}, en la próxima guía",
 	-- ["{quest:881}, a white lion, prowls the plains north of the Razormane camp."] = "{quest:881}, un león blanco, merodea por las llanuras al norte del campamento Crines de Acero.",
 }

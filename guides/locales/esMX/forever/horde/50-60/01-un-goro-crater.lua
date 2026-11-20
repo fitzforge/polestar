@@ -201,10 +201,11 @@ return {
 	["{area:340} is built into the cliffs on the {zone:1418}' west edge."] = "{area:340} está construida en los acantilados del borde oeste de {zone:1418}.",
 
 	-- Step 41: The WANTED poster
-	-- {object:164867} WANTED
-	["The {object:164867} poster"] = "El cartel de {object:164867}",
-	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {object:164867} WANTED · {area:340} Kargath
-	["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "Para tu recorrido por {area:1584}, lo siguiente, de paso por {area:254}: el cartel de {object:164867} en {area:340} quiere que diezmes a los enanos Anvilrage de adentro.",
+	-- was: ["The {object:164867} poster"] = "El cartel de {object:164867}"
+	["The WANTED poster"] = "El cartel de SE BUSCA",
+	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {area:340} Kargath
+	-- was: ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "Para tu recorrido por {area:1584}, lo siguiente, de paso por {area:254}: el cartel de {object:164867} en {area:340} quiere que diezmes a los enanos Anvilrage de adentro."
+	["For your {area:1584} run, next, on the way through {area:254}: the WANTED poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "",
 
 	-- Step 42: Into the Searing Gorge
 	-- {zone:1427} Searing Gorge
@@ -309,6 +310,7 @@ return {
 	-- ["Fly to {area:340}"] = "Vuela a {area:340}",
 	-- ["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Sigue el camino al este por {area:28} y cruza el río hacia {area:139}; déjalo hacia el norte para ir a {area:2627}, el pueblo en ruinas del noroeste. {npc:12384} está en una choza en su borde.",
 	-- ["Follow the road east through the {zone:1422} and across the river into the {zone:1423}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Sigue el camino al este por {zone:1422} y cruza el río hacia {zone:1423}; déjalo hacia el norte para ir a {area:2627}, el pueblo en ruinas del noroeste. {npc:12384} está en una choza en su borde.",
+	-- ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "Para tu recorrido por {area:1584}, lo siguiente, de paso por {area:254}: el cartel de {object:164867} en {area:340} quiere que diezmes a los enanos Anvilrage de adentro.",
 	-- ["Free Darrowshire Spirits: talk to them"] = "Libera a los Espíritus de Villa Darrow ({npc:11064}): habla con ellos",
 	-- ["From here on pick up every {npc:271301} (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "Desde aquí recoge cada {npc:271301} (azul, verde, rojo, amarillo) y cada montón de {quest:3761} que pases: 25 de tierra en total, 20 para Hamuul y 5 para Morterozugg.",
 	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "Desde {area:152}, sigue el camino al este hacia {zone:1422}. Las tiendas de la Cruzada Escarlata están justo pasando la Granja Piedramácula, entre {area:199} y {area:200}. Quema la tienda de mando con {object:176092} y planta el estandarte de la Plaga.",
@@ -358,6 +360,7 @@ return {
 	-- ["The tar pits lie just south of the refuge. Tar Beasts, Lurkers and Creepers drop the {item:11834}."] = "Los pozos de alquitrán están justo al sur del refugio. Las Bestias, los Rondadores y los Trepadores de alquitrán sueltan el {item:11834}.",
 	-- ["The wooden sign beside {npc:9997}"] = "El letrero de madera junto a {npc:9997}",
 	-- ["The {npc:9167} fly over the western cliffs around the pylon. Careful: the biggest are 54: pull them one at a time."] = "Los {npc:9167} vuelan sobre los acantilados del oeste alrededor de la torre de cristal. Cuidado: los más grandes son de nivel 54: atráelos de uno en uno.",
+	-- ["The {object:164867} poster"] = "El cartel de {object:164867}",
 	-- ["Theodora's next errand goes to Lotwil east of town and then into {area:1584}: skip it."] = "El siguiente encargo de Theodora va con Lotwil al este del pueblo y luego a {area:1584}: omítelo.",
 	-- ["Theodora's quest in {area:340} needs level 52. The Tar Lurkers and Tar Lords just south of the refuge are the closest camp."] = "La misión de Theodora en {area:340} requiere nivel 52. Los Rondadores y Señores de alquitrán justo al sur del refugio son el lugar más cercano para subir.",
 	-- ["To {area:197}"] = "Hacia {area:197}",

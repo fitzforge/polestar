@@ -98,10 +98,10 @@ return {
 
 	-- Step 22: Level 36
 	["Level 36"] = "等级 36",
-	-- {area:405} Desolace
+	-- {zone:1443} Desolace
 	-- plural, as words: Drywallow Crocolisks = {npc:4341} Drywallow Crocolisk
 	-- was: ["{zone:1443}'s last quests are 36-39. Still below 36 after Brackenwall's hand-ins? The Drywallow Crocolisks (35-36) along the river east of the village are the closest at your level: kill them until level 36."] = "{zone:1443}最后的任务为36-39级。交还蕨墙村的任务后还不到36级？村庄东边河边的尘泥鳄鱼（35-36级）是离你最近的同等级怪物：杀到36级为止。"
-	["{area:405}'s last quests are 36-39. Still below 36 after Brackenwall's hand-ins? The Drywallow Crocolisks (35-36) along the river east of the village are the closest at your level: kill them until level 36."] = "",
+	["{zone:1443}'s last quests are 36-39. Still below 36 after Brackenwall's hand-ins? The Drywallow Crocolisks (35-36) along the river east of the village are the closest at your level: kill them until level 36."] = "{zone:1443}最后的任务为36-39级。交还蕨墙村的任务后还不到36级？村庄东边河边的尘泥鳄鱼（35-36级）是离你最近的同等级怪物：杀到36级为止。",
 	-- plural, as words: Drywallow Crocolisks = {npc:4341} Drywallow Crocolisk
 	["Drywallow Crocolisks"] = "尘泥鳄鱼",
 	-- {npc:4341} Drywallow Crocolisk
@@ -114,39 +114,32 @@ return {
 	["{area:496} flight master"] = "{area:496}的飞行管理员",
 
 	-- Step 24: Ratchet
-	-- {npc:3446} Mebok Mizzyrix
-	["{npc:3446} stands below Gazlowe's house by the flight master, towards the docks."] = "{npc:3446}站在飞行管理员旁加兹鲁维的房子下方、靠码头的一侧。",
+	-- {npc:3446} Mebok Mizzyrix · {area:720} Fray Island · {area:2408} Shadowprey Village
+	["{npc:3446} stands below Gazlowe's house, towards the docks. Finish any business on {area:720} before leaving. If your Hearthstone is ready and bound to {area:2408}, you can use it instead of taking the flight or road."] = "",
 
 	-- Step 25: The Affray
 	-- {area:392} Ratchet · {area:720} Fray Island · {npc:6236} Klannoc Macleod · {npc:6238} Big Will
 	["Head south along the coast from {area:392} to {area:720}. {npc:6236} stands by the arena: step on the grate to start the fight; the challengers come one at a time, then {npc:6238} (33)."] = "从{area:392}沿海岸向南前往{area:720}。{npc:6236}站在竞技场旁：踩上格栅开始战斗；挑战者会逐个上场，最后是{npc:6238}（33级）。",
 
-	-- Step 26: Hearth to Shadowprey Village
-	-- {area:2408} Shadowprey Village
-	-- was: ["Hearth to Shadowprey"] = "用炉石回到葬影村"
-	["Hearth to {area:2408}"] = "",
-	-- {area:392} Ratchet · {area:720} Fray Island
-	["Finished in {area:392} or on {area:720}? Use your Hearthstone now, before walking back to a flight master."] = "",
-
-	-- Step 27: Ratchet flight master
+	-- Step 26: Ratchet flight master
 	-- {area:392} Ratchet
 	["{area:392} flight master"] = "{area:392}的飞行管理员",
-	-- {area:392} Ratchet
-	["Back north along the coast to {area:392}'s flight master."] = "沿海岸向北返回{area:392}的飞行管理员处。",
+	-- {area:2408} Shadowprey Village · {area:392} Ratchet · {zone:1442} Stonetalon Mountains · {area:465} Charred Vale
+	["If your Hearthstone is ready and bound to {area:2408}, you can use it here. Otherwise head north along the coast to {area:392} for a flight, or take the road west through {zone:1442} and the {area:465}."] = "",
 
-	-- Step 28: Fly to Shadowprey Village
+	-- Step 27: Fly to Shadowprey Village
 	-- {area:2408} Shadowprey Village
 	["Fly to {area:2408}"] = "飞往{area:2408}",
-	-- {area:2408} Shadowprey Village · {area:405} Desolace · {zone:1442} Stonetalon Mountains · {area:465} Charred Vale
-	["Ask the flight master for {area:2408}. If there is no connecting flight, head for {area:405} through {zone:1442} and the {area:465}."] = "",
+	-- {area:2408} Shadowprey Village · {zone:1442} Stonetalon Mountains · {area:465} Charred Vale · {zone:1443} Desolace
+	["Ask the flight master for {area:2408}. If the route isn't offered or you can't pay the fare, follow the road west through {zone:1442} and the {area:465}, then south-west through {zone:1443} to the village."] = "",
 
-	-- Step 29: Road to Shadowprey Village
+	-- Step 28: Road to Shadowprey Village
 	-- {area:2408} Shadowprey Village
 	["Road to {area:2408}"] = "",
-	-- {area:405} Desolace · {zone:1442} Stonetalon Mountains · {area:465} Charred Vale
-	["If you don't have a flight to Shadowprey, take an offered flight toward {area:405} or follow the road west through {zone:1442} and the {area:465}. In {area:405}, stay on the road to the Horde village on the south-west coast."] = "",
+	-- {area:2408} Shadowprey Village · {zone:1442} Stonetalon Mountains · {area:465} Charred Vale · {zone:1443} Desolace
+	["If your Hearthstone is ready and bound to {area:2408}, you can use it. Otherwise follow the road west through {zone:1442} and the {area:465}. In {zone:1443}, stay on the road to the Horde village on the south-west coast."] = "",
 
-	-- Step 30: Shadowprey Village
+	-- Step 29: Shadowprey Village
 	-- {npc:11624} Taiga Wisemane · {npc:12340} Drulzegar Skraghook
 	["{npc:11624} and {npc:12340} stand in the village."] = "{npc:11624}和{npc:12340}站在村里。",
 	-- {npc:11624} Taiga Wisemane · {quest:5381} Hand of Iruxos · {area:599} Thunder Axe Fortress
@@ -154,89 +147,104 @@ return {
 	-- {npc:12340} Drulzegar Skraghook · {area:599} Thunder Axe Fortress
 	["{npc:12340}: the Slitherblade of Sar'theris Strand, on the way back from {area:599}"] = "{npc:12340}：萨瑟里斯海岸的滑刃鱼人，从{area:599}返回途中完成",
 
-	-- Step 31: Ghost Walker Post
+	-- Step 30: Khan Dez'hepah, if you still need his head
+	-- {quest:1365} Khan Dez'hepah
+	["{quest:1365}, if you still need his head"] = "",
+	-- {npc:5395} Felgur Twocuts · {area:609} Kolkar Village · {quest:1365} Khan Dez'hepah · {area:597} Ghost Walker Post
+	["If you kept {npc:5395}'s hunt from your first visit, continue east to {area:609}. {quest:1365} (35) patrols the eastern tents; clear his Battle Lords before pulling him alone. Then head back west to {area:597}.\nCareful: The Battle Lords call nearby allies when low on health."] = "",
+
+	-- Step 34: Ghost Walker Post
 	-- {area:597} Ghost Walker Post · {npc:5412} Gurda Wildmane · {npc:5395} Felgur Twocuts
 	["East along the road to {area:597}; {npc:5412} stands beside {npc:5395}."] = "沿道路向东前往{area:597}；{npc:5412}站在{npc:5395}旁。",
-	-- {npc:5395} Felgur Twocuts · {quest:1366} Centaur Bounty
-	["{npc:5395}: his {quest:1366}, from the same Maraudine as Gurda's totems"] = "{npc:5395}：他的{quest:1366}，目标和古尔达的图腾一样，都是玛洛迪半人马",
 
-	-- Step 32: Valley of Spears
-	-- {area:607} Valley of Spears · {item:254432} Carved Centaur Totem · {npc:5395} Felgur Twocuts · {quest:1366} Centaur Bounty · {npc:5402} Khan Hratha
+	-- Step 35: Ghost Walker Post
+	-- {npc:5395} Felgur Twocuts
+	["{npc:5395} stands beside Gurda. Take his bounty before collecting ears."] = "",
+
+	-- Step 36: Kolkar Village: ears and totems
+	-- {area:609} Kolkar Village
+	["{area:609}: ears and totems"] = "",
+	-- {area:609} Kolkar Village
+	-- plural, as words: Kolkar Scouts = {npc:4633} Kolkar Scout
+	["Take the road east to {area:609}. The Kolkar Scouts (30–31) on the western fringe drop both items. Hunt only for the quests you carry, and stay west of the Battle Lords by the Khan's tents."] = "",
+
+	-- Step 39: Valley of Spears
+	-- {area:607} Valley of Spears · {npc:5395} Felgur Twocuts · {npc:5402} Khan Hratha
 	-- plural, as words: Rock Worms = {npc:11788} Rock Worm
-	["West of the post, the Maraudine centaurs hold the {area:607}; every Maraudine can drop a {item:254432} and an ear for {npc:5395}'s {quest:1366}. Stay with the Scouts and Wranglers (36-38) at the valley's eastern edge; the Maulers and Windchasers (38-39) a little further in are up to two over you at 37: pull them one at a time.\nCareful: {npc:5402} and the Rock Worms (41-42, elite) hold the valley's north-western end with the Khan Guards and Marauders (39-40), and the Magram's village in the south-east has Necromancers (42-43): keep east of the arrow."] = "哨站以西，玛洛迪半人马占据着{area:607}；每个玛洛迪半人马都可能掉落{item:254432}，以及{npc:5395}的{quest:1366}所需的耳朵。待在山谷东缘打斥候和驯犬者（36-38级）；稍往里一点的重槌手和逐风者（38-39级）比37级的你最多高两级：一次只拉一个。\n小心：{npc:5402}和岩石虫（41-42级，精英）与可汗卫兵、掠夺者（39-40级）一起占据山谷西北端，东南边的玛格拉姆村里还有亡灵巫师（42-43级）：待在箭头以东。",
+	["West of the post, the Maraudine centaurs hold the {area:607}. Pull Scouts and Wranglers (36–38) at its eastern edge for Gurda's totems and {npc:5395}'s ears. At 37 leave the Maulers and Windchasers (38–39) alone.\nCareful: {npc:5402} and the Rock Worms (41-42, elite) hold the valley's north-western end with the Khan Guards and Marauders (39-40), and the Magram's village in the south-east has Necromancers (42-43): keep east of the arrow."] = "",
 
-	-- Step 33: Melizza Brimbuzzle
+	-- Step 40: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
 	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277}被关在山谷最西端的玛洛迪营地；救出她，向东护送她离开山谷。\n小心：脚本刷出的敌群会一起行动，而且仅在护送期间出现，因此无法提前清理，也无法逐个引出。开始前先清理路上的普通半人马仍有帮助。",
 
-	-- Step 34: Hornizz Brimbuzzle
+	-- Step 41: Hornizz Brimbuzzle
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard
 	["{npc:6019} waits at the goblin camp on the west side of the {area:596}."] = "{npc:6019}在{area:596}西侧的地精营地里等候。",
 	-- {npc:6019} Hornizz Brimbuzzle · {area:602} Mannoroc Coven
 	["{npc:6019}: the ghost-o-plasm, after {area:602} at the end of this visit"] = "{npc:6019}：幽灵电浆，这一趟最后打完{area:602}后再交",
 
-	-- Step 36: Thunder Axe Fortress
+	-- Step 44: Thunder Axe Fortress
 	-- {area:599} Thunder Axe Fortress · {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal · {npc:11876} Demon Spirit · {item:13542} Demon Box
 	["North up the road to {area:599}. Clear the middle of the largest building, then use the {item:14523} on the red {object:176581} there. A {npc:11876} (37) comes out: kill it for the {item:13542}. The Burning Blade around it are well under you now."] = "沿道路向北前往{area:599}。清理最大建筑的中间区域，然后对那里红色的{object:176581}使用{item:14523}。会出来一只{npc:11876}（37级）：杀死它获得{item:13542}。周围的火刃怪物现在等级已远低于你。",
 	-- {item:14523} Demon Pick · {object:176581} Hand of Iruxos Crystal
 	["{item:14523}, on the {object:176581}"] = "{item:14523}，在{object:176581}上",
 
-	-- Step 37: Sar'theris Strand
+	-- Step 45: Sar'theris Strand
 	-- {area:598} Sar'theris Strand
 	-- plural, as words: Slitherblade Myrmidons = {npc:4714} Slitherblade Myrmidon
 	["West from the fortress to the coast at {area:598}: the Slitherblade Myrmidons, Naga and Sorceresses hold the beach. Pull them one at a time; the Sea Witches and Oracles (34-36) cast from range."] = "从要塞向西到{area:598}的海岸：滑刃侍从、纳迦和女巫占据着海滩。一次只拉一个；海妖和神谕者（34-36级）会远程施法。",
 
-	-- Step 38: Shadowprey Village
+	-- Step 46: Shadowprey Village
 	-- {npc:11624} Taiga Wisemane · {area:602} Mannoroc Coven · {npc:12340} Drulzegar Skraghook
 	["South down the coast to Shadowprey: {npc:11624} takes the box and sends you to {area:602} with it; {npc:12340} takes the naga."] = "沿海岸向南回到葬影村：{npc:11624}收下盒子，并让你带着它去{area:602}；纳迦的任务交给{npc:12340}。",
 
-	-- Step 39: Portals of the Legion
+	-- Step 47: Portals of the Legion
 	-- {area:602} Mannoroc Coven · {quest:5381} Hand of Iruxos · {npc:11624} Taiga Wisemane · {npc:11937} Demon Portal Guardian
 	-- plural, as words: Burning Blade Summoners = {npc:4668} Burning Blade Summoner
 	["Head east to {area:602}. With the {quest:5381} from {npc:11624} in your bags, open a demon portal's ring: a {npc:11937} (38-39) comes out; kill it to close that portal. Six portals. Careful: Infernals, Doomguards and Burning Blade Summoners walk close by many portals and may join in; kill nearby mobs first or drag the guardian away, for example toward the coven's central lake."] = "向东前往{area:602}。将从{npc:11624}那里取得的{quest:5381}放在背包里，打开恶魔传送门的圆环，就会出现一只{npc:11937}（38-39级）；杀死它即可关闭这座传送门，共需关闭六座。注意：许多传送门附近都有地狱火、末日守卫和火刃召唤师游荡，可能加入战斗；先清掉附近怪物，或把守护者拉远，比如拉到集会所中央的湖边。",
 
-	-- Step 40: The Valley of Bones
+	-- Step 48: The Valley of Bones
 	-- {area:2657} Valley of Bones
 	["The {area:2657}"] = "{area:2657}",
-	-- {area:2657} Valley of Bones · {area:405} Desolace · {item:15848} Crate of Ghost Magnets
+	-- {area:2657} Valley of Bones · {zone:1443} Desolace · {item:15848} Crate of Ghost Magnets
 	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre · Magram Necrokhans = {npc:253274} Magram Necrokhan
 	-- was: ["South-east of the coven, the bone fields of the {area:2657}, where Undead Ravagers roam, at {zone:1443}'s southern edge: keep south of the Magram's village on the way. Use the {item:15848} at the arrow to draw the Magrami Spectres (38-39): they come in numbers, so fight them with your back to the valley's edge. They drop the ghost-o-plasm.\nCareful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields just west of the arrow, well above you: use the crate at the arrow, on the valley's eastern side, and pull the spectres away from them."] = "集会所东南方是{area:2657}的白骨荒地，那里有亡灵劫掠者游荡，位于{zone:1443}的南缘：途中要绕到玛格拉姆村以南。在箭头处使用{item:15848}引来玛格拉姆鬼魂（38-39级）：它们成群而来，所以背靠山谷边缘作战。它们会掉落幽灵电浆。\n小心：玛格拉姆死灵可汗和玛格拉姆食尸者（45级，精英）在箭头正西边的白骨荒地上走动，等级远高于你：在山谷东侧的箭头处使用箱子，并把鬼魂从它们身边引开。"
-	["South-east of the coven, the bone fields of the {area:2657}, where Undead Ravagers roam, at {area:405}'s southern edge: keep south of the Magram's village on the way. Use the {item:15848} at the arrow to draw the Magrami Spectres (38-39): they come in numbers, so fight them with your back to the valley's edge. They drop the ghost-o-plasm.\nCareful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields just west of the arrow, well above you: use the crate at the arrow, on the valley's eastern side, and pull the spectres away from them."] = "",
+	["South-east of the coven, the bone fields of the {area:2657}, where Undead Ravagers roam, at {zone:1443}'s southern edge: keep south of the Magram's village on the way. Use the {item:15848} at the arrow to draw the Magrami Spectres (38-39): they come in numbers, so fight them with your back to the valley's edge. They drop the ghost-o-plasm.\nCareful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields just west of the arrow, well above you: use the crate at the arrow, on the valley's eastern side, and pull the spectres away from them."] = "集会所东南方是{area:2657}的白骨荒地，那里有亡灵劫掠者游荡，位于{zone:1443}的南缘：途中要绕到玛格拉姆村以南。在箭头处使用{item:15848}引来玛格拉姆鬼魂（38-39级）：它们成群而来，所以背靠山谷边缘作战。它们会掉落幽灵电浆。\n小心：玛格拉姆死灵可汗和玛格拉姆食尸者（45级，精英）在箭头正西边的白骨荒地上走动，等级远高于你：在山谷东侧的箭头处使用箱子，并把鬼魂从它们身边引开。",
 
-	-- Step 41: Hornizz Brimbuzzle
+	-- Step 49: Hornizz Brimbuzzle
 	-- {area:596} Kodo Graveyard · {area:602} Mannoroc Coven
 	["North-west to the goblin camp on the west side of the {area:596}, back past {area:602}: keep west of the Magram's village."] = "向西北返回，经过{area:602}，前往{area:596}西侧的地精营地：保持在玛格拉姆村以西。",
 
-	-- Step 42: Shadowprey
+	-- Step 50: Shadowprey
 	["Shadowprey"] = "葬影村",
 	-- {npc:11624} Taiga Wisemane · {area:2408} Shadowprey Village · {area:596} Kodo Graveyard
 	["Return to {npc:11624} in {area:2408}. If your Hearthstone is still bound there and ready, use it; otherwise take the road west around the {area:596}."] = "",
 
-	-- Step 43: Thunder Bluff
+	-- Step 51: Thunder Bluff
 	-- {area:2408} Shadowprey Village · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
 	["Fly from {area:2408} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "从{area:2408}飞往{area:1638}，到{area:1639}找{npc:3033}训练；再从那里飞往{zone:1454}。",
 
-	-- Step 44: Fly to Orgrimmar
+	-- Step 52: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "飞往{area:1637}",
 	-- {area:2408} Shadowprey Village
 	["{area:2408} flight master"] = "{area:2408}的飞行管理员",
 
-	-- Step 45: Back to Orgrimmar
+	-- Step 53: Back to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Back to {area:1637}"] = "返回{area:1637}",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "{zone:1456}飞行管理员",
 
-	-- Step 46: Belgrom Rockmaul
+	-- Step 54: Belgrom Rockmaul
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor
 	["{npc:4485} stands in the {object:172958}."] = "{npc:4485}站在{object:172958}。",
 
-	-- Step 47: Nogg
+	-- Step 55: Nogg
 	-- {npc:3412} Nogg · {object:172958} Valley of Honor · {npc:4485} Belgrom Rockmaul · {quest:2841} Rig Wars · {area:133} Gnomeregan
 	["{npc:3412}'s workshop is in the {object:172958} beside {npc:4485}: hand in {quest:2841} if you ran {area:133}."] = "{npc:3412}的工坊在{object:172958}，就在{npc:4485}旁边：如果打过{area:133}，就在这里交还{quest:2841}。",
 
-	-- Step 48: Orgrimmar trainers
+	-- Step 56: Orgrimmar trainers
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} trainers"] = "{zone:1454}训练师",
 	-- {zone:1458} Undercity
@@ -245,6 +253,7 @@ return {
 	["The next guide takes the {zone:1458} zeppelin from the tower outside the main gate."] = "下一份指南会在正门外的飞艇塔乘坐前往{zone:1458}的飞艇。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back north along the coast to {area:392}'s flight master."] = "沿海岸向北返回{area:392}的飞行管理员处。",
 	-- ["Darkfang spiders"] = "暗牙蜘蛛",
 	-- ["Darkmist cavern"] = "暗雾洞穴",
 	-- ["Fly to {area:2408} from the flight master you are next to: {area:392}'s, or Brackenwall's if you had no errand in {area:392}."] = "从你身边的飞行管理员飞往{area:2408}：{area:392}的，或者如果你在{area:392}没有事要办，就用蕨墙村的。",
@@ -285,6 +294,7 @@ return {
 	-- ["The caravan ends at {npc:11596}'s camp on the east side of the {area:596}."] = "商队终点是{area:596}东侧{npc:11596}的营地。",
 	-- ["The next guide takes you back to {zone:1434}."] = "下一个指南会带你回到{zone:1434}。",
 	-- ["West of the post, the Maraudine centaurs hold the {area:607}. Every Maraudine can drop a {item:254432} and an ear for {npc:5395}'s {quest:1366}. Stay with the Maraudine (36-39) in the valley: the Magram's village in the south-east has the same drops, but its Necromancers (42-43) and Guardians (39-41) are well above you."] = "哨所西边的{area:607}被玛洛迪半人马占据。所有玛洛迪半人马都可能掉落{item:254432}，以及{npc:5395}的{quest:1366}所需的耳朵。待在山谷里的玛洛迪半人马（36-39级）这边：东南方的玛格拉姆村落也掉落同样的东西，但那里的死灵法师（42-43级）和守护者（39-41级）等级远高于你。",
+	-- ["West of the post, the Maraudine centaurs hold the {area:607}; every Maraudine can drop a {item:254432} and an ear for {npc:5395}'s {quest:1366}. Stay with the Scouts and Wranglers (36-38) at the valley's eastern edge; the Maulers and Windchasers (38-39) a little further in are up to two over you at 37: pull them one at a time.\nCareful: {npc:5402} and the Rock Worms (41-42, elite) hold the valley's north-western end with the Khan Guards and Marauders (39-40), and the Magram's village in the south-east has Necromancers (42-43): keep east of the arrow."] = "哨站以西，玛洛迪半人马占据着{area:607}；每个玛洛迪半人马都可能掉落{item:254432}，以及{npc:5395}的{quest:1366}所需的耳朵。待在山谷东缘打斥候和驯犬者（36-38级）；稍往里一点的重槌手和逐风者（38-39级）比37级的你最多高两级：一次只拉一个。\n小心：{npc:5402}和岩石虫（41-42级，精英）与可汗卫兵、掠夺者（39-40级）一起占据山谷西北端，东南边的玛格拉姆村里还有亡灵巫师（42-43级）：待在箭头以东。",
 	-- ["West to Shadowprey."] = "向西到葬影村。",
 	-- ["grind on {npc:4362}"] = "刷{npc:4362}升级",
 	-- ["grind on {npc:4377}"] = "刷{npc:4377}升级",
@@ -294,9 +304,11 @@ return {
 	-- ["{npc:3391}'s next errand takes you to {area:35}, off this part of the route: leave it."] = "{npc:3391}的下一个差事要去{area:35}，偏离这段路线：先不接。",
 	-- ["{npc:3391}: for {npc:4631} in {area:35}, on the first {area:35} stop of 40-50"] = "{npc:3391}：交给{area:35}的{npc:4631}，在40-50级指南第一次到{area:35}时处理",
 	-- ["{npc:3412}, in the {object:172958} beside {npc:4485}: {quest:2841}, if you ran {area:133}"] = "{npc:3412}，在{object:172958}的{npc:4485}旁：如果刷过{area:133}，可交{quest:2841}",
+	-- ["{npc:3446} stands below Gazlowe's house by the flight master, towards the docks."] = "{npc:3446}站在飞行管理员旁加兹鲁维的房子下方、靠码头的一侧。",
 	-- ["{npc:4983} waits in the {area:2302} east of the village. Follow him to Reethe and keep him alive through the fight that breaks out."] = "{npc:4983}在村庄东边的{area:2302}等候。跟着他去找雷瑟，并在随后爆发的战斗中保护他活下来。",
 	-- ["{npc:5395} and {npc:5412} stand in the post just west of {npc:11596}'s camp."] = "{npc:5395}和{npc:5412}站在{npc:11596}营地正西的哨站里。",
 	-- ["{npc:5395}: his {quest:1366}, from the same Maraudine"] = "{npc:5395}：他的{quest:1366}，来自同一批玛洛迪半人马",
+	-- ["{npc:5395}: his {quest:1366}, from the same Maraudine as Gurda's totems"] = "{npc:5395}：他的{quest:1366}，目标和古尔达的图腾一样，都是玛洛迪半人马",
 	-- ["{npc:6236}: Berserker Stance"] = "{npc:6236}：狂暴姿态",
 	-- ["{npc:6791}: the last guide binds here, so this usually ticks at once"] = "{npc:6791}：上一份指南在这里绑定炉石，所以这一步通常会立即完成",
 	-- ["{zone:1443}'s last quests and Alterac are 38-41. Below 37.5? Keep killing the Mirefin murlocs along the north-east coast, past {area:502}, until level 37.5. Or, with a group, run the {area:1316} dungeon or the {area:796} dungeon (Armory) instead."] = "{zone:1443}最后的任务和奥特兰克任务适合38-41级。还没到37.5级？沿东北海岸越过{area:502}，继续击杀泥鳍鱼人，直到37.5级。也可以组队刷{area:1316}地下城或{area:796}地下城的武器库。",

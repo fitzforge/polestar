@@ -20,8 +20,8 @@ return {
 	-- {npc:2216} Apothecary Lydon
 	-- plural, as words: Syndicate Shadow Mages = {npc:2244} Syndicate Shadow Mage
 	["{npc:2216}: the vials come from the Syndicate Shadow Mages on the way to Durnholde"] = "{npc:2216}: los viales los sueltan los Magos oscuros de la Hermandad de camino a Durnholde",
-	-- {object:556670} WANTED (no name in this language: may be words)
-	["The {object:556670} poster by the inn"] = "El cartel de {object:556670} junto a la posada",
+	-- was: ["The {object:556670} poster by the inn"] = "El cartel de {object:556670} junto a la posada"
+	["The WANTED poster by the inn"] = "",
 	-- {npc:2229} Krusk
 	["{npc:2229}, inside"] = "",
 
@@ -250,6 +250,7 @@ return {
 	-- ["The smithy stands in the middle of {area:287} town. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks the street north of it."] = "La herrería está en medio del pueblo de {area:287}. {npc:2404} y sus aprendices trabajan en la forja; {object:1736} está apilado al lado. {npc:2449} pasea por la calle al norte.",
 	-- ["The town hall is on the west side of {area:287}. {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "El ayuntamiento está en el lado oeste de {area:287}. {npc:2335} (30) y {npc:2448} están dentro con el Registro de Trabalomas; la Proclamación de Trabalomas está colgada al lado. Los consejeros recorren el pueblo.",
 	-- ["The {area:288} lies south of {area:287} town. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "{area:288} está al sur del pueblo de {area:287}. Los mineros trabajan en los túneles; {npc:2305} (30) y {npc:2450} (29) están al fondo.",
+	-- ["The {object:556670} poster by the inn"] = "El cartel de {object:556670} junto a la posada",
 	-- ["The {quest:567} poster: its targets come up along the way"] = "El cartel de {quest:567}: sus objetivos aparecen por el camino",
 	-- ["Town hall"] = "Ayuntamiento",
 	-- ["Train with {npc:3033}. Before you fly on, {npc:3024} and {npc:4721}, a short walk east of the wind rider master, give two quests worked on the next guides' walks; then fly on to the Crossroads, where the next guide starts."] = "Entrena con {npc:3033}. Antes de seguir volando, {npc:3024} y {npc:4721}, a poca distancia al este del maestro de jinetes del viento, te dan dos misiones que se completan por el camino en las siguientes guías; luego vuela a El Cruce, donde empieza la siguiente guía.",

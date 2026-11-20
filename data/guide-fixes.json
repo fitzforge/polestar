@@ -2,6 +2,31 @@
 	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at?: { map, x, y, frame? }, label?, title?, when? } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge) and, with when (a condition or a list of them), holds every step of that walk for the players it names, after those. levels: { top } on at: { goal: \"levels\", guide } raises the guide's header top level to where players leave it. at: { quest, goal: accept | turnin | complete | objective | quest | collect, objective?, item?, guide? } (guide: that guide only). A collect anchor names quest and item and carries a goalNote. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
+			"id": "horde-ratchet-gazlowe-letter-upstairs",
+			"faction": "Horde",
+			"at": {
+				"guide": "forever/horde/30-40/02-thousand-needles",
+				"quest": 1180,
+				"goal": "accept"
+			},
+			"tip": "Gazlowe offers the letter upstairs in the house next to the flight master.",
+			"note": "A player who already gave Gazlowe the sponsorship can pick up the letter without repeating that hand-in. They still need the upstairs counter.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#960: Gazlowe (3391) stands upstairs at Ratchet."
+			},
+			"issue": 960
+		},
+		{
+			"id": "horde-shadowprey-optional-return",
+			"faction": "Horde",
+			"at": { "guide": "forever/horde/30-40/04-dustwallow-marsh", "quest": 1270, "goal": "turnin" },
+			"tip": "Mebok Mizzyrix stands below Gazlowe's house, towards the docks. Finish any business on Fray Island before leaving. If your Hearthstone is ready and bound to Shadowprey Village, you can use it instead of taking the flight or road.",
+			"note": "The return is advice, not a Hearthstone goal. The flight and road remain available after Ratchet or Fray Island; neither learning the landing nor binding the inn means the character arrived.",
+			"source": [{ "kind": "in-game-check", "ref": "Horde Ratchet to Desolace: Mebok 3446, Shadowprey Village flight point 38, and the road from the Charred Vale." }],
+			"pr": 3145
+		},
+		{
 			"id": "horde-3123-flame-crest-arrival",
 			"faction": "Horde",
 			"at": {
@@ -83,7 +108,7 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"note": "Offer the escort during the dew-gland visit. An empty valley must not hold the player there.",
+			"note": "Offer the escort after the gland hunt. The player can skip Tooga alone if he is away, without skipping the hunt or claiming his reward.",
 			"source": {
 				"kind": "in-game-check",
 				"ref": "#3083; Tooga pickup on the west edge of Thistleshrub Valley (#2825)."
@@ -91,15 +116,17 @@
 			"issue": 3083
 		},
 		{
-			"id": "3083-horde-tooga-optional-offer",
+			"id": "3083-horde-tooga-separate-pickup",
 			"faction": "Horde",
 			"at": {
 				"quest": 1560,
 				"goal": "accept",
 				"guide": "forever/horde/40-50/04-tanaris"
 			},
-			"optional": true,
-			"note": "Offer the escort during the dew-gland visit. An empty valley must not hold the player there.",
+			"split": {
+				"title": "Tooga in Thistleshrub Valley"
+			},
+			"note": "Offer the escort after the gland hunt. The player can skip Tooga alone if he is away, without skipping the hunt or claiming his reward.",
 			"source": {
 				"kind": "in-game-check",
 				"ref": "#3083; Tooga pickup on the west edge of Thistleshrub Valley (#2825)."
@@ -114,8 +141,8 @@
 				"goal": "accept",
 				"guide": "forever/horde/40-50/04-tanaris"
 			},
-			"goalNote": "On the way out, take Tooga if you see him. If he's gone, don't wait.",
-			"note": "Offer the escort during the dew-gland visit. An empty valley must not hold the player there.",
+			"goalNote": "Take Tooga on your way out of the valley. If he isn't here, choose Skip this step; don't wait for him.",
+			"note": "Offer the escort after the gland hunt. The player can skip Tooga alone if he is away, without skipping the hunt or claiming his reward.",
 			"source": {
 				"kind": "in-game-check",
 				"ref": "#3083; Tooga pickup on the west edge of Thistleshrub Valley (#2825)."
@@ -618,14 +645,32 @@
 				"objective": 1,
 				"guide": "forever/horde/30-40/01-hillsbrad-foothills"
 			},
-			"when": "onquest 529,567",
-			"note": "A player who already delivered the iron may still need Citizen Wilkes and Farmer Kalaba from the poster. Keep both on the smithy visit.",
+			"when": "!turnedin 529",
+			"note": "Only unfinished Battle of Hillsbrad needs the forge. Citizen Wilkes and Farmer Kalaba stay on the same visit in their own poster step, including after the iron has been delivered.",
 			"source": [
 				{
 					"kind": "questie",
 					"ref": "Quests 529 and 567: separate objectives in Hillsbrad Fields."
 				}
 			],
+			"pr": 3145
+		},
+		{
+			"id": "3145-khan-dezhepah-from-34",
+			"faction": "Horde",
+			"at": { "quest": 1365, "goal": "objective", "objective": 1 },
+			"when": "level>=34",
+			"note": "Khan Dez'hepah is 35. The first Desolace visit can pay the other Ghost Walker rewards first; if still too low, carry the hunt to the second visit.",
+			"source": [{ "kind": "client", "ref": "npcs.json: 5600, level 35, normal. Item 6066 is his head." }, { "kind": "recording", "ref": "Three of eleven 0.4.x Horde followers were still level 33 at Felgur, after both the satyr and Burning Blade hand-ins." }],
+			"pr": 3145
+		},
+		{
+			"id": "3145-khan-ready-head",
+			"faction": "Horde",
+			"at": { "quest": 1365, "goal": "turnin" },
+			"when": "complete 1365",
+			"note": "Both visits pay a finished head at Felgur without a level gate. His bounty opens only after payment.",
+			"source": { "kind": "client", "ref": "quests.json: Khan Dez'hepah 1365 and Centaur Bounty 1366, Felgur Twocuts 5395." },
 			"pr": 3145
 		},
 		{

@@ -201,10 +201,11 @@ return {
 	["{area:340} is built into the cliffs on the {zone:1418}' west edge."] = "{area:340}建在{zone:1418}西緣的懸崖中。",
 
 	-- Step 41: The WANTED poster
-	-- {object:164867} WANTED
-	["The {object:164867} poster"] = "{object:164867}告示",
-	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {object:164867} WANTED · {area:340} Kargath
-	["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "為了你接下來的{area:1584}之行，在穿過{area:254}的路上：{area:340}的{object:164867}告示要你削減裡面的鐵怒矮人。",
+	-- was: ["The {object:164867} poster"] = "{object:164867}告示"
+	["The WANTED poster"] = "通緝海報",
+	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {area:340} Kargath
+	-- was: ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "為了你接下來的{area:1584}之行，在穿過{area:254}的路上：{area:340}的{object:164867}告示要你削減裡面的鐵怒矮人。"
+	["For your {area:1584} run, next, on the way through {area:254}: the WANTED poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "",
 
 	-- Step 42: Into the Searing Gorge
 	-- {zone:1427} Searing Gorge
@@ -305,6 +306,7 @@ return {
 	-- ["Fly to {area:340}"] = "飛往{area:340}",
 	-- ["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "沿著道路向東穿過{area:28}，過河進入{area:139}；離開道路往北前往西北方的廢墟城鎮{area:2627}。{npc:12384}坐在城鎮邊緣的小屋裡。",
 	-- ["Follow the road east through the {zone:1422} and across the river into the {zone:1423}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "沿著道路向東穿過{zone:1422}，過河進入{zone:1423}；離開道路往北前往西北方的廢墟城鎮{area:2627}。{npc:12384}坐在城鎮邊緣的小屋裡。",
+	-- ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "為了你接下來的{area:1584}之行，在穿過{area:254}的路上：{area:340}的{object:164867}告示要你削減裡面的鐵怒矮人。",
 	-- ["Free Darrowshire Spirits: talk to them"] = "釋放達隆郡居民的靈魂：和它們交談",
 	-- ["From here on pick up every {npc:271301} (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "從現在起，拾取沿途經過的每一個{npc:271301}（藍、綠、紅、黃）和每一堆{quest:3761}：共25份土壤，20份給哈繆爾，5份給匹斯特蘇格。",
 	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "從{area:152}沿著道路向東進入{zone:1422}。血色十字軍的帳篷就在費爾斯通農場過去一點，位於{area:199}和{area:200}之間。用{object:176092}燒掉指揮帳篷，並插上天災戰旗。",
@@ -350,6 +352,7 @@ return {
 	-- ["The tar pits lie just south of the refuge. Tar Beasts, Lurkers and Creepers drop the {item:11834}."] = "焦油坑就在避難營南邊。焦油獸、焦油潛伏者和焦油爬行者會掉落{item:11834}。",
 	-- ["The wooden sign beside {npc:9997}"] = "{npc:9997}旁邊的木牌",
 	-- ["The {npc:9167} fly over the western cliffs around the pylon. Careful: the biggest are 54: pull them one at a time."] = "{npc:9167}在水晶塔周圍的西側懸崖上空飛行。注意：最大的有54級：一次拉一隻。",
+	-- ["The {object:164867} poster"] = "{object:164867}告示",
 	-- ["Theodora's next errand goes to Lotwil east of town and then into {area:1584}: skip it."] = "塞朵拉的下一個差事要去鎮東找魯特維爾，然後進入{area:1584}：跳過。",
 	-- ["Theodora's quest in {area:340} needs level 52. The Tar Lurkers and Tar Lords just south of the refuge are the closest camp."] = "塞朵拉在{area:340}的任務需要等級52。避難營南邊的焦油潛伏者和焦油領主是最近的營地。",
 	-- ["To {area:197}"] = "前往{area:197}",

@@ -201,10 +201,11 @@ return {
 	["{area:340} is built into the cliffs on the {zone:1418}' west edge."] = "{area:340}은(는) {zone:1418} 서쪽 끝 절벽에 지어져 있습니다.",
 
 	-- Step 41: The WANTED poster
-	-- {object:164867} WANTED
-	["The {object:164867} poster"] = "{object:164867} 전단",
-	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {object:164867} WANTED · {area:340} Kargath
-	["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "{area:1584} 공략용(다음, {area:254}을(를) 지나는 길): {area:340}의 {object:164867} 전단은 내부의 성난모루 드워프를 처치하기를 원합니다.",
+	-- was: ["The {object:164867} poster"] = "{object:164867} 전단"
+	["The WANTED poster"] = "현상수배 포스터",
+	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {area:340} Kargath
+	-- was: ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "{area:1584} 공략용(다음, {area:254}을(를) 지나는 길): {area:340}의 {object:164867} 전단은 내부의 성난모루 드워프를 처치하기를 원합니다."
+	["For your {area:1584} run, next, on the way through {area:254}: the WANTED poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "",
 
 	-- Step 42: Into the Searing Gorge
 	-- {zone:1427} Searing Gorge
@@ -305,6 +306,7 @@ return {
 	-- ["Fly to {area:340}"] = "{area:340}(으)로 비행",
 	-- ["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "길을 따라 동쪽으로 {area:28}을(를) 지나 강을 건너 {area:139}(으)로 가세요. 북서쪽의 폐허 마을 {area:2627}(으)로 가려면 길에서 북쪽으로 벗어나세요. {npc:12384}은(는) 마을 가장자리의 오두막에 있습니다.",
 	-- ["Follow the road east through the {zone:1422} and across the river into the {zone:1423}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "길을 따라 동쪽으로 {zone:1422}을(를) 지나 강을 건너 {zone:1423}(으)로 가세요. 북서쪽의 폐허 마을 {area:2627}(으)로 가려면 길에서 북쪽으로 벗어나세요. {npc:12384}은(는) 마을 가장자리의 오두막에 있습니다.",
+	-- ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "{area:1584} 공략용(다음, {area:254}을(를) 지나는 길): {area:340}의 {object:164867} 전단은 내부의 성난모루 드워프를 처치하기를 원합니다.",
 	-- ["Free Darrowshire Spirits: talk to them"] = "다로우샤이어 영혼 해방: 말 걸기",
 	-- ["From here on pick up every {npc:271301} (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "지금부터 지나가는 {npc:271301}(파랑, 초록, 빨강, 노랑)과 {quest:3761} 더미를 모두 챙기세요. 흙은 모두 25개로, 하뮬에게 20개, 페슬저그에게 5개입니다.",
 	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "{area:152}에서 길을 따라 동쪽으로 {zone:1422}(으)로 가세요. 붉은십자군의 천막은 펠스톤 농장을 막 지나 {area:199}와(과) {area:200} 사이에 있습니다. {object:176092}(으)로 지휘 천막을 불태우고 스컬지 깃발을 꽂으세요.",
@@ -350,6 +352,7 @@ return {
 	-- ["The tar pits lie just south of the refuge. Tar Beasts, Lurkers and Creepers drop the {item:11834}."] = "잿구덩이는 야영지 바로 남쪽에 있습니다. 송진괴물, 송진껍질괴물, 송진이끼괴물이 {item:11834}을(를) 떨어뜨립니다.",
 	-- ["The wooden sign beside {npc:9997}"] = "{npc:9997} 옆의 나무 표지판",
 	-- ["The {npc:9167} fly over the western cliffs around the pylon. Careful: the biggest are 54: pull them one at a time."] = "{npc:9167}은(는) 수정탑 주변 서쪽 절벽 위를 날아다닙니다. 주의: 가장 큰 것은 54레벨이니 한 마리씩 끌어오세요.",
+	-- ["The {object:164867} poster"] = "{object:164867} 전단",
 	-- ["Theodora's next errand goes to Lotwil east of town and then into {area:1584}: skip it."] = "테오도라의 다음 심부름은 마을 동쪽의 로트윌을 거쳐 {area:1584}(으)로 이어집니다. 건너뛰세요.",
 	-- ["Theodora's quest in {area:340} needs level 52. The Tar Lurkers and Tar Lords just south of the refuge are the closest camp."] = "{area:340}의 테오도라 퀘스트는 레벨 52가 필요합니다. 야영지 바로 남쪽의 송진껍질괴물과 우두머리 송진괴물이 가장 가까운 사냥터입니다.",
 	-- ["To {area:197}"] = "{area:197}(으)로",

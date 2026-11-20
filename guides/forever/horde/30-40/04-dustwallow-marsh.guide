@@ -197,7 +197,7 @@ step Fly to Ratchet
 
 step Ratchet
   zone The Barrens
-  tip Mebok Mizzyrix stands below Gazlowe's house by the flight master, towards the docks.
+  tip Mebok Mizzyrix stands below Gazlowe's house, towards the docks. Finish any business on Fray Island before leaving. If your Hearthstone is ready and bound to Shadowprey Village, you can use it instead of taking the flight or road.
   turnin 1270                         -- Mebok Mizzyrix
 
 step The Affray
@@ -209,21 +209,12 @@ step The Affray
   complete 1719 @68.6,48.7 map 1413
   turnin 1719                         -- Klannoc Macleod: Berserker Stance
 
-step Hearth to Shadowprey Village
-  when !zone "Desolace"
-  when bound "Shadowprey Village"
-  when has 6948
-  when !cooldown item 6948
-  tip Finished in Ratchet or on Fray Island? Use your Hearthstone now, before walking back to a flight master.
-  hearth "Shadowprey Village"
-  enter "Desolace"
-
 step Ratchet flight master
   when !zone "Desolace"
   when taxi "Shadowprey Village"
   zone The Barrens
   only Warrior
-  tip Back north along the coast to Ratchet's flight master.
+  tip If your Hearthstone is ready and bound to Shadowprey Village, you can use it here. Otherwise head north along the coast to Ratchet for a flight, or take the road west through Stonetalon Mountains and the Charred Vale.
   goto 63.1,37.1 "Ratchet flight master"
 
 # ---------------------------------------------------------------- Desolace, the second visit
@@ -232,7 +223,7 @@ step Fly to Shadowprey Village
   when !zone "Desolace"
   when taxi "Shadowprey Village"
   zone The Barrens
-  tip Ask the flight master for Shadowprey Village. If there is no connecting flight, head for Desolace through Stonetalon Mountains and the Charred Vale.
+  tip Ask the flight master for Shadowprey Village. If the route isn't offered or you can't pay the fare, follow the road west through Stonetalon Mountains and the Charred Vale, then south-west through Desolace to the village.
   fly "Shadowprey Village"
   zone Desolace
 
@@ -240,7 +231,7 @@ step Road to Shadowprey Village
   when !zone "Desolace"
   when !taxi "Shadowprey Village"
   zone Desolace
-  tip If you don't have a flight to Shadowprey, take an offered flight toward Desolace or follow the road west through Stonetalon Mountains and the Charred Vale. In Desolace, stay on the road to the Horde village on the south-west coast.
+  tip If your Hearthstone is ready and bound to Shadowprey Village, you can use it. Otherwise follow the road west through Stonetalon Mountains and the Charred Vale. In Desolace, stay on the road to the Horde village on the south-west coast.
   goto 24.03,68.25 map 1443 live "Shadowprey Village"
 
 step Shadowprey Village
@@ -249,15 +240,70 @@ step Shadowprey Village
   accept 5381                         -- Taiga Wisemane: the Hand of Iruxos, at Thunder Axe Fortress later on this visit
   accept 6143                         -- Drulzegar Skraghook: the Slitherblade of Sar'theris Strand, on the way back from Thunder Axe Fortress
 
+step Khan Dez'hepah, if you still need his head
+  zone Desolace
+  when onquest 1365
+  when !complete 1365
+  when level>=34
+  tip If you kept Felgur's hunt from your first visit, continue east to Kolkar Village. Khan Dez'hepah (35) patrols the eastern tents; clear his Battle Lords before pulling him alone. Then head back west to Ghost Walker Post.
+  tip Careful: The Battle Lords call nearby allies when low on health.
+  collect 6066 quest 1365
+
+step Felgur Twocuts
+  zone Desolace
+  when complete 1365
+  turnin 1365
+
+step Gurda Wildmane
+  zone Desolace
+  when complete 93225
+  turnin 93225
+
+step Felgur Twocuts
+  zone Desolace
+  when complete 1366
+  turnin 1366
+
 step Ghost Walker Post
   zone Desolace
   tip East along the road to Ghost Walker Post; Gurda Wildmane stands beside Felgur Twocuts.
   accept 93225                        -- Gurda Wildmane
-  accept 1366                         -- Felgur Twocuts: his Centaur Bounty, from the same Maraudine as Gurda's totems
+
+step Ghost Walker Post
+  zone Desolace
+  when turnedin 1365
+  tip Felgur stands beside Gurda. Take his bounty before collecting ears.
+  accept 1366                         -- Felgur Twocuts
+
+step Kolkar Village: ears and totems
+  zone Desolace
+  when onquest 93225,1366
+  when level>=34
+  when level<37
+  tip Take the road east to Kolkar Village. The Kolkar Scouts (30–31) on the western fringe drop both items. Hunt only for the quests you carry, and stay west of the Battle Lords by the Khan's tents.
+  loop
+  goto 68.7,50 map 1443 era
+  goto 69.3,48.95 map 1443 era
+  goto 68.62,45.66 map 1443 era
+  collect 254432 quest 93225.1
+  collect 6067 quest 1366.1
+
+step Gurda Wildmane
+  zone Desolace
+  when level<37
+  when complete 93225
+  turnin 93225
+
+step Felgur Twocuts
+  zone Desolace
+  when level<37
+  when complete 1366
+  turnin 1366
 
 step Valley of Spears
   zone Desolace
-  tip West of the post, the Maraudine centaurs hold the Valley of Spears; every Maraudine can drop a Carved Centaur Totem and an ear for Felgur's Centaur Bounty. Stay with the Scouts and Wranglers (36-38) at the valley's eastern edge; the Maulers and Windchasers (38-39) a little further in are up to two over you at 37: pull them one at a time.
+  when level>=37
+  tip West of the post, the Maraudine centaurs hold the Valley of Spears. Pull Scouts and Wranglers (36–38) at its eastern edge for Gurda's totems and Felgur's ears. At 37 leave the Maulers and Windchasers (38–39) alone.
   tip Careful: Khan Hratha and the Rock Worms (41-42, elite) hold the valley's north-western end with the Khan Guards and Marauders (39-40), and the Magram's village in the south-east has Necromancers (42-43): keep east of the arrow.
   collect 254432 x5 quest 93225.1 @33.0,54.0 map 1443
   collect 6067 quest 1366
@@ -277,7 +323,12 @@ step Hornizz Brimbuzzle
 
 step Ghost Walker Post
   zone Desolace
+  when complete 93225
   turnin 93225                        -- Gurda Wildmane
+
+step Felgur Twocuts
+  zone Desolace
+  when complete 1366
   turnin 1366                         -- Felgur Twocuts
 
 step Thunder Axe Fortress

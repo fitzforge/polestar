@@ -6562,6 +6562,8 @@
 			}
 		],
 		"together": [
+			{ "a": ["turnin", 598], "b": ["turnin", 95770], "faction": "Horde", "why": "#3145: give Kin'weelay the necklaces and news of the lost city together on the return from the trophy skulls. If only one is ready, he still takes it." },
+			{ "a": ["turnin", 589], "b": ["turnin", 573], "faction": "Horde", "why": "#3145: pay Kin'weelay and Far Seer Mok'thardin at Grom'gol on the way from the flight master to the Orgrimmar zeppelin. Either ready reward can be taken without waiting for the other." },
 			{ "a": ["task", 209, 0], "b": ["task", 598, 0], "faction": "Horde", "why": "#3124: carry both drop counts at the first Skullsplitter warrior camp. The trophy piles remain on their own route." },
 			{
 				"a": [
@@ -10139,7 +10141,7 @@
 					"turnin",
 					1435
 				],
-				"reason": "Horde 30-40 re-order (2026-11-07): Takata Steelblade offers the last Alliance Relations once both Befouled by Satyr and The Burning of Spirits are handed in; Keldran takes it in Orgrimmar on the way to the Grom'gol zeppelin at the start of 30-40/03-stranglethorn-vale.",
+				"reason": "Takata Steelblade offers the last Alliance Relations once Befouled by Satyr and The Burning of Spirits are handed in. Keldran takes it in Orgrimmar before the flight to Ratchet for the Booty Bay boat. The Stranglethorn opener uses Shadowprey only for a departure from Desolace; other non-Druids head to Orgrimmar from their current location, and Druids keep their Thunder Bluff training stop.",
 				"issue": ""
 			},
 			{
@@ -16785,7 +16787,7 @@
 			{
 				"q": 1366,
 				"guide": "forever/horde/30-40/04-dustwallow-marsh",
-				"reason": "The work for Khan Dez'hepah (1365: Khan Dez'hepah's Head) is not on this visit's route: bringing it back is a separate trip.",
+				"reason": "A fresh arrival without Khan Dez'hepah (1365) has no reason to make a new trip to the eastern tents. Only a carrier who deferred the level-35 Khan on the first Desolace visit finishes that hunt here; Felgur takes a ready head at any level before offering the bounty.",
 				"issue": "#2635"
 			},
 			{

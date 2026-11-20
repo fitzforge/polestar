@@ -104,18 +104,21 @@ return {
 	["Zhevra Runners graze along the road east toward {area:392}: take their hooves on the way out."] = "快步斑馬在向東通往{area:392}的路旁吃草：出去時順路取走它們的蹄子。",
 
 	-- Step 27: Ratchet
-	-- {area:392} Ratchet · {npc:3391} Gazlowe · {npc:7161} Wrenix the Wretched · {npc:3442} Sputtervalve · {npc:16227} Bragok · {npc:3446} Mebok Mizzyrix · {object:3972} WANTED · {quest:1492} Wharfmaster Dizzywig
-	["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the {object:3972} poster, then {quest:1492} on the dock on the way out south."] = "沿道路往東南前往海岸邊的{area:392}：鎮北端的{npc:3391}和{npc:7161}，接著是{npc:3442}和{npc:16227}、{npc:3446}和{object:3972}告示，往南離開時再找碼頭上的{quest:1492}。",
+	-- {area:392} Ratchet · {npc:3391} Gazlowe · {npc:7161} Wrenix the Wretched · {npc:3442} Sputtervalve · {npc:16227} Bragok · {npc:3446} Mebok Mizzyrix · {quest:1492} Wharfmaster Dizzywig
+	-- was: ["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the {object:3972} poster, then {quest:1492} on the dock on the way out south."] = "沿道路往東南前往海岸邊的{area:392}：鎮北端的{npc:3391}和{npc:7161}，接著是{npc:3442}和{npc:16227}、{npc:3446}和{object:3972}告示，往南離開時再找碼頭上的{quest:1492}。"
+	["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the WANTED poster, then {quest:1492} on the dock on the way out south."] = "",
 	-- {npc:3391} Gazlowe
 	["{npc:3391}, upstairs"] = "{npc:3391}，在樓上",
 	-- {npc:3442} Sputtervalve · {area:382} Sludge Fen
 	["{npc:3442}: the console is in the {area:382}, later"] = "{npc:3442}：控制台之後在{area:382}",
 	-- {npc:16227} Bragok · {npc:3442} Sputtervalve
 	["{npc:16227}, beside {npc:3442}"] = "{npc:16227}，在{npc:3442}旁邊",
-	-- {npc:3446} Mebok Mizzyrix · {object:3972} WANTED · {area:392} Ratchet
-	["{npc:3446}, beside the {object:3972} poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "{npc:3446}，在{object:3972}告示旁：赤鱗迅猛龍留到18級下次到{area:392}時再做",
-	-- {object:3972} WANTED · {npc:3467} Baron Longshore · {area:392} Ratchet
-	["The {object:3972} poster: {npc:3467} comes on the next {area:392} stop too"] = "{object:3972}告示：{npc:3467}也留到下次到{area:392}時再做",
+	-- {npc:3446} Mebok Mizzyrix · {area:392} Ratchet
+	-- was: ["{npc:3446}, beside the {object:3972} poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "{npc:3446}，在{object:3972}告示旁：赤鱗迅猛龍留到18級下次到{area:392}時再做"
+	["{npc:3446}, beside the WANTED poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "",
+	-- {npc:3467} Baron Longshore · {area:392} Ratchet
+	-- was: ["The {object:3972} poster: {npc:3467} comes on the next {area:392} stop too"] = "{object:3972}告示：{npc:3467}也留到下次到{area:392}時再做"
+	["The WANTED poster: {npc:3467} comes on the next {area:392} stop too"] = "",
 	-- {quest:1492} Wharfmaster Dizzywig
 	["{quest:1492}, on the dock"] = "{quest:1492}，在碼頭上",
 	-- {quest:1492} Wharfmaster Dizzywig · {area:381} Boulder Lode Mine
@@ -266,8 +269,8 @@ return {
 	["Crossroads flight master"] = "十字路口飛行管理員",
 
 	-- Step 56: Ratchet
-	-- {object:3972} WANTED
-	["{object:3972} poster"] = "{object:3972}海報",
+	-- was: ["{object:3972} poster"] = "{object:3972}海報"
+	["WANTED poster"] = "",
 
 	-- Step 57: Mebok Mizzyrix
 	-- {area:718} Wailing Caverns · {npc:3446} Mebok Mizzyrix · {quest:1491} Smart Drinks
@@ -307,8 +310,9 @@ return {
 	-- Step 65: Ratchet
 	-- {area:392} Ratchet
 	["Back north along the beach to {area:392}."] = "沿海灘往北走回{area:392}。",
-	-- {npc:3446} Mebok Mizzyrix · {object:3972} WANTED
-	["{npc:3446}, beside the {object:3972} poster"] = "{npc:3446}，在{object:3972}告示旁邊",
+	-- {npc:3446} Mebok Mizzyrix
+	-- was: ["{npc:3446}, beside the {object:3972} poster"] = "{npc:3446}，在{object:3972}告示旁邊"
+	["{npc:3446}, beside the WANTED poster"] = "",
 
 	-- Step 70: Dreadmist Peak
 	-- {area:384} Dreadmist Peak · {item:15842} Empty Dreadmist Peak Sampler · {object:19464} Dreadmist Peak Pool · {npc:3448} Tonga Runetotem · {skill:182} Herbalism · {npc:3490} Hula'mahi · {item:2449} Earthroot
@@ -515,8 +519,9 @@ return {
 	-- Step 117: Ratchet: Wailing Caverns quests
 	-- {area:392} Ratchet · {area:718} Wailing Caverns
 	["{area:392}: {area:718} quests"] = "{area:392}：{area:718}任務",
-	-- {area:718} Wailing Caverns · {npc:3446} Mebok Mizzyrix · {object:3972} WANTED · {npc:3665} Crane Operator Bigglefuzz · {npc:3396} Hezrul Bloodmark
-	["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the {object:3972} poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "你的{area:718}任務，如果還沒接的話：{npc:3446}在{object:3972}告示旁，{npc:3665}在飛行管理員旁的碼頭上。這趟地城之行在本指南稍後，在{npc:3396}之後。",
+	-- {area:718} Wailing Caverns · {npc:3446} Mebok Mizzyrix · {npc:3665} Crane Operator Bigglefuzz · {npc:3396} Hezrul Bloodmark
+	-- was: ["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the {object:3972} poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "你的{area:718}任務，如果還沒接的話：{npc:3446}在{object:3972}告示旁，{npc:3665}在飛行管理員旁的碼頭上。這趟地城之行在本指南稍後，在{npc:3396}之後。"
+	["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the WANTED poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "",
 
 	-- Step 118: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
@@ -731,6 +736,7 @@ return {
 	-- ["East to {area:392}, on the coast."] = "向東前往海岸的{area:392}。",
 	-- ["Follow the road east to the outpost above the {area:814}."] = "沿道路向東前往{area:814}上方的哨站。",
 	-- ["Follow the road south-east to {area:392} on the coast."] = "沿道路向東南前往海岸的{area:392}。",
+	-- ["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the {object:3972} poster, then {quest:1492} on the dock on the way out south."] = "沿道路往東南前往海岸邊的{area:392}：鎮北端的{npc:3391}和{npc:7161}，接著是{npc:3442}和{npc:16227}、{npc:3446}和{object:3972}告示，往南離開時再找碼頭上的{quest:1492}。",
 	-- ["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "營地裡，鋼鬃尋水者和鋼鬃織棘者占據西半部，鋼鬃獵手在中間；補給箱在營地東端。\n這裡的陸行鳥也算在鳥喙的數量裡。\n小心：{npc:267308}和狂戰士（18-19級）是精英；牠們站在營地東北部的補給箱旁：把野豬人一隻一隻地從牠們身邊引開。",
 	-- ["Keep it: {quest:3923} stands outside {zone:1454}; a later guide hands it in"] = "先留著：{quest:3923}站在{zone:1454}外；之後的指南會繳交",
 	-- ["Kolkar Wranglers and Stormers hold the camps south of {npc:3389}."] = "科卡爾牧民和科卡爾召雷師佔據{npc:3389}南邊的營地。",
@@ -751,6 +757,7 @@ return {
 	-- ["The pools lie just north of {npc:3389}. Walk into the water to explore them; the Laden Mushrooms for Helbrim grow around them. Kill every Kolkar you pass for bracers. {npc:3394} stands in the Kolkar camp west of the pools."] = "水池就在{npc:3389}北邊不遠。走進水裡探索；要給赫布瑞姆的豐滿的蘑菇長在水池周圍。順路擊殺每一個科卡爾半人馬取得護腕。{npc:3394}站在水池西邊的科卡爾營地裡。",
 	-- ["The three nests sit together in the {area:1697} south-west of the oasis; Sunscale Scytheclaws guard them."] = "三個巢一起位於綠洲西南方的{area:1697}；由赤鱗鐮爪龍守護。",
 	-- ["The {area:383}"] = "{area:383}",
+	-- ["The {object:3972} poster: {npc:3467} comes on the next {area:392} stop too"] = "{object:3972}告示：{npc:3467}也留到下次到{area:392}時再做",
 	-- ["Thun'grim camps beside the road from the {area:380} to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "索恩格瑞姆·火眼在從{area:380}通往{area:392}的道路旁紮營。{object:58369}在他北邊不遠的鋼鬃營地南部。",
 	-- ["Thunder Lizards and Lightning Hides graze just across the bridge below {area:379}."] = "雷霆蜥蜴和閃電蜥蜴就在{area:379}下方的橋對面吃草。",
 	-- ["Thunder Lizards and Lightning Hides graze just across the bridge below {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "雷霆蜥蜴和閃電蜥蜴就在{area:379}下方的橋對面吃草。\n小心：12級精英哈利寇在{area:369}的蜥蜴群中遊蕩：拉怪前先留意他的位置。",
@@ -761,6 +768,7 @@ return {
 	-- ["Warriors: take {quest:1824} from {npc:6394} now: it runs for 30 minutes from the accept. The eggs and the antennae come first, at the same mounds, then straight back to {npc:6394}; the thunderhawks after."] = "戰士：現在就向{npc:6394}接取{quest:1824}：從接取起計時30分鐘。先在同一片土丘收集蛋和觸角，然後直接回到{npc:6394}那裡；雷鷹之後再處理。",
 	-- ["West to the {area:383}. The Witchwing harpies nest all over them; any of them can drop a talon. {quest:819} lies in their hills."] = "向西前往{area:383}。巫翼鷹身人在那裡到處築巢；任何一隻都可能掉落爪子。{quest:819}在她們的丘陵中。",
 	-- ["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "既然在營地裡：{npc:3429}要的鋼鬃尋水者和鋼鬃織棘者在西半部，鋼鬃獵手在中間，補給箱在營地東端。\n小心：{npc:267308}和狂戰士（18-19級）是精英；牠們站在營地東北部的補給箱旁：把野豬人一隻一隻地從牠們身邊引開。",
+	-- ["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the {object:3972} poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "你的{area:718}任務，如果還沒接的話：{npc:3446}在{object:3972}告示旁，{npc:3665}在飛行管理員旁的碼頭上。這趟地城之行在本指南稍後，在{npc:3396}之後。",
 	-- ["Zhevra"] = "斑馬",
 	-- ["Zhevra Runners graze north and east of town."] = "快步斑馬在城鎮北邊和東邊吃草。",
 	-- ["{area:1898} cultists"] = "{area:1898}的祭司",
@@ -768,11 +776,14 @@ return {
 	-- ["{item:15885}: use a half at the {area:2362}"] = "{item:15885}：在{area:2362}使用一半墜飾",
 	-- ["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Oasis Snapjaws crawl in the water around it: their shells are for {npc:3448}."] = "{npc:3395}在十字路口東南方的{area:388}與科卡爾半人馬一起走動。綠洲鉗嘴龜在周圍的水中爬行：牠們的殼要交給{npc:3448}。",
 	-- ["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395}在十字路口東南方{area:388}的科卡爾之間走動。趁在那裡，到綠洲東岸冒泡的裂縫測試{npc:3448}的種子。",
+	-- ["{npc:3446}, beside the {object:3972} poster"] = "{npc:3446}，在{object:3972}告示旁邊",
+	-- ["{npc:3446}, beside the {object:3972} poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "{npc:3446}，在{object:3972}告示旁：赤鱗迅猛龍留到18級下次到{area:392}時再做",
 	-- ["{npc:3448}: the Oasis Snapjaws at the {area:388}, with {npc:3395}"] = "{npc:3448}：{area:388}的綠洲鉗嘴龜，以及{npc:3395}",
 	-- ["{npc:3615}, the wind rider master"] = "雙足飛龍管理員{npc:3615}",
 	-- ["{npc:5878} camps beside the road from the {area:380} to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "{npc:5878}在從{area:380}通往{area:392}的道路旁紮營。{object:58369}在他北邊不遠的鋼鬃營地南部。",
 	-- ["{npc:5900} waits on the riverbank south of {area:379}, across the bridge."] = "{npc:5900}在{area:379}南邊、過橋後的河岸上等著。",
 	-- ["{npc:5907} stands on the ridge north of the Razormane camp."] = "{npc:5907}站在鋼鬃營地北邊的山脊上。",
+	-- ["{object:3972} poster"] = "{object:3972}海報",
 	-- ["{quest:3301}: the {area:228} in {zone:1421}, next guide"] = "{quest:3301}：下一份指南中{zone:1421}的{area:228}",
 	-- ["{quest:881}, a white lion, prowls the plains north of the Razormane camp."] = "白獅{quest:881}在鋼鬃營地北邊的平原徘徊。",
 }

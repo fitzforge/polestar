@@ -261,47 +261,43 @@ return {
 	["The warriors in the northern ruins (39-40) drop both tusks and necklaces. Pull from the edge; leave the chief and his two guards to the south alone."] = "",
 	["Skullsplitter warriors"] = "Guerriers Skullsplitter",
 
-	-- Step 48: Zul'Mamwe trophy skulls
-	["Zul'Mamwe trophy skulls"] = "",
-
-	-- Step 49: Balia'mah Ruins: kill these as you meet them
-	-- {area:127} Balia'mah Ruins
-	["{area:127}: kill these as you meet them"] = "{area:127} : tuez-les au passage",
+	-- Step 48: Zul'Mamwe and Balia'mah trophy skulls
+	["Zul'Mamwe and Balia'mah trophy skulls"] = "",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["The next trophy skulls stand in the small ruins just north of the warriors' camp.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "Les crânes trophées suivants se trouvent dans les petites ruines juste au nord du camp des guerriers.\nLes derniers crânes sont dans les ruines à quelques pas à l'ouest, sur le chemin du retour vers {object:3202}.",
 
-	-- Step 50: Kin'weelay
+	-- Step 49: Kin'weelay
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Head west to {object:3202}."] = "Allez vers l'ouest jusqu'à Grom'gol.",
 
-	-- Step 51: Grom'gol Base Camp
+	-- Step 52: Grom'gol Base Camp
 	-- {npc:2464} Commander Aggro'gosh · {npc:256418} Krom'rosh · {area:16743} Rog'mar · {zone:2548} Riverglades
 	["{npc:2464}: for {npc:256418} in {area:16743}, the {zone:2548}' Horde fort, in the next guide"] = "{npc:2464} : pour {npc:256418} à {area:16743}, le fort de la Horde de {zone:2548}, dans le guide suivant",
 	-- {quest:571} Mok'thardin's Enchantment · {quest:621} Zanzil's Secret · {npc:737} Kebok · {area:35} Booty Bay · {zone:2548} Riverglades
 	["Keep {quest:571}, {quest:621} and {npc:737}'s tusks: the Skullsplitter chief, Zanzil's camps, the naga coast and {area:35} come on your Stranglethorn stop at about 45, after the {zone:2548}."] = "Gardez {quest:571}, {quest:621} et les défenses de {npc:737} : le chef des Fendeurs de crânes, les camps de Zanzil, la côte des nagas et {area:35} viennent lors de votre étape à Strangleronce vers le niveau 45, après {zone:2548}.",
 
-	-- Step 53: Nesingwary's Expedition
+	-- Step 54: Nesingwary's Expedition
 	["Head north up the road to the hunters' camp."] = "Remontez la route vers le nord jusqu'au camp des chasseurs.",
 
-	-- Step 55: Raptor Mastery
+	-- Step 56: Raptor Mastery
 	-- {npc:730} Tethis
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:730} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. {npc:730} est un élite de niveau 43 : la plupart des classes le tuent seules au niveau 45, mais vous aurez peut-être besoin d'aide. Passez-le si vous êtes seul.",
 
-	-- Step 56: Panther Mastery
+	-- Step 57: Panther Mastery
 	-- {npc:728} Bhag'thera
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:728} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. {npc:728} est un élite de niveau 40 : la plupart des classes le tuent seules au niveau 42, mais vous aurez peut-être besoin d'aide. Passez-le si vous êtes seul.",
 
-	-- Step 60: Big Game Hunter
+	-- Step 61: Big Game Hunter
 	-- {npc:731} King Bangalash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:731} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone.\nCareful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, {npc:731} calls for help from creatures within 20 yd."] = "Ce sont des monstres élites : il est conseillé de se grouper, cherchez des joueurs avec qui le faire. Le {npc:731} est un élite de niveau 43 : la plupart des classes le tuent seules au niveau 45, mais vous aurez peut-être besoin d'aide. Passez-le si vous êtes seul.\nAttention : des tigres et des panthères Ombregueule camouflées rôdent près de lui. Éliminez-les avant de l'attirer. Une fois attiré, le {npc:731} appelle à l'aide les créatures à moins de 20 m.",
 
-	-- Step 65: Into the Swamp of Sorrows
+	-- Step 66: Into the Swamp of Sorrows
 	-- {zone:1435} Swamp of Sorrows
 	["Into the {zone:1435}"] = "Vers {zone:1435}",
 	-- {zone:1431} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
 	["Follow the road east from {zone:1431} through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp just off the road where it comes in from {zone:1430}."] = "Suivez la route vers l'est depuis {zone:1431} à travers {zone:1430} jusqu'au marais. {npc:1776} attend à {area:657}, le camp draeneï juste à côté de la route, là où elle arrive depuis {zone:1430}.",
 
-	-- Step 66: Stonard
+	-- Step 67: Stonard
 	-- {area:75} Stonard
 	["Head east to {area:75}, in the reeds south of the road."] = "Allez vers l'est jusqu'à {area:75}, dans les roseaux au sud de la route.",
 	-- {npc:5591} Dar
@@ -311,29 +307,29 @@ return {
 	-- {npc:1443} Fel'zerul
 	["{npc:1443}, on the top floor"] = "{npc:1443}, au dernier étage",
 
-	-- Step 67: Sawtooth crocolisks
+	-- Step 68: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "Crocilisques Dents-de-scie",
 	-- {npc:5391} Galen Goodward · {area:75} Stonard
 	["The crocolisks wallow in the pools around {npc:5391}'s camp and south towards {area:75}; about one in four drops a flank."] = "Les crocilisques se vautrent dans les mares autour du camp de {npc:5391} et vers le sud jusqu'à {area:75} ; environ un sur quatre laisse tomber un flanc.",
 
-	-- Step 68: Noboru the Cudgel
+	-- Step 69: Noboru the Cudgel
 	-- {area:76} Fallow Sanctuary
 	["Noboru wanders the clearing south-west of the {area:76}; his cudgel starts a quest."] = "Noboru erre dans la clairière au sud-ouest de {area:76} ; son gourdin lance une quête.",
 
-	-- Step 69: Draenethyst crystals
+	-- Step 70: Draenethyst crystals
 	["Draenethyst crystals"] = "Cristaux de draenéthyste",
 	-- {area:76} Fallow Sanctuary · {npc:5391} Galen Goodward
 	["Head north-east to the {area:76}. The crystals stand along the way up to {npc:5391}'s cage."] = "Allez vers le nord-est jusqu'à {area:76}. Les cristaux se dressent le long du chemin qui monte vers la cage de {npc:5391}.",
 
-	-- Step 70: Galen's Escape
+	-- Step 71: Galen's Escape
 	-- {npc:5391} Galen Goodward · {area:76} Fallow Sanctuary
 	["{npc:5391} is held in the {area:76} in the swamp's north-east. Free him and follow him out, fighting off the swamp creatures that chase him."] = "{npc:5391} est retenu à {area:76}, dans le nord-est du marais. Libérez-le et suivez-le dehors en repoussant les créatures du marais qui le poursuivent.",
 
-	-- Step 71: Galen's Strongbox
+	-- Step 72: Galen's Strongbox
 	-- {area:75} Stonard
 	["His strongbox waits at his old camp north of {area:75}, on the way back west."] = "Son coffre attend à son ancien camp au nord de {area:75}, sur le chemin du retour vers l'ouest.",
 
-	-- Step 72: Harborage
+	-- Step 73: Harborage
 	-- {area:657} Harborage · {zone:1430} Deadwind Pass · {quest:698} Lack of Surplus · {npc:5592} Tok'Kar · {area:1978} Misty Reed Post
 	["Head west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}. {quest:698} goes to {npc:5592} at {area:1978} on the next swamp visit: keep the flanks."] = "Allez vers l'ouest le long de la route jusqu'au camp draeneï de {area:657}, près de l'entrée depuis {zone:1430}. {quest:698} va à {npc:5592} à {area:1978} lors de la prochaine visite du marais : gardez les flancs.",
 
@@ -414,6 +410,7 @@ return {
 	-- ["the {object:2076} again: Yenniku's fate"] = "le {object:2076} à nouveau : le sort de Yenniku",
 	-- ["the {object:2076}, beside Nimboya"] = "le {object:2076}, à côté de Nimboya",
 	-- ["the {object:2076}, beside {npc:2497}"] = "le {object:2076}, à côté de {npc:2497}",
+	-- ["{area:127}: kill these as you meet them"] = "{area:127} : tuez-les au passage",
 	-- ["{area:1577}: kill these as you meet them"] = "{area:1577} : tuez-les au passage",
 	-- ["{area:1737}: kill these as you meet them"] = "{area:1737} : tuez-les au passage",
 	-- ["{area:35} flight master"] = "Maître de vol de {area:35}",

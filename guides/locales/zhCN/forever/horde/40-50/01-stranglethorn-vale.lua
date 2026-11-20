@@ -261,47 +261,43 @@ return {
 	["The warriors in the northern ruins (39-40) drop both tusks and necklaces. Pull from the edge; leave the chief and his two guards to the south alone."] = "",
 	["Skullsplitter warriors"] = "劈颅战士",
 
-	-- Step 48: Zul'Mamwe trophy skulls
-	["Zul'Mamwe trophy skulls"] = "",
-
-	-- Step 49: Balia'mah Ruins: kill these as you meet them
-	-- {area:127} Balia'mah Ruins
-	["{area:127}: kill these as you meet them"] = "{area:127}：沿途遇到就击杀",
+	-- Step 48: Zul'Mamwe and Balia'mah trophy skulls
+	["Zul'Mamwe and Balia'mah trophy skulls"] = "",
 	-- {object:3202} Grom'gol
 	["The next trophy skulls stand in the small ruins just north of the warriors' camp.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "下一堆颅骨堆在战士营地正北的小废墟里。\n最后的颅骨堆在西边不远的废墟里，走几步就到，就在回{object:3202}的路上。",
 
-	-- Step 50: Kin'weelay
+	-- Step 49: Kin'weelay
 	-- {object:3202} Grom'gol
 	["Head west to {object:3202}."] = "向西前往 {object:3202}。",
 
-	-- Step 51: Grom'gol Base Camp
+	-- Step 52: Grom'gol Base Camp
 	-- {npc:2464} Commander Aggro'gosh · {npc:256418} Krom'rosh · {area:16743} Rog'mar · {zone:2548} Riverglades
 	["{npc:2464}: for {npc:256418} in {area:16743}, the {zone:2548}' Horde fort, in the next guide"] = "{npc:2464}：交给下一份指南中{zone:2548}部落要塞{area:16743}的{npc:256418}",
 	-- {quest:571} Mok'thardin's Enchantment · {quest:621} Zanzil's Secret · {npc:737} Kebok · {area:35} Booty Bay · {zone:2548} Riverglades
 	["Keep {quest:571}, {quest:621} and {npc:737}'s tusks: the Skullsplitter chief, Zanzil's camps, the naga coast and {area:35} come on your Stranglethorn stop at about 45, after the {zone:2548}."] = "保留{quest:571}、{quest:621}和{npc:737}的獠牙任务：碎颅首领、赞吉尔的营地、纳迦海岸和{area:35}都留到{zone:2548}之后、约45级再来荆棘谷时完成。",
 
-	-- Step 53: Nesingwary's Expedition
+	-- Step 54: Nesingwary's Expedition
 	["Head north up the road to the hunters' camp."] = "沿路向北前往猎人营地。",
 
-	-- Step 55: Raptor Mastery
+	-- Step 56: Raptor Mastery
 	-- {npc:730} Tethis
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:730} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:730}是43级精英，多数职业到45级可以单独击败，但可能仍需帮助。独自一人时请跳过。",
 
-	-- Step 56: Panther Mastery
+	-- Step 57: Panther Mastery
 	-- {npc:728} Bhag'thera
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:728} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:728}是40级精英，多数职业到42级可以单独击败，但可能仍需帮助。独自一人时请跳过。",
 
-	-- Step 60: Big Game Hunter
+	-- Step 61: Big Game Hunter
 	-- {npc:731} King Bangalash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:731} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone.\nCareful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, {npc:731} calls for help from creatures within 20 yd."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:731}是43级精英，多数职业到45级可以单独击败，但可能仍需帮助。独自一人时请跳过。\n小心：附近有老虎和潜行的深喉猎豹，先清理再拉它。拉到{npc:731}时，它会召集20码内的生物支援。",
 
-	-- Step 65: Into the Swamp of Sorrows
+	-- Step 66: Into the Swamp of Sorrows
 	-- {zone:1435} Swamp of Sorrows
 	["Into the {zone:1435}"] = "进入{zone:1435}",
 	-- {zone:1431} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
 	["Follow the road east from {zone:1431} through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp just off the road where it comes in from {zone:1430}."] = "从{zone:1431}沿路向东，经过{zone:1430}进入沼泽。{npc:1776}在{area:657}等候；那是靠近{zone:1430}入口、道路旁的德莱尼营地。",
 
-	-- Step 66: Stonard
+	-- Step 67: Stonard
 	-- {area:75} Stonard
 	["Head east to {area:75}, in the reeds south of the road."] = "向东前往{area:75}，就在路南的芦苇丛中。",
 	-- {npc:5591} Dar
@@ -311,29 +307,29 @@ return {
 	-- {npc:1443} Fel'zerul
 	["{npc:1443}, on the top floor"] = "{npc:1443}，位于最顶层",
 
-	-- Step 67: Sawtooth crocolisks
+	-- Step 68: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "盐齿鳄鱼",
 	-- {npc:5391} Galen Goodward · {area:75} Stonard
 	["The crocolisks wallow in the pools around {npc:5391}'s camp and south towards {area:75}; about one in four drops a flank."] = "鳄鱼在{npc:5391}营地周围的水塘里打滚，一直到南边的{area:75}；大约四分之一会掉落鳄鱼肉。",
 
-	-- Step 68: Noboru the Cudgel
+	-- Step 69: Noboru the Cudgel
 	-- {area:76} Fallow Sanctuary
 	["Noboru wanders the clearing south-west of the {area:76}; his cudgel starts a quest."] = "木棒诺博鲁在{area:76}西南的空地上游荡；他的木棒可以开始一个任务。",
 
-	-- Step 69: Draenethyst crystals
+	-- Step 70: Draenethyst crystals
 	["Draenethyst crystals"] = "德莱尼水晶",
 	-- {area:76} Fallow Sanctuary · {npc:5391} Galen Goodward
 	["Head north-east to the {area:76}. The crystals stand along the way up to {npc:5391}'s cage."] = "向东北前往{area:76}。水晶分布在通往{npc:5391}笼子的路上。",
 
-	-- Step 70: Galen's Escape
+	-- Step 71: Galen's Escape
 	-- {npc:5391} Galen Goodward · {area:76} Fallow Sanctuary
 	["{npc:5391} is held in the {area:76} in the swamp's north-east. Free him and follow him out, fighting off the swamp creatures that chase him."] = "{npc:5391}被关在沼泽东北的{area:76}。救出他并跟着他出去，击退追赶他的沼泽生物。",
 
-	-- Step 71: Galen's Strongbox
+	-- Step 72: Galen's Strongbox
 	-- {area:75} Stonard
 	["His strongbox waits at his old camp north of {area:75}, on the way back west."] = "他的保险箱在{area:75}北边的旧营地里，向西返程时会经过。",
 
-	-- Step 72: Harborage
+	-- Step 73: Harborage
 	-- {area:657} Harborage · {zone:1430} Deadwind Pass · {quest:698} Lack of Surplus · {npc:5592} Tok'Kar · {area:1978} Misty Reed Post
 	["Head west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}. {quest:698} goes to {npc:5592} at {area:1978} on the next swamp visit: keep the flanks."] = "沿路向西前往{area:657}的德莱尼营地，靠近从{zone:1430}过来的入口。{quest:698}留到下次来沼泽时，交给{area:1978}的{npc:5592}：保留鳄鱼肉。",
 
@@ -407,6 +403,7 @@ return {
 	-- ["the {object:2076}"] = "{object:2076}",
 	-- ["the {object:2076} again: Yenniku's fate"] = "再次到{object:2076}处：耶尼库的命运",
 	-- ["the {object:2076}, beside {npc:2497}"] = "{object:2076}，在{npc:2497}旁边",
+	-- ["{area:127}: kill these as you meet them"] = "{area:127}：沿途遇到就击杀",
 	-- ["{area:1577}: kill these as you meet them"] = "{area:1577}：沿途遇到就击杀",
 	-- ["{area:35} flight master"] = "{area:35}的飞行管理员",
 	-- ["{area:392} pier"] = "{area:392}码头",

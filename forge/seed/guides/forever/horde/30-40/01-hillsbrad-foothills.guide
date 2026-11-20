@@ -305,12 +305,22 @@ step North of Southshore
 # ---------------------------------------------------------------- The smithy and the fields
 
 step The smithy
-  when onquest 529,567
+  when !turnedin 529
+  when onquest 529
+  when !complete 529
+  when level>=25
   zone Hillsbrad Foothills
-  tip West across the foothills to Hillsbrad town: the smithy stands in the middle of it. Blacksmith Verringtan and his apprentices work at the forge; the Shipment of Iron is stacked beside it. Citizen Wilkes walks the west side of the town; Farmer Kalaba works the field south-east of the town.
+  tip Blacksmith Verringtan and his apprentices work at the forge in the middle of Hillsbrad town. The Shipment of Iron is stacked beside it.
   kill 2404 quest 529.1
   kill 2265 quest 529.2
   collect 3564 quest 529.3            -- Inside
+
+step Hillsbrad Fields: the wanted villagers
+  when onquest 567
+  when !complete 567
+  when level>=24
+  zone Hillsbrad Foothills
+  tip Citizen Wilkes walks the west side of town. Farmer Kalaba works in the field south-east of town.
   kill 2449 quest 567.2 @30.6,40.5 map 1424 era -- Citizen Wilkes, on the west side of the town
   kill 2451 quest 567.4
 

@@ -173,7 +173,9 @@ step Thistleshrub Valley: kill these as you meet them
   tip Careful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: take the Dew Collectors at the valley's edge, and leave Tran'rek's Gnarled Thistleshrubs and Rootshapers for the Broken Pillar ride into Un'Goro at about 51.
   collect 8623 optional                 -- OOX-17/TN Distress Beacon, a rare drop
   collect 8428 quest 2605.1 @29.2,66.1
-  accept 1560 optional @30.2,70.7 map 1446 -- On the way out, take Tooga if you see him. If he's gone, don't wait.
+
+step Tooga in Thistleshrub Valley
+  accept 1560 @30.2,70.7 map 1446 -- Take Tooga on your way out of the valley. If he isn't here, choose Skip this step; don't wait for him.
 
 step Tooga's escort
   when onquest 1560

@@ -20,8 +20,8 @@ return {
 	-- {npc:2216} Apothecary Lydon
 	-- plural, as words: Syndicate Shadow Mages = {npc:2244} Syndicate Shadow Mage
 	["{npc:2216}: the vials come from the Syndicate Shadow Mages on the way to Durnholde"] = "{npc:2216}：药瓶由前往敦霍尔德路上的辛迪加暗影法师掉落",
-	-- {object:556670} WANTED
-	["The {object:556670} poster by the inn"] = "旅店旁的{object:556670}告示",
+	-- was: ["The {object:556670} poster by the inn"] = "旅店旁的{object:556670}告示"
+	["The WANTED poster by the inn"] = "",
 	-- {npc:2229} Krusk
 	["{npc:2229}, inside"] = "{npc:2229}：在屋内",
 
@@ -265,6 +265,7 @@ return {
 	-- ["The town hall is on the west side of {area:287}. {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "市政厅在{area:287}西侧。{npc:2335}（30级）和{npc:2448}在里面，旁边是希尔斯布莱德城镇文档；希尔斯布莱德宣言就贴在它旁边。希尔斯布莱德议员在镇上走动。",
 	-- ["The western peak"] = "西边的山峰",
 	-- ["The {area:288} lies south of {area:287} town. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "{area:288}在{area:287}镇南边。希尔斯布莱德矿工在坑道里干活；{npc:2305}（30级）和{npc:2450}（29级）在深处。",
+	-- ["The {object:556670} poster by the inn"] = "旅店旁的{object:556670}告示",
 	-- ["The {quest:567} poster: Kalaba and Wilkes come up here, the clerk and the miner on the visit at about 32; inside"] = "{quest:567}告示：卡拉巴和威尔克斯在这里出现，书记员和矿工在大约32级再来时处理；在室内",
 	-- ["The {quest:567} poster: Kalaba with the peasants, Wilkes at the smithy; the clerk and the miner on the visit at about 30; inside"] = "{quest:567}告示：卡拉巴在农民中间，维尔克斯在铁匠铺；书记员和矿工留到约30级再来时处理；告示在室内",
 	-- ["The {quest:567} poster: its targets come up along the way"] = "{quest:567}告示：上面的目标会在沿途遇到",

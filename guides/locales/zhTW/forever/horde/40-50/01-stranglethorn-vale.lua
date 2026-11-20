@@ -261,47 +261,43 @@ return {
 	["The warriors in the northern ruins (39-40) drop both tusks and necklaces. Pull from the edge; leave the chief and his two guards to the south alone."] = "",
 	["Skullsplitter warriors"] = "劈顱戰士",
 
-	-- Step 48: Zul'Mamwe trophy skulls
-	["Zul'Mamwe trophy skulls"] = "",
-
-	-- Step 49: Balia'mah Ruins: kill these as you meet them
-	-- {area:127} Balia'mah Ruins
-	["{area:127}: kill these as you meet them"] = "{area:127}：遇到就殺",
+	-- Step 48: Zul'Mamwe and Balia'mah trophy skulls
+	["Zul'Mamwe and Balia'mah trophy skulls"] = "",
 	-- {object:3202} Grom'gol
 	["The next trophy skulls stand in the small ruins just north of the warriors' camp.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "下一批祖瑪維顱骨堆在劈顱戰士營地北邊不遠的小廢墟中。\n最後一批顱骨在往西走一小段的廢墟裡，就在回{object:3202}的路上。",
 
-	-- Step 50: Kin'weelay
+	-- Step 49: Kin'weelay
 	-- {object:3202} Grom'gol
 	["Head west to {object:3202}."] = "向西前往{object:3202}。",
 
-	-- Step 51: Grom'gol Base Camp
+	-- Step 52: Grom'gol Base Camp
 	-- {npc:2464} Commander Aggro'gosh · {npc:256418} Krom'rosh · {area:16743} Rog'mar · {zone:2548} Riverglades
 	["{npc:2464}: for {npc:256418} in {area:16743}, the {zone:2548}' Horde fort, in the next guide"] = "{npc:2464}：交給下一份指南中{zone:2548}部落要塞{area:16743}的{npc:256418}",
 	-- {quest:571} Mok'thardin's Enchantment · {quest:621} Zanzil's Secret · {npc:737} Kebok · {area:35} Booty Bay · {zone:2548} Riverglades
 	["Keep {quest:571}, {quest:621} and {npc:737}'s tusks: the Skullsplitter chief, Zanzil's camps, the naga coast and {area:35} come on your Stranglethorn stop at about 45, after the {zone:2548}."] = "留著{quest:571}、{quest:621}和{npc:737}的獠牙：劈顱首領、贊吉爾的營地、納迦海岸和{area:35}都在{zone:2548}之後、約45級的荊棘谷停留點進行。",
 
-	-- Step 53: Nesingwary's Expedition
+	-- Step 54: Nesingwary's Expedition
 	["Head north up the road to the hunters' camp."] = "沿道路向北走到獵人營地。",
 
-	-- Step 55: Raptor Mastery
+	-- Step 56: Raptor Mastery
 	-- {npc:730} Tethis
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:730} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone."] = "這些是精英怪：建議組小隊，找人一起打。{npc:730}是43級精英：大多數職業45級可單刷，但你可能需要幫手。獨自一人就跳過。",
 
-	-- Step 56: Panther Mastery
+	-- Step 57: Panther Mastery
 	-- {npc:728} Bhag'thera
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:728} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone."] = "這些是精英怪：建議組小隊，找人一起打。{npc:728}是40級精英：大多數職業42級可單刷，但你可能需要幫手。獨自一人就跳過。",
 
-	-- Step 60: Big Game Hunter
+	-- Step 61: Big Game Hunter
 	-- {npc:731} King Bangalash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:731} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone.\nCareful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, {npc:731} calls for help from creatures within 20 yd."] = "這些是精英怪：建議組小隊，找人一起打。{npc:731}是43級精英：大多數職業45級可單刷，但你可能需要幫手。獨自一人就跳過。\n小心：老虎和潛行中的影喉黑豹在他附近遊蕩。拉他之前先清掉。被拉到時，{npc:731}會呼叫20碼內的生物幫忙。",
 
-	-- Step 65: Into the Swamp of Sorrows
+	-- Step 66: Into the Swamp of Sorrows
 	-- {zone:1435} Swamp of Sorrows
 	["Into the {zone:1435}"] = "進入{zone:1435}",
 	-- {zone:1431} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
 	["Follow the road east from {zone:1431} through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp just off the road where it comes in from {zone:1430}."] = "沿道路從{zone:1431}向東穿過{zone:1430}進入沼澤。{npc:1776}在{area:657}等著，那是道路從{zone:1430}進來處旁邊的德萊尼營地。",
 
-	-- Step 66: Stonard
+	-- Step 67: Stonard
 	-- {area:75} Stonard
 	["Head east to {area:75}, in the reeds south of the road."] = "向東前往道路南邊蘆葦叢中的{area:75}。",
 	-- {npc:5591} Dar
@@ -311,29 +307,29 @@ return {
 	-- {npc:1443} Fel'zerul
 	["{npc:1443}, on the top floor"] = "{npc:1443}，在頂層",
 
-	-- Step 67: Sawtooth crocolisks
+	-- Step 68: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "鹽齒鱷魚",
 	-- {npc:5391} Galen Goodward · {area:75} Stonard
 	["The crocolisks wallow in the pools around {npc:5391}'s camp and south towards {area:75}; about one in four drops a flank."] = "鹽齒鱷魚在{npc:5391}營地周圍和往南到{area:75}的水池中打滾；約四隻有一隻掉落側腹肉。",
 
-	-- Step 68: Noboru the Cudgel
+	-- Step 69: Noboru the Cudgel
 	-- {area:76} Fallow Sanctuary
 	["Noboru wanders the clearing south-west of the {area:76}; his cudgel starts a quest."] = "木棒諾博魯在{area:76}西南方的空地遊蕩；他的木棒會開啟一個任務。",
 
-	-- Step 69: Draenethyst crystals
+	-- Step 70: Draenethyst crystals
 	["Draenethyst crystals"] = "德萊尼水晶",
 	-- {area:76} Fallow Sanctuary · {npc:5391} Galen Goodward
 	["Head north-east to the {area:76}. The crystals stand along the way up to {npc:5391}'s cage."] = "向東北前往{area:76}。水晶沿著通往{npc:5391}籠子的路分布。",
 
-	-- Step 70: Galen's Escape
+	-- Step 71: Galen's Escape
 	-- {npc:5391} Galen Goodward · {area:76} Fallow Sanctuary
 	["{npc:5391} is held in the {area:76} in the swamp's north-east. Free him and follow him out, fighting off the swamp creatures that chase him."] = "{npc:5391}被關在沼澤東北部的{area:76}。釋放他並跟著他出去，擊退追趕他的沼澤生物。",
 
-	-- Step 71: Galen's Strongbox
+	-- Step 72: Galen's Strongbox
 	-- {area:75} Stonard
 	["His strongbox waits at his old camp north of {area:75}, on the way back west."] = "他的保險箱在{area:75}北邊他的舊營地，就在往西回去的路上。",
 
-	-- Step 72: Harborage
+	-- Step 73: Harborage
 	-- {area:657} Harborage · {zone:1430} Deadwind Pass · {quest:698} Lack of Surplus · {npc:5592} Tok'Kar · {area:1978} Misty Reed Post
 	["Head west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}. {quest:698} goes to {npc:5592} at {area:1978} on the next swamp visit: keep the flanks."] = "沿道路向西前往{area:657}的德萊尼營地，靠近{zone:1430}的入口。{quest:698}要在下次來沼澤時交給{area:1978}的{npc:5592}：留著側腹肉。",
 
@@ -379,6 +375,7 @@ return {
 	-- ["for a later stop in the {area:8}"] = "留待之後在{area:8}的一站",
 	-- ["the {object:2076}"] = "{object:2076}",
 	-- ["the {object:2076}, beside {npc:2497}"] = "{object:2076}，在{npc:2497}旁邊",
+	-- ["{area:127}: kill these as you meet them"] = "{area:127}：遇到就殺",
 	-- ["{area:392} pier"] = "{area:392}碼頭",
 	-- ["{npc:2496}, on the balcony beside MacKinley, has one more errand: the fuel regulator blueprints from Cozzle's footlocker go to Pozzik at the {area:2240}, on the way to {zone:1446} around level 43."] = "{npc:2496}在麥金利旁邊的陽台上，還有一個差事：考索提箱裡的燃料調節器藍圖要交給{area:2240}的波茲克，在約43級前往{zone:1446}的路上。",
 	-- ["{npc:773}, upstairs: for {quest:2864} in {area:976}"] = "{npc:773}，在樓上：給{area:976}的{quest:2864}",

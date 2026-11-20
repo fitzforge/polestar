@@ -235,8 +235,8 @@ return {
 	-- Step 52: WANTED: Scoutmaster Vargas
 	-- {npc:260211} Scoutmaster Vargas · {npc:256728} Na'zok · {npc:258031} Neza Bloodsnout
 	["{npc:260211} is an elite (level 42) at the Alliance scouts' camp in the hills south-east of {npc:256728}, where you go next: grouping up is advised. The poster hangs in the middle of the fort; {npc:258031} takes the eye, later in this guide."] = "{npc:260211}是精英（42级），位于{npc:256728}东南方山中的联盟斥候营地，也就是你接下来要去的地方：建议组队。通缉令挂在要塞中央；眼睛交给{npc:258031}，在本指南后面。",
-	-- {object:707249} Wanted (no name in this language: may be words)
-	["the {object:707249} poster"] = "{object:707249}通缉令",
+	-- was: ["the {object:707249} poster"] = "{object:707249}通缉令"
+	["the Wanted poster"] = "",
 
 	-- Step 53: Na'zok's camp
 	-- {npc:256728} Na'zok
@@ -536,6 +536,7 @@ return {
 	-- ["The next guide flies from {area:340} in the {area:3}: north out of {npc:258570}'s valley and up through {area:16685}, the way through to the {area:3}."] = "下一份指南从{area:3}的{area:340}起飞：向北离开{npc:258570}的山谷，穿过{area:16685}，那里是通往{area:3}的路。",
 	-- ["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244}在港口西南、鱼人海滩下方的浅水中游荡。精英{npc:257001}在附近岸边走动：离他远一点。",
 	-- ["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, hides in the middle of the town."] = "罗格玛西边，暮光教派占据着农镇{area:16723}。想要脱身的狗头人{npc:259158}躲在镇子中央。",
+	-- ["the {object:707249} poster"] = "{object:707249}通缉令",
 	-- ["{npc:255897}: {quest:95296}, for {npc:260405} at {area:977} in the {zone:1444} & {zone:1446} guide"] = "{npc:255897}：{quest:95296}，在{zone:1444}和{zone:1446}指南中交给{area:977}的{npc:260405}",
 	-- ["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "对淡水鳄使用{npc:263190}的长矛",
 	-- ["{quest:95267}: a big beast in the shallows south-west of the port, near {npc:257001}, the elite"] = "{quest:95267}：港口西南浅水中的一只巨兽，靠近精英{npc:257001}",

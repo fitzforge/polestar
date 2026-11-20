@@ -20,8 +20,8 @@ return {
 	-- {npc:2216} Apothecary Lydon
 	-- plural, as words: Syndicate Shadow Mages = {npc:2244} Syndicate Shadow Mage
 	["{npc:2216}: the vials come from the Syndicate Shadow Mages on the way to Durnholde"] = "{npc:2216} : les fioles proviennent des Mages de l'ombre du Syndicat sur la route de Fort-de-Durn",
-	-- {object:556670} WANTED
-	["The {object:556670} poster by the inn"] = "L'affiche {object:556670} près de l'auberge",
+	-- was: ["The {object:556670} poster by the inn"] = "L'affiche {object:556670} près de l'auberge"
+	["The WANTED poster by the inn"] = "",
 	-- {npc:2229} Krusk
 	["{npc:2229}, inside"] = "{npc:2229}, à l'intérieur",
 
@@ -273,6 +273,7 @@ return {
 	-- ["The {area:1718}"] = "{area:1718}",
 	-- ["The {area:288} lies south of {area:287} town. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "{area:288} se trouve au sud du village de {area:287}. Des Mineurs d'Hillsbrad travaillent dans les galeries ; {npc:2305} (30) et {npc:2450} (29) sont tout au fond.",
 	-- ["The {object:1763} poster by the inn"] = "L'affiche {object:1763} près de l'auberge",
+	-- ["The {object:556670} poster by the inn"] = "L'affiche {object:556670} près de l'auberge",
 	-- ["The {quest:567} poster: Kalaba with the peasants, Wilkes at the smithy; the clerk and the miner on the visit at about 30; inside"] = "L'affiche {quest:567} : Kalaba avec les paysans, Wilkes à la forge ; le commis et le mineur lors de la visite vers le niveau 30 ; à l'intérieur",
 	-- ["The {quest:567} poster: its targets come up along the way"] = "L'affiche {quest:567} : ses cibles se présentent en chemin",
 	-- ["The {quest:567} poster: its targets come up along the way; inside"] = "L'affiche {quest:567} : ses cibles se présentent en chemin ; à l'intérieur",

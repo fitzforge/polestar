@@ -440,23 +440,30 @@ step Zul'Mamwe
   collect 1524 quest 209.1 npc 667 @45.06,34.07 map 1434 era
   collect 3916 quest 598.1 npc 667 @45.06,34.07 map 1434 era
 
-step Zul'Mamwe trophy skulls
-  collect 3908 quest 585.3
-
-step Balia'mah Ruins: kill these as you meet them
+step Zul'Mamwe and Balia'mah trophy skulls
   zone Stranglethorn Vale
   tip The next trophy skulls stand in the small ruins just north of the warriors' camp.
   tip The last skulls are in the ruins a short walk west, on the way back to Grom'gol.
+  collect 3908 quest 585.3
   collect 3906 quest 585.1
   collect 3907 quest 585.2
 
 step Kin'weelay
   when complete 598
+  when complete 95770
   tip Head west to Grom'gol.
   turnin 598                            -- Kin'weelay
+  turnin 95770 npc 2519                 -- Kin'weelay
+
+step Kin'weelay
+  when complete 598
+  turnin 598
+
+step Kin'weelay
+  when complete 95770
+  turnin 95770 npc 2519                 -- Kin'weelay
 
 step Grom'gol Base Camp
-  turnin 95770 npc 2519                 -- Kin'weelay
   turnin 585
   accept 95141                          -- Commander Aggro'gosh: for Krom'rosh in Rog'mar, the Riverglades' Horde fort, in the next guide
   note Keep Speaking with Gan'zulah, Mok'thardin's Enchantment, Zanzil's Secret and Kebok's tusks: the Skullsplitter chief, Zanzil's camps, the naga coast and Booty Bay come on your Stranglethorn stop at about 45.

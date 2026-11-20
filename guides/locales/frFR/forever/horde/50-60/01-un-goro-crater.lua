@@ -201,10 +201,11 @@ return {
 	["{area:340} is built into the cliffs on the {zone:1418}' west edge."] = "{area:340} est construit dans les falaises du bord ouest de {zone:1418}.",
 
 	-- Step 41: The WANTED poster
-	-- {object:164867} WANTED
-	["The {object:164867} poster"] = "L'affiche {object:164867}",
-	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {object:164867} WANTED · {area:340} Kargath
-	["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "Pour votre expédition dans {area:1584}, la prochaine, en traversant le {area:254} : l'affiche {object:164867} de {area:340} veut que vous éclaircissiez les rangs des nains Enclume-ardente de l'intérieur.",
+	-- was: ["The {object:164867} poster"] = "L'affiche {object:164867}"
+	["The WANTED poster"] = "L'affiche AVIS DE RECHERCHE",
+	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {area:340} Kargath
+	-- was: ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "Pour votre expédition dans {area:1584}, la prochaine, en traversant le {area:254} : l'affiche {object:164867} de {area:340} veut que vous éclaircissiez les rangs des nains Enclume-ardente de l'intérieur."
+	["For your {area:1584} run, next, on the way through {area:254}: the WANTED poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "",
 
 	-- Step 42: Into the Searing Gorge
 	-- {zone:1427} Searing Gorge
@@ -310,6 +311,7 @@ return {
 	-- ["Fly to {zone:1454}, take the zeppelin to {object:3202} and fly from there to {area:340}, built into the cliffs on the {area:3}' west edge."] = "Volez jusqu'à {zone:1454}, prenez le zeppelin pour Grom'gol et volez de là jusqu'à {area:340}, bâtie dans les falaises du bord ouest des {area:3}.",
 	-- ["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Suivez la route vers l'est à travers les {area:28} et traversez la rivière pour entrer dans les {area:139} ; quittez-les vers le nord pour {area:2627}, la ville en ruine au nord-ouest. {npc:12384} est assis dans une hutte à sa lisière.",
 	-- ["Follow the road east through the {zone:1422} and across the river into the {zone:1423}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Suivez la route vers l'est à travers les {zone:1422} et traversez la rivière vers les {zone:1423} ; quittez-la vers le nord pour {area:2627}, la ville en ruine du nord-ouest. {npc:12384} est assis dans une cabane à sa lisière.",
+	-- ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "Pour votre expédition dans {area:1584}, la prochaine, en traversant le {area:254} : l'affiche {object:164867} de {area:340} veut que vous éclaircissiez les rangs des nains Enclume-ardente de l'intérieur.",
 	-- ["Free Darrowshire Spirits: talk to them"] = "Libérez des Esprits de Darrowshire ({npc:11064}) : parlez-leur",
 	-- ["From here on pick up every {npc:271301} (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "Dès maintenant, ramassez chaque {npc:271301} (bleu, vert, rouge, jaune) et chaque tas de {quest:3761} sur votre route : 25 terres en tout, 20 pour Hamuul et 5 pour Pestlezugg.",
 	-- ["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "Depuis la {area:152}, suivez la route vers l'est jusqu'aux {zone:1422}. Les tentes de la Croisade écarlate se dressent juste après la ferme Felstone, entre {area:199} et {area:200}. Incendiez la tente de commandement avec la {object:176092} et plantez la bannière du Fléau.",
@@ -367,6 +369,7 @@ return {
 	-- ["The tar pits lie just south of the refuge. Tar Beasts, Lurkers and Creepers drop the {item:11834}."] = "Les fosses de goudron se trouvent juste au sud du refuge. Les Bêtes du goudron, les Rôdeurs et les Rampants lâchent le {item:11834}.",
 	-- ["The wooden sign beside {npc:9997}"] = "Le panneau en bois à côté de {npc:9997}",
 	-- ["The {npc:9167} fly over the western cliffs around the pylon. Careful: the biggest are 54: pull them one at a time."] = "Les {npc:9167} survolent les falaises de l'ouest autour du pylône. Attention : les plus gros sont de niveau 54 : attirez-les un par un.",
+	-- ["The {object:164867} poster"] = "L'affiche {object:164867}",
 	-- ["Theodora's next errand goes to Lotwil east of town and then into {area:1584}: skip it."] = "La course suivante de Theodora mène à Lotwil, à l'est de la ville, puis dans {area:1584} : passez-la.",
 	-- ["Theodora's quest in {area:340} needs level 52. The Tar Lurkers and Tar Lords just south of the refuge are the closest camp."] = "La quête de Theodora à {area:340} demande le niveau 52. Les Rôdeurs du goudron et Seigneurs du goudron juste au sud du refuge sont le camp le plus proche.",
 	-- ["To {area:197}"] = "Vers la {area:197}",

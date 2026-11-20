@@ -235,8 +235,8 @@ return {
 	-- Step 52: WANTED: Scoutmaster Vargas
 	-- {npc:260211} Scoutmaster Vargas · {npc:256728} Na'zok · {npc:258031} Neza Bloodsnout
 	["{npc:260211} is an elite (level 42) at the Alliance scouts' camp in the hills south-east of {npc:256728}, where you go next: grouping up is advised. The poster hangs in the middle of the fort; {npc:258031} takes the eye, later in this guide."] = "{npc:260211} – элита (42-й уровень) в лагере разведчиков Альянса на холмах к юго-востоку от NPC {npc:256728}, куда вы идете дальше: советуем собрать группу. Объявление висит в центре форта; глаз примет {npc:258031} – позже в этом гайде.",
-	-- {object:707249} Wanted (no name in this language: may be words)
-	["the {object:707249} poster"] = "Плакат: {object:707249}",
+	-- was: ["the {object:707249} poster"] = "Плакат: {object:707249}"
+	["the Wanted poster"] = "",
 
 	-- Step 53: Na'zok's camp
 	-- {npc:256728} Na'zok
@@ -536,6 +536,7 @@ return {
 	-- ["The next guide flies from {area:340} in the {area:3}: north out of {npc:258570}'s valley and up through {area:16685}, the way through to the {area:3}."] = "Следующий гайд начинается с полета из места {area:340} ({area:3}): на север из долины NPC {npc:258570} и вверх через {area:16685} – это путь в {area:3}.",
 	-- ["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244} рыщет по отмели к юго-западу от порта, ниже пляжей мурлоков. {npc:257001} (элита) ходит по берегу неподалеку: держитесь от него подальше.",
 	-- ["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, hides in the middle of the town."] = "К западу от Рог'мара культ Сумеречного Молота захватил фермерский городок {area:16723}. {npc:259158}, кобольд, который хочет уйти, прячется в центре городка.",
+	-- ["the {object:707249} poster"] = "Плакат: {object:707249}",
 	-- ["{npc:255897}: {quest:95296}, for {npc:260405} at {area:977} in the {zone:1444} & {zone:1446} guide"] = "{npc:255897}: {quest:95296}, для персонажа {npc:260405} ({area:977}) в гайде «{zone:1444} и {zone:1446}»",
 	-- ["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "Копья ({npc:263190}) – на пресноводных кроколисков",
 	-- ["{quest:95267}: a big beast in the shallows south-west of the port, near {npc:257001}, the elite"] = "{quest:95267}: крупный зверь на отмели к юго-западу от порта, рядом с NPC {npc:257001} (элита)",

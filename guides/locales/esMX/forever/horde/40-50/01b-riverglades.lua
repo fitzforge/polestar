@@ -235,8 +235,8 @@ return {
 	-- Step 52: WANTED: Scoutmaster Vargas
 	-- {npc:260211} Scoutmaster Vargas · {npc:256728} Na'zok · {npc:258031} Neza Bloodsnout
 	["{npc:260211} is an elite (level 42) at the Alliance scouts' camp in the hills south-east of {npc:256728}, where you go next: grouping up is advised. The poster hangs in the middle of the fort; {npc:258031} takes the eye, later in this guide."] = "{npc:260211} es élite (nivel 42) en el campamento de exploradores de la Alianza, en las colinas al sureste de {npc:256728}, adonde vas después: se recomienda ir en grupo. El cartel cuelga en medio del fuerte; {npc:258031} recibe el ojo, más adelante en esta guía.",
-	-- {object:707249} Wanted (no name in this language: may be words)
-	["the {object:707249} poster"] = "el cartel de {object:707249}",
+	-- was: ["the {object:707249} poster"] = "el cartel de {object:707249}"
+	["the Wanted poster"] = "",
 
 	-- Step 53: Na'zok's camp
 	-- {npc:256728} Na'zok
@@ -536,6 +536,7 @@ return {
 	-- ["The next guide flies from {area:340} in the {area:3}: north out of {npc:258570}'s valley and up through {area:16685}, the way through to the {area:3}."] = "La siguiente guía sale volando desde {area:340} en {area:3}: ve al norte, fuera del valle de {npc:258570}, y sube por {area:16685}, el paso hacia {area:3}.",
 	-- ["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244} merodea las aguas poco profundas al suroeste del puerto, bajo las playas de los múrlocs. {npc:257001}, un élite, recorre la orilla cerca: mantén distancia.",
 	-- ["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, hides in the middle of the town."] = "Al oeste de Rog'mar, el culto Crepuscular controla el pueblo granjero de {area:16723}. {npc:259158}, un kóbold que quiere salirse, se esconde en medio del pueblo.",
+	-- ["the {object:707249} poster"] = "el cartel de {object:707249}",
 	-- ["{npc:255897}: {quest:95296}, for {npc:260405} at {area:977} in the {zone:1444} & {zone:1446} guide"] = "{npc:255897}: {quest:95296}, para {npc:260405} en {area:977}, en la guía de {zone:1444} y {zone:1446}",
 	-- ["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "Las lanzas de {npc:263190}, en los Crocoliscos de agua dulce",
 	-- ["{quest:95267}: a big beast in the shallows south-west of the port, near {npc:257001}, the elite"] = "{quest:95267}: una gran bestia en las aguas poco profundas al suroeste del puerto, cerca de {npc:257001}, el élite",

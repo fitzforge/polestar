@@ -201,10 +201,11 @@ return {
 	["{area:340} is built into the cliffs on the {zone:1418}' west edge."] = "{area:340} é construída nos penhascos, na borda oeste de {zone:1418}.",
 
 	-- Step 41: The WANTED poster
-	-- {object:164867} WANTED
-	["The {object:164867} poster"] = "O cartaz {object:164867}",
-	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {object:164867} WANTED · {area:340} Kargath
-	["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "Para a masmorra {area:1584}, em seguida, no caminho por {area:254}: o cartaz {object:164867} em {area:340} quer que você reduza os anões Anvilrage lá de dentro.",
+	-- was: ["The {object:164867} poster"] = "O cartaz {object:164867}"
+	["The WANTED poster"] = "O cartaz de PROCURA-SE",
+	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {area:340} Kargath
+	-- was: ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "Para a masmorra {area:1584}, em seguida, no caminho por {area:254}: o cartaz {object:164867} em {area:340} quer que você reduza os anões Anvilrage lá de dentro."
+	["For your {area:1584} run, next, on the way through {area:254}: the WANTED poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "",
 
 	-- Step 42: Into the Searing Gorge
 	-- {zone:1427} Searing Gorge
@@ -310,6 +311,7 @@ return {
 	-- ["Fly to {area:340}"] = "Voe para {area:340}",
 	-- ["Follow the road east through the {area:28} and across the river into the {area:139}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Siga a estrada para o leste através de {area:28} e atravesse o rio para {area:139}; saia dela para o norte rumo a {area:2627}, a cidade em ruínas no noroeste. {npc:12384} fica numa cabana na borda.",
 	-- ["Follow the road east through the {zone:1422} and across the river into the {zone:1423}; leave it north for {area:2627}, the ruined town in the north-west. {npc:12384} sits in a hut at its edge."] = "Siga a estrada para o leste através de {zone:1422} e atravesse o rio para {zone:1423}; saia dela para o norte rumo a {area:2627}, a cidade em ruínas no noroeste. {npc:12384} fica numa cabana na borda.",
+	-- ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "Para a masmorra {area:1584}, em seguida, no caminho por {area:254}: o cartaz {object:164867} em {area:340} quer que você reduza os anões Anvilrage lá de dentro.",
 	-- ["Free Darrowshire Spirits: talk to them"] = "Liberte os Espíritos da Vila das Flechas: fale com eles",
 	-- ["From here on pick up every {npc:271301} (blue, green, red, yellow) and every {quest:3761} pile you pass: 25 soil in all, 20 for Hamuul and 5 for Pestlezugg."] = "Daqui em diante, pegue todo {npc:271301} (azul, verde, vermelho, amarelo) e todo monte de {quest:3761} pelo caminho: 25 de solo ao todo, 20 para Hamuul e 5 para Almofarrista.",
 	-- ["From the {area:152}, follow the road east into the {zone:1422}. Felstone Farm is the first farm along the road; {npc:10778} waits in the house."] = "De {area:152}, siga a estrada para leste até {zone:1422}. A Fazenda Pedravil é a primeira fazenda ao longo da estrada; {npc:10778} espera na casa.",
@@ -364,6 +366,7 @@ return {
 	-- ["The tar pits lie just south of the refuge. Tar Beasts, Lurkers and Creepers drop the {item:11834}."] = "Os poços de piche ficam logo ao sul do refúgio. Monstros, Tocaieiros e Rastejantes de Piche deixam cair {item:11834}.",
 	-- ["The wooden sign beside {npc:9997}"] = "A placa de madeira ao lado de {npc:9997}",
 	-- ["The {npc:9167} fly over the western cliffs around the pylon. Careful: the biggest are 54: pull them one at a time."] = "Os {npc:9167} voam sobre os penhascos a oeste, em volta do pilar. Cuidado: os maiores têm nível 54: puxe um de cada vez.",
+	-- ["The {object:164867} poster"] = "O cartaz {object:164867}",
 	-- ["Theodora's next errand goes to Lotwil east of town and then into {area:1584}: skip it."] = "A próxima tarefa de Theodora leva a Lotwil, a leste da cidade, e depois para {area:1584}: pule.",
 	-- ["Theodora's quest in {area:340} needs level 52. The Tar Lurkers and Tar Lords just south of the refuge are the closest camp."] = "A missão de Theodora em {area:340} pede nível 52. Os Tocaieiros de Piche e Senhores do Piche logo ao sul do refúgio são o grupo mais próximo.",
 	-- ["To {area:197}"] = "Para {area:197}",

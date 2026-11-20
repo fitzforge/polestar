@@ -151,17 +151,25 @@ step Four crystals for the first unfinished pylon
   use 255662 optional @40.18,49.62 -- Mana Sieve on an Unstable Mana Rift
   collect 255667 x4 @40.18,49.62 -- Coalesced Mana Crystals for one repair
 
-step The western pylon: repair it
-  label western-pylon-repaired
+step The road south of the western pylon
   when done first-pylon-crystals
   when !complete 96018
+  when !done western-pylon-repaired
   tip North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Stop where the arrow points, on the road just south of the pylon, keeping to its west edge: the quiet side, with no Protectors behind you. Pull one Decrepit Pylon Protector at a time down to that spot, the one nearest the pylon's south side first, and kill it there; then step up to the pylon's west side and use Repair and Recharge Pylon, as players did to repair it.
   tip Careful: stay off the pylon's east and north-east side. The Protectors stand there two and three together, a Corpsefeeder (level 45, elite) walks among them and the Magram Necrokhans (elites, 45) stand just beyond: nearly every recorded death at this pylon happened east of it. If the Magram attack you (they do once you have killed Magram), wait at the arrow until any Necrokhan by the pylon walks off before you pull. Nascent Pylon Protectors (elites, 43) wander the road south of it: let them pass.
   tip If you die here, walk your ghost back to the arrow before you come back to life: players who rose beside the pylon died again within seconds.
   goto 43.9,37.0 "the road just south of the western pylon" r 10
-  tip Stand on the western face and use Repair and Recharge Pylon; if the crystal is out of reach, try the west edge at 43.89,35.64. A dead Protector alone does not repair it.
+
+step The western pylon: repair it
+  label western-pylon-repaired
+  when done first-pylon-crystals
+  when !complete 96018
+  loop
+  goto 43.97,35.59 r 4
+  goto 43.89,35.64 r 4
+  tip Use Repair and Recharge Pylon from the west face. If it is out of reach, try the other marked spot on the same side. Killing a Protector does not repair it.
   cast 1289727 "Repair and Recharge Pylon" optional @43.97,35.59
-  interact 577959 quest 96018.2 @43.97,35.59 -- Repair the western pylon from this side
+  interact 577959 quest 96018.2 -- Repair the western pylon from this side
 
 step Four crystals for the eastern pylon
   label eastern-pylon-crystals

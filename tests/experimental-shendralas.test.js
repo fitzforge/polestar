@@ -116,7 +116,9 @@ test("Shen'dralas: a repaired western pylon does not send a returning player dow
 						emit(point());w.moveTo(2652,43.9,37.0);stub.advance(.6);emit(point())`,
 				});
 				assert.deepEqual(first, west ? [2652,73.4,23.91] : [2652,43.9,37], `${faction}: spend the crystals only where repair credit is missing`);
-				assert.deepEqual(target, west ? [2652,73.4,23.91] : [2652,43.97,35.59], 'an unfinished western repair goes from the road to the west face');
+				if (west) assert.deepEqual(target, [2652,73.4,23.91], 'a credited repair still points east after passing the road');
+				else assert.ok([[43.97,35.59], [43.89,35.64]].some(([x,y]) => target?.[0] === 2652 && target[1] === x && target[2] === y),
+					'an unfinished repair points only at one of the two witnessed west-face positions');
 			}
 		}
 	} finally { pack.dispose(); }

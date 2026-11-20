@@ -66,6 +66,7 @@ step Beren's Peril
 # ---------------------------------------------------------------- Tarren Mill
 
 step Tarren Mill
+  zone Hillsbrad Foothills
   tip Tarren Mill is your base for this guide: you come back here between each loop. Everyone stands around the town square.
   getfp "Tarren Mill"
   collect 7771 quest 1536 only Shaman -- Fill the Empty Red Waterskin at the Spring Well beside the inn

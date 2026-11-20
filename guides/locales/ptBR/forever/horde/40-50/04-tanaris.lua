@@ -85,32 +85,36 @@ return {
 	["West of the compound the cactus creatures fill the valley; only the Dew Collectors (47-48) carry a dew gland. Most mobs in {zone:1446} can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.\nCareful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: take the Dew Collectors at the valley's edge, and leave {quest:2864}'s Gnarled Thistleshrubs and Rootshapers for the {area:1938} ride into Un'Goro at about 51."] = "A oeste do complexo, as criaturas-cacto lotam o vale; só os Coletores de Orvalho (47-48) têm a glândula de orvalho. A maioria dos monstros de {zone:1446} pode deixar cair, raramente, o sinalizador de socorro do OOX-17/TN: guarde se aparecer um.\nCuidado: os outros Moitagulhas da área são nível 48-50 e andam muito, então é fácil puxar monstro a mais: pegue os Coletores de Orvalho na borda do vale e deixe os Moitagulhas Rotos e os Moldarraízes de {quest:2864} para a ida a {area:1938} rumo a Un'Goro, por volta do nível 51.",
 	-- {item:8623} OOX-17/TN Distress Beacon
 	["{item:8623}, a rare drop"] = "{item:8623}, item raro",
-	-- {npc:5955} Tooga
-	["On the way out, take {npc:5955} if you see him. If he's gone, don't wait."] = "",
 
-	-- Step 17: Tooga's escort
+	-- Step 17: Tooga in Thistleshrub Valley
+	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley
+	["{npc:5955} in {quest:3362}"] = "",
+	-- {npc:5955} Tooga
+	["Take {npc:5955} on your way out of the valley. If he isn't here, choose Skip this step; don't wait for him."] = "",
+
+	-- Step 18: Tooga's escort
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "Escolta de {npc:5955}",
 	-- {npc:5955} Tooga · {npc:6015} Torta · {area:977} Steamwheedle Port
 	["Walk beside {npc:5955} to his wife {npc:6015}, by the water at {area:977}. Stay close and fight off anything that attacks him; don't mount or hearth away from him."] = "",
 
-	-- Step 18: Torta at Steamwheedle Port
+	-- Step 19: Torta at Steamwheedle Port
 	-- {npc:6015} Torta · {area:977} Steamwheedle Port
 	["{npc:6015} at {area:977}"] = "",
 
-	-- Step 19: Yeh'kinya at Steamwheedle Port
+	-- Step 20: Yeh'kinya at Steamwheedle Port
 	-- {npc:8579} Yeh'kinya · {area:977} Steamwheedle Port
 	["{npc:8579} at {area:977}"] = "",
 
-	-- Step 20: Slake That Thirst
+	-- Step 21: Slake That Thirst
 	-- {spell:686} Shadow Bolt
 	["Careful: Shadow Mages (level 42-43) call a Voidwalker while out of combat and attack with Immolate and {spell:686}. Thieves can Disarm you, Rogues move around in Sneak, and Assassins use Execute once you are at 20% health or less."] = "Cuidado: os Magos das Sombras (nível 42-43) invocam um Emissário do Caos fora de combate e atacam com Imolar e {spell:686}. Os Ladrões podem desarmar você, os Ladinos andam furtivos e os Assassinos usam Executar quando você está com 20% de vida ou menos.",
 
-	-- Step 21: Gadgetzan
+	-- Step 22: Gadgetzan
 	-- {quest:654} Tanaris Field Sampling
 	["Keep the Model 4711-FTZ Power Source Bilgewhizzle gave you: it starts {quest:654}, a two-hour timer, so use it on the way back north from Scrimshank's hive."] = "Guarde a Modelo 4711-KTC Fonte de Energia que Silvadágua deu a você: ela inicia {quest:654}, com um cronômetro de duas horas, então use-a na volta para o norte, saindo da colmeia de Anilhacido.",
 
-	-- Step 22: Gadgetzan
+	-- Step 23: Gadgetzan
 	-- {quest:2864} Tran'rek · {quest:3362} Thistleshrub Valley · {area:983} Dunemaul Compound · {area:1938} Broken Pillar
 	["Keep {quest:2864}'s {quest:3362}: its Rootshapers (49-50) come with the {area:983} at the {area:1938}, on the way into Un'Goro at about 51."] = "Guarde {quest:3362} de {quest:2864}: os Moldarraízes (49-50) ficam junto com {area:983} em {area:1938}, a caminho de Un'Goro, por volta do nível 51.",
 	-- {item:8526} Violet Tragan · {zone:1425} Hinterlands
@@ -120,25 +124,25 @@ return {
 	-- {npc:11758} Andi Lynn · {area:983} Dunemaul Compound · {area:1938} Broken Pillar
 	["{npc:11758}'s {area:983} stays in your log for the {area:1938} at about 52."] = "{area:983}, de {npc:11758}, fica no seu Registro de Missões para {area:1938} por volta do nível 52.",
 
-	-- Step 24: Scrimshank's gear
+	-- Step 25: Scrimshank's gear
 	["Scrimshank's gear"] = "O equipamento de Anilhacido",
 	-- plural, as words: Centipaar Swarmers = {npc:5457} Centipaar Swarmer
 	["Pull the bug guarding Scrimshank's gear out to the hive mouth, then take the gear. Careful: do not follow patrols into the tunnels; Centipaar Swarmers and Sandreavers there reach level 50."] = "",
 	["Below ground"] = "No subterrâneo",
 
-	-- Step 25: OOX-17/TN
+	-- Step 26: OOX-17/TN
 	["OOX-17/TN"] = "OOX-17/TN",
 	-- {area:977} Steamwheedle Port · {area:35} Booty Bay
 	["Only with the distress beacon: OOX-17/TN sits south-east of Scrimshank's hive. Escort it north to {area:977}; its reward waits with Oglethorpe in {area:35}.\nCareful: The escort has two ambushes. Three level 47 scorpids attack near the start. Near the end, by the beach, three Wastewander humans attack: one mage and two assassins, around level 44."] = "Só com o sinalizador de socorro: o OOX-17/TN fica a sudeste da colmeia do Anilhacido. Escolte-o para o norte até {area:977}; a recompensa fica com Olhatorto, em {area:35}.\nCuidado: a escolta tem duas emboscadas. Três escorpídeos de nível 47 atacam perto do começo. Perto do fim, junto à praia, três humanos Errantes atacam: um mago e dois assassinos, por volta do nível 44.",
 
-	-- Step 26: Tanaris Field Sampling
+	-- Step 27: Tanaris Field Sampling
 	-- {area:976} Gadgetzan · {item:8524} Model 4711-FTZ Power Source
 	-- plural, as words: Blisterpaw Hyenas = {npc:5426} Blisterpaw Hyena · Glasshide Basilisks = {npc:5419} Glasshide Basilisk · Scorpid Hunters = {npc:5422} Scorpid Hunter
 	["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each."] = "De volta ao norte, logo ao sul de {area:976}, use a {item:8524} agora: o cronômetro de duas horas começa. As Hienas Patapústula, os Basiliscos Silicouro e os Caçadores Escorpídeos dividem as dunas aqui. Cada um pode deixar cair uma amostra não testada: use-a, e ela passa como amostra aceitável ou se perde. Continue matando até ter oito de cada.",
 	-- {item:8524} Model 4711-FTZ Power Source
 	["Use the {item:8524}"] = "Use a {item:8524}",
 
-	-- Step 27: Gadgetzan
+	-- Step 28: Gadgetzan
 	-- {item:4306} Silk Cloth · {area:247} Grimesilt Dig Site · {area:976} Gadgetzan
 	["Keep 15 {item:4306} for the prisoner at the {area:247}. If you're short, check the {area:976} auction house before you leave for the boat."] = "",
 	-- {npc:5204} Apothecary Zinge · {zone:1458} Undercity
@@ -146,19 +150,19 @@ return {
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["for {npc:7010} in {zone:1454}, around level 50"] = "para {npc:7010} em {zone:1454}, por volta do nível 50",
 
-	-- Step 28: Boat to Powderfuse Port
+	-- Step 29: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
 	["Boat to {area:16727}"] = "Barco para {area:16727}",
 
-	-- Step 29: Into Searing Gorge
+	-- Step 30: Into Searing Gorge
 	-- {zone:1427} Searing Gorge
 	["Into {zone:1427}"] = "Rumo a {zone:1427}",
 
-	-- Step 30: Searing Gorge
+	-- Step 31: Searing Gorge
 	-- {area:247} Grimesilt Dig Site
 	["The {area:247}"] = "O {area:247}",
 
-	-- Step 31: The Grimesilt Dig Site
+	-- Step 32: The Grimesilt Dig Site
 	-- {area:16727} Powderfuse Port · {zone:1427} Searing Gorge · {object:173265} Wooden Outhouse
 	-- plural, as words: Dark Iron Geologists = {npc:5839} Dark Iron Geologist
 	-- was: ["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "De {area:16727}, cavalgue para dentro de {zone:1427} pela passagem leste, depois para oeste até o sítio de escavação. {object:173265} fica na ponta sul dele; os Geólogos Ferro Negro escavam logo ao norte. Leve 15 {item:4306} (vende na casa de leilões)."
@@ -166,24 +170,24 @@ return {
 	-- {object:173265} Wooden Outhouse
 	["the {object:173265}"] = "a {object:173265}",
 
-	-- Step 33: Thorium Point
+	-- Step 34: Thorium Point
 	-- {area:1446} Thorium Point
 	["Ride north-west across the gorge; {area:1446} is the scaffolded camp in the north-west."] = "Cavalgue para noroeste atravessando a garganta; {area:1446} é o acampamento com andaimes no noroeste.",
 	-- {object:179827} Wanted/Missing/Lost & Found
 	["The {object:179827} board"] = "O quadro {object:179827}",
 
-	-- Step 34: The Cauldron's slavers and golems
+	-- Step 35: The Cauldron's slavers and golems
 	-- {area:246} The Cauldron
 	["{area:246}'s slavers and golems"] = "Feitores e golens de {area:246}",
 	-- {area:1446} Thorium Point · {npc:8479} Velarok Windblade
 	-- plural, as words: Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Heavy War Golems = {npc:5854} Heavy War Golem
 	["Ride south from {area:1446} into the Cauldron: the Dark Iron Taskmasters and Slavers drive the slaves on the paths, and the Heavy War Golems patrol the floor below {npc:8479}. Careful: the biggest golems are 49: pull them one at a time."] = "Cavalgue para o sul, saindo de {area:1446}, para dentro d'O Caldeirão: os Capatazes e Feitores Ferro Negro tocam os escravos pelas trilhas, e os Golens de Guerra Pesados patrulham o piso abaixo de {npc:8479}. Cuidado: os maiores golens são nível 49: puxe um de cada vez.",
 
-	-- Step 35: Velarok Windblade
+	-- Step 36: Velarok Windblade
 	-- {npc:8479} Velarok Windblade · {area:1446} Thorium Point
 	["{npc:8479} stands alone south of {area:1446}, at the edge of the Cauldron. Listen to his story."] = "{npc:8479} fica sozinho ao sul de {area:1446}, na borda d'O Caldeirão. Ouça a história dele.",
 
-	-- Step 38: Searing Gorge: kill these as you meet them
+	-- Step 39: Searing Gorge: kill these as you meet them
 	-- {zone:1427} Searing Gorge
 	["{zone:1427}: kill these as you meet them"] = "{zone:1427}: vá matando estes pelo caminho",
 	-- {npc:8479} Velarok Windblade · {item:11818} Grimesilt Outhouse Key · {area:1443} The Slag Pit
@@ -194,28 +198,28 @@ return {
 	-- {area:1443} The Slag Pit
 	["Below ground: the plans, on the {area:1443}'s upper ledge"] = "No subterrâneo: as plantas, na saliência superior de {area:1443}",
 
-	-- Step 40: Thorium Point
+	-- Step 41: Thorium Point
 	-- {area:1446} Thorium Point · {npc:8479} Velarok Windblade
 	["Ride back north to {area:1446}, just past {npc:8479}."] = "Cavalgue de volta para o norte até {area:1446}, logo depois de {npc:8479}.",
 
-	-- Step 41: The Steamsmiths' furnaces
+	-- Step 42: The Steamsmiths' furnaces
 	["The Steamsmiths' furnaces"] = "As fornalhas dos Vaporistas",
 	-- {item:10551} Thorium Plated Dagger · {item:18959} Smithing Tuyere
 	-- plural, as words: Dark Iron Steamsmiths = {npc:5840} Dark Iron Steamsmith
 	["The Dark Iron Steamsmiths work the furnaces in the middle of the Cauldron; half of them carry a {item:10551}, one in ten the {item:18959}. Slaves, Slavers and Taskmasters carry daggers too."] = "Os Vaporistas Ferro Negro trabalham nas fornalhas no meio d'O Caldeirão; metade deles leva um {item:10551}, um em dez o {item:18959}. Escravos, Feitores e Capatazes também levam punhais.",
 
-	-- Step 42: Velarok Windblade
+	-- Step 43: Velarok Windblade
 	-- {item:10552} Symbol of Ragnaros
 	["His next request needs the {item:10552} from elite cultists: leave it."] = "O próximo pedido dele requer o {item:10552} de sectários de elite: deixe-o.",
 
-	-- Step 43: Dark Iron Lookouts
+	-- Step 44: Dark Iron Lookouts
 	-- plural, as words: Dark Iron Lookouts = {npc:8566} Dark Iron Lookout
 	["Dark Iron Lookouts"] = "Atalaias Ferro Negro",
 	-- {item:18960} Lookout's Spyglass
 	-- plural, as words: Dark Iron Lookouts = {npc:8566} Dark Iron Lookout
 	["The Dark Iron Lookouts stand on the ridges around the sentry towers south of the Cauldron; about one in ten carries the {item:18960}."] = "Os Atalaias Ferro Negro ficam nas cristas em volta das torres de vigia ao sul d'O Caldeirão; cerca de um em dez leva a {item:18960}.",
 
-	-- Step 44: The Key to Freedom
+	-- Step 45: The Key to Freedom
 	-- {item:11818} Grimesilt Outhouse Key · {object:173265} Wooden Outhouse
 	["Only with the {item:11818}: back east to the {object:173265} at the dig site."] = "Só com a {item:11818}: de volta a leste até a {object:173265} no sítio de escavação.",
 

@@ -9,7 +9,8 @@ return {
 	-- Step 1: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "搭飛艇前往{zone:1454}",
-	["Ride across; the Tirisfal tower is not the landing"] = "",
+	-- {area:14} Durotar
+	["Stay aboard until the zeppelin lands in {area:14}"] = "",
 
 	-- Step 2: Fly to the Crossroads
 	["Fly to the Crossroads"] = "飛往十字路口",
@@ -294,15 +295,24 @@ return {
 	["South to {area:609}. {quest:1365} (35) walks among the tents on the east side with a Battle Lord or two (32-33): clear around him, then pull him alone at full health.\nCareful: Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health."] = "向南到{area:609}。{quest:1365}（35級）和一兩名戰鬥領主（32-33級）在東邊的帳篷之間走動：先清掉他周圍的怪，然後滿狀態單獨拉他。\n注意：科卡爾戰鬥領主血量降到20%時會呼叫30碼內附近的同伴。",
 
 	-- Step 70: Ghost Walker Post
-	["South-west down the road to the post."] = "沿道路向西南到哨站。",
+	-- {quest:1365} Khan Dez'hepah · {zone:1443} Desolace
+	["Head south-west to the post. Take your satyr and Burning Blade rewards first. If you're still below 34, keep {quest:1365} for your next visit to {zone:1443}."] = "",
 	-- {npc:5641} Takata Steelblade · {npc:5640} Keldran · {zone:1454} Orgrimmar
 	["{npc:5641}: for {npc:5640} in {zone:1454}, next guide"] = "{npc:5641}：交給{zone:1454}的{npc:5640}，在下一份指南中",
 	-- {npc:5641} Takata Steelblade
 	["{npc:5641}'s next errand sends you after a demon lord with an elite guard: skip it."] = "{npc:5641}的下一個差事要你去對付一名帶著精英守衛的惡魔領主：跳過它。",
+
+	-- Step 71: Khan Dez'hepah after the post
+	-- {quest:1365} Khan Dez'hepah
+	["{quest:1365} after the post"] = "",
+	-- {area:609} Kolkar Village · {quest:1365} Khan Dez'hepah
+	["If the post's rewards brought you to 34, head east to {area:609} for {quest:1365}. He patrols the eastern tents with Battle Lords; clear them first and pull him alone.\nCareful: Battle Lords call nearby allies when low on health."] = "",
+
+	-- Step 72: Felgur Twocuts
 	-- {npc:5395} Felgur Twocuts · {zone:1443} Desolace · {area:607} Valley of Spears
 	["{npc:5395} now offers Centaur Bounty: the second {zone:1443} visit, at 38, takes it on its way to the {area:607}."] = "{npc:5395}現在會提供「半人馬賞金」：38級第二次造訪{zone:1443}時，會在前往{area:607}的路上接取。",
 
-	-- Step 71: Shadowprey Village
+	-- Step 73: Shadowprey Village
 	["West to Shadowprey: your hearthstone is bound there."] = "向西前往暗影村：你的爐石綁在那裡。",
 	-- {npc:268705} Aka'rai
 	["{npc:268705}, on the path just north of the village"] = "{npc:268705}，在村子北邊不遠處的小路上",
@@ -310,14 +320,14 @@ return {
 	-- was: ["Taiga's {item:14547}, Drulzegar's Other Fish to Fry and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "泰加的{item:14547}、德魯澤加的「另有要事」以及{zone:1443}其他37-40級任務都留到38級第二次造訪時再做：接下來的指南會飛往{zone:1454}，再搭飛艇前往{zone:1434}。"
 	["Taiga's {item:14547}, {npc:12340}'s {quest:6143} (unless you did it on the strand) and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "",
 
-	-- Step 72: Drulzegar Skraghook
+	-- Step 74: Drulzegar Skraghook
 	-- {npc:12340} Drulzegar Skraghook · {npc:12031} Mai'Lahii
 	["{npc:12340}, near {npc:12031}"] = "",
 
-	-- Step 73: Cracked Silithid Carapace
+	-- Step 75: Cracked Silithid Carapace
 	["If you kept the cracked carapace, open it before deciding whether to return to the flats."] = "",
 
-	-- Step 74: Parts through Ratchet
+	-- Step 76: Parts through Ratchet
 	-- {area:392} Ratchet
 	["Parts through {area:392}"] = "",
 	-- {npc:4452} Kravel Koalbeard · {area:392} Ratchet · {area:976} Gadgetzan
@@ -327,73 +337,77 @@ return {
 	-- {area:392} Ratchet
 	["{area:392} landing"] = "",
 
-	-- Step 75: Wharfmaster Dizzywig
+	-- Step 77: Wharfmaster Dizzywig
 	-- {npc:4452} Kravel Koalbeard
 	["Take {npc:4452}'s order to Dizzywig on the docks."] = "",
 
-	-- Step 77: Gazlowe
+	-- Step 79: Gazlowe
 	-- {npc:3391} Gazlowe
 	["{npc:3391} is upstairs in the house by the flight master."] = "",
 
-	-- Step 81: Fly to Gadgetzan
+	-- Step 80: Gazlowe
+	-- {npc:3391} Gazlowe
+	["{npc:3391} offers the letter upstairs in the house next to the flight master."] = "",
+
+	-- Step 83: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "飛往{area:976}",
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}. Take the road north to the flats and hand in any finished quests before the remaining hunts."] = "",
 
-	-- Step 82: Return for Parts of the Swarm
+	-- Step 84: Return for Parts of the Swarm
 	-- {quest:1148} Parts of the Swarm
 	["Return for {quest:1148}"] = "",
 	-- {area:976} Gadgetzan
 	["Still gathering parts after handing in the other flats quests? Fly back to {area:976}."] = "",
 
-	-- Step 83: Moktar Krin before the hunt
+	-- Step 85: Moktar Krin before the hunt
 	-- {npc:4483} Moktar Krin
 	["{npc:4483} before the hunt"] = "",
 
-	-- Step 84: Trackmaster Zherin before the hunt
+	-- Step 86: Trackmaster Zherin before the hunt
 	-- {npc:4629} Trackmaster Zherin
 	["{npc:4629} before the hunt"] = "",
 
-	-- Step 85: Kravel Koalbeard
+	-- Step 87: Kravel Koalbeard
 	-- {area:976} Gadgetzan · {area:2240} Mirage Raceway · {npc:4452} Kravel Koalbeard
 	["From {area:976} take the road north to {area:2240}. Give the parts to {npc:4452} at the gnomes' camp."] = "",
 
-	-- Step 87: Fizzle Brassbolts
+	-- Step 89: Fizzle Brassbolts
 	-- {npc:4452} Kravel Koalbeard
 	["Fizzle is here at the raceway. Return to {npc:4452} after giving him the delivery."] = "",
 
-	-- Step 88: Kravel Koalbeard
+	-- Step 90: Kravel Koalbeard
 	-- {area:35} Booty Bay
 	["Keep the message for Krazek in {area:35}."] = "",
 
-	-- Step 89: Level 34 for the southern flats
+	-- Step 91: Level 34 for the southern flats
 	["Level 34 for the southern flats"] = "",
 	-- {area:1717} Razorfen Kraul
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver
 	["Still short of 34 after your hand-ins? Hunt Scorpid Reavers north of the raceway until 34. Leave the southern Gazers and the dig until then. Or, with a group, run {area:1717}."] = "",
 
-	-- Step 90: Level 34 for the Rustmaul dig
+	-- Step 92: Level 34 for the Rustmaul dig
 	["Level 34 for the Rustmaul dig"] = "",
 
-	-- Step 91: Level 34 for Parts of the Swarm
+	-- Step 93: Level 34 for Parts of the Swarm
 	-- {quest:1148} Parts of the Swarm
 	["Level 34 for {quest:1148}"] = "",
 
-	-- Step 92: The southern flats
+	-- Step 94: The southern flats
 	-- {area:976} Gadgetzan · {zone:1441} Thousand Needles · {area:439} Shimmering Flats
 	-- plural, as words: Saltstone Crystalhides = {npc:4151} Saltstone Crystalhide
 	["North from {area:976} over the {zone:1441} border: the Saltstone Crystalhides (32-33) and Gazers (34-35) roam the far south of the {area:439}.\nCareful: pull the Gazers one at a time from the camp's edge, never two together."] = "",
 
-	-- Step 94: Parts of the Swarm
+	-- Step 96: Parts of the Swarm
 	-- {npc:3428} Korran
 	["Gather the parts from normal silithid, not the rare Ravager. {npc:3428} at the Crossroads takes them on the Dustwallow guide's way."] = "",
 
-	-- Step 96: Mirage Raceway
+	-- Step 98: Mirage Raceway
 	-- {area:976} Gadgetzan
 	["East to the raceway, on the way back south to {area:976}."] = "",
 
-	-- Step 97: Fly to Orgrimmar
+	-- Step 99: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "飛往{area:1637}",
 	-- {zone:1446} Tanaris · {area:976} Gadgetzan · {area:1637} Orgrimmar
@@ -409,6 +423,7 @@ return {
 	-- ["Keep north to {area:598}. The Slitherblade Myrmidons, Naga and Sorceresses hold the beach; pull them one at a time. Any Slitherblade can drop {item:15881}."] = "繼續向北前往{area:598}。滑刃侍從、滑刃納迦和滑刃女巫佔據著海灘；一次拉一隻。任何滑刃納迦都可能掉落{item:15881}。",
 	-- ["Shadowprey's {quest:5381} and the coast's naga want 33. Below that? The Kolkar centaurs (30-32) of {area:609}, a short way east of {npc:11596}'s camp, are the nearest camp at your level: kill them until level 33. The Scorpashi Lashers (34-35) on the slopes north of the camp are higher. Or, with a group, run the {area:1717} dungeon instead."] = "葬影村的{quest:5381}和海岸的納迦需要33級。還沒到？{npc:11596}營地東邊不遠處{area:609}的科卡爾半人馬（30-32級）是離你最近、等級合適的營地：擊殺牠們直到33級。營地北邊山坡上的荒土鞭尾蠍（34-35級）等級更高。或者，組隊去打{area:1717}地城。",
 	-- ["South of the raceway, the Saltstone Crystalhides (32-33) and Gazers (34-35) roam the far end of the flats.\nCareful: the level 35 Gazers can still be two over you: pull them one at a time from the camp's edge, never two together."] = "賽道南邊，鹽石水晶蜥蜴（32-33）和凝視者（34-35）在鹽沼盡頭遊蕩。\n注意：35級的凝視者可能仍比你高兩級：從營地邊緣一次拉一隻，絕不要同時拉兩隻。",
+	-- ["South-west down the road to the post."] = "沿道路向西南到哨站。",
 	-- ["Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}. He is well above you: rest to full first. {object:177786} stands on the shore beside the statue: open it with both keys."] = "從最北端游到{area:2406}，對{object:177673}使用{item:15766}：{npc:12369}（38）會出現；殺死他以取得{quest:6027}。他比你高出不少等級：先休息到滿血。{object:177786}就在雕像旁的岸邊：用兩把鑰匙打開它。",
 	-- ["Taiga's {item:14547}, Drulzegar's Other Fish to Fry and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "泰加的{item:14547}、德魯澤加的「另有要事」以及{zone:1443}其他37-40級任務都留到38級第二次造訪時再做：接下來的指南會飛往{zone:1454}，再搭飛艇前往{zone:1434}。",
 	-- ["The flats' south and the silithid dig are 32-35, {zone:1443}'s quests 32-38. Still below 32 after the raceway's hand-ins? Back north on the flats, the Scorpid Reavers (31-32) roam among the basilisks and tortoises: kill them until level 32; leave the Sparkleshell Snappers (34-35) and the Scorpid Terrors (33-34) alone. Or, with a group, run the {area:1717} dungeon instead."] = "鹽沼南部和異種蠍挖掘場是32-35級，{zone:1443}的任務是32-38級。賽道繳交完還不到32級？回到鹽沼北邊，恐蠍搶奪者（31-32）在蜥蜴和龜之間遊蕩：殺到32級；別碰鹽殼鉗嘴龜（34-35）和恐蠍（33-34）。或者有小隊的話，改打{area:1717}地城。",

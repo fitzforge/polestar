@@ -104,18 +104,21 @@ return {
 	["Zhevra Runners graze along the road east toward {area:392}: take their hooves on the way out."] = "",
 
 	-- Step 27: Ratchet
-	-- {area:392} Ratchet · {npc:3391} Gazlowe · {npc:7161} Wrenix the Wretched · {npc:3442} Sputtervalve · {npc:16227} Bragok · {npc:3446} Mebok Mizzyrix · {object:3972} WANTED · {quest:1492} Wharfmaster Dizzywig
-	["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the {object:3972} poster, then {quest:1492} on the dock on the way out south."] = "길을 따라 남동쪽 해안의 {area:392}(으)로 가세요. 마을 북쪽 끝의 {npc:3391}와(과) {npc:7161}, {npc:3442}와(과) {npc:16227}, {npc:3446}와(과) {object:3972} 전단을 찾은 다음, 남쪽으로 나가는 길에 부두의 {quest:1492}을(를) 찾으세요.",
+	-- {area:392} Ratchet · {npc:3391} Gazlowe · {npc:7161} Wrenix the Wretched · {npc:3442} Sputtervalve · {npc:16227} Bragok · {npc:3446} Mebok Mizzyrix · {quest:1492} Wharfmaster Dizzywig
+	-- was: ["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the {object:3972} poster, then {quest:1492} on the dock on the way out south."] = "길을 따라 남동쪽 해안의 {area:392}(으)로 가세요. 마을 북쪽 끝의 {npc:3391}와(과) {npc:7161}, {npc:3442}와(과) {npc:16227}, {npc:3446}와(과) {object:3972} 전단을 찾은 다음, 남쪽으로 나가는 길에 부두의 {quest:1492}을(를) 찾으세요."
+	["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the WANTED poster, then {quest:1492} on the dock on the way out south."] = "",
 	-- {npc:3391} Gazlowe
 	["{npc:3391}, upstairs"] = "{npc:3391}, 위층",
 	-- {npc:3442} Sputtervalve · {area:382} Sludge Fen
 	["{npc:3442}: the console is in the {area:382}, later"] = "{npc:3442}: 제어판은 나중에 {area:382}에서 처리합니다",
 	-- {npc:16227} Bragok · {npc:3442} Sputtervalve
 	["{npc:16227}, beside {npc:3442}"] = "{npc:3442} 옆의 {npc:16227}",
-	-- {npc:3446} Mebok Mizzyrix · {object:3972} WANTED · {area:392} Ratchet
-	["{npc:3446}, beside the {object:3972} poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "{object:3972} 전단 옆의 {npc:3446}: 태양비늘 랩터는 18레벨에 다음 {area:392} 방문 때 처리합니다",
-	-- {object:3972} WANTED · {npc:3467} Baron Longshore · {area:392} Ratchet
-	["The {object:3972} poster: {npc:3467} comes on the next {area:392} stop too"] = "{object:3972} 전단: {npc:3467}도 다음 {area:392} 방문 때 합니다",
+	-- {npc:3446} Mebok Mizzyrix · {area:392} Ratchet
+	-- was: ["{npc:3446}, beside the {object:3972} poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "{object:3972} 전단 옆의 {npc:3446}: 태양비늘 랩터는 18레벨에 다음 {area:392} 방문 때 처리합니다"
+	["{npc:3446}, beside the WANTED poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "",
+	-- {npc:3467} Baron Longshore · {area:392} Ratchet
+	-- was: ["The {object:3972} poster: {npc:3467} comes on the next {area:392} stop too"] = "{object:3972} 전단: {npc:3467}도 다음 {area:392} 방문 때 합니다"
+	["The WANTED poster: {npc:3467} comes on the next {area:392} stop too"] = "",
 	-- {quest:1492} Wharfmaster Dizzywig
 	["{quest:1492}, on the dock"] = "부두의 {quest:1492}",
 	-- {quest:1492} Wharfmaster Dizzywig · {area:381} Boulder Lode Mine
@@ -266,8 +269,8 @@ return {
 	["Crossroads flight master"] = "크로스로드 비행 조련사",
 
 	-- Step 56: Ratchet
-	-- {object:3972} WANTED
-	["{object:3972} poster"] = "{object:3972} 게시판",
+	-- was: ["{object:3972} poster"] = "{object:3972} 게시판"
+	["WANTED poster"] = "",
 
 	-- Step 57: Mebok Mizzyrix
 	-- {area:718} Wailing Caverns · {npc:3446} Mebok Mizzyrix · {quest:1491} Smart Drinks
@@ -307,8 +310,8 @@ return {
 	-- Step 65: Ratchet
 	-- {area:392} Ratchet
 	["Back north along the beach to {area:392}."] = "해변을 따라 북쪽의 {area:392}(으)로 돌아가세요.",
-	-- {npc:3446} Mebok Mizzyrix · {object:3972} WANTED
-	["{npc:3446}, beside the {object:3972} poster"] = "",
+	-- {npc:3446} Mebok Mizzyrix
+	["{npc:3446}, beside the WANTED poster"] = "",
 
 	-- Step 70: Dreadmist Peak
 	-- {area:384} Dreadmist Peak · {item:15842} Empty Dreadmist Peak Sampler · {object:19464} Dreadmist Peak Pool (no name in this language: may be words) · {npc:3448} Tonga Runetotem · {skill:182} Herbalism · {npc:3490} Hula'mahi · {item:2449} Earthroot
@@ -515,8 +518,9 @@ return {
 	-- Step 117: Ratchet: Wailing Caverns quests
 	-- {area:392} Ratchet · {area:718} Wailing Caverns
 	["{area:392}: {area:718} quests"] = "{area:392}: {area:718} 퀘스트",
-	-- {area:718} Wailing Caverns · {npc:3446} Mebok Mizzyrix · {object:3972} WANTED · {npc:3665} Crane Operator Bigglefuzz · {npc:3396} Hezrul Bloodmark
-	["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the {object:3972} poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "아직 받지 않은 {area:718} 퀘스트: {object:3972} 전단 옆의 {npc:3446}, 비행 조련사 옆 부두의 {npc:3665}. 공략은 이 가이드 후반, {npc:3396} 다음입니다.",
+	-- {area:718} Wailing Caverns · {npc:3446} Mebok Mizzyrix · {npc:3665} Crane Operator Bigglefuzz · {npc:3396} Hezrul Bloodmark
+	-- was: ["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the {object:3972} poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "아직 받지 않은 {area:718} 퀘스트: {object:3972} 전단 옆의 {npc:3446}, 비행 조련사 옆 부두의 {npc:3665}. 공략은 이 가이드 후반, {npc:3396} 다음입니다."
+	["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the WANTED poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "",
 
 	-- Step 118: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
@@ -731,6 +735,7 @@ return {
 	-- ["East to {area:392}, on the coast."] = "동쪽 해안의 {area:392}(으)로 가세요.",
 	-- ["Follow the road east to the outpost above the {area:814}."] = "길을 따라 동쪽으로 가서 {area:814} 위의 전초기지로 가세요.",
 	-- ["Follow the road south-east to {area:392} on the coast."] = "길을 따라 남동쪽으로 해안의 {area:392}까지 가세요.",
+	-- ["Follow the road south-east to {area:392} on the coast: {npc:3391} and {npc:7161} at the north end of town, {npc:3442} and {npc:16227}, {npc:3446} and the {object:3972} poster, then {quest:1492} on the dock on the way out south."] = "길을 따라 남동쪽 해안의 {area:392}(으)로 가세요. 마을 북쪽 끝의 {npc:3391}와(과) {npc:7161}, {npc:3442}와(과) {npc:16227}, {npc:3446}와(과) {object:3972} 전단을 찾은 다음, 남쪽으로 나가는 길에 부두의 {quest:1492}을(를) 찾으세요.",
 	-- ["In the camp, Water Seekers and Thornweavers hold the western half, Hunters the middle; the supply crates sit at its eastern end.\nPlainstriders here count toward the beaks.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "야영지에서는 풍수사와 가시마술사가 서쪽 절반을, 사냥꾼이 가운데를 차지하고, 보급품 상자는 동쪽 끝에 있습니다.\n여기 초원타조도 부리 수집에 포함됩니다.\n주의: 서슬갈기일족 살점먹보와 광전사(18-19)는 정예이며, 야영지 북동쪽 보급품 상자 옆에 서 있습니다. 가시멧돼지를 그들에게서 하나씩 떼어 끌어오세요.",
 	-- ["Keep it: {quest:3923} stands outside {zone:1454}; a later guide hands it in"] = "보관하세요: {quest:3923}은(는) {zone:1454} 밖에 있으며, 나중 가이드에서 완료합니다",
 	-- ["Kolkar Wranglers and Stormers hold the camps south of {npc:3389}."] = "콜카르일족 사냥꾼과 번개술사는 {npc:3389} 남쪽 야영지를 차지하고 있습니다.",
@@ -750,6 +755,7 @@ return {
 	-- ["The pools lie just north of {npc:3389}. Walk into the water to explore them; the Laden Mushrooms for Helbrim grow around them. Kill every Kolkar you pass for bracers. {npc:3394} stands in the Kolkar camp west of the pools."] = "웅덩이는 {npc:3389} 바로 북쪽에 있습니다. 물에 들어가 탐험하세요. 헬브림에게 줄 숙성한 버섯은 그 주변에 자랍니다. 지나가며 만나는 콜카르일족은 모두 처치해 손목보호대를 얻으세요. {npc:3394}은(는) 웅덩이 서쪽의 콜카르일족 야영지에 서 있습니다.",
 	-- ["The three nests sit together in the {area:1697} south-west of the oasis; Sunscale Scytheclaws guard them."] = "둥지 세 개는 오아시스 남서쪽 {area:1697}에 모여 있으며, 갈퀴발톱 열대초원랩터가 지키고 있습니다.",
 	-- ["The {area:383}"] = "{area:383}",
+	-- ["The {object:3972} poster: {npc:3467} comes on the next {area:392} stop too"] = "{object:3972} 전단: {npc:3467}도 다음 {area:392} 방문 때 합니다",
 	-- ["Thun'grim camps beside the road from the {area:380} to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "툰그림은 {area:380}에서 {area:392}(으)로 가는 길가에 야영하고 있습니다. {object:58369}은(는) 그 바로 북쪽, 서슬갈기일족 야영지 남쪽에 있습니다.",
 	-- ["Thunder Lizards and Lightning Hides graze just across the bridge below {area:379}."] = "천둥도마뱀과 번개도마뱀은 {area:379} 아래 다리 바로 건너편에서 풀을 뜯습니다.",
 	-- ["Thunder Lizards and Lightning Hides graze just across the bridge below {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "천둥도마뱀과 번개도마뱀은 {area:379} 아래 다리 바로 건너편에서 풀을 뜯습니다.\n주의: 12레벨 정예 할리코르가 도마뱀들 사이로 {area:369}을(를) 돌아다닙니다. 끌어오기 전에 그를 살피세요.",
@@ -760,6 +766,7 @@ return {
 	-- ["Warriors: take {quest:1824} from {npc:6394} now: it runs for 30 minutes from the accept. The eggs and the antennae come first, at the same mounds, then straight back to {npc:6394}; the thunderhawks after."] = "전사: 지금 {npc:6394}에게서 {quest:1824}을(를) 받으십시오. 수락한 때부터 30분 동안 진행됩니다. 같은 둔덕에서 알과 더듬이를 먼저 모은 뒤 곧장 {npc:6394}에게 돌아가고, 천둥매는 그다음입니다.",
 	-- ["West to the {area:383}. The Witchwing harpies nest all over them; any of them can drop a talon. {quest:819} lies in their hills."] = "서쪽의 {area:383}(으)로 가세요. 칼날바람하피가 곳곳에 둥지를 틀고 있으며, 누구나 발톱을 떨어뜨릴 수 있습니다. {quest:819}은(는) 그 언덕에 있습니다.",
 	-- ["While you are in the camp: {npc:3429}'s Water Seekers and Thornweavers in its western half, the Hunters in the middle, the supply crates at its eastern end.\nCareful: Razormane Flesheaters and Berserkers (18-19) are elites; they stand in the camp's north-east, beside the supply crates: pull the quilboar away from them one at a time."] = "야영지에 있는 동안: {npc:3429}의 풍수사와 가시마술사는 서쪽 절반에, 사냥꾼은 가운데에, 보급품 상자는 동쪽 끝에 있습니다.\n주의: 서슬갈기일족 살점먹보와 광전사(18-19)는 정예이며, 야영지 북동쪽 보급품 상자 옆에 서 있습니다. 가시멧돼지를 그들에게서 하나씩 떼어 끌어오세요.",
+	-- ["Your {area:718} quests, if you have not taken them yet: {npc:3446} beside the {object:3972} poster, {npc:3665} on the dock by the flight master. The run is later in this guide, after {npc:3396}."] = "아직 받지 않은 {area:718} 퀘스트: {object:3972} 전단 옆의 {npc:3446}, 비행 조련사 옆 부두의 {npc:3665}. 공략은 이 가이드 후반, {npc:3396} 다음입니다.",
 	-- ["Zhevra"] = "얼룩말",
 	-- ["Zhevra Runners graze north and east of town."] = "굶주린 얼룩말은 마을 북쪽과 동쪽에서 풀을 뜯습니다.",
 	-- ["{area:1898} cultists"] = "{area:1898}의 이교도",
@@ -767,11 +774,13 @@ return {
 	-- ["{item:15885}: use a half at the {area:2362}"] = "{item:15885}: {area:2362}에서 조각을 사용하십시오",
 	-- ["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Oasis Snapjaws crawl in the water around it: their shells are for {npc:3448}."] = "{npc:3395}은(는) 십자로 남동쪽 {area:388}에서 콜카르일족 사이를 돌아다닙니다. 오아시스 무쇠턱거북이 그 주변 물속을 기어다니며, 그 껍질은 {npc:3448}에게 가져갑니다.",
 	-- ["{npc:3395} walks among the Kolkar at the {area:388} south-east of the Crossroads. Test {npc:3448}'s seeds at the bubbling fissure on the oasis' east bank while you are there."] = "{npc:3395}은(는) 크로스로드 남동쪽 {area:388}의 콜카르일족 사이를 걸어 다닙니다. 그곳에 있는 동안 오아시스 동쪽 기슭의 부글거리는 균열에서 {npc:3448}의 씨앗을 시험하세요.",
+	-- ["{npc:3446}, beside the {object:3972} poster: the Sunscale raptors come on the next {area:392} stop, at 18"] = "{object:3972} 전단 옆의 {npc:3446}: 태양비늘 랩터는 18레벨에 다음 {area:392} 방문 때 처리합니다",
 	-- ["{npc:3448}: the Oasis Snapjaws at the {area:388}, with {npc:3395}"] = "{npc:3448}: {area:388}의 오아시스 무쇠턱거북, {npc:3395}와(과) 함께",
 	-- ["{npc:3615}, the wind rider master"] = "윈드라이더 조련사 {npc:3615}",
 	-- ["{npc:5878} camps beside the road from the {area:380} to {area:392}. The {object:58369} sits in the south of the Razormane camp just north of him."] = "{npc:5878}은(는) {area:380}에서 {area:392}(으)로 가는 길가에 야영하고 있습니다. {object:58369}은(는) 그 바로 북쪽, 서슬갈기일족 야영지 남쪽에 있습니다.",
 	-- ["{npc:5900} waits on the riverbank south of {area:379}, across the bridge."] = "{npc:5900}은(는) 다리 건너 {area:379} 남쪽 강기슭에서 기다립니다.",
 	-- ["{npc:5907} stands on the ridge north of the Razormane camp."] = "{npc:5907}은(는) 서슬갈기일족 야영지 북쪽 능선에 서 있습니다.",
+	-- ["{object:3972} poster"] = "{object:3972} 게시판",
 	-- ["{quest:3301}: the {area:228} in {zone:1421}, next guide"] = "{quest:3301}: 다음 가이드에서 {zone:1421}의 {area:228}",
 	-- ["{quest:881}, a white lion, prowls the plains north of the Razormane camp."] = "흰 사자 {quest:881}은(는) 서슬갈기일족 야영지 북쪽 평원을 돌아다닙니다.",
 }

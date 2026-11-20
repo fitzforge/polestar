@@ -111,15 +111,15 @@ return {
 	-- {object:3202} Grom'gol · {npc:2519} Kin'weelay · {npc:2465} Far Seer Mok'thardin
 	["The flight lands at {object:3202}: {npc:2519} and {npc:2465}, then the zeppelin tower."] = "Полет заканчивается здесь: {object:3202}. Сначала {npc:2519} и {npc:2465}, затем башня дирижаблей.",
 
-	-- Step 29: Zeppelin to Orgrimmar
+	-- Step 30: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "Дирижабль: {zone:1454}",
 
-	-- Step 30: Orgrimmar
+	-- Step 31: Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["The middle of {zone:1454}"] = "",
 
-	-- Step 32: Riding at 40
+	-- Step 33: Riding at 40
 	["Riding at 40"] = "Верховая езда на 40-м уровне",
 	-- {npc:4752} Kildar · {object:172958} Valley of Honor · {npc:3362} Ogunaro Wolfrunner · {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. {npc:4752} teaches Orcs in the {object:172958}, by {npc:3362}'s kennel. Skyborne learn it from {npc:265756} at the {area:17684} in {area:16638} on Zephras Isle, with a Galestrider: the skyboat to the isle leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes. Your race's other mounts are 20 gold each: Collectibles, Mounts · Level 40 has a guide for each."] = "Верховая езда требует 40-го уровня и стоит 100 золотых; при обучении вы получаете транспорт. {npc:4752} обучает орков, ориентир: {object:172958}, у псарни ({npc:3362}). Небеснорожденные учатся у NPC {npc:265756} ({area:17684}, {area:16638}, остров Зефрис), вместе с буреногом: небесный корабль на остров отходит с утесов к югу от места {area:17045}, к северу от города {zone:1456}, примерно каждые пять минут. Другой транспорт вашей расы стоит по 20 золотых: в разделе «Коллекции», «Транспорт · 40-й уровень» есть гайд для каждого.",
@@ -130,7 +130,7 @@ return {
 	-- {npc:265756} Genn Fairweather · {area:17684} Fairweather Stables · {area:16638} Valanaar
 	["Riding and Galestriders: {npc:265756}, at the {area:17684} in {area:16638} on Zephras Isle."] = "Верховая езда и буреступы: {npc:265756}, ориентир: {area:17684} ({area:16638}), остров Зефрис.",
 
-	-- Step 34: Riding at 40
+	-- Step 35: Riding at 40
 	-- {npc:7953} Xar'Ti · {area:367} Sen'jin Village · {zone:1454} Orgrimmar · {zone:1411} Durotar
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:7953} in {area:367}, a short ride south of {zone:1454} down the {zone:1411} road, with Zjolnir's raptors (20 gold each) beside him. Ride back to {zone:1454}'s flight master afterwards."] = "",
 	-- {npc:7953} Xar'Ti
@@ -138,17 +138,17 @@ return {
 	-- {npc:7953} Xar'Ti · {area:367} Sen'jin Village
 	["Raptors: Zjolnir, beside {npc:7953} in {area:367}."] = "Ящеры: Зьольнир, рядом с персонажем {npc:7953} ({area:367}).",
 
-	-- Step 35: Fly to Thunder Bluff
+	-- Step 36: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "Летите сюда: {area:1638}",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "Распорядитель полетов: {zone:1454}",
 
-	-- Step 37: Thunder Bluff
+	-- Step 38: Thunder Bluff
 	-- {zone:1456} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["Your trainer is in {zone:1456}: {npc:3033} (Druids) on {area:1639}, {npc:246344} (Paladins)."] = "Ваш учитель – в городе {zone:1456}: {npc:3033} (друиды), ориентир: {area:1639}; {npc:246344} (паладины).",
 
-	-- Step 39: Riding at 40
+	-- Step 40: Riding at 40
 	-- {npc:3690} Kar Stormsinger · {area:222} Bloodhoof Village · {npc:3685} Harb Clawhoof · {zone:1456} Thunder Bluff
 	["Riding needs level 40 and costs 100 gold; learning it gives you a mount. Each race learns it from its own race's trainer: yours is {npc:3690} in {area:222}, with {npc:3685}'s kodos (20 gold each) beside him. Ride back up to {zone:1456}'s flight master afterwards."] = "Верховая езда требует 40-го уровня и стоит 100 золотых; при обучении вы получаете ездовое животное. Каждая раса учится у своего учителя: ваш – {npc:3690} ({area:222}), рядом кодо ({npc:3685}, по 20 золотых). Потом поднимитесь обратно к распорядителю полетов города {zone:1456}.",
 	-- {npc:3690} Kar Stormsinger
@@ -156,56 +156,56 @@ return {
 	-- {npc:3685} Harb Clawhoof · {npc:3690} Kar Stormsinger · {area:222} Bloodhoof Village
 	["Kodos: {npc:3685}, beside {npc:3690} in {area:222}."] = "Кодо: {npc:3685}, рядом с персонажем {npc:3690} ({area:222}).",
 
-	-- Step 40: Fly to Freewind Post
+	-- Step 41: Fly to Freewind Post
 	-- {area:484} Freewind Post
 	["Fly to {area:484}"] = "Летите сюда: {area:484}",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "Распорядитель полетов: {zone:1456}",
 
-	-- Step 41: Fly to Gadgetzan
+	-- Step 42: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "Летите сюда: {area:976}",
 
-	-- Step 44: Ratchet for the Felsteed
+	-- Step 45: Ratchet for the Felsteed
 	-- {area:392} Ratchet
 	["{area:392} for the Felsteed"] = "{area:392} – для коня Скверны",
 	-- {zone:1454} Orgrimmar · {area:392} Ratchet · {npc:6251} Strahad Farsan
 	["Fly from {zone:1454} to {area:392}; {npc:6251} stands on the hill above the docks."] = "",
 
-	-- Step 45: Fly to Freewind Post
+	-- Step 46: Fly to Freewind Post
 	-- {area:392} Ratchet
 	["{area:392} flight master"] = "Распорядитель полетов: {area:392}",
 
-	-- Step 51: Gadgetzan
+	-- Step 52: Gadgetzan
 	-- {area:976} Gadgetzan · {area:2240} Mirage Raceway · {zone:1446} Tanaris
 	["Flown in: {area:976}'s quests first, by the flight master, then the {area:2240} is a short ride north over the {zone:1446} border."] = "Прилетели: сначала задания ({area:976}) у распорядителя полетов, затем {area:2240} – недалеко на север через границу зоны {zone:1446}.",
 
-	-- Step 52: Gadgetzan
+	-- Step 53: Gadgetzan
 	-- {area:978} Zul'Farrak · {quest:2864} Tran'rek · {npc:7804} Trenton Lighthammer · {quest:3042} Troll Temper
 	["For your {area:978} run, in the next guide: {quest:2864} wants scarab shells, and {npc:7804}, a short walk from the flight master, {quest:3042} from the Sandfury trolls."] = "Для подземелья {area:978}, в следующем гайде: {quest:2864} просит панцири скарабеев, а {npc:7804}, недалеко от распорядителя полетов, – {quest:3042} с троллей из племени Песчаной Бури.",
 
-	-- Step 53: Mirage Raceway
+	-- Step 54: Mirage Raceway
 	-- {area:976} Gadgetzan · {zone:1446} Tanaris · {area:484} Freewind Post · {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {npc:4454} Fizzle Brassbolts · {npc:4630} Pozzik · {npc:4709} Zamek
 	["Flown in to {area:976}: the raceway is a short ride north over the {zone:1446} border.\nThe road from {area:484} to {zone:1446} runs past the {area:2240} on the {area:439}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "",
 
-	-- Step 54: To Gadgetzan
+	-- Step 55: To Gadgetzan
 	-- {area:976} Gadgetzan
 	["To {area:976}"] = "В место {area:976}",
 
-	-- Step 55: Gadgetzan
+	-- Step 56: Gadgetzan
 	-- {area:976} Gadgetzan · {zone:1446} Tanaris
 	["{area:976} is the walled goblin town just past the {zone:1446} border."] = "{area:976} – обнесенный стеной гоблинский город сразу за границей края {zone:1446}.",
 
-	-- Step 57: Noonshade Ruins: kill these as you meet them
+	-- Step 58: Noonshade Ruins: kill these as you meet them
 	-- {area:1937} Noonshade Ruins
 	["{area:1937}: kill these as you meet them"] = "{area:1937}: убивайте их по пути",
 	-- {area:976} Gadgetzan
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: Luglunket wants five.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "Бандиты и воры стоят лагерем в дюнах к востоку от места {area:976}. С любого Скитальца Пустыни может упасть бурдюк с водой: Люглункету нужно пять.\nОсторожно: разбойники Скитальцев Пустыни (43-44-й уровень) передвигаются в незаметности, так что могут подойти незамеченными.",
 
-	-- Step 59: Steamwheedle Port
+	-- Step 60: Steamwheedle Port
 	["Ride north-east to the goblin harbour on the coast."] = "Езжайте на северо-восток к гоблинской гавани на побережье.",
 	-- {npc:7882} Security Chief Bilgewhizzle
 	["{npc:7882}, inside"] = "{npc:7882}, внутри",
@@ -216,31 +216,31 @@ return {
 	-- {npc:260405} Wharfmaster Steamfizzle · {zone:2548} Riverglades
 	["{npc:260405}, on the pier: Friz's errand from the {zone:2548}, if you carry it"] = "{npc:260405}, на пирсе: поручение Фриза из зоны {zone:2548}, если оно у вас есть",
 
-	-- Step 60: Lost Rigger Cove: kill these as you meet them
+	-- Step 61: Lost Rigger Cove: kill these as you meet them
 	-- {area:1336} Lost Rigger Cove
 	["{area:1336}: kill these as you meet them"] = "{area:1336}: убивайте их по пути",
 	-- {npc:7883} Andre Firebeard
 	["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883} (45), and many more pirates from the town join the fight once it starts: pull his guards away from him first."] = "Дальше на юг вдоль берега бухту занимают пираты Южных морей. {npc:7883} и украденный груз – на причале в дальнем конце. Шляпа может упасть с любого пирата, чаще всего с похитителей.\nОсторожно: рядом с NPC {npc:7883} (45) стоят два-три пирата, а как только начнется бой, в него вступят многие пираты из городка: сначала выманите его охрану.",
 	["Upstairs"] = "Наверху",
 
-	-- Step 61: Waterspring Field: kill these as you meet them
+	-- Step 62: Waterspring Field: kill these as you meet them
 	-- {area:985} Waterspring Field
 	["{area:985}: kill these as you meet them"] = "{area:985}: убивайте их по пути",
 	-- {area:976} Gadgetzan · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["The shadow mages, rogues and assassins camp south-east of {area:976}.\nSouth-east of Gadgetzan the Wastewander bandits camp in the dunes; {npc:7847} stands in the eastern camp.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "",
 
-	-- Step 62: Steamwheedle Port
+	-- Step 63: Steamwheedle Port
 	-- {npc:7881} Stoley · {npc:15165} Haughty Modiste · {area:1336} Lost Rigger Cove · {area:976} Gadgetzan
 	["Ride north-east back to the port: {npc:7881}, the {npc:15165} and the Security Chief take what {area:1336} gave you. {area:976} is west of it."] = "",
 	-- {area:35} Booty Bay
 	["for {area:35}, around level 51 (40-50/06)"] = "для места {area:35}, примерно на 51-м уровне (40-50/06)",
 
-	-- Step 64: Fly to Freewind Post
+	-- Step 65: Fly to Freewind Post
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "Распорядитель полетов: {area:976}",
 
-	-- Step 66: Camp Mojache
+	-- Step 67: Camp Mojache
 	-- {npc:8021} Orwin Gizzmick · {npc:8020} Shyn
 	["{npc:8021} and {npc:8020} are by the road in. Bind at the inn, then visit the northern huts on your way to the outpost. If you meet Rok on his patrol, hand him the message and take his ogre hunt together."] = "",
 	-- {npc:7777} Rok Orhan · {area:1099} Camp Mojache
@@ -252,47 +252,47 @@ return {
 	-- {npc:7854} Jangdor Swiftstrider
 	["{npc:7854}, inside"] = "{npc:7854}, внутри",
 
-	-- Step 67: Gordunni dig sites
+	-- Step 68: Gordunni dig sites
 	["Gordunni dig sites"] = "",
 	["Work the southern part of the outpost. Kill the ogres as you dig, and pick up the scroll if you see it."] = "",
 	-- {item:9466} Orwin's Shovel
 	["Use {item:9466} on a blue glow, loot the mound it uncovers, then look for another glow."] = "",
 
-	-- Step 68: Gordunni Outpost
+	-- Step 69: Gordunni Outpost
 	-- {npc:222233} Ohk'zi
 	["Finish the ogres in the outpost; pull the ogre-magi to you. Look for the scroll on the ground if you haven't found it yet.\nCareful: {npc:222233} (level 43, elite) stands in the outpost: pull the ogres out to you, away from him."] = "",
 
-	-- Step 69: Woodpaw north camp
+	-- Step 70: Woodpaw north camp
 	["Woodpaw north camp"] = "Северный лагерь Древолапов",
 	["The Woodpaw gnolls camp in the hills just north-west of Mojache; any of them can drop a mane.\nCareful: Every Woodpaw gnoll except the Alpha runs off for help at 15% health, which can pull more gnolls into the fight."] = "Гноллы из стаи Древолапов стоят лагерем на холмах чуть к северо-западу от Лагеря Мохаче; грива может упасть с любого.\nОсторожно: все гноллы Древолапов, кроме вожаков, при 15% здоровья убегают за подмогой, что может привлечь в бой других гноллов.",
 
-	-- Step 70: Camp Mojache
+	-- Step 71: Camp Mojache
 	-- {quest:2863} Alpha Strike
 	["{quest:2863}: one hour from now"] = "{quest:2863}: в течение часа",
 
-	-- Step 71: Feralas: kill these as you meet them
+	-- Step 72: Feralas: kill these as you meet them
 	-- {zone:1444} Feralas
 	["{zone:1444}: kill these as you meet them"] = "{zone:1444}: убивайте их по пути",
 	["The sprite darters flit over the grove just west of Mojache; nearly every one drops a wing. The Woodpaw alphas lead the camps south-west of it: kill them within the hour.\nCareful: Most Alphas sit in small tent camps with 2-4 other gnolls that join the fight, and other gnolls patrol between the camps."] = "Летучие хамелеоны порхают над рощей чуть к западу от Лагеря Мохаче; крыло падает почти с каждого. Вожаки стаи Древолапов возглавляют лагеря к юго-западу: убейте их в течение часа.\nОсторожно: большинство вожаков сидят в небольших лагерях с палатками вместе с 2-4 другими гноллами, которые вступают в бой, а между лагерями патрулируют другие гноллы.",
 
-	-- Step 73: Grimtotem camp
+	-- Step 74: Grimtotem camp
 	["Grimtotem camp"] = "Лагерь Зловещего Тотема",
 	-- {npc:222286} Namida Grimtotem
 	["The Grimtotem tauren camp beside the sprite darters' grove; raiders, naturalists and shamans all carry horns.\nCareful: {npc:222286} (level 43, elite) stands in the camp: pull the raiders and shamans away from her."] = "Таурены племени Зловещего Тотема стоят лагерем у рощи хамелеонов; рога есть у налетчиков, натуралистов и шаманов.\nОсторожно: в лагере стоит {npc:222286} (43-й уровень, элитная): выманивайте налетчиков и шаманов подальше от нее.",
 
-	-- Step 74: Woodpaw battle map
+	-- Step 75: Woodpaw battle map
 	["Woodpaw battle map"] = "Тактическая карта Древолапов",
 	["The battle map lies in the Woodpaw camp south of Mojache."] = "Тактическая карта лежит в лагере Древолапов к югу от Лагеря Мохаче.",
 
-	-- Step 75: Camp Mojache
+	-- Step 76: Camp Mojache
 	-- {zone:1454} Orgrimmar
 	["for {zone:1454}, around level 45"] = "для города {zone:1454}, примерно на 45-м уровне",
 
-	-- Step 76: The Writhing Deep
+	-- Step 77: The Writhing Deep
 	-- {quest:7731} Stinglasher
 	["The Zukk'ash hive burrows into the hills south-east of the camp; {quest:7731} waits in its deepest chamber.\nCareful: {quest:7731} is level 47: clear the hive around him and pull him alone at full health."] = "Улей Цуккаш врыт в холмы к юго-востоку от лагеря; {quest:7731} ждет в самой дальней камере.\nОсторожно: {quest:7731} – 47-го уровня: зачистите улей вокруг него и выманивайте его в одиночку с полным здоровьем.",
 
-	-- Step 77: Ruins of Isildien: kill these as you meet them
+	-- Step 78: Ruins of Isildien: kill these as you meet them
 	-- {area:2522} Ruins of Isildien
 	["{area:2522}: kill these as you meet them"] = "{area:2522}: убивайте их по пути",
 	-- {area:1105} Feral Scar Vale
@@ -300,17 +300,17 @@ return {
 	-- {npc:5234} Gordunni Mauler · {area:2522} Ruins of Isildien
 	["{npc:5234} walks around {area:2522}: look inside the circle on the map"] = "{npc:5234} ходит по месту {area:2522}: ищите внутри круга на карте",
 
-	-- Step 78: Feral Scar Vale yetis
+	-- Step 79: Feral Scar Vale yetis
 	-- {area:1105} Feral Scar Vale
 	["{area:1105} yetis"] = "Йети: {area:1105}",
 	-- {area:1105} Feral Scar Vale · {npc:5346} Bloodroar the Stalker
 	["North-west of the ruins, pull one yeti at a time at the eastern mouth of {area:1105} for thick hides. Careful: larger yetis crowd the cave further west, and {npc:5346}, a level 48 rare, lurks at the far end."] = "",
 
-	-- Step 79: Homing Robot OOX-22/FE
+	-- Step 80: Homing Robot OOX-22/FE
 	-- {zone:1444} Feralas · {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {area:35} Booty Bay
 	["Only with the distress beacon: any beast, gnoll or ogre in {zone:1444} can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "Только с аварийным маяком: он может упасть с любого зверя, гнолла или огра в краю {zone:1444}, примерно один раз из ста; используйте его, чтобы начать задание. Робот сидит в небольшой пещере в северной части места {area:1105}, чуть к северо-западу от руин. Сопроводите его к причалу в месте {area:1108}; по пути нападут йети и гориллы. Награда ждет здесь: {area:35} – заберете позже.\nОсторожно: во время сопровождения будет три засады, и робот предупреждает перед каждой. Первая – 3 йети, сразу после того, как робот выйдет из пещеры и поднимется к дороге. Вторая – 3 гориллы, на тропе вдоль утеса. Третья – около 4 гноллов, один из них заклинатель, там, где маршрут сворачивает к причалу.",
 
-	-- Step 80: Camp Mojache
+	-- Step 81: Camp Mojache
 	-- {zone:1444} Feralas
 	["the Rage Scar yetis, on the next visit to {zone:1444}"] = "йети Яростного Шрама – при следующем посещении края {zone:1444}",
 	-- {npc:7875} Hadoken Swiftstrider · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar

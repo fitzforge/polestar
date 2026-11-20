@@ -20,8 +20,8 @@ return {
 	-- {npc:2216} Apothecary Lydon
 	-- plural, as words: Syndicate Shadow Mages = {npc:2244} Syndicate Shadow Mage
 	["{npc:2216}: the vials come from the Syndicate Shadow Mages on the way to Durnholde"] = "{npc:2216}：藥瓶來自前往敦霍爾德路上的辛迪加暗影法師",
-	-- {object:556670} WANTED (no name in this language: may be words)
-	["The {object:556670} poster by the inn"] = "旅店旁的{object:556670}海報",
+	-- was: ["The {object:556670} poster by the inn"] = "旅店旁的{object:556670}海報"
+	["The WANTED poster by the inn"] = "",
 	-- {npc:2229} Krusk
 	["{npc:2229}, inside"] = "{npc:2229}，在裡面",
 
@@ -252,6 +252,7 @@ return {
 	-- ["The smithy stands in the middle of {area:287} town. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks the street north of it."] = "鐵匠鋪位於{area:287}鎮中央。{npc:2404}和他的學徒在熔爐邊工作；{object:1736}堆在旁邊。{npc:2449}在鐵匠鋪北邊的街上走動。",
 	-- ["The town hall is on the west side of {area:287}. {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "市政廳在{area:287}西側。{npc:2335}（30級）和{npc:2448}在裡面，旁邊有希爾斯布萊德城鎮文檔；希爾斯布萊德宣言貼在旁邊。希爾斯布萊德議員在鎮上走動。",
 	-- ["The {area:288} lies south of {area:287} town. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "{area:288}位於{area:287}鎮南邊。希爾斯布萊德礦工在隧道中工作；{npc:2305}（30級）和{npc:2450}（29級）在深處。",
+	-- ["The {object:556670} poster by the inn"] = "旅店旁的{object:556670}海報",
 	-- ["The {quest:567} poster: its targets come up along the way"] = "{quest:567}海報：目標會在途中陸續出現",
 	-- ["Town hall"] = "市政廳",
 	-- ["Train with {npc:3033}. Before you fly on, {npc:3024} and {npc:4721}, a short walk east of the wind rider master, give two quests worked on the next guides' walks; then fly on to the Crossroads, where the next guide starts."] = "在{npc:3033}那裡訓練。繼續飛行前，風騎士管理員東邊不遠處的{npc:3024}和{npc:4721}會給你兩個任務，在接下來幾份指南的路上完成；然後飛往十字路口，下一份指南從那裡開始。",

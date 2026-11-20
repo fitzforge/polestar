@@ -9,29 +9,37 @@ return {
 	-- Step 1: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "飞往{area:1637}",
+	-- {area:2408} Shadowprey Village · {area:1637} Orgrimmar
+	["At {area:2408}, ask Thalon for a flight to {area:1637}. If he cannot take you, make your way to the city by road instead."] = "",
 	-- {area:2408} Shadowprey Village
 	["{area:2408} flight master"] = "{area:2408}的飞行管理员",
 
-	-- Step 2: Thunder Bluff
+	-- Step 2: Reach Orgrimmar
+	-- {area:1637} Orgrimmar
+	["Reach {area:1637}"] = "",
+	-- {area:1637} Orgrimmar · {area:976} Gadgetzan · {npc:7824} Bulkrek Ragefist
+	["Head to {area:1637} from where you are. At {area:976}, ask {npc:7824} for a flight if you know the route and can pay the fare. If you enter the city by road, continue to your next stop there."] = "",
+
+	-- Step 3: Thunder Bluff
 	-- {area:2408} Shadowprey Village · {area:976} Gadgetzan · {area:439} Shimmering Flats · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {zone:1454} Orgrimmar
 	["Fly from {area:2408} (or from {area:976}, after the {area:439}' south) to {area:1638} and train with {npc:3033} on {area:1639}; fly on to {zone:1454} from there."] = "",
 
-	-- Step 3: Back to Orgrimmar
+	-- Step 4: Back to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Back to {area:1637}"] = "返回{area:1637}",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "{zone:1456}飞行管理员",
 
-	-- Step 4: Keldran
+	-- Step 5: Keldran
 	-- {npc:5640} Keldran · {object:172961} Valley of Spirits
 	["{npc:5640} stands in the {object:172961} on the west side of the city."] = "{npc:5640}站在城市西侧的{object:172961}。",
 
-	-- Step 5: Orgrimmar trainers
+	-- Step 6: Orgrimmar trainers
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} trainers"] = "{zone:1454}训练师",
 	["Train while you are in the city."] = "趁在城里先训练。",
 
-	-- Step 6: Fly to Ratchet
+	-- Step 7: Fly to Ratchet
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "飞往{area:392}",
 	-- {area:35} Booty Bay · {area:392} Ratchet
@@ -39,7 +47,7 @@ return {
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "{zone:1454}的飞行管理员",
 
-	-- Step 7: Ratchet
+	-- Step 8: Ratchet
 	-- {npc:3391} Gazlowe · {quest:1111} Wharfmaster Dizzywig
 	["{npc:3391} waits upstairs in the house by the flight master; {quest:1111} stands on the docks, beside the boat."] = "{npc:3391}在飞行管理员旁边那栋房子的楼上；{quest:1111}站在码头上，船的旁边。",
 	-- {npc:3391} Gazlowe
@@ -51,11 +59,11 @@ return {
 	-- {area:35} Booty Bay
 	["If you first reach Dizzywig on the way to {area:35}, leave the return delivery here; the boat is your next stop."] = "",
 
-	-- Step 8: Boat to Booty Bay
+	-- Step 9: Boat to Booty Bay
 	-- {area:35} Booty Bay
 	["Boat to {area:35}"] = "乘船前往{area:35}",
 
-	-- Step 9: Booty Bay
+	-- Step 10: Booty Bay
 	-- {npc:4631} Wharfmaster Lozgil · {npc:2495} Drizzlik · {npc:2498} Crank Fizzlebub · {npc:2496} Baron Revilgaz · {npc:737} Kebok · {npc:773} Krazek · {npc:2858} Gringer
 	["{npc:4631} stands on the pier where the boat docks. {npc:2495}'s shop is in the building east of the inn; {npc:2498} is on the inn's bottom floor, {npc:2496}, {npc:737} and {npc:773} upstairs, {npc:2858} the flight master on the upper deck."] = "{npc:4631}站在船靠岸的码头上。{npc:2495}的商店在旅店东边的建筑里；{npc:2498}在旅店底层，{npc:2496}、{npc:737}和{npc:773}在楼上，飞行管理员{npc:2858}在上层甲板。",
 	-- {npc:4631} Wharfmaster Lozgil
@@ -71,29 +79,29 @@ return {
 	-- {npc:773} Krazek
 	["{npc:773}, upstairs"] = "{npc:773}：在楼上",
 
-	-- Step 10: Krazek
+	-- Step 11: Krazek
 	-- {npc:773} Krazek
 	["If you brought Kravel's message, give it to {npc:773} upstairs at the inn."] = "",
 
-	-- Step 11: Grom'gol
+	-- Step 12: Grom'gol
 	-- {area:35} Booty Bay · {object:3202} Grom'gol
 	["Leave {area:35} through the tunnel and follow the road north to {object:3202}, the orc camp on the west side of the vale. Stay on the road: the jungle beside it is above your level."] = "穿过隧道离开{area:35}，沿道路向北前往荆棘谷西侧的兽人营地{object:3202}。别离开道路：路旁丛林里的怪物比你等级高。",
 	-- {npc:2497} Nimboya
 	["{npc:2497}: for Arathi, later on the route"] = "{npc:2497}：交给阿拉希高地，路线后面会去",
 
-	-- Step 12: Nesingwary's camp
+	-- Step 13: Nesingwary's camp
 	["Nesingwary's camp"] = "奈辛瓦里的营地",
 	-- {object:3202} Grom'gol · {npc:773} Krazek · {item:2755} Green Hills of Stranglethorn · {npc:716} Barnil Stonepot
 	["Follow the road north out of {object:3202}; Nesingwary's hunting camp sits on the hill north-east of the river. {npc:773} wants it investigated: walk among its tents. From here on, keep every page of The {item:2755} you loot: {npc:716} takes them on your next Stranglethorn visit."] = "沿道路向北离开{object:3202}；奈辛瓦里的狩猎营地在河东北边的山上。{npc:773}要你调查那里：在帐篷间走一圈。从现在起，留着拾取到的每一页{item:2755}：下次来荆棘谷时{npc:716}会收取。",
 
-	-- Step 13: Nesingwary's Expedition: kill these as you meet them
+	-- Step 14: Nesingwary's Expedition: kill these as you meet them
 	-- {area:100} Nesingwary's Expedition
 	["{area:100}: kill these as you meet them"] = "{area:100}：沿途遇到就击杀",
 	-- {item:4614} Pendant of Myzrael
 	-- plural, as words: River Crocolisks = {npc:1150} River Crocolisk · Young Stranglethorn Tigers = {npc:681} Young Stranglethorn Tiger · Young Panthers = {npc:683} Young Panther · Stranglethorn Raptors = {npc:685} Stranglethorn Raptor
 	["River Crocolisks lie along the river below the camp. Young Stranglethorn Tigers prowl west of the camp, Young Panthers east of it. Head west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A {item:4614} is a very rare drop from them: if one drops, read it. Careful: The troll camps have many patrolling mobs, so other trolls often join a fight."] = "淡水鳄趴在营地下方的河边。荆棘谷猛虎幼崽在营地西侧徘徊，猎豹幼崽则在营地东侧。向西经过营地。荆棘谷迅猛龙（33-34级）在空地上狩猎，血顶巨魔占据着海岸废墟：任何血顶巨魔都可能掉落獠牙。它们有极低概率掉落{item:4614}：掉落后记得阅读。小心：巨魔营地有很多巡逻怪，因此其他巨魔经常会加入战斗。",
 
-	-- Step 15: Stranglethorn Vale: kill these as you meet them
+	-- Step 16: Stranglethorn Vale: kill these as you meet them
 	-- {zone:1434} Stranglethorn Vale
 	["{zone:1434}: kill these as you meet them"] = "{zone:1434}：沿途击杀以下目标",
 	-- {area:37} Lake Nazferiti
@@ -103,34 +111,34 @@ return {
 	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
 	["Tumbled Crystals, from the geologists of the eastern camps"] = "打磨过的水晶，击杀东边营地的地质学家获取",
 
-	-- Step 16: Nesingwary's camp
+	-- Step 17: Nesingwary's camp
 	-- {object:3202} Grom'gol
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["The Shadowmaw Panthers come much later, by {object:3202}"] = "深喉猎豹要很久以后才会遇到，在{object:3202}附近",
 
-	-- Step 17: Elder Stranglethorn Tigers
+	-- Step 18: Elder Stranglethorn Tigers
 	-- plural, as words: Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger
 	["Elder Stranglethorn Tigers"] = "老年荆棘谷猛虎",
 	-- plural, as words: Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger
 	["The Elder Stranglethorn Tigers (34-35) roam the hills south-west of the camp. Careful: Troll camps are close to the tiger area, and trolls can join a fight if you pull carelessly."] = "老年荆棘谷猛虎（34-35级）在营地西南侧的山丘上游荡。注意：猛虎区域附近有巨魔营地，引怪时稍不留神就会引来巨魔。",
 
-	-- Step 18: Nesingwary's camp
+	-- Step 19: Nesingwary's camp
 	["Back north to the camp."] = "向北回到营地。",
 	-- {npc:717} Ajeck Rouack · {npc:729} Sin'Dall
 	["{npc:717}: {npc:729} (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale"] = "{npc:717}：{npc:729}（37级）留到下次来奈辛瓦里营地时再做，约40级，见forever/horde/40-50/01-stranglethorn-vale",
 
-	-- Step 19: Thoroughly Scavenged Supplies
+	-- Step 20: Thoroughly Scavenged Supplies
 	-- {npc:268992} Zimmix Sputterspark
 	["The supplies lie beside the path to the coast. Look for the stolen shipments in the southern ruins near {npc:268992}."] = "",
 
-	-- Step 20: The Savage Coast: kill these as you meet them
+	-- Step 21: The Savage Coast: kill these as you meet them
 	-- {area:301} The Savage Coast
 	["{area:301}: kill these as you meet them"] = "{area:301}：沿途击杀以下目标",
 	-- {npc:729} Sin'Dall · {npc:717} Ajeck Rouack
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
 	["Continue west to the Crystal Spine Basilisks (34-35) on the rocks. The Bloodscalp trolls in the village beyond drop ears.\nLeave {npc:729} on the hilltop. {npc:717}'s hunt for him comes on the next Stranglethorn visit.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "",
 
-	-- Step 21: Zimmix Sputterspark
+	-- Step 22: Zimmix Sputterspark
 	-- {npc:268992} Zimmix Sputterspark · {area:102} Ruins of Zul'Kunda · {item:277957} Primitive Key · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment · Bloodscalp Scouts = {npc:588} Bloodscalp Scout · Bloodscalp Berserkers = {npc:597} Bloodscalp Berserker
 	["{npc:268992} is held at the east edge of the {area:102}; the Stolen Shipments lie among the ruins around him. The Bloodscalp Scouts, Hunters and Mystics (34-35) there carry his {item:277957}. Then lead him out of the ruins: {npc:4631} in {area:35} takes the news and the shipments.\nCareful: Bloodscalp Berserkers and Headhunters (36-37) and Witch Doctors (37, casters) hold the ruins north and west of {npc:268992}, close to the northern shipments (around 24.9,9.6): pick the shipments in the southern ruins by {npc:268992} first, and pull one at a time if you go north."] = "{npc:268992}被关在{area:102}东边缘；被盗的货物散落在他周围的废墟中。那里的血顶斥候、猎手和秘法师（34-35级）身上带着他的{item:277957}。然后护送他走出废墟：{area:35}的{npc:4631}会接收消息和货物。\n小心：{npc:268992}北边和西边的废墟里有血顶狂战士、猎头者（36-37级）和巫医（37级，施法者），离北边的货物（约24.9,9.6）很近：先拾取{npc:268992}附近南边废墟的货物，如果去北边，一次引一只。",
@@ -142,30 +150,30 @@ return {
 	-- {npc:268992} Zimmix Sputterspark
 	["Escort {npc:268992} out of the ruins and keep him alive: Lozgil takes the news once he is safe."] = "护送{npc:268992}走出废墟并保证他存活：他安全后，罗兹基尔会接收消息。",
 
-	-- Step 22: Nesingwary's camp
+	-- Step 23: Nesingwary's camp
 	-- {npc:729} Sin'Dall
 	["Keep {npc:729} for the next Stranglethorn visit."] = "",
 
-	-- Step 23: Lashtail Raptors
+	-- Step 24: Lashtail Raptors
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["Lashtail Raptors"] = "鞭尾迅猛龙",
 	-- {object:3202} Grom'gol · {npc:2464} Commander Aggro'gosh
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor · Carnivorous Weeds = {npc:269175} Carnivorous Weed
 	["On your way back south to {object:3202}, the Lashtail Raptors (35-36) hunt the jungle between the camp and {object:3202}: they count for Hemet and for {npc:2464}. Careful: the 36s can be two over you: pull them one at a time. Carnivorous Weeds (36-38) are rooted in the jungle south of the raptors: walk around them."] = "向南返回{object:3202}途中，鞭尾迅猛龙（35-36级）在营地与{object:3202}之间的丛林里出没：它们同时计入赫米特和{npc:2464}的任务进度。小心：36级的可能比你高两级：一次引一只。食肉杂草（36-38级）扎根在迅猛龙南边的丛林里：绕开它们。",
 
-	-- Step 24: Grom'gol
+	-- Step 25: Grom'gol
 	-- {npc:2464} Commander Aggro'gosh · {object:3202} Grom'gol · {npc:2497} Nimboya · {npc:2465} Far Seer Mok'thardin
 	["{npc:2464} stands in the middle of {object:3202}, {npc:2497} near the zeppelin tower, {npc:2465} beside the flight master."] = "{npc:2464}站在{object:3202}中央，{npc:2497}在飞艇塔附近，{npc:2465}在飞行管理员旁边。",
 	-- {npc:2465} Far Seer Mok'thardin
 	["{npc:2465}: the Shadowmaw claws and the tigress fang come at the end of this guide"] = "{npc:2465}：深喉猎豹的爪子和雌虎的牙齿到本指南末尾再收集",
 
-	-- Step 25: Fly to Booty Bay
+	-- Step 26: Fly to Booty Bay
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "飞往{area:35}",
 	-- {object:3202} Grom'gol
 	["{object:3202} flight master"] = "{object:3202} 的飞行管理员。",
 
-	-- Step 26: Booty Bay
+	-- Step 27: Booty Bay
 	-- {npc:2495} Drizzlik · {npc:2498} Crank Fizzlebub · {npc:2496} Baron Revilgaz · {npc:737} Kebok · {npc:773} Krazek · {npc:4631} Wharfmaster Lozgil
 	["{npc:2495}'s shop is in the building east of the inn; {npc:2498} is on the inn's bottom floor, {npc:2496}, {npc:737} and {npc:773} upstairs beside the flight master. {npc:4631} stands on the pier."] = "{npc:2495}的商店在旅店东边的建筑里；{npc:2498}在旅店底层，{npc:2496}、{npc:737}和{npc:773}在楼上飞行管理员旁边。{npc:4631}站在码头上。",
 	-- {npc:2498} Crank Fizzlebub
@@ -176,13 +184,13 @@ return {
 	-- {npc:4631} Wharfmaster Lozgil · {npc:268992} Zimmix Sputterspark
 	["{npc:4631}: {npc:268992} is safe"] = "{npc:4631}：{npc:268992}平安无事",
 
-	-- Step 27: Fly to Grom'gol
+	-- Step 28: Fly to Grom'gol
 	-- {object:3202} Grom'gol
 	["Fly to {object:3202}"] = "飞往{object:3202}",
 	-- {area:35} Booty Bay
 	["{area:35} flight master"] = "{area:35}的飞行管理员",
 
-	-- Step 28: Level 35
+	-- Step 29: Level 35
 	["Level 35"] = "等级35",
 	-- {quest:629} The Vile Reef · {area:35} Booty Bay · {object:3202} Grom'gol
 	-- plural, as words: Bloodscalp Headhunters = {npc:671} Bloodscalp Headhunter · Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger · Lashtail Raptors = {npc:686} Lashtail Raptor
@@ -190,29 +198,29 @@ return {
 	-- {npc:1085} Elder Stranglethorn Tiger
 	["grind on {npc:1085}"] = "刷{npc:1085}升级",
 
-	-- Step 29: The Vile Reef
+	-- Step 30: The Vile Reef
 	-- {area:104} Vile Reef · {item:4094} Tablet Shard
 	["North-west of Grom'gol the {area:104} lies under the water off the coast. The {item:4094} rests on the sea floor by the sunken ruins; watch your breath and the murlocs."] = "{area:104}位于格罗姆高营地西北的近海水下。{item:4094}躺在沉没废墟旁的海底；注意呼吸和鱼人。",
 	["Underwater"] = "在水下",
 
-	-- Step 30: Ruins of Zul'Kunda: kill these as you meet them
+	-- Step 31: Ruins of Zul'Kunda: kill these as you meet them
 	-- {area:102} Ruins of Zul'Kunda
 	["{area:102}: kill these as you meet them"] = "{area:102}：沿途遇到就击杀",
 	-- {item:3915} Bloody Bone Necklace · {item:2755} Green Hills of Stranglethorn
 	-- plural, as words: Bloodscalp Headhunters = {npc:671} Bloodscalp Headhunter
 	["The Bloodscalp Headhunters (36-37) in the village on the coast carry the shrunken heads. Careful: the 37s can be two over you: pull them one at a time from the village's edge, never into the middle with the Witch Doctors.\nThe Bloodscalp trolls hold the ruins up the coast north of the reef and the village beyond; every one can drop a {item:3915}. Keep looting pages of The {item:2755}."] = "海边村庄中的血顶猎头者（36-37级）带着皱缩的头颅。小心：37级的可能比你高两级：从村子边缘一次引一个，千万别冲进有巫医的村子中央。\n血顶巨魔占据着礁石北面沿海的废墟及更远处的村庄；每一只都有可能掉落{item:3915}。继续拾取{item:2755}的书页。",
 
-	-- Step 32: Stranglethorn Vale: kill these as you meet them
+	-- Step 33: Stranglethorn Vale: kill these as you meet them
 	-- {npc:2495} Drizzlik
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther · Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk · Elder Shadowmaw Panthers = {npc:1713} Elder Shadowmaw Panther
 	["East of the Mosh'Ogg hills, Shadowmaw Panthers (37-38) stalk the jungle towards the lake; the Stranglethorn Tigresses roam the same ground and now and then drop a pristine fang. Snapjaw Crocolisks line the river just west of the jungle; keep their skins for {npc:2495}. Careful: Shadowmaw Panthers (level 37-38) and Elder Shadowmaw Panthers (level 42-43) use Sneak while out of combat, so they remain hidden until you get near them; the 38s can be two over you: pull them one at a time and leave the Elders alone."] = "在莫什奥格山丘东侧，深喉猎豹（37-38级）在通往湖泊的丛林中潜行；荆棘谷雌虎也在同一区域游荡，偶尔掉落完美的牙齿。钳嘴鳄鱼分布在丛林正西侧的河边，保留它们的皮交给{npc:2495}。注意：深喉猎豹（37-38级）和老年深喉猎豹（42-43级）会在非战斗状态下使用潜行，靠近后才会现身；38级的可能比你高两级：一次引一个，别碰老年深喉猎豹。",
 
-	-- Step 33: Mosh'Ogg camp
+	-- Step 34: Mosh'Ogg camp
 	["Mosh'Ogg camp"] = "莫什奥格营地",
 	-- {object:3202} Grom'gol
 	["The Mosh'Ogg ogres camp in the hills just east of {object:3202}, on your way back. Kill 10 Brutes and 5 Witch Doctors (36-37); pull them one at a time. Careful: the 37s can be two over you: take them from the camp's western edge, never two together."] = "回程途中，莫什奥格食人魔的营地位于{object:3202}正东的山丘上。击杀10名莫什奥格蛮兵和5名莫什奥格巫医（36-37级），一次引一个。注意：37级的可能比你高两级：从营地西缘下手，绝不要同时打两个。",
 
-	-- Step 34: Grom'gol
+	-- Step 35: Grom'gol
 	-- {object:3202} Grom'gol
 	["Back to {object:3202}."] = "返回{object:3202}。",
 	-- {npc:2465} Far Seer Mok'thardin
@@ -222,7 +230,7 @@ return {
 	-- {zone:1454} Orgrimmar
 	["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "下一份指南会从营地西侧的塔楼乘飞艇前往{zone:1454}。",
 
-	-- Step 35: Level 36
+	-- Step 36: Level 36
 	["Level 36"] = "等级 36",
 	-- {object:3202} Grom'gol
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk

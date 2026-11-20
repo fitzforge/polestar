@@ -20,8 +20,8 @@ return {
 	-- {npc:2216} Apothecary Lydon
 	-- plural, as words: Syndicate Shadow Mages = {npc:2244} Syndicate Shadow Mage
 	["{npc:2216}: the vials come from the Syndicate Shadow Mages on the way to Durnholde"] = "{npc:2216}: склянки падают с темных магов Синдиката по пути к Дарнхольду",
-	-- {object:556670} WANTED
-	["The {object:556670} poster by the inn"] = "Плакат у таверны: {object:556670}",
+	-- was: ["The {object:556670} poster by the inn"] = "Плакат у таверны: {object:556670}"
+	["The WANTED poster by the inn"] = "",
 	-- {npc:2229} Krusk
 	["{npc:2229}, inside"] = "{npc:2229}, внутри",
 
@@ -259,6 +259,7 @@ return {
 	-- ["The town hall is on the west side of {area:287}. {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "Ратуша — в западной части места {area:287}. {npc:2335} (30) и {npc:2448} внутри, там же Регистрационная книга Хилсбрада; рядом висит Хилсбрадское официальное объявление. По городку ходят члены совета Хилсбрада.",
 	-- ["The western peak"] = "Западная вершина",
 	-- ["The {area:288} lies south of {area:287} town. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "{area:288} — к югу от городка {area:287}. В туннелях работают шахтеры; {npc:2305} (30) и {npc:2450} (29) — в глубине.",
+	-- ["The {object:556670} poster by the inn"] = "Плакат у таверны: {object:556670}",
 	-- ["The {quest:567} poster: Kalaba with the peasants, Wilkes at the smithy; the clerk and the miner on the visit at about 30; inside"] = "Плакат «{quest:567}»: Калаба с крестьянами, Уилкс у кузницы; клерк и шахтер – при визите примерно на 30; внутри",
 	-- ["The {quest:567} poster: its targets come up along the way"] = "Плакат «{quest:567}»: его цели попадутся по пути",
 	-- ["Town hall"] = "Ратуша",

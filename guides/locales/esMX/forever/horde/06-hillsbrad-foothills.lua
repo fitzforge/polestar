@@ -20,8 +20,8 @@ return {
 	-- {npc:2216} Apothecary Lydon
 	-- plural, as words: Syndicate Shadow Mages = {npc:2244} Syndicate Shadow Mage
 	["{npc:2216}: the vials come from the Syndicate Shadow Mages on the way to Durnholde"] = "{npc:2216}: los viales los sueltan los magos oscuros de la Hermandad camino a Durnholde",
-	-- {object:556670} WANTED (no name in this language: may be words)
-	["The {object:556670} poster by the inn"] = "El cartel de {object:556670} junto a la posada",
+	-- was: ["The {object:556670} poster by the inn"] = "El cartel de {object:556670} junto a la posada"
+	["The WANTED poster by the inn"] = "",
 	-- {npc:2229} Krusk
 	["{npc:2229}, inside"] = "{npc:2229}, adentro",
 
@@ -261,6 +261,7 @@ return {
 	-- ["The town hall is on the west side of {area:287}. {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "El ayuntamiento está en el lado oeste de {area:287}. {npc:2335} (30) y {npc:2448} están dentro con el Registro de Trabalomas; la Proclamación de Trabalomas está clavada al lado. Los Consejeros recorren el pueblo.",
 	-- ["The western peak"] = "El pico oeste",
 	-- ["The {area:288} lies south of {area:287} town. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "La {area:288} está al sur del pueblo de {area:287}. Los Mineros trabajan en los túneles; {npc:2305} (30) y {npc:2450} (29) están al fondo.",
+	-- ["The {object:556670} poster by the inn"] = "El cartel de {object:556670} junto a la posada",
 	-- ["The {quest:567} poster: Kalaba with the peasants, Wilkes at the smithy; the clerk and the miner on the visit at about 30; inside"] = "El cartel de {quest:567}: Kalaba con los campesinos, Wilkes en la herrería; el escribiente y el minero en la visita alrededor del nivel 30; adentro",
 	-- ["The {quest:567} poster: its targets come up along the way"] = "El cartel de {quest:567}: sus objetivos aparecen en el camino",
 	-- ["Town hall"] = "Ayuntamiento",

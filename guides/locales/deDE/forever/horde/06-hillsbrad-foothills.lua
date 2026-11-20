@@ -20,8 +20,8 @@ return {
 	-- {npc:2216} Apothecary Lydon
 	-- plural, as words: Syndicate Shadow Mages = {npc:2244} Syndicate Shadow Mage
 	["{npc:2216}: the vials come from the Syndicate Shadow Mages on the way to Durnholde"] = "{npc:2216}: Die Phiolen bekommst du von den Schattenmagiern des Syndikats auf dem Weg nach Durnholde",
-	-- {object:556670} WANTED
-	["The {object:556670} poster by the inn"] = "Das Plakat {object:556670} beim Gasthaus",
+	-- was: ["The {object:556670} poster by the inn"] = "Das Plakat {object:556670} beim Gasthaus"
+	["The WANTED poster by the inn"] = "",
 	-- {npc:2229} Krusk
 	["{npc:2229}, inside"] = "{npc:2229}, drinnen",
 
@@ -261,6 +261,7 @@ return {
 	-- ["The town hall is on the west side of {area:287}. {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "Das Rathaus liegt auf der Westseite von {area:287}. {npc:2335} (30) und {npc:2448} sind drinnen beim Stadtverzeichnis von Hillsbrad; die Proklamation von Hillsbrad hängt daneben. Ratsherren von Hillsbrad laufen durch den Ort.",
 	-- ["The western peak"] = "Der westliche Gipfel",
 	-- ["The {area:288} lies south of {area:287} town. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "Der Ort {area:288} liegt südlich des Orts {area:287}. Minenarbeiter von Hillsbrad arbeiten in den Stollen; {npc:2305} (30) und {npc:2450} (29) sind tief drinnen.",
+	-- ["The {object:556670} poster by the inn"] = "Das Plakat {object:556670} beim Gasthaus",
 	-- ["The {quest:567} poster: Kalaba with the peasants, Wilkes at the smithy; the clerk and the miner on the visit at about 30; inside"] = "Das Plakat {quest:567}: Kalaba bei den Bauern, Wilkes bei der Schmiede; der Schreiber und der Minenarbeiter beim Besuch bei etwa 30; drinnen",
 	-- ["The {quest:567} poster: its targets come up along the way"] = "Das Plakat {quest:567}: Seine Ziele triffst du unterwegs",
 	-- ["Town hall"] = "Rathaus",

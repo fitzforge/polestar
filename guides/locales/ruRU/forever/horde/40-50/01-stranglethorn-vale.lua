@@ -261,47 +261,43 @@ return {
 	["The warriors in the northern ruins (39-40) drop both tusks and necklaces. Pull from the edge; leave the chief and his two guards to the south alone."] = "",
 	["Skullsplitter warriors"] = "Воины из племени Дробителей Черепов",
 
-	-- Step 48: Zul'Mamwe trophy skulls
-	["Zul'Mamwe trophy skulls"] = "",
-
-	-- Step 49: Balia'mah Ruins: kill these as you meet them
-	-- {area:127} Balia'mah Ruins
-	["{area:127}: kill these as you meet them"] = "{area:127}: убивайте их по пути",
+	-- Step 48: Zul'Mamwe and Balia'mah trophy skulls
+	["Zul'Mamwe and Balia'mah trophy skulls"] = "",
 	-- {object:3202} Grom'gol
 	["The next trophy skulls stand in the small ruins just north of the warriors' camp.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "Следующие трофейные черепа – в небольших руинах чуть к северу от лагеря воинов.\nПоследние черепа – в руинах недалеко к западу, по пути обратно сюда: {object:3202}.",
 
-	-- Step 50: Kin'weelay
+	-- Step 49: Kin'weelay
 	-- {object:3202} Grom'gol
 	["Head west to {object:3202}."] = "Идите на запад сюда: {object:3202}.",
 
-	-- Step 51: Grom'gol Base Camp
+	-- Step 52: Grom'gol Base Camp
 	-- {npc:2464} Commander Aggro'gosh · {npc:256418} Krom'rosh · {area:16743} Rog'mar · {zone:2548} Riverglades
 	["{npc:2464}: for {npc:256418} in {area:16743}, the {zone:2548}' Horde fort, in the next guide"] = "{npc:2464}: для NPC {npc:256418} ({area:16743}, крепость Орды в краю {zone:2548}), в следующем гайде",
 	-- {quest:571} Mok'thardin's Enchantment · {quest:621} Zanzil's Secret · {npc:737} Kebok · {area:35} Booty Bay · {zone:2548} Riverglades
 	["Keep {quest:571}, {quest:621} and {npc:737}'s tusks: the Skullsplitter chief, Zanzil's camps, the naga coast and {area:35} come on your Stranglethorn stop at about 45, after the {zone:2548}."] = "Сохраните задания «{quest:571}», «{quest:621}» и клыки для NPC {npc:737}: вождь Череполомов, лагеря Занзила, побережье наг и {area:35} – на остановке в Тернистой долине примерно на 45-м, после края {zone:2548}.",
 
-	-- Step 53: Nesingwary's Expedition
+	-- Step 54: Nesingwary's Expedition
 	["Head north up the road to the hunters' camp."] = "Идите на север по дороге к лагерю охотников.",
 
-	-- Step 55: Raptor Mastery
+	-- Step 56: Raptor Mastery
 	-- {npc:730} Tethis
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:730} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone."] = "Это элитные противники: лучше собрать группу, поищите напарников. {npc:730} – элита 43-го уровня: большинство классов справляются в одиночку на 45-м, но может понадобиться помощь. Если вы один, пропустите.",
 
-	-- Step 56: Panther Mastery
+	-- Step 57: Panther Mastery
 	-- {npc:728} Bhag'thera
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:728} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone."] = "Это элитные противники: лучше собрать группу, поищите напарников. {npc:728} – элита 40-го уровня: большинство классов справляются в одиночку на 42-м, но может понадобиться помощь. Если вы один, пропустите.",
 
-	-- Step 60: Big Game Hunter
+	-- Step 61: Big Game Hunter
 	-- {npc:731} King Bangalash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:731} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone.\nCareful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, {npc:731} calls for help from creatures within 20 yd."] = "Это элитные противники: лучше собрать группу, поищите напарников. {npc:731} – элита 43-го уровня: большинство классов справляются в одиночку на 45-м, но может понадобиться помощь. Если вы один, пропустите.\nОсторожно: рядом бродят тигры и незаметные пантеры Тенегрызов. Зачистите их, прежде чем тянуть его. Когда его атакуют, {npc:731} зовет на помощь существ в радиусе 20 м.",
 
-	-- Step 65: Into the Swamp of Sorrows
+	-- Step 66: Into the Swamp of Sorrows
 	-- {zone:1435} Swamp of Sorrows
 	["Into the {zone:1435}"] = "В край {zone:1435}",
 	-- {zone:1431} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
 	["Follow the road east from {zone:1431} through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp just off the road where it comes in from {zone:1430}."] = "Идите по дороге на восток из края {zone:1431} через край {zone:1430} в болото. {npc:1776} ждет здесь: {area:657} – лагерь дренеев у дороги, там, где она входит со стороны края {zone:1430}.",
 
-	-- Step 66: Stonard
+	-- Step 67: Stonard
 	-- {area:75} Stonard
 	["Head east to {area:75}, in the reeds south of the road."] = "Идите на восток сюда: {area:75}, в камышах к югу от дороги.",
 	-- {npc:5591} Dar
@@ -311,29 +307,29 @@ return {
 	-- {npc:1443} Fel'zerul
 	["{npc:1443}, on the top floor"] = "",
 
-	-- Step 67: Sawtooth crocolisks
+	-- Step 68: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "Острозубые кроколиски",
 	-- {npc:5391} Galen Goodward · {area:75} Stonard
 	["The crocolisks wallow in the pools around {npc:5391}'s camp and south towards {area:75}; about one in four drops a flank."] = "Кроколиски лежат в лужах вокруг лагеря {npc:5391} и к югу, к месту {area:75}; бок падает примерно с каждого четвертого.",
 
-	-- Step 68: Noboru the Cudgel
+	-- Step 69: Noboru the Cudgel
 	-- {area:76} Fallow Sanctuary
 	["Noboru wanders the clearing south-west of the {area:76}; his cudgel starts a quest."] = "Нобору бродит по поляне к юго-западу от места {area:76}; его дубина начинает задание.",
 
-	-- Step 69: Draenethyst crystals
+	-- Step 70: Draenethyst crystals
 	["Draenethyst crystals"] = "Кристаллы дренетиста",
 	-- {area:76} Fallow Sanctuary · {npc:5391} Galen Goodward
 	["Head north-east to the {area:76}. The crystals stand along the way up to {npc:5391}'s cage."] = "Идите на северо-восток сюда: {area:76}. Кристаллы стоят по пути к клетке ({npc:5391}).",
 
-	-- Step 70: Galen's Escape
+	-- Step 71: Galen's Escape
 	-- {npc:5391} Galen Goodward · {area:76} Fallow Sanctuary
 	["{npc:5391} is held in the {area:76} in the swamp's north-east. Free him and follow him out, fighting off the swamp creatures that chase him."] = "{npc:5391} в плену здесь: {area:76}, на северо-востоке болота. Освободите его и следуйте за ним, отбиваясь от болотных тварей.",
 
-	-- Step 71: Galen's Strongbox
+	-- Step 72: Galen's Strongbox
 	-- {area:75} Stonard
 	["His strongbox waits at his old camp north of {area:75}, on the way back west."] = "Его сундук – в его старом лагере к северу от места {area:75}, по пути обратно на запад.",
 
-	-- Step 72: Harborage
+	-- Step 73: Harborage
 	-- {area:657} Harborage · {zone:1430} Deadwind Pass · {quest:698} Lack of Surplus · {npc:5592} Tok'Kar · {area:1978} Misty Reed Post
 	["Head west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}. {quest:698} goes to {npc:5592} at {area:1978} on the next swamp visit: keep the flanks."] = "Идите на запад по дороге к лагерю дренеев ({area:657}), у входа со стороны края {zone:1430}. Задание «{quest:698}» сдается NPC {npc:5592} ({area:1978}) при следующем визите на болото: сохраните бока.",
 
@@ -379,6 +375,7 @@ return {
 	-- ["for a later stop in the {area:8}"] = "для более поздней остановки ({area:8})",
 	-- ["the {object:2076}"] = "{object:2076}",
 	-- ["the {object:2076}, beside {npc:2497}"] = "{object:2076}, рядом: {npc:2497}",
+	-- ["{area:127}: kill these as you meet them"] = "{area:127}: убивайте их по пути",
 	-- ["{area:392} pier"] = "Пирс: {area:392}",
 	-- ["{npc:2496}, on the balcony beside MacKinley, has one more errand: the fuel regulator blueprints from Cozzle's footlocker go to Pozzik at the {area:2240}, on the way to {zone:1446} around level 43."] = "{npc:2496}, на балконе рядом с Мак-Кинли, дает еще одно поручение: чертежи регулятора топлива из сундучка Козла нужно отнести Поззику ({area:2240}), по пути в {zone:1446} примерно на 43-м уровне.",
 	-- ["{npc:773}, upstairs: for {quest:2864} in {area:976}"] = "{npc:773}, наверху: для задания {quest:2864} ({area:976})",
