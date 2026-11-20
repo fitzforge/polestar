@@ -1576,14 +1576,16 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop, checke
 		return nil, nil, nil, nil, Walk.GroundStatus(gc, gx, gy, tz)
 	end
 	if checkedOnly and not Walk.CheckedAt(goalC, goalX, goalY, tz) then return nil,nil,nil,nil,true end
-	-- Already beside the requested point: a partial walk to a substitute
-	-- farther away in 3D cannot finish the approach. Do not start that detour.
+	-- Beside the pin, a partial must still help reach it. Walking laterally
+	-- underneath an upstairs NPC is not progress if the route stops downstairs.
 	if city.approachZ and gzFor and not stop then
 		local xy = (px - gx)^2 + (py - gy)^2
 		if xy <= Nav.DEFAULT_RADIUS^2 then
 			local z = startZ(pc, px, py)
 			local last = (ptsX[count] - gx)^2 + (ptsY[count] - gy)^2 + (city.approachZ - gzFor)^2
-			if z and last > 25 and last >= xy + (z - gzFor)^2 then
+			local reach = Nav.follow.REACH
+			if z and last > reach^2 and (last >= xy + (z - gzFor)^2 or
+				(xy <= reach^2 and abs(z - gzFor) > reach and abs(city.approachZ - gzFor) > reach and abs(city.approachZ - z) <= 1)) then
 				aimC, aimX, aimY, lastLeft = nil, nil, nil, nil
 				return nil, nil, nil, nil, true
 			end

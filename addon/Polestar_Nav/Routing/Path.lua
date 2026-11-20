@@ -3176,9 +3176,14 @@ function Safe.find(job)
 		local stop=solve.reached
 		if not job.costOnly and not job.coarseOnly and type(stop)=="table" and points and #points>1 then
 			local first,last=points[1],points[#points]
+			-- Already on the goal's floor: a partial ending farther away on that
+			-- same floor has no onward leg. Only its endpoint matters here; a
+			-- real route can lead away temporarily to reach a door or stair.
+			local retreats = from.z and to.z and last.z and abs(from.z - to.z) <= 1 and abs(last.z - to.z) <= 1
+				and (last.x - to.x)^2 + (last.y - to.y)^2 >= (from.x - to.x)^2 + (from.y - to.y)^2
 			if first.x==from.x and first.y==from.y and (not from.z or (first.z and abs(first.z-from.z)<=1))
 				and last.x==stop.x and last.y==stop.y and last.z and stop.z and abs(last.z-stop.z)<=1
-				and Safe.line(solve,points,from,last) then
+				and not retreats and Safe.line(solve,points,from,last) then
 				job.reached,job.yards,job.endFloor=stop,solve.yards,solve.endFloor
 				job.hubs,job.avoided,job.rescued=solve.hubs,solve.avoided,solve.rescued
 				return points,cost

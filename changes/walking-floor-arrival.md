@@ -4,6 +4,9 @@ section: players
 - A guide waypoint with a known height no longer counts as reached just
   because you walked underneath it. The arrow distinguishes a walk that
   reaches its target from one that stops on a nearby ledge.
+  If you're already on a vendor's floor, a walk that ends farther away
+  won't send you back outside. Standing beneath a trainer no longer starts
+  a short walk that ends on the same lower floor without reaching the stairs.
 - With real-path routing on, missing walking data no longer sends the
   arrow straight across unmapped ground. Turning routing off still shows
   the compass direction unless the ground segment crosses an enemy settlement or cannot be checked.

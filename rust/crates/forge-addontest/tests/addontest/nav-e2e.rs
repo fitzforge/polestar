@@ -233,6 +233,74 @@ fn run(script: &str, shipped: bool) -> Value {
 }
 
 #[test]
+fn stonefire_does_not_send_a_player_on_the_vendor_floor_back_out_for_an_incomplete_walk() {
+	skip_unless_ready!();
+	let result = run(
+		r#"
+		w.faction = "Alliance"; w.setLevel(23)
+		local gx, gy, gz = -4842.3, -861, 502
+		local mx, my = C.WorldToMap(0, gx, gy, 1455)
+		local function from(x, y, z, indoors)
+			N.ClearTarget()
+			w.indoors = indoors
+			place(1455, x, y, z)
+			local before = #finds
+			assert(N.SetTarget(1455, mx, my, "Gwenna", nil, "npc", gz))
+			for i = 1, 500 do aim(); stub.advance(.05) end
+			local hud = aim()
+			local job = finds[#finds]
+			assert(#finds > before and job.done)
+			local pts = job.points
+			local tip = pts and pts[#pts]
+			return { state = hud.state, bearing = hud.x ~= nil,
+				closer = tip and dist(tip.x, tip.y, gx, gy) < dist(x, y, gx, gy) or false }
+		end
+		emit({ street = from(-4821.1, -1152.4, 502.3, false),
+			door = from(-4850.1763, -875.7260, 501.9138, true) })"#,
+		true,
+	);
+	let street = &result["street"];
+	assert_eq!(street["state"], "travel");
+	assert!(street["bearing"] == true && street["closer"] == true, "the mapped approach from the flightmaster still guides");
+	let door = &result["door"];
+	assert!(
+		(door["state"] == "travel" && door["bearing"] == true && door["closer"] == true) || (door["state"] == "unmapped" && door["bearing"] == false),
+		"guide a better approach or withhold the arrow; don't leave the vendor's floor for a dead end farther away: {door}"
+	);
+}
+
+#[test]
+fn an_ironforge_trainer_on_another_floor_needs_more_than_a_walk_to_the_spot_under_her() {
+	skip_unless_ready!();
+	let result = run(
+		r#"
+		w.faction = "Alliance"; w.setLevel(23); w.indoors = true
+		local gx, gy, gz = -4876.6, -1149.2, 512.5
+		local mx, my = C.WorldToMap(0, gx, gy, 1455)
+		local function from(x, y, z)
+			N.ClearTarget()
+			place(1455, x, y, z)
+			local before = #finds
+			assert(N.SetTarget(1455, mx, my, "Nissa", nil, "npc", gz))
+			for i = 1, 500 do aim(); stub.advance(.05) end
+			local hud = aim()
+			local job = #finds > before and finds[#finds]
+			local pts = job and job.done and job.points
+			local tip = pts and pts[#pts]
+			return { state = hud.state, bearing = hud.x ~= nil, climbs = tip and tip.z > z + 1 or false }
+		end
+		emit({ lower = from(-4872.2417, -1150.0642, 505.7699), upper = from(gx, gy, 512.4368) })"#,
+		true,
+	);
+	let lower = &result["lower"];
+	assert!(
+		(lower["state"] == "travel" && lower["bearing"] == true && lower["climbs"] == true) || (lower["state"] == "unmapped" && lower["bearing"] == false),
+		"don't point along the bottom floor if the walk ends there: {lower}"
+	);
+	assert_eq!(result["upper"]["state"], "arrived");
+}
+
+#[test]
 fn a_polestars_world_frame_is_the_engines_known_unitposition_spots_and_guide_coordinates_land_on_the_engines_nodes_at_their_height_on_instance_map_0() {
 	skip_unless_ready!();
 	let out = run(
