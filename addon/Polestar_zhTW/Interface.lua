@@ -357,6 +357,7 @@ L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the 
 L["Polestar is paused: the arrow follows the guide again once you leave the dungeon alive, or after /polestar resume."] = "Polestar 已暫停：當你活著離開地城，或輸入 /polestar resume 後，箭頭會重新跟隨指南。"
 
 -- Nav/Arrow.lua
+L["The last steps here aren't mapped"] = "這裡最後幾步沒有地圖"
 L["Search here"] = "在此搜尋"
 L["Arrived"] = "已抵達"
 L["Click the arrow for the next spot"] = "點擊箭頭前往下一處"
@@ -443,7 +444,8 @@ L["Walk to the entrance"] = "走到入口"
 L["Walk to the lift"] = "走到升降梯"
 L["%s, Top"] = "%s，上層"
 L["%s, Bottom"] = "%s，下層"
-L["No route: walk straight to the target."] = "無路線：直接走向目標。"
+L["No safe walking route"] = "沒有安全的步行路線"
+L["Finding a walking route"] = "正在尋找步行路線"
 L["Show the travel route to the current target"] = "顯示前往目前目標的旅行路線"
 L["Hostile town: %s"] = "敵對城鎮：%s"
 L["Ride the elevator up"] = "搭乘升降梯上去"

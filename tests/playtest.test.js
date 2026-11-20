@@ -47,6 +47,28 @@ test('looting a quest item puts it in bags and credits every held quest asking f
 	assert.equal(state.sibling, Math.min(state.bag, 3), 'the other quest reads the very same stack');
 });
 
+// A goto with a height (a cellar's stairs, a raised floor, an NPC's deck) is reached only by a visit the client's
+// UnitPosition confirms on that floor (Nav.AllowGuideArrival, #3210). The simulated player stands at the goal's
+// point on its floor, as a player who walked there does; one on another floor is not there.
+test('the simulated player reaches a goto with a height on its floor: the Gallows\' End cellar stairs', { skip: !hasLua }, async (t) => {
+	const guide = { id: 'test/floor', pack: 'test', title: 'Floors', minLevel: 1, maxLevel: 10, steps: [
+		{ title: 'Brill', goals: [{ t: 'goto', map: 1420, x: 10, y: 10, text: 'Brill' }] },
+		{ title: 'The cellar stairs', goals: [{ t: 'goto', map: 1420, x: 61.66, y: 51.5, z: 34.3, text: 'The cellar stairs' }] },
+		{ title: 'Outside', goals: [{ t: 'goto', map: 1420, x: 40, y: 40, text: 'Outside' }] },
+	] };
+	const pack = { maps: 'w.addMap(1420, { c=0, left=100, right=0, top=100, bottom=0 })', loads: `${TEST_PACK}\n${TEST_SOURCE}\nassert(Polestar.RegisterGuide(${luaValue(guide)}))` };
+	const below = 'local moveTo = stub.world.moveTo\nstub.world.moveTo = function(map, x, y, z) moveTo(map, x, y, z and z - 6) end';
+	for (const [runner, script] of [['playtest', SIMULATE], ['addon tests', fs.readFileSync(path.join(__dirname, 'lua', 'simulate.lua'), 'utf8')]]) {
+		await t.test(runner, () => {
+			const [play] = playGuide(pack, guide, { race: 'Scourge', faction: 'Horde', cls: 'WARRIOR', script });
+			assert.ok(play.done, JSON.stringify(play.stuck));
+			const [held] = playGuide(pack, guide, { race: 'Scourge', faction: 'Horde', cls: 'WARRIOR', script: `${below}\n${script}` });
+			assert.equal(held.done, false, 'a player on the floor below is not at the stairs');
+			assert.equal(held.stuck && held.stuck.step, 2, JSON.stringify(held.stuck));
+		});
+	}
+});
+
 test('invalid explicit worker counts fail before loading reference data', async () => {
 	for (const workers of [-1, 0, 1.5, Infinity, NaN]) {
 		await assert.rejects(playtest({ workers }), /worker count must be a positive integer/, String(workers));

@@ -9,6 +9,7 @@ const PRELUDE: &str = r#"
 local N = Polestar.Nav
 local A = N.arrow
 local nav = stub.nav
+Polestar.Set("nav.navRouting", false) -- Show the goal bearing on Testshire, which has no walking map.
 local function target(wx, wy, label)
 	local m, x, y = nav.mapPoint(wx, wy)
 	N.SetTarget(m, x, y, label or "T")

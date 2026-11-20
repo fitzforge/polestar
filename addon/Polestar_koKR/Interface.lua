@@ -357,6 +357,7 @@ L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the 
 L["Polestar is paused: the arrow follows the guide again once you leave the dungeon alive, or after /polestar resume."] = "Polestar가 일시 정지되었습니다: 던전에서 살아서 나오거나 /polestar resume을 입력하면 화살표가 다시 가이드를 따릅니다."
 
 -- Nav/Arrow.lua
+L["The last steps here aren't mapped"] = "이곳의 마지막 몇 걸음은 지도에 없습니다"
 L["Search here"] = "여기서 찾기"
 L["Arrived"] = "도착"
 L["Click the arrow for the next spot"] = "화살표를 클릭하면 다음 지점"
@@ -443,7 +444,8 @@ L["Walk to the entrance"] = "입구까지 걸어가기"
 L["Walk to the lift"] = "승강기까지 걸어가기"
 L["%s, Top"] = "%s, 위"
 L["%s, Bottom"] = "%s, 아래"
-L["No route: walk straight to the target."] = "경로 없음: 목표까지 곧장 걸어가십시오."
+L["No safe walking route"] = "안전한 도보 경로 없음"
+L["Finding a walking route"] = "도보 경로를 찾는 중"
 L["Show the travel route to the current target"] = "현재 목표까지의 이동 경로 표시"
 L["Hostile town: %s"] = "적대 마을: %s"
 L["Ride the elevator up"] = "승강기를 타고 올라가기"

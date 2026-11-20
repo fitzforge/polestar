@@ -19,6 +19,11 @@
 //! fall his maps lack that hurts (over SAFE_FALL, the height a fall starts to hurt; pack/drops.rs's limit too) goes in
 //! only where his maps make no other way between its ends (his_way): players are not walked off a ledge that hurts
 //! them when another way exists. A fall kept is logged and counted, for an in-game check.
+//!
+//! Two kinds of join are drawn straight instead (Kind): a "step" walks between two places a few yards apart both ways
+//! where neither map has the way (a threshold or a counter's gap players walk through: the recordings' grid holes),
+//! and a "drop" falls from a ledge's edge to where players land, one way, kept even where it hurts and his maps make
+//! another way, because players take it (#1986).
 
 use super::cells::{CellGrid, ZQ};
 use super::ingame::{self, cost_value, yards_value, Cluster, Edge, Row, HERE};
@@ -51,13 +56,38 @@ const UNSET: u32 = u32::MAX;
 const DETOUR: f64 = 8.0;
 const DETOUR_YD: f64 = 2000.0;
 
-/// A join as joins.json writes it: two places on one map, routed both ways.
+/// How a join's way is drawn (joins.json's "kind").
+#[derive(Clone, Copy, Debug, PartialEq, Eq)]
+pub enum Kind {
+	/// Routed on our grid both ways (no "kind").
+	Walk,
+	/// "step": a straight walk between its two places, both ways, where our grid has none either (a door's threshold,
+	/// a stair or a counter's gap both maps close and players walk through). Both places carry their height, at most
+	/// STEP_MAX apart, rising no steeper than the walk slope.
+	Step,
+	/// "drop": a fall from a (the ledge's edge) to b (where players land), one way, at most DROP_RUN across. Taken
+	/// whatever other way his maps make, even where it hurts: players' recordings show they take it (the Orgrimmar
+	/// wind rider tower's drop into the Valley of Strength, #1986).
+	Drop,
+}
+
+/// A step join's places are at most this far apart (yd): a threshold, not a corridor.
+pub const STEP_MAX: f64 = 12.0;
+/// A drop join lands at most this far across from its edge (yd).
+pub const DROP_RUN: f64 = 10.0;
+/// A step join's cells lie this far apart (yd).
+const SAMPLE: f64 = 2.0;
+
+/// A join as joins.json writes it: two places on one map, routed both ways. `strict`: its ways are strict (JoinWay;
+/// a step join's always are).
 #[derive(Clone, Debug)]
 pub struct Join {
 	pub id: String,
 	pub map: u32,
 	pub a: (f64, f64, Option<f64>),
 	pub b: (f64, f64, Option<f64>),
+	pub kind: Kind,
+	pub strict: bool,
 }
 
 /// The joins of joins.json (compiled in).
@@ -68,24 +98,91 @@ pub fn joins() -> Vec<Join> {
 		.as_array()
 		.expect("joins.json: joins")
 		.iter()
-		.map(|j| Join { id: j["id"].as_str().expect("joins.json: id").to_string(), map: j["map"].as_u64().expect("joins.json: map") as u32, a: end(&j["a"]), b: end(&j["b"]) })
+		.map(|j| Join {
+			id: j["id"].as_str().expect("joins.json: id").to_string(),
+			map: j["map"].as_u64().expect("joins.json: map") as u32,
+			a: end(&j["a"]),
+			b: end(&j["b"]),
+			kind: match j["kind"].as_str() {
+				None => Kind::Walk,
+				Some("step") => Kind::Step,
+				Some("drop") => Kind::Drop,
+				Some(k) => panic!("joins.json: {}: unknown kind {k}", j["id"]),
+			},
+			strict: j["strict"].as_bool().unwrap_or(false) || j["kind"].as_str() == Some("step"),
+		})
 		.collect()
 }
 
-/// One direction of a join: its id ("<id> a-b" or "b-a") and our grid's drawn way.
+/// One direction of a join: its id ("<id> a-b" or "b-a") and our grid's drawn way. `drop`: a drop join's fall, taken
+/// whatever other way his maps make. `strict`: each step of the way his maps lack a move of their own for gets one (an
+/// arc, or an edge across a border), even where his maps walk round to it within NEAR: a step join's threshold, or
+/// a join marked "strict" (his maps' way round can be the long one the walk takes).
 #[derive(Clone, Debug)]
 pub struct JoinWay {
 	pub id: String,
 	pub cells: Vec<WayCell>,
+	pub drop: bool,
+	pub strict: bool,
+}
+
+/// A step join's way from a to b: a cell every SAMPLE yd along the straight line (under half his cell, so each step is
+/// to a neighbour), the height between the two places' (a walk). None when a place lacks its height, they lie over STEP_MAX apart, or the line rises steeper
+/// than the walk slope.
+pub fn step_cells(a: (f64, f64, Option<f64>), b: (f64, f64, Option<f64>)) -> Option<Vec<WayCell>> {
+	let (za, zb) = (a.2?, b.2?);
+	let run = (b.0 - a.0).hypot(b.1 - a.1);
+	if run > STEP_MAX || (zb - za).abs() > STEP.max(run * WALK_TAN) {
+		return None;
+	}
+	let n = ((run / SAMPLE).ceil() as usize).max(1);
+	Some(
+		(0..=n)
+			.map(|i| {
+				let t = i as f64 / n as f64;
+				WayCell { x: a.0 + (b.0 - a.0) * t, y: a.1 + (b.1 - a.1) * t, z: za + (zb - za) * t, floor: 0, cls: if i == 0 { 0 } else { cls::WALK } }
+			})
+			.collect(),
+	)
+}
+
+/// A drop join's way: its edge, then where players land (a fall). None when a place lacks its height, the landing is
+/// not below the edge, or it lies over DROP_RUN across.
+pub fn drop_cells(a: (f64, f64, Option<f64>), b: (f64, f64, Option<f64>)) -> Option<Vec<WayCell>> {
+	let (za, zb) = (a.2?, b.2?);
+	if zb >= za || (b.0 - a.0).hypot(b.1 - a.1) > DROP_RUN {
+		return None;
+	}
+	Some(vec![WayCell { x: a.0, y: a.1, z: za, floor: 0, cls: 0 }, WayCell { x: b.0, y: b.1, z: zb, floor: 0, cls: cls::FALL }])
 }
 
 /// Our grid's drawn way of each join of `map`, both ways: a walk for no faction, as the guide bake draws a leg
 /// (Walker::route_path). `hubs`: the ground layers' hubs.json, when there is one. A join our grid walks one way only is
-/// joined back along the same cells (back_along); one it cannot walk either way is logged and left out.
+/// joined back along the same cells (back_along); one it cannot walk either way is logged and left out. Step and drop
+/// joins are drawn straight (step_cells, drop_cells).
 pub fn ways(grid_dir: &Path, map: u32, hubs: Option<&Path>, log: &(dyn Fn(&str) + Sync)) -> Result<Vec<JoinWay>, String> {
 	let list: Vec<Join> = joins().into_iter().filter(|j| j.map == map).collect();
+	let mut out = Vec::new();
+	for j in list.iter().filter(|j| j.kind != Kind::Walk) {
+		let ok = match j.kind {
+			Kind::Step => step_cells(j.a, j.b).zip(step_cells(j.b, j.a)).map(|(ab, ba)| {
+				out.push(JoinWay { id: format!("{} a-b", j.id), cells: ab, drop: false, strict: true });
+				out.push(JoinWay { id: format!("{} b-a", j.id), cells: ba, drop: false, strict: true });
+			}),
+			_ => drop_cells(j.a, j.b).map(|ab| out.push(JoinWay { id: format!("{} a-b", j.id), cells: ab, drop: true, strict: j.strict })),
+		};
+		if ok.is_none() {
+			log(&format!(
+				"join {}: left out: a {} needs both heights, {}",
+				j.id,
+				if j.kind == Kind::Step { "step" } else { "drop" },
+				if j.kind == Kind::Step { "at most 12 yd apart and no steeper than the walk slope" } else { "a landing below the edge at most 10 yd across" }
+			));
+		}
+	}
+	let list: Vec<Join> = list.into_iter().filter(|j| j.kind == Kind::Walk).collect();
 	if list.is_empty() {
-		return Ok(Vec::new());
+		return Ok(out);
 	}
 	let grid = Arc::new(Grid::open(grid_dir, 256)?);
 	let walk = grid_dir.join("walk");
@@ -100,7 +197,6 @@ pub fn ways(grid_dir: &Path, map: u32, hubs: Option<&Path>, log: &(dyn Fn(&str) 
 	let profile = Profile::walk(None, ground, None);
 	let walker = Walker::new(grid);
 	let ask = |e: (f64, f64, Option<f64>)| SnapAsk { c: map, wx: e.0, wy: e.1, z: e.2, radius: 20.0, under: true, stand: true };
-	let mut out = Vec::new();
 	for j in list {
 		let ab = walker.route_path(&ask(j.a), &ask(j.b), &profile, "")?.map(|w| w.cells);
 		let ba = walker.route_path(&ask(j.b), &ask(j.a), &profile, "")?.map(|w| w.cells);
@@ -121,8 +217,8 @@ pub fn ways(grid_dir: &Path, map: u32, hubs: Option<&Path>, log: &(dyn Fn(&str) 
 			}
 			(ab, ba) => (ab, ba),
 		};
-		out.extend(ab.map(|cells| JoinWay { id: format!("{} a-b", j.id), cells }));
-		out.extend(ba.map(|cells| JoinWay { id: format!("{} b-a", j.id), cells }));
+		out.extend(ab.map(|cells| JoinWay { id: format!("{} a-b", j.id), cells, drop: false, strict: j.strict }));
+		out.extend(ba.map(|cells| JoinWay { id: format!("{} b-a", j.id), cells, drop: false, strict: j.strict }));
 	}
 	Ok(out)
 }
@@ -551,10 +647,13 @@ pub(super) fn apply(g: &Geo, outs: &mut [(u32, Out)], ways: &[JoinWay], cg: &Cel
 		if let (None, Some(p)) = (&why, p) {
 			if let Some(i) = (1..p.len()).find(|&i| adds_fall(g, &cl, p, i, &mut buf)) {
 				let (h, at) = (p[i - 1].z - p[i].z, &ways[w].cells[i]);
-				if rows_all.is_none() {
+				if !ways[w].drop && rows_all.is_none() {
 					rows_all = Some(all_rows(outs)?);
 				}
-				if let Some(yd) = his_way(g, &cl, rows_all.as_ref().unwrap(), p) {
+				if ways[w].drop {
+					st.falls += 1;
+					log(&format!("join {}: falls {h:.0} yd at {:.1},{:.1}, a fall that hurts players take (a drop join), so it goes in", ways[w].id, at.x, at.y));
+				} else if let Some(yd) = his_way(g, &cl, rows_all.as_ref().unwrap(), p) {
 					why = Some(format!("falls {h:.0} yd at {:.1},{:.1}, a fall that hurts, where his maps make another way between its ends ({yd:.0} yd)", at.x, at.y));
 				} else {
 					st.falls += 1;
@@ -614,7 +713,8 @@ pub(super) fn apply(g: &Geo, outs: &mut [(u32, Out)], ways: &[JoinWay], cg: &Cel
 				continue;
 			}
 			if ka == kb {
-				if !his_near(&cl, (ka, a), (kb, b), HERE, g.swim, &mut buf) {
+				let his = if ways[w].strict { a == b || has_move(&cl[&ka].0, a, b, &mut buf) } else { his_near(&cl, (ka, a), (kb, b), HERE, g.swim, &mut buf) };
+				if !his {
 					let c = &mut cl.get_mut(&ka).unwrap().0;
 					let yards = pb.yd.max(octile(c, a, b) * g.cs);
 					c.add_arc(a, b, yards);
@@ -632,7 +732,7 @@ pub(super) fn apply(g: &Geo, outs: &mut [(u32, Out)], ways: &[JoinWay], cg: &Cel
 			let off = ((dkx + 1) * 3 + dky + 1) as u32;
 			// His maps cross this border near the way already: an entrance the way's cell reaches within NEAR, its edge
 			// across, and the way's next cell within NEAR of that edge's end.
-			if his_near(&cl, (ka, a), (kb, b), off, g.swim, &mut buf) {
+			if !ways[w].strict && his_near(&cl, (ka, a), (kb, b), off, g.swim, &mut buf) {
 				continue;
 			}
 			let (ra, made_a) = {
@@ -763,7 +863,12 @@ mod tests {
 
 	/// Our grid's way through global cells (gx, gy), at height 0, each cell's centre.
 	fn way(id: &str, cells: &[(i64, i64)]) -> JoinWay {
-		JoinWay { id: id.into(), cells: cells.iter().map(|&(x, y)| WayCell { x: (x as f64 + 0.5) * CS, y: (y as f64 + 0.5) * CS, z: 0.0, floor: 0, cls: cls::WALK }).collect() }
+		JoinWay {
+			id: id.into(),
+			cells: cells.iter().map(|&(x, y)| WayCell { x: (x as f64 + 0.5) * CS, y: (y as f64 + 0.5) * CS, z: 0.0, floor: 0, cls: cls::WALK }).collect(),
+			drop: false,
+			strict: false,
+		}
 	}
 
 	fn reaches(c: &Cluster, from: usize, to: usize) -> bool {
@@ -859,7 +964,7 @@ mod tests {
 	/// Our grid's way off the ledge: along row 0, then a 20-yd fall over the wall to the ground (a fall that hurts).
 	fn off_the_ledge() -> JoinWay {
 		let at = |x: f64, z: f64, cls: u8| WayCell { x: (x + 0.5) * CS, y: 0.5 * CS, z, floor: 0, cls };
-		JoinWay { id: "ledge a-b".into(), cells: vec![at(2.0, 20.0, cls::WALK), at(3.0, 20.0, cls::WALK), at(5.0, 0.0, cls::FALL)] }
+		JoinWay { id: "ledge a-b".into(), cells: vec![at(2.0, 20.0, cls::WALK), at(3.0, 20.0, cls::WALK), at(5.0, 0.0, cls::FALL)], drop: false, strict: false }
 	}
 
 	/// A fall that hurts his maps lack does not go in where his maps make another way between the way's ends (down
@@ -969,5 +1074,48 @@ mod tests {
 	fn a_drop_steeper_than_the_walk_slope_is_not_walked_back() {
 		let down = [cell(0.0, 60.0, cls::WALK), cell(2.0, 50.0, cls::FALL), cell(4.0, 50.0, cls::WALK)];
 		assert!(back_along(&down).is_none(), "10 yd up over a 2-yd run");
+	}
+
+	/// A step join is drawn straight, a cell every SAMPLE yd from a to b, its height between theirs; one without a
+	/// height, too long or too steep for a walk is no step.
+	#[test]
+	fn a_step_is_a_straight_walk_between_its_places_and_only_a_short_gentle_one() {
+		let got = step_cells((0.0, 0.0, Some(10.0)), (6.0, 0.0, Some(13.0))).expect("6 yd across, 3 up");
+		assert_eq!(got.iter().map(|c| (c.x, c.z)).collect::<Vec<_>>(), vec![(0.0, 10.0), (2.0, 11.0), (4.0, 12.0), (6.0, 13.0)]);
+		assert_eq!(got.iter().map(|c| c.cls).collect::<Vec<_>>(), vec![0, cls::WALK, cls::WALK, cls::WALK]);
+		assert!(step_cells((0.0, 0.0, None), (6.0, 0.0, Some(10.0))).is_none(), "a place without its height");
+		assert!(step_cells((0.0, 0.0, Some(0.0)), (13.0, 0.0, Some(0.0))).is_none(), "13 yd apart: a corridor, not a step");
+		assert!(step_cells((0.0, 0.0, Some(0.0)), (2.0, 0.0, Some(9.0))).is_none(), "9 yd up over 2: a wall");
+	}
+
+	/// A drop join's fall that hurts goes in even where his maps make another way down (the gap at row 7), counted:
+	/// players take it. Its landing is below its edge and close by.
+	#[test]
+	fn a_drop_join_goes_in_where_his_maps_make_another_way_and_is_counted() {
+		let mut outs = vec![(0u32, ledge(&[7]))];
+		let cg = CellGrid::new(C, 1, 1, 0, 0);
+		let (top, foot) = ((3.5 * CS, 0.5 * CS, Some(20.0)), (5.5 * CS, 0.5 * CS, Some(0.0)));
+		let drop = JoinWay { id: "tower a-b".into(), cells: drop_cells(top, foot).expect("20 yd down, 8 yd across"), drop: true, strict: false };
+		let (st, _) = apply(&geo(1), &mut outs, &[drop], &cg, &|_| {}).unwrap();
+		assert_eq!((st.refused, st.ways, st.arcs, st.falls), (0, 1, 1, 1), "{st:?}");
+		assert!(reaches(&decoded(&outs[0].1), 3 * C, 5 * C), "the drop walks");
+		assert!(drop_cells(foot, top).is_none(), "no drop up");
+		assert!(drop_cells(top, (20.0 * CS, 0.5 * CS, Some(0.0))).is_none(), "no drop 70 yd across");
+	}
+
+	/// His maps walk round a wall to the way's next cell within NEAR (by its gap at row 5): a way adds nothing there,
+	/// a strict one (a step join's) gets its arc across, so the walk no longer takes the way round.
+	#[test]
+	fn a_strict_way_gets_an_arc_where_his_maps_only_walk_round_within_near() {
+		let wall: Vec<(usize, usize)> = (0..C).filter(|&y| y != 5).map(|y| (4, y)).collect();
+		let across = |strict: bool| {
+			let mut outs = vec![(0u32, out(&wall, Vec::new()))];
+			let cg = CellGrid::new(C, 1, 1, 0, 0);
+			let w = JoinWay { strict, ..way("door a-b", &[(3, 2), (5, 2)]) };
+			let (st, _) = apply(&geo(1), &mut outs, &[w], &cg, &|_| {}).unwrap();
+			(st.arcs, st.walkable)
+		};
+		assert_eq!(across(false), (0, 1), "his maps walk round within NEAR: nothing added");
+		assert_eq!(across(true), (1, 0), "strict: an arc across the wall");
 	}
 }
