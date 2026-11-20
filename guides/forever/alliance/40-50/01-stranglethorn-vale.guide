@@ -10,6 +10,11 @@ next forever/alliance/40-50/01b-riverglades
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: The Brassbolts Brothers (2769), ... and Bugs (1258).
+# Swamp of Sorrows exit (fix round 2026-11-20): from Watcher Biggs the route rides on south through the pass into the
+# Blasted Lands to Nethergarde Keep, hands in Mazen's Behest (1364) and Deliver the Shipment (1425) there, learns the
+# flight path and flies to Stormwind, instead of walking back west to Darkshire and carrying both quests to the
+# level-48 Nethergarde stop six guides later. Players' recordings: 37 Alliance people rode that road at 38-45, none
+# died on it. Supplies for Nethergarde (1395) stays out: its crate lasts an hour from Darkshire, with the whole swamp in between.
 # Left out (0.4.3): Cortello's Riddle (624, 625, 626): its scroll lies on the Bloodsail ships south of Booty Bay among
 # crews of 42-45, three to five levels over players here at about 40, and its later parts lead to Bloodfen Burrow in
 # Dustwallow Marsh and the far east of the Hinterlands, where the route doesn't go for them.
@@ -555,15 +560,26 @@ step Misty Reed Strand
 
 step Watcher Biggs
   turnin 1398
-  accept 1425                         -- for Nethergarde Keep: keep it
+  accept 1425                         -- for Nethergarde Keep, just south of the swamp
 
-step Duskwood
-  zone Duskwood
-  goto 77.6,44.4 "Darkshire"
+step Into the Blasted Lands
+  zone Swamp of Sorrows
+  tip Follow the road south-east from Biggs to the pass into the Blasted Lands, keeping clear of Stonard, the Horde town to the north-east.
+  goto 33.5,67.5 "The pass to the Blasted Lands"
+  zone Blasted Lands
+  tip Down the pass, the road bends east to Nethergarde Keep. Careful: Black Slayer vultures (46) and Starving Snickerfangs (45) hunt in the dry hills south of the road: stay on it and keep moving.
+  goto 51.5,13.0 "The road to Nethergarde Keep"
+
+step Nethergarde Keep
+  zone Blasted Lands
+  tip Watcher Mahar Ba is upstairs in the keep and Quartermaster Lungertz inside it; the gryphon master stands south of the keep.
+  turnin 1364                         -- Watcher Mahar Ba, upstairs
+  turnin 1425                         -- Quartermaster Lungertz
+  getfp "Nethergarde Keep" npc 8609   -- Alexandra Constantine
 
 step Fly to Stormwind
-  zone Duskwood
-  goto 77.6,44.4 "Darkshire flight master"
+  zone Blasted Lands
+  goto 65.5,24.4 "Nethergarde Keep flight master"
   fly "Stormwind"
   zone Stormwind City
 

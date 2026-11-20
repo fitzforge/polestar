@@ -7876,7 +7876,21 @@ test('forever/alliance/40-50/04-tanaris.guide: no Zamek\'s Distraction without K
 	assert.ok(fizzle < pace && pace < zamek, 'News for Fizzle, then Keeping Pace, then Zamek\'s Distraction');
 	assert.equal(list[zamek].s, list[pace].s, 'Zamek on the same raceway stop as Pozzik');
 	assert.ok(at(list, 'turnin 1190', is('turnin', 1190)) > zamek, 'the plans after Zamek\'s diversion');
-	assert.ok(!list.some(({ quest }, i) => quest === 1191 && i < pace), 'no 1191 before its parent');
+	assert.ok(!list.some(({ goal }, i) => goal.quest === 1191 && i < pace), 'no 1191 before its parent');
+});
+
+// Fix round 2026-11-20 (Alliance 40-50 route review): 40-50/01 walked back west from the Swamp of Sorrows to Darkshire and
+// carried Mazen's Behest (1364) and Deliver the Shipment (1425) through six guides to a Nethergarde stop at 48. It now
+// leaves the swamp south to Nethergarde Keep and hands both in there on the same trip.
+test('forever/alliance/40-50/01-stranglethorn-vale.guide: the swamp leg ends at Nethergarde Keep with 1364 and 1425 handed in (route review 2026-11-20)', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const shipment = at(list, 'accept 1425', is('accept', 1425));
+	const behest = at(list, 'turnin 1364', is('turnin', 1364));
+	const deliver = at(list, 'turnin 1425', is('turnin', 1425));
+	assert.ok(shipment < deliver && at(list, 'collect 1364', (g) => g.quest === 1364 && g.t !== 'accept' && g.t !== 'turnin') < behest, 'essays and Biggs before the keep');
+	assert.equal(list[behest].s, list[deliver].s, 'both on the Nethergarde Keep stop');
+	assert.ok(!list.slice(shipment, deliver).some(({ goal }) => goal.t === 'fly'), 'no flight between Biggs and the keep');
+	assert.ok(!goals('forever/alliance/40-50/05-the-hinterlands.guide').some(({ goal }) => goal.t === 'turnin' && (goal.quest === 1364 || goal.quest === 1425)), 'nothing left for the level-48 guide');
 });
 
 // The whole pattern: a child quest (the data's `parent`) is offered only while its parent is in the log, so no leveling

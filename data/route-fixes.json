@@ -6485,6 +6485,31 @@
 		"together": [
 			{
 				"a": [
+					"turnin",
+					1398
+				],
+				"b": [
+					"turnin",
+					1425
+				],
+				"faction": "Alliance",
+				"why": "Fix round 2026-11-20 (Alliance 40-50/01): Deliver the Shipment, given by Watcher Biggs with Driftwood's hand-in, goes to Nethergarde Keep at the Blasted Lands' north edge, a short ride south through the pass from Biggs; the route leaves the swamp that way and flies out from the keep, instead of walking back west to Darkshire and carrying it to a Nethergarde stop at 48 six guides later. Players' recordings: 37 Alliance people rode the road from the swamp to the keep at 38-45, no deaths on it."
+			},
+			{
+				"a": [
+					"task",
+					1364,
+					0
+				],
+				"b": [
+					"turnin",
+					1364
+				],
+				"faction": "Alliance",
+				"why": "Fix round 2026-11-20 (Alliance 40-50/01): Mazen's Behest's essays come from Misty Valley in the Swamp of Sorrows and Watcher Mahar Ba waits in Nethergarde Keep, where the swamp leg now ends (see 1425 above), so the quest is handed in on the same trip."
+			},
+			{
+				"a": [
 					"task",
 					1387,
 					0

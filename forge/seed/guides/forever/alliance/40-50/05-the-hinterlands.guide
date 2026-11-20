@@ -106,10 +106,8 @@ step Nethergarde Keep
   tip Ride on east along the road to the keep first: the Crate of Power Stones expires an hour after Darkshire.
   turnin 2990                         -- Thadius Grimshade, at the top of the keep
   note Thadius' next task, Nekrum's Medallion, is a Zul'Farrak quest: skip it.
-  turnin 1364                         -- Watcher Mahar Ba, upstairs
   getfp "Nethergarde Keep" npc 8609   -- Alexandra Constantine
   turnin 1395                         -- Quartermaster Lungertz
-  turnin 1425
 
 step Fly to Booty Bay
   zone Blasted Lands
