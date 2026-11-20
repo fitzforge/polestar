@@ -173,6 +173,12 @@ return {
 		["nav.nearbyButton"] = function() local b = Polestar.UI.GuideFrame.nearbyButton; return b ~= nil and b:IsShown() and true or false end,
 		-- The game's own waypoint, mirrored from the goal.
 		["nav.blizzardWaypoint"] = function() target("Pinned " .. stub.now); return pin and pin[1] or false end,
+		-- The ground trail's own switch for it (the Ground trail page): with the trail on, the same pin, whatever
+		-- the row above says.
+		["nav.worldTrailWaypoint"] = { with = { ["nav.worldTrail"] = true }, probe = function()
+			target("Pinned for the trail " .. stub.now)
+			return pin and pin[1] or false
+		end },
 		-- TomTom installed: its waypoint for the goal.
 		["nav.tomtom"] = { prepare = tomtom, cleanup = noTomTom, probe = function()
 			target("Mirrored")

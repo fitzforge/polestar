@@ -129,6 +129,7 @@ never in saved variables.
 | File | Public table | What it does |
 |---|---|---|
 | `Nav.lua` | `Nav` | The point being guided to and where it is relative to the player |
+| `WorldTrail.lua` | `WorldTrail` | The ground trail's opt-in settings (their page, Ground trail, is in `Polestar_Options`); the looks (the default one first), which look is in use, the saved look, scoped reset and `/polestar trail`; independent from map sparkles |
 | `MapCanvas.lua` | `MapCanvas` | Drawing on Blizzard's map frames (world map, battlefield map) with Polestar's own frames, the maps only read |
 | `Pins.lua` | `Pins` | Map and minimap icons for every module, in named layers |
 | `Arrow.lua` | `Nav.arrow` | The waypoint arrow: turning, distance, label, arrival ring |
@@ -186,6 +187,9 @@ never in saved variables.
 | File | Public table | What it does |
 |---|---|---|
 | `Maps.lua` | `Maps` | The module's settings, options page and shared helpers |
+| `WorldTrailMath.lua` | `WorldTrail.Trail` | Current-route geometry and camera math, with shared RouteSparkle point/emission/twinkle helpers |
+| `WorldTrailTerrain.lua` | `WorldTrail.Terrain` | Guarded, bounded height/visibility reads that respect the navigation reader's active tile |
+| `WorldTrailRender.lua` | `WorldTrail.Render` | Camera-only ground sprite pool and lifecycle; no map painter or waypoint ownership |
 | `WorldMap.lua` | `Maps` | Zone level ranges on continent maps and the world map's info bar |
 | `ZoneLevels.lua` | (registers data) | Generated: each zone's level range |
 | `Reveal.lua` | `Maps` | The world map without fog of war |
@@ -293,6 +297,7 @@ never in saved variables.
 | `RouteChoice.lua` | `UI.RouteChoice` | "Choose your path": one card per zone where a guide offers several next guides |
 | `Welcome.lua` | `UI.Welcome` | Install: the setup a character gets the first time Polestar meets it, a page at a time (`/polestar install`) |
 | `WhatsNew.lua` | `UI.WhatsNew` | What's new: the release's notes, once per account on the first login after an update |
+| `WorldTrailIntro.lua` | `UI.WorldTrailIntro` | The ground trail's introduction: its switch and four looks previewed, opened from the Ground trail page or `/polestar trail intro`, never by itself |
 | `Copy.lua` | `UI.ShowCopy` | A small window holding text to copy |
 | `AuctionBuys.lua` | `UI.AuctionBuys` | Auction house buys on screen: the card when a guide opens, the reminder in a town with an auction house, the list (`/polestar ah`, the guide window's menu) with the profession guide's materials, beside the Auction House while it is open |
 | `Materials.lua` | `UI.Materials` | Gather, buy or mix on screen: the card a profession guide shows once, the Materials window (`/polestar materials`), the guide window's menu rows |
@@ -365,6 +370,7 @@ mirror `Polestar`'s modules:
 | `UI/Movers.lua` | Move frames (unlock mode): every movable Polestar frame at once, with Revert and Save |
 | `UI/Looks/Theme.lua`, `UI/Looks/GuideWindow.lua`, `UI/Looks/Toasts.lua`, `UI/Looks/Trackers.lua` | The Look pages: Theme, Guide window, Alerts & toasts, Trackers |
 | `Nav/ArrowOptions.lua`, `Nav/PinsOptions.lua`, `Maps/RouteOptions.lua`, `QoL/ButtonsOptions.lua` | The Look pages: Arrow, Map pins, Route lines, Buttons |
+| `Nav/WorldTrailOptions.lua` | The Ground trail page (Guiding, after Map): the trail's switch and every setting of its look |
 | `Theme/SkinPicker.lua` | The skin picker's picture cards of every look, skin and scheme |
 | `UI/GuideOptions.lua` | The guide window's modules' rows and the Gamepad page |
 | `Alts/`, `Dungeons/`, `Gear/`, `Lookup/`, `Maps/`, `Nav/`, `QoL/`, `Quests/`, `Rares/`, `Talents/` `Options.lua` | Each module's rows on the Guiding pages; the settings themselves stay in `Polestar` |

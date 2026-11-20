@@ -2,6 +2,7 @@
 // Text stays inside its window. Every scene of `node tools/polestar.js
 // preview` that shows one of Polestar's windows (the guide window, the hub on
 // each section, Options on every page and tab, the welcome, What's new, the
+// ground trail's introduction, the
 // route choice, the rare alert, the alert banner's notice, the report window
 // and the copy window) is laid out through the preview's frame dump, in Open
 // Sans, the game font and Inter, and every visible string is checked against
@@ -25,7 +26,7 @@ const { resolve, wrap } = require('../tools/preview/render');
 const { LOCALES } = require('../tools/lib/i18n/locales');
 
 const SLACK = 1.15;
-const WINDOWS = new Set(['PolestarGuideFrame', 'PolestarOptions', 'PolestarPicker', 'PolestarWelcome', 'PolestarWhatsNew', 'PolestarRouteChoice', 'PolestarMenu', 'PolestarRareToast', 'PolestarAlert', 'PolestarReport', 'PolestarCopy']);
+const WINDOWS = new Set(['PolestarGuideFrame', 'PolestarOptions', 'PolestarPicker', 'PolestarWelcome', 'PolestarWhatsNew', 'PolestarTrailIntro', 'PolestarRouteChoice', 'PolestarMenu', 'PolestarRareToast', 'PolestarAlert', 'PolestarReport', 'PolestarCopy']);
 
 // The preview's fonts, every advance SLACK times wider.
 const fonts = fontsFor(SLACK);

@@ -51,6 +51,7 @@
 	<Script file="OptionsLoader.lua"/>
 	<Script file="Toasts.lua"/>
 	<Script file="Trackers.lua"/>
+	<Script file="WorldTrailIntro.lua"/>
 	<Script file="QuestieTurnIns.lua"/>
 	<Script file="Movers.lua"/>
 </Ui>

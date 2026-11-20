@@ -6,7 +6,8 @@
 --     master, a dock, a portal: Travel.Stop), moved on as the legs change, so
 --     TomTom's arrow leads the way Polestar's would: to Booty Bay's flight
 --     master for a flight to Grom'gol, not up the coast (#1834).
---   Blizzard's user waypoint (nav.blizzardWaypoint, off by default):
+--   Blizzard's user waypoint (nav.blizzardWaypoint, off by default; also
+--     while the ground trail is on with its own nav.worldTrailWaypoint):
 --     C_Map.SetUserWaypoint plus C_SuperTrack, cleared only while it is still
 --     the pin we set (never one another addon or the player put over it), and
 --     never on stepping aside for Shortest Path Forever: its guide keeps that
@@ -16,7 +17,8 @@
 --     at one spot, whose quest is in the log tracks the quest itself, so
 --     Waypoint UI shows its own quest marker (an objective over an area, a kill
 --     or collect among spawns, is not: the game points nowhere while you are in
---     it, where Polestar's target is a spot); any other target is a pin named
+--     it, where Polestar's target is a spot; nor with the ground trail on,
+--     which reads the view's tilt from a pin's marker); any other target is a pin named
 --     after the target, set through Waypoint UI (flag "Polestar"), which sets
 --     the game's pin and tracking itself. While a route is followed, the pin
 --     is the current leg's stop instead (a flight master, a dock, a portal,
@@ -203,7 +205,9 @@ end
 local function syncWaypointUI(W, target)
 	local ST = C_SuperTrack
 	local label, map, x, y = routeStop(target)
-	local q = not label and questTrackable(target)
+	-- With the ground trail on the target is always a pin: the trail reads the tilt of the view from the
+	-- marker of a pin Polestar placed (OwnsPin, below), and a tracked quest's marker is not one.
+	local q = not label and not ns.Get("nav.worldTrail") and questTrackable(target)
 	if q and ST and ST.SetSuperTrackedQuestID then
 		if wuiSet then
 			wuiSet, wuiLast = false, nil
@@ -249,10 +253,25 @@ local function ourPin()
 	return x ~= nil and y ~= nil and math.abs(x - at[2]) < 1e-4 and math.abs(y - at[3]) < 1e-4
 end
 
+-- Whether the game's map pin is one Polestar set and still holds. The ground trail reads the tilt of the
+-- view from that pin's marker, whose place Polestar knows, and from no other (Maps/WorldTrailRender.lua).
+function Bridges.OwnsPin()
+	if blizzardSet then return ourPin() end
+	if wuiSet then
+		local W = waypointUI()
+		return W ~= nil and W.IsUserNavigationFlagged(FLAG) and true or false
+	end
+	return false
+end
+
 local function syncBlizzard(target)
 	-- An addon following Polestar that sets the game's pin itself (Nav.API.Follow
 	-- with `pin`, as Naowh Forever's Waypoint Pin does) has it: ours steps aside.
-	local on = ns.Get("nav.blizzardWaypoint") and target and not Nav.HandedOff() and not ns.ArrowHidden()
+	-- The player's own setting, or the ground trail's: while the trail is on it reads the tilt of the view
+	-- from the marker of a pin Polestar placed (OwnsPin, above), and has its own switch for that
+	-- (nav.worldTrailWaypoint, on by default), so the player's setting is never changed for them.
+	local wanted = ns.Get("nav.blizzardWaypoint") or (ns.Get("nav.worldTrail") and ns.Get("nav.worldTrailWaypoint"))
+	local on = wanted and target and not Nav.HandedOff() and not ns.ArrowHidden()
 		and not (Nav.FollowerPins and Nav.FollowerPins())
 	local W = waypointUI()
 	-- Waypoint UI loads after Polestar and fills its API late: look again once
@@ -310,7 +329,7 @@ end
 
 -- Only the settings these bridges read trigger a resync, so dragging the
 -- arrow or changing its scale never churns TomTom's waypoint list.
-local tracked = { tomtom = true, useTomTomArrow = true, worldPins = true, minimapPins = true, blizzardWaypoint = true, arrowToFollower = true }
+local tracked = { tomtom = true, useTomTomArrow = true, worldPins = true, minimapPins = true, blizzardWaypoint = true, arrowToFollower = true, worldTrail = true, worldTrailWaypoint = true }
 local seen = {}
 
 function Bridges:OnSettings()

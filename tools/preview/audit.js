@@ -174,6 +174,7 @@ Polestar.Widgets.Modal({ title = "Reset this guide?", text = "Your check-offs in
 	{ key: 'route-choice', title: 'the route choice window', ...scene('route-choice.svg', 0) },
 	{ key: 'welcome', title: 'the welcome window', ...scene('welcome.svg', 0) },
 	{ key: 'whats-new', title: "What's new", ...scene('whats-new.svg', 0) },
+	{ key: 'trail-intro', title: "the ground trail's introduction", ...scene('ground-trail.svg', 0) },
 	{ key: 'report', title: 'the report window', ...scene('report.svg', 0) },
 	{ key: 'copy', title: 'the copy window', ...scene('report.svg', 1) },
 	{ key: 'picker', title: 'the guide list', ...scene('picker.svg', 0) },
@@ -181,6 +182,7 @@ Polestar.Widgets.Modal({ title = "Reset this guide?", text = "Your check-offs in
 	{ key: 'settings-theme', title: 'the settings window: Colour', ...scene('settings-theme.svg', 0) },
 	{ key: 'settings-guidewindow', title: 'the settings window: Window', ...scene('settings-guidewindow.svg', 0) },
 	{ key: 'settings-alerts', title: 'the settings window: Alerts', ...scene('settings-alerts.svg', 0) },
+	{ key: 'settings-groundtrail', title: 'the settings window: Ground trail', ...scene('ground-trail.svg', 2) },
 	// The Profiles page's Share tab: Make a string with the Guide window's list
 	// open and a long string made, scrolled to the string's well; a friend's
 	// string pasted, its changes open (yours, theirs).
