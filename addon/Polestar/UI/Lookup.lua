@@ -476,6 +476,95 @@ function LK.Recent()
 	return s.ui.recentLookups
 end
 
+local function itemFilterInteger(value, max)
+	if type(value) == "number" and value >= 0 and value <= max and value % 1 == 0 then
+		return value == 0 and 0 or value
+	end
+end
+
+local function itemFilterRange(lo, hi)
+	lo, hi = itemFilterInteger(lo, 999), itemFilterInteger(hi, 999)
+	if lo and hi and lo > hi then return nil, nil end
+	return lo, hi
+end
+
+local function normalizeItemFilters(input)
+	local filters = {}
+	if type(input) ~= "table" then return filters end
+	filters.reqMin, filters.reqMax = itemFilterRange(input.reqMin, input.reqMax)
+	filters.ilvlMin, filters.ilvlMax = itemFilterRange(input.ilvlMin, input.ilvlMax)
+	filters.slot = itemFilterInteger(input.slot, 34)
+
+	if type(input.quality) == "table" then
+		local seen, quality = {}, {}
+		-- A rarity is either an array value or the key of a true set entry.
+		for index, value in pairs(input.quality) do
+			local id
+			if value == true then
+				id = itemFilterInteger(index, 8)
+			elseif type(index) == "number" and index >= 1 and index % 1 == 0 then
+				id = itemFilterInteger(value, 8)
+			end
+			if id then seen[id] = true end
+		end
+		for id = 0, 8 do
+			if seen[id] then quality[#quality + 1] = id end
+		end
+		if #quality > 0 then filters.quality = quality end
+	end
+
+	local class = input.class
+	-- Before Gear loads, retain the token so it can be checked on the next read.
+	local classes = ns.Gear and ns.Gear.CLASSES
+	if type(class) == "string" and (classes and classes[class] or not classes and class:match("^[A-Z]+$")) then
+		filters.class = class
+	end
+	local S, stat = ns.Search, input.stat
+	if type(stat) == "number" and S and S.StatLabel and S.StatLabel(stat) then
+		filters.stat = stat
+	end
+	return filters
+end
+
+function LK.ItemFilters()
+	local s = ns.CharState and ns.CharState()
+	return normalizeItemFilters(type(s) == "table" and type(s.ui) == "table" and s.ui.lookupItemFilters)
+end
+
+function LK.SetItemFilters(input)
+	local filters = normalizeItemFilters(input)
+	local s = ns.CharState and ns.CharState()
+	if type(s) ~= "table" then return filters end
+	if next(filters) then
+		if type(s.ui) ~= "table" then s.ui = {} end
+		local saved = {}
+		for key, value in pairs(filters) do saved[key] = value end
+		if filters.quality then saved.quality = { unpack(filters.quality) } end
+		s.ui.lookupItemFilters = saved
+	elseif type(s.ui) == "table" then
+		s.ui.lookupItemFilters = nil
+	end
+	return filters
+end
+
+function LK.ClearItemFilters()
+	return LK.SetItemFilters({})
+end
+
+-- Adapt the normalized saved shape to Search's predicates.
+function LK.SearchFilters(saved, category)
+	if type(saved) ~= "table" then saved = {} end
+	local filters = {
+		reqMin = saved.reqMin, reqMax = saved.reqMax, ilvlMin = saved.ilvlMin, ilvlMax = saved.ilvlMax,
+		slot = saved.slot, class = saved.class, stat = saved.stat, category = category,
+	}
+	if saved.quality and #saved.quality > 0 then
+		filters.quality = {}
+		for _, id in ipairs(saved.quality) do filters.quality[id] = true end
+	end
+	if next(filters) then return filters end
+end
+
 local function remember(k, id, title, quality, status)
 	local list = LK.Recent()
 	for i = #list, 1, -1 do

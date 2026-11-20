@@ -522,6 +522,100 @@ emit(out)"#,
 }
 
 #[test]
+fn item_filters_round_trip_per_character_and_clear_without_touching_history() {
+	let pack = write_codex_pack(
+		&json!({
+			"items": {
+				"1": { "name": "Match", "reqLevel": 0, "quality": 0, "itemClass": 2, "itemSubclass": 7 },
+				"2": { "name": "Other category", "reqLevel": 0, "quality": 0, "itemClass": 2, "itemSubclass": 8 },
+				"3": { "name": "Other rarity", "reqLevel": 0, "quality": 2, "itemClass": 2, "itemSubclass": 7 }
+			}
+		}),
+		&CodexOpts::default(),
+	);
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		before: pack.stub_lua.clone(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Gear/Weights.lua", "Theme/Theme.xml", "Lookup/Lookup.xml", "UI/UI.xml"])],
+		script: r#"
+		uistub.install()
+		stub.login()
+		local LK, S = Polestar.UI.Lookup, Polestar.Search
+		local char = Polestar.CharState
+		local s = char()
+		assert(next(LK.ItemFilters()) == nil, "missing saved filters")
+		Polestar.CharState = nil
+		assert(next(LK.ItemFilters()) == nil, "CharState is optional")
+		assert(LK.SetItemFilters({ reqMax = 0 }).reqMax == 0)
+		LK.ClearItemFilters()
+		Polestar.CharState = char
+
+		s.ui = { recentLookups = { { kind = "item", id = 1 } }, other = true }
+		local history = s.ui.recentLookups
+		s.ui.lookupItemFilters = "malformed"
+		assert(next(LK.ItemFilters()) == nil, "malformed root")
+		local input = {
+			reqMin = 0, reqMax = 0, ilvlMin = 12, ilvlMax = 999,
+			quality = { 8, 0, 4, 0, 9, -1, 2.5, "3", false },
+			slot = 34, class = "MAGE", stat = 4, category = { class = 2 }, drawer = true, order = "az",
+		}
+		local set = LK.SetItemFilters(input)
+		local saved = LK.ItemFilters()
+		for _, f in ipairs({ set, saved }) do
+			assert(f.reqMin == 0 and f.reqMax == 0 and f.ilvlMin == 12 and f.ilvlMax == 999)
+			assert(table.concat(f.quality, ",") == "0,4,8")
+			assert(f.slot == 34 and f.class == "MAGE" and f.stat == 4)
+			assert(f.category == nil and f.drawer == nil and f.order == nil)
+		end
+		input.quality[1], set.quality[1], saved.quality[1], saved.reqMax = 7, 6, 5, 10
+		assert(s.ui.lookupItemFilters.quality[1] == 0 and s.ui.lookupItemFilters.reqMax == 0)
+		Polestar.CharState = function() return {} end
+		assert(next(LK.ItemFilters()) == nil, "another character has separate filters")
+		Polestar.CharState = char
+		assert(LK.ItemFilters().class == "MAGE")
+
+		local gear = Polestar.Gear
+		Polestar.Gear = nil
+		assert(LK.ItemFilters().class == "MAGE", "retain the class before Gear loads")
+		Polestar.Gear = gear
+		assert(next(LK.SetItemFilters({
+			reqMin = 3, reqMax = 2, ilvlMin = 2, ilvlMax = 1, slot = -1, class = "UNKNOWN", stat = 999,
+			quality = { [9] = true, [-1] = true, [2.5] = true, ["1"] = true, [0] = false },
+		})) == nil, "drop inverted ranges and invalid selectors")
+		assert(s.ui.lookupItemFilters == nil)
+		for _, invalid in ipairs({ "0", -1, 0.5, 1000 }) do
+			local f = LK.SetItemFilters({ reqMin = invalid, reqMax = 0, ilvlMin = 11, ilvlMax = invalid, slot = 35 })
+			assert(f.reqMin == nil and f.reqMax == 0 and f.ilvlMin == 11 and f.ilvlMax == nil and f.slot == nil)
+		end
+		local valid = LK.SetItemFilters({ reqMax = 0, quality = { [0] = true, [8] = true, [2] = false }, slot = 0 })
+		assert(valid.slot == 0 and table.concat(valid.quality, ",") == "0,8")
+
+		assert(LK.SearchFilters({}) == nil and LK.SearchFilters(nil) == nil)
+		local category = { class = 2, subclass = 7 }
+		assert(LK.SearchFilters({}, category).category == category)
+		local filters = LK.SearchFilters({ reqMin = 0, reqMax = 0, ilvlMin = 12, ilvlMax = 999,
+			quality = valid.quality, slot = 0, class = "MAGE", stat = 4 }, category)
+		assert(filters.reqMin == 0 and filters.reqMax == 0 and filters.ilvlMin == 12 and filters.ilvlMax == 999)
+		assert(filters.slot == 0 and filters.class == "MAGE" and filters.stat == 4 and filters.category == category)
+		assert(filters.quality[0] == true and filters.quality[8] == true and filters.quality[2] == nil)
+		assert(Polestar.Codex.Load() and Polestar.Codex.HasFilters())
+		local savedForBrowse = LK.SetItemFilters({ reqMax = 0, quality = valid.quality })
+		local rows, count = S.Browse("item", { filters = LK.SearchFilters(savedForBrowse, category) })
+		local _, handBuiltCount = S.Browse("item", {
+			filters = { reqMax = 0, quality = { [0] = true, [8] = true }, category = category },
+		})
+		assert(count == handBuiltCount and count == 1 and rows[1].id == 1)
+		LK.ClearItemFilters()
+		assert(s.ui.lookupItemFilters == nil and next(LK.ItemFilters()) == nil)
+		assert(s.ui.recentLookups == history and #history == 1 and history[1].id == 1 and s.ui.other)
+		emit(true)"#
+			.into(),
+		..Default::default()
+	});
+	assert_eq!(out, vec![json!(true)]);
+}
+
+#[test]
 fn changing_the_suggestion_source_ranks_a_cached_search_again() {
 	let pack = write_codex_pack(&sample_codex(), &CodexOpts { ..Default::default() });
 	let out = emitted(&RunAddon {
