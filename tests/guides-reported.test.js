@@ -7956,6 +7956,19 @@ test('Alliance 30-40: the Sceptre of Light back to Azore on the first Desolace v
 	assert.ok(goals(DESOLACE_SOUTH).some(({ goal }) => is('turnin', 6027)(goal)), '... and handed in on the south loop');
 });
 
+// Route audit (2026-11-20): The Stone Circle (3444) rode from 40-50/04 to 50-60/03, which made a Broken Pillar detour for
+// it alone; the Un'Goro guide's flight to Gadgetzan stops at Ratchet for the circle and Marvon takes it on the ride
+// south to the Gaping Chasm.
+test('Alliance 40-50: The Stone Circle on the Un\'Goro guide\'s arrival, by Ratchet and the Broken Pillar', { skip }, () => {
+	const ug = goals(UN_GORO_ALLIANCE);
+	const flyR = at(ug, 'fly Ratchet', (g) => g.t === 'fly' && g.location === 'Ratchet');
+	const circle = at(ug, 'collect 10556', (g) => g.t === 'collect' && g.item === 10556);
+	const hand = at(ug, 'turnin 3444', is('turnin', 3444));
+	const chasm = at(ug, 'collect 8593', (g) => g.t === 'collect' && g.item === 8593);
+	assert.ok(flyR < circle && circle < hand && hand < chasm, 'Ratchet, the circle, then Marvon before the Gaping Chasm');
+	assert.ok(holdsQuest(ug[flyR].step, 3444), 'the Ratchet hop only with the quest');
+});
+
 // #1579: the first Nijel's Point step had Vahlarriel's Vengeance taken with the first part of Vahlarriel's Search
 // (1437), but she offers it with the third part (1438) when the Malem chest's part (1465) is handed back to her (the
 // reporter in game, 2026-11-10, and every recorded window).

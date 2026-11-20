@@ -26,6 +26,10 @@ pitch For characters of 49 to 50, but most quests here are level 51-53: on purpo
 # The guide ends in the crater (fix round 2026-11-20): the Burning Steppes guide now opens with the hearth to
 # Ironforge, where Priests and Mages take their Azshara class quests and train, and does Azshara at its end, so the
 # flight to Astranaar and the Priest and Mage detour through Ironforge, Menethil Harbor and Auberdine are gone from here.
+# The Stone Circle (3444, from Marvon at the Broken Pillar on 40-50/04) is finished here (fix pass 2026-11-20): the
+# flight from Theramore stops at Ratchet, whose circle stands on the hill beside the flight master, and Marvon takes it
+# on the ride south past the Broken Pillar to the Gaping Chasm: 4,900 XP at about 49.5 instead of a five-guide carry
+# and a Broken Pillar detour on 50-60/03, which keeps both steps for a character who arrives with the quest.
 
 step Fly to Menethil Harbor
   zone Ironforge
@@ -42,7 +46,32 @@ step Theramore
   tip Privateer Groy stands on the docks where the boat lands.
   turnin 623                          -- Privateer Groy
 
+step Fly to Ratchet
+  when onquest 3444
+  when !complete 3444
+  when taxi "Ratchet"
+  zone Dustwallow Marsh
+  tip Marvon's Stone Circle stands in Ratchet: fly there first, then on to Gadgetzan.
+  goto 67.5,51.2 "Theramore flight master"
+  fly "Ratchet"
+  zone The Barrens
+
+step The Stone Circle
+  when onquest 3444
+  when taxi "Ratchet"
+  zone The Barrens
+  tip The Stone Circle stands on the hill just south-west of the flight master.
+  collect 10556 quest 3444.1 @62.5,38.5 map 1413 -- Stone Circle
+
 step Fly to Gadgetzan
+  when complete 3444
+  zone The Barrens
+  goto 63.1,37.1 "Ratchet flight master"
+  fly "Gadgetzan"
+  zone Tanaris
+
+step Fly to Gadgetzan
+  when !complete 3444
   zone Dustwallow Marsh
   goto 67.5,51.2 "Theramore flight master"
   fly "Gadgetzan"
@@ -52,7 +81,7 @@ step Fly to Gadgetzan
 
 step Gadgetzan
   zone Tanaris
-  tip The flight from Theramore lands in Gadgetzan.
+  tip The flight lands in Gadgetzan.
   turnin 2941
 
 step Marin Noggenfogger
@@ -96,6 +125,12 @@ step Gadgetzan
   turnin 2606                         -- Sprinkle
   turnin 82                           -- Alchemist Pestlezugg, inside
   accept 10                           -- Senior Surveyor Fizzledowser
+
+step Broken Pillar
+  when complete 3444
+  tip On the ride south, Marvon Rivetseeker's dig camp stands at the Broken Pillar: hand him the Stone Circle.
+  turnin 3444                         -- Marvon Rivetseeker
+  note Marvon's next task, Into the Depths, is inside the Sunken Temple: skip it.
 
 step The Gaping Chasm
   tip Ride south past the Broken Pillar to the Gaping Chasm, the Hazzali tunnels; Scrimshank's gear lies deep inside.

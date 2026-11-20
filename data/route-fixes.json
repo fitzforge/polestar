@@ -9077,7 +9077,7 @@
 			},
 			{
 				"q": 3444,
-				"reason": "Fix round 2026-11-20 (Alliance 40-60): The Stone Circle (minimum level 46, Marvon Rivetseeker's follow-up to The Sunken Temple, no mobs: a stone circle by Ratchet's flight master) is taken where 40-50/04 hands in The Sunken Temple at the Broken Pillar (about 47.6) and carried to 50-60/03, whose Ratchet stop finds the circle before its Broken Pillar stop hands it in. 50-60/03 visits Ratchet before Tanaris, so an accept on its own Broken Pillar stop would need a second Ratchet trip; without this accept no guide takes the quest and 50-60/03's two `when onquest 3444` steps never show.",
+				"reason": "Fix round 2026-11-20 (Alliance 40-60): The Stone Circle (minimum level 46, 4,900 XP, Marvon Rivetseeker's follow-up to The Sunken Temple, no mobs: a stone circle by Ratchet's flight master) is taken where 40-50/04 hands in The Sunken Temple at the Broken Pillar (about 47.6). Fix pass after the audit: 40-50/07's flight from Theramore to Gadgetzan stops at Ratchet for the circle (one more hop on a flight the guide takes anyway) and Marvon takes it on 07's ride south past the Broken Pillar to the Gaping Chasm, at about 49.5, instead of a five-guide carry and a Broken Pillar detour for one quest on 50-60/03 at about 53; 50-60/03 keeps its two `when onquest 3444` steps for a character who arrives with the quest.",
 				"issue": "-",
 				"after": [
 					"turnin",
