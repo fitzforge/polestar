@@ -307,6 +307,12 @@ points is added (#2816). Only a true rare's sightings count (classed rare or rar
 with no class of an NPC the data ranks rare): older Recorders also logged world bosses this way, and a
 faction leader got the spots where players stood when they saw him (#2894).
 
+Prerequisites: the learned layer (`data/recorded/quests.json`) adds the prerequisites players' recorded offers
+confirm and removes the ones they disprove, before the knowledge base runs. The knowledge base then fills an empty
+prerequisite list with the Forever world database's previous quest, but never with one a correction's
+prerequisites leave out or the recordings disprove: the previous quest is often only the story order (Welcome to
+Azeroth after The Earthen Ring, #2781).
+
 Talk objectives: QuestieDB lists a quest done by talking to an NPC (a story to hear, advice to ask, an item to
 show) as a creature objective, like a kill, and the Classic server's database gives it no count. Once every
 source has given its counts (after the knowledge base with `--kb`), a kill objective whose count no source

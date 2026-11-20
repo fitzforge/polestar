@@ -816,6 +816,12 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 			corrections: corrections.clone(),
 			correction_origins: correction_origins.clone(),
 			npc_hand_ins: rec.npc_hand_ins.clone(),
+			not_pre: learned
+				.entries()
+				.into_iter()
+				.filter_map(|(id, r)| Some((id.parse::<i64>().ok()?, crate::learn::not_prereqs(&r).into_iter().collect::<FxHashSet<i64>>())))
+				.filter(|(_, n)| !n.is_empty())
+				.collect(),
 			// The fact check's local database is a local-only source.
 			facts_file: if cfg!(feature = "local-sources") { Some(local.join("factcheck").join("facts.sqlite")) } else { None },
 			tdb: tdb.as_ref().filter(|t| t.get("schema").num() >= 2.0).cloned(),

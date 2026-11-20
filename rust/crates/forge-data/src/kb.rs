@@ -1166,6 +1166,9 @@ pub struct KbInputs<'a> {
 	pub correction_origins: Vec<crate::corrections::Origin>,
 	/// Per quest, the NPCs counted players handed it in to (`recordings::Stats::npc_hand_ins`).
 	pub npc_hand_ins: FxHashMap<i64, FxHashSet<i64>>,
+	/// Per quest, the prerequisites players' recorded offers disprove (the learned layer's trusted
+	/// `notPre`, `learn::not_prereqs`): the TDB's previous quest never comes back as one of them.
+	pub not_pre: FxHashMap<i64, FxHashSet<i64>>,
 	/// The fact check's local database (a local-only source); None: none.
 	pub facts_file: Option<PathBuf>,
 	pub tdb: Option<V>,
@@ -2202,12 +2205,21 @@ pub fn build_kb(inp: &KbInputs, log: &dyn Fn(&str)) -> Result<KbOut, String> {
 			}
 			let no_pre = !["pre", "preAny", "preAll", "breadcrumbs"].iter().any(|k| q.get(k).is_arr() && !q.get(k).is_empty());
 			let prev = tq.get("prev");
+			// The TDB's previous quest is only the story order: it never overrules a correction's
+			// prerequisites or a prerequisite players' recorded offers disprove (the learned layer applies
+			// before this step, so an empty list may be its removal; #2781).
+			let outranked = project_quest_source(&q, "prereqs", &corr) == "correction"
+				|| inp.not_pre.get(&(q.get("id").num() as i64)).is_some_and(|n| n.contains(&(prev.num() as i64)));
 			if sniffed && prev.num() > 0.0 && no_pre && quests.get(&prev.to_js_string()).truthy() {
-				let cur = q.get("pre");
-				kb.change("quests", qidn, "pre", if cur.truthy() { cur } else { V::arr() }, arr(vec![prev.clone()]), "tdb");
-				q.set("pre", arr(vec![prev.clone()]));
-				tag(&q, "kb:tdb:pre");
-				bump(&tdb_report, "preFilled", 1.0);
+				if outranked {
+					bump(&tdb_report, "preOutranked", 1.0);
+				} else {
+					let cur = q.get("pre");
+					kb.change("quests", qidn, "pre", if cur.truthy() { cur } else { V::arr() }, arr(vec![prev.clone()]), "tdb");
+					q.set("pre", arr(vec![prev.clone()]));
+					tag(&q, "kb:tdb:pre");
+					bump(&tdb_report, "preFilled", 1.0);
+				}
 			}
 			if let Some(time) = tdb_limit(&q, &tq) {
 				let cur = q.get("limit");
@@ -3810,6 +3822,7 @@ mod tests {
 			corrections,
 			correction_origins: Vec::new(),
 			npc_hand_ins: FxHashMap::default(),
+			not_pre: FxHashMap::default(),
 			facts_file: None,
 			tdb: Some(tdb),
 			classic: None,
@@ -3830,6 +3843,59 @@ mod tests {
 		let count = |id: &str| world.get(id).get("objectives").at(0).get("count").num();
 		assert_eq!(count("93165"), 5.0, "the correction's count stays");
 		assert_eq!(count("900001"), 10.0, "with no higher source, the TDB's count wins");
+	}
+
+	#[test]
+	fn the_tdbs_previous_quest_never_brings_back_a_prerequisite_recordings_or_corrections_removed() {
+		// Welcome to Azeroth 95350 (#2781): the server's previous quest is The Earthen Ring (95349), but
+		// players take it without (the learned layer's trusted notPre), and a correction says no
+		// prerequisite. 92464 the same with only the recordings; 900001 has neither, so the TDB's previous
+		// quest still fills its empty prerequisite.
+		let q = |id: u32| format!(r#""{id}": {{ "id": {id}, "title": "Q{id}", "pre": [], "source": ["questie-forever"] }}"#);
+		let world = parse_json(&format!("{{ {}, {}, {}, {}, {}, {} }}", q(95349), q(95350), q(92461), q(92464), q(900000), q(900001))).unwrap();
+		let corrections = parse_json(r#"{ "quests": { "95350": { "set": { "pre": [], "preAny": [] } } } }"#).unwrap();
+		let tdb = parse_json(
+			r#"{ "schema": 2, "quests": { "95350": { "sniffed": true, "prev": 95349, "obj": [] }, "92464": { "sniffed": true, "prev": 92461, "obj": [] }, "900001": { "sniffed": true, "prev": 900000, "obj": [] } } }"#,
+		)
+		.unwrap();
+		let mut not_pre: FxHashMap<i64, FxHashSet<i64>> = FxHashMap::default();
+		not_pre.entry(95350).or_default().insert(95349);
+		not_pre.entry(92464).or_default().insert(92461);
+		let empty = Obj::new();
+		let none = PathBuf::from("/nonexistent");
+		let inp = KbInputs {
+			quests: world.as_obj().unwrap(),
+			npcs: &empty,
+			objects: &empty,
+			items: &empty,
+			frames: V::obj(),
+			zones: &empty,
+			live: FxHashSet::default(),
+			corrections,
+			correction_origins: Vec::new(),
+			npc_hand_ins: FxHashMap::default(),
+			not_pre,
+			facts_file: None,
+			tdb: Some(tdb),
+			classic: None,
+			factoruide_file: None,
+			quest_xp: None,
+			spawnz: None,
+			training: None,
+			trainers: None,
+			mechanics: MechFiles { quest_mechanics: none.clone(), quest_steps: none.clone(), tdb_layer: none.clone(), web: none.clone(), public: none.clone(), evidence: none },
+			v2_quests: FxHashSet::default(),
+			eg: None,
+			vo: None,
+			client: None,
+			kb_file: None,
+			verify_file: None,
+		};
+		build_kb(&inp, &|_| {}).unwrap();
+		let pre = |id: &str| stringify(&world.get(id).get("pre"), None);
+		assert_eq!(pre("95350"), "[]", "a correction and the recordings say no prerequisite");
+		assert_eq!(pre("92464"), "[]", "the recordings disprove the TDB's previous quest");
+		assert_eq!(pre("900001"), "[900000]", "no higher source: the TDB's previous quest fills the gap");
 	}
 
 	#[test]
@@ -3859,6 +3925,7 @@ mod tests {
 			corrections: V::Null,
 			correction_origins: Vec::new(),
 			npc_hand_ins: handed,
+			not_pre: FxHashMap::default(),
 			facts_file: None,
 			tdb: None,
 			classic: None,
@@ -4000,6 +4067,7 @@ mod tests {
 			corrections: V::Null,
 			correction_origins: Vec::new(),
 			npc_hand_ins: FxHashMap::default(),
+			not_pre: FxHashMap::default(),
 			facts_file: None,
 			tdb: None,
 			classic: None,
