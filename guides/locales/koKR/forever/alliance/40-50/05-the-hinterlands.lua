@@ -121,9 +121,10 @@ return {
 	-- {npc:2537} Chucky "Ten Thumbs"
 	["Ride on north along the coast to Zanzil's village. Every Zanzil follower can drop the mixture; {npc:2537} walks the south of the camp."] = "해안을 따라 북쪽 잔질의 마을로 계속 가십시오. 모든 잔질 추종자가 혼합물을 떨어뜨릴 수 있습니다. {npc:2537}은(는) 야영지 남쪽을 돌아다닙니다.",
 
-	-- Step 25: Maury "Club Foot" Wilkins and Jon-Jon the Crow
-	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
-	["{npc:2535} and {npc:2536}"] = "{npc:2535}와(과) {npc:2536}",
+	-- Step 25: Maury "Club Foot" Wilkins and Jon-Jon
+	-- {npc:2535} Maury "Club Foot" Wilkins
+	-- was: ["{npc:2535} and {npc:2536}"] = "{npc:2535}와(과) {npc:2536}"
+	["{npc:2535} and Jon-Jon"] = "",
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
 	["{npc:2535} and {npc:2536} stand together in the hills just north of Zanzil's village."] = "{npc:2535}와(과) {npc:2536}은(는) 잔질의 마을 바로 북쪽 언덕에 함께 서 있습니다.",
 	-- {item:3925} Jon-Jon's Golden Spyglass · {npc:2536} Jon-Jon the Crow
@@ -200,6 +201,7 @@ return {
 	-- ["{npc:2487}, top floor, if the Stranglethorn guide didn't give it"] = "{npc:2487}, 꼭대기 층, 가시덤불 골짜기 가이드에서 받지 않았다면",
 	-- ["{npc:2494}, if the Stranglethorn guide didn't give it"] = "{npc:2494}, 가시덤불 골짜기 가이드에서 받지 않았다면",
 	-- ["{npc:2498}, inside, if the Stranglethorn guide didn't give it"] = "{npc:2498}, 안쪽, 가시덤불 골짜기 가이드에서 받지 않았다면",
+	-- ["{npc:2535} and {npc:2536}"] = "{npc:2535}와(과) {npc:2536}",
 	-- ["{npc:3516}, at the top of the tree"] = "{npc:3516}, 나무 꼭대기",
 	-- ["{npc:7740}, beside her"] = "{npc:7740}, 그녀의 옆",
 	-- ["{npc:7744}: the last guide binds here, so this usually ticks at once"] = "{npc:7744}: 이전 가이드에서 이곳에 귀환 지점을 정하므로 보통 바로 완료됩니다",
