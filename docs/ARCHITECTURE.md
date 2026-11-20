@@ -1892,7 +1892,8 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   "Fresh starts") says how much of its quest XP hinges on earlier guides'
   quests. `Engine.FreshFor(g)` scales that share by the part of `needs` the
   character has neither done, nor in the log, nor taken on the way (a feeder
-  step of the guide's plan), and from `FRESH_NOTE` (30) percent, below the
+  step of the guide's plan), and from `FRESH_NOTE` (30) percent in whole
+  percent (the share the note states), below the
   guide's top level and with `from` a guide for this character, returns
   `{ guideId, from, fromTitle, share, minutes }` (minutes: that XP as
   same-level kills, `FRESH_KPM` (1.5) a minute, in fives). `Engine.FreshStart()`
