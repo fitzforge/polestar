@@ -366,7 +366,7 @@ return {
 	-- Step 92: Level 56.89
 	["Level 56.89"] = "56.89級",
 	-- {item:9328} Super Snapper FX
-	["If you skipped The {item:9328}, grind here to level 56.89 to stay on the route's plan."] = "",
+	["If you skipped The {item:9328}, grind here to level 56.89 to stay on the route's plan."] = "如果跳過了{item:9328}相關任務，就在這裡刷怪到56.89級，跟上路線的等級規劃。",
 	-- {npc:11740} Dredge Striker
 	["grind on {npc:11740}"] = "刷{npc:11740}",
 

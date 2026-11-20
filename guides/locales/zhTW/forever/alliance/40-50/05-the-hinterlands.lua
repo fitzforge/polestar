@@ -17,7 +17,7 @@ return {
 	-- {area:355} Altar of Zul · {npc:7996} Qiaga the Keeper · {npc:8636} Morta'gya the Keeper
 	-- plural, as words: Vilebranch Soothsayers = {npc:4467} Vilebranch Soothsayer · Vilebranch Totems = {item:279225} Vilebranch Totem
 	-- was: ["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "邪枝占卜者（46-47級）在{area:355}山腳周圍走動：他們的圖騰是給瑪蕾·火護的。小心：{npc:7996}和{npc:8636}（50級，精英）站在祭壇東南側：在祭壇西側打占卜者，遠離她們，也別上祭壇。"
-	["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend, and more Vilebranch Totems lie on the ground among them: pick those up too. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "",
+	["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend, and more Vilebranch Totems lie on the ground among them: pick those up too. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "邪枝占卜者（46-47）在{area:355}山腳周圍遊蕩：他們的圖騰交給先知瑪雷特·火心，還有更多邪枝圖騰散落在他們中間的地上：也把它們撿起來。小心：{npc:7996}和{npc:8636}（50級，精英）站在祭壇東南側：去祭壇西側打占卜者，遠離她們，別上祭壇。",
 
 	-- Step 3: Skulk Rock
 	-- {area:351} Skulk Rock · {zone:1425} The Hinterlands
@@ -58,7 +58,7 @@ return {
 	-- {area:1537} Ironforge
 	["{area:1537} inn"] = "{area:1537}旅店",
 	-- {object:26486} Stonefire Tavern · {zone:1427} Searing Gorge · {area:144} Thelsamar
-	["Set your hearth at the {object:26486}: the {zone:1427} guide starts with the hearth back here and the gryphon to {area:144}."] = "",
+	["Set your hearth at the {object:26486}: the {zone:1427} guide starts with the hearth back here and the gryphon to {area:144}."] = "在{object:26486}繫結爐石：{zone:1427}指南一開始就用爐石回到這裡，再坐獅鷲去{area:144}。",
 
 	-- Step 10: Tram to Stormwind
 	-- {zone:1453} Stormwind
@@ -102,7 +102,7 @@ return {
 
 	-- Step 19: Wild Shore: kill these as you meet them
 	-- {area:43} Wild Shore
-	["{area:43}: kill these as you meet them"] = "",
+	["{area:43}: kill these as you meet them"] = "{area:43}：遇到就殺",
 	-- {area:43} Wild Shore · {area:35} Booty Bay
 	["The charts and orders lie in the pirate camp on the {area:43}, just south of {area:35}; its Swashbucklers walk the shore. The Warlocks and Swashbucklers (41-43) are under you now."] = "海圖和命令在{area:35}南邊不遠、{area:43}上的海盜營地裡；營地的劍客在海岸上走動。術士和劍客（41-43級）現在等級都比你低了。",
 
@@ -141,7 +141,7 @@ return {
 	-- {npc:1514} Mokk the Savage
 	["Hand in the fangs and stay: three waves of gorillas come, {npc:1514} last.\nCareful: three waves of gorillas come one after another with little rest between, then {npc:1514}. Start at full health and mana, and stay near Unbagwa. Some classes find it hard alone: a friend makes it easy."] = "繳交牙齒後留在原地：會來三波猩猩，最後是{npc:1514}。\n小心：三波猩猩接連而來，中間幾乎沒有喘息時間，最後是{npc:1514}。開始前補滿血和法力，並待在安巴格瓦附近。有些職業單人會很吃力：找個朋友就輕鬆了。",
 	-- {npc:1449} Witch Doctor Unbagwa · {area:1742} Spirit Den
-	["{npc:1449}, inside {area:1742}"] = "",
+	["{npc:1449}, inside {area:1742}"] = "{npc:1449}，在{area:1742}裡面",
 
 	-- Step 29: Booty Bay
 	["Ride back down to town."] = "騎回鎮上。",
@@ -157,14 +157,14 @@ return {
 
 	-- Step 34: Negolash's bait
 	-- {npc:1494} Negolash
-	["{npc:1494}'s bait"] = "",
+	["{npc:1494}'s bait"] = "{npc:1494}的誘餌",
 	-- {npc:1494} Negolash · {quest:619} Enticing Negolash · {area:35} Booty Bay · {item:4595} Junglevine Wine · {npc:2832} Nixxrax Fillamug
 	-- plural, as words: Barbecued Buzzard Wings = {item:4457} Barbecued Buzzard Wing
-	["{npc:1494} comes only for his food: hand in {quest:619} at Captain Smotts' ruined lifeboat on the shore south-east of {area:35}, with 10 Barbecued Buzzard Wings and 5 {item:4595}, and he comes to the boat. {npc:2832}, the food and drink vendor at the inn, sells the wine. The wings are a cook's dish: if you don't cook, bring them from the Auction House."] = "",
+	["{npc:1494} comes only for his food: hand in {quest:619} at Captain Smotts' ruined lifeboat on the shore south-east of {area:35}, with 10 Barbecued Buzzard Wings and 5 {item:4595}, and he comes to the boat. {npc:2832}, the food and drink vendor at the inn, sells the wine. The wings are a cook's dish: if you don't cook, bring them from the Auction House."] = "{npc:1494}只為食物而來：在{area:35}東南海岸斯莫茨船長失事的救生艇處交還{quest:619}，需要10塊烤禿鷲翅和5個{item:4595}，他就會來到船上。旅店裡的飲食商人{npc:2832}賣酒。這些翅膀是烹飪菜品：如果你不會烹飪，就從拍賣行買。",
 	-- {item:4457} Barbecued Buzzard Wing
-	["{item:4457}: in your bags already if you cook"] = "",
+	["{item:4457}: in your bags already if you cook"] = "{item:4457}：如果你會烹飪，揹包裡已經有了",
 	-- {object:2289} Ruined Lifeboat · {npc:1494} Negolash
-	["{object:2289}: the food goes in, {npc:1494} comes"] = "",
+	["{object:2289}: the food goes in, {npc:1494} comes"] = "{object:2289}：把食物放進去，{npc:1494}就會來",
 
 	-- Step 35: Facing Negolash
 	-- {npc:1494} Negolash

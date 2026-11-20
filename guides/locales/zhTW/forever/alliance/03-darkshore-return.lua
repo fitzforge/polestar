@@ -171,7 +171,7 @@ return {
 
 	-- Step 35: To Darnassus
 	-- {npc:4217} Mathrengyl Bearwalker · {area:442} Auberdine · {zone:1440} Ashenvale
-	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}. {npc:4217} is a Druid trainer: learn your new spells from him."] = "",
+	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}. {npc:4217} is a Druid trainer: learn your new spells from him."] = "透過傳送門上去找 {npc:4217}，再飛回 {area:442}，沿路向南前往 {zone:1440}。{npc:4217} 是德魯伊訓練師：向他學習新法術。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Cast {spell:18960}. {npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. Learn the flight path there if you do not have it."] = "施放{spell:18960}。{npc:11802}站在{area:2361}他建築的樓上：從裡面走上去，箭頭無法分辨樓層。如果你還沒有那裡的飛行路線就學起來。",

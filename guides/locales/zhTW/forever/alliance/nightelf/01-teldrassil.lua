@@ -152,7 +152,7 @@ return {
 
 	-- Step 23: Zarrin
 	-- {npc:6286} Zarrin
-	["{npc:6286}, south of the inn: Camping 101 asks you to learn it"] = "",
+	["{npc:6286}, south of the inn: Camping 101 asks you to learn it"] = "{npc:6286}位於旅店南側，露營 101 要求你學習這項技能",
 
 	-- Step 24: Cyndra Kindwhisper
 	["talk to the trainer"] = "與訓練師交談",

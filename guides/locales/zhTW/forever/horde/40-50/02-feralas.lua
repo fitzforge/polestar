@@ -29,7 +29,7 @@ return {
 	-- {npc:1059} Ana'thek the Cruel · {quest:586} Speaking with Gan'zulah · {npc:1060} Mogh the Undying
 	["Ride east to the Skullsplitter ruins east of the Venture Co. mine. The headhunters, berserkers and hunters roam the ruins.\n{npc:1059} (45) carries the Broken Armor for {quest:586}: he walks the south-western ruins with two guards and sometimes stands in a small cave there. Pull the guards first.\nCareful: {npc:1060}, an elite troll (level 44), stands in the southern ruins around 47.7,44.3: pull the headhunters and berserkers away from him."] = "向東騎到風險投資公司礦坑東邊的碎顱者廢墟。獵頭者、狂暴者和獵手在廢墟中遊蕩。\n{npc:1059}（45級）身上帶著{quest:586}所需的破損盔甲：他帶著兩名守衛在西南方的廢墟巡邏，有時會站在那裡的小洞穴裡。先拉守衛。\n小心：{npc:1060}是一隻精英食人妖（44級），站在南邊廢墟47.7,44.3附近：把獵頭者和狂暴者拉離他身邊。",
 	-- {npc:669} Skullsplitter Hunter
-	["{npc:669} walks around here: look inside the circle on the map"] = "",
+	["{npc:669} walks around here: look inside the circle on the map"] = "{npc:669}在這附近走動：看地圖上的圓圈內",
 
 	-- Step 5: Grom'gol Base Camp
 	-- {object:3202} Grom'gol
@@ -37,7 +37,7 @@ return {
 	-- {object:2076} Bubbling Cauldron
 	["the {object:2076}"] = "{object:2076}",
 	-- {object:2076} Bubbling Cauldron
-	["the {object:2076} again: Yenniku's fate"] = "",
+	["the {object:2076} again: Yenniku's fate"] = "再次到{object:2076}處：耶尼庫的命運",
 	-- {npc:2519} Kin'weelay · {area:35} Booty Bay
 	["{npc:2519}: the basilisks bask beside the road south, on the ride to {area:35}"] = "{npc:2519}：蜥蜴在往南的路邊曬太陽，就在前往{area:35}的路上",
 
@@ -61,7 +61,7 @@ return {
 
 	-- Step 9: The Cape of Stranglethorn: kill these as you meet them
 	-- {area:1577} The Cape of Stranglethorn
-	["{area:1577}: kill these as you meet them"] = "",
+	["{area:1577}: kill these as you meet them"] = "{area:1577}：遇到就殺",
 	-- {object:759} Holy Spring · {area:35} Booty Bay
 	["West to the coast: the naga explorers wade along the shore and carry the reed bundles; the {object:759} bubbles in the hills just east of them. Then follow the coast south to {area:35}."] = "往西到海岸：娜迦探險者在岸邊涉水，身上帶著蘆葦束；{object:759}就在牠們東邊不遠的山丘上冒泡。然後沿著海岸往南到{area:35}。",
 
@@ -70,7 +70,7 @@ return {
 	["In {area:35}: {npc:2494} on the docks, {npc:2486} by the inn, {npc:2498} inside it, MacKinley, {npc:737} and {npc:773} upstairs."] = "在{area:35}：{npc:2494}在碼頭上，{npc:2486}在旅店旁，{npc:2498}在旅店裡，麥金利、{npc:737}和{npc:773}在樓上。",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside"] = "{npc:2498}，室內",
-	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
+	["\"Sea Wolf\" MacKinley, on the top floor"] = "“海狼”麥金利，在頂層",
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs"] = "{npc:737}，樓上",
 	-- {npc:773} Krazek · {quest:2864} Tran'rek · {area:976} Gadgetzan
@@ -89,7 +89,7 @@ return {
 
 	-- Step 13: Fly to Grom'gol
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "{area:35}飛行管理員",
 
 	-- Step 14: Grom'gol Base Camp
 	-- {object:3202} Grom'gol · {npc:2519} Kin'weelay · {npc:2465} Far Seer Mok'thardin
@@ -170,7 +170,7 @@ return {
 
 	-- Step 39: Mirage Raceway
 	-- {area:976} Gadgetzan · {zone:1446} Tanaris · {area:484} Freewind Post · {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {npc:4454} Fizzle Brassbolts · {npc:4630} Pozzik · {npc:4709} Zamek
-	["Flown in to {area:976}: the raceway is a short ride north over the {zone:1446} border.\nThe road from {area:484} to {zone:1446} runs past the {area:2240} on the {area:439}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "",
+	["Flown in to {area:976}: the raceway is a short ride north over the {zone:1446} border.\nThe road from {area:484} to {zone:1446} runs past the {area:2240} on the {area:439}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "飛到{area:976}後：賽道就在北邊不遠處，越過{zone:1446}邊界即到。\n從{area:484}通往{zone:1446}的道路經過{area:439}的{area:2240}：{npc:4454}在賽道旁的侏儒營地，{npc:4630}和{npc:4709}在地精營地旁。先找{npc:4630}，再找{npc:4709}；後者會跑去分散瑞茲爾·銅栓的注意力。趁機從侏儒營地拿走瑞茲爾·銅栓的計劃，帶回給{npc:4630}。",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "{npc:4454}：{quest:1137}，來自 {zone:1418} 的馬特克",
 

@@ -170,7 +170,7 @@ return {
 
 	-- Step 32: Razor Hill
 	-- {npc:3191} Cook Torka
-	["{npc:3191}: Camping 101 asks you to learn it"] = "",
+	["{npc:3191}: Camping 101 asks you to learn it"] = "{npc:3191}：露營 101 要求你學習這項技能",
 	-- {npc:6928} Innkeeper Grosk
 	["{npc:6928}, inside"] = "{npc:6928}，在裡面",
 	-- {npc:3147} Furl Scornbrow

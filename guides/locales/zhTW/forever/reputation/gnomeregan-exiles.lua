@@ -161,7 +161,7 @@ return {
 	-- {quest:7812} Additional Runecloth
 	["{quest:7812} to Revered"] = "{quest:7812}到崇敬",
 	-- {faction:54} Gnomeregan Exiles · {npc:7955} Milli Featherwhistle · {item:14047} Runecloth
-	["Honored: in Classic the {faction:54}' vendors take 10% off for you, {npc:7955}'s mechanostriders (20g, the swift ones 200g) included; Forever has not settled it, and guide sites report 5% at Friendly rising to 20% at Exalted. Honored to Revered is 12,000 reputation: 240 turn-ins, 4,800 {item:14047}."] = "",
+	["Honored: in Classic the {faction:54}' vendors take 10% off for you, {npc:7955}'s mechanostriders (20g, the swift ones 200g) included; Forever has not settled it, and guide sites report 5% at Friendly rising to 20% at Exalted. Honored to Revered is 12,000 reputation: 240 turn-ins, 4,800 {item:14047}."] = "尊敬：經典懷舊服中，{faction:54} 商人會給你 10% 折扣，包括 {npc:7955} 出售的機械陸行鳥（20 金幣，迅捷型 200 金幣）；無限尚未確定，指南網站報告為友善 5%，逐步提高到崇拜 20%。尊敬到崇敬需要 12,000 點聲望：交還 240 次，共 4,800 個 {item:14047}。",
 
 	-- Step 29: Additional Runecloth to Exalted
 	-- {quest:7812} Additional Runecloth

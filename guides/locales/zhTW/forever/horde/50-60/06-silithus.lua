@@ -335,7 +335,7 @@ return {
 	-- plural, as words: Rangers = {npc:8564} Ranger · Pathstriders = {npc:8565} Pathstrider
 	["Ride north-east to {area:2276} by {area:2275}: the high elf Rangers, Pathstriders and Woodsmen guard it and the Registry lies inside. Careful: the Pathstriders are 57-58 but the Rangers reach 60: pull one at a time and take the Rangers last."] = "往東北騎到{area:2275}旁的{area:2276}：高等精靈遊俠、巡路者和樵夫守著那裡，登記簿就在裡面。小心：巡路者是57-58級，但遊俠可達60級：一次拉一隻，最後再打遊俠。",
 	-- {npc:8565} Pathstrider · {area:2276} Quel'Lithien Lodge
-	["{npc:8565} walks around {area:2276}: look inside the circle on the map"] = "",
+	["{npc:8565} walks around {area:2276}: look inside the circle on the map"] = "{npc:8565}在{area:2276}一帶走動：檢視地圖上的圓圈範圍",
 
 	-- Step 88: Eastern Plaguelands
 	-- {quest:5845} Of Lost Honor

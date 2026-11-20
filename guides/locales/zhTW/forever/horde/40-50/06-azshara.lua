@@ -41,7 +41,7 @@ return {
 
 	-- Step 12: Grom'gol Base Camp
 	-- {area:117} Grom'gol Base Camp · {npc:2497} Nimboya · {object:2076} Bubbling Cauldron
-	["The flight lands at {area:117}; {npc:2497} stands by the {object:2076}."] = "",
+	["The flight lands at {area:117}; {npc:2497} stands by the {object:2076}."] = "航班降落在{area:117}；{npc:2497}站在{object:2076}旁邊。",
 
 	-- Step 13: Back to Grom'gol
 	-- {object:3202} Grom'gol
@@ -191,7 +191,7 @@ return {
 
 	-- Step 53: The Egg-O-Matic
 	-- {object:142071} Egg-O-Matic
-	["The {object:142071}"] = "",
+	["The {object:142071}"] = "{object:142071}",
 	-- {object:142071} Egg-O-Matic
 	["The {object:142071}, in the middle of town"] = "{object:142071}，在城鎮中央",
 

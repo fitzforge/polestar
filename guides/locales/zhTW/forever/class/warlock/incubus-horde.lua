@@ -69,13 +69,13 @@ return {
 	-- Step 12: Corma Villard
 	["Corma Villard"] = "柯瑪·維拉德",
 	-- {zone:1437} Wetlands · {area:881} Thandol Span · {zone:1458} Undercity · {area:287} Hillsbrad · {zone:1417} Arathi Highlands
-	["Corma Villard (level 22, not elite; Comar in older records) wanders the north of the {zone:1437} just past the {area:881}, to the right as you come off the bridge. From the {zone:1458} head through {area:287} and {zone:1417}, where the mobs are 30 and up. Attacking her flags you for PvP."] = "",
+	["Corma Villard (level 22, not elite; Comar in older records) wanders the north of the {zone:1437} just past the {area:881}, to the right as you come off the bridge. From the {zone:1458} head through {area:287} and {zone:1417}, where the mobs are 30 and up. Attacking her flags you for PvP."] = "科馬·韋拉德（22級，非精英；舊記錄中稱為Comar）在{zone:1437}北部、剛過{area:881}的地方遊蕩，下橋後往右找。從{zone:1458}出發，穿過{area:287}和{zone:1417}，沿途怪物都在30級及以上。攻擊她會使你進入PvP狀態。",
 
 	-- Step 13: The Binding: succubus (Undercity)
 	-- {quest:1474} The Binding · {zone:1458} Undercity
 	["{quest:1474}: succubus ({zone:1458})"] = "{quest:1474}：魅魔（{zone:1458}）",
 	-- {npc:5675} Carendin Halgar · {item:6286} Pure Hearts
-	["Back to {npc:5675} with Dalin's and Corma's hearts. He hands you the {item:6286}: go down to the summoning circle below him, stand on it and use them. Summon your voidwalker first and keep the fight on the circle, or the guards may kill her and the kill does not count. If she wins, use the hearts again; keep them, {npc:5675} takes them back."] = "",
+	["Back to {npc:5675} with Dalin's and Corma's hearts. He hands you the {item:6286}: go down to the summoning circle below him, stand on it and use them. Summon your voidwalker first and keep the fight on the circle, or the guards may kill her and the kill does not count. If she wins, use the hearts again; keep them, {npc:5675} takes them back."] = "帶著達林和科馬的心臟返回{npc:5675}。他會給你{item:6286}：下到他下方的召喚法陣，站在陣中使用。先召出虛空行者，並將戰鬥保持在法陣內，否則衛兵可能殺掉她，導致擊殺不算數。如果你輸了，再次使用心臟即可；記得保留，{npc:5675}會收回。",
 	-- {item:6286} Pure Hearts · {npc:5675} Carendin Halgar
 	["{item:6286}, on the circle below {npc:5675}"] = "{item:6286}，在{npc:5675}下方的法陣上",
 
