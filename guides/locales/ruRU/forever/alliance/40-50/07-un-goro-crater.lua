@@ -7,7 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 56."] = "Для персонажей 49-50 уровня, но большинство заданий здесь 51-53 уровня: намеренно, ради опыта. Этот первый визит ограничен восточной половиной кратера, где звери 48-52 уровня, так что выманивайте их по одному; пилоны, кости и улей подождут следующего визита в Ун'Горо примерно на 56 уровне.",
+	-- was: ["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 56."] = "Для персонажей 49-50 уровня, но большинство заданий здесь 51-53 уровня: намеренно, ради опыта. Этот первый визит ограничен восточной половиной кратера, где звери 48-52 уровня, так что выманивайте их по одному; пилоны, кости и улей подождут следующего визита в Ун'Горо примерно на 56 уровне."
+	["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 54."] = "",
 
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
@@ -79,7 +80,8 @@ return {
 	-- {quest:87494} Microcrystal Contamination
 	["{quest:87494}, if a ravasaur dropped the scale"] = "{quest:87494}, если с равазавра выпала чешуя",
 	-- {area:1943} Ironstone Plateau
-	["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 56"] = "Шкуры носят гориллы на плато ({area:1943}): сохраните для второго визита в Ун'Горо, около 56-го уровня",
+	-- was: ["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 56"] = "Шкуры носят гориллы на плато ({area:1943}): сохраните для второго визита в Ун'Горо, около 56-го уровня"
+	["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 54"] = "",
 
 	-- Step 18: Lar'korwi Mates and the raft
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
@@ -106,7 +108,8 @@ return {
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, at the back of the cave; below ground"] = "{npc:9117} – в глубине пещеры; под землей",
 	-- {npc:9272} Spark Nilminer · {npc:9271} Hol'anyee Marshal · {npc:9270} Williden Marshal · {npc:9618} Karna Remtravel
-	["{npc:9272}, {npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 56."] = "У NPC {npc:9272}, {npc:9271}, {npc:9270} и {npc:9618} есть задания на мобов 51-55 уровня: оставьте их на следующий визит в Ун'Горо, около 56-го уровня.",
+	-- was: ["{npc:9272}, {npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 56."] = "У NPC {npc:9272}, {npc:9271}, {npc:9270} и {npc:9618} есть задания на мобов 51-55 уровня: оставьте их на следующий визит в Ун'Горо, около 56-го уровня."
+	["{npc:9272}, {npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 54."] = "",
 
 	-- Step 21: Fire Plume Ridge and the eastern jungle
 	-- {area:537} Fire Plume Ridge
@@ -129,34 +132,13 @@ return {
 	-- {npc:7775} Gregan Brewspewer · {zone:1444} Feralas
 	["For {npc:7775} in {zone:1444}: keep it"] = "Для NPC {npc:7775} (зона {zone:1444}): сохраните",
 
-	-- Step 24: Level 49.79
-	["Level 49.79"] = "",
+	-- Step 24: Level 50
+	["Level 50"] = "",
+	-- {zone:1455} Ironforge
 	-- plural, as words: Bloodpetal Lashers = {npc:6509} Bloodpetal Lasher
-	["Still short of level 49.79 after the refuge's hand-ins? Top up on the Bloodpetal Lashers and Threshers (48-50) of the eastern jungle, where you took the petals, before you leave the crater."] = "После сдачи заданий в лагере все еще не хватает до уровня 49.79? Доберите опыт на кровоцветах-хлыстунах и молотильщиках (48-50) в восточных джунглях, где собирали лепестки, прежде чем покинуть кратер.",
+	["Still short of level 50 after the refuge's hand-ins? The next guide opens in {zone:1455} with quests that need level 50: top up on the Bloodpetal Lashers and Threshers (48-50) of the eastern jungle, where you took the petals, before you leave the crater."] = "",
 	-- {npc:6511} Bloodpetal Thresher
 	["grind on {npc:6511}"] = "убивайте: {npc:6511}",
-
-	-- Step 25: Fly to Astranaar
-	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "Летите сюда: {area:415}",
-	-- {zone:1455} Ironforge · {zone:1427} Searing Gorge · {zone:1440} Ashenvale · {zone:1447} Azshara
-	["The {zone:1455} quests were taken at the end of the {zone:1427} guide: fly straight on to {zone:1440} for {zone:1447}."] = "Задания из зоны {zone:1455} были взяты в конце гайда по зоне {zone:1427}: летите сразу дальше в зону {zone:1440}, чтобы попасть в зону {zone:1447}.",
-	-- {area:541} Marshal's Refuge
-	["{area:541} flight master"] = "Распорядитель полетов ({area:541})",
-
-	-- Step 26: To Ironforge
-	-- {zone:1455} Ironforge
-	["To {zone:1455}"] = "В таверну: {zone:1455}",
-
-	-- Step 27: Mystic Ward
-	-- {npc:11406} High Priest Rohan · {zone:1447} Azshara
-	["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}: для Огтинка (зона {zone:1447}), сохраните",
-	-- {npc:7312} Dink · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara
-	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "",
-
-	-- Step 30: Fly to Astranaar
-	-- {area:442} Auberdine
-	["{area:442} flight master"] = "Распорядитель полетов: {area:442}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Archesonus stands beside King Magni in the {object:171709}."] = "Аркессон стоит рядом с королем Магни ({object:171709}).",
@@ -170,7 +152,9 @@ return {
 	-- ["Escort {npc:9999}"] = "Сопроводите NPC {npc:9999}",
 	-- ["Fly from {area:144} to {area:1537}."] = "Летите из поселка {area:144} в {area:1537}.",
 	-- ["Fly to {area:1537}"] = "Лететь в {area:1537}",
+	-- ["Fly to {area:415}"] = "Летите сюда: {area:415}",
 	-- ["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. The crater's beasts are 48-55 and the Gorishi silithids 51-54, so pull them one at a time."] = "Для персонажей 49-50 уровня, но большинство заданий здесь 51-53 уровня: намеренно, ради опыта. Звери кратера – 48-55 уровня, силитиды из улья Гориши – 51-54, так что выманивайте их по одному.",
+	-- ["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 56."] = "Для персонажей 49-50 уровня, но большинство заданий здесь 51-53 уровня: намеренно, ради опыта. Этот первый визит ограничен восточной половиной кратера, где звери 48-52 уровня, так что выманивайте их по одному; пилоны, кости и улей подождут следующего визита в Ун'Горо примерно на 56 уровне.",
 	-- ["Four rune rubbings in {zone:1447}: keep it"] = "Четыре оттиска рун в зоне {zone:1447}: сохраните",
 	-- ["From {area:144} fly to {area:150}, take the boat to Theramore and fly on to {area:976}. {npc:9619}'s first quest in the crater needs level 48: finish the level here if you are short."] = "Из поселка {area:144} летите в {area:150}, сядьте на корабль до Терамора и летите дальше в {area:976}. Первое задание {npc:9619} в кратере требует 48-го уровня: если не хватает, доберите уровень здесь.",
 	-- ["Grind to 50"] = "Добейте 50-й уровень",
@@ -195,6 +179,7 @@ return {
 	-- ["Ride west past {area:541} and south down the western side to {area:543}: {npc:10302} the goblin sits by the water."] = "Езжайте на запад мимо места {area:541} и на юг по западной стороне: {area:543}. {npc:10302}, гоблин, сидит у воды.",
 	-- ["Running the {area:1417} instead of grinding gets you there faster in a group. Skip this step to grind solo."] = "Пройти {area:1417} вместо убийства монстров в группе быстрее. Пропустите этот шаг, чтобы качаться в одиночку.",
 	-- ["Running {area:978} instead of grinding gets you there faster in a group. The troll city lies in the north-west of {zone:1446}, just north of {area:976}."] = "Пройти {area:978} вместо убийства монстров в группе быстрее. Город троллей лежит на северо-западе зоны {zone:1446}, сразу к северу от города {area:976}.",
+	-- ["Still short of level 49.79 after the refuge's hand-ins? Top up on the Bloodpetal Lashers and Threshers (48-50) of the eastern jungle, where you took the petals, before you leave the crater."] = "После сдачи заданий в лагере все еще не хватает до уровня 49.79? Доберите опыт на кровоцветах-хлыстунах и молотильщиках (48-50) в восточных джунглях, где собирали лепестки, прежде чем покинуть кратер.",
 	-- ["Still short of level 49.79 after the refuge's hand-ins? Top up on the Pterrordax on the slopes east of {area:541} before you leave the crater."] = "После сдачи заданий в лагере все еще не хватает до уровня 49.79? Доберите опыт на жутедактилях на склонах к востоку от места {area:541}, прежде чем покинуть кратер.",
 	-- ["The Centipaar silithid crawl around the {area:982} in western {zone:1446}, just east of the crater ramp. The Workers are the easiest pulls."] = "Силитиды-сентипаары ползают вокруг улья ({area:982}) на западе зоны {zone:1446}, сразу к востоку от спуска в кратер. Легче всего выманивать рабочих.",
 	-- ["The Gorishi hive"] = "Улей Гориши",
@@ -202,20 +187,27 @@ return {
 	-- ["The east side"] = "Восточная сторона",
 	-- ["The gorillas live on {area:1943}, east of {area:541}. Keep their pelts for {npc:9619}. Stay out of the deepest cave: {npc:9622} is level 55."] = "Гориллы живут здесь: {area:1943}, к востоку от места {area:541}. Их шкуры сохраните для NPC {npc:9619}. Не заходите в самую глубокую пещеру: {npc:9622} – 55-го уровня.",
 	-- ["The gorillas of {area:1943} come in small groups and drop nothing for you yet; {npc:9619}'s pelt quest comes later. Stay out of the deepest cave: {npc:9622} is level 55."] = "Гориллы на плато ({area:1943}) ходят небольшими группами, и пока с них ничего не падает для вас; задание {npc:9619} на шкуры будет позже. Не заходите в самую глубокую пещеру: {npc:9622} – 55-го уровня.",
+	-- ["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 56"] = "Шкуры носят гориллы на плато ({area:1943}): сохраните для второго визита в Ун'Горо, около 56-го уровня",
 	-- ["The pelts come after loop 2, on the gorilla plateau"] = "Шкуры – после 2-го круга, на плато горилл",
 	-- ["The pylon stands on the eastern cliffs."] = "Пилон стоит на восточных утесах.",
 	-- ["The pylon stands on the slope east of the refuge. Pterrordax circle the slopes around it: they count for Spraggle and drop {npc:9998}'s scales."] = "Пилон стоит на склоне к востоку от укрытия. Жутедактили кружат над склонами вокруг него, засчитываются для Спраггла и роняют чешую для NPC {npc:9998}.",
 	-- ["The pylon stands on the western cliffs. {npc:9167} fly over the whole west side."] = "Пилон стоит на западных утесах. {npc:9167}: летают над всей западной стороной.",
 	-- ["The relics are in the {zone:1428}: keep it"] = "Реликвии – в зоне {zone:1428}: сохраните",
 	-- ["The wooden sign beside {npc:9997}"] = "Деревянная табличка рядом с NPC {npc:9997}",
+	-- ["The {zone:1455} quests were taken at the end of the {zone:1427} guide: fly straight on to {zone:1440} for {zone:1447}."] = "Задания из зоны {zone:1455} были взяты в конце гайда по зоне {zone:1427}: летите сразу дальше в зону {zone:1440}, чтобы попасть в зону {zone:1447}.",
+	-- ["To {zone:1455}"] = "В таверну: {zone:1455}",
 	-- ["Western Pylon"] = "Западный пилон",
 	-- ["Xiggs waits in the {object:32359}."] = "Зиггс ждет здесь: {object:32359}.",
 	-- ["grind on the Wastewanderers or Dunemaul ogres around {area:976}"] = "убивайте Скитальцев Пустыни или огров из клана Песчаного Молота вокруг города {area:976}",
 	-- ["grind on {npc:5458} at {area:982}, {zone:1446}"] = "убивайте: {npc:5458} ({area:982}, {zone:1446})",
 	-- ["grind on {npc:6514} at {area:1943}, {zone:1449}"] = "убивайте: {npc:6514} ({area:1943}, {zone:1449})",
+	-- ["{area:442} flight master"] = "Распорядитель полетов: {area:442}",
+	-- ["{area:541} flight master"] = "Распорядитель полетов ({area:541})",
 	-- ["{area:978} (optional)"] = "{area:978} (необязательно)",
 	-- ["{item:11834} from {npc:6518} and {npc:6519}, 60 yd south"] = "{item:11834}: падает с NPC {npc:6518} и {npc:6519}, в 60 м к югу",
+	-- ["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}: для Огтинка (зона {zone:1447}), сохраните",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}: предыдущий гайд возвращает вас сюда камнем возвращения, так что это обычно отмечается сразу",
+	-- ["{npc:9272}, {npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 56."] = "У NPC {npc:9272}, {npc:9271}, {npc:9270} и {npc:9618} есть задания на мобов 51-55 уровня: оставьте их на следующий визит в Ун'Горо, около 56-го уровня.",
 	-- ["{npc:9616}: the oozes are in {zone:1448}, keep it"] = "{npc:9616}: слизни – в зоне {zone:1448}, сохраните",
 	-- ["{npc:9618} stands just outside the refuge."] = "{npc:9618} стоит сразу у входа в укрытие.",
 	-- ["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there. {npc:9684} is level 56: start at full health."] = "Логово зверя {npc:9684} – в джунглях к северу от {npc:9619}, под восточными утесами: используйте там {item:11568}. {npc:9684} – 56-го уровня: начинайте бой с полным здоровьем.",

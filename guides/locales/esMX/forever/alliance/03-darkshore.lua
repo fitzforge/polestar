@@ -15,6 +15,8 @@ return {
 	["{npc:3649}, north end of the village"] = "{npc:3649}, en el extremo norte del pueblo",
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston · {zone:1453} Stormwind
 	["{npc:3649}: for {npc:1646} in {zone:1453}"] = "{npc:3649}: para {npc:1646} en {zone:1453}",
+	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston · {zone:1453} Stormwind
+	["{npc:3649}: {npc:1646}'s reply, if you brought it (Night Elves, from Night Elf Darkshore's {zone:1453} walk)"] = "",
 	-- {npc:3657} Sentinel Elissa Starbreeze · {npc:3693} Terenthis
 	["{npc:3657}, beside {npc:3693}"] = "",
 	["The WANTED poster outside the inn"] = "El cartel de SE BUSCA fuera de la posada",

@@ -267,8 +267,8 @@ do
 			pack = "guides",
 			title = "{area:616}",
 			minLevel = 57,
-			maxLevel = 59,
-			factionLevels = { Alliance = { min = 57, max = 59 }, Horde = { min = 57, max = 58 } },
+			maxLevel = 58,
+			factionLevels = { Alliance = { min = 57, max = 58 }, Horde = { min = 57, max = 58 } },
 			category = "Leveling",
 			keywords = { "mount hyjal", "hyjal", "tainted foothills", "felblood scar", "ketharas", "moonglade", "barkskin burrow", "elderwild", "mourning's rest", "cradle of tranquility", "shrine of aviana", "dae'gun", "summit of eternity", "nordrassil" },
 			why = "About 100 quests in Forever's new endgame zone, 57 to 59, then on to {zone:1451}.",
@@ -372,7 +372,7 @@ do
 				},
 				{
 					title = "Soil and venison",
-					note = "The untainted soil lies in the fields south and east of the outpost; Hyjal Stags graze there too, and their venison is for {npc:256222}'s stew.",
+					note = "The untainted soil lies in the fields south and east of the outpost; Hyjal Stags graze there too, and their venison is for {npc:256222}'s stew.\nCareful: {npc:248709} (56), an elite treant, walks the fields to the south-east around 60,78: give him room.",
 					goals = {
 						{ t = "collect", quest = 91754, title = "Rub Some Dirt In It", item = 247889, itemName = "Untainted Soil", count = 6, oi = 1, map = 2482, x = 56.5, y = 83.5, spotsPacked = "56.5,83.5,,30;57.2,89.5,,30;61.6,83.3,,30;64.2,83.3,,30", spread = true, from = "Untainted Soil", fromKind = "object", fromId = 562377 },
 						{ t = "collect", quest = 93759, title = "The Bounty of Nature", item = 251641, itemName = "Hyjal Venison Cut", count = 2, oi = 1, map = 2482, x = 56.5, y = 83.5, spotsPacked = "56.5,83.5,,30;57.2,89.5,,30;61.6,83.3,,30;64.2,83.3,,30", spread = true, from = "Hyjal Stag", fromKind = "npc", fromAlso = "Predatory Hyjal Stag", fromId = 248041, fromAlsoId = 256809, fromNpcs = { { npc = 248041, npcName = "Hyjal Stag" }, { npc = 256809, npcName = "Predatory Hyjal Stag" } } },
@@ -982,7 +982,7 @@ do
 				{
 					title = "{quest:91688}",
 					only = { factions = { "Alliance" } },
-					when = { { k = "available", q = 91688, minLevel = 54, preAll = { 92449, 92591 } } },
+					when = { { k = "turnedin", q = 92591 } },
 					goals = {
 						{ t = "accept", quest = 91688, title = "To the Summit of Eternity", npc = 244517, npcName = "Sefira Everbright", minLevel = 54, qlvl = 59, preAll = { 92449, 92591 }, preTitles = { [92449] = "Blight No More", [92591] = "Final Death" }, map = 2482, x = 15.67, y = 54.66, note = "{quest:91688}: for {npc:254915}, later in this guide; keep it" },
 					},
@@ -1333,7 +1333,7 @@ do
 				},
 				{
 					title = "{area:16866}",
-					note = "Work west back through {area:16866}: the Felguard Sentinels and Defiling Hounds are everywhere, the hounds carry the essence, and the Horde base's rubble (wire, scrap and dung) lies all over it. Light the two bonfires on your way, scout the Horde tower in the middle, take Azgalor's ashes west of the tower, and pick up the abandoned supplies, a few just north-west of {npc:259695} and the rest in the western half: {npc:259695}'s tuft of fur, used on a demon, distracts it while you take them.\nHorde: the demons here also drop the Scraps of Horde Heraldry for {npc:265788}, the old {item:253249} stands in the camp north of the south bonfire, and the {object:656786} at the camp's eastern edge start {quest:96998}.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps: give them room.\nCareful: Doomguards (elites, 58-59) stand among the demons, and {npc:267439} (elite, 61) walks the camp: pull the hounds and sentinels to you, away from them.",
+					note = "Work west back through {area:16866}: the Felguard Sentinels and Defiling Hounds are everywhere, the hounds carry the essence, and the Horde base's rubble (wire, scrap and dung) lies all over it. Light the two bonfires on your way, scout the Horde tower in the middle, take Azgalor's ashes west of the tower, and pick up the abandoned supplies, a few just north-west of {npc:259695} and the rest in the western half: {npc:259695}'s tuft of fur, used on a demon, distracts it while you take them.\nHorde: the demons here also drop the Scraps of Horde Heraldry for {npc:265788}, the old {item:253249} stands in the camp north of the south bonfire, and the {object:656786} at the camp's eastern edge start {quest:96998}.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps: give them room. {npc:255183} (61, rare) walks the camp north of the south bonfire: keep away from her.\nCareful: Doomguards (elites, 58-59) stand among the demons, and {npc:267439} (elite, 61) walks the camp: pull the hounds and sentinels to you, away from them.",
 					goals = {
 						{ t = "kill", quest = 95793, title = "Stemming the Demon Tide", target = "Felguard Sentinel", npc = 249229, count = 12, oi = 1, map = 2482, x = 57.12, y = 46.18, spotsPacked = "57.1,46.2,,40,1;58.2,36.9,,54,16;54.9,37.1,,65,15;51,36.8,,66,15;49.2,29.4,,40,1;46.3,33,,94,17;54.8,30.5,,44,8;61.9,26.9,,40,5;62.3,31.9,,40,3;63.3,37.1,,56,11;63.1,41.3,,60,6;66,40.6,,40,2;58.1,44.6,,47,7,1;57.2,40.8,,60,12,1;57.8,33.9,,40,7,1;60,33.4,,40,1,1;52.9,33.1,,60,16,1;65.3,37,,40,3,1;50,34.1,,52,10,1;49.8,31.5,,51,10,1;59.7,27.9,,52,3,1", spread = true, lvl = 59 },
 						{ t = "collect", quest = 92960, title = "Siphoned Ephemeral Essence", item = 271220, itemName = "Ephemeral Essence", count = 6, oi = 1, map = 2482, x = 55.65, y = 43.61, spotsPacked = "56.7,41.8,,65,14;59.6,42,,47,6;60.9,47.1,,40,3;65.3,38.9,,40,2;63.5,34.4,,46,6;60.2,34.5,,59,12;56.9,33.5,,52,6;52.6,36.6,,57,17;49.4,35.1,,68,19;50,43.1,,70,9;53.3,43.7,,65,17;61.8,27.6,,61,19;53.6,40.2,,48,14,1;59.5,45.6,,52,8,1;56.4,36.7,,55,11,1;59,38.3,,56,11,1;62.9,39.1,,40,4,1;51.9,32.4,,55,17,1;63.9,37.3,,52,12,1;59.3,29.7,,69,18,1;63,31.2,,52,17,1", spread = true, lvl = 59, from = "Defiling Hound", fromKind = "npc", fromId = 249230, fromNpcs = { { npc = 249230, npcName = "Defiling Hound" } } },
@@ -1546,7 +1546,7 @@ do
 				{
 					title = "{quest:91688}",
 					only = { factions = { "Alliance" } },
-					when = { { k = "available", q = 91688, minLevel = 54, preAll = { 92449, 92591 } } },
+					when = { { k = "turnedin", q = 92591 } },
 					goals = {
 						{ t = "accept", quest = 91688, title = "To the Summit of Eternity", npc = 244517, npcName = "Sefira Everbright", minLevel = 54, qlvl = 59, preAll = { 92449, 92591 }, preTitles = { [92449] = "Blight No More", [92591] = "Final Death" }, map = 2482, x = 15.67, y = 54.66, note = "{npc:244517}: for {npc:254915} at the Summit, next" },
 					},
@@ -1554,7 +1554,7 @@ do
 				{
 					title = "{quest:95248}",
 					only = { factions = { "Horde" } },
-					when = { { k = "available", q = 95248, minLevel = 54, preAll = { 92592, 92609, 94782, 95026 } } },
+					when = { { k = "turnedin", q = 92592 } },
 					goals = {
 						{ t = "accept", quest = 95248, title = "To the Summit of Eternity", npc = 244511, npcName = "Zet'gan", minLevel = 54, qlvl = 59, preAll = { 92592, 92609, 94782, 95026 }, preTitles = { [92592] = "Final Death", [92609] = "Feathers in Flight", [94782] = "The Western Post", [95026] = "Blight No More" }, map = 2482, x = 13.92, y = 54.86, spotsPacked = "13.9,54.7,,15,2", note = "{npc:244511}: for {npc:254915} at the Summit, next" },
 					},
@@ -2154,8 +2154,8 @@ do
 			author = "Polestar",
 			version = 1,
 			group = true,
-			names = { ["area:1417"] = "Sunken Temple", ["area:1438"] = "Nethergarde Keep", ["area:1477"] = "The Temple of Atal'Hakkar", ["area:2361"] = "Nighthaven", ["area:540"] = "Slithering Scar", ["area:541"] = "Marshal's Refuge", ["area:74"] = "Pool of Tears", ["area:75"] = "Stonard", ["area:976"] = "Gadgetzan", ["item:22432"] = "Devilsaur Barb", ["item:22434"] = "Bloodcap", ["item:22435"] = "Gorishi Sting", ["item:22444"] = "Putrid Vine", ["npc:12042"] = "Loganaar", ["npc:3033"] = "Turak Runetotem", ["npc:4217"] = "Mathrengyl Bearwalker", ["npc:6498"] = "Devilsaur", ["npc:6499"] = "Ironhide Devilsaur", ["npc:6500"] = "Tyrant Devilsaur", ["npc:6551"] = "Gorishi Wasp", ["npc:8580"] = "Atal'alarion", ["npc:9619"] = "Torwa Pathfinder", ["object:164958"] = "Bloodpetal Sprout", ["quest:9051"] = "Toxic Test", ["quest:9052"] = "Bloodpetal Poison", ["quest:9053"] = "A Better Ingredient", ["quest:9063"] = "Torwa Pathfinder", ["spell:12887"] = "Sweeping Slam", ["spell:14099"] = "Mighty Blow", ["spell:18960"] = "Teleport: Moonglade", ["spell:2637"] = "Hibernate", ["spell:339"] = "Entangling Roots", ["spell:6524"] = "Ground Tremor", ["spell:8137"] = "Silithid Pox", ["zone:1419"] = "Blasted Lands", ["zone:1435"] = "Swamp of Sorrows", ["zone:1449"] = "Un'Goro Crater", ["zone:1453"] = "Stormwind" },
-			written = { ["Any {npc:6498} counts, the Ironhide and Tyrant Devilsaurs too. They are elite (level 54-55), hit with {spell:14099} and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or {spell:339} it from range, stab it with the {item:22432} (the barb does not break {spell:2637}), then leave. The credit counts the moment the barb lands, even if you die after. The arrow points at the plain Devilsaurs of the west and north; an {npc:6499} roams the middle of the crater's south, nearer {npc:9619}."] = "Any Devilsaur counts, the Ironhide and Tyrant Devilsaurs too. They are elite (level 54-55), hit with Mighty Blow and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or Entangling Roots it from range, stab it with the Devilsaur Barb (the barb does not break Hibernate), then leave. The credit counts the moment the barb lands, even if you die after. The arrow points at the plain Devilsaurs of the west and north; an Ironhide Devilsaur roams the middle of the crater's south, nearer Torwa.", ["Back to {npc:9619} in the south-east corner of {zone:1449}."] = "Back to Torwa in the south-east corner of Un'Goro Crater.", ["Fly to {area:976}, ride west to the long ramp down into {zone:1449}: {npc:9619} camps at its foot, in the south-east corner of the crater."] = "Fly to Gadgetzan, ride west to the long ramp down into Un'Goro Crater: Torwa camps at its foot, in the south-east corner of the crater." },
+			names = { ["area:1417"] = "Sunken Temple", ["area:1438"] = "Nethergarde Keep", ["area:1477"] = "The Temple of Atal'Hakkar", ["area:2361"] = "Nighthaven", ["area:540"] = "Slithering Scar", ["area:541"] = "Marshal's Refuge", ["area:74"] = "Pool of Tears", ["area:75"] = "Stonard", ["area:976"] = "Gadgetzan", ["item:22432"] = "Devilsaur Barb", ["item:22434"] = "Bloodcap", ["item:22435"] = "Gorishi Sting", ["item:22444"] = "Putrid Vine", ["npc:12042"] = "Loganaar", ["npc:3033"] = "Turak Runetotem", ["npc:4217"] = "Mathrengyl Bearwalker", ["npc:6499"] = "Ironhide Devilsaur", ["npc:6500"] = "Tyrant Devilsaur", ["npc:6551"] = "Gorishi Wasp", ["npc:8580"] = "Atal'alarion", ["npc:9619"] = "Torwa Pathfinder", ["object:164958"] = "Bloodpetal Sprout", ["quest:9051"] = "Toxic Test", ["quest:9052"] = "Bloodpetal Poison", ["quest:9053"] = "A Better Ingredient", ["quest:9063"] = "Torwa Pathfinder", ["spell:12887"] = "Sweeping Slam", ["spell:14099"] = "Mighty Blow", ["spell:18960"] = "Teleport: Moonglade", ["spell:2637"] = "Hibernate", ["spell:339"] = "Entangling Roots", ["spell:6524"] = "Ground Tremor", ["spell:8137"] = "Silithid Pox", ["zone:1419"] = "Blasted Lands", ["zone:1435"] = "Swamp of Sorrows", ["zone:1449"] = "Un'Goro Crater", ["zone:1453"] = "Stormwind" },
+			written = { ["Any Devilsaur counts, the Ironhide and Tyrant Devilsaurs too. They are elite (level 54-55), hit with {spell:14099} and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or {spell:339} it from range, stab it with the {item:22432} (the barb does not break {spell:2637}), then leave. The credit counts the moment the barb lands, even if you die after. The arrow points at the plain Devilsaurs of the west and north; an {npc:6499} roams the middle of the crater's south, nearer {npc:9619}."] = "Any Devilsaur counts, the Ironhide and Tyrant Devilsaurs too. They are elite (level 54-55), hit with Mighty Blow and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or Entangling Roots it from range, stab it with the Devilsaur Barb (the barb does not break Hibernate), then leave. The credit counts the moment the barb lands, even if you die after. The arrow points at the plain Devilsaurs of the west and north; an Ironhide Devilsaur roams the middle of the crater's south, nearer Torwa.", ["Back to {npc:9619} in the south-east corner of {zone:1449}."] = "Back to Torwa in the south-east corner of Un'Goro Crater.", ["Fly to {area:976}, ride west to the long ramp down into {zone:1449}: {npc:9619} camps at its foot, in the south-east corner of the crater."] = "Fly to Gadgetzan, ride west to the long ramp down into Un'Goro Crater: Torwa camps at its foot, in the south-east corner of the crater." },
 			steps = {
 				{
 					title = "{npc:12042}",
@@ -2193,10 +2193,10 @@ do
 				},
 				{
 					title = "{quest:9051}",
-					note = "Any {npc:6498} counts, the Ironhide and Tyrant Devilsaurs too. They are elite (level 54-55), hit with {spell:14099} and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or {spell:339} it from range, stab it with the {item:22432} (the barb does not break {spell:2637}), then leave. The credit counts the moment the barb lands, even if you die after. The arrow points at the plain Devilsaurs of the west and north; an {npc:6499} roams the middle of the crater's south, nearer {npc:9619}.",
+					note = "Any Devilsaur counts, the Ironhide and Tyrant Devilsaurs too. They are elite (level 54-55), hit with {spell:14099} and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or {spell:339} it from range, stab it with the {item:22432} (the barb does not break {spell:2637}), then leave. The credit counts the moment the barb lands, even if you die after. The arrow points at the plain Devilsaurs of the west and north; an {npc:6499} roams the middle of the crater's south, nearer {npc:9619}.",
 					goals = {
 						{ t = "level", level = 54 },
-						{ t = "kill", quest = 9051, title = "Toxic Test", target = "Devilsaur", npc = 6498, count = 1, oi = 1, text = "Stab a {npc:6498} with the {item:22432}", map = 1449, x = 57.26, y = 23.68, z = -272.1, f = "e", spotsPacked = "57.3,23.7,-272.1,15,1;34.6,22.4,-270.2,15,1;31.2,36.4,-271.3,15,1", spread = true, lvl = 55, note = "{npc:6498}: stab it with the {item:22432}", fromNpcs = { { npc = 6498, npcName = "Devilsaur" }, { npc = 6499, npcName = "Ironhide Devilsaur" }, { npc = 6500, npcName = "Tyrant Devilsaur" } }, group = { kind = "elite", lvl = 55, rank = 1 } },
+						{ t = "kill", quest = 9051, title = "Toxic Test", target = "Devilsaur", npc = 6498, count = 1, oi = 1, text = "Stab a Devilsaur with the {item:22432}", map = 1449, x = 57.26, y = 23.68, z = -272.1, f = "e", spotsPacked = "57.3,23.7,-272.1,15,1;34.6,22.4,-270.2,15,1;31.2,36.4,-271.3,15,1", spread = true, lvl = 55, note = "Devilsaur: stab it with the {item:22432}", fromNpcs = { { npc = 6498, npcName = "Devilsaur" }, { npc = 6499, npcName = "Ironhide Devilsaur" }, { npc = 6500, npcName = "Tyrant Devilsaur" } }, group = { kind = "elite", lvl = 55, rank = 1 } },
 					},
 				},
 				{

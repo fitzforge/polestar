@@ -7,7 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Guide
-	["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 56."] = "适合49到50级的角色，但这里的大多数任务是51-53级：这是有意安排的，为了它们的经验值。第一次来只在环形山东半部活动，那里的野兽为48-52级，所以一次拉一只；水晶塔、骨头和虫巢留到约56级再来安戈洛时完成。",
+	-- was: ["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 56."] = "适合49到50级的角色，但这里的大多数任务是51-53级：这是有意安排的，为了它们的经验值。第一次来只在环形山东半部活动，那里的野兽为48-52级，所以一次拉一只；水晶塔、骨头和虫巢留到约56级再来安戈洛时完成。"
+	["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 54."] = "",
 
 	-- Step 1: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
@@ -79,7 +80,8 @@ return {
 	-- {quest:87494} Microcrystal Contamination
 	["{quest:87494}, if a ravasaur dropped the scale"] = "{quest:87494}，如果暴掠龙掉落了鳞片",
 	-- {area:1943} Ironstone Plateau
-	["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 56"] = "{area:1943}的猩猩身上有毛皮：留到第二次来安戈洛时再做，大约56级",
+	-- was: ["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 56"] = "{area:1943}的猩猩身上有毛皮：留到第二次来安戈洛时再做，大约56级"
+	["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 54"] = "",
 
 	-- Step 18: Lar'korwi Mates and the raft
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
@@ -106,7 +108,8 @@ return {
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, at the back of the cave; below ground"] = "{npc:9117}，位于洞穴深处的地下",
 	-- {npc:9272} Spark Nilminer · {npc:9271} Hol'anyee Marshal · {npc:9270} Williden Marshal · {npc:9618} Karna Remtravel
-	["{npc:9272}, {npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 56."] = "{npc:9272}、{npc:9271}、{npc:9270}和{npc:9618}的任务目标是51-55级的怪物：留到之后约56级再来安戈洛时做。",
+	-- was: ["{npc:9272}, {npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 56."] = "{npc:9272}、{npc:9271}、{npc:9270}和{npc:9618}的任务目标是51-55级的怪物：留到之后约56级再来安戈洛时做。"
+	["{npc:9272}, {npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 54."] = "",
 
 	-- Step 21: Fire Plume Ridge and the eastern jungle
 	-- {area:537} Fire Plume Ridge
@@ -129,34 +132,13 @@ return {
 	-- {npc:7775} Gregan Brewspewer · {zone:1444} Feralas
 	["For {npc:7775} in {zone:1444}: keep it"] = "交给{zone:1444}的{npc:7775}：留着",
 
-	-- Step 24: Level 49.79
-	["Level 49.79"] = "等级 49.79",
+	-- Step 24: Level 50
+	["Level 50"] = "",
+	-- {zone:1455} Ironforge
 	-- plural, as words: Bloodpetal Lashers = {npc:6509} Bloodpetal Lasher
-	["Still short of level 49.79 after the refuge's hand-ins? Top up on the Bloodpetal Lashers and Threshers (48-50) of the eastern jungle, where you took the petals, before you leave the crater."] = "在避难所交完任务后仍不到49.79级？离开环形山前，在东部丛林采花瓣的地方击杀血瓣花鞭笞者和鞭打者（48-50级）补足经验。",
+	["Still short of level 50 after the refuge's hand-ins? The next guide opens in {zone:1455} with quests that need level 50: top up on the Bloodpetal Lashers and Threshers (48-50) of the eastern jungle, where you took the petals, before you leave the crater."] = "",
 	-- {npc:6511} Bloodpetal Thresher
 	["grind on {npc:6511}"] = "击杀{npc:6511}刷经验",
-
-	-- Step 25: Fly to Astranaar
-	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "飞往{area:415}",
-	-- {zone:1455} Ironforge · {zone:1427} Searing Gorge · {zone:1440} Ashenvale · {zone:1447} Azshara
-	["The {zone:1455} quests were taken at the end of the {zone:1427} guide: fly straight on to {zone:1440} for {zone:1447}."] = "{zone:1455}的任务已在{zone:1427}指南末尾接取：直接飞往{zone:1440}，前往{zone:1447}。",
-	-- {area:541} Marshal's Refuge
-	["{area:541} flight master"] = "{area:541}飞行管理员",
-
-	-- Step 26: To Ironforge
-	-- {zone:1455} Ironforge
-	["To {zone:1455}"] = "前往{zone:1455}",
-
-	-- Step 27: Mystic Ward
-	-- {npc:11406} High Priest Rohan · {zone:1447} Azshara
-	["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}：交给{zone:1447}的奥汀克，留着",
-	-- {npc:7312} Dink · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara
-	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "法师训练师{npc:7312}：带给{zone:1447}的{npc:8395}，先留着",
-
-	-- Step 30: Fly to Astranaar
-	-- {area:442} Auberdine
-	["{area:442} flight master"] = "{area:442}的飞行管理员",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Archesonus stands beside King Magni in the {object:171709}."] = "阿克瑟努斯站在{object:171709}中麦格尼国王旁边。",
@@ -170,13 +152,16 @@ return {
 	-- ["Escort {npc:9999}"] = "护送{npc:9999}",
 	-- ["Fly from {area:144} to {area:1537}."] = "从{area:144}飞往{area:1537}。",
 	-- ["Fly to {area:1537}"] = "飞往{area:1537}",
+	-- ["Fly to {area:415}"] = "飞往{area:415}",
 	-- ["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. The crater's beasts are 48-55 and the Gorishi silithids 51-54, so pull them one at a time."] = "适合49到50级的角色，但这里的大多数任务是51-53级：这是有意安排的，为了它们的经验值。环形山的野兽为48-55级，格里什异种虫为51-54级，所以一次拉一只。",
+	-- ["For characters of 49 to 50, but most quests here are level 51-53: on purpose, for their experience. This first visit keeps to the crater's eastern half, where the beasts are 48-52, so pull them one at a time; the pylons, the bones and the hive wait for the later Un'Goro visit at about 56."] = "适合49到50级的角色，但这里的大多数任务是51-53级：这是有意安排的，为了它们的经验值。第一次来只在环形山东半部活动，那里的野兽为48-52级，所以一次拉一只；水晶塔、骨头和虫巢留到约56级再来安戈洛时完成。",
 	-- ["Four rune rubbings in {zone:1447}: keep it"] = "{zone:1447}的四个符文拓片：留着",
 	-- ["From {area:144} fly to {area:150}, take the boat to Theramore and fly on to {area:976}. {npc:9619}'s first quest in the crater needs level 48: finish the level here if you are short."] = "从{area:144}飞往{area:150}，乘船前往塞拉摩，再飞往{area:976}。{npc:9619}在环形山的第一个任务需要48级：等级不够就在这里练满。",
 	-- ["Grind to 50"] = "刷到50级",
 	-- ["Grind to 51"] = "刷到51级",
 	-- ["Gryfe"] = "格莱菲",
 	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "带{npc:9999}向北前往{area:541}。他昏倒时，对他使用{item:11804}唤醒他。",
+	-- ["Level 49.79"] = "等级 49.79",
 	-- ["Level 50.4"] = "等级 50.4",
 	-- ["Northern Pylon"] = "北部水晶塔",
 	-- ["Pterrordax"] = "翼手龙",
@@ -200,6 +185,7 @@ return {
 	-- ["Ride west past {area:541} and south down the western side to {area:543}: {npc:10302} the goblin sits by the water."] = "向西经过{area:541}，再沿西侧向南到{area:543}：地精{npc:10302}坐在水边。",
 	-- ["Running the {area:1417} instead of grinding gets you there faster in a group. Skip this step to grind solo."] = "组队打{area:1417}代替刷怪会更快。单人刷怪就跳过此步骤。",
 	-- ["Running {area:978} instead of grinding gets you there faster in a group. The troll city lies in the north-west of {zone:1446}, just north of {area:976}."] = "组队打{area:978}代替刷怪会更快。巨魔城市位于{zone:1446}西北部，就在{area:976}北边。",
+	-- ["Still short of level 49.79 after the refuge's hand-ins? Top up on the Bloodpetal Lashers and Threshers (48-50) of the eastern jungle, where you took the petals, before you leave the crater."] = "在避难所交完任务后仍不到49.79级？离开环形山前，在东部丛林采花瓣的地方击杀血瓣花鞭笞者和鞭打者（48-50级）补足经验。",
 	-- ["Still short of level 49.79 after the refuge's hand-ins? Top up on the Pterrordax on the slopes east of {area:541} before you leave the crater."] = "在避难所交完任务后仍不到49.79级？离开环形山前，在{area:541}东边的山坡上击杀翼手龙补足经验。",
 	-- ["The Centipaar silithid crawl around the {area:982} in western {zone:1446}, just east of the crater ramp. The Workers are the easiest pulls."] = "森提帕尔异种虫在{zone:1446}西部的{area:982}周围爬行，就在环形山坡道东边。森提帕尔工蝎最容易拉。",
 	-- ["The Gorishi hive"] = "格里什虫巢",
@@ -207,6 +193,7 @@ return {
 	-- ["The east side"] = "东侧",
 	-- ["The gorillas live on {area:1943}, east of {area:541}. Keep their pelts for {npc:9619}. Stay out of the deepest cave: {npc:9622} is level 55."] = "猩猩生活在{area:541}东边的{area:1943}。毛皮留给{npc:9619}。别进最深的洞：{npc:9622}是55级。",
 	-- ["The gorillas of {area:1943} come in small groups and drop nothing for you yet; {npc:9619}'s pelt quest comes later. Stay out of the deepest cave: {npc:9622} is level 55."] = "{area:1943}的猩猩成小群出现，目前不会给你掉落任何东西；{npc:9619}的毛皮任务稍后才有。别进最深的洞：{npc:9622}是55级。",
+	-- ["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 56"] = "{area:1943}的猩猩身上有毛皮：留到第二次来安戈洛时再做，大约56级",
 	-- ["The pelts come after loop 2, on the gorilla plateau"] = "毛皮在第二圈之后，在猩猩高地上",
 	-- ["The pylon stands on the eastern cliffs."] = "水晶塔立在东部悬崖上。",
 	-- ["The pylon stands on the slope east of the refuge. Pterrordax circle the slopes around it: they count for Spraggle and drop {npc:9998}'s scales."] = "水晶塔位于营地东侧山坡，翼手龙在周围山坡盘旋，既计入斯普拉格·弗劳克的任务，也会掉落{npc:9998}所需的鳞片。",
@@ -214,6 +201,8 @@ return {
 	-- ["The pylon stands on the western cliffs. {npc:9167} fly over the whole west side."] = "水晶塔立在西部悬崖上。{npc:9167}在整个西侧上空飞行。",
 	-- ["The relics are in the {zone:1428}: keep it"] = "圣物在{zone:1428}：留着",
 	-- ["The wooden sign beside {npc:9997}"] = "{npc:9997}旁边的木牌",
+	-- ["The {zone:1455} quests were taken at the end of the {zone:1427} guide: fly straight on to {zone:1440} for {zone:1447}."] = "{zone:1455}的任务已在{zone:1427}指南末尾接取：直接飞往{zone:1440}，前往{zone:1447}。",
+	-- ["To {zone:1455}"] = "前往{zone:1455}",
 	-- ["Top up here to level 49.51 before the hand-ins at {area:541}: they take you to level 50. Or, with a group, run the {area:2100} dungeon instead."] = "在这里补到49.51级，再去{area:541}交任务，交完会升到50级。也可以组队去{area:2100}副本。",
 	-- ["Top up here to level 50.4 before the hand-ins at {area:3137}: they take you to level 51."] = "在这里补到50.4级，再去{area:3137}交任务，交完会升到51级。",
 	-- ["Western Pylon"] = "西部水晶塔",
@@ -226,11 +215,16 @@ return {
 	-- ["grind on {npc:9164}"] = "反复击杀{npc:9164}补足经验",
 	-- ["grind on {npc:9167}"] = "反复击杀{npc:9167}补足经验",
 	-- ["{area:144} flight master"] = "{area:144}的飞行管理员",
+	-- ["{area:442} flight master"] = "{area:442}的飞行管理员",
+	-- ["{area:541} flight master"] = "{area:541}飞行管理员",
 	-- ["{area:978} (optional)"] = "{area:978}（可选）",
 	-- ["{item:11834} from {npc:6518} and {npc:6519}, 60 yd south"] = "{item:11834}从{npc:6518}和{npc:6519}身上获取，在南边60码处",
+	-- ["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}：交给{zone:1447}的奥汀克，留着",
 	-- ["{npc:6734}: the last guide hearths you here, so this usually ticks at once"] = "{npc:6734}：上一份指南用炉石把你送到这里，所以这一步通常会立即完成",
+	-- ["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "法师训练师{npc:7312}：带给{zone:1447}的{npc:8395}，先留着",
 	-- ["{npc:7564}, once he has brewed the elixir: a few seconds"] = "{npc:7564}，等他调好药剂：几秒钟",
 	-- ["{npc:9117}, at the back of the cave"] = "{npc:9117}，在洞穴深处",
+	-- ["{npc:9272}, {npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 56."] = "{npc:9272}、{npc:9271}、{npc:9270}和{npc:9618}的任务目标是51-55级的怪物：留到之后约56级再来安戈洛时做。",
 	-- ["{npc:9616}: the oozes are in {zone:1448}, keep it"] = "{npc:9616}：软泥怪在{zone:1448}，留着",
 	-- ["{npc:9618} stands just outside the refuge."] = "{npc:9618}站在避难所外面。",
 	-- ["{npc:9684}'s lair lies in the jungle north of {npc:9619}, below the eastern cliffs: use {item:11568} there. {npc:9684} is level 56: start at full health."] = "{npc:9684}的巢穴在{npc:9619}北边的丛林中，东部悬崖下方：在那里使用{item:11568}。{npc:9684}是56级：满血开打。",

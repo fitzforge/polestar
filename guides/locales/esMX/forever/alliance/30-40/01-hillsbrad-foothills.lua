@@ -120,6 +120,10 @@ return {
 	-- {npc:2700} Captain Nials · {area:320} Refuge Pointe
 	["for {npc:2700} at {area:320}, in 05-arathi-highlands"] = "para {npc:2700} en {area:320}, en 05-arathi-highlands",
 
+	-- Step 26: The Green Belt
+	-- {npc:270637} Howin Kindfeather · {npc:2094} James Halloran · {area:150} Menethil Harbor
+	["{npc:270637}: {npc:2094}'s crate, from {area:150}"] = "",
+
 	-- Step 27: Rethiel the Greenwarden
 	-- {area:17732} Excavation Site: Wetlands · {npc:1244} Rethiel the Greenwarden · {npc:270637} Howin Kindfeather
 	["The root core from your {area:17732} run: {npc:1244} stands by the river, just east of {npc:270637}."] = "El núcleo de raíz de tu recorrido por {area:17732}: {npc:1244} está junto al río, justo al este de {npc:270637}.",

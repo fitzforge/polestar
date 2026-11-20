@@ -26,13 +26,16 @@ return {
 	["Eight of each. The Gorishi Wasps and Stingers (level 51-52) in and around the {area:540}, the hive in the south-west of the crater, drop a sting about one kill in seven; the wasps share spawn points with the other bugs, so kill whatever stands near you to make room for more wasps (respawn five minutes). The bugs' {spell:8137} makes you take more physical damage for 30 minutes; Workers call for help when hurt. The Bloodpetal Sprouts grow all over the crater (around {area:541} and the western half): open them, about every other one gives a {item:22434}, back in three to five minutes."] = "每樣八個。環形山西南部蜂巢{area:540}內及其周邊的格里什黃蜂和格里什釘刺者（51到52級）約每七隻掉一根刺；黃蜂與其他蟲類共享重生點，所以把身邊能殺的都殺掉，給黃蜂騰出重生位置（五分鐘重生）。這些蟲子的{spell:8137}會讓你在30分鐘內承受更多物理傷害；工蜂受傷時會呼救。血瓣花苗遍佈環形山（{area:541}一帶和西半邊）：開啟它們，約每隔一株給一個{item:22434}，三到五分鐘重生。",
 
 	-- Step 5: Toxic Test
-	-- {npc:6498} Devilsaur · {spell:14099} Mighty Blow · {spell:339} Entangling Roots · {item:22432} Devilsaur Barb · {spell:2637} Hibernate · {npc:6499} Ironhide Devilsaur · {npc:9619} Torwa Pathfinder
-	-- plural, as words: Tyrant Devilsaurs = {npc:6500} Tyrant Devilsaur · Devilsaurs = {npc:6498} Devilsaur
-	["Any {npc:6498} counts, the Ironhide and Tyrant Devilsaurs too. They are elite (level 54-55), hit with {spell:14099} and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or {spell:339} it from range, stab it with the {item:22432} (the barb does not break {spell:2637}), then leave. The credit counts the moment the barb lands, even if you die after. The arrow points at the plain Devilsaurs of the west and north; an {npc:6499} roams the middle of the crater's south, nearer {npc:9619}."] = "任何{npc:6498}都算，鐵皮和暴君魔暴龍也算。它們是精英（54-55級），會放{spell:14099}，跑得比旅行形態還快。建議組隊，但德魯伊也能單幹：從遠處對它放睡眠或{spell:339}，用{item:22432}戳它（倒刺不會打斷{spell:2637}），然後走人。倒刺命中的瞬間就算進度，哪怕你隨後死了。箭頭指向西邊和北邊平原上的魔暴龍；一隻{npc:6499}在環形山南側中部遊蕩，離{npc:9619}更近。",
-	-- {npc:6498} Devilsaur · {item:22432} Devilsaur Barb
-	["{npc:6498}: stab it with the {item:22432}"] = "{npc:6498}：用{item:22432}刺牠",
-	-- {npc:6498} Devilsaur · {item:22432} Devilsaur Barb
-	["Stab a {npc:6498} with the {item:22432}"] = "用{item:22432}戳一隻{npc:6498}",
+	-- {spell:14099} Mighty Blow · {spell:339} Entangling Roots · {item:22432} Devilsaur Barb · {spell:2637} Hibernate · {npc:6499} Ironhide Devilsaur · {npc:9619} Torwa Pathfinder
+	-- plural, as words: Tyrant Devilsaurs = {npc:6500} Tyrant Devilsaur
+	-- was: ["Any {npc:6498} counts, the Ironhide and Tyrant Devilsaurs too. They are elite (level 54-55), hit with {spell:14099} and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or {spell:339} it from range, stab it with the {item:22432} (the barb does not break {spell:2637}), then leave. The credit counts the moment the barb lands, even if you die after. The arrow points at the plain Devilsaurs of the west and north; an {npc:6499} roams the middle of the crater's south, nearer {npc:9619}."] = "任何{npc:6498}都算，鐵皮和暴君魔暴龍也算。它們是精英（54-55級），會放{spell:14099}，跑得比旅行形態還快。建議組隊，但德魯伊也能單幹：從遠處對它放睡眠或{spell:339}，用{item:22432}戳它（倒刺不會打斷{spell:2637}），然後走人。倒刺命中的瞬間就算進度，哪怕你隨後死了。箭頭指向西邊和北邊平原上的魔暴龍；一隻{npc:6499}在環形山南側中部遊蕩，離{npc:9619}更近。"
+	["Any Devilsaur counts, the Ironhide and Tyrant Devilsaurs too. They are elite (level 54-55), hit with {spell:14099} and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or {spell:339} it from range, stab it with the {item:22432} (the barb does not break {spell:2637}), then leave. The credit counts the moment the barb lands, even if you die after. The arrow points at the plain Devilsaurs of the west and north; an {npc:6499} roams the middle of the crater's south, nearer {npc:9619}."] = "",
+	-- {item:22432} Devilsaur Barb
+	-- was: ["{npc:6498}: stab it with the {item:22432}"] = "{npc:6498}：用{item:22432}刺牠"
+	["Devilsaur: stab it with the {item:22432}"] = "",
+	-- {item:22432} Devilsaur Barb
+	-- was: ["Stab a {npc:6498} with the {item:22432}"] = "用{item:22432}戳一隻{npc:6498}"
+	["Stab a Devilsaur with the {item:22432}"] = "",
 
 	-- Step 7: The Sunken Temple
 	-- {area:1417} Sunken Temple
@@ -47,7 +50,10 @@ return {
 	["{npc:9619}: the old item choice may be gone, count on the experience"] = "{npc:9619}：原版的物品選擇可能已取消，以經驗值為準",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Any {npc:6498} counts, the Ironhide and Tyrant Devilsaurs too. They are elite (level 54-55), hit with {spell:14099} and outrun travel form. Grouping up is encouraged, but a druid can do it alone: Hibernate or {spell:339} it from range, stab it with the {item:22432} (the barb does not break {spell:2637}), then leave. The credit counts the moment the barb lands, even if you die after. The arrow points at the plain Devilsaurs of the west and north; an {npc:6499} roams the middle of the crater's south, nearer {npc:9619}."] = "任何{npc:6498}都算，鐵皮和暴君魔暴龍也算。它們是精英（54-55級），會放{spell:14099}，跑得比旅行形態還快。建議組隊，但德魯伊也能單幹：從遠處對它放睡眠或{spell:339}，用{item:22432}戳它（倒刺不會打斷{spell:2637}），然後走人。倒刺命中的瞬間就算進度，哪怕你隨後死了。箭頭指向西邊和北邊平原上的魔暴龍；一隻{npc:6499}在環形山南側中部遊蕩，離{npc:9619}更近。",
+	-- ["Stab a {npc:6498} with the {item:22432}"] = "用{item:22432}戳一隻{npc:6498}",
 	-- ["The Gorishi wasps, workers and reavers of the hive in the south of the crater drop the stings; the Bloodpetal Sprouts that give the {item:22434} grow all over the crater's western half."] = "環形山南部蟲巢的格里什異種蠍、格里什工蠍和格里什劫掠者會掉落毒刺；能採到{item:22434}的血瓣花苗長滿環形山的西半部。",
 	-- ["Use the {item:22432} on a {npc:6498}. Devilsaurs are elite (level 54-55) and roam the crater: grouping up is advised."] = "對{npc:6498}使用{item:22432}。魔暴龍是精英（54-55級），在環形山中遊蕩：建議組隊。",
 	-- ["{area:1477} lies in the {area:74} in the {zone:1435}. {npc:8580} guards the bottom of the temple: a dungeon boss, so bring a group."] = "{area:1477}位於{zone:1435}的{area:74}中。{npc:8580}守在神廟底層：這是地城首領，所以要帶小隊。",
+	-- ["{npc:6498}: stab it with the {item:22432}"] = "{npc:6498}：用{item:22432}刺牠",
 }

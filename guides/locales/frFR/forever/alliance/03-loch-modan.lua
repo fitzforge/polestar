@@ -414,6 +414,10 @@ return {
 	-- {npc:1646} Baros Alexston · {npc:1719} Warden Thelwater · {area:717} Stockade
 	["{npc:1646}: for {npc:1719}, at the {area:717}'s gate"] = "{npc:1646} : pour {npc:1719}, à l'entrée de {area:717}",
 
+	-- Step 75: Argos Nightwhisper
+	-- {npc:4984} Argos Nightwhisper · {npc:8997} Gershala Nightwhisper · {area:442} Auberdine
+	["On the way to the harbour: {npc:4984}'s message goes to {npc:8997} in {area:442}, beside Terenthis, where the boat lands."] = "",
+
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back toward town, swim east from the bridge into {area:68}; the chest lies on the lake bed beside a sunken boat. Murloc Flesheaters and Tidecallers line the south shore around it: any of them can carry a {item:1467}."] = "En revenant vers la ville, nagez vers l'est depuis le pont dans le {area:68} ; le coffre repose au fond du lac à côté d'une barque coulée. Des Dévoreurs murlocs et des Mande-flots murlocs bordent la rive sud autour : n'importe lequel peut porter un {item:1467}.",
 }

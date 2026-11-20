@@ -18,24 +18,47 @@ return {
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery
 	["Her house stands on the hill south-east of {area:42}, above the {area:121}."] = "她的房子在{area:42}東南方的山丘上，位於{area:121}上方。",
 	["Inside"] = "在裡面",
-	-- {item:1946} Mary's Looking Glass · {npc:511} Insane Ghoul · {zone:1431} Duskwood
-	["{item:1946}: the {npc:511} in the cemetery's crypt is level 26; it waits for the {zone:1431} return"] = "{item:1946}：墓地地穴裡的{npc:511}是26級；留到返回{zone:1431}時再打",
+	-- {item:1946} Mary's Looking Glass · {npc:511} Insane Ghoul
+	["{item:1946}: the {npc:511}, in the crypt of the cemetery just below"] = "",
 
 	-- Step 3: Tranquil Gardens Cemetery
+	-- {npc:511} Insane Ghoul · {area:121} Tranquil Gardens Cemetery · {area:42} Darkshire
+	["The {npc:511} (26) hides in the small crypt by the {area:121}, south of {area:42}; the glass is inside."] = "",
+	-- {item:1946} Mary's Looking Glass
+	["{item:1946}; inside"] = "",
 	-- {quest:337} An Old History Book · {zone:1431} Duskwood
 	["{quest:337}: a rare drop from {zone:1431}'s mobs"] = "{quest:337}：{zone:1431}怪物的稀有掉落",
 
-	-- Step 5: Abercrombie
+	-- Step 4: Viktori Prism'Antras
+	-- {area:42} Darkshire · {npc:276} Viktori Prism'Antras
+	["North into {area:42}: {npc:276}'s house stands at the east end of town, on the way in."] = "",
+	-- {npc:276} Viktori Prism'Antras
+	["{npc:276}, inside"] = "",
+	-- {quest:177} Look to the Stars · {zone:1431} Duskwood
+	["{quest:177}: the ogres of Vul'Gol, on your {zone:1431} return (07-thousand-needles)"] = "",
+
+	-- Step 6: Abercrombie
 	["Head west along the road once more."] = "再次沿著道路向西走。",
 
-	-- Step 6: Gooey Spider Legs
+	-- Step 7: Raven Hill Cemetery: kill these as you meet them
+	-- {area:492} Raven Hill Cemetery
+	["{area:492}: kill these as you meet them"] = "{area:492}：遇到就殺",
+	-- {npc:311} Sven Yorgen · {area:94} Raven Hill · {npc:522} Mor'Ladim
+	-- plural, as words: Skeletal Fiends = {npc:531} Skeletal Fiend · Skeletal Horrors = {npc:202} Skeletal Horror
+	["On the way west to {npc:311}: Skeletal Fiends and Skeletal Horrors walk the cemetery's southern half, north of {area:94}. {npc:522}, an elite, wanders the graves: keep away from him."] = "",
+
+	-- Step 8: Gooey Spider Legs
 	-- plural, as words: Gooey Spider Legs = {item:2251} Gooey Spider Leg
 	["Gooey Spider Legs"] = "黏稠的蜘蛛腿",
 	-- {npc:311} Sven Yorgen
 	-- plural, as words: Carrion Recluses = {npc:949} Carrion Recluse · Venom Web Spiders = {npc:217} Venom Web Spider · Pygmy Venom Web Spiders = {npc:539} Pygmy Venom Web Spider · Green Recluses = {npc:569} Green Recluse
 	["Carrion Recluses lurk in the woods on the way west, and Venom Web Spiders, Pygmy Venom Web Spiders and Green Recluses crawl just south of {npc:311}'s camp: each can drop a leg."] = "向西路上的樹林裡潛伏著腐屍隱士，毒網蜘蛛、小毒網蜘蛛和綠色隱士則在{npc:311}營地的正南爬行：它們都可能掉一條腿。",
 
-	-- Step 8: Back to Darkshire
+	-- Step 10: Moonbrook
+	-- {quest:67} The Legend of Stalvan · {npc:311} Sven Yorgen · {zone:1436} Westfall · {area:20} Moonbrook · {object:3643} Old Footlocker · {area:42} Darkshire
+	["{quest:67}: west from {npc:311}'s camp over the border into {zone:1436} and on to {area:20}, where the {object:3643} stands among the Defias (15-18). Then hearth back to {area:42}."] = "",
+
+	-- Step 11: Back to Darkshire
 	-- {area:42} Darkshire
 	["Back to {area:42}"] = "回到{area:42}",
 	-- {area:42} Darkshire
@@ -44,54 +67,70 @@ return {
 	["{npc:265}, inside"] = "{npc:265}，室內",
 	-- {npc:267} Clerk Daltry
 	["{npc:267}, in the town hall"] = "{npc:267}，在市政廳裡",
+	-- {npc:264} Commander Althea Ebonlocke
+	-- was: ["{npc:264}, in the town hall"] = "{npc:264}，在市政廳裡"
+	["{npc:264}, in the town hall"] = "",
+	-- {npc:264} Commander Althea Ebonlocke · {npc:289} Abercrombie
+	-- plural, as words: Plague Spreaders = {npc:604} Plague Spreader
+	["{npc:264}: the Plague Spreaders, with {npc:289}'s ghouls on the next trip west"] = "",
 	-- {npc:273} Tavernkeep Smitts
 	["{npc:273}, in the tavern"] = "{npc:273}，在旅店裡",
 
-	-- Step 9: Chef Grual
+	-- Step 12: Clerk Daltry
+	-- {quest:68} The Legend of Stalvan · {npc:267} Clerk Daltry
+	["{quest:68}: {npc:267}, in the town hall, takes the footlocker's contents."] = "",
+	-- {npc:267} Clerk Daltry · {npc:295} Innkeeper Farley · {area:87} Goldshire · {zone:1453} Stormwind
+	["{npc:267}: for {npc:295} in {area:87}, on the walk north to {zone:1453}"] = "",
+
+	-- Step 13: Chef Grual
 	-- {npc:272} Chef Grual
 	["{npc:272} is in the Scarlet Raven Tavern too."] = "{npc:272}也在血鴉旅店裡。",
 	-- {npc:288} Jitters · {area:94} Raven Hill
 	["For {npc:288}, at {area:94} on the way west"] = "交給{npc:288}，在西行途中的{area:94}",
 
-	-- Step 10: Rot Blossoms
+	-- Step 14: Rot Blossoms
 	-- plural, as words: Rot Blossoms = {item:1598} Rot Blossom
 	["Rot Blossoms"] = "腐敗之花",
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery
 	-- plural, as words: Skeletal Horrors = {npc:202} Skeletal Horror · Rot Blossoms = {item:1598} Rot Blossom
 	["Skeletal Horrors walk the hillside between {area:42} and the {area:121}, south-east of town; they drop the Rot Blossoms."] = "恐怖骸骨在城鎮東南方、{area:42}與{area:121}之間的山坡上走動；牠們會掉落腐敗之花。",
 
-	-- Step 12: Abercrombie
+	-- Step 16: Abercrombie
 	["Head west to the hermit once more."] = "再次向西去找隱士。",
 
-	-- Step 13: Ghoul Ribs
+	-- Step 17: Ghoul Ribs
 	-- plural, as words: Ghoul Ribs = {item:884} Ghoul Rib
 	["Ghoul Ribs"] = "食屍鬼的肋骨",
-	-- {area:492} Raven Hill Cemetery · {npc:522} Mor'Ladim · {npc:948} Rotted One · {spell:3428} Summon Flesh Eating Worms
+	-- {area:492} Raven Hill Cemetery · {npc:522} Mor'Ladim · {npc:948} Rotted One · {spell:3428} Summon Flesh Eating Worms · {npc:503} Lord Malathrom · {npc:771} Commander Felstrom · {npc:1200} Morbent Fel
 	-- plural, as words: Flesh Eaters = {npc:3} Flesh Eater · Bone Chewers = {npc:210} Bone Chewer · Plague Spreaders = {npc:604} Plague Spreader · Brain Eaters = {npc:570} Brain Eater
-	["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters and Bone Chewers (24-27) are the easier kills; Plague Spreaders and Brain Eaters (27-29) drop them too. {npc:522}, an elite, wanders the graves: keep away from him.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "{area:492}北半部的每個食屍鬼都可能掉落肋骨：食腐者和噬骨者（24-27級）比較好打；瘟疫食屍鬼和食腦者（27-29級）也會掉。精英{npc:522}在墳墓間遊蕩：離他遠一點。\n小心：{npc:948}死亡時會施放{spell:3428}，引來額外的怪。",
+	["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters and Bone Chewers (24-27) are the easier kills; Plague Spreaders and Brain Eaters (27-29) drop them too. {npc:522}, an elite, wanders the graves: keep away from him.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds.\nCareful: {npc:503} (31) and {npc:771} (32), both rares, haunt the cemetery's north and west, and {npc:1200} (32, elite) keeps to the house at its western edge: leave them be."] = "",
+	-- {npc:604} Plague Spreader · {quest:58} The Night Watch
+	["{npc:604}, for {quest:58}"] = "",
 
-	-- Step 15: Raven Hill Cemetery: kill these as you meet them
-	-- {area:492} Raven Hill Cemetery
-	["{area:492}: kill these as you meet them"] = "{area:492}：遇到就殺",
-	-- {area:94} Raven Hill · {npc:522} Mor'Ladim
-	-- plural, as words: Skeletal Fiends = {npc:531} Skeletal Fiend · Skeletal Horrors = {npc:202} Skeletal Horror
-	["Head south through the cemetery towards {area:94}. Skeletal Fiends and Skeletal Horrors walk its southern half. {npc:522}, an elite, wanders the graves: keep away from him."] = "向南穿過墓地前往{area:94}。骸骨魔和恐怖骸骨在墓地南半部走動。精英{npc:522}在墓地之間遊蕩：遠離他。",
-
-	-- Step 16: Jitters
+	-- Step 19: Jitters
 	-- {npc:288} Jitters · {area:94} Raven Hill
 	["{npc:288} hides in the house at the west end of {area:94}."] = "{npc:288}躲在{area:94}西端的房子裡。",
 
-	-- Step 18: Sven's Camp
+	-- Step 22: Skeletal Raiders
+	-- plural, as words: Skeletal Raiders = {npc:1110} Skeletal Raider
+	["Skeletal Raiders"] = "",
+	-- {area:492} Raven Hill Cemetery · {npc:311} Sven Yorgen · {npc:522} Mor'Ladim · {npc:771} Commander Felstrom
+	-- plural, as words: Skeletal Raiders = {npc:1110} Skeletal Raider
+	["From level 28: the Skeletal Raiders, Healers and Warders stand in the west part of the {area:492}, just east of {npc:311}'s camp.\nCareful: The Warders are 28-29 and the skeletons stand close together: pull one at a time.\nCareful: {npc:522}, an elite (35), wanders these graves too, and {npc:771} (32, rare) haunts the west part: keep away from both."] = "",
+
+	-- Step 23: Sven Yorgen
 	-- {zone:1453} Stormwind · {area:150} Menethil Harbor · {zone:1437} Wetlands
 	["Next: training, then the flight from {zone:1453} to {area:150} for the {zone:1437}."] = "接下來：訓練，然後從{zone:1453}飛往{area:150}，前往{zone:1437}。",
+	-- {npc:1212} Bishop Farthing · {zone:1453} Stormwind
+	["For {npc:1212} in {zone:1453}'s Cathedral, on the walk north"] = "",
 
-	-- Step 20: Agent Kearnen
+	-- Step 25: Agent Kearnen
 	-- {area:94} Raven Hill · {zone:1436} Westfall · {npc:7024} Agent Kearnen · {npc:7053} Klaven Mortwake · {npc:7051} Malformed Defias Drone
 	["Head west along the road out of {area:94} into {zone:1436}. {npc:7024} watches {npc:7053}'s tower from the hills just inside the border. The {npc:7051} (level 23) guarding the tower carries its key; Klaven's journal is in the chest at the top."] = "沿著道路向西離開{area:94}進入{zone:1436}。{npc:7024}在邊界內側的山丘上監視{npc:7053}的塔。守衛塔的{npc:7051}（等級23）身上帶著塔的鑰匙；克拉文的日記在塔頂的箱子裡。",
 	-- {item:7908} Klaven Mortwake's Journal
 	["{item:7908}, in the chest"] = "{item:7908}，在箱子裡",
 
-	-- Step 21: Master Mathias Shaw
+	-- Step 26: Master Mathias Shaw
 	-- {area:1519} Stormwind · {object:2100} Old Town
 	-- was: ["Head north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "向北穿過艾爾文森林前往{zone:1453}；馬迪亞斯·肖爾在{object:2100}的軍情七處。"
 	["Head north through Elwynn to {area:1519}; Mathias Shaw is at SI:7 in {object:2100}."] = "",
@@ -106,45 +145,67 @@ return {
 	-- {item:4371} Bronze Tube · {object:2096} Trade District · {npc:5519} Billibub Cogspinner
 	["{item:4371}: the Auction House, {object:2096}; {npc:5519} keeps one and is nearly always sold out"] = "{item:4371}：{object:2096}的拍賣行；{npc:5519}只備一個，幾乎總是賣光",
 
-	-- Step 22: Elwynn Forest
+	-- Step 27: Elwynn Forest
 	-- {area:94} Raven Hill · {area:87} Goldshire · {zone:1453} Stormwind
 	["North from {area:94} through Elwynn: {area:87} is on the road to {zone:1453}."] = "從{area:94}向北穿過艾爾文森林：{area:87}在去{zone:1453}的路上。",
 
-	-- Step 23: Class trainer
+	-- Step 28: Class trainer
 	["Class trainer"] = "職業訓練師",
 	["Your new spells"] = "你的新法術",
 
-	-- Step 24: Gazin Tenorm
+	-- Step 29: Innkeeper Farley
+	-- {quest:69} The Legend of Stalvan · {npc:295} Innkeeper Farley · {area:87} Goldshire
+	["{quest:69}: {npc:295} is in {area:87}'s Lion's Pride Inn; the chest with the letter is upstairs."] = "",
+	-- {item:910} An Undelivered Letter · {object:1560} Storage Chest
+	["{item:910}, from the {object:1560} upstairs"] = "",
+
+	-- Step 30: Caretaker Folsom
+	-- {zone:1453} Stormwind · {npc:297} Caretaker Folsom · {object:1561} Sealed Crate
+	["On into {zone:1453}: {npc:297} (the arrow shows him) takes the letter; the {object:1561} beside him holds the next clue."] = "",
+	-- {object:1561} Sealed Crate
+	["{object:1561}, beside him"] = "",
+
+	-- Step 31: Bishop Farthing
+	-- {zone:1453} Stormwind · {npc:1212} Bishop Farthing · {npc:1217} Glorin Steelbrow · {area:150} Menethil Harbor
+	["On into {zone:1453}: {npc:1212} stands in the Cathedral of Light, on the way to the gryphon master. His next quest is for {npc:1217} in {area:150}, where the flight lands."] = "",
+	-- {npc:1212} Bishop Farthing
+	["{npc:1212}, in the Cathedral of Light"] = "",
+	-- {npc:1217} Glorin Steelbrow · {area:150} Menethil Harbor
+	["For {npc:1217} in {area:150} (06-wetlands)"] = "",
+
+	-- Step 32: Gazin Tenorm
 	-- {zone:1453} Stormwind · {npc:6173} Gazin Tenorm · {npc:6171} Duthorian Rall
 	["On into {zone:1453}: {npc:6173} and {npc:6171} are in the Cathedral of Light, on the way to the gryphon master."] = "繼續進入{zone:1453}：{npc:6173}和{npc:6171}在光明大教堂，去獅鷲管理員的路上順路。",
 	["Cathedral of Light"] = "光明大教堂",
 	-- {npc:6171} Duthorian Rall
 	["{npc:6171}: Redemption"] = "{npc:6171}：救贖",
 
-	-- Step 25: Stormwind
+	-- Step 33: Stormwind
 	-- {zone:1453} Stormwind · {object:28027} Dwarven District
 	["{zone:1453}'s {object:28027}"] = "{zone:1453}的{object:28027}",
 
-	-- Step 26: Tram to Ironforge
+	-- Step 34: Tram to Ironforge
 	-- {zone:1455} Ironforge
 	["Tram to {zone:1455}"] = "乘地鐵前往{zone:1455}",
 
-	-- Step 27: Shaman training
+	-- Step 35: Shaman training
 	["Shaman training"] = "薩滿訓練",
 	-- {zone:1453} Stormwind · {area:2257} Deeprun Tram · {object:28027} Dwarven District · {zone:1455} Ironforge · {npc:258098} Eldrun Stormbreaker
 	["{zone:1453} has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back."] = "{zone:1453}沒有薩滿訓練師：從{object:28027}搭乘{area:2257}前往{zone:1455}，向{npc:258098}學習，然後搭地鐵回來。",
 
-	-- Step 28: Rogue training
+	-- Step 36: Rogue training
 	["Rogue training"] = "盜賊訓練",
 	-- {zone:1453} Stormwind
 	["Train here, in {zone:1453}, before you go on."] = "繼續之前，先在{zone:1453}這裡訓練。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Continue west to {area:94}. The {object:673515} glows by the ruined house south of the road."] = "繼續向西前往{area:94}。{object:673515}在道路南邊的廢墟房屋旁發光。",
+	-- ["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters and Bone Chewers (24-27) are the easier kills; Plague Spreaders and Brain Eaters (27-29) drop them too. {npc:522}, an elite, wanders the graves: keep away from him.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "{area:492}北半部的每個食屍鬼都可能掉落肋骨：食腐者和噬骨者（24-27級）比較好打；瘟疫食屍鬼和食腦者（27-29級）也會掉。精英{npc:522}在墳墓間遊蕩：離他遠一點。\n小心：{npc:948}死亡時會施放{spell:3428}，引來額外的怪。",
 	-- ["Every ghoul of the {area:492}'s northern half can drop a rib: Flesh Eaters, Bone Chewers, Plague Spreaders and Brain Eaters.\nCareful: A {npc:948} casts {spell:3428} as it dies, which brings extra adds."] = "{area:492}北半部的每個食屍鬼都可能掉落肋骨：食腐者、噬骨者、瘟疫食屍鬼和食腦者。\n小心：{npc:948}死亡時會施放{spell:3428}，引來額外的怪。",
 	-- ["Follow the road north-west past the cemetery to {npc:311}'s camp on the far west edge of the forest. {npc:893} stands beside {npc:311}."] = "沿著道路向西北經過墓地，前往森林最西緣的{npc:311}營地。{npc:893}站在{npc:311}旁邊。",
 	-- ["Follow the road south from {area:1002} into {zone:1431}; {area:42} lies on the east side of the forest."] = "沿著道路從{area:1002}向南進入{zone:1431}；{area:42}位於森林東側。",
 	-- ["Head north through Elwynn to {zone:1453}; Mathias Shaw is at SI:7 in {object:2100}."] = "向北穿過艾爾文森林前往{zone:1453}；馬迪亞斯·肖爾在{object:2100}的軍情七處。",
+	-- ["Head south through the cemetery towards {area:94}. Skeletal Fiends and Skeletal Horrors walk its southern half. {npc:522}, an elite, wanders the graves: keep away from him."] = "向南穿過墓地前往{area:94}。骸骨魔和恐怖骸骨在墓地南半部走動。精英{npc:522}在墓地之間遊蕩：遠離他。",
 	-- ["Level 22 and 24 spells"] = "22和24級法術",
 	-- ["Rabid Dire Wolves roam the woods around the cemetery and {npc:289}, Starving Dire Wolves the hills north-east of him. Pygmy Venom Web Spiders crawl east of the cemetery and drop the venom. Every ghoul of the cemetery's northern half can drop a fang."] = "瘋狂的恐狼在墓地和{npc:289}周圍的樹林遊蕩，饑餓的恐狼在他東北方的山丘上。小型結網毒蜘蛛在墓地東邊爬行，會掉落毒液。墓地北半部的每個食屍鬼都可能掉落尖牙。",
 	-- ["Ride back east along the road to the {area:245}."] = "沿著道路向東騎回{area:245}。",
@@ -155,6 +216,7 @@ return {
 	-- ["Train in {zone:1453}, north through {zone:1429}. Then take the boat from {area:17203} to {area:442}."] = "在{zone:1453}訓練，向北穿過{zone:1429}前往。然後從{area:17203}搭船前往{area:442}。",
 	-- ["Wolves, spiders and ghouls"] = "狼、蜘蛛和食屍鬼",
 	-- ["{area:492}, south"] = "{area:492}南側",
+	-- ["{item:1946}: the {npc:511} in the cemetery's crypt is level 26; it waits for the {zone:1431} return"] = "{item:1946}：墓地地穴裡的{npc:511}是26級；留到返回{zone:1431}時再打",
 	-- ["{item:281046}, from the {object:673515}"] = "{item:281046}，來自{object:673515}",
 	-- ["{item:4371}, from {npc:3133}: limited stock. Sold out? {npc:1448} in {area:150} sells it too."] = "{item:4371}，向{npc:3133}購買：數量有限。賣完了？{area:150}的{npc:1448}也有賣。",
 	-- ["{npc:2409}, at the north end of town"] = "{npc:2409}，在城鎮北端",

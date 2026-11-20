@@ -67,6 +67,8 @@ return {
 	["{npc:6790}, Scarlet Raven Tavern"] = "{npc:6790}, taverne du Corbeau écarlate",
 	-- {npc:267} Clerk Daltry
 	["{npc:267}, in the town hall"] = "{npc:267}, à l'hôtel de ville",
+	-- {npc:267} Clerk Daltry · {quest:66} The Legend of Stalvan · {zone:1436} Westfall · {area:20} Moonbrook · {zone:1431} Duskwood
+	["{npc:267}: {quest:66}, the footlocker in {zone:1436}'s {area:20}, at the west end of your next {zone:1431} loop (05-duskwood)"] = "",
 	-- {npc:264} Commander Althea Ebonlocke
 	["{npc:264}, in the town hall"] = "{npc:264}, à l'hôtel de ville",
 	-- {npc:268} Sirra Von'Indi
@@ -151,7 +153,8 @@ return {
 	-- {npc:272} Chef Grual · {zone:1431} Duskwood
 	-- plural, as words: Gooey Spider Legs = {item:2251} Gooey Spider Leg
 	["{npc:272}: six Gooey Spider Legs, which {zone:1431}'s spiders drop even without the quest"] = "{npc:272} : six Pattes d'araignée gluantes, que les araignées du {zone:1431} lâchent même sans la quête",
-	["Already carrying six? Hand them in now"] = "Vous en avez déjà six ? Rendez-les maintenant",
+	-- {npc:272} Chef Grual · {area:1097} The Hushed Bank
+	["{npc:272}: the six legs from the {area:1097}"] = "",
 	-- {npc:288} Jitters · {quest:163} Raven Hill · {zone:1431} Duskwood
 	["For {npc:288}, at {quest:163} on the next {zone:1431} loop"] = "Pour {npc:288}, à {quest:163}, lors de la prochaine boucle du {zone:1431}",
 	-- {npc:663} Calor
@@ -270,6 +273,7 @@ return {
 	["Next: the gryphon to {area:42} for {zone:1431}'s second loop (05-duskwood)."] = "Ensuite : le griffon pour {area:42}, pour la deuxième boucle du {zone:1431} (05-duskwood).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Already carrying six? Hand them in now"] = "Vous en avez déjà six ? Rendez-les maintenant",
 	-- ["Back to {zone:1429}"] = "Retour dans la {zone:1429}",
 	-- ["Bellygrub"] = "Fouailleventre",
 	-- ["Boat to {area:17203}"] = "Bateau pour {area:17203}",
