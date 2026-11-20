@@ -356,7 +356,7 @@ step Finish the Turtle Meat
   when onquest 7321
   when !has 3712 x10
   zone Hillsbrad Foothills
-  tip Still short of ten Turtle Meat? The Snapjaws line the river just east of Tarren Mill, a short ride from town.
+  tip Still short of ten Turtle Meat? The Snapjaws line the river just east of Tarren Mill, a short way from town.
   collect 3712 quest 7321.1 @68.0,24.0 map 1424
 
 step Tarren Mill

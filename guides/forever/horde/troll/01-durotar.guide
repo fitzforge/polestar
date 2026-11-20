@@ -720,7 +720,7 @@ step Orgrimmar
 step Ormak Grimshot
   only Hunter
   zone Orgrimmar
-  tip Ride to Orgrimmar's main gate, just west of Skull Rock. Ormak Grimshot stands with the hunter trainers in the Valley of Honor.
+  tip Head to Orgrimmar's main gate, just west of Skull Rock. Ormak Grimshot stands with the hunter trainers in the Valley of Honor.
   turnin 6081                         -- Ormak Grimshot: Beast Training
 
 step Hanashi
@@ -733,7 +733,7 @@ step Hanashi
 
 step To Orgrimmar
   zone Orgrimmar
-  tip Ride to Orgrimmar's main gate, just west of Skull Rock (Warriors: north along the road from Far Watch Post). The next guide starts in Orgrimmar: Neeru Fireblade takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for Tirisfal Glades and Silverpine Forest. The Barrens come after Silverpine.
+  tip Head to Orgrimmar's main gate, just west of Skull Rock (Warriors: north along the road from Far Watch Post). The next guide starts in Orgrimmar: Neeru Fireblade takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for Tirisfal Glades and Silverpine Forest. The Barrens come after Silverpine.
   goto 55.6,72.3 "Orgrimmar's Valley of Strength"
 
 # Warlocks bind the voidwalker on this arrival in Orgrimmar, with Neeru Fireblade in the same Cleft of

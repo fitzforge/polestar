@@ -8667,7 +8667,7 @@ test('Final route review (Horde 1-30, 0.3.5): Jorn after the eggs, Lydon after H
 	assert.ok(at(pine, 'collect 730', (g) => g.t === 'collect' && g.item === 730) < ferry, 'the boat after the murlocs');
 	assert.equal(pine[at(pine, 'turnin 439', is('turnin', 439))].s, pine[at(pine, 'turnin 91920', is('turnin', 91920))].s, 'Rot Hide Clues on the Sepulcher stop after the shore');
 	assert.doesNotMatch(goals(TIRISFAL).find(({ goal }) => is('accept', 86784)(goal)).goal.note, /walks/, 'Bartholomew stays beside Dillinger (#1046)');
-	assert.match(goals(ZEPHRAS_HORDE).find(({ goal }) => is('accept', 94913)(goal)).step.note, /forever\/horde\/02-the-barrens/, 'the Cat Form trip is in the Barrens 15-21 guide');
+	assert.match(goals(ZEPHRAS_HORDE).find(({ goal }) => is('accept', 94913)(goal)).step.note, /the Barrens guide/, 'the Cat Form trip is in the Barrens 15-21 guide (#3137: named by its title)');
 	const grind = compiled('forever/horde/07-ashenvale.guide').steps.find((step) => step.title === 'Level 28');
 	assert.match(grind.note, /Or, with a group, run the Blackfathom Deeps dungeon instead\.$/, 'the top-up names the dungeons that fit, in the writer\'s sentence');
 	// Razorfen Kraul's floor (30.9, the recorded p25 of boss-killers) is above this guide's ~29: its run left 07 for
@@ -9795,7 +9795,9 @@ test('Horde 40-60 flow pass: givers and enders are visited when the route passes
 	assert.ok(!az.some(({ goal }) => goal.quest === 589), 'no Singing Crystals left in 06');
 	before('40-50/04-tanaris', ['accept', 5863], ['turnin', 992], 'Gadgetzan on landing, before Sandsorrow Watch');
 	before('40-50/04-tanaris', ['turnin', 3442], ['turnin', 7729], 'Velarok on the way back north to Thorium Point');
-	before('50-60/03-winterspring', ['turnin', 5082], ['accept', 3783], 'Winterspring west to east');
+	// Horde fix pass (2026-11-20, audit MUST): Everlook's yetis and chimaeras come before the Frostfire camps, whose Den
+	// Watchers (55-56) the route reached at 53.6-53.8; the guide still rides the valley west to east from Everlook after.
+	before('50-60/03-winterspring', ['accept', 3783], ['turnin', 5082], 'Everlook before the Frostfire camps');
 	assert.ok(!goals(H('50-60/03-winterspring')).some(({ goal }) => goal.quest === 6603), "no Everlook pointer to Donova");
 	// Since 2026-11-20 the Bulwark, Kirsta and the Northridge Scarlets are on 50-60/05's Plaguelands sweep.
 	const wpl = goals(H('50-60/05-eastern-plaguelands'));
@@ -12627,11 +12629,14 @@ test('Felwood, both sides: the Deadwood Ritual Totem is worked in the Felpaw Vil
 	]) {
 		const list = goals(felwood);
 		const totem = list[at(list, `${felwood}: collect 20741`, (g) => g.t === 'collect' && g.item === 20741)];
-		assert.ok(!totem.goal.optional, `${felwood}: the totem holds the step until it drops`);
+		// Horde fix pass (2026-11-20): Kernda takes it only from Neutral, which almost no Horde character has at 53, so
+		// on the Horde side the totem and its accept are optional goals of the same step (as Winterspring's 8471).
+		if (felwood.includes('/horde/')) assert.ok(totem.goal.optional, `${felwood}: the totem is optional in the Felpaw step`);
+		else assert.ok(!totem.goal.optional, `${felwood}: the totem holds the step until it drops`);
 		const kills = list.filter(({ s, goal }) => s === totem.s && goal.t === 'kill' && goal.quest === 8461).map(({ goal }) => goal.npc);
 		assert.deepEqual(kills.sort(), [7156, 7157, 7158], `${felwood}: in the Felpaw step with Deadwood of the North's kills`);
 		const accept = list[at(list, `${felwood}: accept 8470`, is('accept', 8470))];
-		assert.ok(accept.s === totem.s && !accept.goal.optional, `${felwood}: the totem's quest is taken in the same step`);
+		assert.ok(accept.s === totem.s && !!accept.goal.optional === felwood.includes('/horde/'), `${felwood}: the totem's quest is taken in the same step (optional on the Horde side)`);
 		const turnin = goals(later).find(({ goal }) => is('turnin', 8470)(goal));
 		assert.ok(turnin && !turnin.goal.optional, `${later}: Kernda takes the totem on the later pass`);
 		assert.ok(turnin.step.when.some((p) => p.k === 'onquest' && !p.neg), `${later}: only while the totem's quest is still in the log`);
@@ -16918,8 +16923,9 @@ test('Horde grind top-ups stand on camps at most a level over the player (#2207)
 		// The 0.4.0 level tidy dropped the Felwood guide's top-up to 53 and the Winterspring guide's to 55 (Careful tips at
 		// range-top camps instead). The 2026-11-20 flow rework dropped the crater's top-up to 51, the Plaguelands' to 56 and
 		// Silithus' to 57 and 58 (Azshara before Felwood, one Plaguelands sweep, Mount Hyjal before Silithus); the last
-		// top-up, to 59.8, stands on the Rabid Shardtooths (59-60) of Frostwhisper Gorge, at most a level over the player.
-		['forever/horde/50-60/07-felwood.guide', 'Level 59.8', 7446],
+		// top-up, to 59.72 since the fix pass (the hand-ins after it reach 60), stands on the Rabid Shardtooths (59-60) of
+		// Frostwhisper Gorge, at most a level over the player.
+		['forever/horde/50-60/07-felwood.guide', 'Level 59.7', 7446],
 	]) {
 		const step = compiled(guide).steps.find((s) => s.title === title);
 		assert.ok(step, `${guide}: ${title}`);

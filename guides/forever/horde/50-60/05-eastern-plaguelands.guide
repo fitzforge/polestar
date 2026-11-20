@@ -577,7 +577,7 @@ step Captured Arko'narin
 step Rescue From Jaedenar
   when onquest 5203
   tip Lead Arko'narin out through the cave: she fights beside you, and the cultists you didn't clear on the way in come at you both. Jessir Moonbow takes her report at the Emerald Sanctuary, next.
-  complete 5203
+  complete 5203 @35.5,59.1 map 1448      -- out of Shadow Hold, at its mouth
 
 step Maybess Riverbreeze
   when available 5887

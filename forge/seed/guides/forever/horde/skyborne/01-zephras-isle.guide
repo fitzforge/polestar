@@ -806,5 +806,5 @@ step Rezlak
 
 step To Orgrimmar
   zone Orgrimmar
-  tip From Rezlak's camp, ride on to Orgrimmar's main gate, a few hundred yards away. The next guide starts in Orgrimmar: Thrall takes Welcome to Azeroth, and the zeppelin leaves for Tirisfal Glades and Silverpine Forest.
+  tip From Rezlak's camp, go on to Orgrimmar's main gate, a few hundred yards away. The next guide starts in Orgrimmar: Thrall takes Welcome to Azeroth, and the zeppelin leaves for Tirisfal Glades and Silverpine Forest.
   goto 55.6,72.3 "Orgrimmar's main gate"
