@@ -44,6 +44,7 @@ Polestar.Set("maps.reveal", "tint")
 Polestar.Set("maps.coords", true)
 Polestar.Set("maps.zoneLevels", true)
 Polestar.Set("maps.dungeonPins", true)
+Polestar.Set("nav.navRouting", false) -- Draw the direct way to the mark on both canvases.
 
 local clicked
 P.SetLayer("test.marks", {

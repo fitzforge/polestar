@@ -17,6 +17,7 @@ fn world_spacing(yards_across: f64) -> f64 {
 
 const PRELUDE: &str = r#"
 local N, Pins, nav = Polestar.Nav, Polestar.Pins, stub.nav
+Polestar.Set("nav.navRouting", false) -- Walk legs use compass bearings; travel still plans the boat and flight legs.
 local function target(wx, wy, label)
 	local m, x, y = nav.mapPoint(wx, wy)
 	N.SetTarget(m, x, y, label or "Target")
@@ -380,7 +381,7 @@ fn the_target_stays_selected_but_an_unsafe_walk_has_no_fallback_trail() {
 		target(0, 800)
 		local r = { clear = Pins.GetTrail() ~= nil }
 		-- Enemy settlement halfway along the apparent straight walk.
-		N.danger.hubBins[0].Alliance[3] = { 0, 400, 25 * 25 }
+		N.danger.hubBins[0].Alliance[3] = nav.groundDisk(0, 400, 25)
 		Polestar.Fire("NAV_ROUTE_GEOMETRY")
 		r.blocked = { N.GetTarget() ~= nil, Pins.GetTrail() ~= nil, N.Sample() }
 		target(0, -800)

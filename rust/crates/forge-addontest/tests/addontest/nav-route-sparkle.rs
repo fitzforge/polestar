@@ -169,6 +169,7 @@ local function stars(owner)
 end
 local function walkTo(wy)
 	Polestar.Set("nav.travel", false)
+	Polestar.Set("nav.navRouting", false)
 	nav.viewRadius = 200
 	nav.place(0, 0)
 	target(0, wy)
