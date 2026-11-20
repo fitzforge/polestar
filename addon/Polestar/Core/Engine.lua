@@ -2261,7 +2261,7 @@ function Own.feederPlan(g)
 				local c = Own.feedCost(near, fresh)
 				if c <= Own.FEED_LOCAL then
 					cost, ch.inserted = cost + c, true
-					local last = 0
+					local last, prev = 0, nil
 					for _, st in ipairs(mine) do
 						local p = placed[st.key]
 						if p then
@@ -2269,6 +2269,13 @@ function Own.feederPlan(g)
 							p.goals = {}
 							for _, goal in ipairs(p.step.goals) do
 								if p.has[goal] then p.goals[#p.goals + 1] = goal end
+							end
+							-- Another chain put this shared visit after our pickup. Request
+							-- it here too; the first visit will do both chains' work.
+							if placedAt[st.key] >= U then
+								gaps[U - 1] = gaps[U - 1] or {}
+								table.insert(gaps[U - 1], p)
+								placedAt[st.key] = U - 1
 							end
 							if placedAt[st.key] > last then last = placedAt[st.key] end
 						else
@@ -2285,8 +2292,14 @@ function Own.feederPlan(g)
 							placed[st.key], placedAt[st.key] = st, bestJ
 							gaps[bestJ] = gaps[bestJ] or {}
 							table.insert(gaps[bestJ], st)
+							p = st
 							last = bestJ
 						end
+						if prev then
+							p.before = p.before or {}
+							p.before[#p.before + 1] = prev
+						end
+						prev = p
 					end
 				end
 			end
@@ -2350,12 +2363,17 @@ function Own.feederPlan(g)
 	end
 	local steps, fromBase, legs, feeders = {}, {}, {}, 0
 	local prevOwn = 0 -- g's step just before, when nothing came in between
+	local function addStep(st)
+		if st.emitted then return end
+		st.emitted = true
+		-- The first chain to reach a shared visit may have placed it before
+		-- another chain's work. Bring just its prerequisites forward with it.
+		for _, prev in ipairs(st.before or NONE) do addStep(prev) end
+		steps[#steps + 1] = feederStep(st)
+		feeders, prevOwn = feeders + 1, nil
+	end
 	local function add(list2)
-		for _, st in ipairs(list2 or NONE) do
-			steps[#steps + 1] = feederStep(st)
-			feeders = feeders + 1
-			prevOwn = nil
-		end
+		for _, st in ipairs(list2 or NONE) do addStep(st) end
 	end
 	add(gaps[0])
 	local starters = l.starters

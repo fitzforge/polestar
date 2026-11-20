@@ -363,6 +363,28 @@ fn lines(v: &Value) -> Vec<String> {
 }
 
 #[test]
+fn t_3033_unfinished_tusks_come_before_the_imported_gromgol_hand_in() {
+	let plan = |progress: i32| {
+		let mut setup = String::from("Polestar.Set('behavior.skipGrey', true); stub.world.moveTo(1434, 32.3, 27.8);");
+		if progress >= 0 {
+			setup.push_str(&format!("stub.world.onQuest(581, {{9}}); stub.world.progress(581, 1, {progress});"));
+		}
+		let out = shipped_with("Horde", "Orc", "WARRIOR", 40, "", "", "forever/horde/40-50/01-stranglethorn-vale", &setup);
+		lines(&out["feeders"])
+	};
+	for progress in [-1, 0, 4, 9] {
+		let visits = plan(progress);
+		let at = |goal: &str| visits.iter().position(|line| line.split_whitespace().any(|word| word == goal));
+		let payment = at("turnin:581").expect("visit Nimboya");
+		assert!(payment <= at("accept:582").unwrap());
+		if progress < 9 {
+			assert!(at("collect:581").unwrap() < payment, "tusks before payment at {progress}/9: {visits:?}");
+		}
+		assert_eq!(at("accept:581").is_some(), progress < 0);
+	}
+}
+
+#[test]
 fn t_1353_joe_fresh_at_24_in_the_barrens_and_stonetalon_mountains_gets_a_clean_guide() {
 	let out = shipped("Horde", "Tauren", "WARRIOR", 24, JOE_DONE, "264", "forever/horde/04-the-barrens");
 	println!("{}", serde_json::to_string_pretty(&out).unwrap());
