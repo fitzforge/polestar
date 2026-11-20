@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Back from Mount Hyjal
 	-- {zone:2482} Mount Hyjal
-	["Back from {zone:2482}"] = "",
+	["Back from {zone:2482}"] = "Обратно из {zone:2482}",
 	-- {zone:2482} Mount Hyjal · {area:2255} Everlook · {area:541} Marshal's Refuge · {zone:1451} Silithus · {area:3425} Cenarion Hold
 	["Back from {zone:2482}: fly from {area:2255} to {area:541}, then ride south-west through Un'Goro to the pass into {zone:1451}. {area:3425} stands in the middle of the desert, west of where the pass comes out."] = "",
 	["Yugrek, the Horde flight master"] = "",
@@ -185,7 +185,7 @@ return {
 	-- {npc:10980} Umi's Mechanical Yeti · {npc:10977} Quixxil
 	["Use {npc:10980} on {npc:10977}"] = "Используйте игрушку {npc:10980} на персонаже {npc:10977}",
 	-- {npc:10977} Quixxil · {npc:10980} Umi's Mechanical Yeti
-	["Scare {npc:10977} with {npc:10980}"] = "",
+	["Scare {npc:10977} with {npc:10980}"] = "Отпугните {npc:10977} с помощью {npc:10980}",
 
 	-- Step 38: Ringo
 	-- {npc:9999} Ringo
@@ -339,7 +339,7 @@ return {
 
 	-- Step 88: Eastern Plaguelands
 	-- {quest:5845} Of Lost Honor
-	["The lake for {quest:5845}"] = "",
+	["The lake for {quest:5845}"] = "Озеро для {quest:5845}",
 
 	-- Step 89: Of Lost Honor
 	["Underwater"] = "Под водой",

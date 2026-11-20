@@ -38,7 +38,7 @@ return {
 	["The {area:91}"] = "{area:91}",
 
 	-- Step 7: Theocritus
-	["On the top floor"] = "",
+	["On the top floor"] = "На верхнем этаже",
 
 	-- Step 8: Henze Faulk
 	-- {area:91} Tower of Azora · {area:86} Stone Cairn Lake · {npc:6172} Henze Faulk · {item:6866} Symbol of Life · {item:6846} Defias Script
