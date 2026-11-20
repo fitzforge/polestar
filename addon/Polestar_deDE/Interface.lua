@@ -9,6 +9,7 @@ local L = ns.L
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Wähle eine Belohnung, um die Abgabe abzuschließen."
 -- L["%s is an escort: it starts as soon as it is taken. Accept it yourself when your group is ready."] = ""
+-- L["Took %s now: %s does it later, so this saves a trip back."] = ""
 
 -- Core/Commands.lua
 L["Toggle guide window"] = "Guide-Fenster ein-/ausblenden"
@@ -237,6 +238,10 @@ L["Grey for you: pays %d%% XP (Skip grey quests)"] = "Für dich grau: bringt %d%
 -- L["Hearthstone ready in %s: ride to the inn, or wait for it"] = ""
 -- L["Ride to %s"] = ""
 -- L["Ride to the flight master"] = ""
+-- L["Requires level %d: the guide comes back for it then"] = ""
+-- L["Requires level %d: kept for a later guide"] = ""
+-- L["Saves a trip back: %s does it later."] = ""
+-- L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = ""
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Benötigt Polestar %s oder neuer."
@@ -316,6 +321,7 @@ L["Levels"] = "Stufen"
 L["From %s"] = "Von %s"
 
 -- Nav/Arrow.lua
+L["The last steps here aren't mapped"] = "Die letzten Schritte hier sind nicht kartiert"
 L["Search here"] = "Hier suchen"
 L["Arrived"] = "Angekommen"
 L["Click the arrow for the next spot"] = "Klick auf den Pfeil für den nächsten Punkt"
@@ -327,6 +333,9 @@ L["Drag to move."] = "Ziehen zum Verschieben."
 L["Click for the next spot."] = "Klicken für den nächsten Punkt."
 L["Shift-drag to move."] = "Halte Umschalt gedrückt und zieh, um es zu verschieben."
 L["No waypoint"] = "Kein Wegpunkt"
+-- L["Arrived underwater"] = ""
+-- L["Underwater target — no verified walk"] = ""
+-- L["Waypoint %d yd below — navigate manually"] = ""
 
 -- Nav/Layers.lua
 L["Spot %d of %d"] = "Punkt %d von %d"
@@ -357,7 +366,8 @@ L["Walk to the flight master"] = "Lauf zum Flugmeister"
 L["Fly to %s"] = "Flieg nach %s"
 L["Hearth to %s"] = "Ruhestein nach %s"
 L["%s: saves %d min"] = "%s: spart %d Min."
-L["No route: walk straight to the target."] = "Keine Route: Lauf direkt zum Ziel."
+L["No safe walking route"] = "Kein sicherer Fußweg"
+L["Finding a walking route"] = "Fußweg wird gesucht"
 L["Show the travel route to the current target"] = "Reiseroute zum aktuellen Ziel anzeigen"
 L["Walk to the portal"] = "Lauf zum Portal"
 L["Take the portal to %s"] = "Nimm das Portal nach %s"
@@ -3519,6 +3529,7 @@ L["Carried to later guides"] = "In spätere Guides mitgenommen"
 L["Not part of your route"] = "Nicht Teil deiner Route"
 L["Keep or abandon them"] = "Behalten oder abbrechen"
 L["Each with its Abandon button, which asks in the game's own window first."] = "Jede mit ihrer Abbrechen-Schaltfläche, die zuerst im eigenen Fenster des Spiels fragt."
+-- L["%s · at level %d"] = ""
 
 -- UI/NameTargets.lua
 L["Click to target and mark %s (out of combat)."] = "Klicken, um %s anzuvisieren und zu markieren (außerhalb des Kampfes)."
@@ -4606,6 +4617,9 @@ L["Open any flight master's map once on this continent so Polestar knows your fl
 L["This guide is for %s characters. Polestar won't guide you through it."] = "Dieser Guide ist für %s-Charaktere. Polestar führt dich nicht hindurch."
 -- L["Equip it"] = ""
 -- L["Report to Danitha (Garen Largo, the Undercity), then A Paladin's Steed (Danitha Morr, Bandarion Keep): it teaches you to summon your Warhorse."] = ""
+-- L["%s (level %d)"] = ""
+-- L["%s takes these once you reach their level: %s"] = ""
+-- L["Waiting for your level, taken where a later guide passes the giver: %s"] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "Drück %s zum Fortsetzen oder öffne das Guide-Fenster."

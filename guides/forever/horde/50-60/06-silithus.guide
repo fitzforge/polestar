@@ -2,9 +2,10 @@
 guide forever/horde/50-60/06-silithus
 title Silithus, Western Plaguelands & Eastern Plaguelands
 faction Horde
-levels 57-60
+levels 58-60
 zone Silithus
 next forever/horde/50-60/07-felwood
+pitch Silithus, Un'Goro, then both Plaguelands.
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
@@ -14,6 +15,14 @@ next forever/horde/50-60/07-felwood
 # Left out: Little Pamela (5142).
 
 # ---------------------------------------------------------------- Cenarion Hold
+
+step Back from Mount Hyjal
+  when zone "Winterspring"
+  when taxi "Marshal's Refuge"
+  tip Back from Mount Hyjal: fly from Everlook to Marshal's Refuge, then ride south-west through Un'Goro to the pass into Silithus. Cenarion Hold stands in the middle of the desert, west of where the pass comes out.
+  zone Winterspring
+  goto 60.43,36.36 "Yugrek, the Horde flight master" live
+  fly "Marshal's Refuge"
 
 step Cenarion Hold
   tip Ride west to the walled hold in the middle of the desert. Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.

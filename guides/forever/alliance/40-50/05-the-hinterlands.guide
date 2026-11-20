@@ -12,11 +12,11 @@ next forever/alliance/40-50/06-searing-gorge
 # Added here: The Monogrammed Sash (8552).
 # The hearth is set in Ironforge on the training stop: the Searing Gorge guide starts with it (and the gryphon to
 # Thelsamar), and the Burning Steppes guide hearths back there twice.
-# Booty Bay at 48: Akiris by the Bundle (617), Zanzil's Secret (621), Voodoo Dues (609) and Stranglethorn Fever (348)
-# are done on the coast north of the bay and in the gorilla hills: on 40-50/01's visit at 41 their naga, Zanzil's
-# followers and Mokk were two and three levels over the player. Since fix round 2 (0.4.0) the first three are taken
-# on 40-50/01's Booty Bay stops, where the route passes their givers (the log peaks at about 33 in the Riverglades);
-# this stop takes them only for whoever doesn't have them. Stranglethorn Fever (minimum level 40) is taken here.
+# Booty Bay at 48: Akiris by the Bundle (617), Zanzil's Secret (621), Voodoo Dues (609), The Bloodsail Buccaneers
+# (604) and Stranglethorn Fever (348) are taken here and done on the Wild Shore, the coast north of the bay and in the
+# gorilla hills: on 40-50/01's visit at 41 their pirates, naga, Zanzil's followers and Mokk were two and three levels
+# over the player. Since the 0.4.3 route round 40-50/01 no longer takes the first four for this stop: carried from
+# there through the Riverglades they held the quest log at 36.
 
 step The Altar of Zul
   when onquest 2989
@@ -120,10 +120,10 @@ step Fly to Booty Bay
 step Booty Bay
   zone Stranglethorn Vale
   turnin 2874                         -- "Sea Wolf" MacKinley, on the top floor
-  accept 609                          -- "Sea Wolf" MacKinley, if the Stranglethorn guide didn't give it
-  accept 604                          -- Fleet Master Seahorn, top floor, if the Stranglethorn guide didn't give it
-  accept 617                          -- Privateer Bloads, if the Stranglethorn guide didn't give it
-  accept 621                          -- Crank Fizzlebub, inside, if the Stranglethorn guide didn't give it
+  accept 609                          -- "Sea Wolf" MacKinley
+  accept 604                          -- Fleet Master Seahorn, top floor
+  accept 617                          -- Privateer Bloads
+  accept 621                          -- Crank Fizzlebub, inside
   accept 348                          -- Fin Fizracket
 
 step Wild Shore: kill these as you meet them
@@ -157,11 +157,11 @@ step Zanzil's village
   tip Ride on north along the coast to Zanzil's village. Every Zanzil follower can drop the mixture; Chucky "Ten Thumbs" walks the south of the camp.
   collect 4016 quest 621              -- Zanzil's Mixture
   collect 3926 quest 609              -- Chucky's Huge Ring
-  collect 3925 quest 609              -- Jon-Jon's Golden Spyglass
 
 step Maury and Jon-Jon
   tip Maury "Club Foot" Wilkins and Jon-Jon the Crow stand together in the hills just north of Zanzil's village.
   collect 3924 quest 609              -- Maury's Clubbed Foot
+  collect 3925 quest 609              -- Jon-Jon's Golden Spyglass, from Jon-Jon the Crow
 
 step Gorilla hills
   tip Ride back south-east to the Mistvale gorilla hills above Booty Bay. Witch Doctor Unbagwa sits among the gorillas: take ten Gorilla Fangs from the Elder Mistvale Gorillas first.

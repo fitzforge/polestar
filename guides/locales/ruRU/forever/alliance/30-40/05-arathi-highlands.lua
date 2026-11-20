@@ -174,7 +174,8 @@ return {
 
 	-- Step 35: Witherbark Village
 	-- {area:318} Drywhisker Gorge · {area:314} Go'Shek Farm · {area:317} Witherbark Village
-	["South from {area:318}, past {area:314}, to {area:317} in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk."] = "На юг от места {area:318}, мимо места {area:314}, сюда: {area:317} на холмах. Знахари стоят среди хижин, а темные охотники охраняют дальний конец долины. Клык может выпасть с любого тролля.",
+	-- plural, as words: Witherbark Goliaths = {npc:218032} Witherbark Goliath
+	["South from {area:318}, past {area:314}, to {area:317} in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk. Careful: Witherbark Goliaths (35, elite) walk the far end with the Shadow Hunters: pull the Hunters out to you one at a time, away from the Goliaths."] = "",
 	-- {item:5040} Shadow Hunter Knife
 	["{item:5040}; below ground"] = "{item:5040}; под землей",
 
@@ -345,6 +346,8 @@ return {
 	["From {zone:1455} take the tunnel east through {zone:1426} into {zone:1432} and follow the road to {area:144}."] = "Из города {zone:1455} идите через туннель на восток через зону {zone:1426} в зону {zone:1432} и по дороге сюда: {area:144}.",
 
 	-- Step 74: Thelsamar
+	-- {zone:2548} Riverglades · {zone:1455} Ironforge · {area:69} Lakeshire · {area:2417} Blackrock Pass
+	["Leave the {zone:2548} for about level 41: its Western Front has elite patrols. After Stranglethorn, the {zone:2548} guide takes you from {zone:1455} to {area:69}, then through {area:2417}."] = "",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "{npc:1470}, под землей",
 
@@ -377,6 +380,7 @@ return {
 	-- ["Shaman training"] = "Обучение шамана",
 	-- ["South along the west coast to the goblins' cove; Lolo keeps watch on the rocks above it."] = "На юг вдоль западного побережья к бухте гоблинов; Дозорный Лоло следит за ней со скал.",
 	-- ["South from the {object:2691}, past {area:314}, to {area:317} in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk."] = "На юг от объекта {object:2691}, мимо места {area:314}, сюда: {area:317} на холмах. Знахари стоят среди хижин, а темные охотники охраняют дальний конец долины. Клык может выпасть с любого тролля.",
+	-- ["South from {area:318}, past {area:314}, to {area:317} in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk."] = "На юг от места {area:318}, мимо места {area:314}, сюда: {area:317} на холмах. Знахари стоят среди хижин, а темные охотники охраняют дальний конец долины. Клык может выпасть с любого тролля.",
 	-- ["South-west to the Kirin Tor camp on the lake shore west of {area:279}, just over the border into {area:130}: the {npc:269127} stands there. Archmage Ansirem stands south-east of it, by the dome."] = "На юго-запад к лагерю Кирин-Тора на берегу озера к западу от места {area:279}, сразу за границей зоны {area:130}: там стоит {npc:269127}. Верховный маг Ансарем стоит к юго-востоку от него, у купола.",
 	-- ["Subdue the succubus"] = "Подчините суккуба",
 	-- ["Summon Succubus"] = "Призыв суккуба",

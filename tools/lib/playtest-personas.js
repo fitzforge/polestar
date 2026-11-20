@@ -259,7 +259,7 @@ function SNAPSHOT(k)
 		lines[#lines + 1] = ("w.onQuest(%d, %s, %s)"):format(q, __ser(objs), __ser(e.title))
 	end
 	for item, n in pairs(w.items) do lines[#lines + 1] = ("w.addItem(%d, %d)"):format(item, n) end
-	if w.map and w.x and w.y then lines[#lines + 1] = ("w.moveTo(%d, %s, %s)"):format(w.map, tostring(w.x), tostring(w.y)) end
+	if w.map and w.x and w.y then lines[#lines + 1] = ("w.moveTo(%d, %s, %s, %s)"):format(w.map, tostring(w.x), tostring(w.y), tostring(w.z)) end
 	if w.bindLocation then lines[#lines + 1] = "w.bindLocation = " .. __ser(w.bindLocation) end
 	stub.fire("PLAYER_LOGOUT")
 	emit({ snapshot = k, step = Polestar.Engine.GetStepIndex(), world = table.concat(lines, "\\n"), save = "PolestarCharDB = " .. __ser(PolestarCharDB) })

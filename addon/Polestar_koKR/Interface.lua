@@ -225,10 +225,15 @@ L["Artisan %s"] = "대가 %s"
 -- L["Hearthstone ready in %s: ride to the inn, or wait for it"] = ""
 -- L["Ride to %s"] = ""
 -- L["Ride to the flight master"] = ""
+-- L["Requires level %d: the guide comes back for it then"] = ""
+-- L["Requires level %d: kept for a later guide"] = ""
+-- L["Saves a trip back: %s does it later."] = ""
+-- L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "보상을 선택해 제출을 마치십시오."
 -- L["%s is an escort: it starts as soon as it is taken. Accept it yourself when your group is ready."] = ""
+-- L["Took %s now: %s does it later, so this saves a trip back."] = ""
 
 -- Core/Commands.lua
 L["Toggle guide window"] = "가이드 창 켜기/끄기"
@@ -355,6 +360,7 @@ L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the 
 L["Polestar is paused: the arrow follows the guide again once you leave the dungeon alive, or after /polestar resume."] = "Polestar가 일시 정지되었습니다: 던전에서 살아서 나오거나 /polestar resume을 입력하면 화살표가 다시 가이드를 따릅니다."
 
 -- Nav/Arrow.lua
+L["The last steps here aren't mapped"] = "이곳의 마지막 몇 걸음은 지도에 없습니다"
 L["Search here"] = "여기서 찾기"
 L["Arrived"] = "도착"
 L["Click the arrow for the next spot"] = "화살표를 클릭하면 다음 지점"
@@ -367,6 +373,9 @@ L["Drag to move."] = "끌어서 이동."
 L["Click for the next spot."] = "클릭하면 다음 지점."
 L["Shift-drag to move."] = "Shift-드래그로 이동합니다."
 L["No waypoint"] = "경유지 없음"
+-- L["Arrived underwater"] = ""
+-- L["Underwater target — no verified walk"] = ""
+-- L["Waypoint %d yd below — navigate manually"] = ""
 
 -- Nav/Layers.lua
 L["Spot %d of %d"] = "지점 %d/%d"
@@ -441,7 +450,8 @@ L["Walk to the entrance"] = "입구까지 걸어가기"
 L["Walk to the lift"] = "승강기까지 걸어가기"
 L["%s, Top"] = "%s, 위"
 L["%s, Bottom"] = "%s, 아래"
-L["No route: walk straight to the target."] = "경로 없음: 목표까지 곧장 걸어가십시오."
+L["No safe walking route"] = "안전한 도보 경로 없음"
+L["Finding a walking route"] = "도보 경로를 찾는 중"
 L["Show the travel route to the current target"] = "현재 목표까지의 이동 경로 표시"
 L["Hostile town: %s"] = "적대 마을: %s"
 L["Ride the elevator up"] = "승강기를 타고 올라가기"
@@ -3549,6 +3559,7 @@ L["Carried to later guides"] = "이후 가이드로 이어지는 퀘스트"
 L["Not part of your route"] = "경로에 포함되지 않음"
 L["Keep or abandon them"] = "보관 또는 포기"
 L["Each with its Abandon button, which asks in the game's own window first."] = "각 퀘스트에 포기 버튼이 있으며, 먼저 게임 자체 창에서 확인합니다."
+-- L["%s · at level %d"] = ""
 
 -- UI/NameTargets.lua
 L["Click to target and mark %s (out of combat)."] = "클릭: %s 대상 지정 및 징표 표시 (전투 중이 아닐 때)."
@@ -4615,6 +4626,9 @@ L["Open any flight master's map once on this continent so Polestar knows your fl
 L["This guide is for %s characters. Polestar won't guide you through it."] = "이 가이드는 %s 캐릭터용입니다. Polestar가 이 가이드를 안내하지 않습니다."
 -- L["Equip it"] = ""
 -- L["Report to Danitha (Garen Largo, the Undercity), then A Paladin's Steed (Danitha Morr, Bandarion Keep): it teaches you to summon your Warhorse."] = ""
+-- L["%s (level %d)"] = ""
+-- L["%s takes these once you reach their level: %s"] = ""
+-- L["Waiting for your level, taken where a later guide passes the giver: %s"] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "%s 키를 눌러 다시 시작하거나 가이드 창을 여십시오."
