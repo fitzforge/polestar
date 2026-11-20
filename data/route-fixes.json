@@ -8421,7 +8421,7 @@
 					0
 				],
 				"faction": "Horde",
-				"why": "Horde Winterspring (50-60/03, fix pass after the route audit, 2026-11-20): Everlook's errands first, then the Frostfire Hot Springs camps. Threat of the Winterfall (5082) wants eight Winterfall Den Watchers (55-56); played straight from the tunnel the camps came at 53.8-54.0 by the level model, two over the player. Umi's yetis (3783) and Felnok's chimaera horns (4809) bring about a quarter of a level first, so the camps come at about 54.3 (56 = +1.7, with a Careful tip). The price is one more ride across the valley and back to Everlook's flight master."
+				"why": "Horde Winterspring (50-60/03, fix pass after the route audit, 2026-11-20): Everlook's errands first, then the Frostfire Hot Springs camps. Threat of the Winterfall (5082) wants eight Winterfall Den Watchers (55-56); played straight from the tunnel the camps came at 53.6-53.8 by the level model (the version that skips steps behind their conditions), two or more over the player. Umi's yetis (3783) and Felnok's chimaera horns (4809) bring about a quarter of a level first, so the camps come at about 53.9-54.1, and the Careful tip sends the player at the 55s. The price is one more ride across the valley and back to Everlook's flight master."
 			},
 			{
 				"a": [
@@ -8434,7 +8434,7 @@
 					0
 				],
 				"faction": "Horde",
-				"why": "Horde Winterspring (50-60/03, fix pass after the route audit, 2026-11-20): Everlook's errands first, then the Frostfire Hot Springs camps. Threat of the Winterfall (5082) wants eight Winterfall Den Watchers (55-56); played straight from the tunnel the camps came at 53.8-54.0 by the level model, two over the player. Umi's yetis (3783) and Felnok's chimaera horns (4809) bring about a quarter of a level first, so the camps come at about 54.3 (56 = +1.7, with a Careful tip). The price is one more ride across the valley and back to Everlook's flight master."
+				"why": "Horde Winterspring (50-60/03, fix pass after the route audit, 2026-11-20): Everlook's errands first, then the Frostfire Hot Springs camps. Threat of the Winterfall (5082) wants eight Winterfall Den Watchers (55-56); played straight from the tunnel the camps came at 53.6-53.8 by the level model (the version that skips steps behind their conditions), two or more over the player. Umi's yetis (3783) and Felnok's chimaera horns (4809) bring about a quarter of a level first, so the camps come at about 53.9-54.1, and the Careful tip sends the player at the 55s. The price is one more ride across the valley and back to Everlook's flight master."
 			}
 		],
 		"stay": [

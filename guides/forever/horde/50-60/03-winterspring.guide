@@ -12,7 +12,7 @@ next forever/horde/50-60/04-azshara
 # Left out: A Little Luck (6606), A Strange One (6605).
 # Flow (2026-11-20): this guide starts where 50-60/02 ends, in the Timbermaw tunnel: Salfa -> Donova's accepts ->
 # Everlook (yetis, chimaeras) -> back west: Raging Owlbeasts and the Frostfire camps (their Den Watchers are 55-56:
-# done after Everlook's errands, at about 54.3 by the level model) -> Donova -> Everlook -> fly to Splintertree Post -> Felwood's southern
+# done after Everlook's errands, at about 54 by the level model, and the tip sends you at the 55s) -> Donova -> Everlook -> fly to Splintertree Post -> Felwood's southern
 # hand-ins on one ride north (Ror, the Emerald Sanctuary, Winna's flasket at the Jadefire moonwell, Bloodvenom Post,
 # Winna's kitten) -> fly to Camp Mojache (Talo, the Videre Elixir) -> Shadowprey Village -> Thunder Bluff. Felwood's
 # back-south ride from Timbermaw Hold and the second ride north into the tunnel are gone; the Orgrimmar stop and
@@ -137,7 +137,7 @@ step Raging Owlbeasts
 step Frostfire Hot Springs: kill these as you meet them
   zone Winterspring
   tip Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every Runecloth you loot for Meilosh.
-  tip Careful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems.
+  tip Careful: the Den Watchers are 55-56: pull the 55s, one at a time, and keep clear of the camps' totems.
   kill 7442 quest 5082.1
   kill 7441 quest 5082.3
   kill 7440 quest 5082.2

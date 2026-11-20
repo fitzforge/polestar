@@ -13863,6 +13863,25 @@
 				}
 			],
 			"pr": 3284
+		},
+		{
+			"id": "horde-frostfire-den-watchers-take-55s",
+			"faction": "Horde",
+			"at": {
+				"quest": 5082,
+				"goal": "objective",
+				"objective": 2,
+				"guide": "forever/horde/50-60/03-winterspring"
+			},
+			"tip": "Careful: the Den Watchers are 55-56: pull the 55s, one at a time, and keep clear of the camps' totems.",
+			"note": "Threat of the Winterfall's Den Watchers (7440) are 55-56; after Everlook's errands the route reaches the Frostfire camps at about 53.9-54.1 by the level model (the version that skips steps behind their conditions), so the 56s stay two over the player: the tip sends them at the 55s, as the yeti and chimaera steps do.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json 7440 Winterfall Den Watcher levelMax 56 (tooltip range 55-56)"
+				}
+			],
+			"pr": 3284
 		}
 	]
 }
