@@ -900,6 +900,37 @@ function W.Checkbox(parent, onClick)
 	return c
 end
 
+-- Validation belongs to the owner, which can commit several fields together.
+function W.NumberBox(parent, opts)
+	local box = CreateFrame("EditBox", nil, parent)
+	box:SetAutoFocus(false)
+	box:SetSize(42, 26)
+	box:SetTextInsets(5, 5, 0, 0)
+	Theme.Font(box, "label")
+	W.Color(box, "text")
+	Theme.Skin(box, "editbox")
+	box.Hint = W.Text(box, "label", "textMuted")
+	box.Hint:SetPoint("LEFT", box, "LEFT", 5, 0)
+	box.Hint:SetWidth(32)
+	box.Hint:SetWordWrap(false)
+	box.Hint:SetText(opts.placeholder)
+	box:SetScript("OnTextChanged", function(self, user)
+		self.Hint:SetShown((self:GetText() or "") == "")
+		if opts.onEdit then opts.onEdit(self, user) end
+	end)
+	box:SetScript("OnEnterPressed", opts.onCommit)
+	box:SetScript("OnEscapePressed", opts.onCancel)
+	box:SetScript("OnEditFocusGained", function(self) Theme.SetFocused(self, true) end)
+	box:SetScript("OnEditFocusLost", function(self)
+		Theme.SetFocused(self, false)
+		if opts.onCommit then opts.onCommit(self) end
+	end)
+	box:SetScript("OnEnter", simpleTip)
+	box:SetScript("OnLeave", hideTip)
+	box:SetScript("OnHide", hideTip)
+	return box
+end
+
 ---------------------------------------------------------------------------
 -- Pills and chips
 ---------------------------------------------------------------------------
@@ -1032,21 +1063,21 @@ W.Capsule, W.Pill = capsule, capsule
 -- content) | "experimental" (one of Polestar's experimental guides: its own
 -- purple, the `experimental` token of every look).
 W.CHIP_H = 20
-function W.Chip(parent)
+function W.Chip(parent, height)
 	local c = CreateFrame("Frame", nil, parent)
-	c:SetHeight(W.CHIP_H)
-	c.Bg = capsule(c, 40, W.CHIP_H)
+	c:SetHeight(height or W.CHIP_H)
+	c.Bg = capsule(c, 40, c:GetHeight())
 	c.Bg:SetAllPoints(c)
 	c.Text = W.Text(c, "caption", "textDim")
 	c.Text:SetPoint("CENTER", c, "CENTER", 0, 0)
 	return c
 end
 
-function W.SetChip(c, text, kind)
+function W.SetChip(c, text, kind, width)
 	c.Text:SetText(text)
-	local w = floor(c.Text:GetStringWidth() + 18 + 0.5)
+	local w = width or floor(c.Text:GetStringWidth() + 18 + 0.5)
 	c:SetWidth(w)
-	c.Bg:SetSize(w, W.CHIP_H)
+	c.Bg:SetSize(w, c:GetHeight())
 	if kind == "accent" then
 		local r, g, b = Theme.Accent()
 		c.Bg:SetColor(r, g, b, 0.16)
@@ -2113,6 +2144,8 @@ local function paintMenuRow(row, lit)
 	if item.icon then W.Color(row.Icon, item.color or (on and "text" or "textDim"), off) end
 end
 
+local layoutMenu -- (): the open list's rows laid out anew (below)
+
 -- Items with confirm = true need a second click: the first relabels the row
 -- and keeps the menu open.
 local function menuRowClick(self)
@@ -2124,8 +2157,25 @@ local function menuRowClick(self)
 		W.Color(self.Text, "danger")
 		return
 	end
+	if item.keepOpen then
+		local relayout = item.onClick and item.onClick(item)
+		if menu:IsShown() and self.psItem == item then
+			if relayout then layoutMenu() else W.RepaintMenuChecks(menu) end
+		end
+		return
+	end
 	W.HideMenu()
 	if item.onClick then item.onClick(item) end
+end
+
+-- A kept-open choice can change several checks (for example "Any rarity").
+function W.RepaintMenuChecks(popup)
+	for _, row in ipairs(popup.rows) do
+		if row:IsShown() and row.psItem then
+			row.Check:SetShown(row.psItem.checked and true or false)
+			paintMenuRow(row, row == popup.psKeyRow or row:IsMouseOver())
+		end
+	end
 end
 
 -- item.preview(item): a choice heard (or seen) without picking it, a sound
@@ -2158,12 +2208,13 @@ end
 
 local function menuRowEnter(self)
 	if not self.psArmed then paintMenuRow(self, true) end
-	if self.psItem and self.psItem.tip then W.Tooltip(self, "ANCHOR_RIGHT", self.psItem.text, { self.psItem.tip }) end
+	local item = self.psItem
+	if item and (item.tip or self.psClipped) then W.Tooltip(self, "ANCHOR_RIGHT", item.text, item.tip and { item.tip }) end
 	previewSoon(self)
 end
 
 local function menuRowLeave(self)
-	if not self.psArmed then paintMenuRow(self, false) end
+	if not self.psArmed then paintMenuRow(self, self == menu.psKeyRow) end
 	hideTip(self)
 	previewToken = previewToken + 1
 end
@@ -2190,6 +2241,7 @@ local function buildMenu()
 	menu:SetScript("OnHide", function()
 		catcher:Hide()
 		previewToken = previewToken + 1
+		W.SetMenuKeyRow(menu, nil)
 		local f = rawget(menu, "Filter")
 		if f then f:ClearFocus() end
 	end)
@@ -2240,7 +2292,49 @@ end
 -- keys as the list opens): Enter picks the first one left, Escape empties
 -- the box, then closes the list.
 local MENU_MAX, MENU_FILTER = 12, 26
-local layoutMenu -- (): the open list's rows laid out anew (below)
+
+function W.SetMenuKeyRow(popup, row)
+	local old = popup.psKeyRow
+	if old then
+		W.SetKeyboardFocusMark(old, false)
+		paintMenuRow(old, false)
+		hideTip(old)
+	end
+	popup.psKeyRow = row
+	if not row then return end
+	W.SetKeyboardFocusMark(row, true)
+	paintMenuRow(row, true)
+	local sc = rawget(popup, "Scroll")
+	if sc and sc:IsShown() then
+		local y = -select(5, row:GetPoint(1))
+		local top = sc:GetVerticalScroll()
+		if y < top then W.ScrollTo(sc, y)
+		elseif y + row:GetHeight() > top + sc.psView then W.ScrollTo(sc, y + row:GetHeight() - sc.psView) end
+	end
+	local item = row.psItem
+	if item.tip or row.psClipped then W.Tooltip(row, "ANCHOR_RIGHT", item.text, item.tip and { item.tip }) end
+end
+
+-- Opt-in navigation for an owner that already routes keys. The long menu's
+-- edit box uses this too, since it owns the keys while its filter has focus.
+function W.MenuKey(owner, key)
+	if not W.MenuShown(owner) or not menu.psOpts.keyboard then return false end
+	if key == "ESCAPE" then W.HideMenu(); return true end
+	if key == "ENTER" or key == "SPACE" then
+		if menu.psKeyRow then menuRowClick(menu.psKeyRow) end
+		return true
+	end
+	if key ~= "UP" and key ~= "DOWN" then return false end
+	local rows, at = {}, 0
+	for _, row in ipairs(menu.rows) do
+		if row:IsShown() and not row.psItem.disabled then
+			rows[#rows + 1] = row
+			if row == menu.psKeyRow then at = #rows end
+		end
+	end
+	W.SetMenuKeyRow(menu, rows[max(1, min(#rows, at + (key == "UP" and -1 or 1)))])
+	return true
+end
 
 local function menuLong()
 	local sc = rawget(menu, "Scroll")
@@ -2268,9 +2362,14 @@ local function menuLong()
 		if (self:GetText() or "") ~= "" then self:SetText("") else W.HideMenu() end
 	end)
 	f:SetScript("OnEnterPressed", function()
+		if W.MenuKey(menu.psOwner, "ENTER") then return end
 		for _, r in ipairs(menu.rows) do
 			if r:IsShown() and r.psItem and not r.psItem.disabled then return menuRowClick(r) end
 		end
+	end)
+	f:SetScript("OnArrowPressed", function(_, key) W.MenuKey(menu.psOwner, key) end)
+	f:SetScript("OnTabPressed", function()
+		if menu.psOpts.keyboard then W.HideMenu() end
 	end)
 	f:SetScript("OnEditFocusGained", function(self) Theme.SetFocused(self, true) end)
 	f:SetScript("OnEditFocusLost", function(self) Theme.SetFocused(self, false) end)
@@ -2305,6 +2404,7 @@ function layoutMenu()
 	local needle = long and (menu.Filter:GetText() or ""):lower() or ""
 	local y = long and 0 or -pad
 	local nrow, nsep, shownRows = 0, 0, 0
+	W.SetMenuKeyRow(menu, nil)
 	menu.psCheckedY = nil
 	for i = 1, #menu.rows do menu.rows[i]:Hide() end
 	for i = 1, #menu.seps do menu.seps[i]:Hide() end
@@ -2332,6 +2432,9 @@ function layoutMenu()
 			row.psItem = item
 			row.psArmed = nil
 			row.Text:SetText(item.text)
+			if opts.maxWidth or row.psClipped then row.Text:SetWidth(0) end
+			row.Text:SetWordWrap(not opts.maxWidth)
+			row.psClipped = nil
 			row.Text:SetPoint("LEFT", row, "LEFT", anyIcon and 32 or 12, 0)
 			-- item.font: the text drawn in that face (a font list), the row's
 			-- own label hidden (not at alpha 0: in the client a string's
@@ -2389,6 +2492,15 @@ function layoutMenu()
 		end
 	end
 	width = floor(width + 0.5)
+	if opts.maxWidth then
+		width = min(width, opts.maxWidth)
+		local textRoom = max(1, width - (anyIcon and 32 or 12) - 36 - (anyPreview and 26 or 0) - (long and 10 or 0))
+		for i = 1, nrow do
+			local row = menu.rows[i]
+			row.psClipped = row.Text:GetStringWidth() > textRoom
+			if row.psClipped then row.Text:SetWidth(textRoom) end
+		end
+	end
 	if long then
 		local f = menu.Filter
 		f:ClearAllPoints()
@@ -2417,10 +2529,22 @@ function layoutMenu()
 		end
 		menu:SetSize(width, -y + pad)
 	end
+	if opts.keyboard then
+		local first, checked
+		for _, row in ipairs(menu.rows) do
+			if row:IsShown() and not row.psItem.disabled then
+				first = first or row
+				if row.psItem.checked then checked = checked or row end
+			end
+		end
+		W.SetMenuKeyRow(menu, opts.current and checked or first)
+	end
 end
 
--- items: { { text, icon, checked, disabled, onClick, tip, color, confirm, preview }, { separator = true }, ... }
--- opts: { point = "TOPRIGHT", relPoint = "BOTTOMRIGHT", x = 0, y = -4, minWidth = 168, current = true }
+-- items: { { text, icon, checked, disabled, onClick, tip, color, confirm, preview, keepOpen }, { separator = true }, ... }
+-- With keepOpen, onClick updates the item checks and the rows repaint in place.
+-- It can return true to lay out the list again if its choices changed.
+-- opts: { point, relPoint, x, y, minWidth, maxWidth, current, keyboard }
 -- opts.current: a list of choices whose checked row is the current one; a
 -- long one opens scrolled to it. Any other menu (actions, toggles) opens at
 -- its top, whatever its ticks (#2647: the guide window's menu opened centred
@@ -2442,15 +2566,27 @@ function W.ShowMenu(anchor, items, opts)
 	menu:ClearAllPoints()
 	menu.psOwner = anchor
 	local point, relPoint = opts.point or "TOPRIGHT", opts.relPoint or "BOTTOMRIGHT"
-	Anim.Anchor(menu, point, anchor, relPoint, opts.x or 0, opts.y or -4)
+	local y, offset = opts.y or -4, 4
+	if not (opts.point or opts.relPoint or opts.y) then
+		local bottom, top = anchor:GetBottom(), anchor:GetTop()
+		if bottom and top then
+			local scale, screenScale = anchor:GetEffectiveScale(), UIParent:GetEffectiveScale()
+			local below = bottom * scale - UIParent:GetBottom() * screenScale
+			local above = UIParent:GetTop() * screenScale - top * scale
+			if below < (menu:GetHeight() + 4) * menu:GetEffectiveScale() and above > below then
+				point, relPoint, y, offset = "BOTTOMRIGHT", "TOPRIGHT", 4, -4
+			end
+		end
+	end
+	Anim.Anchor(menu, point, anchor, relPoint, opts.x or 0, y)
 	catcher:Show()
 	menu:Show()
 	-- A long list's filter takes the keys at once (not while a gamepad
 	-- drives: its buttons would go to the box).
 	if long and not (ns.Gamepad and ns.Gamepad.IsActive and ns.Gamepad.IsActive()) then menu.Filter:SetFocus() end
-	-- Popovers grow out of their trigger: a short fade with a 4px drop.
+	-- Popovers move out from their trigger with a short fade.
 	Anim.To(menu, "alpha", 0, 1, Anim.FAST, "out")
-	Anim.To(menu, "offset", 4, 0, Anim.FAST, "out")
+	Anim.To(menu, "offset", offset, 0, Anim.FAST, "out")
 	return menu
 end
 
@@ -3741,7 +3877,7 @@ local function navRow(b, item, on)
 	b.Icon:ClearAllPoints()
 	b.Icon:SetPoint("LEFT", b, "LEFT", SHELL.side + (item.indent and NAV_INDENT or 0), 0)
 	b.Label:SetText(item.label)
-	b.Count:SetText(item.depth and empty and "" or item.count or "")
+	b.Count:SetText(item.count or "")
 	b.Count:SetShown(item.count ~= nil and not empty)
 	b.Dot:SetShown(item.dot and true or false)
 	if item.dot then b.Count:Hide() end
@@ -3777,7 +3913,7 @@ local function navRow(b, item, on)
 	-- it drew its label under 3:1 in some looks (the colour is held to read).
 	-- Its glyph goes a step further, to the faintest text colour, so the row
 	-- reads as empty where muted text stands close to the rows' own (Hearth).
-	W.Color(b.Label, on and not (item.depth and empty) and "text" or (empty and "textMuted" or "navRest"))
+	W.Color(b.Label, on and "text" or (empty and "textMuted" or "navRest"))
 	W.Color(b.Icon, on and "accent" or (empty and "textOff" or "textDim"))
 	b.psEmpty = empty
 	b.psHeading = item.heading and true or false
@@ -3843,10 +3979,12 @@ local function revealNav(sf, y, height)
 end
 
 function W.ShellNavFocus(f, key)
+	local reveal = key ~= f.NavScroll.psNavFocused
+	f.NavScroll.psNavFocused = key
 	for _, b in ipairs(f.navButtons) do
 		local focused = key ~= nil and b:IsShown() and b.psKey == key
 		W.SetKeyboardFocusMark(b, focused)
-		if focused then revealNav(f.NavScroll, -select(5, b:GetPoint(1)), b:GetHeight()) end
+		if focused and reveal then revealNav(f.NavScroll, -select(5, b:GetPoint(1)), b:GetHeight()) end
 	end
 end
 
@@ -3896,7 +4034,6 @@ function W.ShellNav(f, items, active, onSelect, focused)
 	if activeY and active ~= sf.psActive then revealNav(sf, activeY, activeH) end
 	sf.psActive = active
 	if focused or sf.psNavFocused then W.ShellNavFocus(f, focused) end
-	sf.psNavFocused = focused
 end
 
 -- The height the navigation rows may fill: from their top line to the

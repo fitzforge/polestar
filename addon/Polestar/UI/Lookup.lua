@@ -12,8 +12,9 @@
 -- Everything a search shows the first few and a "Show all" line; one kind
 -- shows pages of 50 with a "Show more" line. While searching, the header
 -- dropdown selects Best match or A to Z (under Everything, for each kind's
--- first few), and Filters can hide either unavailable status across browse
--- and search lists. Filters are saved; the order holds while the hub is
+-- first few). Filters opens the item and availability controls above the
+-- list; the active ones can be removed from the strip. Item filters are
+-- per character and availability is account-wide. The order holds while the hub is
 -- open, and closing it with an empty search box goes back to Best match.
 -- Each row has an
 -- icon, the name in its quality or subject colour, and a short subtitle.
@@ -455,7 +456,7 @@ function LK.Selected() return sel end
 
 -- auto: picked by the search (the first result), not by the player; only a
 -- page the player opens joins the recent lookups.
-function LK.Select(k, id, res, auto)
+local function setSelection(k, id, res, auto)
 	if k == nil or id == nil then
 		sel = nil
 		detailCache = {}
@@ -465,6 +466,10 @@ function LK.Select(k, id, res, auto)
 		sel = { kind = k, id = id, title = res.title, subtitle = res.subtitle, quality = res.quality, status = res.status, remember = not auto }
 	end
 	sourceSel = nil
+end
+
+function LK.Select(k, id, res, auto)
+	setSelection(k, id, res, auto)
 	LK.Render()
 end
 
@@ -527,9 +532,13 @@ local function normalizeItemFilters(input)
 	return filters
 end
 
-function LK.ItemFilters()
+local function savedItemFilterState()
 	local s = ns.CharState and ns.CharState()
-	return normalizeItemFilters(type(s) == "table" and type(s.ui) == "table" and s.ui.lookupItemFilters)
+	return type(s) == "table" and type(s.ui) == "table" and s.ui.lookupItemFilters or nil
+end
+
+function LK.ItemFilters()
+	return normalizeItemFilters(savedItemFilterState())
 end
 
 function LK.SetItemFilters(input)
@@ -1404,17 +1413,18 @@ local function folderRow(i)
 	return f
 end
 
-local function selectFirst(reset)
+local function selectFirst(reset, selectRow)
 	if sel and not reset then
 		for _, res in ipairs(visible) do
 			if res.kind == sel.kind and res.id == sel.id then return end
 		end
 	end
+	selectRow = selectRow or LK.Select
 	if visible[1] then
-		LK.Select(visible[1].kind, visible[1].id, visible[1], true)
+		selectRow(visible[1].kind, visible[1].id, visible[1], true)
 	elseif sel then
 		-- Nothing listed: nothing for Enter to act on.
-		LK.Select()
+		selectRow()
 	end
 end
 
@@ -1436,37 +1446,40 @@ LK.gen = 0
 local function stale() LK.gen = LK.gen + 1 end
 
 -- ItemClass and class-scoped ItemSubclass labels from the Codex taxonomy.
-local CLASS_LABEL = {
-	[0] = L["Consumable"], L["Container"], L["Weapon"], L["Gem"], L["Armor"], L["Reagent"],
-	L["Projectile"], L["Trade Goods"], L["Item Enhancement"], L["Recipe"], L["Money"], L["Quiver"],
-	L["Quest"], L["Key"], L["Permanent"], L["Miscellaneous"], L["Glyph"], L["Battle Pets"],
-	L["WoW Token"], L["Profession"], L["Housing"],
-}
-local SUBCLASS_LABEL = {
-	[0] = { [0] = L["Explosives and Devices"], L["Potion"], L["Elixir"], L["Flask"], L["Scroll"],
-		L["Food & Drink"], L["Item Enhancement"], L["Bandage"], L["Other"],
-		[14] = L["Device"], [15] = L["Temporary Item Enhancement"] },
-	[1] = { [0] = L["Bag"], L["Soul Bag"], L["Herb Bag"], L["Enchanting Bag"],
-		[6] = L["Mining Bag"], [7] = L["Leatherworking Bag"], [11] = L["Reagent Bag"] },
-	[2] = { [0] = L["Axe"], L["Two-Handed Axe"], L["Bow"], L["Gun"], L["Mace"], L["Two-Handed Mace"],
-		L["Polearm"], L["Sword"], L["Two-Handed Sword"], [10] = L["Staff"], [11] = L["Bear Claws"],
-		[13] = L["Fist Weapon"], [14] = L["Miscellaneous"], [15] = L["Dagger"], [16] = L["Thrown"],
-		[17] = L["Spear"], [18] = L["Crossbow"], [19] = L["Wand"], [20] = L["Fishing Pole"] },
-	[4] = { [0] = L["Miscellaneous"], L["Cloth"], L["Leather"], L["Mail"], L["Plate"], L["Cosmetic"],
-		L["Shield"], L["Libram"], L["Idol"], L["Totem"] },
-	[5] = { [0] = L["Reagent"] },
-	[6] = { [2] = L["Arrow"], [3] = L["Bullet"] },
-	[7] = { [0] = L["Trade Goods"], L["Parts"], L["Explosives"], [5] = L["Cloth"], [6] = L["Leather"],
-		[7] = L["Metal & Stone"], [8] = L["Cooking"], [9] = L["Herb"], [10] = L["Elemental"],
-		[11] = L["Other"], [12] = L["Enchanting"] },
-	[9] = { [0] = L["Book"], L["Leatherworking"], L["Tailoring"], L["Engineering"], L["Blacksmithing"],
-		L["Cooking"], L["Alchemy"], L["First Aid"], L["Enchanting"], L["Fishing"] },
-	[11] = { [2] = L["Quiver"], [3] = L["Ammo Pouch"] },
-	[12] = { [0] = L["Quest"] },
-	[13] = { [0] = L["Key"] },
-	[15] = { [0] = L["Junk"], L["Reagent"], L["Companion Pets"], L["Holiday"], L["Other"], L["Mount"] },
-	[18] = { [0] = L["WoW Token"] },
-}
+local CLASS_LABEL, SUBCLASS_LABEL
+local function loadTaxonomyLabels()
+	CLASS_LABEL = {
+		[0] = L["Consumable"], L["Container"], L["Weapon"], L["Gem"], L["Armor"], L["Reagent"],
+		L["Projectile"], L["Trade Goods"], L["Item Enhancement"], L["Recipe"], L["Money"], L["Quiver"],
+		L["Quest"], L["Key"], L["Permanent"], L["Miscellaneous"], L["Glyph"], L["Battle Pets"],
+		L["WoW Token"], L["Profession"], L["Housing"],
+	}
+	SUBCLASS_LABEL = {
+		[0] = { [0] = L["Explosives and Devices"], L["Potion"], L["Elixir"], L["Flask"], L["Scroll"],
+			L["Food & Drink"], L["Item Enhancement"], L["Bandage"], L["Other"],
+			[14] = L["Device"], [15] = L["Temporary Item Enhancement"] },
+		[1] = { [0] = L["Bag"], L["Soul Bag"], L["Herb Bag"], L["Enchanting Bag"],
+			[6] = L["Mining Bag"], [7] = L["Leatherworking Bag"], [11] = L["Reagent Bag"] },
+		[2] = { [0] = L["Axe"], L["Two-Handed Axe"], L["Bow"], L["Gun"], L["Mace"], L["Two-Handed Mace"],
+			L["Polearm"], L["Sword"], L["Two-Handed Sword"], [10] = L["Staff"], [11] = L["Bear Claws"],
+			[13] = L["Fist Weapon"], [14] = L["Miscellaneous"], [15] = L["Dagger"], [16] = L["Thrown"],
+			[17] = L["Spear"], [18] = L["Crossbow"], [19] = L["Wand"], [20] = L["Fishing Pole"] },
+		[4] = { [0] = L["Miscellaneous"], L["Cloth"], L["Leather"], L["Mail"], L["Plate"], L["Cosmetic"],
+			L["Shield"], L["Libram"], L["Idol"], L["Totem"] },
+		[5] = { [0] = L["Reagent"] },
+		[6] = { [2] = L["Arrow"], [3] = L["Bullet"] },
+		[7] = { [0] = L["Trade Goods"], L["Parts"], L["Explosives"], [5] = L["Cloth"], [6] = L["Leather"],
+			[7] = L["Metal & Stone"], [8] = L["Cooking"], [9] = L["Herb"], [10] = L["Elemental"],
+			[11] = L["Other"], [12] = L["Enchanting"] },
+		[9] = { [0] = L["Book"], L["Leatherworking"], L["Tailoring"], L["Engineering"], L["Blacksmithing"],
+			L["Cooking"], L["Alchemy"], L["First Aid"], L["Enchanting"], L["Fishing"] },
+		[11] = { [2] = L["Quiver"], [3] = L["Ammo Pouch"] },
+		[12] = { [0] = L["Quest"] },
+		[13] = { [0] = L["Key"] },
+		[15] = { [0] = L["Junk"], L["Reagent"], L["Companion Pets"], L["Holiday"], L["Other"], L["Mount"] },
+		[18] = { [0] = L["WoW Token"] },
+	}
+end
 
 local function categoryOrder(a, b)
 	if a.sortLabel ~= b.sortLabel then return a.sortLabel < b.sortLabel end
@@ -1478,8 +1491,9 @@ local function itemTaxonomy()
 	local C = ns.Codex
 	if not (C and C.FilterColumn and C.DecodeFilter and C.FilterCategory) then return end
 	local blob, count = C.FilterColumn("item")
-	if not blob then return end
+	if not blob or count == 0 then return end
 	if categoryColumn == blob then return taxonomy end
+	if not CLASS_LABEL then loadTaxonomyLabels() end
 	categoryColumn, taxonomy = blob, nil
 	local classes, byClass, byKey, seen = {}, {}, {}, {}
 	local sortLabel = ns.Search.Fold or string.lower
@@ -1521,12 +1535,12 @@ end
 -- few results per kind for a search, or totals for browsing, and under one
 -- kind its first page. Search.Subtitle fills subtitles for drawn rows only.
 local cache = {}
-local function listOptions()
+local function listOptions(saved)
 	return {
 		subtitles = false,
 		ids = true,
 		categoryTotals = true,
-		filters = category and { category = category } or nil,
+		filters = LK.SearchFilters(saved or LK.ItemFilters(), category),
 		hideRetired = ns.Get("lookup.hideRetired"),
 		hideNoSource = ns.Get("lookup.hideNoSource"),
 		order = order,
@@ -1534,31 +1548,43 @@ local function listOptions()
 end
 
 local function current()
-	if cache.query == query and cache.kind == kind and cache.category == category and cache.gen == LK.gen then return cache end
-	local opts = listOptions()
-	local counts, list = {}, {}
-	local info
+	local savedState = savedItemFilterState()
+	if cache.query == query and cache.kind == kind and cache.category == category and cache.gen == LK.gen
+		and cache.savedState == savedState then return cache end
+	local saved = normalizeItemFilters(savedState)
+	local opts = listOptions(saved)
+	local counts, before, list = {}, {}, {}
+	local filterData, classDormant, categoryTotals
+	local function mergeInfo(info)
+		if not info then return end
+		filterData = filterData or info.filtersAvailable
+		classDormant = classDormant or info.classFilterDormant
+		categoryTotals = info.categoryTotals or categoryTotals
+		for k, n in pairs(info.preFilterCounts or {}) do before[k] = n end
+	end
 	if query ~= "" then
 		if kind == "all" then
 			opts.perKind, opts.limit = GROUP_MAX, GROUP_MAX * #kinds()
 		else
 			opts.resultKind, opts.limit = kind, PAGE
 		end
+		local info
 		list, counts, info = search(query, nil, opts)
+		mergeInfo(info)
 	else
 		local S = ns.Search
 		if kind ~= "all" and S and S.Browse then
 			opts.limit = PAGE
+			local info
 			list, counts[kind], info = S.Browse(kind, opts)
+			mergeInfo(info)
 		end
 		if S and S.BrowseCount then
 			for _, k in ipairs(kinds()) do
-				if k.key == "item" then
-					if not (kind == "item" and info and info.categoryTotals) then
-						counts.item, info = S.BrowseCount("item", opts)
-					end
-				else
-					counts[k.key] = S.BrowseCount(k.key, opts)
+				if counts[k.key] == nil then
+					local info
+					counts[k.key], info = S.BrowseCount(k.key, opts)
+					mergeInfo(info)
 				end
 			end
 		end
@@ -1566,22 +1592,45 @@ local function current()
 	-- A search or browse can load the Codex or learn why it cannot load.
 	local loaded, reason = status()
 	local waiting = reason == "loading" or reason == "notloaded" or reason == "combat"
+	if not loaded and query == "" and kind ~= "guide" then counts[kind] = nil end
+	-- Search's pre-filter counts include the visibility switches. For a kind
+	-- they might have emptied, also ask for its candidates with both off.
+	if loaded and (opts.hideRetired or opts.hideNoSource) then
+		local missing = {}
+		for _, k in ipairs(kinds()) do
+			local spec = KIND[k.key]
+			if spec and spec.item and (before[k.key] or counts[k.key] or 0) == 0 then missing[k.key] = true end
+		end
+		if next(missing) then
+			opts.hideRetired, opts.hideNoSource, opts.categoryTotals = false, false, false
+			if query ~= "" then
+				opts.limit, opts.perKind, opts.resultKind = 0, nil, nil
+				local _, totals, info = search(query, missing, opts)
+				for k in pairs(missing) do before[k] = info and info.preFilterCounts[k] or totals[k] end
+			elseif ns.Search and ns.Search.BrowseCount then
+				for k in pairs(missing) do
+					local n, info = ns.Search.BrowseCount(k, opts)
+					before[k] = info and info.preFilterCounts[k] or n
+				end
+			end
+		end
+	end
 	if query == "" and kind ~= "all" and kind ~= "guide" and not (loaded or waiting) then
 		kind, category, list = "all", nil, {}
 		-- Nothing can look a Codex entry up now. Clear it here, not through
 		-- LK.Select: this runs inside a render.
 		if sel and sel.kind ~= "guide" then sel, sourceSel, detailCache = nil, nil, {} end
 	end
-	local tree = loaded and info and info.filtersAvailable and itemTaxonomy()
+	local tree = loaded and filterData and itemTaxonomy()
 	if not tree then category = nil end
-	local categoryTotals = tree and info.categoryTotals
 	local total = 0
 	if query ~= "" then
 		for _, n in pairs(counts) do total = total + n end
 		if categoryTotals then total = total - (counts.item or 0) + categoryTotals.root end
 	end
 	cache = { query = query, kind = kind, category = category, gen = LK.gen, list = list, counts = counts,
-		total = total, tree = tree, categoryTotals = categoryTotals, loaded = loaded, reason = reason, waiting = waiting }
+		total = total, tree = tree, categoryTotals = categoryTotals, loaded = loaded, reason = reason, waiting = waiting,
+		before = before, filterData = loaded and filterData, classDormant = classDormant, saved = saved, savedState = savedState }
 	return cache
 end
 
@@ -1643,11 +1692,11 @@ function LK.Nav()
 		local n, show = c.counts[k.key], false
 		if query ~= "" then
 			n = n or 0
-			show = n > 0 or k.key == kind
+			show = n > 0 or (c.before[k.key] or 0) > 0 or k.key == kind
 		elseif c.waiting then
 			n, show = nil, true
 		elseif c.loaded then
-			show = (n or 0) > 0 or k.key == kind
+			show = (n or 0) > 0 or (c.before[k.key] or 0) > 0 or k.key == kind
 		else
 			show = k.key == "guide"
 		end
@@ -1662,14 +1711,14 @@ function LK.Nav()
 			end
 		end
 	end
-	navRows, navPositions, activeNavKey = items, nil, kind
+	navRows, navPositions, activeNavKey = items, {}, kind
+	for i, row in ipairs(items) do navPositions[row.key] = i end
 	if tree then
-		navPositions = {}
-		for i, row in ipairs(items) do navPositions[row.key] = i end
 		if category then activeNavKey = visibleNavKey(category.key, tree) end
 		if navFocus then navFocus = visibleNavKey(navFocus, tree) or activeNavKey end
 	end
-	return items, activeNavKey, tree and navFocus or nil
+	if navFocus and not navPositions[navFocus] then navFocus = activeNavKey end
+	return items, activeNavKey, navFocus
 end
 
 -- A drawn row's subtitle, asked for once.
@@ -1688,7 +1737,9 @@ end
 -- The list as laid out: { t = "folder"|"row"|"action", y, ... }, top down.
 local entries = {}
 
-local function viewHeight() return shell:GetHeight() - SH.top - 8 end
+local drawerOpen, chromeHeight = false, 0
+local resetListSelection
+local function viewHeight() return max(1, shell:GetHeight() - SH.top - 8 - chromeHeight) end
 
 -- Draw the entries in view (and a row either side), from the pools.
 local function paintVisible()
@@ -1758,6 +1809,7 @@ local function reveal()
 end
 
 local ORDER_CHOICES = { { value = "best", text = L["Best match"] }, { value = "az", text = L["A to Z"] } }
+local HISTORY_TIP = { L["Recent lookups show your history."] }
 local VISIBILITY_CHOICES = {
 	{ path = "lookup.hideRetired", text = L["Hide no longer obtainable"] },
 	{ path = "lookup.hideNoSource", text = L["Hide no known source"] },
@@ -1767,18 +1819,35 @@ local function orderChoice()
 	return order == "az" and ORDER_CHOICES[2] or ORDER_CHOICES[1]
 end
 
-local function showControls()
-	local order, visibility = root.SearchOrder, root.Visibility
+local function fixedButtonText(button, text, lines)
+	W.SetButtonText(button, text)
+	local room = button:GetWidth() - (rawget(button, "Icon") and 31 or 12)
+	local clipped = button.Label:GetUnboundedStringWidth() > room
+	button.Label:SetWidth(clipped and room or 0)
+	button.Label:SetWordWrap(false)
+	if button.psDrawerLabel then
+		lines = button.psDrawerLabel:IsTruncated() and button.psClippedDrawerTip or button.psDrawerTip
+	end
+	button.psTip = (clipped or lines) and text or nil
+	button.psTipLines = lines
+end
+
+local filtersUI = {}
+
+local function showControls(c)
+	local button, visibility = root.SearchOrder, root.Visibility
 	local showOrder = query ~= ""
-	local showVisibility = query ~= "" or kind ~= "all"
-	if (not showOrder and W.MenuShown(order)) or (not showVisibility and W.MenuShown(visibility)) then W.HideMenu() end
-	order:SetShown(showOrder)
-	visibility:SetShown(showVisibility)
-	if not showVisibility then return 0 end
-	W.SetButtonText(visibility, L["Filters"])
+	if not showOrder and W.MenuShown(button) then W.HideMenu() end
+	button:SetShown(showOrder)
+	visibility:Show()
+	local groups = filtersUI.Paint(c)
+	local text = groups > 0 and format(L["Filters (%d)"], groups) or L["Filters"]
+	local history = groups > 0 and query == "" and kind == "all" and HISTORY_TIP
+	fixedButtonText(visibility, text, history or nil)
+	visibility.Icon:SetTexture(Theme.Media(drawerOpen and "chevron-up" or "chevron-down"))
 	if not showOrder then return visibility:GetWidth() + 12 end
-	W.SetButtonText(order, orderChoice().text)
-	return visibility:GetWidth() + order:GetWidth() + 20
+	fixedButtonText(button, orderChoice().text)
+	return visibility:GetWidth() + button:GetWidth() + 20
 end
 
 function LK.Render()
@@ -1812,7 +1881,7 @@ function LK.Render()
 		local n = kind == "all" and total or (counts[kind] or #list)
 		subtitle = n == 1 and format(L["1 result for %s"], LQ .. query .. RQ) or format(L["%d results for %s"], n, LQ .. query .. RQ)
 	end
-	W.ShellTitle(shell, title, subtitle, showControls())
+	W.ShellTitle(shell, title, subtitle, showControls(c))
 
 	-- Lay the list out.
 	entries, visible = {}, {}
@@ -1871,6 +1940,10 @@ function LK.Render()
 			end
 		end
 	end
+	if resetListSelection then
+		resetListSelection = nil
+		if query ~= "" or kind ~= "all" then selectFirst(true, setSelection) end
+	end
 
 	local empty
 	if reason == "loading" and #list == 0 then
@@ -1878,21 +1951,27 @@ function LK.Render()
 	elseif query == "" and kind == "all" then
 		empty = loaded and L["Type a name in the search box: a mount you saw, an item you want, an NPC or a quest."]
 			or L["Type a name in the search box to search the guides."]
-	elseif query == "" and #list == 0 then
+	elseif #list == 0 then
 		-- Browsing one kind: the Codex waits (combat), or Filters hide it all.
-		if not loaded and kind ~= "guide" then
-			empty = LK.ReasonText(reason)
-		elseif ns.Get("lookup.hideRetired") or ns.Get("lookup.hideNoSource") then
-			empty = L["Filters hide every entry here."]
-		else
-			empty = L["Nothing to list here."]
+		local hadCandidates = (c.before[kind] or 0) > 0
+		if kind == "all" then
+			for _, n in pairs(c.before) do if n > 0 then hadCandidates = true; break end end
 		end
-	elseif query ~= "" and #list == 0 then
-		empty = format(L["Nothing matches %s."], LQ .. query .. RQ)
-		if reason == "off" then
-			empty = empty .. " " .. L["Lookup is turned off in Options > Discovery > Lookup, so items, mounts, NPCs and quests are not searched."]
-		elseif not loaded then
-			empty = empty .. " " .. L["Items, mounts, NPCs and quests are searched once the Codex loads."]
+		if query == "" and not loaded and kind ~= "guide" then
+			empty = LK.ReasonText(reason)
+		elseif loaded and hadCandidates then
+			empty = L["Filters hide every entry here."]
+		elseif query == "" then
+			empty = L["Nothing to list here."]
+		elseif loaded and query:match("^%s*#0*[1-9]%d*%s*$") then
+			empty = L["No item with that ID here."]
+		else
+			empty = format(L["Nothing matches %s."], LQ .. query .. RQ)
+			if reason == "off" then
+				empty = empty .. " " .. L["Lookup is turned off in Options > Discovery > Lookup, so items, mounts, NPCs and quests are not searched."]
+			elseif not loaded then
+				empty = empty .. " " .. L["Items, mounts, NPCs and quests are searched once the Codex loads."]
+			end
 		end
 	end
 	local body = results.Child
@@ -1932,19 +2011,32 @@ local function cancelPending()
 	end
 end
 
+local function flushPending()
+	if not pending then return end
+	cancelPending()
+	query = UI.Picker.Query()
+	LK.message = nil
+end
+
+local function restartList()
+	flushPending()
+	stale()
+	if root and root:IsVisible() then
+		resetListSelection = true
+		W.ScrollTo(results, 0)
+		refresh()
+	end
+end
+
 function LK.Order() return order end
 
 -- The header dropdown: the current search's order.
 function LK.SetOrder(value)
 	value = value == "az" and "az" or "best"
 	if value == order then return end
+	flushPending()
 	order = value
-	stale()
-	if root and root:IsVisible() then
-		W.ScrollTo(results, 0)
-		refresh()
-		if query ~= "" or kind ~= "all" then selectFirst(true) end
-	end
+	restartList()
 end
 
 local function setQuery(text)
@@ -1986,19 +2078,11 @@ end
 local function headerMenu(button)
 	if not (button and button:IsVisible()) then return end
 	if W.MenuShown(button) then return W.HideMenu() end
-	local isOrder = button == root.SearchOrder
 	local items = {}
-	for i, choice in ipairs(isOrder and ORDER_CHOICES or VISIBILITY_CHOICES) do
-		local checked = isOrder and choice == orderChoice() or not isOrder and ns.Get(choice.path)
-		items[i] = { text = choice.text, checked = checked, onClick = function()
-			if isOrder then
-				LK.SetOrder(choice.value)
-			else
-				ns.Set(choice.path, not checked)
-			end
-		end }
+	for i, choice in ipairs(ORDER_CHOICES) do
+		items[i] = { text = choice.text, checked = choice == orderChoice(), onClick = function() LK.SetOrder(choice.value) end }
 	end
-	W.ShowMenu(button, items, { current = isOrder, minWidth = button:GetWidth() })
+	filtersUI.ShowMenu(button, items, button:GetWidth(), true)
 end
 
 function LK.Query() return query end
@@ -2007,11 +2091,7 @@ local function setKind(k, node, categoryCommit)
 	k = k or "all"
 	local changed = kind ~= k
 	categoryCommit = categoryCommit or category ~= nil
-	if categoryCommit and pending then
-		cancelPending()
-		query = UI.Picker.Query()
-		LK.message = nil
-	end
+	if categoryCommit then flushPending() end
 	if categoryCommit and not changed and node == category then stale() end
 	kind, category = k, node
 	if root and root:IsVisible() then
@@ -2044,50 +2124,74 @@ function LK.Step(delta)
 end
 
 local function setKeyboardFocus(key, button)
-	if headerFocus then W.SetKeyboardFocusMark(headerFocus, false) end
+	local old = headerFocus
 	navFocus, headerFocus = key, button
+	if old and old ~= button then
+		W.SetKeyboardFocusMark(old, false)
+		W.HideTip(old)
+		if old.psRange then old:ClearFocus() end
+	end
 	W.ShellNavFocus(shell, key)
-	if button then W.SetKeyboardFocusMark(button, true) end
+	if button then
+		W.SetKeyboardFocusMark(button, true)
+		if button.psRange then button:SetFocus() else W.SimpleTip(button) end
+	end
 end
 
 local function focusSearch()
+	setKeyboardFocus()
 	UI.Picker.search:SetFocus()
 	return true, false
 end
 
+local function tabFilters(shifted, fromSearch)
+	local controls = filtersUI.FocusOrder()
+	if fromSearch then
+		local button = shifted and controls[#controls]
+		setKeyboardFocus(not button and activeNavKey or nil, button or nil)
+	elseif navFocus then
+		if shifted then return focusSearch() end
+		setKeyboardFocus(nil, controls[1])
+	else
+		for i, button in ipairs(controls) do
+			if button == headerFocus then
+				local nextButton = controls[i + (shifted and -1 or 1)]
+				if nextButton then setKeyboardFocus(nil, nextButton)
+				elseif shifted then setKeyboardFocus(activeNavKey)
+				else return focusSearch() end
+				break
+			end
+		end
+	end
+	return true, true
+end
+
 local function sectionKeyboard(key, fromSearch, shifted)
 	if not key then
+		filtersUI.HideMenu()
 		setKeyboardFocus()
 		return
 	end
-	if not navPositions then
-		if not fromSearch and (key == "TAB" or key == "ESCAPE") then return focusSearch() end
+	if key == "ESCAPE" then
+		if filtersUI.HideMenu() then return true, true end
+		if headerFocus and headerFocus.psRange and headerFocus:HasFocus() then
+			headerFocus:GetScript("OnEscapePressed")(headerFocus)
+			return true, true
+		end
+		if drawerOpen then filtersUI.Toggle(); return true, true end
+		if not fromSearch then return focusSearch() end
 		return false
 	end
-	local orderButton = root.SearchOrder:IsVisible() and root.SearchOrder
-	local filtersButton = root.Visibility:IsVisible() and root.Visibility
-	if fromSearch then
-		local button = shifted and (filtersButton or orderButton) or nil
-		setKeyboardFocus(not button and activeNavKey or nil, button or nil)
-	elseif key == "TAB" then
-		if headerFocus and W.MenuShown(headerFocus) then W.HideMenu() end
-		if navFocus then
-			local button = not shifted and (orderButton or filtersButton)
-			if not button then return focusSearch() end
-			setKeyboardFocus(nil, button)
-		elseif shifted then
-			local button = headerFocus == filtersButton and orderButton
-			setKeyboardFocus(not button and activeNavKey or nil, button or nil)
-		elseif headerFocus == orderButton and filtersButton then
-			setKeyboardFocus(nil, filtersButton)
-		else
-			return focusSearch()
-		end
-	elseif key == "ESCAPE" then
-		if headerFocus and W.MenuShown(headerFocus) then W.HideMenu() else return focusSearch() end
-	elseif headerFocus then
+	if key == "TAB" then
+		if filtersUI.HideMenu() then return true, true end
+		return tabFilters(shifted, fromSearch)
+	end
+	if fromSearch then return false end
+	if headerFocus then
+		if W.MenuKey(headerFocus, key) then return true, true end
+		if headerFocus.psRange then return false end
 		if key ~= "ENTER" and key ~= "SPACE" then return false end
-		if not W.MenuShown(headerFocus) then headerFocus:Click() end
+		headerFocus:Click()
 	else
 		local i = navPositions[navFocus]
 		local row = navRows[i]
@@ -2096,6 +2200,7 @@ local function sectionKeyboard(key, fromSearch, shifted)
 			local nextRow = navRows[max(1, min(#navRows, i + (key == "UP" and -1 or 1)))]
 			setKeyboardFocus(nextRow.key)
 		elseif key == "RIGHT" then
+			if row.depth == nil then return false end
 			local child = navRows[i + 1]
 			if row.onToggle and row.folded then
 				row.onToggle(row.key)
@@ -2103,6 +2208,7 @@ local function sectionKeyboard(key, fromSearch, shifted)
 				setKeyboardFocus(child.key)
 			end
 		elseif key == "LEFT" then
+			if row.depth == nil then return false end
 			if row.onToggle and not row.folded then
 				row.onToggle(row.key)
 			elseif row.parent then
@@ -2116,6 +2222,612 @@ local function sectionKeyboard(key, fromSearch, shifted)
 	end
 	return true, true
 end
+
+local function installFilterChrome()
+	local DRAWER_H, VISIBILITY_H, STRIP_H = 160, 52, 32
+	local DROP_W, CHIP_H, CHIP_GAP, OVERFLOW_W, CLEAR_W = 116, 24, 6, 52, 80
+	local CLASSES = { "WARRIOR", "PALADIN", "HUNTER", "ROGUE", "PRIEST", "SHAMAN", "MAGE", "WARLOCK", "DRUID" }
+	local slotLabels, slotGroups
+	local function loadSlots()
+		if slotLabels then return end
+		slotLabels = {
+			[0] = L["Non-equippable"], L["Head"], L["Neck"], L["Shoulder"], L["Shirt"], L["Chest"],
+			L["Waist"], L["Legs"], L["Feet"], L["Wrist"], L["Hands"], L["Finger"], L["Trinket"], L["One-hand"],
+			L["Shield"], L["Ranged"], L["Back"], L["Two-hand"], L["Bag"], L["Tabard"], L["Robe"], L["Main hand"],
+			L["Off-hand weapon"], L["Held in off-hand"], L["Ammo"], L["Thrown"], L["Ranged (right)"], L["Quiver slot"],
+			L["Relic"], L["Profession tool"], L["Profession gear"], L["Offensive spell"], L["Utility spell"],
+			L["Defensive spell"], L["Mobility spell"],
+		}
+		slotGroups = {
+			{ label = L["Armor and accessories"], 1, 2, 3, 16, 5, 20, 9, 10, 6, 7, 8, 11, 12 },
+			{ label = L["Weapons and off-hand"], 13, 17, 21, 22, 14, 23, 15, 25, 26, 28 },
+			{ label = L["Clothing and containers"], 4, 19, 18, 24, 27 },
+			{ label = L["Other slots"], 0, 29, 30, 31, 32, 33, 34 },
+		}
+	end
+
+	local function rarityName(id)
+		local name = ns.QualityName(id)
+		if name then return name end
+		if id == 0 then return L["Poor"] end
+		if id == 1 then return L["Common"] end
+		if id == 2 then return L["Uncommon"] end
+		if id == 3 then return L["Rare"] end
+		if id == 4 then return L["Epic"] end
+		if id == 5 then return L["Legendary"] end
+		if id == 6 then return L["Artifact"] end
+		if id == 7 then return L["Heirloom"] end
+		return L["WoW Token"]
+	end
+
+	local function rarityText(quality)
+		if not quality then return L["Any rarity"] end
+		return #quality == 1 and rarityName(quality[1]) or format(L["%d rarities"], #quality)
+	end
+
+	local function tokenQualityPresent()
+		local C = ns.Codex
+		if not (C and C.Index) then return false end
+		for _, k in ipairs(kinds()) do
+			if KIND[k.key] and KIND[k.key].item then
+				local index = C.Index(k.key)
+				-- Search's canonical name rows end in ID, quality, status, name length.
+				if index and index:find("\1%d+,8,%a?,%d+\n") then return true end
+			end
+		end
+		return false
+	end
+
+	local function classText(c)
+		local class = c.saved.class
+		if not class then return L["Any class"] end
+		local name = UI.ClassName(class)
+		return c.classDormant and format(L["%s · %s"], name, L["Unknown"]) or name
+	end
+
+	local function slotText(slot)
+		if slot == nil then return L["Any slot"] end
+		loadSlots()
+		return slotLabels[slot]
+	end
+
+	local function changeItemFilter(key, value)
+		local saved = LK.ItemFilters()
+		if saved[key] == value then return end
+		flushPending()
+		saved[key] = value
+		LK.SetItemFilters(saved)
+		restartList()
+	end
+
+	function filtersUI.HideMenu()
+		local owner = rawget(root, "FilterMenuOwner")
+		if owner and W.MenuShown(owner) then
+			W.HideMenu()
+			return true
+		end
+	end
+
+	function filtersUI.ShowMenu(button, items, width, currentChoice)
+		root.FilterMenuOwner = button
+		local keyboard = headerFocus == button and UI.Picker.HasSectionKeys() and not ns.Compat.InCombat()
+		W.HideTip(button)
+		width = min(width, MID_W - 2 * SH.pad)
+		W.ShowMenu(button, items, { minWidth = width, maxWidth = width, current = currentChoice, keyboard = keyboard })
+	end
+
+	local function singleChoice(items, key, value, text, selected)
+		items[#items + 1] = { text = text, checked = selected == value, onClick = function() changeItemFilter(key, value) end }
+	end
+
+	local function classMenu(button)
+		if W.MenuShown(button) then return W.HideMenu() end
+		local selected, items = LK.ItemFilters().class, {}
+		singleChoice(items, "class", nil, L["Any class"], selected)
+		for _, token in ipairs(CLASSES) do singleChoice(items, "class", token, UI.ClassName(token), selected) end
+		filtersUI.ShowMenu(button, items, 176, true)
+	end
+
+	local function rarityMenu(button)
+		if W.MenuShown(button) then return W.HideMenu() end
+		local checked, items = {}, {}
+		local tokenPresent = tokenQualityPresent()
+		for _, id in ipairs(LK.ItemFilters().quality or {}) do checked[id] = true end
+		local function choose(id)
+			if id == nil then checked = {} else checked[id] = not checked[id] or nil end
+			local removeToken = items[10] and not tokenPresent and not checked[8]
+			if removeToken then items[10] = nil end
+			items[1].checked = next(checked) == nil
+			for i = 2, #items do items[i].checked = checked[i - 2] end
+			changeItemFilter("quality", next(checked) and checked or nil)
+			return removeToken
+		end
+		items[1] = { text = L["Any rarity"], checked = next(checked) == nil, keepOpen = true, onClick = function() return choose() end }
+		local last = (checked[8] or tokenPresent) and 8 or 7
+		for id = 0, last do
+			local quality = id
+			items[#items + 1] = { text = rarityName(id), checked = checked[id], keepOpen = true,
+				onClick = function() return choose(quality) end }
+		end
+		filtersUI.ShowMenu(button, items, 192)
+	end
+
+	local function slotMenu(button)
+		if W.MenuShown(button) then return W.HideMenu() end
+		loadSlots()
+		local selected, items = LK.ItemFilters().slot, {}
+		singleChoice(items, "slot", nil, L["Any slot"], selected)
+		for _, group in ipairs(slotGroups) do
+			items[#items + 1] = { text = group.label, disabled = true }
+			for _, id in ipairs(group) do singleChoice(items, "slot", id, slotLabels[id], selected) end
+		end
+		filtersUI.ShowMenu(button, items, 256, true)
+	end
+
+	local function editValue(box)
+		local raw = (box:GetText() or ""):match("^%s*(.-)%s*$")
+		if raw == "" then return nil, true end
+		local value = raw:match("^%d+$") and itemFilterInteger(tonumber(raw), 999)
+		return value, value ~= nil
+	end
+
+	local function boxError(box, errorText)
+		if box.psTip == errorText then return end
+		box.psTip = errorText
+		W.Color(box, errorText and "warning" or "text")
+		if errorText and box:HasFocus() then W.SimpleTip(box) else W.HideTip(box) end
+	end
+
+	local function validateRange(range)
+		local lo, loOK = editValue(range.Min)
+		local hi, hiOK = editValue(range.Max)
+		local inverted = loOK and hiOK and lo and hi and lo > hi
+		local bounds = inverted and L["Minimum must be at or below maximum."] or nil
+		local invalid = L["Enter whole levels from 0 to 999."]
+		boxError(range.Min, not loOK and invalid or bounds)
+		boxError(range.Max, not hiOK and invalid or bounds)
+		return loOK and hiOK and not inverted, lo, hi
+	end
+
+	local function restoreRange(range, lo, hi)
+		range.appliedLo, range.appliedHi, range.dirty = lo, hi, nil
+		local first, last = lo and tostring(lo) or "", hi and tostring(hi) or ""
+		range.Min:SetText(first)
+		range.Max:SetText(last)
+		range.Min.Hint:SetShown(first == "")
+		range.Max.Hint:SetShown(last == "")
+		boxError(range.Min)
+		boxError(range.Max)
+	end
+
+	local function commitRange(range)
+		if not (drawerOpen and range.dirty) then return true end
+		local valid, lo, hi = validateRange(range)
+		if not valid then return false end
+		local changed = lo ~= range.appliedLo or hi ~= range.appliedHi
+		restoreRange(range, lo, hi)
+		if changed then
+			flushPending()
+			local saved = LK.ItemFilters()
+			saved[range.loKey], saved[range.hiKey] = lo, hi
+			LK.SetItemFilters(saved)
+			restartList()
+		end
+		return true
+	end
+
+	local function paintRange(range, saved)
+		local lo, hi = saved[range.loKey], saved[range.hiKey]
+		if lo ~= range.appliedLo or hi ~= range.appliedHi then restoreRange(range, lo, hi) end
+	end
+
+	local function filterLabel(parent, text, width)
+		local label = W.Text(parent, "label", "text")
+		label:SetPoint("LEFT", parent, "LEFT", 0, 0)
+		label:SetWidth(width)
+		label:SetJustifyH("LEFT")
+		label:SetWordWrap(false)
+		label:SetText(text)
+		return label
+	end
+
+	local function makeRange(cell, text, loKey, hiKey)
+		local range = { loKey = loKey, hiKey = hiKey }
+		local label = filterLabel(cell, text, cell:GetWidth() - 98)
+		local function box(placeholder)
+			local b = W.NumberBox(cell, { placeholder = placeholder,
+				onEdit = function(_, user) if user then range.dirty = true; validateRange(range) end end,
+				onCommit = function(self)
+					if not commitRange(range) and self:HasFocus() then
+						W.SimpleTip(self.psTip and self or (range.Min.psTip and range.Min or range.Max))
+					end
+				end,
+				onCancel = function(self)
+					restoreRange(range, range.appliedLo, range.appliedHi)
+					self:ClearFocus()
+				end,
+			})
+			b.psRange = range
+			b:HookScript("OnEditFocusGained", function(self)
+				if self.psTip then W.SimpleTip(self)
+				elseif label:IsTruncated() then W.Tooltip(self, "ANCHOR_TOP", text) end
+			end)
+			b:SetScript("OnTabPressed", function(self)
+				if ns.Compat.InCombat() then return end
+				if headerFocus ~= self then setKeyboardFocus(nil, self) end
+				local _, keepFocus = tabFilters(ns.Compat.IsShiftKeyDown())
+				if keepFocus then UI.Picker.FocusSectionKeys() end
+			end)
+			b:HookScript("OnEnter", function(self)
+				if not self.psTip and label:IsTruncated() then W.Tooltip(self, "ANCHOR_TOP", text) end
+			end)
+			return b
+		end
+		range.Min, range.Max = box(L["Min"]), box(L["Max"])
+		range.Max:SetPoint("RIGHT", cell, "RIGHT")
+		range.Min:SetPoint("RIGHT", range.Max, "LEFT", -6, 0)
+		return range
+	end
+
+	local function drawerCell(parent, index, colWidth)
+		local cell = CreateFrame("Frame", nil, parent)
+		cell:SetSize(colWidth, 36)
+		cell:SetPoint("TOPLEFT", parent, "TOPLEFT", (index - 1) % 2 * (colWidth + 12), -8 - floor((index - 1) / 2) * 36)
+		return cell
+	end
+
+	local function makeDropdown(cell, label, onClick, tip)
+		local button = W.Button(cell, "", onClick, { icon = "chevron-down", width = DROP_W, height = 26 })
+		button.psDrawerLabel = filterLabel(cell, label, cell:GetWidth() - DROP_W - 8)
+		button.psDrawerTip = tip and { tip }
+		button.psClippedDrawerTip = tip and { tip, label } or { label }
+		button:SetPoint("RIGHT", cell, "RIGHT")
+		return button
+	end
+
+	local function makeAvailability(drawer, colWidth)
+		local row = CreateFrame("Frame", nil, drawer)
+		row:SetSize(colWidth * 2 + 12, 36)
+		row:SetPoint("BOTTOMLEFT", drawer, "BOTTOMLEFT", 0, 8)
+		drawer.Availability = {}
+		for i, choice in ipairs(VISIBILITY_CHOICES) do
+			local hit = CreateFrame("Button", nil, row)
+			hit:SetSize(colWidth, 26)
+			hit:SetPoint("LEFT", row, "LEFT", (i - 1) * (colWidth + 12), 0)
+			hit.Check = W.Checkbox(hit)
+			hit.Check:SetPoint("LEFT", hit, "LEFT", 0, 0)
+			hit.Check:EnableMouse(false)
+			hit.Label = filterLabel(hit, choice.text, colWidth - 26)
+			hit.Label:SetPoint("LEFT", hit, "LEFT", 26, 0)
+			hit.psTip = hit.Label:IsTruncated() and choice.text or nil
+			hit:SetScript("OnEnter", W.SimpleTip)
+			hit:SetScript("OnLeave", W.HideTip)
+			hit:SetScript("OnHide", W.HideTip)
+			hit:SetScript("OnClick", function()
+				flushPending()
+				ns.Set(choice.path, not ns.Get(choice.path))
+			end)
+			drawer.Availability[i] = hit
+		end
+	end
+
+	local function makeItemControls(drawer, colWidth)
+		local item = CreateFrame("Frame", nil, drawer)
+		item:SetAllPoints(drawer)
+		item.Required = makeRange(drawerCell(item, 1, colWidth), L["Required level"], "reqMin", "reqMax")
+		item.Level = makeRange(drawerCell(item, 2, colWidth), L["Item level"], "ilvlMin", "ilvlMax")
+		item.Class = makeDropdown(drawerCell(item, 3, colWidth), L["Usable by"], classMenu,
+			L["Uses item class restrictions and equipment proficiencies."])
+		item.Rarity = makeDropdown(drawerCell(item, 4, colWidth), L["Rarity"], rarityMenu)
+		item.Slot = makeDropdown(drawerCell(item, 5, colWidth), L["Slot"], slotMenu)
+		drawer.Item = item
+		return item
+	end
+
+	local function itemControls(c)
+		return c.filterData and (kind == "all" or KIND[kind] and KIND[kind].item)
+	end
+
+	local function newChrome(y)
+		local f = CreateFrame("Frame", nil, root)
+		f:SetWidth(MID_W - 2 * SH.pad)
+		f:SetPoint("TOPLEFT", root, "TOPLEFT", SH.pad, -4 - y)
+		return f
+	end
+
+	local function paintDrawer(c)
+		local drawer = rawget(root, "FilterDrawer")
+		if not drawerOpen then if drawer then drawer:Hide() end; return 0 end
+		local showItems = itemControls(c)
+		local colWidth = (MID_W - 2 * SH.pad - 12) / 2
+		if not drawer then
+			drawer = newChrome(0)
+			local line = W.Divider(drawer)
+			line:SetPoint("BOTTOMLEFT", drawer, "BOTTOMLEFT", 0, 7)
+			line:SetPoint("BOTTOMRIGHT", drawer, "BOTTOMRIGHT", 0, 7)
+			makeAvailability(drawer, colWidth)
+			root.FilterDrawer = drawer
+		end
+		local item = rawget(drawer, "Item")
+		if showItems then
+			item = item or makeItemControls(drawer, colWidth)
+			paintRange(item.Required, c.saved)
+			paintRange(item.Level, c.saved)
+			fixedButtonText(item.Class, classText(c))
+			fixedButtonText(item.Rarity, rarityText(c.saved.quality))
+			fixedButtonText(item.Slot, slotText(c.saved.slot))
+		elseif item and item:IsShown() then
+			filtersUI.DiscardRanges()
+		end
+		if item then item:SetShown(showItems and true or false) end
+		for i, choice in ipairs(VISIBILITY_CHOICES) do drawer.Availability[i].Check:SetChecked(ns.Get(choice.path)) end
+		local height = showItems and DRAWER_H or VISIBILITY_H
+		drawer:SetHeight(height)
+		drawer:Show()
+		return height
+	end
+
+	local function rangeText(lo, hi)
+		if lo and hi then return format(L["%d–%d"], lo, hi) end
+		if lo then return format(L["%d or higher"], lo) end
+		return format(L["%d or lower"], hi)
+	end
+
+	local function clearAvailability()
+		-- Keep the narrow setting notifications. A broad profile notification
+		-- would also trigger a hub render before the filter commit finishes.
+		filtersUI.clearingAvailability = true
+		for _, choice in ipairs(VISIBILITY_CHOICES) do
+			if ns.Get(choice.path) then ns.Set(choice.path, false) end
+		end
+		filtersUI.clearingAvailability = nil
+	end
+
+	local function clearCategory()
+		flushPending()
+		category = nil
+		restartList()
+	end
+
+	local function clearRange(loKey, hiKey)
+		flushPending()
+		local saved = LK.ItemFilters()
+		saved[loKey], saved[hiKey] = nil, nil
+		LK.SetItemFilters(saved)
+		restartList()
+	end
+
+	local function clearAll()
+		flushPending()
+		filtersUI.DiscardRanges()
+		-- Use the view's displayed controls, even if the flushed query changes
+		-- which kinds have matches.
+		if itemControls(cache) then
+			LK.ClearItemFilters()
+			category = nil
+		end
+		clearAvailability()
+		restartList()
+	end
+
+	local removeChip = {
+		req = function() clearRange("reqMin", "reqMax") end,
+		ilvl = function() clearRange("ilvlMin", "ilvlMax") end,
+		class = function() changeItemFilter("class") end,
+		quality = function() changeItemFilter("quality") end,
+		slot = function() changeItemFilter("slot") end,
+		stat = function() changeItemFilter("stat") end,
+	}
+	for _, choice in ipairs(VISIBILITY_CHOICES) do
+		removeChip[choice.path] = function()
+			flushPending()
+			ns.Set(choice.path, false)
+		end
+	end
+
+	local groups = {}
+	local function addChip(label, value, remove, lines)
+		local text = value and format(L["%s · %s"], label, value) or label
+		groups[#groups + 1] = { text = text, tip = format(L["Clear %s"], text), remove = remove, lines = lines }
+	end
+
+	local function buildChipGroups(c)
+		for i = #groups, 1, -1 do groups[i] = nil end
+		local saved = c.saved
+		if category then
+			local value = category.label
+			if category.subclass then value = format(L["%s › %s"], c.tree.byKey[category.parent].label, value) end
+			addChip(L["Items"], value, clearCategory)
+		end
+		if itemControls(c) then
+			if saved.reqMin or saved.reqMax then
+				addChip(L["Required level"], rangeText(saved.reqMin, saved.reqMax), removeChip.req)
+			end
+			if saved.ilvlMin or saved.ilvlMax then
+				addChip(L["Item level"], rangeText(saved.ilvlMin, saved.ilvlMax), removeChip.ilvl)
+			end
+			if saved.class then addChip(L["Usable by"], classText(c), removeChip.class) end
+			if saved.quality then
+				local text = rarityName(saved.quality[1])
+				for i = 2, #saved.quality do text = format(L["%s, %s"], text, rarityName(saved.quality[i])) end
+				addChip(L["Rarity"], rarityText(saved.quality), removeChip.quality, { text })
+			end
+			if saved.slot then addChip(L["Slot"], slotText(saved.slot), removeChip.slot) end
+			if saved.stat then addChip(L["Stat"], ns.Search.StatLabel(saved.stat), removeChip.stat) end
+		end
+		for _, choice in ipairs(VISIBILITY_CHOICES) do
+			if ns.Get(choice.path) then
+				addChip(choice.text, nil, removeChip[choice.path])
+			end
+		end
+	end
+
+	local function overflowMenu(button)
+		if W.MenuShown(button) then return W.HideMenu() end
+		local items = {}
+		for i = button.psFirst, #button.psGroups do
+			local group = button.psGroups[i]
+			items[#items + 1] = { text = group.text, tip = group.lines and group.lines[1], onClick = group.remove }
+		end
+		filtersUI.ShowMenu(button, items, 300)
+	end
+
+	local function chipButton(strip, i, group, width)
+		local button = strip.Chips[i]
+		if not button then
+			button = CreateFrame("Button", nil, strip)
+			button:SetHeight(CHIP_H)
+			button.Chip = W.Chip(button, CHIP_H)
+			button.Chip:SetAllPoints(button)
+			button.Chip.Text:SetPoint("CENTER", button.Chip, "CENTER", -7, 0)
+			button.Chip.Text:SetWordWrap(false)
+			button.Remove = W.Tex(button, "OVERLAY", "close", "textDim")
+			button.Remove:SetSize(10, 10)
+			button.Remove:SetPoint("RIGHT", button, "RIGHT", -6, 0)
+			button:SetScript("OnEnter", W.SimpleTip)
+			button:SetScript("OnLeave", W.HideTip)
+			button:SetScript("OnHide", W.HideTip)
+			button:SetScript("OnClick", function(self) self.psRemove() end)
+			strip.Chips[i] = button
+		end
+		button.Chip.Text:SetWidth(width - 30)
+		W.SetChip(button.Chip, group.text, "neutral", width)
+		button:SetWidth(width)
+		button.psTip, button.psTipLines, button.psRemove = group.tip, group.lines, group.remove
+		return button
+	end
+
+	local function paintStrip(groups, drawerHeight)
+		local strip = rawget(root, "FilterStrip")
+		if #groups == 0 then if strip then strip:Hide() end; return 0 end
+		if not strip then
+			strip = newChrome(drawerHeight)
+			strip:SetHeight(STRIP_H)
+			strip.Chips = {}
+			strip.Measure = W.Text(strip, "caption", "textDim")
+			strip.Measure:Hide()
+			strip.Clear = W.Button(strip, L["Clear all"], clearAll, { width = CLEAR_W, height = CHIP_H, ghost = true })
+			strip.Clear:SetPoint("RIGHT", strip, "RIGHT")
+			strip.Overflow = W.Button(strip, "", overflowMenu, { width = OVERFLOW_W, height = CHIP_H, ghost = true })
+			root.FilterStrip = strip
+		end
+		fixedButtonText(strip.Clear, L["Clear all"])
+		strip:SetPoint("TOPLEFT", root, "TOPLEFT", SH.pad, -4 - drawerHeight)
+		local room = strip:GetWidth() - CLEAR_W - 8
+		local total = -CHIP_GAP
+		for _, group in ipairs(groups) do
+			strip.Measure:SetText(group.text)
+			group.width = min(150, math.ceil(strip.Measure:GetUnboundedStringWidth()) + 30)
+			total = total + group.width + CHIP_GAP
+		end
+		local chipsRoom = total <= room and room or room - OVERFLOW_W - CHIP_GAP
+		local x, firstHidden = 0, nil
+		for i, group in ipairs(groups) do
+			local width = group.width
+			if x + width > chipsRoom then firstHidden = i; break end
+			local button = chipButton(strip, i, group, width)
+			button:SetPoint("LEFT", strip, "LEFT", x, 0)
+			button:Show()
+			x = x + width + CHIP_GAP
+		end
+		local overflow = strip.Overflow
+		overflow.psGroups, overflow.psFirst = groups, firstHidden
+		if firstHidden then
+			fixedButtonText(overflow, format(L["+%d"], #groups - firstHidden + 1))
+			overflow:SetPoint("LEFT", strip, "LEFT", x, 0)
+		else
+			if W.MenuShown(overflow) then W.HideMenu() end
+		end
+		overflow:SetShown(firstHidden ~= nil)
+		for i = firstHidden or #groups + 1, #strip.Chips do strip.Chips[i]:Hide() end
+		strip:Show()
+		return STRIP_H
+	end
+
+	function filtersUI.Paint(c)
+		buildChipGroups(c)
+		local height = paintDrawer(c)
+		height = height + paintStrip(groups, height)
+		if height ~= chromeHeight then
+			chromeHeight = height
+			results:SetPoint("TOPLEFT", root, "TOPLEFT", 0, -4 - height)
+		end
+		local owner = rawget(root, "FilterMenuOwner")
+		if owner and not owner:IsVisible() then filtersUI.HideMenu() end
+		if headerFocus and not headerFocus:IsVisible() and root:IsVisible() and UI.Picker.HasSectionKeys() then
+			setKeyboardFocus(nil, root.Visibility)
+		end
+		return #groups
+	end
+
+	function filtersUI.FocusOrder()
+		local controls = {}
+		if root.SearchOrder:IsVisible() then controls[#controls + 1] = root.SearchOrder end
+		controls[#controls + 1] = root.Visibility
+		local drawer, strip = rawget(root, "FilterDrawer"), rawget(root, "FilterStrip")
+		if drawer and drawer:IsVisible() then
+			local item = rawget(drawer, "Item")
+			if item and item:IsVisible() then
+				local first, second = item.Required, item.Level
+				for _, b in ipairs({ first.Min, first.Max, second.Min, second.Max, item.Class, item.Rarity, item.Slot }) do
+					controls[#controls + 1] = b
+				end
+			end
+			for _, b in ipairs(drawer.Availability) do controls[#controls + 1] = b end
+		end
+		if strip and strip:IsVisible() then
+			for _, b in ipairs(strip.Chips) do if b:IsShown() then controls[#controls + 1] = b end end
+			if strip.Overflow:IsShown() then controls[#controls + 1] = strip.Overflow end
+			controls[#controls + 1] = strip.Clear
+		end
+		return controls
+	end
+
+	function filtersUI.DiscardRanges()
+		local drawer = rawget(root, "FilterDrawer")
+		local item = drawer and rawget(drawer, "Item")
+		if not item then return end
+		for _, range in ipairs({ item.Required, item.Level }) do
+			restoreRange(range, range.appliedLo, range.appliedHi)
+			range.Min:ClearFocus()
+			range.Max:ClearFocus()
+		end
+	end
+
+	local function finishRanges()
+		local drawer = rawget(root, "FilterDrawer")
+		local item = drawer and rawget(drawer, "Item")
+		if item and item:IsShown() then
+			commitRange(item.Required)
+			commitRange(item.Level)
+		end
+	end
+
+	function filtersUI.Toggle()
+		filtersUI.HideMenu()
+		if drawerOpen then
+			finishRanges()
+			filtersUI.DiscardRanges()
+		end
+		drawerOpen = not drawerOpen
+		showControls(current())
+		W.SetScrollContent(results, results.psContent, viewHeight())
+		paintVisible()
+	end
+
+	function filtersUI.Hide()
+		if drawerOpen then finishRanges() end
+		drawerOpen = false
+		filtersUI.HideMenu()
+		filtersUI.DiscardRanges()
+		root.SearchOrder:Hide()
+		root.Visibility:Hide()
+		local drawer, strip = rawget(root, "FilterDrawer"), rawget(root, "FilterStrip")
+		if drawer then drawer:Hide() end
+		if strip then strip:Hide() end
+	end
+end
+installFilterChrome()
 
 ---------------------------------------------------------------------------
 -- The hub section
@@ -2160,10 +2872,9 @@ function LK.Build(parent, hub)
 	root.CodexLine = W.Text(hub.TabRow, "small", "textMuted")
 	root.CodexLine:SetPoint("LEFT", hub.TabRow, "LEFT", SH.pad, 0)
 	root.CodexLine:SetWidth(MID_W - SH.pad * 2)
-	local opts = { icon = "chevron-down", height = 24 }
-	root.Visibility = W.Button(hub.Header, L["Filters"], headerMenu, opts)
+	root.Visibility = W.Button(hub.Header, L["Filters"], filtersUI.Toggle, { icon = "chevron-down", height = 24, width = 112 })
 	root.Visibility:SetPoint("BOTTOMRIGHT", hub.Header, "BOTTOMRIGHT", -SH.pad, 16)
-	root.SearchOrder = W.Button(hub.Header, ORDER_CHOICES[1].text, headerMenu, opts)
+	root.SearchOrder = W.Button(hub.Header, ORDER_CHOICES[1].text, headerMenu, { icon = "chevron-down", height = 24, width = 184 })
 	root.SearchOrder:SetPoint("RIGHT", root.Visibility, "LEFT", -8, 0)
 	root.SearchOrder:Hide()
 	root.Visibility:Hide()
@@ -2173,6 +2884,7 @@ function LK.Build(parent, hub)
 	-- in Best match. A search left in the box keeps its order with it.
 	hub:HookScript("OnHide", function()
 		resetCategoryVisit()
+		filtersUI.Hide()
 		local P = UI.Picker
 		local text = P and P.Query and P.Query() or query
 		if text == "" and order ~= "best" then
@@ -2180,19 +2892,20 @@ function LK.Build(parent, hub)
 			stale()
 		end
 	end)
-	parent:HookScript("OnHide", resetCategoryVisit)
+	parent:HookScript("OnHide", function()
+		resetCategoryVisit()
+		filtersUI.Hide()
+	end)
 	-- Leaving the section, not Polestar hiding (its layer hides the hub with
 	-- the section still open: a search running goes on). The hub leaves a
 	-- section by hiding the section's frame, `parent`, not this one: with
 	-- only its own state read, the line stayed over the guide list's tabs
 	-- (#2692).
 	root:SetScript("OnHide", function(self)
-		if W.MenuShown(root.SearchOrder) or W.MenuShown(root.Visibility) then W.HideMenu() end
+		filtersUI.Hide()
 		if self:IsShown() and parent:IsShown() then return end
 		cancelPending()
 		root.CodexLine:Hide()
-		root.SearchOrder:Hide()
-		root.Visibility:Hide()
 	end)
 	buildDetails()
 	return root
@@ -2314,15 +3027,10 @@ ns.On("PACKS_CHANGED", guidesChanged)
 -- Search ranks by the suggestion source's guides: a new source ranks anew.
 -- The "New in Forever" mark shows or goes on the pages at once.
 ns.On("SETTING_CHANGED", function(path)
-	if path == "behavior.suggestFrom" or path == "behavior" or path == "" then guidesChanged() end
+	if path == "behavior.suggestFrom" or path == "behavior" then guidesChanged() end
 	if path == "lookup.enabled" then namesChanged() end
 	if path == "lookup" or path == "lookup.hideRetired" or path == "lookup.hideNoSource" or path == "" then
-		stale()
-		if root and root:IsVisible() then
-			W.ScrollTo(results, 0)
-			refresh()
-			if query ~= "" or kind ~= "all" then selectFirst(true) end
-		end
+		if not filtersUI.clearingAvailability then restartList() end
 	end
 	if path == "ui.newInForever" then LK.Render() end
 end)

@@ -1817,6 +1817,8 @@ end
 P.ActiveSection = activeSection
 
 local keyOwner, keyFrame
+function P.HasSectionKeys() return keyOwner ~= nil end
+
 local function releaseSectionKeys()
 	if not keyOwner then return end
 	local owner = keyOwner
@@ -1825,12 +1827,10 @@ local function releaseSectionKeys()
 	owner.keyboard()
 end
 
-local function sectionTab(box)
+function P.FocusSectionKeys()
 	local s = activeSection()
 	if not (s and s.keyboard and win:IsVisible()) or ns.Compat.InCombat() then return end
-	local handled, keepFocus = s.keyboard("TAB", true, ns.Compat.IsShiftKeyDown())
-	if not (handled and keepFocus) then return end
-	box:ClearFocus()
+	win.Search:ClearFocus()
 	if not keyFrame then
 		keyFrame = CreateFrame("Frame", nil, win)
 		keyFrame:EnableKeyboard(true)
@@ -1843,6 +1843,13 @@ local function sectionTab(box)
 	end
 	keyOwner = s
 	keyFrame:Show()
+end
+
+local function sectionTab()
+	local s = activeSection()
+	if not (s and s.keyboard and win:IsVisible()) or ns.Compat.InCombat() then return end
+	local handled, keepFocus = s.keyboard("TAB", true, ns.Compat.IsShiftKeyDown())
+	if handled and keepFocus then P.FocusSectionKeys() end
 end
 
 ns.RegisterEvent("PLAYER_REGEN_DISABLED", releaseSectionKeys)
@@ -2298,6 +2305,10 @@ local function build()
 		if s and s.step then s.step(d) elseif not s then step(d) end
 	end)
 	win.Search:SetScript("OnTabPressed", sectionTab)
+	win.Search:SetScript("OnEscapePressed", function(self)
+		local s = activeSection()
+		if not (s and s.keyboard and s.keyboard("ESCAPE", true)) then self:ClearFocus() end
+	end)
 	win.Search:HookScript("OnEditFocusGained", releaseSectionKeys)
 
 	-- Middle: the header, tab row and list end where the details begin; no

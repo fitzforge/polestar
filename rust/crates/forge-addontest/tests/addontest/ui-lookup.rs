@@ -32,6 +32,11 @@ local function nav(key)
 	for _, b in ipairs(PolestarPicker.navButtons) do if b.psKey == key and b:IsShown() then return b end end
 end
 local function lookupShown() return PolestarPicker:IsShown() and Polestar.UI.Picker.Section() == "Lookup" end
+local function colorIs(label, token)
+	local r, g, b = label:GetTextColor()
+	local tr, tg, tb = Polestar.Theme.Color(token)
+	return r == tr and g == tg and b == tb
+end
 local function navKeys()
 	local out = {}
 	for _, b in ipairs(PolestarPicker.navButtons) do if b:IsShown() then out[#out + 1] = b.psKey end end
@@ -103,11 +108,15 @@ fn run_category_lookup(script: &str) -> Value {
 	for i in 1..=53 {
 		items[(100 + i).to_string()] = json!({ "name": format!("Trial Sword {i:02}"), "itemClass": 2, "itemSubclass": 7 });
 	}
-	let pack = write_codex_pack(&json!({ "items": items }), &CodexOpts::default());
+	run_packed_lookup(&json!({ "items": items }), script)
+}
+
+fn run_packed_lookup(codex: &Value, script: &str) -> Value {
+	let pack = write_codex_pack(codex, &CodexOpts::default());
 	emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
 		before: pack.stub_lua.clone(),
-		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Lookup/Lookup.xml", "UI/UI.xml"])],
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Gear/Weights.lua", "Theme/Theme.xml", "Lookup/Lookup.xml", "UI/UI.xml"])],
 		script: [
 			r#"
 			stub.Methods.EnableKeyboard = function(self, on) self.keyboard = on end
@@ -147,7 +156,6 @@ fn item_category_tree_counts_and_folds_are_independent_of_selection_and_paging()
 			totals[queryCalls] = opts.categoryTotals
 			return query(q, opts)
 		end
-		LK.SetItemFilters({ reqMin = 10 })
 		UI.ShowLookup({ query = "trial" })
 		local win = PolestarPicker
 		local items = assert(nav("item"))
@@ -161,7 +169,7 @@ fn item_category_tree_counts_and_folds_are_independent_of_selection_and_paging()
 		local armor, consumable = assert(navLabel("Armor")), assert(navLabel("Consumable"))
 		assert(weapon:GetHeight() == 32 and not navLabel("Sword"))
 		assert(armor.Count:GetText() == "1" and weapon.Count:GetText() == "54")
-		assert(consumable.psEmpty and not consumable.Count:IsShown() and consumable.Count:GetText() == "")
+		assert(consumable.psEmpty and not consumable.Count:IsShown() and colorIs(consumable.Label, "textMuted"))
 		local function y(row) return select(5, row:GetPoint(1)) end
 		assert(y(armor) > y(consumable) and y(consumable) > y(navLabel("Container")) and y(navLabel("Container")) > y(weapon))
 		local unknownClass = assert(navLabel("Category 42"))
@@ -208,6 +216,7 @@ fn item_category_tree_counts_and_folds_are_independent_of_selection_and_paging()
 		assert(win.Title:GetText() == "Items" and LK.shown.groups[1].count == 56)
 		navLabel("Consumable"):Click()
 		assert(LK.Selected() == nil and win.Subtitle:GetText() == "0 results for “trial”")
+		assert(colorIs(navLabel("Consumable").Label, "text"), "selection wins when a tree row is empty")
 		type_("trial axe")
 		local beforeClick = queryCalls
 		navLabel("Weapon"):Click()
@@ -296,6 +305,14 @@ fn item_category_sidebar_keyboard_reveals_rows_and_releases_on_hub_lifecycle() {
 		local top = -select(5, sword:GetPoint(1))
 		local scroll = win.NavScroll:GetVerticalScroll()
 		assert(focused(sword) and top >= scroll and top + sword:GetHeight() <= scroll + win.NavScroll.psView)
+		-- A mouse scroll can leave the focused row out of view until focus moves.
+		stub.RunScript(win.NavScroll, "OnMouseWheel", 20)
+		stub.advance(0.3)
+		UI.Picker.RenderSectionNav()
+		assert(win.NavScroll:GetVerticalScroll() == 0 and focused(sword))
+		key("UP")
+		assert(focused(navLabel("Axe")) and win.NavScroll:GetVerticalScroll() > 0)
+		key("DOWN")
 		key("SPACE")
 		assert(win.Title:GetText() == "Items › Weapon › Sword")
 		navLabel("Weapon").Toggle:Click()
@@ -344,18 +361,587 @@ fn older_codex_pack_has_the_unchanged_flat_lookup_sidebar() {
 		r#"
 		Polestar.Codex.RegisterFilters = nil
 		UI.ShowLookup({ query = "trial" })
-		local win, box = PolestarPicker, UI.Picker.search
+		local win = PolestarPicker
 		assert(Polestar.Codex.IsLoaded() and not Polestar.Codex.HasFilters())
-		stub.RunScript(box, "OnTabPressed")
-		assert(box:HasFocus())
+		local view = LK.results.psView
+		LK.root.Visibility:Click()
+		local drawer = LK.root.FilterDrawer
+		assert(drawer:IsVisible() and drawer:GetHeight() == 52 and not rawget(drawer, "Item"))
+		assert(#drawer.Availability == 2 and LK.results.psView == view - 52)
 		for _, b in ipairs(win.navButtons) do
 			if b:IsShown() then assert(b:GetHeight() == 36 and not rawget(b, "Toggle")) end
 		end
+		stub.RunScript(UI.Picker.search, "OnTabPressed")
+		local route
+		for _, f in ipairs(stub.frames) do
+			if f:GetParent() == win and f.keyboard and f:IsVisible() then route = f; break end
+		end
+		assert(route, "Tab enters flat sidebar navigation")
+		stub.RunScript(route, "OnKeyDown", "LEFT")
+		assert(route.propagateKeyboard, "Left passes through on a flat sidebar")
+		stub.RunScript(route, "OnKeyDown", "RIGHT")
+		assert(route.propagateKeyboard, "Right passes through on a flat sidebar")
+		stub.RunScript(route, "OnKeyDown", "DOWN")
+		assert(not route.propagateKeyboard, "Down still navigates the sidebar")
 		emit({ keys = navKeys(), counts = navCounts() })
 	"#,
 	);
 	assert_eq!(out["keys"], json!(["all", "mount", "item"]));
 	assert_eq!(out["counts"], json!(["57", "1", "56"]));
+}
+
+fn run_filter_drawer(script: &str) -> Value {
+	let mut codex = json!({
+		"items": {
+			"71": { "name": "Trial Charm", "reqLevel": 0, "itemLevel": 10, "slot": 0, "allowClass": 128, "itemClass": 0, "itemSubclass": 0, "quality": 5, "levelsSource": "client", "stats": { "4": 0 } },
+			"72": { "name": "Trial Tunic", "reqLevel": 10, "itemLevel": 20, "slot": 5, "allowClass": 1503, "itemClass": 4, "itemSubclass": 1, "quality": 6 },
+			"73": { "name": "Trial Quiver", "reqLevel": 20, "itemLevel": 25, "slot": 27, "allowClass": 4, "itemClass": 11, "itemSubclass": 2, "quality": 7 },
+			"74": { "name": "Trial Shield", "slot": 14, "allowClass": 1503, "itemClass": 4, "itemSubclass": 6, "quality": 5 },
+			"75": { "name": "Trial Mount", "kind": "mount", "reqLevel": 0, "slot": 0, "quality": 5 },
+			"76": { "name": "Trial Pet", "kind": "pet", "reqLevel": 10, "slot": 0, "quality": 6 },
+			"77": { "name": "Trial Recipe", "kind": "recipe", "reqLevel": 10, "slot": 0, "quality": 4 },
+			"78": { "name": "Trial Tabard", "kind": "tabard", "reqLevel": 0, "slot": 19, "quality": 5 },
+			"79": { "name": "Retired Trial", "kind": "mount", "reqLevel": 0, "slot": 0, "quality": 5, "status": "retired" },
+			"80": { "name": "Trial Unknown Source", "reqLevel": 0, "slot": 0, "status": "nosource" },
+			"81": { "name": "Token Fixture", "kind": "mount", "quality": 8 }
+		},
+		"quests": { "90": { "title": "Trial Quest" } }
+	});
+	for i in 1..=53 {
+		codex["items"][(100 + i).to_string()] = json!({
+			"name": format!("Trial Sword {i:02}"), "reqLevel": 10, "itemLevel": 20, "slot": 13, "itemClass": 2, "itemSubclass": 7, "quality": 2
+		});
+	}
+	run_packed_lookup(
+		&codex,
+		&[
+			r#"
+			local function edit(box, text)
+				box:SetText(text)
+				stub.RunScript(box, "OnTextChanged", true)
+			end
+			local function openDrawer()
+				LK.root.Visibility:Click()
+				local drawer = LK.root.FilterDrawer
+				assert(drawer:IsVisible())
+				return drawer, rawget(drawer, "Item")
+			end
+			local function focusMark(button)
+				local mark = rawget(button, "KeyboardFocus")
+				return mark and mark:IsShown()
+			end
+			local function keyboardFrame()
+				for _, f in ipairs(stub.frames) do
+					if f:GetParent() == PolestarPicker and f.keyboard and f:IsVisible() then return f end
+				end
+			end
+			local function key(k)
+				stub.RunScript(assert(keyboardFrame(), "No Lookup keyboard frame"), "OnKeyDown", k)
+			end
+			local function gameKey(k)
+				local route = keyboardFrame()
+				if route then
+					stub.RunScript(route, "OnKeyDown", k)
+					if not route.propagateKeyboard then return false end
+				end
+				if stub.focus then return false end
+				if k == "ESCAPE" then
+					-- Model the client's Escape handling once the key reaches it.
+					for _, name in ipairs(UISpecialFrames) do
+						local f = _G[name]
+						if f and f:IsShown() then f:Hide() end
+					end
+				end
+				return true
+			end
+			local function clickOutsideMenu()
+				for _, f in ipairs(stub.frames) do
+					if f:IsVisible() and f:GetFrameStrata() == "FULLSCREEN_DIALOG" and f:GetFrameLevel() == 1 then
+						f:Click()
+						assert(not PolestarMenu:IsShown())
+						return
+					end
+				end
+				error("No menu outside-click catcher")
+			end
+			"#,
+			script,
+		]
+		.join("\n"),
+	)
+}
+
+#[test]
+fn lookup_drawer_ranges_commit_zero_open_bounds_and_discard_invalid_drafts() {
+	let out = run_filter_drawer(
+		r#"
+		UI.ShowLookup({ query = "trial" })
+		nav("item"):Click()
+		local _, item = openDrawer()
+		local req, level = item.Required, item.Level
+		assert(req.Min.Hint:GetText() == "Min" and req.Max.Hint:GetText() == "Max")
+		local query, queries = Polestar.Search.Query, 0
+		Polestar.Search.Query = function(...) queries = queries + 1; return query(...) end
+		LK.More()
+		assert(LK.shown.rows > 50, "second page is open")
+		type_("trial charm")
+		local before = queries
+		req.Max:SetFocus()
+		edit(req.Max, "0")
+		stub.RunScript(req.Max, "OnEnterPressed")
+		assert(LK.Query() == "trial charm" and LK.ItemFilters().reqMax == 0 and LK.ItemFilters().reqMin == nil)
+		assert(LK.shown.rows == 1 and LK.Selected().id == 71 and LK.results:GetVerticalScroll() == 0)
+		assert(#LK.Recent() == 0 and queries == before + 1)
+		stub.advance(0.3)
+		assert(queries == before + 1, "the debounced query was consumed")
+		edit(req.Max, "2.5")
+		stub.RunScript(req.Max, "OnEnterPressed")
+		assert(req.Max.psTip == "Enter whole levels from 0 to 999." and colorIs(req.Max, "warning"))
+		assert(LK.ItemFilters().reqMax == 0 and queries == before + 1)
+		stub.RunScript(req.Max, "OnEscapePressed")
+		assert(req.Max:GetText() == "0" and req.Max.psTip == nil and not req.Max:HasFocus())
+		edit(req.Min, "20")
+		stub.RunScript(req.Min, "OnEditFocusLost")
+		assert(req.Min.psTip == "Minimum must be at or below maximum." and LK.ItemFilters().reqMin == nil)
+		edit(req.Max, "999")
+		stub.RunScript(req.Max, "OnEditFocusLost")
+		assert(LK.ItemFilters().reqMin == 20 and LK.ItemFilters().reqMax == 999)
+		assert(LK.root.FilterStrip.Chips[1].Chip.Text:GetText() == "Required level · 20–999")
+		edit(req.Max, "1000")
+		LK.root.Visibility:Click()
+		assert(not LK.root.FilterDrawer:IsShown())
+		openDrawer()
+		assert(req.Max:GetText() == "999" and req.Max.psTip == nil)
+		edit(req.Max, "")
+		stub.RunScript(req.Max, "OnEditFocusLost")
+		assert(LK.ItemFilters().reqMin == 20 and LK.ItemFilters().reqMax == nil)
+		assert(LK.root.FilterStrip.Chips[1].Chip.Text:GetText() == "Required level · 20 or higher")
+		edit(req.Min, "")
+		stub.RunScript(req.Min, "OnEditFocusLost")
+		assert(next(LK.ItemFilters()) == nil and not LK.root.FilterStrip:IsShown())
+		edit(level.Min, "10")
+		edit(level.Max, "10")
+		stub.RunScript(level.Max, "OnEnterPressed")
+		assert(LK.ItemFilters().ilvlMin == 10 and LK.ItemFilters().ilvlMax == 10 and LK.Selected().id == 71)
+		LK.root.FilterStrip.Clear:Click()
+		type_("")
+		assert(choose(item.Slot, "One-hand"))
+		assert(LK.shown.rows == 50 and LK.shown.groups[1].count == 53 and LK.Selected().id == 101)
+		LK.More()
+		assert(LK.shown.rows == 53 and LK.Selected().id == 101 and bottom()[#bottom()] == "Trial Sword 53")
+		emit(true)
+		"#,
+	);
+	assert_eq!(out, json!(true));
+}
+
+#[test]
+fn lookup_mouse_picks_leave_tab_to_the_game_and_order_escape_closes_the_hub() {
+	let out = run_filter_drawer(
+		r#"
+		UI.ShowLookup({ query = "trial" })
+		UI.Picker.search:ClearFocus()
+		local _, item = openDrawer()
+		item.Rarity:Click()
+		assert(menuChoice("Legendary")):Click()
+		clickOutsideMenu()
+		assert(LK.ItemFilters().quality[1] == 5)
+		assert(gameKey("TAB") and not keyboardFrame() and not focusMark(item.Rarity), "mouse menu leaves Tab to the game")
+
+		item.Slot:Click()
+		assert(PolestarMenu.Filter:HasFocus(), "a mouse-opened long menu can still filter")
+		edit(PolestarMenu.Filter, "shield")
+		stub.RunScript(PolestarMenu.Filter, "OnEnterPressed")
+		assert(LK.ItemFilters().slot == 14 and not PolestarMenu.Filter:HasFocus())
+		assert(gameKey("TAB") and not keyboardFrame(), "the long menu releases its edit box")
+
+		LK.root.Visibility:Click()
+		assert(choose(LK.root.SearchOrder, "A to Z") and LK.Order() == "az")
+		assert(gameKey("ESCAPE") and not PolestarPicker:IsShown(), "one Escape closes the hub after a mouse order pick")
+		emit(true)
+		"#,
+	);
+	assert_eq!(out, json!(true));
+}
+
+#[test]
+fn lookup_mouse_range_focus_loss_commits_and_leaves_tab_to_the_game() {
+	let out = run_filter_drawer(
+		r#"
+		UI.ShowLookup({ query = "trial" })
+		local _, item = openDrawer()
+		local box = item.Required.Min
+		box:SetFocus()
+		stub.RunScript(box, "OnEditFocusGained")
+		edit(box, "10")
+		box:ClearFocus()
+		stub.RunScript(box, "OnEditFocusLost")
+		assert(LK.ItemFilters().reqMin == 10)
+		assert(gameKey("TAB") and not keyboardFrame() and not focusMark(box), "mouse focus loss leaves Tab to the game")
+		box:SetFocus()
+		stub.RunScript(box, "OnEditFocusGained")
+		stub.RunScript(box, "OnTabPressed")
+		assert(item.Required.Max:HasFocus() and keyboardFrame(), "Tab from a range still enters routing")
+		emit(true)
+		"#,
+	);
+	assert_eq!(out, json!(true));
+}
+
+#[test]
+fn lookup_hub_close_commits_valid_range_drafts_and_discards_invalid_ones() {
+	let out = run_filter_drawer(
+		r#"
+		LK.SetItemFilters({ ilvlMax = 25 })
+		UI.ShowLookup({ query = "trial" })
+		local drawer, item = openDrawer()
+		edit(item.Level.Max, "2.5")
+		item.Required.Min:SetFocus()
+		stub.RunScript(item.Required.Min, "OnEditFocusGained")
+		edit(item.Required.Min, "10")
+		assert(LK.ItemFilters().reqMin == nil)
+		PolestarPicker:Hide()
+		assert(not drawer:IsShown() and not item.Required.Min:HasFocus())
+		assert(LK.ItemFilters().reqMin == 10 and LK.ItemFilters().ilvlMax == 25)
+		UI.ToggleLookup()
+		openDrawer()
+		assert(item.Required.Min:GetText() == "10" and item.Level.Max:GetText() == "25" and not item.Level.Max.psTip)
+		emit(true)
+		"#,
+	);
+	assert_eq!(out, json!(true));
+}
+
+#[test]
+fn lookup_mouse_menu_opens_above_a_scaled_trigger_and_animates_upward() {
+	let out = run_filter_drawer(
+		r#"
+		UI.ShowLookup({ query = "trial" })
+		local _, item = openDrawer()
+		local class = item.Class
+		Polestar.Set("ui.reduceMotion", false)
+		class:SetScale(0.5)
+		class.y = 350
+		class:Click()
+		local menu = PolestarMenu
+		assert(class:GetBottom() > menu:GetHeight() and class:GetBottom() * 0.5 < menu:GetHeight())
+		local point, anchor, relPoint, _, y = menu:GetPoint(1)
+		assert(point == "BOTTOMRIGHT" and anchor == class and relPoint == "TOPRIGHT")
+		assert(y == 0, "the popover starts toward the trigger")
+		stub.advance(0.3)
+		assert(select(5, menu:GetPoint(1)) == 4)
+		clickOutsideMenu()
+		class:SetScale(2)
+		class.y = 170
+		class:Click()
+		point, _, relPoint, _, y = menu:GetPoint(1)
+		assert(point == "TOPRIGHT" and relPoint == "BOTTOMRIGHT" and y == 0)
+		stub.advance(0.3)
+		assert(select(5, menu:GetPoint(1)) == -4)
+		emit(true)
+		"#,
+	);
+	assert_eq!(out, json!(true));
+}
+
+#[test]
+fn lookup_availability_probes_only_item_backed_kinds() {
+	let out = run_filter_drawer(
+		r#"
+		Polestar.Set("lookup.hideRetired", true)
+		local search = Polestar.Search
+		local query, count, sawMount = search.Query, search.BrowseCount, false
+		search.Query = function(text, opts)
+			if opts.limit == 0 and not opts.hideRetired then
+				sawMount = sawMount or opts.kinds.mount
+				for kind in pairs(opts.kinds) do
+					assert(LK.KIND[kind].item, "availability query probed " .. kind)
+				end
+			end
+			return query(text, opts)
+		end
+		search.BrowseCount = function(kind, opts)
+			if opts and opts.hideRetired == false then
+				assert(LK.KIND[kind].item, "availability browse probed " .. kind)
+			end
+			return count(kind, opts)
+		end
+		UI.ShowLookup({ query = "retired trial" })
+		assert(sawMount and nav("mount") and not nav("mount").Count:IsShown())
+		nav("mount"):Click()
+		assert(LK.shown.empty == "Filters hide every entry here.")
+		type_("")
+		assert(nav("mount").Count:GetText() == "2")
+		emit(true)
+		"#,
+	);
+	assert_eq!(out, json!(true));
+}
+
+#[test]
+fn lookup_drawer_class_rarity_and_raw_slots_apply_through_real_search() {
+	let out = run_filter_drawer(
+		r#"
+		UI.ShowLookup({ query = "trial" })
+		nav("item"):Click()
+		local _, item = openDrawer()
+		assert(choose(item.Class, "Mage"))
+		assert(LK.ItemFilters().class == "MAGE" and LK.shown.rows == 2 and LK.root.Visibility.Label:GetText() == "Filters (1)")
+		assert(item.Class.psTipLines[1] == "Uses item class restrictions and equipment proficiencies.")
+		assert(choose(item.Class, "Any class"))
+		item.Rarity:Click()
+		local any, legendary, artifact = menuChoice("Any rarity"), menuChoice("Legendary"), menuChoice("Artifact")
+		assert(any.Check:IsShown() and menuChoice("WoW Token"))
+		legendary:Click()
+		assert(PolestarMenu:IsShown() and menuChoice("Legendary") == legendary and legendary.Check:IsShown() and not any.Check:IsShown())
+		assert(LK.shown.rows == 2 and item.Rarity.Label:GetText() == "Legendary")
+		artifact:Click()
+		assert(PolestarMenu:IsShown() and artifact.Check:IsShown() and legendary.Check:IsShown())
+		assert(LK.shown.rows == 3 and item.Rarity.Label:GetText() == "2 rarities")
+		assert(LK.root.FilterStrip.Chips[1].psTipLines[1] == "Legendary, Artifact")
+		any:Click()
+		assert(PolestarMenu:IsShown() and any.Check:IsShown() and not artifact.Check:IsShown() and not legendary.Check:IsShown())
+		artifact:Click(); artifact:Click()
+		assert(any.Check:IsShown() and LK.ItemFilters().quality == nil)
+		clickOutsideMenu()
+		assert(not focusMark(item.Rarity) and LK.root.FilterDrawer:IsShown())
+		for _, sample in ipairs({ { "Armor and accessories", "Chest", 5, 72 }, { "Weapons and off-hand", "Shield", 14, 74 },
+			{ "Clothing and containers", "Quiver slot", 27, 73 }, { "Other slots", "Non-equippable", 0, 71 } }) do
+			item.Slot:Click()
+			local heading = assert(menuChoice(sample[1]))
+			assert(heading.psItem.disabled)
+			heading:Click()
+			assert(PolestarMenu:IsShown())
+			assert(menuChoice(sample[2])):Click()
+			assert(not PolestarMenu:IsShown() and LK.ItemFilters().slot == sample[3] and LK.Selected().id == sample[4])
+		end
+		assert(choose(item.Slot, "Mobility spell") and LK.ItemFilters().slot == 34 and LK.shown.rows == 0)
+		assert(item.Slot.Label:GetText() == "Mobility spell")
+		LK.root.FilterStrip.Chips[1]:Click()
+		assert(LK.ItemFilters().slot == nil and item.Slot.Label:GetText() == "Any slot")
+		Polestar.Gear = nil
+		assert(choose(item.Class, "Mage"))
+		assert(LK.ItemFilters().class == "MAGE" and LK.shown.rows == 50)
+		assert(item.Class.Label:GetText() == "Mage · Unknown")
+		emit(true)
+		"#,
+	);
+	assert_eq!(out, json!(true));
+}
+
+#[test]
+fn lookup_drawer_rarity_only_offers_wow_token_if_present_or_saved() {
+	let out = run_category_lookup(
+		r#"
+		UI.ShowLookup({ query = "trial" })
+		LK.root.Visibility:Click()
+		local rarity = LK.root.FilterDrawer.Item.Rarity
+		rarity:Click()
+		assert(menuChoice("Heirloom") and not menuChoice("WoW Token"))
+		rarity:Click()
+		LK.SetItemFilters({ quality = { 8 } })
+		UI.Picker.Render()
+		rarity:Click()
+		assert(menuChoice("WoW Token").Check:IsShown() and LK.shown.rows == 0)
+		menuChoice("WoW Token"):Click()
+		assert(PolestarMenu:IsShown() and not menuChoice("WoW Token") and menuChoice("Any rarity").Check:IsShown())
+		emit(true)
+		"#,
+	);
+	assert_eq!(out, json!(true));
+}
+
+#[test]
+fn lookup_filter_scope_empty_precedence_history_and_character_storage() {
+	let out = run_filter_drawer(
+		r##"
+		local owner, other = Polestar.CharState(), {}
+		local history = { { kind = "item", id = 72, title = "Trial Tunic" }, { kind = "item", id = 71, title = "Trial Charm" } }
+		owner.ui = { recentLookups = history }
+		UI.ShowLookup({ query = "trial" })
+		local drawer, item = openDrawer()
+		edit(item.Required.Max, "0")
+		stub.RunScript(item.Required.Max, "OnEnterPressed")
+		local counts = {}
+		for _, group in ipairs(LK.shown.groups) do counts[group.kind] = group.count end
+		assert(counts.item == 2 and counts.mount == 2 and counts.tabard == 1 and counts.quest == 1)
+		assert(not counts.pet and not counts.recipe and nav("pet") and nav("recipe") and not nav("pet").Count:IsShown())
+		nav("pet"):Click()
+		assert(LK.shown.empty == "Filters hide every entry here." and not LK.Selected())
+		type_("absent"); stub.advance(0.3)
+		assert(LK.shown.empty == "Nothing matches “absent”.")
+		type_("#76"); stub.advance(0.3)
+		assert(LK.shown.empty == "Filters hide every entry here.")
+		type_("#999"); stub.advance(0.3)
+		assert(LK.shown.empty == "No item with that ID here.")
+		type_("")
+		assert(LK.shown.empty == "Filters hide every entry here.")
+		LK.SetKind("treasure")
+		assert(LK.shown.empty == "Nothing to list here.")
+		assert(drawer:GetHeight() == 52 and not item:IsShown() and not LK.root.FilterStrip:IsShown())
+		drawer.Availability[1]:Click()
+		assert(drawer.Availability[1].Check:GetChecked() and LK.root.FilterStrip:IsShown())
+		LK.root.FilterStrip.Clear:Click()
+		assert(not Polestar.Get("lookup.hideRetired") and LK.ItemFilters().reqMax == 0)
+		LK.SetKind("all")
+		assert(LK.shown.groups[1] == nil and LK.shown.rows == 2 and not LK.Selected())
+		local recent = rowTexts(LK.results.Child)
+		assert(recent[1] == "Trial Tunic" and recent[2] == "Trial Charm")
+		assert(LK.root.Visibility.psTipLines[1] == "Recent lookups show your history.")
+		assert(nav("item").Count:GetText() == "2" and nav("pet") and not nav("pet").Count:IsShown())
+		local char = Polestar.CharState
+		PolestarPicker:Hide()
+		Polestar.CharState = function() return other end
+		UI.ToggleLookup()
+		assert(next(LK.ItemFilters()) == nil and not LK.root.FilterDrawer:IsShown())
+		_, item = openDrawer()
+		assert(item.Required.Max:GetText() == "")
+		assert(choose(item.Slot, "Shield") and other.ui.lookupItemFilters.slot == 14)
+		PolestarPicker:Hide()
+		Polestar.CharState = char
+		UI.ToggleLookup()
+		_, item = openDrawer()
+		assert(item.Required.Max:GetText() == "0" and item.Slot.Label:GetText() == "Any slot")
+		assert(owner.ui.recentLookups == history and #history == 2)
+		emit(true)
+		"##,
+	);
+	assert_eq!(out, json!(true));
+}
+
+#[test]
+fn lookup_filter_chips_overflow_and_clear_every_displayed_group_in_one_update() {
+	let out = run_filter_drawer(
+		r#"
+		LK.SetItemFilters({ reqMin = 0, reqMax = 10, ilvlMin = 10, class = "MAGE", quality = { 5, 6 }, slot = 0, stat = 4 })
+		Polestar.Set("lookup.hideRetired", true)
+		Polestar.Set("lookup.hideNoSource", true)
+		local char = Polestar.CharState()
+		local history = { { kind = "item", id = 72, title = "Trial Tunic" } }
+		char.ui.recentLookups = history
+		UI.ShowLookup({ query = "trial" })
+		LK.SetOrder("az")
+		nav("item").Toggle:Click()
+		navLabel("Consumable"):Click()
+		local strip = LK.root.FilterStrip
+		assert(strip:IsShown() and LK.root.Visibility.Label:GetText() == "Filters (9)", LK.root.Visibility.Label:GetText())
+		assert(strip.Chips[1].Chip.Text:GetText() == "Items · Consumable", strip.Chips[1].Chip.Text:GetText())
+		assert(strip.Overflow:IsShown() and strip.Overflow:GetWidth() == 52, "overflow target")
+		local overflow = strip.Overflow.Label:GetText()
+		strip.Overflow:Click()
+		assert(menuChoice("Stat · Strength"), "saved stat appears in overflow")
+		assert(menuChoice("Hide no known source")):Click()
+		assert(not Polestar.Get("lookup.hideNoSource") and Polestar.Get("lookup.hideRetired"), "remove only the chosen overflow chip")
+		assert(LK.root.Visibility.Label:GetText() == "Filters (8)" and overflow ~= strip.Overflow.Label:GetText(), "overflow and header summary updated")
+		strip.Chips[1]:Click()
+		assert(PolestarPicker.Title:GetText() == "Items" and LK.root.Visibility.Label:GetText() == "Filters (7)", "remove the category chip")
+		navLabel("Consumable"):Click()
+		Polestar.Set("lookup.hideNoSource", true)
+		local query, calls = Polestar.Search.Query, 0
+		Polestar.Search.Query = function(...) calls = calls + 1; return query(...) end
+		type_("trial tunic")
+		strip.Clear:Click()
+		assert(calls == 1 and not strip:IsShown() and LK.root.Visibility.Label:GetText() == "Filters", "Clear all queried " .. calls .. " times")
+		assert(LK.Kind() == "item" and PolestarPicker.Title:GetText() == "Items" and LK.Selected().id == 72, "Clear all returns to Items root")
+		assert(next(LK.ItemFilters()) == nil and not Polestar.Get("lookup.hideRetired") and not Polestar.Get("lookup.hideNoSource"), "all filters reset")
+		assert(LK.Query() == "trial tunic" and LK.Order() == "az" and char.ui.recentLookups == history and #history == 1, "query, order and history are retained")
+		stub.advance(0.3)
+		assert(calls == 1)
+		emit(true)
+		"#,
+	);
+	assert_eq!(out, json!(true));
+}
+
+#[test]
+fn lookup_filter_drawer_and_strip_fit_both_hub_widths_and_keyboard_uses_the_shorter_view() {
+	for (skin, width, pad, inner) in [("polestar", 1120, 32, 442), ("halo", 1100, 28, 440)] {
+		let out = run_filter_drawer(&format!(
+			r#"
+			Polestar.Set("ui.skin", "{skin}")
+			LK.SetItemFilters({{ reqMin = 10 }})
+			UI.ShowLookup({{ query = "trial" }})
+			nav("item"):Click()
+			local win, box, sf = PolestarPicker, UI.Picker.search, LK.results
+			assert(win:GetWidth() - win.psRail == {width})
+			local withStrip = sf.psView
+			local strip = LK.root.FilterStrip
+			assert(strip:GetWidth() == {inner} and strip:GetHeight() == 32 and strip.Chips[1]:GetHeight() == 24)
+			assert(select(4, strip:GetPoint(1)) == {pad} and select(5, sf:GetPoint(1)) == -36)
+			strip.Chips[1]:Click()
+			local baseline = sf.psView
+			assert(baseline - withStrip == 32)
+			local before = LK.shown
+			local drawer, item = openDrawer()
+			assert(LK.shown == before and sf.psView == baseline - 160)
+			assert(drawer:GetHeight() == 160 and drawer:GetWidth() == {inner} and select(4, drawer:GetPoint(1)) == {pad})
+			assert(item.Class:GetWidth() == 116 and item.Class:GetHeight() == 26 and item.Required.Max:GetWidth() == 42)
+			assert(select(4, item.Required.Min:GetPoint(1)) == -6 and item.Required.Min:GetHeight() == 26)
+			assert(win.Search:IsShown() and LK.root.Visibility:GetWidth() == 112 and LK.root.SearchOrder:GetWidth() == 184)
+			assert(choose(item.Slot, "One-hand") and sf.psView == baseline - 192 and select(5, sf:GetPoint(1)) == -196)
+			assert(LK.shown.rows == 50 and LK.Selected().id == 101)
+			local tail = bottom()
+			assert(tail[#tail] == "Show more (3 more)" and sf:GetVerticalScroll() == sf.psContent - sf.psView)
+			rowFor(sf.Child, "Show more (3 more)"):Click()
+			assert(LK.shown.rows == 53)
+			Polestar.Widgets.ScrollTo(sf, 0)
+			for _ = 1, 20 do LK.Step(1) end
+			assert(sf:GetVerticalScroll() > 0 and rowFor(sf.Child, LK.Selected().title))
+			rowFor(sf.Child, LK.Selected().title):Click()
+			assert(drawer:IsShown())
+			local historyCount = #LK.Recent()
+			-- Search -> sidebar -> order -> Filters -> range fields -> menus.
+			box:SetFocus()
+			stub.RunScript(box, "OnEditFocusGained")
+			stub.RunScript(box, "OnTabPressed")
+			assert(focusMark(nav("item")))
+			key("TAB"); assert(focusMark(LK.root.SearchOrder))
+			key("TAB"); assert(focusMark(LK.root.Visibility))
+			key("TAB"); assert(item.Required.Min:HasFocus())
+			stub.RunScript(item.Required.Min, "OnTabPressed")
+			assert(item.Required.Max:HasFocus())
+			stub.RunScript(item.Required.Max, "OnEscapePressed")
+			assert(drawer:IsShown())
+			key("ESCAPE"); assert(not drawer:IsShown())
+			assert(focusMark(LK.root.Visibility))
+			key("SPACE")
+			key("TAB")
+			for _, range in ipairs({{ item.Required, item.Level }}) do
+				stub.RunScript(range.Min, "OnTabPressed")
+				stub.RunScript(range.Max, "OnTabPressed")
+			end
+			assert(focusMark(item.Class))
+			key("SPACE")
+			key("DOWN"); key("ENTER")
+			assert(LK.ItemFilters().class == "WARRIOR" and focusMark(item.Class) and #LK.Recent() == historyCount)
+			key("TAB"); key("TAB")
+			assert(focusMark(item.Slot))
+			key("SPACE")
+			assert(PolestarMenu.Filter:HasFocus())
+			stub.RunScript(PolestarMenu.Filter, "OnEscapePressed")
+			assert(not PolestarMenu:IsShown() and focusMark(item.Slot))
+			key("SPACE")
+			edit(PolestarMenu.Filter, "shield")
+			stub.RunScript(PolestarMenu.Filter, "OnEnterPressed")
+			assert(LK.ItemFilters().slot == 14 and focusMark(item.Slot) and #LK.Recent() == historyCount)
+			item.Rarity:Click()
+			UI.Picker.ShowSection("Guides")
+			assert(not PolestarMenu:IsShown() and not drawer:IsShown() and not strip:IsShown())
+			UI.Picker.ShowSection("Lookup")
+			assert(not drawer:IsShown() and strip:IsShown())
+			openDrawer()
+			stub.inCombat = true
+			stub.fire("PLAYER_REGEN_DISABLED")
+			drawer.Availability[1]:Click()
+			assert(drawer.Availability[1].Check:GetChecked())
+			stub.inCombat = false
+			PolestarPicker:Hide()
+			assert(not LK.root.Visibility:IsShown() and not drawer:IsShown() and not strip:IsShown())
+			emit(true)
+			"#,
+		));
+		assert_eq!(out, json!(true), "{skin}");
+	}
 }
 
 /// Each source's `keys`, as rows (`sources.map((s) => [s.a, s.b, ...])`; a missing field is null).
@@ -1421,7 +2007,7 @@ fn search_dropdown_restarts_the_kind_list_saves_the_choice_and_only_shows_while_
 }
 
 #[test]
-fn lookup_visibility_menu_filters_each_status_independently_in_browse_and_search() {
+fn lookup_visibility_drawer_filters_each_status_independently_in_browse_and_search() {
 	let out = run(r#"
 		lookupstub.many(50)
 		for i, status in ipairs({ "retired", "nosource" }) do
@@ -1431,8 +2017,9 @@ fn lookup_visibility_menu_filters_each_status_independently_in_browse_and_search
 		local filters = rawget(LK.root, "Visibility")
 		local onRecent = filters and filters:IsShown() or false
 		LK.SetKind("mount")
-		local function toggle(text) return choose(filters, text) end
-		local retired, nosource = "Hide no longer obtainable", "Hide no known source"
+		filters:Click()
+		local function toggle(i) LK.root.FilterDrawer.Availability[i]:Click(); return true end
+		local retired, nosource = 1, 2
 		local function counts()
 			local tail = bottom()
 			return { nav("mount").Count:GetText(), PolestarPicker.Subtitle:GetText(), tail[#tail] }
@@ -1463,7 +2050,7 @@ fn lookup_visibility_menu_filters_each_status_independently_in_browse_and_search
 			searchRetired = searchRetired, searchRetiredTail = searchRetiredTail, searchBoth = searchBoth,
 			all = all, restored = restored })
 	"#);
-	assert_eq!(out["onRecent"], false);
+	assert_eq!(out["onRecent"], true);
 	assert_eq!(out["browseRetired"], json!(["57", "57, from A to Z", "Show more (7 more)"]));
 	assert_eq!(out["browseTail"], "Steed nosource");
 	assert_eq!(out["browseSource"], out["browseRetired"]);

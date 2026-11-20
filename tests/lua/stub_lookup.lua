@@ -53,6 +53,14 @@ local function visible(e, opts)
 	return not (opts and ((e.status == "retired" and opts.hideRetired) or (e.status == "nosource" and opts.hideNoSource)))
 end
 
+-- The standalone stub represents an older pack. Filter-aware UI tests also
+-- exercise the real Search and Codex with packed per-item filter rows.
+local function filterInfo(opts)
+	if opts and (opts.filters or opts.categoryTotals) then
+		return { filtersAvailable = false, preFilterCounts = {} }
+	end
+end
+
 local function alphabetical(a, b)
 	if (a.status ~= nil) ~= (b.status ~= nil) then return a.status == nil end
 	local ak, bk = a.title:lower(), b.title:lower()
@@ -61,7 +69,7 @@ local function alphabetical(a, b)
 	return a.id < b.id
 end
 
--- opts: { kinds, resultKind, order, hideRetired, hideNoSource, limit, perKind, offset, subtitles }
+-- opts: { kinds, resultKind, order, filters, hideRetired, hideNoSource, limit, perKind, offset, subtitles }
 function Search.Query(text, opts)
 	lookupstub.queries = lookupstub.queries + 1
 	opts = opts or {}
@@ -92,14 +100,14 @@ function Search.Query(text, opts)
 				subtitle = opts.subtitles ~= false and e.subtitle or nil }
 		end
 	end
-	return out, counts
+	return out, counts, nil, filterInfo(opts)
 end
 
 function Search.BrowseCount(kind, opts)
 	if not lookupstub.loaded and not GUIDE_KIND[kind] then return nil end
 	local count = 0
 	for _, e in ipairs(lookupstub.entities) do if e.kind == kind and visible(e, opts) then count = count + 1 end end
-	return count
+	return count, filterInfo(opts)
 end
 
 function Search.Browse(kind, opts)
@@ -121,7 +129,7 @@ function Search.Browse(kind, opts)
 		if opts.subtitles ~= false and row.subtitle == nil then row.subtitle = Search.Subtitle(row) end
 		out[#out + 1] = row
 	end
-	return out, #entries
+	return out, #entries, filterInfo(opts)
 end
 
 function Search.Subtitle(res)
