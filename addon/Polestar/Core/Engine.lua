@@ -2346,7 +2346,7 @@ function Own.feederPlan(g)
 		end
 		local src = st.step
 		return { title = src.title, note = src.note, image = src.image, label = src.label, only = src.only,
-			goals = goals, feeder = st.id, feederStep = st.s }
+			when = src.when, goals = goals, feeder = st.id, feederStep = st.s }
 	end
 	local steps, fromBase, legs, feeders = {}, {}, {}, 0
 	local prevOwn = 0 -- g's step just before, when nothing came in between

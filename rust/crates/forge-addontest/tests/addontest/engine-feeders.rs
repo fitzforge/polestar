@@ -328,12 +328,13 @@ local own = {{}}
 for i, step in ipairs(g.steps) do
 	if not step.feeder then for _, goal in ipairs(step.goals) do if goal.map then own[goal.map] = true end end end
 end
-local feeders, outside, hidden = {{}}, 0, {{}}
+local feeders, applicable, outside, hidden = {{}}, {{}}, 0, {{}}
 for i, step in ipairs(g.steps) do
 	if step.feeder then
 		local q = {{}}
-		for _, goal in ipairs(step.goals) do
+		for gi, goal in ipairs(step.goals) do
 			q[#q + 1] = goal.t .. ":" .. tostring(goal.quest)
+			if E.Applies(i, gi) then applicable[#applicable + 1] = q[#q] end
 			if goal.map and not own[goal.map] then outside = outside + 1 end
 		end
 		feeders[#feeders + 1] = i .. " " .. step.title .. " [" .. step.feeder .. " " .. step.feederStep .. "] " .. table.concat(q, " ")
@@ -345,7 +346,7 @@ local collects = {{}}
 for _, step in ipairs(g.steps) do
 	for _, goal in ipairs(step.goals) do if goal.t == "collect" and not goal.quest and goal.item then collects[#collects + 1] = goal.item end end
 end
-emit({{ guide = g.title, before = before, after = after, feeders = feeders, outside = outside, hidden = hidden, collects = collects, cost = g.feedCost or 0 }})"#
+emit({{ guide = g.title, before = before, after = after, feeders = feeders, applicable = applicable, outside = outside, hidden = hidden, collects = collects, cost = g.feedCost or 0 }})"#
 		),
 		..Default::default()
 	})
@@ -869,4 +870,17 @@ fn t_2494_a_feeder_accept_from_an_item_comes_with_the_item_s_collect() {
 	let far = run_horn("1429, 50, 50");
 	assert_eq!(far["hidden"], json!([3182]), "{far}");
 	assert!(!far["shape"].to_string().contains("<test/sg"), "{far}");
+}
+
+#[test]
+fn t_3021_duskwood_only_offers_viktori_while_carrying_the_bronze_tube() {
+	let offered = |done, log, tubes| {
+		let out = shipped_with("Alliance", "Gnome", "PRIEST", 29, done, log, "forever/alliance/07-thousand-needles", &format!("stub.world.items[4371] = {tubes}"));
+		lines(&out["applicable"]).into_iter().filter(|s| s == "accept:174" || s == "turnin:174").collect::<Vec<_>>()
+	};
+	assert_eq!(offered("", "", 1), ["accept:174", "turnin:174"]);
+	assert_eq!(offered("", "174", 1), ["turnin:174"]);
+	assert!(offered("", "", 0).is_empty(), "do not offer the purchase without its price");
+	assert!(offered("", "174", 0).is_empty(), "holding the quest does not pay for it");
+	assert!(offered("174", "175", 0).is_empty(), "the player already paid");
 }
