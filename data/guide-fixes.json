@@ -13785,6 +13785,28 @@
 				"kind": "pfquest",
 				"ref": "npcs.json 1805 spawns on map 1422; objects.json 175802"
 			}
+		},
+		{
+			"id": "horde-felpaw-deadwood-totem-optional",
+			"faction": "Horde",
+			"at": {
+				"quest": 8470,
+				"goal": "accept",
+				"guide": "forever/horde/50-60/02-felwood"
+			},
+			"optional": true,
+			"note": "The Deadwood Ritual Totem (item 20741) that starts Deadwood Ritual Totem (8470) drops from about one Deadwood furbolg in thirty (3.2-3.3%), and its hand-in, Kernda in Timbermaw Hold, needs Neutral with the Timbermaw, which almost no character on the route has at 53. The totem and its accept are optional goals on the Felpaw Village step, as Winterspring handles the Winterfall Ritual Totem (8471): Felpaw no longer holds the player until one drops (8461 needs 18 kills; about one player in five still had none after 50).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "items.json 20741: drops from the Deadwood Den Watcher, Avenger and Shaman (7156-7158) at 3.2-3.3%; quests.json 8470 reputation Timbermaw Hold 0 (Neutral)"
+				},
+				{
+					"kind": "recording",
+					"ref": "players recordings to 2026-11-20: of 39 characters with Timbermaw reputation, none was Neutral by 53, one by 55"
+				}
+			],
+			"pr": 3284
 		}
 	]
 }
