@@ -20958,6 +20958,32 @@
 			],
 			"reason": "the step's Careful tip names Prince Halanox (55, elite) at the north-east end of the satyrs' hills and says to take the satyrs nearer the camp",
 			"evidence": "route level 52.8 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Prince Halanox 55-55; recordings (2026-11-20 index): done by 15 (median 52.23), deaths 0, abandons 2; 14 of the 15 people at 53.8 or under, none died within 60 yd; Halanox met by 1 person, killed nobody"
+		},
+		{
+			"key": "forever/alliance/30-40/06b-desolace.guide|collect 5501.1|over",
+			"guide": "forever/alliance/30-40/06b-desolace.guide",
+			"goal": "collect 5501.1",
+			"kind": "over",
+			"title": "Kodo Graveyard",
+			"level": 38.5,
+			"mobs": [
+				"Rexxar 62-62 x2"
+			],
+			"reason": "Rexxar (62, elite), the Horde's champion, walks Desolace's road past the Kodo Graveyard; the step's Careful tip names him and says to step away from the road when he comes by. 55 Alliance people met him hostile in the recordings and none died to him",
+			"evidence": "route level 38.5 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Rexxar 62-62 x2; recordings (2026-11-20 index): done by 42 (median 38.33), deaths 1, abandons 7; 26 of the 42 people at 39.5 or under; the 1 death within 60 yd was not his"
+		},
+		{
+			"key": "forever/alliance/30-40/06b-desolace.guide|collect 5501.1|elite",
+			"guide": "forever/alliance/30-40/06b-desolace.guide",
+			"goal": "collect 5501.1",
+			"kind": "elite",
+			"title": "Kodo Graveyard",
+			"level": 38.5,
+			"mobs": [
+				"Rexxar 62-62 x2"
+			],
+			"reason": "Rexxar (62, elite), the Horde's champion, walks Desolace's road past the Kodo Graveyard; the step's Careful tip names him and says to step away from the road when he comes by. 55 Alliance people met him hostile in the recordings and none died to him",
+			"evidence": "route level 38.5 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Rexxar 62-62 x2; recordings (2026-11-20 index): done by 42 (median 38.33), deaths 1, abandons 7; 26 of the 42 people at 39.5 or under; the 1 death within 60 yd was not his"
 		}
 	]
 }
