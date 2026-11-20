@@ -131,33 +131,37 @@ fn choose_entrance(name: &str, recorded: &V, table: &V, guides: &[GuideGoto], co
 /// The capitals' world maps (Stormwind, Ironforge, Darnassus, Orgrimmar, Thunder Bluff, the Undercity).
 const CAPITAL_MAPS: [f64; 6] = [1453.0, 1455.0, 1457.0, 1454.0, 1456.0, 1458.0];
 
-/// A point on a continent's map (a frame wider or taller than any zone's) as a point on the zone map it lies in.
-fn continent_to_zone(frames: &V, map: f64, x: f64, y: f64, prefer: &[f64]) -> Option<(f64, f64, f64)> {
+/// Keep a zone recording as-is. A continent recording must project into the dungeon's entrance zone, if known.
+fn recorded_point(frames: &V, map: f64, x: f64, y: f64, expected: &[f64]) -> Option<(f64, f64, f64)> {
 	let f = frames.get(&map.to_string());
 	let (left, right, top, bottom) = (f.get("left").num(), f.get("right").num(), f.get("top").num(), f.get("bottom").num());
 	let (w, h) = (left - right, top - bottom);
 	if !(w > 0.0 && h > 0.0) || (w <= ZONE_MAX && h <= ZONE_MAX) {
-		return None;
+		return Some((map, round1(x), round1(y)));
 	}
-	zone_point(frames, f.get("c").num(), top - y / 100.0 * h, left - x / 100.0 * w, prefer)
+	match zone_point(frames, f.get("c").num(), top - y / 100.0 * h, left - x / 100.0 * w, expected) {
+		Some(p) if expected.is_empty() || expected.contains(&p.0) => Some(p),
+		None if expected.is_empty() => Some((map, round1(x), round1(y))),
+		_ => None,
+	}
 }
 
 /// instances.js `chooseEntrancePoint`. A recorded way in that one person alone was seen to take from a capital is no
 /// way in: the Dungeon Finder or a summon moves a player into the dungeon from wherever they stand (Blackmaw Hold,
 /// on Mount Hyjal, came out "in Darnassus" from one such entry). The capitals' own dungeons have many people each.
 /// A way in recorded on a continent's map (the game has no zone map in the caves before the Deadmines, Gnomeregan and
-/// Maraudon) is placed on the zone map it lies in, the dungeon's own zones first.
+/// Maraudon) must fall in the documented entrance zone, or one of the client's known zones without a table entry.
 fn choose_entrance_point(name: &str, recorded: &V, table: &V, guides: &[GuideGoto], corpse: Option<&super::client::Corpse>, zones: &V, frames: &V, prefer: &[f64]) -> V {
-	let mut rec: Vec<V> = recorded.items().into_iter().filter(|r| num0(&r.get("n")) >= 2.0 || !CAPITAL_MAPS.contains(&r.get("map").num())).collect();
-	rec.sort_by(|a, b| ord(num0(&b.get("n")) - num0(&a.get("n"))));
-	if let Some(r) = rec.first() {
+	let rec = recorded.items().into_iter().filter(|r| num0(&r.get("n")) >= 2.0 || !CAPITAL_MAPS.contains(&r.get("map").num())).min_by(|a, b| ord(num0(&b.get("n")) - num0(&a.get("n"))));
+	if let Some(r) = rec {
 		if r.get("map").truthy() {
 			let era = r.get("f").as_str() == Some("e");
 			let (map, x, y) = (r.get("map").num(), r.get("x").num(), r.get("y").num());
-			if let Some((zm, zx, zy)) = continent_to_zone(frames, map, x, y, prefer) {
+			let entrance_map = table.get("map").num();
+			let expected = if entrance_map > 0.0 { std::slice::from_ref(&entrance_map) } else { prefer };
+			if let Some((zm, zx, zy)) = recorded_point(frames, map, x, y, expected) {
 				return entrance_v(zm, zx, zy, era, false);
 			}
-			return entrance_v(map, round1(x), round1(y), era, false);
 		}
 	}
 	if table.truthy() && table.get("map").truthy() {
@@ -855,6 +859,29 @@ mod tests {
 		// A zone map's own point stays as it was.
 		let zone = parse_json(r#"[{ "map": 1436, "x": 42.47, "y": 71.71, "n": 3 }]"#).unwrap();
 		assert_eq!(choose_entrance("Deadmines", &zone, &none, &[], None, &none, &frames, &[1436.0]).get("x").num(), 42.5);
+	}
+
+	#[test]
+	fn a_continent_recording_must_land_at_the_dungeons_known_zone() {
+		let frames = parse_json(
+			r#"{ "1415": { "c": 0, "left": 16000, "right": -19199.9, "top": 7466.6, "bottom": -16000 },
+			     "1424": { "c": 0, "left": 1066.667, "right": -2133.333, "top": 400, "bottom": -1733.333 },
+			     "1435": { "c": 0, "left": -2222.917, "right": -4516.667, "top": -9620.833, "bottom": -11150 } }"#,
+		)
+		.unwrap();
+		let table = parse_json(r#"{ "map": 1435, "x": 69.9, "y": 53.5 }"#).unwrap();
+		let choose = |rec: &str| {
+			let e = choose_entrance("Sunken Temple", &parse_json(rec).unwrap(), &table, &[], None, &V::Null, &frames, &[]);
+			(e.get("map").num(), e.get("x").num(), e.get("y").num())
+		};
+		// The busiest entry projects to Hillsbrad. Even a runner-up in the swamp is not evidence of the door.
+		assert_eq!(choose(r#"[{"map":1415,"x":45.17,"y":33.14,"n":5},{"map":1435,"x":61.51,"y":49.32,"n":3}]"#), (1435.0, 69.9, 53.5));
+		// A recording in the swamp still beats the table.
+		assert_eq!(choose(r#"[{"map":1435,"x":61.51,"y":49.32,"n":3}]"#), (1435.0, 61.5, 49.3));
+		assert_eq!(choose(r#"[{"map":1415,"x":55.778,"y":76.02984,"n":3}]"#), (1435.0, 61.5, 49.3));
+		let ocean = r#"[{"map":1415,"x":1,"y":1,"n":8}]"#;
+		assert_eq!(choose(ocean), (1435.0, 69.9, 53.5), "no zone contains this point");
+		assert!(!choose_entrance("Sunken Temple", &parse_json(ocean).unwrap(), &V::Null, &[], None, &V::Null, &frames, &[1435.0]).truthy());
 	}
 
 	#[test]

@@ -52,7 +52,8 @@
 //                ContentTuning MinLevelSquish of the map's LFGDungeons entries
 //                (or MapDifficulty's); max: the highest boss level, at most 60.
 //   entrance     best evidence first: a recorded entrance (Recorder `enter`,
-//                the most-seen one), else the curated table
+//                the most-seen one, placed in the dungeon's known zone
+//                if it came from a continent map), else the curated table
 //                (data/codex/entrances.json: the point on the zone map
 //                where one walks in, each with its public source), else a
 //                guide's `goto x,y "<instance name> ..."` line, else the map's
@@ -82,7 +83,9 @@
 
 const fs = require('node:fs');
 const path = require('node:path');
-const { instanceMapsOf, zonePoint } = require('./journal');
+const { instanceMapsOf, zonePoint, ZONE_MAX } = require('./journal');
+
+const CAPITAL_MAPS = new Set([1453, 1455, 1457, 1454, 1456, 1458]);
 
 const JUNK_NPC = /^(?:\[|zz|Test |Monster - )|\(DND\)|\bDND\b|Trigger|Bunny|Invisible/i;
 const MIN_LOOT = 1;
@@ -240,8 +243,23 @@ function chooseEntrance(args) {
 }
 
 function chooseEntrancePoint({ name, recorded = [], table = null, guides = [], corpse = null, zones = {}, frames = {}, prefer = [] }) {
-	const rec = recorded.slice().sort((a, b) => num(b.n) - num(a.n))[0];
-	if (rec && rec.map) return { map: Number(rec.map), x: round1(rec.x), y: round1(rec.y), f: rec.f === 'e' ? 'e' : null };
+	let rec = null;
+	for (const r of recorded) {
+		if (num(r.n) < 2 && CAPITAL_MAPS.has(Number(r.map))) continue;
+		if (!rec || num(r.n) > num(rec.n)) rec = r;
+	}
+	if (rec && rec.map) {
+		const f = rec.f === 'e' ? 'e' : null;
+		const frame = frames[rec.map];
+		const w = frame && frame.left - frame.right;
+		const h = frame && frame.top - frame.bottom;
+		const point = { map: Number(rec.map), x: round1(rec.x), y: round1(rec.y), f };
+		if (!(w > 0 && h > 0 && (w > ZONE_MAX || h > ZONE_MAX))) return point;
+		const expected = table?.map ? [Number(table.map)] : prefer;
+		const zone = zonePoint(frames, frame.c, frame.top - rec.y / 100 * h, frame.left - rec.x / 100 * w, expected);
+		if (zone && (!expected.length || expected.includes(zone.map))) return { ...zone, f };
+		if (!expected.length) return point;
+	}
 	if (table && table.map) return { map: Number(table.map), x: round1(table.x), y: round1(table.y), f: null };
 	const n = norm(name);
 	const zoneId = (zname) => {

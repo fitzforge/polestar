@@ -811,4 +811,4 @@ function emitJournal(journal) {
 	return [{ name: 'Dungeons1.lua', text: lines.join('\n') }];
 }
 
-module.exports = { instanceMapsOf, zonePoint, chainOf, objectivesOf, buildJournal, emitJournal, marksOf, loadJournalQuests, SCHEMA };
+module.exports = { instanceMapsOf, zonePoint, ZONE_MAX, chainOf, objectivesOf, buildJournal, emitJournal, marksOf, loadJournalQuests, SCHEMA };
