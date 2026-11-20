@@ -13807,6 +13807,26 @@
 				}
 			],
 			"pr": 3284
+		},
+		{
+			"id": "horde-searing-gorge-flames-casing-level-52",
+			"faction": "Horde",
+			"at": {
+				"quest": 3452,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/50-60/01-un-goro-crater"
+			},
+			"when": "level>=52",
+			"tip": "The Symbol of Ragnaros drops from the Dark Shamans (47-48), Fire Guards (48-49) and Geomancers (49-50): elites two to five levels under you from 52. The Idolaters (49-51) at the altar further north drop it too, more rarely: leave them alone.",
+			"note": "The Flame's Casing (3452): its Symbol of Ragnaros drops only from elite Twilight cultists. The step, the ride from Kargath to Velarok and his accept are shown from level 52, two over the Geomancers (50), so every cultist the step sends the player at is 2+ levels under (low-elite rule). The Idolaters (49-51) are the rarest droppers (5.4%) and stand apart at the altar; the tip keeps the player off them. The route reaches the gorge at 52.45 by the level model; a gate at 53 (Idolaters + 2) would take Velarok's whole chain (23,860 XP with 4022) out of the solo route.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json levelMax: Twilight Dark Shaman 48, Fire Guard 49, Geomancer 50, Idolater 51 (rank 1); items.json 10552 drop chances 15.6/13.2/8.9/5.4%"
+				}
+			],
+			"pr": 3284
 		}
 	]
 }

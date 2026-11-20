@@ -334,17 +334,21 @@ step Thunderheart
   accept 3906
 
 step Into the Searing Gorge
+  when turnedin 3443
+  when level>=52
   zone Searing Gorge
   tip Take the pass out of Kargath's west side into the Searing Gorge and ride west to Velarok Windblade, on the rim of the Cauldron south of Thorium Point.
   goto 39.1,39.0 "Velarok Windblade"
 
 step Velarok Windblade
+  when level>=52
   zone Searing Gorge
   accept 3452
 
 step The Flame's Casing
   when onquest 3452
-  tip The Twilight's Hammer cultists camp in the hills west of Velarok. The Symbol of Ragnaros drops from their Dark Shamans (47-48), Fire Guards (48-49) and Geomancers (49-50): elites, but four to five levels under you now, so one at a time is fine. Leave the Idolaters at the altar further north alone.
+  when level>=52
+  tip The Twilight's Hammer cultists camp in the hills west of Velarok. The Symbol of Ragnaros drops from their Dark Shamans (47-48), Fire Guards (48-49) and Geomancers (49-50): elites, but two to five levels under you now, so one at a time is fine. The Idolaters (49-51) at the altar further north drop it too, more rarely: leave them alone.
   collect 10552 quest 3452.1 @23.5,36.5 map 1427
 
 step Velarok Windblade

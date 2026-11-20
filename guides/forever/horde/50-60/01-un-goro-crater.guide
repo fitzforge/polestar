@@ -94,8 +94,10 @@ step Un'Goro Crater
 #
 # Searing Gorge (2026-11-20): the route crosses the gorge from Kargath to Blackrock Mountain at about 52.6, so
 # Velarok's chain (3452, 3453, 3454, 3462, 3463, 3481; 18,410 XP) is done on the way: the Symbol of Ragnaros drops
-# from elite Twilight cultists of 47-50, four to five levels under the player there (elites 2+ levels under the
-# player are solo content). Its Hoard gives the Black Dragonflight Molt, so Cyrus Therepentous' A Taste of Flame
+# from elite Twilight cultists of 47-50, two to five levels under the player there (elites 2+ levels under the
+# player are solo content). The steps from the gorge to Velarok's chain hold `when level>=52` (Geomancers 50 + 2;
+# the Idolaters, 49-51 and the rarest droppers, stand apart at the altar the tip says to leave): under 52 the
+# route rides on to Blackrock Mountain and the chain is carried or skipped. Its Hoard gives the Black Dragonflight Molt, so Cyrus Therepentous' A Taste of Flame
 # (4022, 5,450 XP) is a talk in his cave east of Dreadmaul Rock. Needs Velarok's earlier chain (3441-3443, 40-50/04).
 #
 # Left open for later guides: The New Springs (980) and It's a Secret to
@@ -386,17 +388,21 @@ step Thunderheart
   accept 3906
 
 step Into the Searing Gorge
+  when turnedin 3443
+  when level>=52
   zone Searing Gorge
   tip Take the pass out of Kargath's west side into the Searing Gorge and ride west to Velarok Windblade, on the rim of the Cauldron south of Thorium Point.
   goto 39.1,39.0 "Velarok Windblade"
 
 step Velarok Windblade
+  when level>=52
   zone Searing Gorge
   accept 3452
 
 step The Flame's Casing
   when onquest 3452
-  tip The Twilight's Hammer cultists camp in the hills west of Velarok. The Symbol of Ragnaros drops from their Dark Shamans (47-48), Fire Guards (48-49) and Geomancers (49-50): elites, but four to five levels under you now, so one at a time is fine. Leave the Idolaters at the altar further north alone.
+  when level>=52
+  tip The Twilight's Hammer cultists camp in the hills west of Velarok. The Symbol of Ragnaros drops from their Dark Shamans (47-48), Fire Guards (48-49) and Geomancers (49-50): elites, but two to five levels under you now, so one at a time is fine. The Idolaters (49-51) at the altar further north drop it too, more rarely: leave them alone.
   collect 10552 quest 3452.1 @23.5,36.5 map 1427
 
 step Velarok Windblade
