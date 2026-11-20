@@ -13,6 +13,10 @@ next forever/horde/40-50/01b-riverglades
 # Locating the Lost City (95770, Kin'weelay's next legend: the cavern entrance under the Vile Reef, west of Grom'gol, on
 # the way to the jungle stalkers; handed in with the trophy skulls). Its follow-up, The Drowned City (95775), is a dungeon.
 # Excelsior (628, Drizzlik: the Elder Saltwater Crocolisk on the coast between Zul'Kunda and Grom'gol, optional).
+# Goblin Sponsorship (1182, fix round 2026-11-20): from Baron Revilgaz on the first Booty Bay stop, for a player who
+# brought Gazlowe's letter (1180/1181); Foreman Cozzle's footlocker on the ride north from Grom'gol to Nesingwary (his
+# house by Lake Nazferiti, about 9 map units off the road; Cozzle 38, Venture Co. Agents 39, at or under the player at
+# 40), handed in on the second Booty Bay stop with 1183 taken for Pozzik at the Mirage Raceway (40-50/02).
 # Left out: The Bloodsail Buccaneers (608), taken in forever/horde/40-50/06-azshara at 50.
 # Level tidy (0.4.0): the level 43-46 errands are still taken here, where the route passes their givers, and done on
 # 40-50/02's Grom'gol stop at about 45, after the Riverglades, where their mobs fit (here they ran 2-4 over the player,
@@ -30,6 +34,13 @@ step Fly to the Undercity
   goto 4.1,44.9 "Kargath flight master"
   fly "Undercity"
   zone Undercity
+
+step Genavie Callow
+  only Warrior,Paladin,Rogue,Priest,Mage,Warlock
+  when onquest 1164
+  zone Undercity
+  tip Genavie Callow stands beside the flight master you land at: the Dabyrie heads from the Arathi Highlands.
+  turnin 1164                           -- Genavie Callow, beside the flight master
 
 step Undercity trainers
   only Warrior,Paladin,Rogue,Priest,Mage,Warlock
@@ -59,6 +70,7 @@ step Fly to Grom'gol
 step Grom'gol Base Camp
   turnin 1240                           -- Kin'weelay
   accept 95748 npc 2519                 -- Kin'weelay: the legend lies in Zul'Kunda, where this guide goes for Gan'zulah
+  accept 1261                           -- the Bubbling Cauldron beside Kin'weelay: Marg Speaks, for Nazeer Bloodpike in Brackenwall Village on the Dustwallow guide, where the crabs drop the pendant
 
 step Jungle Stalkers
   tip The Jungle Stalkers (40-41) hunt the coast south of Grom'gol. They are well above you: pull one at a time and rest between fights.
@@ -80,22 +92,25 @@ step Booty Bay
   accept 628                          -- Drizzlik: the Elder Saltwater Crocolisk suns on the coast between Zul'Kunda and Grom'gol, later on this loop
   tip Gringer, the flight master, waits on Booty Bay's upper deck. The quest givers stand on the boardwalks around the harbour and in the inn.
   turnin 213                          -- Kebok
+
+step Kebok
+  when turnedin 189
+  tip Kebok, upstairs, has his next errand now: the Skullsplitter tusks come from the trolls of Zul'Mamwe, later on this loop.
+  accept 209                            -- Kebok, upstairs
+
+step Booty Bay
   turnin 1180                         -- Wharfmaster Lozgil, on the docks: Gazlowe's letter, if you carry it
   accept 1181
   accept 97332                          -- Wharfmaster Lozgil: Twice Misplaced Trust, after Zimmix's rescue; the package goes to Wharfmaster Whizzbuzz at Powderfuse Port, in the Riverglades guide
   accept 606                            -- "Sea Wolf" MacKinley, on the top floor
   turnin 1181                         -- Baron Revilgaz, on the balcony beside MacKinley
+  accept 1182                         -- Baron Revilgaz: Cozzle's footlocker is in his house by Lake Nazferiti, on your way north to Nesingwary
   turnin 669
   accept 621                          -- Inside
   accept 600                            -- Crank Fizzlebub
   accept 617                            -- Privateer Bloads
   vendor nearest
   accept 595                            -- First Mate Crazz
-
-step Kebok
-  when turnedin 189
-  tip Kebok, upstairs, has his next errand now: the Skullsplitter tusks come from the trolls of Zul'Mamwe, later on this loop.
-  accept 209                            -- Kebok, upstairs
 
 # ---------------------------------------------------------------- Booty Bay
 
@@ -117,8 +132,9 @@ step Kebok
 # -> Nesingwary ->
 # north through Duskwood and Deadwind Pass -> the Harborage -> Stonard
 # (flight path) -> crocolisks, Noboru, the Draenethyst crystals and Galen's
-# escort -> Galen's strongbox -> the Harborage, where the next guide rides back
-# to Stonard's flight master.
+# escort -> Galen's strongbox -> the Harborage -> back east past Stonard to the
+# Pool of Tears -> Misty Reed Post (Lack of Surplus, the snappers) -> Stonard,
+# where the next guide flies to Kargath.
 #
 # Deviations from the simulator's order:
 # - One stay at Zul'Mamwe for Speaking with Gan'zulah (586), Split Bone
@@ -136,10 +152,14 @@ step Kebok
 #   where the previous guides set it. The travel sweep found no trip here
 #   that hearths back to Grom'gol, Booty Bay or Stonard, and 40-50/02 binds
 #   at Camp Mojache before its first hearth.
-# - Swamp of Sorrows: one pass east and back west (final review, 0.3.5).
-#   Lack of Surplus (698) is handed to Tok'Kar on the Misty Reed stop of
-#   forever/horde/40-50/03-feralas instead of a ride to the far south-east
-#   coast and back here.
+# - Swamp of Sorrows: the strongbox on the way back west, the Harborage,
+#   then one ride east: the Pool of Tears, Misty Reed Post and Stonard
+#   (fix round, 2026-11-20). Lack of Surplus (698) is worked here and its
+#   crocolisks are 38, the pool's Sawfin Frenzies 38-40 and the snappers of
+#   Lack of Surplus' second part 41-42, all at or under the player at about
+#   41.5; players' recordings show a quarter of Horde players taking 698 at 42
+#   or lower and 1424 at 43.5 or lower. Katar's murlocs (41-44) and Fresh
+#   Meat's crawlers (42-44) wait for the next swamp visit.
 # - Added in the October refresh, from the new export (Forever above 30
 #   cannot be checked in game until launch on 4 November: from the data, not
 #   from play): Draenethyst Crystals (1389). Magtoor gives it at the
@@ -201,13 +221,34 @@ step Witch Doctor Unbagwa
   accept 349                          -- Inside Spirit Den
 
 step Mistvale gorillas
+  when level>=40
+  when onquest 571
+  when !complete 571
   tip The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.
   tip Careful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time.
-  collect 2799 x10
+  loop
+  goto 33.03,66.12 map 1434 era r 22
+  goto 32.57,66.64 map 1434 era r 22
+  collect 2799 x10 npc 1557 -- Keep fangs from these same elders for Unbagwa.
   collect 3862 quest 571 @33.0,66.1 map 1434
+  collect 3919 quest 606.1 @33.03,66.12 map 1434 era
 
-step Mistvale gorillas
-  collect 3919 quest 606.1
+step Mistvale giblets
+  when level>=40
+  when onquest 606
+  when !complete 606
+  collect 3919 quest 606.1 npc 1557 @33.03,66.12 map 1434 era
+
+step Mistvale gorillas at 39
+  when level>=39
+  when level<40
+  when onquest 571,606
+  tip Look for lone level 40 elders in this same camp for the sinew and giblets. Leave level 41 gorillas alone; don't stay just for extra fangs.
+  loop
+  goto 33.03,66.12 map 1434 era r 22
+  goto 32.57,66.64 map 1434 era r 22
+  collect 3862 quest 571 npc 1557
+  collect 3919 quest 606.1 npc 1557
 
 step Venture Co. mine
   tip Further north, the goblins of the Venture Co. dig at the mine east of the road; miners, foremen, surveyors and tinkerers all drop the crystals.
@@ -227,6 +268,12 @@ step Lashtail Raptors
   when onquest 195
   tip Raptor Mastery is still open: the Lashtail Raptors (35-36) hunt the jungle between Grom'gol and Nesingwary's camp, on your way north.
   kill 686 quest 195 @32.4,23.2 map 1434
+
+step Foreman Cozzle's house
+  when onquest 1182
+  tip On the way north, a short way east of the road: Foreman Cozzle's house stands on the north shore of Lake Nazferiti. Foreman Cozzle (38) carries the key to his footlocker, inside the house; the Venture Co. Agents (39) stand in and around it: pull them one at a time. Then on north-west to Nesingwary's camp.
+  collect 5851 "Cozzle's Key" @42.6,18.4 map 1434 -- Foreman Cozzle
+  collect 5852 quest 1182.1 @43.3,20.4 map 1434 -- Cozzle's Footlocker, inside the house
 
 step Nesingwary's camp
   turnin 195                          -- Hemet Nesingwary
@@ -382,9 +429,9 @@ step Booty Bay
   tip Head south to Booty Bay. Shaky Phillipe waits on the docks.
   turnin 606                            -- "Shaky" Phillipe
   accept 607
-  accept 580                            -- Whiskey Slim, in the inn: his bottles wash up on the Hinterlands coast, around level 48
-  accept 348                            -- Fin Fizracket: Stranglethorn Fever (offered from 40), Unbagwa's part on the Feralas guide's Grom'gol stop
   turnin 600                          -- Inside
+  turnin 1182                         -- Baron Revilgaz, on the balcony
+  accept 1183                         -- Baron Revilgaz: for Pozzik at the Mirage Raceway, on the Feralas & Tanaris guide's way
   accept 209                            -- Kebok, upstairs: the tusks come from the Skullsplitters, later on this loop
   turnin 607                            -- "Sea Wolf" MacKinley, on the top floor
   accept 2872                           -- MacKinley, on the top floor: for Stoley in Tanaris
@@ -395,6 +442,12 @@ step Booty Bay
   accept 587                            -- Deeg, on the top floor: keep it for the Wild Shore at about 45
   vendor nearest
 
+step Whiskey Slim and Fin Fizracket
+  when level>=40
+  tip Whiskey Slim, in the inn, and Fin Fizracket, beside it, offer their quests from level 40: pick them up now. Under 40, the Feralas & Tanaris guide's Booty Bay stop offers them again.
+  accept 580                            -- Whiskey Slim, in the inn: his bottles wash up on the Hinterlands coast, around level 48
+  accept 348                            -- Fin Fizracket: Stranglethorn Fever, Unbagwa's part on the Feralas guide's Grom'gol stop
+
 step The Bloodsail ships
   when group 624
   tip The scroll, Cortello's Riddle, lies on the decks of the three ships off the Wild Shore, crewed by pirates of 42-45 who come in pairs, with captains of 45-48: take it with a group. Its chain runs on through the Swamp of Sorrows, Dustwallow Marsh and the Hinterlands.
@@ -402,23 +455,36 @@ step The Bloodsail ships
   accept 624                            -- for a later stop in the Swamp of Sorrows
 
 step Zul'Mamwe
-  tip Head north to the Skullsplitter ruins east of the Venture Co. mine; pull the headhunters and berserkers one at a time. One pile of trophy skulls stands on the ruins' north side. Every Skullsplitter can drop a tusk or a necklace: the necklaces are the slow part, so keep killing in the warriors' camp north of the ruins until you have them all. Careful: Ana'thek the Cruel (45) walks the south-western ruins with two guards; Speaking with Gan'zulah's last piece, his Broken Armor, waits for your Stranglethorn stop at about 45.
-  goto 45.4,36.2 "Skullsplitter warriors"
-  collect 1524 quest 209.1 @45.4,36.2 map 1434 era
-  collect 3908 quest 585.3
+  when level>=39
+  when onquest 209,598
+  tip The warriors in the northern ruins (39-40) drop both tusks and necklaces. Pull from the edge; leave the chief and his two guards to the south alone.
+  collect 1524 quest 209.1 npc 667 @45.06,34.07 map 1434 era
+  collect 3916 quest 598.1 npc 667 @45.06,34.07 map 1434 era
 
-step Balia'mah Ruins: kill these as you meet them
+step Zul'Mamwe and Balia'mah trophy skulls
   zone Stranglethorn Vale
-  tip The next trophy skulls stand in the small ruins just north of the warriors' camp.
+  tip Look for the trophy skulls in the small ruins north of Zul'Mamwe's warriors.
   tip The last skulls are in the ruins a short walk west, on the way back to Grom'gol.
-  collect 3916 quest 598.1
+  collect 3908 quest 585.3
   collect 3906 quest 585.1
   collect 3907 quest 585.2
 
-step Grom'gol Base Camp
+step Kin'weelay
+  when complete 598
+  when complete 95770
   tip Head west to Grom'gol.
   turnin 598                            -- Kin'weelay
   turnin 95770 npc 2519                 -- Kin'weelay
+
+step Kin'weelay
+  when complete 598
+  turnin 598
+
+step Kin'weelay
+  when complete 95770
+  turnin 95770 npc 2519                 -- Kin'weelay
+
+step Grom'gol Base Camp
   turnin 585
   accept 95141                          -- Commander Aggro'gosh: for Krom'rosh in Rog'mar, the Riverglades' Horde fort, in the next guide
   note Keep Speaking with Gan'zulah, Mok'thardin's Enchantment, Zanzil's Secret and Kebok's tusks: the Skullsplitter chief, Zanzil's camps, the naga coast and Booty Bay come on your Stranglethorn stop at about 45.
@@ -520,6 +586,34 @@ step Galen's Strongbox
   turnin 1393
 
 step The Harborage
-  tip Ride west along the road to the draenei camp at the Harborage, near the way in from Deadwind Pass. Lack of Surplus goes to Tok'Kar at Misty Reed Post on the next swamp visit: keep the flanks.
+  tip Ride west along the road to the draenei camp at the Harborage, near the way in from Deadwind Pass.
   turnin 1392                           -- Magtoor
   turnin 1389
+
+# ---------------------------------------------------------------- Pool of Tears and Misty Reed Post
+
+step Pool of Tears
+  zone Swamp of Sorrows
+  tip Back east along the road, past Stonard: the Atal'ai artifacts lie in the water and on the banks of the Pool of Tears. Only Sawfin Frenzies (38-40) swim there.
+  collect 6175 quest 1424.1
+
+step Misty Reed Post
+  zone Swamp of Sorrows
+  tip Follow the road south-east to the small Horde post on the shore: Tok'Kar takes the crocolisk flanks, and Katar stands beside him.
+  turnin 698                            -- Tok'Kar
+  accept 699
+
+step Sawtooth snappers
+  tip The Sawtooth Snappers (41-42) line the strand south of the post; nearly every one drops a claw. Leave the murlocs further along the shore for your next swamp visit.
+  collect 6168 quest 699.1
+
+step Misty Reed Post
+  turnin 699                            -- Tok'Kar
+  accept 1422                           -- Tok'Kar
+  turnin 1422                           -- Katar
+  accept 1426                           -- Katar: the murlocs (41-44) wait for your next swamp visit
+
+step Stonard
+  zone Swamp of Sorrows
+  tip Back north-west along the road to Stonard: Fel'zerul, on the top floor, takes the artifacts. Fresh Meat's crawlers and Katar's murlocs wait for your next swamp visit.
+  turnin 1424                           -- Fel'zerul, on the top floor

@@ -13666,6 +13666,55 @@
 					"ref": "npcs.json 4479-4481 and 2581-2582 on map 1417; items.json 5830-5832"
 				}
 			]
+		},
+		{
+			"id": "3004-mistvale-fang-work",
+			"issue": 3004,
+			"faction": "Horde",
+			"at": {
+				"quest": 571,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/40-50/01-stranglethorn-vale"
+			},
+			"tip": "At 40 or higher, gather Unbagwa’s ten fangs from the same camp while hunting for the aged sinew; there is no need to hunt Thunderers farther north.",
+			"note": "Keep the fang sites in the active sinew camp; do not add a separate hunt for characters whose sinew is ready. They are advance stock, not a quest log objective.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#3004: reported northern fang spot; Forever elder 1557 drops 2799 and 3862."
+			}
+		},
+		{
+			"id": "3071-ready-only-tusks",
+			"issue": 3071,
+			"faction": "Horde",
+			"at": {
+				"quest": 209,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/02-feralas"
+			},
+			"when": "complete 209",
+			"note": "Turn to Kebok only with all 18 tusks. A carrier can gather missing tusks during the earlier Skullsplitter hunt.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#3071: level 45 at Booty Bay with 209 still incomplete."
+			}
+		},
+		{
+			"id": "horde-cape-wild-shore-level",
+			"faction": "Horde",
+			"at": {
+				"quest": 604,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/40-50/02-feralas"
+			},
+			"when": "level>=42",
+			"note": "The normal swashbucklers at the Wild Shore tents reach 43. Check the player's level on the approach and again after the town rewards.",
+			"source": {
+				"kind": "client",
+				"ref": "Bloodsail Swashbuckler (1563); quests 604, 576 and 587."
+			}
 		}
 	]
 }
