@@ -385,14 +385,15 @@ step Marvon Rivetseeker
   note Keep The Stone Circle: Marvon's chest is opened on a later visit.
 
 step The Dunemaul Compound
+  when onquest 5863
   zone Tanaris
-  tip South of the Broken Pillar the Dunemaul ogres hold their compound, with Gor'marok the Ravager at its eastern end: Andi Lynn's quest, carried from your first Tanaris visit.
+  tip South of the Broken Pillar the Dunemaul ogres hold their compound, with Gor'marok the Ravager at its eastern end: Andi Lynn's quest, if you still carry it from Tanaris.
   kill 5474 quest 5863.1
   kill 5472 quest 5863.2
   kill 12046 quest 5863.3 @41.5,57.8  -- Below ground
 
 step Thistleshrub Valley
   zone Tanaris
-  tip West from the compound, on the way to Un'Goro's ramp: Thistleshrub Valley's Gnarled Thistleshrubs and Rootshapers (48-50) are Tran'rek's, carried from your first Tanaris visit. They wander a lot: pull them one at a time. Tran'rek takes them on the next guide's Gadgetzan stop, with Andi Lynn's.
+  tip West from the compound, on the way to Un'Goro's ramp: Thistleshrub Valley's Gnarled Thistleshrubs and Rootshapers (48-50) are Tran'rek's, carried from your first Tanaris visit. They wander a lot: pull them one at a time. Tran'rek takes them on the next guide's Gadgetzan stop.
   kill 5490 quest 3362.1 @29.65,66.4
   kill 5485 quest 3362.2 @29.69,66.35

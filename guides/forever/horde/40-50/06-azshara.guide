@@ -20,9 +20,10 @@ next forever/horde/50-60/01-un-goro-crater
 # Mojache stop), Zorbin's first round (7003, 7721, then his second, 7725 and 7726, on the same coast stay), Improved
 # Quality (7734, the Rage Scar yetis on the ride back) and the Perfect Yeti Hide (7738); all are level 48-50, full
 # experience here. Vengeance on the Northspring (3063, harpies 48-50) is taken from Talo on this Camp Mojache stop and
-# done at the loop's far end; Dark Heart (3062, Edana Hatetalon, a level 50 elite there) is a group choice. The Dunemaul Compound (5863, Gor'marok
-# 49), taken in 40-50/04, is done at the Broken Pillar on the way to Un'Goro, and Thistleshrub Valley (3362, Rootshapers
-# 49-50, taken in 40-50/04 too) just west of it; both are handed in on 50-60/01's Gadgetzan stop. Kim'jael (3601, 5534), Stealing Knowledge (3517) and Betrayed
+# done at the loop's far end; Dark Heart (3062, Edana Hatetalon, a level 50 elite there) is a group choice. The Dunemaul
+# Compound (5863) is done on 40-50/04's western loop since the fix round (Gor'marok 49, a level over players there); a
+# player who still carries it gets it here, at the Broken Pillar. Thistleshrub Valley (3362, Rootshapers 49-50, taken
+# in 40-50/04) is done just west of it; Tran'rek takes it on 50-60/01's Gadgetzan stop. Kim'jael (3601, 5534), Stealing Knowledge (3517) and Betrayed
 # (3505) move to 50-60/04 (Spitelash and blood elves 51-55 at about 50), taken there in Valormok, the next visit and
 # the one that works them. Betrayed starts at Ag'tor Bloodfist (#2390), so Belgrom's letter (3504) is left out.
 # Left out: A Meeting with the Master (3381): Sanath Lim-yo's teleport to Xylem's tower is free on Forever (#2460).
@@ -391,14 +392,15 @@ step Marvon Rivetseeker
   note Keep The Stone Circle: Marvon's chest is opened on a later visit.
 
 step The Dunemaul Compound
+  when onquest 5863
   zone Tanaris
-  tip South of the Broken Pillar the Dunemaul ogres hold their compound, with Gor'marok the Ravager at its eastern end: Andi Lynn's quest, carried from your first Tanaris visit.
+  tip South of the Broken Pillar the Dunemaul ogres hold their compound, with Gor'marok the Ravager at its eastern end: Andi Lynn's quest, if you still carry it from Tanaris.
   kill 5474 quest 5863.1
   kill 5472 quest 5863.2
   kill 12046 quest 5863.3 @41.5,57.8  -- Below ground
 
 step Thistleshrub Valley
   zone Tanaris
-  tip West from the compound, on the way to Un'Goro's ramp: Thistleshrub Valley's Gnarled Thistleshrubs and Rootshapers (48-50) are Tran'rek's, carried from your first Tanaris visit. They wander a lot: pull them one at a time. Tran'rek takes them on the next guide's Gadgetzan stop, with Andi Lynn's.
+  tip West from the compound, on the way to Un'Goro's ramp: Thistleshrub Valley's Gnarled Thistleshrubs and Rootshapers (48-50) are Tran'rek's, carried from your first Tanaris visit. They wander a lot: pull them one at a time. Tran'rek takes them on the next guide's Gadgetzan stop.
   kill 5490 quest 3362.1 @29.65,66.4
   kill 5485 quest 3362.2 @29.69,66.35

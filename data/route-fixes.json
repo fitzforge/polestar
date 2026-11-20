@@ -6111,15 +6111,15 @@
 			},
 			{
 				"a": [
-					"turnin",
-					3380
+					"task",
+					82
 				],
 				"b": [
 					"task",
 					5863
 				],
 				"faction": "Horde",
-				"why": "Horde 40-60 level tidy (0.4.0): The Dunemaul Compound (5863; Brutes 46-48, Gor'marok 49) is taken in Gadgetzan in 40-50/04 at about 49 (recorded players there 25th percentile 46, about 48 with the Riverglades before it) and done at the Broken Pillar at the end of 40-50/06 (about 52), on the way into Un'Goro; Andi Lynn takes it on 50-60/01's Gadgetzan stop."
+				"why": "Fix round 2026-11-20 (was the 0.4.0 level tidy's move to 40-50/06's Broken Pillar stop): The Dunemaul Compound (5863; Enforcers 45-47, Brutes 46-48, Gor'marok 49, non-elite) is done on 40-50/04's western loop, south of the Noxious Lair on the way to Thistleshrub Valley, and handed to Andi Lynn on that guide's next Gadgetzan stop. Level model there about 48.4; players following the guide recorded a 25th percentile of 47.4 at the Noxious Lair (6 people, 0.4.x): Gor'marok is +1.6, the Brutes +0.6, under the two-level bar (a Careful tip names Gor'marok and the casters). Thistleshrub Valley's Rootshapers (49-50, +2.6 for those players) stay on 40-50/06. Carried three guides before (04 -> 06 -> 50-60/01)."
 			},
 			{
 				"a": [
