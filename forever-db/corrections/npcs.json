@@ -2034,6 +2034,46 @@
 		],
 		"note": "Farmer Elbrim placed where players met it in the Riverglades."
 	},
+	"258878": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-20: Auctioneer Quickcoin met at the Crossroads (1413 49.9,29.4) and on Redridge's west side (1433 9.9,75.2), and Uninspected Shipment (258880) met at the same two places in other sessions (1413 49.9,29.4; 1433 7.4-11.6,71.3-72.1)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB Forever: Auctioneer Quickcoin (258878), Steamwheedle Courier (258879) and Uninspected Shipment (258880) share the same two spawn points, 1413 49.95,29.45 and 1433 9.54,71.96"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3112 (king_iix): the Barrens stall changes from day to day between bank, auctioneer and mailbox"
+			}
+		],
+		"note": "Auctioneer Quickcoin is one of the three faces of a travelling goblin stall (auctioneer, banker or mailbox, one a day) at the Crossroads and on Redridge's west side. On the other days he isn't there, so an Auction House goal that led to him stalled (#3112). No roles: auction goals and Nearby services go to an Auction House that is always open."
+	},
+	"258880": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-20: Uninspected Shipment met at the Crossroads (1413 49.9,29.4) and on Redridge's west side (1433 7.4-11.6,71.3-72.1), the places Auctioneer Quickcoin (258878) stands on other days"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB Forever: 258878, 258879 and 258880 share the same two spawn points, 1413 49.95,29.45 and 1433 9.54,71.96"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3112 (king_iix): the Barrens stall changes from day to day between bank, auctioneer and mailbox"
+			}
+		],
+		"note": "Uninspected Shipment is the banker face of the same travelling goblin stall as Auctioneer Quickcoin: there one day in three. No roles, so bank goals and Nearby services go to a bank that is always open (#3112)."
+	},
 	"259254": {
 		"addSpawns": {
 			"2548": {
