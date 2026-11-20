@@ -21,15 +21,72 @@ const CLUSTER: usize = 471;
 const CELL: usize = 15594;
 // Map 0, cluster 471: both ends are layer 1 at packed height 502. These are cell IDs, not node IDs.
 const SIGN_PAIRS: [(usize, usize); 6] = [(14325, 14454), (14326, 14453), (14326, 14454), (14327, 14454), (14453, 14454), (14454, 14455)];
-const SIGN_SAMPLES: &str = "PolestarPathData[0].solidSamples = { [471] = {-4866.847,-1107.031,502.515,-4864.583,-1106.652,502.515,-4866.632,-1108.366,502.515} }\n";
+// Node IDs in this exact pinned source, before renumbering. Two ramp-floor centers
+// put the player's torso inside masonry; two approaches cut a wall before their end.
+// Equal-height floors can share a cell: do not subtract by XY or height alone.
+const RAMP_PAIRS: [(usize, usize); 14] = [
+	(27359, 27495),
+	(27359, 27498),
+	(27360, 27495),
+	(27363, 27495),
+	(27363, 27498),
+	(27371, 27498),
+	(27493, 27495),
+	(27495, 27498),
+	(27495, 27608),
+	(27498, 27500),
+	(27498, 27610),
+	(27498, 27611),
+	(27611, 27728),
+	(27613, 27728),
+];
+const SOLID_SAMPLES: &str = concat!(
+	"PolestarPathData[0].solidSamples = { [471] = {-4866.847,-1107.031,502.515,-4864.583,-1106.652,502.515,-4866.632,-1108.366,502.515,",
+	"-4861.745934,-1139.989935,502.750054,-4868.890104,-1143.820089,506.549525,-4863.879720,-1135.746168,503.250200,",
+	"-4861.273418,-1141.422549,503.223817,-4868.359568,-1147.723829,506.619640} }\n",
+);
 
 fn hash(bytes: &[u8]) -> String {
 	format!("{:x}", Sha256::digest(bytes))
 }
 
+// Remove only the named floor-to-floor moves, however they were encoded. A paid
+// arc can duplicate a nearest-height step. The reverse search uses both records.
+fn cut_floor_pairs(before: &Cluster, after: &mut Cluster, pairs: &[(usize, usize)]) -> Result<(), String> {
+	let mut moves = Vec::new();
+	for &(a, b) in pairs {
+		for (s, t) in [(a, b), (b, a)] {
+			if s < before.n() || t >= before.t() || s >= before.t() || t < before.n() {
+				return Err("expected two reviewed floor nodes".into());
+			}
+			before.moves(s, false, &mut moves);
+			if !moves.iter().any(|m| m.0 == t) {
+				return Err(format!("missing reviewed move {s} -> {t}"));
+			}
+			let (u, v, c) = (before.cell(s), before.cell(t), before.c);
+			let delta = ((v / c) as i64 - (u / c) as i64, (v % c) as i64 - (u % c) as i64);
+			let d = (0..8).find(|&d| (DX[d], DY[d]) == delta).ok_or("expected adjacent floors")?;
+			if before.surface(v, -1, before.z[s]) == Some(t) {
+				after.steps[s - before.n()] &= !(1 << d);
+			}
+			after.arcs.remove(&(s as u32, t as u32));
+		}
+	}
+	after.links.retain(|&(s, d, layer)| {
+		let s = s as usize;
+		if !pairs.iter().any(|&(a, b)| a == s || b == s) {
+			return true;
+		}
+		let (u, c) = (before.cell(s), before.c as i64);
+		let v = (u as i64 / c + DX[d as usize]) * c + u as i64 % c + DY[d as usize];
+		!before.surface(v as usize, layer as i32, before.z[s]).is_some_and(|t| pairs.binary_search(&(s.min(t), s.max(t))).is_ok())
+	});
+	Ok(())
+}
+
 // A reviewed cluster's interior cell has exactly one extra floor. No border, entrance, arc or explicit link
 // is incident on it. In particular removing a step's target alone would redirect that step to the base floor.
-fn remove<const P: usize>(before: &Cluster, rows: &[Row], cell: usize, z: f64, sign_pairs: &[(usize, usize); P]) -> Result<Cluster, String> {
+fn remove<const P: usize>(before: &Cluster, rows: &[Row], cell: usize, z: f64, sign_pairs: &[(usize, usize); P], ramp_pairs: &[(usize, usize)]) -> Result<Cluster, String> {
 	let (c, n) = (before.c, before.n());
 	let (x, y) = (cell / c, cell % c);
 	let (u, count) = before.floors_of(cell);
@@ -74,6 +131,7 @@ fn remove<const P: usize>(before: &Cluster, rows: &[Row], cell: usize, z: f64, s
 			*steps &= !(1 << d);
 		}
 	}
+	cut_floor_pairs(before, &mut after, ramp_pairs)?;
 	let shift = |v: u32| v - u32::from(v as usize > u);
 	for (v, _, _) in &mut after.links {
 		*v = shift(*v);
@@ -89,9 +147,14 @@ fn remove<const P: usize>(before: &Cluster, rows: &[Row], cell: usize, z: f64, s
 	let (mut old, mut new) = (Vec::new(), Vec::new());
 	for v in (0..before.t()).filter(|&v| v != u) {
 		let at_sign = excluded.iter().any(|&(a, b)| a == v || b == v);
+		let at_ramp = ramp_pairs.iter().any(|&(a, b)| a == v || b == v);
 		for reverse in [false, true] {
 			before.moves(v, reverse, &mut old);
-			old.retain(|&(w, _)| w != u && !(at_sign && (excluded.contains(&(v, w)) || excluded.contains(&(w, v)))));
+			old.retain(|&(w, _)| {
+				let sign = at_sign && (excluded.contains(&(v, w)) || excluded.contains(&(w, v)));
+				let ramp = at_ramp && ramp_pairs.binary_search(&(v.min(w), v.max(w))).is_ok();
+				w != u && !sign && !ramp
+			});
 			for m in &mut old {
 				m.0 = shift(m.0 as u32) as usize;
 			}
@@ -170,7 +233,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 	let before = Cluster::decode(c, cs, number("zstep"), get("grid"), get("height"), Some(get("floor")), Some(get("class")), Some(get("area")), Some(get("arc")))?;
 	let mut rows = decode_graph(get("graph"))?;
 	assert_eq!((before.z[CELL], rows.len()), (768.0, 306));
-	let after = remove(&before, &rows, CELL, 502.0, &SIGN_PAIRS)?;
+	let after = remove(&before, &rows, CELL, 502.0, &SIGN_PAIRS, &RAMP_PAIRS)?;
 	let (dearer, gone) = reprice(&before, &after, &mut rows, number("swim"));
 	assert_eq!(gone, 0, "disconnected entrance edge needs review");
 	let changed = BTreeMap::from([
@@ -184,7 +247,7 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 	fs::create_dir(dest)?; // Never overwrite or follow links into the input (or into an installed addon).
 	fs::create_dir(dest.join("Polestar_Nav_EK"))?;
 	fs::create_dir(dest.join("Polestar_Nav"))?;
-	meta.push_str(SIGN_SAMPLES);
+	meta.push_str(SOLID_SAMPLES);
 	fs::create_dir(dest.join("Polestar_Nav/Nav"))?;
 	manifest["files"]["Nav/Nav0.lua"] = json!(hash(meta.as_bytes()));
 	fs::write(dest.join("Polestar_Nav/Nav/Nav0.lua"), meta)?;
@@ -215,10 +278,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 	stats["areaSurfaces"] = json!(stats["areaSurfaces"].as_i64().unwrap() - area_removed);
 	map["occupiedFloor"] = json!({
 		"sourceManifestSha256": SOURCE, "cluster": CLUSTER, "cell": CELL, "layer": 1, "z": 502,
-		"sign": {"cellPairs": SIGN_PAIRS, "layer": 1, "z": 502, "solidSamples": 3}, "dearerEdges": dearer
+		"sign": {"cellPairs": SIGN_PAIRS, "layer": 1, "z": 502, "solidSamples": 3},
+		"trainerRamp": {"sourceNodePairs": RAMP_PAIRS, "solidSamples": 5}, "dearerEdges": dearer
 	});
 	fs::write(dest.join(MANIFEST), serde_json::to_string_pretty(&manifest)? + "\n")?;
-	println!("Removed the occupied Ironforge center and six street step pairs; {dearer} dearer entrance edges, none lost");
+	println!("Removed the occupied Ironforge center, six signpost pairs and fourteen trainer ramp pairs; {dearer} dearer entrance edges, none lost");
 	Ok(())
 }
 
@@ -241,8 +305,8 @@ mod tests {
 	#[test]
 	fn removing_ground_does_not_redirect_its_neighbor_onto_the_roof() {
 		let c = floors();
-		assert!(remove(&c, &[], 5, 768.0, &[]).is_err());
-		let after = remove(&c, &[], 5, 502.0, &[]).unwrap();
+		assert!(remove(&c, &[], 5, 768.0, &[], &[]).is_err());
+		let after = remove(&c, &[], 5, 502.0, &[], &[]).unwrap();
 		assert_eq!(after.z[5], 768.0);
 		let neighbor = after.surface(6, 1, 502.0).unwrap();
 		let mut moves = Vec::new();
@@ -265,7 +329,7 @@ mod tests {
 		c.steps[other_hi - 16] = 8;
 		c.add_arc(other_hi, lo, 12.0);
 
-		let after = remove(&c, &[], 5, 502.0, &[(6, 7)]).unwrap();
+		let after = remove(&c, &[], 5, 502.0, &[(6, 7)], &[]).unwrap();
 		let node = |lc, layer| after.surface(lc, layer, 0.0).unwrap();
 		let mut moves = Vec::new();
 		for back in [false, true] {
@@ -289,14 +353,14 @@ mod tests {
 		let u = c.surface(5, 1, 502.0).unwrap();
 		let v = c.surface(6, 1, 502.0).unwrap();
 		let row = Row { cell: 5, layer: 1, comp: 0, edges: vec![] };
-		assert!(remove(&c, &[row], 5, 502.0, &[]).is_err());
+		assert!(remove(&c, &[row], 5, 502.0, &[], &[]).is_err());
 		c.links.push((v as u32, 3, 1));
-		assert!(remove(&c, &[], 5, 502.0, &[]).is_err());
+		assert!(remove(&c, &[], 5, 502.0, &[], &[]).is_err());
 		c.links.clear();
 		c.add_arc(v, u, 4.0);
-		assert!(remove(&c, &[], 5, 502.0, &[]).is_err());
+		assert!(remove(&c, &[], 5, 502.0, &[], &[]).is_err());
 		c.arcs.clear();
 		c.add_floor(5, 1, 510.0, 0, 0);
-		assert!(remove(&c, &[], 5, 502.0, &[]).is_err());
+		assert!(remove(&c, &[], 5, 502.0, &[], &[]).is_err());
 	}
 }

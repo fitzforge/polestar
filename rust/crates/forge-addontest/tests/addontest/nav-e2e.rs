@@ -258,6 +258,35 @@ fn an_ironforge_waypoint_across_the_signpost_is_not_a_visit_from_the_pavement() 
 }
 
 #[test]
+fn the_displayed_arrow_turns_away_from_the_wall_at_the_ironforge_trainer_ramp() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction="Alliance"; w.setLevel(23); w.facing=2.34
+		local x,y=-4821.1,-1152.4
+		place(1455,x,y,502.3)
+		local mx,my=C.WorldToMap(0,-4876.6,-1149.2,1455)
+		assert(N.SetTarget(1455,mx,my,"Trainer",nil,"npc",512.5))
+		for _=1,500 do aim();stub.advance(.05) end
+		-- Approach on the pavement, then take the first stride past the bend.
+		for _,p in ipairs({{-4822.9167,-1156.25},{-4827.0833,-1160.4167},{-4835.4167,-1160.4167},{-4860.5958,-1135.2313}}) do
+			local ax,ay=x,y; local n=math.ceil(dist(ax,ay,p[1],p[2])/.32)
+			for i=1,n do
+				x,y=ax+(p[1]-ax)*i/n,ay+(p[2]-ay)*i/n
+				place(1455,x,y,502.18);stub.advance(.05)
+			end
+		end
+		local state,_,a,_,_,measured=N.Sample()
+		local shown=N.arrow.GetAngle()+w.facing
+		emit({travel=state=="travel" and measured==true, requestedWest=math.sin(a+w.facing), shownWest=math.sin(shown)})"#,
+		true,
+	);
+	assert_eq!(out["travel"], true);
+	assert!(f(&out["requestedWest"]) < -0.5, "the walk has turned onto the ramp");
+	assert!(f(&out["shownWest"]) < -0.5, "the visible arrow must not carry the player straight into the side wall: {out}");
+}
+
+#[test]
 fn guidance_takes_the_open_aisle_at_the_ironforge_roost_with_or_without_an_indoor_flag() {
 	skip_unless_ready!();
 	let out = run(

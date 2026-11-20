@@ -16,6 +16,9 @@ section: players
   gryphon perch. Farther down the street, the arrow keeps the turn
   around the signpost instead of pointing through it. Being within five yards
   of a waypoint on the other side of the sign no longer announces arrival.
+  On the way to Nissa, the route goes around the masonry at the foot of
+  the ramp. At a sharp turn beside a mapped wall the arrow points down
+  the new path immediately rather than carrying you into the wall.
 - With real-path routing on, missing walking data no longer sends the
   arrow straight across unmapped ground. Turning routing off still shows
   the compass direction unless the ground segment crosses an enemy settlement or cannot be checked.

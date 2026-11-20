@@ -771,6 +771,13 @@ local function facing()
 	local C = ns.Compat
 	return C and C.GetPlayerFacing and C.GetPlayerFacing() or nil
 end
+
+local function besideSolidFace()
+	local path = Nav.Path
+	if not (path and path.NearSolidFace) then return false end
+	local x, y, z, map = ns.Compat.GetPlayerUnitPosition()
+	return z and path.NearSolidFace(map, x, y, z)
+end
 local lastYards, lastEta
 local floorShown -- the floor glyph's hint ("up" | "down") or nil
 local lastDist, closeSpeed = nil, 0
@@ -1099,7 +1106,10 @@ local function sample(elapsed)
 	if angle then
 		local f = facing()
 		local bearing = f and wrap(angle + f) or angle
-		if not hasAngle or byBearing ~= (f ~= nil) or (nearEnemy and curBearing ~= bearing) then
+		-- Do not ease a right-angle walking turn through a nearby wall. Keep
+		-- ordinary open-road turns and changes in the player's facing smooth.
+		local wallTurn = measured and hasAngle and f and abs(wrap(goalAngle-bearing)) > pi/3 and besideSolidFace()
+		if not hasAngle or byBearing ~= (f ~= nil) or wallTurn or (nearEnemy and curBearing ~= bearing) then
 			byBearing = f ~= nil
 			curBearing, hasAngle, turnVel = bearing, true, 0
 			curAngle = angle

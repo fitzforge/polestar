@@ -1563,6 +1563,29 @@ local function solidChord(st, x, y, z, X, Y, Z)
 	return bins and z and Z and solidSweep(bins,st.x0,st.y0,st.ny,x,y,z,X,Y,Z) or false
 end
 
+-- Sharp measured turns beside masonry cannot wait for the dial to swing around.
+-- Use only resident fixed-face samples on the player's storey; this is a display
+-- hint, not a line-of-sight answer, a search or permission to cross anything.
+function Path.NearSolidFace(map, x, y, z)
+	local data = Data(map)
+	local bins = data and data.solidSamples
+	if not bins or not z then return false end
+	local reach = 5
+	local r0, c0 = data.cx0, data.cy0
+	for r = max(0, floor((x-reach)/TILE)-r0), min(data.nx-1, floor((x+reach)/TILE)-r0) do
+		for c = max(0, floor((y-reach)/TILE)-c0), min(data.ny-1, floor((y+reach)/TILE)-c0) do
+			local points = bins[r*data.ny+c]
+			if points then
+				for i = 1, #points, 3 do
+					local dx, dy, h = points[i]-x, points[i+1]-y, points[i+2]-z
+					if h > -.5 and h < 2.5 and dx*dx+dy*dy < reach*reach then return true end
+				end
+			end
+		end
+	end
+	return false
+end
+
 -- Line of sight between two path entries, walking every cell the segment between their cell centres crosses and
 -- following the surface from node to node, so it cannot jump between floors. With limit (a map with classes), every
 -- node crossed must also cost no more than limit (Costs.Mult for profile in style, times dangerAt(k, node) when
