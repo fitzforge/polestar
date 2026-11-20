@@ -11739,7 +11739,7 @@
 					"turnin",
 					6021
 				],
-				"reason": "Horde 50-60 fix pass (2026-11-20): The Restless Souls (minimum level 55) from Caretaker Alen is taken on 50-60/05's second Light's Hope Chapel stop, with 6021's hand-in, after Darrowshire; the first stop comes at 54.96-54.98 by the level model, where Alen refuses it. The third stop offers it again for anyone still under 55; Egan takes it in Terrordale later in the guide.",
+				"reason": "Horde 50-60 fix pass (2026-11-20): The Restless Souls (minimum level 55) from Caretaker Alen is no longer offered on 50-60/05's first Light's Hope Chapel stop, which the level model reaches at 54.9-55.0, where Alen refuses it. The second stop (after 6021's hand-in, 54.97 by the model) offers it in a step shown from level 55, and the third stop (after Carlin's 5210, 55.08) offers it to everyone still without it; Egan takes it in Terrordale later in the guide.",
 				"issue": "-"
 			},
 			{

@@ -176,11 +176,15 @@ step Pestilent Scar
 
 step Back to Light's Hope Chapel
   turnin 6021                         -- Caretaker Alen
-  accept 5281                         -- Caretaker Alen: The Restless Souls (from level 55), for Egan in Terrordale later in this guide
   turnin 5241                         -- Carlin Redpath
   accept 5211
   note Defenders of Darrowshire's spirits come with the Corin's Crossing stop later in this guide: keep it.
   turnin 5510 direct optional
+
+step Caretaker Alen
+  when level>=55
+  tip Caretaker Alen offers The Restless Souls from level 55; under it, the next Light's Hope stop offers it again.
+  accept 5281                         -- Caretaker Alen: for Egan in Terrordale later in this guide
 
 # ---------------------------------------------------------------- Western Plaguelands: Marlene and Chromie
 
