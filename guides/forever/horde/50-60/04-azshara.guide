@@ -56,6 +56,7 @@ step Orgrimmar
   zone Orgrimmar
   sethome "Orgrimmar"
   accept 8276                         -- Cenarion Emissary Blackhoof, Valley of Wisdom: keep it for Silithus
+  train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
 step Zilzibin Drumlore
   when onquest 32

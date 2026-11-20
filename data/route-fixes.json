@@ -6449,7 +6449,7 @@
 			"Alliance 50-60 fix round 3 (0.4.0): 50-60/01's top-up to 50.56 on the Thunderhead Hippogryphs (46-48, two to four under the player) around Sanath Lim-yo's camp is gone; its minutes land on the next one, \"Level 51.3 on the way north\" on the Spitelash Myrmidons (50-51), a `level` step with the dungeon line, where the Azshara quests that follow need the level (level model: no change to the route's hours). Hand edits.",
 			"Alliance 50-60 fix round 3 (0.4.0): after the Fallen Hero of the Horde (Swamp of Sorrows 34.3,66.1), 50-60/01 has a travel step back into the Blasted Lands to the bloodmages' camp by the road (50.6,14.2) before the beast hunt; the hunt's step changed zone with no travel line (honest playtest). Hand edits.",
 			"Alliance 40-50 route round (0.4.3, AuditA40 5(b)): the Riverglades guide (40-50/01b) warns early visitors. Its first quest step (Scout Bolain) says the guide is written for 41-45 and the route comes at about 41 after Stranglethorn, with the port's second wave and the Western Front at 43-45 (elite Twilight Enforcers 45, Overlord Kilgar 46 for groups); a `when level<44` step before Sergeant Riftan names the Western Front's Champions (43-44), Thralls (44), the Enforcer patrols and Kilgar. Players who went in on their own at 38-43 died there most (players' recordings: Carving a Path 25 people/42 deaths at 43.3, Bring Me His Head 13/18 at 44.5, No Soldier Left Behind 9/13 at 44.4; followers of the guide 2/4). Hand edits.",
-			"Mount Hyjal in both routes (0.4.3, Fitz's approval 2026-11-20): the zone's guide leaves Polestar Experimental for guides/forever/50-60/mount-hyjal (both factions, one guide; hand-written, no seed). Alliance: 50-60/04 (ends at Marshal's Refuge, level model 57.7) -> mount-hyjal -> 50-60/06, whose Everlook opener (hyjal-everlook) already takes the return; 06's header 59-60. Horde: 50-60/05 (ends at Valor's Rest, 57.0) -> mount-hyjal -> 50-60/06, which opens with the flight from Everlook to Marshal's Refuge (`when zone \"Winterspring\"`); 06's header 58-60, and its top-ups to 57 and 58 no longer fire on the route (level model: Horde grind 1,873 -> 1,424 minutes, hours to 60 121.9 -> 116.4). The choice card at the end of 50-60/04 goes. Hand edits.",
+			"Mount Hyjal in both routes (0.4.3, Fitz's approval 2026-11-20): the zone's guide leaves Polestar Experimental for guides/forever/50-60/mount-hyjal (both factions, one guide; hand-written, no seed). Alliance: 50-60/04 (ends at Marshal's Refuge, level model 57.7) -> mount-hyjal -> 50-60/06, whose Everlook opener (hyjal-everlook) already takes the return; 06's header 59-60. Horde: 50-60/05 (ends at Valor's Rest, 57.0) -> mount-hyjal -> 50-60/06, which opens with the flight from Everlook to Marshal's Refuge (`when zone \"Winterspring\"`); 06's header 58-60, and its top-ups to 57 and 58 no longer fire on the route (level model: Horde grind 1,873 -> 1,424 minutes, hours to 60 121.9 -> 116.4). The choice card at the end of 50-60/04 goes. Hand edits. Horde update (2026-11-20, Horde 50-60 flow rework): 50-60/05 now ends at Everlook (Umi, level model 56.6), where Mount Hyjal's way in starts, and 50-60/06 opens with the flight from Everlook to Gadgetzan (Gaeriyan, Sprinkle, Pestlezugg, Marvon), then Marshal's Refuge (Linken, J.D. Collie) and Valor's Rest; 06's header 58-59 and its top-ups are gone.",
 			"Alliance 40-50 fix round 2 (0.4.0): Snuff and Dizzy's Eye (587, 576) point at the Bloodsail camp north of Booty Bay (28.0,70.5; Raiders and Mages 39-41) instead of the Wild Shore's 41-45 pirates; Un'Goro's petals and soil at the Lashers and Threshers (56.6,35.0; 48-50) and J.D. Collie's crystals at the clusters on the jungle's north-eastern edge (72.2,21.1; Lashers, young Diemetradons and Pterrordax 48-50), away from the Flayers, Trappers, Tar Lords and oozes (50-54). Stranglethorn's three top-ups (42.16 at Zul'Mamwe, 42.16 on the basilisks, 42.46 in Dustwallow) are replaced by one top-up to 44.4 on the Riverglades' first Eastsea camp (buccaneers and musketeers 41-43) before the pirates' second wave (43-45), right before the content that needs it. Un'Goro's 49.79 top-up, shown only to players under the plan, points at the eastern jungle's Lashers and Threshers (48-50) instead of the Pterrordax (50-52); Azshara's 50.4 top-up (Highborne Apparitions 45-46, four under the player) is gone. Riverglades: In Need of Relief (96125) is taken on Watcher Cornelius's first hand-in stop and Out in the Field (95329) on the Saving Sunnyglade hand-in, where their givers stand; Claire's catalyst is filled first on the Sunnyglade step. Hand edits."
 		],
 		"never": [
@@ -8956,7 +8956,7 @@
 			{
 				"q": 105,
 				"size": 3,
-				"why": "#1791 sweep: Alas, Andorhal's Araj's Phylactery Shard (17114) comes only from Araj's Phylactery (object 177241) at Western Plaguelands 45.27,69.21, where Araj the Summoner (1852, elite 61) stands among Skeletal Warlords (1788, elite 56-57). A group quest on the Horde 50-60 route, accept to hand-in."
+				"why": "#1791 sweep: Alas, Andorhal's Araj's Phylactery Shard (17114) comes only from Araj's Phylactery (object 177241) at Western Plaguelands 45.27,69.21, where Araj the Summoner (1852, elite 61) stands among Skeletal Warlords (1788, elite 56-57). A group quest only; since the 2026-11-20 Horde 50-60 flow rework it is left out of the Horde route (its prerequisite 5098 is taken in 50-60/02, so a character starting at 05's Plaguelands sweep could never be offered it)."
 			},
 			{
 				"q": 665,
@@ -10851,7 +10851,7 @@
 					"turnin",
 					4102
 				],
-				"reason": "Horde 50-60 (2026-11-20): Salve via Hunting (level 55, 4,200 XP) is taken from Maybess Riverbreeze when Cleansing Felwood (4102) is handed in on 50-60/03's Felwood ride, and handed back on 50-60/05's Felwood stop: its six Corrupted Soul Shards drop about one kill in three from the Jaedenar and Shadow Hold cultists (Jaedenar Warlock 35%, Darkweaver 34%, Enforcer 34%, Moora 34%, Salia 33%; observed rates) that 05 fights for Greta's braziers and A Final Blow, and Maybess stands on the west side of the Sanctuary where Greta takes them back.",
+				"reason": "Horde 50-60 (2026-11-20): Salve via Hunting (level 55, 4,200 XP) is handed in on the spot (it never enters the log) to Maybess Riverbreeze on 50-60/05's Felwood stop, once Cleansing Felwood (4102) is done on 50-60/03: its six Corrupted Soul Shards drop about one kill in three from the Jaedenar and Shadow Hold cultists (Jaedenar Warlock 35%, Darkweaver 34%, Enforcer 34%, Moora 34%, Salia 33%; observed rates) that 05 fights for Greta's braziers and A Final Blow, and Maybess stands on the west side of the Sanctuary where Greta takes them back.",
 				"issue": "-"
 			},
 			{
@@ -17086,12 +17086,6 @@
 				"q": 5158,
 				"guide": "forever/horde/50-60/03-winterspring",
 				"reason": "Horde 50-60 flow (2026-11-20): 50-60/03's Felwood ride hands in what 50-60/02's ride north through Felwood started; Collection of the Corrupt Water (5157) is filled at Jaedenar's moonwell after Greta's first errand (5155) on that ride. A character who starts at 50-60/03 has neither, and bringing both back would repeat 02's southern Felwood loop.",
-				"issue": "-"
-			},
-			{
-				"q": 5887,
-				"guide": "forever/horde/50-60/03-winterspring",
-				"reason": "Horde 50-60 flow (2026-11-20): Salve via Hunting follows Cleansing Felwood (4102), whose Blood Amber comes from Irontree Woods' Warpwood on 50-60/02's ride north; 50-60/03's Felwood ride only hands it in. A character who starts at 50-60/03 would need the Irontree trip back.",
 				"issue": "-"
 			},
 			{

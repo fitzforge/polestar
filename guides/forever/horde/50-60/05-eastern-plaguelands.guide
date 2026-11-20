@@ -335,6 +335,7 @@ step Corin's Crossing
   tip Ride south to Corin's Crossing, on the road. Living Rot spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the Mortar and Pestle at once.
   tip Careful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with Greater Invisibility. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.
   tip With Defenders of Darrowshire in your log (from Carlin at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the Living Rot.
+  goto 52.3,58.2 "Corin's Crossing" live
   talk 11064 quest 5211.1 "Free Darrowshire Spirits: talk to them"
   collect 15447 x7
   complete 6022
@@ -520,7 +521,7 @@ step A Final Blow
   kill 9861 quest 5242.1              -- Below ground
   kill 9860 quest 5242.2              -- Below ground
   collect 13207 quest 5242.3          -- Below ground
-  collect 11515 quest 5887.1          -- Corrupted Soul Shards from the cultists, for Maybess
+  collect 11515 x6 -- Corrupted Soul Shards from the cultists, for Maybess' Salve via Hunting
 
 step A Strange Red Key
   when has 13140
@@ -532,9 +533,10 @@ step Captured Arko'narin
   turnin 5202                         -- Captured Arko'narin, below ground
 
 step Maybess Riverbreeze
-  when onquest 5887
+  when available 5887
+  when has 11515 x6
   tip Back south to the Sanctuary: Maybess takes the shards on the west side of the camp.
-  turnin 5887                         -- Maybess Riverbreeze
+  turnin 5887 direct -- Maybess Riverbreeze
 
 step Greta Mosshoof
   turnin 5242
