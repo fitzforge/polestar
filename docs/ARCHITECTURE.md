@@ -7303,8 +7303,8 @@ kind.
 
 ### Pressing again moves on
 
-Every target macro opens with `/cleartarget [nocombat]`, so a hand-clicked mob
-or the quest giver just turned in to cannot stop the chain. The client's
+Every target macro opens with `/cleartarget [nocombat][dead]`, so a hand-clicked mob
+or the quest giver just turned in to (or a corpse in combat) cannot stop the chain. The client's
 `/targetexact` moves on to the next unit of a name only while the target
 already has that name, so the clear alone made every press out of combat take
 the nearest one again, tagged or not. The Target button, the step key, the
@@ -7316,7 +7316,7 @@ the clear (`TargetMacro`'s `keep`), so it takes the next one of that name;
 the corpse lines, the other names, the ping and the mark stay. A corpse, a
 unit of another name or no target keeps the clear. `PostClick` puts the
 applied macro back. In a fight nothing changes: the attribute cannot, and the
-clear is `[nocombat]` anyway. A row's mark kind for that press comes from the
+clear is `[nocombat][dead]` anyway (a living target stays). A row's mark kind for that press comes from the
 macro it ran (`pressedKind`, `pressedMixed`).
 
 ### Clickable objectives

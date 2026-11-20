@@ -421,10 +421,10 @@ emit(out)"#;
 fn the_target_button_s_macro_targets_the_french_name_an_english_client_s_the_english_one() {
 	let script = "local B = Polestar.QoL.Buttons; emit(B.TargetMacro(B.TargetNames(), 1))";
 	let before = r#"stub.world.accept(7, { { text = "Kobold Vermin slain: 0/10", required = 10 }, { text = "Handful of Oats: 0/8", required = 8 } })"#;
-	assert_eq!(run(Opts { guide: guide(), before: before.into(), script: script.into(), ..Default::default() }), [json!("/cleartarget [nocombat]\n/targetexact Vermine kobold\n/cleartarget [dead]")]);
+	assert_eq!(run(Opts { guide: guide(), before: before.into(), script: script.into(), ..Default::default() }), [json!("/cleartarget [nocombat][dead]\n/targetexact Vermine kobold\n/cleartarget [dead]")]);
 	assert_eq!(
 		run(Opts { locale: None, guide: guide(), before: before.into(), script: script.into(), ..Default::default() }),
-		[json!("/cleartarget [nocombat]\n/targetexact Kobold Vermin\n/cleartarget [dead]")]
+		[json!("/cleartarget [nocombat][dead]\n/targetexact Kobold Vermin\n/cleartarget [dead]")]
 	);
 }
 
