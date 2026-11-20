@@ -18177,3 +18177,11 @@ for (const guide of ['forever/alliance/40-50/01b-riverglades.guide', 'forever/ho
 		assert.ok(goal.map === 2548 && Math.hypot(goal.x - 47.2, goal.y - 51.2) <= 0.5, `the accept is at the cage (${goal.x},${goal.y})`);
 	});
 }
+
+// #3001 (Edet, 0.4.1): the second Counting Out Time (4973) is repeatable, and the game never flags a repeatable quest as
+// completed, so after a relog the guide went back to it. The repeat is out of the route; the first one (4972) stays.
+test('forever/alliance/50-60/04-western-plaguelands.guide: no repeatable Counting Out Time (#3001)', { skip }, () => {
+	const list = goals('forever/alliance/50-60/04-western-plaguelands.guide');
+	assert.ok(!list.some(({ goal }) => goal.quest === 4973), 'no goal on quest 4973');
+	at(list, 'turnin 4972', is('turnin', 4972));
+});

@@ -12930,6 +12930,11 @@
 				"faction": "Horde",
 				"reason": "#3265 (Zack): the second A Sealed Crate at Dokimi (crate 248770), the same Merchant's Favor hand-in as 91899: nothing on the leveling route gives the crate.",
 				"issue": "#3265"
+			},
+			{
+				"q": 4973,
+				"reason": "#3001 (Edet): the second Counting Out Time is repeatable (575 XP for five more watches), and the game never flags a repeatable quest as completed, so after a relog the guide could not tell it had been handed in and went back to it. The repeat leaves the leveling route; the first Counting Out Time (4972) stays.",
+				"issue": "#3001"
 			}
 		],
 		"revert": [

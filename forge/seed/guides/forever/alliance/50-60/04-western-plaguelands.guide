@@ -331,13 +331,6 @@ step Sorrow Hill: kill these as you meet them
 
 step Chromie
   turnin 4972                         -- Upstairs
-  accept 4973
-
-step More watches
-  collect 12638 quest 4973.1
-
-step Chromie
-  turnin 4973                         -- Upstairs
 
 step Writhing Haunt cauldron
   tip The cauldron sits at the Writhing Haunt, by Mulgris' farm, east of Andorhal.

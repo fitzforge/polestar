@@ -800,6 +800,7 @@
 		"data/route-fixes.json overrides.skip q=4293": "no guide has quest 4293 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=4294": "no guide has quest 4294 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=443 Horde": "no guide has quest 443 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=4973": "no guide has quest 4973 (2026-11-20, #3001: the repeatable second Counting Out Time left the Alliance route; the skip keeps a build from taking it back)",
 		"data/route-fixes.json overrides.skip q=4987 Horde": "no guide has quest 4987 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=507 Horde": "no guide has quest 507 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=508 Horde": "no guide has quest 508 (0.4.0)",
