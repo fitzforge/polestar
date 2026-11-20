@@ -122,7 +122,12 @@ test('Ironforge street walks round the signpost in both directions without closi
 	}
 });
 
-test('the flight master sends the player around the masonry at the foot of the Ironforge trainer ramp', () => {
+for (const [place, goal, maxGap, faces] of [
+	['the trainer ramp', [-4876.6,-1149.2,512.5], 10, [[-4861.273418,-1141.422549,503.223817],[-4868.359568,-1147.723829,506.619640]]],
+	// The vendor route is still partial; keep the approach without sending the player through the ForgeRoom wall.
+	['Stonefire Tavern', [-4842.3,-861,502], 21, [[-4814.472715,-1050.653239,503.215]]],
+]) test(`the walk from the Ironforge flight master to ${place} goes around the masonry`, () => {
+	const [gx, gy, gz] = goal;
 	const parts = navParts(path.join(ADDONS, 'Polestar_Nav'));
 	const { emitted: [line] } = runAddon({
 		stubs: ['stub_world.lua', 'stub_encoding.lua', 'stub_packs.lua'],
@@ -131,22 +136,21 @@ test('the flight master sends the player around the masonry at the foot of the I
 		script: `
 			local e,q,points=Polestar_NavEngine,{},{}
 			e.after=function(f) q[#q+1]=f end
-			e.Find(0,{x=-4821.1,y=-1152.4,z=502.3},{x=-4876.6,y=-1149.2,z=512.5},function(path)
+			e.Find(0,{x=-4821.1,y=-1152.4,z=502.3},{x=${gx},y=${gy},z=${gz}},function(path)
 				for _,p in ipairs(path or {}) do points[#points+1]={p.x,p.y,p.z} end
 			end,{profile='Alliance',walkLevel=23})
 			while #q>0 do table.remove(q,1)() end
 			emit(points)`,
 	});
-	assert.ok(Array.isArray(line) && line.length >= 2 && Math.hypot(line.at(-1)[0]+4876.6,line.at(-1)[1]+1149.2)<10,
+	assert.ok(Array.isArray(line) && line.length >= 2 && Math.hypot(line.at(-1)[0]-gx,line.at(-1)[1]-gy)<maxGap,
 		'the walking approach remains available, not just a refusal at the flight master');
-	// Fixed wall faces at torso height on the sloping approach and beside the platform.
 	for (let i=1; i<line.length; i++) {
 		const [x,y,z]=line[i-1], [X,Y,Z]=line[i], dx=X-x, dy=Y-y;
-		for (const [px,py,pz] of [[-4861.273418,-1141.422549,503.223817],[-4868.359568,-1147.723829,506.619640]]) {
+		for (const [px,py,pz] of faces) {
 			const t=Math.max(0,Math.min(1,((px-x)*dx+(py-y)*dy)/(dx*dx+dy*dy || 1)));
 			const height=pz-z-t*(Z-z);
 			assert.ok(height<=.29 || height>=1.95 || Math.hypot(x+t*dx-px,y+t*dy-py)>=.454,
-				'a walking segment enters the fixed ramp masonry');
+				'a walking segment enters fixed masonry');
 		}
 	}
 });

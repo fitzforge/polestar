@@ -1,4 +1,4 @@
-//! Incremental rebuild of one cluster in the reviewed `forge nav pack` output, before regional partitioning.
+//! Incremental rebuild of two Ironforge clusters in the reviewed `forge nav pack` output, before regional partitioning.
 //! Run with `<derived AddOns> <new directory>`; fill the remaining files with `cp -an <derived AddOns>/. <new directory>/`
 //! and pass that directory to tools/lib/nav/import-regions.js. Neither the source nor the installed addon is edited.
 //! At the grounded center the body intersects the fixed gryphon roost in both base builds (70532 and 70959).
@@ -21,6 +21,10 @@ const CLUSTER: usize = 471;
 const CELL: usize = 15594;
 // Map 0, cluster 471: both ends are layer 1 at packed height 502. These are cell IDs, not node IDs.
 const SIGN_PAIRS: [(usize, usize); 6] = [(14325, 14454), (14326, 14453), (14326, 14454), (14327, 14454), (14453, 14454), (14454, 14455)];
+// Map 0, cluster 472: each street step incident on this layer crosses a fixed ForgeRoom wall at torso height.
+// The parallel pavement and other storeys are not part of this cut.
+const STREET: usize = 472;
+const STREET_PAIRS: [(usize, usize); 5] = [(27823, 27828), (27828, 27831), (27828, 28005), (27828, 28006), (27828, 28008)];
 // Node IDs in this exact pinned source, before renumbering. Two ramp-floor centers
 // put the player's torso inside masonry; two approaches cut a wall before their end.
 // Equal-height floors can share a cell: do not subtract by XY or height alone.
@@ -169,12 +173,13 @@ fn remove<const P: usize>(before: &Cluster, rows: &[Row], cell: usize, z: f64, s
 
 // Only called on the two parts authenticated by PACK.json. Literals in these fields are forge-nav's
 // zlib_literals: raw bytes apart from three-digit decimal escapes. Keep every other line byte-for-byte.
-fn field(line: &[u8]) -> Option<(&str, &[u8])> {
+fn field(line: &[u8]) -> Option<((usize, &str), &[u8])> {
 	let line = line.strip_prefix(b"data.packed.")?;
 	let at = line.iter().position(|&b| b == b'[')?;
 	let name = std::str::from_utf8(&line[..at]).ok()?;
-	let blocks = line[at..].strip_prefix(b"[472] = {")?.strip_suffix(b"}\n")?;
-	matches!(name, "graph" | "grid" | "height" | "floor" | "class" | "area" | "arc").then_some((name, blocks))
+	let rhs = line[at..].strip_suffix(b"}\n")?;
+	let (k, blocks) = if let Some(b) = rhs.strip_prefix(b"[472] = {") { (CLUSTER, b) } else { (STREET, rhs.strip_prefix(b"[473] = {")?) };
+	matches!(name, "graph" | "grid" | "height" | "floor" | "class" | "area" | "arc").then_some(((k, name), blocks))
 }
 
 fn unpack(blocks: &[u8]) -> (String, usize) {
@@ -229,20 +234,45 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 			assert!(fields.insert(name, unpack(blocks)).is_none());
 		}
 	}
-	let get = |f: &str| fields[f].0.as_str();
-	let before = Cluster::decode(c, cs, number("zstep"), get("grid"), get("height"), Some(get("floor")), Some(get("class")), Some(get("area")), Some(get("arc")))?;
-	let mut rows = decode_graph(get("graph"))?;
-	assert_eq!((before.z[CELL], rows.len()), (768.0, 306));
-	let after = remove(&before, &rows, CELL, 502.0, &SIGN_PAIRS, &RAMP_PAIRS)?;
-	let (dearer, gone) = reprice(&before, &after, &mut rows, number("swim"));
-	assert_eq!(gone, 0, "disconnected entrance edge needs review");
-	let changed = BTreeMap::from([
-		("floor", after.floor_field()?.unwrap()),
-		("class", after.class_field()),
-		("area", after.area_field()?.unwrap()),
-		("arc", after.arc_field().unwrap()),
-		("graph", encode_graph(&rows)?),
-	]);
+	let mut changed = BTreeMap::new();
+	let mut area_removed = 0;
+	let mut dearer = [0; 2];
+	for (i, k) in [CLUSTER, STREET].into_iter().enumerate() {
+		let get = |f: &'static str| fields[&(k, f)].0.as_str();
+		let before = Cluster::decode(c, cs, number("zstep"), get("grid"), get("height"), Some(get("floor")), Some(get("class")), Some(get("area")), Some(get("arc")))?;
+		let mut rows = decode_graph(get("graph"))?;
+		let after = if k == CLUSTER {
+			assert_eq!((before.z[CELL], rows.len()), (768.0, 306));
+			area_removed = i64::from(before.area[before.floors_of(CELL).0] != 0);
+			let after = remove(&before, &rows, CELL, 502.0, &SIGN_PAIRS, &RAMP_PAIRS)?;
+			changed.insert((k, "class"), after.class_field());
+			changed.insert((k, "area"), after.area_field()?.unwrap());
+			after
+		} else {
+			let mut after = before.clone();
+			assert_eq!(before.surface(15875, 5, 502.0), Some(27828));
+			cut_floor_pairs(&before, &mut after, &STREET_PAIRS)?;
+			after.index();
+			let (mut old, mut new) = (Vec::new(), Vec::new());
+			for u in 0..before.t() {
+				for reverse in [false, true] {
+					before.moves(u, reverse, &mut old);
+					old.retain(|&(v, _)| STREET_PAIRS.binary_search(&(u.min(v), u.max(v))).is_err());
+					after.moves(u, reverse, &mut new);
+					assert_eq!(old, new, "unexpected street move at {u}, reverse={reverse}");
+				}
+			}
+			after
+		};
+		let (costlier, gone) = reprice(&before, &after, &mut rows, number("swim"));
+		assert_eq!(gone, 0, "disconnected entrance edge in cluster {k} needs review");
+		dearer[i] = costlier;
+		changed.insert((k, "floor"), after.floor_field()?.unwrap());
+		changed.insert((k, "arc"), after.arc_field().unwrap());
+		if costlier != 0 {
+			changed.insert((k, "graph"), encode_graph(&rows)?);
+		}
+	}
 	let (mut raw_delta, mut packed_delta) = (0i64, 0i64);
 	fs::create_dir(dest)?; // Never overwrite or follow links into the input (or into an installed addon).
 	fs::create_dir(dest.join("Polestar_Nav_EK"))?;
@@ -254,12 +284,12 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 	for (key, part) in PARTS.iter().zip(&parts) {
 		let mut out = Vec::with_capacity(part.len());
 		for line in part.split_inclusive(|&b| b == b'\n') {
-			if let Some((name, _)) = field(line) {
-				if let Some(value) = changed.get(name).filter(|v| **v != fields[name].0) {
+			if let Some((id @ (k, name), _)) = field(line) {
+				if let Some(value) = changed.get(&id).filter(|v| **v != fields[&id].0) {
 					let rhs = value.as_bytes().chunks(BLOCK_BYTES).map(|chunk| format!("\"{}\"", block(chunk))).collect::<Vec<_>>().join(", ");
-					raw_delta += value.len() as i64 - fields[name].0.len() as i64;
-					packed_delta += rhs.len() as i64 - fields[name].1 as i64;
-					out.extend(zlib_literals(&format!("data.packed.{name}[{}] = {{{rhs}}}\n", CLUSTER + 1))?);
+					raw_delta += value.len() as i64 - fields[&id].0.len() as i64;
+					packed_delta += rhs.len() as i64 - fields[&id].1 as i64;
+					out.extend(zlib_literals(&format!("data.packed.{name}[{}] = {{{rhs}}}\n", k + 1))?);
 					continue;
 				}
 			}
@@ -269,7 +299,6 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 		fs::write(dest.join(key), out)?;
 	}
 	let map = &mut manifest["maps"]["0"];
-	let area_removed = i64::from(before.area[before.floors_of(CELL).0] != 0);
 	for (v, delta) in [("rawBytes", raw_delta), ("packedBytes", packed_delta)] {
 		map[v] = json!(map[v].as_i64().unwrap() + delta);
 	}
@@ -279,10 +308,11 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
 	map["occupiedFloor"] = json!({
 		"sourceManifestSha256": SOURCE, "cluster": CLUSTER, "cell": CELL, "layer": 1, "z": 502,
 		"sign": {"cellPairs": SIGN_PAIRS, "layer": 1, "z": 502, "solidSamples": 3},
-		"trainerRamp": {"sourceNodePairs": RAMP_PAIRS, "solidSamples": 5}, "dearerEdges": dearer
+		"trainerRamp": {"sourceNodePairs": RAMP_PAIRS, "solidSamples": 5}, "dearerEdges": dearer[0],
+		"forgeRoom": {"cluster": STREET, "sourceNodePairs": STREET_PAIRS, "dearerEdges": dearer[1]}
 	});
 	fs::write(dest.join(MANIFEST), serde_json::to_string_pretty(&manifest)? + "\n")?;
-	println!("Removed the occupied Ironforge center, six signpost pairs and fourteen trainer ramp pairs; {dearer} dearer entrance edges, none lost");
+	println!("Removed the occupied Ironforge center and obstructed signpost, ramp and street steps; dearer entrance edges: {dearer:?}, none lost");
 	Ok(())
 }
 
