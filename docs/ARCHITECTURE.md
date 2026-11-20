@@ -9377,8 +9377,9 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   level for the character's race (`UnitRace`'s id against the mask), not
   known, and for a higher rank only when the rank below is known or trainable
   by then (a talent's higher ranks need the talent); any left fire
-  `LEVELUP_SPELLS` { level, spells, cost, money }. Nothing in an instance; in combat it
-  waits for `PLAYER_REGEN_ENABLED`. The card: "LEVEL 12 · PRIEST", "3 new
+  `LEVELUP_SPELLS` { level, spells, cost, money }. In an instance it waits for
+  `PLAYER_ENTERING_WORLD` outside one, then tells every level reached since in one
+  notice (#2930); in combat it waits for `PLAYER_REGEN_ENABLED`. The card: "LEVEL 12 · PRIEST", "3 new
   spells to train", a row of up to 8 icons ("+N more") with the game's spell
   tooltip (`W.SpellTip` with `CT.PlaceTip`: beside the card, on its side
   facing the screen's middle, never over its lines) and the training cost, the
