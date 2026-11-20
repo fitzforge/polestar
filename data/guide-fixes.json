@@ -4605,23 +4605,6 @@
 			]
 		},
 		{
-			"id": "a4060-bs-accept-broodling-essence-52",
-			"faction": "Alliance",
-			"at": {
-				"quest": 3823,
-				"goal": "objective",
-				"objective": 1
-			},
-			"level": 52,
-			"note": "Burning Steppes, final route review before 0.3.5: the route topped up to 51.39 on the Firegut ogres of Dreadmaul Rock (78.7,44.7) on the way from Morgan's Vigil to Flame Crest, then, after the Flame Crest accepts (65.2,24.0), rode back to the same ogres for a top-up to 52. Nothing between the two gives experience, so the one top-up to 52 is on the way, before Flame Crest. Level tidy 0.4.0 (Alliance 50-60, minimum fixes): the same top-up comes before Extinguish the Firegut's kills instead, on the Firegut Ogres (50-51) of the rock's near side: the Brutes on its east side are 52-53, two over the 51 player there in the calibrated level model with rested experience.",
-			"source": [
-				{
-					"kind": "recording",
-					"ref": "final route review 2026-11-08 (Alliance 40-60): 50-60/01-burning-steppes steps 'Level 51.39' and 'Level 52', both 'grind on Firegut Ogre Mage' at 78.7,44.7; Tinkee Steamboil and Maxwort Uberglint spawns from npcs.json"
-				}
-			]
-		},
-		{
 			"id": "1234-kodo-roundup-talk-to-the-kodo-horde",
 			"faction": "Horde",
 			"at": {
@@ -5862,23 +5845,6 @@
 				"kind": "pfquest",
 				"ref": "npcs.json 2735 on map 1418; items.json 7848"
 			}
-		},
-		{
-			"id": "a4060-winterspring-54-on-frostfire",
-			"faction": "Alliance",
-			"at": {
-				"quest": 5082,
-				"goal": "objective",
-				"objective": 1
-			},
-			"level": 55,
-			"note": "Winterspring (Alliance 53-56): the top-up to 55.05 was one block after Donova; its first part (to 54) is ground on the Frostfire Winterfall camp while Donova's and Salfa's kills still count (grind policy: no single block, grind on quest mobs). Level tidy 0.4.0 (Alliance 50-60, minimum fixes): the top-up goes to 55 on the camp's Pathfinders (53-54) before the kills, since its Den Watchers are 55-56, two over the 54 player there; the later top-up to 55.05 is then nearly done.",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "quest minimum and quest levels in Forever's quest data; mob levels from npcs.json"
-				}
-			]
 		},
 		{
 			"id": "h130-sepulcher-yuriv-tombstone",
@@ -7184,10 +7150,10 @@
 				"guide": "forever/alliance/50-60/06-silithus"
 			},
 			"follows": {
-				"quest": 8281,
+				"quest": 8280,
 				"goal": "accept"
 			},
-			"note": "Secret Communication (8318) needs level 57. Fix round 1 (0.4.0): Bor Wildmane gives it on the Silithus guide's first Cenarion Hold stop (06, about 58), with Beetix's and Windcaller Proudhorn's quests, so the route doesn't walk past him; its texts drop at the Twilight dig after the next stop there, where he takes it back. On the Western Plaguelands guide's second Cenarion Hold stop the level model reached it at 56.95 and ground 33 minutes to take it.",
+			"note": "Secret Communication (8318) needs level 57. Fix round 1 (0.4.0): Bor Wildmane gives it on the Silithus guide's first Cenarion Hold stop (06, about 58), with Beetix's and Windcaller Proudhorn's quests, so the route doesn't walk past him; its texts drop at the Twilight dig after the next stop there, where he takes it back. On the Western Plaguelands guide's second Cenarion Hold stop the level model reached it at 56.95 and ground 33 minutes to take it. 0.4.3 fix round: Silithus is one visit, after Mount Hyjal; the first stop takes Windcaller Proudhorn's Securing the Supply Lines (8280), which Bor follows.",
 			"source": [
 				{
 					"kind": "questie",
@@ -11452,22 +11418,6 @@
 				{
 					"kind": "client",
 					"ref": "Thaurissan Spy 53-54, War Reaver 53-55, Thaurissan Firewalker 53-55 in Forever's data"
-				}
-			]
-		},
-		{
-			"id": "a4060-azshara-52-before-kimjael",
-			"faction": "Alliance",
-			"at": {
-				"quest": 3601,
-				"goal": "accept"
-			},
-			"level": 51,
-			"note": "Level tidy 0.4.0, fix round 1 (Alliance 50-60): Kim'jael's camp and the Thalassian Base Camp are blood elves of 51-53 (Surveyors 51-52, Reclaimers 52-53, Magister Hawkhelm 53). A top-up to 51 (the guide writes 51.3) on the Spitelash Myrmidons (50-51) on the way north comes first, after the Ruins of Eldarath's runes on the same naga; with a Careful tip the camp's range top is one over the low end. With the first Un'Goro visit lighter (fix round 1) a top-up to 52 grew to about 12 model hours.",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "npcs 6196 Spitelash Myrmidon 50-51, 6198 Blood Elf Surveyor 51-52, Blood Elf Reclaimer 52-53 in Forever's data"
 				}
 			]
 		},

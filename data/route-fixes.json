@@ -6493,6 +6493,7 @@
 			"Alliance 50-60 fix round 3 (0.4.0): 50-60/01's top-up to 50.56 on the Thunderhead Hippogryphs (46-48, two to four under the player) around Sanath Lim-yo's camp is gone; its minutes land on the next one, \"Level 51.3 on the way north\" on the Spitelash Myrmidons (50-51), a `level` step with the dungeon line, where the Azshara quests that follow need the level (level model: no change to the route's hours). Hand edits.",
 			"Alliance 50-60 fix round 3 (0.4.0): after the Fallen Hero of the Horde (Swamp of Sorrows 34.3,66.1), 50-60/01 has a travel step back into the Blasted Lands to the bloodmages' camp by the road (50.6,14.2) before the beast hunt; the hunt's step changed zone with no travel line (honest playtest). Hand edits.",
 			"Alliance 40-50 route round (0.4.3, AuditA40 5(b)): the Riverglades guide (40-50/01b) warns early visitors. Its first quest step (Scout Bolain) says the guide is written for 41-45 and the route comes at about 41 after Stranglethorn, with the port's second wave and the Western Front at 43-45 (elite Twilight Enforcers 45, Overlord Kilgar 46 for groups); a `when level<44` step before Sergeant Riftan names the Western Front's Champions (43-44), Thralls (44), the Enforcer patrols and Kilgar. Players who went in on their own at 38-43 died there most (players' recordings: Carving a Path 25 people/42 deaths at 43.3, Bring Me His Head 13/18 at 44.5, No Soldier Left Behind 9/13 at 44.4; followers of the guide 2/4). Hand edits.",
+			"Alliance 50-60 redraw (0.4.3 fix round, hand edits): 01 opens in Ironforge (the Hearthstone from Un'Goro), takes the Blasted Lands and the Burning Steppes at 50-51 with Danneth's Serpent's Coil chain (96798, 96811, 96799, 96812) and To Serve Kum'isha (2521) when the sphere drops, and ends in Azshara at 51-52 (its 51.3 and 50.65 top-ups gone). 02 is Felwood's first pass, the tunnel to Everlook, Darnassus and Feralas' second visit (Zorbin 7003/7721, Gregan, Rockbiter and Shay) at 52-53. 03 is Donova's Frostfire camp and Felpaw Village, Tanaris and Un'Goro's second visit, Felwood's south (Shadow Hold, Salve via Hunting 5882) and the whole Winterspring loop at 53-55, ending in Moonglade (its 53.6 -> 55 top-up, about 246k XP for the level model's player, gone). 04 is one Plaguelands sweep at 55-57 with the Stormwind hop for Flint Shadowmore's chain (6182-6186, so The Blightcaller Cometh pays), Kirsta, Tirion, Gahrron, Egan and Light's Hope; then Mount Hyjal; 06 is Silithus alone, ending with one step under 60 that sends the player to a dungeon with a group (Main's decision: the level model ends its last hand-in about 0.5 level, 109k XP, short of 60; no mob-camp grind). Level model (28 branches, median): grind 1,566 -> 0 model minutes, Hyjal entry 57.73 -> 56.6, quest XP handed in between 53.5 and 55: 12.6k -> 154k; Western Plaguelands 4 visits -> 1, Eastern Plaguelands 3 -> 1, Silithus 2 -> 1, Winterspring 3 -> 2.",
 			"Mount Hyjal in both routes (0.4.3, Fitz's approval 2026-11-20): the zone's guide leaves Polestar Experimental for guides/forever/50-60/mount-hyjal (both factions, one guide; hand-written, no seed). Alliance: 50-60/04 (ends at Marshal's Refuge, level model 57.7) -> mount-hyjal -> 50-60/06, whose Everlook opener (hyjal-everlook) already takes the return; 06's header 59-60. Horde: 50-60/05 (ends at Valor's Rest, 57.0) -> mount-hyjal -> 50-60/06, which opens with the flight from Everlook to Marshal's Refuge (`when zone \"Winterspring\"`); 06's header 58-60, and its top-ups to 57 and 58 no longer fire on the route (level model: Horde grind 1,873 -> 1,424 minutes, hours to 60 121.9 -> 116.4). The choice card at the end of 50-60/04 goes. Hand edits.",
 			"Alliance 12-31 fix round (2026-11-20), Duskwood: Dusky Crab Cakes (93) is handed in with Jitters' Growling Gut on 04-redridge-mountains' Darkshire stop for everyone, its six Gooey Spider Legs collected on the Hushed Bank on the way (spiders 18-25, about 30% each), and Return to Jitters (240) taken there. 05-duskwood: Look to the Stars' Insane Ghoul (177, 26, the Tranquil Gardens' crypt below Blind Mary) on the opening and Viktori on the way into town (181 taken there for the Duskwood return); The Night Watch (57) on the first west trip, handed in on the Darkshire stop after it with its third part (58) taken for the Plague Spreaders among Abercrombie's ghouls (handed in on 07-thousand-needles' first Darkshire stop); Proving Your Worth (323) worked at Sven's from level 28 and Seeking Wisdom (269) handed to Bishop Farthing on the Stormwind walk, his The Doomed Fleet (270) for Glorin in Menethil (06-wetlands). 07-thousand-needles keeps every step for a character without them. Hand edits.",
 			"Alliance 12-31 fix round (2026-11-20), Wetlands: 06-wetlands finishes the zone at 28-29: after Rethiel's Blisters on the Land the east loop goes to the Dragonmaw Gates (98072, 98245, 98246) and Dun Modr / the Thandol Span (472, 631-634, 637), back past Howin (hand-ins) to Menethil; Lifting the Curse (290-293) from level 29 at the end, Lightforge Iron (270 -> 321, 324, 322) on the first Menethil stops for a player carrying The Doomed Fleet, Sully Balloo's Letter and Sara Balloo's Plea (637, 683) on its Ironforge stop, Blessed Arm and Cleansing the Eye (322, 293) on its Stormwind stop. 30-40/01-hillsbrad-foothills' Wetlands loop and 30-40/03-ashenvale's Lightforge steps stay for a character who arrives without them (agreed with the Alliance 30-40 band). Hand edits.",
@@ -16865,140 +16866,62 @@
 			},
 			{
 				"q": 978,
-				"guide": "forever/alliance/50-60/01-burning-steppes",
+				"guide": "forever/alliance/50-60/02-felwood",
 				"reason": "The work for Favored of Elune? (3661: Wildkin Feather x15) is not on this visit's route: bringing it back is a separate trip.",
 				"issue": "#2635"
 			},
 			{
-				"q": 4513,
-				"guide": "forever/alliance/50-60/03-winterspring",
-				"reason": "The work for A Little Slime Goes a Long Way (4512: Filled Cursed Ooze Jar x6, Filled Tainted Ooze Jar x6) is not on this visit's route: bringing it back is a separate trip.",
-				"issue": "#2635"
-			},
-			{
-				"q": 5097,
-				"guide": "forever/alliance/50-60/03-winterspring",
-				"reason": "The work for Clear the Way (5092: Skeletal Flayer x10, Slavering Ghoul x10) is not on this visit's route: bringing it back is a separate trip.",
-				"issue": "#2635"
-			},
-			{
-				"q": 5217,
-				"guide": "forever/alliance/50-60/03-winterspring",
-				"reason": "It needs 3 quests from 01-burning-steppes first (Target: Felstone Field (5216), The Scourge Cauldrons (5215), Clear the Way (5092); about 10,875 XP of work at this visit's level): too long to bring back.",
-				"issue": "#2635"
-			},
-			{
-				"q": 5220,
-				"guide": "forever/alliance/50-60/04-western-plaguelands",
-				"reason": "It needs 5 quests from 03-winterspring first (Target: Dalson's Tears (5219), Return to Chillwind Camp (5217), Target: Felstone Field (5216), The Scourge Cauldrons (5215), Clear the Way (5092); about 19,175 XP of work at this visit's level): too long to bring back.",
-				"issue": "#2635"
-			},
-			{
-				"q": 5533,
-				"guide": "forever/alliance/50-60/04-western-plaguelands",
-				"reason": "It pays only 550 XP at 55, less than the trip for its starter (All Along the Watchtowers (5097), Clear the Way (5092)).",
-				"issue": "#2635"
-			},
-			{
-				"q": 979,
-				"guide": "forever/alliance/50-60/04-western-plaguelands",
-				"reason": "Favored of Elune? (3661, level 47) pays only 50% at 55, this visit's arrival level.",
-				"issue": "#2635"
-			},
-			{
 				"q": 3781,
-				"guide": "forever/alliance/50-60/04-western-plaguelands",
-				"reason": "It pays only 470 XP at 55, less than the trip for its starter (Un'Goro Soil (3764)).",
-				"issue": "#2635"
-			},
-			{
-				"q": 3912,
-				"guide": "forever/alliance/50-60/04-western-plaguelands",
-				"reason": "It needs 4 quests from 03-winterspring first (The Videre Elixir (3909), It's a Secret to Everybody (3908), It's a Secret to Everybody (3845), It's a Secret to Everybody (3844); about 16,550 XP of work at this visit's level): too long to bring back.",
+				"guide": "forever/alliance/50-60/01-burning-steppes",
+				"reason": "It pays only 470 XP at 52, less than the trip for its starter (Un'Goro Soil (3764)).",
 				"issue": "#2635"
 			},
 			{
 				"q": 4285,
-				"guide": "forever/alliance/50-60/04-western-plaguelands",
+				"guide": "forever/alliance/50-60/03-winterspring",
 				"reason": "The work for Crystals of Power (4284: Red Power Crystal x7, Yellow Power Crystal x7, Green Power Crystal x7, Blue Power Crystal x7) is not on this visit's route: bringing it back is a separate trip.",
 				"issue": "#2635"
 			},
 			{
 				"q": 4287,
-				"guide": "forever/alliance/50-60/04-western-plaguelands",
+				"guide": "forever/alliance/50-60/03-winterspring",
 				"reason": "The work for Crystals of Power (4284: Red Power Crystal x7, Yellow Power Crystal x7, Green Power Crystal x7, Blue Power Crystal x7) is not on this visit's route: bringing it back is a separate trip.",
 				"issue": "#2635"
 			},
 			{
 				"q": 4288,
-				"guide": "forever/alliance/50-60/04-western-plaguelands",
+				"guide": "forever/alliance/50-60/03-winterspring",
 				"reason": "The work for Crystals of Power (4284: Red Power Crystal x7, Yellow Power Crystal x7, Green Power Crystal x7, Blue Power Crystal x7) is not on this visit's route: bringing it back is a separate trip.",
 				"issue": "#2635"
 			},
 			{
 				"q": 4292,
-				"guide": "forever/alliance/50-60/04-western-plaguelands",
+				"guide": "forever/alliance/50-60/03-winterspring",
 				"reason": "The work for The Scent of Lar'korwi (4291: Ravasaur Pheromone Gland x2); The Fare of Lar'korwi (4290: Piece of Threshadon Carcass) is not on this visit's route: bringing it back is a separate trip.",
 				"issue": "#2635"
 			},
 			{
 				"q": 4442,
-				"guide": "forever/alliance/50-60/06-silithus",
+				"guide": "forever/alliance/50-60/03-winterspring",
 				"reason": "The work for Felbound Ancients (4441: Vial of Blessed Water); Flute of Xavaric (939: Jadefire Felbind x5) is not on this visit's route: bringing it back is a separate trip.",
 				"issue": "#2635"
 			},
 			{
-				"q": 4513,
-				"guide": "forever/alliance/50-60/06-silithus",
-				"reason": "The work for A Little Slime Goes a Long Way (4512: Filled Cursed Ooze Jar x6, Filled Tainted Ooze Jar x6) is not on this visit's route: bringing it back is a separate trip.",
+				"q": 3912,
+				"guide": "forever/alliance/50-60/03-winterspring",
+				"reason": "It needs 4 quests from 02-felwood first (The Videre Elixir (3909), It's a Secret to Everybody (3908), It's a Secret to Everybody (3845), It's a Secret to Everybody (3844); about 16,550 XP of work at this visit's level): too long to bring back.",
 				"issue": "#2635"
 			},
 			{
-				"q": 4507,
-				"guide": "forever/alliance/50-60/06-silithus",
-				"reason": "It needs 8 quests from 04-western-plaguelands first (Bungle in the Jungle (4496), March of the Silithid (4493), Rise of the Silithid (162), Insect Part Analysis (113), Insect Part Analysis (110), The Scrimshank Redemption (10), Noxious Lair Investigation (82), Gadgetzan Water Survey (992); about 14,365 XP of work at this visit's level): too long to bring back.",
+				"q": 5097,
+				"guide": "forever/alliance/50-60/04-western-plaguelands",
+				"reason": "The work for Clear the Way (5092: Skeletal Flayer x10, Slavering Ghoul x10) is not on this visit's route: bringing it back is a separate trip.",
 				"issue": "#2635"
 			},
 			{
-				"q": 8278,
-				"guide": "forever/alliance/50-60/06-silithus",
-				"reason": "The work for Deadly Desert Venom (8277: Stonelash Scorpid Stinger x8, Sand Skitterer Fang x8) is not on this visit's route: bringing it back is a separate trip.",
-				"issue": "#2635"
-			},
-			{
-				"q": 8281,
-				"guide": "forever/alliance/50-60/06-silithus",
-				"reason": "The work for Securing the Supply Lines (8280: Dredge Striker x15) is not on this visit's route: bringing it back is a separate trip.",
-				"issue": "#2635"
-			},
-			{
-				"q": 5904,
-				"guide": "forever/alliance/50-60/06-silithus",
-				"reason": "The work for A Plague Upon Thee (5903: Plagueland Termites x100) is not on this visit's route: bringing it back is a separate trip.",
-				"issue": "#2635"
-			},
-			{
-				"q": 5225,
-				"guide": "forever/alliance/50-60/06-silithus",
-				"reason": "It needs 8 quests from 04-western-plaguelands first (Return to Chillwind Camp (5223), Target: Writhing Haunt (5222), Return to Chillwind Camp (5220), Target: Dalson's Tears (5219), Return to Chillwind Camp (5217), Target: Felstone Field (5216), The Scourge Cauldrons (5215), Clear the Way (5092); about 29,405 XP of work at this visit's level): too long to bring back.",
-				"issue": "#2635"
-			},
-			{
-				"q": 6023,
-				"guide": "forever/alliance/50-60/06-silithus",
-				"reason": "The work for Unfinished Business (6004: Scarlet Medic x2, Scarlet Hunter x2, Scarlet Mage x2, Scarlet Knight x2) is not on this visit's route: bringing it back is a separate trip.",
-				"issue": "#2635"
-			},
-			{
-				"q": 5845,
-				"guide": "forever/alliance/50-60/06-silithus",
-				"reason": "It needs 5 quests from 04-western-plaguelands first (Of Forgotten Memories (5781), Redemption (5742), Demon Dogs (5542), Blood Tinged Skies (5543), Carrion Grubbage (5544); about 23,975 XP of work at this visit's level): too long to bring back.",
-				"issue": "#2635"
-			},
-			{
-				"q": 5206,
-				"guide": "forever/alliance/50-60/06-silithus",
-				"reason": "It needs 7 quests from 04-western-plaguelands first (Heroes of Darrowshire (5168), Villains of Darrowshire (5181), Brother Carlin (5210), The Annals of Darrowshire (5154), A Strange Historian (5153), Auntie Marlene (5152), Pamela's Doll (5149); about 30,550 XP of work at this visit's level): too long to bring back.",
+				"q": 5217,
+				"guide": "forever/alliance/50-60/04-western-plaguelands",
+				"reason": "It needs 3 quests from 01-burning-steppes first (Target: Felstone Field (5216), The Scourge Cauldrons (5215), Clear the Way (5092); about 10,875 XP of work at this visit's level): too long to bring back.",
 				"issue": "#2635"
 			},
 			{
