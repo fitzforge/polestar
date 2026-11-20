@@ -10,7 +10,7 @@ return {
 	-- {skill:393} Skinning
 	["Learn {skill:393}"] = "學習{skill:393}",
 	-- {skill:393} Skinning · {item:7005} Skinning Knife · {item:11584} Cactus Apple Surprise · {item:247846} Pelt Collecting for Beginners · {item:277114} Apprentice's Skinning Satchel · {spell:1229517} Camp Chair
-	["Any {skill:393} trainer of your faction teaches Apprentice {skill:393} at any level (10c), and so does the Junior Skinning Trainer in each starting area; the arrow picks the nearest. Buy a {item:7005} from a trade goods or general vendor: keep it in your bags, you cannot skin without it. The first-hour quest of each starting area (Rascally Rodents, Coldridge Valley Mail Delivery, The Woodland Protector, Galgar's {item:11584}, A Humble Task, Marla's Last Wish) offers {item:247846} as a reward: reading it gives 2 skill, up to 15. Trade goods vendors and the junior trainers sell the {item:277114}, a four-slot bag for leather and hides (25c). If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: {skill:393}: hand it in to the skinning trainer it names once you reach skill 20, for the {spell:1229517} recipe."] = "",
+	["Any {skill:393} trainer of your faction teaches Apprentice {skill:393} at any level (10c), and so does the Junior Skinning Trainer in each starting area; the arrow picks the nearest. Buy a {item:7005} from a trade goods or general vendor: keep it in your bags, you cannot skin without it. The first-hour quest of each starting area (Rascally Rodents, Coldridge Valley Mail Delivery, The Woodland Protector, Galgar's {item:11584}, A Humble Task, Marla's Last Wish) offers {item:247846} as a reward: reading it gives 2 skill, up to 15. Trade goods vendors and the junior trainers sell the {item:277114}, a four-slot bag for leather and hides (25c). If you sat at your starting area's campfire for The Great Outdoors, the camping guide there also offers Camping 101: {skill:393}: hand it in to the skinning trainer it names once you reach skill 20, for the {spell:1229517} recipe."] = "任意本陣營 {skill:393} 訓練師都可在任意等級教授初級 {skill:393}（10 銅），各起始地區的初級剝皮訓練師也可以；箭頭會選擇最近的一位。向貿易貨物商人或雜貨商購買 {item:7005}：留在揹包中，沒有它就不能剝皮。各起始地區最初一小時內的任務（“鼠輩氾濫”、“寒脊山谷的送信任務”、“森林守護者”、高戈爾的 {item:11584}、“一件瑣事”、“瑪拉的遺願”）會提供 {item:247846} 作為獎勵：閱讀可提升 2 點技能，最多提升至 15。貿易貨物商人和初級訓練師出售 {item:277114}，這是一個裝皮革和毛皮的四格包（25 銅）。如果你為“廣闊天地”在起始地區的營火旁坐過，當地露營嚮導還會提供露營 101: {skill:393}：技能達到 20 後，向任務指定的剝皮訓練師交還，即可取得 {spell:1229517} 配方。",
 
 	-- Step 2: Beasts 1-9: Elwynn Forest (1-50)
 	-- {zone:1429} Elwynn Forest
@@ -40,7 +40,7 @@ return {
 	-- {zone:2521} Zephras Isle
 	["Beasts 1-10: {zone:2521} (1-50)"] = "野獸1-10級：{zone:2521}（1-50）",
 	-- {npc:250928} Highlands Ursera · {npc:251284} Hippogryph Protector · {npc:251291} Hippogryph Youth · {npc:250873} Juvenile Vuldren · {npc:251707} Ornery Galestrider · {npc:250926} Scrawny Ursera · {npc:256092} Shadowgale Shriekling · {npc:253282} Shriekling Fledgling · {npc:250937} Ursera Scavenger · {npc:250874} Vuldren Alpha · {npc:254588} Windsong Crawler · {skill:393} Skinning
-	["Kill and skin Cloudrunner (6), Galestrider (5), {npc:250928} (7), {npc:251284} (6), {npc:251291} (6), {npc:250873} (1), {npc:251707} (8), Prideclaw (5), {npc:250926} (3), {npc:256092} (10), {npc:253282} (8), {npc:250937} (4), Vuldren (6), {npc:250874} (10), {npc:254588} (8) along the loop until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 1-15. Expect about 60 beasts for these 49 points."] = "",
+	["Kill and skin Cloudrunner (6), Galestrider (5), {npc:250928} (7), {npc:251284} (6), {npc:251291} (6), {npc:250873} (1), {npc:251707} (8), Prideclaw (5), {npc:250926} (3), {npc:256092} (10), {npc:253282} (8), {npc:250937} (4), Vuldren (6), {npc:250874} (10), {npc:254588} (8) along the loop until {skill:393} 50; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 1-15. Expect about 60 beasts for these 49 points."] = "沿環線擊殺並剝取踏雲獸（6級）、疾風陸行鳥（5級）、{npc:250928}（7級）、{npc:251284}（6級）、{npc:251291}（6級）、{npc:250873}（1級）、{npc:251707}（8級）、傲爪（5級）、{npc:250926}（3級）、{npc:256092}（10級）、{npc:253282}（8級）、{npc:250937}（4級）、瓦爾德倫（6級）、{npc:250874}（10級）、{npc:254588}（8級），直到 {skill:393} 50；每具屍體先拾取再剝皮，優先剝取技能允許的最高等級野獸。等級為L的野獸，20級及以下所需技能為 (L-10)x10，20級以上為巨翼雙足飛龍。地區等級1—15。提升這49點預計需要約60只野獸。",
 	-- {npc:251291} Hippogryph Youth
 	["{npc:251291}, Prideclaw"] = "{npc:251291}、群爪",
 	["Prideclaw, Galestrider"] = "傲爪獸、風行者",
@@ -80,7 +80,7 @@ return {
 	-- {skill:393} Skinning
 	["Journeyman {skill:393}"] = "中級{skill:393}",
 	-- {skill:393} Skinning · {spell:1229517} Camp Chair · {item:2318} Light Leather · {item:4470} Simple Wood
-	["Journeyman {skill:393} raises the cap to 150; it needs skill 50 and no character level, and costs 5s: train it as soon as you reach 50. The arrow picks the nearest {skill:393} trainer of your faction. {spell:1229517}, Forever's camping item for {skill:393}, is taught from skill 20 (1s, or free from Camping 101: {skill:393}): three {item:2318} and two {item:4470} each, it gives points until 25; placed beside a campfire it gives everyone at the camp a buff for an hour."] = "",
+	["Journeyman {skill:393} raises the cap to 150; it needs skill 50 and no character level, and costs 5s: train it as soon as you reach 50. The arrow picks the nearest {skill:393} trainer of your faction. {spell:1229517}, Forever's camping item for {skill:393}, is taught from skill 20 (1s, or free from Camping 101: {skill:393}): three {item:2318} and two {item:4470} each, it gives points until 25; placed beside a campfire it gives everyone at the camp a buff for an hour."] = "中級 {skill:393} 將上限提高到 150；要求技能 50，無角色等級要求，費用 5 銀幣：一到 50 就去學。箭頭會選擇本陣營最近的 {skill:393} 訓練師。無限的 {skill:393} 露營物品 {spell:1229517} 在技能 20 起可學（1 銀幣，或透過露營 101: {skill:393} 免費學習）：每次需要三個 {item:2318} 和兩個 {item:4470}，製作可漲技能至 25；放在營火旁，會給予營地內所有人持續一小時的增益。",
 
 	-- Step 10: Beasts 10-15: Westfall (50-100)
 	-- {zone:1436} Westfall
@@ -171,13 +171,13 @@ return {
 	-- {zone:1440} Ashenvale
 	["Beasts 19-29: {zone:1440} (125-150)"] = "野獸19-29級：{zone:1440}（125-150）",
 	-- {npc:3823} Ghostpaw Runner · {npc:3809} Ashenvale Bear · {npc:3817} Shadowhorn Stag · {npc:3810} Elder Ashenvale Bear · {npc:3818} Elder Shadowhorn Stag · {npc:3811} Giant Ashenvale Bear · {skill:393} Skinning
-	["Kill and skin {npc:3823} (19), {npc:3809} (21), {npc:3817} (21), {npc:3810} (25), {npc:3818} (26, needs 130), {npc:3811} (29, needs 145) along the loop until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 18-30. Expect about 40 beasts for these 25 points."] = "",
+	["Kill and skin {npc:3823} (19), {npc:3809} (21), {npc:3817} (21), {npc:3810} (25), {npc:3818} (26, needs 130), {npc:3811} (29, needs 145) along the loop until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 18-30. Expect about 40 beasts for these 25 points."] = "沿環線擊殺並剝取{npc:3823}（19級）、{npc:3809}（21級）、{npc:3817}（21級）、{npc:3810}（25級）、{npc:3818}（26級，需要技能130）和{npc:3811}（29級，需要技能145），直到{skill:393}150；先拾取每具屍體，再剝皮，並優先剝取技能允許的最高等級野獸。等級為 L 的野獸，在20級及以下需要技能 (L-10)x10，更高等級則需要巨翼雙足飛龍。地區等級18-30。這25點預計需剝取約40只野獸。",
 
 	-- Step 24: Beasts 21-33: Alterac Mountains (150-175)
 	-- {zone:1416} Alterac Mountains
 	["Beasts 21-33: {zone:1416} (150-175)"] = "野獸21-33級：{zone:1416}（150-175）",
 	-- {npc:2351} Gray Bear · {npc:2356} Elder Gray Bear · {npc:2248} Cave Yeti · {npc:2249} Ferocious Yeti · {npc:2406} Mountain Lion · {npc:2250} Mountain Yeti · {npc:2251} Giant Yeti · {npc:2407} Hulking Mountain Lion · {skill:393} Skinning
-	["Kill and skin {npc:2351} (21), {npc:2356} (25), Snapjaw (29), {npc:2248} (30), {npc:2249} (31, needs 155), {npc:2406} (32, needs 160), {npc:2250} (32, needs 160), {npc:2251} (33, needs 165), {npc:2407} (33, needs 165) along the loop until {skill:393} 175; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 30-40. Expect about 40 beasts for these 25 points."] = "",
+	["Kill and skin {npc:2351} (21), {npc:2356} (25), Snapjaw (29), {npc:2248} (30), {npc:2249} (31, needs 155), {npc:2406} (32, needs 160), {npc:2250} (32, needs 160), {npc:2251} (33, needs 165), {npc:2407} (33, needs 165) along the loop until {skill:393} 175; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 30-40. Expect about 40 beasts for these 25 points."] = "沿環線擊殺並剝取 {npc:2351}（21級）、{npc:2356}（25級）、鉗嘴龜（29級）、{npc:2248}（30級）、{npc:2249}（31級，需要155）、{npc:2406}（32級，需要160）、{npc:2250}（32級，需要160）、{npc:2251}（33級，需要165）、{npc:2407}（33級，需要165），直到 {skill:393} 175；每具屍體先拾取再剝皮，優先剝取技能允許的最高等級野獸。等級為L的野獸，20級及以下所需技能為 (L-10)x10，20級以上為 Lx5。地區等級30-40。提升這25點預計需要約40只野獸。",
 	["Snapjaw"] = "鉗嘴鱷",
 	-- {npc:2251} Giant Yeti
 	["Snapjaw, {npc:2251}"] = "鉗嘴鱷、{npc:2251}",
@@ -208,13 +208,13 @@ return {
 	-- {zone:1435} Swamp of Sorrows
 	["Beasts 35-41: {zone:1435} (200-225)"] = "野獸35-41級：{zone:1435}（200-225）",
 	-- {npc:1084} Young Sawtooth Crocolisk · {npc:1082} Sawtooth Crocolisk · {npc:768} Shadow Panther · {npc:1087} Sawtooth Snapper · {skill:393} Skinning
-	["Kill and skin {npc:1084} (35), {npc:1082} (38), {npc:768} (39), {npc:1087} (41, needs 205) along the loop until {skill:393} 225; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 35-45. Expect about 30 beasts for these 25 points."] = "",
+	["Kill and skin {npc:1084} (35), {npc:1082} (38), {npc:768} (39), {npc:1087} (41, needs 205) along the loop until {skill:393} 225; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 35-45. Expect about 30 beasts for these 25 points."] = "沿環線擊殺並剝取 {npc:1084}（35 級）、{npc:1082}（38 級）、{npc:768}（39 級）、{npc:1087}（41 級，需要技能 205）的皮，直到 {skill:393} 達到 225；先拾取每具屍體，再剝皮，並優先選擇當前技能允許剝皮的最高等級野獸。等級為 L 的野獸，20 級及以下需要技能 (L-10)x10，更高等級需要巨翼雙足飛龍。地區等級為 35-45 級。提升這 25 點預計需要約 30 只野獸。",
 
 	-- Step 28: Beasts 45-48: Azshara (225-250)
 	-- {zone:1447} Azshara
 	["Beasts 45-48: {zone:1447} (225-250)"] = "野獸 45-48：{zone:1447}（225-250）",
 	-- {npc:8759} Mosshoof Runner · {npc:6375} Thunderhead Hippogryph · {npc:6377} Thunderhead Stagwing · {skill:393} Skinning
-	["Kill and skin {npc:8759} (45), {npc:6375} (46, needs 230), {npc:6377} (48, needs 240) along the loop until {skill:393} 250; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 45-55. Expect about 30 beasts for these 25 points."] = "",
+	["Kill and skin {npc:8759} (45), {npc:6375} (46, needs 230), {npc:6377} (48, needs 240) along the loop until {skill:393} 250; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 45-55. Expect about 30 beasts for these 25 points."] = "沿環線擊殺並剝取{npc:8759}（45級）、{npc:6375}（46級，需要技能230）和{npc:6377}（48級，需要技能240），直到{skill:393}250；先拾取每具屍體，再剝皮，並優先剝取技能允許的最高等級野獸。等級為 L 的野獸，在20級及以下需要技能 (L-10)x10，更高等級則需要 Lx5。地區等級45-55。這25點預計需剝取約30只野獸。",
 
 	-- Step 29: Beasts 48-54: Un'Goro Crater (250-275)
 	-- {zone:1449} Un'Goro Crater
@@ -232,7 +232,7 @@ return {
 	-- {zone:1422} Western Plaguelands
 	["Beasts 51-55: {zone:1422} (275-300)"] = "野獸51-55級：{zone:1422}（275-300）",
 	-- {npc:1815} Diseased Black Bear · {npc:1817} Diseased Wolf · {npc:1816} Diseased Grizzly · {skill:393} Skinning
-	["Kill and skin {npc:1815} (51), {npc:1817} (53), {npc:1816} (55) along the loop until {skill:393} 300; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 51-58. Expect about 30 beasts for these 25 points."] = "",
+	["Kill and skin {npc:1815} (51), {npc:1817} (53), {npc:1816} (55) along the loop until {skill:393} 300; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 51-58. Expect about 30 beasts for these 25 points."] = "沿環線擊殺並剝取 {npc:1815}（51）、{npc:1817}（53）、{npc:1816}（55），直到 {skill:393} 達到300；每具屍體先拾取再剝皮，優先剝取技能允許的最高等級野獸。等級為L的野獸，20級及以下需要技能(L-10)x10，20級以上需要巨翼雙足飛龍。地區等級51—58。提升這25點預計需剝取約30只野獸。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:393} trainer of your faction teaches Apprentice {skill:393} (character level 5); the arrow picks the nearest. Buy a {item:7005} from a trade goods or general vendor: keep it in your bags, you cannot skin without it."] = "你陣營的任何{skill:393}訓練師都會教授初級{skill:393}（角色等級 5）；箭頭會指向最近的一位。向商業物品或雜貨商人購買{item:7005}：放在背包裡，沒有它就無法剝皮。",

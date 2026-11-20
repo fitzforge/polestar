@@ -242,7 +242,7 @@ return {
 
 	-- Step 45: Arbor Tarantula
 	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
-	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s {item:213565}."] = "",
+	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s {item:213565}."] = "奈辛瓦里營地東南邊、通往{area:99}的叢林裡有{npc:217588}：用{npc:217412}的{item:213565}裡的工具捕捉一隻。",
 
 	-- Step 46: Rebel Camp
 	["Head north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale."] = "向東北經過奈辛瓦里的營地，沿著道路向北走到山谷頂端的營地。",
@@ -261,7 +261,7 @@ return {
 	["{item:216616}, from the Subchiefs (or the Elites)"] = "{item:216616}，從副首領（或精英）身上取得",
 	-- {item:216617} Kurzen Fighter's Uniform
 	-- was: ["{item:216617}, in the supply crate"] = "{item:216617}，在補給箱裡"
-	["{item:216617}, in the supply crate deep in the cave"] = "",
+	["{item:216617}, in the supply crate deep in the cave"] = "{item:216617}，在洞穴深處的補給箱裡",
 	-- {npc:218230} Wendel Mathers
 	["{npc:218230}, back at his cage on the way out"] = "{npc:218230}，離開時回到他的籠子旁",
 	-- {npc:218229} Captain Aransas · {area:35} Booty Bay
@@ -283,7 +283,7 @@ return {
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
 	["The Skullsplitter trolls hold the ruins just east of the mine; any of them can drop tusks, their panthers always do.\nFollow the road north-east to the Venture Co. camp at the {area:310}; the miners, surveyors and foremen drop the crystals.\nCareful: Stealthed Shadowmaw Panthers and Stranglethorn Tigresses roam the area around the camp."] = "劈顱食人妖佔據著礦場以東的廢墟；其中任何一個都可能掉獠牙，他們的黑豹必掉。\n沿路向東北前往{area:310}的風險投資公司營地；礦工、勘測員和工頭掉落水晶。\n注意：潛行的影顎黑豹和荊棘谷母虎在營地周圍活動。",
 	-- {item:1524} Skullsplitter Tusk
-	["{item:1524}, from the trolls of the ruins"] = "",
+	["{item:1524}, from the trolls of the ruins"] = "{item:1524}，來自廢墟中的巨魔",
 
 	-- Step 52: Raptor Mastery
 	-- {npc:730} Tethis

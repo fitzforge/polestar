@@ -269,7 +269,7 @@ return {
 	-- Step 60: Level 52.08
 	["Level 52.08"] = "52.08級",
 	-- {quest:4022} A Taste of Flame · {area:1417} Sunken Temple
-	["If you skipped {quest:4022}, grind here to level 52.08 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon instead."] = "",
+	["If you skipped {quest:4022}, grind here to level 52.08 to stay on the route's plan. Or, with a group, run the {area:1417} dungeon instead."] = "如果跳過了{quest:4022}，就在這裡刷到52.08級，以跟上路線進度。也可以組隊去{area:1417}地下城。",
 	-- {npc:9690} Ember Worg
 	["grind on {npc:9690}"] = "刷{npc:9690}",
 
@@ -300,7 +300,7 @@ return {
 
 	-- Step 67: Blasted Lands: kill these as you meet them
 	-- {zone:1419} Blasted Lands
-	["{zone:1419}: kill these as you meet them"] = "",
+	["{zone:1419}: kill these as you meet them"] = "{zone:1419}：沿途擊殺以下目標",
 	-- {zone:1419} Blasted Lands · {npc:5982} Black Slayer · {npc:221740} Calefactus the Unleashed · {npc:247015} Vek'zol
 	-- plural, as words: Starving Snickerfangs = {npc:5984} Starving Snickerfang · Scorpok Stingers = {npc:5988} Scorpok Stinger · Ashmane Boars = {npc:5992} Ashmane Boar · Redstone Basilisks = {npc:5990} Redstone Basilisk
 	["Ride back south into the {zone:1419} for the bloodmages' beasts: Starving Snickerfangs roam the dry hills south of the bloodmages' camp, Scorpok Stingers scuttle across the middle of the north and {npc:5982} vultures circle over all of it. Ashmane Boars and Redstone Basilisks share the slopes south-west of the keep.\nCareful: two elites roam here: {npc:221740} (50) in the middle of the zone around 44,34, and {npc:247015} (55) on the ridge around 39,32. When you see one, hunt somewhere else."] = "向南騎回{zone:1419}，獵殺血法師要的野獸：饑餓的彎牙土狼在血法師營地南邊的乾燥山丘遊蕩，厚甲毒刺蠍在北部中央爬行，{npc:5982}禿鷲在整片區域上空盤旋。灰鬃野豬和紅石蜥蜴分布在要塞西南方的山坡上。\n小心：這裡有兩隻精英在遊蕩：{npc:221740}（50級）在地區中央約44,34附近，{npc:247015}（55級）在約39,32的山脊上。看到其中一隻就換個地方打。",

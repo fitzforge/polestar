@@ -146,7 +146,7 @@ return {
 	-- Step 30: Hay Weevil
 	-- {quest:681} Northfold Manor · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
 	-- plural, as words: Hay Weevils = {npc:217589} Hay Weevil
-	["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s {item:213565}."] = "",
+	["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s {item:213565}."] = "乾草象鼻蟲在{quest:681}農場的北端爬行：用{npc:217412}的{item:213565}中的工具捕捉一隻。",
 
 	-- Step 31: Shards of Myzrael
 	-- {quest:681} Northfold Manor · {area:333} Circle of East Binding · {area:314} Go'Shek Farm
@@ -316,7 +316,7 @@ return {
 	-- {quest:92457} Starving Arcane
 	["{quest:92457}: the remnants and echoes, inside"] = "{quest:92457}：殘影和回音，在裡面",
 	-- {quest:92458} Heart of Disruption · {item:251961} Arcane Mote
-	["{quest:92458}: the {item:251961}, inside"] = "",
+	["{quest:92458}: the {item:251961}, inside"] = "{quest:92458}：{item:251961}，在裡面",
 
 	-- Step 65: Image of Archmage Modera
 	["Back out of the grate to Modera's camp on the lake shore."] = "從柵欄出來，回到湖岸上摩德拉的營地。",

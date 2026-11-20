@@ -35,7 +35,7 @@ return {
 	-- Step 7: Level 48.27
 	["Level 48.27"] = "48.27級",
 	-- {item:3985} Monogrammed Sash
-	["If you skipped The {item:3985} or Facing Negolash, grind here to level 48.27 to stay on the route's plan."] = "",
+	["If you skipped The {item:3985} or Facing Negolash, grind here to level 48.27 to stay on the route's plan."] = "如果跳過了{item:3985}或《挑戰奈古拉什》，在這裡刷怪補到48.27級，以跟上路線進度。",
 	-- {npc:5839} Dark Iron Geologist
 	["grind on {npc:5839}"] = "刷{npc:5839}",
 
@@ -143,7 +143,7 @@ return {
 	-- Step 38: Level 48.98
 	["Level 48.98"] = "48.98級",
 	-- {quest:3452} The Flame's Casing
-	["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan."] = "",
+	["If you skipped {quest:3452}, grind here to level 48.98 to stay on the route's plan."] = "如果跳過了{quest:3452}，在這裡刷怪補到48.98級，以跟上路線進度。",
 	-- {npc:5844} Dark Iron Slaver
 	["grind on {npc:5844}"] = "刷{npc:5844}",
 

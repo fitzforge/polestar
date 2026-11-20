@@ -63,7 +63,7 @@ return {
 	-- Step 11: Class trainer
 	["Class trainer"] = "職業訓練師",
 	-- {npc:6018} Ur'kyo · {object:172961} Valley of Spirits · {quest:5654} Hex of Weakness
-	["Train while you are in the city: Druids and Paladins have no trainer here. Troll Priests: train with {npc:6018} in the {object:172961}, who takes {quest:5654}."] = "",
+	["Train while you are in the city: Druids and Paladins have no trainer here. Troll Priests: train with {npc:6018} in the {object:172961}, who takes {quest:5654}."] = "趁在城裡學習技能：這裡沒有德魯伊和聖騎士訓練師。巨魔牧師：到{object:172961}找{npc:6018}訓練，他也接收{quest:5654}。",
 
 	-- Step 12: Sayoc
 	-- {spell:197} Two-Handed Axes · {npc:11868} Sayoc · {object:172958} Valley of Honor
@@ -116,7 +116,7 @@ return {
 
 	-- Step 22: Brill
 	-- {area:159} Brill · {npc:1738} Deathguard Terrence · {npc:1518} Apothecary Johaan · {npc:246152} Shari Stilwell
-	["{area:159} is a short walk north up the road from the zeppelin towers: {npc:1738} stands by the road into town, {npc:1518} in the apothecary's house on the west side of the square; Paladins: {npc:246152} trains you in town."] = "",
+	["{area:159} is a short walk north up the road from the zeppelin towers: {npc:1738} stands by the road into town, {npc:1518} in the apothecary's house on the west side of the square; Paladins: {npc:246152} trains you in town."] = "從飛艇塔沿道路向北走一小段就到{area:159}：{npc:1738}站在進鎮的路旁，{npc:1518}在廣場西側的藥劑師房子裡；聖騎士：{npc:246152}在鎮上為你訓練。",
 	-- {npc:1518} Apothecary Johaan
 	["{npc:1518}, inside"] = "{npc:1518}：在屋內",
 	-- {npc:246152} Shari Stilwell · {area:159} Brill

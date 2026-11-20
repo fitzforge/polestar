@@ -248,11 +248,11 @@ return {
 
 	-- Step 45: Silithus: kill these as you meet them
 	-- {zone:1451} Silithus
-	["{zone:1451}: kill these as you meet them"] = "",
+	["{zone:1451}: kill these as you meet them"] = "{zone:1451}：沿途擊殺以下目標",
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher · Stonelash Pincers = {npc:11736} Stonelash Pincer · Rock Stalkers = {npc:11739} Rock Stalker
 	["From the hold, west into the sands: Dredge Crushers dig there; Stonelash Pincers, Flayers and Rock Stalkers hunt the same sands."] = "從要塞向西進入沙地：掘泥摧毀者在那裡挖掘；石鞭巨鉗蠍、剝皮者和石行蜘蛛也在同一片沙地遊蕩。",
 	-- {npc:11741} Dredge Crusher
-	["{npc:11741} walks around here: look inside the circle on the map"] = "",
+	["{npc:11741} walks around here: look inside the circle on the map"] = "{npc:11741}在這附近走動：看地圖上的圓圈內",
 
 	-- Step 46: Cenarion Hold
 	-- {npc:15190} Noggle Ficklespragg · {npc:15189} Beetix Ficklespragg
@@ -495,7 +495,7 @@ return {
 	-- {area:190} Hearthglen
 	["{area:190} overlook"] = "{area:190}瞭望點",
 	-- {area:190} Hearthglen
-	["Climb the hill west of {area:190} to look down on the town.\nCareful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby."] = "",
+	["Climb the hill west of {area:190} to look down on the town.\nCareful: Sentinels posted at the gate can detect stealthed players. Additional sentinels are found within the town, and an elite walks a patrol route nearby."] = "爬上{area:190}西側山丘，俯瞰城鎮。\n注意：大門處的哨兵能夠偵測潛行玩家，鎮內也有更多哨兵，附近還有一名精英巡邏。",
 
 	-- Step 115: Davil's Libram
 	-- {item:12954} Davil's Libram · {area:190} Hearthglen · {npc:1839} Scarlet High Clerist
@@ -565,10 +565,10 @@ return {
 	["Cross the river east of {npc:1855}'s hut into {area:2627}: {npc:11140} stands by Augustus' ruined hut."] = "渡過{npc:1855}小屋東邊的河進入{area:2627}：{npc:11140}站在奧古斯都殘破的小屋旁。",
 
 	-- Step 131: Level 59.85
-	["Level 59.85"] = "",
+	["Level 59.85"] = "59.85級",
 	-- {npc:11140} Egan · {area:2627} Terrordale · {area:2261} Undercroft · {area:2298} Caer Darrow · {npc:10667} Chromie · {area:3197} Chillwind Camp · {area:2057} Scholomance · {area:2279} Stratholme
 	-- plural, as words: Terrordale Spirits = {npc:14564} Terrordale Spirit
-	["The Terrordale Spirits haunt the woods around {npc:11140}. Top up here to level 59.85 while you stand in {area:2627}: the hand-ins still to come (the {area:2261}, {area:2298}, {npc:10667} and {area:3197}) take you to level 60. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "",
+	["The Terrordale Spirits haunt the woods around {npc:11140}. Top up here to level 59.85 while you stand in {area:2627}: the hand-ins still to come (the {area:2261}, {area:2298}, {npc:10667} and {area:3197}) take you to level 60. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "恐懼谷的靈魂在{npc:11140}周圍的樹林中遊蕩。趁還在{area:2627}，先在此刷到59.85級：之後還要交的任務（{area:2261}、{area:2298}、{npc:10667}和{area:3197}）交完即可到60級。也可組隊挑戰{area:2057}副本或{area:2279}副本。",
 	-- {npc:14564} Terrordale Spirit · {area:2627} Terrordale · {zone:1423} Eastern Plaguelands
 	["grind on {npc:14564} at {area:2627}, {zone:1423}"] = "在{zone:1423}的{area:2627}擊殺{npc:14564}練等",
 

@@ -83,7 +83,7 @@ return {
 
 	-- Step 19: Deadwood Village
 	-- {area:1769} Timbermaw Hold
-	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "",
+	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "死木熊怪的村莊就在翡翠聖地正南。每殺一個死木熊怪也會提升你在{area:1769}的聲望；留著死木頭飾羽毛。",
 
 	-- Step 20: Southern Jaedenar
 	-- {area:1763} Jaedenar

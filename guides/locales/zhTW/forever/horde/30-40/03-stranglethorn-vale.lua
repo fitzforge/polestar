@@ -95,7 +95,7 @@ return {
 	-- {area:37} Lake Nazferiti
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger · Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal · Venture Co. Agents = {npc:260429} Venture Co. Agent
 	-- was: ["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them."] = "荊棘谷猛虎（32級）在營地周圍及南邊的山丘上遊蕩，黑豹（32級）在營地西邊和西南邊的空地。帶著打磨過的水晶的風險投資公司地質學家（34-36級）在營地東南方{area:37}旁的營地工作。小心：風險投資公司特務（39級）站在風險投資公司房屋旁西側營地的地質學家之間：去東側營地打，避開他們。"
-	["Stranglethorn Tigers (32) roam the hills west of the camp and east of it toward the lake: the arrow takes the eastern ones, on your way to the geologists. Panthers (32) roam the clearings west and south-west of the camp. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them."] = "",
+	["Stranglethorn Tigers (32) roam the hills west of the camp and east of it toward the lake: the arrow takes the eastern ones, on your way to the geologists. Panthers (32) roam the clearings west and south-west of the camp. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them."] = "荊棘谷猛虎（32級）在營地西邊和東邊朝向湖邊的山丘上游蕩：箭頭帶你去東邊的，順路去找地質學家。黑豹（32級）在營地西邊和西南邊的空地上游蕩。風險投資公司地質學家（34-36級）帶著打磨過的水晶，在營地東南方{area:37}旁的營地中工作。小心：西邊靠近風險投資公司房子的營地裡，地質學家之間有風險投資公司特工（39級）：去東邊的營地，遠離他們。",
 	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
 	["Tumbled Crystals, from the geologists of the eastern camps"] = "打磨過的水晶，來自東側營地的地質學家",
 
@@ -181,7 +181,7 @@ return {
 	-- plural, as words: Bloodscalp Headhunters = {npc:671} Bloodscalp Headhunter · Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger · Lashtail Raptors = {npc:686} Lashtail Raptor
 	["{quest:629}'s and Zul'Kunda's quests are next, with Bloodscalp Headhunters of 36-37. Still below 35 after {area:35}'s hand-ins? The Elder Stranglethorn Tigers (34-35) roam the hills north of {object:3202}, below Nesingwary's camp: kill them until level 35. The Lashtail Raptors (35-36) beside them are a level higher."] = "接下來是{quest:629}和祖昆達的任務，血頂獵頭者是36-37級。繳交完{area:35}的任務後還不到35級？老年荊棘谷猛虎（34-35級）在{object:3202}北邊、奈辛瓦里營地下方的山丘上遊蕩：擊殺牠們直到35級。旁邊的鞭尾迅猛龍（35-36級）高一級。",
 	-- {npc:1085} Elder Stranglethorn Tiger
-	["grind on {npc:1085}"] = "",
+	["grind on {npc:1085}"] = "刷{npc:1085}",
 
 	-- Step 28: The Vile Reef
 	-- {area:104} Vile Reef · {item:4094} Tablet Shard
@@ -223,7 +223,7 @@ return {
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks"] = "鉗嘴鱷魚",
 	-- {npc:1152} Snapjaw Crocolisk
-	["grind on {npc:1152}"] = "",
+	["grind on {npc:1152}"] = "刷{npc:1152}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Elder tigers and Lashtail raptors"] = "老虎與鞭尾迅猛龍",

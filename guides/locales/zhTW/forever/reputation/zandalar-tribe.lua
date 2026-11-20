@@ -70,7 +70,7 @@ return {
 	-- {area:19} Zul'Gurub
 	["{area:19} to Honored"] = "{area:19}到尊敬",
 	-- {item:19683} Bloodvine Leggings · {item:19686} Primal Batskin Gloves · {item:19689} Blood Tiger Shoulders · {item:19691} Bloodsoul Shoulders · {item:19694} Darksoul Leggings · {item:20004} Major Troll's Blood Elixir · {item:20000} Schematic: Bloodvine Goggles · {item:20756} Formula: Brilliant Wizard Oil · {item:232611} Magnificent Trollshine · {quest:8196} Essence Mangoes · {item:22635} Savage Guard
-	["Friendly to Honored is 6,000: one and a half clears. Honored opens {item:19683}, {item:19686}, {item:19689}, {item:19691}, {item:19694} and {item:20004} (5g each), {item:20000} (12g), {item:20756} (4g) and {item:232611} (4g), the Paragons of Power belts and mantles (150 each), {quest:8196} (one Honor Token) and The {item:22635}."] = "",
+	["Friendly to Honored is 6,000: one and a half clears. Honored opens {item:19683}, {item:19686}, {item:19689}, {item:19691}, {item:19694} and {item:20004} (5g each), {item:20000} (12g), {item:20756} (4g) and {item:232611} (4g), the Paragons of Power belts and mantles (150 each), {quest:8196} (one Honor Token) and The {item:22635}."] = "友善到尊敬需要 6,000 點聲望：約通關一次半。尊敬後解鎖 {item:19683}、{item:19686}、{item:19689}、{item:19691}、{item:19694} 和 {item:20004}（各 5 金幣）、{item:20000}（12 金幣）、{item:20756}（4 金幣）及 {item:232611}（4 金幣），以及權力珍寶腰帶和襯肩（各 150）、{quest:8196}（一枚贊達拉榮譽勳章）和 {item:22635}。",
 
 	-- Step 7: Honored: necklace, Savage Guard and mangoes
 	-- {item:22635} Savage Guard

@@ -45,7 +45,7 @@ return {
 	-- Step 6: Hated to Neutral
 	["Hated to Neutral"] = "仇恨到中立",
 	-- {quest:8302} The Hand of the Righteous · {area:16076} Temple of Ahn'Qiraj · {item:21230} Ancient Qiraji Artifact · {item:21229} Qiraji Lord's Insignia
-	["After The Path, Baristolth takes 200 more fragments for {quest:8302}: 200 reputation, again and again, but only until Neutral. From Hated 500 that is 208 turn-ins, 41,600 fragments, 20,000 to 30,000 elite kills: the only way without the Temple, and a very long one. With the {area:16076} open (a 40-player raid) it is far quicker: every Temple trash mob gives 100 until 2,999 of 3,000 Neutral, about 9,500 a full clear, so four to five clears reach Neutral. Save every {item:21230} and {item:21229} you loot until the trash stops counting: they pay the same later."] = "",
+	["After The Path, Baristolth takes 200 more fragments for {quest:8302}: 200 reputation, again and again, but only until Neutral. From Hated 500 that is 208 turn-ins, 41,600 fragments, 20,000 to 30,000 elite kills: the only way without the Temple, and a very long one. With the {area:16076} open (a 40-player raid) it is far quicker: every Temple trash mob gives 100 until 2,999 of 3,000 Neutral, about 9,500 a full clear, so four to five clears reach Neutral. Save every {item:21230} and {item:21229} you loot until the trash stops counting: they pay the same later."] = "完成 正義之路 後，流沙守望者巴里斯托爾斯會再收200塊碎片來完成 {quest:8302}：每次200聲望，可反覆交還，但只能到中立。從仇恨500開始，需要交還208次、41,600塊碎片，約擊殺20,000至30,000只精英：這是不打神殿的唯一方式，而且非常漫長。{area:16076} 開放後（40人團隊副本）會快得多：神殿每隻小怪提供100聲望，直到中立2,999/3,000為止，完整清理一次約得9,500，因此四到五次即可達到中立。在小怪不再提供聲望之前，保留所有拾取到的 {item:21230} 和 {item:21229}：以後交還的收益相同。",
 	-- {quest:8302} The Hand of the Righteous
 	["{quest:8302}: 200 fragments, 200"] = "{quest:8302}：200塊碎片，200",
 
@@ -147,7 +147,7 @@ return {
 	-- Step 24: The green shard: Eranikus
 	["The green shard: Eranikus"] = "綠色碎片：伊蘭尼庫斯",
 	-- {npc:15362} Malfurion Stormrage · {npc:5709} Shade of Eranikus · {area:1477} Temple of Atal'Hakkar · {npc:15624} Forest Wisp · {zone:1457} Darnassus · {npc:11832} Keeper Remulos · {zone:1450} Moonglade
-	["{npc:15362} appears beside the {npc:5709} at the bottom of the {area:1477} (a five-player dungeon). He sends you to a {npc:15624} outside {zone:1457} (Horde players walk past the city's guards), then to {npc:11832} in {zone:1450}."] = "",
+	["{npc:15362} appears beside the {npc:5709} at the bottom of the {area:1477} (a five-player dungeon). He sends you to a {npc:15624} outside {zone:1457} (Horde players walk past the city's guards), then to {npc:11832} in {zone:1450}."] = "{npc:15362} 出現在 {area:1477}（五人地下城）底部的 {npc:5709} 旁。他會讓你去找 {zone:1457} 外的一名 {npc:15624}（部落玩家需從城市守衛旁走過），再去找 {zone:1450} 的 {npc:11832}。",
 	-- {npc:15362} Malfurion Stormrage · {area:1477} Temple of Atal'Hakkar
 	["{npc:15362}, inside the {area:1477}"] = "{npc:15362}，在{area:1477}內",
 
@@ -159,7 +159,7 @@ return {
 
 	-- Step 26: Keeper Remulos
 	-- {quest:8735} The Nightmare's Corruption · {npc:235289} Dragons of Nightmare · {zone:1440} Ashenvale · {zone:1444} Feralas · {zone:1425} Hinterlands · {npc:15625} Twilight Corrupter · {zone:1431} Duskwood
-	["{quest:8735} wants a fragment from each of the four {npc:235289} portals: elite dragonkin at the {zone:1440}, {zone:1444} and {zone:1425} portals (5% each) and the {npc:15625} in {zone:1431}. Raid content."] = "",
+	["{quest:8735} wants a fragment from each of the four {npc:235289} portals: elite dragonkin at the {zone:1440}, {zone:1444} and {zone:1425} portals (5% each) and the {npc:15625} in {zone:1431}. Raid content."] = "{quest:8735} 需要從四座{npc:235289}傳送門各獲得一塊碎片：{zone:1440}、{zone:1444} 和 {zone:1425} 傳送門處的精英龍人（各5%），以及 {zone:1431} 的 {npc:15625}。這是團隊內容。",
 	["10 (and 100 Cenarion Circle)"] = "10（另加100塞納里奧議會）",
 
 	-- Step 27: The Ashenvale portal

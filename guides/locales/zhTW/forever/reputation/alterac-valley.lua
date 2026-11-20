@@ -8,8 +8,8 @@
 return {
 	-- Guide
 	["Alterac Valley Reputation"] = "奧特蘭克山谷聲望",
-	["One-time quests worth 2,000 and big wins make it the quickest of the four; Exalted gives a Legacy Point."] = "",
-	["Master of Alterac Valley: a Legacy Point at Exalted"] = "",
+	["One-time quests worth 2,000 and big wins make it the quickest of the four; Exalted gives a Legacy Point."] = "一次性任務可獲得2,000點聲望，加上大勝獎勵，使其成為四者中最快的；達到崇拜可獲得1點傳承點數。",
+	["Master of Alterac Valley: a Legacy Point at Exalted"] = "奧特蘭克山谷大師：達到崇拜可獲得1點傳承點數",
 
 	-- Step 1: Lieutenant Rotimer
 	-- {zone:1459} Alterac Valley · {zone:1455} Ironforge · {npc:13843} Lieutenant Rotimer · {object:32372} Great Forge

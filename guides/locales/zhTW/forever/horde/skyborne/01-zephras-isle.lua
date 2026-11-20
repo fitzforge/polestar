@@ -132,7 +132,7 @@ return {
 
 	-- Step 22: Shen'dar Village
 	-- {npc:251905} Zerril Softbreeze
-	["{npc:251905}: Camping 101 asks you to learn it"] = "",
+	["{npc:251905}: Camping 101 asks you to learn it"] = "{npc:251905}：露營 101 要求你學習這項技能",
 
 	-- Step 30: Shen'dar Village: kill these as you meet them
 	-- {area:16624} Shen'dar Village

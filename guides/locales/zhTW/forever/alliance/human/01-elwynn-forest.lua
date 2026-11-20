@@ -205,7 +205,7 @@ return {
 	-- {npc:1430} Tomas · {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
 	["{npc:1430} cooks in the inn's kitchen. {npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "{npc:1430}在旅店廚房裡做飯。{npc:377}（牧師）、{npc:328}（法師）和{npc:917}（盜賊）在旅店樓上：走室內樓梯上去，箭頭無法區分樓層。",
 	-- {npc:1430} Tomas
-	["{npc:1430}: Camping 101 asks you to learn it; below ground"] = "",
+	["{npc:1430}: Camping 101 asks you to learn it; below ground"] = "{npc:1430}：野營入門要求你學會它；在地下",
 	-- {npc:377} Priestess Josetta · {item:16605} Friar's Robes of the Light
 	["{npc:377}, upstairs: {item:16605}"] = "{npc:377}，在樓上：{item:16605}",
 

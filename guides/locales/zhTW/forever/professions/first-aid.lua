@@ -28,7 +28,7 @@ return {
 	-- Step 4: Linen Bandage (1-40)
 	-- {item:1251} Linen Bandage · {item:279968} First Aid Kit · {skill:129} First Aid · {item:159} Refreshing Spring Water
 	-- plural, as words: Linen Bandages = {item:1251} Linen Bandage
-	["{item:1251} is orange from 1 (yellow at 30, green at 45, grey at 60): about 41 crafts to 40. Bandages need no fire: craft them anywhere. At 20 the trainer also teaches {item:279968} (1s; the Camping 101: {skill:129} quest at your starting area's camp teaches it free), Forever's camping item for {skill:129}: three Linen Bandages and a {item:159}; it gives a few points until 25."] = "",
+	["{item:1251} is orange from 1 (yellow at 30, green at 45, grey at 60): about 41 crafts to 40. Bandages need no fire: craft them anywhere. At 20 the trainer also teaches {item:279968} (1s; the Camping 101: {skill:129} quest at your starting area's camp teaches it free), Forever's camping item for {skill:129}: three Linen Bandages and a {item:159}; it gives a few points until 25."] = "{item:1251}從1開始為橙色（30變黃，45變綠，60變灰）：約製作41次到40。繃帶不需要火：隨處都能製作。20時訓練師還會教授{item:279968}（1銀；起始區域營地的“野營入門101：{skill:129}”任務可免費學會），這是無限的{skill:129}野營物品：三條亞麻繃帶和一瓶{item:159}；25前能提供少量點數。",
 
 	-- Step 5: Heavy Linen Bandage: Auction House
 	-- {item:2581} Heavy Linen Bandage
@@ -153,7 +153,7 @@ return {
 	-- Step 31: Trauma
 	["Trauma"] = "創傷",
 	-- {skill:129} First Aid · {quest:6624} Triage · {zone:1455} Ironforge · {item:14047} Runecloth
-	["Artisan {skill:129} comes from the {quest:6624} quest. It needs skill 225 and level 35; the {skill:129} trainer in {zone:1455} sends you to the doctor in Theramore. Bring the Mageweave (about 74) and {item:14047} (about 65) for 225-300 now: bandages need no fire, so you craft 225-300 beside the doctor, who teaches the Artisan bandages."] = "",
+	["Artisan {skill:129} comes from the {quest:6624} quest. It needs skill 225 and level 35; the {skill:129} trainer in {zone:1455} sends you to the doctor in Theramore. Bring the Mageweave (about 74) and {item:14047} (about 65) for 225-300 now: bandages need no fire, so you craft 225-300 beside the doctor, who teaches the Artisan bandages."] = "專家級{skill:129}來自{quest:6624}任務。需要技能225和等級35；{zone:1455}的{skill:129}訓練師會派你去塞拉摩找醫生。現在就帶上225-300所需的魔紋布（約74）和{item:14047}（約65）：繃帶不需要火，所以你可以在教授專家級繃帶的醫生旁邊練到300。",
 
 	-- Step 32: Trauma
 	-- {skill:129} First Aid · {quest:6622} Triage · {zone:1454} Orgrimmar · {area:321} Hammerfall · {item:14047} Runecloth

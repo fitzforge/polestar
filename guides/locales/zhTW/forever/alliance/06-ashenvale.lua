@@ -284,7 +284,7 @@ return {
 
 	-- Step 55: Master Mathias Shaw
 	-- {object:2100} Old Town
-	["Mathias Shaw is at SI:7 in {object:2100}, south of the Keep."] = "",
+	["Mathias Shaw is at SI:7 in {object:2100}, south of the Keep."] = "馬迪亞斯·肖爾在要塞南邊{object:2100}的軍情7處。",
 	-- {npc:332} Master Mathias Shaw · {npc:7024} Agent Kearnen · {zone:1436} Westfall · {zone:1431} Duskwood
 	["{npc:332}: {npc:7024} in {zone:1436} takes it, at the end of {zone:1431}'s second loop"] = "{npc:332}：{zone:1436}的{npc:7024}會收下它，在{zone:1431}第二趟環線末尾",
 

@@ -161,7 +161,7 @@ return {
 
 	-- Step 27: Bloodhoof Village
 	-- {npc:3067} Pyall Silentstride
-	["{npc:3067}: Camping 101 asks you to learn it"] = "",
+	["{npc:3067}: Camping 101 asks you to learn it"] = "{npc:3067}：露營 101 要求你學習這項技能",
 
 	-- Step 28: Yonn Deepcut
 	-- {npc:6290} Yonn Deepcut · {npc:3067} Pyall Silentstride · {quest:97936} Camping 101: Skinning
@@ -439,7 +439,7 @@ return {
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "前往{zone:1454}",
 	-- {area:379} Far Watch Post · {area:814} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
-	["From the Crossroads follow the road north-east to {area:379}, cross the {area:814} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "",
+	["From the Crossroads follow the road north-east to {area:379}, cross the {area:814} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "從十字路口沿道路向東北到{area:379}，跨過{area:814}進入{zone:1411}，繼續向北到{zone:1454}正門。下一份指南從{zone:1454}開始，乘飛艇前往{zone:1420}和{zone:1421}。",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "{zone:1454}的{object:172982}",
 

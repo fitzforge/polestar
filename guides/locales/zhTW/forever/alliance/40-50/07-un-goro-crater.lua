@@ -16,7 +16,7 @@ return {
 	["{zone:1455} flight master"] = "{zone:1455}飛行管理員",
 
 	-- Step 3: Theramore
-	["Theramore"] = "",
+	["Theramore"] = "塞拉摩",
 	-- {npc:2616} Privateer Groy
 	["{npc:2616} stands on the docks where the boat lands."] = "{npc:2616}站在船靠岸的碼頭上。",
 
@@ -41,7 +41,7 @@ return {
 	-- {npc:12046} Gor'marok the Ravager
 	["Ride south to the ogre compound. Brutes and Enforcers (46-48) fill it; {npc:12046} (49) stands in the middle with guards around him: clear them first."] = "向南騎到食人魔營地。裡面滿是蠻兵和執行者（46-48級）；{npc:12046}（49級）站在中間，周圍有守衛：先清掉他們。",
 	-- {npc:12046} Gor'marok the Ravager
-	["{npc:12046}, below ground"] = "",
+	["{npc:12046}, below ground"] = "{npc:12046}，地下",
 
 	-- Step 10: Thistleshrub Valley: kill these as you meet them
 	-- {quest:3362} Thistleshrub Valley
@@ -54,13 +54,13 @@ return {
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn
 	["Ride back north-east to {area:976}: {npc:11758} stands on the east side of town."] = "向東北騎回{area:976}：{npc:11758}站在鎮上東側。",
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}，在裡面",
 
 	-- Step 12: The Gaping Chasm
 	-- {area:1938} Broken Pillar · {area:981} The Gaping Chasm
 	["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "向南騎過{area:1938}前往{area:981}，也就是哈札里的隧道；謝申克的設備在深處。\n小心：有一隻蟲子守著設備。許多蟲子在隧道裡巡邏，有些是50級，所以戰鬥常常會引來額外的怪。",
 	-- {item:8593} Scrimshank's Surveying Gear
-	["{item:8593}; below ground"] = "",
+	["{item:8593}; below ground"] = "{item:8593}；地下",
 
 	-- Step 13: Gadgetzan
 	-- {npc:7740} Gracina Spiritmight · {zone:1457} Darnassus · {zone:1428} Burning Steppes
@@ -130,7 +130,7 @@ return {
 	["For {npc:7775} in {zone:1444}: keep it"] = "交給{zone:1444}的{npc:7775}：保留此任務",
 
 	-- Step 24: Level 49.79
-	["Level 49.79"] = "",
+	["Level 49.79"] = "等級 49.79",
 	-- plural, as words: Bloodpetal Lashers = {npc:6509} Bloodpetal Lasher
 	["Still short of level 49.79 after the refuge's hand-ins? Top up on the Bloodpetal Lashers and Threshers (48-50) of the eastern jungle, where you took the petals, before you leave the crater."] = "交完避難營的任務後仍不到49.79級？離開環形山前，先在東部叢林（你打花瓣的地方）的血瓣花鞭笞者和打穀者（48-50）身上練一下。",
 	-- {npc:6511} Bloodpetal Thresher

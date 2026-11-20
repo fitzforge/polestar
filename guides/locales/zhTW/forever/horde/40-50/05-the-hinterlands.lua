@@ -118,7 +118,7 @@ return {
 	-- Step 25: Level 49.02
 	["Level 49.02"] = "49.02級",
 	-- {quest:7816} Gammerita, Mon! · {area:354} Jintha'Alor
-	["If you skipped {quest:7816} or the {area:354} group quests, grind here to level 49.02 to stay on the route's plan."] = "",
+	["If you skipped {quest:7816} or the {area:354} group quests, grind here to level 49.02 to stay on the route's plan."] = "如果跳過了{quest:7816}或{area:354}的組隊任務，就在這裡刷到49.02級，以跟上路線進度。",
 	-- {npc:2505} Saltwater Snapjaw
 	["grind on {npc:2505}"] = "刷{npc:2505}",
 
