@@ -1879,9 +1879,7 @@ local function buildMore()
 	more.Catcher = catcher
 	more:SetScript("OnHide", function()
 		catcher:Hide()
-		if ColorPickerFrame and ColorPickerFrame.IsShown and ColorPickerFrame:IsShown() then
-			ColorPickerFrame:Hide()
-		end
+		if W.ClosePicker then W.ClosePicker() end
 	end)
 	more:Hide()
 	ns.CloseOnEscape("PolestarOptionsMore")
