@@ -25,7 +25,7 @@ Names the World of Warcraft: Forever client showed players
 File: data/i18n/names-observed/zhCN.json in the Polestar repository
 The server's own names, read from the client's cache and from the names it
 gave units in play, collected by players and reviewed in the repository
-(#1448).
+(#1448, #3226).
 Names taken: 179 quests, 149 NPCs, 19 objects.
 
 The web quest database, World of Warcraft: Forever pages
