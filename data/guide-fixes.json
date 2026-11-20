@@ -13896,6 +13896,25 @@
 				}
 			],
 			"pr": 3285
+		},
+		{
+			"id": "a1-pridewings-by-the-courier",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1134,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/06-ashenvale"
+			},
+			"tip": "Careful: Sorrow Wing, a rare elite wyvern (27), flies over the Pridewing slopes and the road north: leave it alone.",
+			"note": "Alliance 1-30 fix pass (2026-11-20): the Pridewing collect pointed at 50.8,44.4, about 250 yards south-east of the Night Elf Courier (48.6,39.9), whose supplies drop only once his quest is taken: the arrow went up to the courier, back south-east and then north to the Peak. It now points at the Consorts beside the courier (49.0,40.3; a Consort spawn at 49.02,40.22, a Soarer at 48.59,40.79). Sorrow Wing (5928, rank 2, 27) flies the slopes and the road north (spawns 46-51,30-38; 14 recorded players saw it hostile) and is named.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json 4014 Pridewing Consort spawns incl. 49.02,40.22 and 48.29,41.45; 5928 Sorrow Wing 27 rank 2, spawns x46-51, y30-38"
+				}
+			],
+			"pr": 3285
 		}
 	]
 }
