@@ -33,6 +33,7 @@
 --       "\2" .. folded .. "\1" .. id .. "," .. quality .. "," .. status .. "," .. #name .. "\n"
 --       (folded = Search.Fold(name) without its leading space; status r|n|'')
 --   Codex.HasFilters() -> boolean   -- false until a supported filter column is registered
+--   Codex.FiltersTooNew() -> boolean   -- the pack called RegisterFilters with a newer version
 --   Codex.FilterColumn(kind) -> blob, rowCount | nil   -- item, mount, pet, recipe, tabard
 --   Codex.DecodeFilter(blob, row) -> reqLevel, itemLevel, allowClass, slot, category, levelsSource, typeSource
 --       (1-based Index row; no allocation; nil for unknown fields or absent row.
@@ -100,7 +101,8 @@ local char, byte, sub, find, gsub, gmatch = string.char, string.byte, string.sub
 -- group -> { chunk, ... }; chunk = { lo, hi (numeric id range | nil), names (blob), recs (blob | nil) }
 local chunks = {}
 local indexes = {} -- kind -> search blob
-local filterColumns, filterCategories
+local filterColumns, filterCategories, filtersTooNew
+local FILTER_VERSION = 1
 local FILTER_BYTES = 5
 local FILTER_SOURCE = { "client", "forever", "era" }
 local statDirectory, statPostings
@@ -609,7 +611,8 @@ function Codex.Index(kind)
 end
 
 function Codex.RegisterFilters(version, categories, columns)
-	if version ~= 1 or #categories % 2 ~= 0 or #categories > 224 then return end
+	if type(version) == "number" and version > FILTER_VERSION then filtersTooNew = true end
+	if version ~= FILTER_VERSION or #categories % 2 ~= 0 or #categories > 224 then return end
 	for _, kind in ipairs(ITEM_GROUPS) do
 		local index, column = indexes[kind], columns[kind]
 		if not index or not column or #column[2] ~= column[1] * FILTER_BYTES then return end
@@ -622,6 +625,10 @@ end
 
 function Codex.HasFilters()
 	return filterColumns ~= nil
+end
+
+function Codex.FiltersTooNew()
+	return filtersTooNew == true
 end
 
 function Codex.FilterColumn(kind)

@@ -2383,8 +2383,14 @@ end
 local function holds(item, needle, fold)
 	if needle == "" then return true end
 	local text = item.text and fold(tostring(item.text))
-	return (text and text:find(needle, 1, true) ~= nil)
-		or (item.searchText and item.searchText:lower():find(needle, 1, true) ~= nil)
+	if text and text:find(needle, 1, true) then return true end
+	if item.searchText then
+		-- Keep newline-separated aliases independent when the fold normalizes whitespace.
+		for term in item.searchText:gmatch("[^\n]+") do
+			if fold(term):find(needle, 1, true) then return true end
+		end
+	end
+	return false
 end
 
 function layoutMenu()
@@ -2547,8 +2553,8 @@ end
 -- With keepOpen, onClick updates the item checks and the rows repaint in place.
 -- It can return true to lay out the list again if its choices changed.
 -- opts: { point, relPoint, x, y, minWidth, maxWidth, current, keyboard, searchFold }
--- searchFold normalizes the query and label. Extra searchText uses the same
--- normalization in advance, with terms separated by newlines.
+-- searchFold normalizes the query and label. Matching folds each newline-separated
+-- term in extra searchText with the same function.
 -- opts.current: a list of choices whose checked row is the current one; a
 -- long one opens scrolled to it. Any other menu (actions, toggles) opens at
 -- its top, whatever its ticks (#2647: the guide window's menu opened centred

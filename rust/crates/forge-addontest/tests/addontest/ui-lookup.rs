@@ -366,8 +366,9 @@ fn older_codex_pack_has_the_unchanged_flat_lookup_sidebar() {
 		local view = LK.results.psView
 		LK.root.Visibility:Click()
 		local drawer = LK.root.FilterDrawer
-		assert(drawer:IsVisible() and drawer:GetHeight() == 52 and not rawget(drawer, "Item"))
-		assert(#drawer.Availability == 2 and LK.results.psView == view - 52)
+		assert(drawer:IsVisible() and drawer:GetHeight() == 88 and not rawget(drawer, "Item"))
+		assert(drawer.Compatibility:IsShown() and drawer.Compatibility:GetText() == "Update the Codex to filter items.")
+		assert(#drawer.Availability == 2 and LK.results.psView == view - 88)
 		for _, b in ipairs(win.navButtons) do
 			if b:IsShown() then assert(b:GetHeight() == 36 and not rawget(b, "Toggle")) end
 		end
@@ -1242,6 +1243,8 @@ fn without_the_codex_pack_the_section_says_what_is_missing_and_still_finds_guide
 	let out = run(r#"
 		lookupstub.loaded, lookupstub.reason = false, "missing"
 		UI.ShowLookup()
+		LK.root.Visibility:Click()
+		assert(LK.root.FilterDrawer:GetHeight() == 52 and not rawget(LK.root.FilterDrawer, "Compatibility"))
 		local idle = { title = LK.detail.empty, note = LK.detail.note, list = LK.shown.empty, codex = LK.root.CodexLine:GetText(),
 			navs = navKeys() }
 		Polestar.UI.Picker.SetQuery("saber"); stub.advance(0.3)
@@ -2164,6 +2167,266 @@ fn lookup_query_help_exact_ids_and_most_order_lifetime() {
 		assert(box.psTip == nil)
 		emit(true)
 		"##,
+	);
+	assert_eq!(out, json!(true));
+}
+
+#[test]
+fn item_details_scroll_facts_stats_and_sources_with_the_acquisition_action_pinned() {
+	let out = run_packed_lookup(
+		&json!({"items": {
+			"19019": {"name": "Thunderfury", "reqLevel": 0, "itemLevel": 80, "quality": 0,
+				"allowClass": 1503, "slot": 13, "itemClass": 2, "itemSubclass": 7,
+				"levelsSource": "client", "typeSource": "era", "statAmountSource": "era",
+				"stats": {"4": 9, "7": 8, "31": 0, "51": 8, "52": 8, "54": 8, "55": 8, "56": 8, "136": 0},
+				"sources": [{"type": "vendor", "npc": 4730}]},
+			"647": {"name": "Destiny", "reqLevel": 52, "itemLevel": 57, "quality": 4,
+				"allowClass": 1503, "slot": 0, "itemClass": 4, "levelsSource": "era", "typeSource": "forever"},
+			"6948": {"name": "Hearthstone", "allowClass": 0, "slot": 0, "levelsSource": "client"},
+			"71": {"name": "Unidentified", "itemClass": 42, "itemSubclass": 44, "typeSource": "forever"},
+			"72": {"name": "Ahn'Qiraj Wand [PH]", "reqLevel": 60, "quality": 4, "levelsSource": "era"},
+			"73": {"name": "Trial Recipe", "kind": "recipe", "reqLevel": 10, "itemLevel": 20,
+				"allowClass": 1503, "itemClass": 9, "itemSubclass": 2,
+				"levelsSource": "client", "typeSource": "forever"}
+		}, "npcs": {"4730": {"name": "Trial Vendor", "spawns": [{"map": 1432, "x": 50, "y": 50}]}}}),
+		r##"
+		ITEM_QUALITY0_DESC, ITEM_QUALITY4_DESC = nil, "Client epic"
+		local function open(id, kind) UI.ShowLookup({ query = "#" .. id, kind = kind or "item", id = id }) end
+		local function row(rows, label)
+			for _, r in ipairs(rows) do
+				if r:IsShown() and r.Label:GetText() == label then return r end
+			end
+			error("Missing row: " .. label)
+		end
+		local function check(r, value, origin)
+			assert(r.Value:GetText() == value, r.Label:GetText() .. ": " .. r.Value:GetText())
+			assert(r.Origin:IsShown() == (origin ~= nil))
+			if origin then assert(r.Origin:GetText() == origin and colorIs(r.Origin, "textMuted")) end
+			return r
+		end
+		local function tip(r, a, b)
+			stub.RunScript(r, "OnEnter")
+			assert(GameTooltip:GetOwner() == r and GameTooltip.lines[2] == a and GameTooltip.lines[3] == b)
+			stub.RunScript(r, "OnLeave")
+		end
+		open(19019)
+		local d, W = LK.details, Polestar.Widgets
+		local function fact(label, value, origin) return check(row(d.ItemFacts, label), value, origin) end
+		fact("Type", "Item")
+		fact("Required level", "No level required", "Forever client")
+		fact("Item level", "80", "Forever client")
+		fact("Rarity", "Poor", "Forever client")
+		fact("Slot", "One-hand", "Classic Era fallback")
+		fact("Category", "Weapon › Sword", "Classic Era fallback")
+		local classes = {}
+		for _, token in ipairs({ "WARRIOR", "PALADIN", "HUNTER", "ROGUE", "MAGE", "WARLOCK" }) do
+			classes[#classes + 1] = UI.ClassName(token)
+		end
+		tip(fact("Usable by", table.concat(classes, ", "), "Forever client"),
+			"Class restrictions from Forever client", "Item type from Classic Era fallback")
+		assert(d.Stats:IsShown() and d.Stats:GetHeight() == 28 and #d.StatRows == 0)
+		assert(d.ItemFactsPanel:GetParent() == d.Scroll.Child and d.ItemHead.Text:GetText() == "Where to get it")
+		assert(select(4, d.ItemFacts[1].Value:GetPoint(1)) == 84)
+		assert(d.Primary:IsShown() and d.Primary:GetParent() == d, "pinned acquisition button")
+		local _, pinnedTo, _, _, pinnedY = d.Primary:GetPoint(1)
+		local compact = d.Scroll.psContent
+		d.Stats:Click()
+		assert(d.Scroll.psContent > compact and d.Scroll.psContent > d.Scroll.psView)
+		tip(check(row(d.StatRows, "Stamina"), "8", "Classic Era fallback"),
+			"Stat listed in Forever client", "Amount from Classic Era fallback")
+		check(row(d.StatRows, "Hit"), "Amount unknown", "Forever client")
+		local firstSource = d.Rows[1]
+		assert(firstSource:GetParent() == d.Scroll.Child)
+		W.ScrollTo(d.Scroll, d.Scroll.psContent)
+		local at = d.Scroll:GetVerticalScroll()
+		assert(at > 0)
+		firstSource:Click()
+		assert(firstSource.Guide:IsShown())
+		at = d.Scroll:GetVerticalScroll()
+		LK.Render()
+		assert(row(d.StatRows, "Stamina"):IsVisible() and at > 0 and d.Scroll:GetVerticalScroll() == at)
+		local _, stillPinned, _, _, stillY = d.Primary:GetPoint(1)
+		assert(stillPinned == pinnedTo and stillY == pinnedY)
+		open(647)
+		assert(d.Scroll:GetVerticalScroll() == 0 and not d.Stats:IsShown())
+		fact("Required level", "Level 52", "Classic Era fallback")
+		fact("Rarity", "Client epic", "Classic Era fallback")
+		assert(fact("Usable by", "Any class", "Classic Era fallback").psOrigins == nil)
+		fact("Slot", "Non-equippable", "Forever list")
+		fact("Category", "Armor › Unknown", "Forever list")
+		fact("Stats", "None listed", "Classic Era fallback")
+		for _, r in ipairs(d.StatRows) do assert(not r:IsShown()) end
+		open(19019)
+		assert(d.Stats:IsShown() and not d.StatRows[1]:IsShown() and d.Scroll:GetVerticalScroll() == 0)
+		open(6948)
+		fact("Usable by", "None of these classes", "Forever client")
+		open(71)
+		for _, label in ipairs({ "Required level", "Item level", "Rarity", "Usable by", "Slot", "Stats" }) do fact(label, "Unknown") end
+		fact("Category", "Category 42 › Type 44", "Forever list")
+		open(73, "recipe")
+		fact("Type", "Recipe")
+		fact("Required level", "Level 10", "Forever client")
+		fact("Category", "Recipe › Tailoring", "Forever list")
+		assert(fact("Usable by", "Any class", "Forever client").psOrigins == nil)
+		open(72)
+		fact("Type", "Item")
+		fact("Rarity", "Client epic")
+		for _, label in ipairs({ "Required level", "Item level", "Usable by", "Slot", "Category", "Stats" }) do fact(label, "Unknown") end
+		local link
+		GameTooltip.SetHyperlink = function(_, value) link = value end
+		stub.RunScript(d.Well, "OnEnter")
+		assert(link == "item:72")
+		emit(true)
+		"##,
+	);
+	assert_eq!(out, json!(true));
+}
+
+#[test]
+fn lookup_pack_compatibility_keeps_legacy_details_and_drops_most_without_supported_data() {
+	for (version, height) in [(0, 88), (2, 52)] {
+		let out = run_packed_lookup(
+			&json!({"items": {"647": {"name": "Destiny", "reqLevel": 52, "quality": 4,
+				"levelsSource": "era", "statAmountSource": "era", "stats": {"7": 8}}}}),
+			&format!(
+				r##"
+			local register = Polestar.Codex.RegisterFilters
+			Polestar.Codex.RegisterFilters = function(_, ...) register({version}, ...) end
+			LK.SetItemFilters({{ reqMax = 0, stat = 7 }})
+			UI.ShowLookup({{ query = "#647" }})
+			assert(LK.Selected().id == 647 and LK.ItemFilters().reqMax == 0)
+			assert(LK.detail.facts[1][1] == "Type" and LK.detail.facts[2][1] == "Requires" and LK.detail.facts[2][2] == "Level 52")
+			LK.root.Visibility:Click()
+			local drawer, order = LK.root.FilterDrawer, LK.root.SearchOrder
+			assert(drawer:GetHeight() == {height} and not rawget(drawer, "Item") and #drawer.Availability == 2)
+			local note = rawget(drawer, "Compatibility")
+			assert((note and note:IsShown() or false) == ({version} == 0))
+			order:Click()
+			assert(menuChoice("Best match") and menuChoice("A to Z"))
+			assert(not menuChoice("Most Stamina") and not menuChoice("Choose a stat…"))
+			emit(true)
+			"##
+			),
+		);
+		assert_eq!(out, json!(true));
+	}
+}
+
+#[test]
+fn lookup_most_carries_into_search_but_a_to_z_chosen_in_browse_does_not() {
+	let out = run_packed_lookup(
+		&json!({"items": {
+			"647": {"name": "A Destiny", "levelsSource": "era", "statAmountSource": "era", "stats": {"7": 8}},
+			"19019": {"name": "Destiny", "levelsSource": "client", "statAmountSource": "era", "stats": {"7": 6}}
+		}}),
+		r#"
+		UI.ShowLookup({ query = "" })
+		LK.SetKind("item")
+		LK.SetItemFilters({ stat = 7 })
+		local order = LK.root.SearchOrder
+		assert(choose(order, "Most Stamina"))
+		type_("Destiny"); stub.advance(0.3)
+		assert(order.Label:GetText() == "Most Stamina")
+		type_("")
+		assert(choose(order, "A to Z"))
+		type_("Destiny"); stub.advance(0.3)
+		assert(order.Label:GetText() == "Best match" and rowTexts(LK.results.Child)[1] == "Destiny", "Best match ranks the exact name first")
+		assert(choose(order, "Most Stamina"))
+		-- Simulate returning to a pack without stat data while Most is selected.
+		Polestar.Codex.HasFilters = function() return false end
+		Polestar.Codex.StatGeneration = function() return nil end
+		Polestar.Fire("CODEX_LOADED")
+		assert(LK.Order() == "best" and order.Label:GetText() == "Best match")
+		order:Click()
+		assert(not menuChoice("Choose a stat…") and not menuChoice("Most Stamina"))
+		emit(true)
+		"#,
+	);
+	assert_eq!(out, json!(true));
+}
+
+#[test]
+fn lookup_menu_search_folds_raw_aliases_independently() {
+	let out = run_packed_lookup(
+		&json!({"items": {"647": {"name": "Destiny"}}}),
+		r#"
+		UI.ShowLookup({ query = "Destiny" })
+		local items = { { text = "Example stat", searchText = "Fire-Resistance\nShadow Protection" } }
+		for i = 1, 12 do items[#items + 1] = { text = "Other stat " .. i } end
+		Polestar.Widgets.ShowMenu(LK.root.SearchOrder, items, { searchFold = function(s) return Polestar.Search.Fold(s):sub(2) end })
+		local box = PolestarMenu.Filter
+		box:SetText("fire resistance")
+		stub.RunScript(box, "OnTextChanged", true)
+		assert(menuChoice("Example stat"))
+		box:SetText("resistance shadow")
+		stub.RunScript(box, "OnTextChanged", true)
+		assert(not menuChoice("Example stat"))
+		emit(true)
+		"#,
+	);
+	assert_eq!(out, json!(true));
+}
+
+#[test]
+fn lookup_direct_open_outside_filters_allows_detail_actions_until_list_interaction() {
+	let out = run_packed_lookup(
+		&json!({"items": {
+			"647": {"name": "Trial Destiny", "reqLevel": 52, "levelsSource": "era", "itemClass": 2, "itemSubclass": 8,
+				"sources": [{"type": "vendor", "npc": 4730}]},
+			"19019": {"name": "Trial Thunderfury", "reqLevel": 0, "levelsSource": "client", "itemClass": 4}
+		}, "npcs": {"4730": {"name": "Trial Vendor", "spawns": [{"map": 1432, "x": 50, "y": 50}]}}}),
+		r##"
+		LK.SetItemFilters({ reqMax = 0 })
+		UI.ShowLookup({ query = "#647", kind = "item", id = 647 })
+		local d = LK.details
+		assert(LK.Selected().id == 647 and LK.shown.rows == 0)
+		assert(d.Outside:IsVisible() and d.Outside:GetText() == "This item is outside the current filters.")
+		local action
+		Polestar.Lookup.Guide = function(k, id, i) action = { k, id, i } end
+		d.Rows[1]:Click()
+		assert(d.Rows[1].Guide:IsVisible() and d.Outside:IsVisible(), "explicit source selection keeps the exception")
+		d.Rows[1].Guide:Click()
+		assert(action[1] == "item" and action[2] == 647 and action[3] == 1)
+		LK.Render()
+		assert(d.Outside:IsVisible())
+		action = nil
+		stub.RunScript(UI.Picker.search, "OnEnterPressed")
+		assert(not action and LK.Selected() == nil and not d.Outside:IsVisible())
+		UI.ShowLookup({ query = "trial", kind = "item", id = 647 })
+		assert(LK.Selected().id == 647 and d.Outside:IsVisible())
+		LK.Step(1)
+		assert(LK.Selected().id == 19019 and not d.Outside:IsVisible())
+		UI.ShowLookup({ query = "#19019", kind = "item", id = 19019 })
+		assert(LK.Selected().id == 19019 and not d.Outside:IsVisible())
+		UI.ShowLookup({ query = "trial", kind = "item", id = 647 })
+		assert(LK.Kind() == "all" and LK.Selected().id == 647 and d.Outside:IsVisible())
+		type_("Thunderfury"); stub.advance(0.3)
+		assert(LK.Selected().id == 19019 and not d.Outside:IsVisible())
+		emit(true)
+		"##,
+	);
+	assert_eq!(out, json!(true));
+}
+
+#[test]
+fn lookup_direct_open_clears_the_category_and_lists_the_selected_item() {
+	let out = run_packed_lookup(
+		&json!({"items": {
+			"647": {"name": "Trial Sword", "itemClass": 2, "itemSubclass": 8},
+			"19019": {"name": "Trial Robe", "itemClass": 4, "itemSubclass": 1}
+		}}),
+		r#"
+		UI.ShowLookup({ query = "trial" })
+		nav("item").Toggle:Click()
+		nav("item:4").Toggle:Click()
+		nav("item:4:1"):Click()
+		assert(select(2, LK.Nav()) == "item:4:1")
+		assert(LK.shown.rows == 1 and rowFor(LK.results.Child, "Trial Robe"))
+		UI.ShowLookup({ kind = "item", id = 647 })
+		assert(LK.Kind() == "all" and select(2, LK.Nav()) == "all")
+		assert(LK.Selected().id == 647 and LK.shown.rows == 1 and rowFor(LK.results.Child, "Trial Sword"))
+		emit(true)
+		"#,
 	);
 	assert_eq!(out, json!(true));
 }

@@ -121,6 +121,7 @@ local visible = {} -- results in the middle pane, top to bottom
 local pending -- the debounce timer
 -- The selection's sources (Lookup.Sources), kept until the selection changes.
 local detailCache = {}
+local itemDetails = {}
 local rowPool, folderPool = {}, {}
 
 ---------------------------------------------------------------------------
@@ -457,12 +458,17 @@ function LK.Selected() return sel end
 -- auto: picked by the search (the first result), not by the player; only a
 -- page the player opens joins the recent lookups.
 local function setSelection(k, id, res, auto)
+	local same = sel and sel.kind == k and sel.id == id
+	if not same then
+		detailCache = {}
+		itemDetails.statsOpen = nil
+		if details then W.ScrollTo(details.Scroll, 0) end
+	end
+	itemDetails.direct, itemDetails.outside = nil, nil
 	if k == nil or id == nil then
 		sel = nil
-		detailCache = {}
 	else
 		res = res or {}
-		if not (sel and sel.kind == k and sel.id == id) then detailCache = {} end
 		sel = { kind = k, id = id, title = res.title, subtitle = res.subtitle, quality = res.quality, status = res.status, remember = not auto }
 	end
 	sourceSel = nil
@@ -1007,6 +1013,7 @@ local function emptyDetails(title, note)
 	for _, p in ipairs({ d.Well, d.Title, d.Sub, d.Status, d.Head, d.Scroll, d.Note, d.Primary, d.Secondary }) do p:Hide() end
 	d.Well.psItem = nil
 	W.HideTooltip(d.Well)
+	itemDetails.Hide(d)
 	for _, f in ipairs(d.Facts) do
 		f.Label:Hide()
 		f.Value:Hide()
@@ -1027,6 +1034,31 @@ local function selectionSources(s)
 		detailCache = { key = key, gen = LK.gen, list = list, entity = entity }
 	end
 	return detailCache.list, detailCache.entity
+end
+
+local function paintLegacyFacts(d, facts, shown, y)
+	if facts then
+		for i, f in ipairs(facts) do
+			local row = factRow(i)
+			row.Label:SetText(f[1])
+			row.Value:SetText(f[2])
+			W.Color(row.Value, f[3] or "text")
+			row.Label:ClearAllPoints()
+			row.Label:SetPoint("TOPLEFT", d, "TOPLEFT", DPAD, -(y + 1))
+			row.Value:ClearAllPoints()
+			row.Value:SetPoint("TOPLEFT", d, "TOPLEFT", DPAD + FACT_W, -y)
+			row.Label:Show()
+			row.Value:Show()
+			y = y + max(row.Value:GetStringHeight(), row.Label:GetStringHeight()) + FACT_GAP
+			shown[i] = { f[1], f[2] }
+		end
+		y = y - FACT_GAP + 8
+	end
+	for i = #shown + 1, #d.Facts do
+		d.Facts[i].Label:Hide()
+		d.Facts[i].Value:Hide()
+	end
+	return y
 end
 
 local function renderDetails(loaded, reason)
@@ -1121,27 +1153,11 @@ local function renderDetails(loaded, reason)
 	end
 	local Lk = ns.Lookup
 	local chain = s.kind == "quest" and Lk and Lk.ChainProgress and Lk.ChainProgress(s.id) or nil
-	local facts = factsFor(s, entity, list, chain)
+	local enhanced = itemDetails.Available(s, loaded)
+	local facts = not enhanced and factsFor(s, entity, list, chain)
 	local shown = {}
-	for i, f in ipairs(facts) do
-		local row = factRow(i)
-		row.Label:SetText(f[1])
-		row.Value:SetText(f[2])
-		W.Color(row.Value, f[3] or "text")
-		row.Label:ClearAllPoints()
-		row.Label:SetPoint("TOPLEFT", d, "TOPLEFT", DPAD, -(y + 1))
-		row.Value:ClearAllPoints()
-		row.Value:SetPoint("TOPLEFT", d, "TOPLEFT", DPAD + FACT_W, -y)
-		row.Label:Show()
-		row.Value:Show()
-		y = y + max(row.Value:GetStringHeight(), row.Label:GetStringHeight()) + FACT_GAP
-		shown[i] = { f[1], f[2] }
-	end
-	for i = #facts + 1, #d.Facts do
-		d.Facts[i].Label:Hide()
-		d.Facts[i].Value:Hide()
-	end
-	y = y - FACT_GAP + 8
+	y = itemDetails.Outside(d, itemDetails.outside, y)
+	y = paintLegacyFacts(d, facts, shown, y)
 
 	-- The bottom: what the button does, then the button(s).
 	local curated = curatedOf(s.kind, s.id)
@@ -1217,7 +1233,7 @@ local function renderDetails(loaded, reason)
 			d.Secondary:Hide()
 			setButtonWidth(d.Primary, INNER)
 		end
-		d.Primary.psTip = s.kind == "guide" and nil or L["Enter does this too."]
+		d.Primary.psTip = s.kind ~= "guide" and not itemDetails.outside and L["Enter does this too."] or nil
 	else
 		d.Primary:Hide()
 		d.Secondary:Hide()
@@ -1227,21 +1243,28 @@ local function renderDetails(loaded, reason)
 
 	-- Sources.
 	local rowsShown = {}
-	if list and (s.kind ~= "zone" or #list > 0) then
-		d.Head.Text:SetText(headText(s.kind))
-		d.Head.Count:SetText(#list > 0 and tostring(#list) or "")
-		d.Head:ClearAllPoints()
-		d.Head:SetPoint("TOPLEFT", d, "TOPLEFT", DPAD - TEXT_X, -y)
-		d.Head:Show()
-		y = y + FOLDER_H + 6
-		d.Scroll:ClearAllPoints()
-		d.Scroll:SetPoint("TOPLEFT", d, "TOPLEFT", DPAD - 8, -y)
-		d.Scroll:SetPoint("BOTTOMRIGHT", d, "BOTTOMRIGHT", -DPAD + 10, bottom)
-		d.Scroll:Show()
+	if enhanced or (list and (s.kind ~= "zone" or #list > 0)) then
+		list = list or itemDetails.Empty
 		local child = d.Scroll.Child
 		local cw = INNER + 8
 		child:SetWidth(cw)
 		local cy = 0
+		if enhanced then
+			d.Head:Hide()
+			cy = itemDetails.Paint(d, s, quality, #list, shown)
+		else
+			itemDetails.HideFacts(d)
+			d.Head.Text:SetText(headText(s.kind))
+			d.Head.Count:SetText(#list > 0 and tostring(#list) or "")
+			d.Head:ClearAllPoints()
+			d.Head:SetPoint("TOPLEFT", d, "TOPLEFT", DPAD - TEXT_X, -y)
+			d.Head:Show()
+			y = y + FOLDER_H + 6
+		end
+		d.Scroll:ClearAllPoints()
+		d.Scroll:SetPoint("TOPLEFT", d, "TOPLEFT", DPAD - 8, -y)
+		d.Scroll:SetPoint("BOTTOMRIGHT", d, "BOTTOMRIGHT", -DPAD + 10, bottom)
+		d.Scroll:Show()
 		for i, row in ipairs(list) do
 			local r = sourceRow(i)
 			local on = sourceSel == i
@@ -1301,9 +1324,11 @@ local function renderDetails(loaded, reason)
 		end
 		for i = #list + 1, #d.Rows do d.Rows[i]:Hide() end
 		if #list == 0 then
+			d.NoSource:ClearAllPoints()
+			d.NoSource:SetPoint("TOPLEFT", child, "TOPLEFT", enhanced and 8 or 0, -(cy + 4))
 			d.NoSource:SetText(L["No source is known for this yet."])
 			d.NoSource:Show()
-			cy = 30
+			cy = cy + 30
 		else
 			d.NoSource:Hide()
 		end
@@ -1364,6 +1389,7 @@ local function renderDetails(loaded, reason)
 		LK.chainShown = chainShown
 		W.SetScrollContent(d.Scroll, cy + 4, shell:GetHeight() - SH.top - y - bottom)
 	else
+		itemDetails.HideFacts(d)
 		d.Head:Hide()
 		d.Scroll:Hide()
 		LK.chainShown = nil
@@ -1432,12 +1458,26 @@ end
 -- shows, since Enter acts on it. A search or a kind takes its first row; the
 -- empty Everything list (recent lookups) picks nothing for the player.
 local function reconcile(reset)
+	if itemDetails.direct then return end
 	if query ~= "" or kind ~= "all" then return selectFirst(reset) end
 	if not sel then return end
 	for _, res in ipairs(visible) do
 		if res.kind == sel.kind and res.id == sel.id then return end
 	end
 	LK.Select()
+end
+
+local function clearDirectSelection()
+	if not itemDetails.direct then return end
+	itemDetails.direct, itemDetails.outside = nil, nil
+	return true
+end
+
+local function reconcileDirectSelection()
+	if not clearDirectSelection() then return end
+	local direct = sel
+	reconcile()
+	if sel == direct then LK.Render() end
 end
 
 -- Bumped when what a search finds may have changed (the Codex or the
@@ -1481,6 +1521,213 @@ local function loadTaxonomyLabels()
 	}
 end
 
+local function categoryLabel(class)
+	if not CLASS_LABEL then loadTaxonomyLabels() end
+	return CLASS_LABEL[class] or format(L["Category %d"], class)
+end
+
+local function subclassLabel(class, subclass)
+	return SUBCLASS_LABEL[class] and SUBCLASS_LABEL[class][subclass] or format(L["Type %d"], subclass)
+end
+
+do
+	local origins = { client = L["Forever client"], forever = L["Forever list"], era = L["Classic Era fallback"] }
+	itemDetails.Empty = {}
+
+	function itemDetails.Available(s, loaded)
+		local C = ns.Codex
+		return loaded and KIND[s.kind] and KIND[s.kind].item and C and C.HasFilters and C.HasFilters()
+	end
+
+	local function usableBy(S, f)
+		local names, count = nil, 0
+		local usedItemType
+		for _, token in ipairs(itemDetails.ClassTokens) do
+			local eligible, usedType = S.ClassEligible(token, f.allowClass, f.itemClass, f.itemSubclass, f.slot)
+			if eligible == nil then return end
+			usedItemType = usedItemType or usedType
+			if eligible then
+				local name = UI.ClassName(token)
+				names = names and format(L["%s, %s"], names, name) or name
+				count = count + 1
+			end
+		end
+		local restrictions, itemType = origins[f.levelsSource], usedItemType and origins[f.typeSource]
+		local tip
+		if restrictions and itemType and restrictions ~= itemType then
+			tip = { format(L["Class restrictions from %s"], restrictions), format(L["Item type from %s"], itemType) }
+		end
+		local text = count == #itemDetails.ClassTokens and L["Any class"] or names or L["None of these classes"]
+		return text, restrictions or itemType, tip
+	end
+
+	local function statOrder(a, b)
+		if a.key ~= b.key then return a.key < b.key end
+		return a.code < b.code
+	end
+
+	local function readItem(s, quality)
+		local C, S = ns.Codex, ns.Search
+		local f = C.FilterFacts(s.kind, s.id)
+		local indexed = f ~= nil
+		f = f or itemDetails.Empty
+		local levels, itemType = origins[f.levelsSource], origins[f.typeSource]
+		local req = f.reqLevel
+		local required = req and (req == 0 and L["No level required"] or format(L["Level %d"], req))
+		local usable, usableOrigin, usableTip = usableBy(S, f)
+		local path
+		if f.itemClass then
+			local class = categoryLabel(f.itemClass)
+			local subclass = f.itemSubclass and subclassLabel(f.itemClass, f.itemSubclass) or L["Unknown"]
+			path = format(L["%s › %s"], class, subclass)
+		end
+		local facts = {
+			{ L["Type"], KIND[s.kind].name },
+			{ L["Required level"], required, levels },
+			{ L["Item level"], f.itemLevel and tostring(f.itemLevel), levels },
+			{ L["Rarity"], itemDetails.RarityName(quality), levels },
+			{ L["Usable by"], usable, usableOrigin, usableTip },
+			{ L["Slot"], f.slot and itemDetails.SlotName(f.slot), itemType },
+			{ L["Category"], path, itemType },
+		}
+		local coverage = indexed and C.ItemStats(s.id)
+		local stats = {}
+		for _, stat in ipairs(coverage or itemDetails.Empty) do
+			local label = S.StatLabel(stat.code)
+			if label then
+				local amount = origins[stat.amountSource]
+				local tip
+				if levels and amount and levels ~= amount then
+					tip = { format(L["Stat listed in %s"], levels), format(L["Amount from %s"], amount) }
+				end
+				stats[#stats + 1] = { label, stat.amount and tostring(stat.amount) or L["Amount unknown"], amount or levels, tip,
+					key = S.Fold(label), code = stat.code }
+			end
+		end
+		table.sort(stats, statOrder)
+		if #stats == 0 then
+			local empty = coverage and #coverage == 0
+			facts[#facts + 1] = { L["Stats"], empty and L["None listed"], levels }
+		end
+		detailCache.itemFacts, detailCache.stats = facts, stats
+	end
+
+	local function factTip(row)
+		W.Tooltip(row, "ANCHOR_RIGHT", row.Label:GetText(), row.psOrigins)
+	end
+
+	local function paintFact(parent, pool, i, f, y, minHeight)
+		local row = pool[i]
+		if not row then
+			row = CreateFrame("Frame", nil, parent)
+			row:SetWidth(INNER)
+			row.Label = W.Text(row, "small", "textMuted")
+			-- Leave a little clearance before the value when a label wraps.
+			row.Label:SetWidth(FACT_W - 8)
+			row.Label:SetWordWrap(true)
+			row.Label:SetPoint("TOPLEFT", row, "TOPLEFT", 0, -1)
+			row.Value = W.Text(row, "note", "text")
+			row.Value:SetWidth(INNER - FACT_W)
+			row.Value:SetWordWrap(true)
+			row.Value:SetPoint("TOPLEFT", row, "TOPLEFT", FACT_W, 0)
+			row.Origin = W.Text(row, "small", "textMuted")
+			row.Origin:SetWidth(INNER - FACT_W)
+			row.Origin:SetWordWrap(true)
+			row.Origin:SetPoint("TOPLEFT", row.Value, "BOTTOMLEFT", 0, -2)
+			row:SetScript("OnEnter", factTip)
+			row:SetScript("OnLeave", W.HideTooltip)
+			row:SetScript("OnHide", W.HideTooltip)
+			pool[i] = row
+		end
+		local value, origin = f[2] or L["Unknown"], f[2] and f[3] or nil
+		if row.psOrigins ~= f[4] then W.HideTooltip(row) end
+		row.psOrigins = f[4]
+		row:EnableMouse(f[4] ~= nil)
+		row.Label:SetText(f[1])
+		row.Value:SetText(value)
+		row.Origin:SetText(origin or "")
+		row.Origin:SetShown(origin ~= nil)
+		local valueHeight = row.Value:GetStringHeight() + (origin and row.Origin:GetStringHeight() + 2 or 0)
+		local height = max(minHeight or 0, valueHeight, row.Label:GetStringHeight() + 1)
+		row:SetHeight(height)
+		row:SetPoint("TOPLEFT", parent, "TOPLEFT", 0, -y)
+		row:Show()
+		return y + height + FACT_GAP, value
+	end
+
+	function itemDetails.Outside(d, outside, y)
+		local line = rawget(d, "Outside")
+		if not outside then
+			if line then line:Hide() end
+			return y
+		end
+		if not line then
+			line = W.Text(d, "note", "textMuted")
+			line:SetWidth(INNER)
+			line:SetWordWrap(true)
+			line:SetText(L["This item is outside the current filters."])
+			d.Outside = line
+		end
+		line:SetPoint("TOPLEFT", d, "TOPLEFT", DPAD, -y)
+		line:Show()
+		return y + line:GetStringHeight() + FACT_GAP
+	end
+
+	function itemDetails.HideFacts(d)
+		local panel = rawget(d, "ItemFactsPanel")
+		if panel then panel:Hide() end
+	end
+
+	function itemDetails.Hide(d)
+		itemDetails.HideFacts(d)
+		itemDetails.Outside(d, false)
+	end
+
+	local function toggleStats()
+		itemDetails.statsOpen = not itemDetails.statsOpen
+		LK.Render()
+	end
+
+	function itemDetails.Paint(d, s, quality, sourceCount, shown)
+		local panel = rawget(d, "ItemFactsPanel")
+		if not panel then
+			panel = CreateFrame("Frame", nil, d.Scroll.Child)
+			panel:SetPoint("TOPLEFT", d.Scroll.Child, "TOPLEFT", 8, 0)
+			panel:SetWidth(INNER)
+			d.ItemFactsPanel, d.ItemFacts, d.StatRows = panel, {}, {}
+			d.Stats = W.Button(panel, L["Stats"], toggleStats, { ghost = true, height = 28, icon = "chevron-down" })
+			d.ItemHead = makeFolder(panel)
+			d.ItemHead:SetWidth(INNER + TEXT_X * 2)
+			d.ItemHead.Text:SetText(L["Where to get it"])
+		end
+		if not detailCache.itemFacts then readItem(s, quality) end
+		local facts, stats = detailCache.itemFacts, detailCache.stats
+		local y = 0
+		for i, f in ipairs(facts) do
+			local value
+			y, value = paintFact(panel, d.ItemFacts, i, f, y, i == 8 and 28 or nil)
+			shown[i] = { f[1], value }
+		end
+		for i = #facts + 1, #d.ItemFacts do d.ItemFacts[i]:Hide() end
+		local hasStats = #stats > 0
+		d.Stats:SetShown(hasStats)
+		if hasStats then
+			d.Stats:SetPoint("TOPLEFT", panel, "TOPLEFT", 0, -y)
+			d.Stats.Icon:SetTexture(Theme.Media(itemDetails.statsOpen and "chevron-up" or "chevron-down"))
+			y = y + 28 + 4
+		end
+		local shownStats = hasStats and itemDetails.statsOpen and #stats or 0
+		for i = 1, shownStats do y = paintFact(panel, d.StatRows, i, stats[i], y) end
+		for i = shownStats + 1, #d.StatRows do d.StatRows[i]:Hide() end
+		d.ItemHead.Count:SetText(sourceCount > 0 and tostring(sourceCount) or "")
+		d.ItemHead:SetPoint("TOPLEFT", panel, "TOPLEFT", -TEXT_X, -y)
+		y = y + FOLDER_H + 6
+		panel:SetHeight(y)
+		panel:Show()
+		return y
+	end
+end
+
 local function categoryOrder(a, b)
 	if a.sortLabel ~= b.sortLabel then return a.sortLabel < b.sortLabel end
 	return (a.subclass or a.class) < (b.subclass or b.class)
@@ -1493,7 +1740,6 @@ local function itemTaxonomy()
 	local blob, count = C.FilterColumn("item")
 	if not blob or count == 0 then return end
 	if categoryColumn == blob then return taxonomy end
-	if not CLASS_LABEL then loadTaxonomyLabels() end
 	categoryColumn, taxonomy = blob, nil
 	local classes, byClass, byKey, seen = {}, {}, {}, {}
 	local sortLabel = ns.Search.Fold or string.lower
@@ -1507,14 +1753,14 @@ local function itemTaxonomy()
 			if class then
 				local parent = byClass[class]
 				if not parent then
-					local label = CLASS_LABEL[class] or format(L["Category %d"], class)
+					local label = categoryLabel(class)
 					parent = { key = "item:" .. class, parent = "item", class = class, label = label,
 						sortLabel = sortLabel(label), children = {} }
 					byClass[class], byKey[parent.key] = parent, parent
 					classes[#classes + 1] = parent
 				end
 				if subclass then
-					local label = SUBCLASS_LABEL[class] and SUBCLASS_LABEL[class][subclass] or format(L["Type %d"], subclass)
+					local label = subclassLabel(class, subclass)
 					local node = { key = parent.key .. ":" .. subclass, parent = parent.key, id = id,
 						class = class, subclass = subclass, label = label, sortLabel = sortLabel(label) }
 					byKey[node.key] = node
@@ -1539,8 +1785,13 @@ local function itemCapable()
 	return kind == "all" or KIND[kind] and KIND[kind].item
 end
 
+local function mostAvailable()
+	local C = ns.Codex
+	return C and C.HasFilters and C.HasFilters() and C.StatGeneration and C.StatGeneration() ~= nil
+end
+
 local function effectiveOrder()
-	if order == "most" and itemCapable() then return order end
+	if order == "most" and itemCapable() and mostAvailable() and not lookupOff() then return order end
 	return query == "" and "az" or baseOrder
 end
 
@@ -1600,6 +1851,9 @@ local function current()
 	end
 	-- A search or browse can load the Codex or learn why it cannot load.
 	local loaded, reason = status()
+	if loaded and order == "most" and not (filterData and mostAvailable()) then
+		order, sortStat = baseOrder, nil
+	end
 	local waiting = reason == "loading" or reason == "notloaded" or reason == "combat"
 	if not loaded and query == "" and kind ~= "guide" then counts[kind] = nil end
 	-- Search's pre-filter counts include the visibility switches. For a kind
@@ -1628,7 +1882,7 @@ local function current()
 		kind, category, list = "all", nil, {}
 		-- Nothing can look a Codex entry up now. Clear it here, not through
 		-- LK.Select: this runs inside a render.
-		if sel and sel.kind ~= "guide" then sel, sourceSel, detailCache = nil, nil, {} end
+		if sel and sel.kind ~= "guide" then setSelection() end
 	end
 	local tree = loaded and filterData and itemTaxonomy()
 	if not tree then category = nil end
@@ -1659,7 +1913,9 @@ function LK.More()
 		more = search(query, { [kind] = true }, opts)
 	end
 	for _, res in ipairs(more) do c.list[#c.list + 1] = res end
+	local direct = clearDirectSelection()
 	LK.Render()
+	if direct then reconcile() end
 end
 
 local navRows, navPositions, activeNavKey
@@ -1864,6 +2120,18 @@ local function showControls(c)
 	return visibility:GetWidth() + button:GetWidth() + 20
 end
 
+local function directOutsideFilters(c, s)
+	local retired, noSource = ns.Get("lookup.hideRetired"), ns.Get("lookup.hideNoSource")
+	local filters = c.filterData and LK.SearchFilters(c.saved, category)
+	if not (retired or noSource or filters) then return false end
+	local idQuery, only = "#" .. s.id, { [s.kind] = true }
+	local _, counts = search(idQuery, only, { ids = true, limit = 0, filters = filters, hideRetired = retired, hideNoSource = noSource })
+	if counts[s.kind] then return false end
+	-- A detail-only record can be absent even with every filter off.
+	_, counts = search(idQuery, only, { ids = true, limit = 0 })
+	return counts[s.kind] ~= nil
+end
+
 function LK.Render()
 	if not (root and root:IsVisible()) then return end
 	local c = current()
@@ -2010,6 +2278,7 @@ function LK.Render()
 	body:SetWidth(MID_W)
 	W.SetScrollContent(results, y + 16, viewHeight())
 	paintVisible()
+	if c.loaded and itemDetails.direct and itemDetails.outside == nil then itemDetails.outside = directOutsideFilters(c, sel) end
 	renderDetails(loaded, reason)
 	LK.shown = { query = query, kind = kind, groups = groups, rows = #visible, empty = empty,
 		total = category and (counts.item or 0) or total }
@@ -2041,6 +2310,7 @@ end
 
 local function restartList()
 	flushPending()
+	clearDirectSelection()
 	stale()
 	if root and root:IsVisible() then
 		resetListSelection = true
@@ -2052,19 +2322,25 @@ end
 function LK.Order() return order end
 
 local function changeOrder(value, stat)
-	if value == order and stat == sortStat then return end
-	if value ~= "most" then baseOrder = value end
+	local hadPending = pending ~= nil
+	flushPending()
+	if value ~= "most" then
+		if query ~= "" then baseOrder = value end
+		value, stat = baseOrder, nil
+	end
+	if value == order and stat == sortStat and not hadPending then return end
 	order, sortStat = value, stat
 	restartList()
 end
 
 function LK.SetOrder(value)
-	changeOrder(value == "az" and "az" or "best", sortStat)
+	changeOrder(value == "az" and "az" or "best")
 end
 
 local function setQuery(text)
 	text = text or ""
 	if text == query then return end
+	clearDirectSelection()
 	query = text
 	LK.message = nil
 	if not (root and root:IsVisible()) then return end
@@ -2095,6 +2371,13 @@ local function onEnter()
 		cancelPending()
 		setQuery(P and P.Query and P.Query() or query)
 	end
+	local outside = itemDetails.outside
+	if clearDirectSelection() then
+		local direct = sel
+		reconcile()
+		if outside and sel == direct then LK.Render() end
+		if outside or sel ~= direct then return end
+	end
 	LK.Activate()
 end
 
@@ -2108,7 +2391,7 @@ local function headerMenu(button)
 	end
 	if query ~= "" then addChoice("best") end
 	addChoice("az")
-	if itemCapable() then
+	if itemCapable() and current().filterData and mostAvailable() then
 		local code = sortStat or LK.ItemFilters().stat
 		if code then
 			items[#items + 1] = { text = mostLabel(code), checked = selected == "most",
@@ -2126,6 +2409,7 @@ end
 function LK.Query() return query end
 
 local function setKind(k, node, categoryCommit)
+	clearDirectSelection()
 	k = k or "all"
 	local changed = kind ~= k
 	categoryCommit = categoryCommit or category ~= nil
@@ -2150,7 +2434,10 @@ end
 function LK.Kind() return kind end
 
 function LK.Step(delta)
-	if #visible == 0 then return end
+	if #visible == 0 then
+		if clearDirectSelection() then reconcile() end
+		return
+	end
 	local at
 	if sel then
 		for i, res in ipairs(visible) do if res.kind == sel.kind and res.id == sel.id then at = i end end
@@ -2265,6 +2552,7 @@ local function installFilterChrome()
 	local DRAWER_H, VISIBILITY_H, STRIP_H = 160, 52, 32
 	local DROP_W, CHIP_H, CHIP_GAP, OVERFLOW_W, CLEAR_W = 116, 24, 6, 52, 80
 	local CLASSES = { "WARRIOR", "PALADIN", "HUNTER", "ROGUE", "PRIEST", "SHAMAN", "MAGE", "WARLOCK", "DRUID" }
+	itemDetails.ClassTokens = CLASSES
 	local slotLabels, slotGroups
 	local function loadSlots()
 		if slotLabels then return end
@@ -2285,6 +2573,7 @@ local function installFilterChrome()
 	end
 
 	local function rarityName(id)
+		if type(id) ~= "number" then return nil end
 		local name = ns.QualityName(id)
 		if name then return name end
 		if id == 0 then return L["Poor"] end
@@ -2295,8 +2584,10 @@ local function installFilterChrome()
 		if id == 5 then return L["Legendary"] end
 		if id == 6 then return L["Artifact"] end
 		if id == 7 then return L["Heirloom"] end
-		return L["WoW Token"]
+		if id == 8 then return L["WoW Token"] end
+		return format(L["Quality %d"], id)
 	end
+	itemDetails.RarityName = rarityName
 
 	local function rarityText(quality)
 		if not quality then return L["Any rarity"] end
@@ -2323,10 +2614,13 @@ local function installFilterChrome()
 		return c.classDormant and format(L["%s · %s"], name, L["Unknown"]) or name
 	end
 
-	local function slotText(slot)
-		if slot == nil then return L["Any slot"] end
+	function itemDetails.SlotName(slot)
 		loadSlots()
-		return slotLabels[slot]
+		return slotLabels[slot] or format(L["Slot %d"], slot)
+	end
+
+	local function slotText(slot)
+		return slot and itemDetails.SlotName(slot) or L["Any slot"]
 	end
 
 	local function changeItemFilter(key, value)
@@ -2623,6 +2917,21 @@ local function installFilterChrome()
 		if item then item:SetShown(showItems and true or false) end
 		for i, choice in ipairs(VISIBILITY_CHOICES) do drawer.Availability[i].Check:SetChecked(ns.Get(choice.path)) end
 		local height = showItems and DRAWER_H or VISIBILITY_H
+		local C = ns.Codex
+		local needsUpdate = c.loaded and not c.filterData and itemCapable() and not (C and C.FiltersTooNew and C.FiltersTooNew())
+		local note = rawget(drawer, "Compatibility")
+		if needsUpdate and not note then
+			note = W.Text(drawer, "note", "textMuted")
+			note:SetText(L["Update the Codex to filter items."])
+			note:SetPoint("TOPLEFT", drawer, "TOPLEFT", 0, -8)
+			note:SetPoint("TOPRIGHT", drawer, "TOPRIGHT", 0, -8)
+			note:SetHeight(36)
+			note:SetJustifyH("LEFT")
+			note:SetWordWrap(true)
+			drawer.Compatibility = note
+		end
+		if note then note:SetShown(needsUpdate and true or false) end
+		if needsUpdate then height = height + 36 end
 		drawer:SetHeight(height)
 		drawer:Show()
 		return height
@@ -2912,7 +3221,8 @@ function LK.Build(parent, hub)
 	MID_W = floor(w - DETAIL_W)
 	results = W.Scroll(root)
 	-- Rows are drawn for what is in view: scrolling draws the rest.
-	results:HookScript("OnMouseWheel", function() paintVisible() end)
+	results:HookScript("OnMouseWheel", function() reconcileDirectSelection(); paintVisible() end)
+	results.Bar:HookScript("OnMouseDown", reconcileDirectSelection)
 	results:HookScript("OnVerticalScroll", function() paintVisible() end)
 	results:SetPoint("TOPLEFT", root, "TOPLEFT", 0, -4)
 	results:SetPoint("BOTTOMRIGHT", root, "BOTTOMRIGHT", -(DETAIL_W + 4), 4)
@@ -2979,6 +3289,7 @@ local function sectionRender()
 	local P = UI.Picker
 	local hub = P and P.Query and P.Query() or query
 	if not pending and not opening and hub ~= query then
+		clearDirectSelection()
 		query = hub
 		LK.message = nil
 		LK.Render()
@@ -3009,14 +3320,18 @@ function UI.ShowLookup(opts)
 	local P = UI.Picker
 	if not (P and UI.ShowPicker and P.ShowSection) then return end
 	local q, k, id = opts.query, opts.kind, opts.id
+	local direct = id ~= nil and KIND[k] and KIND[k].item
+	opening = true
 	if id ~= nil and k then
+		if direct then id = tonumber(id) or id end
 		if q == nil or q == "" then
 			local rec = k == "guide" and guideHeader(id) or codexRecord(k, id)
 			q = rec and (rec.name or rec.title) or q
 		end
-		if not (sel and sel.kind == k and sel.id == id) then detailCache = {} end
-		sel = { kind = k, id = id, remember = true }
-		sourceSel = nil
+		setSelection(k, id)
+		itemDetails.direct = direct
+	else
+		clearDirectSelection()
 	end
 	LK.message = nil
 	-- Opening Lookup means looking something up: load the pack now, so the
@@ -3028,7 +3343,6 @@ function UI.ShowLookup(opts)
 		query = q
 		kind, category = "all", nil
 	end
-	opening = true
 	UI.ShowPicker()
 	P.ShowSection("Lookup")
 	-- The hub's box shows the search (this section has it already).

@@ -77,9 +77,10 @@
 --     visibility + all item predicates except category and has fields
 --     root, classes[raw class], subclasses[packed category ID]. Omitted
 --     nodes have zero matches. Rows without a class contribute only to root.
---   Search.ClassEligible(token, allowClass, itemClass, itemSubclass, slot) -> true|false|nil
+--   Search.ClassEligible(token, allowClass, itemClass, itemSubclass, slot) -> eligible, usedItemType
 --     Uses the same mask and trainable proficiencies as the drawer. Nil means
 --     the available facts cannot establish eligibility, or the class is unavailable.
+--     The second result is true when armor or weapon rules decided eligibility.
 --   Search.StatLabel(code) -> localized label|nil
 --   Search.StatCodes([text]) -> codes in localized label order, optionally filtered by substring
 --   Search.StatSearchText(code) -> folded English label and aliases for a picker row
@@ -577,28 +578,28 @@ local function classEligible(bit, prof, modeled, allowClass, itemClass, itemSubc
 	if itemClass == nil then return nil end
 	if itemClass == 4 then -- Armor
 		local anyArmor = ns.Gear.ANY_ARMOR_INV
-		if anyArmor and anyArmor[slot] then return true end
+		if anyArmor and anyArmor[slot] then return true, true end
 		if itemSubclass == nil then return nil end
 		if itemSubclass >= 1 and itemSubclass <= 4 then
-			return itemSubclass <= max(prof.armor, prof.armorAt40 or prof.armor)
+			return itemSubclass <= max(prof.armor, prof.armorAt40 or prof.armor), true
 		end
-		if itemSubclass == 6 then return prof.shield == true end
-		if itemSubclass >= 7 and itemSubclass <= 9 then return prof.relic == itemSubclass end
-		if itemSubclass == 0 or itemSubclass == 5 then return true end -- Miscellaneous or Cosmetic
+		if itemSubclass == 6 then return prof.shield == true, true end
+		if itemSubclass >= 7 and itemSubclass <= 9 then return prof.relic == itemSubclass, true end
+		if itemSubclass == 0 or itemSubclass == 5 then return true, true end -- Miscellaneous or Cosmetic
 		return nil
 	end
 	if itemClass == 2 then -- Weapon
-		if itemSubclass == 14 or itemSubclass == 20 then return true end -- Miscellaneous or Fishing Pole
+		if itemSubclass == 14 or itemSubclass == 20 then return true, true end -- Miscellaneous or Fishing Pole
 		if not modeled[itemSubclass] then return nil end
 		if slot == nil and not prof.dualWield and prof.weapons[itemSubclass] == true then return nil end
-		return prof.weapons[itemSubclass] == true and (slot ~= 22 or not not prof.dualWield)
+		return prof.weapons[itemSubclass] == true and (slot ~= 22 or not not prof.dualWield), true
 	end
 	return true
 end
 
 function Search.ClassEligible(token, allowClass, itemClass, itemSubclass, slot)
 	local bit, prof, modeled = classProficiency(token)
-	return bit and classEligible(bit, prof, modeled, allowClass, itemClass, itemSubclass, slot)
+	if bit then return classEligible(bit, prof, modeled, allowClass, itemClass, itemSubclass, slot) end
 end
 
 local function integer(value, max)
