@@ -8,17 +8,17 @@
 return {
 	-- Guide
 	-- plural, as words: Nightclaw Druids = {npc:254152} Nightclaw Druid
-	["Nightclaw Druids Reputation"] = "",
+	["Nightclaw Druids Reputation"] = "夜爪德魯伊聲望",
 	-- {zone:2521} Zephras Isle
-	["{zone:2521}'s hidden druids: five cultist ears pay 1000 reputation, best done before you outlevel the isle."] = "",
+	["{zone:2521}'s hidden druids: five cultist ears pay 1000 reputation, best done before you outlevel the isle."] = "{zone:2521}的隱秘德魯伊：交出五隻邪教徒耳朵可獲得1000點聲望，最好在等級超過該島之前完成。",
 	-- {skill:164} Blacksmithing · {skill:165} Leatherworking · {skill:197} Tailoring
-	["48 {skill:164}, {skill:165} and {skill:197} patterns"] = "",
+	["48 {skill:164}, {skill:165} and {skill:197} patterns"] = "48個{skill:164}、{skill:165}和{skill:197}圖樣",
 
 	-- Step 1: Skyboat from Dalaran
 	-- {area:279} Dalaran
 	["Skyboat from {area:279}"] = "從{area:279}搭乘天空船",
 	-- {zone:2521} Zephras Isle · {area:279} Dalaran · {zone:1456} Thunder Bluff
-	["{zone:2521} is the Skyborne starting island, open to everyone. A skyboat leaves the north side of {area:279} about every five minutes; another flies from north of {zone:1456}, and either faction may take either."] = "",
+	["{zone:2521} is the Skyborne starting island, open to everyone. A skyboat leaves the north side of {area:279} about every five minutes; another flies from north of {zone:1456}, and either faction may take either."] = "{zone:2521}是天裔的新手島，所有人可去。約每五分鐘有一艘飛船從{area:279}北側出發；另一艘從{zone:1456}以北起飛，兩個陣營都能乘坐任意一艘。",
 	-- {zone:2521} Zephras Isle
 	["Skyboat to {zone:2521}"] = "搭天空船前往{zone:2521}",
 
@@ -26,86 +26,86 @@ return {
 	-- {zone:1456} Thunder Bluff
 	["Skyboat from {zone:1456}"] = "從{zone:1456}搭乘天空船",
 	-- {zone:2521} Zephras Isle · {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff · {area:279} Dalaran
-	["{zone:2521} is the Skyborne starting island, open to everyone. A skyboat leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes; another flies from {area:279}, and either faction may take either."] = "",
+	["{zone:2521} is the Skyborne starting island, open to everyone. A skyboat leaves the cliffs south of {area:17045}, north of {zone:1456}, about every five minutes; another flies from {area:279}, and either faction may take either."] = "{zone:2521}是天裔的新手島，所有人可去。約每五分鐘有一艘飛船從{zone:1456}以北{area:17045}南面的懸崖出發；另一艘從{area:279}起飛，兩個陣營都能乘坐任意一艘。",
 
 	-- Step 3: Lotheluum Starbreeze
 	-- {npc:252359} Lotheluum Starbreeze · {area:16638} Valanaar
-	["{npc:252359} stands in {area:16638}, the Skyborne town in the south of the isle, and has heard nothing from the druids up north. His errand is the start of the Nightclaw storyline (level 8 and up, any race). Every quest of it pays Nightclaw reputation: 4100 in all, enough for Friendly. Players' turn-ins paid their full reputation well above these quests' level."] = "",
+	["{npc:252359} stands in {area:16638}, the Skyborne town in the south of the isle, and has heard nothing from the druids up north. His errand is the start of the Nightclaw storyline (level 8 and up, any race). Every quest of it pays Nightclaw reputation: 4100 in all, enough for Friendly. Players' turn-ins paid their full reputation well above these quests' level."] = "{npc:252359}站在島南部空裔人的鎮子{area:16638}，北邊德魯伊那邊一直沒有訊息。他的差事是夜爪故事線的開端（8級起，任何種族）。這條線的每個任務都給夜爪聲望：總共4100點，夠到友善。玩家的交付在這些任務等級高出不少時仍然足額給聲望。",
 
 	-- Step 4: Elegael Thornpaw
 	-- {area:16631} Shadowgale Forest · {npc:257944} Elegael Thornpaw
-	["Head north into the {area:16631}. {npc:257944} holds the druids' camp in its north-east."] = "",
+	["Head north into the {area:16631}. {npc:257944} holds the druids' camp in its north-east."] = "向北進入{area:16631}。{npc:257944}守在其東北的德魯伊營地。",
 
 	-- Step 5: Vayn Moongaze
 	-- {npc:254151} Vayn Moongaze · {npc:257944} Elegael Thornpaw · {area:16720} Nightclaw Cavern
-	["{npc:254151}, the druids' quartermaster, waits inside their den: the cave just across the clearing north-east of {npc:257944} ({area:16720} on the map; {npc:257944} calls it the Nightfang Den). Take his ear quest now: the cultists you fight for {npc:257944} drop ears for it."] = "",
+	["{npc:254151}, the druids' quartermaster, waits inside their den: the cave just across the clearing north-east of {npc:257944} ({area:16720} on the map; {npc:257944} calls it the Nightfang Den). Take his ear quest now: the cultists you fight for {npc:257944} drop ears for it."] = "{npc:254151}是德魯伊的軍需官，在他們巢穴裡等候：就是{npc:257944}東北隔著空地的洞穴（地圖上為{area:16720}；{npc:257944}稱它為夜牙巢穴）。現在就接他的耳朵任務：你為{npc:257944}打的邪教徒會掉耳朵。",
 
 	-- Step 6: Shadowgale Forest
 	-- {npc:257944} Elegael Thornpaw · {item:265105} Lady's Tear Moss
 	-- plural, as words: Al'Aketh Footsoldiers = {npc:252665} Al'Aketh Footsoldier · Bloody Heirlooms = {item:265141} Bloody Heirloom · Shadowgale Shrieklings = {npc:256092} Shadowgale Shriekling
-	["The Al'Aketh Footsoldiers and Stormchasers camp just north of {npc:257944} and drop the Bloody Heirlooms (and ears, about one kill in four). The Shadowgale Shrieklings flying west of her drop the feathers; the {item:265105} grows on the trees along the stream west of her."] = "",
+	["The Al'Aketh Footsoldiers and Stormchasers camp just north of {npc:257944} and drop the Bloody Heirlooms (and ears, about one kill in four). The Shadowgale Shrieklings flying west of her drop the feathers; the {item:265105} grows on the trees along the stream west of her."] = "奧阿克步兵和逐風者紮營在{npc:257944}正北方，掉落血染傳家寶（還有耳朵，約每四殺一個）。在她西邊飛行的影風尖嘯者掉落羽毛；{item:265105}長在她西邊溪流沿岸的樹上。",
 	-- {npc:254151} Vayn Moongaze
-	["ears for {npc:254151}: keep every one"] = "",
+	["ears for {npc:254151}: keep every one"] = "給{npc:254151}的耳朵：每一個都留著",
 
 	-- Step 7: Elegael Thornpaw's next tasks
 	-- {npc:257944} Elegael Thornpaw
-	["{npc:257944}'s next tasks"] = "",
-	["500 reputation"] = "",
+	["{npc:257944}'s next tasks"] = "{npc:257944}的後續任務",
+	["500 reputation"] = "500聲望",
 
 	-- Step 8: The Nightfang Den and Commander Haalien
 	-- {npc:253622} Commander Haalien
-	["The Nightfang Den and {npc:253622}"] = "",
+	["The Nightfang Den and {npc:253622}"] = "夜牙巢穴與{npc:253622}",
 	-- {npc:257944} Elegael Thornpaw · {npc:258134} Naaleos Leafwhisper · {npc:258130} Jorel Windsinger · {npc:253622} Commander Haalien · {quest:94490} Ripped Missive
-	["The Nightfang Den is the cave north across the clearing from {npc:257944}. Heal the seven injured druids inside ({npc:258134} among them) and find {npc:258130}. {npc:253622} stands east of the den: he drops his head and a {quest:94490}; right-click the missive to start its quest."] = "",
+	["The Nightfang Den is the cave north across the clearing from {npc:257944}. Heal the seven injured druids inside ({npc:258134} among them) and find {npc:258130}. {npc:253622} stands east of the den: he drops his head and a {quest:94490}; right-click the missive to start its quest."] = "夜牙巢穴是{npc:257944}北面隔著空地的洞穴。治療裡面七名受傷的德魯伊（包括{npc:258134}），並找到{npc:258130}。{npc:253622}站在巢穴東側：他掉落自己的頭顱和一個{quest:94490}；右鍵點選信函即可開啟其任務。",
 	-- {npc:253622} Commander Haalien
-	["from {npc:253622}"] = "",
+	["from {npc:253622}"] = "來自{npc:253622}",
 
 	-- Step 9: Elegael Thornpaw, the den's fate
 	-- {npc:257944} Elegael Thornpaw
-	["{npc:257944}, the den's fate"] = "",
-	["1000 reputation"] = "",
+	["{npc:257944}, the den's fate"] = "{npc:257944}，巢穴的命運",
+	["1000 reputation"] = "1000聲望",
 
 	-- Step 10: Ears at the Shrine of Akir
 	-- {area:16629} Shrine of Akir
-	["Ears at the {area:16629}"] = "",
+	["Ears at the {area:16629}"] = "在{area:16629}收集耳朵",
 	-- {area:16629} Shrine of Akir · {area:16626} Gustberry Lowlands · {area:16638} Valanaar
 	-- plural, as words: Honor Guards = {npc:3083} Honor Guard
-	["The best ears are south of the forest at the {area:16629}: Skypriests drop one in more than half their kills, Guardians in four of ten, Spiritcallers and Honor Guards in a third. The {area:16626} just north-west of {area:16638} are next best (Brawlers and Pillagers, about four in ten). All cultists are level 8 to 10."] = "",
+	["The best ears are south of the forest at the {area:16629}: Skypriests drop one in more than half their kills, Guardians in four of ten, Spiritcallers and Honor Guards in a third. The {area:16626} just north-west of {area:16638} are next best (Brawlers and Pillagers, about four in ten). All cultists are level 8 to 10."] = "最好的耳朵在森林南邊的{area:16629}：天空祭司超過半數擊殺掉一隻，守衛者十分之四，喚靈者和榮譽衛兵三分之一。{area:16638}西北的{area:16626}次之（鬥毆者和掠奪者，約十分之四）。所有邪教徒都是8到10級。",
 
 	-- Step 11: Mercy Falls on Deaf Ears
 	-- {npc:254151} Vayn Moongaze
-	["Back to {npc:254151} inside the den. Ten ears for 1000 reputation and a green piece: leather gloves, cloth pants or mail boots. {npc:254151} then takes ears five at a time, for 1000 each, as often as you like, up to level 18; in Classic the pay drops from level 19 and is 200 from level 22. The Legacy perk Diplomat adds up to 10% to every gain."] = "",
+	["Back to {npc:254151} inside the den. Ten ears for 1000 reputation and a green piece: leather gloves, cloth pants or mail boots. {npc:254151} then takes ears five at a time, for 1000 each, as often as you like, up to level 18; in Classic the pay drops from level 19 and is 200 from level 22. The Legacy perk Diplomat adds up to 10% to every gain."] = "回到巢穴裡的{npc:254151}。十隻耳朵換1000聲望和一件綠裝：皮手套、布褲或鎖甲靴。之後{npc:254151}每次收五隻耳朵，每份1000聲望，想交多少次都行，直到18級；經典舊世中19級起收益下降，22級起為200。傳承特長“外交家”使所有獲取提高最多10%。",
 
 	-- Step 12: Back to Valanaar
 	-- {area:16638} Valanaar
 	["Back to {area:16638}"] = "返回{area:16638}",
 	-- {npc:252359} Lotheluum Starbreeze · {area:16638} Valanaar · {area:16626} Gustberry Lowlands
-	["{npc:252359} waits in {area:16638}. Hand in on your way to a skyboat or to the {area:16626}."] = "",
+	["{npc:252359} waits in {area:16638}. Hand in on your way to a skyboat or to the {area:16626}."] = "{npc:252359}在{area:16638}等候。去飛船或去{area:16626}的路上順便交任務。",
 
 	-- Step 13: Friendly to Honored
-	["Friendly to Honored"] = "",
+	["Friendly to Honored"] = "友善到尊敬",
 	-- {npc:254151} Vayn Moongaze
-	["The storyline and {npc:254151}'s first quest leave you at Friendly with 2100 to spare. Honored is 3900 more: four turn-ins of five ears up to level 18, twenty from level 22. Friendly opens 32 of {npc:254151}'s patterns, in two colours, Cloudy and Azure: Blacksmithing Skyforged Wristguards and Chain (skill 50, 9s 50c), Gauntlets and Greaves (55, 11s); Leatherworking Gustwoven and Windraveled bracers and belts (50) and gloves and boots (55); Tailoring Stormsewn Cuffs and Cord (50), Handwraps and Shoes (55). They bind when you buy them, so buy them on the crafter."] = "",
-	["five ears per turn-in"] = "",
+	["The storyline and {npc:254151}'s first quest leave you at Friendly with 2100 to spare. Honored is 3900 more: four turn-ins of five ears up to level 18, twenty from level 22. Friendly opens 32 of {npc:254151}'s patterns, in two colours, Cloudy and Azure: Blacksmithing Skyforged Wristguards and Chain (skill 50, 9s 50c), Gauntlets and Greaves (55, 11s); Leatherworking Gustwoven and Windraveled bracers and belts (50) and gloves and boots (55); Tailoring Stormsewn Cuffs and Cord (50), Handwraps and Shoes (55). They bind when you buy them, so buy them on the crafter."] = "劇情線和{npc:254151}的第一個任務會讓你友善，還多出2100。尊敬還需3900：18級前四次交付、每次五隻耳朵，22級起二十次。友善開放{npc:254151}的32張圖樣，分兩種顏色：雲紋和碧藍：鍛造的天鍛護腕與鎖甲（技能50，9銀50銅）、手套與脛甲（55，11銀）；制皮的風織與風行護腕和腰帶（50）以及手套和靴子（55）；裁縫的風暴縫製護腕和腰帶（50）、手套和鞋子（55）。購買即繫結，所以在製作角色上買。",
+	["five ears per turn-in"] = "每次交付五隻耳朵",
 	-- {quest:93459} More Al'Aketh Ears · {npc:254151} Vayn Moongaze
 	["{quest:93459}: 1000 reputation, handed in from {npc:254151}'s window"] = "{quest:93459}：1000聲望，在{npc:254151}的視窗中直接繳交",
 	-- {npc:254151} Vayn Moongaze
-	["{npc:254151}'s patterns"] = "",
+	["{npc:254151}'s patterns"] = "{npc:254151}的圖樣",
 
 	-- Step 14: Honored to Revered
-	["Honored to Revered"] = "",
-	["Honored opens the chest and leg patterns (skill 60, 12s 50c): Skyforged chainmail and legguards, Gustwoven harness and trousers, Windraveled jerkin and pants, Stormsewn vest and leggings. Revered is 12000 more: 12 turn-ins (60 ears, about 160 cultist kills at the Shrine) up to level 18, 60 turn-ins (300 ears) from level 22."] = "",
+	["Honored to Revered"] = "尊敬到崇敬",
+	["Honored opens the chest and leg patterns (skill 60, 12s 50c): Skyforged chainmail and legguards, Gustwoven harness and trousers, Windraveled jerkin and pants, Stormsewn vest and leggings. Revered is 12000 more: 12 turn-ins (60 ears, about 160 cultist kills at the Shrine) up to level 18, 60 turn-ins (300 ears) from level 22."] = "尊敬開放胸甲和腿部圖樣（技能60，12銀50銅）：天鍛鎖甲與護腿、風織胸甲與長褲、風行之皮上衣與長褲、風暴縫製背心與護腿。崇敬還需12000：18級前12次交付（60隻耳朵，在神殿約160個邪教徒擊殺），22級起60次交付（300隻耳朵）。",
 
 	-- Step 15: Revered to Exalted
-	["Revered to Exalted"] = "",
+	["Revered to Exalted"] = "崇敬到崇拜",
 	-- {item:280347} Shadowgale Squirrel
-	["Revered opens the {item:280347}, a companion pet, for 50s. Exalted is 21000 more: 21 turn-ins (105 ears, about 280 kills) up to level 18, 105 turn-ins (525 ears) from level 22."] = "",
+	["Revered opens the {item:280347}, a companion pet, for 50s. Exalted is 21000 more: 21 turn-ins (105 ears, about 280 kills) up to level 18, 105 turn-ins (525 ears) from level 22."] = "崇敬開放{item:280347}，一隻小夥伴，售價50銀。崇拜還需21000：18級前21次交付（105隻耳朵，約280殺），22級起105次交付（525隻耳朵）。",
 	-- {item:280347} Shadowgale Squirrel
-	["{item:280347}, 50s"] = "",
+	["{item:280347}, 50s"] = "{item:280347}，50銀",
 
 	-- Step 16: The Nightclaw Mantle
 	-- {item:280363} Nightclaw Mantle
-	["The {item:280363}"] = "",
+	["The {item:280363}"] = "{item:280363}",
 	-- {item:280363} Nightclaw Mantle
-	["Exalted opens the {item:280363}, green cloth shoulders for level 15, for 8s 16c."] = "",
+	["Exalted opens the {item:280363}, green cloth shoulders for level 15, for 8s 16c."] = "崇拜開放{item:280363}，15級綠色布甲護肩，售價8銀16銅。",
 }

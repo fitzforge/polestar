@@ -124,10 +124,14 @@ return {
 
 	-- Step 26: Durnholde Keep
 	-- {npc:2238} Tog'thar · {npc:2427} Jailor Eston · {item:3467} Dull Iron Key · {npc:2428} Jailor Marlgen · {item:3499} Burnished Gold Key
-	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks."] = "타렌 밀농장 남동쪽입니다. 드럴과 {npc:2238}은(는) 요새 안뜰 건물에 사슬로 묶여 있습니다. {npc:2427}이(가) {item:3467}을(를), {npc:2428}이(가) {item:3499}을(를) 가지고 있으며, 둘 다 요새 안에 있습니다. 둘을 처치한 다음 자물쇠 두 개를 모두 여세요.",
-	["Drull's ball and chain"] = "드럴의 족쇄",
+	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings, and each lock needs its key: {npc:2427} carries the {item:3467} for Drull's, {npc:2428} the {item:3499} for {npc:2238}'s, both in the keep. Kill them first, then open both locks."] = "",
+	-- {item:3467} Dull Iron Key · {npc:2427} Jailor Eston
+	["{item:3467}, from {npc:2427}"] = "",
+	-- {item:3499} Burnished Gold Key · {npc:2428} Jailor Marlgen
+	["{item:3499}, from {npc:2428}"] = "",
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "{npc:2238}의 족쇄",
+	["Drull's ball and chain"] = "드럴의 족쇄",
 
 	-- Step 27: Krusk
 	-- {area:272} Tarren Mill
@@ -153,8 +157,11 @@ return {
 	-- Step 31: The smithy
 	["The smithy"] = "대장간",
 	-- {area:287} Hillsbrad · {npc:2404} Blacksmith Verringtan · {object:1736} Shipment of Iron · {npc:2449} Citizen Wilkes · {npc:2451} Farmer Kalaba
-	["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks by the smithy; {npc:2451} works the field south-east of the town."] = "구릉지를 가로질러 서쪽의 {area:287} 마을로 가세요. 대장간은 마을 한가운데에 있습니다. {npc:2404}와(과) 견습생들이 대장간 화로에서 일하고, {object:1736}은(는) 그 옆에 쌓여 있습니다. {npc:2449}은(는) 대장간 근처를 걸어 다니고, {npc:2451}은(는) 마을 남동쪽 밭에서 일합니다.",
+	-- was: ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks by the smithy; {npc:2451} works the field south-east of the town."] = "구릉지를 가로질러 서쪽의 {area:287} 마을로 가세요. 대장간은 마을 한가운데에 있습니다. {npc:2404}와(과) 견습생들이 대장간 화로에서 일하고, {object:1736}은(는) 그 옆에 쌓여 있습니다. {npc:2449}은(는) 대장간 근처를 걸어 다니고, {npc:2451}은(는) 마을 남동쪽 밭에서 일합니다."
+	["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks the west side of the town; {npc:2451} works the field south-east of the town."] = "",
 	["Inside"] = "",
+	-- {npc:2449} Citizen Wilkes
+	["{npc:2449}, on the west side of the town"] = "",
 
 	-- Step 32: Tarren Mill
 	-- {npc:2055} Master Apothecary Faranell · {zone:1458} Undercity
@@ -304,6 +311,7 @@ return {
 	-- ["North of Southshore's graveyard"] = "사우스쇼어 묘지 북쪽",
 	-- ["Only if {quest:535}'s missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one. Careful: at 31-32 they are still above you and stand close together, with Wizards (34-35) among them: pull one at a time from the camp's edge."] = "{quest:535}의 신서를 얻지 못했을 때만: 길 서쪽 야영지 주변의 비밀결사대 노상강도와 도둑(32-34)도 신서를 지니고 있으며, 세 마리 중 한 마리꼴로 떨어뜨립니다. 주의: 31-32레벨에서는 아직 나보다 높고 서로 가까이 서 있으며, 그 사이에 마술사(34-35)도 있습니다. 야영지 가장자리에서 하나씩 끌어오세요.",
 	-- ["Shindigger keg"] = "신디거 흑맥주 통",
+	-- ["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks."] = "타렌 밀농장 남동쪽입니다. 드럴과 {npc:2238}은(는) 요새 안뜰 건물에 사슬로 묶여 있습니다. {npc:2427}이(가) {item:3467}을(를), {npc:2428}이(가) {item:3499}을(를) 가지고 있으며, 둘 다 요새 안에 있습니다. 둘을 처치한 다음 자물쇠 두 개를 모두 여세요.",
 	-- ["South-west, the Cave and Ferocious Yetis (30-32) fill the {area:277} in the hills west of {area:272}; about one in sixteen carries the rod. Stay in these caverns: the Mountain and Giant Yetis (32-34) of the cave further north carry it too, but at 29-30 they hit hard and come in pairs."] = "남서쪽, {area:272} 서쪽 언덕의 {area:277}에는 동굴 설인과 사나운 설인(30-32)이 가득합니다. 열여섯 마리 중 한 마리꼴로 마법봉을 지니고 있습니다. 이 동굴에만 머무르세요. 더 북쪽 동굴의 산악 설인과 거대한 설인(32-34)도 마법봉을 지니지만, 29-30레벨에서는 세게 때리고 짝을 지어 다닙니다.",
 	-- ["Syndicate missives"] = "비밀결사대 서신",
 	-- ["The Syndicate Footpads and Thieves (32-33) around the camps west of the road carry the missives; about one in three drops one."] = "길 서쪽 야영지 주변의 비밀결사대 노상강도와 도둑(32-33)이 서신을 지니고 있습니다. 세 명 중 한 명 정도가 떨어뜨립니다.",
@@ -313,6 +321,7 @@ return {
 	-- ["The {area:279} crater's eastern rim"] = "{area:279} 분화구 동쪽 가장자리",
 	-- ["Torn Fin beach"] = "너덜지느러미멀록 해변",
 	-- ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it."] = "구릉지를 가로질러 서쪽의 {area:287} 마을로 가세요. 대장간은 마을 한가운데에 있습니다. {npc:2404}와(과) 견습생들이 대장간 화로에서 일하고, {object:1736}은(는) 그 옆에 쌓여 있습니다.",
+	-- ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks by the smithy; {npc:2451} works the field south-east of the town."] = "구릉지를 가로질러 서쪽의 {area:287} 마을로 가세요. 대장간은 마을 한가운데에 있습니다. {npc:2404}와(과) 견습생들이 대장간 화로에서 일하고, {object:1736}은(는) 그 옆에 쌓여 있습니다. {npc:2449}은(는) 대장간 근처를 걸어 다니고, {npc:2451}은(는) 마을 남동쪽 밭에서 일합니다.",
 	-- ["With a {item:3388} in your bags, {npc:2055} offers {quest:513} in the Apothecarium; {npc:2216} takes the elixir in {area:272}."] = "가방에 {item:3388}이(가) 있으면 연금술 실험실의 {npc:2055}이(가) {quest:513}을(를) 줍니다. 비약은 {area:272}의 {npc:2216}이(가) 받습니다.",
 	-- ["{item:3388}: auction house or an alchemist, for {quest:513}."] = "{item:3388}: {quest:513}을(를) 위해 경매장이나 연금술사에게서",
 	-- ["{item:3703}, for {npc:2333}"] = "{npc:2333}에게 줄 {item:3703}",

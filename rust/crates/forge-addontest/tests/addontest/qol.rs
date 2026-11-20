@@ -79,7 +79,7 @@ fn options_every_qol_setting_is_registered_on_questing_or_quality_of_life_with_l
 			"rewardHighlight", "rewardAutoPick", "flightAutoOpen", "flightHighlight", "flightAutoTake", "deathHelper", "instantQuestText",
 			"skipGossip", "fastLoot", "declineDuels", "repairGuild", "hideErrors", "autoReleasePvP", "declineGuildInvites",
 			"declinePartyStrangers", "acceptPartyFriends", "acceptSummon", "acceptResurrect", "buyGoals",
-			"rewardEquip", "autoBind", "hideQuestTracker", "restock", "itemMarks", "itemMarksClick", "bagSpace", "bagsLow", "wearOffer",
+			"rewardEquip", "autoBind", "hideQuestTracker", "restock", "itemMarks", "itemMarksClick", "bagSpace", "bagsLow", "spareBag", "wearOffer",
 			"questLoot", "instanceTrack" }) do keys[k] = Polestar.GetDefault("qol." .. k) end
 		emit(keys)
 	"#);
@@ -107,6 +107,7 @@ fn options_every_qol_setting_is_registered_on_questing_or_quality_of_life_with_l
 	assert_eq!(defaults["flightAutoTake"], false, "taking the flight by itself is off by default");
 	assert_eq!(defaults["buyGoals"], false, "buying for the guide is off by default");
 	assert_eq!(defaults["rewardEquip"], false, "wearing rewards is off by default");
+	assert_eq!(defaults["spareBag"], false, "equipping a spare bag is off by default");
 	assert_eq!(defaults["autoBind"], false, "binding the Hearthstone is off by default");
 	assert_eq!(defaults["hideQuestTracker"], false, "the game's quest tracker shows by default");
 	assert_eq!(defaults["sellJunk"], true);
@@ -1300,7 +1301,7 @@ fn target_button_a_name_with_a_line_break_or_other_control_character_never_reach
 	assert_eq!(out[2], "/cleartarget [nocombat]\n/targetexact Kobold Laborer\n/cleartarget [dead]", "TargetMacro itself drops an unsafe name");
 }
 
-#[derive(Clone, Copy)]
+#[derive(Clone, Copy, Debug, PartialEq)]
 struct Unit {
 	name: &'static str,
 	dead: bool,
@@ -1309,9 +1310,14 @@ struct Unit {
 }
 
 // Plays a target macro the way the client does: /targetexact takes the nearest unit with the name, alive or
-// dead, and keeps the target when none matches; [dead], [noharm], [noexists] and [nocombat] test the current
+// dead, and keeps the target when none matches; while the target already has the name it moves on to the next
+// one out (the nearest again after the farthest); [dead], [noharm], [noexists] and [nocombat] test the current
 // target and the fight, and the line runs when any bracket holds.
 fn play_macro(text: &str, units: &[Unit], target: Option<Unit>, combat: bool) -> Option<String> {
+	play_macro_unit(text, units, target, combat).map(|t| format!("{}{}", t.name, if t.dead { " (dead)" } else { "" }))
+}
+
+fn play_macro_unit(text: &str, units: &[Unit], target: Option<Unit>, combat: bool) -> Option<Unit> {
 	let line_re = regex::Regex::new(r"^(/\w+)((?:\s*\[[^\]]*\])*)\s*(.*)$").unwrap();
 	let cond_re = regex::Regex::new(r"\[([^\]]*)\]").unwrap();
 	let mut target = target;
@@ -1332,12 +1338,18 @@ fn play_macro(text: &str, units: &[Unit], target: Option<Unit>, combat: bool) ->
 			"/cleartarget" => target = None,
 			"/targetexact" => {
 				let name = &m[3];
-				target = units.iter().filter(|u| u.name == name).min_by_key(|u| u.yd).copied().or(target);
+				let named = || units.iter().filter(move |u| u.name == name);
+				let nearest = named().min_by_key(|u| u.yd);
+				let next = match target {
+					Some(t) if t.name == name => named().filter(|u| u.yd > t.yd).min_by_key(|u| u.yd).or(nearest),
+					_ => nearest,
+				};
+				target = next.copied().or(target);
 			}
 			_ => panic!("unexpected command {line}"),
 		}
 	}
-	target.map(|t| format!("{}{}", t.name, if t.dead { " (dead)" } else { "" }))
+	target
 }
 
 #[test]
@@ -1391,6 +1403,94 @@ fn target_button_a_corpse_is_never_left_selected_the_first_living_match_wins_the
 	assert!(long.len() <= 255, "{} characters", long.len());
 	assert!(is_match(long, r"^/cleartarget \[nocombat\]\n/targetexact Defias Pathstalker\n/cleartarget \[dead\]\n/targetexact \[noexists\] Defias Highwayman\n"));
 	assert!(!is_match(long, r"Defias Smuggler"));
+}
+
+#[test]
+fn target_button_step_key_and_rows_a_press_on_a_living_one_of_their_names_moves_on_to_the_next_one_of_that_name() {
+	// A player on Discord (2026-11-17): pressing again should take the next mob of the kind when the first one is
+	// tagged. /targetexact moves on only while the target already has the name, and "/cleartarget [nocombat]"
+	// undid that, so every press out of combat took the nearest one again.
+	let out = run(r#"
+		q.step({ { t = "kill", target = "Kobold Vermin", quest = 7, oi = 1 }, { t = "kill", target = "Kobold Worker", quest = 7, oi = 2 } })
+		stub.runTimers()
+		local function press(b)
+			local before = b:GetAttribute("macrotext")
+			q.ran = {}
+			q.keyClick(b)
+			return { ran = q.ran[1] and q.ran[1][2] or false, before = before, after = b:GetAttribute("macrotext") }
+		end
+		local out = {}
+		for _, name in ipairs({ "PolestarTargetButton", "PolestarStepButton", "PolestarTargetRow2" }) do
+			local b = _G[name]
+			local row = {}
+			q.target = false
+			row.none = press(b)
+			q.target = { name = "Kobold Worker", hostile = true }
+			row.match = press(b)
+			q.target = { name = "Kobold Worker", hostile = true, dead = true }
+			row.corpse = press(b)
+			q.target = { name = "Gnarlpine Ursa", hostile = true }
+			row.other = press(b)
+			q.target = { name = "Kobold Worker", hostile = true }
+			q.combat(true)
+			row.combat = press(b)
+			q.combat(false)
+			out[name] = row
+		end
+		-- The mark stays on a press that moves on.
+		set("markTarget", true)
+		q.target = { name = "Kobold Worker", hostile = true }
+		out.marked = press(PolestarTargetButton)
+		emit(out)
+	"#);
+	let o = &out[0];
+	let clear = "/cleartarget [nocombat]\n";
+	let vw = "/targetexact Kobold Vermin\n/cleartarget [dead]\n/targetexact [noexists] Kobold Worker\n/cleartarget [dead]";
+	let wv = "/targetexact Kobold Worker\n/cleartarget [dead]\n/targetexact [noexists] Kobold Vermin\n/cleartarget [dead]";
+	let applied = format!("{clear}{vw}");
+	let ran = |b: &str, case: &str| o[b][case]["ran"].as_str().unwrap().to_string();
+
+	// The target button (the list keeps its order: Kobold Vermin first).
+	let t = "PolestarTargetButton";
+	assert_eq!(ran(t, "none"), applied, "no target: from nothing, the list's order");
+	assert_eq!(ran(t, "match"), wv, "a living Kobold Worker targeted: kept, and its name first");
+	assert_eq!(ran(t, "corpse"), applied, "a corpse of the name is cleared");
+	assert_eq!(ran(t, "other"), applied, "a unit of none of the names is cleared");
+	assert_eq!(ran(t, "combat"), o[t]["combat"]["before"].as_str().unwrap(), "in combat the macro is left as it was");
+	for case in ["none", "match", "corpse", "other", "combat"] {
+		assert_eq!(o[t][case]["after"], json!(applied), "{case}: the applied macro back after the press");
+	}
+
+	// The step key: the same macro, from its own next name.
+	let s = "PolestarStepButton";
+	assert_eq!(ran(s, "match"), wv, "the step key moves on from a living Kobold Worker too");
+	for case in ["none", "corpse", "other"] {
+		assert!(ran(s, case).starts_with(clear), "step key, {case}: from nothing");
+		assert!(o[s][case]["after"].as_str().unwrap().starts_with(clear), "step key, {case}: its macro back");
+	}
+	assert!(o[s]["match"]["after"].as_str().unwrap().starts_with(clear), "step key: its macro back after moving on");
+	assert_eq!(ran(s, "combat"), o[s]["combat"]["before"].as_str().unwrap(), "step key: in combat the macro is left as it was");
+
+	// A target list row: its own name.
+	let r = "PolestarTargetRow2";
+	let worker = "/targetexact Kobold Worker\n/cleartarget [dead]";
+	assert_eq!(ran(r, "match"), worker, "a row moves on from a living one of its name");
+	for case in ["none", "corpse", "other"] {
+		assert_eq!(ran(r, case), format!("{clear}{worker}"), "row, {case}");
+	}
+	assert_eq!(o[r]["match"]["after"], json!(format!("{clear}{worker}")));
+
+	assert_eq!(o["marked"]["ran"], json!(format!("{wv}\n/tm [@target,harm,nodead] !8")), "the mark stays");
+
+	// Played: two Kobold Workers and a Kobold Vermin; the first Worker is selected (tagged by someone else).
+	let a = Unit { name: "Kobold Worker", dead: false, harm: true, yd: 5 };
+	let b = Unit { name: "Kobold Worker", dead: false, harm: true, yd: 12 };
+	let v = Unit { name: "Kobold Vermin", dead: false, harm: true, yd: 8 };
+	let units = [a, b, v];
+	assert_eq!(play_macro_unit(&ran(t, "match"), &units, Some(a), false), Some(b), "the next Kobold Worker");
+	assert_eq!(play_macro_unit(&ran(t, "match"), &units, Some(b), false), Some(a), "and round again");
+	assert_eq!(play_macro_unit(&ran(r, "match"), &units, Some(a), false), Some(b), "a row too");
+	assert_eq!(play_macro_unit(&format!("{clear}{worker}"), &units, Some(a), false), Some(a), "the old macro took the nearest one again");
 }
 
 #[test]
@@ -5609,4 +5709,108 @@ sample()
 	assert_eq!(out[3], json!({ "step": 2, "use": "done", "shown": true, "item": "item:12347" }));
 	assert_eq!(out[4], json!({ "step": 2, "use": "done", "shown": true, "item": "item:12347" }));
 	assert_eq!(out[5], out[4], "the filled bowl stays available while its guide step is open");
+}
+
+// A gossip window at an NPC the step has no goal at (a vendor, a flight master, an innkeeper on the way) builds no
+// step view: GOSSIP_SHOW is a moment of its own, so the view the step's gossip and bind helpers built was built for
+// them alone (the replay of players' sessions put 16-28 ms on such windows: REPLAY.md, QoL/Toggles.lua
+// GOSSIP_SHOW). At the step's NPC they still read it and pick as before.
+// Before: a view for every gossip window without a quest (one for the step's gossip, one more with automatic
+// binding on).
+#[test]
+fn gossip_at_an_npc_the_step_has_no_goal_at_builds_no_step_view() {
+	let out = run(&[
+		INN,
+		r#"
+		local E = Polestar.Engine
+		local views, real = 0, E.GetStepView
+		E.GetStepView = function(...) views = views + 1 return real(...) end
+		local function at(npc)
+			views = 0
+			local picked = visit(npc)
+			return { views = views, picked = picked }
+		end
+		local out = {}
+		q.step({ { t = "buy", item = 159, npc = 344, count = 5 }, { t = "sethome", location = "Goldshire", npc = 295 } })
+		out.elsewhere = at(6790)
+		out.vendor = at(344)
+		set("autoBind", true)
+		out.elsewhereBind = at(6790)
+		out.inn = at(295)
+		emit(out)
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0]["elsewhere"], json!({ "views": 0, "picked": 0 }), "another NPC: no view");
+	assert_eq!(out[0]["elsewhereBind"], json!({ "views": 0, "picked": 0 }), "another NPC, binding on: no view");
+	assert_eq!(out[0]["vendor"]["picked"], 91, "the step's vendor: its goods open as before");
+	assert_eq!(out[0]["inn"]["picked"], 90, "the step's innkeeper, binding on: the bind as before");
+}
+
+// The completed quest XP on the XP bar (QoL/QuestXP.lua) on a kill: the XP and a QUEST_LOG_UPDATE or two that
+// leave every quest as it was. It reads no quest log entries and asks no reward XP again, and sets no strata or
+// level on its frames: only the fill moves with the XP (#2663; 0.4.1's hitch on kills). A quest turning ready or
+// handed in still moves the total. Before (v0.4.1): 5 kills of 2 log updates each read 20 log entries, asked 10
+// rewards, set strata and level 40 times and drew the fill 10 times; a log update with no XP drew it again.
+#[test]
+fn quest_xp_a_kill_reads_no_quest_log_entries_asks_no_reward_and_sets_no_frame_level() {
+	let out = run(r#"
+		local bar = q.xpBar()
+		local ready, info, asks = {}, 0, 0
+		local function ids()
+			local out = {}
+			for id in pairs(q.log) do out[#out + 1] = id end
+			table.sort(out)
+			return out
+		end
+		function C_QuestLog.GetInfo(i)
+			info = info + 1
+			local id = ids()[i]
+			return id and { questID = id, isHeader = false, isHidden = false } or nil
+		end
+		function C_QuestLog.ReadyForTurnIn(id) return ready[id] == true end
+		GetQuestLogRewardXP = function(id) asks = asks + 1 return id * 10 end
+		local function logUpdate() stub.fire("QUEST_LOG_UPDATE"); stub.runTimers() end
+		q.log[11], q.log[12], ready[11] = true, true, true
+		stub.fire("QUEST_ACCEPTED", 11)
+		stub.fire("QUEST_ACCEPTED", 12)
+		logUpdate()
+		local X = QoL.QuestXP
+		local f = X.frame
+		f:SetSize(565, 11) -- The stub does not size the overlay from its anchors.
+		stub.RunScript(f, "OnSizeChanged")
+		local first = { total = X.total, count = X.count, shown = f:IsShown() }
+		local sets, draws = 0, 0
+		for _, o in ipairs({ f, f.Rested }) do
+			for _, m in ipairs({ "SetFrameStrata", "SetFrameLevel" }) do
+				local real = o[m]
+				o[m] = function(...) sets = sets + 1 return real(...) end
+			end
+		end
+		local setPoint = f.Tint.SetPoint
+		f.Tint.SetPoint = function(...) draws = draws + 1 return setPoint(...) end
+		info, asks = 0, 0
+		for _ = 1, 5 do
+			q.gainXP(10)
+			logUpdate()
+			logUpdate()
+		end
+		local kills = { info = info, asks = asks, sets = sets, draws = draws, total = X.total, shown = f:IsShown() }
+		draws = 0
+		logUpdate()
+		local quiet = draws
+		ready[12] = true
+		logUpdate()
+		local twelve = { total = X.total, count = X.count }
+		stub.fire("QUEST_TURNED_IN", 11)
+		q.log[11], ready[11] = nil, nil
+		logUpdate()
+		emit({ first = first, kills = kills, quiet = quiet, twelve = twelve, handed = { total = X.total, count = X.count } })
+		GetQuestLogRewardXP, C_QuestLog.GetInfo, C_QuestLog.ReadyForTurnIn = nil, nil, nil
+	"#);
+	assert_eq!(out[0]["first"], json!({ "total": 110, "count": 1, "shown": true }));
+	assert_eq!(out[0]["kills"], json!({ "info": 0, "asks": 0, "sets": 0, "draws": 5, "total": 110, "shown": true }));
+	assert_eq!(out[0]["quiet"], 0, "a log update that moves nothing draws nothing");
+	assert_eq!(out[0]["twelve"], json!({ "total": 230, "count": 2 }), "a quest turning ready adds its reward");
+	assert_eq!(out[0]["handed"], json!({ "total": 120, "count": 1 }), "a handed-in quest leaves the total");
 }

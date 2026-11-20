@@ -39,6 +39,21 @@ step Tirisfal Glades
   zone Tirisfal Glades
   goto 83.2,68.5 "The Bulwark"
 
+step High Executor Derrington
+  when !onquest 5096
+  when !turnedin 5096
+  zone Tirisfal Glades
+  tip You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it.
+  tip Take a Box of Incendiaries from the crate next to Derrington for Scarlet Diversions.
+  accept 5096                         -- High Executor Derrington
+
+step Scarlet forward camp
+  when !turnedin 5096
+  zone Western Plaguelands
+  tip From the Bulwark, follow the road east into the Western Plaguelands. The Scarlet Crusade's tents stand just past Felstone Farm, between Felstone Field and Dalson's Tears. Torch the command tent with the Box of Incendiaries and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be.
+  interact 176088
+  complete 5096
+
 step The Bulwark
   zone Tirisfal Glades
   tip Ride south-west past Felstone Farm and follow the road west back to the Bulwark.

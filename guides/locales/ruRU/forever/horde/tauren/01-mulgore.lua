@@ -10,7 +10,7 @@ return {
 	-- {area:221} Camp Narache · {npc:2980} Grull Hawkwind
 	["You start on the mesa of {area:221}. {npc:2980} and the chief stand by the big tent in the middle."] = "Вы начинаете на плато ({area:221}). {npc:2980} и вождь стоят у большого шатра в центре.",
 	-- {npc:2981} Chief Hawkwind
-	["{npc:2981}, inside"] = "",
+	["{npc:2981}, inside"] = "{npc:2981}, внутри",
 
 	-- Step 2: Greatmother Hawkwind
 	-- {npc:2991} Greatmother Hawkwind · {object:2907} Water Pitcher
@@ -54,7 +54,7 @@ return {
 
 	-- Step 9: Red Cloud Mesa: kill these as you meet them
 	-- {area:220} Red Cloud Mesa
-	["{area:220}: kill these as you meet them"] = "",
+	["{area:220}: kill these as you meet them"] = "{area:220}: убивайте их по пути",
 	-- {npc:8554} Chief Sharptusk Thornmantle · {object:3076} Dirt-stained Map
 	-- plural, as words: Battleboars = {npc:2966} Battleboar
 	["Battleboars graze north of the shrine; the Bristleback quilboar hold the ravine to the north-east. {npc:8554} stands at its eastern end, and the {object:3076} lies on the ground in the camp."] = "К северу от святилища пасутся боевые вепри; дыбогривые свинобразы занимают ущелье к северо-востоку. {npc:8554} стоит в его восточной части, а {object:3076} лежит на земле в лагере.",
@@ -69,7 +69,7 @@ return {
 	-- Step 11: Camp Narache
 	["Back west to the camp."] = "Назад на запад в лагерь.",
 	-- {npc:3209} Brave Windfeather · {area:221} Camp Narache
-	["{npc:3209} walks around {area:221}: look inside the circle on the map"] = "",
+	["{npc:3209} walks around {area:221}: look inside the circle on the map"] = "{npc:3209} ходит по месту {area:221}: ищите внутри круга на карте",
 
 	-- Step 12: Seer Ravenfeather
 	-- {npc:5888} Seer Ravenfeather · {area:221} Camp Narache · {quest:1519} Call of Earth
@@ -157,7 +157,7 @@ return {
 	-- plural, as words: Novice Warriors = {npc:10721} Novice Warrior
 	["{npc:3063}'s quest: beat three Novice Warriors (or players in duels) next to him."] = "Задание ({npc:3063}): одолейте трех воинов-учеников (или игроков на дуэли) рядом с ним.",
 	-- {npc:3222} Brave Wildrunner · {area:222} Bloodhoof Village
-	["{npc:3222} walks around {area:222}: look inside the circle on the map"] = "",
+	["{npc:3222} walks around {area:222}: look inside the circle on the map"] = "{npc:3222} ходит по месту {area:222}: ищите внутри круга на карте",
 
 	-- Step 27: Bloodhoof Village
 	-- {npc:3067} Pyall Silentstride
@@ -185,7 +185,7 @@ return {
 
 	-- Step 36: Mulgore: kill these as you meet them
 	-- {zone:1412} Mulgore
-	["{zone:1412}: kill these as you meet them"] = "",
+	["{zone:1412}: kill these as you meet them"] = "{zone:1412}: убивайте их по пути",
 	-- {quest:96130} Chakuyak
 	-- plural, as words: Prairie Stalkers = {npc:2959} Prairie Stalker · Flatland Cougars = {npc:3035} Flatland Cougar
 	["{quest:96130}, a lone wolf, prowls the plains west of the village. Prairie Stalkers and Flatland Cougars roam the plains north and west of it."] = "{quest:96130}, волк-одиночка, бродит по равнинам к западу от деревни. Охотники прерий и пумы плоскогорья бродят по равнинам к северу и западу от нее.",
@@ -207,7 +207,7 @@ return {
 
 	-- Step 40: Galak Camp: kill these as you meet them
 	-- {area:474} Galak Camp
-	["{area:474}: kill these as you meet them"] = "",
+	["{area:474}: kill these as you meet them"] = "{area:474}: убивайте их по пути",
 	-- {npc:275789} Malah Longwind
 	-- plural, as words: Prairie Wolf Alphas = {npc:2960} Prairie Wolf Alpha
 	["Prairie Wolf Alphas roam among the wolves on the plains around {npc:275789} and the Galak camp to the east."] = "Могучие волки прерий бродят среди волков на равнинах вокруг NPC {npc:275789} и лагеря племени Галак к востоку.",
@@ -239,9 +239,9 @@ return {
 	-- {area:818} Palemane Rock · {npc:272203} Perith Stormhoof
 	["The Palemane gnolls hold {area:818}, south of the digsite and west of Bloodhoof. {npc:272203} is held in their camp: lead him out."] = "Гноллы из стаи Бледногривов занимают место {area:818} к югу от раскопок и к западу от Деревни Кровавого Копыта. {npc:272203} в плену в их лагере: выведите его.",
 	-- {npc:2950} Palemane Skinner · {area:16677} Bristleback Retreat
-	["{npc:2950} walks around {area:16677}: look inside the circle on the map"] = "",
+	["{npc:2950} walks around {area:16677}: look inside the circle on the map"] = "{npc:2950} ходит по месту {area:16677}: ищите внутри круга на карте",
 	-- {npc:2951} Palemane Poacher
-	["{npc:2951}, below ground"] = "",
+	["{npc:2951}, below ground"] = "{npc:2951}, под землей",
 
 	-- Step 48: Bloodhoof Village
 	-- {npc:2948} Mull Thunderhorn · {zone:1456} Thunder Bluff
@@ -323,7 +323,7 @@ return {
 	-- {npc:3441} Melor Stonehoof · {quest:860} Sergra Darkthorn
 	["{npc:3441}: for {quest:860} at the Crossroads"] = "{npc:3441}: для задания {quest:860} на Перекрестке",
 	-- {npc:3039} Holt Thunderhorn · {npc:3041} Torm Ragetotem
-	["{npc:3039}, beside {npc:3041}"] = "",
+	["{npc:3039}, beside {npc:3041}"] = "{npc:3039}, рядом с NPC {npc:3041}",
 
 	-- Step 68: Ansekhwa
 	-- {spell:199} Two-Handed Maces · {npc:11869} Ansekhwa
@@ -376,13 +376,13 @@ return {
 
 	-- Step 81: Into Mulgore
 	-- {zone:1412} Mulgore
-	["Into {zone:1412}"] = "",
+	["Into {zone:1412}"] = "В зону {zone:1412}",
 	-- {area:1639} Elder Rise · {zone:1456} Thunder Bluff · {zone:1412} Mulgore · {zone:1413} Barrens
 	["From {area:1639}, take {zone:1456}'s north lift down: at its foot the way runs east along the ledge, then south-east across {zone:1412} to the {zone:1413}."] = "От места {area:1639} спуститесь на северном подъемнике города {zone:1456}: у его подножия путь идет на восток вдоль уступа, затем на юго-восток через {zone:1412} в зону {zone:1413}.",
 
 	-- Step 82: Into Barrens
 	-- {zone:1413} Barrens
-	["Into {zone:1413}"] = "",
+	["Into {zone:1413}"] = "В зону {zone:1413}",
 
 	-- Step 83: Kirge Sternhorn
 	-- {npc:3418} Kirge Sternhorn · {area:378} Camp Taurajo · {zone:1412} Mulgore · {area:458} Gold Road
@@ -441,7 +441,7 @@ return {
 	-- {area:379} Far Watch Post · {area:814} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
 	["From the Crossroads follow the road north-east to {area:379}, cross the {area:814} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454} and takes the zeppelin to {zone:1420} and {zone:1421}."] = "",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
-	["{zone:1454}'s {object:172982}"] = "",
+	["{zone:1454}'s {object:172982}"] = "{zone:1454}: {object:172982}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south-east to the {area:396}."] = "Назад на юго-восток сюда: {area:396}.",

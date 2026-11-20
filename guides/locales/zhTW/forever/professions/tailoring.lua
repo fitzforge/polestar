@@ -8,13 +8,13 @@
 return {
 	-- Step 1: Learn Tailoring
 	-- {skill:197} Tailoring
-	["Learn {skill:197}"] = "",
+	["Learn {skill:197}"] = "學習{skill:197}",
 	-- {skill:197} Tailoring · {item:2589} Linen Cloth
-	["Apprentice {skill:197} lets you craft up to 75 for 10c, at any character level. Any {skill:197} trainer of your faction teaches it; the arrow picks the nearest. Keep every {item:2589} you loot: humanoids of level 5-20 drop it. 1-75 takes about 50c of recipes and 7s 20c of vendor goods, plus 144 {item:2589} to gather or buy."] = "",
+	["Apprentice {skill:197} lets you craft up to 75 for 10c, at any character level. Any {skill:197} trainer of your faction teaches it; the arrow picks the nearest. Keep every {item:2589} you loot: humanoids of level 5-20 drop it. 1-75 takes about 50c of recipes and 7s 20c of vendor goods, plus 144 {item:2589} to gather or buy."] = "初級{skill:197}讓你在任何角色等級下花10銅把技能練到75。本陣營任意{skill:197}訓練師都教；箭頭會指向最近的一位。拾到的{item:2589}都留著：5-20級的人形生物掉落。1-75大約花50銅的配方錢和7銀20銅的商人貨物，外加144個{item:2589}，需自行採集或購買。",
 
 	-- Step 2: Tailoring 1-75: vendor goods
 	-- {skill:197} Tailoring
-	["{skill:197} 1-75: vendor goods"] = "",
+	["{skill:197} 1-75: vendor goods"] = "{skill:197} 1-75：商人貨物",
 	-- {item:2320} Coarse Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
 	["Buy the whole bracket's share in one go: 72 {item:2320} (7s 20c); about 7s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "一次買齊這個階段的用量：72個{item:2320}（7銀20銅）；總計約7銀20銅。箭頭會指向你陣營最近的賣家（{zone:1453}：{npc:1347}、{npc:1286}和{npc:5565}；{zone:1454}：{npc:3364}、菲利卡和{npc:5817}）。",
 
@@ -30,9 +30,9 @@ return {
 
 	-- Step 5: Linen Cloak to 15
 	-- {spell:2387} Linen Cloak
-	["{spell:2387} to 15"] = "",
+	["{spell:2387} to 15"] = "{spell:2387} 到15",
 	-- {spell:2387} Linen Cloak · {spell:2963} Bolt of Linen Cloth · {item:2320} Coarse Thread
-	["{spell:2387} is orange at 1 (yellow 35, green 47, grey 60): about 7 crafts to 15, a point every craft. Each takes 1 {spell:2963} and 1 {item:2320}. Make the 7 {spell:2963} first: it gives points too while not grey. The trainer teaches it, and it is the cheapest way through these points in the data."] = "",
+	["{spell:2387} is orange at 1 (yellow 35, green 47, grey 60): about 7 crafts to 15, a point every craft. Each takes 1 {spell:2963} and 1 {item:2320}. Make the 7 {spell:2963} first: it gives points too while not grey. The trainer teaches it, and it is the cheapest way through these points in the data."] = "{spell:2387}在1時為橙色（35黃、47綠、60灰）：大約7次製作可到15，每次一點。每次需要1個{spell:2963}和1個{item:2320}。先做好那7個{spell:2963}：它在未變灰前也能漲點。訓練師教這個，而且按資料這是透過這些點數最便宜的辦法。",
 
 	-- Step 6: Tailoring recipes at 15
 	-- {skill:197} Tailoring
@@ -44,7 +44,7 @@ return {
 	-- {item:7026} Linen Belt
 	["{item:7026} to 75"] = "{item:7026}練到 75",
 	-- {item:7026} Linen Belt · {spell:2963} Bolt of Linen Cloth · {item:2320} Coarse Thread
-	["{item:7026} is orange at 15 (yellow 50, green 67, grey 85): about 65 crafts to 75. Each takes 1 {spell:2963} and 1 {item:2320}. Make the 65 {spell:2963} first: it gives points too while not grey. Each belt takes one bolt; the belts sell to vendors."] = "",
+	["{item:7026} is orange at 15 (yellow 50, green 67, grey 85): about 65 crafts to 75. Each takes 1 {spell:2963} and 1 {item:2320}. Make the 65 {spell:2963} first: it gives points too while not grey. Each belt takes one bolt; the belts sell to vendors."] = "{item:7026}在15時為橙色（50黃、67綠、85灰）：大約65次製作可到75。每次需要1個{spell:2963}和1個{item:2320}。先做好那65個{spell:2963}：它在未變灰前也能漲點。每條腰帶用一個布卷；腰帶可以賣給商人。",
 
 	-- Step 8: Journeyman Tailoring
 	-- {skill:197} Tailoring
@@ -54,7 +54,7 @@ return {
 
 	-- Step 9: Tailoring 75-150: vendor goods
 	-- {skill:197} Tailoring
-	["{skill:197} 75-150: vendor goods"] = "",
+	["{skill:197} 75-150: vendor goods"] = "{skill:197} 75-150：商人貨物",
 	-- {item:2321} Fine Thread · {item:2324} Bleach · {item:2604} Red Dye · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
 	["Buy the whole bracket's share in one go: 108 {item:2321} (1g 8s), 34 {item:2324} (8s 50c) and 98 {item:2604} (49s); about 1g 65s 50c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "一次買齊這個階段的用量：108個{item:2321}（1金8銀）、34個{item:2324}（8銀50銅）和98個{item:2604}（49銀）；總計約1金65銀50銅。箭頭會指向你陣營最近的賣家（{zone:1453}：{npc:1347}、{npc:1286}和{npc:5565}；{zone:1454}：{npc:3364}、菲利卡和{npc:5817}）。",
 
@@ -76,7 +76,7 @@ return {
 	-- {spell:2402} Woolen Cape
 	["{spell:2402} to 104"] = "{spell:2402}練到 104",
 	-- {spell:2402} Woolen Cape · {spell:2964} Bolt of Woolen Cloth · {item:2321} Fine Thread
-	["{spell:2402} is orange at 75 (yellow 80, green 97, grey 115): about 42 crafts to 104. Each takes 1 {spell:2964} and 1 {item:2321}. Make the 42 {spell:2964} first: it gives points too while not grey. {spell:2964} is taught from 55 on Forever."] = "",
+	["{spell:2402} is orange at 75 (yellow 80, green 97, grey 115): about 42 crafts to 104. Each takes 1 {spell:2964} and 1 {item:2321}. Make the 42 {spell:2964} first: it gives points too while not grey. {spell:2964} is taught from 55 on Forever."] = "{spell:2402}在75時為橙色（80黃、97綠、115灰）：大約42次製作可到104。每次需要1個{spell:2964}和1個{item:2321}。先做好那42個{spell:2964}：它在未變灰前也能漲點。Forever中{spell:2964}從55起可學。",
 
 	-- Step 14: Tailoring recipes at 104
 	-- {skill:197} Tailoring
@@ -86,31 +86,31 @@ return {
 
 	-- Step 15: Stylish Red Shirt to 135
 	-- {spell:3866} Stylish Red Shirt
-	["{spell:3866} to 135"] = "",
+	["{spell:3866} to 135"] = "{spell:3866} 到135",
 	-- {spell:3866} Stylish Red Shirt · {spell:2964} Bolt of Woolen Cloth · {item:2604} Red Dye · {item:2321} Fine Thread · {item:2592} Wool Cloth
-	["{spell:3866} is orange at 104 (yellow 110, green 127, grey 145): about 49 crafts to 135. Each takes 3 {spell:2964}, 2 {item:2604} and 1 {item:2321}. Make the 147 {spell:2964} first. Three woolen bolts and two {item:2604} a shirt; {item:2592} drops from humanoids of level 15-30."] = "",
+	["{spell:3866} is orange at 104 (yellow 110, green 127, grey 145): about 49 crafts to 135. Each takes 3 {spell:2964}, 2 {item:2604} and 1 {item:2321}. Make the 147 {spell:2964} first. Three woolen bolts and two {item:2604} a shirt; {item:2592} drops from humanoids of level 15-30."] = "{spell:3866}在104時為橙色（110黃、127綠、145灰）：大約49次製作可到135。每次需要3個{spell:2964}、2個{item:2604}和1個{item:2321}。先做好那147個{spell:2964}。每件襯衫要三個毛布卷和兩份{item:2604}；{item:2592}由15-30級的人形生物掉落。",
 
 	-- Step 16: Tailoring recipes at 135
 	-- {skill:197} Tailoring
 	["{skill:197} recipes at 135"] = "{skill:197} 135 配方",
 	-- {skill:197} Tailoring · {spell:3839} Bolt of Silk Cloth · {spell:3871} Formal White Shirt
-	["Back to a {skill:197} trainer: {spell:3839} (from 100, 5s) and {spell:3871} (from 135)."] = "",
+	["Back to a {skill:197} trainer: {spell:3839} (from 100, 5s) and {spell:3871} (from 135)."] = "回到{skill:197}訓練師處：{spell:3839}（100起，5銀）和{spell:3871}（135起）。",
 
 	-- Step 17: Formal White Shirt to 150
 	-- {spell:3871} Formal White Shirt
-	["{spell:3871} to 150"] = "",
+	["{spell:3871} to 150"] = "{spell:3871} 到150",
 	-- {spell:3871} Formal White Shirt · {spell:3839} Bolt of Silk Cloth · {item:2324} Bleach · {item:2321} Fine Thread · {item:4306} Silk Cloth · {skill:197} Tailoring
-	["{spell:3871} is orange at 135 (yellow 145, green 150, grey 155): about 17 crafts to 150. Each takes 3 {spell:3839}, 2 {item:2324} and 1 {item:2321}. Make the 51 {spell:3839} first. Silk bolts from here on: {item:4306} drops from humanoids of level 25-45. {item:2324} from tailoring and trade supplies vendors. {skill:197} 150 is a Legacy System milestone."] = "",
+	["{spell:3871} is orange at 135 (yellow 145, green 150, grey 155): about 17 crafts to 150. Each takes 3 {spell:3839}, 2 {item:2324} and 1 {item:2321}. Make the 51 {spell:3839} first. Silk bolts from here on: {item:4306} drops from humanoids of level 25-45. {item:2324} from tailoring and trade supplies vendors. {skill:197} 150 is a Legacy System milestone."] = "{spell:3871}在135時為橙色（145黃、150綠、155灰）：大約17次製作可到150。每次需要3個{spell:3839}、2個{item:2324}和1個{item:2321}。先做好那51個{spell:3839}。從這裡起用絲綢布卷：{item:4306}由25-45級的人形生物掉落。{item:2324}來自裁縫和雜貨供應商。{skill:197} 150是傳承系統里程碑。",
 
 	-- Step 18: Tailoring 150-225: vendor goods
 	-- {skill:197} Tailoring
-	["{skill:197} 150-225: vendor goods"] = "",
+	["{skill:197} 150-225: vendor goods"] = "{skill:197} 150-225：商人貨物",
 	-- {item:2321} Fine Thread · {item:4291} Silken Thread · {item:6260} Blue Dye · {item:8343} Heavy Silken Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
 	["Buy the whole bracket's share in one go: 44 {item:2321} (44s), 90 {item:4291} (4g 50s), 44 {item:6260} (22s) and 80 {item:8343} (16g); about 21g 16s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "一次買齊這個階段的用量：44個{item:2321}（44銀）、90個{item:4291}（4金50銀）、44個{item:6260}（22銀）和80個{item:8343}（16金）；總計約21金16銀。箭頭會指向你陣營最近的賣家（{zone:1453}：{npc:1347}、{npc:1286}和{npc:5565}；{zone:1454}：{npc:3364}、菲利卡和{npc:5817}）。",
 
 	-- Step 19: Pattern: Azure Silk Cloak
 	-- {item:7089} Pattern: Azure Silk Cloak · {item:7053} Azure Silk Cloak · {skill:197} Tailoring · {npc:6576} Brienna Starglow · {zone:1444} Feralas · {npc:251997} Norvin Alderman · {zone:1416} Alterac Mountains · {npc:6574} Jun'ha · {zone:1417} Arathi Highlands
-	["{item:7089} teaches {item:7053} ({skill:197} 140) for 15s. Sold by Alliance: {npc:6576} ({zone:1444}), limited stock and {npc:251997} ({zone:1416}); Horde: {npc:6574} ({zone:1417}), limited stock and {npc:251997} ({zone:1416})."] = "",
+	["{item:7089} teaches {item:7053} ({skill:197} 140) for 15s. Sold by Alliance: {npc:6576} ({zone:1444}), limited stock and {npc:251997} ({zone:1416}); Horde: {npc:6574} ({zone:1417}), limited stock and {npc:251997} ({zone:1416})."] = "{item:7089}教{item:7053}（{skill:197} 140），售價15銀。出售者：聯盟{npc:6576}（{zone:1444}），限量，以及{npc:251997}（{zone:1416}）；部落{npc:6574}（{zone:1417}），限量，以及{npc:251997}（{zone:1416}）。",
 
 	-- Step 20: Tailoring 150-225: Auction House
 	-- {skill:197} Tailoring
@@ -136,7 +136,7 @@ return {
 	-- {item:7053} Azure Silk Cloak
 	["{item:7053} to 170"] = "{item:7053}練到 170",
 	-- {item:7053} Azure Silk Cloak · {spell:3839} Bolt of Silk Cloth · {item:6260} Blue Dye · {item:2321} Fine Thread
-	["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data."] = "",
+	["{item:7053} is orange at 150 (yellow 160, green 175, grey 190): about 22 crafts to 170. Each takes 3 {spell:3839}, 2 {item:6260} and 2 {item:2321}. Make the 66 {spell:3839} first. Its recipe is the one bought above; it is the cheapest way through these points in the data."] = "{item:7053}在150時為橙色（160黃、175綠、190灰）：大約22次製作可到170。每次需要3個{spell:3839}、2個{item:6260}和2個{item:2321}。先做好那66個{spell:3839}。它的配方就是上面買的那個；按資料這是透過這些點數最便宜的辦法。",
 	["from the recipe in your bags"] = "使用背包中的配方",
 
 	-- Step 25: Tailoring recipes at 170
@@ -149,7 +149,7 @@ return {
 	-- {item:9998} Black Mageweave Vest
 	["{item:9998} to 197"] = "{item:9998}練到 197",
 	-- {item:9998} Black Mageweave Vest · {spell:3865} Bolt of Mageweave · {item:4291} Silken Thread
-	["{item:9998} is orange at 170 (yellow 185, green 200, grey 215): about 30 crafts to 197. Each takes 2 {spell:3865} and 3 {item:4291}. Make the 60 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data."] = "",
+	["{item:9998} is orange at 170 (yellow 185, green 200, grey 215): about 30 crafts to 197. Each takes 2 {spell:3865} and 3 {item:4291}. Make the 60 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data."] = "{item:9998}在170時為橙色（185黃、200綠、215灰）：大約30次製作可到197。每次需要2個{spell:3865}和3個{item:4291}。先做好那60個{spell:3865}。訓練師教這個，而且按資料這是透過這些點數最便宜的辦法。",
 
 	-- Step 27: Tailoring recipes at 197
 	-- {skill:197} Tailoring
@@ -161,23 +161,23 @@ return {
 	-- {item:10024} Black Mageweave Headband
 	["{item:10024} to 225"] = "{item:10024}練到 225",
 	-- {item:10024} Black Mageweave Headband · {spell:3865} Bolt of Mageweave · {item:8343} Heavy Silken Thread · {skill:197} Tailoring
-	["{item:10024} is orange at 197 (yellow 205, green 220, grey 235): about 40 crafts to 225. Each takes 3 {spell:3865} and 2 {item:8343}. Make the 120 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data. {skill:197} 225 is a Legacy System milestone."] = "",
+	["{item:10024} is orange at 197 (yellow 205, green 220, grey 235): about 40 crafts to 225. Each takes 3 {spell:3865} and 2 {item:8343}. Make the 120 {spell:3865} first. The trainer teaches it, and it is the cheapest way through these points in the data. {skill:197} 225 is a Legacy System milestone."] = "{item:10024}在197時為橙色（205黃、220綠、235灰）：大約40次製作可到225。每次需要3個{spell:3865}和2個{item:8343}。先做好那120個{spell:3865}。訓練師教這個，而且按資料這是透過這些點數最便宜的辦法。{skill:197} 225是傳承系統里程碑。",
 
 	-- Step 29: Artisan Tailoring
 	-- {skill:197} Tailoring
 	["Artisan {skill:197}"] = "專家級{skill:197}",
 	-- {skill:197} Tailoring · {npc:11052} Timothy Worthington · {zone:1445} Dustwallow Marsh · {npc:2399} Daryl Stack · {zone:1424} Hillsbrad Foothills · {spell:18401} Bolt of Runecloth · {spell:18402} Runecloth Belt · {item:8170} Rugged Leather · {item:14047} Runecloth · {item:14227} Ironweb Spider Silk
-	["Artisan raises the cap from 225 to 300; it needs {skill:197} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424}). The arrow picks the nearest of your faction. Learn now: {spell:18401} (from 205) and {spell:18402} (from 210). 225-300 takes about 1g 60s of recipes and 58g of vendor goods, plus 420 {item:8170}, 3195 {item:14047} and 124 {item:14227} to gather or buy."] = "",
+	["Artisan raises the cap from 225 to 300; it needs {skill:197} 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance {npc:11052} ({zone:1445}); Horde {npc:2399} ({zone:1424}). The arrow picks the nearest of your faction. Learn now: {spell:18401} (from 205) and {spell:18402} (from 210). 225-300 takes about 1g 60s of recipes and 58g of vendor goods, plus 420 {item:8170}, 3195 {item:14047} and 124 {item:14227} to gather or buy."] = "大師級把上限從225提高到300；它需要{skill:197} 200和角色35級，所以從200起任何一次造訪都能學。只有少數訓練師教：聯盟{npc:11052}（{zone:1445}）；部落{npc:2399}（{zone:1424}）。箭頭會指向本陣營最近的一位。現在學：{spell:18401}（205起）和{spell:18402}（210起）。225-300大約花1金60銀的配方錢和58金的商人貨物，外加420個{item:8170}、3195個{item:14047}和124個{item:14227}，需自行採集或購買。",
 
 	-- Step 30: Tailoring 225-300: vendor goods
 	-- {skill:197} Tailoring
-	["{skill:197} 225-300: vendor goods"] = "",
+	["{skill:197} 225-300: vendor goods"] = "{skill:197} 225-300：商人貨物",
 	-- {item:14341} Rune Thread · {zone:1453} Stormwind City · {npc:1347} Alexandra Bolero · {npc:1286} Edna Mullby · {npc:5565} Jillian Tanner · {zone:1454} Orgrimmar · {npc:3364} Borya · {npc:5817} Shimra
 	["Buy the whole bracket's share in one go: 116 {item:14341} (58g); about 58g in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1347}, {npc:1286} and {npc:5565}; {zone:1454}: {npc:3364}, Felika and {npc:5817})."] = "一次買齊這個階段的用量：116個{item:14341}（58金）；總計約58金。箭頭會指向你陣營最近的賣家（{zone:1453}：{npc:1347}、{npc:1286}和{npc:5565}；{zone:1454}：{npc:3364}、菲利卡和{npc:5817}）。",
 
 	-- Step 31: Pattern: Runecloth Gloves
 	-- {item:14481} Pattern: Runecloth Gloves · {item:13863} Runecloth Gloves · {skill:197} Tailoring · {npc:11189} Qia · {zone:1452} Winterspring
-	["{item:14481} teaches {item:13863} ({skill:197} 230) for 1g 60s. Sold by {npc:11189} ({zone:1452}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "",
+	["{item:14481} teaches {item:13863} ({skill:197} 230) for 1g 60s. Sold by {npc:11189} ({zone:1452}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "{item:14481}教{item:13863}（{skill:197} 230），售價1金60銀。出售者{npc:11189}（{zone:1452}），限量。賣家每次只備一兩個，售出後過段時間補貨；它拾取即繫結，所以拍賣行永遠沒有。",
 
 	-- Step 32: Tailoring 225-300: Auction House
 	-- {skill:197} Tailoring
@@ -217,20 +217,20 @@ return {
 	-- {item:13856} Runecloth Belt
 	["{item:13856} to 234"] = "{item:13856}練到 234",
 	-- {item:13856} Runecloth Belt · {item:14048} Bolt of Runecloth · {item:14341} Rune Thread
-	["{item:13856} is yellow at 225 (yellow 225, green 240, grey 255): about 11 crafts to 234. Each takes 3 {item:14048} and 1 {item:14341}. Make the 33 {item:14048} first. {item:14341} from tailoring vendors."] = "",
+	["{item:13856} is yellow at 225 (yellow 225, green 240, grey 255): about 11 crafts to 234. Each takes 3 {item:14048} and 1 {item:14341}. Make the 33 {item:14048} first. {item:14341} from tailoring vendors."] = "{item:13856}在225時為黃色（225黃、240綠、255灰）：大約11次製作可到234。每次需要3個{item:14048}和1個{item:14341}。先做好那33個{item:14048}。{item:14341}來自裁縫供應商。",
 
 	-- Step 39: Runecloth Gloves to 265
 	-- {item:13863} Runecloth Gloves
 	["{item:13863} to 265"] = "{item:13863}練到 265",
 	-- {item:13863} Runecloth Gloves · {item:14048} Bolt of Runecloth · {item:8170} Rugged Leather · {item:14341} Rune Thread · {npc:11189} Qia · {area:2255} Everlook · {area:1769} Timbermaw Hold · {zone:1448} Felwood
-	["{item:13863} is orange at 234 (yellow 245, green 260, grey 275): about 43 crafts to 265. Each takes 4 {item:14048}, 4 {item:8170} and 1 {item:14341}. Make the 172 {item:14048} first. {npc:11189} in {area:2255} keeps one pattern at a time; the {area:1769} tunnel from {zone:1448} is the road in, so never kill Timbermaw furbolgs on the way."] = "",
+	["{item:13863} is orange at 234 (yellow 245, green 260, grey 275): about 43 crafts to 265. Each takes 4 {item:14048}, 4 {item:8170} and 1 {item:14341}. Make the 172 {item:14048} first. {npc:11189} in {area:2255} keeps one pattern at a time; the {area:1769} tunnel from {zone:1448} is the road in, so never kill Timbermaw furbolgs on the way."] = "{item:13863}在234時為橙色（245黃、260綠、275灰）：大約43次製作可到265。每次需要4個{item:14048}、4個{item:8170}和1個{item:14341}。先做好那172個{item:14048}。{area:2255}的{npc:11189}每次只保留一張圖樣；從{zone:1448}走{area:1769}隧道是唯一的路，所以路上千萬別殺木喉熊怪。",
 
 	-- Step 40: Runecloth Shoulders to 300
 	-- {item:13867} Runecloth Shoulders
-	["{item:13867} to 300"] = "",
+	["{item:13867} to 300"] = "{item:13867} 到300",
 	-- {item:13867} Runecloth Shoulders · {item:14048} Bolt of Runecloth · {item:14227} Ironweb Spider Silk · {item:8170} Rugged Leather · {item:14341} Rune Thread · {item:14504} Pattern: Runecloth Shoulders · {zone:1422} Western Plaguelands · {zone:1451} Silithus · {item:13863} Runecloth Gloves · {item:13864} Runecloth Boots · {npc:7940} Darnall · {zone:1450} Moonglade · {item:14342} Mooncloth · {npc:11189} Qia · {npc:11188} Evie Whirlbrew · {area:2255} Everlook · {item:14256} Felcloth · {item:279943} Spinning Wheel · {npc:248202} Jim'bek · {npc:256735} Mivin Shadowweave · {npc:246017} Unstable Sentinel · {item:254123} Runecloth Cuffs · {zone:2482} Mount Hyjal · {skill:197} Tailoring
-	["{item:13867} is orange at 265 (yellow 275, green 290, grey 305): about 62 crafts to 300. Each takes 7 {item:14048}, 2 {item:14227}, 4 {item:8170} and 1 {item:14341}. Make the 434 {item:14048} first. Its pattern ({item:14504}) drops from mobs all over the world and does not bind: buy it at the Auction House. Seven bolts, two {item:14227} and four {item:8170} a craft: the dearest stretch. The spiders of {zone:1422} and {zone:1451} drop the silk (the marked spots), or the Auction House. No pattern on the Auction House? {item:13863} still give a point now and then to 275, and {item:13864} ({npc:7940}, {zone:1450}) to 280, at 4 bolts a craft. {item:14342} (pattern from {npc:11189} or {npc:11188} in {area:2255}; 2 {item:14256} at a Moonwell) stays orange to 270 and yellow to 285, but it can be made once every four days. The {item:279943} patterns (Merchant's Favor sandals and waistcords from {npc:248202} or {npc:256735}; the wheel's blueprint drops from the {npc:246017} in the City of Dalaran) and {item:254123} (Pexmit in {zone:2482}, 10g; we could not confirm that vendor yet) are the other ways on. {skill:197} 300 is a Legacy System milestone."] = "",
-	["from the pattern bought at the Auction House"] = "",
+	["{item:13867} is orange at 265 (yellow 275, green 290, grey 305): about 62 crafts to 300. Each takes 7 {item:14048}, 2 {item:14227}, 4 {item:8170} and 1 {item:14341}. Make the 434 {item:14048} first. Its pattern ({item:14504}) drops from mobs all over the world and does not bind: buy it at the Auction House. Seven bolts, two {item:14227} and four {item:8170} a craft: the dearest stretch. The spiders of {zone:1422} and {zone:1451} drop the silk (the marked spots), or the Auction House. No pattern on the Auction House? {item:13863} still give a point now and then to 275, and {item:13864} ({npc:7940}, {zone:1450}) to 280, at 4 bolts a craft. {item:14342} (pattern from {npc:11189} or {npc:11188} in {area:2255}; 2 {item:14256} at a Moonwell) stays orange to 270 and yellow to 285, but it can be made once every four days. The {item:279943} patterns (Merchant's Favor sandals and waistcords from {npc:248202} or {npc:256735}; the wheel's blueprint drops from the {npc:246017} in the City of Dalaran) and {item:254123} (Pexmit in {zone:2482}, 10g; we could not confirm that vendor yet) are the other ways on. {skill:197} 300 is a Legacy System milestone."] = "{item:13867}在265時為橙色（275黃、290綠、305灰）：大約62次製作可到300。每次需要7個{item:14048}、2個{item:14227}、4個{item:8170}和1個{item:14341}。先做好那434個{item:14048}。它的圖樣（{item:14504}）由世界各地的怪物掉落，且不繫結：在拍賣行買。每次七個布卷、兩份{item:14227}和四張{item:8170}：最貴的一段。{zone:1422}和{zone:1451}的蜘蛛掉落絲綢（標記處），或在拍賣行購買。拍賣行沒有圖樣？{item:13863}到275前仍時不時漲點，{item:13864}（{npc:7940}，{zone:1450}）可到280，每次4個布卷。{item:14342}（圖樣來自{area:2255}的{npc:11189}或{npc:11188}；在月亮井旁用2個{item:14256}）到270仍是橙色、到285仍是黃色，但每四天才能做一次。{item:279943}系列圖樣（來自{npc:248202}或{npc:256735}的商人的恩惠涼鞋和腰帶；紡車藍圖由達拉然城中的{npc:246017}掉落）和{item:254123}（{zone:2482}的Pexmit，10金；我們尚未能確認該商人）是其他繼續提升的辦法。{skill:197} 300是傳承系統里程碑。",
+	["from the pattern bought at the Auction House"] = "來自在拍賣行買到的圖樣",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Apprentice {skill:197}"] = "初級{skill:197}",

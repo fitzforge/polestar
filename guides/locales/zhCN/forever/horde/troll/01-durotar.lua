@@ -150,35 +150,35 @@ return {
 	-- {npc:265809} Brakk
 	["{npc:265809}: for Karolek"] = "{npc:265809}：交给卡洛雷克",
 
-	-- Step 29: Camping 101: Tailoring
-	-- {npc:265809} Brakk
-	["{npc:265809}: for Snang"] = "{npc:265809}：交给斯南格",
-
-	-- Step 30: Camping 101: Herbalism
+	-- Step 29: Camping 101: Herbalism
 	-- {npc:265809} Brakk
 	["{npc:265809}: for Jandi"] = "{npc:265809}：交给詹迪",
 
-	-- Step 31: Camping 101: Enchanting
+	-- Step 30: Camping 101: Enchanting
 	-- {npc:265809} Brakk
 	["{npc:265809}: for Jhag"] = "{npc:265809}：交给贾格",
 
-	-- Step 32: Camping 101: Alchemy
+	-- Step 31: Camping 101: Alchemy
 	-- {npc:265809} Brakk
 	["{npc:265809}: for Whuut"] = "{npc:265809}：交给沃特",
 
-	-- Step 33: Razor Hill
+	-- Step 32: Razor Hill
 	-- {npc:266940} Turroc
 	["{npc:266940}, on the east side of town; inside"] = "{npc:266940}，在城镇东侧的室内。",
 	-- {npc:3706} Tai'jin · {npc:266940} Turroc
 	["{npc:3706}, in the barracks beside {npc:266940}"] = "{npc:3706}，在兵营里，在{npc:266940}旁边",
 
-	-- Step 34: Razor Hill
+	-- Step 33: Razor Hill
 	-- {npc:3191} Cook Torka
 	["{npc:3191}: Camping 101 asks you to learn it"] = "{npc:3191}：露营 101 要求你学习这项技能",
 	-- {npc:6928} Innkeeper Grosk
 	["{npc:6928}, inside"] = "{npc:6928}：在屋内",
 	-- {npc:3147} Furl Scornbrow
 	["{npc:3147}, in the watchtower"] = "{npc:3147}，在瞭望塔里",
+
+	-- Step 37: Camping 101: Tailoring
+	-- {npc:265809} Brakk
+	["{npc:265809}: for Snang"] = "{npc:265809}：交给斯南格",
 
 	-- Step 38: Grunt Kor'ja
 	-- {npc:12430} Grunt Kor'ja · {area:362} Razor Hill · {spell:613} Lesser Heal · {spell:1243} Power Word: Fortitude

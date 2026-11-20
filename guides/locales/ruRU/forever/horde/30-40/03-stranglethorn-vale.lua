@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Fly to {area:1637}"] = "",
+	["Fly to {area:1637}"] = "Летите сюда: {area:1637}",
 	-- {area:2408} Shadowprey Village
 	["{area:2408} flight master"] = "Распорядитель полетов: {area:2408}",
 
@@ -18,9 +18,9 @@ return {
 
 	-- Step 3: Back to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Back to {area:1637}"] = "",
+	["Back to {area:1637}"] = "Назад: {area:1637}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Распорядитель полетов: {zone:1456}",
 
 	-- Step 4: Keldran
 	-- {npc:5640} Keldran · {object:172961} Valley of Spirits
@@ -28,7 +28,7 @@ return {
 
 	-- Step 5: Orgrimmar trainers
 	-- {zone:1454} Orgrimmar
-	["{zone:1454} trainers"] = "",
+	["{zone:1454} trainers"] = "Учителя: {zone:1454}",
 	["Train while you are in the city."] = "",
 
 	-- Step 6: Fly to Ratchet
@@ -61,15 +61,15 @@ return {
 	-- {npc:4631} Wharfmaster Lozgil
 	["{npc:4631}, on the pier"] = "{npc:4631}, на пирсе",
 	-- {npc:2495} Drizzlik
-	["{npc:2495}, inside"] = "",
+	["{npc:2495}, inside"] = "{npc:2495}, внутри",
 	-- {npc:2498} Crank Fizzlebub
 	["{npc:2498}, inside, on the bottom floor"] = "",
 	-- {npc:2496} Baron Revilgaz
 	["{npc:2496}, upstairs"] = "{npc:2496}, на втором этаже",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs"] = "",
+	["{npc:737}, upstairs"] = "{npc:737}, наверху",
 	-- {npc:773} Krazek
-	["{npc:773}, upstairs"] = "",
+	["{npc:773}, upstairs"] = "{npc:773}, наверху",
 
 	-- Step 10: Grom'gol
 	-- {area:35} Booty Bay · {object:3202} Grom'gol
@@ -84,17 +84,18 @@ return {
 
 	-- Step 12: Nesingwary's Expedition: kill these as you meet them
 	-- {area:100} Nesingwary's Expedition
-	["{area:100}: kill these as you meet them"] = "",
+	["{area:100}: kill these as you meet them"] = "{area:100}: убивайте их по пути",
 	-- {item:4614} Pendant of Myzrael
 	-- plural, as words: River Crocolisks = {npc:1150} River Crocolisk · Young Stranglethorn Tigers = {npc:681} Young Stranglethorn Tiger · Young Panthers = {npc:683} Young Panther · Stranglethorn Raptors = {npc:685} Stranglethorn Raptor
 	["River Crocolisks lie along the river below the camp. Young Stranglethorn Tigers prowl west of the camp, Young Panthers east of it. Head west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A {item:4614} is a very rare drop from them: if one drops, read it. Careful: The troll camps have many patrolling mobs, so other trolls often join a fight."] = "Речные кроколиски лежат вдоль реки ниже лагеря. Молодые тигры Тернистой долины бродят к западу от лагеря, молодые пантеры — к востоку. Идите на запад мимо лагеря. Ящеры Тернистой долины (33-34) охотятся на полянах, а тролли Кровавого Скальпа занимают руины на побережье: с любого из них может выпасть клык. {item:4614} выпадает с них очень редко: если выпадет, прочтите. Осторожно: в лагерях троллей много патрулей, поэтому к бою часто присоединяются другие тролли.",
 
 	-- Step 14: Stranglethorn Vale: kill these as you meet them
 	-- {zone:1434} Stranglethorn Vale
-	["{zone:1434}: kill these as you meet them"] = "",
+	["{zone:1434}: kill these as you meet them"] = "{zone:1434}: убивайте их по пути",
 	-- {area:37} Lake Nazferiti
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger · Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal · Venture Co. Agents = {npc:260429} Venture Co. Agent
-	["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them."] = "Тигры Тернистой долины (32) бродят по холмам вокруг лагеря и к югу от него, пантеры (32) – по полянам к западу и юго-западу. Геологи Торговой компании (34-36), у которых упавшие кристаллы, работают в лагерях у места {area:37}, к юго-востоку от лагеря. Осторожно: агенты Торговой компании (39) стоят среди геологов в западных лагерях у дома Торговой компании: работайте в восточных лагерях, подальше от них.",
+	-- was: ["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them."] = "Тигры Тернистой долины (32) бродят по холмам вокруг лагеря и к югу от него, пантеры (32) – по полянам к западу и юго-западу. Геологи Торговой компании (34-36), у которых упавшие кристаллы, работают в лагерях у места {area:37}, к юго-востоку от лагеря. Осторожно: агенты Торговой компании (39) стоят среди геологов в западных лагерях у дома Торговой компании: работайте в восточных лагерях, подальше от них."
+	["Stranglethorn Tigers (32) roam the hills west of the camp and east of it toward the lake: the arrow takes the eastern ones, on your way to the geologists. Panthers (32) roam the clearings west and south-west of the camp. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them."] = "",
 	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
 	["Tumbled Crystals, from the geologists of the eastern camps"] = "Упавшие кристаллы – с геологов восточных лагерей",
 
@@ -121,7 +122,7 @@ return {
 
 	-- Step 19: The Savage Coast: kill these as you meet them
 	-- {area:301} The Savage Coast
-	["{area:301}: kill these as you meet them"] = "",
+	["{area:301}: kill these as you meet them"] = "{area:301}: убивайте их по пути",
 	-- {npc:729} Sin'Dall
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
 	["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "К западу за лагерем на скалах сидят хрустальные василиски (34-35); любой тролль Кровавого Скальпа в деревне дальше может уронить ухо.\n{npc:729}, тигра 37-го уровня на вершине холма к юго-западу от лагеря, пока не трогайте: он на два уровня выше вас, а гайд по Тернистой долине 40-50 вернется к нему.\nОсторожно: в гнезде ящеров есть детеныши, которые вступают в бой, когда вы нападаете на взрослых.",
@@ -161,7 +162,7 @@ return {
 	-- {npc:2495} Drizzlik · {npc:2498} Crank Fizzlebub · {npc:2496} Baron Revilgaz · {npc:737} Kebok · {npc:773} Krazek · {npc:4631} Wharfmaster Lozgil
 	["{npc:2495}'s shop is in the building east of the inn; {npc:2498} is on the inn's bottom floor, {npc:2496}, {npc:737} and {npc:773} upstairs beside the flight master. {npc:4631} stands on the pier."] = "Лавка NPC {npc:2495} – в здании к востоку от таверны; {npc:2498} на нижнем этаже таверны, {npc:2496}, {npc:737} и {npc:773} – наверху, рядом с распорядителем полетов. {npc:4631} стоит на пристани.",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "",
+	["{npc:2498}, inside"] = "{npc:2498}, внутри",
 	-- {npc:4631} Wharfmaster Lozgil
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment
 	["{npc:4631}, on the pier: the Stolen Shipments"] = "{npc:4631}, на пирсе: украденные грузы",
@@ -172,7 +173,7 @@ return {
 	-- {object:3202} Grom'gol
 	["Fly to {object:3202}"] = "Летите: {object:3202}",
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "Распорядитель полетов: {area:35}",
 
 	-- Step 27: Level 35
 	["Level 35"] = "",
@@ -180,7 +181,7 @@ return {
 	-- plural, as words: Bloodscalp Headhunters = {npc:671} Bloodscalp Headhunter · Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger · Lashtail Raptors = {npc:686} Lashtail Raptor
 	["{quest:629}'s and Zul'Kunda's quests are next, with Bloodscalp Headhunters of 36-37. Still below 35 after {area:35}'s hand-ins? The Elder Stranglethorn Tigers (34-35) roam the hills north of {object:3202}, below Nesingwary's camp: kill them until level 35. The Lashtail Raptors (35-36) beside them are a level higher."] = "Далее задания «{quest:629}» и задания Зул'Кунды, с охотниками за головами из племени Кровавого Скальпа 36-37 уровня. Все еще ниже 35 после сдачи заданий в месте {area:35}? Старые тигры Тернистой долины (34-35) бродят по холмам к северу от места {object:3202}, ниже лагеря Эрнестуэя: убивайте их до 35 уровня. Ящеры-кнутохвосты (35-36) рядом с ними на уровень выше.",
 	-- {npc:1085} Elder Stranglethorn Tiger
-	["grind on {npc:1085}"] = "",
+	["grind on {npc:1085}"] = "убивайте: {npc:1085}",
 
 	-- Step 28: The Vile Reef
 	-- {area:104} Vile Reef · {item:4094} Tablet Shard
@@ -189,7 +190,7 @@ return {
 
 	-- Step 29: Ruins of Zul'Kunda: kill these as you meet them
 	-- {area:102} Ruins of Zul'Kunda
-	["{area:102}: kill these as you meet them"] = "",
+	["{area:102}: kill these as you meet them"] = "{area:102}: убивайте их по пути",
 	-- {item:3915} Bloody Bone Necklace · {item:2755} Green Hills of Stranglethorn
 	-- plural, as words: Bloodscalp Headhunters = {npc:671} Bloodscalp Headhunter
 	["The Bloodscalp Headhunters (36-37) in the village on the coast carry the shrunken heads. Careful: the 37s can be two over you: pull them one at a time from the village's edge, never into the middle with the Witch Doctors.\nThe Bloodscalp trolls hold the ruins up the coast north of the reef and the village beyond; every one can drop a {item:3915}. Keep looting pages of The {item:2755}."] = "Сушеные головы носят охотники за головами из племени Кровавого Скальпа (36-37) в деревне на побережье. Осторожно: 37-е могут быть на два уровня выше вас: выманивайте их по одному с края деревни, никогда не лезьте в центр к знахарям.\nТролли Кровавого Скальпа занимают руины на побережье к северу от рифа и деревню за ними; с любого может выпасть {item:3915}. Продолжайте собирать страницы из книги «{item:2755}».",
@@ -222,7 +223,7 @@ return {
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks"] = "Кроколиски-хрустогрызы",
 	-- {npc:1152} Snapjaw Crocolisk
-	["grind on {npc:1152}"] = "",
+	["grind on {npc:1152}"] = "убивайте: {npc:1152}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Elder tigers and Lashtail raptors"] = "Старые тигры и ящеры-кнутохвосты",
@@ -231,6 +232,7 @@ return {
 	-- ["Green Hills pages"] = "Страницы «Зеленых холмов»",
 	-- ["Pages of The {item:2755} drop at about 1% each from the Bloodscalp and Skullsplitter trolls; keep every page you loot and look on the auction house for the rest. {npc:716} takes the chapters later in this guide."] = "Страницы книги «{item:2755}» падают с шансом около 1% каждая с троллей из племен Кровавого Скальпа и Дробителей Черепов; сохраняйте каждую найденную страницу, а остальные поищите на аукционе. {npc:716} принимает главы позже в этом гайде.",
 	-- ["Shadowmaw panthers"] = "Тенебрюхие пантеры",
+	-- ["Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by {area:37}, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them."] = "Тигры Тернистой долины (32) бродят по холмам вокруг лагеря и к югу от него, пантеры (32) – по полянам к западу и юго-западу. Геологи Торговой компании (34-36), у которых упавшие кристаллы, работают в лагерях у места {area:37}, к юго-востоку от лагеря. Осторожно: агенты Торговой компании (39) стоят среди геологов в западных лагерях у дома Торговой компании: работайте в восточных лагерях, подальше от них.",
 	-- ["The Lashtail Raptors (35-36) hunt the jungle just north-east of {object:3202}."] = "Ящеры-кнутохвосты (35-36) охотятся в джунглях чуть северо-восточнее места {object:3202}.",
 	-- ["The Mosh'Ogg ogres camp in the hills just east of {object:3202}, on your way back. Kill 10 Brutes and 5 Witch Doctors (36-37); pull them one at a time."] = "Огры из клана Мош'Огг стоят лагерем на холмах чуть восточнее места {object:3202}, по пути назад. Убейте 10 громил и 5 знахарей (36-37); выманивайте по одному.",
 	-- ["The Shadowmaw Panthers (37-38) stalk the jungle east of the Mosh'Ogg hills and north-east towards the lake; they strike from stealth. Loot every Green Hills page you find on the way."] = "Тенебрюхие пантеры (37-38) крадутся по джунглям к востоку от холмов Мош'Огг и на северо-восток к озеру; они нападают из невидимости. Собирайте по пути каждую страницу «Зеленых холмов».",

@@ -68,8 +68,9 @@ return {
 	["{item:6888} is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own {object:29784}. {item:6888} comes with {skill:185} (the client teaches it with the skill); {item:2678} are a cooking vendor's. The Strigid owls of {zone:1438} drop a {item:6889} more often than not, and {zone:1439}'s moonkin drop them too. Fishers can cook {item:6290} (recipe 40c) from Rut'theran's waters instead, and {npc:6286} in {area:186} gives Recipe of the Kaldorei (seven Small Spider Legs from the Webwood spiders) for {item:5472}, orange from 10 to 50."] = "",
 
 	-- Step 13: Charred Wolf Meat: ingredients
-	-- {npc:250874} Vuldren Alpha
-	["Vuldren, {npc:250874} in Zephras Isle, or wherever the arrow points"] = "제프라스 섬의 벌드렌, {npc:250874}, 또는 화살표가 가리키는 곳",
+	-- {npc:250873} Juvenile Vuldren
+	-- was: ["Vuldren, {npc:250874} in Zephras Isle, or wherever the arrow points"] = "제프라스 섬의 벌드렌, {npc:250874}, 또는 화살표가 가리키는 곳"
+	["{npc:250873} in Zephras Isle, or wherever the arrow points"] = "",
 
 	-- Step 14: Charred Wolf Meat (1-50)
 	-- {spell:2538} Charred Wolf Meat · {object:29784} Basic Campfire · {item:2672} Stringy Wolf Meat
@@ -373,6 +374,7 @@ return {
 	-- ["Catch about 68 {item:6361} here by fishing (see the {skill:356} guide)."] = "이곳에서 낚시로 {item:6361} 약 68개를 잡으세요({skill:356} 가이드 참고).",
 	-- ["Giant Eggs drop from the Ironbeak owls of {zone:1448}."] = "거대한 알은 {zone:1448}의 무쇠부리 올빼미가 떨어뜨립니다.",
 	-- ["Journeyman {skill:185} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:185} trainer of your faction."] = "수습 {skill:185}은(는) 최대 숙련도를 150으로 올립니다. 숙련도 50, 캐릭터 레벨 10이 필요합니다. 화살표가 진영의 가장 가까운 {skill:185} 상급자를 가리킵니다.",
+	-- ["Vuldren, {npc:250874} in Zephras Isle, or wherever the arrow points"] = "제프라스 섬의 벌드렌, {npc:250874}, 또는 화살표가 가리키는 곳",
 	-- ["{area:442} docks"] = "{area:442} 부두",
 	-- ["{area:702} docks"] = "{area:702} 부두",
 	-- ["{item:12210} is orange from 175 (yellow at 215, grey at 255): about 40 crafts to 215. Cook at any fire: {object:29784} comes with {skill:185}."] = "{item:12210}은(는) 175부터 주황색입니다(노란색 215, 회색 255). 215까지 약 40번 만드세요. 아무 불에서나 요리하세요. {object:29784}은(는) {skill:185}와(과) 함께 배웁니다.",

@@ -63,6 +63,7 @@ stub = function(section, ask)
 		return
 	end
 	ns.Print(string.format(L["Polestar's settings could not be loaded (%s): is the Polestar_Options folder installed and enabled?"], tostring(why or "error")))
+	if UI.Packs and UI.Packs.AskNeeded then UI.Packs.AskNeeded() end
 end
 UI.ShowOptions = stub
 

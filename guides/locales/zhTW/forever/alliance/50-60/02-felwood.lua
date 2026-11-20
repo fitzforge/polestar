@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Fly to Astranaar
 	-- {area:415} Astranaar
-	["Fly to {area:415}"] = "",
+	["Fly to {area:415}"] = "飛往{area:415}",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "{area:702}飛行管理員",
 
@@ -18,11 +18,11 @@ return {
 
 	-- Step 3: The Emerald Sanctuary
 	-- {area:415} Astranaar · {zone:1448} Felwood · {area:2479} Emerald Sanctuary
-	["Ride north out of {area:415} into {zone:1448} to the {area:2479}, the druids' camp by the road."] = "",
+	["Ride north out of {area:415} into {zone:1448} to the {area:2479}, the druids' camp by the road."] = "從{area:415}騎馬向北進入{zone:1448}，前往路旁的德魯伊營地{area:2479}。",
 	-- {npc:9528} Arathandris Silversky · {npc:11554} Grazle
 	["{npc:9528}, in the ruins just east of {npc:11554}"] = "{npc:9528}，在{npc:11554}東邊的廢墟裡",
 	-- {npc:9116} Eridan Bluewind
-	["{npc:9116}, inside"] = "",
+	["{npc:9116}, inside"] = "{npc:9116}，在裡面",
 	-- {npc:10920} Kelek Skykeeper · {quest:86577} A Sampling of Putrescence · {zone:1448} Felwood
 	["{npc:10920}: {quest:86577}, from the bears and wolves you meet in {zone:1448}"] = "{npc:10920}：{quest:86577}，來自你在{zone:1448}遇到的熊和狼",
 
@@ -36,29 +36,29 @@ return {
 	["The Deadwood furbolgs live in the village just south-west of {npc:11554}; keep the Deadwood Headdress Feathers they drop."] = "死木熊怪住在{npc:11554}西南方的村莊裡；保留牠們掉落的死木頭飾羽毛。",
 
 	-- Step 6: Level 52.58
-	["Level 52.58"] = "",
+	["Level 52.58"] = "52.58級",
 	-- {item:9328} Super Snapper FX
 	["If you skipped The Horn of the Beast or The {item:9328}, grind here to level 52.58 to stay on the route's plan."] = "",
 	-- {npc:7153} Deadwood Warrior
-	["grind on {npc:7153}"] = "",
+	["grind on {npc:7153}"] = "刷{npc:7153}",
 
 	-- Step 7: Grazle
 	-- {npc:15395} Nafien · {zone:1448} Felwood
 	["{npc:15395} waits at the north end of {zone:1448}"] = "{npc:15395}在{zone:1448}北端等候",
 
 	-- Step 8: Level 52.69
-	["Level 52.69"] = "",
+	["Level 52.69"] = "52.69級",
 	-- {area:1763} Jaedenar
 	["Top up here to level 52.69 before the hand-ins at {area:1763}: they take you to level 53."] = "",
 	-- {npc:7155} Deadwood Pathfinder
-	["grind on {npc:7155}"] = "",
+	["grind on {npc:7155}"] = "刷{npc:7155}",
 
 	-- Step 9: Jadefire Glen
 	-- {npc:9454} Xavathras · {spell:7992} Slowing Poison
 	-- plural, as words: Jadefire Shadowstalkers = {npc:7110} Jadefire Shadowstalker · Cursed Oozes = {npc:7086} Cursed Ooze
-	["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back.\nCareful: Jadefire Shadowstalkers (level 51-52) use Sneak and {spell:7992} and are stealthed, so they often join fights uninvited.\nCursed Oozes slide about the glen's streams: kill them and use Laris's Empty Ooze Jar on their remains."] = "",
+	["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back.\nCareful: Jadefire Shadowstalkers (level 51-52) use Sneak and {spell:7992} and are stealthed, so they often join fights uninvited.\nCursed Oozes slide about the glen's streams: kill them and use Laris's Empty Ooze Jar on their remains."] = "碧火薩特佔據道路以西的山谷，{npc:9454}在最深處。\n小心：碧火暗影潛伏者（51-52級）會潛行並使用{spell:7992}，常常不請自來地加入戰鬥。\n詛咒軟泥怪在山谷的溪流裡四處遊蕩：殺死它們，再對殘骸使用拉里斯的空軟泥怪罐。",
 	-- {npc:7109} Jadefire Felsworn
-	["grind on {npc:7109}"] = "",
+	["grind on {npc:7109}"] = "刷{npc:7109}",
 
 	-- Step 10: Ruins of Constellas
 	-- {npc:9454} Xavathras · {area:2481} Ruins of Constellas
@@ -66,10 +66,10 @@ return {
 
 	-- Step 11: Jaedenar
 	-- {area:1763} Jaedenar
-	["{area:1763} is the ruined temple north of the glen."] = "",
+	["{area:1763} is the ruined temple north of the glen."] = "{area:1763}是林地以北的廢棄神殿。",
 	-- {item:11949} Filled Tainted Ooze Jar · {area:1763} Jaedenar
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
-	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "",
+	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "{item:11949}：汙染軟泥怪在{area:1763}的邪能水池裡四處遊蕩",
 
 	-- Step 12: Putrescent organs: kill these as you meet them
 	["Putrescent organs: kill these as you meet them"] = "腐爛的器官：遇到就擊殺",
@@ -77,7 +77,7 @@ return {
 	["{zone:1448}'s Angerclaw bears and Felpaw wolves carry the putrescent organs {npc:10920} wants: the Bears and Wolves (47-48) of the south and the Maulers and Scavengers (49-50) along the road north of {area:1763}. Kill them as you ride between the stops."] = "{zone:1448}的怒爪熊和魔爪狼身上有{npc:10920}要的腐爛器官：南部的熊和狼（47-48級），以及{area:1763}北邊道路沿途的重擊者和食腐者（49-50級）。在各個地點之間移動時順手擊殺。",
 
 	-- Step 14: Level 52.9
-	["Level 52.9"] = "",
+	["Level 52.9"] = "52.9級",
 	-- {area:2479} Emerald Sanctuary · {area:1766} Shatter Scar Vale
 	-- plural, as words: Entropic Beasts = {npc:9878} Entropic Beast
 	["Still short of level 52.9 after the {area:2479}'s hand-ins? Top up on the Entropic Beasts in {area:1766}, the next stop north."] = "交完{area:2479}的任務後仍不到52.9級？在北邊下一站{area:1766}的熱能野獸身上練一下。",
@@ -99,7 +99,7 @@ return {
 
 	-- Step 17: Jadefire Run: kill these as you meet them
 	-- {area:2618} Jadefire Run
-	["{area:2618}: kill these as you meet them"] = "",
+	["{area:2618}: kill these as you meet them"] = "{area:2618}：遇到就殺",
 	-- {area:2618} Jadefire Run · {npc:10648} Xavaric · {quest:939} Flute of Xavaric · {item:11674} Jadefire Felbind
 	["{area:2618} is the satyr valley in the north-west, with {npc:10648} at its far end. He drops the {quest:939}; every Jadefire satyr can drop {item:11674}.\nCareful: {npc:10648} (55) stands at the valley's far end with Hellcallers (53-54) around him: clear them one at a time before you pull him."] = "{area:2618}是西北方的薩特山谷，{npc:10648}在山谷盡頭。他會掉落{quest:939}；每個碧火薩特都可能掉落{item:11674}。\n小心：{npc:10648}（55級）站在山谷盡頭，周圍有地獄召喚者（53-54級）：先一次一隻清掉它們，再拉他。",
 
@@ -107,11 +107,11 @@ return {
 	-- {area:1763} Jaedenar
 	["{area:1763} again"] = "再次前往{area:1763}",
 	-- {item:12922} Empty Canteen · {area:1763} Jaedenar
-	["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}."] = "",
+	["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}."] = "在{area:1763}中央被腐化的月井處使用{item:12922}。",
 
 	-- Step 19: The Emerald Sanctuary
 	-- {area:1763} Jaedenar · {area:2479} Emerald Sanctuary · {zone:1448} Felwood
-	["Ride south-east from {area:1763} to the {area:2479}, the druids' camp by the road in southern {zone:1448}."] = "",
+	["Ride south-east from {area:1763} to the {area:2479}, the druids' camp by the road in southern {zone:1448}."] = "從{area:1763}向東南騎行到{area:2479}，即{zone:1448}南部路旁的德魯伊營地。",
 
 	-- Step 20: The Emerald Sanctuary
 	-- {zone:1457} Darnassus

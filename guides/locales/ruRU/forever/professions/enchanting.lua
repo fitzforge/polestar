@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Learn Enchanting
 	-- {skill:333} Enchanting
-	["Learn {skill:333}"] = "",
+	["Learn {skill:333}"] = "Изучите: {skill:333}",
 	-- {skill:333} Enchanting · {npc:3606} Alanna Raveneye · {zone:1438} Teldrassil · {npc:11068} Betty Quin · {zone:1453} Stormwind City · {npc:257004} Eaysaa Brightgust · {npc:11070} Lalina Summermoon · {zone:1457} Darnassus · {npc:257020} Nasalanna Windsinger · {npc:11065} Thonys Pillarstone · {zone:1455} Ironforge · {npc:11066} Jhag · {zone:1454} Orgrimmar · {npc:11067} Malcomb Wynn · {zone:1458} Undercity · {npc:11071} Mot Dawnstrider · {zone:1456} Thunder Bluff · {npc:266881} Pa'zula · {zone:1411} Durotar · {npc:5695} Vance Undergloom · {zone:1420} Tirisfal Glades · {item:6217} Copper Rod · {item:247786} Mote of Magic · {npc:11072} Kitta Firewind · {area:91} Tower of Azora · {zone:1429} Elwynn Forest · {area:367} Sen'jin Village · {item:10940} Strange Dust
 	["Apprentice {skill:333} lets you craft up to 75 for 10c, at any character level. Not every {skill:333} trainer teaches it: Alliance {npc:3606} ({zone:1438}), {npc:11068} ({zone:1453}), {npc:257004} (Zephras Isle), {npc:11070} ({zone:1457}), {npc:257020} (Zephras Isle) and {npc:11065} ({zone:1455}); Horde {npc:257004} (Zephras Isle), {npc:11066} ({zone:1454}), {npc:11067} ({zone:1458}), {npc:11071} ({zone:1456}), {npc:257020} (Zephras Isle), {npc:266881} ({zone:1411}) and {npc:5695} ({zone:1420}). The arrow picks the nearest of your faction. Buy a {item:6217} and {item:247786} from an enchanting supplies vendor (in the capitals and on Zephras Isle; the starting-area trainers have none beside them, and the next step's arrow picks the nearest). From now on, disenchant every green you do not wear: that is where the dust and essences come from. Two starter quests teach Disenchant on a quest item: An Enchanting Lesson from {npc:11072} ({area:91}, {zone:1429}) and A Pain in the Neck from {npc:266881} ({area:367}, {zone:1411}). 1-75 takes about 50c of recipes and 4s 44c of vendor goods, plus 51 {item:10940} to gather or buy."] = "Ранг «Ученик» ({skill:333}) позволяет создавать предметы до 75 за 10м, на любом уровне персонажа. Учат ему не все учителя ({skill:333}): Альянс – {npc:3606} ({zone:1438}), {npc:11068} ({zone:1453}), {npc:257004} (Остров Зефрис), {npc:11070} ({zone:1457}), {npc:257020} (Остров Зефрис) и {npc:11065} ({zone:1455}); Орда – {npc:257004} (Остров Зефрис), {npc:11066} ({zone:1454}), {npc:11067} ({zone:1458}), {npc:11071} ({zone:1456}), {npc:257020} (Остров Зефрис), {npc:266881} ({zone:1411}) и {npc:5695} ({zone:1420}). Стрелка выбирает ближайшего для вашей фракции. Купите {item:6217} и {item:247786} у торговца товарами для зачаровывания (в столицах и на Острове Зефрис; рядом с учителями в стартовых зонах таких нет, и стрелка следующего шага выбирает ближайшего). С этого момента разрушайте чары на каждом зеленом предмете, который не носите: оттуда берутся пыль и эссенции. Два стартовых задания обучают «Разрушению чар» на предмете задания: «Очаровательный урок» от NPC {npc:11072} ({area:91}, {zone:1429}) и «Подчиняющие подвески» от NPC {npc:266881} ({area:367}, {zone:1411}). На 1-75 уйдет около 50м на рецепты и 4с 44м на товары торговцев, плюс 51 {item:10940} – добудьте или купите.",
 
@@ -43,7 +43,7 @@ return {
 
 	-- Step 7: Enchant Chest - Inferior Stamina to 75
 	-- {spell:7420} Enchant Chest - Inferior Stamina
-	["{spell:7420} to 75"] = "",
+	["{spell:7420} to 75"] = "{spell:7420} до 75",
 	-- {spell:7420} Enchant Chest - Inferior Stamina · {item:10940} Strange Dust · {item:10938} Lesser Magic Essence · {spell:7423} Minor Absorption
 	["{spell:7420} is orange at 25 (yellow 70, green 90, grey 110): about 51 crafts to 75. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "",
 
@@ -83,7 +83,7 @@ return {
 
 	-- Step 15: Enchant Chest - Inferior Stamina to 90
 	-- {spell:7420} Enchant Chest - Inferior Stamina
-	["{spell:7420} to 90"] = "",
+	["{spell:7420} to 90"] = "{spell:7420} до 90",
 	-- {spell:7420} Enchant Chest - Inferior Stamina · {item:10940} Strange Dust · {item:10938} Lesser Magic Essence · {spell:7423} Minor Absorption
 	["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "",
 

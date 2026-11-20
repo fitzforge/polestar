@@ -63,7 +63,29 @@ return {
 	-- {npc:271460} Modr · {area:205} Dun Modr · {item:279996} Goaz Stone
 	["{npc:271460} stands in the ruins of {area:205} (use the {item:279996})."] = "{npc:271460}은(는) {area:205}의 폐허에 서 있습니다({item:279996} 사용).",
 
-	-- Step 15: Ebenezer Rustlocke
+	-- Step 15: Motley Garmason
+	-- {quest:303} The Dark Iron War
+	-- plural, as words: Dark Irons = {object:147516} Dark Iron
+	["{quest:303} is a group quest: 30 elite Dark Irons (27-31) in the ruins west of the camp. Skip it if you are alone."] = "",
+	-- {npc:1074} Motley Garmason
+	["{npc:1074}, in the camp"] = "",
+
+	-- Step 16: Ashlan Stonesmirk
+	-- {quest:88756} Bring Back a Bang · {item:280806} Stolen Explosives · {object:147516} Dark Iron · {area:1016} Direforge Hill · {area:205} Dun Modr
+	["{quest:88756} is a group quest: the {item:280806} lie in the {object:147516} camp on {area:1016}, south-east of {area:205}, among the same elite dwarves. Skip it if you are alone."] = "",
+	-- {npc:1073} Ashlan Stonesmirk
+	["{npc:1073}, in the camp"] = "",
+
+	-- Step 17: The Dark Iron War
+	-- {npc:1364} Balgaras the Foul
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. Dark Iron Dwarves, Tunnelers, Saboteurs and Demolitionists (27-31) fill the ruins west of the camp; {npc:1364} (34, elite) walks among them."] = "",
+
+	-- Step 18: Direforge Hill
+	-- {area:1016} Direforge Hill · {item:280806} Stolen Explosives · {area:880} Thandol Span
+	-- plural, as words: Dark Irons = {object:147516} Dark Iron
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. South-east of Dun Modr, about 500 yards, the Dark Irons camp on {area:1016}: the {item:280806} lie among their tents. Then back past the camp and north to the {area:880}."] = "",
+
+	-- Step 19: Ebenezer Rustlocke
 	["Ebenezer Rustlocke"] = "에벤에셀 러스트로크",
 	-- {area:205} Dun Modr · {area:880} Thandol Span · {npc:1075} Rhag Garmason
 	-- plural, as words: Dark Iron Saboteurs = {npc:1052} Dark Iron Saboteur
@@ -72,21 +94,25 @@ return {
 	["{object:2652}, inside"] = "",
 	["the same corpse"] = "",
 
-	-- Step 16: Rhag Garmason
+	-- Step 20: Rhag Garmason
 	-- {area:205} Dun Modr · {npc:1075} Rhag Garmason · {object:147516} Dark Iron
 	["Back down the road to {area:205}: {npc:1075} wants the {object:147516} explosives under the far end of the span destroyed."] = "",
 
-	-- Step 17: The Cache of Explosives
+	-- Step 21: Motley Garmason
+	-- {npc:1075} Rhag Garmason
+	["in the camp, beside {npc:1075}"] = "",
+
+	-- Step 23: The Cache of Explosives
 	-- {object:2704} Cache of Explosives
 	["The {object:2704}"] = "",
 	-- {area:880} Thandol Span
 	-- plural, as words: Dark Irons = {object:147516} Dark Iron
 	["Over the {area:880}: the Dark Irons' cache of explosives sits by its Arathi end."] = "",
 
-	-- Step 18: Waterlogged Envelope
+	-- Step 24: Waterlogged Envelope
 	["Underwater"] = "물속",
 
-	-- Step 19: Rhag Garmason again
+	-- Step 25: Rhag Garmason again
 	-- {npc:1075} Rhag Garmason
 	["{npc:1075} again"] = "",
 	-- {area:205} Dun Modr
@@ -94,20 +120,33 @@ return {
 	-- {npc:2700} Captain Nials · {area:320} Refuge Pointe
 	["for {npc:2700} at {area:320}, in 05-arathi-highlands"] = "",
 
-	-- Step 21: Rethiel the Greenwarden
+	-- Step 27: Rethiel the Greenwarden
 	-- {area:17732} Excavation Site: Wetlands · {npc:1244} Rethiel the Greenwarden · {npc:270637} Howin Kindfeather
 	["The root core from your {area:17732} run: {npc:1244} stands by the river, just east of {npc:270637}."] = "{area:17732} 공략에서 얻은 뿌리 핵: {npc:1244}은(는) {npc:270637} 바로 동쪽 강가에 서 있습니다.",
 
-	-- Step 22: Howin Kindfeather
+	-- Step 28: Howin Kindfeather
 	-- {quest:98246} Trying Times
 	["{quest:98246}: the eggs"] = "",
 
-	-- Step 23: Prospector Whelgar
+	-- Step 29: Howin Kindfeather
+	-- {quest:98291} Death to the Dragonmaw · {area:17716} Dragonmaw Retreat · {npc:270637} Howin Kindfeather
+	["{quest:98291} is a group quest: 16 elite Dragonmaw (29-30) in {area:17716}, just east of {npc:270637}. Skip it if you are alone."] = "",
+
+	-- Step 30: Dragonmaw Retreat
+	-- {npc:270637} Howin Kindfeather
+	-- plural, as words: Dragonmaw Reclaimers = {npc:271351} Dragonmaw Reclaimer
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. The Dragonmaw Reclaimers, Soulbinders and Infiltrators (29-30, elite) camp just east of {npc:270637}."] = "",
+
+	-- Step 31: Howin Kindfeather
+	-- {npc:270637} Howin Kindfeather
+	["back west to {npc:270637}"] = "",
+
+	-- Step 32: Prospector Whelgar
 	["Below ground"] = "지하",
 	-- {npc:2916} Historian Karnik · {zone:1455} Ironforge
 	["For {npc:2916} in {zone:1455}, at the end of this guide"] = "{zone:1455}의 {npc:2916}에게, 이 가이드 마지막에",
 
-	-- Step 24: Prospector Whelgar
+	-- Step 33: Prospector Whelgar
 	-- {item:270865} Titan Relic · {area:17732} Excavation Site: Wetlands · {npc:1077} Prospector Whelgar
 	["The {item:270865} from your {area:17732} run: {npc:1077} is below ground in his dig, south of the road west."] = "{area:17732} 공략에서 얻은 {item:270865}: {npc:1077}은(는) 서쪽 길 남쪽의 발굴지 지하에 있습니다.",
 	-- {npc:1077} Prospector Whelgar
@@ -115,52 +154,52 @@ return {
 	-- {npc:1077} Prospector Whelgar · {npc:5387} High Explorer Magellas · {zone:1455} Ironforge
 	["{npc:1077}: for {npc:5387} in {zone:1455}, at the end of this guide"] = "{npc:1077}: {zone:1455}의 {npc:5387}에게, 이 가이드 마지막에",
 
-	-- Step 25: Menethil Harbor
+	-- Step 34: Menethil Harbor
 	["West along the road to Menethil."] = "길을 따라 서쪽 메네실 항구로 가십시오.",
 	["On the top floor"] = "",
 
-	-- Step 26: Menethil Harbor
+	-- Step 35: Menethil Harbor
 	-- {npc:4455} Red Jack Flint · {quest:1132} Fiora Longears
 	["{npc:4455}, by the keep's door: for {quest:1132} in Theramore, in the next guide"] = "",
 
-	-- Step 27: Menethil Harbor
+	-- Step 36: Menethil Harbor
 	-- {npc:2104} Captain Stoutfist · {area:2103} Menethil Keep
 	["{npc:2104} stands on the top floor of {area:2103}: go up inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:2104} Captain Stoutfist · {npc:270637} Howin Kindfeather
 	["{npc:2104}: for {npc:270637}, back east along the road"] = "{npc:2104}: 길을 따라 다시 동쪽의 {npc:270637}에게",
 
-	-- Step 28: Howin Kindfeather
+	-- Step 37: Howin Kindfeather
 	-- {area:1025} The Green Belt · {npc:270637} Howin Kindfeather · {npc:1244} Rethiel the Greenwarden
 	["Back east along the road to the {area:1025}: {npc:270637} camps among the Fenrunners, just west of {npc:1244}. Then west again to Menethil for the boat."] = "길을 따라 다시 동쪽 {area:1025}(으)로 가십시오. {npc:270637}은(는) {npc:1244} 바로 서쪽, Fenrunner 사이에 야영하고 있습니다. 그런 다음 배를 타러 다시 서쪽 메네실 항구로 가십시오.",
 
-	-- Step 29: Menethil Harbor
+	-- Step 38: Menethil Harbor
 	-- {npc:2094} James Halloran · {npc:1239} First Mate Fitzsimmons · {area:2104} Deepwater Tavern
 	["{npc:2094} stands by the docks; {npc:1239} sits in the {area:2104}, south of the keep."] = "{npc:2094}은(는) 부두 옆에 있고, {npc:1239}은(는) 성채 남쪽의 {area:2104}에 앉아 있습니다.",
 
-	-- Step 30: Captain Halyndor
+	-- Step 39: Captain Halyndor
 	-- {npc:1160} Captain Halyndor · {npc:270589} Nightveiled Rotheap · {zone:1437} Wetlands
 	["North along the coast from Menethil to the wreck of the Intrepid: {npc:1160} (30) is aboard, and the locked strongbox sits in the wreck. Careful: {npc:270589}, a level 31-32 elite, roams the {zone:1437}: give it a wide berth."] = "메네실에서 해안을 따라 북쪽으로 인트레피드호 잔해까지 가십시오. {npc:1160}(30)이(가) 배 위에 있고, 잠긴 금고는 잔해 안에 있습니다. 주의: 31-32레벨 정예 {npc:270589}이(가) {zone:1437}을(를) 돌아다닙니다. 멀리 피하세요.",
 	-- {item:2629} Intrepid Strongbox Key · {npc:1160} Captain Halyndor
 	["{item:2629}, from {npc:1160}"] = "{item:2629}, {npc:1160}에게서 획득",
 
-	-- Step 31: Glorin Steelbrow
+	-- Step 40: Glorin Steelbrow
 	-- {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern
 	["Back south to Menethil: {npc:1217} stands in the {area:2104}."] = "남쪽 메네실로 돌아가세요. {npc:1217}은(는) {area:2104}에 있습니다.",
 	-- {npc:1284} Archbishop Benedictus · {zone:1453} Stormwind
 	["For {npc:1284} in {zone:1453}, at the end of this guide"] = "",
 
-	-- Step 32: Level 30.8
+	-- Step 41: Level 30.8
 	["Level 30.8"] = "",
 	-- {quest:474} Defeat Nek'rosh · {area:133} Gnomeregan · {area:796} Scarlet Monastery
 	["Skipped {quest:474} and short of 30.8? Kill the Bluegill murlocs on the coast south of Menethil until level 30.8. Or, with a group, run the {area:133} dungeon or the {area:796} dungeon (Graveyard) instead."] = "",
 	-- {npc:1418} Bluegill Raider
 	["grind on {npc:1418}"] = "{npc:1418} 사냥",
 
-	-- Step 33: Boat to Southshore
+	-- Step 42: Boat to Southshore
 	-- {area:271} Southshore
 	["Boat to {area:271}"] = "{area:271}행 배",
 
-	-- Step 34: Southshore
+	-- Step 43: Southshore
 	-- {npc:2711} Phin Odelic · {npc:2430} Chef Jessen · {npc:2382} Darren Malvew · {npc:2381} Micha Yance · {npc:2438} Bartolo Ginsetti · {npc:2366} Barkeep Kelly · {quest:98463} Talk of the Town
 	["Off the boat, walk up the pier into town: {npc:2711} and Lieutenant Farren stand by the inn, {npc:2430} upstairs, {npc:2382} east of it; the flight master is at the north end, {npc:2381} and {npc:2438} between her and the inn, Maleb in the town hall at the west side.\n{npc:2366} may not offer {quest:98463} on Forever: if she doesn't, skip it."] = "",
 	-- {npc:2711} Phin Odelic
@@ -178,105 +217,105 @@ return {
 	-- {npc:2276} Magistrate Henry Maleb
 	["{npc:2276}, inside: keep it, the Syndicate camp waits for the road north to Arathi (05-arathi-highlands)"] = "{npc:2276}, 안쪽: 보관하세요. 비밀결사대 야영지는 북쪽 아라시로 가는 길(05-arathi-highlands)에서 처리합니다",
 
-	-- Step 35: Bartolo Ginsetti
+	-- Step 44: Bartolo Ginsetti
 	-- {npc:2438} Bartolo Ginsetti · {item:3719} Hillman's Cloak · {skill:165} Leatherworking · {item:2997} Bolt of Woolen Cloth · {skill:197} Tailoring
 	["{npc:2438} makes a yeti fur cloak for anyone who brings a {item:3719} ({skill:165}) and a {item:2997} ({skill:197}); no vendor sells either, so this step shows only when you carry both."] = "",
 	-- {npc:2438} Bartolo Ginsetti · {item:3719} Hillman's Cloak · {item:2997} Bolt of Woolen Cloth
 	["{npc:2438}, between the flight master and the inn: he wants a {item:3719} and a {item:2997} too"] = "",
 
-	-- Step 36: Torn Fin murlocs
+	-- Step 45: Torn Fin murlocs
 	["Torn Fin murlocs"] = "너덜지느러미멀록",
 	-- {area:295} Western Strand · {area:271} Southshore
 	["The Torn Fin murlocs crowd the {area:295}, south-west of {area:271}.\nCareful: One camp holds a tight cluster of Oracles that all aggro together."] = "너덜지느러미멀록이 {area:271} 남서쪽 {area:295}에 몰려 있습니다.\n주의: 한 야영지에는 신탁자가 빽빽이 모여 있어 한꺼번에 덤벼듭니다.",
 
-	-- Step 37: Farren
+	-- Step 46: Farren
 	["Farren"] = "파렌",
 	["Inside"] = "",
 
-	-- Step 38: Murloc heads
+	-- Step 47: Murloc heads
 	["Murloc heads"] = "멀록 머리",
 	["Back to the same murlocs; not every one drops a head."] = "같은 멀록에게 돌아가십시오. 모두 머리를 떨어뜨리지는 않습니다.",
 
-	-- Step 40: Daggerspine naga
+	-- Step 49: Daggerspine naga
 	["Daggerspine naga"] = "비수가시일족 나가",
 	-- {area:271} Southshore
 	["The naga hold the shore south-east of {area:271}."] = "나가가 {area:271} 남동쪽 해안을 차지하고 있습니다.",
 
-	-- Step 41: Farren
+	-- Step 50: Farren
 	-- {object:2117} Stormwind Keep
 	["A report for {object:2117}; inside"] = "{object:2117}에 보낼 보고서, 안",
 
-	-- Step 43: Southshore
+	-- Step 52: Southshore
 	-- {npc:251493} Captain McManus · {quest:98059} Hillsbrad's Hoard · {item:279386} Sealed Company Request · {area:287} Hillsbrad · {area:271} Southshore
 	["{npc:251493} stands north-west of the flight master, on the way north to the yeti cave.\n{quest:98059}: {npc:251493} hands you a {item:279386} for the {area:287} council, in the farms west of {area:271}."] = "{npc:251493}은(는) 비행 조련사 북서쪽, 북쪽 설인 동굴로 가는 길에 있습니다.\n{quest:98059}: {npc:251493}이(가) {area:271} 서쪽 농장에 있는 {area:287} 의회에 전할 {item:279386}을(를) 줍니다.",
 
-	-- Step 44: Yeti cave
+	-- Step 53: Yeti cave
 	["Yeti cave"] = "설인 동굴",
 	-- {area:271} Southshore · {area:277} Foothill Caverns · {npc:13602} The Abominable Greench
 	-- plural, as words: Giant Yetis = {npc:2251} Giant Yeti
 	["The yetis live in the cave in the hills north of {area:271}.\nStay in the {area:277}: the cave further north has Mountain and Giant Yetis (32-34) in pairs and {npc:13602}, a level 36 elite."] = "설인들은 {area:271} 북쪽 언덕의 동굴에 삽니다.\n{area:277}에만 머무르세요. 더 북쪽의 동굴에는 산악 설인과 거대한 설인(32-34)이 짝을 지어 있고, 36레벨 정예 {npc:13602}도 있습니다.",
 
-	-- Step 45: Hillsbrad Fields
+	-- Step 54: Hillsbrad Fields
 	-- {area:271} Southshore · {area:286} Hillsbrad Fields
 	["West from {area:271} to the {area:286} farms."] = "{area:271}에서 서쪽으로 {area:286} 농장까지 가십시오.",
 
-	-- Step 46: Hillsbrad council
+	-- Step 55: Hillsbrad council
 	-- {area:287} Hillsbrad
 	["{area:287} council"] = "",
 	-- {item:279386} Sealed Company Request · {area:287} Hillsbrad
 	["Use the {item:279386} at the {area:287} council."] = "",
 
-	-- Step 47: Snapjaws
+	-- Step 56: Snapjaws
 	["Snapjaws"] = "무쇠턱거북",
 	-- {area:271} Southshore · {area:272} Tarren Mill
 	["The Snapjaw turtles bask along the river east of {area:271}, south of {area:272} (Horde)."] = "무쇠턱거북이 {area:271} 동쪽, {area:272}(호드) 남쪽 강을 따라 햇볕을 쬡니다.",
 
-	-- Step 49: Fly to Ironforge
+	-- Step 58: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "{area:1537}(으)로 비행",
 	-- {area:271} Southshore
 	["{area:271} flight master"] = "",
 
-	-- Step 50: Hall of Explorers
+	-- Step 59: Hall of Explorers
 	-- {npc:1356} Prospector Stormpike · {npc:2916} Historian Karnik · {npc:5637} Roetten Stonehammer · {object:32356} Hall of Explorers (no name in this language: may be words)
 	["{npc:1356}, {npc:2916} and {npc:5637} stand in the {object:32356}, north-east of the flight master."] = "",
 	["Level 30 and 32 spells"] = "30, 32레벨 주문",
 
-	-- Step 53: Sara Balloo
+	-- Step 62: Sara Balloo
 	-- {npc:2695} Sara Balloo · {zone:1455} Ironforge
 	["{npc:2695}: for King Magni, on the same {zone:1455} stop"] = "{npc:2695}: 국왕 마그니 브론즈비어드에게, 같은 {zone:1455} 방문 때",
 
-	-- Step 55: Fly to Stormwind
+	-- Step 64: Fly to Stormwind
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "{zone:1453}로 비행",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "{zone:1455} 비행 조련사",
 
-	-- Step 56: Elling Trias
+	-- Step 65: Elling Trias
 	-- {object:2096} Trade District
 	["The cheese shop in the {object:2096}."] = "{object:2096}의 치즈 가게입니다.",
 
-	-- Step 57: Dashel Stonefist
+	-- Step 66: Dashel Stonefist
 	-- {npc:4961} Dashel Stonefist · {object:2100} Old Town
 	["{npc:4961} waits in the Pig and Whistle tavern in {object:2100}; he and his two thugs fight you, but stop once beaten."] = "{npc:4961}은(는) {object:2100}의 돼지와 휘파람 선술집에서 기다립니다. 그와 부하 둘이 덤벼들지만 쓰러뜨리면 멈춥니다.",
 	-- {npc:4961} Dashel Stonefist
 	["Beat {npc:4961} and his thugs: they give up"] = "",
 
-	-- Step 58: The Islander
+	-- Step 67: The Islander
 	-- {npc:5479} Wu Shen · {object:2100} Old Town · {npc:6236} Klannoc Macleod · {area:720} Fray Island · {zone:1413} Barrens · {area:392} Ratchet
 	["{npc:5479} trains warriors in {object:2100}, beside the Pig and Whistle. {npc:6236} waits on {area:720} in the {zone:1413}, on the way to {area:392} much later (40-50/01)."] = "{npc:5479}은(는) {object:2100}의 돼지와 휘파람 선술집 옆에서 전사를 가르칩니다. {npc:6236}은(는) {zone:1413}의 {area:720}에서 기다립니다. 한참 뒤 {area:392}(으)로 가는 길에 있습니다(40-50/01).",
 
-	-- Step 60: Cathedral of Light
+	-- Step 69: Cathedral of Light
 	["Cathedral of Light"] = "빛의 대성당",
 
-	-- Step 62: Mage Quarter
+	-- Step 71: Mage Quarter
 	-- {npc:2708} Archmage Malin · {npc:4078} Collin Mauren · {object:2164} Slaughtered Lamb · {npc:5081} Connor Rivers · {object:2101} Mage Quarter
 	["{npc:2708} and {npc:4078} are in the {object:2164}; {npc:5081} south of the {object:2101}."] = "{npc:2708}와(과) {npc:4078}은(는) {object:2164}에, {npc:5081}은(는) {object:2101} 남쪽에 있습니다.",
 	-- {npc:4078} Collin Mauren · {area:2240} Mirage Raceway
 	-- plural, as words: Saltstone Basilisks = {npc:4147} Saltstone Basilisk
 	["{npc:4078}: the Saltstone Basilisks at the {area:2240} drop the scales, in the next guide"] = "{npc:4078}: 다음 가이드에서 {area:2240}의 소금바위 바실리스크가 비늘을 떨어뜨립니다",
 
-	-- Step 63: Druid training
+	-- Step 72: Druid training
 	["Druid training"] = "드루이드 수련",
 	-- {zone:1455} Ironforge · {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {object:2101} Mage Quarter
 	["{zone:1455} has no druid trainer: {npc:5504} stands in {zone:1453}, north-west of the {object:2101}."] = "{zone:1455}에는 드루이드 상급자가 없습니다. {npc:5504}은(는) {zone:1453}의 {object:2101} 북서쪽에 있습니다.",

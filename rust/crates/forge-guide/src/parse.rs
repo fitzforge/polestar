@@ -104,7 +104,8 @@ pub const MODS: [(&str, &[&str]); 36] = [
 	("money", &["text", "optional", "only", "either"]),
 	("task", &["optional", "only", "either", "at", "map", "r", "frame"]),
 	("note", &["optional", "only", "at", "map", "r", "frame"]),
-	("skill", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame"]),
+	// `skill <Profession> <N> nearest`: the step's `goto` points are its places; the arrow takes the nearest (#2529).
+	("skill", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "nearest"]),
 	("learn", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame", "npc", "item", "nearest"]),
 	// `cast <spellId> ["Name"]`: the player casts that spell while the goal is open.
 	("cast", &["text", "optional", "only", "group", "either", "at", "map", "r", "frame"]),

@@ -1,0 +1,41 @@
+name: Merge queue
+
+# The merge queue's run of `Base branch`, a check next requires (docs/CI.md, "Merge queue").
+# pr-base.yml reports it for pull requests on pull_request_target, which GitHub never starts for a
+# merge group; a group only holds pull requests already based on the branch the queue merges into,
+# so here the check only holds the group's base to the branches pull requests may target. Tests and
+# Format, lints, tests run for the group from ci.yml and forge.yml.
+# merge_group only, and nothing checked out: no pull request's code runs here.
+
+on:
+  merge_group:
+
+permissions: {}
+
+concurrency:
+  group: merge-queue-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  base:
+    name: Base branch
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - name: Next, a release, hotfix or feature branch
+        shell: bash
+        env:
+          BASE: ${{ github.event.merge_group.base_ref }}
+        run: |
+          case "$BASE" in
+            refs/heads/next | refs/heads/release/* | refs/heads/hotfix/* | refs/heads/feature/*) ;;
+            *)
+              echo "::error::A merge group for ${BASE#refs/heads/}: pull requests go to next (CONTRIBUTING.md, \"Branches\")."
+              exit 1
+              ;;
+          esac
+          {
+            echo "## Base branch: ${BASE#refs/heads/}"
+            echo
+            echo "A merge group on ${BASE#refs/heads/}: nothing else to check."
+          } >> "$GITHUB_STEP_SUMMARY"

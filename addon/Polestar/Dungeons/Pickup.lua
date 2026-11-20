@@ -414,9 +414,11 @@ local function insideOnly(r)
 			local within, outside = false, false
 			for _, src in ipairs(sources) do
 				local x = (src.type == "drop" and src.npc and C.Npc(src.npc)) or (src.type == "object" and src.object and C.Object(src.object)) or nil
-				if not x then
+				if (src.type == "drop" or src.type == "object") and src.instance then
+					within = true -- the Codex names its instance, even for an object it holds no record of (#2883)
+				elseif not x then
 					outside = true -- a vendor, a craft, a source the Codex does not hold
-				elseif src.instance or x.instance then
+				elseif x.instance then
 					within = true
 				elseif x.spawns and #x.spawns > 0 then
 					outside = true
@@ -1889,6 +1891,14 @@ function Dungeons.PickupGuide(key)
 		watched[#watched + 1] = { id = w.quest.id, title = w.quest.title, level = w.level }
 	end
 	Dungeons.watch[key] = watched
+	-- What the run uses that no quest gives (#2338: the Mallet of Zul'Farrak,
+	-- which calls Gahz'rilla): each of the page's `item` entries for this
+	-- character's side that is not in the bags, with its note on how to get it.
+	for _, a in ipairs(Dungeons.Attunements(key, LK().PlayerInfo().code)) do
+		if a.kind == "item" and a.note and not Dungeons.AttunementState(a).done then
+			last.goals[#last.goals + 1] = { t = "note", text = format(L["%s: %s"], a.item and a.item.name or a.name, L[a.note]) }
+		end
+	end
 	local e = d.entrance
 	if located(e) then
 		-- A way in through the other faction's land says so on the step.

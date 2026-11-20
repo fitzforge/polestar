@@ -1,5 +1,5 @@
 {
-	"_about": "Attunements and keys per Codex instance (tools/lib/codex/attunements.js, docs/ARCHITECTURE.md, 'Codex'). Each entry names only its goal (the quests that end the chain, or the key item) and our own one-line note; the steps are built from the Codex's quests (pre, preAny), items (sources) and npcs. `links` adds a prerequisite our quest data lacks, each with its public source. `inside` places an NPC or object of a chain that has no open-world spawn and that the Codex places in no instance (a quest giver, turn-in or objective inside a dungeon), with its public source. `removed` lists what Forever took out, with the evidence. Sources checked on 2026-10-15 against client build 1.60.1.70374.",
+	"_about": "Attunements and keys per Codex instance (tools/lib/codex/attunements.js, docs/ARCHITECTURE.md, 'Codex'). Each entry names only its goal (the quests that end the chain, or the key item) and our own one-line note; the steps are built from the Codex's quests (pre, preAny), items (sources) and npcs. `via` names the item a goal item is made from (its drops become the steps; the note says how it is made). `links` adds a prerequisite our quest data lacks, each with its public source. `inside` places an NPC or object of a chain that has no open-world spawn and that the Codex places in no instance (a quest giver, turn-in or objective inside a dungeon), with its public source. `removed` lists what Forever took out, with the evidence. Sources checked on 2026-10-15 against client build 1.60.1.70374.",
 	"attunements": [
 		{
 			"key": "molten-core",
@@ -167,6 +167,17 @@
 				"96984": { "pre": [92434], "source": { "edition": "forever", "kind": "quest", "id": 96984, "note": "series: Blood in the Streets, Heart of Disruption, Shrewd Negotiations" } }
 			},
 			"sources": [{ "edition": "forever", "kind": "item", "id": 277507 }, { "edition": "forever", "kind": "quest", "id": 96984 }, { "edition": "forever", "kind": "guide", "ref": "city-of-dalaran-dungeon-overview-location-rewards" }]
+		},
+		{
+			"key": "zulfarrak",
+			"id": "mallet",
+			"name": "Mallet of Zul'Farrak",
+			"kind": "item",
+			"need": "one",
+			"item": 9240,
+			"via": 9241,
+			"note": "Rings the gong by the sacred pool in Zul'Farrak to call Gahz'rilla; one mallet does it for the group. Qiaga the Keeper (elite) on top of the Altar of Zul in the Hinterlands drops the Sacred Mallet: use it at the altar at the very top of Jintha'Alor and it becomes the Mallet of Zul'Farrak. Both places are full of elites.",
+			"sources": [{ "edition": "forever", "kind": "item", "id": 9240 }, { "edition": "forever", "kind": "item", "id": 9241 }, { "edition": "forever", "kind": "npc", "id": 7996 }]
 		}
 	],
 	"inside": [

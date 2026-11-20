@@ -934,7 +934,21 @@ fn nearby_the_tracking_menus_carry_a_nearby_services_submenu_with_every_kind_pic
 	assert_eq!(out["title"], "Nearby services");
 	assert_eq!(
 		out["texts"],
-		json!(["Profession trainer", "Class trainer", "Weapon master", "Repair", "Reagents", "Vendor", "Innkeeper", "Bank", "Mailbox", "Auction house", "Flight master", "Stable master"])
+		json!([
+			"Profession trainer",
+			"Class trainer",
+			"Weapon master",
+			"Repair",
+			"Reagents",
+			"Vendor",
+			"Innkeeper",
+			"Bank",
+			"Mailbox",
+			"Auction house",
+			"Flight master",
+			"Stable master",
+			"Transmogrifier"
+		])
 	);
 	assert_eq!(out["trainers"], json!(["Nearest", "Alchemy", "Mining"]), "no riding trainer");
 	assert_eq!(out["label"], "Far Smith");
@@ -1241,11 +1255,14 @@ fn nearby_the_guide_window_s_list_puts_the_everyday_services_first_then_a_traine
 	]
 	.concat());
 	let (mining, none) = (&out[0], &out[1]);
-	assert_eq!(mining["texts"], json!(["Vendor", "Repair", "Innkeeper", "Flight master", "Class trainer", "Mining trainer", "-", "Reagents", "Bank", "Mailbox", "Auction house", "Stable master"]));
+	assert_eq!(
+		mining["texts"],
+		json!(["Vendor", "Repair", "Innkeeper", "Flight master", "Class trainer", "Mining trainer", "-", "Reagents", "Bank", "Mailbox", "Auction house", "Stable master", "Transmogrifier"])
+	);
 	assert_eq!(mining["key"], "trainer");
 	assert_eq!(
 		*none,
-		json!(["Vendor", "Repair", "Innkeeper", "Flight master", "Class trainer", "Profession trainer", "-", "Reagents", "Bank", "Mailbox", "Auction house", "Stable master"]),
+		json!(["Vendor", "Repair", "Innkeeper", "Flight master", "Class trainer", "Profession trainer", "-", "Reagents", "Bank", "Mailbox", "Auction house", "Stable master", "Transmogrifier"]),
 		"no profession yet: the nearest trainer of any"
 	);
 }

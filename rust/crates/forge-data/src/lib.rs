@@ -12,6 +12,8 @@ pub mod client;
 pub mod cmangos;
 pub mod codex;
 pub mod corrections;
+pub mod credit;
+pub mod diff;
 pub mod dungeons;
 pub mod extras;
 pub mod factions;

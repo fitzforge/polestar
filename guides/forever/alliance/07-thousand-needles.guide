@@ -34,6 +34,13 @@ step Councilman Millstipe
 
 # ---------------------------------------------------------------- Worgen
 
+step Calor
+  when !onquest 173
+  when !turnedin 173
+  zone Duskwood
+  tip You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it.
+  accept 173                              -- Calor, by the town hall
+
 step Nightbane Shadow Weavers
   tip The worgen hold the woods of Brightwood, west of Darkshire and north of the road. Pull them one at a time.
   kill 533 quest 173                      -- Nightbane Shadow Weaver

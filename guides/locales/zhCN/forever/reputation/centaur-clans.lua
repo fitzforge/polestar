@@ -94,7 +94,7 @@ return {
 	["Gelkis: the valley's mouth"] = "吉尔吉斯：山谷入口",
 	-- {quest:92846} Outcast Necromancers · {npc:253177} Nerlokh · {npc:253136} Orgrul
 	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager
-	["From the quest data: the Undead Ravagers and the {quest:92846} fill the valley from {npc:253177} north-east to {npc:253136}'s post at its northern mouth; players have met them all along it. {npc:253136}'s Magram are hostile to a friend of the Gelkis. Corpsefeeders, elite and level 45, walk the valley and attack anyone."] = "根据任务数据：亡灵劫掠者和{quest:92846}遍布山谷，从{npc:253177}向东北一直到山谷北侧入口{npc:253136}的哨点；玩家在沿途都遇到过它们。{npc:253136}手下的玛格拉姆对吉尔吉斯的朋友怀有敌意。食尸者（45级，精英）在山谷中走动，会攻击任何人。",
+	["From the quest data: the Undead Ravagers and the {quest:92846} fill the valley from {npc:253177} north-east to {npc:253136}'s post at its northern mouth; players have met them all along it. {npc:253136}'s Magram are hostile to a friend of the Gelkis. Corpsefeeders, elite and level 45, walk the valley and attack anyone.\nCareful: Undead Ravagers up to level 45 can roam the valley: watch for them."] = "根据任务数据：亡灵劫掠者和{quest:92846}遍布山谷，从{npc:253177}向东北一直到山谷北侧入口{npc:253136}的哨点；玩家在沿途都遇到过它们。{npc:253136}手下的玛格拉姆对吉尔吉斯的朋友怀有敌意。食尸者（45级，精英）在山谷中走动，会攻击任何人。\n小心：最高45级的亡灵劫掠者可能在山谷中游荡，请留意。",
 
 	-- Step 13: Gelkis: Facing the Truth
 	-- {quest:93041} Facing the Truth

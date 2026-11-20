@@ -42,7 +42,7 @@ return {
 
 	-- Step 7: Hornizz Brimbuzzle
 	-- {quest:6134} Ghost-o-plasm Round Up · {area:2657} Valley of Bones
-	-- plural, as words: Magram Necrokhans = {npc:253274} Magram Necrokhan
+	-- plural, as words: Magrami Spectres = {npc:11560} Magrami Spectre · Magram Necrokhans = {npc:253274} Magram Necrokhan
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:6134}'s magnets draw the Magrami Spectres a few yards from the Magram Necrokhans and Corpsefeeders (45, elite) in the {area:2657}. Skip it if you are alone."] = "Das sind Elite-Mobs: Eine Gruppe wird empfohlen, such dir Leute dafür. Die Magneten von {quest:6134} locken die Magrami-Gespenster ein paar Meter von den Nekrokhans und Leichenfressern der Magram (45, Elite) im {area:2657} weg. Überspring sie, wenn du allein bist.",
 
 	-- Step 8: Flesh Picker
@@ -80,6 +80,7 @@ return {
 	-- Step 13: The ghost magnets
 	["The ghost magnets"] = "Die Geistermagneten",
 	-- {item:15848} Crate of Ghost Magnets
+	-- plural, as words: Magrami Spectres = {npc:11560} Magrami Spectre
 	["Use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres; the Necrokhans and Corpsefeeders (45, elite) walk close by: keep the group together."] = "Benutze {item:15848} an seinem Pfeil, auf der Ostseite der Felder, um die Magrami-Gespenster anzulocken; die Nekrokhane und Leichenfresser (45, Elite) laufen ganz in der Nähe: Bleibt als Gruppe zusammen.",
 
 	-- Step 14: Mannoroc Coven
@@ -107,8 +108,8 @@ return {
 	-- Step 20: Sar'theris Strand: kill these as you meet them
 	-- {area:598} Sar'theris Strand
 	["{area:598}: kill these as you meet them"] = "{area:598}: Töte diese, sobald sie dir begegnen",
-	-- {npc:11863} Azore Aldamort · {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
-	["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "Die Naga der Schlitterklingen halten die Nordwestküste nördlich des Turms von {npc:11863}; Karnitols Tasche liegt davor auf dem Meeresgrund, und jeder Naga kann Rackmores goldenen Schlüssel fallen lassen. Schwimm hinaus nach {area:2406} vor der äußersten Nordspitze und benutze {item:15766} an {object:177673}: {npc:12369} (38) erscheint; töte ihn für {quest:6027}.",
+	-- {npc:11863} Azore Aldamort · {spell:131} Water Breathing · {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
+	["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower, on the shore and out in the water. Karnitol's satchel drops now and then from their Tidehunters and Sea Witches, most of them underwater ({spell:131} helps): take it if it comes, it is optional. Any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "",
 	-- {item:15881} Rackmore's Golden Key
 	["{item:15881}, from the Slitherblade naga"] = "{item:15881}, von den Naga der Schlitterklingen",
 	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue
@@ -131,6 +132,7 @@ return {
 	["The next guide starts in Theramore."] = "Der nächste Guide beginnt in Theramore.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "Die Naga der Schlitterklingen halten die Nordwestküste nördlich des Turms von {npc:11863}; Karnitols Tasche liegt davor auf dem Meeresgrund, und jeder Naga kann Rackmores goldenen Schlüssel fallen lassen. Schwimm hinaus nach {area:2406} vor der äußersten Nordspitze und benutze {item:15766} an {object:177673}: {npc:12369} (38) erscheint; töte ihn für {quest:6027}.",
 	-- ["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "Die Dämonen sammeln sich am {area:602} im Süden von {zone:1443}: Höllenhunde (Mana Eaters, Mage und Ley Hunters), Nether Maidens und Sisters sowie Doomwarder Captains rund um die Grube.\nVorsicht: Die meisten Mobs hier laufen Patrouillenrouten, sodass du leicht zusätzliche Mobs ziehst.",
 	-- ["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them."] = "Untote Verwüster streifen über die Knochenfelder südlich des Dorfes der Magram, östlich des Zirkels: Der Pfeil führt zu ihrem Westrand. Benutze dann {item:15848} an seinem Pfeil, auf der Ostseite der Felder, um die Magrami-Gespenster anzulocken. Vorsicht: Nekrokhane und Leichenfresser der Magram (45, Elite) laufen mit Nekromanten der Magram (42) über die Knochenfelder zwischen den beiden Pfeilen: Zieh die Verwüster und die Gespenster zu dir, weg von ihnen.",
 	-- ["{object:177787} lies beside {object:35251}. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "{object:177787} liegt neben {object:35251}. Sein silberner Schlüssel wird von den Trockenschnappkrebsen rund um das Wrack fallen gelassen; der goldene stammt von den Naga der Schlitterklingen an der Nordwestküste, als Nächstes.",

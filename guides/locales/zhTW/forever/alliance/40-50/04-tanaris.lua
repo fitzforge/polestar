@@ -10,7 +10,7 @@ return {
 	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {zone:1441} Thousand Needles · {npc:4454} Fizzle Brassbolts
 	["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, Zamek by the goblin camp."] = "{area:2240}位於{zone:1441}東南部的{area:439}：{npc:4454}在賽道旁的地精營地內，札米克在哥布林營地旁。",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
-	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "",
+	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "{npc:4454}：{quest:1137}，來自{zone:1418}的馬特克",
 
 	-- Step 4: Gadgetzan
 	-- {area:439} Shimmering Flats · {zone:1446} Tanaris · {area:976} Gadgetzan
@@ -40,7 +40,7 @@ return {
 	-- {npc:7847} Caliph Scorpidsting · {area:976} Gadgetzan
 	["The same poster: {npc:7847} comes much later, after {area:976}"] = "同一張告示：{npc:7847}要很久以後才會出現，在{area:976}之後",
 	-- {npc:7882} Security Chief Bilgewhizzle
-	["{npc:7882}, inside"] = "",
+	["{npc:7882}, inside"] = "{npc:7882}，室內",
 	-- {npc:7882} Security Chief Bilgewhizzle · {quest:97530} Dunemaul Dues
 	["{npc:7882}: {quest:97530}, the bangles come from the ogres on your way south"] = "{npc:7882}：{quest:97530}，手鐲來自你南下途中的巨魔",
 	-- {npc:7881} Stoley
@@ -48,7 +48,7 @@ return {
 
 	-- Step 7: Noonshade Ruins: kill these as you meet them
 	-- {area:1937} Noonshade Ruins
-	["{area:1937}: kill these as you meet them"] = "",
+	["{area:1937}: kill these as you meet them"] = "{area:1937}：遇到就殺",
 	-- {area:976} Gadgetzan
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["Ride back west toward {area:976}. The Wastewander bandits and thieves hold the dunes on the way; any of them can carry a water pouch.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "向西騎回{area:976}。廢土強盜和廢土竊賊佔據沿途的沙丘；他們都可能帶著水袋。\n小心：廢土遊蕩者（43-44級）會潛行移動，可能在你沒察覺時接近。",
@@ -60,20 +60,20 @@ return {
 
 	-- Step 10: Lost Rigger Cove: kill these as you meet them
 	-- {area:1336} Lost Rigger Cove
-	["{area:1336}: kill these as you meet them"] = "",
+	["{area:1336}: kill these as you meet them"] = "{area:1336}：遇到就殺",
 	-- {npc:7883} Andre Firebeard · {npc:7881} Stoley
 	["Follow the coast south to the pirate cove. Southsea pirates crowd the beach and the boats: work along the edge and pull one at a time. {npc:7883} stands on the far side; {npc:7881}'s stolen cargo lies in the camp.\nCareful: Two or three pirates stand with {npc:7883}, and many more pirates from the town join the fight once it starts."] = "沿著海岸向南前往海盜灣。南海海盜擠滿了海灘和船隻：沿著邊緣推進，一次拉一隻。{npc:7883}站在另一頭；{npc:7881}被偷的貨物在營地裡。\n小心：{npc:7883}身邊站著兩三個海盜，戰鬥一開始，城裡還會有更多海盜加入。",
 	-- {quest:2873} Stoley's Shipment
-	["{quest:2873}; upstairs"] = "",
+	["{quest:2873}; upstairs"] = "{quest:2873}；樓上",
 
 	-- Step 11: Steamwheedle Port
 	-- {npc:7881} Stoley
-	["{npc:7881}, inside"] = "",
+	["{npc:7881}, inside"] = "{npc:7881}，室內",
 	-- {area:35} Booty Bay · {zone:1425} Hinterlands
-	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {zone:1425} guide, keep it"] = "",
+	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {zone:1425} guide, keep it"] = "{area:35}的“海狼”麥金利：路線在{zone:1425}指南結尾會帶你過去，留著它",
 
 	-- Step 12: Noonshade Ruins
-	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "",
+	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "注意：竊賊會施放繳械。盜賊用潛行保持隱蔽。刺客在你血量20%或更低時使用斬殺。",
 
 	-- Step 15: The pool by Sandsorrow Watch
 	-- {area:979} Sandsorrow Watch
@@ -130,7 +130,8 @@ return {
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "護送{npc:5955}",
 	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley · {npc:6015} Torta · {area:977} Steamwheedle Port
-	["The little turtle {npc:5955} hides at the north end of the {quest:3362}: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "小烏龜{npc:5955}躲在{quest:3362}北端：從邊緣把他帶走，別去惹薊棘灌木（48-50級）。帶他回家找他的妻子{npc:6015}，她在{area:977}東邊不遠的水邊：他走得很慢，沙漠的野獸會攻擊他，所以要保住他的性命。",
+	-- was: ["The little turtle {npc:5955} hides at the north end of the {quest:3362}: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "小烏龜{npc:5955}躲在{quest:3362}北端：從邊緣把他帶走，別去惹薊棘灌木（48-50級）。帶他回家找他的妻子{npc:6015}，她在{area:977}東邊不遠的水邊：他走得很慢，沙漠的野獸會攻擊他，所以要保住他的性命。"
+	["The little turtle {npc:5955} wanders the west edge of the {quest:3362}, most often where the arrow leads: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "",
 	-- {npc:5955} Tooga
 	["{npc:5955}, beside her: Oasis"] = "{npc:5955}，在她旁邊：綠洲",
 
@@ -141,7 +142,7 @@ return {
 	-- Step 26: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
-	["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "",
+	["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "騎馬向東南前往{area:985}。{npc:7847}站在廢土營地南部的中央：先清掉他周圍。\n注意：兩名潛行的廢土盜賊跟著他移動。在他出現的營地，兩名暗法師及其僕從距離很近，能加入與他的戰鬥。在塔樓外則可以不受他們干擾地打他。",
 
 	-- Step 28: Fly to Auberdine
 	-- {area:442} Auberdine
@@ -192,9 +193,9 @@ return {
 
 	-- Step 42: Fly to Aerie Peak
 	-- {area:348} Aerie Peak
-	["Fly to {area:348}"] = "",
+	["Fly to {area:348}"] = "飛往{area:348}",
 	-- {area:150} Menethil Harbor
-	["{area:150} flight master"] = "",
+	["{area:150} flight master"] = "{area:150}飛行管理員",
 
 	-- Step 43: Fly to Southshore
 	-- {area:271} Southshore
@@ -206,9 +207,9 @@ return {
 
 	-- Step 45: Aerie Peak
 	-- {npc:5636} Gryphon Master Talonaxe
-	["{npc:5636}, beside the flight master"] = "",
+	["{npc:5636}, beside the flight master"] = "{npc:5636}，在飛行管理員旁",
 	-- {npc:7884} Fraggar Thundermantle
-	["{npc:7884}, inside"] = "",
+	["{npc:7884}, inside"] = "{npc:7884}，室內",
 	-- {npc:5636} Gryphon Master Talonaxe · {quest:86620} Fledgling Rescue · {area:348} Aerie Peak
 	["{npc:5636}: {quest:86620}, the eggs in the hills just east of {area:348}"] = "{npc:5636}：{quest:86620}，蛋在{area:348}東邊不遠的山丘上",
 	-- {npc:270263} Farseer Maret Firetend · {quest:86616} Repurposed Totems · {area:355} Altar of Zul
@@ -231,6 +232,7 @@ return {
 	-- ["Rizzle's plans"] = "瑞茲爾的設計圖",
 	-- ["The Wanted poster by {npc:7882}"] = "{npc:7882}旁邊的通緝告示",
 	-- ["The little turtle {npc:5955} hides at the north end of the valley. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "小烏龜{npc:5955}躲在山谷北端。帶他回家找他的妻子{npc:6015}，她在{area:977}東邊的水邊：他走得很慢，沙漠的野獸會攻擊他，所以要保住他的性命。",
+	-- ["The little turtle {npc:5955} hides at the north end of the {quest:3362}: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "小烏龜{npc:5955}躲在{quest:3362}北端：從邊緣把他帶走，別去惹薊棘灌木（48-50級）。帶他回家找他的妻子{npc:6015}，她在{area:977}東邊不遠的水邊：他走得很慢，沙漠的野獸會攻擊他，所以要保住他的性命。",
 	-- ["Underwater"] = "在水下",
 	-- ["Wastewander bandits"] = "廢土強盜",
 	-- ["While {npc:4709} keeps Rizzle talking, his plans lie unguarded in the gnome camp across the track."] = "趁{npc:4709}拖住瑞茲爾說話時，他的設計圖就無人看守地放在賽道對面的地精營地裡。",

@@ -124,12 +124,17 @@ return {
 	-- {npc:4456} Fiora Longears · {area:514} Foothold Citadel · {npc:4941} Caz Twosprocket
 	["{npc:4456} is in the north of town, Captain Vimes in {area:514}; {npc:4941} stands in the town."] = "{npc:4456} est au nord de la ville, le capitaine Vimes à {area:514} ; {npc:4941} se tient en ville.",
 
-	-- Step 23: Boat to Menethil Harbor
-	-- {area:150} Menethil Harbor
-	["Boat to {area:150}"] = "Bateau pour {area:150}",
+	-- Step 23: Ratchet
+	-- {zone:1413} Barrens · {area:392} Ratchet · {area:35} Booty Bay
+	["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock."] = "Depuis Theramore, suivez la route vers le nord-ouest à travers le marais jusqu'à {zone:1413} et remontez la côte jusqu'à {area:392} : Strangleronce commence à {area:35}, de l'autre côté de la mer. Le maître des griffons de {area:392} se tient au-dessus du quai.",
+
+	-- Step 24: Boat to Booty Bay
+	-- {area:35} Booty Bay
+	["Boat to {area:35}"] = "Bateau pour {area:35}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back west along the road to the satyr camps of {area:429}."] = "Retournez vers l'ouest par la route jusqu'aux camps de satyres de {area:429}.",
+	-- ["Boat to {area:150}"] = "Bateau pour {area:150}",
 	-- ["Dartol's Rod"] = "Bâtonnet de transformation de Dartol",
 	-- ["Fly to {area:442}"] = "Prendre un vol pour {area:442}",
 	-- ["Follow the road east to the satyr camps of {area:429}; {npc:3920} hides at their edge."] = "Suivez la route vers l'est jusqu'aux camps de satyres de {area:429} ; {npc:3920} se cache à leur lisière.",

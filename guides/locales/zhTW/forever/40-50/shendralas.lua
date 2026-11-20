@@ -20,7 +20,7 @@ return {
 
 	-- Step 2: Fly to Shadowprey Village
 	-- {area:2408} Shadowprey Village
-	["Fly to {area:2408}"] = "",
+	["Fly to {area:2408}"] = "飛往{area:2408}",
 	-- {zone:2652} Shen'dralas · {area:405} Desolace · {area:2657} Valley of Bones · {zone:1454} Orgrimmar · {object:3202} Grom'gol · {zone:1458} Undercity
 	["New in Forever: this guide follows what players did in {zone:2652}. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\n{zone:2652} lies south of {area:405}, through the {area:2657}, and has no flight path of its own. Its quests are for levels 41-45. Coming from the Eastern Kingdoms, take the zeppelin to {zone:1454} first (from {object:3202} or the {zone:1458})."] = "Forever新內容：本指南依照玩家在{zone:2652}的實際流程編寫。若有步驟錯誤，請在Polestar的Discord或GitHub告訴我們，並註明是哪個步驟。\n{zone:2652}位於{area:405}南方，經由{area:2657}進入，沒有自己的飛行路線。其任務適合41-45級。若從東部王國過來，先搭飛艇到{zone:1454}（從{object:3202}或{zone:1458}出發）。",
 	-- {zone:1454} Orgrimmar

@@ -26,7 +26,7 @@ return {
 	-- {area:75} Stonard
 	["for Helgrum in {area:75}, around level 42"] = "для Хелгрума ({area:75}), примерно на 42-м уровне",
 	-- {npc:6868} Jarkal Mossmeld
-	["{npc:6868}, inside"] = "",
+	["{npc:6868}, inside"] = "{npc:6868}, внутри",
 
 	-- Step 5: Lesser Rock Elementals
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental
@@ -37,7 +37,7 @@ return {
 
 	-- Step 7: Badlands: kill these as you meet them
 	-- {zone:1418} Badlands
-	["{zone:1418}: kill these as you meet them"] = "",
+	["{zone:1418}: kill these as you meet them"] = "{zone:1418}: убивайте их по пути",
 	-- {area:1878} The Dustbowl · {zone:1418} Badlands · {npc:2817} Rigglefuzz
 	-- plural, as words: Elder Crag Coyotes = {npc:2729} Elder Crag Coyote · Giant Buzzards = {npc:2831} Giant Buzzard · Malevolent Mirages = {npc:269756} Malevolent Mirage
 	["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth.\nCareful: the Giant Buzzards are 39-41, and the 41s are two over you at 39: pick the 39s and 40s and pull them one at a time. The Buzzards (37) you kill later for {npc:2817}'s wings drop gizzards too, more rarely."] = "Старые скальные койоты и гигантские канюки бродят по котловине к югу от места {area:1878}. С койотов падают и челюсти, и клыки; с гигантских канюков – желудки. Осторожно: зловредные миражи (42, элита) бродят по зоне {zone:1418}: обходите их стороной.\nОсторожно: гигантские канюки 39-41 уровня, а 41-е на два уровня выше вас на 39-м: выбирайте 39-х и 40-х и выманивайте по одному. Канюки (37), которых вы позже бьете ради крыльев для {npc:2817}, тоже роняют желудки, но реже.",

@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Into Eastern Plaguelands
 	-- {zone:1423} Eastern Plaguelands
-	["Into {zone:1423}"] = "",
+	["Into {zone:1423}"] = "В зону {zone:1423}",
 
 	-- Step 2: Tirion Fordring
 	-- {zone:1423} Eastern Plaguelands · {npc:1855} Tirion Fordring · {area:2619} Thondroril River
@@ -53,7 +53,7 @@ return {
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "Летите сюда: {area:272}",
 	-- {area:2268} Light's Hope Chapel
-	["{area:2268} flight master"] = "",
+	["{area:2268} flight master"] = "Распорядитель полетов: {area:2268}",
 
 	-- Step 12: To Sorrow Hill
 	-- {area:197} Sorrow Hill
@@ -81,7 +81,7 @@ return {
 	-- {area:272} Tarren Mill · {area:2268} Light's Hope Chapel
 	["Ride back south to {area:272} and fly to {area:2268}."] = "Езжайте обратно на юг сюда: {area:272} и летите сюда: {area:2268}.",
 	-- {area:272} Tarren Mill
-	["{area:272} flight master"] = "",
+	["{area:272} flight master"] = "Распорядитель полетов: {area:272}",
 
 	-- Step 18: Light's Hope Chapel
 	-- {quest:5168} Heroes of Darrowshire
@@ -89,7 +89,7 @@ return {
 
 	-- Step 19: Eastern Plaguelands: kill these as you meet them
 	-- {zone:1423} Eastern Plaguelands
-	["{zone:1423}: kill these as you meet them"] = "",
+	["{zone:1423}: kill these as you meet them"] = "{zone:1423}: убивайте их по пути",
 	-- plural, as words: Plaguehounds = {npc:8597} Plaguehound · Plaguebats = {npc:8600} Plaguebat · Carrion Grubs = {npc:8603} Carrion Grub
 	["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground. Careful: the biggest Plaguehounds are 56, pull them one at a time.\nThe shattered sword lies on the ground north-west of the lake."] = "Чумные псы и их карлики бродят по берегам озера к юго-западу от часовни; там же чумные нетопыри и личинки-падальщики. Осторожно: самые крупные чумные псы – 56-го уровня, выманивайте по одному.\nСломанный меч лежит на земле к северо-западу от озера.",
 
@@ -133,7 +133,7 @@ return {
 
 	-- Step 26: Plaguewood: kill these as you meet them
 	-- {area:2277} Plaguewood
-	["{area:2277}: kill these as you meet them"] = "",
+	["{area:2277}: kill these as you meet them"] = "{area:2277}: убивайте их по пути",
 	-- {area:2272} Northdale · {area:2271} Eastwall Tower · {area:2273} Zul'Mashar
 	-- plural, as words: Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound · Noxious Plaguebats = {npc:8601} Noxious Plaguebat · Monstrous Plaguebats = {npc:8602} Monstrous Plaguebat
 	["Frenzied Plaguehounds share the fields around {area:2272} and {area:2271}, south of {area:2273}; Noxious Plaguebats fly over the fields of the north, and Monstrous Plaguebats around {area:2272} and {area:2271}. Careful: the hounds are 57-58 and the biggest Monstrous Plaguebats 58: pull them one at a time."] = "Бесноватые чумные псы бродят по полям вокруг мест {area:2272} и {area:2271}, к югу от места {area:2273}; пагубные нетопыри летают над полями севера, а чудовищные чумные нетопыри – вокруг мест {area:2272} и {area:2271}. Осторожно: псы 57-58-го уровня, а самые крупные чудовищные чумные нетопыри – 58-го: выманивайте по одному.",
@@ -162,7 +162,7 @@ return {
 
 	-- Step 32: Fly to Bloodvenom Post
 	-- {area:1997} Bloodvenom Post
-	["Fly to {area:1997}"] = "",
+	["Fly to {area:1997}"] = "Летите сюда: {area:1997}",
 	-- {zone:1454} Orgrimmar · {zone:1447} Azshara
 	["Hearth to {zone:1454}: the Hearthstone is still bound there from the {zone:1447} guide (Mages teleport). Then the flight master."] = "Вернитесь камнем возвращения в город {zone:1454}: он все еще привязан там с гайда по зоне {zone:1447} (маги – телепортом). Затем к распорядителю полетов.",
 	-- {zone:1454} Orgrimmar
@@ -182,7 +182,7 @@ return {
 
 	-- Step 35: Fly to Bloodvenom Post
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Распорядитель полетов: {zone:1456}",
 
 	-- Step 37: Deadwood Cauldron
 	-- {area:1762} Felpaw Village · {area:1769} Timbermaw Hold
@@ -217,7 +217,7 @@ return {
 
 	-- Step 45: Pristine Yeti Horns
 	-- plural, as words: Pristine Yeti Horns = {item:12367} Pristine Yeti Horn
-	["Pristine Yeti Horns"] = "",
+	["Pristine Yeti Horns"] = "Нетронутые рога йети",
 	-- {area:2255} Everlook
 	["Umi's horns, carried from your last {area:2255} stop: the yeti hills start just south-east of {area:2255}. Only Matriarchs and Patriarchs drop horns, and the Patriarchs reach 58: pull them one at a time."] = "Рога для Уми, взятые при прошлой остановке ({area:2255}): холмы йети начинаются чуть к юго-востоку от места {area:2255}. Рога падают только с матриархов и патриархов, а патриархи бывают 58-го уровня: выманивайте по одному.",
 
@@ -229,7 +229,7 @@ return {
 	-- {area:976} Gadgetzan
 	["Fly to {area:976}"] = "Летите сюда: {area:976}",
 	-- {area:2255} Everlook
-	["{area:2255} flight master"] = "",
+	["{area:2255} flight master"] = "Распорядитель полетов: {area:2255}",
 
 	-- Step 48: Gaeriyan
 	-- {item:11243} Videre Elixir · {area:976} Gadgetzan · {npc:9299} Gaeriyan
@@ -255,7 +255,7 @@ return {
 
 	-- Step 54: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
-	["Fly to {area:541}"] = "",
+	["Fly to {area:541}"] = "Летите сюда: {area:541}",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "Распорядитель полетов: {area:976}",
 

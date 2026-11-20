@@ -2364,6 +2364,16 @@
  "0.4.0": [],
  "0.4.1": [
   {
+   "id": "maps.flightArcade",
+   "kind": "toggle",
+   "label": "Offer Freedoom Arcade on flights",
+   "at": [
+    "Integrations > Freedoom Arcade"
+   ]
+  }
+ ],
+ "0.4.2": [
+  {
    "id": "behavior.dungeons",
    "kind": "dropdown",
    "label": "Dungeons in my route",

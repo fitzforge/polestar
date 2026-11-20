@@ -15,8 +15,9 @@ return {
 	-- plural, as words: Vilebranch Soothsayers = {npc:4467} Vilebranch Soothsayer
 	["Vilebranch Soothsayers"] = "Veritas Vilrama",
 	-- {area:355} Altar of Zul · {npc:7996} Qiaga the Keeper · {npc:8636} Morta'gya the Keeper
-	-- plural, as words: Vilebranch Soothsayers = {npc:4467} Vilebranch Soothsayer
-	["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "Los Veritas Vilrama (46-47) recorren el terreno al pie de {area:355}: sus tótems son para Maret Firetend. Cuidado: {npc:7996} y {npc:8636} (50, élites) están en el lado sureste del altar: ataca a los Veritas por el lado oeste, lejos de ellos, y no subas al altar.",
+	-- plural, as words: Vilebranch Soothsayers = {npc:4467} Vilebranch Soothsayer · Vilebranch Totems = {item:279225} Vilebranch Totem
+	-- was: ["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "Los Veritas Vilrama (46-47) recorren el terreno al pie de {area:355}: sus tótems son para Maret Firetend. Cuidado: {npc:7996} y {npc:8636} (50, élites) están en el lado sureste del altar: ataca a los Veritas por el lado oeste, lejos de ellos, y no subas al altar."
+	["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend, and more Vilebranch Totems lie on the ground among them: pick those up too. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "",
 
 	-- Step 3: Skulk Rock
 	-- {area:351} Skulk Rock · {zone:1425} The Hinterlands
@@ -94,23 +95,16 @@ return {
 
 	-- Step 18: Booty Bay
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
-	["\"Sea Wolf\" MacKinley, if the Stranglethorn guide didn't give it"] = "\"Lobo de mar\" MacKinley, si la guía de Tuercespina no te la dio",
 	-- {npc:2487} Fleet Master Seahorn
-	["{npc:2487}, top floor, if the Stranglethorn guide didn't give it"] = "{npc:2487}, último piso, si la guía de Tuercespina no te la dio",
-	-- {npc:2494} Privateer Bloads
-	["{npc:2494}, if the Stranglethorn guide didn't give it"] = "{npc:2494}, si la guía de Tuercespina no te la dio",
+	["{npc:2487}, top floor"] = "{npc:2487}, último piso",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside, if the Stranglethorn guide didn't give it"] = "{npc:2498}, dentro, si la guía de Tuercespina no te la dio",
+	["{npc:2498}, inside"] = "",
 
 	-- Step 19: Wild Shore: kill these as you meet them
 	-- {area:43} Wild Shore
 	["{area:43}: kill these as you meet them"] = "",
 	-- {area:43} Wild Shore · {area:35} Booty Bay
 	["The charts and orders lie in the pirate camp on the {area:43}, just south of {area:35}; its Swashbucklers walk the shore. The Warlocks and Swashbucklers (41-43) are under you now."] = "Las cartas y las órdenes están en el campamento pirata de {area:43}, justo al sur de {area:35}; sus Bucaneros recorren la costa. Los Brujos y Bucaneros (41-43) ya son de nivel inferior al tuyo.",
-
-	-- Step 20: Booty Bay
-	-- {npc:2487} Fleet Master Seahorn
-	["{npc:2487}, top floor"] = "{npc:2487}, último piso",
 
 	-- Step 21: The Bloodsail captains
 	["The Bloodsail captains"] = "Los capitanes Velasangre",
@@ -127,11 +121,14 @@ return {
 	-- {npc:2537} Chucky "Ten Thumbs"
 	["Ride on north along the coast to Zanzil's village. Every Zanzil follower can drop the mixture; {npc:2537} walks the south of the camp."] = "Sigue hacia el norte por la costa hasta el poblado de Zanzil. Cualquier seguidor de Zanzil puede soltar la mezcla; {npc:2537} recorre el sur del campamento.",
 
-	-- Step 25: Maury "Club Foot" Wilkins and Jon-Jon the Crow
-	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
-	["{npc:2535} and {npc:2536}"] = "{npc:2535} y {npc:2536}",
+	-- Step 25: Maury "Club Foot" Wilkins and Jon-Jon
+	-- {npc:2535} Maury "Club Foot" Wilkins
+	-- was: ["{npc:2535} and {npc:2536}"] = "{npc:2535} y {npc:2536}"
+	["{npc:2535} and Jon-Jon"] = "",
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
 	["{npc:2535} and {npc:2536} stand together in the hills just north of Zanzil's village."] = "{npc:2535} y {npc:2536} están juntos en las colinas justo al norte del poblado de Zanzil.",
+	-- {item:3925} Jon-Jon's Golden Spyglass · {npc:2536} Jon-Jon the Crow
+	["{item:3925}, from {npc:2536}"] = "",
 
 	-- Step 26: Gorilla hills
 	["Gorilla hills"] = "Colinas de los gorilas",
@@ -152,19 +149,29 @@ return {
 	["for {npc:2616} in Theramore: keep it, the Un'Goro guide lands there"] = "para {npc:2616} en Theramore: guárdalo, la guía de Un'Goro termina allí",
 	-- {npc:2498} Crank Fizzlebub · {zone:1441} Thousand Needles
 	["{npc:2498}'s next Zanzil errand starts in {zone:1441}: skip it."] = "El siguiente encargo de {npc:2498} sobre Zanzil empieza en {zone:1441}: omítelo.",
-	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "",
 	["MacKinley's next task sends you after elite ogres: skip it."] = "La siguiente tarea de MacKinley te manda a por ogros élite: omítela.",
 
 	-- Step 30: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 34: Facing Negolash
+	-- Step 34: Negolash's bait
+	-- {npc:1494} Negolash
+	["{npc:1494}'s bait"] = "",
+	-- {npc:1494} Negolash · {quest:619} Enticing Negolash · {area:35} Booty Bay · {item:4595} Junglevine Wine · {npc:2832} Nixxrax Fillamug
+	-- plural, as words: Barbecued Buzzard Wings = {item:4457} Barbecued Buzzard Wing
+	["{npc:1494} comes only for his food: hand in {quest:619} at Captain Smotts' ruined lifeboat on the shore south-east of {area:35}, with 10 Barbecued Buzzard Wings and 5 {item:4595}, and he comes to the boat. {npc:2832}, the food and drink vendor at the inn, sells the wine. The wings are a cook's dish: if you don't cook, bring them from the Auction House."] = "",
+	-- {item:4457} Barbecued Buzzard Wing
+	["{item:4457}: in your bags already if you cook"] = "",
+	-- {object:2289} Ruined Lifeboat · {npc:1494} Negolash
+	["{object:2289}: the food goes in, {npc:1494} comes"] = "",
+
+	-- Step 35: Facing Negolash
 	-- {npc:1494} Negolash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1494} (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["\"Sea Wolf\" MacKinley, if the Stranglethorn guide didn't give it"] = "\"Lobo de mar\" MacKinley, si la guía de Tuercespina no te la dio",
 	-- ["Ashmane Boars and Redstone Basilisks share the slopes south-west of the keep. Keep clear of the Helboars further south: they are level 52."] = "Jabalíes Cenicrín y Basiliscos Rocarroja comparten las laderas al suroeste del bastión. Evita a los Jabinfernos más al sur: son de nivel 52.",
 	-- ["Back to {area:144}"] = "De vuelta a {area:144}",
 	-- ["Boars and basilisks"] = "Jabalíes y basiliscos",
@@ -185,12 +192,17 @@ return {
 	-- ["Scorpoks and snickerfangs"] = "Scorpoks e hienas risitas",
 	-- ["Step through the portal into {zone:1457}. The Temple of the Moon is in the south of the city."] = "Cruza el portal hasta {zone:1457}. El Templo de la Luna está en el sur de la ciudad.",
 	-- ["Temple of the Moon"] = "Templo de la Luna",
+	-- ["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "Los Veritas Vilrama (46-47) recorren el terreno al pie de {area:355}: sus tótems son para Maret Firetend. Cuidado: {npc:7996} y {npc:8636} (50, élites) están en el lado sureste del altar: ataca a los Veritas por el lado oeste, lejos de ellos, y no subas al altar.",
 	-- ["The bloodmages' second tier pays for the same parts with a buff item and no experience: skip it."] = "La segunda ronda de los magos de sangre paga las mismas partes con un objeto de mejora y sin experiencia: omítela.",
 	-- ["The druid trainers stand in the Enclave; {zone:1455} has none"] = "Los instructores de druidas están en el Enclave; {zone:1455} no tiene",
 	-- ["The {area:1517} dig"] = "La excavación de {area:1517}",
 	-- ["the book on her table"] = "el libro de su mesa",
 	-- ["the soil comes from {zone:1449}, later"] = "la tierra viene de {zone:1449}, más adelante",
 	-- ["{area:144} flight master"] = "Maestro de vuelo de {area:144}",
+	-- ["{npc:2487}, top floor, if the Stranglethorn guide didn't give it"] = "{npc:2487}, último piso, si la guía de Tuercespina no te la dio",
+	-- ["{npc:2494}, if the Stranglethorn guide didn't give it"] = "{npc:2494}, si la guía de Tuercespina no te la dio",
+	-- ["{npc:2498}, inside, if the Stranglethorn guide didn't give it"] = "{npc:2498}, dentro, si la guía de Tuercespina no te la dio",
+	-- ["{npc:2535} and {npc:2536}"] = "{npc:2535} y {npc:2536}",
 	-- ["{npc:3516}, at the top of the tree"] = "{npc:3516}, en lo alto del árbol",
 	-- ["{npc:7740}, beside her"] = "{npc:7740}, a su lado",
 	-- ["{npc:7744}: the last guide binds here, so this usually ticks at once"] = "{npc:7744}: la guía anterior te vincula aquí, así que esto suele marcarse al instante",

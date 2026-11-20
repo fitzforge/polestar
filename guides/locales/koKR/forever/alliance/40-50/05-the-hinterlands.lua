@@ -15,8 +15,9 @@ return {
 	-- plural, as words: Vilebranch Soothsayers = {npc:4467} Vilebranch Soothsayer
 	["Vilebranch Soothsayers"] = "썩은가지부족 예언자",
 	-- {area:355} Altar of Zul · {npc:7996} Qiaga the Keeper · {npc:8636} Morta'gya the Keeper
-	-- plural, as words: Vilebranch Soothsayers = {npc:4467} Vilebranch Soothsayer
-	["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "썩은가지부족 예언자(46-47)는 {area:355} 기슭 주변을 돌아다닙니다. 이들의 토템은 마렛 파이어텐드에게 가져갑니다. 주의: {npc:7996}와(과) {npc:8636}(50, 정예)이(가) 제단 남동쪽에 서 있습니다. 이들을 피해 제단 서쪽의 예언자를 잡고, 제단 위로는 올라가지 마십시오.",
+	-- plural, as words: Vilebranch Soothsayers = {npc:4467} Vilebranch Soothsayer · Vilebranch Totems = {item:279225} Vilebranch Totem
+	-- was: ["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "썩은가지부족 예언자(46-47)는 {area:355} 기슭 주변을 돌아다닙니다. 이들의 토템은 마렛 파이어텐드에게 가져갑니다. 주의: {npc:7996}와(과) {npc:8636}(50, 정예)이(가) 제단 남동쪽에 서 있습니다. 이들을 피해 제단 서쪽의 예언자를 잡고, 제단 위로는 올라가지 마십시오."
+	["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend, and more Vilebranch Totems lie on the ground among them: pick those up too. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "",
 
 	-- Step 3: Skulk Rock
 	-- {area:351} Skulk Rock · {zone:1425} The Hinterlands
@@ -94,23 +95,16 @@ return {
 
 	-- Step 18: Booty Bay
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
-	["\"Sea Wolf\" MacKinley, if the Stranglethorn guide didn't give it"] = "\"바다늑대\" 맥킨리, 가시덤불 골짜기 가이드에서 받지 않았다면",
 	-- {npc:2487} Fleet Master Seahorn
-	["{npc:2487}, top floor, if the Stranglethorn guide didn't give it"] = "{npc:2487}, 꼭대기 층, 가시덤불 골짜기 가이드에서 받지 않았다면",
-	-- {npc:2494} Privateer Bloads
-	["{npc:2494}, if the Stranglethorn guide didn't give it"] = "{npc:2494}, 가시덤불 골짜기 가이드에서 받지 않았다면",
+	["{npc:2487}, top floor"] = "{npc:2487}, 꼭대기 층",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside, if the Stranglethorn guide didn't give it"] = "{npc:2498}, 안쪽, 가시덤불 골짜기 가이드에서 받지 않았다면",
+	["{npc:2498}, inside"] = "",
 
 	-- Step 19: Wild Shore: kill these as you meet them
 	-- {area:43} Wild Shore
 	["{area:43}: kill these as you meet them"] = "",
 	-- {area:43} Wild Shore · {area:35} Booty Bay
 	["The charts and orders lie in the pirate camp on the {area:43}, just south of {area:35}; its Swashbucklers walk the shore. The Warlocks and Swashbucklers (41-43) are under you now."] = "해도와 명령서는 {area:35} 바로 남쪽 {area:43}의 해적 야영지에 있습니다. 해적 검객들이 해안을 돌아다닙니다. 흑마법사와 검객(41-43)은 이제 레벨이 낮습니다.",
-
-	-- Step 20: Booty Bay
-	-- {npc:2487} Fleet Master Seahorn
-	["{npc:2487}, top floor"] = "{npc:2487}, 꼭대기 층",
 
 	-- Step 21: The Bloodsail captains
 	["The Bloodsail captains"] = "붉은해적단 선장들",
@@ -127,11 +121,14 @@ return {
 	-- {npc:2537} Chucky "Ten Thumbs"
 	["Ride on north along the coast to Zanzil's village. Every Zanzil follower can drop the mixture; {npc:2537} walks the south of the camp."] = "해안을 따라 북쪽 잔질의 마을로 계속 가십시오. 모든 잔질 추종자가 혼합물을 떨어뜨릴 수 있습니다. {npc:2537}은(는) 야영지 남쪽을 돌아다닙니다.",
 
-	-- Step 25: Maury "Club Foot" Wilkins and Jon-Jon the Crow
-	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
-	["{npc:2535} and {npc:2536}"] = "{npc:2535}와(과) {npc:2536}",
+	-- Step 25: Maury "Club Foot" Wilkins and Jon-Jon
+	-- {npc:2535} Maury "Club Foot" Wilkins
+	-- was: ["{npc:2535} and {npc:2536}"] = "{npc:2535}와(과) {npc:2536}"
+	["{npc:2535} and Jon-Jon"] = "",
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
 	["{npc:2535} and {npc:2536} stand together in the hills just north of Zanzil's village."] = "{npc:2535}와(과) {npc:2536}은(는) 잔질의 마을 바로 북쪽 언덕에 함께 서 있습니다.",
+	-- {item:3925} Jon-Jon's Golden Spyglass · {npc:2536} Jon-Jon the Crow
+	["{item:3925}, from {npc:2536}"] = "",
 
 	-- Step 26: Gorilla hills
 	["Gorilla hills"] = "고릴라 언덕",
@@ -152,19 +149,29 @@ return {
 	["for {npc:2616} in Theramore: keep it, the Un'Goro guide lands there"] = "테라모어의 {npc:2616}에게: 간직하십시오. 운고로 가이드가 그곳에서 끝납니다",
 	-- {npc:2498} Crank Fizzlebub · {zone:1441} Thousand Needles
 	["{npc:2498}'s next Zanzil errand starts in {zone:1441}: skip it."] = "{npc:2498}의 다음 잔질 심부름은 {zone:1441}에서 시작합니다. 건너뛰세요.",
-	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "",
 	["MacKinley's next task sends you after elite ogres: skip it."] = "맥킨리의 다음 임무는 정예 오우거를 잡으러 보냅니다. 건너뛰세요.",
 
 	-- Step 30: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
 
-	-- Step 34: Facing Negolash
+	-- Step 34: Negolash's bait
+	-- {npc:1494} Negolash
+	["{npc:1494}'s bait"] = "",
+	-- {npc:1494} Negolash · {quest:619} Enticing Negolash · {area:35} Booty Bay · {item:4595} Junglevine Wine · {npc:2832} Nixxrax Fillamug
+	-- plural, as words: Barbecued Buzzard Wings = {item:4457} Barbecued Buzzard Wing
+	["{npc:1494} comes only for his food: hand in {quest:619} at Captain Smotts' ruined lifeboat on the shore south-east of {area:35}, with 10 Barbecued Buzzard Wings and 5 {item:4595}, and he comes to the boat. {npc:2832}, the food and drink vendor at the inn, sells the wine. The wings are a cook's dish: if you don't cook, bring them from the Auction House."] = "",
+	-- {item:4457} Barbecued Buzzard Wing
+	["{item:4457}: in your bags already if you cook"] = "",
+	-- {object:2289} Ruined Lifeboat · {npc:1494} Negolash
+	["{object:2289}: the food goes in, {npc:1494} comes"] = "",
+
+	-- Step 35: Facing Negolash
 	-- {npc:1494} Negolash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1494} (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["\"Sea Wolf\" MacKinley, if the Stranglethorn guide didn't give it"] = "\"바다늑대\" 맥킨리, 가시덤불 골짜기 가이드에서 받지 않았다면",
 	-- ["Ashmane Boars and Redstone Basilisks share the slopes south-west of the keep. Keep clear of the Helboars further south: they are level 52."] = "잿빛갈기멧돼지와 붉은바위 바실리스크가 요새 남서쪽 비탈에 함께 있습니다. 더 남쪽의 지옥멧돼지는 52레벨이니 피하십시오.",
 	-- ["Back to {area:144}"] = "{area:144}(으)로 돌아가기",
 	-- ["Boars and basilisks"] = "멧돼지와 바실리스크",
@@ -184,12 +191,17 @@ return {
 	-- ["Scorpoks and snickerfangs"] = "스콜포크와 칼송곳니하이에나",
 	-- ["Step through the portal into {zone:1457}. The Temple of the Moon is in the south of the city."] = "차원문을 지나 {zone:1457}(으)로 들어가십시오. 달의 신전은 도시 남쪽에 있습니다.",
 	-- ["Temple of the Moon"] = "달의 신전",
+	-- ["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "썩은가지부족 예언자(46-47)는 {area:355} 기슭 주변을 돌아다닙니다. 이들의 토템은 마렛 파이어텐드에게 가져갑니다. 주의: {npc:7996}와(과) {npc:8636}(50, 정예)이(가) 제단 남동쪽에 서 있습니다. 이들을 피해 제단 서쪽의 예언자를 잡고, 제단 위로는 올라가지 마십시오.",
 	-- ["The bloodmages' second tier pays for the same parts with a buff item and no experience: skip it."] = "혈법사들의 두 번째 단계는 같은 재료에 경험치 없이 강화 아이템만 줍니다: 건너뛰십시오.",
 	-- ["The druid trainers stand in the Enclave; {zone:1455} has none"] = "드루이드 상급자는 세나리온 자치령에 있습니다. {zone:1455}에는 없습니다",
 	-- ["The {area:1517} dig"] = "{area:1517} 발굴지",
 	-- ["the book on her table"] = "그녀의 탁자 위 책",
 	-- ["the soil comes from {zone:1449}, later"] = "흙은 나중에 {zone:1449}에서 구합니다",
 	-- ["{area:144} flight master"] = "{area:144} 비행 조련사",
+	-- ["{npc:2487}, top floor, if the Stranglethorn guide didn't give it"] = "{npc:2487}, 꼭대기 층, 가시덤불 골짜기 가이드에서 받지 않았다면",
+	-- ["{npc:2494}, if the Stranglethorn guide didn't give it"] = "{npc:2494}, 가시덤불 골짜기 가이드에서 받지 않았다면",
+	-- ["{npc:2498}, inside, if the Stranglethorn guide didn't give it"] = "{npc:2498}, 안쪽, 가시덤불 골짜기 가이드에서 받지 않았다면",
+	-- ["{npc:2535} and {npc:2536}"] = "{npc:2535}와(과) {npc:2536}",
 	-- ["{npc:3516}, at the top of the tree"] = "{npc:3516}, 나무 꼭대기",
 	-- ["{npc:7740}, beside her"] = "{npc:7740}, 그녀의 옆",
 	-- ["{npc:7744}: the last guide binds here, so this usually ticks at once"] = "{npc:7744}: 이전 가이드에서 이곳에 귀환 지점을 정하므로 보통 바로 완료됩니다",

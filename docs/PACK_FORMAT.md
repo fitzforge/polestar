@@ -642,10 +642,10 @@ frame; absent: the live frame), `r` (arrival radius in yards), `spots`
 | `complete` | `quest`, `title` | `objs`, `startItem`, `startItemName`, `carriedTo` |
 | `abandon` | `quest`, `title` (format 5) | — |
 | `destroy` | `item`, `itemName` (format 5) | — |
-| `kill` | `target` | `title`, `npc`, `count`, `quest`, `oi`, `spread`, `fromNpcs`, `carriedTo` |
+| `kill` | `target` | `title`, `npc`, `count`, `quest`, `oi`, `spread`, `fromNpcs`, `carriedTo`, `logLine` |
 | `collect` | `item`, `itemName` | `title`, `count`, `gather` (format 10), `quest`, `oi`, `spread`, `from`, `fromAlso`, `fromId`, `fromAlsoId`, `fromKind`, `fromRank`, `fromFaction`, `fromNpcs`, `fromNpcsAt`, `npc`, `npcName`, `candidates`, `carriedTo` |
 | `goto` | `map`, `x`, `y` | `text`, `r`, `area` |
-| `talk` | `npc`, `npcName` | `gossip` |
+| `talk` | `npc`, `npcName` | `gossip`, `logLine` (then no `npc`) |
 | `interact` | `object`, `objName` | `title`, `quest`, `oi`, `spread`, `carriedTo` |
 | `use` | `item`, `itemName` | `title`, `quest`, `oi`, `fromNpcs`, `carriedTo` |
 | `sethome` | `location`, or `candidates` | `npc`, `npcName`, `area` |
@@ -723,6 +723,7 @@ The fields:
 | `objs` | on a `complete`: its quest's objectives from the quest data, `{ { text, count } }`, which the guide window shows while the quest is not in the log (looked at ahead); in the log it shows the game's own lines. Older Polestar ignores it |
 | `startItem`, `startItemName` | on a `complete`: the item its quest hands over when taken (Tharnariun's Hope for Plagued Lands), id and name; while it is in the bags and usable the guide window starts the goal with "Use <item>:". Older Polestar ignores them |
 | `carriedTo` | on a `complete` or objective goal (`kill`, `collect`, `interact`, `use`, `talk` with `quest`): the id of the later guide of the chain that hands its quest in, this guide not (GUIDE_FORMAT.md, "Quests carried to a later guide"). The guide window says to keep the quest, the guide-end window lists it while it is still in the log, and "Clean up quest log" never calls it unneeded. Older Polestar ignores it |
+| `logLine` | `true` on a `kill` or `talk` the compiler found aimed at one of the game's placeholder targets (a "[DNT] Kill Credit", Alterac Valley's "PvP Graveyard Credit Marker" or "Trigger Ichman", #2614): it carries no `npc`, and `target` (`npcName` on a `talk`) is the name the placeholder carries, else its objective's text, else the goal's note. The guide window reads the goal by its quest-log line, in the game's words, and by that name before the quest is in the log. Older Polestar shows the name with "Kill" |
 | `group` | format 2: the goal needs a group, shown under it in the guide window: `{ kind = "elite", rank = 1, lvl = 29 }` (rank 1 elite, 2 rare elite, 3 boss: "Elite: group advised"; `lvl`, when known, the elites' highest level, which also holds back the class-quest offer), `{ kind = "dungeon", name = "Dire Maul" }` ("Dungeon: Dire Maul"), `{ kind = "raid", name = "Molten Core" }` ("Raid: Molten Core"), `{ kind = "group", size = 3 }` ("Group of 3 advised"; without `size`, "Group advised"). The compiler derives it or takes the author's `group [N]` (GUIDE_FORMAT.md, "Group content"); Polestar shows nothing for a kind it does not know |
 
 Polestar 0.1.0 reads every verb above; 0.2.4 and later read the `group`

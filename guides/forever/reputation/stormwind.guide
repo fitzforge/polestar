@@ -255,7 +255,7 @@ step Eastvale
 step Eastvale: the work
   when done sw-eastvale
   tip The murlocs along the river south of the bridge drop the fins; Prowlers and Young Forest Bears roam the woods; the Defias around the Brackwell farm and the Tower of Azora carry the bandanas; the enchanting supplies lie in their camps north of the tower; the Kobold Geomancers dig at Jasperlode Mine; the tools and the river finds lie along the river north of the logging camp.
-  turnin 37
+  turnin 37 object 55                     -- A half-eaten body
   accept 45
   turnin 45
   accept 71
@@ -413,8 +413,8 @@ step Morgan's Vigil: Dragonkin Menace
   accept 4182                         -- Dragonkin Menace, +100 Darnassus
   kill 7047 x15 quest 4182.1          -- Black Broodling
   kill 7040 x10 quest 4182.2          -- Black Dragonspawn
-  kill 7044 quest 4182.3              -- Black Drake
-  kill 7041 x4 quest 4182.4           -- Black Wyrmkin
+  kill 7044 quest 4182.4              -- Black Drake
+  kill 7041 x4 quest 4182.3           -- Black Wyrmkin
   turnin 4182
   accept 4183                         -- The True Masters, +75 Darnassus
 

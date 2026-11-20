@@ -288,47 +288,143 @@ pub fn read_config(dir: &Path) -> Result<Config, String> {
 	})
 }
 
+/// The session files of a recordings folder (schema 1 or 2; `config.json` and dot files are not
+/// sessions), in file order; None when there is no such folder.
+fn session_names(dir: &Path) -> Option<Vec<String>> {
+	let rd = std::fs::read_dir(dir).ok()?;
+	let mut files: Vec<String> = rd.flatten().map(|e| e.file_name().to_string_lossy().to_string()).filter(|f| f.ends_with(".json") && !f.starts_with('.') && f != "config.json").collect();
+	files.sort_by(|a, b| cmp_utf16(a, b));
+	Some(files)
+}
+
+fn load_session(dir: &Path, file: &str) -> Result<V, String> {
+	let text = std::fs::read_to_string(dir.join(file)).map_err(|e| format!("recording {file}: {e}"))?;
+	let rec = parse_json(&text).map_err(|e| format!("recording {file}: {e}"))?;
+	if !matches!(rec.get("schema").as_num(), Some(1.0) | Some(2.0)) || !rec.get("events").is_arr() {
+		return Err(format!("recording {file}: expected {{ schema: 1 or 2, events: [...] }}"));
+	}
+	Ok(rec)
+}
+
+/// One session of a [`SessionFiles`]: whether its player counts, and the cohort [`establish`]
+/// gave its contributor.
+struct SessionFile {
+	file: String,
+	counts: bool,
+	cohort: Option<String>,
+}
+
+/// A recordings folder read one session at a time. [`scan_recordings`] reads every session once
+/// for its header (who counts); [`SessionFiles::sessions`] reads them again one by one, each as
+/// [`read_recordings`] holds it. The release data build reads the maintainer's whole recordings
+/// archive this way: gigabytes of sessions, too many to hold at once.
+pub struct SessionFiles {
+	dir: std::path::PathBuf,
+	files: Vec<SessionFile>,
+	/// Distinct counted players whose evidence replaces another source's value (`minVoters`).
+	pub min_voters: usize,
+}
+
+impl SessionFiles {
+	/// The sessions, less those of builds older than `minBuild`.
+	pub fn len(&self) -> usize {
+		self.files.len()
+	}
+
+	pub fn is_empty(&self) -> bool {
+		self.files.is_empty()
+	}
+
+	/// The sessions whose player counts.
+	pub fn counted(&self) -> usize {
+		self.files.iter().filter(|f| f.counts).count()
+	}
+
+	pub fn names(&self) -> impl Iterator<Item = &str> {
+		self.files.iter().map(|f| f.file.as_str())
+	}
+
+	/// Every session in file order, read from disk as it is reached.
+	pub fn sessions(&self) -> impl Iterator<Item = Result<Recording, String>> + '_ {
+		self.files.iter().map(|f| {
+			let rec = load_session(&self.dir, &f.file)?;
+			if let Some(c) = &f.cohort {
+				rec.set("cohort", c.as_str());
+			}
+			Ok(Recording { file: f.file.clone(), rec, counts: f.counts })
+		})
+	}
+}
+
+/// [`read_recordings`]'s reading of `dir`, keeping of each session only whether it counts.
+pub fn scan_recordings(dir: &Path) -> Result<SessionFiles, String> {
+	let Some(names) = session_names(dir) else { return Ok(SessionFiles { dir: dir.to_path_buf(), files: Vec::new(), min_voters: MIN_VOTERS }) };
+	let Config { exclude, min_build, establish: est, min_voters } = read_config(dir)?;
+	// Each session file, and whether its contributor may count (`exclude` never does, and plays no
+	// part in establishing anyone); the headers of those that may, in the same order.
+	let mut kept: Vec<(String, bool)> = Vec::new();
+	let mut heads: Vec<Head> = Vec::new();
+	for file in names {
+		let rec = load_session(dir, &file)?;
+		if let (Some(min), Some(build)) = (min_build, rec.get("build").as_num()) {
+			if build < min {
+				continue;
+			}
+		}
+		let may = !exclude.contains(&contributor_of(&rec));
+		if may {
+			heads.push(Head::of(&rec));
+		}
+		kept.push((file, may));
+	}
+	let counts = establish_heads(&mut heads, est);
+	let mut counted = heads.into_iter().zip(counts);
+	let mut files = Vec::with_capacity(kept.len());
+	for (file, may) in kept {
+		let (counts, cohort) = if may {
+			let (h, c) = counted.next().expect("one header per session that may count");
+			(c, h.cohort)
+		} else {
+			(false, None)
+		};
+		files.push(SessionFile { file, counts, cohort });
+	}
+	Ok(SessionFiles { dir: dir.to_path_buf(), files, min_voters })
+}
+
 /// data/recordings/*.json (schema 1 or 2; `config.json` and dot files are not sessions), less the
 /// sessions of builds older than `config.json`'s `minBuild`, each marked by [`establish`]. The
 /// contributors `config.json`'s `exclude` lists (the maintainer's audit: manipulated or suspect
 /// uploads) never count, and play no part in establishing anyone (their cohort-mates count only on
 /// their own record).
 pub fn read_recordings(dir: &Path) -> Result<Recordings, String> {
-	let Ok(rd) = std::fs::read_dir(dir) else { return Ok(Recordings { list: Vec::new(), min_voters: MIN_VOTERS }) };
-	let mut files: Vec<String> = rd.flatten().map(|e| e.file_name().to_string_lossy().to_string()).filter(|f| f.ends_with(".json") && !f.starts_with('.') && f != "config.json").collect();
-	files.sort_by(|a, b| cmp_utf16(a, b));
-	let Config { exclude, min_build, establish: est, min_voters } = read_config(dir)?;
-	let mut out = Vec::new();
-	for file in files {
-		let text = std::fs::read_to_string(dir.join(&file)).map_err(|e| format!("recording {file}: {e}"))?;
-		let rec = parse_json(&text).map_err(|e| format!("recording {file}: {e}"))?;
-		if !matches!(rec.get("schema").as_num(), Some(1.0) | Some(2.0)) || !rec.get("events").is_arr() {
-			return Err(format!("recording {file}: expected {{ schema: 1 or 2, events: [...] }}"));
-		}
-		if let (Some(min), Some(build)) = (min_build, rec.get("build").as_num()) {
-			if build < min {
-				continue;
-			}
-		}
-		out.push(Recording { file, rec, counts: false });
-	}
-	let (mut counted, excluded): (Vec<Recording>, Vec<Recording>) = out.into_iter().partition(|r| !exclude.contains(&r.contributor()));
-	establish(&mut counted, est);
-	counted.extend(excluded);
-	counted.sort_by(|a, b| cmp_utf16(&a.file, &b.file));
-	Ok(Recordings { list: counted, min_voters })
+	let s = scan_recordings(dir)?;
+	Ok(Recordings { list: s.sessions().collect::<Result<_, _>>()?, min_voters: s.min_voters })
 }
 
 /// meta.json's revision of the recordings: sha256 over file names and contents, 16 hex digits.
-pub fn revision(recs: &[Recording]) -> String {
-	let mut h = Sha256::new();
-	for r in recs {
-		h.update(r.file.as_bytes());
-		h.update(b"\0");
-		h.update(stringify(&r.rec, None).as_bytes());
-		h.update(b"\0");
+#[derive(Default)]
+pub struct Revision(Sha256);
+
+impl Revision {
+	pub fn add(&mut self, r: &Recording) {
+		self.0.update(r.file.as_bytes());
+		self.0.update(b"\0");
+		self.0.update(stringify(&r.rec, None).as_bytes());
+		self.0.update(b"\0");
 	}
-	h.finalize().iter().map(|b| format!("{b:02x}")).collect::<String>()[..16].to_string()
+
+	pub fn finish(self) -> String {
+		self.0.finalize().iter().map(|b| format!("{b:02x}")).collect::<String>()[..16].to_string()
+	}
+}
+
+pub fn revision(recs: &[Recording]) -> String {
+	let mut h = Revision::default();
+	for r in recs {
+		h.add(r);
+	}
+	h.finish()
 }
 
 pub(crate) fn pos_int(v: &V) -> Option<i64> {
@@ -445,6 +541,12 @@ const FACTION_KEYS: [&str; 5] = ["id", "name", "side", "parent", "source"];
 /// Loot windows of a source a player needs before their share counts toward a trusted drop chance.
 pub(crate) const MIN_WINDOWS: f64 = 10.0;
 const ENTRANCE_RADIUS: f64 = 1.5;
+/// Map percent within which a rare's sightings are one place (#2816). A sighting is where the player
+/// stood when the rare's nameplate showed or the cursor or target met it: 30 yd from it at the median,
+/// 100 yd at the 90th percentile (2,434 sightings of 26 rares and leaders that stand still, against
+/// the Forever TDB's spawn). 2.5% is 60-130 yd across most zone maps (250 on The Barrens', 35 on a
+/// capital's).
+const SIGHT_RADIUS: f64 = 2.5;
 const FULL_XP_LEVELS: f64 = 5.0;
 
 fn rank_of(cls: &str) -> Option<f64> {
@@ -492,6 +594,8 @@ pub struct Stats {
 	/// Corrected values the recordings disagreed with (`"<section> <id>: <field>"`): the
 	/// corrections were kept.
 	pub overruled: Vec<String>,
+	/// Per quest, the NPCs counted players handed it in to (a `turnin` in that NPC's window).
+	pub npc_hand_ins: FxHashMap<i64, FxHashSet<i64>>,
 }
 
 type ByMap = IndexMap<i64, Vec<P>>;
@@ -555,6 +659,8 @@ struct Slot {
 	id: Ballot,
 	/// Each player's count (the highest it saw).
 	max: IndexMap<String, f64>,
+	/// Some player's line read "<creature> slain" (a creature's kill line, not a hidden credit).
+	slain: bool,
 }
 
 /// What players recorded of one quest.
@@ -661,6 +767,8 @@ const FACTION: usize = 3;
 struct Overlay<'a> {
 	db: &'a Db<'a>,
 	so: SpawnOptions,
+	/// Recorded drop chances on ([`apply_recordings`]).
+	drop_chances: bool,
 	live_maps: &'a dyn Fn(i64) -> bool,
 	min: usize,
 	stats: Stats,
@@ -1051,6 +1159,15 @@ impl<'a> Overlay<'a> {
 	}
 
 	// ---- finds
+	/// Whether a `rare` sighting is of a true rare: the sighting's classification is rare or rare elite,
+	/// or, a vignette's that carries none, the data's rank is (2 or 4). A world boss is none (#2894).
+	fn true_rare(&self, id: i64, ev: &V) -> bool {
+		match ev.get("cls").as_str() {
+			Some(c) => c == "rare" || c == "rareelite",
+			None => matches!(self.db.npcs.get(&id.to_string()).get("rank").as_num(), Some(r) if r == 2.0 || r == 4.0),
+		}
+	}
+
 	fn unit(&mut self, id: i64, ev: &V) -> bool {
 		if !self.entity("npc", id, &ev.get("npcName")) {
 			return false;
@@ -1101,7 +1218,10 @@ impl<'a> Overlay<'a> {
 		match ev.get("e").as_str().unwrap_or("") {
 			"rare" => {
 				let Some(npc) = npc else { return true };
-				if self.unit(npc, ev) {
+				// Only a true rare takes a role and spawn points from its sightings (#2894): the Recorder also
+				// logs world bosses this way, and the faction leaders (Thrall, Varimathras) got the spots where
+				// players stood when they saw them.
+				if self.unit(npc, ev) && self.true_rare(npc, ev) {
 					self.role(0, npc, "rare");
 					if let Some(c) = coord(ev) {
 						push_point(&mut self.found[0], npc, &c);
@@ -1314,7 +1434,7 @@ impl<'a> Overlay<'a> {
 		let db = self.db;
 		let mut chances = 0;
 		let samples = std::mem::take(&mut self.quest_loot).finish();
-		for kind in ["npc", "object"] {
+		for kind in ["npc", "object"].into_iter().filter(|_| self.drop_chances) {
 			let k = k_ix(kind);
 			for (&id, m) in &self.loots[k] {
 				let windows = &self.windows[k][&id];
@@ -1388,6 +1508,14 @@ impl<'a> Overlay<'a> {
 			for (&id, by_map) in &self.found[k] {
 				let e = t.get(&id.to_string());
 				if e.truthy() {
+					// A rare's sighting is where the player stood, not where the rare is (#2816).
+					let places;
+					let by_map = if k == 0 {
+						places = sighting_places(&e.get("spawns"), by_map);
+						&places
+					} else {
+						by_map
+					};
 					self.join(&e, by_map, false, WHO_FOUND + k, id);
 				}
 			}
@@ -1763,6 +1891,23 @@ impl QuestVotes {
 	}
 }
 
+/// A rare's recorded sightings per map, as places to merge into its spawns (#2816): each map's
+/// sightings become the centres of their clusters (SIGHT_RADIUS), and on a map where `spawns` (the
+/// other sources) already place the rare, only the centres farther than that from all of its points
+/// stay: a place no source knows. Sightings near a known spawn are players standing around it.
+fn sighting_places(spawns: &V, by_map: &ByMap) -> ByMap {
+	let mut out = ByMap::new();
+	for (&map, pts) in by_map {
+		let cur = spawns.get(&map.to_string());
+		let known: Vec<P> = if cur.is_undef() { Vec::new() } else { points_of(&cur.get("pts")).into_iter().chain(points_of(&cur.get("more"))).collect() };
+		let keep: Vec<P> = clusters(pts, SIGHT_RADIUS).into_iter().map(|(x, y, _)| [x, y]).filter(|&[x, y]| known.iter().all(|k| hypot(k[0] - x, k[1] - y) > SIGHT_RADIUS)).collect();
+		if !keep.is_empty() {
+			out.insert(map, keep);
+		}
+	}
+	out
+}
+
 /// Greedy clusters within `radius` -> (x, y, n), biggest first, then by x, y.
 fn clusters(points: &[P], radius: f64) -> Vec<(f64, f64, usize)> {
 	let mut out: Vec<(f64, f64, usize)> = Vec::new();
@@ -1806,10 +1951,21 @@ fn merge_objectives(q: &V, slots: &IndexMap<i64, Slot>, min: usize, settled: boo
 		if name.is_none() && id.is_none() {
 			continue;
 		}
+		// The game's line names the data's objective, its plural, or the objective followed by one word
+		// saying what is done to it ("Tarantula Egg destroyed" for the Tarantula Egg object, Alther's
+		// Mill 98386; never a longer name: "Black Drake Whelp" is not "Black Drake").
+		let matches = |t: &str, name: &str| {
+			let (t, name) = (t.trim().to_lowercase(), name.trim().to_lowercase());
+			let done = |rest: &str| {
+				rest.starts_with(' ') && {
+					let w = rest.trim();
+					!w.contains(' ') && w.len() > 2 && w.ends_with("ed")
+				}
+			};
+			!t.is_empty() && (format!("{t}s") == name || name.strip_prefix(&t).is_some_and(done))
+		};
 		let mut idx = name.as_ref().and_then(|name| {
-			list.iter().enumerate().position(|(i, o)| {
-				!used.contains(&i) && !name.is_empty() && (same(&o.get("text"), name) || o.get("text").as_str().is_some_and(|t| format!("{t}s").trim().to_lowercase() == name.trim().to_lowercase()))
-			})
+			list.iter().enumerate().position(|(i, o)| !used.contains(&i) && !name.is_empty() && (same(&o.get("text"), name) || o.get("text").as_str().is_some_and(|t| matches(t, name))))
 		});
 		if idx.is_none() {
 			if let Some(id) = id {
@@ -1818,7 +1974,13 @@ fn merge_objectives(q: &V, slots: &IndexMap<i64, Slot>, min: usize, settled: boo
 		}
 		let idx = match idx {
 			None => {
-				if (had && !tr) || settled {
+				// A line credited to no creature or object and not a creature's "slain" line (a hidden
+				// credit the server counts as a kill: "Find the hottest area of Fire Plume Ridge", "Videre
+				// Elixir Used at Gravestone") is never added: beside a quest's objectives it repeats one of
+				// them in the game's words, and alone it is a kill no step or route can target (#2585,
+				// Finding the Source 974, Meet at the Grave 3912).
+				let untargeted = id.is_none() && !s.slain && kind.as_deref().is_some_and(|k| k != "event");
+				if (had && !tr) || untargeted || settled {
 					continue;
 				}
 				let o = Obj::new();
@@ -2002,7 +2164,11 @@ fn game_objectives(q: &V, c: &ClientList, windows: &FxHashSet<i64>) -> Game {
 		0
 	};
 	let mut talk = 0;
-	for oi in 1..=n {
+	// A quest whose own text asks for a fight, a use or an escort (talk.rs: "Beat Bartleby", "Defeat 3
+	// other players in duels or Novice Warriors") keeps its kills: the NPC turns hostile once talked to
+	// and gives in, with no kill to record (#2535).
+	let fights = crate::talk::asks_other(q.get("objectiveText").as_str().unwrap_or(""));
+	for oi in (1..=n).filter(|_| !fights) {
 		let o = &out[oi - 1];
 		if o.get("type").as_str() != Some("kill") {
 			continue;
@@ -2035,8 +2201,10 @@ fn game_objectives(q: &V, c: &ClientList, windows: &FxHashSet<i64>) -> Game {
 }
 
 /// A quest's recorded XP: the base reward when one was seen, else the log or turn-in values of
-/// players near the quest's level. Each player gives one value (the highest it saw); the quest
-/// gets the lower median of them, a value a player saw that one outlying player cannot move.
+/// players near the quest's level. Each player gives one value: the highest its quest log showed,
+/// and only without one the highest it was paid at the turn-in (a turn-in can carry a bonus of the
+/// player's own: 4,532 paid where the quest log shows 4,400, #2585). The quest gets the lower
+/// median of them, a value a player saw that one outlying player cannot move.
 /// Another source's XP is replaced only on trusted evidence (`recorder:xp-<kind>`); otherwise the
 /// recorded XP only fills a quest that has none (`recorder-gap:xp`).
 fn resolve_xp(q: &V, list: &[(&'static str, i64, Option<i64>, usize)], contributors: &IndexSet<String>, min: usize) {
@@ -2045,10 +2213,11 @@ fn resolve_xp(q: &V, list: &[(&'static str, i64, Option<i64>, usize)], contribut
 		let level = q.get("level");
 		pick = list.iter().filter(|o| o.0 != "base" && (matches!(level, V::Null) || o.2.is_some_and(|l| (l as f64) <= level.num() + FULL_XP_LEVELS))).collect();
 	}
+	let rank = |kind: &str| u8::from(kind == "turnin");
 	let mut per: IndexMap<usize, (&str, i64)> = IndexMap::new();
 	for o in &pick {
 		let best = per.entry(o.3).or_insert((o.0, o.1));
-		if o.1 > best.1 {
+		if (rank(o.0), std::cmp::Reverse(o.1)) < (rank(best.0), std::cmp::Reverse(best.1)) {
 			*best = (o.0, o.1);
 		}
 	}
@@ -2132,18 +2301,36 @@ fn resolve_factions(factions: &Obj, seen: &IndexMap<i64, IndexSet<String>>, pare
 	}
 }
 
+/// A recorded quest title that may vote: not empty, and none of the game's text tokens ($C, $R, $N:
+/// the client fills them in for the player, some sessions record them raw: "A $C's Training").
+fn plain_title(t: &str) -> bool {
+	!t.is_empty() && !t.contains('$')
+}
+
 /// Applies the recordings that count over the tables (see the module doc); `min_voters` is
 /// [`Recordings::min_voters`]. `corrections` (forever-db/corrections, already applied to the tables)
 /// are put back afterwards ([`crate::corrections::reassert`]): a recording never overrides a
 /// corrected value, whatever its evidence, and every field it disagreed on is in
-/// [`Stats::overruled`].
-pub fn apply_recordings(db: &Db, recordings: &[Recording], corrections: &V, min_voters: usize, so: SpawnOptions, live_maps: &dyn Fn(i64) -> bool, sim: bool) -> Stats {
+/// [`Stats::overruled`]. `recordings` may be read as they are reached ([`SessionFiles::sessions`]):
+/// each session is gone once applied. `drop_chances`: whether recorded drop chances replace or fill
+/// the sources' (off in the data build until they count kills, not loot windows: #2747).
+pub fn apply_recordings<R: std::borrow::Borrow<Recording>>(
+	db: &Db,
+	recordings: impl IntoIterator<Item = R>,
+	corrections: &V,
+	min_voters: usize,
+	so: SpawnOptions,
+	live_maps: &dyn Fn(i64) -> bool,
+	sim: bool,
+	drop_chances: bool,
+) -> Stats {
 	let mut ov = Overlay {
 		db,
 		so,
+		drop_chances,
 		live_maps,
 		min: min_voters,
-		stats: Stats { recordings: recordings.len(), ..Stats::default() },
+		stats: Stats::default(),
 		touched: IndexSet::new(),
 		touched_entities: IndexMap::new(),
 		quests: IndexMap::new(),
@@ -2177,6 +2364,8 @@ pub fn apply_recordings(db: &Db, recordings: &[Recording], corrections: &V, min_
 		filled: FxHashSet::default(),
 	};
 	for r in recordings {
+		let r = r.borrow();
+		ov.stats.recordings += 1;
 		if !r.counts {
 			continue;
 		}
@@ -2218,7 +2407,7 @@ pub fn apply_recordings(db: &Db, recordings: &[Recording], corrections: &V, min_
 			match (&*e, qid) {
 				("accept", Some(qid)) => {
 					if let Some(q) = ov.quest(qid) {
-						if let Some(t) = ev.get("title").as_str().filter(|t| !t.is_empty()) {
+						if let Some(t) = ev.get("title").as_str().filter(|t| plain_title(t)) {
 							q.title[lang].vote(V::str(t), &who);
 						}
 						if let Some(l) = pos_int(&ev.get("qlvl")) {
@@ -2259,6 +2448,7 @@ pub fn apply_recordings(db: &Db, recordings: &[Recording], corrections: &V, min_
 						ov.xp_obs(qid, "turnin", &ev.get("xpReward"), &ev.get("lvl"));
 					}
 					if let Some(n) = npc {
+						ov.stats.npc_hand_ins.entry(qid).or_default().insert(n);
 						ov.live_point("npc", n, &ev.get("npcName"), &ev);
 					}
 					if let Some(o) = pos_int(&ev.get("object")) {
@@ -2267,7 +2457,7 @@ pub fn apply_recordings(db: &Db, recordings: &[Recording], corrections: &V, min_
 				}
 				("text", Some(qid)) => {
 					if let Some(q) = ov.quest(qid) {
-						if let Some(t) = ev.get("title").as_str().filter(|t| !t.is_empty()) {
+						if let Some(t) = ev.get("title").as_str().filter(|t| plain_title(t)) {
 							q.title[lang].vote(V::str(t), &who);
 						}
 					}
@@ -2285,6 +2475,11 @@ pub fn apply_recordings(db: &Db, recordings: &[Recording], corrections: &V, min_
 					let oi = pos_int(&ev.get("oi"));
 					let p = ev.get("text").as_str().and_then(parse_progress_text);
 					let (Some(oi), Some(p)) = (oi, p) else { continue };
+					// A reputation line ("Neutral / Friendly Gelkis Clan Centaur: 1/1") is a standing the
+					// quest requires, never work a step can do: it is no objective (#2585, 1382/1368/1385).
+					if ev.get("type").as_str() == Some("reputation") {
+						continue;
+					}
 					let kind = match ev.get("type").as_str() {
 						Some("monster") => Some("kill"),
 						Some("item") => Some("item"),
@@ -2298,6 +2493,7 @@ pub fn apply_recordings(db: &Db, recordings: &[Recording], corrections: &V, min_
 						s.name.vote(V::from(p.name), &who);
 					}
 					let m = s.max.entry(who.clone()).or_insert(0.0);
+					s.slain |= p.slain;
 					*m = m.max(p.max);
 					if let Some(k) = kind {
 						s.kind.vote(V::str(k), &who);
@@ -2502,7 +2698,7 @@ mod tests {
 
 		fn apply(&self, recs: &[Recording]) -> Stats {
 			let db = Db { quests: &self.quests, npcs: &self.npcs, objects: &self.objects, items: &self.items, zones: &self.zones, factions: &self.factions, instances: &self.instances };
-			apply_recordings(&db, recs, &V::obj(), MIN_VOTERS, DEFAULTS, &|_| false, false)
+			apply_recordings(&db, recs, &V::obj(), MIN_VOTERS, DEFAULTS, &|_| false, false, true)
 		}
 
 		fn quest(&self, id: &str) -> V {
@@ -2589,7 +2785,7 @@ mod tests {
 		crate::corrections::apply(&corrections, &t.quests, &t.npcs, &t.objects, &t.items, false);
 		let mut recs = vec![session("a", A, "enUS", &rewrite(10))];
 		recs.extend(from(&[B, C], &rewrite(10)));
-		let st = apply_recordings(&db, &recs, &corrections, MIN_VOTERS, DEFAULTS, &|_| false, false);
+		let st = apply_recordings(&db, &recs, &corrections, MIN_VOTERS, DEFAULTS, &|_| false, false, true);
 		let q = t.quest("364");
 		// Every corrected field stands.
 		assert_eq!(q.get("level").as_num(), Some(3.0));
@@ -2711,6 +2907,46 @@ mod tests {
 		}
 	}
 
+	#[test]
+	fn rare_sightings_become_the_centres_of_places_no_other_source_knows() {
+		// #2816: a sighting is where the player stood (the nameplate showed, the cursor met it), all
+		// round the rare. Rare 2 has a spawn from another source at 10,10: three players see it from
+		// three sides of it and three see it from round 40,40, a place the source lacks. Rare 3 has no
+		// spawn: four sightings round 60,60.
+		let npcs = r#"{"2":{"id":2,"name":"Old Rare","spawns":{"1420":{"f":"q","pts":[[10,10]]}}},"3":{"id":3,"name":"New Rare","spawns":{}}}"#;
+		let seen = |npc: i64, pts: &[(f64, f64)]| -> Vec<String> {
+			pts.iter().enumerate().map(|(i, (x, y))| format!(r#"{{"t":{i},"e":"rare","npc":{npc},"npcLvl":30,"cls":"rare","src":"p","map":1420,"x":{x},"y":{y}}}"#)).collect()
+		};
+		let mut evs = seen(2, &[(10.8, 10.3), (9.4, 9.6), (10.2, 11.1), (40.6, 40.2), (39.5, 40.4), (40.2, 39.4)]);
+		evs.extend(seen(3, &[(61.0, 60.0), (59.0, 60.0), (60.0, 61.2), (60.0, 58.8)]));
+		let t = Tables::new(QUESTS, npcs, "{}");
+		t.apply(&from(&[A, B, C], &evs));
+		let pts = |id: &str| t.npcs.get(id).get("spawns").get("1420").get("pts").items().iter().map(|p| (p.num_at(0), p.num_at(1))).collect::<Vec<_>>();
+		assert_eq!(pts("2"), [(10.0, 10.0), (40.1, 40.0)], "the source's spawn, and one place for the sightings away from it");
+		assert_eq!(pts("3"), [(60.0, 60.0)], "one place, at the sightings' centre");
+	}
+
+	#[test]
+	fn a_world_boss_sighting_gives_no_spawn_points_and_no_rare_role_2894() {
+		// #2894 (Emi): Ragefire Chasm's pick-up guide sent the hand-in to Thrall (4949) to 39.70,61.00 in
+		// Orgrimmar, outside his throne room: a spot players stood on when his nameplate showed. The Recorder
+		// logs world bosses as `rare` sightings (class worldboss); they are no rares. Three players see him
+		// from three far spots: his spawn stays the other source's, and he gets no rare role. A true rare's
+		// vignette sighting with no class still counts by the data's rank.
+		let npcs = r#"{"4949":{"id":4949,"name":"Thrall","rank":3,"spawns":{"1454":{"f":"l","pts":[[31.9,37.8]]}}},"5":{"id":5,"name":"Old Rare","rank":4,"spawns":{}}}"#;
+		let seen = |npc: i64, cls: &str, pts: &[(f64, f64)]| -> Vec<String> {
+			pts.iter().enumerate().map(|(i, (x, y))| format!(r#"{{"t":{i},"e":"rare","npc":{npc}{cls},"src":"p","map":1454,"x":{x},"y":{y}}}"#)).collect()
+		};
+		let mut evs = seen(4949, r#","npcLvl":63,"cls":"worldboss""#, &[(39.7, 61.0), (45.2, 52.1), (50.3, 70.4)]);
+		evs.extend(seen(5, "", &[(20.0, 20.0)]));
+		let t = Tables::new(QUESTS, npcs, "{}");
+		t.apply(&from(&[A, B, C], &evs));
+		let thrall = t.npcs.get("4949");
+		assert_eq!(j(&thrall.get("spawns")), r#"{"1454":{"f":"l","pts":[[31.9,37.8]]}}"#, "the throne room only");
+		assert!(!thrall.get("roles").items().iter().any(|r| r.as_str() == Some("rare")), "no rare role: {}", j(&thrall.get("roles")));
+		assert_eq!(j(&t.npcs.get("5").get("spawns").get("1454").get("pts")), "[[20,20]]", "a rare by its rank");
+	}
+
 	/// `n` kills of `npc`, each looted, `drops` of the loot windows holding `item`.
 	fn loot(npc: i64, item: i64, n: usize, drops: usize) -> Vec<String> {
 		(0..n)
@@ -2736,6 +2972,24 @@ mod tests {
 		// Three players, each under MIN_WINDOWS of their own: not trusted, however many windows together.
 		assert_eq!(chance(&from(&[A, B, C], &loot(1501, 2589, 6, 6))), Some(5.0));
 		assert_eq!(chance(&from(&[A, B, C], &loot(1501, 2589, 12, 12))), Some(100.0));
+	}
+
+	#[test]
+	fn with_drop_chances_off_the_sources_chances_stand() {
+		// #2585/#2747: loot-window chances read 1.2-3x high, so the data build passes them by: three
+		// trusted players looting 12 of 12 leave Linen at its source's 5%, and fill no gap.
+		fn db_of(t: &Tables) -> Db<'_> {
+			Db { quests: &t.quests, npcs: &t.npcs, objects: &t.objects, items: &t.items, zones: &t.zones, factions: &t.factions, instances: &t.instances }
+		}
+		let recs = from(&[A, B, C], &loot(1501, 2589, 12, 12));
+		let t = Tables::new("{}", ZOMBIE, LINEN);
+		let st = apply_recordings(&db_of(&t), &recs, &V::obj(), MIN_VOTERS, DEFAULTS, &|_| false, false, false);
+		assert_eq!(t.items.get("2589").get("drops").get("npc").get("1501").as_num(), Some(5.0));
+		assert!(t.items.get("2589").get("seen").is_undef());
+		assert_eq!(st.recorded_drop_chances, 0);
+		let t = Tables::new("{}", ZOMBIE, r#"{"2589":{"id":2589,"name":"Linen Cloth","drops":{"npc":{},"object":{}},"vendors":[]}}"#);
+		apply_recordings(&db_of(&t), &recs, &V::obj(), MIN_VOTERS, DEFAULTS, &|_| false, false, false);
+		assert!(t.items.get("2589").get("drops").get("npc").get("1501").is_undef());
 	}
 
 	#[test]
@@ -2909,6 +3163,81 @@ mod tests {
 	}
 
 	#[test]
+	fn a_line_naming_an_objective_and_what_is_done_to_it_is_that_objective() {
+		// Alther's Mill 98386 (#2585): the game's line "Tarantula Egg destroyed: 6/6" is the data's
+		// Tarantula Egg objective; it was added as a third line, a kill no step works. "Mindless Zombie
+		// Lord" is a longer name, not the Mindless Zombie.
+		let tick = |text: &str| vec![format!(r#"{{"t":3,"e":"progress","q":364,"oi":1,"text":"{text}: 6/6","type":"monster"}}"#)];
+		let t = Tables::new(QUESTS, NPCS, "{}");
+		t.apply(&from(&[A, B, C], &tick("Mindless Zombie destroyed")));
+		let q = t.quest("364");
+		assert_eq!(q.get("objectives").len(), 2, "matched, not added");
+		assert_eq!(q.get("objectives").items()[0].get("count").num(), 6.0);
+		let t = Tables::new(QUESTS, NPCS, "{}");
+		t.apply(&from(&[A, B, C], &tick("Mindless Zombie Lord slain")));
+		assert_eq!(t.quest("364").get("objectives").len(), 3, "a longer name is another line");
+	}
+
+	#[test]
+	fn a_reputation_line_is_never_an_objective() {
+		// Strange Alliance 1382 (#2585): "Neutral / Friendly Gelkis Clan Centaur: 1/1" is a standing the
+		// quest requires; it was added as an event objective no step can work.
+		let line = vec![r#"{"t":3,"e":"progress","q":365,"oi":1,"text":"Neutral / Friendly Gelkis Clan Centaur: 1/1","type":"reputation"}"#.to_string()];
+		let t = Tables::new(QUESTS, NPCS, "{}");
+		t.apply(&from(&[A, B, C], &line));
+		assert_eq!(t.quest("365").get("objectives").len(), 0);
+	}
+
+	#[test]
+	fn a_line_credited_to_nothing_is_never_added_beside_a_quests_objectives() {
+		// Finding the Source 974 (#2585): its "Find the hottest area" line ticks on a hidden credit with
+		// no creature; three players' line joined the hot spot object as a kill nobody can target, and
+		// the route model dropped the quest and its chain (Meet at the Grave 3912: the same line alone).
+		let line = vec![r#"{"t":3,"e":"progress","q":364,"oi":1,"text":"Find the hottest area: 1/1","type":"monster"}"#.to_string()];
+		let t = Tables::new(QUESTS, NPCS, "{}");
+		t.apply(&from(&[A, B, C], &line));
+		assert_eq!(t.quest("364").get("objectives").len(), 2, "the two zombie lines only");
+		let gap = vec![r#"{"t":3,"e":"progress","q":365,"oi":1,"text":"Find the hottest area: 1/1","type":"monster"}"#.to_string()];
+		let t = Tables::new(QUESTS, NPCS, "{}");
+		t.apply(&from(&[A, B, C], &gap));
+		assert_eq!(t.quest("365").get("objectives").len(), 0, "nor alone");
+	}
+
+	#[test]
+	fn a_recorded_title_with_the_games_text_tokens_never_replaces_the_title() {
+		// #2585: some sessions record a class quest's title raw ("A $C's Training"); players would
+		// see "$C". Three players' raw titles leave the title alone; a plain one still replaces it.
+		let title = |t: &str| vec![format!(r#"{{"t":1,"e":"text","q":364,"title":"{t}"}}"#)];
+		let after = |t: &str| {
+			let mut recs: Vec<Recording> = [old("a", A, &title(t)), old("b", B, &title(t)), old("c", C, &title(t))].into_iter().chain([play(A), play(B), play(C)]).collect();
+			establish(&mut recs, ESTABLISH);
+			let tb = Tables::new(QUESTS, "{}", "{}");
+			tb.apply(&recs);
+			tb.quest("364").get("title").as_str().map(str::to_string)
+		};
+		assert_eq!(after("The $C of the Damned").as_deref(), Some("The Damned"));
+		assert_eq!(after("The Damned (Forever)").as_deref(), Some("The Damned (Forever)"));
+	}
+
+	#[test]
+	fn quest_xp_is_what_the_quest_log_shows_not_a_players_bonus_at_the_turn_in() {
+		// #2585: most players are paid 3% over the quest's reward at the turn-in (a bonus of their
+		// own); the log at the accept shows the quest's reward. A player seen only at the turn-in
+		// still counts with that value.
+		let both = vec![r#"{"t":1,"e":"accept","q":364,"rewardXp":440,"lvl":3}"#.to_string(), r#"{"t":2,"e":"turnin","q":364,"xpReward":453,"lvl":3}"#.to_string()];
+		let turnin_only = vec![r#"{"t":2,"e":"turnin","q":364,"xpReward":453,"lvl":3}"#.to_string()];
+		let xp = |recs: Vec<Recording>| {
+			let mut recs: Vec<Recording> = recs.into_iter().chain([play(A), play(B), play(C)]).collect();
+			establish(&mut recs, ESTABLISH);
+			let t = Tables::new(QUESTS, "{}", "{}");
+			t.apply(&recs);
+			t.quest("364").get("xp").as_num()
+		};
+		assert_eq!(xp(vec![old("a", A, &both), old("b", B, &both), old("c", C, &both)]), Some(440.0));
+		assert_eq!(xp(vec![old("a", A, &turnin_only), old("b", B, &turnin_only), old("c", C, &turnin_only)]), Some(453.0));
+	}
+
+	#[test]
 	fn quest_xp_from_another_source_needs_three_counted_players() {
 		let xp = |q: i64| vec![format!(r#"{{"t":1,"e":"accept","q":{q},"rewardXpBase":450,"lvl":3}}"#)];
 		let after = |q: i64, recs: Vec<Recording>| {
@@ -2949,6 +3278,48 @@ mod tests {
 		for (f, c) in &after {
 			assert_eq!(*c, f.contains(A) || f == "a.json", "{f}");
 		}
+		std::fs::remove_dir_all(&dir).unwrap();
+	}
+
+	#[test]
+	fn the_build_reads_a_recordings_folder_one_session_at_a_time_as_it_reads_it_whole() {
+		// #2585: the release data build reads the whole archive, too big to hold, through
+		// scan_recordings: the same sessions, the same who-counts, the same overlay and revision.
+		let dir = std::env::temp_dir().join(format!("forge-data-recordings-stream-{}", std::process::id()));
+		let _ = std::fs::remove_dir_all(&dir);
+		std::fs::create_dir_all(&dir).unwrap();
+		const D: &str = "dddddddddddddddd";
+		let xp = vec![r#"{"t":1,"e":"accept","q":364,"rewardXpBase":450,"lvl":3}"#.to_string()];
+		let recs = [old("a", A, &xp), play(A), old("b", B, &xp), in_cohort(old("c", C, &xp), "beefbeefbeefbeef"), old("d", D, &xp)];
+		for r in &recs {
+			std::fs::write(dir.join(&r.file), stringify(&r.rec, None)).unwrap();
+		}
+		std::fs::write(dir.join("config.json"), format!(r#"{{"exclude":["{D}"]}}"#)).unwrap();
+		let whole = read_recordings(&dir).unwrap();
+		let scan = scan_recordings(&dir).unwrap();
+		assert_eq!((scan.len(), scan.counted(), scan.min_voters), (whole.len(), whole.iter().filter(|r| r.counts).count(), whole.min_voters));
+		assert_eq!(scan.names().collect::<Vec<_>>(), whole.iter().map(|r| r.file.as_str()).collect::<Vec<_>>());
+		let (t1, t2) = (Tables::new(QUESTS, "{}", "{}"), Tables::new(QUESTS, "{}", "{}"));
+		let s1 = t1.apply(&whole);
+		let db = Db { quests: &t2.quests, npcs: &t2.npcs, objects: &t2.objects, items: &t2.items, zones: &t2.zones, factions: &t2.factions, instances: &t2.instances };
+		let mut rev = Revision::default();
+		let s2 = apply_recordings(
+			&db,
+			scan.sessions().map(|r| {
+				let r = r.unwrap();
+				rev.add(&r);
+				r
+			}),
+			&V::obj(),
+			MIN_VOTERS,
+			DEFAULTS,
+			&|_| false,
+			false,
+			true,
+		);
+		assert_eq!((s1.recordings, s1.events), (s2.recordings, s2.events));
+		assert_eq!(stringify(&t1.quest("364"), None), stringify(&t2.quest("364"), None));
+		assert_eq!(rev.finish(), revision(&whole));
 		std::fs::remove_dir_all(&dir).unwrap();
 	}
 
@@ -3029,6 +3400,17 @@ mod tests {
 		let t = Tables::new(TIMES, TIMES_NPCS, "{}");
 		t.apply(&[Recording { counts: false, ..session("n", A, "enUS", &desperate_times("Speak with Valennia Stormfist")) }]);
 		assert_eq!(j(&t.quest("92640").get("objectives")), j(&obj(TIMES).get("92640").get("objectives")));
+	}
+
+	#[test]
+	fn a_quest_that_asks_for_a_fight_keeps_its_kills() {
+		// Beat Bartleby 1640, Sparring Match 99108 (#2535): the NPC turns hostile once talked to and
+		// gives in, so no kill is recorded; the quest's own text ("Beat", "Defeat") says it is a fight.
+		let fight = TIMES.replace(r#""title":"Desperate Times","#, r#""title":"Desperate Times","objectiveText":"Defeat Valennia Stormfist.","#);
+		let t = Tables::new(&fight, TIMES_NPCS, "{}");
+		t.apply(&[session("s", B, "enUS", &desperate_times("Speak with Valennia Stormfist"))]);
+		let types: Vec<String> = t.quest("92640").get("objectives").items().iter().map(|o| o.get("type").to_js_string()).collect();
+		assert_eq!(types, ["kill", "kill", "kill"]);
 	}
 
 	#[test]

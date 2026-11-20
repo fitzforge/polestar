@@ -65,6 +65,12 @@ function Compat.GetPlayerFaction()
 	return nil
 end
 
+-- Unlike the display fallback in GetPlayerInfo, nil is not a level-one player.
+function Compat.GetPlayerLevel()
+	local level = readable(UnitLevel and UnitLevel("player"))
+	if type(level) == "number" and level >= 1 and level < math.huge and level == math.floor(level) then return level end
+end
+
 function Compat.GetPlayerInfo()
 	local _, race = UnitRace("player")
 	local _, class = UnitClass("player")
@@ -73,7 +79,7 @@ function Compat.GetPlayerInfo()
 		name = readable(UnitName("player")),
 		realm = GetRealmName and GetRealmName() or nil,
 		guid = readable(UnitGUID and UnitGUID("player")),
-		level = readable(UnitLevel("player")) or 1,
+		level = Compat.GetPlayerLevel() or 1,
 		xp = readable(UnitXP and UnitXP("player")) or 0,
 		xpMax = readable(UnitXPMax and UnitXPMax("player")) or 0,
 		race = readable(race),
@@ -192,18 +198,69 @@ function Compat.IsOnTaxi()
 	return readable(UnitOnTaxi and UnitOnTaxi("player")) and true or false
 end
 
+-- How the client gives the player's height this session (Compat.PlayerHeight):
+-- "real", or why there is none to use: "none" (no height, or a secret one),
+-- "zero" (exactly 0: Forever's client has given a height of 0 where the ground
+-- is at 12 yd, Ratchet; a real height is never exactly 0) or "fixed" (the same
+-- height to the last digit at FIXED_COUNT readings in a row, each FIXED_STEP
+-- yards or more from the one before it and taken on foot, 200 yd in all: a
+-- placeholder, not where the player stands; a different height ends it. A
+-- level floor may keep one height to the last digit along a street or a hall,
+-- hence the long run).
+-- Swimming at the water's level or carried on a deck, the height stays
+-- put for real: such readings neither count nor end it. nil before the first
+-- reading.
+local FIXED_STEP, FIXED_COUNT = 5, 40
+local heightMode
+local hInstance, hX, hY, hZ, hSame = nil, nil, nil, nil, 0
+
+-- Whether the player moves by their own speed and is not swimming. Unknown counts as on foot.
+local function onFoot()
+	if IsSwimming then
+		local ok, swimming = pcall(IsSwimming)
+		if not ok or isSecret(swimming) or swimming then return false end
+	end
+	if GetUnitSpeed then
+		local ok, speed = pcall(GetUnitSpeed, "player")
+		if not ok or isSecret(speed) or (type(speed) == "number" and speed <= 0) then return false end
+	end
+	return true
+end
+
+-- z as a height to use (nil when it is none of use), noting what the client gives.
+local function usableHeight(x, y, z, instance)
+	if type(z) ~= "number" then heightMode = "none"; return nil end
+	if z == 0 then heightMode = "zero"; return nil end
+	if hInstance ~= instance or hX == nil then
+		hInstance, hX, hY, hZ, hSame = instance, x, y, z, 0
+	elseif z ~= hZ then
+		hX, hY, hZ, hSame = x, y, z, 0
+	elseif (x - hX) * (x - hX) + (y - hY) * (y - hY) >= FIXED_STEP * FIXED_STEP then
+		hX, hY = x, y
+		if onFoot() then hSame = hSame + 1 end
+	end
+	if hSame >= FIXED_COUNT then heightMode = "fixed"; return nil end
+	heightMode = "real"
+	return z
+end
+
 -- The player's world position from UnitPosition: wx (north), wy (west), z
--- (nil when unread) and the instance map id, or nil while the client keeps it
--- secret or hides it. The one place UnitPosition is read. Forever's client
--- has given a height of exactly 0 where the ground is at 12 yd (Ratchet); a
--- real height is never exactly 0, so that one is unread too.
+-- (nil when there is no height to use: see heightMode above) and the instance
+-- map id, or nil while the client keeps it secret or hides it. The one place
+-- UnitPosition is read.
 function Compat.GetPlayerUnitPosition()
 	if not UnitPosition then return nil end
 	local ok, x, y, z, instance = pcall(UnitPosition, "player")
 	if not ok then return nil end
 	x, y, z, instance = readable(x), readable(y), readable(z), readable(instance)
 	if type(x) ~= "number" or type(y) ~= "number" or instance == nil then return nil end
-	return x, y, type(z) == "number" and z ~= 0 and z or nil, instance
+	return x, y, usableHeight(x, y, z, instance), instance
+end
+
+-- What the last UnitPosition reading gave for the height: "real", "none",
+-- "zero" or "fixed" (above); nil before any reading.
+function Compat.PlayerHeight()
+	return heightMode
 end
 
 -- The player's run speed in yd/s (GetUnitSpeed's second value), or nil while
@@ -295,6 +352,15 @@ function Compat.IsIndoors()
 	local ok, inside = pcall(IsIndoors)
 	if not ok or (inside ~= nil and readable(inside) == nil) then return nil end
 	return inside and true or false
+end
+
+-- The client's swimming state: true swimming, false not, nil when the client lacks IsSwimming, it errors, or keeps it
+-- secret. Nav/Walk.lua's floor follow takes a water surface for the floor only while swimming.
+function Compat.IsSwimming()
+	if not IsSwimming then return nil end
+	local ok, swimming = pcall(IsSwimming)
+	if not ok or (swimming ~= nil and readable(swimming) == nil) then return nil end
+	return swimming and true or false
 end
 
 function Compat.IsShiftKeyDown()
@@ -404,6 +470,22 @@ function Compat.IsQuestFailed(questID)
 	return QL.IsFailed(questID) and true or false
 end
 
+-- The game's internal placeholder names (#2614; forge-guide's placeholder.rs,
+-- the same list): "[DNT] Kill Credit", a bare "Credit", "PvP Tower Credit
+-- Marker", Alterac Valley's "Trigger Ichman", "<UNUSED>". A player never reads
+-- one: the data and the compiler give such objectives their own words, and a
+-- quest-log line the game words with one reads as a line with no name yet.
+local PLACEHOLDER_TAGS = { "[DNT]", "(DNT)", "[PH]", "(DND)", "<UNUSED>", "<TEST>", "Credit Marker", "Kill Credit" }
+function Compat.Placeholder(name)
+	if type(name) ~= "string" then return false end
+	local s = name:match("^%s*(.-)%s*$")
+	if s == "Credit" or s:sub(1, 8) == "Trigger " or s:sub(1, 8) == "DND FLAG" then return true end
+	for i = 1, #PLACEHOLDER_TAGS do
+		if s:find(PLACEHOLDER_TAGS[i], 1, true) then return true end
+	end
+	return false
+end
+
 -- A quest's lines, read once per moment (ns.Moment, Core/Init.lua: the same
 -- number in the same frame means nothing Polestar knows of has changed, so
 -- neither has the log): a step's view, an evaluation or the arrival poll asks
@@ -439,7 +521,9 @@ function Compat.GetQuestObjectives(questID)
 			-- #1952) counts past its 1 while unfinished; finished is the truth.
 			cur = req - 1
 		end
-		out[i] = { text = o.text or "", type = o.type or "", finished = finished, numFulfilled = cur, numRequired = req }
+		local text = o.text or ""
+		if Compat.Placeholder(Compat.ObjectiveLabel(text)) then text = "" end
+		out[i] = { text = text, type = o.type or "", finished = finished, numFulfilled = cur, numRequired = req }
 	end
 	if memo then objMemo[questID] = out end
 	return out
@@ -698,11 +782,56 @@ function Compat.GetQuestLevel(questID)
 	return type(level) == "number" and level > 0 and level or nil
 end
 
+-- The count of each item in one container (bag id), read through
+-- C_Container; an empty table where the client has no such container or API.
+local function containerCounts(bag, into)
+	local C = C_Container
+	if not (C and C.GetContainerNumSlots and (C.GetContainerItemID or C.GetContainerItemInfo)) then return into end
+	local ok, slots = pcall(C.GetContainerNumSlots, bag)
+	if not ok or type(slots) ~= "number" then return into end
+	for slot = 1, slots do
+		local info = C.GetContainerItemInfo and C.GetContainerItemInfo(bag, slot)
+		local id = type(info) == "table" and info.itemID or (C.GetContainerItemID and C.GetContainerItemID(bag, slot))
+		if type(id) == "number" then
+			local n = type(info) == "table" and tonumber(info.stackCount) or 1
+			into[id] = (into[id] or 0) + n
+		end
+	end
+	return into
+end
+
+-- The keyring's items (KEYRING_CONTAINER, bag -2): quest keys go there on
+-- their own when looted (the Durnholde jailors' keys, #2512). Read once per
+-- moment (ns.Moment, as GetQuestObjectives).
+local KEYRING = KEYRING_CONTAINER or -2
+local keyring, keyringAt, keyringMoment, bagScratch = {}, nil, nil, {}
+local function keyringCounts()
+	local now, moment = GetTime and GetTime(), ns.Moment and ns.Moment()
+	if now == nil or moment == nil or now ~= keyringAt or moment ~= keyringMoment then
+		for id in pairs(keyring) do keyring[id] = nil end
+		containerCounts(KEYRING, keyring)
+		keyringAt, keyringMoment = now, moment
+	end
+	return keyring
+end
+
 -- includeBank: the bank's too (a key left there still counts as owned).
+-- An item on the keyring counts as in the bags: clients differ on whether
+-- GetItemCount counts the keyring, so when the keyring holds the item, the
+-- bags' own slots are read too and the keyring's count is added only when
+-- GetItemCount left it out (never counted twice).
 function Compat.GetItemCount(itemID, includeBank)
 	local fn = (C_Item and C_Item.GetItemCount) or GetItemCount
 	if not fn then return 0 end
-	return fn(itemID, includeBank and true or nil) or 0
+	local n = fn(itemID, includeBank and true or nil) or 0
+	local keys = keyringCounts()[itemID]
+	if not keys then return n end
+	local bags = bagScratch
+	for id in pairs(bags) do bags[id] = nil end
+	for bag = 0, NUM_BAG_SLOTS or 4 do containerCounts(bag, bags) end
+	local inBags = includeBank and (fn(itemID) or 0) or n
+	if inBags >= (bags[itemID] or 0) + keys then return n end
+	return n + keys
 end
 
 -- Whether an item does something when used (it has a spell): Tharnariun's
@@ -753,7 +882,7 @@ function Compat.ItemTipColor(itemID)
 	local line = ok and type(data) == "table" and type(data.lines) == "table" and data.lines[1]
 	if type(line) ~= "table" then return nil end
 	local text, c = line.leftText, line.leftColor
-	if type(text) ~= "string" or text == "" or isSecret(text) or text == RETRIEVING_ITEM_INFO then return nil end
+	if type(text) ~= "string" or isSecret(text) or text == "" or text == RETRIEVING_ITEM_INFO then return nil end
 	if type(c) ~= "table" or type(c.r) ~= "number" or isSecret(c.r) then return nil end
 	itemTipColors[itemID] = { c.r, c.g, c.b }
 	return c.r, c.g, c.b
@@ -837,7 +966,7 @@ function Compat.GetItemName(itemID)
 	local fn = type(itemID) == "number" and C_Item and C_Item.GetItemNameByID
 	if not fn then return nil end
 	local ok, name = pcall(fn, itemID)
-	if ok and type(name) == "string" and name ~= "" and not isSecret(name) then return name end
+	if ok and type(name) == "string" and not isSecret(name) and name ~= "" then return name end
 	return nil
 end
 
@@ -885,7 +1014,7 @@ function Compat.CreatureCached(npcID)
 	local ok, data = pcall(get, ("unit:Creature-0-0-0-0-%d-0000000000"):format(npcID))
 	local line = ok and type(data) == "table" and type(data.lines) == "table" and data.lines[1]
 	local text = type(line) == "table" and line.leftText
-	if type(text) ~= "string" or text == "" or isSecret(text) or text == UNKNOWNOBJECT or text == RETRIEVING_DATA then return false end
+	if type(text) ~= "string" or isSecret(text) or text == "" or text == UNKNOWNOBJECT or text == RETRIEVING_DATA then return false end
 	creaturesCached[npcID] = true
 	return true
 end
@@ -916,7 +1045,7 @@ function Compat.MapName(uiMapID)
 	if not uiMapID then return nil end
 	local C = ns.Compat
 	local ok, name = pcall(C.GetMapName, uiMapID)
-	if ok and type(name) == "string" and name ~= "" and not isSecret(name) then return name end
+	if ok and type(name) == "string" and not isSecret(name) and name ~= "" then return name end
 	local X = ns.Codex
 	local z = X and X.IsLoaded and X.IsLoaded() and X.Zone and X.Zone(uiMapID)
 	return z and z.name or nil
@@ -948,16 +1077,24 @@ function Compat.OpenWorldMap(uiMapID)
 	return pcall(open, uiMapID) and true or false
 end
 
--- Opening the quest log at a quest: the client's QuestMapFrame_OpenToQuestDetails
--- (Blizzard_UIPanels_Game/Mainline/QuestMapFrame.lua, which Forever's client
--- loads; its own objective tracker opens a quest with it): the map with its
--- quest log, that quest's details shown. It opens the world map, so under the
--- same rules as Compat.OpenWorldMap: never in combat, never with the gamepad
--- interface. Callers check the quest is in the log (Compat.IsOnQuest).
+-- Opening the quest log at a quest, without tainting the map: the quest
+-- selected (C_QuestLog.SetSelectedQuest) and the world map opened through the
+-- client's C opener (C_Map.OpenWorldMap) at the zone the game shows the quest
+-- on (GetQuestUiMapID), else the player's own; the quest's details are the
+-- player's click on it in the log. Never the client's Lua openers
+-- (QuestMapFrame_OpenToQuestDetails, OpenQuestLog, the global OpenWorldMap):
+-- called from addon code they write the quest's page into the map's tables
+-- in Polestar's name, and while that page stays open every quest pin the map
+-- lays out in combat is blocked (#2924: 62 blocked SetPassThroughButtons
+-- calls). So there is no fallback on a client without C_Map.OpenWorldMap.
+-- Never in combat, never with the gamepad interface (as Compat.OpenWorldMap).
+-- Callers check the quest is in the log (Compat.IsOnQuest).
 --   Compat.CanOpenQuestLog() -> bool ; Compat.OpenQuestLog(questID) -> opened
 local function questLogOpener()
 	if ns.GamepadUI() then return nil end
-	return QuestMapFrame_OpenToQuestDetails
+	local QL = C_QuestLog
+	if not (C_Map and C_Map.OpenWorldMap and QL and QL.SetSelectedQuest) then return nil end
+	return C_Map.OpenWorldMap
 end
 
 function Compat.CanOpenQuestLog()
@@ -967,7 +1104,10 @@ end
 function Compat.OpenQuestLog(questID)
 	local open = questLogOpener()
 	if not open or type(questID) ~= "number" or Compat.InCombat() then return false end
-	return pcall(open, questID) and true or false
+	local map = type(GetQuestUiMapID) == "function" and Compat.Readable(GetQuestUiMapID(questID)) or nil
+	if type(map) ~= "number" or map <= 0 then map = nil end
+	pcall(C_QuestLog.SetSelectedQuest, questID)
+	return pcall(open, map) and true or false
 end
 
 -- The continent-type uiMap (Enum.UIMapType.Continent = 2) a map belongs to,

@@ -31,7 +31,7 @@ fn hiding_the_guide_hides_the_quest_item_hearthstone_target_rare_and_bag_buttons
 		q.addItem(0, 2, 900, 1)
 		q.step({ { t = "hearth" }, { t = "kill", target = "Wolf" }, { t = "use", item = 900, quest = 7, oi = 1 } })
 		Polestar.Rares = { Nearby = function() return { "Thuros" } end }
-		Polestar.QoL.Space = { Low = function() return true end, Junk = function() return { id = 900 } end, Armed = function() return false end, Free = function() return 1 end }
+		Polestar.QoL.Space = { Low = function() return true end, Spare = function() return nil end, Junk = function() return { id = 900 } end, Armed = function() return false end, Free = function() return 1 end }
 		local function shown()
 			stub.runTimers()
 			emit({ PolestarQuestItemButton:IsShown(), PolestarHearthButton:IsShown(), PolestarTargetAnchor:IsShown(), PolestarTargetRow1:IsShown(), PolestarRareButton:IsShown(), PolestarBagButton:IsShown() })

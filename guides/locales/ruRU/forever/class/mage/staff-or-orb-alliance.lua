@@ -24,7 +24,7 @@ return {
 
 	-- Step 3: Back to Belann Windwood
 	-- {npc:256507} Belann Windwood
-	["Back to {npc:256507}"] = "",
+	["Back to {npc:256507}"] = "Вернитесь: {npc:256507}",
 	-- {quest:1861} Mirror Lake · {npc:5497} Jennea Cannon · {zone:1453} Stormwind
 	["{quest:1861} (the next steps) waits for you with {npc:5497} in {zone:1453}, at about 15."] = "",
 
@@ -66,7 +66,7 @@ return {
 
 	-- Step 11: Back to Bink
 	-- {npc:5144} Bink
-	["Back to {npc:5144}"] = "",
+	["Back to {npc:5144}"] = "Вернитесь: {npc:5144}",
 	-- {npc:5144} Bink · {item:7507} Arcane Orb · {item:9514} Arcane Staff
 	["{npc:5144}: {item:7507} or {item:9514}"] = "",
 

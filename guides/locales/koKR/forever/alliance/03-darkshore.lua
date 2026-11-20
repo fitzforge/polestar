@@ -15,12 +15,15 @@ return {
 	["{npc:3649}, north end of the village"] = "{npc:3649}, 마을 북쪽 끝",
 	-- {npc:3649} Thundris Windweaver · {npc:1646} Baros Alexston · {zone:1453} Stormwind
 	["{npc:3649}: for {npc:1646} in {zone:1453}"] = "{npc:3649}: {zone:1453}의 {npc:1646}에게",
+	-- {npc:3657} Sentinel Elissa Starbreeze · {npc:3693} Terenthis
+	["{npc:3657}, beside {npc:3693}"] = "",
 	["The WANTED poster outside the inn"] = "여관 밖의 현상수배 포스터",
 	-- {npc:3666} Wizbang Cranktoggle
 	["{npc:3666}, upstairs in the inn"] = "{npc:3666}, 여관 위층",
 	-- {npc:10219} Gwennyth Bly'Leggonde · {zone:1438} Teldrassil
 	["{npc:10219} (Night Elves have it from {zone:1438})"] = "",
 	-- {npc:10216} Gubber Blump
+	-- was: ["{npc:10216}, on the pier: only with {skill:356}"] = "{npc:10216}, 부두 위: {skill:356} 기술이 있을 때만"
 	["{npc:10216}, on the pier"] = "",
 
 	-- Step 3: Gubber Blump
@@ -92,6 +95,8 @@ return {
 	["{item:5338}: Deth'ryll Satyrs"] = "{item:5338}: 데스릴 사티로스",
 
 	-- Step 14: Auberdine
+	-- {npc:3657} Sentinel Elissa Starbreeze · {npc:3693} Terenthis · {npc:3701} Tharnariun Treetender
+	["{npc:3657}, beside {npc:3693} and {npc:3701}"] = "",
 	["Fill the tube at the moonwell in the village"] = "마을의 달샘에서 시험관을 채우십시오",
 
 	-- Step 15: A Lesson to Learn

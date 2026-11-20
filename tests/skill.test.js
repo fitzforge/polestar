@@ -133,7 +133,7 @@ function invocations(texts) {
 	}
 	const out = [];
 	for (const line of lines) {
-		for (const m of line.matchAll(/(?<![<\/.\w-])polestar ([a-z][a-z0-9]*)((?: [^\s|]+| "[^"]*")*)/g)) out.push({ cmd: m[1], args: m[2].trim(), line });
+		for (const m of line.matchAll(/(?<![<\/.\w-])polestar ([a-z](?:[a-z0-9-]*[a-z0-9])?)((?: [^\s|]+| "[^"]*")*)/g)) out.push({ cmd: m[1], args: m[2].trim(), line });
 	}
 	return out;
 }

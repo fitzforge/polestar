@@ -10,15 +10,15 @@ return {
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "Летите: {area:35}",
 	-- {area:75} Stonard
-	["{area:75} flight master"] = "",
+	["{area:75} flight master"] = "Распорядитель полетов: {area:75}",
 
 	-- Step 3: Booty Bay
 	-- {area:75} Stonard · {area:35} Booty Bay · {npc:7406} Oglethorpe Obnoticus
 	["The flight from {area:75} lands on {area:35}'s upper deck. {npc:7406} has his workshop on the upper ring of the bay."] = "Полет из места {area:75} заканчивается на верхней палубе ({area:35}). Мастерская ({npc:7406}) – на верхнем ярусе бухты.",
 	-- {npc:7406} Oglethorpe Obnoticus
-	["{npc:7406}, inside"] = "",
+	["{npc:7406}, inside"] = "{npc:7406}, внутри",
 	-- {npc:2491} Whiskey Slim
-	["{npc:2491}, in the inn"] = "",
+	["{npc:2491}, in the inn"] = "{npc:2491}, в таверне",
 	-- {zone:1446} Tanaris
 	["\"Sea Wolf\" MacKinley, on the top floor: Stoley's shipment from {zone:1446}"] = "\"Морской Волк\" Маккинли, на верхнем этаже: груз Стоули из зоны {zone:1446}",
 	-- {npc:2487} Fleet Master Seahorn
@@ -37,7 +37,7 @@ return {
 	-- {object:3202} Grom'gol
 	["Fly to {object:3202}"] = "Летите: {object:3202}",
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "Распорядитель полетов: {area:35}",
 
 	-- Step 12: Grom'gol Base Camp
 	-- {area:117} Grom'gol Base Camp · {npc:2497} Nimboya · {object:2076} Bubbling Cauldron
@@ -76,10 +76,10 @@ return {
 
 	-- Step 23: Haldarr Encampment: kill these as you meet them
 	-- {area:1236} Haldarr Encampment
-	["{area:1236}: kill these as you meet them"] = "",
+	["{area:1236}: kill these as you meet them"] = "{area:1236}: убивайте их по пути",
 	["The Highborne ghosts haunt the ruins just north of the shrine; the Haldarr satyrs camp a little further north."] = "Призраки высокорожденных бродят по руинам чуть севернее святилища; сатиры из племени Халдарр стоят лагерем немного дальше на север.",
 	-- {npc:6117} Highborne Lichling · {area:1235} Shadowsong Shrine
-	["{npc:6117} walks around {area:1235}: look inside the circle on the map"] = "",
+	["{npc:6117} walks around {area:1235}: look inside the circle on the map"] = "{npc:6117} ходит по месту {area:1235}: ищите внутри круга на карте",
 
 	-- Step 24: Loh'atu
 	-- {npc:11548} Loh'atu · {area:3137} Talrendis Point
@@ -91,9 +91,9 @@ return {
 
 	-- Step 26: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Fly to {area:1637}"] = "",
+	["Fly to {area:1637}"] = "Летите сюда: {area:1637}",
 	-- {area:1237} Valormok
-	["{area:1237} flight master"] = "",
+	["{area:1237} flight master"] = "Распорядитель полетов: {area:1237}",
 
 	-- Step 27: Orgrimmar
 	-- {npc:7010} Zilzibin Drumlore
@@ -106,7 +106,7 @@ return {
 	-- Step 30: Paladin trainer
 	["Paladin trainer"] = "",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
-	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
+	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} – здесь: {zone:1456}; в городе {zone:1454} нет учителя паладинов",
 
 	-- Step 31: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
@@ -133,7 +133,7 @@ return {
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "Летите сюда: {area:1099}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Распорядитель полетов: {zone:1456}",
 
 	-- Step 36: Camp Mojache
 	-- {npc:7776} Talo Thornhoof · {zone:1448} Felwood
@@ -162,7 +162,7 @@ return {
 
 	-- Step 45: The Forgotten Coast: kill these as you meet them
 	-- {area:1108} The Forgotten Coast
-	["{area:1108}: kill these as you meet them"] = "",
+	["{area:1108}: kill these as you meet them"] = "{area:1108}: убивайте их по пути",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	-- plural, as words: Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray · Land Walkers = {npc:5357} Land Walker · Cliff Giants = {npc:5358} Cliff Giant
 	["The Sea Elementals and Sea Sprays wash along the shore around the dock.\nThe Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with {item:18904} first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too."] = "Морские элементали и морские брызги плещутся вдоль берега вокруг причала.\nСухопутные бродяги и скальные великаны бродят по холмам к северу от причала. Сначала ударьте каждого предметом {item:18904}: уменьшенные, они больше не элита. С каждого уменьшенного великана падает осадок; используйте на его теле и сосуд для уменьшенных горных великанов.",
@@ -183,7 +183,7 @@ return {
 
 	-- Step 50: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, внутри",
 
 	-- Step 52: Gadgetzan
 	-- {npc:7876} Tran'rek
@@ -191,7 +191,7 @@ return {
 
 	-- Step 53: The Egg-O-Matic
 	-- {object:142071} Egg-O-Matic
-	["The {object:142071}"] = "",
+	["The {object:142071}"] = "{object:142071}",
 	-- {object:142071} Egg-O-Matic
 	["The {object:142071}, in the middle of town"] = "{object:142071}, в центре города",
 

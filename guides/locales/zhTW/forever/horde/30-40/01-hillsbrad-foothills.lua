@@ -12,32 +12,32 @@ return {
 
 	-- Step 1: Freewind Post flight master
 	-- {area:484} Freewind Post
-	["{area:484} flight master"] = "",
+	["{area:484} flight master"] = "{area:484}飛行管理員",
 
 	-- Step 2: Thunder Bluff
 	-- {area:484} Freewind Post · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
-	["Fly from {area:484} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to the Crossroads from there."] = "",
+	["Fly from {area:484} to {area:1638} and train with {npc:3033} on {area:1639}; fly on to the Crossroads from there."] = "從{area:484}飛往{area:1638}，在{area:1639}找{npc:3033}訓練，然後從那裡飛往十字路口。",
 
 	-- Step 3: Ratchet
 	-- {area:484} Freewind Post · {area:392} Ratchet · {npc:5901} Islen Waterseer
-	["Fly from {area:484} to {area:392}. {npc:5901} camps on the coast a short walk south of the town; fly on to the Crossroads from {area:392}."] = "",
+	["Fly from {area:484} to {area:392}. {npc:5901} camps on the coast a short walk south of the town; fly on to the Crossroads from {area:392}."] = "從{area:484}飛往{area:392}。{npc:5901}在鎮子南邊不遠處的海岸紮營；從{area:392}飛往十字路口。",
 	-- {npc:5901} Islen Waterseer · {item:6637} Water Sapta
-	["{npc:5901}: your {item:6637}, for the brazier"] = "",
+	["{npc:5901}: your {item:6637}, for the brazier"] = "{npc:5901}：你的{item:6637}，用於火盆",
 
 	-- Step 4: Fly to the Crossroads
-	["Fly to the Crossroads"] = "",
+	["Fly to the Crossroads"] = "飛往十字路口",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "{zone:1456}飛行管理員",
 
 	-- Step 5: Fly to the Crossroads
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "{area:392}飛行管理員",
 
 	-- Step 7: Korran
 	-- {npc:3428} Korran · {quest:1145} The Swarm Grows · {zone:1454} Orgrimmar
 	["{npc:3428} stands beside the Crossroads flight master. {quest:1145} is offered from level 29; below it, the next guide's {zone:1454} stop takes it."] = "{npc:3428}站在十字路口的飛行管理員旁。{quest:1145}29級起可接；未達等級時，下一份指南的{zone:1454}站會接它。",
 	-- {npc:3428} Korran · {npc:4485} Belgrom Rockmaul · {zone:1454} Orgrimmar
-	["{npc:3428}: for {npc:4485} in {zone:1454}"] = "",
+	["{npc:3428}: for {npc:4485} in {zone:1454}"] = "{npc:3428}：交給{zone:1454}的{npc:4485}",
 
 	-- Step 8: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
@@ -46,7 +46,7 @@ return {
 
 	-- Step 9: Thrall
 	-- {npc:4949} Thrall · {object:172957} Valley of Wisdom
-	["{npc:4949} waits in Grommash Hold, in the {object:172957}."] = "",
+	["{npc:4949} waits in Grommash Hold, in the {object:172957}."] = "{npc:4949}在{object:172957}的格羅瑪什要塞裡等候。",
 	-- {npc:4949} Thrall
 	["{npc:4949}, Grommash Hold, if you carry it"] = "{npc:4949}，Grommash Hold，如果你帶著它",
 
@@ -56,9 +56,9 @@ return {
 
 	-- Step 11: Belgrom Rockmaul
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor
-	["{npc:4485} stands in the {object:172958}, on the way out to the main gate."] = "",
+	["{npc:4485} stands in the {object:172958}, on the way out to the main gate."] = "{npc:4485}站在{object:172958}裡，在出城前往正門的路上。",
 	-- {npc:4483} Moktar Krin · {area:439} Shimmering Flats
-	["for {npc:4483} in the {area:439}, next guide"] = "",
+	["for {npc:4483} in the {area:439}, next guide"] = "交給{area:439}的{npc:4483}，見下一個指南",
 
 	-- Step 12: Zeppelin to Undercity
 	-- {zone:1458} Undercity
@@ -66,25 +66,25 @@ return {
 
 	-- Step 13: Garen Largo
 	-- {npc:260093} Garen Largo · {zone:1458} Undercity
-	["{npc:260093} trains Paladins in the {zone:1458}."] = "",
+	["{npc:260093} trains Paladins in the {zone:1458}."] = "{npc:260093}在{zone:1458}訓練聖騎士。",
 
 	-- Step 14: Undercity flight master
 	-- {zone:1458} Undercity
-	["{zone:1458} flight master"] = "",
+	["{zone:1458} flight master"] = "{zone:1458}飛行管理員",
 
 	-- Step 15: Brazier of Everfount
 	-- {area:228} Sepulcher · {object:113791} Brazier of Everfount (no name in this language: may be words) · {npc:5895} Minor Manifestation of Water · {item:7813} Shard of Water · {npc:5901} Islen Waterseer · {area:272} Tarren Mill
-	["Fly to the {area:228}. The {object:113791} stands on the hill just south-west of it: beat the Corrupt Manifestation of Water beside it, place its bracers in the brazier, speak to the {npc:5895} and keep the {item:7813} for {npc:5901}. Fly on to {area:272} from the {area:228}."] = "",
+	["Fly to the {area:228}. The {object:113791} stands on the hill just south-west of it: beat the Corrupt Manifestation of Water beside it, place its bracers in the brazier, speak to the {npc:5895} and keep the {item:7813} for {npc:5901}. Fly on to {area:272} from the {area:228}."] = "飛往{area:228}。{object:113791}就在它西南的小山上：擊敗旁邊的墮落水之化身，把它的護腕放進火盆，與{npc:5895}交談，並把{item:7813}留給{npc:5901}。然後從{area:228}飛往{area:272}。",
 	-- {item:6637} Water Sapta
-	["{item:6637}: drink it by the standing stone to see the elemental"] = "",
+	["{item:6637}: drink it by the standing stone to see the elemental"] = "{item:6637}：在立石旁喝下，就能看見元素",
 	-- {npc:5901} Islen Waterseer
-	["for {npc:5901}, next guide"] = "",
+	["for {npc:5901}, next guide"] = "交給{npc:5901}，見下一個指南",
 
 	-- Step 16: Fly to Tarren Mill
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "飛往{area:272}",
 	-- {area:228} Sepulcher
-	["{area:228} flight master"] = "",
+	["{area:228} flight master"] = "{area:228}飛行管理員",
 
 	-- Step 18: Tarren Mill
 	-- {quest:567} Dangerous! · {npc:2216} Apothecary Lydon · {npc:2393} Christoph Jeffcoat
@@ -92,7 +92,7 @@ return {
 	-- {quest:567} Dangerous!
 	["{quest:567}, the poster by the inn"] = "{quest:567}，旅店旁的告示",
 	-- {npc:2216} Apothecary Lydon
-	["{npc:2216}, inside"] = "",
+	["{npc:2216}, inside"] = "{npc:2216}，在裡面",
 	-- {npc:2393} Christoph Jeffcoat · {quest:7321} Soothing Turtle Bisque
 	["{npc:2393}: {quest:7321}, the Snapjaws of the river south of town"] = "{npc:2393}：{quest:7321}，鎮南河邊的鉗嘴龜",
 	-- {item:3713} Soothing Spices · {npc:2393} Christoph Jeffcoat
@@ -106,7 +106,7 @@ return {
 	-- {npc:2229} Krusk · {area:275} Durnholde Keep
 	["{npc:2229} wants his two scouts freed from {area:275}."] = "{npc:2229}要你把他的兩名斥候從{area:275}救出來。",
 	-- {npc:2229} Krusk
-	["{npc:2229}, inside"] = "",
+	["{npc:2229}, inside"] = "{npc:2229}，在裡面",
 
 	-- Step 21: Hillsbrad Fields
 	-- {area:287} Hillsbrad · {npc:232} Farmer Ray · {npc:2403} Farmer Getz
@@ -115,7 +115,7 @@ return {
 
 	-- Step 22: Tarren Mill
 	-- {area:272} Tarren Mill
-	["Back east to {area:272}."] = "",
+	["Back east to {area:272}."] = "向東返回{area:272}。",
 
 	-- Step 23: Hillsbrad Peasants
 	-- plural, as words: Hillsbrad Peasants = {npc:2267} Hillsbrad Peasant
@@ -124,10 +124,14 @@ return {
 
 	-- Step 26: Durnholde Keep
 	-- {npc:2238} Tog'thar · {npc:2427} Jailor Eston · {item:3467} Dull Iron Key · {npc:2428} Jailor Marlgen · {item:3499} Burnished Gold Key
-	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks."] = "在塔倫米爾東南方。德盧爾和{npc:2238}被鎖在城堡庭院的建築裡：{npc:2427}帶著{item:3467}，{npc:2428}帶著{item:3499}，兩人都在城堡裡。殺死他們，然後打開兩道鎖。",
-	["Drull's ball and chain"] = "德盧爾的腳鐐",
+	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings, and each lock needs its key: {npc:2427} carries the {item:3467} for Drull's, {npc:2428} the {item:3499} for {npc:2238}'s, both in the keep. Kill them first, then open both locks."] = "",
+	-- {item:3467} Dull Iron Key · {npc:2427} Jailor Eston
+	["{item:3467}, from {npc:2427}"] = "",
+	-- {item:3499} Burnished Gold Key · {npc:2428} Jailor Marlgen
+	["{item:3499}, from {npc:2428}"] = "",
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "{npc:2238}的腳鐐",
+	["Drull's ball and chain"] = "德盧爾的腳鐐",
 
 	-- Step 27: Krusk
 	-- {area:272} Tarren Mill
@@ -153,8 +157,11 @@ return {
 	-- Step 31: The smithy
 	["The smithy"] = "鐵匠鋪",
 	-- {area:287} Hillsbrad · {npc:2404} Blacksmith Verringtan · {object:1736} Shipment of Iron · {npc:2449} Citizen Wilkes · {npc:2451} Farmer Kalaba
-	["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks by the smithy; {npc:2451} works the field south-east of the town."] = "往西穿過丘陵前往{area:287}鎮：鐵匠鋪就在鎮中央。{npc:2404}和他的學徒在熔爐旁工作；{object:1736}堆在旁邊。{npc:2449}在鐵匠鋪附近走動；{npc:2451}在鎮東南方的田裡工作。",
-	["Inside"] = "",
+	-- was: ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks by the smithy; {npc:2451} works the field south-east of the town."] = "往西穿過丘陵前往{area:287}鎮：鐵匠鋪就在鎮中央。{npc:2404}和他的學徒在熔爐旁工作；{object:1736}堆在旁邊。{npc:2449}在鐵匠鋪附近走動；{npc:2451}在鎮東南方的田裡工作。"
+	["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks the west side of the town; {npc:2451} works the field south-east of the town."] = "",
+	["Inside"] = "在裡面",
+	-- {npc:2449} Citizen Wilkes
+	["{npc:2449}, on the west side of the town"] = "",
 
 	-- Step 32: Tarren Mill
 	-- {npc:2055} Master Apothecary Faranell · {zone:1458} Undercity
@@ -170,9 +177,9 @@ return {
 	-- Step 34: Town hall
 	["Town hall"] = "市政廳",
 	-- {area:287} Hillsbrad · {npc:2335} Magistrate Burnside · {npc:2448} Clerk Horrace Whitesteed
-	["On to {area:287} town, south-west of the yeti caves. The town hall is on the town's west side: {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "",
+	["On to {area:287} town, south-west of the yeti caves. The town hall is on the town's west side: {npc:2335} (30) and {npc:2448} are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town."] = "接著前往雪人洞穴西南的{area:287}鎮。市政廳在鎮子西側：{npc:2335}（30級）和{npc:2448}在裡面，旁邊是希爾斯布萊德城鎮文件；希爾斯布萊德宣言就貼在它旁邊。希爾斯布萊德議員在鎮上走動。",
 	-- {object:1761} Hillsbrad Proclamation
-	["{object:1761}, inside"] = "",
+	["{object:1761}, inside"] = "{object:1761}，在裡面",
 
 	-- Step 35: Tarren Mill
 	-- {area:271} Southshore
@@ -194,10 +201,10 @@ return {
 	-- {area:287} Hillsbrad · {area:288} Azurelode Mine · {npc:2305} Foreman Bonds · {npc:2450} Miner Hackett
 	["Head south-west past {area:287} town to the {area:288}. Miners work the tunnels; {npc:2305} (30) and {npc:2450} (29) are deep inside."] = "往西南經過{area:287}鎮，前往{area:288}。礦工在坑道裡工作；{npc:2305}（30級）和{npc:2450}（29級）在深處。",
 	-- {area:288} Azurelode Mine
-	["Inside {area:288}"] = "",
+	["Inside {area:288}"] = "在{area:288}裡面",
 
 	-- Step 40: Level 30
-	["Level 30"] = "",
+	["Level 30"] = "30級",
 	-- {npc:2410} Magus Wordeen Voidglare · {area:272} Tarren Mill · {zone:1454} Orgrimmar · {area:288} Azurelode Mine · {zone:1437} Wetlands
 	-- plural, as words: Torn Fin Muckdwellers = {npc:2374} Torn Fin Muckdweller
 	["{npc:2410}'s quests on the next {area:272} stop and Alliance Relations in {zone:1454}, the next guide's first stop, are offered from level 30. Short of 30? The Torn Fin Muckdwellers and Coastrunners (28-30) crowd the coast south of the {area:288}, a short walk: kill them until level 30. Their Oracles (30-31) cast from the shore further east. Or, with a group, run the Excavation Site dungeon (in the {zone:1437}) instead."] = "下次到{area:272}時{npc:2410}的任務，以及下一份指南第一站{zone:1454}的「聯盟關係」，都要30級才能接。還不到30級？碎鰭泥漿魚人和灘行魚人（28-30級）擠滿{area:288}南邊的海岸，走一小段就到：殺到30級為止。牠們的神諭者（30-31級）在更東邊的岸上施法。或者，有小隊的話，改去打挖掘場地城（在{zone:1437}）。",
@@ -243,29 +250,29 @@ return {
 
 	-- Step 45: Battle of Hillsbrad with a group
 	-- {quest:539} Battle of Hillsbrad
-	["{quest:539} with a group"] = "",
+	["{quest:539} with a group"] = "{quest:539}，組隊去做",
 	-- {area:290} Dun Garok · {area:271} Southshore · {npc:2304} Captain Ironhill
-	["Darthalia's last battle is at {area:290}, the dwarven keep south-east of {area:271}: every dwarf there is elite (28-32), {npc:2304} too. Great XP if you have a group for it."] = "",
+	["Darthalia's last battle is at {area:290}, the dwarven keep south-east of {area:271}: every dwarf there is elite (28-32), {npc:2304} too. Great XP if you have a group for it."] = "達薩利亞的最後一戰在{area:290}，即{area:271}東南方的矮人堡壘：那裡的每個矮人都是精英（28-32級），{npc:2304}也是。組隊去打經驗很可觀。",
 
 	-- Step 46: Humbert's Sword with a group
 	-- {quest:547} Humbert's Sword
-	["{quest:547} with a group"] = "",
+	["{quest:547} with a group"] = "{quest:547}，組隊去做",
 	-- {npc:2419} Deathguard Humbert · {area:290} Dun Garok
-	["{npc:2419}'s sword drops from the same {area:290} dwarves (about one in twelve)."] = "",
+	["{npc:2419}'s sword drops from the same {area:290} dwarves (about one in twelve)."] = "{npc:2419}的長劍也掉自同一批{area:290}矮人（大約十二分之一）。",
 
 	-- Step 47: Dun Garok
 	-- {area:290} Dun Garok
-	["Clear {area:290} from the gate in; the dwarves run for help at 30% health."] = "",
+	["Clear {area:290} from the gate in; the dwarves run for help at 30% health."] = "從大門開始往裡清理{area:290}；這些矮人血量到30%時會逃跑呼救。",
 
 	-- Step 48: Tarren Mill
 	-- {npc:2425} Varimathras · {zone:1458} Undercity
-	["for {npc:2425} in the {zone:1458}, at the end of this guide"] = "",
+	["for {npc:2425} in the {zone:1458}, at the end of this guide"] = "交給{zone:1458}的{npc:2425}，在本指南末尾",
 
 	-- Step 50: Fly to Undercity
 	-- {area:1497} Undercity
-	["Fly to {area:1497}"] = "",
+	["Fly to {area:1497}"] = "飛往{area:1497}",
 	-- {area:272} Tarren Mill
-	["{area:272} flight master"] = "",
+	["{area:272} flight master"] = "{area:272}飛行管理員",
 
 	-- Step 51: Master Apothecary Faranell
 	-- {npc:2055} Master Apothecary Faranell · {object:36126} Royal Quarter
@@ -275,9 +282,9 @@ return {
 
 	-- Step 52: Varimathras
 	-- {npc:2425} Varimathras · {object:36126} Royal Quarter
-	["{npc:2425} stands beside Sylvanas in the {object:36126}."] = "",
+	["{npc:2425} stands beside Sylvanas in the {object:36126}."] = "{npc:2425}站在{object:36126}中希爾瓦娜斯旁邊。",
 	-- {npc:2425} Varimathras
-	["{npc:2425}: Darthalia's commendation"] = "",
+	["{npc:2425}: Darthalia's commendation"] = "{npc:2425}：達薩利亞的獎狀",
 
 	-- Step 53: Calder Gray
 	-- {npc:270038} Calder Gray · {quest:97985} Thundering Hearts · {area:484} Freewind Post · {area:439} Shimmering Flats
@@ -304,6 +311,7 @@ return {
 	-- ["North of Southshore's graveyard"] = "南海鎮墓地北邊",
 	-- ["Only if {quest:535}'s missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one. Careful: at 31-32 they are still above you and stand close together, with Wizards (34-35) among them: pull one at a time from the camp's edge."] = "只有在沒拿到{quest:535}的信件時才做：道路西邊營地周圍的辛迪加劫匪和竊賊（32-34級）也帶著信件，約每三隻掉一封。小心：31-32級時他們仍比你高，而且站得很近，其中還有巫師（34-35級）：從營地邊緣一次拉一隻。",
 	-- ["Shindigger keg"] = "鐵鏟酒桶",
+	-- ["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks."] = "在塔倫米爾東南方。德盧爾和{npc:2238}被鎖在城堡庭院的建築裡：{npc:2427}帶著{item:3467}，{npc:2428}帶著{item:3499}，兩人都在城堡裡。殺死他們，然後打開兩道鎖。",
 	-- ["South-west, the Cave and Ferocious Yetis (30-32) fill the {area:277} in the hills west of {area:272}; about one in sixteen carries the rod. Stay in these caverns: the Mountain and Giant Yetis (32-34) of the cave further north carry it too, but at 29-30 they hit hard and come in pairs."] = "往西南走，洞穴雪人和兇惡的雪人（30-32級）遍布{area:272}西側山中的{area:277}；約每十六隻有一隻帶著魔棒。待在這片洞穴裡：更北邊那個洞穴的山嶺雪人和巨型雪人（32-34級）也帶著魔棒，但29-30級時牠們打得很痛，而且成對出現。",
 	-- ["Syndicate missives"] = "辛迪加信件",
 	-- ["The Syndicate Footpads and Thieves (32-33) around the camps west of the road carry the missives; about one in three drops one."] = "道路西邊營地周圍的辛迪加劫匪和辛迪加竊賊（32-33級）身上帶著信件；約三分之一會掉落。",
@@ -313,6 +321,7 @@ return {
 	-- ["The {area:279} crater's eastern rim"] = "{area:279}巨坑的東緣",
 	-- ["Torn Fin beach"] = "碎鰭海灘",
 	-- ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it."] = "往西穿過丘陵前往{area:287}鎮：鐵匠鋪就在鎮中央。{npc:2404}和他的學徒在熔爐旁工作；{object:1736}堆在旁邊。",
+	-- ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks by the smithy; {npc:2451} works the field south-east of the town."] = "往西穿過丘陵前往{area:287}鎮：鐵匠鋪就在鎮中央。{npc:2404}和他的學徒在熔爐旁工作；{object:1736}堆在旁邊。{npc:2449}在鐵匠鋪附近走動；{npc:2451}在鎮東南方的田裡工作。",
 	-- ["With a {item:3388} in your bags, {npc:2055} offers {quest:513} in the Apothecarium; {npc:2216} takes the elixir in {area:272}."] = "背包裡有{item:3388}時，{npc:2055}會在皇家藥劑師協會提供{quest:513}；{npc:2216}在{area:272}收下藥劑。",
 	-- ["{item:3388}: auction house or an alchemist, for {quest:513}."] = "{item:3388}：拍賣場或鍊金術師，用於{quest:513}。",
 	-- ["{item:3703}, for {npc:2333}"] = "{item:3703}，給{npc:2333}",

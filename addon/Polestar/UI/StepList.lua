@@ -20,7 +20,8 @@
 -- goals are ticked and muted, done and skipped steps muted whole, the step on
 -- screen on a lifted ground. A click looks at that step (GuideFrame.LookAt)
 -- and returns to the card. It opens at the step on screen and keeps the
--- window's current height, scrolling inside it. Steps that keep their number but
+-- window's current height, scrolling inside it; the compact window, too
+-- short to browse in, grows to fit the cards up to its height cap. Steps that keep their number but
 -- do not apply to the character now (a `when` that does not hold, such as a
 -- catch-up for quests already handed in) share one muted card per run that
 -- says which numbers they are and why (Engine.GetStepView `why`), so the
@@ -445,8 +446,10 @@ function SL.Fill()
 end
 
 -- Fill the cards and lay them out `width` wide, each as tall as its wrapped
--- lines; the list fills `room`, scrolling any overflow. -> height
-function SL.Layout(width, room)
+-- lines; the list fills `room`, scrolling any overflow. With `least` (the
+-- compact window) it is as tall as its cards instead, from `least` up to
+-- `room`. -> height
+function SL.Layout(width, room, least)
 	SL.Fill()
 	local sc = SL.scroll
 	local first = SL.n > 0 and SL.rows[1].G[1]
@@ -501,6 +504,7 @@ function SL.Layout(width, room)
 	end
 	local y = SL.H or GAP
 	local view = max(1, room or y)
+	if least then view = max(1, min(view, max(least, y))) end
 	SL.frame:SetHeight(view)
 	W.SetScrollContent(sc, y, view)
 	-- Opened: the step on screen (else the live one) at the top, the steps

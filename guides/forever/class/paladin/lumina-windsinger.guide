@@ -116,6 +116,15 @@ step Ulric Frostveil
   level 24
   accept 95042                        -- Ulric Frostveil, Zoram'gar Outpost
 
+# The flooded ruins at the Blackfathom Deeps entrance are not on the walking maps: without a waypoint the arrow
+# led north into Darkshore and up onto the ridge over the dungeon (#2203). The step before the naga leads to the
+# north end of the Zoram Strand, where players' recordings swim into the ruins; from there the arrow is straight.
+step The north end of the Zoram Strand
+  zone Ashenvale
+  tip The naga's flooded ruins lie just past the north end of the Zoram Strand. The arrow cannot find its own way down into them, so it leads you to the water's edge first: from there swim north into the ruins.
+  level 25
+  goto 14.6,13.7 "The north end of the Zoram Strand"
+
 step The Corrupted Kor Gem
   zone Ashenvale
   tip The naga stand in the flooded ruins and passages around the Blackfathom Deeps entrance, just north of Zoram'gar: you do not need to enter the instance (its first naga drop the gem too). Tide Priestesses (level 20-21), Oracles (21-22) and Sea Witches (23-24) drop the Corrupted Kor Gem, one in two. All are elite: grouping up is encouraged. Players solo them one at a time, with difficulty; a group of three makes it easy. They heal themselves, run for help at low health, and the Sea Witches cast Frost Nova up close. Some players report no drop while in a raid group.

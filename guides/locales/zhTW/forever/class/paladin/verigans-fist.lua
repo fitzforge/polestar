@@ -18,18 +18,18 @@ return {
 	-- {npc:6171} Duthorian Rall · {item:6776} Tome of Valor
 	["{npc:6171} stands in the Cathedral of Light. Humans get the {item:6776} from him. Right-click the book to start its quest and hand it straight back to him."] = "{npc:6171}在光明大教堂裡。人類會從他那裡拿到{item:6776}。右鍵點擊這本書開始任務，然後直接交還給他。",
 	-- {item:6776} Tome of Valor
-	["Right-click the {item:6776}"] = "",
+	["Right-click the {item:6776}"] = "右鍵點選{item:6776}",
 
 	-- Step 3: Daphne Stilwell
 	-- {npc:6182} Daphne Stilwell · {zone:1436} Westfall · {area:20} Moonbrook · {area:1581} Deadmines
 	-- plural, as words: Defias Raiders = {npc:6180} Defias Raider
-	["{npc:6182}'s farmhouse stands on the south-west coast of {zone:1436}, south of {area:20}: take the path that runs south beside the {area:1581}' back exit. When you take her quest, she walks from her orchard to the house and three waves of Defias Raiders (level 17-18) attack: three, then four, then five. Fight close to her so they do not swarm her, and heal her when she drops. You get time to eat and drink between waves, and she heals to full. If you or {npc:6182} die, the quest fails: abandon it and take it again from her (she is back five minutes after dying). Players find it hard alone before about 24."] = "",
+	["{npc:6182}'s farmhouse stands on the south-west coast of {zone:1436}, south of {area:20}: take the path that runs south beside the {area:1581}' back exit. When you take her quest, she walks from her orchard to the house and three waves of Defias Raiders (level 17-18) attack: three, then four, then five. Fight close to her so they do not swarm her, and heal her when she drops. You get time to eat and drink between waves, and she heals to full. If you or {npc:6182} die, the quest fails: abandon it and take it again from her (she is back five minutes after dying). Players find it hard alone before about 24."] = "{npc:6182}的農舍在{zone:1436}西南海岸、{area:20}以南：走{area:1581}後出口旁向南的小路。接她的任務後，她會從果園走向農舍，三波迪菲亞襲擊者（17-18級）會來襲：先三個，再四個，然後五個。靠近她戰鬥，免得他們圍攻她；她血量下降時給她治療。兩波之間你有時間吃喝，她也會回滿血。如果你或{npc:6182}死亡，任務失敗：放棄任務再找她接（她死後五分鐘回來）。玩家普遍覺得24級前單人很難。",
 	-- {npc:6182} Daphne Stilwell
-	["Protect {npc:6182}: three waves"] = "",
+	["Protect {npc:6182}: three waves"] = "保護{npc:6182}：三波",
 
 	-- Step 4: Duthorian Rall
 	-- {npc:6171} Duthorian Rall · {item:9607} Bastion of Stormwind · {spell:5502} Sense Undead
-	["Back to the Cathedral of Light: {npc:6171} gives you the {item:9607} shield and teaches you {spell:5502}."] = "",
+	["Back to the Cathedral of Light: {npc:6171} gives you the {item:9607} shield and teaches you {spell:5502}."] = "回到聖光大教堂：{npc:6171}給你{item:9607}盾牌，並教你{spell:5502}。",
 
 	-- Step 5: Jordan Stilwell
 	-- {npc:6181} Jordan Stilwell · {zone:1455} Ironforge · {item:6996} Jordan's Weapon Notes
@@ -37,11 +37,11 @@ return {
 
 	-- Step 6: Bailor Stonehand
 	-- {npc:6241} Bailor Stonehand · {area:144} Thelsamar
-	["{npc:6241} is downstairs in the house of {area:144} that has a tailoring merchant outside. His quest only opens once you hold Jordan's."] = "",
+	["{npc:6241} is downstairs in the house of {area:144} that has a tailoring merchant outside. His quest only opens once you hold Jordan's."] = "{npc:6241}在{area:144}那棟外面有裁縫商人的房子樓下。只有你持有喬丹的部件後，他的任務才會開放。",
 
 	-- Step 7: Bailor's Ore
 	-- {zone:1432} Loch Modan
-	["The crate of ore sits outdoors in the middle of the Mo'grosh ogre camp in north-east {zone:1432}, beside a big tree and a broken wagon, between the caves. The camp holds about fifteen Mo'grosh ogres, elite (level 18-19), who knock you down and come back after five minutes: grouping up is encouraged; at 20-22 it needs a group of about three. The crate is back two seconds after each loot, so every paladin in the group gets one."] = "",
+	["The crate of ore sits outdoors in the middle of the Mo'grosh ogre camp in north-east {zone:1432}, beside a big tree and a broken wagon, between the caves. The camp holds about fifteen Mo'grosh ogres, elite (level 18-19), who knock you down and come back after five minutes: grouping up is encouraged; at 20-22 it needs a group of about three. The crate is back two seconds after each loot, so every paladin in the group gets one."] = "礦石箱露天放在{zone:1432}東北部莫格羅什食人魔營地的中央，在一棵大樹和一輛破車旁，位於洞穴之間。營地約有十五個莫格羅什食人魔，精英（18-19級），會把你擊倒並在五分鐘後回來：建議組隊；20-22級時大約需要三人小隊。每次拾取後兩秒箱子就會重新出現，所以隊伍裡每個聖騎士都能拿到一個。",
 	-- {object:92420} Bailor's Ore
 	["{object:92420} crate"] = "{object:92420}箱子",
 
@@ -68,21 +68,27 @@ return {
 
 	-- Step 11: Thundris Windweaver
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
-	["{npc:3649} is in {area:442}. Take his quest before you hunt naga: the Kor Gem never drops without it."] = "",
+	["{npc:3649} is in {area:442}. Take his quest before you hunt naga: the Kor Gem never drops without it."] = "{npc:3649}在{area:442}。獵殺納迦前先接他的任務：沒有任務時柯爾寶石絕不會掉落。",
 
-	-- Step 12: The Corrupted Kor Gem
+	-- Step 12: The north end of the Zoram Strand
+	-- {area:414} Zoram Strand
+	["The north end of the {area:414}"] = "",
+	-- {area:414} Zoram Strand · {zone:1439} Darkshore
+	["The naga's flooded ruins lie just past the north end of the {area:414}, south of {zone:1439} along the coast. The arrow cannot find its own way down into them, so it leads you to the water's edge first: from there swim north into the ruins."] = "",
+
+	-- Step 13: The Corrupted Kor Gem
 	-- {item:6995} Corrupted Kor Gem
 	["The {item:6995}"] = "{item:6995}",
 	-- {area:2797} Blackfathom Deeps · {zone:1440} Ashenvale · {item:6995} Corrupted Kor Gem · {spell:122} Frost Nova
-	["The Blackfathom naga in the flooded passages around the {area:2797} entrance, on {zone:1440}'s north-west coast, drop the {item:6995}: Tide Priestesses (level 20-21), Oracles (21-22) and Sea Witches (23-24), one in two. You do not need to enter the instance. All are elite: grouping up is encouraged; players solo them one at a time, with difficulty. They heal themselves, run for help at low health, satyrs stand near some, and the Sea Witches cast {spell:122} up close. Some players report no drop while in a raid group."] = "",
+	["The Blackfathom naga in the flooded passages around the {area:2797} entrance, on {zone:1440}'s north-west coast, drop the {item:6995}: Tide Priestesses (level 20-21), Oracles (21-22) and Sea Witches (23-24), one in two. You do not need to enter the instance. All are elite: grouping up is encouraged; players solo them one at a time, with difficulty. They heal themselves, run for help at low health, satyrs stand near some, and the Sea Witches cast {spell:122} up close. Some players report no drop while in a raid group."] = "{zone:1440}西北海岸{area:2797}入口周圍的水淹通道裡，黑淵納迦掉落{item:6995}：潮汐女祭司（20-21級）、神諭者（21-22級）和海巫（23-24級），約每兩隻掉一個。你不需要進入副本。它們全是精英：建議組隊；玩家們通常一次單挑一隻，但很困難。它們會自療，殘血時跑去求援，有些旁邊站著薩特，海巫會近身施放{spell:122}。有玩家反映在團隊中不掉落。",
 
-	-- Step 13: The Purified Kor Gem
+	-- Step 14: The Purified Kor Gem
 	-- {item:7083} Purified Kor Gem
 	["The {item:7083}"] = "{item:7083}",
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
 	["Back to {npc:3649} in {area:442}: he purifies the gem."] = "回到{area:442}找{npc:3649}：他會淨化寶石。",
 
-	-- Step 14: Verigan's Fist
+	-- Step 15: Verigan's Fist
 	-- {npc:6181} Jordan Stilwell · {zone:1455} Ironforge
 	["Bring the four parts to {npc:6181} outside {zone:1455}. Accept his last quest and wait by him while he forges the mace at his anvil."] = "把四個部件交給{zone:1455}外的{npc:6181}。接下他的最後一個任務，在他用鐵砧鍛造戰錘時在旁邊等候。",
 

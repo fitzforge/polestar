@@ -152,33 +152,33 @@ return {
 	-- {npc:265809} Brakk
 	["{npc:265809}: for Karolek"] = "{npc:265809}: 카롤렉에게 전달",
 
-	-- Step 28: Camping 101: Tailoring
-	-- {npc:265809} Brakk
-	["{npc:265809}: for Snang"] = "{npc:265809}: Snang에게 전달",
-
-	-- Step 29: Camping 101: Herbalism
+	-- Step 28: Camping 101: Herbalism
 	-- {npc:265809} Brakk
 	["{npc:265809}: for Jandi"] = "{npc:265809}: Jandi에게 전달",
 
-	-- Step 30: Camping 101: Enchanting
+	-- Step 29: Camping 101: Enchanting
 	-- {npc:265809} Brakk
 	["{npc:265809}: for Jhag"] = "{npc:265809}: Jhag에게 전달",
 
-	-- Step 31: Camping 101: Alchemy
+	-- Step 30: Camping 101: Alchemy
 	-- {npc:265809} Brakk
 	["{npc:265809}: for Whuut"] = "{npc:265809}: Whuut에게 전달",
 
-	-- Step 32: Razor Hill
+	-- Step 31: Razor Hill
 	-- {npc:266940} Turroc
 	["{npc:266940}, on the east side of town; inside"] = "",
 
-	-- Step 33: Razor Hill
+	-- Step 32: Razor Hill
 	-- {npc:3191} Cook Torka
 	["{npc:3191}: Camping 101 asks you to learn it"] = "",
 	-- {npc:6928} Innkeeper Grosk
 	["{npc:6928}, inside"] = "",
 	-- {npc:3147} Furl Scornbrow
 	["{npc:3147}, in the watchtower"] = "{npc:3147}, 감시탑 안",
+
+	-- Step 36: Camping 101: Tailoring
+	-- {npc:265809} Brakk
+	["{npc:265809}: for Snang"] = "{npc:265809}: Snang에게 전달",
 
 	-- Step 37: Tiragarde Keep
 	-- {area:362} Razor Hill · {item:4870} Canvas Scraps

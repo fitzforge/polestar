@@ -36,8 +36,20 @@ node tools/flow-audit.js gate flow/shipped flow/candidate --table
 ```
 
 Both trees must be audited with the same options (the same `--dynamic`, legs or
-`--no-legs`; straight lines while a candidate's legs are stale). The audit is
-light: a few seconds per branch, a few minutes per faction and mode.
+`--no-legs`; straight lines while a candidate's legs are stale); the gate refuses
+two audits of different `--dynamic` versions. The audit is light: a few seconds
+per branch, a few minutes per faction and mode.
+
+`--level-offset D` (default 0; fractional or negative too) plays a character
+always D levels ahead of the walk's modelled one: `when level` steps, level
+goals, min levels and the While-here mob gate read that level, while XP and the
+levels reported stay modelled. `--level-offset-profile FILE` instead plays a lead
+that changes with the level: a JSON list `[[level, offset], ...]` by modelled
+level, linear between its points (the first point's offset below it, the last
+one's above it), e.g. `[[5, -0.5], [25, 0.4], [35, 1.7], [45, 0.5]]` for a player
+behind the model in the start zones and ahead of it in the 30s. The audit records
+the offset or the profile; the gate refuses to compare two audits of different
+offsets.
 
 ## How a branch is played
 
@@ -56,6 +68,14 @@ keeps the other side's lines). Two walks per branch:
   the character, the addon's `HERE_MOBS_ABOVE`; `--dynamic 036`: 2, as 0.3.6
   offered), hand-ins of finished quests within the addon's budget, and the
   follow-ups an early hand-in's NPC gives.
+  `--dynamic 042` is 037 plus the rest of what the addon does on the way: a
+  later step's accept of the loaded guide as a pick-up line ("Take X from Y",
+  weighed as a hand-in; quest level at most 2 over the character, its min level
+  and prerequisites met, no group, escort or timed quest, room in the log), the
+  later accepts auto-accept takes at an NPC window the player opens anyway, and
+  the hand-in of a finished quest the loaded guide no longer hands in, at its
+  ender in passing. It is not the default yet: audits compare only within one
+  version.
   The tables are the dynamic walk's; the report shows both.
 
 The walk keeps a clock (7 yards a second on foot, flights at 30, 4 minutes for a
@@ -189,3 +209,60 @@ A route change often trades one count for another: a pick-up moved to the visit
 where the quest is done shortens the time it is carried and adds a passed giver
 where the walk went by it earlier. The gate shows both, and the reason says which
 one the route chose.
+
+## Flow diff: what one change does to the route
+
+The audit above walks the compiled guides with its own model of the player.
+`flow-diff` instead plays the route through the engine itself, on the tree
+before a change and the tree after it, so it also sees what an engine fix
+changes (a walk the engine now passes, a step it now skips). It is the check
+for a pull request that moves a quest: to a later step, into another guide,
+into a new step.
+
+```sh
+node tools/polestar.js flow-diff --base origin/next                 # the working tree against next
+node tools/polestar.js flow-diff --base v0.4.0 --head my-branch --guides horde/30-40 --md flow.md
+```
+
+Each tree is checked out from git (only the addon, tools, tests' stub world,
+guides and data), compiled with its own compiler and played with its own
+playtest: the plain playtest's simulated player, one race and class per
+guide (a start guide's race, else the first start race whose route reaches
+the guide; Warrior unless `--class` or the guide's class header says
+otherwise), each guide arriving with what the guides before it leave done or
+in the log. Both trees play against the same reference data (`--data`). A
+play whose guide and engine didn't change comes from the cache. `--guides`
+reports the guides whose id contains one of its texts (and plays each start's
+route up to them); `--skip-quest` plays a player who skips quests (a drop that
+never came, a quest left out), as the guide window's "Skip this quest" does.
+`--level-offset n` (also `playtest --level-offset n`) plays a character n whole
+levels ahead of each guide's level (negative: behind, never below 1): it starts
+at the guide's minimum level + n, and a level goal or an accept waiting for a
+level raises it to that level + n; its plays are cached apart from plain ones.
+
+Per guide that plays differently (or whose steps changed), and per branch (a
+start's default route, guide after guide):
+
+| Count | Definition |
+|---|---|
+| Zone visits | The zones of the goals the player acts on, in order, consecutive repeats merged |
+| Revisits | A visit to a zone the branch had been in and left before, in this guide or an earlier one; new when a guide goes back into a zone more often than the base did on that branch |
+| One-quest trips | A visited step whose work is one quest and lies more than `--trip-yd` yards (default 300) or a zone from the work of the steps before and after it, with no flight, hearth or boat between; new when the base had no such trip for that quest, in any guide |
+| Empty walks | A walk to a place no work follows within `--trip-yd` that adds more than `--trip-yd` to the way from the work before to the work after (a stop with nothing for the player, #2154); counted with the trips, by zone and step title |
+| Carried | Per quest, the guides from its accept to its hand-in on the branch; the largest span over the branches is compared |
+| Travel | Minutes walking (7 yd/s: the baked leg into a step when it runs from where the player stands to the goal and both trees have the guide's legs fresh, else the straight line) and flying (taxi distance x 1.25 at 30 yd/s, plus 30 s), as the flow audit prices them |
+| Moved quests | An accept or hand-in written in another step: the steps of each guide are matched base to head in order (same title, same quests), so a step put in before it moves nothing, while a pick-up moved to a later visit of a town of the same name does |
+
+It prints a short markdown table for the pull request body, with lists of the
+new and gone revisits and trips, the quests carried longer and the moved
+quests (`--md` writes it to a file, `--out` writes everything as JSON). It
+exits 1 when the change adds a revisit or a trip that `data/flow-diff-allow.json`
+does not name with a reason:
+
+```json
+{ "kind": "revisit", "guide": "forever/horde/30-40/05-arathi-highlands", "zone": "Hillsbrad Foothills",
+  "reason": "Back to Tarren Mill for the hand-ins Krusk and the magus give out, as the shipped route does" }
+```
+
+A trip is named by `quest` (a one-quest trip) or `step` (an empty walk's step
+title). The reason says why the route is better that way for players.

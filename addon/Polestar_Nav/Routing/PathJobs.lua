@@ -84,12 +84,25 @@ end
 
 -- The frame budget is Path.budget (PathGrid.lua) whatever the frame rate: a search costs a frame at most that much,
 -- so a fast frame is never doubled (0.3.1 grew it to 8 ms at 100 fps or more, halving the frame rate while a
--- search ran).
+-- search ran). Searches wait out combat (pump), and for Path.calmSeconds after any fight ends take Path.calmBudget a
+-- frame: the kill that ends a fight is when the game, the guide and the quest log all update at once (a step's
+-- objective done, loot, the next step's walk, queued in the fight or asked just after it).
+Path.calmBudget = 1
+Path.calmSeconds = 1
+local calmUntil = 0
+if CreateFrame then
+	local calm = CreateFrame("Frame")
+	calm:RegisterEvent("PLAYER_REGEN_ENABLED")
+	calm:SetScript("OnEvent", function()
+		calmUntil = (GetTime and GetTime() or 0) + Path.calmSeconds
+	end)
+end
 
--- With the queue empty the router rests: Grid.Rest trims the decoded graph to Path.graphRestKB and the endpoint trees
--- to the newest Path.restTrees, Search.Rest drops the endpoint trees' pool, and decoded clusters, the decoder's
--- scratch and the kept endpoint trees stay for the next search (a walk or measure from nearby reads the same
--- clusters) until it has rested Path.restSeconds, then Grid.Idle drops them. The search scratch (Search.Spare: the
+-- With the queue empty the router rests: Search.Rest empties the endpoint trees' pool, Grid.Rest trims the decoded
+-- graph to Path.graphRestKB and keeps Path.restTrees endpoint trees (the newest start's in the pool, for the next
+-- search's first connection to fill), and decoded clusters, the decoder's scratch and the kept endpoint trees stay
+-- for the next search (a walk or measure from nearby reads the same clusters) until it has rested Path.restSeconds,
+-- then Grid.Idle drops them; the pool goes with the search scratch. The search scratch (Search.Spare: the
 -- abstract A*'s tables, keyed by entrance ids, the heap and the grid trees; a long walk's is ~15 MB) stays
 -- Path.spareSeconds: the next search fills the same tables instead of growing new ones key by key. Until 0.3.4 every
 -- emptied queue dropped it, so a walk re-asked every few seconds (the player off the drawn line on a long walk) grew
@@ -98,8 +111,8 @@ Path.restSeconds = 60
 Path.spareSeconds = 15
 local rests = 0 -- times the queue emptied: a later rest makes an earlier rest's timers stale
 local function rest()
-	Grid.Rest()
 	Search.Rest()
+	Grid.Rest(Search.Release)
 	rests = rests + 1
 	local mine = rests
 	if C_Timer and C_Timer.After then
@@ -133,7 +146,7 @@ pump = function()
 		return
 	end
 	local now = clock()
-	local budget = Path.budget
+	local budget = GetTime and GetTime() < calmUntil and Path.calmBudget or Path.budget
 	local finish = now + budget
 	repeat
 		if #queue == 0 then
@@ -222,7 +235,13 @@ end
 -- { { id, name, areaId }, ... } (Path.lua's header). reason is "nodata", "outside", "offmesh", "unreachable" or
 -- "error". opts is the waterWalking flag (a boolean, as every caller before profiles passes it) or { waterWalking =
 -- boolean, profile = "Alliance" | "Horde" | nil, style = "fastest" | "balanced" | "roads" | nil (anything else is
--- Balanced), danger = { [uiMapID] = multiplier >= 1 } | nil (none) }.
+-- Balanced), danger = { [uiMapID] = multiplier >= 1 } | nil (none) }. to.reach (yards, with to.z): when no walk reaches
+-- the goal's own floor, the walk to the nearest surface within reach on its level that one reaches (job.reached = { x,
+-- y, z }, Routing/Path.lua `nearby`); FindMany takes from.reach alike for its source.
+-- opts.walkLevel ~= nil selects player routing. Ground segments, including the approaches
+-- to transport, must avoid opposing settlements. Zone level affects cost, not access.
+-- Find, FindCoarse and FindCost all materialize before publishing; failure is
+-- "no safe walking route". A strict batch publishes a target only after that same check.
 -- Returns a Cancel handle.
 ---@param map number
 ---@param from SPFPoint
@@ -231,7 +250,7 @@ end
 ---@param opts? boolean|{ waterWalking: boolean?, profile: string?, style: string?, danger: table<number, number>? }
 ---@return SPFPathJob
 function Path.Find(map, from, to, callback, opts)
-	local waterWalking, profile, style, danger, report = options(opts)
+	local waterWalking, profile, style, danger, report, walkLevel = options(opts)
 	return enqueue({
 		map = map,
 		from = from,
@@ -241,6 +260,7 @@ function Path.Find(map, from, to, callback, opts)
 		style = style,
 		danger = danger,
 		report = report,
+		walkLevel = walkLevel,
 		callback = callback,
 	})
 end
@@ -260,7 +280,7 @@ end
 ---@param whole? boolean
 ---@return SPFPathJob
 function Path.FindCoarse(map, from, to, callback, opts, whole)
-	local waterWalking, profile, style, danger, report = options(opts)
+	local waterWalking, profile, style, danger, report, walkLevel = options(opts)
 	return enqueue({
 		map = map,
 		from = from,
@@ -270,6 +290,7 @@ function Path.FindCoarse(map, from, to, callback, opts, whole)
 		style = style,
 		danger = danger,
 		report = report,
+		walkLevel = walkLevel,
 		callback = callback,
 		coarseOnly = true,
 		whole = whole and true or nil,
@@ -341,7 +362,7 @@ end
 ---@param progress? fun(costs: (number|false)[], reason: nil, job: SPFPathJob)
 ---@return SPFPathJob
 function Path.FindMany(map, from, targets, callback, opts, reverse, progress)
-	local waterWalking, profile, style, danger = options(opts)
+	local waterWalking, profile, style, danger, report, walkLevel = options(opts)
 	return enqueue({
 		map = map,
 		from = from,
@@ -350,6 +371,8 @@ function Path.FindMany(map, from, targets, callback, opts, reverse, progress)
 		profile = profile,
 		style = style,
 		danger = danger,
+		report = report,
+		walkLevel = walkLevel,
 		reverse = reverse,
 		progress = progress,
 		costs = {},

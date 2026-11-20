@@ -20,7 +20,7 @@ return {
 
 	-- Step 2: Fly to Shadowprey Village
 	-- {area:2408} Shadowprey Village
-	["Fly to {area:2408}"] = "",
+	["Fly to {area:2408}"] = "Летите сюда: {area:2408}",
 	-- {zone:2652} Shen'dralas · {area:405} Desolace · {area:2657} Valley of Bones · {zone:1454} Orgrimmar · {object:3202} Grom'gol · {zone:1458} Undercity
 	["New in Forever: this guide follows what players did in {zone:2652}. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\n{zone:2652} lies south of {area:405}, through the {area:2657}, and has no flight path of its own. Its quests are for levels 41-45. Coming from the Eastern Kingdoms, take the zeppelin to {zone:1454} first (from {object:3202} or the {zone:1458})."] = "Новое в Forever: этот гайд повторяет то, что делали игроки здесь: {zone:2652}. Если шаг неверен, сообщите нам в Discord или на GitHub Polestar и назовите шаг.\n{zone:2652} лежит к югу от края {area:405}, через место {area:2657}, и своего маршрута полета не имеет. Задания здесь для уровней 41-45. Если вы в Восточных королевствах, сначала летите на дирижабле в {zone:1454} (из места {object:3202} или из города {zone:1458}).",
 	-- {zone:1454} Orgrimmar

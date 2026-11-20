@@ -124,12 +124,17 @@ return {
 	-- {npc:4456} Fiora Longears · {area:514} Foothold Citadel · {npc:4941} Caz Twosprocket
 	["{npc:4456} is in the north of town, Captain Vimes in {area:514}; {npc:4941} stands in the town."] = "",
 
-	-- Step 23: Boat to Menethil Harbor
-	-- {area:150} Menethil Harbor
-	["Boat to {area:150}"] = "배를 타고 {area:150}(으)로",
+	-- Step 23: Ratchet
+	-- {zone:1413} Barrens · {area:392} Ratchet · {area:35} Booty Bay
+	["From Theramore follow the road north-west through the marsh into the {zone:1413} and up the coast to {area:392}: Stranglethorn starts at {area:35}, across the sea. {area:392}'s gryphon master stands above the dock."] = "",
+
+	-- Step 24: Boat to Booty Bay
+	-- {area:35} Booty Bay
+	["Boat to {area:35}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back west along the road to the satyr camps of {area:429}."] = "길을 따라 서쪽으로 {area:429}의 사티로스 야영지에 돌아가십시오.",
+	-- ["Boat to {area:150}"] = "배를 타고 {area:150}(으)로",
 	-- ["Dartol's Rod"] = "다르톨의 변신마법봉",
 	-- ["Follow the road east to the satyr camps of {area:429}; {npc:3920} hides at their edge."] = "길을 따라 동쪽으로 {area:429}의 사티로스 야영지까지 가십시오. {npc:3920}은(는) 야영지 가장자리에 숨어 있습니다.",
 	-- ["Follow the road west out of {area:415}; {area:413} lies north of it."] = "길을 따라 {area:415} 서쪽으로 나가십시오. {area:413}은(는) 길 북쪽에 있습니다.",

@@ -69,6 +69,8 @@ return {
 	["{area:496}: kill these as you meet them"] = "{area:496}：沿途遇到就击杀",
 	-- plural, as words: Darkfang Lurkers = {npc:4411} Darkfang Lurker · Theramore Infiltrators = {npc:4834} Theramore Infiltrator · Darkmist Lurkers = {npc:4377} Darkmist Lurker
 	["Head west back across the marsh. The Darkfang Lurkers (36-37) and Venomspitters (37-38) on the ridges north of Brackenwall drop the venom sacs. Theramore Infiltrators (35-36) sneak through the same woods: they are stealthed, so look closely.\nThe Darkmist spiders swarm the cavern mouth north-west of Brackenwall; every kind drops eyes. Work its outer edge, where the Spiders and Recluses (35-37) stand: the Lurkers and Silkspinners (37-39) deeper in are two or three over you.\nCareful: Darkfang Lurkers (level 36-37) use Sneak to stealth while out of combat and cast Poison once fighting.\nCareful: Stealthed spiders in the same area will attack you on sight.\nCareful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them."] = "向西返回，穿过沼泽。蕨墙村北面山脊上的暗牙潜伏者（36-37级）和暗牙毒蜘蛛（37-38级）会掉落毒囊。塞拉摩间谍（35-36级）潜行穿行于同一片树林中：它们处于潜行状态，要仔细寻找。\n暗雾蜘蛛聚集在蕨墙村西北面的洞口；所有种类都会掉落眼睛。在外围打蜘蛛和隐士蛛（35-37级）：更深处的潜伏者和织丝蛛（37-39级）比你高两三级。\n小心：暗牙潜伏者（36-37级）会在脱战时使用潜行，战斗时施放毒药。\n小心：同一区域内潜行的蜘蛛看到你就会攻击。\n小心：暗雾潜伏者会潜行移动，进入战斗后使用毒药。蜘蛛站得很密，经常会引到额外怪物；从外围逐个引怪能减少这种情况。",
+	-- plural, as words: Giant Darkfang Spiders = {npc:4415} Giant Darkfang Spider
+	["Every Darkfang spider drops them: Lurkers, Spiders, Venomspitters and the Giant Darkfang Spiders"] = "",
 
 	-- Step 16: Questioning Reethe
 	-- {npc:4983} Ogron · {area:2302} Quagmire · {npc:5045} Private Hallan
@@ -184,7 +186,7 @@ return {
 	-- {area:2657} Valley of Bones
 	["The {area:2657}"] = "{area:2657}",
 	-- {area:2657} Valley of Bones · {zone:1443} Desolace · {item:15848} Crate of Ghost Magnets
-	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magram Necrokhans = {npc:253274} Magram Necrokhan
+	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre · Magram Necrokhans = {npc:253274} Magram Necrokhan
 	["South-east of the coven, the bone fields of the {area:2657}, where Undead Ravagers roam, at {zone:1443}'s southern edge: keep south of the Magram's village on the way. Use the {item:15848} at the arrow to draw the Magrami Spectres (38-39): they come in numbers, so fight them with your back to the valley's edge. They drop the ghost-o-plasm.\nCareful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields just west of the arrow, well above you: use the crate at the arrow, on the valley's eastern side, and pull the spectres away from them."] = "集会所东南方是{area:2657}的白骨荒地，那里有亡灵劫掠者游荡，位于{zone:1443}的南缘：途中要绕到玛格拉姆村以南。在箭头处使用{item:15848}引来玛格拉姆鬼魂（38-39级）：它们成群而来，所以背靠山谷边缘作战。它们会掉落幽灵电浆。\n小心：玛格拉姆死灵可汗和玛格拉姆食尸者（45级，精英）在箭头正西边的白骨荒地上走动，等级远高于你：在山谷东侧的箭头处使用箱子，并把鬼魂从它们身边引开。",
 
 	-- Step 37: Hornizz Brimbuzzle

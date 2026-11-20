@@ -166,7 +166,7 @@ local function specMenu(anchor)
 				relist()
 			end }
 	end
-	W.ShowMenu(anchor, items, {})
+	W.ShowMenu(anchor, items, { current = true })
 end
 
 -- A box being typed in whose line is about to show another stat: its number

@@ -9,8 +9,8 @@
 //! applicable step's goals are done the way the game does them (quest state, the level, bags, flight paths
 //! from the flight map, position for goto and explore, the zone text for a flight's landing, the named NPC's
 //! window for train, vendor and talk; a vendor beside other work is left alone, Own.sideVendor); then
-//! GUIDE_END must fire with steps left undone and the guide stay. Where the player stands or which NPC's
-//! window they opened (goto, explore, fly, hearth, enter; train, vendor, a talk with no quest: Own.byPresence)
+//! GUIDE_END must fire with steps left undone and the guide stay. Where the player stands, which NPC's
+//! window they opened or a flight path known (goto, explore, fly, hearth, enter, getfp; train, vendor, a talk with no quest: Own.byPresence)
 //! is no end ahead (0.3.5: the Undercity at the start of Hillsbrad ended it): a last step with such a goal not
 //! followed by other work must not end the guide; those are listed (`place`), not failed.
 
@@ -136,12 +136,13 @@ for _ = 1, 3 do
 	if not (now and now < s) then break end
 	s = now
 end
--- Where the player stands or an NPC's window (Engine, Own.byPresence) is no
--- end ahead: a last step with such a goal and no work after it in the step
--- that counts as it is must not end the guide here. Judged on the last step
--- now (a `when` one done above may have handed it to the step before).
+-- Where the player stands, an NPC's window or a flight path known (Engine,
+-- Own.byPresence; getfp since #2715) is no end ahead: a last step with such a
+-- goal and no work after it in the step that counts as it is must not end the
+-- guide here. Judged on the last step now (a `when` one done above may have
+-- handed it to the step before).
 do
-	local PRESENCE = { goto = true, explore = true, fly = true, hearth = true, enter = true, die = true, vendor = true, sethome = true, train = true, talk = true }
+	local PRESENCE = { goto = true, explore = true, fly = true, hearth = true, enter = true, die = true, vendor = true, sethome = true, train = true, talk = true, getfp = true }
 	local function byPresence(goal) return PRESENCE[goal.t] and not (goal.t == "talk" and goal.quest) and not (goal.t == "train" and goal.skillLine) end
 	local ls = lastWork(nil, true) or r.last
 	local v, covered = E.GetStepView(ls), true

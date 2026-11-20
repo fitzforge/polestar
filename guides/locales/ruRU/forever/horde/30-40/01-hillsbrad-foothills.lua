@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Freewind Post flight master
 	-- {area:484} Freewind Post
-	["{area:484} flight master"] = "",
+	["{area:484} flight master"] = "Распорядитель полетов: {area:484}",
 
 	-- Step 2: Thunder Bluff
 	-- {area:484} Freewind Post · {area:1638} Thunder Bluff · {npc:3033} Turak Runetotem · {area:1639} Elder Rise
@@ -27,21 +27,21 @@ return {
 	-- Step 4: Fly to the Crossroads
 	["Fly to the Crossroads"] = "",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Распорядитель полетов: {zone:1456}",
 
 	-- Step 5: Fly to the Crossroads
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Распорядитель полетов: {area:392}",
 
 	-- Step 7: Korran
 	-- {npc:3428} Korran · {quest:1145} The Swarm Grows · {zone:1454} Orgrimmar
 	["{npc:3428} stands beside the Crossroads flight master. {quest:1145} is offered from level 29; below it, the next guide's {zone:1454} stop takes it."] = "{npc:3428} стоит рядом с распорядителем полетов на Перекрестке. {quest:1145} доступно с 29-го уровня; если уровень ниже, его можно взять на остановке в зоне {zone:1454} в следующем гайде.",
 	-- {npc:3428} Korran · {npc:4485} Belgrom Rockmaul · {zone:1454} Orgrimmar
-	["{npc:3428}: for {npc:4485} in {zone:1454}"] = "",
+	["{npc:3428}: for {npc:4485} in {zone:1454}"] = "{npc:3428}: для персонажа {npc:4485} ({zone:1454})",
 
 	-- Step 8: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Fly to {area:1637}"] = "",
+	["Fly to {area:1637}"] = "Летите сюда: {area:1637}",
 	["Crossroads flight master"] = "Распорядитель полетов на Перекрестке",
 
 	-- Step 9: Thrall
@@ -70,7 +70,7 @@ return {
 
 	-- Step 14: Undercity flight master
 	-- {zone:1458} Undercity
-	["{zone:1458} flight master"] = "",
+	["{zone:1458} flight master"] = "Распорядитель полетов: {zone:1458}",
 
 	-- Step 15: Brazier of Everfount
 	-- {area:228} Sepulcher · {object:113791} Brazier of Everfount · {npc:5895} Minor Manifestation of Water · {item:7813} Shard of Water · {npc:5901} Islen Waterseer · {area:272} Tarren Mill
@@ -84,7 +84,7 @@ return {
 	-- {area:272} Tarren Mill
 	["Fly to {area:272}"] = "Летите сюда: {area:272}",
 	-- {area:228} Sepulcher
-	["{area:228} flight master"] = "",
+	["{area:228} flight master"] = "Распорядитель полетов: {area:228}",
 
 	-- Step 18: Tarren Mill
 	-- {quest:567} Dangerous! · {npc:2216} Apothecary Lydon · {npc:2393} Christoph Jeffcoat
@@ -92,7 +92,7 @@ return {
 	-- {quest:567} Dangerous!
 	["{quest:567}, the poster by the inn"] = "{quest:567}, плакат у таверны",
 	-- {npc:2216} Apothecary Lydon
-	["{npc:2216}, inside"] = "",
+	["{npc:2216}, inside"] = "{npc:2216}, внутри",
 	-- {npc:2393} Christoph Jeffcoat · {quest:7321} Soothing Turtle Bisque
 	["{npc:2393}: {quest:7321}, the Snapjaws of the river south of town"] = "{npc:2393}: {quest:7321}, черепахи-хваталки в реке к югу от городка",
 	-- {item:3713} Soothing Spices · {npc:2393} Christoph Jeffcoat
@@ -106,7 +106,7 @@ return {
 	-- {npc:2229} Krusk · {area:275} Durnholde Keep
 	["{npc:2229} wants his two scouts freed from {area:275}."] = "{npc:2229} хочет, чтобы вы освободили двух его разведчиков ({area:275}).",
 	-- {npc:2229} Krusk
-	["{npc:2229}, inside"] = "",
+	["{npc:2229}, inside"] = "{npc:2229}, внутри",
 
 	-- Step 21: Hillsbrad Fields
 	-- {area:287} Hillsbrad · {npc:232} Farmer Ray · {npc:2403} Farmer Getz
@@ -124,10 +124,14 @@ return {
 
 	-- Step 26: Durnholde Keep
 	-- {npc:2238} Tog'thar · {npc:2427} Jailor Eston · {item:3467} Dull Iron Key · {npc:2428} Jailor Marlgen · {item:3499} Burnished Gold Key
-	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks."] = "К юго-востоку от Мельницы Таррен. Друлл и {npc:2238} прикованы в постройках во дворе крепости: {npc:2427} носит {item:3467}, а {npc:2428} – {item:3499}, оба в крепости. Убейте их, затем откройте оба замка.",
-	["Drull's ball and chain"] = "Ядро и цепь Друлла",
+	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings, and each lock needs its key: {npc:2427} carries the {item:3467} for Drull's, {npc:2428} the {item:3499} for {npc:2238}'s, both in the keep. Kill them first, then open both locks."] = "",
+	-- {item:3467} Dull Iron Key · {npc:2427} Jailor Eston
+	["{item:3467}, from {npc:2427}"] = "",
+	-- {item:3499} Burnished Gold Key · {npc:2428} Jailor Marlgen
+	["{item:3499}, from {npc:2428}"] = "",
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "Ядро и цепь: {npc:2238}",
+	["Drull's ball and chain"] = "Ядро и цепь Друлла",
 
 	-- Step 27: Krusk
 	-- {area:272} Tarren Mill
@@ -153,8 +157,11 @@ return {
 	-- Step 31: The smithy
 	["The smithy"] = "Кузница",
 	-- {area:287} Hillsbrad · {npc:2404} Blacksmith Verringtan · {object:1736} Shipment of Iron · {npc:2449} Citizen Wilkes · {npc:2451} Farmer Kalaba
-	["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks by the smithy; {npc:2451} works the field south-east of the town."] = "На запад через предгорья к поселению {area:287}: кузница стоит в его центре. {npc:2404} и его подмастерья работают у горна; {object:1736} сложена рядом. {npc:2449} ходит у кузницы; {npc:2451} работает в поле к юго-востоку от поселения.",
+	-- was: ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks by the smithy; {npc:2451} works the field south-east of the town."] = "На запад через предгорья к поселению {area:287}: кузница стоит в его центре. {npc:2404} и его подмастерья работают у горна; {object:1736} сложена рядом. {npc:2449} ходит у кузницы; {npc:2451} работает в поле к юго-востоку от поселения."
+	["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks the west side of the town; {npc:2451} works the field south-east of the town."] = "",
 	["Inside"] = "Внутри",
+	-- {npc:2449} Citizen Wilkes
+	["{npc:2449}, on the west side of the town"] = "",
 
 	-- Step 32: Tarren Mill
 	-- {npc:2055} Master Apothecary Faranell · {zone:1458} Undercity
@@ -263,9 +270,9 @@ return {
 
 	-- Step 50: Fly to Undercity
 	-- {area:1497} Undercity
-	["Fly to {area:1497}"] = "",
+	["Fly to {area:1497}"] = "Летите сюда: {area:1497}",
 	-- {area:272} Tarren Mill
-	["{area:272} flight master"] = "",
+	["{area:272} flight master"] = "Распорядитель полетов: {area:272}",
 
 	-- Step 51: Master Apothecary Faranell
 	-- {npc:2055} Master Apothecary Faranell · {object:36126} Royal Quarter
@@ -304,6 +311,7 @@ return {
 	-- ["North of Southshore's graveyard"] = "К северу от кладбища Южнобережья",
 	-- ["Only if {quest:535}'s missive didn't come your way: the Syndicate Footpads and Thieves (32-34) around the camps west of the road carry missives too; about one in three drops one. Careful: at 31-32 they are still above you and stand close together, with Wizards (34-35) among them: pull one at a time from the camp's edge."] = "Только если послание от {quest:535} к вам не попало: преступники и воры Синдиката (32-34) у лагерей к западу от дороги тоже носят послания; примерно с каждого третьего падает одно. Осторожно: на 31-32 уровне они все еще выше вас и стоят кучно, а среди них – волшебники (34-35): выманивайте по одному с края лагеря.",
 	-- ["Shindigger keg"] = "Бочонок «Землекопского крепкого»",
+	-- ["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks."] = "К юго-востоку от Мельницы Таррен. Друлл и {npc:2238} прикованы в постройках во дворе крепости: {npc:2427} носит {item:3467}, а {npc:2428} – {item:3499}, оба в крепости. Убейте их, затем откройте оба замка.",
 	-- ["South-west, the Cave and Ferocious Yetis (30-32) fill the {area:277} in the hills west of {area:272}; about one in sixteen carries the rod. Stay in these caverns: the Mountain and Giant Yetis (32-34) of the cave further north carry it too, but at 29-30 they hit hard and come in pairs."] = "К юго-западу пещерные и лютые йети (30-32) заполняют {area:277} в холмах к западу от поселения {area:272}; примерно у одного из шестнадцати есть жезл. Оставайтесь в этих пещерах: горные и гигантские йети (32-34) из пещеры дальше к северу тоже носят его, но на 29-30 уровне они бьют сильно и ходят парами.",
 	-- ["Syndicate missives"] = "Донесения Синдиката",
 	-- ["The Syndicate Footpads and Thieves (32-33) around the camps west of the road carry the missives; about one in three drops one."] = "Преступники и воры Синдиката (32-33) у лагерей к западу от дороги носят донесения; примерно с каждого третьего падает одно.",
@@ -313,6 +321,7 @@ return {
 	-- ["The {area:279} crater's eastern rim"] = "Восточный край кратера {area:279}",
 	-- ["Torn Fin beach"] = "Пляж мурлоков Рваного Плавника",
 	-- ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it."] = "На запад через предгорья к поселению {area:287}: кузница стоит в его центре. {npc:2404} и его подмастерья работают у горна; {object:1736} сложена рядом.",
+	-- ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks by the smithy; {npc:2451} works the field south-east of the town."] = "На запад через предгорья к поселению {area:287}: кузница стоит в его центре. {npc:2404} и его подмастерья работают у горна; {object:1736} сложена рядом. {npc:2449} ходит у кузницы; {npc:2451} работает в поле к юго-востоку от поселения.",
 	-- ["With a {item:3388} in your bags, {npc:2055} offers {quest:513} in the Apothecarium; {npc:2216} takes the elixir in {area:272}."] = "Если в сумках есть {item:3388}, {npc:2055} предлагает задание {quest:513} в Районе Фармацевтов; {npc:2216} принимает эликсир здесь: {area:272}.",
 	-- ["{item:3388}: auction house or an alchemist, for {quest:513}."] = "{item:3388}: аукцион или алхимик, для задания {quest:513}.",
 	-- ["{item:3703}, for {npc:2333}"] = "{item:3703}, для персонажа {npc:2333}",

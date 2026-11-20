@@ -192,6 +192,52 @@ shift; `--accept` makes them the last good ones, `--all` lists every field.
 forge data check --help
 ```
 
+### The data-diff gate: `forge data diff`
+
+The statistics gate counts fields; it can't see one NPC change. 0.4.1's data refresh passed it and
+listed 12 faction leaders as rares (Thrall with 127 points over Orgrimmar), so the rare alert went
+off in every capital and Thrall's hand-in point left his throne room. `forge data diff` compares a
+build with the live release's, NPC by NPC, object by object and quest by quest, and fails on the
+invariants a release holds:
+
+```sh
+forge data diff --old <the live release's data/forever> --new data/forever --out <dir>
+```
+
+It writes `data-diff.md` (the verdict and violations first, then every change, big ones first) and
+`data-diff.json`; the last line printed is `data diff: PASS ...` or `data diff: FAIL <n>
+violation(s) ...`, and it exits 1 on a violation.
+
+- Changes it lists: spawn points per NPC and object (a big jump: x3 and +10, or every point lost), a
+  new point more than 200 yd from every old one, roles gained or lost (rare, vendor, trainer...) with
+  the Codex's rare, elite and boss flags and the rank, faction; per quest, givers and enders gained or
+  lost, a hand-in that moved, level and minimum level, `pre` and `preAny`; spawn heights and travel in
+  counts.
+- Invariants that fail it:
+  - `friendly-rare`: no NPC of faction A, H or AH is a rare in the Codex (the Codex build drops the
+    flag and the role for them; the source data's rare role is listed in the report);
+  - `leader-spawns`: a faction leader (rank 3, a player faction's, in a capital) keeps at most 5
+    places (or its old count; points within 30 yd of each other, players' recorded spots round an NPC
+    that stands still, are one place), each point within 60 yd of one it had;
+  - `capital-spawns`: an NPC of a player faction in 1 to 5 places, all in a capital, keeps at most 5,
+    no point more than 200 yd from where it stood;
+  - `spawn-jump`: no NPC goes from 3 points or fewer to more than 20 unless it is a known roamer
+    (`KNOWN_ROAMERS` in `crates/forge-data/src/diff.rs`, added with the evidence that it patrols);
+  - `ender-moved`: no quest's hand-in moves more than 200 yd (an ender that is a known roamer
+    excepted).
+
+  A correction record naming the NPC (or, for `ender-moved`, the quest or its ender) in
+  `forever-db/corrections` lets a leader, capital or hand-in move through: the move is then a
+  reviewed fact, not a side effect.
+
+Every data refresh pull request carries the report against the live release's data, and every big
+row is explained in it or fixed; the release runs it on its own build (RELEASING.md, step 2).
+
+<!-- ci -->
+```sh
+forge data diff --help
+```
+
 ### What it reads
 
 | Input | Where | Notes |
@@ -200,8 +246,14 @@ forge data check --help
 | Forever's quest data | the addon in your Forever client's AddOns folder (found automatically; `--questie DIR` to point at it, `--no-questie` to leave it out) | quest givers, objectives, XP and more for Forever |
 | An open quest database | `data/sources` (`--pfquest DIR`) | the base layer: quests, NPCs, objects, items for Classic; read through a built-in Lua 5.1 |
 | Cached facts | `data/sources` | spawn heights and objective counts from an open Classic server database, web quest XP |
-| Recordings | `data/recordings/*.json` (`--recordings DIR`) | our own in-game recordings |
+| Recordings | `data/recordings/*.json` (`--recordings DIR`: a release build passes the maintainer's recordings archive) | our own in-game recordings, read one session at a time |
 | Corrections | `forever-db/corrections/` (`--corrections PATH`) | our own fixes, see [Corrections](#corrections) |
+
+The shipped guides follow the full build, the one with the recordings archive. Recordings give a
+quest the game's own objective lines (their order, their counts, talks instead of kills), so a
+guide's objective indices (`quest 4182.3`) can differ from what a build without the archive (a
+contributor's, or the public one) has: `forge guide lint` on such a build may report an index the
+full build has right. Check a reported index against the full build before changing it.
 
 Each source's name, version and licence is recorded in `data/forever/meta.json` under `sources`.
 For the full credits and licences, see [rust/NOTICE.md](../../rust/NOTICE.md) and
@@ -222,10 +274,16 @@ folds them into the store's quests, NPCs, objects and items:
 
 - quest giver and ender lists become the union of what every character sees: a quest both
   factions share keeps both factions' NPCs, and our data picks the right one by the NPC's faction;
-- any other field (objective text, zone, next quest, spawns, drops) changes only when every
-  character sees the same value; otherwise the store's value stays.
+- an NPC's or object's spawn points and the quests it starts and ends become the union too: a
+  summoned demon one faction meets in its own city and the other in theirs has both places (#2038);
+- any other field (objective text, zone, next quest, a quest's prerequisites, an item's droppers)
+  changes only when every character sees the same value; otherwise the store's value stays. An
+  item's faction fixes name the NPCs that hand it over as its droppers (Soothing Spices' vendors),
+  which our data would read as mobs to kill.
 
-The build log lists what changed, and `meta.json` counts it under the QuestieDB source's
+The build log lists what changed and every field still kept from the store because characters see
+it differently (check that list at each QuestieDB update: a fact one faction needs that the data
+can't carry is a correction), and `meta.json` counts it under the QuestieDB source's
 `dynamicCorrections`.
 
 ### How the merge works
@@ -241,6 +299,14 @@ The build goes in layers. A later layer wins over an earlier one:
 Spawn points are thinned to at most 24 per NPC or object per map (`--cap N`), spread evenly over
 the area they cover.
 
+A rare's sightings in the recordings (its nameplate, the cursor or the target meeting it) are where
+the player stood, up to about 100 yards from the rare. They don't each become a spawn point: each
+map's sightings are grouped (2.5% of the map) and the groups' centres are the places, and where
+another source already places the rare on that map, only a centre farther than that from all of its
+points is added (#2816). Only a true rare's sightings count (classed rare or rare elite, or a vignette's
+with no class of an NPC the data ranks rare): older Recorders also logged world bosses this way, and a
+faction leader got the spots where players stood when they saw him (#2894).
+
 Talk objectives: QuestieDB lists a quest done by talking to an NPC (a story to hear, advice to ask, an item to
 show) as a creature objective, like a kill, and the Classic server's database gives it no count. Once every
 source has given its counts (after the knowledge base with `--kb`), a kill objective whose count no source
@@ -249,6 +315,19 @@ use, emote or escort becomes `talk` (count 1) (`forge-data/src/talk.rs`); a ques
 sets is left to the correction. The Codex packs a talk as `s`, the quest database as kind 5, and the guides,
 Lookup and pinned quests say "Talk to". Talks the rule can't see (a known count, an NPC with no side in the
 data) are corrections with players' recordings behind them (#2543).
+
+Placeholder targets (#2614): Forever's quest data names some objectives by the invisible creature the server
+credits, with the game's internal names: a "[DNT] Kill Credit", a bare "Credit", the battlegrounds' "PvP Tower
+Credit Marker", Alterac Valley's "Trigger Ichman". After the talk rule, a kill or talk objective on such an NPC
+becomes an `event` in the quest log's own words ("Graveyard Assaulted"), placed at the NPC's spot when it has one
+(`forge-data/src/credit.rs`; the names in `forge-guide/src/placeholder.rs`). A placeholder text that carries a
+name gives way to it ("[DNT] Kill Credit: Twilight Thrall"); one that carries none needs a correction with the
+quest log's words, from players' recordings or the game's quest objectives. The battlegrounds' quests, Lunar
+Fireworks and The Challenge have such records too: the public build has no source for the quest log's words and
+would otherwise read only the markers' names. Then the build fails while any placeholder name a player could read
+is left: a title, an objective's words, or the name of an NPC, object or item an objective, giver, ender or
+starting item points at, in every quest but the game's unused and test ones ("<UNUSED>", "<TEST> HEY MISTER
+WILSON!", "REUSE"), which Lookup's search leaves out, as it does NPCs and items with a placeholder name.
 
 ### What it writes
 
@@ -851,6 +930,11 @@ If anything matches, it writes nothing and lists each hit
 guard. The only exemption is the corrections' section files (`textScanExempt`): they are already public. The guard is
 tested in `rust/crates/forge/tests/pack.rs`.
 
+**Corrections in the pack's KB.** The KB labels every corrected field `correction`, whether
+`forever-db/corrections` or the maintainer's private overlay set it; its `correction_origin` table
+(never packed) says which. The pack keeps a corrected fact, mechanic or step only when the public
+corrections made it, and none from a KB without that table.
+
 To add a file to the pack, add it to a source in `pack-spec.json` with its title, credit, licence and
 URL. A file that is not under a source with a licence does not go in.
 
@@ -881,7 +965,10 @@ forge data publish --check forever-db                           # the guard
 
 - With the KB (`--kb`, default `data/local/kb/forever-kb.sqlite`) the values come from the KB under
   the independent-source rule; without one, from public data builds alone, with corrections applied
-  only when their `source.kind` names an independent check. There a quest's races or classes that
+  only when their `source.kind` names an independent check. With the KB the same holds for
+  corrections: a public correction (the KB's `correction_origin`) whose `source.kind` names an
+  independent check stands on its own; a value or a mechanics fix the private overlay sets never
+  does. Without the KB a quest's races or classes that
   no source states (a quest only a correction adds, without them) are left out, never published as
   0, every race or class.
 - A re-run replaces only the generated files, and the same inputs give the same bytes: the version

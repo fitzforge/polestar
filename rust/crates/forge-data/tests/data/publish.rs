@@ -369,6 +369,77 @@ fn publish_tier_selection_and_schema() {
 }
 
 #[test]
+fn the_public_builds_leave_the_placeholder_check_to_the_full_build() {
+	// #2585: publish's public builds take no corrections, so the objectives #2614's corrections give
+	// their quest-log words (Eyes of the Sentinels 98067: "Credit" x4) stopped every release; the
+	// public tables carry no objective text. The full build keeps the check.
+	let base = scratch("placeholder-guard");
+	let o = publish::public_build_options(&base, &base.join("sources"), false, &base.join("empty.json"));
+	assert!(!o.placeholder_guard);
+	assert!(forge_data::Options::new(&base).placeholder_guard);
+	let _ = std::fs::remove_dir_all(&base);
+}
+
+#[test]
+fn a_full_publish_without_the_cmangos_loot_fails() {
+	// #2585: a build tree without cm.db lost 2,995 item_source rows with only a note. With the KB
+	// and a CMaNGOS path that does not exist, publish refuses; a path left out (None) still notes.
+	let base = scratch("no-cmangos");
+	let kb = base.join("kb.sqlite");
+	make_kb(&kb);
+	let mut o = publish::Options::new(&base, &base.join("release"));
+	o.kb = kb;
+	o.public_data = Some(fixture());
+	o.public_drops = Some(fixture());
+	o.provenance = base.join("private").join("provenance.sqlite");
+	o.sources = base.join("no-sources");
+	o.corrections = base.join("no-corrections.json");
+	o.factoruide = None;
+	o.tdb = None;
+	o.version = Some("2026.10.1".into());
+	o.date = Some("2026-10-23".into());
+	o.producer_commit = Some("test".into());
+	o.evidence = None;
+	o.cmangos = Some(base.join("missing").join("cm.db"));
+	let err = publish::run(&o, &|_| {}).err().expect("refused");
+	assert!(err.contains("CMaNGOS classic-db sqlite") && err.contains("--cmangos"), "{err}");
+	o.cmangos = None;
+	assert!(publish::run(&o, &|_| {}).is_ok());
+	let _ = std::fs::remove_dir_all(&base);
+}
+
+#[test]
+fn publish_takes_public_corrections_and_never_the_private_overlay() {
+	// The KB labels both `correction`; its correction_origin tells them apart (#2585). A public
+	// correction whose source names an independent check stands alone; one the private overlay
+	// sets never does, nor does a private mechanics fix.
+	let (base, out, side) = publish_with(
+		"origins",
+		"create table correction_origin(kind text, id integer, field text, origin text, kinds text, primary key(kind, id, field));
+		insert into correction_origin values ('quest', 1, 'min_level', 'public', 'in-game-check');
+		insert into facts values ('quest', 2, 'level', '15', 'correction', 'high', 1, 1);
+		insert into correction_origin values ('quest', 2, 'level', 'private', '');
+		insert into mechanics values (2, 'delayed-offer', 'kept', 'correction', 'high', 1, '[\"correction\"]');
+		insert into correction_origin values ('mechanic', 2, '*', 'private', '');
+		insert into mechanics values (5, 'delayed-offer', 'kept', 'correction', 'high', 1, '[\"correction\"]');
+		insert into correction_origin values ('mechanic', 5, '*', 'public', 'recording');",
+	);
+	let q = rows(&out, "quest");
+	let q1 = q.iter().find(|r| r["id"] == 1).unwrap();
+	assert_eq!(q1["min_level"], 6, "{q1}");
+	let q2 = q.iter().find(|r| r["id"] == 2).unwrap();
+	assert!(q2.get("level").is_none(), "{q2}");
+	let mech: Vec<(i64, String)> = rows(&out, "mechanic").iter().map(|r| (r["quest"].as_i64().unwrap(), r["kind"].as_str().unwrap().to_string())).collect();
+	assert!(mech.contains(&(5, "delayed-offer".into())) && !mech.contains(&(2, "delayed-offer".into())), "{mech:?}");
+	let db = rusqlite::Connection::open(&side).unwrap();
+	let s: String = db.query_row("select sources from prov where tbl = 'quest' and key = '1' and field = 'min_level'", [], |r| r.get(0)).unwrap();
+	assert_eq!(s, "correction,recorder");
+	let (find, _) = check::check(&out, &check::CheckOptions { provenance: Some(side.clone()), evidence: None, corrections: None }).unwrap();
+	assert!(find.is_empty(), "{find:#?}");
+	let _ = std::fs::remove_dir_all(&base);
+}
+
+#[test]
 fn publish_check_catches_planted_findings() {
 	let (base, out, side) = publish_once("check");
 	let opts = check::CheckOptions { provenance: Some(side.clone()), evidence: None, corrections: None };

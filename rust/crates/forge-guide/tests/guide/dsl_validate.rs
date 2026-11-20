@@ -380,6 +380,11 @@ fn lint_says_when_the_chain_does_not_hold_a_child_quest_s_parent_in_the_log() {
 	let rn = compile_with(&none, &data);
 	assert!(rn.steps()[0]["goals"].as_array().unwrap().iter().all(|g| g.get("parent").is_none()), "{:?}", rn.steps());
 	assert!(parent_warnings(&none).is_empty());
+	// Another route into the guide handed the parent in; this guide takes it again before the child: held.
+	let first = text("t/one", &["step A", "  accept 9341", "  turnin 9341"], &["next t/two"]);
+	let again = text("t/two", &["step A", "  accept 9341", "step B", "  accept 9340", "  turnin 9341"], &[]);
+	let r = compile_files(&[("1.guide", &first), ("2.guide", &again)], &data, None);
+	assert!(only(&r.warnings, "is offered only while").is_empty(), "{}", r.text);
 }
 
 #[test]

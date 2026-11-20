@@ -130,7 +130,8 @@ return {
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "La escolta de {npc:5955}",
 	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley · {npc:6015} Torta · {area:977} Steamwheedle Port
-	["The little turtle {npc:5955} hides at the north end of the {quest:3362}: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "La pequeña tortuga {npc:5955} se esconde en el extremo norte de {quest:3362}: tómalo desde el borde y deja en paz a los Cardizales (48-50). Llévalo a casa con su esposa {npc:6015}, junto al agua justo al este de {area:977}: camina despacio y las bestias del desierto lo atacan, así que mantenlo con vida.",
+	-- was: ["The little turtle {npc:5955} hides at the north end of the {quest:3362}: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "La pequeña tortuga {npc:5955} se esconde en el extremo norte de {quest:3362}: tómalo desde el borde y deja en paz a los Cardizales (48-50). Llévalo a casa con su esposa {npc:6015}, junto al agua justo al este de {area:977}: camina despacio y las bestias del desierto lo atacan, así que mantenlo con vida."
+	["The little turtle {npc:5955} wanders the west edge of the {quest:3362}, most often where the arrow leads: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "",
 	-- {npc:5955} Tooga
 	["{npc:5955}, beside her: Oasis"] = "{npc:5955}, a su lado: Oasis",
 
@@ -237,6 +238,7 @@ return {
 	-- ["Rizzle's plans"] = "Los planos de Rizzle Pernolatón",
 	-- ["The Wanted poster by {npc:7882}"] = "El cartel de Se busca junto a {npc:7882}",
 	-- ["The little turtle {npc:5955} hides at the north end of the valley. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "La pequeña tortuga {npc:5955} se esconde en el extremo norte del valle. Llévalo a casa con su esposa {npc:6015}, junto al agua justo al este de {area:977}: camina despacio y las bestias del desierto lo atacan, así que mantenlo con vida.",
+	-- ["The little turtle {npc:5955} hides at the north end of the {quest:3362}: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "La pequeña tortuga {npc:5955} se esconde en el extremo norte de {quest:3362}: tómalo desde el borde y deja en paz a los Cardizales (48-50). Llévalo a casa con su esposa {npc:6015}, junto al agua justo al este de {area:977}: camina despacio y las bestias del desierto lo atacan, así que mantenlo con vida.",
 	-- ["The tougher Wastewander rogues, shadow mages and assassins camp south-east of {area:976}, south of the bandits. Leave {npc:7847} in the middle of the southern camp for later."] = "Los pícaros, magos oscuros y asesinos Vagayermo, más duros, acampan al sureste de {area:976}, al sur de los bandidos. Deja a {npc:7847}, en el centro del campamento del sur, para más tarde.",
 	-- ["Underwater"] = "Bajo el agua",
 	-- ["Wastewander bandits"] = "Bandidos Vagayermo",

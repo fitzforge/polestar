@@ -48,10 +48,13 @@
 --
 -- Cost model: the minimap is only touched when something it depends on
 -- changed (position, facing on a rotating minimap, zoom, size, layers). A
--- 10 Hz watcher compares those scalars; while they keep changing a driver
--- frame repositions pins on every rendered frame, as the game redraws the
+-- 10 Hz watcher compares those scalars while idle. While they keep changing,
+-- a driver samples and repositions pins every rendered frame, as the game redraws the
 -- minimap (a slower rate lags the terrain and jitters), and hides itself
 -- after 0.3 s of stillness, so standing still costs no per-frame work at all.
+-- A hidden minimap skips movement samples until it shows again; a changed
+-- layer is still applied. Each repositioned region has a single anchor:
+-- SetPoint moves it without a ClearAllPoints first.
 -- Other minimap painters (Maps/RouteLines.lua) watch the view through
 -- WatchMinimapView instead of reading it themselves: they redraw in the same
 -- frame as the pins, from the same reads, and the watcher runs for them even
@@ -2312,9 +2315,10 @@ local function drawTrailMinimap(frac)
 					t:SetSize(TRAIL.MM_DOT * look.dotSize, TRAIL.MM_DOT * look.dotSize)
 					t.trailVersion = version
 				end
-				t:ClearAllPoints()
+				-- A dot only ever has this one anchor, which SetPoint moves; dots up to
+				-- the last draw's count are still shown.
 				t:SetPoint("CENTER", Minimap, "CENTER", x, y)
-				t:Show()
+				if shown > mmDotCount then t:Show() end
 			end
 		end
 	end
@@ -2381,10 +2385,14 @@ local function placeArea(count, p, layer, dn, dw, area)
 	end
 	local d = 2 * area * half / radius
 	local x, y = Pins.Project(dn, dw, sFacing, radius, half, sRotate, sSquare, nil)
-	t:SetSize(d, d)
-	t:ClearAllPoints()
+	-- Its one anchor moves; the size and shown state change only with the zoom
+	-- or the count (discs up to the last draw's count are still shown).
+	if t.d ~= d then
+		t.d = d
+		t:SetSize(d, d)
+	end
 	t:SetPoint("CENTER", Minimap, "CENTER", x, y)
-	t:Show()
+	if count > mmAreaCount then t:Show() end
 	return count
 end
 
@@ -2447,7 +2455,6 @@ local function placeHull(count, p, layer, i, dn, dw)
 	if rec.used > 0 then
 		local x, y = Pins.Project(dn, dw, sFacing, sRadius, sHalf, sRotate, sSquare, nil)
 		local t = rec.texs[1]
-		t:ClearAllPoints()
 		t:SetPoint("CENTER", Minimap, "CENTER", x, y)
 		rec.x, rec.y = x, y
 	end
@@ -2535,7 +2542,7 @@ local function drawMinimap()
 						local inset = size * (f.mapMark and MEDAL_SCALE * 0.5 or 0.35)
 						local x, y, clamped = Pins.Project(dn, dw, sFacing, sRadius, half, sRotate, sSquare,
 							edge and (half - inset) or nil)
-						f:ClearAllPoints()
+						-- Its one anchor (released frames are cleared): SetPoint moves it.
 						f:SetPoint("CENTER", Minimap, "CENTER", x, y)
 						-- A mark over the player's arrow fades (nav.minimapArrowFade), all at nav.minimapPinAlpha.
 						local fade = (clamped or not look.arrowFade) and 1 or arrowFade(x, y, f.footPx)
@@ -2552,7 +2559,6 @@ local function drawMinimap()
 							local ang = atan2(y, x)
 							f.edge:SetRotation(ang - pi / 2)
 							if f.edgeReach then
-								f.edge:ClearAllPoints()
 								f.edge:SetPoint("CENTER", f, "CENTER", cos(ang) * f.edgeReach, sin(ang) * f.edgeReach)
 							end
 						end
@@ -2577,6 +2583,10 @@ end
 -- Returns true when something changed.
 local function sample(force)
 	if not Minimap or ns.Hidden() then return false end
+	-- A hidden minimap (its cluster hidden, another addon's) shows none of it:
+	-- its view is not read until it shows again, unless layers
+	-- changed, which draw as before.
+	if not force and not Minimap:IsVisible() and not (dirty and hasMinimapPins()) then return false end
 	local C = ns.Compat
 	local pc, px, py
 	if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
@@ -2629,13 +2639,18 @@ local function ensureMinimap()
 		end
 	end))
 	Pins.driver = driver
+	-- Refresh immediately on show, without adding a frame to the game's minimap.
+	Minimap:HookScript("OnShow", ns.Safe(function()
+		if (viewWatchers > 0 or hasMinimapPins()) and sample(false) then wake() end
+	end))
 end
 
 local function updateWatcher()
 	local want = viewWatchers > 0 or hasMinimapPins()
 	if want and not watcher and C_Timer and C_Timer.NewTicker then
 		watcher = ns.NewTicker(WATCH_INTERVAL, function()
-			if sample(false) then
+			-- While the driver runs it samples every frame: no second read here.
+			if not driver:IsVisible() and sample(false) then
 				wake()
 			elseif mmDotCount > 0 then
 				updateTrailDriver() -- the minimap may have been shown again

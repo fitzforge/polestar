@@ -22,11 +22,11 @@ return {
 	-- {npc:3143} Gornek · {npc:3159} Kzan Thornslash
 	["{npc:3143} stands just inside the cave mouth; {npc:3159} at the back of the cave behind him."] = "{npc:3143} стоит сразу у входа в пещеру; {npc:3159} – в глубине пещеры за ним.",
 	-- {npc:3143} Gornek
-	["{npc:3143}, inside"] = "",
+	["{npc:3143}, inside"] = "{npc:3143}, внутри",
 	-- {npc:3707} Ken'jai
 	["{npc:3707}, the priest trainer at the Den"] = "{npc:3707}, учитель жрецов, у Логова",
 	-- {npc:3159} Kzan Thornslash
-	["{npc:3159}, at the back of the cave; below ground"] = "",
+	["{npc:3159}, at the back of the cave; below ground"] = "{npc:3159} – в глубине пещеры; под землей",
 	-- {npc:9796} Galgar
 	["{npc:9796}, by the cooking fire"] = "{npc:9796}, у костра для готовки",
 
@@ -36,7 +36,7 @@ return {
 
 	-- Step 5: Valley of Trials: kill these as you meet them
 	-- {area:363} Valley of Trials
-	["{area:363}: kill these as you meet them"] = "",
+	["{area:363}: kill these as you meet them"] = "{area:363}: убивайте их по пути",
 	-- {npc:3287} Hana'zua · {quest:792} Vile Familiars · {area:365} Burning Blade Coven
 	-- plural, as words: Scorpid Workers = {npc:3124} Scorpid Worker · Cactus Apples = {item:11583} Cactus Apple
 	["The Scorpid Workers roam the slope south of {npc:3287}; pick the Cactus Apples by the cactuses on the way.\nThe {quest:792} swarm the slope below the {area:365}, the cave on the valley's north side."] = "Рабочие скорпиды бродят по склону к югу от персонажа {npc:3287}; по пути собирайте плоды кактуса у кактусов.\nЗлобные фамильяры ({quest:792}) кишат на склоне под пещерой {area:365} на северной стороне долины.",
@@ -56,7 +56,7 @@ return {
 	-- Step 9: Druid trainer
 	["Druid trainer"] = "Учитель друидов",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {area:363} Valley of Trials
-	["{npc:3034} in {zone:1412}; {area:363} has no druid trainer"] = "",
+	["{npc:3034} in {zone:1412}; {area:363} has no druid trainer"] = "{npc:3034} ({zone:1412}); {area:363}: учителя друидов нет",
 
 	-- Step 10: Back to the Den
 	["Back to the Den"] = "Назад к Логову",
@@ -150,35 +150,35 @@ return {
 	-- {npc:265809} Brakk
 	["{npc:265809}: for Karolek"] = "{npc:265809}: для Каролека",
 
-	-- Step 29: Camping 101: Tailoring
-	-- {npc:265809} Brakk
-	["{npc:265809}: for Snang"] = "{npc:265809}: для Снанга",
-
-	-- Step 30: Camping 101: Herbalism
+	-- Step 29: Camping 101: Herbalism
 	-- {npc:265809} Brakk
 	["{npc:265809}: for Jandi"] = "{npc:265809}: для Джанди",
 
-	-- Step 31: Camping 101: Enchanting
+	-- Step 30: Camping 101: Enchanting
 	-- {npc:265809} Brakk
 	["{npc:265809}: for Jhag"] = "{npc:265809}: для Джага",
 
-	-- Step 32: Camping 101: Alchemy
+	-- Step 31: Camping 101: Alchemy
 	-- {npc:265809} Brakk
 	["{npc:265809}: for Whuut"] = "{npc:265809}: для Вуута",
 
-	-- Step 33: Razor Hill
+	-- Step 32: Razor Hill
 	-- {npc:266940} Turroc
 	["{npc:266940}, on the east side of town; inside"] = "",
 	-- {npc:3706} Tai'jin · {npc:266940} Turroc
 	["{npc:3706}, in the barracks beside {npc:266940}"] = "{npc:3706}, в казарме рядом с персонажем {npc:266940}",
 
-	-- Step 34: Razor Hill
+	-- Step 33: Razor Hill
 	-- {npc:3191} Cook Torka
 	["{npc:3191}: Camping 101 asks you to learn it"] = "",
 	-- {npc:6928} Innkeeper Grosk
-	["{npc:6928}, inside"] = "",
+	["{npc:6928}, inside"] = "{npc:6928}, внутри",
 	-- {npc:3147} Furl Scornbrow
 	["{npc:3147}, in the watchtower"] = "{npc:3147}, в сторожевой башне",
+
+	-- Step 37: Camping 101: Tailoring
+	-- {npc:265809} Brakk
+	["{npc:265809}: for Snang"] = "{npc:265809}: для Снанга",
 
 	-- Step 38: Grunt Kor'ja
 	-- {npc:12430} Grunt Kor'ja · {area:362} Razor Hill · {spell:613} Lesser Heal · {spell:1243} Power Word: Fortitude
@@ -206,13 +206,13 @@ return {
 	-- {area:362} Razor Hill · {npc:3139} Gar'Thok · {npc:3147} Furl Scornbrow · {npc:3142} Orgnil Soulscar · {npc:266940} Turroc
 	["Back north-west to {area:362}: {npc:3139} first, then {npc:3147} in the watchtower, then {npc:3142} and {npc:266940} on the way out east to the shore."] = "Вернитесь на северо-запад в {area:362}: сначала {npc:3139}, затем {npc:3147} в сторожевой башне, затем {npc:3142} и {npc:266940} по пути на восток к берегу.",
 	-- {npc:266940} Turroc
-	["{npc:266940}, inside"] = "",
+	["{npc:266940}, inside"] = "{npc:266940}, внутри",
 	-- {npc:3706} Tai'jin · {npc:266940} Turroc · {item:16606} Juju Hex Robes
 	["{npc:3706}, beside {npc:266940}: the {item:16606}"] = "{npc:3706}, рядом с персонажем {npc:266940}: {item:16606}",
 
 	-- Step 43: Scuttle Coast: kill these as you meet them
 	-- {area:373} Scuttle Coast
-	["{area:373}: kill these as you meet them"] = "",
+	["{area:373}: kill these as you meet them"] = "{area:373}: убивайте их по пути",
 	-- {area:362} Razor Hill
 	["Makrura and surf crawlers line the beaches north-east of Sen'jin; the Taillasher eggs sit in nests along the beach.\nThe gnomish toolboxes lie in the wreckage along the shore east and south-east of {area:362}. Follow the shore south to Sen'jin."] = "Макруры и прибрежные ползуны усеивают пляжи к северо-востоку от Сен'джина; яйца хлестохвостов лежат в гнездах вдоль пляжа.\nГномские ящики с инструментами лежат среди обломков на берегу к востоку и юго-востоку от {area:362}. Идите вдоль берега на юг к Сен'джину.",
 	["Underwater"] = "Под водой",
@@ -245,7 +245,7 @@ return {
 
 	-- Step 49: Echo Isles: kill these as you meet them
 	-- {area:368} Echo Isles
-	["{area:368}: kill these as you meet them"] = "",
+	["{area:368}: kill these as you meet them"] = "{area:368}: убивайте их по пути",
 	-- {quest:826} Zalazane
 	-- plural, as words: Hexed Trolls = {npc:3207} Hexed Troll · Hexed Pendants = {item:275724} Hexed Pendant · Voodoo Trolls = {npc:3206} Voodoo Troll
 	["Head south through the isles. The Loa idols lie all over the southern isles; Voodoo and Hexed Trolls hold them and drop the Hexed Pendants. {quest:826} and Minshina's cage are on the southernmost isle.\nCareful: the trolls stand close together and the Voodoo Trolls cast from range: pull one at a time. {quest:826} himself is level 10.\nWade back west to the shore south of Sen'jin when the isles are done."] = "Идите на юг через острова. Идолы лоа лежат по всем южным островам; их охраняют тролли-вудуисты и проклятые тролли, с которых падают проклятые подвески. {quest:826} и клетка Миншины – на самом южном острове.\nОсторожно: тролли стоят плотно, а тролли-вудуисты атакуют издалека: выманивайте по одному. Сам {quest:826} – 10-го уровня.\nЗакончив с островами, вернитесь вброд на запад к берегу к югу от Сен'джина.",
@@ -255,11 +255,11 @@ return {
 	-- {quest:840} Conscript of the Horde · {area:362} Razor Hill · {quest:96825} This Fruit Could Bite Back
 	["Top up here to level 10: {quest:840}, at {area:362}, needs level 10.\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "Добейте здесь 10-й уровень: для задания {quest:840} ({area:362}) нужен 10-й уровень.\nКолючие груши для задания {quest:96825} растут у этих хижин: собирайте их, пока убиваете монстров.",
 	-- {npc:3111} Razormane Quilboar
-	["grind on {npc:3111}"] = "",
+	["grind on {npc:3111}"] = "убивайте: {npc:3111}",
 
 	-- Step 53: Razor Hill
 	-- {npc:3169} Tarshaw Jaggedscar
-	["{npc:3169}, inside"] = "",
+	["{npc:3169}, inside"] = "{npc:3169}, внутри",
 	-- {npc:3294} Ophek
 	["{npc:3294}, by the inn"] = "{npc:3294}, у таверны",
 	-- {npc:3706} Tai'jin · {npc:6018} Ur'kyo · {zone:1454} Orgrimmar
@@ -296,7 +296,7 @@ return {
 
 	-- Step 67: Thunder Ridge: kill these as you meet them
 	-- {area:369} Thunder Ridge
-	["{area:369}: kill these as you meet them"] = "",
+	["{area:369}: kill these as you meet them"] = "{area:369}: убивайте их по пути",
 	-- {area:369} Thunder Ridge · {npc:3293} Rezlak
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
 	["Thunder Lizards and Lightning Hides graze on {area:369}, just west and south-west of {npc:3293}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "Рокочущие ящерицы и бурешкуры пасутся здесь: {area:369}, чуть западнее и юго-западнее NPC {npc:3293}.\nОсторожно: Халикор, элитный противник 12-го уровня, бродит среди ящериц ({area:369}): высматривайте его, прежде чем нападать.",
@@ -329,7 +329,7 @@ return {
 
 	-- Step 75: Druid trainer
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {area:362} Razor Hill
-	["{npc:3034} in {zone:1412}; {area:362} has no druid trainer"] = "",
+	["{npc:3034} in {zone:1412}; {area:362} has no druid trainer"] = "{npc:3034} ({zone:1412}); {area:362}: учителя друидов нет",
 
 	-- Step 76: Razor Hill
 	-- {area:362} Razor Hill · {npc:3139} Gar'Thok · {npc:3142} Orgnil Soulscar
@@ -351,11 +351,11 @@ return {
 
 	-- Step 81: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
-	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "",
+	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "Раз уж вы здесь: изучите владение посохами у NPC {npc:2704} ({object:172958}, 10 серебра); при прокачке посох дает больше характеристик для заклинаний, чем одноручное оружие.",
 
 	-- Step 82: Back to Durotar
 	-- {zone:1411} Durotar
-	["Back to {zone:1411}"] = "",
+	["Back to {zone:1411}"] = "Обратно: {zone:1411}",
 
 	-- Step 83: Skull Rock's mouth
 	-- {area:817} Skull Rock
@@ -406,7 +406,7 @@ return {
 
 	-- Step 95: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
-	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "",
+	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Раз уж вы здесь: изучите владение посохами у NPC {npc:2704} ({object:172958}, 10 серебра); у оружия ближнего боя охотника важнее всего характеристики, а у двуручного их больше всего.",
 
 	-- Step 96: To Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -414,7 +414,7 @@ return {
 	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
 	["Follow the road north from {area:379} to {zone:1454}'s main gate. The next guide starts in {zone:1454}: {quest:829} takes the cultists' quest, the trainers teach your new ranks, and the zeppelin leaves from the towers outside the gate for {zone:1420} and {zone:1421}. {zone:1413} come after Silverpine."] = "",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
-	["{zone:1454}'s {object:172982}"] = "",
+	["{zone:1454}'s {object:172982}"] = "{zone:1454}: {object:172982}",
 
 	-- Step 97: The Binding
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {item:6535} Tablet of Verga · {item:7464} Glyphs of Summoning · {zone:1454} Orgrimmar

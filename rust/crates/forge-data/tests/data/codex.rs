@@ -195,7 +195,7 @@ fn dungeon_levels_follow_the_group_finder_and_players_recorded_entries() {
 		if p25.is_some() {
 			checked += 1;
 		}
-		problems.extend(journal::recorded_check(&m.name, Some(f), &named.max, &rec));
+		problems.extend(journal::recorded_check(&m.name, Some(f), &named.max, &rec, &curated));
 	}
 	exceptions.sort();
 	assert_eq!(exceptions, ["Krol'dok Stronghold: floor 43", "The Hall of Thanes: top 18"], "the named exceptions, and only those (client build {build})");

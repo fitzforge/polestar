@@ -288,9 +288,10 @@ return {
 
 	-- Step 65: Dorn Plainstalker
 	-- {npc:2986} Dorn Plainstalker · {quest:1149} Test of Faith
-	["{npc:2986} stands on a mesa top east of the Galak camps. For the {quest:1149}, walk off the end of the planks beside him: you land safely."] = "{npc:2986} está en lo alto de una meseta al este de los campamentos Galak. Para {quest:1149}, camina hasta el final de los tablones a su lado y salta: aterrizas a salvo.",
+	["{npc:2986} stands on a mesa top east of the Galak camps. Taking his {quest:1149} puts you on a high cliff far to the west: follow the stone path to the end of the wooden planks and step off there, and you land safely. Jump from anywhere else and you fall to your death."] = "",
 	-- {npc:2986} Dorn Plainstalker
 	["{npc:2986}, below ground"] = "{npc:2986}, bajo tierra",
+	["the end of the planks"] = "",
 	-- {npc:2986} Dorn Plainstalker · {npc:4490} Grenka Bloodscreech
 	["{npc:2986}: {npc:4490}, in the harpy den west of the post"] = "{npc:2986}: {npc:4490}, en la guarida de arpías al oeste del puesto",
 	-- {quest:1150} Test of Endurance · {npc:4490} Grenka Bloodscreech
@@ -425,6 +426,7 @@ return {
 	-- ["{npc:210995} walks around the {area:1276}: the map marks where to look"] = "{npc:210995} da vueltas por {area:1276}: el mapa marca dónde buscar",
 	-- ["{npc:210995}, a Forever addition, stands on the west shore of {area:421} with three quick Dragonslayer quests."] = "{npc:210995}, una adición de Forever, está en la orilla oeste de {area:421} con tres misiones rápidas de Matadragones.",
 	-- ["{npc:2986} offers {quest:1151} once {quest:1150} is in"] = "{npc:2986} ofrece {quest:1151} una vez entregada {quest:1150}",
+	-- ["{npc:2986} stands on a mesa top east of the Galak camps. For the {quest:1149}, walk off the end of the planks beside him: you land safely."] = "{npc:2986} está en lo alto de una meseta al este de los campamentos Galak. Para {quest:1149}, camina hasta el final de los tablones a su lado y salta: aterrizas a salvo.",
 	-- ["{npc:2986}'s mesa is north-east of Freewind."] = "La meseta de {npc:2986} está al noreste de Viento Libre.",
 	-- ["{npc:4454}: his letter goes to Martek in the {zone:1418}, around level 38"] = "{npc:4454}: su carta va para Martek en {zone:1418}, alrededor del nivel 38",
 	-- ["{npc:4499}, a hard-hitting rock elemental, walks the cliffs of {area:482}, back west past {area:2237}. {npc:4499} is elite: grouping up is advised."] = "{npc:4499}, un elemental de roca que pega fuerte, recorre los acantilados de {area:482}, de vuelta al oeste pasando {area:2237}. {npc:4499} es élite: se recomienda agruparse.",

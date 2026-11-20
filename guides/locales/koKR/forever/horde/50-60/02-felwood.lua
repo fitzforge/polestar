@@ -25,45 +25,54 @@ return {
 	-- Step 4: Mulgris Deepriver
 	["His next hunt, the Diseased Grizzlies (55-56), waits for the Plaguelands visit at about 58."] = "그의 다음 사냥감인 병든 회색곰(55-56)은 58레벨쯤 역병지대에 들를 때 처리합니다.",
 
-	-- Step 6: The Bulwark
+	-- Step 6: High Executor Derrington
+	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions
+	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it.\nTake a {object:176092} from the crate next to Derrington for {quest:5096}."] = "경로의 이전 방문 때 이것을 놓쳤습니다. 지금 이것부터 합니다. 금방 끝나며 뒤에 이어지는 퀘스트를 열어 줍니다.\n{quest:5096}을(를) 위해 델링턴 옆 상자에서 {object:176092}을(를) 챙기세요.",
+
+	-- Step 7: Scarlet forward camp
+	["Scarlet forward camp"] = "붉은십자군 전진 야영지",
+	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
+	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "{area:152}에서 길을 따라 동쪽으로 {zone:1422}(으)로 가세요. 붉은십자군의 천막은 펠스톤 농장을 막 지나 {area:199}와(과) {area:200} 사이에 있습니다. {object:176092}(으)로 지휘 천막을 불태우고 스컬지 깃발을 꽂으세요. 주의: 천막 주변 붉은십자군은 54레벨까지 있고 기원사는 주문을 시전합니다. 지휘 천막에 가장 가까운 쪽으로 접근하고 나머지는 건드리지 마세요.",
+
+	-- Step 8: The Bulwark
 	-- {area:152} The Bulwark
 	["Ride south-west past Felstone Farm and follow the road west back to the {area:152}."] = "남서쪽으로 펠스톤 농장을 지나 길을 따라 서쪽의 {area:152}(으)로 돌아가세요.",
 	["Derrington's watchtowers and Vandis' cauldron are done on a later visit: keep them."] = "데링턴의 감시탑과 반디스의 가마솥은 나중에 들를 때 처리합니다. 보관하세요.",
 
-	-- Step 8: Paladin trainer
+	-- Step 10: Paladin trainer
 	["Paladin trainer"] = "",
 	-- {npc:246152} Shari Stilwell · {zone:1420} Tirisfal Glades · {zone:1454} Orgrimmar
 	["{npc:246152} in {zone:1420}; {zone:1454} has no paladin trainer"] = "",
 
-	-- Step 9: Zeppelin to Orgrimmar
+	-- Step 11: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Zeppelin to {zone:1454}"] = "{zone:1454}행 비행선",
 
-	-- Step 10: Orgrimmar
+	-- Step 12: Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["The middle of {zone:1454}"] = "",
 
-	-- Step 11: Jes'rimon
+	-- Step 13: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
 	["{npc:8659} takes the ravasaur claws from Un'Goro; he stands in the {object:172960}, a short walk from the middle of the city."] = "{npc:8659}이(가) 운고로의 랩터사우루스 발톱을 받습니다. 그는 도시 중앙에서 조금 걸어가면 나오는 {object:172960}에 있습니다.",
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
 	["{npc:8659}, the {object:172960}"] = "{object:172960}의 {npc:8659}",
 
-	-- Step 12: Class trainer
+	-- Step 14: Class trainer
 	["Class trainer"] = "직업 전문가",
 
-	-- Step 13: Druid trainer
+	-- Step 15: Druid trainer
 	["Druid trainer"] = "드루이드 상급자",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
 	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "",
 
-	-- Step 14: Fly to Splintertree Post
+	-- Step 16: Fly to Splintertree Post
 	-- {area:431} Splintertree Post
 	["Fly to {area:431}"] = "",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "{zone:1454} 비행 조련사",
 
-	-- Step 16: Emerald Sanctuary
+	-- Step 18: Emerald Sanctuary
 	["The druids' camp is just past the border."] = "드루이드 야영지는 경계를 막 지나서 있습니다.",
 	-- {npc:10920} Kelek Skykeeper · {npc:10921} Taronn Redfeather · {quest:86577} A Sampling of Putrescence · {zone:1448} Felwood
 	["{npc:10920}, beside {npc:10921}: {quest:86577}, the organs of {zone:1448}'s bears and wolves"] = "{npc:10921} 옆의 {npc:10920}: {quest:86577}, {zone:1448}의 곰과 늑대 장기",
@@ -72,40 +81,40 @@ return {
 	-- {npc:9529} Maybess Riverbreeze
 	["{npc:9529}, on the west side of the camp"] = "야영지 서쪽의 {npc:9529}",
 
-	-- Step 17: Deadwood Village
+	-- Step 19: Deadwood Village
 	-- {area:1769} Timbermaw Hold
 	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "",
 
-	-- Step 18: Southern Jaedenar
+	-- Step 20: Southern Jaedenar
 	-- {area:1763} Jaedenar
 	["Southern {area:1763}"] = "{area:1763} 남부",
 	-- {area:1763} Jaedenar
 	["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds."] = "길을 따라 북서쪽으로 가세요. {area:1763} 남부, 오염된 달샘 주변은 어둠의 의회 이교도, 숙련사제, 수호병과 사냥개가 차지하고 있습니다.",
 
-	-- Step 20: The Jaedenar moonwell
+	-- Step 22: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
 	["The {area:1763} moonwell"] = "{area:1763} 달샘",
 	-- {area:1763} Jaedenar
 	["Back north to {area:1763}. Fill Greta's canteen at the corrupted moonwell in the middle of the southern camp."] = "북쪽의 {area:1763}(으)로 돌아가세요. 남쪽 야영지 한가운데의 오염된 달샘에서 그레타의 수통을 채우세요.",
 
-	-- Step 21: Bloodvenom Post
+	-- Step 23: Bloodvenom Post
 	-- {area:1763} Jaedenar
 	["The Horde camp just north of {area:1763}."] = "{area:1763} 바로 북쪽의 호드 야영지입니다.",
 	-- {npc:10306} Trull Failbane · {zone:1452} Winterspring
 	["{npc:10306}: the owlbeasts are in {zone:1452}"] = "{npc:10306}: 올빼미야수는 {zone:1452}에 있습니다",
 
-	-- Step 22: Shatter Scar Vale
+	-- Step 24: Shatter Scar Vale
 	-- plural, as words: Entropic Beasts = {npc:9878} Entropic Beast
 	["East of Bloodvenom Post, the cratered vale where the Entropic Beasts and Horrors roam. Kill two of each, then walk to each of the three fel-water craters."] = "피멍울 초소 동쪽, 혼돈의 불길과 혼돈의 소산물이 돌아다니는 구덩이투성이 골짜기입니다. 각각 두 마리씩 처치한 뒤, 지옥 물 구덩이 세 곳을 모두 걸어서 찾아가세요.",
 	["Southern crater"] = "남쪽 구덩이",
 	["Western crater"] = "서쪽 구덩이",
 	["Northern crater"] = "북쪽 구덩이",
 
-	-- Step 23: Statue of Malorne
+	-- Step 25: Statue of Malorne
 	-- {object:661778} Statue of Malorne (no name in this language: may be words) · {npc:9996} Winna Hazzard · {area:1997} Bloodvenom Post
 	["The {object:661778} stands just south of the vale, by the road north: its bauble starts a quest for {npc:9996} at {area:1997}."] = "{object:661778}은(는) 골짜기 바로 남쪽, 북쪽으로 가는 길가에 있습니다. 석상의 장신구로 {area:1997}의 {npc:9996}에게 가는 퀘스트가 시작됩니다.",
 
-	-- Step 24: Irontree Woods
+	-- Step 26: Irontree Woods
 	-- {area:1767} Irontree Woods · {item:11503} Blood Amber · {npc:10920} Kelek Skykeeper · {area:1762} Felpaw Village · {area:1769} Timbermaw Hold · {area:2479} Emerald Sanctuary · {area:1997} Bloodvenom Post · {area:1417} Sunken Temple · {area:1584} Blackrock Depths
 	-- plural, as words: Warpwood Moss Flayers = {npc:7100} Warpwood Moss Flayer · Felpaw Ravagers = {npc:8961} Felpaw Ravager · Deadwood Den Watchers = {npc:7156} Deadwood Den Watcher
 	["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo, and their organs are {npc:10920}'s.\n{area:1762}'s Deadwood Den Watchers (53-54) and Avengers (54-55) are next: below level 54, keep hunting the grizzlies and ravagers (51-52) here until 54. The hand-ins at {area:1769}, the {area:2479} and {area:1997} that follow take you most of the way to 55. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "길을 따라 북동쪽의 {area:1767}(으)로 가세요. 숲 동쪽의 굽이나무 이끼늪괴물과 갈퀴늪괴물은 각각 {item:11503}을(를) 지니고 있습니다. 같은 숲에서 탈로를 위해 성난발톱불곰과 갈퀴발톱 악령발늑대를 처치하세요. 이들의 장기는 {npc:10920}에게 필요합니다.\n다음은 {area:1762}의 마른가지일족 보초(53-54)와 복수자(54-55)입니다. 54레벨 미만이라면 54레벨이 될 때까지 이곳에서 불곰과 악령발늑대(51-52)를 계속 사냥하세요. 이어지는 {area:1769}, {area:2479}, {area:1997}에서의 제출로 55레벨 가까이 오릅니다. 또는 파티가 있다면 대신 {area:1417} 던전이나 {area:1584} 던전을 도세요.",
@@ -116,35 +125,35 @@ return {
 	-- {npc:8957} Angerclaw Grizzly
 	["grind on {npc:8957}"] = "",
 
-	-- Step 25: Irontree Woods
+	-- Step 27: Irontree Woods
 	["Below ground"] = "지하",
 
-	-- Step 26: Felpaw Village
+	-- Step 28: Felpaw Village
 	-- {npc:9462} Chieftain Bloodmaw · {npc:11557} Meilosh
 	["The Deadwood furbolg village just west of the tunnel. {npc:9462} (56) stands among them. {npc:11557}, a friendly furbolg, sits at the north end of the village."] = "터널 바로 서쪽의 마른가지일족 털보숭이 마을입니다. {npc:9462}(56)이(가) 그들 사이에 서 있습니다. 우호적인 털보숭이 {npc:11557}은(는) 마을 북쪽 끝에 앉아 있습니다.",
 	-- {npc:11557} Meilosh · {quest:6031} Runecloth
 	["{npc:11557}: keep 30 {quest:6031} for him; he trades only at Neutral with the Timbermaw; below ground"] = "{npc:11557}: {quest:6031} 30개를 보관하세요. 나무구렁 평판이 중립일 때만 거래합니다. 지하",
 
-	-- Step 27: Nafien
+	-- Step 29: Nafien
 	-- {npc:15395} Nafien · {area:1769} Timbermaw Hold
 	["The road ends at {npc:15395}, outside the {area:1769} tunnel in the far north-east."] = "길은 맨 북동쪽 {area:1769} 터널 밖의 {npc:15395}에서 끝납니다.",
 
-	-- Step 28: Felpaw Village
+	-- Step 30: Felpaw Village
 	-- {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {area:1769} Timbermaw Hold
 	-- plural, as words: Deadwood Avengers = {npc:7157} Deadwood Avenger
 	["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "주의: 보초는 53-54레벨, 마른가지일족 복수자는 54-55레벨입니다. 생명력이 50% 미만이 되면 25미터 내의 동료를 부르고, 15% 미만이면 도움을 청하러 달아납니다.\n{quest:8470}이(가) 나올 때까지 계속 처치하세요(약 30마리에 하나). 나오면 우클릭하세요. {area:1769}의 {npc:11558}은(는) 나무구렁 일족이 중립이 되면 받아 줍니다. 이미 중립이라면 지금, 아니면 마지막 가이드에서 59레벨에 동굴을 다시 지날 때 제출하세요.",
 
-	-- Step 29: Nafien
+	-- Step 31: Nafien
 	-- {quest:8465} Speak to Salfa · {zone:1452} Winterspring
 	["Keep {quest:8465} for {zone:1452}."] = "{zone:1452}을(를) 위해 {quest:8465}을(를) 보관하세요.",
 
-	-- Step 30: Timbermaw Hold
+	-- Step 32: Timbermaw Hold
 	-- {npc:11558} Kernda
 	["Step into the cave: {npc:11558} stands just inside."] = "동굴에 들어가세요. {npc:11558}이(가) 바로 안쪽에 서 있습니다.",
 	-- {npc:11558} Kernda
 	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558}: 나무구렁 요새는 중립부터 대화해 줍니다. 이 주변을 돌아다닙니다. 지도의 원 안을 살펴보세요",
 
-	-- Step 31: Emerald Sanctuary
+	-- Step 33: Emerald Sanctuary
 	-- {zone:1448} Felwood
 	["Ride the road south through {zone:1448} to the Sanctuary."] = "길을 따라 남쪽으로 {zone:1448}을(를) 지나 성소로 가세요.",
 	-- {npc:9529} Maybess Riverbreeze
@@ -152,21 +161,21 @@ return {
 	-- {quest:5158} Seeking Spiritual Aid · {npc:5901} Islen Waterseer · {zone:1413} Barrens
 	["Keep {quest:5158}: {npc:5901} is in the {zone:1413}."] = "{quest:5158}을(를) 보관하세요: {npc:5901}은(는) {zone:1413}에 있습니다.",
 
-	-- Step 32: Overlord Ror
+	-- Step 34: Overlord Ror
 	-- {area:1761} Deadwood Village
 	["Ror stands at the far south end of {area:1761}."] = "로르는 {area:1761} 남쪽 끝에 서 있습니다.",
 
-	-- Step 33: The Jadefire moonwell
+	-- Step 35: The Jadefire moonwell
 	["The Jadefire moonwell"] = "비취불꽃 달샘",
 	-- {area:1763} Jaedenar · {npc:9996} Winna Hazzard
 	["Ride back south past {area:1763} to the corrupted moonwell of the Jadefire satyrs and fill {npc:9996}'s flasket there."] = "남쪽으로 {area:1763}을(를) 지나 비취불꽃의 사티로스가 있는 오염된 달샘으로 돌아가, 그곳에서 {npc:9996}의 작은 병을 채우세요.",
 
-	-- Step 34: Bloodvenom Post
+	-- Step 36: Bloodvenom Post
 	["Ride north up the road again."] = "다시 길을 따라 북쪽으로 가세요.",
 	-- {npc:9996} Winna Hazzard · {quest:86612} Stag Lord's Bauble
 	["{npc:9996}: the {quest:86612}"] = "{npc:9996}: {quest:86612}",
 
-	-- Step 35: Winna Hazzard's kitten
+	-- Step 37: Winna Hazzard's kitten
 	-- {npc:9996} Winna Hazzard
 	["{npc:9996}'s kitten"] = "{npc:9996}의 새끼 고양이",
 	-- {item:12565} Winna's Kitten Carrier · {npc:10042} Corrupted Saber · {npc:9996} Winna Hazzard
@@ -174,7 +183,7 @@ return {
 	-- {item:12565} Winna's Kitten Carrier
 	["{item:12565}, at the Jadefire moonwell"] = "비취불꽃 달샘에서 {item:12565}",
 
-	-- Step 37: Level 55
+	-- Step 39: Level 55
 	["Level 55"] = "55레벨",
 	-- {zone:1452} Winterspring · {npc:9996} Winna Hazzard · {area:1762} Felpaw Village · {area:1769} Timbermaw Hold · {area:1584} Blackrock Depths · {area:1417} Sunken Temple
 	["{zone:1452}'s quests are 55-58. Below 55 after {npc:9996}'s hand-ins? {area:1762}'s Deadwood furbolgs (53-55) are at your level and on your way north to {area:1769}'s tunnel: kill them until level 55. Every kill also raises your Timbermaw reputation. Careful: the Den Watchers and Avengers call nearby allies once below half health and run off for help when nearly dead: pull one at a time from the village's edge. This is a long top-up for a player who follows only this route. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "{zone:1452}의 퀘스트는 55-58레벨입니다. {npc:9996}에게 제출한 뒤에도 55레벨 미만인가요? {area:1762}의 마른가지일족 털보숭이(53-55)는 레벨이 맞고 북쪽 {area:1769} 터널로 가는 길에 있습니다. 55레벨이 될 때까지 처치하세요. 처치할 때마다 나무구렁일족 평판도 오릅니다. 주의: 보초와 복수자는 생명력이 절반 아래로 떨어지면 주변 동료를 부르고, 죽기 직전에는 도움을 청하러 도망칩니다. 마을 가장자리에서 한 마리씩 끌어오세요. 이 경로만 따르는 플레이어에게는 오래 걸리는 레벨업입니다. 아니면 파티로 {area:1584} 던전이나 {area:1417} 던전을 도세요.",

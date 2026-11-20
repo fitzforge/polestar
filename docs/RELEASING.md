@@ -172,7 +172,7 @@ version throughout.
 
    ```sh
    forge release version 0.2.0
-   forge data build --kb --questie <AddOns folder of the QuestieDB to use>   # fetches the sources first (forge data sources)
+   forge data build --kb --questie <AddOns folder of the QuestieDB to use> --recordings <the recordings archive>   # fetches the sources first (forge data sources)
    forge data questdb
    forge data itemdb && forge data gear
    forge data sources --only builders && forge data codex   # release-safe inputs only
@@ -228,6 +228,16 @@ version throughout.
    every flight point of the committed file (the Forever ones need the
    Forever build's TaxiNodes and TaxiPath in `data/sources`: `forge data
    sources --only builders`): check `git diff` before committing.
+
+   Pass `--recordings` with the maintainer's recordings archive (pulled and
+   re-sessioned just before: `forge record pull`, `forge record resession`).
+   Without it the build reads `data/recordings`, which a release checkout
+   does not have, and every rule that learns from players' recordings
+   (givers and enders, drops, spawn spots, talk objectives, quest XP) is
+   left out of the shipped data. The build reads the archive one session at
+   a time, and its statistics check stops a build whose counted sessions
+   fell by more than half against the last good build
+   (`recordings.counted`).
 
    Pass `--questie` explicitly on a release build. Without it the build
    picks the first QuestieDB it finds among the installed clients, so a
@@ -295,6 +305,25 @@ version throughout.
    there too), and map a person's second name (a Discord name and a GitHub
    login) onto one with `names`.
 
+   Then the data-diff gate: the build against the live release's data,
+   NPC by NPC and quest by quest (forge/data.md, "The data-diff gate"). It
+   fails when an NPC on a player faction's side is a rare in the Codex, a
+   faction leader or a capital NPC loses its small spawn set, an NPC jumps
+   from 3 points or fewer to more than 20 without being a known roamer, or
+   a quest's hand-in moves more than 200 yd without a correction record.
+   The maintainer keeps each release's `data/forever` (a copy taken when it
+   ships) for the next release to compare with:
+
+   ```sh
+   forge data diff --old <the live release's data/forever> --new data/forever --out dist/data-diff
+   ```
+
+   The last line must read `data diff: PASS`. Then someone other than the
+   build's author reads `dist/data-diff/data-diff.md`: every big row
+   (spawn jumps, moved points and hand-ins, roles gained or lost) is
+   explained or fixed before the release goes on. A fix is a correction
+   record or a data-build rule, never an entry that silences the gate.
+
 3. Run the whole suite with the data built (nothing skips for missing data
    now):
 
@@ -329,6 +358,41 @@ version throughout.
    test that pins it (`tests/reported-gate.test.js` checks every test named
    there exists).
 
+   Then the pin coverage guard: every issue closed as completed has a test
+   that names it (in `tests/reported-gate.json`, or a test mentioning `#N`),
+   and every route, guide and place record still names a quest some guide
+   has. The gaps known when the guard came in are listed with why in
+   `tests/pin-coverage.json`; anything else fails:
+
+   ```sh
+   node tools/pin-coverage.js      # reads the closed issues with gh
+   ```
+
+   A new unpinned fix gets its test (or, when nothing can be checked, an
+   entry saying why); a listed gap that is closed now leaves the list
+   (`node tools/pin-coverage.js --offline --prune`, in the pull request
+   that closes it). `tests/pin-coverage.test.js` checks the list in the
+   suite: no record matching nothing beyond it, no entry a test names.
+
+   Then the imperfect players: the guides played by players who skip a
+   step, lose a quest item before its hand-in, did a quest before the guide
+   offers it, update mid-guide from the last release (its save opened on
+   the new guides through `Core/LegacySteps.lua`), or start the route at a
+   guide with nothing from the guides before it. None may be stuck: held on
+   a step they can never complete. Give `--from` the last release's guides:
+
+   ```sh
+   git archive v<last release> guides | tar -x -C <dir>
+   node tools/polestar.js playtest --persona all --from <dir>/guides
+   ```
+
+   A stuck play names the guide, the persona and what it did ("skips step
+   89", "loses Thunder Applejack after getting it"). Fix the step (a `when
+   has <item>` gate, a goal that gets the item again, the LegacySteps
+   regeneration for an update), never the persona. `forge guide lint`
+   already refuses the patterns it can see in the lines (the play checks in
+   GUIDE_FORMAT.md's "Validation"); this catches the ones only play shows.
+
    Then the levels guard: every leveling guide's `levels` header says the
    levels the route brings a player there (per faction where a guide is
    shared). `data/route-levels.json` holds each guide's arrival and exit
@@ -345,8 +409,9 @@ version throughout.
    floored or rounded and its last the exit floored or rounded (57.7 reads
    57 or 58). A failing guide gets its header fixed by hand (in the guide
    and its `forge/seed/` copy, with its pitch if the pitch quotes the range,
-   `guides/GENERATED.json` and `forge/seed/SEED.json` rehashed, `forge guide
-   check-generated` clean), or, when the header is right for players on
+   `guides/GENERATED.json` and `forge/seed/SEED.json` recomputed with
+   `forge guide rehash`, `forge guide check-generated` clean), or, when the
+   header is right for players on
    other evidence, a `keep` row with the reason. On a release candidate fix
    only the guides the test names; never rewrite every header at once.
    Commit the refreshed snapshot with the release.
@@ -376,6 +441,23 @@ version throughout.
    The test loads every addon of the release in client order, logs in, and
    checks that the guides registered, a guide opened, the data addons loaded
    and every TOC carries the release version.
+
+   Then the scenario tests on the same zips: what a player sees, hears and
+   has done for them in a capital full of friendly NPCs and leaders, in ten
+   fights with quest kills and the training banner up, on a flight with the
+   Arcade on and off, with a full log of 25 quests, on the first run, with
+   every automation switched off, and after updating from the live
+   release's SavedVariables. Each scene counts the chat lines, sounds, rare
+   alerts, raid-warning lines and automatic actions, and holds each event's
+   work to a budget (forge-addontest's `scenes` tests). Run it alone on a
+   quiet machine, with the live release's zip for the update scene:
+
+   ```sh
+   rust/scripts/scenes.sh dist/Polestar-0.2.0.zip --previous <the live release's Polestar zip>
+   ```
+
+   The last line must read `scenes: PASS <n>/<n>`; a skipped scene fails
+   it. A red scene is a bug in the release: fix it, never the scene.
 
 6. Then install the zip into the game itself (remove the old `Polestar*`
    folders first), restart it fully and test what the release changes: play
@@ -474,9 +556,10 @@ version throughout.
    update" and announced again with the next release. Then publish the
    release with the three files from step 4. The release script
    (`GO-<version>.sh`) runs these in that order and refuses to publish when
-   the notes, the CurseForge text or the Discord texts contain "biggest
-   update", "biggest ever" or "massive update" (any case), next to its
-   check for other addons' names:
+   `forge data diff` on the release's data or `scenes.sh` on the zip being
+   published did not end in PASS, when the notes, the CurseForge text or the
+   Discord texts contain "biggest update", "biggest ever" or "massive update"
+   (any case), and on other addons' names:
 
    ```sh
    gh release create v0.2.0 --verify-tag --title "Polestar 0.2.0" \
@@ -528,7 +611,7 @@ GitHub's rulesets for the repository, under Settings, Rules:
 
 | Branch | Rules |
 |---|---|
-| `next` | changes by pull request only, with `Tests` and `Base branch` passing; no force push, no deletion |
+| `next` | changes by pull request only, with `Tests`, `Format, lints, tests` and `Base branch` passing; no force push, no deletion |
 | `release/**`, `hotfix/**`, `feature/**` | changes by pull request only, with green CI; only admins create them |
 | `main` | only maintainers update it; no force push, no deletion |
 

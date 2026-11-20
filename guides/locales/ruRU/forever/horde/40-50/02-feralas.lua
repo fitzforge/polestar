@@ -16,7 +16,7 @@ return {
 
 	-- Step 2: Fly to Grom'gol
 	-- {area:75} Stonard
-	["{area:75} flight master"] = "",
+	["{area:75} flight master"] = "Распорядитель полетов: {area:75}",
 
 	-- Step 3: Grom'gol Base Camp
 	-- {object:3202} Grom'gol · {area:35} Booty Bay · {npc:1514} Mokk the Savage · {zone:1454} Orgrimmar · {object:2076} Bubbling Cauldron
@@ -50,9 +50,10 @@ return {
 
 	-- Step 7: Pirate ghosts and Zanzil's camps
 	["Pirate ghosts and Zanzil's camps"] = "Призраки пиратов и лагеря Занзила",
-	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow · {npc:2537} Chucky "Ten Thumbs" · {npc:2534} Zanzil the Outcast
+	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2537} Chucky "Ten Thumbs" · {npc:2534} Zanzil the Outcast
 	-- plural, as words: Zanzil Witch Doctors = {npc:1490} Zanzil Witch Doctor
-	["On south-west to the jungle north-east of Mistvale: the three ghostly pirates haunt it beside Zanzil's camps. {npc:2535} and {npc:2536} stand together, {npc:2537} further east. Every one of Zanzil's followers can carry the mixture.\nCareful: the Zanzil Witch Doctors (44) cast and the camps are packed: pull from the edge, one at a time. {npc:2534} (46) himself stands in the southern camp around 39.6,58.6, a few steps from {npc:2537}'s ghost: pull {npc:2537} out to the north or east before you fight him."] = "Далее на юго-запад, в джунгли к северо-востоку от Туманной долины: там бродят три пирата-призрака рядом с лагерями Занзила. {npc:2535} и {npc:2536} стоят вместе, {npc:2537} – дальше к востоку. Смесь может быть у любого последователя Занзила.\nОсторожно: знахари Занзила (44) колдуют, а лагеря плотные: выманивайте с краю по одному. {npc:2534} (46) стоит в южном лагере около 39.6,58.6, в паре шагов от призрака {npc:2537}: выманите {npc:2537} на север или восток, прежде чем сражаться с Занзилом.",
+	-- was: ["On south-west to the jungle north-east of Mistvale: the three ghostly pirates haunt it beside Zanzil's camps. {npc:2535} and {npc:2536} stand together, {npc:2537} further east. Every one of Zanzil's followers can carry the mixture.\nCareful: the Zanzil Witch Doctors (44) cast and the camps are packed: pull from the edge, one at a time. {npc:2534} (46) himself stands in the southern camp around 39.6,58.6, a few steps from {npc:2537}'s ghost: pull {npc:2537} out to the north or east before you fight him."] = "Далее на юго-запад, в джунгли к северо-востоку от Туманной долины: там бродят три пирата-призрака рядом с лагерями Занзила. {npc:2535} и {npc:2536} стоят вместе, {npc:2537} – дальше к востоку. Смесь может быть у любого последователя Занзила.\nОсторожно: знахари Занзила (44) колдуют, а лагеря плотные: выманивайте с краю по одному. {npc:2534} (46) стоит в южном лагере около 39.6,58.6, в паре шагов от призрака {npc:2537}: выманите {npc:2537} на север или восток, прежде чем сражаться с Занзилом."
+	["On south-west to the jungle north-east of Mistvale: the three ghostly pirates haunt it beside Zanzil's camps. {npc:2535} and Jon-Jon stand together, {npc:2537} further east. Every one of Zanzil's followers can carry the mixture.\nCareful: the Zanzil Witch Doctors (44) cast and the camps are packed: pull from the edge, one at a time. {npc:2534} (46) himself stands in the southern camp around 39.6,58.6, a few steps from {npc:2537}'s ghost: pull {npc:2537} out to the north or east before you fight him."] = "",
 
 	-- Step 8: Witch Doctor Unbagwa
 	-- {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
@@ -60,7 +61,7 @@ return {
 
 	-- Step 9: The Cape of Stranglethorn: kill these as you meet them
 	-- {area:1577} The Cape of Stranglethorn
-	["{area:1577}: kill these as you meet them"] = "",
+	["{area:1577}: kill these as you meet them"] = "{area:1577}: убивайте их по пути",
 	-- {object:759} Holy Spring · {area:35} Booty Bay
 	["West to the coast: the naga explorers wade along the shore and carry the reed bundles; the {object:759} bubbles in the hills just east of them. Then follow the coast south to {area:35}."] = "На запад к побережью: наги-исследователи бродят по мелководью, у них связки тростника; {object:759} бьет в холмах чуть к востоку от них. Затем идите вдоль побережья на юг в {area:35}.",
 
@@ -68,10 +69,10 @@ return {
 	-- {area:35} Booty Bay · {npc:2494} Privateer Bloads · {npc:2486} Fin Fizracket · {npc:2498} Crank Fizzlebub · {npc:737} Kebok · {npc:773} Krazek
 	["In {area:35}: {npc:2494} on the docks, {npc:2486} by the inn, {npc:2498} inside it, MacKinley, {npc:737} and {npc:773} upstairs."] = "{area:35}: {npc:2494} на причалах, {npc:2486} у таверны, {npc:2498} внутри, Маккинли, {npc:737} и {npc:773} наверху.",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "",
+	["{npc:2498}, inside"] = "{npc:2498}, внутри",
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "",
 	-- {npc:737} Kebok
-	["{npc:737}, upstairs"] = "",
+	["{npc:737}, upstairs"] = "{npc:737}, наверху",
 	-- {npc:773} Krazek · {quest:2864} Tran'rek · {area:976} Gadgetzan
 	["{npc:773}, upstairs: for {quest:2864} in {area:976}, later in this guide"] = "{npc:773}, наверху: для задания «{quest:2864}» ({area:976}), позже в этом гайде",
 
@@ -88,7 +89,7 @@ return {
 
 	-- Step 13: Fly to Grom'gol
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "Распорядитель полетов: {area:35}",
 
 	-- Step 14: Grom'gol Base Camp
 	-- {object:3202} Grom'gol · {npc:2519} Kin'weelay · {npc:2465} Far Seer Mok'thardin
@@ -143,7 +144,7 @@ return {
 	-- {area:484} Freewind Post
 	["Fly to {area:484}"] = "Летите сюда: {area:484}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Распорядитель полетов: {zone:1456}",
 
 	-- Step 27: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -157,7 +158,7 @@ return {
 
 	-- Step 31: Fly to Freewind Post
 	-- {area:392} Ratchet
-	["{area:392} flight master"] = "",
+	["{area:392} flight master"] = "Распорядитель полетов: {area:392}",
 
 	-- Step 37: Gadgetzan
 	-- {area:976} Gadgetzan · {area:2240} Mirage Raceway · {zone:1446} Tanaris
@@ -175,7 +176,7 @@ return {
 
 	-- Step 40: To Gadgetzan
 	-- {area:976} Gadgetzan
-	["To {area:976}"] = "",
+	["To {area:976}"] = "В место {area:976}",
 
 	-- Step 41: Gadgetzan
 	-- {area:976} Gadgetzan · {zone:1446} Tanaris
@@ -183,7 +184,7 @@ return {
 
 	-- Step 43: Noonshade Ruins: kill these as you meet them
 	-- {area:1937} Noonshade Ruins
-	["{area:1937}: kill these as you meet them"] = "",
+	["{area:1937}: kill these as you meet them"] = "{area:1937}: убивайте их по пути",
 	-- {area:976} Gadgetzan
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["The bandits and thieves camp in the dunes east of {area:976}. Every Wastewander can carry a water pouch: Luglunket wants five.\nCareful: Wastewander Rogues (level 43-44) move stealthed, so they can approach unseen."] = "Бандиты и воры стоят лагерем в дюнах к востоку от места {area:976}. С любого Скитальца Пустыни может упасть бурдюк с водой: Люглункету нужно пять.\nОсторожно: разбойники Скитальцев Пустыни (43-44-й уровень) передвигаются в незаметности, так что могут подойти незамеченными.",
@@ -191,9 +192,9 @@ return {
 	-- Step 45: Steamwheedle Port
 	["Ride north-east to the goblin harbour on the coast."] = "Езжайте на северо-восток к гоблинской гавани на побережье.",
 	-- {npc:7882} Security Chief Bilgewhizzle
-	["{npc:7882}, inside"] = "",
+	["{npc:7882}, inside"] = "{npc:7882}, внутри",
 	-- {npc:7881} Stoley
-	["{npc:7881}, inside"] = "",
+	["{npc:7881}, inside"] = "{npc:7881}, внутри",
 	-- {npc:8579} Yeh'kinya · {zone:1444} Feralas
 	["{npc:8579}: the screechers live in {zone:1444}, on the next {zone:1444} visit"] = "{npc:8579}: крикуны живут здесь: {zone:1444}, при следующем визите в {zone:1444}",
 	-- {npc:260405} Wharfmaster Steamfizzle · {zone:2548} Riverglades
@@ -201,14 +202,14 @@ return {
 
 	-- Step 46: Lost Rigger Cove: kill these as you meet them
 	-- {area:1336} Lost Rigger Cove
-	["{area:1336}: kill these as you meet them"] = "",
+	["{area:1336}: kill these as you meet them"] = "{area:1336}: убивайте их по пути",
 	-- {npc:7883} Andre Firebeard
 	["South along the coast, the Southsea pirates hold the cove. {npc:7883} and the stolen cargo are on the docks at its far end. Any pirate can drop a hat, the kidnappers most often.\nCareful: Two or three pirates stand with {npc:7883} (45), and many more pirates from the town join the fight once it starts: pull his guards away from him first."] = "Дальше на юг вдоль берега бухту занимают пираты Южных морей. {npc:7883} и украденный груз – на причале в дальнем конце. Шляпа может упасть с любого пирата, чаще всего с похитителей.\nОсторожно: рядом с NPC {npc:7883} (45) стоят два-три пирата, а как только начнется бой, в него вступят многие пираты из городка: сначала выманите его охрану.",
 	["Upstairs"] = "Наверху",
 
 	-- Step 47: Waterspring Field: kill these as you meet them
 	-- {area:985} Waterspring Field
-	["{area:985}: kill these as you meet them"] = "",
+	["{area:985}: kill these as you meet them"] = "{area:985}: убивайте их по пути",
 	-- {area:976} Gadgetzan · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["The shadow mages, rogues and assassins camp south-east of {area:976}.\nSouth-east of Gadgetzan the Wastewander bandits camp in the dunes; {npc:7847} stands in the eastern camp.\nCareful: Wastewander Rogues keep Sneak up while out of combat, so hidden rogues can join a fight you start at a camp.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "",
@@ -225,13 +226,13 @@ return {
 
 	-- Step 52: Camp Mojache
 	-- {npc:7777} Rok Orhan · {area:1099} Camp Mojache
-	["{npc:7777} walks around {area:1099}: look inside the circle on the map"] = "",
+	["{npc:7777} walks around {area:1099}: look inside the circle on the map"] = "{npc:7777} ходит по месту {area:1099}: ищите внутри круга на карте",
 	-- {npc:8115} Witch Doctor Uzer'i · {npc:263190} Tan'jani · {zone:2548} Riverglades
 	["{npc:8115}: {npc:263190}'s errand from the {zone:2548}, if you carry it"] = "{npc:8115}: поручение от NPC {npc:263190} из зоны {zone:2548}, если оно у вас есть",
 	-- {npc:8115} Witch Doctor Uzer'i · {zone:1454} Orgrimmar
 	["{npc:8115}: for {zone:1454}, around level 45"] = "{npc:8115}: для города {zone:1454}, примерно на 45-м уровне",
 	-- {npc:7854} Jangdor Swiftstrider
-	["{npc:7854}, inside"] = "",
+	["{npc:7854}, inside"] = "{npc:7854}, внутри",
 
 	-- Step 53: Gordunni Outpost
 	-- {npc:222233} Ohk'zi
@@ -247,7 +248,7 @@ return {
 
 	-- Step 56: Feralas: kill these as you meet them
 	-- {zone:1444} Feralas
-	["{zone:1444}: kill these as you meet them"] = "",
+	["{zone:1444}: kill these as you meet them"] = "{zone:1444}: убивайте их по пути",
 	["The sprite darters flit over the grove just west of Mojache; nearly every one drops a wing. The Woodpaw alphas lead the camps south-west of it: kill them within the hour.\nCareful: Most Alphas sit in small tent camps with 2-4 other gnolls that join the fight, and other gnolls patrol between the camps."] = "Летучие хамелеоны порхают над рощей чуть к западу от Лагеря Мохаче; крыло падает почти с каждого. Вожаки стаи Древолапов возглавляют лагеря к юго-западу: убейте их в течение часа.\nОсторожно: большинство вожаков сидят в небольших лагерях с палатками вместе с 2-4 другими гноллами, которые вступают в бой, а между лагерями патрулируют другие гноллы.",
 
 	-- Step 58: Grimtotem camp
@@ -269,11 +270,11 @@ return {
 
 	-- Step 62: Ruins of Isildien: kill these as you meet them
 	-- {area:2522} Ruins of Isildien
-	["{area:2522}: kill these as you meet them"] = "",
+	["{area:2522}: kill these as you meet them"] = "{area:2522}: убивайте их по пути",
 	-- {area:1105} Feral Scar Vale
 	["Ride west from the hive to the ogre ruins below {area:1105}. Shamans, warlocks and maulers fill them; the Mage-Lords at the southern end carry the orb.\nCareful: the Mage-Lords (45-46) and the Shamans cast from range and the ruins are packed: pull one at a time from the edge."] = "Езжайте на запад от улья к руинам огров ниже места {area:1105}. Там шаманы, чернокнижники и изверги; сфера – у магов-лордов в южной части.\nОсторожно: маги-лорды (45-46) и шаманы атакуют издалека, а в руинах тесно: выманивайте по одному с края.",
 	-- {npc:5234} Gordunni Mauler · {area:2522} Ruins of Isildien
-	["{npc:5234} walks around {area:2522}: look inside the circle on the map"] = "",
+	["{npc:5234} walks around {area:2522}: look inside the circle on the map"] = "{npc:5234} ходит по месту {area:2522}: ищите внутри круга на карте",
 
 	-- Step 63: Feral Scar Vale yetis
 	-- {area:1105} Feral Scar Vale
@@ -289,7 +290,7 @@ return {
 	-- {zone:1444} Feralas
 	["the Rage Scar yetis, on the next visit to {zone:1444}"] = "йети Яростного Шрама – при следующем посещении края {zone:1444}",
 	-- {npc:7875} Hadoken Swiftstrider · {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
-	["{npc:7875}: for {npc:7010} in {zone:1454}"] = "",
+	["{npc:7875}: for {npc:7010} in {zone:1454}"] = "{npc:7875}: для персонажа {npc:7010} ({zone:1454})",
 	-- {zone:1454} Orgrimmar · {zone:2652} Shen'dralas
 	["for {zone:1454}, after {zone:2652}"] = "для города {zone:1454}, после зоны {zone:2652}",
 	-- {zone:2652} Shen'dralas · {area:1099} Camp Mojache · {zone:1443} Desolace · {zone:1454} Orgrimmar · {npc:4485} Belgrom Rockmaul · {npc:7311} Uthel'nay
@@ -304,6 +305,7 @@ return {
 	-- ["Fly to {zone:1454}. From the flight master: the {object:172960}, then the Drag, then the {object:172958}."] = "Летите в {zone:1454}. От распорядителя полетов: {object:172960}, затем Волок, затем {object:172958}.",
 	-- ["Hearth to {area:1099}"] = "Камень возвращения: {area:1099}",
 	-- ["Keep riding west to the coast. The Coast Crawl Deepseers and Snapclaws on the beaches drop OOX-22/FE's distress beacon about one kill in forty: if one drops, use it to start the quest."] = "Езжайте дальше на запад к побережью. С береговых глубинников и клешнехватов на пляжах примерно один раз из сорока падает аварийный маяк OOX-22/FE: если выпадет, используйте его, чтобы начать задание.",
+	-- ["On south-west to the jungle north-east of Mistvale: the three ghostly pirates haunt it beside Zanzil's camps. {npc:2535} and {npc:2536} stand together, {npc:2537} further east. Every one of Zanzil's followers can carry the mixture.\nCareful: the Zanzil Witch Doctors (44) cast and the camps are packed: pull from the edge, one at a time. {npc:2534} (46) himself stands in the southern camp around 39.6,58.6, a few steps from {npc:2537}'s ghost: pull {npc:2537} out to the north or east before you fight him."] = "Далее на юго-запад, в джунгли к северо-востоку от Туманной долины: там бродят три пирата-призрака рядом с лагерями Занзила. {npc:2535} и {npc:2536} стоят вместе, {npc:2537} – дальше к востоку. Смесь может быть у любого последователя Занзила.\nОсторожно: знахари Занзила (44) колдуют, а лагеря плотные: выманивайте с краю по одному. {npc:2534} (46) стоит в южном лагере около 39.6,58.6, в паре шагов от призрака {npc:2537}: выманите {npc:2537} на север или восток, прежде чем сражаться с Занзилом.",
 	-- ["Only with the distress beacon: the robot sits in a small cave on the north side of {area:1105}. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit."] = "Только с аварийным маяком: робот сидит в небольшой пещере в северной части места {area:1105}. Сопроводите его к причалу в месте {area:1108}; по пути нападут йети и гориллы. Награда ждет здесь: {area:35} – заберете позже.",
 	-- ["Ride back north-west from {area:1978} to {area:75} and fly to {object:3202}."] = "Возвращайтесь на северо-запад от места {area:1978} сюда: {area:75} и летите сюда: {object:3202}.",
 	-- ["Ride back west to {area:976}."] = "Возвращайтесь на запад сюда: {area:976}.",

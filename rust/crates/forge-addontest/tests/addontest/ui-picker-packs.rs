@@ -504,3 +504,64 @@ fn guides_not_installed_no_question_and_the_empty_states_keep_the_addons_list_hi
 			"pickerButton": false, "installed": true, "button": false })
 	);
 }
+
+// #2594: an update left Polestar Settings and Polestar Looks unticked (GeForce NOW), so Options could not open and
+// only a chat line said why. The login question covers them, and opening Options asks again even after a "Not now".
+const NEEDED_OFF: &str = r#"stub.addons = {
+	{ name = "Polestar", loaded = true },
+	{ name = "Polestar_Guides", loaded = true },
+	{ name = "Polestar_Options", title = "Polestar Settings", reason = "DISABLED" },
+	{ name = "Polestar_Looks", title = "Polestar Looks", reason = "DISABLED" },
+	{ name = "Polestar_Recorder", reason = "DISABLED" },
+}"#;
+
+fn needed_off(script: &str, saved: Option<&str>) -> Value {
+	emitted(&RunAddon {
+		stubs: vec!["stub_ui.lua"],
+		before: NEEDED_OFF.into(),
+		saved: saved.map(|s| vec![("Polestar".to_string(), s.to_string())]).unwrap_or_default(),
+		addons: vec![Addon::files("Polestar", FILES)],
+		script: format!("uistub.install()\nPolestar.Guides = uistub.realGuides\n{script}"),
+		..Default::default()
+	})
+	.remove(0)
+}
+
+#[test]
+fn settings_and_looks_off_asked_at_login_and_yes_turns_both_on_and_reloads() {
+	let out = needed_off(
+		r#"
+		stub.login()
+		stub.advance(3)
+		local p = stub.popups[1]
+		local dialog = p and StaticPopupDialogs[p.which]
+		if dialog then dialog.OnAccept() end
+		emit({ popups = #stub.popups, text = p and p.args[1], enabled = stub.enabledAddOns, reloaded = stub.reloaded == true })"#,
+		None,
+	);
+	assert_eq!(out["popups"], 1);
+	assert_eq!(out["text"], "Part of Polestar is turned off in the AddOns list (Polestar Settings, Polestar Looks), so its settings cannot open. Turn it on for all your characters and reload?");
+	assert_eq!(out["enabled"], json!(["Polestar_Options", "Polestar_Looks"]), "never the Recorder");
+	assert_eq!(out["reloaded"], true);
+}
+
+#[test]
+fn settings_off_and_asked_before_opening_options_asks_again() {
+	let out = needed_off(
+		r#"
+		-- the game refuses to load a switched-off addon
+		local load = C_AddOns.LoadAddOn
+		function C_AddOns.LoadAddOn(name)
+			local _, _, _, _, reason = C_AddOns.GetAddOnInfo(name)
+			if reason == "DISABLED" then return false, "DISABLED" end
+			return load(name)
+		end
+		stub.login()
+		stub.advance(3)
+		local atLogin = #stub.popups
+		Polestar.UI.ShowOptions()
+		emit({ atLogin = atLogin, after = #stub.popups, options = Polestar.UI.Options ~= nil })"#,
+		Some("PolestarDB = { schema = 1, guidesOffAsked = true }"),
+	);
+	assert_eq!(out, json!({ "atLogin": 0, "after": 1, "options": false }));
+}

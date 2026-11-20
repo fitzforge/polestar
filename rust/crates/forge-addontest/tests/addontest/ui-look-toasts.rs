@@ -487,3 +487,23 @@ fn on_the_rare_alert_tab_the_header_switch_the_inline_swatch_and_the_cog_are_the
 	"#);
 	assert_eq!(out[0], json!({ "found": { "header": true, "swatch": true, "slider": true }, "off": false, "on": true, "bg": false, "speed": true }));
 }
+
+// #2589 (Logan, 0.4.0): on the Trackers page's Essentials, the pointer on a row picks the tracker its setting draws
+// (s:Focus), and the band took that tracker's height: the Flight timer is shorter than the Journey, so hovering its
+// row pulled the rows up and put the pointer on the Journey's row, which picked the Journey again, back and forth.
+// The band keeps the height of the tallest pick shown, so the rows stay put.
+#[test]
+fn the_essentials_tracker_band_keeps_its_height_when_the_pointer_picks_a_shorter_one_2589() {
+	let out = run(r#"
+		local s = TR.Preview(UIParent, "all")
+		s:Focus("nav.journeySteps")
+		local journey = s:Layout(640)
+		s:Focus("maps.flightTimer")
+		local flight = s:Layout(640)
+		s:Focus("nav.journeySteps")
+		local back = s:Layout(640)
+		emit({ journey = journey, flight = flight, back = back })"#);
+	let o = &out[0];
+	assert_eq!(o["flight"], o["journey"], "the shorter Flight timer leaves the band as tall: {o}");
+	assert_eq!(o["back"], o["journey"], "{o}");
+}

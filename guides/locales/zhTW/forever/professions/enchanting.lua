@@ -8,15 +8,15 @@
 return {
 	-- Step 1: Learn Enchanting
 	-- {skill:333} Enchanting
-	["Learn {skill:333}"] = "",
+	["Learn {skill:333}"] = "學習{skill:333}",
 	-- {skill:333} Enchanting · {npc:3606} Alanna Raveneye · {zone:1438} Teldrassil · {npc:11068} Betty Quin · {zone:1453} Stormwind City · {npc:257004} Eaysaa Brightgust · {npc:11070} Lalina Summermoon · {zone:1457} Darnassus · {npc:257020} Nasalanna Windsinger · {npc:11065} Thonys Pillarstone · {zone:1455} Ironforge · {npc:11066} Jhag · {zone:1454} Orgrimmar · {npc:11067} Malcomb Wynn · {zone:1458} Undercity · {npc:11071} Mot Dawnstrider · {zone:1456} Thunder Bluff · {npc:266881} Pa'zula · {zone:1411} Durotar · {npc:5695} Vance Undergloom · {zone:1420} Tirisfal Glades · {item:6217} Copper Rod · {item:247786} Mote of Magic · {npc:11072} Kitta Firewind · {area:91} Tower of Azora · {zone:1429} Elwynn Forest · {area:367} Sen'jin Village · {item:10940} Strange Dust
 	["Apprentice {skill:333} lets you craft up to 75 for 10c, at any character level. Not every {skill:333} trainer teaches it: Alliance {npc:3606} ({zone:1438}), {npc:11068} ({zone:1453}), {npc:257004} (Zephras Isle), {npc:11070} ({zone:1457}), {npc:257020} (Zephras Isle) and {npc:11065} ({zone:1455}); Horde {npc:257004} (Zephras Isle), {npc:11066} ({zone:1454}), {npc:11067} ({zone:1458}), {npc:11071} ({zone:1456}), {npc:257020} (Zephras Isle), {npc:266881} ({zone:1411}) and {npc:5695} ({zone:1420}). The arrow picks the nearest of your faction. Buy a {item:6217} and {item:247786} from an enchanting supplies vendor (in the capitals and on Zephras Isle; the starting-area trainers have none beside them, and the next step's arrow picks the nearest). From now on, disenchant every green you do not wear: that is where the dust and essences come from. Two starter quests teach Disenchant on a quest item: An Enchanting Lesson from {npc:11072} ({area:91}, {zone:1429}) and A Pain in the Neck from {npc:266881} ({area:367}, {zone:1411}). 1-75 takes about 50c of recipes and 4s 44c of vendor goods, plus 51 {item:10940} to gather or buy."] = "初級{skill:333}可讓你把技能練到75，學費10銅，不限角色等級。並非每位{skill:333}訓練師都會教：聯盟有{npc:3606}（{zone:1438}）、{npc:11068}（{zone:1453}）、{npc:257004}（微風島）、{npc:11070}（{zone:1457}）、{npc:257020}（微風島）和{npc:11065}（{zone:1455}）；部落有{npc:257004}（微風島）、{npc:11066}（{zone:1454}）、{npc:11067}（{zone:1458}）、{npc:11071}（{zone:1456}）、{npc:257020}（微風島）、{npc:266881}（{zone:1411}）和{npc:5695}（{zone:1420}）。箭頭會選擇你陣營最近的一位。向附魔材料商人購買一個{item:6217}和一個{item:247786}（各主城和微風島都有；起始地區的訓練師旁邊沒有，下一步的箭頭會指向最近的一位）。從現在起，分解所有你不穿的綠色裝備：粉末和精華就是從這裡來的。兩個入門任務會教你對任務物品使用分解：{npc:11072}（{zone:1429}的{area:91}）的附魔入門任務，以及{npc:266881}（{zone:1411}的{area:367}）的「頸上麻煩」。1-75約需50銅的配方和4銀44銅的商人材料，另需採集或購買51個{item:10940}。",
 
 	-- Step 2: Enchanting 1-75: vendor goods
 	-- {skill:333} Enchanting
-	["{skill:333} 1-75: vendor goods"] = "",
+	["{skill:333} 1-75: vendor goods"] = "{skill:333} 1-75：商人貨物",
 	-- {item:6217} Copper Rod · {item:247786} Mote of Magic · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:1318} Jessara Cordell · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3346} Kithas · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "",
+	["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "一次買齊這一段所需的全部：1個{item:6217}（1銀24銅）和32個{item:247786}（3銀20銅）；總共約4銀44銅。箭頭會指向本陣營最近的賣家（{zone:1453}：{npc:1286}和{npc:1318}；{zone:1454}：{npc:3367}、{npc:3346}和{npc:5817}）。",
 
 	-- Step 3: Enchanting 1-75: Auction House
 	-- {skill:333} Enchanting
@@ -32,7 +32,7 @@ return {
 	-- {spell:7418} Enchant Bracer - Inferior Stamina
 	["{spell:7418} to 25"] = "{spell:7418}練到25",
 	-- {spell:7418} Enchant Bracer - Inferior Stamina · {item:247786} Mote of Magic · {item:6218} Runed Copper Rod
-	["{spell:7418} is orange at 1 (yellow 20, green 22, grey 25): about 31 crafts to 25. Each takes 1 {item:247786}. One {item:247786} (10c) a craft; grey at 25 on Forever. Make the {item:6218} first: the recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one."] = "",
+	["{spell:7418} is orange at 1 (yellow 20, green 22, grey 25): about 31 crafts to 25. Each takes 1 {item:247786}. One {item:247786} (10c) a craft; grey at 25 on Forever. Make the {item:6218} first: the recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one."] = "{spell:7418}在1時為橙色（20黃、22綠、25灰）：大約31次製作可到25。每次需要1個{item:247786}。每次約耗一個{item:247786}（10銅）；在Forever中25時變灰。先做好{item:6218}：配方要求它在你包裡，所以一直留著。給包中該部位的任意一件物品附魔，哪怕是灰色的。",
 	["a tool: keep it in your bags"] = "工具：放在背包裡",
 
 	-- Step 6: Enchanting recipes at 25
@@ -43,7 +43,7 @@ return {
 
 	-- Step 7: Enchant Chest - Inferior Stamina to 75
 	-- {spell:7420} Enchant Chest - Inferior Stamina
-	["{spell:7420} to 75"] = "",
+	["{spell:7420} to 75"] = "{spell:7420} 到75",
 	-- {spell:7420} Enchant Chest - Inferior Stamina · {item:10940} Strange Dust · {item:10938} Lesser Magic Essence · {spell:7423} Minor Absorption
 	["{spell:7420} is orange at 25 (yellow 70, green 90, grey 110): about 51 crafts to 75. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "",
 
@@ -83,15 +83,15 @@ return {
 
 	-- Step 15: Enchant Chest - Inferior Stamina to 90
 	-- {spell:7420} Enchant Chest - Inferior Stamina
-	["{spell:7420} to 90"] = "",
+	["{spell:7420} to 90"] = "{spell:7420} 到90",
 	-- {spell:7420} Enchant Chest - Inferior Stamina · {item:10940} Strange Dust · {item:10938} Lesser Magic Essence · {spell:7423} Minor Absorption
 	["{spell:7420} is yellow at 75 (yellow 70, green 90, grey 110): about 22 crafts to 90. Each takes 1 {item:10940}. One {item:10940} a craft: the dust most level 5-20 greens break into, armour above all. {item:10938} (from weapons) does the same job through Bracer - Minor Deflect or Chest - {spell:7423} if you have more of it. Enchant any item for that slot in your bags, even a grey one."] = "",
 
 	-- Step 16: Enchant Cloak - Minor Protection to 130
 	-- {spell:7771} Enchant Cloak - Minor Protection
-	["{spell:7771} to 130"] = "",
+	["{spell:7771} to 130"] = "{spell:7771} 到130",
 	-- {spell:7771} Enchant Cloak - Minor Protection · {item:10940} Strange Dust
-	["{spell:7771} is orange at 90 (yellow 110, green 130, grey 150): about 48 crafts to 130. Each takes 2 {item:10940}. Two {item:10940} a craft (the trainer teaches it from 70 for 2s); keep disenchanting the greens of the 10-20 zones. Enchant any item for that slot in your bags, even a grey one."] = "",
+	["{spell:7771} is orange at 90 (yellow 110, green 130, grey 150): about 48 crafts to 130. Each takes 2 {item:10940}. Two {item:10940} a craft (the trainer teaches it from 70 for 2s); keep disenchanting the greens of the 10-20 zones. Enchant any item for that slot in your bags, even a grey one."] = "{spell:7771}在90時為橙色（110黃、130綠、150灰）：大約48次製作可到130。每次需要2個{item:10940}。每次兩份{item:10940}（訓練師從70起教，收費2銀）；繼續分解10-20級區域的綠裝。給包中該部位的任意一件物品附魔，哪怕是灰色的。",
 
 	-- Step 17: Enchanting recipes at 130
 	-- {skill:333} Enchanting
@@ -154,7 +154,7 @@ return {
 
 	-- Step 29: Enchant Bracer - Lesser Stamina to 160
 	-- {spell:13501} Enchant Bracer - Lesser Stamina
-	["{spell:13501} to 160"] = "",
+	["{spell:13501} to 160"] = "{spell:13501} 到160",
 	-- {spell:13501} Enchant Bracer - Lesser Stamina · {item:11083} Soul Dust · {item:11130} Runed Golden Rod
 	["{spell:13501} is orange at 150 (yellow 155, green 175, grey 195): about 11 crafts to 160. Each takes 1 {item:11083}. One {item:11083} a craft (level 21-30 greens). Make the {item:11130} now, while it still gives a point: a later recipe needs it in your bags, so keep it there. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13501}在技能150時為橙色（155變黃、175變綠、195變灰）：約製作11次可到160。每次需要1個{item:11083}。每次一個{item:11083}（21-30級的綠色物品）。趁現在還能加點時做好{item:11130}：之後的配方需要它放在背包裡，所以一直帶著。對背包中任何該部位的物品附魔都可以，灰色物品也行。",
 
@@ -168,13 +168,13 @@ return {
 	-- {spell:13637} Enchant Boots - Lesser Agility
 	["{spell:13637} to 205"] = "{spell:13637}練到205",
 	-- {spell:13637} Enchant Boots - Lesser Agility · {item:11083} Soul Dust
-	["{spell:13637} is orange at 160 (yellow 180, green 200, grey 220): about 59 crafts to 205. Each takes 1 {item:11083}. {item:11083} again. Enchant any item for that slot in your bags, even a grey one."] = "",
+	["{spell:13637} is orange at 160 (yellow 180, green 200, grey 220): about 59 crafts to 205. Each takes 1 {item:11083}. {item:11083} again. Enchant any item for that slot in your bags, even a grey one."] = "{spell:13637}在160時為橙色（180黃、200綠、220灰）：大約59次製作可到205。每次需要1個{item:11083}。又是{item:11083}。給包中該部位的任意一件物品附魔，哪怕是灰色的。",
 
 	-- Step 32: Enchanting recipes at 205
 	-- {skill:333} Enchanting
 	["{skill:333} recipes at 205"] = "{skill:333}205點的配方",
 	-- {spell:13702} Runed Truesilver Rod · {spell:13746} Enchant Cloak - Greater Defense
-	["Still at the Expert trainer: {spell:13702} (from 200) and {spell:13746} (from 205)."] = "",
+	["Still at the Expert trainer: {spell:13702} (from 200) and {spell:13746} (from 205)."] = "仍在高階訓練師處：{spell:13702}（200起）和{spell:13746}（205起）。",
 
 	-- Step 33: Enchant Cloak - Greater Defense to 225
 	-- {spell:13746} Enchant Cloak - Greater Defense
@@ -186,21 +186,21 @@ return {
 	-- {skill:333} Enchanting
 	["Artisan {skill:333}"] = "專家級{skill:333}",
 	-- {skill:333} Enchanting · {npc:11073} Annora · {area:1517} Uldaman · {zone:1418} Badlands · {spell:13815} Enchant Gloves - Agility · {item:8831} Purple Lotus · {item:11137} Vision Dust · {item:11176} Dream Dust
-	["Artisan raises the cap from 225 to 300 for 5g (Classic's price; Forever's is not in the data); it needs {skill:333} 200 and character level 35, so you can take it on any visit from 200. {npc:11073} teaches Artisan {skill:333} inside the {area:1517} dungeon ({zone:1418}); bring a group. Learn now: {spell:13815} (from 210). 225-300 takes about 2g 20s of recipes and 1g 70s of vendor goods, plus 34 {item:8831}, 39 {item:11137} and 208 {item:11176} to gather or buy."] = "",
+	["Artisan raises the cap from 225 to 300 for 5g (Classic's price; Forever's is not in the data); it needs {skill:333} 200 and character level 35, so you can take it on any visit from 200. {npc:11073} teaches Artisan {skill:333} inside the {area:1517} dungeon ({zone:1418}); bring a group. Learn now: {spell:13815} (from 210). 225-300 takes about 2g 20s of recipes and 1g 70s of vendor goods, plus 34 {item:8831}, 39 {item:11137} and 208 {item:11176} to gather or buy."] = "大師級把上限從225提高到300，收費5金（經典舊世的價格；Forever的價格不在資料中）；它需要{skill:333} 200和角色35級，所以從200起任何一次造訪都能學。{npc:11073}在{area:1517}地城（{zone:1418}）內教授大師級{skill:333}；要帶隊伍。現在學：{spell:13815}（210起）。225-300大約花2金20銀的配方錢和1金70銀的商人貨物，外加34個{item:8831}、39個{item:11137}和208個{item:11176}，需自行採集或購買。",
 
 	-- Step 35: Enchanting 225-300: vendor goods
 	-- {skill:333} Enchanting
-	["{skill:333} 225-300: vendor goods"] = "",
+	["{skill:333} 225-300: vendor goods"] = "{skill:333} 225-300：商人貨物",
 	-- {item:8925} Crystal Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 34 {item:8925} (1g 70s); about 1g 70s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, Eldraeith and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
+	["Buy the whole bracket's share in one go: 34 {item:8925} (1g 70s); about 1g 70s in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, Eldraeith and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "一次買齊這一段所需的全部：34個{item:8925}（1金70銀）；總共約1金70銀。箭頭會指向本陣營最近的賣家（{zone:1453}：{npc:1286}、Eldraeith和{npc:1325}；{zone:1454}：{npc:3367}、{npc:3348}和{npc:3334}）。",
 
 	-- Step 36: Formula: Lesser Mana Oil
 	-- {item:20754} Formula: Lesser Mana Oil · {item:20747} Lesser Mana Oil · {skill:333} Enchanting · {npc:15419} Kania · {zone:1451} Silithus
-	["{item:20754} teaches {item:20747} ({skill:333} 250) for 1g. Sold by {npc:15419} ({zone:1451})."] = "",
+	["{item:20754} teaches {item:20747} ({skill:333} 250) for 1g. Sold by {npc:15419} ({zone:1451})."] = "{item:20754}教{item:20747}（{skill:333} 250），售價1金。出售者{npc:15419}（{zone:1451}）。",
 
 	-- Step 37: Formula: Enchant Shield - Greater Stamina
 	-- {item:16217} Formula: Enchant Shield - Greater Stamina · {spell:20017} Enchant Shield - Greater Stamina · {skill:333} Enchanting · {npc:4229} Mythrin'dir · {zone:1457} Darnassus · {npc:4561} Daniel Bartlett · {zone:1458} Undercity
-	["{item:16217} teaches {spell:20017} ({skill:333} 265) for 1g 20s. Sold by Alliance: {npc:4229} ({zone:1457}), limited stock; Horde: {npc:4561} ({zone:1458}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "",
+	["{item:16217} teaches {spell:20017} ({skill:333} 265) for 1g 20s. Sold by Alliance: {npc:4229} ({zone:1457}), limited stock; Horde: {npc:4561} ({zone:1458}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; it binds when picked up, so the Auction House never has it."] = "{item:16217}教{spell:20017}（{skill:333} 265），售價1金20銀。出售者：聯盟{npc:4229}（{zone:1457}），限量；部落{npc:4561}（{zone:1458}），限量。賣家每次只備一兩個，售出後過段時間補貨；它拾取即繫結，所以拍賣行永遠沒有。",
 
 	-- Step 38: Enchanting 225-300: Auction House
 	-- {skill:333} Enchanting
@@ -230,22 +230,22 @@ return {
 
 	-- Step 43: Enchant Gloves - Agility to 253
 	-- {spell:13815} Enchant Gloves - Agility
-	["{spell:13815} to 253"] = "",
+	["{spell:13815} to 253"] = "{spell:13815} 到253",
 	-- {spell:13815} Enchant Gloves - Agility · {item:11137} Vision Dust · {npc:11073} Annora
 	["{spell:13815} is orange at 225 (yellow 230, green 250, grey 270): about 39 crafts to 253. Each takes 1 {item:11137}. {npc:11073} teaches it with Artisan: learn it on that visit. {item:11137} again; bring about 40. Enchant any item for that slot in your bags, even a grey one."] = "",
 
 	-- Step 44: Lesser Mana Oil to 275
 	-- {item:20747} Lesser Mana Oil
-	["{item:20747} to 275"] = "",
+	["{item:20747} to 275"] = "{item:20747} 到275",
 	-- {item:20747} Lesser Mana Oil · {item:11176} Dream Dust · {item:8831} Purple Lotus · {item:8925} Crystal Vial · {npc:15419} Kania · {area:3425} Cenarion Hold · {zone:1451} Silithus
 	["{item:20747} is orange at 253 (yellow 260, green 270, grey 280): about 34 crafts to 275. Each takes 1 {item:11176}, 1 {item:8831} and 1 {item:8925}. One {item:11176} (level 41-50 greens) and one {item:8831} (herbalists) a craft; the oil sells well. {npc:15419} sells the formula at the inn of {area:3425} ({zone:1451}): fly there, the mobs around it are level 55 and up."] = "",
 	["from the recipe in your bags"] = "使用背包裡的配方",
 
 	-- Step 45: Enchant Shield - Greater Stamina to 300
 	-- {spell:20017} Enchant Shield - Greater Stamina
-	["{spell:20017} to 300"] = "",
+	["{spell:20017} to 300"] = "{spell:20017} 到300",
 	-- {spell:20017} Enchant Shield - Greater Stamina · {item:11176} Dream Dust · {skill:333} Enchanting
-	["{spell:20017} is orange at 275 (yellow 285, green 305, grey 325): about 29 crafts to 300. Each takes 6 {item:11176}. Six {item:11176} a craft: the dearest stretch, so disenchant every level 41-50 green you find. Enchant any item for that slot in your bags, even a grey one. {skill:333} 300 is a Legacy System milestone."] = "",
+	["{spell:20017} is orange at 275 (yellow 285, green 305, grey 325): about 29 crafts to 300. Each takes 6 {item:11176}. Six {item:11176} a craft: the dearest stretch, so disenchant every level 41-50 green you find. Enchant any item for that slot in your bags, even a grey one. {skill:333} 300 is a Legacy System milestone."] = "{spell:20017}在275時為橙色（285黃、305綠、325灰）：大約29次製作可到300。每次需要6個{item:11176}。每次六份{item:11176}：最貴的一段，所以把找到的每一件41-50級綠裝都分解。給包中該部位的任意一件物品附魔，哪怕是灰色的。{skill:333} 300是傳承系統里程碑。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Apprentice {skill:333}"] = "初級{skill:333}",

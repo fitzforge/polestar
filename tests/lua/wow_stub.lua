@@ -1197,7 +1197,7 @@ function date(fmt, t)
 end
 function debugprofilestop() return stub.now * 1000 end
 function GetFramerate() return 60 end
-function GetBuildInfo() return "1.60.1", "70338", "Oct  1 2026", 16001 end
+function GetBuildInfo() return "1.60.1", stub.clientBuild or "70338", "Oct  1 2026", 16001 end
 function GetLocale() return "enUS" end
 function GetRealmName() return "Test Realm" end
 function GetNormalizedRealmName() return "TestRealm" end

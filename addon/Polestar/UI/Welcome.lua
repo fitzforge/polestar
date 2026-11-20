@@ -1658,10 +1658,10 @@ do
 				end
 			end
 			W.Painter(stage, paintStage)
+			stage.Refresh = paintStage
 			W.Bind(stage, "qol.targetPlate", "qol.targetButton")
 			W.Bind(stage, "qol.targetSimple")
 			W.Bind(stage, "qol.markTarget")
-			stage.Refresh = paintStage
 			p.Stage = stage
 			F.TargetButton = toggleRow(p, L["Show a button that targets the step's mobs and NPCs"], "qol.targetButton",
 				L["Each name it can target is a row with the creature's face and the item it drops for the step."])

@@ -14,7 +14,8 @@
 --   Codex.Item(id) / Npc(id) / Object(id) / Quest(id) / Instance(key) / Zone(id) / Faction(id)
 --       (a quest's `xp`: its full XP reward, nil when not known or the pack predates it;
 --       a child quest's `parent`: the quest its giver wants in the log, nil when none or
---       the pack predates it;
+--       the pack predates it; a quest's `direct`: true when it is handed in at
+--       one talk, never in the log (Bloodpetal Sprouts, #2686);
 --       an event objective's `map`, `x`, `y`, `f`: where it is done, when known;
 --       a talk objective's `id`: the NPC to speak to, absent from packs before it;
 --       an NPC's or object's spawns { map, x, y, f, z }: z the height of its
@@ -25,6 +26,8 @@
 --       (each recipe item's record names its spell), in pack order; built on the first ask (#2505)
 --   Codex.Name(kind, id) -> name | nil   -- no decoding; "item" spans every item kind,
 --                                           "npc" npc + rare, "object" object + treasure
+--   Codex.EnglishName(kind, id) -> name | nil   -- as Name, always the pack's English (a
+--                                           guide's `keywords` are English)
 --   Codex.Index(kind) -> blob | nil      -- the search index of a kind (item mount pet recipe
 --       tabard npc rare quest zone instance treasure), never loads the pack; lines
 --       "\2" .. folded .. "\1" .. id .. "," .. quality .. "," .. status .. "," .. #name .. "\n"
@@ -62,7 +65,9 @@ local chunks = {}
 local indexes = {} -- kind -> search blob
 local cache = {} -- group -> { [id] = record | false } (weak values)
 local roleCache = {} -- role -> { npcId, ... }
-local followUps = {} -- questId -> { follow-up questId, ... }
+-- "\n" .. questId .. "\t" .. follow-up ids, comma-separated, in pack order .. "\n" .. ...,
+-- lines in questId order (fieldAt finds one); built on the first FollowUps.
+local followIndex
 local meta
 local announced = false
 local WEAK = { __mode = "v" }
@@ -257,6 +262,12 @@ local function decodeSource(field)
 	if (src.type == "drop" or src.type == "object") and requires and requires ~= "" then
 		src.requiresQuests = numbers(unesc(requires))
 	end
+	-- After it, an object's instance (#2883): the dungeon players loot it in,
+	-- an object no other source places (Maraudon's vial).
+	if src.type == "object" then
+		local inst = parts[#fields + 3]
+		if inst and inst ~= "" then src.instance = unesc(inst) end
+	end
 	if src.type == "craft" and src.skillLine then
 		src.profession = nameOf("skill", src.skillLine)
 	end
@@ -391,6 +402,18 @@ local function decodeQuest(group, id, s)
 		elseif lead == "u" then
 			-- A child quest's parent, which must be in the log: u<quest>.
 			rec.parent = tonumber(sub(f, 2))
+		elseif lead == "h" then
+			-- How it is done beyond its objectives, in our words (#2714): h<text>.
+			rec.how = unesc(sub(f, 2))
+		elseif lead == "l" then
+			-- The profession it needs (#1913): l<skill line>,<rank>, the rank
+			-- empty when the data names none (Snakestone of the Shadow
+			-- Huntress: Blacksmithing 250, #2752).
+			local _, _, line, rank = find(f, "^l(%d+),(%d*)$")
+			rec.skill, rec.skillRank = tonumber(line), tonumber(rank)
+		elseif f == "d" then
+			-- Handed in at one talk, never in the log (#2686: Bloodpetal Sprouts).
+			rec.direct = true
 		elseif f == "t" then
 			-- The kill objective before it is a beast to tame (Taming the Beast).
 			local o = rec.objectives[#rec.objectives]
@@ -520,7 +543,7 @@ function Codex.Register(group, names, recs, lo, hi)
 	}
 	cache[group] = nil
 	if group == "role" then roleCache = {} end
-	if group == "quest" then followUps = {} end
+	if group == "quest" then followIndex = nil end
 	if group == "recipe" then Codex.recipeIndex = nil end
 end
 
@@ -627,35 +650,57 @@ function Codex.Quest(id)
 	return get("quest", id)
 end
 
+-- Read only the prerequisite fields, not the names, objectives or reward text.
+-- Older records can end after pre (field 12), before preAny (field 15).
+local PRE = "\n(%d+)\t" .. string.rep("[^;\n]*;", 11) .. "([^;\n]*)()"
+local ANY = "^;[^;\n]*;[^;\n]*;([^;\n]*)"
+
+local function buildFollowIndex()
+	local byParent, parents = {}, {}
+	local function add(parent, child)
+		local prev = byParent[parent]
+		if not prev then
+			parents[#parents + 1] = parent
+			byParent[parent] = child
+		elseif type(prev) == "string" then
+			if prev ~= child then byParent[parent] = { prev, child } end
+		elseif prev[#prev] ~= child then
+			prev[#prev + 1] = child
+		end
+	end
+	local function links(field, child)
+		for token in gmatch(field, "[^,]+") do
+			local parent = tonumber(token)
+			if parent then add(parent, child) end
+		end
+	end
+	for _, c in ipairs(chunks.quest or {}) do
+		local recs = c.recs or ""
+		for child, pre, at in gmatch(recs, PRE) do
+			if pre ~= "" then links(pre, child) end
+			local any = recs:match(ANY, at)
+			if any and any ~= "" then links(any, child) end
+		end
+	end
+	table.sort(parents)
+	for i, parent in ipairs(parents) do
+		local children = byParent[parent]
+		parents[i] = "\n" .. parent .. "\t" .. (type(children) == "table" and table.concat(children, ",") or children)
+	end
+	return table.concat(parents)
+end
+
 -- questId -> { quest, ... }: the quests whose `pre` or `preAny` names it, in
--- pack order. One pass over the quest records per quest asked (the ids found
--- are kept until the quest chunks change).
+-- pack order, each once. The first ask reads the quest records once into
+-- followIndex (until the quest chunks change); each ask then halves it.
 function Codex.FollowUps(id)
 	id = tonumber(id)
 	if not (id and ready()) then return {} end
-	local ids = followUps[id]
-	if not ids then
-		ids = {}
-		local needle = tostring(id)
-		for _, c in ipairs(chunks.quest or {}) do
-			if c.recs then
-				for qid, s in gmatch(c.recs, "\n([^\t\n]*)\t([^\n]*)") do
-					if find(s, needle, 1, true) then
-						local t = split(s, ";")
-						local hit = false
-						for _, f in ipairs({ t[12], t[15] }) do
-							for _, p in ipairs(numbers(f)) do hit = hit or p == id end
-						end
-						if hit then ids[#ids + 1] = key(qid) end
-					end
-				end
-			end
-		end
-		followUps[id] = ids
-	end
+	if not followIndex then followIndex = buildFollowIndex() end
 	local out = {}
-	for _, qid in ipairs(ids) do
-		local q = get("quest", qid)
+	local at = fieldAt(followIndex, id)
+	for qid in gmatch(at and lineFrom(followIndex, at) or "", "%d+") do
+		local q = get("quest", tonumber(qid))
 		if q then out[#out + 1] = q end
 	end
 	return out
@@ -722,6 +767,16 @@ function Codex.Name(kind, id)
 	end
 	local name = nameOf(kind, id)
 	return name and shown(NAMES_KIND[kind], id, name)
+end
+
+function Codex.EnglishName(kind, id)
+	if id == nil or not ready() then return nil end
+	if kind ~= "instance" then id = tonumber(id) or id end
+	for _, g in ipairs(SPAN[kind] or { kind }) do
+		local name = nameOf(g, id)
+		if name then return name end
+	end
+	return nil
 end
 
 -- Decoded records carry translated names: drop them when the names pack

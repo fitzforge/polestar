@@ -165,7 +165,7 @@ return {
 	["South-west of Rog'mar the river runs between the farms: impale the Freshwater Crocolisks with {npc:263190}'s spears. The Alliance trains its scouts and priests at a camp on the far bank. {npc:257079}, the Alliance elite, rides the road just east of the camp: pull the scouts and priests away from it.\nCareful: {npc:263380}, an elite (level 42), hunts along this river: if he comes your way, back off and let him pass."] = "Südwestlich von Rog'mar fließt der Fluss zwischen den Höfen: Spieße die Süßwasserkrokilisken mit {npc:263190}s Speeren auf. Die Allianz bildet in einem Lager am anderen Ufer ihre Späher und Priester aus. {npc:257079}, der Allianz-Elite, reitet die Straße direkt östlich des Lagers ab: Zieh die Späher und Priester von ihr weg.\nVorsicht: {npc:263380}, ein Elite (Stufe 42), jagt entlang dieses Flusses: Wenn er in deine Richtung kommt, zieh dich zurück und lass ihn vorbeiziehen.",
 	-- {npc:263190} Tan'jani
 	-- plural, as words: Freshwater Crocolisks = {npc:259046} Freshwater Crocolisk
-	["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "{npc:263190}s Speere, an den Süßwasserkrokilisken",
+	["{npc:263190}'s spears, on the Freshwater Crocolisks in the river"] = "",
 
 	-- Step 39: Tran'gul
 	-- {npc:256710} Tran'gul · {npc:256418} Krom'rosh · {area:16743} Rog'mar · {area:16723} Sunnyglade
@@ -259,6 +259,8 @@ return {
 	-- Step 57: Jom-jom's Escape
 	-- {npc:258048} Jom-jom · {npc:256728} Na'zok · {area:16726} Bolder'ok
 	["{npc:258048} waits by the Twilight ogres' camp north-east of {npc:256728}: take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "{npc:258048} wartet beim Lager der Schattenhammeroger nordöstlich von {npc:256728}: Bring ihn nach Hause nach {area:16726} und halte die Kultisten von ihm fern. Stirbt er, nimm die Quest erneut bei ihm an.",
+	-- {npc:258048} Jom-jom
+	["{npc:258048}, in the cave"] = "",
 	-- {npc:258048} Jom-jom · {area:16726} Bolder'ok
 	["help {npc:258048} reach {area:16726}"] = "hilf {npc:258048}, {area:16726} zu erreichen",
 
@@ -434,4 +436,7 @@ return {
 	-- Step 94: Kargath
 	-- {area:3} Badlands · {area:340} Kargath
 	["Across the {area:3} to {area:340}, the Horde fortress built into the cliffs at the zone's western edge: its flight master stands at the foot of the fortress."] = "Durch das {area:3} nach {area:340}, der in die Klippen gebauten Festung der Horde am Westrand des Gebiets: Der Flugmeister steht am Fuß der Festung.",
+
+	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "{npc:263190}s Speere, an den Süßwasserkrokilisken",
 }

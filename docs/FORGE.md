@@ -588,7 +588,9 @@ guide replaced by its seed, never its own earlier output. Contributors never edi
 goes into the records above. When the maintainer edits a generated guide by hand, the same hunk goes
 into the seed in that commit (the writer keeps the seed's titles, tips, notes and goal comments) and
 what the writer recomputes (the order, who a line is for, travel, the step a goal is on) into records;
-`forge/seed/SEED.json` is re-hashed with it. After a build of every start the maintainer
+`forge guide rehash` recomputes `guides/GENERATED.json` and `forge/seed/SEED.json` from the files
+on disk (a merge conflict in either: take either side, then run it; CONTRIBUTING.md, "Merge
+conflicts"). After a build of every start the maintainer
 writes the result into the checkout with `forge guide publish --from <out>/guides` (the shared route
 once per faction, each start's own guides, one copy per race where two races share a start folder,
 one `legs.json`; header and `GENERATED.json`: docs/forge/routes.md, "Publishing every start"), then
@@ -640,7 +642,7 @@ print the forge command to run):
 | Command | Does |
 |---|---|
 | `forge guide compile`, `lint`, `check` | compile and lint a guide pack; read written guides as a player would |
-| `forge guide seed`, `publish`, `check-generated` | the seed, the generated leveling guides and their CI check |
+| `forge guide seed`, `publish`, `check-generated`, `rehash` | the seed, the generated leveling guides, their CI check, their manifests recomputed from the files |
 | `forge data build`, `sources`, `check`, `check-corrections` | the reference data, its sources and its gates |
 | `forge data questdb`, `names`, `itemdb`, `codex`, `gear`, `talents`, `maps`, `trainers`, `travel`, `professions`, `dungeons` | the data addons and the generated Lua |
 | `forge data pack`, `fetch`, `publish` | the data pack for contributors, and the open Forever database |

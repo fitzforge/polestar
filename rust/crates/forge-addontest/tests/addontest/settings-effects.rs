@@ -52,6 +52,7 @@ const GROUPS: &[Group] = &[
 	Group { name: "theme", src: include_str!("effects/theme.lua") },
 	Group { name: "guidewindow", src: include_str!("effects/guidewindow.lua") },
 	Group { name: "integrations", src: include_str!("effects/integrations.lua") },
+	Group { name: "integrations_arcade", src: include_str!("effects/integrations-arcade.lua") },
 	Group { name: "discovery", src: include_str!("effects/discovery.lua") },
 	Group { name: "discovery_lookup", src: include_str!("effects/discovery-lookup.lua") },
 	Group { name: "discovery_dungeons", src: include_str!("effects/discovery-dungeons.lua") },
@@ -342,21 +343,27 @@ struct Env {
 
 fn env(name: &str) -> Env {
 	let page = |p: &str| forge_addontest::run::addons_dir().join(p).to_string_lossy().into_owned();
-	let nav = |files: &[&str]| Env { stubs: vec!["stub_nav.lua"], before: "", addons: vec![Addon::files("Polestar", files)], login: true, prelude: "stub.advance(1)\n".into() };
+	let nav = |files: &[&str], prelude: &str| Env { stubs: vec!["stub_nav.lua"], before: "", addons: vec![Addon::files("Polestar", files)], login: true, prelude: prelude.into() };
 	match name {
-		// The arrow and its pins (nav-arrow-look.rs, nav-pins-look.rs).
-		"nav" => nav(&["Core/Init.lua", "Theme/Theme.xml", "Nav/Nav.xml", &page("Polestar_Options/Nav/ArrowOptions.lua"), &page("Polestar_Options/Nav/PinsOptions.lua")]),
+		// Arrow and pin controls on Testshire: a direct bearing, not a pending walking search.
+		"nav" => nav(
+			&["Core/Init.lua", "Theme/Theme.xml", "Nav/Nav.xml", &page("Polestar_Options/Nav/ArrowOptions.lua"), &page("Polestar_Options/Nav/PinsOptions.lua")],
+			"Polestar.Set(\"nav.navRouting\", false)\nstub.advance(1)\n",
+		),
 		// The route lines and their page (nav-route-look.rs).
-		"routes" => nav(&[
-			"Core/Init.lua",
-			"Theme/Theme.xml",
-			"Nav/Nav.xml",
-			"Maps/FlightPaths.lua",
-			"Maps/RouteStrokes.lua",
-			"Maps/RouteSparkle.lua",
-			"Maps/RouteLines.lua",
-			&page("Polestar_Options/Maps/RouteOptions.lua"),
-		]),
+		"routes" => nav(
+			&[
+				"Core/Init.lua",
+				"Theme/Theme.xml",
+				"Nav/Nav.xml",
+				"Maps/FlightPaths.lua",
+				"Maps/RouteStrokes.lua",
+				"Maps/RouteSparkle.lua",
+				"Maps/RouteLines.lua",
+				&page("Polestar_Options/Maps/RouteOptions.lua"),
+			],
+			"stub.advance(1)\n",
+		),
 		// The UI stub, its own login, then the settings window's addon (ui-look-theme.rs); the game menu (Esc)
 		// exists before Polestar loads, as in the client (ui-game-menu.rs).
 		"ui" => Env {
@@ -574,6 +581,11 @@ fn guidewindow() {
 #[test]
 fn integrations() {
 	check("integrations");
+}
+
+#[test]
+fn integrations_arcade() {
+	check("integrations_arcade");
 }
 
 #[test]

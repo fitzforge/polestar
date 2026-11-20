@@ -32,7 +32,7 @@ return {
 
 	-- Step 5: The Wooden Figurine
 	-- {item:190309} Wooden Figurine
-	["The {item:190309}"] = "",
+	["The {item:190309}"] = "{item:190309}",
 	-- {zone:1440} Ashenvale · {area:413} Maestra's Post · {quest:1738} Heartswood · {item:190307} Unlit Torch · {object:29784} Basic Campfire · {area:414} Zoram Strand · {item:190308} Burning Torch
 	["The house stands alone in the trees of north-western {zone:1440}, north-west of Ordil'Aran and well north of {area:413}: do it on the same trip as the {quest:1738}. Take the {item:190307} from the table outside, light it at a campfire (a {object:29784} of your own, or Talen's fire on {area:414}), and go straight back: the {item:190308} burns out after five minutes, so a fire of your own beside the house is quickest. Without it the figure in the house stops you. The figurine is upstairs."] = "",
 	-- {item:190307} Unlit Torch

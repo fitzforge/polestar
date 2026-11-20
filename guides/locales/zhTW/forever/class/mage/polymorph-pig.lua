@@ -11,7 +11,7 @@ return {
 	["A new look for {spell:118}: it turns the target into a pig rather than a sheep."] = "{spell:118}的新外觀：把目標變成豬而不是綿羊。",
 
 	-- Step 1: Xylem's tower
-	["Xylem's tower"] = "",
+	["Xylem's tower"] = "克希雷姆的塔",
 	-- {area:3137} Talrendis Point · {area:1237} Valormok · {npc:8395} Sanath Lim-yo · {npc:8379} Archmage Xylem · {zone:1447} Azshara · {area:1221} Ruins of Eldarath
 	["Fly to {area:3137} (Alliance) or {area:1237} (Horde). {npc:8395} camps below {npc:8379}'s tower, a short way east of {area:1237}: from the fork of {zone:1447}'s main road at the {area:1221}, head straight north to the cliffs. Dismount, and he teleports you up; a trail climbs to the Archmage at the top of the tower."] = "飛往{area:3137}（聯盟）或{area:1237}（部落）。{npc:8395}在{npc:8379}的塔下紮營，位於{area:1237}東邊不遠處：從{area:1221}處{zone:1447}主要道路的岔路口，直直往北走到懸崖。下坐騎後，他會把你傳送上去；一條小徑通往塔頂的大法師。",
 
@@ -21,14 +21,14 @@ return {
 
 	-- Step 3: Archmage Xylem
 	-- {npc:8395} Sanath Lim-yo
-	["Back to {npc:8395} and up to the tower. Xylem hands the shell back with the next quest: keep it in your bags."] = "",
+	["Back to {npc:8395} and up to the tower. Xylem hands the shell back with the next quest: keep it in your bags."] = "回到{npc:8395}處，再上塔。Xylem會在下一個任務中把龜殼還給你：把它留在揹包裡。",
 
 	-- Step 4: Polymorph Clones
 	-- plural, as words: Polymorph Clones = {npc:16479} Polymorph Clone
 	["Polymorph Clones"] = "變形複製",
 	-- {area:1221} Ruins of Eldarath · {spell:118} Polymorph · {spell:122} Frost Nova · {spell:1449} Arcane Explosion
 	-- plural, as words: Polymorph Clones = {npc:16479} Polymorph Clone
-	["Back to the {area:1221}, full of Spitelash naga. Cast your sheep {spell:118} (the turtle one does nothing) on a naga and wait a few seconds: it splits into two to six Polymorph Clones of about 150 health that run off fast. Stand next to the sheep and hit them the moment they appear with {spell:122} and {spell:1449}. Fifty clones are needed, so it takes a while; not in a raid group."] = "",
+	["Back to the {area:1221}, full of Spitelash naga. Cast your sheep {spell:118} (the turtle one does nothing) on a naga and wait a few seconds: it splits into two to six Polymorph Clones of about 150 health that run off fast. Stand next to the sheep and hit them the moment they appear with {spell:122} and {spell:1449}. Fifty clones are needed, so it takes a while; not in a raid group."] = "回到{area:1221}，那裡滿是怒鱗納迦。對一名納迦施放你的變羊術{spell:118}（變龜的那個沒有用），等幾秒：它會分裂成兩到六個約150點生命值的變形術克隆體，並很快跑開。站在羊旁邊，克隆體一出現就用{spell:122}和{spell:1449}打它們。需要五十個克隆體，所以要花些時間；不要在團隊中做。",
 
 	-- Step 5: Fragmented Magic
 	-- {npc:8395} Sanath Lim-yo

@@ -24,32 +24,32 @@ return {
 
 	-- Step 4: In Search of Menara Voidrender (Undercity)
 	-- {npc:4563} Kaal Soulreaper · {object:36082} Magic Quarter · {npc:6266} Menara Voidrender · {area:392} Ratchet · {zone:1420} Tirisfal Glades · {zone:1411} Durotar · {item:5770} Robes of Arcana · {item:3577} Gold Bar
-	["At 31 {npc:4563} in the {object:36082} sends you to {npc:6266} in {area:392}; the zeppelin from {zone:1420} flies to {zone:1411}. Buy a {item:5770} and a {item:3577} first (next steps) to save a trip."] = "",
+	["At 31 {npc:4563} in the {object:36082} sends you to {npc:6266} in {area:392}; the zeppelin from {zone:1420} flies to {zone:1411}. Buy a {item:5770} and a {item:3577} first (next steps) to save a trip."] = "31級時，{object:36082}裡的{npc:4563}會讓你去{area:392}找{npc:6266}；從{zone:1420}的飛艇飛往{zone:1411}。先買一個{item:5770}和一塊{item:3577}（見後續步驟），省得跑一趟。",
 
 	-- Step 5: Robes of Arcana and a Gold Bar
 	-- {item:5770} Robes of Arcana · {item:3577} Gold Bar
-	["{item:5770} and a {item:3577}"] = "",
+	["{item:5770} and a {item:3577}"] = "{item:5770}和一個{item:3577}",
 	-- {item:5770} Robes of Arcana · {item:2776} Gold Ore · {npc:6266} Menara Voidrender
 	-- plural, as words: Gold Bars = {item:3577} Gold Bar
-	["Tailors sew the {item:5770} from a rare pattern; miners smelt Gold Bars from {item:2776}. Everyone else buys both at the Auction House. If you wear the robe, take it off: {npc:6266} keeps it."] = "",
+	["Tailors sew the {item:5770} from a rare pattern; miners smelt Gold Bars from {item:2776}. Everyone else buys both at the Auction House. If you wear the robe, take it off: {npc:6266} keeps it."] = "裁縫用稀有圖樣縫製{item:5770}；礦工用{item:2776}熔鍊金錠。其他人都可以在拍賣行買這兩樣。如果你穿著長袍，先脫下來：{npc:6266}會收走它。",
 	-- {item:5770} Robes of Arcana
-	["{item:5770}: the Auction House"] = "",
+	["{item:5770}: the Auction House"] = "{item:5770}：拍賣行",
 	-- {item:3577} Gold Bar
-	["{item:3577}: the Auction House"] = "",
+	["{item:3577}: the Auction House"] = "{item:3577}：拍賣行",
 
 	-- Step 6: Menara Voidrender
 	-- {npc:6266} Menara Voidrender · {npc:6251} Strahad Farsan · {area:392} Ratchet · {npc:2670} Xizk Goodstitch · {area:35} Booty Bay
-	["{npc:6266} stands by {npc:6251}'s tower on the hill above {area:392}, behind the engineers' hut. She takes the robe, then sends the gold bar to {npc:2670} in {area:35}."] = "",
+	["{npc:6266} stands by {npc:6251}'s tower on the hill above {area:392}, behind the engineers' hut. She takes the robe, then sends the gold bar to {npc:2670} in {area:35}."] = "{npc:6266}站在{area:392}上方山丘上{npc:6251}的塔旁，工程師小屋後面。她收下長袍，然後把金錠送到{area:35}的{npc:2670}那裡。",
 
 	-- Step 7: Xizk Goodstitch
 	-- {area:392} Ratchet · {area:35} Booty Bay · {npc:2670} Xizk Goodstitch · {object:59851} A Tailor to Cities · {item:3577} Gold Bar
-	["The boat from {area:392} sails to {area:35}. {npc:2670} runs {object:59851} on an upper level of the town. Give him the {item:3577}; he will spin the thread later."] = "",
+	["The boat from {area:392} sails to {area:35}. {npc:2670} runs {object:59851} on an upper level of the town. Give him the {item:3577}; he will spin the thread later."] = "從{area:392}的船駛往{area:35}。{npc:2670}在鎮上的上層經營{object:59851}。把{item:3577}交給他；之後他會把線紡好。",
 
 	-- Step 8: Back to Menara Voidrender
 	-- {npc:6266} Menara Voidrender
 	["Back to {npc:6266}"] = "返回{npc:6266}",
 	-- {npc:6266} Menara Voidrender · {zone:1443} Desolace
-	["You need no thread yet: {npc:6266} wants demon parts from {zone:1443} next."] = "",
+	["You need no thread yet: {npc:6266} wants demon parts from {zone:1443} next."] = "現在還不需要線：{npc:6266}接下來要{zone:1443}的惡魔部件。",
 
 	-- Step 9: Hatefury satyrs
 	["Hatefury satyrs"] = "怨怒薩特",
@@ -68,7 +68,7 @@ return {
 
 	-- Step 12: Fine Gold Thread
 	-- {npc:2670} Xizk Goodstitch · {area:35} Booty Bay · {quest:4785} Fine Gold Thread
-	["Back to {npc:2670} in {area:35}: he offers {quest:4785} as a quest you hand straight back to him. He may show no quest marker; talk to him anyway."] = "",
+	["Back to {npc:2670} in {area:35}: he offers {quest:4785} as a quest you hand straight back to him. He may show no quest marker; talk to him anyway."] = "回到{area:35}的{npc:2670}：他會給出{quest:4785}，然後你直接交回給他。他可能不顯示任務標記；照樣和他交談。",
 	-- {npc:2670} Xizk Goodstitch · {quest:4785} Fine Gold Thread
 	["{npc:2670}: {quest:4785}, handed straight back"] = "{npc:2670}：{quest:4785}，當場繳交",
 
@@ -77,13 +77,13 @@ return {
 	-- plural, as words: Burning Exiles = {npc:2760} Burning Exile · Cresting Charms = {item:4481} Cresting Charm · Cresting Exiles = {npc:2761} Cresting Exile
 	["The Burning Exiles (level 38-39), fire elementals at the {area:334} in western {zone:1417}, drop the coal about one time in three. The guide waits for level 39 first: below it they hit too hard to solo. They resist fire: {spell:686} and Corruption. The Cresting Charms from the Cresting Exiles near {area:321} finish one off once you have hurt it. Make a {item:6265} with {spell:1120} on the way."] = "烈焰流放者（38-39級）是{zone:1417}西部{area:334}的火元素，煤炭掉落率約三分之一。指南會先等到39級：低於這個等級時牠們打得太痛，無法單刷。牠們抵抗火焰：使用{spell:686}和腐蝕術。先把牠打傷，再用{area:321}附近水浪流放者掉落的海浪符咒就能解決牠。途中用{spell:1120}製作一個{item:6265}。",
 	-- {item:6265} Soul Shard · {spell:1120} Drain Soul
-	["{item:6265}: {spell:1120} on an Exile as it dies"] = "",
+	["{item:6265}: {spell:1120} on an Exile as it dies"] = "{item:6265}：在流放者死亡時用{spell:1120}",
 
 	-- Step 14: The Completed Robe
 	-- {npc:6266} Menara Voidrender · {item:6265} Soul Shard
 	["Back to {npc:6266} with the thread, the coals and a {item:6265}. Then wait beside her while she works the robe (do not attack her: the quest log calls it a kill), and speak to her again."] = "帶著線、煤塊和一個{item:6265}返回{npc:6266}。然後在她旁邊等她製作長袍（不要攻擊她：任務日誌把這稱為擊殺），再和她交談。",
 	-- {npc:6266} Menara Voidrender
-	["Wait beside {npc:6266} while she finishes the robe"] = "",
+	["Wait beside {npc:6266} while she finishes the robe"] = "在{npc:6266}旁邊等她做完長袍",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A rare cloth robe for your 30s from {npc:6266}; its last parts wait for levels 35 and 37."] = "30多級用的稀有布甲長袍，由{npc:6266}製作；最後幾樣材料要等到35級和37級。",

@@ -331,6 +331,23 @@ function DeleteCursorItem()
 	q.bags[c[1]].slots[c[2]] = nil
 	C_Timer.After(0.05, function() stub.fire("BAG_UPDATE_DELAYED") end)
 end
+-- Bag slots 1..4 are inventory slots 20..23. PutItemInBag puts the bag on the
+-- cursor into that bag slot when the slot is empty (q.items[id].bagSize
+-- slots): the bag leaves its bag slot and the bags update a moment later.
+-- With the slot taken, the bag stays on the cursor.
+function C_Container.ContainerIDToInventoryID(bag) return 19 + bag end
+function PutItemInBag(invSlot)
+	local c = q.cursor
+	call("PutItemInBag", invSlot)
+	local into = invSlot - 19
+	if not c or not q.bags[into] or q.bags[into].size > 0 then return end
+	local s = q.bags[c[1]].slots[c[2]]
+	q.cursor = nil
+	q.bags[c[1]].slots[c[2]] = nil
+	q.bags[into].size = (q.items[s.itemID] or {}).bagSize or 6
+	q.worn[invSlot] = s.itemID
+	C_Timer.After(0.05, function() stub.fire("BAG_UPDATE_DELAYED") end)
+end
 function GetInventoryItemID(unit, slot) if unit == "player" then return q.worn[slot] end end
 function C_Container.GetItemCooldown(id)
 	local c = q.cooldowns[id]

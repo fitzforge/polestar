@@ -17,19 +17,19 @@ return {
 
 	-- Step 1: Into The Barrens
 	-- {zone:1413} The Barrens
-	["Into {zone:1413}"] = "",
+	["Into {zone:1413}"] = "進入{zone:1413}",
 
 	-- Step 2: Thalanaar flight master
 	-- {area:489} Thalanaar
-	["{area:489} flight master"] = "",
+	["{area:489} flight master"] = "{area:489}飛行管理員",
 
 	-- Step 3: Boat to Feathermoon Stronghold
 	-- {area:1116} Feathermoon Stronghold
-	["Boat to {area:1116}"] = "",
+	["Boat to {area:1116}"] = "坐船到{area:1116}",
 
 	-- Step 4: Feathermoon Stronghold
 	-- {area:1116} Feathermoon Stronghold · {area:1120} Sardor Isle · {area:1108} Forgotten Coast · {npc:7880} Ginro Hearthkindle
-	["{area:1116} stands on {area:1120}, off the {area:1108}: the boat from the coast's dock crosses to it. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{area:1116} stands on {area:1120}, off the {area:1108}: the boat from the coast's dock crosses to it. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{area:1116}位於{area:1108}外的{area:1120}上：海岸碼頭的船會開過去。{npc:7880}站在他屋子的樓上：從裡面上樓，箭頭分不清樓層。",
 	-- {npc:3936} Shandris Feathermoon
 	["{npc:3936}, beside him"] = "{npc:3936}，在他旁邊",
 	-- {npc:7877} Latronicus Moonspear
@@ -51,7 +51,7 @@ return {
 
 	-- Step 9: Boat to Forgotten Coast
 	-- {area:1108} Forgotten Coast
-	["Boat to {area:1108}"] = "",
+	["Boat to {area:1108}"] = "坐船到{area:1108}",
 
 	-- Step 10: Feralas
 	["The courier's boat"] = "信使的船",
@@ -74,20 +74,20 @@ return {
 	-- plural, as words: Hatecrest Serpent Guards = {npc:5333} Hatecrest Serpent Guard
 	["The {area:1121} is the island just south of {area:1120}: swim over. Hatecrest Serpent Guards and Sorceresses hold it; {npc:8136} (level 47) waits in the cave at its south end. Pull his guards first."] = "{area:1121}是{area:1120}南邊不遠的小島：游過去。憎世毒蛇守衛和憎世巫師佔據那裡；{npc:8136}（47級）在南端的洞穴裡等著。先拉他的守衛。",
 	-- {item:9248} Mysterious Relic
-	["{item:9248}; below ground"] = "",
+	["{item:9248}; below ground"] = "{item:9248}；地下",
 
 	-- Step 15: Feathermoon Stronghold
 	-- {npc:7877} Latronicus Moonspear · {npc:7878} Vestia Moonspear · {npc:7900} Angelas Moonbreeze · {npc:7880} Ginro Hearthkindle · {npc:7852} Pratt McGrubben
-	["Coming from the south: {npc:7877} and {npc:7878} first, then {npc:7900} beside {npc:7880}'s building, then the stairs. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:7852} is by the flight master, on the way out."] = "",
+	["Coming from the south: {npc:7877} and {npc:7878} first, then {npc:7900} beside {npc:7880}'s building, then the stairs. {npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart. {npc:7852} is by the flight master, on the way out."] = "從南邊過來：先找{npc:7877}和{npc:7878}，然後是{npc:7880}那棟樓旁邊的{npc:7900}，再上樓梯。{npc:7880}在他那棟樓的樓上：從裡面上樓，箭頭分不清樓層。{npc:7852}在飛行管理員旁，出去時順路。",
 	-- {npc:7879} Quintis Jonespyre
-	["{npc:7879}, upstairs"] = "",
+	["{npc:7879}, upstairs"] = "{npc:7879}，樓上",
 	-- {npc:7852} Pratt McGrubben
 	["{npc:7852}'s next order, Improved Quality, wants Rage Scar hides from yetis of 46-49: skip it."] = "{npc:7852}的下一個訂單「品質提升」需要46-49級雪人的狂怒之痕毛皮：跳過。",
 
 	-- Step 16: Fly to Thalanaar
 	-- {area:489} Thalanaar
-	["Fly to {area:489}"] = "",
-	["Feathermoon flight master"] = "",
+	["Fly to {area:489}"] = "飛往{area:489}",
+	["Feathermoon flight master"] = "羽月飛行管理員",
 
 	-- Step 17: Back to the coast
 	["Back to the coast"] = "回到海岸",
@@ -117,7 +117,7 @@ return {
 	-- {item:11463} Undelivered Parcel
 	["{item:11463}, from the backpacks"] = "{item:11463}，來自背包",
 	-- {object:164954} Zukk'ash Pod
-	["{object:164954}, inside"] = "",
+	["{object:164954}, inside"] = "{object:164954}，室內",
 
 	-- Step 23: Grind to 45
 	["Grind to 45"] = "練到45級",
@@ -134,7 +134,7 @@ return {
 
 	-- Step 25: Feathermoon Stronghold
 	-- {npc:7880} Ginro Hearthkindle
-	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:7880}站在他屋子的樓上：從裡面上樓，箭頭分不清樓層。",
 
 	-- Step 26: Feathermoon Stronghold
 	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
@@ -150,7 +150,7 @@ return {
 	-- {zone:1441} Thousand Needles
 	["Ride north-east to the night elf outpost on the {zone:1441} border."] = "向東北騎往{zone:1441}邊界上的夜精靈前哨站。",
 	-- {npc:4048} Falfindel Waywarder · {area:489} Thalanaar
-	["{npc:4048} walks around {area:489}: look inside the circle on the map"] = "",
+	["{npc:4048} walks around {area:489}: look inside the circle on the map"] = "{npc:4048}在{area:489}附近走動：看地圖上的圓圈內",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Boat to the {area:1108} and ride east into {area:1105}. {npc:14637}'s quests on the coast need level 45."] = "搭船前往{area:1108}，向東騎進{area:1105}。{npc:14637}在海岸的任務需要45級。",

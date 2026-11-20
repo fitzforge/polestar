@@ -94,7 +94,7 @@ return {
 	["Gelkis: the valley's mouth"] = "겔키스일족: 골짜기 입구",
 	-- {quest:92846} Outcast Necromancers · {npc:253177} Nerlokh · {npc:253136} Orgrul
 	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager
-	["From the quest data: the Undead Ravagers and the {quest:92846} fill the valley from {npc:253177} north-east to {npc:253136}'s post at its northern mouth; players have met them all along it. {npc:253136}'s Magram are hostile to a friend of the Gelkis. Corpsefeeders, elite and level 45, walk the valley and attack anyone."] = "퀘스트 데이터 기준: 언데드 약탈자와 {quest:92846}이(가) {npc:253177}에서 북동쪽으로 북쪽 입구의 {npc:253136} 초소까지 골짜기를 가득 메우고 있으며, 플레이어들은 그 길 내내 그들을 만났습니다. {npc:253136}의 마그람일족은 겔키스일족의 동맹에게 적대적입니다. 45레벨 정예 시체먹이가 골짜기를 돌아다니며 누구든 공격합니다.",
+	["From the quest data: the Undead Ravagers and the {quest:92846} fill the valley from {npc:253177} north-east to {npc:253136}'s post at its northern mouth; players have met them all along it. {npc:253136}'s Magram are hostile to a friend of the Gelkis. Corpsefeeders, elite and level 45, walk the valley and attack anyone.\nCareful: Undead Ravagers up to level 45 can roam the valley: watch for them."] = "퀘스트 데이터 기준: 언데드 약탈자와 {quest:92846}이(가) {npc:253177}에서 북동쪽으로 북쪽 입구의 {npc:253136} 초소까지 골짜기를 가득 메우고 있으며, 플레이어들은 그 길 내내 그들을 만났습니다. {npc:253136}의 마그람일족은 겔키스일족의 동맹에게 적대적입니다. 45레벨 정예 시체먹이가 골짜기를 돌아다니며 누구든 공격합니다.\n주의: 최대 45레벨의 언데드 약탈자가 계곡을 돌아다닐 수 있습니다. 조심하세요.",
 
 	-- Step 13: Gelkis: Facing the Truth
 	-- {quest:93041} Facing the Truth

@@ -15,8 +15,9 @@ return {
 	-- plural, as words: Vilebranch Soothsayers = {npc:4467} Vilebranch Soothsayer
 	["Vilebranch Soothsayers"] = "Sterndeuter der Vilebranch",
 	-- {area:355} Altar of Zul · {npc:7996} Qiaga the Keeper · {npc:8636} Morta'gya the Keeper
-	-- plural, as words: Vilebranch Soothsayers = {npc:4467} Vilebranch Soothsayer
-	["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "Die Sterndeuter der Vilebranch (46-47) laufen rund um den Fuß des {area:355}: Ihre Totems sind für Maret Firetend. Vorsicht: {npc:7996} und {npc:8636} (50, Elite) stehen an der Südostseite des Altars: Nimm dir die Sterndeuter auf seiner Westseite vor, weg von ihnen, und bleib vom Altar runter.",
+	-- plural, as words: Vilebranch Soothsayers = {npc:4467} Vilebranch Soothsayer · Vilebranch Totems = {item:279225} Vilebranch Totem
+	-- was: ["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "Die Sterndeuter der Vilebranch (46-47) laufen rund um den Fuß des {area:355}: Ihre Totems sind für Maret Firetend. Vorsicht: {npc:7996} und {npc:8636} (50, Elite) stehen an der Südostseite des Altars: Nimm dir die Sterndeuter auf seiner Westseite vor, weg von ihnen, und bleib vom Altar runter."
+	["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend, and more Vilebranch Totems lie on the ground among them: pick those up too. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "",
 
 	-- Step 3: Skulk Rock
 	-- {area:351} Skulk Rock · {zone:1425} The Hinterlands
@@ -94,23 +95,16 @@ return {
 
 	-- Step 18: Booty Bay
 	["\"Sea Wolf\" MacKinley, on the top floor"] = "„Sea Wolf“ MacKinley, im obersten Stockwerk",
-	["\"Sea Wolf\" MacKinley, if the Stranglethorn guide didn't give it"] = "\"Seewolf\" MacKinley, falls der Schlingendorntal-Guide sie nicht gegeben hat",
 	-- {npc:2487} Fleet Master Seahorn
-	["{npc:2487}, top floor, if the Stranglethorn guide didn't give it"] = "{npc:2487}, oberstes Stockwerk, falls der Schlingendorntal-Guide sie nicht gegeben hat",
-	-- {npc:2494} Privateer Bloads
-	["{npc:2494}, if the Stranglethorn guide didn't give it"] = "{npc:2494}, falls der Schlingendorntal-Guide sie nicht gegeben hat",
+	["{npc:2487}, top floor"] = "{npc:2487}, oberstes Stockwerk",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside, if the Stranglethorn guide didn't give it"] = "{npc:2498}, drinnen, falls der Schlingendorntal-Guide sie nicht gegeben hat",
+	["{npc:2498}, inside"] = "{npc:2498}, drinnen",
 
 	-- Step 19: Wild Shore: kill these as you meet them
 	-- {area:43} Wild Shore
 	["{area:43}: kill these as you meet them"] = "{area:43}: Töte diese, sobald sie dir begegnen",
 	-- {area:43} Wild Shore · {area:35} Booty Bay
 	["The charts and orders lie in the pirate camp on the {area:43}, just south of {area:35}; its Swashbucklers walk the shore. The Warlocks and Swashbucklers (41-43) are under you now."] = "Die Karten und Befehle liegen im Piratenlager an der {area:43}, gleich südlich von {area:35}; seine Säbelrassler laufen am Ufer entlang. Die Hexenmeister und Säbelrassler (41-43) liegen jetzt unter deiner Stufe.",
-
-	-- Step 20: Booty Bay
-	-- {npc:2487} Fleet Master Seahorn
-	["{npc:2487}, top floor"] = "{npc:2487}, oberstes Stockwerk",
 
 	-- Step 21: The Bloodsail captains
 	["The Bloodsail captains"] = "Die Kapitäne der Blutsegelbukaniere",
@@ -127,11 +121,14 @@ return {
 	-- {npc:2537} Chucky "Ten Thumbs"
 	["Ride on north along the coast to Zanzil's village. Every Zanzil follower can drop the mixture; {npc:2537} walks the south of the camp."] = "Reite weiter an der Küste nach Norden zu Zanzils Dorf. Jeder Anhänger Zanzils kann die Mixtur fallen lassen; {npc:2537} läuft im Süden des Lagers umher.",
 
-	-- Step 25: Maury "Club Foot" Wilkins and Jon-Jon the Crow
-	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
-	["{npc:2535} and {npc:2536}"] = "{npc:2535} und {npc:2536}",
+	-- Step 25: Maury "Club Foot" Wilkins and Jon-Jon
+	-- {npc:2535} Maury "Club Foot" Wilkins
+	-- was: ["{npc:2535} and {npc:2536}"] = "{npc:2535} und {npc:2536}"
+	["{npc:2535} and Jon-Jon"] = "",
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
 	["{npc:2535} and {npc:2536} stand together in the hills just north of Zanzil's village."] = "{npc:2535} und {npc:2536} stehen zusammen in den Hügeln gleich nördlich von Zanzils Dorf.",
+	-- {item:3925} Jon-Jon's Golden Spyglass · {npc:2536} Jon-Jon the Crow
+	["{item:3925}, from {npc:2536}"] = "",
 
 	-- Step 26: Gorilla hills
 	["Gorilla hills"] = "Gorillahügel",
@@ -152,19 +149,29 @@ return {
 	["for {npc:2616} in Theramore: keep it, the Un'Goro guide lands there"] = "für {npc:2616} in Theramore: Behalte es, der Un'Goro-Guide endet dort",
 	-- {npc:2498} Crank Fizzlebub · {zone:1441} Thousand Needles
 	["{npc:2498}'s next Zanzil errand starts in {zone:1441}: skip it."] = "{npc:2498}s nächster Zanzil-Auftrag beginnt in {zone:1441}: Überspring ihn.",
-	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}, inside"] = "{npc:2498}, drinnen",
 	["MacKinley's next task sends you after elite ogres: skip it."] = "MacKinleys nächster Auftrag schickt dich zu Elite-Ogern: Überspring ihn.",
 
 	-- Step 30: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "Das sind Elite-Mobs: Eine Gruppe wird empfohlen, such dir Mitspieler dafür. {quest:8552} braucht eine Gruppe von 2. Überspring sie, wenn du allein bist: Die Route lässt dich die Erfahrung wieder erfarmen.",
 
-	-- Step 34: Facing Negolash
+	-- Step 34: Negolash's bait
+	-- {npc:1494} Negolash
+	["{npc:1494}'s bait"] = "",
+	-- {npc:1494} Negolash · {quest:619} Enticing Negolash · {area:35} Booty Bay · {item:4595} Junglevine Wine · {npc:2832} Nixxrax Fillamug
+	-- plural, as words: Barbecued Buzzard Wings = {item:4457} Barbecued Buzzard Wing
+	["{npc:1494} comes only for his food: hand in {quest:619} at Captain Smotts' ruined lifeboat on the shore south-east of {area:35}, with 10 Barbecued Buzzard Wings and 5 {item:4595}, and he comes to the boat. {npc:2832}, the food and drink vendor at the inn, sells the wine. The wings are a cook's dish: if you don't cook, bring them from the Auction House."] = "",
+	-- {item:4457} Barbecued Buzzard Wing
+	["{item:4457}: in your bags already if you cook"] = "",
+	-- {object:2289} Ruined Lifeboat · {npc:1494} Negolash
+	["{object:2289}: the food goes in, {npc:1494} comes"] = "",
+
+	-- Step 35: Facing Negolash
 	-- {npc:1494} Negolash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1494} (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "Das sind Elite-Mobs: Eine Gruppe wird empfohlen, such dir Mitspieler dafür. {npc:1494} (Elite der Stufe 52) braucht eine Gruppe von 2. Überspring ihn, wenn du allein bist: Die Route lässt dich die Erfahrung wieder erfarmen.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["\"Sea Wolf\" MacKinley, if the Stranglethorn guide didn't give it"] = "\"Seewolf\" MacKinley, falls der Schlingendorntal-Guide sie nicht gegeben hat",
 	-- ["Ashmane Boars and Redstone Basilisks share the slopes south-west of the keep. Keep clear of the Helboars further south: they are level 52."] = "Aschmähneneber und Rotsteinbasilisken teilen sich die Hänge südwestlich der Burg. Halte dich von den Höllenebern weiter südlich fern: Sie sind Stufe 52.",
 	-- ["Back to {area:144}"] = "Zurück nach {area:144}",
 	-- ["Boars and basilisks"] = "Eber und Basilisken",
@@ -192,6 +199,7 @@ return {
 	-- ["Scorpoks and snickerfangs"] = "Skorpoks und Kicherfänge",
 	-- ["Step through the portal into {zone:1457}. The Temple of the Moon is in the south of the city."] = "Geh durch das Portal nach {zone:1457}. Der Tempel des Mondes liegt im Süden der Stadt.",
 	-- ["Temple of the Moon"] = "Der Tempel des Mondes",
+	-- ["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "Die Sterndeuter der Vilebranch (46-47) laufen rund um den Fuß des {area:355}: Ihre Totems sind für Maret Firetend. Vorsicht: {npc:7996} und {npc:8636} (50, Elite) stehen an der Südostseite des Altars: Nimm dir die Sterndeuter auf seiner Westseite vor, weg von ihnen, und bleib vom Altar runter.",
 	-- ["The bloodmages' second tier pays for the same parts with a buff item and no experience: skip it."] = "Die zweite Stufe der Blutmagier bezahlt dieselben Teile mit einem Buff-Gegenstand und ohne Erfahrung: Überspring sie.",
 	-- ["The druid trainers stand in the Enclave; {zone:1455} has none"] = "Die Druidenlehrer stehen in der Enklave; {zone:1455} hat keine",
 	-- ["The {area:1517} dig"] = "Die Ausgrabung bei {area:1517}",
@@ -200,6 +208,10 @@ return {
 	-- ["{area:144} flight master"] = "Flugmeister in {area:144}",
 	-- ["{area:2418} flight master"] = "Flugmeister von {area:2418}",
 	-- ["{area:702} flight master"] = "Flugmeister von {area:702}",
+	-- ["{npc:2487}, top floor, if the Stranglethorn guide didn't give it"] = "{npc:2487}, oberstes Stockwerk, falls der Schlingendorntal-Guide sie nicht gegeben hat",
+	-- ["{npc:2494}, if the Stranglethorn guide didn't give it"] = "{npc:2494}, falls der Schlingendorntal-Guide sie nicht gegeben hat",
+	-- ["{npc:2498}, inside, if the Stranglethorn guide didn't give it"] = "{npc:2498}, drinnen, falls der Schlingendorntal-Guide sie nicht gegeben hat",
+	-- ["{npc:2535} and {npc:2536}"] = "{npc:2535} und {npc:2536}",
 	-- ["{npc:3516}, at the top of the tree"] = "{npc:3516}, oben im Baum",
 	-- ["{npc:7740}, beside her"] = "{npc:7740}, neben ihr",
 	-- ["{npc:7744}: the last guide binds here, so this usually ticks at once"] = "{npc:7744}: Der letzte Guide bindet dich hier, daher ist das meist sofort abgehakt",

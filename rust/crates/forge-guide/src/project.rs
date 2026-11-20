@@ -119,13 +119,14 @@ impl Lap {
 	}
 }
 
-/// Lint in memory (the planner's and wasm's entry point): every compile check on `sources`, plus the solo
-/// policy against `excluded` (validate_solo_policy's `{ <Faction>: { <quest id>: entry } }`, or an empty
-/// object). -> the diagnostics, sorted as the CLI prints them.
+/// Lint in memory (the planner's and wasm's entry point): every compile check on `sources`, the play checks as
+/// errors in our pack, plus the solo policy against `excluded` (validate_solo_policy's `{ <Faction>: { <quest id>:
+/// entry } }`, or an empty object). -> the diagnostics, sorted as the CLI prints them.
 pub fn lint_sources(sources: &[Source], data: &Data, excluded: &V) -> Vec<crate::diag::Diag> {
 	let mut diag = Diagnostics::new();
 	let opts = CompileOpts { pack: None, author: None, context: None, pack_dir: None };
 	let c = compile_sources(sources, data, &mut diag, &opts);
+	diag.promote_play_checks();
 	crate::validate::validate_solo_policy(&c.guides, excluded, &mut diag);
 	diag.sorted()
 }
@@ -179,6 +180,36 @@ pub fn localise(guides: &[V], data: &Data, diag: &mut Diagnostics) -> V {
 /// The id rule of retired.json entries: `^[a-z0-9_-]+(?:\/[a-z0-9_-]+)*$`.
 fn is_guide_id(s: &str) -> bool {
 	!s.is_empty() && s.split('/').all(|p| !p.is_empty() && p.bytes().all(|b| b.is_ascii_lowercase() || b.is_ascii_digit() || b == b'_' || b == b'-'))
+}
+
+/// Regional walking addons in the pack, never stale directories left by a previous build.
+/// Old, continent-only packs have no `regions` member.
+#[cfg(feature = "native")]
+pub fn nav_region_addons(addons: &std::path::Path) -> Result<Vec<String>, String> {
+	let path = addons.join("Polestar_Nav/PACK.json");
+	let text = match std::fs::read_to_string(&path) {
+		Ok(text) => text,
+		Err(e) if e.kind() == std::io::ErrorKind::NotFound => return Ok(Vec::new()),
+		Err(e) => return Err(format!("{}: {e}", path.display())),
+	};
+	let doc = crate::js::parse_json(&text).map_err(|e| format!("{}: {e}", path.display()))?;
+	let regions = doc.get("regions");
+	if doc.is_obj() && regions.is_undef() {
+		return Ok(Vec::new());
+	}
+	if !regions.is_arr() {
+		return Err(format!("{}: expected a regions array", path.display()));
+	}
+	let mut parts = Vec::with_capacity(regions.len());
+	for item in regions.items() {
+		let name = item.as_str().filter(|s| crate::toc::nav_region(s).is_some()).ok_or_else(|| format!("{}: invalid walking-region folder", path.display()))?;
+		parts.push(name.to_owned());
+	}
+	parts.sort_unstable();
+	if parts.windows(2).any(|p| p[0] == p[1]) {
+		return Err(format!("{}: duplicate walking-region folder", path.display()));
+	}
+	Ok(parts)
 }
 
 /// readRetired on retired.json's text (None: no file). `file` names it in diagnostics.

@@ -8,6 +8,7 @@ use serde_json::{json, Value};
 
 const NEEDLES: &str = "forever/horde/30-40/02-thousand-needles";
 const ASHENVALE: &str = "forever/horde/07-ashenvale";
+const ARATHI: &str = "forever/horde/30-40/05-arathi-highlands";
 
 // Guide `guide` for a Horde `race` `class` at `level`, "Skip grey quests" `grey`, the quests `done` handed in;
 // `at`: the title of the step the player is at (the steps before it skipped by them), or "" for where placement
@@ -68,27 +69,48 @@ end
 }
 
 // 16 Nov, Discord: a Horde player at 30 in Thousand Needles without Test of Faith (1149, Ashenvale's guide) saw
-// Test of Endurance (1150) vanish. The plan leaves it out (its prerequisite comes from an earlier guide and is not
-// put in); at Jandia, the step after Dorn Plainstalker's, the window says why and offers a guide to it.
+// Test of Endurance (1150) vanish. Since #2635 the second visit brings Test of Faith back first, at Dorn
+// Plainstalker, for a character without it: Test of Endurance is the route's again, nothing is left out.
 #[test]
-fn thousand_needles_at_30_without_test_of_faith_says_test_of_endurance_needs_it_first() {
+fn thousand_needles_at_30_without_test_of_faith_brings_it_back_at_dorn_first() {
 	let script = r#"local live = E.GetLiveStep()
-emit({ title = g.steps[live].title, here = OUT(live), endurance = STATUS(1150) })"#;
-	let out = shipped("Tauren", "WARRIOR", 30, false, "", NEEDLES, "Jandia", false, script);
-	assert_eq!(out["title"], "Jandia", "{out}");
-	assert_eq!(out["here"], json!(["1150 pre: Requires \u{201c}Test of Faith\u{201d} first [chain]"]));
-	assert_eq!(out["endurance"], "none", "left out with its step: {out}");
-	// Test of Faith done: Test of Endurance is the route's, nothing to explain.
-	let done = shipped("Tauren", "WARRIOR", 30, false, "1149", NEEDLES, "Jandia", false, script);
+emit({ title = g.steps[live].title, here = OUT(live), faith = STATUS(1149), endurance = STATUS(1150) })"#;
+	let out = shipped("Tauren", "WARRIOR", 30, false, "", NEEDLES, "Dorn Plainstalker", false, script);
+	assert_eq!(out["title"], "Dorn Plainstalker", "{out}");
+	assert_eq!(out["faith"], "active", "the catch-up step offers Test of Faith: {out}");
+	assert_ne!(out["endurance"], "none", "Test of Endurance stays the route's: {out}");
+	assert_eq!(out["here"], json!({}), "nothing left out at Dorn: {out}");
+	// Test of Faith done (the 27-29 guide): nothing to take again, the player is at Dorn's Test of Endurance.
+	let done = shipped("Tauren", "WARRIOR", 30, false, "1149", NEEDLES, "Dorn Plainstalker", false, script);
+	assert_ne!(done["faith"], "active", "{done}");
+	assert_eq!(done["endurance"], "active", "{done}");
 	assert_eq!(done["here"], json!({}), "{done}");
+}
+
+// A second visit that leaves its starter out on purpose (data/route-fixes.json overrides.leftout, #2635): Krusk's
+// Infiltration (533) on the 37-39 Tarren Mill stop needs The Rescue (498, level 22, half XP at 37) from the 22-25
+// guide. Without it the window says why at Tarren Mill and offers a guide to it; with it, nothing to explain.
+#[test]
+fn tarren_mill_at_37_without_the_rescue_says_infiltration_needs_it_first() {
+	let script = r#"local live = E.GetLiveStep()
+emit({ title = g.steps[live].title, here = OUT(live), infiltration = STATUS(533) })"#;
+	let out = shipped("Tauren", "WARRIOR", 37, false, "", ARATHI, "Tarren Mill", false, script);
+	assert_eq!(out["title"], "Tarren Mill", "{out}");
+	let here: Vec<&str> = out["here"].as_array().map(|a| a.iter().filter_map(Value::as_str).collect()).unwrap_or_default();
+	assert!(here.contains(&"533 pre: Requires \u{201c}The Rescue\u{201d} first [chain]"), "{out}");
+	let done = shipped("Tauren", "WARRIOR", 37, false, "498", ARATHI, "Tarren Mill", false, script);
+	let here: Vec<&str> = done["here"].as_array().map(|a| a.iter().filter_map(Value::as_str).collect()).unwrap_or_default();
+	assert!(!here.iter().any(|h| h.starts_with("533 ")), "{done}");
+	assert_ne!(done["infiltration"], "none", "{done}");
 }
 
 // The bug report carries the step's reasons, with the quest ids, as the window says them.
 #[test]
 fn the_bug_report_names_what_is_left_out_here_and_why() {
-	let out = shipped("Tauren", "WARRIOR", 30, false, "", NEEDLES, "Jandia", true, r#"emit({ text = table.concat(Polestar.UI.Report.Details().lines, "\n") })"#);
+	let out = shipped("Tauren", "WARRIOR", 37, false, "", ARATHI, "Tarren Mill", true, r#"emit({ text = table.concat(Polestar.UI.Report.Details().lines, "\n") })"#);
 	let text = out["text"].as_str().unwrap_or("");
-	assert!(text.contains("Left out here: Test of Endurance (1150) \u{b7} Requires \u{201c}Test of Faith\u{201d} first"), "{text}");
+	assert!(text.contains("Infiltration (533) \u{b7} Requires \u{201c}The Rescue\u{201d} first"), "{text}");
+	assert!(text.contains("Left out here:"), "{text}");
 }
 
 // #2620 (animagic, Donkeyman, Zack, aVikingTrex): at 31, two over Horde Ashenvale's 27-29, "Skip grey quests" left

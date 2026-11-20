@@ -132,22 +132,42 @@ local function pickLine(id, out)
 	return true
 end
 
+-- A Hunter fights at range, so a melee weapon counts for its stats, not its
+-- damage (#2229). Said once, under Polestar's score line, where it comes up:
+-- a quest reward choice, or a weapon whose skill is under half its cap (a
+-- staff a Hunter has just trained). Not while Forever Leveling BiS scores.
+local MELEE_INV = { [13] = true, [17] = true, [21] = true, [22] = true }
+
+local function hunterStatsLine(link, picked)
+	if Gear.GetPlayer().class ~= "HUNTER" or Gear.UsesFLB(2) then return nil end
+	local info = Gear.GetItemInfo(link)
+	if not (info and info.class == 2 and MELEE_INV[info.inv]) then return nil end
+	if not picked then
+		local rank, cap = ns.Compat.GetSkillRank(Gear.WEAPON_SKILL[info.subclass])
+		if not (rank and cap and rank * 2 < cap) then return nil end
+	end
+	local r, g, b = color("textMuted", 0.5, 0.54, 0.63)
+	return { L["Your ranged damage uses this weapon's stats, not its damage"], nil, r, g, b }
+end
+
 function Gear.TooltipLines(link)
 	local out = {}
 	if not Gear.IsEnabled() then return out end
-	local scored = false
+	local scored, scoreLine, picked = false, false, false
 	if ns.Get("gear.tooltip") then
 		local left, right, r, g, b, fromWeights = Gear.TooltipLine(link)
 		if left then
 			local lr, lg, lb = color("textDim", 0.69, 0.72, 0.8)
 			out[#out + 1] = { left, right, lr, lg, lb, r, g, b }
-			scored = fromWeights
+			scored, scoreLine = fromWeights, fromWeights
 		end
 	end
 	if ns.Get("gear.pickTooltip") then
 		local id = Gear.ItemID(link)
-		if id and pickLine(id, out) then scored = true end
+		if id and pickLine(id, out) then scored, picked = true, true end
 	end
+	local why = scoreLine and hunterStatsLine(link, picked)
+	if why then table.insert(out, 2, why) end
 	local note = scored and Gear.ScoredFor()
 	if note then
 		local r, g, b = color("textMuted", 0.5, 0.54, 0.63)

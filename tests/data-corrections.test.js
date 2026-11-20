@@ -46,6 +46,13 @@ test('no correction file has the same id twice', () => {
 	assert.deepEqual(dup, []);
 });
 
+test('Gnomish Garbage counts five discards, not five Wastewander Rogue kills (#3159)', () => {
+	const [goal] = corrections.quests[97536].set.objectives;
+	assert.deepEqual([goal.type, goal.id, goal.count], ['event', null, 5]);
+	const [step] = require('../data/mechanics-public.json').quests[97536].steps;
+	assert.deepEqual([step.action, step.item, step.count], ['use-item', 278194, goal.count]);
+});
+
 test('Damp Note requires The Essence of Aku\'Mai on the recorded Priestess drop, not on its follow-up quest (#1923)', () => {
 	assert.deepEqual(corrections.items[16790].dropRequires, { npc: { 4802: [6563] } });
 	assert.match(corrections.items[16790].source.ref, /#1923.*6820003090/);
@@ -230,6 +237,13 @@ test("Henrig Lonebrow's Journal lies where players loot it now, its old spot gon
 	assert.deepEqual(corrections.objects[19861].set.spawns, { 1441: { f: 'e', pts: [[31.29, 28.05]] } });
 });
 
+// #2466: the Ancient Egg's world point is inside both The Hinterlands' and Arathi Highlands' map frames, and it was
+// read in Arathi's (81.3,26.2), so the Sunken Temple pick-up guide's collect step led to Hammerfall. Players loot it
+// in The Hinterlands.
+test('The Ancient Egg lies in The Hinterlands, where players loot it, not on Arathi Highlands\' map (#2466)', () => {
+	assert.deepEqual(corrections.objects[175889].set.spawns, { 1425: { f: 'e', pts: [[57.48, 86.69]] } });
+});
+
 // #1992, #2007: Archmage Tervosh and Lady Jaina Proudmoore show at Sentry Point and North Point Tower only to players on
 // The Missing Diplomat; the corrections had made those spots their spawns, so the Maraudon pick-up guide sent everyone to
 // North Point Tower for Shadowshard Fragments. Their spawns are Theramore's tower; the chain's steps keep their own spots.
@@ -311,6 +325,23 @@ test('Shadumbra has her whole path through Raynewood Retreat, not one spot at it
 	}
 });
 
+// Logan (#2672) and a Korean report (#1237): Nikova Raskol walks a loop through Old Town, and the Stockade's pick-up
+// guide pointed at one corner of it (76.4,63.7) while players met her anywhere on it. #2519: quest givers and enders
+// who walk a path of 140 yd or more in Forever's world database, have one spot in the data and no walk circle, and
+// whom 3 or more people met more than 25 yd from that spot in players' recordings, get points along their path.
+test('quest givers who walk a path have points along it, not one spot (#2519, #2672, #1237)', () => {
+	const nikova = corrections.npcs[1721]?.set?.spawns?.[1453];
+	assert.equal(nikova?.f, 'l', "Nikova's points are in the live frame, as her spot");
+	const pts = nikova?.pts || [];
+	assert.ok(pts.some(([x, y]) => x > 76 && y > 63), 'the corner the guide pointed at stays one of them');
+	for (const [x, y, where] of [[73, 55, 'north end'], [76, 60, 'east side'], [71, 59, 'west side']]) {
+		assert.ok(pts.some(([px, py]) => Math.hypot(px - x, py - y) < 1.5), `her loop's ${where} (${x},${y}), where players met her`);
+	}
+	for (const [id, map, name] of [[1481, 1437, 'Bart Tidewater'], [1742, 1420, 'Deathguard Bartholomew'], [2616, 1445, 'Privateer Groy'], [3140, 1411, 'Lar Prowltusk'], [5639, 1454, 'Craven Drok']]) {
+		assert.ok((corrections.npcs[id]?.set?.spawns?.[map]?.pts || []).length >= 3, `${name}: points along the path`);
+	}
+});
+
 test('Daniel Stitchsong stands at the reported Three Corners spot in live coordinates (#1966)', () => {
 	assert.deepEqual(corrections.npcs[256734]?.addSpawns, {
 		1433: { f: 'l', pts: [[9.96, 72.71]] },
@@ -324,6 +355,24 @@ test('Heart of Disruption waits for An Alarming Request (Alliance) and Blood in 
 	const blocks = (id) => blockingPrereqs({ id, start: { npc: [269127] }, ...corrections.quests[id].set });
 	assert.deepEqual(blocks(92458), { all: [], any: [92432] }, 'Alliance: after An Alarming Request');
 	assert.deepEqual(blocks(96984), { all: [], any: [92434] }, 'Horde: after Blood in the Streets');
+});
+
+// Kaxe (#2774): Aza'bek, who sells the Soothing Spices for "Swamp Eye" Jarl, stands still at the Crossroads (one TDB
+// spawn, no path), and 56 people opened the vendor window there. The merged data had five points over about 220 yd, and the
+// Horde Dustwallow Marsh guide's `buy 3713 nearest` pointed at one of them, 64 yd from the vendor.
+test('Aza\'bek has one Crossroads spot, not five points across the hill (#2774)', () => {
+	assert.deepEqual(corrections.npcs[248198]?.set?.spawns, {
+		1413: { f: 'e', pts: [[49.74, 29.35]] },
+	});
+});
+
+// Logan (#2851): Veyric Thunderhame, who takes Call of Air (94789), stands only in Arathi Highlands (12 people opened his
+// window at 59.8,27.6, none met him in Ironforge). The merged data also gave him Eldrun Stormbreaker's Ironforge spot, so
+// While you're here offered the hand-in beside Eldrun.
+test('Veyric Thunderhame stands only in Arathi Highlands, not at Eldrun Stormbreaker\'s spot (#2851)', () => {
+	assert.deepEqual(corrections.npcs[259023]?.set?.spawns, {
+		1417: { f: 'l', pts: [[59.72, 27.59]] },
+	});
 });
 
 test('class quests the data left open are locked to their class, and Magma or Lava? is open to everyone (class-quest card)', () => {
@@ -364,6 +413,18 @@ test('Gnogaine waits for The Day After, whatever breadcrumb links the data has (
 	const dayAfter = { id: 2927, start: { npc: [6569] }, breadcrumbFor: 2926, ...corrections.quests[2927].set };
 	const { all, any } = blockingPrereqs(quest, (id) => (id === 2927 ? dayAfter : null));
 	assert.deepEqual({ all, any }, { all: [], any: [2927] });
+});
+
+// #2667 (GDcontroller, the Wildwood Chain's item guide): the guide started at Kaela Shadowspear, who did not offer On
+// Guard in Stonetalon's second part (1085) before the first (1070, Sentinel Thenysil in Astranaar) was handed in, so it
+// took two trips. The quest data names 1070 as 1085's prerequisite and as its breadcrumb, and a breadcrumb never blocks;
+// players' recordings: all 58 people who took 1085 had handed 1070 in to Kaela seconds before. The corrections clear the
+// breadcrumb links, so the prerequisite stands and the chain starts at Thenysil.
+test('On Guard in Stonetalon waits for its first part, whatever breadcrumb links the data has (#2667)', () => {
+	const quest = { id: 1085, start: { npc: [4080] }, pre: [1070], preAny: [1070], breadcrumbs: [1070], ...corrections.quests[1085].set };
+	const first = { id: 1070, start: { npc: [4079] }, breadcrumbFor: 1085, ...corrections.quests[1070].set };
+	const { all, any } = blockingPrereqs(quest, (id) => (id === 1070 ? first : null));
+	assert.deepEqual({ all, any }, { all: [], any: [1070] });
 });
 
 // The 1.0.13 quest database's trace XP against our data (2026-11-08): 45 quests differed, every one confirmed by
@@ -490,6 +551,34 @@ test('quest XP the recordings confirm is held by the corrections (0.3.8 XP revie
 	const got = Object.fromEntries(Object.keys(xp).map((q) => [q, corrections.quests[q] && corrections.quests[q].set.xp]));
 	assert.deepEqual(got, Object.fromEntries(Object.entries(xp).map(([q, v]) => [q, v])));
 	assert.deepEqual(corrections.quests[96261].set.preAny, [96259], "The Broodmother's prerequisite stays");
+});
+
+test('Hyjal tracks each seed cast separately and credits the decision at Felflick (#3170, #3121, #3194)', () => {
+	const wrecks = corrections.quests[93747].set.objectives;
+	assert.deepEqual(wrecks.map(o => [o.text, o.type, o.count]), [
+		['Ruined Ballista reclaimed', 'event', 1],
+		['Ruined Catapult reclaimed', 'event', 1],
+		['Ruined Flying Machine reclaimed', 'event', 1],
+	]);
+	assert.deepEqual(corrections.quests[96322].set.objectives, [
+		{ type: 'talk', id: 263757, count: 1, text: 'Decide What to do with Felflick' },
+	]);
+});
+
+test('A Matter of Time asks for fifteen Temporal Parasites in both the goal and its instructions (#3046)', () => {
+	const { objectives: [goal], objectiveText } = corrections.quests[4971].set;
+	assert.deepEqual([goal.type, goal.id, goal.count], ['kill', 10717, 15]);
+	assert.ok(objectiveText.includes(`${goal.count} Temporal Parasites`));
+});
+
+test("Burkrum's stock at Splintertree Post has no ammunition or ammo bags (#3189)", () => {
+	for (const item of [2102, 2512, 2515, 2516, 2519, 3030, 3033, 5439, 11285, 11362]) {
+		assert.ok(corrections.items[item]?.removeVendors.includes(6028), `item ${item} still lists Burkrum`);
+	}
+});
+
+test("Champion's Hall quartermasters sell and repair gear, but offer no inn or auction services (#2984, #3168)", () => {
+	for (const npc of [12777, 12782]) assert.deepEqual(corrections.npcs[npc].set.roles, ['repair', 'vendor']);
 });
 
 // #1820: Nearby services' "Bows & guns" at Grom'gol led to Innkeeper Thulbek (5814), who sells food, drink and

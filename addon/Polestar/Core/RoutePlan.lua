@@ -422,15 +422,34 @@ function Plan.LeftBehind(toId)
 	return out
 end
 
+-- An NPC ender who stands only inside a dungeon (Daewyn Songblade, in the
+-- Excavation Site: Wetlands, for Songblade Search, #2582): the dungeon's
+-- entrance, named by the dungeon, `inside` set; nil when none is known.
+local function insideEnder(ends)
+	local X, D = ns.Codex, ns.Dungeons
+	if type(ends) ~= "table" or not (X and X.Npc and D and D.Get) then return nil end
+	for _, id in ipairs(ends.npc or {}) do
+		local npc = X.Npc(id)
+		local inst = npc and npc.instance and D.Get(npc.instance)
+		local e = inst and inst.entrance
+		if e and e.map and e.x and e.y then
+			return { npc = id, name = npc.name, map = e.map, x = e.x, y = e.y, f = e.f, zone = inst.name, inside = true }
+		end
+	end
+	return nil
+end
+
 -- Where quest q is handed in for this character: the Codex's ender of the
 -- character's side nearest the player (Lookup.QuestEnd), as { npc | object,
--- name, map, x, y, f, zone }; nil when unknown.
+-- name, map, x, y, f, zone }, else one inside a dungeon (insideEnder); nil
+-- when unknown or the other side's.
 function Plan.Ender(q)
 	local X, Lk = ns.Codex, ns.Lookup
 	local rec = X and X.Quest and Lk and Lk.QuestEnd and X.Quest(q)
 	local e = rec and Lk.QuestEnd(rec["end"], ns.PlayerPoint(), nil, true)
-	local s = e and not e.hostile and e.spawn
-	if not s then return nil end
+	if e and e.hostile then return nil end
+	local s = e and e.spawn
+	if not s then return rec and insideEnder(rec["end"]) or nil end
 	return { npc = e.npc, object = e.object, name = e.name, map = s.map, x = s.x, y = s.y, f = s.f, zone = ns.Compat.MapName(s.map) }
 end
 

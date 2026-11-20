@@ -174,7 +174,8 @@ return {
 
 	-- Step 35: Witherbark Village
 	-- {area:318} Drywhisker Gorge · {area:314} Go'Shek Farm · {area:317} Witherbark Village
-	["South from {area:318}, past {area:314}, to {area:317} in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk."] = "Au sud de {area:318}, au-delà de {area:314}, jusqu'à {area:317} dans les collines : les Sorciers-docteurs se tiennent parmi les huttes et les Chasseurs des ombres gardent le fond de la vallée. Chaque troll peut laisser tomber une défense.",
+	-- plural, as words: Witherbark Goliaths = {npc:218032} Witherbark Goliath
+	["South from {area:318}, past {area:314}, to {area:317} in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk. Careful: Witherbark Goliaths (35, elite) walk the far end with the Shadow Hunters: pull the Hunters out to you one at a time, away from the Goliaths."] = "",
 	-- {item:5040} Shadow Hunter Knife
 	["{item:5040}; below ground"] = "{item:5040} ; sous terre",
 
@@ -305,13 +306,13 @@ return {
 
 	-- Step 63: Image of Archmage Modera
 	-- {npc:269127} Image of Archmage Modera · {quest:92458} Heart of Disruption · {item:277507} Dalaran Sewer Key
-	["For your City of Dalaran run, next: the {npc:269127} wants the arcane remnants in the city thinned out and a mote from the heart of the disruption. {quest:92458} brings the {item:277507}, which opens the grate."] = "Pour votre expédition dans City of Dalaran, la prochaine étape : l'{npc:269127} veut que vous éclaircissiez les rangs des vestiges arcaniques de la ville et que vous rapportiez une particule du cœur de la perturbation. {quest:92458} donne la {item:277507}, qui ouvre la grille.",
+	["For your City of Dalaran run, next: the {npc:269127} wants the arcane remnants in the city thinned out and a mote from the heart of the disruption. {quest:92458} brings the {item:277507}, which opens the grate."] = "Pour votre expédition dans Cité de Dalaran, la prochaine étape : l'{npc:269127} veut que vous éclaircissiez les rangs des vestiges arcaniques de la ville et que vous rapportiez une particule du cœur de la perturbation. {quest:92458} donne la {item:277507}, qui ouvre la grille.",
 
 	-- Step 64: City of Dalaran
-	["City of Dalaran"] = "City of Dalaran",
+	["City of Dalaran"] = "Cité de Dalaran",
 	-- {quest:92457} Starving Arcane · {item:251961} Arcane Mote · {quest:92458} Heart of Disruption
 	-- plural, as words: Seeking Remnants = {npc:247003} Seeking Remnant · Saturated Remnants = {npc:247001} Saturated Remnant
-	["The City of Dalaran is a dungeon for a group of five at about level 28 to 33: at your level it goes quickly. Its way in is the sewer grate in the city's western wall, by the lake, 30 yards from Modera's camp.\nInside: the Seeking Remnants, Saturated Remnants and Mana Echoes are Modera's {quest:92457}; the {item:251961} for {quest:92458} drops inside too."] = "City of Dalaran est un donjon pour un groupe de cinq, vers les niveaux 28 à 33 : à votre niveau, il se fait vite. On y entre par la grille d'égout du mur ouest de la ville, près du lac, à 30 mètres du camp de Modera.\nÀ l'intérieur : les Seeking Remnants, les Saturated Remnants et les Mana Echoes sont pour {quest:92457}, la quête de Modera ; la {item:251961} pour {quest:92458} se trouve aussi à l'intérieur.",
+	["The City of Dalaran is a dungeon for a group of five at about level 28 to 33: at your level it goes quickly. Its way in is the sewer grate in the city's western wall, by the lake, 30 yards from Modera's camp.\nInside: the Seeking Remnants, Saturated Remnants and Mana Echoes are Modera's {quest:92457}; the {item:251961} for {quest:92458} drops inside too."] = "Cité de Dalaran est un donjon pour un groupe de cinq, vers les niveaux 28 à 33 : à votre niveau, il se fait vite. On y entre par la grille d'égout du mur ouest de la ville, près du lac, à 30 mètres du camp de Modera.\nÀ l'intérieur : les Seeking Remnants, les Saturated Remnants et les Mana Echoes sont pour {quest:92457}, la quête de Modera ; la {item:251961} pour {quest:92458} se trouve aussi à l'intérieur.",
 	-- {quest:92457} Starving Arcane
 	["{quest:92457}: the remnants and echoes, inside"] = "{quest:92457} : les vestiges et les échos, à l'intérieur",
 	-- {quest:92458} Heart of Disruption · {item:251961} Arcane Mote
@@ -345,6 +346,8 @@ return {
 	["From {zone:1455} take the tunnel east through {zone:1426} into {zone:1432} and follow the road to {area:144}."] = "Depuis {zone:1455}, prenez le tunnel vers l'est à travers {zone:1426} jusqu'au {zone:1432} et suivez la route jusqu'à {area:144}.",
 
 	-- Step 74: Thelsamar
+	-- {zone:2548} Riverglades · {zone:1455} Ironforge · {area:69} Lakeshire · {area:2417} Blackrock Pass
+	["Leave the {zone:2548} for about level 41: its Western Front has elite patrols. After Stranglethorn, the {zone:2548} guide takes you from {zone:1455} to {area:69}, then through {area:2417}."] = "",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "{npc:1470}, sous terre",
 
@@ -381,6 +384,7 @@ return {
 	-- ["Shaman training"] = "Entraînement de chaman",
 	-- ["South along the west coast to the goblins' cove; Lolo keeps watch on the rocks above it."] = "Longez la côte ouest vers le sud jusqu'à la crique des gobelins ; Lolo monte la garde sur les rochers au-dessus.",
 	-- ["South from the {object:2691}, past {area:314}, to {area:317} in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk."] = "Au sud de {object:2691}, au-delà de {area:314}, jusqu'à {area:317} dans les collines : les Sorciers-docteurs se tiennent parmi les huttes et les Chasseurs des ombres gardent le fond de la vallée. Chaque troll peut laisser tomber une défense.",
+	-- ["South from {area:318}, past {area:314}, to {area:317} in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk."] = "Au sud de {area:318}, au-delà de {area:314}, jusqu'à {area:317} dans les collines : les Sorciers-docteurs se tiennent parmi les huttes et les Chasseurs des ombres gardent le fond de la vallée. Chaque troll peut laisser tomber une défense.",
 	-- ["South-west to the Kirin Tor camp on the lake shore west of {area:279}, just over the border into {area:130}: the {npc:269127} stands there. Archmage Ansirem stands south-east of it, by the dome."] = "Au sud-ouest jusqu'au camp du Kirin Tor sur la rive du lac à l'ouest de {area:279}, juste après la frontière de la {area:130} : {npc:269127} s'y tient. L'archimage Ansirem se tient au sud-est, près du dôme.",
 	-- ["Stay with {npc:2713} while she sneaks into {area:314} and back; Horde orcs jump you on the way."] = "Restez avec {npc:2713} pendant qu'elle s'infiltre dans {area:314} et revient ; des orcs de la Horde vous attaquent en chemin.",
 	-- ["Subdue the succubus"] = "Soumettez la succube",

@@ -65,6 +65,7 @@ return {
 	-- plural, as words: Stratholme Supply Crates = {object:181085} Stratholme Supply Crate
 	["{area:2279} is a dungeon for a group of five at 58-60, at the north end of the {zone:1423}. Stratholme Supply Crates along the streets of both halves hold the Holy Water, one to three each; they come back after three minutes. Some crates let out a swarm of plagued rats or maggots: be ready. The main gate (the Scarlet half) needs no key."] = "",
 	-- plural, as words: Stratholme Supply Crates = {object:181085} Stratholme Supply Crate
+	-- was: ["Supply Crates, inside"] = "Ящики с припасами, внутри"
 	["Stratholme Supply Crates, inside"] = "",
 
 	-- Step 10: Grimand Elmore
@@ -108,7 +109,7 @@ return {
 	-- {item:18804} Lord Grayson's Satchel · {item:18746} Divination Scryer · {item:18792} Blessed Arcanite Barding
 	["Lord Grayson hands you {item:18804}: open it for the {item:18746} and the {item:18792}. Keep both."] = "",
 	-- {item:18792} Blessed Arcanite Barding
-	["{item:18792}, from the satchel"] = "",
+	["{item:18792}, from the satchel"] = "{item:18792}, из сумки",
 
 	-- Step 18: The Great Ossuary
 	-- {area:2057} Scholomance · {area:2298} Caer Darrow · {zone:1422} Western Plaguelands · {item:13704} Skeleton Key · {object:179746} The Great Ossuary (no name in this language: may be words) · {item:18746} Divination Scryer · {spell:1105} Seal of Wisdom · {npc:14516} Death Knight Darkreaver · {item:18749} Charger's Lost Soul · {item:18792} Blessed Arcanite Barding · {npc:14568} Darkreaver's Fallen Charger

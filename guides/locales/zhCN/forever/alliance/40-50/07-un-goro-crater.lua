@@ -29,56 +29,59 @@ return {
 	-- {area:976} Gadgetzan
 	["The flight from Theramore lands in {area:976}."] = "从塞拉摩起飞的航班降落在{area:976}。",
 
-	-- Step 7: The Noxious Lair
+	-- Step 6: Marin Noggenfogger
+	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "你在路线之前来这里时错过了这一步：现在先做它。它很快，还会开启后面的任务。",
+
+	-- Step 8: The Noxious Lair
 	-- {npc:4196} Silithid Swarm
 	-- plural, as words: Centipaar Swarmers = {npc:5457} Centipaar Swarmer
 	["Ride west to the Centipaar hive in the dunes. Any Centipaar can drop insect parts.\nCareful: Centipaar Swarmers cast {npc:4196} both in and out of combat, which brings small adds that interrupt you."] = "向西骑行前往沙丘中的森提帕尔虫巢。任何森提帕尔都可能掉落昆虫部件。\n注意：森提帕尔群居蝎在战斗中和战斗外都会施放{npc:4196}，召出的小怪会打断你。",
 
-	-- Step 8: Dunemaul Compound
+	-- Step 9: Dunemaul Compound
 	-- {npc:12046} Gor'marok the Ravager
 	["Ride south to the ogre compound. Brutes and Enforcers (46-48) fill it; {npc:12046} (49) stands in the middle with guards around him: clear them first."] = "向南骑行前往食人魔营地。里面满是46-48级的蛮兵和执行者；49级的{npc:12046}站在中间，周围有守卫：先清掉守卫。",
 	-- {npc:12046} Gor'marok the Ravager
 	["{npc:12046}, below ground"] = "{npc:12046}：在地下",
 
-	-- Step 9: Thistleshrub Valley: kill these as you meet them
+	-- Step 10: Thistleshrub Valley: kill these as you meet them
 	-- {quest:3362} Thistleshrub Valley
 	["{quest:3362}: kill these as you meet them"] = "{quest:3362}：沿途击杀以下目标",
 	-- {quest:3362} Thistleshrub Valley
 	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
 	["Ride west into {quest:3362}. The Dew Collectors drop the glands; only some are full, so keep the Laden one. Gnarled Thistleshrubs and Rootshapers share the valley.\nCareful: the thistleshrubs wander a lot, so you can easily pull extra mobs."] = "向西骑行进入{quest:3362}。露水收集者掉落腺体；只有部分是满的，保留装满的那个。山谷里还有长瘤的灌木兽和塑根者。\n注意：灌木兽经常四处游走，很容易多拉怪。",
 
-	-- Step 10: Gadgetzan
+	-- Step 11: Gadgetzan
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn
 	["Ride back north-east to {area:976}: {npc:11758} stands on the east side of town."] = "向东北骑回{area:976}：{npc:11758}站在镇子东侧。",
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}：在屋内",
 
-	-- Step 11: The Gaping Chasm
+	-- Step 12: The Gaping Chasm
 	-- {area:1938} Broken Pillar · {area:981} The Gaping Chasm
 	["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "骑行向南经过{area:1938}，前往{area:981}的哈扎里隧道，谢申克的设备在深处。\n注意：设备旁有一只虫子守卫，隧道里还有许多巡逻虫，其中一些达到 50 级，战斗经常引来额外敌人。",
 	-- {item:8593} Scrimshank's Surveying Gear
 	["{item:8593}; below ground"] = "{item:8593}：在地下",
 
-	-- Step 12: Gadgetzan
+	-- Step 13: Gadgetzan
 	-- {npc:7740} Gracina Spiritmight · {zone:1457} Darnassus · {zone:1428} Burning Steppes
 	["For {npc:7740} in {zone:1457}, at the end of the {zone:1428} guide: keep it"] = "留给{zone:1457}的{npc:7740}，在{zone:1428}指南结尾用到：保留它",
 
-	-- Step 14: Torwa Pathfinder
+	-- Step 15: Torwa Pathfinder
 	-- {area:976} Gadgetzan · {zone:1449} Un'Goro Crater · {npc:9619} Torwa Pathfinder
 	["Ride west out of {area:976} to the long ramp down into {zone:1449}. {npc:9619} camps at the foot of the ramp, in the south-east corner of the crater."] = "向西骑出{area:976}，到达通往{zone:1449}的长坡道。{npc:9619}在坡道脚下扎营，位于环形山的东南角。",
 
-	-- Step 15: Fresh Threshadon Carcass
+	-- Step 16: Fresh Threshadon Carcass
 	-- {npc:9619} Torwa Pathfinder · {item:280459} Crystal Infused Scale
 	-- plural, as words: Venomhide Ravasaurs = {npc:6508} Venomhide Ravasaur
 	["The dead Threshadon lies by the water north of {npc:9619}.\nCareful: Venomhide Ravasaurs (50-51) hunt along the water there: pull them one at a time before you loot the carcass.\nAny ravasaur may drop a {item:280459}: right-click it, {npc:9619} takes it."] = "死去的鞭尾龙躺在{npc:9619}北边的水边。\n注意：50-51级的毒皮暴掠龙在那片水边捕猎：拾取尸体前一次引一只清掉。\n任何暴掠龙都可能掉落{item:280459}：右键点击它，交给{npc:9619}。",
 
-	-- Step 16: Torwa Pathfinder
+	-- Step 17: Torwa Pathfinder
 	-- {quest:87494} Microcrystal Contamination
 	["{quest:87494}, if a ravasaur dropped the scale"] = "{quest:87494}，如果暴掠龙掉落了鳞片",
 	-- {area:1943} Ironstone Plateau
 	["The gorillas on {area:1943} carry the pelts: keep it for the second Un'Goro visit, around 56"] = "{area:1943}的猩猩身上有毛皮：留到第二次来安戈洛时再做，大约56级",
 
-	-- Step 17: Lar'korwi Mates and the raft
+	-- Step 18: Lar'korwi Mates and the raft
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
 	["Lar'korwi Mates and the raft"] = "{npc:9683}和木筏",
 	-- {npc:9619} Torwa Pathfinder · {npc:8737} Linken · {item:11116} A Mangled Journal
@@ -87,11 +90,11 @@ return {
 	-- {object:161504} A Small Pack
 	["{object:161504}, underwater"] = "{object:161504}：在水下",
 
-	-- Step 18: Torwa Pathfinder
+	-- Step 19: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
 	["Back east to {npc:9619} with the glands."] = "带着腺体向东回到{npc:9619}处。",
 
-	-- Step 19: Marshal's Refuge
+	-- Step 20: Marshal's Refuge
 	-- {npc:271301} Power Crystal · {object:157936} Un'Goro Dirt Pile
 	["Ride north-west to the refuge.\nGive the elite devilsaurs and stegodons a wide berth. Pick up every {npc:271301} and {object:157936} you pass from here on."] = "向西北骑行前往营地。\n远离精英魔暴龙和剑龙，从这里开始，沿途遇到的{npc:271301}和{object:157936}都要拾取。",
 	-- {npc:9998} Shizzle
@@ -105,7 +108,7 @@ return {
 	-- {npc:9272} Spark Nilminer · {npc:9271} Hol'anyee Marshal · {npc:9270} Williden Marshal · {npc:9618} Karna Remtravel
 	["{npc:9272}, {npc:9271}, {npc:9270} and {npc:9618} have quests among mobs of 51-55: leave them for the later Un'Goro visit, at about 56."] = "{npc:9272}、{npc:9271}、{npc:9270}和{npc:9618}的任务目标是51-55级的怪物：留到之后约56级再来安戈洛时做。",
 
-	-- Step 20: Fire Plume Ridge and the eastern jungle
+	-- Step 21: Fire Plume Ridge and the eastern jungle
 	-- {area:537} Fire Plume Ridge
 	["{area:537} and the eastern jungle"] = "{area:537}和东部丛林",
 	-- {quest:3764} Un'Goro Soil · {area:537} Fire Plume Ridge · {npc:9998} Shizzle · {npc:9165} Fledgling Pterrordax
@@ -116,24 +119,24 @@ return {
 	-- {quest:3764} Un'Goro Soil
 	["{quest:3764}, from the Threshers and the dirt piles"] = "{quest:3764}，来自鞭打者和土堆",
 
-	-- Step 21: Lakkari Tar Pits
+	-- Step 22: Lakkari Tar Pits
 	-- plural, as words: Tar Lords = {npc:6519} Tar Lord
 	["Crystal clusters stand all over the crater. The pits' Tar Lords (53-54) and the oozes around them (50-54) are over you: take the clusters on the jungle's north-eastern edge, among the Lashers and young beasts (48-50)."] = "水晶簇遍布整个环形山。焦油坑里的焦油兽王（53-54级）和周围的软泥怪（50-54级）等级比你高：去丛林东北边缘采集，那里是鞭笞者和幼兽（48-50级）的地盘。",
 
-	-- Step 22: Marshal's Refuge
+	-- Step 23: Marshal's Refuge
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "{npc:9117}：在地下",
 	-- {npc:7775} Gregan Brewspewer · {zone:1444} Feralas
 	["For {npc:7775} in {zone:1444}: keep it"] = "交给{zone:1444}的{npc:7775}：留着",
 
-	-- Step 23: Level 49.79
+	-- Step 24: Level 49.79
 	["Level 49.79"] = "等级 49.79",
 	-- plural, as words: Bloodpetal Lashers = {npc:6509} Bloodpetal Lasher
 	["Still short of level 49.79 after the refuge's hand-ins? Top up on the Bloodpetal Lashers and Threshers (48-50) of the eastern jungle, where you took the petals, before you leave the crater."] = "在避难所交完任务后仍不到49.79级？离开环形山前，在东部丛林采花瓣的地方击杀血瓣花鞭笞者和鞭打者（48-50级）补足经验。",
 	-- {npc:6511} Bloodpetal Thresher
 	["grind on {npc:6511}"] = "击杀{npc:6511}刷经验",
 
-	-- Step 24: Fly to Astranaar
+	-- Step 25: Fly to Astranaar
 	-- {area:415} Astranaar
 	["Fly to {area:415}"] = "飞往{area:415}",
 	-- {zone:1455} Ironforge · {zone:1427} Searing Gorge · {zone:1440} Ashenvale · {zone:1447} Azshara
@@ -141,17 +144,17 @@ return {
 	-- {area:541} Marshal's Refuge
 	["{area:541} flight master"] = "{area:541}飞行管理员",
 
-	-- Step 25: To Ironforge
+	-- Step 26: To Ironforge
 	-- {zone:1455} Ironforge
 	["To {zone:1455}"] = "前往{zone:1455}",
 
-	-- Step 26: Mystic Ward
+	-- Step 27: Mystic Ward
 	-- {npc:11406} High Priest Rohan · {zone:1447} Azshara
 	["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}：交给{zone:1447}的奥汀克，留着",
 	-- {npc:7312} Dink · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara
 	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "法师训练师{npc:7312}：带给{zone:1447}的{npc:8395}，先留着",
 
-	-- Step 29: Fly to Astranaar
+	-- Step 30: Fly to Astranaar
 	-- {area:442} Auberdine
 	["{area:442} flight master"] = "{area:442}的飞行管理员",
 

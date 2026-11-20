@@ -77,7 +77,7 @@ fn sides(races: &V) -> &'static str {
 }
 
 /// Whether `text` holds one of [`NOT_TALK`] as a whole word.
-fn asks_other(text: &str) -> bool {
+pub(crate) fn asks_other(text: &str) -> bool {
 	text.split(|c: char| !(c.is_ascii_alphabetic() || c == '\'')).any(|w| NOT_TALK.iter().any(|n| w.eq_ignore_ascii_case(n)))
 }
 

@@ -16,19 +16,24 @@ return {
 	-- {quest:377} Crime and Punishment · {area:717} Stockade · {npc:270} Councilman Millstipe
 	["{quest:377}, from your {area:717} run: {npc:270} is in the town hall, beside Commander Althea."] = "{area:717}之行得到的{quest:377}：{npc:270}在市政厅，指挥官阿尔泰娅旁边。",
 
-	-- Step 4: Nightbane Shadow Weavers
+	-- Step 4: Calor
+	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "你在路线之前来这里时错过了这一步：现在先做它。它很快，还会开启后面的任务。",
+	-- {npc:663} Calor
+	["{npc:663}, by the town hall"] = "{npc:663}，在市政厅旁",
+
+	-- Step 5: Nightbane Shadow Weavers
 	-- plural, as words: Nightbane Shadow Weavers = {npc:533} Nightbane Shadow Weaver
 	["Nightbane Shadow Weavers"] = "夜行织影狼人",
 	-- {area:42} Darkshire
 	["The worgen hold the woods of Brightwood, west of {area:42} and north of the road. Pull them one at a time."] = "狼人盘踞在{area:42}西边、道路北侧的阳光树林中。一次只拉一个。",
 
-	-- Step 6: Nightbane Dark Runners
+	-- Step 7: Nightbane Dark Runners
 	-- plural, as words: Nightbane Dark Runners = {npc:205} Nightbane Dark Runner
 	["Nightbane Dark Runners"] = "夜行黑暗狼人",
 	-- {area:42} Darkshire
 	["The Dark Runners prowl the woods south of the road, west of {area:42}."] = "黑暗狼人在{area:42}西边、道路南侧的树林中潜行。",
 
-	-- Step 8: The Insane Ghoul
+	-- Step 9: The Insane Ghoul
 	-- {npc:511} Insane Ghoul
 	["The {npc:511}"] = "{npc:511}",
 	-- {npc:511} Insane Ghoul · {area:121} Tranquil Gardens Cemetery · {area:42} Darkshire · {npc:663} Calor
@@ -37,11 +42,11 @@ return {
 	-- {item:1946} Mary's Looking Glass
 	["{item:1946}; inside"] = "{item:1946}：在屋内",
 
-	-- Step 9: Darkshire
+	-- Step 10: Darkshire
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}, inside"] = "{npc:276}：在屋内",
 
-	-- Step 10: Vul'Gol Ogre Mound: kill these as you meet them
+	-- Step 11: Vul'Gol Ogre Mound: kill these as you meet them
 	-- {area:93} Vul'Gol Ogre Mound
 	["{area:93}: kill these as you meet them"] = "{area:93}：沿途击杀以下目标",
 	-- {area:42} Darkshire · {object:119} Abercrombie's Crate · {npc:300} Zzarc' Vul
@@ -50,30 +55,30 @@ return {
 	["Only if a {npc:272273} dropped {quest:96138}: right-click it"] = "仅当{npc:272273}掉落了{quest:96138}时：右键点击它",
 	["Below ground"] = "在地下",
 
-	-- Step 11: Defias Strongbox
+	-- Step 12: Defias Strongbox
 	-- {zone:1431} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
 	["The Defias camp lies in the south-west of {zone:1431}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "迪菲亚营地位于{zone:1431}西南部，{area:94}南边，靠近{zone:1436}边界。保险箱在帐篷之间。",
 	-- {item:5947} Defias Docket
 	["{item:5947}; inside"] = "{item:5947}：在屋内",
 
-	-- Step 13: Raven Hill Cemetery: kill these as you meet them
+	-- Step 14: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
 	["{area:492}: kill these as you meet them"] = "{area:492}：沿途击杀以下目标",
 	-- {area:492} Raven Hill Cemetery · {npc:522} Mor'Ladim · {npc:311} Sven Yorgen
 	-- plural, as words: Plague Spreaders = {npc:604} Plague Spreader · Skeletal Raiders = {npc:1110} Skeletal Raider
 	["The Plague Spreaders walk the northern half of the {area:492}. {npc:522}, an elite, wanders the graves: keep away from him.\nSkeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp.\nCareful: The skeletons in the catacombs are packed close together, so you can easily pull extra mobs."] = "瘟疫食尸鬼在{area:492}北半部游荡。精英{npc:522}会在墓地间巡逻：远离他。\n骷髅袭击者、骷髅医师和骷髅看守占据墓地西部，就在{npc:311}营地的东面。\n小心：地下墓穴里的骷髅十分密集，很容易引到额外的怪物。",
 
-	-- Step 14: The Weathered Grave
+	-- Step 15: The Weathered Grave
 	-- {npc:311} Sven Yorgen · {npc:268} Sirra Von'Indi · {area:42} Darkshire
 	["The grave stands among the skeletons at the cemetery's north-west corner, on the way to {npc:311}. Its quest and the next are talk-only, to {npc:268} and Commander Althea in {area:42}: level 35 quests, but no fight."] = "坟墓在墓地西北角的骷髅之间，前往{npc:311}时顺路经过。此任务和下一个都只需对话，去找{area:42}的{npc:268}和指挥官阿尔泰娅：虽是35级任务，但无需战斗。",
 
-	-- Step 15: Sven Yorgen's Camp
+	-- Step 16: Sven Yorgen's Camp
 	-- {npc:311} Sven Yorgen
 	["{npc:311}'s Camp"] = "{npc:311}的营地",
 	-- {npc:1212} Bishop Farthing · {zone:1453} Stormwind
 	["For {npc:1212} in {zone:1453}, in the next guide"] = "交给{zone:1453}的{npc:1212}，在下一份指南中",
 
-	-- Step 16: Back to Darkshire
+	-- Step 17: Back to Darkshire
 	-- {area:42} Darkshire
 	["Back to {area:42}"] = "回到{area:42}",
 	-- {area:42} Darkshire · {npc:311} Sven Yorgen · {zone:1431} Duskwood
@@ -88,24 +93,24 @@ return {
 	-- {npc:482} Elling Trias · {zone:1453} Stormwind
 	["For {npc:482} in {zone:1453}, in the next guide"] = "交给{zone:1453}的{npc:482}，在下一份指南中",
 
-	-- Step 17: Nightbane Vile Fangs and Tainted Ones
+	-- Step 18: Nightbane Vile Fangs and Tainted Ones
 	-- plural, as words: Nightbane Vile Fangs = {npc:206} Nightbane Vile Fang
 	["Nightbane Vile Fangs and Tainted Ones"] = "夜行邪齿狼人和堕落狼人",
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery · {spell:8282} Curse of Blood
 	["The strongest worgen roam the woods south of {area:42}, west and south of the {area:121}.\nCareful: {spell:8282} lasts 10 minutes and adds 13 to each hit of physical damage you take.\nCareful: Some worgen outside the cave stand in groups, including one camp of four. To avoid adds, pull them one at a time from the raised ground next to the cave entrance.\nCareful: Gutspill, a level 32 abomination, walks these woods: let it pass."] = "最强的狼人出没于{area:42}南侧、{area:121}以西和以南的树林。\n注意：{spell:8282}持续 10 分钟，使你每次受到的物理伤害增加 13 点。\n注意：洞外部分狼人会成群站立，其中一个营地有四只。可在洞口旁高地逐个拉怪，避免引来额外敌人。\n注意：32级憎恶“溢肠者”在这片树林里游荡：让它过去。",
 
-	-- Step 18: Calor and Jonathan Carevin
+	-- Step 19: Calor and Jonathan Carevin
 	-- {npc:663} Calor · {npc:661} Jonathan Carevin
 	["{npc:663} and {npc:661}"] = "{npc:663}和{npc:661}",
 	-- {npc:661} Jonathan Carevin · {npc:633} Elaine Carevin
 	["{npc:661}, by {npc:633}'s house; inside"] = "{npc:661}在{npc:633}房屋附近的屋内",
 
-	-- Step 19: Viktori Prism'Antras
+	-- Step 20: Viktori Prism'Antras
 	-- {npc:276} Viktori Prism'Antras
 	["{npc:276}'s house stands at the east end of town, on the way to the flight master."] = "{npc:276}的房子在镇子东端，前往飞行管理员时会经过。",
 	["Inside"] = "在里面",
 
-	-- Step 20: Fly to Menethil Harbor
+	-- Step 21: Fly to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Fly to {area:150}"] = "飞往{area:150}",
 	-- {area:42} Darkshire

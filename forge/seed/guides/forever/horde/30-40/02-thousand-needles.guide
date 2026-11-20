@@ -16,12 +16,21 @@ next forever/horde/30-40/03-stranglethorn-vale
 # Left out: Bodyguard for Hire (5821), Gelkis Alliance (1368), Bone Collector (5501).
 # Claim Rackmore's Treasure (6161) is taken at Rackmore's Log by Azore's tower on the one walk north along the coast.
 # Hate the Hatefury is optional (#1314): nobody has been recorded taking it, and Aka'rai was never seen, even by players passing her spot.
+# Catch-up (#2635): a character who skipped forever/horde/07-ashenvale arrives without Dorn's Test of Faith
+# (1149), so his Test of Endurance (1150) would be hidden. For that character the guide does it first on the
+# Freewind stop (`when !turnedin 1149`): a jump off the planks beside Dorn, full XP at 30.
 
 # The Shimmering Flats at 30-33, then Desolace's 33-36 quests at 33-34. Desolace's 37-40 quests
 # (Melizza and the ghost-o-plasm, Taiga's portals and Hand of Iruxos, the centaur totems, Drulzegar's
 # Other Fish to Fry: Slitherblade Myrmidons 34-35 and Sea Witches 34-36 at about 33 here) come on a
 # short second visit at 37-38, from Ratchet, in forever/horde/30-40/04-dustwallow-marsh, at the quests' own
 # level instead of 2-6 levels above the player; Taiga gives Hand of Iruxos on that visit's Shadowprey stop.
+# Other Fish to Fry (6143) is on that second visit because the strand's northern half (Sea Witches 35-36,
+# Tidehunters 36-37) is over the player here. Its southern half, below the middle of the beach, holds only
+# Naga, Sorceresses and Warriors (32-34) and eight of the Myrmidons (34-35): a character already at 33.5 on the
+# first Shadowprey stop takes it from Drulzegar and, from level 34, does it there with Rackmore's Golden Key,
+# handing it in on the last Shadowprey stop. Below that the steps don't show and the route is unchanged; taken
+# but not done, it goes on to the second visit, whose accept is then already in the log.
 # The Book of the Ancients is left out (Lord Kragaru, 38, rises at about 34 here). On the flats the
 # shells come from the Sparkleshell Tortoises (30-31) of the western flats, not the Snappers (34-35) by
 # the ship.
@@ -70,6 +79,8 @@ next forever/horde/30-40/03-stranglethorn-vale
 # ---------------------------------------------------------------- Orgrimmar
 
 step Zeppelin to Orgrimmar
+  when !zone "Durotar"
+  when !zone "Orgrimmar"
   zone Tirisfal Glades
   goto 60.7,58.8 "Zeppelin to Orgrimmar"
 
@@ -168,6 +179,16 @@ step Prate Cloudseer
   tip Prate Cloudseer hides in a small cave in the canyon wall north-east of the post, on the way east.
   turnin 1531                         -- Prate Cloudseer: your Air Totem
   note Prate also starts Elemental Aid (Razorfen Kraul), the 33-40 chain to The Tempest's Weapons: forever/class/shaman/call-of-air-horde.
+
+step Dorn Plainstalker
+  when !turnedin 1149
+  zone Thousand Needles
+  tip You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it.
+  tip Dorn Plainstalker waits on the mesa just north-east of Freewind Post, across the rope bridges.
+  tip For the Test of Faith, walk off the end of the planks beside him: you land safely.
+  accept 1149                         -- Dorn Plainstalker
+  complete 1149
+  turnin 1149                         -- Dorn Plainstalker
 
 step Dorn Plainstalker
   zone Thousand Needles
@@ -362,6 +383,12 @@ step Shadowprey Village
   accept 6142                         -- Mai'Lahii
   getfp "Shadowprey Village"          -- Thalon, at the village's south-west end
 
+step Drulzegar Skraghook
+  when level>=33.5
+  zone Desolace
+  tip Drulzegar stands at the village's south end, near Mai'Lahii. At your level his Other Fish to Fry fits the walk north along the coast: the southern half of Sar'theris Strand, from level 34.
+  accept 6143                         -- Drulzegar Skraghook
+
 step Ethel Rethor
   zone Desolace
   tip Head north along the coast, then inland to the ruined tower of Ethel Rethor: Azore Aldamort waits inside. The coast's clams and naga come after Thunder Axe Fortress, on one walk north to Ranazjar Isle.
@@ -400,6 +427,16 @@ step Sar'theris Strand
   tip Keep north to Sar'theris Strand for Rackmore's Golden Key: any Slitherblade can drop it.
   tip Careful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), up to two over you at 33: work the Naga and Sorceresses (32-33) of the southern half until the key drops, and leave the north for the second Desolace visit, at 38.
   collect 15881 quest 6161.2          -- Rackmore's Golden Key, from the Slitherblade naga
+
+step Sar'theris Strand: Other Fish to Fry
+  when onquest 6143
+  when level>=34
+  zone Desolace
+  tip Stay in the southern half of the strand, where Rackmore's key drops: eight Myrmidons (34-35) walk there among the Naga, Sorceresses and Warriors (32-34).
+  tip Careful: the northern half belongs to the Sea Witches (35-36, casters) and, at its tip, the Tidehunters (36-37): keep south of the middle of the beach.
+  kill 4714 quest 6143.1 @32.2,21.5 map 1443 -- Slitherblade Myrmidon, in the strand's southern half
+  kill 4711 quest 6143.2              -- Slitherblade Naga
+  kill 4712 quest 6143.3              -- Slitherblade Sorceress
 
 step Rackmore's Chest
   zone Desolace
@@ -446,4 +483,9 @@ step Shadowprey Village
   tip West to Shadowprey: your hearthstone is bound there.
   turnin 97265 npc 268705 optional    -- Aka'rai, on the path just north of the village
   turnin 6142                         -- Mai'Lahii
-  note Taiga's Hand of Iruxos, Drulzegar's Other Fish to Fry and Desolace's other 37-40 quests wait for the second visit, at 38: the next guides fly to Orgrimmar and take the zeppelin to Stranglethorn Vale.
+  note Taiga's Hand of Iruxos, Drulzegar's Other Fish to Fry (unless you did it on the strand) and Desolace's other 37-40 quests wait for the second visit, at 38: the next guides fly to Orgrimmar and take the zeppelin to Stranglethorn Vale.
+
+step Drulzegar Skraghook
+  when complete 6143
+  zone Desolace
+  turnin 6143                         -- Drulzegar Skraghook, near Mai'Lahii

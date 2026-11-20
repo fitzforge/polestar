@@ -42,7 +42,7 @@ return {
 
 	-- Step 7: Hornizz Brimbuzzle
 	-- {quest:6134} Ghost-o-plasm Round Up · {area:2657} Valley of Bones
-	-- plural, as words: Magram Necrokhans = {npc:253274} Magram Necrokhan
+	-- plural, as words: Magrami Spectres = {npc:11560} Magrami Spectre · Magram Necrokhans = {npc:253274} Magram Necrokhan
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:6134}'s magnets draw the Magrami Spectres a few yards from the Magram Necrokhans and Corpsefeeders (45, elite) in the {area:2657}. Skip it if you are alone."] = "Son enemigos élite: se recomienda ir en grupo, busca gente con quien hacerla. Los imanes de {quest:6134} atraen a los Espectros Magrami a pocos metros de los Necrokhans Magram y los Comecadáveres (45, élite) de {area:2657}. Sáltala si vas solo.",
 
 	-- Step 8: Flesh Picker
@@ -80,6 +80,7 @@ return {
 	-- Step 13: The ghost magnets
 	["The ghost magnets"] = "Los imanes fantasmales",
 	-- {item:15848} Crate of Ghost Magnets
+	-- plural, as words: Magrami Spectres = {npc:11560} Magrami Spectre
 	["Use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres; the Necrokhans and Corpsefeeders (45, elite) walk close by: keep the group together."] = "Usa el {item:15848} donde indica su flecha, en el lado este de los campos, para atraer a los Espectros Magrami; los Necrokhans y los Comecadáveres (45, élite) andan cerca: mantened el grupo unido.",
 
 	-- Step 14: Mannoroc Coven
@@ -107,8 +108,8 @@ return {
 	-- Step 20: Sar'theris Strand: kill these as you meet them
 	-- {area:598} Sar'theris Strand
 	["{area:598}: kill these as you meet them"] = "{area:598}: mátalos según te los encuentres",
-	-- {npc:11863} Azore Aldamort · {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
-	["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "Los naga Filozante ocupan la costa noroeste, al norte de la torre de {npc:11863}; la bolsa de Karnitol está en el fondo del mar frente a ella, y cualquier naga puede soltar la llave dorada de Rackmore. Nada hasta {area:2406}, frente al extremo norte, y usa la {item:15766} en la {object:177673}: aparece {npc:12369} (38); mátalo para conseguir {quest:6027}.",
+	-- {npc:11863} Azore Aldamort · {spell:131} Water Breathing · {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
+	["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower, on the shore and out in the water. Karnitol's satchel drops now and then from their Tidehunters and Sea Witches, most of them underwater ({spell:131} helps): take it if it comes, it is optional. Any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "",
 	-- {item:15881} Rackmore's Golden Key
 	["{item:15881}, from the Slitherblade naga"] = "{item:15881}, de los naga Filozante",
 	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue
@@ -131,6 +132,7 @@ return {
 	["The next guide starts in Theramore."] = "La siguiente guía empieza en Theramore.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "Los naga Filozante ocupan la costa noroeste, al norte de la torre de {npc:11863}; la bolsa de Karnitol está en el fondo del mar frente a ella, y cualquier naga puede soltar la llave dorada de Rackmore. Nada hasta {area:2406}, frente al extremo norte, y usa la {item:15766} en la {object:177673}: aparece {npc:12369} (38); mátalo para conseguir {quest:6027}.",
 	-- ["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "Los demonios se reúnen en {area:602}, en el sur de {zone:1443}: manáfagos (Devoradores de maná, Cazadores de magos y Cazadores de líneas ley), Doncellas abisales y Hermanas, y Capitanes Guardaperdición alrededor del foso.\nCuidado: la mayoría de los enemigos de aquí patrullan, así que es fácil atraer enemigos de más.",
 	-- ["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them."] = "Los Devastadores no-muertos recorren los campos de huesos al sur del poblado Magram, al este del Aquelarre: la flecha lleva a su borde oeste. Después usa la {item:15848} donde indica su flecha, en el lado este de los campos, para atraer a los Espectros Magrami. Cuidado: los Necrokhans Magram y los Comecadáveres (45, élite) recorren los campos de huesos entre las dos flechas, con Nigromantes Magram (42): atrae a los Devastadores y a los espectros hacia ti, lejos de ellos.",
 	-- ["{object:177787} lies beside {object:35251}. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "{object:177787} está junto a {object:35251}. Su llave de plata la sueltan los cangrejos Pinzaseca alrededor del naufragio; la dorada viene de los naga Filozante de la costa noroeste, a continuación.",

@@ -95,5 +95,5 @@ return {
 
 	-- Step 25: Historian Karnik
 	-- {object:32356} Hall of Explorers
-	["In the {object:32356}."] = "",
+	["In the {object:32356}."] = "Ориентир: {object:32356}.",
 }

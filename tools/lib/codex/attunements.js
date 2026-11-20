@@ -10,7 +10,9 @@
 // (all of `pre`, the `preAny` of the attunement's side), oldest first; a
 // quest started by an item gets the item's drops before it; an item goal
 // adds the item's own sources (drops and chests for a dropped key, the
-// standing and the NPC that hands it out for Aqual Quintessence). `links`
+// standing and the NPC that hands it out for Aqual Quintessence), and `via`
+// the drops of the item it is made from (the Sacred Mallet before the Mallet
+// of Zul'Farrak, which the note says where to use). `links`
 // in the table add a prerequisite our quest data lacks, each with its public
 // source (Forever's City of Dalaran chain); `inside` places an NPC or object
 // of a chain with no open-world spawn that the Codex puts in no instance
@@ -196,6 +198,12 @@ function buildOne(entry, codex, warn, inside = []) {
 	if ((entry.goal || []).length && !goal.length) return null;
 	for (const id of goal) visit(id);
 	for (const s of steps) if (s.kind === 'quest' && goal.includes(s.id)) s.goal = true;
+	// `via`: the item the goal item is made from, by a use the steps can't show (#2338: the Sacred Mallet, used at
+	// Jintha'Alor's altar, becomes the Mallet of Zul'Farrak). Its drops and chests come first; the note says how.
+	if (entry.via) {
+		if (!(codex.items && codex.items[entry.via])) warn(`${entry.id}: via item ${entry.via} is not in the Codex`);
+		steps.push(...sourceSteps(entry.via, codex, { drops: true, grants: false }));
+	}
 	if (entry.item) {
 		if (!(codex.items && codex.items[entry.item])) warn(`${entry.id}: item ${entry.item} is not in the Codex`);
 		steps.push(...sourceSteps(entry.item, codex, { drops: !goal.length, grants: true }));

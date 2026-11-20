@@ -27,8 +27,9 @@ local L = ns.L
 local type, max = type, math.max
 
 -- pause.map: the step's map pins go too (Nav/Layers.lua,
--- Nav/Upcoming.lua); pause.automation: quest auto-accept and turn-in
--- wait (Core/Automation.lua, QoL/Rewards.lua).
+-- Nav/Upcoming.lua); pause.automation: quest auto-accept and turn-in, the
+-- reward pick and the flight master's map and flight wait
+-- (Core/Automation.lua, QoL/Rewards.lua, QoL/Flight.lua).
 ns.RegisterDefaults("pause", { map = false, automation = false })
 
 -- Seconds an armed pause waits for a dungeon before it resumes.
