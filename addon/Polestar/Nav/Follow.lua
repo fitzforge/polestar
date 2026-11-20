@@ -364,7 +364,7 @@ function Follow.Smooth(xs, ys, zs, n, sight, hill, moves, at)
 				local dx, dy = xs[j] - x1, ys[j] - y1
 				if dx * dx + dy * dy > span2 then break end
 				last = j
-				if (xs.detail and xs.detail[j]) or mustStay(xs, ys, zs, n, j, moves, at) then break end
+				if (xs.boarding and (xs.boarding[j] or xs.boarding[j+1])) or (xs.detail and xs.detail[j]) or mustStay(xs, ys, zs, n, j, moves, at) then break end
 			end
 		end
 		local best, j = i + 1, last
@@ -378,6 +378,7 @@ function Follow.Smooth(xs, ys, zs, n, sight, hill, moves, at)
 		out = out + 1
 		xs[out], ys[out], zs[out] = xs[best], ys[best], zs[best]
 		if xs.detail then xs.detail[out] = xs.detail[best] end
+		if xs.boarding then xs.boarding[out] = xs.boarding[best] end
 		i = best
 	end
 	for k = out + 1, n do xs[k], ys[k], zs[k] = nil, nil, nil end

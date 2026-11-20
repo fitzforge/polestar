@@ -411,19 +411,23 @@ end
 -- see: the line check (sight, below) to smooth the path with once (Nav/Follow.lua Follow.Smooth), or nil.
 local function took(points, see)
 	local n = 0
-	local detail
+	local detail, boarding
 	for i = 1, #points do
 		local p = points[i]
 		if type(p) == "table" and p.x and p.y then
 			n = n + 1
 			ptsX[n], ptsY[n], ptsZ[n] = p.x, p.y, type(p.z) == "number" and p.z or false
+			if p.boarding and p.rideFrom == points[i-1] then
+				boarding = boarding or {}
+				boarding[n] = p.boarding
+			end
 			if p.detail then
 				if not detail then detail = {} end
 				detail[n] = true
 			end
 		end
 	end
-	ptsX.detail,ptsX.absoluteDry = detail,points.absoluteDry
+	ptsX.detail, ptsX.absoluteDry, ptsX.boarding = detail, points.absoluteDry, boarding
 	if see and not points.absoluteDry then n = Nav.follow.Smooth(ptsX, ptsY, ptsZ, n, see, not (IsIndoors and IsIndoors())) end
 	for i = n + 1, count do ptsX[i], ptsY[i], ptsZ[i] = nil, nil, nil end
 	count = n
@@ -1468,7 +1472,7 @@ local function takeBaked(pc, px, py)
 	end
 	if best > STRAY * STRAY then return false end
 	local za, zb = zs[bk], zs[bk + 1]
-	ptsX.detail,ptsX.absoluteDry = nil,nil -- no surveyed subcell turns on this baked leg
+	ptsX.detail, ptsX.absoluteDry, ptsX.boarding = nil, nil, nil
 	ptsX[1], ptsY[1], ptsZ[1] = xs[bk] + (xs[bk + 1] - xs[bk]) * bt, ys[bk] + (ys[bk + 1] - ys[bk]) * bt, za + (zb - za) * bt
 	local m = 1
 	for k = bk + 1, n do
@@ -2489,8 +2493,26 @@ function Walk.Stops(pc, px, py)
 	end
 	local packed = type(_G.PolestarNavChokepoints) == "table" and _G.PolestarNavChokepoints[gc]
 	if type(packed) == "table" then
+		-- A searched ride identifies its paired landing and the segment that actually boards.
+		-- An earlier pass below the same platform is not a second ride.
+		local selected
+		if ptsX.boarding then
+			selected = {}
+			for i = 2, count do
+				local e = ptsX.boarding[i]
+				if e and packed[e.pair] then
+					selected[e], selected[packed[e.pair]] = true, true
+					local a, r = i-1, tonumber(e.r) or SNAP
+					local along = left[1] - left[a] - here
+					if along >= -r then
+						found[#found+1] = { kind = "lift", entry = e, wx = e.wx, wy = e.wy, r = math.max(5, math.min(20, r)),
+							along = math.max(0, along), seg = a, stop = a, ridden = true, boarding = true }
+					end
+				end
+			end
+		end
 		for _, e in ipairs(packed) do
-			if type(e) == "table" and e.wx and e.wy and e.kind then consider(e, e.kind) end
+			if type(e) == "table" and e.wx and e.wy and e.kind and not (selected and selected[e]) then consider(e, e.kind) end
 		end
 	else
 		local X = ns.Transit
@@ -2507,17 +2529,18 @@ function Walk.Stops(pc, px, py)
 	local stops, lastAlong, used = {}, -huge, {}
 	for _, f in ipairs(found) do
 		local e = f.entry
-		if not used[e] and (f.along - lastAlong >= MIN_STEP or f.ridden) then
+		if (f.boarding or not used[e]) and (f.along - lastAlong >= MIN_STEP or f.ridden) then
 			local s = { kind = f.kind, name = areaName(e.area, e.name), zone = areaName(e.zoneArea, e.zone), wx = f.wx, wy = f.wy, r = f.r, along = f.along, seg = f.seg,
 				stop = f.stop, entry = e }
 			if f.kind == "lift" then
-				-- The landing boarded and the ride to its pair. The side comes from
-				-- the path's height when it has one (K4): a packed lift's two
-				-- landings lie a few yards apart, too close for the order along
-				-- the path to tell them apart; else the landing reached first.
+				-- Use the search's boarding side when present. With only a legacy
+				-- untyped line, infer the side from the path's climb as before.
 				local other = packed and e.pair and packed[e.pair]
-				local up = climbs(f.seg)
-				local side = up ~= nil and (up and "bottom" or "top") or e.liftEnd
+				local side = e.liftEnd
+				if not f.boarding then
+					local up = climbs(f.seg)
+					if up ~= nil then side = up and "bottom" or "top" end
+				end
 				if other and side and e.liftEnd and other.liftEnd == side and e.liftEnd ~= side then
 					e, other = other, e
 					s.name, s.zone = areaName(e.area, e.name), areaName(e.zoneArea, e.zone)

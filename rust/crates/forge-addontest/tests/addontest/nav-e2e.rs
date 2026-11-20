@@ -3262,6 +3262,34 @@ fn darkcloud_pinnacle_from_the_great_lifts_top_the_route_to_lakota_windsong_walk
 	}
 }
 
+#[test]
+fn mesa_elevator_boards_the_departure_floor_in_both_directions() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction = "Horde"
+		w.setLevel(28)
+		local function boarding(x, y, z, tx, ty, tz)
+			N.SetTarget(nil)
+			w.moveTo(1441, x, y)
+			w.z = z
+			for _ = 1, 10 do aim(); stub.advance(0.05) end
+			N.SetTarget(1441, tx, ty, "Destination", "e", nil, tz)
+			for _ = 1, 300 do aim(); stub.advance(0.05) end
+			local legs = N.GetRoute()
+			for _, leg in ipairs(legs or {}) do
+				if leg.kind == "lift" then return { leg.side, leg.to.z > leg.from.z } end
+			end
+			return false
+		end
+		local up = boarding(31.92, 24.22, -44, 37.95, 26.45, 83.7)
+		local down = boarding(37.95, 26.45, 83.7, 31.92, 24.22, -44)
+		emit({up, down})"#,
+		true,
+	);
+	assert_eq!(out, serde_json::json!([["bottom", true], ["top", false]]));
+}
+
 // Two reports from 0.3.7.2 on Darkcloud Pinnacle (Thousand Needles), Horde at level 30. #2391: on the pinnacle, the
 // route to the Document Chest up on its mesas went down the lift to the ground under them. #2292: from the Great
 // Lift's top, the route to the Grimtotem camps by Arnak Grimtotem went into the Barrens and back again. Since 0.4.0's

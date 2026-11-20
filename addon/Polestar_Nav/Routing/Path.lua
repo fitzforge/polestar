@@ -1159,7 +1159,7 @@ local function liftsOf(st, map)
 				return nil
 			end
 			local i = #L + 1
-			L[i], index[e] = { x = e.wx, y = e.wy, z = e.z, k = k, partners = {}, ride = {} }, i
+			L[i], index[e] = { x = e.wx, y = e.wy, z = e.z, k = k, entry = e, partners = {}, ride = {} }, i
 			local here = L.byCluster[k] or {}
 			L.byCluster[k], here[#here + 1] = here, i
 			return i
@@ -1938,7 +1938,7 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 				add(ka, na)
 				local before = #P.x
 				add(kb, nb)
-				if P.rides and #P.x == before + 1 then P.rides[#P.x] = true end
+				if P.rides and #P.x == before + 1 then P.rides[#P.x] = lifts[a - LIFT_ID].entry end
 			elseif search(st, ka, swim, mult, na, R, nb) then
 				local nodes = trace(R, nb, {})
 				addAll(ka, nodes, #nodes, 1, -1)
@@ -2072,7 +2072,9 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 		if P.rides and P.rides[q] and q == p + 1 then
 			local a, b = points[i-1], points[i]
 			if a.x == x0 + (P.x[p]+.5)*cs and a.y == y0 + (P.y[p]+.5)*cs
-				and b.x == x0 + (P.x[q]+.5)*cs and b.y == y0 + (P.y[q]+.5)*cs then b.rideFrom = a end
+				and b.x == x0 + (P.x[q]+.5)*cs and b.y == y0 + (P.y[q]+.5)*cs then
+				b.rideFrom, b.boarding = a, P.rides[q]
+			end
 		end
 		local wet = q > p and (P.w[q] - P.w[p]) / (q - p) or 0
 		local length = sqrt((points[i].x - points[i - 1].x) ^ 2 + (points[i].y - points[i - 1].y) ^ 2)

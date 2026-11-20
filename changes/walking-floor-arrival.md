@@ -19,3 +19,5 @@ section: players
 - The arrow waits for a walking route instead of pointing straight at the
   goal while the maps load. It no longer hands that unchecked direction
   to a waypoint arrow, including when combat delays the search.
+- On the approach to Darkcloud Pinnacle, the Mesa Elevator now tells you
+  to ride up from the canyon floor and down from the top.
