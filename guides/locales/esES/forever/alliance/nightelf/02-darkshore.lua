@@ -85,7 +85,7 @@ return {
 
 	-- Step 15: Rabid Thistle Bear on the way
 	-- {npc:2164} Rabid Thistle Bear
-	["{npc:2164} on the way"] = "",
+	["{npc:2164} on the way"] = "{npc:2164} por el camino",
 
 	-- Step 16: Blackwood furbolgs
 	["Blackwood furbolgs"] = "Furbolgs Bosquenegro",
