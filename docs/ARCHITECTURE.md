@@ -2503,9 +2503,11 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   zones, and, done before the first accept it opens, it costs at most 5
   minutes (`Own.feedCost`: a straight-run detour there and back from the
   nearest place the guide and the feeder steps already in go before that
-  accept, plus 90 s per objective); its source steps, with its goals only,
-  go after the guide's nearest step before that accept. Every other such
-  accept is left out with all of its quest's goals, and a step left with no
+  accept, plus 90 s per objective). `Own.feedGaps` assigns those source
+  steps in order. A missing map distance cannot place one at the start of
+  the guide; a goal outside its insertion zone needs a measured detour
+  within the same limit. Every other such accept is left out with all of
+  its quest's goals, and a step left with no
   quest goal goes (`Own.rebuilt`: a new guide table in the registry,
   `Guides.Replace`, with `feeders`, `hidden`, `fromBase`, baked legs kept
   where the way in is unchanged). A missing quest no guide leading here

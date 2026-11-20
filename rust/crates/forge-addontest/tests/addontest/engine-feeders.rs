@@ -140,6 +140,57 @@ fn t_1353_local_feeders_go_in_beside_the_guide_s_nearest_step_in_its_own_zone() 
 }
 
 #[test]
+fn an_unpriced_remote_feeder_does_not_land_at_the_start_of_a_guide() {
+	let out = run("", NEAR, r#"
+local function goal(t, q, map, pre)
+	return { t = t, quest = q, title = "An errand", map = map, x = 50, y = 50, pre = pre }
+end
+local function register(id, steps, after)
+	Polestar.RegisterGuide({ id = id, pack = "test", title = id, faction = "Horde", minLevel = 26, maxLevel = 30, steps = steps, next = after })
+end
+-- The client cannot resolve the later zone's world frame. Its appearance
+-- near the end of the guide is not a trip there at the beginning.
+register("test/source", { { goals = { goal("accept", 901, 1452), goal("turnin", 901, 1452) } } }, "test/trip")
+register("test/trip", {
+	{ goals = { goal("accept", 902, 1440) } },
+	{ goals = { { t = "goto", map = 1452, x = 49, y = 50 } } },
+	{ goals = { goal("accept", 903, 1452, {901}) } },
+})
+E.SetGuide("test/trip"); flush()
+local g = E.GetGuide()
+emit({ first = g.steps[1].goals[1].quest, hidden = (g.hidden or {})[903] ~= nil })
+"#);
+	assert_eq!(out, json!({"first": 902, "hidden": true}));
+}
+
+#[test]
+fn feeder_work_must_fit_the_visits_in_route_order() {
+	for (work_map, imported) in [(1440, false), (1429, true)] {
+		let out = run("", NEAR, &format!(r#"
+local function at(t, q, map, pre)
+	return {{ t = t, quest = q, title = "An errand", map = map, x = 50, y = 50, pre = pre }}
+end
+Polestar.RegisterGuide({{ id = "test/earlier", pack = "test", title = "Earlier", faction = "Horde", minLevel = 26, maxLevel = 30, next = "test/later", steps = {{
+	{{ goals = {{ at("accept", 910, 1429) }} }},
+	{{ goals = {{ {{ t = "kill", target = "Wolf", quest = 910, oi = 1, map = {work_map}, x = 50, y = 50 }} }} }},
+	{{ goals = {{ at("turnin", 910, 1429) }} }},
+}} }})
+Polestar.RegisterGuide({{ id = "test/later", pack = "test", title = "Later", faction = "Horde", minLevel = 26, maxLevel = 30, steps = {{
+	{{ goals = {{ at("accept", 911, 1440) }} }},
+	{{ goals = {{ at("accept", 912, 1429) }} }},
+	{{ goals = {{ at("accept", 913, 1429, {{910}}) }} }},
+}} }})
+E.SetGuide("test/later"); flush()
+local g = E.GetGuide()
+emit({{ first = g.steps[1].goals[1].quest, hidden = (g.hidden or {{}})[913] ~= nil, feeder = g.steps[3] and g.steps[3].feeder or false }})
+"#));
+		assert_eq!(out["first"], 911);
+		assert_eq!(out["hidden"], !imported, "work map {work_map}: {out}");
+		assert_eq!(out["feeder"], if imported { json!("test/earlier") } else { json!(false) });
+	}
+}
+
+#[test]
 fn far_or_other_zone_feeders_stay_out_and_their_quests_and_empty_steps_go() {
 	// The furbolgs far across the zone: over five minutes, so King of the Foulweald goes, and Karang's step
 	// with it (only its walk was left).

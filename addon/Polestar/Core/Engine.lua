@@ -1857,9 +1857,44 @@ end
 -- The first located goal of a step (a travel point), or nil.
 function Own.feedPoint(goals)
 	for _, goal in ipairs(goals) do
-		if goal.map and goal.x and goal.y then return { map = goal.map, x = goal.x, y = goal.y, f = goal.f } end
+		if goal.map and goal.x and goal.y then return goal end
 	end
 	return nil
+end
+
+-- Prove each located goal can be reached from its insertion gap, not just
+-- from some visit before the dependent accept. Earlier shared visits can
+-- keep later steps from using a stop the guide has already left.
+function Own.feedGaps(pointAt, placedAt, steps, U)
+	local last = 0
+	for _, st in ipairs(steps) do
+		local gap = placedAt[st.key]
+		if gap then
+			last = math.max(last, math.min(gap, U - 1))
+		else
+			if st.d == 0 then last = math.max(last, U - 1) end
+			local pt = Own.feedPoint(st.goals)
+			if pt then
+				local best, nearest
+				for j = last, U - 1 do
+					local q = pointAt[math.max(1, j)]
+					local d = q and ns.DirectTravelCost(pt, q)
+					if d and (not best or d < best) then best, nearest = d, j end
+				end
+				if not nearest then return false end
+				last = nearest
+			end
+		end
+		st.gap = last
+		local anchor = pointAt[math.max(1, last)]
+		for _, goal in ipairs(st.goals) do
+			if goal.map and goal.x and goal.y and (not anchor or goal.map ~= anchor.map) then
+				local d = anchor and ns.DirectTravelCost(goal, anchor)
+				if not d or 2 * d > Own.FEED_LOCAL then return false end
+			end
+		end
+	end
+	return true
 end
 
 -- The extra route of `steps` ({ goals }, in order) for a guide whose own
@@ -1880,7 +1915,8 @@ function Own.feedCost(own, steps)
 				local c = ns.DirectTravelCost(pt, q)
 				if c and (not best or c < best) then best = c end
 			end
-			t = t + 2 * (best or 0)
+			if not best then return nil end
+			t = t + 2 * best
 			near[#near + 1] = pt
 		end
 		for _, goal in ipairs(st.goals) do
@@ -2259,7 +2295,7 @@ function Own.feederPlan(g)
 					if not placed[st.key] then fresh[#fresh + 1] = st end
 				end
 				local c = Own.feedCost(near, fresh)
-				if c <= Own.FEED_LOCAL then
+				if c and c <= Own.FEED_LOCAL and Own.feedGaps(pointAt, placedAt, mine, U) then
 					cost, ch.inserted = cost + c, true
 					local last = 0
 					for _, st in ipairs(mine) do
@@ -2272,16 +2308,7 @@ function Own.feederPlan(g)
 							end
 							if placedAt[st.key] > last then last = placedAt[st.key] end
 						else
-							local pt = Own.feedPoint(st.goals)
-							-- A step of this guide an update passed comes back just before
-							-- the quest that needs it: on the way, never a step back.
-							if st.d == 0 and U - 1 > last then last = U - 1 end
-							local best, bestJ = nil, last
-							for j = last, U - 1 do
-								local q = pointAt[j > 0 and j or 1]
-								local d = pt and q and ns.DirectTravelCost(pt, q)
-								if d and (not best or d < best) then best, bestJ = d, j end
-							end
+							local bestJ = math.max(last, st.gap)
 							placed[st.key], placedAt[st.key] = st, bestJ
 							gaps[bestJ] = gaps[bestJ] or {}
 							table.insert(gaps[bestJ], st)
