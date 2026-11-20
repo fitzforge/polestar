@@ -1530,12 +1530,10 @@ end
 -- Sparse points on fixed collision faces, not filled boxes or extra walking edges.
 -- Each point is indexed in every cluster within shoulder reach. Visit only clusters
 -- crossed by the actual chord; no grid decode, even for a long line across tiles.
-local function solidChord(st, x, y, z, X, Y, Z)
-	local bins = st.D.solidSamples
-	if not bins or not z or not Z then return false end
-	local r, c = floor((x-st.x0)/TILE), floor((y-st.y0)/TILE)
-	local R, C = floor((X-st.x0)/TILE), floor((Y-st.y0)/TILE)
-	local points = bins[r*st.ny+c]
+local function solidSweep(bins, x0, y0, ny, x, y, z, X, Y, Z)
+	local r, c = floor((x-x0)/TILE), floor((y-y0)/TILE)
+	local R, C = floor((X-x0)/TILE), floor((Y-y0)/TILE)
+	local points = bins[r*ny+c]
 	if r == R and c == C and not points then return false end
 	local dx, dy, dz = X-x, Y-y, Z-z
 	local ds = dx*dx + dy*dy
@@ -1553,12 +1551,16 @@ local function solidChord(st, x, y, z, X, Y, Z)
 			end
 		end
 		if r == R and c == C then return false end
-		local tx = r == R and huge or (st.x0+(r+(sx>0 and 1 or 0))*TILE-x)/dx
-		local ty = c == C and huge or (st.y0+(c+(sy>0 and 1 or 0))*TILE-y)/dy
+		local tx = r == R and huge or (x0+(r+(sx>0 and 1 or 0))*TILE-x)/dx
+		local ty = c == C and huge or (y0+(c+(sy>0 and 1 or 0))*TILE-y)/dy
 		if tx <= ty then r = r+sx end
 		if ty <= tx then c = c+sy end
-		points = bins[r*st.ny+c]
+		points = bins[r*ny+c]
 	end
+end
+local function solidChord(st, x, y, z, X, Y, Z)
+	local bins = st.D.solidSamples
+	return bins and z and Z and solidSweep(bins,st.x0,st.y0,st.ny,x,y,z,X,Y,Z) or false
 end
 
 -- Line of sight between two path entries, walking every cell the segment between their cell centres crosses and
@@ -2594,17 +2596,28 @@ function ns.Path.FinalDrySight(map,x,y,z,gx,gy,gz)
 end
 end
 
--- Negative evidence only. A centre ray crosses two distinct, nearly parallel
--- vertical sides at torso height. No missing page or missed ray grants a walk.
+-- Negative evidence only: a known fixed face in the swept body, or two
+-- distinct near-parallel sides crossed by the torso ray. Neither grants a walk.
 do
 local ns=select(2,...);local abs,floor,min,sqrt=math.abs,math.floor,math.min,math.sqrt
 local function short(s,k) local a,b=s:byte(k,k+1);return ((b>=128 and b-256 or b)*256+a)/64 end
-local hot,page;local M,X,Y,Z,AX,AY,L,blocked;local hits,ex,ey={},{},{}
-function ns.Path.FinalBodyBlocked(map,x,y,z,ax,ay,limit)
+local hot,page;local M,X,Y,Z,AX,AY,AZ,L,blocked;local hits,ex,ey={},{},{}
+function ns.Path.FinalBodyBlocked(map,x,y,z,ax,ay,limit,az)
  if not z then return false end
- if M==map and X==x and Y==y and Z==z and AX==ax and AY==ay and L==limit then return blocked end
- M,X,Y,Z,AX,AY,L,blocked=map,x,y,z,ax,ay,limit,false
- local md=PolestarPathData and PolestarPathData[map];local data=md and md.solidColumns;if not data then return false end
+ if M==map and X==x and Y==y and Z==z and AX==ax and AY==ay and AZ==az and L==limit then return blocked end
+ M,X,Y,Z,AX,AY,AZ,L,blocked=map,x,y,z,ax,ay,az,limit,false
+ local md=Data(map)
+ -- The exact destination supplies both heights, even before a search warms its grid.
+ -- Leave the player's directly observed position alone; test only the requested reach.
+ if az and md and md.solidSamples then
+  local dx,dy=ax-x,ay-y
+  local dd=dx*dx+dy*dy
+  if dd>.10^2 then
+   local t=dd>limit*limit and limit/sqrt(dd) or 1
+   if solidSweep(md.solidSamples,md.cx0*TILE,md.cy0*TILE,md.ny,x,y,z,x+t*dx,y+t*dy,z+t*(az-z)) then blocked=true;return true end
+  end
+ end
+ local data=md and md.solidColumns;if not data then return false end
  local side=100/3;local r,c=floor(512-x/side),floor(512-y/side)
  local src,missing=regionPage(data,r*1024+c)
  if missing then M=nil;return true end

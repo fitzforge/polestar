@@ -233,6 +233,31 @@ fn run(script: &str, shipped: bool) -> Value {
 }
 
 #[test]
+fn an_ironforge_waypoint_across_the_signpost_is_not_a_visit_from_the_pavement() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction = "Alliance"; w.setLevel(23)
+		local function visited(x,y,X,Y)
+			N.ClearTarget()
+			place(1455,x,y,502.2124)
+			local mx,my=C.WorldToMap(0,X,Y,1455)
+			assert(N.SetTarget(1455,mx,my,"Street waypoint",nil,"npc",502.2124))
+			for _=1,60 do
+				if aim().state=="arrived" then return true end
+				stub.advance(.05)
+			end
+			return false
+		end
+		local x,y,X,Y=-4868.99474,-1108.271,-4864.69926,-1105.791
+		emit({outward=visited(x,y,X,Y), inward=visited(X,Y,x,y),
+			open=visited(-4870.13149,-1108.40404,-4866.73738,-1111.79816), atGoal=visited(X,Y,X,Y)})"#,
+		true,
+	);
+	assert_eq!(out, serde_json::json!({"outward":false,"inward":false,"open":true,"atGoal":true}));
+}
+
+#[test]
 fn guidance_takes_the_open_aisle_at_the_ironforge_roost_with_or_without_an_indoor_flag() {
 	skip_unless_ready!();
 	let out = run(

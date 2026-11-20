@@ -14,7 +14,8 @@ section: players
   still point farther ahead when the map shows a clear straight walk.
   From the Ironforge flight master, the walking map goes around the
   gryphon perch. Farther down the street, the arrow keeps the turn
-  around the signpost instead of pointing through it.
+  around the signpost instead of pointing through it. Being within five yards
+  of a waypoint on the other side of the sign no longer announces arrival.
 - With real-path routing on, missing walking data no longer sends the
   arrow straight across unmapped ground. Turning routing off still shows
   the compass direction unless the ground segment crosses an enemy settlement or cannot be checked.

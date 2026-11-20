@@ -624,9 +624,9 @@ local function movingOffGround(C)
 	return ns.Transit and ns.Transit.Carried and ns.Transit.Carried()
 end
 
-local function bodyBlocked(c,x,y,z,ax,ay,limit)
+local function bodyBlocked(c,x,y,z,ax,ay,limit,az)
 	local P = Nav.Path
-	return P and P.FinalBodyBlocked and z and P.FinalBodyBlocked(c,x,y,z,ax,ay,limit)
+	return P and P.FinalBodyBlocked and z and P.FinalBodyBlocked(c,x,y,z,ax,ay,limit,az)
 end
 
 local function dryVisit(C, gc, gx, gy, gz, reach)
@@ -639,7 +639,7 @@ local function dryVisit(C, gc, gx, gy, gz, reach)
 		-- The target floor exists; do not consume the visit from the other
 		-- deck. Keep the ordinary walking route to its stairs available.
 		if P and P.OnSeparateLocalFloors and P.OnSeparateLocalFloors(gc,x,y,z,gx,gy,gz) then return d2,false,z end
-		return d2, not stackedAt(z, gz, sqrt(xy2)) and not bodyBlocked(gc,x,y,z,gx,gy,reach), z
+		return d2, not stackedAt(z, gz, sqrt(xy2)) and not bodyBlocked(gc,x,y,z,gx,gy,reach,gz), z
 	end
 	return d2,false,z
 end
@@ -848,7 +848,7 @@ local function sample()
 	if exact and liveZ and not floorHint and dist <= r and W and W.RefineTerminal then W.RefineTerminal(pc,px,py,tX,tY,tZ) end
 	if checkedOnly then return "unmapped" end
 	if wet or (exact and dist <= r) or (stacked and W and W.Searches and W.Searches(pc) and not (tDock or W.FollowsGoto(target))) then return "unmapped" end
-	if exact and liveZ and dist <= 20 and bodyBlocked(pc,px,py,liveZ,tX,tY,2.75) then return "unmapped" end
+	if exact and liveZ and dist <= 20 and bodyBlocked(pc,px,py,liveZ,tX,tY,2.75,tZ) then return "unmapped" end
 	return groundAim(C,pc,px,py,dist,angle,dn,dw)
 end
 
