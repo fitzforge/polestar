@@ -668,7 +668,7 @@ fn a_target_a_floor_above_or_below_is_not_arrived_at_and_the_arrow_shows_up_or_d
 		nav.place(16, 0)                   -- within the sphere on its floor
 		stub.advance(0.2)
 		seen[#seen + 1] = { A.GetMode(), N.FloorHint() == nil, A.floorIcon:IsShown(), A.ring:IsShown(), #stub.sounds }
-		z = nil                            -- losing the live measurement hides the ring
+		z = nil                            -- no height to use: reached on the map within its radius, no second chime
 		stub.advance(0.2)
 		seen[#seen + 1] = { A.GetMode(), A.ring:IsShown(), #stub.sounds }
 		z = 29                             -- not a departure: no second chime
@@ -682,7 +682,7 @@ fn a_target_a_floor_above_or_below_is_not_arrived_at_and_the_arrow_shows_up_or_d
 			["unmapped", "down"],
 			["unmapped", false, false, 0],
 			["arrived", true, false, true, 1],
-			["unmapped", false, 1],
+			["arrived", true, 1],
 			["arrived", true, 1]
 		])
 	);

@@ -2240,6 +2240,27 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   candidates again, so the follow-up comes up where the player stands.
   Lines of the route's next `AHEAD` steps (`near`) rank and list before
   those further on, which read "Step N, later in this guide".
+  The guides after the loaded one (`Own.laterGuides`): for a quest the loaded
+  guide does not take, both look on into the guides the route plays next
+  (each guide's `next` as the hand-off takes it, `routeNext`: the route
+  chosen there, the only option for the character, or the recommended one
+  with "always recommended"; never past a choice still to make), while that
+  guide's `levels` start at most `HERE_ABOVE` (2) over the character
+  (`Guides.Levels` for their faction; `NEXT_MAX` (8) guides at most).
+  Auto-accept takes the first such guide's accept at the NPC
+  (`Own.laterWants`) and says so in chat ("Took <quest> now: <guide> does it
+  later, so this saves a trip back.", Automation through
+  `Engine.LaterAcceptGuide`; the loaded guide's accepts stay silent), and the
+  line shows it at its giver (`Own.hereNext`, step `Own.NEXT_STEP`, after the
+  loaded guide's lines, its sub-line "Saves a trip back: <guide> does it
+  later."), under the same guards read in that guide
+  (`Own.laterOk` through `Own.inGuide`, which runs a check with that guide
+  as the loaded one: its steps for the character, skips, `when`), never a
+  timed quest, and not one an `abandon` drops on the way there (the loaded
+  guide's or a guide's before it). The debug log names the guide when it
+  declines ("timed (<guide> step N)", "<guide> starts at level N"). Its
+  accept reads done when the route gets there (in the log), and the route
+  plan has the quest handed in later, so it is no quest off the route.
   A build reads the goals on the player's continent: `Own.hereGoalsOn`
   indexes each guide's goals with a quest and a place by continent once
   (weak per guide; again `HERE_INDEX_RETRY` (10) s on while a goal's map is
@@ -3578,7 +3599,7 @@ offering it); a While-you're-here hand-in line up in the active tab
 (`Own.hereWants`, #1408: the guide shows it to be handed in now; never one
 held, of a group quest not answered for, of a quest the group waits on or
 one left out, nor a stranded hand-in no open guide has, #2918); and an
-accept of the next steps at the NPC whose window is
+accept of the next steps, or of the guides after the loaded one, at the NPC whose window is
 open (`Own.aheadWants`, "While you're here" above, with its guards); never choose among
 multiple rewards; with `behavior.warnClosing` on,
 never accept a quest that closes another for good (Missable quests).
@@ -4133,7 +4154,8 @@ Polestar.Engine.RefreshMaterials()                               -- the ways cha
   (`Own.materialView`: way, reason, need, bags, bank, mail with what is on its
   way, alts, toGet, and on an `auction` goal the price for the count still to
   buy); `UI.MaterialsLine` shows it under the goal ("40 in your bank · 47 to
-  buy · ≈ 87s"). With the bags short and nothing left to get, the goal is
+  buy · ≈ 87s"; the sign is `Theme.Approx`'s, "~" in a face without "≈").
+  With the bags short and nothing left to get, the goal is
   fetched instead (`Own.materialPlace`): "Take <item>", from the mail (the
   purchases on their way included) at the nearest mailbox, else from the bank
   at the nearest banker (`Materials.Nearest`, Nav/Nearby.lua), picked again on
@@ -6618,7 +6640,8 @@ to be dismissed:
   me the auction house. Under them, headed "MATERIALS FOR TAILORING 1-300",
   the running profession guide's materials to buy (`Materials.BuyRows`: their
   way is Buy and some is still to get), "47 Wool Cloth", "Tailoring 75-150 ·
-  ≈ 87s · 140 held". Opened by the cards, the guide window's menu ("Auction
+  ≈ 87s · 140 held" (the price's sign is `Theme.Approx`'s, "~" in a face
+  without "≈"). Opened by the cards, the guide window's menu ("Auction
   house buys (N)" while there are any) and `/polestar ah`. At the Auction
   House (`AUCTION_HOUSE_SHOW`) it opens beside the game's window while either
   group has something to buy, and goes with it (`AUCTION_HOUSE_CLOSED`); each
