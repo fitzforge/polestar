@@ -90,17 +90,17 @@ return {
 
 	-- Step 17: Shadowmaw Panthers
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther
-	["Shadowmaw Panthers"] = "",
+	["Shadowmaw Panthers"] = "Panteras Umbragorja",
 	-- {quest:192} Panther Mastery
 	-- plural, as words: Shadowmaw Panthers = {npc:684} Shadowmaw Panther · Elder Shadowmaw Panthers = {npc:1713} Elder Shadowmaw Panther
-	["{quest:192} is still open: the Shadowmaw Panthers (37-38) stalk the jungle north of the mine, towards the Mosh'Ogg hills. They use Sneak, so they show only when you are close: pull them one at a time, and leave the Elder Shadowmaw Panthers (42-43) alone."] = "",
+	["{quest:192} is still open: the Shadowmaw Panthers (37-38) stalk the jungle north of the mine, towards the Mosh'Ogg hills. They use Sneak, so they show only when you are close: pull them one at a time, and leave the Elder Shadowmaw Panthers (42-43) alone."] = "{quest:192} ainda está aberta: as Panteras Umbragorja (37-38) espreitam a selva ao norte da mina, em direção às colinas de Mosh'Ogg. Elas ficam furtivas, então só aparecem quando você chega perto: puxe uma de cada vez e deixe as Panteras Umbragorja Anciãs (42-43) em paz.",
 
 	-- Step 19: Lashtail Raptors
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["Lashtail Raptors"] = "Raptores Batecauda",
 	-- {quest:195} Raptor Mastery · {object:3202} Grom'gol (no name in this language: may be words)
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["{quest:195} is still open: the Lashtail Raptors (35-36) hunt the jungle between {object:3202} and Nesingwary's camp, on your way north."] = "",
+	["{quest:195} is still open: the Lashtail Raptors (35-36) hunt the jungle between {object:3202} and Nesingwary's camp, on your way north."] = "{quest:195} ainda está aberta: os Raptores Batecauda (35-36) caçam a selva entre {object:3202} e o acampamento de Nesingwary, no caminho para o norte.",
 
 	-- Step 20: Nesingwary's camp
 	["Nesingwary's camp"] = "Acampamento de Rosarães Guima",
@@ -140,7 +140,7 @@ return {
 	-- Step 31: Zul'Kunda
 	["Zul'Kunda"] = "Ruínas de Zul'Kanda",
 	-- {npc:1061} Gan'zulah · {npc:1062} Nezzliok the Dire · {object:3202} Grom'gol (no name in this language: may be words) · {npc:2635} Elder Saltwater Crocolisk · {npc:2495} Drizzlik
-	["West of the expedition, the Bloodscalp chiefs {npc:1061} and {npc:1062} stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them.\nOn the coast between Zul'Kunda and {object:3202} an {npc:2635} (level 38 elite) shares the spawns of the ordinary crocolisks: kill it if it is up and take its skin for {npc:2495}."] = "A oeste da expedição, os chefes Sanguescalpo {npc:1061} e {npc:1062} ficam juntos nas ruínas de Zul'Kunda. Limpe os guardas primeiro, depois puxe-os.\nNa costa entre Zul'Kunda e {object:3202}, um {npc:2635} (elite de nível 38) compartilha os pontos de surgimento dos crocoliscos comuns: mate-o se ele estiver lá e pegue a pele dele para {npc:2495}.",
+	["West of the expedition, the Bloodscalp chiefs {npc:1061} and {npc:1062} stand together in the ruins of Zul'Kunda. Clear their guards first, then pull them.\nOn the coast between Zul'Kunda and {object:3202} an {npc:2635} (level 38 elite) shares the spawns of the ordinary crocolisks: kill it if it is up and take its skin for {npc:2495}."] = "A oeste da expedição, os chefes Sanguescalpo {npc:1061} e {npc:1062} ficam juntos nas ruínas de Zul'Kanda. Limpe os guardas primeiro, depois puxe-os.\nNa costa entre Zul'Kanda e {object:3202}, um {npc:2635} (elite de nível 38) compartilha os pontos de surgimento dos crocoliscos comuns: mate-o se ele estiver lá e pegue a pele dele para {npc:2495}.",
 	-- {object:52} Fall of Gurubashi
 	["from the {object:52}, in the ruins"] = "de {object:52}, nas ruínas",
 
