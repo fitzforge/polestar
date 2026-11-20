@@ -6962,8 +6962,12 @@ test(`${ASHENVALE_HORDE}: the Shaman's waterskin beside Ursangous and to Brine o
 	const brine = at(shaman, 'turnin 1534 (Call of Water)', is('turnin', 1534));
 	assert.ok(brine < at(shaman, 'accept 4767 (Wind Rider)', is('accept', 4767)), 'Brine before Freewind Post');
 	// #1414 (Bonesavv77's report #1424): from Zoram'gar the Earthen Ring is reached as travel (the flight the character has),
-	// so the one Camp Taurajo flight is the one from Thunder Bluff; none from Freewind Post.
-	assert.equal(shaman.filter(({ goal }) => goal.t === 'fly' && goal.location === 'Camp Taurajo').length, 1, 'one flight to Camp Taurajo (from Thunder Bluff), none from Zoram\'gar or Freewind Post');
+	// so the one Camp Taurajo flight before Thousand Needles is the one from Thunder Bluff; none from Freewind Post to Brine.
+	// (Since the 0.4.2 route round the guide ends Freewind -> Thunder Bluff -> Camp Taurajo for its hand-ins.)
+	const lift = at(shaman, 'turnin 5881 (the Great Lift)', is('turnin', 5881));
+	assert.equal(shaman.slice(0, lift).filter(({ goal }) => goal.t === 'fly' && goal.location === 'Camp Taurajo').length, 1, 'one flight to Camp Taurajo (from Thunder Bluff) before Thousand Needles, none from Zoram\'gar');
+	const out = shaman.slice(lift).find(({ goal }) => goal.t === 'fly');
+	assert.equal(out && out.goal.location, 'Thunder Bluff', 'out of Freewind Post to Thunder Bluff first, not to Brine');
 });
 
 // Maazias's report (#1333): The Tear of the Moons is a level 30 quest; its strongbox stands beside
@@ -10399,21 +10403,40 @@ test('Horde 30-40 re-order: the chain runs Hillsbrad, the Flats and Desolace, St
 	assert.ok(!dust.some(({ goal }) => [1166, 1168, 1169].includes(goal.quest) && goal.t === 'accept'), 'the level-43 Brackenwall quests are left for the 40-50 Dustwallow visit');
 });
 
-// Since the 0.4.0 level tidy Jandia's two harpy quests are worked on the next Freewind visit at about 31 (30-40/02)
-// (Roguefeather Den's harpies 28-30 and Grenka 31 were met at 29 in 07-ashenvale); since the 0.4.0 audit 07 takes them on
-// its last Freewind stop, where the route stands beside Jandia: the pairing holds where they are taken and worked.
+// Since the 0.4.0 level tidy Jandia's two harpy quests were worked on the next Freewind visit at about 31 (30-40/02):
+// Roguefeather Den's harpies and Grenka (31) were met at 29 in 07-ashenvale with a harpy grind before them. Since the
+// 0.4.2 route round 07 works the harpies (28-29) on the walk back from Whitereach, after the western loop's quests,
+// and leaves Grenka for Test of Endurance at about 30 in 30-40/02: the pairing holds where they are taken and worked.
 test('Horde: Stolen Freewind Supplies with Stop the Screeching, in the same harpy den', { skip }, () => {
 	const guides = ['forever/horde/07-ashenvale.guide', 'forever/horde/30-40/01-hillsbrad-foothills.guide', 'forever/horde/30-40/02-thousand-needles.guide'];
 	const ga = guides.find((f) => goals(f).some(({ goal }) => goal.t === 'accept' && goal.quest === 98070));
 	const g = guides.find((f) => goals(f).some(({ goal }) => goal.t === 'kill' && goal.quest === 98070));
 	assert.ok(ga && g, 'a Horde guide takes Stop the Screeching and one works it');
-	assert.ok(!goals('forever/horde/07-ashenvale.guide').some(({ goal }) => [98069, 98070].includes(goal.quest) && goal.t !== 'accept'), 'not worked at 29 in 07-ashenvale');
+	assert.ok(!goals('forever/horde/07-ashenvale.guide').some(({ goal }) => goal.quest === 1150 && goal.t !== 'accept'), 'Grenka (31) is not fought at 29 in 07-ashenvale');
 	const al = goals(ga);
 	assert.equal(al[at(al, 'accept 98069', is('accept', 98069))].s, al[at(al, 'accept 98070', is('accept', 98070))].s, 'taken from Jandia with Stop the Screeching');
 	const list = goals(g);
 	const step = (t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
 	assert.equal(list[at(list, 'collect 279383', (x) => x.t === 'collect' && x.quest === 98069)].s, list[at(list, 'kill 4101', (x) => x.t === 'kill' && x.quest === 98070)].s, 'the supplies in the Screeching Canyon step');
 	assert.equal(step('turnin', 98069), step('turnin', 98070), 'handed in with it');
+});
+
+// 0.4.2 route round, Thousand Needles 28-30: Steelsnap (Melor, Thunder Bluff), A New Ore Sample (Tatternack, Camp
+// Taurajo) and Sacred Fire (Motega, Whitereach) are taken on stops 07 makes anyway, worked on the western loop and
+// handed in on the way out (Freewind -> Thunder Bluff -> Camp Taurajo), in place of the grind to 29 by Freewind.
+test('forever/horde/07-ashenvale.guide: the Thousand Needles set rides the stops 07 makes, and no grind to 29', { skip }, () => {
+	const list = goals('forever/horde/07-ashenvale.guide');
+	const lift = at(list, 'turnin 5881 (the Great Lift)', is('turnin', 5881));
+	for (const q of [1131, 1153]) assert.ok(at(list, `accept ${q}`, is('accept', q)) < lift, `${q} taken before Thousand Needles`);
+	assert.equal(list[at(list, 'accept 5062', is('accept', 5062))].step, list[at(list, 'turnin 4865', is('turnin', 4865))].step, 'Sacred Fire from Motega with Serpent Wild');
+	const freewind = at(list, 'turnin 98070 (Jandia)', is('turnin', 98070));
+	for (const q of [1131, 1153, 5062]) {
+		const work = at(list, `the objective of ${q}`, (g) => g.t === 'collect' && g.quest === q);
+		const hand = at(list, `turnin ${q}`, is('turnin', q));
+		assert.ok(work < freewind && freewind < hand, `${q}: worked before the last Freewind stop, handed in on the way out`);
+	}
+	assert.deepEqual(list.filter(({ goal }) => goal.t === 'level' && (goal.level || 0) >= 29).map(({ step }) => step.title), [], 'no grind to 29');
+	assert.ok(!list.some(({ goal }) => goal.quest === 5088), 'Arikara, back at Darkcloud and Whitereach, is left out');
 });
 
 // Fitz's report (#2372): Thistlefur Village and Hold (216, 6462, 6482, level 24; furbolg packs 23-24, Shamans that flee

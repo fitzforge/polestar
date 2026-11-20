@@ -6238,15 +6238,15 @@
 			},
 			{
 				"a": [
-					"accept",
-					1146
+					"task",
+					4770
 				],
 				"b": [
 					"task",
 					98070
 				],
 				"faction": "Horde",
-				"why": "Horde level tidy (2026-11-15), agreed with the 12-30 slice: Stop the Screeching (98070, level 30) was worked at 29 at the end of 07-ashenvale, where Grenka Bloodscreech (31) and a camp of 30s with recorded deaths stood over the players. Its harpies are worked on 30-40/02's first Freewind Post landing at 31-33, after the Hillsbrad guide (Belgrom's 1146 in Orgrimmar); Jandia gives it on 07's last Freewind stop, where the route stands beside her."
+				"why": "Thousand Needles (0.4.2 route round, agreed with the 30-40 slice): Stop the Screeching's Screeching harpies (28-29) are worked in Roguefeather Den on 07-ashenvale's walk back east from Whitereach Post, after Highperch and the western loop's Steelsnap, ore sample and Sacred Fire, at about 29 (players' recorded hand-in 25th percentile 29, 96 people), and handed to Jandia on the last Freewind stop. Grenka Bloodscreech (31), deeper in the den, stays for Test of Endurance on 30-40/02's Freewind visit at about 30. The 2026-11-15 tidy had moved the den after the Hillsbrad guide, when 07 reached it at 28.9 with Grenka and a harpy grind in the same step."
 			},
 			{
 				"a": [
@@ -8951,6 +8951,25 @@
 				"issue": "#3255"
 			},
 			{
+				"q": 1131,
+				"reason": "Thousand Needles (0.4.2 route round): Steelsnap is taken from Melor Stonehoof on 07-ashenvale's Thunder Bluff stop, his rib comes from Steelsnap (30) in the hills north-west of Whitereach Post on the western loop with the ore sample, and Melor takes it when 07 flies out of Freewind through Thunder Bluff (2,450 XP). Players' recordings: Melor gave it 55 times without Melor Sends Word; accept 25th percentile 25, hand-in 29.",
+				"issue": "#3255"
+			},
+			{
+				"q": 1153,
+				"reason": "Thousand Needles (0.4.2 route round): A New Ore Sample is taken from Tatternack at 07-ashenvale's Camp Taurajo landing (he stands beside the flight master), the ore drops from the Gravelsnout Diggers and Surveyors (28-29) west of Whitereach Post, and he takes it when 07 flies out through Camp Taurajo (2,350 XP). Players' recordings: 47 people took it; accept 25th percentile 26, hand-in 29.",
+				"issue": "#3255"
+			},
+			{
+				"q": 5062,
+				"after": [
+					"turnin",
+					4865
+				],
+				"reason": "Thousand Needles (0.4.2 route round): Sacred Fire is taken from Motega Firemane with Serpent Wild's hand-in at Whitereach Post, its Incendia Agave grows among the Grimtotem camps below Darkcloud Pinnacle on the walk back east, and Magatha takes it on the Thunder Bluff stop 07 now makes on its way out (2,200 XP). Players' recordings: 54 people; accept and hand-in 25th percentile 29.",
+				"issue": "#3255"
+			},
+			{
 				"q": 423,
 				"after": [
 					"turnin",
@@ -9992,7 +10011,7 @@
 					"accept",
 					98070
 				],
-				"reason": "Horde 30-40 re-order (2026-11-07; level tidy 2026-11-15): Jandia offers Stolen Freewind Supplies beside Stop the Screeching, and its 8 supply crates lie in the same Roguefeather harpy den as 98070's harpies (3 recorded people took it); taken with 98070 on 30-40/02's first Freewind Post landing and handed in with it on the way back.",
+				"reason": "Horde 30-40 re-order (2026-11-07; level tidy 2026-11-15; 0.4.2 route round): Jandia offers Stolen Freewind Supplies beside Stop the Screeching, and its 8 supply crates lie in the same Roguefeather harpy den as 98070's harpies; taken with 98070 on 07-ashenvale's second Freewind stop, gathered in the den on the walk back east from Whitereach Post and handed in with it on the last Freewind stop.",
 				"issue": ""
 			},
 			{
@@ -11473,6 +11492,12 @@
 			}
 		],
 		"skip": [
+			{
+				"q": 5088,
+				"faction": "Horde",
+				"reason": "Thousand Needles (0.4.2 route round): Arikara, Magatha's follow-up to Sacred Fire, is offered on 07-ashenvale's Thunder Bluff stop on its way out of Thousand Needles; Arikara (28) is at Darkcloud Pinnacle and Motega takes it at Whitereach Post, west of Freewind, and 30-40/02's Freewind visit heads east to the flats. A trip back for one quest (2,300 XP): left out.",
+				"issue": "#3255"
+			},
 			{
 				"q": 765,
 				"faction": "Horde",
@@ -16329,6 +16354,12 @@
 				"q": 5727,
 				"guide": "forever/horde/03-silverpine-forest",
 				"reason": "Hidden Enemies (2) follows Thrall's 5726, which Durotar's guide takes and works in Skull Rock; a character who starts at the Silverpine guide without it is not offered the word with Neeru (460 XP), and the guide does not send them into Skull Rock for it.",
+				"issue": "#3255"
+			},
+			{
+				"q": 1153,
+				"guide": "forever/horde/07-ashenvale",
+				"reason": "A New Ore Sample needs Weapons of Choice (893) from Tatternack, done on 04-the-barrens' Camp Taurajo and Blackthorn Ridge visit; bringing it back for a character who starts at 07 is a Barrens trip to Blackthorn Ridge for a 2,350 XP follow-up. Such a character is not offered it.",
 				"issue": "#3255"
 			},
 			{

@@ -26,12 +26,17 @@ next forever/horde/30-40/01-hillsbrad-foothills
 # flight path; without it the arrow goes by Camp Taurajo and Mulgore).
 # The Mirage Raceway's quests (1110, 1104, 5762, 1105, 1176, 1175, Martek the Exiled 1106) are worked in one
 # visit at 33 in forever/horde/30-40/02-thousand-needles.
-# Jandia's Stop the Screeching and Stolen Freewind Supplies (98070, 98069, level 30) are taken on this guide's last
-# Freewind stop and worked on the next Freewind visit at about 31, in forever/horde/30-40/02-thousand-needles (agreed
-# with the 30-40 slice): Roguefeather Den's harpies (28-30, packs) and Grenka Bloodscreech (31) were met here at 29,
-# with a harpy grind to 29.5 before them. Test of Faith (1149) is done at Dorn's mesa, and his Test of Endurance (1150,
-# Grenka Bloodscreech 31 in the same den) is taken there and carried to the same visit. Sharptalon (31) is shown only
-# from level 30. Left out: Test of Strength (1151, Rok'Alim, a lone elite on Highperch).
+# Jandia's Stop the Screeching and Stolen Freewind Supplies (98070, 98069, level 30) are taken on the second Freewind
+# stop and worked at Roguefeather Den on the walk back east from Whitereach Post, at about 29 (0.4.2 route round):
+# the harpies are 28-29 (players' recorded hand-in 25th percentile 29, 96 people). Grenka Bloodscreech (31) in the
+# same den is left for Dorn's Test of Endurance (1150), taken at his mesa after Test of Faith (1149) and carried to
+# the next Freewind visit at about 30 in forever/horde/30-40/02-thousand-needles (agreed with the 30-40 slice).
+# Steelsnap (1131, Melor on the Thunder Bluff stop), A New Ore Sample (1153, Tatternack at the Camp Taurajo landing)
+# and Sacred Fire (5062, Motega at Whitereach) are worked on the same western loop and handed in on the way out:
+# Freewind -> fly Thunder Bluff -> fly Camp Taurajo, where the next guide takes the flight onwards; that replaces
+# the old grind to 29 by Freewind. Arikara (5088, Magatha's follow-up to Sacred Fire) is left out: its centaur
+# and its hand-in are back at Darkcloud Pinnacle and Whitereach, which no later Horde guide passes on its way.
+# Sharptalon (31) is shown only from level 30. Left out: Test of Strength (1151, Rok'Alim, a lone elite on Highperch).
 # Stonetalon Standstill (25) is taken from Mastok on the first Splintertree stop and worked at Mystral
 # Lake with Tideress on the way back from Shadumbra: Tideress drops the Befouled Water Globe (The
 # Befouled Element 1918) only for a player with 25 in the log or handed in (players' recordings, #1346).
@@ -344,11 +349,25 @@ step Ansekhwa
   tip While you're here: learn Two-Handed Maces from Ansekhwa (10 silver); two-handers level a Warrior fastest.
   train 11869                         -- Ansekhwa
 
+# Thousand Needles' level 28-30 quests on the stops this guide makes anyway (0.4.2 route round): Steelsnap (1131)
+# from Melor on this Thunder Bluff stop and A New Ore Sample (1153) from Tatternack at the Camp Taurajo landing,
+# both worked west of Whitereach Post with Sacred Fire (5062, from Motega there) and handed in on the way out,
+# Freewind -> Thunder Bluff -> Camp Taurajo -> the Crossroads, in place of a grind to 29.
+step Melor Stonehoof
+  zone Thunder Bluff
+  tip Melor Stonehoof stands on Hunter Rise, the southern rise, beside the hunter trainers: Steelsnap prowls the far north-west of Thousand Needles, beyond Whitereach Post, later in this guide.
+  accept 1131                         -- Melor Stonehoof
+
 step Fly to Camp Taurajo
   zone Thunder Bluff
   goto 46.7,49.9 "Thunder Bluff flight master"
   fly "Camp Taurajo"
   zone The Barrens
+
+step Tatternack Steelforge
+  zone The Barrens
+  tip Tatternack Steelforge works at his forge a few steps from the flight master: his ore sample comes from the Gravelsnout kobolds west of Whitereach Post, later in this guide.
+  accept 1153                         -- Tatternack Steelforge
 
 step Brine
   only Shaman
@@ -376,7 +395,7 @@ step Freewind Post
   turnin 4542                         -- Cliffwatcher Longhorn
   accept 4841
   accept 5147                         -- The Wanted poster beside Cliffwatcher
-  note Jandia's two harpy quests are taken when you leave Freewind; their den comes with the next Freewind visit, at about 30.
+  note Jandia's two harpy quests come on the next Freewind stop; their den is on the way back from Whitereach Post.
 
 step Rau Cliffrunner
   zone Thousand Needles
@@ -418,6 +437,8 @@ step Freewind Post
   turnin 4821                         -- Hagar Lightninghoof
   accept 4865
   sethome "Freewind Post"             -- Innkeeper Abeqwa, beside Jandia
+  accept 98070                        -- Jandia, inside the inn: Roguefeather Den, south-west of the post, on the way back from Whitereach
+  accept 98069                        -- Jandia
 
 step Rau Cliffrunner
   zone Thousand Needles
@@ -455,7 +476,7 @@ step Highperch
 step Whitereach Post
   turnin 4770                         -- Motega Firemane
   turnin 4865                         -- Motega Firemane
-  note Motega's next quest, Sacred Fire, ends in Thunder Bluff, off this route. Skip it.
+  accept 5062                         -- Motega Firemane: the Incendia Agave grows among the Grimtotem camps below Darkcloud Pinnacle, on the way back east
 
 step Kanati Greycloud
   when onquest 4881,4966
@@ -484,20 +505,61 @@ step Wizlo Bearingshiner
   when group 5151
   turnin 5151
 
+step Gravelsnout kobolds and Steelsnap
+  zone Thousand Needles
+  tip North-west of Whitereach Post the Gravelsnout Diggers and Surveyors dig in the far western hills; one of them drops the ore sample. Steelsnap, a lone hyena, prowls the same hills with the Pesterhide Snarlers: his rib is Melor's.
+  tip Careful: Steelsnap is level 30 and the kobolds 28-29: pull them one at a time.
+  collect 5837 quest 1131             -- Steelsnap's Rib
+  collect 5842 quest 1153             -- Ore Sample, from the Gravelsnout Diggers and Surveyors
+
+step Incendia Agave
+  zone Thousand Needles
+  tip Back east past Whitereach Post: the Incendia Agave grows on the ground among the Grimtotem camps below Darkcloud Pinnacle.
+  collect 12732 x10 quest 5062 @35.9,35.5 map 1441 -- Incendia Agave
+
+step Roguefeather Den
+  zone Thousand Needles
+  tip South of Darkcloud Pinnacle the Screeching harpies hold Roguefeather Den; Jandia's stolen supplies lie on the ground around it.
+  tip Careful: the harpies (28-29) stand in packs and the Windcallers cast from range: pull at the edge. Grenka Bloodscreech (31) waits deeper in the den: leave her for Dorn's Test of Endurance at about 30, in the next guide.
+  kill 4101 quest 98070.2             -- Screeching Roguefeather
+  kill 4104 quest 98070.3             -- Screeching Windcaller
+  kill 4100 quest 98070.1             -- Screeching Harpy
+  collect 279383 x8 quest 98069 @27.0,51.9 map 1441 -- Stolen Freewind Supplies, on the ground around the den
+
 step Freewind Post
-  tip Back east past Whitereach Post to Freewind Post.
+  tip Back east to Freewind Post.
   turnin 4767                         -- Elu
   turnin 5147
   turnin 5064                         -- Cliffwatcher Longhorn
   turnin 4904                         -- Thalia Amberhide, inside
-  accept 98070                        -- Jandia, inside the inn
-  accept 98069                        -- Jandia
+  turnin 98070                        -- Jandia, inside the inn
+  turnin 98069                        -- Jandia
   vendor nearest optional
-  note Keep Jandia's two harpy quests and Dorn's Test of Endurance: Roguefeather Den comes with the next Freewind visit, at about 30, with the Mirage Raceway's quests.
+  note Keep Dorn's Test of Endurance: Grenka comes with the next Freewind visit, at about 30.
 
-step Level 29
-  when level<29
+step Fly to Thunder Bluff
   zone Thousand Needles
-  tip The next guide opens with Korran's The Swarm Grows at the Crossroads, offered from level 29. Short of 29? The Pesterhide Snarlers (28-29) prowl the canyon floor just north-west of Freewind Post: kill them until level 29. Or, with a group, run the Blackfathom Deeps dungeon instead.
-  goto 42.4,40.4 map 1441 "Pesterhide Snarlers"
-  level 29 grind 4249                 -- grind on Pesterhide Snarler
+  goto 45.0,49.1 map 1441 "Freewind Post flight master"
+  fly "Thunder Bluff"
+  zone Thunder Bluff
+
+step Melor Stonehoof
+  zone Thunder Bluff
+  tip Melor Stonehoof on Hunter Rise takes Steelsnap's rib.
+  turnin 1131                         -- Melor Stonehoof
+
+step Magatha Grimtotem
+  zone Thunder Bluff
+  tip Magatha Grimtotem stands on the Elder Rise, east across the bridges. Her next quest, Arikara, goes back to Darkcloud Pinnacle and Whitereach: leave it, the route does not go back there.
+  turnin 5062                         -- Magatha Grimtotem
+
+step Fly to Camp Taurajo
+  zone Thunder Bluff
+  goto 46.7,49.9 "Thunder Bluff flight master"
+  fly "Camp Taurajo"
+  zone The Barrens
+
+step Tatternack Steelforge
+  zone The Barrens
+  tip Tatternack takes the ore sample beside the flight master. The next guide flies on from here.
+  turnin 1153                         -- Tatternack Steelforge
