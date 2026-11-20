@@ -12,10 +12,21 @@ pitch Gadgetzan and the Searing Gorge at 46-48: the Wastewander camps, Tooga's e
 # into this file.
 
 step Feralas
+  when !zone "Dustwallow Marsh"
+  when !zone "Tanaris"
   zone Feralas
   goto 75.4,44.3 "Camp Mojache"
 
 step Fly to Gadgetzan
+  when zone "Dustwallow Marsh"
+  zone Dustwallow Marsh
+  tip Coming from Dustwallow Marsh: Brackenwall Village's flight master flies you to Gadgetzan.
+  goto 35.6,31.8 "Brackenwall Village flight master"
+  fly "Gadgetzan"
+  zone Tanaris
+
+step Fly to Gadgetzan
+  when zone "Feralas"
   zone Feralas
   goto 75.4,44.3 "Camp Mojache flight master"
   fly "Gadgetzan"
@@ -95,7 +106,7 @@ step Trenton Lighthammer
 # visits 44-48, levels 45.9-47.6. Checked by lint, not play-tested on
 # Forever yet. Era + known Forever quests only.
 #
-# Flow: Camp Mojache (where the previous guide ends) -> fly Gadgetzan
+# Flow: Brackenwall Village (where the previous guide ends; Camp Mojache for a start there) -> fly Gadgetzan
 # (bind) -> Sandsorrow Watch -> Gadgetzan -> Caliph Scorpidsting -> Marvon
 # Rivetseeker -> the Noxious Lair -> Dunemaul Compound -> Thistleshrub
 # Valley (Marin's dew glands) -> Tooga's escort to Steamwheedle Port -> Gadgetzan -> Marvon ->

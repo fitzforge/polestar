@@ -270,8 +270,8 @@ step Orgrimmar
 # are taken on the Gadgetzan stop at about 45; the run is in 40-50/04-tanaris.
 #
 # Accepted here, finished later on the route: Screecher Spirits (3520,
-# Steamwheedle Port: the screechers on the next Feralas visit, Yeh'kinya at the
-# end of Tooga's escort), Deliver to MacKinley (2874) in Booty Bay
+# Steamwheedle Port: the screechers on this guide's Feralas west sweep, Yeh'kinya
+# at the end of Tooga's escort), Deliver to MacKinley (2874) in Booty Bay
 # around level 51 (40-50/06), A Strange Request (3121), A Grim Discovery (2976) and The
 # Gordunni Orb (3002) in Orgrimmar at 45, Ripple Recovery (650) in the
 # Hinterlands, Improved Quality (7734) on the next Feralas visit.
@@ -523,7 +523,7 @@ step Steamwheedle Port
   accept 8366                           -- Security Chief Bilgewhizzle, inside
   turnin 2872                           -- Stoley, inside
   accept 2873
-  accept 3520                           -- Yeh'kinya: the screechers live in Feralas, on the next Feralas visit
+  accept 3520                           -- Yeh'kinya: the screechers live in Feralas, on this guide's west sweep
   turnin 95296                          -- Wharfmaster Steamfizzle, on the pier: Friz's errand from the Riverglades, if you carry it
 
 step Lost Rigger Cove: kill these as you meet them
@@ -665,6 +665,11 @@ step Ruins of Isildien: kill these as you meet them
 step Feral Scar Vale yetis
   tip North-west of the ruins, the yetis den in Feral Scar Vale; every yeti there can drop a thick hide.
   collect 8973 quest 2822.1
+
+step Rogue Vale screechers
+  tip On the way back north-east towards Camp Mojache, the Rogue Vale Screechers (44-46) hunt the open ground north of Feral Scar Vale. Kill one, use Yeh'kinya's Bramble on its body before you loot it, then talk to the spirit that rises: it is friendly. Three spirits in all; Yeh'kinya takes them in Steamwheedle Port on your next Tanaris visit.
+  use 10699 "Yeh'kinya's Bramble" quest 3520.1 @55.7,47.0
+  talk 8612 quest 3520.1
 
 step Homing Robot OOX-22/FE
   tip Only with the distress beacon: any beast, gnoll or ogre in Feralas can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of Feral Scar Vale, just north-west of the ruins. Escort it to the dock on the Forgotten Coast; yetis and gorillas ambush you on the way. Its reward waits in Booty Bay for a later visit.

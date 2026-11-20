@@ -3953,14 +3953,18 @@
 			{
 				"a": [
 					"turnin",
-					7734
+					3128
 				],
 				"b": [
 					"turnin",
-					3128
+					7734
 				],
 				"faction": "Horde",
-				"why": "Final route review (2026-11-07, Horde Feralas 45-47): the guide rides into Camp Mojache from the Rage Scar yetis in the north-west, past Jangdor Swiftstrider's hut first; the order went to Witch Doctor Uzer'i, across to Talo Thornhoof and back to Jangdor before the flight master (the flow audit: 150 yd over walking order)"
+				"why": "Feralas in two visits (fix round 2026-11-20): Natural Materials (3128) and Improved Quality (7734) are worked on 40-50/06's Feralas loop at about 51 with the Muisek chain, not on a 48 loop of their own in 40-50/03. The materials come from the hippogryphs, sprite darters and forest walkers of the chain's first three hunts and go to Uzer'i on the return after the forest walkers; the Rage Scar yetis are on the ride back from the Northspring harpies, and Jangdor takes their hides on the last Camp Mojache stop."
+			},
+			{ "a": ["turnin", 1172], "b": ["task", 7003], "faction": "Horde", "why": "Feralas in two visits (fix round 2026-11-20): Zorbin's first round (Zapped Giants 7003, Fuel for the Zapping 7721) is done on 40-50/06's Forgotten Coast stay at about 51, right before his second round (7725, 7726, which need the first), instead of a coast stay at 48 after Dustwallow (40-50/03) and another at 51. All four are level 48-50." },
+			{ "a": ["task", 3520], "b": ["turnin", 2980], "faction": "Horde", "why": "Feralas in two visits (fix round 2026-11-20): Screecher Spirits' Rogue Vale screechers (44-46) are worked on 40-50/02's west sweep, north of Feral Scar Vale on the way back to Camp Mojache, instead of on a later Feralas loop; Yeh'kinya takes them on the Tanaris guide's Steamwheedle Port stop as before." },
+			{ "a": ["turnin", 3123], "b": ["accept", 3063], "faction": "Horde", "why": "Feralas in two visits (fix round 2026-11-20): Vengeance on the Northspring (3063, harpies 48-50) is taken from Talo on 40-50/06's Camp Mojache stop, with Uzer'i's Muisek hand-in, and done at that loop's far end, instead of being taken on 40-50/03's stop at 47.5 and carried three guides (Talo stands about 120 yards from Uzer'i, off that stop's path)."
 			},
 			{
 				"a": [
@@ -6103,7 +6107,7 @@
 					3063
 				],
 				"faction": "Horde",
-				"why": "Horde 40-60 level tidy (0.4.0): Vengeance on the Northspring (3063; harpies 48-50) is taken in 40-50/03 at about 48, two under its harpies, and done on 40-50/06's Feralas loop at about 51, after Zorbin's second round of giants."
+				"why": "Horde 40-60 level tidy (0.4.0), fix round 2026-11-20: Vengeance on the Northspring (3063; harpies 48-50) is taken from Talo on 40-50/06's Camp Mojache stop and done at that Feralas loop's far end at about 51, after Zorbin's second round of giants."
 			},
 			{
 				"a": [
@@ -16920,24 +16924,6 @@
 				"q": 3124,
 				"guide": "forever/horde/40-50/06-azshara",
 				"reason": "It needs 3 quests from 03-feralas first (Testing the Vessel (3123), Return to Witch Doctor Uzer'i (3122), A Strange Request (3121); about 7,125 XP of work at this visit's level): too long to bring back.",
-				"issue": "#2635"
-			},
-			{
-				"q": 7725,
-				"guide": "forever/horde/40-50/06-azshara",
-				"reason": "A 550 XP repeat of Zorbin's Feralas errand: not worth bringing the first one back.",
-				"issue": "#2635"
-			},
-			{
-				"q": 7726,
-				"guide": "forever/horde/40-50/06-azshara",
-				"reason": "A 550 XP repeat of Zorbin's Feralas errand: not worth bringing the first one back.",
-				"issue": "#2635"
-			},
-			{
-				"q": 3129,
-				"guide": "forever/horde/40-50/06-azshara",
-				"reason": "It needs 3 quests from 03-feralas first (Natural Materials (3128), Return to Witch Doctor Uzer'i (3122), A Strange Request (3121); about 7,625 XP of work at this visit's level): too long to bring back.",
 				"issue": "#2635"
 			},
 			{

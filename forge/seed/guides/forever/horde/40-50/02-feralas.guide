@@ -461,16 +461,14 @@ step Southern Gordunni ruins
   kill 5236 quest 2980.1
   collect 9371 quest 2979.1
 
-# ---------------------------------------------------------------- West: screechers and OOX-22/FE
-
-step Rogue Vale screechers
-  tip Ride west into the middle of Feralas. Kill a Rogue Vale Screecher, use Yeh'kinya's Bramble on its body and kill the spirit that rises.
-  use 10699 "Yeh'kinya's Bramble" @45.0,38.0
-  kill 8612 quest 3520.1
-
 step Feral Scar Vale
   tip The yetis den in Feral Scar Vale, beside the robot's cave; every yeti there can drop a thick hide.
   collect 8973 quest 2822.1
+
+step Rogue Vale screechers
+  tip On the way back north-east towards Camp Mojache, the Rogue Vale Screechers (44-46) hunt the open ground north of Feral Scar Vale. Kill one, use Yeh'kinya's Bramble on its body before you loot it, then talk to the spirit that rises: it is friendly. Three spirits in all; Yeh'kinya takes them in Steamwheedle Port on your next Tanaris visit.
+  use 10699 "Yeh'kinya's Bramble" quest 3520.1 @55.7,47.0
+  talk 8612 quest 3520.1
 
 step Homing Robot OOX-22/FE
   tip Only with the distress beacon: any beast, gnoll or ogre in Feralas can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of Feral Scar Vale. Escort it to the dock on the Forgotten Coast; yetis and gorillas ambush you on the way. Its reward waits in Booty Bay for a later visit.
