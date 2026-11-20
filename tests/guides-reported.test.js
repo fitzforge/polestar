@@ -2286,13 +2286,16 @@ test('#2025: Report to Helgrum has no prerequisite; the Badlands take it at Karg
 // Danger at the spot (#1575, release gate #2042), Horde 30-40 audit (0.4.0): Dustwallow & Desolace's second Desolace
 // visit pointed the Valley of Spears' totems and ears at the Magram's village (Necromancers 42-43) and the ghost magnet
 // at Desolace 63.5,91.6, now Shen'dralas, among Magram Necrokhans and Corpsefeeders (45, elite; players' recordings: 8
-// deaths there). The totems' arrow now points at the Maraudine camps in the Valley of Spears (the ears keep touring every
-// tribe's camps, #1616), and the crate at the bone fields' eastern side, where players used it.
+// deaths there). At 34–36 the totems come from the lower Kolkar scouts; from 37 the route points at the eastern
+// Maraudine camp. The ghost magnet belongs on the eastern side of the bone fields, where players used it.
 test('forever/horde/30-40/04-dustwallow-marsh.guide: the Valley of Spears and the Valley of Bones point away from the high Magram', { skip }, () => {
 	const list = goals('forever/horde/30-40/04-dustwallow-marsh.guide');
-	for (const [what, pred] of [['totems', (g) => g.t === 'collect' && g.quest === 93225]]) {
-		const { goal } = list[at(list, what, pred)];
-		assert.ok(goal.map === 1443 && Math.hypot(goal.x - 33.0, goal.y - 54.0) < 1, `${what}: the Valley of Spears' eastern camps (got ${goal.map} ${goal.x},${goal.y})`);
+	const totems = list.filter(({ goal }) => goal.t === 'collect' && goal.quest === 93225);
+	assert.equal(totems.length, 2, 'one camp for each level range');
+	for (const [op, x, y] of [['<', 68.7, 50], ['>=', 33, 54]]) {
+		const camp = totems.find(({ step }) => step.when?.some(p => p.k === 'level' && p.op === op && p.n === 37));
+		assert.ok(camp, `a totem camp for level ${op}37`);
+		assert.ok(camp.goal.map === 1443 && Math.hypot(camp.goal.x - x, camp.goal.y - y) < 1, `level ${op}37: the arrow is inside its safe camp`);
 	}
 	for (const [what, pred] of [['crate', (g) => g.t === 'use' && g.quest === 6134], ['ghost-o-plasm', (g) => g.t === 'collect' && g.quest === 6134]]) {
 		const { goal } = list[at(list, what, pred)];
@@ -2317,7 +2320,9 @@ test('forever/horde/30-40/04-dustwallow-marsh.guide: Phenyx (#2357): the ghost-o
 	const text = (i) => [list[i].step.note, list[i].step.tip].flat().filter(Boolean).join(' ');
 	assert.match(text(plasm), /Spectres \(38-39\)[^.]*in numbers/, 'the spectres come in numbers');
 	assert.match(text(plasm), /Necrokhans and Corpsefeeders \(45, elite\)/, 'the elites are named');
-	assert.match(text(at(list, 'totems', (g) => g.t === 'collect' && g.quest === 93225)), /Khan Hratha and the Rock Worms \(41-42, elite\)/, 'the valley\'s elites are named');
+	const western = list.find(({ goal, step }) => goal.t === 'collect' && goal.quest === 93225 && step.when?.some(p => p.k === 'level' && p.op === '>=' && p.n === 37));
+	assert.ok(western, 'a western totem hunt for characters of 37 or above');
+	assert.match([western.step.note, western.step.tip].flat().filter(Boolean).join(' '), /Khan Hratha and the Rock Worms \(41-42, elite\)/, 'the warning belongs to the camp where those elites patrol');
 	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
 	assert.ok(!rf.deliberate.group.some((g) => g.q === 6134), 'no group record');
 	assert.ok(rf.deliberate.pairs.some((p) => p.faction === 'Horde' && `${p.a}` === 'task,5581' && `${p.b}` === 'task,6134'), 'a record the build keeps');
