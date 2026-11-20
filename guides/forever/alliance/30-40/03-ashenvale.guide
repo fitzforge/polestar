@@ -26,7 +26,9 @@ next forever/alliance/30-40/04-stranglethorn-vale
 # the foot of the Great Lift (1100, for Falfindel Waywarder north of Highperch), Kravel's Wharfmaster Dizzywig (1111)
 # and Pozzik's Goblin Sponsorship (1178, then 1180 for Booty Bay), both handed in at Ratchet beside the boat: about
 # 5,100 XP here at 32-33 with only Falfindel's walk added. A Host of Evil (6626) is a group choice: the quilboar
-# outside Razorfen Downs are elites of 33-34. Left for 40-50/01: Tervosh's next errand to Private Hendel (1266) and The Deserters (1286), whose
+# outside Razorfen Downs are elites of 33-34. Tervosh's next errand to Private Hendel (1266) is taken from him at Sentry
+# Point right after the hand-in (he shows there only to players on the chain) and carried to 40-50/01, whose route goes
+# to North Point Tower. Left for 40-50/01: The Deserters (1286), whose
 # Hendel and Balos Jacken stand off this guide's path; Soothing Spices and The Orc Report (1218, 1219) at Swamplight
 # Manor, about 1,300 yards north of the road. Left out: Parts for Kravel (1112, back to the Raceway, which the route
 # next visits at 45) and The Crone of the Kraul (1101, inside Razorfen Kraul).
@@ -94,8 +96,9 @@ step Theramore
 step Sentry Point
   tip Follow the road north-west out of Theramore to the watchtower at Sentry Point, where the road to the Shady Rest Inn turns west. Look around the tower: Archmage Tervosh appears at its foot, and you hand the quest in to him there.
   complete 1265 @59.9,40.9
-  turnin 1265                         -- Archmage Tervosh, at the foot of the tower
-  note Tervosh's next errand, to Private Hendel at North Point Tower, is for the Dustwallow Marsh visit at 39: leave it.
+  turnin 1265 @59.7,41.2              -- Archmage Tervosh, at the foot of the tower
+  accept 1266 @59.7,41.2              -- Archmage Tervosh: Private Hendel holds North Point Tower, for the Dustwallow Marsh visit at 39
+  note Take Tervosh's next errand now: he stands here only right after the hand-in. Private Hendel waits for the next Dustwallow Marsh visit, at about 39.
 
 step The Shady Rest Inn
   tip Follow the road west to the burned inn on the road toward the Barrens: the black shield and Reethe's guard badge lie in the ashes and the hoofprints are in the mud beside the inn.

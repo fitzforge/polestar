@@ -11708,7 +11708,16 @@
 					"turnin",
 					1264
 				],
-				"reason": "Alliance 30-40 fix round (2026-11-20): The Missing Diplomat (level 35, from 28, 275 XP) is taken from Commander Samaul with Tapoke's report (1264) on 30-40/03's first Theramore stop and done at Sentry Point, the watchtower where the road to the Shady Rest Inn turns west: Archmage Tervosh appears at its foot once it is explored (players' recordings: 45 people, Tervosh seen at the tower at the objective's tick, hand-in at him). It waited for 40-50/01 at 39 although 30-40/03 walks past the tower at 32. Tervosh's next errand (1266, Private Hendel at North Point Tower) stays on 40-50/01, whose route goes there.",
+				"reason": "Alliance 30-40 fix round (2026-11-20): The Missing Diplomat (level 35, from 28, 275 XP) is taken from Commander Samaul with Tapoke's report (1264) on 30-40/03's first Theramore stop and done at Sentry Point, the watchtower where the road to the Shady Rest Inn turns west: Archmage Tervosh appears at its foot once it is explored (players' recordings: 45 people, Tervosh seen at the tower at the objective's tick, hand-in at him). It waited for 40-50/01 at 39 although 30-40/03 walks past the tower at 32. The hand-in goal carries Sentry Point's coordinates (places.json missing-diplomat-1265-tervosh-sentry-point): without them the arrow pointed at Theramore's tower, the only spot the data has.",
+				"issue": "-"
+			},
+			{
+				"q": 1266,
+				"after": [
+					"turnin",
+					1265
+				],
+				"reason": "Alliance 30-40 fix round, after the audit (2026-11-20): The Missing Diplomat's next part (1266, Private Hendel at North Point Tower) is taken from Archmage Tervosh at Sentry Point right after 1265 is handed in to him, on 30-40/03's stop at about 32, and carried to 40-50/01, whose route goes to North Point Tower at 39. He shows at Sentry Point only to players on the chain (forever-db/corrections npcs.json, Tervosh), and players' recordings show 1266 taken there right after the hand-in (4 of 4, places.json missing-diplomat-1266-tervosh-sentry-point): a player arriving at 39 with 1265 long done might find nobody to give it, and North Point Tower's 1266, 1324 and 1267 (7,279 XP) would hide behind it. A talk quest with no timer; 30-40/03's quest log peaks at 18.",
 				"issue": "-"
 			},
 			{

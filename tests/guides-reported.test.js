@@ -13080,6 +13080,21 @@ test('Dustwallow Marsh (Alliance 40): The Missing Diplomat handed in at Sentry P
 	}
 });
 
+// Route audit (2026-11-20): since 30-40/03 does The Missing Diplomat's Sentry Point errand at about 32, its hand-in goal
+// needs Sentry Point's coordinates (without them the arrow pointed at Theramore's tower), and Tervosh's next errand (1266)
+// is taken there on the spot: he shows at the tower only right after the hand-in, so 40-50/01 at 39 can't count on him.
+test('Dustwallow Marsh (Alliance 32): The Missing Diplomat handed in at Sentry Point, Private Hendel\'s errand taken there', { skip }, () => {
+	const g = goals('forever/alliance/30-40/03-ashenvale.guide');
+	const near = (i, x, y) => Math.abs(g[i].goal.x - x) < 0.5 && Math.abs(g[i].goal.y - y) < 0.5;
+	const explore = at(g, 'complete 1265', is('complete', 1265));
+	const t1265 = at(g, 'turnin 1265', is('turnin', 1265));
+	const a1266 = at(g, 'accept 1266', is('accept', 1266));
+	assert.ok(g[t1265].s === g[explore].s && g[a1266].s === g[explore].s && a1266 > t1265, '1265 handed in, then 1266 taken, on the Sentry Point step');
+	assert.ok(near(t1265, 59.7, 41.2) && near(a1266, 59.7, 41.2), 'Tervosh at Sentry Point');
+	const late = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	assert.ok(late.some(({ goal }) => is('turnin', 1266)(goal)), '1266 handed in at North Point Tower on 40-50/01');
+});
+
 // Position sweep (0.3.6, the patrol check): Mountaineer Kadrell walks the road through Thelsamar (his
 // spawn 34.17,47.84, a 97 yd walk). The data's point, 32.63,49.74, is the south end of the road, 55 yd from his spawn,
 // so his goals got no walk circle and players met him 60-90 yd from the arrow (35 people, most at 34-36,46-48). His
