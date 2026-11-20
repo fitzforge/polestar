@@ -2,7 +2,5 @@
 
 Polestar.RegisterMapFrames({
 	era = {
-		[1450] = { c = 1, left = -1381.25, right = -3689.583, top = 8491.666, bottom = 6952.083 },
-		[1452] = { c = 1, left = -316.667, right = -7416.667, top = 8533.333, bottom = 3800 },
 	},
 }, "polestar-experimental")

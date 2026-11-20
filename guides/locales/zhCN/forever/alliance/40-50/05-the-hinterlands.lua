@@ -121,9 +121,10 @@ return {
 	-- {npc:2537} Chucky "Ten Thumbs"
 	["Ride on north along the coast to Zanzil's village. Every Zanzil follower can drop the mixture; {npc:2537} walks the south of the camp."] = "沿海岸继续向北骑到赞吉尔的村子。所有赞吉尔的信徒都可能掉落混合物；{npc:2537}在营地南部游荡。",
 
-	-- Step 25: Maury "Club Foot" Wilkins and Jon-Jon the Crow
-	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
-	["{npc:2535} and {npc:2536}"] = "{npc:2535}和{npc:2536}",
+	-- Step 25: Maury "Club Foot" Wilkins and Jon-Jon
+	-- {npc:2535} Maury "Club Foot" Wilkins
+	-- was: ["{npc:2535} and {npc:2536}"] = "{npc:2535}和{npc:2536}"
+	["{npc:2535} and Jon-Jon"] = "",
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
 	["{npc:2535} and {npc:2536} stand together in the hills just north of Zanzil's village."] = "{npc:2535}和{npc:2536}一起站在赞吉尔村子北边不远处的山丘上。",
 	-- {item:3925} Jon-Jon's Golden Spyglass · {npc:2536} Jon-Jon the Crow
@@ -216,6 +217,7 @@ return {
 	-- ["{npc:2487}, top floor, if the Stranglethorn guide didn't give it"] = "{npc:2487}，顶楼，如果荆棘谷指南没给过这个任务",
 	-- ["{npc:2494}, if the Stranglethorn guide didn't give it"] = "{npc:2494}，如果荆棘谷指南没给过这个任务",
 	-- ["{npc:2498}, inside, if the Stranglethorn guide didn't give it"] = "{npc:2498}，在屋内，如果荆棘谷指南没给过这个任务",
+	-- ["{npc:2535} and {npc:2536}"] = "{npc:2535}和{npc:2536}",
 	-- ["{npc:3516}, at the top of the tree"] = "{npc:3516}，在树顶",
 	-- ["{npc:7740}, beside her"] = "{npc:7740}，在她旁边",
 	-- ["{npc:7744}: the last guide binds here, so this usually ticks at once"] = "{npc:7744}：上一份指南在这里绑定炉石，所以这一步通常会立即完成",
