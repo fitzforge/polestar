@@ -10466,6 +10466,24 @@
 				"issue": "-"
 			},
 			{
+				"q": 1190,
+				"after": [
+					"turnin",
+					1137
+				],
+				"reason": "Fix round 2026-11-20: Keeping Pace is given by Pozzik at the Mirage Raceway once News for Fizzle (1137) is handed in to Fizzle in the gnomes' camp beside him; its work is Zamek's diversion and a click on Rizzle's Unguarded Plans in the same camp, so it is done on the raceway stop both routes already make (Alliance 40-50/04, Horde 40-50/02). There is no race to wait for: the earlier Alliance skip's reason did not match the quest. Recorded: 19 Alliance people took and finished it, P25 level 43 both ways.",
+				"issue": "-"
+			},
+			{
+				"q": 1194,
+				"after": [
+					"turnin",
+					1190
+				],
+				"reason": "Fix round 2026-11-20: Rizzle's Schematics is taken from Rizzle's Unguarded Plans as Keeping Pace is handed in there and handed back to Pozzik a few steps away, on the same Mirage Raceway stop.",
+				"issue": "-"
+			},
+			{
 				"q": 1428,
 				"after": [
 					"turnin",
@@ -11644,24 +11662,6 @@
 				"q": 115,
 				"faction": "Alliance",
 				"reason": "Prerequisite order (2026-11-07, Wetlands report): Marshal Marris offers Shadow Magic only once Blackrock Menace (20) and Blackrock Blockade (98387) are handed in (the data's preAll; players' recordings: refused in every recorded window before then). The route hands them in on its way out of Redridge, after its only Stonewatch Keep visit; left out.",
-				"issue": "-"
-			},
-			{
-				"q": 1190,
-				"faction": "Alliance",
-				"reason": "Follows News for Fizzle (1137; the data's pre, TDB PrevQuestID 1137): the Horde leaves out 1137; the Alliance hands 1137 in at 45 in 40-50/04, where Keeping Pace would send it back across Thousand Needles to Rizzle for a race the route doesn't wait for. Left out.",
-				"issue": "-"
-			},
-			{
-				"q": 1194,
-				"faction": "Alliance",
-				"reason": "Follows Keeping Pace (1190), left out with Martek the Exiled (1106).",
-				"issue": "-"
-			},
-			{
-				"q": 1191,
-				"faction": "Alliance",
-				"reason": "Zamek's Distraction is a step of Keeping Pace (1190; the data's parent 1190, and 1190's objective reads 'Have Zamek create a diversion, then steal Rizzle's plans'): a child quest is taken while its parent is in the log, and the Alliance leaves 1190 out (above), so 40-50/04's Mirage Raceway stop asked for a quest Zamek can't offer (since 0.3.5; found by the offer sweep with #1579; no recordings at Zamek yet). Left out with 1190.",
 				"issue": "-"
 			},
 			{

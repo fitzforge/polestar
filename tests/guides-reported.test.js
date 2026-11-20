@@ -7865,11 +7865,18 @@ test('forever/alliance/30-40/02-desolace.guide: Vahlarriel\'s Vengeance is taken
 });
 
 // Offer sweep with #1579: Alliance Tanaris (40-50/04) took and handed in Zamek's Distraction (1191) on its Mirage Raceway
-// stop, but 1191 is a step of Keeping Pace (1190, its parent), which the Alliance leaves out, so Zamek never offered it.
+// stop, but 1191 is a step of Keeping Pace (1190, its parent), which the Alliance left out, so Zamek never offered it.
+// Fix round 2026-11-20: the stop now takes Keeping Pace from Pozzik once News for Fizzle (1137) is handed in, so the fix
+// still holds in the new form: 1191 only ever comes after its parent 1190 is accepted, on the same raceway stop.
 test('forever/alliance/40-50/04-tanaris.guide: no Zamek\'s Distraction without Keeping Pace (offer sweep, #1579)', { skip }, () => {
-	assert.ok(!goals('forever/alliance/40-50/04-tanaris.guide').some(({ goal }) => goal.quest === 1191 || goal.quest === 1190), 'neither 1191 nor its parent 1190 in the Alliance guide');
-	const { overrides } = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8'));
-	assert.ok(overrides.skip.some((r) => r.q === 1191 && r.faction === 'Alliance'), 'route-fixes leaves 1191 out on the Alliance side, with 1190');
+	const list = goals('forever/alliance/40-50/04-tanaris.guide');
+	const fizzle = at(list, 'turnin 1137', is('turnin', 1137));
+	const pace = at(list, 'accept 1190', is('accept', 1190));
+	const zamek = at(list, 'turnin 1191', is('turnin', 1191));
+	assert.ok(fizzle < pace && pace < zamek, 'News for Fizzle, then Keeping Pace, then Zamek\'s Distraction');
+	assert.equal(list[zamek].s, list[pace].s, 'Zamek on the same raceway stop as Pozzik');
+	assert.ok(at(list, 'turnin 1190', is('turnin', 1190)) > zamek, 'the plans after Zamek\'s diversion');
+	assert.ok(!list.some(({ quest }, i) => quest === 1191 && i < pace), 'no 1191 before its parent');
 });
 
 // The whole pattern: a child quest (the data's `parent`) is offered only while its parent is in the log, so no leveling
