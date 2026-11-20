@@ -2,6 +2,24 @@
 	"about": "Where an objective is done, or where the arrow leads for a quest's giver or ender, anchored on the quest (never a line). forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file; FORGE.md, Fixing a generated guide, has the format. objective: the objective's number (as in `quest Q.N`), \"giver\" or \"ender\". at: { map, x, y, frame }; path: { map, frame, points } for a target that walks a road (a loop of gotos before the goal); write: true gives the objective its own goal line from the data before the quest's bare complete. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }, the kinds of forever-db/README.md) and its issue or pr.",
 	"places": [
 		{
+			"id": "043-alliance-honey-wasps",
+			"quest": 89013,
+			"objective": 1,
+			"faction": "Alliance",
+			"at": {
+				"map": 1447,
+				"x": 18.62,
+				"y": 58.26,
+				"frame": "live"
+			},
+			"note": "Begin at the southern end of the wasp trees rather than approaching the Horde camp.",
+			"source": {
+				"kind": "recording",
+				"ref": "A solo player looted Wild Honey here from Honey Wasp 236028 and continued north through the trees."
+			},
+			"issue": 3144
+		},
+		{
 			"id": "searing-surface-taskmasters",
 			"faction": "Alliance",
 			"quest": 7729,

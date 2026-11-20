@@ -397,6 +397,7 @@ step Shindrell Swiftfire
   accept 95737                        -- Llana: Seeking Caitlin, for Caitlin Grassman in Menethil Harbor
 
 step Astranaar
+  when turnedin 1034
   accept 1035                         -- Pelturas Whitemoon, inside
 
 step Raene Wolfrunner
@@ -420,6 +421,21 @@ step Glowing Gem
   accept 1023
   collect 5463 quest 1023             -- Glowing Gem
 
+step The Ruins of Stardust
+  when level>=23
+  when onquest 1034
+  when !complete 1034
+  zone Ashenvale
+  tip Still carrying Pelturas's quest? Pick the stardust bushes on this western trip. The Raincallers and Wood Shapers are 22–24.
+  collect 5494 quest 1034 @33.3,67.7
+
+step Ilkrud Magthrull
+  when level>=23
+  when onquest 973
+  when !complete 973
+  tip If you left the tome behind on your first visit, enter the Fire Scar Shrine from the east. Ilkrud is 24; pull guards singly and leave the hill if you cannot get a clear approach.
+  collect 5533 quest 973
+
 step Melyria and Illiyana
   tip The two stand together at the western end of the road, south-west of Astranaar.
   accept 1021                         -- Illiyana
@@ -430,6 +446,21 @@ step Therysil
   when onquest 945
   tip Therysil stands at the Shrine of Aessina, a short walk from Melyria and Illiyana.
   turnin 945                          -- Therysil: Therylune's Escape, if you still carry it from Darkshore
+
+step Delgren the Purifier
+  when complete 973
+  turnin 973                          -- Maestra's Post, north of the shrine
+
+step The Tower of Althalaxx
+  when turnedin 973
+  when available 1140
+  accept 1140                         -- The two circles are on the eastern loop ahead
+
+step Pelturas Whitemoon
+  when complete 1034
+  tip Back east at Astranaar, take the stardust to Pelturas before heading to the moonwell.
+  turnin 1034
+  accept 1035
 
 step Raene Wolfrunner
   when !turnedin 1023

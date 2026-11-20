@@ -106,6 +106,9 @@ step Hornizz Brimbuzzle
   when group 6134
   turnin 6134                         -- Hornizz Brimbuzzle
 
+step Kormek's Hut
+  turnin 5501                         -- Bibbly F'utzbuckle
+
 step Azore Aldamort
   turnin 5741
   turnin 93464                        -- Azore Aldamort: The Visiting Mage, from Magtoor in the Swamp of Sorrows
@@ -137,11 +140,8 @@ step Rackmore's Chest
 step Azore Aldamort
   turnin 6027
 
-step Kormek's Hut
-  turnin 5501                         -- Bibbly F'utzbuckle
-
 step Nijel's Point
-  tip Follow the road north to Nijel's Point: Captain Pentigast stands at its south end, Kreldig Ungor in the middle, Brother Anton to the north.
+  tip Hearth to Nijel's Point if you are still bound there and the stone is ready. Otherwise follow the road east from Ethel Rethor and up the pass. Hand in at Captain Pentigast, Kreldig Ungor and Brother Anton before the flight.
   turnin 93224                        -- Captain Pentigast
   turnin 1466                         -- Kreldig Ungor
   turnin 1455                         -- Kreldig Ungor

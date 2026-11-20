@@ -32,14 +32,16 @@ step Shadowsong Shrine
   getfp "Talrendis Point"
   accept 5535                         -- Loh'atu
   accept 5536
-  kill 6116 quest 5535.1              -- Highborne Apparition
-  kill 6117 quest 5535.2              -- Highborne Lichling
 
 step Talrendis Point
   zone Azshara
   tip Just north-east of the shrine: Commander Truesong and Berdun Cliffbrew keep the Alliance camp at Talrendis Point.
   accept 88807                        -- Commander Truesong: Slay the Spitelash
   accept 89001                        -- Berdun Cliffbrew: Home on the Range
+
+step Shadowsong Shrine spirits
+  kill 6116 quest 5535.1              -- Highborne Apparition
+  kill 6117 quest 5535.2              -- Highborne Lichling
 
 step Mosshoof Runners
   tip The Mosshoof Runners (45-47) graze the hills north of Talrendis Point, on the way to the satyrs.
@@ -67,9 +69,24 @@ step Talrendis Point
   accept 92345                        -- Commander Truesong: Beneath Nordrassil, for Mathrengyl Bearwalker in Darnassus, keep it
   turnin 89001                        -- Berdun Cliffbrew
 
+step Berdun Cliffbrew
+  when complete 89013
+  turnin 89013
+
+step Berdun Cliffbrew
+  when level>=48
+  accept 89013
+
 step Shadowsong Shrine
   turnin 5535                         -- Loh'atu
   turnin 5536
+
+step Wild honey
+  when onquest 89013
+  when !complete 89013
+  when level>=48
+  tip Shoot a nest with Berdun's Pellet Gun, then loot the Honey Wasps for Wild Honey. Work north through the trees toward Eldarath, away from Valormok.
+  collect 238503 quest 89013.1 @18.62,58.26 map 1447 live
 
 step Azshara
   only Priest
@@ -205,6 +222,10 @@ step Ravencrest Monument
 step Talrendis Point
   tip Back to Truesong at Talrendis Point before you hearth.
   turnin 88809
+
+step Berdun Cliffbrew
+  when complete 89013
+  turnin 89013
 
 step To Ironforge
   zone Ironforge
@@ -427,6 +448,14 @@ step Fallen Hero of the Horde
 step Back to the Blasted Lands
   zone Blasted Lands
   goto 50.6,14.2 "Bloodmages' camp"
+
+step The bloodmages
+  tip Pick up any beast requests you missed on the earlier visit. Drazial and Lynnore both stand here by the road.
+  accept 2581
+  accept 2583
+  accept 2585
+  accept 2601
+  accept 2603
 
 step Blasted Lands: kill these as you meet them
   zone Blasted Lands

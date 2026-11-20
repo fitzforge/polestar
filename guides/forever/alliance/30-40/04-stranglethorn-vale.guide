@@ -74,22 +74,20 @@ step Nesingwary's Expedition
   accept 190                          -- Sir S. J. Erlgadin
   accept 338 optional                 -- Barnil Stonepot
 
-step Young tigers and panthers
-  tip Both roam the grass around the camp and along the road north.
+step Young Stranglethorn Tigers
+  tip Hunt the young tigers near the river, then cross to the young panthers before returning to the tents.
   kill 681 quest 185                  -- Young Stranglethorn Tiger
 
 step River crocolisks
   tip River Crocolisks (30-31) swim the river right beside Nesingwary's camp and up toward the Rebel Camp.
   collect 4053 quest 575              -- Large River Crocolisk Skin
 
-step Nesingwary's Expedition
-  turnin 185                          -- Ajeck Rouack
-  accept 186
-
 step Young Panther
   kill 683 quest 190 @39.81,11 map 1434 era -- Young Panther
 
 step Nesingwary's Expedition
+  turnin 185                          -- Ajeck Rouack
+  accept 186
   turnin 190                          -- Sir S. J. Erlgadin
   accept 191
 

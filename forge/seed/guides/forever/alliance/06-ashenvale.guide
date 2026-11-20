@@ -17,8 +17,8 @@ next forever/alliance/04-redridge-mountains
 # 98221, 1026: levels 27-28).
 # Hand-cut 2026-11-07 (the Alliance 21-24 level hole): the 20-24 part of the old 25-29 guide,
 # played right after Darkshore; the 27-29 Wetlands, Ironforge and Stormwind quests are in
-# 06-wetlands, after Duskwood. Ashenvale runs by quest level: Astranaar, Lake Falathim and
-# Stonetalon (19-22) first, then the east loop and Ilkrud and the Zoram Strand (24-25).
+# 06-wetlands, after Duskwood. Carry Raene's message east with Elune's Tear before Stonetalon.
+# On the return, level 23 opens the Stardust bushes and Fire Scar hill; finish on the strand.
 # Group quest: Gerenzo's Orders (1090, `when group 1090`, #1370): Piznik's five-minute defence in the Windshear
 # Mine (quest level 22) was lost solo at 23 and 25 in players' recordings; grouped players finished it from 23.
 
@@ -83,14 +83,21 @@ step Shrine of Aessina
   tip South of the murlocs, Therysil waits at the Shrine of Aessina.
   turnin 945                              -- Therysil
 
+step Raene Wolfrunner
+  tip On the way east from the shrine, stop at Astranaar's inn. Give Raene the gem and take her message before crossing the river.
+  turnin 1023                             -- Raene Wolfrunner
+  accept 1024
+
 step Elune's Tear
   zone Ashenvale
   tip The tears glow on the small isle east of Astranaar.
   collect 5493 quest 1033 @46.4,46.4
 
+step Shael'dryn
+  tip From the isle, continue east to Shael'dryn's moonwell. Then return to Pelturas in Astranaar before taking the southern road.
+  turnin 1024
+
 step Astranaar
-  turnin 1023                             -- Raene Wolfrunner
-  accept 1024
   turnin 1033                             -- Pelturas Whitemoon, inside
   accept 1034
   vendor nearest
@@ -143,33 +150,38 @@ step Webwinder Path
   accept 1072
   accept 1075
 
-# ---------------------------------------------------------------- Back north and the east
+# ---------------------------------------------------------------- From Talondeep to the western shore
 
 step The Ruins of Stardust
   zone Ashenvale
+  when level>=23
+  when onquest 1034
+  when !complete 1034
   tip Back north through the Talondeep Path: west of Mystral Lake, the stardust bushes grow among the ruins.
   tip Careful: Shadethicket Raincallers and Wood Shapers (22–24) stand among the bushes. Clear one bush at a time; don’t run through the camp.
   goto 33.3,67.7 "The Ruins of Stardust"
   collect 5494 quest 1034 @33.3,67.7      -- Handful of Stardust
 
-step Shael'dryn
-  tip Follow the road east to the Howling Vale; Shael'dryn stands by the moonwell.
-  turnin 1024
-
-step Astranaar
-  tip Back west along the road from Shael'dryn, Astranaar is on the way to Ilkrud: Pelturas Whitemoon is inside the building beyond the inn.
-  turnin 1034                             -- Pelturas Whitemoon, inside
-  vendor nearest
-
-# ---------------------------------------------------------------- West: Ilkrud and the Zoram Strand
-
 step Ilkrud Magthrull
-  tip From Astranaar head south-west to the Fire Scar Shrine and go in from the east side: Ilkrud and his guards hold a hill inside it. Pull his guards first.
+  when level>=23
+  when onquest 973
+  when !complete 973
+  tip Enter the Fire Scar Shrine from the east. Ilkrud is level 24. Pull his guards one at a time; if a guard is more than one level above you or you cannot separate them, leave the hill for your next Ashenvale visit.
   collect 5533 quest 973                  -- Ilkrud Magthrull's Tome
+
+step Delgren the Purifier
+  when complete 973
+  turnin 973                              -- Delgren the Purifier at Maestra's Post
+
+step The Tower of Althalaxx
+  when turnedin 973
+  when available 1140
+  accept 1140                             -- Keep Delgren's quest for the two circles on the later visit
 
 step The Zoram Strand
   zone Ashenvale
   tip Follow the coast north to the Zoram Strand. Talen camps on the beach; Wrathtail nagas fill the shore.
+  tip Below level 23, leave the Stardust bushes and Ilkrud for the western stops in the Wetlands guide. The naga here are 18–21; Ruuzel is 22.
   accept 1007                             -- Talen
   collect 5424 quest 1007 @14.2,20.6      -- Ancient Statuette, in the ruins on the shore
   collect 5490 quest 1008             -- Wrathtail Head: any Wrathtail naga on the strand
@@ -185,13 +197,15 @@ step Ruuzel
 step Talen
   turnin 1009
 
-step Maestra's Post
-  turnin 973                              -- Delgren the Purifier
-  accept 1140                             -- Delgren the Purifier: its circles are for your next Ashenvale visit, at about 28
+step Pelturas Whitemoon
+  when complete 1034
+  tip Hearth to Astranaar if it is still your home and your hearthstone is ready. Otherwise follow the road back from the strand. Pelturas is in the building beyond the inn.
+  turnin 1034
 
-step Astranaar
-  tip Follow the road south-east from Maestra's Post back to Astranaar: Shindrell Swiftfire stands by the flight master.
+step Shindrell Swiftfire
+  tip Back in Astranaar, give Shindrell the heads by the flight master. If you are still on the coast, hearth to Astranaar if bound and ready, or take the road through Maestra's Post.
   turnin 1008                         -- Shindrell Swiftfire
+  vendor nearest
 
 # ---------------------------------------------------------------- Menethil Harbor
 

@@ -479,7 +479,7 @@ step Ursal the Mauler
   kill 2039 quest 486.1
 
 step Dolanaar again
-  tip North-east from Ursal's den, back to Dolanaar. Byancie takes a Refreshing Spring Water with the fronds and the vial: if you drank yours, buy another from Innkeeper Keldamyr in this inn before you hand in.
+  tip Hearth back to Dolanaar if it is still your home and your stone is ready. Otherwise take the road north-east from Ursal's den. Byancie needs a Refreshing Spring Water with the fronds and vial; Innkeeper Keldamyr sells it here.
   turnin 486                                  -- Athridas Bearmantle
   turnin 99050                                -- Byancie, inside
   accept 99073

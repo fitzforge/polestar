@@ -133,10 +133,6 @@ step Mulgris Deepriver
   turnin 4985                         -- Inside
   accept 4986                         -- For the druids of Darnassus: keep it
 
-step Chillwind Camp
-  turnin 5223                         -- High Priestess MacDonnell
-  note MacDonnell's next task, Gahrron's Withering's cauldron, waits for the Silithus guide's Plaguelands leg: take it then.
-
 step Chromie
   turnin 4971                         -- Upstairs
   accept 4972
@@ -191,6 +187,8 @@ step Tirion Fordring
 
 step Chillwind Camp
   tip Ride south-west to the camp.
+  turnin 5223                         -- High Priestess MacDonnell
+  note MacDonnell's next task, Gahrron's Withering's cauldron, waits for the Silithus guide's Plaguelands leg: take it then.
   turnin 211 optional
   turnin 5537                         -- Alchemist Arbington
   accept 5538                         -- Krinkle Goodsteel in Gadgetzan: keep it
@@ -599,6 +597,7 @@ step Un'Goro Crater: kill these as you meet them
 step Krakle's Thermometer
   tip Ride east to Fire Plume Ridge, climb it and use Krakle's Thermometer at the lava vents near the top.
   interact 148503 quest 974.1         -- Fire Plume Ridge Hot Spot
+  collect 11829 quest 4502.1          -- Un'Goro Ash, from the fire elementals on the ridge
 
 step Krakle
   turnin 974
@@ -642,7 +641,7 @@ step Lakkari Tar Pits: kill these as you meet them
   collect 11834 quest 4504.1          -- Super Sticky Tar
 
 step The crater
-  tip Tar Beasts wallow in the Lakkari Tar Pits; the fire elementals of Fire Plume Ridge in the middle carry the ash; the Gorishi wasps of the Slithering Scar in the south carry the gland. Every creature in the crater can drop Un'Goro Soil.
+  tip The Gorishi wasps of the Slithering Scar in the south carry the gland. Every creature in the crater can drop Un'Goro Soil.
   tip Careful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd.
   collect 11837 quest 4496.1          -- Gorishi Scent Gland
 
@@ -706,7 +705,6 @@ step Torwa Pathfinder
 step The Marshlands: kill these as you meet them
   zone Un'Goro Crater
   collect 11018 quest 4496.2          -- Un'Goro Soil
-  collect 11829 quest 4502.1          -- Un'Goro Ash
 
 step The Gorishi hive
   tip West along the south of the crater: the Gorishi hive fills it. Use the Scraping Vial on a hatchery, a chamber with hanging larvae.

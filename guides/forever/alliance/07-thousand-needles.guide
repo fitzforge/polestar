@@ -57,14 +57,59 @@ step Calor
   turnin 221
   accept 222
 
+step Calor's unfinished hunt
+  label nightbane-before-crypt
+  when onquest 222
+  when !complete 222
+  note The Nightbane packs near Tranquil Gardens are level 29–31. Below 30, leave the hunt for later.
+
+step Calor
+  when complete 222
+  when !done nightbane-before-crypt
+  turnin 222                              -- Calor
+
+step Calor and Jonathan Carevin
+  when turnedin 222
+  when !turnedin 223
+  accept 223
+  turnin 223                              -- Jonathan Carevin, by Elaine Carevin's house; inside
+
 step The Insane Ghoul
-  tip The Insane Ghoul hides in the small crypt by the Tranquil Gardens Cemetery, south of Darkshire. Calor's Nightbane Vile Fangs and Tainted Ones (level 29-31) roam the woods around it: they come at the end of this guide, a level later.
+  tip The Insane Ghoul hides in the small crypt by the Tranquil Gardens Cemetery, south of Darkshire. Below level 30, leave Calor's worgen in the surrounding woods alone.
   collect 1946 quest 177                  -- Mary's Looking Glass; inside
+
+step Nightbane Vile Fangs and Tainted Ones
+  when level>=30
+  when onquest 222
+  when !complete 222
+  tip The strongest worgen roam the woods south of Darkshire, west and south of the Tranquil Gardens Cemetery.
+  tip Careful: Curse of Blood lasts 10 minutes and adds 13 to each hit of physical damage you take.
+  tip Careful: Some worgen outside the cave stand in groups, including one camp of four. To avoid adds, pull them one at a time from the raised ground next to the cave entrance.
+  tip Careful: Gutspill, a level 32 abomination, walks these woods: let it pass.
+  kill 206 quest 222                      -- Nightbane Vile Fang
+  kill 920 quest 222                      -- Nightbane Tainted One
 
 step Darkshire
   turnin 177                              -- Viktori Prism'Antras, inside
   accept 181
   vendor nearest
+
+step Calor's unfinished hunt
+  label nightbane-before-ogres
+  when onquest 222
+  when !complete 222
+  note Keep the unfinished hunt while you head west. Check your level when you return to Darkshire.
+
+step Calor
+  when complete 222
+  when !done nightbane-before-ogres
+  turnin 222                              -- Calor
+
+step Calor and Jonathan Carevin
+  when turnedin 222
+  when !turnedin 223
+  accept 223
+  turnin 223                              -- Jonathan Carevin, by Elaine Carevin's house; inside
 
 step Vul'Gol Ogre Mound: kill these as you meet them
   zone Duskwood
@@ -119,6 +164,9 @@ step Back to Darkshire
   accept 1245                             -- For Elling Trias in Stormwind, in the next guide
 
 step Nightbane Vile Fangs and Tainted Ones
+  when level>=30
+  when onquest 222
+  when !complete 222
   tip The strongest worgen roam the woods south of Darkshire, west and south of the Tranquil Gardens Cemetery.
   tip Careful: Curse of Blood lasts 10 minutes and adds 13 to each hit of physical damage you take.
   tip Careful: Some worgen outside the cave stand in groups, including one camp of four. To avoid adds, pull them one at a time from the raised ground next to the cave entrance.
@@ -126,8 +174,13 @@ step Nightbane Vile Fangs and Tainted Ones
   kill 206 quest 222                      -- Nightbane Vile Fang
   kill 920 quest 222                      -- Nightbane Tainted One
 
-step Calor and Jonathan Carevin
+step Calor
+  when complete 222
   turnin 222                              -- Calor
+
+step Calor and Jonathan Carevin
+  when turnedin 222
+  when !turnedin 223
   accept 223
   turnin 223                              -- Jonathan Carevin, by Elaine Carevin's house; inside
 

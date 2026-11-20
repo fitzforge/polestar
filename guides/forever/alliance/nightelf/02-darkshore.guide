@@ -170,8 +170,8 @@ step Bashal'Aran
 
 step Auberdine
   turnin 985                                  -- Terenthis
-  turnin 4813                                 -- Sentinel Glynda Nal'Shea
   turnin 2138                                 -- Tharnariun Treetender
+  turnin 4813                                 -- Sentinel Glynda Nal'Shea
   vendor nearest
   turnin 4728                                 -- Gwennyth Bly'Leggonde
 

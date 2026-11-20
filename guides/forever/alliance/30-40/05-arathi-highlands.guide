@@ -371,6 +371,12 @@ step Brewmeister Bilger
   zone Hillsbrad Foothills
   tip Off the flight, straight to the Southshore inn. Then Magistrate Henry Maleb and Loremaster Dibbs, in the town hall, take the Syndicate camp's quests and send you north to Strahnbrad.
   turnin 647                          -- Brewmeister Bilger, below ground
+
+step Phin Odelic
+  when complete 661
+  turnin 661                          -- Phin stands by the inn.
+
+step Southshore town hall
   turnin 505                          -- Magistrate Henry Maleb, inside
   turnin 510
   accept 512                          -- Magistrate Henry Maleb: the signet rings are in Strahnbrad

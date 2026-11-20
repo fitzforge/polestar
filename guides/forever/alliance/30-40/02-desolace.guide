@@ -116,6 +116,7 @@ step Kolkar Village
 # ---------------------------------------------------------------- Nijel's Point
 
 step Nijel's Point
+  tip Hearth to Nijel's Point if you are still bound there and the stone is ready. Otherwise follow the road north from Kolkar Village.
   turnin 1440                         -- Vahlarriel Demonslayer
   turnin 97284
   turnin 1387                         -- Corporal Melkins

@@ -2,6 +2,81 @@
 	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at?: { map, x, y, frame? }, label?, title?, when? } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge) and, with when (a condition or a list of them), holds every step of that walk for the players it names, after those. levels: { top } on at: { goal: \"levels\", guide } raises the guide's header top level to where players leave it. at: { quest, goal: accept | turnin | complete | objective | quest | collect, objective?, item?, guide? } (guide: that guide only). A collect anchor names quest and item and carries a goalNote. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
+			"id": "riverglades-first-eastsea-camp-at-42",
+			"faction": "Alliance",
+			"at": { "guide": "forever/alliance/40-50/01b-riverglades", "quest": 95119, "goal": "objective", "objective": 2 },
+			"when": "level>=42",
+			"note": "Eastsea Musketeers reach 43. Cash ready shore work on the docks below 42; do not cross the pirate cliffs for either the kills or the shared goods first.",
+			"source": { "kind": "questie", "ref": "Eastsea Musketeer 257910, levels 42–43; quest 95119 and Smuggled Goods 268796 in the same camp." }
+		},
+		{
+			"id": "riverglades-cinderscale-warriors-at-41",
+			"faction": "Alliance",
+			"at": { "guide": "forever/alliance/40-50/01b-riverglades", "quest": 95792, "goal": "objective", "objective": 2 },
+			"when": "level>=41",
+			"note": "Cinderscale Warriors reach 42. A player still below 41 can collect Dalton's ready reward, do the farm and river, then take up the hunt on returning from Turner's camp.",
+			"source": { "kind": "recording", "ref": "Followers on the Riverglades guide accepted or finished Gelinda's work before level 41." }
+		},
+		{
+			"id": "riverglades-draconia-guarded-by-warriors",
+			"faction": "Alliance",
+			"at": { "guide": "forever/alliance/40-50/01b-riverglades", "quest": 95934, "goal": "objective", "objective": 1 },
+			"when": "level>=41",
+			"note": "The Cubic Draconia sits at the back of the same hollow as the 41–42 warriors. A player already holding the sample can give it to Gelinda without waiting to hunt.",
+			"source": { "kind": "questie", "ref": "Cinderscale Warrior 262477 and quest 95934 in the Riverglades." }
+		},
+		{
+			"id": "riverglades-eastsea-second-wave-at-44",
+			"faction": "Alliance",
+			"at": { "guide": "forever/alliance/40-50/01b-riverglades", "quest": 95122, "goal": "objective", "objective": 1 },
+			"when": "level>=44",
+			"note": "The raiders reach 45. A player who skips the earlier written top-up must not be led to their camp below 44; a ready reward is payable at the port.",
+			"source": { "kind": "recording", "ref": "A solo 42 on Unchecked Expansion fought level-44 Bombardiers and level-45 Raiders." }
+		},
+		{
+			"id": "riverglades-lamora-at-44",
+			"faction": "Alliance",
+			"at": { "guide": "forever/alliance/40-50/01b-riverglades", "quest": 95124, "goal": "objective", "objective": 1 },
+			"when": "level>=44",
+			"note": "Captain Bentcoin and the ships lie beyond the second camp. Do not take that cliff approach or fight level-45 Lamora before 44.",
+			"source": { "kind": "questie", "ref": "Admiral Lamora 257861 and the Eastsea Raider camps on the Powderfuse cliffs." }
+		},
+		{
+			"id": "043-alliance-talrendis-honey",
+			"faction": "Alliance",
+			"at": {
+				"quest": 89013,
+				"goal": "objective",
+				"objective": 1
+			},
+			"when": "level>=48",
+			"tip": "Shoot a nest with Berdun's Pellet Gun, then loot the Honey Wasps for Wild Honey. Work north through the trees toward Eldarath, away from Valormok.",
+			"note": "Honey Wasps are level 47–49. Leave an externally finished batch payable at either visit, regardless of level.",
+			"source": {
+				"kind": "recording",
+				"ref": "Alliance characters looted Wild Honey from Honey Wasps 236028 in Azshara and handed five to Berdun."
+			},
+			"issue": 3144
+		},
+		{
+			"id": "ashenvale-stardust-at-23",
+			"faction": "Alliance",
+			"at": { "guide": "forever/alliance/06-ashenvale", "quest": 1034, "goal": "objective", "objective": 1 },
+			"when": "level>=23",
+			"note": "Wood Shapers reach 24 at the bushes. The coast has lower enemies. The seed keeps the same actual-level and carried-quest checks on the later western pass.",
+			"source": { "kind": "client", "ref": "The Ruins of Stardust: Shadethicket Raincaller (3783) and Wood Shaper (3781)." },
+			"issue": 3144
+		},
+		{
+			"id": "dolanaar-return-after-ursal",
+			"faction": "Alliance",
+			"at": { "guide": "forever/alliance/nightelf/01-teldrassil", "quest": 486, "goal": "turnin" },
+			"tip": "Hearth back to Dolanaar if it is still your home and your stone is ready. Otherwise take the road north-east from Ursal's den. Byancie needs a Refreshing Spring Water with the fronds and vial; Innkeeper Keldamyr sells it here.",
+			"note": "Use the binding made in Dolanaar on the way back, not to advance the level-12 Ursal fight.",
+			"source": { "kind": "client", "ref": "Ursal the Mauler (486) ends at Athridas Bearmantle in Dolanaar." },
+			"issue": 3144
+		},
+		{
 			"id": "043-alliance-sindall-carried-hunt",
 			"faction": "Alliance",
 			"at": {
@@ -6151,14 +6226,32 @@
 			]
 		},
 		{
+			"id": "desolace-alliance-kolkar-return-to-nijels",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1440,
+				"goal": "turnin",
+				"guide": "forever/alliance/30-40/02-desolace"
+			},
+			"tip": "Hearth to Nijel's Point if you are still bound there and the stone is ready. Otherwise follow the road north from Kolkar Village.",
+			"note": "The inn bound at arrival is beside the final rewards. Anyone with another bind or a cooling stone can still follow the road north.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "Nijel's Point innkeeper 11103 and Vahlarriel Demonslayer 5642"
+				}
+			]
+		},
+		{
 			"id": "ba3040-desolace-nijels-point-one-stop",
 			"faction": "Alliance",
 			"at": {
 				"quest": 93224,
-				"goal": "turnin"
+				"goal": "turnin",
+				"guide": "forever/alliance/30-40/06b-desolace"
 			},
-			"tip": "Follow the road north to Nijel's Point: Captain Pentigast stands at its south end, Kreldig Ungor in the middle, Brother Anton to the north.",
-			"note": "Review (0.3.6): the south loop's hand-ins at Nijel's Point are made on one stop at the end, in the order the road from Kormek's Hut meets them: Pentigast (66.7,10.9), Kreldig (66.2,9.6), Anton (66.5,7.9), then the flight master (64.7,10.4).",
+			"tip": "Hearth to Nijel's Point if you are still bound there and the stone is ready. Otherwise follow the road east from Ethel Rethor and up the pass. Hand in at Captain Pentigast, Kreldig Ungor and Brother Anton before the flight.",
+			"note": "The coast is the last field stop. Return to the inn or walk up the pass for the Nijel's Point hand-ins and flight.",
 			"source": [
 				{
 					"kind": "pfquest",
@@ -6632,48 +6725,6 @@
 			]
 		},
 		{
-			"id": "astranaar-pass-hand-ins-split",
-			"faction": "Alliance",
-			"at": {
-				"quest": 1034,
-				"goal": "turnin",
-				"guide": "forever/alliance/06-ashenvale"
-			},
-			"split": {
-				"title": "Astranaar",
-				"tip": "Back west along the road from Shael'dryn, Astranaar is on the way to Ilkrud: Pelturas Whitemoon is inside the building beyond the inn."
-			},
-			"note": "06-ashenvale: after Shael'dryn, the route walks back west through Astranaar to Ilkrud Magthrull with Pelturas Whitemoon's hand-in (1034) ready. It is cut off the last Astranaar stop (with the vendor) and handed in on that pass (astranaar-pass-hand-ins-step), before Ilkrud's camp; the last stop, needed for the flight to Auberdine, is Shindrell Swiftfire's (1008) alone: about 260 yd of town walking saved. 0.3.6 hand edit; since the 0.4.0 level tidy Raene's Foulweald and Dal Bloodclaw quests (1025, 1054) are on 06-wetlands' Ashenvale trip, so the pass follows Shael'dryn's step.",
-			"source": [
-				{
-					"kind": "questie",
-					"ref": "quests 1025, 1054 ender Raene Wolfrunner (3691); 1034 Pelturas Whitemoon (3894); 1008 Shindrell Swiftfire (3845)"
-				}
-			]
-		},
-		{
-			"id": "astranaar-pass-hand-ins-step",
-			"faction": "Alliance",
-			"at": {
-				"quest": 1034,
-				"goal": "turnin",
-				"guide": "forever/alliance/06-ashenvale"
-			},
-			"step": {
-				"after": {
-					"quest": 1024,
-					"goal": "turnin"
-				}
-			},
-			"note": "06-ashenvale: the Astranaar hand-in cut off the last stop (astranaar-pass-hand-ins-split) goes right after Shael'dryn's step, on the walk back west through Astranaar to Ilkrud Magthrull. 0.3.6 hand edit, re-anchored in the 0.4.0 level tidy.",
-			"source": [
-				{
-					"kind": "questie",
-					"ref": "quest 1024 ender Shael'dryn; 1034 ender Pelturas Whitemoon (3894)"
-				}
-			]
-		},
-		{
 			"id": "astranaar-last-stop-shindrell-tip",
 			"faction": "Alliance",
 			"at": {
@@ -6681,8 +6732,8 @@
 				"goal": "turnin",
 				"guide": "forever/alliance/06-ashenvale"
 			},
-			"tip": "Follow the road south-east from Maestra's Post back to Astranaar: Shindrell Swiftfire stands by the flight master.",
-			"note": "06-ashenvale: the last Astranaar stop is Shindrell Swiftfire's hand-in by the flight master alone; Raene's and Pelturas's hand-ins went in on the pass after Dal Bloodclaw (astranaar-pass-hand-ins-split). 0.3.6 hand edit.",
+			"tip": "Back in Astranaar, give Shindrell the heads by the flight master. If you are still on the coast, hearth to Astranaar if bound and ready, or take the road through Maestra's Post.",
+			"note": "From the coast, use the Astranaar binding made on entry only if it is still current and ready. Pay Pelturas and Shindrell on the visit before flying out.",
 			"source": [
 				{
 					"kind": "questie",
@@ -6699,8 +6750,9 @@
 				"objective": 1,
 				"guide": "forever/alliance/06-ashenvale"
 			},
-			"tip": "From Astranaar head south-west to the Fire Scar Shrine and go in from the east side: Ilkrud and his guards hold a hill inside it. Pull his guards first.",
-			"note": "06-ashenvale: Ilkrud Magthrull's step now follows the Astranaar hand-ins on the pass (astranaar-pass-hand-ins-split), so its tip leads on from Astranaar instead of telling players to leave the hand-ins for later. 0.3.6 hand edit. #2837: he stands in the Fire Scar Shrine, not the Ruins of Ordil'Aran.",
+			"when": "level>=23",
+			"tip": "Enter the Fire Scar Shrine from the east. Ilkrud is level 24. Pull his guards one at a time; if a guard is more than one level above you or you cannot separate them, leave the hill for your next Ashenvale visit.",
+			"note": "A level-22 player can take the Zoram shore instead. Only a player still carrying the unfinished tome quest returns to this hill on the Wetlands guide's western pass.",
 			"source": [
 				{
 					"kind": "questie",
@@ -12289,6 +12341,24 @@
 					"ref": "flow audit 07 reversals: Sven's Camp to Darkshire 1,746 yd on 28/28 runs"
 				}
 			]
+		},
+		{
+			"id": "duskwood-nightbane-hunt-from-30",
+			"faction": "Alliance",
+			"at": { "guide": "forever/alliance/07-thousand-needles", "quest": 222, "goal": "objective", "objective": 1 },
+			"when": "level>=30",
+			"note": "Hunt by Tranquil Gardens when already 30, or after the western circuit if it brings the player to 30. Both stops in the seed require the unfinished hunt. The Vile Fangs reach 30 and the Tainted Ones reach 31.",
+			"source": [{ "kind": "questie", "ref": "NPCs 206 and 920: level ranges 29-30 and 30-31." }],
+			"pr": 3144
+		},
+		{
+			"id": "duskwood-calor-ready-hunt",
+			"faction": "Alliance",
+			"at": { "guide": "forever/alliance/07-thousand-needles", "quest": 222, "goal": "turnin" },
+			"when": "complete 222",
+			"note": "On each Darkshire visit Calor pays a finished hunt at any level. The seed remembers a hunt still open as the player leaves town: finishing it later must not reopen that earlier stop. Calor's note for Jonathan Carevin is a separate step because paying for the hunt removes it from the log.",
+			"source": [{ "kind": "client", "ref": "222 ends at Calor (663); 223 requires 222 and ends at Jonathan Carevin (661)." }],
+			"pr": 3144
 		},
 		{
 			"id": "duskwood-return-gutspill-careful",
