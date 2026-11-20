@@ -2,7 +2,7 @@
 guide forever/alliance/50-60/04-western-plaguelands
 title Western & Eastern Plaguelands
 faction Alliance
-levels 56-58
+levels 55-57
 zone Western Plaguelands
 next forever/50-60/mount-hyjal
 
@@ -98,6 +98,7 @@ step Fly to Ironforge
 step Ironforge
   zone Ironforge
   tip Bubulo Acerbus and Mistina Steelshield each take sixty Wool, sixty Silk and sixty Mageweave, then sixty Runecloth: hand in what you carry (or buy at the Auction House), skip the rest.
+  accept 8275                         -- Cenarion Emissary Jademoon, by the flight master where you land: for Windcaller Proudhorn in Silithus, on the last guide; keep it
   turnin 3461                         -- Tymor, Mystic Ward
   turnin 4512                         -- Laris Geardawdle, Hall of Explorers
   note Laris' next task fills his jars in Un'Goro, behind the route now: skip it.
@@ -123,7 +124,6 @@ step Ironforge
 step Fly to Southshore
   zone Ironforge
   goto 55.9,47.9 "Ironforge flight master"
-  accept 8275                         -- Cenarion Emissary Jademoon, by the flight master: for Windcaller Proudhorn in Silithus, on the last guide; keep it
   fly "Southshore"
   zone Hillsbrad Foothills
 

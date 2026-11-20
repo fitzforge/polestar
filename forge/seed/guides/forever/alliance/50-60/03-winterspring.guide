@@ -2,7 +2,7 @@
 guide forever/alliance/50-60/03-winterspring
 title Tanaris, Un'Goro Crater, Felwood & Winterspring
 faction Alliance
-levels 54-57
+levels 53-55
 zone Winterspring
 next forever/alliance/50-60/04-western-plaguelands
 
@@ -357,12 +357,6 @@ step Fly to Astranaar
 
 # ---------------------------------------------------------------- Felwood
 
-step Arathandris Silversky
-  when turnedin 4101
-  zone Felwood
-  tip Ride north out of Astranaar into Felwood: Arathandris waits in the ruins just east of the road, before the Emerald Sanctuary.
-  accept 5882                         -- The Corrupted Soul Shards drop from the Shadow Council in Shadow Hold, on this visit
-
 step Felwood
   zone Felwood
   tip Ride north out of Astranaar into Felwood to the Emerald Sanctuary, the druids' camp by the road.
@@ -389,7 +383,7 @@ step Shadow Hold braziers
   interact 176158 quest 5165.1        -- Brazier of Pain, below ground
   interact 176161 quest 5165.4        -- Brazier of Hatred, below ground
   collect 13140                       -- Blood Red Key
-  collect 11515 x6 quest 5882.1       -- Corrupted Soul Shard, from the same cultists
+  collect 11515 x6 optional           -- Corrupted Soul Shard, from the same cultists: Arathandris takes six by the Sanctuary if you did Cleansing Felwood
   accept 5202
   turnin 5202                         -- Captured Arko'narin, in her cell; below ground
   accept 5203
@@ -406,9 +400,10 @@ step The Emerald Sanctuary
   accept 5204
 
 step Arathandris Silversky
-  when onquest 5882
-  tip Arathandris is in the ruins just down the road from the Sanctuary.
-  turnin 5882
+  when turnedin 4101
+  when has 11515 x6
+  tip Arathandris is in the ruins just down the road from the Sanctuary: he takes the six Corrupted Soul Shards on the spot.
+  turnin 5882 direct
 
 step Greta Mosshoof: A Final Blow
   when group 5242

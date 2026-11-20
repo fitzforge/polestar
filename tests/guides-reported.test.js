@@ -16576,7 +16576,8 @@ test('Alliance 50-60/04: the Dalson\'s Tears cauldron on the first pass, Return 
 	const camp = compiled('forever/alliance/50-60/04-western-plaguelands.guide').steps.slice(stones - 1, wpl[p('turnin', 5220)].s);
 	assert.ok(camp.every((st) => !st.goals.some((g) => ['fly', 'goto', 'hearth'].includes(g.t))), 'on the same camp stop: no travel in between');
 	assert.equal(wpl[p('accept', 5222)].s, wpl[p('turnin', 5220)].s, 'Target: Writhing Haunt taken there');
-	assert.ok(p('turnin', 5220) < p('turnin', 5097), 'before the watchtowers\' hand-in');
+	// (0.4.3 fix round: the watchtowers are handed in on the camp stop before Dalson's Tears, the sweep's second.)
+	assert.ok(p('turnin', 5097) < p('turnin', 5220), 'the watchtowers on the camp stop before');
 	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).deliberate.together;
 	assert.ok(rf.some((r) => r.a[0] === 'turnin' && r.a[1] === 5060 && r.b[0] === 'task' && r.b[1] === 5219), 'its record');
 	assert.ok(rf.some((r) => r.a[0] === 'turnin' && r.a[1] === 5403 && r.b[0] === 'turnin' && r.b[1] === 5220), 'and the hand-in\'s');
