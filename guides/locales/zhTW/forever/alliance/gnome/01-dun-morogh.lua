@@ -367,8 +367,9 @@ return {
 	["Snow Leopards and boars roam the snow between the ranch and the quarry. Blacksmiths: Copper Bars come from smelting {item:2770} or the trade vendors."] = "雪豹和野豬在牧場與採掘場之間的雪地上遊蕩。鐵匠：銅錠可以熔煉{item:2770}取得，或向商業用品商人購買。",
 
 	-- Step 72: Protecting the Herd
-	-- {npc:1388} Vagash · {zone:1432} Loch Modan
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {zone:1432} quests ahead make up the experience."] = "這些是精英怪：建議組隊，找人一起做。{npc:1388}是12級精英：請組隊挑戰。單人的話就跳過：前面{zone:1432}的任務能補回經驗。",
+	-- {npc:1388} Vagash · {area:38} Loch Modan
+	-- was: ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {zone:1432} quests ahead make up the experience."] = "這些是精英怪：建議組隊，找人一起做。{npc:1388}是12級精英：請組隊挑戰。單人的話就跳過：前面{zone:1432}的任務能補回經驗。"
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {area:38} quests ahead make up the experience."] = "",
 	["Below ground"] = "地下",
 
 	-- Step 73: Rudra Amberstill
@@ -376,16 +377,18 @@ return {
 	["On the road back west to {zone:1455}."] = "在回西邊{zone:1455}的路上。",
 
 	-- Step 76: South Gate Outpost
-	-- {area:806} South Gate Outpost · {zone:1432} Loch Modan
-	["Follow the road all the way east to the {area:806} at the {zone:1432} tunnel."] = "沿路一直向東，前往{zone:1432}隧道口的{area:806}。",
+	-- {area:806} South Gate Outpost · {area:38} Loch Modan
+	-- was: ["Follow the road all the way east to the {area:806} at the {zone:1432} tunnel."] = "沿路一直向東，前往{zone:1432}隧道口的{area:806}。"
+	["Follow the road all the way east to the {area:806} at the {area:38} tunnel."] = "",
 
 	-- Step 77: Bruegs Kindleborn
 	-- {npc:257597} Bruegs Kindleborn · {area:806} South Gate Outpost
 	["{npc:257597} waits in a cave above the farm north-west of the {area:806}; the path up starts behind the farm."] = "{npc:257597}在{area:806}西北方農場上方的洞穴裡等候；上山的小路從農場後方開始。",
 
 	-- Step 79: Braldir Ashmantle
-	-- {zone:1432} Loch Modan · {npc:257808} Braldir Ashmantle
-	["Go through the tunnel into {zone:1432}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "穿過隧道進入 {zone:1432}。剛出隧道，路右側就有一條以石塊標記的小徑，沿它向北上山，前往 {npc:257808} 的營地。",
+	-- {area:38} Loch Modan · {npc:257808} Braldir Ashmantle
+	-- was: ["Go through the tunnel into {zone:1432}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "穿過隧道進入 {zone:1432}。剛出隧道，路右側就有一條以石塊標記的小徑，沿它向北上山，前往 {npc:257808} 的營地。"
+	["Go through the tunnel into {area:38}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "",
 
 	-- Step 80: North Gate Outpost
 	-- {npc:1960} Pilot Hammerfoot · {area:808} North Gate Outpost
@@ -393,13 +396,14 @@ return {
 
 	-- Step 81: The tunnel post
 	["The tunnel post"] = "隧道崗哨",
-	-- {zone:1432} Loch Modan · {npc:1089} Mountaineer Cobbleflint · {npc:1092} Captain Rugelfuss
-	["East through the South Gate tunnel into {zone:1432}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "向東穿過南門隧道進入{zone:1432}。{npc:1089}和{npc:1092}站在剛出隧道的矮人哨所。",
+	-- {area:38} Loch Modan · {npc:1089} Mountaineer Cobbleflint · {npc:1092} Captain Rugelfuss
+	-- was: ["East through the South Gate tunnel into {zone:1432}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "向東穿過南門隧道進入{zone:1432}。{npc:1089}和{npc:1092}站在剛出隧道的矮人哨所。"
+	["East through the South Gate tunnel into {area:38}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "",
 
 	-- Step 82: Stonesplinter troggs
 	["Stonesplinter troggs"] = "碎石穴居人",
-	-- {area:923} Stonesplinter Valley
-	["North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth.\nCareful: Headsplitter, a level 15 trogg, walks {area:923} among the 11-12 troggs: work the camps at its north edge, near the post, and keep clear of him."] = "",
+	-- plural, as words: Stonesplinter Scouts = {npc:1162} Stonesplinter Scout
+	["North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth.\nCareful: pull the Stonesplinter Scouts and Troggs one at a time. Stay at the north edge of the valley; Headsplitter patrols the deeper camps."] = "",
 
 	-- Step 83: Back to the tunnel post
 	["Back to the tunnel post"] = "回到隧道崗哨",
@@ -549,7 +553,8 @@ return {
 	["Tram to {zone:1453}"] = "搭地鐵前往{zone:1453}",
 	-- {zone:1455} Ironforge · {area:2257} Deeprun Tram · {npc:12997} Monty · {item:17117} Rat Catcher's Flute · {npc:13018} Nipsy · {zone:1453} Stormwind
 	-- plural, as words: Deeprun Rats = {npc:13016} Deeprun Rat
-	["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end."] = "在{area:2257}的{zone:1455}站臺上，{npc:12997}請你幫忙處理老鼠：用他的{item:17117}對付站臺周圍的礦道老鼠，把它們交上去，然後把他的信帶給{zone:1453}那頭的兄弟{npc:13018}。",
+	-- was: ["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end."] = "在{area:2257}的{zone:1455}站臺上，{npc:12997}請你幫忙處理老鼠：用他的{item:17117}對付站臺周圍的礦道老鼠，把它們交上去，然後把他的信帶給{zone:1453}那頭的兄弟{npc:13018}。"
+	["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end. The tram has no map inside. The city markers show the entrances, not the two brothers."] = "",
 	-- {npc:12997} Monty · {zone:1455} Ironforge
 	["{npc:12997}, on the {zone:1455} platform"] = "{npc:12997}，在{zone:1455}站臺上",
 	-- {npc:13016} Deeprun Rat · {item:17117} Rat Catcher's Flute
@@ -563,65 +568,74 @@ return {
 	-- {npc:13018} Nipsy · {zone:1453} Stormwind
 	["{npc:13018}, on the {zone:1453} platform"] = "{npc:13018}，在{zone:1453}站臺上",
 
-	-- Step 108: Baros Alexston
+	-- Step 108: From the tram to Stormwind
+	-- {area:1519} Stormwind
+	["From the tram to {area:1519}"] = "",
+
+	-- Step 109: Baros Alexston
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:1646} Baros Alexston · {zone:1436} Westfall · {object:2096} Trade District
 	["From the {object:28027} south-west to {object:2098}: {npc:1646}'s compass is in his old house in {zone:1436}, on the way. The flight master and the {object:2096} are south of the square."] = "從{object:28027}往西南到{object:2098}：{npc:1646}的羅盤在{zone:1436}他的老房子裡，順路可取。飛行管理員和{object:2096}在廣場南邊。",
 
-	-- Step 109: Stormwind flight master
+	-- Step 110: Stormwind flight master
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "{zone:1453}飛行管理員",
 
-	-- Step 110: Woo Ping
+	-- Step 111: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Paladin fastest."] = "趁在這裡：向{npc:11867}學習{spell:202}（{object:2096}，10銀）；雙手武器讓聖騎士升級最快。",
 
-	-- Step 111: Woo Ping
+	-- Step 112: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "順便：在{npc:11867}處學習法杖（{object:2096}，10銀幣）；獵人的近戰武器主要看屬性，而雙手武器屬性最多。",
 
-	-- Step 112: Woo Ping
+	-- Step 113: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "順便：在{npc:11867}處學習劍（{object:2096}，10銀幣）；主手持劍能讓盜賊穩定升級。",
 
-	-- Step 113: Defensive Stance
+	-- Step 114: Defensive Stance
 	-- {npc:5480} Ilsa Corbin · {object:2100} Old Town · {zone:1455} Ironforge · {object:28027} Dwarven District · {npc:6089} Harry Burlguard · {npc:6090} Bartleby · {object:2152} Pig and Whistle Tavern · {quest:1638} A Warrior's Training · {quest:1639} Bartleby the Drunk
 	["{npc:5480} trains warriors in {object:2100}, near Osric's shop; the tram from {zone:1455} arrives in the {object:28027}, north of it. {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug. If {npc:5480} doesn't offer {quest:1638}, go straight to {npc:6089}: he gives {quest:1639} without it."] = "{npc:5480}在{object:2100}奧斯里克的商店附近訓練戰士；從{zone:1455}出發的地鐵抵達其北邊的{object:28027}。{npc:6089}和{npc:6090}一起站在那裡的{object:2152}旁。{npc:6090}會為了他的杯子和你打一架。如果{npc:5480}沒有提供{quest:1638}，就直接去找{npc:6089}：即使沒有該任務，他也會給你{quest:1639}。",
 
-	-- Step 114: Woo Ping
+	-- Step 115: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "趁在這裡：向{npc:11867}學習{spell:202}（{object:2096}，10銀）；雙手武器讓戰士升級最快。",
 
-	-- Step 115: Gakin the Darkbinder
+	-- Step 116: Gakin the Darkbinder
 	-- {npc:6122} Gakin the Darkbinder · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter
 	["{npc:6122} waits in the cellar of the {object:2164}, in the {object:2101}."] = "{npc:6122}在{object:2101}的{object:2164}地下室等候。",
 	-- {quest:1688} Surena Caledon · {zone:1436} Westfall
 	["{quest:1688}: her choker and The Binding are on {zone:1436}'s east-Elwynn loop"] = "{quest:1688}：她的項圈和「束縛」在{zone:1436}的艾爾文東部環線上",
 
-	-- Step 116: Woo Ping
+	-- Step 117: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Staves from {npc:11867} ({object:2096}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "順便：在{npc:11867}處學習法杖（{object:2096}，10銀幣）；升級期間，法杖的法術屬性比單手武器更多。",
 
-	-- Step 117: Jennea Cannon
+	-- Step 118: Jennea Cannon
 	-- {npc:5497} Jennea Cannon · {object:2101} Mage Quarter · {quest:1861} Mirror Lake
 	["{npc:5497} stands in the Wizard's Sanctum, the tower of the {object:2101}; she gives you a flask for the {quest:1861} waterfall."] = "{npc:5497}站在{object:2101}的法師塔裡；她會給你一個裝{quest:1861}瀑布水的瓶子。",
 
-	-- Step 118: Mirror Lake
+	-- Step 119: Mirror Lake
 	-- {zone:1453} Stormwind · {quest:1861} Mirror Lake · {zone:1436} Westfall · {item:7207} Jennea's Flask
 	["Leave {zone:1453} by the main gate. The {quest:1861} waterfall is south-west of the gates, on the way west to {zone:1436}: fill {item:7207} at its base."] = "從正門離開{zone:1453}。{quest:1861}瀑布在城門西南方，位於往西前往{zone:1436}的路上：在瀑布底部裝滿{item:7207}。",
 
-	-- Step 119: Goldshire
+	-- Step 120: Goldshire
 	-- {zone:1453} Stormwind · {area:87} Goldshire · {zone:1436} Westfall
 	["Leave {zone:1453} by the main gate and follow the road south to {area:87}: east Elwynn comes before {zone:1436}."] = "從正門離開{zone:1453}，沿道路往南到{area:87}：先到艾爾文森林東部，再進{zone:1436}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back through the tunnel to {npc:257597}' cave above the farm."] = "穿過隧道回到農場上方{npc:257597}的洞穴。",
+	-- ["East through the South Gate tunnel into {zone:1432}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "向東穿過南門隧道進入{zone:1432}。{npc:1089}和{npc:1092}站在剛出隧道的矮人哨所。",
+	-- ["Follow the road all the way east to the {area:806} at the {zone:1432} tunnel."] = "沿路一直向東，前往{zone:1432}隧道口的{area:806}。",
 	-- ["Follow the road up to {zone:1455} and train with your class trainer. The {area:2257} leaves from {object:171524}, in the east of the city. Ride it to {zone:1453}."] = "沿著道路上到{zone:1455}，向你的職業訓練師學習。{area:2257}從城市東邊的{object:171524}出發。搭乘它前往{zone:1453}。",
+	-- ["Go through the tunnel into {zone:1432}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "穿過隧道進入 {zone:1432}。剛出隧道，路右側就有一條以石塊標記的小徑，沿它向北上山，前往 {npc:257808} 的營地。",
 	-- ["Leave {zone:1453} by the main gate, go south to {area:87} and east along the road to the {area:62}. {npc:881} (level 9) stands by its farmhouse."] = "從正門離開{zone:1453}，向南前往{area:87}，再沿著道路向東前往{area:62}。{npc:881}（9級）站在農舍旁。",
 	-- ["Leper Gnomes around Brewnall and the {area:133} road carry the cogs and gears. Ice Claw Bears, Elder Crag Boars and Snow Leopards roam the hills around the lake."] = "烈酒村和{area:133}道路周圍的麻瘋地精身上帶著齒輪和零件。冰爪熊、老峭壁野豬和雪豹在湖周圍的山丘上遊蕩。",
 	-- ["Level 4 spells, before Gozwin's camp"] = "4級法術，在前往戈茲溫的營地之前學習",
+	-- ["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end."] = "在{area:2257}的{zone:1455}站臺上，{npc:12997}請你幫忙處理老鼠：用他的{item:17117}對付站臺周圍的礦道老鼠，把它們交上去，然後把他的信帶給{zone:1453}那頭的兄弟{npc:13018}。",
 	-- ["Stonesplinter Seers (level 13) stand among the troggs in the south of {area:923}, south of {npc:257808}; Tunnel Rat Geomancers (level 12) work the {area:149} at the north end of the loch. The troggs come in packs and some throw from range: pull one at a time."] = "碎石怪先知（13級）站在{npc:257808}營地南邊、{area:923}南部的穴居人之間；坑道鼠地卜師（12級）在湖北端的{area:149}工作。穴居人成群出現，有些會從遠處投擲：一次拉一隻。",
 	-- ["Subdue the voidwalker"] = "制服虛空行者",
 	-- ["The tram arrives in the {object:28027}. {npc:5480} trains warriors in {object:2100}; {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug."] = "地鐵抵達{object:28027}。{npc:5480}在{object:2100}訓練戰士；{npc:6089}和{npc:6090}一起站在那裡的{object:2152}旁。{npc:6090}會為了他的杯子和你打一架。",
+	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {zone:1432} quests ahead make up the experience."] = "這些是精英怪：建議組隊，找人一起做。{npc:1388}是12級精英：請組隊挑戰。單人的話就跳過：前面{zone:1432}的任務能補回經驗。",
 	-- ["{item:5026} and the {item:6652}"] = "{item:5026}和{item:6652}",
 	-- ["{npc:1226}: {npc:258785} in {zone:1455} takes it"] = "{npc:1226}：由{zone:1455}的{npc:258785}接收",
 	-- ["{npc:1241}, below ground: Camping 101, blacksmiths"] = "{npc:1241}，在地下：露營入門，鐵匠",

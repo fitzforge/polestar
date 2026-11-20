@@ -179,11 +179,11 @@ fn pack_release(args: &[String], root: &Path, data_dir: &Path) -> Result<(), sup
 		extras.push((e, src, m));
 	}
 	let shipped = |addons: &Path| {
-		let mut p = release_addons(addons);
+		let mut p = release_addons(addons)?;
 		p.names.retain(|n| !OWN_EXTRAS.iter().any(|e| e.folder == n.as_str()) || extras.iter().any(|(e, _, _)| e.folder == n.as_str()));
-		p
+		Ok::<_, String>(p)
 	};
-	let product = shipped(&addons);
+	let product = shipped(&addons)?;
 	// The Codex is part of Polestar (Lookup, Dungeons, Rares): built from release-safe inputs, or no release.
 	if let Some(why) = codex_refusal(&addons.join(CODEX)) {
 		return Err(format!("{CODEX} {why}").into());
@@ -268,7 +268,7 @@ fn pack_release(args: &[String], root: &Path, data_dir: &Path) -> Result<(), sup
 		forge_guide::project::write_pack_dir(&addons.join(e.folder), f)?;
 	}
 	// The folders again: the build writes our pack's parts (its faction parts, format 8) and the extras.
-	let product = shipped(&addons);
+	let product = shipped(&addons)?;
 	if let Some(why) = guide_notice_refusal(&addons, &product.names) {
 		return Err(why.into());
 	}

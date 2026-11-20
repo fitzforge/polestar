@@ -305,6 +305,7 @@ step Sentinel Shayla Nightbreeze
 step Darnassus
   zone Darnassus
   tip Into the city through the gate. Rellian Greenspyre is just south of the Cenarion Enclave at the north end, Sister Aquinne in the west, Priestess A'moora and Sentinel Dalia Sunblade in the Temple of the Moon at the south end. On the way back out, use Dalia's Lunar Pendant at the bank and at the city gate; the other two owls wait for your last visit.
+  enter "Darnassus" @89.14,34.76
   turnin 922                                  -- Rellian Greenspyre
   accept 923
   turnin 98391                                -- Sister Aquinne
@@ -508,6 +509,7 @@ step Sentinel Eralya Leafshadow
 step Into Darnassus
   only Warrior
   zone Darnassus
+  enter "Darnassus" @89.14,34.76
   accept 6344                                 -- Mydrannul, on the Craftsmen's Terrace just inside the city
 
 step Darnassus
@@ -528,6 +530,7 @@ step Vorlus Vilehoof
   only Warrior
   zone Teldrassil
   tip Back out of the city gate and east along the road: Vorlus Vilehoof stands south of it, by Ban'ethil Hollow. Bring his horn back to Elanaria.
+  goto 47.2,63.6 "East from the city gate to Ban'ethil Hollow"
   collect 6805 quest 1683.1 @47.2,63.6        -- Horn of Vorlus
 
 step Back to Darnassus
@@ -538,6 +541,7 @@ step Back to Darnassus
 step Darnassus
   zone Darnassus
   tip Follow the road west into Darnassus and use the Lunar Pendant at the inn on the Craftsmen's Terrace and at the tunnel mouth below Cenarion Hold for the last two owls. Mydrannul stands on the Craftsmen's Terrace just inside the city. Arch Druid Fandral Staghelm is in the Cenarion Enclave at the north end of the city, Rellian Greenspyre just south of it; Lariia, Tyrande Whisperwind, Priestess A'moora and Sentinel Dalia Sunblade are in the Temple of the Moon at the south end.
+  enter "Darnassus" @89.14,34.76 only !Warrior
   turnin 1683 only Warrior                    -- Elanaria, on the Warrior's Terrace: Defensive Stance
   accept 6344 only !Warrior                   -- Mydrannul
   use 279378 quest 98067.3 @66.46,15.35       -- Lunar Pendant: the inn on the Craftsmen's Terrace
@@ -683,6 +687,7 @@ step Moonglade
   zone Darkshore
   tip Cast Teleport: Moonglade. Dendrite Starblaze is in Nighthaven; the Great Bear Spirit sits in the woods to the north-west. Learn Moonglade's flight path from Sindrayl, south of the lake, for later trips. Then Silva Fil'naveth in Nighthaven flies Druids straight to Rut'theran Village from her gossip: hers is no flight path to learn. Dendrite stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.
   zone Moonglade
+  goto 56.3,32.5 "Cast Teleport: Moonglade"
   turnin 5921                                 -- Dendrite Starblaze
   accept 5929
   complete 5929 @39.1,27.5                    -- Speak with the Great Bear Spirit
@@ -708,6 +713,12 @@ step Back to Darnassus
   turnin 5931                                 -- Mathrengyl Bearwalker
   accept 6001
 
+step Rut'theran Village flight master
+  only Druid
+  zone Teldrassil
+  tip Take the portal down from Darnassus to the hippogryphs.
+  goto 58.4,93.9 "Rut'theran Village flight master"
+
 step The Moonkin Stone
   only Druid
   zone Darkshore
@@ -716,6 +727,11 @@ step The Moonkin Stone
   use 15208 @43.5,46.0                        -- Cenarion Moondust
   complete 6001
 
+step Auberdine flight master
+  only Druid
+  zone Darkshore
+  goto 36.4,45.6 "Auberdine flight master"
+
 step Body and Heart
   only Druid
   zone Darnassus
@@ -723,4 +739,10 @@ step Body and Heart
   fly "Rut'theran Village"
   goto 35.8,11.6 "Cenarion Enclave"
   turnin 6001                                 -- Mathrengyl Bearwalker: Bear Form
+
+step Back to Auberdine
+  only Druid
+  zone Teldrassil
+  tip Take the portal down to the hippogryphs at Rut'theran Village.
+  goto 58.4,93.9 "Rut'theran Village flight master"
   fly "Auberdine"

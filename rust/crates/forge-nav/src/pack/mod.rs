@@ -227,6 +227,8 @@ pub struct PackIn<'a> {
 	/// The fixed places (pack/reach.rs fixed_places): Leffe's maps keep only the ground a walk from one reaches.
 	/// None: all of it.
 	pub places: Option<&'a [reach::Place]>,
+	/// With the places: the ground no walk from one reaches is dropped in the capitals only (`--ground cities`).
+	pub ground_cities: bool,
 	/// Leffe's maps take our grid's ledge drops (pack/drops.rs) as one-way arcs.
 	pub ledges: bool,
 	/// The NPC and quest object spawns (pack/spawns.rs spawn_points): Leffe's maps carry the heights of those that
@@ -262,8 +264,22 @@ pub fn pack_nav(i: &PackIn) -> Result<Pack, String> {
 	let log = i.log;
 	let layers = layers::read_layers(i.layers)?;
 	let areas = layers::AreaTable::read(i.area_table)?;
+	// The lifts' rides with their waits (chokepoints::lift_rides), from the client's TransportAnimation.csv beside its
+	// AreaTable.csv; without it the router prices every ride alike.
+	let rides = std::fs::read_to_string(i.area_table.with_file_name("TransportAnimation.csv")).map(|s| chokepoints::lift_rides(&s)).unwrap_or_default();
+	if rides.is_empty() {
+		log("lifts: no TransportAnimation.csv beside AreaTable.csv: lift rides unpriced (the router's default)");
+	}
 	let zones = read_json(i.zones)?;
-	let frames = layers::Frames::new(&read_json(i.map_frames)?, zones.clone());
+	let map_frames = read_json(i.map_frames)?;
+	let frames = layers::Frames::new(&map_frames, zones.clone());
+	// The Undercity's world box (map-frames.json's live frame of uiMap 1458): continent, x and y ranges.
+	let undercity: Option<(u32, f64, f64, f64, f64)> = (|| {
+		let f = &map_frames["forever"]["1458"];
+		let n = |k: &str| f[k].as_f64();
+		let (top, bottom, left, right) = (n("top")?, n("bottom")?, n("left")?, n("right")?);
+		Some((f["c"].as_u64()? as u32, top.min(bottom), top.max(bottom), left.min(right), left.max(right)))
+	})();
 	let capitals = areas.capitals();
 	let city = |c: u32, x: f64, y: f64, area: u32| capitals.contains(&area) || capitals.contains(&frames.zone_area_at(c, x, y));
 	let zone_of = areas.zone_of(&zones);
@@ -397,7 +413,12 @@ pub fn pack_nav(i: &PackIn) -> Result<Pack, String> {
 				} else {
 					None
 				};
-				let extras = leffe::Extras { places: i.places, drops: drops.as_ref(), spawns: i.spawns };
+				// The Undercity stays whole (its uiMap frame, 1458): its floors are joined by lifts (the lift chokepoints,
+				// not his graph), so the walks from its fixed places miss floors players reach, and walks through it and
+				// the Ruins of Lordaeron over it were lost.
+				let in_city = |x: f64, y: f64| city(c, x, y, 0) && !undercity.is_some_and(|(uc, x0, x1, y0, y1)| uc == c && x >= x0 && x <= x1 && y >= y0 && y <= y1);
+				let only: Option<&(dyn Fn(f64, f64) -> bool + Sync)> = if i.ground_cities { Some(&in_city) } else { None };
+				let extras = leffe::Extras { places: i.places, only, drops: drops.as_ref(), spawns: i.spawns };
 				let hubs = i.layers.join("hubs.json");
 				let ways = joins::ways(i.grid, c, hubs.is_file().then_some(hubs.as_path()), log)?;
 				let (maps, used, s, j) = leffe::leffe_maps(dir, c, &cg, &extras, &ways, log)?;
@@ -454,7 +475,7 @@ pub fn pack_nav(i: &PackIn) -> Result<Pack, String> {
 			}
 		};
 		let lifts_c: Vec<Value> = lifts[c.to_string()].as_array().cloned().unwrap_or_default();
-		let chokes = chokepoints::chokepoints(&nav, c, &aids, &lifts_c, &frames, &areas);
+		let chokes = chokepoints::chokepoints(&nav, c, &aids, &lifts_c, &rides, &frames, &areas);
 		m.insert("chokepoints".into(), json!(chokes.len()));
 		by_map.push((c, chokes));
 		let part = leffe.and_then(|_| part_of(c));
@@ -628,6 +649,10 @@ fn toc_files(text: &str) -> Vec<String> {
 /// load order), Nav/Nav.xml, and each part addon's files and TOC beside it. Our files the pack has no more
 /// are removed (a part addon the pack no longer has loses its files and TOC). -> (written, removed)
 pub fn ship_pack(pack: &Pack, addon_dir: &Path) -> Result<(Vec<String>, Vec<String>), String> {
+	// A plain grid pack does not contain regional evidence. Never silently replace that layer in a shipped pack.
+	if std::fs::read(addon_dir.join(PACK_JSON)).ok().and_then(|b| serde_json::from_slice::<Value>(&b).ok()).is_some_and(|m| m.get("regions").is_some()) {
+		return Err("regional walking pack: bake the base grid to a separate --out folder; import derived maps with tools/lib/nav/import-regions.js".into());
+	}
 	let nav_dir = addon_dir.join("Nav");
 	let err = |p: &Path, e: std::io::Error| format!("{}: {e}", p.display());
 	std::fs::create_dir_all(&nav_dir).map_err(|e| err(&nav_dir, e))?;
@@ -689,6 +714,8 @@ pub fn ship_pack(pack: &Pack, addon_dir: &Path) -> Result<(Vec<String>, Vec<Stri
 	Ok((written, removed))
 }
 
+mod regions;
+
 /// What differs between an addon folder (and its part addons beside it) and its PACK.json: changed, missing and
 /// unlisted files of ours, a Nav.xml that is not nav_xml's, a part TOC not loading its listed parts in order.
 /// Empty when it matches.
@@ -704,9 +731,16 @@ pub fn check_pack(addon_dir: &Path) -> Vec<String> {
 	let Some(listed) = manifest["files"].as_object() else { return vec![format!("{} lacks files", file.display())] };
 	let mut problems = Vec::new();
 	let parent = addon_dir.parent().unwrap_or(Path::new("."));
+	let regions = regions::check(addon_dir, &manifest, listed, &mut problems);
 	for (rel, want) in listed {
 		let (dir, name) = rel.split_once('/').unwrap_or(("", ""));
-		let ours = if dir == "Nav" { own_file(name) } else { PARTS.iter().any(|p| p.1 == dir) && own_part_file(name) };
+		let ours = if dir == "Nav" {
+			own_file(name)
+		} else if regions.contains(dir) {
+			name == "Pages.lua"
+		} else {
+			PARTS.iter().any(|p| p.1 == dir) && own_part_file(name)
+		};
 		if !ours {
 			problems.push(format!("{rel} in PACK.json is not a packed file"));
 			continue;
@@ -725,7 +759,7 @@ pub fn check_pack(addon_dir: &Path) -> Vec<String> {
 	let mut names: Vec<String> = std::fs::read_dir(&nav_dir).into_iter().flatten().filter_map(|e| e.ok()?.file_name().into_string().ok()).collect();
 	names.sort();
 	for name in names {
-		if own_file(&name) && !listed.contains_key(&format!("Nav/{name}")) {
+		if (own_file(&name) || name == "TerminalGround.lua") && !listed.contains_key(&format!("Nav/{name}")) {
 			problems.push(format!("Nav/{name} is not listed in PACK.json"));
 		}
 	}
@@ -735,7 +769,7 @@ pub fn check_pack(addon_dir: &Path) -> Vec<String> {
 		let mut names: Vec<String> = std::fs::read_dir(&dir).into_iter().flatten().filter_map(|e| e.ok()?.file_name().into_string().ok()).collect();
 		names.sort();
 		for name in names {
-			if own_part_file(&name) && !want.contains(&name) {
+			if (own_part_file(&name) || name == "TerminalGround.lua") && !want.contains(&name) {
 				problems.push(format!("{part}/{name} is not listed in PACK.json"));
 			}
 		}

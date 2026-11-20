@@ -1649,6 +1649,26 @@ end
 "#;
 
 #[test]
+fn shared_collect_target_tile_counts_down_and_greys_out_when_paid_for() {
+	let out = run(&format!(
+		r#"{COMPACT}
+		set("targetListStyle", "column")
+		local function stock(n)
+			q.step({{ {{ t = "collect", item = 950, itemName = "Candle", quest = 7, oi = 1,
+				progress = {{ cur = n, max = 6, kind = "shared" }},
+				fromNpcs = {{ {{ npc = 257, npcName = "Kobold Worker" }} }} }} }})
+			local r = B.rows[1]
+			r:GetScript("OnEnter")(r)
+			emit({{ r.Count:GetText(), GameTooltip.lines[2], done(1) }})
+			r:GetScript("OnLeave")(r)
+		end
+		stock(3); stock(6)
+	"#
+	));
+	assert_eq!(out, vec![json!(["3", "Candle · 3/6", [false, false]]), json!(["", "Candle · 6/6", [true, true]])]);
+}
+
+#[test]
 fn target_list_style_full_is_the_default_and_unchanged() {
 	let out = run(&format!(
 		r#"{COMPACT}

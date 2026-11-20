@@ -208,6 +208,7 @@ step Master Mathias Shaw
   only Rogue
   zone Stormwind City
   tip Head north through Elwynn to Stormwind; Mathias Shaw is at SI:7 in Old Town.
+  enter "Stormwind City" @69.5,85.5
   turnin 2359 reward 18160                    -- Master Mathias Shaw: Poisons, and Recipe: Thistle Tea
   accept 2607 optional                        -- The Touch of Zanzil: Doc Mixilpixil, in the cellar of the Barracks
   turnin 2607 optional
