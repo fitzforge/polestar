@@ -493,6 +493,18 @@
 			],
 			"note": "The server lists one Glowing Gem as both supplied and required. In #3043 the quest log showed no item counter at the moonwell."
 		},
+		"98071": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "use-item",
+					"item": { "id": 279390, "name": "Case of Fallrook Varietal" },
+					"fact": "In Dun Garok, use the Case of Fallrook Varietal by the fire on the lowest floor. Pick up the Sack of Homebrew Hops between the stairs and take it back to Brewmeister Bilger.",
+					"confidence": "high"
+				}
+			],
+			"note": "The report in #3054 places the wine by the fire and the sack between the stairs. Two people recorded both counters, one in each order: the delivery is not a prerequisite for the hops."
+		},
 		"1154": {
 			"steps": [
 				{
