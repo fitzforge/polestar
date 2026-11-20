@@ -13,7 +13,9 @@ pitch For characters of 29 to 31: the Battle of Hillsbrad, Tarren Mill's errands
 # Added here: The Swarm Grows (1145, 1146), and from the 22-25 Hillsbrad guide Battle of Hillsbrad
 # (529), Dangerous! (567), Elixir of Agony (509, 513); Soothing Turtle Bisque (7321, Christoph
 # Jeffcoat in Tarren Mill: the Snapjaws (29) of the river south of Tarren Mill drop the meat, and he
-# sells the spices).
+# sells the spices); Souvenirs of Death (546, Deathguard Samsa in Tarren Mill, 2026-11-20: its
+# thirty skulls drop from the Hillsbrad townsfolk and miners this guide kills anyway at 29-30, instead
+# of the 22-25 guide's skull step in the fields, where players died among the Peasants' adds).
 # Left out: Regthar Deathgate (1361), To Steal From Thieves (1164), Helcular's Revenge's second part
 # (553), Elixir of Agony's alchemy part (515, 517, 524), Scout Support and Valuable Vantages (98094,
 # 98095: the western vial goes on the Alterac peak among Ferocious Yetis 31-32 and Mountain Lions
@@ -40,11 +42,12 @@ pitch For characters of 29 to 31: the Battle of Hillsbrad, Tarren Mill's errands
 # Battle of Hillsbrad 529 (the smithy), Dangerous! (567, from the poster) and Lydon's Elixir of
 # Agony (509, the Mudsnout blossoms; 513 goes to Faranell on the Undercity stop at the end).
 #
-# Flow: Freewind Post (where the previous guide ends) -> fly to the Crossroads (Korran) ->
+# Flow: Camp Taurajo (where the previous guide ends, 2026-11-20) -> fly to the Crossroads (Korran) ->
 # Orgrimmar (Belgrom, training) -> zeppelin to the Undercity -> fly to Tarren Mill -> south along the
 # river (Snapjaws) to the Mudsnout blossoms -> north-east of Southshore and west to Hillsbrad's
 # smithy -> Tarren Mill (Darthalia, Lydon) -> the yeti caves and the town hall -> Tarren Mill -> the
-# Azurelode Mine -> Tarren Mill -> fly to the
+# Azurelode Mine -> Tarren Mill (every hand-in first, then, short of 30, a top-up on the river's
+# Snapjaws just east of the town: a grind comes after the ready hand-ins, #1431) -> fly to the
 # Undercity (Faranell, training), where the next guide takes the Orgrimmar zeppelin.
 #
 # Catch-up (#1660): a character who skipped forever/horde/06-hillsbrad-foothills arrives without
@@ -65,7 +68,7 @@ pitch For characters of 29 to 31: the Battle of Hillsbrad, Tarren Mill's errands
 # and Heart of Disruption (96984: after Blood in the Streets, 92434, on the 38-39 visit).
 #
 # Class quests and training:
-# - Druids train in Thunder Bluff on the flight from Freewind Post; Paladins with Garen Largo in
+# - Druids trained in Thunder Bluff at the end of the previous guide; Paladins with Garen Largo in
 #   the Undercity; everyone else in Orgrimmar. At about 31, the Undercity at the end of the
 #   guide trains Warriors, Paladins, Rogues, Priests, Mages and Warlocks; Hunters, Shamans and
 #   Druids train at the start of the next guide.
@@ -78,36 +81,22 @@ pitch For characters of 29 to 31: the Battle of Hillsbrad, Tarren Mill's errands
 #
 # Skyborne: Exploring the Horde (93739) is handed to Thrall on the Orgrimmar stop, optional.
 #
-# Hearthstone: it stays bound at Freewind Post (forever/horde/07-ashenvale's bind); this guide sets none.
+# Hearthstone: this guide sets none and uses none.
 # The next guide leaves the Undercity by zeppelin for Orgrimmar.
 
 # ---------------------------------------------------------------- To Orgrimmar
 
-step Freewind Post flight master
-  zone Thousand Needles
-  goto 45.0,49.1 "Freewind Post flight master"
-
-step Thunder Bluff
-  only Druid
-  zone Thunder Bluff
-  tip Fly from Freewind Post to Thunder Bluff and train with Turak Runetotem on Elder Rise; fly on to the Crossroads from there.
-  fly "Thunder Bluff"
-  train class
+step Camp Taurajo flight master
+  zone The Barrens
+  goto 44.4,59.1 "Camp Taurajo flight master"
 
 step Ratchet
   only Shaman
   zone The Barrens
-  tip Fly from Freewind Post to Ratchet. Islen Waterseer camps on the coast a short walk south of the town; fly on to the Crossroads from Ratchet.
+  tip Fly from Camp Taurajo to Ratchet. Islen Waterseer camps on the coast a short walk south of the town; fly on to the Crossroads from Ratchet.
   fly "Ratchet"
   turnin 220 reward 6637              -- Islen Waterseer: your Water Sapta, for the brazier
   accept 63
-
-step Fly to the Crossroads
-  only Druid
-  zone Thunder Bluff
-  goto 46.7,49.9 "Thunder Bluff flight master"
-  fly "Crossroads"
-  zone The Barrens
 
 step Fly to the Crossroads
   only Shaman
@@ -116,10 +105,9 @@ step Fly to the Crossroads
   fly "Crossroads"
 
 step Fly to the Crossroads
-  only Warrior,Hunter,Rogue,Priest,Paladin,Mage,Warlock
-  zone Thousand Needles
-  fly "Crossroads"
+  only !Shaman
   zone The Barrens
+  fly "Crossroads"
 
 step Korran
   zone The Barrens
@@ -305,6 +293,7 @@ step Tarren Mill
   turnin 509                          -- Apothecary Lydon, inside
   accept 513                          -- for Master Apothecary Faranell, on the Undercity stop at the end of this guide
   accept 552                          -- Novice Thaivand, in the town: Helcular's Rod, from the yetis on the way to the town hall
+  accept 546                          -- Deathguard Samsa, beside Christoph Jeffcoat: Hillsbrad Human Skulls, from the townsfolk and miners this guide fights next
 
 # ---------------------------------------------------------------- The yeti caves and the town hall
 
@@ -315,7 +304,7 @@ step Helcular's Rod
 
 step Town hall
   zone Hillsbrad Foothills
-  tip On to Hillsbrad town, south-west of the yeti caves. The town hall is on the town's west side: Magistrate Burnside (30) and Clerk Horrace Whitesteed are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town.
+  tip On to Hillsbrad town, south-west of the yeti caves. The town hall is on the town's west side: Magistrate Burnside (30) and Clerk Horrace Whitesteed are inside with the Town Registry; the Proclamation is pinned up beside it. Councilmen walk the town. Every Hillsbrad human you kill from here on can drop a skull for Samsa: keep them.
   kill 2387 quest 532.2
   interact 1761 quest 532.3           -- Hillsbrad Proclamation, inside
   collect 3657 quest 532.4            -- Inside
@@ -344,17 +333,11 @@ step Hillsbrad Foothills
 
 step Azurelode Mine
   zone Hillsbrad Foothills
-  tip Head south-west past Hillsbrad town to the Azurelode Mine. Miners work the tunnels; Foreman Bonds (30) and Miner Hackett (29) are deep inside.
+  tip Head south-west past Hillsbrad town to the Azurelode Mine. Miners (26-27) work the tunnels; Foreman Bonds (30) and Miner Hackett (29) are deep inside. Keep killing Miners until Samsa's thirty skulls are in your bags: most Hillsbrad humans drop one.
   kill 2269 quest 539.2
   kill 2450 quest 567.3
   kill 2305 quest 539.1               -- Inside Azurelode Mine
-
-step Level 30
-  when level<30
-  zone Hillsbrad Foothills
-  tip Magus Wordeen Voidglare's quests on the next Tarren Mill stop and Alliance Relations in Orgrimmar, the next guide's first stop, are offered from level 30. Short of 30? The Torn Fin Muckdwellers and Coastrunners (28-30) crowd the coast south of the Azurelode Mine, a short walk: kill them until level 30. Their Oracles (30-31) cast from the shore further east. Or, with a group, run the Excavation Site dungeon (in the Wetlands) instead.
-  goto 29.5,71.5 map 1424 "Torn Fin murlocs"
-  level 30 grind 2375                 -- grind on Torn Fin Coastrunner
+  collect 3692 quest 546.1            -- Hillsbrad Human Skull, from the Miners and every Hillsbrad human
 
 step Finish the Turtle Meat
   when onquest 7321
@@ -369,8 +352,16 @@ step Tarren Mill
   turnin 7321                         -- Christoph Jeffcoat
   turnin 539                          -- High Executor Darthalia: her next Battle of Hillsbrad, and Deathguard Humbert's sword, are elite group quests at Dun Garok: take them only with a group
   turnin 567
+  turnin 546                          -- Deathguard Samsa
   accept 533                          -- Krusk, inside: Infiltration, worked on the 38-39 visit (its Syndicate are 32-35)
   note Keep Infiltration in your log: its Syndicate (32-35) are over you now, and the 38-39 guide (Alterac and Arathi) works it on its first Tarren Mill loop.
+
+step Level 30
+  when level<30
+  zone Hillsbrad Foothills
+  tip Magus Wordeen Voidglare's quests in the inn and Alliance Relations in Orgrimmar, the next guide's first stop, are offered from level 30. Still short of 30 after these hand-ins? The Snapjaws (29-31) line the river just east and south of Tarren Mill: kill them until level 30, then walk back into town. Or, with a group, run the Excavation Site dungeon (in the Wetlands) instead.
+  goto 68.0,24.0 map 1424 "Snapjaws"
+  level 30 grind 2408                 -- grind on Snapjaw
 
 step Voidglare, Bel'varil and Tallow
   when level>=30

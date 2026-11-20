@@ -7005,8 +7005,7 @@ test('flight path sweep (#972): travel tips name only flights the player can tak
 		['horde/07-ashenvale', 'turnin 1534', /Fly from Thunder Bluff/],
 		['horde/40-50/06-azshara', 'turnin 2932', /Valormok/],
 		['horde/40-50/02-feralas', 'Alodan the Hopeful (Paladins).', /from Gadgetzan/],
-		// (Since the Horde 30-40 re-order the Druids fly from Freewind Post, Orgrimmar and Shadowprey Village straight to Thunder Bluff.)
-		['horde/30-40/01-hillsbrad-foothills', 'only Druid\n  zone Thunder Bluff\n  tip Fly from', /from Orgrimmar|from Shadowprey/],
+		// (Since the Horde 30-40 re-order the Druids fly from Orgrimmar and Shadowprey Village straight to Thunder Bluff.)
 		['horde/30-40/03-stranglethorn-vale', 'only Druid\n  zone Thunder Bluff\n  tip Fly from', /from Orgrimmar/],
 		['horde/50-60/05-eastern-plaguelands', 'train class only Druid,Paladin', /Fly to the Undercity/],
 	];
@@ -9002,15 +9001,16 @@ test('forever/alliance/30-40/06-badlands.guide: final review: Rigglefuzz on the 
 // skipped their level-30 training; Druids at 32 flew Orgrimmar -> Thunder Bluff -> Orgrimmar; the Undercity shopping
 // note and the Shamans' Sepulcher trip came after the flight to Tarren Mill.
 test('forever/horde/30-40/01-hillsbrad-foothills.guide: final review: training in the cities the walk passes', { skip }, () => {
-	// Since the Horde 30-40 re-order the Druids train in Thunder Bluff on the flight from Freewind Post (30) and from
-	// Orgrimmar to Freewind Post (32-33), the Paladins with Garen Largo in the Undercity on the way to Tarren Mill (30)
-	// and on the way back from Arathi (32-33).
+	// Since the Horde 30-40 re-order the Druids train in Thunder Bluff on the flight from Orgrimmar to Freewind Post
+	// (32-33; since 2026-11-20 their training at 28 is on forever/horde/07-ashenvale's Thunder Bluff stop, so 30-40/01,
+	// which starts at Camp Taurajo at 29, has none), the Paladins with Garen Largo in the Undercity on the way to
+	// Tarren Mill (30) and on the way back from Arathi (32-33).
 	const list = goals('forever/horde/30-40/01-hillsbrad-foothills.guide');
 	const flies = (l, dest) => l.findIndex(({ goal }) => goal.t === 'fly' && JSON.stringify(goal).includes(dest));
 	const trains = (l) => l.map((e, i) => (e.goal.t === 'train' ? i : -1)).filter((i) => i >= 0);
 	const tm = (l) => flies(l, 'Tarren Mill');
 	const dru = list.filter(forClass('DRUID'));
-	assert.ok(flies(dru, 'Thunder Bluff') >= 0 && flies(dru, 'Thunder Bluff') < trains(dru)[0] && trains(dru)[0] < flies(dru, 'Crossroads'), 'Druids: Thunder Bluff on the flight from Freewind Post to the Crossroads');
+	assert.ok(flies(dru, 'Thunder Bluff') < 0, 'Druids: no Thunder Bluff detour at 29, between two training levels');
 	const pal = list.filter(forClass('PALADIN'));
 	assert.ok(trains(pal)[0] < tm(pal), 'Paladins: Garen Largo before the flight to Tarren Mill');
 	assert.equal(pal.filter(({ goal }) => goal.t === 'fly' && JSON.stringify(goal).includes('Tarren Mill')).length, 1, 'Paladins: one flight to Tarren Mill');
@@ -10786,8 +10786,8 @@ test('Alliance Hillsbrad 30-32: the Ironforge steps are not titled after the tra
 test('Horde Hillsbrad 30-32: the level 30 and 31 top-ups say why, and the first offers a dungeon at its level', { skip }, () => {
 	data = data || loadData(DATA);
 	const guide = 'forever/horde/30-40/01-hillsbrad-foothills.guide';
-	// Horde 0.4.0 audit (round 2): one top-up to 30 after the Azurelode Mine, right before the last Tarren Mill stop, so
-	// Voidglare's quests there and Alliance Relations in the next guide's Orgrimmar (both offered from 30) are open.
+	// Horde 0.4.0 audit (round 2): one top-up to 30 near the last Tarren Mill stop (since 2026-11-20 after its hand-ins, on
+	// the river's Snapjaws, 29-31), so Voidglare's quests there and Alliance Relations in the next guide's Orgrimmar (both offered from 30) are open.
 	const tops = goals(guide).filter(({ goal }) => goal.t === 'level');
 	assert.deepEqual(tops.map(({ goal }) => goal.level), [30], 'one top-up in Hillsbrad, to 30');
 	const tip = [tops[0].step.note, tops[0].step.tip].flat().filter(Boolean).join(' ');
@@ -12078,12 +12078,14 @@ test('Horde 30-40 audit: Badlands slabs beside Agmond\'s End, Lotwil on the way 
 
 // Mokii's report (#1431): Dustwallow's level 37.5 grind on the far Mirefin coast came before the Brackenwall hand-ins
 // the player already had ready. A written grind comes after the ready hand-ins it would otherwise hold back (the same
-// in Thousand Needles' raceway and Stranglethorn's two Grom'gol stops).
+// in Thousand Needles' raceway and Stranglethorn's two Grom'gol stops, and since 2026-11-20 Hillsbrad's level 30
+// top-up, which came before the last Tarren Mill stop's four hand-ins).
 test("Mokii's report (#1431): Horde 30-40 grinds come after the ready hand-ins", { skip }, () => {
 	for (const [guide, level, after] of [
 		['forever/horde/30-40/04-dustwallow-marsh.guide', 36, [1177, 1202, 1239]],
 		['forever/horde/30-40/02-thousand-needles.guide', 32, [1110, 1104, 1105]],
 		['forever/horde/30-40/03-stranglethorn-vale.guide', 35, [568]],
+		['forever/horde/30-40/01-hillsbrad-foothills.guide', 30, [7321, 539, 567, 546]],
 	]) {
 		const list = goals(guide);
 		const grind = at(list, `${guide}: level ${level}`, (g) => g.t === 'level' && g.level + (g.frac || 0) === level);

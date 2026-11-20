@@ -11289,6 +11289,15 @@
 				"issue": "-"
 			},
 			{
+				"q": 546,
+				"after": [
+					"accept",
+					552
+				],
+				"reason": "Horde 30-40 (2026-11-20), agreed with the 1-30 slice: Souvenirs of Death (level 25, from 20, 2,550 XP) from Deathguard Samsa in Tarren Mill wants thirty Hillsbrad Human Skulls, which drop (80%) from every Hillsbrad human. 30-40/01 kills them anyway at 29-30 (the town hall's Councilmen, Magistrate and Clerk, the Azurelode Mine's Miners, Foreman and Hackett), so it is taken on the Tarren Mill stop after the smithy (after the catch-up for Battle of Hillsbrad, its prerequisite), finished on the Miners and handed in on the last stop with Darthalia's. On the 22-25 guide's skull step among the Peasants of the fields players died (19 followers in players' recordings).",
+				"issue": "-"
+			},
+			{
 				"q": 4289,
 				"after": [
 					"accept",

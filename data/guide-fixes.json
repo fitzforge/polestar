@@ -5658,6 +5658,24 @@
 			]
 		},
 		{
+			"id": "h3040-hillsbrad-souvenirs-on-the-miners",
+			"faction": "Horde",
+			"at": {
+				"quest": 546,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/30-40/01-hillsbrad-foothills"
+			},
+			"tip": "Keep killing Miners until Samsa's thirty skulls are in your bags: most Hillsbrad humans drop one.",
+			"note": "Hillsbrad Human Skulls (3692) drop at 80% from every Hillsbrad human; 30-40/01 takes Souvenirs of Death after the smithy and kills the town hall's and the Azurelode Mine's humans (Miners 2269, 26-27, 24 spawns) anyway, and the mine is the last of them before the Tarren Mill hand-in.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "items.json 3692 drops; npcs.json 2269 spawns on map 1424"
+				}
+			]
+		},
+		{
 			"id": "horde-3040-hillsbrad-syndicate-levels",
 			"faction": "Horde",
 			"at": {
