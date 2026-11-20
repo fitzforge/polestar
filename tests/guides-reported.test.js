@@ -6565,7 +6565,10 @@ test('Riverglades (Alliance 0.4.3): early visitors are warned at the first step 
 	const tips = (i) => [].concat(list[i].step.note || []).join(' ');
 	assert.match(tips(at(list, 'accept 95147', is('accept', 95147))), /written for levels 41-45[^"]*Western Front[^"]*Enforcers \(45\)/, 'the first step says who the guide is for');
 	const riftan = at(list, 'turnin 94886', is('turnin', 94886));
-	const warn = list.findIndex(({ step }) => (step.when || []).some((p) => p.k === 'level' && p.op === '<' && p.n === 44 && !p.frac));
+	// Fix round 2026-11-20: the port's top-up now also stops at 44 (`when level<44`), earlier in the guide; the Western
+	// Front warning is the last such step before Sergeant Riftan.
+	const below44 = ({ step }) => (step.when || []).some((p) => p.k === 'level' && p.op === '<' && p.n === 44 && !p.frac);
+	const warn = list.slice(0, riftan).findLastIndex(below44);
 	assert.ok(warn >= 0 && warn < riftan, 'a step below level 44 before Sergeant Riftan');
 	assert.match(tips(warn), /Careful:[^"]*Champions are 43-44[^"]*Enforcers \(elites, 45\)[^"]*Kilgar \(46, elite\)/, 'it names the camps and elites');
 	assert.ok(list[riftan].s - list[warn].s <= 1, 'right before the camp');
@@ -8647,17 +8650,18 @@ test('forever/alliance/40-50/01-stranglethorn-vale.guide: flow re-order: Raptor 
 
 // Flow review (2026-11-07): Alliance Stranglethorn 40-50 flew in to Darkshire 60 yards from Watchmaster Sorigal with
 // Vital Supplies and carried it to the next guide, whose Darkshire stop then took the Crate of Power Stones about
-// thirty steps before Nethergarde Keep: the crate lasts an hour.
-test('forever/alliance/40-50: flow re-order: Vital Supplies handed in at Darkshire on the way into the swamp, the crate taken on the way to Nethergarde', { skip }, () => {
+// thirty steps before Nethergarde Keep: the crate lasts an hour. Fix round 2026-11-20: the swamp leg now ends at
+// Nethergarde from 40-50/01 and the Hinterlands guide no longer goes to the Blasted Lands, so the crate is never taken
+// at all (route-fixes skip); the report's point holds: no timed crate far from the keep.
+test('forever/alliance/40-50: flow re-order: Vital Supplies handed in at Darkshire on the way into the swamp, no Crate of Power Stones far from Nethergarde', { skip }, () => {
 	const stv = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
 	const s = (list, t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
 	assert.ok(s(stv, 'turnin', 1477) < s(stv, 'accept', 1398), 'handed to Sorigal before Watcher Biggs');
 	const hin = goals('forever/alliance/40-50/05-the-hinterlands.guide');
 	assert.ok(!hin.some(({ goal }) => is('turnin', 1477)(goal)), 'not carried into the next guide');
-	const accept = s(hin, 'accept', 1395);
-	// Since the 0.4.0 audit (B26) Darnassus closes the Tanaris guide, before the Hinterlands guide.
-	assert.ok(goals('forever/alliance/40-50/04-tanaris.guide').some(({ goal }) => is('turnin', 3763)(goal)), 'Darnassus before this guide');
-	assert.ok(s(hin, 'turnin', 1395) - accept <= 4, 'the crate straight to Nethergarde Keep');
+	for (const [name, list] of [['01', stv], ['05', hin]]) assert.ok(!list.some(({ goal }) => is('accept', 1395)(goal)), `${name}: the hour-long crate is not taken`);
+	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides;
+	assert.ok(rf.skip.some((e) => e.q === 1395 && e.faction === 'Alliance'), 'a route-fix skip says why');
 });
 
 // Flow review (2026-11-07): Alliance Feralas went back to Feathermoon after the southern mainland loop, then took the
@@ -11343,12 +11347,16 @@ test('Level sweep: accepts below their minimum level are moved or gated', { skip
 	assert.equal(step(hin, 'accept', 348), step(hin, 'turnin', 2874), 'Stranglethorn Fever on the level-48 Booty Bay stop');
 	assert.equal(step(stv, 'accept', 2872), step(stv, 'turnin', 606), "Stoley's Debt on the Booty Bay stop after the gorilla hills");
 	const ungoro = goals('forever/alliance/40-50/07-un-goro-crater.guide');
+	// Fix round 2026-11-20: Cenarion Aid (8254) and Magecraft (8250), minimum 50, are taken on the Burning Steppes guide's
+	// opening Ironforge stop, which 07 now hands over to; 07 still brings Priests and Mages to 50 before it ends, so
+	// the accept is never offered below its minimum (the fix holds, one guide on).
 	const gate = ungoro.findIndex(({ goal }) => goal.t === 'level' && goal.level >= 50 && /priest/i.test(JSON.stringify(goal.only)));
-	assert.ok(gate >= 0 && gate < at(ungoro, 'accept 8254', is('accept', 8254)), "Priests reach 50 in Un'Goro before Cenarion Aid");
+	assert.ok(gate >= 0, "Priests reach 50 in Un'Goro before the next guide's Cenarion Aid");
 	// #1485's class-chain sweep: Magecraft (8250, Dink, Mages only, minimum 50) is on the same Ironforge stop, reached
 	// at 49.79 by Human, Gnome and Skyborne Mages; the level-up in Azshara would have sent them back to Ironforge.
 	const mages = ungoro.findIndex(({ goal }) => goal.t === 'level' && goal.level >= 50 && /mage/i.test(JSON.stringify(goal.only)));
-	assert.ok(mages >= 0 && mages < at(ungoro, 'accept 8250', is('accept', 8250)), "Mages reach 50 in Un'Goro before Magecraft");
+	assert.ok(mages >= 0, "Mages reach 50 in Un'Goro before the next guide's Magecraft");
+	assert.ok(!ungoro.some(({ goal }) => goal.t === 'accept' && (goal.quest === 8254 || goal.quest === 8250)), 'the class quests are not taken in Un\'Goro');
 	// Fix round 2 (0.4.0): Dwarf and Gnome Priests no longer wait in Kharanos for level 10 for Maxan Anvol's letters
 	// (5637, 94824): they take their trainers' own copies (5639 Rohan, 94817 Mims) and hand them straight back on the
 	// Ironforge Mystic Ward stop, reached past level 13, so no accept is offered below its minimum level.
@@ -13714,7 +13722,7 @@ test('Dustwallow Marsh (Alliance 40): Mudrock Soup and Bugs handed in with Stink
 // to Thelsamar and before Menethil, the boat and Auberdine to Astranaar. Those are now handed in and taken on the Searing
 // Gorge guide's Ironforge stop, and only Priests and Mages (Cenarion Aid 8254, Magecraft 8250: level 50) still go back;
 // everyone else flies from Marshal's Refuge to Astranaar and trains on the next guide's Ironforge stop.
-test('Searing Gorge and Un\'Goro (Alliance 49-50): the Ironforge quests on the first Ironforge stop, a flight to Astranaar after Un\'Goro', { skip }, () => {
+test('Searing Gorge and Un\'Goro (Alliance 49-50): the Ironforge quests on the first Ironforge stop, Un\'Goro ends in the crater', { skip }, () => {
 	const sg = goals('forever/alliance/40-50/06-searing-gorge.guide');
 	const flyIF = at(sg, 'fly to Ironforge', (g) => g.t === 'fly' && g.location === 'Ironforge');
 	for (const [t, q] of [['turnin', 3368], ['accept', 3448], ['accept', 4512], ['turnin', 3448], ['accept', 3449], ['turnin', 3451]]) {
@@ -13722,13 +13730,15 @@ test('Searing Gorge and Un\'Goro (Alliance 49-50): the Ironforge quests on the f
 	}
 	const ug = goals('forever/alliance/40-50/07-un-goro-crater.guide');
 	assert.ok(!ug.some(({ goal }) => [3368, 3448, 3449, 3450, 3451, 4512].includes(goal.quest)), 'none left for Un\'Goro');
-	const warrior = ug.filter(forClass('WARRIOR'));
-	const astra = warrior.findIndex(({ goal }) => goal.t === 'fly' && goal.location === 'Astranaar');
-	const refuge = warrior.findIndex(({ goal }) => goal.t === 'turnin' && goal.quest === 4321);
-	assert.ok(astra > refuge, 'Warriors fly to Astranaar after the refuge');
-	assert.ok(!warrior.slice(refuge, astra).some(({ goal }) => ['fly', 'hearth'].includes(goal.t) || goal.text === 'Stoutlager Inn'), 'with no hearth or Ironforge trip before it');
-	const priest = ug.filter(forClass('PRIEST'));
-	assert.ok(priest.some(({ goal }) => goal.t === 'accept' && goal.quest === 8254) && priest.some(({ goal }) => goal.t === 'train'), 'Priests still go to Ironforge for Cenarion Aid and train');
+	// Fix round 2026-11-20: the Burning Steppes guide now opens with the hearth to Ironforge, where Priests and Mages take
+	// Cenarion Aid and Magecraft and everyone trains, so Un'Goro ends at the refuge for every class: still no Ironforge
+	// trip of its own, and nothing taken there that the next guide's Ironforge stop does.
+	for (const cls of ['WARRIOR', 'PRIEST', 'MAGE']) {
+		const list = ug.filter(forClass(cls));
+		const refuge = list.findLastIndex(({ goal }) => goal.t === 'turnin' && goal.map === 1449);
+		assert.ok(refuge >= 0, `${cls}: the crater's hand-ins are in the guide`);
+		assert.ok(!list.slice(refuge).some(({ goal }) => ['fly', 'hearth', 'train'].includes(goal.t) || goal.quest === 8254 || goal.quest === 8250), `${cls}: no flight, hearth, training or class pickup after the crater's last hand-in`);
+	}
 	const bs = goals('forever/alliance/50-60/01-burning-steppes.guide').filter(forClass('WARRIOR'));
 	const train = bs.findIndex(({ goal }) => goal.t === 'train');
 	assert.ok(train > bs.findIndex(({ goal }) => goal.t === 'fly' && goal.location === 'Ironforge'), 'Warriors train on the Burning Steppes guide\'s Ironforge stop');

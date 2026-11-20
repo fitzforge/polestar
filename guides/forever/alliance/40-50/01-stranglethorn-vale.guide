@@ -283,7 +283,7 @@ step Bloodsail pirates: kill these as you meet them
   collect 3897 quest 576 @28.0,70.5 map 1434 -- Dizzy's Eye
 
 step Gorilla hills
-  tip From the Bloodsail camp, ride up into the Mistvale hills just east of it: the Elder Mistvale Gorillas (40) there drop the giblets.
+  tip From the Bloodsail camp, climb into the Mistvale hills just east of it: the Elder Mistvale Gorillas (40) there drop the giblets.
   collect 3919 quest 606              -- Mistvale Giblets
 
 step Booty Bay
