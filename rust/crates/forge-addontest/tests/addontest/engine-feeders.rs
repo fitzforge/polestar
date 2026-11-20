@@ -443,6 +443,16 @@ fn t_1353_joe_fresh_at_24_in_the_barrens_and_stonetalon_mountains_gets_a_clean_g
 }
 
 #[test]
+fn a_routed_flight_to_chillwind_keeps_its_arrival_feeder() {
+	let out = shipped("Alliance", "Human", "WARRIOR", 53, "", "", "forever/alliance/50-60/03-winterspring");
+	assert!(!ids(&out["hidden"]).contains(&5097), "the cauldron pickup at the arrival camp stays in the guide: {out}");
+	let feeders = lines(&out["feeders"]);
+	for goal in ["accept:5092", "turnin:5092"] {
+		assert!(feeders.iter().any(|step| step.split_whitespace().any(|g| g == goal)), "{goal} at Chillwind: {feeders:?}");
+	}
+}
+
+#[test]
 fn t_1353_malifax_and_a_player_who_did_the_route_on_the_shipped_ashenvale() {
 	let out = shipped("Horde", "Tauren", "PALADIN", 26, MALIFAX_DONE, "6382", "forever/horde/07-ashenvale");
 	println!("{}", serde_json::to_string_pretty(&out).unwrap());

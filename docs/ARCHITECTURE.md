@@ -2503,11 +2503,9 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   zones, and, done before the first accept it opens, it costs at most 5
   minutes (`Own.feedCost`: a straight-run detour there and back from the
   nearest place the guide and the feeder steps already in go before that
-  accept, plus 90 s per objective). `Own.feedGaps` assigns those source
-  steps in order. A missing map distance cannot place one at the start of
-  the guide; a goal outside its insertion zone needs a measured detour
-  within the same limit. Every other such accept is left out with all of
-  its quest's goals, and a step left with no
+  accept, plus 90 s per objective); its source steps, with its goals only,
+  go after the guide's nearest step before that accept. Every other such
+  accept is left out with all of its quest's goals, and a step left with no
   quest goal goes (`Own.rebuilt`: a new guide table in the registry,
   `Guides.Replace`, with `feeders`, `hidden`, `fromBase`, baked legs kept
   where the way in is unchanged). A missing quest no guide leading here
@@ -2520,6 +2518,10 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   go in leaves the guide as it is. Nothing shows in
   the guide window; the report names the planned steps (`[feeder from <id>
   step N]`) and the quests left out (`[hidden: needs <quest> from <guide>]`).
+  `Own.feedGaps` checks each insertion in source order against both ends of
+  the route leg. A flight can bring the player to a feeder at its destination.
+  A goal on neither map needs a measured detour within the same time limit;
+  an unknown distance never justifies inserting it at the start of the guide.
   `checkShape` carries saved check-offs and skips to the new step numbers; a
   feeder step the player skips keeps its quests out of later plans
   (`CharState().feedSkips`). A giver's window that offers the quest (this

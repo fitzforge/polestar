@@ -1886,10 +1886,14 @@ function Own.feedGaps(pointAt, placedAt, steps, U)
 			end
 		end
 		st.gap = last
-		local anchor = pointAt[math.max(1, last)]
+		-- A travel step may start at the flight master and end at the next
+		-- step's camp. Either end of that routed leg can serve the feeder.
+		local anchor, after = pointAt[math.max(1, last)], pointAt[math.min(last + 1, U)]
 		for _, goal in ipairs(st.goals) do
-			if goal.map and goal.x and goal.y and (not anchor or goal.map ~= anchor.map) then
+			if goal.map and goal.x and goal.y and (not anchor or goal.map ~= anchor.map) and (not after or goal.map ~= after.map) then
 				local d = anchor and ns.DirectTravelCost(goal, anchor)
+				local arrival = after and ns.DirectTravelCost(goal, after)
+				if arrival and (not d or arrival < d) then d = arrival end
 				if not d or 2 * d > Own.FEED_LOCAL then return false end
 			end
 		end
