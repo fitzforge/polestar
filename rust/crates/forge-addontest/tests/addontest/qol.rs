@@ -397,7 +397,10 @@ fn target_button_kill_targets_and_questdb_droppers_preferred_name_first_each_cli
 		emit({ t:GetAttribute("macrotext") or "nil", t:IsShown() })
 	"#);
 	assert_eq!(out[0], "/cleartarget [nocombat][dead]\n/targetexact Kobold Vermin\n/cleartarget [dead]");
-	assert_eq!(out[1], json!(["macro", "/cleartarget [nocombat][dead]\n/targetexact Kobold Vermin\n/cleartarget [dead]\n/targetexact [noexists] Kobold Laborer\n/cleartarget [dead]", "Kobold Vermin"]));
+	assert_eq!(
+		out[1],
+		json!(["macro", "/cleartarget [nocombat][dead]\n/targetexact Kobold Vermin\n/cleartarget [dead]\n/targetexact [noexists] Kobold Laborer\n/cleartarget [dead]", "Kobold Vermin"])
+	);
 	assert_eq!(out[2], out[1][1]);
 	assert_eq!(out[3], json!(["/cleartarget [nocombat][dead]\n/targetexact Kobold Laborer\n/cleartarget [dead]\n/targetexact [noexists] Kobold Vermin\n/cleartarget [dead]", "Kobold Laborer"]));
 	assert_eq!(out[4], out[3][0], "no macro change in combat");
@@ -2149,7 +2152,11 @@ fn target_button_names_the_step_s_npc_goals_when_it_has_no_mob_the_arrow_s_goal_
 	);
 	assert_eq!(
 		out[0],
-		json!(["/cleartarget [nocombat][dead]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/targetexact [noexists] Deputy Willem\n/cleartarget [dead]", ["Marshal Dughan", "Deputy Willem"], true])
+		json!([
+			"/cleartarget [nocombat][dead]\n/targetexact Marshal Dughan\n/cleartarget [dead]\n/targetexact [noexists] Deputy Willem\n/cleartarget [dead]",
+			["Marshal Dughan", "Deputy Willem"],
+			true
+		])
 	);
 	assert_eq!(out[1], json!([["Deputy Willem", "Marshal Dughan"], "Deputy Willem"]), "the arrow's goal first");
 	assert_eq!(out[2], json!(["Kobold Vermin"]));
@@ -2491,12 +2498,18 @@ fn step_key_while_you_re_here_mobs_before_the_step_s_npc_beyond_the_radius_after
 	assert_eq!(out[0], json!(["Sven Yorgen", "/cleartarget [nocombat][dead]\n/targetexact Sven Yorgen\n/cleartarget [dead]\n/ping [@target]"]), "no rows: the NPC keeps the key, pinged");
 	assert_eq!(
 		out[1],
-		json!(["Skeletal Fiend, Sven Yorgen", "/cleartarget [nocombat][dead]\n/targetexact Skeletal Fiend\n/cleartarget [dead]\n/targetexact [noexists] Sven Yorgen\n/cleartarget [dead]\n/ping [@target]"]),
+		json!([
+			"Skeletal Fiend, Sven Yorgen",
+			"/cleartarget [nocombat][dead]\n/targetexact Skeletal Fiend\n/cleartarget [dead]\n/targetexact [noexists] Sven Yorgen\n/cleartarget [dead]\n/ping [@target]"
+		]),
 		"200 yd: the row's mob first, pinged"
 	);
 	assert_eq!(
 		out[2],
-		json!(["Sven Yorgen, Skeletal Fiend", "/cleartarget [nocombat][dead]\n/targetexact Sven Yorgen\n/cleartarget [dead]\n/targetexact [noexists] Skeletal Fiend\n/cleartarget [dead]\n/ping [@target]"]),
+		json!([
+			"Sven Yorgen, Skeletal Fiend",
+			"/cleartarget [nocombat][dead]\n/targetexact Sven Yorgen\n/cleartarget [dead]\n/targetexact [noexists] Skeletal Fiend\n/cleartarget [dead]\n/ping [@target]"
+		]),
 		"100 yd: Sven first, pinged too"
 	);
 	assert_eq!(out[3], "Skeletal Fiend, Sven Yorgen", "210 yd: the mob first again");
