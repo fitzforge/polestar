@@ -11460,6 +11460,12 @@
 		],
 		"skip": [
 			{
+				"q": 1395,
+				"faction": "Alliance",
+				"reason": "Fix round 2026-11-20 (Alliance 40-50): Supplies for Nethergarde's Crate of Power Stones lasts an hour from Watchmaster Sorigal in Darkshire. 40-50/01 now closes the swamp's quests at Nethergarde Keep at about 41, with the whole swamp between Darkshire and the keep, and 40-50/05 no longer rides Darkshire -> Deadwind Pass -> the swamp -> the Blasted Lands only for it, Thadius Grimshade (2990) and the bloodmage accepts (those two moved to the Burning Steppes guide's Nethergarde and bloodmage stops). No Darkshire stop is left before a Nethergarde visit; 2,900 XP left out instead of a 15-20 minute leg.",
+				"issue": "-"
+			},
+			{
 				"q": 4061,
 				"faction": "Horde",
 				"reason": "Horde 50-60 level tidy (0.4.0): The Rise of the Machines' War Reavers are 53-55 among the Thaurissan dwarves (7 spawns 53+, a recorded death) at the route's only Burning Steppes pass (model 52-53): 3 levels over at a dangerous spot, and no later Burning Steppes visit on the Horde route. Offered to the team (no later band passes the Steppes).",

@@ -296,7 +296,7 @@ one guide for both factions.
 | 21 | **Shen'dralas** | 45 to 46 |
 | 22 | Feralas | 45 to 47 |
 | 23 | Tanaris | 46 to 48 |
-| 24 | The Hinterlands & Blasted Lands | 47 to 48 |
+| 24 | The Hinterlands & Stranglethorn Vale | 47 to 48 |
 | 25 | Searing Gorge | 48 to 49 |
 | 26 | Un'Goro Crater | 49 to 50 |
 | 27 | Azshara, Western Plaguelands & Burning Steppes | 50 to 53 |
