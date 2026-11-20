@@ -12,7 +12,7 @@ return {
 
 	-- Step 1: Back from Mount Hyjal
 	-- {zone:2482} Mount Hyjal
-	["Back from {zone:2482}"] = "",
+	["Back from {zone:2482}"] = "{zone:2482}에서 돌아와서",
 	-- {zone:2482} Mount Hyjal · {area:2255} Everlook · {area:541} Marshal's Refuge · {zone:1451} Silithus · {area:3425} Cenarion Hold
 	["Back from {zone:2482}: fly from {area:2255} to {area:541}, then ride south-west through Un'Goro to the pass into {zone:1451}. {area:3425} stands in the middle of the desert, west of where the pass comes out."] = "",
 	["Yugrek, the Horde flight master"] = "",
