@@ -26,7 +26,7 @@ step Orgrimmar
 #
 # Toxic Horrors and Winterfall Runners (5086, 5087) end the Winterfall
 # Firewater chain from 03-winterspring (taken since 0.3.7). Optional here:
-# Runecloth (6031), which Meilosh takes only at Neutral with the Timbermaw.
+# Runecloth (6031), which Meilosh gives and takes only from Friendly with the Timbermaw (quest data: 3,000).
 #
 # Flow: the Undercity -> zeppelin to Orgrimmar (cloth donations) -> fly to
 # Splintertree Post -> ride north into Felwood: the Emerald Sanctuary (Greta,
@@ -165,14 +165,16 @@ step Salfa
 
 step Meilosh
   when complete 6031
+  when rep "Timbermaw Hold" Friendly
   zone Felwood
   tip With 30 Runecloth in your bags: follow the road north to Timbermaw Hold; Meilosh trades just inside the entrance.
   turnin 6031                         -- Below ground
 
 step Kernda
   when onquest 8470
+  when rep "Timbermaw Hold" Neutral
   zone Felwood
-  tip The Deadwood totem from Felpaw Village, if Kernda didn't take it then: she waits at the tunnel mouth of Timbermaw Hold and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of Felwood brought you to.
+  tip The Deadwood totem from Felpaw Village, if you are Neutral with the Timbermaw now (the Timbermaw Hold reputation guide gets you there): Kernda waits at the tunnel mouth of Timbermaw Hold.
   turnin 8470                         -- Kernda walks around here: look inside the circle on the map
 
 step Witch Doctor Mau'ari

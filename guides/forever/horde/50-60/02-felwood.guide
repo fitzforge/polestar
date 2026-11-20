@@ -330,9 +330,10 @@ step Irontree Woods
 step Irontree Woods
   collect 11503 quest 4102            -- Below ground
 
-step Felpaw Village
-  tip The Deadwood furbolg village just west of the tunnel. Chieftain Bloodmaw (56) stands among them. Meilosh, a friendly furbolg, sits at the north end of the village.
-  accept 6031 optional                -- Meilosh: keep 30 Runecloth for him; he trades only at Neutral with the Timbermaw; below ground
+step Meilosh
+  when rep "Timbermaw Hold" Friendly
+  tip Only from Friendly with the Timbermaw: Meilosh, in the tunnel near its Felwood mouth, gives Runecloth then (the Timbermaw Hold reputation guide gets you there).
+  accept 6031 optional                -- Meilosh: keep 30 Runecloth for him; below ground
 
 step Nafien
   tip The road ends at Nafien, outside the Timbermaw Hold tunnel in the far north-east.
@@ -341,7 +342,7 @@ step Nafien
 
 step Felpaw Village
   tip Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.
-  tip Keep killing them until one drops a Deadwood Ritual Totem, about one kill in thirty, then right-click it: Kernda in Timbermaw Hold takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59.
+  tip Keep killing them until one drops a Deadwood Ritual Totem, about one kill in thirty, then right-click it. Kernda in Timbermaw Hold takes it only from Neutral with the Timbermaw (the Timbermaw Hold reputation guide gets you there): now if they already are, or on the last guide's pass of the cave.
   kill 7156 quest 8461.1
   kill 7157 quest 8461.2
   kill 7158 quest 8461.3
@@ -355,5 +356,7 @@ step Nafien
   note Keep Speak to Salfa for Winterspring.
 
 step Timbermaw Hold
-  tip Step into the cave: Kernda stands just inside.
-  turnin 8470 optional                -- Kernda: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map
+  when onquest 8470
+  when rep "Timbermaw Hold" Neutral
+  tip Step into the cave: Kernda stands just inside. She speaks to you only from Neutral with the Timbermaw.
+  turnin 8470 optional                -- Kernda walks around here: look inside the circle on the map

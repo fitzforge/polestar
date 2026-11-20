@@ -585,7 +585,8 @@ step Deadwood Cauldron
 
 step Kernda
   when onquest 8471
-  tip Only if a Winterfall Ritual Totem dropped for you: Kernda waits at the Felwood entrance of Timbermaw Hold, and speaks to you only at Neutral with the Timbermaw.
+  when rep "Timbermaw Hold" Neutral
+  tip Only if a Winterfall Ritual Totem dropped for you and you are Neutral with the Timbermaw (the Timbermaw Hold reputation guide gets you there): Kernda waits at the Felwood entrance of Timbermaw Hold.
   turnin 8471 optional                -- Kernda walks around here: look inside the circle on the map
 
 step Moonglade
