@@ -11566,7 +11566,7 @@ test('Level sweep: accepts below their minimum level are moved or gated', { skip
 	const all = headers();
 	// Since 0.4.0 the Riverglades come before Feralas, and every start enters Tanaris at 48.91 (it was 45.96).
 	assert.ok(all['forever/horde/40-50/04-tanaris'].min <= 48, 'Tanaris starts at 48: every start enters it at 48.91');
-	assert.ok(all['forever/horde/02-the-barrens'].min <= 14, 'the Barrens start at 14: Orc and Troll Rogues, Mages and Priests enter them at 13.99');
+	assert.ok(all['forever/horde/02-the-barrens'].min <= 14, 'the Barrens start at 14: the level sweep found Orc and Troll Rogues, Mages and Priests entering at 13.99 (the 2026-11-20 level model has the earliest branch at 14.66; the header keeps the floor)');
 });
 
 test('Bear Form approaches follow completed visits without dropping carried work (#2306)', async (t) => {

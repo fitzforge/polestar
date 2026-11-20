@@ -806,5 +806,5 @@ step Rezlak
 
 step To Orgrimmar
   zone Orgrimmar
-  tip From the Crossroads follow the road north-east to Far Watch Post, cross the Southfury River into Durotar and keep north to Orgrimmar's main gate. The next guide starts in Orgrimmar: Thrall takes Welcome to Azeroth, and the zeppelin leaves for Tirisfal Glades and Silverpine Forest.
+  tip From Rezlak's camp, ride on to Orgrimmar's main gate, a few hundred yards away. The next guide starts in Orgrimmar: Thrall takes Welcome to Azeroth, and the zeppelin leaves for Tirisfal Glades and Silverpine Forest.
   goto 55.6,72.3 "Orgrimmar's main gate"
