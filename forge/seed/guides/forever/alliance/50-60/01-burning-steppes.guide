@@ -261,7 +261,7 @@ step Blasted Lands: kill these as you meet them
   zone Blasted Lands
   tip Ride back south into the Blasted Lands for the bloodmages' beasts: Starving Snickerfangs roam the dry hills south of the bloodmages' camp, Scorpok Stingers scuttle across the middle of the north and Black Slayer vultures circle over all of it. Ashmane Boars and Redstone Basilisks share the slopes south-west of the keep.
   tip Careful: two elites roam here: Calefactus the Unleashed (50) in the middle of the zone around 44,34, and Vek'zol (55) on the ridge around 39,32. When you see one, hunt somewhere else.
-  tip Careful: Clack the Reaver (53, a rare scorpid) walks the north around 47,36, Akubar the Seer (54, rare) the middle around 45,48, and a Snickerfang Matriarch (60) dens at about 54,43: give them room.
+  tip Careful: Clack the Reaver (53, a rare scorpid) walks the north around 47,36, Akubar the Seer (54, rare) the middle around 45,48, and Snickerfang Matriarchs (60) roam the ground east of here, between Kum'isha's hill and the Serpent's Coil (about 54-62, 31-47): give them room.
   tip Any mob here may drop a Flawless Draenethyst Sphere: keep it for Kum'isha.
   collect 8244 optional               -- Flawless Draenethyst Sphere, a rare drop
   collect 8396 quest 2585
@@ -298,7 +298,8 @@ step Kum'isha the Collector
   turnin 2521
 
 step Sergeant Danneth
-  tip Ride east from Kum'isha's hill to the mouth of the Serpent's Coil caverns, south-east of Nethergarde Keep: Danneth hides just inside.
+  tip Ride east from Kum'isha's hill to the mouth of the Serpent's Coil caverns, due south of Nethergarde Keep: Danneth hides just inside.
+  tip Careful: Snickerfang Matriarchs (60) roam the ground between Kum'isha's hill and the caverns: watch for them on the ride and go round them, there and back.
   tip Careful: Shadowsworn Cultists, Thugs and Adepts (51-52) guard the caves, and the deeper chambers hold Kirith the Damned (55, elite) and Archmage Allistarj (58, elite): stay near the mouth, pull one at a time, and lead Danneth straight out.
   turnin 96798 @66.73,31.67 map 1419
   accept 96811

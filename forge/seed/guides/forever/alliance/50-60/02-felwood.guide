@@ -318,5 +318,5 @@ step Gregan Brewspewer
 
 step Feralas
   zone Feralas
-  tip Ride east along the road to Thalanaar, on the Thousand Needles border.
-  goto 89.5,45.9 "Thalanaar"
+  tip Ride east along the road to Thalanaar, on the Thousand Needles border: the next guide flies from there.
+  getfp "Thalanaar"

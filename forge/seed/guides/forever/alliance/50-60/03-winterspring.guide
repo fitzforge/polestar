@@ -12,9 +12,9 @@ next forever/alliance/50-60/04-western-plaguelands
 # Order (0.4.3 fix round): Donova's camp in western Winterspring (Gregan's elixir for The Videre Elixir, the
 # Frostfire furbolgs at 53-55) and Felpaw Village's cauldron on the way out by Talonbranch Glade; Ratchet and
 # Gadgetzan (Gaeriyan's grave), Un'Goro Crater's second visit (Linken and J.D. Collie, the pylons, the expedition,
-# Torwa, Krakle and Ringo) at 54-55, Gadgetzan's and Ratchet's hand-ins on the way out, then Felwood's south (Greta's
+# Torwa, Krakle and Ringo) at about 53-54, Gadgetzan's and Ratchet's hand-ins on the way out, then Felwood's south (Greta's
 # corruption, Eridan's vial and Linken's memory, Arko'narin and Shadow Hold) and Winterspring's main loop (Donova,
-# the furbolg runners, Kel'Theril, the yetis, Winterfall Village, Starfall and Mazthoril) at 55-57, ending in
+# the furbolg runners, Kel'Theril, Winterfall Village, Starfall and Mazthoril) at about 54-55, ending in
 # Moonglade. All of it used to wait for the Western Plaguelands and Silithus guides at 56.6-59.7, while this guide
 # opened on a top-up from 53.6 to 55 at Frostfire Hot Springs.
 # Left out: Pawn Captures Queen (4507: Gorishi Hive Queen 56 in the Slithering Scar, and no Gadgetzan stop after it on
@@ -58,14 +58,14 @@ step Donova Snowden
 
 step Frostfire Hot Springs: kill these as you meet them
   zone Winterspring
-  tip The western Winterfall camp sits in the hills between Donova and the tunnel. Any furbolg here can drop an Empty Firewater Flask (about one in ten: it comes within the kills these quests need) and a Winterfall Ritual Totem (about one in thirty): right-click whichever drops. Keep the Runecloth the furbolgs drop for Meilosh in Timbermaw Hold.
+  tip The western Winterfall camp sits in the hills between Donova and the tunnel. Any furbolg here can drop an Empty Firewater Flask (about one in ten: it comes within the kills these quests need): right-click it. They also drop Winterfall Ritual Totems (about one in thirty) and Runecloth, which only matter if you are Neutral (the totem) or Friendly (Meilosh's Runecloth) with the Timbermaw: keep them then.
   tip Careful: the Pathfinders are 53 and the Totemics 54, but the Den Watchers inside the camp are 55: take the camp from its edge and pull one at a time.
   collect 12771                       -- Empty Firewater Flask
   accept 5083
   kill 7442 quest 5082.1              -- Winterfall Pathfinder
   kill 7440 quest 5082.2              -- Winterfall Den Watcher
   kill 7441 quest 5082.3              -- Winterfall Totemic
-  collect 14047 x30 optional          -- Runecloth, for Meilosh
+  collect 14047 x30 optional          -- Runecloth, for Meilosh, if you are Friendly with the Timbermaw
 
 step Winterfall Ritual Totem
   when has 20742
@@ -502,6 +502,7 @@ step Winterspring: kill these as you meet them
   zone Winterspring
   tip The western Winterfall furbolgs drop the beads; the Winterfall Runners (57) carry their crates along the road between Frostfire Hot Springs and Felwood's tunnel.
   tip Careful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with Feign Death, and they then gather by the lake so you can take the next quest.
+  tip Careful: the Winterfall Runners are 57, over you here: pull one at a time, away from the camp.
   collect 21383 x5
   collect 12829 quest 5087.1 @27.9,34.5 map 1452
 
@@ -543,8 +544,8 @@ step The road to Everlook: furs and horns
 
 step Winterfall Village
   zone Winterspring
-  tip Salfa's Winterfall Activity: the furbolg village lies just east of Everlook, with Shaman (56-57), Den Watchers (55-56) and Ursa (57-58). Kill the Shaman first, they heal. High Chief Winterfall in the cave at the back is elite: stay out.
-  tip Careful: Grizzle Snowpaw (59, rare) walks the village: leave him be.
+  tip Salfa's Winterfall Activity: the furbolg village lies just east of Everlook, with Shaman (56-57), Den Watchers (55-56) and Ursa (57). Kill the Shaman first, they heal. High Chief Winterfall in the cave at the back is elite: stay out.
+  tip Careful: the village is dense and its Ursa and Shaman are over you: pull from the edge, one at a time. Grizzle Snowpaw (59, rare) walks the village: leave him be.
   kill 7439 quest 8464.1              -- Winterfall Shaman
   kill 7440 quest 8464.2              -- Winterfall Den Watcher
   kill 7438 quest 8464.3              -- Winterfall Ursa

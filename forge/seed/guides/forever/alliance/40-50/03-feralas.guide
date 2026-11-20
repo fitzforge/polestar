@@ -186,10 +186,7 @@ step Feathermoon Stronghold
   turnin 4265                         -- Ginro Hearthkindle
   accept 4266
   turnin 4266                         -- Shandris Feathermoon
-  accept 4267
-
-step Feathermoon Stronghold
-  note Shandris then asks you to carry news to Darnassus: skip it, Gadgetzan sends you there instead.
+  accept 4267                         -- Shandris Feathermoon: Rise of the Silithid, for Gracina Spiritmight on the Tanaris guide's Darnassus stop: keep it
 
 step Angelas Moonbreeze
   when level>=46
