@@ -46,7 +46,7 @@ step Boat to Auberdine
 #   Hollee gives 729 directly. Its third step (741) is left out: it ends in
 #   Darnassus, a detour off the route, and the chain's last step (943) needs
 #   the Stone of Relu, a 1.5% raptor drop in the Wetlands.
-# - Refresh: Expanding Horizons (97914, Forever) is taken at the end:
+# - Refresh: Expanding Horizons (97914, Forever) is taken on the first Auberdine stop:
 #   Thundris Windweaver's letter goes to Baros Alexston on 03-loch-modan's
 #   Stormwind stop (the Westfall stretch, #1415), his reply (Making Do, 97926,
 #   a Shipwright's Satchel) to Thundris on the first Auberdine stop
@@ -205,7 +205,7 @@ step Rabid Thistle Bear
   kill 2164 quest 2138
 
 step Bashal'Aran
-  tip North along the hills. Asterion waits in the ruins of Bashal'Aran; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. Buzzbox 411 stands by the road west of the ruins; a Beached Sea Creature lies on the shore on the way to him.
+  tip North along the hills. Asterion waits in the ruins of Bashal'Aran; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. Buzzbox 411 stands by the road north-north-west of Asterion; a Beached Sea Creature lies on the shore on the way to him.
   turnin 954 only Dwarf,Gnome,Human,Skyborne -- Asterion
   accept 955 only Dwarf,Gnome,Human,Skyborne
   collect 5336 quest 955 @44.6,36.6 map 1439 only Dwarf,Gnome,Human,Skyborne -- Grell Earrings

@@ -105,7 +105,7 @@ step The red crystal
   complete 4811 @47.2,48.7                    -- Mysterious Red Crystal
 
 step Bashal'Aran
-  tip North along the hills. Asterion waits in the ruins of Bashal'Aran; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. Buzzbox 411 stands by the road west of the ruins; a Beached Sea Creature lies on the shore on the way to him.
+  tip North along the hills. Asterion waits in the ruins of Bashal'Aran; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. Buzzbox 411 stands by the road north-north-west of Asterion; a Beached Sea Creature lies on the shore on the way to him.
   turnin 954                                  -- Asterion
   accept 955
   collect 5336 quest 955 @44.6,36.6 map 1439 -- Grell Earrings
@@ -117,7 +117,7 @@ step Bashal'Aran
   accept 4723                                 -- Beached Sea Creature
 
 step Buzzbox 411
-  tip North of Bashal'Aran by the road, past the Beached Sea Creature: Buzzbox 411 wants Moonstalker Fangs next, from the second loop's hills. Then south-west down to Auberdine.
+  tip North-north-west of Asterion by the road, past the Beached Sea Creature: Buzzbox 411 wants Moonstalker Fangs next, from the second loop's hills. Then south-west down to Auberdine.
   turnin 1001                                 -- Buzzbox 411
   accept 1002
 

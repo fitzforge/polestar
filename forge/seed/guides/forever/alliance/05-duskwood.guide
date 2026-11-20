@@ -10,7 +10,7 @@ next forever/alliance/06-wetlands
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 
-# Duskwood and Redridge, second half (about 25 to 26.5).
+# Duskwood and Redridge, second half (about 27 to 29).
 #
 # Since 2026-11-07 Duskwood and Redridge are played together, so Redridge
 # comes at 23+ where its quests fit (Ashenvale and Stonetalon first): Duskwood's first
@@ -53,15 +53,15 @@ next forever/alliance/06-wetlands
 #   on 06-wetlands. Below 28 it waits for the Duskwood return.
 # - Wolves at Our Heels (226) is turned in on the second visit to Sven's camp
 #   (Lars stands beside Sven) instead of walking back west for it.
-# - Hearthstone: none here. The second loop ends at Sven's camp in the west,
-#   and the walk north through Goldshire (training) to Stormwind's gryphon is
-#   on the way to Menethil; the Darkshire flight path and hearth are taken on
-#   the first loop's visit (04-redridge-mountains).
+# - Hearthstone: the second loop's Moonbrook footlocker is followed by the
+#   hearth back to Darkshire (bound on the first loop's visit,
+#   04-redridge-mountains, with the flight path); the walk north through
+#   Goldshire (training) to Stormwind's gryphon is on the way to Menethil.
 # - No Awaiting Word (236): Watcher Dodds doesn't offer it on Forever (#2148;
 #   forever-db/corrections removes it from the data).
 # - Redridge's elites (Tharil'zun 19, Gath'Ilzogg 169, Incinerator Gar'im
 #   95999, Shadow Magic's Blackrock Shadowcasters 115) and Lieutenant Fangore
-#   (180, 26) are on 04-redridge-mountains' loop at about 25, where those
+#   (180, 26) are on 04-redridge-mountains' loop at about 26-27, where those
 #   quests fit: players finished them solo at 21-23 in the recordings, so they
 #   are in the route's steps with a tip to group up if you can; the elite
 #   Wanted posters' work (169, 95999) is on steps the player opts into

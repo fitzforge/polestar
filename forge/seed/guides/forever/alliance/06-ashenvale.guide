@@ -119,7 +119,7 @@ step Teronis' Corpse
 step Maestra's Post
   tip North-east from the lake to Maestra's Post.
   turnin 973                              -- Delgren the Purifier
-  accept 1140                             -- Delgren the Purifier: its circles are for your next Ashenvale visit, at about 28
+  accept 1140                             -- Delgren the Purifier: its circles are for your next Ashenvale visit, at about 30
 
 step The Zoram Strand
   zone Ashenvale
@@ -239,6 +239,7 @@ step The Foulweald
 
 step Gleaming Crescent Pendant
   tip South-east of the Foulweald, the Gleaming Crescent Pendant lies in the grass: Maliynn, in Astranaar's inn, takes it.
+  tip Careful: two Shadethicket Bark Rippers (26-27) stand within a few steps of it: pull them one at a time before you pick it up.
   accept 98027 object 669176          -- Gleaming Crescent Pendant: for Maliynn in Astranaar
 
 step Mystral Lake
@@ -296,7 +297,7 @@ step Menethil Harbor
   accept 288                              -- First Mate Fitzsimmons: a flagon of the inn's mead
   buy 2594 x1 npc 1464                    -- Flagon of Dwarven Honeymead, from Innkeeper Helbrek
   turnin 288                              -- First Mate Fitzsimmons
-  accept 289                              -- First Mate Fitzsimmons: the Cursed Crew is for your next Wetlands visit, at about 28
+  accept 289                              -- First Mate Fitzsimmons: the Cursed Crew is for your next Wetlands visit, at about 29
   accept 98282                            -- Caitlin Grassman
   accept 470                              -- Sida
   turnin 98461 optional                   -- Tarrel Rockweaver: he won't offer 305 while you carry it
@@ -334,7 +335,7 @@ step The raptor hills
 
 step Ormer Ironbraid
   turnin 294
-  accept 295                              -- Ormer Ironbraid: the bigger raptors in the valley west of the dig are for your next Wetlands visit, at about 27
+  accept 295                              -- Ormer Ironbraid: the bigger raptors in the valley west of the dig are for your next Wetlands visit, at about 29
 
 step The Green Belt
   tip Einar Stonegrip camps by the road; Rethiel the Greenwarden stands farther east, by the river.
