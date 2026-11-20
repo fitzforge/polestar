@@ -101,9 +101,13 @@ step Milly Osworth
   accept 3905
 
 step Kelsey Fargo
-  tip She stands outside the mine entrance. Shinyfinder Narf, inside, is a level 3 elite: from level 5 he is two levels under you.
+  tip She stands outside the mine entrance. Her next errand, The Big Picture, sends you after Shinyfinder Narf inside, a level 3 elite: the guide gives it from level 5, when he is two levels under you.
   turnin 91745 optional
-  accept 91752
+
+step The Big Picture
+  when level>=5
+  tip From level 5: Kelsey's The Big Picture. Shinyfinder Narf (3, elite) is two levels under you then.
+  accept 91752                                -- Kelsey Fargo, outside the mine
 
 step Inside Echo Ridge Mine
   tip Kobold Laborers work the tunnels inside the mine. Shinyfinder Narf waits down the second turn on the right.

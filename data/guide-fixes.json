@@ -13877,6 +13877,25 @@
 				}
 			],
 			"pr": 3285
+		},
+		{
+			"id": "a1-elwynn-big-picture-accept-from-5",
+			"faction": "Alliance",
+			"at": {
+				"quest": 91752,
+				"goal": "accept",
+				"guide": "forever/alliance/human/01-elwynn-forest"
+			},
+			"when": "level>=5",
+			"tip": "From level 5: Kelsey's The Big Picture. Shinyfinder Narf (3, elite) is two levels under you then.",
+			"note": "Alliance 1-30 fix pass (2026-11-20): The Big Picture's Narf step and hand-in show from level 5 (the low-elite rule), but the accept at Kelsey was ungated, and the route reaches her at about 4.9-5.0 (level model: Milly's hand-in at 4.93 just before): a player at 4.9 took it, skipped the Narf step and carried it to the guide's end with nothing saying why. The accept now has the same level-5 step, so the quest is taken when the guide can also do it. Players' recordings: 46 of 56 finished it, accepted at a 25th percentile of 5.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 91752: 56 people took it, 46 handed it in; accept level P25 5"
+				}
+			],
+			"pr": 3285
 		}
 	]
 }
