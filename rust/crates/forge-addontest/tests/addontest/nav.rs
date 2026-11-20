@@ -191,6 +191,37 @@ fn leaving_enemy_ground_does_not_point_the_player_back_into_town() {
 }
 
 #[test]
+fn turning_onto_a_tangent_keeps_the_painted_stride_out_of_enemy_ground() {
+	let out = run_compass(
+		r#"
+		nav.useGameGround()
+		Polestar.Set("nav.travel", false)
+		Polestar.Set("nav.arrowStyle", "flat")
+		nav.maps[1429] = { c = 0, top = -8100, bottom = -8200, left = 700, right = 500 }
+		local x, y = -8133-1/3+.551, 590 -- just outside the shoulder margin along Stormwind's edge
+		local tx, ty = nav.Compat.WorldToMap(0, x, y-12, 1429)
+		local function approach(side)
+			nav.faction = side
+			nav.place(x+20.48, y)
+			N.SetTarget(1429, tx, ty, "Along the boundary")
+			stub.advance(1)
+			for i = 64, 0, -1 do
+				nav.place(x+i*.32, y)
+				stub.advance(.05)
+				assert(A.GetMode() == "travel" and A.body:IsShown())
+			end
+			local a = nav.facing + A.body:GetRotation()
+			N.ClearTarget()
+			return math.cos(a)*.32 -- displacement across the boundary, not along it
+		end
+		local h = approach("Horde")
+		emit({h, approach("Alliance")})"#,
+	);
+	assert!(num(&out[0]) >= -0.001, "Horde's visible next stride enters the enemy settlement: {}", out[0]);
+	assert!(num(&out[1]) < -0.001, "the same turn on friendly ground should still ease");
+}
+
+#[test]
 fn turning_is_damped_a_new_bearing_eases_in_the_short_way_round_at_most_max_turn_a_second_turning_the_camera_moves_the_arrow_at_once() {
 	let out = run_compass(
 		r#"

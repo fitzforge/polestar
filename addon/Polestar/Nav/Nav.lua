@@ -706,9 +706,9 @@ end
 -- Check the actual displayed segment, including smoothing, baked guidance and a direct fallback.
 -- The sampler's taxi and ride-instruction states never enter this function.
 local function groundAim(C,pc,px,py,d,angle,dn,dw,measured)
-	local D=Nav.danger
-	if D.Blocked(pc,px,py,px+dn,py+dw,C.GetPlayerFaction()) then return "unsafe" end
-	return "travel",d,angle,dn,dw,measured
+	local D,side=Nav.danger,C.GetPlayerFaction()
+	if D.Blocked(pc,px,py,px+dn,py+dw,side) then return "unsafe" end
+	return "travel",d,angle,dn,dw,measured,D.NearEnemyGround(pc,px,py,side)
 end
 
 local function sample()

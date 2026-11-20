@@ -1050,7 +1050,7 @@ local function sample(elapsed)
 		frame:Hide()
 		return false
 	end
-	local state, dist, angle, _, _, measured = Nav.Sample()
+	local state, dist, angle, _, _, measured, nearEnemy = Nav.Sample()
 	if Nav.IsHiddenState(state) then
 		frame:Hide()
 		return false
@@ -1099,7 +1099,7 @@ local function sample(elapsed)
 	if angle then
 		local f = facing()
 		local bearing = f and wrap(angle + f) or angle
-		if not hasAngle or byBearing ~= (f ~= nil) then
+		if not hasAngle or byBearing ~= (f ~= nil) or (nearEnemy and curBearing ~= bearing) then
 			byBearing = f ~= nil
 			curBearing, hasAngle, turnVel = bearing, true, 0
 			curAngle = angle

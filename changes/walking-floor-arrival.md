@@ -39,5 +39,5 @@ section: players
   as the only approach. Higher-level zones can still be crossed on foot.
   Passing beside the corner of an enemy capital is allowed; touching its
   boundary with the player's shoulders is not.
-  When you step back onto safe ground, the arrow points along the new walk
-  immediately instead of briefly turning back into town.
+  When you walk beside an enemy boundary or step back onto safe ground,
+  the arrow points along the checked walk without swinging into town.
