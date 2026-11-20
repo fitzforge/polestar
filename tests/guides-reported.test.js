@@ -850,6 +850,23 @@ test('forever/horde/03-silverpine-forest.guide: Orcs take the Argent quests in T
 	assert.ok(at(list, 'turnin 445', is('turnin', 445)) > sepulcher - 1, 'Renferrel takes the delivery at the Sepulcher');
 });
 
+// 0.4.2 route round, Silverpine Forest: Arugal's Folly (423) and A Recipe For Death (447) are on one north-west loop
+// from the Sepulcher (players' recordings: 47 and 87 people did them unrouted). 423 is taken with 422's hand-in, its
+// shackles and 447's spider blood come on that loop, Dalar takes 423 before the road north to Ivar, and Faranell takes
+// 447 on the Undercity stop the guide ends with.
+test('forever/horde/03-silverpine-forest.guide: Arugal\'s Folly and A Recipe For Death share one north-west loop from the Sepulcher', { skip }, () => {
+	const list = goals('forever/horde/03-silverpine-forest.guide');
+	const take = at(list, 'accept 423', is('accept', 423));
+	assert.equal(list[take].step, list[at(list, 'turnin 422', is('turnin', 422))].step, 'Dalar gives it with the spellbooks\' hand-in');
+	const shackles = at(list, 'collect 3156 (423.1)', (g) => g.t === 'collect' && g.item === 3156);
+	const blood = at(list, 'collect 3254 (447.2)', (g) => g.t === 'collect' && g.item === 3254);
+	assert.equal(list[shackles].step, list[blood].step, 'one loop for both');
+	const back = at(list, 'turnin 423', is('turnin', 423));
+	assert.ok(take < shackles && shackles < back && back < at(list, 'accept 425 (Ivar)', is('accept', 425)), 'back to Dalar before the road north');
+	assert.ok(at(list, 'accept 447', is('accept', 447)) < take, 'Renferrel\'s recipe is taken on an earlier Sepulcher stop');
+	assert.equal(list[at(list, 'turnin 447', is('turnin', 447))].step, list[at(list, 'turnin 1359 (Zinge)', is('turnin', 1359))].step, 'Faranell takes it on the Undercity stop, beside Zinge');
+});
+
 // Horde 1-30 audit (#1414): Undead Paladins at 15 and 22 were sent from Orgrimmar to Thunder Bluff's paladin trainer.
 test('Horde 1-30: no Paladin training step waits in Orgrimmar, which has no paladin trainer (#1414)', { skip }, () => {
 	for (const guide of ['forever/horde/03-silverpine-forest.guide', 'forever/horde/05-stonetalon-mountains.guide']) {
