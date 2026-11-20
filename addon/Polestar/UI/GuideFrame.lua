@@ -3936,6 +3936,20 @@ GF.Part(function(GF)
 							raw = raw and raw.goals and raw.goals[row.psGoal.index] }
 					end
 				end
+				-- The While you're here rows too (not an off-route timer's): the
+				-- click targets the row's mob or NPC, then points the arrow there.
+				-- Only a row whole inside the body: a window kept on the screen
+				-- clips its lower lines (sizeWindow).
+				local here = GF.here
+				local bb, bt = body:GetBottom(), body:GetTop()
+				for _, r in ipairs(here and here:IsShown() and here.Rows or {}) do
+					local v = r.psView
+					local rb, rt = r:GetBottom(), r:GetTop()
+					if r:IsShown() and v and r.psAt and rb and bb and rb >= bb - 0.5 and rt <= bt + 0.5 then
+						entries[#entries + 1] = { owner = r, region = r, wholeRow = true, goal = v, right = true,
+							controls = { r.Close }, raw = E and E.AlongGoal and E.AlongGoal(v.step, v.index) or nil }
+					end
+				end
 				return entries
 			end)
 		end
