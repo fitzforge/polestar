@@ -31,6 +31,13 @@ step Fly to the Undercity
   fly "Undercity"
   zone Undercity
 
+step Genavie Callow
+  only Warrior,Paladin,Rogue,Priest,Mage,Warlock
+  when onquest 1164
+  zone Undercity
+  tip Genavie Callow stands beside the flight master you land at: the Dabyrie heads from the Arathi Highlands.
+  turnin 1164                           -- Genavie Callow, beside the flight master
+
 step Undercity trainers
   only Warrior,Paladin,Rogue,Priest,Mage,Warlock
   zone Undercity
