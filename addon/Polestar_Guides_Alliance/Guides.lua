@@ -15428,7 +15428,7 @@ do
 				},
 				{
 					title = "Level 60",
-					note = "{area:3425}'s last hand-ins can leave a player who followed only this route short of 60 (up to about a level for the slowest; most players less).\nWith a group: the {area:2057} or {area:2279} dungeons, in the Plaguelands by {area:3197} and {area:2268}.\nAlone: the Twilight's Hammer camps of {zone:1451}'s north-west (Twilight Avengers 57-59 and Geolords 58-60; leave the Flamereavers, 60) and the Stonelash Flayers and Rock Stalkers (57-59) around {area:3425} are at your level. {area:3425}'s repeatable quests open only at 60.",
+					note = "{area:3425}'s last hand-ins can leave a player who followed only this route short of 60 (up to about a level for the slowest; most players less).\nWith a group: run the {area:2057} dungeon or the {area:2279} dungeon, in the Plaguelands by {area:3197} and {area:2268}.\nAlone: the Twilight's Hammer camps of {zone:1451}'s north-west (Twilight Avengers 57-59 and Geolords 58-60; leave the Flamereavers, 60) and the Stonelash Flayers and Rock Stalkers (57-59) around {area:3425} are at your level. {area:3425}'s repeatable quests open only at 60.",
 					when = { { k = "level", op = "<", n = 60 } },
 					goals = {
 						{ t = "level", level = 60 },
@@ -18175,7 +18175,7 @@ do
 				},
 				{
 					title = "{area:87}",
-					when = { { k = "group", q = 91775 } },
+					when = { { k = "group", q = 91775 }, { k = "turnedin", q = 91772 } },
 					goals = {
 						{ t = "accept", quest = 91775, title = "Book Return", npc = 240, npcName = "Marshal Dughan", minLevel = 1, qlvl = 6, pre = { 91772 }, preTitles = { [91772] = "Shhh! We're Hunting Kobolds" }, map = 1429, x = 42.29, y = 65.95, z = 56.8, spotsPacked = "42.1,65.9,56.8,15,3" },
 					},
