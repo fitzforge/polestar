@@ -92,6 +92,25 @@ fn unclassified_ground_allows_an_alterac_walk_but_not_a_walk_into_enemy_fields()
 }
 
 #[test]
+fn a_diagonal_walk_beside_an_enemy_capital_does_not_cut_its_corner() {
+	let out = run_real(
+		r#"
+		local N = Polestar.Nav
+		N.RegisterTravelData({}, true)
+		local function walk(ax, ay, bx, by, faction)
+			local legs = N.PlanRoute({ c = 1, map = 1454, wx = ax, wy = ay, faction = faction, level = 23, walkOnly = true,
+				target = { c = 1, map = 1454, wx = bx, wy = by, label = "Destination" } })
+			return legs and #legs == 1 and legs[1].kind == "walk" or false
+		end
+		-- Outside the northern ownership corner. The last pair crosses it with both endpoints outside.
+		emit({ walk(2281.6667, -4506, 2260.6667, -4485, 1), walk(2260.6667, -4485, 2281.6667, -4506, 1),
+			walk(2272.6667, -4506, 2260.6667, -4494, 1), walk(2260.6667, -4494, 2272.6667, -4506, 1),
+			walk(2272.6667, -4506, 2260.6667, -4494, 2) })"#,
+	);
+	assert_eq!(out, json!([true, true, false, false, true]));
+}
+
+#[test]
 fn the_nethergarde_flight_can_cross_stonard_but_its_ground_legs_cannot() {
 	let out = run_real(
 		r#"

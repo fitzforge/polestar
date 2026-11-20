@@ -33,3 +33,5 @@ section: players
 - When an enemy town lies between you and a zone crossing, the planner
   checks for a walk around the town rather than treating the straight line
   as the only approach. Higher-level zones can still be crossed on foot.
+  Passing beside the corner of an enemy capital is allowed; touching its
+  boundary with the player's shoulders is not.

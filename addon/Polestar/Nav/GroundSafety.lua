@@ -30,7 +30,12 @@ function D.Blocked(map,x,y,X,Y,profile)
   for r=floor(512-(hi+.55)*.03),floor(512-(lo-.55)*.03) do for c=floor(512-(ri+.55)*.03),floor(512-(le-.55)*.03) do
    local v=cells[floor(r/16)*64+floor(c/16)];if type(v)=='string' then v=byte(v,(r%16)*16+c%16+1) end
    -- Missing ownership is not an enemy town. Keep scanning: a later cell or guard disk can still veto the walk.
-   if v and floor(v/64)==enemy then return 'opposing-settlement' end
+   if v and floor(v/64)==enemy then
+    -- The bounds above overlap this padded cell on both map axes. Test the line's normal too:
+    -- a diagonal can miss the town even though its bounding box clips the corner.
+    local cx,cy=(511.5-r)/.03,(511.5-c)/.03
+    if abs((cx-x)*dy-(cy-y)*dx)<=(.5/.03+.55+.0000001)*(abs(dx)+abs(dy)) then return 'opposing-settlement' end
+   end
   end end
   x,y=a,b
  end
