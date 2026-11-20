@@ -18385,3 +18385,13 @@ test('Alliance: Prayer to Elune\'s second part is taken under the group choice a
 	assert.equal(hand.goal.npc, 4090, 'Astarii Starseeker takes it');
 	assert.ok(whenQuestOf(hand.step, ['complete'], 3378), 'only once the page is in the bags');
 });
+
+// #2900 (Gindry, 0.4.1.1): Apprentice Claire stands in a cave below Sunnyglade's eastern edge (npc-floors: z -45.8, about
+// 78 yd under the town); her steps said only "at its eastern edge". Both name the cave and its entrance.
+test('forever/alliance/40-50/01b-riverglades.guide: Apprentice Claire\'s steps name the cave entrance (#2900)', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01b-riverglades.guide');
+	for (const t of ['accept', 'turnin']) {
+		const { step } = list[at(list, `${t} 95642`, is(t, 95642))];
+		assert.match(step.note || '', /cave.*50\.0,46\.0/, `${t} 95642: ${step.title}`);
+	}
+});

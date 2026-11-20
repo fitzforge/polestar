@@ -14602,6 +14602,28 @@
 				}
 			],
 			"issue": 3024
+		},
+		{
+			"id": "2900-apprentice-claire-in-the-cave",
+			"faction": "Alliance",
+			"at": {
+				"quest": 95642,
+				"goal": "turnin",
+				"guide": "forever/alliance/40-50/01b-riverglades"
+			},
+			"tip": "Claire is in the cave under the eastern edge of Sunnyglade: its entrance is at 50.0,46.0.",
+			"note": "#2900: Apprentice Claire (256831) stands in a cave below Sunnyglade's eastern edge (data/npc-floors.json: z -45.8, 30 of 33 people, against 32.1 for Fuzzle on the same step), about 78 yd lower than the town; the steps said only that she is at its eastern edge, so players stood above her with no way in. Both her steps name the cave and its entrance (50.0,46.0, the report's spot).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2900 (0.4.1.1): the NPC is in a cave whose entrance is at 50.00,45.99"
+				},
+				{
+					"kind": "recording",
+					"ref": "data/npc-floors.json 256831: z -45.8 (30 of 33 people)"
+				}
+			],
+			"issue": 2900
 		}
 	]
 }

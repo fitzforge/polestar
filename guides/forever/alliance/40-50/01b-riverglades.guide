@@ -275,7 +275,7 @@ step Ghostmaw
   collect 271828 quest 95991.1 @52.9,57.8  -- Ghostmaw's Fang
 
 step Sunnyglade
-  tip North from Farholde Keep, past Terral's Watch and across the river, to Sunnyglade, the farm town the Twilight cult holds; keep clear of Rog'mar, the Horde's fort east of the town. Fuzzle the kobold waits in a cage at the arrow, Apprentice Claire at the town's eastern edge, and Farmer Elbrim waits at his farm on the north-eastern edge.
+  tip North from Farholde Keep, past Terral's Watch and across the river, to Sunnyglade, the farm town the Twilight cult holds; keep clear of Rog'mar, the Horde's fort east of the town. Fuzzle the kobold waits in a cage at the arrow, Apprentice Claire below ground in a cave at the town's eastern edge (the entrance is at 50.0,46.0), and Farmer Elbrim waits at his farm on the north-eastern edge.
   accept 94961 @47.2,51.2               -- Fuzzle: Biting the Hand, in his cage
   accept 95642                          -- Apprentice Claire: Abominable Magics
   accept 95643                          -- Indiscriminate Purge
@@ -299,6 +299,7 @@ step The Twilight cult
   accept 94885 optional                 -- Field Marshal's Log: only if a cultist dropped the log
 
 step Apprentice Claire
+  tip Claire is in the cave under the eastern edge of Sunnyglade: its entrance is at 50.0,46.0.
   turnin 95642
   turnin 95643
 
