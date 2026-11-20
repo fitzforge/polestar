@@ -6632,48 +6632,6 @@
 			]
 		},
 		{
-			"id": "astranaar-pass-hand-ins-split",
-			"faction": "Alliance",
-			"at": {
-				"quest": 1034,
-				"goal": "turnin",
-				"guide": "forever/alliance/06-ashenvale"
-			},
-			"split": {
-				"title": "Astranaar",
-				"tip": "Back west along the road from Shael'dryn, Astranaar is on the way to Ilkrud: Pelturas Whitemoon is inside the building beyond the inn."
-			},
-			"note": "06-ashenvale: after Shael'dryn, the route walks back west through Astranaar to Ilkrud Magthrull with Pelturas Whitemoon's hand-in (1034) ready. It is cut off the last Astranaar stop (with the vendor) and handed in on that pass (astranaar-pass-hand-ins-step), before Ilkrud's camp; the last stop, needed for the flight to Auberdine, is Shindrell Swiftfire's (1008) alone: about 260 yd of town walking saved. 0.3.6 hand edit; since the 0.4.0 level tidy Raene's Foulweald and Dal Bloodclaw quests (1025, 1054) are on 06-wetlands' Ashenvale trip, so the pass follows Shael'dryn's step.",
-			"source": [
-				{
-					"kind": "questie",
-					"ref": "quests 1025, 1054 ender Raene Wolfrunner (3691); 1034 Pelturas Whitemoon (3894); 1008 Shindrell Swiftfire (3845)"
-				}
-			]
-		},
-		{
-			"id": "astranaar-pass-hand-ins-step",
-			"faction": "Alliance",
-			"at": {
-				"quest": 1034,
-				"goal": "turnin",
-				"guide": "forever/alliance/06-ashenvale"
-			},
-			"step": {
-				"after": {
-					"quest": 1024,
-					"goal": "turnin"
-				}
-			},
-			"note": "06-ashenvale: the Astranaar hand-in cut off the last stop (astranaar-pass-hand-ins-split) goes right after Shael'dryn's step, on the walk back west through Astranaar to Ilkrud Magthrull. 0.3.6 hand edit, re-anchored in the 0.4.0 level tidy.",
-			"source": [
-				{
-					"kind": "questie",
-					"ref": "quest 1024 ender Shael'dryn; 1034 ender Pelturas Whitemoon (3894)"
-				}
-			]
-		},
-		{
 			"id": "astranaar-last-stop-shindrell-tip",
 			"faction": "Alliance",
 			"at": {
@@ -6681,8 +6639,8 @@
 				"goal": "turnin",
 				"guide": "forever/alliance/06-ashenvale"
 			},
-			"tip": "Follow the road south-east from Maestra's Post back to Astranaar: Shindrell Swiftfire stands by the flight master.",
-			"note": "06-ashenvale: the last Astranaar stop is Shindrell Swiftfire's hand-in by the flight master alone; Raene's and Pelturas's hand-ins went in on the pass after Dal Bloodclaw (astranaar-pass-hand-ins-split). 0.3.6 hand edit.",
+			"tip": "Hearth to Astranaar, where your hearthstone is bound, or follow the road east from the Zoram Strand: Shindrell Swiftfire stands by the flight master, Raene Wolfrunner in the inn, Pelturas Whitemoon inside the building beyond it.",
+			"note": "06-ashenvale (Ashenvale fix round 2026-11-20): after the west sweep the hearthstone bound at Astranaar takes the player from Talen to one Astranaar stop: Shindrell's Zoram Strand (1008, and her Pridewings of Stonetalon, 1134), Raene's gem (1023, and An Aggressive Defense, 1025) and Pelturas's stardust (1034). The pass through Astranaar between Shael'dryn and Ilkrud (0.3.6) went with the Shael'dryn trip.",
 			"source": [
 				{
 					"kind": "questie",
@@ -6699,8 +6657,8 @@
 				"objective": 1,
 				"guide": "forever/alliance/06-ashenvale"
 			},
-			"tip": "From Astranaar head south-west to the Fire Scar Shrine and go in from the east side: Ilkrud and his guards hold a hill inside it. Pull his guards first.",
-			"note": "06-ashenvale: Ilkrud Magthrull's step now follows the Astranaar hand-ins on the pass (astranaar-pass-hand-ins-split), so its tip leads on from Astranaar instead of telling players to leave the hand-ins for later. 0.3.6 hand edit. #2837: he stands in the Fire Scar Shrine, not the Ruins of Ordil'Aran.",
+			"tip": "From the Ruins of Stardust head north-west to the Fire Scar Shrine and go in from the east side: Ilkrud and his guards hold a hill inside it. Pull his guards first.",
+			"note": "06-ashenvale (Ashenvale fix round 2026-11-20): Ilkrud Magthrull opens the west sweep straight from the Ruins of Stardust (then Therysil, Teronis, Delgren and the Zoram Strand). #2837: he stands in the Fire Scar Shrine, not the Ruins of Ordil'Aran.",
 			"source": [
 				{
 					"kind": "questie",
@@ -10801,7 +10759,8 @@
 			"faction": "Alliance",
 			"at": {
 				"quest": 1016,
-				"goal": "accept"
+				"goal": "accept",
+				"guide": "forever/alliance/06-wetlands"
 			},
 			"tip": "Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake, just north of the road to Krolg. Befouled Water Elementals wade in the lake; Tideress, a level 27 water elemental, walks among them and drops the bracers too.",
 			"note": "Alliance 20-30 audit (0.4.0, #2025): Elemental Bracers (1016, quest level 24) is worked at about 23-24 on 06-ashenvale's Mystral Lake stop. Tideress (npc 12759, level 27) walks the lake among the Befouled Water Elementals (npc 3917, level 23) and drops the Intact Elemental Bracer as they do (items.json 12220: npcs 3917 and 12759), so players attack her. Players' recordings (addon 0.3.5 and later): Tideress killed 4 people (5 deaths) there and the Befouled Water Elementals 5 (6 deaths), at about 23.3. The step's tip named neither; the tip keeps the step's old tip, the sentence added.",
@@ -13582,7 +13541,7 @@
 				"objective": 1,
 				"guide": "forever/alliance/06-ashenvale"
 			},
-			"tip": "Back north through the Talondeep Path: west of Mystral Lake, the stardust bushes grow among the ruins. Careful: Shadethicket Raincallers and Wood Shapers (22–24) stand among the bushes. Clear one bush at a time; don’t run through the camp.",
+			"tip": "South-west from Astranaar: west of Mystral Lake, the stardust bushes grow among the ruins. Careful: Shadethicket Raincallers and Wood Shapers (22–24) stand among the bushes. Clear one bush at a time; don’t run through the camp.",
 			"note": "Careful: Shadethicket Raincallers and Wood Shapers (22–24) stand among the bushes. Clear one bush at a time; don’t run through the camp.",
 			"source": [
 				{
@@ -13591,6 +13550,68 @@
 				}
 			],
 			"pr": 3144
+		},
+		{
+			"id": "a-fix-ashenvale-mystral-first-visit",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1016,
+				"goal": "accept",
+				"guide": "forever/alliance/06-ashenvale"
+			},
+			"tip": [
+				"Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake. Befouled Water Elementals (23-25) wade in the lake.",
+				"Careful: Tideress, a level 27 water elemental, walks the lake's west shore among them: leave it be."
+			],
+			"note": "Ashenvale fix round (2026-11-20): Elemental Bracers is back on 06-ashenvale's first visit, on the south-east loop after Stonetalon (about 24-25). The Befouled Water Elementals (23-25) are at most one over the player; Tideress (27), who killed 4 recorded players at about 23 when the quest was done at 23-24 (a2130-mystral-lake-tideress), walks the west shore (46.0,70.0) and is named as the one to leave alone.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 3917 Befouled Water Elemental 23-25, 24 spawns around 48.9,70.4; 12759 Tideress 27 at 46.0,70.0"
+				}
+			]
+		},
+		{
+			"id": "a-fix-ashenvale-foulweald-den",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1025,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/06-ashenvale"
+			},
+			"tip": [
+				"South-east from Astranaar, south of the road: the Foulweald furbolgs live in the woods. The Den Watcher and the Ursas guard the den at its north-west corner.",
+				"Careful: The Den Watcher and the Ursas (24-25) stand together at the den: pull them one at a time."
+			],
+			"note": "Ashenvale fix round (2026-11-20): An Aggressive Defense on 06-ashenvale's south-east loop at about 24-25. Its Totemics and Warriors are 23-24, the Den Watcher and the Ursas 24-25 at the den (52.3,60.9): at most one over the player, so a Careful tip there.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 3746 Foulweald Den Watcher 24-25, 3749 Foulweald Ursa 24-25 (4 spawns each around 52.3,60.9), 3750 Totemic and 3743 Warrior 23-24"
+				}
+			]
+		},
+		{
+			"id": "a-fix-ashenvale-dal-bloodclaw",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1054,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/06-ashenvale"
+			},
+			"tip": [
+				"North from Mystral Lake, past Astranaar's east side, to the Thistlefur camp: Dal Bloodclaw leads the furbolgs there. Then south to Astranaar.",
+				"Careful: Dal is level 25, and the furbolgs near him usually join in when he is pulled. Kill the ones along his path first so you fight him alone."
+			],
+			"note": "Ashenvale fix round (2026-11-20): Culling the Threat is the last fight of 06-ashenvale's first visit, at about 25. Dal Bloodclaw (25, one spawn at 39.6,36.3) is at most one over the player; the adds are the camp's own furbolgs, as in 06-wetlands' tip.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 3987 Dal Bloodclaw 25 at 39.6,36.3"
+				}
+			]
 		},
 		{
 			"id": "a043-ooze-camp",

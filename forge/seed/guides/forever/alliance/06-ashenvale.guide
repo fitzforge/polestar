@@ -17,8 +17,14 @@ next forever/alliance/04-redridge-mountains
 # 98221, 1026: levels 27-28).
 # Hand-cut 2026-11-07 (the Alliance 21-24 level hole): the 20-24 part of the old 25-29 guide,
 # played right after Darkshore; the 27-29 Wetlands, Ironforge and Stormwind quests are in
-# 06-wetlands, after Duskwood. Ashenvale runs by quest level: Astranaar, Lake Falathim and
-# Stonetalon (19-22) first, then the east loop and Ilkrud and the Zoram Strand (24-25).
+# 06-wetlands, after Duskwood. Ashenvale's first visit (fix round 2026-11-20): Astranaar and Elune's Tear,
+# then one sweep up the west (the Ruins of Stardust, Ilkrud, Therysil, Teronis, Maestra's Post, the Zoram
+# Strand) and the hearth back to Astranaar, then Stonetalon (Windshear Crag, the Pridewings and the courier
+# on the way north to Stonetalon Peak) and the Peak's flight back to Astranaar, then the south-east
+# (the Foulweald, the Gleaming Crescent Pendant, Mystral Lake) and Dal Bloodclaw north of town, at about 24-25
+# with the Foulweald's 24-25 furbolgs, Mystral Lake's 23-25 elementals and Dal (25) at most one level over.
+# Raene's Cleansing (1024, the walk to Shael'dryn in the Howling Vale) is taken on 06-wetlands' first
+# Astranaar stop: its next part (1026) is Shael'dryn's, on that visit's way east.
 # Group quest: Gerenzo's Orders (1090, `when group 1090`, #1370): Piznik's five-minute defence in the Windshear
 # Mine (quest level 22) was lost solo at 23 and 25 in players' recordings; grouped players finished it from 23.
 
@@ -61,27 +67,19 @@ step Maestra's Post
 # ---------------------------------------------------------------- Astranaar
 
 step Astranaar
-  tip The road from Maestra's Post comes in by the flight master: Shindrell Swiftfire and Sentinel Thenysil stand there, Raene Wolfrunner in the inn, Pelturas Whitemoon inside the building beyond it.
+  tip The road from Maestra's Post comes in by the flight master: Shindrell Swiftfire and Sentinel Thenysil stand there, Faldreas Goeth'Shael just east of them, Raene Wolfrunner in the inn, Pelturas Whitemoon inside the building beyond it.
   getfp "Astranaar"
   accept 1008                         -- Shindrell Swiftfire
   accept 1070                             -- Sentinel Thenysil
+  accept 1056                             -- Faldreas Goeth'Shael: for Keeper Albagorm at Stonetalon Peak, at the end of the Stonetalon trip
   sethome "Astranaar"
   accept 991                              -- Raene Wolfrunner, in the inn
   turnin 990                              -- Raene Wolfrunner: Trek to Ashenvale, from Auberdine
+  accept 1054                             -- Raene Wolfrunner: Dal Bloodclaw, north of town, at the end of this visit
   turnin 1020                             -- Pelturas Whitemoon, inside
   accept 1033
 
-# ---------------------------------------------------------------- West: Lake Falathim
-
-step Teronis' Corpse
-  tip Head west to the shore of Lake Falathim. Teronis lies among the Saltspittle murlocs; any murloc can drop the Glowing Gem.
-  turnin 991                              -- Teronis' Corpse
-  accept 1023
-  collect 5463 quest 1023                 -- Glowing Gem
-
-step Shrine of Aessina
-  tip South of the murlocs, Therysil waits at the Shrine of Aessina.
-  turnin 945                              -- Therysil
+# ---------------------------------------------------------------- Elune's Tear
 
 step Elune's Tear
   zone Ashenvale
@@ -89,10 +87,64 @@ step Elune's Tear
   collect 5493 quest 1033 @46.4,46.4
 
 step Astranaar
-  turnin 1023                             -- Raene Wolfrunner
-  accept 1024
+  tip Back to Astranaar on the way to the west: Pelturas Whitemoon is inside the building beyond the inn.
   turnin 1033                             -- Pelturas Whitemoon, inside
   accept 1034
+  vendor nearest
+
+# ---------------------------------------------------------------- The west: the Ruins of Stardust, Ilkrud, the lake, the Zoram Strand
+
+step The Ruins of Stardust
+  zone Ashenvale
+  tip South-west from Astranaar: west of Mystral Lake, the stardust bushes grow among the ruins.
+  tip Careful: Shadethicket Raincallers and Wood Shapers (22–24) stand among the bushes. Clear one bush at a time; don’t run through the camp.
+  goto 33.3,67.7 "The Ruins of Stardust"
+  collect 5494 quest 1034 @33.3,67.7      -- Handful of Stardust
+
+step Ilkrud Magthrull
+  tip From the Ruins of Stardust head north-west to the Fire Scar Shrine and go in from the east side: Ilkrud and his guards hold a hill inside it. Pull his guards first.
+  collect 5533 quest 973                  -- Ilkrud Magthrull's Tome
+
+step Shrine of Aessina
+  tip North of the Fire Scar Shrine, Therysil waits at the Shrine of Aessina.
+  turnin 945                              -- Therysil
+
+step Teronis' Corpse
+  tip North again to the shore of Lake Falathim. Teronis lies among the Saltspittle murlocs; any murloc can drop the Glowing Gem.
+  turnin 991                              -- Teronis' Corpse
+  accept 1023
+  collect 5463 quest 1023                 -- Glowing Gem
+
+step Maestra's Post
+  tip North-east from the lake to Maestra's Post.
+  turnin 973                              -- Delgren the Purifier
+  accept 1140                             -- Delgren the Purifier: its circles are for your next Ashenvale visit, at about 28
+
+step The Zoram Strand
+  zone Ashenvale
+  tip West from Maestra's Post to the coast, then north to the Zoram Strand. Talen camps on the beach; Wrathtail nagas fill the shore.
+  accept 1007                             -- Talen
+  collect 5424 quest 1007 @14.2,20.6      -- Ancient Statuette, in the ruins on the shore
+  collect 5490 quest 1008             -- Wrathtail Head: any Wrathtail naga on the strand
+
+step Talen
+  turnin 1007
+  accept 1009
+
+step Ruuzel
+  tip Ruuzel walks the northern tip of the Zoram Strand with Wrathtail guards.
+  collect 5445 quest 1009                 -- Ring of Zoram
+
+step Talen
+  turnin 1009
+
+step Astranaar
+  tip Hearth to Astranaar, where your hearthstone is bound, or follow the road east from the Zoram Strand: Shindrell Swiftfire stands by the flight master, Raene Wolfrunner in the inn, Pelturas Whitemoon inside the building beyond it.
+  turnin 1008                         -- Shindrell Swiftfire
+  accept 1134                             -- Shindrell Swiftfire: the Pridewings, on the way north through Stonetalon
+  turnin 1023                             -- Raene Wolfrunner, in the inn
+  accept 1025                             -- Raene Wolfrunner: the Foulweald, after Stonetalon
+  turnin 1034                             -- Pelturas Whitemoon, inside
   vendor nearest
 
 # ---------------------------------------------------------------- Stonetalon Mountains
@@ -143,55 +195,69 @@ step Webwinder Path
   accept 1072
   accept 1075
 
-# ---------------------------------------------------------------- Back north and the east
+# ---------------------------------------------------------------- North to Stonetalon Peak
 
-step The Ruins of Stardust
+step The Pridewings
+  zone Stonetalon Mountains
+  tip West from the Webwinder Path along the road: Pridewing Wyverns (21-22) and Consorts (22-23) nest on the slopes either side of it, Skyhunters (23-24) a little further north-east. Any of them drops the venom sacs.
+  collect 5808 quest 1134 @50.8,44.4      -- Pridewing Venom Sac
+
+step Night Elf Courier
+  zone Stonetalon Mountains
+  tip The courier waits by the road just north of the Pridewings: his bundle goes to the inn at Stonetalon Peak, at the end of the road north.
+  accept 86574                            -- Night Elf Courier
+
+step Stonetalon Peak
+  zone Stonetalon Mountains
+  tip North along the road to Stonetalon Peak: Keeper Albagorm stands by the flight master, Innkeeper Faralia in the inn just west of them.
+  getfp "Stonetalon Peak"
+  turnin 1056                             -- Keeper Albagorm
+  turnin 86574                            -- Innkeeper Faralia, in the inn
+
+step Fly to Astranaar
+  zone Stonetalon Mountains
+  goto 36.4,7.2 "Stonetalon Peak flight master"
+  fly "Astranaar"
   zone Ashenvale
-  tip Back north through the Talondeep Path: west of Mystral Lake, the stardust bushes grow among the ruins.
-  tip Careful: Shadethicket Raincallers and Wood Shapers (22–24) stand among the bushes. Clear one bush at a time; don’t run through the camp.
-  goto 33.3,67.7 "The Ruins of Stardust"
-  collect 5494 quest 1034 @33.3,67.7      -- Handful of Stardust
 
-step Shael'dryn
-  tip Follow the road east to the Howling Vale; Shael'dryn stands by the moonwell.
-  turnin 1024
+step Shindrell Swiftfire
+  tip Shindrell Swiftfire stands by the flight master where you land.
+  turnin 1134                             -- Shindrell Swiftfire
+
+# ---------------------------------------------------------------- The south-east, then Dal Bloodclaw
+
+step The Foulweald
+  tip South-east from Astranaar, south of the road: the Foulweald furbolgs live in the woods. The Den Watcher and the Ursas guard the den at its north-west corner.
+  tip Careful: The Den Watcher and the Ursas (24-25) stand together at the den: pull them one at a time.
+  kill 3746 quest 1025                    -- Foulweald Den Watcher
+  kill 3749 quest 1025                    -- Foulweald Ursa
+  kill 3750 quest 1025                    -- Foulweald Totemic
+  kill 3743 quest 1025                    -- Foulweald Warrior
+
+step Gleaming Crescent Pendant
+  tip South-east of the Foulweald, the Gleaming Crescent Pendant lies in the grass: Maliynn, in Astranaar's inn, takes it.
+  accept 98027 object 669176          -- Gleaming Crescent Pendant: for Maliynn in Astranaar
+
+step Mystral Lake
+  zone Ashenvale
+  tip Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake. Befouled Water Elementals (23-25) wade in the lake.
+  tip Careful: Tideress, a level 27 water elemental, walks the lake's west shore among them: leave it be.
+  accept 1016                             -- Sentinel Velene Starstrike
+  collect 12220 x5 optional           -- Underwater
+  collect 5455 quest 1016 @49.6,71.3      -- Kill the elementals for 5 Intact Elemental Bracers, then use the Divining Scroll
+  turnin 1016
+
+step Dal Bloodclaw
+  tip North from Mystral Lake, past Astranaar's east side, to the Thistlefur camp: Dal Bloodclaw leads the furbolgs there. Then south to Astranaar.
+  tip Careful: Dal is level 25, and the furbolgs near him usually join in when he is pulled. Kill the ones along his path first so you fight him alone.
+  collect 5544 quest 1054                 -- Dal Bloodclaw's Skull
 
 step Astranaar
-  tip Back west along the road from Shael'dryn, Astranaar is on the way to Ilkrud: Pelturas Whitemoon is inside the building beyond the inn.
-  turnin 1034                             -- Pelturas Whitemoon, inside
+  tip South from Dal Bloodclaw's camp to Astranaar: Raene Wolfrunner and Maliynn are in the inn, the flight master at the west end.
+  turnin 1025                             -- Raene Wolfrunner
+  turnin 1054                             -- Raene Wolfrunner
+  turnin 98027                            -- Maliynn, in the inn
   vendor nearest
-
-# ---------------------------------------------------------------- West: Ilkrud and the Zoram Strand
-
-step Ilkrud Magthrull
-  tip From Astranaar head south-west to the Fire Scar Shrine and go in from the east side: Ilkrud and his guards hold a hill inside it. Pull his guards first.
-  collect 5533 quest 973                  -- Ilkrud Magthrull's Tome
-
-step The Zoram Strand
-  zone Ashenvale
-  tip Follow the coast north to the Zoram Strand. Talen camps on the beach; Wrathtail nagas fill the shore.
-  accept 1007                             -- Talen
-  collect 5424 quest 1007 @14.2,20.6      -- Ancient Statuette, in the ruins on the shore
-  collect 5490 quest 1008             -- Wrathtail Head: any Wrathtail naga on the strand
-
-step Talen
-  turnin 1007
-  accept 1009
-
-step Ruuzel
-  tip Ruuzel walks the northern tip of the Zoram Strand with Wrathtail guards.
-  collect 5445 quest 1009                 -- Ring of Zoram
-
-step Talen
-  turnin 1009
-
-step Maestra's Post
-  turnin 973                              -- Delgren the Purifier
-  accept 1140                             -- Delgren the Purifier: its circles are for your next Ashenvale visit, at about 28
-
-step Astranaar
-  tip Follow the road south-east from Maestra's Post back to Astranaar: Shindrell Swiftfire stands by the flight master.
-  turnin 1008                         -- Shindrell Swiftfire
 
 # ---------------------------------------------------------------- Menethil Harbor
 

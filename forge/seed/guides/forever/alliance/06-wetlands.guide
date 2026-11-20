@@ -28,8 +28,9 @@ next forever/alliance/07-thousand-needles
 # the river west of Einar (data/places.json 610-wetlands-fen-creepers), not across the zone.
 # Lifting the Curse (290), The Eye of Paleth (292) and Cleansing the Eye (293) are on 30-40/01's
 # Menethil stop at about 31: Captain Halyndor (30) is 2 levels over a player here (level tidy 0.4.0).
-# Elemental Bracers (1016) is done on the Krolg leg here at about 29.7: at 23-24 on 06-ashenvale's Mystral Lake stop the
-# Befouled Water Elementals (23-25) and Tideress (27) were two to four over the player (fix round 1, 0.4.0).
+# Raene Wolfrunner's An Aggressive Defense and Culling the Threat (1025, 1054), Elemental Bracers (1016) and the
+# Gleaming Crescent Necklace (98027) are done at the end of 06-ashenvale's first visit, at about 24-25 (fix round
+# 2026-11-20); the steps here are only for a character who arrives without them (`when !turnedin`).
 # Hand-cut 2026-11-07 (the Alliance 21-24 level hole) from the old 25-29 06-ashenvale and the
 # Wetlands visit of 07-thousand-needles: the Wetlands are one visit at 27-29, after Duskwood.
 # Since 2026-11-07 Ashenvale's 27-32 quests follow on the same trip (the order their quest
@@ -328,6 +329,11 @@ step Astranaar
   accept 1035                         -- Pelturas Whitemoon, inside
 
 step Raene Wolfrunner
+  when turnedin 1023
+  tip Raene Wolfrunner stands in the inn: her message goes to Shael'dryn in the Howling Vale, on this visit's way east.
+  accept 1024                         -- Raene Wolfrunner, in the inn
+
+step Raene Wolfrunner
   zone Ashenvale
   when onquest 990
   tip Raene Wolfrunner stands in the inn, beside the innkeeper.
@@ -480,14 +486,19 @@ step Astranaar
   tip Raene Wolfrunner and Maliynn are in the inn; Pelturas Whitemoon is inside the building just south of it.
   turnin 1029                         -- Raene Wolfrunner
   accept 1030
-  accept 1025                         -- Raene Wolfrunner: An Aggressive Defense, the Foulweald on the way to Krolg
-  accept 1054                         -- Raene Wolfrunner: Culling the Threat, Dal Bloodclaw on the way back from Maestra's Post
   turnin 98027                        -- Maliynn, in the inn
   turnin 1035                         -- Pelturas Whitemoon, inside the building south of the inn
+
+step Raene Wolfrunner
+  when !turnedin 1025
+  tip Not done on your first Ashenvale visit? Raene also has An Aggressive Defense (the Foulweald, on the way to Krolg) and Culling the Threat (Dal Bloodclaw, on the way back from Maestra's Post).
+  accept 1025                         -- Raene Wolfrunner: An Aggressive Defense
+  accept 1054                         -- Raene Wolfrunner: Culling the Threat
 
 # ---------------------------------------------------------------- Krolg
 
 step The Foulweald
+  when !turnedin 1025
   tip On the way south-east to Krolg: the Foulweald furbolgs live in the woods south of the road, south-east of Astranaar. The Den Watcher and the Ursas guard the den.
   kill 3746 quest 1025                    -- Foulweald Den Watcher
   kill 3749 quest 1025                    -- Foulweald Ursa
@@ -495,6 +506,7 @@ step The Foulweald
   kill 3743 quest 1025                    -- Foulweald Warrior
 
 step Mystral Lake
+  when !turnedin 1016
   zone Ashenvale
   tip Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake, just north of the road to Krolg. Befouled Water Elementals wade in the lake; Tideress, a level 27 water elemental, walks among them and drops the bracers too.
   accept 1016                             -- Sentinel Velene Starstrike
@@ -551,12 +563,13 @@ step Delgren the Purifier
   turnin 1140
 
 step Dal Bloodclaw
+  when !turnedin 1054
   tip From Maestra's Post, east to the Thistlefur camp north of Astranaar: Dal Bloodclaw leads the furbolgs there. Then south to Astranaar.
   tip Careful: The furbolgs near him usually join in when he is pulled. Killing the ones along his path first lets you fight him alone.
   collect 5544 quest 1054                 -- Dal Bloodclaw's Skull
 
 step Astranaar
-  tip South from Dal Bloodclaw's camp to Astranaar: Raene Wolfrunner in the inn, the flight master at the west end.
+  tip Back east along the road from Maestra's Post to Astranaar: Raene Wolfrunner in the inn, the flight master at the west end.
   turnin 1046                         -- Raene Wolfrunner
   turnin 1025                         -- Raene Wolfrunner
   turnin 1054                         -- Raene Wolfrunner

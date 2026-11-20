@@ -4916,8 +4916,9 @@ test(`${DARKSHORE_RETURN}: scalatrava's report (#1352): the Twilight Tome's ques
 // to target and the bracers were not counted. The bracer goal is optional:
 // the Divined Scroll holds the step.
 
-test(`Tazul's report: Elemental Bracers counts the five bracers before the Divined Scroll`, { skip }, () => {
-	const list = goals(WETLANDS); // 0.4.0 fix round: Elemental Bracers moved from 06-ashenvale to the Krolg leg here
+for (const guide of [ASHENVALE, WETLANDS]) test(`${guide}: Tazul's report: Elemental Bracers counts the five bracers before the Divined Scroll`, { skip }, () => {
+	// Ashenvale fix round (2026-11-20): the quest is on 06-ashenvale's south-east loop again; 06-wetlands keeps a catch-up step.
+	const list = goals(guide);
 	const bracers = at(list, 'collect 12220', (g) => g.t === 'collect' && g.item === 12220);
 	const scroll = at(list, 'collect 5455', (g) => g.t === 'collect' && g.item === 5455 && g.quest === 1016);
 	assert.equal(list[bracers].goal.count, 5);
@@ -5978,8 +5979,8 @@ test(`${ASHENVALE}: The Sleeper Has Awakened gives the Horn of Awakening on acce
 
 // Thin-data audit (#1317): Elemental Bracers' Divined Scroll is made where the elementals are; the goal pointed at the
 // lake's west edge, ~70 yd from every recorded tick (7 people, middle at 49.6,71.3).
-test(`${WETLANDS}: thin-data audit: Elemental Bracers points where players make the Divined Scroll (#1317)`, { skip }, () => {
-	const list = goals(WETLANDS);
+for (const guide of [ASHENVALE, WETLANDS]) test(`${guide}: thin-data audit: Elemental Bracers points where players make the Divined Scroll (#1317)`, { skip }, () => {
+	const list = goals(guide);
 	const { goal } = list[at(list, 'collect 5455 (1016)', (g) => g.t === 'collect' && g.quest === 1016)];
 	assert.equal(goal.map, 1440, 'Ashenvale');
 	assert.ok(Math.hypot(goal.x - 49.6, goal.y - 71.3) < 1, `among the elementals (${goal.x},${goal.y})`);
@@ -8299,19 +8300,26 @@ test('Alliance 20-30: no town stop for one quest where the route comes back anyw
 	assert.ok(wetStep('turnin', 1029) < wetStep('accept', 1045) && wetStep('accept', 1045) < wetStep('turnin', 1046), 'two Astranaar stops: before Krolg and at the end of the Ashenvale trip');
 	const ash = goals(ASHENVALE);
 	const ashStep = (t, q) => ash[at(ash, `${t} ${q}`, is(t, q))].s;
-	// Alliance 12-30 bracket review 0.3.6: the walk back west to Ilkrud runs through Astranaar, so Pelturas's ready hand-in
-	// goes in on that pass; the last stop, needed anyway for the flight, is Shindrell's alone.
-	assert.ok(ashStep('turnin', 1034) > ashStep('turnin', 1024) && ashStep('turnin', 1034) < ash[at(ash, 'collect 5533 (Ilkrud)', (g) => g.t === 'collect' && g.item === 5533)].s, '1034 handed in on the pass through Astranaar between Shael\'dryn and Ilkrud');
-	// Level tidy 0.4.0: the Foulweald's Den Watcher and Ursas (24-25) and Dal Bloodclaw (25) were 2 over players here
-	// (recordings: 25th percentile 23.3-23.5). Raene gives both on 06-wetlands' Astranaar stop for 1029 at about 29: the
-	// Foulweald on the way to Krolg, Dal on the way back from Maestra's Post, both handed in with 1046.
-	assert.ok(!ash.some(({ goal }) => [1025, 1054].includes(goal.quest)), 'An Aggressive Defense and Culling the Threat are not in 06-ashenvale');
+	// Alliance 12-30 bracket review 0.3.6 kept a town stop for one quest out of 06-ashenvale. Ashenvale fix round
+	// (2026-11-20, Twerkjob's back and forth): no Shael'dryn trip on the first visit; Pelturas's stardust (1034) goes in on
+	// the hearth stop after the west sweep with Shindrell's and Raene's hand-ins, still no stop for one quest.
+	assert.equal(ashStep('turnin', 1034), ashStep('turnin', 1008), '1034 handed in with The Zoram Strand on the hearth stop');
+	assert.equal(ashStep('turnin', 1034), ashStep('turnin', 1023), 'and with Raene\'s gem');
+	assert.ok(ashStep('turnin', 1034) > ash[at(ash, 'collect 5533 (Ilkrud)', (g) => g.t === 'collect' && g.item === 5533)].s, 'after the west sweep');
+	// Level tidy 0.4.0 moved the Foulweald's Den Watcher and Ursas (24-25) and Dal Bloodclaw (25) to 06-wetlands at about 29
+	// (2 over players at 23.3-23.5 then). Ashenvale fix round (2026-11-20): with Stonetalon before them they come at the end of
+	// the first visit (about 24-25, at most one over, Careful tips): Raene gives Culling the Threat on the first stop and An
+	// Aggressive Defense with the gem's hand-in; both go back to her on the last stop. 06-wetlands keeps both for a
+	// character who arrives without them (`when !turnedin`).
+	assert.equal(ashStep('accept', 1054), ashStep('accept', 1033), 'Culling the Threat taken on the first Astranaar stop');
+	assert.equal(ashStep('accept', 1025), ashStep('turnin', 1023), 'An Aggressive Defense taken with the gem');
+	assert.ok(ashStep('turnin', 1056) < ash[at(ash, 'Foulweald kills', (g) => g.t === 'kill' && g.quest === 1025)].s, 'the Foulweald after the Stonetalon Peak flight');
+	for (const q of [1025, 1054]) assert.equal(ashStep('turnin', q), ashStep('turnin', 98027), `${q} handed in on the last Astranaar stop`);
 	for (const q of [1025, 1054]) {
-		assert.equal(wetStep('accept', q), wetStep('turnin', 1029), `${q} taken on Raene's 1029 stop`);
-		assert.equal(wetStep('turnin', q), wetStep('turnin', 1046), `${q} handed in with 1046 on the last Astranaar stop`);
+		const { step } = wet[at(wet, `accept ${q}`, is('accept', q))];
+		assert.ok((step.when || []).some((p) => p.k === 'turnedin' && p.neg && [].concat(p.q).includes(1025)), `06-wetlands: ${q} only for a character without it`);
 	}
-	assert.ok(wetStep('turnin', 1029) < wet[at(wet, 'Foulweald kills', (g) => g.t === 'kill' && g.quest === 1025)].s && wet[at(wet, 'Foulweald kills', (g) => g.t === 'kill' && g.quest === 1025)].s < wetStep('turnin', 1030), 'the Foulweald on the way to Krolg');
-	assert.ok(wetStep('turnin', 1140) < wet[at(wet, 'Dal Bloodclaw', (g) => g.t === 'collect' && g.item === 5544)].s, 'Dal Bloodclaw after Maestra\'s Post');
+	assert.ok(wetStep('turnin', 1140) < wet[at(wet, 'Dal Bloodclaw', (g) => g.t === 'collect' && g.item === 5544)].s, 'Dal Bloodclaw\'s catch-up after Maestra\'s Post');
 	assert.ok(ashStep('turnin', 1008) > ash[at(ash, 'collect 5490 (Wrathtail Heads)', (g) => g.t === 'collect' && g.item === 5490)].s, 'The Zoram Strand handed to Shindrell on the last stop, by the flight master');
 	assert.equal(ashStep('turnin', 294), ashStep('accept', 295), 'Ormer\'s second quest taken with the first hand-in');
 	assert.ok(!ash.some(({ goal }) => goal.quest === 343), 'no walk into Stormwind Keep for Speaking of Fortitude');
@@ -15679,14 +15687,18 @@ test(`${DARKSHORE_RETURN}: Trial of the Sea Lion and Aquatic Form on the Cat For
 });
 
 // Alliance 20-30 audit (0.4.0, #2025): at Mystral Lake, Tideress (27) killed 4 people and the Befouled Water
-// Elementals 5 at about 23 (players' recordings). Fix round 1: the quest moved to 06-wetlands' Krolg leg at about 29.7,
-// where Tideress is two under the player; the step still names her, and 06-ashenvale has no Mystral Lake step.
-test(`${WETLANDS}: Elemental Bracers is done at about 29 on the Krolg leg, and the step names Tideress`, { skip }, () => {
-	assert.ok(!goals(ASHENVALE).some(({ goal }) => goal.quest === 1016), `${ASHENVALE} no longer works Elemental Bracers at 23-24`);
-	const list = goals(WETLANDS);
-	assert.ok(at(list, 'turnin 1016', is('turnin', 1016)) < at(list, 'turnin 1030 (Krolg)', is('turnin', 1030)), 'on the way to Krolg');
+// Elementals 5 at about 23 (players' recordings). Fix round 1 moved the quest to 06-wetlands' Krolg leg at about 29.7.
+// Ashenvale fix round (2026-11-20): it is back on 06-ashenvale's first visit, but on the south-east loop after the
+// Stonetalon Peak flight (about 24-25, elementals 23-25 at most one over), and the step still names Tideress as the
+// one to leave alone; 06-wetlands keeps it only for a character who arrives without it.
+test(`${ASHENVALE}: Elemental Bracers comes after Stonetalon Peak, and the step names Tideress`, { skip }, () => {
+	const list = goals(ASHENVALE);
+	assert.ok(at(list, 'turnin 1056 (Stonetalon Peak)', is('turnin', 1056)) < at(list, 'accept 1016', is('accept', 1016)), 'after the Stonetalon trip');
 	const { step } = list[at(list, 'Elemental Bracers (1016)', is('accept', 1016))];
 	assert.match([step.tip, step.note].flat().filter(Boolean).join(' '), /Tideress, a level 27 water elemental/);
+	const wet = goals(WETLANDS);
+	const catchUp = wet[at(wet, 'Elemental Bracers (1016)', is('accept', 1016))].step;
+	assert.ok((catchUp.when || []).some((p) => p.k === 'turnedin' && p.neg && [].concat(p.q).includes(1016)), '06-wetlands: only for a character without it');
 });
 
 // Alliance 20-30 audit (0.4.0, #2025, with the Alliance 30-40 slice): Retrieval for Mauren (1078) was taken on
@@ -17310,16 +17322,31 @@ test('Alliance Wetlands: Raene’s delivery continues after the Glowing Gem, inc
 	} finally { pack.dispose(); }
 });
 
-test('Ashenvale: Raene sends the player to Shael’dryn on the first visit and Ilkrud is at Fire Scar Shrine (#2837)', { skip }, () => {
+// Twerkjob ("running back and forth in ashenvale"): 06-ashenvale's first visit went Astranaar -> Lake Falathim (west) ->
+// Elune's Tear (east) -> Astranaar -> Stonetalon -> Stardust -> Shael'dryn (far east, one talk hand-in) -> Astranaar ->
+// Ilkrud and the Zoram Strand (west), with Raene's two hunts offered on every Astranaar stop and left. Ashenvale fix round
+// (2026-11-20): Elune's Tear, then one sweep up the west and the hearth to Astranaar, then Stonetalon north to the Peak
+// and its flight back, then the south-east and Dal Bloodclaw. Raene's Cleansing 1024 (the walk to Shael'dryn) is taken
+// on 06-wetlands' first Astranaar stop and handed in where Shael'dryn gives 1026. #2837: Ilkrud is at the Fire Scar Shrine.
+test('Ashenvale: one sweep up the west on the first visit, Shael\'dryn on the second, Ilkrud at the Fire Scar Shrine (Twerkjob, #2837)', { skip }, () => {
 	const list = goals(ASHENVALE);
-	const gem = at(list, 'turn in the Glowing Gem', is('turnin', 1023));
-	const take = at(list, 'take the delivery', is('accept', 1024));
-	const hand = at(list, 'deliver to Shael’dryn', is('turnin', 1024));
-	assert.ok(gem < take && take < hand);
-	assert.equal(list[gem].goal.npc, 3691);
-	assert.equal(list[hand].goal.npc, 3916);
-	const tome = list[at(list, 'collect the tome', g => g.t === 'collect' && g.item === 5533)];
-	const tip = [tome.step.note, tome.step.tip].flat().filter(Boolean).join(' ');
+	assert.ok(!list.some(({ goal }) => goal.quest === 1024), 'no Shael\'dryn trip on the first visit');
+	const step = (t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
+	const tear = list[at(list, 'Elune\'s Tear', (g) => g.t === 'collect' && g.item === 5493)].s;
+	const stardust = list[at(list, 'stardust', (g) => g.t === 'collect' && g.item === 5494)].s;
+	const tome = at(list, 'collect the tome', (g) => g.t === 'collect' && g.item === 5533);
+	const heads = list[at(list, 'Wrathtail Heads', (g) => g.t === 'collect' && g.item === 5490)].s;
+	assert.ok(tear < stardust && stardust < list[tome].s && list[tome].s < step('turnin', 945) && step('turnin', 945) < step('turnin', 991)
+		&& step('turnin', 991) < step('turnin', 973) && step('turnin', 973) < heads, 'Elune\'s Tear, then Stardust, Ilkrud, Therysil, Teronis, Delgren and the Zoram Strand');
+	assert.ok(heads < step('turnin', 1070), 'the west before Stonetalon');
+	assert.ok(step('turnin', 1070) < step('turnin', 1056) && step('turnin', 1056) < list[at(list, 'Foulweald kills', (g) => g.t === 'kill' && g.quest === 1025)].s, 'Stonetalon Peak, then the south-east');
+	assert.equal(list[at(list, 'turnin 1023', is('turnin', 1023))].goal.npc, 3691);
+	const wet = goals(WETLANDS);
+	const take = wet[at(wet, 'take the delivery', is('accept', 1024))];
+	const hand = at(wet, 'deliver to Shael’dryn', is('turnin', 1024));
+	assert.ok(take.s < wet[hand].s && wet[hand].goal.npc === 3916, '06-wetlands takes Raene\'s message and hands it to Shael\'dryn');
+	assert.ok(wet[hand].s < wet[at(wet, 'accept 1026', is('accept', 1026))].s, 'before her next part');
+	const tip = [list[tome].step.note, list[tome].step.tip].flat().filter(Boolean).join(' ');
 	assert.match(tip, /Fire Scar Shrine/);
 	assert.doesNotMatch(tip, /Ordil'Aran/);
 });
