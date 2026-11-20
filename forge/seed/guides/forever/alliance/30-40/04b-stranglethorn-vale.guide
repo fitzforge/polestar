@@ -26,6 +26,8 @@ pitch For characters of 35 to 36, but several quests here are level 37-38: on pu
 # 41): Venture Co. Agents (39) walk among Lake Nazferiti's Geologists, three over players here at about 35.7.
 # On the Lam (79235), from Bibbly at Kormek's Hut in 30-40/02-desolace, goes to Tokal by Booty Bay's Salty Sailor Tavern
 # on the last stop, with his Cherry for Your Thoughts? (79236: a Cherry Grog from Nixxrax Fillamug in the tavern).
+# The Caravan Road (2026-11-20 round): The Caravan Road (1041) and The Carevin Family (1042) go in on the Darkshire
+# landing, which gives The Scythe of Elune (1043) for 30-40/05's Swamp of Sorrows leg.
 
 step Collin Mauren
   when complete 1078

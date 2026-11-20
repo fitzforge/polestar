@@ -11,10 +11,10 @@ next forever/alliance/30-40/04b-stranglethorn-vale
 # into this file.
 # Added here: Vahlarriel's Vengeance (97284), on the Thunder Axe Fortress visit; The Karnitol Shipwreck (1454, 1455) and the
 # satchel's errand (1456), whose chest lies by Azore's tower on the way to the fortress; Carved Centaur Totems (93224),
-# whose totems the Kolkar drop with Centaur Bounty's ears (#1602; 30-40/06 keeps it for a player who loads it fresh).
+# whose totems the Kolkar drop with Centaur Bounty's ears (#1602; 30-40/06b keeps it for a player who loads it fresh).
 # Left out: Bodyguard for Hire (5821).
 # Since 2026-11-07 this first Desolace visit comes after Stranglethorn's first loop (33-35); the south loop stays at
-# the end of 30-40/06 (38-39), which dives for Karnitol's satchel on its north-west coast.
+# the end of 30-40, in 30-40/06b-desolace (38-39), which dives for Karnitol's satchel on its north-west coast.
 # Since the 2026-11-20 fix round Claim Rackmore's Treasure! (6161) is done here: its log lies beside Karnitol's Chest,
 # the silver key drops from the Drysnap crabs around the wreck (33-35), the golden key from the Slitherblade naga of
 # the coast north of it (32-35) and the chest stands at the coast's northern tip, so the coast is walked once, north
@@ -167,7 +167,7 @@ step Nijel's Point
   turnin 93224                        -- Captain Pentigast
   turnin 1459                         -- Kreldig Ungor
   turnin 1455
-  accept 1456                         -- Kreldig Ungor: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06-badlands): keep it
+  accept 1456                         -- Kreldig Ungor: the satchel lies off the north-west coast, on the south loop at the end of 30-40 (06b-desolace): keep it
 
 # ---------------------------------------------------------------- To Stormwind
 

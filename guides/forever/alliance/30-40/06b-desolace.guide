@@ -16,6 +16,8 @@ con A long trip out to Kalimdor
 # into this file.
 # Split from 30-40/06-badlands on 2026-11-13 (0.4.0 route audit, Refs #2025): Desolace's south loop, from Thelsamar,
 # where the Badlands end. Added here: Claim Rackmore's Treasure! (6161, every race), The Karnitol Shipwreck (1456).
+# Since the 2026-11-20 round Claim Rackmore's Treasure! (6161) and Bone Collector (5501) are done on the first Desolace
+# visit (30-40/02); their steps here are for a character who loads this guide without it.
 # Since 0.3.6 the wreck's chest is opened and handed in on the first Desolace visit (30-40/02), so the satchel is
 # dived for on the one trip to the north-west coast, Rackmore's chest is opened right after the Serpent Statue, and
 # Nijel's Point is visited once at the end instead of in the middle of the loop as well.
@@ -55,7 +57,7 @@ step Nijel's Point
 
 step Bibbly F'utzbuckle
   tip Follow the road south to Kormek's Hut.
-  accept 5501
+  accept 5501                         -- Bibbly F'utzbuckle, if 30-40/02 didn't give it
 
 step Kodo Graveyard
   tip Hornizz stands at the edge of the Kodo Graveyard, south-west of Kormek's Hut; Kodo Bones lie among the skeletons.

@@ -7930,7 +7930,7 @@ test('A Meal Served Cold (30-minute limit) is in no leveling guide', { skip }, (
 
 // Flow re-order (2026-11-07): Alliance Desolace made the Scorpashi venom a stop of its own at Kormek's Hut
 // after the Kodo Graveyard, then walked back to the graveyard for the last hides.
-test('forever/alliance/30-40/02-desolace.guide: flow re-order: the Scorpashi venom with the kodos at the Kodo Graveyard, no Kormek\'s Hut stop', { skip }, () => {
+test('forever/alliance/30-40/02-desolace.guide: flow re-order: the Scorpashi venom with the kodos at the Kodo Graveyard, not a Kormek\'s Hut stop of its own', { skip }, () => {
 	const list = goals('forever/alliance/30-40/02-desolace.guide');
 	const kodos = list.find(({ goal }) => goal.quest === 5561 && ['kill', 'talk', 'use'].includes(goal.t)); // #1458: a talk at Smeed's camp, not a kill
 	const venom = list.filter(({ goal }) => goal.t === 'collect' && goal.item === 6248);

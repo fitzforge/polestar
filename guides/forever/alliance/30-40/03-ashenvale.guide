@@ -32,6 +32,8 @@ next forever/alliance/30-40/04-stranglethorn-vale
 # Hendel and Balos Jacken stand off this guide's path; Soothing Spices and The Orc Report (1218, 1219) at Swamplight
 # Manor, about 1,300 yards north of the road. Left out: Parts for Kravel (1112, back to the Raceway, which the route
 # next visits at 45) and The Crone of the Kraul (1101, inside Razorfen Kraul).
+# The Caravan Road (2026-11-20 round): Velinde's The Barrens Port (1039) goes to Ratchet's harbor on the last stop,
+# which gives Passage to Booty Bay (1040) for the next guide.
 
 step Fly to Menethil Harbor
   zone Stormwind City
@@ -52,7 +54,6 @@ step Glorin Steelbrow
 
 step Deepwater Tavern
   tip Tapoke Jahn (34) slips out of the tavern once you take The Missing Diplomat: stay close behind him. He turns on you outside, a friend joins him, and he gives up once badly hurt. If you lose him the quest fails: abandon it and take it again from Mikhail.
-  sethome "Deepwater Tavern"
   turnin 1248                         -- Mikhail
   accept 1249
   kill 4962 quest 1249 @10.5,60.3 map 1437 -- Tapoke "Slim" Jahn

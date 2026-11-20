@@ -26,6 +26,9 @@ pitch For characters of 36 to 38. Faldir's Cove, where the naga and the professo
 # Swamp of Sorrows ends Harborage, then Watcher Biggs, on the road out.
 # Left out: A Meal Served Cold (212): its 30-minute limit can't last from Stormwind to the Cold Eye Basilisks in Stranglethorn and back.
 
+# The Caravan Road (2026-11-20 round): the Scythe of Elune's mound (1043) is on the Swamp of Sorrows leg on the way
+# north, and Jonathan Carevin takes it in Darkshire before the flight to Stormwind.
+
 # ---------------------------------------------------------------- Swamp of Sorrows
 
 step Fly to Darkshire
@@ -107,6 +110,7 @@ step Watcher Biggs
 
 step Duskwood
   zone Duskwood
+  tip Back west through Deadwind Pass to Darkshire.
   goto 77.6,44.4 "Duskwood"
 
 step Jonathan Carevin
@@ -118,7 +122,6 @@ step Jonathan Carevin
 # ---------------------------------------------------------------- Stormwind
 
 step Fly to Stormwind
-  tip Back west through Deadwind Pass to Darkshire.
   zone Duskwood
   fly "Stormwind"                     -- Felicia Maline, Darkshire
 

@@ -32,6 +32,8 @@ next forever/alliance/30-40/02-desolace
 # Doctors of 36-37, three over players here (fix round 1, 0.4.0). Kebok's and the crate's quests are taken on this loop.
 # Route review 0.4.3: Kebok's Hostile Takeover (213) is taken, worked and handed in on 40-50/01-stranglethorn-vale at about
 # 41: Venture Co. Agents (39) walk among Lake Nazferiti's Geologists, three over players on 04b's loop.
+# The Caravan Road (2026-11-20 round): Passage to Booty Bay (1040) goes in on the Booty Bay arrival, which gives The
+# Caravan Road (1041) for the Darkshire landing of 04b; Goblin Sponsorship's Booty Bay part (1180, 1181) is handed in there too.
 
 step Boat to Booty Bay
   when !zone "Stranglethorn Vale"

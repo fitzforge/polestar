@@ -34,6 +34,8 @@ pitch For characters of 36 to 38. Faldir's Cove, where the naga and the professo
 # Overwhelming (92456, 92489: Shylamiir and High Sorcerer Andromath in Stormwind, whose next visit comes after
 # Dalaran), Friend of the Kirin Tor (92459: 270 XP for a walk to Archmage Celindra) and Unstable Magic (96603,
 # level 60).
+# The Caravan Road (2026-11-20 round): the Scythe of Elune's mound (1043) is on the Swamp of Sorrows leg on the way
+# north, and Jonathan Carevin takes it in Darkshire before the flight to Stormwind.
 
 # ---------------------------------------------------------------- Swamp of Sorrows
 
@@ -116,6 +118,7 @@ step Watcher Biggs
 
 step Duskwood
   zone Duskwood
+  tip Back west through Deadwind Pass to Darkshire.
   goto 77.6,44.4 "Darkshire"
 
 step Jonathan Carevin
@@ -127,7 +130,6 @@ step Jonathan Carevin
 # ---------------------------------------------------------------- Stormwind
 
 step Fly to Stormwind
-  tip Back west through Deadwind Pass to Darkshire.
   zone Duskwood
   fly "Stormwind"                     -- Felicia Maline, Darkshire
 
