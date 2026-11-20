@@ -13817,6 +13817,47 @@
 				}
 			],
 			"pr": 3285
+		},
+		{
+			"id": "a1-dun-modr-modr-and-cache-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 633,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/06-wetlands"
+			},
+			"tip": "Careful: Dark Iron Shadowcasters (31-32) and Bombardiers (30-31), who fight from range, and a Supplier (31-32) stand within 15-25 yards of the cache: pull them one at a time to the bridge before you touch it.",
+			"note": "Alliance 1-30 fix pass (2026-11-20): Dun Modr and the Thandol Span moved to 06-wetlands at about 30, where the danger gate does not look at talk goals. Modr (npc 271460, elite 32) walks the ruins about 55 yards west of Rhag Garmason (players' recordings: 206 people met it hostile from the camp and the road), so the Longbraid, Rhag and return steps name it; the cache of explosives (633.1) has Shadowcasters, Bombardiers and a Supplier (30-32) around it at about +1 for the player, so its step carries a Careful line. The corpse step's elite Saboteurs (28-29) keep their tip, now saying to loot and walk out and to fight them only from 31; a `when level>=30` gate was not added: the level model reaches the corpse at about 29.7, so it would push the chain's 9,950 XP to 30-40/01's catch-up for most players.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json 271460 Modr 32 elite (spawns 48.5,18.4 / 48.0,16.8), 2577 Dark Iron Shadowcaster 31-32, 4062 Dark Iron Bombardier 30-31, 2575 Dark Iron Supplier 31-32, 1052 Dark Iron Saboteur 28-29 elite"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec.py npc 271460: seen hostile by 206 people, spots 48-50,14-20"
+				}
+			],
+			"pr": 3285
+		},
+		{
+			"id": "a1-third-fleet-catch-up-only",
+			"faction": "Alliance",
+			"at": {
+				"quest": 288,
+				"goal": "accept",
+				"guide": "forever/alliance/06-wetlands"
+			},
+			"when": "!turnedin 288",
+			"note": "Alliance 1-30 fix pass (2026-11-20): The Third Fleet (288) is done on 06-ashenvale's Menethil stop since the 2026-11-20 round. 06-wetlands kept accept / buy the Honeymead / turnin on its arrival step; the accept and hand-in read done, but a `buy` goal has no quest tie, so the step waited for a flagon nobody needs. The three lines are a step of their own, shown only while 288 isn't handed in.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 288 objective item 2594 (Flagon of Dwarven Honeymead), sold by Innkeeper Helbrek (1464)"
+				}
+			],
+			"pr": 3285
 		}
 	]
 }

@@ -131,12 +131,17 @@ step Fly to Menethil Harbor
   fly "Menethil Harbor"
   zone Wetlands
 
-step Menethil Harbor
+step First Mate Fitzsimmons
+  when !turnedin 288
   zone Wetlands
+  tip The Third Fleet, if the Ashenvale guide's Menethil stop didn't do it: First Mate Fitzsimmons wants a Flagon of Dwarven Honeymead from Innkeeper Helbrek, both in the inn.
   accept 288                              -- First Mate Fitzsimmons, in the inn
-  sethome "Deepwater Tavern"
   buy 2594 x1 npc 1464                    -- Flagon of Dwarven Honeymead, from Innkeeper Helbrek
   turnin 288
+
+step Menethil Harbor
+  zone Wetlands
+  sethome "Deepwater Tavern"
   accept 289
   accept 464                              -- Captain Stoutfist, by the keep; on the top floor
   accept 98221                            -- Captain Stoutfist: From the Ashes, the Attack Plans in the Angerfang Encampment
@@ -314,28 +319,30 @@ step Dragonmaw Gates: kill these as you meet them
 step Longbraid the Grim
   when onquest 472
   tip North-west to the road and north along it to Dun Modr. Longbraid the Grim and Rhag Garmason stand together in the dwarves' camp on the east side of the road; the Dark Iron ruins west of it are full of elites: keep to the road.
+  tip Careful: Modr (32, elite) walks the Dark Iron ruins about 55 yards west of Rhag; players have met it from the camp and the road: stay on the camp's east side.
   turnin 472                              -- Longbraid the Grim
 
 step Dun Modr
-  tip Rhag Garmason stands beside Longbraid in the dwarves' camp at Dun Modr, east of the road; keep out of the Dark Iron ruins west of it.
+  tip Rhag Garmason stands beside Longbraid in the dwarves' camp at Dun Modr, east of the road; keep out of the Dark Iron ruins west of it, where Modr (32, elite) walks.
   accept 631                              -- Rhag Garmason
 
 step Ebenezer Rustlocke
   zone Wetlands
   tip North along the road from Dun Modr towards the Thandol Span: Ebenezer Rustlocke's corpse lies under the span. His parchment goes back to Rhag.
-  tip Careful: Two elite Dark Iron Saboteurs (28-29) stand by the corpse inside the span: loot the corpse and walk straight out, or pull them one at a time.
+  tip Careful: Two elite Dark Iron Saboteurs (28-29) stand by the corpse inside the span: loot the corpse and walk straight out without fighting, or, from level 31, pull them one at a time.
   turnin 631                              -- Ebenezer Rustlocke's Corpse, inside
   accept 632                              -- the same corpse
 
 step Rhag Garmason
   zone Wetlands
-  tip Back down the road to Dun Modr: Rhag wants the Dark Iron explosives under the far end of the span destroyed.
+  tip Back down the road to Dun Modr: Rhag wants the Dark Iron explosives under the far end of the span destroyed. Keep to the camp's east side, away from Modr (32, elite) in the ruins.
   turnin 632                              -- Rhag Garmason
   accept 633
 
 step The Cache of Explosives
   zone Arathi Highlands
   tip Over the Thandol Span: the Dark Irons' cache of explosives sits by its Arathi end.
+  tip Careful: Dark Iron Shadowcasters (31-32) and Bombardiers (30-31), who fight from range, and a Supplier (31-32) stand within 15-25 yards of the cache: pull them one at a time to the bridge before you touch it.
   interact 2704 quest 633.1               -- Cache of Explosives
 
 step Waterlogged Envelope
@@ -345,7 +352,7 @@ step Waterlogged Envelope
 
 step Rhag Garmason again
   zone Wetlands
-  tip Back over the span and down the road to Dun Modr.
+  tip Back over the span and down the road to Dun Modr, on the camp's east side, away from Modr (32, elite) in the ruins.
   turnin 633                              -- Rhag Garmason
   accept 634                              -- For Captain Nials at Refuge Pointe, on your Arathi Highlands visit (30-40)
 
