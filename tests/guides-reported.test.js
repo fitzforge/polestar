@@ -9026,7 +9026,7 @@ test('forever/alliance/50-60/04-western-plaguelands.guide: final review: J.D. Co
 // and back), and the last city visit went Ironforge, Stormwind, Ironforge, Stormwind. (0.4.3 fix round: the cities are on
 // the Western & Eastern Plaguelands guide: one Ironforge stop on the way in, Stormwind from Chillwind Camp for Bolvar's
 // errand and the parcel, and again on the way out for The Blightcaller Cometh; no Ironforge after Stormwind.)
-test('forever/alliance/50-60/06-silithus.guide: final review: Stormwind once and Ironforge once', { skip }, () => {
+test('forever/alliance/50-60/04-western-plaguelands.guide: final review: Ironforge once, before Stormwind, the donations on one stop, no tram', { skip }, () => {
 	const list = goals('forever/alliance/50-60/04-western-plaguelands.guide');
 	const stepOf = (what, pred) => list[at(list, what, pred)].s;
 	const sw = stepOf('turnin 7793', is('turnin', 7793));
@@ -9036,6 +9036,22 @@ test('forever/alliance/50-60/06-silithus.guide: final review: Stormwind once and
 	assert.equal(list.filter(({ goal }) => goal.t === 'fly' && /Ironforge/.test(goal.location || '')).length, 1, 'one flight to Ironforge');
 	assert.ok(!list.some(({ goal }) => goal.t === 'goto' && /Tram/.test(goal.label || goal.text || '')), 'no tram between the two cities');
 	assert.ok(!goals('forever/alliance/50-60/06-silithus.guide').some(({ goal }) => [1453, 1455].includes(goal.map)), 'no city visit on the Silithus guide');
+});
+
+// Route audit (2026-11-20): Highlord Bolvar's The First and the Last (6182) needs level 56 and the level model reaches
+// the Plaguelands guide's Stormwind hop at about 55.9: refused, the hop's two long flights paid only for Janice's parcel.
+// The hop shows from 56; under it the parcel and Emma's errand go in on the last Stormwind stop.
+test('Alliance 50-60: the Plaguelands guide\'s Stormwind hop only from 56, the parcel on the last Stormwind stop otherwise', { skip }, () => {
+	const list = goals('forever/alliance/50-60/04-western-plaguelands.guide');
+	const from56 = ({ step }) => levelFrom(step) >= 56;
+	for (const [t, q] of [['accept', 6182], ['accept', 6184], ['turnin', 6184]]) assert.ok(from56(list[at(list, `${t} ${q}`, is(t, q))]), `${t} ${q} from 56`);
+	const flySW = list.filter(({ goal }) => goal.t === 'fly' && goal.location === 'Stormwind');
+	assert.equal(flySW.length, 2, 'two flights to Stormwind');
+	assert.ok(from56(flySW[0]), 'the mid-sweep one from 56');
+	assert.ok(!from56(flySW[1]), 'the last one for everyone');
+	const parcels = list.map((x, i) => [x, i]).filter(([x]) => is('turnin', 5022)(x.goal));
+	assert.equal(parcels.length, 2, 'Janice\'s parcel on both Stormwind stops');
+	assert.ok(from56(parcels[0][0]) && holdsQuest(parcels[1][0].step, 5022) && !from56(parcels[1][0]), 'the last one while the parcel is still carried');
 });
 // Final route review, 30-40 (2026-11-07): Alliance Stranglethorn walked from Booty Bay to the river crocolisks and back
 // for one hand-in, reached the haunted island only on the northern loop, then walked from Booty Bay back to the island

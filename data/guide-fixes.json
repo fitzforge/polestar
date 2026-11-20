@@ -13709,6 +13709,24 @@
 				}
 			],
 			"pr": 3144
+		},
+		{
+			"id": "a50-stormwind-hop-from-56",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6182,
+				"goal": "accept",
+				"guide": "forever/alliance/50-60/04-western-plaguelands"
+			},
+			"when": "level>=56",
+			"note": "Alliance 50-60 fix pass (2026-11-20): the Western & Eastern Plaguelands guide's mid-sweep flight from Chillwind Camp to Stormwind and back (two long flights) is for Highlord Bolvar's The First and the Last (6182, minimum level 56) and Flint Shadowmore's chain after it (6182-6186, 21,150 XP). The level model reaches Bolvar at about 55.9, under the quest's minimum, so the hop and Flint's hand-in show only from 56; a player under 56 rides on, and Janice's parcel and Emma's errand (5022, 5048) go in on the guide's last Stormwind stop instead.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 6182 minLevel 56 in Forever's quest data"
+				}
+			],
+			"pr": 3285
 		}
 	]
 }

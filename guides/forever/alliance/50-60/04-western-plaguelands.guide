@@ -329,15 +329,20 @@ step Chillwind Camp
   vendor nearest
 
 # ---------------------------------------------------------------- Stormwind
+# From level 56 only: Highlord Bolvar's The First and the Last (6182) needs 56, and the level model reaches this stop
+# at about 55.9. Without it the flight pays only Janice's parcel and Emma's errand (5022, 5048), so a player under 56
+# rides on and hands those in on the last Stormwind stop; Flint Shadowmore's chain (6182-6186) is then left out.
 
 step Fly to Stormwind
+  when level>=56
   zone Western Plaguelands
-  tip Fly to Stormwind for Janice's parcel and Highlord Bolvar's errand for SI:7, then straight back.
+  tip Fly to Stormwind for Highlord Bolvar's errand for SI:7 and Janice's parcel, then straight back.
   goto 42.9,85.0 "Chillwind Camp flight master"
   fly "Stormwind"
   zone Stormwind City
 
 step Stormwind Keep
+  when level>=56
   zone Stormwind City
   accept 6182                         -- Highlord Bolvar Fordragon
   turnin 6182                         -- Master Mathias Shaw, in SI:7
@@ -346,6 +351,7 @@ step Stormwind Keep
   accept 6184                         -- Flint Shadowmore at Chillwind Camp, on the flight back
 
 step Stormwind
+  when level>=56
   zone Stormwind City
   tip Clavicus takes sixty Silk, sixty Mageweave and sixty Runecloth: hand in what you carry (or buy at the Auction House), skip the rest.
   turnin 5022                         -- Royal Factor Bathrilor
@@ -363,12 +369,14 @@ step Stormwind
   turnin 7795 direct optional
 
 step Fly to Chillwind Camp
+  when level>=56
   zone Stormwind City
   goto 66.3,62.1 "Stormwind flight master"
   fly "Chillwind Camp"
   zone Western Plaguelands
 
 step Flint Shadowmore
+  when level>=56
   zone Western Plaguelands
   turnin 6184                         -- Flint Shadowmore
   accept 6185                         -- The agents' remains lie at the Marris Stead in the Eastern Plaguelands, on this guide's ride east
@@ -425,6 +433,7 @@ step Gahrron's Withering
   accept 5226                         -- For High Priestess MacDonnell at Chillwind Camp, at the end of this guide
 
 step The Marris Stead
+  when onquest 6185
   zone Eastern Plaguelands
   tip Ride east into the Eastern Plaguelands: the Marris Stead is the farm north of the southern road, north-west of Darrowshire. The three agents' remains are bone outlines on the ground: one by the road south of the farm, one on the hill east of the house, one on the mound in front of it.
   tip Careful: Nathanos Blightcaller (level 62 elite) and his elite hounds stand in front of the house: take the remains on the mound from the side and do not pull him. You don't have to fight him.
@@ -575,10 +584,14 @@ step Chillwind Camp
   zone Western Plaguelands
   turnin 5903                         -- Nathaniel Dumah
   note Dumah's next task sets a barrel down at Northridge, behind you now: skip it.
-  turnin 6185                         -- Flint Shadowmore
-  accept 6186                         -- Highlord Bolvar in Stormwind, on the way out of this guide
   turnin 5226                         -- High Priestess MacDonnell
   turnin 5237 direct -- Commander Ashlam Valorfist
+
+step Flint Shadowmore
+  when onquest 6185
+  zone Western Plaguelands
+  turnin 6185                         -- Flint Shadowmore
+  accept 6186                         -- Highlord Bolvar in Stormwind, on the way out of this guide
 
 step Fly to Stormwind
   zone Western Plaguelands
@@ -587,8 +600,27 @@ step Fly to Stormwind
   zone Stormwind City
 
 step Stormwind City
+  when onquest 6186
   zone Stormwind City
   turnin 6186                         -- Highlord Bolvar Fordragon, in Stormwind Keep
+
+step Stormwind
+  when onquest 5022
+  zone Stormwind City
+  tip Without the flight to Stormwind at 56 earlier in this guide: Janice's parcel goes to Royal Factor Bathrilor in the Trade District, then Ol' Emma takes her own errand on the canals. Clavicus takes sixty Silk, sixty Mageweave and sixty Runecloth: hand in what you carry (or buy at the Auction House), skip the rest.
+  turnin 5022                         -- Royal Factor Bathrilor
+  accept 5048
+  turnin 5048                         -- Ol' Emma, who walks the canals
+  note Emma's charm goes back to Janice in the Western Plaguelands, behind you now: skip it.
+  train class only Warrior,Paladin,Hunter,Rogue,Priest,Mage,Warlock,Druid
+  collect 4306 x60 optional @61.2,71.3 map 1453 live -- Silk Cloth, from your bags
+  collect 4338 x60 optional @61.2,71.3 map 1453 live -- Mageweave Cloth, from your bags
+  turnin 7793 direct optional -- Clavicus Knavingham, in the Trade District
+  turnin 7794 direct optional
+  collect 2592 x60 optional @61.2,71.3 map 1453 live -- Wool Cloth, from your bags
+  turnin 7791 direct optional
+  collect 14047 x60 optional @61.2,71.3 map 1453 live -- Runecloth, from your bags
+  turnin 7795 direct optional
 
 step Fly to Menethil Harbor
   zone Stormwind City
