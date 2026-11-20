@@ -16230,14 +16230,16 @@ test('Stranglethorn Vale (Alliance 40): every race takes the Booty Bay boat from
 // top-ups to 49.6 and 49.79) sat before Marshal's Refuge, whose hand-ins cover it (up to 26.8k XP to go, 32.4k ready).
 // One "Level 49.79" now follows the refuge's hand-ins, for whoever is still short. Since the 0.4.0 fix round the
 // refuge's last hand-ins on this first visit are J.D. Collie's crystals and Muigin's petals (Making Sense of It waits for
-// the later Un'Goro visit).
+// the later Un'Goro visit). Fix round 2026-11-20: the top-up after the refuge goes to 50 (the next guide opens in
+// Ironforge with accepts of minimum 50), so the check takes any top-up from 49 to 50; the fix holds: it still follows
+// the refuge's hand-ins.
 test("Un'Goro Crater (Alliance 49-50): the written grind comes after Marshal's Refuge's hand-ins (0.4.0 audit)", { skip }, () => {
 	const list = goals('forever/alliance/40-50/07-un-goro-crater.guide');
-	const grind = list.map((e, i) => [e, i]).filter(([{ goal }]) => goal.t === 'level' && goal.level === 49);
+	const grind = list.map((e, i) => [e, i]).filter(([{ goal }]) => goal.t === 'level' && goal.level >= 49 && goal.level <= 50);
 	assert.ok(!list.some(({ goal }) => goal.quest === 4321), 'Making Sense of It on the later visit');
 	const refuge = Math.max(at(list, 'turnin 4141', is('turnin', 4141)), at(list, 'turnin 4284', is('turnin', 4284)));
-	assert.ok(grind.length >= 1, 'a level 49 top-up');
-	for (const [, i] of grind) assert.ok(i > refuge, 'every Un\'Goro top-up to 49.x comes after the refuge\'s hand-ins');
+	assert.ok(grind.length >= 1, 'a top-up to 49-50');
+	for (const [, i] of grind) assert.ok(i > refuge, 'every Un\'Goro top-up comes after the refuge\'s hand-ins');
 });
 
 // Bennistrov's report (#1999): the Feralas High Wilderness step ground to level 44.5 on the Rage Scar yetis (46-48) at

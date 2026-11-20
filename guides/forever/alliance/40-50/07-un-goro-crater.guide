@@ -186,8 +186,8 @@ step Marshal's Refuge
   turnin 4503                         -- Shizzle
   level 50 only Priest,Mage
 
-step Level 49.79
-  when level<49.79
-  tip Still short of level 49.79 after the refuge's hand-ins? Top up on the Bloodpetal Lashers and Threshers (48-50) of the eastern jungle, where you took the petals, before you leave the crater.
+step Level 50
+  when level<50
+  tip Still short of level 50 after the refuge's hand-ins? The next guide opens in Ironforge with quests that need level 50: top up on the Bloodpetal Lashers and Threshers (48-50) of the eastern jungle, where you took the petals, before you leave the crater.
   goto 56.6,35.0 map 1449 "Bloodpetal Thresher"
-  level 49.79 grind 6511               -- grind on Bloodpetal Thresher
+  level 50 grind 6511                  -- grind on Bloodpetal Thresher

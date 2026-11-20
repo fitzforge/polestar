@@ -5147,6 +5147,23 @@
 			]
 		},
 		{
+			"id": "2026-11-20-ungoro-top-up-to-50",
+			"at": {
+				"quest": 4503,
+				"goal": "turnin"
+			},
+			"faction": "Alliance",
+			"level": 50,
+			"after": true,
+			"note": "Fix round 2026-11-20 (Alliance 40-60 seam): the Burning Steppes guide (50-60/01) now opens with the hearth to Ironforge, where Call to Arms (5090, Courier Hammerfall), The Smoldering Ruins of Thaurissan's first part (3702, Archesonus) and, through 5090, Chillwind Camp's Plaguelands work (5092) all need level 50. The level model (28 race and class runs, rested) leaves Un'Goro at 49.93 for the 21 runs that aren't Priests or Mages, and refused those three accepts in all 21. Un'Goro's written top-up after Marshal's Refuge's hand-ins goes to 50 instead of 49.79, on the same Bloodpetal Lashers and Threshers (48-50); Priests and Mages already went to 50 there (0306-level-sweep-cenarion-aid-priest-50). Players' levels run above the model, so most never see the step.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest minimum levels in Forever's quest data"
+				}
+			]
+		},
+		{
 			"id": "1319-mackreels-moonshine-time-limit",
 			"at": {
 				"quest": 647,
