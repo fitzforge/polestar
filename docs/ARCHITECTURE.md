@@ -277,8 +277,12 @@ quest's later goals with it (orphaned). A quest the player carries whose remaini
 hand-in ahead or not: a hand-in is no work, #1595) is
 noted `behind`: the guide window lists it under the step as "Still to do"
 (`Engine.GetBehind`; a click points the arrow, a right-click skips or
-abandons it) and While-here offers its objectives nearby; the place stays. A
-quest ahead that needed something passed is planned again (`Own.replan`,
+abandons it) and While-here offers its objectives nearby; the place stays.
+Recovery bypasses the update's `gone` mark, not the step's conditions.
+Both lists check `when` against the character now, not the outcome saved
+when the route passed the step. A hunt that needs level 34 cannot supply
+a badge or an arrow at 33; its saved quest remains available at 34.
+A quest ahead that needed something passed is planned again (`Own.replan`,
 `Own.goneSource`): the passed step comes back just before it when it is on
 the way (the catch-up's local rule), else the quest drops out with what
 follows. Safety: the mapping runs once per saved guide (the save is stamped

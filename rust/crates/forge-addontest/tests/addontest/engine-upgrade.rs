@@ -177,6 +177,45 @@ const TURNIN_AHEAD_TO: &str = r#"{ title = "New ahead", goals = { a(110, 70) } }
 	{ title = "Hand in 108", when = { { k = "complete", q = 108 } }, goals = { t(108, 70) } },"#;
 
 #[test]
+fn updated_guide_only_offers_and_targets_behind_work_once_its_level_gate_holds() {
+	let guide = GUIDE
+		.replace(
+			BEHIND_GUIDE_FROM,
+			r#"{ title = "New behind", when = { { k = "level", op = ">=", n = 34 } }, goals = {
+			{ t = "kill", target = "Wolf", npc = 299, quest = 108, oi = 1, map = M, x = 49, y = 50 },
+			{ t = "kill", target = "Bear", npc = 1186, quest = 108, oi = 2, map = M, x = 49, y = 50 },
+		} },"#,
+		)
+		.replace(TURNIN_AHEAD_FROM, TURNIN_AHEAD_TO);
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}\nw.level = 32; w.onQuest(108, {{5, 5}}, 'Quest 108')"),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".to_string(), saved(""))],
+		login: false,
+		script: format!(
+			r#"{TEST_PACK}
+			{TEST_SOURCE}
+			{guide}
+			{SCRIPT}
+			assert(PolestarCharDB.behind["test/up"][108], "the update left the held work behind")
+			local w = stub.world
+			for level = 32, 34 do
+				if level ~= 32 then w.setLevel(level); stub.advance(2) end
+				local n = 0
+				for _, c in ipairs(E.GetWhileHereCandidates()) do if c.step == 2 and c.kind == "work" then n = n + 1 end end
+				local aimed = E.AimBehind(108)
+				local pin = aimed and E.GetWaypoint()
+				emit({{ #E.GetBehind(), n, aimed, pin and pin.stepIndex or false }})
+			end"#
+		),
+	});
+	assert_eq!(out[1], json!([0, 0, false, false]), "level 32 after upgrading");
+	assert_eq!(out[2], json!([0, 0, false, false]), "level 33 on the same save");
+	assert_eq!(out[3], json!([1, 2, true, 2]), "at 34 both objectives and their waypoint return");
+}
+
+#[test]
 fn a_carried_quest_whose_work_the_update_put_behind_them_is_still_to_do_when_its_hand_in_is_ahead() {
 	let guide = GUIDE
 		.replace(BEHIND_GUIDE_FROM, r#"{ title = "New behind", goals = { a(108, 40), { t = "kill", target = "Wolf", npc = 299, count = 5, quest = 108, oi = 1, map = M, x = 49, y = 50 } } },"#)
