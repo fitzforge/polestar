@@ -34,14 +34,15 @@
 --     entries last. The order is cached on first use, and only the page is named.
 --   Search.BrowseCount(kind, opts) -> count|nil   -- same visibility filters; no sorting or loading
 --   All three take opts.filters = { reqMin, reqMax, ilvlMin, ilvlMax,
---     quality = { [quality] = true }, slot, category = { class, subclass } }.
+--     quality = { [quality] = true }, slot, class, category = { class, subclass } }.
 --     Absent fields are unrestricted. Inclusive level bounds are integers
 --     0..999. Invalid bounds are dropped individually and inverted pairs
 --     are dropped together. Only true entries at integer qualities 0..8
 --     are kept. An empty set is unrestricted. Slot is an integer 0..34.
+--     Class is a Gear class file token (e.g. "MAGE"); unknown tokens are ignored.
 --     Category IDs are integers (class 0..255, subclass 0..254). Invalid
---     slots and classes are dropped. An invalid subclass leaves a class
---     predicate. A valid empty category still matches zero rows.
+--     slots and category classes are dropped. An invalid subclass leaves a
+--     class predicate. A valid empty category still matches zero rows.
 --     The category scopes Items. Drawer predicates apply to item, mount,
 --     pet, recipe and tabard rows.
 --     Each active predicate requires a known value for its own field.
@@ -51,6 +52,8 @@
 --     info.filtersAvailable is true when Codex.HasFilters() is true.
 --     info.filtersApplied is true when the call enables a normalized category
 --     or drawer predicate in an indexed item kind. It is false with old packs.
+--     info.classFilterDormant is true when a nonempty class token was requested
+--     and Gear's class or proficiency table is unavailable.
 --     info.preFilterCounts[kind] counts query + visibility + category for
 --     item kinds, before drawer predicates and paging.
 --     info.categoryTotals, requested by opts.categoryTotals = true, is
@@ -58,6 +61,9 @@
 --     visibility + all item predicates except category and has fields
 --     root, classes[raw class], subclasses[packed category ID]. Omitted
 --     nodes have zero matches. Rows without a class contribute only to root.
+--   Search.ClassEligible(token, allowClass, itemClass, itemSubclass, slot) -> true|false|nil
+--     Uses the same mask and trainable proficiencies as the drawer. Nil means
+--     the available facts cannot establish eligibility, or the class is unavailable.
 --   Search.Release()   -- frees the per-search caches; the hub calls it when it hides
 --   Search.Subtitle(result) -> text|nil   -- guides "Zone · 1-6"; Codex entities Lookup.Subtitle
 --   Search.KINDS = { { key, label }, ... }   -- display order
@@ -103,7 +109,7 @@ local L = ns.L
 local type, ipairs, tostring, tonumber = type, ipairs, tostring, tonumber
 local find, sub, gsub, lower, byte, match, gmatch = string.find, string.sub, string.gsub, string.lower, string.byte, string.match, string.gmatch
 local char = string.char
-local min, floor = math.min, math.floor
+local min, max, floor = math.min, math.max, math.floor
 
 local STATUS = { r = "retired", n = "nosource" }
 
@@ -388,6 +394,52 @@ end
 -- Item filters
 ---------------------------------------------------------------------------
 
+local weaponProficiency, modeledWeapons
+local function classProficiency(token)
+	if type(token) ~= "string" then return end
+	-- Core loads before Gear, so resolve the tables when a class is requested.
+	local gear = ns.Gear
+	if not (gear and gear.CLASSES and gear.PROFICIENCY) then return end
+	local class, prof = gear.CLASSES[token], gear.PROFICIENCY[token]
+	if not (class and prof) then return end
+	if weaponProficiency ~= gear.PROFICIENCY then
+		-- A subclass trained by any class is modeled. Others have unknown proficiency.
+		weaponProficiency, modeledWeapons = gear.PROFICIENCY, {}
+		for _, rules in pairs(weaponProficiency) do
+			for subclass in pairs(rules.weapons) do modeledWeapons[subclass] = true end
+		end
+	end
+	return class.bit, prof, modeledWeapons
+end
+
+local function classEligible(bit, prof, modeled, allowClass, itemClass, itemSubclass, slot)
+	if allowClass == nil then return nil end
+	if floor(allowClass / bit) % 2 == 0 then return false end
+	if slot == 0 then return true end
+	if itemClass == nil then return nil end
+	if itemClass == 4 then -- Armor
+		if itemSubclass == nil then return nil end
+		if itemSubclass >= 1 and itemSubclass <= 4 then
+			return itemSubclass <= max(prof.armor, prof.armorAt40 or prof.armor)
+		end
+		if itemSubclass == 6 then return prof.shield == true end
+		if itemSubclass >= 7 and itemSubclass <= 9 then return prof.relic == itemSubclass end
+		if itemSubclass == 0 or itemSubclass == 5 then return true end -- Miscellaneous or Cosmetic
+		return nil
+	end
+	if itemClass == 2 then -- Weapon
+		if itemSubclass == 14 or itemSubclass == 20 then return true end -- Miscellaneous or Fishing Pole
+		if not modeled[itemSubclass] then return nil end
+		return prof.weapons[itemSubclass] == true and (slot ~= 22 or not not prof.dualWield)
+	end
+	return true
+end
+
+function Search.ClassEligible(token, allowClass, itemClass, itemSubclass, slot)
+	local bit, prof, modeled = classProficiency(token)
+	return bit and classEligible(bit, prof, modeled, allowClass, itemClass, itemSubclass, slot)
+end
+
 local function integer(value, max)
 	if type(value) == "number" and value >= 0 and value <= max and value % 1 == 0 then
 		return value == 0 and 0 or value -- canonicalize negative zero for the key
@@ -419,19 +471,23 @@ local function normalizeFilters(input)
 			end
 		end
 	end
-	local packed = reqMin or reqMax or ilvlMin or ilvlMax or slot
+	local classBit, prof, modeled = classProficiency(input.class)
+	local packed = reqMin or reqMax or ilvlMin or ilvlMax or slot or classBit
 	if not (packed or qualities) then return nil, category end
 	return {
 		reqMin = reqMin, reqMax = reqMax, ilvlMin = ilvlMin, ilvlMax = ilvlMax,
 		slot = slot, qualities = qualities, packed = packed ~= nil,
-		key = table.concat({ reqMin or "", reqMax or "", ilvlMin or "", ilvlMax or "", qualityMask, slot or "" }, ":"),
+		classBit = classBit, prof = prof, modeledWeapons = modeled,
+		key = table.concat({ reqMin or "", reqMax or "", ilvlMin or "", ilvlMax or "", qualityMask, slot or "", classBit and input.class or "" }, ":"),
 	}, category
 end
 
 local function filterInfo(opts)
 	if opts and (opts.filters ~= nil or opts.categoryTotals == true) then
-		local C = ns.Codex
+		local C, gear = ns.Codex, ns.Gear
+		local token = type(opts.filters) == "table" and opts.filters.class
 		return { filtersAvailable = C and C.HasFilters and C.HasFilters() or false,
+			classFilterDormant = type(token) == "string" and token ~= "" and not (gear and gear.CLASSES and gear.PROFICIENCY),
 			filtersApplied = false, preFilterCounts = {} }
 	end
 end
@@ -458,17 +514,21 @@ end
 -- Count the category scope before drawer predicates, and tally the sidebar
 -- categories from every drawer match. Both paths share the packed decode.
 local function filterItem(filters, category, column, row, blob, at, totals)
-	local req, ilvl, _, slot, categoryId
+	local req, ilvl, allowClass, slot, categoryId
 	if category or totals or (filters and filters.packed) then
-		req, ilvl, _, slot, categoryId = ns.Codex.DecodeFilter(column, row)
+		req, ilvl, allowClass, slot, categoryId = ns.Codex.DecodeFilter(column, row)
 	end
+	local classBit = filters and filters.classBit
 	local class, subclass
-	if categoryId and (category or totals) then
+	if categoryId and (category or totals or classBit) then
 		class, subclass = ns.Codex.FilterCategory(categoryId)
 	end
 	local inScope = not category or (class == category.class and (not category.subclass or subclass == category.subclass))
 	if not (inScope or totals) then return false, false end
 	if filters and not matchesItem(filters, req, ilvl, slot, blob, at) then return inScope, false end
+	if classBit and not classEligible(classBit, filters.prof, filters.modeledWeapons, allowClass, class, subclass, slot) then
+		return inScope, false
+	end
 	if totals then
 		totals.root = totals.root + 1
 		if class then totals.classes[class] = (totals.classes[class] or 0) + 1 end

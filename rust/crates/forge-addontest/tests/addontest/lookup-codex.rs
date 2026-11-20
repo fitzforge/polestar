@@ -265,6 +265,36 @@ fn the_built_codex_is_release_safe_and_in_game_lookup_finds_items_mounts_and_npc
 }
 
 #[test]
+fn usable_by_class_counts_mage_and_warrior_items_in_the_built_codex() {
+	if !toc().exists() {
+		eprintln!("skipped: Codex pack not built (forge data codex)");
+		return;
+	}
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: pack_lua(),
+		addons: vec!["Polestar".into()],
+		script: r#"
+stub.login()
+local C, S = Polestar.Codex, Polestar.Search
+assert(C.Load() and C.HasFilters(), "rebuild the Codex with forge data codex")
+local opts = { filters = { class = "MAGE" } }
+local mage, mageInfo = S.BrowseCount("item", opts)
+opts.filters.class = "WARRIOR"
+local warrior, warriorInfo = S.BrowseCount("item", opts)
+assert(mageInfo.filtersApplied and warriorInfo.filtersApplied)
+emit({ mage = mage, warrior = warrior })"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	let mage = out["mage"].as_f64().unwrap();
+	let warrior = out["warrior"].as_f64().unwrap();
+	println!("Real Codex Items usable by Mage: {mage}, Warrior: {warrior}");
+	assert!(mage > 0.0 && mage < warrior);
+}
+
+#[test]
 fn filtered_browse_counts_the_full_built_item_catalogue_and_pages_its_matches() {
 	if skip() {
 		return;

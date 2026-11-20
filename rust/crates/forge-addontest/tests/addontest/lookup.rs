@@ -13,6 +13,7 @@ fn codex() -> Value {
 }
 
 const ADDON_FILES: &[&str] = &["Core/Core.xml", "Lookup/Lookup.xml"];
+const ADDON_FILES_WITH_GEAR: &[&str] = &["Core/Core.xml", "Gear/Weights.lua", "Lookup/Lookup.xml"];
 
 // The stub world draws the fixture's maps with the same bounds as their Era frames, so live and Era
 // coordinates agree.
@@ -1163,24 +1164,146 @@ fn item_filter_browse_reuses_a_cached_order_and_totals_for_smaller_requests() {
 }
 
 #[test]
-fn item_filters_stay_dormant_on_an_old_pack() {
-	browse(
+fn item_filters_usable_by_combines_the_class_mask_and_trainable_proficiencies() {
+	let data = json!({
+		"items": {
+			"1": { "name": "Sample 01 Plate", "allowClass": 1503, "itemClass": 4, "itemSubclass": 4, "slot": 5, "quality": 3 },
+			"2": { "name": "Sample 02 Mail", "allowClass": 1503, "itemClass": 4, "itemSubclass": 3, "slot": 5, "quality": 2 },
+			"3": { "name": "Sample 03 Shield", "allowClass": 1503, "itemClass": 4, "itemSubclass": 6, "slot": 14, "quality": 2 },
+			"2919": { "name": "Sample 04 Priest Relic", "allowClass": 16, "itemClass": 4, "itemSubclass": 0, "slot": 12, "quality": 1 },
+			"5": { "name": "Sample 05 Libram", "allowClass": 1503, "itemClass": 4, "itemSubclass": 7, "slot": 28, "quality": 2 },
+			"6": { "name": "Sample 06 Wand", "allowClass": 1503, "itemClass": 2, "itemSubclass": 19, "slot": 26, "quality": 3 },
+			"7": { "name": "Sample 07 Off-Hand Dagger", "allowClass": 1503, "itemClass": 2, "itemSubclass": 15, "slot": 22, "quality": 2 },
+			"8": { "name": "Sample 08 Fishing Pole", "allowClass": 1503, "itemClass": 2, "itemSubclass": 20, "slot": 17, "quality": 2 },
+			"9": { "name": "Sample 09 Warglaive", "allowClass": 1503, "itemClass": 2, "itemSubclass": 9, "slot": 13, "quality": 2 },
+			"10": { "name": "Sample 10 Unknown Mask", "itemClass": 4, "itemSubclass": 1, "slot": 5, "quality": 2 },
+			"11": { "name": "Sample 11 Unknown Category", "allowClass": 1503, "slot": 13, "quality": 2 },
+			"12": { "name": "Sample 12 Non-equippable", "allowClass": 1503, "slot": 0, "quality": 2 },
+			"13": { "name": "Sample 13 Non-gear", "allowClass": 1503, "itemClass": 0, "quality": 1 },
+			"14": { "name": "Sample 14 Zero Mask", "allowClass": 0, "slot": 0, "quality": 2 },
+			"15": { "name": "Sample Mount", "kind": "mount", "allowClass": 128, "slot": 0 }
+		},
+		"quests": { "16": { "title": "Sample Quest" } }
+	});
+	let pack = write_codex_pack(&data, &CodexOpts::default());
+	let script = r##"
+		assert(C.Load() and C.HasFilters())
+		local opts = { kinds = { item = true }, order = "az", subtitles = false, categoryTotals = true, filters = {} }
+		local function check(class, expected, before, total)
+			opts.filters.class = class
+			local rows, counts, _, info = S.Query("sample", opts)
+			assert(table.concat(ids(rows), ",") == expected, tostring(class) .. ": " .. table.concat(ids(rows), ","))
+			assert(counts.item == #rows and info.preFilterCounts.item == before and info.categoryTotals.root == total)
+			local listed, count, browseInfo = S.Browse("item", opts)
+			assert(table.concat(ids(listed), ",") == expected and count == #rows)
+			local counted, countInfo = S.BrowseCount("item", opts)
+			assert(counted == count)
+			for _, details in ipairs({ info, browseInfo, countInfo }) do
+				assert(details.filtersApplied == info.filtersApplied and not details.classFilterDormant)
+				assert(details.preFilterCounts.item == before and details.categoryTotals.root == total)
+			end
+			return info
+		end
+		assert(check("MAGE", "6,8,12,13", 14, 4).filtersApplied)
+		check("WARRIOR", "1,2,3,7,8,12,13", 14, 7)
+		check("HUNTER", "2,7,8,12,13", 14, 5)
+		check("SHAMAN", "2,3,8,12,13", 14, 5)
+		check("PALADIN", "1,2,3,5,8,12,13", 14, 7)
+		check("ROGUE", "7,8,12,13", 14, 4)
+		check("PRIEST", "2919,6,8,12,13", 14, 5)
+		check("WARLOCK", "6,8,12,13", 14, 4)
+		check("DRUID", "8,12,13", 14, 3)
+		local all = "1,2,3,2919,5,6,7,8,9,10,11,12,13,14"
+		assert(not check(nil, all, 14, 14).filtersApplied)
+		assert(not check("UNKNOWN", all, 14, 14).filtersApplied)
+
+		opts.filters.quality = { [2] = true }
+		check("MAGE", "8,12", 14, 2)
+		opts.filters.category = { class = 4 }
+		local info = check("WARRIOR", "2,3", 6, 5)
+		assert(info.categoryTotals.classes[4] == 2 and info.categoryTotals.classes[2] == 2)
+		assert(info.categoryTotals.subclasses[C.FilterCategoryId(4, 3)] == 1)
+		assert(info.categoryTotals.subclasses[C.FilterCategoryId(4, 4)] == nil)
+		assert(info.categoryTotals.subclasses[C.FilterCategoryId(2, 15)] == 1)
+
+		opts.filters, opts.kinds = { class = "MAGE" }, { item = true, mount = true, quest = true }
+		local _, counts = S.Query("sample", opts)
+		assert(counts.item == 4 and counts.mount == 1 and counts.quest == 1)
+		opts.filters.class = "WARRIOR"
+		_, counts = S.Query("sample", opts)
+		assert(counts.item == 7 and counts.mount == nil and counts.quest == 1)
+		opts.ids, opts.kinds = true, { item = true }
+		_, counts = S.Query("#2919", opts)
+		assert(counts.item == nil)
+		opts.filters.class = "PRIEST"
+		local rows = S.Query("#2919", opts)
+		assert(#rows == 1 and rows[1].id == 2919)
+
+		local E = S.ClassEligible
+		for _, case in ipairs({
+			{ "MAGE", 1503, 4, 4, 5, false }, { "WARRIOR", 1503, 4, 4, 5, true },
+			{ "HUNTER", 1503, 4, 3, 5, true }, { "SHAMAN", 1503, 4, 3, 5, true },
+			{ "PALADIN", 1503, 4, 6, 14, true }, { "ROGUE", 1503, 4, 6, 14, false },
+			{ "PRIEST", 16, 4, 0, 12, true }, { "WARRIOR", 16, 4, 0, 12, false },
+			{ "PALADIN", 1503, 4, 7, 28, true }, { "PRIEST", 1503, 4, 7, 28, false },
+			{ "DRUID", 1503, 4, 8, 28, true }, { "SHAMAN", 1503, 4, 9, 28, true },
+			{ "MAGE", 1503, 4, 5, 4, true }, { "MAGE", 1503, 4, nil, 5, nil },
+			{ "MAGE", 1503, 2, 19, 26, true }, { "WARRIOR", 1503, 2, 19, 26, false },
+			{ "ROGUE", 1503, 2, 15, 22, true }, { "PRIEST", 1503, 2, 15, 22, false },
+			{ "MAGE", 1503, 2, 14, 13, true }, { "MAGE", 1503, 2, 17, 13, nil },
+			{ "MAGE", 1503, 2, 9, 13, nil }, { "MAGE", 16, 2, 9, 13, false },
+			{ "MAGE", nil, 4, 1, 5, nil }, { "MAGE", nil, nil, nil, 0, nil },
+			{ "MAGE", 1503, nil, nil, 0, true }, { "MAGE", 1503, 0, nil, nil, true },
+			{ "MAGE", 1503, nil, nil, nil, nil }, { "MAGE", 0, nil, nil, nil, false },
+			{ "UNKNOWN", 1503, 4, 1, 5, nil },
+		}) do
+			assert(E(case[1], case[2], case[3], case[4], case[5]) == case[6], case[1] .. " subclass " .. tostring(case[4]))
+		end
+		for class in pairs(Polestar.Gear.CLASSES) do assert(E(class, 1503, 2, 20, 17) == true) end
+	"##;
+	run_with(&[BROWSE_LUA, script].concat(), &Opts { with_pack: false, files: ADDON_FILES_WITH_GEAR, setup: pack.stub_lua.clone(), ..Default::default() });
+}
+
+#[test]
+fn item_filters_usable_by_stays_dormant_until_gear_is_available() {
+	run_filter_lookup(
 		r#"
+		local opts = { kinds = { item = true }, subtitles = false, filters = { class = "MAGE" } }
+		assert(not Polestar.Gear)
+		local _, counts, _, info = S.Query("sample", opts)
+		assert(counts.item == 5 and info.filtersAvailable and info.classFilterDormant and not info.filtersApplied)
+		local _, count, browseInfo = S.Browse("item", opts)
+		assert(count == 6 and browseInfo.classFilterDormant and not browseInfo.filtersApplied)
+		local counted, countInfo = S.BrowseCount("item", opts)
+		assert(counted == 6 and countInfo.classFilterDormant and not countInfo.filtersApplied)
+		assert(S.ClassEligible("MAGE", 1503, 4, 1, 5) == nil)
+		opts.filters.quality = { [0] = true }
+		counted, countInfo = S.BrowseCount("item", opts)
+		assert(counted == 1 and countInfo.classFilterDormant and countInfo.filtersApplied)
+	"#,
+	);
+}
+
+#[test]
+fn item_filters_stay_dormant_on_an_old_pack() {
+	let script = r#"
 		index({ { 1, "Sample Sword" }, { 2, "Sample Ring", "r" } })
 		assert(not C.HasFilters())
+		assert(S.ClassEligible("MAGE", 1503, 4, 1, 5) == true)
 		local opts = { kinds = { item = true }, subtitles = false, hideRetired = true }
 		local legacy, legacyCounts = S.Query("sample", opts)
-		opts.filters, opts.categoryTotals = { reqMax = 0 }, true
+		opts.filters, opts.categoryTotals = { reqMax = 0, class = "MAGE" }, true
 		local rows, counts, err, info = S.Query("sample", opts)
 		assert(not err and table.concat(ids(rows)) == table.concat(ids(legacy)) and counts.item == legacyCounts.item)
-		assert(info.filtersAvailable == false and info.filtersApplied == false and info.preFilterCounts.item == 1 and info.categoryTotals == nil)
+		assert(info.filtersAvailable == false and info.filtersApplied == false and not info.classFilterDormant)
+		assert(info.preFilterCounts.item == 1 and info.categoryTotals == nil)
 		local count
 		rows, count, info = S.Browse("item", opts)
 		assert(count == 1 and rows[1].id == 1 and info.filtersAvailable == false and info.filtersApplied == false and info.preFilterCounts.item == 1)
 		count, info = S.BrowseCount("item", opts)
 		assert(count == 1 and info.filtersAvailable == false and info.filtersApplied == false and info.preFilterCounts.item == 1 and info.categoryTotals == nil)
-	"#,
-	);
+	"#;
+	run_with(&[BROWSE_LUA, script].concat(), &Opts { with_pack: false, files: ADDON_FILES_WITH_GEAR, ..Default::default() });
 }
 
 #[test]
