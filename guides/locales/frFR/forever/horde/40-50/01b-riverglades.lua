@@ -294,8 +294,9 @@ return {
 	["The {quest:94962}: {npc:258626}"] = "{quest:94962} : {npc:258626}",
 
 	-- Step 63: The Bloodmaster's Ring: Snufflesnout and Chub'chob
-	-- {quest:94964} Bloodmaster's Ring · {npc:257059} Chub'chob
-	["The {quest:94964}: Snufflesnout and {npc:257059}"] = "Le {quest:94964} : Renifle-groin et {npc:257059}",
+	-- {quest:94965} Bloodmaster's Ring · {npc:257059} Chub'chob
+	-- was: ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "Le {quest:94964} : Renifle-groin et {npc:257059}"
+	["The {quest:94965}: Snufflesnout and {npc:257059}"] = "",
 	-- {npc:257062} Jezap Jinglesprocket · {npc:258626} Mog'thar
 	["{npc:257062} offers the last two once Gobam's errands are done (players' recordings), which this guide leaves out. They are level 44 and 45: leave them for later if {npc:258626} was a close fight."] = "{npc:257062} propose les deux derniers une fois les courses de Gobam terminées (d'après des enregistrements de joueurs), que ce guide laisse de côté. Ils sont de niveau 44 et 45 : gardez-les pour plus tard si le combat contre {npc:258626} a été serré.",
 	["Snufflesnout (44)"] = "Renifle-groin (44)",
@@ -438,5 +439,6 @@ return {
 	["Across the {area:3} to {area:340}, the Horde fortress built into the cliffs at the zone's western edge: its flight master stands at the foot of the fortress."] = "Traversez les {area:3} jusqu'à {area:340}, la forteresse de la Horde bâtie dans les falaises à l'ouest de la zone : son Maître de vol se tient au pied de la forteresse.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "Le {quest:94964} : Renifle-groin et {npc:257059}",
 	-- ["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "Les lances de {npc:263190}, sur les Crocilisques d'eau douce",
 }

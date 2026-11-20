@@ -7549,7 +7549,6 @@ t.guides["forever/horde/40-50/01b-riverglades"] = (function() return {
 		["The {quest:94670}: Buzzbeak"] = "{quest:94670}: Buzzbeak",
 		["The {quest:94670}: Kronk and Bonegnaw"] = "{quest:94670}: Kronk e Bonegnaw",
 		["The {quest:94962}: {npc:258626}"] = "{quest:94962}: {npc:258626}",
-		["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}: Fuçafocinho e {npc:257059}",
 		["The {zone:2548} lie south of the {area:3}. Ride east from the {area:657} to {area:75} and fly to {area:340}: the way down into the zone starts there."] = "{zone:2548} ficam ao sul de {area:3}. Siga para leste de {area:657} até {area:75} e voe para {area:340}: o caminho de descida para a zona começa lá.",
 		["West back to {area:16743}'s east side."] = "De volta a oeste, até o lado leste de {area:16743}.",
 		["West from the northern ship, up the ridge: the Rotflesh Mushrooms grow among the rocks, close to the Twilight ogres' camp. The Mature Paletusks on the ridge give entrails too."] = "Do navio do norte, siga para oeste e suba a serra: os Cogumelos Carne-podre crescem entre as pedras, perto do acampamento dos ogros do Crepúsculo. Os Presapálidas Maduros na serra também deixam cair entranhas.",

@@ -5599,7 +5599,6 @@ t.guides["forever/horde/40-50/01b-riverglades"] = (function() return {
 		["The {quest:94670}: Buzzbeak"] = "{quest:94670}: Жужжеклюв",
 		["The {quest:94670}: Kronk and Bonegnaw"] = "{quest:94670}: Кронк и Костеглод",
 		["The {quest:94962}: {npc:258626}"] = "{quest:94962}: {npc:258626}",
-		["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}: Нюхорыл и {npc:257059}",
 		["The {zone:2548} lie south of the {area:3}. Ride east from the {area:657} to {area:75} and fly to {area:340}: the way down into the zone starts there."] = "{zone:2548} лежат к югу от зоны {area:3}. Езжайте на восток от места {area:657} к месту {area:75} и летите сюда: {area:340}. Оттуда начинается спуск в зону.",
 		["West back to {area:16743}'s east side."] = "Возвращайтесь на запад, к восточной части места {area:16743}.",
 		["West from the northern ship, up the ridge: the Rotflesh Mushrooms grow among the rocks, close to the Twilight ogres' camp. The Mature Paletusks on the ridge give entrails too."] = "На запад от северного корабля, вверх по гребню: гнилогрибы растут среди камней, рядом с лагерем огров из Сумеречного Молота. Взрослые бледноклыки на гребне тоже дают внутренности.",

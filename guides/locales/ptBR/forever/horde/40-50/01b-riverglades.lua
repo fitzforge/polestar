@@ -294,8 +294,9 @@ return {
 	["The {quest:94962}: {npc:258626}"] = "{quest:94962}: {npc:258626}",
 
 	-- Step 63: The Bloodmaster's Ring: Snufflesnout and Chub'chob
-	-- {quest:94964} Bloodmaster's Ring · {npc:257059} Chub'chob
-	["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}: Fuçafocinho e {npc:257059}",
+	-- {quest:94965} Bloodmaster's Ring · {npc:257059} Chub'chob
+	-- was: ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}: Fuçafocinho e {npc:257059}"
+	["The {quest:94965}: Snufflesnout and {npc:257059}"] = "",
 	-- {npc:257062} Jezap Jinglesprocket · {npc:258626} Mog'thar
 	["{npc:257062} offers the last two once Gobam's errands are done (players' recordings), which this guide leaves out. They are level 44 and 45: leave them for later if {npc:258626} was a close fight."] = "{npc:257062} oferece as duas últimas depois que as tarefas de Gobam são concluídas (segundo gravações de jogadores), que este Guia deixa de fora. Elas são de nível 44 e 45: deixe-as para depois se a luta contra {npc:258626} foi apertada.",
 	["Snufflesnout (44)"] = "Fuçafocinho (44)",
@@ -438,5 +439,6 @@ return {
 	["Across the {area:3} to {area:340}, the Horde fortress built into the cliffs at the zone's western edge: its flight master stands at the foot of the fortress."] = "Atravesse {area:3} até {area:340}, a fortaleza da Horda construída nos penhascos na borda oeste da Zona: o Mestre de voo fica ao pé da fortaleza.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}: Fuçafocinho e {npc:257059}",
 	-- ["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "Lanças de {npc:263190}, nos Crocoliscos de Água Doce",
 }
