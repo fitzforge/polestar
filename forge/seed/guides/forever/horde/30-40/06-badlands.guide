@@ -23,7 +23,8 @@ next forever/horde/40-50/01-stranglethorn-vale
 # Loch Modan -> the Valley of Fangs (Martek, Rigglefuzz) -> Lotwil's camp -> Kargath (flight
 # path) -> the lesser rock elementals -> Lotwil -> the coyotes and buzzards -> the slabs
 # by Agmond's End -> Agmond's End -> the Stonevault troggs -> the Valley of Fangs -> the Uldaman
-# dig -> Agmond's End -> Lotwil -> Kargath, from where the next guide flies to Grom'gol.
+# dig -> Agmond's End -> Lotwil -> Kargath, from where the next guide flies to Grom'gol (Warriors, Paladins, Rogues,
+# Priests, Mages and Warlocks first to the Undercity, for training and Genavie Callow's hand-in).
 #
 # The slabs come from the Rock Elementals beside Agmond's End, and Lotwil takes them on the way
 # back to Kargath (2026-11-09 audit): no walk back to his camp from the basin in between. Left
@@ -149,4 +150,4 @@ step Kargath
   tip Head west back to Kargath. Neeka Bloodscar stands on Kargath's upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart.
   turnin 1419                         -- Neeka Bloodscar
   turnin 2258                         -- Jarkal Mossmeld, inside
-  note The next guide flies from Kargath to Grom'gol.
+  note The next guide flies from Kargath to Grom'gol; Warriors, Paladins, Rogues, Priests, Mages and Warlocks go by the Undercity first, for their training and Genavie Callow.

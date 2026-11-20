@@ -75,7 +75,7 @@ step Calder Gray
 
 step Fly to Tarren Mill
   zone Undercity
-  tip Warriors, Paladins, Rogues, Priests, Mages and Warlocks: Genavie Callow stands beside the flight master. The Dabyrie family's farm lies on the road east through Arathi later in this guide, and your level 40 training brings you back to this flight master from Kargath: she takes the heads then.
+  tip Warriors, Paladins, Rogues, Priests, Mages and Warlocks (not Hunters, Shamans or Druids): Genavie Callow stands beside the flight master. The Dabyrie family's farm lies on the road east through Arathi later in this guide, and your level 40 training brings you back to this flight master from Kargath: she takes the heads then.
   accept 1164 only Warrior,Paladin,Rogue,Priest,Mage,Warlock -- Genavie Callow, beside the flight master
   goto 63.1,48.3 "Undercity flight master"
   fly "Tarren Mill"

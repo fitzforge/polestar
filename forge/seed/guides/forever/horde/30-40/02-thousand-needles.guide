@@ -39,7 +39,7 @@ next forever/horde/30-40/03-stranglethorn-vale
 # raceway's hand-ins (level tidy 2026-11-15: at 31-32 the Gazers and Invaders, 34-35, were three over).
 #
 # Flow: the Undercity (where the previous guide ends) -> zeppelin to Orgrimmar (Hunter and
-# Shaman training) -> fly to Freewind Post (Jandia, Dorn, the harpy den) -> Moktar Krin -> the Mirage
+# Shaman training) -> fly to Freewind Post (Dorn; the harpy den for Grenka, and Jandia's quests only for a character who skipped 07-ashenvale) -> Moktar Krin -> the Mirage
 # Raceway -> basilisks, tortoises and vultures -> the raceway -> the southern flats and the silithid
 # dig -> Moktar Krin -> the raceway -> Gadgetzan (flight path, fly back) -> Freewind Post (Family
 # Tree) -> fly to Sun Rock Retreat -> ride into
@@ -213,7 +213,7 @@ step Jandia
 
 step The Screeching Canyon: kill these as you meet them
   zone Thousand Needles
-  tip West of Freewind Post, below Darkcloud Pinnacle, the harpies of Roguefeather Den (28-30). The Screeching Harpies, Roguefeathers and Windcallers there are Jandia's; her Stolen Freewind Supplies lie on the ground along the foot of the cliff and in the cave up on top. Grenka Bloodscreech (31) walks among them: thin out the harpies around her before you pull her, for Dorn's claw.
+  tip West of Freewind Post, below Darkcloud Pinnacle, the harpies of Roguefeather Den (28-30). Grenka Bloodscreech (31) walks among them: thin out the harpies around her before you pull her, for Dorn's claw. Jandia's harpies and Stolen Freewind Supplies (on the ground along the foot of the cliff and in the cave up on top) are here for a character who didn't do them in the Ashenvale & Thousand Needles guide.
   kill 4101 quest 98070.2
   kill 4104 quest 98070.3
   kill 4100 quest 98070.1
@@ -426,7 +426,7 @@ step Scrabblescrew's Camp
 
 step Magram Village
   zone Desolace
-  tip South-east of Smeed's camp, the Magram centaurs camp in the hills. The Scouts and Outrunners (32-33) and the Wranglers (33-34) hold the camp's north-western edge; any centaur can drop an ear for Felgur and a Carved Centaur Totem for Gurda.
+  tip South-east of Smeed's camp, the Magram centaurs camp in the hills. The Scouts and Outrunners (32-33) and the Wranglers (33-34) hold the camp's north-western edge; any centaur can drop an ear for Felgur and a Carved Centaur Totem for Gurda. Careful on the way: Scorpashi Venomlashes (38-39) and Dread Rippers (39-40) roam the ground just west of the camp's edge: give them room.
   tip Careful: the Stormers and Pack Runners (34-35), Marauders and Maulers (35-36) and the Bonepaws (37-38) hold the middle and south of the camp: stay on its north-western edge and pull one at a time.
   collect 6067 quest 1366 @66.0,71.0  -- Centaur Ear, from the Magram Scouts, Outrunners and Wranglers
   collect 254432 x5 quest 93225.1 @66.0,71.0 -- Carved Centaur Totem, from the same centaurs
@@ -476,7 +476,7 @@ step Clam beds
 step Sar'theris Strand
   zone Desolace
   tip Keep north to Sar'theris Strand for Rackmore's Golden Key: any Slitherblade can drop it.
-  tip Careful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), up to two over you at 33: work the Naga and Sorceresses (32-33) of the southern half until the key drops, and leave the north for the second Desolace visit, at 38.
+  tip Careful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), up to two over you at 33: work the Naga and Sorceresses (32-33) of the southern half until the key drops, and leave the north for the second Desolace visit, at about 37.
   collect 15881 quest 6161.2          -- Rackmore's Golden Key, from the Slitherblade naga
 
 step Sar'theris Strand: Other Fish to Fry
@@ -500,7 +500,7 @@ step Shadowprey Village
   zone Desolace
   tip Hearth to Shadowprey (you bound it on the way in), or walk back south along the coast.
   turnin 6142                         -- Mai'Lahii
-  note Taiga's Hand of Iruxos, Drulzegar's Other Fish to Fry (unless you did it on the strand) and Desolace's other 37-40 quests wait for the second visit, at 38: the next guides fly to Orgrimmar and take the zeppelin to Stranglethorn Vale.
+  note Taiga's Hand of Iruxos, Drulzegar's Other Fish to Fry (unless you did it on the strand) and Desolace's other 37-40 quests wait for the second visit, at about 37: the next guides fly to Orgrimmar and take the zeppelin to Stranglethorn Vale.
 
 step Drulzegar Skraghook
   when complete 6143

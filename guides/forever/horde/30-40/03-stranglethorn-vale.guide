@@ -98,7 +98,8 @@ step Grom'gol
 # Nesingwary -> elder tigers -> Nesingwary -> the basilisks, raptors, Bloodscalp village and Zimmix
 # at Zul'Kunda -> Nesingwary -> Lashtail raptors -> Grom'gol -> fly to Booty Bay -> fly to Grom'gol
 # (top-up to 35 if needed) -> the Vile Reef and the Bloodscalp ruins -> Grom'gol -> Shadowmaw, the tigresses and the Snapjaw river ->
-# the Mosh'Ogg camp -> Grom'gol, where the next guide takes the zeppelin to Orgrimmar.
+# the Mosh'Ogg camp -> Grom'gol -> (top-up to 36 if needed) -> Sin'Dall north of Nesingwary's camp -> Nesingwary -> back
+# to Grom'gol, where the next guide takes the zeppelin to Orgrimmar.
 # Before 0.3.6's last pass the guide came in by zeppelin and walked from Nesingwary's camp all
 # the way down the vale to Booty Bay for its quests and flight path (2,900 yd), then flew back.
 #
@@ -295,7 +296,7 @@ step Grom'gol
   turnin 570                          -- Far Seer Mok'thardin
   accept 572                          -- Far Seer Mok'thardin: for forever/horde/40-50/01-stranglethorn-vale
   accept 584                          -- Nimboya: for forever/horde/40-50/01-stranglethorn-vale
-  note The next guide takes the zeppelin to Orgrimmar from the tower on the west side of the camp.
+  note After Sin'Dall, back here: the next guide takes the zeppelin to Orgrimmar from the tower on the west side of the camp.
 
 step Level 36
   when level<36

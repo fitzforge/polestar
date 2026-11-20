@@ -10,12 +10,12 @@ pitch For characters of 29 to 31: the Battle of Hillsbrad, Tarren Mill's errands
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
-# Added here: The Swarm Grows (1145, 1146), and from the 22-25 Hillsbrad guide Battle of Hillsbrad
+# Added here: The Swarm Grows (1145, 1146), and from the 23-25 Hillsbrad guide Battle of Hillsbrad
 # (529), Dangerous! (567), Elixir of Agony (509, 513); Soothing Turtle Bisque (7321, Christoph
-# Jeffcoat in Tarren Mill: the Snapjaws (29) of the river south of Tarren Mill drop the meat, and he
+# Jeffcoat in Tarren Mill: the Snapjaws (29-31) of the river south of Tarren Mill drop the meat, and he
 # sells the spices); Souvenirs of Death (546, Deathguard Samsa in Tarren Mill, 2026-11-20: its
 # thirty skulls drop from the Hillsbrad townsfolk and miners this guide kills anyway at 29-30, instead
-# of the 22-25 guide's skull step in the fields, where players died among the Peasants' adds).
+# of the 23-25 guide's skull step in the fields, where players died among the Peasants' adds).
 # Left out: Regthar Deathgate (1361), Helcular's Revenge's second part (553), Elixir of Agony's
 # alchemy part (515, 517, 524), Scout Support and Valuable Vantages (98094,
 # 98095: the western vial goes on the Alterac peak among Ferocious Yetis 31-32 and Mountain Lions
@@ -38,7 +38,7 @@ pitch For characters of 29 to 31: the Battle of Hillsbrad, Tarren Mill's errands
 # Caverns, on the way to the town hall. Its second part (553) left the route: two of its flames are
 # among the Mountain and Giant Yetis (32-34) and Frostmaw (37), and it ends at Helcular's grave in
 # Southshore's graveyard, between level 55 guards (#1925).
-# In their place, quests at your level from the 22-25 Hillsbrad guide (agreed with its slice):
+# In their place, quests at your level from the 23-25 Hillsbrad guide (agreed with its slice):
 # Battle of Hillsbrad 529 (the smithy), Dangerous! (567, from the poster) and Lydon's Elixir of
 # Agony (509, the Mudsnout blossoms; 513 goes to Faranell on the Undercity stop at the end).
 #
@@ -52,9 +52,9 @@ pitch For characters of 29 to 31: the Battle of Hillsbrad, Tarren Mill's errands
 #
 # Catch-up (#1660): a character who skipped forever/horde/06-hillsbrad-foothills arrives without
 # Darthalia's first Battle of Hillsbrad parts (527, 528) and Krusk's The Rescue (498).
-# For that character the guide does them first, from Tarren Mill, in the 22-25 guide's order: the
+# For that character the guide does them first, from Tarren Mill, in the 23-25 guide's order: the
 # fields, Tarren Mill, the peasants, Tarren Mill, Durnholde Keep. Each of those steps is shown only
-# until its chain's last quest (529, 498) is handed in, so a character who did the 22-25 guide sees
+# until its chain's last quest (529, 498) is handed in, so a character who did the 23-25 guide sees
 # only Battle of Hillsbrad 529 (#1776: Farmer Kalaba and Citizen Wilkes for Dangerous! with it).
 #
 # City of Dalaran (`when dungeon "City of Dalaran"`, dungeons in the route): for a character who runs it,
@@ -68,14 +68,14 @@ pitch For characters of 29 to 31: the Battle of Hillsbrad, Tarren Mill's errands
 # and Heart of Disruption (96984: after Blood in the Streets, 92434, on the 38-39 visit).
 #
 # Class quests and training:
-# - Druids trained in Thunder Bluff at the end of the previous guide; Paladins with Garen Largo in
-#   the Undercity; everyone else in Orgrimmar. At about 31, the Undercity at the end of the
+# - Druids trained in Thunder Bluff on the previous guide's first Thunder Bluff stop (about 28); Paladins with Garen Largo in
+#   the Undercity; everyone else in Orgrimmar. At about 30, the Undercity at the end of the
 #   guide trains Warriors, Paladins, Rogues, Priests, Mages and Warlocks; Hunters, Shamans and
 #   Druids train at the start of the next guide.
 # - Shaman: Call of Water (220) goes to Islen Waterseer by Ratchet on the way, the Brazier of
 #   Everfount from the Undercity (Silverpine, the Sepulcher), and the Shard of Water back to
 #   Islen in the next guide. Call of Air (1531) is offered from level 30: Searn Firewarder gives
-#   it on the next guide's Orgrimmar stop (about 31), not on this one's (29.4), and Prate
+#   it on the next guide's Orgrimmar stop (about 30), not on this one's (29.2), and Prate
 #   Cloudseer by Freewind Post takes it later in that guide.
 # - Warlock: the Felhunter chain is forever/class/warlock/felhunter-horde.
 #
@@ -115,7 +115,7 @@ step Fly to the Crossroads
 step Korran
   when level>=29
   zone The Barrens
-  tip Korran stands beside the Crossroads flight master. The Swarm Grows is offered from level 29; below it, the next guide's Orgrimmar stop takes it.
+  tip Korran stands beside the Crossroads flight master. The Swarm Grows is offered from level 29.
   accept 1145                         -- Korran: for Belgrom Rockmaul in Orgrimmar
 
 step Fly to Orgrimmar
@@ -203,7 +203,7 @@ step Tarren Mill
 step High Executor Darthalia
   when !turnedin 528
   zone Hillsbrad Foothills
-  tip You missed Darthalia's first errands, from the 22-25 Hillsbrad guide: they come first now. They are a few levels below you and quick, and they open the rest of the Battle of Hillsbrad in this guide.
+  tip You missed Darthalia's first errands, from the 23-25 Hillsbrad guide: they come first now. They are a few levels below you and quick, and they open the rest of the Battle of Hillsbrad in this guide.
   accept 527                          -- High Executor Darthalia
 
 step Krusk
@@ -264,7 +264,7 @@ step Krusk
 
 step The river south of Tarren Mill: kill these as you meet them
   zone Hillsbrad Foothills
-  tip South from Tarren Mill along the river: Snapjaws (29) sun themselves on its banks all the way down to the hills above Southshore. Some of them carry Turtle Meat.
+  tip South from Tarren Mill along the river: Snapjaws (29-31) sun themselves on its banks all the way down to the hills above Southshore. Some of them carry Turtle Meat.
   collect 3712 quest 7321.1 @67.8,28.0 map 1424 -- Turtle Meat, from the Snapjaws
 
 step Mudsnout Blossoms
@@ -356,7 +356,7 @@ step Finish the Turtle Meat
   when onquest 7321
   when !has 3712 x10
   zone Hillsbrad Foothills
-  tip Still short of ten Turtle Meat? The Snapjaws line the river east of Tarren Mill, on your way back from the mine.
+  tip Still short of ten Turtle Meat? The Snapjaws line the river just east of Tarren Mill, a short ride from town.
   collect 3712 quest 7321.1 @68.0,24.0 map 1424
 
 step Tarren Mill
