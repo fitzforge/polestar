@@ -14181,6 +14181,69 @@
 				}
 			],
 			"issue": 3212
+		},
+		{
+			"id": "hyjal-violence-into-verdure-seeds-3170",
+			"at": {
+				"quest": 93747,
+				"goal": "objective",
+				"objective": 2,
+				"guide": "forever/50-60/mount-hyjal"
+			},
+			"tip": "Two of the wrecks Ketharas named lie at the east end of the fields: use the Bag of Enchanted Seeds beside each.",
+			"note": "#3170: the wreck step had only gotos, which tick on arrival, and the ballista was one `complete` for the whole quest, so a player who rode past without planting was sent to Ketharas with nothing done. Each wreck is now a `use 269944` line on its own objective (93747.1 Ballista, .2 Catapult, .3 Flying Machine, as the corrections set them), held until the seed is planted there, and both steps' tips name the Bag of Enchanted Seeds. Players' recordings to 2026-11-20: 19 players, each wreck ticked by a cast of the bag (spell 1287099) beside it. ESp3cter's fix (#3257).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 93747 (2026-11-20): 22 runs, 19 people; every objective tick follows cast 1287099"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#3170 (0.4.1): turned in with no wreck planted"
+				}
+			],
+			"issue": 3170,
+			"pr": 3257
+		},
+		{
+			"id": "hyjal-maerion-misery-before-daegun-3302",
+			"at": {
+				"quest": 97009,
+				"goal": "accept",
+				"guide": "forever/50-60/mount-hyjal"
+			},
+			"tip": "North-east to Maerion Thaelemaches at the northern ruins of Dae'gun: take Maerion's Misery so the Defiling Hounds drop their spikes while you work the other errands here.",
+			"note": "#3302: Maerion's Misery was taken only after the Dae'gun sweep, so its twelve Felhound Spikes, which drop from the same Defiling Hounds as Siphoned Ephemeral Essence, meant a second round of hound kills. It is taken now at Maerion (63.2,25.8) right after Elaena's, Witherbeard's and Yashiro's quests, and the spikes are an optional line of the Dae'gun step. Players' recordings to 2026-11-20: 13 players took it, 12 from Maerion at 63.2-63.3,25.7-26.0 with no earlier quest (4 while the essence was still open); 10 handed it in, most after 15 to 32 hound kills. ESp3cter's fix (#3257).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 97009 (2026-11-20): 14 runs, 13 people, spikes looted from npc 249230"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#3302 (0.4.1.1): asked to take it with the essence quest"
+				}
+			],
+			"issue": 3302,
+			"pr": 3257
+		},
+		{
+			"id": "hyjal-maerion-misery-handin-when-onquest-3302",
+			"at": {
+				"quest": 97009,
+				"goal": "turnin",
+				"guide": "forever/50-60/mount-hyjal"
+			},
+			"when": "onquest 97009",
+			"note": "#3302: with the accept moved before the Dae'gun sweep, the later Maerion step (by Bethra'zel's corner) is the hand-in: shown only while the quest is in the log, it holds for the spikes still missing (the hounds around him drop them) and the hand-in, so a player who took it is led back to Maerion and one who didn't never sees it. ESp3cter's fix (#3257).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 97009 (2026-11-20): 10 of 13 players handed it in at npc 267097"
+				}
+			],
+			"issue": 3302,
+			"pr": 3257
 		}
 	]
 }
