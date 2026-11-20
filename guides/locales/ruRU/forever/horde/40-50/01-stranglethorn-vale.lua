@@ -264,7 +264,7 @@ return {
 	-- Step 48: Zul'Mamwe and Balia'mah trophy skulls
 	["Zul'Mamwe and Balia'mah trophy skulls"] = "",
 	-- {object:3202} Grom'gol
-	["The next trophy skulls stand in the small ruins just north of the warriors' camp.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "Следующие трофейные черепа – в небольших руинах чуть к северу от лагеря воинов.\nПоследние черепа – в руинах недалеко к западу, по пути обратно сюда: {object:3202}.",
+	["Look for the trophy skulls in the small ruins north of Zul'Mamwe's warriors.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "",
 
 	-- Step 49: Kin'weelay
 	-- {object:3202} Grom'gol
@@ -361,6 +361,7 @@ return {
 	-- ["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang."] = "Гориллы бродят по долине вокруг Унбагвы. Потроха падают со старых горилл; клык может упасть с любой.",
 	-- ["The last skulls are in the ruins a short ride west, on the way back to {object:3202}."] = "Последние черепа – в руинах недалеко к западу, по пути обратно сюда: {object:3202}.",
 	-- ["The next guide starts here and takes you to {zone:1446}."] = "Следующее руководство начинается здесь и ведет в край {zone:1446}.",
+	-- ["The next trophy skulls stand in the small ruins just north of the warriors' camp.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "Следующие трофейные черепа – в небольших руинах чуть к северу от лагеря воинов.\nПоследние черепа – в руинах недалеко к западу, по пути обратно сюда: {object:3202}.",
 	-- ["The snappers line the strand south of the post."] = "Крепкохваты сидят на берегу к югу от лагеря.",
 	-- ["The stalker raptors hunt the jungle south of {object:3202}, out towards the west coast."] = "Ящеры-ловчие охотятся в джунглях к югу от места {object:3202}, ближе к западному побережью.",
 	-- ["The three ghostly pirates haunt the jungle north of {area:35}, near Zanzil's camps: {npc:2535} and {npc:2536} stand together, {npc:2537} further east."] = "Три призрачных пирата бродят в джунглях к северу от места {area:35}, у лагерей Занзила: {npc:2535} и {npc:2536} стоят вместе, {npc:2537} – дальше к востоку.",

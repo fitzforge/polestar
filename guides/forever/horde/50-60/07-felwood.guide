@@ -280,7 +280,7 @@ step Salfa
 
 step Grind to 60
   when level<60
-  tip If you still need experience after the hand-ins, the Winterfall Den Watchers (55-56) are by the bead camp just south of Salfa. There is no need to cross the gorge.
+  tip If you still need experience after the hand-ins, the Winterfall Den Watchers (55-56) are by the bead camp just south of Salfa. There is no need to cross the gorge. Or, with a group, run the Scholomance dungeon or the Stratholme dungeon instead.
   goto 30.6,35.6 map 1452 "Winterfall Den Watchers"
   level 60 grind 7440
 

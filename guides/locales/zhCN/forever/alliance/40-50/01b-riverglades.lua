@@ -187,7 +187,6 @@ return {
 	-- Step 38: WANTED: Blademaster Kaijo
 	-- {npc:263071} Blademaster Kaijo · {area:16743} Rog'mar
 	["{npc:263071} is an elite (level 42) at the Horde's training grounds north of {area:16743}, where this guide goes later: grouping up is advised."] = "{npc:263071}是精英（42级），位于{area:16743}以北的部落训练场，本指南稍后会去那里：建议组队。",
-	-- was: ["the {object:707245} poster"] = "通缉令"
 	["the Wanted poster"] = "",
 
 	-- Step 39: Ghostmaw

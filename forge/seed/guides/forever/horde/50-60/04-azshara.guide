@@ -89,21 +89,43 @@ step Jediga
   turnin 3562
   turnin 3563
 
-step The Sin'dorei Tome of Summoning
+step The missing seals
+  when level>=52
   when onquest 91497
-  tip Return to the east end of the Thalassian Base Camp, keeping clear of the Blackmaw Thrall on the west. At the Sin'dorei Tome: hand in the seals, then use it to call Magus Rimtori.
-  tip Careful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead.
+  when !complete 91497
+  zone Azshara
+  tip Work along the southern side of the Thalassian Base Camp. Take only the seals you still need: Hawkhelm on the southern part of his patrol, Suncrest in the middle of the camp, and Lydrea to the east. All three officers are 53.
+  tip Careful: do not follow Hawkhelm west or north toward the elite Blackmaw Thralls. Let the officers come to you. If a Thunderhead patrol cuts you off on the cliffs, leave the seals in your log for later.
+  collect 246721 quest 91497.2 @57.02,28.79 era
+  collect 246725 quest 91497.1 @66.53,29.58 era
+  collect 246722 quest 91497.3 @70.87,31.51 era
+
+step The Sin'dorei Tome of Summoning
+  when complete 91497
+  tip Hand the seals to the Sin'dorei Tome at Rimtori's camp. You can take the tome back to Jediga even if you leave the Magus for later.
   turnin 91497                        -- Sin'dorei Tome of Summoning
 
-step An Explosive Gambit
+step The tome for Jediga
   when turnedin 91497
+  accept 91538                        -- For Jediga in Valormok
   accept 91500                        -- An Explosive Gambit
-  collect 10597 quest 91500.1         -- Head of Magus Rimtori
-  accept 91538                        -- Sin'dorei Tome of Summoning: for Jediga in Valormok
 
-step Valormok
+step Magus Rimtori
+  when level>=54
+  when onquest 91500
+  when !complete 91500
+  tip Use the crystal to summon Magus Rimtori (55). Only one of the three crystals calls him; the others summon hostile infernals.
+  collect 10597 quest 91500.1         -- Head of Magus Rimtori
+
+step Ag'tor Bloodfist
+  when complete 91500
   turnin 91500
+
+step Ag'tor Bloodfist: Revenge Exacted
+  when turnedin 91500
   accept 91531
+
+step Jediga
   turnin 91538
   accept 91547
 

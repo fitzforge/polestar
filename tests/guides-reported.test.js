@@ -7025,7 +7025,10 @@ test(`${ASHENVALE_HORDE}: Flight path sweep (#964): the Druids train in Thunder 
 	for (const race of ['Tauren', 'Skyborne']) {
 		const list = goals(ASHENVALE_HORDE).filter(forRaceOf(race)).filter(forClass('DRUID'));
 		const train = at(list, `${race}: the Thunder Bluff training`, (g) => g.t === 'train');
-		assert.deepEqual(list.slice(train).filter(({ goal }) => goal.t === 'train' && !goal.npc).map(({ s }) => s), [list[train].s], `${race}: one class training in Thunder Bluff`);
+		const trains = list.slice(train).filter(({ goal }) => goal.t === 'train' && !goal.npc);
+		assert.deepEqual(trains.map(({ step }) => step.when?.find(p => p.k === 'zone' && !p.neg)?.name),
+			['Mulgore', 'Thunder Bluff'], `${race}: one approach, one training in town, never two applicable training stops`);
+		assert.equal(trains[1].s, trains[0].s + 1, `${race}: crossing the city boundary does not add another errand`);
 		const next = list.slice(train).find(({ goal }) => goal.t === 'fly');
 		assert.equal(next && next.goal.location, 'Camp Taurajo', `${race}: the next flight leaves Thunder Bluff`);
 	}
@@ -11247,6 +11250,7 @@ test('30-40: every written grind step gives a hunting spot and names the local d
 	const nearby = {
 		'horde/01-hillsbrad-foothills': 'Excavation Site',
 		'horde/02-thousand-needles': 'Razorfen Kraul',
+		'horde/06-badlands': 'Uldaman',
 		'alliance/01-hillsbrad-foothills': 'Gnomeregan',
 		'alliance/04-stranglethorn-vale': 'Scarlet Monastery',
 	};
@@ -11257,7 +11261,11 @@ test('30-40: every written grind step gives a hunting spot and names the local d
 			if (goal.t !== 'level') continue;
 			assert.ok(step.goals.some((g) => g.map && Number.isFinite(g.x) && Number.isFinite(g.y)),
 				`${guide}: "${step.title}" points the solo player to the camp`);
-			if (dungeon) assert.ok([step.note, step.tip].flat().join(' ').includes(dungeon), `${guide}: group alternative ${dungeon}`);
+			const text = [step.note, step.tip].flat().filter(Boolean).join(' ');
+			assert.match(text, /until level/, `${guide}: "${step.title}" says how long to hunt`);
+			if (!/^forever\/horde\/30-40\/0[34]-/.test(guide))
+				assert.match(text, /Or, with a group, run the .+ dungeon( \(.+\))? instead\.$/, `${guide}: "${step.title}"`);
+			if (dungeon) assert.ok(text.includes(dungeon), `${guide}: group alternative ${dungeon}`);
 		}
 	}
 });
@@ -12497,6 +12505,36 @@ test('Horde Badlands: finish the basin drops on lower prey below 40 and warn at 
 	assert.match(tip, /Rog'mar/);
 });
 
+test('Horde Badlands: only a half-level top-up holds unfinished Indurium, never the wings (#3145)', { skip }, () => {
+	const guide = 'forever/horde/30-40/06-badlands.guide';
+	const recovery = compiled(guide).steps.find(s => s.goals.some(g => g.t === 'level' && g.level === 39));
+	assert.deepEqual(recovery.goals.filter(g => g.t === 'goto').map(g => [g.map,g.x,g.y]), [[1418,53,56.65]]);
+	assert.ok(recovery.goals.every(g => g.grind === undefined || g.grind === 2728), 'the fixed coyote hills, not a rare elemental');
+	for (const [level, xp, top, hunt] of [[38,0,false,false],[38,499,false,false],[38,500,true,false],[38,999,true,false],[39,0,false,true],[40,0,false,true]]) {
+		const got = engineRun(guide, { ...ORC_WARRIOR, level }, {
+			before: `w.xp,w.xpMax=${xp},1000; w.onQuest(703,{}); w.onQuest(1108,{{type='item',required=10}})`,
+			script: `local w=stub.world
+				local function state()
+					local r={}
+					for i,s in ipairs(E.GetGuide().steps) do for j,g in ipairs(s.goals) do
+						local key=(g.t=='level' and g.level==39 and 'top') or (g.quest==1108 and g.t=='collect' and 'hunt')
+							or (g.quest==1108 and g.t=='turnin' and 'flakes') or (g.quest==703 and g.t=='turnin' and 'wings')
+							or (g.quest==1137 and g.t=='accept' and 'news')
+						if key then r[key]=E.Applies(i,j) end
+					end end
+					return r
+				end
+				local held=state(); w.addItem(5797,10);w.finish(1108);stub.advance(.6)
+				local ready=state();w.turnIn(1108);stub.advance(.6);emit({held,ready,state()})`,
+		});
+		assert.deepEqual(got, [
+			{ top,hunt,flakes:false,wings:true,news:false },
+			{ top:false,hunt:false,flakes:true,wings:true,news:false },
+			{ top:false,hunt:false,flakes:false,wings:true,news:true },
+		], `${level} + ${xp}/1000`);
+	}
+});
+
 // Mokii's report (#1431): Dustwallow's level 37.5 grind on the far Mirefin coast came before the Brackenwall hand-ins
 // the player already had ready. A written grind comes after the ready hand-ins it would otherwise hold back (the same
 // in Thousand Needles' raceway and Stranglethorn's two Grom'gol stops).
@@ -13462,8 +13500,12 @@ test('Horde Azshara: Kroum sends the player to the city with unfinished business
 	const pack = writeTestPack([{ ...guide, steps: guide.steps.slice(valormok, pala + 1) }], data);
 	try {
 		const loads = pack.scripts.map((f) => `assert(loadfile(${JSON.stringify(f)}))("Polestar_Guides", {})`).join('\n');
+		const maps = Object.entries({1447: 'Azshara', 1440: 'Ashenvale', 1454: 'Orgrimmar', 1456: 'Thunder Bluff', 1413: 'The Barrens'}).map(([map, name]) => {
+			const { c, left, right, top, bottom } = data.mapFrames.era[map];
+			return `w.addMap(${map},{name="${name}",c=${c},left=${left},right=${right},top=${top},bottom=${bottom}})`;
+		}).join('\n');
 		// Both reports unlock March at 50. Bone-Bladed Weapons can become available separately at 48.
-		for (const [level, report, carried, nodes, expected] of [
+		for (const [level, report, carried, nodes, expected, copper = 880] of [
 			[50, 32, [4300, 4494], [22, 23], 'fly:22'],
 			[49, 32, [4300], [22, 23], 'fly:22'],
 			[50, 32, [4300], [22, 23], 'fly:23'],
@@ -13472,31 +13514,158 @@ test('Horde Azshara: Kroum sends the player to the city with unfinished business
 			[48, null, [], [22, 23], 'fly:23'],
 			[50, 32, [4300], [22], 'fly:22'],
 			[50, 32, [4300, 4494], [], 'accept:3762'],
+			[50, 32, [4300], [22, 23], 'accept:3762', 829],
+			[48, null, [], [22, 23], 'fly:23', 879], // Just 49c on landing: no Doras ticket.
 		]) {
 			const [next, landed] = runAddon({
 				stubs: ['stub_world.lua'], addons: [{ name: 'Polestar', files: ['Core/Core.xml'] }],
 				before: `local w=stub.world; w.faction,w.race,w.raceName,w.level="Horde","Orc","Orc",${level}
-					w.addMap(1447,{name="Azshara",c=1,left=0,right=1000,top=1000,bottom=0}); w.moveTo(1447,22,49.7); w.zone="Azshara"; w.addMap(1456,{name="Thunder Bluff",c=1,left=0,right=1000,top=1000,bottom=0})`,
+					${maps}
+					w.moveTo(1447,22,49.7); w.zone="Azshara"
+					function GetNumTrainerServices() return 0 end
+					function GetTrainerServiceInfo() end
+					function GetTrainerServiceTypeFilter() return true end`,
 				script: `${loads}
 					local w,E=stub.world,Polestar.Engine; stub.login()
+					w.setMoney(${copper})
 					w.complete({${report ?? ''}})
 					for _,q in ipairs({${carried.join(',')}}) do w.accept(q,{{type="item",required=1}}) end
 					Polestar.CharState().flags.taxi={[44]=true}
 					for _,node in ipairs({${nodes.join(',')}}) do Polestar.CharState().flags.taxi[node]=true end
 					assert(E.SetGuide(${JSON.stringify(guide.id)})); stub.advance(2)
-					for _,g in ipairs(E.GetGuide().steps[E.GetLiveStep()].goals) do
-						if g.t=="fly" or g.t=="accept" then emit(g.t..":"..tostring(g.node or g.quest)); break end
+					local function action()
+						if not E.GetLiveStep() then return "finished" end
+						local i=E.GetLiveStep()
+						for j,g in ipairs(E.GetGuide().steps[i].goals) do
+							if g.t=="talk" and E.Applies(i,j) and not E.GoalDone(i,j) then return "talk:"..g.npc end
+							if (g.t=="fly" or g.t=="accept") and E.Applies(i,j) and not E.GoalDone(i,j) then return g.t..":"..(g.node or g.quest) end
+							if g.t=="train" and E.Applies(i,j) and not E.GoalDone(i,j) then return "train" end
+						end
 					end
-					if ${JSON.stringify(expected)}=="fly:22" then
-						w.onTaxi=true; stub.fire("PLAYER_CONTROL_LOST"); w.moveTo(1456,46.65,49.9); w.setZone("Thunder Bluff", "The Lower Rise")
+					assert(action()=="talk:8610", "Kroum must actually open the flight map")
+					w.taxi(8610,"Valormok, Azshara",{${nodes.map((n) => JSON.stringify(n === 22 ? 'Thunder Bluff, Mulgore' : 'Orgrimmar, Durotar')).join(',')}}); stub.advance(1)
+					local function ride(node,cost,viaMap,viaZone)
+						local flight=E.GetLiveStep()
+						local name=node==23 and "Orgrimmar" or "Thunder Bluff"
+						assert(action()=="fly:"..node)
+						assert(w.money>=cost, "cannot buy a ticket without its fare")
+						w.close()
+						w.onTaxi=true; stub.fire("PLAYER_CONTROL_LOST"); w.setMoney(w.money-cost)
+						w.moveTo(viaMap,60,60); w.setZone(viaZone); stub.advance(1)
+						assert(E.GetLiveStep()==flight and action()=="fly:"..node, "paid flight "..node.." changed to "..tostring(action()).." over "..viaZone)
+						if node==23 then w.moveTo(1454,45.3,63.8) else w.moveTo(1456,46.65,49.9) end
+						w.setZone(name); stub.advance(1)
+						assert(E.GetLiveStep()==flight, "zone text alone is not a landing")
+						local ground=false
+						for j,g in ipairs(E.GetGuide().steps[flight].goals) do
+							if g.t=="enter" and g.location==name and not E.GoalDone(flight,j) then ground=true end
+						end
+						assert(ground, "wait for the taxi to land in "..name)
 						w.onTaxi=false; stub.fire("PLAYER_CONTROL_GAINED"); stub.advance(1)
-						local after=E.GetGuide().steps[E.GetLiveStep()]; local g=after.goals[1];emit(g.t..":"..tostring(g.quest or g.node))
+					end
+					local nextAction=action(); emit(nextAction)
+					if nextAction=="fly:22" then ride(22,830,1440,"Ashenvale"); emit(action())
+					elseif nextAction=="fly:23" then
+						ride(23,830,1440,"Ashenvale"); emit(action())
+						w.accept(${level >= 50 ? 4494 : 4300},{{type="item",required=1}}); stub.advance(1)
+						assert(action()=="train" and E.GetWaypoint().map==1454, "train after the city pickup")
+						w.trainer(3353); stub.advance(1); w.close(); stub.advance(1)
+						if w.money>=50 then
+							assert(action()=="talk:3310", "Doras opens the onward flight map after training")
+							w.taxi(3310,"Orgrimmar, Durotar",{"Thunder Bluff, Mulgore"}); stub.advance(1)
+							ride(22,50,1413,"The Barrens")
+						end
+						assert(action()=="accept:3762", "visit Pala without inventing an onward ticket")
 					end`,
 			}).emitted;
 			assert.equal(next, expected, `level ${level}, report ${report}, carried ${carried}, known flights ${nodes}`);
 			if (expected === 'fly:22') assert.equal(landed, 'accept:3762', 'land at Thunder Bluff and visit Pala, not the Orgrimmar departure tower');
+			if (expected === 'fly:23') assert.equal(landed, `accept:${level >= 50 ? 4494 : 4300}`, 'the quest that justified the ticket is still open on landing');
 		}
 	} finally { fs.rmSync(pack.dir, { recursive: true, force: true }); }
+});
+
+test('Horde Azshara: train after a field ding without repeating a paid trainer visit or an empty city flight', { skip }, () => {
+	const guide = compiled('forever/horde/40-50/06-azshara.guide');
+	const pos = (t, id) => guide.steps.findIndex((s) => s.goals.some((g) => g.t === t && (g.quest ?? g.node) === id));
+	const first = pos('accept', 4300), camp = pos('getfp', 44), end = pos('accept', 3124);
+	assert.ok(first >= 0 && first < camp && camp < end);
+	const actors = [
+		// A first-stop visit at 49 is not training at 50. At 50 the very same trainer check suffices for both stops.
+		{ cls: 'Warrior', race: 'Orc', level: 49, firstTrainer: 3353, bluff: 3041 },
+		{ cls: 'Warrior', race: 'Orc', level: 50, firstTrainer: 3353 },
+		{ cls: 'Rogue', race: 'Orc', level: 50, firstTrainer: 3327 },
+		// Fresh at Valormok; no insect report. The mage knows neither ticket and has never taken 4300.
+		{ cls: 'Mage', race: 'Troll', noTickets: true, bluff: 3047 },
+		{ cls: 'Druid', race: 'Tauren', bluff: 3033 },
+		{ cls: 'Paladin', race: 'Skyborne', bluff: 246344 },
+		{ cls: 'Rogue', race: 'Orc', org: 3327 },
+		{ cls: 'Warlock', race: 'Orc', noTickets: true, org: 3324 },
+	];
+	for (const start of [first, camp]) {
+		const pack = writeTestPack([{ ...guide, steps: guide.steps.slice(start, end + 1) }], data);
+		try {
+			const loads = pack.scripts.map((f) => `assert(loadfile(${JSON.stringify(f)}))("Polestar_Guides", {})`).join('\n');
+			for (const a of actors.filter((a) => Boolean(a.firstTrainer) === (start === first))) {
+				const { emitted } = runAddon({
+					stubs: ['stub_world.lua'], addons: [{ name: 'Polestar', files: ['Core/Core.xml'] }],
+					before: `local w=stub.world
+						w.faction,w.race,w.raceName,w.class,w.className,w.level="Horde","${a.race}","${a.race}","${a.cls.toUpperCase()}","${a.cls}",${a.level || 50}
+						${Object.entries({1447: 'Azshara', 1454: 'Orgrimmar', 1456: 'Thunder Bluff'}).map(([map, name]) => {
+							const { c, left, right, top, bottom } = data.mapFrames.era[map];
+							return `w.addMap(${map},{name="${name}",c=${c},left=${left},right=${right},top=${top},bottom=${bottom}})`;
+						}).join('\n')}
+						${a.firstTrainer ? 'w.moveTo(1454,55,36); w.zone="Orgrimmar"' : 'w.moveTo(1447,22,49.7); w.zone="Azshara"'}
+						function GetNumTrainerServices() return 0 end
+						function GetTrainerServiceInfo() end
+						function GetTrainerServiceTypeFilter() return true end`,
+					script: `${loads}
+						local E,w=Polestar.Engine,stub.world; stub.login()
+						local function settle() E.RequestUpdate(); stub.advance(1) end
+						local function open(t,id)
+							local i=E.GetLiveStep(); if not i then return false end
+							for j,g in ipairs(E.GetGuide().steps[i].goals) do
+								if g.t==t and (not id or g.quest==id or g.node==id) and E.Applies(i,j) and not E.GoalDone(i,j) then return true end
+							end
+							return false
+						end
+						local function checkTrainer(n)
+							assert(open("train"), "expected a live class trainer")
+							w.trainer(n); settle(); w.close(); settle()
+							assert(Polestar.CharState().classTrainVisit==w.level, "trainer visit at the actual level")
+						end
+						w.setMoney(880); Polestar.CharState().flags.taxi={[44]=true,[42]=true${a.noTickets ? '' : ',[22]=true,[23]=true'}}
+						${!a.firstTrainer && a.cls !== 'Mage' ? 'w.complete({4300})' : ''}
+						${a.org ? 'w.onQuest(81,{})' : ''}
+						assert(E.SetGuide(${JSON.stringify(guide.id)})); settle()
+						${a.firstTrainer ? `
+							assert(open("accept",4300)); w.accept(4300,{{type="item",required=1}}); settle()
+							checkTrainer(${a.firstTrainer})
+							w.moveTo(1447,11.4,78.2); w.setZone("Azshara"); settle()
+							w.accept(5535,{1,1}); w.accept(5536,{1,1,1}); settle()
+							w.finish(5535); w.finish(5536); settle()
+							${a.level === 49 ? 'w.setLevel(50); settle()' : ''}
+							w.turnIn(5535); w.turnIn(5536); settle()
+							w.moveTo(1447,22,49.7); settle()` : ''}
+						assert(open("talk"), "open Kroum's map at Valormok")
+						w.taxi(8610,"Valormok, Azshara",{${a.noTickets ? '' : '"Thunder Bluff, Mulgore","Orgrimmar, Durotar"'}}); settle(); w.close(); settle()
+						${a.org ? `
+							assert(open("train") and E.GetWaypoint().map==1454, "Orgrimmar trainer, not a required ticket")
+							w.moveTo(1454,55,36); w.setZone("Orgrimmar"); settle()
+							assert(open("turnin",81)); w.turnIn(81); settle()
+							checkTrainer(${a.org})
+							${a.noTickets ? '' : 'assert(open("talk")); w.moveTo(1454,45.3,63.8); w.taxi(3310,"Orgrimmar, Durotar",{"Thunder Bluff, Mulgore"}); settle(); w.close(); settle()'}` : ''}
+						${a.noTickets ? 'assert(open("accept",3762), "no inaccessible flight before Pala")' : 'assert(open("fly",22), "Thunder Bluff is the next paid flight"); w.onTaxi=true; stub.fire("PLAYER_CONTROL_LOST")'}
+						w.moveTo(1456,46.65,49.9); w.setZone("Thunder Bluff","The Lower Rise")
+						w.onTaxi=false; stub.fire("PLAYER_CONTROL_GAINED"); settle()
+						assert(open("accept",3762)); w.accept(3762,{}); w.turnIn(3762); w.accept(3761,{{type="item",required=20}}); settle()
+						${a.bluff ? `assert(open("train") and E.GetWaypoint().map==1456, "trainer at Thunder Bluff"); checkTrainer(${a.bluff})` : ''}
+						emit(open("fly",42))`,
+				});
+				assert.deepEqual(emitted, [true], `${a.cls}, ${a.firstTrainer ? `first visit at ${a.level}` : 'fresh at 50'}: no more training before Camp Mojache`);
+			}
+		} finally { fs.rmSync(pack.dir, { recursive: true, force: true }); }
+	}
 });
 
 // Position sweep (0.3.6, the patrol check): Sentinel Shayla Nightbreeze walks the road west of Dolanaar
@@ -15426,6 +15595,24 @@ test('Riverglades: the Tanaris pier and flying over Powderfuse are not an arriva
 			w.onTaxi=false;stub.fire('PLAYER_CONTROL_GAINED');local landed=live()==crate;local wp=E.GetWaypoint();local friz=wp and wp.map==2548 and math.abs(wp.x-77)<.05 and math.abs(wp.y-52.83)<.05;
 			w.gossip(255897);local waiting=live()==crate and not w.log[95062];w.accept(95062,{});w.close();emit({pier,over,landed,friz,waiting,live()>crate and w.log[95062]~=nil})`);
 		assert.deepEqual(states,[true,true,true,true,true,true]);
+		const fromFreewind=replay('',`local function nextStop()
+			stub.advance(.8); local i=E.GetLiveStep(); local p=E.GetWaypoint()
+			for j,g in ipairs(G.steps[i].goals) do if E.Applies(i,j) and not E.GoalDone(i,j) then
+				if g.t=='fly' and g.node==30 then return 'flight' end
+				if g.t=='enter' and g.location=='Tanaris' and p and p.map==1446 then return 'ride into Tanaris' end
+				if g.t=='getfp' and g.node==40 then return 'Gadgetzan master' end
+				if g.t=='goto' and p and p.map==1446 and math.abs(p.x-67.57)<.01 then return 'Steamwheedle pier' end
+				if i==arrival then return 'ride the boat' end
+				if i==crate then return 'Friz' end
+			end end;return 'wrong stop: '..G.steps[i].title end
+			local function visit(map,x,y,zone,sub) w.moveTo(map,x,y);w.setZone(zone,sub);stub.fire('ZONE_CHANGED_NEW_AREA');stub.advance(.7) end
+			local stops={nextStop()};visit(1441,45.1,50.1,'Thousand Needles','Freewind Post');stops[#stops+1]=nextStop()
+			visit(1441,77.8,77.3,'Thousand Needles','The Shimmering Flats');stops[#stops+1]=nextStop()
+			visit(1446,51.57,25.54,'Tanaris','Gadgetzan');stops[#stops+1]=nextStop()
+			visit(1446,67.57,23.1,'Tanaris','Steamwheedle Port');stops[#stops+1]=nextStop()
+			visit(2548,77,52.83,'Riverglades','Powderfuse Port');stops[#stops+1]=nextStop();emit(stops)`,
+			`w.moveTo(1454,45.1,63.9);w.setZone('Orgrimmar','Valley of Strength')`);
+		assert.deepEqual(fromFreewind,['flight','ride into Tanaris','ride into Tanaris','Gadgetzan master','ride the boat','Friz']);
 		for (const state of ['w.onQuest(95062,{})','w.complete({95062})']) {
 			assert.equal(replay(state,`stub.advance(.6);emit(E.GetLiveStep()>crate)`,
 				`w.moveTo(2548,62.9,15.6);w.setZone('Riverglades',"Bolder'ok")`),true,'a character inland with this crate never returns to board or revisit Friz');
@@ -15752,6 +15939,28 @@ test(`${ASHENVALE_HORDE}: Horde 21-30 audit: Warriors and Hunters train on the T
 	assert.ok(step, 'the Thunder Bluff training step');
 	const classes = (step.only && step.only.classes) || [];
 	for (const cl of ['WARRIOR', 'HUNTER', 'PALADIN', 'PRIEST', 'SHAMAN', 'MAGE', 'DRUID']) assert.ok(classes.map((c) => c.toUpperCase()).includes(cl), `${cl} trains there`);
+});
+
+test('Skywatcher Plateau: a trainer is an errand only for a class that still needs one (#2025)', { skip }, () => {
+	const guide = ASHENVALE_HORDE;
+	for (const [cls, level, zone, lastVisit, pending] of [
+		['Warrior',28,'Mulgore',26,1], ['Hunter',28,'Mulgore',28,0], ['Druid',28,'Mulgore',26,1],
+		['Druid',28,'Thunder Bluff',26,1], ['Druid',28,'Thunder Bluff',28,0], ['Warrior',27,'Thunder Bluff',24,1],
+		['Warrior',27,'Mulgore',24,0], ['Rogue',28,'Mulgore',26,0], ['Warlock',28,'Thunder Bluff',26,0],
+		['Warrior',28,'The Barrens',26,0], ['Warrior',28,'Thousand Needles',26,0],
+	]) {
+		const race = cls === 'Druid' ? 'Tauren' : 'Orc';
+		const result = engineRun(guide, { race,raceName:race,faction:'Horde',cls:cls.toUpperCase(),className:cls,level }, {
+			before: `w.setZone('${zone}')`,
+			after: `Polestar.CharState().classTrainVisit=${lastVisit}`,
+			script: `local pending=0; local tal=false; for i,s in ipairs(E.GetGuide().steps) do for j,g in ipairs(s.goals) do
+				if g.t=='train' and g.class and E.Applies(i,j) then local status=E.GetStepView(i).goals[j].status
+					if status=='active' or status=='pending' then pending=pending+1 end end
+				if g.t=='getfp' and g.npc==2995 and E.Applies(i,j) then tal=true end
+			end end; emit({pending=pending,tal=tal})`,
+		});
+		assert.deepEqual(result, { pending,tal:false }, `${cls}, ${zone}, last trained ${lastVisit}`);
+	}
 });
 
 // thadude3's report (#2013, Orc Warlock 28): from Camp Taurajo, with nothing to do in Thunder Bluff, the guide sent
@@ -17515,6 +17724,26 @@ test('Horde 50-60: Azshara before Felwood, its Orgrimmar deliveries on the way t
 	assert.ok(bar.some(({ goal }) => goal.t === 'turnin' && goal.quest === 3542), 'Andron Gant\'s delivery on 04\'s Undercity stop');
 });
 
+test('Horde Azshara: return for only missing seals, not a locked hand-in or an underlevel Magus', { skip }, () => {
+	const pack=buildSimPack(['forever/horde/50-60/04-azshara.guide']);
+	const seals=(a,b,c)=>`w.onQuest(91497,{{type='item',required=1,fulfilled=${a}},{type='item',required=1,fulfilled=${b}},{type='item',required=1,fulfilled=${c}}});`+
+		[246725,246721,246722].map((it,i)=>[a,b,c][i]?`w.addItem(${it},1);`:'').join('');
+	const paid='w.complete({91497});w.onQuest(91538,{});w.onQuest(91500,{{type="item",required=1,fulfilled=0}});';
+	try {
+		for(const [level,entry,want] of [[52,seals(0,0,0),'seal:246721'],[52,seals(0,1,1),'seal:246725'],[53,seals(1,1,0),'seal:246722'],
+			[51,seals(1,1,0),'none'],[51,seals(1,1,1)+'w.finish(91497);','turnin:91497'],[53,paid,'turnin:91538'],
+			[54,paid,'collect:91500'],[52,paid+'w.addItem(10597,1);w.finish(91500);','turnin:91500']]){
+			const [seen]=playGuide(pack,pack.guides[0],{race:'Orc',faction:'Horde',cls:'WARRIOR',before:`w.level=${level};w.moveTo(1447,59.44,31.36);w.setZone('Azshara','Thalassian Base Camp');${entry}`,
+				script:`local E=Polestar.Engine;local hunt;local G=E.GetGuide();for i,s in ipairs(G.steps) do if not s.feeder then for _,g in ipairs(s.goals) do if g.t=='collect' and g.quest==91497 then hunt=hunt or i end end end end
+				assert(hunt,'a carrier returning without all three seals needs a hunt, not just the tome');E.SkipUpTo(hunt);stub.advance(.7);local i=E.GetLiveStep();local out='none'
+				for j,g in ipairs(G.steps[i].goals) do if E.Applies(i,j) and not E.GoalDone(i,j) and (g.quest==91497 or g.quest==91500 or g.quest==91538) then
+				 if g.t=='collect' and g.quest==91497 then local pts={[246721]={57.02,28.79},[246725]={66.53,29.58},[246722]={70.87,31.51}};local p=pts[g.item];assert(p and g.map==1447 and math.abs(g.x-p[1])<.01 and math.abs(g.y-p[2])<.01);out='seal:'..g.item
+				 else out=g.t..':'..g.quest end;break end end;emit(out)`});
+			assert.equal(seen,want,`actual ${level}, ${entry}`);
+		}
+	} finally { pack.dispose(); }
+});
+
 test('Horde Silithus: the crater hunts and rescue come before the desert top-ups', { skip }, () => {
 	const list = goals('forever/horde/50-60/06-silithus.guide');
 	const top = at(list, 'Level 57', (g) => g.t === 'level' && g.level === 57);
@@ -18061,7 +18290,8 @@ test('Riverglades (Horde): Chogg\'Zac is a group choice, and the solo route leav
 test('Powderfuse (Horde): ready rewards pay; skipping a level check never opens an unfinished hand-in or a ship hunt', { skip }, () => {
 	const pack = buildSimPack(['forever/horde/40-50/01b-riverglades.guide']);
 	try {
-		const atPort = (level, log, moves) => playGuide(pack, pack.guides[0], {race:'Orc',cls:'WARRIOR',faction:'Horde',
+		const atPort = (level, log, moves, nodes = []) => playGuide(pack, pack.guides[0], {race:'Orc',cls:'WARRIOR',faction:'Horde',
+			saved:`PolestarCharDB={schema=1,flags={taxi={${nodes.map(n => `[${n}]=true`).join(',')}}}}`,
 			before:`w.setLevel(${level}); ${log}`, script:`local E,w=Polestar.Engine,stub.world;local G=assert(E.GetGuide());
 			local function pos(t,n) for i,s in ipairs(G.steps) do if not s.feeder then for _,g in ipairs(s.goals) do
 				if g.t==t and (g.quest==n or g.level==n) then return i end end end end; error(t..':'..n) end
@@ -18085,6 +18315,84 @@ test('Powderfuse (Horde): ready rewards pay; skipping a level check never opens 
 			seek(pos('kill',95122));local raiders=live('kill',95122);w.finish(95122);stub.advance(.6);
 			seek(pos('turnin',95293));local captain=live('turnin',95293);seek(pos('kill',95124));emit({raiders=raiders,captain=captain,admiral=live('kill',95124)})`);
 		assert.deepEqual(high,{raiders:true,captain:true,admiral:true});
+		for (const [target, quest, x, y] of [[42,95119,81.21,46.52], [44,95122,81.72,45.37]]) {
+			assert.equal(atPort(target - 1, `w.setXP(990,1000); w.moveTo(2548,79.34,52.69); w.setZone('Riverglades','Powderfuse Port')`,
+				`seek(pos('level',${target})); emit(live('level',${target}))`), false, `no ${target} detour for a fresh visitor without the work`);
+			for (const skipCamp of [false, true]) {
+				const result = atPort(target - 1, `w.moveTo(2548,79.34,52.69); w.setZone('Riverglades','Powderfuse Port');
+					w.onQuest(${quest},{10,10}); w.setXP(900,1000)`, `
+					local i=seek(pos('level',${target})); local p=E.GetWaypoint()
+					local fixed=false
+					for _,g in ipairs(G.steps[i].goals) do if g.t=='level' then fixed=g.grind==nil and g.level==${target} end end
+					local camp=p and p.map==2548 and math.abs(p.x-${x})<.01 and math.abs(p.y-${y})<.01
+					${skipCamp ? 'seek(i+1)' : `w.moveTo(2548,${x},${y}); stub.advance(.6); w.setLevel(${target}); stub.advance(.6)`}
+					emit({fixed=fixed,camp=camp,working=live('kill',${quest})})`);
+				assert.deepEqual(result, {fixed:true, camp:true, working:!skipCamp}, `${target}: ${skipCamp ? 'skip' : 'level up'}`);
+			}
+		}
+		for (const [map, zone, state, nodes, grakna] of [
+			[2548,'Riverglades','',[21],true], [2548,'Riverglades','',[],false],
+			[2548,'Riverglades','w.onQuest(94744,{})',[21],false], [2548,'Riverglades','w.complete({94744})',[21],false],
+			[1418,'Badlands','',[21],false],
+		]) {
+			const result = atPort(44, `w.moveTo(${map},79.34,52.69); w.setZone('${zone}'); ${state}`, `
+				seek(pos('turnin',95882)); local p=E.GetWaypoint()
+				local departure=p and p.map==2548 and math.abs(p.x-59.51)<.01 and math.abs(p.y-45.01)<.01
+				local ride=false
+				if departure then
+					w.moveTo(2548,59.51,45.01); w.setZone('Riverglades',"Rog'mar"); stub.advance(.6)
+					local at=E.GetLiveStep(); w.gossip(258031); w.close(); stub.advance(.6)
+					assert(E.GetLiveStep()==at, "reaching the fort or speaking to Neza is not opening Grakna's flight map")
+					w.taxi(255993,"Rog'mar, Riverglades",{"Kargath, Badlands"}); stub.advance(.6)
+					local k=E.GetLiveStep()
+					for j,g in ipairs(G.steps[k].goals) do
+						if g.t=='fly' and g.node==21 and E.Applies(k,j) and not E.GoalDone(k,j) then ride=true end
+					end
+				end
+				emit({departure=not not departure,ride=ride})`, nodes);
+			assert.deepEqual(result, {departure:grakna, ride:grakna}, `${zone}, ${state}, Kargath=${nodes.length > 0}`);
+		}
+	} finally { pack.dispose(); }
+});
+
+test("Horde Riverglades: a former group member keeps Da'grosh's ready rewards without hunting level-44 Champions at 42", { skip }, () => {
+	const pack = buildSimPack(['forever/horde/40-50/01b-riverglades.guide']);
+	try {
+		const play = (level, setup, script) => playGuide(pack, pack.guides[0], {
+			race:'Orc', cls:'WARRIOR', faction:'Horde',
+			before:`w.setLevel(${level}); w.moveTo(2548,59.3,45.6); w.setZone('Riverglades',"Rog'mar");
+				w.onQuest(95882,{1}); w.finish(95882); ${setup}`,
+			script:`local E,w=Polestar.Engine,stub.world; local G=E.GetGuide()
+				local function find(t,q) for i,s in ipairs(G.steps) do if not s.feeder then
+					for _,g in ipairs(s.goals) do if g.t==t and g.quest==q then return i end end end end end
+				E.SkipUpTo(assert(find('turnin',95882))); stub.advance(.6); w.turnIn(95882); stub.advance(.6)
+				local function listed(q) for _,a in ipairs(E.GetAlong()) do if a.index then
+					for _,g in ipairs(G.steps[a.index].goals) do if g.t=='turnin' and g.quest==q then return true end end
+				end end; return false end
+				local function leaving() local p=E.GetWaypoint(); return not not (p and p.map==2548 and math.abs(p.x-32)<.01 and math.abs(p.y-29.9)<.01) end
+				${script}`,
+		})[0];
+		for (const [ready, open, log] of [
+			[94745,94748,'w.complete({94744,95431}); w.onQuest(94745,{8,8,8}); w.onQuest(94748,{5})'],
+			[94748,94745,'w.complete({94744,95431}); w.onQuest(94748,{5}); w.onQuest(94745,{8,8,8})'],
+			[95432,94745,'w.complete({94744,95431}); w.onQuest(95432,{5}); w.onQuest(94745,{8,8,8})'],
+			[94768,95432,'w.complete({94744,95431,94745,94748}); w.onQuest(94768,{1}); w.onQuest(95432,{5})'],
+		]) {
+			const result = play(42, `${log}; w.finish(${ready})`, `
+				local ready=listed(${ready}); local unfinished=listed(${open}); local exit=leaving()
+				w.turnIn(${ready}); stub.advance(.6)
+				emit({ready=ready,unfinished=unfinished,exit=exit,paid=not listed(${ready}) and leaving()})`);
+			assert.deepEqual(result,{ready:true,unfinished:false,exit:true,paid:true},`solo at 42: pay only ${ready}`);
+		}
+		for (const [q, setup] of [[94744,''],[95431,'w.complete({94744});']]) {
+			assert.deepEqual(play(42, `${setup} w.onQuest(${q},{})`, `emit({delivery=listed(${q}),exit=leaving()})`),
+				{delivery:true,exit:true}, `the ${q} delivery is payable without a required camp visit`);
+		}
+		const normal = play(43, 'w.complete({94744,95431,95432,94748}); w.onQuest(94745,{8,8,8})', `
+			local s=G.steps[E.GetLiveStep()]; local ids={}
+			for j,g in ipairs(s.goals) do if g.t=='kill' and g.quest==94745 and E.Applies(E.GetLiveStep(),j) then ids[#ids+1]=g.npc end end
+			table.sort(ids); emit(ids)`);
+		assert.deepEqual(normal,[256795,256797,256799], 'the three normal cultists resume at actual 43 without a party');
 	} finally { pack.dispose(); }
 });
 

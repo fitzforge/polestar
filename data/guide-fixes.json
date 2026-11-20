@@ -2,6 +2,56 @@
 	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at?: { map, x, y, frame? }, label?, title?, when? } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge) and, with when (a condition or a list of them), holds every step of that walk for the players it names, after those. levels: { top } on at: { goal: \"levels\", guide } raises the guide's header top level to where players leave it. at: { quest, goal: accept | turnin | complete | objective | quest | collect, objective?, item?, guide? } (guide: that guide only). A collect anchor names quest and item and carries a goalNote. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
+			"id": "horde-dudd-ready-notes-in-booty-bay",
+			"faction": "Horde",
+			"at": {
+				"guide": "forever/horde/40-50/01-stranglethorn-vale",
+				"quest": 95384,
+				"goal": "turnin"
+			},
+			"when": "complete 95384",
+			"note": "Dudd takes Partial Mystical Notes on the scheduled Booty Bay visit if the character actually has the reward ready. Do not send a player to collect the notes or make a special trip.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "Quest 95384 ends at Dudd Fizzlescroll. The Booty Bay route visits his counter before leaving the docks."
+			},
+			"pr": 3145
+		},
+		{
+			"id": "horde-azshara-return-91497-at-52",
+			"faction": "Horde",
+			"at": {
+				"guide": "forever/horde/50-60/04-azshara",
+				"quest": 91497,
+				"goal": "objective",
+				"objective": 2
+			},
+			"level": 52,
+			"note": "On the return from Winterspring, hunt only outstanding seals. The three officers are level 53; use the southern part of Hawkhelm's patrol rather than following it west.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "Forever quest 91497 and item drops 246721/246725/246722 from regular officers 246991/247006/247013. The recorded Blackmaw spawns are not seal targets."
+			},
+			"pr": 3145
+		},
+		{
+			"id": "horde-azshara-return-91500-at-54",
+			"faction": "Horde",
+			"at": {
+				"guide": "forever/horde/50-60/04-azshara",
+				"quest": 91500,
+				"goal": "objective",
+				"objective": 1
+			},
+			"level": 54,
+			"note": "Wait until at least level 54 to summon the level-55 Magus. Jediga's tome and an already earned head can still be handed in.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "Forever queries: 91500 needs the head dropped by 8578 (55); both 91500 and the delivery 91538 follow 91497."
+			},
+			"pr": 3145
+		},
+		{
 			"id": "horde-ratchet-gazlowe-letter-upstairs",
 			"faction": "Horde",
 			"at": {
@@ -16,6 +66,15 @@
 				"ref": "#960: Gazlowe (3391) stands upstairs at Ratchet."
 			},
 			"issue": 960
+		},
+		{
+			"id": "horde-valormok-capital-training",
+			"faction": "Horde",
+			"at": { "guide": "forever/horde/40-50/06-azshara", "quest": 3762, "goal": "accept" },
+			"tip": "Without a Thunder Bluff ticket, fly to Camp Taurajo if offered and affordable, or follow the Barrens road there. Ride west into Mulgore, then north past Bloodhoof Village to the lifts. Visit Pala at the inn, then Hamuul on Elder Rise.",
+			"note": "Keep Jes'rimon and class training independent on the first Orgrimmar visit. After Azshara, rogues and warlocks needing level 50 training use Orgrimmar. The other classes have trainers on the Thunder Bluff stop they already make for Pala; do not send them back to Orgrimmar just for training.",
+			"source": [{ "kind": "in-game-check", "ref": "#3145: flight paths 44 to 22, 44 to 23 and 23 to 22; Thunder Bluff class trainers 3030, 3033, 3038, 3041, 3044, 3047 and 246344." }],
+			"pr": 3145
 		},
 		{
 			"id": "horde-shadowprey-optional-return",
@@ -398,7 +457,7 @@
 				"goal": "accept"
 			},
 			"goalNote": "Arrive on the Steamwheedle boat before taking the crate at the docks.",
-			"note": "From Tanaris use the Steamwheedle pier even if Kargath is known. Keep the boat arrow on the departure pier until a grounded arrival in Powderfuse Port; taking Friz's crate requires the actual quest offer. The Kargath approach is overland, and a carried or paid crate does not call the player back to Friz.",
+			"note": "From Freewind Post, follow the Shimmering Flats road until the player enters Tanaris. Only then offer Gadgetzan and the Steamwheedle pier. From Tanaris use the pier even if Kargath is known. Keep the boat arrow on the departure pier until a grounded arrival in Powderfuse Port; taking Friz's crate requires the actual quest offer. The Kargath approach is overland, and a carried or paid crate does not call the player back to Friz.",
 			"source": {
 				"kind": "recording",
 				"ref": "In #3147 the crate step was active in Tanaris. The transport destination is Powderfuse Port, map 2548."
@@ -729,7 +788,7 @@
 				"guide": "forever/horde/40-50/01b-riverglades"
 			},
 			"level": 42,
-			"note": "Eastsea Musketeers reach 43. A player arriving from Kargath early can resume on the beach north of Powderfuse Port at 42; do not point them at a crawler farm.",
+			"note": "Eastsea Musketeers reach 43. Below 41.9, leave the first camp open for a return or skip it; from 41.9 the Shore Crawlers (256807, level 39–40) south-west of 81.21,46.52 offer the last tenth. Keep clear of Gul'gash. Neither route opens the pirates below 42.",
 			"source": {
 				"kind": "recording",
 				"ref": "Powderfuse Port guide followers on 0.4.x; Eastsea levels from the creature data."
@@ -746,7 +805,7 @@
 				"guide": "forever/horde/40-50/01b-riverglades"
 			},
 			"level": 44,
-			"note": "Three of six guide followers taking Unchecked Expansion were below 44, the lowest at 42.38. Raiders and the admiral reach 45. Check the actual level before sending the player back into the second camp.",
+			"note": "Three of six followers took Unchecked Expansion below 44. Three of seven paid for the smuggled goods below 44 and still lacked 721, 22,067 or 159,080 XP after payment. Only the last tenth gets a local camp: first-wave Buccaneers at 81.72,45.37, below the raiders. A larger deficit is not a mandatory repeat hunt. Keep the second camp and ships at actual 44.",
 			"source": {
 				"kind": "recording",
 				"ref": "Powderfuse Port guide followers on 0.4.x; Eastsea levels from the creature data."
@@ -13831,6 +13890,15 @@
 			]
 		},
 		{
+			"id": "h-riverglades-carving-a-path-actual-level",
+			"faction": "Horde",
+			"at": { "quest": 94745, "goal": "objective", "objective": 1, "guide": "forever/horde/40-50/01b-riverglades" },
+			"when": "level>=43",
+			"note": "Carving a Path needs eight each of three normal cultists, not just the two lower-level kinds. The level 43–44 Champions share the camps with both kinds and with the five captive scouts; the miner approach also passes them. Wait for actual 43, not a party, and avoid the 45–46 elites.",
+			"source": { "kind": "client", "ref": "Forever quest 94745 and creatures 256795, 256797, 256799; Riverglades 2548 eastern edge 33.67,41.47 and 33.57,41.49; Corrupters 29.61,37.21." },
+			"pr": 3145
+		},
+		{
 			"id": "h-audit-040-r4-bring-me-his-head-after-carving-a-path",
 			"faction": "Horde",
 			"at": {
@@ -14145,6 +14213,15 @@
 			"pr": 3145
 		},
 		{
+			"id": "horde-skywatcher-rank-28-training",
+			"faction": "Horde",
+			"at": { "guide": "forever/horde/07-ashenvale", "quest": 96259, "goal": "turnin" },
+			"goalNote": "Muln Earthfury. If you still need level 28 training in Thunder Bluff, use the north lift on your way out of Mulgore.",
+			"note": "The plateau hand-ins put players near the city's north lift. Training from 28 is a separate errand, not a reason for an empty flight-path trip or a visit by a class the city cannot train.",
+			"source": { "kind": "recording", "ref": "#2025: seven followers handed in a plateau quest at levels 28–30." },
+			"pr": 3145
+		},
+		{
 			"id": "horde-indurium-from-39",
 			"faction": "Horde",
 			"at": {
@@ -14154,13 +14231,22 @@
 				"guide": "forever/horde/30-40/06-badlands"
 			},
 			"when": "level>=39",
-			"note": "At 38 a Bonesnapper can be two levels over. Only hunt unfinished flakes from 39; an already-full bag goes to Martek without the hunt.",
+			"note": "Bonesnappers reach level 40. The coyote top-up is for unfinished flakes in the last half of level 38. Earlier arrivals keep Indurium for 39 and can hand Rigglefuzz his wings independently.",
 			"source": [
 				{
 					"kind": "client",
 					"ref": "Forever: NPC 2893, level 39-40, normal; quest 1108 wants Indurium Flakes (5797)."
 				}
 			],
+			"pr": 3145
+		},
+		{
+			"id": "horde-martek-ready-flakes",
+			"faction": "Horde",
+			"at": { "guide": "forever/horde/30-40/06-badlands", "quest": 1108, "goal": "turnin" },
+			"when": "complete 1108",
+			"note": "Martek only needs a visit when all ten flakes are ready. Rigglefuzz takes his own reward beside him even when the troggs are still too high.",
+			"source": { "kind": "client", "ref": "Quest 1108: Indurium Flakes for Martek the Exiled. Quest 703: buzzard wings for Rigglefuzz." },
 			"pr": 3145
 		},
 		{

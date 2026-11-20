@@ -100,7 +100,6 @@ return {
 	["Level 36"] = "",
 	-- {zone:1443} Desolace
 	-- plural, as words: Drywallow Crocolisks = {npc:4341} Drywallow Crocolisk
-	-- was: ["{zone:1443}'s last quests are 36-39. Still below 36 after Brackenwall's hand-ins? The Drywallow Crocolisks (35-36) along the river east of the village are the closest at your level: kill them until level 36."] = "{zone:1443}의 마지막 퀘스트는 36-39 레벨입니다. 담쟁이 마을에서 퀘스트를 제출하고도 36 레벨이 안 되나요? 마을 동쪽 강가의 늪지악어(35-36)가 가장 가까운 적정 레벨 몹입니다. 36 레벨까지 처치하세요."
 	["{zone:1443}'s last quests are 36-39. Still below 36 after Brackenwall's hand-ins? The Drywallow Crocolisks (35-36) along the river east of the village are the closest at your level: kill them until level 36."] = "{zone:1443}의 마지막 퀘스트는 36-39 레벨입니다. 담쟁이 마을에서 퀘스트를 제출하고도 36 레벨이 안 되나요? 마을 동쪽 강가의 늪지악어(35-36)가 가장 가까운 적정 레벨 몹입니다. 36 레벨까지 처치하세요.",
 	-- plural, as words: Drywallow Crocolisks = {npc:4341} Drywallow Crocolisk
 	["Drywallow Crocolisks"] = "늪지악어",
@@ -208,7 +207,6 @@ return {
 	["The {area:2657}"] = "{area:2657}",
 	-- {area:2657} Valley of Bones · {zone:1443} Desolace · {item:15848} Crate of Ghost Magnets
 	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre · Magram Necrokhans = {npc:253274} Magram Necrokhan
-	-- was: ["South-east of the coven, the bone fields of the {area:2657}, where Undead Ravagers roam, at {zone:1443}'s southern edge: keep south of the Magram's village on the way. Use the {item:15848} at the arrow to draw the Magrami Spectres (38-39): they come in numbers, so fight them with your back to the valley's edge. They drop the ghost-o-plasm.\nCareful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields just west of the arrow, well above you: use the crate at the arrow, on the valley's eastern side, and pull the spectres away from them."] = "집회장 남동쪽, {zone:1443} 남쪽 끝에 언데드 약탈자가 배회하는 {area:2657}의 뼈 들판이 있습니다. 가는 길에 마그람 마을 남쪽으로 지나가세요. 화살표 지점에서 {item:15848}을(를) 사용해 마그라미 망령(38-39)을 끌어내세요. 여러 마리가 몰려오니 골짜기 가장자리를 등지고 싸우세요. 망령이 유령 원형질을 떨어뜨립니다.\n주의: 마그람 강령칸과 시체먹이(45, 정예)가 화살표 바로 서쪽 뼈 들판을 돌아다니며, 당신보다 훨씬 강합니다. 골짜기 동쪽의 화살표 지점에서 상자를 사용하고 망령을 그들에게서 떨어진 곳으로 끌어오세요."
 	["South-east of the coven, the bone fields of the {area:2657}, where Undead Ravagers roam, at {zone:1443}'s southern edge: keep south of the Magram's village on the way. Use the {item:15848} at the arrow to draw the Magrami Spectres (38-39): they come in numbers, so fight them with your back to the valley's edge. They drop the ghost-o-plasm.\nCareful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields just west of the arrow, well above you: use the crate at the arrow, on the valley's eastern side, and pull the spectres away from them."] = "집회장 남동쪽, {zone:1443} 남쪽 끝에 언데드 약탈자가 배회하는 {area:2657}의 뼈 들판이 있습니다. 가는 길에 마그람 마을 남쪽으로 지나가세요. 화살표 지점에서 {item:15848}을(를) 사용해 마그라미 망령(38-39)을 끌어내세요. 여러 마리가 몰려오니 골짜기 가장자리를 등지고 싸우세요. 망령이 유령 원형질을 떨어뜨립니다.\n주의: 마그람 강령칸과 시체먹이(45, 정예)가 화살표 바로 서쪽 뼈 들판을 돌아다니며, 당신보다 훨씬 강합니다. 골짜기 동쪽의 화살표 지점에서 상자를 사용하고 망령을 그들에게서 떨어진 곳으로 끌어오세요.",
 
 	-- Step 49: Hornizz Brimbuzzle

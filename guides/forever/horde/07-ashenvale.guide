@@ -321,7 +321,7 @@ step The Earthen Ring
   tip Muln Earthfury offers The Broodmother only once Defending the Dead is handed in.
   turnin 96260                        -- Yorn Grimtotem
   turnin 96241                        -- Mazu'kon
-  turnin 96259                        -- Muln Earthfury
+  turnin 96259                        -- Muln Earthfury. If you still need level 28 training in Thunder Bluff, use the north lift on your way out of Mulgore.
 
 step The Broodmother
   when group 96261
@@ -374,6 +374,14 @@ step Tah Winterhoof
   when complete 97538
   tip Tah Winterhoof stands beside Zangen, east of Tal.
   turnin 97538                        -- Tah Winterhoof
+
+step Class training from Skywatcher Plateau
+  only Warrior,Hunter,Paladin,Priest,Shaman,Mage,Druid
+  when level>=28
+  when zone "Mulgore"
+  zone Thunder Bluff
+  tip Take the north lift into Thunder Bluff for your class trainer.
+  train class only Warrior,Hunter,Paladin,Priest,Shaman,Mage,Druid
 
 step Class trainer
   only Warrior,Hunter,Paladin,Priest,Shaman,Mage,Druid

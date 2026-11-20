@@ -185,6 +185,8 @@ return {
 	-- Step 45: The Earthen Ring
 	-- {npc:259118} Muln Earthfury · {quest:96261} The Broodmother · {quest:96259} Defending the Dead
 	["{npc:259118} offers {quest:96261} only once {quest:96259} is handed in."] = "{npc:259118}只有在{quest:96259}交还后才会提供{quest:96261}。",
+	-- {npc:259118} Muln Earthfury · {zone:1456} Thunder Bluff · {zone:1412} Mulgore
+	["{npc:259118}. If you still need level 28 training in {zone:1456}, use the north lift on your way out of {zone:1412}."] = "",
 
 	-- Step 47: Broodmother Valraxx
 	-- {npc:264082} Broodmother Valraxx · {area:17044} Gloomrise · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
@@ -222,36 +224,42 @@ return {
 	-- {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof · {npc:2995} Tal
 	["{npc:3024} stands beside {npc:4721}, east of {npc:2995}."] = "{npc:3024}站在{npc:4721}旁边，位于{npc:2995}东边。",
 
-	-- Step 54: Class trainer
+	-- Step 54: Class training from Skywatcher Plateau
+	-- {area:17045} Skywatcher Plateau
+	["Class training from {area:17045}"] = "",
+	-- {zone:1456} Thunder Bluff
+	["Take the north lift into {zone:1456} for your class trainer."] = "",
+
+	-- Step 55: Class trainer
 	["Class trainer"] = "职业训练师",
 
-	-- Step 55: Ansekhwa
+	-- Step 56: Ansekhwa
 	-- {spell:199} Two-Handed Maces · {npc:11869} Ansekhwa
 	["While you're here: learn {spell:199} from {npc:11869} (10 silver); two-handers level a Warrior fastest."] = "顺路提示：向{npc:11869}学习{spell:199}（10 银）；战士使用双手武器升级最快。",
 
-	-- Step 56: Fly to Camp Taurajo
+	-- Step 57: Fly to Camp Taurajo
 	-- {area:378} Camp Taurajo
 	["Fly to {area:378}"] = "飞往{area:378}",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "{zone:1456}飞行管理员",
 
-	-- Step 57: Brine
+	-- Step 58: Brine
 	-- {npc:5899} Brine · {area:378} Camp Taurajo · {area:485} Great Lift
 	["{npc:5899}'s hut stands on the ridge above the quilboar watering hole south of {area:378}, on the road to the {area:485}."] = "{npc:5899}的小屋在{area:378}南边野猪人水坑上方的山脊上，就在通往{area:485}的路上。",
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
 	["for {npc:5901}, south of {area:392}: next guide"] = "交给{area:392}南边的{npc:5901}：见下一个指南",
 
-	-- Step 58: Great Lift
+	-- Step 59: Great Lift
 	-- {npc:12576} Grish Longrunner · {npc:10079} Brave Moonhorn · {area:485} Great Lift · {area:484} Freewind Post
 	["{npc:12576} and {npc:10079} wait at the top of the {area:485}: Maggran's letter is for {npc:12576}, and Moonhorn's message goes down to {area:484} with you."] = "{npc:12576}和{npc:10079}在{area:485}顶端等候：马格兰的信是给{npc:12576}的，月角的消息由你带下去交到{area:484}。",
 	-- {npc:10079} Brave Moonhorn · {npc:10537} Cliffwatcher Longhorn · {area:484} Freewind Post
 	["{npc:10079}, at the top of the lift: {npc:10537} at {area:484}"] = "{npc:10079}，在升降梯顶端：交给{area:484}的{npc:10537}",
 
-	-- Step 59: Freewind Post's lift
+	-- Step 60: Freewind Post's lift
 	-- {area:484} Freewind Post
 	["{area:484}'s lift"] = "{area:484}的升降梯",
 
-	-- Step 60: Freewind Post
+	-- Step 61: Freewind Post
 	-- {area:484} Freewind Post
 	["Ride the lift down, then follow the road east through the canyons to {area:484}, a Tauren village on top of the mesas. Its lift is on the north side."] = "乘升降梯下去，然后沿道路向东穿过峡谷前往{area:484}，那是一座建在石柱顶上的牛头人村庄。它的升降梯在北侧。",
 	-- {npc:10377} Elu
@@ -259,16 +267,16 @@ return {
 	-- {npc:10537} Cliffwatcher Longhorn
 	["The Wanted poster beside {npc:10537}"] = "{npc:10537}旁的通缉告示",
 
-	-- Step 61: Rau Cliffrunner
+	-- Step 62: Rau Cliffrunner
 	-- {npc:4722} Rau Cliffrunner · {area:484} Freewind Post · {npc:4721} Zangen Stonehoof
 	["{npc:4722} stands in {area:484}: {npc:4721}'s filled phial is for him."] = "{npc:4722}站在{area:484}：{npc:4721}装满的药瓶要交给他。",
 	-- {npc:4722} Rau Cliffrunner · {object:20807} Ancient Brazier · {area:1557} Splithoof Hold
 	["{npc:4722}: the {object:20807} in {area:1557}, among the Galak camps"] = "{npc:4722}：{area:1557}中的{object:20807}，在加拉克营地之间",
 
-	-- Step 62: Alien Egg
+	-- Step 63: Alien Egg
 	["Take the lift down. The egg lies in a nest on the canyon floor in one of three spots: south-east of the mesas (52.3,55.2), east (56.4,50.4) or south-west (37.6,56.1)."] = "乘升降梯下去。蛋在峡谷底部的一个巢里，位于三个地点之一：石柱东南（52.3,55.2）、东边（56.4,50.4）或西南（37.6,56.1）。",
 
-	-- Step 63: Galak centaurs
+	-- Step 64: Galak centaurs
 	["Galak centaurs"] = "加拉克半人马",
 	-- {npc:10617} Galak Messenger · {area:2237} Whitereach Post · {npc:216463} Ailgrha Splittusk
 	-- plural, as words: Ravaging Tempests = {npc:216474} Ravaging Tempest
@@ -276,7 +284,7 @@ return {
 	-- {npc:10617} Galak Messenger · {quest:4881} Assassination Plot
 	["{npc:10617}'s {quest:4881}, if you meet him"] = "{npc:10617}的{quest:4881}，如果你遇到他",
 
-	-- Step 64: Splithoof Hold
+	-- Step 65: Splithoof Hold
 	-- {area:1557} Splithoof Hold · {object:20807} Ancient Brazier · {item:5868} Filled Etched Phial · {item:5869} Cloven Hoof · {npc:2986} Dorn Plainstalker
 	-- plural, as words: Galak Flame Guards = {npc:7404} Galak Flame Guard
 	["A short walk north of the Galak camps, the cave of {area:1557} leads down to its deepest chamber, where the {object:20807} burns. Use the {item:5868} on it, then loot the {item:5869} at once: the flame only stays out briefly, and if it relights the phial is gone. Then east to {npc:2986}'s mesa.\nCareful: Two Galak Flame Guards (30) stand by the brazier and a centaur guard walks the cave: pull them away one at a time before you douse the flame."] = "从加拉克营地向北走一小段，{area:1557}的洞穴通往最深处的洞室，{object:20807}就在那里燃烧。对它使用{item:5868}，然后立刻拾取{item:5869}：火焰只会熄灭很短时间，如果重新燃起，药瓶就没了。然后向东前往{npc:2986}所在的石柱。\n小心：两名加拉克火焰卫士（30级）守在火盆旁，还有一名半人马守卫在洞内巡逻：熄灭火焰前，把它们一个个引开。",
@@ -285,22 +293,22 @@ return {
 	-- {item:5869} Cloven Hoof · {object:20807} Ancient Brazier
 	["{item:5869}, from the {object:20807}"] = "{item:5869}，从{object:20807}获取",
 
-	-- Step 65: Dorn Plainstalker
+	-- Step 66: Dorn Plainstalker
 	-- {npc:2986} Dorn Plainstalker · {quest:1149} Test of Faith
 	["{npc:2986} stands on a mesa top east of the Galak camps. Taking his {quest:1149} puts you on a high cliff far to the west: follow the stone path to the end of the wooden planks and step off there, and you land safely. Jump from anywhere else and you fall to your death."] = "",
 	-- {npc:2986} Dorn Plainstalker
 	["{npc:2986}, below ground"] = "{npc:2986}：在地下",
 	["the end of the planks"] = "",
 
-	-- Step 67: Dorn Plainstalker
+	-- Step 68: Dorn Plainstalker
 	-- {quest:1150} Test of Endurance · {npc:4490} Grenka Bloodscreech
 	["{quest:1150} starts a fight deep in the den. Take it if you plan to face {npc:4490} with a group."] = "",
 
-	-- Step 68: Freewind Post
+	-- Step 69: Freewind Post
 	-- {npc:11116} Innkeeper Abeqwa · {npc:4877} Jandia
 	["{npc:11116}, beside {npc:4877}"] = "{npc:11116}，在{npc:4877}旁边",
 
-	-- Step 74: Darkcloud Pinnacle
+	-- Step 75: Darkcloud Pinnacle
 	-- {area:2097} Darkcloud Pinnacle
 	-- plural, as words: Document Chests = {object:176344} Document Chest
 	["West of Freewind, the Grimtotem camps below {area:2097}. The Secret Notes are in Document Chests at the south-east, south-west and north-west camps."] = "在乱风岗西边，恐怖图腾的营地在{area:2097}下方。密信在东南、西南和西北营地的文件箱里。",
@@ -311,7 +319,7 @@ return {
 	-- {object:176344} Document Chest
 	["{object:176344}, north-west camp"] = "{object:176344}，西北营地",
 
-	-- Step 75: Level 28
+	-- Step 76: Level 28
 	["Level 28"] = "28级",
 	-- {npc:10646} Lakota Windsong · {area:2797} Blackfathom Deeps
 	["Short of 28? The Grimtotem around these camps (25-28) are the right level: kill a few more before the climb to {npc:10646}. Past it, this step skips itself. Or, with a group, run the {area:2797} dungeon instead."] = "还没到28级？这些营地周围的恐怖图腾（25-28级）等级正合适：爬上去找{npc:10646}之前，再杀一些。达到要求后，本步骤会自动跳过。也可组队挑战{area:2797}地下城。",
@@ -320,53 +328,53 @@ return {
 	-- {npc:10759} Grimtotem Stomper
 	["grind on {npc:10759}"] = "击杀{npc:10759}刷经验",
 
-	-- Step 76: Lakota Windsong
+	-- Step 77: Lakota Windsong
 	-- {area:485} Great Lift · {npc:10896} Arnak Grimtotem · {area:2097} Darkcloud Pinnacle · {npc:10646} Lakota Windsong
 	["{area:485} detour warning: if you are already on the mesa, stay up and cross the rope bridge toward {npc:10896}; do not drop to the canyon or go to the {area:485}. From the canyon floor, follow the path up {area:2097} and take the rope bridges. Clear {npc:10896} (29) and the guards beside {npc:10646} before freeing her. Protect her from the Grimtotem ambushers on the way down."] = "",
 
-	-- Step 77: Highperch
+	-- Step 78: Highperch
 	-- {area:482} Highperch · {npc:10427} Pao'ka Swiftmountain · {area:2237} Whitereach Post
 	-- plural, as words: Highperch Patriarchs = {npc:4110} Highperch Patriarch
 	["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests. {npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "在白沙岗哨西边，双足飞龙在{area:482}的悬崖上筑巢；蛋就在巢里。{npc:10427}在筑巢地东侧等候：救出他，并在走回{area:2237}的路上保护他。\n小心：28-29级的双足飞龙在头顶飞行，可能毫无预警地被引来。经过底部第一根石柱后，可能遭到三只双足飞龙的伏击。雌性风巢飞龙（30-31级）和稀有怪心刃（32级）也栖息在这里：绕开它们拉怪。",
 
-	-- Step 78: Whitereach Post
+	-- Step 79: Whitereach Post
 	-- {npc:10428} Motega Firemane · {zone:1456} Thunder Bluff
 	["{npc:10428}'s next quest, Sacred Fire, ends in {zone:1456}, off this route. Skip it."] = "{npc:10428}的下一个任务（生命圣火）在{zone:1456}结束，不在本路线上。跳过它。",
 
-	-- Step 79: Kanati Greycloud
+	-- Step 80: Kanati Greycloud
 	-- {npc:10617} Galak Messenger · {npc:10638} Kanati Greycloud · {area:2237} Whitereach Post
 	["Only if the {npc:10617} dropped his plot for you: {npc:10638} stands at {area:2237}."] = "仅当{npc:10617}给你掉落了他的阴谋书时：{npc:10638}站在{area:2237}。",
 
-	-- Step 81: Hypercapacitor Gizmo
+	-- Step 82: Hypercapacitor Gizmo
 	-- {npc:10992} Enraged Panther
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone."] = "这些都是精英怪：建议组队，找人一起完成。{npc:10992}是30级精英：大多数职业到32级可以单独击败，但你可能仍需要帮助。独自一人就跳过。",
 
-	-- Step 82: Whitereach Post
+	-- Step 83: Whitereach Post
 	-- {npc:10720} Galak Assassin · {npc:10638} Kanati Greycloud
 	["Kill the {npc:10720} that comes for {npc:10638}"] = "杀死前来袭击{npc:10638}的{npc:10720}",
 
-	-- Step 85: Screeching harpies
+	-- Step 86: Screeching harpies
 	["Screeching harpies"] = "",
 	-- {area:487} Roguefeather Den · {npc:4877} Jandia · {object:20447} Harpy Foodstuffs (no name in this language: may be words) · {npc:4490} Grenka Bloodscreech
 	["Pull the harpies along the cliff below {area:487}. Take Windcallers near the cave mouth one at a time; wait for them to return rather than working deeper into the cave. Pick up any of {npc:4877}'s supplies you still need along the way. Leave the {object:20447} alone: they call {npc:4490}."] = "",
 
-	-- Step 86: Stolen Freewind Supplies
+	-- Step 87: Stolen Freewind Supplies
 	-- {quest:98069} Stolen Freewind Supplies · {object:20447} Harpy Foodstuffs (no name in this language: may be words) · {npc:4877} Jandia
 	["Look for {quest:98069} at the foot of the cliff. The {object:20447} inside the cave are not {npc:4877}'s supplies."] = "",
 
-	-- Step 87: Harpy Foodstuffs
+	-- Step 88: Harpy Foodstuffs
 	-- {area:487} Roguefeather Den · {object:20447} Harpy Foodstuffs (no name in this language: may be words) · {npc:4490} Grenka Bloodscreech
 	["Clear the back of {area:487} with your group. Break the {object:20447} and stay together for the ambush. Kill {npc:4490} (31) when she comes, then loot her claw before the harpies return."] = "",
 	-- {item:5843} Grenka's Claw · {object:20447} Harpy Foodstuffs (no name in this language: may be words)
 	["{item:5843}, at the {object:20447}"] = "",
 
-	-- Step 88: Freewind Post
+	-- Step 89: Freewind Post
 	-- {area:2237} Whitereach Post · {area:484} Freewind Post
 	["Back east past {area:2237} to {area:484}."] = "向东经过{area:2237}，返回{area:484}。",
 	-- {npc:10645} Thalia Amberhide
 	["{npc:10645}, inside"] = "{npc:10645}：在屋内",
 
-	-- Step 94: Level 29
+	-- Step 95: Level 29
 	["Level 29"] = "29级",
 	-- {area:484} Freewind Post · {area:2797} Blackfathom Deeps
 	-- plural, as words: Pesterhide Snarlers = {npc:4249} Pesterhide Snarler

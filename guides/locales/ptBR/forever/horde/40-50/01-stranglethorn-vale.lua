@@ -264,7 +264,7 @@ return {
 	-- Step 48: Zul'Mamwe and Balia'mah trophy skulls
 	["Zul'Mamwe and Balia'mah trophy skulls"] = "",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
-	["The next trophy skulls stand in the small ruins just north of the warriors' camp.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "Os próximos crânios-troféu ficam nas ruínas pequenas logo ao norte do acampamento dos guerreiros.\nOs últimos crânios ficam nas ruínas a uma curta caminhada a oeste, no caminho de volta a {object:3202}.",
+	["Look for the trophy skulls in the small ruins north of Zul'Mamwe's warriors.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "",
 
 	-- Step 49: Kin'weelay
 	-- {object:3202} Grom'gol (no name in this language: may be words)
@@ -380,6 +380,7 @@ return {
 	-- ["The last skulls are in the ruins a short ride west, on the way back to {object:3202}."] = "Os últimos crânios ficam nas ruínas um pouco a oeste, no caminho de volta para {object:3202}.",
 	-- ["The next guide starts here and takes you to {zone:1446}."] = "O próximo guia começa aqui e leva você até {zone:1446}.",
 	-- ["The next trophy skulls stand in the small ruins just north of the warriors' camp."] = "Os próximos crânios-troféu ficam nas pequenas ruínas logo ao norte do acampamento dos guerreiros.",
+	-- ["The next trophy skulls stand in the small ruins just north of the warriors' camp.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "Os próximos crânios-troféu ficam nas ruínas pequenas logo ao norte do acampamento dos guerreiros.\nOs últimos crânios ficam nas ruínas a uma curta caminhada a oeste, no caminho de volta a {object:3202}.",
 	-- ["The snappers line the strand south of the post."] = "As tartaliscas ocupam a praia ao sul do posto.",
 	-- ["The stalker raptors hunt the jungle south of {object:3202}, out towards the west coast."] = "Os raptores espreitadores caçam na selva ao sul de {object:3202}, rumo à costa oeste.",
 	-- ["The three ghostly pirates haunt the jungle north of {area:35}, near Zanzil's camps: {npc:2535} and {npc:2536} stand together, {npc:2537} further east."] = "Os três piratas fantasmagóricos assombram a selva ao norte de {area:35}, perto dos acampamentos de Zanzil: {npc:2535} e {npc:2536} ficam juntos, {npc:2537} mais a leste.",

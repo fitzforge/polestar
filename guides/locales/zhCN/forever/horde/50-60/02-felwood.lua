@@ -122,12 +122,12 @@ return {
 	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there: on Forever the Sin'dorei Tome beside it then asks for the seals of the camp's three officers."] = "雷姆托里的营地在营地东端。在那里阅读{object:151286}：在Forever服务器上，旁边的辛多雷宝典随后会要求营地三名军官的印记。",
 
 	-- Step 25: Seals of the Sin'dorei
-	-- {npc:247006} Lieutenant Suncrest · {npc:247013} Ranger Lydrea · {npc:246991} Magister Hawkhelm · {npc:250023} Blackmaw Thrall
-	["Each of the camp's three officers (53) carries a seal: {npc:247006} in the middle of the camp, {npc:247013} at its eastern end, and {npc:246991}, who walks its western half: take him on the east side of his walk, where the arrow points.\nCareful: the {npc:250023}, a level 55-57 elite, stands at the camp's western edge, close to the far end of Hawkhelm's walk: wait for Hawkhelm to come back east."] = "营地的三名军官（53级）各带一枚印记：{npc:247006}在营地中央，{npc:247013}在营地东端，{npc:246991}在营地西半边巡逻：在他巡逻路线的东侧、箭头所指处对付他。\n小心：{npc:250023}（55-57级精英）站在营地西缘，靠近鹰盔巡逻路线的尽头：等鹰盔走回东边再动手。",
-	-- {item:246725} Seal of the Warden · {npc:247006} Lieutenant Suncrest
-	["{item:246725}, from {npc:247006}"] = "{item:246725}，来自{npc:247006}",
+	-- {npc:246991} Magister Hawkhelm · {npc:247006} Lieutenant Suncrest · {npc:247013} Ranger Lydrea · {npc:250023} Blackmaw Thrall
+	["From the tome, take {npc:246991} on the southern part of his patrol. Work east to {npc:247006} and then {npc:247013}. Each officer is level 53 and carries a different seal.\nCareful: the {npc:250023}, a level 55-57 elite, stands at the camp's western edge, close to the far end of Hawkhelm's walk: wait for Hawkhelm to come back east."] = "",
 	-- {item:246721} Seal of the Warrior · {npc:246991} Magister Hawkhelm
 	["{item:246721}, from {npc:246991}"] = "{item:246721}，来自{npc:246991}",
+	-- {item:246725} Seal of the Warden · {npc:247006} Lieutenant Suncrest
+	["{item:246725}, from {npc:247006}"] = "{item:246725}，来自{npc:247006}",
 	-- {item:246722} Seal of the Ranger · {npc:247013} Ranger Lydrea
 	["{item:246722}, from {npc:247013}"] = "{item:246722}，来自{npc:247013}",
 
@@ -315,6 +315,7 @@ return {
 	-- ["Cross the river east into {area:2627}, the ruined town in the north-west of the {zone:1423}. {npc:12384} sits in a hut at its edge."] = "向东渡河进入{area:2627}，这是位于{zone:1423}西北部的废弃城镇。{npc:12384}坐在城镇边缘的一间小屋里。",
 	-- ["Derrington's watchtowers, Vandis' cauldron and {npc:11615}'s barrel are done on a later visit: keep them."] = "德灵顿的哨塔、范蒂丝的瘟疫之锅和{npc:11615}的木桶留到之后再来时完成：留着它们。",
 	-- ["Diseased Grizzlies"] = "生病的灰熊",
+	-- ["Each of the camp's three officers (53) carries a seal: {npc:247006} in the middle of the camp, {npc:247013} at its eastern end, and {npc:246991}, who walks its western half: take him on the east side of his walk, where the arrow points.\nCareful: the {npc:250023}, a level 55-57 elite, stands at the camp's western edge, close to the far end of Hawkhelm's walk: wait for Hawkhelm to come back east."] = "营地的三名军官（53级）各带一枚印记：{npc:247006}在营地中央，{npc:247013}在营地东端，{npc:246991}在营地西半边巡逻：在他巡逻路线的东侧、箭头所指处对付他。\n小心：{npc:250023}（55-57级精英）站在营地西缘，靠近鹰盔巡逻路线的尽头：等鹰盔走回东边再动手。",
 	-- ["Fly to the {area:1497}"] = "飞往{area:1497}",
 	-- ["Fly to {area:272}"] = "飞往{area:272}",
 	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo, and their organs are {npc:10920}'s.\n{area:1762}'s Deadwood Den Watchers (53-54) and Avengers (54-55) are next: below level 54, keep hunting the grizzlies and ravagers (51-52) here until 54. The hand-ins at {area:1769}, the {area:2479} and {area:1997} that follow take you most of the way to 55. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "沿道路向东北前往{area:1767}。树林东侧的曲木食苔者和曲木撕裂者各带着一块{item:11503}；怒爪灰熊和魔爪掠夺者也在同一片树林里游荡，是塔罗要的目标，它们的器官交给{npc:10920}。\n接下来是{area:1762}的死木守卫（53-54级）和死木复仇者（54-55级）：不到54级的话，就在这里继续击杀灰熊和掠夺者（51-52级）直到54级。之后在{area:1769}、{area:2479}和{area:1997}交还任务，基本能把你带到55级。也可组队挑战{area:1417}地下城或{area:1584}地下城。",

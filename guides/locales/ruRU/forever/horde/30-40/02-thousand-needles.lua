@@ -384,14 +384,20 @@ return {
 	["Level 34 for the southern flats"] = "",
 	-- {area:1717} Razorfen Kraul
 	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver
-	["Still short of 34 after your hand-ins? Hunt Scorpid Reavers north of the raceway until 34. Leave the southern Gazers and the dig until then. Or, with a group, run {area:1717}."] = "",
+	["Hunt Scorpid Reavers north of the raceway until level 34 before heading south for the Gazers. Or, with a group, run the {area:1717} dungeon instead."] = "",
 
 	-- Step 92: Level 34 for the Rustmaul dig
 	["Level 34 for the Rustmaul dig"] = "",
+	-- {area:1717} Razorfen Kraul
+	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver
+	["Hunt Scorpid Reavers north of the raceway until level 34 before entering the Rustmaul dig. Or, with a group, run the {area:1717} dungeon instead."] = "",
 
 	-- Step 93: Level 34 for Parts of the Swarm
 	-- {quest:1148} Parts of the Swarm
 	["Level 34 for {quest:1148}"] = "",
+	-- {area:1717} Razorfen Kraul
+	-- plural, as words: Scorpid Reavers = {npc:4140} Scorpid Reaver
+	["Hunt Scorpid Reavers north of the raceway until level 34 before returning for the silithid parts. Or, with a group, run the {area:1717} dungeon instead."] = "",
 
 	-- Step 94: The southern flats
 	-- {area:976} Gadgetzan · {zone:1441} Thousand Needles · {area:439} Shimmering Flats

@@ -15,6 +15,8 @@ return {
 	-- Step 2: Valley of Fangs
 	-- {quest:1106} Martek the Exiled · {area:439} Shimmering Flats
 	["{quest:1106}: Fizzle's letter from the {area:439}"] = "{quest:1106}: la carta de Fizzle Pernolatón de {area:439}",
+	-- {zone:1418} Badlands
+	["Keep this for the Stonevault troggs at level 39, even if you leave the {zone:1418} before then."] = "",
 
 	-- Step 3: The Dustbowl
 	-- {area:340} Kargath · {npc:2921} Lotwil Veriatus · {area:1878} The Dustbowl
@@ -49,9 +51,9 @@ return {
 	-- Step 9: Level 39 for Indurium
 	-- {quest:1108} Indurium
 	["Level 39 for {quest:1108}"] = "",
-	-- {npc:5394} Neeka Bloodscar · {npc:6868} Jarkal Mossmeld
+	-- {npc:5394} Neeka Bloodscar · {npc:6868} Jarkal Mossmeld · {area:1517} Uldaman
 	-- plural, as words: Feral Crag Coyotes = {npc:2728} Feral Crag Coyote
-	["Short of 39? Hunt Feral Crag Coyotes (37-38) at the pin until 39. They also drop {npc:5394}'s jawbones and {npc:6868}'s fangs. Watch for Zaricotl and Anathemus: leave if either patrol comes close."] = "",
+	["Hunt Feral Crag Coyotes (37-38) on the marked hills until level 39. They also drop {npc:5394}'s jawbones and {npc:6868}'s fangs. Leave if Zaricotl or Anathemus comes close. Or, with a group, run the {area:1517} dungeon instead."] = "",
 	-- plural, as words: Feral Crag Coyotes = {npc:2728} Feral Crag Coyote
 	["Feral Crag Coyotes"] = "",
 
@@ -72,36 +74,38 @@ return {
 	["On the hills beside the Buzzards, Feral Crag Coyotes (37-38) drop both jawbones and fangs. Stay away from Zaricotl and Anathemus on patrol, and leave the Giant Buzzards to the west alone."] = "",
 
 	-- Step 13: Valley of Fangs
-	-- {area:1517} Uldaman · {area:1877} Valley of Fangs · {npc:2817} Rigglefuzz · {npc:4618} Martek the Exiled
-	["The road north to {area:1517} runs through the {area:1877}: {npc:2817} and {npc:4618} take the wings and the flakes on the way."] = "El camino al norte hacia {area:1517} pasa por {area:1877}: {npc:2817} y {npc:4618} reciben las alas y las escamas en el camino.",
+	-- {npc:2817} Rigglefuzz · {quest:1108} Indurium · {npc:4618} Martek the Exiled
+	["Give the wings to {npc:2817} on the way north. Still short of flakes? Keep {quest:1108} in your log. At level 39, resume at Stonevault troggs, then bring the flakes to {npc:4618} here."] = "",
+
+	-- Step 15: News for Fizzle
 	-- {area:2240} Mirage Raceway · {area:484} Freewind Post · {zone:1446} Tanaris
 	["for Fizzle at the {area:2240}, on the way from {area:484} to {zone:1446} around level 43"] = "para Fizzle en {area:2240}, de camino de {area:484} a {zone:1446} alrededor del nivel 43",
 
-	-- Step 14: Ancient Chest
+	-- Step 16: Ancient Chest
 	-- {area:1517} Uldaman · {zone:1418} Badlands · {npc:2932} Magregan Deepshadow
 	-- plural, as words: Obsidian Golems = {npc:4872} Obsidian Golem · Shadowforge Diggers = {npc:4846} Shadowforge Digger
 	["Keep north on the road to {area:1517}'s entrance, in the north of the {zone:1418}: the chest lies just inside the cave mouth. {npc:2932} and the Obsidian Golems (38) stand beside it and Shadowforge Diggers (35-36) work the tunnel, all elite: keep your group together."] = "Sigue al norte por el camino hasta la entrada de {area:1517}, en el norte de {zone:1418}: el cofre está justo al entrar por la boca de la cueva. {npc:2932} y los gólems de obsidiana (38) están a su lado y los excavadores Forjatiniebla (35-36) trabajan en el túnel, todos élite: mantén unido a tu grupo.",
 	["Below ground"] = "Bajo tierra",
 
-	-- Step 15: Starving Buzzards
+	-- Step 17: Starving Buzzards
 	-- plural, as words: Starving Buzzards = {npc:2829} Starving Buzzard
 	["Starving Buzzards"] = "",
 	-- {npc:2817} Rigglefuzz · {area:346} Hammertoe's Digsite
 	-- plural, as words: Starving Buzzards = {npc:2829} Starving Buzzard · Buzzards = {npc:2830} Buzzard · Malevolent Mirages = {npc:269756} Malevolent Mirage
 	["Still short of gizzards after gathering {npc:2817}'s wings? Hunt the Starving Buzzards (35-37) north of {area:346}. They drop gizzards more often than the Buzzards at the Stonevault hills. Stay away from the roaming Malevolent Mirages (42, elite)."] = "",
 
-	-- Step 16: Agmond's End
+	-- Step 18: Agmond's End
 	-- {area:1877} Valley of Fangs
 	["Head back south down the road, past the {area:1877}."] = "Regresa al sur por el camino, pasando {area:1877}.",
 
-	-- Step 17: Badlands: kill these as you meet them
+	-- Step 19: Badlands: kill these as you meet them
 	-- {zone:1418} Badlands
 	["{zone:1418}: kill these as you meet them"] = "{zone:1418}: mata a estos según te los encuentres",
 	-- {area:1877} Valley of Fangs · {npc:2921} Lotwil Veriatus · {area:1878} The Dustbowl · {zone:1418} Badlands · {area:340} Kargath · {npc:2817} Rigglefuzz
 	-- plural, as words: Elder Crag Coyotes = {npc:2729} Elder Crag Coyote · Giant Buzzards = {npc:2831} Giant Buzzard · Malevolent Mirages = {npc:269756} Malevolent Mirage · Ridge Stalker Patriarchs = {npc:2734} Ridge Stalker Patriarch · Buzzards = {npc:2830} Buzzard
 	["West from the {area:1877} towards {npc:2921}'s camp, the Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth.\nPull the Giant Buzzards (39-41) one at a time. The Ridge Stalker Patriarchs (40-41) prowl the same slopes towards {area:340}: leave them. The Buzzards (37) you killed for {npc:2817}'s wings drop gizzards too, more rarely."] = "",
 
-	-- Step 18: The Dustbowl
+	-- Step 20: The Dustbowl
 	-- {npc:2921} Lotwil Veriatus
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental
 	-- was: ["North-west across the basin to {npc:2921}'s camp. Short of Jarkal's shards? The Lesser Rock Elementals (37) on the flats west of the camp drop them about one kill in five."] = "Al noroeste cruzando la cuenca hasta el campamento de {npc:2921}. ¿Te faltan fragmentos de Jarkal? Los elementales de roca inferiores (37) de la llanura al oeste del campamento los sueltan más o menos una de cada cinco veces."
@@ -110,7 +114,7 @@ return {
 	-- plural, as words: Greater Rock Elementals = {npc:2736} Greater Rock Elemental
 	["{npc:2921}'s next study wants bracers from the Greater Rock Elementals (42-44) in the south-western gulches, well above you: leave it."] = "El siguiente estudio de {npc:2921} pide brazales de los elementales de roca superiores (42-44) de los barrancos del suroeste, que te superan bastante en nivel: déjalo.",
 
-	-- Step 19: Kargath
+	-- Step 21: Kargath
 	-- {area:340} Kargath · {npc:5394} Neeka Bloodscar · {zone:2548} Riverglades · {zone:1418} Badlands · {area:16685} Twilight's Shroud · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows · {npc:258570} Da'grosh · {npc:256881} Overlord Kilgar · {npc:256891} Executioner Morg · {area:16743} Rog'mar
 	-- plural, as words: Twilight Enforcers = {npc:256800} Twilight Enforcer
 	["Head west back to {area:340}. {npc:5394} stands on {area:340}'s upper level, high above the flight master: take the ramps up, the arrow cannot tell the levels apart. The {zone:2548}, Forever's new zone, lie south of the {zone:1418} through the pass of {area:16685}; the route goes there at about 41, after {zone:1434} and the {zone:1435}. Careful if you go now: the Twilight camps of {npc:258570}'s valley, right below the pass, are 43-46, with Twilight Enforcers (45, elite) on patrol and {npc:256881} and {npc:256891} (46, elite) in the fortress. Going anyway? Load the {zone:2548} guide: it starts at {area:16743}, east along the valley, away from those camps."] = "",
@@ -125,6 +129,7 @@ return {
 	-- ["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth."] = "Los coyotes del risco ancianos y los buitres gigantes recorren la cuenca al sur de {area:1878}. Los coyotes sueltan tanto las mandíbulas como los colmillos; los buitres gigantes sueltan las mollejas. Cuidado: Los espejismos malévolos (42, élite) flotan por {zone:1418}: mantente bien lejos de ellos.",
 	-- ["The Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth.\nCareful: the Giant Buzzards are 39-41, and the 41s are two over you at 39: pick the 39s and 40s and pull them one at a time. The Buzzards (37) you kill later for {npc:2817}'s wings drop gizzards too, more rarely."] = "Los coyotes del risco mayores y las águilas ratoneras gigantes recorren la cuenca al sur de {area:1878}. Los coyotes sueltan tanto las mandíbulas como los colmillos; las águilas ratoneras gigantes sueltan las mollejas. Cuidado: Los espejismos malévolos (42, élite) flotan por {zone:1418}: mantente bien lejos de ellos.\nCuidado: las águilas ratoneras gigantes son de nivel 39-41, y las de 41 están dos niveles por encima de ti si eres 39: elige las de 39 y 40 y atráelas de una en una. Las águilas ratoneras (37) que matarás después por las alas para {npc:2817} también sueltan mollejas, pero con menos frecuencia.",
 	-- ["The Stonevault troggs dig around the cave mouths south of the {area:1877}, on the way north from {area:345}; the Bonesnappers and Shamans drop the flakes. The Buzzards for {npc:2817}'s wings circle the hills between the {area:1877} and {area:345}."] = "Los troggs Grutacanto excavan alrededor de las bocas de las cuevas al sur de {area:1877}, de camino al norte desde {area:345}; los Cascahuesos y los chamanes sueltan las escamas. Los buitres para las alas de {npc:2817} vuelan en círculos sobre las colinas entre {area:1877} y {area:345}.",
+	-- ["The road north to {area:1517} runs through the {area:1877}: {npc:2817} and {npc:4618} take the wings and the flakes on the way."] = "El camino al norte hacia {area:1517} pasa por {area:1877}: {npc:2817} y {npc:4618} reciben las alas y las escamas en el camino.",
 	-- ["Theldurin sits among the dwarven ruins at {area:345}, south of the {area:1877}."] = "Theldurin está sentado entre las ruinas enanas de {area:345}, al sur de {area:1877}.",
 	-- ["{npc:2920}: only if you carry {item:2868} ({skill:164} or the Auction House)"] = "{npc:2920}: solo si llevas {item:2868} ({skill:164} o la casa de subastas)",
 }

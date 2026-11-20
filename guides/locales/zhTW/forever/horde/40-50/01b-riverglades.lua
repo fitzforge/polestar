@@ -28,38 +28,45 @@ return {
 	-- Step 3: Fly to Freewind Post
 	-- {area:484} Freewind Post
 	["Fly to {area:484}"] = "飛往{area:484}",
-	-- {zone:2548} Riverglades · {zone:1446} Tanaris · {area:977} Steamwheedle Port · {area:976} Gadgetzan · {area:16727} Powderfuse Port · {area:484} Freewind Post · {zone:1441} Thousand Needles · {area:439} Shimmering Flats · {area:340} Kargath · {area:3} Badlands · {area:16685} Twilight's Shroud
-	["New in Forever: this guide follows what players did in the {zone:2548}. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nThe {zone:2548} lie across the sea from {zone:1446}: a goblin boat sails from {area:977}, north-east of {area:976}, to {area:16727}. Fly to {area:484} in {zone:1441} and head south-east through the {area:439} to {area:976}. (If you already know {area:340} in the {area:3}, the way in through {area:16685} works too.)"] = "Forever新內容：本指南依照玩家在{zone:2548}的實際進度編寫。若有步驟錯誤，請在Polestar的Discord或GitHub告訴我們，並註明是哪個步驟。\n{zone:2548}與{zone:1446}隔海相望：哥布林的船從{area:976}東北方的{area:977}開往{area:16727}。飛往{zone:1441}的{area:484}，再向東南穿過{area:439}前往{area:976}。（如果你已經有{area:3}的{area:340}飛行路線，也可以從{area:16685}進入。）",
+	-- {zone:2548} Riverglades · {area:440} Tanaris · {area:977} Steamwheedle Port · {area:976} Gadgetzan · {area:16727} Powderfuse Port · {area:484} Freewind Post · {zone:1441} Thousand Needles · {area:439} Shimmering Flats · {area:340} Kargath · {area:3} Badlands · {area:16685} Twilight's Shroud
+	-- was: ["New in Forever: this guide follows what players did in the {zone:2548}. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nThe {zone:2548} lie across the sea from {zone:1446}: a goblin boat sails from {area:977}, north-east of {area:976}, to {area:16727}. Fly to {area:484} in {zone:1441} and head south-east through the {area:439} to {area:976}. (If you already know {area:340} in the {area:3}, the way in through {area:16685} works too.)"] = "Forever新內容：本指南依照玩家在{zone:2548}的實際進度編寫。若有步驟錯誤，請在Polestar的Discord或GitHub告訴我們，並註明是哪個步驟。\n{zone:2548}與{zone:1446}隔海相望：哥布林的船從{area:976}東北方的{area:977}開往{area:16727}。飛往{zone:1441}的{area:484}，再向東南穿過{area:439}前往{area:976}。（如果你已經有{area:3}的{area:340}飛行路線，也可以從{area:16685}進入。）"
+	["New in Forever: this guide follows what players did in the {zone:2548}. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nThe {zone:2548} lie across the sea from {area:440}: a goblin boat sails from {area:977}, north-east of {area:976}, to {area:16727}. Fly to {area:484} in {zone:1441} and head south-east through the {area:439} to {area:976}. (If you already know {area:340} in the {area:3}, the way in through {area:16685} works too.)"] = "",
 
-	-- Step 4: Gadgetzan
+	-- Step 4: Through the Shimmering Flats
+	-- {area:439} Shimmering Flats
+	["Through the {area:439}"] = "",
+	-- {area:484} Freewind Post · {area:439} Shimmering Flats · {area:976} Gadgetzan · {area:440} Tanaris
+	["Take the lift down from {area:484}. Follow the road south-east across the {area:439}, then south through the pass. {area:976} is just inside {area:440}."] = "",
+
+	-- Step 5: Gadgetzan
 	-- {area:976} Gadgetzan
 	["Learn {area:976}'s flight path: it saves the ride next time."] = "學會{area:976}的飛行路線：下次就不用騎過來了。",
 
-	-- Step 5: Boat to Powderfuse Port
+	-- Step 6: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
 	["Boat to {area:16727}"] = "",
 	-- {area:977} Steamwheedle Port · {area:976} Gadgetzan · {area:16727} Powderfuse Port
 	["{area:977} is on the coast north-east of {area:976}: wait on the pier for the goblin boat to {area:16727}."] = "{area:977}在{area:976}東北方的海岸：在碼頭等候開往{area:16727}的哥布林船。",
 
-	-- Step 6: Land at Powderfuse Port
+	-- Step 7: Land at Powderfuse Port
 	-- {area:16727} Powderfuse Port
 	["Land at {area:16727}"] = "",
-	-- {area:16727} Powderfuse Port · {npc:255897} Friz Frazzlespark · {zone:1446} Tanaris
-	["Board at Steamwheedle and ride to {area:16727}. Leave the boat and walk west along the docks to {npc:255897}'s stall. Reaching the {zone:1446} pier is not the crossing."] = "",
+	-- {area:16727} Powderfuse Port · {npc:255897} Friz Frazzlespark · {area:440} Tanaris
+	["Board at Steamwheedle and ride to {area:16727}. Leave the boat and walk west along the docks to {npc:255897}'s stall. Reaching the {area:440} pier is not the crossing."] = "",
 
-	-- Step 7: Powderfuse Port
+	-- Step 8: Powderfuse Port
 	-- {npc:255897} Friz Frazzlespark
 	["New in Forever: if a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\n{npc:255897} keeps a stall at the west end of the docks. The port's other jobs are for later in this guide: this crate goes to the Horde's fort."] = "Forever新內容：若有步驟錯誤，請在Polestar的Discord或GitHub告訴我們，並註明是哪個步驟。\n{npc:255897}在碼頭西端擺攤。港口的其他任務留待本指南稍後再做：這個箱子要送到部落的要塞。",
 	-- {quest:95062} Frazzlespark's Crate · {npc:256418} Krom'rosh · {area:16743} Rog'mar
 	["{quest:95062}: for {npc:256418} in {area:16743}"] = "{quest:95062}：交給{area:16743}的{npc:256418}",
 
-	-- Step 8: Sleebo Fizzlespout's workshop
+	-- Step 9: Sleebo Fizzlespout's workshop
 	-- {npc:263367} Sleebo Fizzlespout
 	["{npc:263367}'s workshop"] = "{npc:263367}的工坊",
 	-- {npc:263367} Sleebo Fizzlespout · {npc:258031} Neza Bloodsnout
 	["West up the road from the port: {npc:263367} has his workshop on the hill. The gas vents are in the marsh south-west of it, on your first hunt for {npc:258031}."] = "從港口沿道路往西走：{npc:263367}的工坊在山丘上。氣體噴口在工坊西南方的沼澤裡，第一次替{npc:258031}狩獵時順路。",
 
-	-- Step 9: Rog'mar
+	-- Step 10: Rog'mar
 	-- {area:16743} Rog'mar · {npc:258031} Neza Bloodsnout · {npc:256657} Kreza Darkthorn · {npc:256418} Krom'rosh · {npc:255993} Grakna · {npc:256675} Innkeeper Toka · {npc:263190} Tan'jani
 	["West to {area:16743}, the Horde's fort in the middle of the zone. {npc:258031} stands on its east side, {npc:256657} and {npc:256418} in the middle with {npc:255993}, the wind rider master; {npc:256675} and {npc:263190} on the west side."] = "向西前往部落位於地區中央的要塞{area:16743}。{npc:258031}站在要塞東側，{npc:256657}和{npc:256418}在中央，旁邊是雙足飛龍管理員{npc:255993}；{npc:256675}和{npc:263190}在西側。",
 	-- {npc:256418} Krom'rosh · {object:3202} Grom'gol
@@ -69,53 +76,53 @@ return {
 	-- {npc:263190} Tan'jani · {quest:95033} On the Other Side · {npc:8115} Witch Doctor Uzer'i · {area:1099} Camp Mojache · {zone:1444} Feralas
 	["{npc:263190}: {quest:95033}, for {npc:8115} at {area:1099} in the {zone:1444} guide"] = "{npc:263190}：{quest:95033}，交給{zone:1444}指南中{area:1099}的{npc:8115}",
 
-	-- Step 10: Krom'rosh
+	-- Step 11: Krom'rosh
 	-- {npc:256418} Krom'rosh
 	["Frazzlespark's crate from the port goes to {npc:256418}, in the middle of the fort."] = "把從港口帶來的弗拉茲斯巴克的箱子交給要塞中央的{npc:256418}。",
 
-	-- Step 11: Sleebo Fizzlespout's workshop
+	-- Step 12: Sleebo Fizzlespout's workshop
 	-- {area:16727} Powderfuse Port · {npc:263367} Sleebo Fizzlespout · {npc:258031} Neza Bloodsnout
 	["East of Rog'mar, on the hill above the road to {area:16727}: {npc:263367} has his workshop there. The gas vents are in the marsh south-west of it, on your first hunt for {npc:258031}."] = "在洛格瑪東邊，通往{area:16727}道路上方的山丘：{npc:263367}的工坊就在那裡。氣體噴口在工坊西南方的沼澤裡，第一次替{npc:258031}狩獵時順路。",
 
-	-- Step 12: The plains and the marsh
+	-- Step 13: The plains and the marsh
 	["The plains and the marsh"] = "平原與沼澤",
 	-- {area:16729} Terral's Watch · {quest:96103} A Feast for Buzzards
 	-- plural, as words: Low Plains Buzzards = {npc:263343} Low Plains Buzzard
 	["South-east of Rog'mar the plains run down to {area:16729}. The Low Plains Buzzards circle everywhere; a picked carcass lies in the grass (its skull starts {quest:96103}), and the marsh vents are just past it."] = "洛格瑪東南方的平原一路延伸到{area:16729}。低地平原禿鷹到處盤旋；草叢裡有一具被啃光的屍骸（它的頭骨可開始{quest:96103}），沼澤噴口就在它後面不遠。",
 
-	-- Step 13: Sleebo Fizzlespout
+	-- Step 14: Sleebo Fizzlespout
 	-- {npc:263367} Sleebo Fizzlespout
 	["North-east to the workshop. {npc:263367}'s stress test is a fight with his G45-B4G beside the workshop: hand the quest in once it's beaten."] = "向東北前往工坊。{npc:263367}的壓力測試是在工坊旁和他的G45-B4G戰鬥：打敗後繳交任務。",
 	["the stress test: beat G45-B4G beside the workshop"] = "壓力測試：在工坊旁打敗G45-B4G",
 
-	-- Step 14: Neza Bloodsnout
+	-- Step 15: Neza Bloodsnout
 	-- {area:16743} Rog'mar
 	["West back to {area:16743}'s east side."] = "向西回到{area:16743}的東側。",
 
-	-- Step 15: The vipers and the tallstriders
+	-- Step 16: The vipers and the tallstriders
 	["The vipers and the tallstriders"] = "毒蛇與陸行鳥",
 	-- {npc:257079} Cavalry Scout Alturin · {area:16729} Terral's Watch · {area:16725} Wheeler's Grange
 	-- plural, as words: Glade Vipers = {npc:263307} Glade Viper · Roving Tallstriders = {npc:263348} Roving Tallstrider
 	["The Glade Vipers hide in the long grass south-east of town; the Roving Tallstriders graze beside them. {npc:257079}, an Alliance elite (level 45), rides the road from {area:16729} to {area:16725} along the grass's south-west edge: keep clear of him."] = "林地毒蛇躲在鎮東南的長草叢中；漫遊陸行鳥在旁邊吃草。{npc:257079}是聯盟精英（45級），會沿著草地西南緣的道路從{area:16729}騎到{area:16725}：遠離他。",
 
-	-- Step 17: King of the Wild Plains
+	-- Step 18: King of the Wild Plains
 	-- {npc:263315} Ombassa · {area:16743} Rog'mar
 	["{npc:263315}, an elite lion (level 41), prowls the plains south of {area:16743}, where the lions are: grouping up is advised."] = "{npc:263315}是一隻精英獅子（41級），在{area:16743}南邊有獅子出沒的平原上徘徊：建議組隊。",
 
-	-- Step 18: The lions
+	-- Step 19: The lions
 	["The lions"] = "獅子",
 	-- {area:16743} Rog'mar · {npc:263315} Ombassa
 	["The Wildplains lions roam the plains just south of {area:16743}.\nCareful: {npc:263315}, an elite lion (level 41), prowls the same plains around 59.6,53.2: keep an eye out for him and pull the lions away from where he walks."] = "荒原獅在{area:16743}南邊不遠的平原上遊蕩。\n小心：精英獅子{npc:263315}（41級）也在同一片平原的59.6,53.2附近徘徊：留意他的位置，把獅子拉離他走動的路線。",
 
-	-- Step 21: Neza Bloodsnout's elites
+	-- Step 22: Neza Bloodsnout's elites
 	-- {npc:258031} Neza Bloodsnout
 	["{npc:258031}'s elites"] = "{npc:258031}的精英",
 
-	-- Step 22: Snargl's Snout
+	-- Step 23: Snargl's Snout
 	-- {npc:255906} Snargl · {area:16737} Bristle Hills
 	["{npc:255906} is an elite gnoll (level 40) who roams the south-western camps of the {area:16737}: grouping up is advised."] = "{npc:255906}是精英豺狼人（等級40），在{area:16737}西南方的營地遊蕩：建議組小隊。",
 
-	-- Step 24: Turner's Logging Camp
+	-- Step 25: Turner's Logging Camp
 	-- {npc:263380} Ghostmaw
 	-- plural, as words: Wood Bundles = {item:271629} Wood Bundle · Peasant Woodpiles = {object:645516} Peasant Woodpile · Makeshift Stickin' Spears = {item:271630} Makeshift Stickin' Spear
 	["South-west across the river to the Alliance lumber camp. The lumberjacks carry the axes. Loot Wood Bundles from the Peasant Woodpiles around the camp and use them to fletch Makeshift Stickin' Spears. {npc:263380}, an elite (level 42), prowls the river by the camp: if he comes your way, back off and let him pass."] = "往西南渡河到聯盟的伐木營地。伐木工身上帶著斧頭。從營地周圍的農民柴堆拾取一捆木材，用來製作臨時戳刺長矛。精英{npc:263380}（42級）在營地旁的河邊徘徊：如果他朝你過來，就退開讓他通過。",
@@ -126,26 +133,26 @@ return {
 	-- plural, as words: Makeshift Stickin' Spears = {item:271630} Makeshift Stickin' Spear
 	["{item:271629}: fletch it into Makeshift Stickin' Spears"] = "{item:271629}：製作成臨時戳刺長矛",
 
-	-- Step 25: The Bristle Hills
+	-- Step 26: The Bristle Hills
 	-- {area:16737} Bristle Hills
 	["The {area:16737}"] = "{area:16737}",
 	-- {area:16737} Bristle Hills · {npc:255906} Snargl
 	["West into the {area:16737}: the Redridge gnolls camp along the slopes and carry the stolen ore. Work south-west through their camps.\nCareful: {npc:255906}, an elite gnoll (level 40), roams the south-western camps: pull the gnolls away from him."] = "往西進入{area:16737}：赤脊豺狼人沿著山坡紮營，身上帶著被偷的礦石。往西南逐一清過他們的營地。\n小心：精英豺狼人{npc:255906}（40級）在西南方的營地遊蕩：把豺狼人拉離他。",
 
-	-- Step 27: Gelinda Coppergleam
+	-- Step 28: Gelinda Coppergleam
 	-- {npc:262399} Gelinda Coppergleam
 	["South-east out of the hills: {npc:262399}, a prospector who deals with both sides, has camped by the Cinderscale dragonkin's hollow."] = "往東南出山丘：與兩個陣營都有往來的探礦者{npc:262399}在燼鱗龍類的谷地旁紮營。",
 
-	-- Step 28: The Cinderscale hollow
+	-- Step 29: The Cinderscale hollow
 	["The Cinderscale hollow"] = "燼鱗谷地",
 	-- {item:271611} Cubic Draconia
 	["The whelps nest all over the hollow; the warriors guard its back, by the {item:271611}. The warriors are level 41-42: pull them one at a time. Scaldaron, a rare elite drake, can be up here too: leave him be unless you have a group."] = "雛龍遍布整個谷地；戰士守在谷地後方的{item:271611}旁。戰士為41-42級：一次拉一隻。稀有精英幼龍Scaldaron也可能在這裡：除非有小隊，否則別惹他。",
 
-	-- Step 30: Meadowsbrook
+	-- Step 31: Meadowsbrook
 	-- {area:16735} Meadowsbrook · {area:16744} Southern Watch · {npc:263380} Ghostmaw
 	["East to {area:16735}, the Alliance farm by the river: the farmhands work the fields and the feed satchels lie by the barns. {area:16744}, the Alliance outpost on the road, has guards: pass south of it.\nCareful: {npc:263380}, an elite (level 42), hunts along the river by the farm: keep an eye on the riverbank."] = "往東前往河邊的聯盟農場{area:16735}：農場工人在田裡工作，飼料袋放在穀倉旁。路上的聯盟前哨{area:16744}有守衛：從它南邊繞過。\n小心：精英{npc:263380}（42級）沿著農場旁的河流獵殺：注意河岸。",
 
-	-- Step 31: Rog'mar
+	-- Step 32: Rog'mar
 	-- {area:16743} Rog'mar · {npc:263190} Tan'jani · {npc:256418} Krom'rosh · {npc:256655} Gorg · {npc:256657} Kreza Darkthorn · {npc:258031} Neza Bloodsnout
 	["Back to {area:16743}, where your Hearthstone is set: {npc:263190} on the fort's west side first, then {npc:256418}, {npc:256655} by the cook fire, {npc:256657} and {npc:258031} on your way east through the fort."] = "回到設定爐石的{area:16743}：先找堡壘西側的{npc:263190}，然後往東穿過堡壘時找{npc:256418}、營火旁的{npc:256655}、{npc:256657}和{npc:258031}。",
 	-- {npc:256655} Gorg
@@ -153,19 +160,19 @@ return {
 	-- {quest:93976} The Goblin Trader · {npc:255897} Friz Frazzlespark · {area:16727} Powderfuse Port
 	["{quest:93976}: for {npc:255897} in {area:16727}, keep it"] = "{quest:93976}：要交給{area:16727}的{npc:255897}，先留著",
 
-	-- Step 33: WANTED: Ghostmaw
+	-- Step 34: WANTED: Ghostmaw
 	-- {npc:263380} Ghostmaw · {area:16743} Rog'mar
 	["{npc:263380} is an elite (level 42) who hunts along the river south-west of {area:16743}, by the Farholde camp you go to next: grouping up is advised. The poster hangs in the middle of the fort."] = "{npc:263380}是精英（42級），在{area:16743}西南的河邊獵殺，就在你接下來要去的遠岸營地旁：建議組隊。告示貼在堡壘中央。",
 	-- {object:645164} WANTED! (no name in this language: may be words)
 	["the {object:645164} poster"] = "{object:645164}告示",
 
-	-- Step 34: The training grounds
+	-- Step 35: The training grounds
 	["The training grounds"] = "訓練場",
 	-- {npc:256655} Gorg · {item:265066} Hearty Stew · {npc:263380} Ghostmaw
 	-- plural, as words: Rog'mar Trainees = {npc:256749} Rog'mar Trainee
 	["North of the fort the Rog'mar Trainees drill: use {npc:256655}'s {item:265066} on them.\nCareful: {npc:263380}, an elite (level 42), can come up from the river south of the fort: let him pass."] = "堡壘北邊有羅格瑪受訓者在操練：對他們使用{npc:256655}的{item:265066}。\n小心：精英{npc:263380}（42級）可能從堡壘南邊的河流上來：讓他過去。",
 
-	-- Step 36: The river and the Farholde camp
+	-- Step 37: The river and the Farholde camp
 	["The river and the Farholde camp"] = "河流與遠岸營地",
 	-- {npc:263190} Tan'jani · {npc:257079} Cavalry Scout Alturin · {npc:263380} Ghostmaw
 	-- plural, as words: Freshwater Crocolisks = {npc:259046} Freshwater Crocolisk
@@ -174,33 +181,33 @@ return {
 	-- plural, as words: Freshwater Crocolisks = {npc:259046} Freshwater Crocolisk
 	["{npc:263190}'s spears, on the Freshwater Crocolisks in the river"] = "",
 
-	-- Step 40: Tran'gul
+	-- Step 41: Tran'gul
 	-- {npc:256710} Tran'gul · {npc:256418} Krom'rosh · {area:16743} Rog'mar · {area:16723} Sunnyglade
 	["{npc:256710} stands beside {npc:256418} in the middle of {area:16743}: now that the Farholde camp has had its lesson, he has work in {area:16723}."] = "{npc:256710}站在{area:16743}中央的{npc:256418}旁邊：既然遠岸營地已經受到教訓，他在{area:16723}還有工作要交給你。",
 
-	-- Step 41: Fuzzle
+	-- Step 42: Fuzzle
 	-- {area:16723} Sunnyglade · {npc:259158} Fuzzle
 	["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158} is in a cage on the south side of town."] = "",
 	-- {npc:259158} Fuzzle
 	["{npc:259158} in his cage, not the end of his escort"] = "",
 
-	-- Step 42: Sunnyglade
+	-- Step 43: Sunnyglade
 	-- {npc:256899} Chogg'Zac · {area:16723} Sunnyglade
 	["The cultists fill the streets and fields; the Shadowmancers on the town's northern side carry the missives. The finger bones drop from all of them.\nCareful: {npc:256899}, an elite ogre (level 41), walks the western streets of {area:16723}, around 44-47,47-52. Pull the cultists out towards you and let him pass."] = "教徒遍布街道和田野；村子北側的暗影法師帶著密函。他們全都會掉落指骨。\n小心：精英食人魔{npc:256899}（41級）在{area:16723}西側街道巡邏，約在44-47,47-52。把教徒拉向你，讓他走過去。",
 
-	-- Step 43: Fuzzle
+	-- Step 44: Fuzzle
 	-- {npc:259158} Fuzzle · {area:16723} Sunnyglade
 	["{npc:259158} wants out of {area:16723}: lead him west to his treasure at the edge of town and keep the cultists off him."] = "{npc:259158}想離開{area:16723}：帶他向西走到城鎮邊緣的寶藏處，別讓教徒靠近他。",
 	-- {npc:259158} Fuzzle · {area:16723} Sunnyglade
 	["lead {npc:259158} out of {area:16723} to his treasure, west of the town"] = "帶{npc:259158}離開{area:16723}，前往城鎮西邊他的寶藏",
 
-	-- Step 44: Tran'gul
+	-- Step 45: Tran'gul
 	-- {area:16743} Rog'mar
 	["East back to {area:16743}."] = "向東回到{area:16743}。",
 	-- {quest:94727} Digging for Answers · {npc:260931} Clubtoe · {area:16723} Sunnyglade
 	["{quest:94727}: for {npc:260931} in {area:16723}"] = "{quest:94727}：交給{area:16723}的{npc:260931}",
 
-	-- Step 45: Clubtoe
+	-- Step 46: Clubtoe
 	-- {area:16723} Sunnyglade · {npc:260931} Clubtoe · {npc:256710} Tran'gul
 	["West to {area:16723} again: {npc:260931}, a Twilight miner who wants out, waits at the town's eastern edge. Talk him round, then hand {npc:256710}'s quest in; one of the missing ogres stands a few steps west."] = "再次向西前往{area:16723}：想脫離教派的暮光礦工{npc:260931}在村子東緣等著。說服他，然後繳交{npc:256710}的任務；其中一名失蹤的食人魔就站在西邊幾步遠。",
 	-- {npc:260931} Clubtoe
@@ -208,47 +215,46 @@ return {
 	-- {npc:261208} Twilight Brute
 	["{npc:261208}, a few steps west"] = "{npc:261208}，在西邊幾步遠",
 
-	-- Step 46: The ritual grounds
+	-- Step 47: The ritual grounds
 	["The ritual grounds"] = "儀式場地",
 	-- {area:16723} Sunnyglade · {npc:256899} Chogg'Zac
 	["The ritualists and their empowered brutes gather at the ritual circles in the middle of {area:16723}: wreck five of the circles.\nCareful: {npc:256899}, the elite ogre (level 41), walks through here from the western streets: watch for him before each pull."] = "儀式師和他們強化過的蠻兵聚集在{area:16723}中央的儀式法陣：摧毀五個法陣。\n小心：精英食人魔{npc:256899}（41級）會從西側街道走過這裡：每次拉怪前留意他。",
 	-- plural, as words: Twilight Ritual Circles = {npc:262006} Twilight Ritual Circle
 	["destroy 5 Twilight Ritual Circles"] = "摧毀5個暮光儀式法陣",
 
-	-- Step 48: Twilight No More!
+	-- Step 49: Twilight No More!
 	-- {npc:256899} Chogg'Zac · {area:16723} Sunnyglade · {npc:260931} Clubtoe · {quest:95420} Land of Giants · {npc:255829} Clugfist · {quest:94668} Bloodmaster's Ring · {area:16726} Bolder'ok · {npc:258570} Da'grosh
 	["{npc:256899}, the two-headed ogre at the western edge of {area:16723}, is an elite (level 41): grouping up is advised. {npc:260931} wants both his heads, and the rest of the zone's ogre story waits on them: {quest:95420}, {npc:255829}'s quests and the {quest:94668} in {area:16726}, then {npc:258570}'s camp in the west (about 21,000 XP in all). Skip him and the guide leaves those out."] = "",
 
-	-- Step 49: Chogg'Zac
+	-- Step 50: Chogg'Zac
 	["Clear the cultists around him first and come in with full health and mana."] = "",
 
-	-- Step 50: Clubtoe
+	-- Step 51: Clubtoe
 	-- {quest:95418} Spread the Word · {npc:256710} Tran'gul · {area:16743} Rog'mar
 	["{quest:95418}: for {npc:256710} in {area:16743}"] = "{quest:95418}：交給{area:16743}的{npc:256710}",
 
-	-- Step 51: Tran'gul
+	-- Step 52: Tran'gul
 	-- {area:16743} Rog'mar · {npc:260931} Clubtoe · {npc:256710} Tran'gul · {npc:255829} Clugfist
 	["East back to {area:16743}: {npc:260931}'s word goes to {npc:256710}, and {npc:256710}'s to {npc:255829}, the ogres' chieftain."] = "向東回到{area:16743}：把{npc:260931}的話帶給{npc:256710}，再把{npc:256710}的話帶給食人魔酋長{npc:255829}。",
 	-- {quest:95420} Land of Giants · {npc:255829} Clugfist · {area:16726} Bolder'ok
 	["{quest:95420}: for {npc:255829} in {area:16726}"] = "{quest:95420}：交給{area:16726}的{npc:255829}",
 
-	-- Step 52: WANTED: Scoutmaster Vargas
+	-- Step 53: WANTED: Scoutmaster Vargas
 	-- {npc:260211} Scoutmaster Vargas · {npc:256728} Na'zok · {npc:258031} Neza Bloodsnout
 	["{npc:260211} is an elite (level 42) at the Alliance scouts' camp in the hills south-east of {npc:256728}, where you go next: grouping up is advised. The poster hangs in the middle of the fort; {npc:258031} takes the eye, later in this guide."] = "{npc:260211}是精英（42級），位於{npc:256728}東南方山丘上的聯盟斥候營地，也就是你接下來要去的地方：建議組隊。告示貼在堡壘中央；眼睛交給{npc:258031}，在本指南稍後。",
-	-- was: ["the {object:707249} poster"] = "{object:707249}告示"
 	["the Wanted poster"] = "",
 
-	-- Step 53: Na'zok's camp
+	-- Step 54: Na'zok's camp
 	-- {npc:256728} Na'zok
 	["{npc:256728}'s camp"] = "{npc:256728}的營地",
 	-- {area:16743} Rog'mar · {npc:256728} Na'zok
 	["North-east from {area:16743} up into the hills: {npc:256728} watches the Paletusk boars from his camp."] = "從{area:16743}向東北上山：{npc:256728}在他的營地看守著白牙野豬。",
 
-	-- Step 54: Bolder'ok
+	-- Step 55: Bolder'ok
 	-- {area:16726} Bolder'ok · {npc:255829} Clugfist
 	["North-west to {area:16726}, the ogres' town. {npc:255829}, its chieftain, sits on the hill. The ogres are friendly while you leave them alone."] = "向西北前往食人魔的城鎮{area:16726}。酋長{npc:255829}坐在山丘上。只要你不招惹他們，食人魔就是友善的。",
 
-	-- Step 57: The Twilight ogres' camp
+	-- Step 58: The Twilight ogres' camp
 	["The Twilight ogres' camp"] = "暮光食人魔的營地",
 	-- {npc:256728} Na'zok · {npc:260973} Klunk · {item:269257} Skullbasher · {npc:260211} Scoutmaster Vargas
 	-- plural, as words: Twilight Maulers = {npc:260968} Twilight Mauler · Farholde Ambushers = {npc:260023} Farholde Ambusher
@@ -256,7 +262,7 @@ return {
 	-- {item:269257} Skullbasher · {npc:260973} Klunk
 	["{item:269257}, from {npc:260973}"] = "{item:269257}，來自{npc:260973}",
 
-	-- Step 59: The paletusks
+	-- Step 60: The paletusks
 	["The paletusks"] = "白牙野豬",
 	-- {npc:256728} Na'zok
 	-- plural, as words: Young Paletusks = {npc:258331} Young Paletusk · Mature Paletusks = {npc:255851} Mature Paletusk
@@ -268,18 +274,18 @@ return {
 	-- plural, as words: Mature Paletusks = {npc:255851} Mature Paletusk
 	["{item:769}, from the Mature Paletusks"] = "{item:769}，來自成年白牙野豬",
 
-	-- Step 61: Twilight camp before the escort
+	-- Step 62: Twilight camp before the escort
 	["Twilight camp before the escort"] = "",
 	-- {npc:258048} Jom-jom
 	["Before taking {npc:258048} home, finish any Maulers and Firecallers you still need here. Stay on the ridge, north of Vargas and his ambushers."] = "",
 
-	-- Step 62: Klunk before the escort
+	-- Step 63: Klunk before the escort
 	-- {npc:260973} Klunk
 	["{npc:260973} before the escort"] = "",
 	-- {item:269257} Skullbasher · {npc:260973} Klunk · {npc:258048} Jom-jom
 	["If you still need the {item:269257}, {npc:260973} is at the same camp as {npc:258048}. Take it back with the escort."] = "",
 
-	-- Step 63: Jom-jom's Escape
+	-- Step 64: Jom-jom's Escape
 	-- {npc:258048} Jom-jom · {npc:256728} Na'zok · {area:16726} Bolder'ok
 	["{npc:258048} waits by the Twilight ogres' camp north-east of {npc:256728}: take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "{npc:258048}在{npc:256728}東北方的暮光食人魔營地旁等待：帶他回{area:16726}，別讓教徒傷到他。如果他倒下，再向他接受一次任務。",
 	-- {npc:258048} Jom-jom
@@ -287,37 +293,37 @@ return {
 	-- {npc:258048} Jom-jom · {area:16726} Bolder'ok
 	["help {npc:258048} reach {area:16726}"] = "幫助{npc:258048}抵達{area:16726}",
 
-	-- Step 64: Bolder'ok
+	-- Step 65: Bolder'ok
 	-- {npc:255829} Clugfist · {npc:257062} Jezap Jinglesprocket · {quest:94668} Bloodmaster's Ring
 	["Back to {npc:255829} on his hill. {npc:257062} runs the {quest:94668} just below it."] = "回到山丘上的{npc:255829}那裡。{npc:257062}在山下主持{quest:94668}。",
 
-	-- Step 67: Finish Might Makes Right
+	-- Step 68: Finish Might Makes Right
 	-- {quest:95424} Might Makes Right
 	["Finish {quest:95424}"] = "",
 	-- {npc:255829} Clugfist · {npc:256728} Na'zok
 	["If you joined the route with {npc:255829}'s hunt unfinished, the Maulers and Firecallers are at the Twilight camp on the ridge east of {npc:256728}. Stay north of Vargas and his ambushers."] = "",
 
-	-- Step 68: Finish Unworthy Champion
+	-- Step 69: Finish Unworthy Champion
 	-- {quest:95425} Unworthy Champion
 	["Finish {quest:95425}"] = "",
 	-- {npc:260973} Klunk · {item:269257} Skullbasher · {npc:255829} Clugfist
 	["{npc:260973} is in the same Twilight camp. Take his {item:269257} back to {npc:255829} with any finished hunt."] = "",
 
-	-- Step 69: Clugfist: the finished hunt
+	-- Step 70: Clugfist: the finished hunt
 	-- {npc:255829} Clugfist
 	["{npc:255829}: the finished hunt"] = "",
 
-	-- Step 70: Clugfist: the recovered Skullbasher
+	-- Step 71: Clugfist: the recovered Skullbasher
 	-- {npc:255829} Clugfist · {item:269257} Skullbasher
 	["{npc:255829}: the recovered {item:269257}"] = "",
 
-	-- Step 71: Clugfist
+	-- Step 72: Clugfist
 	-- {quest:95428} Clugfist's Decree · {npc:256418} Krom'rosh · {area:16743} Rog'mar
 	["{quest:95428}: for {npc:256418} in {area:16743}, later in this guide"] = "{quest:95428}：交給{area:16743}的{npc:256418}，在本指南稍後",
 	-- {quest:94669} Pay to Play
 	["{quest:94669}: the Ring's bouts, one-on-one fights with elites (41-45); a deposit first"] = "{quest:94669}：競技場的對戰，與精英一對一戰鬥（41-45）；需先支付押金",
 
-	-- Step 72: The Bloodmaster's Ring: Buzzbeak
+	-- Step 73: The Bloodmaster's Ring: Buzzbeak
 	-- {quest:94670} Bloodmaster's Ring
 	["The {quest:94670}: Buzzbeak"] = "{quest:94670}：嗡嗡喙",
 	-- {npc:255829} Clugfist · {npc:258626} Mog'thar · {npc:257059} Chub'chob · {npc:257062} Jezap Jinglesprocket
@@ -326,17 +332,17 @@ return {
 	["{quest:94670}: Buzzbeak"] = "{quest:94670}：嗡嗡喙",
 	["beat Buzzbeak"] = "擊敗嗡嗡喙",
 
-	-- Step 73: The Bloodmaster's Ring: Kronk and Bonegnaw
+	-- Step 74: The Bloodmaster's Ring: Kronk and Bonegnaw
 	-- {quest:94670} Bloodmaster's Ring
 	["The {quest:94670}: Kronk and Bonegnaw"] = "{quest:94670}：克隆克和啃骨者",
 	["Kronk"] = "克隆克",
 	["Bonegnaw"] = "啃骨者",
 
-	-- Step 74: The Bloodmaster's Ring: Mog'thar
+	-- Step 75: The Bloodmaster's Ring: Mog'thar
 	-- {quest:94962} Bloodmaster's Ring · {npc:258626} Mog'thar
 	["The {quest:94962}: {npc:258626}"] = "{quest:94962}：{npc:258626}",
 
-	-- Step 75: The Bloodmaster's Ring: Snufflesnout and Chub'chob
+	-- Step 76: The Bloodmaster's Ring: Snufflesnout and Chub'chob
 	-- {quest:94964} Bloodmaster's Ring · {npc:257059} Chub'chob
 	["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}：嗅嗅鼻和{npc:257059}",
 	-- {npc:257062} Jezap Jinglesprocket · {npc:258626} Mog'thar
@@ -345,109 +351,125 @@ return {
 	-- {npc:255829} Clugfist
 	["{npc:255829}, on the hill"] = "{npc:255829}，在山丘上",
 
-	-- Step 76: Powderfuse Port
+	-- Step 77: Powderfuse Port
 	-- {area:16727} Powderfuse Port · {npc:255897} Friz Frazzlespark · {npc:259962} Fimbo Greasemitz · {npc:259961} Wharfmaster Whizzbuzz
 	["South-east down out of the hills to {area:16727}, the goblins' harbour on the coast. {npc:255897} keeps a stall at the west end of the docks, {npc:259962} cooks by the inn, and {npc:259961} works the north pier."] = "往東南下山前往{area:16727}，也就是地精在海岸的港口。{npc:255897}在碼頭西端擺攤，{npc:259962}在旅店旁烹飪，{npc:259961}在北碼頭工作。",
 	-- {object:628948} WANTED! (no name in this language: may be words) · {npc:260235} Trapclaw
 	["The {object:628948} poster by the inn: {npc:260235}"] = "旅店旁的{object:628948}告示：{npc:260235}",
 
-	-- Step 77: Wharfmaster Whizzbuzz
+	-- Step 78: Wharfmaster Whizzbuzz
 	-- {npc:259961} Wharfmaster Whizzbuzz · {item:277974} Twice Reordered Package
 	["{npc:259961} on the north pier takes Lozgil's {item:277974}."] = "北碼頭的{npc:259961}收下洛茲吉爾的{item:277974}。",
 
-	-- Step 78: WANTED: Old Rot-Chum
+	-- Step 79: WANTED: Old Rot-Chum
 	-- {npc:257001} Old Rot-Chum
 	["{npc:257001} is an elite (level 42) on the south shore: grouping up is advised."] = "{npc:257001}是南岸的精英（42級）：建議組隊。",
 	-- {object:628948} WANTED! (no name in this language: may be words)
 	["The {object:628948} poster by the inn"] = "旅店旁的{object:628948}告示",
 
-	-- Step 79: The murlocs, south-west
+	-- Step 80: The murlocs, south-west
 	["The murlocs, south-west"] = "西南方的魚人",
 	-- {quest:95260} Terrors From the Deep · {npc:260231} Argo Brinewhistle
 	["South-west along the shore from the port: the saltwater murlocs camp on the beaches. On the way, a painted hide is stretched beside the path: it starts {quest:95260} for {npc:260231} at the docks."] = "從港口沿海岸往西南走：鹹水魚人在海灘上紮營。途中路旁撐著一張彩繪獸皮：它會開始{quest:95260}，交給碼頭的{npc:260231}。",
 
-	-- Step 81: Back through the port
+	-- Step 82: Back through the port
 	["Back through the port"] = "穿過港口回去",
 	["Back north along the shore: hand in the murlocs and the hide on the docks on your way to the crawlers."] = "沿海岸往北回去：前往爬行者的路上，在碼頭繳交魚人和獸皮任務。",
 	-- {quest:95261} It Takes Guts
 	["{quest:95261}: the beasts' entrails come as you go; the mushrooms grow on the ridge west of the pirates"] = "{quest:95261}：野獸內臟沿路收集；蘑菇長在海盜西邊的山脊上",
 
-	-- Step 82: The crawlers and Trapclaw
+	-- Step 83: The crawlers and Trapclaw
 	-- {npc:260235} Trapclaw
 	["The crawlers and {npc:260235}"] = "爬行者和{npc:260235}",
 	-- {npc:259962} Fimbo Greasemitz · {npc:260231} Argo Brinewhistle · {npc:260235} Trapclaw · {npc:259758} Gul'gash
 	["North along the beach from the docks: the crawlers drop the meat for {npc:259962}, and their entrails count for {npc:260231}. {npc:260235}, a big crab, scuttles along the rocks east of the docks. {npc:259758}, a rare elite of level 49, roams this coast from the docks up to the pirates' camp: if you see him, keep well away."] = "從碼頭沿海灘往北：爬行者會掉落給{npc:259962}的肉，牠們的內臟也算{npc:260231}的任務。{npc:260235}是一隻大螃蟹，在碼頭東邊的岩石上爬行。{npc:259758}是49級的稀有精英，在從碼頭到海盜營地的這段海岸遊蕩：如果看到他，離遠一點。",
 	["Keep entrails from these crawlers; the later ridge and beach finish any missing ones."] = "",
 
-	-- Step 87: Before the Eastsea camp
+	-- Step 88: Before the Eastsea camp
 	["Before the Eastsea camp"] = "",
-	-- {area:16727} Powderfuse Port
-	-- plural, as words: Eastsea Musketeers = {npc:257910} Eastsea Musketeer · Jungle Stalkers = {npc:687} Jungle Stalker
-	["The Eastsea Musketeers reach 43. Leave the camp for now. At 40 or 41, if Raptor Mastery is still in your log, the Jungle Stalkers west of the Venture Co. mine in Stranglethorn are 40-41. At 42 resume on the beach north of {area:16727} for the buccaneers and musketeers."] = "",
+	-- {npc:259758} Gul'gash · {area:796} Scarlet Monastery
+	-- plural, as words: Shore Crawlers = {npc:256807} Shore Crawler · Jungle Stalkers = {npc:687} Jungle Stalker
+	["The musketeers reach 43. At 41, Shore Crawlers (39–40) still give XP on the beach south-west of 81.21,46.52. Stay out of the pirate camp and watch for {npc:259758}, the rare elite. Skip this step if the gap is large; the first camp north of Powderfuse can wait until 42.\nAt 40–41, Jungle Stalkers count if you still have Raptor Mastery in Stranglethorn. For work in Kalimdor, the port boat sails to Steamwheedle.\nOr, with a group, run the {area:796} dungeon (Armory) instead."] = "",
 
-	-- Step 88: The Eastsea pirates
+	-- Step 89: Finish 41 on the beach
+	["Finish 41 on the beach"] = "",
+	-- {npc:259758} Gul'gash · {area:796} Scarlet Monastery
+	-- plural, as words: Shore Crawlers = {npc:256807} Shore Crawler
+	["Nearly 42? Take the Shore Crawlers (39–40) on the strip of sand north of the docks. Pull from the south-west side of the marked crab; the musketeers to its east reach 43. Watch for {npc:259758} (49, rare elite) coming down the coast and give him room. At 42 move north to the first Eastsea camp.\nOr, with a group, run the {area:796} dungeon (Armory) instead."] = "",
+	-- plural, as words: Shore Crawlers = {npc:256807} Shore Crawler
+	["Hunt Shore Crawlers on the marked beach, or earn the remaining XP elsewhere."] = "",
+
+	-- Step 90: The Eastsea pirates
 	["The Eastsea pirates"] = "東海海盜",
 	-- {npc:259758} Gul'gash
 	["North-east along the coast to the pirates' camp on the cliffs. The buccaneers and musketeers carry the smuggled goods. {npc:259758} walks the camp too: keep an eye out for him."] = "沿著海岸向東北前往懸崖上的海盜營地。海盜和火槍手身上帶著走私貨物。{npc:259758}也會在營地裡走動：留意他的蹤影。",
 
-	-- Step 90: Wharfmaster Whizzbuzz
+	-- Step 92: Wharfmaster Whizzbuzz
 	["Take the raider and powder-keg jobs for the return to the cliffs at 44."] = "",
 
-	-- Step 94: Friz Frazzlespark
+	-- Step 96: Friz Frazzlespark
 	-- {npc:260390} Captain Bentcoin
 	["Keep the delivery for {npc:260390} on the raider visit."] = "",
 
-	-- Step 97: Back to Argo Brinewhistle
+	-- Step 99: Back to Argo Brinewhistle
 	-- {npc:260231} Argo Brinewhistle
 	["Back to {npc:260231}"] = "",
 
-	-- Step 98: Beast Entrails as you go
+	-- Step 100: Beast Entrails as you go
 	-- {item:268632} Beast Entrails
 	["{item:268632} as you go"] = "順路收集{item:268632}",
 	-- {zone:2548} Riverglades · {item:268632} Beast Entrails · {npc:260231} Argo Brinewhistle · {npc:257001} Old Rot-Chum · {npc:263380} Ghostmaw
 	["Most beasts in the {zone:2548} drop {item:268632} for {npc:260231}: the shore crawlers on this coast and the boars on the ridge west of the pirates.\nCareful: {npc:257001} (elite, 42) wanders the shore and {npc:263380} (elite, 42) the river: take your beasts away from them."] = "{zone:2548}的大部分野獸都會掉落{item:268632}，交給{npc:260231}：這片海岸的海岸爬行者和海盜西邊山脊上的野豬。\n小心：{npc:257001}（精英，42）在海岸遊蕩，{npc:263380}（精英，42）在河中遊蕩：把野獸拉離牠們再打。",
 
-	-- Step 99: Wharfmaster Whizzbuzz: the raiders
+	-- Step 101: Wharfmaster Whizzbuzz: the raiders
 	-- {npc:259961} Wharfmaster Whizzbuzz
 	["{npc:259961}: the raiders"] = "",
 
-	-- Step 100: Wharfmaster Whizzbuzz: the powder kegs
+	-- Step 102: Wharfmaster Whizzbuzz: the powder kegs
 	-- {npc:259961} Wharfmaster Whizzbuzz
 	["{npc:259961}: the powder kegs"] = "",
 
-	-- Step 101: Friz Frazzlespark: the captain’s bargain
+	-- Step 103: Friz Frazzlespark: the captain’s bargain
 	-- {npc:255897} Friz Frazzlespark
 	["{npc:255897}: the captain’s bargain"] = "",
 
-	-- Step 102: Wharfmaster Whizzbuzz: the ships
+	-- Step 104: Wharfmaster Whizzbuzz: the ships
 	-- {npc:259961} Wharfmaster Whizzbuzz
 	["{npc:259961}: the ships"] = "",
 
-	-- Step 104: Before the raiders
+	-- Step 106: Before the raiders
 	["Before the raiders"] = "",
-	-- {quest:95124} Admiral Lamora · {npc:259961} Wharfmaster Whizzbuzz · {area:43} Wild Shore · {area:35} Booty Bay
-	["The raiders and {quest:95124} reach 45. Pause here at {npc:259961} on the north pier. At 42-43, if you still have Keep An Eye Out or Up to Snuff, the pirates on the {area:43} south of {area:35} count; stay on the beach, not the ships. If those are already done, don't make that trip. At 44 resume here for the raiders on the cliffs. You don't need to farm the first camp."] = "",
+	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash · {area:35} Booty Bay · {area:440} Tanaris · {area:977} Steamwheedle Port · {area:1517} Uldaman
+	-- plural, as words: Eastsea Buccaneers = {npc:257901} Eastsea Buccaneer · Bloodsail Swashbucklers = {npc:1563} Bloodsail Swashbuckler
+	["The raiders and {quest:95124} reach 45. At 43 you can pull a few Eastsea Buccaneers (41–42) at the southern edge of the first camp, around 81.72,45.37. Watch for {npc:259758}, the rare elite. Don't grind a whole level here: skip the step to pass the cliffs and ships, or return to the north pier at 44.\nAt 42–43, if you still have Keep An Eye Out or Up to Snuff, the Bloodsail Swashbucklers (41–43) on the outer shore east of {area:35}'s tunnel count. Stay ashore. If your work is in {area:440} instead, take the boat to {area:977}.\nOr, with a group, run the {area:1517} dungeon instead."] = "",
 
-	-- Step 105: The pirates' second wave
+	-- Step 107: Finish 43 at the first camp
+	["Finish 43 at the first camp"] = "",
+	-- {npc:259758} Gul'gash · {area:1517} Uldaman
+	["Nearly 44? Return to the first Eastsea camp north of the docks. Pull the level 41–42 Buccaneers from its southern edge; the Musketeers here reach 43. Let {npc:259758} (49, rare elite) pass. Leave the raiders and their powder kegs uphill until 44, then follow the cliffs to the second camp.\nOr, with a group, run the {area:1517} dungeon instead."] = "",
+	-- plural, as words: Eastsea Buccaneers = {npc:257901} Eastsea Buccaneer
+	["Hunt Eastsea Buccaneers at the edge of the first camp, or earn the remaining XP elsewhere."] = "",
+
+	-- Step 108: The pirates' second wave
 	["The pirates' second wave"] = "海盜的第二波",
 	-- {npc:259758} Gul'gash
 	-- plural, as words: Eastsea Raiders = {npc:257915} Eastsea Raider
 	-- was: ["North along the coast from the port: the Eastsea raiders and bombardiers have dug in on the slopes west of the buccaneers' camp, among their powder kegs. Watch for {npc:259758} on these cliffs.\nCareful: the Eastsea Raiders are level 44-45, a level or two over you here: pull them one at a time from the edge of the slopes and keep clear of the camp behind them."] = "從港口沿海岸往北：東海劫掠者和投彈手在海盜營地西邊的山坡上、火藥桶之間紮營。在這些懸崖上注意{npc:259758}。\n小心：東海劫掠者是44-45級，比你高一兩級：從山坡邊緣一次拉一隻，並遠離他們後方的營地。"
 	["North along the coast from the port: the Eastsea raiders and bombardiers have dug in on the slopes west of the buccaneers' camp, among their powder kegs. Watch for {npc:259758} on these cliffs.\nCareful: the Eastsea Raiders are level 44-45, so pull them one at a time from the edge of the slopes and keep clear of the camp behind them."] = "",
 
-	-- Step 106: Captain Bentcoin
+	-- Step 109: Captain Bentcoin
 	-- {npc:260390} Captain Bentcoin · {npc:260391} Captain Haynes
 	["East along the cliffs to the far end of the pirates' camp: {npc:260390} waits by the water, {npc:260391} beside him."] = "沿著懸崖向東前往海盜營地的盡頭：{npc:260390}在水邊等你，{npc:260391}就在他旁邊。",
 
-	-- Step 109: Wharfmaster Whizzbuzz
+	-- Step 112: Wharfmaster Whizzbuzz
 	-- {quest:95124} Admiral Lamora
 	["Whizzbuzz gives you the ship charges and the order for {quest:95124}."] = "",
 
-	-- Step 111: Friz Frazzlespark
-	-- {npc:260405} Wharfmaster Steamfizzle · {area:977} Steamwheedle Port · {zone:1446} Tanaris
-	["Keep the shipping papers for {npc:260405} at {area:977} in {zone:1446}."] = "",
+	-- Step 114: Friz Frazzlespark
+	-- {npc:260405} Wharfmaster Steamfizzle · {area:977} Steamwheedle Port · {area:440} Tanaris
+	["Keep the shipping papers for {npc:260405} at {area:977} in {area:440}."] = "",
 
-	-- Step 112: The pirates' ships
+	-- Step 115: The pirates' ships
 	["The pirates' ships"] = "海盜船",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
 	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} patrols the top deck of the middle ship. Once she's down, go below deck for the loot chest in the hold. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, so clear the deck around her first and come in with full health."] = "",
@@ -457,71 +479,115 @@ return {
 	["the middle ship"] = "中間的船",
 	["the northern ship"] = "北邊的船",
 
-	-- Step 113: Rotflesh Mushrooms
+	-- Step 116: Rotflesh Mushrooms
 	-- plural, as words: Rotflesh Mushrooms = {item:268664} Rotflesh Mushroom
 	["Rotflesh Mushrooms"] = "腐肉蘑菇",
 	-- plural, as words: Rotflesh Mushrooms = {item:268664} Rotflesh Mushroom · Mature Paletusks = {npc:255851} Mature Paletusk
 	["West from the northern ship, up the ridge: the Rotflesh Mushrooms grow among the rocks, close to the Twilight ogres' camp. The Mature Paletusks on the ridge give entrails too."] = "從北邊的船往西爬上山脊：腐肉蘑菇長在岩石間，靠近暮光食人魔的營地。山脊上的成年白牙象也會掉內臟。",
 
-	-- Step 114: Finish the Beast Entrails
+	-- Step 117: Finish the Beast Entrails
 	-- {item:268632} Beast Entrails
 	["Finish the {item:268632}"] = "收集完{item:268632}",
 	-- {npc:259758} Gul'gash
 	["South-east back towards the port: the shore crawlers on the beach north of the docks are the quickest entrails. {npc:259758} wanders down to this beach too."] = "往東南回到港口：碼頭北邊海灘上的海岸爬行者是收集內臟最快的方式。{npc:259758}也會遊蕩到這片海灘。",
 
-	-- Step 118: Argo Brinewhistle
+	-- Step 121: Argo Brinewhistle
 	-- {npc:260231} Argo Brinewhistle · {npc:257001} Old Rot-Chum
 	["{npc:260231} can give you the bait for the shallows south-west of the port. {npc:257001}, the elite, walks the same shore."] = "",
 
-	-- Step 119: The Monster Surfaces
+	-- Step 122: The Monster Surfaces
 	-- {npc:260231} Argo Brinewhistle · {item:268647} Big Ball o' Bait · {npc:257001} Old Rot-Chum
 	["At the junk in the shallows south-west of the port, use {npc:260231}'s {item:268647}. Kill the threshadon that comes to the bait and take its head. Give {npc:257001}, the elite that walks this shore, plenty of room."] = "",
 	-- {item:268647} Big Ball o' Bait
 	["{item:268647} at the junk"] = "",
 	["Loot the summoned threshadon's head"] = "",
 
-	-- Step 121: Rog'mar
+	-- Step 124: Rog'mar
 	-- {area:16743} Rog'mar · {npc:256418} Krom'rosh · {npc:255829} Clugfist · {npc:258570} Da'grosh
 	["Back to {area:16743} from the port, where your Hearthstone is set. {npc:256418} in the middle of the fort: {npc:255829}'s word sends him looking for {npc:258570}, his warrior in the west."] = "從港口回到{area:16743}，你的爐石設在那裡。堡壘中央的{npc:256418}：{npc:255829}的話讓他派你去找{npc:258570}，他在西方的戰士。",
 	-- {quest:94744} The Wayward Warrior · {npc:258570} Da'grosh · {area:16723} Sunnyglade
 	["{quest:94744}: for {npc:258570}, west of {area:16723}"] = "{quest:94744}：之後給{area:16723}西邊的{npc:258570}",
 
-	-- Step 123: Fly to Kargath
-	-- {npc:258570} Da'grosh · {npc:256899} Chogg'Zac · {zone:2548} Riverglades · {area:16743} Rog'mar · {npc:255993} Grakna · {area:340} Kargath · {area:3} Badlands
-	["The rest of this guide is {npc:258570}'s camp in the west, which waits on {npc:256899}: without him the {zone:2548} end here. Back to {area:16743} from the port, where your Hearthstone is set: {npc:255993}, the wind rider master in the middle of the fort, flies to {area:340} in the {area:3}, where the next guide starts."] = "",
+	-- Step 126: Grakna at Rog'mar
+	-- {npc:255993} Grakna · {area:16743} Rog'mar
+	["{npc:255993} at {area:16743}"] = "",
+	-- {npc:256899} Chogg'Zac · {area:16743} Rog'mar · {npc:255993} Grakna · {area:340} Kargath
+	["Without {npc:256899} the ogre trail ends here. Return to {area:16743} by road, or hearth if you're bound there. {npc:255993} stands in the middle of the fort; take her flight to {area:340} for the next guide."] = "",
+	-- {npc:255993} Grakna · {area:16743} Rog'mar
+	["{npc:255993}, the {area:16743} flight master"] = "",
 
-	-- Step 124: Da'grosh
+	-- Step 127: Fly to Kargath
+	-- {area:340} Kargath · {area:3} Badlands
+	["Fly to {area:340} in the {area:3}, where the next guide starts."] = "",
+
+	-- Step 128: Da'grosh's delivery on the way out
+	-- {npc:258570} Da'grosh
+	["{npc:258570}'s delivery on the way out"] = "",
+
+	-- Step 129: Crag'rog's delivery on the way out
+	-- {npc:260993} Crag'rog
+	["{npc:260993}'s delivery on the way out"] = "",
+
+	-- Step 130: Da'grosh's cultist bounty
+	-- {npc:258570} Da'grosh
+	["{npc:258570}'s cultist bounty"] = "",
+
+	-- Step 131: Da'grosh's scout reward
+	-- {npc:258570} Da'grosh
+	["{npc:258570}'s scout reward"] = "",
+
+	-- Step 132: Crag'rog's miner reward
+	-- {npc:260993} Crag'rog
+	["{npc:260993}'s miner reward"] = "",
+
+	-- Step 133: Da'grosh's reward for Kilgar
+	-- {npc:258570} Da'grosh
+	["{npc:258570}'s reward for Kilgar"] = "",
+
+	-- Step 134: Da'grosh
 	-- {area:16743} Rog'mar · {area:16723} Sunnyglade · {area:16685} Twilight's Shroud · {npc:258570} Da'grosh · {npc:256418} Krom'rosh
 	["West from {area:16743} through {area:16723} and on up the valley towards {area:16685}: {npc:258570}, {npc:256418}'s wayward warrior, keeps a camp in the hills below the Twilight cult's fortress."] = "從{area:16743}往西穿過{area:16723}，再沿山谷往{area:16685}走：{npc:256418}那位迷途的戰士{npc:258570}在暮光教派堡壘下方的山丘中紮營。",
 
-	-- Step 125: Crag'rog
+	-- Step 135: Da'grosh's valley quests
+	-- {npc:258570} Da'grosh
+	["{npc:258570}'s valley quests"] = "",
+
+	-- Step 136: Crag'rog
 	-- {npc:260993} Crag'rog · {area:16726} Bolder'ok · {npc:258570} Da'grosh
 	["{npc:260993}, a {area:16726} ogre, hides in the cave west of {npc:258570}'s camp."] = "{npc:260993}是{area:16726}的食人魔，躲在{npc:258570}營地西邊的洞穴裡。",
 
-	-- Step 126: The Twilight camps
-	["The Twilight camps"] = "暮光營地",
-	-- {npc:258570} Da'grosh · {npc:256881} Overlord Kilgar · {npc:256891} Executioner Morg · {npc:258023} Sergeant Riftan
-	-- plural, as words: Rog'mar Scouts = {npc:257450} Rog'mar Scout · Twilight Enforcers = {npc:256800} Twilight Enforcer · Farholde Lookouts = {npc:258686} Farholde Lookout
-	["The cult's camps fill the valley south and west of {npc:258570}. Free the captive Rog'mar Scouts as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. {npc:256881} and {npc:256891} (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. {npc:258023}'s Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it."] = "暮光教派的營地遍布{npc:258570}南邊和西邊的山谷。沿途遇到被俘的羅格瑪斥候就救出來。暮光執行者（精英，45級）會在營地間巡邏：每次拉怪前先看清他們的路線。{npc:256881}和{npc:256891}（精英，46級）駐守在山谷盡頭的堡壘：把教徒拉離他們身邊。{npc:258023}的聯盟營地位於山谷南端，那裡的法霍德瞭望者（46級）會攻擊部落：待在營地北邊。",
-	-- plural, as words: Rog'mar Scouts = {npc:257450} Rog'mar Scout
-	["free five captive Rog'mar Scouts"] = "救出五名被俘的羅格瑪斥候",
+	-- Step 137: Crag'rog's miners
+	-- {npc:260993} Crag'rog
+	["{npc:260993}'s miners"] = "",
 
-	-- Step 127: The ogre mine
+	-- Step 138: The ogre mine
 	["The ogre mine"] = "食人魔礦坑",
-	-- plural, as words: Twilight Enforcers = {npc:256800} Twilight Enforcer
-	["North of the camps the cult works ogre miners in a mine: talk five of them into rising up against their masters.\nCareful: Twilight Enforcers (elites, level 45) walk past the mine's mouth on their way through the camps. Wait for one to pass before you go in."] = "營地北邊，教派在一座礦坑裡奴役食人魔礦工：說服其中五名起來反抗他們的主人。\n小心：暮光執行者（精英，45級）巡邏經過營地時會走過礦坑入口。等一隻走過後再進去。",
+	-- plural, as words: Ogre Miners = {npc:260995} Ogre Miner · Twilight Enforcers = {npc:256800} Twilight Enforcer
+	["North of Crag'rog, talk five Ogre Miners into rising up. The Subjugators aren't quest targets. Champions guard the approach, and elite Twilight Enforcers (45) patrol the mine mouth: wait for them to pass."] = "",
 	-- plural, as words: Ogre Miners = {npc:260995} Ogre Miner
 	["recruit five Ogre Miners"] = "招募五名食人魔礦工",
 
-	-- Step 130: Bring Me His Head
+	-- Step 140: The captive scouts
+	["The captive scouts"] = "",
+	-- {npc:258023} Sergeant Riftan
+	-- plural, as words: Rog'mar Scouts = {npc:257450} Rog'mar Scout · Twilight Enforcers = {npc:256800} Twilight Enforcer
+	["Free five Rog'mar Scouts in the camps south of the cave. Champions reach 44 and elite Twilight Enforcers (45) patrol among the cages. Leave a captive until the patrol moves on. Keep north of {npc:258023}'s level-46 Alliance Lookouts."] = "",
+
+	-- Step 141: The Twilight camps
+	["The Twilight camps"] = "暮光營地",
+	-- {npc:258570} Da'grosh · {npc:256891} Executioner Morg · {npc:256881} Overlord Kilgar
+	-- plural, as words: Twilight Enforcers = {npc:256800} Twilight Enforcer
+	["Work the Corrupters below the mine and the Fanatics and Champions on the eastern edge, south of {npc:258570}. Pull single cultists away from the tents. Avoid the level-45 elite Twilight Enforcers and the fortress where {npc:256891} and {npc:256881} (both 46, elite) patrol."] = "",
+
+	-- Step 144: Bring Me His Head
 	-- {npc:256881} Overlord Kilgar
 	["{npc:256881} is an elite (level 46) in the fortress at the head of the valley, with the Enforcers around him: grouping up is advised."] = "{npc:256881}是精英（46級），位於谷底盡頭的要塞中，身邊有執行者：建議組小隊。",
 
-	-- Step 131: Twilight's Shroud
-	-- {area:340} Kargath · {area:3} Badlands · {area:16685} Twilight's Shroud · {npc:258570} Da'grosh · {area:16743} Rog'mar · {area:16723} Sunnyglade
-	["The next guide flies from {area:340} in the {area:3}: up through {area:16685}, the pass at the valley's north-west end, just north of {npc:258570}'s camp. Coming from {area:16743}, ride west through {area:16723} and keep north of the Twilight camps below the pass."] = "",
+	-- Step 146: Twilight's Shroud
+	-- {area:340} Kargath · {area:3} Badlands · {area:16685} Twilight's Shroud · {npc:258570} Da'grosh · {area:16743} Rog'mar · {area:16723} Sunnyglade · {npc:260993} Crag'rog · {zone:1444} Feralas · {area:440} Tanaris
+	["The next guide flies from {area:340} in the {area:3}: up through {area:16685}, the pass at the valley's north-west end, just north of {npc:258570}'s camp. Coming from {area:16743}, ride west through {area:16723} and keep north of the Twilight camps below the pass.\nBelow 43 with {npc:258570}'s or {npc:260993}'s work? If you are already at their camp, hand in what you have finished. Otherwise keep the quests and stay north of the camps. Continue from {area:340} with {zone:1444} & {area:440}, or return at 43 and reopen {npc:258570} west of {area:16723}."] = "",
 
-	-- Step 132: Kargath
+	-- Step 147: Kargath
 	-- {area:3} Badlands · {area:340} Kargath
 	["Across the {area:3} to {area:340}, the Horde fortress built into the cliffs at the zone's western edge: its flight master stands at the foot of the fortress."] = "穿越{area:3}前往{area:340}，這座部落堡壘建在地區西緣的峭壁中：飛行管理員就站在堡壘腳下。",
 
@@ -531,11 +597,15 @@ return {
 	-- ["Careful: {npc:256899}, the two-headed ogre at the western edge of {area:16723}, is an elite (level 41): grouping up is advised under 43. Clear the cultists around him first and come in with full health and mana: recorded players of 42-43 killed him alone. {npc:255829}'s quests in {area:16726} wait on this one: skip him and {quest:95420}, the {area:16726} quests and {npc:258570}'s camp in the west go with him (about 21,000 XP); the guide then leaves them out."] = "小心：{area:16723}西緣的雙頭食人魔{npc:256899}是精英（41級）：43級以下建議組隊。先清掉他周圍的教徒，滿血滿魔再上：有42-43級的玩家單殺過他。{npc:255829}在{area:16726}的任務取決於這一隻：跳過他的話，{quest:95420}、{area:16726}的任務和西邊{npc:258570}的營地都會一併放棄（約21,000經驗值）；之後指南會略過這些。",
 	-- ["Down to the port."] = "下到港口。",
 	-- ["New in Forever: this guide follows what players did in the {area:16591}. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nFrom {area:340}, ride south-east across the {area:3} to the zone's southern edge: the pass of {area:16685} leads down into the {area:16591}. {area:16743}, the Horde's fort, stands in the middle of the zone, east along the valley."] = "Forever新內容：本指南依照玩家在{area:16591}的實際進度編寫。若有步驟錯誤，請在Polestar的Discord或GitHub告訴我們，並註明是哪個步驟。\n從{area:340}向東南騎過{area:3}，到達該地區南緣：{area:16685}的山道會往下通往{area:16591}。部落的要塞{area:16743}位於地區中央，沿山谷往東走即可到達。",
+	-- ["New in Forever: this guide follows what players did in the {zone:2548}. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nThe {zone:2548} lie across the sea from {zone:1446}: a goblin boat sails from {area:977}, north-east of {area:976}, to {area:16727}. Fly to {area:484} in {zone:1441} and head south-east through the {area:439} to {area:976}. (If you already know {area:340} in the {area:3}, the way in through {area:16685} works too.)"] = "Forever新內容：本指南依照玩家在{zone:2548}的實際進度編寫。若有步驟錯誤，請在Polestar的Discord或GitHub告訴我們，並註明是哪個步驟。\n{zone:2548}與{zone:1446}隔海相望：哥布林的船從{area:976}東北方的{area:977}開往{area:16727}。飛往{zone:1441}的{area:484}，再向東南穿過{area:439}前往{area:976}。（如果你已經有{area:3}的{area:340}飛行路線，也可以從{area:16685}進入。）",
 	-- ["North along the coast from the port: the Eastsea raiders and bombardiers have dug in on the slopes west of the buccaneers' camp, among their powder kegs. Watch for {npc:259758} on these cliffs.\nCareful: the Eastsea Raiders are level 44-45, a level or two over you here: pull them one at a time from the edge of the slopes and keep clear of the camp behind them."] = "從港口沿海岸往北：東海劫掠者和投彈手在海盜營地西邊的山坡上、火藥桶之間紮營。在這些懸崖上注意{npc:259758}。\n小心：東海劫掠者是44-45級，比你高一兩級：從山坡邊緣一次拉一隻，並遠離他們後方的營地。",
+	-- ["North of the camps the cult works ogre miners in a mine: talk five of them into rising up against their masters.\nCareful: Twilight Enforcers (elites, level 45) walk past the mine's mouth on their way through the camps. Wait for one to pass before you go in."] = "營地北邊，教派在一座礦坑裡奴役食人魔礦工：說服其中五名起來反抗他們的主人。\n小心：暮光執行者（精英，45級）巡邏經過營地時會走過礦坑入口。等一隻走過後再進去。",
 	-- ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "再次前往海盜的懸崖。由南到北，在營地下方停泊的三艘船上安放威茲巴茲的炸藥；{quest:95124}站在中間那艘旁邊，她的戰利品箱就在旁邊。途中留意{npc:259758}。\n小心：{quest:95124}是45級，比你高一兩級：先清掉她周圍甲板上的敵人，滿血再上。",
+	-- ["The cult's camps fill the valley south and west of {npc:258570}. Free the captive Rog'mar Scouts as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. {npc:256881} and {npc:256891} (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. {npc:258023}'s Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it."] = "暮光教派的營地遍布{npc:258570}南邊和西邊的山谷。沿途遇到被俘的羅格瑪斥候就救出來。暮光執行者（精英，45級）會在營地間巡邏：每次拉怪前先看清他們的路線。{npc:256881}和{npc:256891}（精英，46級）駐守在山谷盡頭的堡壘：把教徒拉離他們身邊。{npc:258023}的聯盟營地位於山谷南端，那裡的法霍德瞭望者（46級）會攻擊部落：待在營地北邊。",
 	-- ["The next guide flies from {area:340} in the {area:3}: north out of {npc:258570}'s valley and up through {area:16685}, the way through to the {area:3}."] = "下一個指南從{area:3}的{area:340}起飛：往北離開{npc:258570}的山谷，穿過{area:16685}，那是通往{area:3}的路。",
 	-- ["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244}在港口西南方的淺水區徘徊，位於魚人海灘下方。精英{npc:257001}就在附近岸邊走動：離他遠一點。",
 	-- ["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, hides in the middle of the town."] = "在羅格瑪西邊，暮光教派佔據了農村{area:16723}。想脫離教派的狗頭人{npc:259158}躲在村子中央。",
+	-- ["free five captive Rog'mar Scouts"] = "救出五名被俘的羅格瑪斥候",
 	-- ["the {object:707249} poster"] = "{object:707249}告示",
 	-- ["{npc:255897}: {quest:95296}, for {npc:260405} at {area:977} in the {zone:1444} & {zone:1446} guide"] = "{npc:255897}：{quest:95296}，之後在{zone:1444}與{zone:1446}指南中交給{area:977}的{npc:260405}",
 	-- ["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "{npc:263190}的長矛，用在淡水鱷魚身上",

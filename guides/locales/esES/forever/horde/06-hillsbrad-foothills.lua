@@ -20,7 +20,6 @@ return {
 	-- {npc:2216} Apothecary Lydon
 	-- plural, as words: Syndicate Shadow Mages = {npc:2244} Syndicate Shadow Mage
 	["{npc:2216}: the vials come from the Syndicate Shadow Mages on the way to Durnholde"] = "{npc:2216}: los viales los sueltan los Magos oscuros de la Hermandad de camino a Durnholde",
-	-- was: ["The {object:556670} poster by the inn"] = "El cartel de {object:556670} junto a la posada"
 	["The WANTED poster by the inn"] = "",
 	-- {npc:2229} Krusk
 	["{npc:2229}, inside"] = "",

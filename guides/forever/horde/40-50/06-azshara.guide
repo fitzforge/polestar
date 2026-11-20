@@ -133,10 +133,14 @@ step Dran Droffers
   tip The Droffers' shop is a few steps further into the Drag.
   turnin 81                             -- Dran Droffers, the Drag
 
-step Orgrimmar
+step Jes'rimon
+  when available 4300
   zone Orgrimmar
-  tip Jes'rimon gives Bone-Bladed Weapons in the Cleft of Shadow. Train here before you leave; druids and paladins train at Thunder Bluff instead.
+  tip Jes'rimon gives Bone-Bladed Weapons in the Cleft of Shadow. Take it now for Un'Goro.
   accept 4300
+
+step Orgrimmar class trainer
+  zone Orgrimmar
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
 # ---------------------------------------------------------------- To Azshara
@@ -170,9 +174,17 @@ step Loh'atu
 step Valormok
   tip Follow the road north to Valormok, the Horde camp.
   getfp "Valormok"
+  talk 8610                           -- Kroum: open the flight map to see which tickets he offers
+
+# Record the copper at the flight master, not after paying him. This check ends at the very next step.
+step Kroum's fare
+  label kroum-fare
+  along until march-flight
+  money 8s30c
 
 step Fly to Orgrimmar for March of the Silithid
-  when zone "Azshara"
+  label march-flight
+  when done kroum-fare
   when level>=50
   when available 4494
   when taxi "Orgrimmar"
@@ -180,18 +192,28 @@ step Fly to Orgrimmar for March of the Silithid
   goto 22.0,49.7 "Valormok flight master"
   fly "Orgrimmar"
   zone Orgrimmar
+  enter "Orgrimmar"
 
 step Fly to Orgrimmar for Bone-Bladed Weapons
-  when zone "Azshara"
+  when done kroum-fare
+  when taxi "Orgrimmar"
   when available 4300
   when !available 4494
-  when taxi "Orgrimmar"
   zone Azshara
   goto 22.0,49.7 "Valormok flight master"
   fly "Orgrimmar"
   zone Orgrimmar
+  enter "Orgrimmar"
 
 # ---------------------------------------------------------------- Orgrimmar
+
+step Class training before Thunder Bluff
+  only Rogue,Warlock
+  when level>=50
+  when !zone "Orgrimmar"
+  zone Orgrimmar
+  tip Thunder Bluff has no trainer for your class. Take Kroum's Orgrimmar flight if offered and affordable. Otherwise return through Ashenvale to the Barrens, cross the bridge at Far Watch Post and ride north from Razor Hill. If you already trained at this level before using the guide, skip this stop.
+  train class
 
 step Orgrimmar
   when zone "Orgrimmar"
@@ -203,6 +225,7 @@ step Orgrimmar
 step Zilzibin Drumlore
   when zone "Orgrimmar"
   when level>=50
+  when available 4494
   zone Orgrimmar
   tip If you reached 50 in Azshara, take March of the Silithid here for Gadgetzan. If it is not available yet, your later Orgrimmar visit offers it again.
   accept 4494
@@ -214,31 +237,40 @@ step Orgrimmar
 
 # ---------------------------------------------------------------- Thunder Bluff
 
-step Fly from Valormok to Thunder Bluff
-  when zone "Azshara"
-  when taxi "Thunder Bluff"
-  zone Azshara
-  goto 22.0,49.7 "Valormok flight master"
-  fly "Thunder Bluff"
-  zone Thunder Bluff
-
-step Fly to Thunder Bluff
+step Doras in Orgrimmar
   when zone "Orgrimmar"
   when taxi "Thunder Bluff"
+  when money>=50c
   zone Orgrimmar
-  goto 45.3,63.8 "Orgrimmar flight master"
+  talk 3310                           -- Doras: open the flight map before paying
+
+# Kroum charges 8s30c. A player who reached Orgrimmar on the ground can take Doras's 50c ticket instead.
+# This is a fare check, not an instruction to earn money or visit Orgrimmar. It ends before the flight.
+step Thunder Bluff fare
+  label bluff-fare
+  along until bluff-flight
+  money 50c
+  money 8s30c either
+  enter "Orgrimmar" either
+
+step Fly to Thunder Bluff
+  label bluff-flight
+  when done bluff-fare
+  when taxi "Thunder Bluff"
   fly "Thunder Bluff"
+  zone Thunder Bluff
+  enter "Thunder Bluff"
 
 step Thunder Bluff
   zone Thunder Bluff
-  tip If Thunder Bluff is not on your flight map, use Camp Taurajo if the flight master offers it. From Taurajo ride west into Mulgore, then north past Bloodhoof Village to the lifts. Visit Pala at the inn, then Hamuul on Elder Rise.
+  tip Without a Thunder Bluff ticket, fly to Camp Taurajo if offered and affordable, or follow the Barrens road there. Ride west into Mulgore, then north past Bloodhoof Village to the lifts. Visit Pala at the inn, then Hamuul on Elder Rise.
   accept 3762                           -- Innkeeper Pala, at the inn: for Hamuul
   turnin 3762                           -- Arch Druid Hamuul Runetotem, on the Elder Rise
   accept 3761
 
 step Thunder Bluff
   zone Thunder Bluff
-  train class only Druid,Paladin
+  train class only Warrior,Hunter,Priest,Shaman,Mage,Druid,Paladin
   note Un'Goro Soil is gathered in the next guide.
 
 step Fly to Camp Mojache

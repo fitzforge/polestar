@@ -201,7 +201,6 @@ return {
 	["{area:340} is built into the cliffs on the {zone:1418}' west edge."] = "{area:340} está construida en los acantilados del borde oeste de {zone:1418}.",
 
 	-- Step 41: The WANTED poster
-	-- was: ["The {object:164867} poster"] = "El cartel de {object:164867}"
 	["The WANTED poster"] = "El cartel de SE BUSCA",
 	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {area:340} Kargath
 	-- was: ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "Para tu recorrido por {area:1584}, lo siguiente, de paso por {area:254}: el cartel de {object:164867} en {area:340} quiere que diezmes a los enanos Anvilrage de adentro."

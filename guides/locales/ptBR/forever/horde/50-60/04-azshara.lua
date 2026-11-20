@@ -57,89 +57,102 @@ return {
 	["Fly to {area:1237}"] = "Voe para {area:1237}",
 	["Crossroads flight master"] = "Mestre de voo da Encruzilhada",
 
-	-- Step 11: The Sin'dorei Tome of Summoning
+	-- Step 11: The missing seals
+	["The missing seals"] = "",
+	-- {area:1220} Thalassian Base Camp
+	-- plural, as words: Blackmaw Thralls = {npc:250023} Blackmaw Thrall
+	["Work along the southern side of the {area:1220}. Take only the seals you still need: Hawkhelm on the southern part of his patrol, Suncrest in the middle of the camp, and Lydrea to the east. All three officers are 53.\nCareful: do not follow Hawkhelm west or north toward the elite Blackmaw Thralls. Let the officers come to you. If a Thunderhead patrol cuts you off on the cliffs, leave the seals in your log for later."] = "",
+
+	-- Step 12: The Sin'dorei Tome of Summoning
 	-- {npc:247449} Sin'dorei Tome of Summoning
 	["The {npc:247449}"] = "",
-	-- {area:1220} Thalassian Base Camp · {npc:250023} Blackmaw Thrall · {npc:8578} Magus Rimtori
-	["Return to the east end of the {area:1220}, keeping clear of the {npc:250023} on the west. At the Sin'dorei Tome: hand in the seals, then use it to call {npc:8578}.\nCareful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead."] = "",
+	-- {npc:8587} Jediga
+	["Hand the seals to the Sin'dorei Tome at Rimtori's camp. You can take the tome back to {npc:8587} even if you leave the Magus for later."] = "",
 
-	-- Step 12: An Explosive Gambit
-	-- {quest:91538} Sin'dorei Tome of Summoning · {npc:8587} Jediga · {area:1237} Valormok
-	["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}: para {npc:8587} em {area:1237}",
+	-- Step 13: The tome for Jediga
+	-- {npc:8587} Jediga
+	["The tome for {npc:8587}"] = "",
+	-- {npc:8587} Jediga · {area:1237} Valormok
+	-- was: ["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}: para {npc:8587} em {area:1237}"
+	["For {npc:8587} in {area:1237}"] = "",
 
-	-- Step 14: Fly to Orgrimmar
+	-- Step 14: Magus Rimtori
+	-- {npc:8578} Magus Rimtori
+	["Use the crystal to summon {npc:8578} (55). Only one of the three crystals calls him; the others summon hostile infernals."] = "",
+
+	-- Step 18: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Voe para {area:1637}",
 	-- {area:1237} Valormok
 	["No business in {area:1237}? Fly straight from the Crossroads."] = "",
 
-	-- Step 15: Fly to Orgrimmar
+	-- Step 19: Fly to Orgrimmar
 	-- {area:1237} Valormok
 	["{area:1237} flight master"] = "Mestre de voo de {area:1237}",
 
-	-- Step 16: Paladin trainer
+	-- Step 20: Paladin trainer
 	["Paladin trainer"] = "Instrutor de paladino",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
 	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} em {zone:1456}; {zone:1454} não tem instrutor de paladino",
 
-	-- Step 17: Orgrimmar
+	-- Step 21: Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Fly to {zone:1454} and train."] = "Voe para {zone:1454} e treine.",
 
-	-- Step 18: Belgrom Rockmaul and Zevrost
+	-- Step 22: Belgrom Rockmaul and Zevrost
 	-- {npc:4485} Belgrom Rockmaul · {npc:3326} Zevrost
 	["{npc:4485} and {npc:3326}"] = "",
 
-	-- Step 19: Into Durotar
+	-- Step 23: Into Durotar
 	-- {zone:1411} Durotar
 	["Into {zone:1411}"] = "Rumo a {zone:1411}",
 
-	-- Step 20: Zeppelin to Undercity
+	-- Step 24: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "Zepelim para {zone:1458}",
 
-	-- Step 21: Chemist Cuely
+	-- Step 25: Chemist Cuely
 	-- {npc:8390} Chemist Cuely · {npc:8393} Thersa Windsong
 	["{npc:8390} and {npc:8393} work in the Apothecarium."] = "{npc:8390} e {npc:8393} trabalham no Apothecarium.",
 	-- {npc:8393} Thersa Windsong
 	["{npc:8393}, beside him"] = "{npc:8393}, ao lado dele",
 
-	-- Step 22: Andron Gant
+	-- Step 26: Andron Gant
 	-- {npc:6522} Andron Gant · {object:36073} Rogues' Quarter (no name in this language: may be words)
 	["{npc:6522} stands in the {object:36073}."] = "{npc:6522} fica no {object:36073}.",
 
-	-- Step 23: The Undercity
+	-- Step 27: The Undercity
 	-- {object:36126} Royal Quarter (no name in this language: may be words)
 	["Lady Sylvanas holds the {object:36126}."] = "Lady Sylvanas fica no {object:36126}.",
 
-	-- Step 26: Jeremiah Payson
+	-- Step 30: Jeremiah Payson
 	-- {npc:8403} Jeremiah Payson
 	["{npc:8403}, nearby"] = "{npc:8403}, por perto",
 
-	-- Step 27: Jeremiah Payson
+	-- Step 31: Jeremiah Payson
 	-- {quest:5050} Good Luck Charm · {npc:10778} Janice Felstone · {zone:1422} Western Plaguelands
 	["{quest:5050} goes back to {npc:10778} in the {zone:1422}: keep it."] = "{quest:5050} volta para {npc:10778} nas {zone:1422}: guarde-a.",
 
-	-- Step 28: Royal Quarter
+	-- Step 32: Royal Quarter
 	-- {quest:79095} The Apothecary's Metaphysical Primer · {area:159} Brill
 	-- plural, as words: Library Books = {object:386691} Library Book
 	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "Só com {quest:79095}, da loja de alquimia de {area:159}, nas bolsas (o guia dos Livros da Biblioteca)",
 
-	-- Step 30: The Bulwark
+	-- Step 34: The Bulwark
 	-- {zone:1458} Undercity · {area:152} The Bulwark · {zone:1422} Western Plaguelands
 	["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "Siga a cavalo para leste, saindo da {zone:1458}, pela estrada; {area:152} guarda o caminho para {zone:1422}.",
 	-- {npc:11615} Mickey Levine · {area:2627} Terrordale
 	["{npc:11615}: the termites are in {area:2627}, on the next guide"] = "{npc:11615}: os cupins estão em {area:2627}, no próximo guia",
 
-	-- Step 32: Felstone Field
+	-- Step 36: Felstone Field
 	-- {npc:10778} Janice Felstone · {area:152} The Bulwark · {npc:11075} Cauldron Lord Bilemaw
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
 	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "A fazenda de {npc:10778} é a primeira a leste de {area:152}. Os Carniçais Grasnantes da fazenda carregam a outra metade do pingente dela; {npc:11075} guarda o caldeirão no campo.\nCuidado: um ou dois mortos-vivos costumam lutar ao lado dele, e mais mestres da caldeira podem atacar depois que você usar o caldeirão.",
 
-	-- Step 33: Janice Felstone
+	-- Step 37: Janice Felstone
 	["Upstairs"] = "No andar de cima",
 
-	-- Step 36: Level 55
+	-- Step 40: Level 55
 	["Level 55"] = "Nível 55",
 	-- {area:199} Felstone Field · {npc:11038} Caretaker Alen · {area:2268} Light's Hope Chapel · {area:1584} Blackrock Depths
 	["If you are still below 55 after the city deliveries and {area:199}, finish the level on the Diseased Wolves (53-54) east of the farm, on the road to Tirion. {npc:11038} needs level 55 at {area:2268}. Or, with a group, run the {area:1584} dungeon instead."] = "",
@@ -196,4 +209,5 @@ return {
 	-- ["{npc:8578}'s camp"] = "O acampamento da {npc:8578}",
 	-- ["{npc:8587}: the tome goes to {npc:3326} in {zone:1454}"] = "{npc:8587}: o tomo vai para {npc:3326} em {zone:1454}",
 	-- ["{quest:5050} goes back to {npc:10778} in the {area:28}: keep it."] = "{quest:5050} volta para {npc:10778} em {area:28}: guarde-a.",
+	-- ["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}: para {npc:8587} em {area:1237}",
 }

@@ -100,7 +100,6 @@ return {
 	["Level 36"] = "等级 36",
 	-- {zone:1443} Desolace
 	-- plural, as words: Drywallow Crocolisks = {npc:4341} Drywallow Crocolisk
-	-- was: ["{zone:1443}'s last quests are 36-39. Still below 36 after Brackenwall's hand-ins? The Drywallow Crocolisks (35-36) along the river east of the village are the closest at your level: kill them until level 36."] = "{zone:1443}最后的任务为36-39级。交还蕨墙村的任务后还不到36级？村庄东边河边的尘泥鳄鱼（35-36级）是离你最近的同等级怪物：杀到36级为止。"
 	["{zone:1443}'s last quests are 36-39. Still below 36 after Brackenwall's hand-ins? The Drywallow Crocolisks (35-36) along the river east of the village are the closest at your level: kill them until level 36."] = "{zone:1443}最后的任务为36-39级。交还蕨墙村的任务后还不到36级？村庄东边河边的尘泥鳄鱼（35-36级）是离你最近的同等级怪物：杀到36级为止。",
 	-- plural, as words: Drywallow Crocolisks = {npc:4341} Drywallow Crocolisk
 	["Drywallow Crocolisks"] = "尘泥鳄鱼",
@@ -208,7 +207,6 @@ return {
 	["The {area:2657}"] = "{area:2657}",
 	-- {area:2657} Valley of Bones · {zone:1443} Desolace · {item:15848} Crate of Ghost Magnets
 	-- plural, as words: Undead Ravagers = {npc:11561} Undead Ravager · Magrami Spectres = {npc:11560} Magrami Spectre · Magram Necrokhans = {npc:253274} Magram Necrokhan
-	-- was: ["South-east of the coven, the bone fields of the {area:2657}, where Undead Ravagers roam, at {zone:1443}'s southern edge: keep south of the Magram's village on the way. Use the {item:15848} at the arrow to draw the Magrami Spectres (38-39): they come in numbers, so fight them with your back to the valley's edge. They drop the ghost-o-plasm.\nCareful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields just west of the arrow, well above you: use the crate at the arrow, on the valley's eastern side, and pull the spectres away from them."] = "集会所东南方是{area:2657}的白骨荒地，那里有亡灵劫掠者游荡，位于{zone:1443}的南缘：途中要绕到玛格拉姆村以南。在箭头处使用{item:15848}引来玛格拉姆鬼魂（38-39级）：它们成群而来，所以背靠山谷边缘作战。它们会掉落幽灵电浆。\n小心：玛格拉姆死灵可汗和玛格拉姆食尸者（45级，精英）在箭头正西边的白骨荒地上走动，等级远高于你：在山谷东侧的箭头处使用箱子，并把鬼魂从它们身边引开。"
 	["South-east of the coven, the bone fields of the {area:2657}, where Undead Ravagers roam, at {zone:1443}'s southern edge: keep south of the Magram's village on the way. Use the {item:15848} at the arrow to draw the Magrami Spectres (38-39): they come in numbers, so fight them with your back to the valley's edge. They drop the ghost-o-plasm.\nCareful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields just west of the arrow, well above you: use the crate at the arrow, on the valley's eastern side, and pull the spectres away from them."] = "集会所东南方是{area:2657}的白骨荒地，那里有亡灵劫掠者游荡，位于{zone:1443}的南缘：途中要绕到玛格拉姆村以南。在箭头处使用{item:15848}引来玛格拉姆鬼魂（38-39级）：它们成群而来，所以背靠山谷边缘作战。它们会掉落幽灵电浆。\n小心：玛格拉姆死灵可汗和玛格拉姆食尸者（45级，精英）在箭头正西边的白骨荒地上走动，等级远高于你：在山谷东侧的箭头处使用箱子，并把鬼魂从它们身边引开。",
 
 	-- Step 49: Hornizz Brimbuzzle

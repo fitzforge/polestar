@@ -67,6 +67,13 @@ step Fly to Freewind Post
   tip The Riverglades lie across the sea from Tanaris: a goblin boat sails from Steamwheedle Port, north-east of Gadgetzan, to Powderfuse Port. Fly to Freewind Post in Thousand Needles and head south-east through the Shimmering Flats to Gadgetzan. (If you already know Kargath in the Badlands, the way in through Twilight's Shroud works too.)
   fly "Freewind Post"
 
+step Through the Shimmering Flats
+  when !taxi "Kargath"
+  when zone "Thousand Needles"
+  zone Tanaris
+  tip Take the lift down from Freewind Post. Follow the road south-east across the Shimmering Flats, then south through the pass. Gadgetzan is just inside Tanaris.
+  enter "Tanaris" @51.57,25.54 live
+
 step Gadgetzan
   when zone "Tanaris"
   when !subzone "Steamwheedle Port"
@@ -590,10 +597,21 @@ step Friz Frazzlespark
   turnin 95288
 
 step Before the Eastsea camp
+  when level<41.9
+  when onquest 95119,95288
+  tip The musketeers reach 43. At 41, Shore Crawlers (39–40) still give XP on the beach south-west of 81.21,46.52. Stay out of the pirate camp and watch for Gul'gash, the rare elite. Skip this step if the gap is large; the first camp north of Powderfuse can wait until 42.
+  tip At 40–41, Jungle Stalkers count if you still have Raptor Mastery in Stranglethorn. For work in Kalimdor, the port boat sails to Steamwheedle.
+  tip Or, with a group, run the Scarlet Monastery dungeon (Armory) instead.
+  level 42
+
+step Finish 41 on the beach
+  when level>=41.9
   when level<42
   when onquest 95119,95288
-  tip The Eastsea Musketeers reach 43. Leave the camp for now. At 40 or 41, if Raptor Mastery is still in your log, the Jungle Stalkers west of the Venture Co. mine in Stranglethorn are 40-41. At 42 resume on the beach north of Powderfuse Port for the buccaneers and musketeers.
-  level 42
+  tip Nearly 42? Take the Shore Crawlers (39–40) on the strip of sand north of the docks. Pull from the south-west side of the marked crab; the musketeers to its east reach 43. Watch for Gul'gash (49, rare elite) coming down the coast and give him room. At 42 move north to the first Eastsea camp.
+  tip Or, with a group, run the Scarlet Monastery dungeon (Armory) instead.
+  goto 81.21,46.52 map 2548 "Shore Crawler"
+  level 42                              -- Hunt Shore Crawlers on the marked beach, or earn the remaining XP elsewhere.
 
 step The Eastsea pirates
   when level>=42
@@ -677,10 +695,21 @@ step Wharfmaster Whizzbuzz: Admiral Lamora
   turnin 95124
 
 step Before the raiders
+  when level<43.9
+  when onquest 95122,95123,95293,95165,95124,95261
+  tip The raiders and Admiral Lamora reach 45. At 43 you can pull a few Eastsea Buccaneers (41–42) at the southern edge of the first camp, around 81.72,45.37. Watch for Gul'gash, the rare elite. Don't grind a whole level here: skip the step to pass the cliffs and ships, or return to the north pier at 44.
+  tip At 42–43, if you still have Keep An Eye Out or Up to Snuff, the Bloodsail Swashbucklers (41–43) on the outer shore east of Booty Bay's tunnel count. Stay ashore. If your work is in Tanaris instead, take the boat to Steamwheedle Port.
+  tip Or, with a group, run the Uldaman dungeon instead.
+  level 44
+
+step Finish 43 at the first camp
+  when level>=43.9
   when level<44
   when onquest 95122,95123,95293,95165,95124,95261
-  tip The raiders and Admiral Lamora reach 45. Pause here at Wharfmaster Whizzbuzz on the north pier. At 42-43, if you still have Keep An Eye Out or Up to Snuff, the pirates on the Wild Shore south of Booty Bay count; stay on the beach, not the ships. If those are already done, don't make that trip. At 44 resume here for the raiders on the cliffs. You don't need to farm the first camp.
-  level 44
+  tip Nearly 44? Return to the first Eastsea camp north of the docks. Pull the level 41–42 Buccaneers from its southern edge; the Musketeers here reach 43. Let Gul'gash (49, rare elite) pass. Leave the raiders and their powder kegs uphill until 44, then follow the cliffs to the second camp.
+  tip Or, with a group, run the Uldaman dungeon instead.
+  goto 81.72,45.37 map 2548 "Eastsea Buccaneer"
+  level 44                              -- Hunt Eastsea Buccaneers at the edge of the first camp, or earn the remaining XP elsewhere.
 
 step The pirates' second wave
   when level>=44
@@ -802,64 +831,138 @@ step Neza Bloodsnout
   when onquest 95882
   turnin 95882
 
+step Grakna at Rog'mar
+  when zone "Riverglades"
+  when !onquest 94744
+  when !turnedin 94744
+  when taxi "Kargath"
+  tip Without Chogg'Zac the ogre trail ends here. Return to Rog'mar by road, or hearth if you're bound there. Grakna stands in the middle of the fort; take her flight to Kargath for the next guide.
+  talk 255993 @59.51,45.01 map 2548  -- Grakna, the Rog'mar flight master
+
 step Fly to Kargath
   when !onquest 94744
   when !turnedin 94744
   when taxi "Kargath"
-  tip The rest of this guide is Da'grosh's camp in the west, which waits on Chogg'Zac: without him the Riverglades end here. Back to Rog'mar from the port, where your Hearthstone is set: Grakna, the wind rider master in the middle of the fort, flies to Kargath in the Badlands, where the next guide starts.
+  tip Fly to Kargath in the Badlands, where the next guide starts.
   fly "Kargath"
 
+step Da'grosh's delivery on the way out
+  along until west-exit
+  when level<43
+  when onquest 94744
+  turnin 94744
+
+step Crag'rog's delivery on the way out
+  along until west-exit
+  when level<43
+  when onquest 95431
+  turnin 95431
+
+step Da'grosh's cultist bounty
+  along until west-exit
+  when complete 94745
+  turnin 94745
+
+step Da'grosh's scout reward
+  along until west-exit
+  when complete 94748
+  turnin 94748
+
+step Crag'rog's miner reward
+  along until west-exit
+  when complete 95432
+  turnin 95432
+
+step Da'grosh's reward for Kilgar
+  along until west-exit
+  when complete 94768
+  turnin 94768
+
 step Da'grosh
+  when level>=43
   when onquest 94744
   tip West from Rog'mar through Sunnyglade and on up the valley towards Twilight's Shroud: Da'grosh, Krom'rosh's wayward warrior, keeps a camp in the hills below the Twilight cult's fortress.
   turnin 94744                          -- Da'grosh
+
+step Da'grosh's valley quests
+  when level>=43
+  when turnedin 94744
   accept 95431                          -- Rumblings of Discontent
   accept 94745                          -- Carving a Path
   accept 94748                          -- Break Their Chains
 
 step Crag'rog
+  when level>=43
   when onquest 95431
   tip Crag'rog, a Bolder'ok ogre, hides in the cave west of Da'grosh's camp.
   turnin 95431                          -- Crag'rog
+
+step Crag'rog's miners
+  when level>=43
+  when turnedin 95431
   accept 95432                          -- Rise Up!
 
-step The Twilight camps
-  when onquest 94745,94748
-  tip The cult's camps fill the valley south and west of Da'grosh. Free the captive Rog'mar Scouts as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. Overlord Kilgar and Executioner Morg (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. Sergeant Riftan's Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it.
-  kill 256795 x8 quest 94745.1          -- Twilight Fanatic
-  kill 256797 x8 quest 94745.2          -- Twilight Corrupter
-  kill 256799 x8 quest 94745.3          -- Twilight Champion
-  complete 94748 @29.4,40.5             -- free five captive Rog'mar Scouts
-
 step The ogre mine
+  when level>=43
   when onquest 95432
-  tip North of the camps the cult works ogre miners in a mine: talk five of them into rising up against their masters.
-  tip Careful: Twilight Enforcers (elites, level 45) walk past the mine's mouth on their way through the camps. Wait for one to pass before you go in.
-  complete 95432 @26.9,34.9             -- recruit five Ogre Miners
+  when !complete 95432
+  tip North of Crag'rog, talk five Ogre Miners into rising up. The Subjugators aren't quest targets. Champions guard the approach, and elite Twilight Enforcers (45) patrol the mine mouth: wait for them to pass.
+  complete 95432 @26.48,33.27           -- recruit five Ogre Miners
 
 step Crag'rog
-  when onquest 95432
+  when level>=43
+  when complete 95432
   turnin 95432
 
+step The captive scouts
+  when level>=43
+  when onquest 94748
+  when !complete 94748
+  tip Free five Rog'mar Scouts in the camps south of the cave. Champions reach 44 and elite Twilight Enforcers (45) patrol among the cages. Leave a captive until the patrol moves on. Keep north of Sergeant Riftan's level-46 Alliance Lookouts.
+  complete 94748 @29.46,40.49
+
+step The Twilight camps
+  when level>=43
+  when onquest 94745
+  when !complete 94745
+  tip Work the Corrupters below the mine and the Fanatics and Champions on the eastern edge, south of Da'grosh. Pull single cultists away from the tents. Avoid the level-45 elite Twilight Enforcers and the fortress where Executioner Morg and Overlord Kilgar (both 46, elite) patrol.
+  kill 256797 x8 quest 94745.2 @29.61,37.21  -- Twilight Corrupter
+  kill 256795 x8 quest 94745.1 @33.67,41.47  -- Twilight Fanatic
+  kill 256799 x8 quest 94745.3 @33.57,41.49  -- Twilight Champion
+
 step Da'grosh
-  when onquest 94745,94748
+  when level>=43
+  when complete 94745
   turnin 94745
+
+step Da'grosh
+  when level>=43
+  when complete 94748
   turnin 94748
 
 step Bring Me His Head
-  when group 94768
+  when level>=43
   when turnedin 94745
+  when turnedin 94748
+  when !complete 94768
+  when group 94768
   tip Overlord Kilgar is an elite (level 46) in the fortress at the head of the valley, with the Enforcers around him: grouping up is advised.
   accept 94768                          -- Da'grosh
   collect 265837 quest 94768.1 @26.1,43.9  -- Kilgar's Head
+
+step Da'grosh
+  when level>=43
+  when complete 94768
   turnin 94768
 
 step Twilight's Shroud
   when !zone "Badlands"
   tip The next guide flies from Kargath in the Badlands: up through Twilight's Shroud, the pass at the valley's north-west end, just north of Da'grosh's camp. Coming from Rog'mar, ride west through Sunnyglade and keep north of the Twilight camps below the pass.
+  tip Below 43 with Da'grosh's or Crag'rog's work? If you are already at their camp, hand in what you have finished. Otherwise keep the quests and stay north of the camps. Continue from Kargath with Feralas & Tanaris, or return at 43 and reopen Da'grosh west of Sunnyglade.
   goto 32.0,29.9 "Twilight's Shroud"
 
 step Kargath
+  label west-exit
   tip Across the Badlands to Kargath, the Horde fortress built into the cliffs at the zone's western edge: its flight master stands at the foot of the fortress.
   enter "Badlands"
   zone Badlands

@@ -122,12 +122,12 @@ return {
 	["Rimtori's camp is at the east end of the base camp. Read the {object:151286} there: on Forever the Sin'dorei Tome beside it then asks for the seals of the camp's three officers."] = "림토리의 야영지는 주둔지 동쪽 끝에 있습니다. 그곳의 {object:151286}을(를) 읽으세요. Forever에서는 그 옆의 신도레이 고서가 야영지 장교 세 명의 인장을 요구합니다.",
 
 	-- Step 25: Seals of the Sin'dorei
-	-- {npc:247006} Lieutenant Suncrest · {npc:247013} Ranger Lydrea · {npc:246991} Magister Hawkhelm · {npc:250023} Blackmaw Thrall
-	["Each of the camp's three officers (53) carries a seal: {npc:247006} in the middle of the camp, {npc:247013} at its eastern end, and {npc:246991}, who walks its western half: take him on the east side of his walk, where the arrow points.\nCareful: the {npc:250023}, a level 55-57 elite, stands at the camp's western edge, close to the far end of Hawkhelm's walk: wait for Hawkhelm to come back east."] = "야영지의 장교 세 명(53)이 각각 인장을 지니고 있습니다. {npc:247006}은(는) 야영지 중앙에, {npc:247013}은(는) 동쪽 끝에 있으며, {npc:246991}은(는) 서쪽 절반을 돌아다닙니다. 화살표가 가리키는 순찰 경로의 동쪽에서 처치하세요.\n주의: 55-57레벨 정예인 {npc:250023}이(가) 야영지 서쪽 가장자리, 호크헬름 순찰 경로의 반대쪽 끝 근처에 서 있습니다. 호크헬름이 다시 동쪽으로 올 때까지 기다리세요.",
-	-- {item:246725} Seal of the Warden · {npc:247006} Lieutenant Suncrest
-	["{item:246725}, from {npc:247006}"] = "{npc:247006}에게서 얻는 {item:246725}",
+	-- {npc:246991} Magister Hawkhelm · {npc:247006} Lieutenant Suncrest · {npc:247013} Ranger Lydrea · {npc:250023} Blackmaw Thrall
+	["From the tome, take {npc:246991} on the southern part of his patrol. Work east to {npc:247006} and then {npc:247013}. Each officer is level 53 and carries a different seal.\nCareful: the {npc:250023}, a level 55-57 elite, stands at the camp's western edge, close to the far end of Hawkhelm's walk: wait for Hawkhelm to come back east."] = "",
 	-- {item:246721} Seal of the Warrior · {npc:246991} Magister Hawkhelm
 	["{item:246721}, from {npc:246991}"] = "{npc:246991}에게서 얻는 {item:246721}",
+	-- {item:246725} Seal of the Warden · {npc:247006} Lieutenant Suncrest
+	["{item:246725}, from {npc:247006}"] = "{npc:247006}에게서 얻는 {item:246725}",
 	-- {item:246722} Seal of the Ranger · {npc:247013} Ranger Lydrea
 	["{item:246722}, from {npc:247013}"] = "{npc:247013}에게서 얻는 {item:246722}",
 
@@ -311,6 +311,7 @@ return {
 	-- ["Cross the river east into {area:2627}, the ruined town in the north-west of the {zone:1423}. {npc:12384} sits in a hut at its edge."] = "강을 건너 동쪽의 {area:2627}(으)로 가세요. {zone:1423} 북서쪽의 폐허가 된 마을입니다. {npc:12384}은(는) 마을 가장자리의 오두막에 앉아 있습니다.",
 	-- ["Derrington's watchtowers, Vandis' cauldron and {npc:11615}'s barrel are done on a later visit: keep them."] = "데링턴의 감시탑, 반디스의 가마솥, {npc:11615}의 통은 나중에 들를 때 처리합니다. 보관하세요.",
 	-- ["Diseased Grizzlies"] = "오염된 불곰",
+	-- ["Each of the camp's three officers (53) carries a seal: {npc:247006} in the middle of the camp, {npc:247013} at its eastern end, and {npc:246991}, who walks its western half: take him on the east side of his walk, where the arrow points.\nCareful: the {npc:250023}, a level 55-57 elite, stands at the camp's western edge, close to the far end of Hawkhelm's walk: wait for Hawkhelm to come back east."] = "야영지의 장교 세 명(53)이 각각 인장을 지니고 있습니다. {npc:247006}은(는) 야영지 중앙에, {npc:247013}은(는) 동쪽 끝에 있으며, {npc:246991}은(는) 서쪽 절반을 돌아다닙니다. 화살표가 가리키는 순찰 경로의 동쪽에서 처치하세요.\n주의: 55-57레벨 정예인 {npc:250023}이(가) 야영지 서쪽 가장자리, 호크헬름 순찰 경로의 반대쪽 끝 근처에 서 있습니다. 호크헬름이 다시 동쪽으로 올 때까지 기다리세요.",
 	-- ["Fly to the {area:1497}"] = "{area:1497}(으)로 날아가기",
 	-- ["Fly to {area:272}"] = "{area:272}(으)로 날아가기",
 	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo, and their organs are {npc:10920}'s.\n{area:1762}'s Deadwood Den Watchers (53-54) and Avengers (54-55) are next: below level 54, keep hunting the grizzlies and ravagers (51-52) here until 54. The hand-ins at {area:1769}, the {area:2479} and {area:1997} that follow take you most of the way to 55. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "길을 따라 북동쪽의 {area:1767}(으)로 가세요. 숲 동쪽의 굽이나무 이끼늪괴물과 갈퀴늪괴물은 각각 {item:11503}을(를) 지니고 있습니다. 같은 숲에서 탈로를 위해 성난발톱불곰과 갈퀴발톱 악령발늑대를 처치하세요. 이들의 장기는 {npc:10920}에게 필요합니다.\n다음은 {area:1762}의 마른가지일족 보초(53-54)와 복수자(54-55)입니다. 54레벨 미만이라면 54레벨이 될 때까지 이곳에서 불곰과 악령발늑대(51-52)를 계속 사냥하세요. 이어지는 {area:1769}, {area:2479}, {area:1997}에서의 제출로 55레벨 가까이 오릅니다. 또는 파티가 있다면 대신 {area:1417} 던전이나 {area:1584} 던전을 도세요.",

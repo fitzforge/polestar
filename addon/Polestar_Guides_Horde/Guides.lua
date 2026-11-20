@@ -7961,6 +7961,9 @@ do
 			{ npc = 256657, npcName = "Kreza Darkthorn", map = 2548, x = 59.82, y = 45.98, faction = "H" },
 			{ npc = 259766, npcName = "Mika Darby", map = 2548, x = 77.72, y = 51.92, faction = "AH" },
 		}
+		local candidateLists = {
+			{ { npc = 3043, npcName = "Ker Ragetotem", map = 1456, x = 57.76, y = 85.4, z = 159.1, faction = "H", classes = { "WARRIOR" } }, { npc = 3036, npcName = "Kym Wildmane", map = 1456, x = 76.89, y = 29.93, z = 159.1, faction = "H", classes = { "DRUID" } }, { npc = 3040, npcName = "Urek Thunderhorn", map = 1456, x = 58.81, y = 86.69, z = 159.1, faction = "H", classes = { "HUNTER" } }, { npc = 3046, npcName = "Father Cobb", map = 1456, x = 25.64, y = 20.7, z = 102.3, f = "e", faction = "H", classes = { "PRIEST" } }, { npc = 3049, npcName = "Thurston Xane", map = 1456, x = 25.14, y = 21.03, z = 101.8, faction = "H", classes = { "MAGE" } }, { npc = 3030, npcName = "Siln Skychaser", map = 1456, x = 23.09, y = 20.81, z = 138.1, faction = "H", classes = { "SHAMAN" } }, { npc = 246344, npcName = "Alodan the Hopeful", map = 1456, x = 25.08, y = 14.54, z = 97.4, faction = "H", classes = { "PALADIN" } }, { npc = 262558, npcName = "Palah Thunderhoof", map = 1412, x = 33.57, y = 22.37, z = 187.2, faction = "H", classes = { "SHAMAN" } }, { npc = 262560, npcName = "Hana Lighthoof", map = 1412, x = 33.39, y = 22.17, z = 187.2, faction = "H", classes = { "DRUID" } }, { npc = 3065, npcName = "Yaw Sharpmane", map = 1412, x = 46.83, y = 59.64, z = -4.5, faction = "H", classes = { "HUNTER" } }, { npc = 3066, npcName = "Narm Skychaser", map = 1412, x = 47.39, y = 62.6, z = -5.4, faction = "H", classes = { "SHAMAN" } }, { npc = 3064, npcName = "Gennia Runetotem", map = 1412, x = 47.43, y = 62.9, z = -5.4, faction = "H", classes = { "DRUID" } }, { npc = 3063, npcName = "Krang Stonehoof", map = 1412, x = 48.27, y = 63.68, z = -9, faction = "H", classes = { "WARRIOR" } }, { npc = 3061, npcName = "Lanka Farshot", map = 1412, x = 43.9, y = 76.34, z = 55, faction = "H", classes = { "HUNTER" } }, { npc = 3059, npcName = "Harutt Thunderhorn", map = 1412, x = 43.72, y = 76.76, z = 54.9, faction = "H", classes = { "WARRIOR" } }, { npc = 3060, npcName = "Gart Mistrunner", map = 1412, x = 44.61, y = 76.62, z = 54.1, faction = "H", classes = { "DRUID" } }, { npc = 3062, npcName = "Meela Dawnstrider", map = 1412, x = 44.58, y = 76.64, z = 54, faction = "H", classes = { "SHAMAN" } }, { npc = 8142, npcName = "Jannos Lighthoof", map = 1444, x = 75.98, y = 42.3, z = 34.2, faction = "H", classes = { "DRUID" } }, { npc = 3157, npcName = "Shikrik", map = 1411, x = 42.38, y = 68.9, z = 38.4, faction = "H", classes = { "SHAMAN" } }, { npc = 3707, npcName = "Ken'jai", map = 1411, x = 42.38, y = 68.8, z = 38.3, faction = "H", classes = { "PRIEST" } }, { npc = 5884, npcName = "Mai'ah", map = 1411, x = 42.49, y = 68.97, z = 38.3, faction = "H", classes = { "MAGE" } }, { npc = 3154, npcName = "Jen'shan", map = 1411, x = 42.78, y = 69.2, z = 38.4, faction = "H", classes = { "HUNTER" } }, { npc = 3153, npcName = "Frang", map = 1411, x = 42.84, y = 69.41, z = 38.6, faction = "H", classes = { "WARRIOR" } }, { npc = 3171, npcName = "Thotar", map = 1411, x = 51.82, y = 43.51, z = 11.7, faction = "H", classes = { "HUNTER" } }, { npc = 5880, npcName = "Un'Thuwa", map = 1411, x = 56.22, y = 75.08, z = 21.1, faction = "H", classes = { "MAGE" } }, { npc = 6018, npcName = "Ur'kyo", map = 1454, x = 35.49, y = 87.79, z = 44.1, faction = "H", classes = { "PRIEST" } }, { npc = 5885, npcName = "Deino", map = 1454, x = 38.34, y = 86.06, z = 43, faction = "H", classes = { "MAGE" } }, { npc = 3706, npcName = "Tai'jin", map = 1411, x = 54.17, y = 42.97, z = 10.6, faction = "H", classes = { "PRIEST" } }, { npc = 3169, npcName = "Tarshaw Jaggedscar", map = 1411, x = 54.12, y = 42.42, z = 9.7, faction = "H", classes = { "WARRIOR" } }, { npc = 3173, npcName = "Swart", map = 1411, x = 54.36, y = 42.68, z = 10.6, faction = "H", classes = { "SHAMAN" } }, { npc = 3403, npcName = "Sian'tsu", map = 1454, x = 37.65, y = 36.6, z = 42.2, faction = "H", classes = { "SHAMAN" } }, { npc = 3352, npcName = "Ormak Grimshot", map = 1454, x = 66.07, y = 18.36, z = 58.8, faction = "H", classes = { "HUNTER" } }, { npc = 3353, npcName = "Grezz Ragefist", map = 1454, x = 79.6, y = 31.34, z = 55.9, faction = "H", classes = { "WARRIOR" } }, { npc = 12042, npcName = "Loganaar", map = 1450, x = 52.3, y = 40.51, z = 486.9, faction = "AH", classes = { "DRUID" } }, { npc = 2119, npcName = "Dannal Stern", map = 1420, x = 32.69, y = 65.56, z = 94.9, f = "e", faction = "H", classes = { "WARRIOR" } }, { npc = 2123, npcName = "Dark Cleric Duesten", map = 1420, x = 31.03, y = 66.11, z = 97, faction = "H", classes = { "PRIEST" } }, { npc = 2124, npcName = "Isabella", map = 1420, x = 30.9, y = 66.08, z = 97, faction = "H", classes = { "MAGE" } }, { npc = 2128, npcName = "Cain Firesong", map = 1420, x = 61.89, y = 52.45, z = 41.2, faction = "H", classes = { "MAGE" } }, { npc = 2129, npcName = "Dark Cleric Beryl", map = 1420, x = 61.57, y = 52.07, z = 41.2, faction = "H", classes = { "PRIEST" } }, { npc = 2131, npcName = "Austil de Mon", map = 1420, x = 61.78, y = 52.63, z = 33.7, faction = "H", classes = { "WARRIOR" } }, { npc = 244808, npcName = "Aramis Hammerhand", map = 1420, x = 30.99, y = 66.33, z = 97, faction = "H", classes = { "PALADIN" } }, { npc = 246152, npcName = "Shari Stilwell", map = 1420, x = 60.18, y = 52.57, z = 35.2, faction = "H", classes = { "PALADIN" } }, { npc = 246389, npcName = "Hilda the Breaker", map = 1420, x = 21.84, y = 47.15, z = 134.5, faction = "H", classes = { "PALADIN" } }, { npc = 1404, npcName = "Kragg", map = 1434, x = 31.25, y = 28.62, z = 2.4, faction = "H", classes = { "HUNTER" } }, { npc = 985, npcName = "Malosh", map = 1435, x = 44.9, y = 57.4, z = 21.2, faction = "H", classes = { "WARRIOR" } }, { npc = 986, npcName = "Haromm", map = 1435, x = 48.19, y = 57.94, z = 20.9, f = "e", faction = "H", classes = { "SHAMAN" } }, { npc = 987, npcName = "Ogromm", map = 1435, x = 47.14, y = 53.35, z = 20.4, faction = "H", classes = { "HUNTER" } }, { npc = 4566, npcName = "Kaelystia Hatebringer", map = 1458, x = 85.07, y = 14.36, z = -61.4, faction = "H", classes = { "MAGE" } }, { npc = 4593, npcName = "Christoph Walker", map = 1458, x = 46.98, y = 15.5, z = -57.1, faction = "H", classes = { "WARRIOR" } }, { npc = 4606, npcName = "Aelthalyste", map = 1458, x = 49.03, y = 18.27, z = -57.1, faction = "H", classes = { "PRIEST" } }, { npc = 260093, npcName = "Garen Largo", map = 1458, x = 47.36, y = 15.19, z = -57.1, faction = "H", classes = { "PALADIN" } }, { npc = 251373, npcName = "Xyton Silverwind", map = 2521, x = 41.65, y = 23.34, z = 980.9, faction = "AH", classes = { "DRUID" } }, { npc = 251374, npcName = "Windshaper Boro", map = 2521, x = 42.71, y = 23.56, z = 976.8, faction = "H", classes = { "SHAMAN" } }, { npc = 251376, npcName = "Tai'ree Farsight", map = 2521, x = 42.4, y = 23.78, z = 976.8, faction = "AH", classes = { "HUNTER" } }, { npc = 251964, npcName = "Blademaster Ren", map = 2521, x = 43.6, y = 24.2, z = 983, faction = "AH", classes = { "WARRIOR" } }, { npc = 252359, npcName = "Lotheluum Starbreeze", map = 2521, x = 63.93, y = 75.06, z = 691.4, faction = "AH", classes = { "DRUID" } }, { npc = 252373, npcName = "Anathamaas Aetherwind", map = 2521, x = 65.91, y = 80.57, z = 658.8, faction = "AH", classes = { "MAGE" } }, { npc = 252377, npcName = "Seena Skybreaker", map = 2521, x = 59.82, y = 72.85, z = 675.3, faction = "AH", classes = { "WARRIOR" } }, { npc = 252382, npcName = "Sessaria Skystride", map = 2521, x = 58.23, y = 78.57, z = 656.8, faction = "H", classes = { "SHAMAN" } }, { npc = 252389, npcName = "Quel'ana Quickgale", map = 2521, x = 59.58, y = 72.6, z = 675.3, faction = "AH", classes = { "HUNTER" } }, { npc = 254081, npcName = "Naeluna Swiftmend", map = 2521, x = 45.14, y = 44.29, z = 827.3, faction = "AH", classes = { "DRUID" } }, { npc = 254082, npcName = "Aarnor Galestrike", map = 2521, x = 43.45, y = 44.81, z = 823.8, faction = "H", classes = { "SHAMAN" } }, { npc = 254084, npcName = "Elayaa Easewind", map = 2521, x = 45.2, y = 44.28, z = 827.3, faction = "AH", classes = { "HUNTER" } }, { npc = 254086, npcName = "Shenaan Spellwind", map = 2521, x = 45.03, y = 45.79, z = 827.3, faction = "AH", classes = { "MAGE" } }, { npc = 254088, npcName = "Corsan Earthrazer", map = 2521, x = 44.86, y = 45.13, z = 827.3, faction = "AH", classes = { "WARRIOR" } } },
+		}
 		Polestar.RegisterGuide({
 			id = "forever/horde/07-ashenvale",
 			pack = "guides",
@@ -8336,7 +8339,7 @@ do
 					goals = {
 						{ t = "turnin", quest = 96260, title = "Stronger than Steel", npc = 264072, npcName = "Yorn Grimtotem", map = 1412, x = 32.43, y = 20.03, z = 188.6 },
 						{ t = "turnin", quest = 96241, title = "Talkin' bout Toxins, Mon", npc = 264074, npcName = "Mazu'kon", map = 1412, x = 32.5, y = 20.54, z = 184.8 },
-						{ t = "turnin", quest = 96259, title = "Defending the Dead", npc = 259118, npcName = "Muln Earthfury", map = 1412, x = 33.34, y = 22.48, z = 187.2 },
+						{ t = "turnin", quest = 96259, title = "Defending the Dead", npc = 259118, npcName = "Muln Earthfury", map = 1412, x = 33.34, y = 22.48, z = 187.2, note = "{npc:259118}. If you still need level 28 training in {zone:1456}, use the north lift on your way out of {zone:1412}." },
 					},
 				},
 				{
@@ -8407,11 +8410,20 @@ do
 					},
 				},
 				{
+					title = "Class training from {area:17045}",
+					note = "Take the north lift into {zone:1456} for your class trainer.",
+					only = { classes = { "WARRIOR", "PALADIN", "HUNTER", "PRIEST", "SHAMAN", "MAGE", "DRUID" } },
+					when = { { k = "level", op = ">=", n = 28 }, { k = "zone", name = "Mulgore", area = 215 } },
+					goals = {
+						{ t = "train", class = true, zone = 1456, only = { classes = { "WARRIOR", "PALADIN", "HUNTER", "PRIEST", "SHAMAN", "MAGE", "DRUID" } }, candidates = candidateLists[1] },
+					},
+				},
+				{
 					title = "Class trainer",
 					only = { classes = { "WARRIOR", "PALADIN", "HUNTER", "PRIEST", "SHAMAN", "MAGE", "DRUID" } },
 					when = { { k = "zone", name = "Thunder Bluff", area = 1638 } },
 					goals = {
-						{ t = "train", class = true, zone = 1456, only = { classes = { "WARRIOR", "PALADIN", "HUNTER", "PRIEST", "SHAMAN", "MAGE", "DRUID" } }, candidates = { { npc = 3043, npcName = "Ker Ragetotem", map = 1456, x = 57.76, y = 85.4, z = 159.1, faction = "H", classes = { "WARRIOR" } }, { npc = 3036, npcName = "Kym Wildmane", map = 1456, x = 76.89, y = 29.93, z = 159.1, faction = "H", classes = { "DRUID" } }, { npc = 3040, npcName = "Urek Thunderhorn", map = 1456, x = 58.81, y = 86.69, z = 159.1, faction = "H", classes = { "HUNTER" } }, { npc = 3046, npcName = "Father Cobb", map = 1456, x = 25.64, y = 20.7, z = 102.3, f = "e", faction = "H", classes = { "PRIEST" } }, { npc = 3049, npcName = "Thurston Xane", map = 1456, x = 25.14, y = 21.03, z = 101.8, faction = "H", classes = { "MAGE" } }, { npc = 3030, npcName = "Siln Skychaser", map = 1456, x = 23.09, y = 20.81, z = 138.1, faction = "H", classes = { "SHAMAN" } }, { npc = 246344, npcName = "Alodan the Hopeful", map = 1456, x = 25.08, y = 14.54, z = 97.4, faction = "H", classes = { "PALADIN" } }, { npc = 262558, npcName = "Palah Thunderhoof", map = 1412, x = 33.57, y = 22.37, z = 187.2, faction = "H", classes = { "SHAMAN" } }, { npc = 262560, npcName = "Hana Lighthoof", map = 1412, x = 33.39, y = 22.17, z = 187.2, faction = "H", classes = { "DRUID" } }, { npc = 3065, npcName = "Yaw Sharpmane", map = 1412, x = 46.83, y = 59.64, z = -4.5, faction = "H", classes = { "HUNTER" } }, { npc = 3066, npcName = "Narm Skychaser", map = 1412, x = 47.39, y = 62.6, z = -5.4, faction = "H", classes = { "SHAMAN" } }, { npc = 3064, npcName = "Gennia Runetotem", map = 1412, x = 47.43, y = 62.9, z = -5.4, faction = "H", classes = { "DRUID" } }, { npc = 3063, npcName = "Krang Stonehoof", map = 1412, x = 48.27, y = 63.68, z = -9, faction = "H", classes = { "WARRIOR" } }, { npc = 3061, npcName = "Lanka Farshot", map = 1412, x = 43.9, y = 76.34, z = 55, faction = "H", classes = { "HUNTER" } }, { npc = 3059, npcName = "Harutt Thunderhorn", map = 1412, x = 43.72, y = 76.76, z = 54.9, faction = "H", classes = { "WARRIOR" } }, { npc = 3060, npcName = "Gart Mistrunner", map = 1412, x = 44.61, y = 76.62, z = 54.1, faction = "H", classes = { "DRUID" } }, { npc = 3062, npcName = "Meela Dawnstrider", map = 1412, x = 44.58, y = 76.64, z = 54, faction = "H", classes = { "SHAMAN" } }, { npc = 8142, npcName = "Jannos Lighthoof", map = 1444, x = 75.98, y = 42.3, z = 34.2, faction = "H", classes = { "DRUID" } }, { npc = 3157, npcName = "Shikrik", map = 1411, x = 42.38, y = 68.9, z = 38.4, faction = "H", classes = { "SHAMAN" } }, { npc = 3707, npcName = "Ken'jai", map = 1411, x = 42.38, y = 68.8, z = 38.3, faction = "H", classes = { "PRIEST" } }, { npc = 5884, npcName = "Mai'ah", map = 1411, x = 42.49, y = 68.97, z = 38.3, faction = "H", classes = { "MAGE" } }, { npc = 3154, npcName = "Jen'shan", map = 1411, x = 42.78, y = 69.2, z = 38.4, faction = "H", classes = { "HUNTER" } }, { npc = 3153, npcName = "Frang", map = 1411, x = 42.84, y = 69.41, z = 38.6, faction = "H", classes = { "WARRIOR" } }, { npc = 3171, npcName = "Thotar", map = 1411, x = 51.82, y = 43.51, z = 11.7, faction = "H", classes = { "HUNTER" } }, { npc = 5880, npcName = "Un'Thuwa", map = 1411, x = 56.22, y = 75.08, z = 21.1, faction = "H", classes = { "MAGE" } }, { npc = 6018, npcName = "Ur'kyo", map = 1454, x = 35.49, y = 87.79, z = 44.1, faction = "H", classes = { "PRIEST" } }, { npc = 5885, npcName = "Deino", map = 1454, x = 38.34, y = 86.06, z = 43, faction = "H", classes = { "MAGE" } }, { npc = 3706, npcName = "Tai'jin", map = 1411, x = 54.17, y = 42.97, z = 10.6, faction = "H", classes = { "PRIEST" } }, { npc = 3169, npcName = "Tarshaw Jaggedscar", map = 1411, x = 54.12, y = 42.42, z = 9.7, faction = "H", classes = { "WARRIOR" } }, { npc = 3173, npcName = "Swart", map = 1411, x = 54.36, y = 42.68, z = 10.6, faction = "H", classes = { "SHAMAN" } }, { npc = 3403, npcName = "Sian'tsu", map = 1454, x = 37.65, y = 36.6, z = 42.2, faction = "H", classes = { "SHAMAN" } }, { npc = 3352, npcName = "Ormak Grimshot", map = 1454, x = 66.07, y = 18.36, z = 58.8, faction = "H", classes = { "HUNTER" } }, { npc = 3353, npcName = "Grezz Ragefist", map = 1454, x = 79.6, y = 31.34, z = 55.9, faction = "H", classes = { "WARRIOR" } }, { npc = 12042, npcName = "Loganaar", map = 1450, x = 52.3, y = 40.51, z = 486.9, faction = "AH", classes = { "DRUID" } }, { npc = 2119, npcName = "Dannal Stern", map = 1420, x = 32.69, y = 65.56, z = 94.9, f = "e", faction = "H", classes = { "WARRIOR" } }, { npc = 2123, npcName = "Dark Cleric Duesten", map = 1420, x = 31.03, y = 66.11, z = 97, faction = "H", classes = { "PRIEST" } }, { npc = 2124, npcName = "Isabella", map = 1420, x = 30.9, y = 66.08, z = 97, faction = "H", classes = { "MAGE" } }, { npc = 2128, npcName = "Cain Firesong", map = 1420, x = 61.89, y = 52.45, z = 41.2, faction = "H", classes = { "MAGE" } }, { npc = 2129, npcName = "Dark Cleric Beryl", map = 1420, x = 61.57, y = 52.07, z = 41.2, faction = "H", classes = { "PRIEST" } }, { npc = 2131, npcName = "Austil de Mon", map = 1420, x = 61.78, y = 52.63, z = 33.7, faction = "H", classes = { "WARRIOR" } }, { npc = 244808, npcName = "Aramis Hammerhand", map = 1420, x = 30.99, y = 66.33, z = 97, faction = "H", classes = { "PALADIN" } }, { npc = 246152, npcName = "Shari Stilwell", map = 1420, x = 60.18, y = 52.57, z = 35.2, faction = "H", classes = { "PALADIN" } }, { npc = 246389, npcName = "Hilda the Breaker", map = 1420, x = 21.84, y = 47.15, z = 134.5, faction = "H", classes = { "PALADIN" } }, { npc = 1404, npcName = "Kragg", map = 1434, x = 31.25, y = 28.62, z = 2.4, faction = "H", classes = { "HUNTER" } }, { npc = 985, npcName = "Malosh", map = 1435, x = 44.9, y = 57.4, z = 21.2, faction = "H", classes = { "WARRIOR" } }, { npc = 986, npcName = "Haromm", map = 1435, x = 48.19, y = 57.94, z = 20.9, f = "e", faction = "H", classes = { "SHAMAN" } }, { npc = 987, npcName = "Ogromm", map = 1435, x = 47.14, y = 53.35, z = 20.4, faction = "H", classes = { "HUNTER" } }, { npc = 4566, npcName = "Kaelystia Hatebringer", map = 1458, x = 85.07, y = 14.36, z = -61.4, faction = "H", classes = { "MAGE" } }, { npc = 4593, npcName = "Christoph Walker", map = 1458, x = 46.98, y = 15.5, z = -57.1, faction = "H", classes = { "WARRIOR" } }, { npc = 4606, npcName = "Aelthalyste", map = 1458, x = 49.03, y = 18.27, z = -57.1, faction = "H", classes = { "PRIEST" } }, { npc = 260093, npcName = "Garen Largo", map = 1458, x = 47.36, y = 15.19, z = -57.1, faction = "H", classes = { "PALADIN" } }, { npc = 251373, npcName = "Xyton Silverwind", map = 2521, x = 41.65, y = 23.34, z = 980.9, faction = "AH", classes = { "DRUID" } }, { npc = 251374, npcName = "Windshaper Boro", map = 2521, x = 42.71, y = 23.56, z = 976.8, faction = "H", classes = { "SHAMAN" } }, { npc = 251376, npcName = "Tai'ree Farsight", map = 2521, x = 42.4, y = 23.78, z = 976.8, faction = "AH", classes = { "HUNTER" } }, { npc = 251964, npcName = "Blademaster Ren", map = 2521, x = 43.6, y = 24.2, z = 983, faction = "AH", classes = { "WARRIOR" } }, { npc = 252359, npcName = "Lotheluum Starbreeze", map = 2521, x = 63.93, y = 75.06, z = 691.4, faction = "AH", classes = { "DRUID" } }, { npc = 252373, npcName = "Anathamaas Aetherwind", map = 2521, x = 65.91, y = 80.57, z = 658.8, faction = "AH", classes = { "MAGE" } }, { npc = 252377, npcName = "Seena Skybreaker", map = 2521, x = 59.82, y = 72.85, z = 675.3, faction = "AH", classes = { "WARRIOR" } }, { npc = 252382, npcName = "Sessaria Skystride", map = 2521, x = 58.23, y = 78.57, z = 656.8, faction = "H", classes = { "SHAMAN" } }, { npc = 252389, npcName = "Quel'ana Quickgale", map = 2521, x = 59.58, y = 72.6, z = 675.3, faction = "AH", classes = { "HUNTER" } }, { npc = 254081, npcName = "Naeluna Swiftmend", map = 2521, x = 45.14, y = 44.29, z = 827.3, faction = "AH", classes = { "DRUID" } }, { npc = 254082, npcName = "Aarnor Galestrike", map = 2521, x = 43.45, y = 44.81, z = 823.8, faction = "H", classes = { "SHAMAN" } }, { npc = 254084, npcName = "Elayaa Easewind", map = 2521, x = 45.2, y = 44.28, z = 827.3, faction = "AH", classes = { "HUNTER" } }, { npc = 254086, npcName = "Shenaan Spellwind", map = 2521, x = 45.03, y = 45.79, z = 827.3, faction = "AH", classes = { "MAGE" } }, { npc = 254088, npcName = "Corsan Earthrazer", map = 2521, x = 44.86, y = 45.13, z = 827.3, faction = "AH", classes = { "WARRIOR" } } } },
+						{ t = "train", class = true, zone = 1456, only = { classes = { "WARRIOR", "PALADIN", "HUNTER", "PRIEST", "SHAMAN", "MAGE", "DRUID" } }, candidates = candidateLists[1] },
 					},
 				},
 				{
@@ -10065,7 +10077,7 @@ do
 				},
 				{
 					title = "Level 34 for the southern flats",
-					note = "Still short of 34 after your hand-ins? Hunt Scorpid Reavers north of the raceway until 34. Leave the southern Gazers and the dig until then. Or, with a group, run {area:1717}.",
+					note = "Hunt Scorpid Reavers north of the raceway until level 34 before heading south for the Gazers. Or, with a group, run the {area:1717} dungeon instead.",
 					when = { { k = "level", op = "<", n = 34 }, { k = "onquest", q = { 1175 } }, { k = "complete", neg = true, q = 1175 } },
 					goals = {
 						{ t = "goto", text = "Scorpid Reavers", map = 1441, x = 75.5, y = 67.8, z = -58.6, f = "e" },
@@ -10074,7 +10086,7 @@ do
 				},
 				{
 					title = "Level 34 for the Rustmaul dig",
-					note = "Still short of 34 after your hand-ins? Hunt Scorpid Reavers north of the raceway until 34. Leave the southern Gazers and the dig until then. Or, with a group, run {area:1717}.",
+					note = "Hunt Scorpid Reavers north of the raceway until level 34 before entering the Rustmaul dig. Or, with a group, run the {area:1717} dungeon instead.",
 					when = { { k = "level", op = "<", n = 34 }, { k = "onquest", q = { 1147 } }, { k = "complete", neg = true, q = 1147 } },
 					goals = {
 						{ t = "goto", text = "Scorpid Reavers", map = 1441, x = 75.5, y = 67.8, z = -58.6, f = "e" },
@@ -10083,7 +10095,7 @@ do
 				},
 				{
 					title = "Level 34 for {quest:1148}",
-					note = "Still short of 34 after your hand-ins? Hunt Scorpid Reavers north of the raceway until 34. Leave the southern Gazers and the dig until then. Or, with a group, run {area:1717}.",
+					note = "Hunt Scorpid Reavers north of the raceway until level 34 before returning for the silithid parts. Or, with a group, run the {area:1717} dungeon instead.",
 					when = { { k = "level", op = "<", n = 34 }, { k = "onquest", q = { 1148 } }, { k = "complete", neg = true, q = 1148 } },
 					goals = {
 						{ t = "goto", text = "Scorpid Reavers", map = 1441, x = 75.5, y = 67.8, z = -58.6, f = "e" },
@@ -11537,8 +11549,8 @@ do
 			next = "forever/horde/40-50/01-stranglethorn-vale",
 			author = "Polestar",
 			version = 1,
-			names = { ["area:144"] = "Thelsamar", ["area:1517"] = "Uldaman", ["area:16685"] = "Twilight's Shroud", ["area:16743"] = "Rog'mar", ["area:1877"] = "Valley of Fangs", ["area:1878"] = "The Dustbowl", ["area:2240"] = "Mirage Raceway", ["area:340"] = "Kargath", ["area:345"] = "Agmond's End", ["area:346"] = "Hammertoe's Digsite", ["area:439"] = "Shimmering Flats", ["area:484"] = "Freewind Post", ["area:75"] = "Stonard", ["item:7848"] = "Rock Elemental Shard", ["npc:256800"] = "Twilight Enforcer", ["npc:256881"] = "Overlord Kilgar", ["npc:256891"] = "Executioner Morg", ["npc:258570"] = "Da'grosh", ["npc:269756"] = "Malevolent Mirage", ["npc:2728"] = "Feral Crag Coyote", ["npc:2729"] = "Elder Crag Coyote", ["npc:2734"] = "Ridge Stalker Patriarch", ["npc:2735"] = "Lesser Rock Elemental", ["npc:2736"] = "Greater Rock Elemental", ["npc:2817"] = "Rigglefuzz", ["npc:2829"] = "Starving Buzzard", ["npc:2830"] = "Buzzard", ["npc:2831"] = "Giant Buzzard", ["npc:2893"] = "Stonevault Bonesnapper", ["npc:2894"] = "Stonevault Shaman", ["npc:2921"] = "Lotwil Veriatus", ["npc:2932"] = "Magregan Deepshadow", ["npc:4618"] = "Martek the Exiled", ["npc:4846"] = "Shadowforge Digger", ["npc:4872"] = "Obsidian Golem", ["npc:5394"] = "Neeka Bloodscar", ["npc:6868"] = "Jarkal Mossmeld", ["npc:92"] = "Rock Elemental", ["object:126260"] = "Ancient Chest", ["object:1668"] = "Dun Algaz", ["object:2673"] = "Thandol Span", ["object:3202"] = "Grom'gol", ["quest:1106"] = "Martek the Exiled", ["quest:1108"] = "Indurium", ["quest:1418"] = "Neeka Bloodscar", ["zone:1418"] = "Badlands", ["zone:1432"] = "Loch Modan", ["zone:1434"] = "Stranglethorn Vale", ["zone:1435"] = "Swamp of Sorrows", ["zone:1437"] = "Wetlands", ["zone:1446"] = "Tanaris", ["zone:2548"] = "Riverglades" },
-			written = { ["Head west along the road towards {area:340}; {npc:2921}'s camp sits in the {area:1878} halfway there."] = "Head west along the road towards Kargath; Lotwil's camp sits in the Dustbowl halfway there.", ["North-west across the basin to {npc:2921}'s camp. Short of Jarkal's shards? The Lesser Rock Elementals (37-39) on the flats west of the camp drop them about one kill in five."] = "North-west across the basin to Lotwil's camp. Short of Jarkal's shards? The Lesser Rock Elementals (37-39) on the flats west of the camp drop them about one kill in five.", ["Short of 39? Hunt Feral Crag Coyotes (37-38) at the pin until 39. They also drop {npc:5394}'s jawbones and {npc:6868}'s fangs. Watch for Zaricotl and Anathemus: leave if either patrol comes close."] = "Short of 39? Hunt Feral Crag Coyotes (37-38) at the pin until 39. They also drop Neeka's jawbones and Jarkal's fangs. Watch for Zaricotl and Anathemus: leave if either patrol comes close.", ["South-east from {npc:2921}'s camp across the basin, the bigger Rock Elementals (39-40) stand on the slopes west of {area:345}; each one drops a slab. At 38, take the level 39s. Every rock elemental can drop {npc:6868}'s Rock Elemental Shards. The Feral Crag Coyotes (37-38) on these hills drop {npc:5394}'s jawbones and {npc:6868}'s fangs too: take them as you meet them. Careful: Malevolent Mirages (42, elite) drift across these slopes too."] = "South-east from Lotwil's camp across the basin, the bigger Rock Elementals (39-40) stand on the slopes west of Agmond's End; each one drops a slab. At 38, take the level 39s. Every rock elemental can drop Jarkal's Rock Elemental Shards. The Feral Crag Coyotes (37-38) on these hills drop Neeka's jawbones and Jarkal's fangs too: take them as you meet them. Careful: Malevolent Mirages (42, elite) drift across these slopes too.", ["The road north to {area:1517} runs through the {area:1877}: {npc:2817} and {npc:4618} take the wings and the flakes on the way."] = "The road north to Uldaman runs through the Valley of Fangs: Rigglefuzz and Martek take the wings and the flakes on the way.", ["The small elementals drift across the flats between {area:340} and {npc:2921}'s camp, on the road back east. Every rock elemental in the zone can drop {npc:6868}'s Rock Elemental Shards."] = "The small elementals drift across the flats between Kargath and Lotwil's camp, on the road back east. Every rock elemental in the zone can drop Jarkal's Rock Elemental Shards.", ["West from the {area:1877} towards {npc:2921}'s camp, the Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth.\nPull the Giant Buzzards (39-41) one at a time. The Ridge Stalker Patriarchs (40-41) prowl the same slopes towards {area:340}: leave them. The Buzzards (37) you killed for {npc:2817}'s wings drop gizzards too, more rarely."] = "West from the Valley of Fangs towards Lotwil's camp, the Elder Crag Coyotes and Giant Buzzards roam the basin south of the Dustbowl. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the Badlands: give them a wide berth.\nPull the Giant Buzzards (39-41) one at a time. The Ridge Stalker Patriarchs (40-41) prowl the same slopes towards Kargath: leave them. The Buzzards (37) you killed for Rigglefuzz's wings drop gizzards too, more rarely.", ["{npc:2921}'s next study wants bracers from the Greater Rock Elementals (42-44) in the south-western gulches, well above you: leave it."] = "Lotwil's next study wants bracers from the Greater Rock Elementals (42-44) in the south-western gulches, well above you: leave it." },
+			names = { ["area:144"] = "Thelsamar", ["area:1517"] = "Uldaman", ["area:16685"] = "Twilight's Shroud", ["area:16743"] = "Rog'mar", ["area:1877"] = "Valley of Fangs", ["area:1878"] = "The Dustbowl", ["area:2240"] = "Mirage Raceway", ["area:340"] = "Kargath", ["area:345"] = "Agmond's End", ["area:346"] = "Hammertoe's Digsite", ["area:439"] = "Shimmering Flats", ["area:484"] = "Freewind Post", ["area:75"] = "Stonard", ["item:7848"] = "Rock Elemental Shard", ["npc:256800"] = "Twilight Enforcer", ["npc:256881"] = "Overlord Kilgar", ["npc:256891"] = "Executioner Morg", ["npc:258570"] = "Da'grosh", ["npc:269756"] = "Malevolent Mirage", ["npc:2728"] = "Feral Crag Coyote", ["npc:2729"] = "Elder Crag Coyote", ["npc:2734"] = "Ridge Stalker Patriarch", ["npc:2735"] = "Lesser Rock Elemental", ["npc:2736"] = "Greater Rock Elemental", ["npc:2817"] = "Rigglefuzz", ["npc:2829"] = "Starving Buzzard", ["npc:2830"] = "Buzzard", ["npc:2831"] = "Giant Buzzard", ["npc:2893"] = "Stonevault Bonesnapper", ["npc:2894"] = "Stonevault Shaman", ["npc:2921"] = "Lotwil Veriatus", ["npc:2932"] = "Magregan Deepshadow", ["npc:4618"] = "Martek the Exiled", ["npc:4846"] = "Shadowforge Digger", ["npc:4872"] = "Obsidian Golem", ["npc:5394"] = "Neeka Bloodscar", ["npc:6868"] = "Jarkal Mossmeld", ["npc:92"] = "Rock Elemental", ["object:126260"] = "Ancient Chest", ["object:1668"] = "Dun Algaz", ["object:2673"] = "Thandol Span", ["object:3202"] = "Grom'gol", ["quest:1106"] = "Martek the Exiled", ["quest:1108"] = "Indurium", ["quest:1137"] = "News for Fizzle", ["quest:1418"] = "Neeka Bloodscar", ["zone:1418"] = "Badlands", ["zone:1432"] = "Loch Modan", ["zone:1434"] = "Stranglethorn Vale", ["zone:1435"] = "Swamp of Sorrows", ["zone:1437"] = "Wetlands", ["zone:1446"] = "Tanaris", ["zone:2548"] = "Riverglades" },
+			written = { ["Give the wings to {npc:2817} on the way north. Still short of flakes? Keep {quest:1108} in your log. At level 39, resume at Stonevault troggs, then bring the flakes to {npc:4618} here."] = "Give the wings to Rigglefuzz on the way north. Still short of flakes? Keep Indurium in your log. At level 39, resume at Stonevault troggs, then bring the flakes to Martek here.", ["Head west along the road towards {area:340}; {npc:2921}'s camp sits in the {area:1878} halfway there."] = "Head west along the road towards Kargath; Lotwil's camp sits in the Dustbowl halfway there.", ["Hunt Feral Crag Coyotes (37-38) on the marked hills until level 39. They also drop {npc:5394}'s jawbones and {npc:6868}'s fangs. Leave if Zaricotl or Anathemus comes close. Or, with a group, run the {area:1517} dungeon instead."] = "Hunt Feral Crag Coyotes (37-38) on the marked hills until level 39. They also drop Neeka's jawbones and Jarkal's fangs. Leave if Zaricotl or Anathemus comes close. Or, with a group, run the Uldaman dungeon instead.", ["North-west across the basin to {npc:2921}'s camp. Short of Jarkal's shards? The Lesser Rock Elementals (37-39) on the flats west of the camp drop them about one kill in five."] = "North-west across the basin to Lotwil's camp. Short of Jarkal's shards? The Lesser Rock Elementals (37-39) on the flats west of the camp drop them about one kill in five.", ["South-east from {npc:2921}'s camp across the basin, the bigger Rock Elementals (39-40) stand on the slopes west of {area:345}; each one drops a slab. At 38, take the level 39s. Every rock elemental can drop {npc:6868}'s Rock Elemental Shards. The Feral Crag Coyotes (37-38) on these hills drop {npc:5394}'s jawbones and {npc:6868}'s fangs too: take them as you meet them. Careful: Malevolent Mirages (42, elite) drift across these slopes too."] = "South-east from Lotwil's camp across the basin, the bigger Rock Elementals (39-40) stand on the slopes west of Agmond's End; each one drops a slab. At 38, take the level 39s. Every rock elemental can drop Jarkal's Rock Elemental Shards. The Feral Crag Coyotes (37-38) on these hills drop Neeka's jawbones and Jarkal's fangs too: take them as you meet them. Careful: Malevolent Mirages (42, elite) drift across these slopes too.", ["The small elementals drift across the flats between {area:340} and {npc:2921}'s camp, on the road back east. Every rock elemental in the zone can drop {npc:6868}'s Rock Elemental Shards."] = "The small elementals drift across the flats between Kargath and Lotwil's camp, on the road back east. Every rock elemental in the zone can drop Jarkal's Rock Elemental Shards.", ["West from the {area:1877} towards {npc:2921}'s camp, the Elder Crag Coyotes and Giant Buzzards roam the basin south of the {area:1878}. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the {zone:1418}: give them a wide berth.\nPull the Giant Buzzards (39-41) one at a time. The Ridge Stalker Patriarchs (40-41) prowl the same slopes towards {area:340}: leave them. The Buzzards (37) you killed for {npc:2817}'s wings drop gizzards too, more rarely."] = "West from the Valley of Fangs towards Lotwil's camp, the Elder Crag Coyotes and Giant Buzzards roam the basin south of the Dustbowl. Coyotes drop both the jawbones and the fangs; the Giant Buzzards drop the gizzards. Careful: Malevolent Mirages (42, elite) drift across the Badlands: give them a wide berth.\nPull the Giant Buzzards (39-41) one at a time. The Ridge Stalker Patriarchs (40-41) prowl the same slopes towards Kargath: leave them. The Buzzards (37) you killed for Rigglefuzz's wings drop gizzards too, more rarely.", ["{npc:2921}'s next study wants bracers from the Greater Rock Elementals (42-44) in the south-western gulches, well above you: leave it."] = "Lotwil's next study wants bracers from the Greater Rock Elementals (42-44) in the south-western gulches, well above you: leave it." },
 			fresh = { from = "forever/horde/30-40/02-thousand-needles", share = 18, xp = 24850, needs = { 1106 } },
 			steps = {
 				{
@@ -11552,7 +11564,7 @@ do
 					title = "{area:1877}",
 					goals = {
 						{ t = "turnin", quest = 1106, title = "Martek the Exiled", npc = 4618, npcName = "Martek the Exiled", map = 1418, x = 42.4, y = 52.68, z = 241.4, spotsPacked = "42.2,52.8,241.4,15,3", note = "{quest:1106}: Fizzle's letter from the {area:439}" },
-						{ t = "accept", quest = 1108, title = "Indurium", npc = 4618, npcName = "Martek the Exiled", minLevel = 28, qlvl = 39, pre = { 1106 }, preTitles = { [1106] = "Martek the Exiled" }, map = 1418, x = 42.4, y = 52.68, z = 241.4, spotsPacked = "42.2,52.8,241.4,15,3" },
+						{ t = "accept", quest = 1108, title = "Indurium", npc = 4618, npcName = "Martek the Exiled", minLevel = 28, qlvl = 39, pre = { 1106 }, preTitles = { [1106] = "Martek the Exiled" }, map = 1418, x = 42.4, y = 52.68, z = 241.4, spotsPacked = "42.2,52.8,241.4,15,3", note = "Keep this for the Stonevault troggs at level 39, even if you leave the {zone:1418} before then." },
 						{ t = "accept", quest = 703, title = "Barbecued Buzzard Wings", npc = 2817, npcName = "Rigglefuzz", minLevel = 33, qlvl = 40, map = 1418, x = 42.37, y = 52.62, z = 240.7, spotsPacked = "42.4,52.9,240.7,15,4" },
 					},
 				},
@@ -11607,8 +11619,8 @@ do
 				},
 				{
 					title = "Level 39 for {quest:1108}",
-					note = "Short of 39? Hunt Feral Crag Coyotes (37-38) at the pin until 39. They also drop {npc:5394}'s jawbones and {npc:6868}'s fangs. Watch for Zaricotl and Anathemus: leave if either patrol comes close.",
-					when = { { k = "level", op = "<", n = 39 }, { k = "onquest", q = { 1108 } }, { k = "complete", neg = true, q = 1108 } },
+					note = "Hunt Feral Crag Coyotes (37-38) on the marked hills until level 39. They also drop {npc:5394}'s jawbones and {npc:6868}'s fangs. Leave if Zaricotl or Anathemus comes close. Or, with a group, run the {area:1517} dungeon instead.",
+					when = { { k = "level", op = ">=", n = 38, frac = 0.5 }, { k = "level", op = "<", n = 39 }, { k = "onquest", q = { 1108 } }, { k = "complete", neg = true, q = 1108 } },
 					goals = {
 						{ t = "goto", text = "Feral Crag Coyotes", map = 1418, x = 53, y = 56.65, f = "e" },
 						{ t = "level", level = 39 },
@@ -11640,10 +11652,22 @@ do
 				},
 				{
 					title = "{area:1877}",
-					note = "The road north to {area:1517} runs through the {area:1877}: {npc:2817} and {npc:4618} take the wings and the flakes on the way.",
+					note = "Give the wings to {npc:2817} on the way north. Still short of flakes? Keep {quest:1108} in your log. At level 39, resume at Stonevault troggs, then bring the flakes to {npc:4618} here.",
 					goals = {
 						{ t = "turnin", quest = 703, title = "Barbecued Buzzard Wings", npc = 2817, npcName = "Rigglefuzz", map = 1418, x = 42.53, y = 52.89, z = 240.7, spotsPacked = "42.4,52.9,240.7,15,4" },
+					},
+				},
+				{
+					title = "{npc:4618}",
+					when = { { k = "complete", q = 1108 } },
+					goals = {
 						{ t = "turnin", quest = 1108, title = "Indurium", npc = 4618, npcName = "Martek the Exiled", map = 1418, x = 42.4, y = 52.68, z = 241.4, spotsPacked = "42.2,52.8,241.4,15,3" },
+					},
+				},
+				{
+					title = "{quest:1137}",
+					when = { { k = "turnedin", q = 1108 }, { k = "available", q = 1137, minLevel = 28, pre = { 1108 } } },
+					goals = {
 						{ t = "accept", quest = 1137, title = "News for Fizzle", npc = 4618, npcName = "Martek the Exiled", minLevel = 28, qlvl = 38, pre = { 1108 }, preTitles = { [1108] = "Indurium" }, map = 1418, x = 42.4, y = 52.68, z = 241.4, spotsPacked = "42.2,52.8,241.4,15,3", note = "for Fizzle at the {area:2240}, on the way from {area:484} to {zone:1446} around level 43" },
 					},
 				},
@@ -12139,7 +12163,7 @@ do
 				},
 				{
 					title = "Zul'Mamwe and Balia'mah trophy skulls",
-					note = "The next trophy skulls stand in the small ruins just north of the warriors' camp.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}.",
+					note = "Look for the trophy skulls in the small ruins north of Zul'Mamwe's warriors.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}.",
 					goals = {
 						{ t = "collect", quest = 585, title = "Speaking with Nezzliok", item = 3908, itemName = "Zul'Mamwe Trophy", count = 1, oi = 3, map = 1434, x = 47.59, y = 39.53, z = 54.9, f = "e", from = "Zul'Mamwe Trophy Skulls", fromKind = "object", fromId = 2893 },
 						{ t = "collect", quest = 585, title = "Speaking with Nezzliok", item = 3906, itemName = "Balia'mah Trophy", count = 1, oi = 1, map = 1434, x = 46.07, y = 32.29, z = 40.4, f = "e", from = "Balia'mah Trophy Skulls", fromKind = "object", fromId = 2891 },
@@ -12356,8 +12380,8 @@ do
 			next = "forever/horde/40-50/02-feralas",
 			author = "Polestar",
 			version = 1,
-			names = { ["area:1099"] = "Camp Mojache", ["area:16591"] = "Riverglades", ["area:16685"] = "Twilight's Shroud", ["area:16723"] = "Sunnyglade", ["area:16725"] = "Wheeler's Grange", ["area:16726"] = "Bolder'ok", ["area:16727"] = "Powderfuse Port", ["area:16729"] = "Terral's Watch", ["area:16735"] = "Meadowsbrook", ["area:16736"] = "Turner's Logging Camp", ["area:16737"] = "Bristle Hills", ["area:16743"] = "Rog'mar", ["area:16744"] = "Southern Watch", ["area:3"] = "Badlands", ["area:340"] = "Kargath", ["area:35"] = "Booty Bay", ["area:43"] = "Wild Shore", ["area:439"] = "Shimmering Flats", ["area:484"] = "Freewind Post", ["area:657"] = "Harborage", ["area:75"] = "Stonard", ["area:976"] = "Gadgetzan", ["area:977"] = "Steamwheedle Port", ["item:265066"] = "Hearty Stew", ["item:268505"] = "Remote Explosive Charge", ["item:268521"] = "Swineherd's Staff", ["item:268632"] = "Beast Entrails", ["item:268647"] = "Big Ball o' Bait", ["item:268664"] = "Rotflesh Mushroom", ["item:269257"] = "Skullbasher", ["item:271611"] = "Cubic Draconia", ["item:271629"] = "Wood Bundle", ["item:271630"] = "Makeshift Stickin' Spear", ["item:277974"] = "Twice Reordered Package", ["item:769"] = "Chunk of Boar Meat", ["npc:255829"] = "Clugfist", ["npc:255851"] = "Mature Paletusk", ["npc:255897"] = "Friz Frazzlespark", ["npc:255906"] = "Snargl", ["npc:255993"] = "Grakna", ["npc:256418"] = "Krom'rosh", ["npc:256655"] = "Gorg", ["npc:256657"] = "Kreza Darkthorn", ["npc:256675"] = "Innkeeper Toka", ["npc:256710"] = "Tran'gul", ["npc:256728"] = "Na'zok", ["npc:256749"] = "Rog'mar Trainee", ["npc:256800"] = "Twilight Enforcer", ["npc:256881"] = "Overlord Kilgar", ["npc:256891"] = "Executioner Morg", ["npc:256899"] = "Chogg'Zac", ["npc:257001"] = "Old Rot-Chum", ["npc:257059"] = "Chub'chob", ["npc:257062"] = "Jezap Jinglesprocket", ["npc:257079"] = "Cavalry Scout Alturin", ["npc:257450"] = "Rog'mar Scout", ["npc:257910"] = "Eastsea Musketeer", ["npc:257915"] = "Eastsea Raider", ["npc:258023"] = "Sergeant Riftan", ["npc:258031"] = "Neza Bloodsnout", ["npc:258048"] = "Jom-jom", ["npc:258331"] = "Young Paletusk", ["npc:258570"] = "Da'grosh", ["npc:258626"] = "Mog'thar", ["npc:258686"] = "Farholde Lookout", ["npc:259046"] = "Freshwater Crocolisk", ["npc:259158"] = "Fuzzle", ["npc:259758"] = "Gul'gash", ["npc:259961"] = "Wharfmaster Whizzbuzz", ["npc:259962"] = "Fimbo Greasemitz", ["npc:260023"] = "Farholde Ambusher", ["npc:260211"] = "Scoutmaster Vargas", ["npc:260231"] = "Argo Brinewhistle", ["npc:260235"] = "Trapclaw", ["npc:260390"] = "Captain Bentcoin", ["npc:260391"] = "Captain Haynes", ["npc:260405"] = "Wharfmaster Steamfizzle", ["npc:260931"] = "Clubtoe", ["npc:260968"] = "Twilight Mauler", ["npc:260973"] = "Klunk", ["npc:260993"] = "Crag'rog", ["npc:260995"] = "Ogre Miner", ["npc:261208"] = "Twilight Brute", ["npc:262006"] = "Twilight Ritual Circle", ["npc:262399"] = "Gelinda Coppergleam", ["npc:263190"] = "Tan'jani", ["npc:263307"] = "Glade Viper", ["npc:263315"] = "Ombassa", ["npc:263316"] = "Picked Carcass", ["npc:263343"] = "Low Plains Buzzard", ["npc:263348"] = "Roving Tallstrider", ["npc:263367"] = "Sleebo Fizzlespout", ["npc:263380"] = "Ghostmaw", ["npc:687"] = "Jungle Stalker", ["npc:8115"] = "Witch Doctor Uzer'i", ["object:3202"] = "Grom'gol", ["object:628948"] = "WANTED!", ["object:629761"] = "Painted Hide", ["object:645164"] = "WANTED!", ["object:645516"] = "Peasant Woodpile", ["quest:93786"] = "A Message in Blood", ["quest:93787"] = "Food for the Taking", ["quest:93788"] = "Borrowed Blades", ["quest:93976"] = "The Goblin Trader", ["quest:94480"] = "A Gift From Our Enemies", ["quest:94481"] = "A Serving of Strength", ["quest:94483"] = "Show Them How It's Done", ["quest:94532"] = "Gnoll Infestation", ["quest:94533"] = "Snargl's Snout", ["quest:94535"] = "Bristle Hills Bandits", ["quest:94556"] = "Jom-jom's Escape", ["quest:94668"] = "Bloodmaster's Ring", ["quest:94669"] = "Pay to Play", ["quest:94670"] = "Bloodmaster's Ring", ["quest:94672"] = "Encroaching Twilight", ["quest:94680"] = "Twilight Missives", ["quest:94727"] = "Digging for Answers", ["quest:94744"] = "The Wayward Warrior", ["quest:94745"] = "Carving a Path", ["quest:94748"] = "Break Their Chains", ["quest:94768"] = "Bring Me His Head", ["quest:94961"] = "Biting the Hand", ["quest:94962"] = "Bloodmaster's Ring", ["quest:94964"] = "Bloodmaster's Ring", ["quest:95033"] = "On the Other Side", ["quest:95062"] = "Frazzlespark's Crate", ["quest:95118"] = "Saltwater Savages", ["quest:95119"] = "Unfriendly Competition", ["quest:95120"] = "WANTED: Old Rot-Chum", ["quest:95121"] = "A Taste of the Sea", ["quest:95124"] = "Admiral Lamora", ["quest:95162"] = "Paletusk Harvesting", ["quest:95163"] = "Drive Them Back", ["quest:95260"] = "Terrors From the Deep", ["quest:95261"] = "It Takes Guts", ["quest:95267"] = "The Monster Surfaces", ["quest:95288"] = "Smuggler's Paradise", ["quest:95294"] = "Smuggler's Bargain", ["quest:95417"] = "The Purple Ones", ["quest:95418"] = "Spread the Word", ["quest:95420"] = "Land of Giants", ["quest:95424"] = "Might Makes Right", ["quest:95425"] = "Unworthy Champion", ["quest:95427"] = "Twilight No More!", ["quest:95428"] = "Clugfist's Decree", ["quest:95431"] = "Rumblings of Discontent", ["quest:95432"] = "Rise Up!", ["quest:95602"] = "Sickening Lights", ["quest:95792"] = "Clear 'em Out", ["quest:95882"] = "WANTED: Scoutmaster Vargas", ["quest:95934"] = "Proof of Profit", ["quest:95951"] = "Fetch 'n' Fletch", ["quest:95955"] = "Stick 'Em", ["quest:95992"] = "WANTED: Ghostmaw", ["quest:96063"] = "Gaseous Gold", ["quest:96067"] = "Rock 'em and Sock 'em", ["quest:96103"] = "A Feast for Buzzards", ["quest:96104"] = "Song of the Strider", ["quest:96105"] = "King of the Wild Plains", ["quest:96107"] = "Feathers for Fletching", ["quest:96108"] = "Poison Tips", ["quest:96109"] = "A Hunter's Quiver", ["zone:1441"] = "Thousand Needles", ["zone:1444"] = "Feralas", ["zone:1446"] = "Tanaris", ["zone:2548"] = "Riverglades" },
-			written = { ["At the junk in the shallows south-west of the port, use {npc:260231}'s {item:268647}. Kill the threshadon that comes to the bait and take its head. Give {npc:257001}, the elite that walks this shore, plenty of room."] = "At the junk in the shallows south-west of the port, use Argo's Big Ball o' Bait. Kill the threshadon that comes to the bait and take its head. Give Old Rot-Chum, the elite that walks this shore, plenty of room.", ["Back to {area:16743}, where your Hearthstone is set: {npc:263190} on the fort's west side first, then {npc:256418}, {npc:256655} by the cook fire, {npc:256657} and {npc:258031} on your way east through the fort."] = "Back to Rog'mar, where your Hearthstone is set: Tan'jani on the fort's west side first, then Krom'rosh, Gorg by the cook fire, Kreza and Neza on your way east through the fort.", ["Back to {npc:260231}"] = "Back to Argo", ["Board at Steamwheedle and ride to {area:16727}. Leave the boat and walk west along the docks to {npc:255897}'s stall. Reaching the {zone:1446} pier is not the crossing."] = "Board at Steamwheedle and ride to Powderfuse Port. Leave the boat and walk west along the docks to Friz's stall. Reaching the Tanaris pier is not the crossing.", ["Each bout is a fight in the ring below {npc:255829}'s hill against an elite: Buzzbeak (41), Kronk and Bonegnaw (42), {npc:258626} (43), Snufflesnout (44) and {npc:257059} (45). Come in rested, with full health and mana; if a bout goes wrong, {npc:257062} offers it again."] = "Each bout is a fight in the ring below Clugfist's hill against an elite: Buzzbeak (41), Kronk and Bonegnaw (42), Mog'thar (43), Snufflesnout (44) and Chub'chob (45). Come in rested, with full health and mana; if a bout goes wrong, Jezap offers it again.", ["East of Rog'mar, on the hill above the road to {area:16727}: {npc:263367} has his workshop there. The gas vents are in the marsh south-west of it, on your first hunt for {npc:258031}."] = "East of Rog'mar, on the hill above the road to Powderfuse Port: Sleebo Fizzlespout has his workshop there. The gas vents are in the marsh south-west of it, on your first hunt for Neza.", ["Most beasts in the {zone:2548} drop {item:268632} for {npc:260231}: the shore crawlers on this coast and the boars on the ridge west of the pirates.\nCareful: {npc:257001} (elite, 42) wanders the shore and {npc:263380} (elite, 42) the river: take your beasts away from them."] = "Most beasts in the Riverglades drop Beast Entrails for Argo: the shore crawlers on this coast and the boars on the ridge west of the pirates.\nCareful: Old Rot-Chum (elite, 42) wanders the shore and Ghostmaw (elite, 42) the river: take your beasts away from them.", ["North along the beach from the docks: the crawlers drop the meat for {npc:259962}, and their entrails count for {npc:260231}. {npc:260235}, a big crab, scuttles along the rocks east of the docks. {npc:259758}, a rare elite of level 49, roams this coast from the docks up to the pirates' camp: if you see him, keep well away."] = "North along the beach from the docks: the crawlers drop the meat for Fimbo, and their entrails count for Argo. Trapclaw, a big crab, scuttles along the rocks east of the docks. Gul'gash, a rare elite of level 49, roams this coast from the docks up to the pirates' camp: if you see him, keep well away.", ["North-east to the workshop. {npc:263367}'s stress test is a fight with his G45-B4G beside the workshop: hand the quest in once it's beaten."] = "North-east to the workshop. Sleebo's stress test is a fight with his G45-B4G beside the workshop: hand the quest in once it's beaten.", ["West up the road from the port: {npc:263367} has his workshop on the hill. The gas vents are in the marsh south-west of it, on your first hunt for {npc:258031}."] = "West up the road from the port: Sleebo Fizzlespout has his workshop on the hill. The gas vents are in the marsh south-west of it, on your first hunt for Neza.", ["{npc:257062} offers the last two once Gobam's errands are done (players' recordings), which this guide leaves out. They are level 44 and 45: leave them for later if {npc:258626} was a close fight."] = "Jezap offers the last two once Gobam's errands are done (players' recordings), which this guide leaves out. They are level 44 and 45: leave them for later if Mog'thar was a close fight.", ["{npc:258031}'s elites"] = "Neza's elites", ["{npc:260231} can give you the bait for the shallows south-west of the port. {npc:257001}, the elite, walks the same shore."] = "Argo can give you the bait for the shallows south-west of the port. Old Rot-Chum, the elite, walks the same shore.", ["{npc:263367}'s workshop"] = "Sleebo's workshop" },
+			names = { ["area:1099"] = "Camp Mojache", ["area:1517"] = "Uldaman", ["area:16591"] = "Riverglades", ["area:16685"] = "Twilight's Shroud", ["area:16723"] = "Sunnyglade", ["area:16725"] = "Wheeler's Grange", ["area:16726"] = "Bolder'ok", ["area:16727"] = "Powderfuse Port", ["area:16729"] = "Terral's Watch", ["area:16735"] = "Meadowsbrook", ["area:16736"] = "Turner's Logging Camp", ["area:16737"] = "Bristle Hills", ["area:16743"] = "Rog'mar", ["area:16744"] = "Southern Watch", ["area:3"] = "Badlands", ["area:340"] = "Kargath", ["area:35"] = "Booty Bay", ["area:439"] = "Shimmering Flats", ["area:440"] = "Tanaris", ["area:484"] = "Freewind Post", ["area:657"] = "Harborage", ["area:75"] = "Stonard", ["area:796"] = "Scarlet Monastery", ["area:976"] = "Gadgetzan", ["area:977"] = "Steamwheedle Port", ["item:265066"] = "Hearty Stew", ["item:268505"] = "Remote Explosive Charge", ["item:268521"] = "Swineherd's Staff", ["item:268632"] = "Beast Entrails", ["item:268647"] = "Big Ball o' Bait", ["item:268664"] = "Rotflesh Mushroom", ["item:269257"] = "Skullbasher", ["item:271611"] = "Cubic Draconia", ["item:271629"] = "Wood Bundle", ["item:271630"] = "Makeshift Stickin' Spear", ["item:277974"] = "Twice Reordered Package", ["item:769"] = "Chunk of Boar Meat", ["npc:1563"] = "Bloodsail Swashbuckler", ["npc:255829"] = "Clugfist", ["npc:255851"] = "Mature Paletusk", ["npc:255897"] = "Friz Frazzlespark", ["npc:255906"] = "Snargl", ["npc:255993"] = "Grakna", ["npc:256418"] = "Krom'rosh", ["npc:256655"] = "Gorg", ["npc:256657"] = "Kreza Darkthorn", ["npc:256675"] = "Innkeeper Toka", ["npc:256710"] = "Tran'gul", ["npc:256728"] = "Na'zok", ["npc:256749"] = "Rog'mar Trainee", ["npc:256800"] = "Twilight Enforcer", ["npc:256807"] = "Shore Crawler", ["npc:256881"] = "Overlord Kilgar", ["npc:256891"] = "Executioner Morg", ["npc:256899"] = "Chogg'Zac", ["npc:257001"] = "Old Rot-Chum", ["npc:257059"] = "Chub'chob", ["npc:257062"] = "Jezap Jinglesprocket", ["npc:257079"] = "Cavalry Scout Alturin", ["npc:257450"] = "Rog'mar Scout", ["npc:257901"] = "Eastsea Buccaneer", ["npc:257915"] = "Eastsea Raider", ["npc:258023"] = "Sergeant Riftan", ["npc:258031"] = "Neza Bloodsnout", ["npc:258048"] = "Jom-jom", ["npc:258331"] = "Young Paletusk", ["npc:258570"] = "Da'grosh", ["npc:258626"] = "Mog'thar", ["npc:259046"] = "Freshwater Crocolisk", ["npc:259158"] = "Fuzzle", ["npc:259758"] = "Gul'gash", ["npc:259961"] = "Wharfmaster Whizzbuzz", ["npc:259962"] = "Fimbo Greasemitz", ["npc:260023"] = "Farholde Ambusher", ["npc:260211"] = "Scoutmaster Vargas", ["npc:260231"] = "Argo Brinewhistle", ["npc:260235"] = "Trapclaw", ["npc:260390"] = "Captain Bentcoin", ["npc:260391"] = "Captain Haynes", ["npc:260405"] = "Wharfmaster Steamfizzle", ["npc:260931"] = "Clubtoe", ["npc:260968"] = "Twilight Mauler", ["npc:260973"] = "Klunk", ["npc:260993"] = "Crag'rog", ["npc:260995"] = "Ogre Miner", ["npc:261208"] = "Twilight Brute", ["npc:262006"] = "Twilight Ritual Circle", ["npc:262399"] = "Gelinda Coppergleam", ["npc:263190"] = "Tan'jani", ["npc:263307"] = "Glade Viper", ["npc:263315"] = "Ombassa", ["npc:263316"] = "Picked Carcass", ["npc:263343"] = "Low Plains Buzzard", ["npc:263348"] = "Roving Tallstrider", ["npc:263367"] = "Sleebo Fizzlespout", ["npc:263380"] = "Ghostmaw", ["npc:687"] = "Jungle Stalker", ["npc:8115"] = "Witch Doctor Uzer'i", ["object:3202"] = "Grom'gol", ["object:628948"] = "WANTED!", ["object:629761"] = "Painted Hide", ["object:645164"] = "WANTED!", ["object:645516"] = "Peasant Woodpile", ["quest:93786"] = "A Message in Blood", ["quest:93787"] = "Food for the Taking", ["quest:93788"] = "Borrowed Blades", ["quest:93976"] = "The Goblin Trader", ["quest:94480"] = "A Gift From Our Enemies", ["quest:94481"] = "A Serving of Strength", ["quest:94483"] = "Show Them How It's Done", ["quest:94532"] = "Gnoll Infestation", ["quest:94533"] = "Snargl's Snout", ["quest:94535"] = "Bristle Hills Bandits", ["quest:94556"] = "Jom-jom's Escape", ["quest:94668"] = "Bloodmaster's Ring", ["quest:94669"] = "Pay to Play", ["quest:94670"] = "Bloodmaster's Ring", ["quest:94672"] = "Encroaching Twilight", ["quest:94680"] = "Twilight Missives", ["quest:94727"] = "Digging for Answers", ["quest:94744"] = "The Wayward Warrior", ["quest:94745"] = "Carving a Path", ["quest:94748"] = "Break Their Chains", ["quest:94768"] = "Bring Me His Head", ["quest:94961"] = "Biting the Hand", ["quest:94962"] = "Bloodmaster's Ring", ["quest:94964"] = "Bloodmaster's Ring", ["quest:95033"] = "On the Other Side", ["quest:95062"] = "Frazzlespark's Crate", ["quest:95118"] = "Saltwater Savages", ["quest:95119"] = "Unfriendly Competition", ["quest:95120"] = "WANTED: Old Rot-Chum", ["quest:95121"] = "A Taste of the Sea", ["quest:95124"] = "Admiral Lamora", ["quest:95162"] = "Paletusk Harvesting", ["quest:95163"] = "Drive Them Back", ["quest:95260"] = "Terrors From the Deep", ["quest:95261"] = "It Takes Guts", ["quest:95267"] = "The Monster Surfaces", ["quest:95288"] = "Smuggler's Paradise", ["quest:95294"] = "Smuggler's Bargain", ["quest:95417"] = "The Purple Ones", ["quest:95418"] = "Spread the Word", ["quest:95420"] = "Land of Giants", ["quest:95424"] = "Might Makes Right", ["quest:95425"] = "Unworthy Champion", ["quest:95427"] = "Twilight No More!", ["quest:95428"] = "Clugfist's Decree", ["quest:95431"] = "Rumblings of Discontent", ["quest:95432"] = "Rise Up!", ["quest:95602"] = "Sickening Lights", ["quest:95792"] = "Clear 'em Out", ["quest:95882"] = "WANTED: Scoutmaster Vargas", ["quest:95934"] = "Proof of Profit", ["quest:95951"] = "Fetch 'n' Fletch", ["quest:95955"] = "Stick 'Em", ["quest:95992"] = "WANTED: Ghostmaw", ["quest:96063"] = "Gaseous Gold", ["quest:96067"] = "Rock 'em and Sock 'em", ["quest:96103"] = "A Feast for Buzzards", ["quest:96104"] = "Song of the Strider", ["quest:96105"] = "King of the Wild Plains", ["quest:96107"] = "Feathers for Fletching", ["quest:96108"] = "Poison Tips", ["quest:96109"] = "A Hunter's Quiver", ["zone:1441"] = "Thousand Needles", ["zone:1444"] = "Feralas", ["zone:2548"] = "Riverglades" },
+			written = { ["At the junk in the shallows south-west of the port, use {npc:260231}'s {item:268647}. Kill the threshadon that comes to the bait and take its head. Give {npc:257001}, the elite that walks this shore, plenty of room."] = "At the junk in the shallows south-west of the port, use Argo's Big Ball o' Bait. Kill the threshadon that comes to the bait and take its head. Give Old Rot-Chum, the elite that walks this shore, plenty of room.", ["Back to {area:16743}, where your Hearthstone is set: {npc:263190} on the fort's west side first, then {npc:256418}, {npc:256655} by the cook fire, {npc:256657} and {npc:258031} on your way east through the fort."] = "Back to Rog'mar, where your Hearthstone is set: Tan'jani on the fort's west side first, then Krom'rosh, Gorg by the cook fire, Kreza and Neza on your way east through the fort.", ["Back to {npc:260231}"] = "Back to Argo", ["Board at Steamwheedle and ride to {area:16727}. Leave the boat and walk west along the docks to {npc:255897}'s stall. Reaching the {area:440} pier is not the crossing."] = "Board at Steamwheedle and ride to Powderfuse Port. Leave the boat and walk west along the docks to Friz's stall. Reaching the Tanaris pier is not the crossing.", ["Each bout is a fight in the ring below {npc:255829}'s hill against an elite: Buzzbeak (41), Kronk and Bonegnaw (42), {npc:258626} (43), Snufflesnout (44) and {npc:257059} (45). Come in rested, with full health and mana; if a bout goes wrong, {npc:257062} offers it again."] = "Each bout is a fight in the ring below Clugfist's hill against an elite: Buzzbeak (41), Kronk and Bonegnaw (42), Mog'thar (43), Snufflesnout (44) and Chub'chob (45). Come in rested, with full health and mana; if a bout goes wrong, Jezap offers it again.", ["East of Rog'mar, on the hill above the road to {area:16727}: {npc:263367} has his workshop there. The gas vents are in the marsh south-west of it, on your first hunt for {npc:258031}."] = "East of Rog'mar, on the hill above the road to Powderfuse Port: Sleebo Fizzlespout has his workshop there. The gas vents are in the marsh south-west of it, on your first hunt for Neza.", ["Most beasts in the {zone:2548} drop {item:268632} for {npc:260231}: the shore crawlers on this coast and the boars on the ridge west of the pirates.\nCareful: {npc:257001} (elite, 42) wanders the shore and {npc:263380} (elite, 42) the river: take your beasts away from them."] = "Most beasts in the Riverglades drop Beast Entrails for Argo: the shore crawlers on this coast and the boars on the ridge west of the pirates.\nCareful: Old Rot-Chum (elite, 42) wanders the shore and Ghostmaw (elite, 42) the river: take your beasts away from them.", ["North along the beach from the docks: the crawlers drop the meat for {npc:259962}, and their entrails count for {npc:260231}. {npc:260235}, a big crab, scuttles along the rocks east of the docks. {npc:259758}, a rare elite of level 49, roams this coast from the docks up to the pirates' camp: if you see him, keep well away."] = "North along the beach from the docks: the crawlers drop the meat for Fimbo, and their entrails count for Argo. Trapclaw, a big crab, scuttles along the rocks east of the docks. Gul'gash, a rare elite of level 49, roams this coast from the docks up to the pirates' camp: if you see him, keep well away.", ["North-east to the workshop. {npc:263367}'s stress test is a fight with his G45-B4G beside the workshop: hand the quest in once it's beaten."] = "North-east to the workshop. Sleebo's stress test is a fight with his G45-B4G beside the workshop: hand the quest in once it's beaten.", ["West up the road from the port: {npc:263367} has his workshop on the hill. The gas vents are in the marsh south-west of it, on your first hunt for {npc:258031}."] = "West up the road from the port: Sleebo Fizzlespout has his workshop on the hill. The gas vents are in the marsh south-west of it, on your first hunt for Neza.", ["{npc:257062} offers the last two once Gobam's errands are done (players' recordings), which this guide leaves out. They are level 44 and 45: leave them for later if {npc:258626} was a close fight."] = "Jezap offers the last two once Gobam's errands are done (players' recordings), which this guide leaves out. They are level 44 and 45: leave them for later if Mog'thar was a close fight.", ["{npc:258031}'s elites"] = "Neza's elites", ["{npc:260231} can give you the bait for the shallows south-west of the port. {npc:257001}, the elite, walks the same shore."] = "Argo can give you the bait for the shallows south-west of the port. Old Rot-Chum, the elite, walks the same shore.", ["{npc:263367}'s workshop"] = "Sleebo's workshop" },
 			steps = {
 				{
 					title = "Fly to {area:340}",
@@ -12379,10 +12403,18 @@ do
 				},
 				{
 					title = "Fly to {area:484}",
-					note = "New in Forever: this guide follows what players did in the {zone:2548}. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nThe {zone:2548} lie across the sea from {zone:1446}: a goblin boat sails from {area:977}, north-east of {area:976}, to {area:16727}. Fly to {area:484} in {zone:1441} and head south-east through the {area:439} to {area:976}. (If you already know {area:340} in the {area:3}, the way in through {area:16685} works too.)",
+					note = "New in Forever: this guide follows what players did in the {zone:2548}. If a step is wrong, tell us on Polestar's Discord or GitHub and name the step.\nThe {zone:2548} lie across the sea from {area:440}: a goblin boat sails from {area:977}, north-east of {area:976}, to {area:16727}. Fly to {area:484} in {zone:1441} and head south-east through the {area:439} to {area:976}. (If you already know {area:340} in the {area:3}, the way in through {area:16685} works too.)",
 					when = { { k = "taxi", neg = true, name = "Kargath", node = 21 }, { k = "zone", neg = true, name = "Riverglades", area = 16591 }, { k = "zone", neg = true, name = "Tanaris", area = 440 }, { k = "zone", neg = true, name = "Thousand Needles", area = 400 } },
 					goals = {
 						{ t = "fly", location = "Freewind Post", node = 30, area = 484 },
+					},
+				},
+				{
+					title = "Through the {area:439}",
+					note = "Take the lift down from {area:484}. Follow the road south-east across the {area:439}, then south through the pass. {area:976} is just inside {area:440}.",
+					when = { { k = "taxi", neg = true, name = "Kargath", node = 21 }, { k = "zone", name = "Thousand Needles", area = 400 } },
+					goals = {
+						{ t = "enter", location = "Tanaris", area = 440, map = 1446, x = 51.57, y = 25.54 },
 					},
 				},
 				{
@@ -12404,7 +12436,7 @@ do
 				},
 				{
 					title = "Land at {area:16727}",
-					note = "Board at Steamwheedle and ride to {area:16727}. Leave the boat and walk west along the docks to {npc:255897}'s stall. Reaching the {zone:1446} pier is not the crossing.",
+					note = "Board at Steamwheedle and ride to {area:16727}. Leave the boat and walk west along the docks to {npc:255897}'s stall. Reaching the {area:440} pier is not the crossing.",
 					when = { { k = "done", label = "steamwheedle-pier" } },
 					goals = {
 						{ t = "enter", location = "Powderfuse Port", area = 16727, map = 1446, x = 67.57, y = 23.1 },
@@ -13090,10 +13122,19 @@ do
 				},
 				{
 					title = "Before the Eastsea camp",
-					note = "The Eastsea Musketeers reach 43. Leave the camp for now. At 40 or 41, if Raptor Mastery is still in your log, the Jungle Stalkers west of the Venture Co. mine in Stranglethorn are 40-41. At 42 resume on the beach north of {area:16727} for the buccaneers and musketeers.",
-					when = { { k = "level", op = "<", n = 42 }, { k = "onquest", q = { 95119, 95288 } } },
+					note = "The musketeers reach 43. At 41, Shore Crawlers (39–40) still give XP on the beach south-west of 81.21,46.52. Stay out of the pirate camp and watch for {npc:259758}, the rare elite. Skip this step if the gap is large; the first camp north of Powderfuse can wait until 42.\nAt 40–41, Jungle Stalkers count if you still have Raptor Mastery in Stranglethorn. For work in Kalimdor, the port boat sails to Steamwheedle.\nOr, with a group, run the {area:796} dungeon (Armory) instead.",
+					when = { { k = "level", op = "<", n = 41, frac = 0.9 }, { k = "onquest", q = { 95119, 95288 } } },
 					goals = {
 						{ t = "level", level = 42 },
+					},
+				},
+				{
+					title = "Finish 41 on the beach",
+					note = "Nearly 42? Take the Shore Crawlers (39–40) on the strip of sand north of the docks. Pull from the south-west side of the marked crab; the musketeers to its east reach 43. Watch for {npc:259758} (49, rare elite) coming down the coast and give him room. At 42 move north to the first Eastsea camp.\nOr, with a group, run the {area:796} dungeon (Armory) instead.",
+					when = { { k = "level", op = ">=", n = 41, frac = 0.9 }, { k = "level", op = "<", n = 42 }, { k = "onquest", q = { 95119, 95288 } } },
+					goals = {
+						{ t = "goto", text = "{npc:256807}", map = 2548, x = 81.21, y = 46.52 },
+						{ t = "level", level = 42, note = "Hunt Shore Crawlers on the marked beach, or earn the remaining XP elsewhere." },
 					},
 				},
 				{
@@ -13217,10 +13258,19 @@ do
 				},
 				{
 					title = "Before the raiders",
-					note = "The raiders and {quest:95124} reach 45. Pause here at {npc:259961} on the north pier. At 42-43, if you still have Keep An Eye Out or Up to Snuff, the pirates on the {area:43} south of {area:35} count; stay on the beach, not the ships. If those are already done, don't make that trip. At 44 resume here for the raiders on the cliffs. You don't need to farm the first camp.",
-					when = { { k = "level", op = "<", n = 44 }, { k = "onquest", q = { 95122, 95123, 95293, 95165, 95124, 95261 } } },
+					note = "The raiders and {quest:95124} reach 45. At 43 you can pull a few Eastsea Buccaneers (41–42) at the southern edge of the first camp, around 81.72,45.37. Watch for {npc:259758}, the rare elite. Don't grind a whole level here: skip the step to pass the cliffs and ships, or return to the north pier at 44.\nAt 42–43, if you still have Keep An Eye Out or Up to Snuff, the Bloodsail Swashbucklers (41–43) on the outer shore east of {area:35}'s tunnel count. Stay ashore. If your work is in {area:440} instead, take the boat to {area:977}.\nOr, with a group, run the {area:1517} dungeon instead.",
+					when = { { k = "level", op = "<", n = 43, frac = 0.9 }, { k = "onquest", q = { 95122, 95123, 95293, 95165, 95124, 95261 } } },
 					goals = {
 						{ t = "level", level = 44 },
+					},
+				},
+				{
+					title = "Finish 43 at the first camp",
+					note = "Nearly 44? Return to the first Eastsea camp north of the docks. Pull the level 41–42 Buccaneers from its southern edge; the Musketeers here reach 43. Let {npc:259758} (49, rare elite) pass. Leave the raiders and their powder kegs uphill until 44, then follow the cliffs to the second camp.\nOr, with a group, run the {area:1517} dungeon instead.",
+					when = { { k = "level", op = ">=", n = 43, frac = 0.9 }, { k = "level", op = "<", n = 44 }, { k = "onquest", q = { 95122, 95123, 95293, 95165, 95124, 95261 } } },
+					goals = {
+						{ t = "goto", text = "{npc:257901}", map = 2548, x = 81.72, y = 45.37 },
+						{ t = "level", level = 44, note = "Hunt Eastsea Buccaneers at the edge of the first camp, or earn the remaining XP elsewhere." },
 					},
 				},
 				{
@@ -13228,7 +13278,7 @@ do
 					note = "North along the coast from the port: the Eastsea raiders and bombardiers have dug in on the slopes west of the buccaneers' camp, among their powder kegs. Watch for {npc:259758} on these cliffs.\nCareful: the Eastsea Raiders are level 44-45, so pull them one at a time from the edge of the slopes and keep clear of the camp behind them.",
 					when = { { k = "level", op = ">=", n = 44 } },
 					goals = {
-						{ t = "kill", quest = 95122, title = "Unchecked Expansion", target = "Eastsea Raider", npc = 257915, count = 8, oi = 1, map = 2548, x = 77.85, y = 41.43, spotsPacked = "77.7,39.4,,67,10;78.9,36.5,,51,10;80.1,37.7,,50,7;80.1,33.8,,45,8;78.5,33.2,,53,11;78.5,30.3,,45,8;80,31.3,,45,9;81.6,26.7,,40,1;76.2,31.7,,80,10;76.5,35.6,,56,9;73.9,35.6,,40,1;87,41.6,,40,1;90.65,39.26,,23,1;89.6,31,,51,5;89.9,26.6,,40,4;79.5,40.4,,43,7,1;77.5,28.8,,41,3,1;79.8,28.7,,40,7,1;88.8,39.7,,49,7,1;88.4,27.3,,62,10,1;90.6,28.7,,40,6,1", spread = true, lvl = 45 },
+						{ t = "kill", quest = 95122, title = "Unchecked Expansion", target = "Eastsea Raider", npc = 257915, count = 8, oi = 1, map = 2548, x = 80.01, y = 40.88, spotsPacked = "79.5,40.4,,43,7;78.9,36.5,,51,10;80.1,33.8,,45,8;78.5,33.2,,53,11;78.5,30.3,,45,8;77.5,28.8,,41,3;79.8,28.7,,40,7;80,31.3,,45,9;81.6,26.7,,40,1;76.2,31.7,,80,10;76.5,35.6,,56,9;73.9,35.6,,40,1;87,41.6,,40,1;90.65,39.26,,23,1;89.6,31,,51,5;89.9,26.6,,40,4;80.1,37.7,,50,7,1;77.7,39.4,,67,10,1;88.8,39.7,,49,7,1;88.4,27.3,,62,10,1;90.6,28.7,,40,6,1", spread = true, lvl = 45 },
 						{ t = "kill", quest = 95122, title = "Unchecked Expansion", target = "Eastsea Bombardier", npc = 257916, count = 8, oi = 2, map = 2548, x = 79.1, y = 33.8, spotsPacked = "78.79,33.27,,100,34;79.6,39.5,,45,8,1;80.2,28.1,,40,4,1;77.6,39.7,,77,6,1;87.9,26.7,,77,8,1;88.7,28.6,,53,5,1;89.5,31.7,,57,4,1;89,39.7,,42,4,1;90,37.5,,40,1,1;90.3,29.2,,40,5,1;90.3,27.4,,43,5,1;90.6,40.3,,40,6,1", lvl = 44 },
 						{ t = "collect", quest = 95123, title = "A Blast Ye Scurvy Dogs!", item = 268346, itemName = "Eastsea Powder Keg", count = 5, oi = 1, map = 2548, x = 79.8, y = 33, spotsPacked = "77.6,33.7,,0;77.7,31.7,,0;78.2,34.7,,0;78.2,37.3,,0;78.6,31.8,,0;78.6,35.9,,0;79.2,31.9,,0;79.5,30.9,,0;79.5,36.5,,0;79.5,37.4,,0;79.8,33,,0;80.4,33,,0", from = "Eastsea Powder Keg", fromKind = "object", fromId = 629451 },
 					},
@@ -13274,7 +13324,7 @@ do
 				},
 				{
 					title = "{npc:255897}",
-					note = "Keep the shipping papers for {npc:260405} at {area:977} in {zone:1446}.",
+					note = "Keep the shipping papers for {npc:260405} at {area:977} in {area:440}.",
 					when = { { k = "turnedin", q = 95294 } },
 					goals = {
 						{ t = "accept", quest = 95296, title = "Shipping and Handling", npc = 255897, npcName = "Friz Frazzlespark", minLevel = 36, qlvl = 40, pre = { 95294 }, preTitles = { [95294] = "Smuggler's Bargain" }, map = 2548, x = 77, y = 52.83 },
@@ -13371,19 +13421,81 @@ do
 					},
 				},
 				{
+					title = "{npc:255993} at {area:16743}",
+					note = "Without {npc:256899} the ogre trail ends here. Return to {area:16743} by road, or hearth if you're bound there. {npc:255993} stands in the middle of the fort; take her flight to {area:340} for the next guide.",
+					when = { { k = "zone", name = "Riverglades", area = 16591 }, { k = "onquest", neg = true, q = { 94744 } }, { k = "turnedin", neg = true, q = 94744 }, { k = "taxi", name = "Kargath", node = 21 } },
+					goals = {
+						{ t = "talk", npc = 255993, npcName = "Grakna", map = 2548, x = 59.51, y = 45.01, note = "{npc:255993}, the {area:16743} flight master" },
+					},
+				},
+				{
 					title = "Fly to {area:340}",
-					note = "The rest of this guide is {npc:258570}'s camp in the west, which waits on {npc:256899}: without him the {zone:2548} end here. Back to {area:16743} from the port, where your Hearthstone is set: {npc:255993}, the wind rider master in the middle of the fort, flies to {area:340} in the {area:3}, where the next guide starts.",
+					note = "Fly to {area:340} in the {area:3}, where the next guide starts.",
 					when = { { k = "onquest", neg = true, q = { 94744 } }, { k = "turnedin", neg = true, q = 94744 }, { k = "taxi", name = "Kargath", node = 21 } },
 					goals = {
 						{ t = "fly", location = "Kargath", node = 21, area = 340 },
 					},
 				},
 				{
-					title = "{npc:258570}",
-					note = "West from {area:16743} through {area:16723} and on up the valley towards {area:16685}: {npc:258570}, {npc:256418}'s wayward warrior, keeps a camp in the hills below the Twilight cult's fortress.",
-					when = { { k = "onquest", q = { 94744 } } },
+					title = "{npc:258570}'s delivery on the way out",
+					when = { { k = "level", op = "<", n = 43 }, { k = "onquest", q = { 94744 } } },
+					along = "west-exit",
 					goals = {
 						{ t = "turnin", quest = 94744, title = "The Wayward Warrior", npc = 258570, npcName = "Da'grosh", map = 2548, x = 33.4, y = 38 },
+					},
+				},
+				{
+					title = "{npc:260993}'s delivery on the way out",
+					when = { { k = "level", op = "<", n = 43 }, { k = "onquest", q = { 95431 } } },
+					along = "west-exit",
+					goals = {
+						{ t = "turnin", quest = 95431, title = "Rumblings of Discontent", npc = 260993, npcName = "Crag'rog", map = 2548, x = 27.29, y = 36.97 },
+					},
+				},
+				{
+					title = "{npc:258570}'s cultist bounty",
+					when = { { k = "complete", q = 94745 } },
+					along = "west-exit",
+					goals = {
+						{ t = "turnin", quest = 94745, title = "Carving a Path", npc = 258570, npcName = "Da'grosh", map = 2548, x = 33.4, y = 38 },
+					},
+				},
+				{
+					title = "{npc:258570}'s scout reward",
+					when = { { k = "complete", q = 94748 } },
+					along = "west-exit",
+					goals = {
+						{ t = "turnin", quest = 94748, title = "Break Their Chains", npc = 258570, npcName = "Da'grosh", map = 2548, x = 33.4, y = 38 },
+					},
+				},
+				{
+					title = "{npc:260993}'s miner reward",
+					when = { { k = "complete", q = 95432 } },
+					along = "west-exit",
+					goals = {
+						{ t = "turnin", quest = 95432, title = "Rise Up!", npc = 260993, npcName = "Crag'rog", map = 2548, x = 27.29, y = 36.97 },
+					},
+				},
+				{
+					title = "{npc:258570}'s reward for Kilgar",
+					when = { { k = "complete", q = 94768 } },
+					along = "west-exit",
+					goals = {
+						{ t = "turnin", quest = 94768, title = "Bring Me His Head", npc = 258570, npcName = "Da'grosh", map = 2548, x = 33.4, y = 38 },
+					},
+				},
+				{
+					title = "{npc:258570}",
+					note = "West from {area:16743} through {area:16723} and on up the valley towards {area:16685}: {npc:258570}, {npc:256418}'s wayward warrior, keeps a camp in the hills below the Twilight cult's fortress.",
+					when = { { k = "level", op = ">=", n = 43 }, { k = "onquest", q = { 94744 } } },
+					goals = {
+						{ t = "turnin", quest = 94744, title = "The Wayward Warrior", npc = 258570, npcName = "Da'grosh", map = 2548, x = 33.4, y = 38 },
+					},
+				},
+				{
+					title = "{npc:258570}'s valley quests",
+					when = { { k = "level", op = ">=", n = 43 }, { k = "turnedin", q = 94744 } },
+					goals = {
 						{ t = "accept", quest = 95431, title = "Rumblings of Discontent", npc = 258570, npcName = "Da'grosh", minLevel = 38, qlvl = 41, pre = { 94744 }, preTitles = { [94744] = "The Wayward Warrior" }, map = 2548, x = 33.4, y = 38, note = "{quest:95431}" },
 						{ t = "accept", quest = 94745, title = "Carving a Path", npc = 258570, npcName = "Da'grosh", minLevel = 38, qlvl = 44, pre = { 94744 }, preTitles = { [94744] = "The Wayward Warrior" }, map = 2548, x = 33.4, y = 38, note = "{quest:94745}" },
 						{ t = "accept", quest = 94748, title = "Break Their Chains", npc = 258570, npcName = "Da'grosh", minLevel = 38, qlvl = 44, pre = { 94744 }, preTitles = { [94744] = "The Wayward Warrior" }, map = 2548, x = 33.4, y = 38, note = "{quest:94748}" },
@@ -13392,59 +13504,84 @@ do
 				{
 					title = "{npc:260993}",
 					note = "{npc:260993}, a {area:16726} ogre, hides in the cave west of {npc:258570}'s camp.",
-					when = { { k = "onquest", q = { 95431 } } },
+					when = { { k = "level", op = ">=", n = 43 }, { k = "onquest", q = { 95431 } } },
 					goals = {
 						{ t = "turnin", quest = 95431, title = "Rumblings of Discontent", npc = 260993, npcName = "Crag'rog", map = 2548, x = 27.29, y = 36.97 },
+					},
+				},
+				{
+					title = "{npc:260993}'s miners",
+					when = { { k = "level", op = ">=", n = 43 }, { k = "turnedin", q = 95431 } },
+					goals = {
 						{ t = "accept", quest = 95432, title = "Rise Up!", npc = 260993, npcName = "Crag'rog", minLevel = 36, qlvl = 43, pre = { 95431 }, preTitles = { [95431] = "Rumblings of Discontent" }, map = 2548, x = 27.29, y = 36.97, note = "{quest:95432}" },
 					},
 				},
 				{
-					title = "The Twilight camps",
-					note = "The cult's camps fill the valley south and west of {npc:258570}. Free the captive Rog'mar Scouts as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. {npc:256881} and {npc:256891} (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. {npc:258023}'s Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it.",
-					when = { { k = "onquest", q = { 94745, 94748 } } },
-					goals = {
-						{ t = "kill", quest = 94745, title = "Carving a Path", target = "Twilight Fanatic", npc = 256795, count = 8, oi = 1, map = 2548, x = 28.94, y = 40.85, spotsPacked = "28.94,40.85,,54,10;29.43,43.92,,68,16;31.3,38.7,,44,8;29.7,36.2,,38,3;31.86,43.1,,19,1;26.7,44.2,,26,3,1;32.2,40.5,,38,6,1;33.2,38.8,,27,3,1;32.1,45.9,,44,8,1;30.7,48.1,,58,6,1;35.4,45.4,,15,1,1", lvl = 43 },
-						{ t = "kill", quest = 94745, title = "Carving a Path", target = "Twilight Corrupter", npc = 256797, count = 8, oi = 2, map = 2548, x = 28.27, y = 39.51, spotsPacked = "29,40.1,,55,9;28.3,37.7,,63,10;26.9,41.4,,67,14;30,41.7,,43,6;30.5,38.8,,33,5;29.5,36.1,,70,9;28.24,46.23,,41,7;25.8,44,,65,10,1;31.3,45,,47,6,1;30.9,33.2,,15,1,1;33.3,38.4,,15,1,1;31.5,50,,15,1,1", lvl = 43 },
-						{ t = "kill", quest = 94745, title = "Carving a Path", target = "Twilight Champion", npc = 256799, count = 8, oi = 3, map = 2548, x = 28.67, y = 40.84, spotsPacked = "29.3,41.7,,55,9;28.8,39.1,,56,9;26.89,41.76,,37,5;28.4,44.3,,64,13;30.7,38.8,,50,11;28,36.7,,90,10;32.39,42.21,,15,1;31.48,45.74,,20,1;29.7,35.2,,58,9,1;32.8,39.5,,54,6,1;27.3,47,,64,14,1;30,47.1,,49,9,1;33.6,43.8,,40,6,1;28.3,49.7,,60,8,1;30.4,49.4,,49,8,1;31.4,32.5,,30,2,1;36,45.7,,22,2,1", lvl = 44 },
-						{ t = "complete", quest = 94748, title = "Break Their Chains", map = 2548, x = 29.4, y = 40.5, note = "free five captive Rog'mar Scouts", objs = { { text = "Rog'mar Scout rescued", count = 5 } } },
-					},
-				},
-				{
 					title = "The ogre mine",
-					note = "North of the camps the cult works ogre miners in a mine: talk five of them into rising up against their masters.\nCareful: Twilight Enforcers (elites, level 45) walk past the mine's mouth on their way through the camps. Wait for one to pass before you go in.",
-					when = { { k = "onquest", q = { 95432 } } },
+					note = "North of Crag'rog, talk five Ogre Miners into rising up. The Subjugators aren't quest targets. Champions guard the approach, and elite Twilight Enforcers (45) patrol the mine mouth: wait for them to pass.",
+					when = { { k = "level", op = ">=", n = 43 }, { k = "onquest", q = { 95432 } }, { k = "complete", neg = true, q = 95432 } },
 					goals = {
-						{ t = "complete", quest = 95432, title = "Rise Up!", map = 2548, x = 26.9, y = 34.9, note = "recruit five Ogre Miners", objs = { { text = "Ogre Miners recruited", count = 5 } } },
+						{ t = "complete", quest = 95432, title = "Rise Up!", map = 2548, x = 26.48, y = 33.27, note = "recruit five Ogre Miners", objs = { { text = "Ogre Miners recruited", count = 5 } } },
 					},
 				},
 				{
 					title = "{npc:260993}",
-					when = { { k = "onquest", q = { 95432 } } },
+					when = { { k = "level", op = ">=", n = 43 }, { k = "complete", q = 95432 } },
 					goals = {
 						{ t = "turnin", quest = 95432, title = "Rise Up!", npc = 260993, npcName = "Crag'rog", map = 2548, x = 27.29, y = 36.97 },
 					},
 				},
 				{
+					title = "The captive scouts",
+					note = "Free five Rog'mar Scouts in the camps south of the cave. Champions reach 44 and elite Twilight Enforcers (45) patrol among the cages. Leave a captive until the patrol moves on. Keep north of {npc:258023}'s level-46 Alliance Lookouts.",
+					when = { { k = "level", op = ">=", n = 43 }, { k = "onquest", q = { 94748 } }, { k = "complete", neg = true, q = 94748 } },
+					goals = {
+						{ t = "complete", quest = 94748, title = "Break Their Chains", map = 2548, x = 29.46, y = 40.49, objs = { { text = "Rog'mar Scout rescued", count = 5 } } },
+					},
+				},
+				{
+					title = "The Twilight camps",
+					note = "Work the Corrupters below the mine and the Fanatics and Champions on the eastern edge, south of {npc:258570}. Pull single cultists away from the tents. Avoid the level-45 elite Twilight Enforcers and the fortress where {npc:256891} and {npc:256881} (both 46, elite) patrol.",
+					when = { { k = "level", op = ">=", n = 43 }, { k = "onquest", q = { 94745 } }, { k = "complete", neg = true, q = 94745 } },
+					goals = {
+						{ t = "kill", quest = 94745, title = "Carving a Path", target = "Twilight Corrupter", npc = 256797, count = 8, oi = 2, map = 2548, x = 29.61, y = 37.21, spotsPacked = "29.61,37.21,,129,19;29,40.1,,55,9;30.5,38.8,,33,5,1;30.9,33.2,,15,1,1;30,41.7,,43,6,1;33.3,38.4,,15,1,1;26.9,41.4,,67,14,1;28.7,43.8,,59,9,1;31.3,45,,47,6,1;25.8,44,,65,10,1;29.8,46.8,,59,10,1;27.2,46.8,,61,15,1;29.3,48.9,,74,12,1;31.5,50,,15,1,1", lvl = 43 },
+						{ t = "kill", quest = 94745, title = "Carving a Path", target = "Twilight Fanatic", npc = 256795, count = 8, oi = 1, map = 2548, x = 31.86, y = 43.1, spotsPacked = "31.86,43.1,,19,1;29.43,43.92,,68,16;28.94,40.85,,54,10;32.2,40.5,,38,6,1;32.1,45.9,,44,8,1;31.3,38.7,,44,8,1;33.2,38.8,,27,3,1;30.7,48.1,,58,6,1;35.4,45.4,,15,1,1;29.7,36.2,,38,3,1;26.7,44.2,,26,3,1", lvl = 43 },
+						{ t = "kill", quest = 94745, title = "Carving a Path", target = "Twilight Champion", npc = 256799, count = 8, oi = 3, map = 2548, x = 33.57, y = 41.49, spotsPacked = "32.39,42.21,,15,1;31.48,45.74,,20,1;29.3,41.7,,55,9;28.8,39.1,,56,9;26.89,41.76,,37,5;32.8,39.5,,54,6,1;33.6,43.8,,40,6,1;30.7,38.8,,50,11,1;36,45.7,,22,2,1;30,47.1,,49,9,1;28.4,44.3,,64,13,1;29.7,35.2,,58,9,1;30.4,49.4,,49,8,1;31.4,32.5,,30,2,1;28,36.7,,90,10,1;27.3,47,,64,14,1;28.3,49.7,,60,8,1", lvl = 44 },
+					},
+				},
+				{
 					title = "{npc:258570}",
-					when = { { k = "onquest", q = { 94745, 94748 } } },
+					when = { { k = "level", op = ">=", n = 43 }, { k = "complete", q = 94745 } },
 					goals = {
 						{ t = "turnin", quest = 94745, title = "Carving a Path", npc = 258570, npcName = "Da'grosh", map = 2548, x = 33.4, y = 38 },
+					},
+				},
+				{
+					title = "{npc:258570}",
+					when = { { k = "level", op = ">=", n = 43 }, { k = "complete", q = 94748 } },
+					goals = {
 						{ t = "turnin", quest = 94748, title = "Break Their Chains", npc = 258570, npcName = "Da'grosh", map = 2548, x = 33.4, y = 38 },
 					},
 				},
 				{
 					title = "{quest:94768}",
 					note = "{npc:256881} is an elite (level 46) in the fortress at the head of the valley, with the Enforcers around him: grouping up is advised.",
-					when = { { k = "group", q = 94768 }, { k = "turnedin", q = 94745 } },
+					when = { { k = "level", op = ">=", n = 43 }, { k = "turnedin", q = 94745 }, { k = "turnedin", q = 94748 }, { k = "complete", neg = true, q = 94768 }, { k = "group", q = 94768 } },
 					goals = {
 						{ t = "accept", quest = 94768, title = "Bring Me His Head", npc = 258570, npcName = "Da'grosh", minLevel = 38, qlvl = 46, preAll = { 94745, 94748 }, preTitles = { [94745] = "Carving a Path", [94748] = "Break Their Chains" }, map = 2548, x = 33.4, y = 38 },
 						{ t = "collect", quest = 94768, title = "Bring Me His Head", item = 265837, itemName = "Kilgar's Head", count = 1, oi = 1, map = 2548, x = 26.1, y = 43.9, spotsPacked = "26.02,43.91,,43,4;27.6,42.2,,35,5,1;27.1,46.3,,29,2,1;29.4,46.8,,15,1,1", lvl = 46, from = "Overlord Kilgar", fromKind = "npc", fromRank = 1, fromId = 256881, fromNpcs = { { npc = 256881, npcName = "Overlord Kilgar" } }, group = { kind = "elite", lvl = 46, rank = 1 } },
+					},
+				},
+				{
+					title = "{npc:258570}",
+					when = { { k = "level", op = ">=", n = 43 }, { k = "complete", q = 94768 } },
+					goals = {
 						{ t = "turnin", quest = 94768, title = "Bring Me His Head", npc = 258570, npcName = "Da'grosh", map = 2548, x = 33.4, y = 38 },
 					},
 				},
 				{
 					title = "{area:16685}",
-					note = "The next guide flies from {area:340} in the {area:3}: up through {area:16685}, the pass at the valley's north-west end, just north of {npc:258570}'s camp. Coming from {area:16743}, ride west through {area:16723} and keep north of the Twilight camps below the pass.",
+					note = "The next guide flies from {area:340} in the {area:3}: up through {area:16685}, the pass at the valley's north-west end, just north of {npc:258570}'s camp. Coming from {area:16743}, ride west through {area:16723} and keep north of the Twilight camps below the pass.\nBelow 43 with {npc:258570}'s or {npc:260993}'s work? If you are already at their camp, hand in what you have finished. Otherwise keep the quests and stay north of the camps. Continue from {area:340} with {zone:1444} & {area:440}, or return at 43 and reopen {npc:258570} west of {area:16723}.",
 					when = { { k = "zone", neg = true, name = "Badlands", area = 3 } },
 					goals = {
 						{ t = "goto", text = "{area:16685}", area = 16685, map = 2548, x = 32, y = 29.9 },
@@ -13453,6 +13590,7 @@ do
 				{
 					title = "{area:340}",
 					note = "Across the {area:3} to {area:340}, the Horde fortress built into the cliffs at the zone's western edge: its flight master stands at the foot of the fortress.",
+					label = "west-exit",
 					goals = {
 						{ t = "enter", location = "Badlands", area = 3 },
 						{ t = "getfp", npc = 2861, npcName = "Gorrik", location = "Kargath", node = 21, area = 340, map = 1418, x = 4.03, y = 44.77, z = 244.2, spotsPacked = "4,44.8,244.2,15,2" },
@@ -15435,8 +15573,10 @@ end
 do
 	local function register()
 		local candidateRecords = {
+			{ npc = 3326, npcName = "Zevrost", map = 1454, x = 48.16, y = 45.56, z = -14.8, faction = "H", classes = { "WARLOCK" } },
 			{ npc = 3406, npcName = "Xor'juul", map = 1454, x = 66.91, y = 19.95, z = 58.7, faction = "H", classes = { "HUNTER" } },
 			{ npc = 3344, npcName = "Kardris Dreamseeker", map = 1454, x = 38.68, y = 36.64, z = 42.2, faction = "H", classes = { "SHAMAN" } },
+			{ npc = 3327, npcName = "Gest", map = 1454, x = 42.86, y = 51.48, z = 7.3, faction = "H", classes = { "ROGUE" } },
 			{ npc = 3353, npcName = "Grezz Ragefist", map = 1454, x = 79.6, y = 31.34, z = 55.9, faction = "H", classes = { "WARRIOR" } },
 			{ npc = 5883, npcName = "Enyo", map = 1454, x = 38.56, y = 85.42, z = 43, faction = "H", classes = { "MAGE" } },
 			{ npc = 5994, npcName = "Zayus", map = 1454, x = 35.72, y = 86.9, z = 61.4, f = "e", faction = "H", classes = { "PRIEST" } },
@@ -15516,7 +15656,7 @@ do
 			next = "forever/horde/50-60/01-un-goro-crater",
 			author = "Polestar",
 			version = 1,
-			names = { ["area:1099"] = "Camp Mojache", ["area:1108"] = "The Forgotten Coast", ["area:117"] = "Grom'gol Base Camp", ["area:1235"] = "Shadowsong Shrine", ["area:1236"] = "Haldarr Encampment", ["area:1237"] = "Valormok", ["area:1637"] = "Orgrimmar", ["area:1638"] = "Thunder Bluff", ["area:1639"] = "Elder Rise", ["area:1938"] = "Broken Pillar", ["area:222"] = "Bloodhoof Village", ["area:2522"] = "Ruins of Isildien", ["area:3137"] = "Talrendis Point", ["area:35"] = "Booty Bay", ["area:378"] = "Camp Taurajo", ["area:43"] = "Wild Shore", ["area:75"] = "Stonard", ["area:976"] = "Gadgetzan", ["item:18904"] = "Zorbin's Ultra-Shrinker", ["item:3985"] = "Monogrammed Sash", ["item:4098"] = "Carefully Folded Note", ["npc:11276"] = "Azshara Sentinel", ["npc:11548"] = "Loh'atu", ["npc:11758"] = "Andi Lynn", ["npc:12046"] = "Gor'marok the Ravager", ["npc:14637"] = "Zorbin Fandazzle", ["npc:2487"] = "Fleet Master Seahorn", ["npc:2491"] = "Whiskey Slim", ["npc:2497"] = "Nimboya", ["npc:2500"] = "Captain Hecklebury Smotts", ["npc:2519"] = "Kin'weelay", ["npc:2546"] = "Fleet Master Firallon", ["npc:2548"] = "Captain Keelhaul", ["npc:2550"] = "Captain Stillwater", ["npc:2594"] = "Sprogger", ["npc:2634"] = "Princess Poobah", ["npc:5278"] = "Sprite Darter", ["npc:5300"] = "Frayfeather Hippogryph", ["npc:5357"] = "Land Walker", ["npc:5358"] = "Cliff Giant", ["npc:5461"] = "Sea Elemental", ["npc:5462"] = "Sea Spray", ["npc:5490"] = "Gnarled Thistleshrub", ["npc:5594"] = "Alchemist Pestlezugg", ["npc:5769"] = "Arch Druid Hamuul Runetotem", ["npc:6117"] = "Highborne Lichling", ["npc:6746"] = "Innkeeper Pala", ["npc:6986"] = "Dran Droffers", ["npc:7010"] = "Zilzibin Drumlore", ["npc:7406"] = "Oglethorpe Obnoticus", ["npc:7564"] = "Marin Noggenfogger", ["npc:7584"] = "Wandering Forest Walker", ["npc:7771"] = "Marvon Rivetseeker", ["npc:7776"] = "Talo Thornhoof", ["npc:7876"] = "Tran'rek", ["npc:8115"] = "Witch Doctor Uzer'i", ["npc:818"] = "Mai'Zoth", ["npc:8659"] = "Jes'rimon", ["object:142071"] = "Egg-O-Matic", ["object:172960"] = "Cleft of Shadow", ["object:2076"] = "Bubbling Cauldron", ["object:3202"] = "Grom'gol", ["quest:3362"] = "Thistleshrub Valley", ["quest:3444"] = "The Stone Circle", ["quest:3761"] = "Un'Goro Soil", ["quest:4300"] = "Bone-Bladed Weapons", ["quest:4493"] = "March of the Silithid", ["quest:4494"] = "March of the Silithid", ["quest:5863"] = "The Dunemaul Compound", ["quest:591"] = "The Mind's Eye", ["quest:592"] = "Saving Yenniku", ["quest:8552"] = "The Monogrammed Sash", ["zone:1412"] = "Mulgore", ["zone:1434"] = "Stranglethorn Vale", ["zone:1435"] = "Swamp of Sorrows", ["zone:1444"] = "Feralas", ["zone:1446"] = "Tanaris", ["zone:1447"] = "Azshara", ["zone:1448"] = "Felwood", ["zone:1449"] = "Un'Goro Crater", ["zone:1454"] = "Orgrimmar", ["zone:1456"] = "Thunder Bluff" },
+			names = { ["area:1099"] = "Camp Mojache", ["area:1108"] = "The Forgotten Coast", ["area:117"] = "Grom'gol Base Camp", ["area:1235"] = "Shadowsong Shrine", ["area:1236"] = "Haldarr Encampment", ["area:1237"] = "Valormok", ["area:1637"] = "Orgrimmar", ["area:1638"] = "Thunder Bluff", ["area:1639"] = "Elder Rise", ["area:1938"] = "Broken Pillar", ["area:222"] = "Bloodhoof Village", ["area:2522"] = "Ruins of Isildien", ["area:3137"] = "Talrendis Point", ["area:35"] = "Booty Bay", ["area:362"] = "Razor Hill", ["area:378"] = "Camp Taurajo", ["area:379"] = "Far Watch Post", ["area:43"] = "Wild Shore", ["area:75"] = "Stonard", ["area:976"] = "Gadgetzan", ["item:18904"] = "Zorbin's Ultra-Shrinker", ["item:3985"] = "Monogrammed Sash", ["item:4098"] = "Carefully Folded Note", ["npc:11276"] = "Azshara Sentinel", ["npc:11548"] = "Loh'atu", ["npc:11758"] = "Andi Lynn", ["npc:12046"] = "Gor'marok the Ravager", ["npc:14637"] = "Zorbin Fandazzle", ["npc:2487"] = "Fleet Master Seahorn", ["npc:2491"] = "Whiskey Slim", ["npc:2497"] = "Nimboya", ["npc:2500"] = "Captain Hecklebury Smotts", ["npc:2519"] = "Kin'weelay", ["npc:2546"] = "Fleet Master Firallon", ["npc:2548"] = "Captain Keelhaul", ["npc:2550"] = "Captain Stillwater", ["npc:2594"] = "Sprogger", ["npc:2634"] = "Princess Poobah", ["npc:3310"] = "Doras", ["npc:5278"] = "Sprite Darter", ["npc:5300"] = "Frayfeather Hippogryph", ["npc:5357"] = "Land Walker", ["npc:5358"] = "Cliff Giant", ["npc:5461"] = "Sea Elemental", ["npc:5462"] = "Sea Spray", ["npc:5490"] = "Gnarled Thistleshrub", ["npc:5594"] = "Alchemist Pestlezugg", ["npc:5769"] = "Arch Druid Hamuul Runetotem", ["npc:6117"] = "Highborne Lichling", ["npc:6746"] = "Innkeeper Pala", ["npc:6986"] = "Dran Droffers", ["npc:7010"] = "Zilzibin Drumlore", ["npc:7406"] = "Oglethorpe Obnoticus", ["npc:7564"] = "Marin Noggenfogger", ["npc:7584"] = "Wandering Forest Walker", ["npc:7771"] = "Marvon Rivetseeker", ["npc:7776"] = "Talo Thornhoof", ["npc:7876"] = "Tran'rek", ["npc:8115"] = "Witch Doctor Uzer'i", ["npc:818"] = "Mai'Zoth", ["npc:8610"] = "Kroum", ["npc:8659"] = "Jes'rimon", ["object:142071"] = "Egg-O-Matic", ["object:172960"] = "Cleft of Shadow", ["object:2076"] = "Bubbling Cauldron", ["object:3202"] = "Grom'gol", ["quest:3362"] = "Thistleshrub Valley", ["quest:3444"] = "The Stone Circle", ["quest:3761"] = "Un'Goro Soil", ["quest:4300"] = "Bone-Bladed Weapons", ["quest:4493"] = "March of the Silithid", ["quest:4494"] = "March of the Silithid", ["quest:5863"] = "The Dunemaul Compound", ["quest:591"] = "The Mind's Eye", ["quest:592"] = "Saving Yenniku", ["quest:8552"] = "The Monogrammed Sash", ["zone:1412"] = "Mulgore", ["zone:1413"] = "Barrens", ["zone:1434"] = "Stranglethorn Vale", ["zone:1435"] = "Swamp of Sorrows", ["zone:1440"] = "Ashenvale", ["zone:1444"] = "Feralas", ["zone:1446"] = "Tanaris", ["zone:1447"] = "Azshara", ["zone:1448"] = "Felwood", ["zone:1449"] = "Un'Goro Crater", ["zone:1454"] = "Orgrimmar", ["zone:1456"] = "Thunder Bluff" },
 			written = { ["Keep {quest:3444}: {npc:7771}'s chest is opened on a later visit."] = "Keep The Stone Circle: Marvon's chest is opened on a later visit.", ["On the way through {zone:1454} to the flight master, step into the Drag: {npc:7010} takes the insect report from {zone:1446}."] = "On the way through Orgrimmar to the flight master, step into the Drag: Zilzibin takes the insect report from Tanaris.", ["Take {quest:4494} from {npc:7010} while you are in the Drag. {npc:5594} is on your {area:976} stop after {zone:1444}."] = "Take March of the Silithid from Zilzibin while you are in the Drag. Alchemist Pestlezugg is on your Gadgetzan stop after Feralas." },
 			fresh = { from = "forever/horde/40-50/03-feralas", share = 73, xp = 122160, needs = { 3123, 589, 32, 648, 836, 2641, 604, 2767 } },
 			steps = {
@@ -15682,11 +15822,17 @@ do
 					},
 				},
 				{
-					title = "{zone:1454}",
-					note = "{npc:8659} gives {quest:4300} in the {object:172960}. Train here before you leave; druids and paladins train at {zone:1456} instead.",
+					title = "{npc:8659}",
+					note = "{npc:8659} gives {quest:4300} in the {object:172960}. Take it now for Un'Goro.",
+					when = { { k = "available", q = 4300, minLevel = 48 } },
 					goals = {
 						{ t = "accept", quest = 4300, title = "Bone-Bladed Weapons", npc = 8659, npcName = "Jes'rimon", minLevel = 48, qlvl = 52, map = 1454, x = 55.75, y = 33.96, z = 54.8, spotsPacked = "55.5,34,54.8,15,3" },
-						{ t = "train", class = true, zone = 1454, only = { classes = { "WARRIOR", "HUNTER", "ROGUE", "PRIEST", "SHAMAN", "MAGE", "WARLOCK" } }, candidates = { { npc = 3326, npcName = "Zevrost", map = 1454, x = 48.16, y = 45.56, z = -14.8, faction = "H", classes = { "WARLOCK" } }, candidateRecords[1], candidateRecords[2], { npc = 3327, npcName = "Gest", map = 1454, x = 42.86, y = 51.48, z = 7.3, faction = "H", classes = { "ROGUE" } }, candidateRecords[3], candidateRecords[4], candidateRecords[5], candidateRecords[6], candidateRecords[7], candidateRecords[8], candidateRecords[9], candidateRecords[10], candidateRecords[11], candidateRecords[12], candidateRecords[13], candidateRecords[14], candidateRecords[15], candidateRecords[16], candidateRecords[17], candidateRecords[18], candidateRecords[19], candidateRecords[20], candidateRecords[21], candidateRecords[22], candidateRecords[23], candidateRecords[24], candidateRecords[25], candidateRecords[26], candidateRecords[27], candidateRecords[28], candidateRecords[29], candidateRecords[30], candidateRecords[31], candidateRecords[32], candidateRecords[33], candidateRecords[34], candidateRecords[35], candidateRecords[36], candidateRecords[37], candidateRecords[38], candidateRecords[39], candidateRecords[40], candidateRecords[41], candidateRecords[42], candidateRecords[43], candidateRecords[44], candidateRecords[45], candidateRecords[46], candidateRecords[47], candidateRecords[48], candidateRecords[49], candidateRecords[50], candidateRecords[51], candidateRecords[52], candidateRecords[53], candidateRecords[54], candidateRecords[55], candidateRecords[56], candidateRecords[57], candidateRecords[58], candidateRecords[59], candidateRecords[60], candidateRecords[61], candidateRecords[62], candidateRecords[63], candidateRecords[64], candidateRecords[65], candidateRecords[66], candidateRecords[67] } },
+					},
+				},
+				{
+					title = "{zone:1454} class trainer",
+					goals = {
+						{ t = "train", class = true, zone = 1454, only = { classes = { "WARRIOR", "HUNTER", "ROGUE", "PRIEST", "SHAMAN", "MAGE", "WARLOCK" } }, candidates = { candidateRecords[1], candidateRecords[2], candidateRecords[3], candidateRecords[4], candidateRecords[5], candidateRecords[6], candidateRecords[7], candidateRecords[8], candidateRecords[9], candidateRecords[10], candidateRecords[11], candidateRecords[12], candidateRecords[13], candidateRecords[14], candidateRecords[15], candidateRecords[16], candidateRecords[17], candidateRecords[18], candidateRecords[19], candidateRecords[20], candidateRecords[21], candidateRecords[22], candidateRecords[23], candidateRecords[24], candidateRecords[25], candidateRecords[26], candidateRecords[27], candidateRecords[28], candidateRecords[29], candidateRecords[30], candidateRecords[31], candidateRecords[32], candidateRecords[33], candidateRecords[34], candidateRecords[35], candidateRecords[36], candidateRecords[37], candidateRecords[38], candidateRecords[39], candidateRecords[40], candidateRecords[41], candidateRecords[42], candidateRecords[43], candidateRecords[44], candidateRecords[45], candidateRecords[46], candidateRecords[47], candidateRecords[48], candidateRecords[49], candidateRecords[50], candidateRecords[51], candidateRecords[52], candidateRecords[53], candidateRecords[54], candidateRecords[55], candidateRecords[56], candidateRecords[57], candidateRecords[58], candidateRecords[59], candidateRecords[60], candidateRecords[61], candidateRecords[62], candidateRecords[63], candidateRecords[64], candidateRecords[65], candidateRecords[66], candidateRecords[67], candidateRecords[68], candidateRecords[69] } },
 					},
 				},
 				{
@@ -15727,22 +15873,43 @@ do
 					note = "Follow the road north to {area:1237}, the Horde camp.",
 					goals = {
 						{ t = "getfp", npc = 8610, npcName = "Kroum", location = "Valormok", node = 44, area = 1237, map = 1447, x = 21.91, y = 49.67, z = 113.2 },
+						{ t = "talk", npc = 8610, npcName = "Kroum", map = 1447, x = 21.91, y = 49.67, z = 113.2, note = "{npc:8610}: open the flight map to see which tickets he offers" },
+					},
+				},
+				{
+					title = "{npc:8610}'s fare",
+					label = "kroum-fare",
+					along = "march-flight",
+					goals = {
+						{ t = "money", money = 830 },
 					},
 				},
 				{
 					title = "Fly to {area:1637} for {quest:4493}",
-					when = { { k = "zone", name = "Azshara", area = 16 }, { k = "level", op = ">=", n = 50 }, { k = "available", q = 4494, minLevel = 50, pre = { 32, 7732 } }, { k = "taxi", name = "Orgrimmar", node = 23 } },
+					label = "march-flight",
+					when = { { k = "done", label = "kroum-fare" }, { k = "level", op = ">=", n = 50 }, { k = "available", q = 4494, minLevel = 50, pre = { 32, 7732 } }, { k = "taxi", name = "Orgrimmar", node = 23 } },
 					goals = {
 						{ t = "goto", text = "{area:1237} flight master", map = 1447, x = 22, y = 49.7, f = "e" },
 						{ t = "fly", location = "Orgrimmar", node = 23, area = 1637 },
+						{ t = "enter", location = "Orgrimmar", area = 1637 },
 					},
 				},
 				{
 					title = "Fly to {area:1637} for {quest:4300}",
-					when = { { k = "zone", name = "Azshara", area = 16 }, { k = "available", q = 4300, minLevel = 48 }, { k = "available", neg = true, q = 4494, minLevel = 50, pre = { 32, 7732 } }, { k = "taxi", name = "Orgrimmar", node = 23 } },
+					when = { { k = "done", label = "kroum-fare" }, { k = "taxi", name = "Orgrimmar", node = 23 }, { k = "available", q = 4300, minLevel = 48 }, { k = "available", neg = true, q = 4494, minLevel = 50, pre = { 32, 7732 } } },
 					goals = {
 						{ t = "goto", text = "{area:1237} flight master", map = 1447, x = 22, y = 49.7, f = "e" },
 						{ t = "fly", location = "Orgrimmar", node = 23, area = 1637 },
+						{ t = "enter", location = "Orgrimmar", area = 1637 },
+					},
+				},
+				{
+					title = "Class training before {zone:1456}",
+					note = "{zone:1456} has no trainer for your class. Take {npc:8610}'s {zone:1454} flight if offered and affordable. Otherwise return through {zone:1440} to the {zone:1413}, cross the bridge at {area:379} and ride north from {area:362}. If you already trained at this level before using the guide, skip this stop.",
+					only = { classes = { "ROGUE", "WARLOCK" } },
+					when = { { k = "level", op = ">=", n = 50 }, { k = "zone", neg = true, name = "Orgrimmar", area = 1637 } },
+					goals = {
+						{ t = "train", class = true, zone = 1454, candidates = { candidateRecords[1], candidateRecords[4], candidateRecords[8], candidateRecords[13], candidateRecords[14], candidateRecords[15], candidateRecords[34], candidateRecords[36], candidateRecords[39], candidateRecords[40], candidateRecords[43], candidateRecords[46], candidateRecords[50], candidateRecords[51], candidateRecords[53], candidateRecords[58], candidateRecords[62], candidateRecords[68] } },
 					},
 				},
 				{
@@ -15757,7 +15924,7 @@ do
 				{
 					title = "{npc:7010}",
 					note = "If you reached 50 in {zone:1447}, take {quest:4494} here for {area:976}. If it is not available yet, your later {zone:1454} visit offers it again.",
-					when = { { k = "zone", name = "Orgrimmar", area = 1637 }, { k = "level", op = ">=", n = 50 } },
+					when = { { k = "zone", name = "Orgrimmar", area = 1637 }, { k = "level", op = ">=", n = 50 }, { k = "available", q = 4494, minLevel = 50, pre = { 32, 7732 } } },
 					goals = {
 						{ t = "accept", quest = 4494, title = "March of the Silithid", npc = 7010, npcName = "Zilzibin Drumlore", minLevel = 50, qlvl = 53, pre = { 32, 7732 }, preTitles = { [32] = "Rise of the Silithid", [7732] = "Zukk'ash Report" }, map = 1454, x = 56.34, y = 46.45, z = 47.5, spotsPacked = "56.3,46.7,47.5,15,2" },
 					},
@@ -15766,28 +15933,38 @@ do
 					title = "{zone:1454}",
 					when = { { k = "zone", name = "Orgrimmar", area = 1637 } },
 					goals = {
-						{ t = "train", class = true, zone = 1454, only = { classes = { "WARRIOR", "HUNTER", "ROGUE", "PRIEST", "SHAMAN", "MAGE", "WARLOCK" } }, candidates = { { npc = 3325, npcName = "Mirket", map = 1454, x = 48.27, y = 47.08, z = -14.8, faction = "H", classes = { "WARLOCK" } }, { npc = 3328, npcName = "Ormok", map = 1454, x = 43.79, y = 54.65, z = 7.5, faction = "H", classes = { "ROGUE" } }, candidateRecords[2], candidateRecords[1], candidateRecords[3], candidateRecords[4], candidateRecords[5], candidateRecords[6], candidateRecords[7], candidateRecords[8], candidateRecords[9], candidateRecords[10], candidateRecords[11], candidateRecords[12], candidateRecords[13], candidateRecords[14], candidateRecords[15], candidateRecords[16], candidateRecords[17], candidateRecords[18], candidateRecords[19], candidateRecords[22], candidateRecords[23], candidateRecords[20], candidateRecords[21], candidateRecords[24], candidateRecords[25], candidateRecords[26], candidateRecords[27], candidateRecords[28], candidateRecords[29], candidateRecords[30], candidateRecords[31], candidateRecords[32], candidateRecords[33], candidateRecords[34], candidateRecords[35], candidateRecords[36], candidateRecords[37], candidateRecords[38], candidateRecords[39], candidateRecords[40], candidateRecords[41], candidateRecords[42], candidateRecords[43], candidateRecords[44], candidateRecords[45], candidateRecords[46], candidateRecords[47], candidateRecords[48], candidateRecords[49], candidateRecords[50], candidateRecords[51], candidateRecords[52], candidateRecords[53], candidateRecords[54], candidateRecords[55], candidateRecords[56], candidateRecords[57], candidateRecords[58], candidateRecords[59], candidateRecords[60], candidateRecords[61], candidateRecords[62], candidateRecords[63], candidateRecords[64], candidateRecords[65], candidateRecords[66], candidateRecords[67] } },
+						{ t = "train", class = true, zone = 1454, only = { classes = { "WARRIOR", "HUNTER", "ROGUE", "PRIEST", "SHAMAN", "MAGE", "WARLOCK" } }, candidates = { { npc = 3325, npcName = "Mirket", map = 1454, x = 48.27, y = 47.08, z = -14.8, faction = "H", classes = { "WARLOCK" } }, { npc = 3328, npcName = "Ormok", map = 1454, x = 43.79, y = 54.65, z = 7.5, faction = "H", classes = { "ROGUE" } }, candidateRecords[3], candidateRecords[2], candidateRecords[5], candidateRecords[6], candidateRecords[7], candidateRecords[8], candidateRecords[9], candidateRecords[10], candidateRecords[11], candidateRecords[12], candidateRecords[13], candidateRecords[14], candidateRecords[15], candidateRecords[16], candidateRecords[17], candidateRecords[18], candidateRecords[19], candidateRecords[20], candidateRecords[21], candidateRecords[24], candidateRecords[25], candidateRecords[22], candidateRecords[23], candidateRecords[26], candidateRecords[27], candidateRecords[28], candidateRecords[29], candidateRecords[30], candidateRecords[31], candidateRecords[32], candidateRecords[33], candidateRecords[34], candidateRecords[35], candidateRecords[36], candidateRecords[37], candidateRecords[38], candidateRecords[39], candidateRecords[40], candidateRecords[41], candidateRecords[42], candidateRecords[43], candidateRecords[44], candidateRecords[45], candidateRecords[46], candidateRecords[47], candidateRecords[48], candidateRecords[49], candidateRecords[50], candidateRecords[51], candidateRecords[52], candidateRecords[53], candidateRecords[54], candidateRecords[55], candidateRecords[56], candidateRecords[57], candidateRecords[58], candidateRecords[59], candidateRecords[60], candidateRecords[61], candidateRecords[62], candidateRecords[63], candidateRecords[64], candidateRecords[65], candidateRecords[66], candidateRecords[67], candidateRecords[68], candidateRecords[69] } },
 					},
 				},
 				{
-					title = "Fly from {area:1237} to {area:1638}",
-					when = { { k = "zone", name = "Azshara", area = 16 }, { k = "taxi", name = "Thunder Bluff", node = 22 } },
+					title = "{npc:3310} in {zone:1454}",
+					when = { { k = "zone", name = "Orgrimmar", area = 1637 }, { k = "taxi", name = "Thunder Bluff", node = 22 }, { k = "money", op = ">=", n = 50 } },
 					goals = {
-						{ t = "goto", text = "{area:1237} flight master", map = 1447, x = 22, y = 49.7, f = "e" },
-						{ t = "fly", location = "Thunder Bluff", node = 22, area = 1638 },
+						{ t = "talk", npc = 3310, npcName = "Doras", map = 1454, x = 45.39, y = 63.01, z = 61.7, spotsPacked = "45.2,63.7,61.7,15,6", note = "{npc:3310}: open the flight map before paying" },
+					},
+				},
+				{
+					title = "{zone:1456} fare",
+					label = "bluff-fare",
+					along = "bluff-flight",
+					goals = {
+						{ t = "money", money = 50 },
+						{ t = "money", money = 830, either = true },
+						{ t = "enter", location = "Orgrimmar", area = 1637, either = true },
 					},
 				},
 				{
 					title = "Fly to {area:1638}",
-					when = { { k = "zone", name = "Orgrimmar", area = 1637 }, { k = "taxi", name = "Thunder Bluff", node = 22 } },
+					label = "bluff-flight",
+					when = { { k = "done", label = "bluff-fare" }, { k = "taxi", name = "Thunder Bluff", node = 22 } },
 					goals = {
-						{ t = "goto", text = "{zone:1454} flight master", map = 1454, x = 45.3, y = 63.8, f = "e" },
 						{ t = "fly", location = "Thunder Bluff", node = 22, area = 1638 },
+						{ t = "enter", location = "Thunder Bluff", area = 1638 },
 					},
 				},
 				{
 					title = "{zone:1456}",
-					note = "If {zone:1456} is not on your flight map, use {area:378} if the flight master offers it. From Taurajo ride west into {zone:1412}, then north past {area:222} to the lifts. Visit Pala at the inn, then Hamuul on {area:1639}.",
+					note = "Without a {zone:1456} ticket, fly to {area:378} if offered and affordable, or follow the {zone:1413} road there. Ride west into {zone:1412}, then north past {area:222} to the lifts. Visit Pala at the inn, then Hamuul on {area:1639}.",
 					goals = {
 						{ t = "accept", quest = 3762, title = "Assisting Arch Druid Runetotem", npc = 6746, npcName = "Innkeeper Pala", minLevel = 47, qlvl = 50, closedBy = { 3761, 936, 3784 }, endNpcs = { 5769 }, xp = 470, preTitles = { [936] = "Assisting Arch Druid Runetotem", [3761] = "Un'Goro Soil", [3784] = "Assisting Arch Druid Runetotem" }, map = 1456, x = 45.73, y = 64.43, z = 129.3, spotsPacked = "45.7,64.4,129.3,15,9", note = "{npc:6746}, at the inn: for Hamuul" },
 						{ t = "turnin", quest = 3762, title = "Assisting Arch Druid Runetotem", npc = 5769, npcName = "Arch Druid Hamuul Runetotem", map = 1456, x = 78.08, y = 29.02, z = 159.1, spotsPacked = "78.3,28.6,159.1,15,7", note = "{npc:5769}, on the {area:1639}" },
@@ -15797,7 +15974,7 @@ do
 				{
 					title = "{zone:1456}",
 					goals = {
-						{ t = "train", class = true, zone = 1456, only = { classes = { "PALADIN", "DRUID" } }, candidates = { { npc = 3036, npcName = "Kym Wildmane", map = 1456, x = 76.89, y = 29.93, z = 159.1, faction = "H", classes = { "DRUID" } }, { npc = 246344, npcName = "Alodan the Hopeful", map = 1456, x = 25.08, y = 14.54, z = 97.4, faction = "H", classes = { "PALADIN" } }, { npc = 262560, npcName = "Hana Lighthoof", map = 1412, x = 33.39, y = 22.17, z = 187.2, faction = "H", classes = { "DRUID" } }, { npc = 3064, npcName = "Gennia Runetotem", map = 1412, x = 47.43, y = 62.9, z = -5.4, faction = "H", classes = { "DRUID" } }, { npc = 3060, npcName = "Gart Mistrunner", map = 1412, x = 44.61, y = 76.62, z = 54.1, faction = "H", classes = { "DRUID" } }, { npc = 8142, npcName = "Jannos Lighthoof", map = 1444, x = 75.98, y = 42.3, z = 34.2, faction = "H", classes = { "DRUID" } }, { npc = 12042, npcName = "Loganaar", map = 1450, x = 52.3, y = 40.51, z = 486.9, faction = "AH", classes = { "DRUID" } }, { npc = 244808, npcName = "Aramis Hammerhand", map = 1420, x = 30.99, y = 66.33, z = 97, faction = "H", classes = { "PALADIN" } }, { npc = 246152, npcName = "Shari Stilwell", map = 1420, x = 60.18, y = 52.57, z = 35.2, faction = "H", classes = { "PALADIN" } }, { npc = 246389, npcName = "Hilda the Breaker", map = 1420, x = 21.84, y = 47.15, z = 134.5, faction = "H", classes = { "PALADIN" } }, { npc = 260093, npcName = "Garen Largo", map = 1458, x = 47.36, y = 15.19, z = -57.1, faction = "H", classes = { "PALADIN" } }, { npc = 251373, npcName = "Xyton Silverwind", map = 2521, x = 41.65, y = 23.34, z = 980.9, faction = "AH", classes = { "DRUID" } }, { npc = 252359, npcName = "Lotheluum Starbreeze", map = 2521, x = 63.93, y = 75.06, z = 691.4, faction = "AH", classes = { "DRUID" } }, { npc = 254081, npcName = "Naeluna Swiftmend", map = 2521, x = 45.14, y = 44.29, z = 827.3, faction = "AH", classes = { "DRUID" } } } },
+						{ t = "train", class = true, zone = 1456, only = { classes = { "WARRIOR", "PALADIN", "HUNTER", "PRIEST", "SHAMAN", "MAGE", "DRUID" } }, candidates = { { npc = 3036, npcName = "Kym Wildmane", map = 1456, x = 76.89, y = 29.93, z = 159.1, faction = "H", classes = { "DRUID" } }, candidateRecords[25], candidateRecords[24], { npc = 3046, npcName = "Father Cobb", map = 1456, x = 25.64, y = 20.7, z = 102.3, f = "e", faction = "H", classes = { "PRIEST" } }, { npc = 3049, npcName = "Thurston Xane", map = 1456, x = 25.14, y = 21.03, z = 101.8, faction = "H", classes = { "MAGE" } }, { npc = 246344, npcName = "Alodan the Hopeful", map = 1456, x = 25.08, y = 14.54, z = 97.4, faction = "H", classes = { "PALADIN" } }, candidateRecords[27], candidateRecords[22], { npc = 262560, npcName = "Hana Lighthoof", map = 1412, x = 33.39, y = 22.17, z = 187.2, faction = "H", classes = { "DRUID" } }, candidateRecords[28], candidateRecords[30], { npc = 3064, npcName = "Gennia Runetotem", map = 1412, x = 47.43, y = 62.9, z = -5.4, faction = "H", classes = { "DRUID" } }, candidateRecords[29], candidateRecords[32], { npc = 3060, npcName = "Gart Mistrunner", map = 1412, x = 44.61, y = 76.62, z = 54.1, faction = "H", classes = { "DRUID" } }, candidateRecords[31], candidateRecords[33], { npc = 8142, npcName = "Jannos Lighthoof", map = 1444, x = 75.98, y = 42.3, z = 34.2, faction = "H", classes = { "DRUID" } }, candidateRecords[17], candidateRecords[16], candidateRecords[18], candidateRecords[19], candidateRecords[20], candidateRecords[11], { npc = 6018, npcName = "Ur'kyo", map = 1454, x = 35.49, y = 87.79, z = 44.1, faction = "H", classes = { "PRIEST" } }, candidateRecords[21], { npc = 5885, npcName = "Deino", map = 1454, x = 38.34, y = 86.06, z = 43, faction = "H", classes = { "MAGE" } }, candidateRecords[12], candidateRecords[9], candidateRecords[10], { npc = 3403, npcName = "Sian'tsu", map = 1454, x = 37.65, y = 36.6, z = 42.2, faction = "H", classes = { "SHAMAN" } }, { npc = 3352, npcName = "Ormak Grimshot", map = 1454, x = 66.07, y = 18.36, z = 58.8, faction = "H", classes = { "HUNTER" } }, candidateRecords[5], { npc = 12042, npcName = "Loganaar", map = 1450, x = 52.3, y = 40.51, z = 486.9, faction = "AH", classes = { "DRUID" } }, candidateRecords[35], candidateRecords[37], candidateRecords[38], candidateRecords[41], candidateRecords[42], candidateRecords[44], { npc = 244808, npcName = "Aramis Hammerhand", map = 1420, x = 30.99, y = 66.33, z = 97, faction = "H", classes = { "PALADIN" } }, { npc = 246152, npcName = "Shari Stilwell", map = 1420, x = 60.18, y = 52.57, z = 35.2, faction = "H", classes = { "PALADIN" } }, { npc = 246389, npcName = "Hilda the Breaker", map = 1420, x = 21.84, y = 47.15, z = 134.5, faction = "H", classes = { "PALADIN" } }, candidateRecords[45], candidateRecords[47], candidateRecords[48], candidateRecords[49], candidateRecords[52], candidateRecords[54], candidateRecords[55], { npc = 260093, npcName = "Garen Largo", map = 1458, x = 47.36, y = 15.19, z = -57.1, faction = "H", classes = { "PALADIN" } }, { npc = 251373, npcName = "Xyton Silverwind", map = 2521, x = 41.65, y = 23.34, z = 980.9, faction = "AH", classes = { "DRUID" } }, candidateRecords[56], candidateRecords[57], candidateRecords[59], { npc = 252359, npcName = "Lotheluum Starbreeze", map = 2521, x = 63.93, y = 75.06, z = 691.4, faction = "AH", classes = { "DRUID" } }, candidateRecords[60], candidateRecords[61], candidateRecords[63], candidateRecords[64], { npc = 254081, npcName = "Naeluna Swiftmend", map = 2521, x = 45.14, y = 44.29, z = 827.3, faction = "AH", classes = { "DRUID" } }, candidateRecords[65], candidateRecords[66], candidateRecords[67], candidateRecords[69] } },
 						{ t = "note", text = "{quest:3761} is gathered in the next guide." },
 					},
 				},
@@ -16737,11 +16914,12 @@ do
 				},
 				{
 					title = "{quest:91497}",
-					note = "Each of the camp's three officers (53) carries a seal: {npc:247006} in the middle of the camp, {npc:247013} at its eastern end, and {npc:246991}, who walks its western half: take him on the east side of his walk, where the arrow points.\nCareful: the {npc:250023}, a level 55-57 elite, stands at the camp's western edge, close to the far end of Hawkhelm's walk: wait for Hawkhelm to come back east.",
+					note = "From the tome, take {npc:246991} on the southern part of his patrol. Work east to {npc:247006} and then {npc:247013}. Each officer is level 53 and carries a different seal.\nCareful: the {npc:250023}, a level 55-57 elite, stands at the camp's western edge, close to the far end of Hawkhelm's walk: wait for Hawkhelm to come back east.",
+					when = { { k = "level", op = ">=", n = 52 }, { k = "onquest", q = { 91497 } }, { k = "complete", neg = true, q = 91497 } },
 					goals = {
-						{ t = "collect", quest = 91497, title = "Seals of the Sin'dorei", item = 246725, itemName = "Seal of the Warden", count = 1, oi = 1, map = 1447, x = 65.76, y = 26.4, f = "e", spotsPacked = "66.6,27.1,,56,8;67.2,29.1,,38,5", lvl = 53, note = "{item:246725}, from {npc:247006}", from = "Lieutenant Suncrest", fromKind = "npc", fromId = 247006, fromNpcs = { { npc = 247006, npcName = "Lieutenant Suncrest" } }, carriedTo = "forever/horde/50-60/04-azshara" },
-						{ t = "collect", quest = 91497, title = "Seals of the Sin'dorei", item = 246721, itemName = "Seal of the Warrior", oi = 2, map = 1447, x = 57.57, y = 26.78, f = "e", spotsPacked = "57.1,27.4,,32,3;56.2,29.3,,46,3", lvl = 53, note = "{item:246721}, from {npc:246991}", from = "Magister Hawkhelm", fromKind = "npc", fromId = 246991, fromNpcs = { { npc = 246991, npcName = "Magister Hawkhelm" } }, carriedTo = "forever/horde/50-60/04-azshara" },
-						{ t = "collect", quest = 91497, title = "Seals of the Sin'dorei", item = 246722, itemName = "Seal of the Ranger", oi = 3, map = 1447, x = 68.97, y = 27.14, f = "e", spotsPacked = "69.8,28.7,,68,8;70.1,30.7,,52,8;71.3,29.6,,33,3", lvl = 53, note = "{item:246722}, from {npc:247013}", from = "Ranger Lydrea", fromKind = "npc", fromId = 247013, fromNpcs = { { npc = 247013, npcName = "Ranger Lydrea" } }, carriedTo = "forever/horde/50-60/04-azshara" },
+						{ t = "collect", quest = 91497, title = "Seals of the Sin'dorei", item = 246721, itemName = "Seal of the Warrior", oi = 2, map = 1447, x = 57.02, y = 28.79, f = "e", spotsPacked = "57.02,28.79,,92,3;57.1,27.4,,32,3,1", lvl = 53, note = "{item:246721}, from {npc:246991}", from = "Magister Hawkhelm", fromKind = "npc", fromId = 246991, fromNpcs = { { npc = 246991, npcName = "Magister Hawkhelm" } }, carriedTo = "forever/horde/50-60/04-azshara" },
+						{ t = "collect", quest = 91497, title = "Seals of the Sin'dorei", item = 246725, itemName = "Seal of the Warden", count = 1, oi = 1, map = 1447, x = 66.53, y = 29.58, f = "e", spotsPacked = "66.53,29.58,,76,5;66.6,27.1,,56,8,1", lvl = 53, note = "{item:246725}, from {npc:247006}", from = "Lieutenant Suncrest", fromKind = "npc", fromId = 247006, fromNpcs = { { npc = 247006, npcName = "Lieutenant Suncrest" } }, carriedTo = "forever/horde/50-60/04-azshara" },
+						{ t = "collect", quest = 91497, title = "Seals of the Sin'dorei", item = 246722, itemName = "Seal of the Ranger", oi = 3, map = 1447, x = 70.87, y = 31.51, f = "e", spotsPacked = "70.87,31.51,,100,8;71.3,29.6,,33,3,1;69.8,28.7,,68,8,1", lvl = 53, note = "{item:246722}, from {npc:247013}", from = "Ranger Lydrea", fromKind = "npc", fromId = 247013, fromNpcs = { { npc = 247013, npcName = "Ranger Lydrea" } }, carriedTo = "forever/horde/50-60/04-azshara" },
 					},
 				},
 				{
@@ -17382,7 +17560,7 @@ do
 			next = "forever/horde/50-60/05-eastern-plaguelands",
 			author = "Polestar",
 			version = 1,
-			names = { ["area:1220"] = "Thalassian Base Camp", ["area:1237"] = "Valormok", ["area:152"] = "The Bulwark", ["area:1584"] = "Blackrock Depths", ["area:159"] = "Brill", ["area:1637"] = "Orgrimmar", ["area:199"] = "Felstone Field", ["area:2268"] = "Light's Hope Chapel", ["area:2479"] = "Emerald Sanctuary", ["area:2627"] = "Terrordale", ["area:392"] = "Ratchet", ["area:537"] = "Fire Plume Ridge", ["area:976"] = "Gadgetzan", ["item:10556"] = "Stone Circle", ["item:12722"] = "Good Luck Other-Half-Charm", ["npc:10778"] = "Janice Felstone", ["npc:10781"] = "Royal Overseer Bauhaus", ["npc:10801"] = "Jabbering Ghoul", ["npc:11038"] = "Caretaker Alen", ["npc:11075"] = "Cauldron Lord Bilemaw", ["npc:11615"] = "Mickey Levine", ["npc:15188"] = "Cenarion Emissary Blackhoof", ["npc:246344"] = "Alodan the Hopeful", ["npc:247449"] = "Sin'dorei Tome of Summoning", ["npc:250023"] = "Blackmaw Thrall", ["npc:256386"] = "Dokimi", ["npc:3326"] = "Zevrost", ["npc:4485"] = "Belgrom Rockmaul", ["npc:5901"] = "Islen Waterseer", ["npc:6522"] = "Andron Gant", ["npc:7010"] = "Zilzibin Drumlore", ["npc:8390"] = "Chemist Cuely", ["npc:8393"] = "Thersa Windsong", ["npc:8403"] = "Jeremiah Payson", ["npc:8496"] = "Liv Rizzlefix", ["npc:8578"] = "Magus Rimtori", ["npc:8587"] = "Jediga", ["npc:8659"] = "Jes'rimon", ["object:149036"] = "Marvon's Chest", ["object:1661"] = "The Undercity", ["object:172957"] = "Valley of Wisdom", ["object:172960"] = "Cleft of Shadow", ["object:36073"] = "Rogues' Quarter", ["object:36126"] = "Royal Quarter", ["object:386691"] = "Library Book", ["quest:4494"] = "March of the Silithid", ["quest:5050"] = "Good Luck Charm", ["quest:79095"] = "The Apothecary's Metaphysical Primer", ["quest:91500"] = "An Explosive Gambit", ["quest:91538"] = "Sin'dorei Tome of Summoning", ["zone:1411"] = "Durotar", ["zone:1413"] = "The Barrens", ["zone:1420"] = "Tirisfal Glades", ["zone:1422"] = "Western Plaguelands", ["zone:1447"] = "Azshara", ["zone:1448"] = "Felwood", ["zone:1451"] = "Silithus", ["zone:1454"] = "Orgrimmar", ["zone:1456"] = "Thunder Bluff", ["zone:1458"] = "Undercity" },
+			names = { ["area:1220"] = "Thalassian Base Camp", ["area:1237"] = "Valormok", ["area:152"] = "The Bulwark", ["area:1584"] = "Blackrock Depths", ["area:159"] = "Brill", ["area:1637"] = "Orgrimmar", ["area:199"] = "Felstone Field", ["area:2268"] = "Light's Hope Chapel", ["area:2479"] = "Emerald Sanctuary", ["area:2627"] = "Terrordale", ["area:392"] = "Ratchet", ["area:537"] = "Fire Plume Ridge", ["area:976"] = "Gadgetzan", ["item:10556"] = "Stone Circle", ["item:12722"] = "Good Luck Other-Half-Charm", ["npc:10778"] = "Janice Felstone", ["npc:10781"] = "Royal Overseer Bauhaus", ["npc:10801"] = "Jabbering Ghoul", ["npc:11038"] = "Caretaker Alen", ["npc:11075"] = "Cauldron Lord Bilemaw", ["npc:11615"] = "Mickey Levine", ["npc:15188"] = "Cenarion Emissary Blackhoof", ["npc:246344"] = "Alodan the Hopeful", ["npc:247449"] = "Sin'dorei Tome of Summoning", ["npc:250023"] = "Blackmaw Thrall", ["npc:256386"] = "Dokimi", ["npc:3326"] = "Zevrost", ["npc:4485"] = "Belgrom Rockmaul", ["npc:5901"] = "Islen Waterseer", ["npc:6522"] = "Andron Gant", ["npc:7010"] = "Zilzibin Drumlore", ["npc:8390"] = "Chemist Cuely", ["npc:8393"] = "Thersa Windsong", ["npc:8403"] = "Jeremiah Payson", ["npc:8496"] = "Liv Rizzlefix", ["npc:8576"] = "Ag'tor Bloodfist", ["npc:8578"] = "Magus Rimtori", ["npc:8587"] = "Jediga", ["npc:8659"] = "Jes'rimon", ["object:149036"] = "Marvon's Chest", ["object:1661"] = "The Undercity", ["object:172957"] = "Valley of Wisdom", ["object:172960"] = "Cleft of Shadow", ["object:36073"] = "Rogues' Quarter", ["object:36126"] = "Royal Quarter", ["object:386691"] = "Library Book", ["quest:4494"] = "March of the Silithid", ["quest:5050"] = "Good Luck Charm", ["quest:79095"] = "The Apothecary's Metaphysical Primer", ["quest:91500"] = "An Explosive Gambit", ["quest:91531"] = "Revenge Exacted", ["zone:1411"] = "Durotar", ["zone:1413"] = "The Barrens", ["zone:1420"] = "Tirisfal Glades", ["zone:1422"] = "Western Plaguelands", ["zone:1447"] = "Azshara", ["zone:1448"] = "Felwood", ["zone:1451"] = "Silithus", ["zone:1454"] = "Orgrimmar", ["zone:1456"] = "Thunder Bluff", ["zone:1458"] = "Undercity" },
 			written = { ["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1451} guide's way to Un'Goro."] = "Only if March of the Silithid isn't done yet: Zilzibin works in the Drag. Pestlezugg takes it in Gadgetzan on the Silithus guide's way to Un'Goro.", ["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "Ride east out of the Undercity along the road; the Bulwark guards the way into the Western Plaguelands.", ["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "Janice Felstone's farm is the first one east of the Bulwark. Jabbering Ghouls on the farm carry the other half of her charm; Cauldron Lord Bilemaw guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron.", ["{npc:4485} and {npc:3326}"] = "Belgrom and Zevrost", ["{npc:5901} camps on the shore just north of {area:392}."] = "Islen camps on the shore just north of Ratchet.", ["{npc:7010} works in the Drag."] = "Zilzibin works in the Drag." },
 			fresh = { from = "forever/horde/50-60/02-felwood", share = 93, xp = 78860, needs = { 91497, 5023, 3562, 3563, 32, 5229, 4300, 3568 } },
 			steps = {
@@ -17468,27 +17646,56 @@ do
 					},
 				},
 				{
+					title = "The missing seals",
+					note = "Work along the southern side of the {area:1220}. Take only the seals you still need: Hawkhelm on the southern part of his patrol, Suncrest in the middle of the camp, and Lydrea to the east. All three officers are 53.\nCareful: do not follow Hawkhelm west or north toward the elite Blackmaw Thralls. Let the officers come to you. If a Thunderhead patrol cuts you off on the cliffs, leave the seals in your log for later.",
+					when = { { k = "level", op = ">=", n = 52 }, { k = "onquest", q = { 91497 } }, { k = "complete", neg = true, q = 91497 } },
+					goals = {
+						{ t = "collect", quest = 91497, title = "Seals of the Sin'dorei", item = 246721, itemName = "Seal of the Warrior", oi = 2, map = 1447, x = 57.02, y = 28.79, f = "e", spotsPacked = "57.02,28.79,,92,3;57.1,27.4,,32,3,1", lvl = 53, from = "Magister Hawkhelm", fromKind = "npc", fromId = 246991, fromNpcs = { { npc = 246991, npcName = "Magister Hawkhelm" } } },
+						{ t = "collect", quest = 91497, title = "Seals of the Sin'dorei", item = 246725, itemName = "Seal of the Warden", count = 1, oi = 1, map = 1447, x = 66.53, y = 29.58, f = "e", spotsPacked = "66.53,29.58,,76,5;66.6,27.1,,56,8,1", lvl = 53, from = "Lieutenant Suncrest", fromKind = "npc", fromId = 247006, fromNpcs = { { npc = 247006, npcName = "Lieutenant Suncrest" } } },
+						{ t = "collect", quest = 91497, title = "Seals of the Sin'dorei", item = 246722, itemName = "Seal of the Ranger", oi = 3, map = 1447, x = 70.87, y = 31.51, f = "e", spotsPacked = "70.87,31.51,,100,8;71.3,29.6,,33,3,1;69.8,28.7,,68,8,1", lvl = 53, from = "Ranger Lydrea", fromKind = "npc", fromId = 247013, fromNpcs = { { npc = 247013, npcName = "Ranger Lydrea" } } },
+					},
+				},
+				{
 					title = "The {npc:247449}",
-					note = "Return to the east end of the {area:1220}, keeping clear of the {npc:250023} on the west. At the Sin'dorei Tome: hand in the seals, then use it to call {npc:8578}.\nCareful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead.",
-					when = { { k = "onquest", q = { 91497 } } },
+					note = "Hand the seals to the Sin'dorei Tome at Rimtori's camp. You can take the tome back to {npc:8587} even if you leave the Magus for later.",
+					when = { { k = "complete", q = 91497 } },
 					goals = {
 						{ t = "turnin", quest = 91497, title = "Seals of the Sin'dorei", npc = 247449, npcName = "Sin'dorei Tome of Summoning", map = 1447, x = 59.44, y = 31.36 },
 					},
 				},
 				{
-					title = "{quest:91500}",
+					title = "The tome for {npc:8587}",
 					when = { { k = "turnedin", q = 91497 } },
 					goals = {
+						{ t = "accept", quest = 91538, title = "Sin'dorei Tome of Summoning", npc = 247449, npcName = "Sin'dorei Tome of Summoning", minLevel = 44, qlvl = 55, pre = { 91497 }, preTitles = { [91497] = "Seals of the Sin'dorei" }, map = 1447, x = 59.44, y = 31.36, note = "For {npc:8587} in {area:1237}" },
 						{ t = "accept", quest = 91500, title = "An Explosive Gambit", npc = 247449, npcName = "Sin'dorei Tome of Summoning", minLevel = 44, qlvl = 55, pre = { 91497 }, preTitles = { [91497] = "Seals of the Sin'dorei" }, map = 1447, x = 59.44, y = 31.36, note = "{quest:91500}" },
-						{ t = "collect", quest = 91500, title = "An Explosive Gambit", item = 10597, itemName = "Head of Magus Rimtori", oi = 1, map = 1447, x = 59.51, y = 31.37, f = "e", from = "Magus Rimtori", fromKind = "npc", fromId = 8578, fromNpcs = { { npc = 8578, npcName = "Magus Rimtori" } } },
-						{ t = "accept", quest = 91538, title = "Sin'dorei Tome of Summoning", npc = 247449, npcName = "Sin'dorei Tome of Summoning", minLevel = 44, qlvl = 55, pre = { 91497 }, preTitles = { [91497] = "Seals of the Sin'dorei" }, map = 1447, x = 59.44, y = 31.36, note = "{quest:91538}: for {npc:8587} in {area:1237}" },
 					},
 				},
 				{
-					title = "{area:1237}",
+					title = "{npc:8578}",
+					note = "Use the crystal to summon {npc:8578} (55). Only one of the three crystals calls him; the others summon hostile infernals.",
+					when = { { k = "level", op = ">=", n = 54 }, { k = "onquest", q = { 91500 } }, { k = "complete", neg = true, q = 91500 } },
+					goals = {
+						{ t = "collect", quest = 91500, title = "An Explosive Gambit", item = 10597, itemName = "Head of Magus Rimtori", oi = 1, map = 1447, x = 59.51, y = 31.37, f = "e", from = "Magus Rimtori", fromKind = "npc", fromId = 8578, fromNpcs = { { npc = 8578, npcName = "Magus Rimtori" } } },
+					},
+				},
+				{
+					title = "{npc:8576}",
+					when = { { k = "complete", q = 91500 } },
 					goals = {
 						{ t = "turnin", quest = 91500, title = "An Explosive Gambit", npc = 8576, npcName = "Ag'tor Bloodfist", map = 1447, x = 22.28, y = 51.52, z = 115.4 },
+					},
+				},
+				{
+					title = "{npc:8576}: {quest:91531}",
+					when = { { k = "turnedin", q = 91500 } },
+					goals = {
 						{ t = "accept", quest = 91531, title = "Revenge Exacted", npc = 8576, npcName = "Ag'tor Bloodfist", minLevel = 44, qlvl = 55, pre = { 91500 }, preTitles = { [91500] = "An Explosive Gambit" }, map = 1447, x = 22.28, y = 51.52, z = 115.4 },
+					},
+				},
+				{
+					title = "{npc:8587}",
+					goals = {
 						{ t = "turnin", quest = 91538, title = "Sin'dorei Tome of Summoning", npc = 8587, npcName = "Jediga", map = 1447, x = 22.43, y = 51.46, z = 112.1 },
 						{ t = "accept", quest = 91547, title = "Sin'dorei Tome of Summoning", npc = 8587, npcName = "Jediga", minLevel = 44, qlvl = 55, pre = { 91538 }, preTitles = { [91538] = "Sin'dorei Tome of Summoning" }, map = 1447, x = 22.43, y = 51.46, z = 112.1 },
 					},
@@ -19505,7 +19712,7 @@ do
 				},
 				{
 					title = "Grind to 60",
-					note = "If you still need experience after the hand-ins, the Winterfall Den Watchers (55-56) are by the bead camp just south of {npc:11556}. There is no need to cross the gorge.",
+					note = "If you still need experience after the hand-ins, the Winterfall Den Watchers (55-56) are by the bead camp just south of {npc:11556}. There is no need to cross the gorge. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead.",
 					when = { { k = "level", op = "<", n = 60 } },
 					goals = {
 						{ t = "goto", text = "Winterfall Den Watchers", map = 1452, x = 30.6, y = 35.6, z = 561.9, f = "e" },

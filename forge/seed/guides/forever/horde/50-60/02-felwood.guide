@@ -283,11 +283,14 @@ step Magus Rimtori's camp
   accept 91497                        -- Sin'dorei Tome of Summoning: Seals of the Sin'dorei
 
 step Seals of the Sin'dorei
-  tip Each of the camp's three officers (53) carries a seal: Lieutenant Suncrest in the middle of the camp, Ranger Lydrea at its eastern end, and Magister Hawkhelm, who walks its western half: take him on the east side of his walk, where the arrow points.
+  when level>=52
+  when onquest 91497
+  when !complete 91497
+  tip From the tome, take Magister Hawkhelm on the southern part of his patrol. Work east to Lieutenant Suncrest and then Ranger Lydrea. Each officer is level 53 and carries a different seal.
   tip Careful: the Blackmaw Thrall, a level 55-57 elite, stands at the camp's western edge, close to the far end of Hawkhelm's walk: wait for Hawkhelm to come back east.
-  collect 246725 quest 91497.1        -- Seal of the Warden, from Lieutenant Suncrest
-  collect 246721 quest 91497.2        -- Seal of the Warrior, from Magister Hawkhelm
-  collect 246722 quest 91497.3        -- Seal of the Ranger, from Ranger Lydrea
+  collect 246721 quest 91497.2 @57.02,28.79 era        -- Seal of the Warrior, from Magister Hawkhelm
+  collect 246725 quest 91497.1 @66.53,29.58 era        -- Seal of the Warden, from Lieutenant Suncrest
+  collect 246722 quest 91497.3 @70.87,31.51 era        -- Seal of the Ranger, from Ranger Lydrea
 
 step The Legashi satyrs
   tip The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: Ekkal wants five of each kind.

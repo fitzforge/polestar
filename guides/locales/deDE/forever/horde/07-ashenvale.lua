@@ -185,6 +185,8 @@ return {
 	-- Step 45: The Earthen Ring
 	-- {npc:259118} Muln Earthfury · {quest:96261} The Broodmother · {quest:96259} Defending the Dead
 	["{npc:259118} offers {quest:96261} only once {quest:96259} is handed in."] = "{npc:259118} bietet {quest:96261} erst an, wenn {quest:96259} abgegeben ist.",
+	-- {npc:259118} Muln Earthfury · {zone:1456} Thunder Bluff · {zone:1412} Mulgore
+	["{npc:259118}. If you still need level 28 training in {zone:1456}, use the north lift on your way out of {zone:1412}."] = "",
 
 	-- Step 47: Broodmother Valraxx
 	-- {npc:264082} Broodmother Valraxx · {area:17044} Gloomrise · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
@@ -222,36 +224,42 @@ return {
 	-- {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof · {npc:2995} Tal
 	["{npc:3024} stands beside {npc:4721}, east of {npc:2995}."] = "{npc:3024} steht neben {npc:4721}, östlich von {npc:2995}.",
 
-	-- Step 54: Class trainer
+	-- Step 54: Class training from Skywatcher Plateau
+	-- {area:17045} Skywatcher Plateau
+	["Class training from {area:17045}"] = "",
+	-- {zone:1456} Thunder Bluff
+	["Take the north lift into {zone:1456} for your class trainer."] = "",
+
+	-- Step 55: Class trainer
 	["Class trainer"] = "Klassenlehrer",
 
-	-- Step 55: Ansekhwa
+	-- Step 56: Ansekhwa
 	-- {spell:199} Two-Handed Maces · {npc:11869} Ansekhwa
 	["While you're here: learn {spell:199} from {npc:11869} (10 silver); two-handers level a Warrior fastest."] = "Wenn du schon hier bist: Lerne {spell:199} bei {npc:11869} (10 Silber); Zweihandwaffen lassen einen Krieger am schnellsten leveln.",
 
-	-- Step 56: Fly to Camp Taurajo
+	-- Step 57: Fly to Camp Taurajo
 	-- {area:378} Camp Taurajo
 	["Fly to {area:378}"] = "Flieg nach {area:378}",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "Flugmeister von {zone:1456}",
 
-	-- Step 57: Brine
+	-- Step 58: Brine
 	-- {npc:5899} Brine · {area:378} Camp Taurajo · {area:485} Great Lift
 	["{npc:5899}'s hut stands on the ridge above the quilboar watering hole south of {area:378}, on the road to the {area:485}."] = "Die Hütte von {npc:5899} steht auf dem Kamm über der Tränke der Stacheleber südlich von {area:378}, an der Straße zum {area:485}.",
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
 	["for {npc:5901}, south of {area:392}: next guide"] = "für {npc:5901}, südlich von {area:392}: nächster Guide",
 
-	-- Step 58: Great Lift
+	-- Step 59: Great Lift
 	-- {npc:12576} Grish Longrunner · {npc:10079} Brave Moonhorn · {area:485} Great Lift · {area:484} Freewind Post
 	["{npc:12576} and {npc:10079} wait at the top of the {area:485}: Maggran's letter is for {npc:12576}, and Moonhorn's message goes down to {area:484} with you."] = "{npc:12576} und {npc:10079} warten oben am {area:485}: Maggrans Brief ist für {npc:12576}, und Moonhorns Nachricht nimmst du mit hinunter zum {area:484}.",
 	-- {npc:10079} Brave Moonhorn · {npc:10537} Cliffwatcher Longhorn · {area:484} Freewind Post
 	["{npc:10079}, at the top of the lift: {npc:10537} at {area:484}"] = "{npc:10079}, oben am Aufzug: {npc:10537} am {area:484}",
 
-	-- Step 59: Freewind Post's lift
+	-- Step 60: Freewind Post's lift
 	-- {area:484} Freewind Post
 	["{area:484}'s lift"] = "Der Aufzug von {area:484}",
 
-	-- Step 60: Freewind Post
+	-- Step 61: Freewind Post
 	-- {area:484} Freewind Post
 	["Ride the lift down, then follow the road east through the canyons to {area:484}, a Tauren village on top of the mesas. Its lift is on the north side."] = "Fahr mit dem Aufzug hinunter und folge dann der Straße nach Osten durch die Schluchten zum {area:484}, einem Taurendorf oben auf den Tafelbergen. Sein Aufzug ist auf der Nordseite.",
 	-- {npc:10377} Elu
@@ -259,16 +267,16 @@ return {
 	-- {npc:10537} Cliffwatcher Longhorn
 	["The Wanted poster beside {npc:10537}"] = "Der Steckbrief neben {npc:10537}",
 
-	-- Step 61: Rau Cliffrunner
+	-- Step 62: Rau Cliffrunner
 	-- {npc:4722} Rau Cliffrunner · {area:484} Freewind Post · {npc:4721} Zangen Stonehoof
 	["{npc:4722} stands in {area:484}: {npc:4721}'s filled phial is for him."] = "{npc:4722} steht am {area:484}: Die gefüllte Phiole von {npc:4721} ist für ihn.",
 	-- {npc:4722} Rau Cliffrunner · {object:20807} Ancient Brazier · {area:1557} Splithoof Hold
 	["{npc:4722}: the {object:20807} in {area:1557}, among the Galak camps"] = "{npc:4722}: die {object:20807} in {area:1557}, zwischen den Lagern der Galak",
 
-	-- Step 62: Alien Egg
+	-- Step 63: Alien Egg
 	["Take the lift down. The egg lies in a nest on the canyon floor in one of three spots: south-east of the mesas (52.3,55.2), east (56.4,50.4) or south-west (37.6,56.1)."] = "Fahr mit dem Aufzug hinunter. Das Ei liegt in einem Nest am Schluchtboden an einer von drei Stellen: südöstlich der Tafelberge (52.3,55.2), östlich (56.4,50.4) oder südwestlich (37.6,56.1).",
 
-	-- Step 63: Galak centaurs
+	-- Step 64: Galak centaurs
 	["Galak centaurs"] = "Zentauren der Galak",
 	-- {npc:10617} Galak Messenger · {area:2237} Whitereach Post · {npc:216463} Ailgrha Splittusk
 	-- plural, as words: Ravaging Tempests = {npc:216474} Ravaging Tempest
@@ -276,7 +284,7 @@ return {
 	-- {npc:10617} Galak Messenger · {quest:4881} Assassination Plot
 	["{npc:10617}'s {quest:4881}, if you meet him"] = "{quest:4881} von {npc:10617}, falls du ihm begegnest",
 
-	-- Step 64: Splithoof Hold
+	-- Step 65: Splithoof Hold
 	-- {area:1557} Splithoof Hold · {object:20807} Ancient Brazier · {item:5868} Filled Etched Phial · {item:5869} Cloven Hoof · {npc:2986} Dorn Plainstalker
 	-- plural, as words: Galak Flame Guards = {npc:7404} Galak Flame Guard
 	["A short walk north of the Galak camps, the cave of {area:1557} leads down to its deepest chamber, where the {object:20807} burns. Use the {item:5868} on it, then loot the {item:5869} at once: the flame only stays out briefly, and if it relights the phial is gone. Then east to {npc:2986}'s mesa.\nCareful: Two Galak Flame Guards (30) stand by the brazier and a centaur guard walks the cave: pull them away one at a time before you douse the flame."] = "Ein kurzes Stück nördlich der Lager der Galak führt die Höhle von {area:1557} hinab in ihre tiefste Kammer, wo die {object:20807} brennt. Benutze die {item:5868} daran und plündere dann sofort den {item:5869}: Die Flamme bleibt nur kurz aus, und wenn sie wieder auflodert, ist die Phiole verloren. Dann nach Osten zum Tafelberg von {npc:2986}.\nVorsicht: Zwei Flammenwachen der Galak (30) stehen bei der Kohlenpfanne und eine Zentaurenwache läuft durch die Höhle: Zieh sie einzeln weg, bevor du die Flamme löschst.",
@@ -285,22 +293,22 @@ return {
 	-- {item:5869} Cloven Hoof · {object:20807} Ancient Brazier
 	["{item:5869}, from the {object:20807}"] = "{item:5869}, von der {object:20807}",
 
-	-- Step 65: Dorn Plainstalker
+	-- Step 66: Dorn Plainstalker
 	-- {npc:2986} Dorn Plainstalker · {quest:1149} Test of Faith
 	["{npc:2986} stands on a mesa top east of the Galak camps. Taking his {quest:1149} puts you on a high cliff far to the west: follow the stone path to the end of the wooden planks and step off there, and you land safely. Jump from anywhere else and you fall to your death."] = "{npc:2986} steht auf einem Mesatop östlich der Galak-Lager. {quest:1149} zu nehmen bringt dich auf eine hohe Klippe weit im Westen: Folge dem Steinpfad bis zum Ende der Holzplanken und spring dort ab, und du landest sicher. Springst du von irgendwoanders, stürzt du in den Tod.",
 	-- {npc:2986} Dorn Plainstalker
 	["{npc:2986}, below ground"] = "{npc:2986}, unter Tage",
 	["the end of the planks"] = "Das Ende der Planken",
 
-	-- Step 67: Dorn Plainstalker
+	-- Step 68: Dorn Plainstalker
 	-- {quest:1150} Test of Endurance · {npc:4490} Grenka Bloodscreech
 	["{quest:1150} starts a fight deep in the den. Take it if you plan to face {npc:4490} with a group."] = "",
 
-	-- Step 68: Freewind Post
+	-- Step 69: Freewind Post
 	-- {npc:11116} Innkeeper Abeqwa · {npc:4877} Jandia
 	["{npc:11116}, beside {npc:4877}"] = "{npc:11116}, neben {npc:4877}",
 
-	-- Step 74: Darkcloud Pinnacle
+	-- Step 75: Darkcloud Pinnacle
 	-- {area:2097} Darkcloud Pinnacle
 	-- plural, as words: Document Chests = {object:176344} Document Chest
 	["West of Freewind, the Grimtotem camps below {area:2097}. The Secret Notes are in Document Chests at the south-east, south-west and north-west camps."] = "Westlich vom Freiwindposten liegen die Lager der Grimmtotem unterhalb vom {area:2097}. Die Geheimnotizen liegen in Dokumententruhen im südöstlichen, südwestlichen und nordwestlichen Lager.",
@@ -311,7 +319,7 @@ return {
 	-- {object:176344} Document Chest
 	["{object:176344}, north-west camp"] = "{object:176344}, nordwestliches Lager",
 
-	-- Step 75: Level 28
+	-- Step 76: Level 28
 	["Level 28"] = "Stufe 28",
 	-- {npc:10646} Lakota Windsong · {area:2797} Blackfathom Deeps
 	["Short of 28? The Grimtotem around these camps (25-28) are the right level: kill a few more before the climb to {npc:10646}. Past it, this step skips itself. Or, with a group, run the {area:2797} dungeon instead."] = "Noch nicht Stufe 28? Die Grimmtotem um diese Lager (25-28) haben die richtige Stufe: Töte noch ein paar, bevor du zu {npc:10646} hinaufsteigst. Danach überspringt sich dieser Schritt. Oder lauf mit einer Gruppe stattdessen den Dungeon {area:2797}.",
@@ -320,53 +328,53 @@ return {
 	-- {npc:10759} Grimtotem Stomper
 	["grind on {npc:10759}"] = "grinde an {npc:10759}",
 
-	-- Step 76: Lakota Windsong
+	-- Step 77: Lakota Windsong
 	-- {area:485} Great Lift · {npc:10896} Arnak Grimtotem · {area:2097} Darkcloud Pinnacle · {npc:10646} Lakota Windsong
 	["{area:485} detour warning: if you are already on the mesa, stay up and cross the rope bridge toward {npc:10896}; do not drop to the canyon or go to the {area:485}. From the canyon floor, follow the path up {area:2097} and take the rope bridges. Clear {npc:10896} (29) and the guards beside {npc:10646} before freeing her. Protect her from the Grimtotem ambushers on the way down."] = "",
 
-	-- Step 77: Highperch
+	-- Step 78: Highperch
 	-- {area:482} Highperch · {npc:10427} Pao'ka Swiftmountain · {area:2237} Whitereach Post
 	-- plural, as words: Highperch Patriarchs = {npc:4110} Highperch Patriarch
 	["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests. {npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "Westlich vom Weißgipfelposten nisten die Flügeldrachen auf den Klippen ({area:482}); die Eier liegen in den Nestern. {npc:10427} wartet auf der Ostseite der Nistplätze: Befreie ihn und halte ihn auf dem Rückweg zum {area:2237} am Leben.\nVorsicht: Flügeldrachen der Stufe 28-29 fliegen über dir und können ohne Vorwarnung gezogen werden. Eine Gruppe aus drei Flügeldrachen kann dich überfallen, sobald du die erste Säule unten passierst. Steilhangpatriarchen (30-31) und der Rare Herzschlitzer (32) nisten hier ebenfalls: Zieh um sie herum.",
 
-	-- Step 78: Whitereach Post
+	-- Step 79: Whitereach Post
 	-- {npc:10428} Motega Firemane · {zone:1456} Thunder Bluff
 	["{npc:10428}'s next quest, Sacred Fire, ends in {zone:1456}, off this route. Skip it."] = "{npc:10428}s nächste Quest, Hochheiliges Feuer, endet in {zone:1456}, abseits dieser Route. Überspring sie.",
 
-	-- Step 79: Kanati Greycloud
+	-- Step 80: Kanati Greycloud
 	-- {npc:10617} Galak Messenger · {npc:10638} Kanati Greycloud · {area:2237} Whitereach Post
 	["Only if the {npc:10617} dropped his plot for you: {npc:10638} stands at {area:2237}."] = "Nur wenn {npc:10617} dir seinen Plan hinterlassen hat: {npc:10638} steht bei {area:2237}.",
 
-	-- Step 81: Hypercapacitor Gizmo
+	-- Step 82: Hypercapacitor Gizmo
 	-- {npc:10992} Enraged Panther
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone."] = "Dies sind Elite-Mobs: Eine Gruppe wird empfohlen, such dir Leute dafür. {npc:10992} ist ein Elite der Stufe 30: Die meisten Klassen schaffen ihn solo auf Stufe 32, aber vielleicht brauchst du Hilfe. Überspringe ihn, wenn du allein bist.",
 
-	-- Step 82: Whitereach Post
+	-- Step 83: Whitereach Post
 	-- {npc:10720} Galak Assassin · {npc:10638} Kanati Greycloud
 	["Kill the {npc:10720} that comes for {npc:10638}"] = "Töte den {npc:10720}, der für {npc:10638} kommt",
 
-	-- Step 85: Screeching harpies
+	-- Step 86: Screeching harpies
 	["Screeching harpies"] = "",
 	-- {area:487} Roguefeather Den · {npc:4877} Jandia · {object:20447} Harpy Foodstuffs (no name in this language: may be words) · {npc:4490} Grenka Bloodscreech
 	["Pull the harpies along the cliff below {area:487}. Take Windcallers near the cave mouth one at a time; wait for them to return rather than working deeper into the cave. Pick up any of {npc:4877}'s supplies you still need along the way. Leave the {object:20447} alone: they call {npc:4490}."] = "",
 
-	-- Step 86: Stolen Freewind Supplies
+	-- Step 87: Stolen Freewind Supplies
 	-- {quest:98069} Stolen Freewind Supplies · {object:20447} Harpy Foodstuffs (no name in this language: may be words) · {npc:4877} Jandia
 	["Look for {quest:98069} at the foot of the cliff. The {object:20447} inside the cave are not {npc:4877}'s supplies."] = "",
 
-	-- Step 87: Harpy Foodstuffs
+	-- Step 88: Harpy Foodstuffs
 	-- {area:487} Roguefeather Den · {object:20447} Harpy Foodstuffs (no name in this language: may be words) · {npc:4490} Grenka Bloodscreech
 	["Clear the back of {area:487} with your group. Break the {object:20447} and stay together for the ambush. Kill {npc:4490} (31) when she comes, then loot her claw before the harpies return."] = "",
 	-- {item:5843} Grenka's Claw · {object:20447} Harpy Foodstuffs (no name in this language: may be words)
 	["{item:5843}, at the {object:20447}"] = "",
 
-	-- Step 88: Freewind Post
+	-- Step 89: Freewind Post
 	-- {area:2237} Whitereach Post · {area:484} Freewind Post
 	["Back east past {area:2237} to {area:484}."] = "Zurück nach Osten an {area:2237} vorbei zum {area:484}.",
 	-- {npc:10645} Thalia Amberhide
 	["{npc:10645}, inside"] = "{npc:10645}, drinnen",
 
-	-- Step 94: Level 29
+	-- Step 95: Level 29
 	["Level 29"] = "Stufe 29",
 	-- {area:484} Freewind Post · {area:2797} Blackfathom Deeps
 	-- plural, as words: Pesterhide Snarlers = {npc:4249} Pesterhide Snarler

@@ -264,7 +264,7 @@ return {
 	-- Step 48: Zul'Mamwe and Balia'mah trophy skulls
 	["Zul'Mamwe and Balia'mah trophy skulls"] = "",
 	-- {object:3202} Grom'gol
-	["The next trophy skulls stand in the small ruins just north of the warriors' camp.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "下一堆颅骨堆在战士营地正北的小废墟里。\n最后的颅骨堆在西边不远的废墟里，走几步就到，就在回{object:3202}的路上。",
+	["Look for the trophy skulls in the small ruins north of Zul'Mamwe's warriors.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "",
 
 	-- Step 49: Kin'weelay
 	-- {object:3202} Grom'gol
@@ -381,6 +381,7 @@ return {
 	-- ["The last skulls are in the ruins a short ride west, on the way back to {object:3202}."] = "最后的颅骨堆在西边不远的废墟里，就在回{object:3202}的路上。",
 	-- ["The next guide starts here and takes you to {zone:1446}."] = "下一个指南从这里开始，带你前往{zone:1446}。",
 	-- ["The next trophy skulls stand in the small ruins just north of the warriors' camp."] = "下一堆颅骨堆在战士营地正北的小废墟里。",
+	-- ["The next trophy skulls stand in the small ruins just north of the warriors' camp.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "下一堆颅骨堆在战士营地正北的小废墟里。\n最后的颅骨堆在西边不远的废墟里，走几步就到，就在回{object:3202}的路上。",
 	-- ["The snappers line the strand south of the post."] = "钳嘴鳄分布在哨站南边的海滩上。",
 	-- ["The stalker raptors hunt the jungle south of {object:3202}, out towards the west coast."] = "丛林捕猎者迅猛龙在{object:3202}南边的丛林里捕猎，一直到西海岸。",
 	-- ["The three ghostly pirates haunt the jungle north of {area:35}, near Zanzil's camps: {npc:2535} and {npc:2536} stand together, {npc:2537} further east."] = "三个海盗幽灵在{area:35}北边、赞吉尔营地附近的丛林里出没：{npc:2535}和{npc:2536}站在一起，{npc:2537}在更东边。",

@@ -201,7 +201,6 @@ return {
 	["{area:340} is built into the cliffs on the {zone:1418}' west edge."] = "{area:340}은(는) {zone:1418} 서쪽 끝 절벽에 지어져 있습니다.",
 
 	-- Step 41: The WANTED poster
-	-- was: ["The {object:164867} poster"] = "{object:164867} 전단"
 	["The WANTED poster"] = "현상수배 포스터",
 	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {area:340} Kargath
 	-- was: ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "{area:1584} 공략용(다음, {area:254}을(를) 지나는 길): {area:340}의 {object:164867} 전단은 내부의 성난모루 드워프를 처치하기를 원합니다."

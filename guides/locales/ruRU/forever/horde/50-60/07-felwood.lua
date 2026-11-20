@@ -160,9 +160,9 @@ return {
 
 	-- Step 41: Grind to 60
 	["Grind to 60"] = "Гринд до 60",
-	-- {npc:11556} Salfa
+	-- {npc:11556} Salfa · {area:2057} Scholomance · {area:2279} Stratholme
 	-- plural, as words: Winterfall Den Watchers = {npc:7440} Winterfall Den Watcher
-	["If you still need experience after the hand-ins, the Winterfall Den Watchers (55-56) are by the bead camp just south of {npc:11556}. There is no need to cross the gorge."] = "",
+	["If you still need experience after the hand-ins, the Winterfall Den Watchers (55-56) are by the bead camp just south of {npc:11556}. There is no need to cross the gorge. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "",
 	-- plural, as words: Winterfall Den Watchers = {npc:7440} Winterfall Den Watcher
 	["Winterfall Den Watchers"] = "",
 

@@ -201,7 +201,6 @@ return {
 	["{area:340} is built into the cliffs on the {zone:1418}' west edge."] = "{area:340} – крепость в скалах у западного края ({zone:1418}).",
 
 	-- Step 41: The WANTED poster
-	-- was: ["The {object:164867} poster"] = "Плакат «{object:164867}»"
 	["The WANTED poster"] = "Плакат «РАЗЫСКИВАЕТСЯ»",
 	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {area:340} Kargath
 	-- was: ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "Для подземелья {area:1584}, далее, по пути через {area:254}: плакат «{object:164867}» ({area:340}) просит проредить дворфов из клана Гнева Наковальни внутри."

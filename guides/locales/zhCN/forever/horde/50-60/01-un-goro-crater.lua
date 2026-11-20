@@ -201,7 +201,6 @@ return {
 	["{area:340} is built into the cliffs on the {zone:1418}' west edge."] = "{area:340}建在{zone:1418}西缘的峭壁中。",
 
 	-- Step 41: The WANTED poster
-	-- was: ["The {object:164867} poster"] = "{object:164867}告示"
 	["The WANTED poster"] = "通缉布告",
 	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {area:340} Kargath
 	-- was: ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "为接下来途经{area:254}的{area:1584}之行做准备：{area:340}的{object:164867}告示要你削减副本内铁怒矮人的数量。"

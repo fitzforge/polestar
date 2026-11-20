@@ -264,7 +264,7 @@ return {
 	-- Step 48: Zul'Mamwe and Balia'mah trophy skulls
 	["Zul'Mamwe and Balia'mah trophy skulls"] = "",
 	-- {object:3202} Grom'gol
-	["The next trophy skulls stand in the small ruins just north of the warriors' camp.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "下一批祖瑪維顱骨堆在劈顱戰士營地北邊不遠的小廢墟中。\n最後一批顱骨在往西走一小段的廢墟裡，就在回{object:3202}的路上。",
+	["Look for the trophy skulls in the small ruins north of Zul'Mamwe's warriors.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "",
 
 	-- Step 49: Kin'weelay
 	-- {object:3202} Grom'gol
@@ -361,6 +361,7 @@ return {
 	-- ["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang."] = "猩猩在巫醫安巴格瓦周圍的山谷遊蕩。老邁的迷霧谷猩猩會掉落內臟；任何一隻都可能掉落尖牙。",
 	-- ["The last skulls are in the ruins a short ride west, on the way back to {object:3202}."] = "最後一批顱骨堆在往西不遠的廢墟中，就在返回{object:3202}的路上。",
 	-- ["The next guide starts here and takes you to {zone:1446}."] = "下一份指南從這裡開始，帶你前往{zone:1446}。",
+	-- ["The next trophy skulls stand in the small ruins just north of the warriors' camp.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "下一批祖瑪維顱骨堆在劈顱戰士營地北邊不遠的小廢墟中。\n最後一批顱骨在往西走一小段的廢墟裡，就在回{object:3202}的路上。",
 	-- ["The snappers line the strand south of the post."] = "鹽齒鉗嘴鱷散布在哨站南邊的海灘上。",
 	-- ["The stalker raptors hunt the jungle south of {object:3202}, out towards the west coast."] = "叢林捕獵者迅猛龍在{object:3202}南邊的叢林狩獵，一直延伸到西海岸。",
 	-- ["The three ghostly pirates haunt the jungle north of {area:35}, near Zanzil's camps: {npc:2535} and {npc:2536} stand together, {npc:2537} further east."] = "三個海盜鬼魂在{area:35}北邊、贊吉爾營地附近的叢林出沒：{npc:2535}和{npc:2536}站在一起，{npc:2537}在更東邊。",

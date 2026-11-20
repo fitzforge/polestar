@@ -39,7 +39,7 @@ step Into the Badlands
 
 step Valley of Fangs
   turnin 1106                         -- Martek the Exiled: Fizzle's letter from the Shimmering Flats
-  accept 1108
+  accept 1108                         -- Keep this for the Stonevault troggs at level 39, even if you leave the Badlands before then.
   accept 703                          -- Rigglefuzz
 
 step The Dustbowl
@@ -81,11 +81,12 @@ step Agmond's End
   accept 709
 
 step Level 39 for Indurium
+  when level>=38.5
   when level<39
   when onquest 1108
   when !complete 1108
   zone Badlands
-  tip Short of 39? Hunt Feral Crag Coyotes (37-38) at the pin until 39. They also drop Neeka's jawbones and Jarkal's fangs. Watch for Zaricotl and Anathemus: leave if either patrol comes close.
+  tip Hunt Feral Crag Coyotes (37-38) on the marked hills until level 39. They also drop Neeka's jawbones and Jarkal's fangs. Leave if Zaricotl or Anathemus comes close. Or, with a group, run the Uldaman dungeon instead.
   goto 53.0,56.65 map 1418 "Feral Crag Coyotes"
   level 39
 
@@ -120,9 +121,16 @@ step Feral Crag Coyotes
 
 
 step Valley of Fangs
-  tip The road north to Uldaman runs through the Valley of Fangs: Rigglefuzz and Martek take the wings and the flakes on the way.
+  tip Give the wings to Rigglefuzz on the way north. Still short of flakes? Keep Indurium in your log. At level 39, resume at Stonevault troggs, then bring the flakes to Martek here.
   turnin 703                          -- Rigglefuzz
+
+step Martek the Exiled
+  when complete 1108
   turnin 1108                         -- Martek the Exiled
+
+step News for Fizzle
+  when turnedin 1108
+  when available 1137
   accept 1137                         -- for Fizzle at the Mirage Raceway, on the way from Freewind Post to Tanaris around level 43
 
 step Ancient Chest

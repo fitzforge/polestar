@@ -754,7 +754,7 @@ step Level 34 for the southern flats
   when onquest 1175
   when !complete 1175
   zone Thousand Needles
-  tip Still short of 34 after your hand-ins? Hunt Scorpid Reavers north of the raceway until 34. Leave the southern Gazers and the dig until then. Or, with a group, run Razorfen Kraul.
+  tip Hunt Scorpid Reavers north of the raceway until level 34 before heading south for the Gazers. Or, with a group, run the Razorfen Kraul dungeon instead.
   goto 75.5,67.8 map 1441 "Scorpid Reavers"
   level 34 grind 4140
 
@@ -763,7 +763,7 @@ step Level 34 for the Rustmaul dig
   when onquest 1147
   when !complete 1147
   zone Thousand Needles
-  tip Still short of 34 after your hand-ins? Hunt Scorpid Reavers north of the raceway until 34. Leave the southern Gazers and the dig until then. Or, with a group, run Razorfen Kraul.
+  tip Hunt Scorpid Reavers north of the raceway until level 34 before entering the Rustmaul dig. Or, with a group, run the Razorfen Kraul dungeon instead.
   goto 75.5,67.8 map 1441 "Scorpid Reavers"
   level 34 grind 4140
 
@@ -772,7 +772,7 @@ step Level 34 for Parts of the Swarm
   when onquest 1148
   when !complete 1148
   zone Thousand Needles
-  tip Still short of 34 after your hand-ins? Hunt Scorpid Reavers north of the raceway until 34. Leave the southern Gazers and the dig until then. Or, with a group, run Razorfen Kraul.
+  tip Hunt Scorpid Reavers north of the raceway until level 34 before returning for the silithid parts. Or, with a group, run the Razorfen Kraul dungeon instead.
   goto 75.5,67.8 map 1441 "Scorpid Reavers"
   level 34 grind 4140
 
