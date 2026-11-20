@@ -108,6 +108,19 @@ test('--persona names known personas; update needs --from; not with --honest', a
 	}
 });
 
+test('persona baselines and variants report the class start gate; strict personas stop there', { skip }, async () => {
+	const args = ['--persona', 'skip', '--sample', '1', '--filter', 'forever/class/shaman/call-of-earth-alliance'];
+	const plain = await quiet(() => cmd.run(args));
+	assert.equal(plain.result, 0, plain.out);
+	assert.match(plain.out, /\[baseline: nothing taken away\]: start gate opened: quest 179 \(Dwarven Outfitters\) completed outside the guide/);
+	assert.match(plain.out, /\[skip: skips step [^\n]+\]: start gate opened: quest 179 \(Dwarven Outfitters\) completed outside the guide/);
+	assert.match(plain.out, /persona skip: 1 play, 0 stuck/);
+	const strict = await quiet(() => cmd.run([...args, '--strict-start-gates']));
+	assert.equal(strict.result, 1, strict.out);
+	assert.match(strict.out, /\[baseline: nothing taken away\] at step 1 "Archaic Rune"/);
+	assert.doesNotMatch(strict.out, /start gate opened/);
+});
+
 // An Apple Treat (91738), handed in on the spot for the Thunder Applejack (247824).
 const appleGuide = (gate) => `guide forever/alliance/apple-test
 title Apple

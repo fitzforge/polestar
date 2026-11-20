@@ -177,6 +177,34 @@ test('--level-offset plays a character n levels ahead: a step behind `when level
 	assert.match(honest.out, /--level-offset plays the simulated player: it does not go with --honest/);
 });
 
+test('a skipped quest collect does not block the active collect beside it', { skip: !hasLua }, async (t) => {
+	const guide = { id: 'test/collects', pack: 'test', title: 'Two errands', minLevel: 1, maxLevel: 5, steps: [
+		{ goals: [{ t: 'accept', quest: 1, title: 'The Sceptre' }] },
+		{ goals: [{ t: 'accept', quest: 2, title: 'The Gem', closedBy: [1] }] },
+		{ goals: [{ t: 'collect', quest: 2, oi: 1, item: 102, itemName: 'Gem', count: 1 }, { t: 'collect', quest: 1, oi: 1, item: 101, itemName: 'Sceptre', count: 1 }] },
+		{ goals: [{ t: 'turnin', quest: 1, title: 'The Sceptre' }] },
+	] };
+	const pack = { maps: '', loads: `${TEST_PACK}\n${TEST_SOURCE}\nassert(Polestar.RegisterGuide(${luaValue(guide)}))` };
+	for (const [runner, script] of [['playtest', SIMULATE], ['addon tests', fs.readFileSync(path.join(__dirname, 'lua', 'simulate.lua'), 'utf8')]]) {
+		await t.test(runner, () => {
+			const [play, paid] = playGuide(pack, guide, { race: 'Human', faction: 'Alliance', cls: 'WARRIOR', script: `${script}\nemit(w.completed[1] == true)` });
+			assert.ok(play.done, JSON.stringify(play.stuck));
+			assert.equal(paid, true);
+		});
+	}
+});
+
+test('the CLI opens and reports a class start prerequisite unless strict start gates are requested', { skip }, async () => {
+	const args = ['--filter', 'forever/class/shaman/call-of-earth-alliance', '--class', 'Shaman'];
+	const plain = await quiet(() => cmd.run(args));
+	assert.equal(plain.result, 0, plain.out);
+	assert.match(plain.out, /start gate opened: quest 179 \(Dwarven Outfitters\) completed outside the guide/);
+	const strict = await quiet(() => cmd.run([...args, '--strict-start-gates']));
+	assert.equal(strict.result, 1, strict.out);
+	assert.match(strict.out, /stuck .* at step 1 "Archaic Rune"/);
+	assert.doesNotMatch(strict.out, /start gate opened/);
+});
+
 test('a stuck step is reported with guide, step, title and class; exit 1', { skip }, async () => {
 	const { result, out } = await quiet(() => cmd.run(['--pack', path.join(PACKS, 'stuck')]));
 	assert.equal(result, 1);
