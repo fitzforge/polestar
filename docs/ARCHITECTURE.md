@@ -3394,8 +3394,13 @@ holds at its opening, see "Not yet available"):
   in the log, done, or skipped). When the guide ends first, the next guides'
   plans put it in (`Own.carryChains` in `Own.feederPlan`: its accept and the
   quest's goals in the guides passed since, under the feeder rules, before
-  the guide's first goal of the quest), where it is that guide's own accept;
-  one that does not fit waits on. The skip notice says which
+  the guide's first goal of the quest): at the level when the route gets
+  there, it is taken on the way. Passed there under the level, it is marked
+  passed for that guide (the wait's `passed`, `Own.carryPassed`) and no longer
+  holds its step (`Own.holds`), so the level-up never pulls the route back to
+  it; While you're here offers it as a pick-up at its giver (`Own.hereBuild`
+  lets such a step behind the live one in), and a later guide's plan puts it
+  in again. One that does not fit waits on. The skip notice says which
   (`Own.waitText`), and the guide-end window and "Continue automatically"
   list the ones still waiting (`Engine.WaitingQuests`).
   The goals of its quest further on keep their "Requires level" line. Where

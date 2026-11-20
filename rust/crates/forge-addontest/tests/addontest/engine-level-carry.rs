@@ -105,15 +105,23 @@ r.skips, r.waits, r.guide, r.shape, r.live = SKIPS, waits(), E.GetGuide().id, sh
 "#;
 
 #[test]
-fn an_accept_passed_one_level_low_at_a_guide_s_end_is_taken_in_the_next_guide_once_the_level_comes() {
+fn an_accept_passed_one_level_low_at_a_guide_s_end_is_carried_into_the_next_guide_and_never_pulls_the_route_back() {
 	let out = run(
 		NEAR,
 		None,
 		&format!(
 			r#"{TO_THE_END}
--- Level 12 in Second Zone, at the far camp: back to the flight master's Erelas, then on.
+-- Level 12 in Second Zone, the route past Erelas' carried step: no jump back. It waits on, and While you're here
+-- offers it at Erelas.
 w.setLevel(12); flush()
-r.back = E.GetLiveStep()
+r.back, r.still = E.GetLiveStep(), waits()
+local ends = {{}}
+for _, q in ipairs(E.WaitingQuests("test/two")) do ends[#ends + 1] = q.quest .. "@" .. q.level end
+r.ends = ends
+w.moveTo(GIVER[1], GIVER[2], GIVER[3]); flush()
+local here = {{}}
+for _, c in ipairs(E.GetWhileHereCandidates()) do here[#here + 1] = c.step .. ":" .. c.kind end
+r.here = here
 w.accept(20, {{ 3 }}); flush()
 r.after, r.left = E.GetLiveStep(), waits()
 emit(r)"#
@@ -129,18 +137,30 @@ emit(r)"#
 		"Second Zone takes Erelas' accept beside its flight master, before the wildkin: {out}"
 	);
 	assert_eq!(out["live"], 2, "still 11: passed, on to the flight master: {out}");
-	assert_eq!(out["back"], 1, "level 12: the route comes back to Erelas: {out}");
-	assert_eq!(out["after"], 2, "taken: on with the guide: {out}");
+	assert_eq!(out["back"], 2, "level 12: the route stays where it is, never back to Erelas: {out}");
+	assert_eq!(out["still"], json!(["20@12 test/two"]), "still waiting: {out}");
+	assert_eq!(out["ends"], json!(["20@12"]), "listed for the guide-end window: {out}");
+	assert!(out["here"].as_array().unwrap().iter().any(|v| v == "1:take"), "at Erelas, While you're here offers it: {out}");
+	assert_eq!(out["after"], 2, "taken there: the route goes on: {out}");
 	assert_eq!(out["left"], json!({}), "taken: no longer waiting: {out}");
 }
 
-// The wait is saved with the character by quest id: a reload (or another tab opening Second Zone) plans it in.
+// The wait is saved with the character by quest id: a reload (or another tab opening Second Zone) plans it in. A
+// character who has the level by then takes it on the way: it is the guide's first step.
 #[test]
 fn a_waiting_accept_survives_a_reload_and_the_next_guide_opened_later_still_takes_it() {
 	let saved = r#"PolestarCharDB = { schema = 1, levelWaits = { [20] = { level = 12, guide = "test/one" } } }"#;
 	let out = run(NEAR, Some(saved), r#"E.SetGuide("test/two"); flush(); emit({ shape = shape(), waits = waits() })"#);
 	assert_eq!(out["shape"][0], "Erelas <test/one 2> accept:20", "{out}");
 	assert_eq!(out["waits"], json!(["20@12 test/two"]), "passed at 11 there, waiting on: {out}");
+	let at12 = run(NEAR, Some(saved), r#"w.setLevel(12); flush(); E.SetGuide("test/two"); flush(); emit({ live = E.GetLiveStep(), shape = shape() })"#);
+	assert_eq!(at12["shape"][0], "Erelas <test/one 2> accept:20", "{at12}");
+	assert_eq!(at12["live"], 1, "at 12 on arrival: Erelas is the live step: {at12}");
+	// Passed in Second Zone at 11 (saved), then a reload at 12: the route still never goes back for it.
+	let passed = r#"PolestarCharDB = { schema = 1, levelWaits = { [20] = { level = 12, guide = "test/two", passed = "test/two" } } }"#;
+	let back = run(NEAR, Some(passed), r#"w.setLevel(12); flush(); E.SetGuide("test/two"); flush(); emit({ live = E.GetLiveStep(), waits = waits() })"#);
+	assert_eq!(back["live"], 2, "{back}");
+	assert_eq!(back["waits"], json!(["20@12 test/two"]), "{back}");
 }
 
 // A giver the next guide's route never comes near (another continent) stays out of it: the guide is as written, and
@@ -209,9 +229,10 @@ emit(r)"#,
 // Burning Steppes' Rut'theran stop hands in Favored of Elune? and offers Moontouched Wildkin (978, level 52), the
 // start of a chain into Winterspring, the Western Plaguelands and Silithus. Before: passed, gone with the guide's
 // end, and its chain left out of the later guides. Now Felwood, which starts at Rut'theran's flight master, takes
-// it there, and level 52 in Felwood brings the route back to Erelas.
+// it there for a character at 52 on arrival; at 51 it is passed again, and level 52 in Felwood proper (at the
+// Emerald Sanctuary) never sends the route back to Teldrassil: it stays waiting for the next pass of Erelas.
 #[test]
-fn a_paladin_at_51_passes_moontouched_wildkin_at_the_end_of_burning_steppes_and_felwood_takes_it_at_52() {
+fn a_paladin_at_51_passes_moontouched_wildkin_at_the_end_of_burning_steppes_and_52_in_felwood_never_pulls_him_back() {
 	const BS: &str = "forever/alliance/50-60/01-burning-steppes";
 	let dir = forge_addontest::run::addons_dir();
 	let out = emitted(&RunAddon {
@@ -261,10 +282,21 @@ for i, step in ipairs(g.steps) do
 end
 r.carry, r.first = carry or false, g.steps[1].title
 r.live = E.GetLiveStep()
+-- On into Felwood proper: the steps before the Emerald Sanctuary done.
+local sanct
+for i, step in ipairs(g.steps) do if step.title == "The Emerald Sanctuary" and not sanct then sanct = i end end
+local fk = Polestar.CharState().skipped[g.id] or {{}}
+for i = 2, sanct - 1 do fk[i] = true end
+Polestar.CharState().skipped[g.id] = fk
+w.moveTo(1448, 54.2, 86.8); stub.fire("QUEST_LOG_UPDATE"); stub.advance(1)
+r.sanct, r.inFelwood = sanct, E.GetLiveStep()
 w.setLevel(52); stub.advance(1)
 r.back = E.GetLiveStep()
-w.accept(978, {{ 10 }}); stub.advance(1)
-r.after = E.GetLiveStep()
+wt = (PolestarCharDB.levelWaits or {{}})[978]
+r.still = wt and (wt.level .. " " .. wt.guide) or false
+local ends = {{}}
+for _, q in ipairs(E.WaitingQuests(g.id)) do ends[#ends + 1] = q.quest end
+r.ends = ends
 emit(r)"#
 		),
 		..Default::default()
@@ -277,6 +309,8 @@ emit(r)"#
 	assert_eq!(out["guide"], "forever/alliance/50-60/02-felwood");
 	assert_eq!(out["carry"], 1, "Felwood takes it first, at Rut'theran: {out}");
 	assert!(out["live"].as_u64().unwrap() > 1, "still 51: passed again for now: {out}");
-	assert_eq!(out["back"], 1, "52: back to Erelas: {out}");
-	assert!(out["after"].as_u64().unwrap() > 1, "taken: on with Felwood: {out}");
+	assert_eq!(out["inFelwood"], out["sanct"], "at the Emerald Sanctuary: {out}");
+	assert_eq!(out["back"], out["sanct"], "52 in Felwood proper: no jump back to Erelas: {out}");
+	assert_eq!(out["still"], "52 forever/alliance/50-60/02-felwood", "still waiting: {out}");
+	assert_eq!(out["ends"], json!([978]), "listed for Felwood's guide-end window: {out}");
 }

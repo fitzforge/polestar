@@ -774,11 +774,14 @@ function Own.pruneWaits()
 end
 
 -- Accept `goal` of the loaded guide waits for `level`: a leveling guide's,
--- one the route needs (not optional).
+-- one the route needs (not optional). A carried accept's `passed` mark for
+-- this guide stays (Own.carryPassed).
 function Own.noteWait(goal, level)
 	local q = goal.quest
 	if not (q and level and guide and Own.leveling(guide)) or goal.optional or Own.waitGone(q) then return end
-	Own.waitList(true)[q] = { level = level, guide = guide.id }
+	local t = Own.waitList(true)
+	local old = t[q]
+	t[q] = { level = level, guide = guide.id, passed = type(old) == "table" and old.passed == guide.id and old.passed or nil }
 end
 
 Own.skipMarks = {}
@@ -4640,9 +4643,23 @@ function Own.sideVendor(s, goal)
 end
 
 -- Whether goal (of step s) holds the step until it is done: not a note,
--- not optional, not a vendor check-off beside other work (Own.sideVendor).
+-- not optional, not a vendor check-off beside other work (Own.sideVendor),
+-- not a carried accept the route passed (Own.carryPassed).
 function Own.holds(s, goal)
-	return blocks(goal) and not Own.sideVendor(s, goal)
+	return blocks(goal) and not Own.sideVendor(s, goal) and not Own.carryPassed(s, goal)
+end
+
+-- An accept an earlier guide passed for the character's level, put in here by
+-- the plan (Own.carryChains: step s is a feeder step), that the route has
+-- passed in this guide while it waited (Own.noteWaits: the wait's `passed`).
+-- It never pulls the route back: reached later, the level leaves it waiting
+-- for the next pass of its giver, a later guide's plan or While you're here
+-- (Own.hereBuild) in this one.
+function Own.carryPassed(s, goal)
+	if goal.t ~= "accept" or not guide.steps[s].feeder then return false end
+	local t = Own.waitList()
+	local w = t and t[goal.quest]
+	return w ~= nil and w.passed == guide.id
 end
 
 -- Every goal of step s that holds the route is done (or cannot be done).
@@ -5362,13 +5379,19 @@ end
 
 -- The accepts of step s the route moves past because the character is under
 -- their quest's level (unavailableFor's "level" mark) wait for it
--- (Own.waitList): not on a step the player skipped, nor an optional one.
+-- (Own.waitList): not on a step the player skipped, nor an optional one. A
+-- carried one (a feeder step) is marked passed in this guide
+-- (Own.carryPassed): the level-up never brings the route back to it.
 function Own.noteWaits(s)
 	if not logReady or isSkipped(s) then return end
 	for g, goal in ipairs(guide.steps[s].goals) do
 		if goal.t == "accept" and blocks(goal) and goalApplies(goal) and not goalDone(s, g, goal) then
 			local u = unavailableFor(goal)
-			if u and u.reason == "level" then Own.noteWait(goal, tonumber(goal.minLevel)) end
+			if u and u.reason == "level" then
+				Own.noteWait(goal, tonumber(goal.minLevel))
+				local t = guide.steps[s].feeder and Own.waitList()
+				if t and t[goal.quest] then t[goal.quest].passed = guide.id end
+			end
 		end
 	end
 end
@@ -9655,14 +9678,17 @@ end
 -- that the guide comes back for it then (the level-up brings the route back
 -- to its step), or that a later guide takes it: when the rest of the guide
 -- pays too little XP to reach that level (Levels.ForGuide from step s on; the
--- Codex off: when no work for the character follows s). nil outside a
+-- Codex off: when no work for the character follows s), and always for an
+-- accept carried in from an earlier guide (Own.carryPassed). nil outside a
 -- leveling guide, or for an optional accept.
 function Own.waitText(s, a)
 	if not Own.leveling(guide) or a.optional then return nil end
 	local lvl = tonumber(a.minLevel) or 0
-	local run = ns.Levels and ns.Levels.ForGuide and ns.Levels.ForGuide(guide.id, nil, s + 1)
-	local back
-	if run and run.to then back = run.to.level >= lvl else back = Own.lastWork(s) ~= nil end
+	local back = false
+	if not guide.steps[s].feeder then
+		local run = ns.Levels and ns.Levels.ForGuide and ns.Levels.ForGuide(guide.id, nil, s + 1)
+		if run and run.to then back = run.to.level >= lvl else back = Own.lastWork(s) ~= nil end
+	end
 	if back then return L["Requires level %d: the guide comes back for it then"]:format(lvl) end
 	return L["Requires level %d: kept for a later guide"]:format(lvl)
 end
@@ -13570,10 +13596,13 @@ function Own.hereBuild()
 				local goal = steps[s].goals[idx[i + 1]]
 				local q = goal.quest
 				local back = behind ~= nil and behind[q] and true or false
-				if (back and Own.behindApplies(steps[s], goal)) or (not back and s > live) then
+				-- A carried accept the route passed waiting for the level (Own.carryPassed):
+				-- a pick-up line behind the live step too, its giver's next pass.
+				local carried = s < live and Own.carryPassed(s, goal)
+				if (back and Own.behindApplies(steps[s], goal)) or (not back and (s > live or carried)) then
 					local g = idx[i + 1]
 					local on = C.IsOnQuest(q)
-					local take = not on and takes and goal.t == "accept" and s > live and not goal.limit and not goal.optional and not goal.either
+					local take = not on and takes and goal.t == "accept" and (s > live or carried) and not goal.limit and not goal.optional and not goal.either
 						and (tonumber(goal.qlvl) or 0) <= topQ and (tonumber(goal.minLevel) or 0) <= level and not questDone(q) and not missingPre(goal)
 					if take then
 						if room == nil then room = Own.logRoom() >= 1 end
