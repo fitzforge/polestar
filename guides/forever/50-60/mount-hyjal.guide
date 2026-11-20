@@ -383,7 +383,8 @@ step Ketharas
 # berries, then the elders) with the Deadwood camps around it, Elderwild (the Alliance and Horde outposts stand
 # side by side) with Mourning's Rest and the overlook west of it, then east into the Cradle of Tranquility: the
 # wild gods' errands, Johun's camp (Alliance) and back west to Marrosis and Shalla'kal.
-# Quest log: a character arrives with about 28 quests carried from the 50-60 guides, and the game's log holds 40.
+# Quest log: since the 2026-11-20 route rounds a character arrives with only a few quests carried from the 50-60 guides
+# (flow audit, Alliance route: 2 or 3) and the guide's own log peaks at about 17 of the game's 40.
 # The veteran's Anywhere But Here is taken after Mourning's Rest, on the way west to the overlook, and the
 # breadcrumbs for part 3 (A Clever Creature, Trail Assist) wait for part 3's way through the Cradle.
 # Offered only after another quest is handed in (the recording; one player, so leads to confirm): Heading Up the
@@ -799,8 +800,9 @@ step Shalla'kal and Galvinquam
 # (Alliance) and Dae'gun (Renalard first, then the demon camps west to east and back), the Summit of Eternity
 # (flight path, inn), a flight down for Kaylaena and Ketharas, then the Summit's Blackthorne camps in one sweep, and
 # out by Everlook.
-# Quest log: a character arrives with about 28 quests carried from the 50-60 guides, and the game's log holds 40.
-# So the breadcrumbs for Dae'gun and the Summit (A Clever Creature, Trail Assist) are taken on this part's way
+# Quest log: since the 2026-11-20 route rounds a character arrives with only a few quests carried from the 50-60 guides
+# (flow audit, Alliance route: 2 or 3) and the guide's own log peaks at about 17 of the game's 40.
+# The breadcrumbs for Dae'gun and the Summit (A Clever Creature, Trail Assist) are taken on this part's way
 # through the Cradle rather than at the end of part 2, and Fetid Corruption is handed in before the Shrine's three
 # quests are taken.
 # Offered only after another quest is handed in (the recording; one player, so leads to confirm): A Bit of the
