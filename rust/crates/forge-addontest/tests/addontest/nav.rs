@@ -2161,6 +2161,7 @@ fn external_waypoints_check_the_walking_bearing_not_just_its_end() {
 		assert(risk(start, finish, "Alliance") == "opposing-settlement" and not risk(start, finish, "Horde"))
 		local x, y = nav.Compat.WorldToMap(0, town.wx, finish, town.map)
 		Polestar.Set("nav.travel", false)
+		Polestar.Set("nav.navRouting", false) -- direct compass mode, independent of the walking engine
 		nav.withTomTom()
 		Polestar.Set("nav.useTomTomArrow", true)
 		Polestar.Set("nav.blizzardWaypoint", true)

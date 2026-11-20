@@ -810,12 +810,11 @@ fn g_row_6_c17_no_search_starts_in_combat_the_old_path_is_kept_and_one_runs_afte
 		stub.advance(5)
 		local s = aim()
 		r.fight = { finds = #finds, along = alongOf(f, s.x, s.y), state = s.state }
-		-- A new target in combat: the straight arrow, no search either.
+		-- A new target in combat: wait without borrowing a bearing from the old walk.
 		N.SetTarget(1429, 39.5, 80.0, "Lower mouth", "e")
 		stub.advance(2)
 		s = aim()
-		local _, tx, ty = N.GetTargetWorld()
-		r.newTarget = { finds = #finds, straight = dist(s.x, s.y, tx, ty) < 0.01 }
+		r.newTarget = { finds = #finds, state = s.state, bearing = s.x ~= nil }
 		stub.inCombat = false
 		stub.fire("PLAYER_REGEN_ENABLED")
 		aim()
@@ -831,7 +830,7 @@ fn g_row_6_c17_no_search_starts_in_combat_the_old_path_is_kept_and_one_runs_afte
 	);
 	assert_eq!(out["fight"]["finds"], 1, "nothing asked in combat");
 	assert!(f(&out["fight"]["along"]) > 1.0, "the old path is kept");
-	assert_eq!(out["newTarget"], serde_json::json!({ "finds": 1, "straight": true }));
+	assert_eq!(out["newTarget"], serde_json::json!({ "finds": 1, "state": "routing", "bearing": false }));
 	assert_eq!(out["after"], 2, "one search once combat ends");
 	assert_eq!(out["follow"]["combat"], false);
 	assert!(f(&out["follow"]["from"]) < 0.01);
@@ -951,9 +950,7 @@ fn k1_a_walk_into_a_cave_is_split_at_its_mouth_from_polestar_navs_chokepoints_lu
 	assert!(legs.iter().all(|l| l["label"].as_str().is_some_and(|s| !s.is_empty() && s != "Unknown")), "K1: every step is named");
 }
 
-// Review conditions for shipping Polestar's maps (nav-maps): the maps load only with routing on; all of a map's files
-// missing from Nav.xml, or a corrupted grid block, leave the straight arrow, never a Lua error (one missing part file:
-// nav-load.rs); every zone the guides walk in routes.
+// Missing or damaged map bytes must not turn a pending walking route into a direct bearing.
 fn nav_dir() -> PathBuf {
 	addons_dir().join("Polestar_Nav/Nav")
 }
@@ -1012,14 +1009,45 @@ fn cluster_file(wx: f64, wy: f64) -> (i64, Option<String>) {
 	(k, file)
 }
 
+const WALK_COMPASS: &str = r#"
+	local pin, tracked, published = nil, false, 0
+	function C_Map.SetUserWaypoint(value) pin = value end
+	function C_Map.GetUserWaypoint() return pin end
+	function C_Map.ClearUserWaypoint() pin = nil; tracked = false end
+	C_SuperTrack = C_SuperTrack or {}
+	function C_SuperTrack.IsSuperTrackingUserWaypoint() return tracked end
+	function C_SuperTrack.SetSuperTrackedUserWaypoint(value)
+		tracked = value
+		if value then published = published + 1 end
+	end
+	Polestar.Set("nav.blizzardWaypoint", true)
+	local function checkWalk(named)
+		w.setLevel(8)
+		place(1429, GOLDSHIRE[1], GOLDSHIRE[2], GOLDSHIRE[3])
+		if named then
+			local x, y = C.WorldToMap(0, LOWER_MOUTH[1], LOWER_MOUTH[2], 1429)
+			N.SetTarget(1429, x, y, "Lower mine mouth", nil, "object", LOWER_MOUTH[3])
+		else
+			N.SetTarget(1429, 39.5, 82.4, "Fargodeep Mine", "e")
+		end
+		local first = aim()
+		assert(not first.x and not first.y and published == 0, "unchecked HUD or waypoint bearing")
+		for _, leg in ipairs(N.GetRouteGeometry().legs) do
+			assert(not leg.current or #leg.pts == 0, "current walk drew an unchecked route")
+		end
+		local manual = { uiMapID = 1429, position = CreateVector2D(.18, .27) }
+		C_Map.SetUserWaypoint(manual); C_SuperTrack.SetSuperTrackedUserWaypoint(true)
+		for _ = 1, 120 do stub.advance(.05); aim() end
+		local settled = aim()
+		assert(not settled.x and not settled.y and published == 1)
+		assert(pin == manual and tracked, "an independent waypoint must keep guiding")
+		return settled.state
+	end"#;
+
 const DAMAGED_MAP: &str = r#"
-	w.setLevel(8)
-	place(1429, GOLDSHIRE[1], GOLDSHIRE[2], GOLDSHIRE[3])
-	local f = guide()
-	for _ = 1, 20 do stub.advance(0.05) end
-	local a = aim()
-	local _, tx, ty = N.GetTargetWorld()
-	emit({ state = a.state, toTarget = a.x and dist(a.x, a.y, tx, ty), measured = a.measured, available = E and E.Available(0), points = f and f.points and #f.points or 0, cost = f and f.cost })"#;
+	local state = checkWalk(false)
+	local f = finds[#finds]
+	emit({ state = state, available = E.Available(0), points = f and f.points and #f.points or 0, cost = f and f.cost })"#;
 
 fn with_maps(files: &[PathBuf], script: &str) -> Value {
 	with_maps_and(files, "", script)
@@ -1031,10 +1059,44 @@ fn with_maps_and(files: &[PathBuf], extra: &str, script: &str) -> Value {
 		before: format!("{}\n{extra}", before(files)),
 		addons: polestar_addons(),
 		login: true,
-		script: format!("{PRELUDE}\n{script}"),
+		script: format!("{PRELUDE}\n{WALK_COMPASS}\n{script}"),
 		..Default::default()
 	})
 	.remove(0)
+}
+
+#[test]
+fn missing_walking_engine_gives_no_hud_map_or_waypoint_bearing() {
+	skip_unless_ready!();
+	let out = with_maps_and(&[], "stub.packs.Polestar_Nav = nil", "emit(checkWalk(false))");
+	assert_eq!(out, "unmapped");
+}
+
+#[test]
+fn combat_login_waits_for_the_named_walk_then_follows_it() {
+	skip_unless_ready!();
+	let (_tmp, ns) = ns_file();
+	let out = with_maps_and(
+		&nav_files(&ns),
+		"stub.inCombat = true",
+		r#"local cold = checkWalk(true)
+		assert(not stub.packLoads.Polestar_Nav, "do not load walking data in combat")
+		stub.inCombat = false; stub.fire("PLAYER_REGEN_ENABLED")
+		for _ = 1, 120 do stub.advance(.05); aim() end
+		local a = aim()
+		local _, x, y = N.GetTargetWorld()
+		emit({cold, a.state, a.measured, a.x and dist(a.x, a.y, x, y) > 1})"#,
+	);
+	assert_eq!(out, serde_json::json!(["routing", "travel", true, true]));
+}
+
+#[test]
+fn missing_continent_pack_does_not_publish_a_waypoint_before_the_arrow_samples() {
+	skip_unless_ready!();
+	let (_tmp, ns) = ns_file();
+	let part = forge_nav::pack::part_of(0).unwrap();
+	let out = with_maps_and(&nav_files(&ns), &format!("stub.packs.{part} = {{}}"), "emit(checkWalk(false))");
+	assert_eq!(out, "unmapped");
 }
 
 #[test]
@@ -1046,7 +1108,6 @@ fn a_map_with_no_walking_data_gives_no_bearing_when_routing_is_enabled() {
 	let out = with_maps(&files, DAMAGED_MAP);
 	assert_eq!(out["available"], false, "no data for map 0");
 	assert_eq!(out["state"], "unmapped");
-	assert!(out["toTarget"].is_null(), "no bearing across unmapped ground");
 }
 
 #[test]
@@ -1076,7 +1137,6 @@ fn a_corrupted_grid_block_gives_no_bearing_through_that_block() {
 	assert_eq!(out["available"], true, "the map is there");
 	assert_eq!(out["points"], 0, "no path through the broken cluster ({})", out["cost"]);
 	assert_eq!(out["state"], "unmapped");
-	assert!(out["toTarget"].is_null(), "no bearing across a damaged walking block");
 }
 
 /// Geo.toWorld (tools/lib/planner/geo.js): the frame of f's set first ("e": Era, else the live one), the other when
@@ -1459,7 +1519,7 @@ fn route_styles_goldshire_to_sentinel_hill_keeps_to_the_road_with_roads_and_cuts
 	assert!(out["sameTarget"] == true && out["switched"]["sameTarget"] == true, "without a new target");
 	assert!(f(&out["roads"]["from"]) < 1.0, "from where the player stands");
 	assert!(f(&out["balanced"]["drawn"]["points"]) > 2.0 * f(&out["balanced"]["drawn"]["legs"]), "the Balanced walk is drawn along its path");
-	assert_eq!(f(&out["switched"]["drawn"]["points"]), 2.0 * f(&out["switched"]["drawn"]["legs"]), "the switch drops the Balanced line at once: straight until the Roads walk is in");
+	assert_eq!(f(&out["switched"]["drawn"]["points"]), 0.0, "the switch drops the Balanced line without drawing an unchecked shortcut");
 	assert_ne!(out["roads"]["pts"], out["balanced"]["pts"], "the Roads walk differs from the Balanced one");
 	let (lb, lr) = (line_length(&balanced), line_length(&roads));
 	eprintln!("Balanced {lb:.0} yd, Roads {lr:.0} yd");
@@ -2554,49 +2614,37 @@ fn issue_1970_the_arrow_stays_on_the_sanctums_portal_until_the_player_is_through
 	assert!(!strs(&out["outAfter"]).iter().any(|l| l.starts_with("portal|")), "out of the chamber, no portal left: {out}");
 }
 
-// Stormwind as Horde (Fitz's trail round the city, 2026-10-23): from the Deeprun Tram's entrance (his mark, Stormwind
-// 68.73,31.27 on the live map) the walk out to the gate took over 6,000 yd over the walls and round the mountains,
-// because every step on the city's guarded ground costs a Horde walk twenty times over, and the shortest way off it is
-// not the gate. A walk that starts or ends in the other faction's town is priced as for no faction (opts.homeHub): out
-// through the streets and the gate, as an Alliance player walks it, the town still named on the leg. With the trail
-// floor (2026-11-18) the player's floor at the entrance is known, so the plan first follows the recorded path out of
-// the tram's hall (a hand-made leg, no search) and the first walk searched starts at its end, still in the city.
+// Arrival by tram is not permission to walk through the other faction's capital.
 #[test]
-fn hostile_towns_a_tauren_at_the_deeprun_tram_walks_out_of_stormwind_through_its_streets_and_gate_as_an_alliance_player_does_the_town_still_named() {
+fn the_stormwind_tram_exit_offers_the_city_walk_only_to_alliance() {
 	skip_unless_ready!();
-	let out = run(
-		r#"
-		w.setLevel(30)
-		w.faction = "Horde"
-		IsIndoors = function() return nil end
-		local _, tx, ty = C.MapToWorld(1453, 68.73, 31.27)
-		place(1453, tx, ty, nil)
-		for _ = 1, 30 do aim(); stub.advance(0.05) end
-		N.SetTarget(1429, 56, 66, "East of Goldshire", "e")
-		for _ = 1, 300 do aim(); stub.advance(0.05) end
-		local f
-		for _, rec in ipairs(finds) do
-			if dist(rec.from[1], rec.from[2], tx, ty) < 60 and rec.done and not f then f = rec end
-		end
-		local legs, ci = N.GetRoute()
-		local named = {}
-		for i = ci, #legs do
-			for _, h in ipairs(legs[i].hubs or {}) do named[#named + 1] = h.name end
-		end
-		local alliance = E.FindSync(0, { x = f.from[1], y = f.from[2] }, { x = f.to[1], y = f.to[2] }, { profile = "Alliance" })
-		local route = {}
-		for i = ci, #legs do route[#route + 1] = legs[i].kind .. "|" .. legs[i].label .. "|" .. floor(legs[i].to.wx) .. "," .. floor(legs[i].to.wy) end
-		emit({ route = route, from = { floor(tx), floor(ty) }, yards = floor(length(f.points or {})), opts = f.opts and f.opts.homeHub or false, alliance = floor(length(alliance or {})), named = table.concat(named, ", ") })"#,
-		true,
-	);
-	assert_eq!(out["opts"], true, "the walk from inside the hostile town is priced as for no faction");
-	assert!((f(&out["yards"]) - f(&out["alliance"])).abs() <= 20.0, "the Alliance player's way out ({} yd against {}; over the walls it was over 6,000)", out["yards"], out["alliance"]);
-	assert!(out["named"].as_str().unwrap_or("").contains("Stormwind City"), "and the town is still named on the walk");
+	for side in ["Horde", "Alliance"] {
+		let out = run(
+			&r#"
+			w.setLevel(30)
+			w.faction = @SIDE
+			IsIndoors = function() return nil end
+			local _, x, y = C.MapToWorld(1453, 68.73, 31.27)
+			place(1453, x, y, nil)
+			for _ = 1, 30 do aim(); stub.advance(0.05) end
+			assert(N.SetTarget(1429, 56, 66, "East of Goldshire", "e"))
+			for _ = 1, 300 do aim(); stub.advance(0.05) end
+			local a = aim()
+			local legs, ci = N.GetRoute()
+			emit({ state = a.state, bearing = a.x ~= nil,
+				leg = legs and legs[ci] and legs[ci].kind or false })"#
+				.replace("@SIDE", &lua_string(side)),
+			true,
+		);
+		if side == "Horde" {
+			assert_eq!(out, serde_json::json!({ "state": "unsafe", "bearing": false, "leg": false }));
+		} else {
+			assert_eq!(out, serde_json::json!({ "state": "travel", "bearing": true, "leg": "walk" }));
+		}
+	}
 }
 
-// Every capital's crossing end (crossings.json: the walks between a capital and its zone) lies on the capital's
-// guarded ground (the maps' hubs), so a walk into or out of any capital by its gate is priced as for no faction for a
-// player of the other one (Path.HubAt, opts.homeHub), and as before for its own.
+// The capital's gate should be recognized as hostile only for the visiting faction.
 #[test]
 fn hostile_towns_every_capitals_crossing_end_lies_in_its_town_for_the_other_faction_never_for_its_own() {
 	skip_unless_ready!();

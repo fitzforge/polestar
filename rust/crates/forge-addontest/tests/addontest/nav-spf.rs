@@ -1,8 +1,8 @@
 //! Walking paths (addon/Polestar/Nav/Walk.lua): the arrow follows the walking router started from Shortest Path
 //! Forever's (addon/Polestar_Nav) instead of a straight line. A fake engine with deterministic callbacks stands
 //! in for Polestar_NavEngine: the arrow follows the path's points, straying asks again, a new target cancels
-//! the stale search, nothing is searched in combat, hand-made crossings and guide `goto`s win, and every
-//! failure (no engine, no data, unreachable, an error, the option off) is today's straight arrow. Runs the
+//! the stale search, nothing is searched in combat, and hand-made crossings and guide `goto`s win.
+//! A missing or pending walking route has no bearing; opting out keeps the direct compass. Runs the
 //! real Core/Init.lua + Nav/Nav.xml against tests/lua/stub_nav.lua.
 
 use forge_addontest::names::language_pack;
@@ -220,7 +220,7 @@ fn the_arrow_follows_the_path_s_points_with_the_yards_left_along_it() {
 		r.arrived = aim()[1]
 		r.calls = calls()
 		emit(r)"#);
-	assert_eq!(out["before"], json!(["travel", 600, 0, -600]), "straight until the path is in");
+	assert_eq!(out["before"], json!(["routing"]), "no bearing before a route is found");
 	assert_eq!(out["ask"], json!([1, 0, 0, 0, 0, -600]), "one search on the player's continent, player to target");
 	assert_eq!(out["first"][1], 683, "the whole path's length");
 	heads(&out["first"], (0.0, 0.0), (100.0, -100.0), "toward the first corner");
@@ -921,8 +921,8 @@ fn c1_c2_a_new_target_cancels_the_stale_search_whose_late_answer_is_dropped_neve
 		emit(r)"#);
 	assert_eq!(out["cancelled"], true);
 	assert_eq!(out["calls"], 2);
-	assert_eq!(out["aim"], json!(["travel", 500, 500, 0]));
-	assert_eq!(out["late"], json!(["travel", 500, 500, 0]), "the old target's path is never followed");
+	assert_eq!(out["aim"], json!(["routing"]));
+	assert_eq!(out["late"], json!(["routing"]), "the old target's path is never followed");
 }
 
 #[test]
@@ -938,7 +938,7 @@ fn nothing_is_searched_in_combat_the_search_follows_once_combat_ends() {
 		aim()
 		r.after = calls()
 		emit(r)"#);
-	assert_eq!(out["fight"], json!(["travel", 600, 0, -600]), "straight meanwhile");
+	assert_eq!(out["fight"], json!(["routing"]), "no bearing for an unsearched walk");
 	assert_eq!(out["inCombat"], 0);
 	assert_eq!(out["after"], 1);
 }
@@ -1108,7 +1108,7 @@ fn a_guide_goal_after_a_reached_guide_goto_keeps_the_straight_arrow_from_the_mou
 }
 
 #[test]
-fn fallbacks_no_engine_no_data_for_the_continent_unreachable_an_error_the_straight_arrow() {
+fn unavailable_and_failed_walks_do_not_offer_a_compass_bearing() {
 	let none = run_with(
 		r#"
 		nav.place(0, 0)
@@ -1117,7 +1117,7 @@ fn fallbacks_no_engine_no_data_for_the_continent_unreachable_an_error_the_straig
 		false,
 		false,
 	);
-	assert_eq!(none, json!([["travel", 600, 0, -600], true]));
+	assert_eq!(none, json!([["unmapped"], true]));
 
 	let out = run(r#"
 		local r = {}
@@ -1141,11 +1141,11 @@ fn fallbacks_no_engine_no_data_for_the_continent_unreachable_an_error_the_straig
 		target(0, 400)
 		r.error = aim()
 		emit(r)"#);
-	assert_eq!(out["nodata"], json!([["travel", 600, 0, -600], 0]));
-	assert_eq!(out["unreachable"], json!(["travel", 500, 0, -500]));
+	assert_eq!(out["nodata"], json!([["unmapped"], 0]));
+	assert_eq!(out["unreachable"], json!(["unmapped"]));
 	assert_eq!(out["soon"], 1, "a failed search is not repeated at once");
 	assert_eq!(out["retry"], 2, "but again after 15 s and 25 yards");
-	assert_eq!(out["error"], json!(["travel", 440, 0, 400]));
+	assert_eq!(out["error"], json!(["unmapped"]));
 }
 
 #[test]
@@ -1182,7 +1182,7 @@ fn a_ghost_s_walk_is_searched_with_water_walking() {
 }
 
 #[test]
-fn route_geometry_the_walk_carries_the_engine_s_path_once_in_the_straight_line_before_changes_are_announced() {
+fn route_geometry_has_no_current_chord_before_the_path_arrives() {
 	let out = run(r#"
 		local r, fired = {}, 0
 		Polestar.On("NAV_ROUTE_GEOMETRY", function() fired = fired + 1 end)
@@ -1191,7 +1191,9 @@ fn route_geometry_the_walk_carries_the_engine_s_path_once_in_the_straight_line_b
 		target(0, -600)
 		N.Sample()
 		local g = N.GetRouteGeometry()
-		r.straight = { #g.legs, g.legs[1].kind, #g.legs[1].pts, g.legs[1].current }
+		local points = 0
+		for _, leg in ipairs(g.legs) do if leg.current then points = points + #leg.pts end end
+		r.pendingPoints = points
 		local before = fired
 		fake.resolve(0, 0, 100, -100, 100, -500, 0, -600)
 		r.fired = fired > before
@@ -1201,7 +1203,7 @@ fn route_geometry_the_walk_carries_the_engine_s_path_once_in_the_straight_line_b
 		r.path = pts
 		emit(r)"#);
 	assert_eq!(out["none"], true);
-	assert_eq!(out["straight"], json!([1, "walk", 2, true]));
+	assert_eq!(out["pendingPoints"], 0);
 	assert_eq!(out["fired"], true);
 	assert_eq!(out["path"], json!([[0, 0, 0], [0, 100, -100], [0, 100, -500], [0, 0, -600]]));
 }
@@ -1709,7 +1711,7 @@ fn z2_a_search_with_the_height_that_fails_is_asked_once_more_without_it_and_that
 }
 
 #[test]
-fn z2_a_failure_without_the_height_too_is_the_straight_arrow_with_no_third_search() {
+fn z2_a_failure_without_the_height_too_has_no_bearing_or_third_search() {
 	let out = run(&[
 		Z_WAYPOINT,
 		r#"
@@ -1721,7 +1723,7 @@ fn z2_a_failure_without_the_height_too_is_the_straight_arrow_with_no_third_searc
 		emit({ aim(), calls() })"#,
 	]
 	.concat());
-	assert_eq!(out, json!([["travel", 600, 0, -600], 2]));
+	assert_eq!(out, json!([["unmapped"], 2]));
 }
 
 // WorldFloor (2026-11-18): a walk searched with the goal's height (and the router's reach) that ends more than 30 yd
@@ -3245,7 +3247,7 @@ fn changing_the_route_style_mid_walk_drops_the_old_lines_re_plans_at_once_and_me
 	));
 	assert_eq!(head(&out["before"]["lines"], 3), json!([["walk", 3], ["flight", 2], ["walk", 3]]), "Balanced: the arrow's walk and the later walk drawn along their paths");
 	assert_eq!(out["replanned"], json!({ "changed": true, "version": true }), "re-planned at once");
-	assert_eq!(head(&out["lines"], 3), json!([["walk", 2], ["flight", 2], ["walk", 2]]), "no Balanced line stays: straight until the Roads paths are in");
+	assert_eq!(head(&out["lines"], 3), json!([["walk", 0], ["flight", 2], ["walk", 2]]), "no stale current walk; the flight and later itinerary remain");
 	assert_eq!(out["asked"], json!([2, "roads", "roads", 900, 900]), "the walks into the target measured again and the arrow's own walk searched again, in Roads");
 	assert_eq!(out["leg"], json!(["roads", 400, 300, 600, 20]), "the later walk searched again, in Roads");
 	assert_eq!(out["straight"], json!(["walk", 2]));
@@ -3422,7 +3424,7 @@ fn zone_danger_a_level_up_drops_the_walks_re_plans_at_once_and_measures_and_sear
 	assert_eq!(head(&out["before"]["lines"], 3), json!([["walk", 3], ["flight", 2], ["walk", 3]]), "at 20: the walks drawn along their paths");
 	assert_eq!(out["before"]["danger"], "1416=3,1422=20");
 	assert_eq!(out["replanned"], json!({ "changed": true, "version": true }), "re-planned at once");
-	assert_eq!(head(&out["lines"], 3), json!([["walk", 2], ["flight", 2], ["walk", 2]]), "no line priced at 20 stays: straight until the new paths are in");
+	assert_eq!(head(&out["lines"], 3), json!([["walk", 0], ["flight", 2], ["walk", 2]]), "no stale current walk after the level change");
 	assert_eq!(out["asked"], json!([2, "1422=20", "1422=20", 900, 900]), "the walks into the target measured again and the arrow's own walk searched again, at 27 (Alterac no longer dangerous)");
 	assert_eq!(out["leg"], json!(["1422=20", 400, 300, 600, 20]), "the later walk searched again at 27");
 	assert_eq!(head(&out["after"], 3), json!([["walk", 3], ["flight", 2], ["walk", 3]]), "drawn along the new paths");
@@ -4878,8 +4880,8 @@ fn city_a1_a_goal_without_a_height_in_a_capital_ends_on_the_trail_floor_with_the
 // Phase A2, #2860 (Ironforge, the cooking trainer): his platform in the Great Forge is reached by no walk on the maps;
 // the search at his height failed, and the one asked again without it went out of the gate and over the mountain
 // (3,515 yd for a 356 yd walk). In a capital the goal's height stays: the router's reach (10 yd) ends the walk at the
-// nearest surface on its level it reaches, and the arrow says the last steps aren't mapped; none: the straight arrow,
-// saying so, and the walk is not marked unreachable (the plan would go round it).
+// nearest surface on its level it reaches. With none, the arrow says the last steps aren't mapped
+// and the walk is not marked unreachable (the plan would go round it).
 #[test]
 fn city_a2_a_capital_s_goal_keeps_its_height_with_the_reach_and_says_the_last_steps_are_not_mapped_2860() {
 	let out = run(&[
@@ -4891,7 +4893,10 @@ fn city_a2_a_capital_s_goal_keeps_its_height_with_the_reach_and_says_the_last_st
 		nav.place(0, 50)
 		startZ()
 		local m, x, y = nav.mapPoint(-100, -500)
-		local function said() return (N.arrow.labelText:GetText() or ""):find("The last steps here aren't mapped", 1, true) ~= nil end
+		local function said()
+			local text = "The last steps here aren't mapped"
+			return N.arrow.distText:GetText() == text or (N.arrow.labelText:GetText() or ""):find(text, 1, true) ~= nil
+		end
 		N.travel.WalkUnreachable = function() r.unreachable = true end
 		N.SetTarget(m, x, y, "Daryl Riknussun", nil, "trainer", 66)
 		N.Sample()
@@ -4938,7 +4943,7 @@ fn city_a2_a_capital_s_goal_keeps_its_height_with_the_reach_and_says_the_last_st
 	assert_eq!(out["asked"], json!([66, 10]), "at his height, with the router's reach");
 	assert_eq!(out["startRetry"], json!([1, "none", 40, 66, 10]), "the tracked start's retry: from the surfaces near its floor, his height kept");
 	assert_eq!(out["flatRetry"], json!([2, "none", false, 66]), "then from no start height, his height kept");
-	assert_eq!(out["failed"], json!([0, "travel", true, true, false]), "no search without the height: the straight arrow, said; never unreachable");
+	assert_eq!(out["failed"], json!([0, "unmapped", true, true, false]), "no bearing or heightless search; the missing walk is explained");
 	assert_eq!(out["reached"], json!([0, "travel", true, true]), "the walk to the nearest reachable surface on his level, said");
 	assert_eq!(out["onFloor"], json!([false, false]));
 	assert_eq!(out["offFloor"], json!([0, true]), "kept, said");

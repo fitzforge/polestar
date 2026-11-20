@@ -3403,8 +3403,7 @@ function Travel.Aim(pc, px, py)
 					-- A piece aims no further than its chokepoint's spot on the path (leg.stop, Walk.Stops).
 					local wc, wx, wy, left, unmapped = W.Aim(pc, px, py, gc, gx, gy, leg.handmade, gz, P and leg.stop,
 						(P and P.leg.corpseGround) or leg.corpseGround)
-					if unmapped == "unsafe" then return "unsafe" end
-					if unmapped then return "unmapped" end
+					if unmapped then return unmapped == true and "unmapped" or unmapped end
 					if wc then
 						left = left - (leg.tail or 0)
 						if left < 0 then left = 0 end

@@ -16,3 +16,6 @@ section: players
 - If a waypoint arrow would point straight through an enemy town, Polestar
   keeps its own guidance instead. Boarding a flight no longer hands the
   destination to another arrow as if you were meant to walk there.
+- The arrow waits for a walking route instead of pointing straight at the
+  goal while the maps load. It no longer hands that unchecked direction
+  to a waypoint arrow, including when combat delays the search.

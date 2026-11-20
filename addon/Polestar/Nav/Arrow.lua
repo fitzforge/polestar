@@ -880,6 +880,9 @@ local function setMode(m)
 	elseif m == "unsafe" then
 		distText:SetTextColor(Nav.RGB("text"))
 		distText:SetText(L["No safe walking route"])
+	elseif m == "routing" then
+		distText:SetTextColor(Nav.RGB("textDim"))
+		distText:SetText(L["Finding a walking route"])
 	elseif m == "unmapped" then
 		distText:SetTextColor(Nav.RGB("textDim"))
 		distText:SetText(L["The last steps here aren't mapped"])
@@ -1079,7 +1082,7 @@ local function sample(elapsed)
 		routeSeen = -2
 	end
 	syncLabel(T, routed)
-	if state == "far" or state == "arrived" or state == "search" or state == "nopos" or state == "unmapped" or state == "unsafe" then
+	if state == "far" or state == "arrived" or state == "search" or state == "nopos" or state == "unmapped" or state == "unsafe" or state == "routing" then
 		setMode(state)
 		return true
 	end

@@ -24,8 +24,8 @@
 -- (Follow.Catch), not from where it was asked. Hand-made walks win:
 -- a crossing, an approach chain past its mouth (Travel's leg.handmade), and a
 -- guide goal after a guide `goto` (the author's way in, a cave mouth) keep
--- the straight arrow. No engine, nav.navRouting off, no walking data for the
--- continent, or a failed search: the straight arrow, as without this file.
+-- the straight arrow, as does a player who switches walking routes off.
+-- A routed walk with no ground answer yet supplies no compass bearing.
 -- Every later walk leg is sketched at once (Path.FindCoarse, its border
 -- crossings), then searched once after it (Walk.LegPath), for the route
 -- lines and its price; the arrow's own walk is drawn by its sketch until its
@@ -1179,6 +1179,20 @@ function Walk.RefusedAt(c, x, y, z)
 		and gzFor == (z or false) and (x - gx)^2 + (y - gy)^2 <= GOAL_MOVED^2
 end
 
+-- A renderer can run before the first arrow sample. Never start a search from
+-- here: only query whether this goal has a walking answer on its own floor.
+function Walk.GroundStatus(c, x, y, z)
+	if not ns.Get("nav.navRouting") or Nav.HandedOff() then return nil end
+	if not Nav.Path then return loadTried and "unmapped" or "routing" end
+	if gc == c and gx and gzFor == (z or false) and (x-gx)^2 + (y-gy)^2 <= GOAL_MOVED^2 then
+		if count > 0 then return nil end
+		if Walk.blockedReason then return Walk.blockedReason == "unmapped" and "unmapped" or "unsafe" end
+		if failed then return "unmapped" end
+	end
+	if Nav.Path.Available and not Nav.Path.Available(c) then return "unmapped" end
+	return "routing"
+end
+
 -- A height miss that warrants retrying, not an intentional partial walk: dropping the goal height after the
 -- router explicitly returned its nearest reachable approach would trade a known floor for an arbitrary one.
 local function offFloor(points, z, answer)
@@ -1490,6 +1504,9 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop, checke
 	if P and P.SurfacesAt and pc then track(P, pc, px, py) end
 	if handmade or not P or pc ~= goalC then
 		if gc then Walk.Clear() end
+		if not handmade and pc == goalC and not P then
+			return nil, nil, nil, nil, Walk.GroundStatus(goalC, goalX, goalY, goalZ)
+		end
 		return nil
 	end
 	local tz = (type(goalZ) == "number" and goalZ) or targetZ(goalC, goalX, goalY) or false
@@ -1530,8 +1547,7 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop, checke
 		wanted = true
 	end
 	if count == 0 then
-		if Walk.blockedReason then return nil,nil,nil,nil,Walk.blockedReason == "unmapped" and true or "unsafe" end
-		return nil, nil, nil, nil, checkedOnly
+		return nil, nil, nil, nil, Walk.GroundStatus(gc, gx, gy, tz)
 	end
 	if checkedOnly and not Walk.CheckedAt(goalC, goalX, goalY, tz) then return nil,nil,nil,nil,true end
 	-- Already beside the requested point: a partial walk to a substitute

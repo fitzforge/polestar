@@ -565,6 +565,7 @@ end
 --   state: "none" | "instance" | "taxi" | "unknown" | "far" | "travel" | "arrived"
 --          | "instruction" (a route leg to act on here: fly, ride, hearth)
 --          | "submerged" (no verified walk or swim bearing) | "arrived-underwater" (observed, not inferred)
+--          | "routing" (waiting for walking data or a route)
 --          | "unmapped" (the known walk ended short; no verified walking bearing beyond it)
 --          | "unsafe" (no recommended ground bearing for this faction and level)
 --          | "search" (reached a spot of an area objective: look around here)
@@ -734,8 +735,7 @@ local function sample()
 	local T = Nav.travel
 	if T and T.Active and T.Active() then
 		local mode, ac, ax, ay, left = T.Aim(pc, px, py)
-		if mode == "unmapped" then return "unmapped" end
-		if mode == "unsafe" then return "unsafe" end
+		if mode == "routing" or mode == "unmapped" or mode == "unsafe" then return mode end
 		if mode == "instruction" then
 			if ac == pc then return "instruction", toward(C, px, py, ax, ay) end
 			return "instruction"
@@ -807,8 +807,7 @@ local function sample()
 	local checkedOnly = leg and (leg.corpseGround or (leg.parent and leg.parent.leg.corpseGround))
 	if W then
 		local wc, wx, wy, left, unmapped = W.Aim(pc, px, py, tC, tX, tY, (leg and leg.handmade) or W.FollowsGoto(target), nil, nil, checkedOnly)
-		if unmapped == "unsafe" then return "unsafe" end
-		if unmapped then return "unmapped" end
+		if unmapped then return unmapped == true and "unmapped" or unmapped end
 		if wc then
 			if exact and liveZ and dist <= 20 and bodyBlocked(pc,px,py,liveZ,wx,wy,2.75) then
 				if W.RefineTerminal then W.RefineTerminal(pc,px,py,tX,tY,tZ) end
@@ -870,6 +869,16 @@ function Nav.CanDrawGroundApproach(c, x, y, gx, gy)
 	local W = Nav.walk
 	local T = Nav.travel
 	local current = T and T.CurrentLeg and T.CurrentLeg()
+	if W and W.GroundStatus and (not current or current.kind == "walk") and not (current and current.handmade) then
+		local legs, index = Nav.GetRoute()
+		if not ((not legs or index == #legs) and W.FollowsGoto(target)) then
+			local to = current and (current.parent and current.parent.leg.to or current.to)
+			local status
+			if to then status = W.GroundStatus(to.c, to.wx, to.wy, to.z)
+			else status = W.GroundStatus(tC, tX, tY, tZ) end
+			if status then return false end
+		end
+	end
 	if current and current.kind == "walk" and (current.corpseGround or (current.parent and current.parent.leg.corpseGround)) then
 		-- Only the live path supplies geometry for this detour. A straight
 		-- trail from the player to its end is not the path that was checked.
