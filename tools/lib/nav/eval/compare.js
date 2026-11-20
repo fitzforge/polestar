@@ -17,10 +17,12 @@
 //   { type: 'faceClearance', face: [x, y, z], gt }  the drawn line passes the face's middle further than gt yd
 // The acceptance corpus (acceptance.json) adds (points and areas world yards once run.js resolveRoutes has them):
 //   { type: 'unreachable' }                         the router finds no walk (the only type that passes when not ok)
-//   { type: 'end', leg, dz? }                       where the walk leaves the graph for the goal: the line's last point
-//     at least 0.5 yd from the route's `to` (the engine appends the goal itself, drawn straight from its last node) lies
-//     within `leg` flat yd of it and, when dz is given, within dz yd of its height (n/a when either height is null);
-//     a line that stops short of the goal is measured from its last point
+//   { type: 'end', leg, dz? }                       where the walk leaves the graph for the goal lies within `leg` flat
+//     yd of the route's `to` and, when dz is given, within dz yd of its height (n/a when either height is null). With
+//     the harness's `goal` (the node the goal stands on: the router draws the goal itself in place of that node, and
+//     straightening can pull the last stretch across many nodes) that is the goal's node, and the line's last segment
+//     must be walkable too (metrics lastLeg: no void yard and no wall as the city gate judges a line on our grid; n/a
+//     without a grid); without it the line's last point at least 0.5 yd from `to`
 //   { type: 'passes', point: [x, y], within }       the line passes within `within` yd of the point
 //   { type: 'avoids', point: [x, y], within }       the line never comes within `within` yd of the point
 //   { type: 'avoids', area: { x: [lo, hi], y: [lo, hi] } }   no 2 yd sample of the line lies inside the box
@@ -120,13 +122,17 @@ function evaluateExpectations(route) {
 			const off = (p) => Math.hypot(p[0] - at[0], p[1] - at[1], typeof p[2] === 'number' && typeof at[2] === 'number' ? p[2] - at[2] : 0);
 			let i = pts.length - 1;
 			while (i > 0 && off(pts[i]) < 0.5) i--;
-			const p = pts[i];
+			const p = r.goal || pts[i];
 			const leg = Math.hypot(p[0] - at[0], p[1] - at[1]);
 			const known = typeof p[2] === 'number' && typeof at[2] === 'number';
 			const dz = known ? p[2] - at[2] : null;
 			const legOk = leg <= e.leg;
-			const pass = !legOk ? false : e.dz === undefined ? true : dz === null ? null : Math.abs(dz) <= e.dz;
-			return { type: e.type, pass, detail: `leaves the graph ${leg.toFixed(1)} yd from the goal (want <= ${e.leg})${e.dz === undefined ? '' : `, ${dz === null ? 'height n/a' : `${dz >= 0 ? '+' : ''}${dz.toFixed(1)} yd off its height`} (want within ${e.dz})`}` };
+			const last = r.goal && m && m.lastLeg ? m.lastLeg : null;
+			const lastOk = !r.goal ? true : !last || last.void === null ? null : last.void === 0 && last.walls === 0;
+			const zOk = e.dz === undefined ? true : dz === null ? null : Math.abs(dz) <= e.dz;
+			const pass = !legOk || zOk === false || lastOk === false ? false : zOk === null || lastOk === null ? null : true;
+			const lastText = !r.goal ? '' : `; last segment ${last ? `${last.yards.toFixed(1)} yd, ${last.void === null ? 'walkable n/a' : `void ${last.void.toFixed(1)} yd, ${last.walls} wall${last.walls === 1 ? '' : 's'}`}` : 'n/a'}`;
+			return { type: e.type, pass, detail: `leaves the graph ${leg.toFixed(1)} yd from the goal (want <= ${e.leg})${e.dz === undefined ? '' : `, ${dz === null ? 'height n/a' : `${dz >= 0 ? '+' : ''}${dz.toFixed(1)} yd off its height`} (want within ${e.dz})`}${lastText}` };
 		}
 		if (e.type === 'chokepoint') {
 			if (!route.chokepoints) return { type: e.type, pass: null, detail: 'no Nav/Chokepoints.lua' };

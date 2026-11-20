@@ -100,6 +100,14 @@ local BOARD = 60             -- yards: at the dock / flight master
 local LEAVE = 90             -- yards: walked away from it, plan again
 local DOCK_ARRIVE = 120      -- yards: a ride or hearth has arrived
 local LIFT_LEAVE = 30       -- yards from a lift's landing: at it (the ride is shown), or walked off it (the ride is over)
+local DECK_DZ = 3           -- yards of the observed boarding or receiving floor
+function Travel.ObservedFloor(c)
+	local C = ns.Compat
+	if C and C.GetPlayerUnitPosition then
+		local _, _, z, map = C.GetPlayerUnitPosition()
+		if map == c then return z end
+	end
+end
 local BIND_MATCH = 60
 local REPLAN_AFTER, REPLAN_MOVED = 30, 50 -- seconds, yards: moved this far since a plan this old, plan again
 local LEARN_FP = 60          -- yards: a flight path learned this close to a flight master is that one
@@ -213,6 +221,11 @@ function Nav.RegisterTravelData(d, replace)
 		taxiByName[key] = taxiByName[key] or {}
 		local list = taxiByName[key]
 		list[#list + 1] = node.id
+	end
+	-- Each node's height (TaxiNodes): the floor a flight lands on (Nav/Walk.lua, right after a landing).
+	for id, z in pairs(d.taxiZ or {}) do
+		local node = taxi[id]
+		if node and type(z) == "number" then node.z = z end
 	end
 	local fl = d.flights or {}
 	for i = 1, #fl - 2, 3 do
@@ -382,7 +395,8 @@ function Travel.Counts()
 end
 
 -- The loaded network, read-only (the live tables, not copies):
---   taxi = { node, ... }, taxiById = { [id] = node }    node = { id, name, short, c, wx, wy, map, x, y, f, faction }
+--   taxi = { node, ... }, taxiById = { [id] = node }    node = { id, name, short, c, wx, wy, map, x, y, f, faction, z }
+--     (z: the height a flight lands at, TravelData's taxiZ, when known)
 --     (f "e": x, y on the map's Era frame; nil: on its live frame, a map Forever added)
 --   flights = { [fromId] = { toId, yards, toId, yards, ... } }
 --   transports = { { id, kind, faction, a, b, ab, ba, waitA, waitB }, ... }, inns = { inn, ... },
@@ -435,7 +449,7 @@ end
 --       departure = function(transport, side, after) -> wait, ride (seconds, from
 --         `after` seconds into the trip) or nil: the transports' average waits,
 --       walkOnly = true: walking only (a ghost), noFlights = true: no flights (Travel.AtField),
---       walkCost = function(c, wx, wy, start) -> cost, yards | false | nil: the
+--       walkCost = function(c, wx, wy, start, z) -> cost, yards, checked | false | nil: the
 --         walking engine's measure of the walk from that place (the player when
 --         start) to the target (Nav/Walk.lua Walk.Measured): its cost (in
 --         running yards, priced by ground and the player's faction: a road
@@ -443,7 +457,8 @@ end
 --         measure the leg; false: the engine found no walk from there, so a
 --         portal's end walks on only by the portal (its landing is ground the
 --         game puts the player on, not a deck off its pier; #989); nil keeps
---         its straight estimate,
+--         its straight estimate. Only a strict measure from this origin floor
+--         to this target, for the same faction and level, can certify a detour.
 --       noDirect = true: no walk from the player straight to the target (the
 --         engine found none from where they stand: Travel.WalkUnreachable),
 --       nearWalk = yards or nil: the near walk, a target within this many
@@ -794,6 +809,8 @@ local function planBody(p, S)
 			learnV[add(TAXI, node.c, node.wx, node.wy, node, node.map, node)] = true
 		end
 	end
+	local boarding = p.liveTaxi and not walkOnly and not p.noFlights and Travel.BoardingAt(p.c, p.wx, p.wy, p.z, faction)
+	if boarding and not taxiV[boarding.node.id] then boarding = nil end
 	local rideTo, rideCost, dockEnd, dockOf, dockSide, portalV = {}, {}, {}, {}, {}, {}
 	for _, t in ipairs(walkOnly and {} or transports) do
 		if allowed(t.faction, faction) and not (skip and skip.transports[t]) then
@@ -1005,16 +1022,20 @@ local function planBody(p, S)
 	local tw, ty, nw, discounted
 	if S then tw, ty, nw = S.tw, S.ty, S.nw else tw, ty, nw = {}, {}, {} end
 	discounted = false
+	local certified = {}
 	if p.noDirect then nw[1] = true end
 	local walkCost, places = p.walkCost, p.places
 	if walkCost or places then
 		for v = 1, keys do
 			-- A place only portals reach has no floor on the walking maps: its walks are drawn straight, never measured.
 			if v ~= 2 and vc[v] == tg.c and not sealed(v) and not learnV[v] and not Travel.places[vzone[v]] then
-				-- A dock carries its height (a board point's deck, a tram or zeppelin end's floor): the walk from it starts there.
-				if places then places[#places + 1] = { wx = vx[v], wy = vy[v], z = vkind[v] == DOCK and dockEnd[v].z or nil, start = v == 1 or nil } end
+				-- Keep the player's floor and each authored landing/waypoint floor in
+				-- both the measurement request and the lookup. XY can name two decks.
+				local ref = dockEnd[v] or vref[v]
+				local z = ref and ref.z or (v == 1 and p.z or nil)
+				if places then places[#places + 1] = { wx = vx[v], wy = vy[v], z = z, start = v == 1 or nil } end
 				if walkCost then
-					local cost, yd = walkCost(vc[v], vx[v], vy[v], v == 1)
+					local cost, yd, checked = walkCost(vc[v], vx[v], vy[v], v == 1, z)
 					if type(cost) == "number" then
 						local y = type(yd) == "number" and yd or cost
 						if cost < y then
@@ -1022,7 +1043,9 @@ local function planBody(p, S)
 							if p.timeWalks then cost = y end
 						end
 						tw[v], ty[v] = cost, y
-					elseif cost == false and portalV[v] then
+						certified[v] = type(checked) == "table" and checked.walkLevel == (level or 0) and
+							((faction == 1 and checked.profile == "Alliance") or (faction == 2 and checked.profile == "Horde"))
+					elseif cost == false and (portalV[v] or checked) then
 						nw[v] = true
 					end
 				end
@@ -1204,7 +1227,15 @@ local function planBody(p, S)
 	local hooks = p.walkHooks
 	if hooks and #hooks == 0 then hooks = nil end
 	local hookWalk = hooks and { from = {}, to = {} }
-	local function walk(u, v, cost, secs, du, tu)
+	local side = faction == 1 and "Alliance" or faction == 2 and "Horde" or nil
+	local function walk(u, v, cost, secs, du, tu, measured)
+		if not hooks and du + cost >= dist[v] then return end
+		-- A measured detour need not follow the chord, but both ends are still on foot.
+		if vc[u] ~= vc[v] then return end
+		if measured then
+			if Nav.danger.Blocked(vc[u], vx[u], vy[u], vx[u], vy[u], side)
+				or Nav.danger.Blocked(vc[v], vx[v], vy[v], vx[v], vy[v], side) then return end
+		elseif Nav.danger.Blocked(vc[u], vx[u], vy[u], vx[v], vy[v], side) then return end
 		if hooks then
 			local f, t = hookWalk.from, hookWalk.to
 			f.c, f.wx, f.wy, t.c, t.wx, t.wy = vc[u], vx[u], vy[u], vc[v], vx[v], vy[v]
@@ -1228,6 +1259,14 @@ local function planBody(p, S)
 	-- cannot beat v's cost unscaled is not looked at (unless a hook may lower it).
 	local walkDanger = p.walkDanger
 	local function straight(u, v, s, du, tu)
+		if u == 1 and vkind[v] == CROSS and p.approaches then
+			local approach = p.approaches[vref[v]]
+			if approach == false then return end
+			if approach then
+				return walk(u, v, (p.timeWalks and math.max(approach.cost, approach.yards) or approach.cost) / speed,
+					approach.yards / speed, du, tu, true)
+			end
+		end
 		local cost = s
 		if walkDanger and s < huge and (hooks or du + s < dist[v]) then
 			local road = vkind[u] == CROSS and vkind[v] == CROSS and (vzone[u] ~= nil and vzone[u] == vzone[v] or vref[u].partner == vref[v])
@@ -1246,7 +1285,7 @@ local function planBody(p, S)
 			if back and zonesWalk(vzone[back], vzone[v]) then
 				-- the walk into u goes there straight
 			elseif v == 2 and mu then
-				walk(u, 2, mu / speed, ty[u] / speed, du, tu)
+				walk(u, 2, mu / speed, ty[u] / speed, du, tu, certified[u])
 			elseif v == 2 and (nw[u] or stranded[u]) then
 				-- no walk from u to the target
 			elseif v ~= u then
@@ -1318,7 +1357,7 @@ local function planBody(p, S)
 				local mu = tw[u]
 				for v = 2, keys do
 					if v == 2 and mu then
-						walk(u, 2, mu / speed, ty[u] / speed, du, tu)
+						walk(u, 2, mu / speed, ty[u] / speed, du, tu, certified[u])
 					elseif v == 2 and (nw[u] or stranded[u]) then
 						-- no walk from u to the target
 					elseif v ~= u and vc[v] == cu and vkind[v] ~= INN then
@@ -1356,7 +1395,7 @@ local function planBody(p, S)
 				end
 			end
 			along = false
-			if kind == TAXI then
+			if kind == TAXI and not (via[u] == FLY and prev[u] == 1) then
 				local fl = flights[vref[u].id]
 				if fl then
 					-- 10 s more to learn a flight master not learnt yet (talking to it, its "New flight path discovered").
@@ -1386,6 +1425,19 @@ local function planBody(p, S)
 				end
 				if cost then relax(rideTo[u], du + cost, tu + cost, RIDE, u) end
 			elseif kind == START then
+				-- The live taxi frame already offers this flight. This edge boards in
+				-- place; it never walks to the origin or authorizes walking out of it.
+				-- Only direct offers: never extend this ticket by an unoffered second hop.
+				local fl = boarding and flights[boarding.node.id]
+				if fl then
+					for i = 1, #fl - 1, 2 do
+						local v = taxiV[fl[i]]
+						if v and boarding.reachable[fl[i]] and not Nav.danger.Blocked(vc[v], vx[v], vy[v], vx[v], vy[v], side) then
+							local s = fl[i + 1] / FLIGHT_SPEED + FLIGHT_STOP
+							relax(v, du + s, tu + s, FLY, u)
+						end
+					end
+				end
 				-- The Hearthstone's cooldown left (p.hearthWait) counts, as a teleport's `ready` does (#1915); a
 				-- teleport to the bind point (bindV) the same way, with its own cooldown and cast.
 				local margin = p.hearthHeld and 0 or HEARTH_MARGIN
@@ -1429,7 +1481,17 @@ local function planBody(p, S)
 
 	local function pointOf(w)
 		local kind = vkind[w]
-		if kind == TARGET then return point(tg.label, tg.c, tg.wx, tg.wy, tg.map, tg.x, tg.y, tg.f) end
+		if kind == START or kind == TARGET then
+			local pos
+			if kind == START then
+				pos = point(nil, p.c, p.wx, p.wy, p.map)
+				pos.z = p.z
+			else
+				pos = point(tg.label, tg.c, tg.wx, tg.wy, tg.map, tg.x, tg.y, tg.f)
+				pos.z = tg.z
+			end
+			return pos
+		end
 		if kind == TAXI or kind == INN then return vref[w] end
 		if kind == DOCK then return dockEnd[w] end
 		if isWaypoint(w) then
@@ -1474,7 +1536,7 @@ local function planBody(p, S)
 			while j < #chain and via[chain[j + 1]] == FLY do j = j + 1 end
 		end
 		local to = chain[j]
-		local leg = { from = pointOf(u), to = pointOf(to), seconds = floor(tm[to] - tm[u] + 0.5) }
+		local leg = { from = how == FLY and u == 1 and boarding.node or pointOf(u), to = pointOf(to), seconds = floor(tm[to] - tm[u] + 0.5) }
 		-- yards: straight hops (a walk x1.25, as priced, or the engine's measured
 		-- yards into the target: engine = "cost"; the walking engine's path replaces it
 		-- when it splits the walk or searches it, engine = "path"); a ride's two
@@ -1485,6 +1547,10 @@ local function planBody(p, S)
 				local a, b = chain[k], chain[k + 1]
 				-- A target inside a chain is reached by its straight links, never the measure.
 				local m = how == WALK and b == 2 and not sealed(2) and tw[a] and ty[a]
+				if how == WALK and a == 1 and vkind[b] == CROSS and p.approaches and p.approaches[vref[b]] then
+					local approach = p.approaches[vref[b]]
+					m, leg.crossingPolicy = approach.yards, approach.policy
+				end
 				if m then
 					d = d + m
 					leg.engine = "cost"
@@ -1528,9 +1594,10 @@ local function planBody(p, S)
 				leg.passes, leg.passSide = vref[to].partner.id, vref[to].partner.side
 			end
 		elseif how == FLY then
+			if u == 1 then leg.taxiOffer, leg.boardZ = boarding, p.z end
 			local stops = {}
 			for k = i, j do
-				stops[#stops + 1] = vref[chain[k]]
+				stops[#stops + 1] = chain[k] == 1 and boarding.node or vref[chain[k]]
 				-- A stop the player may not have (maybeV): the first flight map there settles it.
 				if k > i and maybeV[chain[k]] then leg.maybe = true end
 			end
@@ -1600,6 +1667,11 @@ local function planBody(p, S)
 		-- or a dock's whole reach, as Travel.Aim's offFloor): under the Undercity's entrance hall, in the Trade
 		-- Quarter, the walk to it stays (it rides a lift).
 		local nk = legs[2].kind
+		if nk == "lift" and to.z then
+			local z = p.z
+			if p.liftFloor then z = p.liftFloor(p.c) end
+			if not z or math.abs(z - to.z) > DECK_DZ then break end
+		end
 		local flat = (nk == "boat" or nk == "zeppelin" or nk == "airship" or nk == "tram") and reach or 5
 		if to.z and (p.z and (p.z - to.z > 20 or to.z - p.z > 20) or (not p.z and d > flat)) then break end
 		table.remove(legs, 1)
@@ -1768,6 +1840,24 @@ local function discoveredState(state)
 end
 local DISCOVERED_TYPE = { CURRENT = true, REACHABLE = true, UNREACHABLE = true }
 
+-- A known taxi node is not proof that a player above or below it can board.
+-- Require a currently open flight offer, the player's own observed position
+-- on the authored node floor, and the same start as the plan (never an ETA
+-- from a hypothetical point). No exit from this interaction leads to ground.
+function Travel.BoardingAt(pc, px, py, pz, faction)
+	local b, C = Travel.taxiOffer, ns.Compat
+	if not b or not C or not C.GetPlayerUnitPosition or not GetTaxiMapID or GetTaxiMapID() ~= b.map then return nil end
+	local n = b.node
+	if not n or n.c ~= pc or not n.z or type(pz) ~= "number" or (faction ~= 1 and faction ~= 2) then return nil end
+	if b.faction ~= faction or not C.GetPlayerFaction or C.GetPlayerFaction() ~= (faction == 1 and "Alliance" or "Horde") then return nil end
+	local x, y, z, c = C.GetPlayerUnitPosition()
+	if not (x and y and z and c == n.c and math.abs(z - n.z) <= 2 and math.abs(z - pz) <= 1) then return nil end
+	local dx, dy, dz = x - n.wx, y - n.wy, z - n.z
+	if dx*dx + dy*dy + dz*dz > 25 then return nil end
+	dx, dy = x - px, y - py
+	if dx*dx + dy*dy <= 1 then return b end
+end
+
 -- The flight map lists the nodes this character knows on that continent: each
 -- is known, and its continent seen (seenSet). -> true when a node was added or
 -- the continent newly seen (its maybe nodes, planRoute's maybeV, are settled).
@@ -1775,13 +1865,21 @@ local function recordTaxiMap()
 	refreshFaction()
 	local known, seen = knownSet(), seenSet()
 	local added = false
+	Travel.taxiOffer = nil
 	local mapID = GetTaxiMapID and GetTaxiMapID()
 	if mapID and C_TaxiMap and C_TaxiMap.GetAllTaxiNodes then
 		local ok, list = pcall(C_TaxiMap.GetAllTaxiNodes, mapID)
 		if ok and type(list) == "table" then
+			local offer, current = { map = mapID, faction = playerFaction, reachable = {} }, 0
+			local states = Enum and Enum.FlightPathState
 			for _, info in ipairs(list) do
 				local id = type(info) == "table" and info.nodeID
 				local node = id and taxi[id]
+				if type(info) == "table" and info.state == (states and states.Current or 0) then
+					offer.node, current = node, current + 1
+				elseif node and info.state == (states and states.Reachable or 1) and type(info.slotIndex) == "number" and info.slotIndex > 0 then
+					offer.reachable[id] = true
+				end
 				if node and discoveredState(info.state) then
 					if not seen[node.c] then
 						seen[node.c] = true
@@ -1793,6 +1891,7 @@ local function recordTaxiMap()
 					end
 				end
 			end
+			if current == 1 and offer.node and next(offer.reachable) then Travel.taxiOffer = offer end
 		end
 	end
 	if NumTaxiNodes and TaxiNodeName and TaxiNodeGetType then
@@ -2177,6 +2276,125 @@ function Travel.AtField(target, pc, px, py)
 	return false
 end
 
+-- #3125: a reversible border can send a ghost away from its corpse and back.
+-- Compare the remaining distance on an actual, complete walk to this one held
+-- corpse. No coordinate projection to another floor, manual crossing, lift,
+-- or ride is evidence for skipping it. The live arrow still checks its path.
+function Travel.CorpseGround(route, target, c, x, y, z, tx, ty, tz, W)
+	if not (W and W.Probe and z and route and (#route == 2 or #route == 3)) then return end
+	local via, last = route[#route - 1], route[#route]
+	if not (via.kind == "walk" and via.crossing and via.handmade and via.step == "crossing" and not via.transport
+		and last.kind == "walk" and not last.handmade and not last.waypoint and not last.transport
+		and last.to.c == c and last.to.wx == tx and last.to.wy == ty) then return end
+	if #route == 3 and not (route[1].kind == "walk" and route[1].step == "crossing"
+		and not route[1].crossing and not route[1].passes and not route[1].transport) then return end
+	local advice = ns.QoL and ns.QoL.GetDeathAdvice and ns.QoL.GetDeathAdvice()
+	if not (advice and advice.choice == "corpse" and not advice.via and advice.corpseMap == target.map
+		and advice.corpseX == target.x and advice.corpseY == target.y) then return end
+	local profile, level, style = ns.Compat.GetPlayerFaction(), Nav.danger.Level(), ns.Get("nav.routeStyle")
+	if not ((profile == "Alliance" or profile == "Horde") and type(level) == "number" and level >= 1 and level <= 60 and level == floor(level)) then return end
+	local r = Travel.corpseProbe
+	if not (r and r.target == target and r.c == c and r.tx == tx and r.ty == ty and r.tz == tz
+		and r.profile == profile and r.level == level and r.style == style and r.cross == via.crossing and r.side == via.side) then
+		if r and r.job then W.CancelProbe(r.job) end
+		Travel.corpseProbe = nil
+		for _, e in ipairs(crossEnds) do
+			if e.id == via.crossing and e.side == via.side and not e.noCross and not e.partner.noCross and e.partner.map == target.map then
+				r = { target = target, c = c, tx = tx, ty = ty, tz = tz, profile = profile, level = level, style = style, cross = e.id, side = e.side }
+				Travel.corpseProbe = r
+				break
+			end
+		end
+		if not Travel.corpseProbe then return end
+	end
+	local points = r.points
+	if points then
+		local left = 0
+		for i = #points, 2, -1 do
+			local a, b = points[i - 1], points[i]
+			local dx, dy = b.x - a.x, b.y - a.y
+			local d2 = dx * dx + dy * dy
+			local t = d2 > 0 and math.max(0, math.min(1, ((x-a.x)*dx + (y-a.y)*dy) / d2)) or 0
+			local ex, ey, d = a.x + t*dx, a.y + t*dy, sqrt(d2)
+			-- This tolerance prices a walk, never a connector. Guidance waits for the
+			-- walking engine's separately checked path from the current position.
+			if a.z and b.z and math.abs(a.z + t*(b.z-a.z) - z) <= 1 and (ex-x)^2 + (ey-y)^2 <= 1 then
+				left = left + (1-t)*d
+				if left < (route[1].rest + route[1].seconds) * RUN_SPEED then
+					last.from, last.yards, last.seconds, last.rest = route[1].from, left, math.ceil(left / RUN_SPEED), 0
+					last.engine, last.corpseGround = "cost", true
+					route[1], route[2], route[3] = last, nil, nil
+				end
+				return
+			end
+			left = left + d
+		end
+	end
+	if r.job or (r.x and (x-r.x)^2 + (y-r.y)^2 < 25^2 and math.abs(z-r.z) <= 1) then return end
+	r.x, r.y, r.z, r.points = x, y, z, nil
+	local finished = false
+	local job = W.Probe(c, x, y, tx, ty, tz, function(_, _, _, checked)
+		finished, r.job = true, nil
+		if checked and Travel.corpseProbe == r and Nav.GetTarget() == target and isGhost() and Nav.IsHeld() then
+			r.points = checked
+			Travel.Replan()
+		end
+	end, true, z)
+	if not finished then r.job = job end
+	if not finished and not job then r.x = nil end -- search unavailable, not a refusal
+end
+
+-- Price the competing ground approaches to a border when a straight line
+-- would exclude one at an enemy town. Only ordinary crossings with a checked
+-- onward walk qualify; lift decks, rides and unmeasured exits do not.
+function Travel.CrossingApproaches(target, c, x, y, z, tx, ty, tz, onward)
+	local P, D = Nav.Path, Nav.danger
+	if not (onward and z and P and P.FindMany) or isGhost() or onTaxi() or Travel.place
+		or (ns.Transit and ns.Transit.Carried and ns.Transit.Carried()) or (InCombatLockdown and InCombatLockdown()) then return end
+	local side, level, style = ns.Compat.GetPlayerFaction(), D.Level(), ns.Get("nav.routeStyle")
+	local source, goal = D.ZoneAt(c, x, y), D.ZoneAt(c, tx, ty)
+	if not ((side == "Horde" or side == "Alliance") and level and source and goal and source ~= goal) then return end
+	local r = Travel.crossingPrices
+	if r and r.target == target and r.c == c and r.x == x and r.y == y and r.z == z and r.tx == tx and r.ty == ty and r.tz == tz
+		and r.onward == onward and r.side == side and r.level == level and r.style == style then return r.prices end
+	if r and r.job then P.Cancel(r.job) end
+	r = { target = target, c = c, x = x, y = y, z = z, tx = tx, ty = ty, tz = tz, onward = onward, side = side, level = level, style = style }
+	Travel.crossingPrices = r
+	local ends, guarded
+	for _, e in ipairs(crossEnds) do
+		local f = e.partner
+		if e.c == c and f.c == c and zonesWalk(source, e.map) and f.map == goal and not (e.z or f.z or e.noCross or f.noCross)
+			and (e.wx - x)^2 + (e.wy - y)^2 <= Nav.walk.measureRange^2 then
+			local cost, _, policy = onward(c, f.wx, f.wy, false, f.z)
+			if type(cost) == "number" and type(policy) == "table" and policy.profile == side and policy.walkLevel == level then
+				ends = ends or {}
+				ends[#ends + 1] = e
+				guarded = guarded or D.Blocked(c, x, y, e.wx, e.wy, side) == "opposing-settlement"
+			end
+		end
+	end
+	if not guarded then return end
+	local points = {}
+	for i, e in ipairs(ends) do points[i] = { x = e.wx, y = e.wy } end
+	local o = { profile = side, style = style, walkLevel = level, waterWalking = false, danger = D.Table(level, source, goal) }
+	local done = false
+	local job = P.FindMany(c, { x = x, y = y, z = z }, points, function(costs, _, answer)
+		done, r.job = true, nil
+		if Travel.crossingPrices ~= r or Nav.GetTarget() ~= target or not (answer and answer.walkChecked and type(costs) == "table"
+			and type(answer.yards) == "table") then return end
+		for i, e in ipairs(ends) do
+			if (type(costs[i]) == "number" and type(answer.yards[i]) == "number") or costs[i] == false then
+				r.prices = r.prices or {}
+				r.prices[e] = costs[i] and { cost = costs[i], yards = answer.yards[i], policy = o } or false
+			end
+		end
+		local pc, px, py = ns.Compat.GetPlayerWorldPosition()
+		if r.prices and pc == c and px == x and py == y then Travel.Remeasured() end
+	end, o, false)
+	if not done then r.job = job end
+	return r.prices
+end
+
 -- A plan from where the player stands to the target, or nil; and where from.
 local function plan(target, held)
 	-- Handed to Shortest Path Forever (Nav/Handoff.lua): it plans the way; no route here.
@@ -2208,14 +2426,14 @@ local function plan(target, held)
 	local places = W and W.Measure and {} or nil
 	local pz, pfloors = W and W.Floor and W.Floor(pc, px, py) or nil, W and W.Floors and W.Floors(pc, px, py) or nil
 	floorless = pz == nil and pfloors == nil
-	local walkCost = W and W.Measured and W.Measured(tc, twx, twy, ghost) or nil
+	local walkCost = W and W.Measured and W.Measured(tc, twx, twy, ghost, tz) or nil
 	-- A portal whose entrance the engine found no walk to from the player
 	-- (Travel.WalkUnreachable) is left out while the engine has a walk from the
 	-- player to the target: the player stands on ground the target is joined to
 	-- and the entrance does not (Rut'theran Village under Teldrassil, #568).
 	-- Off that ground (the measure taken again finds no walk) it counts again.
 	local skip = skipped
-	if noWalkFor == target and next(noWalk) and walkCost and type(walkCost(pc, px, py, true)) == "number" then
+	if noWalkFor == target and next(noWalk) and walkCost and type(walkCost(pc, px, py, true, pz)) == "number" then
 		skip = { hearth = skipped.hearth, spells = skipped.spells, transports = {}, taxi = skipped.taxi, cross = skipped.cross }
 		for t in pairs(skipped.transports) do skip.transports[t] = true end
 		for t in pairs(noWalk) do skip.transports[t] = true end
@@ -2224,7 +2442,7 @@ local function plan(target, held)
 	-- (Travel.WalkUnreachable) and its measure from where they stand agrees:
 	-- from Rut'theran Village, under the tree, the way to Teldrassil's top is
 	-- the portal up, not a walk drawn straight up the trunk (#989).
-	local direct = noWalkFor == target and noDirect and walkCost and walkCost(pc, px, py, true) == false
+	local direct = noWalkFor == target and noDirect and walkCost and walkCost(pc, px, py, true, pz) == false
 	-- The near walk over a closed zone border (Nav.PlanRoute's p.nearWalk,
 	-- #1543): offered only once the walking engine has found it short from where
 	-- the player stood (Travel.NearWalk). Until then the plan is the one without
@@ -2248,6 +2466,9 @@ local function plan(target, held)
 	local route = Nav.PlanRoute({
 		c = pc, wx = px, wy = py, map = playerMap(), z = pz, floors = pfloors, place = Travel.Inside(pc, px, py),
 		target = { c = tc, wx = twx, wy = twy, z = tz, label = target.label, map = target.map, x = target.x, y = target.y, f = target.f, kind = target.kind },
+		liveTaxi = true,
+		liftFloor = Travel.ObservedFloor,
+		approaches = pc == tc and Travel.CrossingApproaches(target, pc, px, py, pz, twx, twy, tz, walkCost),
 		faction = playerFaction,
 		known = knownNodes(),
 		-- Flight masters the player may have though Polestar doesn't know them (#1795).
@@ -2281,19 +2502,38 @@ local function plan(target, held)
 	-- straight estimate while the target's walks are measured (a landing past
 	-- Walk.Measure's reach): that landing is measured too (`chosen`), and the
 	-- caller that has a route waits for it (Travel.Remeasured, #1728).
-	local landing = false
-	if places and walkCost and route and #route > 1 then
+	local landing, waitForWalk
+	if places and route and #route > 1 then
 		local last = route[#route]
 		local from = last.kind == "walk" and last.engine ~= "cost" and last.from
-		if from then
+		if from and pc == tc and not last.handmade and ns.Get("nav.navRouting") and (from.wx ~= twx or from.wy ~= twy or (tz and from.z ~= tz)) then
+			for _, leg in ipairs(route) do
+				if leg.kind == "fly" then
+					waitForWalk = true
+					break
+				end
+			end
+		end
+		if from and (walkCost or waitForWalk) then
 			for _, q in ipairs(places) do
-				if not q.start and q.wx == from.wx and q.wy == from.wy then
-					q.chosen, landing = true, true
+				if not q.start and q.wx == from.wx and q.wy == from.wy and q.z == from.z then
+					q.chosen, landing = true, q
+					break
 				end
 			end
 		end
 	end
-	local pending = places and W.Measure(tc, twx, twy, ghost, places) or false
+	if ghost and pc == tc and Nav.IsHeld() and #walkHooks == 0 and not direct and not (noWalkFor == target and noDirect)
+		and not (W and W.blockedReason) and not Travel.place then
+		Travel.CorpseGround(route, target, pc, px, py, pz, twx, twy, tz, W)
+	elseif Travel.corpseProbe then
+		if Travel.corpseProbe.job and W then W.CancelProbe(Travel.corpseProbe.job) end
+		Travel.corpseProbe = nil
+	end
+	local pending = places and W.Measure(tc, twx, twy, ghost, places, tz) or false
+	-- A completed batch for another floor (or without a checked price) is no
+	-- better than a pending batch. Replanning must not resurrect that ticket.
+	if waitForWalk and landing and W.UnpricedTransfer(tc, twx, twy, ghost, tz, landing) then route = nil end
 	-- The near walk the planner would offer: the engine asked for it (Travel.NearWalk with its answer).
 	if probe and probe.yards and W.Probe then
 		nearWalk.job = W.Probe(pc, px, py, twx, twy, tz, function(along, sx, sy)
@@ -2362,7 +2602,7 @@ end
 -- known flights, transports, and the Hearthstone when it is ready and the
 -- trip starts at the player. Never touches the active route or fires
 -- messages. Each answer the cache lacks is a full plan (up to 40 ms), so:
--- cached per (start cell, destination) for a few seconds (a burst of ~10
+-- cached per exact endpoints, character and travel mode for a few seconds (a burst of ~10
 -- calls on a step change plans each candidate once), the oldest entry
 -- evicted when 64 are held. A `budgeted` call (only the public API's, for
 -- other addons) starts no new plan once this frame has spent ESTIMATE_MS
@@ -2372,7 +2612,7 @@ end
 -- its own caps and the cache (second review P2).
 ---------------------------------------------------------------------------
 
-local CACHE_SECONDS, CACHE_CELL, CACHE_MAX = 5, 25, 64
+local CACHE_SECONDS, CACHE_MAX = 5, 64
 local ESTIMATE_MS = 25
 local estimates, estimateOrder = {}, {}
 local budgetFrame, budgetSpent = nil, 0
@@ -2406,8 +2646,14 @@ function Nav.EstimateTravel(from, to, budgeted, noHearth)
 	end
 	-- The level too: the plan's walk danger is the level's (Nav/Danger.lua).
 	local D = Nav.danger
-	local key = format("%d:%d:%d>%d:%.1f:%.1f:%d:%d", fc, floor(fwx / CACHE_CELL), floor(fwy / CACHE_CELL),
-		tc, twx, twy, from ~= nil and 0 or timed == "escort" and 4 or timed and 3 or noHearth and 2 or 1, D and D.Level() or 0)
+	refreshFaction()
+	local ghost = from == nil and isGhost()
+	local fz = from and from.z or nil
+	if from == nil and Nav.walk and Nav.walk.Floor then fz = Nav.walk.Floor(fc, fwx, fwy) end
+	local offer = from == nil and Travel.taxiOffer
+	local key = not offer and format("%d:%.17g:%.17g:%s>%d:%.17g:%.17g:%s:%d:%d:%d", fc, fwx, fwy, fz and format("%.17g", fz) or "?",
+		tc, twx, twy, to.z and format("%.17g", to.z) or "?", from ~= nil and 0 or ghost and 5 or timed == "escort" and 4 or timed and 3 or noHearth and 2 or 1,
+		D and D.Level() or 0, playerFaction)
 	local now = GetTime()
 	local hit = estimates[key]
 	if hit and now - hit.at < CACHE_SECONDS then return hit.seconds end
@@ -2415,8 +2661,6 @@ function Nav.EstimateTravel(from, to, budgeted, noHearth)
 	if budgeted and budgetSpent >= ESTIMATE_MS then return nil, "busy" end
 	local clock = debugprofilestop
 	local t0 = clock and clock()
-	refreshFaction()
-	local ghost = from == nil and isGhost()
 	local inn, bindName
 	local wait = from == nil and not ghost and not timed and not noHearth and hearthWait() or nil
 	local teleports = from == nil and not ghost and not timed and teleportList() or nil
@@ -2428,8 +2672,9 @@ function Nav.EstimateTravel(from, to, budgeted, noHearth)
 	end
 	if wait or recall then inn, bindName = bindInn() end
 	local plan = Nav.PlanRoute({
-		c = fc, wx = fwx, wy = fwy, map = from == nil and playerMap() or from and from.map,
-		target = { c = tc, wx = twx, wy = twy, map = to.map },
+		c = fc, wx = fwx, wy = fwy, z = fz, map = from == nil and playerMap() or from and from.map,
+		target = { c = tc, wx = twx, wy = twy, z = to.z, map = to.map },
+		liveTaxi = from == nil,
 		faction = playerFaction,
 		known = knownNodes(),
 		seen = seenSet(), level = Nav.danger and Nav.danger.Level(), maybe = maybeTaxi,
@@ -2450,6 +2695,7 @@ function Nav.EstimateTravel(from, to, budgeted, noHearth)
 	if t0 then budgetSpent = budgetSpent + (clock() - t0) end
 	local seconds
 	if plan then seconds = plan[1] and (plan[1].seconds + plan[1].rest) or 0 end
+	if offer then return seconds end -- a live interaction cannot be cached
 	if not hit then
 		if #estimateOrder >= CACHE_MAX then estimates[table.remove(estimateOrder, 1)] = nil end
 		estimateOrder[#estimateOrder + 1] = key
@@ -2480,6 +2726,7 @@ function Travel.Stop()
 	while k < #legs and legs[k].via do k = k + 1 end
 	local leg = legs[k]
 	local kind = leg.kind
+	if leg.taxiOffer then return nil end -- an interaction at the player, never a waypoint to walk to
 	if kind == "walk" then
 		if k == #legs then return nil end
 		return leg.to, leg.label
@@ -2488,17 +2735,41 @@ function Travel.Stop()
 	return leg.from, leg.label
 end
 
+-- A walk's end with a floor height (a crossing end: the Undercity's entrance hall over the Trade Quarter) that the
+-- player stands within its radius of on the map but not on its floor: the player's floor (Walk.Floor) more than
+-- FLOOR_DZ yards from it; while that is unknown (the walking engine, asked without a height, may start on the end's
+-- own floor above the player), farther than FLAT_ARRIVE yards, or, at a dock (`dock`: a boat, zeppelin, airship or tram
+-- leaves from the end), farther than the walk's reach: the deck or tower top is broad and the board point one spot
+-- on it (at the Undercity's zeppelin tower, where Fitz stood was 6.6 yards from it, #1125). PlanRoute drops a
+-- leading walk by the same rule.
+local FLOOR_DZ, FLAT_ARRIVE = 20, 5
+local function offFloor(to, pc, px, py, d, dock, reach)
+	-- In a place only portals reach the walking maps have no floor, so the player's floor tells nothing there.
+	if not to.z or Travel.place then return false end
+	local W = Nav.walk
+	local fz = W and W.Floor and W.Floor(pc, px, py)
+	if fz then return fz - to.z > FLOOR_DZ or to.z - fz > FLOOR_DZ end
+	return d > (dock and reach or FLAT_ARRIVE)
+end
+
 -- The walk the arrow is on ends at a lift's landing and the player stands
--- within LIFT_LEAVE of it: the lift ride (the next leg), shown in its place.
-local function boardingRide(leg)
+-- within LIFT_LEAVE of it on its floor: the lift ride (the next leg), shown in its place.
+local function boardingRide(leg, pc, px, py)
 	local ride = legs and legs[ci + 1]
 	local f, t = ride and ride.from, leg and leg.to
 	if not (leg and leg.kind == "walk" and ride and ride.kind == "lift" and f and t and f.c == t.c and f.wx == t.wx and f.wy == t.wy) then return nil end
-	local C = ns.Compat
-	local pc, px, py
-	if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
-	local to = leg.to
-	if not pc or yards(pc, px, py, to.c, to.wx, to.wy) > LIFT_LEAVE then return nil end
+	if not pc then
+		local C = ns.Compat
+		if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
+	end
+	if not pc then return nil end
+	local d = yards(pc, px, py, t.c, t.wx, t.wy)
+	if d > LIFT_LEAVE then return nil end
+	if f.z then
+		local z = Travel.ObservedFloor(pc)
+		if not z then return nil, d <= FLAT_ARRIVE end
+		if math.abs(z - f.z) > DECK_DZ then return nil end
+	end
 	return ride
 end
 
@@ -2900,6 +3171,7 @@ function Travel.SplitWalk(c, x, y, stops, total, hubs)
 		doneYards, doneSecs, from = s.along, secs, at
 		if s.kind == "lift" then
 			local other = point(nil, c, s.endX or s.wx, s.endY or s.wy)
+			at.z, other.z = s.z, s.endZ
 			local wait, ride
 			if X and X.NextDeparture and s.lift then wait, ride = X.NextDeparture("lift", s.lift, now + secs, s.side) end
 			pieces[#pieces + 1] = {
@@ -3028,7 +3300,7 @@ function Travel.NearWalk(along, sx, sy)
 		nearWalk.job = nil
 		nearWalk.ok = type(rest) == "number" and along / RUN_SPEED < before + rest / RUN_SPEED
 		if nearWalk.ok then Travel.Remeasured() end
-	end, true)
+	end, true, from.z)
 	if not nearWalk.job then nearWalk.ok = false end
 	return false
 end
@@ -3149,23 +3421,7 @@ end
 --   "walk", c, wx, wy[, left]    walk to that point (left: yards along the walking
 --                                engine's path to the leg's end, when it has one)
 --   "instruction", c, wx, wy     do the leg's action here (fly, ride, portal, hearth, teleport)
--- A walk's end with a floor height (a crossing end: the Undercity's entrance hall over the Trade Quarter) that the
--- player stands within its radius of on the map but not on its floor: the player's floor (Walk.Floor) more than
--- FLOOR_DZ yards from it; while that is unknown (the walking engine, asked without a height, may start on the end's
--- own floor above the player), farther than FLAT_ARRIVE yards, or, at a dock (`dock`: a boat, zeppelin, airship or tram
--- leaves from the end), farther than the walk's reach: the deck or tower top is broad and the board point one spot
--- on it (at the Undercity's zeppelin tower, where Fitz stood was 6.6 yards from it, #1125). PlanRoute drops a
--- leading walk by the same rule.
-local FLOOR_DZ, FLAT_ARRIVE = 20, 5
 local RIDES = { boat = true, zeppelin = true, airship = true, tram = true }
-local function offFloor(to, pc, px, py, d, dock, reach)
-	-- In a place only portals reach the walking maps have no floor, so the player's floor tells nothing there.
-	if not to.z or Travel.place then return false end
-	local W = Nav.walk
-	local fz = W and W.Floor and W.Floor(pc, px, py)
-	if fz then return fz - to.z > FLOOR_DZ or to.z - fz > FLOOR_DZ end
-	return d > (dock and reach or FLAT_ARRIVE)
-end
 
 -- The place only portals reach (Travel.places) the player is in, while they stand in its box. -> its id, or nil
 function Travel.Inside(pc, px, py)
@@ -3222,12 +3478,13 @@ function Travel.Aim(pc, px, py)
 			local passed = P ~= nil and W ~= nil and W.Passed(P.c, P.wx, P.wy, leg.seg)
 			-- At the landing of the lift it ends at, the label shows the ride (Travel.CurrentLabel).
 			local ride = legs[ci + 1]
-			local rf = ride and ride.kind == "lift" and ride.from
-			local near = rf and rf.c == to.c and rf.wx == to.wx and rf.wy == to.wy and yards(pc, px, py, to.c, to.wx, to.wy) <= LIFT_LEAVE or false
+			local boarding, unknownDeck = boardingRide(leg, pc, px, py)
+			local near = boarding ~= nil
 			if near ~= atLift then
 				atLift = near
 				Travel.version = Travel.version + 1
 			end
+			if unknownDeck then return "unmapped" end
 			-- On a crossing's walk from an end with a floor height, near that end but found on another floor
 			-- (the floor became known after the plan took the player for there): plan again.
 			local from = leg.from
@@ -3237,13 +3494,17 @@ function Travel.Aim(pc, px, py)
 			end
 			local d, reach = yards(pc, px, py, to.c, to.wx, to.wy), leg.radius or REACH
 			local dock = ride ~= nil and RIDES[ride.kind] == true
-			if not passed and (d > reach or offFloor(to, pc, px, py, d, dock, reach)) then
+			local wrongDeck = ride and ride.kind == "lift" and to.z and not near
+			if wrongDeck or (not passed and (d > reach or offFloor(to, pc, px, py, d, dock, reach))) then
 				-- Along the walking engine's path when it has one (Nav/Walk.lua).
+				local whole = P and P.leg or leg
+				local checked = whole.corpseGround or whole.crossingPolicy
 				if W then
 					local gc, gx, gy, gz = to.c, to.wx, to.wy, to.z
 					if P then gc, gx, gy, gz = P.c, P.wx, P.wy, P.leg.to.z end
 					-- A piece aims no further than its chokepoint's spot on the path (leg.stop, Walk.Stops).
-					local wc, wx, wy, left = W.Aim(pc, px, py, gc, gx, gy, leg.handmade, gz, P and leg.stop)
+					local wc, wx, wy, left, unmapped = W.Aim(pc, px, py, gc, gx, gy, leg.handmade, gz, P and leg.stop, checked)
+					if unmapped then return unmapped == true and "unmapped" or unmapped end
 					if wc then
 						left = left - (leg.tail or 0)
 						if left < 0 then left = 0 end
@@ -3251,9 +3512,11 @@ function Travel.Aim(pc, px, py)
 						return "walk", wc, wx, wy, left
 					end
 				end
+				if checked then return "unmapped" end
 				progressYards = yards(pc, px, py, to.c, to.wx, to.wy) * WALK_DETOUR
 				return "walk", to.c, to.wx, to.wy
 			end
+			if pc == to.c and Nav.danger.Blocked(pc, px, py, to.wx, to.wy, ns.Compat.GetPlayerFaction()) then return "unsafe" end
 			-- At a crossing or chain waypoint: plan again from here (the next Refresh). A crossing's end reached, near
 			-- or far, passes its near end (passCrossing), as skipping the walk to it does (Travel.SkipLeg); the far end,
 			-- the crossing walked through.
@@ -3266,13 +3529,44 @@ function Travel.Aim(pc, px, py)
 			end
 			advance()
 		elseif kind == "lift" then
-			-- Ride it; walking away from the landing boarded ends the ride.
-			local from = leg.from
-			if yards(pc, px, py, from.c, from.wx, from.wy) <= LIFT_LEAVE then return "instruction", from.c, from.wx, from.wy end
+			-- Walking away on the boarding deck is not a completed ride. Observe
+			-- this car's directed destination before resuming its onward walk.
+			local from, to, C = leg.from, leg.to, ns.Compat
+			local departed
+			if from.z and to.z and C and C.GetPlayerUnitPosition then
+				local x, y, z, map = C.GetPlayerUnitPosition()
+				local falling
+				if IsFalling then
+					local ok, value = pcall(IsFalling)
+					falling = not ok or C.Readable(value) ~= false
+				end
+				if map == pc and map == to.c and z and not falling
+					and not (C.IsOnTaxi and C.IsOnTaxi()) and not (C.IsSwimming and C.IsSwimming())
+					and math.abs(z - to.z) < math.abs(z - from.z) then
+					local d = yards(map, x, y, to.c, to.wx, to.wy)
+					if d <= 8 and math.abs(z - to.z) <= DECK_DZ then leg.landingSeen = true end
+					departed = leg.landingSeen and d > LIFT_LEAVE and math.abs(z - to.z) <= FLOOR_DZ
+				else
+					leg.landingSeen = nil
+				end
+			end
+			if not departed then return "instruction", from.c, from.wx, from.wy end
 			advance()
 		elseif kind == "fly" then
 			local from = leg.from
+			if leg.taxiOffer then
+				if leg.taxiOffer ~= Travel.BoardingAt(pc, px, py, leg.boardZ, playerFaction) then
+					dirty = true
+					return "unsafe"
+				end
+				return "instruction", pc, px, py
+			end
 			if yards(pc, px, py, from.c, from.wx, from.wy) > LEAVE then dirty = true end
+			-- Off the flight master, this bearing is an approach on foot, not part of the flight.
+			if pc == from.c and Nav.danger.Blocked(pc, px, py, from.wx, from.wy, ns.Compat.GetPlayerFaction()) then
+				dirty = true
+				return "unsafe"
+			end
 			return "instruction", from.c, from.wx, from.wy
 		else
 			local to = leg.to
@@ -3321,6 +3615,12 @@ end
 -- flights, rides, portals, hearth, teleports, crossings and chain waypoints in
 -- order; the plain walks between follow from them.
 local function sameWay(a, i, b, j)
+	local first, other = a[i], b[j]
+	if first and other and (first.parent and first.parent.leg or first).crossingPolicy ~= (other.parent and other.parent.leg or other).crossingPolicy then
+		return false
+	end
+	local aEnd, bEnd = a[#a], b[#b]
+	if aEnd and bEnd and (aEnd.parent and aEnd.parent.leg or aEnd).corpseGround ~= (bEnd.parent and bEnd.parent.leg or bEnd).corpseGround then return false end
 	while true do
 		while a[i] and between(a[i]) do i = i + 1 end
 		while b[j] and between(b[j]) do j = j + 1 end
@@ -3333,12 +3633,31 @@ local function sameWay(a, i, b, j)
 	end
 end
 
+-- A completed negative for this exact remaining walk is different from an
+-- unavailable batch. A provisional route must not keep a refused landing.
+function Travel.RefusedTail(route, index, pc, px, py)
+	local tail = route and route[#route]
+	local current = route and route[index]
+	local W = Nav.walk
+	if not (tail and current and tail.kind == "walk" and W and W.Measured) then return false end
+	local whole = tail.parent and tail.parent.leg or tail
+	local to, from = whole.to, whole.from
+	local tc, tx, ty, tz = Nav.GetTargetWorld()
+	if not (to.c == tc and to.wx == tx and to.wy == ty and to.z == tz) then return false end
+	local cost = W.Measured(tc, tx, ty, isGhost(), tz)
+	if not cost then return false end
+	if (current.parent and current.parent.leg or current) == whole then
+		return pc and cost(pc, px, py, true, W.Floor and W.Floor(pc, px, py)) == false
+	end
+	return cost(from.c, from.wx, from.wy, false, from.z) == false
+end
+
 -- A zone change or walking on plans again (Travel.Replan's soft replan). The live route is kept while its current
 -- leg is a walk the player follows (not a crossing's own walk, which zone changes are part of: there the fresh plan
 -- as before; within keep.OFF yards of the arrow's path to it, and keep.AHEAD yards or more from its end along it) and
 -- the fresh plan goes another way that saves less than keep.SAVES seconds
--- against what the live route has left (the walk's yards along its path, then its later legs); one that fails keeps
--- it too. A fresh plan prices a walk it has not searched by the straight line, and the live one by its path: a way
+-- against what the live route has left (the walk's yards along its path, then its later legs). A missing plan
+-- keeps the live route unless its walk was refused. A fresh plan prices an unsearched walk by the straight line: a way
 -- the live route left this way is remembered with what it had left then (keep.ways, the last keep.MAX for the
 -- target), and within keep.NEAR yards of where it was left a fresh plan going that way again costs at least that.
 -- Planned from each side of a zone border the player's walk crosses, the two ways differed only in the zone the plan
@@ -3358,8 +3677,9 @@ local keep = { SAVES = 20, OFF = 25, AHEAD = 50, NEAR = 100, MAX = 4, HOLD = 10,
 keepLive = function(old, i, progress, fresh, target, pc, px, py)
 	local cur = old and old[i]
 	if not (cur and cur.kind == "walk" and not cur.crossing and legsFor == target) then return false end
-	if not (fresh and fresh[1]) then return true end
+	if not (fresh and fresh[1]) then return not Travel.RefusedTail(old, i, pc, px, py) end
 	if sameWay(fresh, 1, old, i) then return false end
+	if fresh[1].corpseGround or fresh[1].crossingPolicy or Travel.RefusedTail(old, i, pc, px, py) then return false end
 	if keep.target ~= target then keep.target, keep.ways, keep.switched = target, {}, nil end
 	local W, P = Nav.walk, cur.parent
 	local g = P or cur.to
@@ -3448,10 +3768,12 @@ function Travel.Remeasured()
 	local target = Nav.GetTarget()
 	local now = legs[ci]
 	local fresh, pc, px, py, owed = plan(target, now and (now.kind == "hearth" or now.bind) and legsFor == target)
-	if not fresh then return false end
-	if sameWay(fresh, 1, legs, ci) then
+	if not fresh then
+		if not Travel.RefusedTail(legs, ci, pc, px, py) then return false end
+		legs, ci, boarded, progressYards = nil, 1, false, nil
+	elseif sameWay(fresh, 1, legs, ci) then
 		if not takePrices(fresh) then return false end
-	elseif owed then
+	elseif owed and not Travel.RefusedTail(legs, ci, pc, px, py) then
 		-- Another way that rides to a landing whose walk into the target is
 		-- being measured: kept until that measure lands (it plans again then).
 		-- Priced by its straight estimate against the player's measured walk,
@@ -3504,6 +3826,12 @@ function Travel:Refresh()
 		Travel.TakeOff()
 	end
 	wasTaxi = taxiNow
+	if Travel.crossingPrices and (taxiNow or isGhost() or Nav.HandedOff() or (ns.Transit and ns.Transit.Carried and ns.Transit.Carried())
+		or (InCombatLockdown and InCombatLockdown()) or Travel.crossingPrices.target ~= Nav.GetTarget() or not ns.Get("nav.travel")) then
+		local job = Travel.crossingPrices.job
+		Travel.crossingPrices = nil
+		if job then Nav.Path.Cancel(job) end
+	end
 	if taxiNow or not Nav.GetTarget() or not ns.Get("nav.travel") then return end
 	-- A quest timer or an escort started or ended: the Hearthstone and teleports
 	-- come in or go out (and with an escort, every ride).
@@ -3612,8 +3940,19 @@ function Travel.TransitOwed()
 	return false
 end
 ns.RegisterEvent("TAXIMAP_OPENED", function()
-	if recordTaxiMap() then Travel.Replan() end
+	local before = Travel.taxiOffer
+	local added = recordTaxiMap()
+	if added or before or Travel.taxiOffer then
+		Travel.Replan()
+	end
 end)
+ns.RegisterEvent("TAXIMAP_CLOSED", function()
+	if Travel.taxiOffer then
+		Travel.taxiOffer = nil
+		Travel.Replan()
+	end
+end)
+ns.RegisterEvent("PLAYER_LEAVING_WORLD", function() Travel.taxiOffer = nil end)
 ns.RegisterEvent("UI_INFO_MESSAGE", onInfoMessage)
 
 ns.OnLogin(function()
@@ -3627,7 +3966,7 @@ ns.RegisterCommand("route", function()
 	if Nav.SayHandedOff() then return end
 	local list = legs
 	if not list then
-		ns.Print(L["No route: walk straight to the target."])
+		ns.Print(L["No route can be planned to that spot."])
 		return
 	end
 	for i = ci, #list do

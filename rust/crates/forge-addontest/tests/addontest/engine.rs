@@ -2017,7 +2017,7 @@ fn a_hearth_step_never_offers_astral_recall_to_another_class_or_a_shaman_who_has
 				{ goals = { { t = "level", level = 99 } } },
 			} })
 		"#,
-		before: r#"w.setZone("Stormwind City", "Trade District")"#,
+		before: r#"stub.clientBuild = "70532"; w.setZone("Stormwind City", "Trade District")"#,
 		full: true,
 		script: r#"
 			local w = stub.world
