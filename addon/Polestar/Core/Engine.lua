@@ -12880,13 +12880,44 @@ function Own.hereAfterOwn(s, g, q)
 	return false
 end
 
+-- Two drops from the same hunt: don't invite the player to farm the first
+-- before the upcoming pickup that lets them get both. Only the suggestion
+-- waits; the live step and any drops already earned are untouched.
+function Own.waitForHuntPartner(s, goal, live, nearTo)
+	local npc = goal.fromKind == "npc" and goal.fromId
+	if not npc or s <= live or (goal.fromNpcs and #goal.fromNpcs > 1) then return false end
+	local C = Compat()
+	for gi, other in ipairs(guide.steps[s].goals) do
+		if other.t == "collect" and other.fromKind == "npc" and other.fromId == npc and other.quest and other.quest ~= goal.quest
+			and not C.IsOnQuest(other.quest) and not questDone(other.quest) and not Own.questSkipped(other.quest)
+			and Guides.Matches(other.only, player) and not Own.goalSkipped(s, gi) then
+			local ready, freed = Own.READY_NONE, 0
+			for i = live, math.min(nearTo, s - 1) do
+				local step = guide.steps[i]
+				if stepApplies(step) and not isSkipped(i) then
+					for j, g in ipairs(step.goals) do
+						if g.t == "accept" and g.quest == other.quest and Own.aheadOk(i, j, g, ready, true) and Own.logRoom() + freed > 0 then return true end
+						-- The visit may hand in a held parent before offering its follow-up.
+						if g.t == "turnin" and not g.optional and C.IsOnQuest(g.quest) and not ready[g.quest]
+							and goalApplies(g) and not Own.goalSkipped(i, j) and not Own.questSkipped(g.quest) then
+							if ready == Own.READY_NONE then ready = {} end
+							ready[g.quest], freed = true, freed + 1
+						end
+					end
+				end
+			end
+		end
+	end
+	return false
+end
+
 -- Whether goal g of later step s, one of Own.hereGoalsOn's for a quest in
 -- the log (an accept: one not taken), is a candidate, as what ("work",
 -- "turnin" or "take"), how many are left (see above), and for a hand-in or a
 -- pick-up whether the route reaches it anyway (Own.hereSoon: then it shows
 -- only at its NPC). `shown`: Own.hereShown's. An accept comes here with the
 -- log's room checked (Own.hereBuild).
-function Own.hereFits(s, g, goal, live, shown)
+function Own.hereFits(s, g, goal, live, shown, nearTo)
 	local q, t = goal.quest, goal.t
 	local C = Compat()
 	local liveGoals = guide.steps[live].goals
@@ -12930,6 +12961,7 @@ function Own.hereFits(s, g, goal, live, shown)
 	if t == "interact" and not Own.hereCarries(q) then return nil end
 	if Own.hereAfterOwn(s, g, q) then return nil end
 	if not Own.hereLevelOk(goal, Own.hereTop) then return nil end
+	if t == "collect" and Own.waitForHuntPartner(s, goal, live, nearTo) then return nil end
 	local left = (max or goal.count or 1) - (cur or 0)
 	if left < 1 then return nil end
 	return "work", left
@@ -13191,7 +13223,7 @@ function Own.hereBuild()
 					if (on and not C.IsQuestFailed(q)) or take then
 						if s ~= at then at, ok = s, stepApplies(steps[s]) and not isSkipped(s) end
 						local kind, left, soon = nil, nil, false
-						if ok or back then kind, left, soon = Own.hereFits(s, g, goal, live, shown) end
+						if ok or back then kind, left, soon = Own.hereFits(s, g, goal, live, shown, nearTo) end
 						if kind then
 							n = n + 1
 							-- places: where the target spawns on the map (Own.hereTick

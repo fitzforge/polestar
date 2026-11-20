@@ -2286,3 +2286,41 @@ Polestar.RegisterGuide({
 	assert_eq!(out[0][1], "3:1 Complete “The Great Outdoors”: /sit by her campfire until you get Boosted Rest 0");
 	assert_eq!(out[1], "2:1:work:2", "done: no row");
 }
+
+#[test]
+fn t_3101_a_shared_drop_waits_for_the_imminent_partner_pickup() {
+	let guide = r#"
+		local function drop(q, item, npc, oi)
+			return { t = "collect", quest = q, item = item, itemName = tostring(item), fromKind = "npc", fromId = npc, oi = oi, map = 1429, x = 48, y = 45 }
+		end
+		assert(Polestar.RegisterGuide({ id = "test/cougars", pack = "test", title = "Cougars", minLevel = 1, maxLevel = 10, steps = {
+			{ goals = { { t = "kill", quest = 33, target = "Wolf", oi = 1, npc = 299, map = 1429, x = 60, y = 60 } } },
+			{ goals = {
+				{ t = "turnin", quest = 754, title = "Winterhoof Cleansing", npc = 2948, map = 1429, x = 50, y = 50 },
+				{ t = "accept", quest = 756, title = "Thunderhorn Totem", npc = 2948, pre = { 754 }, map = 1429, x = 50, y = 50 },
+			} },
+			{ goals = { drop(756, 4802, 3035, 1), drop(766, 4805, 3035, 2), drop(766, 4806, 2956, 3) } },
+		} }))
+	"#;
+	let rows = |state: &str| {
+		let script = format!(
+			r#"w.accept(766, {{ 1, 1, 1 }})
+			{state}
+			stub.fire("QUEST_LOG_UPDATE"); flush()
+			local out = {{}}
+			for _, c in ipairs(E.GetWhileHereCandidates()) do
+				local g = E.GetGuide().steps[c.step].goals[c.index]
+				if g.item then out[#out + 1] = g.item end
+			end
+			table.sort(out); emit(out)"#
+		);
+		run_guide(guide, "test/cougars", &script).remove(0)
+	};
+	assert_eq!(rows("w.complete({754})"), json!([4806]), "only the cougar invitation waits");
+	assert_eq!(rows("w.accept(754, {1})"), json!([4806]), "the upcoming visit hands in the held prerequisite first");
+	assert_eq!(rows(""), json!([4805, 4806]), "the partner pickup is unavailable");
+	assert_eq!(rows("w.complete({754}); E.SkipQuest(756)"), json!([4805, 4806]));
+	assert_eq!(rows("w.complete({756, 754})"), json!([4805, 4806]));
+	assert_eq!(rows("w.accept(756, {6})"), json!([4802, 4805, 4806]));
+	assert_eq!(rows("w.progress(766, 2, 1); w.accept(756, {6})"), json!([4802, 4806]), "a femur already looted counts");
+}
