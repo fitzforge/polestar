@@ -18204,3 +18204,14 @@ for (const guide of ['forever/alliance/50-60/06-silithus.guide', 'forever/horde/
 		assert.ok(goal.map === 1451 && Math.hypot(goal.x - 22.0, goal.y - 14.5) <= 0.5, `the point is at 22.0,14.5 (${goal.x},${goal.y})`);
 	});
 }
+
+// #3221 (DexeeXI, 0.4.1.1): Tarren Mill's Southshore Stout, for Henchman Valik's errand on Krusk's Infiltration (533),
+// was bought on the inn stop whether or not the player already had the Syndicate Missive. The buy has its own step, shown
+// only while Infiltration is in the log and not complete, as Valik's own step is.
+test('Tarren Mill\'s Southshore Stout buy shows only while Infiltration is in the log, not complete (#3221)', { skip }, () => {
+	const steps = compiled('forever/horde/30-40/05-arathi-highlands.guide').steps;
+	const buys = steps.filter((s) => s.goals.some((g) => g.t === 'buy' && g.item === 3703));
+	assert.equal(buys.length, 1, 'one Southshore Stout buy');
+	assert.ok(whenQuestOf(buys[0], ['onquest'], 533), '`when onquest 533`');
+	assert.ok((buys[0].when || []).some((p) => p.k === 'complete' && p.neg && [p.q].flat().includes(533)), '`when !complete 533`');
+});
