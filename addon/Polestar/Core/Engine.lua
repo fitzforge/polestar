@@ -13201,7 +13201,8 @@ end
 -- take, at NPC npc in the first guide after it that takes it there
 -- (Own.laterGuides), for the character (Own.laterOk), with no `abandon` of
 -- it on the way (the loaded guide's, or a guide's before that one) and room
--- in the log. When not, why, naming that guide.
+-- in the log. When not, why, naming that guide; when so, true, nil and that
+-- guide (Engine.LaterAcceptGuide).
 function Own.laterWants(q, npc)
 	local later, past = Own.laterGuides()
 	local dropped = layoutOf(guide).abandons[q] and guide.id or nil
@@ -13216,7 +13217,7 @@ function Own.laterWants(q, npc)
 				if not ok then return false, ("%s (%s step %d)"):format(why, g.id, t.s) end
 				local room = Own.logRoom()
 				if room < 1 then return false, ("log full (room %d, %s step %d)"):format(room, g.id, t.s) end
-				return true
+				return true, nil, g
 			end
 		end
 		if l.abandons[q] then dropped = dropped or g.id end
@@ -13611,7 +13612,7 @@ function Own.hereNext(list, n)
 					list[n] = { s = Own.NEXT_STEP, g = q, goal = goal, kind = "take", left = 0, places = 1,
 						npcs = false, seen = false, spot = false, d = false, pick = 0,
 						budget = Own.hereSeconds, xp = false, soon = false, visit = false, detour = 0, town = false, near = false, key = "a" .. q,
-						sub = L["Later on your route: %s"]:format(g.title or g.id),
+						sub = L["Saves a trip back: %s does it later."]:format(g.title or g.id), later = g,
 						tip = L["A guide later on your route takes this quest here: taken now, its step is done when you get there."],
 						on = false, since = 0, yards = 0, serial = 0, view = false }
 				end
@@ -17214,6 +17215,34 @@ function Engine.AcceptRefusal(questID)
 	if Engine.WantsQuest("accept", questID) then return nil end
 	local _, why = Own.aheadWants(questID)
 	return why or "not wanted"
+end
+
+-- The later guide auto-accept takes quest q for, at the NPC whose window is
+-- open (Own.laterWants, or a later guide's While-you're-here pick-up line):
+-- Automation says so in chat. nil when a loaded guide takes q (no word: as
+-- before) or nothing wants it. Asked before the accept.
+function Engine.LaterAcceptGuide(questID)
+	if not questID or questID == 0 or guide == nil then return nil end
+	if not player then refreshPlayer() end
+	if scheduled then flush() end
+	local loaded = false
+	for i = 1, #tabs do
+		use(tabs[i])
+		if Own.wantsLoaded("accept", questID, 0) then
+			loaded = true
+			break
+		end
+	end
+	useActive()
+	if loaded then return nil end
+	local ok, _, g = Own.aheadWants(questID)
+	if ok then return g end
+	if not Own.hereWants(questID, "take") then return nil end
+	for i = 1, Own.hereOnN do
+		local e = Own.hereOn[i]
+		if e.s == Own.NEXT_STEP and e.goal.quest == questID then return e.later end
+	end
+	return nil
 end
 
 -- Whether the loaded guide takes quest q as an escort (a goal of it with

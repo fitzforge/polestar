@@ -233,10 +233,17 @@ local function onDetail()
 	end
 	if groupEscort(q) then return false end
 	noteActed()
+	-- Taken for a guide later on the route: say why as it is taken (the
+	-- loaded guide's own accepts stay silent).
+	local later = ns.Engine.LaterAcceptGuide and ns.Engine.LaterAcceptGuide(q)
 	if QuestGetAutoAccept and QuestGetAutoAccept() then
 		if AcknowledgeAutoAcceptQuest then AcknowledgeAutoAcceptQuest() end
 	elseif AcceptQuest then
 		AcceptQuest()
+	end
+	if later then
+		local title = GetTitleText and GetTitleText()
+		ns.Print(L["Took %s now: %s does it later, so this saves a trip back."]:format(ns.Quoted(title and title ~= "" and title or tostring(q)), later.title or later.id))
 	end
 	return true
 end

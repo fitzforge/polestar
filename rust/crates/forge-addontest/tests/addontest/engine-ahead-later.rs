@@ -81,12 +81,18 @@ fn run(script: &str) -> Value {
 #[test]
 fn talking_to_a_giver_whose_quest_the_next_guide_takes_auto_accept_takes_it_and_the_live_step_stays() {
 	let out = run(r#"
+		local from = #stub.messages
 		for _, q in ipairs({ 7, 9, 61, 106 }) do w.questDetail(240, q); flush(); w.close() end
-		emit({ calls = accepted(), live = E.GetLiveStep(), guide = E.GetGuide().id })
+		local said = {}
+		for i = from + 1, #stub.messages do said[#said + 1] = tostring(stub.messages[i]) end
+		emit({ calls = accepted(), live = E.GetLiveStep(), guide = E.GetGuide().id, said = said })
 	"#);
-	// 7: the loaded guide's step 2, as before; 9: Westfall's step 2. Not 61 (timed: never taken for a later guide)
-	// nor 106 (Redridge starts at 15).
-	assert_eq!(out, json!({ "calls": "7 9", "live": 1, "guide": "test/elwynn" }));
+	// 7: the loaded guide's step 2, as before, without a word; 9: Westfall's step 2, with one line saying why. Not 61
+	// (timed: never taken for a later guide) nor 106 (Redridge starts at 15).
+	assert_eq!(
+		out,
+		json!({ "calls": "7 9", "live": 1, "guide": "test/elwynn", "said": ["Polestar: Took “The Killing Fields” now: Westfall does it later, so this saves a trip back."] })
+	);
 }
 
 #[test]
@@ -99,7 +105,7 @@ fn walking_past_that_giver_shows_the_next_guides_quest_as_a_pick_up_line_naming_
 	assert_eq!(
 		out,
 		json!(
-			["2:1 Take “Kobold Camp Cleanup” from Marshal Dughan: saves a trip back | nil", "-3:9 Take “The Killing Fields” from Marshal Dughan: saves a trip back | Later on your route: Westfall",]
+			["2:1 Take “Kobold Camp Cleanup” from Marshal Dughan: saves a trip back | nil", "-3:9 Take “The Killing Fields” from Marshal Dughan: saves a trip back | Saves a trip back: Westfall does it later.",]
 		)
 	);
 }
