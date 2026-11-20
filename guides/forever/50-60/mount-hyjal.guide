@@ -418,8 +418,8 @@ step Ketharas
 # about 0.7 level lower (level model: 57.9 against 58.6), and any Alliance player under 58 then, on the guide's second
 # pass (Marrosis' bones), with the hand-in on the ride back to Elderwild at the end. To the Summit of Eternity (91688,
 # 95248) is offered only once Final Death is handed in, so it is taken wherever that happens. Final Death is taken
-# alone at Elderwild only from 57.6 (Alliance) and 57.85 (Horde): the Horde's second pass comes only about 0.15 level
-# after Elderwild (level model 2026-11-20: 57.35 at Elderwild, 57.47 at the second pass), so a Horde character accepts
+# alone at Elderwild only from 57.6 (Alliance) and 57.85 (Horde): the Horde's second pass comes only about 0.1 level
+# after Elderwild (level model 2026-11-20: about 57.25 at Elderwild, 57.34 at the second pass), so a Horde character accepts
 # it alone only when it reaches the bone pile at 58; under that it is a group choice. A character still under 58
 # after the second pass gets an abandon step, as no later visit comes back for it.
 # To the Summit of Eternity's accept steps read `when turnedin` Final Death: accept after Final Death.
