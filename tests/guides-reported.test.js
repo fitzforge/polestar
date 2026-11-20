@@ -18114,6 +18114,23 @@ test('forever/horde/06-hillsbrad-foothills.guide: Beren\'s Peril is handed in on
 	assert.ok(step && whenQuestOf(step, ['complete'], 516), 'turnin 516 sits in a step with `when complete 516`');
 });
 
+// #3302 (Maerion's Misery, 0.4.1.1): Maerion's Misery (97009) was taken only after the Dae'gun sweep, so its twelve
+// Felhound Spikes, from the same Defiling Hounds as Elaena's essence (92960), cost a second round of hound kills. It is
+// taken at Maerion before the sweep, the sweep carries the spikes as an optional line, and the later Maerion step is the
+// hand-in, shown only while the quest is in the log (ESp3cter's fix, #3257).
+test('forever/50-60/mount-hyjal.guide: Maerion\'s Misery is taken before the Dae\'gun sweep and its spikes come with the essence (#3302)', { skip }, () => {
+	const list = goals('forever/50-60/mount-hyjal.guide');
+	const accept = at(list, 'accept 97009', is('accept', 97009));
+	const essence = at(list, 'the essence line of 92960', (g) => g.t === 'collect' && g.quest === 92960);
+	assert.ok(accept < essence, 'Maerion\'s Misery is taken before the Dae\'gun sweep');
+	const sweep = list.filter(({ s }) => s === list[essence].s);
+	const spikes = sweep.find(({ goal }) => goal.t === 'collect' && goal.quest === 97009);
+	assert.ok(spikes && spikes.goal.optional, 'the sweep lists the Felhound Spikes as an optional line');
+	const hand = list[at(list, 'turnin 97009', is('turnin', 97009))];
+	assert.ok(hand.s > list[essence].s, 'handed in after the sweep');
+	assert.ok(holdsQuest(hand.step, 97009), 'the hand-in step shows only while 97009 is in the log');
+});
+
 // #3277: Nimboya's Laden Pike (item 9319, Grim Message 2932) can only be planted inside a Witherbark village;
 // the earlier point at 29.5,58.5 was in dead ground between Zun'watha and Hiri'watha.
 test('#3277: Grim Message plants Nimboya\'s Laden Pike inside Hiri\'watha (31.9, 58.0)', () => {
