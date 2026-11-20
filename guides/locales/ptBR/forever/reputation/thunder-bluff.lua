@@ -92,8 +92,8 @@ return {
 	-- Step 15: The Venture Co. Mine: the Clearcutter
 	-- {area:360} The Venture Co. Mine
 	["{area:360}: the Clearcutter"] = "{area:360}: o Fio-afiado",
-	-- {quest:98427} Ceasing Operations
-	["The elite shredder Venture Co. Clearcutter works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "O retalhador de elite Fio-afiado da Empreendimentos S.A. trabalha bem no fundo da mina, depois de onde o Geringonça ficava: a chave dele serve para {quest:98427}.",
+	-- {npc:272173} Venture Co. Clearclutter · {quest:98427} Ceasing Operations
+	["The elite shredder {npc:272173} works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "O retalhador de elite {npc:272173} trabalha bem no fundo da mina, depois de onde o Geringonça ficava: a chave dele serve para {quest:98427}.",
 
 	-- Step 16: Bloodhoof Village: last hand-in
 	-- {area:222} Bloodhoof Village
