@@ -72,6 +72,9 @@ t.guides["forever/40-50/shendralas"] = (function() return {
 		["{zone:2652} is done. Your {zone:1444} guide picks up from here: ride back north through the {area:2657}, west along {area:405}'s southern edge and south into {zone:1444}, to the dock on the {area:1108} where the boat crosses to {area:1116}."] = "{zone:2652}完成了。接下來由你的{zone:1444}指南接手：向北騎回並穿過{area:2657}，沿著{area:405}南緣往西，再向南進入{zone:1444}，前往{area:1108}的碼頭，從那裡坐船前往{area:1116}。",
 		["{zone:2652} is done: ride back north through the {area:2657}; the next step says where your route goes on from there."] = "{zone:2652}完成了：向北騎回並穿過{area:2657}；下一個步驟會告訴你接下來的路線。",
 } end)()
+t.guides["forever/50-60/mount-hyjal"] = (function() return {
+		["Fly to {area:2255}"] = "飛往{area:2255}",
+} end)()
 t.guides["forever/alliance/02-westfall"] = (function() return {
 		["Back to {zone:1453}"] = "返回{zone:1453}",
 		["Class trainer"] = "職業訓練師",
@@ -1862,7 +1865,6 @@ t.guides["forever/alliance/40-50/05-the-hinterlands"] = (function() return {
 		["{npc:2487}, top floor"] = "{npc:2487}，頂樓",
 		["{npc:2498}'s next Zanzil errand starts in {zone:1441}: skip it."] = "{npc:2498}的下一個贊吉爾任務從{zone:1441}開始：跳過。",
 		["{npc:2498}, inside"] = "{npc:2498}，室內",
-		["{npc:2535} and {npc:2536}"] = "{npc:2535}與{npc:2536}",
 		["{npc:2535} and {npc:2536} stand together in the hills just north of Zanzil's village."] = "{npc:2535}和{npc:2536}一起站在贊吉爾村莊北邊不遠的山丘上。",
 		["{npc:270263}, just east of the aviary"] = "{npc:270263}，在獅鷲棲所東邊不遠",
 		["{npc:5385}, upstairs"] = "{npc:5385}，樓上",
@@ -7498,7 +7500,6 @@ t.guides["forever/horde/40-50/02-feralas"] = (function() return {
 		["Kodos: {npc:3685}, beside {npc:3690} in {area:222}."] = "科多獸：{npc:3685}，在{area:222}的{npc:3690}旁邊。",
 		["North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it.\nCareful: {npc:222233} (level 43, elite) stands in the outpost: pull the ogres out to you, away from him."] = "在豺狼人北邊，巨魔佔據山頂的前哨站；把巨魔法師拉過來打。鈷礦在前哨站周圍的土堆裡，卷軸就在前哨站裡的地上。\n小心：{npc:222233}（43級，精英）站在前哨站裡：把巨魔拉出來，遠離他。",
 		["North-west of the ruins, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "在廢墟西北，雪人在{area:1105}築巢；那裡的每個雪人都可能掉落厚重的雪人皮。",
-		["On south-west to the jungle north-east of Mistvale: the three ghostly pirates haunt it beside Zanzil's camps. {npc:2535} and {npc:2536} stand together, {npc:2537} further east. Every one of Zanzil's followers can carry the mixture.\nCareful: the Zanzil Witch Doctors (44) cast and the camps are packed: pull from the edge, one at a time. {npc:2534} (46) himself stands in the southern camp around 39.6,58.6, a few steps from {npc:2537}'s ghost: pull {npc:2537} out to the north or east before you fight him."] = "繼續往西南到迷霧谷東北邊的叢林：三個海盜幽靈在贊吉爾的營地旁出沒。{npc:2535}和{npc:2536}站在一起，{npc:2537}在更東邊。贊吉爾的每個追隨者都可能帶著混合物。\n小心：贊吉爾巫醫（44級）會施法，而且營地很擁擠：從邊緣一次拉一隻。{npc:2534}（46級）本人站在南邊營地39.6,58.6附近，離{npc:2537}的幽靈只有幾步：與他戰鬥前，先把{npc:2537}往北或往東拉出來。",
 		["Only with the distress beacon: any beast, gnoll or ogre in {zone:1444} can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "僅當你有定位器時：{zone:1444}的任何野獸、豺狼人或食人魔都可能掉落它，大約每殺一百隻掉一個；使用它開始任務。機器人在{area:1105}北側的一個小山洞裡，就在廢墟西北不遠。護送它到{area:1108}的碼頭；途中會有雪人和猩猩伏擊你。它的獎勵在{area:35}，留到之後再去領取。\n小心：護送過程中會出現三次伏擊，機器人每次都會提前警告你。第一次是3隻雪人，就在機器人離開山洞、爬向道路之後。第二次是3隻猩猩，在沿懸崖延伸的小路上。第三次是大約4個豺狼人，其中一個是施法者，在路線轉向碼頭的地方。",
 		["Pirate ghosts and Zanzil's camps"] = "海盜幽靈與贊吉爾的營地",
 		["Raptors: Zjolnir, beside {npc:7953} in {area:367}."] = "迅猛龍：祖尼爾，在{area:367}的{npc:7953}旁邊。",

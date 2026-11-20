@@ -72,6 +72,9 @@ t.guides["forever/40-50/shendralas"] = (function() return {
 		["{zone:2652} is done. Your {zone:1444} guide picks up from here: ride back north through the {area:2657}, west along {area:405}'s southern edge and south into {zone:1444}, to the dock on the {area:1108} where the boat crosses to {area:1116}."] = "{zone:2652}已完成。你的{zone:1444}指南从这里继续：骑马向北穿过{area:2657}，沿{area:405}南缘向西，再向南进入{zone:1444}，前往{area:1108}的码头，从那里坐船去{area:1116}。",
 		["{zone:2652} is done: ride back north through the {area:2657}; the next step says where your route goes on from there."] = "{zone:2652}已完成：骑马向北穿过{area:2657}返回；下一步会告诉你之后的路线去向。",
 } end)()
+t.guides["forever/50-60/mount-hyjal"] = (function() return {
+		["Fly to {area:2255}"] = "飞往{area:2255}",
+} end)()
 t.guides["forever/alliance/02-westfall"] = (function() return {
 		["Back to {zone:1453}"] = "返回{zone:1453}",
 		["Class trainer"] = "职业训练师",
@@ -1890,7 +1893,6 @@ t.guides["forever/alliance/40-50/05-the-hinterlands"] = (function() return {
 		["{npc:2487}, top floor"] = "{npc:2487}，顶楼",
 		["{npc:2498}'s next Zanzil errand starts in {zone:1441}: skip it."] = "{npc:2498}的下一个赞吉尔差事从{zone:1441}开始：跳过。",
 		["{npc:2498}, inside"] = "{npc:2498}：在屋内",
-		["{npc:2535} and {npc:2536}"] = "{npc:2535}和{npc:2536}",
 		["{npc:2535} and {npc:2536} stand together in the hills just north of Zanzil's village."] = "{npc:2535}和{npc:2536}一起站在赞吉尔村子北边不远处的山丘上。",
 		["{npc:270263}, just east of the aviary"] = "{npc:270263}，在狮鹫栖木东边不远处",
 		["{npc:5385}, upstairs"] = "{npc:5385}：在楼上",
@@ -7636,7 +7638,6 @@ t.guides["forever/horde/40-50/02-feralas"] = (function() return {
 		["Kodos: {npc:3685}, beside {npc:3690} in {area:222}."] = "科多兽：{npc:3685}，在{area:222}的{npc:3690}旁边。",
 		["North of the gnolls the ogres hold a hilltop outpost; pull the ogre-magi to you. The cobalt is in the dirt mounds around the outpost, and the scroll lies on the ground inside it.\nCareful: {npc:222233} (level 43, elite) stands in the outpost: pull the ogres out to you, away from him."] = "在豺狼人北边，食人魔占据着一座山顶前哨站；把食人魔法师引到你身边来打。戈杜尼钴矿石在前哨站周围的土堆里，戈杜尼卷轴就在前哨站里的地上。\n小心：{npc:222233}（43级，精英）站在前哨站里：把食人魔引出来，远离他。",
 		["North-west of the ruins, the yetis den in {area:1105}; every yeti there can drop a thick hide."] = "在废墟西北，雪人栖息在{area:1105}；那里的每只雪人都可能掉落厚雪人皮。",
-		["On south-west to the jungle north-east of Mistvale: the three ghostly pirates haunt it beside Zanzil's camps. {npc:2535} and {npc:2536} stand together, {npc:2537} further east. Every one of Zanzil's followers can carry the mixture.\nCareful: the Zanzil Witch Doctors (44) cast and the camps are packed: pull from the edge, one at a time. {npc:2534} (46) himself stands in the southern camp around 39.6,58.6, a few steps from {npc:2537}'s ghost: pull {npc:2537} out to the north or east before you fight him."] = "继续向西南前往薄雾谷东北的丛林：三个海盗鬼魂在赞吉尔的营地旁出没。{npc:2535}和{npc:2536}站在一起，{npc:2537}在更东边。赞吉尔的每个追随者都可能携带混合物。\n小心：赞吉尔巫医（44级）会施法，而且营地里怪很密：从边缘一只一只地拉。{npc:2534}（46级）本人站在南边营地39.6,58.6附近，离{npc:2537}的鬼魂只有几步：先把{npc:2537}向北或向东拉出来再打。",
 		["Only with the distress beacon: any beast, gnoll or ogre in {zone:1444} can drop it, about one kill in a hundred; use it to start the quest. The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}; yetis and gorillas ambush you on the way. Its reward waits in {area:35} for a later visit.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "仅当你有定位器时：{zone:1444}的任何野兽、豺狼人或食人魔都可能掉落它，大约每杀一百只掉一个；使用它开始任务。机器人在{area:1105}北侧的一个小山洞里，就在废墟西北不远。护送它到{area:1108}的码头；途中会有雪人和猩猩伏击你。它的奖励在{area:35}，留到之后再去领取。\n小心：护送过程中会出现三次伏击，机器人每次都会提前警告你。第一次是3只雪人，就在机器人离开山洞、爬向道路之后。第二次是3只猩猩，在沿悬崖延伸的小路上。第三次是大约4个豺狼人，其中一个是施法者，在路线转向码头的地方。",
 		["Pirate ghosts and Zanzil's camps"] = "海盗鬼魂和赞吉尔的营地",
 		["Raptors: Zjolnir, beside {npc:7953} in {area:367}."] = "迅猛龙：祖尼尔，在{area:367}的{npc:7953}旁边。",
