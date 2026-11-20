@@ -200,6 +200,22 @@
 		],
 		"note": "Awaiting Word (Watcher Dodds to Watcher Callahan, Duskwood) is not in the game on Forever: the live quest scans have nothing for it, Forever's own quest list does not have it, and in the built data it came from pfQuest alone, with Classic's race mask and no XP. The quest leaves the data, so the map stops marking Watcher Dodds with it."
 	},
+	"238": {
+		"set": {
+			"objectives": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): in all 30 recorded runs of Errand for Apothecary Zinge the quest log showed only the line \"Bring the Field Sampling Kit to Apothecary Zinge in the Undercity.\", a line that is not counted, and the quest was handed in to Apothecary Zinge (5204) 27 seconds to 3 minutes after the accept"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3: quest 238 has no objectives"
+			}
+		],
+		"note": "Errand for Apothecary Zinge (238) is a delivery: you carry the Field Sampling Kit from Alessandro Luca to Apothecary Zinge and hand it in, with nothing to do on the way. One recording's quest log line had become an event objective in the data, which no step can work."
+	},
 	"273": {
 		"set": {
 			"objectives": [
@@ -549,6 +565,29 @@
 			}
 		],
 		"note": "Serpentbloom (Wailing Caverns) rewards 3,300 XP on Forever; the merged data had 1,350, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
+	},
+	"974": {
+		"set": {
+			"objectives": [
+				{
+					"type": "object",
+					"id": 148503,
+					"count": 1,
+					"text": "Find the hottest area of Fire Plume Ridge"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): 15 people's quest logs list one objective, \"Find the hottest area of Fire Plume Ridge\" (count 1); it ticked for 11 players at the top of Fire Plume Ridge (49.6,45.8), for 10 of them the moment they cast Temperature Reading (spell 16378)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3: quest 974's one objective is object 148503 (Fire Plume Ridge Hot Spot)"
+			}
+		],
+		"note": "Finding the Source (974) has one objective: use Krakle's Thermometer at the Fire Plume Ridge Hot Spot. The quest log's line names no creature, but the merged data read it as a second objective, a kill of Living Blaze, ahead of the hot spot, so the step's objective number pointed at the wrong line."
 	},
 	"976": {
 		"set": {
@@ -3107,6 +3146,22 @@
 			"ref": "creature_queststarter/gameobject_queststarter"
 		},
 		"note": "Mor'zul Bloodbringer: starts with Spackle Thornberry (npc 5520), Martha Strain (npc 5753), Kurgul (npc 5815) and Jubahl Corpseseeker (npc 6382); as its giver the merged data also listed Greshka (npc 12807)."
+	},
+	"7790": {
+		"set": {
+			"objectives": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): 8 people took River Ends from the Fallen Skyborne in Western Plaguelands (npc 270191) and handed it in at the Argent Wayfinder in Eastern Plaguelands (object 668183); none was shown an objective line at accept or on the way"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3: quest 7790 has no objectives"
+			}
+		],
+		"note": "River Ends (7790) is a Forever quest that reuses an old unused id: look into the fallen Skyborne by the river and take what you learn to the Argent Wayfinder, with nothing to kill or collect. The merged data still carried the old id's battleground credit marker as its objective, a placeholder name a player would read."
 	},
 	"8105": {
 		"set": {
