@@ -11289,9 +11289,10 @@ end
 -- hinges on `needs`, quests of earlier guides, most of them `from`'s. For
 -- this character the share left is scaled by the part of `needs` neither
 -- done, in the log nor taken on the way (a feeder step of the guide's plan).
--- From FRESH_NOTE (30) percent, below the guide's top level, with `from` a
--- guide for this character: { guideId, from, fromTitle, share (whole
--- percent), minutes } | nil. minutes: the XP left out as same-level kills
+-- From FRESH_NOTE (30) percent as the note states it (whole percent: 29.75
+-- reads "about 30%"), below the guide's top level, with `from` a guide for
+-- this character: { guideId, from, fromTitle, share (whole percent),
+-- minutes } | nil. minutes: the XP left out as same-level kills
 -- at FRESH_KPM (1.5) a minute (farmSeconds' rate), in fives, at least 5;
 -- nil without the level tables. Guides.Suggestions ranks such a guide
 -- lower. (The two are locals: a key more on Own doubles its table at login.)
@@ -11324,12 +11325,13 @@ function Engine.FreshFor(g)
 		if questDone(q) or C.IsOnQuest(q) or onWay[q] then have = have + 1 end
 	end
 	local left = #needs > 0 and f.share * (1 - have / #needs) or f.share
-	if left < FRESH_NOTE then return nil end
+	local share = math.floor(left + 0.5)
+	if share < FRESH_NOTE then return nil end
 	local Lv = ns.Levels
 	local per = Lv and Lv.MobXP and Lv.MobXP(lvl, lvl, false) or 0
 	local xp = (tonumber(f.xp) or 0) * left / 100
 	local minutes = per > 0 and xp > 0 and math.max(5, math.floor(xp / (per * FRESH_KPM) / 5 + 0.5) * 5) or nil
-	return { guideId = g.id, from = f.from, fromTitle = from.title or f.from, share = math.floor(left + 0.5), minutes = minutes }
+	return { guideId = g.id, from = f.from, fromTitle = from.title or f.from, share = share, minutes = minutes }
 end
 
 -- The active guide's fresh-start note (Engine.FreshFor) once the quest log is

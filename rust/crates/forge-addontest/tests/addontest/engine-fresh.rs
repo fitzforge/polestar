@@ -150,11 +150,13 @@ const WETLANDS: &str = "forever/alliance/06-wetlands";
 const ASHENVALE: &str = "forever/alliance/06-ashenvale";
 
 // The Wetlands case (#1562). The Alliance guides as shipped up to Wetlands, Ashenvale, Ironforge & Stormwind City
-// (27-30): the shared route and the races' starting zones, compiled with data/forever. Most of the quest XP its
-// header says follows on from earlier guides hinges on quests Ashenvale, Wetlands & Stonetalon Mountains (22-25)
-// takes, the Wetlands quests its Menethil visit starts. A Human Warrior at 22 who played none of the guides before
-// it opens Wetlands: the window says so (the whole share, as none of `needs` is done, and its XP as level 22 kills:
-// 155 XP each, 1.5 a minute), and the link opens Ashenvale, a guide for their level, in a new tab.
+// (29-31 since the 0.4.2 route round): the shared route and the races' starting zones, compiled with data/forever.
+// Most of the quest XP its header says follows on from earlier guides hinges on quests Ashenvale, Wetlands &
+// Stonetalon Mountains (22-25) takes, the Wetlands quests its Menethil visit starts. A Human Warrior at 22 who played
+// none of the guides before it opens Wetlands: the window says so (the share scaled by the part of `needs` the
+// guide's plan does not take on the way: on the 0.4.2 route, Young Crocolisk Skins (484) at Menethil, one of the
+// eight, leaves 29.75%, "about 30%"; its XP as level 22 kills: 155 XP each, 1.5 a minute), and the link opens
+// Ashenvale, a guide for their level, in a new tab.
 #[test]
 fn wetlands_opened_fresh_at_22_points_to_ashenvale_wetlands_and_stonetalon() {
 	use forge_addontest::dsl::{compile_with, our_manifest, plain, write_test_pack};
@@ -177,9 +179,9 @@ fn wetlands_opened_fresh_at_22_points_to_ashenvale_wetlands_and_stonetalon() {
 	let wetlands = compiled.guides.iter().find(|g| g.get("id").as_str() == Some(WETLANDS)).expect("the Wetlands guide");
 	let header = plain(&wetlands.get("fresh"));
 	assert_eq!(header["from"], ASHENVALE, "{header}");
-	let (share, xp) = (header["share"].as_i64().unwrap(), header["xp"].as_f64().unwrap());
-	assert!(share >= 30, "{header}");
-	let minutes = ((xp * share as f64 / 100.0 / (155.0 * 1.5) / 5.0 + 0.5).floor() as i64 * 5).max(5);
+	let (share, xp) = (header["share"].as_f64().unwrap(), header["xp"].as_f64().unwrap());
+	let needs: Vec<i64> = header["needs"].as_array().unwrap().iter().map(|q| q.as_i64().unwrap()).collect();
+	assert!(share >= 30.0, "{header}");
 	let pack = write_test_pack(&compiled.guides, &data, &our_manifest());
 	let loads: Vec<String> = pack.scripts.iter().map(|f| format!("assert(loadfile({}))(\"Polestar_Guides\", ns)", serde_json::to_string(f).unwrap())).collect();
 	let script = format!(
@@ -193,7 +195,11 @@ local E, GF = Polestar.Engine, Polestar.UI.GuideFrame
 local B = GF.parts.banner
 Polestar.Set("ui.shown", true)
 E.SetGuide("{WETLANDS}"); stub.advance(0.25)
-local r = {{ note = E.FreshStart() or false, live = E.GetLiveStep() or false }}
+local onWay = {{}}
+for _, step in ipairs(Polestar.Guides.Get("{WETLANDS}").steps) do
+	if step.feeder then for _, goal in ipairs(step.goals) do if goal.t == "accept" then onWay[#onWay + 1] = goal.quest end end end
+end
+local r = {{ note = E.FreshStart() or false, live = E.GetLiveStep() or false, onWay = onWay }}
 r.banner = B:IsShown() and B.psKind == "fresh" and {{ B.Text:GetText(), B.Jump.Label:GetText() }} or false
 B.Jump:Click(); stub.advance(0.25)
 local list, active = E.GetTabs()
@@ -213,8 +219,14 @@ w.race, w.raceName, w.class, w.className, w.faction, w.level = "Human", "Human",
 	})
 	.remove(0);
 	let title = "Ashenvale, Wetlands & Stonetalon Mountains";
-	assert_eq!(out["note"], json!({ "guideId": WETLANDS, "from": ASHENVALE, "fromTitle": title, "share": share, "minutes": minutes }), "{out}");
-	let text = format!("Fresh start: about {share}% of this guide's quest XP follows on from {title}.\nExpect about {minutes} minutes of extra grinding, or start there.");
+	let taken = |q: i64| out["onWay"].as_array().is_some_and(|a| a.iter().any(|v| v.as_i64() == Some(q)));
+	let on_way = needs.iter().filter(|q| taken(**q)).count();
+	let left = share * (1.0 - on_way as f64 / needs.len() as f64);
+	let shown = (left + 0.5).floor() as i64;
+	assert!(shown >= 30, "the share left reads 30% or more: {left} ({on_way} of {needs:?} on the way): {out}");
+	let minutes = ((xp * left / 100.0 / (155.0 * 1.5) / 5.0 + 0.5).floor() as i64 * 5).max(5);
+	assert_eq!(out["note"], json!({ "guideId": WETLANDS, "from": ASHENVALE, "fromTitle": title, "share": shown, "minutes": minutes }), "{out}");
+	let text = format!("Fresh start: about {shown}% of this guide's quest XP follows on from {title}.\nExpect about {minutes} minutes of extra grinding, or start there.");
 	assert_eq!(out["banner"], json!([text, format!("Open {title}")]));
 	assert_eq!(out["opened"], ASHENVALE);
 }
