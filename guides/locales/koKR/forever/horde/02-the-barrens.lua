@@ -82,7 +82,7 @@ return {
 	-- Step 19: The Zhevra
 	-- {area:392} Ratchet
 	-- plural, as words: Zhevra Runners = {npc:3242} Zhevra Runner
-	["Zhevra Runners graze along the road east toward {area:392}: take their hooves on the way out."] = "제브라 굶은말은 {area:392}를 향해 동쪽으로 가는 도로변에서 풀을 뜯습니다: 나갈 때 발굽을 모으세요.",
+	["Zhevra Runners graze along the road east toward {area:392}: take their hooves on the way out."] = "굶주린 얼룩말은 {area:392}를 향해 동쪽으로 가는 도로변에서 풀을 뜯습니다: 나갈 때 발굽을 모으세요.",
 
 	-- Step 20: Ratchet
 	-- {area:392} Ratchet · {npc:3391} Gazlowe · {npc:7161} Wrenix the Wretched · {npc:3442} Sputtervalve · {npc:16227} Bragok · {npc:3446} Mebok Mizzyrix · {object:3972} WANTED · {quest:1492} Wharfmaster Dizzywig

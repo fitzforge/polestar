@@ -367,7 +367,7 @@ return {
 	-- Step 66: Redridge Canyons
 	-- {spell:133} Fireball
 	-- plural, as words: Redridge Brutes = {npc:426} Redridge Brute · Iron Pikes = {item:2856} Iron Pike · Black Dragon Whelps = {npc:441} Black Dragon Whelp
-	["Redridge Brutes and Mystics hold the hills north and north-west of town; both carry the Iron Pikes and Rivets. Black Dragon Whelps nest in the same hills.\nCareful: The whelps cast {spell:133} from range, and the gnolls run for help at low health."] = "붉은마루일족 투사와 신비주의자가 마을 북쪽과 북서쪽 언덕을 지키고 있습니다; 둘 다 철제 파이크과 리벳을 지니고 있습니다. 새끼 검은용이 같은 언덕에 둥지를 틉니다.\n주의: 새끼용은 원거리에서 {spell:133}을(를) 시전하고, 놀은 생명력이 낮으면 도움을 부르러 달아납니다.",
+	["Redridge Brutes and Mystics hold the hills north and north-west of town; both carry the Iron Pikes and Rivets. Black Dragon Whelps nest in the same hills.\nCareful: The whelps cast {spell:133} from range, and the gnolls run for help at low health."] = "붉은마루일족 투사와 신비주의자가 마을 북쪽과 북서쪽 언덕을 지키고 있습니다; 둘 다 철제 파이크와 리벳을 지니고 있습니다. 새끼 검은용이 같은 언덕에 둥지를 틉니다.\n주의: 새끼용은 원거리에서 {spell:133}을(를) 시전하고, 놀은 생명력이 낮으면 도움을 부르러 달아납니다.",
 	-- {item:1221} Underbelly Whelp Scale
 	-- plural, as words: Black Dragon Whelps = {npc:441} Black Dragon Whelp
 	["{item:1221}: Black Dragon Whelps"] = "{item:1221}: 새끼 검은용",

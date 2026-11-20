@@ -382,7 +382,7 @@ return {
 	-- Step 70: Helm's Bed Lake
 	-- {area:212} Helm's Bed Lake · {quest:95214} Stolen Blasting Powder · {item:274268} Dark Iron Map
 	-- plural, as words: Rockjaw Ambushers = {npc:1116} Rockjaw Ambusher · Rockjaw Backbreakers = {npc:1118} Rockjaw Backbreaker
-	["Rockjaw Ambushers by {area:212}, north of the quarry, and Rockjaw Backbreakers further east drop the {quest:95214}. Dark Iron Spies sneak around the lake shore east of the quarry; one of them drops the {item:274268}."] = "{area:212} 옆, 채석장 북쪽의 바위턱일족 잠복꾼와 더 동쪽의 바위턱일족 투사가 {quest:95214}을(를) 떨어뜨립니다. 검은무쇠 첩자가 채석장 동쪽 호숫가를 맴돌고, 그중 하나가 {item:274268}을(를) 떨어뜨립니다.",
+	["Rockjaw Ambushers by {area:212}, north of the quarry, and Rockjaw Backbreakers further east drop the {quest:95214}. Dark Iron Spies sneak around the lake shore east of the quarry; one of them drops the {item:274268}."] = "{area:212} 옆, 채석장 북쪽의 바위턱일족 잠복꾼과 더 동쪽의 바위턱일족 투사가 {quest:95214}을(를) 떨어뜨립니다. 검은무쇠 첩자가 채석장 동쪽 호숫가를 맴돌고, 그중 하나가 {item:274268}을(를) 떨어뜨립니다.",
 
 	-- Step 71: Dun Morogh: kill these as you meet them
 	-- {item:2770} Copper Ore

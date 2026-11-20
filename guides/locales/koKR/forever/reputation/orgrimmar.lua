@@ -230,7 +230,7 @@ return {
 	["Prowlers, {npc:3452} and {quest:881}"] = "밀렵꾼, {npc:3452}, 그리고 {quest:881}",
 	-- {quest:876} Serena Bloodfeather · {npc:3338} Sergra Darkthorn · {item:10327} Horn of Echeyakee · {object:147524} Echeyakee's Lair (no name in this language: may be words)
 	-- plural, as words: Savannah Prowlers = {npc:3425} Savannah Prowler
-	["Savannah Prowlers lie west and north of the Crossroads. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "굶주린 사바나 사자은 크로스로드 서쪽과 북쪽에 있습니다. {quest:876}은(는) 훨씬 북서쪽의 칼날바람일족 하피로 안내합니다. 다음 {npc:3338}이(가) {item:10327}을(를) 줍니다: 마을 북쪽 {object:147524}의 코도 뼈 옆에서 불어 넣고 흰 사자를 처치하십시오.",
+	["Savannah Prowlers lie west and north of the Crossroads. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "굶주린 사바나 사자는 크로스로드 서쪽과 북쪽에 있습니다. {quest:876}은(는) 훨씬 북서쪽의 칼날바람일족 하피로 안내합니다. 다음 {npc:3338}이(가) {item:10327}을(를) 줍니다: 마을 북쪽 {object:147524}의 코도 뼈 옆에서 불어 넣고 흰 사자를 처치하십시오.",
 
 	-- Step 39: Chen's Empty Keg (optional hub)
 	-- {quest:819} Chen's Empty Keg
@@ -250,7 +250,7 @@ return {
 	["{area:392}: the repeatable keg"] = "{area:392}: 반복 가능한 통",
 	-- {item:4897} Thunderhawk Saliva Gland · {item:4896} Kodo Liver · {npc:3238} Stormhide · {area:378} Camp Taurajo · {area:392} Ratchet
 	-- plural, as words: Lightning Glands = {item:4898} Lightning Gland · Greater Thunderhawks = {npc:3249} Greater Thunderhawk
-	["From now on Drohn takes 5 Lightning Glands, a {item:4897} and a {item:4896} for 50, as often as you like. The {npc:3238} thunder lizards (a gland about every other kill), the Greater Thunderhawks and the kodos south of {area:378} drop them. Gather several sets before you head back to {area:392}."] = "이제부터 드론은 번개 분출선 5개, {item:4897} 1개, {item:4896} 1개를 50에 받으며 횟수 제한이 없습니다. {npc:3238} 천둥도마뱀(두 번에 한 번꼴로 분비선), 거대한 천둥매, {area:378} 남쪽의 코도가 그것을 떨어뜨립니다. {area:392}(으)로 돌아가기 전에 여러 세트를 모으십시오.",
+	["From now on Drohn takes 5 Lightning Glands, a {item:4897} and a {item:4896} for 50, as often as you like. The {npc:3238} thunder lizards (a gland about every other kill), the Greater Thunderhawks and the kodos south of {area:378} drop them. Gather several sets before you head back to {area:392}."] = "이제부터 드론은 번개 분출선 5개, {item:4897} 1개, {item:4896} 1개를 50에 받으며 횟수 제한이 없습니다. {npc:3238} 폭풍도마뱀(두 번에 한 번꼴로 분비선), 거대한 천둥매, {area:378} 남쪽의 코도가 그것을 떨어뜨립니다. {area:392}(으)로 돌아가기 전에 여러 세트를 모으십시오.",
 	-- {item:4898} Lightning Gland
 	-- plural, as words: Stormhides = {npc:3238} Stormhide
 	["{item:4898}, from Stormhides"] = "{item:4898}, 폭풍도마뱀에게서",

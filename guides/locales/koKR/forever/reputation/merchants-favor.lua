@@ -17,7 +17,7 @@ return {
 	["Your first {item:248549} or writ"] = "첫 {item:248549} 또는 의뢰서",
 	-- {quest:98247} Shipping Label
 	-- plural, as words: Waylaid Crates = {item:248549} Waylaid Crate
-	["From level 10, mobs anywhere drop Waylaid Crates and sealed writs (Journeyman's, Expert's and Artisan's). Fill a crate with one of the bundles it lists (right-click it), or open a sealed writ: by beta reports, the first time you do either you also get a {quest:98247}. Right-click the label to start its quest. Crates and writs can be traded, so the Auction House sells them too."] = "10레벨부터 어디서든 몹이 잘못 놓인 보급품와 봉인된 의뢰서(수습, 전문가, 대가)를 떨어뜨립니다. 상자는 목록 중 하나를 담아서 열고(오른쪽 클릭), 봉인된 의뢰서는 그냥 열으세요. 베타 보고에 따르면 처음으로 그렇게 하면 {quest:98247}도 함께 주어집니다. 라벨을 오른쪽 클릭해 그 퀘스트를 시작하세요. 상자와 의뢰서는 거래할 수 있어서 경매장에서도 팔립니다.",
+	["From level 10, mobs anywhere drop Waylaid Crates and sealed writs (Journeyman's, Expert's and Artisan's). Fill a crate with one of the bundles it lists (right-click it), or open a sealed writ: by beta reports, the first time you do either you also get a {quest:98247}. Right-click the label to start its quest. Crates and writs can be traded, so the Auction House sells them too."] = "10레벨부터 어디서든 몹이 잘못 놓인 보급품과 봉인된 의뢰서(수습, 전문가, 대가)를 떨어뜨립니다. 상자는 목록 중 하나를 담아서 열고(오른쪽 클릭), 봉인된 의뢰서는 그냥 열으세요. 베타 보고에 따르면 처음으로 그렇게 하면 {quest:98247}도 함께 주어집니다. 라벨을 오른쪽 클릭해 그 퀘스트를 시작하세요. 상자와 의뢰서는 거래할 수 있어서 경매장에서도 팔립니다.",
 
 	-- Step 2: Three Corners: the Shipping Label
 	-- {area:1002} Three Corners · {quest:98247} Shipping Label
