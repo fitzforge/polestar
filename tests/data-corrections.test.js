@@ -66,6 +66,10 @@ test('Goblin Lockpicks is a one-talk hand-in at Veenix, only while The Horn of X
 	assert.match(step.fact, /only while The Horn of Xelthos is in your quest log/);
 });
 
+test('Burbik Gearspanner sells no Fishing Pole: off its vendor list (#3037)', () => {
+	assert.deepEqual(corrections.items[6256].removeVendors, [5163]);
+});
+
 test('Damp Note requires The Essence of Aku\'Mai on the recorded Priestess drop, not on its follow-up quest (#1923)', () => {
 	assert.deepEqual(corrections.items[16790].dropRequires, { npc: { 4802: [6563] } });
 	assert.match(corrections.items[16790].source.ref, /#1923.*6820003090/);
