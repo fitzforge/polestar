@@ -4225,18 +4225,25 @@ end
 
 -- Whether a later, non-optional quest goal of step s (after goal g) that
 -- applies to the character is done: the work a goal led to is behind the
--- player. (On Own: the main chunk is at 200 locals.)
-function Own.laterQuestDone(s, g)
+-- player. all: every such goal is done (and the step has one). (On Own: the
+-- main chunk is at 200 locals.)
+function Own.laterQuestDone(s, g, all)
 	local goals = guide.steps[s].goals
+	local any = false
 	for j = g + 1, #goals do
 		local later = goals[j]
 		local lt = later.t
 		-- A quest goal (isQuestGoal, declared further down).
 		local quest = later.quest and (lt == "accept" or lt == "turnin" or lt == "complete" or lt == "kill"
 			or lt == "collect" or lt == "interact" or lt == "use" or lt == "talk")
-		if quest and not later.optional and goalApplies(later) and goalDone(s, j, later) then return true end
+		if quest and not later.optional and goalApplies(later) then
+			local done = goalDone(s, j, later)
+			if done and not all then return true end
+			if all and not done then return false end
+			any = true
+		end
 	end
-	return false
+	return all and any or false
 end
 
 -- Grind steps and finished quests (0.4.0, #1431: Mokii saw
@@ -4598,6 +4605,11 @@ function Own.goalDoneLive(s, g, goal)
 		if s >= 1 then
 			local _, covered = Own.levelCover(s, goal)
 			if covered then return true end
+			-- A level before its step's quest work gates that work (#3165: the
+			-- Minor Manifestation of Fire at 13, #2921: The Affray at 32). Once
+			-- every quest goal after it is done, done at a lower level than the
+			-- gate asked, it has nothing left to hold.
+			if Own.laterQuestDone(s, g, true) then return true end
 		end
 		return false
 	elseif t == "skill" then
