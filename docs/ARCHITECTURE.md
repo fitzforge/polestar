@@ -2023,7 +2023,19 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   a skip in `CharState().skipped`, read from then on (`Own.whenHolds`): a
   step passed because its condition failed never comes back when the
   condition changes, one that applied stays applied, and `Unskip` brings a
-  wrongly stored step back (storing it as held). Nothing is stored before
+  wrongly stored step back (storing it as held). A failure that can still
+  turn while the guide lasts (`Own.mayComeTrue`: `level>=N`/`level>N`, or
+  `onquest`/`complete`/`turnedin` of a quest the guide still takes or that
+  waits for a level; never a step with `group` or `dungeon` in its `when`) is
+  not stored: the step waits in `Own.whenPending` (session, per guide table,
+  worked out again from the placement) and comes back if the route reaches it
+  again; once it holds behind the live step, `Own.settlePending` (after
+  `computeCurrent` in `evaluateLoaded`) stores it as skipped instead of
+  letting it pull the route back, notes its quests' work behind the player
+  where nothing ahead works them (`Own.noteBehind`: the "Still to do" row and
+  While you're here), and leaves a level-gated step's accepts waiting
+  (`Own.waitsOf`); the guide's end stores the rest (`Own.endPending`, from
+  `Own.noteEnd` and the completion). Nothing is stored before
   `QUEST_LOG_UPDATE` (`logReady`; the log lags `PLAYER_LOGIN`):
   `Own.latchCaughtUp` stores the steps passed meanwhile once it can.
   `ResetProgress` forgets them; a pack update moves them with the steps
@@ -2538,6 +2550,10 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   go in leaves the guide as it is. Nothing shows in
   the guide window; the report names the planned steps (`[feeder from <id>
   step N]`) and the quests left out (`[hidden: needs <quest> from <guide>]`).
+  `Own.feedGaps` checks each insertion in source order against both ends of
+  the route leg. A flight can bring the player to a feeder at its destination.
+  A goal on neither map needs a measured detour within the same time limit;
+  an unknown distance never justifies inserting it at the start of the guide.
   `checkShape` carries saved check-offs and skips to the new step numbers; a
   feeder step the player skips keeps its quests out of later plans
   (`CharState().feedSkips`). A giver's window that offers the quest (this
@@ -3378,6 +3394,20 @@ holds at its opening, see "Not yet available"):
 - An accept waiting for the character's level is no task in the step view
   (status "na", no "Requires level" line: Fitz, 0.3.6, no level text on
   pick-ups); the route passes it as below and the level-up brings it back.
+  Passed, it waits by quest id (`Own.noteWaits` from `latchPassed`;
+  `CharState().levelWaits[q] = { level, guide }`, forgotten once the quest is
+  in the log, done, or skipped). When the guide ends first, the next guides'
+  plans put it in (`Own.carryChains` in `Own.feederPlan`: its accept and the
+  quest's goals in the guides passed since, under the feeder rules, before
+  the guide's first goal of the quest): at the level when the route gets
+  there, it is taken on the way. Passed there under the level, it is marked
+  passed for that guide (the wait's `passed`, `Own.carryPassed`) and no longer
+  holds its step (`Own.holds`), so the level-up never pulls the route back to
+  it; While you're here offers it as a pick-up at its giver (`Own.hereBuild`
+  lets such a step behind the live one in), and a later guide's plan puts it
+  in again. One that does not fit waits on. The skip notice says which
+  (`Own.waitText`), and the guide-end window and "Continue automatically"
+  list the ones still waiting (`Engine.WaitingQuests`).
   The goals of its quest further on keep their "Requires level" line. Where
   the route waits on it instead (`Own.waitsOnLevel`: computeCurrent's own
   rule, the level hold with nothing else open there and the next open step

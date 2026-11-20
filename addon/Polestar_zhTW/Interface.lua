@@ -225,6 +225,8 @@ L["Artisan %s"] = "專家級%s"
 -- L["Hearthstone ready in %s: ride to the inn, or wait for it"] = ""
 -- L["Ride to %s"] = ""
 -- L["Ride to the flight master"] = ""
+-- L["Requires level %d: the guide comes back for it then"] = ""
+-- L["Requires level %d: kept for a later guide"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "選擇一項獎勵以完成繳交。"
@@ -3551,6 +3553,7 @@ L["Carried to later guides"] = "留待之後指南的任務"
 L["Not part of your route"] = "不在你的路線中"
 L["Keep or abandon them"] = "保留或放棄"
 L["Each with its Abandon button, which asks in the game's own window first."] = "每個任務都有「放棄」按鈕，會先在遊戲本身的視窗中確認。"
+-- L["%s · at level %d"] = ""
 
 -- UI/NameTargets.lua
 L["Click to target and mark %s (out of combat)."] = "點擊選取並標記 %s（戰鬥外）。"
@@ -4617,6 +4620,9 @@ L["Open any flight master's map once on this continent so Polestar knows your fl
 L["This guide is for %s characters. Polestar won't guide you through it."] = "此指南適用於%s角色。Polestar 不會引導你完成它。"
 -- L["Equip it"] = ""
 -- L["Report to Danitha (Garen Largo, the Undercity), then A Paladin's Steed (Danitha Morr, Bandarion Keep): it teaches you to summon your Warhorse."] = ""
+-- L["%s (level %d)"] = ""
+-- L["%s takes these once you reach their level: %s"] = ""
+-- L["Waiting for your level, taken where a later guide passes the giver: %s"] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "按 %s 恢復，或打開指南視窗。"

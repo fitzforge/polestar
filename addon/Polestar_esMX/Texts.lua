@@ -66,6 +66,9 @@ t.guides["forever/40-50/shendralas"] = (function() return {
 		["{zone:2652} is done. Ride back north through the {area:2657} and west along {area:405}'s southern edge to {area:2408}: the next guide picks up in {area:1637}, with the {zone:1444} guide's hand-ins. Your hearthstone is bound at {area:1099}: if it is ready, hearth there and fly to {area:1637} from {area:1099} instead."] = "{zone:2652} está terminado. Regresa al norte por {area:2657} y al oeste por el borde sur de {area:405} hasta {area:2408}: la siguiente guía continúa en {area:1637}, con las entregas de la guía de {zone:1444}. Tu piedra de hogar está vinculada en {area:1099}: si está lista, úsala para ir ahí y vuela a {area:1637} desde {area:1099}.",
 		["{zone:2652} is done. Your {zone:1444} guide picks up from here: ride back north through the {area:2657}, west along {area:405}'s southern edge and south into {zone:1444}, to the dock on the {area:1108} where the boat crosses to {area:1116}."] = "{zone:2652} está terminado. Tu guía de {zone:1444} continúa desde aquí: regresa al norte por {area:2657}, al oeste por el borde sur de {area:405} y al sur hacia {zone:1444}, hasta el muelle de {area:1108} donde el barco cruza a {area:1116}.",
 } end)()
+t.guides["forever/50-60/mount-hyjal"] = (function() return {
+		["Fly to {area:2255}"] = "Vuela a {area:2255}",
+} end)()
 t.guides["forever/alliance/02-westfall"] = (function() return {
 		["Back to {zone:1453}"] = "De vuelta a {zone:1453}",
 		["Class trainer"] = "Instructor de clase",

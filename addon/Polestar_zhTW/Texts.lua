@@ -66,6 +66,9 @@ t.guides["forever/40-50/shendralas"] = (function() return {
 		["{zone:2652} is done. Ride back north through the {area:2657} and west along {area:405}'s southern edge to {area:2408}: the next guide picks up in {area:1637}, with the {zone:1444} guide's hand-ins. Your hearthstone is bound at {area:1099}: if it is ready, hearth there and fly to {area:1637} from {area:1099} instead."] = "{zone:2652}完成了。向北騎回並穿過{area:2657}，再沿著{area:405}南緣往西前往{area:2408}：下一個指南從{area:1637}開始，繳交{zone:1444}指南的任務。你的爐石綁定在{area:1099}：如果爐石已冷卻完畢，就用爐石回去，改從{area:1099}飛往{area:1637}。",
 		["{zone:2652} is done. Your {zone:1444} guide picks up from here: ride back north through the {area:2657}, west along {area:405}'s southern edge and south into {zone:1444}, to the dock on the {area:1108} where the boat crosses to {area:1116}."] = "{zone:2652}完成了。接下來由你的{zone:1444}指南接手：向北騎回並穿過{area:2657}，沿著{area:405}南緣往西，再向南進入{zone:1444}，前往{area:1108}的碼頭，從那裡坐船前往{area:1116}。",
 } end)()
+t.guides["forever/50-60/mount-hyjal"] = (function() return {
+		["Fly to {area:2255}"] = "飛往{area:2255}",
+} end)()
 t.guides["forever/alliance/02-westfall"] = (function() return {
 		["Back to {zone:1453}"] = "返回{zone:1453}",
 		["Class trainer"] = "職業訓練師",
