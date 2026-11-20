@@ -14,7 +14,7 @@ use std::path::{Path, PathBuf};
 use forge_addontest::locale::data_dir;
 use forge_addontest::run::{addons_dir, toc_files};
 use forge_addontest::tmp::TempDir;
-use forge_addontest::{emitted, lua_string, Addon, RunAddon};
+use forge_addontest::{emitted, lua_string, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
 use regex::Regex;
 use serde_json::Value;
 
@@ -386,6 +386,92 @@ fn an_ironforge_trainer_on_another_floor_needs_more_than_a_walk_to_the_spot_unde
 		"don't point along the bottom floor if the walk ends there: {lower}"
 	);
 	assert_eq!(result["upper"]["state"], "arrived");
+}
+
+// A goto with a height is done only when the client's position is on its floor (Nav.AllowGuideArrival). At the
+// guides' gotos on raised floors, in a cellar and beside NPCs on decks (the steps `polestar playtest` held after
+// #3210, while its simulated player had no height), a player standing on the walking map's floor at the point
+// completes the step; one twelve yards off on the same floor does not. Telf Joolam's goto carries his height,
+// 2.2 yd above the slope at its point: the step completes beside him.
+#[test]
+fn a_goto_with_a_height_is_reached_on_its_floor_in_the_cellar_on_the_rises_and_beside_npcs_on_decks() {
+	skip_unless_ready!();
+	let out = run(
+		&format!(
+			r#"
+		{TEST_PACK}
+		{TEST_SOURCE}
+		w.race, w.raceName, w.class, w.className, w.faction = "Orc", "Orc", "WARRIOR", "Warrior", "Horde"; w.setLevel(30)
+		-- name, map, Era x, y, the goal's height; where the player stands when not at the point (live frame)
+		local points = {{
+			{{ "The cellar stairs", 1420, 61.66, 51.5, 34.3 }},
+			{{ "Cairne's tent", 1456, 60.3, 51.7, 163.9 }},
+			{{ "Thunder Bluff's central rise", 1456, 47.0, 49.8, 177 }},
+			{{ "Ratchet", 1413, 62.3, 39.1, 23.2 }},
+			{{ "Gan'rul Bloodeye", 1454, 48.3, 45.3, -14.8 }},
+			{{ "Ormak Grimshot", 1454, 66.0, 18.5, 58.8 }},
+			{{ "Telf Joolam", 1411, 38.5, 59.0, 168.2, 38.51, 58.9 }},
+		}}
+		local steps = {{}}
+		for i, p in ipairs(points) do steps[i] = {{ title = p[1], goals = {{ {{ t = "goto", text = p[1], map = p[2], x = p[3], y = p[4], f = "e", z = p[5] }} }} }} end
+		steps[#steps + 1] = {{ title = "End", goals = {{ {{ t = "goto", text = "End", map = 1454, x = 50, y = 50, f = "e" }} }} }}
+		assert(Polestar.RegisterGuide({{ id = "test/floors", pack = "test", title = "Floors", category = "Leveling", minLevel = 1, maxLevel = 60, steps = steps }}))
+		local G = Polestar.Engine
+		G.SetGuide("test/floors")
+		local out = {{}}
+		for i, p in ipairs(points) do
+			G.Goto(i)
+			local c = C.MapToWorld(p[2], p[3], p[4], "e")
+			local sx, sy = select(2, C.MapToWorld(p[2], p[3], p[4], "e"))
+			if p[6] then sx, sy = select(2, C.MapToWorld(p[2], p[6], p[7])) end
+			-- The walking map's floor nearest the goal's height at (x, y), read once its maps are in (the client
+			-- gives no height meanwhile).
+			local function floorAt(x, y)
+				local s, k = {{}}, nil
+				for _ = 1, 200 do
+					place(p[2], x, y, nil)
+					aim(); stub.advance(.05)
+					k = N.Path and N.Path.SurfacesAt(c, x, y, s)
+					if k and k > 0 then break end
+				end
+				local best
+				for j = 1, k or 0 do if not best or math.abs(s[j] - p[5]) < math.abs(best - p[5]) then best = s[j] end end
+				return best
+			end
+			local floor = floorAt(sx, sy)
+			local off = false
+			for _, d in ipairs({{ {{ 12, 0 }}, {{ -12, 0 }}, {{ 0, 12 }}, {{ 0, -12 }} }}) do
+				local near = floor and floorAt(sx + d[1], sy + d[2])
+				if near and math.abs(near - floor) <= 2 then
+					G.Goto(i)
+					place(p[2], sx + d[1], sy + d[2], near)
+					stub.fire("ZONE_CHANGED_NEW_AREA") -- arrived from the last point (a boat or a zeppelin away)
+					for _ = 1, 40 do aim(); stub.advance(.05) end
+					off = G.GetStepIndex() == i
+					break
+				end
+			end
+			local reached = false
+			if floor then
+				G.Goto(i)
+				place(p[2], sx, sy, floor)
+				for _ = 1, 200 do
+					aim(); stub.advance(.05)
+					if G.GetStepIndex() ~= i then reached = true; break end
+				end
+			end
+			out[#out + 1] = {{ name = p[1], z = p[5], floor = floor and r1(floor), heldOff = off, reached = reached }}
+		end
+		emit(out)"#
+		),
+		true,
+	);
+	for p in out.as_array().unwrap() {
+		let floor = p["floor"].as_f64().unwrap_or_else(|| panic!("no walking floor where the player stands: {p}"));
+		assert!((floor - f(&p["z"])).abs() <= 2.0, "the goal's height is the floor where the player stands: {p}");
+		assert_eq!(p["heldOff"], true, "twelve yards off on the same floor is not there: {p}");
+		assert_eq!(p["reached"], true, "standing on the floor completes the goto: {p}");
+	}
 }
 
 #[test]

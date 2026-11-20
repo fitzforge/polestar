@@ -305,6 +305,25 @@ version throughout.
    there too), and map a person's second name (a Discord name and a GitHub
    login) onto one with `names`.
 
+   Then the data-diff gate: the build against the live release's data,
+   NPC by NPC and quest by quest (forge/data.md, "The data-diff gate"). It
+   fails when an NPC on a player faction's side is a rare in the Codex, a
+   faction leader or a capital NPC loses its small spawn set, an NPC jumps
+   from 3 points or fewer to more than 20 without being a known roamer, or
+   a quest's hand-in moves more than 200 yd without a correction record.
+   The maintainer keeps each release's `data/forever` (a copy taken when it
+   ships) for the next release to compare with:
+
+   ```sh
+   forge data diff --old <the live release's data/forever> --new data/forever --out dist/data-diff
+   ```
+
+   The last line must read `data diff: PASS`. Then someone other than the
+   build's author reads `dist/data-diff/data-diff.md`: every big row
+   (spawn jumps, moved points and hand-ins, roles gained or lost) is
+   explained or fixed before the release goes on. A fix is a correction
+   record or a data-build rule, never an entry that silences the gate.
+
 3. Run the whole suite with the data built (nothing skips for missing data
    now):
 
@@ -423,6 +442,23 @@ version throughout.
    checks that the guides registered, a guide opened, the data addons loaded
    and every TOC carries the release version.
 
+   Then the scenario tests on the same zips: what a player sees, hears and
+   has done for them in a capital full of friendly NPCs and leaders, in ten
+   fights with quest kills and the training banner up, on a flight with the
+   Arcade on and off, with a full log of 25 quests, on the first run, with
+   every automation switched off, and after updating from the live
+   release's SavedVariables. Each scene counts the chat lines, sounds, rare
+   alerts, raid-warning lines and automatic actions, and holds each event's
+   work to a budget (forge-addontest's `scenes` tests). Run it alone on a
+   quiet machine, with the live release's zip for the update scene:
+
+   ```sh
+   rust/scripts/scenes.sh dist/Polestar-0.2.0.zip --previous <the live release's Polestar zip>
+   ```
+
+   The last line must read `scenes: PASS <n>/<n>`; a skipped scene fails
+   it. A red scene is a bug in the release: fix it, never the scene.
+
 6. Then install the zip into the game itself (remove the old `Polestar*`
    folders first), restart it fully and test what the release changes: play
    the first steps of a guide, and search, Dungeons and Rares when the Codex
@@ -520,9 +556,10 @@ version throughout.
    update" and announced again with the next release. Then publish the
    release with the three files from step 4. The release script
    (`GO-<version>.sh`) runs these in that order and refuses to publish when
-   the notes, the CurseForge text or the Discord texts contain "biggest
-   update", "biggest ever" or "massive update" (any case), next to its
-   check for other addons' names:
+   `forge data diff` on the release's data or `scenes.sh` on the zip being
+   published did not end in PASS, when the notes, the CurseForge text or the
+   Discord texts contain "biggest update", "biggest ever" or "massive update"
+   (any case), and on other addons' names:
 
    ```sh
    gh release create v0.2.0 --verify-tag --title "Polestar 0.2.0" \
