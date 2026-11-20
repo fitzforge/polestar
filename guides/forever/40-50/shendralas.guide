@@ -14,8 +14,8 @@ next forever/alliance/40-50/03-feralas
 # titles, levels and objectives and the client's tables for item and spell names. Its quests are 41-45; on both
 # routes it comes at the levels the header gives each side. Horde: the route since 0.4.0, after the Feralas & Tanaris guide (40-50/02, Camp Mojache,
 # about level 46 with the Riverglades before it); in by the ride north from Camp Mojache into Desolace's south (a
-# fresh starter flies to Shadowprey Village), out by the flight from Shadowprey (or the hearth to Camp Mojache) to
-# Orgrimmar, where the next Feralas guide starts with Orgrimmar's hand-ins. Alliance: the route since 0.4.0, after the
+# fresh starter flies to Shadowprey Village), out by the flight from Shadowprey to Orgrimmar (the hearth, bound at Camp
+# Mojache, is kept for the next guide's way from Orgrimmar back to Camp Mojache), where the next Feralas guide starts with Orgrimmar's hand-ins. Alliance: the route since 0.4.0, after the
 # Badlands guide (40-50/02, Theramore, about level 45 with the Riverglades before it); in from Nijel's Point, out on
 # the ride south into Feralas, where the Feralas guide picks up at the Feathermoon boat.
 # Order: the Tattered Journal from the valley's necromancers; Mordent Evenshade's pylons (find the three, the
@@ -225,7 +225,7 @@ step Mana Mania
 step Shadowprey Village
   only Horde
   zone Desolace
-  tip Shen'dralas is done. Ride back north through the Valley of Bones and west along Desolace's southern edge to Shadowprey Village: the next guide picks up in Orgrimmar, with the Feralas guide's hand-ins. Your hearthstone is bound at Camp Mojache: if it is ready, hearth there and fly to Orgrimmar from Camp Mojache instead.
+  tip Shen'dralas is done. Ride back north through the Valley of Bones and west along Desolace's southern edge to Shadowprey Village and fly to Orgrimmar: the next guide picks up there, with the Feralas guide's hand-ins. Keep your hearthstone (bound at Camp Mojache): the next guide uses it to get from Orgrimmar back to Camp Mojache.
   goto 21.56,74.04 "Shadowprey Village flight master"
   fly "Orgrimmar"
   zone Orgrimmar
