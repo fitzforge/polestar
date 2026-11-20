@@ -185,7 +185,7 @@ return {
 	-- {npc:10980} Umi's Mechanical Yeti · {npc:10977} Quixxil
 	["Use {npc:10980} on {npc:10977}"] = "Используйте игрушку {npc:10980} на персонаже {npc:10977}",
 	-- {npc:10977} Quixxil · {npc:10980} Umi's Mechanical Yeti
-	["Scare {npc:10977} with {npc:10980}"] = "",
+	["Scare {npc:10977} with {npc:10980}"] = "Отпугните {npc:10977} с помощью {npc:10980}",
 
 	-- Step 38: Ringo
 	-- {npc:9999} Ringo
@@ -339,7 +339,7 @@ return {
 
 	-- Step 88: Eastern Plaguelands
 	-- {quest:5845} Of Lost Honor
-	["The lake for {quest:5845}"] = "",
+	["The lake for {quest:5845}"] = "Озеро для {quest:5845}",
 
 	-- Step 89: Of Lost Honor
 	["Underwater"] = "Под водой",
