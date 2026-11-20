@@ -542,6 +542,58 @@ emit({ hand = hand, unfinished = unfinished, steps = steps, talk = talk })"#);
 	assert_eq!(ready["steps"], json!(["Falla Sagewind turnin:90600 accept:90602 turnin:90602"]), "no talk left");
 }
 
+// #3084 (Olivia, Maraudon's hand-in guide): after the run, Rot and Regret's vial line is done and its other line,
+// "Woodwyrd extinguished", is an event the Codex places out in Shen'dralas, by the Woodwyrd who takes the quest. The
+// hand-in guide knew only talks before a hand-in, so it listed the quest as "Not finished yet". An open event line
+// the Codex places on the continent of the quest's turn-in is now a goal at its place, read by that line, before
+// the turn-in. Here 90603 is that quest; 90604's event lies on another continent (still unfinished).
+#[test]
+fn a_dungeon_quest_whose_open_line_is_a_placed_event_outside_is_led_there_before_the_hand_in_3084_rot_and_regret() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["9031"] = sideless_npc(9031, "Woodwyrd", 1413, 48, 32);
+	let quest = |id: i32, title: &str, event: Value| {
+		json!({
+			"id": id, "title": title, "level": 49, "minLevel": 40, "faction": null, "races": null, "classes": null,
+			"start": { "npc": [9031], "object": [], "item": [] }, "end": { "npc": [9031], "object": [] },
+			"objectives": [{ "type": "item", "id": 90630, "count": 1, "text": "Vial of Earth Song Water" }, event],
+			"pre": [], "zone": 1413, "rewards": [], "choices": [], "preAny": [],
+		})
+	};
+	c["quests"]["90603"] = quest(90603, "Rot and Regret", json!({ "type": "event", "id": null, "count": 1, "text": "Woodwyrd extinguished", "map": 1413, "x": 55, "y": 40 }));
+	c["quests"]["90604"] = quest(90604, "Far Away", json!({ "type": "event", "id": null, "count": 1, "text": "Something far away", "map": 1458, "x": 50, "y": 50 }));
+	i["forever"]["quests"]["90603"] = json!({ "area": 209 });
+	i["forever"]["quests"]["90604"] = json!({ "area": 209 });
+	let own = pack_of(&c, &i);
+	let script = k(r#"
+for _, q in ipairs({ 90603, 90604 }) do stub.world.onQuest(q, { { required = 1, fulfilled = 1 }, 1 }) end
+local plan = D.HandinPlan("{KEY}")
+local hand, unfinished, event = {}, {}, false
+for _, h in ipairs(plan.hand) do if h.quest.id >= 90603 then hand[#hand + 1] = h.quest.id end end
+for _, q in ipairs(plan.unfinished) do if q.id >= 90603 then unfinished[#unfinished + 1] = q.id end end
+local steps = {}
+for _, s in ipairs((D.HandinGuide("{KEY}") or { steps = {} }).steps) do
+	local verbs = {}
+	for _, g in ipairs(s.goals) do
+		if g.quest and g.quest >= 90603 then verbs[#verbs + 1] = g.t .. ":" .. g.quest end
+		if g.t == "kill" and g.quest == 90603 then event = { logLine = g.logLine, target = g.target, oi = g.oi, map = g.map, x = g.x, y = g.y } end
+	end
+	if #verbs > 0 then steps[#steps + 1] = s.title .. " " .. table.concat(verbs, " ") end
+end
+emit({ hand = hand, unfinished = unfinished, steps = steps, event = event })"#);
+
+	let out = run(&own, &script, Opts { at: Some(BARRENS), log: vec![1013], ..Default::default() }).remove(0);
+	assert_eq!(out["hand"], json!([90603]), "Rot and Regret is handed in though its event line is open");
+	assert_eq!(out["unfinished"], json!([90604]), "an event on another continent than the turn-in stays unfinished");
+	assert_eq!(out["steps"], json!(["Woodwyrd extinguished kill:90603", "Woodwyrd turnin:90603"]), "the event's place first, then the Woodwyrd");
+	assert_eq!(
+		out["event"],
+		json!({ "logLine": true, "target": "Woodwyrd extinguished", "oi": 2, "map": 1413, "x": 55, "y": 40 }),
+		"read by the quest's second line, the arrow on the event's place"
+	);
+}
+
 // #2118 (Fyurie, Uldaman's hand-in guide, a level 45 Warrior): after Uldaman Reagent Run the guide sent the player to
 // take Badlands Reagent Run II from Ghak Healtouch, who never offered it: it is for alchemists (the quest database's
 // skill line 171), and the follow-up check knew only faction, race, class and level. A quest that asks for a
