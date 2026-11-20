@@ -30,6 +30,11 @@ section: players
   the compass direction unless the ground segment crosses an enemy settlement or cannot be checked.
 - A walk no longer starts with an unchecked shortcut to a distant mapped
   floor, and the travel planner does not count that shortcut as a transfer.
+  Walks still start at flight masters, the tram's platforms and portal ends
+  the walking map only nearly covers (Booty Bay, Nethergarde Keep, Scooty's
+  Transpolyporter at Gnomeregan), and on open ground from a step beside it
+  (the Stonewrought Dam, the Badlands rim). Indoors, on another floor or
+  through a wall, the walk still waits for a proven start.
 - Walking routes avoid the other faction's towns and guarded hubs. Flights
   may pass over them. The planner prefers a way around a zone far above
   your level, but ordinary enemies, elites and bosses do not block walks.
