@@ -76,8 +76,11 @@ fn pack_files(name: &str) -> String {
 /// 0.4.0 integrated routes (2026-11-16: both factions' reworked 1-60, the Riverglades and Shen'dralas in both
 /// routes, release data of the same day): Alliance resident 18,483, peak 39,627, read 26,303; Horde resident 17,058,
 /// peak 36,334, read 25,088 (two more guides per faction and ~7% more tips). Under the same 0.4.0 OK: those plus ~1%.
+/// 0.4.2 Horde route round (2026-11-20, the pack compiled on next with #3291 merged): Horde resident 17,520, peak
+/// 37,096, read 25,597 against budgets 17,230 / 36,700 / 25,340: quests in place of grind steps, Mount Hyjal in the
+/// route and their tips. Budgets: those plus ~1% (a reported raise, for Fitz to confirm in the pull request).
 const BUDGET: [(&str, &str, [(&str, f64); 3]); 2] =
-	[("Alliance", "Human", [("resident", 18670.0), ("peak", 40020.0), ("read", 26570.0)]), ("Horde", "Orc", [("resident", 17230.0), ("peak", 36700.0), ("read", 25340.0)])];
+	[("Alliance", "Human", [("resident", 18670.0), ("peak", 40020.0), ("read", 26570.0)]), ("Horde", "Orc", [("resident", 17700.0), ("peak", 37470.0), ("read", 25860.0)])];
 
 #[test]
 fn the_guide_pack_stays_within_its_memory_budget_for_each_faction_693() {

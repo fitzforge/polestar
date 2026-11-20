@@ -13686,7 +13686,7 @@ test('Horde Stranglethorn 34: Ratchet and the boat to Booty Bay first, one walk 
 	assert.ok(!h04.some(({ goal }) => [1178, 1111, 1180].includes(goal.quest)), 'Dustwallow\'s Ratchet stop keeps only Mebok');
 	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides;
 	assert.ok(rf.include.some((e) => e.q === 1180), 'a route-fix include keeps 1180');
-	assert.ok(rf.include.some((e) => e.q === 1182 && e.faction === 'Horde'), 'a route-fix include routes 1182 at 40 (fix round 2026-11-20)');
+	assert.ok(rf.include.some((e) => e.q === 1182 && /^Horde route\b/.test(e.reason)), 'a route-fix include routes 1182 at 40 (fix round 2026-11-20)');
 });
 
 // Review (0.3.6, Alliance 30-40): Sully Balloo's Letter (637), Sara Balloo's Plea (683) and MacKreel's Moonshine (647) are
@@ -13885,7 +13885,7 @@ test('Horde Raceway 43: Goblin Sponsorship to Pozzik and The Eighteenth Pilot on
 	assert.equal(fl[at(fl, 'turnin 1186', is('turnin', 1186))].s, race, 'The Eighteenth Pilot on the same raceway stop');
 	assert.ok(!fl.some(({ goal }) => goal.quest === 1187), '1187 is not routed');
 	const rf = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'route-fixes.json'), 'utf8')).overrides;
-	assert.ok(rf.include.some((e) => e.q === 1182 && e.faction === 'Horde'), 'a route-fix include routes 1182 at 40 (fix round 2026-11-20)');
+	assert.ok(rf.include.some((e) => e.q === 1182 && /^Horde route\b/.test(e.reason)), 'a route-fix include routes 1182 at 40 (fix round 2026-11-20)');
 });
 
 // Horde 12-30 bracket review (0.3.6, measured): Thunder Bluff at the start of the Barrens & Stonetalon guide gives
