@@ -880,10 +880,9 @@ local function withheld(t, r)
 	end
 	return false
 end
--- Each line gets the type of the first goal pointing at it, as the game gives
--- every line one: the engine reads a quest collect with no item line from the
--- bags, which the simulator does not fill.
-local objs, kinds = {}, {}
+-- Each line gets the type of the first goal pointing at it. Index item
+-- objectives by quest and line: all the open requests see the same bags.
+local objs, kinds, items = {}, {}, {}
 local KIND = { kill = "monster", collect = "item", interact = "object", talk = "monster" }
 for _, s in ipairs(G.steps) do
 	for _, g in ipairs(s.goals) do
@@ -892,6 +891,10 @@ for _, s in ipairs(G.steps) do
 			objs[g.quest][g.oi] = math.max(objs[g.quest][g.oi] or 1, g.count or 1)
 			kinds[g.quest] = kinds[g.quest] or {}
 			kinds[g.quest][g.oi] = kinds[g.quest][g.oi] or KIND[g.t]
+			if g.t == "collect" and g.item and kinds[g.quest][g.oi] == "item" then
+				items[g.quest] = items[g.quest] or {}
+				items[g.quest][g.oi] = g.item
+			end
 		end
 	end
 end
@@ -913,6 +916,19 @@ local function objectivesFor(q)
 		list[i] = { required = math.max(o[i] or 1, l and l.n or 1), type = (kinds[q] and kinds[q][i]) or (l and WORK_KIND[l.t]) or "event" }
 	end
 	return list
+end
+local function syncItems(q, entry, item)
+	for i, id in pairs(items[q] or {}) do
+		local o = entry.objectives[i]
+		if (not item or item == id) and o then
+			local n = math.min(w.items[id] or 0, o.numRequired)
+			if n ~= o.numFulfilled then w.progress(q, i, n) end
+		end
+	end
+end
+local function changeStack(item, delta)
+	if delta ~= 0 then w.addItem(item, delta) end
+	for q, entry in pairs(w.log) do syncItems(q, entry, item) end
 end
 -- Quests taken in this play (carried ones were worked before it), and the
 -- hand-ins the game refused, with the lines left open.
@@ -988,6 +1004,7 @@ local function act(i, g, r)
 	if t == "accept" then
 		if not w.log[q] and not w.completed[q] then
 			w.accept(q, objectivesFor(q), g.subject)
+			syncItems(q, w.log[q])
 			taken[q] = true
 		end
 	elseif t == "turnin" then
@@ -1016,6 +1033,12 @@ local function act(i, g, r)
 		end
 		doneHere[q] = true
 		w.turnIn(q)
+		if entry then
+			for i, item in pairs(items[q] or {}) do
+				local o = entry.objectives[i]
+				if o then changeStack(item, -math.min(w.items[item] or 0, o.numRequired)) end
+			end
+		end
 	elseif t == "complete" then
 		if w.log[q] then w.finish(q) end
 	elseif t == "abandon" then
@@ -1028,6 +1051,9 @@ local function act(i, g, r)
 		w.deposit(r.item)
 	elseif t == "equip" then
 		w.equip(r.item, not r.off)
+	elseif t == "collect" and r.item and q and g.oi and items[q] and items[q][g.oi] == r.item then
+		local target = g.progress and g.progress.max or r.count or 1
+		changeStack(r.item, math.max(0, target - (w.items[r.item] or 0)))
 	elseif q and g.oi and (t == "kill" or t == "collect" or t == "use" or t == "interact" or t == "talk") then
 		if w.log[q] then
 			local o = w.log[q].objectives[g.oi]
@@ -1037,7 +1063,7 @@ local function act(i, g, r)
 		if w.log[q] then w.finish(q) end
 	-- An auction goal: bought at the Auction House, a bag count as a buy is.
 	elseif (t == "collect" or t == "buy" or t == "auction") and g.item then
-		w.addItem(g.item, (g.progress and g.progress.max) or 1)
+		changeStack(g.item, math.max(0, ((g.progress and g.progress.max) or r.count or 1) - (w.items[g.item] or 0)))
 		if P and P.lose == g.item then armed = i end
 	elseif t == "goto" then
 		w.moveTo(g.map, g.x, g.y)

@@ -462,6 +462,7 @@ local function layoutOf(g)
 	local l = Own.layoutCache[g]
 	if l then return l end
 	l = { stepOf = {}, accepts = {}, turnins = {}, abandons = {}, starters = {}, at = {}, needs = {} }
+	local firstCollect = {}
 	for s, step in ipairs(g.steps) do
 		for gi, goal in ipairs(step.goals) do
 			l.stepOf[goal] = s
@@ -484,6 +485,22 @@ local function layoutOf(g)
 						l.needs[p] = list
 					end
 					list[#list + 1] = goal.quest
+				end
+			end
+			-- Repeated visits to the same quest are one payment. Keep a demand
+			-- index only for items that different quests ask the player to collect.
+			if goal.t == "collect" and goal.item and goal.quest and goal.oi and not goal.upto then
+				local first = firstCollect[goal.item]
+				if not first then
+					firstCollect[goal.item] = goal
+				elseif first.quest ~= goal.quest then
+					l.sharedItems = l.sharedItems or {}
+					local byQuest = l.sharedItems[goal.item]
+					if not byQuest then
+						byQuest = { [first.quest] = first }
+						l.sharedItems[goal.item] = byQuest
+					end
+					byQuest[goal.quest] = goal
 				end
 			end
 			if goal.t == "collect" and not goal.quest and goal.item and (goal.count or 1) == 1 then
@@ -3324,6 +3341,25 @@ function Own.bagCollect(goal)
 	return Q and Q.IsLoaded() and Q.UsesOnly(goal.quest, goal.item) or false
 end
 
+-- Each quest-log line can count the same stack as ready. At a shared
+-- collection, count the stack once against all payments still in the log.
+function Own.sharedCollect(goal)
+	local shared = guide and layoutOf(guide).sharedItems
+	local wants = shared and shared[goal.item]
+	if not (wants and not goal.upto and goal.oi) then return end
+	local C, total = Compat(), 0
+	if not C.IsOnQuest(goal.quest) or Own.questSkipped(goal.quest) then return end
+	for q, g in pairs(wants) do
+		if C.IsOnQuest(q) and not Own.questSkipped(q) and not Own.bagCollect(g) then
+			total = total + (g.count or 1)
+		end
+	end
+	if total > 0 then
+		local count = C.GetItemCount(goal.item) or 0
+		return count >= total, math.min(count, total), total
+	end
+end
+
 -- Objective goals: done when objective `oi` (its line, Own.objectiveLine) is
 -- finished or the quest is ready for turn-in or turned in. Returns done, cur, max.
 local function objectiveState(goal)
@@ -4177,7 +4213,11 @@ function Own.goalDoneLive(s, g, goal)
 		return Own.laterQuestDone(s, g)
 	elseif t == "collect" then
 		if goal.quest then
-			if not (Own.bagCollect(goal) and C.IsOnQuest(goal.quest)) then return objectiveState(goal) end
+			if not (Own.bagCollect(goal) and C.IsOnQuest(goal.quest)) then
+				local done, cur, max = Own.sharedCollect(goal)
+				if done ~= nil then return done, cur, max, nil, "shared" end
+				return objectiveState(goal)
+			end
 			if C.IsQuestReadyForTurnIn(goal.quest) then return true end
 			return countState(goal)
 		end
@@ -11821,9 +11861,25 @@ function Own.stepView(i)
 	local status = stepStatusOf(i)
 	local groups, focus, groupOf = stepGroups(i)
 	local goals = {}
+	local shared
 	for g, goal in ipairs(step.goals) do
 		goals[g] = goalView(i, g, goal, status, groupOf[g])
 		goals[g].pinOpen = Own.pinOpen(i, goal) or nil
+		local v = goals[g]
+		if v.progress and v.progress.kind == "shared" and v.status ~= "skipped" then
+			shared = shared or {}
+			if not shared[goal.item] then shared[goal.item] = v end
+		end
+	end
+	if shared then
+		for g, goal in ipairs(step.goals) do
+			local first = goal.t == "collect" and goal.quest and goal.oi and not goal.upto and shared[goal.item]
+			if first and goals[g] ~= first then
+				-- Keep the underlying goal and quest, but show one bag count,
+				-- including after one of the other payments was skipped or made.
+				goals[g].folded, goals[g].progress = true, nil
+			end
+		end
 	end
 	-- A quest that starts from an item reads as one line, the accept, with how
 	-- to get the item under it (`starter`). Until the item is in the bags the

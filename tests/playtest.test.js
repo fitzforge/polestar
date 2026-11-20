@@ -14,7 +14,8 @@ const { needs } = require('./helpers/data');
 const { DATA_DIR } = require('./helpers/dsl');
 const { findLua } = require('../tools/lib/lua');
 const cmd = require('../tools/commands/playtest');
-const { playtest, chainDone, dungeonPicker } = require('../tools/lib/playtest');
+const { playtest, playGuide, SIMULATE, luaValue, chainDone, dungeonPicker } = require('../tools/lib/playtest');
+const { TEST_PACK, TEST_SOURCE } = require('./helpers/packs');
 const { commandPack } = require('../tools/lib/pack/locate');
 
 const PACKS = path.join(__dirname, 'fixtures', 'packs');
@@ -28,6 +29,23 @@ const hasLua = (() => {
 const skip = needs('quests.json') || (!hasLua && 'no Lua 5.1');
 
 const lines = (out) => out.split('\n').filter(Boolean);
+
+test('looting a quest item puts it in bags and credits every held quest asking for it', { skip: !hasLua }, () => {
+	const collect = (quest, count) => ({ t: 'collect', item: 8392, itemName: 'Blasted Boar Lung', quest, oi: 1, count, map: 1429, x: 50, y: 50 });
+	const guide = { id: 'test/loot', pack: 'test', title: 'Supplies', minLevel: 1, maxLevel: 10, steps: [
+		{ goals: [collect(2581, 2)] },
+		{ when: [{ k: 'level', op: '>=', n: 10 }], goals: [collect(2583, 3)] },
+	] };
+	const pack = { maps: 'w.addMap(1429, { c=0, left=100, right=0, top=100, bottom=0 })', loads: `${TEST_PACK}\n${TEST_SOURCE}\nassert(Polestar.RegisterGuide(${luaValue(guide)}))` };
+	const [play, state] = playGuide(pack, guide, {
+		race: 'Human', faction: 'Alliance', cls: 'WARRIOR',
+		before: 'w.onQuest(2581, {{type="item",required=2}}); w.onQuest(2583, {{type="item",required=3}})',
+		script: `${SIMULATE}\nemit({bag=w.items[8392] or 0, sibling=w.log[2583].objectives[1].numFulfilled})`,
+	});
+	assert.ok(play.done);
+	assert.ok(state.bag >= 2, 'the looted organs remain in bags');
+	assert.equal(state.sibling, Math.min(state.bag, 3), 'the other quest reads the very same stack');
+});
 
 test('invalid explicit worker counts fail before loading reference data', async () => {
 	for (const workers of [-1, 0, 1.5, Infinity, NaN]) {
