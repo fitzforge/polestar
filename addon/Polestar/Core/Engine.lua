@@ -3182,7 +3182,9 @@ end
 -- Check-offs and latched results share CharState().manual[guideId]["s:g"].
 local function checked(s, g)
 	local m = ns.CharState().manual[guide.id]
-	return m ~= nil and m[Own.key(s, g)] and true or false
+	local mark = m and m[Own.key(s, g)]
+	-- Old placement marks are not a player's answer to a manual task.
+	return mark == "tick" or (mark and guide.steps[s].goals[g].t ~= "task") or false
 end
 
 -- The client's word for a standing (ns.StandingName), else its number.
@@ -4989,7 +4991,7 @@ local function place()
 			local now = not behind and through
 			for g, goal in ipairs(goals) do
 				local t = goal.t
-				local soft = isManual(goal) or latchable(goal) or isBagCount(goal)
+				local soft = (t ~= "task" and isManual(goal)) or latchable(goal) or isBagCount(goal)
 				-- What an update added holds nothing (Own.passAdded passes it).
 				if open(s, g, goal) and not gated(goal)
 					and not (soft and (behind or now or ((s < lastOut or whole) and travel(t))))
@@ -15488,7 +15490,7 @@ function Engine.ToggleGoal(stepIndex, goalIndex)
 	refreshPlayer()
 	local m = manualFor(guide.id, true)
 	local key = stepIndex .. ":" .. goalIndex
-	if m[key] then
+	if checked(stepIndex, goalIndex) then
 		m[key] = nil
 	elseif goalDone(stepIndex, goalIndex, goal) then
 		return false
