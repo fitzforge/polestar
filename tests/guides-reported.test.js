@@ -4452,6 +4452,28 @@ test('#2948: Our Man in Theramore is a talk to Sully McCleary, not a kill', () =
 	assert.deepEqual(fix && fix.set.objectives.map((o) => [o.type, o.id]), [['talk', 260146]]);
 });
 
+// #2781 (Brumeire, Zephras Isle): Welcome to Azeroth (95350) is offered without The Earthen Ring (95349): players'
+// recordings, 19 people. The data build re-added the server's previous-quest link, so a character carrying 95350
+// counted the whole Zephras Isle story behind it as handed in (Own.chainPast): the guide ticked A Firm Response (93746)
+// and waited on Blood for Blood, which Ayessa Dawnsinger offers only after it. The correction drops the link.
+test('#2781: Welcome to Azeroth has no prerequisite, so carrying it proves nothing of the Zephras Isle story', () => {
+	const fix = loadCorrections().quests['95350'];
+	assert.deepEqual(fix && fix.set.pre, [], 'the correction drops The Earthen Ring (95349)');
+	assert.deepEqual(fix.set.preAny, []);
+});
+
+// #2631 (rodriso, Booty Bay): Nearby services listed Zarena Cromwind, a weaponsmith, as a food and drink vendor: the data
+// had Friendship Bread (23160) and Freshly-Squeezed Lemonade (23161), Love is in the Air goods, as everyday stock. Her
+// shop has no food (the reporter's screenshot; 12 people recorded her stock), and every vendor row of the two goods is
+// conditional on the server. The correction takes both off the eight vendors.
+test('#2631: the Love is in the Air food is off the everyday stock of Zarena Cromwind and the other seven', () => {
+	const items = loadCorrections().items;
+	for (const item of ['23160', '23161']) {
+		const gone = (items[item] && items[item].removeVendors) || [];
+		for (const npc of [2482, 3044, 4165, 5173, 5698, 11038, 14450, 15006]) assert.ok(gone.includes(npc), `${item} off npc ${npc}`);
+	}
+});
+
 // #2882 (Redrett, Krol'dok Stronghold's pick-up guide): Chogg'Zac (256899) stands in one spot in the Sunnyglade cave;
 // the data listed 14 points spread east of him, and the arrow led about 80-90 yards off. Players' recordings: 51 people
 // killed him at 44.9,51.2 (median of each person's spots).

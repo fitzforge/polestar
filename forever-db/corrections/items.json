@@ -766,5 +766,59 @@
 			"ref": "classicdb game_event_creature: the vendors' only spawns are world-event ones; Forever's world DB has none (#1735)"
 		},
 		"note": "Ancient Branch: off the lists of its world-event vendors (15734, 15736), who have no spawn in Forever's world (npcs.json corrections, #1735)."
+	},
+	"23160": {
+		"removeVendors": [
+			2482,
+			3044,
+			4165,
+			5173,
+			5698,
+			11038,
+			14450,
+			15006
+		],
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#2631: Zarena Cromwind's shop in Booty Bay has no food (the reporter's screenshot of her merchant window)"
+			},
+			{
+				"kind": "recording",
+				"ref": "merchant windows of npc 2482: 12 people recorded her stock, 10 weapons and a smithing plan, no Friendship Bread"
+			},
+			{
+				"kind": "tdb",
+				"ref": "conditions (source type 23, vendor): every one of these eight vendors' rows for item 23160 carries a condition (VMaNGOS vendor conditions)"
+			}
+		],
+		"note": "Friendship Bread is a Love is in the Air good, sold only while the event's condition holds. The merged data listed it as everyday stock, so Nearby services showed a weaponsmith, a battlemaster and others as food vendors (#2631)."
+	},
+	"23161": {
+		"removeVendors": [
+			2482,
+			3044,
+			4165,
+			5173,
+			5698,
+			11038,
+			14450,
+			15006
+		],
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#2631: Zarena Cromwind's shop in Booty Bay has no food (the reporter's screenshot of her merchant window)"
+			},
+			{
+				"kind": "recording",
+				"ref": "merchant windows of npc 2482: 12 people recorded her stock, 10 weapons and a smithing plan, no Freshly-Squeezed Lemonade"
+			},
+			{
+				"kind": "tdb",
+				"ref": "conditions (source type 23, vendor): every one of these eight vendors' rows for item 23161 carries a condition (VMaNGOS vendor conditions)"
+			}
+		],
+		"note": "Freshly-Squeezed Lemonade is a Love is in the Air good, sold only while the event's condition holds. The merged data listed it as everyday stock, so Nearby services showed a weaponsmith, a battlemaster and others as food vendors (#2631)."
 	}
 }
