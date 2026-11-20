@@ -11757,6 +11757,15 @@
 				"issue": "-"
 			},
 			{
+				"q": 5092,
+				"after": [
+					"turnin",
+					5090
+				],
+				"reason": "Alliance 50-60 fix pass (2026-11-20): every guide stands on its own. A character who loads 50-60/04 without the Burning Steppes guide's Chillwind Camp chain had about 54k XP of Chillwind quests hidden behind it (All Along the Watchtowers 5097 and Scholomance after it; the cauldron chain 5216 -> 5217 -> 5219/5220 -> 5222/5223 -> 5225/5226 -> 5237). The feeders are local to 04: Courier Hammerfall's Call to Arms (5090) on its Ironforge stop and Valorfist's Clear the Way (5092, on Sorrow Hill just north of the camp) and MacDonnell's Scourge Cauldrons (5215) on its first Chillwind Camp stop, in steps `when !turnedin` so a character who did 50-60/01 sees none of them. Replaces the two leftout records (5097, 5217) for 04.",
+				"issue": "-"
+			},
+			{
 				"q": 1252,
 				"after": [
 					"accept",
@@ -17055,18 +17064,6 @@
 				"q": 3912,
 				"guide": "forever/alliance/50-60/03-winterspring",
 				"reason": "It needs 4 quests from 02-felwood first (The Videre Elixir (3909), It's a Secret to Everybody (3908), It's a Secret to Everybody (3845), It's a Secret to Everybody (3844); about 16,550 XP of work at this visit's level): too long to bring back.",
-				"issue": "#2635"
-			},
-			{
-				"q": 5097,
-				"guide": "forever/alliance/50-60/04-western-plaguelands",
-				"reason": "The work for Clear the Way (5092: Skeletal Flayer x10, Slavering Ghoul x10) is not on this visit's route: bringing it back is a separate trip.",
-				"issue": "#2635"
-			},
-			{
-				"q": 5217,
-				"guide": "forever/alliance/50-60/04-western-plaguelands",
-				"reason": "It needs 3 quests from 01-burning-steppes first (Target: Felstone Field (5216), The Scourge Cauldrons (5215), Clear the Way (5092); about 10,875 XP of work at this visit's level): too long to bring back.",
 				"issue": "#2635"
 			},
 			{

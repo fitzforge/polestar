@@ -121,6 +121,12 @@ step Ironforge
   turnin 7805 direct optional
   train class only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock
 
+step Courier Hammerfall
+  when !turnedin 5090
+  zone Ironforge
+  tip Without the Burning Steppes guide's Chillwind Camp quests: Courier Hammerfall walks the ring of Ironforge and sends you to Commander Ashlam Valorfist, whose camp this guide visits next. Chillwind's chain starts with it.
+  accept 5090                         -- Courier Hammerfall
+
 step Fly to Southshore
   zone Ironforge
   goto 55.9,47.9 "Ironforge flight master"
@@ -139,6 +145,31 @@ step Lieutenant Haggerdin
   turnin 7261
 
 # ---------------------------------------------------------------- Chillwind Camp
+
+step Chillwind Camp: Clear the Way
+  when !turnedin 5092
+  zone Western Plaguelands
+  tip Without the Burning Steppes guide's Chillwind Camp quests: Commander Ashlam Valorfist stands in the middle of the camp. His Clear the Way opens the camp's chain.
+  getfp "Chillwind Camp"
+  turnin 5090                         -- Commander Ashlam Valorfist
+  accept 5092
+
+step Sorrow Hill: Clear the Way
+  when onquest 5092
+  zone Western Plaguelands
+  tip Skeletal Flayers and Slavering Ghouls (50) roam the fields just north of the camp.
+  tip Careful: These undead notice you from far away, and other undead nearby join the fight when one is pulled.
+  kill 1783 quest 5092.1              -- Skeletal Flayer
+  kill 1791 quest 5092.2              -- Slavering Ghoul
+
+step Chillwind Camp: the cauldrons
+  when !turnedin 5215
+  zone Western Plaguelands
+  tip Back to the camp: Valorfist, then High Priestess MacDonnell beside him.
+  turnin 5092                         -- Commander Ashlam Valorfist
+  accept 5215
+  turnin 5215                         -- High Priestess MacDonnell
+  accept 5216                         -- Felstone Field's cauldron, later in this guide
 
 step Chillwind Camp
   zone Western Plaguelands

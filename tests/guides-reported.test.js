@@ -7982,6 +7982,20 @@ test('Alliance 50-60: Umi\'s furs and Felnok\'s horns on the road west to Donova
 	assert.ok(ws.filter(({ goal }) => goal.t === 'collect' && goal.item === 12366).every(({ goal }) => goal.x === undefined || goal.x < 55), 'no fur point in the hills east of Everlook');
 });
 
+// Route audit (2026-11-20): every guide stands on its own. A character who loads the Plaguelands guide without the
+// Burning Steppes guide's Chillwind chain gets its feeders on 04's own stops (Courier Hammerfall in Ironforge, Clear the
+// Way and the Scourge Cauldrons at Chillwind Camp), each behind `when !turnedin` so route players see none of it.
+test('Alliance 50-60: the Plaguelands guide brings Chillwind Camp\'s feeders itself for a fresh character', { skip }, () => {
+	const wpl = goals('forever/alliance/50-60/04-western-plaguelands.guide');
+	const notDone = (i, q) => (wpl[i].step.when || []).some((p) => p.k === 'turnedin' && p.neg && [].concat(p.q).includes(q));
+	const a5090 = at(wpl, 'accept 5090', is('accept', 5090));
+	const a5092 = at(wpl, 'accept 5092', is('accept', 5092));
+	const a5216 = at(wpl, 'accept 5216', is('accept', 5216));
+	assert.ok(notDone(a5090, 5090) && notDone(a5092, 5092) && notDone(a5216, 5215), 'each catch-up only without the quest done');
+	assert.ok(a5090 < a5092 && a5092 < a5216 && a5216 < at(wpl, 'accept 5097', is('accept', 5097)), 'Ironforge, Clear the Way, the cauldrons, then the watchtowers');
+	assert.ok(a5216 < at(wpl, 'turnin 5216', is('turnin', 5216)), 'before Felstone Field');
+});
+
 // #1579: the first Nijel's Point step had Vahlarriel's Vengeance taken with the first part of Vahlarriel's Search
 // (1437), but she offers it with the third part (1438) when the Malem chest's part (1465) is handed back to her (the
 // reporter in game, 2026-11-10, and every recorded window).
