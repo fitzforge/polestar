@@ -130,12 +130,12 @@ step Soil and venison
   collect 251641 x2 quest 93759.1       -- Hyjal Venison Cut
 
 step The ruined catapult and flying machine
-  tip Two of the wrecks Ketharas named lie at the east end of the fields: plant one of his seeds beside each.
+  tip Two of the wrecks Ketharas named lie at the east end of the fields: use the Bag of Enchanted Seeds beside each.
   goto 62.9,82.9 "Ruined Catapult"
   goto 66.1,83.5 "Ruined Flying Machine"
 
 step The shrub field
-  tip North into the shrub field: the Tainted Shrubbery drop the leaves, and the Scarlet Dart Tubers grow in the open ground, most of them in the field's western half. The ruined ballista stands at the field's north-eastern edge: plant the last seed there. Keep clear of Celastrus the Bitter and Sunderbark, the field's elites.
+  tip North into the shrub field: the Tainted Shrubbery drop the leaves, and the Scarlet Dart Tubers grow in the open ground, most of them in the field's western half. The ruined ballista stands at the field's north-eastern edge: use the Bag of Enchanted Seeds to plant the last seed there. Keep clear of Celastrus the Bitter and Sunderbark, the field's elites.
   kill 248395 x15 quest 92594.1         -- Tainted Shrubbery
   collect 247892 x12 quest 91755.1      -- Verdant Leaves
   collect 267289 x6 quest 93759.2 @59.5,73.5  -- Scarlet Dart Tuber
@@ -902,6 +902,11 @@ step Elaena, Witherbeard and Yashiro
   accept 95793                          -- Witherbeard: Stemming the Demon Tide
   accept 96959                          -- Yashiro: Blademaster's Bonfires
 
+step Maerion Thaelemaches
+  tip North-east to Maerion Thaelemaches at the northern ruins of Dae'gun: take Maerion's Misery so the Defiling Hounds drop their spikes while you work the other errands here.
+  tip Careful: Legion Hulks (60, rare elites) stomp through Dae'gun's camps, and Doomguard Xarkul, an elite (level 61), walks this corner: give them room.
+  accept 97009 @63.2,25.8               -- Maerion Thaelemaches: Maerion's Misery
+
 step Renalard
   when onquest 96964
   tip South-east across Dae'gun to Renalard, the wild god, indoors at its south-eastern edge.
@@ -916,6 +921,7 @@ step Dae'gun
   tip Careful: Doomguards (elites, 58-59) stand among the demons, and Doomguard Xarkul (elite, 61) walks the camp: pull the hounds and sentinels to you, away from them.
   kill 249229 x12 quest 95793.1         -- Felguard Sentinel
   collect 271220 x6 quest 92960.1       -- Ephemeral Essence
+  collect 276100 x12 quest 97009.1 optional  -- Felhound Spike
   collect 250775 x5 quest 92011.1 @51.5,37.0  -- Frayed Wire
   collect 269244 x5 quest 92011.2 @62.5,41.5  -- Calcified Excrement
   collect 269246 x5 quest 92011.3 @56.0,41.2  -- Warped Metal Scrap
@@ -950,10 +956,9 @@ step Bethra'zel
   kill 263394 quest 96003.1             -- Bethra'zel
 
 step Maerion Thaelemaches
-  tip North-east to Maerion Thaelemaches, in the corner of Dae'gun where Bethra'zel stands. His Felhound Spikes come from the Defiling Hounds, and in the first recording about one hound in ten had one: kill the hounds around him while you are here, and leave his quest if the twelve spikes are slow to come.
+  when onquest 97009
+  tip North-east to Maerion Thaelemaches, in the corner of Dae'gun where Bethra'zel stands.
   tip Careful: Legion Hulks (60, rare elites) stomp through Dae'gun's camps, and Doomguard Xarkul, an elite (level 61), walks this corner: give them room.
-  accept 97009                          -- Maerion Thaelemaches: Maerion's Misery
-  collect 276100 x12 quest 97009.1 optional  -- Felhound Spike
   turnin 97009 optional
 
 step Mazzogore
