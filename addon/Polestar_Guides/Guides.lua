@@ -849,13 +849,38 @@ do
 					title = "{area:16848}",
 					note = "The two outposts of {area:16848}.",
 					goals = {
-						{ t = "accept", quest = 92591, title = "Final Death", npc = 244517, npcName = "Sefira Everbright", minLevel = 57, qlvl = 59, map = 2482, x = 15.67, y = 54.66, only = { factions = { "Alliance" } }, note = "{npc:244517}: {quest:92591}" },
 						{ t = "accept", quest = 92449, title = "Blight No More", npc = 244517, npcName = "Sefira Everbright", minLevel = 54, qlvl = 58, map = 2482, x = 15.67, y = 54.66, only = { factions = { "Alliance" } }, note = "{quest:92449}" },
 						{ t = "accept", quest = 95027, title = "Feathers in Flight", npc = 249968, npcName = "Hnaz Blunderflame", minLevel = 54, qlvl = 57, map = 2482, x = 15.64, y = 49.99, only = { factions = { "Alliance" } }, note = "{npc:249968}: {quest:92609}" },
-						{ t = "accept", quest = 92592, title = "Final Death", npc = 244511, npcName = "Zet'gan", minLevel = 57, qlvl = 59, map = 2482, x = 13.82, y = 54.57, spotsPacked = "13.9,54.7,,15,2", only = { factions = { "Horde" } }, note = "{npc:244511}: {quest:92591}" },
 						{ t = "accept", quest = 95026, title = "Blight No More", npc = 244511, npcName = "Zet'gan", minLevel = 54, qlvl = 58, map = 2482, x = 13.82, y = 54.57, spotsPacked = "13.9,54.7,,15,2", only = { factions = { "Horde" } }, note = "{quest:92449}" },
 						{ t = "accept", quest = 92609, title = "Feathers in Flight", npc = 244511, npcName = "Zet'gan", minLevel = 54, qlvl = 57, map = 2482, x = 13.82, y = 54.57, spotsPacked = "13.9,54.7,,15,2", only = { factions = { "Horde" } }, note = "{quest:92609}" },
 						{ t = "accept", quest = 96616, title = "Herbs for the Bruised and Weary", npc = 244512, npcName = "Ortak Lomgok", minLevel = 54, qlvl = 57, map = 2482, x = 12.94, y = 52.88, only = { factions = { "Horde" } }, note = "{npc:244512}: {quest:96616}, on the way back from {area:16868}" },
+					},
+				},
+				{
+					title = "{quest:92591}",
+					note = "{quest:92591}'s {npc:260148} is level 59-60: this guide burns its bone pile once you are 58, on one of its two passes through {area:16868}.",
+					when = { { k = "level", op = ">=", n = 57, frac = 0.6 } },
+					goals = {
+						{ t = "accept", quest = 92591, title = "Final Death", npc = 244517, npcName = "Sefira Everbright", minLevel = 57, qlvl = 59, map = 2482, x = 15.67, y = 54.66, only = { factions = { "Alliance" } } },
+						{ t = "accept", quest = 92592, title = "Final Death", npc = 244511, npcName = "Zet'gan", minLevel = 57, qlvl = 59, map = 2482, x = 13.92, y = 54.86, spotsPacked = "13.9,54.7,,15,2", only = { factions = { "Horde" } } },
+					},
+				},
+				{
+					title = "{quest:92591}",
+					note = "A group choice at your level: the {npc:260148} that answers {quest:92591}'s bone pile is level 59-60.",
+					only = { factions = { "Alliance" } },
+					when = { { k = "level", op = "<", n = 57, frac = 0.6 }, { k = "group", q = 92591 } },
+					goals = {
+						{ t = "accept", quest = 92591, title = "Final Death", npc = 244517, npcName = "Sefira Everbright", minLevel = 57, qlvl = 59, map = 2482, x = 15.67, y = 54.66 },
+					},
+				},
+				{
+					title = "{quest:92592}",
+					note = "A group choice at your level: the {npc:260148} that answers {quest:92592}'s bone pile is level 59-60.",
+					only = { factions = { "Horde" } },
+					when = { { k = "level", op = "<", n = 57, frac = 0.6 }, { k = "group", q = 92592 } },
+					goals = {
+						{ t = "accept", quest = 92592, title = "Final Death", npc = 244511, npcName = "Zet'gan", minLevel = 57, qlvl = 59, map = 2482, x = 13.92, y = 54.86, spotsPacked = "13.9,54.7,,15,2" },
 					},
 				},
 				{
@@ -1470,6 +1495,24 @@ do
 					when = { { k = "turnedin", q = 92317 }, { k = "turnedin", q = 92335 }, { k = "turnedin", q = 92500 } },
 					goals = {
 						{ t = "accept", quest = 90647, title = "The Staff of the Mountain", npc = 256222, npcName = "Ketharas", qlvl = 57, preAll = { 92317, 92335, 92500 }, preTitles = { [92317] = "Stolen Life", [92335] = "Ashes of the Legion Ascent", [92500] = "A Bit of the Sky" }, map = 2482, x = 73.27, y = 81.7, spotsPacked = "73.3,81.9,,15,2" },
+					},
+				},
+				{
+					title = "{quest:92591}, still not done",
+					note = "Still under 58 after the second pass through {area:16868}? Abandon {quest:92591}: the route doesn't come back for it.",
+					only = { factions = { "Alliance" } },
+					when = { { k = "group", neg = true, q = 92591 }, { k = "onquest", q = { 92591 } }, { k = "complete", neg = true, q = 92591 } },
+					goals = {
+						{ t = "abandon", quest = 92591, title = "Final Death" },
+					},
+				},
+				{
+					title = "{quest:92592}, still not done",
+					note = "Still under 58 after the second pass through {area:16868}? Abandon {quest:92592}: the route doesn't come back for it.",
+					only = { factions = { "Horde" } },
+					when = { { k = "group", neg = true, q = 92592 }, { k = "onquest", q = { 92592 } }, { k = "complete", neg = true, q = 92592 } },
+					goals = {
+						{ t = "abandon", quest = 92592, title = "Final Death" },
 					},
 				},
 				{

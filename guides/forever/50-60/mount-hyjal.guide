@@ -405,7 +405,9 @@ step Ketharas
 # as a group choice. The Alliance burns it on the first pass through Mourning's Rest when it is 58 there; the Horde,
 # about 0.7 level lower (level model: 57.9 against 58.6), and any Alliance player under 58 then, on the guide's second
 # pass (Marrosis' bones), with the hand-in on the ride back to Elderwild at the end. To the Summit of Eternity (91688,
-# 95248) is offered only once Final Death is handed in, so it is taken wherever that happens.
+# 95248) is offered only once Final Death is handed in, so it is taken wherever that happens. Final Death is taken
+# alone only from 57.6 at Elderwild (the second pass comes about 0.4 level later, at 58 by then); a character still
+# under 58 after the second pass gets an abandon step, as no later visit comes back for it.
 
 step The Curious Crow
   when onquest 96930
@@ -496,13 +498,31 @@ step Ortak Lomgok
 
 step Elderwild
   tip The two outposts of Elderwild.
-  accept 92591 only Alliance            -- Sefira Everbright: Final Death
   accept 92449 only Alliance            -- Blight No More
   accept 95027 only Alliance            -- Hnaz Blunderflame: Feathers in Flight
-  accept 92592 only Horde               -- Zet'gan: Final Death
   accept 95026 only Horde               -- Blight No More
   accept 92609 only Horde               -- Feathers in Flight
   accept 96616 only Horde               -- Ortak Lomgok: Herbs for the Bruised and Weary, on the way back from Mourning's Rest
+
+step Final Death
+  when level>=57.6
+  tip Final Death's Scourge Reanimator is level 59-60: this guide burns its bone pile once you are 58, on one of its two passes through Mourning's Rest.
+  accept 92591 only Alliance            -- Sefira Everbright
+  accept 92592 only Horde               -- Zet'gan
+
+step Final Death
+  only Alliance
+  when level<57.6
+  when group 92591
+  tip A group choice at your level: the Scourge Reanimator that answers Final Death's bone pile is level 59-60.
+  accept 92591                          -- Sefira Everbright
+
+step Final Death
+  only Horde
+  when level<57.6
+  when group 92592
+  tip A group choice at your level: the Scourge Reanimator that answers Final Death's bone pile is level 59-60.
+  accept 92592                          -- Zet'gan
 
 step Moonveil Moss
   tip The moss for Suma grows around Elderwild: by the outposts and on the slopes north of them.
@@ -986,6 +1006,22 @@ step The Staff of the Mountain
   when turnedin 92335
   when turnedin 92500
   accept 90647                          -- Ketharas
+
+step Final Death, still not done
+  only Alliance
+  when !group 92591
+  when onquest 92591
+  when !complete 92591
+  tip Still under 58 after the second pass through Mourning's Rest? Abandon Final Death: the route doesn't come back for it.
+  abandon 92591
+
+step Final Death, still not done
+  only Horde
+  when !group 92592
+  when onquest 92592
+  when !complete 92592
+  tip Still under 58 after the second pass through Mourning's Rest? Abandon Final Death: the route doesn't come back for it.
+  abandon 92592
 
 step Back to Elderwild
   only Horde
