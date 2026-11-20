@@ -7969,6 +7969,19 @@ test('Alliance 40-50: The Stone Circle on the Un\'Goro guide\'s arrival, by Ratc
 	assert.ok(holdsQuest(ug[flyR].step, 3444), 'the Ratchet hop only with the quest');
 });
 
+// Route audit (2026-11-20): Umi's furs (3783) and Felnok's horns (4809) drop from the Rogue Ice Thistles and Fledgling
+// Chillwinds (53-55), which live along the road from Everlook west to Donova, not in the hills east of Everlook where
+// the guide sent players at about 55 among yetis and chimaeras of 55-59. They are worked on the ride west.
+test('Alliance 50-60: Umi\'s furs and Felnok\'s horns on the road west to Donova', { skip }, () => {
+	const ws = goals('forever/alliance/50-60/03-winterspring.guide');
+	const fur = at(ws, 'collect 12366', (g) => g.t === 'collect' && g.item === 12366);
+	const horn = at(ws, 'collect 12444', (g) => g.t === 'collect' && g.item === 12444);
+	const donova = at(ws, 'turnin 6603', is('turnin', 6603));
+	assert.ok(fur < donova && horn < donova, 'before Donova\'s first stop');
+	assert.equal(ws[fur].s, ws[at(ws, 'collect 12383', (g) => g.t === 'collect' && g.item === 12383)].s, 'with the feathers on the road');
+	assert.ok(ws.filter(({ goal }) => goal.t === 'collect' && goal.item === 12366).every(({ goal }) => goal.x === undefined || goal.x < 55), 'no fur point in the hills east of Everlook');
+});
+
 // #1579: the first Nijel's Point step had Vahlarriel's Vengeance taken with the first part of Vahlarriel's Search
 // (1437), but she offers it with the third part (1438) when the Malem chest's part (1465) is handed back to her (the
 // reporter in game, 2026-11-10, and every recorded window).

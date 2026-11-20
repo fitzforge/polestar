@@ -37,12 +37,16 @@ step Everlook
   zone Winterspring
   tip The flight lands in Everlook: Meggi and Umi stand around the town before you ride west.
   accept 6603                         -- Meggi Peppinrocker, for Donova: walks around Everlook, look inside the circle on the map
-  accept 3783                         -- Umi Rumplesnicker: the yetis come on this guide's Winterspring loop: keep it
+  accept 3783                         -- Umi Rumplesnicker: the Rogue Ice Thistles on the road west carry the furs
 
-step Wildkin feathers: on the road west
+step The road west: feathers, furs and horns
   zone Winterspring
   tip Moontouched Feathers lie on the ground all along the road west to Donova, where the Ragged Owlbeasts (53) roam: pick them up as you ride.
+  tip The same road crosses the Rogue Ice Thistles' ground (about one in three drops a Thick Yeti Fur for Umi) and the Fledgling Chillwinds' (about one in five drops an Uncracked Chillwind Horn for Felnok): work both here, around the road's middle.
+  tip Careful: both are 53-55: pull the lower ones and take them one at a time.
   collect 12383 quest 978.1           -- Moontouched Feather
+  collect 12366 quest 3783.1 @45.8,37.4 map 1452 -- Thick Yeti Fur, from the Rogue Ice Thistles
+  collect 12444 quest 4809.1 @45.0,36.3 map 1452 -- Uncracked Chillwind Horn, from the Fledgling Chillwinds
 
 step Donova Snowden
   zone Winterspring
@@ -531,12 +535,11 @@ step The Ruins of Kel'Theril
   collect 12899 quest 5245.4          -- Fourth Relic Fragment
   collect 12897 quest 5245.2          -- Second Relic Fragment
 
-step Ice Thistle Hills: kill these as you meet them
+step The road to Everlook: furs and horns
   zone Winterspring
-  tip Ice Thistle yetis live in the hills east of Everlook, south of Winterfall Village; the Chillwind Chimaeras fly in the valley toward Everlook.
-  tip Careful: the Ice Thistle Yetis are 55-56 and the Chimaeras 55-57: take the Rogue Ice Thistles (53-55) and the Fledgling Chillwinds (53-55) at the edge of the hills, and leave the Chillwind Ravagers (57-59) alone.
-  collect 12366 quest 3783.1          -- Thick Yeti Fur
-  collect 12444 quest 4809.1          -- Uncracked Chillwind Horn
+  tip Still short of Thick Yeti Furs or Uncracked Chillwind Horns? The Rogue Ice Thistles and the Fledgling Chillwinds (both 53-55) live along the road west of Everlook, toward Donova. The hills east of Everlook hold only the Ice Thistle Yetis (55-56), Matriarchs and Patriarchs, and the Chillwind Chimaeras (55-57) and Ravagers (57-59): don't hunt the furs and horns there.
+  collect 12366 quest 3783.1 @45.8,37.4 map 1452 -- Thick Yeti Fur, from the Rogue Ice Thistles
+  collect 12444 quest 4809.1 @45.0,36.3 map 1452 -- Uncracked Chillwind Horn, from the Fledgling Chillwinds
 
 step Winterfall Village
   zone Winterspring

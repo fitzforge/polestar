@@ -11492,12 +11492,12 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Careful: the Ice Thistle Yetis are 55-56 and the Chimaeras 55-57: take the Rogue Ice Thistles (53-55) and the Fledgling Chillwinds (53-55) at the edge of the hills, and leave the Chillwind Ravagers (57-59) alone.",
-			"note": "Level tidy 0.4.0 (Alliance 50-60, minimum fixes): the hills' yetis and chimaeras run 53-57 around a 54 player; both quests can be done on the 53-55 ones.",
+			"tip": "Careful: both are 53-55: pull the lower ones and take them one at a time.",
+			"note": "Level tidy 0.4.0 (Alliance 50-60, minimum fixes): the hills' yetis and chimaeras run 53-57 around a 54 player; both quests can be done on the 53-55 ones. Fix pass 2026-11-20: those 53-55 ones (Rogue Ice Thistles, Fledgling Chillwinds) don't live in the hills east of Everlook at all: their spawns run along the road from Everlook west to Donova (x29-54, y33-48), which 50-60/03 rides at about 52.7 right after Umi gives 3783, with 4809 in the log since 02. The furs (33% from the Rogue Ice Thistles) and horns (20% from the Fledgling Chillwinds) are worked there; the later step east of Everlook is a catch-up that points back to the road.",
 			"source": [
 				{
 					"kind": "client",
-					"ref": "npcs 7457 Rogue Ice Thistle 53-55, 7458 Ice Thistle Yeti 55-56 in Forever's data"
+					"ref": "npcs 7457 Rogue Ice Thistle 53-55 and 7447 Fledgling Chillwind 53-55 (spawns x29-54, y33-48), 7458 Ice Thistle Yeti 55-56 in Forever's data; items 12366 (33% from 7457) and 12444"
 				}
 			]
 		},
