@@ -10962,6 +10962,11 @@
 				"issue": "#1933"
 			},
 			{
+				"q": 1164,
+				"reason": "Horde 30-40 (2026-11-20), agreed with the 40-50 slice: To Steal From Thieves (level 36, from 27, 2,800 XP) is taken from Genavie Callow beside the Undercity flight master on 30-40/05's Undercity stop at about 37.5; the Dabyrie family (33-35) farm lies just north of the road east through Arathi, between the Boulderfist camp and the Shards of Myzrael, which 30-40/05 walks; 40-50/01-stranglethorn-vale flies Warriors, Paladins, Rogues, Priests, Mages and Warlocks from Kargath to the Undercity for their level 40 training and hands it in beside the flight master they land at. Hunters, Shamans and Druids fly from Kargath straight to Grom'gol, so the steps are only for the other classes.",
+				"issue": "-"
+			},
+			{
 				"q": 3762,
 				"after": [
 					"accept",
@@ -11700,12 +11705,6 @@
 				"q": 5501,
 				"faction": "Horde",
 				"reason": "Horde 30-40 re-order (2026-11-07): Bone Collector (level 39) is offered by Bibbly F'utzbuckle at Kormek's Hut, on the road into Desolace north of the Kodo Graveyard where its bones lie. The 34-36 Desolace visit rides past Bibbly at about 33 (five levels under it), and taking it later means a walk back north from the graveyard and back for 2,250 XP. Left out.",
-				"issue": ""
-			},
-			{
-				"q": 1164,
-				"faction": "Horde",
-				"reason": "Horde 30-40 re-order (2026-11-07): To Steal From Thieves is offered by Genavie Callow in the Undercity, which the route passes at 30 (the Dabyrie family are 33-35, quest level 36) and at 32-33 after Arathi; it never comes back to the Undercity after the 38-39 Arathi visit, so the heads would be carried from 30 or walked back for. Left out.",
 				"issue": ""
 			},
 			{

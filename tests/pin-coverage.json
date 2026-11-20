@@ -736,7 +736,6 @@
 		"data/route-fixes.json overrides.pairs a=turnin 96259 b=accept 857 Horde": "no guide has quest 857 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=115 Alliance": "no guide has quest 115 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=1151 Horde": "no guide has quest 1151 (0.4.0)",
-		"data/route-fixes.json overrides.skip q=1164 Horde": "no guide has quest 1164 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=1182 Horde": "no guide has quest 1182 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=1282 Alliance": "no guide has quest 1282 (0.4.0)",
 		"data/route-fixes.json overrides.skip q=1288 Alliance": "no guide has quest 1288 (0.4.0)",

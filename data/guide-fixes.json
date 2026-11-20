@@ -13648,6 +13648,24 @@
 				}
 			],
 			"pr": 3144
+		},
+		{
+			"id": "h3040-arathi-dabyrie-farm",
+			"faction": "Horde",
+			"at": {
+				"quest": 1164,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/30-40/05-arathi-highlands"
+			},
+			"tip": "On along the road east: the Dabyrie farm lies just north of it. Marcel (34) and Fardel (33) Dabyrie walk the farm's western yard among their Laborers and Militia (30-32); Kenata (35) stands at the farm's north-eastern edge.",
+			"note": "Kenata (4480, 35, 56.4,36.1), Marcel (4481, 34, 54.2,38.1) and Fardel Dabyrie (4479, 33, 54.8,38.2) each drop their head (100%); the farm lies just north of the road from the Boulderfist camp to the Shards of Myzrael, at 37.5-38 for the route.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 4479-4481 and 2581-2582 on map 1417; items.json 5830-5832"
+				}
+			]
 		}
 	]
 }
