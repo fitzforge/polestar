@@ -15,6 +15,9 @@ con Boats to and from the island
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: Rise of the Silithid (4267).
+# The Sunken Temple (3445, fix round 2026-11-20): Angelas Moonbreeze's courier is taken on the last Feathermoon stop
+# and handed to Marvon Rivetseeker at the Broken Pillar on the Tanaris guide's dig stop (about 47.6), instead of on
+# the 50-60 Feralas stop at about 56; it needs level 46.
 # Left out: Lonebrow's Journal (1100). The Giant Guardian (2844) and Wandering Shay (2845) come on the later Feralas stop (50-60/04).
 # Left out: Zorbin's Zapped Giants and Fuel for the Zapping (7003, 7721; Sea Elementals and zapped giants 47-49, elite
 # giants around them) and Pratt's Improved Quality and Pristine Yeti Hide (7733, 7735; Rage Scar yetis 46-49, #1999).
@@ -183,6 +186,11 @@ step Feathermoon Stronghold
 
 step Feathermoon Stronghold
   note Shandris then asks you to carry news to Darnassus: skip it, Gadgetzan sends you there instead.
+
+step Angelas Moonbreeze
+  when level>=46
+  tip Angelas Moonbreeze in Feathermoon Stronghold sends you to Marvon Rivetseeker at the Broken Pillar in Tanaris, where the Tanaris guide stops for his dig.
+  accept 3445                         -- for Marvon Rivetseeker at the Broken Pillar in Tanaris: keep it
 
 step Fly to Thalanaar
   when taxi "Thalanaar"
