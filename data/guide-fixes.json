@@ -13715,6 +13715,76 @@
 				"kind": "client",
 				"ref": "Bloodsail Swashbuckler (1563); quests 604, 576 and 587."
 			}
+		},
+		{
+			"id": "horde-needles-agave-northwest",
+			"faction": "Horde",
+			"at": {
+				"quest": 5062,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/07-ashenvale"
+			},
+			"tip": "Pick the Incendia Agave on the camps' north-western side; the Ravaging elementals (38-40) and Ailgrha Splittusk (38, elite) hold the ground south and east of the camps, from about 36,35.",
+			"note": "Incendia Agave (object 175928) has 23 spawns at Thousand Needles 33.3-37.8, 32.9-38.8; the goal moved from 35.9,35.5 to 34.2,33.8, the middle of the nine plants north-west of 35.5,34.9. The route is at about 28.7 here. Players' recordings place Ravaging Quake Elementals (278383, 26 people saw them hostile), Ailgrha Splittusk (216463, 22 people) and Ravaging Tempests (216474, 26 people) at 36-41,35-43, none north-west of 36,35.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py npc 278383, 216463, 216474 (2026-11-20)"
+				},
+				{
+					"kind": "pfquest",
+					"ref": "objects.json 175928 spawns on map 1441"
+				}
+			]
+		},
+		{
+			"id": "horde-swamp-snappers-methuselah",
+			"faction": "Horde",
+			"at": {
+				"quest": 699,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/40-50/01-stranglethorn-vale"
+			},
+			"tip": "Careful: a Methuselah Crab (level 60) walks the south-east strand: give it a wide berth.",
+			"note": "The snapper strand of the Swamp of Sorrows moved to 40-50/01 (about 41.4): the same warning as the strand step of 40-50/02.",
+			"source": {
+				"kind": "recording",
+				"ref": "danger-baseline: 13 sightings of the Methuselah Crab (hostile, level 60) at 79-80,90-94, never fought"
+			}
+		},
+		{
+			"id": "horde-andorhal-warlords-towers",
+			"faction": "Horde",
+			"at": {
+				"quest": 5098,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"tip": "Careful: Skeletal Warlords, level 56-57 elites, stand by the first and second towers: mark those towers from the far side of the doorway once the Warlord has turned away, and never pull one.",
+			"note": "Skeletal Warlord (1788, elite 56-57) spawns at Western Plaguelands 40.44,71.85 (Tower One at 40.05,71.6) and 42.67,65.75 (Tower Two at 42.33,66.24). The route reaches Andorhal at about 54.8 since the Plaguelands sweep moved into 05: marking a tower needs no kill, so the step routes the player around the elites.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 1788 spawns on map 1422; quest 5098 objectives"
+			}
+		},
+		{
+			"id": "horde-andorhal-flesh-golem-boxes",
+			"faction": "Horde",
+			"at": {
+				"quest": 4972,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"tip": "A Flesh Golem, a level 56-57 elite, stands among the houses just east of the inn: take the boxes on the west side first and keep clear of it.",
+			"note": "Flesh Golem (1805, elite 56-57) spawns at Western Plaguelands 41.78,68.47, about 1.5 map units east of the lockbox goal (40.3,68.2); the route is at about 54.9 here.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 1805 spawns on map 1422; objects.json 175802"
+			}
 		}
 	]
 }

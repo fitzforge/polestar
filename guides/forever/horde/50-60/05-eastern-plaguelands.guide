@@ -48,6 +48,7 @@ step Return to the Bulwark
 step Andorhal watchtowers and silos
   tip Ride south-west into Andorhal. Chromie waits in the ruined inn on the west side of town. Stand in the doorway of each of the four towers with the Beacon Torch to mark it; keep to the edges of town. Use the Temporal Displacer by the silos in the middle of town to bring out Temporal Parasites (55-57): fight them one at a time and let the biggest go.
   tip Careful: a Fallen Hero, a level 58-59 elite, can stand in Andorhal, as at many other spots of the Western Plaguelands: give it room.
+  tip Careful: Skeletal Warlords, level 56-57 elites, stand by the first and second towers (the south-western and the western one): mark those towers from the far side of the doorway once the Warlord has turned away, and never pull one. Putridius (58, rare) walks among the silos.
   accept 4971                         -- Chromie, upstairs
   use 12815 quest 5098.2 @42.3,66.2 map 1422
   kill 10903 quest 5098.2 "Mark Andorhal Tower Two with the Beacon Torch"
@@ -62,7 +63,7 @@ step Chromie
   accept 4972
 
 step Counting Out Time
-  tip The lockboxes sit in Andorhal's ruined houses around Chromie's inn. Careful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth.
+  tip The lockboxes sit in Andorhal's ruined houses around Chromie's inn. Careful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth. A Flesh Golem, a level 56-57 elite, stands among the houses just east of the inn: take the boxes on the west side first and keep clear of it.
   collect 12638 quest 4972.1 @40.3,68.2 map 1422
 
 step Chromie
