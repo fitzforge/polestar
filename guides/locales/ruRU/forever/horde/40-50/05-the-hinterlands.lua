@@ -129,8 +129,6 @@ return {
 	-- Step 27: Grim Message
 	-- {item:15002} Nimboya's Pike
 	["South of the lodge the Witherbark trolls hold their villages. Every one of them carries a skull: with twenty, use {item:15002} to make the Laden Pike, then plant it inside the village."] = "К югу от поселения тролли племени Сухокожих занимают свои деревни. Череп есть у каждого: собрав двадцать, используйте предмет {item:15002}, чтобы сделать пику с тролльими черепами, затем установите ее в деревне.",
-	-- {area:1885} Hiri'watha
-	["inside {area:1885}: it can't be planted outside a village"] = "",
 
 	-- Step 28: Aerie Peak
 	-- {area:348} Aerie Peak
