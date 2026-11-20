@@ -10870,6 +10870,26 @@
 				"issue": "#2635"
 			},
 			{
+				"q": 705,
+				"reason": "Horde 30-40 (2026-11-20): Pearl Diving (705, level 37, 3,550 XP): Rigglefuzz, whom 30-40/06 visits in the Valley of Fangs, takes nine Blue Pearls on the spot; the step shows only when the bags hold them (`when has`), so nothing is bought or farmed for it.",
+				"issue": "-"
+			},
+			{
+				"q": 713,
+				"reason": "Horde 30-40 (2026-11-20): Coolant Heads Prevail (713, level 37, 2,850 XP): Lotwil Veriatus, whom 30-40/06 visits, takes a Frost Oil on the spot; the step shows only when the bags hold one (`when has`).",
+				"issue": "-"
+			},
+			{
+				"q": 714,
+				"reason": "Horde 30-40 (2026-11-20): Gyro... What? (714, level 37, 2,850 XP, after 713): Lotwil Veriatus takes a Gyrochronatom on the spot; the step shows only when 713 is handed in and the bags hold one.",
+				"issue": "-"
+			},
+			{
+				"q": 715,
+				"reason": "Horde 30-40 (2026-11-20): Liquid Stone (715, level 37, 2,100 XP, after 714): Lucien Tosselwrench, beside Lotwil, takes a Healing Potion and a Lesser Invisibility Potion on the spot; the step shows only when 714 is handed in and the bags hold both.",
+				"issue": "-"
+			},
+			{
 				"q": 583,
 				"reason": "Catch-up in forever/horde/40-50/01-stranglethorn-vale (#2635): a character who skipped forever/horde/30-40/03-stranglethorn-vale arrives without Welcome to the Jungle (583), so Barnil Stonepot's The Green Hills of Stranglethorn (338) and its chapters (339-342) were hidden. Nesingwary's camp, where the guide stops anyway, now has Barnil give it and Hemet take it back first, `when !turnedin 583`: a talk, 125 XP at 39 (half: level 30), and it opens Barnil's page hand-ins (775 XP a chapter). Recordings: 84 players took it at 30-38.",
 				"issue": "#2635"
