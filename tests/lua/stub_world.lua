@@ -97,8 +97,9 @@ function world.addMap(id, b)
 	}
 end
 
-function world.moveTo(map, x, y)
-	world.map, world.x, world.y = map, x, y
+-- z: the player's height (world yards) where it is known; nil clears it.
+function world.moveTo(map, x, y, z)
+	world.map, world.x, world.y, world.z = map, x, y, z
 end
 
 function world.setZone(zone, subzone)
@@ -536,6 +537,16 @@ function C_Map.GetWorldPosFromMapPos(map, pos)
 	local c, wx, wy = worldOf(map, pos.x, pos.y)
 	if not c then return nil end
 	return c, CreateVector2D(wx, wy)
+end
+
+-- The player's world position with its height (x north, y west, z, the instance map id), only while the player
+-- stands at a known height (w.moveTo's z); none otherwise, as from a client without UnitPosition. A goto with a
+-- height is reached only on its floor (Nav.AllowGuideArrival).
+function UnitPosition(unit)
+	if unit ~= "player" or not world.map or world.z == nil or world.inInstance then return nil end
+	local c, wx, wy = worldOf(world.map, world.x / 100, world.y / 100)
+	if not c then return nil end
+	return wx, wy, world.z, c
 end
 
 function C_Map.GetMapPosFromWorldPos(c, pos, override)
