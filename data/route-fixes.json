@@ -11721,6 +11721,33 @@
 				"issue": "-"
 			},
 			{
+				"q": 79229,
+				"after": [
+					"accept",
+					5561
+				],
+				"reason": "Alliance 30-40 fix pass (2026-11-20): Highway Robbery (Forever-new, level 40, from 30, 1,550 XP; no mobs) starts at an Extinguished Campfire (object 417353, Desolace 47.46,54.55), about 200 yards north of the Kodo Bones that 30-40/02's Bone Collector step collects, and ends at Bibbly F'utzbuckle at Kormek's Hut, whom the guide visits on the way home for 5501. Players' recordings: 22 people took it at 34-40 and handed it to Bibbly.",
+				"issue": "-"
+			},
+			{
+				"q": 79235,
+				"after": [
+					"turnin",
+					79229
+				],
+				"reason": "Alliance 30-40 fix pass (2026-11-20): On the Lam (level 40, from 30, 1,550 XP; a talk quest, no timer) is taken from Bibbly with Highway Robbery's hand-in on 30-40/02's Kormek's Hut stop and carried one guide to Tokal by Booty Bay's Salty Sailor Tavern, on 30-40/04b's last stop. Players' recordings: 15 hand-ins at Tokal (17 people).",
+				"issue": "-"
+			},
+			{
+				"q": 79236,
+				"after": [
+					"turnin",
+					79235
+				],
+				"reason": "Alliance 30-40 fix pass (2026-11-20): Cherry for Your Thoughts? (level 40, from 30, 1,550 XP) is Tokal's: a Cherry Grog from Nixxrax Fillamug (npc 2832) in the Salty Sailor Tavern beside him, handed back on the spot on 30-40/04b's last Booty Bay stop. Players' recordings: 7 hand-ins (12 people).",
+				"issue": "-"
+			},
+			{
 				"q": 1252,
 				"after": [
 					"accept",

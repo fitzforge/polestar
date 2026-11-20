@@ -24,6 +24,8 @@ pitch For characters of 35 to 36, but several quests here are level 37-38: on pu
 # (97328) from the first loop are worked in the ruins of Zul'Kunda here, beside the third tablet.
 # Route review 0.4.3: Hostile Takeover (213) left this loop for 40-50/01-stranglethorn-vale (Kebok gives it there at about
 # 41): Venture Co. Agents (39) walk among Lake Nazferiti's Geologists, three over players here at about 35.7.
+# On the Lam (79235), from Bibbly at Kormek's Hut in 30-40/02-desolace, goes to Tokal by Booty Bay's Salty Sailor Tavern
+# on the last stop, with his Cherry for Your Thoughts? (79236: a Cherry Grog from Nixxrax Fillamug in the tavern).
 
 step Collin Mauren
   when complete 1078
@@ -152,6 +154,16 @@ step Snapjaw Crocolisks
   collect 4104 quest 577              -- Snapjaw Crocolisk Skin
 
 # ---------------------------------------------------------------- Booty Bay
+
+step Tokal
+  when turnedin 79229
+  when !turnedin 79236
+  zone Stranglethorn Vale
+  tip Tokal, whom Bibbly sent you to find, waits by the Salty Sailor Tavern. He asks for a Cherry Grog: Nixxrax Fillamug sells it in the tavern, a few steps away.
+  turnin 79235                        -- Tokal
+  accept 79236
+  buy 4600 x1 npc 2832                -- Cherry Grog, from Nixxrax Fillamug
+  turnin 79236                        -- Tokal
 
 step Booty Bay
   zone Stranglethorn Vale

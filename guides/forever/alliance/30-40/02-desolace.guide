@@ -23,7 +23,9 @@ next forever/alliance/30-40/04b-stranglethorn-vale
 # graveyard the kodo taming already works, and Bibbly takes them on the way home from Kolkar Village. Both were carried
 # to the south loop at 38-39 before. Left there: Karnitol's satchel (1456), which Kreldig gives only on the last
 # Nijel's Point stop and which drops from the Tidehunters and Sea Witches (35-37), and the Sceptre of Light's hand-in
-# (5741), whose Book of the Ancients needs Lord Kragaru (38).
+# (5741), whose Book of the Ancients needs Lord Kragaru (38). Highway Robbery (79229) starts at an Extinguished
+# Campfire just north of the Kodo Bones, goes to Bibbly at Kormek's Hut on the way home, and Bibbly's On the Lam
+# (79235) is carried to Tokal at the end of 30-40/04b in Booty Bay (about 200 yards added).
 
 # ---------------------------------------------------------------- Getting there
 
@@ -119,8 +121,9 @@ step Smeed Scrabblescrew
   accept 5561
 
 step Kodo Bones
-  tip West into the Kodo Graveyard first: Bibbly's Kodo Bones lie among the skeletons on its western side.
+  tip West into the Kodo Graveyard first: Bibbly's Kodo Bones lie among the skeletons on its western side. Just north of them an Extinguished Campfire starts Highway Robbery, also for Bibbly.
   collect 13703 quest 5501 @47.5,58.5 map 1443 -- Kodo Bone, among the skeletons
+  accept 79229 object 417353 @47.46,54.55 map 1443 -- Highway Robbery: the Extinguished Campfire
 
 step Kodo Graveyard
   tip Use Smeed's Kodo Kombobulator on an Aged, Dying or Ancient Kodo: it becomes a tamed kodo that follows you. Walk it back to Smeed's camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time; Aged Kodos also drop the hides, and the Scorpashi Lashers that hunt around the graveyard carry the venom. Careful: the Ancient Kodos (36-37) hit hard: tame them, and fight only the Aged Kodos for the hides.
@@ -143,8 +146,10 @@ step Kolkar Village
   collect 254432 quest 93224.1 -- Carved Centaur Totem
 
 step Kormek's Hut
-  tip North-west from Kolkar Village back along the road to Nijel's Point: Bibbly waits at Kormek's Hut.
+  tip North-west from Kolkar Village back along the road to Nijel's Point: Bibbly waits at Kormek's Hut. He sends you after the robber to Booty Bay, where the next guide ends: keep it.
   turnin 5501                         -- Bibbly F'utzbuckle
+  turnin 79229
+  accept 79235                        -- Bibbly F'utzbuckle: Tokal waits in Booty Bay, at the end of 30-40/04b
 
 # ---------------------------------------------------------------- Nijel's Point
 

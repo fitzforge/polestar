@@ -7932,6 +7932,19 @@ test('forever/alliance/30-40/02-desolace.guide: flow re-order: the Scorpashi ven
 	assert.ok(hides.length === 1 && hides[0].s === kodos.s, 'the hides there, once');
 });
 
+// Route audit (2026-11-20): Highway Robbery's campfire lies about 200 yards north of the Kodo Bones, its hand-in is
+// Bibbly at Kormek's Hut (the Bone Collector stop) and On the Lam goes to Tokal in Booty Bay, 30-40/04b's last stop.
+test('Alliance 30-40: Highway Robbery at the Kodo Bones, Bibbly on the way home, Tokal on 04b\'s Booty Bay stop', { skip }, () => {
+	const des = goals('forever/alliance/30-40/02-desolace.guide');
+	const s = (list, t, q) => list[at(list, `${t} ${q}`, is(t, q))].s;
+	assert.equal(s(des, 'accept', 79229), des[at(des, 'collect 13703', (g) => g.t === 'collect' && g.item === 13703)].s, 'the campfire on the Kodo Bones step');
+	assert.equal(s(des, 'turnin', 79229), s(des, 'turnin', 5501), 'Bibbly takes it with the bones');
+	assert.equal(s(des, 'accept', 79235), s(des, 'turnin', 5501), 'On the Lam taken there');
+	const bb = goals('forever/alliance/30-40/04b-stranglethorn-vale.guide');
+	assert.equal(s(bb, 'turnin', 79235), s(bb, 'turnin', 79236), 'Tokal takes both on one stop');
+	assert.ok(at(bb, 'accept 79236', is('accept', 79236)) < at(bb, 'turnin 79236', is('turnin', 79236)), 'the grog quest taken first');
+});
+
 // #1579: the first Nijel's Point step had Vahlarriel's Vengeance taken with the first part of Vahlarriel's Search
 // (1437), but she offers it with the third part (1438) when the Malem chest's part (1465) is handed back to her (the
 // reporter in game, 2026-11-10, and every recorded window).
