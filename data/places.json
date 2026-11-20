@@ -3030,6 +3030,26 @@
 				}
 			],
 			"pr": 3284
+		},
+		{
+			"id": "3277-hinterlands-nimboya-laden-pike",
+			"faction": "Horde",
+			"quest": 2932,
+			"objective": 1,
+			"at": {
+				"map": 1425,
+				"x": 31.9,
+				"y": 58.0,
+				"frame": "era"
+			},
+			"note": "Grim Message: Nimboya's Laden Pike can only be planted inside one of the Witherbark villages within reach of the village's area marker. The step previously pointed to 29.5,58.5 between Zun'watha and Hiri'watha where the spell fails; move the point into Hiri'watha at 31.9,58.0.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3277 (devanpy, 0.4.1.1): planting spell requires the village marker; fails at 29.5,58.5 outside Hiri'watha, succeeds at 31.9,58.0 inside"
+				}
+			],
+			"issue": 3277
 		}
 	]
 }
