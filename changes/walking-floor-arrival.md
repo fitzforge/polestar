@@ -13,6 +13,8 @@ section: players
   may pass over them. The planner prefers a way around a zone far above
   your level, but ordinary enemies, elites and bosses do not block walks.
   Missing faction ownership alone no longer blocks a mapped walk.
+  Guard checks are available immediately, even when logging in during combat,
+  without loading a continent's walking maps.
 - If a waypoint arrow would point straight through an enemy town, Polestar
   keeps its own guidance instead. Boarding a flight no longer hands the
   destination to another arrow as if you were meant to walk there.

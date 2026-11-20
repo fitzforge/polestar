@@ -27,7 +27,15 @@ fn map_index(map: u16) -> Result<usize, String> {
 
 type Tile = (u16, u8, u8, Vec<u8>);
 
-fn areas(tiles: &[Tile]) -> Result<String, String> {
+fn lua_bytes(out: &mut String, bytes: &[u8]) {
+	out.push('"');
+	for byte in bytes {
+		write!(out, "\\{byte:03}").unwrap();
+	}
+	out.push('"');
+}
+
+fn areas(tiles: &mut [Tile]) -> Result<String, String> {
 	let mut out = String::from("local _,ns=...\nlocal p={\n");
 	let mut pages = HashMap::new();
 	let mut maps: [String; 3] = Default::default();
@@ -36,6 +44,14 @@ fn areas(tiles: &[Tile]) -> Result<String, String> {
 			return Err(format!("malformed ground tile {map}/{col}_{row}"));
 		}
 		let mapping = &mut maps[map_index(*map)?];
+		// This is the settlement veto, not the zone pricing table. Only the two ownership bits
+		// can veto an on-foot segment; absent tiles in a supported map are not enemy towns.
+		for b in cells.iter_mut() {
+			*b &= 0xc0;
+		}
+		if cells.iter().all(|&b| b == 0) {
+			continue;
+		}
 		if !mapping.is_empty() {
 			mapping.push(',');
 		}
@@ -45,12 +61,8 @@ fn areas(tiles: &[Tile]) -> Result<String, String> {
 		} else {
 			let next = pages.len() + 1;
 			let id = pages.entry(cells.as_slice()).or_insert_with(|| {
-				// Fixed-width decimal escapes preserve all 256 policy bytes in Lua 5.1.
-				out.push('"');
-				for byte in cells {
-					write!(out, "\\{byte:03}").unwrap();
-				}
-				out.push_str("\",\n");
+				lua_bytes(&mut out, cells);
+				out.push_str(",\n");
 				next
 			});
 			write!(mapping, "p[{id}]").unwrap();
@@ -81,52 +93,76 @@ fn bin(v: f64) -> i32 {
 	(v / 128.0).floor() as i32
 }
 
+// Preserve the source coordinate exactly, including for points on the disk boundary.
+fn coordinate(v: f64) -> Result<[u8; 3], String> {
+	let tenths = (v * 10.0).round() as i32;
+	if v.abs() > 32767.0 || f64::from(tenths) / 10.0 != v {
+		return Err(format!("hub coordinate {v} is not representable in tenths of a yard"));
+	}
+	let [_, a, b, c] = (tenths + 0x800000).to_be_bytes();
+	Ok([a, b, c])
+}
+
 fn hubs(mut data: Hubs) -> Result<String, String> {
 	if data.build != "1.60.1.70532" {
 		return Err(format!("unreviewed hub build {}", data.build));
 	}
 	let mut out = String::from("local _,ns=...\nns.Nav.danger.hubBins={\n");
+	let mut radii = Vec::new();
 	for m in MAPS {
 		let list: Vec<Hub> = serde_json::from_value(data.maps.remove(&m.to_string()).ok_or_else(|| format!("missing hub map {m}"))?).map_err(|e| e.to_string())?;
 		writeln!(out, "[{m}]={{").unwrap();
 		for (profile, enemy) in [("Horde", "Alliance"), ("Alliance", "Horde")] {
-			let mut bins: BTreeMap<i32, String> = BTreeMap::new();
+			let mut bins: BTreeMap<i32, Vec<u8>> = BTreeMap::new();
 			for hub in list.iter().filter(|h| h.side == enemy) {
 				for &[x, y, r] in &hub.disks {
-					if x.abs() > 32767.0 || y.abs() > 32767.0 || !(0.0..256.0).contains(&r) {
+					if !(0.0..256.0).contains(&r) {
 						return Err(format!("invalid hub disk on map {m}"));
 					}
 					let padded = r + 0.55;
 					let r2 = (padded * padded * 1e6).round() / 1e6;
+					let id = radii.iter().position(|&v| v == r2).unwrap_or_else(|| {
+						radii.push(r2);
+						radii.len() - 1
+					});
+					let id = u8::try_from(id + 1).map_err(|_| "too many distinct hub radii")?;
+					let [a, b, c] = coordinate(x)?;
+					let [d, e, f] = coordinate(y)?;
+					let disk = [a, b, c, d, e, f, id];
 					for i in bin(x - padded)..=bin(x + padded) {
 						for j in bin(y - padded)..=bin(y + padded) {
-							let entry = bins.entry(i * 512 + j).or_default();
-							if !entry.is_empty() {
-								entry.push(',');
-							}
-							write!(entry, "{x},{y},{r2}").unwrap();
+							bins.entry(i * 512 + j).or_default().extend_from_slice(&disk);
 						}
 					}
 				}
 			}
 			writeln!(out, "{profile}={{").unwrap();
 			for (k, disks) in bins {
-				writeln!(out, "[{k}]={{{disks}}},").unwrap();
+				write!(out, "[{k}]=").unwrap();
+				lua_bytes(&mut out, &disks);
+				out.push_str(",\n");
 			}
 			out.push_str("},\n");
 		}
 		out.push_str("},\n");
+	}
+	out.push_str("}\nns.Nav.danger.hubRadii={");
+	for (i, r2) in radii.iter().enumerate() {
+		if i != 0 {
+			out.push(',');
+		}
+		write!(out, "{r2}").unwrap();
 	}
 	out.push_str("}\n");
 	Ok(out)
 }
 
 pub(super) fn import(from: &Path, out: &Path) -> Result<(), String> {
-	let tiles = load::<Vec<Tile>>(&from.join("areas.json"), "631b76ab30cd0b156cca7e0f0d0ca8dbe7f958c7c29caad0640fe4023ea83c9e")?;
+	let mut tiles = load::<Vec<Tile>>(&from.join("areas.json"), "631b76ab30cd0b156cca7e0f0d0ca8dbe7f958c7c29caad0640fe4023ea83c9e")?;
 	let disks = load(&from.join("hubs.json"), "44ff820d885a8b0044cb2f751aba9db39905a05cd20b34335bc173c716f15fd4")?;
 	let outputs = [
-		("DangerAreas.lua", "73e4b5bdc1f53f3abb8c20f8ca57050461f1313d7c684868d2ece8678dd1c776", areas(&tiles)?),
-		("DangerHubs.lua", "a6f1e506300271a68a05a3751493b66f631dfb24f296d83576827b484fa533b6", hubs(disks)?),
+		("DangerAreas.lua", "4ae5e400f2b508ff17067b6929054db00328fc2256197dcdab8342abb1c44f2d", areas(&mut tiles)?),
+		("DangerHubs.lua", "0cd540c10ffe1969a18e78ad7ceffc7603dfa146f4c1531462353fce2d34360b", hubs(disks)?),
 	];
 	// Check every independent reference before touching even the first destination.
 	for (name, reference, payload) in &outputs {
