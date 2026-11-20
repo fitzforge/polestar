@@ -1,7 +1,7 @@
 ---
 section: players
 ---
-- Spanish (Spain): 4,909 guide texts read in Spanish — the whole Brood of
+- Spanish (Spain): 5,016 guide texts read in Spanish — the whole Brood of
   Nozdormu, Cenarion Circle, Zandalar Tribe, Steamwheedle Cartel, Stormwind,
   Darkspear Trolls, Orgrimmar, Thunder Bluff, Undercity, The Barrens, Loch
   Modan, Alchemy, Engineering, Blacksmithing, Alterac Valley, Darnassus,
@@ -32,6 +32,8 @@ section: players
   Mechanostrider, Ram, Swift Horse, Swift Mechanostrider, Swift Ram, Swift Saber,
   Great Kodo, Raptor, Skeletal Warhorse, Swift Raptor, Swift Wolf and Wolf mounts,
   Polymorph, the Eye of Bhossca, the Horn of Xelthos, the Spectral Bear Cub and
-  the Worg Carrier, plus texts
+  the Worg Carrier, the horse, saber, kodo and skeletal-horse buyer guides,
+  Galestrider Riding, the Bitter Baitling, the Druid, Mage, Rogue, Warlock and Shaman
+  class quests and the eastern-kingdoms exploration tours, plus texts
   that repeat English the locale already translates, filled with the locale's
   own wording.

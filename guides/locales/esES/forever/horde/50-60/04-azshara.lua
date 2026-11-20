@@ -158,7 +158,7 @@ return {
 
 	-- Step 30: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["Fly to {zone:1454} and train."] = "",
+	["Fly to {zone:1454} and train."] = "Vuela a {zone:1454} y entrena.",
 
 	-- Step 31: Belgrom Rockmaul
 	-- {zone:1454} Orgrimmar · {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {npc:3326} Zevrost · {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
@@ -176,7 +176,7 @@ return {
 
 	-- Step 34: Chemist Cuely
 	-- {npc:8390} Chemist Cuely · {npc:8393} Thersa Windsong
-	["{npc:8390} and {npc:8393} work in the Apothecarium."] = "",
+	["{npc:8390} and {npc:8393} work in the Apothecarium."] = "{npc:8390} y {npc:8393} trabajan en el Apotecarium.",
 	-- {npc:8393} Thersa Windsong
 	["{npc:8393}, beside him"] = "{npc:8393}, a su lado",
 
@@ -199,18 +199,18 @@ return {
 	-- Step 41: Royal Quarter
 	-- {quest:79095} The Apothecary's Metaphysical Primer · {area:159} Brill
 	-- plural, as words: Library Books = {object:386691} Library Book
-	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "",
+	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "Solo con el {quest:79095} de la tienda de alquimia de {area:159} en las bolsas (la guía de libros de la biblioteca)",
 
 	-- Step 43: The Bulwark
 	-- {zone:1458} Undercity · {area:152} The Bulwark · {zone:1422} Western Plaguelands
-	["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "",
+	["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "Cabalga al este desde el {zone:1458} por la carretera; el {area:152} guarda el camino hacia el {zone:1422}.",
 	-- {npc:11615} Mickey Levine · {area:2627} Terrordale
 	["{npc:11615}: the termites are in {area:2627}, on the next guide"] = "{npc:11615}: las termitas están en {area:2627}, en la siguiente guía",
 
 	-- Step 45: Felstone Field
 	-- {npc:10778} Janice Felstone · {area:152} The Bulwark · {npc:11075} Cauldron Lord Bilemaw
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
-	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "",
+	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "La granja de {npc:10778} es la primera al este del {area:152}. Los gules charlatanes de la granja llevan la otra mitad de su amuleto; {npc:11075} guarda el caldero del campo.\nCuidado: uno o dos no muertos suelen luchar a su lado, y más señores del caldero pueden atacar tras usar el caldero.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Both {item:14047} donations are handed in later in the route: start saving {item:14047}."] = "Las dos donaciones de {item:14047} se entregan más adelante en la ruta: empieza a guardar {item:14047}.",

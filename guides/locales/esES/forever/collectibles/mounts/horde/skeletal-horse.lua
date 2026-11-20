@@ -9,7 +9,7 @@ return {
 	-- Step 1: Learn to ride
 	["Learn to ride"] = "Aprende a montar",
 	-- {npc:4773} Velma Warnam · {npc:4731} Zachariah Post · {area:159} Brill · {zone:1420} Tirisfal Glades · {skill:762} Riding · {faction:68} Undercity
-	["{npc:4773} and {npc:4731}'s stable are in {area:159}, {zone:1420}. At 40 {npc:4773} teaches {skill:762} to Undead for 100g (10% less at Honored with {faction:68}), and it comes with a skeletal horse. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "",
+	["{npc:4773} and {npc:4731}'s stable are in {area:159}, {zone:1420}. At 40 {npc:4773} teaches {skill:762} to Undead for 100g (10% less at Honored with {faction:68}), and it comes with a skeletal horse. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "El establo de {npc:4773} y {npc:4731} está en {area:159}, {zone:1420}. A nivel 40 {npc:4773} enseña {skill:762} a los no muertos por 100 de oro (un 10% menos con {faction:68} en Honor), y viene con un caballo esquelético. Las demás razas aprenden {skill:762}, con su propia primera montura, con el instructor de equitación de su raza.",
 	-- {npc:4773} Velma Warnam
 	["{npc:4773}, riding trainer"] = "{npc:4773}, instructora de equitación",
 
@@ -29,7 +29,7 @@ return {
 	["{item:13332}, 20g"] = "{item:13332}, 20 o",
 	-- {item:13333} Brown Skeletal Horse
 	["{item:13333}, 20g"] = "{item:13333}, 20 o",
-	["new in Forever, 20g; beta players found it here"] = "",
+	["new in Forever, 20g; beta players found it here"] = "nuevo en Forever, 20 de oro; los jugadores del beta lo encontraban aquí",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["{npc:267354} is a new Forever horse (level 40) whose source is not known yet."] = "{npc:267354} es un caballo nuevo de Forever (nivel 40) cuyo origen aún se desconoce.",

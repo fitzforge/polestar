@@ -176,7 +176,7 @@ return {
 
 	-- Step 34: Thunder Bluff
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
-	["{npc:3033} (Druids) trains on {area:1639}, {npc:246344} (Paladins) in the city too."] = "",
+	["{npc:3033} (Druids) trains on {area:1639}, {npc:246344} (Paladins) in the city too."] = "{npc:3033} (druidas) entrena en {area:1639}, {npc:246344} (paladines) también en la ciudad.",
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} on {area:1639}; {npc:246344}"] = "{npc:3033} en {area:1639}; {npc:246344}",
 
@@ -192,7 +192,7 @@ return {
 	-- {quest:8471} Winterfall Ritual Totem · {npc:11558} Kernda · {zone:1448} Felwood · {area:1769} Timbermaw Hold
 	["Only if a {quest:8471} dropped for you: {npc:11558} waits at the {zone:1448} entrance of {area:1769}, and speaks to you only at Neutral with the Timbermaw."] = "Solo si te ha caído {quest:8471}: {npc:11558} espera en la entrada de {area:1769} del lado de {zone:1448}, y solo te habla si eres Neutral con el Bastión de los Fauces de Madera.",
 	-- {npc:11558} Kernda
-	["{npc:11558} walks around here: look inside the circle on the map"] = "",
+	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558} da vueltas por aquí: mira dentro del círculo del mapa",
 
 	-- Step 40: Rabine Saturna
 	-- {area:1769} Timbermaw Hold · {zone:1450} Moonglade · {npc:11801} Rabine Saturna · {area:2361} Nighthaven
@@ -261,9 +261,9 @@ return {
 
 	-- Step 55: Marshal's Refuge
 	-- {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock · {npc:8737} Linken
-	["The flight lands at {area:541}: {npc:9997} stands beside the flight master, and {npc:8737} by the cave a few steps away. {npc:9997}'s work is in Un'Goro on the next guide's way back north."] = "",
+	["The flight lands at {area:541}: {npc:9997} stands beside the flight master, and {npc:8737} by the cave a few steps away. {npc:9997}'s work is in Un'Goro on the next guide's way back north."] = "El vuelo aterriza en {area:541}: {npc:9997} está junto al maestro de vuelo, y {npc:8737} junto a la cueva a unos pasos. El trabajo de {npc:9997} está en Un'Goro, de vuelta hacia el norte en la siguiente guía.",
 	-- {quest:3941} A Gnome's Assistance · {npc:9117} J.D. Collie · {area:541} Marshal's Refuge
-	["{quest:3941} goes to {npc:9117} in the cave here, on the next guide's return to {area:541}: keep it."] = "",
+	["{quest:3941} goes to {npc:9117} in the cave here, on the next guide's return to {area:541}: keep it."] = "El {quest:3941} va con {npc:9117} en la cueva de aquí, en la vuelta de la siguiente guía a {area:541}: consérvalo.",
 
 	-- Step 56: Layo Starstrike
 	-- {area:3077} Valor's Rest · {zone:1451} Silithus · {npc:13220} Layo Starstrike
@@ -271,7 +271,7 @@ return {
 
 	-- Step 57: The Spirits of Southwind
 	-- {area:2738} Southwind Village · {object:179565} Dusty Reliquary · {quest:1123} Rabine Saturna
-	["Ride south-west to the ruins of {area:2738}. The {object:179565} for {quest:1123} sits inside one of the ruined houses."] = "",
+	["Ride south-west to the ruins of {area:2738}. The {object:179565} for {quest:1123} sits inside one of the ruined houses."] = "Cabalga al suroeste hasta las ruinas de {area:2738}. El {object:179565} del {quest:1123} está dentro de una de las casas en ruinas.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A torn scroll lies at the entrance of the {area:2261}, the crypt south of the {area:2260}."] = "Hay un pergamino roto en la entrada de {area:2261}, la cripta al sur de {area:2260}.",

@@ -12,7 +12,7 @@ return {
 	-- Step 1: Learn to ride
 	["Learn to ride"] = "Aprende a montar",
 	-- {npc:4732} Randal Hunter · {npc:384} Katie Hunter · {area:88} Eastvale Logging Camp · {zone:1429} Elwynn Forest · {skill:762} Riding · {faction:72} Stormwind
-	["{npc:4732} and {npc:384}'s horse pen are at {area:88} in eastern {zone:1429}. At 40 {npc:4732} teaches {skill:762} to Humans for 100g (10% less at Honored with {faction:72}), and it comes with a horse. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "",
+	["{npc:4732} and {npc:384}'s horse pen are at {area:88} in eastern {zone:1429}. At 40 {npc:4732} teaches {skill:762} to Humans for 100g (10% less at Honored with {faction:72}), and it comes with a horse. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "El corral de caballos de {npc:4732} y {npc:384} está en {area:88}, en el este de {zone:1429}. A nivel 40 {npc:4732} enseña {skill:762} a los humanos por 100 de oro (un 10% menos con {faction:72} en Honor), y viene con un caballo. Las demás razas aprenden {skill:762}, con su propia primera montura, con el instructor de equitación de su raza.",
 	-- {npc:4732} Randal Hunter
 	["{npc:4732}, riding trainer"] = "{npc:4732}, instructor de equitación",
 
@@ -37,9 +37,9 @@ return {
 	-- {npc:5404} Black Stallion · {area:150} Menethil Harbor
 	["{npc:5404} in {area:150}"] = "{npc:5404} en {area:150}",
 	-- {npc:5404} Black Stallion · {npc:384} Katie Hunter · {npc:1460} Unger Statforth · {area:150} Menethil Harbor · {zone:1437} Wetlands
-	["The {npc:5404} is not at {npc:384}: {npc:1460} sells it, at the stables of {area:150} in the {zone:1437} (20g in the Forever client). Skip this unless you want that colour."] = "",
+	["The {npc:5404} is not at {npc:384}: {npc:1460} sells it, at the stables of {area:150} in the {zone:1437} (20g in the Forever client). Skip this unless you want that colour."] = "El {npc:5404} no está con {npc:384}: lo vende {npc:1460}, en los establos de {area:150} en el {zone:1437} (20 de oro en el cliente de Forever). Sáltalo a menos que quieras ese color.",
 	-- {item:2411} Black Stallion Bridle · {npc:1460} Unger Statforth
-	["{item:2411}, 20g, {npc:1460}"] = "",
+	["{item:2411}, 20g, {npc:1460}"] = "{item:2411}, 20 de oro, {npc:1460}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["{item:2411} is in the client, but no vendor is confirmed to sell it in Forever."] = "{item:2411} está en el cliente, pero no hay ningún vendedor confirmado que la venda en Forever.",

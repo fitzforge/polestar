@@ -20,11 +20,11 @@ return {
 	-- Step 3: Sargeron
 	-- {area:603} Sargeron · {area:608} Nijel's Point
 	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue · Hatefury Tricksters = {npc:4671} Hatefury Trickster
-	["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}.\nCareful: Hatefury Rogues spawn stealthed, and Hatefury Tricksters have a poison proc on their attacks."] = "",
+	["The Hatefury satyrs hold the ruins of {area:603}, east of {area:608}.\nCareful: Hatefury Rogues spawn stealthed, and Hatefury Tricksters have a poison proc on their attacks."] = "Los sátiros Furia Odiosa ocupan las ruinas del {area:603}, al este de {area:608}.\nCuidado: los pícaros Furia Odiosa aparecen sigilosos y los timadores Furia Odiosa tienen un proc de veneno en sus ataques.",
 
 	-- Step 5: Nijel's Point
 	-- {npc:5642} Vahlarriel Demonslayer · {area:599} Thunder Axe Fortress
-	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "",
+	["{npc:5642}: the Burning Blade in {area:599}, where her search leads"] = "{npc:5642}: la Hoja Ardiente en {area:599}, adonde lleva su búsqueda",
 	-- {npc:5752} Corporal Melkins
 	["{npc:5752}: the Kolkar are at the end of this guide"] = "{npc:5752}: los Kolkar están al final de esta guía",
 	-- {npc:5396} Captain Pentigast · {npc:5752} Corporal Melkins
@@ -53,9 +53,9 @@ return {
 	-- {npc:5643} Tyranis Malem · {npc:13019} Burning Blade Seer · {npc:5642} Vahlarriel Demonslayer
 	["Her brother {npc:5643} (36) walks the fortress with the Burning Blade cultists (30-33): pull him alone. The {npc:13019} keeps the sceptre in the fortress's main building. {npc:5642} wants four of each kind of cultist on the way."] = "Su hermano {npc:5643} Malem (36) recorre la fortaleza con los Fieles Filo Ardiente (30-33): atráelo solo. {npc:13019} guarda el cetro en el edificio principal de la fortaleza. {npc:5642} quiere cuatro de cada tipo de fiel por el camino.",
 	-- {item:6767} Tyranis' Pendant
-	["{item:6767}; inside"] = "",
+	["{item:6767}; inside"] = "{item:6767}; dentro",
 	-- {quest:5741} Sceptre of Light
-	["{quest:5741}; on the top floor"] = "",
+	["{quest:5741}; on the top floor"] = "{quest:5741}; en el piso de arriba",
 
 	-- Step 10: Escort Dalinda Malem
 	-- {npc:5644} Dalinda Malem

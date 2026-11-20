@@ -28,7 +28,7 @@ return {
 	-- plural, as words: Ragged Owlbeasts = {npc:7450} Ragged Owlbeast
 	["Pathfinders, Den Watchers and Totemics share the furbolg camps around the hot springs; Ragged Owlbeasts roam the slopes between them. Kill Totemics first. Save every {item:14047} you loot for Meilosh.\nCareful: the Den Watchers reach 56: pull one at a time and keep clear of the camps' totems."] = "Abrecaminos, vigías del cubil y totémicos comparten los campamentos fúrbolg alrededor de las fuentes termales; las Lechubestias pulgosas deambulan por las laderas entre ellos. Mata primero a los totémicos. Guarda todo el {item:14047} que consigas para Meilosh.\nCuidado: los vigías del cubil llegan al nivel 56: atráelos de uno en uno y aléjate de los tótems de los campamentos.",
 	-- {item:12771} Empty Firewater Flask
-	["{item:12771}: about one Winterfall furbolg in ten carries one; keep killing them until it drops"] = "",
+	["{item:12771}: about one Winterfall furbolg in ten carries one; keep killing them until it drops"] = "{item:12771}: unos diez de los que lo llevan; sigue matándolos hasta que caiga",
 	-- {quest:8471} Winterfall Ritual Totem
 	["{quest:8471}, a rare drop from the Winterfall furbolgs"] = "{quest:8471}, botín raro de los fúrbolgs Nevada",
 
@@ -91,7 +91,7 @@ return {
 
 	-- Step 18: Bluff Runner Windstrider
 	-- {npc:10881} Bluff Runner Windstrider · {npc:14728} Rumstag Proudstrider · {area:1641} Hunter Rise
-	["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
+	["{npc:10881} and {npc:14728} stand on {area:1641}. Each of Rumstag's donations takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "{npc:10881} y {npc:14728} están en {area:1641}. Cada donación de Rumstag toma sesenta lana, seda o paño de mago de tus bolsas: entrega lo que lleves, sáltate el resto.",
 
 	-- Step 19: Elder Rise
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
@@ -101,7 +101,7 @@ return {
 
 	-- Step 20: Bashana Runetotem
 	-- {npc:9087} Bashana Runetotem · {item:11040} Morrowgrain · {quest:3761} Un'Goro Soil · {quest:3782} Morrowgrain Research · {item:11020} Evergreen Pouch
-	["{npc:9087} buys {item:11040} grown from your {quest:3761}. {quest:3782} wants ten, and the {item:11020} gives one try every ten minutes: take it only if you already have the grain."] = "",
+	["{npc:9087} buys {item:11040} grown from your {quest:3761}. {quest:3782} wants ten, and the {item:11020} gives one try every ten minutes: take it only if you already have the grain."] = "{npc:9087} compra {item:11040} cultivados a partir de tu {quest:3761}. El {quest:3782} quiere diez, y el {item:11020} da un intento cada diez minutos: cógelo solo si ya tienes el grano.",
 
 	-- Step 22: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
@@ -111,13 +111,13 @@ return {
 
 	-- Step 23: Vehena
 	-- {object:172961} Valley of Spirits
-	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
+	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "En el {object:172961}. Cada donación toma sesenta lana, seda o paño de mago de tus bolsas: entrega lo que lleves, sáltate el resto.",
 
 	-- Step 24: Rashona Straglash
 	-- {object:172958} Valley of Honor
 	["In the {object:172958}."] = "En {object:172958}.",
 	-- {item:14047} Runecloth
-	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "",
+	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "Ambas donaciones de {item:14047} se entregan más tarde en la ruta: guarda sesenta {item:14047} para cada una si las quieres.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any Winterfall furbolg can carry the beads; the camps just south of {npc:11556} are the closest."] = "Cualquier fúrbolg Nevada puede llevar las cuentas; los campamentos justo al sur de {npc:11556} son los más cercanos.",

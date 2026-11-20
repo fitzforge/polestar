@@ -40,7 +40,7 @@ return {
 	-- plural, as words: Nightbane Vile Fangs = {npc:206} Nightbane Vile Fang
 	["The {npc:511} hides in the small crypt by the {area:121}, south of {area:42}. {npc:663}'s Nightbane Vile Fangs and Tainted Ones (level 29-31) roam the woods around it: they come at the end of this guide, a level later."] = "El {npc:511} se esconde en la pequeña cripta junto a {area:121}, al sur de {area:42}. Los Colmilloviles Penumbría y los Corrompidos (nivel 29-31) de {npc:663} rondan el bosque de alrededor: llegan al final de esta guía, un nivel más tarde.",
 	-- {item:1946} Mary's Looking Glass
-	["{item:1946}; inside"] = "",
+	["{item:1946}; inside"] = "{item:1946}; dentro",
 
 	-- Step 10: Darkshire
 	-- {npc:276} Viktori Prism'Antras
@@ -59,14 +59,14 @@ return {
 	-- {zone:1431} Duskwood · {area:94} Raven Hill · {zone:1436} Westfall
 	["The Defias camp lies in the south-west of {zone:1431}, south of {area:94} near the {zone:1436} border. The strongbox stands among the tents."] = "El campamento Defias está en el suroeste de {zone:1431}, al sur de {area:94}, cerca de la frontera con {zone:1436}. La caja fuerte está entre las tiendas.",
 	-- {item:5947} Defias Docket
-	["{item:5947}; inside"] = "",
+	["{item:5947}; inside"] = "{item:5947}; dentro",
 
 	-- Step 14: Raven Hill Cemetery: kill these as you meet them
 	-- {area:492} Raven Hill Cemetery
 	["{area:492}: kill these as you meet them"] = "{area:492}: mátalos según te los encuentres",
 	-- {area:492} Raven Hill Cemetery · {npc:522} Mor'Ladim · {npc:311} Sven Yorgen
 	-- plural, as words: Plague Spreaders = {npc:604} Plague Spreader · Skeletal Raiders = {npc:1110} Skeletal Raider
-	["The Plague Spreaders walk the northern half of the {area:492}. {npc:522}, an elite, wanders the graves: keep away from him.\nSkeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp.\nCareful: The skeletons in the catacombs are packed close together, so you can easily pull extra mobs."] = "",
+	["The Plague Spreaders walk the northern half of the {area:492}. {npc:522}, an elite, wanders the graves: keep away from him.\nSkeletal Raiders, Healers and Warders hold the west part of the cemetery, just east of {npc:311}'s camp.\nCareful: The skeletons in the catacombs are packed close together, so you can easily pull extra mobs."] = "Los propagadores de peste caminan por la mitad norte del {area:492}. {npc:522}, un élite, vaga entre las tumbas: mantente lejos de él.\nLos saqueadores esqueléticos, sanadores y custodios ocupan la parte oeste del cementerio, justo al este del campamento de {npc:311}.\nCuidado: los esqueletos de las catacumbas están muy juntos, así que puedes atraer broncas extra con facilidad.",
 
 	-- Step 15: The Weathered Grave
 	-- {npc:311} Sven Yorgen · {npc:268} Sirra Von'Indi · {area:42} Darkshire
@@ -89,7 +89,7 @@ return {
 	["{npc:268}, in the house behind the town hall"] = "{npc:268}, en la casa detrás del ayuntamiento",
 	["Wait a moment, then speak with her again"] = "Espera un momento y vuelve a hablar con ella",
 	-- {npc:840} Watcher Backus · {area:42} Darkshire
-	["{npc:840} walks around {area:42}: look inside the circle on the map"] = "",
+	["{npc:840} walks around {area:42}: look inside the circle on the map"] = "{npc:840} da vueltas por {area:42}: mira dentro del círculo del mapa",
 	-- {npc:482} Elling Trias · {zone:1453} Stormwind
 	["For {npc:482} in {zone:1453}, in the next guide"] = "Para {npc:482}, en {zone:1453}, en la siguiente guía",
 
