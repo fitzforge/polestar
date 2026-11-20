@@ -62,7 +62,6 @@ step Fly to Light's Hope Chapel
   sethome "Light's Hope Chapel"
 
 step Light's Hope Chapel
-  accept 5281                         -- Caretaker Alen
   turnin 5210                         -- Carlin Redpath
   accept 5168
   accept 5181
@@ -93,6 +92,7 @@ step Nathanos Blightcaller
   tip The Banshee Queen's champion holds the Marris Stead farmhouse.
   accept 6022
   accept 6042
+  accept 5281                         -- Caretaker Alen: The Restless Souls (from level 55), for Egan in Terrordale later in this guide
   accept 6133
 
 step The western hills
@@ -139,6 +139,7 @@ step Nathanos Blightcaller
   tip Ride west to the Marris Stead.
   turnin 6022
   turnin 6042
+  accept 5281                         -- Caretaker Alen, if you didn't take The Restless Souls on the last stop
   turnin 6133
 
 step Hameya's mound

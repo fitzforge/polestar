@@ -11691,6 +11691,15 @@
 				"q": 969,
 				"reason": "Horde 50-60 (2026-11-20): Luck Be With You (level 60, minimum 55, 6,600 XP) from Witch Doctor Mau'ari in Everlook, on 50-60/07's ride from Salfa to Darkwhisper Gorge, which goes down Frostwhisper Gorge where the Frostmaul Shards lie on the ground (object 175324, 24 spots) among the Frostmaul Giants and Preservers (59-60, elite); handed in on the Everlook stop after the gorge. At 59.4-60 by the level model, so the giants are at the player's level: picked up clear of them, with a Careful tip. The live game offers it without A Little Luck (6606): players' recordings and QuestieDB 1.1.3 (#3260).",
 				"issue": "#3260"
+			},
+			{
+				"q": 5281,
+				"after": [
+					"turnin",
+					6021
+				],
+				"reason": "Horde 50-60 fix pass (2026-11-20): The Restless Souls (minimum level 55) from Caretaker Alen is taken on 50-60/05's second Light's Hope Chapel stop, with 6021's hand-in, after Darrowshire; the first stop comes at 54.96-54.98 by the level model, where Alen refuses it. The third stop offers it again for anyone still under 55; Egan takes it in Terrordale later in the guide.",
+				"issue": "-"
 			}
 		],
 		"skip": [
