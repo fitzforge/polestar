@@ -20636,5 +20636,22 @@
 			"ref": "players' in-game recordings (to 2026-11-20, excluded contributors left out): 35 people's quest logs list 'Discover the fiery mystery of Strahnbrad'; it ticked at 60.03,45.65 in Alterac (13 people)"
 		},
 		"note": "Strahnbrad Mystery: a discovery in Strahnbrad. The data build had read the line as a kill of a Syndicate Spy killed nearby."
+	},
+	"95350": {
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (data/recorded/quests.json, to 2026-11-20): offered Welcome to Azeroth without The Earthen Ring (95349), 19 people (15 counted), trusted; e.g. a level-11 Skyborne Druid took it from npc 259119 with 95349 neither in the log nor handed in"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2781: a level-12 Skyborne Druid had Welcome to Azeroth in the log while The Broken Construct (93737) was still open, and the game reported A Firm Response (93746) not handed in"
+			}
+		],
+		"note": "Welcome to Azeroth (95350, the airship's quest off Zephras Isle) has no prerequisite on Forever: the server's previous-quest link to The Earthen Ring (95349) is only the story order. The data build re-added that link after the recorded layer had removed it, so a character carrying 95350 counted the whole Zephras Isle story before it as handed in: the guide ticked A Firm Response and waited on Blood for Blood, which Ayessa Dawnsinger offers only after it (#2781)."
 	}
 }

@@ -424,12 +424,13 @@ fn a_goto_with_a_height_is_reached_on_its_floor_in_the_cellar_on_the_rises_and_b
 			local c = C.MapToWorld(p[2], p[3], p[4], "e")
 			local sx, sy = select(2, C.MapToWorld(p[2], p[3], p[4], "e"))
 			if p[6] then sx, sy = select(2, C.MapToWorld(p[2], p[6], p[7])) end
-			-- The walking map's floor nearest the goal's height at (x, y), read once its maps are in (the client
-			-- gives no height meanwhile).
+			-- The walking map's floor nearest the goal's height at (x, y), read once its maps are in. Meanwhile the
+			-- client gives a height 50 yd above the goal's: with none at all the goto is reached by map distance
+			-- (Nav.lua heightless), and this probe stands at the point.
 			local function floorAt(x, y)
 				local s, k = {{}}, nil
 				for _ = 1, 200 do
-					place(p[2], x, y, nil)
+					place(p[2], x, y, p[5] + 50)
 					aim(); stub.advance(.05)
 					k = N.Path and N.Path.SurfacesAt(c, x, y, s)
 					if k and k > 0 then break end
