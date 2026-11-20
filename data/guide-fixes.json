@@ -14338,6 +14338,29 @@
 				}
 			],
 			"issue": 3104
+		},
+		{
+			"id": "3188-caught-silk-from-gadgetzan",
+			"faction": "Horde",
+			"at": {
+				"quest": 4449,
+				"goal": "objective",
+				"objective": 2,
+				"guide": "forever/horde/40-50/04-tanaris"
+			},
+			"tip": "Bring the 15 Silk Cloth from Gadgetzan's Auction House: the Geologists drop it only now and then.",
+			"note": "#3188: Caught! (4449) asks for 15 Silk Cloth, and its tip said the Auction House sells it only once the player stood at the Grimesilt Dig Site, far from any. The Dark Iron Geologists drop it at about 10% (players' recordings). The last Gadgetzan stop before the boat to Powderfuse Port has an optional bag count of 15 at Auctioneer Beardo (npc 8661; the seed carries the line), and the dig site's tip points back to it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "Dark Iron Geologist (5839) loot windows: Silk Cloth in about 10% of 154 (seven people)"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#3188 (0.4.1.1): asked for the cloth only at the dig site"
+				}
+			],
+			"issue": 3188
 		}
 	]
 }

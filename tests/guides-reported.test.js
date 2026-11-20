@@ -8511,7 +8511,7 @@ test('Horde Swamp and Feralas flow re-order (#1166): the Pool of Tears before Mi
 test('forever/horde/40-50/04-tanaris.guide: flow re-order: Caught! on the spot, the tuyere with the daggers', { skip }, () => {
 	const list = goals('forever/horde/40-50/04-tanaris.guide');
 	const caught = list[at(list, 'turnin 4449', is('turnin', 4449))];
-	assert.equal(caught.s, list[at(list, 'collect 4306 quest 4449', (g) => g.t === 'collect' && g.item === 4306)].s, 'handed in on the dig site step');
+	assert.equal(caught.s, list[at(list, 'collect 4306 quest 4449', (g) => g.t === 'collect' && g.item === 4306 && g.quest === 4449)].s, 'handed in on the dig site step');
 	assert.ok(caught.s < list[at(list, 'accept 7728', is('accept', 7728))].s, 'before Thorium Point');
 	const step = (item) => list[at(list, `collect ${item}`, (g) => g.t === 'collect' && g.item === item)].s;
 	assert.equal(step(18959), step(10551), 'the tuyere on the daggers step');
@@ -18228,4 +18228,14 @@ test('Shen\'dralas: a Coalesced Mana Crystal step comes before each pylon repair
 		const last = mana[mana.length - 1];
 		assert.ok(whenQuestOf(last.step, ['onquest'], 96018), 'only while the quest is in the log');
 	}
+});
+
+// #3188 (devanpy, 0.4.1.1): Caught! asks for 15 Silk Cloth, and the guide said the Auction House sells it only at the
+// Grimesilt Dig Site, far from any. Gadgetzan's last stop before the Searing Gorge has the cloth at its Auction House.
+test('Horde Tanaris: Silk Cloth for Caught! is bought in Gadgetzan before the Searing Gorge (#3188)', { skip }, () => {
+	const list = goals('forever/horde/40-50/04-tanaris.guide');
+	const dig = list[at(list, 'accept 4449', is('accept', 4449))];
+	const buy = list.find(({ goal, s }) => goal.t === 'collect' && goal.item === 4306 && goal.count === 15 && !goal.quest && s < dig.s);
+	assert.ok(buy, 'a bag count of 15 Silk Cloth before the dig site');
+	assert.ok(buy.goal.map === 1446 && buy.goal.npc === 8661, 'at Auctioneer Beardo in Gadgetzan');
 });
