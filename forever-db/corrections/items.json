@@ -858,5 +858,13 @@
 			}
 		],
 		"note": "Gorishi Sting (Bloodpetal Poison, 9052): the Wasps and Stingers drop it, the Hive Queen too. pfQuest and CMaNGOS list the Workers, Reavers and Hive Guards at 15-30% as well, a template the game does not follow (#3102)."
+	},
+	"6256": {
+		"removeVendors": [5163],
+		"source": [
+			{ "kind": "recording", "ref": "#3037 (thmastin): Burbik Gearspanner's merchant window, 20 items, no Fishing Pole; data/codex/recorded.json: his recorded goods (4 people) have no 6256, while every other Fishing Pole vendor with a recorded window lists it" },
+			{ "kind": "tdb", "ref": "npc_vendor: Burbik Gearspanner (5163) sells 20 items, no 6256; Tansy Puddlefizz (5162), the Ironforge fishing supplier, sells it" }
+		],
+		"note": "Burbik Gearspanner, Ironforge's trade supplier, sells no Fishing Pole on Forever. The merged vendor list (from pfQuest and QuestieDB) has him, so `buy 6256 nearest` sent Ironforge players to him instead of Tansy Puddlefizz."
 	}
 }

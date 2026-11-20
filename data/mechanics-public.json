@@ -36,16 +36,16 @@
 			"steps": [
 				{
 					"n": 1,
-					"action": "accept",
+					"action": "turnin",
 					"target": {
 						"type": "npc",
 						"id": 4086
 					},
-					"fact": "Veenix offers Goblin Lockpicks only while The Horn of Xelthos is in your quest log: take it from C's Dead Drop by Pyrewood Village first.",
+					"fact": "Goblin Lockpicks never goes into the quest log: Pick Pocket the Venture Co. Work Order first, then hand it to Veenix at one talk. He takes it only while The Horn of Xelthos is in your quest log: take that from C's Dead Drop by Pyrewood Village first.",
 					"confidence": "medium"
 				}
 			],
-			"note": "Goblin Lockpicks (78270) is offered by Veenix (4086) only while The Horn of Xelthos (78261) is in the quest log. Source: players' in-game recordings to 2026-11-20: Veenix offered it to 9 Rogues, every one with 78261 in the log, and one of them was refused it in the window after 78261 had left the log; Traesheur's report (#3213), whose log had no 78261 when Veenix offered nothing."
+			"note": "Goblin Lockpicks (78270) is handed in to Veenix (4086) at one talk, only while The Horn of Xelthos (78261) is in the quest log. Source: players' in-game recordings to 2026-11-20: 10 people handed it in to Veenix, none with an accept or the quest in the log first; ys's report (#3161) found the order wrong; every window of his that listed it came from a Rogue with 78261 in the log (9 people), and one was refused it in the window after 78261 had left the log; Traesheur's report (#3213), whose log had no 78261 when Veenix gave nothing."
 		},
 		"1918": {
 			"steps": [
