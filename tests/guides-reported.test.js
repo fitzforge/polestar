@@ -11810,7 +11810,9 @@ test('#1357: a training step carries its town, and the town has a trainer of eac
 		['forever/horde/30-40/01-hillsbrad-foothills.guide', /^Train$/, 1454],
 		['forever/horde/30-40/05-arathi-highlands.guide', /^(Undercity|\{zone:1458\}) trainers$/, 1458],
 		['forever/alliance/02-westfall.guide', /^Shaman training$/, 1455],
-		['forever/alliance/50-60/01-burning-steppes.guide', /^Darnassus$/, 1457],
+		// Fix pass 2026-11-20: the Burning Steppes guide's Darnassus stop is gone; the Druid training the case watched is
+		// on the Felwood guide's Darnassus stop (the same trainer's town), where the fix still has to hold.
+		['forever/alliance/50-60/02-felwood.guide', /^Mathrengyl Bearwalker$/, 1457],
 	];
 	for (const [guide, title, town] of cases) {
 		const list = goals(guide).filter(({ step, goal }) => title.test(step.title) && goal.t === 'train' && goal.class);
@@ -13500,9 +13502,14 @@ test('Alliance 50-53: no Meeting with the Master (#2460), the relics and the soi
 	assert.ok(at(bs, 'relic work', (g) => g.quest === 3701 && g.t !== 'accept' && g.t !== 'turnin') < relics, 'the relics are read first');
 	assert.ok(at(bs, 'turnin 3501', is('turnin', 3501)) < relics, 'after the Steppes and the Blasted Lands, on the Ironforge stop');
 	assert.ok(relics < at(bs, 'fly to Menethil', (g) => g.t === 'fly' && /Menethil/.test(g.location || '')), 'before the flight to Menethil and the boat to Kalimdor');
-	const soil = at(bs, 'turnin 3764', is('turnin', 3764));
-	assert.ok(everyone(bs[soil]), 'every class goes up to Jenal');
-	assert.ok(soil > at(bs, 'turnin 3661', is('turnin', 3661)), 'from the Rut\'theran stop');
+	// Since the 2026-11-20 fix pass the soil goes to Jenal on the Felwood guide's Darnassus stop (about 52.4), which
+	// walks into the Cenarion Enclave anyway; the Burning Steppes guide no longer goes up to Darnassus. Still early,
+	// still before Feralas, still not carried to 04.
+	const fw = goals('forever/alliance/50-60/02-felwood.guide');
+	const soil = at(fw, 'turnin 3764', is('turnin', 3764));
+	assert.ok(everyone(fw[soil]), 'every class hands Jenal the soil');
+	assert.ok(soil > at(fw, 'turnin 3661', is('turnin', 3661)), 'from the Rut\'theran stop');
+	assert.ok(soil < at(fw, 'accept 7003', is('accept', 7003)), 'before Feralas');
 	for (const g of ['04-western-plaguelands', '06-silithus']) {
 		const late = goals(`forever/alliance/50-60/${g}.guide`);
 		assert.ok(!late.some(({ goal }) => goal.t === 'turnin' && (goal.quest === 3701 || goal.quest === 3764)), `neither waits for ${g}`);
@@ -16312,7 +16319,11 @@ test('Tanaris and the Hinterlands (Alliance 45-48): Darnassus before the Hinterl
 	const ug = goals('forever/alliance/40-50/07-un-goro-crater.guide');
 	assert.ok(at(ug, 'accept 162', is('accept', 162)) >= 0, 'Rise of the Silithid taken on the Un\'Goro guide\'s Gadgetzan landing');
 	const bs = goals('forever/alliance/50-60/01-burning-steppes.guide');
-	assert.ok(at(bs, 'turnin 162', is('turnin', 162)) > at(bs, 'Portal to Darnassus', (g) => g.t === 'goto' && /Darnassus/.test(g.text || g.label || '')), 'and handed to Gracina on the Burning Steppes guide\'s Darnassus stop');
+	// Since the 2026-11-20 fix pass Gracina takes it on the Felwood guide's Darnassus stop (the Burning Steppes guide's
+	// Darnassus trip is gone).
+	const fw = goals('forever/alliance/50-60/02-felwood.guide');
+	assert.ok(at(fw, 'turnin 162', is('turnin', 162)) > at(fw, 'Portal to Darnassus', (g) => g.t === 'goto' && /Darnassus/.test(g.text || g.label || '')), 'and handed to Gracina on the Felwood guide\'s Darnassus stop');
+	assert.ok(!bs.some(({ goal }) => goal.quest === 162), 'not on the Burning Steppes guide');
 	assert.ok(!tan.some(({ goal }) => goal.t === 'fly' && goal.location === 'Theramore'), 'no flight back to Theramore');
 	const hin = goals('forever/alliance/40-50/05-the-hinterlands.guide');
 	const feathers = at(hin, 'collect 10819', (g) => g.t === 'collect' && g.quest === 3661);
@@ -16541,14 +16552,16 @@ test('Alliance 50-60: grind tips name only the dungeons the route can run there;
 // 0.4.0 audit (0.3.7's ac4485952, the part that never reached dev-040): 50-60/01 takes everyone up to Darnassus for Jenal
 // and the Un'Goro Soil (3764), but a character without the soil (a fresh loader) has no business there unless a Druid
 // (training): the portal up only with the soil or for Druids, the portal down only from Darnassus.
-test('Alliance 50-60/01: the Darnassus trip only with the Un\'Goro Soil, or for Druids\' training', { skip }, () => {
+// (Fix pass 2026-11-20: 50-60/01 no longer goes up to Darnassus at all; the soil, the feathers and Gracina's quest go in
+// on 50-60/02's Darnassus stop, which every character makes for Eridan's vial. So nobody is sent up without business.)
+test('Alliance 50-60/01: no Darnassus trip without business there (now none at all; the deliveries on 02\'s stop)', { skip }, () => {
 	const steps = compiled('forever/alliance/50-60/01-burning-steppes.guide').steps;
-	const up = steps.filter((st) => st.title === 'Portal to Darnassus');
-	const cond = (st, k, neg) => (st.when || []).some((p) => p.k === k && !!p.neg === neg);
-	assert.ok(up.some((st) => cond(st, 'onquest', false) && !st.only), 'up with the soil, every class');
-	assert.ok(up.some((st) => cond(st, 'onquest', true) && st.only && st.only.classes && st.only.classes.join() === 'DRUID'), 'up without it only for Druids');
-	const down = steps.find((st) => st.title === 'Portal to Teldrassil');
-	assert.ok(down && cond(down, 'zone', false), 'down only from Darnassus');
+	assert.ok(!steps.some((st) => st.title === 'Portal to Darnassus' || st.title === 'Portal to Teldrassil'), 'no portal walk on 01');
+	assert.ok(!steps.some((st) => st.goals.some((g) => g.t === 'fly' && /Rut'theran/.test(g.location || ''))), 'no flight to Rut\'theran on 01');
+	const fw = compiled('forever/alliance/50-60/02-felwood.guide').steps;
+	const up = fw.filter((st) => st.title === 'Portal to Darnassus');
+	assert.ok(up.length === 1 && !(up[0].when || []).length && !up[0].only, '02 goes up once, for everyone (Eridan\'s vial)');
+	assert.ok(fw.some((st) => st.goals.some(is('turnin', 3764))), 'Jenal takes the soil there');
 });
 
 // Danger at the spot (#1575, 0.4.0 audit), Alliance 50-60: level 60 Escaped Core Hounds and Firesworn roam the Burning

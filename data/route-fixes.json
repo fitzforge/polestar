@@ -16142,10 +16142,10 @@
 				],
 				"b": [
 					"accept",
-					4101
+					7003
 				],
 				"faction": "Alliance",
-				"why": "Quest volume, Alliance 50-60 (0.3.6 audit #11, 2026-11-09): Un'Goro Soil (4700 XP, soil from 40-50/07) is handed in to Jenal in Darnassus on 50-60/01's Rut'theran stop (about 52.5; the druids already go up there to train), not on 04's Darnassus visit at 56.7: the XP comes before Felwood's and Winterspring's top-ups."
+				"why": "Quest volume, Alliance 50-60 (0.3.6 audit #11, 2026-11-09): Un'Goro Soil (4700 XP, soil from 40-50/07) is handed in to Jenal in Darnassus before Feralas, not on 04's Darnassus visit at 56.7. Since the 2026-11-20 fix pass it goes in on 50-60/02's Darnassus stop (about 52.4), which walks into the Cenarion Enclave for Mathrengyl anyway, with Erelas' feathers (3661) and Gracina's Rise of the Silithid (162): 50-60/01 no longer flies Auberdine -> Rut'theran -> Astranaar for them (about 5,100 yards of flight and the portal walk; Darnassus 3 visits -> 2)."
 			},
 			{
 				"a": [
@@ -17017,8 +17017,8 @@
 			},
 			{
 				"q": 3781,
-				"guide": "forever/alliance/50-60/01-burning-steppes",
-				"reason": "It pays only 470 XP at 52, less than the trip for its starter (Un'Goro Soil (3764)).",
+				"guide": "forever/alliance/50-60/02-felwood",
+				"reason": "It pays only 470 XP at 52, less than the trip for its starter (Un'Goro Soil (3764)). (Fix pass 2026-11-20: the Darnassus deliveries moved from 50-60/01 to 50-60/02's Darnassus stop; a character who starts there without the soil still doesn't see Fandral's errand.)",
 				"issue": "#2635"
 			},
 			{

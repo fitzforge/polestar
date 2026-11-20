@@ -10,8 +10,11 @@ next forever/alliance/50-60/02-felwood
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Order (0.4.3 fix round): Ironforge first (the Hearthstone from Un'Goro), Chillwind Camp, the Burning Steppes and the
-# Blasted Lands at 50-51, back through Ironforge and Darnassus, and Azshara last, from Astranaar, at about 52, where
-# Felwood starts next door. Azshara used to open the guide at 50: Kim'jael's blood elves (51-53) and Lord Sarthiss (52)
+# Blasted Lands at 50-51, back through Ironforge and the boat to Auberdine, and Azshara last, from Astranaar, at about
+# 51.5, where Felwood starts next door. Since the 2026-11-20 fix pass the guide no longer goes up to Darnassus: Erelas'
+# feathers (3661), Jenal's soil (3764, then Fandral's 3781) and Gracina's Rise of the Silithid (162) go in on the
+# Felwood guide's Darnassus stop, which walks past all three (Darnassus 3 visits -> 2). Azshara used to open the guide
+# at 50: Kim'jael's blood elves (51-53) and Lord Sarthiss (52)
 # needed a top-up to 51.3 first (about 140k XP of grinding for the level model's player), and the guide then hearthed
 # from Azshara to Ironforge and came back to Ashenvale by boat at the end.
 # Added here: A Taste of Flame (4023).
@@ -369,73 +372,10 @@ step Boat to Auberdine
   zone Wetlands
   goto 4.71,56.95 "Boat to Auberdine"
 
-step Fly to Rut'theran Village
-  zone Darkshore
-  goto 36.4,45.6 "Auberdine flight master"
-  fly "Rut'theran Village"
-  zone Teldrassil
-
-# ---------------------------------------------------------------- Teldrassil and Darnassus
-
-step Rut'theran Village
-  zone Teldrassil
-  turnin 3661                         -- Erelas Ambersky
-
-step Daryn Lightwind
-  tip Daryn Lightwind stands upstairs, above Erelas Ambersky: go up inside, the arrow cannot tell the floors apart.
-  when group 2944
-  zone Teldrassil
-  turnin 2944
-  accept 2943
-
-step Portal to Darnassus
-  when onquest 3764,162
-  zone Teldrassil
-  goto 55.9,89.3 "Portal to Darnassus"
-
-step Portal to Darnassus
-  only Druid
-  when !onquest 3764
-  zone Teldrassil
-  goto 55.9,89.3 "Portal to Darnassus"
-
-step Darnassus
-  zone Darnassus
-  tip The portal in Rut'theran Village leads up to Darnassus: Jenal waits in the Cenarion Enclave, in the north of the city.
-  turnin 3764                         -- Jenal, in the Cenarion Enclave
-  train class only Druid              -- Ironforge has no druid trainer
-
-# Fandral and Mathrengyl stand upstairs in the druids' building, and the walking maps have no way up
-# inside it: the arrow led onto a ledge outside, behind the wall (#1338). A goto at the building's
-# door on its south side, 35.8,11.6 (players' recordings walk in there), makes the arrow point
-# straight at them from there.
-step Cenarion Enclave
-  when turnedin 3764
-  zone Darnassus
-  goto 35.8,11.6 "Cenarion Enclave"
-
-step Arch Druid Fandral Staghelm
-  when turnedin 3764
-  zone Darnassus
-  accept 3781                         -- Arch Druid Fandral Staghelm, upstairs
-  turnin 3781                         -- Mathrengyl Bearwalker, upstairs
-  note Mathrengyl's next task grows ten Morrowgrain from a pouch over several hours: skip it.
-
-step Gracina Spiritmight
-  when onquest 162
-  zone Darnassus
-  tip Gracina Spiritmight stands beside Tyrande in the Temple of the Moon, in the south of the city.
-  turnin 162                          -- Gracina Spiritmight: Rise of the Silithid, from Gadgetzan
-  accept 4493                         -- For Alchemist Pestlezugg in Gadgetzan, on the Tanaris and Winterspring guide: keep it
-
-step Portal to Teldrassil
-  when zone "Darnassus"
-  zone Darnassus
-  goto 29.1,41.2 "Portal to Teldrassil"
-
 step Fly to Astranaar
-  zone Teldrassil
-  goto 58.4,93.9 "Rut'theran Village flight master"
+  zone Darkshore
+  tip The boat lands in Auberdine: fly straight on to Astranaar. Erelas, Jenal and Gracina take their deliveries on the Felwood guide's Darnassus stop, which goes there anyway.
+  goto 36.4,45.6 "Auberdine flight master"
   fly "Astranaar"
   zone Ashenvale
 

@@ -11,8 +11,10 @@ next forever/alliance/50-60/03-winterspring
 # into this file.
 # Order (0.4.3 fix round): Felwood's first pass from the south (the ride in from Azshara's Talrendis Point), up to
 # Timbermaw Hold; through the tunnel to western Winterspring on the way to Everlook (Salfa, Donova's first errands,
-# Everlook's flight path and Chillwind's yeti quests); the flight to Rut'theran Village and Darnassus (Eridan's vial,
-# the druids' quests); Feralas' second visit (Zorbin's zapping on the Forgotten Coast, Gregan, Rockbiter and Shay),
+# Everlook's flight path and Felnok's Chillwind Horns); the flight to Rut'theran Village and Darnassus (Eridan's vial,
+# the druids' quests, and since the 2026-11-20 fix pass Erelas' feathers, Jenal's soil, Fandral's errand and Gracina's
+# Rise of the Silithid, which the Burning Steppes guide's own Darnassus trip used to take); Feralas' second visit
+# (Zorbin's zapping on the Forgotten Coast, Gregan, Rockbiter and Shay),
 # ending at Thalanaar. The Winterspring guide used to open with a top-up from 53.6 to 55 at Frostfire (about 246k XP
 # for the level model's player) because Winterspring's quests waited for 55-59; Feralas, Un'Goro and the rest of
 # Felwood waited for 56-58.
@@ -200,7 +202,15 @@ step Fly to Rut'theran Village
 
 step Rut'theran Village
   zone Teldrassil
+  turnin 3661                         -- Erelas Ambersky: Favored of Elune?, the feathers from the Hinterlands
   accept 978                          -- Erelas Ambersky: the wildkin feathers lie along Winterspring's road, on the next guide; Erelas takes them on the Plaguelands guide's way through: keep it
+
+step Daryn Lightwind
+  tip Daryn Lightwind stands upstairs, above Erelas Ambersky: go up inside, the arrow cannot tell the floors apart.
+  when group 2944
+  zone Teldrassil
+  turnin 2944
+  accept 2943
 
 step Portal to Darnassus
   zone Teldrassil
@@ -212,6 +222,13 @@ step The Temple Gardens
   use 11682 quest 4441.1 @39.2,85.6 map 1457
   collect 5646 quest 4441.1 @39.2,85.6 map 1457 -- Vial of Blessed Water
 
+step Gracina Spiritmight
+  when onquest 162
+  zone Darnassus
+  tip Gracina Spiritmight stands beside Tyrande in the Temple of the Moon.
+  turnin 162                          -- Gracina Spiritmight: Rise of the Silithid, from Gadgetzan
+  accept 4493                         -- For Alchemist Pestlezugg in Gadgetzan, on the Tanaris and Winterspring guide: keep it
+
 # Mathrengyl stands upstairs in the druids' building, and the walking maps have no way up inside it:
 # the arrow led onto a ledge outside, behind the wall (#1338). A goto at the building's door on its
 # south side, 35.8,11.6 (players' recordings walk in there), makes the arrow point straight at him.
@@ -221,7 +238,11 @@ step Cenarion Enclave
 
 step Mathrengyl Bearwalker
   zone Darnassus
-  tip Mathrengyl Bearwalker stands upstairs in the druids' building of the Cenarion Enclave.
+  tip Jenal waits in the Cenarion Enclave; Fandral and Mathrengyl stand upstairs in its druids' building.
+  turnin 3764                         -- Jenal, in the Cenarion Enclave: Un'Goro Soil
+  accept 3781                         -- Arch Druid Fandral Staghelm, upstairs
+  turnin 3781                         -- Mathrengyl Bearwalker, upstairs
+  note Mathrengyl's next task grows ten Morrowgrain from a pouch over several hours: skip it.
   turnin 92345                        -- Mathrengyl Bearwalker, upstairs
   train class only Druid              -- Ironforge has no druid trainer
 
