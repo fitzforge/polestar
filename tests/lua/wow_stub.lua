@@ -1248,6 +1248,7 @@ function C_AddOns.GetAddOnInfo(key)
 	local a = addonEntry(key)
 	if not a then return nil, nil, nil, false, "MISSING", nil, false end
 	local reason = a.reason
+	if reason == nil and a.demand == true then reason = "DEMAND_LOADED" end
 	if (reason == "DEMAND_LOADED" or reason == "DEP_DEMAND_LOADED") and stub.addonsLoaded[a.name] then reason = nil end
 	return a.name, a.title or a.name, a.notes, reason == nil, reason, "INSECURE", false
 end

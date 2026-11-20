@@ -12,6 +12,7 @@ zero is in [getting started](getting-started.md).
   - [Reading the palette](#reading-the-palette)
   - [Asking about skins and schemes](#asking-about-skins-and-schemes)
   - [Installed skin addons](#installed-skin-addons)
+  - [Layouts](#layouts)
   - [Version and capabilities](#version-and-capabilities)
   - [Drawing preview cards](#drawing-preview-cards)
   - [Presets](#presets)
@@ -212,6 +213,124 @@ assert(ok == false and why:find("X-Polestar-Skin", 1, true), why)
 assert(Theme.LoadSkinAddon("halo") == true) -- registered already
 ```
 
+### Layouts
+
+A layout is the guide window's structure apart from its look (capability
+`layouts`). Any skin sits on top of it.
+
+`RegisterLayout(id, spec) -> ok, message`. The spec takes `api`, `name`,
+`addon`, `author`, `version` and `desc` as a skin's do
+([Common spec fields](#common-spec-fields)), and:
+
+| Field | Type | Meaning |
+|---|---|---|
+| `hooks` | table | Structure hooks only: `guideLayout`, `guideRender`, `guidePlace`, `guideAnchor`, `guideTakes`, `guidePerson`, `guideInset`, `guideUpRow`, `guideShows`, `guideSpace`, and `guideTitle` (which title bar parts show), `guideRow` (a goal row's lines and columns) and `guideProgress` (where the progress shows) ([The guide window](#the-guide-window)). Same arguments and answers as a skin's. A colour a layout's hook sets is a token of the skin in use (`Theme.Color`, `Theme.Accent`). |
+| `onApply`, `onLeave` | function(id), function(id, parts, live) | `onApply` runs when the layout comes into use. `onLeave` runs when it leaves, once for each guide window it dressed: the live window's parts with `live` true, then each copy's that draws with the layout in use (the settings preview) with `live` false; once with no parts before the window is built. Each call gives that window back its own look; the live window's also takes back what the layout made outside any guide window. A guide window's frame carries `psGuideWindow = true`. |
+| `preset` | table | Its card in the guide window's Presets (capability `layouts.preset`): `{ label, help, set }`. `label` (1-40 characters, the layout's `name` when unset) and `help` (at most 200) are text; `set` holds look settings as a skin's `preset` does, and may name the skin the layout is drawn for (`ui.skin`), never `ui.layout`. Picking the card chooses the layout (`Polestar.Theme.SetLayout(id)`, loading its addon), then writes `set`; picking one of Polestar's own cards goes back to Polestar's own layout, `set`'s values still in place back to their defaults. The card is checked while the layout is in use. |
+| `defaults` | table | The layout's defaults for Polestar's settings: `{ ["guideWindow.tabs"] = false, ["ui.upcomingOpen"] = true, ... }`. Each key is a setting Polestar has, except `ui.layout` and `ui.skin`, which stay the player's; each value has the type of Polestar's default (a boolean for a switch, a number for a size, a string for a choice). A setting whose default is `false` takes `false`, a colour (`guideWindow.targetBarColor`, `progressColor`, `bgColor`), `true` (a switch off by default: `guideWindow.hideTaxi`) or a number (`guideWindow.bgOpacity`). |
+
+The player changes the guide window's parts in its settings (the tabs,
+the step count, the skip and report buttons, the target bar beside the
+live goal, the progress line and more, `guideWindow.*`). A layout leaves
+those parts to the settings and gives its preference as `defaults`, never
+by hiding a part from a hook. A setting reads, in order:
+
+1. the player's saved value;
+2. the layout in use's default;
+3. Polestar's default.
+
+Switching layout changes only the settings the player never set; each
+setting whose value changes is announced (`SETTING_CHANGED`) so the window
+and the settings window follow. A player's own value survives a switch,
+even one equal to Polestar's default. A reset (`Polestar.Set(path, nil)`)
+goes back to the layout's default. `Polestar.GetDefault(path)` is the
+default in use (the layout's, else Polestar's);
+`Polestar.GetBaseDefault(path)` is Polestar's own.
+
+The Presets card's picture is a copy of the guide window drawn with the
+layout's hooks, whatever layout is in use: a guide window says which
+layout it draws with, and `Theme.SkinHookFor(choice, surface, ...)` and
+`Theme.SkinHookValueFor(choice, surface, ...)` run that layout's hooks
+(`choice` nil: the layout in use; false: Polestar's own; an id: that
+layout's) with the skin's, handing over that window's parts. Polestar's
+own cards and their pictures never run a layout's hook. A layout addon
+that loads on demand names its card in its TOC, so it shows before the
+addon loads (its picture is then the label; drawing it loads nothing):
+
+```
+## X-Polestar-Layout-Preset: ledger = Ledger; ledger-wide = Ledger wide
+```
+
+A bare id takes the id as its label, and the card's help is the TOC's
+`Notes`. `Polestar.Theme.LayoutPresets()` lists the cards:
+`{ { id, label, help, set, loaded, addon }, ... }`.
+
+The refusals, beside the common ones: `a layout carries no tokens or
+colours (<field> is a skin's field)`, `hooks.<name> is a skin's (a layout
+hooks the guide window's structure only)`, `unknown hooks "<name>"`,
+`hooks.<name> has the wrong type`, `onApply must be a function`,
+`defaults must be a table of setting = value`, `defaults key "<path>" is
+not a setting a layout can default (group.name, not ui.layout or ui.skin)`, `defaults["<path>"] must
+be a <type>, like Polestar's default`, `defaults["<path>"] must be false or
+a colour`, `defaults["<path>"] must be false, true or a number`, `preset must be
+a table { label, help, set }`, `unknown field preset.<name>`,
+`preset.label must be a string of 1-40 characters`, `preset.set must be a
+table of setting = value`, `preset.set["ui.layout"]: picking the card
+chooses the layout`, `preset.set["ui.skin"] must be a skin id`, and a
+skin preset's refusals for `set`'s other settings.
+
+A hook answers in this order: the layout's, else the skin's, else
+Polestar's own. With no layout chosen (`ui.layout` unset), every hook is
+the skin's, as before. The skin's tokens, painters and other hooks stay
+in use whatever the layout. A layout's hook, `onApply` or `onLeave` runs
+under `pcall`: the first error is noted (`/polestar debug`) and the
+layout is off for the session, the player's choice kept.
+
+Five hooks run both: `guideTitle`, `guideRow`, `guideRender`,
+`guidePlace` and `guideProgress`. The layout's hook runs first, then the
+skin's, with the same parts: the layout lays the part out, the skin
+styles it.
+
+| Hook | Layout answers | Skin answers | Result |
+|---|---|---|---|
+| any of the five | not nil | anything | the layout's |
+| any of the five but `guidePlace` | nil | a value | the skin's |
+| `guidePlace` | nil | `true` | nil: the window places the part (the layout decides) |
+
+A skin hook that fails turns the skin off and leaves the layout in use.
+A layout hook that fails turns the layout off; the skin's hook still
+runs that time and after.
+
+A layout addon declares its ids in its TOC and may load on demand. Its
+folder is `Polestar_Layout_<Name>`, which the install check leaves alone
+as it does `Polestar_Skin_*` ([publishing](publishing.md#naming)):
+
+```
+## X-Polestar-Layout: ledger, ledger-wide
+## LoadOnDemand: 1
+```
+
+Polestar loads it (out of combat) at login when the saved `ui.layout` is
+one of its ids, and when the player picks one.
+
+| Function | Returns |
+|---|---|
+| `SetLayout(id)` | `ok, why`: saves `ui.layout`, loading the addon that declares `id` when it is installed and not loaded. `SetLayout()` goes back to Polestar's own layout. `why` as `LoadLayoutAddon`'s. |
+| `LayoutId()` | The layout in use, or nil for Polestar's own. |
+| `Layouts()` | The registered layouts' ids, sorted. |
+| `LayoutInfo(id)` | `{ id, name, addon, author, version, desc, api, hooks = { name, ... }, defaults, failed }` or nil. `defaults` is a copy of the layout's. `failed` is the error that turned it off. |
+| `InstalledLayouts()` | Every installed addon that declares layouts, as `InstalledSkins()`. |
+| `LoadLayoutAddon(id)` | `ok, why`, as `LoadSkinAddon`; the last reason is `"no installed addon declares it (## X-Polestar-Layout)"`. |
+
+```lua
+local Theme = Polestar.Theme
+assert(Theme.HasCapability("layouts"))
+assert(Theme.RegisterLayout("ledger", { api = 2, name = "Ledger", addon = "Polestar_Layout_Ledger",
+	hooks = { guideInset = function(name) return name == "upnext" and 12 or 0 end } }))
+assert(Theme.SetLayout("ledger") and Theme.LayoutId() == "ledger")
+Theme.SetLayout()
+```
+
 ### Version and capabilities
 
 | | |
@@ -220,7 +339,7 @@ assert(Theme.LoadSkinAddon("halo") == true) -- registered already
 | `HasCapability(name)` | `true` when this Polestar offers capability `name` ([Capabilities](#capabilities)); `false` for anything else, including nil. |
 | `Capabilities()` | Every capability name, sorted, as a new table. |
 | `SkinSurfaces()` | The surfaces a skin can reach, sorted: `{ paint = { kind, ... }, hooks = { name, ... } }` (the [painter kinds](#surfaces-painters) and the [hooks](#surfaces-hooks)). |
-| `SkinHooks(surface)` | Whether the skin in use hooks `surface` (and has not failed). |
+| `SkinHooks(surface)` | Whether the layout or the skin in use hooks `surface` (and has not failed). |
 
 ```lua
 local Theme = Polestar.Theme
@@ -1041,13 +1160,19 @@ assert(Theme.RegisterSkin("ref-hooks", {
 ### The guide window
 
 `Theme.GuideParts()` hands over the guide window's frames, to place things
-by and to restyle (capability `guideParts`): `window`, `strip` (the tabs),
-`nav` (the step bar), `body`, `card` (the step), `person` (its header),
-`goals` (the scroll of goal rows), `rows` (the goal rows, pooled), `tip`,
+by and to restyle (capability `guideParts`): `window`, `strip` (the tabs), `nav` (the step bar),
+`body`, `card` (the step), `person` (its header), `goals` (the scroll of
+goal rows), `rows` (the goal rows, pooled), `tip`,
 `after` ("Then:"), `along`, `upnext`, `empty` (no guide), `band` (the house
 band), `banner`, `foot` (the progress), `line` (its bar), `here` (While
 you're here). One table, the same every time; nil before the window is
 built.
+
+`Theme.GuideReach(window)` (capability `guideReach`) answers how far that
+window's own parts stand past its top and bottom edges, in its units: the On
+the top edge tab style's tabs (on the bottom edge with the bars there), 0
+otherwise. It is set before `guideLayout` runs, so cards you stack above the
+window clear the tabs: anchor them that much higher.
 
 The settings window's preview of the guide window (the Guide window and
 Theme pages) is a copy of the window drawn by its own code, so every hook
@@ -1067,11 +1192,17 @@ your pieces in that window's store, as Aurora does: a hook that reaches for
 | `guideRender` | `function(view, parts)` | after every render of the window | `view`: the step on screen (`index`, `title`, `note`, `status`, `goals`: the goals below), or nil when the window shows no step (no guide open, a guide finished). `parts`: the window's, as for `guideLayout`. |
 | `guideProgress` | `function(foot, frac)` | after the progress is painted (every render) | `foot`: the progress part (its bar is `GuideParts().line`). `frac`: how much of the guide is done, 0-1. |
 | `guideAnchor` | `function()` -> frame | each time the heads-up card is placed on the window's edge | Answer a frame of yours (your own cards above the window) and the heads-up card sits on its edge instead of the window's; nil keeps the window's. Not asked while the player gives the card a spot of its own. |
-| `guideTab` | `function(button, parts, active)` | after Polestar painted a tab of the strip, at every render of the strip and repaint | `button`: the tab. `parts`: `selected` (the active tab's wash), `bar` (its line), `label`, `range` (the guide's levels), `icon`, `close`. `active`: whether it is the tab in view. In compact mode the strip is slim (18 px tall, or your `guideTabs` height when lower): the tab is that tall and `range` is hidden; size anything you draw from the button. |
+| `guideTab` | `function(button, parts, active)` | after Polestar painted a tab of the strip, at every render of the strip and repaint | `button`: the tab. `parts`: `selected` (the active tab's wash), `bar` (its line), `label`, `range` (the guide's levels), `icon`, `close`. The On the top edge and Down the left side styles' icon tabs run it too, with `selected`, `bar`, `icon` and `style` (`"edge"` or `"strip"`). `active`: whether it is the tab in view. In compact mode the strip is slim (18 px tall, or your `guideTabs` height when lower), whatever the tab style: the tab is that tall and `range` is hidden; size anything you draw from the button. |
 | `guidePlace` | `function(name, frame, width, height)` -> true | at every layout, for each part about to be placed, laid out and shown | `name`: `"tip"` (the step's tip, in the card), `"banner"`, `"here"` (While you're here), `"after"` ("Then:"), `"along"`, `"upnext"`, `"party"`, `"xp"`. `frame`: that part; `width`: the window's; `height`: the part's. Answer `true` and the window leaves the part out, its height too: place it yourself (`SetParent`, `SetPoint`), on a card of yours above the window for example. Answer anything else and the window places it; a part you moved under a frame of yours goes back under its own then. |
 | `guideMenu` | `function(items, button)` | each time the window's menu opens (the list is made anew every time) | `items`: the entries, `{ text, icon?, checked?, disabled?, onClick?, tip? }` or `{ separator = true }` (`icon` a glyph name); add, remove or reorder them. `button`: the menu button. |
+| `guideTakes` | `function(goal)` -> true | at every render, for each goal of the step about to be listed as a row | `goal`: the goal (the fields below). Answer `true` and the window leaves it out of its rows: show it on a card of yours (an optional goal, for example). Anything else keeps it. Only the rows change: the step, its progress and the arrow still count the goal. |
+| `guidePerson` | `function(person, width, height)` -> height | at every layout of a step, after Polestar laid out the step's header (the person or place the step is at) | `person`: the header (`GuideParts().person`), its pieces `Name`, `Where`, `Why`, `Level` and `Icon` placed and sized. `width`: the room for its text. `height`: the height Polestar gave it. Move or restyle its pieces and answer the height it takes (a number, 0 or more); anything else keeps Polestar's. |
+| `guideInset` | `function(name)` -> x | at every layout of a step, for each part that may be set in | `name`: `"card"` (the step's card: its header, goals and tip) or `"upnext"` (Up next). Answer a number above 0 and the part starts that far in from the window's left edge, narrower by as much (room for a rail of yours down the left side, for example); anything else keeps it at the edge. |
+| `guideUpRow` | `function(row, view, index)` | after Polestar painted an Up next row, at every render, for each step Up next lists | `row`: the row (its pieces `Num`, `Icon`, `Text`). Rows are pooled: the same row shows other steps later, so set every piece you use each time. `view`: the step it shows (as `guideRender`'s `view`). `index`: that step's number in the guide. |
+| `guideShows` | `function(name, default)` -> boolean | each time the window decides whether to show a part its mode or its settings choose for it | `name`: `"tip"` (the step's tip; `default` false in compact mode, true otherwise; never shown with the player's tips off), `"done"` (the step's finished goals kept in place as rows instead of folded into one "✓ N done" line; `default` false), `"upnextHead"` (Up next's heading; `default` true; without it Up next's rows always show), `"goalScroll"` (the goals area scrolls once the window reaches its cap; `default` true; false lets the window grow to hold every goal), `"classCardLater"` (the class quest card on the chain's later steps in the guide; `default` true; false shows it on the chain's first step only), `"along"` (Along the way and Still to do; `default` false in compact mode, true otherwise), `"xp"` (the XP row; `default` false in compact mode, true otherwise), `"journey"` (the Journey; `default` false in compact mode, true otherwise; never shown with nav.journeySteps off), `"markWash"` (the row the arrow points at, a goal row or a row of its own marked with `Polestar.UI.GuideFrame.MarkRow(row, on)`, is lit by a wash in the target bar colour fading across it in every look, without the bar; the transparent style keeps the bar; `default` false: the bar, lit as well in the house look only). `default`: Polestar's own choice. Answer `true` or `false`; anything else keeps `default`. A later Polestar may ask for more names: answer `default` for a name you do not know. |
+| `guideSpace` | `function(name, px, ...)` -> px | at every layout of a step, for each gap or height it names | `name`: `"upRow"` (an Up next row, one line tall, `px` 24 by default), `"upnextFoot"` (the room under Up next's rows, 6), `"tipPad"` (the tip's room above and below its text, 6), `"tipGap"` (the tip's gap under the goals, 2), `"xpRow"` (the XP row's height for one line, 28), `"xpRoom"` (the width its line has before the row takes a second line; the hook's third argument is the window's width). `px`: Polestar's own. Answer a number of 0 or more and the part takes it (answer `px + 4` for 4 more); anything else keeps `px`. |
 
-The goal a `guideRow` hook gets (and each of `view.goals`) is the Engine's
+The goal a `guideRow` or `guideTakes` hook gets (and each of `view.goals`) is the Engine's
 step view of it. The fields a dense row reads:
 
 | Field | |
@@ -1348,6 +1479,7 @@ version 1, the API's preview before it.
 | `preview` | `DrawSkinCard`, `DrawSchemeCard`, cards in the picker |
 | `preset` | `preset`, and the functions that apply and undo it |
 | `guideParts` (**2**) | `Theme.GuideParts()` |
+| `guideReach` (**2**) | `Theme.GuideReach(window)` |
 | `variants` (**2**) | `variants`, `defaultVariant`, `SkinVariants`, `SkinVariant`, the variant cards |
 | `resolve` (**2**) | `resolve` |
 | `shadow` (**2**), `artTint` (**2**) | those skin fields |
@@ -1356,10 +1488,11 @@ version 1, the API's preview before it.
 | `kit.gradient.horizontal` (**2**) | `kit.gradient`'s `"HORIZONTAL"` |
 | `arrow.parts` (**2**), `pin.parts` (**2**) | the parts the `arrow` and `pin` hooks are handed |
 | `skins.installed` (**2**) | `## X-Polestar-Skin`, `InstalledSkins`, `LoadSkinAddon`, `LoadInstalledSkins` |
+| `layouts` (**2**) | [Layouts](#layouts): `RegisterLayout`, `SetLayout`, `## X-Polestar-Layout` and the functions beside them |
 | `theme.functions` (**2**) | the [Theme functions](#other-theme-functions-a-skin-may-use) under the version promise |
 | `surfaces.window`, `surfaces.guide`, `surfaces.toast`, `surfaces.panel`, `surfaces.sidebar`, `surfaces.inset`, `surfaces.button`, `surfaces.tile`, `surfaces.dropdown`, `surfaces.editbox`, `surfaces.checkbox`, `surfaces.tab`, `surfaces.close`, `surfaces.scrollbar` | each painter kind |
 | `surfaces.arrow`, `surfaces.pin`, `surfaces.guideTitle` | those hooks |
-| `surfaces.guideRow`, `surfaces.guideLayout`, `surfaces.guideRender`, `surfaces.guideProgress`, `surfaces.guideAnchor`, `surfaces.guideTab`, `surfaces.guidePlace`, `surfaces.guideMenu`, `surfaces.card`, `surfaces.toast`, `surfaces.actionButton` (**2**) | those hooks |
+| `surfaces.guideRow`, `surfaces.guideLayout`, `surfaces.guideRender`, `surfaces.guideProgress`, `surfaces.guideAnchor`, `surfaces.guideTab`, `surfaces.guidePlace`, `surfaces.guideMenu`, `surfaces.guideTakes`, `surfaces.guidePerson`, `surfaces.guideInset`, `surfaces.guideUpRow`, `surfaces.guideShows`, `surfaces.guideSpace`, `surfaces.card`, `surfaces.toast`, `surfaces.actionButton` (**2**) | those hooks |
 
 Note `surfaces.toast` names both the `toast` painter kind and the `toast`
 hook: both are in version 2. A later Polestar adds capabilities without

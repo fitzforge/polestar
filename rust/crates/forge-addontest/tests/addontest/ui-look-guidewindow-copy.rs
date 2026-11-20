@@ -119,7 +119,7 @@ local STATES = {{
 	{{ name = "compact", set = {{ ["ui.compact"] = true }} }},
 	{{ name = "parts", set = {{ ["guideWindow.tabs"] = false, ["guideWindow.progress"] = false, ["guideWindow.skipButton"] = false,
 		["guideWindow.reportButton"] = false, ["guideWindow.rules"] = false, ["ui.upcoming"] = 3, ["ui.upcomingOpen"] = true,
-		["ui.showNotes"] = false, ["nav.nearbyButton"] = false, ["ui.locked"] = true }} }},
+		["ui.showNotes"] = false, ["nav.nearbyButton"] = false, ["ui.locked"] = true, ["guideWindow.lastSteps"] = 3 }} }},
 	{{ name = "bottom", set = {{ ["ui.growUp"] = true, ["ui.barsBottom"] = true, ["ui.wholeStep"] = true, ["guideWindow.stepCount"] = false,
 		["guideWindow.border"] = false, ["guideWindow.bgColor"] = {{ 0.2, 0.1, 0.3 }} }} }},
 }}
