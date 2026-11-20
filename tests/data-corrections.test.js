@@ -711,3 +711,14 @@ test('the release data: Death to the Dragonmaw (#2256) and Open the Maw (#2437) 
 	assert.ok(pre(95682).includes(95663), 'Open the Maw after Dragonmaw Rumors');
 	assert.equal(quests[6562].breadcrumbFor, 6563);
 });
+
+// bsolca (#3102): Bloodpetal Poison's goal named the Workers, Reavers and Hive Guards for the Gorishi Sting; players'
+// recordings tick the line only on Wasps and Stingers.
+test('Gorishi Sting is not dropped by the Gorishi Workers, Reavers or Hive Guards (#3102)', () => {
+	assert.deepEqual(corrections.items[22435].removeDrops, { npc: [6552, 6553, 10040] });
+});
+
+// Soggy (#3235): The Super Snapper FX read "Kill Gammerita (elite)"; the snapshot comes from using the camera on her.
+test('Snapshot of Gammerita is no drop of Gammerita: the Super Snapper FX takes it (#3235)', () => {
+	assert.deepEqual(corrections.items[9330].removeDrops, { npc: [7977] });
+});
