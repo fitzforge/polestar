@@ -15502,7 +15502,7 @@ do
 					note = "Follow the road through the tunnel and north-east to {area:131}. Start outside: {npc:1252} and Eric's campfire are in front of the {area:2102}.",
 					goals = {
 						{ t = "turnin", quest = 420, title = "Senir's Observations", npc = 1252, npcName = "Senir Whitebeard", map = 1426, x = 46.68, y = 53.78, z = 396.8 },
-						{ t = "accept", quest = 98322, title = "Secure the Mountain", npc = 1252, npcName = "Senir Whitebeard", minLevel = 4, qlvl = 8, pre = { 420 }, preTitles = { [420] = "Senir's Observations" }, map = 1426, x = 46.68, y = 53.78, z = 396.8 },
+						{ t = "accept", quest = 98322, title = "Secure the Mountain", npc = 1252, npcName = "Senir Whitebeard", minLevel = 4, qlvl = 8, map = 1426, x = 46.68, y = 53.78, z = 396.8 },
 					},
 				},
 				{
@@ -16018,7 +16018,7 @@ do
 					only = { classes = { "SHAMAN" } },
 					goals = {
 						{ t = "turnin", quest = 94449, title = "Call of Fire", npc = 257597, npcName = "Bruegs Kindleborn", map = 1426, x = 87.56, y = 43.67, z = 484.3 },
-						{ t = "accept", quest = 94465, title = "Call of Fire", npc = 257597, npcName = "Bruegs Kindleborn", minLevel = 10, qlvl = 11, pre = { 94449 }, preTitles = { [94449] = "Call of Fire" }, map = 1426, x = 87.56, y = 43.67, z = 484.3 },
+						{ t = "accept", quest = 94465, title = "Call of Fire", npc = 257597, npcName = "Bruegs Kindleborn", minLevel = 10, qlvl = 11, map = 1426, x = 87.56, y = 43.67, z = 484.3 },
 					},
 				},
 				{
@@ -16786,7 +16786,7 @@ do
 					note = "Follow the road through the tunnel and north-east to {area:131}. Start outside: {npc:1252} and Eric's campfire are in front of the {area:2102}.\n{npc:1872} works the forge west of the distillery.\nThen go in: {npc:6806}, the innkeeper, {npc:1226} and {npc:1267}. {npc:1699}'s {skill:185} lesson waits for the return with the ribs, when the copper is there for it.",
 					goals = {
 						{ t = "turnin", quest = 420, title = "Senir's Observations", npc = 1252, npcName = "Senir Whitebeard", map = 1426, x = 46.68, y = 53.78, z = 396.8 },
-						{ t = "accept", quest = 98322, title = "Secure the Mountain", npc = 1252, npcName = "Senir Whitebeard", minLevel = 4, qlvl = 8, pre = { 420 }, preTitles = { [420] = "Senir's Observations" }, map = 1426, x = 46.68, y = 53.78, z = 396.8 },
+						{ t = "accept", quest = 98322, title = "Secure the Mountain", npc = 1252, npcName = "Senir Whitebeard", minLevel = 4, qlvl = 8, map = 1426, x = 46.68, y = 53.78, z = 396.8 },
 						{ t = "accept", quest = 98321, title = "Flintfire's Shipment", npc = 1241, npcName = "Tognus Flintfire", minLevel = 4, qlvl = 7, map = 1426, x = 45.23, y = 51.91, z = 397.3, note = "{npc:1241}, below ground" },
 						{ t = "accept", quest = 400, title = "Tools for Steelgrill", npc = 1872, npcName = "Tharek Blackstone", minLevel = 2, qlvl = 5, map = 1426, x = 45.98, y = 51.76, z = 402.1 },
 						{ t = "accept", quest = 384, title = "Beer Basted Boar Ribs", npc = 1267, npcName = "Ragnar Thunderbrew", minLevel = 5, qlvl = 7, map = 1426, x = 46.74, y = 52.35, z = 400.7 },
@@ -17244,7 +17244,7 @@ do
 					only = { classes = { "SHAMAN" } },
 					goals = {
 						{ t = "turnin", quest = 94449, title = "Call of Fire", npc = 257597, npcName = "Bruegs Kindleborn", map = 1426, x = 87.56, y = 43.67, z = 484.3 },
-						{ t = "accept", quest = 94465, title = "Call of Fire", npc = 257597, npcName = "Bruegs Kindleborn", minLevel = 10, qlvl = 11, pre = { 94449 }, preTitles = { [94449] = "Call of Fire" }, map = 1426, x = 87.56, y = 43.67, z = 484.3 },
+						{ t = "accept", quest = 94465, title = "Call of Fire", npc = 257597, npcName = "Bruegs Kindleborn", minLevel = 10, qlvl = 11, map = 1426, x = 87.56, y = 43.67, z = 484.3 },
 					},
 				},
 				{
@@ -20266,7 +20266,7 @@ do
 						{ t = "accept", quest = 92483, title = "At Home in the Shadows", npc = 251361, npcName = "Rorian the Dayseeker", minLevel = 2, qlvl = 2, pre = { 92461 }, preTitles = { [92461] = "Harmony in Balance" }, map = 2521, x = 42.01, y = 23.44, z = 980.9, only = { classes = { "ROGUE" } }, note = "{npc:251361}: read the {item:9547}" },
 						{ t = "accept", quest = 92481, title = "A Student of the Arcane", npc = 251361, npcName = "Rorian the Dayseeker", minLevel = 2, qlvl = 2, pre = { 92461 }, preTitles = { [92461] = "Harmony in Balance" }, map = 2521, x = 42.01, y = 23.44, z = 980.9, only = { classes = { "MAGE" } }, note = "{npc:251361}: {quest:92481}" },
 						{ t = "accept", quest = 92485, title = "A Student of Nature", npc = 251361, npcName = "Rorian the Dayseeker", minLevel = 2, qlvl = 2, pre = { 92461 }, preTitles = { [92461] = "Harmony in Balance" }, map = 2521, x = 42.01, y = 23.44, z = 980.9, only = { classes = { "DRUID" } }, note = "{npc:251361}: {quest:92485}" },
-						{ t = "accept", quest = 92464, title = "Elemental Unrest", npc = 251361, npcName = "Rorian the Dayseeker", minLevel = 2, qlvl = 3, pre = { 92461 }, preTitles = { [92461] = "Harmony in Balance" }, map = 2521, x = 42.01, y = 23.44, z = 980.9 },
+						{ t = "accept", quest = 92464, title = "Elemental Unrest", npc = 251361, npcName = "Rorian the Dayseeker", minLevel = 2, qlvl = 3, map = 2521, x = 42.01, y = 23.44, z = 980.9 },
 						{ t = "accept", quest = 92597, title = "Reading the Leylines", npc = 251371, npcName = "Falorne Fallwind", minLevel = 2, qlvl = 4, pre = { 92461 }, preTitles = { [92461] = "Harmony in Balance" }, map = 2521, x = 43.26, y = 24.87, z = 980 },
 						{ t = "turnin", quest = 92462, title = "Infestation Investigation", npc = 251368, npcName = "Elatrell Featherlight", map = 2521, x = 43.36, y = 24.78, z = 979.7 },
 						{ t = "accept", quest = 92463, title = "The Cirrusfly Queen", npc = 251368, npcName = "Elatrell Featherlight", minLevel = 2, qlvl = 3, pre = { 92462 }, preTitles = { [92462] = "Infestation Investigation" }, map = 2521, x = 43.36, y = 24.78, z = 979.7 },
@@ -20298,7 +20298,7 @@ do
 					goals = {
 						{ t = "interact", quest = 92597, title = "Reading the Leylines", object = 460002, objName = "Ley Line", oi = 1, text = "Cast {spell:1259705} at the {object:460002}", map = 2521, x = 46.29, y = 17.87 },
 						{ t = "turnin", quest = 92464, title = "Elemental Unrest", npc = 249363, npcName = "Yala Windwatcher", map = 2521, x = 47.21, y = 21.91, z = 947.1 },
-						{ t = "accept", quest = 92465, title = "Agitators", npc = 249363, npcName = "Yala Windwatcher", minLevel = 2, qlvl = 3, pre = { 92464 }, preTitles = { [92464] = "Elemental Unrest" }, map = 2521, x = 47.21, y = 21.91, z = 947.1 },
+						{ t = "accept", quest = 92465, title = "Agitators", npc = 249363, npcName = "Yala Windwatcher", minLevel = 2, qlvl = 3, map = 2521, x = 47.21, y = 21.91, z = 947.1 },
 						{ t = "kill", quest = 92465, title = "Agitators", target = "Al'Aketh Convert", npc = 251160, count = 7, oi = 1, map = 2521, x = 47.1, y = 21.8, spotsPacked = "47.1,21.8,,100,8;46.6,18.7,938,74,9;48.6,19.9,928.7,37,7,1;43.8,24.1,,15,1,1", lvl = 3 },
 						{ t = "kill", quest = 92465, title = "Agitators", target = "Roiling Winds", npc = 251143, count = 6, oi = 2, map = 2521, x = 47.7, y = 21.6, z = 939.9, spotsPacked = "47.7,21.6,939.9,92,7;46.8,18.7,,32,5;46.8,22.6,,47,3,1;48.7,20.6,931.9,34,5,1;45.1,20.4,,59,6,1;43.8,24.1,,15,1,1", lvl = 3 },
 						{ t = "turnin", quest = 92465, title = "Agitators", npc = 249363, npcName = "Yala Windwatcher", map = 2521, x = 47.21, y = 21.91, z = 947.1 },
@@ -20318,7 +20318,7 @@ do
 						{ t = "turnin", quest = 92463, title = "The Cirrusfly Queen", npc = 251368, npcName = "Elatrell Featherlight", map = 2521, x = 43.36, y = 24.78, z = 979.7 },
 						{ t = "train", class = true, zone = 2521, note = "Level 4 spells", candidates = { candidateRecords[5], candidateRecords[4], candidateRecords[3], candidateRecords[2], candidateRecords[1], candidateRecords[6], candidateRecords[7], candidateRecords[8], candidateRecords[9], candidateRecords[10], candidateRecords[11], candidateRecords[12], candidateRecords[13], candidateRecords[14], candidateRecords[15], candidateRecords[16], candidateRecords[17], candidateRecords[18], candidateRecords[19], candidateRecords[20], candidateRecords[21], candidateRecords[22], candidateRecords[23], candidateRecords[24], candidateRecords[25], candidateRecords[26], candidateRecords[27], candidateRecords[28], candidateRecords[29], candidateRecords[30], candidateRecords[31], candidateRecords[32], candidateRecords[33], candidateRecords[34], candidateRecords[35], candidateRecords[36], candidateRecords[37], candidateRecords[38], candidateRecords[39], candidateRecords[40], candidateRecords[41], candidateRecords[42], candidateRecords[43], candidateRecords[44], candidateRecords[45], candidateRecords[46], candidateRecords[47], candidateRecords[48], candidateRecords[49], candidateRecords[50], candidateRecords[51], candidateRecords[52], candidateRecords[53], candidateRecords[54], candidateRecords[55], candidateRecords[56], candidateRecords[57], candidateRecords[58], candidateRecords[59], candidateRecords[60], candidateRecords[61], candidateRecords[62], candidateRecords[63], candidateRecords[64], candidateRecords[65], candidateRecords[66], candidateRecords[67], candidateRecords[68], candidateRecords[69], candidateRecords[70], candidateRecords[71], candidateRecords[72], candidateRecords[73], candidateRecords[74], candidateRecords[75], candidateRecords[76], candidateRecords[77], candidateRecords[78], candidateRecords[79], candidateRecords[80], candidateRecords[81], candidateRecords[82], candidateRecords[83], candidateRecords[84], candidateRecords[85], candidateRecords[86], candidateRecords[87], candidateRecords[88], candidateRecords[89], candidateRecords[90] } },
 						{ t = "turnin", quest = 92469, title = "Return to Rorian", npc = 251361, npcName = "Rorian the Dayseeker", map = 2521, x = 42.01, y = 23.44, z = 980.9 },
-						{ t = "accept", quest = 92471, title = "Aetheen of the Gales", npc = 251361, npcName = "Rorian the Dayseeker", minLevel = 4, qlvl = 4, pre = { 92469 }, preTitles = { [92469] = "Return to Rorian" }, map = 2521, x = 42.01, y = 23.44, z = 980.9 },
+						{ t = "accept", quest = 92471, title = "Aetheen of the Gales", npc = 251361, npcName = "Rorian the Dayseeker", minLevel = 4, qlvl = 4, map = 2521, x = 42.01, y = 23.44, z = 980.9 },
 						{ t = "turnin", quest = 92471, title = "Aetheen of the Gales", npc = 251366, npcName = "Aetheen of the Gales", map = 2521, x = 42.69, y = 23.61, z = 977.3 },
 						{ t = "accept", quest = 92470, title = "Foul Matriarch", npc = 251366, npcName = "Aetheen of the Gales", minLevel = 2, qlvl = 5, pre = { 92471 }, preTitles = { [92471] = "Aetheen of the Gales" }, map = 2521, x = 42.69, y = 23.61, z = 977.3 },
 						{ t = "accept", quest = 92473, title = "Aggressive Encroachment", npc = 257551, npcName = "Valreaa Valewind", minLevel = 3, qlvl = 4, pre = { 92471 }, preTitles = { [92471] = "Aetheen of the Gales" }, map = 2521, x = 42.32, y = 25.15, z = 980.8 },
@@ -21181,7 +21181,7 @@ do
 					goals = {
 						{ t = "turnin", quest = 94946, title = "The Magical City of Dalaran", npc = 259084, npcName = "Denaaris Stargale", map = 1416, x = 12.3, y = 56.26, z = 110.8, spotsPacked = "12.3,56.3,110.8,15,2", note = "{npc:259084}, inside" },
 						{ t = "accept", quest = 94912, title = "Child of Nature", npc = 270459, npcName = "Alfina Nightgaze", minLevel = 10, qlvl = 10, map = 1416, x = 11.71, y = 56.69, z = 110.8, only = { classes = { "DRUID" } }, note = "{npc:270459}, beside {npc:259084}: for {npc:5504} in {zone:1453}" },
-						{ t = "accept", quest = 94947, title = "Welcome to Azeroth", npc = 259084, npcName = "Denaaris Stargale", minLevel = 7, qlvl = 13, pre = { 94946 }, preTitles = { [94946] = "The Magical City of Dalaran" }, map = 1416, x = 12.16, y = 56.32, z = 110.8, spotsPacked = "12.3,56.3,110.8,15,2" },
+						{ t = "accept", quest = 94947, title = "Welcome to Azeroth", npc = 259084, npcName = "Denaaris Stargale", minLevel = 7, qlvl = 13, map = 1416, x = 12.16, y = 56.32, z = 110.8, spotsPacked = "12.3,56.3,110.8,15,2" },
 						{ t = "interact", quest = 94947, title = "Welcome to Azeroth", object = 631299, objName = "Skyborne Portal to Stormwind", oi = 1, map = 1416, x = 12.04, y = 56.21, z = 110.7, f = "e", note = "{object:631299}, inside" },
 					},
 				},
@@ -23952,7 +23952,7 @@ do
 					note = "Follow the road east to the tunnel towards {area:806}. Out of the first tunnel, keep left past {npc:1959} and the tower: a slim trail, hard to see but shown on the minimap, winds up the mountain to {npc:257597}' cave above the farm. He hands you the {item:6653}: keep it until the end of the chain.",
 					goals = {
 						{ t = "turnin", quest = 94449, title = "Call of Fire", npc = 257597, npcName = "Bruegs Kindleborn", map = 1426, x = 87.56, y = 43.67, z = 484.3 },
-						{ t = "accept", quest = 94465, title = "Call of Fire", npc = 257597, npcName = "Bruegs Kindleborn", minLevel = 10, qlvl = 11, pre = { 94449 }, preTitles = { [94449] = "Call of Fire" }, map = 1426, x = 87.56, y = 43.67, z = 484.3 },
+						{ t = "accept", quest = 94465, title = "Call of Fire", npc = 257597, npcName = "Bruegs Kindleborn", minLevel = 10, qlvl = 11, map = 1426, x = 87.56, y = 43.67, z = 484.3 },
 					},
 				},
 				{
@@ -26839,7 +26839,7 @@ do
 						{ t = "accept", quest = 412, title = "Operation Recombobulation", npc = 1269, npcName = "Razzle Sprysprocket", minLevel = 7, qlvl = 10, map = 1426, x = 45.84, y = 49.32, z = 395.4 },
 						{ t = "accept", quest = 98321, title = "Flintfire's Shipment", npc = 1241, npcName = "Tognus Flintfire", minLevel = 4, qlvl = 7, map = 1426, x = 45.23, y = 51.91, z = 397.3 },
 						{ t = "accept", quest = 5541, title = "Ammo for Rumbleshot", npc = 1694, npcName = "Loslor Rudge", minLevel = 5, qlvl = 6, map = 1426, x = 50.01, y = 49.39, z = 395.4 },
-						{ t = "accept", quest = 98322, title = "Secure the Mountain", npc = 1252, npcName = "Senir Whitebeard", minLevel = 4, qlvl = 8, pre = { 420 }, preTitles = { [420] = "Senir's Observations" }, map = 1426, x = 46.68, y = 53.78, z = 396.8 },
+						{ t = "accept", quest = 98322, title = "Secure the Mountain", npc = 1252, npcName = "Senir Whitebeard", minLevel = 4, qlvl = 8, map = 1426, x = 46.68, y = 53.78, z = 396.8 },
 						{ t = "accept", quest = 96408, title = "A Visitor to Dun Morogh", npc = 1376, npcName = "Beldin Steelgrill", minLevel = 9, qlvl = 13, closedBy = { 96392 }, endNpcs = { 264936 }, xp = 675, preTitles = { [96392] = "Farsen's Watch" }, map = 1426, x = 50.37, y = 49.05, z = 394.4 },
 					},
 				},
@@ -27185,7 +27185,7 @@ do
 						{ t = "accept", quest = 412, title = "Operation Recombobulation", npc = 1269, npcName = "Razzle Sprysprocket", minLevel = 7, qlvl = 10, map = 1426, x = 45.84, y = 49.32, z = 395.4 },
 						{ t = "accept", quest = 98321, title = "Flintfire's Shipment", npc = 1241, npcName = "Tognus Flintfire", minLevel = 4, qlvl = 7, map = 1426, x = 45.23, y = 51.91, z = 397.3 },
 						{ t = "accept", quest = 5541, title = "Ammo for Rumbleshot", npc = 1694, npcName = "Loslor Rudge", minLevel = 5, qlvl = 6, map = 1426, x = 50.01, y = 49.39, z = 395.4 },
-						{ t = "accept", quest = 98322, title = "Secure the Mountain", npc = 1252, npcName = "Senir Whitebeard", minLevel = 4, qlvl = 8, pre = { 420 }, preTitles = { [420] = "Senir's Observations" }, map = 1426, x = 46.68, y = 53.78, z = 396.8 },
+						{ t = "accept", quest = 98322, title = "Secure the Mountain", npc = 1252, npcName = "Senir Whitebeard", minLevel = 4, qlvl = 8, map = 1426, x = 46.68, y = 53.78, z = 396.8 },
 						{ t = "accept", quest = 96408, title = "A Visitor to Dun Morogh", npc = 1376, npcName = "Beldin Steelgrill", minLevel = 9, qlvl = 13, closedBy = { 96392 }, endNpcs = { 264936 }, xp = 675, preTitles = { [96392] = "Farsen's Watch" }, map = 1426, x = 50.37, y = 49.05, z = 394.4 },
 					},
 				},
