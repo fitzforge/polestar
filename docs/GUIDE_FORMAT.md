@@ -1450,7 +1450,11 @@ Errors:
   to a side the goal applies to (a friendly one is a talk credit), or `collect` of
   an item whose every located dropper is such an npc; `lint` also errors on a
   non-`optional` quest goal of a quest the cached simulator world (below) excludes
-  as `elite`, unless the goal was already reported as elite
+  as `elite`, unless the goal was already reported as elite. A low elite is solo
+  content (2026-11-20: an elite two or more levels under the player): elite work
+  passes on a step gated at least two levels over the elite, by `when level>=N` or a
+  `level N` line on the step with N at least the elite's top level (`levelMax`) + 2;
+  keep a Careful tip on the step
 - one of the game's placeholder names ("[DNT] Kill Credit", "Credit", "PvP Tower Credit
   Marker", "Trigger Ichman", "<UNUSED>", anything tagged `[PH]` or `(DND)`) in a name or text a
   compiled goal shows (its target, NPC, object, item, source, objective lines, note):
