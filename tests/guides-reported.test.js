@@ -1066,13 +1066,17 @@ test('forever/class/rogue/the-horn-of-xelthos.guide: C\'s payment is handed in a
 	assert.ok(at(list, 'turnin 78261', is('turnin', 78261)) < pay, 'after the horn');
 });
 
-// #3213 (Traesheur): Veenix offered nothing to a Rogue whose log no longer held The Horn of Xelthos. Players'
-// recordings: Veenix offered Goblin Lockpicks (78270) to 9 Rogues, each with 78261 in the log. The step says so.
-test('forever/class/rogue/the-horn-of-xelthos.guide: Veenix\'s step says Goblin Lockpicks needs The Horn of Xelthos in the log (#3213)', { skip }, () => {
+// #3161 (ys), #3213 (Traesheur): Goblin Lockpicks (78270) never enters the log. Players' recordings: 10 people
+// handed it in to Veenix with no accept, so the Work Order is picked first and handed in at one talk; every window
+// of his that listed it came from a Rogue with The Horn of Xelthos (78261) in the log, and the step says so.
+test('forever/class/rogue/the-horn-of-xelthos.guide: the Work Order first, then Goblin Lockpicks handed in to Veenix at one talk (#3161, #3213)', { skip }, () => {
 	const list = goals('forever/class/rogue/the-horn-of-xelthos.guide');
-	const { step } = list[at(list, 'accept 78270', is('accept', 78270))];
-	assert.match(step.note || '', /only while .*in your quest log/);
-	assert.ok(at(list, 'accept 78261', is('accept', 78261)) < at(list, 'accept 78270', is('accept', 78270)), 'the horn comes first');
+	assert.deepEqual(list.filter(({ goal }) => goal.t === 'accept' && goal.quest === 78270), [], 'no accept for Goblin Lockpicks');
+	const hand = at(list, 'turnin 78270', is('turnin', 78270));
+	assert.equal(list[hand].goal.direct, true, 'a direct hand-in');
+	assert.ok(list.findIndex(({ goal }) => goal.t === 'collect' && goal.item === 210187) < hand, 'the Work Order before the hand-in');
+	assert.match(list[hand].step.note || '', /only while .*in your quest log/);
+	assert.ok(at(list, 'accept 78261', is('accept', 78261)) < hand, 'the horn comes first');
 });
 
 // --- Bandarion Keep (Mike_, 0.2.3): Hilda the Breaker and Ephram Barbaro offer their quests to Paladins only.

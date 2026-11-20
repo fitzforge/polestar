@@ -59,9 +59,10 @@ test('A Reliquary of Purity opens at Rabine Saturna only after a Dire Maul visit
 	assert.match(step.fact, /inside Dire Maul once/);
 });
 
-test('Goblin Lockpicks opens at Veenix only while The Horn of Xelthos is in the log (#3213)', () => {
+test('Goblin Lockpicks is a one-talk hand-in at Veenix, only while The Horn of Xelthos is in the log (#3161, #3213)', () => {
+	assert.equal(corrections.quests[78270].set.direct, true);
 	const [step] = require('../data/mechanics-public.json').quests[78270].steps;
-	assert.deepEqual([step.action, step.target.type, step.target.id], ['accept', 'npc', 4086]);
+	assert.deepEqual([step.action, step.target.type, step.target.id], ['turnin', 'npc', 4086]);
 	assert.match(step.fact, /only while The Horn of Xelthos is in your quest log/);
 });
 
