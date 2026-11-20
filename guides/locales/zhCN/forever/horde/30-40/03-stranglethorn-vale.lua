@@ -113,7 +113,7 @@ return {
 	-- Step 17: Nesingwary's camp
 	["Back north to the camp."] = "向北回到营地。",
 	-- {npc:717} Ajeck Rouack · {npc:729} Sin'Dall
-	["{npc:717}: {npc:729} (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale"] = "{npc:717}：{npc:729}（37级）留到下次来奈辛瓦里营地时再做，约40级，见forever/horde/40-50/01-stranglethorn-vale",
+	["{npc:717}: {npc:729} (37) comes at the end of this guide, from level 36"] = "",
 
 	-- Step 18: Thoroughly Scavenged Supplies
 	-- {object:661516} Thoroughly Scavenged Supplies (no name in this language: may be words) · {quest:97328} Anything of Value · {area:102} Ruins of Zul'Kunda
@@ -125,7 +125,8 @@ return {
 	["{area:301}: kill these as you meet them"] = "{area:301}：沿途击杀以下目标",
 	-- {npc:729} Sin'Dall
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
-	["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "向西经过营地，晶背蜥蜴（34-35级）就在岩石上；再往前村子里的每只血顶巨魔都可能掉落耳朵。\n营地西南山顶上的37级老虎{npc:729}先别管：他比你高两级，40-50级荆棘谷指南会再回来找他。\n小心：迅猛龙巢里有幼龙，攻击成年迅猛龙时，它们也会加入战斗。",
+	-- was: ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "向西经过营地，晶背蜥蜴（34-35级）就在岩石上；再往前村子里的每只血顶巨魔都可能掉落耳朵。\n营地西南山顶上的37级老虎{npc:729}先别管：他比你高两级，40-50级荆棘谷指南会再回来找他。\n小心：迅猛龙巢里有幼龙，攻击成年迅猛龙时，它们也会加入战斗。"
+	["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and this guide comes back to him at its end, from level 36.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "",
 
 	-- Step 20: Zimmix Sputterspark
 	-- {npc:268992} Zimmix Sputterspark · {area:102} Ruins of Zul'Kunda · {item:277957} Primitive Key · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
@@ -217,17 +218,28 @@ return {
 
 	-- Step 34: Level 36
 	["Level 36"] = "等级 36",
-	-- {object:3202} Grom'gol
+	-- {npc:729} Sin'Dall · {object:3202} Grom'gol
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
-	["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36, then walk back to the zeppelin tower. Leave the Mosh'Ogg ogres (36-37) above them alone."] = "尘泥沼泽的任务为35-38级。交还{object:3202}的任务后还不到36级？钳嘴鳄鱼（35-36级）分布在营地正东、莫什奥格山丘下方的河边：杀到36级，然后走回飞艇塔。别碰上方的莫什奥格食人魔（36-37级）。",
+	-- was: ["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36, then walk back to the zeppelin tower. Leave the Mosh'Ogg ogres (36-37) above them alone."] = "尘泥沼泽的任务为35-38级。交还{object:3202}的任务后还不到36级？钳嘴鳄鱼（35-36级）分布在营地正东、莫什奥格山丘下方的河边：杀到36级，然后走回飞艇塔。别碰上方的莫什奥格食人魔（36-37级）。"
+	["Dustwallow's quests are 35-38, and {npc:729} (37) is next. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36. Leave the Mosh'Ogg ogres (36-37) above them alone."] = "",
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks"] = "钳嘴鳄鱼",
 	-- {npc:1152} Snapjaw Crocolisk
 	["grind on {npc:1152}"] = "刷{npc:1152}升级",
 
+	-- Step 35: Sin'Dall
+	-- {object:3202} Grom'gol · {npc:729} Sin'Dall
+	-- plural, as words: Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger
+	["North from {object:3202} to the hilltop just south-west of Nesingwary's camp: {npc:729} prowls there alone.\nCareful: {npc:729} (37) is a level over you: pull him at full health, clear of the Elder Stranglethorn Tigers (34-35) on the hill's slopes."] = "",
+
+	-- Step 36: Nesingwary's camp
+	-- {npc:717} Ajeck Rouack · {object:3202} Grom'gol
+	["North to {npc:717} in Nesingwary's camp, then back south to {object:3202}'s zeppelin tower."] = "",
+
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Dustwallow's quests are 35-38. Below 36? Keep killing the Mosh'Ogg Brutes and Witch Doctors here until level 36; pull one at a time. Or, with a group, run the {area:796} dungeon (Armory) or the {area:1316} dungeon instead."] = "尘泥沼泽的任务适合35-38级。还没到36级？在这里继续击杀莫什奥格蛮兵和莫什奥格巫医，直到36级；每次只引一只。也可以组队刷{area:796}地下城的武器库或{area:1316}地下城。",
 	-- ["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Mosh'Ogg Brutes and Witch Doctors camp in the hills just east of the camp: kill them until level 36, pulling one at a time, then walk back to the zeppelin tower."] = "尘泥沼泽的任务适合35-38级。交还{object:3202}的任务后仍未到36级，就前往营地正东侧山丘上的食人魔营地，击杀莫什奥格蛮兵和莫什奥格巫医，直到36级。每次只引一只，然后步行返回飞艇塔。",
+	-- ["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36, then walk back to the zeppelin tower. Leave the Mosh'Ogg ogres (36-37) above them alone."] = "尘泥沼泽的任务为35-38级。交还{object:3202}的任务后还不到36级？钳嘴鳄鱼（35-36级）分布在营地正东、莫什奥格山丘下方的河边：杀到36级，然后走回飞艇塔。别碰上方的莫什奥格食人魔（36-37级）。",
 	-- ["East of the Mosh'Ogg hills, Shadowmaw Panthers (37-38) stalk the jungle towards the lake; the Stranglethorn Tigresses roam the same ground and now and then drop a pristine fang. Snapjaw Crocolisks line the river just west of the jungle; keep their skins for {npc:2495}. Careful: Shadowmaw Panthers (level 37-38) and Elder Shadowmaw Panthers (level 42-43) use Sneak while out of combat, so they remain hidden until you get near them."] = "在莫什奥格山丘东侧，深喉猎豹（37-38级）在通往湖泊的丛林中潜行；荆棘谷雌虎也在同一区域游荡，偶尔掉落雌虎的牙齿。钳嘴鳄鱼分布在丛林正西侧的河边，保留它们的皮交给{npc:2495}。注意：深喉猎豹（37-38级）和老年深喉猎豹（42-43级）会在非战斗状态下使用潜行，靠近后才会现身。",
 	-- ["East of the ogres, Shadowmaw Panthers (37-38) stalk unseen until they strike; the Stranglethorn Tigresses roam the same ground and now and then drop a pristine fang. Snapjaw Crocolisks line the river just west of the jungle; keep their skins for {npc:2495}.\nCareful: Shadowmaw Panthers (level 37-38) and Elder Shadowmaw Panthers (level 42-43) use Sneak while out of combat, so they remain hidden until you get near them."] = "食人魔东面的深喉猎豹（37-38级）会隐蔽潜行，直到攻击时才现身；荆棘谷雌虎也在同一区域游荡，偶尔掉落完美的牙齿。钳嘴鳄鱼分布在丛林西面的河边；保留它们的皮交给{npc:2495}。\n小心：深喉猎豹（37-38级）和老年深喉猎豹（42-43级）会在脱战时使用潜行，靠近前都看不见。",
 	-- ["Elder tigers and Lashtail raptors"] = "老年猛虎和鞭尾迅猛龙",
@@ -252,6 +264,7 @@ return {
 	-- ["The zeppelin lands at the tower on the west side of the camp."] = "飞艇降落在营地西侧的塔上。",
 	-- ["Upstairs"] = "在楼上",
 	-- ["Venture Co. camp"] = "风险投资公司营地",
+	-- ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "向西经过营地，晶背蜥蜴（34-35级）就在岩石上；再往前村子里的每只血顶巨魔都可能掉落耳朵。\n营地西南山顶上的37级老虎{npc:729}先别管：他比你高两级，40-50级荆棘谷指南会再回来找他。\n小心：迅猛龙巢里有幼龙，攻击成年迅猛龙时，它们也会加入战斗。",
 	-- ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\n{npc:729}, a level 37 tiger, prowls the hilltop south-west of the camp.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "向西经过营地，晶背蜥蜴（34-35 级）就在岩石上；再往前村子里的每只血顶巨魔都可能掉落耳朵。\n{npc:729} 是一只 37 级老虎，在营地西南的山顶游荡。\n小心：迅猛龙巢里有幼龙，攻击成年迅猛龙时，它们也会加入战斗。",
 	-- ["Young Stranglethorn Tigers prowl west of the camp, Young Panthers south and east of it.\nHead west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A {item:4614} is a very rare drop from them: if one drops, read it.\nCareful: The troll camps have many patrolling mobs, so other trolls often join a fight."] = "荆棘谷猛虎幼崽在营地西侧徘徊，猎豹幼崽则在营地南侧和东侧。\n向西经过营地。荆棘谷迅猛龙（33-34 级）在空地上狩猎，血顶巨魔占据着海岸废墟：任何血顶巨魔都可能掉落獠牙。它们有极低概率掉落 {item:4614}：掉落后记得阅读。\n小心：巨魔营地有很多巡逻怪，因此其他巨魔经常会加入战斗。",
 	-- ["Zeppelin to {object:3202}"] = "乘飞艇前往{object:3202}",
@@ -267,5 +280,6 @@ return {
 	-- ["{npc:2496}: for Pozzik at the {area:2240}, on the way to {zone:1446} around level 43"] = "{npc:2496}：交给{area:2240}的波兹克，大约43级前往{zone:1446}时顺路",
 	-- ["{npc:2497} waits in {object:3202}, near the zeppelin tower."] = "{npc:2497} 在飞艇塔附近的 {object:3202} 中等待。",
 	-- ["{npc:4723} (38) is inside the Venture Co. house on {area:37}'s west shore, among the geologists: his key opens {object:20691} in the same house, which holds the blueprints for {npc:2496}. Careful: Venture Co. Agents (39) stand in and around the house: clear the doorway before you go in."] = "{npc:4723}（38级）在{area:37}西岸的风险投资公司房屋里，周围都是地质学家：他的钥匙能打开同一栋房屋里的{object:20691}，里面装着给{npc:2496}的蓝图。小心：风险投资公司特工（39级）站在房屋内外：进去之前先清理门口。",
+	-- ["{npc:717}: {npc:729} (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale"] = "{npc:717}：{npc:729}（37级）留到下次来奈辛瓦里营地时再做，约40级，见forever/horde/40-50/01-stranglethorn-vale",
 	-- ["{npc:773}'s missing hunters' camp is Nesingwary's: walk among its tents and the investigation completes. River Crocolisks lie along the river below the camp."] = "{npc:773}失踪猎人的营地就是奈辛瓦里的营地：在帐篷间走一圈，调查就会完成。淡水鳄趴在营地下方的河边。",
 }

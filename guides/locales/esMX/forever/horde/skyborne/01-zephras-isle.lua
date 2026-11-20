@@ -500,11 +500,24 @@ return {
 	-- {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} Barrens
 	["Learn the flight path from {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "Aprende la ruta de vuelo con {npc:3615} en la plataforma de la torre. Las misiones propias de {area:380} vienen después de {zone:1421}, en la guía de {zone:1413}.",
 
-	-- Step 110: To Orgrimmar
+	-- Step 110: Rezlak
+	-- {npc:3293} Rezlak · {zone:1454} Orgrimmar · {area:370} Drygulch Ravine
+	["{npc:3293} camps beside the road north to {zone:1454}, below {area:370}. The stolen sacks lie along the road just east of him."] = "",
+
+	-- Step 111: Drygulch Ravine
+	-- {area:370} Drygulch Ravine · {npc:3293} Rezlak · {item:277661} Dull Storm Orb · {quest:97281} A Simmering Storm
+	["Savages and Storm Witches nest in {area:370}, east of {npc:3293}. A Storm Witch drops the {item:277661}, which starts {quest:97281}."] = "",
+
+	-- Step 112: Rezlak
+	-- {npc:3293} Rezlak
+	["Back to {npc:3293} by the road."] = "",
+
+	-- Step 113: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "A {zone:1454}",
-	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
-	["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "Desde el Cruce sigue el camino al noreste hasta {area:379}, cruza {area:815} hacia {zone:1411} y sigue al norte hasta la puerta principal de {zone:1454}. La siguiente guía empieza en {zone:1454}: Thrall recibe {quest:95350}, y el zepelín sale hacia {zone:1420} y {zone:1421}.",
+	-- {area:379} Far Watch Post · {area:814} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
+	-- was: ["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "Desde el Cruce sigue el camino al noreste hasta {area:379}, cruza {area:815} hacia {zone:1411} y sigue al norte hasta la puerta principal de {zone:1454}. La siguiente guía empieza en {zone:1454}: Thrall recibe {quest:95350}, y el zepelín sale hacia {zone:1420} y {zone:1421}."
+	["From the Crossroads follow the road north-east to {area:379}, cross the {area:814} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "{object:172982} de {zone:1454}",
 
@@ -515,6 +528,7 @@ return {
 	-- ["Climb the watchtower in the village, jump off the top and use {spell:1259416} to float down."] = "Sube a la atalaya de la aldea, salta desde lo alto y usa {spell:1259416} para descender flotando.",
 	-- ["Faladiel stands on the hill west of the falls, north of {area:16638}."] = "Faladiel está en la colina al oeste de la cascada, al norte de {area:16638}.",
 	-- ["Follow the road south to {area:16624}, in the middle of the isle."] = "Sigue el camino al sur hasta {area:16624}, en el centro de la isla.",
+	-- ["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "Desde el Cruce sigue el camino al noreste hasta {area:379}, cruza {area:815} hacia {zone:1411} y sigue al norte hasta la puerta principal de {zone:1454}. La siguiente guía empieza en {zone:1454}: Thrall recibe {quest:95350}, y el zepelín sale hacia {zone:1420} y {zone:1421}.",
 	-- ["High Order Apprentices"] = "{npc:257521} ×varios",
 	-- ["Hippogryph nests"] = "Nidos de hipogrifo",
 	-- ["Horde airship"] = "Aeronave de la Horda",

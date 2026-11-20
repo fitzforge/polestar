@@ -57,13 +57,13 @@ return {
 	["{area:286}: kill these as you meet them"] = "{area:286}: Töte diese, wenn sie dir begegnen",
 	-- {area:287} Hillsbrad
 	-- plural, as words: Kirin Tor Guards = {npc:246848} Kirin Tor Guard
-	["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "Die Bauern arbeiten auf den Feldern südlich der Bauernhäuser. Jeder Mensch von {area:287} lässt Schädel fallen; die Bauern am häufigsten.\nVorsicht: Ein fliehender Bauer, der das Rathaus erreicht, kann viele Adds herbeiholen, darunter Fußsoldaten von {area:287}; Verlangsamungen, Wurzeln oder ähnliche Effekte verhindern seine Flucht. Wachen der Kirin Tor (55) stehen nördlich der Höfe, an der Straße hinauf nach Alterac: Bleib auf den Feldern.",
-	-- {item:3692} Hillsbrad Human Skull
-	["{item:3692}: the Peasants in the fields"] = "{item:3692}: die Arbeiter auf den Feldern",
+	-- was: ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "Die Bauern arbeiten auf den Feldern südlich der Bauernhäuser. Jeder Mensch von {area:287} lässt Schädel fallen; die Bauern am häufigsten.\nVorsicht: Ein fliehender Bauer, der das Rathaus erreicht, kann viele Adds herbeiholen, darunter Fußsoldaten von {area:287}; Verlangsamungen, Wurzeln oder ähnliche Effekte verhindern seine Flucht. Wachen der Kirin Tor (55) stehen nördlich der Höfe, an der Straße hinauf nach Alterac: Bleib auf den Feldern."
+	["The Peasants work the fields south of the farmhouses.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "",
 
 	-- Step 9: Tarren Mill
 	-- {quest:528} Battle of Hillsbrad
-	["Darthalia's next {quest:528} and Lydon's Elixir of Agony are for the next visit, at about 30."] = "Darthalias nächste Quest {quest:528} und Lydons Elixier der Qualen sind für den nächsten Besuch, bei etwa 30.",
+	-- was: ["Darthalia's next {quest:528} and Lydon's Elixir of Agony are for the next visit, at about 30."] = "Darthalias nächste Quest {quest:528} und Lydons Elixier der Qualen sind für den nächsten Besuch, bei etwa 30."
+	["Darthalia's next {quest:528}, Samsa's Souvenirs of Death and Lydon's Elixir of Agony are for the next visit, at about 30."] = "",
 
 	-- Step 10: Durnholde Keep: kill these as you meet them
 	-- {area:275} Durnholde Keep
@@ -195,6 +195,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back down to Masoj on the hillside above {area:290}."] = "Zurück hinunter zu Masoj am Hang über {area:290}.",
 	-- ["Back to {area:272}"] = "Zurück nach {area:272}",
+	-- ["Darthalia's next {quest:528} and Lydon's Elixir of Agony are for the next visit, at about 30."] = "Darthalias nächste Quest {quest:528} und Lydons Elixier der Qualen sind für den nächsten Besuch, bei etwa 30.",
 	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings. Their locks need keys: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "Drull und {npc:2238} sind in Gebäuden im Hof der {area:275} angekettet. Für ihre Schlösser brauchst du Schlüssel: {npc:2427} trägt den {item:3467} und {npc:2428} den {item:3499}, beide in der Burg. Töte sie und öffne dann beide Schlösser.\nGeh von {area:272} nach Südosten in die Hügel auf dem Weg zur {area:275}. Schurken und Wachmänner des Syndikats halten die Lager unterwegs.",
 	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks."] = "Drull und {npc:2238} sind in Gebäuden im Hof der {area:275} angekettet; öffne beide Schlösser.",
 	-- ["East along the foothills, then down into {area:272}."] = "Nach Osten am Fuß der Hügel entlang, dann hinunter nach {area:272}.",
@@ -221,6 +222,7 @@ return {
 	-- ["Take the zeppelin from the towers outside the {zone:1458} to {zone:1454} and train before you fly on."] = "Nimm den Zeppelin von den Türmen vor {zone:1458} nach {zone:1454} und trainiere, bevor du weiterfliegst.",
 	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often."] = "Die Arbeiter von Hillsbrad bestellen die Felder südlich der Bauernhäuser. Jeder Mensch aus {area:287} droppt Schädel; die Arbeiter am häufigsten.",
 	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping."] = "Die Bauern arbeiten auf den Feldern südlich der Bauernhäuser. Jeder Mensch von {area:287} lässt Schädel fallen; die Bauern am häufigsten.\nVorsicht: Ein fliehender Bauer, der das Rathaus erreicht, kann viele Adds herbeiholen, darunter Fußsoldaten von {area:287}; Verlangsamungen, Wurzeln oder ähnliche Effekte verhindern seine Flucht.",
+	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "Die Bauern arbeiten auf den Feldern südlich der Bauernhäuser. Jeder Mensch von {area:287} lässt Schädel fallen; die Bauern am häufigsten.\nVorsicht: Ein fliehender Bauer, der das Rathaus erreicht, kann viele Adds herbeiholen, darunter Fußsoldaten von {area:287}; Verlangsamungen, Wurzeln oder ähnliche Effekte verhindern seine Flucht. Wachen der Kirin Tor (55) stehen nördlich der Höfe, an der Straße hinauf nach Alterac: Bleib auf den Feldern.",
 	-- ["The middle of {zone:1454}"] = "Die Mitte von {zone:1454}",
 	-- ["The northern peak"] = "Der nördliche Gipfel",
 	-- ["The northern peak rises south-east of {area:272}, on the way down towards Durnholde."] = "Der nördliche Gipfel erhebt sich südöstlich von {area:272}, auf dem Weg hinunter Richtung Durnholde.",
@@ -239,6 +241,7 @@ return {
 	-- ["Walk back up to {area:272} and fly to the {area:228}: {npc:2121} stands by the crypt entrance."] = "Geh zurück hinauf nach {area:272} und flieg zu {area:228}: {npc:2121} steht am Eingang der Krypta.",
 	-- ["You arrive bound at the {area:272} inn. Everyone stands around the town square."] = "Du kommst gebunden am Gasthaus von {area:272} an. Alle stehen rund um den Dorfplatz.",
 	-- ["{area:272} is your base for this guide: the hearth brings you back here twice. Everyone stands around the town square."] = "{area:272} ist dein Stützpunkt für diesen Guide: Der Ruhestein bringt dich zweimal hierher zurück. Alle stehen rund um den Dorfplatz.",
+	-- ["{item:3692}: the Peasants in the fields"] = "{item:3692}: die Arbeiter auf den Feldern",
 	-- ["{npc:2055}, in the {zone:1458}"] = "{npc:2055}, in {zone:1458}",
 	-- ["{npc:2215}: orders for {npc:270438}, on the way to Durnholde"] = "{npc:2215}: Befehle für {npc:270438}, auf dem Weg nach Burg Durnholde",
 	-- ["{npc:2216}, inside: the {item:3502} grow south-west of Durnholde, on the walk there"] = "{npc:2216}, drinnen: Die {item:3502} wachsen südwestlich von Durnholde, auf dem Weg dorthin",

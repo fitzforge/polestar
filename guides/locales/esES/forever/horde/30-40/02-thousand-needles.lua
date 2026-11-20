@@ -93,7 +93,7 @@ return {
 
 	-- Step 18: Jandia
 	-- {npc:4877} Jandia · {area:484} Freewind Post
-	["{npc:4877}, the trade supplies vendor, stands inside {area:484}'s inn."] = "{npc:4877}, la mercader de suministros comerciales, está dentro de la posada de {area:484}.",
+	["{npc:4877}, the trade supplies vendor, stands inside {area:484}'s inn. The previous guide works her harpies; this is for a character who arrives without them."] = "",
 	-- {npc:4877} Jandia · {area:487} Roguefeather Den
 	["{npc:4877}: the Screeching harpies of {area:487}"] = "{npc:4877}: las arpías chillonas de {area:487}",
 	-- {npc:4877} Jandia
@@ -218,7 +218,50 @@ return {
 	-- {npc:5641} Takata Steelblade · {npc:4498} Maurin Bonesplitter
 	["{npc:5641} and {npc:4498}"] = "{npc:5641} y {npc:4498}",
 
-	-- Step 42: Kodo Graveyard
+	-- Step 42: Ethel Rethor
+	-- {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress
+	["From the rise, north-west across the plain to the ruined tower of {area:2405}: {npc:11863} waits inside. His errand is in {area:599}, the next stop; he takes it back on the walk up the coast later in this guide."] = "",
+
+	-- Step 43: Thunder Axe Fortress
+	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:20310} Flayed Demon Skin · {object:176581} Hand of Iruxos Crystal · {npc:11876} Demon Spirit · {zone:1443} Desolace
+	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. Leave the red {object:176581} for now: its {npc:11876} is 37, and the second {zone:1443} visit comes back for it."] = "Ve al este hasta {area:599}. Debilita a un cultista Filo Ardiente y usa la {item:6436} sobre él antes de que muera para llenar una {item:6435}. El {npc:13019} está en el piso superior de la fortaleza con el Cetro. Los cultistas también sueltan a veces una {item:20310} (1-5%); si te sale una, léela. Deja por ahora el {object:176581} rojo: su {npc:11876} es de nivel 37, y la segunda visita a {zone:1443} vuelve a por él.",
+	["On the top floor"] = "",
+
+	-- Step 44: Sargeron
+	-- {area:603} Sargeron
+	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue
+	["East from the fortress along the northern hills to the satyrs' ruins of {area:603}. The Shadowstalkers walk unseen.\nCareful: Hatefury Rogues use Hide when they spawn, so they are stealthed until you find them."] = "",
+
+	-- Step 45: Khan Dez'hepah
+	-- {area:609} Kolkar Village · {quest:1365} Khan Dez'hepah
+	-- plural, as words: Kolkar Battle Lords = {npc:4636} Kolkar Battle Lord
+	["South to {area:609}. {quest:1365} (35) walks among the tents on the east side with a Battle Lord or two (32-33): clear around him, then pull him alone at full health.\nCareful: Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health."] = "",
+
+	-- Step 46: Ghost Walker Post
+	-- {npc:5641} Takata Steelblade · {npc:4498} Maurin Bonesplitter · {npc:5395} Felgur Twocuts · {npc:5412} Gurda Wildmane
+	["South-west down the road to the post: {npc:5641} and {npc:4498} on the rise west of it, {npc:5395} and {npc:5412} side by side in the post."] = "",
+	-- {npc:5641} Takata Steelblade · {npc:5640} Keldran · {zone:1454} Orgrimmar
+	["{npc:5641}: for {npc:5640} in {zone:1454}, next guide"] = "",
+	-- {npc:5641} Takata Steelblade · {npc:4498} Maurin Bonesplitter · {area:603} Sargeron
+	["{npc:5641}'s next errand sends you after a demon lord with an elite guard, and {npc:4498}'s next Corrupter errand back to {area:603}: leave them."] = "",
+	-- {npc:5395} Felgur Twocuts
+	["{npc:5395}: the Magram centaurs just south-east of the post, next"] = "",
+	-- {npc:5412} Gurda Wildmane
+	["{npc:5412}: her totems drop from the same Magram centaurs"] = "",
+
+	-- Step 47: Magram Village
+	-- {npc:5395} Felgur Twocuts · {item:254432} Carved Centaur Totem
+	["South-east of the post, the Magram centaurs camp in the hills. The Scouts and Outrunners (32-33) and the Wranglers (33-34) hold the camp's north-western edge, nearest the post; any centaur can drop an ear for {npc:5395} and a {item:254432} for Gurda.\nCareful: the Stormers and Pack Runners (34-35), Marauders and Maulers (35-36) and the Bonepaws (37-38) hold the middle and south of the camp: stay on its north-western edge and pull one at a time."] = "",
+	-- {item:6067} Centaur Ear
+	-- plural, as words: Magram Scouts = {npc:4638} Magram Scout
+	["{item:6067}, from the Magram Scouts, Outrunners and Wranglers"] = "",
+	-- {item:254432} Carved Centaur Totem
+	["{item:254432}, from the same centaurs"] = "",
+
+	-- Step 48: Ghost Walker Post
+	["Back north-west to the post."] = "",
+
+	-- Step 49: Kodo Graveyard
 	-- {npc:11596} Smeed Scrabblescrew · {item:13892} Kodo Kombobulator · {npc:4702} Ancient Kodo · {npc:11521} Kodo Apparition
 	["Use {npc:11596}'s {item:13892} on an Aged, Dying or {npc:4702} in the graveyard and walk the tamed kodo back to {npc:11596}. At his camp, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time. Careful: leave the kodo skulls on the ground alone: opening one raises a {npc:11521} (37-38) that hits hard."] = "Usa el {item:13892} de {npc:11596} sobre un kodo envejecido, moribundo o {npc:4702} del cementerio y lleva el kodo domado de vuelta con {npc:11596}. En su campamento, habla con el kodo: así cuenta y puedes domar el siguiente. Cinco kodos, de uno en uno. Cuidado: no toques los cráneos de kodo del suelo: al abrir uno aparece una {npc:11521} (37-38) que pega fuerte.",
 	-- {npc:4702} Ancient Kodo
@@ -226,40 +269,29 @@ return {
 	-- {npc:11596} Smeed Scrabblescrew
 	["the tamed kodo, at {npc:11596}'s camp: talk to it, five times"] = "",
 
-	-- Step 44: Shadowprey Village
-	-- {area:606} Gelkis Village · {npc:268705} Aka'rai · {quest:97265} Hate the Hatefury
-	["Head west to the troll village on the coast, keeping clear of the {area:606} on the way. {npc:268705} stands on the path just north of the village.\n{npc:268705} may not be here on Forever: if {npc:268705} doesn't offer {quest:97265}, skip it."] = "",
-	-- {npc:268705} Aka'rai · {area:603} Sargeron
-	["{npc:268705}: the Hatefury satyrs of {area:603}, later in this guide"] = "",
+	-- Step 51: Shadowprey Village
+	-- {area:606} Gelkis Village
+	["Head west to the troll village on the coast, keeping clear of the {area:606} on the way."] = "",
 	-- {npc:11877} Roon Wildmane · {quest:5762} Hemet Nesingwary
 	["{npc:11877}: for {quest:5762} in Stranglethorn, next guide"] = "",
 	-- {npc:6726} Thalon
 	["{npc:6726}, at the village's south-west end"] = "",
 
-	-- Step 45: Drulzegar Skraghook
+	-- Step 52: Drulzegar Skraghook
 	-- {npc:12340} Drulzegar Skraghook · {npc:12031} Mai'Lahii · {quest:6143} Other Fish to Fry · {area:598} Sar'theris Strand
 	["{npc:12340} stands at the village's south end, near {npc:12031}. At your level his {quest:6143} fits the walk north along the coast: the southern half of {area:598}, from level 34."] = "",
 
-	-- Step 46: Ethel Rethor
-	-- {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort · {area:599} Thunder Axe Fortress · {area:2406} Ranazjar Isle
-	["Head north along the coast, then inland to the ruined tower of {area:2405}: {npc:11863} waits inside. The coast's clams and naga come after {area:599}, on one walk north to {area:2406}."] = "Ve al norte por la costa y luego hacia el interior hasta la torre en ruinas de {area:2405}: {npc:11863} espera dentro. Las almejas y los naga de la costa vienen después de {area:599}, en un solo recorrido hacia el norte hasta {area:2406}.",
-
-	-- Step 47: Thunder Axe Fortress
-	-- {area:599} Thunder Axe Fortress · {item:6436} Burning Gem · {item:6435} Infused Burning Gem · {npc:13019} Burning Blade Seer · {item:20310} Flayed Demon Skin · {object:176581} Hand of Iruxos Crystal · {npc:11876} Demon Spirit · {zone:1443} Desolace
-	["Head east to {area:599}. Beat a Burning Blade cultist down, then use the {item:6436} on it before it dies to fill one {item:6435}. The {npc:13019} stands on the fortress's top floor with the Sceptre. The cultists also drop a {item:20310} now and then (1-5%); if one drops, read it. Leave the red {object:176581} for now: its {npc:11876} is 37, and the second {zone:1443} visit comes back for it."] = "Ve al este hasta {area:599}. Debilita a un cultista Filo Ardiente y usa la {item:6436} sobre él antes de que muera para llenar una {item:6435}. El {npc:13019} está en el piso superior de la fortaleza con el Cetro. Los cultistas también sueltan a veces una {item:20310} (1-5%); si te sale una, léela. Deja por ahora el {object:176581} rojo: su {npc:11876} es de nivel 37, y la segunda visita a {zone:1443} vuelve a por él.",
-	["On the top floor"] = "",
-
-	-- Step 48: Ethel Rethor
-	-- {npc:11863} Azore Aldamort
-	["Back west to {npc:11863}."] = "",
+	-- Step 53: Ethel Rethor
+	-- {npc:11863} Azore Aldamort · {area:2406} Ranazjar Isle
+	["North along the coast, then inland to {npc:11863}'s tower. The coast's clams and naga come next, on one walk north to {area:2406}."] = "",
 	-- {npc:11863} Azore Aldamort · {item:15803} Book of the Ancients · {npc:12369} Lord Kragaru · {area:2406} Ranazjar Isle
 	["{npc:11863}'s next errand, the {item:15803}, needs {npc:12369} (38) out on {area:2406}: leave it, he is over your level."] = "El siguiente encargo de {npc:11863}, el {item:15803}, requiere a {npc:12369} (38) en {area:2406}: déjalo, está por encima de tu nivel.",
 
-	-- Step 49: Rackmore's Log
+	-- Step 54: Rackmore's Log
 	-- {object:177787} Rackmore's Log · {npc:11863} Azore Aldamort
 	["{object:177787} lies on the ground just south-west of {npc:11863}'s tower, on the way down to the shore: read it. Its two keys drop only while you have the quest."] = "{object:177787} está en el suelo justo al suroeste de la torre de {npc:11863}, de camino a la orilla: léelo. Sus dos llaves solo caen mientras tienes la misión.",
 
-	-- Step 50: Clam beds
+	-- Step 55: Clam beds
 	["Clam beds"] = "Lechos de almejas",
 	-- {item:15874} Soft-shelled Clam · {item:15878} Rackmore's Silver Key
 	-- plural, as words: Giant Softshell Clams = {object:177784} Giant Softshell Clam · Enraged Reef Crawlers = {npc:12347} Enraged Reef Crawler · Drysnap Crawlers = {npc:11562} Drysnap Crawler
@@ -272,60 +304,41 @@ return {
 	-- {item:15878} Rackmore's Silver Key
 	["{item:15878}, from the Drysnap crabs"] = "{item:15878}, de los cangrejos Pinzaseca",
 
-	-- Step 51: Sar'theris Strand
+	-- Step 56: Sar'theris Strand
 	-- {area:598} Sar'theris Strand · {item:15881} Rackmore's Golden Key · {zone:1443} Desolace
 	["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), up to two over you at 33: work the Naga and Sorceresses (32-33) of the southern half until the key drops, and leave the north for the second {zone:1443} visit, at 38."] = "Sigue al norte hasta {area:598} para la {item:15881}: cualquier Filozante puede soltarla.\nCuidado: los mirmidones (34-35) ocupan la mitad norte de la playa junto a las brujas del mar y los oráculos (34-36, lanzadores), hasta dos niveles por encima de ti a 33: mata a los naga y hechiceras (32-33) de la mitad sur hasta que caiga la llave, y deja el norte para la segunda visita a {zone:1443}, a nivel 38.",
 	-- {item:15881} Rackmore's Golden Key
 	["{item:15881}, from the Slitherblade naga"] = "{item:15881}, de los naga Filozante",
 
-	-- Step 52: Sar'theris Strand: Other Fish to Fry
+	-- Step 57: Sar'theris Strand: Other Fish to Fry
 	["Stay in the southern half of the strand, where Rackmore's key drops: eight Myrmidons (34-35) walk there among the Naga, Sorceresses and Warriors (32-34).\nCareful: the northern half belongs to the Sea Witches (35-36, casters) and, at its tip, the Tidehunters (36-37): keep south of the middle of the beach."] = "",
 	-- {npc:4714} Slitherblade Myrmidon
 	["{npc:4714}, in the strand's southern half"] = "",
 
-	-- Step 53: Rackmore's Chest
+	-- Step 58: Rackmore's Chest
 	-- {area:2406} Ranazjar Isle · {object:177786} Rackmore's Chest · {object:177673} Serpent Statue
 	["Swim out to {area:2406} off the far northern tip: {object:177786} stands on the shore beside the {object:177673}. Open it with both keys; leave the statue alone."] = "Nada hasta {area:2406}, frente al extremo norte: {object:177786} está en la orilla junto a la {object:177673}. Ábrelo con ambas llaves; no toques la estatua.",
 
-	-- Step 54: Sargeron
-	-- {area:599} Thunder Axe Fortress · {area:603} Sargeron · {npc:268705} Aka'rai
-	-- plural, as words: Hatefury Rogues = {npc:4670} Hatefury Rogue
-	["Head east past {area:599} and along the northern hills to the satyrs' ruins of {area:603}. Kill every kind you meet for {npc:268705}; the Shadowstalkers walk unseen.\nCareful: Hatefury Rogues use Hide when they spawn, so they are stealthed until you find them."] = "",
-	-- {npc:4671} Hatefury Trickster
-	["{npc:4671}, on the way south"] = "",
-
-	-- Step 55: Khan Dez'hepah
-	-- {area:609} Kolkar Village · {quest:1365} Khan Dez'hepah
-	-- plural, as words: Kolkar Battle Lords = {npc:4636} Kolkar Battle Lord
-	["South to {area:609}. {quest:1365} (35) walks among the tents on the east side with a Battle Lord or two (32-33): clear around him, then pull him alone at full health.\nCareful: Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health."] = "",
-
-	-- Step 56: Ghost Walker Post
-	["South-west down the road to the post."] = "",
-	-- {npc:5641} Takata Steelblade · {npc:5640} Keldran · {zone:1454} Orgrimmar
-	["{npc:5641}: for {npc:5640} in {zone:1454}, next guide"] = "",
-	-- {npc:5641} Takata Steelblade
-	["{npc:5641}'s next errand sends you after a demon lord with an elite guard: skip it."] = "El siguiente encargo de {npc:5641} te manda a por un señor demoníaco con escolta élite: omítelo.",
-	-- {npc:5395} Felgur Twocuts · {zone:1443} Desolace · {area:607} Valley of Spears
-	["{npc:5395} now offers Centaur Bounty: the second {zone:1443} visit, at 38, takes it on its way to the {area:607}."] = "{npc:5395} ofrece ahora Centaur Bounty: la segunda visita a {zone:1443}, a nivel 38, la acepta de camino a {area:607}.",
-
-	-- Step 57: Shadowprey Village
-	["West to Shadowprey: your hearthstone is bound there."] = "",
-	-- {npc:268705} Aka'rai
-	["{npc:268705}, on the path just north of the village"] = "",
+	-- Step 59: Shadowprey Village
+	["Hearth to Shadowprey (you bound it on the way in), or walk back south along the coast."] = "",
 	-- {item:14547} Hand of Iruxos · {npc:12340} Drulzegar Skraghook · {quest:6143} Other Fish to Fry · {zone:1443} Desolace · {zone:1454} Orgrimmar · {zone:1434} Stranglethorn Vale
 	-- was: ["Taiga's {item:14547}, Drulzegar's Other Fish to Fry and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "La {item:14547} de Taiga, Other Fish to Fry de Drulzegar y las demás misiones de 37-40 de {zone:1443} esperan a la segunda visita, a nivel 38: las siguientes guías vuelan a {zone:1454} y toman el zepelín a {zone:1434}."
 	["Taiga's {item:14547}, {npc:12340}'s {quest:6143} (unless you did it on the strand) and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "",
 
-	-- Step 58: Drulzegar Skraghook
+	-- Step 60: Drulzegar Skraghook
 	-- {npc:12340} Drulzegar Skraghook · {npc:12031} Mai'Lahii
 	["{npc:12340}, near {npc:12031}"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south to {npc:11863}'s tower."] = "Vuelve al sur hasta la torre de {npc:11863}.",
+	-- ["Head north along the coast, then inland to the ruined tower of {area:2405}: {npc:11863} waits inside. The coast's clams and naga come after {area:599}, on one walk north to {area:2406}."] = "Ve al norte por la costa y luego hacia el interior hasta la torre en ruinas de {area:2405}: {npc:11863} espera dentro. Las almejas y los naga de la costa vienen después de {area:599}, en un solo recorrido hacia el norte hasta {area:2406}.",
 	-- ["Keep north to {area:598}. The Slitherblade Myrmidons, Naga and Sorceresses hold the beach; pull them one at a time. Any Slitherblade can drop {item:15881}."] = "Sigue al norte hasta {area:598}. Los mirmidones, naga y hechiceras Filozante ocupan la playa; atráelos de uno en uno. Cualquier Filozante puede soltar {item:15881}.",
 	-- ["Shadowprey's {quest:5381} and the coast's naga want 33. Below that? The Kolkar centaurs (30-32) of {area:609}, a short way east of {npc:11596}'s camp, are the nearest camp at your level: kill them until level 33. The Scorpashi Lashers (34-35) on the slopes north of the camp are higher. Or, with a group, run the {area:1717} dungeon instead."] = "{quest:5381} de la Aldea Cazasombras y los naga de la costa piden nivel 33. ¿Estás por debajo? Los centauros Kolkar (30-32) de {area:609}, un poco al este del campamento de {npc:11596}, son el campamento más cercano de tu nivel: mátalos hasta el nivel 33. Los azotadores Scorpashi (34-35) de las laderas al norte del campamento son de nivel más alto. O, con un grupo, haz en su lugar la mazmorra {area:1717}.",
 	-- ["Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}. He is well above you: rest to full first. {object:177786} stands on the shore beside the statue: open it with both keys."] = "Nada hasta {area:2406}, frente al extremo norte, y usa {item:15766} en {object:177673}: aparece {npc:12369} (38); mátalo para obtener {quest:6027}. Tiene bastante más nivel que tú: descansa hasta estar al máximo antes. {object:177786} está en la orilla junto a la estatua: ábrelo con ambas llaves.",
 	-- ["Taiga's {item:14547}, Drulzegar's Other Fish to Fry and {zone:1443}'s other 37-40 quests wait for the second visit, at 38: the next guides fly to {zone:1454} and take the zeppelin to {zone:1434}."] = "La {item:14547} de Taiga, Other Fish to Fry de Drulzegar y las demás misiones de 37-40 de {zone:1443} esperan a la segunda visita, a nivel 38: las siguientes guías vuelan a {zone:1454} y toman el zepelín a {zone:1434}.",
 	-- ["grind on {npc:4635}"] = "sube nivel con {npc:4635}",
 	-- ["{item:15766}, on the {object:177673}"] = "{item:15766}, en {object:177673}",
+	-- ["{npc:4877}, the trade supplies vendor, stands inside {area:484}'s inn."] = "{npc:4877}, la mercader de suministros comerciales, está dentro de la posada de {area:484}.",
+	-- ["{npc:5395} now offers Centaur Bounty: the second {zone:1443} visit, at 38, takes it on its way to the {area:607}."] = "{npc:5395} ofrece ahora Centaur Bounty: la segunda visita a {zone:1443}, a nivel 38, la acepta de camino a {area:607}.",
+	-- ["{npc:5641}'s next errand sends you after a demon lord with an elite guard: skip it."] = "El siguiente encargo de {npc:5641} te manda a por un señor demoníaco con escolta élite: omítelo.",
 }

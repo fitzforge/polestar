@@ -13,8 +13,8 @@ return {
 	-- Step 1: Fly to Kargath
 	-- {area:340} Kargath
 	["Fly to {area:340}"] = "",
-	-- {zone:2548} Riverglades · {area:3} Badlands · {area:657} Harborage · {area:75} Stonard · {area:340} Kargath
-	["The {zone:2548} lie south of the {area:3}. Ride east from the {area:657} to {area:75} and fly to {area:340}: the way down into the zone starts there."] = "{zone:2548}은(는) {area:3} 남쪽에 있습니다. {area:657}에서 동쪽 {area:75}(으)로 가서 {area:340}(으)로 날아가세요. 지역으로 내려가는 길이 그곳에서 시작됩니다.",
+	-- {zone:2548} Riverglades · {area:3} Badlands · {area:75} Stonard · {area:340} Kargath
+	["The {zone:2548} lie south of the {area:3}. Fly from {area:75} to {area:340}: the way down into the zone starts there."] = "",
 	-- {area:75} Stonard
 	["{area:75} flight master"] = "",
 
@@ -206,37 +206,40 @@ return {
 	-- plural, as words: Twilight Ritual Circles = {npc:262006} Twilight Ritual Circle
 	["destroy 5 Twilight Ritual Circles"] = "황혼의 의식 법진 5개 파괴",
 
-	-- Step 47: Chogg'Zac
-	-- {npc:256899} Chogg'Zac · {area:16723} Sunnyglade · {npc:255829} Clugfist · {area:16726} Bolder'ok · {quest:95420} Land of Giants · {npc:258570} Da'grosh
-	["Careful: {npc:256899}, the two-headed ogre at the western edge of {area:16723}, is an elite (level 41): grouping up is advised under 43. Clear the cultists around him first and come in with full health and mana: recorded players of 42-43 killed him alone. {npc:255829}'s quests in {area:16726} wait on this one: skip him and {quest:95420}, the {area:16726} quests and {npc:258570}'s camp in the west go with him (about 21,000 XP); the guide then leaves them out."] = "주의: {area:16723} 서쪽 끝의 머리 둘 달린 오우거 {npc:256899}은(는) 정예(41레벨)입니다. 43레벨 미만이라면 파티를 권장합니다. 주변 신도들을 먼저 처리하고 생명력과 마나를 가득 채운 채 덤비세요. 42-43레벨 플레이어가 혼자 처치한 기록이 있습니다. {area:16726}에서 받는 {npc:255829}의 퀘스트가 이것에 달려 있습니다. 그를 건너뛰면 {quest:95420}, {area:16726} 퀘스트, 서쪽의 {npc:258570} 야영지도 함께 빠지며(약 21,000 경험치), 이후 가이드에서 제외됩니다.",
+	-- Step 47: Twilight No More!
+	-- {npc:256899} Chogg'Zac · {area:16723} Sunnyglade · {npc:260931} Clubtoe · {quest:95420} Land of Giants · {npc:255829} Clugfist · {quest:94668} Bloodmaster's Ring · {area:16726} Bolder'ok · {npc:258570} Da'grosh
+	["{npc:256899}, the two-headed ogre at the western edge of {area:16723}, is an elite (level 41): grouping up is advised. {npc:260931} wants both his heads, and the rest of the zone's ogre story waits on them: {quest:95420}, {npc:255829}'s quests and the {quest:94668} in {area:16726}, then {npc:258570}'s camp in the west (about 21,000 XP in all). Skip him and the guide leaves those out."] = "",
 
-	-- Step 48: Clubtoe
+	-- Step 48: Chogg'Zac
+	["Clear the cultists around him first and come in with full health and mana."] = "",
+
+	-- Step 49: Clubtoe
 	-- {quest:95418} Spread the Word · {npc:256710} Tran'gul · {area:16743} Rog'mar
 	["{quest:95418}: for {npc:256710} in {area:16743}"] = "{quest:95418}: {area:16743}의 {npc:256710}용",
 
-	-- Step 49: Tran'gul
+	-- Step 50: Tran'gul
 	-- {area:16743} Rog'mar · {npc:260931} Clubtoe · {npc:256710} Tran'gul · {npc:255829} Clugfist
 	["East back to {area:16743}: {npc:260931}'s word goes to {npc:256710}, and {npc:256710}'s to {npc:255829}, the ogres' chieftain."] = "동쪽 {area:16743}(으)로 돌아가세요. {npc:260931}의 소식은 {npc:256710}에게, {npc:256710}의 소식은 오우거 족장 {npc:255829}에게 전해집니다.",
 	-- {quest:95420} Land of Giants · {npc:255829} Clugfist · {area:16726} Bolder'ok
 	["{quest:95420}: for {npc:255829} in {area:16726}"] = "{quest:95420}: {area:16726}의 {npc:255829}용",
 
-	-- Step 50: WANTED: Scoutmaster Vargas
+	-- Step 51: WANTED: Scoutmaster Vargas
 	-- {npc:260211} Scoutmaster Vargas · {npc:256728} Na'zok · {npc:258031} Neza Bloodsnout
 	["{npc:260211} is an elite (level 42) at the Alliance scouts' camp in the hills south-east of {npc:256728}, where you go next: grouping up is advised. The poster hangs in the middle of the fort; {npc:258031} takes the eye, later in this guide."] = "{npc:260211}은(는) 다음 목적지인 {npc:256728} 남동쪽 언덕의 얼라이언스 정찰병 야영지에 있는 정예(42레벨)입니다. 파티를 권장합니다. 현상 수배 전단은 요새 한가운데 걸려 있으며, 눈은 이 가이드 후반에 {npc:258031}에게 제출합니다.",
 	-- {object:707249} Wanted (no name in this language: may be words)
 	["the {object:707249} poster"] = "{object:707249} 벽보",
 
-	-- Step 51: Na'zok's camp
+	-- Step 52: Na'zok's camp
 	-- {npc:256728} Na'zok
 	["{npc:256728}'s camp"] = "{npc:256728}의 야영지",
 	-- {area:16743} Rog'mar · {npc:256728} Na'zok
 	["North-east from {area:16743} up into the hills: {npc:256728} watches the Paletusk boars from his camp."] = "{area:16743}에서 북동쪽 언덕으로 올라가세요. {npc:256728}이(가) 야영지에서 창백엄니 멧돼지들을 지켜보고 있습니다.",
 
-	-- Step 52: Bolder'ok
+	-- Step 53: Bolder'ok
 	-- {area:16726} Bolder'ok · {npc:255829} Clugfist
 	["North-west to {area:16726}, the ogres' town. {npc:255829}, its chieftain, sits on the hill. The ogres are friendly while you leave them alone."] = "북서쪽의 오우거 마을 {area:16726}(으)로 가세요. 족장 {npc:255829}이(가) 언덕 위에 앉아 있습니다. 건드리지 않는 한 오우거들은 우호적입니다.",
 
-	-- Step 53: The Twilight ogres' camp
+	-- Step 54: The Twilight ogres' camp
 	["The Twilight ogres' camp"] = "황혼의 오우거 야영지",
 	-- {npc:256728} Na'zok · {npc:260973} Klunk · {item:269257} Skullbasher · {npc:260211} Scoutmaster Vargas
 	-- plural, as words: Twilight Maulers = {npc:260968} Twilight Mauler · Farholde Ambushers = {npc:260023} Farholde Ambusher
@@ -244,7 +247,7 @@ return {
 	-- {item:269257} Skullbasher · {npc:260973} Klunk
 	["{item:269257}, from {npc:260973}"] = "{npc:260973}에게서 얻는 {item:269257}",
 
-	-- Step 55: The paletusks
+	-- Step 56: The paletusks
 	["The paletusks"] = "창백엄니 멧돼지",
 	-- {npc:256728} Na'zok
 	-- plural, as words: Young Paletusks = {npc:258331} Young Paletusk · Mature Paletusks = {npc:255851} Mature Paletusk
@@ -256,7 +259,7 @@ return {
 	-- plural, as words: Mature Paletusks = {npc:255851} Mature Paletusk
 	["{item:769}, from the Mature Paletusks"] = "다 자란 창백엄니에게서 얻는 {item:769}",
 
-	-- Step 57: Jom-jom's Escape
+	-- Step 58: Jom-jom's Escape
 	-- {npc:258048} Jom-jom · {npc:256728} Na'zok · {area:16726} Bolder'ok
 	["{npc:258048} waits by the Twilight ogres' camp north-east of {npc:256728}: take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "{npc:258048}이(가) {npc:256728} 북동쪽 황혼의 오우거 야영지 옆에서 기다리고 있습니다. 그를 {area:16726}까지 데려가며 사교도들로부터 지켜 주세요. 그가 쓰러지면 다시 퀘스트를 받으세요.",
 	-- {npc:258048} Jom-jom
@@ -264,17 +267,17 @@ return {
 	-- {npc:258048} Jom-jom · {area:16726} Bolder'ok
 	["help {npc:258048} reach {area:16726}"] = "{npc:258048}이(가) {area:16726}에 도착하도록 돕기",
 
-	-- Step 58: Bolder'ok
+	-- Step 59: Bolder'ok
 	-- {npc:255829} Clugfist · {npc:257062} Jezap Jinglesprocket · {quest:94668} Bloodmaster's Ring
 	["Back to {npc:255829} on his hill. {npc:257062} runs the {quest:94668} just below it."] = "언덕 위의 {npc:255829}에게 돌아가세요. 바로 아래에서 {npc:257062}이(가) {quest:94668}을(를) 운영합니다.",
 
-	-- Step 59: Clugfist
+	-- Step 60: Clugfist
 	-- {quest:95428} Clugfist's Decree · {npc:256418} Krom'rosh · {area:16743} Rog'mar
 	["{quest:95428}: for {npc:256418} in {area:16743}, later in this guide"] = "{quest:95428}: 이 가이드 후반에 {area:16743}의 {npc:256418}에게 제출",
 	-- {quest:94669} Pay to Play
 	["{quest:94669}: the Ring's bouts, one-on-one fights with elites (41-45); a deposit first"] = "{quest:94669}: 투기장 시합, 정예와의 1대1 대결(41-45). 먼저 보증금 필요",
 
-	-- Step 60: The Bloodmaster's Ring: Buzzbeak
+	-- Step 61: The Bloodmaster's Ring: Buzzbeak
 	-- {quest:94670} Bloodmaster's Ring
 	["The {quest:94670}: Buzzbeak"] = "{quest:94670}: 윙윙부리",
 	-- {npc:255829} Clugfist · {npc:258626} Mog'thar · {npc:257059} Chub'chob · {npc:257062} Jezap Jinglesprocket
@@ -283,90 +286,97 @@ return {
 	["{quest:94670}: Buzzbeak"] = "{quest:94670}: 윙윙부리",
 	["beat Buzzbeak"] = "윙윙부리 처치",
 
-	-- Step 61: The Bloodmaster's Ring: Kronk and Bonegnaw
+	-- Step 62: The Bloodmaster's Ring: Kronk and Bonegnaw
 	-- {quest:94670} Bloodmaster's Ring
 	["The {quest:94670}: Kronk and Bonegnaw"] = "{quest:94670}: 크롱크와 뼈갉이",
 	["Kronk"] = "크롱크",
 	["Bonegnaw"] = "뼈갉이",
 
-	-- Step 62: The Bloodmaster's Ring: Mog'thar
+	-- Step 63: The Bloodmaster's Ring: Mog'thar
 	-- {quest:94962} Bloodmaster's Ring · {npc:258626} Mog'thar
 	["The {quest:94962}: {npc:258626}"] = "{quest:94962}: {npc:258626}",
 
-	-- Step 63: The Bloodmaster's Ring: Snufflesnout and Chub'chob
-	-- {quest:94964} Bloodmaster's Ring · {npc:257059} Chub'chob
-	["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}: 킁킁코와 {npc:257059}",
-	-- {npc:257062} Jezap Jinglesprocket · {npc:258626} Mog'thar
-	["{npc:257062} offers the last two once Gobam's errands are done (players' recordings), which this guide leaves out. They are level 44 and 45: leave them for later if {npc:258626} was a close fight."] = "고밤의 심부름을 마치면 {npc:257062}이(가) 마지막 두 퀘스트를 주지만(플레이어 기록 기준), 이 가이드에서는 다루지 않습니다. 44레벨과 45레벨이니 {npc:258626}와의 싸움이 아슬아슬했다면 나중으로 미루세요.",
-	["Snufflesnout (44)"] = "킁킁주둥이 (44)",
-	-- {npc:255829} Clugfist
-	["{npc:255829}, on the hill"] = "언덕 위의 {npc:255829}",
+	-- Step 64: Gobam and Hamur
+	-- {npc:257058} Gobam · {npc:263440} Hamur
+	["{npc:257058} and {npc:263440}"] = "",
+	-- {npc:258626} Mog'thar · {npc:257062} Jezap Jinglesprocket · {npc:257058} Gobam · {npc:263440} Hamur · {area:16727} Powderfuse Port · {item:265806} Riverweed · {area:16743} Rog'mar · {area:16726} Bolder'ok
+	["With {npc:258626} beaten, {npc:257062} sends you to {npc:257058}, who keeps the Ring's beasts a few steps north-east of the ring; {npc:263440}, just south of the ring, wants good rock. {npc:257058}'s boar treat needs Sweetberries from the pirates' slopes north of {area:16727} and {item:265806} from the river between {area:16743} and {area:16726}: this guide gathers both and brings you back here after the port, for the Ring's last two bouts."] = "",
 
-	-- Step 64: Powderfuse Port
+	-- Step 65: The rock piles
+	["The rock piles"] = "",
+	-- {area:16726} Bolder'ok · {npc:263440} Hamur
+	["South-east from {area:16726} on the way down to the port: {npc:263440}'s rock piles lie in the hills just south of the town and on the slopes west of the Twilight ogres' camp."] = "",
+
+	-- Step 66: Powderfuse Port
 	-- {area:16727} Powderfuse Port · {npc:255897} Friz Frazzlespark · {npc:259962} Fimbo Greasemitz · {npc:259961} Wharfmaster Whizzbuzz
 	["South-east down out of the hills to {area:16727}, the goblins' harbour on the coast. {npc:255897} keeps a stall at the west end of the docks, {npc:259962} cooks by the inn, and {npc:259961} works the north pier."] = "언덕을 내려와 남동쪽으로 해안의 고블린 항구인 {area:16727}(으)로 가세요. {npc:255897}은(는) 부두 서쪽 끝에서 노점을 열고 있고, {npc:259962}은(는) 여관 옆에서 요리하며, {npc:259961}은(는) 북쪽 부두에서 일합니다.",
 	-- {object:628948} WANTED! (no name in this language: may be words) · {npc:260235} Trapclaw
 	["The {object:628948} poster by the inn: {npc:260235}"] = "여관 옆 {object:628948} 벽보: {npc:260235}",
 
-	-- Step 65: Wharfmaster Whizzbuzz
+	-- Step 67: Wharfmaster Whizzbuzz
 	-- {npc:259961} Wharfmaster Whizzbuzz · {item:277974} Twice Reordered Package
 	["{npc:259961} on the north pier takes Lozgil's {item:277974}."] = "북쪽 부두의 {npc:259961}에게 로즈길의 {item:277974}을(를) 전달하세요.",
 
-	-- Step 66: WANTED: Old Rot-Chum
+	-- Step 68: WANTED: Old Rot-Chum
 	-- {npc:257001} Old Rot-Chum
 	["{npc:257001} is an elite (level 42) on the south shore: grouping up is advised."] = "{npc:257001}은(는) 남쪽 해안의 정예(42레벨)입니다. 파티를 권장합니다.",
 	-- {object:628948} WANTED! (no name in this language: may be words)
 	["The {object:628948} poster by the inn"] = "여관 옆 {object:628948} 벽보",
 
-	-- Step 67: The murlocs, south-west
+	-- Step 69: The murlocs, south-west
 	["The murlocs, south-west"] = "남서쪽의 멀록",
 	-- {quest:95260} Terrors From the Deep · {npc:260231} Argo Brinewhistle
 	["South-west along the shore from the port: the saltwater murlocs camp on the beaches. On the way, a painted hide is stretched beside the path: it starts {quest:95260} for {npc:260231} at the docks."] = "항구에서 해안을 따라 남서쪽으로 가십시오. 바닷물 멀록이 해변에 진을 치고 있습니다. 가는 길에 길가에 칠한 가죽이 펼쳐져 있는데, 부두의 {npc:260231}을(를) 위한 {quest:95260}이(가) 시작됩니다.",
 
-	-- Step 69: Back through the port
+	-- Step 71: Back through the port
 	["Back through the port"] = "항구를 거쳐 돌아가기",
 	["Back north along the shore: hand in the murlocs and the hide on the docks on your way to the crawlers."] = "해안을 따라 북쪽으로 돌아가십시오. 게들에게 가는 길에 부두에서 멀록 퀘스트와 가죽 퀘스트를 제출하십시오.",
 	-- {quest:95261} It Takes Guts
 	["{quest:95261}: the beasts' entrails come as you go; the mushrooms grow on the ridge west of the pirates"] = "{quest:95261}: 야수 내장은 진행하면서 모이고, 버섯은 해적 서쪽 능선에서 자람",
 
-	-- Step 70: Beast Entrails as you go
+	-- Step 72: Beast Entrails as you go
 	-- {item:268632} Beast Entrails
 	["{item:268632} as you go"] = "이동하며 {item:268632} 모으기",
 	-- {zone:2548} Riverglades · {item:268632} Beast Entrails · {npc:260231} Argo Brinewhistle · {npc:257001} Old Rot-Chum · {npc:263380} Ghostmaw
 	["Most beasts in the {zone:2548} drop {item:268632} for {npc:260231}: the shore crawlers on this coast and the boars on the ridge west of the pirates.\nCareful: {npc:257001} (elite, 42) wanders the shore and {npc:263380} (elite, 42) the river: take your beasts away from them."] = "{zone:2548}의 야수 대부분이 {npc:260231}에게 줄 {item:268632}을(를) 떨어뜨립니다. 이 해안의 해안 기어다니는 놈들과 해적 서쪽 능선의 멧돼지가 좋습니다.\n주의: {npc:257001}(정예, 42)이(가) 해안을, {npc:263380}(정예, 42)이(가) 강을 돌아다니니 야수를 그들에게서 멀리 끌어내 잡으세요.",
 
-	-- Step 71: The crawlers and Trapclaw
+	-- Step 73: The crawlers and Trapclaw
 	-- {npc:260235} Trapclaw
 	["The crawlers and {npc:260235}"] = "게와 {npc:260235}",
 	-- {npc:259962} Fimbo Greasemitz · {npc:260231} Argo Brinewhistle · {npc:260235} Trapclaw · {npc:259758} Gul'gash
 	["North along the beach from the docks: the crawlers drop the meat for {npc:259962}, and their entrails count for {npc:260231}. {npc:260235}, a big crab, scuttles along the rocks east of the docks. {npc:259758}, a rare elite of level 49, roams this coast from the docks up to the pirates' camp: if you see him, keep well away."] = "부두에서 해변을 따라 북쪽으로 가세요. 기어다니는 놈들이 {npc:259962}에게 줄 고기를 떨어뜨리고, 내장은 {npc:260231}의 퀘스트에 포함됩니다. 큰 게인 {npc:260235}은(는) 부두 동쪽 바위를 따라 돌아다닙니다. 49레벨 희귀 정예인 {npc:259758}이(가) 부두부터 해적 야영지까지 이 해안을 배회하니, 보이면 멀리 피하세요.",
 
-	-- Step 72: The Eastsea pirates
+	-- Step 74: The Eastsea pirates
 	["The Eastsea pirates"] = "동부해 해적",
 	-- {npc:259758} Gul'gash
 	["North-east along the coast to the pirates' camp on the cliffs. The buccaneers and musketeers carry the smuggled goods. {npc:259758} walks the camp too: keep an eye out for him."] = "해안을 따라 북동쪽, 절벽 위 해적 야영지로 가십시오. 해적과 머스킷병이 밀수품을 지니고 있습니다. {npc:259758}도 야영지를 돌아다니니 주의하십시오.",
 
-	-- Step 73: Powderfuse Port
+	-- Step 75: Powderfuse Port
 	["Back to the port, from the north pier west through the docks."] = "북쪽 부두에서 서쪽으로 선착장을 지나 항구로 돌아가십시오.",
 	-- {quest:95293} Smuggler's Special · {npc:260390} Captain Bentcoin
 	["{quest:95293}: for {npc:260390} at the pirates' camp"] = "{quest:95293}: 해적 야영지의 {npc:260390}에게",
 
-	-- Step 75: The pirates' second wave
+	-- Step 77: The pirates' second wave
 	["The pirates' second wave"] = "해적의 두 번째 무리",
 	-- {npc:259758} Gul'gash
 	-- plural, as words: Eastsea Raiders = {npc:257915} Eastsea Raider
 	["North along the coast from the port: the Eastsea raiders and bombardiers have dug in on the slopes west of the buccaneers' camp, among their powder kegs. Watch for {npc:259758} on these cliffs.\nCareful: the Eastsea Raiders are level 44-45, a level or two over you here: pull them one at a time from the edge of the slopes and keep clear of the camp behind them."] = "항구에서 해안을 따라 북쪽으로 가세요. 동쪽바다 약탈자와 폭격수들이 해적 야영지 서쪽 비탈의 화약통 사이에 진을 쳤습니다. 이 절벽에서 {npc:259758}을(를) 조심하세요.\n주의: 동쪽바다 약탈자는 44-45레벨로 여러분보다 한두 레벨 높습니다. 비탈 가장자리에서 하나씩 끌어내고 뒤쪽 야영지에는 접근하지 마세요.",
 
-	-- Step 76: Captain Bentcoin
+	-- Step 78: Sweetberries
+	["Sweetberries"] = "",
+	-- {npc:257058} Gobam · {item:265808} Sweetberry
+	["{npc:257058}'s {item:265808} bushes grow on these slopes among the raiders' powder kegs, the last one a little to the north."] = "",
+
+	-- Step 79: Captain Bentcoin
 	-- {npc:260390} Captain Bentcoin · {npc:260391} Captain Haynes
 	["East along the cliffs to the far end of the pirates' camp: {npc:260390} waits by the water, {npc:260391} beside him."] = "절벽을 따라 동쪽으로 해적 야영지 맨 끝까지 가십시오. {npc:260390}이(가) 물가에, 그 옆에 {npc:260391}이(가) 있습니다.",
 
-	-- Step 77: Powderfuse Port
+	-- Step 80: Powderfuse Port
 	["Back to the port."] = "항구로 돌아가십시오.",
 	-- {npc:255897} Friz Frazzlespark · {quest:95296} Shipping and Handling · {npc:260405} Wharfmaster Steamfizzle · {area:977} Steamwheedle Port · {zone:1444} Feralas · {zone:1446} Tanaris
 	["{npc:255897}: {quest:95296}, for {npc:260405} at {area:977} in the {zone:1444} & {zone:1446} guide"] = "{npc:255897}: {quest:95296}, {zone:1444} & {zone:1446} 가이드의 {area:977}에 있는 {npc:260405}에게",
 
-	-- Step 78: The pirates' ships
+	-- Step 81: The pirates' ships
 	["The pirates' ships"] = "해적선",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
 	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "다시 해적 절벽으로 가세요. 야영지 아래 정박한 배 세 척에 남쪽부터 북쪽 순으로 위즈버즈의 폭약을 설치하세요. {quest:95124}은(는) 가운데 배 옆에 있고, 그 옆에 전리품 상자가 있습니다. 가는 길에 {npc:259758}을(를) 조심하세요.\n주의: {quest:95124}은(는) 45레벨로 여러분보다 한두 레벨 높습니다. 주변 갑판을 먼저 정리하고 생명력을 가득 채운 뒤 덤비세요.",
@@ -375,42 +385,71 @@ return {
 	["the middle ship"] = "가운데 배",
 	["the northern ship"] = "북쪽 배",
 
-	-- Step 79: Rotflesh Mushrooms
+	-- Step 82: Rotflesh Mushrooms
 	-- plural, as words: Rotflesh Mushrooms = {item:268664} Rotflesh Mushroom
 	["Rotflesh Mushrooms"] = "부패살점 버섯",
 	-- plural, as words: Rotflesh Mushrooms = {item:268664} Rotflesh Mushroom · Mature Paletusks = {npc:255851} Mature Paletusk
 	["West from the northern ship, up the ridge: the Rotflesh Mushrooms grow among the rocks, close to the Twilight ogres' camp. The Mature Paletusks on the ridge give entrails too."] = "북쪽 배에서 서쪽으로 능선을 오르십시오. 부패살점 버섯은 황혼의 망치 오우거 야영지 근처 바위 사이에 자랍니다. 능선의 다 자란 흰엄니도 내장을 줍니다.",
 
-	-- Step 80: Finish the Beast Entrails
+	-- Step 83: Finish the Beast Entrails
 	-- {item:268632} Beast Entrails
 	["Finish the {item:268632}"] = "{item:268632} 마저 모으기",
 	-- {npc:259758} Gul'gash
 	["South-east back towards the port: the shore crawlers on the beach north of the docks are the quickest entrails. {npc:259758} wanders down to this beach too."] = "남동쪽으로 항구 쪽으로 돌아가세요. 부두 북쪽 해변의 해안 기어다니는 놈들이 내장을 모으기 가장 빠릅니다. {npc:259758}은(는) 이 해변까지도 내려옵니다.",
 
-	-- Step 81: Powderfuse Port
+	-- Step 84: Powderfuse Port
 	["Down to the port."] = "항구로 내려가십시오.",
 	-- {quest:95267} The Monster Surfaces · {npc:257001} Old Rot-Chum
 	["{quest:95267}: a big beast in the shallows south-west of the port, near {npc:257001}, the elite"] = "{quest:95267}: 항구 남서쪽 얕은 물, 정예 {npc:257001} 근처의 큰 야수",
 
-	-- Step 82: The Monster Surfaces
+	-- Step 85: The Monster Surfaces
 	-- {npc:260244} Monstrous Threshadon · {npc:257001} Old Rot-Chum
 	["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244}은(는) 항구 남서쪽, 멀록 해변 아래 얕은 물을 배회합니다. 정예인 {npc:257001}이(가) 근처 해안을 걸어 다니니 거리를 두십시오.",
 
-	-- Step 84: Rog'mar
-	-- {area:16743} Rog'mar · {npc:256418} Krom'rosh · {npc:255829} Clugfist · {npc:258570} Da'grosh
-	["Back to {area:16743} from the port, where your Hearthstone is set. {npc:256418} in the middle of the fort: {npc:255829}'s word sends him looking for {npc:258570}, his warrior in the west."] = "항구에서 귀환석이 설정된 {area:16743}(으)로 돌아가세요. 요새 중앙의 {npc:256418}: {npc:255829}의 전갈을 들으면 서쪽에 있는 자신의 전사 {npc:258570}을(를) 찾게 합니다.",
+	-- Step 87: The river: Riverweed
+	-- {item:265806} Riverweed
+	["The river: {item:265806}"] = "",
+	-- {area:16726} Bolder'ok · {npc:257058} Gobam · {item:265806} Riverweed · {area:16743} Rog'mar
+	["From the port, ride north-west to the river and follow it upstream towards {area:16726}: {npc:257058}'s {item:265806} grows along its banks between {area:16743} and {area:16726}."] = "",
+
+	-- Step 89: Gobam
+	-- {area:16726} Bolder'ok · {npc:263440} Hamur · {npc:257058} Gobam · {npc:257062} Jezap Jinglesprocket
+	["North up the river to {area:16726}: {npc:263440} just south of the ring, {npc:257058} north-east of it, then {npc:257062}."] = "",
+
+	-- Step 90: The Bloodmaster's Ring: Snufflesnout
+	-- {quest:94964} Bloodmaster's Ring
+	["The {quest:94964}: Snufflesnout"] = "",
+	["Snufflesnout is elite: grouping up is advised."] = "",
+	["Snufflesnout (44)"] = "킁킁주둥이 (44)",
+
+	-- Step 91: The Bloodmaster's Ring: Chub'chob
+	-- {quest:94964} Bloodmaster's Ring · {npc:257059} Chub'chob
+	["The {quest:94964}: {npc:257059}"] = "",
+	-- {npc:257059} Chub'chob
+	["{npc:257059} is elite: grouping up is advised."] = "",
+	-- {npc:255829} Clugfist
+	["{npc:255829}, on the hill"] = "언덕 위의 {npc:255829}",
+
+	-- Step 92: Rog'mar
+	-- {area:16743} Rog'mar · {area:16726} Bolder'ok · {npc:256418} Krom'rosh · {npc:255829} Clugfist · {npc:258570} Da'grosh
+	-- was: ["Back to {area:16743} from the port, where your Hearthstone is set. {npc:256418} in the middle of the fort: {npc:255829}'s word sends him looking for {npc:258570}, his warrior in the west."] = "항구에서 귀환석이 설정된 {area:16743}(으)로 돌아가세요. 요새 중앙의 {npc:256418}: {npc:255829}의 전갈을 들으면 서쪽에 있는 자신의 전사 {npc:258570}을(를) 찾게 합니다."
+	["Back to {area:16743}: from {area:16726} south-west down the river, or from the port, where your Hearthstone is set. {npc:256418} in the middle of the fort: {npc:255829}'s word sends him looking for {npc:258570}, his warrior in the west."] = "",
 	-- {quest:94744} The Wayward Warrior · {npc:258570} Da'grosh · {area:16723} Sunnyglade
 	["{quest:94744}: for {npc:258570}, west of {area:16723}"] = "{quest:94744}: {area:16723} 서쪽의 {npc:258570}에게",
 
-	-- Step 86: Da'grosh
+	-- Step 94: Fly to Kargath
+	-- {npc:258570} Da'grosh · {npc:256899} Chogg'Zac · {zone:2548} Riverglades · {area:16743} Rog'mar · {npc:255993} Grakna · {area:340} Kargath · {area:3} Badlands
+	["The rest of this guide is {npc:258570}'s camp in the west, which waits on {npc:256899}: without him the {zone:2548} end here. Back to {area:16743} from the port, where your Hearthstone is set: {npc:255993}, the wind rider master in the middle of the fort, flies to {area:340} in the {area:3}, where the next guide starts."] = "",
+
+	-- Step 95: Da'grosh
 	-- {area:16743} Rog'mar · {area:16723} Sunnyglade · {area:16685} Twilight's Shroud · {npc:258570} Da'grosh · {npc:256418} Krom'rosh
 	["West from {area:16743} through {area:16723} and on up the valley towards {area:16685}: {npc:258570}, {npc:256418}'s wayward warrior, keeps a camp in the hills below the Twilight cult's fortress."] = "{area:16743}에서 서쪽으로 {area:16723}을(를) 지나 계곡을 따라 {area:16685} 쪽으로 올라가세요. {npc:256418}의 길 잃은 전사 {npc:258570}이(가) 황혼 교단 요새 아래 언덕에 야영지를 차리고 있습니다.",
 
-	-- Step 87: Crag'rog
+	-- Step 96: Crag'rog
 	-- {npc:260993} Crag'rog · {area:16726} Bolder'ok · {npc:258570} Da'grosh
 	["{npc:260993}, a {area:16726} ogre, hides in the cave west of {npc:258570}'s camp."] = "{area:16726} 오우거인 {npc:260993}은(는) {npc:258570}의 야영지 서쪽 동굴에 숨어 있습니다.",
 
-	-- Step 88: The Twilight camps
+	-- Step 97: The Twilight camps
 	["The Twilight camps"] = "황혼의 야영지",
 	-- {npc:258570} Da'grosh · {npc:256881} Overlord Kilgar · {npc:256891} Executioner Morg · {npc:258023} Sergeant Riftan
 	-- plural, as words: Rog'mar Scouts = {npc:257450} Rog'mar Scout · Twilight Enforcers = {npc:256800} Twilight Enforcer · Farholde Lookouts = {npc:258686} Farholde Lookout
@@ -418,25 +457,31 @@ return {
 	-- plural, as words: Rog'mar Scouts = {npc:257450} Rog'mar Scout
 	["free five captive Rog'mar Scouts"] = "붙잡힌 로그마르 정찰병 5명 풀어 주기",
 
-	-- Step 89: The ogre mine
+	-- Step 98: The ogre mine
 	["The ogre mine"] = "오우거 광산",
 	-- plural, as words: Twilight Enforcers = {npc:256800} Twilight Enforcer
 	["North of the camps the cult works ogre miners in a mine: talk five of them into rising up against their masters.\nCareful: Twilight Enforcers (elites, level 45) walk past the mine's mouth on their way through the camps. Wait for one to pass before you go in."] = "야영지 북쪽 광산에서 교단이 오우거 광부를 부리고 있습니다. 그중 다섯 명을 설득해 주인에게 맞서게 하세요.\n주의: 황혼의 집행자(정예, 45레벨)가 야영지를 오가며 광산 입구를 지나갑니다. 지나갈 때까지 기다렸다가 들어가세요.",
 	-- plural, as words: Ogre Miners = {npc:260995} Ogre Miner
 	["recruit five Ogre Miners"] = "오우거 광부 5명 포섭하기",
 
-	-- Step 92: Bring Me His Head
+	-- Step 101: Bring Me His Head
 	-- {npc:256881} Overlord Kilgar
 	["{npc:256881} is an elite (level 46) in the fortress at the head of the valley, with the Enforcers around him: grouping up is advised."] = "{npc:256881}은(는) 골짜기 끝 요새에 있는 정예(46레벨)이며 주위에 집행자들이 있습니다. 파티를 권장합니다.",
 
-	-- Step 93: Twilight's Shroud
-	-- {area:340} Kargath · {area:3} Badlands · {npc:258570} Da'grosh · {area:16685} Twilight's Shroud
-	["The next guide flies from {area:340} in the {area:3}: north out of {npc:258570}'s valley and up through {area:16685}, the way through to the {area:3}."] = "다음 가이드는 {area:3}의 {area:340}에서 비행으로 시작합니다. {npc:258570}의 골짜기에서 북쪽으로 나가 {area:3}(으)로 통하는 {area:16685}을(를) 지나 올라가세요.",
+	-- Step 102: Twilight's Shroud
+	-- {area:340} Kargath · {area:3} Badlands · {area:16685} Twilight's Shroud · {npc:258570} Da'grosh · {area:16743} Rog'mar · {area:16723} Sunnyglade
+	["The next guide flies from {area:340} in the {area:3}: up through {area:16685}, the pass at the valley's north-west end, just north of {npc:258570}'s camp. Coming from {area:16743}, ride west through {area:16723} and keep north of the Twilight camps below the pass."] = "",
 
-	-- Step 94: Kargath
+	-- Step 103: Kargath
 	-- {area:3} Badlands · {area:340} Kargath
 	["Across the {area:3} to {area:340}, the Horde fortress built into the cliffs at the zone's western edge: its flight master stands at the foot of the fortress."] = "{area:3}을(를) 가로질러 지역 서쪽 끝 절벽에 지어진 호드 요새 {area:340}(으)로 가세요. 비행 조련사는 요새 아래에 있습니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back to {area:16743} from the port, where your Hearthstone is set. {npc:256418} in the middle of the fort: {npc:255829}'s word sends him looking for {npc:258570}, his warrior in the west."] = "항구에서 귀환석이 설정된 {area:16743}(으)로 돌아가세요. 요새 중앙의 {npc:256418}: {npc:255829}의 전갈을 들으면 서쪽에 있는 자신의 전사 {npc:258570}을(를) 찾게 합니다.",
+	-- ["Careful: {npc:256899}, the two-headed ogre at the western edge of {area:16723}, is an elite (level 41): grouping up is advised under 43. Clear the cultists around him first and come in with full health and mana: recorded players of 42-43 killed him alone. {npc:255829}'s quests in {area:16726} wait on this one: skip him and {quest:95420}, the {area:16726} quests and {npc:258570}'s camp in the west go with him (about 21,000 XP); the guide then leaves them out."] = "주의: {area:16723} 서쪽 끝의 머리 둘 달린 오우거 {npc:256899}은(는) 정예(41레벨)입니다. 43레벨 미만이라면 파티를 권장합니다. 주변 신도들을 먼저 처리하고 생명력과 마나를 가득 채운 채 덤비세요. 42-43레벨 플레이어가 혼자 처치한 기록이 있습니다. {area:16726}에서 받는 {npc:255829}의 퀘스트가 이것에 달려 있습니다. 그를 건너뛰면 {quest:95420}, {area:16726} 퀘스트, 서쪽의 {npc:258570} 야영지도 함께 빠지며(약 21,000 경험치), 이후 가이드에서 제외됩니다.",
+	-- ["The next guide flies from {area:340} in the {area:3}: north out of {npc:258570}'s valley and up through {area:16685}, the way through to the {area:3}."] = "다음 가이드는 {area:3}의 {area:340}에서 비행으로 시작합니다. {npc:258570}의 골짜기에서 북쪽으로 나가 {area:3}(으)로 통하는 {area:16685}을(를) 지나 올라가세요.",
+	-- ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}: 킁킁코와 {npc:257059}",
+	-- ["The {zone:2548} lie south of the {area:3}. Ride east from the {area:657} to {area:75} and fly to {area:340}: the way down into the zone starts there."] = "{zone:2548}은(는) {area:3} 남쪽에 있습니다. {area:657}에서 동쪽 {area:75}(으)로 가서 {area:340}(으)로 날아가세요. 지역으로 내려가는 길이 그곳에서 시작됩니다.",
+	-- ["{npc:257062} offers the last two once Gobam's errands are done (players' recordings), which this guide leaves out. They are level 44 and 45: leave them for later if {npc:258626} was a close fight."] = "고밤의 심부름을 마치면 {npc:257062}이(가) 마지막 두 퀘스트를 주지만(플레이어 기록 기준), 이 가이드에서는 다루지 않습니다. 44레벨과 45레벨이니 {npc:258626}와의 싸움이 아슬아슬했다면 나중으로 미루세요.",
 	-- ["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "민물 악어에게 {npc:263190}의 창 사용",
 }

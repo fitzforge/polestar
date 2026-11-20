@@ -57,13 +57,13 @@ return {
 	["{area:286}: kill these as you meet them"] = "",
 	-- {area:287} Hillsbrad
 	-- plural, as words: Kirin Tor Guards = {npc:246848} Kirin Tor Guard
-	["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "농민은 농가 남쪽 밭에서 일합니다. {area:287}의 인간은 모두 해골을 떨어뜨리며, 농민이 가장 자주 떨어뜨립니다.\n주의: 도망치는 농민이 마을회관에 도착하면 {area:287} 보병을 비롯해 많은 적을 데려올 수 있습니다. 감속, 이동 불가 등의 효과로 도망치지 못하게 하세요. 키린 토 경비병(55)이 농장 북쪽, 알터랙으로 올라가는 길에 서 있으니 밭에서 벗어나지 마세요.",
-	-- {item:3692} Hillsbrad Human Skull
-	["{item:3692}: the Peasants in the fields"] = "{item:3692}: 들판의 힐스브래드 소작농",
+	-- was: ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "농민은 농가 남쪽 밭에서 일합니다. {area:287}의 인간은 모두 해골을 떨어뜨리며, 농민이 가장 자주 떨어뜨립니다.\n주의: 도망치는 농민이 마을회관에 도착하면 {area:287} 보병을 비롯해 많은 적을 데려올 수 있습니다. 감속, 이동 불가 등의 효과로 도망치지 못하게 하세요. 키린 토 경비병(55)이 농장 북쪽, 알터랙으로 올라가는 길에 서 있으니 밭에서 벗어나지 마세요."
+	["The Peasants work the fields south of the farmhouses.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "",
 
 	-- Step 9: Tarren Mill
 	-- {quest:528} Battle of Hillsbrad
-	["Darthalia's next {quest:528} and Lydon's Elixir of Agony are for the next visit, at about 30."] = "다탈리아의 다음 {quest:528}와(과) 라이던의 고통의 비약은 약 30레벨에 다시 방문할 때 진행합니다.",
+	-- was: ["Darthalia's next {quest:528} and Lydon's Elixir of Agony are for the next visit, at about 30."] = "다탈리아의 다음 {quest:528}와(과) 라이던의 고통의 비약은 약 30레벨에 다시 방문할 때 진행합니다."
+	["Darthalia's next {quest:528}, Samsa's Souvenirs of Death and Lydon's Elixir of Agony are for the next visit, at about 30."] = "",
 
 	-- Step 10: Durnholde Keep: kill these as you meet them
 	-- {area:275} Durnholde Keep
@@ -194,6 +194,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {area:272}"] = "{area:272}(으)로 돌아가기",
+	-- ["Darthalia's next {quest:528} and Lydon's Elixir of Agony are for the next visit, at about 30."] = "다탈리아의 다음 {quest:528}와(과) 라이던의 고통의 비약은 약 30레벨에 다시 방문할 때 진행합니다.",
 	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings. Their locks need keys: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "드럴과 {npc:2238}은(는) {area:275} 안뜰 건물 안에 사슬로 묶여 있습니다. 자물쇠를 열려면 열쇠가 필요합니다. {npc:2427}이(가) {item:3467}을(를), {npc:2428}이(가) {item:3499}을(를) 가지고 있으며, 둘 다 요새 안에 있습니다. 이들을 처치한 뒤 자물쇠 두 개를 모두 여세요.\n{area:272}에서 남동쪽으로 {area:275}(으)로 가는 길의 언덕으로 가세요. 길목의 야영지에는 비밀결사대 도적과 비밀결사대 경비병이 있습니다.",
 	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks."] = "드럴과 {npc:2238}은(는) {area:275} 안뜰 건물 안에 사슬로 묶여 있습니다. 자물쇠 두 개를 모두 여세요.",
 	-- ["Follow the road south to the dwarf dig site at {area:359}. {npc:3421} hides at the south edge of the dig; {object:3646} sits at the bottom of the excavation."] = "길을 따라 남쪽의 {area:359} 드워프 발굴지로 가세요. {npc:3421}은(는) 발굴지 남쪽 가장자리에 숨어 있고, {object:3646}은(는) 발굴 구덩이 바닥에 있습니다.",
@@ -216,6 +217,7 @@ return {
 	-- ["Syndicate camps"] = "비밀결사대 야영지",
 	-- ["Take the zeppelin from the towers outside the {zone:1458} to {zone:1454} and train before you fly on."] = "{zone:1458} 바깥 탑에서 비행선을 타고 {zone:1454}(으)로 가서, 다시 날아가기 전에 기술을 배우세요.",
 	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often."] = "힐스브래드 소작농은 농가 남쪽 밭에서 일합니다. {area:287}의 인간은 모두 해골을 떨어뜨리며, 힐스브래드 소작농이 가장 자주 떨어뜨립니다.",
+	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "농민은 농가 남쪽 밭에서 일합니다. {area:287}의 인간은 모두 해골을 떨어뜨리며, 농민이 가장 자주 떨어뜨립니다.\n주의: 도망치는 농민이 마을회관에 도착하면 {area:287} 보병을 비롯해 많은 적을 데려올 수 있습니다. 감속, 이동 불가 등의 효과로 도망치지 못하게 하세요. 키린 토 경비병(55)이 농장 북쪽, 알터랙으로 올라가는 길에 서 있으니 밭에서 벗어나지 마세요.",
 	-- ["The smithy"] = "대장간",
 	-- ["The smithy stands in the middle of {area:287} town. {npc:2404} and his apprentices work at the forge; the {item:3564} is stacked beside it. {npc:2449} walks the street north of it."] = "대장간은 {area:287} 마을 한가운데에 있습니다. {npc:2404}와(과) 견습생들이 화로에서 일하고, {item:3564}은(는) 그 옆에 쌓여 있습니다. {npc:2449}은(는) 그 북쪽 거리를 걸어 다닙니다.",
 	-- ["The smithy stands in the middle of {area:287} town. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks the street north of it."] = "대장간은 {area:287} 마을 한가운데에 있습니다. {npc:2404}와(과) 견습생들이 화로에서 일하고, {object:1736}은(는) 그 옆에 쌓여 있습니다. {npc:2449}은(는) 그 북쪽 거리를 걸어 다닙니다.",
@@ -226,6 +228,7 @@ return {
 	-- ["Train with {npc:3033}. Before you fly on, {npc:3024} and {npc:4721}, a short walk east of the wind rider master, give two quests worked on the next guides' walks; then fly on to the Crossroads, where the next guide starts."] = "{npc:3033}에게 기술을 배우세요. 다시 날아가기 전에, 와이번 조련사에서 동쪽으로 조금 걸어가면 있는 {npc:3024}와(과) {npc:4721}에게서 다음 가이드들의 이동 경로에서 진행할 퀘스트 두 개를 받으세요. 그런 다음 다음 가이드가 시작되는 크로스로드로 날아가세요.",
 	-- ["You arrive bound at the {area:272} inn. Everyone stands around the town square."] = "{area:272} 여관에 귀환 지점을 정한 상태로 도착합니다. 모두 마을 광장 주변에 있습니다.",
 	-- ["{area:272} is your base for this guide: the hearth brings you back here twice. Everyone stands around the town square."] = "{area:272}은(는) 이 가이드의 거점입니다. 귀환석으로 이곳에 두 번 돌아옵니다. 모두 마을 광장 주변에 있습니다.",
+	-- ["{item:3692}: the Peasants in the fields"] = "{item:3692}: 들판의 힐스브래드 소작농",
 	-- ["{npc:2055}, in the {zone:1458}"] = "{zone:1458}의 {npc:2055}",
 	-- ["{npc:2215}: orders for {npc:270438}, on the way to Durnholde"] = "{npc:2215}: 던홀드로 가는 길에 있는 {npc:270438}에게 전할 명령",
 	-- ["{npc:2388}: the last guide binds here, so this usually ticks at once"] = "{npc:2388}: 이전 가이드에서 이곳에 귀환 지점을 정하므로 보통 바로 완료됩니다",

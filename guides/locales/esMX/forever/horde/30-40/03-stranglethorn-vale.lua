@@ -113,7 +113,7 @@ return {
 	-- Step 17: Nesingwary's camp
 	["Back north to the camp."] = "Regresa al norte, al campamento.",
 	-- {npc:717} Ajeck Rouack · {npc:729} Sin'Dall
-	["{npc:717}: {npc:729} (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale"] = "{npc:717}: {npc:729} (37) espera a tu próxima parada con Nesingwary, hacia el nivel 40 en forever/horde/40-50/01-stranglethorn-vale",
+	["{npc:717}: {npc:729} (37) comes at the end of this guide, from level 36"] = "",
 
 	-- Step 18: Thoroughly Scavenged Supplies
 	-- {object:661516} Thoroughly Scavenged Supplies (no name in this language: may be words) · {quest:97328} Anything of Value · {area:102} Ruins of Zul'Kunda
@@ -125,7 +125,8 @@ return {
 	["{area:301}: kill these as you meet them"] = "{area:301}: mata a estos según te los encuentres",
 	-- {npc:729} Sin'Dall
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
-	["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "Al oeste pasando el campamento, los basiliscos Espina de Cristal (34-35) están sobre las rocas; cualquier Sangrapellejo de la aldea de más allá puede soltar una oreja.\nDeja por ahora a {npc:729}, el tigre de nivel 37 en la cima de la colina al suroeste del campamento: aquí te supera en dos niveles, y la guía de Tuercespina 40-50 vuelve por él.\nCuidado: En el nido de raptores hay raptores jóvenes que se unen a la pelea cuando atacas a los adultos.",
+	-- was: ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "Al oeste pasando el campamento, los basiliscos Espina de Cristal (34-35) están sobre las rocas; cualquier Sangrapellejo de la aldea de más allá puede soltar una oreja.\nDeja por ahora a {npc:729}, el tigre de nivel 37 en la cima de la colina al suroeste del campamento: aquí te supera en dos niveles, y la guía de Tuercespina 40-50 vuelve por él.\nCuidado: En el nido de raptores hay raptores jóvenes que se unen a la pelea cuando atacas a los adultos."
+	["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and this guide comes back to him at its end, from level 36.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "",
 
 	-- Step 20: Zimmix Sputterspark
 	-- {npc:268992} Zimmix Sputterspark · {area:102} Ruins of Zul'Kunda · {item:277957} Primitive Key · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
@@ -217,16 +218,27 @@ return {
 
 	-- Step 34: Level 36
 	["Level 36"] = "Nivel 36",
-	-- {object:3202} Grom'gol (no name in this language: may be words)
+	-- {npc:729} Sin'Dall · {object:3202} Grom'gol (no name in this language: may be words)
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
-	["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36, then walk back to the zeppelin tower. Leave the Mosh'Ogg ogres (36-37) above them alone."] = "Las misiones de Marjal Revolcafango son de nivel 35-38. ¿Sigues por debajo del nivel 36 tras las entregas de {object:3202}? Los Crocoliscos Quijaforte (35-36) bordean el río justo al este del campamento, bajo las colinas Mosh'Ogg: mátalos hasta el nivel 36 y luego vuelve a pie a la torre del zepelín. Deja en paz a los ogros Mosh'Ogg (36-37) de arriba.",
+	-- was: ["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36, then walk back to the zeppelin tower. Leave the Mosh'Ogg ogres (36-37) above them alone."] = "Las misiones de Marjal Revolcafango son de nivel 35-38. ¿Sigues por debajo del nivel 36 tras las entregas de {object:3202}? Los Crocoliscos Quijaforte (35-36) bordean el río justo al este del campamento, bajo las colinas Mosh'Ogg: mátalos hasta el nivel 36 y luego vuelve a pie a la torre del zepelín. Deja en paz a los ogros Mosh'Ogg (36-37) de arriba."
+	["Dustwallow's quests are 35-38, and {npc:729} (37) is next. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36. Leave the Mosh'Ogg ogres (36-37) above them alone."] = "",
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks"] = "Crocoliscos Quijaforte",
 	-- {npc:1152} Snapjaw Crocolisk
 	["grind on {npc:1152}"] = "farmea {npc:1152}",
 
+	-- Step 35: Sin'Dall
+	-- {object:3202} Grom'gol (no name in this language: may be words) · {npc:729} Sin'Dall
+	-- plural, as words: Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger
+	["North from {object:3202} to the hilltop just south-west of Nesingwary's camp: {npc:729} prowls there alone.\nCareful: {npc:729} (37) is a level over you: pull him at full health, clear of the Elder Stranglethorn Tigers (34-35) on the hill's slopes."] = "",
+
+	-- Step 36: Nesingwary's camp
+	-- {npc:717} Ajeck Rouack · {object:3202} Grom'gol (no name in this language: may be words)
+	["North to {npc:717} in Nesingwary's camp, then back south to {object:3202}'s zeppelin tower."] = "",
+
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Mosh'Ogg Brutes and Witch Doctors camp in the hills just east of the camp: kill them until level 36, pulling one at a time, then walk back to the zeppelin tower."] = "Las misiones de Marjal Revolcafango son de nivel 35-38. ¿Sigues por debajo de 36 después de las entregas de {object:3202}? Los Toscos y los Médicos brujos Mosh'Ogg acampan en las colinas justo al este del campamento: mátalos hasta el nivel 36, atrayéndolos de uno en uno, y luego regresa caminando a la torre del zepelín.",
+	-- ["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36, then walk back to the zeppelin tower. Leave the Mosh'Ogg ogres (36-37) above them alone."] = "Las misiones de Marjal Revolcafango son de nivel 35-38. ¿Sigues por debajo del nivel 36 tras las entregas de {object:3202}? Los Crocoliscos Quijaforte (35-36) bordean el río justo al este del campamento, bajo las colinas Mosh'Ogg: mátalos hasta el nivel 36 y luego vuelve a pie a la torre del zepelín. Deja en paz a los ogros Mosh'Ogg (36-37) de arriba.",
 	-- ["East of the Mosh'Ogg hills, Shadowmaw Panthers (37-38) stalk the jungle towards the lake; the Stranglethorn Tigresses roam the same ground and now and then drop a pristine fang. Snapjaw Crocolisks line the river just west of the jungle; keep their skins for {npc:2495}. Careful: Shadowmaw Panthers (level 37-38) and Elder Shadowmaw Panthers (level 42-43) use Sneak while out of combat, so they remain hidden until you get near them."] = "Al este de las colinas Mosh'Ogg, las panteras Faucesombría (37-38) acechan en la selva hacia el lago; las tigresas de Tuercespina recorren el mismo terreno y de vez en cuando sueltan un colmillo impecable. Los crocoliscos Quijaforte bordean el río justo al oeste de la selva; guarda sus pieles para {npc:2495}. Cuidado: Las panteras Faucesombría (nivel 37-38) y las panteras Faucesombría ancianas (nivel 42-43) usan Sigilo fuera de combate, así que permanecen ocultas hasta que te acercas.",
 	-- ["Elder tigers and Lashtail raptors"] = "Tigres mayores y raptores colazote",
 	-- ["Follow the road north out of {object:3202}; Nesingwary's hunting camp sits on the hill north-east of the river. From here on, keep every page of {quest:338} you loot: {npc:716} asks for them later."] = "Sigue el camino al norte desde {object:3202}; el campamento de caza de Nesingwary está en la colina al noreste del río. Desde aquí, guarda cada página de {quest:338} que saquees: {npc:716} te las pide después.",
@@ -243,6 +255,7 @@ return {
 	-- ["The Shadowmaw Panthers (37-38) stalk the jungle east of the Mosh'Ogg hills and north-east towards the lake; they strike from stealth. Loot every Green Hills page you find on the way."] = "Las Panteras Faucesombría (37-38) acechan en la selva al este de las colinas Mosh'Ogg y al noreste hacia el lago; atacan desde el sigilo. Saquea toda página de Las verdes colinas que encuentres en el camino.",
 	-- ["The camp by the river"] = "El campamento junto al río",
 	-- ["Venture Co. camp"] = "Campamento de Ventura y Cía.",
+	-- ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "Al oeste pasando el campamento, los basiliscos Espina de Cristal (34-35) están sobre las rocas; cualquier Sangrapellejo de la aldea de más allá puede soltar una oreja.\nDeja por ahora a {npc:729}, el tigre de nivel 37 en la cima de la colina al suroeste del campamento: aquí te supera en dos niveles, y la guía de Tuercespina 40-50 vuelve por él.\nCuidado: En el nido de raptores hay raptores jóvenes que se unen a la pelea cuando atacas a los adultos.",
 	-- ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\n{npc:729}, a level 37 tiger, prowls the hilltop south-west of the camp.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "Al oeste pasando el campamento, los basiliscos Espina de Cristal (34-35) están sobre las rocas; cualquier Sangrapellejo de la aldea de más allá puede soltar una oreja.\n{npc:729}, un tigre de nivel 37, merodea la cima de la colina al suroeste del campamento.\nCuidado: En el nido de raptores hay raptores jóvenes que se unen a la pelea cuando atacas a los adultos.",
 	-- ["Zeppelin to {object:3202}"] = "Zepelín a {object:3202}",
 	-- ["from {npc:4723}"] = "de {npc:4723}",
@@ -254,5 +267,6 @@ return {
 	-- ["{npc:2496}: Cozzle's footlocker is at {area:37}, later in this guide"] = "{npc:2496}: el baúl de Cozzle está en {area:37}, más adelante en esta guía",
 	-- ["{npc:2496}: for Pozzik at the {area:2240}, on the way to {zone:1446} around level 43"] = "{npc:2496}: para Pozzik en {area:2240}, de camino a {zone:1446} alrededor del nivel 43",
 	-- ["{npc:4723} (38) is inside the Venture Co. house on {area:37}'s west shore, among the geologists: his key opens {object:20691} in the same house, which holds the blueprints for {npc:2496}. Careful: Venture Co. Agents (39) stand in and around the house: clear the doorway before you go in."] = "{npc:4723} (38) está dentro de la casa de Ventura y Cía. en la orilla oeste de {area:37}, entre los geólogos: su llave abre {object:20691} en la misma casa, que contiene los planos para {npc:2496}. Cuidado: hay agentes de Ventura y Cía. (39) dentro y alrededor de la casa: despeja la entrada antes de pasar.",
+	-- ["{npc:717}: {npc:729} (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale"] = "{npc:717}: {npc:729} (37) espera a tu próxima parada con Nesingwary, hacia el nivel 40 en forever/horde/40-50/01-stranglethorn-vale",
 	-- ["{npc:773}'s missing hunters' camp is Nesingwary's: walk among its tents and the investigation completes. River Crocolisks lie along the river below the camp."] = "El campamento de los cazadores desaparecidos de {npc:773} es el de Nesingwary: camina entre sus tiendas y la investigación se completa. Los Crocoliscos fluviales están a lo largo del río bajo el campamento.",
 }

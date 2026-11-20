@@ -113,7 +113,7 @@ return {
 	-- Step 17: Nesingwary's camp
 	["Back north to the camp."] = "Обратно на север к лагерю.",
 	-- {npc:717} Ajeck Rouack · {npc:729} Sin'Dall
-	["{npc:717}: {npc:729} (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale"] = "{npc:717}: {npc:729} (37) ждет следующего визита к Несингвэри, примерно на 40-м уровне в forever/horde/40-50/01-stranglethorn-vale",
+	["{npc:717}: {npc:729} (37) comes at the end of this guide, from level 36"] = "",
 
 	-- Step 18: Thoroughly Scavenged Supplies
 	-- {object:661516} Thoroughly Scavenged Supplies (no name in this language: may be words) · {quest:97328} Anything of Value · {area:102} Ruins of Zul'Kunda
@@ -125,7 +125,8 @@ return {
 	["{area:301}: kill these as you meet them"] = "{area:301}: убивайте их по пути",
 	-- {npc:729} Sin'Dall
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
-	["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "К западу за лагерем на скалах сидят хрустальные василиски (34-35); любой тролль Кровавого Скальпа в деревне дальше может уронить ухо.\n{npc:729}, тигра 37-го уровня на вершине холма к юго-западу от лагеря, пока не трогайте: он на два уровня выше вас, а гайд по Тернистой долине 40-50 вернется к нему.\nОсторожно: в гнезде ящеров есть детеныши, которые вступают в бой, когда вы нападаете на взрослых.",
+	-- was: ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "К западу за лагерем на скалах сидят хрустальные василиски (34-35); любой тролль Кровавого Скальпа в деревне дальше может уронить ухо.\n{npc:729}, тигра 37-го уровня на вершине холма к юго-западу от лагеря, пока не трогайте: он на два уровня выше вас, а гайд по Тернистой долине 40-50 вернется к нему.\nОсторожно: в гнезде ящеров есть детеныши, которые вступают в бой, когда вы нападаете на взрослых."
+	["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and this guide comes back to him at its end, from level 36.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "",
 
 	-- Step 20: Zimmix Sputterspark
 	-- {npc:268992} Zimmix Sputterspark · {area:102} Ruins of Zul'Kunda · {item:277957} Primitive Key · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
@@ -217,15 +218,26 @@ return {
 
 	-- Step 34: Level 36
 	["Level 36"] = "",
-	-- {object:3202} Grom'gol
+	-- {npc:729} Sin'Dall · {object:3202} Grom'gol
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
-	["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36, then walk back to the zeppelin tower. Leave the Mosh'Ogg ogres (36-37) above them alone."] = "Задания Пылевых топей 35-38 уровня. Все еще ниже 36 после сдачи заданий в месте {object:3202}? Кроколиски-хрустогрызы (35-36) лежат вдоль реки сразу к востоку от лагеря, ниже холмов Мош'Огг: убивайте их до 36 уровня, затем возвращайтесь к башне дирижаблей. Огров Мош'Огг (36-37) над ними не трогайте.",
+	-- was: ["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36, then walk back to the zeppelin tower. Leave the Mosh'Ogg ogres (36-37) above them alone."] = "Задания Пылевых топей 35-38 уровня. Все еще ниже 36 после сдачи заданий в месте {object:3202}? Кроколиски-хрустогрызы (35-36) лежат вдоль реки сразу к востоку от лагеря, ниже холмов Мош'Огг: убивайте их до 36 уровня, затем возвращайтесь к башне дирижаблей. Огров Мош'Огг (36-37) над ними не трогайте."
+	["Dustwallow's quests are 35-38, and {npc:729} (37) is next. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36. Leave the Mosh'Ogg ogres (36-37) above them alone."] = "",
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks"] = "Кроколиски-хрустогрызы",
 	-- {npc:1152} Snapjaw Crocolisk
 	["grind on {npc:1152}"] = "убивайте: {npc:1152}",
 
+	-- Step 35: Sin'Dall
+	-- {object:3202} Grom'gol · {npc:729} Sin'Dall
+	-- plural, as words: Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger
+	["North from {object:3202} to the hilltop just south-west of Nesingwary's camp: {npc:729} prowls there alone.\nCareful: {npc:729} (37) is a level over you: pull him at full health, clear of the Elder Stranglethorn Tigers (34-35) on the hill's slopes."] = "",
+
+	-- Step 36: Nesingwary's camp
+	-- {npc:717} Ajeck Rouack · {object:3202} Grom'gol
+	["North to {npc:717} in Nesingwary's camp, then back south to {object:3202}'s zeppelin tower."] = "",
+
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36, then walk back to the zeppelin tower. Leave the Mosh'Ogg ogres (36-37) above them alone."] = "Задания Пылевых топей 35-38 уровня. Все еще ниже 36 после сдачи заданий в месте {object:3202}? Кроколиски-хрустогрызы (35-36) лежат вдоль реки сразу к востоку от лагеря, ниже холмов Мош'Огг: убивайте их до 36 уровня, затем возвращайтесь к башне дирижаблей. Огров Мош'Огг (36-37) над ними не трогайте.",
 	-- ["Elder tigers and Lashtail raptors"] = "Старые тигры и ящеры-кнутохвосты",
 	-- ["Follow the road north out of {object:3202}; Nesingwary's hunting camp sits on the hill north-east of the river. From here on, keep every page of {quest:338} you loot: {npc:716} asks for them later."] = "Идите по дороге на север из места {object:3202}; охотничий лагерь Эрнестуэя — на холме к северо-востоку от реки. С этого момента сохраняйте каждую страницу из книги «{quest:338}»: позже их попросит {npc:716}.",
 	-- ["Follow the road south to {area:35} at the southern tip of the vale and enter through the tunnel in the cliffs. Stay on the road: the jungle beside it is well above your level. {npc:2858}, the Horde flight master, waits on the upper deck."] = "Идите по дороге на юг к месту {area:35} на южной оконечности долины и войдите через туннель в скалах. Не сходите с дороги: джунгли рядом намного выше вашего уровня. {npc:2858}, распорядитель полетов Орды, ждет на верхней палубе.",
@@ -238,6 +250,7 @@ return {
 	-- ["The Shadowmaw Panthers (37-38) stalk the jungle east of the Mosh'Ogg hills and north-east towards the lake; they strike from stealth. Loot every Green Hills page you find on the way."] = "Тенебрюхие пантеры (37-38) крадутся по джунглям к востоку от холмов Мош'Огг и на северо-восток к озеру; они нападают из невидимости. Собирайте по пути каждую страницу «Зеленых холмов».",
 	-- ["The camp by the river"] = "Лагерь у реки",
 	-- ["Venture Co. camp"] = "Лагерь Торговой компании",
+	-- ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "К западу за лагерем на скалах сидят хрустальные василиски (34-35); любой тролль Кровавого Скальпа в деревне дальше может уронить ухо.\n{npc:729}, тигра 37-го уровня на вершине холма к юго-западу от лагеря, пока не трогайте: он на два уровня выше вас, а гайд по Тернистой долине 40-50 вернется к нему.\nОсторожно: в гнезде ящеров есть детеныши, которые вступают в бой, когда вы нападаете на взрослых.",
 	-- ["Zeppelin to {object:3202}"] = "Дирижабль: {object:3202}",
 	-- ["from {npc:4723}"] = "с NPC {npc:4723}",
 	-- ["{item:5852}, in {object:20691}"] = "{item:5852}, в объекте {object:20691}",
@@ -245,5 +258,6 @@ return {
 	-- ["{npc:2496}: Cozzle's footlocker is at {area:37}, later in this guide"] = "{npc:2496}: сундучок Козла находится у места {area:37}, позже в этом гайде",
 	-- ["{npc:2496}: for Pozzik at the {area:2240}, on the way to {zone:1446} around level 43"] = "{npc:2496}: для Поззика на месте {area:2240}, по пути в {zone:1446} примерно на 43-м уровне",
 	-- ["{npc:4723} (38) is inside the Venture Co. house on {area:37}'s west shore, among the geologists: his key opens {object:20691} in the same house, which holds the blueprints for {npc:2496}. Careful: Venture Co. Agents (39) stand in and around the house: clear the doorway before you go in."] = "{npc:4723} (38) находится в доме Торговой компании на западном берегу места {area:37}, среди геологов: его ключ открывает {object:20691} в том же доме, где лежат чертежи для NPC {npc:2496}. Осторожно: агенты Торговой компании (39) стоят в доме и вокруг него: расчистите вход, прежде чем войти.",
+	-- ["{npc:717}: {npc:729} (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale"] = "{npc:717}: {npc:729} (37) ждет следующего визита к Несингвэри, примерно на 40-м уровне в forever/horde/40-50/01-stranglethorn-vale",
 	-- ["{npc:773}'s missing hunters' camp is Nesingwary's: walk among its tents and the investigation completes. River Crocolisks lie along the river below the camp."] = "Лагерь пропавших охотников ({npc:773}) — это лагерь Эрнестуэя: пройдите между палатками, и расследование завершится. Речные кроколиски лежат вдоль реки ниже лагеря.",
 }

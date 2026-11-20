@@ -57,13 +57,13 @@ return {
 	["{area:286}: kill these as you meet them"] = "{area:286}：遇到了就殺",
 	-- {area:287} Hillsbrad
 	-- plural, as words: Kirin Tor Guards = {npc:246848} Kirin Tor Guard
-	["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "農夫在農舍南邊的田裡工作。每個{area:287}人類都會掉落頭骨；農夫掉落機率最高。\n小心：逃跑的農夫若跑到市政廳，可能帶回大量援兵，包括{area:287}步兵；緩速、定身或類似效果可以阻止他們逃跑。祈倫托守衛（55級）站在農場北邊、往奧特蘭克的道路上：待在田裡。",
-	-- {item:3692} Hillsbrad Human Skull
-	["{item:3692}: the Peasants in the fields"] = "{item:3692}：田裡的希爾斯布萊德農民",
+	-- was: ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "農夫在農舍南邊的田裡工作。每個{area:287}人類都會掉落頭骨；農夫掉落機率最高。\n小心：逃跑的農夫若跑到市政廳，可能帶回大量援兵，包括{area:287}步兵；緩速、定身或類似效果可以阻止他們逃跑。祈倫托守衛（55級）站在農場北邊、往奧特蘭克的道路上：待在田裡。"
+	["The Peasants work the fields south of the farmhouses.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "",
 
 	-- Step 9: Tarren Mill
 	-- {quest:528} Battle of Hillsbrad
-	["Darthalia's next {quest:528} and Lydon's Elixir of Agony are for the next visit, at about 30."] = "達薩利亞的下一個{quest:528}和林度恩的痛苦藥劑留到約30級下次造訪再做。",
+	-- was: ["Darthalia's next {quest:528} and Lydon's Elixir of Agony are for the next visit, at about 30."] = "達薩利亞的下一個{quest:528}和林度恩的痛苦藥劑留到約30級下次造訪再做。"
+	["Darthalia's next {quest:528}, Samsa's Souvenirs of Death and Lydon's Elixir of Agony are for the next visit, at about 30."] = "",
 
 	-- Step 10: Durnholde Keep: kill these as you meet them
 	-- {area:275} Durnholde Keep
@@ -194,6 +194,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {area:272}"] = "返回{area:272}",
+	-- ["Darthalia's next {quest:528} and Lydon's Elixir of Agony are for the next visit, at about 30."] = "達薩利亞的下一個{quest:528}和林度恩的痛苦藥劑留到約30級下次造訪再做。",
 	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings. Their locks need keys: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "德盧爾和{npc:2238}被鎖在{area:275}庭院的建築裡。鎖需要鑰匙：{npc:2427}帶著{item:3467}，{npc:2428}帶著{item:3499}，兩人都在城堡裡。殺死他們，然後打開兩把鎖。\n從{area:272}向東南進入通往{area:275}途中的丘陵。辛迪加盜賊和辛迪加衛士佔據沿途的營地。",
 	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks."] = "德盧爾和{npc:2238}被鎖在{area:275}庭院的建築裡；打開兩把鎖。",
 	-- ["Follow the road south to the dwarf dig site at {area:359}. {npc:3421} hides at the south edge of the dig; {object:3646} sits at the bottom of the excavation."] = "沿道路向南前往{area:359}的矮人挖掘場。{npc:3421}躲在挖掘場的南緣；{object:3646}在挖掘坑的底部。",
@@ -216,6 +217,7 @@ return {
 	-- ["Syndicate camps"] = "辛迪加營地",
 	-- ["Take the zeppelin from the towers outside the {zone:1458} to {zone:1454} and train before you fly on."] = "從{zone:1458}外的塔搭飛艇前往{zone:1454}，在繼續飛行前先訓練。",
 	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often."] = "希爾斯布萊德農民在農舍南邊的田裡工作。每個{area:287}的人類都會掉落頭骨；農民掉落最頻繁。",
+	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "農夫在農舍南邊的田裡工作。每個{area:287}人類都會掉落頭骨；農夫掉落機率最高。\n小心：逃跑的農夫若跑到市政廳，可能帶回大量援兵，包括{area:287}步兵；緩速、定身或類似效果可以阻止他們逃跑。祈倫托守衛（55級）站在農場北邊、往奧特蘭克的道路上：待在田裡。",
 	-- ["The middle of {zone:1454}"] = "{zone:1454}中部",
 	-- ["The smithy"] = "鐵匠鋪",
 	-- ["The smithy stands in the middle of {area:287} town. {npc:2404} and his apprentices work at the forge; the {item:3564} is stacked beside it. {npc:2449} walks the street north of it."] = "鐵匠鋪位於{area:287}鎮中央。{npc:2404}和他的學徒在熔爐邊工作；{item:3564}堆在旁邊。{npc:2449}在鐵匠鋪北邊的街上走動。",
@@ -227,6 +229,7 @@ return {
 	-- ["Train with {npc:3033}. Before you fly on, {npc:3024} and {npc:4721}, a short walk east of the wind rider master, give two quests worked on the next guides' walks; then fly on to the Crossroads, where the next guide starts."] = "在{npc:3033}那裡訓練。繼續飛行前，風騎士管理員東邊不遠處的{npc:3024}和{npc:4721}會給你兩個任務，在接下來幾份指南的路上完成；然後飛往十字路口，下一份指南從那裡開始。",
 	-- ["You arrive bound at the {area:272} inn. Everyone stands around the town square."] = "你抵達時綁定在{area:272}的旅店。所有人都站在鎮上廣場周圍。",
 	-- ["{area:272} is your base for this guide: the hearth brings you back here twice. Everyone stands around the town square."] = "{area:272}是本指南的據點：爐石會兩次帶你回到這裡。所有人都站在鎮上廣場周圍。",
+	-- ["{item:3692}: the Peasants in the fields"] = "{item:3692}：田裡的希爾斯布萊德農民",
 	-- ["{npc:2055}, in the {zone:1458}"] = "{npc:2055}，在{zone:1458}",
 	-- ["{npc:2215}: orders for {npc:270438}, on the way to Durnholde"] = "{npc:2215}：給{npc:270438}的命令，在前往敦霍爾德城堡的路上",
 	-- ["{npc:2388}: the last guide binds here, so this usually ticks at once"] = "{npc:2388}：上一份指南在這裡綁定爐石，所以這一步通常會立即完成",

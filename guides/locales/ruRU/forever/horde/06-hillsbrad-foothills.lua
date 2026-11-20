@@ -57,13 +57,13 @@ return {
 	["{area:286}: kill these as you meet them"] = "{area:286}: убивайте их по пути",
 	-- {area:287} Hillsbrad
 	-- plural, as words: Kirin Tor Guards = {npc:246848} Kirin Tor Guard
-	["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "Крестьяне работают на полях к югу от фермерских домов. Черепа падают со всех людей из места {area:287}, но с крестьян – чаще всего.\nОсторожно: сбежавший крестьянин, добравшийся до ратуши, может привести много подкреплений, включая пехотинцев (место {area:287}); замедления, обездвиживание и подобные эффекты не дадут ему сбежать. Кирин-торские стражники (55) стоят к северу от ферм, на дороге к Альтераку: держитесь полей.",
-	-- {item:3692} Hillsbrad Human Skull
-	["{item:3692}: the Peasants in the fields"] = "{item:3692}: хилсбрадские крестьяне на полях",
+	-- was: ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "Крестьяне работают на полях к югу от фермерских домов. Черепа падают со всех людей из места {area:287}, но с крестьян – чаще всего.\nОсторожно: сбежавший крестьянин, добравшийся до ратуши, может привести много подкреплений, включая пехотинцев (место {area:287}); замедления, обездвиживание и подобные эффекты не дадут ему сбежать. Кирин-торские стражники (55) стоят к северу от ферм, на дороге к Альтераку: держитесь полей."
+	["The Peasants work the fields south of the farmhouses.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "",
 
 	-- Step 9: Tarren Mill
 	-- {quest:528} Battle of Hillsbrad
-	["Darthalia's next {quest:528} and Lydon's Elixir of Agony are for the next visit, at about 30."] = "Следующее задание Дарталии {quest:528} и Эликсир агонии Лидона – на следующий визит, примерно на 30-м уровне.",
+	-- was: ["Darthalia's next {quest:528} and Lydon's Elixir of Agony are for the next visit, at about 30."] = "Следующее задание Дарталии {quest:528} и Эликсир агонии Лидона – на следующий визит, примерно на 30-м уровне."
+	["Darthalia's next {quest:528}, Samsa's Souvenirs of Death and Lydon's Elixir of Agony are for the next visit, at about 30."] = "",
 
 	-- Step 10: Durnholde Keep: kill these as you meet them
 	-- {area:275} Durnholde Keep
@@ -195,6 +195,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back down to Masoj on the hillside above {area:290}."] = "Спуститесь обратно к Масоджу на склон над местом {area:290}.",
 	-- ["Back to {area:272}"] = "Назад: {area:272}",
+	-- ["Darthalia's next {quest:528} and Lydon's Elixir of Agony are for the next visit, at about 30."] = "Следующее задание Дарталии {quest:528} и Эликсир агонии Лидона – на следующий визит, примерно на 30-м уровне.",
 	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings. Their locks need keys: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "Друлл и {npc:2238} прикованы в постройках внутреннего двора ({area:275}). Для их замков нужны ключи: {npc:2427} носит {item:3467}, а {npc:2428} — {item:3499}, оба в крепости. Убейте их, затем откройте оба замка.\nИз места {area:272} идите на юго-восток в холмы по пути к месту {area:275}. Лагеря на пути занимают разбойники и сторожа Синдиката.",
 	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks."] = "Друлл и {npc:2238} прикованы в постройках внутреннего двора ({area:275}); откройте оба замка.",
 	-- ["Fly to {area:392}. {quest:874} camps on the shore north of {area:392}."] = "Летите в {area:392}. {quest:874} стоит лагерем на берегу к северу от места {area:392}.",
@@ -221,6 +222,7 @@ return {
 	-- ["Syndicate camps"] = "Лагеря Синдиката",
 	-- ["Take the zeppelin from the towers outside the {zone:1458} to {zone:1454} and train before you fly on."] = "Летите на дирижабле от башен у города {zone:1458} в {zone:1454} и обучитесь перед дальнейшим полетом.",
 	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often."] = "Хилсбрадские крестьяне работают на полях к югу от фермерских домов. С каждого человека ({area:287}) падают черепа; чаще всего — с крестьян.",
+	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "Крестьяне работают на полях к югу от фермерских домов. Черепа падают со всех людей из места {area:287}, но с крестьян – чаще всего.\nОсторожно: сбежавший крестьянин, добравшийся до ратуши, может привести много подкреплений, включая пехотинцев (место {area:287}); замедления, обездвиживание и подобные эффекты не дадут ему сбежать. Кирин-торские стражники (55) стоят к северу от ферм, на дороге к Альтераку: держитесь полей.",
 	-- ["The northern peak"] = "Северная вершина",
 	-- ["The northern peak rises south-east of {area:272}, on the way down towards Durnholde."] = "Северная вершина возвышается к юго-востоку от места {area:272}, по пути вниз к Дарнхольду.",
 	-- ["The smithy"] = "Кузница",
@@ -236,6 +238,7 @@ return {
 	-- ["Train with {npc:3033}. Before you fly on, {npc:3024} and {npc:4721}, a short walk east of the wind rider master, give two quests worked on the next guides' walks; then fly on to the Crossroads, where the next guide starts."] = "Обучитесь у NPC {npc:3033}. Перед вылетом возьмите два задания у NPC {npc:3024} и {npc:4721}, недалеко к востоку от распорядителя ветрокрылов: их выполняют по пути в следующих гайдах. Затем летите на Перекресток, где начинается следующий гайд.",
 	-- ["You arrive bound at the {area:272} inn. Everyone stands around the town square."] = "Вы прибываете в таверну, где привязан ваш камень: {area:272}. Все стоят вокруг городской площади.",
 	-- ["{area:272} is your base for this guide: the hearth brings you back here twice. Everyone stands around the town square."] = "{area:272} – ваша база в этом гайде: камень возвращения дважды вернет вас сюда. Все стоят вокруг городской площади.",
+	-- ["{item:3692}: the Peasants in the fields"] = "{item:3692}: хилсбрадские крестьяне на полях",
 	-- ["{npc:10079} stands at the top of the {area:1718}, beside {npc:12576}."] = "{npc:10079} стоит наверху ({area:1718}), рядом с NPC {npc:12576}.",
 	-- ["{npc:2055}, in the {zone:1458}"] = "{npc:2055}, {zone:1458}",
 	-- ["{npc:2215}: orders for {npc:270438}, on the way to Durnholde"] = "{npc:2215}: приказы для NPC {npc:270438}, по пути к Дарнхольду",

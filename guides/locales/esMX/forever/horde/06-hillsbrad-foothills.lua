@@ -57,13 +57,13 @@ return {
 	["{area:286}: kill these as you meet them"] = "{area:286}: mata a estos según te los encuentres",
 	-- {area:287} Hillsbrad
 	-- plural, as words: Kirin Tor Guards = {npc:246848} Kirin Tor Guard
-	["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "Los campesinos trabajan los campos al sur de las granjas. Todos los humanos de {area:287} sueltan cráneos; los campesinos, con más frecuencia.\nCuidado: Un campesino que huye y llega al ayuntamiento puede traer muchos refuerzos, entre ellos infantes de {area:287}; las ralentizaciones, raíces o efectos similares les impiden escapar. Los guardias del Kirin Tor (55) están al norte de las granjas, en el camino que sube hacia Alterac: no te salgas de los campos.",
-	-- {item:3692} Hillsbrad Human Skull
-	["{item:3692}: the Peasants in the fields"] = "{item:3692}: los campesinos de los campos",
+	-- was: ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "Los campesinos trabajan los campos al sur de las granjas. Todos los humanos de {area:287} sueltan cráneos; los campesinos, con más frecuencia.\nCuidado: Un campesino que huye y llega al ayuntamiento puede traer muchos refuerzos, entre ellos infantes de {area:287}; las ralentizaciones, raíces o efectos similares les impiden escapar. Los guardias del Kirin Tor (55) están al norte de las granjas, en el camino que sube hacia Alterac: no te salgas de los campos."
+	["The Peasants work the fields south of the farmhouses.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "",
 
 	-- Step 9: Tarren Mill
 	-- {quest:528} Battle of Hillsbrad
-	["Darthalia's next {quest:528} and Lydon's Elixir of Agony are for the next visit, at about 30."] = "La siguiente {quest:528} de Darthalia y el Elixir de agonía de Lydon son para la próxima visita, a nivel 30 aprox.",
+	-- was: ["Darthalia's next {quest:528} and Lydon's Elixir of Agony are for the next visit, at about 30."] = "La siguiente {quest:528} de Darthalia y el Elixir de agonía de Lydon son para la próxima visita, a nivel 30 aprox."
+	["Darthalia's next {quest:528}, Samsa's Souvenirs of Death and Lydon's Elixir of Agony are for the next visit, at about 30."] = "",
 
 	-- Step 10: Durnholde Keep: kill these as you meet them
 	-- {area:275} Durnholde Keep
@@ -195,6 +195,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back down to Masoj on the hillside above {area:290}."] = "De vuelta abajo, con Masoj, en la ladera sobre {area:290}.",
 	-- ["Back to {area:272}"] = "De vuelta a {area:272}",
+	-- ["Darthalia's next {quest:528} and Lydon's Elixir of Agony are for the next visit, at about 30."] = "La siguiente {quest:528} de Darthalia y el Elixir de agonía de Lydon son para la próxima visita, a nivel 30 aprox.",
 	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings. Their locks need keys: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "Drull y {npc:2238} están encadenados en los edificios del patio de {area:275}. Sus candados necesitan llaves: {npc:2427} lleva la {item:3467} y {npc:2428}, la {item:3499}, ambos en la fortaleza. Mátalos y luego abre ambos candados.\nDesde {area:272} ve al sureste por las colinas camino a {area:275}. Pícaros y Veladores ocupan los campamentos del camino.",
 	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks."] = "Drull y {npc:2238} están encadenados en los edificios del patio de {area:275}; abre ambos candados.",
 	-- ["East along the foothills, then down into {area:272}."] = "Al este por las estribaciones, luego baja hasta {area:272}.",
@@ -221,6 +222,7 @@ return {
 	-- ["Take the zeppelin from the towers outside the {zone:1458} to {zone:1454} and train before you fly on."] = "Toma el zepelín en las torres fuera de {zone:1458} hacia {zone:1454} y entrena antes de seguir volando.",
 	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often."] = "Los Campesinos trabajan los campos al sur de las granjas. Todo humano de {area:287} suelta cráneos; los Campesinos, con más frecuencia.",
 	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping."] = "Los campesinos trabajan los campos al sur de las granjas. Todos los humanos de {area:287} sueltan cráneos; los campesinos, con más frecuencia.\nCuidado: Un campesino que huye y llega al ayuntamiento puede traer muchos refuerzos, entre ellos infantes de {area:287}; las ralentizaciones, raíces o efectos similares les impiden escapar.",
+	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "Los campesinos trabajan los campos al sur de las granjas. Todos los humanos de {area:287} sueltan cráneos; los campesinos, con más frecuencia.\nCuidado: Un campesino que huye y llega al ayuntamiento puede traer muchos refuerzos, entre ellos infantes de {area:287}; las ralentizaciones, raíces o efectos similares les impiden escapar. Los guardias del Kirin Tor (55) están al norte de las granjas, en el camino que sube hacia Alterac: no te salgas de los campos.",
 	-- ["The middle of {zone:1454}"] = "El centro de {zone:1454}",
 	-- ["The northern peak"] = "El pico norte",
 	-- ["The northern peak rises south-east of {area:272}, on the way down towards Durnholde."] = "El pico norte se eleva al sureste de {area:272}, en el camino de bajada hacia Durnholde.",
@@ -239,6 +241,7 @@ return {
 	-- ["Walk back up to {area:272} and fly to the {area:228}: {npc:2121} stands by the crypt entrance."] = "Vuelve a subir a {area:272} y vuela a {area:228}: {npc:2121} está junto a la entrada de la cripta.",
 	-- ["You arrive bound at the {area:272} inn. Everyone stands around the town square."] = "Llegas vinculado a la posada de {area:272}. Todos están alrededor de la plaza del pueblo.",
 	-- ["{area:272} is your base for this guide: the hearth brings you back here twice. Everyone stands around the town square."] = "{area:272} es tu base en esta guía: la piedra de hogar te trae de vuelta aquí dos veces. Todos están alrededor de la plaza del pueblo.",
+	-- ["{item:3692}: the Peasants in the fields"] = "{item:3692}: los campesinos de los campos",
 	-- ["{npc:2055}, in the {zone:1458}"] = "{npc:2055}, en {zone:1458}",
 	-- ["{npc:2215}: orders for {npc:270438}, on the way to Durnholde"] = "{npc:2215}: órdenes para {npc:270438}, camino al Castillo de Durnholde",
 	-- ["{npc:2216}, inside: the {item:3502} grow south-west of Durnholde, on the walk there"] = "{npc:2216}, adentro: {item:3502} crecen al suroeste de Durnholde, en el camino hacia allá",

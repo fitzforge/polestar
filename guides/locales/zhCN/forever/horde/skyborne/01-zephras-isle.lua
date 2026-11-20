@@ -500,11 +500,24 @@ return {
 	-- {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} Barrens
 	["Learn the flight path from {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "在高塔平台上向{npc:3615}开通飞行点。{area:380}本地的任务留到{zone:1421}之后，在{zone:1413}指南中再做。",
 
-	-- Step 110: To Orgrimmar
+	-- Step 110: Rezlak
+	-- {npc:3293} Rezlak · {zone:1454} Orgrimmar · {area:370} Drygulch Ravine
+	["{npc:3293} camps beside the road north to {zone:1454}, below {area:370}. The stolen sacks lie along the road just east of him."] = "",
+
+	-- Step 111: Drygulch Ravine
+	-- {area:370} Drygulch Ravine · {npc:3293} Rezlak · {item:277661} Dull Storm Orb · {quest:97281} A Simmering Storm
+	["Savages and Storm Witches nest in {area:370}, east of {npc:3293}. A Storm Witch drops the {item:277661}, which starts {quest:97281}."] = "",
+
+	-- Step 112: Rezlak
+	-- {npc:3293} Rezlak
+	["Back to {npc:3293} by the road."] = "",
+
+	-- Step 113: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "前往{zone:1454}",
-	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
-	["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "从十字路口沿路向东北到{area:379}，跨过{area:815}进入{zone:1411}，继续向北到{zone:1454}正门。下篇指南从{zone:1454}开始：把{quest:95350}交给萨尔，然后乘飞艇前往{zone:1420}和{zone:1421}。",
+	-- {area:379} Far Watch Post · {area:814} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
+	-- was: ["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "从十字路口沿路向东北到{area:379}，跨过{area:815}进入{zone:1411}，继续向北到{zone:1454}正门。下篇指南从{zone:1454}开始：把{quest:95350}交给萨尔，然后乘飞艇前往{zone:1420}和{zone:1421}。"
+	["From the Crossroads follow the road north-east to {area:379}, cross the {area:814} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "{zone:1454}的{object:172982}",
 
@@ -516,6 +529,7 @@ return {
 	-- ["Faladiel stands on the hill west of the falls, north of {area:16638}."] = "Skypriest Faladiel站在{area:16638}北边、瀑布西边的山丘上。",
 	-- ["Follow the road south to {area:16624}, in the middle of the isle."] = "沿道路向南到岛屿中部的{area:16624}。",
 	-- ["Follow the road south to {area:16624}, in the middle of the isle. {npc:251523} stands on its east side, {npc:251902} in the middle, {npc:254089} just north-west of her, {npc:263664} by the campfire on the west side."] = "沿道路向南到岛屿中部的{area:16624}。{npc:251523}站在村子东侧，{npc:251902}在中央，{npc:254089}在她西北边不远处，{npc:263664}在西侧的营火旁。",
+	-- ["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "从十字路口沿路向东北到{area:379}，跨过{area:815}进入{zone:1411}，继续向北到{zone:1454}正门。下篇指南从{zone:1454}开始：把{quest:95350}交给萨尔，然后乘飞艇前往{zone:1420}和{zone:1421}。",
 	-- ["High Order Apprentices"] = "{npc:257521}",
 	-- ["Hippogryph nests"] = "角鹰兽巢穴",
 	-- ["Horde airship"] = "部落飞艇",

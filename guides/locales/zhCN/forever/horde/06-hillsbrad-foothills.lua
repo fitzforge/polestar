@@ -57,13 +57,13 @@ return {
 	["{area:286}: kill these as you meet them"] = "{area:286}：沿途遇到就击杀",
 	-- {area:287} Hillsbrad
 	-- plural, as words: Kirin Tor Guards = {npc:246848} Kirin Tor Guard
-	["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "农夫在农舍南边的田地里干活。{area:287}的所有人类都会掉落头骨，其中农夫掉落最频繁。\n注意：逃跑的农夫如果跑到市政厅，可能会带回许多敌人，包括{area:287}的步兵；减速、定身等效果能阻止他们逃跑。肯瑞托卫兵（55级）站在农场北边通往奥特兰克的路上：待在田地里。",
-	-- {item:3692} Hillsbrad Human Skull
-	["{item:3692}: the Peasants in the fields"] = "{item:3692}：田里的希尔斯布莱德农民",
+	-- was: ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "农夫在农舍南边的田地里干活。{area:287}的所有人类都会掉落头骨，其中农夫掉落最频繁。\n注意：逃跑的农夫如果跑到市政厅，可能会带回许多敌人，包括{area:287}的步兵；减速、定身等效果能阻止他们逃跑。肯瑞托卫兵（55级）站在农场北边通往奥特兰克的路上：待在田地里。"
+	["The Peasants work the fields south of the farmhouses.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "",
 
 	-- Step 9: Tarren Mill
 	-- {quest:528} Battle of Hillsbrad
-	["Darthalia's next {quest:528} and Lydon's Elixir of Agony are for the next visit, at about 30."] = "达萨利亚的下一个{quest:528}和林度恩的苦痛药剂留到约30级下次来时再做。",
+	-- was: ["Darthalia's next {quest:528} and Lydon's Elixir of Agony are for the next visit, at about 30."] = "达萨利亚的下一个{quest:528}和林度恩的苦痛药剂留到约30级下次来时再做。"
+	["Darthalia's next {quest:528}, Samsa's Souvenirs of Death and Lydon's Elixir of Agony are for the next visit, at about 30."] = "",
 
 	-- Step 10: Durnholde Keep: kill these as you meet them
 	-- {area:275} Durnholde Keep
@@ -195,6 +195,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back down to Masoj on the hillside above {area:290}."] = "下山回到{area:290}上方山坡上的马索吉那里。",
 	-- ["Back to {area:272}"] = "返回{area:272}",
+	-- ["Darthalia's next {quest:528} and Lydon's Elixir of Agony are for the next visit, at about 30."] = "达萨利亚的下一个{quest:528}和林度恩的苦痛药剂留到约30级下次来时再做。",
 	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings. Their locks need keys: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "德鲁尔和{npc:2238}被锁在{area:275}庭院的建筑内。开锁需要钥匙：{npc:2427}携带{item:3467}，{npc:2428}携带{item:3499}，两人都在城堡里。击杀他们，然后打开两处锁。\n从{area:272}向东南进入山丘，朝{area:275}走。沿途营地由潜行者和卫兵占据。",
 	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks."] = "德鲁尔和{npc:2238}被锁在{area:275}庭院的建筑里；把两把锁都打开。",
 	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "德鲁尔和{npc:2238}被锁在{area:275}庭院的建筑内；打开两处锁。\n从{area:272}向东南进入山丘，朝{area:275}走。沿途营地由潜行者和卫兵占据。",
@@ -225,6 +226,7 @@ return {
 	-- ["Take the zeppelin from the towers outside the {zone:1458} to {zone:1454} and train before you fly on."] = "在{zone:1458}外的塔上乘飞艇前往{zone:1454}，继续飞行前先训练。",
 	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often."] = "希尔斯布莱德农民在农舍南边的田里干活。每个{area:287}人类都会掉落头骨；希尔斯布莱德农民掉得最多。",
 	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping."] = "农夫在农舍南边的田地里干活。{area:287} 的所有人类都会掉落头骨，其中农夫掉落最频繁。\n注意：逃跑的农夫如果跑到市政厅，可能会带回许多敌人，包括 {area:287} 的步兵；减速、定身等效果能阻止他们逃跑。",
+	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "农夫在农舍南边的田地里干活。{area:287}的所有人类都会掉落头骨，其中农夫掉落最频繁。\n注意：逃跑的农夫如果跑到市政厅，可能会带回许多敌人，包括{area:287}的步兵；减速、定身等效果能阻止他们逃跑。肯瑞托卫兵（55级）站在农场北边通往奥特兰克的路上：待在田地里。",
 	-- ["The middle of {zone:1454}"] = "{zone:1454}中央",
 	-- ["The northern peak"] = "北边的山峰",
 	-- ["The northern peak rises south-east of {area:272}, on the way down towards Durnholde."] = "北边的山峰位于{area:272}东南，在下山前往敦霍尔德城堡的路上。",
@@ -244,6 +246,7 @@ return {
 	-- ["Walk back up to {area:272} and fly to the {area:228}: {npc:2121} stands by the crypt entrance."] = "走回上方的{area:272}，飞往{area:228}：{npc:2121}站在墓穴入口旁。",
 	-- ["You arrive bound at the {area:272} inn. Everyone stands around the town square."] = "你抵达时炉石已绑定在{area:272}的旅店。所有人都站在镇广场周围。",
 	-- ["{area:272} is your base for this guide: the hearth brings you back here twice. Everyone stands around the town square."] = "{area:272}是本指南的据点：炉石会两次把你带回这里。所有人都站在镇广场周围。",
+	-- ["{item:3692}: the Peasants in the fields"] = "{item:3692}：田里的希尔斯布莱德农民",
 	-- ["{npc:10079} stands at the top of the {area:1718}, beside {npc:12576}."] = "{npc:10079}站在{area:1718}顶部，在{npc:12576}旁边。",
 	-- ["{npc:2055}, in the {zone:1458}"] = "{npc:2055}，在{zone:1458}",
 	-- ["{npc:2215}: orders for {npc:270438}, on the way to Durnholde"] = "{npc:2215}：给{npc:270438}的命令，在前往敦霍尔德城堡的路上",

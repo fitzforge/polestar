@@ -57,13 +57,13 @@ return {
 	["{area:286}: kill these as you meet them"] = "{area:286} : tuez-les au passage",
 	-- {area:287} Hillsbrad
 	-- plural, as words: Kirin Tor Guards = {npc:246848} Kirin Tor Guard
-	["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "Les Paysans travaillent dans les champs au sud des fermes. Tous les humains de {area:287} lâchent des crânes ; les Paysans le plus souvent.\nAttention : un paysan qui fuit et atteint l'hôtel de ville peut ramener de nombreux renforts, dont des fantassins de {area:287} ; les effets de ralentissement, d'immobilisation ou similaires l'empêchent de s'échapper. Des Gardes du Kirin Tor (55) se tiennent au nord des fermes, sur la route qui monte vers Alterac : restez dans les champs.",
-	-- {item:3692} Hillsbrad Human Skull
-	["{item:3692}: the Peasants in the fields"] = "{item:3692} : les Paysans d'Hillsbrad dans les champs",
+	-- was: ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "Les Paysans travaillent dans les champs au sud des fermes. Tous les humains de {area:287} lâchent des crânes ; les Paysans le plus souvent.\nAttention : un paysan qui fuit et atteint l'hôtel de ville peut ramener de nombreux renforts, dont des fantassins de {area:287} ; les effets de ralentissement, d'immobilisation ou similaires l'empêchent de s'échapper. Des Gardes du Kirin Tor (55) se tiennent au nord des fermes, sur la route qui monte vers Alterac : restez dans les champs."
+	["The Peasants work the fields south of the farmhouses.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "",
 
 	-- Step 9: Tarren Mill
 	-- {quest:528} Battle of Hillsbrad
-	["Darthalia's next {quest:528} and Lydon's Elixir of Agony are for the next visit, at about 30."] = "La suite de {quest:528} de Darthalia et l'Élixir d'agonie de Lydon sont pour la prochaine visite, vers le niveau 30.",
+	-- was: ["Darthalia's next {quest:528} and Lydon's Elixir of Agony are for the next visit, at about 30."] = "La suite de {quest:528} de Darthalia et l'Élixir d'agonie de Lydon sont pour la prochaine visite, vers le niveau 30."
+	["Darthalia's next {quest:528}, Samsa's Souvenirs of Death and Lydon's Elixir of Agony are for the next visit, at about 30."] = "",
 
 	-- Step 10: Durnholde Keep: kill these as you meet them
 	-- {area:275} Durnholde Keep
@@ -195,6 +195,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back down to Masoj on the hillside above {area:290}."] = "Redescendez jusqu'à Masoj, sur le flanc de colline au-dessus de {area:290}.",
 	-- ["Back to {area:272}"] = "Retour à {area:272}",
+	-- ["Darthalia's next {quest:528} and Lydon's Elixir of Agony are for the next visit, at about 30."] = "La suite de {quest:528} de Darthalia et l'Élixir d'agonie de Lydon sont pour la prochaine visite, vers le niveau 30.",
 	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings. Their locks need keys: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "Drull et {npc:2238} sont enchaînés dans les bâtiments de la cour de {area:275}. Leurs cadenas nécessitent des clés : {npc:2427} porte la {item:3467} et {npc:2428} la {item:3499}, tous deux dans le donjon. Tuez-les, puis ouvrez les deux cadenas.\nDepuis {area:272}, allez vers le sud-est dans les collines en direction de {area:275}. Des Voleurs et des Guetteurs tiennent les camps en chemin.",
 	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks."] = "Drull et {npc:2238} sont enchaînés dans les bâtiments de la cour de {area:275} ; ouvrez les deux cadenas.",
 	-- ["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings; open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues and Watchmen hold the camps along the way."] = "Drull et {npc:2238} sont enchaînés dans les bâtiments de la cour de {area:275} ; ouvrez les deux cadenas.\nDepuis {area:272}, allez vers le sud-est dans les collines en direction de {area:275}. Des Voleurs et des Guetteurs tiennent les camps en chemin.",
@@ -231,6 +232,7 @@ return {
 	-- ["Talk to {npc:10181}"] = "Parlez à {npc:10181}",
 	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often."] = "Les Paysans d'Hillsbrad travaillent les champs au sud des fermes. Tous les humains de {area:287} lâchent des crânes ; les Paysans le plus souvent.",
 	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping."] = "Les Paysans travaillent dans les champs au sud des fermes. Tous les humains de {area:287} lâchent des crânes ; les Paysans le plus souvent.\nAttention : un paysan qui fuit et atteint l'hôtel de ville peut ramener de nombreux renforts, dont des fantassins de {area:287} ; les effets de ralentissement, d'immobilisation ou similaires l'empêchent de s'échapper.",
+	-- ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "Les Paysans travaillent dans les champs au sud des fermes. Tous les humains de {area:287} lâchent des crânes ; les Paysans le plus souvent.\nAttention : un paysan qui fuit et atteint l'hôtel de ville peut ramener de nombreux renforts, dont des fantassins de {area:287} ; les effets de ralentissement, d'immobilisation ou similaires l'empêchent de s'échapper. Des Gardes du Kirin Tor (55) se tiennent au nord des fermes, sur la route qui monte vers Alterac : restez dans les champs.",
 	-- ["The middle of {zone:1454}"] = "Le centre d'{zone:1454}",
 	-- ["The northern peak"] = "Le pic septentrional",
 	-- ["The northern peak rises south-east of {area:272}, on the way down towards Durnholde."] = "Le pic septentrional se dresse au sud-est de {area:272}, sur le chemin qui descend vers Fort-de-Durn.",
@@ -253,6 +255,7 @@ return {
 	-- ["You arrive bound at the {area:272} inn. Everyone stands around the town square."] = "Vous arrivez lié à l'auberge de {area:272}. Tout le monde se tient autour de la place du village.",
 	-- ["{area:272} is your base for this guide: the hearth brings you back here twice. Everyone stands around the town square."] = "{area:272} est votre base pour ce guide : la pierre de foyer vous y ramène deux fois. Tout le monde se tient autour de la place du village.",
 	-- ["{area:378} flight master"] = "Maître de vol du {area:378}",
+	-- ["{item:3692}: the Peasants in the fields"] = "{item:3692} : les Paysans d'Hillsbrad dans les champs",
 	-- ["{npc:10079}, at the top of the lift"] = "{npc:10079}, en haut de l'élévateur",
 	-- ["{npc:2055}, in the {object:36072}"] = "{npc:2055}, dans {object:36072}",
 	-- ["{npc:2055}, in the {zone:1458}"] = "{npc:2055}, à {zone:1458}",

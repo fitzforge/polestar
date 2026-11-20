@@ -161,8 +161,9 @@ return {
 	["{npc:265809}: for Jhag"] = "{npc:265809}: para Jhag",
 
 	-- Step 30: Camping 101: Alchemy
-	-- {npc:265809} Brakk
-	["{npc:265809}: for Whuut"] = "{npc:265809}: para Whuut",
+	-- {npc:265809} Brakk · {npc:11046} Whuut
+	-- was: ["{npc:265809}: for Whuut"] = "{npc:265809}: para Whuut"
+	["{npc:265809}: for {npc:11046}"] = "",
 
 	-- Step 31: Razor Hill
 	-- {npc:266940} Turroc
@@ -248,60 +249,63 @@ return {
 	-- {npc:3206} Voodoo Troll · {npc:6491} Spirit Healer
 	["Die to the mobs at 66.9,87.2 ({npc:3206}): a death there sends you to this graveyard. Release your spirit and take the {npc:6491}'s resurrection."] = "Muere ante los enemigos en 66.9,87.2 ({npc:3206}): morir ahí te manda a este cementerio. Libera tu espíritu y acepta la resurrección del {npc:6491}.",
 
-	-- Step 51: Level 10
+	-- Step 52: Level 10
 	["Level 10"] = "Nivel 10",
-	-- {quest:840} Conscript of the Horde · {area:362} Razor Hill · {quest:96825} This Fruit Could Bite Back
-	["Top up here to level 10: {quest:840}, at {area:362}, needs level 10.\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "Sube aquí hasta el nivel 10: {quest:840}, en {area:362}, necesita nivel 10.\nLos higos chumbos para {quest:96825} crecen junto a estas chozas: recógelos mientras subes de nivel.",
+	-- {area:362} Razor Hill · {quest:96825} This Fruit Could Bite Back
+	-- was: ["Top up here to level 10: {quest:840}, at {area:362}, needs level 10.\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "Sube aquí hasta el nivel 10: {quest:840}, en {area:362}, necesita nivel 10.\nLos higos chumbos para {quest:96825} crecen junto a estas chozas: recógelos mientras subes de nivel."
+	["Top up here to level 10: your class quest at {area:362} needs level 10.\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "",
 	-- {npc:3111} Razormane Quilboar
 	["grind on {npc:3111}"] = "sube de nivel con {npc:3111}",
 
-	-- Step 52: Razor Hill
+	-- Step 53: Razor Hill
+	-- {npc:3336} Takrin Pathseeker · {npc:3337} Kargal Battlescar · {npc:5907} Kranal Fiss
+	["{npc:3336}: {npc:3337} is on the way to {npc:5907}"] = "",
 	-- {npc:3169} Tarshaw Jaggedscar
 	["{npc:3169}, inside"] = "{npc:3169}, adentro",
 	-- {npc:3294} Ophek
 	["{npc:3294}, by the inn"] = "{npc:3294}, junto a la posada",
 
-	-- Step 53: Far Watch Post
+	-- Step 54: Far Watch Post
 	-- {area:814} Southfury River · {npc:3337} Kargal Battlescar · {area:379} Far Watch Post · {npc:5907} Kranal Fiss
 	["West over the {area:814} bridge: {npc:3337} stands at {area:379} above it, on your way to {npc:5907}."] = "Al oeste por el puente de {area:814}: {npc:3337} está en {area:379}, encima, de camino a {npc:5907}.",
 
-	-- Step 58: Kranal Fiss
+	-- Step 59: Kranal Fiss
 	-- {area:814} Southfury River · {area:379} Far Watch Post · {npc:5907} Kranal Fiss
 	["West over the {area:814} bridge, past {area:379} and on along the ridge: {npc:5907} stands alone above the Razormane camp."] = "Al oeste por el puente de {area:814}, pasando {area:379} y siguiendo por la cresta: {npc:5907} está solo sobre el campamento Crines de Acero.",
 
-	-- Step 59: Telf Joolam
+	-- Step 60: Telf Joolam
 	-- {zone:1411} Durotar · {npc:5900} Telf Joolam
 	["Back over the bridge and south along the {zone:1411} bank of the river to where a narrow trail climbs the mountain: {npc:5900} keeps the shrine at the top. Mind the edges on the way up, and come back down the same trail."] = "Vuelve a cruzar el puente y ve al sur por la orilla de {zone:1411} del río hasta donde un sendero angosto sube la montaña: {npc:5900} cuida el santuario de la cima. Cuidado con los bordes al subir, y baja por el mismo sendero.",
 
-	-- Step 60: Razormane Grounds
+	-- Step 61: Razormane Grounds
 	["Quilboars and scouts hold the huts west of town, where the prickly pears grow; dustrunners and battleguards hold the camps farther west."] = "Los jabaespines y exploradores ocupan las chozas al oeste del pueblo, donde crecen los higos chumbos; los polvorosos y guardias de batalla ocupan los campamentos más al oeste.",
 
-	-- Step 61: Rezlak
+	-- Step 62: Rezlak
 	-- {zone:1454} Orgrimmar · {npc:3293} Rezlak
 	["Head north-east to the road toward {zone:1454}. {npc:3293} camps beside it; the stolen sacks lie along the road south of him."] = "Ve al noreste hasta el camino hacia {zone:1454}. {npc:3293} acampa a su lado; los sacos robados están a lo largo del camino al sur de él.",
 
-	-- Step 62: Drygulch Ravine
+	-- Step 63: Drygulch Ravine
 	-- {area:370} Drygulch Ravine · {npc:3293} Rezlak · {item:277661} Dull Storm Orb · {area:371} Dustwind Cave · {item:6652} Reagent Pouch
 	-- plural, as words: Burning Blade Cultists = {npc:3199} Burning Blade Cultist
 	["Savages and Storm Witches nest in {area:370}, east of {npc:3293}. A Storm Witch drops the {item:277661}. Shamans: the Burning Blade Cultists by {area:371}, at the ravine's south end, drop the {item:6652}."] = "Los salvajes y las brujas de la tormenta anidan en {area:370}, al este de {npc:3293}. Una bruja de la tormenta suelta {item:277661}. Chamanes: los sectarios del Filo Ardiente junto a {area:371}, en el extremo sur del barranco, sueltan {item:6652}.",
 
-	-- Step 63: Deathskip to Northern Durotar
+	-- Step 64: Deathskip to Northern Durotar
 	["Deathskip to Northern Durotar"] = "Muere para volver rápido al norte de Durotar",
 	-- {npc:3118} Dustwind Storm Witch · {npc:6491} Spirit Healer
 	["Die to the mobs at 52.0,21.4 ({npc:3118}): a death there sends you to this graveyard. Release your spirit and take the {npc:6491}'s resurrection."] = "Muere ante los enemigos en 52.0,21.4 ({npc:3118}): morir ahí te manda a este cementerio. Libera tu espíritu y acepta la resurrección del {npc:6491}.",
 
-	-- Step 66: Thunder Ridge: kill these as you meet them
+	-- Step 67: Thunder Ridge: kill these as you meet them
 	-- {area:369} Thunder Ridge
 	["{area:369}: kill these as you meet them"] = "{area:369}: mata a estos según te los encuentres",
 	-- {area:369} Thunder Ridge · {npc:3293} Rezlak
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
 	["Thunder Lizards and Lightning Hides graze on {area:369}, just west and south-west of {npc:3293}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "Los Truenagartos ({npc:3130}) y los Lomorrayos ({npc:3131}) pastan en {area:369}, justo al oeste y suroeste de {npc:3293}.\nCuidado: Halikor, un élite de nivel 12, recorre {area:369} entre los lagartos: ubícalo antes de atraer.",
 
-	-- Step 68: Misha Tor'kren
+	-- Step 69: Misha Tor'kren
 	-- {area:814} Southfury River · {item:4891} Kron's Amulet
 	["Misha's hut stands south of the lizards. The crocolisks along the {area:814} to the west carry {item:4891}."] = "La choza de Misha está al sur de los truenagartos. Los crocoliscos a lo largo de {area:814}, al oeste, llevan {item:4891}.",
 
-	-- Step 69: Level 11
+	-- Step 70: Level 11
 	["Level 11"] = "Nivel 11",
 	-- {npc:3203} Fizzle Darkstorm
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard
@@ -309,102 +313,131 @@ return {
 	-- {npc:3130} Thunder Lizard
 	["grind on {npc:3130}"] = "sube de nivel con {npc:3130}",
 
-	-- Step 70: Fizzle Darkstorm
+	-- Step 71: Fizzle Darkstorm
 	-- {area:369} Thunder Ridge · {npc:3099} Dire Mottled Boar · {item:15908} Taming Rod
 	["Fizzle holds the Burning Blade camp on {area:369}, just north of Misha's hut. Hunters: tame a {npc:3099} with the {item:15908} on the way.\nCareful: Burning Blade cultists surround Fizzle, some linked so they aggro in pairs, and they respawn quickly.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "Fizzle ocupa el campamento del Filo Ardiente en {area:369}, justo al norte de la choza de Misha. Cazadores: domestica un {npc:3099} con la {item:15908} en el camino.\nCuidado: los cultores del Filo Ardiente rodean a Fizzle, algunos vinculados, así que atacan en parejas, y reaparecen rápido.\nCuidado: Halikor, un élite de nivel 12, recorre {area:369} entre los lagartos: ubícalo antes de atraer.",
 	-- {item:15908} Taming Rod
 	["Tame it with the {item:15908}"] = "Domestícalo con {item:15908}",
 
-	-- Step 71: Heglan Shadeeye
+	-- Step 72: Heglan Shadeeye
 	-- {npc:275657} Heglan Shadeeye · {area:362} Razor Hill
 	["{npc:275657} stands on the shore east of {area:362}. The trident, banner and dagger lie on the beach around him."] = "{npc:275657} está en la orilla al este de {area:362}. El tridente, el estandarte y la daga están en la playa a su alrededor.",
 
-	-- Step 73: Paladin trainer
+	-- Step 74: Paladin trainer
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {area:362} Razor Hill
 	["{npc:246344} in {zone:1456}; {area:362} has no paladin trainer"] = "{npc:246344} en {zone:1456}; {area:362} no tiene instructor de paladines",
 
-	-- Step 74: Druid trainer
+	-- Step 75: Druid trainer
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {area:362} Razor Hill
 	["{npc:3034} in {zone:1412}; {area:362} has no druid trainer"] = "{npc:3034} en {zone:1412}; {area:362} no tiene instructor de druidas",
 
-	-- Step 75: Razor Hill
+	-- Step 76: Razor Hill
 	-- {area:362} Razor Hill · {npc:3139} Gar'Thok · {npc:3142} Orgnil Soulscar
 	["Back to {area:362}: {npc:3139}, then {npc:3142}."] = "De vuelta a {area:362}: {npc:3139} y luego {npc:3142}.",
+	-- {npc:3336} Takrin Pathseeker · {npc:3337} Kargal Battlescar · {area:379} Far Watch Post · {zone:1413} The Barrens
+	["{npc:3336}: {npc:3337} stands at {area:379}, on the {zone:1413} guide's road"] = "",
 
-	-- Step 76: Spitelash naga
+	-- Step 77: Spitelash naga
 	["Spitelash naga"] = "Nagas Látigo de Ira",
 	-- {area:370} Drygulch Ravine · {npc:275657} Heglan Shadeeye · {npc:3107} Surf Crawler
 	-- plural, as words: Spitelash Scouts = {npc:275662} Spitelash Scout
 	["North-east to the beach below {area:370}, north of {npc:275657}: Spitelash Scouts and Attendants hold it. Hunters: tame a {npc:3107} on the beach."] = "Al noreste, hasta la playa debajo de {area:370}, al norte de {npc:275657}: la ocupan exploradores y asistentes Latigosaña. Cazadores: domen un {npc:3107} en la playa.",
 
-	-- Step 77: Margoz
+	-- Step 78: Margoz
 	-- {quest:828} Margoz · {quest:827} Skull Rock
 	["{quest:828} camps on the hill west of the naga beach, south of {quest:827}."] = "{quest:828} acampa en la colina al oeste de la playa de las nagas, al sur de {quest:827}.",
 
-	-- Step 79: Gan'rul Bloodeye
+	-- Step 80: Gan'rul Bloodeye
 	-- {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength
 	["{zone:1454}'s main gate is just west of {area:817}. {npc:5875} stands in the {object:172960}, the canyon under the {object:172982}."] = "La puerta principal de {zone:1454} está justo al oeste de {area:817}. {npc:5875} está en {object:172960}, el cañón bajo {object:172982}.",
 
-	-- Step 80: Hanashi
+	-- Step 81: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
 	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a staff carries more spell stats than a one-hander while you level."] = "Ya que estás aquí: aprende Bastones con {npc:2704} ({object:172958}, 10 de plata); un bastón da más estadísticas de hechizo que un arma de una mano mientras subes de nivel.",
 
-	-- Step 81: Back to Durotar
+	-- Step 82: Valley of Strength
+	-- {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:268701} Thatog · {object:172982} Valley of Strength · {object:173016} Borstan's Firepit
+	["{zone:1454}'s main gate is just west of {area:817}. {npc:268701} stands by the bank in the {object:172982}; {object:173016} is a few steps north."] = "",
+
+	-- Step 83: The Drag
+	-- {npc:3348} Kor'geld · {npc:3347} Yelmak · {npc:11046} Whuut
+	["On through the Drag: {npc:3348} and {npc:3347} run the alchemy shop; {npc:11046} is next door."] = "",
+
+	-- Step 84: Valley of Honor
+	-- {object:172958} Valley of Honor
+	["The cattails and speargrass grow along the water in the {object:172958}, east of the Drag."] = "",
+
+	-- Step 86: Thrall
+	-- {object:172957} Valley of Wisdom · {npc:4949} Thrall · {npc:3230} Nazgrel
+	["Grommash Hold stands in the {object:172957} at the end of the Drag: {npc:4949} sits on his throne, {npc:3230} stands beside the door."] = "",
+	-- {npc:3230} Nazgrel · {quest:831} The Admiral's Orders
+	["{npc:3230}, in Grommash Hold: {quest:831}"] = "",
+
+	-- Step 87: Valley of Wisdom
+	-- {npc:268684} Thra · {npc:268682} Migi
+	-- plural, as words: Smooth Boulders = {item:277952} Smooth Boulder
+	["{npc:268684} and {npc:268682} sit behind Grommash Hold; the Smooth Boulders lie around them."] = "",
+
+	-- Step 88: Back to Durotar
 	-- {zone:1411} Durotar
 	["Back to {zone:1411}"] = "De vuelta a {zone:1411}",
 
-	-- Step 82: Skull Rock's mouth
+	-- Step 89: Skull Rock's mouth
 	-- {area:817} Skull Rock
 	["{area:817}'s mouth"] = "Entrada de {area:817}",
 
-	-- Step 83: Skull Rock
+	-- Step 90: Skull Rock
 	-- {quest:827} Skull Rock · {item:4871} Searing Collar · {npc:3204} Gazz'uz · {item:4903} Eye of Burning Shadow
 	["Burning Blade cultists hold the caves of {quest:827}; any of them drops a {item:4871}. {npc:3204}, a level 14 warlock, stands deep inside and drops the {item:4903}.\nCareful: voidwalkers fight beside the Burning Blade cultists in {quest:827} and {npc:3204} (14) waits at the back with his own: pull one cultist at a time near the entrance for the collars. The {item:4903} is optional: leave {npc:3204} unless you are 13 or have a friend."] = "Los sectarios de Filo Ardiente ocupan las cuevas de {quest:827}; cualquiera suelta un {item:4871}. {npc:3204}, un brujo de nivel 14, está en lo más profundo y suelta {item:4903}.\nCuidado: hay abisarios que pelean junto a los sectarios de Filo Ardiente en {quest:827}, y {npc:3204} (14) espera al fondo con el suyo: atrae a un sectario a la vez cerca de la entrada para los collares. {item:4903} es opcional: deja a {npc:3204} a menos que seas de nivel 13 o tengas un amigo.",
+	-- {item:14544} Lieutenant's Insignia
+	["{item:14544}, from the same cultists; below ground"] = "",
 
-	-- Step 84: Tablet of Verga
+	-- Step 91: Tablet of Verga
 	-- {object:58595} Burning Blade Stash · {area:817} Skull Rock
 	["The {object:58595} stands in {area:817}, among the cultists you just fought."] = "{object:58595} está en {area:817}, entre los sectarios con los que acabas de pelear.",
 
-	-- Step 86: Razor Hill
-	-- {area:362} Razor Hill
-	["Back to {area:362}."] = "De vuelta a {area:362}.",
+	-- Step 93: Razor Hill
+	-- {area:362} Razor Hill · {npc:3171} Thotar · {npc:5810} Uzzek · {area:379} Far Watch Post · {quest:99051} Threat from Below · {npc:3142} Orgnil Soulscar · {zone:1413} The Barrens
+	["Back to {area:362}: {npc:3171}'s next beast and {npc:5810}'s road to {area:379} start here. Everyone else hands {quest:99051} to {npc:3142} when the {zone:1413} guide passes {area:362} on its way out."] = "",
 
-	-- Step 87: Razor Hill
+	-- Step 94: Razor Hill
+	-- {npc:3142} Orgnil Soulscar · {quest:99051} Threat from Below
+	["{npc:3142}: {quest:99051}, if not handed in yet"] = "",
 	-- {npc:3142} Orgnil Soulscar · {npc:275666} Aggor the Young
 	["{npc:3142}: {npc:275666}, an elite sea giant"] = "{npc:3142}: {npc:275666}, un gigante de mar élite",
 
-	-- Step 88: Aggor the Young
+	-- Step 95: Aggor the Young
 	-- {npc:275666} Aggor the Young · {zone:1411} Durotar
 	["{npc:275666}, a young sea giant, walks {zone:1411}'s north coast, north of the naga beach. {npc:275666} is elite: grouping up is advised."] = "{npc:275666}, un joven gigante marino, recorre la costa norte de {zone:1411}, al norte de la playa de los nagas. {npc:275666} es élite: se recomienda agruparse.",
 	-- {npc:3142} Orgnil Soulscar · {area:362} Razor Hill
 	["{npc:3142}, back in {area:362}"] = "{npc:3142}, de vuelta en {area:362}",
 
-	-- Step 89: Armored Scorpid
+	-- Step 96: Armored Scorpid
 	-- {area:362} Razor Hill · {npc:3171} Thotar
 	-- plural, as words: Armored Scorpids = {npc:3126} Armored Scorpid
 	["Armored Scorpids crawl over the plains west of {area:362}. Tame one, then return to {npc:3171}."] = "Los Escórpidos acorazados ({npc:3126}) se arrastran por las llanuras al oeste de {area:362}. Domestica uno y luego regresa con {npc:3171}.",
 	-- {npc:3171} Thotar · {npc:3352} Ormak Grimshot · {zone:1454} Orgrimmar · {spell:5149} Beast Training
 	["{npc:3171}: {npc:3352} in {zone:1454} teaches {spell:5149}"] = "{npc:3171}: {npc:3352} en {zone:1454} enseña {spell:5149}",
 
-	-- Step 90: Far Watch Post
+	-- Step 97: Far Watch Post
 	-- {area:362} Razor Hill · {area:814} Southfury River · {npc:3337} Kargal Battlescar · {npc:5810} Uzzek · {area:379} Far Watch Post · {zone:1411} Durotar · {zone:1454} Orgrimmar
 	["West from {area:362} over the {area:814} bridge: {npc:3337} and {npc:5810} stand together at {area:379} above it. From there the road north through {zone:1411} leads to {zone:1454}."] = "Al oeste desde {area:362} por el puente de {area:814}: {npc:3337} y {npc:5810} están juntos en {area:379}, encima. Desde ahí, el camino al norte por {zone:1411} lleva a {zone:1454}.",
 
-	-- Step 91: Thunder lizards on the way north
+	-- Step 98: Thunder lizards on the way north
 	["Thunder lizards on the way north"] = "Truenagartos de camino al norte",
 	-- {area:369} Thunder Ridge · {zone:1454} Orgrimmar · {item:6486} Singed Scale · {npc:5810} Uzzek · {area:379} Far Watch Post
 	-- plural, as words: Thunder Lizards = {npc:3130} Thunder Lizard · Lightning Hides = {npc:3131} Lightning Hide
 	["Thunder Lizards and Lightning Hides graze on {area:369}, beside the road north to {zone:1454}; any of them can drop a {item:6486}. {npc:5810} takes it when the next guide passes {area:379}.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "Los Truenagartos ({npc:3130}) y los Lomorrayos ({npc:3131}) pastan en {area:369}, junto al camino al norte hacia {zone:1454}; cualquiera puede soltar {item:6486}. {npc:5810} la recibe cuando la siguiente guía pasa por {area:379}.\nCuidado: Halikor, un élite de nivel 12, recorre {area:369} entre los lagartos: ubícalo antes de atraer.",
 
-	-- Step 93: Ormak Grimshot
+	-- Step 100: Ormak Grimshot
 	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {area:817} Skull Rock · {npc:3352} Ormak Grimshot · {object:172958} Valley of Honor
 	["Follow the road north from {area:379} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "Sigue el camino al norte desde {area:379} hasta la puerta principal de {zone:1454}, justo al oeste de {area:817}. {npc:3352} está con los instructores de cazadores en {object:172958}.",
 
-	-- Step 94: Hanashi
+	-- Step 101: Hanashi
 	-- {npc:2704} Hanashi · {object:172958} Valley of Honor
 	["While you're here: learn Staves from {npc:2704} ({object:172958}, 10 silver); a Hunter's melee weapon is mostly its stats, and two-handers carry the most."] = "Ya que estás aquí: aprende Bastones con {npc:2704} ({object:172958}, 10 de plata); el arma cuerpo a cuerpo de un cazador vale sobre todo por sus estadísticas, y las de dos manos son las que más tienen.",
 
-	-- Step 95: To Orgrimmar
+	-- Step 102: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "A {zone:1454}",
 	-- {area:379} Far Watch Post · {zone:1454} Orgrimmar · {quest:829} Neeru Fireblade · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest · {zone:1413} The Barrens
@@ -412,13 +445,14 @@ return {
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "{object:172982} de {zone:1454}",
 
-	-- Step 96: The Binding
+	-- Step 103: The Binding
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {object:172982} Valley of Strength · {item:6535} Tablet of Verga · {item:7464} Glyphs of Summoning · {zone:1454} Orgrimmar
 	["{npc:5875} stands in the {object:172960}, the canyon under the {object:172982}. Hand him the {item:6535}, then use the {item:7464} on the summoning circle beside him and defeat the voidwalker to bind it.\nCareful: the voidwalker you summon hits hard and it is the fight Warlocks die to most in {zone:1454}: start at full health and mana, send your imp in, keep Corruption and Immolate on it, and use a healthstone if you have one."] = "{npc:5875} está en {object:172960}, el cañón bajo {object:172982}. Entrégale {item:6535}, luego usa {item:7464} en el círculo de invocación junto a él y derrota al abisario para vincularlo.\nCuidado: el abisario que invocas pega fuerte y es la pelea en la que más mueren los brujos en {zone:1454}: empieza con salud y maná completos, manda primero a tu diablillo, mantén Corrupción e Inmolar sobre él y usa una piedra de salud si tienes una.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back east to the shore north of {npc:275657}. Spitelash Scouts and Attendants hold the beach below {area:370}. Hunters: tame a {npc:3107} on the beach."] = "De vuelta al este, a la orilla al norte de {npc:275657}. Los Exploradores Látigo de Ira ({npc:275662}) y los Asistentes ocupan la playa bajo {area:370}. Cazadores: domestiquen un {npc:3107} en la playa.",
 	-- ["Back south to {area:362}."] = "De vuelta al sur a {area:362}.",
+	-- ["Back to {area:362}."] = "De vuelta a {area:362}.",
 	-- ["Back to {npc:5875} in the {object:172960}. Use the {item:7464} on the summoning circle there and defeat the voidwalker to bind it."] = "De vuelta con {npc:5875} en {object:172960}. Usa {item:7464} en el círculo de invocación de allí y derrota al abisario para vincularlo.",
 	-- ["Follow the road north from {area:362} to {zone:1454}'s main gate, just west of {area:817}. {npc:3352} stands with the hunter trainers in the {object:172958}."] = "Sigue el camino al norte desde {area:362} hasta la puerta principal de {zone:1454}, justo al oeste de {area:817}. {npc:3352} está con los instructores de cazadores en {object:172958}.",
 	-- ["Head south through the isles. The Loa idols lie all over the southern isles; Voodoo and Hexed Trolls hold them and drop the Hexed Pendants. {quest:826} and Minshina's cage are on the southernmost isle."] = "Ve al sur por las islas. Los ídolos loa están por todas las islas del sur; los Trols vudú y los Trols embrujados ({npc:3207}) los guardan y sueltan los Colgantes embrujados ({item:275724}). {quest:826} y la jaula de Minshina están en la isla más al sur.",
@@ -431,6 +465,7 @@ return {
 	-- ["Thunder Lizards and Lightning Hides graze on {area:369}, just west and south-west of {npc:3293}.\nFizzle holds the Burning Blade camp on {area:369}, north-west of {area:362}. Hunters: tame a {npc:3099} with the {item:15908} on the way.\nCareful: Burning Blade cultists surround Fizzle, some linked so they aggro in pairs, and they respawn quickly.\nCareful: Halikor, a level 12 elite, roams {area:369} among the lizards: watch for him before you pull."] = "Los truenagartos y lomorrayos pastan en {area:369}, justo al oeste y suroeste de {npc:3293}.\nFizzle ocupa el campamento del Filo Ardiente en {area:369}, al noroeste de {area:362}. Cazadores: domestica un {npc:3099} con la {item:15908} en el camino.\nCuidado: los cultores del Filo Ardiente rodean a Fizzle, algunos vinculados, así que atacan en parejas, y reaparecen rápido.\nCuidado: Halikor, un élite de nivel 12, recorre {area:369} entre los lagartos: ubícalo antes de atraer.",
 	-- ["Thunder lizards across the river"] = "Truenagartos al otro lado del río",
 	-- ["Top up here to level 10: {quest:840}, at {area:362}, needs level 10."] = "Completa aquí hasta el nivel 10: {quest:840}, en {area:362}, necesita nivel 10.",
+	-- ["Top up here to level 10: {quest:840}, at {area:362}, needs level 10.\nThe prickly pears for {quest:96825} grow by these huts: pick them while you grind."] = "Sube aquí hasta el nivel 10: {quest:840}, en {area:362}, necesita nivel 10.\nLos higos chumbos para {quest:96825} crecen junto a estas chozas: recógelos mientras subes de nivel.",
 	-- ["With {skill:129} learned, {npc:265809} also offers its Camping 101: {npc:5943} in {area:362} takes it."] = "Si aprendiste {skill:129}, {npc:265809} también ofrece su Campismo 101: se entrega a {npc:5943} en {area:362}.",
 	-- ["With {skill:165} learned, {npc:265809} also offers its Camping 101: {npc:3365} in {zone:1454} (next guide) takes it."] = "Si aprendiste {skill:165}, {npc:265809} también ofrece su Campismo 101: se entrega a {npc:3365} en {zone:1454} (siguiente guía).",
 	-- ["With {skill:171} learned, {npc:265809} also offers its Camping 101: {npc:11046} in {zone:1454} (next guide) takes it."] = "Si aprendiste {skill:171}, {npc:265809} también ofrece su Campismo 101: se entrega a {npc:11046} en {zone:1454} (siguiente guía).",
@@ -440,6 +475,7 @@ return {
 	-- ["With {skill:202} learned, {npc:265809} also offers its Camping 101: {npc:11025} in {area:362} takes it."] = "Si aprendiste {skill:202}, {npc:265809} también ofrece su Campismo 101: se entrega a {npc:11025} en {area:362}.",
 	-- ["With {skill:333} learned, {npc:265809} also offers its Camping 101: {npc:11066} in {zone:1454} (next guide) takes it."] = "Si aprendiste {skill:333}, {npc:265809} también ofrece su Campismo 101: se entrega a {npc:11066} en {zone:1454} (siguiente guía).",
 	-- ["With {skill:393} learned, {npc:265809} also offers its Camping 101: {npc:7088} in {zone:1454} (next guide) takes it."] = "Si aprendiste {skill:393}, {npc:265809} también ofrece su Campismo 101: se entrega a {npc:7088} en {zone:1454} (siguiente guía).",
+	-- ["{npc:265809}: for Whuut"] = "{npc:265809}: para Whuut",
 	-- ["{npc:265809}: for {npc:11046}"] = "{npc:265809}: para {npc:11046}",
 	-- ["{npc:265809}: for {npc:11066}"] = "{npc:265809}: para {npc:11066}",
 	-- ["{npc:265809}: for {npc:2855}"] = "{npc:265809}: para {npc:2855}",

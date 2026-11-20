@@ -30,39 +30,31 @@ return {
 	-- plural, as words: Tar Beasts = {npc:6517} Tar Beast · Tar Lords = {npc:6519} Tar Lord
 	["The tar pits lie just south of the refuge. Tar Beasts, Lurkers and Creepers drop the {item:11834}. Careful: the Lurkers reach 54 and the Tar Lords stand among them: take the Tar Beasts (50-51) and Creepers (51-52)."] = "焦油池就在避难所正南。焦油兽、焦油潜伏者和焦油爬行者掉落{item:11834}。小心：焦油潜伏者最高54级，焦油兽王也在其中：打焦油兽（50-51）和焦油爬行者（51-52）。",
 
-	-- Step 5: Level 51
-	["Level 51"] = "等级 51",
-	-- {npc:9166} Pterrordax · {npc:9118} Larion · {area:1417} Sunken Temple · {area:2100} Maraudon
-	-- plural, as words: Bloodpetal Flayers = {npc:6510} Bloodpetal Flayer · Bloodpetal Threshers = {npc:6511} Bloodpetal Thresher
-	["Top up here to level 51 before the crater's loop: its {npc:9166} and Bloodpetal Flayers are up to level 52. The Bloodpetal Threshers (49-50) on the slopes south-east of the refuge are under your level, and {npc:9118} wants five of them. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "在开始环形山路线前先在这里升到51级：那里的{npc:9166}和血瓣花掠夺者最高52级。避难所东南山坡上的血瓣花猛击者（49-50）低于你的等级，{npc:9118}要五只。或者组队去{area:1417}地下城或{area:2100}地下城。",
-	-- {npc:6511} Bloodpetal Thresher
-	["grind on {npc:6511}"] = "击杀{npc:6511}刷经验",
-
-	-- Step 6: Pterrordax
+	-- Step 5: Pterrordax
 	-- {npc:9166} Pterrordax · {npc:9998} Shizzle · {npc:9997} Spraggle Frock · {npc:9167} Frenzied Pterrordax
 	["{npc:9166} (50-52) fly over the east of the crater, from the slopes below the refuge southward; their webbed scales are for {npc:9998}, and {npc:9997}'s sign wants ten of them. Leave the {npc:9167} over the west for the pylon loop."] = "{npc:9166}（50-52）在环形山东部飞行，从避难所下方的山坡一直分布到南边；它们的翼膜鳞片要交给{npc:9998}，{npc:9997}的木牌要十只。西边的{npc:9167}留到水晶塔路线再打。",
 
-	-- Step 7: Power Crystals and soil
+	-- Step 6: Power Crystals and soil
 	-- plural, as words: Power Crystals = {npc:271301} Power Crystal
 	["Power Crystals and soil"] = "能量水晶和土壤",
 	-- {area:537} Fire Plume Ridge
 	["The crystal clusters stand all over the crater, many around {area:537}. Take a few extra of each colour for the pylons."] = "水晶簇遍布整个环形山，{area:537}周围很多。每种颜色多拿几块给水晶塔用。",
 
-	-- Step 8: Lakkari Tar Pits: kill these as you meet them
+	-- Step 7: Lakkari Tar Pits: kill these as you meet them
 	-- {area:538} Lakkari Tar Pits
 	["{area:538}: kill these as you meet them"] = "{area:538}：沿途击杀以下目标",
 	-- {area:537} Fire Plume Ridge · {npc:9998} Shizzle · {npc:8659} Jes'rimon
 	-- plural, as words: Bloodpetal Flayers = {npc:6510} Bloodpetal Flayer · Dinosaur Bones = {item:11114} Dinosaur Bone · Elder Diemetradons = {npc:9164} Elder Diemetradon · Bloodpetal Trappers = {npc:6512} Bloodpetal Trapper
 	["Ride south-west to {area:537}, the volcano in the middle of the crater. Bloodpetal Flayers grow around its foot.\nSouth of the hot springs, Dinosaur Bones lie on the ground among the Stegodons and drop from the Diemetradons nearby, which also carry the scales {npc:9998} wants. Careful: the Stegodons are elites (52-53): pick the bones up around them, don't pull them; the Elder Diemetradons are 53-55, take the smaller ones. Ravasaurs hunt in packs in the south-west: their claws are for {npc:8659}, and now and then one carries a Mangled Journal (a rare drop: take its quest only if you get one). Avoid Gruff, a level 57 Stegodon.\nRide south-west along the western cliffs. Bloodpetal Trappers grow in the jungle there. Careful: the biggest Trappers are 53: pull them one at a time."] = "向西南骑往环形山中央的火山{area:537}。血瓣花掠夺者生长在山脚周围。\n温泉南面，恐龙骨头散落在剑龙之间的地上，附近的双帆龙也会掉落，它们还携带{npc:9998}要的鳞片。小心：剑龙是精英（52-53）：在它们周围捡骨头，别拉它们；老双帆龙是53-55级，打小只的。暴掠龙成群在西南部捕猎：爪子要交给{npc:8659}，偶尔还有一只携带被撕破的日记（稀有掉落：拿到后再接它的任务）。避开格鲁夫，它是一只57级剑龙。\n沿西侧悬崖向西南骑行。血瓣花捕兽者生长在那里的丛林中。小心：最大的捕兽者是53级：一次只拉一只。",
 
-	-- Step 9: Research Equipment
+	-- Step 8: Research Equipment
 	["The expedition's lost equipment lies in the south-west jungle."] = "考察队丢失的研究设备在西南丛林里。",
 
-	-- Step 10: The Slithering Scar
+	-- Step 9: The Slithering Scar
 	-- plural, as words: Gorishi Workers = {npc:6552} Gorishi Worker
 	["Careful: Gorishi Workers that drop below 45% health have a 50% chance to call for help from allies within 25 yd. The Hive Guards (54) and the Queen stand inside the hive: work the Workers and Wasps outside it."] = "小心：格里什工蝎生命值降到45%以下时，有50%概率向25码内的同伴呼救。巢穴守卫（54）和女王在巢穴里面：在巢外打工蝎和黄蜂。",
 
-	-- Step 12: Stegodons and ravasaurs
+	-- Step 11: Stegodons and ravasaurs
 	["Stegodons and ravasaurs"] = "剑龙和暴掠龙",
 	-- {item:11116} A Mangled Journal
 	["{item:11116}, a rare drop"] = "{item:11116}，稀有掉落",
@@ -72,7 +64,7 @@ return {
 	-- {quest:87494} Microcrystal Contamination · {npc:9619} Torwa Pathfinder
 	["Use the scale to start {quest:87494}, for {npc:9619}"] = "使用鳞片开始{quest:87494}，交给{npc:9619}",
 
-	-- Step 13: Torwa Pathfinder
+	-- Step 12: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
 	["{npc:9619} camps in the south-east corner of the crater."] = "{npc:9619}在环形山的东南角扎营。",
 	-- {npc:9619} Torwa Pathfinder · {quest:87492} Uncanny Crystal
@@ -80,48 +72,50 @@ return {
 	-- {npc:9619} Torwa Pathfinder · {quest:4289} The Apes of Un'Goro
 	["{npc:9619}: {quest:4289}, the gorillas of the north-east plateau on the pylon loop"] = "{npc:9619}：{quest:4289}，水晶塔路线上东北高地的猩猩",
 
-	-- Step 14: Torwa Pathfinder
+	-- Step 13: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder · {quest:87494} Microcrystal Contamination
 	["{npc:9619}: {quest:87494}, if the scale dropped"] = "{npc:9619}：{quest:87494}，如果掉落了鳞片",
 
-	-- Step 15: Fresh Threshadon Carcass
+	-- Step 14: Fresh Threshadon Carcass
 	-- {item:280417} Damaged Blue Crystal · {npc:9619} Torwa Pathfinder
 	["North of Torwa, a dead Threshadon lies by the water. The {item:280417} lies on the ground a short ride west of {npc:9619}'s camp."] = "托尔瓦北边，水边躺着一只死去的长牙兽。{item:280417}在{npc:9619}营地西边不远处的地上。",
 
-	-- Step 17: Lar'korwi Mates
+	-- Step 16: Lar'korwi Mates
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
 	["Lar'korwi Mates"] = "拉克维的配偶",
 	-- {npc:9619} Torwa Pathfinder
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
 	["The Lar'korwi Mates prowl the jungle north-west of {npc:9619}."] = "拉克维的配偶在{npc:9619}西北的丛林里潜行。",
 
-	-- Step 18: A Wrecked Raft
+	-- Step 17: A Wrecked Raft
 	["The raft lies on the shore of the south-eastern lake; the small pack sits in the water beside it."] = "破碎的木筏在东南湖泊的岸边；小背包就在旁边的水里。",
 	["Underwater"] = "在水下",
 
-	-- Step 20: Lashers and Threshers
+	-- Step 19: Lashers and Threshers
 	["Lashers and Threshers"] = "鞭笞者和猛击者",
 	-- plural, as words: Bloodpetal Lashers = {npc:6509} Bloodpetal Lasher
 	["Ride north along the east side. Bloodpetal Lashers and Threshers fill the jungle."] = "沿东侧向北骑行。血瓣花鞭笞者和血瓣花猛击者占满了丛林。",
 
-	-- Step 21: Un'Goro Crater: kill these as you meet them
+	-- Step 20: Un'Goro Crater: kill these as you meet them
 	-- {zone:1449} Un'Goro Crater
 	["{zone:1449}: kill these as you meet them"] = "{zone:1449}：沿途击杀以下目标",
 	["The expedition's crate sits at an abandoned camp in the eastern jungle."] = "考察队的食物箱在东部丛林一个废弃的营地里。",
 
-	-- Step 22: Marshal's Refuge
+	-- Step 21: Marshal's Refuge
 	-- {npc:9998} Shizzle
 	["{npc:9998}, at the entrance"] = "{npc:9998}，在入口",
 	-- {npc:9117} J.D. Collie
 	["{npc:9117}, below ground"] = "{npc:9117}：在地下",
+	-- {npc:9997} Spraggle Frock · {npc:9999} Ringo
+	["{npc:9997}, beside the flight master: {npc:9999} is found at the end of this loop"] = "",
 	-- {npc:9118} Larion · {quest:4147} Marvon's Workshop · {npc:8737} Linken
 	["Keep {npc:9118}'s {quest:4147} and {npc:8737}'s letter for later guides."] = "留着{npc:9118}的{quest:4147}和{npc:8737}的信，在之后的指南中使用。",
 
-	-- Step 23: Northern Pylon
+	-- Step 22: Northern Pylon
 	["Northern Pylon"] = "北部水晶塔",
 	["The pylon stands on the slope east of the refuge."] = "水晶塔在避难所东边的山坡上。",
 
-	-- Step 24: Gorillas
+	-- Step 23: Gorillas
 	["Gorillas"] = "猩猩",
 	-- {npc:9619} Torwa Pathfinder · {npc:9622} U'cha
 	["The gorillas live on the north-east plateau: {npc:9619} wants two pelts of each kind, and the Thunderers (52-53) are the biggest. Stay out of the deepest cave: {npc:9622} lives there."] = "猩猩住在东北的高地上：{npc:9619}每种要两张毛皮，雷鸣猩猩（52-53）最大。别进入最深的洞穴：{npc:9622}住在那里。",
@@ -130,160 +124,235 @@ return {
 	-- {npc:9623} A-Me 01 · {item:10561} Mithril Casing · {skill:202} Engineering
 	["{npc:9623} then wants a {item:10561}, an {skill:202} item. Skip it unless you have one."] = "{npc:9623}接着要一个{item:10561}，这是{skill:202}物品。除非你有，否则跳过。",
 
-	-- Step 25: Un'Goro Crater: kill these as you meet them
+	-- Step 24: Un'Goro Crater: kill these as you meet them
 	-- {spell:8137} Silithid Pox · {spell:14120} Tunneler Acid
 	-- plural, as words: Gorishi Workers = {npc:6552} Gorishi Worker
 	["Careful: Gorishi Workers may call for help within 25 yd when below 45% health; silithids cast {spell:8137} and Tunnelers and the Hive Guard use {spell:14120}."] = "小心：格里什工蝎在生命值低于 45% 时，可能呼叫 25 码内的同伴支援；异种虫会施放 {spell:8137}，坑道虫和虫巢卫士会使用 {spell:14120}。",
 
-	-- Step 26: Eastern Pylon
+	-- Step 25: Eastern Pylon
 	["Eastern Pylon"] = "东部水晶塔",
 	["Ride down the east side of the crater to the pylon on the eastern cliffs."] = "沿环形山东侧骑下去，前往东边悬崖上的水晶塔。",
 
-	-- Step 27: The Marshlands
+	-- Step 26: The Marshlands
 	["Careful: There are many ravasaurs roaming the area, so you can easily pull several at the same time."] = "小心：这一带有许多暴掠龙游荡，很容易同时引到多只。",
 
-	-- Step 28: Torwa Pathfinder
+	-- Step 27: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder · {area:1942} The Marshlands
 	["{npc:9619}'s camp is in the south-east corner, a short ride from the {area:1942}."] = "{npc:9619}的营地在东南角，离{area:1942}不远。",
 
-	-- Step 30: Western Pylon
+	-- Step 29: Western Pylon
 	["Western Pylon"] = "西部水晶塔",
 	["Cross the south of the crater to the pylon on the western cliffs."] = "穿过环形山南部，前往西边悬崖上的水晶塔。",
 
-	-- Step 31: Frenzied Pterrordax: kill these as you meet them
+	-- Step 30: Frenzied Pterrordax: kill these as you meet them
 	-- {npc:9167} Frenzied Pterrordax
 	["{npc:9167}: kill these as you meet them"] = "{npc:9167}：遇到就击杀",
 	-- {npc:9167} Frenzied Pterrordax
 	["The {npc:9167} fly over the western cliffs around the pylon. Careful: the biggest are 54: pull them one at a time."] = "{npc:9167}在水晶塔周围的西边悬崖上空飞翔。小心：最大的有54级，一次只拉一只。",
 
-	-- Step 32: J.D. Collie
-	-- {area:541} Marshal's Refuge · {npc:9117} J.D. Collie · {npc:9997} Spraggle Frock
-	["Ride north back to {area:541}: {npc:9117} below ground, {npc:9997} beside the flight master."] = "向北骑回{area:541}：{npc:9117}在地下，{npc:9997}在飞行管理员旁。",
+	-- Step 31: Krakle
+	-- {npc:10302} Krakle · {area:543} Golakka Hot Springs
+	-- was: ["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "地精{npc:10302}坐在水晶塔正东的{area:543}。"
+	["{npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "",
+
+	-- Step 32: Krakle's Thermometer
+	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer · {npc:10302} Krakle
+	-- plural, as words: Living Blazes = {npc:6521} Living Blaze · Scorching Elementals = {npc:6520} Scorching Elemental
+	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}.\nCareful: Living Blazes (54-55) and Scorching Elementals (53-54) burn on the slopes: ride up the path and pull only what stands on it."] = "",
+
+	-- Step 33: Krakle
+	-- {npc:10302} Krakle · {npc:9298} Donova Snowden · {zone:1452} Winterspring
+	-- was: ["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "{npc:10302}让你去找{zone:1452}的{npc:9298}：留着它。"
+	["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "",
+
+	-- Step 34: Ringo
+	-- {area:537} Fire Plume Ridge · {npc:9999} Ringo
+	["Ride east again to the foot of {area:537}: {npc:9999} sits on its eastern slope, lost and exhausted."] = "",
+
+	-- Step 35: Escort Ringo
+	-- {npc:9999} Ringo
+	-- was: ["Escort {npc:9999}"] = "护送{npc:9999}"
+	["Escort {npc:9999}"] = "",
+	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
+	-- was: ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "带{npc:9999}向北前往{area:541}。他晕倒时，对他使用{item:11804}把他叫醒。"
+	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "",
+
+	-- Step 36: J.D. Collie
+	-- {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock · {npc:9117} J.D. Collie
+	["{area:541}: {npc:9997} beside the flight master, {npc:9117} below ground."] = "",
 	-- {npc:9997} Spraggle Frock
 	["{npc:9997}, beside the flight master"] = "{npc:9997}，在飞行管理员旁",
 	["Below ground"] = "在地下",
 
-	-- Step 33: To Gadgetzan
+	-- Step 37: To Gadgetzan
 	-- {area:976} Gadgetzan
 	["To {area:976}"] = "前往{area:976}",
 
-	-- Step 34: Gadgetzan
+	-- Step 38: Gadgetzan
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn · {area:983} Dunemaul Compound
 	["The hearth lands in {area:976}: {npc:11758} takes the {area:983} and Tran'rek Thistleshrub Valley, both done on the way into the crater."] = "炉石落在{area:976}：{npc:11758}接收{area:983}和特兰雷克·蓟丛谷的任务，两者都在进入环形山的路上完成了。",
 
-	-- Step 35: Gadgetzan
+	-- Step 39: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}：在屋内",
 
-	-- Step 36: Orgrimmar
+	-- Step 40: Orgrimmar
 	-- {area:1637} Orgrimmar · {area:16727} Powderfuse Port · {zone:1458} Undercity
 	["Fly to {area:1637} and train before the boat to {area:16727}: the {zone:1458} stop later in this guide has no Hunter or Shaman trainer."] = "飞往{area:1637}，先学习技能，再乘船前往{area:16727}；本指南稍后途经的{zone:1458}没有猎人或萨满训练师。",
 
-	-- Step 37: Back to Gadgetzan
+	-- Step 41: Back to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Back to {area:976}"] = "返回{area:976}",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "{zone:1454}飞行管理员",
 
-	-- Step 38: Boat to Powderfuse Port
+	-- Step 42: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
 	["Boat to {area:16727}"] = "乘船前往{area:16727}",
 	-- {npc:9706} Yorba Screwspigot · {quest:4324} Yuka Screwspigot · {area:251} Flame Crest
 	["{npc:9706}, by the dock: for {quest:4324} at {area:251}, later in this guide"] = "{npc:9706}，在码头旁：交给{area:251}的{quest:4324}，本篇指南稍后会前往",
 
-	-- Step 39: Badlands
+	-- Step 43: Badlands
 	-- {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {zone:1418} Badlands
 	["Leave {zone:2548} on foot to the north-west, north of {area:16685}, into the {zone:1418}."] = "从 {area:16685} 北面步行向西北离开 {zone:2548}，进入 {zone:1418}。",
 
-	-- Step 40: Kargath
+	-- Step 44: Kargath
 	-- {area:340} Kargath · {zone:1418} Badlands
 	["{area:340} is built into the cliffs on the {zone:1418}' west edge."] = "{area:340}建在{zone:1418}西缘的峭壁中。",
 
-	-- Step 41: The WANTED poster
-	-- {object:164867} WANTED
-	["The {object:164867} poster"] = "{object:164867}告示",
+	-- Step 45: Kargath's poster
+	-- {area:340} Kargath
+	["{area:340}'s poster"] = "",
 	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {object:164867} WANTED · {area:340} Kargath
 	["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "为接下来途经{area:254}的{area:1584}之行做准备：{area:340}的{object:164867}告示要你削减副本内铁怒矮人的数量。",
 
-	-- Step 42: Into the Searing Gorge
+	-- Step 46: Thunderheart
+	-- {npc:9084} Thunderheart · {area:340} Kargath · {quest:3906} Disharmony of Flame · {npc:9026} Overmaster Pyron · {area:1584} Blackrock Depths · {area:254} Blackrock Mountain
+	["{npc:9084} stands in {area:340} beside the Hierophant. His {quest:3906} is {npc:9026} (52, elite), at the {area:1584} portal inside {area:254}, on the way through the mountain: a fight for a group."] = "",
+
+	-- Step 47: Into the Searing Gorge
 	-- {zone:1427} Searing Gorge
 	["Into the {zone:1427}"] = "进入{zone:1427}",
-	-- {area:340} Kargath · {zone:1427} Searing Gorge · {area:254} Blackrock Mountain
-	["Take the pass out of {area:340}'s west side into the {zone:1427}, then ride south across the gorge to the long bridge into {area:254}. Inside, follow the chain walkways down and leave through the southern exit; stay off the paths to the dungeon portals."] = "从{area:340}西侧的山口进入{zone:1427}，然后向南穿过峡谷，走上通往{area:254}的长桥。进去后沿着铁链走道往下走，从南边的出口离开；别走通往地下城传送门的路。",
+	-- {area:340} Kargath · {zone:1427} Searing Gorge · {npc:8479} Velarok Windblade · {area:1446} Thorium Point
+	["Take the pass out of {area:340}'s west side into the {zone:1427} and ride west to {npc:8479}, on the rim of the Cauldron south of {area:1446}."] = "",
+
+	-- Step 49: The Flame's Casing
+	-- {npc:8479} Velarok Windblade · {item:10552} Symbol of Ragnaros
+	["The Twilight's Hammer cultists camp in the hills west of {npc:8479}. The {item:10552} drops from their Dark Shamans (47-48), Fire Guards (48-49) and Geomancers (49-50): elites, but four to five levels under you now, so one at a time is fine. Leave the Idolaters at the altar further north alone."] = "",
+
+	-- Step 51: The Torch of Retribution
+	-- {npc:8479} Velarok Windblade
+	["Listen to {npc:8479}'s story once more."] = "",
+
+	-- Step 52: Velarok Windblade
+	-- {quest:3453} The Torch of Retribution · {npc:8479} Velarok Windblade · {quest:3462} Squire Maltrake
+	["{quest:3453} lies on the ground at {npc:8479}'s feet; {quest:3462} stands beside him."] = "",
+
+	-- Step 53: Sentry Braziers
+	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
+	["Sentry Braziers"] = "",
+	-- {object:149047} Torch of Retribution
+	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
+	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the east."] = "",
+
+	-- Step 54: Squire Maltrake
+	-- {npc:8509} Squire Maltrake · {npc:8479} Velarok Windblade
+	["Back north to {npc:8509} beside {npc:8479}."] = "",
+	-- {object:149502} Hoard of the Black Dragonflight · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous · {zone:1428} Burning Steppes
+	["The {object:149502} holds a {item:10575}: keep it for {npc:9459} in the {zone:1428}"] = "",
+
+	-- Step 55: Into Blackrock Mountain
+	-- {area:254} Blackrock Mountain
+	["Into {area:254}"] = "",
+	-- {area:254} Blackrock Mountain
+	-- was: ["Take the pass out of {area:340}'s west side into the {zone:1427}, then ride south across the gorge to the long bridge into {area:254}. Inside, follow the chain walkways down and leave through the southern exit; stay off the paths to the dungeon portals."] = "从{area:340}西侧的山口进入{zone:1427}，然后向南穿过峡谷，走上通往{area:254}的长桥。进去后沿着铁链走道往下走，从南边的出口离开；别走通往地下城传送门的路。"
+	["Ride south across the gorge to the long bridge into {area:254}. Inside, follow the chain walkways down and leave through the southern exit; stay off the paths to the dungeon portals."] = "",
 	-- {area:254} Blackrock Mountain
 	["Bridge into {area:254}"] = "通往{area:254}的桥",
 
-	-- Step 43: Blackrock Depths
+	-- Step 56: Overmaster Pyron
+	-- {npc:9026} Overmaster Pyron · {area:1584} Blackrock Depths
+	["With your group: {npc:9026} (52, elite) guards the way to the {area:1584} portal, down the walkways inside the mountain."] = "",
+
+	-- Step 57: Blackrock Depths
 	-- {area:1584} Blackrock Depths · {zone:1428} Burning Steppes
 	["{area:1584} is a dungeon for a group of five from about level 48, the biggest in the mountain: its Anvilrage dwarves are this quest's, and you need not go further in than they are. Its portal is deep inside the mountain, down the chain walkways from the bridge.\nInside: the Anvilrage Guardsmen, Wardens and Footmen. Then back out of the portal and on through the mountain's southern exit to the {zone:1428}."] = "{area:1584}是适合48级左右起五人小队的地下城，也是这座山里最大的一个：本任务要的是里面的铁怒矮人，你不必深入到比它们更远的地方。传送门在山体深处，从桥上沿锁链走道下去。\n副本内：铁怒卫兵、铁怒看守者和铁怒步兵。然后从传送门出来，穿过山的南出口前往{zone:1428}。",
 	-- {quest:4081} KILL ON SIGHT: Dark Iron Dwarves
 	["{quest:4081}: the Anvilrage dwarves, inside"] = "{quest:4081}：铁怒矮人，在副本内",
 
-	-- Step 44: Flame Crest
+	-- Step 58: Flame Crest
 	-- {area:252} Blackrock Stronghold · {area:251} Flame Crest
 	["The mountain lets you out beside {area:252}, full of 55-57 orcs. Follow the road east along the northern cliffs to the Horde camp at {area:251}."] = "从山里出来就在{area:252}旁边，那里满是55-57级的兽人。沿北边悬崖的道路向东，前往部落营地{area:251}。",
 
-	-- Step 45: Sha'ni Proudtusk
+	-- Step 59: Sha'ni Proudtusk
 	-- {quest:3821} Dreadmaul Rock · {npc:9136} Sha'ni Proudtusk
 	["Follow the cliffs south to {quest:3821}, the Firegut ogres' hill. {npc:9136}'s remains lie at its foot."] = "沿悬崖向南前往火腹食人魔的山丘{quest:3821}。{npc:9136}的遗骸在山脚下。",
 
-	-- Step 46: Sha'ni Proudtusk
+	-- Step 60: Sha'ni Proudtusk
 	-- {quest:3822} Krom'Grul · {quest:3821} Dreadmaul Rock
 	["Only from level 53: her next errand is {quest:3822} (54), who walks the caves of {quest:3821} among ogres of 50-53."] = "53级起才可接：她的下一个任务是{quest:3822}（54级），他在{quest:3821}的洞穴里走动，周围是50-53级的食人魔。",
 
-	-- Step 47: Krom'Grul
+	-- Step 61: Krom'Grul
 	-- {quest:3822} Krom'Grul · {quest:3821} Dreadmaul Rock
 	["{quest:3822} walks the caves and mine tunnels of {quest:3821}; if he isn't home, clear the ogres around the entrances until he comes back."] = "{quest:3822}在{quest:3821}的洞穴和矿道里走动；如果他不在，就清理入口周围的食人魔，直到他回来。",
 
-	-- Step 48: Ruins of Thaurissan: kill these as you meet them
+	-- Step 62: Cyrus Therepentous
+	-- {quest:3821} Dreadmaul Rock · {zone:1428} Burning Steppes · {object:149502} Hoard of the Black Dragonflight · {zone:1427} Searing Gorge · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous
+	["Ride north-east from {quest:3821} to the small cave in the far east of the {zone:1428}. Open the {object:149502} from the {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight."] = "",
+	-- {item:10575} Black Dragonflight Molt
+	["{item:10575}, from the hoard"] = "",
+	-- {npc:9459} Cyrus Therepentous · {area:1584} Blackrock Depths
+	["{npc:9459}' next errand is in {area:1584}: leave it."] = "",
+
+	-- Step 63: Ruins of Thaurissan: kill these as you meet them
 	-- {area:250} Ruins of Thaurissan
 	["{area:250}: kill these as you meet them"] = "{area:250}：沿途击杀以下目标",
 	-- {quest:4296} Tablet of the Seven · {area:251} Flame Crest · {npc:10267} Tinkee Steamboil · {item:12284} Draco-Incarcinatrix 900 · {npc:7040} Black Dragonspawn · {npc:7044} Black Drake
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
 	["Ride west to the dig site. The {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence.\nCareful: a {npc:7040} and a {npc:7044}, elites of 50-53, wander the same hills: pull the broodlings away from them, or bring a group."] = "向西骑往挖掘场。{quest:4296}矗立在挖掘场中央的索瑞森矮人之间。拓印它。\n黑色小龙在{area:251}正东的山丘中筑巢。将小龙打到濒死后，对它使用{npc:10267}的{item:12284}，捕获其精华。\n小心：一只{npc:7040}和一只{npc:7044}（50-53级精英）在同一片山丘游荡：把小龙拉离它们，或者组队前来。",
 
-	-- Step 49: Flame Crest
+	-- Step 64: Flame Crest
 	-- {area:251} Flame Crest
 	["Back north-east to {area:251}."] = "向东北回到{area:251}。",
 	-- {npc:10267} Tinkee Steamboil · {quest:4808} Felnok Steelspring · {area:2255} Everlook · {zone:1452} Winterspring
 	["Keep {npc:10267}'s letter: {quest:4808} is in {area:2255}, {zone:1452}."] = "留着{npc:10267}的信：{quest:4808}在{zone:1452}的{area:2255}。",
 
-	-- Step 52: Warlord Goretooth
+	-- Step 68: Warlord Goretooth
 	-- {area:1584} Blackrock Depths · {npc:9077} Warlord Goretooth · {area:340} Kargath
 	["The Anvilrage dwarves of your {area:1584} run: {npc:9077}, in {area:340}."] = "{area:1584}之行中的铁怒矮人：{npc:9077}，在{area:340}。",
 
-	-- Step 53: Fly to Undercity
+	-- Step 69: Fly to Undercity
 	-- {area:1497} Undercity
 	["Fly to {area:1497}"] = "飞往{area:1497}",
 	-- {area:340} Kargath
 	["{area:340} flight master"] = "{area:340}的飞行管理员",
 
-	-- Step 54: Harbinger Balthazad
+	-- Step 70: Harbinger Balthazad
 	-- {npc:10879} Harbinger Balthazad · {object:36078} Trade Quarter
 	["{npc:10879}, the {object:36078}, beside the bat master"] = "{npc:10879}，在{object:36078}的蝙蝠管理员旁边",
 
-	-- Step 55: Oran Snakewrithe
+	-- Step 71: Oran Snakewrithe
 	-- {npc:7825} Oran Snakewrithe · {object:36082} Magic Quarter
 	["{npc:7825} stands in the {object:36082}."] = "{npc:7825}站在{object:36082}。",
 
-	-- Step 56: Undercity
+	-- Step 72: Undercity
 	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
 	["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "{npc:8390}，在炼金房：瓶子之后在{zone:1447}装满",
 	-- {npc:5204} Apothecary Zinge
 	["{npc:5204}, near Cuely in the Apothecarium"] = "{npc:5204}在炼金房，科雷附近",
 
-	-- Step 58: The Bulwark
+	-- Step 74: The Bulwark
 	-- {zone:1458} Undercity · {zone:1420} Tirisfal Glades · {area:152} The Bulwark
 	["Leave the {zone:1458} and ride east along the road through {zone:1420} to the {area:152}, the Forsaken fort on the border."] = "离开{zone:1458}，沿道路向东穿过{zone:1420}，前往边境上的被遗忘者要塞{area:152}。",
 	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions · {quest:5405} Argent Dawn Commission
 	["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5405}: Scourgestones only drop while you wear it."] = "从德灵顿旁边的箱子里拿一个{object:176092}，用于{quest:5096}，在回程时完成。装备{quest:5405}：只有佩戴它时才会掉落天灾石。",
 
-	-- Step 59: Scarlet forward camp
+	-- Step 75: Scarlet forward camp
 	["Scarlet forward camp"] = "血色十字军前线营地",
 	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
 	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "从{area:152}沿路向东进入{zone:1422}。血色十字军的帐篷就在费尔斯通农场再往前一点，位于{area:199}和{area:200}之间。用{object:176092}点燃指挥帐篷，并插上天灾战旗。小心：帐篷周围的血色十字军最高54级，祈求者会施法：从离指挥帐篷最近的一侧进入，别惹其他人。",
 
-	-- Step 60: Janice Felstone
+	-- Step 76: Janice Felstone
 	-- {npc:10778} Janice Felstone
 	["Back a few steps west to Felstone Farm, the first farm along the road; {npc:10778} waits in the house."] = "向西退回几步到费尔斯通农场，沿途第一座农场；{npc:10778}在房子里等候。",
 	["Upstairs"] = "在楼上",
@@ -326,6 +395,7 @@ return {
 	-- ["Lashers and Threshers"] = "鞭笞者和猛击者",
 	-- ["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "带{npc:9999}向北前往{area:541}。他晕倒时，对他使用{item:11804}把他叫醒。",
 	-- ["Leave the {zone:1458} and ride east along the road through {area:85} to the {area:152}, the Forsaken fort on the border."] = "离开{zone:1458}，沿道路向东穿过{area:85}，前往边境上的被遗忘者要塞{area:152}。",
+	-- ["Level 51"] = "等级 51",
 	-- ["Level 52"] = "等级 52",
 	-- ["North of Torwa, a dead Threshadon lies by the water."] = "在托尔瓦北边，一头死去的蛇颈龙躺在水边。",
 	-- ["Pestlezugg's next quest needs the {npc:10041}, an elite boss. Skip it."] = "匹斯特苏格的下一个任务需要击败精英首领{npc:10041}。跳过它。",
@@ -335,6 +405,7 @@ return {
 	-- ["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}."] = "向东骑往{area:537}，爬上去，在接近山顶的熔岩口使用{npc:10541}，然后向西骑回{npc:10302}那里。",
 	-- ["Ride north along the east side. Bloodpetal Lashers and Threshers fill the jungle."] = "沿东侧向北骑行。血瓣花鞭笞者和血瓣花猛击者占满了丛林。",
 	-- ["Ride north back to {area:541}."] = "向北骑回{area:541}。",
+	-- ["Ride north back to {area:541}: {npc:9117} below ground, {npc:9997} beside the flight master."] = "向北骑回{area:541}：{npc:9117}在地下，{npc:9997}在飞行管理员旁。",
 	-- ["Ride north-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges."] = "向西北骑进安多哈尔。{npc:10667}在城镇西侧被毁的旅店里等候；里面的骷髅是54-57级，所以沿着边缘走。",
 	-- ["Ride south back to the road and follow it east across the whole zone to {area:2268}."] = "向南骑回道路，沿路向东穿过整个地区前往{area:2268}。",
 	-- ["Ride south-west along the western cliffs. {npc:9167} fly over the west side, and Bloodpetal Trappers grow in the same jungle."] = "沿西边的悬崖向西南骑行。{npc:9167}在西侧上空飞翔，血瓣花捕兽者生长在同一片丛林里。",
@@ -344,6 +415,7 @@ return {
 	-- ["Ride west to the dig site. {npc:7039} golems (53) stomp around it and drop the shards often; the {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence."] = "骑马向西前往挖掘场。{npc:7039} 傀儡（53级）在周围踏步巡逻，经常掉落碎片；{quest:4296} 矗立在挖掘场中央的索瑞森矮人之间。拓印它。\n黑色小龙在 {area:251} 正东的山丘中筑巢。将小龙打到濒死后，对它使用 {npc:10267} 的 {item:12284}，捕获其精华。",
 	-- ["South of the hot springs, Stegodons graze and Dinosaur Bones drop from them or lie on the ground; Diemetradons nearby carry the scales {npc:9998} wants. Ravasaurs hunt in packs in the south-west: their claws are for {npc:8659}, and now and then one carries a Mangled Journal (a rare drop: take its quest only if you get one). Avoid Gruff, a level 57 Stegodon."] = "在温泉南边，剑龙在吃草，恐龙骨头从它们身上掉落或散落在地上；附近的双帆龙携带{npc:9998}想要的鳞片。暴掠龙在西南成群捕猎：它们的爪子是给{npc:8659}的，偶尔会有一只携带被撕破的日记（稀有掉落：只有拿到了才接它的任务）。避开57级的剑龙格鲁夫。",
 	-- ["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5401}: Scourgestones only drop while you wear it."] = "从德灵顿旁边的箱子里拿一个{object:176092}，用于{quest:5096}，在回程时完成。装备{quest:5401}：只有佩戴它时才会掉落天灾石。",
+	-- ["Take the pass out of {area:340}'s west side into the {zone:1427}, then ride south across the gorge to the long bridge into {area:254}. Inside, follow the chain walkways down and leave through the southern exit; stay off the paths to the dungeon portals."] = "从{area:340}西侧的山口进入{zone:1427}，然后向南穿过峡谷，走上通往{area:254}的长桥。进去后沿着铁链走道往下走，从南边的出口离开；别走通往地下城传送门的路。",
 	-- ["Termite mounds"] = "白蚁丘",
 	-- ["Thaurissan dig site"] = "索瑞森挖掘场",
 	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "达隆郡的历史就在安多哈尔市政厅里的发霉的书籍中间；一本本打开，直到找到正确的那本。",
@@ -359,9 +431,11 @@ return {
 	-- ["The silithid hive fills the south of the crater. Gorishi wasps and workers drop the scent gland; use the Scraping Vial on the egg mass inside the first chamber. The Hive Queen at the bottom is an elite boss: stay out of her chamber. {npc:9166} nest on the cliffs above the hive; their scales are for {npc:9998}."] = "异种蝎的巢穴占据着环形山南部。格里什异种蝎和格里什工蝎掉落格里什信息素；在第一个洞室里对卵块使用采集瓶。底部的格里什皇后是精英首领：别进入她的洞室。{npc:9166}在虫巢上方的悬崖上筑巢；它们的鳞片是给{npc:9998}的。",
 	-- ["The tar pits lie just south of the refuge. Tar Beasts, Lurkers and Creepers drop the {item:11834}."] = "焦油池就在避难所正南。焦油兽、焦油潜伏者和焦油爬行者掉落{item:11834}。",
 	-- ["The wooden sign beside {npc:9997}"] = "{npc:9997}旁边的木牌",
+	-- ["The {object:164867} poster"] = "{object:164867}告示",
 	-- ["Theodora's next errand goes to Lotwil east of town and then into {area:1584}: skip it."] = "塞朵拉的下一个差事要去镇东边找鲁特维尔，然后进入{area:1584}：跳过它。",
 	-- ["Theodora's quest in {area:340} needs level 52. The Tar Lurkers and Tar Lords just south of the refuge are the closest camp."] = "塞朵拉在{area:340}的任务需要52级。避难所正南的焦油潜伏者和焦油兽王是最近的刷怪点。",
 	-- ["To {area:197}"] = "前往{area:197}",
+	-- ["Top up here to level 51 before the crater's loop: its {npc:9166} and Bloodpetal Flayers are up to level 52. The Bloodpetal Threshers (49-50) on the slopes south-east of the refuge are under your level, and {npc:9118} wants five of them. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "在开始环形山路线前先在这里升到51级：那里的{npc:9166}和血瓣花掠夺者最高52级。避难所东南山坡上的血瓣花猛击者（49-50）低于你的等级，{npc:9118}要五只。或者组队去{area:1417}地下城或{area:2100}地下城。",
 	-- ["Top up here to level 52: {quest:4061} at {area:340} needs it, and the Plaguelands quests at the end of this guide are level 55. Or, with a group, run the {area:1417} dungeon or the {area:2100} dungeon instead."] = "在这里补到52级：{area:340}的{quest:4061}要求这个等级，本指南末尾的瘟疫之地任务则为55级。也可组队挑战{area:1417}或{area:2100}副本。",
 	-- ["Western jungle"] = "西部丛林",
 	-- ["With {npc:11063}'s quest in your log, slain Scourge sometimes leave a {npc:11064}; talk to it to free it. Kill undead on the ride south-west to {area:2262}."] = "任务日志里有{npc:11063}的任务时，被杀死的天灾军团有时会留下一个{npc:11064}；和它交谈来释放它。在向西南骑往{area:2262}的路上击杀亡灵。",
@@ -370,6 +444,7 @@ return {
 	-- ["grind on Ravasaur"] = "击杀暴掠龙刷经验",
 	-- ["grind on Tar Lurkers at {area:538}, {zone:1449}"] = "在{zone:1449}的{area:538}刷焦油潜伏者",
 	-- ["grind on {npc:6509}"] = "击杀{npc:6509}刷经验",
+	-- ["grind on {npc:6511}"] = "击杀{npc:6511}刷经验",
 	-- ["grind on {npc:6551}"] = "击杀{npc:6551}刷经验",
 	-- ["the wooden sign beside {npc:9997}, by the flight master: the pterrordax are on this guide's ground"] = "飞行管理员旁、{npc:9997}身边的木牌：本指南会前往翼手龙活动的区域",
 	-- ["{area:139}: kill these as you meet them"] = "{area:139}：沿途击杀以下目标",
