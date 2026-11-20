@@ -250,7 +250,6 @@ step Marshal's Refuge
 
 step Northern Pylon
   tip The pylon stands on the slope east of the refuge.
-  goto 56.5,12.5 "Northern Crystal Pylon"
   interact 164955 quest 4285.1
 
 step Gorillas
@@ -269,7 +268,6 @@ step Un'Goro Crater: kill these as you meet them
 
 step Eastern Pylon
   tip Ride down the east side of the crater to the pylon on the eastern cliffs.
-  goto 77.2,50.0 "Eastern Crystal Pylon"
   interact 164957 quest 4287.1
 
 step The Marshlands
@@ -286,7 +284,6 @@ step Torwa Pathfinder
 
 step Western Pylon
   tip Cross the south of the crater to the pylon on the western cliffs.
-  goto 23.9,59.2 "Western Crystal Pylon"
   interact 164956 quest 4288.1
 
 step Frenzied Pterrordax: kill these as you meet them
@@ -376,7 +373,7 @@ step Kargath
   tip Kargath is built into the cliffs on the Badlands' west edge.
   accept 3821                         -- Thal'trak Proudtusk
 
-step The WANTED poster
+step Kargath's poster
   when dungeon "Blackrock Depths"
   zone Badlands
   tip For your Blackrock Depths run, next, on the way through Blackrock Mountain: the WANTED poster in Kargath wants the Anvilrage dwarves inside thinned out.
@@ -447,6 +444,7 @@ step Overmaster Pyron
 step Blackrock Depths
   when dungeon "Blackrock Depths"
   when onquest 4081
+  when level>=52
   zone Searing Gorge
   tip Blackrock Depths is a dungeon for a group of five from about level 48, the biggest in the mountain: its Anvilrage dwarves are this quest's, and you need not go further in than they are. Its portal is deep inside the mountain, down the chain walkways from the bridge.
   tip Inside: the Anvilrage Guardsmen, Wardens and Footmen. Then back out of the portal and on through the mountain's southern exit to the Burning Steppes.
@@ -564,7 +562,6 @@ step The Bulwark
 step Scarlet forward camp
   zone Western Plaguelands
   tip From the Bulwark, follow the road east into the Western Plaguelands. The Scarlet Crusade's tents stand just past Felstone Farm, between Felstone Field and Dalson's Tears. Torch the command tent with the Box of Incendiaries and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be.
-  goto 40.7,52.0
   interact 176088
   complete 5096
 

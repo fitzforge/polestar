@@ -2,7 +2,7 @@
 guide forever/horde/50-60/05-eastern-plaguelands
 title Western & Eastern Plaguelands, Felwood & Winterspring
 faction Horde
-levels 56-57
+levels 55-57
 zone Eastern Plaguelands
 next forever/50-60/mount-hyjal
 
@@ -46,7 +46,7 @@ step Return to the Bulwark
   accept 5232
 
 step Andorhal watchtowers and silos
-  tip Ride south-west into Andorhal. Chromie waits in the ruined inn on the west side of town. Stand in the doorway of each of the four towers with the Beacon Torch to mark it; keep to the edges of town. Use the Temporal Displacer by the silos in the middle of town to bring out Temporal Parasites (55-57).
+  tip Ride south-west into Andorhal. Chromie waits in the ruined inn on the west side of town. Stand in the doorway of each of the four towers with the Beacon Torch to mark it; keep to the edges of town. Use the Temporal Displacer by the silos in the middle of town to bring out Temporal Parasites (55-57): fight them one at a time and let the biggest go.
   tip Careful: a Fallen Hero, a level 58-59 elite, can stand in Andorhal, as at many other spots of the Western Plaguelands: give it room.
   accept 4971                         -- Chromie, upstairs
   use 12815 quest 5098.2 @42.3,66.2 map 1422
@@ -317,7 +317,7 @@ step Augustus the Touched
 
 step Plaguewood: kill these as you meet them
   zone Eastern Plaguelands
-  tip Frenzied Plaguehounds share the fields around Northdale and Eastwall Tower, south of Zul'Mashar; Noxious Plaguebats fly over the fields of the north, and Monstrous Plaguebats around Northdale and Eastwall Tower. Careful: the hounds are 57-58 and the biggest Monstrous Plaguebats 58: pull them one at a time.
+  tip Frenzied Plaguehounds share the fields around Northdale and Eastwall Tower, south of Zul'Mashar; Noxious Plaguebats fly over the fields of the north, and Monstrous Plaguebats around Northdale and Eastwall Tower. Careful: the hounds are 57-58 and the Monstrous Plaguebats up to 58: take the 57s one at a time and leave the 58s.
   kill 8598 quest 5542.3
   kill 8601 quest 6042.1
   kill 8602 quest 6042.2
@@ -371,26 +371,28 @@ step Tirion Fordring
 
 # ---------------------------------------------------------------- Western Plaguelands: the last cauldron and the Scarlets
 
+step Kirsta Deepshadow
+  zone Western Plaguelands
+  tip Ride west from Tirion's hut into the Western Plaguelands: Kirsta hides on the hill north-east of the Northridge Lumber Camp, on the way to the Bulwark.
+  accept 6004
+  note Her Scarlets wait until Mickey has given you the termite barrel at the Bulwark: the barrel goes down in the same lumber mill.
+
 step Tirisfal Glades
   zone Tirisfal Glades
   goto 83.0,71.9 "The Bulwark"
 
 step The Bulwark
   zone Tirisfal Glades
-  tip Ride west across the Western Plaguelands to the Bulwark.
+  tip On west to the Bulwark.
   turnin 5234                         -- Shadow Priestess Vandis
   accept 5235
   turnin 5901                         -- Mickey Levine
   accept 5902
   turnin 964                          -- Apothecary Dithers
 
-step Kirsta Deepshadow
-  zone Western Plaguelands
-  tip Ride north-east to the hill north-east of the Northridge Lumber Camp; Kirsta hides there.
-  accept 6004
-
 step Scarlet Crusade
-  tip Knights and magi work the Northridge Lumber Camp; the medics and hunters camp south of it. Set Mickey's termite barrel down in the middle of the lumber mill while you are there.
+  zone Western Plaguelands
+  tip Back north-east to the Northridge Lumber Camp: knights and magi work the camp, the medics and hunters camp south of it. Set Mickey's termite barrel down in the middle of the lumber mill while you are there.
   tip Careful: a Fallen Hero, a level 58-59 elite, can stand at the lumber camp, as at many other spots of the Western Plaguelands: give it room.
   kill 1833 quest 6004.4
   kill 1831 quest 6004.2
