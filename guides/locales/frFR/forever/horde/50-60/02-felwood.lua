@@ -166,7 +166,7 @@ return {
 
 	-- Step 34: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
-	["Fly to {area:1637}"] = "",
+	["Fly to {area:1637}"] = "Prendre un vol pour {area:1637}",
 	-- {area:1237} Valormok
 	["{area:1237} flight master"] = "Maître de vol de {area:1237}",
 
