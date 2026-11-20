@@ -1,7 +1,8 @@
 'use strict';
 // node tools/lib/nav/import-regions.js <derived AddOns folder> <output AddOns folder>
 // Import the reviewed, already baked 70532 walking maps, never client archives, player files or addon code.
-// Input pins cover the complete forge nav pack manifest and the three derived terminal-mask sidecars.
+// Input pins cover the forge nav pack after the reviewed occupied_floor cluster rebuild (forge-nav/examples)
+// and the three derived terminal-mask sidecars. PACK.json records the manifest before the rebuild as well.
 // The region transform is lossless: neither floor topology nor the compressed evidence pages are recomputed.
 const assert = require('node:assert/strict');
 const crypto = require('node:crypto');
@@ -12,7 +13,7 @@ const sha = bytes => crypto.createHash('sha256').update(bytes).digest('hex');
 const hash = (key, bytes) => key.endsWith('.toc')
 	? sha(bytes.toString('utf8').split('\n').filter(l => !/^## (?:Version|(?:Title|Notes)(?:-[a-z]{2}[A-Z]{2})?):/.test(l)).join('\n'))
 	: sha(bytes);
-const inputManifest = 'bcbe88bbe5a93e8d483150433273ca606721c35d84570d8c8525825f2bec3088';
+const inputManifest = '1aaef3d609d8d320cfe32b1b1ab43427ac7078aca1bab082bc384be483fc1591';
 const terminal = {
 	0: '38288a037e6fb2397f1cd26f36cd9f8bfa74a743508c3408e12db62ff40cff7a',
 	1: '823b7365bf07629fc79c187decf2921f18e6dd518255b9ad1266d5814e842a75',

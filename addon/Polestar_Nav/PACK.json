@@ -12,7 +12,7 @@
 	"maps": {
 		"0": {
 			"leffe": {
-				"floors": 2939414,
+				"floors": 2939413,
 				"droppedFloors": 649605,
 				"jumps": 761193,
 				"drops": 3208,
@@ -20,7 +20,7 @@
 				"arcs": 438774,
 				"droppedEdges": 21,
 				"closedSteps": 151,
-				"areaSurfaces": 310533,
+				"areaSurfaces": 310532,
 				"joins": {
 					"ways": 264,
 					"refused": 3,
@@ -46,8 +46,8 @@
 			"components": 2666,
 			"clampedCosts": 0,
 			"maxDegree": 63,
-			"rawBytes": 40883130,
-			"packedBytes": 20791003,
+			"rawBytes": 40883124,
+			"packedBytes": 20791015,
 			"files": 42,
 			"hubs": 101,
 			"roads": {
@@ -59,7 +59,15 @@
 				"bridgedColumns": 5900,
 				"refused": 180
 			},
-			"areas": 1894
+			"areas": 1894,
+			"occupiedFloor": {
+				"sourceManifestSha256": "bcbe88bbe5a93e8d483150433273ca606721c35d84570d8c8525825f2bec3088",
+				"cluster": 471,
+				"cell": 15594,
+				"layer": 1,
+				"z": 502,
+				"dearerEdges": 0
+			}
 		},
 		"1": {
 			"leffe": {
@@ -182,7 +190,7 @@
 		"Polestar_Nav_EK/Nav0_18.lua": "6d0c75fe0ab6b0abe50fea3a34406ceefc0138cbb5089b297ab52a75de535dbb",
 		"Polestar_Nav_EK/Nav0_19.lua": "0570b2b27a9ca65e20728e92fde3dc64d478bf02bafe98f77f0a05e7d5d08f95",
 		"Polestar_Nav_EK/Nav0_20.lua": "6a73268721b9e7fe45cc8cfe2ddfb7feab84f7f991ca50d7622519d1ffe5e9cf",
-		"Polestar_Nav_EK/Nav0_21.lua": "ac215fbd23895052d297d3e4601459f1e369385a2da9f529d868d1b85d281b95",
+		"Polestar_Nav_EK/Nav0_21.lua": "f229c01405adff2fddd829e040f96f48b1c9f634e57c8530a345249cefb62cbf",
 		"Polestar_Nav_EK/Nav0_22.lua": "d34bf53b5283a9e17003ad05cc2ce08efd272516e4de36a635af8947c6b4dbac",
 		"Polestar_Nav_EK/Nav0_23.lua": "a00644458889ca8fc5737f7b09c8ffe8bd7623ec5462cc111477eeb886847996",
 		"Polestar_Nav_EK/Nav0_24.lua": "1cad10adbcd5279fb9bcc7960771352839c7b73f0a8fe24633ced71f0af7dc1d",
@@ -260,7 +268,7 @@
 		"Nav/Chokepoints.lua": "55dad3a6e3a621708a14d060f3f7f0540d95dbc1b2f77470086c51755ef047f6",
 		"Polestar_Nav_R0_10_10/Pages.lua": "ea003590d7636898b96cdb145daab8fc53a02e5e6b5707fa60c29c9e4c3a6489",
 		"Polestar_Nav_R0_10_7/Pages.lua": "e3c19ccb4f020620e05122c1666c1a032d4bc827ae791618fd52efa67bff3687",
-		"Polestar_Nav_R0_10_8/Pages.lua": "5f9c9f4843e208da4ebd01831793b66b4d8f69cc2530fd6882af10ab2fa22b53",
+		"Polestar_Nav_R0_10_8/Pages.lua": "e3f5447b14aff07ce3002cfd477d6a9878b4d3df6a46e330faf7817429c7a4dd",
 		"Polestar_Nav_R0_10_9/Pages.lua": "a7286a87b78711211c954eb937f885180d79117c95e0d2c7bca4d9b1c1737a6e",
 		"Polestar_Nav_R0_11_10/Pages.lua": "2f9f68ef7e04b8c4bed0fc4692572b436c205d0d458409a5e5a9743ed8367172",
 		"Polestar_Nav_R0_11_5/Pages.lua": "40b0be764be16d041b4aa128118bdc60cd6d36b01714097d920789c81d93af5a",
@@ -650,7 +658,7 @@
 	],
 	"import": {
 		"command": "node tools/lib/nav/import-regions.js",
-		"manifestSha256": "bcbe88bbe5a93e8d483150433273ca606721c35d84570d8c8525825f2bec3088",
+		"manifestSha256": "1aaef3d609d8d320cfe32b1b1ab43427ac7078aca1bab082bc384be483fc1591",
 		"terminalSha256": {
 			"0": "38288a037e6fb2397f1cd26f36cd9f8bfa74a743508c3408e12db62ff40cff7a",
 			"1": "823b7365bf07629fc79c187decf2921f18e6dd518255b9ad1266d5814e842a75",
