@@ -8749,6 +8749,11 @@
 				"why": "Heroes of Darrowshire takes a group into the elite Scarlet guards at Hearthglen. The solo route stays outside the hall. Scarlet Paladins and priests are elite in the creature data, with a level 63 High Clerist beside the libram (#3144)."
 			},
 			{
+				"q": 3906,
+				"size": 3,
+				"why": "Disharmony of Flame: Overmaster Pyron is rank 1 (elite) at level 52 at the Blackrock Depths portal; the Horde route passes him at about 52.6, at the player's level, so the kill is a group choice (an elite at or above the player's level)."
+			},
+			{
 				"q": 98403,
 				"size": 2,
 				"why": "Twisted Hatred (Teldrassil, level 12): Xethorr the Wicked is rank 1 at 12 in our creature data and players' recordings ('elite'), met at 9-11 on the walk to the Oracle Glade; recorded kills: 6 with no group, 3 grouped. A group of 2 is advised; the webwoods are soloable but the quest only completes with his moss."
@@ -11414,6 +11419,33 @@
 				],
 				"reason": "Horde level tidy, round 3 (0.4.0): Kim'jael's \"Missing\" Equipment (level 53, 6,550 XP) is taken with Kim'jael Indeed!'s hand-in on 50-60/04's Thalassian Base Camp trip (about 55.9). Some Rune drops from the Spitelash Sirens and Myrmidons (50-52), which reach the northern edge of the Ruins of Eldarath (about 47,44), 800 yd south of Kim'jael: a short ride there and back before the road west, about 2.5 minutes mounted plus the kills. Players' recordings: the rune looted off Sirens (6195) and Myrmidons (6196), handed in at Kim'jael.",
 				"issue": "-"
+			},
+			{
+				"q": 3452,
+				"after": [
+					"accept",
+					3821
+				],
+				"reason": "Horde 50-60 flow (2026-11-20): The Flame's Casing and the rest of Velarok Windblade's chain (3453, 3454, 3462, 3463, 3481; 18,410 XP) on 50-60/01's ride from Kargath across the Searing Gorge to Blackrock Mountain (level model 52.6). The Symbol of Ragnaros drops from rank-1 Twilight Dark Shamans 47-48 (16%), Fire Guards 48-49 (13%) and Geomancers 49-50 (9%): 2.6-5.6 levels under the player, solo content under the low-elite rule (an elite 2+ levels below the player). Velarok and the hoard stand on the rim south of Thorium Point, the four Sentry Braziers on the Cauldron's southern rim on the way to the bridge.",
+				"issue": "-"
+			},
+			{
+				"q": 4022,
+				"after": [
+					"turnin",
+					3481
+				],
+				"reason": "Horde 50-60 flow (2026-11-20): A Taste of Flame (5,450 XP) is a talk at Cyrus Therepentous' cave in the far east of the Burning Steppes, a short ride north-east of Dreadmaul Rock on 50-60/01's loop, once Trinkets... (3481) has given the Black Dragonflight Molt in the Searing Gorge.",
+				"issue": "-"
+			},
+			{
+				"q": 3906,
+				"after": [
+					"accept",
+					3821
+				],
+				"reason": "Horde 50-60 (2026-11-20): Disharmony of Flame (5,100 XP), the outdoor step of Thunderheart's Blackrock Depths chain: taken in Kargath and handed in there on 50-60/01's two Kargath stops; Overmaster Pyron (rank 1, level 52) stands at the dungeon's portal inside Blackrock Mountain, which the route walks through. At the player's level (52.6), so a group choice (see deliberate.group).",
+				"issue": "-"
 			}
 		],
 		"skip": [
@@ -12880,7 +12912,21 @@
 					"accept",
 					4492
 				],
+				"faction": "Alliance",
 				"why": "c13 review, Alliance 40-60: Un'Goro's level 55-56 quests on the later Un'Goro visit (see The Bait for Lar'korwi): Lost! (minimum level 50), with Ringo's escort after it",
+				"source": "review"
+			},
+			{
+				"a": [
+					"accept",
+					4288
+				],
+				"b": [
+					"accept",
+					4492
+				],
+				"faction": "Horde",
+				"why": "Horde 50-60 flow (2026-11-20): Lost! is taken from Spraggle Frock on 50-60/01's refuge stop between the two loops (she stands beside the flight master), and Ringo, on Fire Plume Ridge's east slope, ends loop 2: his escort is the ride back to the refuge. Level model: loop 2 at 52.4; players' recordings: 6 people finished Ringo's escort at 52-54.",
 				"source": "review"
 			},
 			{
@@ -12904,7 +12950,21 @@
 					"accept",
 					974
 				],
+				"faction": "Alliance",
 				"why": "c13 review, Alliance 40-60: Un'Goro's level 55-56 quests on the later Un'Goro visit (see The Bait for Lar'korwi): Finding the Source (minimum level 51), with The New Springs for Donova Snowden on the later Winterspring visit",
+				"source": "review"
+			},
+			{
+				"a": [
+					"turnin",
+					974
+				],
+				"b": [
+					"turnin",
+					4492
+				],
+				"faction": "Horde",
+				"why": "Horde 50-60 flow (2026-11-20): Krakle (Golakka Hot Springs, beside the western pylon) and Fire Plume Ridge's vent on 50-60/01's loop 2, before Ringo on the ridge's east slope. Level model: 52.4 on loop 2; the vent's Living Blazes (54-55) are at most 1.6 over the player (P = model + 1 = 53.4, recorded accepts P25 54 from 7 Horde players), with a Careful tip. The New Springs (980) goes to Donova on the first Winterspring stop.",
 				"source": "review"
 			},
 			{
@@ -16908,6 +16968,12 @@
 				"guide": "forever/horde/40-50/06-azshara",
 				"reason": "It needs 3 quests from 04-tanaris first (Sprinkle's Secret Ingredient (2641), In Good Taste (2606), The Thirsty Goblin (2605); about 9,560 XP of work at this visit's level): too long to bring back.",
 				"issue": "#2635"
+			},
+			{
+				"q": 3452,
+				"guide": "forever/horde/50-60/01-un-goro-crater",
+				"reason": "Velarok's first chain (Divine Retribution, The Flawless Flame, Forging the Shaft: 3441-3443) is done on 40-50/04's Searing Gorge visit (hearts of flame and golem oil from the gorge's elementals and golems, daggers from the Dark Iron dwarves); bringing it back on 50-60/01's crossing would add that whole chain for a character who skipped 40-50/04, so The Flame's Casing stays hidden for them.",
+				"issue": "-"
 			},
 			{
 				"q": 3782,

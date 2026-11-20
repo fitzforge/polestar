@@ -406,8 +406,7 @@ step Fly to Marshal's Refuge
 
 step Marshal's Refuge
   zone Un'Goro Crater
-  tip The flight lands at Marshal's Refuge: Spraggle Frock stands beside the flight master, and Linken by the cave a few steps away. Spraggle's work is in Un'Goro on the next guide's way back north.
-  accept 4492                         -- Spraggle Frock
+  tip The flight lands at Marshal's Refuge: Linken stands by the cave a few steps from the flight master.
   turnin 3914                         -- Linken
   accept 3941
   note A Gnome's Assistance goes to J.D. Collie in the cave here, on the next guide's return to Marshal's Refuge: keep it.
