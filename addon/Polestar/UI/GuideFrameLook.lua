@@ -234,6 +234,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		banner.Rule:SetShown(rules)
 		W.Painter(foot.Line.Track, paintTrack)
 		if GF.here then W.Painter(GF.here.Panel, GF.PaintHerePanel) end
+		if GF.PlayNext then GF.PlayNext.Style() end
 		local outline = clear and GF.Outline()
 		for i = 1, #texts do Theme.SetOutline(texts[i], outline) end
 		-- Tick boxes on the world: a scrim inside and an ink edge. The house

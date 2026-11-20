@@ -241,6 +241,16 @@ ns.UI.GuideFrame.Part(function(GF)
 			end
 			y = y - 10
 		end
+		local pn = GF.PlayNext
+		if pn then
+			local h = pn.Layout(width - PAD * 2)
+			if h > 0 then
+				local c = pn.card()
+				c:ClearAllPoints()
+				c:SetPoint("TOP", empty, "TOP", 0, y)
+				y = y - h - 12
+			end
+		end
 		if empty.Primary:IsShown() then
 			empty.Primary:ClearAllPoints()
 			empty.Primary:SetPoint("TOP", empty, "TOP", 0, y)
@@ -250,6 +260,12 @@ ns.UI.GuideFrame.Part(function(GF)
 			empty.Secondary:ClearAllPoints()
 			empty.Secondary:SetPoint("TOP", empty, "TOP", 0, y)
 			y = y - empty.Secondary:GetHeight()
+		end
+		local other = pn and pn.other()
+		if other and other:IsShown() then
+			other:ClearAllPoints()
+			other:SetPoint("TOP", empty, "TOP", 0, y)
+			y = y - 20
 		end
 		y = y - 24
 		empty:SetHeight(-y)
