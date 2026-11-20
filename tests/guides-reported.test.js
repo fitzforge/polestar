@@ -18302,3 +18302,16 @@ test('forever/alliance/50-60/01-burning-steppes.guide: Gammerita is photographed
 	const { step } = list[at(list, 'use 9328', (g) => g.t === 'use' && g.item === 9328 && g.quest === 2944)];
 	assert.match(step.note || '', /need not die/);
 });
+
+// #3012 (Metalcalfe, 0.4.1): the Nibbled-On Book drops from Northshire's Kobold Workers and Laborers too, but the guide took
+// and handed it in only on the Vermin stop. Each Echo Ridge Mine step takes it (optional) and an Abbey stop after it hands
+// it in to Brother Paxton (optional).
+test('forever/alliance/human/01-elwynn-forest.guide: a Nibbled-On Book from the Echo Ridge kobolds is taken and handed in (#3012)', { skip }, () => {
+	const list = goals('forever/alliance/human/01-elwynn-forest.guide');
+	for (const mob of [257, 80]) {
+		const kill = list.find(({ goal }) => goal.t === 'kill' && goal.npc === mob);
+		assert.ok(kill, `the kill of ${mob}`);
+		assert.ok(list.some(({ goal, s }) => s === kill.s && goal.t === 'accept' && goal.quest === 91741 && goal.optional), `the book is taken on ${kill.step.title}`);
+		assert.ok(list.some(({ goal, s }) => s > kill.s && goal.t === 'turnin' && goal.quest === 91741 && goal.optional), `and handed in after ${kill.step.title}`);
+	}
+});

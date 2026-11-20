@@ -59,13 +59,17 @@ step Northshire Abbey
 step Echo Ridge Mine: kill these as you meet them
   zone Elwynn Forest
   tip Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the Stolen Books.
+  tip Now and then a kobold here drops a Nibbled-On Book: right-click it and hand it to Brother Paxton on your next Abbey stop.
   collect 247839 quest 91743                  -- Stolen Books
   kill 257 quest 15                           -- Kobold Worker
+  collect 247834 x1 optional -- Nibbled-On Book
+  accept 91741 optional
 
 step Northshire Abbey
   tip Tordrin Sternblade stands behind the Abbey, by the stables. Khelden Bremen, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart.
   turnin 15                                   -- Marshal McBride, inside
   accept 21
+  turnin 91741 optional -- Brother Paxton
   turnin 91743 optional -- Brother Paxton
   accept 91745 optional               -- Inside
   turnin 3100 only Warrior                    -- Llane Beshere, the warrior trainer; inside
@@ -111,8 +115,11 @@ step The Big Picture
 
 step Inside Echo Ridge Mine
   tip Kobold Laborers work the tunnels inside the mine. Shinyfinder Narf waits down the second turn on the right.
+  tip Now and then a Laborer drops a Nibbled-On Book: right-click it and hand it to Brother Paxton at the Abbey after the mine.
   tip Careful: Shinyfinder Narf (3) is elite: below level 5, leave him be.
   kill 80 quest 21                            -- Kobold Laborer walks around Echo Ridge Mine: look inside the circle on the map
+  collect 247834 x1 optional -- Nibbled-On Book
+  accept 91741 optional
 
 step Shinyfinder Narf
   when level>=5
@@ -124,6 +131,7 @@ step Northshire Abbey
   tip Mages: Khelden Bremen, the mage trainer, stands upstairs in the Abbey: take the stairs inside, the arrow cannot tell the floors apart.
   turnin 6                                    -- Deputy Willem, at the Abbey steps
   turnin 21                                   -- Marshal McBride, inside
+  turnin 91741 optional -- Brother Paxton
   accept 54
   accept 96627
   train class

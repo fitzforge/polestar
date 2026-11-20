@@ -14502,6 +14502,28 @@
 				}
 			],
 			"issue": 3235
+		},
+		{
+			"id": "3012-nibbled-on-book-from-echo-ridge",
+			"faction": "Alliance",
+			"at": {
+				"quest": 91741,
+				"goal": "accept",
+				"guide": "forever/alliance/human/01-elwynn-forest"
+			},
+			"tip": "Now and then a kobold here drops a Nibbled-On Book: right-click it and hand it to Brother Paxton on your next Abbey stop.",
+			"note": "#3012: the Nibbled-On Book (247834), which starts Brother Paxton's quest (91741), drops from the Kobold Vermin, Laborers and Workers of Northshire (items.json: npcs 6, 80, 257), but the guide took and handed it in only on the Vermin stop and the Abbey stop after it. A book from the Echo Ridge Mine's Workers or Laborers was never mentioned. Both mine steps take it (optional) and the Abbey stop after each hands it in (optional); the seed carries the goals.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "items.json 247834 Nibbled-On Book: dropped by npcs 6, 80, 257; quests.json 91741 starts from it, ends at Brother Paxton (951)"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#3012 (0.4.1): the book from Northshire's kobolds, and no step to take or hand it in"
+				}
+			],
+			"issue": 3012
 		}
 	]
 }
