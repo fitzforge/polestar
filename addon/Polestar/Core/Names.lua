@@ -123,9 +123,9 @@ local function load()
 	end
 end
 
-local function fromPack(kind, id)
+local function fromPack(kind, id, cursor)
 	if not ready then load() end
-	return LuaChunks.Unesc(store:Raw(kind, id))
+	return LuaChunks.Unesc(store:Raw(kind, id, cursor))
 end
 
 -- This client language's learned names, or nil before saved variables load.
@@ -265,13 +265,13 @@ function Names.Or(kind, id, english)
 	return Names.Get(kind, id) or ns.L[english]
 end
 
-function Names.Cached(kind, id)
+function Names.Cached(kind, id, cursor)
 	if not valid(id) then return nil end
 	if kind == "quest" then
 		local t = ns.Compat.GetQuestTitle(id)
 		if t then return t end
 	end
-	return fromPlay(kind, id) or fromPack(kind, id)
+	return fromPlay(kind, id) or fromPack(kind, id, cursor)
 end
 
 -- The client names an NPC (or a quest-giving object, through the "npc"

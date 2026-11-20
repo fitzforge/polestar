@@ -72,7 +72,7 @@ fn source_fields(ty: &str) -> &'static [&'static str] {
 	match ty {
 		"vendor" => &["npc", "cost", "limited"],
 		"drop" => &["npc", "chance", "instance"],
-		"object" => &["object", "chance"],
+		"object" => &["object", "chance", "instance"],
 		"quest" => &["quest", "choice"],
 		"gift" => &["npc", "spell"],
 		"craft" => &["spell", "skillLine", "profession", "skill"],
@@ -1164,6 +1164,17 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			}
 		}
 	}
+	// An NPC on a player faction's side is never a rare (the data-diff gate's `friendly-rare`): a rank,
+	// a source's rare list or a sighting can name one (faction leaders in 0.4.1, #2929 #2942), and the
+	// rare alert, pins and list read this flag.
+	for (id, n) in npcs.entries() {
+		if n.get("rare").truthy() && matches!(n.get("faction").as_str(), Some("A" | "H" | "AH")) {
+			n.set("rare", false);
+			if let Some(&i) = role_ix.get(&*id) {
+				npc_roles[i].1.delete("rare");
+			}
+		}
+	}
 	// Vendors by what they sell (sells_role): every NPC an item lists as its
 	// vendor, from the client's item class; an NPC whose merchant window players
 	// recorded is a vendor of what it listed. A recorded fact changes what the
@@ -1321,10 +1332,16 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			add(str_to_num(&item), src("drop", &[("npc", V::Num(str_to_num(&npc))), ("chance", e.get("chance").clone_nullish()), ("instance", nn_or_null(npc_instance.get(&npc)))], from));
 		}
 	}
+	// An object players loot only inside one instance (the snapshot's `instance`, its map): the
+	// source names that instance, as an NPC's drop does (#2883: Maraudon's vial, an object no other
+	// source has, so Lookup's pick-up guides know the item comes from inside a dungeon).
+	let map_id = |v: &V| v.as_num().filter(|n| *n > 0.0 && n.fract() == 0.0).map(|n| n as i64);
+	let instance_of_map: FxHashMap<i64, V> = instances.entries().into_iter().filter_map(|(k, rec)| map_id(&rec.get("map")).map(|m| (m, V::str(&k)))).collect();
 	for (obj, r) in oentries(&recorded.get("objects")) {
+		let inst = map_id(&r.get("instance")).and_then(|m| instance_of_map.get(&m).cloned()).unwrap_or(V::Null);
 		for (item, e) in oentries(&r.get("items")) {
 			let from = if e.get("trusted").truthy() { &rec_from } else { &rec_confirm_from };
-			add(str_to_num(&item), src("object", &[("object", V::Num(str_to_num(&obj))), ("chance", e.get("chance").clone_nullish())], from));
+			add(str_to_num(&item), src("object", &[("object", V::Num(str_to_num(&obj))), ("chance", e.get("chance").clone_nullish()), ("instance", inst.clone())], from));
 		}
 	}
 	for (npc, list) in oentries(&recorded.get("vendors")) {
@@ -2538,6 +2555,29 @@ mod tests {
 		assert!(obj("88004").get("useItem").is_nullish(), "the kind names no item");
 	}
 
+	// #2929 #2942: an NPC on a player faction's side is never a rare in the Codex, whatever made it one (a
+	// rare rank, the source's rare role); a hostile rare stays one.
+	#[test]
+	fn an_npc_on_a_player_faction_s_side_is_no_rare_2929_2942() {
+		let mut inp = inputs("{}", "{}");
+		inp.forever.npcs = parse_json(
+			r#"{
+			"4949": { "id": 4949, "name": "Thrall", "faction": "H", "rank": 3, "roles": ["rare"], "spawns": {} },
+			"5797": { "id": 5797, "name": "Aean Swiftriver", "faction": "A", "rank": 4, "spawns": {} },
+			"266901": { "id": 266901, "name": "Pexmit", "faction": "AH", "rank": 2, "roles": ["rare", "vendor"], "spawns": {} },
+			"61": { "id": 61, "name": "Thuros Lightfingers", "rank": 4, "roles": ["rare"], "spawns": {} }
+		}"#,
+		)
+		.unwrap();
+		let codex = merge_codex(&inp);
+		let rare = |id: &str| (codex.npcs.get(id).get("rare").truthy(), codex.npcs.get(id).get("roles").items().iter().any(|r| r.as_str() == Some("rare")));
+		assert_eq!(rare("4949"), (false, false), "a faction leader");
+		assert_eq!(rare("5797"), (false, false), "a rare-ranked NPC of the Alliance");
+		assert_eq!(rare("266901"), (false, false), "an NPC both sides deal with");
+		assert!(codex.npcs.get("266901").get("roles").items().iter().any(|r| r.as_str() == Some("vendor")), "its other roles stay");
+		assert_eq!(rare("61"), (true, true), "a hostile rare stays a rare");
+	}
+
 	// #2326: Screecher Spirits' target rises only from Yeh'kinya's Bramble (a summon-by-item the mechanics drive,
 	// with its params' item and NPC): the kill objective keeps summonItem, and summonOn the creatures the params
 	// say the item is used on (#2578: the Vale Screechers); a kind that does not drive, or params for another NPC,
@@ -2604,6 +2644,22 @@ mod tests {
 		let codex = merge_codex(&i);
 		assert_eq!(codex.quests.get("96018").get("how").as_str(), Some("Gather mana with the Mana Sieve first. Then use Repair and Recharge Pylon at each pylon."));
 		assert!(codex.quests.get("88010").get("how").is_nullish(), "private text never ships");
+	}
+
+	// #2831 (Dorebellious): Doctor's Orderly is done by using the Makeshift Bandages on the Wounded Soldiers, which
+	// the game stores as a kill credit, so Lookup's step said "Kill Wounded Soldier". The shipped public mechanics
+	// (data/mechanics-public.json, merged into mechanics.json by the data build) make the kill a use of the
+	// bandages and give the step its how.
+	#[test]
+	fn doctor_s_orderly_bandages_the_wounded_soldiers_from_the_shipped_public_mechanics_2831() {
+		let public = include_str!("../../../../../data/mechanics-public.json");
+		let quests = r#"{ "96082": { "id": 96082, "title": "Doctor's Orderly", "objectives": [{ "type": "kill", "id": 263614, "count": 3, "text": "Wounded Soldier" }] } }"#;
+		let mut i = inputs(quests, public);
+		i.mechanics_public = parse_json(public).unwrap();
+		let codex = merge_codex(&i);
+		let q = codex.quests.get("96082");
+		assert_eq!(q.get("objectives").at(0).get("useItem").num(), 272126.0, "the Makeshift Bandages, on the soldiers");
+		assert!(q.get("how").as_str().is_some_and(|h| h.contains("Makeshift Bandages")), "{:?}", q.get("how"));
 	}
 
 	#[test]

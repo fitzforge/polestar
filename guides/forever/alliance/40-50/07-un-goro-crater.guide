@@ -217,7 +217,7 @@ step Fly to Menethil Harbor
 step Boat to Auberdine
   only Priest,Mage
   zone Wetlands
-  goto 4.5,56.7 "Boat to Auberdine"
+  goto 4.71,56.95 "Boat to Auberdine"
 
 step Fly to Astranaar
   only Priest,Mage

@@ -265,7 +265,7 @@ fn apply_list(g: &Geo, outs: &mut [(u32, Out)], list: &[Cut], log: &(dyn Fn(&str
 
 /// Each entrance edge inside the cluster priced again where the cut changed its walk: dearer by what the walk round
 /// adds (per profile), gone where no walk is left. Edges the cut leaves alone keep their costs. -> (dearer, gone).
-fn reprice(before: &Cluster, after: &Cluster, rows: &mut [Row], swim: f64) -> (usize, usize) {
+pub fn reprice(before: &Cluster, after: &Cluster, rows: &mut [Row], swim: f64) -> (usize, usize) {
 	let node = |c: &Cluster, r: &Row| c.surface(r.cell as usize, r.layer as i32, 0.0);
 	let ends: Vec<(Option<usize>, Option<usize>)> = rows.iter().map(|r| (node(before, r), node(after, r))).collect();
 	let (mut dearer, mut gone) = (0, 0);

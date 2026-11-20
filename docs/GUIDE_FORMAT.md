@@ -134,7 +134,7 @@ Step directives:
 | `skipto <label> when <predicate>` | When the route reaches the step and the predicate holds, it skips this step and the ones after it up to the labelled step; several lines may follow one another, and the first that holds decides. See "Jumps". |
 | `tip <text>` | Player-facing step note (compiled to `step.note`). |
 | `image <path> [<w>x<h>]` | A picture shown in the guide window under the step's tip, while the tip is open, scaled to the window's width (at most 160 high): a screenshot of a spot that is hard to find, such as a cave mouth. `<path>` is the file's place in the pack folder, `/` between folders (`media/fargodeep-mine.tga`), a `.tga` or `.blp` file; without the extension the `.tga`, else the `.blp`. The file ships in the pack's addon folder at that path. `<w>x<h>` is the size it is drawn at (only the ratio counts: `512x256` is twice as wide as high); without it the compiler reads the file's own. One per step; a step with no `tip` reads "Picture of this spot" above it. See "Pictures" in the Cookbook. |
-| `loop` | The step's `goto` points, in order, are the places to search for its kill, collect, interact and skill goals (or, with none of those, for the NPC of its accept, turnin and talk goals) instead of a path to walk: see "Spawn areas", Loop. |
+| `loop` | The step's `goto` points, in order, are the places to search for its kill, collect, interact, skill and `use … quest Q.O` goals (or, with none of those, for the NPC of its accept, turnin and talk goals) instead of a path to walk: see "Spawn areas", Loop. |
 
 A step must contain at least one goal.
 
@@ -174,7 +174,7 @@ A step must contain at least one goal.
 | `wait` | `<seconds>` | A countdown in the step: `wait 30 "the boat docks"`. It starts once every goal before it in the step is done and is done when the time is up (1 to 3600 seconds); the guide window shows the time left as a draining line. For a boat, an event or a speech to sit through. |
 | `task` | `"<text>"` | Something to do that Polestar cannot see (a logout skip, a tame, an emote): it holds the step until the player ticks it in the guide window; with `optional` it never holds it. Quotes optional when nothing follows the text. A task has a place with `@x,y` for the arrow. In an `along` step it never checks off (see "Along the way"). Pack format 5. |
 | `note` | `<text...>` | Informational line; never blocks. Quotes optional. |
-| `skill` | `<Profession> <N>` | Reach skill rank N (`Alchemy`, `Blacksmithing`, `Enchanting`, `Engineering`, `Herbalism`, `Leatherworking`, `Mining`, `Skinning`, `Tailoring`, `Cooking`, `Fishing`, `First Aid`, quoted when multi-word). |
+| `skill` | `<Profession> <N>` | Reach skill rank N (`Alchemy`, `Blacksmithing`, `Enchanting`, `Engineering`, `Herbalism`, `Leatherworking`, `Mining`, `Skinning`, `Tailoring`, `Cooking`, `Fishing`, `First Aid`, quoted when multi-word). With `nearest`, the step's `goto` points are the places to do it and the arrow leads to the one nearest the player (see Smart targets): `skill Fishing 50 nearest` beside a `goto` on each starting area's shore. |
 | `learn` | `<spellId> ["Name"]` | Learn a recipe or spell (trainer or recipe item); name from `professions.json`, else, for a spell a skill line teaches (a class spell, a talent; a profession's recipe still needs `professions.json`), from the client's spell tables of the data's build. A trainer-taught spell points at every trainer of its rank (a smart target; `npc <id>` fixes one); `learn <spellId> nearest` for a recipe sold by vendors sends the player to the closest own-faction vendor of the recipe item. |
 | `cast` | `<spellId> ["Name"]` | Cast a spell (a campfire, a class teleport, a racial): done when the player's own cast of that spell succeeds while the goal is open, in the step the guide is at or an along step listed under it; a cast before that does not count, and the tick is kept. Name from `professions.json` (a recipe), else give it: a spell in neither is an error. |
 | `buff` | `<spellId> ["Name"]` | Have an aura (a buff or a debuff) on the character: a blessing, an elixir's effect, a disguise a quest hands out. Done while the aura of that spell id is on the player, and kept once its step had it, so an aura that runs out before the step's other goals are done does not reopen it. With `off` the goal is the other way round: done while the aura is gone (wait out Resurrection Sickness, click a disguise off). The name is the client's for a spell its tables know, else give it: a spell in neither is an error. Coordinates only point the arrow. On a client that cannot read auras the player ticks it. Pack format 11. |
@@ -206,7 +206,9 @@ goals in `guides/`, recorded trainer visits, and a curated list verified against
 and `vendor nearest` from the `repair` role in `npcs.json`; `buy … nearest` from the
 item's `vendors`; `collect … nearest` from the item's droppers (see `collect`);
 `learn … nearest` from the recipe item's `vendors`; a trainer-taught `learn`
-from the profession rank's trainers in `professions.json`. Only
+from the profession rank's trainers in `professions.json`; `skill … nearest` from
+the step's own `goto` points (at least two; each for the characters its `only` and
+the step's `only` name), which leave the step. Only
 factions the goal can apply to are kept, and each set keeps one candidate per town
 (within 250 yards), nearest to the previous goal first; in a capital city (Stormwind,
 Orgrimmar, Ironforge, Thunder Bluff, Darnassus, the Undercity) one per district
@@ -312,7 +314,16 @@ except a `complete <quest>`: a hand-in can't be done before its quest is, so
 an unskipped step whose `when` fails only on `complete` comes back once the
 quest is ready. One failure is never stored: a `complete <quest>` that fails while the
 player carries the quest (a Wanted hand-in passed before the elite is dead)
-is checked again, and the step comes back once the quest is done.
+is checked again, and the step comes back once the quest is done. Nor, while
+the guide lasts, is a failure that can still turn as the player plays it: a
+`level>=N` or `level>N` not reached yet, or `onquest`, `complete` or
+`turnedin` of a quest the guide still takes (or one waiting for the
+character's level). Such a step comes back if the route reaches it again (the
+level-up brings the route back to a quest's accept, and its `when onquest`
+step follows it); once it holds behind the live step, it stays passed and its
+quest's work is listed under "Still to do" instead of pulling the arrow back;
+at the guide's end it is stored as skipped. A step with `group` or `dungeon`
+in its `when` is stored as it passes, as the player's answer decides it.
 Resetting the guide's progress forgets the stored outcomes.
 
 While its `when` fails, a step counts as one that does not apply: like a step
@@ -320,7 +331,11 @@ for another class, it never holds the guide, and a turn-in whose only accept
 is in such a step goes with it.
 
 A step with `when onquest Q` (or `when complete Q`) can hand in Q with no
-`accept Q` before it: "hand it in if you picked it up elsewhere". A `turnin`
+`accept Q` before it: "hand it in if you picked it up elsewhere". When the
+guide sees Q handed in (at that step, or on the way before the route gets
+there), the step's `when` is kept as holding, so what the step does after the
+hand-in (the follow-up's accept from the same NPC) stays on the route; a Q
+handed in before the guide ran leaves the step out (Polestar 0.4.2). A `turnin`
 whose quest is accepted earlier only in steps with `when` warns: characters
 who passed those steps never see it, so give it the same `when` or a
 `when onquest`.
@@ -1077,8 +1092,9 @@ gets no `spots`, except an NPC who walks around:
 - **Loop** (a step with a `loop` line, for a search the data does not shape
   the way you want: a circuit through camps, round a lake): the step's `goto`
   points, in order, become the spawn areas of each of its `kill`, `collect`,
-  `interact` and `skill` goals that has no `@x,y` of its own and picks no
-  place at runtime (`nearest`), with `spread = true`. The goal's point is the
+  `interact`, `skill` and `use … quest Q.O` goals that has no `@x,y` of its
+  own and picks no place at runtime (`nearest`), with `spread = true`. A use
+  without an objective keeps its own place. The goal's point is the
   first goto, the spots are exactly the gotos (no alternatives, no spawn count
   `n`), each as wide as its goto's `r` (default 30 yd), and the gotos leave
   the step (their labels with them), so the player searches the points one
@@ -1158,8 +1174,8 @@ gets no `spots`, except an NPC who walks around:
   who walks: its `accept`, `turnin` and `talk` goals take the points, and the
   arrow leads from one to the next until the player meets the NPC. Use it for
   a walker the data draws no circle for (Walkers, above), or whose round is
-  too long for one circle. Beside a kill, collect, interact or skill goal the
-  loop is that goal's, and an accept, turnin or talk keeps its own place.
+  too long for one circle. Beside a goal that searches the loop, an accept,
+  turnin or talk keeps its own place.
 
   ```
   step Deputy Willem, somewhere on his rounds
@@ -1182,10 +1198,14 @@ NPC or object gets that entity's height, `z` (world yards), from
 `data/forever/spawnz.json`, which `data build` writes from CMaNGOS
 classic-db's spawn positions and, for an NPC or object classic-db lacks (one
 only Forever has), the Forever TrinityCore world database's sniffed spawn
-positions: the z of the entity's nearest spawn on the goal's instance map
-(its world point's, in the goal's frame), when that spawn is within 15 yards
-of the point. Nothing is guessed: an NPC neither source places, or one
-Forever moved more than 15 yards, gets none, and without `spawnz.json` no
+positions; an NPC whose spawns give no height within 15 yards of where
+players talk to it (a Forever NPC neither source places, one Forever moved)
+gets the floor players stand on there, from their recordings
+(`data/npc-floors.json`, `nav city npc-floors`: 3+ people, 70% of them on one
+level). A goal gets the z of the entity's nearest spawn on the goal's
+instance map (its world point's, in the goal's frame), when that spawn is
+within 15 yards of the point. Nothing is guessed: an NPC no source places
+there gets none, and without `spawnz.json` no
 goal gets one. These goals can get one, their point being the NPC's or
 object's (its spawn, or your `@x,y` at it):
 

@@ -259,6 +259,8 @@ return {
 	-- Step 57: Jom-jom's Escape
 	-- {npc:258048} Jom-jom · {npc:256728} Na'zok · {area:16726} Bolder'ok
 	["{npc:258048} waits by the Twilight ogres' camp north-east of {npc:256728}: take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "{npc:258048} espera junto ao acampamento dos ogros do Crepúsculo, a nordeste de {npc:256728}: leve-o para casa em {area:16726} e mantenha os sectários longe dele. Se ele morrer, pegue a missão com ele de novo.",
+	-- {npc:258048} Jom-jom
+	["{npc:258048}, in the cave"] = "",
 	-- {npc:258048} Jom-jom · {area:16726} Bolder'ok
 	["help {npc:258048} reach {area:16726}"] = "ajude {npc:258048} a chegar a {area:16726}",
 

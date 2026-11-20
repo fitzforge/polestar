@@ -317,6 +317,7 @@ emit({ read = read, exact = { Polestar.Engine.SpotsExact(goal), Polestar.Engine.
 	let (point, spot) = (m["point"].as_f64().unwrap(), m["spot"].as_f64().unwrap());
 	eprintln!("a packed point: {point:.0} bytes, a packed spot: {spot:.0} bytes (Lua 5.1, list slot included)");
 	assert!(point < spot * 0.6, "a point costs {point:.0} bytes against a spot's {spot:.0}");
+	assert!(point < 130.0 && spot < 260.0, "absent optional fields must not reserve space: {point:.0} bytes per point, {spot:.0} per camp");
 }
 
 // Issue #60, the load-time spike: registering a guide runs Guides.Validate over every step and goal. The key

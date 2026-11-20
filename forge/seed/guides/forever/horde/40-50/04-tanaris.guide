@@ -111,7 +111,7 @@ step Thistleshrub Valley
 
 step Tooga's escort
   tip Tooga waits in the valley. Walk him all the way to his wife Torta in Steamwheedle Port, north-east across the desert: stay close, slow down for him and fight off what attacks him. Do not mount or hearth out of his reach. Yeh'kinya stands in the port too.
-  accept 1560                           -- Tooga
+  accept 1560 @30.2,70.7 map 1446                -- Tooga
   complete 1560
   turnin 1560                           -- Torta, Steamwheedle Port
   turnin 3520                           -- Yeh'kinya

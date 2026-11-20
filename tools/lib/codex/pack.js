@@ -217,7 +217,10 @@ function encodeSource(src) {
 		return num(src[f]);
 	});
 	parts.push(fromLetters(src.from));
-	if ((src.type === 'drop' || src.type === 'object') && Array.isArray(src.requiresQuests) && src.requiresQuests.length) parts.push(esc(list(src.requiresQuests)));
+	const requires = (src.type === 'drop' || src.type === 'object') && Array.isArray(src.requiresQuests) && src.requiresQuests.length;
+	if (requires) parts.push(esc(list(src.requiresQuests)));
+	// An object's instance (#2883) after the requires tail (empty when there is none): older readers ignore it.
+	if (src.type === 'object' && src.instance) parts.push(...(requires ? [] : ['']), esc(src.instance));
 	return letter + parts.join(',');
 }
 

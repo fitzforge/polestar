@@ -378,6 +378,50 @@ fn a_fight_on_the_way_puts_the_game_away() {
 	);
 }
 
+// Donkeyman's report (#2899): once a fight had paused the game, every later fight ended with "combat over. Type
+// /doom to get back to Doom." until the game was resumed. Only the fight that paused it says so, once; a game
+// Polestar put away on landing never does.
+#[test]
+fn only_the_fight_that_paused_the_game_ends_with_the_reminder_2899() {
+	let out = run(r#"
+		present("Polestar_Arcade", { reason = "DEMAND_LOADED" })
+		local function fight()
+			stub.inCombat = true
+			stub.fire("PLAYER_REGEN_DISABLED")
+			stub.advance(1)
+			stub.inCombat = false
+			stub.fire("PLAYER_REGEN_ENABLED")
+			stub.advance(1)
+		end
+		local function since(n)
+			local all, out = chat(), {}
+			for i = n + 1, #all do out[#out + 1] = all[i] end
+			return out
+		end
+		takeoff(300)
+		A.Play()
+		FreedoomArcade.G.InitNew(2, 1, 1)
+		stub.advance(300)
+		land()
+		local n = #chat()
+		fight(); fight()
+		local afterLanding = since(n)
+		FreedoomArcadeAPI.Open()
+		n = #chat()
+		fight()
+		local paused = since(n)
+		n = #chat()
+		fight(); fight()
+		emit({ afterLanding = afterLanding, paused = paused, later = since(n), level = FreedoomArcade.G.state })"#);
+	assert_eq!(out["level"], "level", "the game is in a level, so a fight saves and pauses it");
+	assert_eq!(out["afterLanding"], json!({}), "fights after the landing say nothing");
+	assert_eq!(
+		out["paused"],
+		json!(["Freedoom Arcade: you're in combat! Game saved and paused. Type /doom to come back, P to resume.", "Freedoom Arcade: combat over. Type /doom to get back to Doom."])
+	);
+	assert_eq!(out["later"], json!({}), "later fights with the game put away say nothing");
+}
+
 // A zone border crossed in the air leaves the game alone; a loading screen ends the flight and puts it away.
 #[test]
 fn a_loading_screen_ends_the_flight_and_puts_the_game_away_a_zone_border_does_not() {

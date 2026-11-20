@@ -29,4 +29,5 @@
 	<Script file="Commands.lua"/>
 	<Script file="Pause.lua"/>
 	<Script file="Update.lua"/>
+	<Script file="Perf.lua"/>
 </Ui>

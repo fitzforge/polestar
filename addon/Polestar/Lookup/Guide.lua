@@ -654,6 +654,19 @@ local function questStep(q, from, isTarget, opts)
 	goals[1] = accept
 	local here = giver and giver.spawn or from
 	local event = nil
+	-- Objectives with no target the data names (events) share one `complete`
+	-- at the first one's place. When two or more have a place of their own
+	-- (#2833: Powering the Pylons' western and eastern pylons), each is a
+	-- goal at its place, read by its quest-log line as a placeholder's kill is
+	-- (`logLine`): the arrow moves on as each line ticks, where the shared
+	-- `complete` held it on the first place until the whole quest was done.
+	local placedEvents = 0
+	for _, o in ipairs(q.objectives or {}) do
+		local named = o.id and (o.type == "kill" or o.type == "item" or o.type == "talk" or o.type == "object")
+		if not named and o.map and o.x and o.y then
+			placedEvents = placedEvents + 1
+		end
+	end
 	local talks = {} -- the NPCs of talk objectives, for the step's note
 	local made = {} -- the lines for items made by a profession, for the step's note
 	local summons = {} -- the lines for targets an item calls up (#2326), for the step's note
@@ -749,6 +762,8 @@ local function questStep(q, from, isTarget, opts)
 			end
 			goals[#goals + 1] = spawnSpots(at({ t = "interact", object = o.id, objName = objName,
 				quest = q.id, oi = oi, count = count, title = q.title, group = eliteMark(o) }, s), obj and obj.spawns)
+		elseif placedEvents >= 2 and o.map and o.x and o.y then
+			goals[#goals + 1] = at({ t = "kill", logLine = true, target = o.text or q.title, quest = q.id, oi = oi, count = count, title = q.title }, o)
 		else
 			event = event or o
 		end
@@ -843,8 +858,8 @@ end
 -- the line) is done, in the log or skipped itself.
 -- step: the first quest neither done nor skipped; done: there is none left
 -- (step is then total); skippedCount: how many quests are skipped.
--- The walk is the costly part (Codex.FollowUps reads every quest the first
--- time it is asked about one), so its answer is kept per quest until a quest
+-- The walk is the costly part (it decodes and judges every quest in the line
+-- and each one's follow-ups), so its answer is kept per quest until a quest
 -- is turned in or taken, a level is gained, or the Codex loads: what decides
 -- the walk (a done preAny, a level gate, who a quest is for) moves only then.
 local chainLines = {}

@@ -192,8 +192,8 @@ step Dunemaul Compound
   level 47.06 grind 5471               -- grind on Dunemaul Ogre, at the compound's south end
 
 step Tooga's escort
-  tip The little turtle Tooga hides at the north end of the Thistleshrub Valley: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife Torta, by the water just east of Steamwheedle Port: he walks slowly and the desert's beasts go for him, so keep him alive.
-  accept 1560                         -- Tooga
+  tip The little turtle Tooga wanders the west edge of the Thistleshrub Valley, most often where the arrow leads: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife Torta, by the water just east of Steamwheedle Port: he walks slowly and the desert's beasts go for him, so keep him alive.
+  accept 1560 @30.2,70.7 map 1446              -- Tooga
   complete 1560
   turnin 1560                         -- Torta
   accept 97540                        -- Tooga, beside her: Oasis
@@ -287,7 +287,7 @@ step Fly to Auberdine
 
 step Boat to Menethil Harbor
   zone Darkshore
-  goto 32.34,44.13 "Boat to Menethil Harbor"
+  goto 32.39,43.87 "Boat to Menethil Harbor"
 
 # ---------------------------------------------------------------- The Hinterlands
 

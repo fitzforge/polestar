@@ -392,7 +392,7 @@ step Na'zok
 
 step Jom-jom's Escape
   tip Jom-jom waits by the Twilight ogres' camp north-east of Na'zok: take him home to Bolder'ok and keep the cultists off him. If he falls, take the quest from him again.
-  accept 94556                          -- Jom-jom
+  accept 94556 @73.4,24.7               -- Jom-jom, in the cave
   complete 94556 @64.4,15.6             -- help Jom-jom reach Bolder'ok
 
 step Bolder'ok

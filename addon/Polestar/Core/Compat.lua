@@ -65,6 +65,12 @@ function Compat.GetPlayerFaction()
 	return nil
 end
 
+-- Unlike the display fallback in GetPlayerInfo, nil is not a level-one player.
+function Compat.GetPlayerLevel()
+	local level = readable(UnitLevel and UnitLevel("player"))
+	if type(level) == "number" and level >= 1 and level < math.huge and level == math.floor(level) then return level end
+end
+
 function Compat.GetPlayerInfo()
 	local _, race = UnitRace("player")
 	local _, class = UnitClass("player")
@@ -73,7 +79,7 @@ function Compat.GetPlayerInfo()
 		name = readable(UnitName("player")),
 		realm = GetRealmName and GetRealmName() or nil,
 		guid = readable(UnitGUID and UnitGUID("player")),
-		level = readable(UnitLevel("player")) or 1,
+		level = Compat.GetPlayerLevel() or 1,
 		xp = readable(UnitXP and UnitXP("player")) or 0,
 		xpMax = readable(UnitXPMax and UnitXPMax("player")) or 0,
 		race = readable(race),
@@ -192,18 +198,69 @@ function Compat.IsOnTaxi()
 	return readable(UnitOnTaxi and UnitOnTaxi("player")) and true or false
 end
 
+-- How the client gives the player's height this session (Compat.PlayerHeight):
+-- "real", or why there is none to use: "none" (no height, or a secret one),
+-- "zero" (exactly 0: Forever's client has given a height of 0 where the ground
+-- is at 12 yd, Ratchet; a real height is never exactly 0) or "fixed" (the same
+-- height to the last digit at FIXED_COUNT readings in a row, each FIXED_STEP
+-- yards or more from the one before it and taken on foot, 200 yd in all: a
+-- placeholder, not where the player stands; a different height ends it. A
+-- level floor may keep one height to the last digit along a street or a hall,
+-- hence the long run).
+-- Swimming at the water's level or carried on a deck, the height stays
+-- put for real: such readings neither count nor end it. nil before the first
+-- reading.
+local FIXED_STEP, FIXED_COUNT = 5, 40
+local heightMode
+local hInstance, hX, hY, hZ, hSame = nil, nil, nil, nil, 0
+
+-- Whether the player moves by their own speed and is not swimming. Unknown counts as on foot.
+local function onFoot()
+	if IsSwimming then
+		local ok, swimming = pcall(IsSwimming)
+		if not ok or isSecret(swimming) or swimming then return false end
+	end
+	if GetUnitSpeed then
+		local ok, speed = pcall(GetUnitSpeed, "player")
+		if not ok or isSecret(speed) or (type(speed) == "number" and speed <= 0) then return false end
+	end
+	return true
+end
+
+-- z as a height to use (nil when it is none of use), noting what the client gives.
+local function usableHeight(x, y, z, instance)
+	if type(z) ~= "number" then heightMode = "none"; return nil end
+	if z == 0 then heightMode = "zero"; return nil end
+	if hInstance ~= instance or hX == nil then
+		hInstance, hX, hY, hZ, hSame = instance, x, y, z, 0
+	elseif z ~= hZ then
+		hX, hY, hZ, hSame = x, y, z, 0
+	elseif (x - hX) * (x - hX) + (y - hY) * (y - hY) >= FIXED_STEP * FIXED_STEP then
+		hX, hY = x, y
+		if onFoot() then hSame = hSame + 1 end
+	end
+	if hSame >= FIXED_COUNT then heightMode = "fixed"; return nil end
+	heightMode = "real"
+	return z
+end
+
 -- The player's world position from UnitPosition: wx (north), wy (west), z
--- (nil when unread) and the instance map id, or nil while the client keeps it
--- secret or hides it. The one place UnitPosition is read. Forever's client
--- has given a height of exactly 0 where the ground is at 12 yd (Ratchet); a
--- real height is never exactly 0, so that one is unread too.
+-- (nil when there is no height to use: see heightMode above) and the instance
+-- map id, or nil while the client keeps it secret or hides it. The one place
+-- UnitPosition is read.
 function Compat.GetPlayerUnitPosition()
 	if not UnitPosition then return nil end
 	local ok, x, y, z, instance = pcall(UnitPosition, "player")
 	if not ok then return nil end
 	x, y, z, instance = readable(x), readable(y), readable(z), readable(instance)
 	if type(x) ~= "number" or type(y) ~= "number" or instance == nil then return nil end
-	return x, y, type(z) == "number" and z ~= 0 and z or nil, instance
+	return x, y, usableHeight(x, y, z, instance), instance
+end
+
+-- What the last UnitPosition reading gave for the height: "real", "none",
+-- "zero" or "fixed" (above); nil before any reading.
+function Compat.PlayerHeight()
+	return heightMode
 end
 
 -- The player's run speed in yd/s (GetUnitSpeed's second value), or nil while
@@ -295,6 +352,15 @@ function Compat.IsIndoors()
 	local ok, inside = pcall(IsIndoors)
 	if not ok or (inside ~= nil and readable(inside) == nil) then return nil end
 	return inside and true or false
+end
+
+-- The client's swimming state: true swimming, false not, nil when the client lacks IsSwimming, it errors, or keeps it
+-- secret. Nav/Walk.lua's floor follow takes a water surface for the floor only while swimming.
+function Compat.IsSwimming()
+	if not IsSwimming then return nil end
+	local ok, swimming = pcall(IsSwimming)
+	if not ok or (swimming ~= nil and readable(swimming) == nil) then return nil end
+	return swimming and true or false
 end
 
 function Compat.IsShiftKeyDown()
@@ -1008,16 +1074,24 @@ function Compat.OpenWorldMap(uiMapID)
 	return pcall(open, uiMapID) and true or false
 end
 
--- Opening the quest log at a quest: the client's QuestMapFrame_OpenToQuestDetails
--- (Blizzard_UIPanels_Game/Mainline/QuestMapFrame.lua, which Forever's client
--- loads; its own objective tracker opens a quest with it): the map with its
--- quest log, that quest's details shown. It opens the world map, so under the
--- same rules as Compat.OpenWorldMap: never in combat, never with the gamepad
--- interface. Callers check the quest is in the log (Compat.IsOnQuest).
+-- Opening the quest log at a quest, without tainting the map: the quest
+-- selected (C_QuestLog.SetSelectedQuest) and the world map opened through the
+-- client's C opener (C_Map.OpenWorldMap) at the zone the game shows the quest
+-- on (GetQuestUiMapID), else the player's own; the quest's details are the
+-- player's click on it in the log. Never the client's Lua openers
+-- (QuestMapFrame_OpenToQuestDetails, OpenQuestLog, the global OpenWorldMap):
+-- called from addon code they write the quest's page into the map's tables
+-- in Polestar's name, and while that page stays open every quest pin the map
+-- lays out in combat is blocked (#2924: 62 blocked SetPassThroughButtons
+-- calls). So there is no fallback on a client without C_Map.OpenWorldMap.
+-- Never in combat, never with the gamepad interface (as Compat.OpenWorldMap).
+-- Callers check the quest is in the log (Compat.IsOnQuest).
 --   Compat.CanOpenQuestLog() -> bool ; Compat.OpenQuestLog(questID) -> opened
 local function questLogOpener()
 	if ns.GamepadUI() then return nil end
-	return QuestMapFrame_OpenToQuestDetails
+	local QL = C_QuestLog
+	if not (C_Map and C_Map.OpenWorldMap and QL and QL.SetSelectedQuest) then return nil end
+	return C_Map.OpenWorldMap
 end
 
 function Compat.CanOpenQuestLog()
@@ -1027,7 +1101,10 @@ end
 function Compat.OpenQuestLog(questID)
 	local open = questLogOpener()
 	if not open or type(questID) ~= "number" or Compat.InCombat() then return false end
-	return pcall(open, questID) and true or false
+	local map = type(GetQuestUiMapID) == "function" and Compat.Readable(GetQuestUiMapID(questID)) or nil
+	if type(map) ~= "number" or map <= 0 then map = nil end
+	pcall(C_QuestLog.SetSelectedQuest, questID)
+	return pcall(open, map) and true or false
 end
 
 -- The continent-type uiMap (Enum.UIMapType.Continent = 2) a map belongs to,

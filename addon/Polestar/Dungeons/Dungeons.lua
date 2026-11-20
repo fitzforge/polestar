@@ -14,7 +14,7 @@
 --                                     ("missing", "disabled", "combat", ...), "nodata" (pack built without Dungeons)
 --   Dungeons.IsEnabled() ; Dungeons.Meta()
 --   Dungeons.List() -> { { key, name, kind, forever, minLevel, maxLevel, floor, players, playersMax,
---       map, zone, zoneName, entrance = { map, x, y, f } | nil, quests = { A = n, H = n }, bosses = n,
+--       map, zone, zoneName, entrance = { map, x, y, f, z? } | nil, quests = { A = n, H = n }, bosses = n,
 --       attune = { A = n, H = n } } }   -- level order, no page decoded
 --       (name and zoneName in the client's language when it has them; map: the instance's Map id;
 --       floor: the level its run in the route starts at, the Codex's (its range's bottom or players'
@@ -527,12 +527,13 @@ end
 -- entrance) makes it a trip (Nav.StartTrip, "Back to the guide" on the way)
 -- that ends through the instance's portal (#1686), labelled `what`
 -- ("Dungeon", "Raid"). `warning`: the line the arrow shows under the label
--- (Dungeons.EnemyEntrance). Any other point (a giver, a turn-in) stays the
+-- (Dungeons.EnemyEntrance). A point's `z` (an entrance's door floor, where floors stack: the Excavation Site's door
+-- over Thelgen Rock) goes to the arrow, so its walk ends at the door. Any other point (a giver, a turn-in) stays the
 -- arrow's until the step changes, as a point set on the map does.
 function Dungeons.GuideToPoint(point, label, stop, warning, what)
 	local Nav = ns.Nav
 	if not (type(point) == "table" and point.map and point.x and point.y and Nav and Nav.SetTarget) then return false end
-	local t = Nav.SetTarget(point.map, point.x, point.y, label or point.name, point.f, stop, nil, warning)
+	local t = Nav.SetTarget(point.map, point.x, point.y, label or point.name, point.f, stop, type(point.z) == "number" and point.z or nil, warning)
 	if not t then return false end
 	if stop == "dungeon" then Nav.StartTrip(t, label or point.name, what or L["Dungeon"], "instance") end
 	return true
@@ -545,11 +546,16 @@ function Dungeons.GuideTo(key)
 end
 
 -- Through Compat.OpenWorldMap: the client's C_Map opener, never in combat
--- (the global OpenWorldMap taints the map: NAV_QA C3).
+-- (the global OpenWorldMap taints the map: NAV_QA C3). The entrance gets its
+-- own pin there, in focus, until the map closes (Maps.ShowDungeonEntrance,
+-- #2780: the map opened on the zone with nothing to say where the way in is).
 function Dungeons.ShowOnMap(key)
-	local map = Dungeons.Entrance(key)
+	local map, x, y, f = Dungeons.Entrance(key)
 	if not map then return false end
-	return ns.Compat.OpenWorldMap(map)
+	local opened = ns.Compat.OpenWorldMap(map)
+	local M = ns.Maps
+	if opened and M and M.ShowDungeonEntrance then M.ShowDungeonEntrance(key, map, x, y, f) end
+	return opened
 end
 
 ns.RegisterCommand("dungeons", function(rest)

@@ -46,6 +46,13 @@ test('no correction file has the same id twice', () => {
 	assert.deepEqual(dup, []);
 });
 
+test('Gnomish Garbage counts five discards, not five Wastewander Rogue kills (#3159)', () => {
+	const [goal] = corrections.quests[97536].set.objectives;
+	assert.deepEqual([goal.type, goal.id, goal.count], ['event', null, 5]);
+	const [step] = require('../data/mechanics-public.json').quests[97536].steps;
+	assert.deepEqual([step.action, step.item, step.count], ['use-item', 278194, goal.count]);
+});
+
 test('Damp Note requires The Essence of Aku\'Mai on the recorded Priestess drop, not on its follow-up quest (#1923)', () => {
 	assert.deepEqual(corrections.items[16790].dropRequires, { npc: { 4802: [6563] } });
 	assert.match(corrections.items[16790].source.ref, /#1923.*6820003090/);
@@ -230,6 +237,13 @@ test("Henrig Lonebrow's Journal lies where players loot it now, its old spot gon
 	assert.deepEqual(corrections.objects[19861].set.spawns, { 1441: { f: 'e', pts: [[31.29, 28.05]] } });
 });
 
+// #2466: the Ancient Egg's world point is inside both The Hinterlands' and Arathi Highlands' map frames, and it was
+// read in Arathi's (81.3,26.2), so the Sunken Temple pick-up guide's collect step led to Hammerfall. Players loot it
+// in The Hinterlands.
+test('The Ancient Egg lies in The Hinterlands, where players loot it, not on Arathi Highlands\' map (#2466)', () => {
+	assert.deepEqual(corrections.objects[175889].set.spawns, { 1425: { f: 'e', pts: [[57.48, 86.69]] } });
+});
+
 // #1992, #2007: Archmage Tervosh and Lady Jaina Proudmoore show at Sentry Point and North Point Tower only to players on
 // The Missing Diplomat; the corrections had made those spots their spawns, so the Maraudon pick-up guide sent everyone to
 // North Point Tower for Shadowshard Fragments. Their spawns are Theramore's tower; the chain's steps keep their own spots.
@@ -401,6 +415,18 @@ test('Gnogaine waits for The Day After, whatever breadcrumb links the data has (
 	assert.deepEqual({ all, any }, { all: [], any: [2927] });
 });
 
+// #2667 (GDcontroller, the Wildwood Chain's item guide): the guide started at Kaela Shadowspear, who did not offer On
+// Guard in Stonetalon's second part (1085) before the first (1070, Sentinel Thenysil in Astranaar) was handed in, so it
+// took two trips. The quest data names 1070 as 1085's prerequisite and as its breadcrumb, and a breadcrumb never blocks;
+// players' recordings: all 58 people who took 1085 had handed 1070 in to Kaela seconds before. The corrections clear the
+// breadcrumb links, so the prerequisite stands and the chain starts at Thenysil.
+test('On Guard in Stonetalon waits for its first part, whatever breadcrumb links the data has (#2667)', () => {
+	const quest = { id: 1085, start: { npc: [4080] }, pre: [1070], preAny: [1070], breadcrumbs: [1070], ...corrections.quests[1085].set };
+	const first = { id: 1070, start: { npc: [4079] }, breadcrumbFor: 1085, ...corrections.quests[1070].set };
+	const { all, any } = blockingPrereqs(quest, (id) => (id === 1070 ? first : null));
+	assert.deepEqual({ all, any }, { all: [], any: [1070] });
+});
+
 // The 1.0.13 quest database's trace XP against our data (2026-11-08): 45 quests differed, every one confirmed by
 // players' recorded hand-ins at a full-XP level, but for Harvesting the Harvesters (92911): one hand-in in the 2026-11-08
 // count and none in the recordings archive now, so it stays as the data has it until a second source agrees. The corrections hold the recorded values, so the level model gets them.
@@ -525,6 +551,34 @@ test('quest XP the recordings confirm is held by the corrections (0.3.8 XP revie
 	const got = Object.fromEntries(Object.keys(xp).map((q) => [q, corrections.quests[q] && corrections.quests[q].set.xp]));
 	assert.deepEqual(got, Object.fromEntries(Object.entries(xp).map(([q, v]) => [q, v])));
 	assert.deepEqual(corrections.quests[96261].set.preAny, [96259], "The Broodmother's prerequisite stays");
+});
+
+test('Hyjal tracks each seed cast separately and credits the decision at Felflick (#3170, #3121, #3194)', () => {
+	const wrecks = corrections.quests[93747].set.objectives;
+	assert.deepEqual(wrecks.map(o => [o.text, o.type, o.count]), [
+		['Ruined Ballista reclaimed', 'event', 1],
+		['Ruined Catapult reclaimed', 'event', 1],
+		['Ruined Flying Machine reclaimed', 'event', 1],
+	]);
+	assert.deepEqual(corrections.quests[96322].set.objectives, [
+		{ type: 'talk', id: 263757, count: 1, text: 'Decide What to do with Felflick' },
+	]);
+});
+
+test('A Matter of Time asks for fifteen Temporal Parasites in both the goal and its instructions (#3046)', () => {
+	const { objectives: [goal], objectiveText } = corrections.quests[4971].set;
+	assert.deepEqual([goal.type, goal.id, goal.count], ['kill', 10717, 15]);
+	assert.ok(objectiveText.includes(`${goal.count} Temporal Parasites`));
+});
+
+test("Burkrum's stock at Splintertree Post has no ammunition or ammo bags (#3189)", () => {
+	for (const item of [2102, 2512, 2515, 2516, 2519, 3030, 3033, 5439, 11285, 11362]) {
+		assert.ok(corrections.items[item]?.removeVendors.includes(6028), `item ${item} still lists Burkrum`);
+	}
+});
+
+test("Champion's Hall quartermasters sell and repair gear, but offer no inn or auction services (#2984, #3168)", () => {
+	for (const npc of [12777, 12782]) assert.deepEqual(corrections.npcs[npc].set.roles, ['repair', 'vendor']);
 });
 
 // #1820: Nearby services' "Bows & guns" at Grom'gol led to Innkeeper Thulbek (5814), who sells food, drink and

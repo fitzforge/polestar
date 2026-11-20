@@ -55,7 +55,7 @@ local X = Polestar.Codex
 X.Load = function() return true end
 X.IsLoaded = function() return true end
 X.Quest = function(id)
-	return { id = id, title = "Quest " .. id, faction = "A", level = id == 40 and 5 or 10, xp = 1000, ["end"] = id == 40 and { npc = { 240 } } or nil }
+	return { id = id, title = "Quest " .. id, faction = "A", level = id == 40 and 5 or 10, xp = 1000, ["end"] = (id == 40 or id == 46) and { npc = { 240 } } or nil }
 end
 Polestar.Lookup.QuestEnd = function(ends)
 	if ends and ends.npc and ends.npc[1] == 240 then return { npc = 240, name = "Marshal Dughan", spawn = { map = 1429, x = 42.0, y = 35.1 } } end
@@ -125,6 +125,32 @@ fn a_finished_quest_no_route_hands_in_is_listed_with_its_ender_and_handed_in_whi
 		"{out}"
 	);
 	assert_eq!(out["guide"], json!(["lookup/carried/log", "Marshal Dughan", "turnin", 40, 1]), "{out}");
+}
+
+// #2918 (Chm137): Auto turn-in hands in the guide's quests. A finished quest's stranded line is handed in by
+// automation only when an open guide hands that quest in: A Fishy Peril (40), on no guide, is shown at Marshal
+// Dughan and left to the player; 46, finished and handed in to Dughan at step 2 of test/d in another tab (its live
+// step is 1), still is, and its line shows too.
+#[test]
+fn auto_turn_in_leaves_a_finished_quest_no_open_guide_hands_in_and_still_hands_in_another_tab_s_2918() {
+	let out = run_before(
+		&format!("{WORLD}w.onQuest(46, {{}}, \"Other Tab's\")\n"),
+		r#"
+		Polestar.RegisterGuide({ id = "test/d", pack = "test", title = "D", faction = "Alliance", minLevel = 1, maxLevel = 15, steps = {
+			{ title = "Far", goals = { { t = "goto", map = 1429, x = 10, y = 10 } } },
+			{ title = "Dughan", goals = { { t = "turnin", quest = 46, title = "Other Tab's", npc = 240, npcName = "Marshal Dughan", map = 1429, x = 42.0, y = 35.1 } } },
+		} })
+		E.OpenTab("test/d", false); flush(); flush()
+		local r = { guide = E.GetGuide().id, here = {} }
+		for _, v in ipairs(E.GetWhileHereList()) do r.here[#r.here + 1] = { v.step, v.index } end
+		table.sort(r.here, function(a, b) return a[2] < b[2] end)
+		r.wants = { E.WantsQuest("turnin", 40), E.WantsQuest("turnin", 46) }
+		emit(r)
+	"#,
+	);
+	assert_eq!(out["guide"], "test/a", "{out}");
+	assert_eq!(out["here"], json!([[-2, 40], [-2, 46]]), "{out}");
+	assert_eq!(out["wants"], json!([false, true]), "{out}");
 }
 
 // LeftBehind counts the hand-ins placed on this route before the guide jumped to (41 in test/a, 44 in test/b),

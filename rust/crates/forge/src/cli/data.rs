@@ -405,6 +405,7 @@ fn run() -> Result<(), Fail> {
 		"talents" => return talents(args.collect()),
 		"maps" => return maps(args.collect()),
 		"newquests" => return newquests(args.collect()),
+		"diff" => return diff(args.collect()),
 		_ => {}
 	}
 	if cmd != "build" {
@@ -1158,9 +1159,70 @@ pub(super) fn sub_usage(sub: &str) -> Option<&'static str> {
 		"talents" => TALENTS_USAGE,
 		"maps" => MAPS_USAGE,
 		"newquests" => NEWQUESTS_USAGE,
+		"diff" => DIFF_USAGE,
 		"build" => USAGE,
 		_ => return None,
 	})
+}
+
+pub(super) const DIFF_USAGE: &str = "usage: forge data diff --old <dir> --new <dir> [--root <checkout>] [--corrections <dir>] [--out <dir>]
+
+The data-diff gate: a data build (--new, a data/forever folder) against the live release's (--old),
+per NPC, object and quest: spawn points (big jumps), roles (rare, elite, boss, vendor, trainer...),
+the Codex's rare/elite/boss flags, faction, givers and enders, an ender's place, level and minimum
+level, prerequisites; spawn heights and travel in counts. Then the invariants a release holds:
+  friendly-rare    no NPC on a player faction's side is a rare in the Codex (or, without one, in npcs.json)
+  leader-spawns    a faction leader in a capital keeps at most 5 places (or its old count; points within
+                   30 yd are one place), each point within 60 yd of one it had, unless a correction
+                   record names it
+  capital-spawns   an NPC of a player faction in 1-5 places, all in a capital, keeps at most 5, no point
+                   more than 200 yd from where it stood, unless a correction record names it
+  spawn-jump       no NPC goes from 3 points or fewer to more than 20 unless it is a known roamer
+  ender-moved      no quest's hand-in moves more than 200 yd unless a correction record names the
+                   quest or the ender
+Writes <out>/data-diff.md and data-diff.json; the last line printed is `data diff: PASS ...` or
+`data diff: FAIL <n> violation(s) ...`. Exits 1 on a violation, 2 on a usage error.
+  --old DIR          the live release's data/forever (a copy kept from its build)
+  --new DIR          the build to check (default: <root>/data/forever)
+  --corrections DIR  the correction records (default: <root>/forever-db/corrections)
+  --out DIR          where the report goes (default: the --new folder)
+  --root DIR         the checkout (default: the one above the current folder)";
+
+fn diff(args: Vec<String>) -> Result<(), Fail> {
+	let (kv, _, pos) = opts(args, &["--root", "--old", "--new", "--corrections", "--out"], &[])?;
+	if let Some(p) = pos.first() {
+		return Err(usage(format!("unexpected argument {p}")));
+	}
+	let get = |k: &str| kv.iter().rev().find(|(a, _)| a == k).map(|(_, v)| abs(v.clone()));
+	let old = get("--old").ok_or_else(|| usage("--old <the live release's data/forever> is needed"))?;
+	let root = || root_of(&kv);
+	let new = match get("--new") {
+		Some(n) => n,
+		None => root()?.join("data").join("forever"),
+	};
+	let corrections = match get("--corrections") {
+		Some(c) => c,
+		None => root()?.join("forever-db").join("corrections"),
+	};
+	let out = get("--out").unwrap_or_else(|| new.clone());
+	let (o, n) = (forge_data::diff::Side::load(&old)?, forge_data::diff::Side::load(&new)?);
+	let rep = forge_data::diff::diff(&o, &n, &forge_data::diff::Corrections::load(&corrections)?);
+	std::fs::create_dir_all(&out).map_err(|e| format!("{}: {e}", out.display()))?;
+	let md = out.join("data-diff.md");
+	std::fs::write(&md, forge_data::diff::markdown(&rep, &old.display().to_string(), &new.display().to_string())).map_err(|e| format!("{}: {e}", md.display()))?;
+	let json = out.join("data-diff.json");
+	std::fs::write(&json, serde_json::to_string_pretty(&rep).map_err(|e| e.to_string())? + "\n").map_err(|e| format!("{}: {e}", json.display()))?;
+	for v in &rep.violations {
+		println!("  {} {} {} {}: {}", v.rule, v.kind, v.id, v.name, v.detail);
+	}
+	println!("report: {} (and data-diff.json)", rel(&md));
+	let verdict = forge_data::diff::verdict(&rep);
+	println!("{verdict}");
+	if rep.violations.is_empty() {
+		Ok(())
+	} else {
+		Err(Fail::Run(verdict))
+	}
 }
 
 pub(super) const CHECK_USAGE: &str = "usage: forge data check-corrections [--root <checkout>] [--data <dir>] [--corrections <path>]

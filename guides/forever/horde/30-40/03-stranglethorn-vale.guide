@@ -148,7 +148,7 @@ step Nesingwary's Expedition: kill these as you meet them
   tip River Crocolisks lie along the river below the camp. Young Stranglethorn Tigers prowl west of the camp, Young Panthers east of it. Head west past the camp. Stranglethorn Raptors (33-34) hunt the clearings, and the Bloodscalp trolls hold the ruins on the coast: every Bloodscalp can drop a tusk. A Pendant of Myzrael is a very rare drop from them: if one drops, read it. Careful: The troll camps have many patrolling mobs, so other trolls often join a fight.
   collect 4053 quest 575
   kill 681 quest 185
-  kill 683 quest 190
+  kill 683 quest 190 @39.81,11 map 1434 era
   collect 3901 quest 581
   collect 4614 x1 optional
   accept 635 optional
@@ -161,8 +161,8 @@ step Nesingwary's camp
 
 step Stranglethorn Vale: kill these as you meet them
   zone Stranglethorn Vale
-  tip Stranglethorn Tigers (32) roam the hills around the camp and south of it, Panthers (32) the clearings west and south-west of it. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by Lake Nazferiti, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them.
-  kill 682 quest 186
+  tip Stranglethorn Tigers (32) roam the hills west of the camp and east of it toward the lake: the arrow takes the eastern ones, on your way to the geologists. Panthers (32) roam the clearings west and south-west of the camp. The Venture Co. Geologists (34-36), who carry the Tumbled Crystals, work the camps by Lake Nazferiti, south-east of the camp. Careful: Venture Co. Agents (39) stand among the geologists in the western camps by the Venture Co. house: work the eastern camps, away from them.
+  kill 682 quest 186 @45,15 map 1434 era
   collect 4106 quest 213 @46.3,21.4 map 1434 -- Tumbled Crystals, from the geologists of the eastern camps
   kill 736 quest 191
 

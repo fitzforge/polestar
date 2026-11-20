@@ -3,7 +3,7 @@ title Eastern Plaguelands, Winterspring & Tanaris
 faction Horde
 levels 56-58
 zone Eastern Plaguelands
-next forever/horde/50-60/06-silithus
+next forever/50-60/mount-hyjal
 # Built from the playthrough simulator's consensus route (Horde, visits
 # 86-93) and machine-checked with lint; not play-tested on Forever yet.
 #
