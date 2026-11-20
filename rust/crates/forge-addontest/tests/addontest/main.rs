@@ -82,6 +82,8 @@ mod engine_along;
 mod engine_already_across;
 #[path = "engine-alt-start.rs"]
 mod engine_alt_start;
+#[path = "engine-arrival-height.rs"]
+mod engine_arrival_height;
 #[path = "engine-carried.rs"]
 mod engine_carried;
 #[path = "engine-carried-work.rs"]
