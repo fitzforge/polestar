@@ -77,8 +77,8 @@ return {
 	["Below ground"] = "Unter der Erde",
 
 	-- Step 20: Kernda
-	-- {area:1762} Felpaw Village · {npc:11558} Kernda · {area:1769} Timbermaw Hold · {zone:1448} Felwood
-	["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then: she waits at the tunnel mouth of {area:1769} and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of {zone:1448} brought you to."] = "Das Totem der Deadwood aus {area:1762}, falls {npc:11558} es dir damals nicht abgenommen hat: Sie wartet am Tunneleingang von {area:1769} und spricht mit dir bei Neutral mit den Timbermaw, was dir die Deadwood-Furbolgs von {zone:1448} gebracht haben.",
+	-- {area:1762} Felpaw Village · {area:1769} Timbermaw Hold · {npc:11558} Kernda
+	["The Deadwood totem from {area:1762}, if you are Neutral with the Timbermaw now (the {area:1769} reputation guide gets you there): {npc:11558} waits at the tunnel mouth of {area:1769}."] = "",
 	-- {npc:11558} Kernda
 	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558} läuft hier herum: schau in den Kreis auf der Karte",
 
@@ -183,6 +183,7 @@ return {
 	-- ["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one."] = "Reite nach Nordwesten nach {area:1763}. Die vier Kohlenbecken stehen zwischen den Gebäuden des Schattenrats; benutze das gereinigte Wasser an jedem.",
 	-- ["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended."] = "Reite nach Nordwesten zu {area:1763}. Die vier Feuerschalen stehen zwischen den Gebäuden des Shadow Council; benutze das Cleansed Water an jeder einzelnen.\nVorsicht: Mobs des Shadow Council der Stufen 53-55 füllen die Höhle und kommen oft in großen verbundenen Gruppen, viele mit Betäubungen. Eine Gruppe aus 2-3 Spielern ist empfohlen.",
 	-- ["South to the Sanctuary once more."] = "Noch einmal nach Süden zum Refugium.",
+	-- ["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then: she waits at the tunnel mouth of {area:1769} and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of {zone:1448} brought you to."] = "Das Totem der Deadwood aus {area:1762}, falls {npc:11558} es dir damals nicht abgenommen hat: Sie wartet am Tunneleingang von {area:1769} und spricht mit dir bei Neutral mit den Timbermaw, was dir die Deadwood-Furbolgs von {zone:1448} gebracht haben.",
 	-- ["The quests run out here. Rabid Shardtooths prowl {area:2249} in southern {area:618}, south of the road from {area:2255}."] = "Hier gehen die Quests aus. Tollwütige Splitterzähne streifen durch die {area:2249} im südlichen {area:618}, südlich der Straße von {area:2255}.",
 	-- ["The quests run out here. Rabid Shardtooths prowl {area:2249} in southern {zone:1452}, south of the road from {area:2255}."] = "Hier gehen die Quests aus. Tollwütige Splitterzähne streifen durch die {area:2249} im südlichen {zone:1452}, südlich der Straße von {area:2255}.",
 	-- ["The zeppelin towers"] = "Die Zeppelintürme",

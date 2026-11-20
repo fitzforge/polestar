@@ -246,11 +246,11 @@ return {
 	-- Step 50: Irontree Woods
 	["Below ground"] = "Под землей",
 
-	-- Step 51: Felpaw Village
-	-- {npc:9462} Chieftain Bloodmaw · {npc:11557} Meilosh
-	["The Deadwood furbolg village just west of the tunnel. {npc:9462} (56) stands among them. {npc:11557}, a friendly furbolg, sits at the north end of the village."] = "Деревня фурболгов Мертвого Леса чуть к западу от туннеля. {npc:9462} (56) стоит среди них. {npc:11557}, дружелюбный фурболг, сидит в северной части деревни.",
+	-- Step 51: Meilosh
+	-- {npc:11557} Meilosh · {zone:1448} Felwood · {quest:6031} Runecloth · {area:1769} Timbermaw Hold
+	["Only from Friendly with the Timbermaw: {npc:11557}, in the tunnel near its {zone:1448} mouth, gives {quest:6031} then (the {area:1769} reputation guide gets you there)."] = "",
 	-- {npc:11557} Meilosh · {quest:6031} Runecloth
-	["{npc:11557}: keep 30 {quest:6031} for him; he trades only at Neutral with the Timbermaw; below ground"] = "{npc:11557}: сохраните для него 30 шт. ({quest:6031}); он торгует только при нейтральном отношении Древобрюхов; под землей",
+	["{npc:11557}: keep 30 {quest:6031} for him; below ground"] = "",
 
 	-- Step 52: Nafien
 	-- {npc:15395} Nafien · {area:1769} Timbermaw Hold
@@ -259,7 +259,7 @@ return {
 	-- Step 53: Felpaw Village
 	-- {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {area:1769} Timbermaw Hold
 	-- plural, as words: Deadwood Avengers = {npc:7157} Deadwood Avenger
-	["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "Осторожно: дозорные – 53-54 уровня, мстители из племени Мертвого Леса – 54-55; при здоровье ниже 50% они зовут союзников в радиусе 25 м, а ниже 15% убегают за помощью.\nУбивайте их, пока не выпадет {quest:8470} (примерно один на тридцать), затем нажмите на него правой кнопкой: {npc:11558} ({area:1769}) примет его, когда Древобрюхи станут к вам равнодушны – сейчас, если уже, или когда последний гайд снова пройдет мимо пещеры на 59.",
+	["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it. {npc:11558} in {area:1769} takes it only from Neutral with the Timbermaw (the {area:1769} reputation guide gets you there): now if they already are, or on the last guide's pass of the cave."] = "",
 
 	-- Step 54: Nafien
 	-- {quest:8465} Speak to Salfa · {zone:1452} Winterspring
@@ -267,13 +267,14 @@ return {
 
 	-- Step 55: Timbermaw Hold
 	-- {npc:11558} Kernda
-	["Step into the cave: {npc:11558} stands just inside."] = "Войдите в пещеру: {npc:11558} стоит сразу у входа.",
+	["Step into the cave: {npc:11558} stands just inside. She speaks to you only from Neutral with the Timbermaw."] = "",
 	-- {npc:11558} Kernda
-	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558}: Древобрюхи разговаривают с вами только начиная с уровня «Равнодушие»; ходит здесь: ищите внутри круга на карте",
+	["{npc:11558} walks around here: look inside the circle on the map"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A {item:13140} dropped: use it to start the quest, then free {npc:11018} from her cage in {area:1770}, the cave at the north end of {area:1763}."] = "Выпал предмет {item:13140}: используйте его, чтобы начать задание, затем освободите персонажа {npc:11018} из клетки ({area:1770} – пещера в северной части места {area:1763}).",
 	-- ["Back at {area:1762}, the Deadwood furbolgs (53-54) are close to the tunnel and every kill raises your Timbermaw reputation."] = "Снова здесь: {area:1762} – фурболги Мертвого Леса (53-54) рядом с туннелем, и каждое убийство повышает репутацию у Древобрюхов.",
+	-- ["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "Осторожно: дозорные – 53-54 уровня, мстители из племени Мертвого Леса – 54-55; при здоровье ниже 50% они зовут союзников в радиусе 25 м, а ниже 15% убегают за помощью.\nУбивайте их, пока не выпадет {quest:8470} (примерно один на тридцать), затем нажмите на него правой кнопкой: {npc:11558} ({area:1769}) примет его, когда Древобрюхи станут к вам равнодушны – сейчас, если уже, или когда последний гайд снова пройдет мимо пещеры на 59.",
 	-- ["Cross the river east into {area:2627}, the ruined town in the north-west of the {zone:1423}. {npc:12384} sits in a hut at its edge."] = "Переправьтесь через реку на восток в место {area:2627} – разрушенный город на северо-западе края {zone:1423}. {npc:12384} сидит в хижине на его окраине.",
 	-- ["Derrington's watchtowers, Vandis' cauldron and {npc:11615}'s barrel are done on a later visit: keep them."] = "Сторожевые башни Деррингтона, котел Вандис и бочка {npc:11615} – в следующий визит: сохраните эти задания.",
 	-- ["Diseased Grizzlies"] = "Больные гризли",
@@ -308,9 +309,11 @@ return {
 	-- ["Ror stands at the far south end of {area:1761}."] = "Рор стоит в дальней южной части места {area:1761}.",
 	-- ["Scarlet Crusade"] = "Алый орден",
 	-- ["Scarlet forward camp"] = "Передовой лагерь Алого ордена",
+	-- ["Step into the cave: {npc:11558} stands just inside."] = "Войдите в пещеру: {npc:11558} стоит сразу у входа.",
 	-- ["Take the kitten to the same moonwell and release it there with {item:12565}; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "Отнесите котенка к тому же лунному колодцу и выпустите его там с помощью предмета {item:12565}; когда он превратится в монстра {npc:10042}, приведите его к {npc:9996} и щелкните по нему, чтобы передать.",
 	-- ["Take the kitten to the same moonwell and release it there; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "Отнесите котенка к тому же лунному колодцу и выпустите его; когда он превратится в монстра {npc:10042}, приведите его к {npc:9996} и щелкните по нему, чтобы передать.",
 	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "Летопись лежит среди затхлых фолиантов ({object:176150}) в ратуше Андорала; открывайте их, пока не найдете нужный.",
+	-- ["The Deadwood furbolg village just west of the tunnel. {npc:9462} (56) stands among them. {npc:11557}, a friendly furbolg, sits at the north end of the village."] = "Деревня фурболгов Мертвого Леса чуть к западу от туннеля. {npc:9462} (56) стоит среди них. {npc:11557}, дружелюбный фурболг, сидит в северной части деревни.",
 	-- ["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and {area:1763} want it. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "Деревня фурболгов племени Мертвого Леса – чуть к югу от святилища. Каждое убийство фурболга Мертвого Леса повышает репутацию ({area:1769}); сохраняйте перья из головных уборов. Убивайте их до уровня 53.92: этого требуют следующие задания святилища и {area:1763}. Или с группой пройдите подземелье {area:1417} или {area:1584}.",
 	-- ["The Jadefire moonwell"] = "Лунный колодец Нефритового Пламени",
 	-- ["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "Палатки Алого ордена стоят между местами {area:199} и {area:200}. Подожгите командную палатку ({object:176092}) и установите знамя Плети.",
@@ -333,7 +336,9 @@ return {
 	-- ["{area:2627}: kill these as you meet them"] = "{area:2627}: убивайте их по мере встречи",
 	-- ["{item:12565}, at the Jadefire moonwell"] = "{item:12565}, у лунного колодца Нефритового Пламени",
 	-- ["{npc:10840}, at the graveyard's south end"] = "{npc:10840}, в южной части кладбища",
+	-- ["{npc:11557}: keep 30 {quest:6031} for him; he trades only at Neutral with the Timbermaw; below ground"] = "{npc:11557}: сохраните для него 30 шт. ({quest:6031}); он торгует только при нейтральном отношении Древобрюхов; под землей",
 	-- ["{npc:11558}, at the tunnel mouth"] = "{npc:11558}, у входа в туннель",
+	-- ["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558}: Древобрюхи разговаривают с вами только начиная с уровня «Равнодушие»; ходит здесь: ищите внутри круга на карте",
 	-- ["{npc:11610}'s last task needs level 53. The Scarlet Knights and Magi (54-55) working the lumber camp just south-west of her are the closest camp."] = "Последнее задание {npc:11610} требует 53-го уровня. Рыцари и волхвы из Алого ордена (54-55) на лесопилке чуть к юго-западу от нее – ближайшее место.",
 	-- ["{npc:11613} stands east of the lumber camp; {npc:11611} guards the road north-east of {npc:11610}, toward {area:190}."] = "{npc:11613} стоит к востоку от лесопилки; {npc:11611} охраняет дорогу к северо-востоку от {npc:11610}, в сторону места {area:190}.",
 	-- ["{npc:1855}'s hunts are in the {zone:1423}: keep them for later."] = "Охоты от {npc:1855} – здесь: {zone:1423}: сохраните их на потом.",

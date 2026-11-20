@@ -57,7 +57,6 @@ return {
 	-- was: ["Keep {quest:3942}: {npc:9116} is at the {area:2479}, on the next guide's way through {zone:1448}."] = "Guarda {quest:3942}: {npc:9116} está en {area:2479}, de camino por {zone:1448} en la siguiente guía."
 	["Keep {quest:3942}: {npc:9116} is at the {area:2479}, on the last guide's way through {zone:1448}."] = "",
 	-- {item:12928} Umi's Mechanical Yeti · {npc:10977} Quixxil
-	-- was: ["Use {npc:10980} on {npc:10977}"] = "Usa {npc:10980} con {npc:10977}"
 	["Use {item:12928} on {npc:10977}"] = "",
 	-- {npc:10977} Quixxil · {item:12928} Umi's Mechanical Yeti
 	["Scare {npc:10977} with {item:12928}"] = "",

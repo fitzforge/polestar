@@ -76,8 +76,8 @@ return {
 	["Below ground"] = "地下",
 
 	-- Step 20: Kernda
-	-- {area:1762} Felpaw Village · {npc:11558} Kernda · {area:1769} Timbermaw Hold · {zone:1448} Felwood
-	["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then: she waits at the tunnel mouth of {area:1769} and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of {zone:1448} brought you to."] = "{area:1762}的死木圖騰，如果當時{npc:11558}沒收：她在{area:1769}的隧道口等著，只要木喉聲望達到中立就會跟你說話——這個聲望是你在{zone:1448}打死木熊怪刷出來的。",
+	-- {area:1762} Felpaw Village · {area:1769} Timbermaw Hold · {npc:11558} Kernda
+	["The Deadwood totem from {area:1762}, if you are Neutral with the Timbermaw now (the {area:1769} reputation guide gets you there): {npc:11558} waits at the tunnel mouth of {area:1769}."] = "",
 	-- {npc:11558} Kernda
 	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558}在附近巡邏，請在地圖示示的圓圈內尋找",
 
@@ -179,6 +179,7 @@ return {
 	-- ["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "向東騎，然後沿著{area:2249}向南走。那裡的霜槌巨人是59級精英：走在中間並持續移動。奇怪的來源在南端的{area:2256}入口。",
 	-- ["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended."] = "向西北騎往{area:1763}。四個火盆位於教徒的建築之間；對每個火盆使用淨化過的水。\n小心：洞穴裡滿是53-55級的暗影議會怪物，常常成群連動，很多會擊暈。建議2-3人組隊。",
 	-- ["South to the Sanctuary once more."] = "再次向南前往聖地。",
+	-- ["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then: she waits at the tunnel mouth of {area:1769} and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of {zone:1448} brought you to."] = "{area:1762}的死木圖騰，如果當時{npc:11558}沒收：她在{area:1769}的隧道口等著，只要木喉聲望達到中立就會跟你說話——這個聲望是你在{zone:1448}打死木熊怪刷出來的。",
 	-- ["The quests run out here. Rabid Shardtooths prowl {area:2249} in southern {area:618}, south of the road from {area:2255}."] = "任務到這裡就沒了。瘋狂的碎齒熊在{area:618}南部、{area:2255}出來的道路南邊的{area:2249}徘徊。",
 	-- ["The quests run out here. Rabid Shardtooths prowl {area:2249} in southern {zone:1452}, south of the road from {area:2255}."] = "任務到這裡就沒了。瘋狂的碎齒熊在{zone:1452}南部、{area:2255}出來的道路南邊的{area:2249}徘徊。",
 	-- ["The zeppelin towers"] = "飛艇塔",

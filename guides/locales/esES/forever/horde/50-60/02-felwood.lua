@@ -246,11 +246,11 @@ return {
 	-- Step 50: Irontree Woods
 	["Below ground"] = "Bajo tierra",
 
-	-- Step 51: Felpaw Village
-	-- {npc:9462} Chieftain Bloodmaw · {npc:11557} Meilosh
-	["The Deadwood furbolg village just west of the tunnel. {npc:9462} (56) stands among them. {npc:11557}, a friendly furbolg, sits at the north end of the village."] = "El poblado de fúrbolgs Muertobosque justo al oeste del túnel. {npc:9462} (56) está entre ellos. {npc:11557}, un fúrbolg amistoso, está sentado en el extremo norte del poblado.",
+	-- Step 51: Meilosh
+	-- {npc:11557} Meilosh · {zone:1448} Felwood · {quest:6031} Runecloth · {area:1769} Timbermaw Hold
+	["Only from Friendly with the Timbermaw: {npc:11557}, in the tunnel near its {zone:1448} mouth, gives {quest:6031} then (the {area:1769} reputation guide gets you there)."] = "",
 	-- {npc:11557} Meilosh · {quest:6031} Runecloth
-	["{npc:11557}: keep 30 {quest:6031} for him; he trades only at Neutral with the Timbermaw; below ground"] = "{npc:11557}: guarda 30 de {quest:6031} para él; solo comercia en Neutral con los Fauces de Madera; bajo tierra",
+	["{npc:11557}: keep 30 {quest:6031} for him; below ground"] = "",
 
 	-- Step 52: Nafien
 	-- {npc:15395} Nafien · {area:1769} Timbermaw Hold
@@ -259,7 +259,7 @@ return {
 	-- Step 53: Felpaw Village
 	-- {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {area:1769} Timbermaw Hold
 	-- plural, as words: Deadwood Avengers = {npc:7157} Deadwood Avenger
-	["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "Cuidado: los Vigías del cubil son de nivel 53-54 y los Vengadores Muertobosque de 54-55; por debajo del 50% de salud llaman a los aliados en 25 m y por debajo del 15% huyen a pedir ayuda.\nSigue matándolos hasta que uno suelte {quest:8470}, más o menos uno de cada treinta, y haz clic derecho sobre él: {npc:11558}, en {area:1769}, lo acepta cuando los Fauces de Madera te sean neutrales; ahora si ya lo son, o cuando la última guía vuelva a pasar por la cueva al 59.",
+	["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it. {npc:11558} in {area:1769} takes it only from Neutral with the Timbermaw (the {area:1769} reputation guide gets you there): now if they already are, or on the last guide's pass of the cave."] = "",
 
 	-- Step 54: Nafien
 	-- {quest:8465} Speak to Salfa · {zone:1452} Winterspring
@@ -267,13 +267,14 @@ return {
 
 	-- Step 55: Timbermaw Hold
 	-- {npc:11558} Kernda
-	["Step into the cave: {npc:11558} stands just inside."] = "Entra en la cueva: {npc:11558} está justo dentro.",
+	["Step into the cave: {npc:11558} stands just inside. She speaks to you only from Neutral with the Timbermaw."] = "",
 	-- {npc:11558} Kernda
-	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558}: los Fauces de Madera solo te hablan desde Neutral; recorre esta zona: busca dentro del círculo del mapa",
+	["{npc:11558} walks around here: look inside the circle on the map"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A {item:13140} dropped: use it to start the quest, then free {npc:11018} from her cage in {area:1770}, the cave at the north end of {area:1763}."] = "Cayó una {item:13140}: úsala para iniciar la misión y luego libera a {npc:11018} de su jaula en {area:1770}, la cueva al norte de {area:1763}.",
 	-- ["Back at {area:1762}, the Deadwood furbolgs (53-54) are close to the tunnel and every kill raises your Timbermaw reputation."] = "De vuelta en {area:1762}, los fúrbolgs Muertobosque (53-54) están cerca del túnel y cada muerte sube tu reputación con los Fauces de Madera.",
+	-- ["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "Cuidado: los Vigías del cubil son de nivel 53-54 y los Vengadores Muertobosque de 54-55; por debajo del 50% de salud llaman a los aliados en 25 m y por debajo del 15% huyen a pedir ayuda.\nSigue matándolos hasta que uno suelte {quest:8470}, más o menos uno de cada treinta, y haz clic derecho sobre él: {npc:11558}, en {area:1769}, lo acepta cuando los Fauces de Madera te sean neutrales; ahora si ya lo son, o cuando la última guía vuelva a pasar por la cueva al 59.",
 	-- ["Cross the river east into {area:2627}, the ruined town in the north-west of the {zone:1423}. {npc:12384} sits in a hut at its edge."] = "Cruza el río al este hasta {area:2627}, el pueblo en ruinas del noroeste de {zone:1423}. {npc:12384} está sentado en una choza en sus afueras.",
 	-- ["Derrington's watchtowers, Vandis' cauldron and {npc:11615}'s barrel are done on a later visit: keep them."] = "Las atalayas de Derrington, el caldero de Vandis y el barril de {npc:11615} se hacen en una visita posterior: guárdalas.",
 	-- ["Diseased Grizzlies"] = "Griseznos malsanos",
@@ -308,9 +309,11 @@ return {
 	-- ["Ror stands at the far south end of {area:1761}."] = "El Señor Supremo Ror está en el extremo sur de {area:1761}.",
 	-- ["Scarlet Crusade"] = "Cruzada Escarlata",
 	-- ["Scarlet forward camp"] = "Campamento avanzado Escarlata",
+	-- ["Step into the cave: {npc:11558} stands just inside."] = "Entra en la cueva: {npc:11558} está justo dentro.",
 	-- ["Take the kitten to the same moonwell and release it there with {item:12565}; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "Lleva el gatito a la misma poza de la luna y suéltalo allí con {item:12565}; cuando se haya convertido en un {npc:10042}, llévalo de vuelta a {npc:9996} y haz clic en él para entregarlo.",
 	-- ["Take the kitten to the same moonwell and release it there; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "Lleva el gatito a la misma poza de la luna y suéltalo allí; cuando se haya convertido en un {npc:10042}, llévalo de vuelta a {npc:9996} y haz clic en él para entregarlo.",
 	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "Los Anales están entre los Libros enmohecidos del ayuntamiento de Andorhal; ábrelos hasta dar con el correcto.",
+	-- ["The Deadwood furbolg village just west of the tunnel. {npc:9462} (56) stands among them. {npc:11557}, a friendly furbolg, sits at the north end of the village."] = "El poblado de fúrbolgs Muertobosque justo al oeste del túnel. {npc:9462} (56) está entre ellos. {npc:11557}, un fúrbolg amistoso, está sentado en el extremo norte del poblado.",
 	-- ["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and {area:1763} want it. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "El poblado de los fúrbolgs Muertobosque está justo al sur del Santuario. Cada Muertobosque que mates también sube tu reputación con {area:1769}; guarda las plumas de penacho. Sigue matándolos hasta el nivel 53.92: las siguientes entregas del Santuario y {area:1763} lo piden. O, con un grupo, haz en su lugar la mazmorra {area:1417} o la mazmorra {area:1584}.",
 	-- ["The Jadefire moonwell"] = "La poza de la luna Fuego de Jade",
 	-- ["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "Las tiendas de la Cruzada Escarlata están entre {area:199} y {area:200}. Incendia la tienda de mando con la {object:176092} y planta el estandarte de la Plaga.",
@@ -332,7 +335,9 @@ return {
 	-- ["{area:2627}: kill these as you meet them"] = "{area:2627}: mata a estos según te los encuentres",
 	-- ["{item:12565}, at the Jadefire moonwell"] = "{item:12565}, en la poza de la luna Fuego de Jade",
 	-- ["{npc:10840}, at the graveyard's south end"] = "{npc:10840}, en el extremo sur del cementerio",
+	-- ["{npc:11557}: keep 30 {quest:6031} for him; he trades only at Neutral with the Timbermaw; below ground"] = "{npc:11557}: guarda 30 de {quest:6031} para él; solo comercia en Neutral con los Fauces de Madera; bajo tierra",
 	-- ["{npc:11558}, at the tunnel mouth"] = "{npc:11558}, en la boca del túnel",
+	-- ["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558}: los Fauces de Madera solo te hablan desde Neutral; recorre esta zona: busca dentro del círculo del mapa",
 	-- ["{npc:11610}'s last task needs level 53. The Scarlet Knights and Magi (54-55) working the lumber camp just south-west of her are the closest camp."] = "La última tarea de {npc:11610} requiere nivel 53. Los Caballeros Escarlata y magos (54-55) del aserradero justo al suroeste de ella son el campamento más cercano.",
 	-- ["{npc:11613} stands east of the lumber camp; {npc:11611} guards the road north-east of {npc:11610}, toward {area:190}."] = "{npc:11613} está al este del aserradero; {npc:11611} vigila el camino al noreste de {npc:11610}, hacia {area:190}.",
 	-- ["{npc:1855}'s hunts are in the {zone:1423}: keep them for later."] = "Las cacerías de {npc:1855} están en {zone:1423}: guárdalas para más tarde.",

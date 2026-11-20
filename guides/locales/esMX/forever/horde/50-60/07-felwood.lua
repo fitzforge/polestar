@@ -77,8 +77,8 @@ return {
 	["Below ground"] = "Bajo tierra",
 
 	-- Step 20: Kernda
-	-- {area:1762} Felpaw Village · {npc:11558} Kernda · {area:1769} Timbermaw Hold · {zone:1448} Felwood
-	["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then: she waits at the tunnel mouth of {area:1769} and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of {zone:1448} brought you to."] = "El tótem Muertobosque de {area:1762}, si {npc:11558} no lo recibió entonces: espera en la entrada del túnel de {area:1769} y te habla desde Neutral con los Fauces de Madera, a lo que te llevaron los fúrbolgs Muertobosque de {zone:1448}.",
+	-- {area:1762} Felpaw Village · {area:1769} Timbermaw Hold · {npc:11558} Kernda
+	["The Deadwood totem from {area:1762}, if you are Neutral with the Timbermaw now (the {area:1769} reputation guide gets you there): {npc:11558} waits at the tunnel mouth of {area:1769}."] = "",
 	-- {npc:11558} Kernda
 	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558} da vueltas por aquí: búscala dentro del círculo del mapa",
 
@@ -183,6 +183,7 @@ return {
 	-- ["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one."] = "Cabalga al noroeste hasta {area:1763}. Los cuatro blandones están entre los edificios del Consejo de la Sombra; usa el agua purificada en cada uno.",
 	-- ["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended."] = "Ve al noroeste hasta {area:1763}. Los cuatro braseros están entre los edificios del Consejo de la Sombra; usa el Agua purificada en cada uno.\nCuidado: Enemigos del Consejo de la Sombra de nivel 53-55 llenan la cueva y suelen venir en grandes grupos vinculados, muchos con aturdimientos. Se recomienda un grupo de 2-3 jugadores.",
 	-- ["South to the Sanctuary once more."] = "Al sur, al Santuario, una vez más.",
+	-- ["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then: she waits at the tunnel mouth of {area:1769} and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of {zone:1448} brought you to."] = "El tótem Muertobosque de {area:1762}, si {npc:11558} no lo recibió entonces: espera en la entrada del túnel de {area:1769} y te habla desde Neutral con los Fauces de Madera, a lo que te llevaron los fúrbolgs Muertobosque de {zone:1448}.",
 	-- ["The quests run out here. Rabid Shardtooths prowl {area:2249} in southern {area:618}, south of the road from {area:2255}."] = "Aquí se acaban las misiones. Los Dentoesquirlas rabiosos merodean en {area:2249}, al sur de {area:618}, al sur del camino desde {area:2255}.",
 	-- ["The quests run out here. Rabid Shardtooths prowl {area:2249} in southern {zone:1452}, south of the road from {area:2255}."] = "Aquí se acaban las misiones. Los Dentoesquirlas rabiosos merodean en {area:2249}, al sur de {zone:1452}, al sur del camino desde {area:2255}.",
 	-- ["The zeppelin towers"] = "Las torres del zepelín",

@@ -145,6 +145,7 @@ return {
 	-- {npc:5591} Dar
 	["{npc:5591}, inside"] = "",
 	-- {npc:1443} Fel'zerul
+	-- was: ["{npc:2488}, on the top floor"] = "{npc:2488}，位于最顶层"
 	["{npc:1443}, on the top floor"] = "",
 
 	-- Step 35: A Soggy Scroll

@@ -57,10 +57,8 @@ return {
 	-- was: ["Keep {quest:3942}: {npc:9116} is at the {area:2479}, on the next guide's way through {zone:1448}."] = "Behalte {quest:3942}: {npc:9116} ist im Refugium ({area:2479}), auf dem Weg des nächsten Guides durch den {zone:1448}."
 	["Keep {quest:3942}: {npc:9116} is at the {area:2479}, on the last guide's way through {zone:1448}."] = "",
 	-- {item:12928} Umi's Mechanical Yeti · {npc:10977} Quixxil
-	-- was: ["Use {npc:10980} on {npc:10977}"] = "Benutze {npc:10980} an {npc:10977}"
 	["Use {item:12928} on {npc:10977}"] = "",
 	-- {npc:10977} Quixxil · {item:12928} Umi's Mechanical Yeti
-	-- was: ["Scare {npc:10977} with {npc:10980}"] = "Erschrecke {npc:10977} mit {npc:10980}"
 	["Scare {npc:10977} with {item:12928}"] = "",
 
 	-- Step 10: Layo Starstrike

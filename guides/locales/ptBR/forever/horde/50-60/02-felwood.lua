@@ -247,11 +247,11 @@ return {
 	-- Step 50: Irontree Woods
 	["Below ground"] = "No subterrâneo",
 
-	-- Step 51: Felpaw Village
-	-- {npc:9462} Chieftain Bloodmaw · {npc:11557} Meilosh
-	["The Deadwood furbolg village just west of the tunnel. {npc:9462} (56) stands among them. {npc:11557}, a friendly furbolg, sits at the north end of the village."] = "A aldeia dos furbolgs Lenha Morta, logo a oeste do túnel. {npc:9462} (56) fica entre eles. {npc:11557}, um furbolg amistoso, fica no extremo norte da aldeia.",
+	-- Step 51: Meilosh
+	-- {npc:11557} Meilosh · {zone:1448} Felwood · {quest:6031} Runecloth · {area:1769} Timbermaw Hold
+	["Only from Friendly with the Timbermaw: {npc:11557}, in the tunnel near its {zone:1448} mouth, gives {quest:6031} then (the {area:1769} reputation guide gets you there)."] = "",
 	-- {npc:11557} Meilosh · {quest:6031} Runecloth
-	["{npc:11557}: keep 30 {quest:6031} for him; he trades only at Neutral with the Timbermaw; below ground"] = "{npc:11557}: guarde 30 {quest:6031} para ele; ele só negocia a partir de Neutro com os Presamatos; no subterrâneo",
+	["{npc:11557}: keep 30 {quest:6031} for him; below ground"] = "",
 
 	-- Step 52: Nafien
 	-- {npc:15395} Nafien · {area:1769} Timbermaw Hold
@@ -260,7 +260,7 @@ return {
 	-- Step 53: Felpaw Village
 	-- {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {area:1769} Timbermaw Hold
 	-- plural, as words: Deadwood Avengers = {npc:7157} Deadwood Avenger
-	["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "Cuidado: os Vigias do Covil têm nível 53-54 e os Vingadores de Lenha Morta 54-55; chamam aliados num raio de 25 m quando ficam abaixo de 50% de vida e fogem atrás de ajuda abaixo de 15%.\nContinue matando-os até um soltar {quest:8470}, cerca de uma morte em trinta, e então clique nele com o botão direito: {npc:11558}, em {area:1769}, aceita-o quando os Presamatos estiverem Neutros com você, agora, se já estiverem, ou quando o último guia passar pela caverna de novo no nível 59.",
+	["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it. {npc:11558} in {area:1769} takes it only from Neutral with the Timbermaw (the {area:1769} reputation guide gets you there): now if they already are, or on the last guide's pass of the cave."] = "",
 
 	-- Step 54: Nafien
 	-- {quest:8465} Speak to Salfa · {zone:1452} Winterspring
@@ -268,14 +268,15 @@ return {
 
 	-- Step 55: Timbermaw Hold
 	-- {npc:11558} Kernda
-	["Step into the cave: {npc:11558} stands just inside."] = "Entre na caverna: {npc:11558} fica logo na entrada.",
+	["Step into the cave: {npc:11558} stands just inside. She speaks to you only from Neutral with the Timbermaw."] = "",
 	-- {npc:11558} Kernda
-	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558}: os Presamatos só falam com você a partir de Neutro; anda por aqui: procure dentro do círculo no mapa",
+	["{npc:11558} walks around here: look inside the circle on the map"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A {item:13140} dropped: use it to start the quest, then free {npc:11018} from her cage in {area:1770}, the cave at the north end of {area:1763}."] = "Caiu uma {item:13140}: use-a para iniciar a missão e depois liberte {npc:11018} da jaula dela em {area:1770}, a caverna no extremo norte de {area:1763}.",
 	-- ["Back at the {area:2479}."] = "De volta a {area:2479}.",
 	-- ["Back at {area:1762}, the Deadwood furbolgs (53-54) are close to the tunnel and every kill raises your Timbermaw reputation."] = "De volta a {area:1762}, os furbolgs Lenha Morta (53-54) ficam perto do túnel e cada morte aumenta sua reputação com os Presamatos.",
+	-- ["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "Cuidado: os Vigias do Covil têm nível 53-54 e os Vingadores de Lenha Morta 54-55; chamam aliados num raio de 25 m quando ficam abaixo de 50% de vida e fogem atrás de ajuda abaixo de 15%.\nContinue matando-os até um soltar {quest:8470}, cerca de uma morte em trinta, e então clique nele com o botão direito: {npc:11558}, em {area:1769}, aceita-o quando os Presamatos estiverem Neutros com você, agora, se já estiverem, ou quando o último guia passar pela caverna de novo no nível 59.",
 	-- ["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%."] = "Cuidado: os Vigias do Covil são nível 53-54; chamam aliados num raio de 25 metros quando ficam abaixo de 50% de vida e saem correndo atrás de ajuda abaixo de 15%.",
 	-- ["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nBelow level 54.54, keep fighting the Deadwood here after {npc:15395}'s count: the hand-ins at {area:1769} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Cuidado: os Vigias do Covil têm nível 53-54; chamam aliados num raio de 25 m quando ficam abaixo de 50% de vida e fogem atrás de ajuda abaixo de 15%.\nAbaixo do nível 54.54, continue lutando contra os Lenha Morta aqui depois da contagem de {npc:15395}: as entregas em {area:1769} e em {area:2479} levam você ao nível 55. Ou, em grupo, faça a masmorra {area:1584} ou a masmorra {area:1417}.",
 	-- ["Careful: Den Watchers are level 53-54; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nBelow level 54.54, keep fighting the Deadwood here after {npc:15395}'s count: the hand-ins at {area:1769} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "Cuidado: os Vigias do Covil têm nível 53-54; chamam aliados num raio de 25 m quando ficam abaixo de 50% de vida e fogem atrás de ajuda abaixo de 15%.\nAbaixo do nível 54.54, continue lutando contra os Lenha Morta aqui depois da contagem de {npc:15395}: as entregas em {area:1769} e em {area:2479} levam você ao nível 55. Ou, em grupo, faça a masmorra {area:1584} ou a masmorra {area:1417}.\nContinue matando-os até um soltar {quest:8470}, cerca de uma morte em trinta, e então clique nele com o botão direito: {npc:11558}, em {area:1769}, aceita-o quando os Presamatos estiverem Neutros com você, agora, se já estiverem, ou quando o último guia passar pela caverna de novo no nível 59.",
@@ -324,9 +325,11 @@ return {
 	-- ["Ror stands at the far south end of {area:1761}."] = "Ror fica no extremo sul de {area:1761}.",
 	-- ["Scarlet Crusade"] = "Cruzada Escarlate",
 	-- ["Scarlet forward camp"] = "Acampamento avançado Escarlate",
+	-- ["Step into the cave: {npc:11558} stands just inside."] = "Entre na caverna: {npc:11558} fica logo na entrada.",
 	-- ["Take the kitten to the same moonwell and release it there with {item:12565}; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "Leve o gatinho ao mesmo poço lunar e solte-o ali com {item:12565}; quando ele virar um {npc:10042}, leve-o de volta a {npc:9996} e clique nele para entregá-lo.",
 	-- ["Take the kitten to the same moonwell and release it there; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "Leve o gatinho ao mesmo poço lunar e solte-o ali; quando ele virar um {npc:10042}, leve-o de volta a {npc:9996} e clique nele para entregá-lo.",
 	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "Os Anais estão entre os Tomos Mofados na prefeitura de Andorhal; abra-os até achar o certo.",
+	-- ["The Deadwood furbolg village just west of the tunnel. {npc:9462} (56) stands among them. {npc:11557}, a friendly furbolg, sits at the north end of the village."] = "A aldeia dos furbolgs Lenha Morta, logo a oeste do túnel. {npc:9462} (56) fica entre eles. {npc:11557}, um furbolg amistoso, fica no extremo norte da aldeia.",
 	-- ["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "A aldeia dos furbolgs Lenha Morta fica logo ao sul do Santuário. Cada morte de Lenha Morta também aumenta sua reputação com {area:1769}; guarde as penas de cocar.",
 	-- ["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and {area:1763} want it. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "A vila dos furbolgs de Lenha Morta fica logo ao sul do Santuário. Toda morte de Lenha Morta também aumenta sua reputação com {area:1769}; guarde as penas de cocar. Continue matando-os até o nível 53.92: as próximas entregas do Santuário e {area:1763} exigem isso. Ou, em grupo, faça a masmorra {area:1417} ou a masmorra {area:1584}.",
 	-- ["The Jadefire moonwell"] = "O poço lunar Flamejade",
@@ -377,7 +380,9 @@ return {
 	-- ["{npc:11018}, below ground"] = "{npc:11018}, no subterrâneo",
 	-- ["{npc:11020}, below ground"] = "{npc:11020}, no subterrâneo",
 	-- ["{npc:11557}: keep 30 {quest:6031} for him; he trades only at Neutral with the Timbermaw"] = "{npc:11557}: guarde 30 {quest:6031} para ele; ele só negocia a partir de Neutro com os Presamatos",
+	-- ["{npc:11557}: keep 30 {quest:6031} for him; he trades only at Neutral with the Timbermaw; below ground"] = "{npc:11557}: guarde 30 {quest:6031} para ele; ele só negocia a partir de Neutro com os Presamatos; no subterrâneo",
 	-- ["{npc:11558}, at the tunnel mouth"] = "{npc:11558}, na entrada do túnel",
+	-- ["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558}: os Presamatos só falam com você a partir de Neutro; anda por aqui: procure dentro do círculo no mapa",
 	-- ["{npc:11610}'s last task needs level 53. The Scarlet Knights and Magi (54-55) working the lumber camp just south-west of her are the closest camp."] = "A última tarefa de {npc:11610} exige nível 53. Os Cavaleiros e Magos Escarlates (54-55) que trabalham no acampamento madeireiro logo a sudoeste dela são o acampamento mais próximo.",
 	-- ["{npc:11613} stands east of the lumber camp; {npc:11611} guards the road north-east of {npc:11610}, toward {area:190}."] = "{npc:11613} fica a leste do acampamento madeireiro; {npc:11611} guarda a estrada a nordeste de {npc:11610}, rumo a {area:190}.",
 	-- ["{npc:1855}'s hunts are in the {zone:1423}: keep them for later."] = "As caçadas de {npc:1855} ficam em {zone:1423}: guarde-as para depois.",

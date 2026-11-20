@@ -246,11 +246,11 @@ return {
 	-- Step 50: Irontree Woods
 	["Below ground"] = "지하",
 
-	-- Step 51: Felpaw Village
-	-- {npc:9462} Chieftain Bloodmaw · {npc:11557} Meilosh
-	["The Deadwood furbolg village just west of the tunnel. {npc:9462} (56) stands among them. {npc:11557}, a friendly furbolg, sits at the north end of the village."] = "터널 바로 서쪽의 마른가지일족 털보숭이 마을입니다. {npc:9462}(56)이(가) 그들 사이에 서 있습니다. 우호적인 털보숭이 {npc:11557}은(는) 마을 북쪽 끝에 앉아 있습니다.",
+	-- Step 51: Meilosh
+	-- {npc:11557} Meilosh · {zone:1448} Felwood · {quest:6031} Runecloth · {area:1769} Timbermaw Hold
+	["Only from Friendly with the Timbermaw: {npc:11557}, in the tunnel near its {zone:1448} mouth, gives {quest:6031} then (the {area:1769} reputation guide gets you there)."] = "",
 	-- {npc:11557} Meilosh · {quest:6031} Runecloth
-	["{npc:11557}: keep 30 {quest:6031} for him; he trades only at Neutral with the Timbermaw; below ground"] = "{npc:11557}: {quest:6031} 30개를 보관하세요. 나무구렁 평판이 중립일 때만 거래합니다. 지하",
+	["{npc:11557}: keep 30 {quest:6031} for him; below ground"] = "",
 
 	-- Step 52: Nafien
 	-- {npc:15395} Nafien · {area:1769} Timbermaw Hold
@@ -259,7 +259,7 @@ return {
 	-- Step 53: Felpaw Village
 	-- {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {area:1769} Timbermaw Hold
 	-- plural, as words: Deadwood Avengers = {npc:7157} Deadwood Avenger
-	["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "주의: 보초는 53-54레벨, 마른가지일족 복수자는 54-55레벨입니다. 생명력이 50% 미만이 되면 25미터 내의 동료를 부르고, 15% 미만이면 도움을 청하러 달아납니다.\n{quest:8470}이(가) 나올 때까지 계속 처치하세요(약 30마리에 하나). 나오면 우클릭하세요. {area:1769}의 {npc:11558}은(는) 나무구렁 일족이 중립이 되면 받아 줍니다. 이미 중립이라면 지금, 아니면 마지막 가이드에서 59레벨에 동굴을 다시 지날 때 제출하세요.",
+	["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it. {npc:11558} in {area:1769} takes it only from Neutral with the Timbermaw (the {area:1769} reputation guide gets you there): now if they already are, or on the last guide's pass of the cave."] = "",
 
 	-- Step 54: Nafien
 	-- {quest:8465} Speak to Salfa · {zone:1452} Winterspring
@@ -267,13 +267,14 @@ return {
 
 	-- Step 55: Timbermaw Hold
 	-- {npc:11558} Kernda
-	["Step into the cave: {npc:11558} stands just inside."] = "동굴에 들어가세요. {npc:11558}이(가) 바로 안쪽에 서 있습니다.",
+	["Step into the cave: {npc:11558} stands just inside. She speaks to you only from Neutral with the Timbermaw."] = "",
 	-- {npc:11558} Kernda
-	["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558}: 나무구렁 요새는 중립부터 대화해 줍니다. 이 주변을 돌아다닙니다. 지도의 원 안을 살펴보세요",
+	["{npc:11558} walks around here: look inside the circle on the map"] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A {item:13140} dropped: use it to start the quest, then free {npc:11018} from her cage in {area:1770}, the cave at the north end of {area:1763}."] = "{item:13140}을(를) 얻었다면: 사용해 퀘스트를 시작한 뒤, {area:1763} 북쪽 끝 동굴인 {area:1770}의 우리에서 {npc:11018}을(를) 풀어 주세요.",
 	-- ["Back at {area:1762}, the Deadwood furbolgs (53-54) are close to the tunnel and every kill raises your Timbermaw reputation."] = "{area:1762}에 돌아오면 마른가지일족 털보숭이(53-54)가 터널 가까이 있고, 처치할 때마다 나무구렁 평판이 오릅니다.",
+	-- ["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nKeep killing them until one drops a {quest:8470}, about one kill in thirty, then right-click it: {npc:11558} in {area:1769} takes it once the Timbermaw are Neutral to you, now if they already are, or when the last guide passes the cave again at 59."] = "주의: 보초는 53-54레벨, 마른가지일족 복수자는 54-55레벨입니다. 생명력이 50% 미만이 되면 25미터 내의 동료를 부르고, 15% 미만이면 도움을 청하러 달아납니다.\n{quest:8470}이(가) 나올 때까지 계속 처치하세요(약 30마리에 하나). 나오면 우클릭하세요. {area:1769}의 {npc:11558}은(는) 나무구렁 일족이 중립이 되면 받아 줍니다. 이미 중립이라면 지금, 아니면 마지막 가이드에서 59레벨에 동굴을 다시 지날 때 제출하세요.",
 	-- ["Cross the river east into {area:2627}, the ruined town in the north-west of the {zone:1423}. {npc:12384} sits in a hut at its edge."] = "강을 건너 동쪽의 {area:2627}(으)로 가세요. {zone:1423} 북서쪽의 폐허가 된 마을입니다. {npc:12384}은(는) 마을 가장자리의 오두막에 앉아 있습니다.",
 	-- ["Derrington's watchtowers, Vandis' cauldron and {npc:11615}'s barrel are done on a later visit: keep them."] = "데링턴의 감시탑, 반디스의 가마솥, {npc:11615}의 통은 나중에 들를 때 처리합니다. 보관하세요.",
 	-- ["Diseased Grizzlies"] = "오염된 불곰",
@@ -308,9 +309,11 @@ return {
 	-- ["Ror stands at the far south end of {area:1761}."] = "로르는 {area:1761} 남쪽 끝에 서 있습니다.",
 	-- ["Scarlet Crusade"] = "붉은십자군",
 	-- ["Scarlet forward camp"] = "붉은십자군 전진 야영지",
+	-- ["Step into the cave: {npc:11558} stands just inside."] = "동굴에 들어가세요. {npc:11558}이(가) 바로 안쪽에 서 있습니다.",
 	-- ["Take the kitten to the same moonwell and release it there with {item:12565}; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "새끼 고양이를 같은 달샘에 데려가 {item:12565}(으)로 풀어 주세요. {npc:10042}(으)로 변하면 {npc:9996}에게 데려가 클릭해서 건네세요.",
 	-- ["Take the kitten to the same moonwell and release it there; once it has turned into a {npc:10042}, bring it back to {npc:9996} and click on it to hand it over."] = "새끼 고양이를 같은 달샘에 데려가 풀어 주세요. {npc:10042}(으)로 변하면 {npc:9996}에게 데려가 클릭해서 건네세요.",
 	-- ["The Annals lie among the Musty Tomes in Andorhal's town hall; open them until you find the right one."] = "연대기는 안돌할 시청의 곰팡이 슨 고서 사이에 있습니다. 맞는 것을 찾을 때까지 열어 보세요.",
+	-- ["The Deadwood furbolg village just west of the tunnel. {npc:9462} (56) stands among them. {npc:11557}, a friendly furbolg, sits at the north end of the village."] = "터널 바로 서쪽의 마른가지일족 털보숭이 마을입니다. {npc:9462}(56)이(가) 그들 사이에 서 있습니다. 우호적인 털보숭이 {npc:11557}은(는) 마을 북쪽 끝에 앉아 있습니다.",
 	-- ["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and {area:1763} want it. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "마른가지일족 털보숭이 마을은 성소 바로 남쪽에 있습니다. 마른가지일족을 처치할 때마다 {area:1769} 평판도 오릅니다. 깃털 머리장식은 보관하세요. 53.92레벨이 될 때까지 계속 처치하세요. 성소의 다음 제출 퀘스트와 {area:1763}에 그 레벨이 필요합니다. 또는 파티가 있다면 대신 {area:1417} 던전이나 {area:1584} 던전을 도세요.",
 	-- ["The Jadefire moonwell"] = "비취불꽃 달샘",
 	-- ["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "붉은십자군의 천막은 {area:199}와(과) {area:200} 사이에 있습니다. {object:176092}(으)로 지휘 천막을 불태우고 스컬지 깃발을 꽂으세요.",
@@ -332,7 +335,9 @@ return {
 	-- ["{area:2627}: kill these as you meet them"] = "{area:2627}: 만나는 대로 처치하세요",
 	-- ["{item:12565}, at the Jadefire moonwell"] = "비취불꽃 달샘에서 {item:12565}",
 	-- ["{npc:10840}, at the graveyard's south end"] = "묘지 남쪽 끝의 {npc:10840}",
+	-- ["{npc:11557}: keep 30 {quest:6031} for him; he trades only at Neutral with the Timbermaw; below ground"] = "{npc:11557}: {quest:6031} 30개를 보관하세요. 나무구렁 평판이 중립일 때만 거래합니다. 지하",
 	-- ["{npc:11558}, at the tunnel mouth"] = "터널 입구의 {npc:11558}",
+	-- ["{npc:11558}: the Timbermaw speak to you only from Neutral; walks around here: look inside the circle on the map"] = "{npc:11558}: 나무구렁 요새는 중립부터 대화해 줍니다. 이 주변을 돌아다닙니다. 지도의 원 안을 살펴보세요",
 	-- ["{npc:11610}'s last task needs level 53. The Scarlet Knights and Magi (54-55) working the lumber camp just south-west of her are the closest camp."] = "{npc:11610}의 마지막 임무는 53레벨이 필요합니다. 그녀 바로 남서쪽 벌목지에서 일하는 붉은십자군 기사와 학자(54-55)가 가장 가까운 사냥터입니다.",
 	-- ["{npc:11613} stands east of the lumber camp; {npc:11611} guards the road north-east of {npc:11610}, toward {area:190}."] = "{npc:11613}은(는) 벌목지 동쪽에 서 있고, {npc:11611}은(는) {npc:11610} 북동쪽, {area:190}(으)로 가는 길을 지키고 있습니다.",
 	-- ["{npc:1855}'s hunts are in the {zone:1423}: keep them for later."] = "{npc:1855}의 사냥은 {zone:1423}에서 합니다. 나중을 위해 보관하세요.",

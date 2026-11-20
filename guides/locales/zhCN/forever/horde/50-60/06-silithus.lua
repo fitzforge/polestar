@@ -58,10 +58,8 @@ return {
 	-- was: ["Keep {quest:3942}: {npc:9116} is at the {area:2479}, on the next guide's way through {zone:1448}."] = "留着{quest:3942}：{npc:9116}在{area:2479}，下一个指南穿过{zone:1448}时会经过。"
 	["Keep {quest:3942}: {npc:9116} is at the {area:2479}, on the last guide's way through {zone:1448}."] = "",
 	-- {item:12928} Umi's Mechanical Yeti · {npc:10977} Quixxil
-	-- was: ["Use {npc:10980} on {npc:10977}"] = "对{npc:10977}使用{npc:10980}"
 	["Use {item:12928} on {npc:10977}"] = "",
 	-- {npc:10977} Quixxil · {item:12928} Umi's Mechanical Yeti
-	-- was: ["Scare {npc:10977} with {npc:10980}"] = "用{npc:10980}吓唬{npc:10977}"
 	["Scare {npc:10977} with {item:12928}"] = "",
 
 	-- Step 10: Layo Starstrike

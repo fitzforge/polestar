@@ -27,7 +27,7 @@ return {
 	-- {npc:256386} Dokimi
 	["{npc:256386}'s crates"] = "{npc:256386}的箱子",
 	-- {npc:256386} Dokimi · {zone:1454} Orgrimmar
-	-- was: ["Ride north up the road to the {area:380}; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {zone:1454} from the {area:380}."] = "沿大路向北骑往{area:380}；{npc:256386}站在那里。打开她交给你的每一个箱子，把里面的东西带回来。然后从{area:380}飞往{zone:1454}。"
+	-- was: ["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {area:1237} from the Crossroads."] = "沿路骑马向北前往十字路口；{npc:256386}就在那里。逐个打开她给你的箱子，将里面的东西交回。从十字路口继续飞往{area:1237}。"
 	["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {zone:1454} from the Crossroads."] = "",
 
 	-- Step 5: Fly to Orgrimmar
