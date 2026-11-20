@@ -438,6 +438,7 @@ step The Marris Stead
 step Eastern Plaguelands: kill these as you meet them
   zone Eastern Plaguelands
   tip Ride east along the southern road across the Eastern Plaguelands to Light's Hope Chapel: Plaguehound Runts and Plaguebats roam beside it.
+  tip Careful: Gargantuan Plaguebats (60) fly among the smaller bats near the western border: take the Plaguebats of your level.
   kill 8600 quest 5543.1              -- Plaguebat
   kill 8596 quest 5542.1              -- Plaguehound Runt
 

@@ -18601,6 +18601,1281 @@
 			],
 			"reason": "the step's tip warns of Ghansurok and how to keep clear.",
 			"evidence": "route level 59.4 (level model with Mount Hyjal in the route, 0.4.3); Ghansurok 61-61 x5; recordings (2026-11-20, all players, not route followers): 9 Horde people quested through the zone at 55-60; this objective not counted alone"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|collect 91754.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "collect 91754.1",
+			"kind": "elite",
+			"title": "Soil and venison",
+			"level": 56.9,
+			"mobs": [
+				"Sunderbark 56-56"
+			],
+			"reason": "warned at the step: its Careful tip names Sunderbark (56, an elite treant) walking the fields; the soil and the stags the step sends you to are around him, not him",
+			"evidence": "route level 56.9 (level model on the integrated Alliance route, 2026-11-20); Sunderbark 56-56; recordings (2026-11-20 index): done by 0 (median null), deaths 0, abandons 0; Mount Hyjal entered at about 56.6 by the model since this round (57.7 before)"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|collect 93759.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "collect 93759.1",
+			"kind": "elite",
+			"title": "Soil and venison",
+			"level": 56.9,
+			"mobs": [
+				"Sunderbark 56-56"
+			],
+			"reason": "warned at the step: its Careful tip names Sunderbark (56, an elite treant) walking the fields; the soil and the stags the step sends you to are around him, not him",
+			"evidence": "route level 56.9 (level model on the integrated Alliance route, 2026-11-20); Sunderbark 56-56; recordings (2026-11-20 index): done by 0 (median null), deaths 0, abandons 0; Mount Hyjal entered at about 56.6 by the model since this round (57.7 before)"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|kill 92449.1|rare",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "kill 92449.1",
+			"kind": "rare",
+			"title": "Mourning's Rest",
+			"level": 57.6,
+			"mobs": [
+				"Death Wailer 61-61 x6"
+			],
+			"reason": "warned at the step: its Careful tip names the Death Wailers (61, rare elites) drifting over Mourning's Rest and says to keep out of their way",
+			"evidence": "route level 57.6 (level model on the integrated Alliance route, 2026-11-20); Death Wailer 61-61 x6; recordings (2026-11-20 index): done by 0 (median null), deaths 0, abandons 0; Mount Hyjal entered at about 56.6 by the model since this round (57.7 before)"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|kill 92449.2|rare",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "kill 92449.2",
+			"kind": "rare",
+			"title": "Mourning's Rest",
+			"level": 57.6,
+			"mobs": [
+				"Death Wailer 61-61 x7"
+			],
+			"reason": "warned at the step: its Careful tip names the Death Wailers (61, rare elites) drifting over Mourning's Rest and says to keep out of their way",
+			"evidence": "route level 57.6 (level model on the integrated Alliance route, 2026-11-20); Death Wailer 61-61 x7; recordings (2026-11-20 index): done by 0 (median null), deaths 0, abandons 0; Mount Hyjal entered at about 56.6 by the model since this round (57.7 before)"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|kill 92449.2|pack",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "kill 92449.2",
+			"kind": "pack",
+			"title": "Mourning's Rest",
+			"level": 57.6,
+			"mobs": [
+				"7 spawns 59+"
+			],
+			"reason": "the step's own Mourning's Rest camp: the 59+ spawns are the Death Wailers and Eternal Sentries the step's tips name; the goal's Forgotten Soldiers and Fleshflay Raveners are the ones to pull",
+			"evidence": "route level 57.6 (level model on the integrated Alliance route, 2026-11-20); 7 spawns 59+; recordings (2026-11-20 index): done by 0 (median null), deaths 0, abandons 0; Mount Hyjal entered at about 56.6 by the model since this round (57.7 before)"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|collect 90865.1|rare",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "collect 90865.1",
+			"kind": "rare",
+			"title": "Mourning's Rest",
+			"level": 57.6,
+			"mobs": [
+				"Death Wailer 61-61 x2"
+			],
+			"reason": "warned at the step: its Careful tip names the Death Wailers (61, rare elites) drifting over Mourning's Rest and says to keep out of their way",
+			"evidence": "route level 57.6 (level model on the integrated Alliance route, 2026-11-20); Death Wailer 61-61 x2; recordings (2026-11-20 index): done by 0 (median null), deaths 0, abandons 0; Mount Hyjal entered at about 56.6 by the model since this round (57.7 before)"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|collect 90702.1|rare",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "collect 90702.1",
+			"kind": "rare",
+			"title": "Mourning's Rest",
+			"level": 57.6,
+			"mobs": [
+				"Death Wailer 61-61 x7"
+			],
+			"reason": "warned at the step: its Careful tip names the Death Wailers (61, rare elites) drifting over Mourning's Rest and says to keep out of their way",
+			"evidence": "route level 57.6 (level model on the integrated Alliance route, 2026-11-20); Death Wailer 61-61 x7; recordings (2026-11-20 index): done by 0 (median null), deaths 0, abandons 0; Mount Hyjal entered at about 56.6 by the model since this round (57.7 before)"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|collect 90702.1|pack",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "collect 90702.1",
+			"kind": "pack",
+			"title": "Mourning's Rest",
+			"level": 57.6,
+			"mobs": [
+				"7 spawns 59+"
+			],
+			"reason": "the step's own Mourning's Rest camp: the 59+ spawns are the Death Wailers and Eternal Sentries the step's tips name; the goal's Forgotten Soldiers and Fleshflay Raveners are the ones to pull",
+			"evidence": "route level 57.6 (level model on the integrated Alliance route, 2026-11-20); 7 spawns 59+; recordings (2026-11-20 index): done by 0 (median null), deaths 0, abandons 0; Mount Hyjal entered at about 56.6 by the model since this round (57.7 before)"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|collect 92591.1|rare",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "collect 92591.1",
+			"kind": "rare",
+			"title": "Final Death",
+			"level": 57.6,
+			"mobs": [
+				"Death Wailer 61-61"
+			],
+			"reason": "the step before, in the same ruins, names the Death Wailers (61, rare elites) and says to keep out of their way; Final Death is held to level 58 and its tip says to burn the bone pile with the ruins cleared",
+			"evidence": "route level 57.6 (level model on the integrated Alliance route, 2026-11-20); Death Wailer 61-61; recordings (2026-11-20 index): done by 0 (median null), deaths 0, abandons 0; Mount Hyjal entered at about 56.6 by the model since this round (57.7 before)"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|collect 96957.1|rare",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "collect 96957.1",
+			"kind": "rare",
+			"title": "Bones and stolen life",
+			"level": 57.9,
+			"mobs": [
+				"Death Wailer 61-61 x6"
+			],
+			"reason": "warned at the step: its Careful tip names the Death Wailers (61, rare elites) drifting over Mourning's Rest and says to keep out of their way",
+			"evidence": "route level 57.9 (level model on the integrated Alliance route, 2026-11-20); Death Wailer 61-61 x6; recordings (2026-11-20 index): done by 0 (median null), deaths 0, abandons 0; Mount Hyjal entered at about 56.6 by the model since this round (57.7 before)"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|collect 96957.1|pack",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "collect 96957.1",
+			"kind": "pack",
+			"title": "Bones and stolen life",
+			"level": 57.9,
+			"mobs": [
+				"10 spawns 59+"
+			],
+			"reason": "the step's own Mourning's Rest camp: the 59+ spawns are the Death Wailers and Eternal Sentries the step's tips name; the goal's Forgotten Soldiers and Fleshflay Raveners are the ones to pull",
+			"evidence": "route level 57.9 (level model on the integrated Alliance route, 2026-11-20); 10 spawns 59+; recordings (2026-11-20 index): done by 0 (median null), deaths 0, abandons 0; Mount Hyjal entered at about 56.6 by the model since this round (57.7 before)"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|collect 92317.1|rare",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "collect 92317.1",
+			"kind": "rare",
+			"title": "Bones and stolen life",
+			"level": 57.9,
+			"mobs": [
+				"Death Wailer 61-61 x5"
+			],
+			"reason": "warned at the step: its Careful tip names the Death Wailers (61, rare elites) drifting over Mourning's Rest and says to keep out of their way",
+			"evidence": "route level 57.9 (level model on the integrated Alliance route, 2026-11-20); Death Wailer 61-61 x5; recordings (2026-11-20 index): done by 0 (median null), deaths 0, abandons 0; Mount Hyjal entered at about 56.6 by the model since this round (57.7 before)"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Alliance|collect 92317.1|pack",
+			"guide": "forever/50-60/mount-hyjal.guide@Alliance",
+			"goal": "collect 92317.1",
+			"kind": "pack",
+			"title": "Bones and stolen life",
+			"level": 57.9,
+			"mobs": [
+				"7 spawns 59+"
+			],
+			"reason": "the step's own Mourning's Rest camp: the 59+ spawns are the Death Wailers and Eternal Sentries the step's tips name; the goal's Forgotten Soldiers and Fleshflay Raveners are the ones to pull",
+			"evidence": "route level 57.9 (level model on the integrated Alliance route, 2026-11-20); 7 spawns 59+; recordings (2026-11-20 index): done by 0 (median null), deaths 0, abandons 0; Mount Hyjal entered at about 56.6 by the model since this round (57.7 before)"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|collect 91754.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "collect 91754.1",
+			"kind": "elite",
+			"title": "Soil and venison",
+			"level": 56.9,
+			"mobs": [
+				"Sunderbark 56-56"
+			],
+			"reason": "warned at the step: its Careful tip names Sunderbark (56, an elite treant) walking the fields; the soil and the stags the step sends you to are around him, not him",
+			"evidence": "route level 56.9 (level model on the integrated Alliance route, 2026-11-20); Sunderbark 56-56; recordings (2026-11-20 index): done by 0 (median null), deaths 0, abandons 0; Mount Hyjal entered at about 56.6 by the model since this round (57.7 before)"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|collect 93759.1|elite",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "collect 93759.1",
+			"kind": "elite",
+			"title": "Soil and venison",
+			"level": 56.9,
+			"mobs": [
+				"Sunderbark 56-56"
+			],
+			"reason": "warned at the step: its Careful tip names Sunderbark (56, an elite treant) walking the fields; the soil and the stags the step sends you to are around him, not him",
+			"evidence": "route level 56.9 (level model on the integrated Alliance route, 2026-11-20); Sunderbark 56-56; recordings (2026-11-20 index): done by 0 (median null), deaths 0, abandons 0; Mount Hyjal entered at about 56.6 by the model since this round (57.7 before)"
+		},
+		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|collect 91794.1|rare",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "collect 91794.1",
+			"kind": "rare",
+			"title": "Dae'gun",
+			"level": 58.3,
+			"mobs": [
+				"Jezerelle the Swaying 61-61"
+			],
+			"reason": "warned at the step: its Careful tip names Jezerelle the Swaying (61, rare) and where she walks",
+			"evidence": "route level 58.3 (level model on the integrated Alliance route, 2026-11-20); Jezerelle the Swaying 61-61; recordings (2026-11-20 index): done by 0 (median null), deaths 0, abandons 0; Mount Hyjal entered at about 56.6 by the model since this round (57.7 before)"
+		},
+		{
+			"key": "forever/alliance/05-duskwood.guide|kill 58.1|over",
+			"guide": "forever/alliance/05-duskwood.guide",
+			"goal": "kill 58.1",
+			"kind": "over",
+			"title": "Ghoul Ribs",
+			"level": 28.3,
+			"mobs": [
+				"Commander Felstrom 32-32 x4"
+			],
+			"reason": "warned at the step: its tip names Lord Malathrom and Commander Felstrom (rares, 31-32), which the goal doesn't need. Since the 2026-11-20 round this work is on the guide's second Duskwood loop (about 28.3-28.8) instead of the Duskwood return guide (about 29.7).",
+			"evidence": "route level 28.3 (level model on the integrated Alliance route, 2026-11-20); Commander Felstrom 32-32 x4; recordings (2026-11-20 index): done by 52 (median 29.44), deaths 13, abandons 4"
+		},
+		{
+			"key": "forever/alliance/05-duskwood.guide|kill 58.1|elite",
+			"guide": "forever/alliance/05-duskwood.guide",
+			"goal": "kill 58.1",
+			"kind": "elite",
+			"title": "Ghoul Ribs",
+			"level": 28.3,
+			"mobs": [
+				"Morbent Fel 32-32"
+			],
+			"reason": "warned at the step: its tip names Morbent Fel (32, elite), who keeps to his house at the cemetery's western edge; the goal's Plague Spreaders (27-29) are elsewhere in the cemetery. Since the 2026-11-20 round this work is on the guide's second Duskwood loop (about 28.3-28.8) instead of the Duskwood return guide (about 29.7).",
+			"evidence": "route level 28.3 (level model on the integrated Alliance route, 2026-11-20); Morbent Fel 32-32; recordings (2026-11-20 index): done by 52 (median 29.44), deaths 13, abandons 4"
+		},
+		{
+			"key": "forever/alliance/05-duskwood.guide|kill 58.1|rare",
+			"guide": "forever/alliance/05-duskwood.guide",
+			"goal": "kill 58.1",
+			"kind": "rare",
+			"title": "Ghoul Ribs",
+			"level": 28.3,
+			"mobs": [
+				"Lord Malathrom 31-31 x12",
+				"Commander Felstrom 32-32 x4"
+			],
+			"reason": "warned at the step: its tip names Lord Malathrom and Commander Felstrom (rares, 31-32), which the goal doesn't need. Since the 2026-11-20 round this work is on the guide's second Duskwood loop (about 28.3-28.8) instead of the Duskwood return guide (about 29.7).",
+			"evidence": "route level 28.3 (level model on the integrated Alliance route, 2026-11-20); Lord Malathrom 31-31 x12, Commander Felstrom 32-32 x4; recordings (2026-11-20 index): done by 52 (median 29.44), deaths 13, abandons 4"
+		},
+		{
+			"key": "forever/alliance/05-duskwood.guide|kill 58.1|pack",
+			"guide": "forever/alliance/05-duskwood.guide",
+			"goal": "kill 58.1",
+			"kind": "pack",
+			"title": "Ghoul Ribs",
+			"level": 28.3,
+			"mobs": [
+				"17 spawns 30+"
+			],
+			"reason": "the goal's ghouls are 24-29 and the tip names them; the 30+ spawns are the rares and Mor'Ladim the tips name. Since the 2026-11-20 round this work is on the guide's second Duskwood loop (about 28.3-28.8) instead of the Duskwood return guide (about 29.7).",
+			"evidence": "route level 28.3 (level model on the integrated Alliance route, 2026-11-20); 17 spawns 30+; recordings (2026-11-20 index): done by 52 (median 29.44), deaths 13, abandons 4"
+		},
+		{
+			"key": "forever/alliance/05-duskwood.guide|kill 323.1|over",
+			"guide": "forever/alliance/05-duskwood.guide",
+			"goal": "kill 323.1",
+			"kind": "over",
+			"title": "Skeletal Raiders",
+			"level": 28.8,
+			"mobs": [
+				"Commander Felstrom 32-32 x8",
+				"Mor'Ladim 35-35 x2"
+			],
+			"reason": "warned at the step: its tip names Mor'Ladim (35, elite) and Commander Felstrom (32, rare); the step is held to level 28 and the skeletons it needs are 26-29. Since the 2026-11-20 round this work is on the guide's second Duskwood loop (about 28.3-28.8) instead of the Duskwood return guide (about 29.7).",
+			"evidence": "route level 28.8 (level model on the integrated Alliance route, 2026-11-20); Commander Felstrom 32-32 x8, Mor'Ladim 35-35 x2; recordings (2026-11-20 index): done by 45 (median 29.25), deaths 2, abandons 5"
+		},
+		{
+			"key": "forever/alliance/05-duskwood.guide|kill 323.1|elite",
+			"guide": "forever/alliance/05-duskwood.guide",
+			"goal": "kill 323.1",
+			"kind": "elite",
+			"title": "Skeletal Raiders",
+			"level": 28.8,
+			"mobs": [
+				"Mor'Ladim 35-35 x2",
+				"Morbent Fel 32-32"
+			],
+			"reason": "warned at the step: its tip names Mor'Ladim (35, elite) and Commander Felstrom (32, rare); the step is held to level 28 and the skeletons it needs are 26-29. Since the 2026-11-20 round this work is on the guide's second Duskwood loop (about 28.3-28.8) instead of the Duskwood return guide (about 29.7).",
+			"evidence": "route level 28.8 (level model on the integrated Alliance route, 2026-11-20); Mor'Ladim 35-35 x2, Morbent Fel 32-32; recordings (2026-11-20 index): done by 45 (median 29.25), deaths 2, abandons 5"
+		},
+		{
+			"key": "forever/alliance/05-duskwood.guide|kill 323.1|rare",
+			"guide": "forever/alliance/05-duskwood.guide",
+			"goal": "kill 323.1",
+			"kind": "rare",
+			"title": "Skeletal Raiders",
+			"level": 28.8,
+			"mobs": [
+				"Commander Felstrom 32-32 x8"
+			],
+			"reason": "warned at the step: its tip names Commander Felstrom (32, rare), which the goal doesn't need. Since the 2026-11-20 round this work is on the guide's second Duskwood loop (about 28.3-28.8) instead of the Duskwood return guide (about 29.7).",
+			"evidence": "route level 28.8 (level model on the integrated Alliance route, 2026-11-20); Commander Felstrom 32-32 x8; recordings (2026-11-20 index): done by 45 (median 29.25), deaths 2, abandons 5"
+		},
+		{
+			"key": "forever/alliance/05-duskwood.guide|kill 323.1|pack",
+			"guide": "forever/alliance/05-duskwood.guide",
+			"goal": "kill 323.1",
+			"kind": "pack",
+			"title": "Skeletal Raiders",
+			"level": 28.8,
+			"mobs": [
+				"11 spawns 30+"
+			],
+			"reason": "the goal's skeletons stand close together (26-29, the tip says to pull one at a time); the step is held to level 28 and the 31+ spawns stand deeper in. Since the 2026-11-20 round this work is on the guide's second Duskwood loop (about 28.3-28.8) instead of the Duskwood return guide (about 29.7).",
+			"evidence": "route level 28.8 (level model on the integrated Alliance route, 2026-11-20); 11 spawns 30+; recordings (2026-11-20 index): done by 45 (median 29.25), deaths 2, abandons 5"
+		},
+		{
+			"key": "forever/alliance/05-duskwood.guide|kill 323.2|elite",
+			"guide": "forever/alliance/05-duskwood.guide",
+			"goal": "kill 323.2",
+			"kind": "elite",
+			"title": "Skeletal Raiders",
+			"level": 28.8,
+			"mobs": [
+				"Mor'Ladim 35-35",
+				"Morbent Fel 32-32"
+			],
+			"reason": "warned at the step: its tip names Mor'Ladim (35, elite) and Commander Felstrom (32, rare); the step is held to level 28 and the skeletons it needs are 26-29. Since the 2026-11-20 round this work is on the guide's second Duskwood loop (about 28.3-28.8) instead of the Duskwood return guide (about 29.7).",
+			"evidence": "route level 28.8 (level model on the integrated Alliance route, 2026-11-20); Mor'Ladim 35-35, Morbent Fel 32-32; recordings (2026-11-20 index): done by 45 (median 29.22), deaths 5, abandons 5"
+		},
+		{
+			"key": "forever/alliance/05-duskwood.guide|kill 323.2|rare",
+			"guide": "forever/alliance/05-duskwood.guide",
+			"goal": "kill 323.2",
+			"kind": "rare",
+			"title": "Skeletal Raiders",
+			"level": 28.8,
+			"mobs": [
+				"Commander Felstrom 32-32 x12"
+			],
+			"reason": "warned at the step: its tip names Commander Felstrom (32, rare), which the goal doesn't need. Since the 2026-11-20 round this work is on the guide's second Duskwood loop (about 28.3-28.8) instead of the Duskwood return guide (about 29.7).",
+			"evidence": "route level 28.8 (level model on the integrated Alliance route, 2026-11-20); Commander Felstrom 32-32 x12; recordings (2026-11-20 index): done by 45 (median 29.22), deaths 5, abandons 5"
+		},
+		{
+			"key": "forever/alliance/05-duskwood.guide|kill 323.2|pack",
+			"guide": "forever/alliance/05-duskwood.guide",
+			"goal": "kill 323.2",
+			"kind": "pack",
+			"title": "Skeletal Raiders",
+			"level": 28.8,
+			"mobs": [
+				"14 spawns 30+"
+			],
+			"reason": "the goal's skeletons stand close together (26-29, the tip says to pull one at a time); the step is held to level 28 and the 31+ spawns stand deeper in. Since the 2026-11-20 round this work is on the guide's second Duskwood loop (about 28.3-28.8) instead of the Duskwood return guide (about 29.7).",
+			"evidence": "route level 28.8 (level model on the integrated Alliance route, 2026-11-20); 14 spawns 30+; recordings (2026-11-20 index): done by 45 (median 29.22), deaths 5, abandons 5"
+		},
+		{
+			"key": "forever/alliance/05-duskwood.guide|kill 323.3|elite",
+			"guide": "forever/alliance/05-duskwood.guide",
+			"goal": "kill 323.3",
+			"kind": "elite",
+			"title": "Skeletal Raiders",
+			"level": 28.8,
+			"mobs": [
+				"Mor'Ladim 35-35"
+			],
+			"reason": "warned at the step: its tip names Mor'Ladim (35, elite) and Commander Felstrom (32, rare); the step is held to level 28 and the skeletons it needs are 26-29. Since the 2026-11-20 round this work is on the guide's second Duskwood loop (about 28.3-28.8) instead of the Duskwood return guide (about 29.7).",
+			"evidence": "route level 28.8 (level model on the integrated Alliance route, 2026-11-20); Mor'Ladim 35-35; recordings (2026-11-20 index): done by 45 (median 29.29), deaths 4, abandons 5"
+		},
+		{
+			"key": "forever/alliance/05-duskwood.guide|kill 323.3|rare",
+			"guide": "forever/alliance/05-duskwood.guide",
+			"goal": "kill 323.3",
+			"kind": "rare",
+			"title": "Skeletal Raiders",
+			"level": 28.8,
+			"mobs": [
+				"Commander Felstrom 32-32 x12"
+			],
+			"reason": "warned at the step: its tip names Commander Felstrom (32, rare), which the goal doesn't need. Since the 2026-11-20 round this work is on the guide's second Duskwood loop (about 28.3-28.8) instead of the Duskwood return guide (about 29.7).",
+			"evidence": "route level 28.8 (level model on the integrated Alliance route, 2026-11-20); Commander Felstrom 32-32 x12; recordings (2026-11-20 index): done by 45 (median 29.29), deaths 4, abandons 5"
+		},
+		{
+			"key": "forever/alliance/05-duskwood.guide|kill 323.3|pack",
+			"guide": "forever/alliance/05-duskwood.guide",
+			"goal": "kill 323.3",
+			"kind": "pack",
+			"title": "Skeletal Raiders",
+			"level": 28.8,
+			"mobs": [
+				"13 spawns 30+"
+			],
+			"reason": "the goal's skeletons stand close together (26-29, the tip says to pull one at a time); the step is held to level 28 and the 31+ spawns stand deeper in. Since the 2026-11-20 round this work is on the guide's second Duskwood loop (about 28.3-28.8) instead of the Duskwood return guide (about 29.7).",
+			"evidence": "route level 28.8 (level model on the integrated Alliance route, 2026-11-20); 13 spawns 30+; recordings (2026-11-20 index): done by 45 (median 29.29), deaths 4, abandons 5"
+		},
+		{
+			"key": "forever/alliance/06-wetlands.guide|collect 98072.1|elite",
+			"guide": "forever/alliance/06-wetlands.guide",
+			"goal": "collect 98072.1",
+			"kind": "elite",
+			"title": "Dragonmaw Gates: kill these as you meet them",
+			"level": 29.8,
+			"mobs": [
+				"Dragonmaw Infiltrator 29-30",
+				"Dragonmaw Soulbinder 29-30"
+			],
+			"reason": "warned at the step: its Careful tip names Carnage (30, elite, at the player's level) and says the Dragonmaw east of Howin are elite too (29-30, at the player's level); a kill-as-you-meet-them step, so the player picks which mobs to fight",
+			"evidence": "route level 29.8 (level model on the integrated Alliance route, 2026-11-20); Dragonmaw Infiltrator 29-30, Dragonmaw Soulbinder 29-30; recordings (2026-11-20 index): done by 35 (median 32.09), deaths 0, abandons 6"
+		},
+		{
+			"key": "forever/alliance/06-wetlands.guide|collect 98245.1|elite",
+			"guide": "forever/alliance/06-wetlands.guide",
+			"goal": "collect 98245.1",
+			"kind": "elite",
+			"title": "Dragonmaw Gates: kill these as you meet them",
+			"level": 29.8,
+			"mobs": [
+				"Carnage 30-30"
+			],
+			"reason": "warned at the step: its Careful tip names Carnage (30, elite, at the player's level) and says the Dragonmaw east of Howin are elite too (29-30, at the player's level); a kill-as-you-meet-them step, so the player picks which mobs to fight",
+			"evidence": "route level 29.8 (level model on the integrated Alliance route, 2026-11-20); Carnage 30-30; recordings (2026-11-20 index): done by 46 (median 31.26), deaths 0, abandons 10"
+		},
+		{
+			"key": "forever/alliance/06-wetlands.guide|collect 98246.1|elite",
+			"guide": "forever/alliance/06-wetlands.guide",
+			"goal": "collect 98246.1",
+			"kind": "elite",
+			"title": "Dragonmaw Gates: kill these as you meet them",
+			"level": 29.8,
+			"mobs": [
+				"Carnage 30-30"
+			],
+			"reason": "warned at the step: its Careful tip names Carnage (30, elite, at the player's level) and says the Dragonmaw east of Howin are elite too (29-30, at the player's level); a kill-as-you-meet-them step, so the player picks which mobs to fight",
+			"evidence": "route level 29.8 (level model on the integrated Alliance route, 2026-11-20); Carnage 30-30; recordings (2026-11-20 index): done by 39 (median 30.98), deaths 0, abandons 8"
+		},
+		{
+			"key": "forever/alliance/06-wetlands.guide|collect 290.1|elite",
+			"guide": "forever/alliance/06-wetlands.guide",
+			"goal": "collect 290.1",
+			"kind": "elite",
+			"title": "Captain Halyndor",
+			"level": 30.1,
+			"mobs": [
+				"Nightveiled Rotheap 31-32"
+			],
+			"reason": "warned at the step: its tip names Nightveiled Rotheap (31-32, elite) and says to give it a wide berth; the step is held to level 29",
+			"evidence": "route level 30.1 (level model on the integrated Alliance route, 2026-11-20); Nightveiled Rotheap 31-32; recordings (2026-11-20 index): done by 50 (median 29.13), deaths 8, abandons 2"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|kill 3823.1|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "kill 3823.1",
+			"kind": "over",
+			"title": "Dreadmaul Rock",
+			"level": 50.1,
+			"mobs": [
+				"Gorgon'och 54-54 x2"
+			],
+			"reason": "warned at the step: its Careful tip names Hahk'Zor and Gorgon'och (54), the Firegut chiefs on the rock's east side, and says to leave them be",
+			"evidence": "route level 50.1 (level model on the integrated Alliance route, 2026-11-20); Gorgon'och 54-54 x2; recordings (2026-11-20 index): done by 2 (median 53.55), deaths 0, abandons 2"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|kill 3823.1|pack",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "kill 3823.1",
+			"kind": "pack",
+			"title": "Dreadmaul Rock",
+			"level": 50.1,
+			"mobs": [
+				"12 spawns 52+"
+			],
+			"reason": "the quest's own Firegut camp (ogres 50, mages 51, Brutes 52); the tips say to take the near side first and pull the Brutes one at a time",
+			"evidence": "route level 50.1 (level model on the integrated Alliance route, 2026-11-20); 12 spawns 52+; recordings (2026-11-20 index): done by 2 (median 53.55), deaths 0, abandons 2"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|kill 3823.3|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "kill 3823.3",
+			"kind": "over",
+			"title": "Dreadmaul Rock",
+			"level": 50.1,
+			"mobs": [
+				"Hahk'Zor 54-54 x5"
+			],
+			"reason": "warned at the step: its Careful tip names Hahk'Zor and Gorgon'och (54), the Firegut chiefs on the rock's east side, and says to leave them be",
+			"evidence": "route level 50.1 (level model on the integrated Alliance route, 2026-11-20); Hahk'Zor 54-54 x5; recordings (2026-11-20 index): done by 2 (median 53.55), deaths 0, abandons 2"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 4022.1|target",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 4022.1",
+			"kind": "target",
+			"title": "Cyrus Therepentous",
+			"level": 50.3,
+			"mobs": [
+				"Frenzied Black Drake 54-54"
+			],
+			"reason": "the step's tip says the molt comes from the Hoard of the Black Dragonflight: no drake to fight",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); Frenzied Black Drake 54-54; recordings (2026-11-20 index): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2585.2|elite",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2585.2",
+			"kind": "elite",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"Calefactus the Unleashed 50-50"
+			],
+			"reason": "warned at the step: its Careful tip names Calefactus the Unleashed (50) and Vek'zol (55), the two elites, and where they roam",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); Calefactus the Unleashed 50-50; recordings (2026-11-20 index): done by 12 (median 48.35), deaths 1, abandons 4"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2585.2|rare",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2585.2",
+			"kind": "rare",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"Clack the Reaver 53-53"
+			],
+			"reason": "warned at the step: its Careful tip names Clack the Reaver (53) and Akubar the Seer (54), the rares, and the Snickerfang Matriarch (60) with where each roams",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); Clack the Reaver 53-53; recordings (2026-11-20 index): done by 12 (median 48.35), deaths 1, abandons 4"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2585.2|pack",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2585.2",
+			"kind": "pack",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"9 spawns 52+"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight; the bloodmages' beasts are 48-51 and the tips name the elites and rares among them",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); 9 spawns 52+; recordings (2026-11-20 index): done by 12 (median 48.35), deaths 1, abandons 4"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2601.2|elite",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2601.2",
+			"kind": "elite",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"Calefactus the Unleashed 50-50"
+			],
+			"reason": "warned at the step: its Careful tip names Calefactus the Unleashed (50) and Vek'zol (55), the two elites, and where they roam",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); Calefactus the Unleashed 50-50; recordings (2026-11-20 index): done by 12 (median 48.61), deaths 1, abandons 9"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2601.2|rare",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2601.2",
+			"kind": "rare",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"Clack the Reaver 53-53"
+			],
+			"reason": "warned at the step: its Careful tip names Clack the Reaver (53) and Akubar the Seer (54), the rares, and the Snickerfang Matriarch (60) with where each roams",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); Clack the Reaver 53-53; recordings (2026-11-20 index): done by 12 (median 48.61), deaths 1, abandons 9"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2601.2|pack",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2601.2",
+			"kind": "pack",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"9 spawns 52+"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight; the bloodmages' beasts are 48-51 and the tips name the elites and rares among them",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); 9 spawns 52+; recordings (2026-11-20 index): done by 12 (median 48.61), deaths 1, abandons 9"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2603.1|elite",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2603.1",
+			"kind": "elite",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"Calefactus the Unleashed 50-50"
+			],
+			"reason": "warned at the step: its Careful tip names Calefactus the Unleashed (50) and Vek'zol (55), the two elites, and where they roam",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); Calefactus the Unleashed 50-50; recordings (2026-11-20 index): done by 12 (median 48.21), deaths 1, abandons 9"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2603.1|rare",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2603.1",
+			"kind": "rare",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"Clack the Reaver 53-53"
+			],
+			"reason": "warned at the step: its Careful tip names Clack the Reaver (53) and Akubar the Seer (54), the rares, and the Snickerfang Matriarch (60) with where each roams",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); Clack the Reaver 53-53; recordings (2026-11-20 index): done by 12 (median 48.21), deaths 1, abandons 9"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2603.1|pack",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2603.1",
+			"kind": "pack",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"9 spawns 52+"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight; the bloodmages' beasts are 48-51 and the tips name the elites and rares among them",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); 9 spawns 52+; recordings (2026-11-20 index): done by 12 (median 48.21), deaths 1, abandons 9"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2581.2|elite",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2581.2",
+			"kind": "elite",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"Calefactus the Unleashed 50-50 x3"
+			],
+			"reason": "warned at the step: its Careful tip names Calefactus the Unleashed (50) and Vek'zol (55), the two elites, and where they roam",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); Calefactus the Unleashed 50-50 x3; recordings (2026-11-20 index): done by 13 (median 48.66), deaths 1, abandons 4"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2581.2|rare",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2581.2",
+			"kind": "rare",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"Clack the Reaver 53-53 x2"
+			],
+			"reason": "warned at the step: its Careful tip names Clack the Reaver (53) and Akubar the Seer (54), the rares, and the Snickerfang Matriarch (60) with where each roams",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); Clack the Reaver 53-53 x2; recordings (2026-11-20 index): done by 13 (median 48.66), deaths 1, abandons 4"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2581.2|pack",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2581.2",
+			"kind": "pack",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"12 spawns 52+"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight; the bloodmages' beasts are 48-51 and the tips name the elites and rares among them",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); 12 spawns 52+; recordings (2026-11-20 index): done by 13 (median 48.66), deaths 1, abandons 4"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2583.1|elite",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2583.1",
+			"kind": "elite",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"Calefactus the Unleashed 50-50 x3"
+			],
+			"reason": "warned at the step: its Careful tip names Calefactus the Unleashed (50) and Vek'zol (55), the two elites, and where they roam",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); Calefactus the Unleashed 50-50 x3; recordings (2026-11-20 index): done by 13 (median 48.36), deaths 1, abandons 5"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2583.1|rare",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2583.1",
+			"kind": "rare",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"Clack the Reaver 53-53 x2"
+			],
+			"reason": "warned at the step: its Careful tip names Clack the Reaver (53) and Akubar the Seer (54), the rares, and the Snickerfang Matriarch (60) with where each roams",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); Clack the Reaver 53-53 x2; recordings (2026-11-20 index): done by 13 (median 48.36), deaths 1, abandons 5"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2583.1|pack",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2583.1",
+			"kind": "pack",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"12 spawns 52+"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight; the bloodmages' beasts are 48-51 and the tips name the elites and rares among them",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); 12 spawns 52+; recordings (2026-11-20 index): done by 13 (median 48.36), deaths 1, abandons 5"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2585.3|elite",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2585.3",
+			"kind": "elite",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"Calefactus the Unleashed 50-50 x3"
+			],
+			"reason": "warned at the step: its Careful tip names Calefactus the Unleashed (50) and Vek'zol (55), the two elites, and where they roam",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); Calefactus the Unleashed 50-50 x3; recordings (2026-11-20 index): done by 13 (median 48.46), deaths 1, abandons 4"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2585.3|rare",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2585.3",
+			"kind": "rare",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"Clack the Reaver 53-53 x2"
+			],
+			"reason": "warned at the step: its Careful tip names Clack the Reaver (53) and Akubar the Seer (54), the rares, and the Snickerfang Matriarch (60) with where each roams",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); Clack the Reaver 53-53 x2; recordings (2026-11-20 index): done by 13 (median 48.46), deaths 1, abandons 4"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2585.3|pack",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2585.3",
+			"kind": "pack",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"12 spawns 52+"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight; the bloodmages' beasts are 48-51 and the tips name the elites and rares among them",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); 12 spawns 52+; recordings (2026-11-20 index): done by 13 (median 48.46), deaths 1, abandons 4"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2601.1|rare",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2601.1",
+			"kind": "rare",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"Akubar the Seer 54-54 x2",
+				"Clack the Reaver 53-53 x2"
+			],
+			"reason": "warned at the step: its Careful tip names Clack the Reaver (53) and Akubar the Seer (54), the rares, and the Snickerfang Matriarch (60) with where each roams",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); Akubar the Seer 54-54 x2, Clack the Reaver 53-53 x2; recordings (2026-11-20 index): done by 13 (median 48.42), deaths 0, abandons 9"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2601.1|pack",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2601.1",
+			"kind": "pack",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"8 spawns 52+"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight; the bloodmages' beasts are 48-51 and the tips name the elites and rares among them",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); 8 spawns 52+; recordings (2026-11-20 index): done by 13 (median 48.42), deaths 0, abandons 9"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2583.3|rare",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2583.3",
+			"kind": "rare",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"Akubar the Seer 54-54 x2",
+				"Clack the Reaver 53-53 x2"
+			],
+			"reason": "warned at the step: its Careful tip names Clack the Reaver (53) and Akubar the Seer (54), the rares, and the Snickerfang Matriarch (60) with where each roams",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); Akubar the Seer 54-54 x2, Clack the Reaver 53-53 x2; recordings (2026-11-20 index): done by 13 (median 48.42), deaths 0, abandons 5"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2583.3|pack",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2583.3",
+			"kind": "pack",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"8 spawns 52+"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight; the bloodmages' beasts are 48-51 and the tips name the elites and rares among them",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); 8 spawns 52+; recordings (2026-11-20 index): done by 13 (median 48.42), deaths 0, abandons 5"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2581.1|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2581.1",
+			"kind": "over",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"Snickerfang Matriarch 60-60 x4"
+			],
+			"reason": "warned at the step: its Careful tip names Clack the Reaver (53) and Akubar the Seer (54), the rares, and the Snickerfang Matriarch (60) with where each roams",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); Snickerfang Matriarch 60-60 x4; recordings (2026-11-20 index): done by 14 (median 49.11), deaths 0, abandons 4"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2581.1|elite",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2581.1",
+			"kind": "elite",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"Calefactus the Unleashed 50-50",
+				"Vek'zol 55-55"
+			],
+			"reason": "warned at the step: its Careful tip names Calefactus the Unleashed (50) and Vek'zol (55), the two elites, and where they roam",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); Calefactus the Unleashed 50-50, Vek'zol 55-55; recordings (2026-11-20 index): done by 14 (median 49.11), deaths 0, abandons 4"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2581.1|rare",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2581.1",
+			"kind": "rare",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"Clack the Reaver 53-53 x3"
+			],
+			"reason": "warned at the step: its Careful tip names Clack the Reaver (53) and Akubar the Seer (54), the rares, and the Snickerfang Matriarch (60) with where each roams",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); Clack the Reaver 53-53 x3; recordings (2026-11-20 index): done by 14 (median 49.11), deaths 0, abandons 4"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2581.1|pack",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2581.1",
+			"kind": "pack",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"11 spawns 52+"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight; the bloodmages' beasts are 48-51 and the tips name the elites and rares among them",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); 11 spawns 52+; recordings (2026-11-20 index): done by 14 (median 49.11), deaths 0, abandons 4"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2603.2|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2603.2",
+			"kind": "over",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"Snickerfang Matriarch 60-60 x4"
+			],
+			"reason": "warned at the step: its Careful tip names Clack the Reaver (53) and Akubar the Seer (54), the rares, and the Snickerfang Matriarch (60) with where each roams",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); Snickerfang Matriarch 60-60 x4; recordings (2026-11-20 index): done by 14 (median 48.37), deaths 0, abandons 9"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2603.2|elite",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2603.2",
+			"kind": "elite",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"Calefactus the Unleashed 50-50",
+				"Vek'zol 55-55"
+			],
+			"reason": "warned at the step: its Careful tip names Calefactus the Unleashed (50) and Vek'zol (55), the two elites, and where they roam",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); Calefactus the Unleashed 50-50, Vek'zol 55-55; recordings (2026-11-20 index): done by 14 (median 48.37), deaths 0, abandons 9"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2603.2|rare",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2603.2",
+			"kind": "rare",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"Clack the Reaver 53-53 x3"
+			],
+			"reason": "warned at the step: its Careful tip names Clack the Reaver (53) and Akubar the Seer (54), the rares, and the Snickerfang Matriarch (60) with where each roams",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); Clack the Reaver 53-53 x3; recordings (2026-11-20 index): done by 14 (median 48.37), deaths 0, abandons 9"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2603.2|pack",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2603.2",
+			"kind": "pack",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"11 spawns 52+"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight; the bloodmages' beasts are 48-51 and the tips name the elites and rares among them",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); 11 spawns 52+; recordings (2026-11-20 index): done by 14 (median 48.37), deaths 0, abandons 9"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2581.3|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2581.3",
+			"kind": "over",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"Snickerfang Matriarch 60-60 x4"
+			],
+			"reason": "warned at the step: its Careful tip names Clack the Reaver (53) and Akubar the Seer (54), the rares, and the Snickerfang Matriarch (60) with where each roams",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); Snickerfang Matriarch 60-60 x4; recordings (2026-11-20 index): done by 12 (median 49.18), deaths 0, abandons 4"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2581.3|rare",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2581.3",
+			"kind": "rare",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"Clack the Reaver 53-53 x9",
+				"Akubar the Seer 54-54"
+			],
+			"reason": "warned at the step: its Careful tip names Clack the Reaver (53) and Akubar the Seer (54), the rares, and the Snickerfang Matriarch (60) with where each roams",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); Clack the Reaver 53-53 x9, Akubar the Seer 54-54; recordings (2026-11-20 index): done by 12 (median 49.18), deaths 0, abandons 4"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2581.3|pack",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2581.3",
+			"kind": "pack",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"16 spawns 52+"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight; the bloodmages' beasts are 48-51 and the tips name the elites and rares among them",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); 16 spawns 52+; recordings (2026-11-20 index): done by 12 (median 49.18), deaths 0, abandons 4"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2583.2|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2583.2",
+			"kind": "over",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"Snickerfang Matriarch 60-60 x4"
+			],
+			"reason": "warned at the step: its Careful tip names Clack the Reaver (53) and Akubar the Seer (54), the rares, and the Snickerfang Matriarch (60) with where each roams",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); Snickerfang Matriarch 60-60 x4; recordings (2026-11-20 index): done by 12 (median 48.62), deaths 0, abandons 5"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2583.2|rare",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2583.2",
+			"kind": "rare",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"Clack the Reaver 53-53 x9",
+				"Akubar the Seer 54-54"
+			],
+			"reason": "warned at the step: its Careful tip names Clack the Reaver (53) and Akubar the Seer (54), the rares, and the Snickerfang Matriarch (60) with where each roams",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); Clack the Reaver 53-53 x9, Akubar the Seer 54-54; recordings (2026-11-20 index): done by 12 (median 48.62), deaths 0, abandons 5"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2583.2|pack",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2583.2",
+			"kind": "pack",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"16 spawns 52+"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight; the bloodmages' beasts are 48-51 and the tips name the elites and rares among them",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); 16 spawns 52+; recordings (2026-11-20 index): done by 12 (median 48.62), deaths 0, abandons 5"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2585.1|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2585.1",
+			"kind": "over",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"Snickerfang Matriarch 60-60 x4"
+			],
+			"reason": "warned at the step: its Careful tip names Clack the Reaver (53) and Akubar the Seer (54), the rares, and the Snickerfang Matriarch (60) with where each roams",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); Snickerfang Matriarch 60-60 x4; recordings (2026-11-20 index): done by 12 (median 48.43), deaths 0, abandons 4"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2585.1|rare",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2585.1",
+			"kind": "rare",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"Clack the Reaver 53-53 x9",
+				"Akubar the Seer 54-54"
+			],
+			"reason": "warned at the step: its Careful tip names Clack the Reaver (53) and Akubar the Seer (54), the rares, and the Snickerfang Matriarch (60) with where each roams",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); Clack the Reaver 53-53 x9, Akubar the Seer 54-54; recordings (2026-11-20 index): done by 12 (median 48.43), deaths 0, abandons 4"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 2585.1|pack",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 2585.1",
+			"kind": "pack",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"16 spawns 52+"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight; the bloodmages' beasts are 48-51 and the tips name the elites and rares among them",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); 16 spawns 52+; recordings (2026-11-20 index): done by 12 (median 48.43), deaths 0, abandons 4"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 87295.1|rare",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 87295.1",
+			"kind": "rare",
+			"title": "Blasted Lands: kill these as you meet them",
+			"level": 50.3,
+			"mobs": [
+				"Clack the Reaver 53-53",
+				"Akubar the Seer 54-54"
+			],
+			"reason": "warned at the step: its Careful tip names Clack the Reaver (53) and Akubar the Seer (54), the rares, and the Snickerfang Matriarch (60) with where each roams",
+			"evidence": "route level 50.3 (level model on the integrated Alliance route, 2026-11-20); Clack the Reaver 53-53, Akubar the Seer 54-54; recordings (2026-11-20 index): done by 1 (median 47.35), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/50-60/01-burning-steppes.guide|collect 3501.1|over",
+			"guide": "forever/alliance/50-60/01-burning-steppes.guide",
+			"goal": "collect 3501.1",
+			"kind": "over",
+			"title": "Kum'isha the Collector",
+			"level": 50.5,
+			"mobs": [
+				"Vek'zol 55-55 x2"
+			],
+			"reason": "warned at the step: its Careful tip names Vek'zol (55, elite) by Kum'isha's hill and says to take the fragments on the way from the keep",
+			"evidence": "route level 50.5 (level model on the integrated Alliance route, 2026-11-20); Vek'zol 55-55 x2; recordings (2026-11-20 index): done by 0 (median null), deaths 0, abandons 2"
+		},
+		{
+			"key": "forever/alliance/50-60/02-felwood.guide|kill 5156.1|pack",
+			"guide": "forever/alliance/50-60/02-felwood.guide",
+			"goal": "kill 5156.1",
+			"kind": "pack",
+			"title": "Shatter Scar Vale",
+			"level": 51.9,
+			"mobs": [
+				"9 spawns 53+"
+			],
+			"reason": "the craters' Entropic Beasts and Horrors are the quest's own targets (the tip sends you between the craters); its Careful tip names the Infernal Sentry, the only elite",
+			"evidence": "route level 51.9 (level model on the integrated Alliance route, 2026-11-20); 9 spawns 53+; recordings (2026-11-20 index): done by 5 (median 53.78), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/50-60/02-felwood.guide|kill 5156.2|pack",
+			"guide": "forever/alliance/50-60/02-felwood.guide",
+			"goal": "kill 5156.2",
+			"kind": "pack",
+			"title": "Shatter Scar Vale",
+			"level": 51.9,
+			"mobs": [
+				"9 spawns 53+"
+			],
+			"reason": "the craters' Entropic Beasts and Horrors are the quest's own targets (the tip sends you between the craters); its Careful tip names the Infernal Sentry, the only elite",
+			"evidence": "route level 51.9 (level model on the integrated Alliance route, 2026-11-20); 9 spawns 53+; recordings (2026-11-20 index): done by 5 (median 53.78), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/50-60/02-felwood.guide|collect 4101.1|pack",
+			"guide": "forever/alliance/50-60/02-felwood.guide",
+			"goal": "collect 4101.1",
+			"kind": "pack",
+			"title": "Irontree Woods",
+			"level": 51.9,
+			"mobs": [
+				"8 spawns 53+"
+			],
+			"reason": "the Warpwood treants are the goal's own drop source, at the edge of Irontree Woods",
+			"evidence": "route level 51.9 (level model on the integrated Alliance route, 2026-11-20); 8 spawns 53+; recordings (2026-11-20 index): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/50-60/02-felwood.guide|kill 4906.1|pack",
+			"guide": "forever/alliance/50-60/02-felwood.guide",
+			"goal": "kill 4906.1",
+			"kind": "pack",
+			"title": "Jadefire Run: kill these as you meet them",
+			"level": 51.9,
+			"mobs": [
+				"19 spawns 53+"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight; its Careful tip names Xavaric (55) and his Hellcallers (53-54)",
+			"evidence": "route level 51.9 (level model on the integrated Alliance route, 2026-11-20); 19 spawns 53+; recordings (2026-11-20 index): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/50-60/03-winterspring.guide|kill 5082.2|over",
+			"guide": "forever/alliance/50-60/03-winterspring.guide",
+			"goal": "kill 5082.2",
+			"kind": "over",
+			"title": "Frostfire Hot Springs: kill these as you meet them",
+			"level": 52.7,
+			"mobs": [
+				"Winterfall Shaman 56-57 x2"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which furbolgs to fight; its Careful tip says to take the camp from its edge, one at a time",
+			"evidence": "route level 52.7 (level model on the integrated Alliance route, 2026-11-20); Winterfall Shaman 56-57 x2; recordings (2026-11-20 index): done by 4 (median 54.03), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/50-60/03-winterspring.guide|kill 5082.3|pack",
+			"guide": "forever/alliance/50-60/03-winterspring.guide",
+			"goal": "kill 5082.3",
+			"kind": "pack",
+			"title": "Frostfire Hot Springs: kill these as you meet them",
+			"level": 52.7,
+			"mobs": [
+				"13 spawns 54+"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which furbolgs to fight; its Careful tip says to take the camp from its edge, one at a time",
+			"evidence": "route level 52.7 (level model on the integrated Alliance route, 2026-11-20); 13 spawns 54+; recordings (2026-11-20 index): done by 4 (median 54.03), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/50-60/03-winterspring.guide|kill 4501.2|rare",
+			"guide": "forever/alliance/50-60/03-winterspring.guide",
+			"goal": "kill 4501.2",
+			"kind": "rare",
+			"title": "Northern Pylon",
+			"level": 53.1,
+			"mobs": [
+				"King Mosh 60-60"
+			],
+			"reason": "warned at the step: its Careful tip names King Mosh (60), a rare devilsaur, and where he roams",
+			"evidence": "route level 53.1 (level model on the integrated Alliance route, 2026-11-20); King Mosh 60-60; recordings (2026-11-20 index): done by 6 (median 52.97), deaths 0, abandons 2"
+		},
+		{
+			"key": "forever/alliance/50-60/03-winterspring.guide|collect 3882.1|elite",
+			"guide": "forever/alliance/50-60/03-winterspring.guide",
+			"goal": "collect 3882.1",
+			"kind": "elite",
+			"title": "Bones and equipment",
+			"level": 53.5,
+			"mobs": [
+				"Stegodon 52-53 x2"
+			],
+			"reason": "warned at the step: its tip says the stegodons are elite and to pick the bones up around them",
+			"evidence": "route level 53.5 (level model on the integrated Alliance route, 2026-11-20); Stegodon 52-53 x2; recordings (2026-11-20 index): done by 11 (median 51.96), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/alliance/50-60/03-winterspring.guide|collect 3882.1|rare",
+			"guide": "forever/alliance/50-60/03-winterspring.guide",
+			"goal": "collect 3882.1",
+			"kind": "rare",
+			"title": "Bones and equipment",
+			"level": 53.5,
+			"mobs": [
+				"Gruff 57-57"
+			],
+			"reason": "warned at the step: its Careful tip names Gruff (57), a rare devilsaur, and where he prowls",
+			"evidence": "route level 53.5 (level model on the integrated Alliance route, 2026-11-20); Gruff 57-57; recordings (2026-11-20 index): done by 11 (median 51.96), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/alliance/50-60/03-winterspring.guide|collect 5086.1|over",
+			"guide": "forever/alliance/50-60/03-winterspring.guide",
+			"goal": "collect 5086.1",
+			"kind": "over",
+			"title": "Toxic Horrors",
+			"level": 54.7,
+			"mobs": [
+				"Ancient Irontree Walker 59-59 x9"
+			],
+			"reason": "warned at the step: its Careful tip names the Ancient Irontree Walkers (59, elites) and where to work the Horrors one at a time",
+			"evidence": "route level 54.7 (level model on the integrated Alliance route, 2026-11-20); Ancient Irontree Walker 59-59 x9; recordings (2026-11-20 index): done by 1 (median 56.38), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/50-60/03-winterspring.guide|collect 5086.1|elite",
+			"guide": "forever/alliance/50-60/03-winterspring.guide",
+			"goal": "collect 5086.1",
+			"kind": "elite",
+			"title": "Toxic Horrors",
+			"level": 54.7,
+			"mobs": [
+				"Ancient Irontree Walker 59-59 x9"
+			],
+			"reason": "warned at the step: its Careful tip names the Ancient Irontree Walkers (59, elites) and where to work the Horrors one at a time",
+			"evidence": "route level 54.7 (level model on the integrated Alliance route, 2026-11-20); Ancient Irontree Walker 59-59 x9; recordings (2026-11-20 index): done by 1 (median 56.38), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/50-60/03-winterspring.guide|collect 5086.1|pack",
+			"guide": "forever/alliance/50-60/03-winterspring.guide",
+			"goal": "collect 5086.1",
+			"kind": "pack",
+			"title": "Toxic Horrors",
+			"level": 54.7,
+			"mobs": [
+				"9 spawns 56+"
+			],
+			"reason": "warned at the step: its Careful tip names the Ancient Irontree Walkers (59, elites) and where to work the Horrors one at a time",
+			"evidence": "route level 54.7 (level model on the integrated Alliance route, 2026-11-20); 9 spawns 56+; recordings (2026-11-20 index): done by 1 (median 56.38), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/50-60/03-winterspring.guide|kill 8464.3|rare",
+			"guide": "forever/alliance/50-60/03-winterspring.guide",
+			"goal": "kill 8464.3",
+			"kind": "rare",
+			"title": "Winterfall Village",
+			"level": 54.8,
+			"mobs": [
+				"Grizzle Snowpaw 59-59"
+			],
+			"reason": "warned at the step: its Careful tip names Grizzle Snowpaw (59, rare)",
+			"evidence": "route level 54.8 (level model on the integrated Alliance route, 2026-11-20); Grizzle Snowpaw 59-59; recordings (2026-11-20 index): done by 1 (median 55.47), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/50-60/03-winterspring.guide|collect 4864.2|mixed",
+			"guide": "forever/alliance/50-60/03-winterspring.guide",
+			"goal": "collect 4864.2",
+			"kind": "mixed",
+			"title": "Jaron's supplies",
+			"level": 55.2,
+			"mobs": [
+				"Berserk Owlbeast 58-59"
+			],
+			"reason": "warned at the step: its Careful tips name the Berserk Owlbeasts (58) to leave alone and the Winterspring Screechers (57-59)",
+			"evidence": "route level 55.2 (level model on the integrated Alliance route, 2026-11-20); Berserk Owlbeast 58-59; recordings (2026-11-20 index): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/50-60/03-winterspring.guide|collect 4864.1|over",
+			"guide": "forever/alliance/50-60/03-winterspring.guide",
+			"goal": "collect 4864.1",
+			"kind": "over",
+			"title": "Jaron's supplies",
+			"level": 55.2,
+			"mobs": [
+				"Winterspring Screecher 57-59 x2"
+			],
+			"reason": "warned at the step: its Careful tips name the Berserk Owlbeasts (58) to leave alone and the Winterspring Screechers (57-59)",
+			"evidence": "route level 55.2 (level model on the integrated Alliance route, 2026-11-20); Winterspring Screecher 57-59 x2; recordings (2026-11-20 index): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/50-60/04-western-plaguelands.guide|kill 5543.1|over",
+			"guide": "forever/alliance/50-60/04-western-plaguelands.guide",
+			"goal": "kill 5543.1",
+			"kind": "over",
+			"title": "Eastern Plaguelands: kill these as you meet them",
+			"level": 56.2,
+			"mobs": [
+				"Gargantuan Plaguebat 60-60 x2"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which bats to fight; its Careful tip names the Gargantuan Plaguebats (60)",
+			"evidence": "route level 56.2 (level model on the integrated Alliance route, 2026-11-20); Gargantuan Plaguebat 60-60 x2; recordings (2026-11-20 index): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/alliance/50-60/06-silithus.guide|kill 8280.1|elite",
+			"guide": "forever/alliance/50-60/06-silithus.guide",
+			"goal": "kill 8280.1",
+			"kind": "elite",
+			"title": "Silithus: kill these as you meet them",
+			"level": 58.6,
+			"mobs": [
+				"Brood of Nozdormu 62-62"
+			],
+			"reason": "a kill-as-you-meet-them step: the player picks which mobs to fight; its Careful tip names the Brood of Nozdormu (62, elite) at the Caverns of Time",
+			"evidence": "route level 58.6 (level model on the integrated Alliance route, 2026-11-20); Brood of Nozdormu 62-62; recordings (2026-11-20 index): done by 0 (median null), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/alliance/nightelf/02-darkshore.guide|collect 1002.1|mixed",
+			"guide": "forever/alliance/nightelf/02-darkshore.guide",
+			"goal": "collect 1002.1",
+			"kind": "mixed",
+			"title": "Moonstalkers on the way",
+			"level": 14.3,
+			"mobs": [
+				"Moonstalker Matriarch 19-20",
+				"Moonstalker Sire 17-18"
+			],
+			"reason": "warned at the step: its tip names the Moonstalker Sires (17-18) and Matriarchs (19-20) to leave; the fangs come from the Moonstalkers (14-15)",
+			"evidence": "route level 14.3 (level model on the integrated Alliance route, 2026-11-20); Moonstalker Matriarch 19-20, Moonstalker Sire 17-18; recordings (2026-11-20 index): done by 58 (median 18.09), deaths 0, abandons 8"
 		}
 	]
 }

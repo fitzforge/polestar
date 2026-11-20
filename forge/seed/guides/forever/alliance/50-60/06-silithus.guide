@@ -79,6 +79,7 @@ step Cenarion Hold
 step Silithus: kill these as you meet them
   zone Silithus
   tip Dredge Strikers dig in the dunes north-west of the hold; Stonelash Scorpids and Sand Skitterers roam all around.
+  tip Careful: Brood of Nozdormu (62, elite) guard the Caverns of Time's mouth in the south-west, around 21,82: stay out of there.
   kill 11740 quest 8280.1             -- Dredge Striker
   collect 20376 quest 8277.2          -- Sand Skitterer Fang
   collect 20373 quest 8277.1          -- Stonelash Scorpid Stinger

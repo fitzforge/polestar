@@ -153,6 +153,7 @@ step Dreadmaul Rock
   tip The Firegut ogres hold the great rock north of the Vigil, with the Brutes on its east side.
   tip Careful: the Firegut Ogres are 50 and the Ogre Mages 51, but the Brutes on the rock's east side are 52: take the ogres on the near side first and pull the Brutes one at a time.
   tip Careful: Escaped Core Hounds (level 60) roam the Steppes, a few on the slopes west and south of Dreadmaul Rock: pull the ogres on the rock itself and look around before each pull.
+  tip Careful: the Firegut chiefs Hahk'Zor and Gorgon'och (54) stand on the rock's east side among the Brutes: leave them be.
   kill 7034 quest 3823.1              -- Firegut Ogre Mage, below ground
   kill 7033 quest 3823.2              -- Firegut Ogre
   kill 7035 quest 3823.3              -- Firegut Brute
@@ -257,6 +258,7 @@ step Blasted Lands: kill these as you meet them
   zone Blasted Lands
   tip Ride back south into the Blasted Lands for the bloodmages' beasts: Starving Snickerfangs roam the dry hills south of the bloodmages' camp, Scorpok Stingers scuttle across the middle of the north and Black Slayer vultures circle over all of it. Ashmane Boars and Redstone Basilisks share the slopes south-west of the keep.
   tip Careful: two elites roam here: Calefactus the Unleashed (50) in the middle of the zone around 44,34, and Vek'zol (55) on the ridge around 39,32. When you see one, hunt somewhere else.
+  tip Careful: Clack the Reaver (53, a rare scorpid) walks the north around 47,36, Akubar the Seer (54, rare) the middle around 45,48, and a Snickerfang Matriarch (60) dens at about 54,43: give them room.
   tip Any mob here may drop a Flawless Draenethyst Sphere: keep it for Kum'isha.
   collect 8244 optional               -- Flawless Draenethyst Sphere, a rare drop
   collect 8396 quest 2585

@@ -206,6 +206,7 @@ step Abercrombie
 step Ghoul Ribs
   tip Every ghoul of the Raven Hill Cemetery's northern half can drop a rib: Flesh Eaters and Bone Chewers (24-27) are the easier kills; Plague Spreaders and Brain Eaters (27-29) drop them too. Mor'Ladim, an elite, wanders the graves: keep away from him.
   tip Careful: A Rotted One casts Summon Flesh Eating Worms as it dies, which brings extra adds.
+  tip Careful: Lord Malathrom (31) and Commander Felstrom (32), both rares, haunt the cemetery's north and west, and Morbent Fel (32, elite) keeps to the house at its western edge: leave them be.
   collect 884 quest 133
   kill 604 quest 58                       -- Plague Spreader, for The Night Watch
 
@@ -232,6 +233,7 @@ step Skeletal Raiders
   when level>=28
   tip From level 28: the Skeletal Raiders, Healers and Warders stand in the west part of the Raven Hill Cemetery, just east of Sven's camp.
   tip Careful: The Warders are 28-29 and the skeletons stand close together: pull one at a time.
+  tip Careful: Mor'Ladim, an elite (35), wanders these graves too, and Commander Felstrom (32, rare) haunts the west part: keep away from both.
   kill 1110 quest 323                     -- Skeletal Raider
   kill 787 quest 323                      -- Skeletal Healer
   kill 785 quest 323                      -- Skeletal Warder
