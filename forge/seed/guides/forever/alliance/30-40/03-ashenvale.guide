@@ -138,8 +138,8 @@ step Highperch
   collect 5809 quest 1135             -- Highperch Venom Sac
 
 step Falfindel Waywarder
-  zone Thousand Needles
-  tip Falfindel camps north of Highperch, on the path up to Feralas: hand him the journal. His next quest is inside Razorfen Kraul: leave it.
+  zone Feralas
+  tip Falfindel camps north of Highperch, just over the border into Feralas on the path up to Thalanaar: hand him the journal. His next quest is inside Razorfen Kraul: leave it.
   turnin 1100                         -- Falfindel Waywarder
 
 step Thousand Needles
@@ -214,7 +214,7 @@ step Theramore
 
 step Ratchet
   zone The Barrens
-  tip From Theramore follow the road north-west through the marsh into the Barrens and up the coast to Ratchet: Stranglethorn starts at Booty Bay, across the sea. Ratchet's gryphon master stands above the dock, Gazlowe in the house above it and Wharfmaster Dizzywig on the dock by the boat.
+  tip From Theramore follow the road north-west through the marsh into the Barrens and up the coast to Ratchet: Stranglethorn starts at Booty Bay, across the sea. Ratchet's gryphon master stands above the dock; Gazlowe is upstairs in the house above it; Wharfmaster Dizzywig waits on the dock by the boat.
   getfp "Ratchet"
   turnin 1178                         -- Gazlowe
   accept 1180                         -- Gazlowe: for Wharfmaster Lozgil, on Booty Bay's dock where the boat lands
