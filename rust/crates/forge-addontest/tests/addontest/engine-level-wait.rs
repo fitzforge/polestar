@@ -32,7 +32,8 @@ stub.fire("QUEST_LOG_UPDATE"); stub.advance(11)
 -- The player is at step `at` (of the guide as planned): the steps before it skipped.
 local g = E.GetGuide()
 local at
-for i, step in ipairs(g.steps) do if step.title == "{at}" and E.Applies(i) then at = i break end end
+-- A step whose `when` holds it back for now (Korran's `when level>=29`) still names the place.
+for i, step in ipairs(g.steps) do if step.title == "{at}" then at = at or i; if E.Applies(i) then at = i break end end end
 local sk = {{}}
 for i = 1, at - 1 do sk[i] = true end
 Polestar.CharState().skipped["{guide}"] = sk
@@ -55,8 +56,12 @@ emit({{ live = E.GetLiveStep(), accept = E.GetStepView(at).goals[1].status }})"#
 const HILLSBRAD: &str = "forever/horde/30-40/01-hillsbrad-foothills";
 const BARRENS: &str = "forever/horde/02-the-barrens";
 
+// Since the 0.4.2 route round the Thousand Needles guide no longer ends on a level 29 top-up, so Korran's step reads
+// `when level>=29`: below it the route passes the Crossroads stop with no task and no level text, and the level-up
+// does not fly the player back from Orgrimmar: 30-40/02's Orgrimmar stop takes The Swarm Grows on a short flight to
+// the Crossroads (its `when !turnedin 1145`). The engine's own silent wait and come-back stays pinned by Gan'rul below.
 #[test]
-fn hillsbrad_at_28_7_passes_korran_s_level_29_accept_silently_and_the_level_up_brings_it_back() {
+fn hillsbrad_at_28_7_passes_korran_s_level_29_step_silently_and_29_does_not_fly_back() {
 	// Level 28, 70% in: The Swarm Grows (1145) asks 29.
 	let out = at_step("Orc", "WARRIOR", 28, 53000, 75700, HILLSBRAD, "Korran", "");
 	let (low, ding) = (&out[0], &out[1]);
@@ -64,8 +69,7 @@ fn hillsbrad_at_28_7_passes_korran_s_level_29_accept_silently_and_the_level_up_b
 	assert_eq!(low["line"], false);
 	assert_eq!(low["hint"], false, "an accept-only step says no quest level");
 	assert_eq!(low["title"], "Fly to Orgrimmar", "the route moves on as before: {low}");
-	assert_eq!(ding["live"], low["at"], "level 29: back to Korran: {ding}");
-	assert_eq!(ding["accept"], "active");
+	assert_eq!(ding["live"], low["live"], "level 29: no flight back to Korran: {ding}");
 }
 
 #[test]
@@ -87,7 +91,10 @@ fn t_1485_a_warlock_at_19_6_moves_on_from_gan_rul_and_comes_back_at_20() {
 // no sign the player is past them. Before: placed at Tarren Mill (step 19), all of those passed. 0.4.0's guide offers
 // Dangerous! and Lydon's 509 at its first Tarren Mill stop: his old-route progress on them is no sign either
 // (ns.LegacyMovedIn). Its Undercity stop for a Warrior is the zeppelin and the flight on to Tarren Mill (the
-// Undercity step for Elixir of Agony left with the 0.4.0 tidy).
+// Undercity step for Elixir of Agony left with the 0.4.0 tidy). Since the 0.4.2 route round the Thousand Needles guide
+// ends at Camp Taurajo's flight master after its Steelsnap, Sacred Fire and ore sample hand-ins (TINCHO_NEEDLES),
+// where this guide's opener stands: he loads it there.
+const TINCHO_NEEDLES: &str = "1131, 1153, 5062";
 const TINCHO_DONE: &str = "23, 25, 216, 247, 421, 422, 425, 428, 429, 430, 435, 437, 438, 439, 440, 441, 445, 449, 477, 478, 479, 481, 482, 493, 494, 496, 498, 499, 501, 502, 509, 513, 516, 527, 528, 529, 546, 549, 784, 786, 788, 789, 790, 791, 792, 794, 804, 805, 806, 808, 815, 816, 817, 818, 819, 823, 824, 825, 826, 827, 828, 829, 831, 834, 835, 837, 840, 842, 843, 844, 845, 846, 848, 849, 850, 851, 852, 855, 857, 858, 863, 865, 867, 868, 869, 870, 871, 872, 873, 874, 875, 876, 877, 878, 879, 880, 881, 882, 887, 888, 890, 891, 892, 893, 894, 895, 896, 898, 899, 900, 901, 902, 903, 905, 906, 907, 913, 1058, 1060, 1061, 1062, 1087, 1090, 1092, 1093, 1149, 1150, 1358, 1359, 1483, 1492, 1498, 1502, 1503, 1505, 1525, 1526, 1527, 1823, 1824, 1825, 1918, 2161, 2383, 3087, 3088, 3089, 3090, 3221, 3261, 3281, 3921, 3922, 3923, 4021, 4402, 4542, 4641, 4767, 4770, 4821, 4841, 4865, 4904, 4921, 4966, 5041, 5052, 5064, 5147, 5151, 5441, 5881, 6282, 6301, 6365, 6381, 6382, 6383, 6393, 6394, 6441, 6442, 6461, 6462, 6482, 6503, 6541, 6544, 6548, 6562, 6563, 6621, 6629, 6641, 78132, 78133, 78134, 86576, 91920, 91921, 92706, 95494, 95495, 95507, 95508, 95621, 95774, 95883, 95884, 95981, 96241, 96259, 96260, 96261, 96604, 96652, 96655, 96821, 96822, 96825, 96895, 96897, 96898, 97223, 97225, 97242, 97246, 97249, 97250, 97253, 97275, 97279, 97282, 97326, 97891, 98069, 98070, 98093, 98094, 98095, 98251, 98252, 98576, 99048, 99049, 99051, 99052, 99123";
 const TINCHO_LOG: &str = "830, 832, 567, 2, 24, 4881";
 
@@ -106,7 +113,7 @@ fn tincho(reload: bool) -> Value {
 			r#"local w = stub.world
 w.race, w.faction, w.class, w.className, w.level = "Orc", "Horde", "WARRIOR", "Warrior", 28
 w.setXP(53000, 75700)
-w.complete({{ {TINCHO_DONE} }})
+w.complete({{ {TINCHO_DONE}, {TINCHO_NEEDLES} }})
 for _, q in ipairs({{ {TINCHO_LOG} }}) do w.onQuest(q, {{ 0 }}) end"#
 		),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"]), Addon::dir("Polestar_Guides", dir.join("Polestar_Guides")), Addon::dir("Polestar_Guides_Horde", dir.join("Polestar_Guides_Horde"))],
@@ -115,7 +122,7 @@ for _, q in ipairs({{ {TINCHO_LOG} }}) do w.onQuest(q, {{ 0 }}) end"#
 			r#"
 E = Polestar.Engine
 for id, b in pairs(Polestar.MapFrames.era) do stub.world.addMap(id, b) end
-stub.world.moveTo(1441, 45.0, 49.1)
+stub.world.moveTo(1413, 44.4, 59.1)
 stub.login(); stub.advance(0.25)
 {open}
 stub.fire("QUEST_LOG_UPDATE"); stub.advance(11)

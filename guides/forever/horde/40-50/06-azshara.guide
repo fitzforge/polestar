@@ -15,10 +15,15 @@ next forever/horde/50-60/01-un-goro-crater
 # Feralas ride for about a fifth of that).
 # Added here: Assisting Arch Druid Runetotem (3762), from Innkeeper Pala on the Thunder Bluff stop, handed to Hamuul
 # before Un'Goro Soil (3761). Left out: the Undercity copy (3784).
-# Level tidy (0.4.0): Vengeance on the Northspring (3063), taken in 40-50/03 where its harpies (48-50) are 2 over the
-# player, is done on this Feralas loop, after Zorbin's second round of giants. The Dunemaul Compound (5863, Gor'marok
-# 49), taken in 40-50/04, is done at the Broken Pillar on the way to Un'Goro, and Thistleshrub Valley (3362, Rootshapers
-# 49-50, taken in 40-50/04 too) just west of it; both are handed in on 50-60/01's Gadgetzan stop. Kim'jael (3601, 5534), Stealing Knowledge (3517) and Betrayed
+# Feralas in two visits (fix round, 2026-11-20): this loop is the second and last. It holds what the Feralas, Dustwallow
+# & Swamp guide (40-50/03) used to walk at 48 over the same three areas: Natural Materials (3128, taken on 03's Camp
+# Mojache stop), Zorbin's first round (7003, 7721, then his second, 7725 and 7726, on the same coast stay), Improved
+# Quality (7734, the Rage Scar yetis on the ride back) and the Perfect Yeti Hide (7738); all are level 48-50, full
+# experience here. Vengeance on the Northspring (3063, harpies 48-50) is taken from Talo on this Camp Mojache stop and
+# done at the loop's far end; Dark Heart (3062, Edana Hatetalon, a level 50 elite there) is a group choice. The Dunemaul
+# Compound (5863) is done on 40-50/04's western loop since the fix round (Gor'marok 49, a level over players there); a
+# player who still carries it gets it here, at the Broken Pillar. Thistleshrub Valley (3362, Rootshapers 49-50, taken
+# in 40-50/04) is done just west of it; Tran'rek takes it on 50-60/01's Gadgetzan stop. Kim'jael (3601, 5534), Stealing Knowledge (3517) and Betrayed
 # (3505) move to 50-60/04 (Spitelash and blood elves 51-55 at about 50), taken there in Valormok, the next visit and
 # the one that works them. Betrayed starts at Ag'tor Bloodfist (#2390), so Belgrom's letter (3504) is left out.
 # Left out: A Meeting with the Master (3381): Sanath Lim-yo's teleport to Xylem's tower is free on Forever (#2460).
@@ -120,11 +125,31 @@ step Zilzibin Drumlore
   tip On the way through Orgrimmar to the flight master, step into the Drag: Zilzibin takes the insect report from Tanaris.
   turnin 32                             -- Zilzibin Drumlore, the Drag
 
+step Zilzibin Drumlore
+  when level>=50
+  when available 4494
+  zone Orgrimmar
+  tip March of the Silithid needs level 50: Zilzibin, in the Drag, gives it from then on. Under 50, it waits: if you reach 50 in Azshara, this guide brings you back for it from Valormok; else the Azshara guide at 55 offers it again.
+  accept 4494
+
 step Dran Droffers
   zone Orgrimmar
   when onquest 81
   tip The Droffers' shop is a few steps further into the Drag.
   turnin 81                             -- Dran Droffers, the Drag
+
+step Orgrimmar
+  zone Orgrimmar
+  tip Jes'rimon, in the Cleft of Shadow, has Bone-Bladed Weapons for later; then your class trainer before you leave for Azshara.
+  accept 4300                           -- Jes'rimon, the Cleft of Shadow
+  train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
+
+step Zor Lonetree
+  when onquest 1262
+  zone Orgrimmar
+  tip Zor Lonetree stands in the Valley of Wisdom: Nazeer Bloodpike's report from Dustwallow Marsh.
+  turnin 1262                           -- Zor Lonetree
+  turnin 7541 direct                    -- Zor Lonetree: Service to the Horde
 
 # ---------------------------------------------------------------- To Azshara
 
@@ -159,40 +184,34 @@ step Valormok
   getfp "Valormok"
 
 step Fly to Orgrimmar
+  when available 4494
+  when level>=50
   zone Azshara
+  tip You reached 50 in Azshara: fly back to Orgrimmar for March of the Silithid and your level 50 training, then on to Thunder Bluff.
   goto 22.0,49.7 "Valormok flight master"
   fly "Orgrimmar"
-  zone Orgrimmar
-
-# ---------------------------------------------------------------- Orgrimmar
-
-step Orgrimmar
-  zone Orgrimmar
-  turnin 32                           -- Zilzibin Drumlore, the Drag: if you still carry it
-  accept 4300
-  turnin 81                           -- Dran Droffers, the Drag
 
 step Zilzibin Drumlore
+  when zone "Orgrimmar"
   when level>=50
+  when available 4494
   zone Orgrimmar
-  tip March of the Silithid needs level 50: Zilzibin, in the Drag, gives it from then on. Under 50, the Azshara guide at 55 offers it again.
+  tip Zilzibin is in the Drag; your class trainer next.
   accept 4494
-
-# ---------------------------------------------------------------- Orgrimmar
-
-step Orgrimmar
-  zone Orgrimmar
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
-
-step Paladin trainer
-  only Paladin
-  train class only Paladin -- Alodan the Hopeful in Thunder Bluff; Orgrimmar has no paladin trainer
 
 # ---------------------------------------------------------------- Thunder Bluff
 
 step Fly to Thunder Bluff
+  when zone "Orgrimmar"
   zone Orgrimmar
   goto 45.3,63.8 "Orgrimmar flight master"
+  fly "Thunder Bluff"
+
+step Fly to Thunder Bluff
+  when zone "Azshara"
+  zone Azshara
+  goto 22.0,49.7 "Valormok flight master"
   fly "Thunder Bluff"
 
 step Thunder Bluff
@@ -201,10 +220,6 @@ step Thunder Bluff
   accept 3762                           -- Innkeeper Pala, at the inn: for Hamuul
   turnin 3762                           -- Arch Druid Hamuul Runetotem, on the Elder Rise
   accept 3761
-
-step Class trainer
-  only Druid
-  train class only Druid
 
 step Thunder Bluff
   zone Thunder Bluff
@@ -221,13 +236,22 @@ step Camp Mojache
   sethome "Camp Mojache"
   turnin 3123                         -- Witch Doctor Uzer'i
   accept 3124
+  accept 3128                         -- Witch Doctor Uzer'i, if you don't carry it yet: the materials come on this loop
   accept 3380
   accept 4120                           -- Talo Thornhoof: the bears are in Felwood
+  accept 3063                           -- Talo Thornhoof: the Northspring harpies, at the far end of this loop
+
+step Talo Thornhoof
+  when group 3062
+  tip Dark Heart: Edana Hatetalon (level 50, elite) roosts above the Northspring harpies this loop ends at. Grouping up is advised: skip it if you are alone.
+  accept 3062
 
 step Frayfeather Hippogryphs
-  tip The hippogryphs nest on the hills south-west of the camp. Kill one, then use the Muisek Vessel on its body.
+  tip The hippogryphs nest on the hills south-west of the camp. Kill one, then use the Muisek Vessel on its body. Nearly every one also drops the sinew and metallic fragments for Natural Materials.
   collect 9595 quest 3124
   use 9619 quest 3124.1 @58.0,62.8 map 1444
+  collect 9591 quest 3128.3
+  collect 9592 quest 3128.4
 
 step Hippogryph nests
   when available 2741
@@ -239,33 +263,52 @@ step Witch Doctor Uzer'i
   accept 3125
 
 step Sprite Darters
-  tip The faerie dragons flit around the woods just west of the camp. Use the vessel on each one you kill.
+  tip The faerie dragons flit around the woods just west of the camp. Use the vessel on each one you kill; they carry the Encrusted Minerals too.
   collect 9596 quest 3125
   use 9620 quest 3125.1 @70.2,46.6 map 1444
+  collect 9589 quest 3128.2
 
 step Witch Doctor Uzer'i
   turnin 3125
   accept 3126
 
 step Wandering Forest Walkers
-  tip The treants wander the forest roads between the camp and the middle of Feralas; there are only a few, so look along the paths.
+  tip The treants wander the forest roads between the camp and the middle of Feralas; there are only a few, so look along the paths. They carry the Splintered Logs too.
+  tip Careful: a Vale Screamer (level 60) flies over the forest west of the camp: keep clear of it.
   collect 9593 quest 3126
   use 9606 quest 3126.1 @73.9,38.8 map 1444
+  collect 9590 quest 3128.1
 
 step Witch Doctor Uzer'i
   turnin 3126
   accept 3127
-
-step Zorbin Fandazzle
-  accept 7725
-  accept 7726
+  turnin 3128
 
 # ---------------------------------------------------------------- The Forgotten Coast
 
-step The Forgotten Coast: kill these as you meet them
+step Zorbin Fandazzle
+  tip Ride north-west to the Forgotten Coast; Zorbin waits on the dock.
+  accept 7003
+  accept 7721
+
+step The Forgotten Coast: the water and the shore
   zone Feralas
-  tip The Sea Elementals and Sea Sprays wash along the shore around the dock.
+  tip The Sea Sprays (46-48) wash along the shore just south of the dock and drop the Water Elemental Cores, as the Sea Elementals (47-49) do. The Wave and Deep Striders (47-49) wade in the water off the same beach: zap them with Zorbin's Ultra-Shrinker first, and shrunken they lose their elite strength.
+  tip The Ultra-Shrinker lasts two hours: Zorbin has a second round once these are done.
+  collect 18958 quest 7721.1 @44.94,48.6 map 1444 -- Water Elemental Core, from the Sea Sprays
+  use 18904 quest 7003.1 @44.12,49.08 map 1444 -- Zorbin's Ultra-Shrinker, on the Wave and Deep Striders in the water
+  collect 18956 quest 7003.1
+
+step Zorbin Fandazzle
+  turnin 7003
+  turnin 7721
+  accept 7725
+  accept 7726
+
+step The Forgotten Coast: the giants' hills
+  zone Feralas
   tip The Land Walkers and Cliff Giants roam the hills north of the dock. Zap each one with Zorbin's Ultra-Shrinker first: shrunken, they are no longer elite. Every zapped giant drops residue; use the Muisek Vessel on its body too.
+  tip The Sea Elementals and Sea Sprays along the shore have the last cores.
   collect 9597 quest 3127
   use 9621 quest 3127.1 @39.9,22.2 map 1444
   collect 18958 quest 7726
@@ -283,11 +326,28 @@ step Northspring harpies
   kill 5364 quest 3063.3
   kill 5366 quest 3063.4
 
+step Edana Hatetalon
+  when group 3062
+  tip Edana Hatetalon (level 50, elite) roosts on the cliff just north of the harpies' nests. Clear the harpies around her first.
+  collect 9528 quest 3062.1 @40.5,8.6 map 1444
+
+step Rage Scar yetis
+  tip On the way back south-east towards the camp, the Rage Scar yetis live around the caves in the hills by the road. Any of them can also drop a Perfect Yeti Hide, which starts a quest of its own.
+  collect 18947 quest 7734.1
+  collect 18972 optional                -- Perfect Yeti Hide, a rare drop
+  accept 7738 optional
+
 step Back to Camp Mojache
   turnin 3127                         -- Witch Doctor Uzer'i
   accept 3129
   turnin 3129
+  turnin 7734                         -- Jangdor Swiftstrider, inside
+  turnin 7738 optional
   turnin 3063                         -- Talo Thornhoof
+
+step Talo Thornhoof
+  when onquest 3062
+  turnin 3062
 
 step Fly to Gadgetzan
   zone Feralas
@@ -333,14 +393,15 @@ step Marvon Rivetseeker
   note Keep The Stone Circle: Marvon's chest is opened on a later visit.
 
 step The Dunemaul Compound
+  when onquest 5863
   zone Tanaris
-  tip South of the Broken Pillar the Dunemaul ogres hold their compound, with Gor'marok the Ravager at its eastern end: Andi Lynn's quest, carried from your first Tanaris visit.
+  tip South of the Broken Pillar the Dunemaul ogres hold their compound, with Gor'marok the Ravager at its eastern end: Andi Lynn's quest, if you still carry it from Tanaris.
   kill 5474 quest 5863.1
   kill 5472 quest 5863.2
   kill 12046 quest 5863.3 @41.5,57.8  -- Below ground
 
 step Thistleshrub Valley
   zone Tanaris
-  tip West from the compound, on the way to Un'Goro's ramp: Thistleshrub Valley's Gnarled Thistleshrubs and Rootshapers (48-50) are Tran'rek's, carried from your first Tanaris visit. They wander a lot: pull them one at a time. Tran'rek takes them on the next guide's Gadgetzan stop, with Andi Lynn's.
+  tip West from the compound, on the way to Un'Goro's ramp: Thistleshrub Valley's Gnarled Thistleshrubs and Rootshapers (49-50) are Tran'rek's, carried from your second Tanaris visit. They wander a lot: pull them one at a time. Tran'rek takes them on the next guide's Gadgetzan stop.
   kill 5490 quest 3362.1 @29.65,66.4
   kill 5485 quest 3362.2 @29.69,66.35

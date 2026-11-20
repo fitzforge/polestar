@@ -113,7 +113,7 @@ return {
 	-- Step 17: Nesingwary's camp
 	["Back north to the camp."] = "북쪽의 야영지로 돌아가세요.",
 	-- {npc:717} Ajeck Rouack · {npc:729} Sin'Dall
-	["{npc:717}: {npc:729} (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale"] = "{npc:717}: {npc:729}(37)은(는) forever/horde/40-50/01-stranglethorn-vale 가이드의 다음 네싱워리 방문(약 40레벨) 때 처리합니다",
+	["{npc:717}: {npc:729} (37) comes at the end of this guide, from level 36"] = "",
 
 	-- Step 18: Thoroughly Scavenged Supplies
 	-- {object:661516} Thoroughly Scavenged Supplies (no name in this language: may be words) · {quest:97328} Anything of Value · {area:102} Ruins of Zul'Kunda
@@ -125,7 +125,8 @@ return {
 	["{area:301}: kill these as you meet them"] = "",
 	-- {npc:729} Sin'Dall
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
-	["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "야영지를 지나 서쪽 바위에는 수정가시 바실리스크(34-35)가 있습니다. 그 너머 마을의 붉은머리부족은 모두 귀를 떨어뜨릴 수 있습니다.\n야영지 남서쪽 언덕 위의 37레벨 호랑이 {npc:729}은(는) 지금은 두세요. 2레벨 높으며, 40-50 가시덤불 골짜기 가이드에서 다시 옵니다.\n주의: 랩터 둥지에는 어른 랩터를 공격하면 전투에 끼어드는 새끼 랩터가 있습니다.",
+	-- was: ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "야영지를 지나 서쪽 바위에는 수정가시 바실리스크(34-35)가 있습니다. 그 너머 마을의 붉은머리부족은 모두 귀를 떨어뜨릴 수 있습니다.\n야영지 남서쪽 언덕 위의 37레벨 호랑이 {npc:729}은(는) 지금은 두세요. 2레벨 높으며, 40-50 가시덤불 골짜기 가이드에서 다시 옵니다.\n주의: 랩터 둥지에는 어른 랩터를 공격하면 전투에 끼어드는 새끼 랩터가 있습니다."
+	["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and this guide comes back to him at its end, from level 36.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "",
 
 	-- Step 20: Zimmix Sputterspark
 	-- {npc:268992} Zimmix Sputterspark · {area:102} Ruins of Zul'Kunda · {item:277957} Primitive Key · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
@@ -208,24 +209,36 @@ return {
 	-- Step 33: Grom'gol
 	-- {object:3202} Grom'gol
 	["Back to {object:3202}."] = "{object:3202}(으)로 돌아가세요.",
-	-- {npc:2465} Far Seer Mok'thardin
-	["{npc:2465}: for forever/horde/40-50/01-stranglethorn-vale"] = "",
-	-- {npc:2497} Nimboya
-	["{npc:2497}: for forever/horde/40-50/01-stranglethorn-vale"] = "",
-	-- {zone:1454} Orgrimmar
-	["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "다음 가이드는 주둔지 서쪽의 탑에서 비행선을 타고 {zone:1454}(으)로 갑니다.",
+	-- {npc:2465} Far Seer Mok'thardin · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
+	["{npc:2465}: for the {zone:1434} & {zone:1435} guide, at about 40"] = "",
+	-- {npc:2497} Nimboya · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
+	["{npc:2497}: for the {zone:1434} & {zone:1435} guide, at about 40"] = "",
+	-- {npc:729} Sin'Dall · {zone:1454} Orgrimmar
+	-- was: ["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "다음 가이드는 주둔지 서쪽의 탑에서 비행선을 타고 {zone:1454}(으)로 갑니다."
+	["After {npc:729}, back here: the next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "",
 
 	-- Step 34: Level 36
 	["Level 36"] = "",
-	-- {object:3202} Grom'gol
+	-- {npc:729} Sin'Dall · {object:3202} Grom'gol
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
-	["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36, then walk back to the zeppelin tower. Leave the Mosh'Ogg ogres (36-37) above them alone."] = "먼지진흙 습지대 퀘스트는 35-38 레벨입니다. {object:3202}에서 퀘스트를 제출하고도 36 레벨이 안 되나요? 무쇠턱 악어(35-36)가 주둔지 바로 동쪽, 모쉬오그 언덕 아래 강가에 있습니다. 36 레벨까지 처치한 뒤 비행선 탑으로 걸어 돌아가세요. 그 위의 모쉬오그일족 오우거(36-37)는 건드리지 마세요.",
+	-- was: ["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36, then walk back to the zeppelin tower. Leave the Mosh'Ogg ogres (36-37) above them alone."] = "먼지진흙 습지대 퀘스트는 35-38 레벨입니다. {object:3202}에서 퀘스트를 제출하고도 36 레벨이 안 되나요? 무쇠턱 악어(35-36)가 주둔지 바로 동쪽, 모쉬오그 언덕 아래 강가에 있습니다. 36 레벨까지 처치한 뒤 비행선 탑으로 걸어 돌아가세요. 그 위의 모쉬오그일족 오우거(36-37)는 건드리지 마세요."
+	["Dustwallow's quests are 35-38, and {npc:729} (37) is next. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36. Leave the Mosh'Ogg ogres (36-37) above them alone."] = "",
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks"] = "{npc:1152}",
 	-- {npc:1152} Snapjaw Crocolisk
 	["grind on {npc:1152}"] = "",
 
+	-- Step 35: Sin'Dall
+	-- {object:3202} Grom'gol · {npc:729} Sin'Dall
+	-- plural, as words: Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger
+	["North from {object:3202} to the hilltop just south-west of Nesingwary's camp: {npc:729} prowls there alone.\nCareful: {npc:729} (37) is a level over you: pull him at full health, clear of the Elder Stranglethorn Tigers (34-35) on the hill's slopes."] = "",
+
+	-- Step 36: Nesingwary's camp
+	-- {npc:717} Ajeck Rouack · {object:3202} Grom'gol
+	["North to {npc:717} in Nesingwary's camp, then back south to {object:3202}'s zeppelin tower."] = "",
+
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36, then walk back to the zeppelin tower. Leave the Mosh'Ogg ogres (36-37) above them alone."] = "먼지진흙 습지대 퀘스트는 35-38 레벨입니다. {object:3202}에서 퀘스트를 제출하고도 36 레벨이 안 되나요? 무쇠턱 악어(35-36)가 주둔지 바로 동쪽, 모쉬오그 언덕 아래 강가에 있습니다. 36 레벨까지 처치한 뒤 비행선 탑으로 걸어 돌아가세요. 그 위의 모쉬오그일족 오우거(36-37)는 건드리지 마세요.",
 	-- ["Elder tigers and Lashtail raptors"] = "덩치큰 호랑이와 채찍꼬리랩터",
 	-- ["Follow the road north out of {object:3202}; Nesingwary's hunting camp sits on the hill north-east of the river. From here on, keep every page of {quest:338} you loot: {npc:716} asks for them later."] = "길을 따라 {object:3202}에서 북쪽으로 나가세요. 네싱워리의 사냥 야영지는 강 북동쪽 언덕에 있습니다. 지금부터 얻는 {quest:338}의 모든 쪽은 보관하세요. 나중에 {npc:716}이(가) 요구합니다.",
 	-- ["Follow the road south to {area:35} at the southern tip of the vale and enter through the tunnel in the cliffs. Stay on the road: the jungle beside it is well above your level. {npc:2858}, the Horde flight master, waits on the upper deck."] = "길을 따라 골짜기 남쪽 끝의 {area:35}(으)로 가서 절벽의 터널로 들어가세요. 길에서 벗어나지 마세요. 길 옆 정글은 레벨이 훨씬 높습니다. 호드 비행 조련사 {npc:2858}은(는) 위층 갑판에 있습니다.",
@@ -237,7 +250,9 @@ return {
 	-- ["The Mosh'Ogg ogres camp in the hills just east of {object:3202}, on your way back. Kill 10 Brutes and 5 Witch Doctors (36-37); pull them one at a time."] = "모쉬오그일족 오우거는 돌아가는 길, {object:3202} 바로 동쪽 언덕에 야영하고 있습니다. 모쉬오그일족 투사 10마리와 모쉬오그일족 의술사 5마리(36-37)를 처치하세요. 한 마리씩 끌어오세요.",
 	-- ["The Shadowmaw Panthers (37-38) stalk the jungle east of the Mosh'Ogg hills and north-east towards the lake; they strike from stealth. Loot every Green Hills page you find on the way."] = "그림자퓨마(37-38)는 모쉬오그일족 언덕 동쪽과 북동쪽 호수 방향 정글에 숨어 다니며, 은신 상태에서 공격합니다. 가는 길에 보이는 푸른 언덕의 쪽은 모두 챙기세요.",
 	-- ["The camp by the river"] = "강가의 야영지",
+	-- ["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "다음 가이드는 주둔지 서쪽의 탑에서 비행선을 타고 {zone:1454}(으)로 갑니다.",
 	-- ["Venture Co. camp"] = "투자개발회사 야영지",
+	-- ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "야영지를 지나 서쪽 바위에는 수정가시 바실리스크(34-35)가 있습니다. 그 너머 마을의 붉은머리부족은 모두 귀를 떨어뜨릴 수 있습니다.\n야영지 남서쪽 언덕 위의 37레벨 호랑이 {npc:729}은(는) 지금은 두세요. 2레벨 높으며, 40-50 가시덤불 골짜기 가이드에서 다시 옵니다.\n주의: 랩터 둥지에는 어른 랩터를 공격하면 전투에 끼어드는 새끼 랩터가 있습니다.",
 	-- ["Zeppelin to {object:3202}"] = "{object:3202}행 비행선",
 	-- ["from {npc:4723}"] = "{npc:4723}에게서",
 	-- ["{item:5852}, in {object:20691}"] = "{item:5852}, {object:20691} 안",
@@ -245,5 +260,6 @@ return {
 	-- ["{npc:2496}: Cozzle's footlocker is at {area:37}, later in this guide"] = "{npc:2496}: 코즐의 사물함은 이 가이드 후반에 가는 {area:37}에 있습니다",
 	-- ["{npc:2496}: for Pozzik at the {area:2240}, on the way to {zone:1446} around level 43"] = "{npc:2496}: 레벨 43쯤 {zone:1446}(으)로 가는 길에 있는 {area:2240}의 포직에게 전달",
 	-- ["{npc:4723} (38) is inside the Venture Co. house on {area:37}'s west shore, among the geologists: his key opens {object:20691} in the same house, which holds the blueprints for {npc:2496}. Careful: Venture Co. Agents (39) stand in and around the house: clear the doorway before you go in."] = "{npc:4723}(38)은(는) {area:37} 서쪽 기슭의 투자개발회사 건물 안 지질학자들 사이에 있습니다. 그의 열쇠로 같은 건물의 {object:20691}을(를) 열 수 있으며, 그 안에 {npc:2496}에게 줄 설계도가 있습니다. 주의: 투자개발회사 요원(39)이 건물 안팎에 서 있습니다. 들어가기 전에 입구를 정리하세요.",
+	-- ["{npc:717}: {npc:729} (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale"] = "{npc:717}: {npc:729}(37)은(는) forever/horde/40-50/01-stranglethorn-vale 가이드의 다음 네싱워리 방문(약 40레벨) 때 처리합니다",
 	-- ["{npc:773}'s missing hunters' camp is Nesingwary's: walk among its tents and the investigation completes. River Crocolisks lie along the river below the camp."] = "{npc:773}의 실종된 사냥꾼들의 야영지는 네싱워리의 야영지입니다. 천막 사이를 걸으면 조사가 완료됩니다. 민물악어는 야영지 아래 강을 따라 있습니다.",
 }

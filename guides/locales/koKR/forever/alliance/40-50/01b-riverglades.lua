@@ -188,8 +188,7 @@ return {
 	-- Step 38: WANTED: Blademaster Kaijo
 	-- {npc:263071} Blademaster Kaijo · {area:16743} Rog'mar
 	["{npc:263071} is an elite (level 42) at the Horde's training grounds north of {area:16743}, where this guide goes later: grouping up is advised."] = "{npc:263071}은(는) {area:16743} 북쪽 호드 훈련장에 있는 정예(42레벨)로, 이 가이드에서 나중에 갑니다: 파티를 권장합니다.",
-	-- {object:707245} Wanted (no name in this language: may be words)
-	["the {object:707245} poster"] = "{object:707245} 전단",
+	["the Wanted poster"] = "",
 
 	-- Step 39: Ghostmaw
 	-- {npc:263380} Ghostmaw · {area:16725} Wheeler's Grange · {area:16729} Terral's Watch
@@ -556,6 +555,7 @@ return {
 	["The next guide starts in the {zone:1418}, south of {zone:1432}: fly to {area:144}."] = "다음 가이드는 {zone:1432} 남쪽의 {zone:1418}에서 시작합니다: {area:144}(으)로 날아가십시오.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["the {object:707245} poster"] = "{object:707245} 전단",
 	-- ["{item:17028}, from {npc:272437}"] = "{npc:272437}에게서 {item:17028}",
 	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026}은(는) 고개 동쪽 길가에서 기다립니다.",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031}은(는) {area:16724} 남서쪽 구석의 옛 대성당을 지키고 있습니다. 박쥐는 대성당 위층에 둥지를 틀고 있고, 그 옆에서 {npc:272437}이(가) 신성한 양초를 나눠 주며, 무덤은 예배당 묘지에 있습니다.\n53레벨 정예인 {npc:271742}이(가) 대성당 안에 서 있습니다: 먼저 공격하지 않으니 절대 공격하지 말고, 박쥐는 그에게서 떨어진 곳으로 끌어내십시오.",

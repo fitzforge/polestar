@@ -11936,6 +11936,603 @@
 			"evidence": "route level 58.8; Flesh Golem 56-57; recordings (2026-11-11): no objective ticks, 0 people died within 60 yd, 0 abandoned"
 		},
 		{
+			"key": "forever/50-60/mount-hyjal.guide@Horde|collect 91794.1|rare",
+			"guide": "forever/50-60/mount-hyjal.guide@Horde",
+			"goal": "collect 91794.1",
+			"kind": "rare",
+			"title": "Dae'gun",
+			"level": 58.5,
+			"mobs": [
+				"Jezerelle the Swaying 61-61"
+			],
+			"reason": "warned at the step: its Careful tip names Jezerelle the Swaying (61, rare) and where she walks",
+			"evidence": "route level 58.5 (level model run-rested, Horde, 2026-11-20); Jezerelle the Swaying 61-61; recordings (2026-11-20): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/03-silverpine-forest.guide|collect 423.2|elite",
+			"guide": "forever/horde/03-silverpine-forest.guide",
+			"goal": "collect 423.2",
+			"kind": "elite",
+			"title": "North-west hills",
+			"level": 15.3,
+			"mobs": [
+				"Son of Arugal 24-25"
+			],
+			"reason": "not met where the data places him: the recordings' census ran by the Son of Arugal spawns for 82 Horde people and none met one there, and players gather these shackles, blood and hearts on these hills at 16-17.",
+			"evidence": "route level 15.3 (level model run-rested, Horde, 2026-11-20); Son of Arugal 24-25; recordings (2026-11-20): done by 23 (median 16.03), deaths 0, abandons 5"
+		},
+		{
+			"key": "forever/horde/03-silverpine-forest.guide|collect 447.2|elite",
+			"guide": "forever/horde/03-silverpine-forest.guide",
+			"goal": "collect 447.2",
+			"kind": "elite",
+			"title": "North-west hills",
+			"level": 15.3,
+			"mobs": [
+				"Son of Arugal 24-25"
+			],
+			"reason": "not met where the data places him: the recordings' census ran by the Son of Arugal spawns for 82 Horde people and none met one there, and players gather these shackles, blood and hearts on these hills at 16-17.",
+			"evidence": "route level 15.3 (level model run-rested, Horde, 2026-11-20); Son of Arugal 24-25; recordings (2026-11-20): done by 53 (median 17.09), deaths 2, abandons 12"
+		},
+		{
+			"key": "forever/horde/03-silverpine-forest.guide|collect 447.1|elite",
+			"guide": "forever/horde/03-silverpine-forest.guide",
+			"goal": "collect 447.1",
+			"kind": "elite",
+			"title": "North-west hills",
+			"level": 15.3,
+			"mobs": [
+				"Son of Arugal 24-25"
+			],
+			"reason": "not met where the data places him: the recordings' census ran by the Son of Arugal spawns for 82 Horde people and none met one there, and players gather these shackles, blood and hearts on these hills at 16-17.",
+			"evidence": "route level 15.3 (level model run-rested, Horde, 2026-11-20); Son of Arugal 24-25; recordings (2026-11-20): done by 63 (median 16.81), deaths 2, abandons 12"
+		},
+		{
+			"key": "forever/horde/07-ashenvale.guide|collect 1153.1|elite",
+			"guide": "forever/horde/07-ashenvale.guide",
+			"goal": "collect 1153.1",
+			"kind": "elite",
+			"title": "Gravelsnout kobolds and Steelsnap",
+			"level": 28.7,
+			"mobs": [
+				"Stormheart 30-30"
+			],
+			"reason": "Stormheart walks the canyon floor east of Freewind Post (data: 48-50,41-43), far from the Gravelsnout hills (about 13,15) where the step sends the player; the ore drops from the kobolds (28-29).",
+			"evidence": "route level 28.7 (level model run-rested, Horde, 2026-11-20); Stormheart 30-30; recordings (2026-11-20): done by 11 (median 30.04), deaths 0, abandons 5"
+		},
+		{
+			"key": "forever/horde/07-ashenvale.guide|collect 5062.1|over",
+			"guide": "forever/horde/07-ashenvale.guide",
+			"goal": "collect 5062.1",
+			"kind": "over",
+			"title": "Incendia Agave",
+			"level": 28.7,
+			"mobs": [
+				"Ravaging Tempest 40-40 x5",
+				"Ailgrha Splittusk 38-38 x11",
+				"Ravaging Storm Elemental 38-38 x11",
+				"Ravaging Quake Elemental 38-38 x9",
+				"Ravaging Flood Elemental 38-38 x12",
+				"Ravaging Drought Elemental 38-38 x10"
+			],
+			"reason": "the step picks the agave on the camps' north-western side and its tip names the Ravaging elementals and Ailgrha Splittusk; players' recordings place them at 36-41,35-43 only (26, 22 and 26 people saw them hostile), none north-west of 36,35, where the goal points.",
+			"evidence": "route level 28.7 (level model run-rested, Horde, 2026-11-20); Ravaging Tempest 40-40 x5, Ailgrha Splittusk 38-38 x11, Ravaging Storm Elemental 38-38 x11, Ravaging Quake Elemental 38-38 x9, Ravaging Flood Elemental 38-38 x12, Ravaging Drought Elemental 38-38 x10; recordings (2026-11-20): done by 24 (median 30.16), deaths 3, abandons 5"
+		},
+		{
+			"key": "forever/horde/07-ashenvale.guide|collect 5062.1|pack",
+			"guide": "forever/horde/07-ashenvale.guide",
+			"goal": "collect 5062.1",
+			"kind": "pack",
+			"title": "Incendia Agave",
+			"level": 28.7,
+			"mobs": [
+				"58 spawns 30+"
+			],
+			"reason": "the step picks the agave on the camps' north-western side and its tip names the Ravaging elementals and Ailgrha Splittusk; players' recordings place them at 36-41,35-43 only (26, 22 and 26 people saw them hostile), none north-west of 36,35, where the goal points.",
+			"evidence": "route level 28.7 (level model run-rested, Horde, 2026-11-20); 58 spawns 30+; recordings (2026-11-20): done by 24 (median 30.16), deaths 3, abandons 5"
+		},
+		{
+			"key": "forever/horde/30-40/02-thousand-needles.guide|collect 1366.1|over",
+			"guide": "forever/horde/30-40/02-thousand-needles.guide",
+			"goal": "collect 1366.1",
+			"kind": "over",
+			"title": "Magram Village",
+			"level": 32.7,
+			"mobs": [
+				"Magram Guardian 39-41 x3",
+				"Magram Necromancer 42-43 x3"
+			],
+			"reason": "the step keeps to the camp's north-western edge (Scouts and Outrunners 32-33, Wranglers 33-34) and its tip names the Marauders, Maulers and Bonepaws of the middle; the Guardians and Necromancers (39-43) hold the village to the south.",
+			"evidence": "route level 32.7 (level model run-rested, Horde, 2026-11-20); Magram Guardian 39-41 x3, Magram Necromancer 42-43 x3; recordings (2026-11-20): done by 16 (median 37.26), deaths 0, abandons 10"
+		},
+		{
+			"key": "forever/horde/30-40/02-thousand-needles.guide|collect 1366.1|pack",
+			"guide": "forever/horde/30-40/02-thousand-needles.guide",
+			"goal": "collect 1366.1",
+			"kind": "pack",
+			"title": "Magram Village",
+			"level": 32.7,
+			"mobs": [
+				"10 spawns 34+"
+			],
+			"reason": "the step keeps to the camp's north-western edge (Scouts and Outrunners 32-33, Wranglers 33-34) and its tip names the Marauders, Maulers and Bonepaws of the middle; the Guardians and Necromancers (39-43) hold the village to the south.",
+			"evidence": "route level 32.7 (level model run-rested, Horde, 2026-11-20); 10 spawns 34+; recordings (2026-11-20): done by 16 (median 37.26), deaths 0, abandons 10"
+		},
+		{
+			"key": "forever/horde/30-40/02-thousand-needles.guide|collect 93225.1|mixed",
+			"guide": "forever/horde/30-40/02-thousand-needles.guide",
+			"goal": "collect 93225.1",
+			"kind": "mixed",
+			"title": "Magram Village",
+			"level": 32.7,
+			"mobs": [
+				"Magram Guardian 39-41",
+				"Magram Marauder 35-36"
+			],
+			"reason": "the step keeps to the camp's north-western edge (Scouts and Outrunners 32-33, Wranglers 33-34) and its tip names the Marauders, Maulers and Bonepaws of the middle; the Guardians and Necromancers (39-43) hold the village to the south.",
+			"evidence": "route level 32.7 (level model run-rested, Horde, 2026-11-20); Magram Guardian 39-41, Magram Marauder 35-36; recordings (2026-11-20): done by 12 (median 38.81), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/horde/30-40/05-arathi-highlands.guide|collect 662.1|pack",
+			"guide": "forever/horde/30-40/05-arathi-highlands.guide",
+			"goal": "collect 662.1",
+			"kind": "pack",
+			"title": "The Drowned Reef: kill these as you meet them",
+			"level": 38.4,
+			"mobs": [
+				"9 spawns 40+"
+			],
+			"reason": "players do it at the route's level: the step pulls the Daggerspine shore one at a time, and the wrecks and gems lie in the shallows off it.",
+			"evidence": "route level 38.4 (level model run-rested, Horde, 2026-11-20); 9 spawns 40+; recordings (2026-11-20): done by 31 (median 39.15), deaths 6, abandons 2"
+		},
+		{
+			"key": "forever/horde/30-40/06-badlands.guide|collect 705.1|rare",
+			"guide": "forever/horde/30-40/06-badlands.guide",
+			"goal": "collect 705.1",
+			"kind": "rare",
+			"title": "Rigglefuzz: Pearl Diving",
+			"level": 38.6,
+			"mobs": [
+				"Zaricotl 55-56"
+			],
+			"reason": "a hand-in for players who already carry nine Blue Pearls (`when has`): the step sends nobody to fight anything.",
+			"evidence": "route level 38.6 (level model run-rested, Horde, 2026-11-20); Zaricotl 55-56; recordings (2026-11-20): done by 2 (median 44.11), deaths 0, abandons 15"
+		},
+		{
+			"key": "forever/horde/30-40/06-badlands.guide|collect 1108.1|pack",
+			"guide": "forever/horde/30-40/06-badlands.guide",
+			"goal": "collect 1108.1",
+			"kind": "pack",
+			"title": "Stonevault troggs",
+			"level": 38.9,
+			"mobs": [
+				"9 spawns 40+"
+			],
+			"reason": "players do it at the route's level: the troggs around the cave mouths stand at most a level or two over the route, and the step works their edge on the way north.",
+			"evidence": "route level 38.9 (level model run-rested, Horde, 2026-11-20); 9 spawns 40+; recordings (2026-11-20): done by 32 (median 40.85), deaths 3, abandons 2"
+		},
+		{
+			"key": "forever/horde/40-50/01-stranglethorn-vale.guide|collect 1424.1|elite",
+			"guide": "forever/horde/40-50/01-stranglethorn-vale.guide",
+			"goal": "collect 1424.1",
+			"kind": "elite",
+			"title": "Pool of Tears",
+			"level": 41.3,
+			"mobs": [
+				"Mukomonji 62-62"
+			],
+			"reason": "not a threat: Mukomonji is a neutral quest NPC at the Pool of Tears, whom the data lacks a reaction for.",
+			"evidence": "route level 41.3 (level model run-rested, Horde, 2026-11-20); Mukomonji 62-62; recordings (2026-11-20): done by 8 (median 46.26), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/40-50/01-stranglethorn-vale.guide|collect 699.1|over",
+			"guide": "forever/horde/40-50/01-stranglethorn-vale.guide",
+			"goal": "collect 699.1",
+			"kind": "over",
+			"title": "Sawtooth snappers",
+			"level": 41.4,
+			"mobs": [
+				"Methuselah Crab 60-60 x7"
+			],
+			"reason": "a level 60 roamer players give room to: the Methuselah Crab walks the south-east strand, and the strand step's tip warns about it.",
+			"evidence": "route level 41.4 (level model run-rested, Horde, 2026-11-20); Methuselah Crab 60-60 x7; recordings (2026-11-20): done by 7 (median 46.31), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/40-50/01-stranglethorn-vale.guide|collect 699.1|pack",
+			"guide": "forever/horde/40-50/01-stranglethorn-vale.guide",
+			"goal": "collect 699.1",
+			"kind": "pack",
+			"title": "Sawtooth snappers",
+			"level": 41.4,
+			"mobs": [
+				"8 spawns 43+"
+			],
+			"reason": "players do it at the route's level: the strand's snappers and crawlers stand one level over.",
+			"evidence": "route level 41.4 (level model run-rested, Horde, 2026-11-20); 8 spawns 43+; recordings (2026-11-20): done by 7 (median 46.31), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/40-50/01b-riverglades.guide|collect 95183.1|elite",
+			"guide": "forever/horde/40-50/01b-riverglades.guide",
+			"goal": "collect 95183.1",
+			"kind": "elite",
+			"title": "The rock piles",
+			"level": 42.9,
+			"mobs": [
+				"Buzzbeak 41-41 x2",
+				"Chub'chob 45-45 x4"
+			],
+			"reason": "Buzzbeak and Chub'chob are the Ring's bout opponents (Jezap starts each bout; Chub'chob's is a group choice in this guide); the rock piles lie beside the ring and on the slopes toward the port, and recorded players gather the rocks at about 43.",
+			"evidence": "route level 42.9 (level model run-rested, Horde, 2026-11-20); Buzzbeak 41-41 x2, Chub'chob 45-45 x4; recordings (2026-11-20): done by 17 (median 43.15), deaths 1, abandons 0"
+		},
+		{
+			"key": "forever/horde/40-50/02-feralas.guide|collect 1424.1|elite",
+			"guide": "forever/horde/40-50/02-feralas.guide",
+			"goal": "collect 1424.1",
+			"kind": "elite",
+			"title": "Pool of Tears",
+			"level": 44.4,
+			"mobs": [
+				"Mukomonji 62-62"
+			],
+			"reason": "not a threat: Mukomonji is a neutral quest NPC at the Pool of Tears, whom the data lacks a reaction for.",
+			"evidence": "route level 44.4 (level model run-rested, Horde, 2026-11-20); Mukomonji 62-62; recordings (2026-11-20): done by 8 (median 46.26), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/40-50/02-feralas.guide|collect 699.1|over",
+			"guide": "forever/horde/40-50/02-feralas.guide",
+			"goal": "collect 699.1",
+			"kind": "over",
+			"title": "The Forbidding Sea: kill these as you meet them",
+			"level": 44.4,
+			"mobs": [
+				"Methuselah Crab 60-60 x7"
+			],
+			"reason": "a level 60 roamer players give room to: the Methuselah Crab walks the south-east strand, and the strand step's tip warns about it.",
+			"evidence": "route level 44.4 (level model run-rested, Horde, 2026-11-20); Methuselah Crab 60-60 x7; recordings (2026-11-20): done by 7 (median 46.31), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/40-50/02-feralas.guide|collect 699.1|pack",
+			"guide": "forever/horde/40-50/02-feralas.guide",
+			"goal": "collect 699.1",
+			"kind": "pack",
+			"title": "The Forbidding Sea: kill these as you meet them",
+			"level": 44.4,
+			"mobs": [
+				"7 spawns 46+"
+			],
+			"reason": "players do it at the route's level: the strand's snappers and crawlers stand one level over.",
+			"evidence": "route level 44.4 (level model run-rested, Horde, 2026-11-20); 7 spawns 46+; recordings (2026-11-20): done by 7 (median 46.31), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/40-50/02-feralas.guide|collect 1430.1|over",
+			"guide": "forever/horde/40-50/02-feralas.guide",
+			"goal": "collect 1430.1",
+			"kind": "over",
+			"title": "The Forbidding Sea: kill these as you meet them",
+			"level": 44.4,
+			"mobs": [
+				"Methuselah Crab 60-60 x2"
+			],
+			"reason": "a level 60 roamer players give room to: the Methuselah Crab walks the south-east strand, and the strand step's tip warns about it.",
+			"evidence": "route level 44.4 (level model run-rested, Horde, 2026-11-20); Methuselah Crab 60-60 x2; recordings (2026-11-20): done by 7 (median 46.33), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/horde/40-50/02-feralas.guide|kill 1426.1|over",
+			"guide": "forever/horde/40-50/02-feralas.guide",
+			"goal": "kill 1426.1",
+			"kind": "over",
+			"title": "Murlocs of the Misty Reed",
+			"level": 44.4,
+			"mobs": [
+				"Methuselah Crab 60-60 x2"
+			],
+			"reason": "a level 60 roamer players give room to: the Methuselah Crab walks the south-east strand, and the strand step's tip warns about it.",
+			"evidence": "route level 44.4 (level model run-rested, Horde, 2026-11-20); Methuselah Crab 60-60 x2; recordings (2026-11-20): done by 7 (median 46.4), deaths 1, abandons 0"
+		},
+		{
+			"key": "forever/horde/40-50/02-feralas.guide|kill 1426.3|over",
+			"guide": "forever/horde/40-50/02-feralas.guide",
+			"goal": "kill 1426.3",
+			"kind": "over",
+			"title": "Murlocs of the Misty Reed",
+			"level": 44.4,
+			"mobs": [
+				"Methuselah Crab 60-60 x4",
+				"Swamp Talker 50-50 x10"
+			],
+			"reason": "recorded players do the Misty Reed murlocs at about 46 with at most one death at the spot; the strand step's tip names the Methuselah Crab.",
+			"evidence": "route level 44.4 (level model run-rested, Horde, 2026-11-20); Methuselah Crab 60-60 x4, Swamp Talker 50-50 x10; recordings (2026-11-20): done by 7 (median 46.42), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/40-50/02-feralas.guide|kill 1426.3|pack",
+			"guide": "forever/horde/40-50/02-feralas.guide",
+			"goal": "kill 1426.3",
+			"kind": "pack",
+			"title": "Murlocs of the Misty Reed",
+			"level": 44.4,
+			"mobs": [
+				"14 spawns 46+"
+			],
+			"reason": "a pack of higher spawns near the goal: recorded players do the Misty Reed murlocs at about 46 with at most one death at the spot.",
+			"evidence": "route level 44.4 (level model run-rested, Horde, 2026-11-20); 14 spawns 46+; recordings (2026-11-20): done by 7 (median 46.42), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/40-50/02-feralas.guide|kill 1426.2|over",
+			"guide": "forever/horde/40-50/02-feralas.guide",
+			"goal": "kill 1426.2",
+			"kind": "over",
+			"title": "Murlocs of the Misty Reed",
+			"level": 44.4,
+			"mobs": [
+				"Methuselah Crab 60-60 x2",
+				"Swamp Talker 50-50 x8"
+			],
+			"reason": "recorded players do the Misty Reed murlocs at about 46 with at most one death at the spot; the strand step's tip names the Methuselah Crab.",
+			"evidence": "route level 44.4 (level model run-rested, Horde, 2026-11-20); Methuselah Crab 60-60 x2, Swamp Talker 50-50 x8; recordings (2026-11-20): done by 7 (median 46.42), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/40-50/02-feralas.guide|kill 1426.2|pack",
+			"guide": "forever/horde/40-50/02-feralas.guide",
+			"goal": "kill 1426.2",
+			"kind": "pack",
+			"title": "Murlocs of the Misty Reed",
+			"level": 44.4,
+			"mobs": [
+				"10 spawns 46+"
+			],
+			"reason": "a pack of higher spawns near the goal: recorded players do the Misty Reed murlocs at about 46 with at most one death at the spot.",
+			"evidence": "route level 44.4 (level model run-rested, Horde, 2026-11-20); 10 spawns 46+; recordings (2026-11-20): done by 7 (median 46.42), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/40-50/02-feralas.guide|kill 1428.2|over",
+			"guide": "forever/horde/40-50/02-feralas.guide",
+			"goal": "kill 1428.2",
+			"kind": "over",
+			"title": "Continued Threat",
+			"level": 44.8,
+			"mobs": [
+				"Methuselah Crab 60-60 x4",
+				"Swamp Talker 50-50 x10"
+			],
+			"reason": "recorded players do the Misty Reed murlocs at about 46 with at most one death at the spot; the strand step's tip names the Methuselah Crab.",
+			"evidence": "route level 44.8 (level model run-rested, Horde, 2026-11-20); Methuselah Crab 60-60 x4, Swamp Talker 50-50 x10; recordings (2026-11-20): done by 6 (median 46.52), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/40-50/02-feralas.guide|kill 1428.2|pack",
+			"guide": "forever/horde/40-50/02-feralas.guide",
+			"goal": "kill 1428.2",
+			"kind": "pack",
+			"title": "Continued Threat",
+			"level": 44.8,
+			"mobs": [
+				"14 spawns 46+"
+			],
+			"reason": "a pack of higher spawns near the goal: recorded players do the Misty Reed murlocs at about 46 with at most one death at the spot.",
+			"evidence": "route level 44.8 (level model run-rested, Horde, 2026-11-20); 14 spawns 46+; recordings (2026-11-20): done by 6 (median 46.52), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/40-50/02-feralas.guide|kill 1428.3|over",
+			"guide": "forever/horde/40-50/02-feralas.guide",
+			"goal": "kill 1428.3",
+			"kind": "over",
+			"title": "Continued Threat",
+			"level": 44.8,
+			"mobs": [
+				"Swamp Talker 50-50 x17"
+			],
+			"reason": "recorded players do the Misty Reed murlocs at about 46 with at most one death at the spot; the strand step's tip names the Methuselah Crab.",
+			"evidence": "route level 44.8 (level model run-rested, Horde, 2026-11-20); Swamp Talker 50-50 x17; recordings (2026-11-20): done by 6 (median 46.52), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/40-50/02-feralas.guide|kill 1428.3|pack",
+			"guide": "forever/horde/40-50/02-feralas.guide",
+			"goal": "kill 1428.3",
+			"kind": "pack",
+			"title": "Continued Threat",
+			"level": 44.8,
+			"mobs": [
+				"17 spawns 46+"
+			],
+			"reason": "a pack of higher spawns near the goal: recorded players do the Misty Reed murlocs at about 46 with at most one death at the spot.",
+			"evidence": "route level 44.8 (level model run-rested, Horde, 2026-11-20); 17 spawns 46+; recordings (2026-11-20): done by 6 (median 46.52), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/50-60/01-un-goro-crater.guide|collect 4503.2|rare",
+			"guide": "forever/horde/50-60/01-un-goro-crater.guide",
+			"goal": "collect 4503.2",
+			"kind": "rare",
+			"title": "Pterrordax",
+			"level": 51.1,
+			"mobs": [
+				"King Mosh 60-60"
+			],
+			"reason": "King Mosh roams the crater alone; the Pterrordax step works the slopes below the refuge, and recorded players do it at about 52 with no death at the spot.",
+			"evidence": "route level 51.1 (level model run-rested, Horde, 2026-11-20); King Mosh 60-60; recordings (2026-11-20): done by 11 (median 52.35), deaths 0, abandons 1"
+		},
+		{
+			"key": "forever/horde/50-60/01-un-goro-crater.guide|collect 4022.1|elite",
+			"guide": "forever/horde/50-60/01-un-goro-crater.guide",
+			"goal": "collect 4022.1",
+			"kind": "elite",
+			"title": "Cyrus Therepentous",
+			"level": 52.7,
+			"mobs": [
+				"Frenzied Black Drake 54-54"
+			],
+			"reason": "the step takes the molt from the Hoard of the Black Dragonflight (Velarok's chain) and says there is no drake to fight; the one Frenzied Black Drake is the other source.",
+			"evidence": "route level 52.7 (level model run-rested, Horde, 2026-11-20); Frenzied Black Drake 54-54; recordings (2026-11-20): done by 0 (median null), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/50-60/02-felwood.guide|kill 3505.2|elite",
+			"guide": "forever/horde/50-60/02-felwood.guide",
+			"goal": "kill 3505.2",
+			"kind": "elite",
+			"title": "Thalassian Base Camp",
+			"level": 52.9,
+			"mobs": [
+				"Blackmaw Thrall 55-57"
+			],
+			"reason": "one elite at the camp's west edge; the arrow points at the east side, away from him, and the step's tip names him.",
+			"evidence": "route level 52.9 (level model run-rested, Horde, 2026-11-20); Blackmaw Thrall 55-57; recordings (2026-11-20): done by 3 (median 51.87), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/50-60/02-felwood.guide|collect 4102.1|rare",
+			"guide": "forever/horde/50-60/02-felwood.guide",
+			"goal": "collect 4102.1",
+			"kind": "rare",
+			"title": "Irontree Woods",
+			"level": 53.4,
+			"mobs": [
+				"Dessecus 56-56 x2"
+			],
+			"reason": "a rare at the spot; recorded players do it at about 54 with no death there.",
+			"evidence": "route level 53.4 (level model run-rested, Horde, 2026-11-20); Dessecus 56-56 x2; recordings (2026-11-20): done by 4 (median 53.83), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/50-60/03-winterspring.guide|kill 5082.2|pack",
+			"guide": "forever/horde/50-60/03-winterspring.guide",
+			"goal": "kill 5082.2",
+			"kind": "pack",
+			"title": "Frostfire Hot Springs: kill these as you meet them",
+			"level": 53.8,
+			"mobs": [
+				"15 spawns 55+"
+			],
+			"reason": "players do it at the route's level (Winterfall hand-ins recorded at a 25th percentile of 53, 19 people); the step's tip says to pull the Den Watchers one at a time and keep clear of the totems.",
+			"evidence": "route level 53.8 (level model run-rested, Horde, 2026-11-20); 15 spawns 55+; recordings (2026-11-20): done by 4 (median 54.03), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/50-60/05-eastern-plaguelands.guide|use 5098.2|elite",
+			"guide": "forever/horde/50-60/05-eastern-plaguelands.guide",
+			"goal": "use 5098.2",
+			"kind": "elite",
+			"title": "Andorhal watchtowers and silos",
+			"level": 54.8,
+			"mobs": [
+				"Skeletal Warlord 56-57"
+			],
+			"reason": "marking a tower needs no kill: the step's tip says where the Skeletal Warlords stand and to mark those towers once the Warlord has turned away, never pulling one.",
+			"evidence": "route level 54.8 (level model run-rested, Horde, 2026-11-20); Skeletal Warlord 56-57; recordings (2026-11-20): done by 1 (median 56.74), deaths 1, abandons 0"
+		},
+		{
+			"key": "forever/horde/50-60/05-eastern-plaguelands.guide|kill 5098.2|elite",
+			"guide": "forever/horde/50-60/05-eastern-plaguelands.guide",
+			"goal": "kill 5098.2",
+			"kind": "elite",
+			"title": "Andorhal watchtowers and silos",
+			"level": 54.8,
+			"mobs": [
+				"Skeletal Warlord 56-57"
+			],
+			"reason": "marking a tower needs no kill: the step's tip says where the Skeletal Warlords stand and to mark those towers once the Warlord has turned away, never pulling one.",
+			"evidence": "route level 54.8 (level model run-rested, Horde, 2026-11-20); Skeletal Warlord 56-57; recordings (2026-11-20): done by 1 (median 56.74), deaths 1, abandons 0"
+		},
+		{
+			"key": "forever/horde/50-60/05-eastern-plaguelands.guide|kill 4971.1|rare",
+			"guide": "forever/horde/50-60/05-eastern-plaguelands.guide",
+			"goal": "kill 4971.1",
+			"kind": "rare",
+			"title": "Andorhal watchtowers and silos",
+			"level": 54.8,
+			"mobs": [
+				"Putridius 58-58"
+			],
+			"reason": "a rare among the silos; the step's tip names him.",
+			"evidence": "route level 54.8 (level model run-rested, Horde, 2026-11-20); Putridius 58-58; recordings (2026-11-20): done by 1 (median 56.88), deaths 1, abandons 0"
+		},
+		{
+			"key": "forever/horde/50-60/05-eastern-plaguelands.guide|kill 5098.3|elite",
+			"guide": "forever/horde/50-60/05-eastern-plaguelands.guide",
+			"goal": "kill 5098.3",
+			"kind": "elite",
+			"title": "Andorhal watchtowers and silos",
+			"level": 54.8,
+			"mobs": [
+				"Skeletal Warlord 56-57"
+			],
+			"reason": "marking a tower needs no kill: the step's tip says where the Skeletal Warlords stand and to mark those towers once the Warlord has turned away, never pulling one.",
+			"evidence": "route level 54.8 (level model run-rested, Horde, 2026-11-20); Skeletal Warlord 56-57; recordings (2026-11-20): done by 1 (median 56.87), deaths 1, abandons 0"
+		},
+		{
+			"key": "forever/horde/50-60/05-eastern-plaguelands.guide|kill 5098.4|elite",
+			"guide": "forever/horde/50-60/05-eastern-plaguelands.guide",
+			"goal": "kill 5098.4",
+			"kind": "elite",
+			"title": "Andorhal watchtowers and silos",
+			"level": 54.8,
+			"mobs": [
+				"Skeletal Warlord 56-57"
+			],
+			"reason": "marking a tower needs no kill: the step's tip says where the Skeletal Warlords stand and to mark those towers once the Warlord has turned away, never pulling one.",
+			"evidence": "route level 54.8 (level model run-rested, Horde, 2026-11-20); Skeletal Warlord 56-57; recordings (2026-11-20): done by 1 (median 56.89), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/50-60/05-eastern-plaguelands.guide|kill 5098.1|elite",
+			"guide": "forever/horde/50-60/05-eastern-plaguelands.guide",
+			"goal": "kill 5098.1",
+			"kind": "elite",
+			"title": "Andorhal watchtowers and silos",
+			"level": 54.8,
+			"mobs": [
+				"Skeletal Warlord 56-57"
+			],
+			"reason": "marking a tower needs no kill: the step's tip says where the Skeletal Warlords stand and to mark those towers once the Warlord has turned away, never pulling one.",
+			"evidence": "route level 54.8 (level model run-rested, Horde, 2026-11-20); Skeletal Warlord 56-57; recordings (2026-11-20): done by 1 (median 56.83), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/50-60/05-eastern-plaguelands.guide|collect 4972.1|elite",
+			"guide": "forever/horde/50-60/05-eastern-plaguelands.guide",
+			"goal": "collect 4972.1",
+			"kind": "elite",
+			"title": "Counting Out Time",
+			"level": 54.9,
+			"mobs": [
+				"Flesh Golem 56-57"
+			],
+			"reason": "the step's tip names the Flesh Golem east of the inn and sends the player to the western boxes first.",
+			"evidence": "route level 54.9 (level model run-rested, Horde, 2026-11-20); Flesh Golem 56-57; recordings (2026-11-20): done by 1 (median 56.98), deaths 1, abandons 0"
+		},
+		{
+			"key": "forever/horde/50-60/05-eastern-plaguelands.guide|kill 6004.4|elite",
+			"guide": "forever/horde/50-60/05-eastern-plaguelands.guide",
+			"goal": "kill 6004.4",
+			"kind": "elite",
+			"title": "Scarlet Crusade",
+			"level": 56.1,
+			"mobs": [
+				"Fallen Hero 58-60"
+			],
+			"reason": "warned at the step: its tip names the Fallen Hero (elite 58-59) and says to give it room.",
+			"evidence": "route level 56.1 (level model run-rested, Horde, 2026-11-20); Fallen Hero 58-60; recordings (2026-11-20): done by 2 (median 57.09), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/50-60/05-eastern-plaguelands.guide|kill 6004.1|elite",
+			"guide": "forever/horde/50-60/05-eastern-plaguelands.guide",
+			"goal": "kill 6004.1",
+			"kind": "elite",
+			"title": "Scarlet Crusade",
+			"level": 56.1,
+			"mobs": [
+				"Fallen Hero 58-60"
+			],
+			"reason": "warned at the step: its tip names the Fallen Hero (elite 58-59) and says to give it room.",
+			"evidence": "route level 56.1 (level model run-rested, Horde, 2026-11-20); Fallen Hero 58-60; recordings (2026-11-20): done by 2 (median 52.98), deaths 0, abandons 0"
+		},
+		{
+			"key": "forever/horde/50-60/07-felwood.guide|collect 969.1|elite",
+			"guide": "forever/horde/50-60/07-felwood.guide",
+			"goal": "collect 969.1",
+			"kind": "elite",
+			"title": "Frostmaul Shards",
+			"level": 59.5,
+			"mobs": [
+				"Frostmaul Giant 59-60 x4",
+				"Frostmaul Preserver 59-60 x2"
+			],
+			"reason": "the shards are picked up from the ground (object 175324), not looted from the giants; the step's tip says to take the shards clear of the giants, wait for a patrol to pass and leave Kashoch the Reaver alone.",
+			"evidence": "route level 59.5 (level model run-rested, Horde, 2026-11-20); Frostmaul Giant 59-60 x4, Frostmaul Preserver 59-60 x2; recordings (2026-11-20): done by 1 (median 56), deaths 0, abandons 0"
+		},
+		{
 			"key": "forever/horde/orc/01-durotar.guide|collect 96825.1|rare",
 			"guide": "forever/horde/orc/01-durotar.guide",
 			"goal": "collect 96825.1",

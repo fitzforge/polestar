@@ -188,8 +188,7 @@ return {
 	-- Step 38: WANTED: Blademaster Kaijo
 	-- {npc:263071} Blademaster Kaijo · {area:16743} Rog'mar
 	["{npc:263071} is an elite (level 42) at the Horde's training grounds north of {area:16743}, where this guide goes later: grouping up is advised."] = "{npc:263071} ist ein Elite (Stufe 42) auf dem Übungsgelände der Horde nördlich von {area:16743}, wohin dieser Guide später geht: Eine Gruppe wird empfohlen.",
-	-- {object:707245} Wanted (no name in this language: may be words)
-	["the {object:707245} poster"] = "das Plakat {object:707245}",
+	["the Wanted poster"] = "",
 
 	-- Step 39: Ghostmaw
 	-- {npc:263380} Ghostmaw · {area:16725} Wheeler's Grange · {area:16729} Terral's Watch
@@ -556,6 +555,7 @@ return {
 	["The next guide starts in the {zone:1418}, south of {zone:1432}: fly to {area:144}."] = "Der nächste Guide beginnt im {zone:1418}, südlich von {zone:1432}: Flieg nach {area:144}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["the {object:707245} poster"] = "das Plakat {object:707245}",
 	-- ["{item:17028}, from {npc:272437}"] = "{item:17028}, von {npc:272437}",
 	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026} wartet neben der Straße östlich des Passes.",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031} hütet die alte Kathedrale in der Südwestecke von {area:16724}. Die Fledermäuse nisten im Obergeschoss; {npc:272437} verteilt daneben die heiligen Kerzen; die Gräber liegen auf dem Kapellenfriedhof.\n{npc:271742}, ein Elite der Stufe 53, steht in der Kathedrale: Er lässt dich in Ruhe, also greif ihn nie an und zieh die Fledermäuse von ihm weg.",

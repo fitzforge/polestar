@@ -188,8 +188,7 @@ return {
 	-- Step 38: WANTED: Blademaster Kaijo
 	-- {npc:263071} Blademaster Kaijo · {area:16743} Rog'mar
 	["{npc:263071} is an elite (level 42) at the Horde's training grounds north of {area:16743}, where this guide goes later: grouping up is advised."] = "{npc:263071}是精英（42级），位于{area:16743}以北的部落训练场，本指南稍后会去那里：建议组队。",
-	-- {object:707245} Wanted (no name in this language: may be words)
-	["the {object:707245} poster"] = "通缉令",
+	["the Wanted poster"] = "",
 
 	-- Step 39: Ghostmaw
 	-- {npc:263380} Ghostmaw · {area:16725} Wheeler's Grange · {area:16729} Terral's Watch
@@ -556,6 +555,7 @@ return {
 	["The next guide starts in the {zone:1418}, south of {zone:1432}: fly to {area:144}."] = "下一个指南从{zone:1432}南边的{zone:1418}开始：飞往{area:144}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["the {object:707245} poster"] = "通缉令",
 	-- ["{item:17028}, from {npc:272437}"] = "{item:17028}，找{npc:272437}领取",
 	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026}在山口东边的路旁等候。",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031}看守着{area:16724}西南角的旧大教堂。蝙蝠栖息在教堂上层；{npc:272437}在教堂旁发放圣洁蜡烛；坟墓在礼拜堂墓地里。\n{npc:271742}是53级精英，站在大教堂内：他不会主动攻击你，千万别打他，把蝙蝠拉离他身边再打。",
