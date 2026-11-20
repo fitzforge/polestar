@@ -234,14 +234,45 @@ fn compact_draws_the_card_on_one_line_and_off_again_the_full_card_is_back() {
 	assert_eq!(out["giver"], true);
 }
 
+// A frame's edges as the client gives them: its box in its own units from its first anchor.
+const LIVE: &str = r#"
+local function at(pt, wd, ht)
+	return (pt:find("LEFT") and 0 or pt:find("RIGHT") and 1 or 0.5) * wd, (pt:find("BOTTOM") and 0 or pt:find("TOP") and 1 or 0.5) * ht
+end
+-- A frame's box in screen pixels, { left, bottom, right, top }, from its first anchor.
+local function box(o)
+	local e = o:GetEffectiveScale()
+	local wd, ht = o:GetWidth() * e, o:GetHeight() * e
+	local p, rel, rp, x, y = o:GetPoint(1)
+	if o == UIParent or not p then return { 0, 0, wd, ht } end
+	local r = box(rel or UIParent)
+	local ax, ay = at(rp, r[3] - r[1], r[4] - r[2])
+	local px, py = at(p, wd, ht)
+	local l, b = r[1] + ax + x * e - px, r[2] + ay + y * e - py
+	return { l, b, l + wd, b + ht }
+end
+-- The frame's edges as the client gives them: its box in its own units.
+local function live(o)
+	local function edge(i) return function(self) return box(self)[i] / self:GetEffectiveScale() end end
+	o.GetLeft, o.GetBottom, o.GetRight, o.GetTop = edge(1), edge(2), edge(3), edge(4)
+	o.GetCenter = function(self)
+		local b, e = box(self), self:GetEffectiveScale()
+		return (b[1] + b[3]) / 2 / e, (b[2] + b[4]) / 2 / e
+	end
+end
+"#;
+
 // Dragging the heads-up card directly with the mouse frees it from the window, sets toasts.headsup.place to "free",
 // and records its new drop position. With ui.lockHud, a plain drag does not move it and Shift-drag does.
 #[test]
 fn dragging_the_heads_up_card_switches_its_place_to_free_and_saves_its_spot_2629() {
-	let out = run(r#"
+	let out = run(&[
+		LIVE,
+		r#"
 		CT.Show(1506)
 		stub.advance(1)
 		local f = CT.frame
+		live(f)
 		local movable = f:IsMovable() and true or false
 		local placeBefore = Polestar.Get("toasts.headsup.place")
 		-- A drag on the card (pressed, moved, released)
@@ -280,7 +311,9 @@ fn dragging_the_heads_up_card_switches_its_place_to_free_and_saves_its_spot_2629
 
 		emit({ movable = movable, placeBefore = placeBefore, placeAfter = placeAfter,
 			side = CT.side, pos = type(pos) == "table" and pos[1] or false,
-			lockedStayed = lockedStayed, shiftMoved = shiftMoved })"#);
+			lockedStayed = lockedStayed, shiftMoved = shiftMoved })"#,
+	]
+	.join("\n"));
 	assert_eq!(out["movable"], true, "card is movable");
 	assert_eq!(out["placeBefore"], "above");
 	assert_eq!(out["placeAfter"], "free", "dragging frees the card from the window");
@@ -298,30 +331,6 @@ fn dragging_the_heads_up_card_switches_its_place_to_free_and_saves_its_spot_2629
 const ON_SCREEN: &str = r#"
 local B, QoL = Polestar.QoL.Buttons, Polestar.QoL
 local w = GF.frame
-local function at(pt, wd, ht)
-	return (pt:find("LEFT") and 0 or pt:find("RIGHT") and 1 or 0.5) * wd, (pt:find("BOTTOM") and 0 or pt:find("TOP") and 1 or 0.5) * ht
-end
--- A frame's box in screen pixels, { left, bottom, right, top }, from its first anchor.
-local function box(o)
-	local e = o:GetEffectiveScale()
-	local wd, ht = o:GetWidth() * e, o:GetHeight() * e
-	local p, rel, rp, x, y = o:GetPoint(1)
-	if o == UIParent or not p then return { 0, 0, wd, ht } end
-	local r = box(rel or UIParent)
-	local ax, ay = at(rp, r[3] - r[1], r[4] - r[2])
-	local px, py = at(p, wd, ht)
-	local l, b = r[1] + ax + x * e - px, r[2] + ay + y * e - py
-	return { l, b, l + wd, b + ht }
-end
--- The frame's edges as the client gives them: its box in its own units.
-local function live(o)
-	local function edge(i) return function(self) return box(self)[i] / self:GetEffectiveScale() end end
-	o.GetLeft, o.GetBottom, o.GetRight, o.GetTop = edge(1), edge(2), edge(3), edge(4)
-	o.GetCenter = function(self)
-		local b, e = box(self), self:GetEffectiveScale()
-		return (b[1] + b[3]) / 2 / e, (b[2] + b[4]) / 2 / e
-	end
-end
 local function screen(scale) UIParent.scale, UIParent.width, UIParent.height = scale, 1366 / scale, 768 / scale end
 local function kill(name, id) return G("kill", { verb = "Kill", subject = name, subjectKind = "npc", npc = id, status = "active" }) end
 add({ id = "test/boars", pack = "guides", title = "Boars", faction = "Horde", category = "Leveling", minLevel = 1, maxLevel = 12,
@@ -360,7 +369,7 @@ fn run_on_screen(script: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_ui.lua"],
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "QoL/QoL.xml", "UI/UI.xml"])],
-		script: format!("{pre}{DUMP}{ON_SCREEN}{script}"),
+		script: format!("{pre}{DUMP}{LIVE}{ON_SCREEN}{script}"),
 		..Default::default()
 	})
 	.remove(0)
