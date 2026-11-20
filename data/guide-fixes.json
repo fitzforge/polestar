@@ -13859,6 +13859,24 @@
 				}
 			],
 			"pr": 3285
+		},
+		{
+			"id": "a1-ne-darkshore-turtle-and-crabs-on-the-north-loop",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4727,
+				"goal": "accept",
+				"guide": "forever/alliance/03-darkshore"
+			},
+			"only": "Dwarf,Gnome,Human,Skyborne",
+			"note": "Alliance 1-30 fix pass (2026-11-20): Night Elf Darkshore now does the Cliffspring River sample (4762) and the turtle north of Bashal'Aran (4725), so on 03-darkshore's second loop a Night Elf walked from Auberdine up to the falls for the Beached Sea Turtle there (4727) and Fruit of the Sea's crab chunks (1138), back to Auberdine to hand them in, then north again to the bay wrecks, the Tower and the cave beside the same falls (flow audit: a 1,616-yard backtrack, about 3.2 km in all). For Night Elves the turtle (53.06,18.09, north of the falls) and the chunks (the bay's Reef Crawlers and Encrusted Tide Crawlers) are taken on the north loop and handed in on its last Auberdine stop; other races keep them on the second loop, where the falls are on their way.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "objects.json 176196 Beached Sea Turtle at Darkshore 53.06,18.09; item 12237 drops from Reef Crawlers and Encrusted Tide Crawlers"
+				}
+			],
+			"pr": 3285
 		}
 	]
 }
