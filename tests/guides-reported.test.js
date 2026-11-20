@@ -1066,6 +1066,15 @@ test('forever/class/rogue/the-horn-of-xelthos.guide: C\'s payment is handed in a
 	assert.ok(at(list, 'turnin 78261', is('turnin', 78261)) < pay, 'after the horn');
 });
 
+// #3213 (Traesheur): Veenix offered nothing to a Rogue whose log no longer held The Horn of Xelthos. Players'
+// recordings: Veenix offered Goblin Lockpicks (78270) to 9 Rogues, each with 78261 in the log. The step says so.
+test('forever/class/rogue/the-horn-of-xelthos.guide: Veenix\'s step says Goblin Lockpicks needs The Horn of Xelthos in the log (#3213)', { skip }, () => {
+	const list = goals('forever/class/rogue/the-horn-of-xelthos.guide');
+	const { step } = list[at(list, 'accept 78270', is('accept', 78270))];
+	assert.match(step.note || '', /only while .*in your quest log/);
+	assert.ok(at(list, 'accept 78261', is('accept', 78261)) < at(list, 'accept 78270', is('accept', 78270)), 'the horn comes first');
+});
+
 // --- Bandarion Keep (Mike_, 0.2.3): Hilda the Breaker and Ephram Barbaro offer their quests to Paladins only.
 
 test(`${TIRISFAL}: Mike_'s report: only Paladins are sent to Hilda the Breaker and Ephram Barbaro at Bandarion Keep`, { skip }, () => {
