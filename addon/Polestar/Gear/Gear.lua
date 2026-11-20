@@ -474,8 +474,7 @@ local MAIN, OFF = 16, 17
 local RANGED_INV = { [15] = true, [25] = true, [26] = true }
 local MELEE_INV = { [13] = true, [17] = true, [21] = true, [22] = true }
 local OFFHAND_INV = { [14] = true, [22] = true, [23] = true }
--- Armor-class items every class wears whatever their subclass says.
-local ANY_ARMOR_INV = { [2] = true, [11] = true, [12] = true, [16] = true, [23] = true }
+local ANY_ARMOR_INV = Gear.ANY_ARMOR_INV
 local OFFHAND_DPS = 0.5 -- off-hand weapons hit for half damage (weights without ohDps)
 local DUAL_WIELD_SPELL = 674
 

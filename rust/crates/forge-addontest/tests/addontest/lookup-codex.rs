@@ -295,6 +295,82 @@ emit({ mage = mage, warrior = warrior })"#
 }
 
 #[test]
+fn stat_name_search_finds_forever_items_in_the_built_codex() {
+	if !toc().exists() {
+		eprintln!("skipped: Codex pack not built (forge data codex)");
+		return;
+	}
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: pack_lua(),
+		addons: vec!["Polestar".into()],
+		script: r#"
+stub.login()
+local C, S = Polestar.Codex, Polestar.Search
+assert(C.Load() and C.StatCodes(), "rebuild the Codex with forge data codex")
+local function check(query, ...)
+	local rows, counts = S.Query(query, { ids = true, kinds = { item = true }, subtitles = false, limit = 100 })
+	local found, matched = {}, {}
+	for _, row in ipairs(rows) do found[row.id] = true end
+	for i = 1, select('#', ...) do
+		local id = select(i, ...)
+		assert(found[id], query .. ": missing item " .. id)
+		matched[i] = id
+	end
+	return { count = counts.item, matched = matched }
+end
+local haste = check("haste", 17142)
+local undead = check("spell damage vs undead", 23084, 23207)
+emit({ haste = haste, undead = undead })
+
+local function timeView(view, opts)
+	local samples = { { query = "stamina", times = {} }, { query = "intellect", times = {} } }
+	for _, sample in ipairs(samples) do
+		S.Release()
+		local start = os.clock()
+		local rows, counts = S.Query(sample.query, opts)
+		sample.coldMs = (os.clock() - start) * 1000
+		sample.count = counts.item
+		assert(#rows > 0 and sample.count > 50, sample.query .. ": expected more than one page of Items")
+	end
+	-- Alternate queries to keep the posting maps warm while missing the page cache.
+	S.Query("stamina", opts)
+	S.Query("intellect", opts)
+	for i = 1, 7 do
+		for _, sample in ipairs(samples) do
+			local start = os.clock()
+			S.Query(sample.query, opts)
+			sample.times[i] = (os.clock() - start) * 1000
+		end
+	end
+	for _, sample in ipairs(samples) do
+		table.sort(sample.times)
+		emit({ query = sample.query, view = view, count = sample.count, coldMs = sample.coldMs, warmMs = sample.times[4] })
+	end
+end
+
+timeView("Everything Best match",
+	{ ids = true, order = "best", perKind = 5, limit = 5 * #S.KINDS, subtitles = false })
+timeView("Items A to Z",
+	{ ids = true, order = "az", resultKind = "item", limit = 50, subtitles = false })
+"#
+		.into(),
+		..Default::default()
+	});
+	println!("Real Codex stat-name matches: haste {}, spell damage vs undead {}", out[0]["haste"], out[0]["undead"]);
+	for result in &out[1..] {
+		let query = result["query"].as_str().unwrap();
+		let view = result["view"].as_str().unwrap();
+		let count = result["count"].as_u64().unwrap();
+		let cold = result["coldMs"].as_f64().unwrap();
+		let warm = result["warmMs"].as_f64().unwrap();
+		println!("Real Codex {view} for {query} ({count} Items): after release {cold:.3} ms, warm median {warm:.3} ms");
+		// First-use A to Z can also build the base Browse order, which Release keeps.
+		forge_addontest::assert_timing!(warm < 50.0, "{view} for {query}: warm median keystroke took {warm:.3} ms");
+	}
+}
+
+#[test]
 fn filtered_browse_counts_the_full_built_item_catalogue_and_pages_its_matches() {
 	if skip() {
 		return;

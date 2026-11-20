@@ -48,12 +48,14 @@
 --   Codex.FilterSource(code) -> "client" | "forever" | "era" | nil
 --       Filter accessors never load the pack. Old packs have no column, facts or categories.
 --   Codex.StatCodes() -> { code, ... } | nil   -- sorted raw codes; nil before stat registration
+--   Codex.StatGeneration() -> number | nil   -- cache key; nil before stat registration
 --   Codex.StatItems(code) -> { [itemId] = amount } | nil   -- 0 = present, amount unknown
 --       (read-only to callers; O(postings for code) on a miss, two most recent maps cached)
 --       The two largest maps (codes 7 and 5) retain about 480 KiB in 64-bit Lua 5.1.
 --       This cache is allocated on demand and excluded from the pack's memoryKB.
 --   Codex.StatAmountSource(code, id) -> "client" | "forever" | "era" | nil
 --       (reads one list up to the ID; nil for missing stat or unknown amount)
+--   Codex.ReleaseStatItems()   -- discard the two decoded posting maps
 --   Codex.ItemStats(id) -> { { code, amount, amountSource }, ... } | nil
 --       (sorted by code; nil amount and source for presence only. Presence source is
 --       FilterFacts(...).levelsSource. Returns {} for known-empty and nil for unknown.
@@ -99,6 +101,7 @@ local FILTER_BYTES = 5
 local FILTER_SOURCE = { "client", "forever", "era" }
 local statDirectory, statPostings
 local recentStatCode, recentStatItems, olderStatCode, olderStatItems
+local statGeneration = 0
 local cache = {} -- group -> { [id] = record | false } (weak values)
 local roleCache = {} -- role -> { npcId, ... }
 -- "\n" .. questId .. "\t" .. follow-up ids, comma-separated, in pack order .. "\n" .. ...,
@@ -583,12 +586,16 @@ function Codex.Register(group, names, recs, lo, hi)
 	if group == "recipe" then Codex.recipeIndex = nil end
 end
 
+function Codex.ReleaseStatItems()
+	recentStatCode, recentStatItems, olderStatCode, olderStatItems = nil, nil, nil, nil
+end
+
 function Codex.RegisterIndex(kind, blob)
 	if type(kind) ~= "string" or type(blob) ~= "string" then return end
 	if IS_ITEM[kind] and indexes[kind] ~= blob then
 		filterColumns, filterCategories = nil, nil
 		statDirectory, statPostings = nil, nil
-		recentStatCode, recentStatItems, olderStatCode, olderStatItems = nil, nil, nil, nil
+		Codex.ReleaseStatItems()
 	end
 	indexes[kind] = blob
 end
@@ -706,7 +713,12 @@ function Codex.RegisterStats(version, directory, postings)
 		previousCode, previousAt = code, first
 	end
 	statDirectory, statPostings = directory, postings
-	recentStatCode, recentStatItems, olderStatCode, olderStatItems = nil, nil, nil, nil
+	statGeneration = statGeneration + 1
+	Codex.ReleaseStatItems()
+end
+
+function Codex.StatGeneration()
+	return statDirectory and statGeneration
 end
 
 function Codex.StatCodes()

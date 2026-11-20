@@ -262,6 +262,9 @@ local function set(...)
 	return t
 end
 
+-- Armor-class items every class wears whatever their subclass says.
+Gear.ANY_ARMOR_INV = set(2, 11, 12, 16, 23)
+
 Gear.PROFICIENCY = {
 	WARRIOR = { armor = 3, armorAt40 = 4, shield = true, dualWield = 20, weapons = set(0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 13, 15, 16, 18) },
 	PALADIN = { armor = 3, armorAt40 = 4, shield = true, relic = 7, weapons = set(0, 1, 4, 5, 6, 7, 8) },
