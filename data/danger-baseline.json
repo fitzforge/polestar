@@ -20984,6 +20984,32 @@
 			],
 			"reason": "Rexxar (62, elite), the Horde's champion, walks Desolace's road past the Kodo Graveyard; the step's Careful tip names him and says to step away from the road when he comes by. 55 Alliance people met him hostile in the recordings and none died to him",
 			"evidence": "route level 38.5 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Rexxar 62-62 x2; recordings (2026-11-20 index): done by 42 (median 38.33), deaths 1, abandons 7; 26 of the 42 people at 39.5 or under; the 1 death within 60 yd was not his"
+		},
+		{
+			"key": "forever/alliance/40-50/01-stranglethorn-vale.guide|collect 587.1|rare",
+			"guide": "forever/alliance/40-50/01-stranglethorn-vale.guide",
+			"goal": "collect 587.1",
+			"kind": "rare",
+			"title": "Bloodsail pirates: kill these as you meet them",
+			"level": 40.6,
+			"mobs": [
+				"Rippa 44-44"
+			],
+			"reason": "a rare (Rippa, 44) not needed for the goal; the step's Careful tip names it and says to stay out of the water",
+			"evidence": "route level 40.6 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Rippa 44-44; recordings (2026-11-20 index): done by 40 (median 42.22), deaths 15, abandons 4; 11 of the 40 people at 41.6 or under; Rippa met by 5 people and killed nobody: the deaths within 60 yd are the camp's"
+		},
+		{
+			"key": "forever/alliance/40-50/01-stranglethorn-vale.guide|collect 576.1|rare",
+			"guide": "forever/alliance/40-50/01-stranglethorn-vale.guide",
+			"goal": "collect 576.1",
+			"kind": "rare",
+			"title": "Bloodsail pirates: kill these as you meet them",
+			"level": 40.6,
+			"mobs": [
+				"Rippa 44-44"
+			],
+			"reason": "a rare (Rippa, 44) not needed for the goal; the step's Careful tip names it and says to stay out of the water",
+			"evidence": "route level 40.6 (level model on the 0.4.2 danger-gate branch, 2026-11-20); Rippa 44-44; recordings (2026-11-20 index): done by 41 (median 42.42), deaths 15, abandons 2; 11 of the 41 people at 41.6 or under; Rippa met by 5 people and killed nobody: the deaths within 60 yd are the camp's"
 		}
 	]
 }
