@@ -18247,3 +18247,13 @@ test('Tirion\'s step after Terrordale warns of the Terrorweb Tunnel (#3205)', { 
 	const { step } = list[at(list, 'turnin 5543', is('turnin', 5543))];
 	assert.match(step.note || '', /Terrorweb Tunnel/);
 });
+
+// #3070 (Nesarg, 0.4.0.1): the walk-in point at Three Corners before Guard Howe is for players coming up the road from
+// Darkshire; a player who flew in to Lakeshire was sent back west to the zone's entrance. It holds only outside Redridge.
+test('Redridge\'s walk-in goto is only for players not yet in Redridge (#3070)', { skip }, () => {
+	const list = goals('forever/alliance/04-redridge-mountains.guide');
+	const howe = list[at(list, 'accept 128', is('accept', 128))];
+	const walk = list.filter(({ goal, s }) => goal.t === 'goto' && s === howe.s - 1);
+	assert.equal(walk.length, 1, 'the walk-in step before Guard Howe');
+	assert.ok((walk[0].step.when || []).some((p) => p.k === 'zone' && p.neg && p.name === 'Redridge Mountains'), '`when !zone "Redridge Mountains"`');
+});

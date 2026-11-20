@@ -14383,6 +14383,26 @@
 				}
 			],
 			"issue": 3205
+		},
+		{
+			"id": "3070-redridge-walk-in-only-from-outside",
+			"faction": "Alliance",
+			"at": {
+				"quest": 128,
+				"goal": "accept",
+				"guide": "forever/alliance/04-redridge-mountains"
+			},
+			"way": {
+				"when": "!zone \"Redridge Mountains\""
+			},
+			"note": "#3070: the walk-in point at Three Corners (15.3,71.5) before Guard Howe's step is for players coming up the road from Darkshire; it had no condition, so a player who flew in to Lakeshire was sent about 300 yd back west to the zone's entrance first. The walk is held only for players not yet in Redridge.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3070 (0.4.0.1): sent back to Redridge's entrance after flying in"
+				}
+			],
+			"issue": 3070
 		}
 	]
 }
