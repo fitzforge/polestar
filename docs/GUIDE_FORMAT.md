@@ -134,7 +134,7 @@ Step directives:
 | `skipto <label> when <predicate>` | When the route reaches the step and the predicate holds, it skips this step and the ones after it up to the labelled step; several lines may follow one another, and the first that holds decides. See "Jumps". |
 | `tip <text>` | Player-facing step note (compiled to `step.note`). |
 | `image <path> [<w>x<h>]` | A picture shown in the guide window under the step's tip, while the tip is open, scaled to the window's width (at most 160 high): a screenshot of a spot that is hard to find, such as a cave mouth. `<path>` is the file's place in the pack folder, `/` between folders (`media/fargodeep-mine.tga`), a `.tga` or `.blp` file; without the extension the `.tga`, else the `.blp`. The file ships in the pack's addon folder at that path. `<w>x<h>` is the size it is drawn at (only the ratio counts: `512x256` is twice as wide as high); without it the compiler reads the file's own. One per step; a step with no `tip` reads "Picture of this spot" above it. See "Pictures" in the Cookbook. |
-| `loop` | The step's `goto` points, in order, are the places to search for its kill, collect, interact and skill goals (or, with none of those, for the NPC of its accept, turnin and talk goals) instead of a path to walk: see "Spawn areas", Loop. |
+| `loop` | The step's `goto` points, in order, are the places to search for its kill, collect, interact, skill and `use … quest Q.O` goals (or, with none of those, for the NPC of its accept, turnin and talk goals) instead of a path to walk: see "Spawn areas", Loop. |
 
 A step must contain at least one goal.
 
@@ -1083,8 +1083,9 @@ gets no `spots`, except an NPC who walks around:
 - **Loop** (a step with a `loop` line, for a search the data does not shape
   the way you want: a circuit through camps, round a lake): the step's `goto`
   points, in order, become the spawn areas of each of its `kill`, `collect`,
-  `interact` and `skill` goals that has no `@x,y` of its own and picks no
-  place at runtime (`nearest`), with `spread = true`. The goal's point is the
+  `interact`, `skill` and `use … quest Q.O` goals that has no `@x,y` of its
+  own and picks no place at runtime (`nearest`), with `spread = true`. A use
+  without an objective keeps its own place. The goal's point is the
   first goto, the spots are exactly the gotos (no alternatives, no spawn count
   `n`), each as wide as its goto's `r` (default 30 yd), and the gotos leave
   the step (their labels with them), so the player searches the points one
@@ -1164,8 +1165,8 @@ gets no `spots`, except an NPC who walks around:
   who walks: its `accept`, `turnin` and `talk` goals take the points, and the
   arrow leads from one to the next until the player meets the NPC. Use it for
   a walker the data draws no circle for (Walkers, above), or whose round is
-  too long for one circle. Beside a kill, collect, interact or skill goal the
-  loop is that goal's, and an accept, turnin or talk keeps its own place.
+  too long for one circle. Beside a goal that searches the loop, an accept,
+  turnin or talk keeps its own place.
 
   ```
   step Deputy Willem, somewhere on his rounds

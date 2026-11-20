@@ -702,15 +702,20 @@ function handSpots(data, sources, map, f, x, y, near, altSources = sources) {
 }
 
 // A `loop` step (docs/GUIDE_FORMAT.md, "Spawn areas"): its `goto` points, in
-// order, are the places to search. Each kill, collect, interact or skill goal
-// the author did not place (`@x,y`) and that picks no place at runtime gets
-// them as its spawn areas, searched one after another (`spread`), its point
+// order, are the places to search. Each eligible goal the author did not
+// place (`@x,y`) and that picks no place at runtime gets them as its spawn
+// areas, searched one after another (`spread`), its point
 // at the first; the gotos leave the step. A spot's radius is its goto's `r`,
 // else LOOP_RADIUS yards.
 const LOOP_RADIUS = 30;
 // `skill`: a gathering round. The herbs or veins that raise the skill are
 // found by walking the points, and nothing in the data places a skill.
 const LOOP_VERBS = new Set(['kill', 'collect', 'interact', 'skill']);
+// A quest item follows the circuit while its objective is open. A one-off
+// item use beside a search is not itself a target of the search.
+function loopTarget(g) {
+	return LOOP_VERBS.has(g.t) || (g.t === 'use' && g.quest !== undefined && g.oi !== undefined);
+}
 // A step with none of those: the loop is where to look for someone who walks,
 // the NPC of its accept, turnin and talk goals (a quest giver on a patrol).
 const LOOP_NPC_VERBS = new Set(['accept', 'turnin', 'talk']);
@@ -724,11 +729,10 @@ function applyLoop(step, s, data, err) {
 	if (gotos.some((g) => g.f !== first.f)) return err(ln, '`loop` points must all be in one map frame: all Era, or all `live`');
 	const own = gotos.find((g) => g.only || g.optional);
 	if (own) return err(own._line, 'a `loop` point cannot be `optional` or have `only`: every goal of the loop searches it');
-	const placeable = (verbs) => step.goals.filter((g, i) => verbs.has(g.t) && !s.goals[i].explicitCoords && !s.goals[i].anywhere && !g.candidates);
-	let targets = placeable(LOOP_VERBS);
-	if (!targets.length && !step.goals.some((g) => LOOP_VERBS.has(g.t))) targets = placeable(LOOP_NPC_VERBS);
+	const searches = step.goals.some(loopTarget) ? loopTarget : (g) => LOOP_NPC_VERBS.has(g.t);
+	const targets = step.goals.filter((g, i) => searches(g) && !s.goals[i].explicitCoords && !s.goals[i].anywhere && !g.candidates);
 	if (!targets.length) {
-		return err(ln, '`loop` needs a kill, collect, interact or skill goal without its own `@x,y`, or with none of those an accept, turnin or talk', 'a goal placed with `@x,y` keeps its point; drop `loop` to walk the gotos as a path');
+		return err(ln, '`loop` needs an unpinned kill, collect, interact, skill or `use … quest Q.O` goal, or with none of those an accept, turnin or talk', 'a goal placed with `@x,y` keeps its point; drop `loop` to walk the gotos as a path');
 	}
 	for (const goal of targets) {
 		goal.map = first.map;
@@ -2404,8 +2408,8 @@ function resolveGoal(g, zoneMap, prev, data, err, warn, ctx = { sides: ['Allianc
 	setIf(goal, 'area', goalArea(data, goal));
 	setIf(goal, 'node', goalNode(data, goal, smartSides(ctx.sides, applicable(ctx.layers || []))));
 
-	// A `loop` step's gotos place its kill, collect and interact goals (applyLoop).
-	if ((v === 'kill' || v === 'collect' || v === 'interact' || v === 'use') && goal.x === undefined && !goal.candidates && !g.nearest && !g.anywhere && !(ctx.loop && LOOP_VERBS.has(v))) {
+	// An authored search will place its targets after all its gotos are resolved.
+	if ((v === 'kill' || v === 'collect' || v === 'interact' || v === 'use') && goal.x === undefined && !goal.candidates && !g.nearest && !g.anywhere && !(ctx.loop && loopTarget(goal))) {
 		warn(ln, `\`${v}\` has no coordinates (no known spawns; add @x,y)`, 'add @x,y where the player finds the target (the map coordinates the game shows), so the arrow can lead there');
 	}
 	if (goal.grind !== undefined && goal.x === undefined) warn(ln, `\`grind ${goal.grind}\` has no known spawns here: the arrow keeps the step's goto`);

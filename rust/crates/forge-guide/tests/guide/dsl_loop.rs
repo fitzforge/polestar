@@ -60,6 +60,27 @@ fn a_loop_step_turns_its_gotos_into_the_spawn_areas_of_its_kill_collect_and_inte
 }
 
 #[test]
+fn the_displacer_and_its_kill_share_only_the_four_authored_silo_points() {
+	let text = std::fs::read_to_string(fixtures().join("silo-loop.guide")).unwrap();
+	let tables = serde_json::from_slice(&std::fs::read(fixtures().join("silo-loop.json")).unwrap()).unwrap();
+	let r = compile_with(&text, &data_from(&tables, Value::Null, Value::Null));
+	assert!(r.errors.is_empty(), "{}", r.text);
+	let steps = r.steps();
+	let goals = steps[1]["goals"].as_array().unwrap();
+	assert_eq!(goals.len(), 2);
+	assert_eq!(json!([goals[0]["t"], goals[0]["item"], goals[1]["t"], goals[1]["npc"]]), json!(["use", 12627, "kill", 10717]));
+	let spots = json!([
+		{"x":45.15,"y":62.28,"r":8}, {"x":46.38,"y":62.33,"r":8},
+		{"x":47.83,"y":63.45,"r":8}, {"x":48.45,"y":62.81,"r":8}
+	]);
+	for g in goals {
+		assert_eq!(g["spots"], spots, "{}", g["t"]);
+		assert_eq!(json!([g["quest"], g["oi"], g["map"], g["x"], g["y"], g["spread"]]), json!([4971, 1, 1422, 45.15, 62.28, true]));
+	}
+	assert!(!r.warnings.iter().any(|w| w.contains("has no coordinates")), "{}", r.text);
+}
+
+#[test]
 fn a_loop_places_a_skill_goal_on_its_points_for_a_gathering_round() {
 	let r = compiled(&["step Copper round", "  loop", "  goto 47.6,35.1", "  goto 49.0,32.4 r 20", "  skill Mining 50"]);
 	assert!(r.errors.is_empty(), "{}", r.text);
@@ -114,10 +135,11 @@ fn a_loop_needs_two_points_on_one_map_and_frame_a_goal_to_search_them_and_nothin
 	assert_match(&errors(&["step L", "  loop", "  goto 47.6,35.1", "  kill 6"]), r"`loop` needs at least two `goto` points");
 	assert_match(
 		&errors(&["step L", "  loop", "  goto 47.6,35.1", "  goto 52.3,26.8", "  note Nobody here"]),
-		r"`loop` needs a kill, collect, interact or skill goal without its own `@x,y`, or with none of those an accept, turnin or talk",
+		r"`loop` needs an unpinned kill, collect, interact, skill or `use … quest Q.O` goal, or with none of those an accept, turnin or talk",
 	);
-	assert_match(&errors(&["step L", "  loop", "  goto 47.6,35.1", "  goto 52.3,26.8", "  kill 6 @50,30"]), r"`loop` needs a kill, collect, interact or skill goal");
-	assert_match(&errors(&["step L", "  loop", "  goto 47.6,35.1", "  goto 52.3,26.8", "  talk 197 @50,30"]), r"`loop` needs a kill, collect, interact or skill goal");
+	for goal in ["  kill 6 @50,30", "  talk 197 @50,30", "  use 750 @50,30 quest 7.1", "  use 750"] {
+		assert_match(&errors(&["step L", "  loop", "  goto 47.6,35.1", "  goto 52.3,26.8", goal]), r"`loop` needs an unpinned");
+	}
 	assert_match(&errors(&["step L", "  loop", "  loop", "  goto 47.6,35.1", "  goto 52.3,26.8", "  kill 6"]), r"duplicate `loop` in step");
 	assert_match(&errors(&["step L", "  loop now", "  goto 47.6,35.1", "  goto 52.3,26.8", "  kill 6"]), r"`loop` takes nothing");
 	assert_match(&errors(&["step L", "  loop", "  goto 47.6,35.1", "  goto 50,50 map 1411", "  kill 6"]), r"`loop` points must all be on one map");

@@ -1,0 +1,6 @@
+{
+  "zones": { "1422": { "id": 1422, "name": "Western Plaguelands", "type": 3 } },
+  "items": { "12627": { "id": 12627, "name": "Temporal Displacer" } },
+  "npcs": { "10717": { "id": 10717, "name": "Temporal Parasite" } },
+  "quests": { "4971": { "id": 4971, "title": "A Matter of Time", "sourceItem": 12627, "objectives": [{ "type": "kill", "id": 10717 }] } }
+}
