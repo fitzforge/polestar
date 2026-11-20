@@ -118,6 +118,7 @@ step Celastrus the Bitter
 
 step Soil and venison
   tip The untainted soil lies in the fields south and east of the outpost; Hyjal Stags graze there too, and their venison is for Ketharas's stew.
+  tip Careful: Sunderbark (56), an elite treant, walks the fields to the south-east around 60,78: give him room.
   loop
   goto 56.5,83.5
   goto 57.2,89.5
@@ -891,7 +892,7 @@ step Renalard
 step Dae'gun
   tip Work west back through Dae'gun: the Felguard Sentinels and Defiling Hounds are everywhere, the hounds carry the essence, and the Horde base's rubble (wire, scrap and dung) lies all over it. Light the two bonfires on your way, scout the Horde tower in the middle, take Azgalor's ashes west of the tower, and pick up the abandoned supplies, a few just north-west of Renalard and the rest in the western half: Renalard's tuft of fur, used on a demon, distracts it while you take them.
   tip Horde: the demons here also drop the Scraps of Horde Heraldry for Kal'tinzan, the old Horde Flag stands in the camp north of the south bonfire, and the Troll Remains at the camp's eastern edge start Tribal Colors.
-  tip Careful: Legion Hulks (60, rare elites) stomp through Dae'gun's camps: give them room.
+  tip Careful: Legion Hulks (60, rare elites) stomp through Dae'gun's camps: give them room. Jezerelle the Swaying (61, rare) walks the camp north of the south bonfire: keep away from her.
   tip Careful: Doomguards (elites, 58-59) stand among the demons, and Doomguard Xarkul (elite, 61) walks the camp: pull the hounds and sentinels to you, away from them.
   kill 249229 x12 quest 95793.1         -- Felguard Sentinel
   collect 271220 x6 quest 92960.1       -- Ephemeral Essence

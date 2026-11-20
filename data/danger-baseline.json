@@ -11945,7 +11945,7 @@
 			"mobs": [
 				"Jezerelle the Swaying 61-61"
 			],
-			"reason": "a rare at the western edge of Dae'gun, about 1.6 map units from the heraldry goal; the step's tips tell the player to give Dae'gun's rares and elites room.",
+			"reason": "warned at the step: its Careful tip names Jezerelle the Swaying (61, rare) and where she walks",
 			"evidence": "route level 58.5 (level model run-rested, Horde, 2026-11-20); Jezerelle the Swaying 61-61; recordings (2026-11-20): done by 0 (median null), deaths 0, abandons 0"
 		},
 		{
