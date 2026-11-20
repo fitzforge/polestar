@@ -260,7 +260,9 @@ step Booty Bay
   accept 576                          -- Dizzy One-Eye
   turnin 599                          -- Fleet Master Seahorn
   note Seahorn's next task, The Bloodsail Buccaneers, waits for the level-48 Booty Bay stop with the Wild Shore camp (41-43): leave it for now.
-  accept 587                          -- Deeg, on the top floor
+  accept 587                          -- Deeg, on the top floor. If you now have Krazek's four ore, speak to him beside Deeg before leaving.
+  turnin 627 optional
+  accept 622 optional                 -- Carry Krazek's reply to Kaleb on the northern loop.
   turnin 610                          -- Catelyn the Blade, upstairs
   accept 611                          -- Gazban swims off the north-west coast, on the northern loop
 

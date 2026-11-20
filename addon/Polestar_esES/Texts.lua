@@ -1568,7 +1568,6 @@ t.guides["forever/alliance/50-60/04-western-plaguelands"] = (function() return {
 		["{object:175924}, in the farmhouse; inside"] = "{object:175924}, en la casa de la granja; dentro",
 		["{quest:3444} is in {area:392}"] = "{quest:3444} está en {area:392}",
 		["{quest:4291}, if you still carry it from the first visit"] = "{quest:4291}, si aún la llevas de la primera visita",
-		["{quest:5210}, at {area:2268}: keep it"] = "{quest:5210}, en {area:2268}: guárdala",
 		["{quest:6762} in {area:493}: keep it"] = "{quest:6762} en {area:493}: guárdala",
 		["{quest:87494}, if a ravasaur dropped the scale since the first visit"] = "{quest:87494}, si un ravasaurio ha soltado la escama desde la primera visita",
 		["{zone:1455}, where the next guide trains, has no druid trainer"] = "{zone:1455}, donde se entrena en la siguiente guía, no tiene instructor de druidas",

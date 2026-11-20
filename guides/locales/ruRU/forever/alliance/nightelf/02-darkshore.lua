@@ -8,7 +8,6 @@
 return {
 	-- Step 1: Auberdine
 	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it.\nThe boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street."] = "Вы пропустили это при прошлом посещении этих мест по маршруту: теперь это идёт первым. Это быстро и открывает следующие задания.\nКорабль причаливает к западу от деревни. Распорядитель полетов стоит на холме к югу от таверны; дающие задания – вдоль главной улицы.",
-	["The WANTED poster outside the inn"] = "Плакат «РАЗЫСКИВАЕТСЯ» у таверны",
 
 	-- Step 2: The beach
 	["The beach"] = "Пляж",
@@ -16,29 +15,32 @@ return {
 	-- plural, as words: Tide Crawlers = {npc:2232} Tide Crawler · Darkshore Threshers = {npc:2185} Darkshore Thresher
 	["Tide Crawlers scuttle along the shore below the village; {quest:983} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {object:175207} lies on the shore just south of the village."] = "Прибрежные крабы снуют по берегу под деревней; {quest:983} стоит на пляже чуть южнее пристани. На мелководье плавают крепкозубы Темного берега. {object:175207} лежит на берегу чуть южнее деревни.",
 
-	-- Step 3: Auberdine
-	-- {npc:3649} Thundris Windweaver
-	["{npc:3649}, north end of the village"] = "{npc:3649} – в северной части деревни",
-
-	-- Step 4: Auberdine
-	-- {npc:3666} Wizbang Cranktoggle
-	["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street. {npc:3666} stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "Корабль причаливает к западу от деревни. Распорядитель полетов стоит на холме к югу от таверны; дающие задания расположены вдоль главной улицы. {npc:3666} находится на верхнем этаже таверны: поднимитесь по лестнице внутри, стрелка не различает этажи.",
-	-- {npc:3666} Wizbang Cranktoggle
-	["{npc:3666}, upstairs in the inn"] = "{npc:3666}, верхний этаж таверны",
-
-	-- Step 6: The skeletal turtle
+	-- Step 5: The skeletal turtle
 	["The skeletal turtle"] = "Скелет черепахи",
+	-- {npc:10216} Gubber Blump
+	["{npc:10216}, if your fish are ready before the swim"] = "",
 	-- {item:12289} Sea Turtle Remains
 	["{item:12289}, on the beach west of the docks; underwater"] = "{item:12289} – на пляже к западу от пристани; под водой",
 
-	-- Step 7: Buzzbox 827
+	-- Step 6: Auberdine
+	-- {npc:3649} Thundris Windweaver
+	["{npc:3649}, north end of the village"] = "{npc:3649} – в северной части деревни",
+
+	-- Step 7: Auberdine
+	-- {npc:3666} Wizbang Cranktoggle
+	["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street. {npc:3666} stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "Корабль причаливает к западу от деревни. Распорядитель полетов стоит на холме к югу от таверны; дающие задания расположены вдоль главной улицы. {npc:3666} находится на верхнем этаже таверны: поднимитесь по лестнице внутри, стрелка не различает этажи.",
+	["The WANTED poster outside the inn"] = "Плакат «РАЗЫСКИВАЕТСЯ» у таверны",
+	-- {npc:3666} Wizbang Cranktoggle
+	["{npc:3666}, upstairs in the inn"] = "{npc:3666}, верхний этаж таверны",
+
+	-- Step 8: Buzzbox 827
 	-- {quest:983} Buzzbox 827
 	-- plural, as words: Tide Crawlers = {npc:2232} Tide Crawler
 	["Only if you still carry {quest:983}'s quest: the Tide Crawlers scuttle along the shore below the village, and {quest:983} stands on the beach just south of the docks."] = "Только если у вас еще есть задание {quest:983}: прибрежные крабы снуют по берегу под деревней, а {quest:983} стоит на пляже чуть южнее пристани.",
 	-- plural, as words: Crawler Legs = {item:5385} Crawler Leg · Tide Crawlers = {npc:2232} Tide Crawler
 	["Crawler Legs: the Tide Crawlers"] = "Лапы краба: прибрежные крабы",
 
-	-- Step 8: Bears and the Blackwood camp
+	-- Step 9: Bears and the Blackwood camp
 	["Bears and the Blackwood camp"] = "Медведи и лагерь Чернолесья",
 	-- {area:442} Auberdine · {item:7586} Tharnariun's Hope
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
@@ -47,7 +49,7 @@ return {
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "",
 
-	-- Step 9: Ameth'Aran
+	-- Step 10: Ameth'Aran
 	-- {npc:3639} Sentinel Tysha Moonblade · {npc:2178} Wailing Highborne · {npc:3667} Anaya Dawnrunner · {npc:270196} Jai'vhanel · {quest:4722} Beached Sea Turtle
 	["{npc:3639} stands at the north edge of the ruins. Cursed, Writhing and {npc:2178} haunt them; {npc:3667}'s ghost walks among them, {npc:270196} the owl circles east of them. The two tablets lie in the ruins; a {quest:4722} lies on the shore west of them."] = "{npc:3639} стоит у северного края руин. Там обитают проклятые, терзаемые высокорожденные и {npc:2178}; среди них бродит призрак – {npc:3667}, к востоку кружит сова {npc:270196}. Обе скрижали лежат в руинах; {quest:4722} – на берегу к западу от них.",
 	-- plural, as words: Highborne Relics = {item:5360} Highborne Relic
@@ -57,12 +59,12 @@ return {
 	-- {object:17189} Fall of Ameth'Aran
 	["Read the {object:17189}"] = "Прочитайте: {object:17189}",
 
-	-- Step 10: The red crystal
+	-- Step 11: The red crystal
 	["The red crystal"] = "Красный кристалл",
 	-- {area:447} Ameth'Aran · {object:175524} Mysterious Red Crystal
 	["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "Поднимитесь в горы к востоку (ориентир: {area:447}); {object:175524} лежит на уступе.",
 
-	-- Step 11: Bashal'Aran
+	-- Step 12: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {object:17183} Buzzbox 411 · {quest:4723} Beached Sea Creature
 	-- plural, as words: Wild Grells = {npc:2190} Wild Grell · Vile Sprites = {npc:2189} Vile Sprite · Deth'ryll Satyrs = {npc:2212} Deth'ryll Satyr
 	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {object:17183} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "",
@@ -72,69 +74,69 @@ return {
 	-- plural, as words: Deth'ryll Satyrs = {npc:2212} Deth'ryll Satyr
 	["{item:5338}: Deth'ryll Satyrs"] = "{item:5338}: сатиры из племени Дет'рилл",
 
-	-- Step 13: Auberdine
+	-- Step 14: Auberdine
 	-- {npc:3701} Tharnariun Treetender
 	["{npc:3701}: the bears are on the loop ahead"] = "",
 	["Fill the tube at the moonwell in the village"] = "Наполните пробирку у лунного колодца в деревне",
 
-	-- Step 14: Cerellean Whiteclaw
+	-- Step 15: Cerellean Whiteclaw
 	-- {npc:3644} Cerellean Whiteclaw · {npc:3667} Anaya Dawnrunner · {area:447} Ameth'Aran
 	["From level 15: {npc:3644} waits where the pier meets the shore. {npc:3667} (16), whose pendant he wants, walks {area:447} on the loop ahead."] = "",
 	-- {npc:3644} Cerellean Whiteclaw
 	-- was: ["{npc:3644}, on the pier"] = "{npc:3644}, на пирсе"
 	["{npc:3644}, on the pier"] = "",
 
-	-- Step 15: Rabid Thistle Bear on the way
+	-- Step 16: Rabid Thistle Bear on the way
 	-- {npc:2164} Rabid Thistle Bear
 	["{npc:2164} on the way"] = "",
 
-	-- Step 16: Blackwood furbolgs
+	-- Step 17: Blackwood furbolgs
 	["Blackwood furbolgs"] = "Фурболги Чернолесья",
 	-- {area:442} Auberdine
 	-- plural, as words: Blackwood Pathfinders = {npc:2167} Blackwood Pathfinder · Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	-- was: ["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}.\nCareful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time."] = "Землепроходцы и говорящие с ветром из племени Чернолесья занимают лагерь к юго-востоку от места {area:442}.\nОсторожно: говорящие с ветром (13-14) атакуют издалека, а фурболги стоят парами: выманивайте их по одному."
 	["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}; Rabid Thistle Bears roam the hills around it.\nCareful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time."] = "",
 
-	-- Step 17: The southern beaches
+	-- Step 18: The southern beaches
 	["The southern beaches"] = "Южные пляжи",
 	-- {area:447} Ameth'Aran · {quest:4728} Beached Sea Creature · {area:450} Remtravel's Excavation
 	-- plural, as words: Greymist Oracles = {npc:2207} Greymist Oracle
 	["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "Идите вдоль побережья на юг мимо руин ({area:447}): одно существо ({quest:4728}) лежит на берегу к западу от Рощи, другое – южнее, рядом с местом {area:450}. Еще три останка лежат дальше на юго-западе среди оракулов и волноловов из племени Серой Мглы (18–20): гайд оставляет их на последний круг, когда вы будете ближе к их уровню.",
 
-	-- Step 18: Onu
+	-- Step 19: Onu
 	-- {quest:952} Grove of the Ancients · {npc:3616} Onu · {npc:11218} Kerlonian Evershade
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
 	["From the beached creature, head east to the {quest:952}. Watch for level 16 bears and level 17 Moonstalker Sires between the beach and the grove; go around them. {npc:3616} stands beside Arbal and the sleeping {npc:11218}."] = "",
 
-	-- Step 19: Ameth'Aran
+	-- Step 20: Ameth'Aran
 	-- {area:447} Ameth'Aran
 	["Back north to {area:447}: the flame burns in the south of the ruins."] = "Обратно на север в {area:447}: пламя горит в южной части руин.",
 
-	-- Step 20: Anaya's Pendant
+	-- Step 21: Anaya's Pendant
 	-- {item:5382} Anaya's Pendant · {npc:3667} Anaya Dawnrunner
 	["{item:5382}: {npc:3667}'s ghost walks the ruins"] = "",
 
-	-- Step 21: The red crystal
+	-- Step 22: The red crystal
 	["Back north-east into the mountains to the crystal."] = "Назад на северо-восток, в горы, к кристаллу.",
 
-	-- Step 23: Bashal'Aran
+	-- Step 24: Bashal'Aran
 	-- {npc:3650} Asterion · {area:442} Auberdine
 	["North along the hills to {npc:3650}, then west down to {area:442}."] = "На север вдоль холмов к NPC {npc:3650}, затем на запад вниз в {area:442}.",
 
-	-- Step 25: Cerellean Whiteclaw
+	-- Step 26: Cerellean Whiteclaw
 	-- {npc:3644} Cerellean Whiteclaw
 	-- was: ["{npc:3644}, where the pier meets the shore, on the way to the boat"] = "{npc:3644}, там, где пирс выходит на берег, по пути к кораблю"
 	["{npc:3644} waits where the pier meets the shore, on the way to the boat."] = "",
 
-	-- Step 26: Boat to Stormwind Harbor
+	-- Step 27: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
 	["Boat to {area:17203}"] = "Корабль: {area:17203}",
 
-	-- Step 27: Manifest Clerk Philmor
+	-- Step 28: Manifest Clerk Philmor
 	-- {npc:268511} Manifest Clerk Philmor · {npc:483} Elaine Trias · {object:2096} Trade District
 	["Off the boat, {npc:268511} stands on the harbor: his shipment goes to {npc:483}' cheese shop in the {object:2096}, beside the flight master."] = "",
 
-	-- Step 28: Stormwind flight master
+	-- Step 29: Stormwind flight master
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "Распорядитель полетов: {zone:1453}",
 	-- {npc:483} Elaine Trias
@@ -142,27 +144,27 @@ return {
 	-- {object:460004} Gatehouse Door (no name in this language: may be words)
 	["Up the stairs in her shop: leave the shipment at the {object:460004}"] = "",
 
-	-- Step 29: Baros Alexston
+	-- Step 30: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {object:2096} Trade District · {zone:1436} Westfall
 	["{npc:1646} stands in {object:2098}, west of the {object:2096}: his compass is in his old house in {zone:1436}, on the way."] = "",
 
-	-- Step 30: Woo Ping
+	-- Step 31: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "Раз уж вы здесь: изучите {spell:202} у NPC {npc:11867} ({object:2096}, 10 серебра); с двуручным оружием воин качается быстрее всего.",
 
-	-- Step 31: Woo Ping
+	-- Step 32: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "Раз уж вы здесь: изучите владение мечами у NPC {npc:11867} ({object:2096}, 10 серебра); с мечом в правой руке разбойник стабильно качается.",
 
-	-- Step 32: Druid trainer
+	-- Step 33: Druid trainer
 	["Druid trainer"] = "Учитель друидов",
 	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {area:87} Goldshire
 	["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "{npc:5504} – {zone:1453}; в {area:87} нет учителя друидов",
 
-	-- Step 34: Class trainer
+	-- Step 35: Class trainer
 	["Class trainer"] = "Учитель классовых навыков",
 
-	-- Step 35: Shaman trainer
+	-- Step 36: Shaman trainer
 	["Shaman trainer"] = "Учитель шаманов",
 	-- {npc:257446} Teo Hammerstorm · {zone:1426} Dun Morogh · {area:87} Goldshire
 	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "{npc:257446} ({zone:1426}); {area:87}: учителя шаманов нет",

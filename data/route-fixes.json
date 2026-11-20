@@ -45,14 +45,14 @@
 			{
 				"a": [
 					"turnin",
-					6004
+					5223
 				],
 				"b": [
 					"turnin",
-					5223
+					4971
 				],
 				"faction": "Alliance",
-				"why": "Bring the Writhing Haunt report to MacDonnell on the Chillwind stop before the flight, with the skeletal fragments.",
+				"why": "The direct Mulgris-to-Chromie leg crosses Araj and his elite guards. Take the southern road for real inn business or a held Writhing Haunt report; give MacDonnell the report on the road step so even a player without it is led south for a ready inn reward.",
 				"issue": "#3144"
 			},
 			{
@@ -9141,7 +9141,7 @@
 					"turnin",
 					89001
 				],
-				"reason": "Berdun offers Gettin' Buzzed after the hides. Honey Wasps north of the shrine are level 47–49; the route passes their nests on the way to Eldarath and returns to Berdun's camp before leaving Azshara.",
+				"reason": "Berdun offers Gettin' Buzzed after the hides. Honey Wasps north of the shrine are level 47–49. Pay finished honey at either camp visit. Take and work fresh honey on the way to Eldarath, except when the priest has Ogtinc's summons or the follow-up waiting: from the nests the direct approach passes a level 52–53 Cliff Walker.",
 				"issue": "#3144"
 			},
 			{
@@ -11144,7 +11144,7 @@
 			},
 			{
 				"q": 4681,
-				"reason": "Catch-up in forever/alliance/nightelf/02-darkshore (#2635): Washed Ashore part 2, given by Gwennyth `when !turnedin 3524`; see 3524.",
+				"reason": "Night Elf Darkshore (#2635): finish Gwennyth's shore errands before the inn. Offer 4681 at her counter if it is neither held nor paid, including when 3524 was handed in on an earlier visit. The inn's poster, Wizbang and Glynda are on the way out to the next shore and hill jobs.",
 				"issue": "#2635"
 			},
 			{

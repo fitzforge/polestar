@@ -8,7 +8,6 @@
 return {
 	-- Step 1: Auberdine
 	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it.\nThe boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street."] = "Vous avez manqué ceci lors du passage précédent de l'itinéraire ici : cela passe d'abord maintenant. C'est rapide et cela ouvre les quêtes qui suivent.\nLe bateau accoste à l'ouest du village. Le maître de vol se tient sur la colline au sud de l'auberge ; les donneurs de quêtes sont répartis le long de la rue principale.",
-	["The WANTED poster outside the inn"] = "L'affiche AVIS DE RECHERCHE devant l'auberge",
 
 	-- Step 2: The beach
 	["The beach"] = "La plage",
@@ -16,29 +15,32 @@ return {
 	-- plural, as words: Tide Crawlers = {npc:2232} Tide Crawler · Darkshore Threshers = {npc:2185} Darkshore Thresher
 	["Tide Crawlers scuttle along the shore below the village; {quest:983} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {object:175207} lies on the shore just south of the village."] = "Les Clampants des marées grouillent sur la côte en contrebas du village ; {quest:983} se trouve sur la plage juste au sud des quais. Les Batteurs de Sombrivage nagent dans les hauts-fonds. La {object:175207} gît sur la côte juste au sud du village.",
 
-	-- Step 3: Auberdine
-	-- {npc:3649} Thundris Windweaver
-	["{npc:3649}, north end of the village"] = "{npc:3649}, au nord du village",
-
-	-- Step 4: Auberdine
-	-- {npc:3666} Wizbang Cranktoggle
-	["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street. {npc:3666} stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "Le bateau accoste à l'ouest du village. Le maître de vol se tient sur la colline au sud de l'auberge ; les donneurs de quêtes sont répartis le long de la rue principale. {npc:3666} se tient à l'étage de l'auberge : montez par l'escalier intérieur, la flèche ne distingue pas les étages.",
-	-- {npc:3666} Wizbang Cranktoggle
-	["{npc:3666}, upstairs in the inn"] = "{npc:3666}, à l'étage de l'auberge",
-
-	-- Step 6: The skeletal turtle
+	-- Step 5: The skeletal turtle
 	["The skeletal turtle"] = "La tortue squelettique",
+	-- {npc:10216} Gubber Blump
+	["{npc:10216}, if your fish are ready before the swim"] = "",
 	-- {item:12289} Sea Turtle Remains
 	["{item:12289}, on the beach west of the docks; underwater"] = "{item:12289}, sur la plage à l'ouest des quais ; sous l'eau",
 
-	-- Step 7: Buzzbox 827
+	-- Step 6: Auberdine
+	-- {npc:3649} Thundris Windweaver
+	["{npc:3649}, north end of the village"] = "{npc:3649}, au nord du village",
+
+	-- Step 7: Auberdine
+	-- {npc:3666} Wizbang Cranktoggle
+	["The boat docks west of the village. The flight master stands on the hill south of the inn; the quest givers are spread along the main street. {npc:3666} stands upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "Le bateau accoste à l'ouest du village. Le maître de vol se tient sur la colline au sud de l'auberge ; les donneurs de quêtes sont répartis le long de la rue principale. {npc:3666} se tient à l'étage de l'auberge : montez par l'escalier intérieur, la flèche ne distingue pas les étages.",
+	["The WANTED poster outside the inn"] = "L'affiche AVIS DE RECHERCHE devant l'auberge",
+	-- {npc:3666} Wizbang Cranktoggle
+	["{npc:3666}, upstairs in the inn"] = "{npc:3666}, à l'étage de l'auberge",
+
+	-- Step 8: Buzzbox 827
 	-- {quest:983} Buzzbox 827
 	-- plural, as words: Tide Crawlers = {npc:2232} Tide Crawler
 	["Only if you still carry {quest:983}'s quest: the Tide Crawlers scuttle along the shore below the village, and {quest:983} stands on the beach just south of the docks."] = "Seulement si vous avez encore la quête de {quest:983} : les Clampants des marées grouillent sur la côte en contrebas du village, et {quest:983} se tient sur la plage juste au sud des quais.",
 	-- plural, as words: Crawler Legs = {item:5385} Crawler Leg · Tide Crawlers = {npc:2232} Tide Crawler
 	["Crawler Legs: the Tide Crawlers"] = "Pattes de clampant : les Clampants des marées",
 
-	-- Step 8: Bears and the Blackwood camp
+	-- Step 9: Bears and the Blackwood camp
 	["Bears and the Blackwood camp"] = "Les ours et le camp Noirbois",
 	-- {area:442} Auberdine · {item:7586} Tharnariun's Hope
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
@@ -47,7 +49,7 @@ return {
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	["the Rabid Thistle Bears nearest {npc:3701}"] = "les Ours des chardons enragés les plus proches de {npc:3701}",
 
-	-- Step 9: Ameth'Aran
+	-- Step 10: Ameth'Aran
 	-- {npc:3639} Sentinel Tysha Moonblade · {npc:2178} Wailing Highborne · {npc:3667} Anaya Dawnrunner · {npc:270196} Jai'vhanel · {quest:4722} Beached Sea Turtle
 	["{npc:3639} stands at the north edge of the ruins. Cursed, Writhing and {npc:2178} haunt them; {npc:3667}'s ghost walks among them, {npc:270196} the owl circles east of them. The two tablets lie in the ruins; a {quest:4722} lies on the shore west of them."] = "{npc:3639} se tient à la lisière nord des ruines. Des Bien-nés maudits, des Bien-nés frémissants et des {npc:2178} les hantent ; le fantôme d'{npc:3667} erre parmi eux, la chouette {npc:270196} tournoie à l'est. Les deux tablettes se trouvent dans les ruines ; une {quest:4722} gît sur la côte à l'ouest.",
 	-- plural, as words: Highborne Relics = {item:5360} Highborne Relic
@@ -57,12 +59,12 @@ return {
 	-- {object:17189} Fall of Ameth'Aran
 	["Read the {object:17189}"] = "Lisez {object:17189}",
 
-	-- Step 10: The red crystal
+	-- Step 11: The red crystal
 	["The red crystal"] = "Le cristal rouge",
 	-- {area:447} Ameth'Aran · {object:175524} Mysterious Red Crystal
 	["Climb the eastern mountains east of {area:447}; the {object:175524} sits on a ledge."] = "Escaladez les montagnes à l'est d'{area:447} ; le {object:175524} repose sur une corniche.",
 
-	-- Step 11: Bashal'Aran
+	-- Step 12: Bashal'Aran
 	-- {npc:3650} Asterion · {quest:954} Bashal'Aran · {object:17183} Buzzbox 411 · {quest:4723} Beached Sea Creature
 	-- plural, as words: Wild Grells = {npc:2190} Wild Grell · Vile Sprites = {npc:2189} Vile Sprite · Deth'ryll Satyrs = {npc:2212} Deth'ryll Satyr
 	["North along the hills. {npc:3650} waits in the ruins of {quest:954}; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. {object:17183} stands by the road west of the ruins; a {quest:4723} lies on the shore on the way to him."] = "Vers le nord, le long des collines. {npc:3650} attend dans les ruines de {quest:954} ; des Grells sauvages et des Fées viles les remplissent, des Satyres Deth'ryll en occupent le bord est. {object:17183} se dresse au bord de la route à l'ouest des ruines ; une {quest:4723} repose sur le rivage en chemin vers lui.",
@@ -72,68 +74,68 @@ return {
 	-- plural, as words: Deth'ryll Satyrs = {npc:2212} Deth'ryll Satyr
 	["{item:5338}: Deth'ryll Satyrs"] = "{item:5338} : Satyres Deth'ryll",
 
-	-- Step 13: Auberdine
+	-- Step 14: Auberdine
 	-- {npc:3701} Tharnariun Treetender
 	["{npc:3701}: the bears are on the loop ahead"] = "",
 	["Fill the tube at the moonwell in the village"] = "Remplissez le tube au puits de lune du village",
 
-	-- Step 14: Cerellean Whiteclaw
+	-- Step 15: Cerellean Whiteclaw
 	-- {npc:3644} Cerellean Whiteclaw · {npc:3667} Anaya Dawnrunner · {area:447} Ameth'Aran
 	["From level 15: {npc:3644} waits where the pier meets the shore. {npc:3667} (16), whose pendant he wants, walks {area:447} on the loop ahead."] = "",
 	-- {npc:3644} Cerellean Whiteclaw
 	["{npc:3644}, on the pier"] = "{npc:3644}, sur la jetée",
 
-	-- Step 15: Rabid Thistle Bear on the way
+	-- Step 16: Rabid Thistle Bear on the way
 	-- {npc:2164} Rabid Thistle Bear
 	["{npc:2164} on the way"] = "{npc:2164} en chemin",
 
-	-- Step 16: Blackwood furbolgs
+	-- Step 17: Blackwood furbolgs
 	["Blackwood furbolgs"] = "Les furbolgs Noirbois",
 	-- {area:442} Auberdine
 	-- plural, as words: Blackwood Pathfinders = {npc:2167} Blackwood Pathfinder · Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
 	-- was: ["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}.\nCareful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time."] = "Les Guides Noirbois et les Parlevents occupent le camp au sud-est d'{area:442}.\nAttention : les Parlevents (13-14) lancent des sorts à distance et les furbolgs se tiennent par deux : attirez-les un par un."
 	["Blackwood Pathfinders and Windtalkers hold the camp south-east of {area:442}; Rabid Thistle Bears roam the hills around it.\nCareful: the Windtalkers (13-14) cast from range and the furbolgs stand in pairs: pull them one at a time."] = "",
 
-	-- Step 17: The southern beaches
+	-- Step 18: The southern beaches
 	["The southern beaches"] = "Les plages du sud",
 	-- {area:447} Ameth'Aran · {quest:4728} Beached Sea Creature · {area:450} Remtravel's Excavation
 	-- plural, as words: Greymist Oracles = {npc:2207} Greymist Oracle
 	["Follow the coast south past {area:447}: one {quest:4728} lies on the shore west of the Grove, another further south near {area:450}. Three more remains lie further south-west among Greymist Oracles and Tidehunters (18-20): the guide leaves them for the last loop, when you are closer to their level."] = "Suivez la côte vers le sud au-delà d'{area:447} : une {quest:4728} gît sur la côte à l'ouest du Bosquet des Anciens, une autre plus au sud près de l'{area:450}. Trois autres restes gisent plus au sud-ouest parmi les Oracles Grisebrume et les Chasse-marée Grisebrume (18-20) : le guide les garde pour la dernière boucle, quand vous serez plus proche de leur niveau.",
 
-	-- Step 18: Onu
+	-- Step 19: Onu
 	-- {quest:952} Grove of the Ancients · {npc:3616} Onu · {npc:11218} Kerlonian Evershade
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
 	["From the beached creature, head east to the {quest:952}. Watch for level 16 bears and level 17 Moonstalker Sires between the beach and the grove; go around them. {npc:3616} stands beside Arbal and the sleeping {npc:11218}."] = "",
 
-	-- Step 19: Ameth'Aran
+	-- Step 20: Ameth'Aran
 	-- {area:447} Ameth'Aran
 	["Back north to {area:447}: the flame burns in the south of the ruins."] = "Retournez au nord jusqu'à {area:447} : la flamme brûle au sud des ruines.",
 
-	-- Step 20: Anaya's Pendant
+	-- Step 21: Anaya's Pendant
 	-- {item:5382} Anaya's Pendant · {npc:3667} Anaya Dawnrunner
 	["{item:5382}: {npc:3667}'s ghost walks the ruins"] = "",
 
-	-- Step 21: The red crystal
+	-- Step 22: The red crystal
 	["Back north-east into the mountains to the crystal."] = "Retournez au nord-est dans les montagnes jusqu'au cristal.",
 
-	-- Step 23: Bashal'Aran
+	-- Step 24: Bashal'Aran
 	-- {npc:3650} Asterion · {area:442} Auberdine
 	["North along the hills to {npc:3650}, then west down to {area:442}."] = "Vers le nord le long des collines jusqu'à {npc:3650}, puis descendez vers l'ouest jusqu'à {area:442}.",
 
-	-- Step 25: Cerellean Whiteclaw
+	-- Step 26: Cerellean Whiteclaw
 	-- {npc:3644} Cerellean Whiteclaw
 	-- was: ["{npc:3644}, where the pier meets the shore, on the way to the boat"] = "{npc:3644}, là où la jetée rejoint le rivage, sur le chemin du bateau"
 	["{npc:3644} waits where the pier meets the shore, on the way to the boat."] = "",
 
-	-- Step 26: Boat to Stormwind Harbor
+	-- Step 27: Boat to Stormwind Harbor
 	-- {area:17203} Stormwind Harbor
 	["Boat to {area:17203}"] = "Bateau pour {area:17203}",
 
-	-- Step 27: Manifest Clerk Philmor
+	-- Step 28: Manifest Clerk Philmor
 	-- {npc:268511} Manifest Clerk Philmor · {npc:483} Elaine Trias · {object:2096} Trade District
 	["Off the boat, {npc:268511} stands on the harbor: his shipment goes to {npc:483}' cheese shop in the {object:2096}, beside the flight master."] = "En descendant du bateau, {npc:268511} se tient sur le port : sa cargaison va à la fromagerie de {npc:483}, dans {object:2096}, à côté du maître de vol.",
 
-	-- Step 28: Stormwind flight master
+	-- Step 29: Stormwind flight master
 	-- {zone:1453} Stormwind
 	["{zone:1453} flight master"] = "Maître de vol de {zone:1453}",
 	-- {npc:483} Elaine Trias
@@ -141,27 +143,27 @@ return {
 	-- {object:460004} Gatehouse Door (no name in this language: may be words)
 	["Up the stairs in her shop: leave the shipment at the {object:460004}"] = "Montez l'escalier de sa boutique : déposez la cargaison à {object:460004}",
 
-	-- Step 29: Baros Alexston
+	-- Step 30: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {object:2096} Trade District · {zone:1436} Westfall
 	["{npc:1646} stands in {object:2098}, west of the {object:2096}: his compass is in his old house in {zone:1436}, on the way."] = "{npc:1646} se tient sur {object:2098}, à l'ouest de {object:2096} : sa boussole est dans son ancienne maison en {zone:1436}, sur le chemin.",
 
-	-- Step 30: Woo Ping
+	-- Step 31: Woo Ping
 	-- {spell:202} Two-Handed Swords · {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn {spell:202} from {npc:11867} ({object:2096}, 10 silver); two-handers level a Warrior fastest."] = "Pendant que vous y êtes : apprenez {spell:202} auprès de {npc:11867} ({object:2096}, 10 pièces d'argent) ; les armes à deux mains font progresser un Guerrier le plus vite.",
 
-	-- Step 31: Woo Ping
+	-- Step 32: Woo Ping
 	-- {npc:11867} Woo Ping · {object:2096} Trade District
 	["While you're here: learn Swords from {npc:11867} ({object:2096}, 10 silver); a sword in the main hand levels a Rogue steadily."] = "Pendant que vous y êtes : apprenez le maniement des épées auprès de {npc:11867} ({object:2096}, 10 pièces d'argent) ; une épée en main droite fait progresser un Voleur régulièrement.",
 
-	-- Step 32: Druid trainer
+	-- Step 33: Druid trainer
 	["Druid trainer"] = "Maître des druides",
 	-- {npc:5504} Sheldras Moontree · {zone:1453} Stormwind · {area:87} Goldshire
 	["{npc:5504} in {zone:1453}; {area:87} has no druid trainer"] = "{npc:5504} dans {zone:1453} ; {area:87} n'a pas de maître des druides",
 
-	-- Step 34: Class trainer
+	-- Step 35: Class trainer
 	["Class trainer"] = "Maître de classe",
 
-	-- Step 35: Shaman trainer
+	-- Step 36: Shaman trainer
 	["Shaman trainer"] = "Maître des chamans",
 	-- {npc:257446} Teo Hammerstorm · {zone:1426} Dun Morogh · {area:87} Goldshire
 	["{npc:257446} in {zone:1426}; {area:87} has no shaman trainer"] = "{npc:257446} à {zone:1426} ; {area:87} n'a pas de maître des chamans",

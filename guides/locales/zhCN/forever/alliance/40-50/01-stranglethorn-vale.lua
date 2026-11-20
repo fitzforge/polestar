@@ -174,8 +174,10 @@ return {
 	-- Step 31: Booty Bay
 	-- {quest:597} The Bloodsail Buccaneers · {area:35} Booty Bay · {area:43} Wild Shore
 	["Seahorn's next task, {quest:597}, waits for the level-48 {area:35} stop with the {area:43} camp (41-43): leave it for now."] = "",
-	-- {npc:2488} Deeg
-	["{npc:2488}, on the top floor"] = "{npc:2488}，位于最顶层",
+	-- {npc:2488} Deeg · {npc:773} Krazek
+	["{npc:2488}, on the top floor. If you now have {npc:773}'s four ore, speak to him beside {npc:2488} before leaving."] = "",
+	-- {npc:773} Krazek
+	["Carry {npc:773}'s reply to Kaleb on the northern loop."] = "",
 	-- {npc:2624} Gazban
 	["{npc:2624} swims off the north-west coast, on the northern loop"] = "{npc:2624}在西北海岸外游动，在北部环线上",
 
@@ -195,6 +197,8 @@ return {
 
 	-- Step 35: Booty Bay
 	["Head back down to town; Shaky stands at the tunnel mouth."] = "回到镇上；“病鬼”菲利普站在隧道口。",
+	-- {npc:2488} Deeg
+	["{npc:2488}, on the top floor"] = "{npc:2488}，位于最顶层",
 	-- {zone:1446} Tanaris
 	["for Stoley in {zone:1446}: keep it; on the top floor"] = "留给{zone:1446}的斯杜雷；任务在最顶层接取",
 	-- {area:35} Booty Bay

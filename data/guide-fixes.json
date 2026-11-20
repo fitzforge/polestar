@@ -391,11 +391,29 @@
 			},
 			"when": "level>=48",
 			"tip": "Shoot a nest with Berdun's Pellet Gun, then loot the Honey Wasps for Wild Honey. Work north through the trees toward Eldarath, away from Valormok.",
-			"note": "Honey Wasps are level 47–49. Leave an externally finished batch payable at either visit, regardless of level.",
+			"note": "Honey Wasps are level 47–49. A finished batch is payable at either visit, regardless of level. If the priest has Ogtinc's summons or the follow-up waiting, the seed keeps the player on the road from Shadowsong Shrine instead of leaving the nests toward Ogtinc.",
 			"source": {
 				"kind": "recording",
 				"ref": "Alliance characters looted Wild Honey from Honey Wasps 236028 in Azshara and handed five to Berdun."
 			},
+			"issue": 3144
+		},
+		{
+			"id": "talrendis-honey-pickup",
+			"faction": "Alliance",
+			"at": { "guide": "forever/alliance/50-60/01-burning-steppes", "quest": 89013, "goal": "accept" },
+			"when": "level>=48",
+			"note": "The seed leaves the honey errand until later for a priest who is carrying Ogtinc's summons or can take Of Coursers We Know. The road from the shrine avoids the Cliff Walker beside the direct approach from the honey nests.",
+			"source": { "kind": "client", "ref": "Azshara: Cliff Walker (6148), Ogtinc (8254) and Of Coursers We Know (8255)." },
+			"issue": 3144
+		},
+		{
+			"id": "talrendis-honey-already-gathered",
+			"faction": "Alliance",
+			"at": { "guide": "forever/alliance/50-60/01-burning-steppes", "quest": 89013, "goal": "turnin" },
+			"when": "complete 89013",
+			"note": "Berdun takes five Wild Honey on the return to Talrendis Point even when a priest has an errand for Ogtinc. Both of Loh'atu's rewards are paid together; a priest already farther along does not ride back to the shrine for a waypoint.",
+			"source": { "kind": "recording", "ref": "Berdun Cliffbrew takes Gettin' Buzzed (89013) in Azshara." },
 			"issue": 3144
 		},
 		{
@@ -786,6 +804,14 @@
 			"note": "The live report confirms the sequence. The quest log only counts the talisman, so explain the fight and the object to click on its collection goal.",
 			"source": { "kind": "in-game-check", "ref": "#2107: UnknownBaronX summoned Xabraxxis, killed him and clicked the bag to obtain the talisman." },
 			"issue": 2107
+		},
+		{
+			"id": "booty-bay-late-ore-at-deeg",
+			"faction": "Alliance",
+			"at": { "guide": "forever/alliance/40-50/01-stranglethorn-vale", "quest": 587, "goal": "accept" },
+			"goalNote": "Deeg, on the top floor. If you now have Krazek's four ore, speak to him beside Deeg before leaving.",
+			"note": "Krazek and Deeg stand on the same floor. Keep a second optional ore hand-in and pickup there before the northern trip to Kaleb.",
+			"source": { "kind": "client", "ref": "Deeg (2488), Krazek (773); Favor for Krazek (627) and Return to Corporal Kaleb (622)." }
 		},
 		{
 			"id": "1550-krazek-pickup-mining-advice",

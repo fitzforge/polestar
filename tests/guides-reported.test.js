@@ -51,7 +51,10 @@ test('Sorrow Hill: every selectable scourgestone camp stays on the hill when ent
 
 test('Chromie: the leveling route gives the first watch reward but never requires the repeat on return (#3001)', { skip }, () => {
 	const wp = goals('forever/alliance/50-60/04-western-plaguelands.guide');
-	assert.ok(at(wp, 'first watch collection', is('collect',4972)) < at(wp, 'first watch payment', is('turnin',4972)));
+	const watch = wp.filter(({goal}) => goal.quest === 4972);
+	assert.deepEqual(watch.map(x => x.goal.t), ['turnin', 'accept', 'collect', 'turnin']);
+	assert.equal(watch[2].goal.count,5);
+	assert.ok(watch.filter(x => x.goal.t === 'turnin').every(x => x.step.when.some(c => c.k === 'complete' && !c.neg && c.q === 4972)));
 	assert.ok(!wp.some(({ goal }) => goal.quest === 4973));
 });
 
@@ -97,13 +100,113 @@ test('Alliance high route: collect the Talrendis errands before the spirits and 
 	}
 });
 
-test('Alliance high route: one Chillwind stop for the report and fragments, one ridge pass for ash and temperature', { skip }, () => {
-	const wp = goals('forever/alliance/50-60/04-western-plaguelands.guide');
+test('Azshara: a priest summoned to Ogtinc skips the honey detour, not a ready reward', { skip }, () => {
+	const file = 'forever/alliance/50-60/01-burning-steppes.guide';
+	const bs = goals(file);
+	const honey = bs.filter(({ goal }) => goal.quest === 89013);
+	const [earlyPay, take, work, latePay] = honey;
+	const shrine = bs.filter(({ goal }) => goal.quest === 5536 && goal.t === 'turnin');
+	const ogtinc = bs.find(({ goal }) => goal.t === 'goto' && goal.map === 1447 && goal.x === 42.4 && goal.y === 42.6);
+	assert.equal(shrine.length, 1);
+	assert.ok(shrine[0].s < work.s && work.s < ogtinc.s);
+	const fork = bs.find(row => row.s === ogtinc.s - 1 && row.goal.t === 'goto');
+	assert.deepEqual([fork.goal.map, fork.goal.x, fork.goal.y], [1447, 11.29, 78.07]);
+	assert.ok(fork.step.skipto.some(j => j.to === ogtinc.step.label && j.when.k === 'subzone' && j.when.neg));
+	const pack = buildSimPack([file]);
+	try {
+		const [states] = playGuide(pack, pack.guides[0], { race: 'Human', faction: 'Alliance', cls: 'PRIEST',
+			before: 'w.setLevel(50); w.complete({89001}); w.moveTo(1447,11.29,78.07); w.setZone("Azshara")',
+			script: `local E,w=Polestar.Engine,stub.world; local out={}
+				local function check(s) stub.advance(.6); out[#out+1]=not not E.Applies(s,1) end
+				check(${take.s}); w.accept(8254,{}); check(${take.s}); check(${ogtinc.s})
+				w.accept(89013,{{type="item",required=5,fulfilled=0}}); check(${work.s})
+				w.progress(89013,1,5); check(${earlyPay.s}); check(${latePay.s})
+				w.turnIn(8254); check(${ogtinc.s}); w.accept(8255,{}); check(${ogtinc.s}); emit(out)` });
+		assert.deepEqual(states, [true, false, true, false, true, true, true, false]);
+		const [normal] = playGuide(pack, pack.guides[0], { race: 'Human', faction: 'Alliance', cls: 'HUNTER',
+			before: 'w.setLevel(50); w.complete({89001,5535,5536}); w.moveTo(1447,12.52,77.28); w.setZone("Azshara")',
+			script: `local E,w=Polestar.Engine,stub.world; w.accept(89013,{{type="item",required=5,fulfilled=0}}); stub.advance(.6)
+				emit({not not E.Applies(${work.s},1),not not E.Applies(${fork.s},1),not not E.Applies(${ogtinc.s},1)})` });
+		assert.deepEqual(normal, [true, false, false]);
+		for (const [place, x, y, paid, expected] of [
+			['Talrendis Point', 12.52, 77.28, [5535,5536], fork.s],
+			['Talrendis Point', 12.52, 77.28, [5536], fork.s],
+			['Ruins of Eldarath', 36.72, 53.19, [5535,5536], ogtinc.s],
+		]) {
+			const [live] = playGuide(pack, pack.guides[0], { race: 'Human', faction: 'Alliance', cls: 'PRIEST',
+				before: `w.level=50; w.complete({${paid.join(',')}}); w.onQuest(8254,{}); w.moveTo(1447,${x},${y}); w.setZone("Azshara",${JSON.stringify(place)})`,
+				script: `local E=Polestar.Engine; E.SkipUpTo(${fork.s}); stub.advance(.6); emit(E.GetLiveStep())` });
+			assert.equal(live, expected);
+		}
+	} finally { pack.dispose(); }
+});
+
+test('Alliance: reach Chromie via Chillwind only for real inn work, pay a held cauldron report independently and keep the ridge errands together', { skip }, () => {
+	const file = 'forever/alliance/50-60/04-western-plaguelands.guide';
+	const wp = goals(file);
 	const find = (verb, q) => wp[at(wp, verb + ' ' + q, is(verb, q))];
-	assert.equal(find('turnin', 5223).s, find('turnin', 5537).s);
-	assert.ok(find('turnin', 6004).s < find('turnin', 5223).s);
+	const report = find('turnin', 5223);
+	const step = label => wp.find(x => x.step.label === label).s;
+	const gate = step('no-chromie-business'), road = report.s - 1, inn = report.s + 1;
+	const pin = s => wp.find(x => x.s === s && x.goal.t === 'goto').goal;
+	assert.deepEqual([pin(road).map,pin(road).x,pin(road).y],[1422,42.88,84.39]);
+	assert.deepEqual([pin(inn).map,pin(inn).x,pin(inn).y],[1422,39.42,66.82]);
+	assert.ok(find('turnin',4985).s < road && inn < find('turnin',4971).s);
+	assert.ok(find('turnin',6004).s < find('turnin',5537).s);
+	assert.equal(wp.filter(x => is('turnin',5223)(x.goal)).length,1);
+	const reward = q => `w.onQuest(${q},{1}); w.progress(${q},1,1)`;
+	const pack = buildSimPack([file]);
+	try {
+		const check = (before, reportDue, innStep, skipOffers = false) => {
+			const [seen] = playGuide(pack,pack.guides[0],{race:'Human',faction:'Alliance',cls:'WARRIOR',
+				before:`w.level=55; w.moveTo(1422,53.62,64.76); w.setZone('Western Plaguelands','The Writhing Haunt'); ${before}`,
+				script:`local E,w=Polestar.Engine,stub.world
+					${skipOffers ? 'E.SkipQuest(4972); E.SkipQuest(5210)' : ''}
+					E.SkipUpTo(${gate}); stub.advance(.6)
+					local function cursor() return E.GetLiveStep() end
+					local out={false,false,false}
+					if cursor()==${road} then
+						out[1]=true; local p=assert(E.GetWaypoint()); assert(p.map==1422 and p.x==42.88 and p.y==84.39)
+						w.moveTo(1422,42.88,84.39); w.setZone('Western Plaguelands','Chillwind Camp'); stub.advance(2)
+					end
+					if cursor()==${report.s} then
+						local q; for _,g in ipairs(E.GetStepView(${report.s}).goals) do if g.t=='turnin' and g.quest==5223 then q=g end end
+						assert(w.log[5223] and q and q.status=='active')
+						out[2]=true; w.turnIn(5223); stub.advance(1)
+					end
+					if cursor()==${inn} then
+						out[3]=true; local p=assert(E.GetWaypoint()); assert(p.map==1422 and p.x==39.42 and p.y==66.82)
+						w.moveTo(1422,39.42,66.82); w.setZone('Western Plaguelands','Ruins of Andorhal'); stub.advance(1); out[4]=cursor()
+					end
+					emit(out)`});
+			assert.deepEqual(seen,[Boolean(reportDue || innStep),reportDue,Boolean(innStep),...(innStep ? [innStep] : [])],before);
+		};
+		check('',false); check('w.onQuest(5223,{})',true);
+		for (const q of [4971,5154,4972]) check(reward(q),false,find('turnin',q).s);
+		check(`w.level=56; w.onQuest(5223,{}); ${reward(5154)}`,true,find('turnin',5154).s);
+		for (const ids of ['4971','5154','4971,5154']) check(`w.complete({${ids}})`,false,step('chromie-offers'));
+		check('w.complete({4971,5154})',false,null,true);
+		check('w.complete({4971,4972,5154,5210,5223})',false);
+		check('w.onQuest(4972,{5}); w.progress(4972,1,4)',false);
+	} finally { pack.dispose(); }
 	assert.equal(find('interact', 974).s, find('collect', 4502).s);
 	assert.equal(wp.filter(({ goal }) => goal.t === 'collect' && goal.quest === 4502).length, 1);
+});
+
+test('Chillwind: a ready Chromie reward still gets the southern road when the earlier cauldron quests drop out', { skip }, () => {
+	for (const report of [false, true]) {
+		const [visit] = runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar', 'Polestar_Guides', 'Polestar_Guides_Alliance', 'Polestar_Guides_Dwarf'],
+			before: `local w=stub.world; w.faction,w.race,w.raceName,w.class,w.className,w.level='Alliance','Dwarf','Dwarf','HUNTER','Hunter',55
+				w.addMap(1422,{name='Western Plaguelands',c=0,left=416.667,right=-3883.333,top=3366.667,bottom=500}); w.moveTo(1422,53.62,64.76); w.setZone('Western Plaguelands','The Writhing Haunt')
+				w.onQuest(4971,{{type='monster',required=1,fulfilled=1}});w.finish(4971);${report?'w.onQuest(5223,{})':''}`,
+			login: true, script: `local E,w=Polestar.Engine,stub.world;stub.fire('QUEST_LOG_UPDATE');assert(E.SetGuide('forever/alliance/50-60/04-western-plaguelands'));stub.advance(.7)
+				local gate;for i,s in ipairs(E.GetGuide().steps) do if s.label=='no-chromie-business' and not s.feeder then gate=i end end
+				E.SkipUpTo(assert(gate));stub.advance(.7);local function target()local p=assert(E.GetWaypoint());return {p.map,p.x,p.y} end
+				local road=target();w.moveTo(1422,42.88,84.39);w.setZone('Western Plaguelands','Chillwind Camp');stub.advance(.7)
+				if w.log[5223] then w.gossip(11053,{active={{questID=5223,isComplete=true}}});stub.advance(.7);w.close();stub.advance(.7) end
+				emit({road,target(),not not w.completed[5223]})` }).emitted;
+		assert.deepEqual(visit, [[1422,42.88,84.39],[1422,39.42,66.82],report]);
+	}
 });
 
 test('Mount Hyjal: planting a wreck and choosing Felflick’s fate need their own quest credit (#3170, #3121, #3194)', { skip }, () => {
@@ -8596,6 +8699,24 @@ test("Fyurie's report (#1550): Favor for Krazek never holds the route, while Myz
 	const motes = gorge.find(({ goal }) => goal.t === 'collect' && goal.item === 4435 && goal.quest === 642);
 	assert.ok(ore && motes && ore.s === motes.s, 'ore and motes stay on the same gorge visit');
 	assert.ok(!motes.goal.optional, 'collecting the Motes of Myzrael still holds the step');
+});
+
+test('Alliance Stranglethorn: four ore obtained after arrival can be handed in beside Deeg before the northern loop', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01-stranglethorn-vale.guide');
+	const first = list[at(list, 'Kebok on arrival', is('accept', 213))].s;
+	const second = list[at(list, 'Deeg upstairs', is('accept', 587))].s;
+	assert.ok(first < second && second < list[at(list, 'Kaleb in the north', is('turnin', 622))].s);
+	for (const s of [first, second]) {
+		const visit = list.filter((row) => row.s === s);
+		const pay = at(visit, 'ore for Krazek', is('turnin', 627));
+		const take = at(visit, 'reply from Krazek', is('accept', 622));
+		assert.ok(pay < take && visit[pay].goal.optional);
+		assert.equal(visit[pay].goal.npc, 773);
+		assert.equal(visit[take].goal.npc, 773);
+		assert.ok(visit[take].goal.pre.includes(627));
+		if (s === second) assert.ok(visit[take].goal.optional, 'no trip just for the second chance');
+	}
+	assert.equal(list.filter(({ goal }) => is('turnin', 622)(goal)).length, 1, 'one payout at Kaleb');
 });
 
 // shacklef00rd's tests from #2305, pinned to 0.4.0's fix (#2335): the group question. A player who answers "Skip it"
@@ -17169,6 +17290,21 @@ test(`${NE_DARKSHORE}: Cleansing of the Infected on the second loop, Grove of th
 	assert.equal(ne[idx('turnin', 952)].s, ne[idx('accept', 4728)].s + 1, 'Onu right after the southern beaches');
 	const dret = goals(DARKSHORE_RETURN);
 	assert.ok((dret[at(dret, 'turnin 952', is('turnin', 952))].step.when || []).some((p) => p.k === 'onquest' && !p.neg), '03-darkshore-return keeps it only while carried');
+});
+
+test(`${NE_DARKSHORE}: #2635: finish Washed Ashore at the shore before the inn, including when only the first part was paid`, { skip }, () => {
+	const ne = goals(NE_DARKSHORE).filter(nightElf);
+	const idx = (t, q) => at(ne, `${t} ${q}`, is(t, q));
+	assert.ok(idx('turnin', 3524) < idx('accept', 4681));
+	const remains = at(ne, 'the skeletal turtle', g => g.t === 'collect' && g.quest === 4681);
+	assert.ok(idx('accept', 4681) < remains && remains < idx('turnin', 4681));
+	assert.ok(ne.slice(0, remains).some(({ s, goal }) => s === ne[remains].s && is('turnin', 1141)(goal) && goal.optional), 'a fisher can hand in a ready catch before swimming; nobody has to fish');
+	for (const q of [98025, 983, 4811]) assert.ok(idx('turnin', 4681) < idx('accept', q), `Gwennyth before the town pickup ${q}`);
+	assert.ok(idx('accept', 98025) < at(ne, 'the feather', g => g.t === 'collect' && g.quest === 98025));
+	const sv = SECOND_VISITS.find(v => v.guide === NE_DARKSHORE);
+	const partial = acceptStatuses(sv, 'w.complete({3524})').accepts;
+	assert.ok(partial[4681]?.split(',').some(s => s === 'active' || s === 'pending'), 'Gwennyth offers part two to a player who paid only part one');
+	assert.ok(!partial[3524] || partial[3524].split(',').every(s => s === 'na'), 'no trip for the paid first part');
 });
 
 // Level tidy (0.4.0), Dun Morogh: the Snow Leopard Prowler (6) came at a recorded 4.8, the Grizzled Den's Elder

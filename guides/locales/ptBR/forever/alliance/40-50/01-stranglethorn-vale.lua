@@ -174,8 +174,10 @@ return {
 	-- Step 31: Booty Bay
 	-- {quest:597} The Bloodsail Buccaneers · {area:35} Booty Bay · {area:43} Wild Shore
 	["Seahorn's next task, {quest:597}, waits for the level-48 {area:35} stop with the {area:43} camp (41-43): leave it for now."] = "",
-	-- {npc:2488} Deeg
-	["{npc:2488}, on the top floor"] = "{npc:2488}, no último andar",
+	-- {npc:2488} Deeg · {npc:773} Krazek
+	["{npc:2488}, on the top floor. If you now have {npc:773}'s four ore, speak to him beside {npc:2488} before leaving."] = "",
+	-- {npc:773} Krazek
+	["Carry {npc:773}'s reply to Kaleb on the northern loop."] = "",
 	-- {npc:2624} Gazban
 	["{npc:2624} swims off the north-west coast, on the northern loop"] = "{npc:2624} nada perto da costa noroeste, no circuito norte",
 
@@ -195,6 +197,8 @@ return {
 
 	-- Step 35: Booty Bay
 	["Head back down to town; Shaky stands at the tunnel mouth."] = "Volte para a cidade; Sacode fica na entrada do túnel.",
+	-- {npc:2488} Deeg
+	["{npc:2488}, on the top floor"] = "{npc:2488}, no último andar",
 	-- {zone:1446} Tanaris
 	["for Stoley in {zone:1446}: keep it; on the top floor"] = "para Esmirno em {zone:1446}: guarde; no último andar",
 	-- {area:35} Booty Bay

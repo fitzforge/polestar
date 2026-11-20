@@ -1569,7 +1569,6 @@ t.guides["forever/alliance/50-60/04-western-plaguelands"] = (function() return {
 		["{object:175924}, in the farmhouse; inside"] = "농가 안의 {object:175924}, 안",
 		["{quest:3444} is in {area:392}"] = "{quest:3444}은(는) {area:392}에 있습니다",
 		["{quest:4291}, if you still carry it from the first visit"] = "{quest:4291}, 첫 방문 때부터 아직 가지고 있다면",
-		["{quest:5210}, at {area:2268}: keep it"] = "{area:2268}의 {quest:5210}: 보관하세요",
 		["{quest:6762} in {area:493}: keep it"] = "{area:493}의 {quest:6762}: 보관하세요",
 		["{quest:87494}, if a ravasaur dropped the scale since the first visit"] = "{quest:87494}, 첫 방문 이후 라바사우루스가 비늘을 떨어뜨렸다면",
 		["{zone:1455}, where the next guide trains, has no druid trainer"] = "다음 가이드에서 훈련하는 {zone:1455}에는 드루이드 상급자가 없습니다",

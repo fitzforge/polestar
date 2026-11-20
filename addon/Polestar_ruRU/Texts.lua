@@ -1912,7 +1912,6 @@ t.guides["forever/alliance/50-60/04-western-plaguelands"] = (function() return {
 		["{object:179565}; inside"] = "{object:179565}; внутри",
 		["{quest:3444} is in {area:392}"] = "{quest:3444} – здесь: {area:392}",
 		["{quest:4291}, if you still carry it from the first visit"] = "{quest:4291}, если оно еще осталось с первого визита",
-		["{quest:5210}, at {area:2268}: keep it"] = "{quest:5210} ({area:2268}): сохраните задание",
 		["{quest:6762} in {area:493}: keep it"] = "{quest:6762} ({area:493}): сохраните задание",
 		["{quest:87494}, if a ravasaur dropped the scale since the first visit"] = "{quest:87494}, если с первого визита с равазавра выпала чешуя",
 		["{zone:1423}: kill these as you meet them"] = "{zone:1423}: убивайте их по пути",

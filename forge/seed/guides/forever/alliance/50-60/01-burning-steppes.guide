@@ -77,6 +77,8 @@ step Berdun Cliffbrew
 
 step Berdun Cliffbrew
   when level>=48
+  when !onquest 8254
+  when !available 8255
   accept 89013
 
 step Shadowsong Shrine
@@ -87,13 +89,29 @@ step Wild honey
   when onquest 89013
   when !complete 89013
   when level>=48
+  when !onquest 8254
+  when !available 8255
   tip Shoot a nest with Berdun's Pellet Gun, then loot the Honey Wasps for Wild Honey. Work north through the trees toward Eldarath, away from Valormok.
   collect 238503 quest 89013.1 @18.62,58.26 map 1447 live
 
+step Road from Talrendis Point
+  only Priest
+  when level>=50
+  when !available 8254
+  when !onquest 8255
+  when !turnedin 8255
+  skipto ogtinc-approach when !subzone "Talrendis Point"
+  tip From Berdun's camp, head to Loh'atu at the shrine and take the road east from there.
+  goto 11.29,78.07 map 1447 live "Shadowsong Shrine"
+
 step Azshara
+  label ogtinc-approach
   only Priest
   zone Azshara
-  when onquest 8254
+  when level>=50
+  when !available 8254
+  when !onquest 8255
+  when !turnedin 8255
   goto 42.4,42.6 "Ogtinc"
 
 step Ogtinc

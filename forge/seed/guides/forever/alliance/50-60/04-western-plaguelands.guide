@@ -138,22 +138,70 @@ step Mulgris Deepriver
   turnin 4985                         -- Inside
   accept 4986                         -- For the druids of Darnassus: keep it
 
+step No Chromie errand
+  label no-chromie-business
+  when !complete 4971
+  when !complete 5154
+  when !complete 4972
+  when done chromie-offers
+  note Nothing is ready at Chromie's inn on this pass.
+
+step No southern approach needed
+  label no-south-approach
+  when !complete 4971
+  when !complete 5154
+  when !complete 4972
+  when done chromie-offers
+  when !onquest 5223
+  note With no report for MacDonnell and no business at the inn, skip this trip to Chillwind.
+
+step The southern approach
+  when !done no-south-approach
+  tip Take the southern road toward Chillwind, not the road through the middle of Andorhal. If you have the cauldron report, give it to MacDonnell here.
+  goto 42.88,84.39 map 1422 live r 5 "By High Priestess MacDonnell"
+  enter "Chillwind Camp"
+
+step Chillwind Camp
+  when onquest 5223
+  turnin 5223                         -- High Priestess MacDonnell
+  note MacDonnell's next task, Gahrron's Withering's cauldron, waits for the Silithus guide's Plaguelands leg: take it then.
+
+step Chromie's inn
+  when !done no-chromie-business
+  tip From Chillwind, approach the inn from the west side of Andorhal. Chromie is upstairs.
+  goto 39.42,66.82 map 1422 live r 5 "Chromie's inn"
+
 step Chromie
-  turnin 4971                         -- Upstairs
-  accept 4972
+  when complete 4971
+  turnin 4971
+
+step Chromie
+  when complete 5154
   turnin 5154
-  accept 5210                         -- Brother Carlin, at Light's Hope Chapel: keep it
+
+step Chromie
+  when complete 4972
+  turnin 4972
+
+step Chromie's follow-ups
+  label chromie-offers
+  accept 4972
+  accept 5210                         -- For Brother Carlin at Light's Hope Chapel
 
 step Sorrow Hill: kill these as you meet them
   zone Western Plaguelands
   tip Araj the Summoner is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal.
-  tip Small lockboxes lie in the rubble all over Andorhal; each holds a watch.
-  tip Careful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth.
   collect 14619 quest 5537.1          -- Skeletal Fragments
   collect 17114 quest 211.1 optional  -- Araj's Phylactery Shard
+
+step Andorhal watches
+  when onquest 4972
+  when !complete 4972
+  tip Small lockboxes in the rubble hold the watches. Ghouls and skeletons guard them; Searing Ghouls can break stealth even when fighting someone else.
   collect 12638 quest 4972.1
 
 step Chromie
+  when complete 4972
   turnin 4972                         -- Upstairs
 
 # ---------------------------------------------------------------- Northridge and Tirion
@@ -185,8 +233,6 @@ step Tirion Fordring
 
 step Chillwind Camp
   tip Ride south-west to the camp.
-  turnin 5223                         -- High Priestess MacDonnell
-  note MacDonnell's next task, Gahrron's Withering's cauldron, waits for the Silithus guide's Plaguelands leg: take it then.
   turnin 211 optional
   turnin 5537                         -- Alchemist Arbington
   accept 5538                         -- Krinkle Goodsteel in Gadgetzan: keep it
