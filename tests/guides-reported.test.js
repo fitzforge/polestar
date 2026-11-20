@@ -18130,3 +18130,12 @@ test('forever/50-60/mount-hyjal.guide: Maerion\'s Misery is taken before the Dae
 	assert.ok(hand.s > list[essence].s, 'handed in after the sweep');
 	assert.ok(holdsQuest(hand.step, 97009), 'the hand-in step shows only while 97009 is in the log');
 });
+
+// #3277: Nimboya's Laden Pike (item 9319, Grim Message 2932) can only be planted inside a Witherbark village;
+// the earlier point at 29.5,58.5 was in dead ground between Zun'watha and Hiri'watha.
+test('#3277: Grim Message plants Nimboya\'s Laden Pike inside Hiri\'watha (31.9, 58.0)', () => {
+	const places = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8')).places;
+	const rec = places.find((p) => p.quest === 2932 && p.objective === 1);
+	assert.ok(rec, 'data/places.json places Grim Message objective 1');
+	assert.deepEqual(rec.at, { map: 1425, x: 31.9, y: 58.0, frame: 'era' });
+});
