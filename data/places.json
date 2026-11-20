@@ -3053,6 +3053,29 @@
 				}
 			],
 			"issue": 3078
+		},
+		{
+			"id": "3231-twilight-tablet-fragments-on-the-ground",
+			"quest": 8284,
+			"objective": 1,
+			"at": {
+				"map": 1451,
+				"x": 22.0,
+				"y": 14.5,
+				"frame": "era"
+			},
+			"note": "#3231: The Twilight Mystery's tablet fragments are mostly picked up from the ground (object 180501) around the Twilight camp in Silithus' far north-west; the arrow led to the Dust Stormers and Desert Rumblers further east (35.6,13.0 on the Horde guide, 28.5,27.2 on the Alliance one). The point is a fragment spawn in the middle of the recorded loot points.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 8284: 16 fragment loots by 2 people around 19-27,12-22, 13 with no kill in the 10 s before"
+				},
+				{
+					"kind": "pfquest",
+					"ref": "objects.json 180501 Twilight Tablet Fragment: 13 spawns on map 1451, one at 22.02,14.5"
+				}
+			],
+			"issue": 3231
 		}
 	]
 }

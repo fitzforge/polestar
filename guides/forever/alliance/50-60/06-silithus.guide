@@ -115,7 +115,7 @@ step Hive'Ashi: kill these as you meet them
   tip Careful: take the texts from the Twilight Avengers and Geolords; leave the Twilight Flamereavers (60) and stay out of the hive's mouth, where the Hive'Ashi elites (59-60) wait.
   tip The Hive'Ashi silithids sometimes drop Brann Bronzebeard's Lost Letter: keep it for Bronzebeard's Encampment in the south.
   collect 20404 quest 8318.1          -- Twilight's Hammer cultists
-  collect 20378 quest 8284.1          -- Twilight Tablet Fragments
+  collect 20378 quest 8284.1 @22.0,14.5 -- Twilight Tablet Fragments
   collect 20404 x20 optional          -- Ten more for True Believers
 
 step Hive'Zora

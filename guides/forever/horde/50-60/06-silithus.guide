@@ -128,8 +128,8 @@ step Silithus: kill these as you meet them
   collect 20373 quest 8277.1
 
 step Twilight Base Camp
-  tip The glowing tablet fragments lie around the Twilight camp in the far north-west; the Dust Stormers and Desert Rumblers there drop them too. Careful: the biggest Rumblers and the Whirling Invaders are 58: pull them one at a time.
-  collect 20378 quest 8284.1
+  tip The glowing tablet fragments lie on the ground around the Twilight camp in the far north-west: pick them up. The Dust Stormers and Desert Rumblers there may carry them too. Careful: the biggest Rumblers and the Whirling Invaders are 58: pull them one at a time.
+  collect 20378 quest 8284.1 @22.0,14.5
 
 step Cenarion Hold
   tip Beetix Ficklespragg stands upstairs in his building: go up inside, the arrow cannot tell the floors apart.

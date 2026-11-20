@@ -18194,3 +18194,13 @@ test('Horde Eastern Plaguelands: Rabine\'s A Reliquary of Purity is optional and
 	assert.equal(goal.optional, true, 'the accept never holds the guide');
 	assert.match(step.note || '', /Dire Maul/);
 });
+
+// #3231 (0.4.1.1): The Twilight Mystery's tablet fragments lie mostly on the ground around the Twilight camp in Silithus'
+// far north-west; the arrow led to the elementals further east. The goal's point is on the ground fragments.
+for (const guide of ['forever/alliance/50-60/06-silithus.guide', 'forever/horde/50-60/06-silithus.guide']) {
+	test(`${guide}: the tablet fragments' point is at the Twilight camp's ground fragments (#3231)`, { skip }, () => {
+		const list = goals(guide);
+		const { goal } = list[at(list, 'the Twilight Tablet Fragments', (g) => g.t === 'collect' && g.item === 20378 && g.quest === 8284)];
+		assert.ok(goal.map === 1451 && Math.hypot(goal.x - 22.0, goal.y - 14.5) <= 0.5, `the point is at 22.0,14.5 (${goal.x},${goal.y})`);
+	});
+}
