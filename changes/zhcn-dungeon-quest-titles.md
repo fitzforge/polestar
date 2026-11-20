@@ -1,5 +1,5 @@
 ---
 section: players
 ---
-- Simplified Chinese: show 14 more quest titles in the dungeon journal and in
-  quest lookup.
+- Simplified Chinese: show 19 more quest titles in quest lookup and on the dungeon pages
+  that list them.
