@@ -13655,6 +13655,8 @@ function Own.huntSharesAny(npc, partners)
 	return false
 end
 
+Own.HERE_HUNT_POINT = 10 -- yards: two guide points for one camp can differ
+
 -- Wait at the camps where an upcoming quest would share the work. For a
 -- mixed camp with explicit sources, leave independent drop sources available.
 function Own.waitForHuntPartner(s, goal, live, nearTo)
@@ -13679,7 +13681,7 @@ function Own.waitForHuntPartner(s, goal, live, nearTo)
 	if not partners then return false end
 	if not goal.spots then
 		local c, x, y = goalWorld(goal)
-		return c and Own.huntInCamp(sources, goal.map, c, x, y, 0, partners) or false
+		return c and Own.huntInCamp(sources, goal.map, c, x, y, Own.HERE_HUNT_POINT, partners) or false
 	end
 	local at, deferred = Own.huntLocalSources(goal, sources), false
 	for i, spot in ipairs(goal.spots) do

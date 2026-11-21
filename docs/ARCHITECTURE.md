@@ -2194,7 +2194,9 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   For a goal with multiple sources, a camp with explicit source IDs waits
   when every source shares work. Where those IDs are missing, a camp can
   wait if the other objective places a shared creature in an overlapping
-  area on the same map. The candidate's `wait` field records those camps.
+  area on the same map. A mixed-source goal placed at a point uses
+  `HERE_HUNT_POINT` (10 yards) for this overlap check. The candidate's
+  `wait` field records the waiting camps of a goal with spawn areas.
   `Own.hereDistance` suppresses the line when its selected camp is waiting.
   It does not defer a live goal, discard incidental loot, or wait for a
   quest already held, paid, declined or unavailable.

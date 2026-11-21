@@ -2430,3 +2430,34 @@ emit({ E.GetLiveStep(), E.GoalDone(2, 1), E.GoalDone(2, 2) })
 		assert_eq!(out[3], json!([2, false, false]), "{held}/{partner}: after taking the quest, both goals are open");
 	}
 }
+
+#[test]
+fn mixed_drop_at_a_point_waits_for_a_nearby_shared_creature() {
+	let guide = r#"
+assert(Polestar.RegisterGuide({
+	id = "test/shared-point", pack = "test", title = "Shared point", minLevel = 1, maxLevel = 10,
+	steps = {
+		{ goals = { { t = "accept", quest = 106, title = "Young Lovers", npc = 251,
+			map = 1429, x = 50, y = 45.1 } } },
+		{ goals = {
+			{ t = "kill", quest = 106, npc = 476, target = "Kobold Geomancer", count = 3, oi = 1,
+				map = 1429, x = PARTNER_X, y = 45.1 },
+			{ t = "collect", quest = 60, item = 772, itemName = "Large Candle", count = 3, oi = 1,
+				map = 1429, x = 47.6, y = 45.1, fromNpcs = { { npc = 476 }, { npc = 40 } } },
+			{ t = "kill", quest = 50, npc = 46, target = "Murloc", count = 1, oi = 1,
+				map = 1429, x = 47.6, y = 45.1 },
+		} },
+	},
+}))
+"#;
+	let script = r#"
+local quests = {}
+for _, row in ipairs(E.GetWhileHereList()) do quests[#quests + 1] = row.quest end
+table.sort(quests)
+emit({ quests, wp() })
+"#;
+	for (point, rows) in [("47.6", json!([50])), ("47.7", json!([50])), ("48.0", json!([50, 60]))] {
+		let out = run_guide(&guide.replace("PARTNER_X", point), "test/shared-point", script);
+		assert_eq!(out[0], json!([rows, "1:1"]), "partner point x={point}");
+	}
+}
