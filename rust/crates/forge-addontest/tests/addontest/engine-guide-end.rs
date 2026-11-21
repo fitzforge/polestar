@@ -640,10 +640,10 @@ fn a_last_hand_in_from_the_line_is_no_end_whichever_quest_event_comes_first() {
 		script: &format!(
 			r#"{way}
 			local r = {{ line = E.GetWhileHere() ~= nil }}
-			w.log[300] = nil; w.completed[300] = true
+			w.log[300] = nil
 			stub.fire("QUEST_REMOVED", 300, false); stub.fire("QUEST_LOG_UPDATE"); stub.advance(1.5)
 			r.lineAfterRemoved = E.GetWhileHere() ~= nil
-			stub.fire("QUEST_TURNED_IN", 300, 0, 0); flush()
+			w.completed[300] = true; stub.fire("QUEST_TURNED_IN", 300, 0, 0); flush()
 			r.log = takeLog(); r.live = E.GetLiveStep()
 			emit(r)"#,
 			way = on_the_way("")
@@ -703,7 +703,7 @@ fn a_repeatable_last_quest_taken_again_after_its_offered_hand_in_is_no_end_eithe
 			{way}
 			w.turnIn(300); flush()
 			local r = {{ handedIn = takeLog() }}
-			w.accept(300, {{ 1 }}); stub.advance(1.5)
+			stub.advance(6); w.accept(300, {{ 1 }}); stub.advance(1.5)
 			r.again = takeLog()
 			w.turnIn(301); flush(); w.accept(302, {{}}); flush(); w.turnIn(302); flush()
 			r.rest = takeLog()
@@ -741,6 +741,70 @@ fn an_optional_hand_in_offered_on_the_way_does_not_hold_the_end_of_the_step_s_ow
 			emit(r)"#,
 	});
 	assert_eq!(out["live"], 4);
+	assert_eq!(out["line"], 300, "the optional hand-in is the line offered");
 	assert_eq!(out["optional"], json!({}));
 	assert_eq!(out["own"], json!(["GUIDE_END test/optional undone=1 live=4 next=test/barrens choose=nil"]));
+}
+
+// A last step of two hand-ins: one taken from the line, the other finished and handed in right after without one.
+// The step is not done on the way, and it ends the guide as before.
+#[test]
+fn a_last_step_finished_by_a_hand_in_no_line_offered_ends_the_guide_although_another_was_offered() {
+	let out = run(Run {
+		next: NEXT,
+		saved: None,
+		script: r#"
+			local function at(t, id, x, y) return { goals = { { t = t, quest = id, title = "Errand " .. id, npc = 9000 + id, npcName = "Giver " .. id, map = 1411, x = x, y = y } } } end
+			local function back(id) return { t = "turnin", quest = id, title = "Errand " .. id, npc = 9300, npcName = "Giver 300", map = 1411, x = 52, y = 43 } end
+			Polestar.RegisterGuide({ id = "test/two", pack = "test", title = "Two", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1411, next = "test/barrens",
+				steps = { at("accept", 300, 52, 43), at("accept", 303, 52, 43), at("accept", 301, 52, 43), at("turnin", 301, 70, 70),
+					{ goals = { back(300), back(303) } } } })
+			E.SetGuide("test/two"); flush(); takeLog()
+			w.accept(300, { 1 }); flush(); w.accept(303, { 1 }); flush(); w.accept(301, {}); flush()
+			w.finish(300); stub.advance(1.5)
+			local line = E.GetWhileHere()
+			local r = { live = E.GetLiveStep(), line = line and line.quest or "none" }
+			w.turnIn(300); flush()
+			r.offered = takeLog()
+			w.finish(303); w.turnIn(303); flush()
+			r.other = takeLog()
+			emit(r)"#,
+	});
+	assert_eq!(out["live"], 4);
+	assert_eq!(out["line"], 300);
+	assert_eq!(out["offered"], json!({}), "the step is not done yet");
+	assert_eq!(out["other"], json!(["GUIDE_END test/two undone=1 live=4 next=test/barrens choose=nil"]));
+}
+
+// The last step for everyone done by the line's hand-in, then a class's own step after it: the route goes on to
+// that step past a hand-in the player ticked and, a while later, back to it when they clear the tick. The last step
+// stays seen done: no end then; it comes with the rest of the guide.
+#[test]
+fn a_class_s_own_trailing_step_does_not_bring_back_an_end_the_line_s_hand_in_held() {
+	let trailing = r#"{ title = "Warriors", only = { classes = { "WARRIOR" } }, goals = { { t = "accept", quest = 320, title = "Errand 320", map = 1411, x = 80, y = 80 } } } } })"#;
+	let out = run(Run {
+		next: NEXT,
+		saved: None,
+		script: &format!(
+			r#"{way}
+			local line = E.GetWhileHere()
+			local r = {{ live = E.GetLiveStep(), line = line and line.quest or "none" }}
+			w.turnIn(300); flush()
+			r.offered = takeLog()
+			w.turnIn(301); flush(); w.accept(302, {{}}); flush(); E.ToggleGoal(5, 1); flush()
+			r.trailing = {{ log = takeLog(), live = E.GetLiveStep() }}
+			stub.advance(6); E.ToggleGoal(5, 1); flush()
+			r.back = {{ log = takeLog(), live = E.GetLiveStep() }}
+			w.turnIn(302); flush(); w.accept(320, {{}}); flush()
+			r.rest = takeLog()
+			emit(r)"#,
+			way = on_the_way("").replace("x = 52, y = 43 } } } } })", &format!("x = 52, y = 43 }} }} }}, {trailing}"))
+		),
+	});
+	assert_eq!(out["live"], 3);
+	assert_eq!(out["line"], 300);
+	assert_eq!(out["offered"], json!({}));
+	assert_eq!(out["trailing"], json!({ "log": {}, "live": 7 }));
+	assert_eq!(out["back"], json!({ "log": {}, "live": 5 }), "no end when the route goes back");
+	assert_eq!(out["rest"], json!(["GUIDE_COMPLETED test/onway", "GUIDE_END test/onway undone=0 live=nil next=test/barrens choose=nil"]));
 }

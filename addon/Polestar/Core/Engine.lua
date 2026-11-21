@@ -10031,48 +10031,76 @@ end
 ---------------------------------------------------------------------------
 
 Own.endOpen = {} -- guideId -> true: seen unfinished once placed, this session
-Own.lastOpen = {} -- guideId -> the last step (Own.lastWork) seen open once placed, this session
+Own.lastOpen = {} -- guideId -> the last step (Own.lastWork) seen open once placed (false: seen done by hand-ins on the way, Own.handedOnTheWay), this session
 
--- The hand-ins "While you're here" offers on screen, for Own.handedOnTheWay:
--- noted on each poll while the lines show (Own.hereTick), and good for
+-- The hand-ins "While you're here" offers on screen, by guide (its table):
+-- noted on each poll while the lines show (Own.hereTick), good for
 -- HERE_OFFER_GRACE seconds after (the hand-in's events can come after its
--- line is gone), for the guide whose lines they were.
-Own.hereOfferGuide = nil -- the guide (its table) the offers below are for
-Own.hereOfferAt = {} -- quest id -> GetTime() its hand-in line was last on screen
+-- line is gone). A last step's hand-in done is told once, when the guide
+-- first sees it done (Own.noteHanded): taken from a line or not.
+Own.hereOfferAt = setmetatable({}, { __mode = "k" }) -- guide -> { [quest id] = GetTime() its hand-in line was last on screen }
+Own.handedSeen = setmetatable({}, { __mode = "k" }) -- guide -> { [quest id] = true (from a line) | false (not) }
 Own.HERE_OFFER_GRACE = 5
 function Own.hereNoteOffers()
 	if not (Own.hereVisible() and Own.hereGuide == guide) then return end
-	local at = Own.hereOfferAt
-	if Own.hereOfferGuide ~= guide then
-		Own.hereOfferGuide = guide
-		for q in pairs(at) do at[q] = nil end
-	end
-	local now = GetTime()
+	local at, now = Own.hereOfferAt[guide], GetTime()
 	for i = 1, Own.hereOnN do
 		local goal = Own.hereOn[i].goal
-		if goal.t == "turnin" and goal.quest then at[goal.quest] = now end
+		if goal.t == "turnin" and goal.quest then
+			if not at then
+				at = {}
+				Own.hereOfferAt[guide] = at
+			end
+			at[goal.quest] = now
+		end
 	end
 end
 
--- Whether step s, the last one, is done by a hand-in "While you're here"
--- offered on screen just now: a goal that holds the route (Own.holds: not
--- optional; for the character), its quest really handed in (a tick is not),
--- its line this guide's.
-function Own.handedOnTheWay(s)
-	if Own.hereOfferGuide ~= guide then return false end
-	local now = GetTime()
+-- For a hand-in of step s, the last one, that holds it (Own.holds: not
+-- optional; for the character): whether its quest is really handed in (a
+-- tick is not). nil for any other goal.
+function Own.handInDone(s, goal)
+	if not (goal.t == "turnin" and goal.quest and Own.holds(s, goal) and goalApplies(goal)) then return nil end
+	if goal.direct then return Compat().IsQuestCompleted(goal.quest) and true or false end
+	return questDone(goal.quest) and true or false
+end
+
+-- Note how each hand-in of step s, the last one, came to be done (from a
+-- line offered just now, or not), the first time it reads done; one that
+-- reads open again is forgotten.
+function Own.noteHanded(s)
+	local seen, at, now = Own.handedSeen[guide], Own.hereOfferAt[guide], nil
 	for _, goal in ipairs(guide.steps[s].goals) do
-		local at = goal.t == "turnin" and goal.quest and Own.hereOfferAt[goal.quest]
-		if at and now - at <= Own.HERE_OFFER_GRACE and Own.holds(s, goal) and goalApplies(goal) then
-			if goal.direct then
-				if Compat().IsQuestCompleted(goal.quest) then return true end
-			elseif questDone(goal.quest) then
-				return true
+		local done = Own.handInDone(s, goal)
+		if done == false then
+			if seen then seen[goal.quest] = nil end
+		elseif done and (not seen or seen[goal.quest] == nil) then
+			if not seen then
+				seen = {}
+				Own.handedSeen[guide] = seen
 			end
+			now = now or GetTime()
+			local t = at and at[goal.quest]
+			seen[goal.quest] = t ~= nil and now - t <= Own.HERE_OFFER_GRACE
 		end
 	end
-	return false
 end
+
+-- Whether step s, the last one, is done by hand-ins "While you're here"
+-- offered on screen (Own.noteHanded): each of its hand-ins done was taken
+-- from a line, and it has one.
+function Own.handedOnTheWay(s)
+	local seen, any = Own.handedSeen[guide], false
+	if not seen then return false end
+	for _, goal in ipairs(guide.steps[s].goals) do
+		if Own.handInDone(s, goal) then
+			if not seen[goal.quest] then return false end
+			any = true
+		end
+	end
+	return any
+end
+
 Own.pendingEnds, Own.pendingContinued = {}, {} -- fired at the end of the evaluation
 
 function Own.leveling(g)
@@ -10158,6 +10186,7 @@ function Own.noteEnd()
 	if computed then
 		-- Seen unfinished once placed: finishing it from now on reaches its end.
 		Own.endOpen[id] = true
+		if last then Own.noteHanded(last) end
 		local holds = Own.endHolds(last)
 		-- An end told before stands only while it holds: a quest of the last
 		-- step abandoned, or a record from before 0.3.6 that slipped through
@@ -10177,14 +10206,17 @@ function Own.noteEnd()
 		-- when the rest is done; so does one whose work only reads done as
 		-- unavailable for now (Own.endWorkDone, #998). Trailing steps of only
 		-- optional goals or notes are offered, not the end (Own.lastWork).
+		-- Done by hand-ins taken from "While you're here" lines
+		-- (Own.handedOnTheWay), it is seen done (false) until it reads open
+		-- again.
 		local waits = last ~= nil and computed > last and Own.lastWork(computed - 1) ~= nil
 		if waits or not holds then
-			if last then Own.lastOpen[id] = last end
+			if last and (not holds or Own.lastOpen[id] ~= false) then Own.lastOpen[id] = last end
 			return
 		end
 		if Own.lastOpen[id] ~= last then return end
 		if Own.handedOnTheWay(last) then
-			Own.lastOpen[id] = nil
+			Own.lastOpen[id] = false
 			return
 		end
 	elseif ends[id] or not Own.endOpen[id] then
@@ -14724,7 +14756,6 @@ end
 function Own.hereTick(c, px, py)
 	if Own.hereQueued then Own.hereLater() end
 	if Own.hereOnN == 0 and Own.hereAllN == 0 and Own.hereFlyN == 0 and Own.hereGatherN == 0 and Own.hereVendorN == 0 then return false end
-	Own.hereNoteOffers()
 	-- On a taxi, boat or zeppelin, in an instance, hearthing or the live
 	-- step's escort: the lines shown hide and wait (Own.hereHeld), no new one
 	-- comes, nothing goes by distance or time, nothing counts as left. Back,
@@ -14754,6 +14785,7 @@ function Own.hereTick(c, px, py)
 	elseif Own.hereParkedN > 0 then
 		Own.hereUnpark()
 	end
+	Own.hereNoteOffers()
 	if UnitAffectingCombat and UnitAffectingCombat("player") then return parked end
 	local step, on, aimed, now = Own.HERE_STEP, Own.hereOn, parked, GetTime()
 	local i = 1
