@@ -485,7 +485,9 @@ emit({ plan = ender or false, guide = turnin or false, ender = e and e.name or f
 // hand-in guide found it unfinished and left it out ("Not finished yet"). A quest whose open lines are all talks to
 // an NPC outside is now handed in: a stop at that NPC (the talk goal on its line) before the turn-in, the
 // follow-up taken there after. Here 90600 is that quest on the fixture's page, 90601 one whose open line is a kill
-// outside (still unfinished: a kill is real work, not a hand-in errand).
+// outside (still unfinished: a kill is real work, not a hand-in errand). #3426: the Dungeons page's objective line
+// reads the quest log's sentence once, "Speak with someone in Ratchet about the Glowing Shard", not "Speak with Speak
+// with …" (the data keeps that sentence as the talk objective's text), on a client that has not seen Sputtervalve.
 #[test]
 fn a_dungeon_quest_whose_open_line_is_to_speak_to_an_npc_outside_is_handed_in_after_that_talk_1326_the_glowing_shard_and_sputtervalve() {
 	let (codex, inputs) = fixture_parts();
@@ -524,7 +526,7 @@ for _, s in ipairs((D.HandinGuide("{KEY}") or { steps = {} }).steps) do
 	end
 	if #verbs > 0 then steps[#steps + 1] = s.title .. " " .. table.concat(verbs, " ") end
 end
-emit({ hand = hand, unfinished = unfinished, steps = steps, talk = talk })"#);
+emit({ hand = hand, unfinished = unfinished, steps = steps, talk = talk, line = D.ObjectiveText(D.Quest("{KEY}", 90600)) or false })"#);
 
 	let open = run(&own, &script, Opts { at: Some(BARRENS), log: vec![1013, 90600, 90601], ..Default::default() }).remove(0);
 	assert_eq!(open["hand"], json!([90600]), "the shard is handed in though its talk line is open");
@@ -535,6 +537,7 @@ emit({ hand = hand, unfinished = unfinished, steps = steps, talk = talk })"#);
 		"Sputtervalve first, then Falla Sagewind for the hand-in and the follow-up, a delivery to her handed in on the spot (#1748)"
 	);
 	assert_eq!(open["talk"], json!({ "npc": 9030, "name": "Sputtervalve", "oi": 1, "map": 1413, "x": 62, "y": 37 }), "the talk goal is counted by the quest's first line, the arrow on Sputtervalve");
+	assert_eq!(open["line"], "Speak with someone in Ratchet about the Glowing Shard", "the Dungeons page's objective line reads once (#3426)");
 
 	// Spoken to already: the line is done and the quest ready, so the guide goes straight to Falla Sagewind.
 	let ready = run(&own, &script, Opts { at: Some(BARRENS), ready: vec![90600], ..Default::default() }).remove(0);
