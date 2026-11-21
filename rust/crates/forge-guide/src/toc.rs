@@ -267,6 +267,21 @@ static TEXT: &[(&str, [&str; 9], [&str; 9])] = &[
 			"Polestar 的一部分：petllama 的 Freedoom Arcade，飛行途中可玩的三個 Freedoom 關卡。點擊「開始遊戲」時載入。",
 		],
 	),
+	(
+		"Polestar_Tetris",
+		["Polestar Tetris", "Polestar Tetris", "Polestar Tetris", "Polestar Tetris", "Polestar Tetris", "Polestar Tetris", "Polestar Tetris", "Polestar Tetris", "Polestar Tetris"],
+		[
+			"Ein Blockfallspiel für Polestar-Flüge. Wird bei Bedarf geladen.",
+			"Un juego de bloques que caen para los vuelos de Polestar. Se carga bajo demanda.",
+			"Un juego de bloques que caen para los vuelos de Polestar. Se carga bajo demanda.",
+			"Un jeu de blocs pour les vols de Polestar. Chargé à la demande.",
+			"Polestar 비행 중 즐기는 낙하 블록 게임입니다. 필요할 때 불러옵니다.",
+			"Um jogo de blocos para os voos do Polestar. Carregado sob demanda.",
+			"Игра с падающими блоками для полётов с Polestar. Загружается по требованию.",
+			"Polestar 飞行途中可玩的方块游戏。按需加载。",
+			"Polestar 飛行途中可玩的方塊遊戲。按需載入。",
+		],
+	),
 	// The Skin API's example (docs/SKINS-API.md): in the repository only, never in a release.
 	(
 		"Polestar_Skin_Example",

@@ -1,0 +1,32 @@
+## Interface: 16001
+## Title: Polestar Tetris
+## Notes: A falling block game for Polestar flights. Loaded on demand.
+## Title-deDE: Polestar Tetris
+## Notes-deDE: Ein Blockfallspiel für Polestar-Flüge. Wird bei Bedarf geladen.
+## Title-esES: Polestar Tetris
+## Notes-esES: Un juego de bloques que caen para los vuelos de Polestar. Se carga bajo demanda.
+## Title-esMX: Polestar Tetris
+## Notes-esMX: Un juego de bloques que caen para los vuelos de Polestar. Se carga bajo demanda.
+## Title-frFR: Polestar Tetris
+## Notes-frFR: Un jeu de blocs pour les vols de Polestar. Chargé à la demande.
+## Title-koKR: Polestar Tetris
+## Notes-koKR: Polestar 비행 중 즐기는 낙하 블록 게임입니다. 필요할 때 불러옵니다.
+## Title-ptBR: Polestar Tetris
+## Notes-ptBR: Um jogo de blocos para os voos do Polestar. Carregado sob demanda.
+## Title-ruRU: Polestar Tetris
+## Notes-ruRU: Игра с падающими блоками для полётов с Polestar. Загружается по требованию.
+## Title-zhCN: Polestar Tetris
+## Notes-zhCN: Polestar 飞行途中可玩的方块游戏。按需加载。
+## Title-zhTW: Polestar Tetris
+## Notes-zhTW: Polestar 飛行途中可玩的方塊遊戲。按需載入。
+## Author: Polestar contributors
+## Version: 0.4.2
+## Category: Polestar
+## Group: Polestar
+## LoadOnDemand: 1
+## Dependencies: Polestar
+## SavedVariables: Polestar_TetrisDB
+## X-License: GPL-3.0-only
+
+Engine.lua
+Window.lua

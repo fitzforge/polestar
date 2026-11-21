@@ -221,6 +221,20 @@ const TEXT = {
 			zhTW: 'Polestar 的一部分：petllama 的 Freedoom Arcade，飛行途中可玩的三個 Freedoom 關卡。點擊「開始遊戲」時載入。',
 		},
 	},
+	Polestar_Tetris: {
+		title: { deDE: 'Polestar Tetris', esES: 'Polestar Tetris', esMX: 'Polestar Tetris', frFR: 'Polestar Tetris', koKR: 'Polestar Tetris', ptBR: 'Polestar Tetris', ruRU: 'Polestar Tetris', zhCN: 'Polestar Tetris', zhTW: 'Polestar Tetris' },
+		notes: {
+			deDE: 'Ein Blockfallspiel für Polestar-Flüge. Wird bei Bedarf geladen.',
+			esES: 'Un juego de bloques que caen para los vuelos de Polestar. Se carga bajo demanda.',
+			esMX: 'Un juego de bloques que caen para los vuelos de Polestar. Se carga bajo demanda.',
+			frFR: 'Un jeu de blocs pour les vols de Polestar. Chargé à la demande.',
+			koKR: 'Polestar 비행 중 즐기는 낙하 블록 게임입니다. 필요할 때 불러옵니다.',
+			ptBR: 'Um jogo de blocos para os voos do Polestar. Carregado sob demanda.',
+			ruRU: 'Игра с падающими блоками для полётов с Polestar. Загружается по требованию.',
+			zhCN: 'Polestar 飞行途中可玩的方块游戏。按需加载。',
+			zhTW: 'Polestar 飛行途中可玩的方塊遊戲。按需載入。',
+		},
+	},
 	// The Skin API's example (docs/SKINS-API.md): in the repository only, never in a release.
 	Polestar_Skin_Example: {
 		title: { deDE: 'Polestar: Design-Beispiel', esES: 'Polestar: tema de ejemplo', esMX: 'Polestar: tema de ejemplo', frFR: "Polestar : habillage d'exemple", koKR: 'Polestar 스킨 예제', ptBR: 'Polestar: tema de exemplo', ruRU: 'Polestar: пример оформления', zhCN: 'Polestar 皮肤示例', zhTW: 'Polestar 皮膚範例' },
