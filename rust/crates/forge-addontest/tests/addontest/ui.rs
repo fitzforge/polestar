@@ -2156,37 +2156,34 @@ fn the_pace_line_says_on_pace_behind_with_a_grind_coming_behind_with_none_and_na
 	// Behind with no grind step: the guide's end level, and how long to grind on the way.
 	assert_eq!(out["none"], warn("Behind by 2.4 levels for level 24 by step 21: grind ≈2h 00m before then").as_str());
 	assert_eq!(out["noneNoRate"], warn("Behind by 2.4 levels for level 24 by step 21, and no grind step ahead").as_str());
-	// A quest 3+ levels over you is named only on its own step; before it, the plain line.
+	// Plain lines kept regardless of hard quests ahead or on the live step (#3438).
 	assert_eq!(out["hard"], warn("Behind by 3.6 levels for level 24 by step 21: grind ≈2h 38m before then").as_str());
 	assert_eq!(out["hardNoRate"], warn("Behind by 3.6 levels for level 24 by step 21, and no grind step ahead").as_str());
-	assert_eq!(out["hardNow"], warn("Behind: “Missing In Action” (25) at step 20, you're 20.0; grind ≈1h 00m first").as_str());
-	// The same quest with the character on pace for the target: "On pace", calm, the quest only on its step.
+	assert_eq!(out["hardNow"], warn("Behind by 3.6 levels for level 24 by step 21: grind ≈2h 38m before then").as_str());
+	// The same quest with the character on pace for the target: "On pace", calm, plain line on its step too.
 	assert_eq!(out["hardOnPace"], "On pace for level 22.5 by step 29");
 	assert_eq!(out["hardOnPaceNoRate"], "On pace for level 22.5 by step 29");
-	assert_eq!(out["hardOnPaceNow"], "On pace, but “Ashenvale Outrunners” (24) at step 4 is hard: you're 21.3; reach 22 first");
+	assert_eq!(out["hardOnPaceNow"], "On pace for level 22.5 by step 29");
 	assert_eq!(out["row"], "3.4k XP/h  \u{b7}  Behind by 1.2 levels: step 32 grinds to level 20 (≈0h 30m)", "one line in the XP row");
 	assert_eq!(out["nothing"], false, "no target and no Codex: no line");
 }
 
-// A step with work on a quest 3 or more levels above the character says so under its header (Levels.StepHint),
-// in a calm colour (Fitz, 0.3.6: never red; players read it as being behind).
+// Polestar does not label a step with the quest's level (#3438).
 #[test]
-fn a_step_with_a_quest_well_over_your_level_says_so_under_its_header() {
+fn a_step_with_a_quest_well_over_your_level_does_not_label_its_level_under_header() {
 	let out = run(r#"
 		uistub.player.xp, uistub.player.xpMax = 450, 2800
 		local kill = uistub.guides[uistub.elwynn].steps[3].goals[3]
 		kill.qlvl = 9
 		uistub.setGuide(uistub.elwynn, 3)
 		local hint = GF.parts.person.Level
-		local red = { shown = hint:IsShown(), text = hint:GetText(), color = { hint:GetTextColor() } }
+		local red = { shown = hint:IsShown() }
 		uistub.setStep(7)
 		local none = hint:IsShown()
-		emit({ red = red, none = none, calm = { Polestar.Theme.Color("textDim") } })"#)
+		emit({ red = red, none = none })"#)
 	.remove(0);
-	assert_eq!(out["red"]["shown"], true);
-	assert_eq!(out["red"]["text"], "Level 9 quest: you're 4.1", "level 4, 16% in: cut to one place");
-	assert_eq!(rgb(&out["red"]["color"]), rgb(&out["calm"]), "5 levels over: calm, never red");
-	assert_eq!(out["none"], false, "Echo Ridge's quest has no level known over yours: no line");
+	assert_eq!(out["red"]["shown"], false, "never shows quest level under header");
+	assert_eq!(out["none"], false);
 }
 
 #[test]
