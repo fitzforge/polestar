@@ -14,65 +14,65 @@ return {
 
 	-- Step 1: Touch of Weakness: Tai'jin
 	-- {zone:1411} Durotar · {npc:3706} Tai'jin · {area:362} Razor Hill · {spell:2652} Touch of Weakness · {npc:4606} Aelthalyste · {zone:1458} Undercity
-	["At 10 in {zone:1411}, {npc:3706}, the priest trainer inside the barracks of {area:362}, hands you a {spell:2652} letter for {npc:4606} in the {zone:1458}."] = "",
+	["At 10 in {zone:1411}, {npc:3706}, the priest trainer inside the barracks of {area:362}, hands you a {spell:2652} letter for {npc:4606} in the {zone:1458}."] = "10級時在{zone:1411}，{area:362}兵營裡的牧師訓練師{npc:3706}交給你一封{spell:2652}的信件，要你帶給{zone:1458}的{npc:4606}。",
 	-- {npc:3706} Tai'jin · {spell:2652} Touch of Weakness
-	["{npc:3706}: take his {spell:2652} letter"] = "",
+	["{npc:3706}: take his {spell:2652} letter"] = "{npc:3706}：接過他的{spell:2652}信件",
 
 	-- Step 2: Touch of Weakness: Ur'kyo
 	-- {zone:1454} Orgrimmar · {npc:6018} Ur'kyo · {object:172961} Valley of Spirits · {spell:2652} Touch of Weakness · {npc:4606} Aelthalyste · {zone:1458} Undercity · {zone:1420} Tirisfal Glades
-	["At 10 in {zone:1454}, {npc:6018} in the {object:172961} hands you a {spell:2652} letter for {npc:4606} in the {zone:1458}. The zeppelin to {zone:1420} leaves from the tower outside {zone:1454}'s front gate."] = "",
+	["At 10 in {zone:1454}, {npc:6018} in the {object:172961} hands you a {spell:2652} letter for {npc:4606} in the {zone:1458}. The zeppelin to {zone:1420} leaves from the tower outside {zone:1454}'s front gate."] = "10級時在{zone:1454}，{object:172961}裡的{npc:6018}交給你一封{spell:2652}的信件，要你帶給{zone:1458}的{npc:4606}。前往{zone:1420}的飛艇從{zone:1454}正門外的塔樓出發。",
 	-- {npc:6018} Ur'kyo · {spell:2652} Touch of Weakness
-	["{npc:6018}: take his {spell:2652} letter"] = "",
+	["{npc:6018}: take his {spell:2652} letter"] = "{npc:6018}：接過他的{spell:2652}信件",
 
 	-- Step 3: Touch of Weakness: Var'jun
 	-- {zone:1412} Mulgore · {npc:11407} Var'jun · {area:222} Bloodhoof Village · {spell:2652} Touch of Weakness · {npc:4606} Aelthalyste · {zone:1458} Undercity
-	["At 10 in {zone:1412}, {npc:11407}, just south-west of {area:222}, hands you a {spell:2652} letter for {npc:4606} in the {zone:1458}."] = "",
+	["At 10 in {zone:1412}, {npc:11407}, just south-west of {area:222}, hands you a {spell:2652} letter for {npc:4606} in the {zone:1458}."] = "10級時在{zone:1412}，{area:222}西南方的{npc:11407}交給你一封{spell:2652}的信件，要你帶給{zone:1458}的{npc:4606}。",
 	-- {npc:11407} Var'jun · {spell:2652} Touch of Weakness
-	["{npc:11407}: take the {spell:2652} letter"] = "",
+	["{npc:11407}: take the {spell:2652} letter"] = "{npc:11407}：接過{spell:2652}的信件",
 
 	-- Step 4: Touch of Weakness: Miles Welsh
 	-- {zone:1456} Thunder Bluff · {npc:3044} Miles Welsh · {area:1640} Spirit Rise · {spell:2652} Touch of Weakness · {npc:4606} Aelthalyste · {zone:1458} Undercity
-	["At 10 in {zone:1456}, {npc:3044}, the priest trainer in the cave under {area:1640}, hands you a {spell:2652} letter for {npc:4606} in the {zone:1458}."] = "",
+	["At 10 in {zone:1456}, {npc:3044}, the priest trainer in the cave under {area:1640}, hands you a {spell:2652} letter for {npc:4606} in the {zone:1458}."] = "10級時在{zone:1456}，{area:1640}下方洞穴裡的牧師訓練師{npc:3044}交給你一封{spell:2652}的信件，要你帶給{zone:1458}的{npc:4606}。",
 	-- {npc:3044} Miles Welsh · {spell:2652} Touch of Weakness
-	["{npc:3044}: take his {spell:2652} letter"] = "",
+	["{npc:3044}: take his {spell:2652} letter"] = "{npc:3044}：接過他的{spell:2652}信件",
 
 	-- Step 5: Touch of Weakness: Aelthalyste
 	-- {npc:4606} Aelthalyste · {zone:1458} Undercity · {object:36070} War Quarter · {quest:5658} Touch of Weakness · {area:159} Brill
-	["At 10, go to {npc:4606}, the priest trainer in the {zone:1458}'s {object:36070}: she gives {quest:5658} and takes it back at once. No letter needed. From {area:159}, follow the road south to the ruined city of Lordaeron; the {zone:1458}'s lifts are at the back of the throne room. {quest:5658} strikes the next melee attacker for Shadow damage and lowers its melee attack power for 2 minutes."] = "",
+	["At 10, go to {npc:4606}, the priest trainer in the {zone:1458}'s {object:36070}: she gives {quest:5658} and takes it back at once. No letter needed. From {area:159}, follow the road south to the ruined city of Lordaeron; the {zone:1458}'s lifts are at the back of the throne room. {quest:5658} strikes the next melee attacker for Shadow damage and lowers its melee attack power for 2 minutes."] = "10級時去找{zone:1458}{object:36070}的牧師訓練師{npc:4606}：她會給你{quest:5658}並立刻收回，不需要信件。從{area:159}沿路向南走到羅德隆廢墟；{zone:1458}的升降梯在王座廳後面。{quest:5658}會對下一個近戰攻擊者造成暗影傷害，並使其近戰攻擊強度降低，持續2分鐘。",
 
 	-- Step 6: Touch of Weakness: Tai'jin's letter
 	-- {quest:5660} Touch of Weakness · {npc:3706} Tai'jin
-	["{quest:5660}: {npc:3706}'s letter"] = "",
+	["{quest:5660}: {npc:3706}'s letter"] = "{quest:5660}：{npc:3706}的信件",
 	-- {npc:4606} Aelthalyste · {zone:1458} Undercity · {object:36070} War Quarter · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades
-	["Hand the letter to {npc:4606} in the {zone:1458}'s {object:36070}: the zeppelin from the tower outside {zone:1454} lands in {zone:1420}, a short walk from the {zone:1458}."] = "",
+	["Hand the letter to {npc:4606} in the {zone:1458}'s {object:36070}: the zeppelin from the tower outside {zone:1454} lands in {zone:1420}, a short walk from the {zone:1458}."] = "把信交給{zone:1458}{object:36070}的{npc:4606}：從{zone:1454}城外塔樓出發的飛艇在{zone:1420}降落，步行一小段就到{zone:1458}。",
 
 	-- Step 7: Touch of Weakness: Var'jun's letter
 	-- {quest:5661} Touch of Weakness · {npc:11407} Var'jun
-	["{quest:5661}: {npc:11407}'s letter"] = "",
+	["{quest:5661}: {npc:11407}'s letter"] = "{quest:5661}：{npc:11407}的信件",
 	-- {npc:4606} Aelthalyste · {zone:1458} Undercity · {object:36070} War Quarter · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades
-	["Hand the letter to {npc:4606} in the {zone:1458}'s {object:36070}: travel to {zone:1454} and take the zeppelin to {zone:1420}."] = "",
+	["Hand the letter to {npc:4606} in the {zone:1458}'s {object:36070}: travel to {zone:1454} and take the zeppelin to {zone:1420}."] = "把信交給{zone:1458}{object:36070}的{npc:4606}：前往{zone:1454}乘飛艇去{zone:1420}。",
 
 	-- Step 8: Touch of Weakness: Ur'kyo's letter
 	-- {quest:5662} Touch of Weakness · {npc:6018} Ur'kyo
-	["{quest:5662}: {npc:6018}'s letter"] = "",
+	["{quest:5662}: {npc:6018}'s letter"] = "{quest:5662}：{npc:6018}的信件",
 	-- {npc:4606} Aelthalyste · {zone:1458} Undercity · {object:36070} War Quarter · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades
-	["Hand the letter to {npc:4606} in the {zone:1458}'s {object:36070}: the zeppelin from the tower outside {zone:1454} lands in {zone:1420}."] = "",
+	["Hand the letter to {npc:4606} in the {zone:1458}'s {object:36070}: the zeppelin from the tower outside {zone:1454} lands in {zone:1420}."] = "把信交給{zone:1458}{object:36070}的{npc:4606}：從{zone:1454}城外塔樓出發的飛艇在{zone:1420}降落。",
 
 	-- Step 9: Touch of Weakness: Miles Welsh's letter
 	-- {quest:5663} Touch of Weakness · {npc:3044} Miles Welsh
-	["{quest:5663}: {npc:3044}'s letter"] = "",
+	["{quest:5663}: {npc:3044}'s letter"] = "{quest:5663}：{npc:3044}的信件",
 
 	-- Step 10: Dark Sacrifice: Ur'kyo
 	-- {zone:1454} Orgrimmar · {npc:6018} Ur'kyo · {object:172961} Valley of Spirits · {quest:5644} Dark Sacrifice · {npc:4606} Aelthalyste · {zone:1458} Undercity
-	["At 20 in {zone:1454}, {npc:6018} in the {object:172961} hands you a {quest:5644} letter for {npc:4606} in the {zone:1458}."] = "",
+	["At 20 in {zone:1454}, {npc:6018} in the {object:172961} hands you a {quest:5644} letter for {npc:4606} in the {zone:1458}."] = "20級時在{zone:1454}，{object:172961}裡的{npc:6018}交給你一封{quest:5644}的信件，要你帶給{zone:1458}的{npc:4606}。",
 	-- {npc:6018} Ur'kyo · {quest:5644} Dark Sacrifice
-	["{npc:6018}: take his {quest:5644} letter"] = "",
+	["{npc:6018}: take his {quest:5644} letter"] = "{npc:6018}：接過他的{quest:5644}信件",
 
 	-- Step 11: Dark Sacrifice: Miles Welsh
 	-- {zone:1456} Thunder Bluff · {npc:3044} Miles Welsh · {area:1640} Spirit Rise · {quest:5644} Dark Sacrifice · {npc:4606} Aelthalyste · {zone:1458} Undercity
-	["At 20 in {zone:1456}, {npc:3044} in the cave under {area:1640} hands you a {quest:5644} letter for {npc:4606} in the {zone:1458}."] = "",
+	["At 20 in {zone:1456}, {npc:3044} in the cave under {area:1640} hands you a {quest:5644} letter for {npc:4606} in the {zone:1458}."] = "20級時在{zone:1456}，{area:1640}下方洞穴裡的{npc:3044}交給你一封{quest:5644}的信件，要你帶給{zone:1458}的{npc:4606}。",
 	-- {npc:3044} Miles Welsh · {quest:5644} Dark Sacrifice
-	["{npc:3044}: take his {quest:5644} letter"] = "",
+	["{npc:3044}: take his {quest:5644} letter"] = "{npc:3044}：接過他的{quest:5644}信件",
 
 	-- Step 12: Dark Sacrifice: Aelthalyste
 	-- {npc:4606} Aelthalyste · {object:36070} War Quarter · {quest:5679} Dark Sacrifice · {spell:2944} Devouring Plague
@@ -80,11 +80,11 @@ return {
 
 	-- Step 13: Dark Sacrifice: Ur'kyo's letter
 	-- {quest:5646} Dark Sacrifice · {npc:6018} Ur'kyo
-	["{quest:5646}: {npc:6018}'s letter"] = "",
+	["{quest:5646}: {npc:6018}'s letter"] = "{quest:5646}：{npc:6018}的信件",
 
 	-- Step 14: Dark Sacrifice: Miles Welsh's letter
 	-- {quest:5644} Dark Sacrifice · {npc:3044} Miles Welsh
-	["{quest:5644}: {npc:3044}'s letter"] = "",
+	["{quest:5644}: {npc:3044}'s letter"] = "{quest:5644}：{npc:3044}的信件",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 10, go to {npc:4606} in the {zone:1458}'s {object:36070}. Priest trainers elsewhere ({npc:6018} in {zone:1454}, {npc:3706} in {area:362}, {npc:3044} in {zone:1456}) send you to her with a quest of the same name."] = "10級時，前往{zone:1458}{object:36070}找{npc:4606}。其他地方的牧師訓練師（{zone:1454}的{npc:6018}、{area:362}的{npc:3706}、{zone:1456}的{npc:3044}）會用同名任務派你去找她。",

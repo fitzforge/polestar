@@ -16,8 +16,8 @@ use crate::engine::{self, Character, GoalView, Groups, Guide, Hooks, Sim, Status
 #[allow(unused_imports)]
 use crate::seed::{at, everyone, for_class, is, located, Check, Ctx, Row, SeedTest};
 
-const DUROTAR: &str = "forever/horde/orc-troll/01-durotar.guide";
-const DUN_MOROGH: &str = "forever/alliance/dwarf-gnome/01-dun-morogh.guide";
+const DUROTAR: &str = "forever/horde/orc/01-durotar.guide";
+const DUN_MOROGH: &str = "forever/alliance/dwarf/01-dun-morogh.guide";
 const TELDRASSIL: &str = "forever/alliance/nightelf/01-teldrassil.guide";
 const ELWYNN: &str = "forever/alliance/human/01-elwynn-forest.guide";
 const MULGORE: &str = "forever/horde/tauren/01-mulgore.guide";
@@ -167,8 +167,9 @@ fn tonumber(v: &V) -> Option<f64> {
 // ---------------------------------------------------------------------------------------- Mulgore
 
 fn sharing_the_land(ctx: &Ctx, c: &mut Check) {
-	// The Horde route runs through the shared Shen'dralas guide; its Alliance `next` has no guide in this pack.
-	let files: Vec<String> = ctx.all_guides().into_iter().filter(|f| f.starts_with("forever/horde/") || f == "forever/40-50/shendralas.guide").collect();
+	// The Horde route runs through the shared Shen'dralas and Mount Hyjal guides; their Alliance `next` has no guide
+	// in this pack.
+	let files: Vec<String> = ctx.all_guides().into_iter().filter(|f| f.starts_with("forever/horde/") || f == "forever/40-50/shendralas.guide" || f == "forever/50-60/mount-hyjal.guide").collect();
 	let (compiled, errors) = compile_set(ctx, &files);
 	let errors: Vec<String> = errors.into_iter().filter(|m| !m.starts_with("`next` points to unknown guide \"forever/alliance/")).collect();
 	c.eq(errors, Vec::new(), "pack.diag.errors");

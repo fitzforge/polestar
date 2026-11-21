@@ -340,6 +340,29 @@ fn a_walk_in_portal_goes_one_way_only() {
 	assert_eq!(out["back"][0], "walk|Walk to the boat", "never back through it");
 }
 
+// #2156: a portal that asks for an item (the Transpolyporter from Booty Bay to Gnomeregan's Train Depot opens only
+// for a player carrying the Goblin Transponder) is taken while the item is in the bags, never without it.
+#[test]
+fn a_portal_that_asks_for_an_item_is_taken_only_with_it_in_the_bags_2156() {
+	let out = run(r#"
+		local r = {}
+		N.RegisterTravelData({ portals = { { id = "pad", name = "Far Gate", seconds = 5, item = 9173,
+			a = { "West Portal", 0, 0, 900, 9000, 5, 50 }, b = { "Far Gate", 1, 0, -400, 9001, 90, 50 } } } })
+		local function has(kind)
+			for _, l in ipairs(route()) do if l:find("^" .. kind .. "|") then return true end end
+			return false
+		end
+		nav.place(0, 850)
+		N.SetTarget(9001, 80, 60, "Target")               -- Farland (-100, -300)
+		r.without = has("portal")
+		nav.items[9173] = 1
+		T.Replan()
+		r.with = route()
+		emit(r)"#);
+	assert_eq!(out["without"], false, "no Goblin Transponder: no portal");
+	assert_eq!(out["with"], json!(["walk|Walk to the portal", "portal|Take the portal to Far Gate", "walk|Target"]));
+}
+
 // #1741: a turn-in through the walk-in portal, with the game's waypoint mirrored (nav.blizzardWaypoint), walked
 // to the portal, through it and on. `waypoint_ui`: Waypoint UI's public API (WaypointUIAPI.Navigation) is
 // loaded, recording what Polestar asks of it and of the game's quest tracking.
@@ -355,10 +378,12 @@ fn portal_turn_in_mirrored(waypoint_ui: bool) -> Value {
 	};
 	run(&format!(
 		r#"
+		Polestar.Set("nav.navRouting", false) -- mirror the compass on the two fictional streets
 		local calls, current, tracked = {{}}, nil, 0
 		{api}
 		C_QuestLog = C_QuestLog or {{}}
 		C_QuestLog.IsOnQuest = function(q) return q == 376 end
+		C_QuestLog.GetNextWaypoint = function() return 9001, 0.8, 0.6 end
 		C_SuperTrack.SetSuperTrackedQuestID = function(q) tracked = q; calls[#calls + 1] = {{ "quest", q }} end
 		C_SuperTrack.GetSuperTrackedQuestID = function() return tracked end
 		Polestar.Set("nav.blizzardWaypoint", true)
@@ -391,12 +416,12 @@ fn issue_1741_with_waypoint_ui_the_pin_is_the_current_leg_s_stop_then_the_goal()
 	assert_eq!(out["native"], json!({}), "Waypoint UI sets the game's pin itself");
 }
 
-// Without Waypoint UI nothing changes: the game's plain pin stays on the target the whole way.
+// The map destination stays put. It becomes a tracked bearing only after the portal.
 #[test]
 fn issue_1741_without_waypoint_ui_the_game_s_pin_stays_on_the_target() {
 	let out = portal_turn_in_mirrored(false);
 	assert_eq!(out["calls"], json!({}));
-	assert_eq!(out["native"], json!([["set", 9001, 0.8, 0.6], ["track", true]]));
+	assert_eq!(out["native"], json!([["set", 9001, 0.8, 0.6], ["track", false], ["track", true]]));
 }
 
 // #1834: the same walk through the portal with TomTom's arrow guiding (nav.useTomTomArrow, the target's continent):
@@ -405,6 +430,7 @@ fn issue_1741_without_waypoint_ui_the_game_s_pin_stays_on_the_target() {
 fn portal_turn_in_with_tomtom(arrow: bool) -> Value {
 	run(&format!(
 		r#"
+		Polestar.Set("nav.navRouting", false)
 		nav.withTomTom()
 		Polestar.Set("nav.useTomTomArrow", {arrow})
 		N.RegisterTravelData({{ portals = {{ {{ id = "gate", name = "Far Gate portal", seconds = 5,

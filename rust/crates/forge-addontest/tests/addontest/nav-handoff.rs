@@ -9,6 +9,8 @@
 //! the journey panel against tests/lua/stub_nav.lua (map 9000 "Testshire": 2000 yd across, 20 yd per map
 //! percent, origin at its centre; the travel world's boat runs from Testshire Docks to Farland).
 
+use forge_addontest::navmap::{write_map, FixtureCell, FixtureMap};
+use forge_addontest::run::{addons_dir, lua_string};
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::{json, Value};
 
@@ -28,7 +30,7 @@ const FILES: [&str; 11] = [
 ];
 
 // Before any addon file: the fake Compat from Init.lua on (Data.lua and UI.lua read it at load), addon loading
-// recorded, a fake walking engine, the world map's click handlers recorded, and the player's death state.
+// recorded, the world map's click handlers recorded, and the player's death state.
 const EARLY: &str = r#"
 loads = {}
 local loadAddOn = C_AddOns.LoadAddOn
@@ -47,12 +49,6 @@ do
 	end
 end
 finds = 0
-Polestar_NavEngine = {
-	Find = function(map, from, to, callback) finds = finds + 1; return {} end,
-	Cancel = function() end,
-	Busy = function() return false end,
-	Available = function() return true end,
-}
 stub.dead = false
 function UnitIsDeadOrGhost(unit) return unit == "player" and stub.dead end
 stub.canvas = { handlers = {} }
@@ -63,6 +59,16 @@ function stub.canvasClick()
 	for _, fn in ipairs(stub.canvas.handlers) do if fn(WorldMapFrame, "LeftButton") then took = true end end
 	return took
 end
+"#;
+
+// API-only handoffs do not need a walking map. A request stays pending, never a successful walk.
+const PENDING: &str = r#"
+Polestar_NavEngine = {
+	Find = function() finds = finds + 1; return {} end,
+	Cancel = function() end,
+	Busy = function() return false end,
+	Available = function() return true end,
+}
 "#;
 
 // ShortestPathForever.API as docs/api.md has it. spf.calls records every call; spf.clear(), spf.replace(owner)
@@ -238,6 +244,11 @@ local function r4(v) return v and floor(v * 10000 + 0.5) / 10000 end
 -- Polestar's own guidance, surface by surface.
 local function surfaces()
 	stub.advance(0.3)
+	local engine = Polestar_NavEngine
+	for _ = 1, 40 do
+		if not engine or not engine.Busy() then break end
+		stub.advance(0.05)
+	end
 	local trail = Polestar.Pins.GetTrail()
 	return {
 		arrow = arrowShown(),
@@ -276,15 +287,50 @@ impl Default for Opts<'_> {
 	}
 }
 
-fn run_all(script: &str, o: Opts) -> Vec<Value> {
-	emitted(&RunAddon {
+fn scene(script: &str, o: Opts, walking: &str) -> RunAddon {
+	RunAddon {
 		stubs: vec!["stub_nav.lua"],
-		before: format!("{EARLY}{}", o.spf.unwrap_or("")),
+		before: format!("{EARLY}{walking}{}", o.spf.unwrap_or("")),
 		addons: vec![Addon::files("Polestar", &o.files)],
 		saved: vec![("Polestar".into(), o.saved.into())],
 		login: true,
 		script: format!("{PRELUDE}{script}"),
-	})
+	}
+}
+
+fn run_all(script: &str, o: Opts) -> Vec<Value> {
+	emitted(&scene(script, o, PENDING))
+}
+
+// A narrow strip of walkable cells from the player (-850, 0) to the dock (-900, 0).
+// Load it and the real router only when the addon asks; the sea beside the dock has no cells.
+fn at_docks(script: &str, o: Opts) -> Value {
+	let cells: Vec<_> = (38..=54).flat_map(|x| (0..=2).map(move |y| (x * 128 + y, FixtureCell { val: 1, cls: 0 }))).collect();
+	let map = write_map(&FixtureMap { map: 0, cells: 128, nx: 1, set: &cells, classes: false, graph: None, hubs: None, zones: None, gen: "-- Testshire Docks" });
+	let dir = addons_dir().join("Polestar_Nav");
+	let router = ["Routing/Costs.lua", "Routing/PathGrid.lua", "Routing/Path.lua", "Routing/PathJobs.lua", "API.lua"].map(|p| dir.join(p));
+	let pack = map.files.iter().chain(&router).map(|p| lua_string(&p.to_string_lossy())).collect::<Vec<_>>().join(", ");
+	let watch = r#"
+local load = C_AddOns.LoadAddOn
+function C_AddOns.LoadAddOn(name)
+	local ok, reason = load(name)
+	if name == "Polestar_Nav" and ok then
+		PolestarPathData[0].cx0 = -2 -- tile containing the dock
+		local find = Polestar_NavEngine.Find
+		Polestar_NavEngine.Find = function(c, from, to, done, opts)
+			finds = finds + 1
+			return find(c, from, to, function(points, cost, job)
+				if points and job.walkChecked and c == 0 and to.x == -900 and to.y == 0 then checkedDock = true end
+				done(points, cost, job)
+			end, opts)
+		end
+	end
+	return ok, reason
+end
+"#;
+	let mut s = scene(script, o, &format!("stub.packs.Polestar_Nav = {{ {pack} }}\n{watch}"));
+	s.stubs.extend(["stub_encoding.lua", "stub_packs.lua"]);
+	emitted(&s).remove(0)
 }
 
 fn run(script: &str, o: Opts) -> Value {
@@ -293,10 +339,11 @@ fn run(script: &str, o: Opts) -> Value {
 
 #[test]
 fn without_shortest_path_forever_nothing_changes_polestar_guides_plans_walks_and_answers_tomtom_and_way_and_the_option_is_hidden() {
-	let out = run(
+	let out = at_docks(
 		r#"
 		nav.setWaypoint(copy(FARLAND))
 		local s = surfaces()
+		assert(checkedDock, "the walking router must have checked the boarding approach")
 		s.handedOff = N.HandedOff()
 		s.option = option() ~= nil
 		s.shown = option().needs()
@@ -358,17 +405,30 @@ fn h3_nav_qa_with_it_installed_the_target_goes_as_one_stop_and_every_polestar_gu
 // to it on the map and the minimap, beside Shortest Path Forever's own route.
 #[test]
 fn no_route_lines_while_handing_off_for_a_target_on_the_same_continent_too() {
-	const NEAR: &str = r#"{ map = 9000, x = 50, y = 40, label = "Testshire well", stepIndex = 1, goalIndex = 1, kind = "goto", r = 8 }"#;
+	const NEAR: &str = r#"{ map = 9000, x = 50, y = 95, label = "Testshire Docks", stepIndex = 1, goalIndex = 1, kind = "goto", r = 8 }"#;
 	let script = r#"
 		nav.setWaypoint(${NEAR})
 		local s = surfaces()
 		emit({ handedOff = N.HandedOff(), lines = s.lines, geometry = N.GetRouteGeometry() ~= nil })
 	"#
 	.replace("${NEAR}", NEAR);
-	let mine = run(&script, Opts { spf: None, ..Default::default() });
+	let mine = at_docks(&script, Opts { spf: None, ..Default::default() });
 	assert_eq!(mine, json!({ "handedOff": false, "lines": 1, "geometry": true }), "without it, Polestar draws the walk");
-	let handed = run(&script, Opts::default());
+	let handed = at_docks(&script, Opts::default());
 	assert_eq!(handed, json!({ "handedOff": true, "lines": 0, "geometry": false }));
+	// Same target and faction, but no mapped connection here: the straight bearing and line.
+	let off_strip = at_docks(
+		&format!(
+			r#"nav.place(-850, 100)
+			nav.setWaypoint({NEAR})
+			local s = surfaces()
+			local state, _, angle = N.Sample()
+			emit({{ state, angle == nil, s.lines, N.GetTarget().label }})"#
+		),
+		Opts { spf: None, ..Default::default() },
+	);
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	assert_eq!(off_strip, json!(["travel", false, 1, "Testshire Docks"]));
 }
 
 #[test]
@@ -859,7 +919,7 @@ fn no_way_then_a_death_its_corpse_run_guides_and_polestar_s_arrow_steps_aside_al
 
 #[test]
 fn off_by_default_235_with_it_installed_polestar_guides_and_sends_nothing_the_option_shows_off() {
-	let out = run(
+	let out = at_docks(
 		r#"
 		nav.setWaypoint(copy(FARLAND))
 		local s = surfaces()
@@ -882,7 +942,7 @@ fn off_by_default_235_with_it_installed_polestar_guides_and_sends_nothing_the_op
 
 #[test]
 fn the_hand_off_off_polestar_guides_again_and_its_journey_is_cancelled_on_again_the_stop_goes_back() {
-	let out = run(
+	let out = at_docks(
 		r#"
 		nav.setWaypoint(copy(FARLAND))
 		Polestar.Set("nav.spfHandoff", false)
@@ -1075,7 +1135,7 @@ fn no_arrival_chime_from_polestar_while_it_guides_its_own_arrival_says_so_withou
 
 #[test]
 fn a_journey_the_player_starts_in_shortest_path_forever_polestar_steps_aside_until_it_ends_and_never_asks_in_combat() {
-	let out = run(
+	let out = at_docks(
 		r#"
 		nav.setWaypoint(copy(FARLAND))
 		local r = {}
@@ -1354,6 +1414,67 @@ fn d23_a_map_click_shortest_path_forever_plans_itself_is_its_own_polestar_keeps_
 		assert_eq!(out["click"], json!([true, false, "ShortestPathForever", true]), "API version {version}: its journey guides; Polestar's target is still the guide's");
 		assert_eq!(out["after"], json!([true, false, true]), "API version {version}: that journey over, Polestar guides the guide's target");
 		assert_eq!(out["off"], json!([false, true, false]), "API version {version}: with its Journeys off Polestar plans the click");
+	}
+}
+
+// #2028 (0.4.0.1, Discord): a Shift- or Alt-click on the world map started a Shortest Path Forever journey (drawn on its
+// map) while Polestar's arrow kept to the guide's objective. Checked with the real Shortest Path Forever v1.40.0 beside
+// the real Polestar: Polestar steps aside as soon as it guides that journey; when its search finds no way there it keeps
+// the journey on its map, unguided (Active() false, Journey().guided false), and Polestar had already dropped its own
+// plan for the click (ClickTaken), so nothing led to the clicked spot. Polestar now watches a click it left there, and
+// plans it itself when the journey stays unguided; a journey it guides, or the player clears, plans nothing.
+#[test]
+fn a_map_click_shortest_path_forever_took_but_finds_no_way_to_is_planned_by_polestar_2028() {
+	for (version, api) in [(1, SPF.to_string()), (2, spf_version(2))] {
+		let spf = format!("{api}{SPF_CLICKS}");
+		let out = run(
+			r#"
+		-- (minor 3: Journey reads; version 2's fake drops the minor, its Journey stays)
+		nav.setWaypoint(copy(FARLAND))
+		local r = {}
+		nav.showWorldMap(9000)
+		WorldMapFrame.ScrollContainer.IsMouseOver = function() return true end
+		local function altClick()
+			stub.keys.alt = true
+			stub.fire("GLOBAL_MOUSE_DOWN", "LeftButton")
+			stub.keys.alt = false
+			stub.runTimers()
+			stub.advance(0.3)
+		end
+		local function state()
+			return { N.GetTarget().label == "Farland camp", N.IsOverride() and true or false, N.HandedOff(), arrowShown() }
+		end
+		-- Its search finds no way there: the journey stays, unguided.
+		altClick()
+		r.taken = state()
+		spf.noWay()
+		stub.runTimers()
+		for _ = 1, 4 do stub.advance(0.5); stub.runTimers() end
+		r.noWay = state()
+		-- A journey it guides: nothing planned by Polestar, however long it runs.
+		N.ReleaseTarget()
+		spf.clear()
+		stub.runTimers()
+		altClick()
+		for _ = 1, 50 do stub.advance(0.5); stub.runTimers() end
+		r.guided = state()
+		-- The player clears it before it finds a way: nothing planned.
+		spf.clear()
+		stub.runTimers()
+		stub.advance(0.3)
+		altClick()
+		spf.clear()
+		stub.runTimers()
+		for _ = 1, 50 do stub.advance(0.5); stub.runTimers() end
+		r.cleared = state()
+		emit(r)
+	"#,
+			Opts { saved: FRESH, spf: Some(&spf), ..Default::default() },
+		);
+		assert_eq!(out["taken"], json!([true, false, true, false]), "API version {version}: its journey guides, Polestar steps aside");
+		assert_eq!(out["noWay"], json!([false, true, false, true]), "API version {version}: no way there: Polestar plans the click and guides it");
+		assert_eq!(out["guided"], json!([true, false, true, false]), "API version {version}: a journey it guides: Polestar plans nothing");
+		assert_eq!(out["cleared"], json!([true, false, false, true]), "API version {version}: one the player cleared: Polestar guides the guide's target");
 	}
 }
 

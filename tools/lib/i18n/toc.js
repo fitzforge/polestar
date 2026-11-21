@@ -206,6 +206,21 @@ const TEXT = {
 			zhTW: 'Polestar 的一部分：WoW Forever、Blizzard、Classic 和 Hearth 皮膚。選擇其中一個時載入。',
 		},
 	},
+	// Freedoom Arcade by petllama (Maps/Arcade.lua): loaded the first time Play is pressed.
+	Polestar_Arcade: {
+		title: { deDE: 'Polestar Arcade', esES: 'Polestar: arcade', esMX: 'Polestar: arcade', frFR: 'Polestar : arcade', koKR: 'Polestar 아케이드', ptBR: 'Polestar: arcade', ruRU: 'Polestar: аркада', zhCN: 'Polestar 街机', zhTW: 'Polestar 街機' },
+		notes: {
+			deDE: 'Teil von Polestar: Freedoom Arcade von petllama, drei Freedoom-Level zum Spielen während eines Flugs. Wird geladen, wenn du auf Spielen klickst.',
+			esES: 'Parte de Polestar: Freedoom Arcade de petllama, tres niveles de Freedoom para jugar durante un vuelo. Se carga cuando pulsas Jugar.',
+			esMX: 'Parte de Polestar: Freedoom Arcade de petllama, tres niveles de Freedoom para jugar durante un vuelo. Se carga cuando pulsas Jugar.',
+			frFR: 'Fait partie de Polestar : Freedoom Arcade de petllama, trois niveaux de Freedoom à jouer pendant un vol. Chargé quand vous cliquez sur Jouer.',
+			koKR: 'Polestar의 일부: petllama의 Freedoom Arcade, 비행 중에 즐기는 Freedoom 세 레벨. 플레이를 누르면 불러옵니다.',
+			ptBR: 'Parte do Polestar: Freedoom Arcade de petllama, três níveis de Freedoom para jogar durante um voo. Carregado quando você clica em Jogar.',
+			ruRU: 'Часть Polestar: Freedoom Arcade от petllama, три уровня Freedoom, чтобы поиграть в полёте. Загружается, когда вы нажимаете «Играть».',
+			zhCN: 'Polestar 的组成部分：petllama 的 Freedoom Arcade，飞行途中可玩的三个 Freedoom 关卡。点击“开始游戏”时加载。',
+			zhTW: 'Polestar 的一部分：petllama 的 Freedoom Arcade，飛行途中可玩的三個 Freedoom 關卡。點擊「開始遊戲」時載入。',
+		},
+	},
 	// The Skin API's example (docs/SKINS-API.md): in the repository only, never in a release.
 	Polestar_Skin_Example: {
 		title: { deDE: 'Polestar: Design-Beispiel', esES: 'Polestar: tema de ejemplo', esMX: 'Polestar: tema de ejemplo', frFR: "Polestar : habillage d'exemple", koKR: 'Polestar 스킨 예제', ptBR: 'Polestar: tema de exemplo', ruRU: 'Polestar: пример оформления', zhCN: 'Polestar 皮肤示例', zhTW: 'Polestar 皮膚範例' },

@@ -110,6 +110,24 @@ function partyWork(step, goal, chosen) {
 	return groupStep(step) || (goal.quest !== undefined && (chosen.has(goal.quest) || carriedStep(step, goal.quest)));
 }
 
+// Low elites (Fitz, 2026-11-20; validate.rs `low_elite_step`): an elite two or more levels under the player is solo
+// content. The check sees the player's level only through the step's own gate, a `when level>=N` predicate or a
+// `level N` line on the step, so elite work there is solo when N is at least the elite's top level + 2.
+function lowEliteStep(step, goal, sides, data) {
+	const elite = eliteWork(goal, sides, data);
+	if (!elite || !(elite.lvl > 0)) return false;
+	let gate = 1;
+	for (const p of step.when || []) {
+		if (p.k !== 'level') continue;
+		const frac = typeof p.frac === 'number';
+		if ((p.op === '>=' || p.op === '>') && frac) gate = Math.max(gate, p.n + p.frac);
+		else if (p.op === '>=') gate = Math.max(gate, p.n);
+		else if (p.op === '>') gate = Math.max(gate, p.n + 1);
+	}
+	for (const g of step.goals || []) if (g.t === 'level') gate = Math.max(gate, g.level + (typeof g.frac === 'number' ? g.frac : 0));
+	return gate >= elite.lvl + 2;
+}
+
 // Our house rules: errors in our pack, warnings in every other.
 function houseRule(diag, g) {
 	return g.pack === 'guides' ? diag.error.bind(diag) : diag.warn.bind(diag);
@@ -705,8 +723,9 @@ function validateGuides(guides, data, diag) {
 		for (const { step, goal } of goalsOf(g)) {
 			const ln = goal._line;
 			const q = goal.quest !== undefined ? data.quest(goal.quest) : null;
-			if (leveling && !goal.optional && !partyWork(step, goal, chosen)) {
-				const elite = eliteGoal(goal, applicable([gl, step._only, goal._only]).factions, data);
+			const sides = applicable([gl, step._only, goal._only]).factions;
+			if (leveling && !goal.optional && !partyWork(step, goal, chosen) && !lowEliteStep(step, goal, sides, data)) {
+				const elite = eliteGoal(goal, sides, data);
 				if (elite) {
 					houseRule(diag, g)(file, ln, elite);
 					eliteReported.add(goal);
@@ -759,7 +778,11 @@ function validateGuides(guides, data, diag) {
 					// Exclusive quests (`excl`, Questie exclusiveTo): the game does not
 					// offer this one while one of them is in the log or done.
 					const mine = own.get(goal);
+					// The accepts of an `either` set are alternatives, of which the player
+					// takes one: an exclusive quest among them closes nothing.
+					const alternatives = goal.either ? new Set(step.goals.filter((o) => o !== goal && o.either && o.t === 'accept').map((o) => o.quest)) : null;
 					for (const e of q.excl || []) {
+						if (alternatives && alternatives.has(e)) continue;
 						if ((taken.get(e) || []).some((chars) => meets(chars, mine.chars))) {
 							diag.warn(file, ln, `quest ${questName(data, goal.quest, goal.title)} is not offered once ${questName(data, e)} is in the log or done, and the chain takes that quest earlier`);
 						}

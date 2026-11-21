@@ -40,6 +40,17 @@ pub fn readme(version: &str, names: &[String]) -> String {
 		.iter()
 		.map(|s| s.to_string()),
 	);
+	if names.iter().any(|n| n == crate::addons::ARCADE) {
+		lines.extend(
+			[
+				"   Polestar_Arcade is Freedoom Arcade by petllama: three levels of",
+				"   Freedoom to play on a flight, loaded when you press Play (its own",
+				"   licence, GPL-2.0 or later: see its LICENSE and CREDITS.md).",
+			]
+			.iter()
+			.map(|s| s.to_string()),
+		);
+	}
 	if names.iter().any(|n| forge_guide::project::own_extra(n).is_some()) {
 		lines.extend(
 			[
@@ -68,6 +79,10 @@ pub fn readme(version: &str, names: &[String]) -> String {
 			"GPL-3.0 or later, adapted with his permission: the route lines, journey",
 			"panel, transit times, travel prompts and alerts in Polestar/ (LICENSE",
 			"names the files) and the walking routes in Polestar_Nav/.",
+			"Polestar_Arcade/ is a program of its own: Freedoom Arcade, Copyright",
+			"(C) 2026 petllama, from id Software's DOOM source, GPL-2.0 or later;",
+			"Freedoom's levels and art (C) the Freedoom project, BSD licence",
+			"(FREEDOOM-COPYING.txt).",
 			"",
 		]
 		.iter()
@@ -77,8 +92,10 @@ pub fn readme(version: &str, names: &[String]) -> String {
 }
 
 /// The entries of the addon folders `names` under `addons`, each folder's `extras` (file name, data)
-/// placed right after the folder's own entry, in place of a file of that name in the folder.
+/// placed right after the folder's own entry, in place of a file of that name in the folder. What
+/// `addons::NOT_SHIPPED` names stays out.
 pub fn archive_entries(addons: &Path, names: &[String], extras: &[(&str, Vec<Entry>)]) -> Result<Vec<Entry>, String> {
+	let shipped = |e: &Entry| !crate::addons::NOT_SHIPPED.iter().any(|x| if x.ends_with('/') { e.name.starts_with(x) } else { e.name == *x });
 	let mut out = Vec::new();
 	for n in names {
 		let mut tree = directory_entries(&[&addons.join(n)])?.into_iter();
@@ -86,7 +103,7 @@ pub fn archive_entries(addons: &Path, names: &[String], extras: &[(&str, Vec<Ent
 		let added: Vec<Entry> = extras.iter().filter(|(f, _)| f == n).flat_map(|(_, list)| list.iter().map(|e| Entry { name: format!("{n}/{}", e.name), data: e.data.clone() })).collect();
 		let taken: Vec<String> = added.iter().map(|e| e.name.clone()).collect();
 		out.extend(added);
-		out.extend(tree.filter(|e| !taken.contains(&e.name)));
+		out.extend(tree.filter(|e| !taken.contains(&e.name) && shipped(e)));
 	}
 	Ok(out)
 }
@@ -170,11 +187,65 @@ mod tests {
 		assert!(without.contains("Theme and loads only when you pick it.\r\n2. Quit"));
 	}
 
+	// Freedoom Arcade's folder: what it is and its own licence, only when it ships.
+	#[test]
+	fn the_readme_names_freedoom_arcade_and_its_licence_only_when_it_ships() {
+		let with: Vec<String> = ["Polestar", "Polestar_Guides", "Polestar_Looks", "Polestar_Arcade", "Polestar_Codex"].iter().map(|s| s.to_string()).collect();
+		let text = readme("0.4.0", &with);
+		assert!(text.contains("\r\n     Polestar_Arcade\r\n"));
+		assert!(text.contains("\r\n   Polestar_Arcade is Freedoom Arcade by petllama: three levels of\r\n"));
+		assert!(text.contains("\r\nPolestar_Arcade/ is a program of its own: Freedoom Arcade, Copyright\r\n(C) 2026 petllama, from id Software's DOOM source, GPL-2.0 or later;\r\n"));
+		let without = readme("0.4.0", &[with[0].clone(), with[1].clone()]);
+		assert!(!without.contains("Polestar_Arcade is Freedoom Arcade"));
+	}
+
 	#[test]
 	fn a_packs_files_and_its_sibling_addons_become_top_folders() {
 		let files: Vec<(String, Vec<u8>)> = ["Pack.lua", "Guides.lua", "../P_deDE/P_deDE.toc", "P.toc", "img/a.tga"].iter().map(|n| (n.to_string(), n.as_bytes().to_vec())).collect();
 		let names: Vec<String> = pack_entries("P", &files).into_iter().map(|e| e.name).collect();
 		assert_eq!(names, ["P/", "P/Guides.lua", "P/P.toc", "P/Pack.lua", "P/img/a.tga", "P_deDE/", "P_deDE/P_deDE.toc"]);
+	}
+
+	// Freedoom Arcade's scripts, CurseForge images and nested standalone TOC stay out of the zip; its game files,
+	// licences, credits and README ship.
+	#[test]
+	fn the_arcade_ships_without_its_scripts_page_images_or_nested_toc() {
+		let root = std::env::temp_dir().join(format!("forge-release-pack-arcade-{}", std::process::id()));
+		let _ = std::fs::remove_dir_all(&root);
+		let a = root.join("Polestar_Arcade");
+		for f in [
+			"Polestar_Arcade.toc",
+			"LICENSE",
+			"CREDITS.md",
+			"FREEDOOM-COPYING.txt",
+			"README.md",
+			"src/core.lua",
+			"src/FreedoomArcade.toc",
+			"tools/deploy.sh",
+			"tools/publish_curseforge.py",
+			"curseforge/logo.png",
+			"maps/E1M1.lua",
+		] {
+			std::fs::create_dir_all(a.join(f).parent().unwrap()).unwrap();
+			std::fs::write(a.join(f), f).unwrap();
+		}
+		let names: Vec<String> = archive_entries(&root, &["Polestar_Arcade".to_string()], &[]).unwrap().into_iter().map(|e| e.name).collect();
+		std::fs::remove_dir_all(&root).unwrap();
+		assert_eq!(
+			names,
+			[
+				"Polestar_Arcade/",
+				"Polestar_Arcade/CREDITS.md",
+				"Polestar_Arcade/FREEDOOM-COPYING.txt",
+				"Polestar_Arcade/LICENSE",
+				"Polestar_Arcade/Polestar_Arcade.toc",
+				"Polestar_Arcade/README.md",
+				"Polestar_Arcade/maps/",
+				"Polestar_Arcade/maps/E1M1.lua",
+				"Polestar_Arcade/src/",
+				"Polestar_Arcade/src/core.lua",
+			]
+		);
 	}
 
 	#[test]

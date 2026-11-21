@@ -11,7 +11,7 @@ use forge_guide::manifest::validate_manifest;
 const HINT: &str = "find the id with `polestar find <name>`, or give its name in quotes";
 
 fn d(file: &str, line: f64, severity: &'static str, message: &str, hint: Option<&str>) -> Diag {
-	Diag { severity, file: Some(file.into()), line, message: message.into(), hint: hint.map(String::from) }
+	Diag { severity, file: Some(file.into()), line, message: message.into(), hint: hint.map(String::from), rule: None }
 }
 
 #[test]

@@ -1,0 +1,848 @@
+{
+	"about": "The pin coverage guard (tools/pin-coverage.js): the gaps known when it came in, each with why. issues: fixed (closed as completed) issues no test names (not in tests/reported-gate.json, no test mentions #N), from the 0.4.0 regression audit: HOLDS (the fix is in the shipped guides/data/code but nothing fails if it goes), CANT-TELL, NOT-A-FIX (closed as completed with no change made), and PINNED by an indirect link the guard does not read (the fixing PR's test still present, a sibling issue's test, a test whose commit names the issue, the prerequisite sweep). records: data records whose quests no guide has any more. The guard fails on any gap not listed here and on an entry that is no gap any more: pin a listed issue (tests/reported-gate.json) or fix a listed record, then drop its entry.",
+	"issues": {
+		"59": {
+			"title": "Beer Basted Boar Ribs (384) is offered without Cooking on Forever, but next hides it from non-cooks",
+			"why": "HOLDS (guide): 384 has no skill in data (skill None) and the Dun Morogh accepts carry no Cooking gate: dwarf/01-dun-morogh:192, gnome/01-dun-morogh:182 (a seed \"thmastin's report: Beer Basted Boar Ribs is offered without Cooking\" exists; gate lists it not applicable to the shipped layout)"
+		},
+		"65": {
+			"title": "Questing not working",
+			"why": "PINNED (rule): orc: turnin 4921@horde/02-the-barrens:699 vs accept 95774@horde/02-the-barrens:700; skyborne: turnin 4921@horde/02-the-barrens:699 vs accept 95774@horde/02-the-barrens:700; tauren: turnin 4921@horde/02-the-barrens:699 vs accept 95774@horde/02-the-barrens:700 | data prereq of 95774 includes 4921 → pi"
+		},
+		"66": {
+			"title": "Quest not available",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 1/1"
+		},
+		"67": {
+			"title": "The Stolen Journal",
+			"why": "PINNED (sibling): fixed with #10 (pinned)"
+		},
+		"68": {
+			"title": "Raport Horns",
+			"why": "HOLDS (guide): accept 865 Raptor Horns in Ratchet: horde/02-the-barrens:289"
+		},
+		"74": {
+			"title": "Kolkar Leaders",
+			"why": "HOLDS (code): engine fix (no jump past kill step before objectives fill); covered by addontest engine suites generally; Kolkar Leaders steps present horde/02-the-barrens:328-340"
+		},
+		"75": {
+			"title": "Encrypted Sigil not auto picked up.",
+			"why": "HOLDS (guide): Encrypted Sigil 3118 accept+turnin on the Night Elf start, Rogue only: nightelf/01-teldrassil:49,75"
+		},
+		"78": {
+			"title": "Dolanaar Delivery picked up too early.",
+			"why": "HOLDS (guide): Dolanaar Delivery 2159 accepted at the Porthannius step on the way out of Shadowglen: nightelf/01-teldrassil:125"
+		},
+		"79": {
+			"title": "Being directed to sell and repair in Mount Hyjal at level 18 in Darkshore.",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 1/1"
+		},
+		"80": {
+			"title": "Wrong trainer and not at level to learn anything.",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 1/2"
+		},
+		"85": {
+			"title": "When I start fighting a mob I have a circle spinning in the middle",
+			"why": "NOT-A-FIX: not a Polestar bug (game swing timer)"
+		},
+		"93": {
+			"title": "Aggressive Encroachment",
+			"why": "PINNED (linked): tests/guides-reported.test.js: test('Sato\\'s report: The Great Outdoors on Zephras Isle is done by si; tests/guides-reported.test.js: test('Sato\\'s report: the Skysight and Read Ley Line objectives tell y; tests/guides-reported.test.js: test(`${TELDRASSIL}: Pynte's report: Conservator Ilthalaine's q"
+		},
+		"96": {
+			"title": "Flight path",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 12/14"
+		},
+		"101": {
+			"title": "Welcome to Shen'dar Village",
+			"why": "PINNED (linked): rust/crates/forge-addontest/tests/addontest/automation-profession-quests.rs: fn guide() -> String {; rust/crates/forge-addontest/tests/addontest/automation-profession-quests.rs: fn run(before: &str, script: &str) -> Value {; rust/crates/forge-addontest/tests/addontest/automation-profession-quests.rs"
+		},
+		"111": {
+			"title": "Darsock Swiftdagger",
+			"why": "NOT-A-FIX: works as designed (chain prereq), guide behaviour explained"
+		},
+		"131": {
+			"title": "Planned quest turn-ins in Questie",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 26/26"
+		},
+		"185": {
+			"title": "Accept the one that got away",
+			"why": "NOT-A-FIX: already fixed in 0.2.4 (Paladin-only steps), closing note"
+		},
+		"186": {
+			"title": "Weird pathing in Westfall in my own custom Westfall guide using Polestar",
+			"why": "NOT-A-FIX: closed: router change, no specific fix"
+		},
+		"228": {
+			"title": "Cant take state of minds until after you do murloc quest in westfall",
+			"why": "PINNED (rule): dwarf: turnin 92742@alliance/02-westfall:364 vs accept 92745@alliance/02-westfall:366; gnome: turnin 92742@alliance/02-westfall:364 vs accept 92745@alliance/02-westfall:366; human: turnin 92742@alliance/02-westfall:364 vs accept 92745@alliance/02-westfall:366 | data prereq of 92745 includes 92742 → "
+		},
+		"245": {
+			"title": "Silverpine Forest - incorrect order of quests.",
+			"why": "PINNED (rule): Stop the Spread 98299 in no guide; Arugal's Folly 422 now taken only after Prove Your Worth 421 hand-in (silverpine:374 turnin 421, :375 accept 422; data pre [421], swept)"
+		},
+		"261": {
+			"title": "Feature: Import strings for small guides, with an Import page above Options",
+			"why": "PINNED (linked): tests/export.test.js: test('a string reads back to its payload; a damaged one does not', () ; tests/export.test.js: test('export prints the string of the guide in the file on stdout, and; tests/export.test.js: test('export refuses a file of two guides, a file outside any pack, an; tests/export.test."
+		},
+		"277": {
+			"title": "Arrow not recognizing when I enter a new zone",
+			"why": "PINNED (sibling): fixed with #246 (pinned)"
+		},
+		"330": {
+			"title": "Feature: Action buttons: choose which side of the button its name sits on",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 2/2"
+		},
+		"331": {
+			"title": "Investigate: profile the addon's CPU and memory with Perfy",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 7/8"
+		},
+		"333": {
+			"title": "Feature: a target button for rares the addon finds",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 2/3"
+		},
+		"344": {
+			"title": "Ideas: hearth bind at the innkeeper, an XP-bar target mark, step screenshots for caves",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 20/20"
+		},
+		"372": {
+			"title": "Stormwind Path Routing",
+			"why": "NOT-A-FIX: closed after re-check on 0.3.x pathing, no change"
+		},
+		"379": {
+			"title": "Click through",
+			"why": "CANT-TELL (code): arrow click-through (0.2.4 UI change); no test names it; not verified"
+		},
+		"386": {
+			"title": "Feature: Move the options bar to the bottom when the window grows upward",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 2/2"
+		},
+		"389": {
+			"title": "I did all the steps but I dont have the quest swelling forces from Arbal to acc",
+			"why": "PINNED (rule): dwarf: turnin 950@alliance/03-darkshore-return:92 vs accept 98013@alliance/03-darkshore-return:97; gnome: turnin 950@alliance/03-darkshore-return:92 vs accept 98013@alliance/03-darkshore-return:97; human: turnin 950@alliance/03-darkshore-return:92 vs accept 98013@alliance/03-darkshore-return:97 | da"
+		},
+		"410": {
+			"title": "Guide is labelling the objectives incorrectly but counting them properly.",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 4/4"
+		},
+		"448": {
+			"title": "Bug: guide window header text is blank after login with EllesmereUI font matching (reload fixes it)",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 1/1"
+		},
+		"455": {
+			"title": "Guide format: bring back petllama's `along` objectives, `loop` steps, half-level goals, `skipto` and conditional `next` on top of `when`",
+			"why": "PINNED (linked): tests/planner-timeline.test.js: test('a level goal inside a level grinds to that share of its XP, and "
+		},
+		"480": {
+			"title": "XP Tracker Tooltip Bug",
+			"why": "CANT-TELL (code): XP tracker tooltip (PR #492, no test); not verified"
+		},
+		"503": {
+			"title": "Contributing: small changes should be small (a bot rebuilds generated files)",
+			"why": "PINNED (linked): tests/guides-parse.test.js: test('the compiled Polestar_Guides lists the same guides as guides/', "
+		},
+		"509": {
+			"title": "too much back and forth",
+			"why": "NOT-A-FIX: closed as \"later route optimisations\""
+		},
+		"510": {
+			"title": "Language packs: 18 extra addons for translations clutter the AddOns list",
+			"why": "HOLDS (code): 40 of 41 shipped TOCs carry \"## Group: Polestar\" (Polestar-0.4.0.zip)"
+		},
+		"593": {
+			"title": "Feature: Add abandon and destroy guide goals",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 12/12"
+		},
+		"596": {
+			"title": "Feature: import Pawn scales as custom stat weights",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 35/35"
+		},
+		"597": {
+			"title": "Feature: show the bag upgrade arrows in EllesmereUI Bags",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 6/7"
+		},
+		"598": {
+			"title": "Feature: bag arrow for an item that fits an empty slot, even when the weights give it no value",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 2/2"
+		},
+		"599": {
+			"title": "Feature: a small melee weapon DPS value for casters and Druids",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 3/4"
+		},
+		"618": {
+			"title": "Add quest if you keep the Ban'ethil path.",
+			"why": "NOT-A-FIX: closed: no evidence escort still wrong"
+		},
+		"630": {
+			"title": "Bug: Quest is marking the objective in the yeti cave not the mountainside cave",
+			"why": "NOT-A-FIX: closed without a stated fix (no comment, no commit)"
+		},
+		"641": {
+			"title": "Pathing",
+			"why": "NOT-A-FIX: re-checked on 0.3.x walking maps: fixed by the nav rework, no specific fix"
+		},
+		"654": {
+			"title": "Feature: a Characters page for your alts",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 54/59"
+		},
+		"655": {
+			"title": "Guide switch and deletes old one.",
+			"why": "PINNED (sibling): fixed with #404 (pinned)"
+		},
+		"658": {
+			"title": "Feature: warn before selling or deleting an item a quest in the guide still needs",
+			"why": "PINNED (linked): rust/crates/forge-addontest/tests/addontest/qol.rs: fn merchant_a_grey_item_a_quest_still_needs_is_not_sold() {; rust/crates/forge-addontest/tests/addontest/quests.rs: fn an_item_a_quest_needs_is_flagged_while_the_quest_is_in_the_log_or_a; rust/crates/forge-addontest/tests/addontest/quests.rs: fn qu"
+		},
+		"667": {
+			"title": "Feature: a hearth step says when the Hearthstone is bound to another inn, and walks the arrow to the right one",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 44/45"
+		},
+		"668": {
+			"title": "Feature: show how many steps ahead the guide trains your class",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 12/12"
+		},
+		"684": {
+			"title": "Bug: skip single option gossip turned off doesnt work",
+			"why": "CANT-TELL (code): help-text change for Skip single-option gossip (PR #687); not verified"
+		},
+		"690": {
+			"title": "Arrow still is too strict in my opinion / needs more padding, see attached example",
+			"why": "CANT-TELL (code): closed \"already fixed for next release\" with no reference to the fix"
+		},
+		"696": {
+			"title": "Wrong step: Dun Morogh, step 50",
+			"why": "NOT-A-FIX: closed, no info"
+		},
+		"699": {
+			"title": "Wrong step: Ashenvale, Wetlands & Stonetalon Mountains, step 49",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 1/2"
+		},
+		"771": {
+			"title": "Bug: client black screen",
+			"why": "NOT-A-FIX: reporter: app opened as usual"
+		},
+		"773": {
+			"title": "Wrong step: Westfall, step Red Leather Bandanas/The People's Militia",
+			"why": "NOT-A-FIX: other addon"
+		},
+		"780": {
+			"title": "Discord invite link is expired",
+			"why": "NOT-A-FIX: link not expired"
+		},
+		"787": {
+			"title": "i can't find Polestar Guides in the Curseforge App",
+			"why": "NOT-A-FIX: CurseForge app config, not a Polestar bug"
+		},
+		"804": {
+			"title": "Wrong step: Elwynn Forest, step 47",
+			"why": "NOT-A-FIX: re-check, data matched"
+		},
+		"840": {
+			"title": "Client recordings not working",
+			"why": "CANT-TELL (code): Client 0.1.3 recorder-file parsing (#817, apps/client); no test located"
+		},
+		"902": {
+			"title": "Polestar Client: the window can't be tiled on Linux tiling window managers (fixed size)",
+			"why": "HOLDS (code): fix lines all present (126/126)"
+		},
+		"985": {
+			"title": "Bug: Accept \"Watching the Roads\". Not available to accept.",
+			"why": "PINNED (rule): orc: turnin 482@horde/03-silverpine-forest:384 vs accept 95981@horde/05-stonetalon-mountains:274; skyborne: turnin 482@horde/03-silverpine-forest:384 vs accept 95981@horde/05-stonetalon-mountains:274; tauren: turnin 482@horde/03-silverpine-forest:384 vs accept 95981@horde/05-stonetalon-mountains:274"
+		},
+		"993": {
+			"title": "Waypoint UI: name Polestar's waypoint and track quests instead of \"Map Pin\"",
+			"why": "PINNED (linked): rust/crates/forge-addontest/tests/addontest/nav.rs: fn a_target_set_before_waypoint_ui_s_api_is_ready_is_named_once_it_is(; rust/crates/forge-addontest/tests/addontest/nav.rs: fn with_waypoint_ui_a_quest_goal_in_the_log_tracks_the_quest_and_only_; rust/crates/forge-addontest/tests/addontest/nav.rs: "
+		},
+		"996": {
+			"title": "Silverpine 16-19 Step 10: Shadow Priest Allister does not offer Watching the Roads",
+			"why": "PINNED (rule): orc: turnin 482@horde/03-silverpine-forest:384 vs accept 95981@horde/05-stonetalon-mountains:274; skyborne: turnin 482@horde/03-silverpine-forest:384 vs accept 95981@horde/05-stonetalon-mountains:274; tauren: turnin 482@horde/03-silverpine-forest:384 vs accept 95981@horde/05-stonetalon-mountains:274"
+		},
+		"1001": {
+			"title": "watching the roads Quest",
+			"why": "PINNED (rule): orc: turnin 482@horde/03-silverpine-forest:384 vs accept 95981@horde/05-stonetalon-mountains:274; skyborne: turnin 482@horde/03-silverpine-forest:384 vs accept 95981@horde/05-stonetalon-mountains:274; tauren: turnin 482@horde/03-silverpine-forest:384 vs accept 95981@horde/05-stonetalon-mountains:274"
+		},
+		"1034": {
+			"title": "Codex recorded sources: use the data build's drop-chance and reward rules before the first non-empty snapshot",
+			"why": "HOLDS (feature): feature shipped in 0.4.0; fix lines present 133/206"
+		},
+		"1041": {
+			"title": "Order priority",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 7/7"
+		},
+		"1042": {
+			"title": "Quest not availlable \"Quelles sales mines !\" in Westfall (Deadmine quests guide)",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 2/2"
+		},
+		"1043": {
+			"title": "Arrow still needs to be alot more flexible.",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 11/11"
+		},
+		"1181": {
+			"title": "Feature: a target list beside the target button, as an alternative to cycling through names",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 20/21"
+		},
+		"1208": {
+			"title": "Quest pathing between step 7 and step 8",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 29/33"
+		},
+		"1246": {
+			"title": "QOL fix",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 2/2"
+		},
+		"1251": {
+			"title": "The tear of the Moons",
+			"why": "PINNED (sibling): fixed with #1210 (pinned)"
+		},
+		"1252": {
+			"title": "Bug: 청동관 팔지않음, 경매장에서 구매후 이동하는게 간편함",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 52/58"
+		},
+		"1270": {
+			"title": "Mere des couvés",
+			"why": "CANT-TELL (code): frFR |4 party-chat Lua error (0.3.6); no test located"
+		},
+		"1279": {
+			"title": "Why is the \"Ignition\" quest accepted but fails to progress",
+			"why": "PINNED (rule): orc: turnin 858@horde/02-the-barrens:613 vs accept 863@horde/02-the-barrens:614; skyborne: turnin 858@horde/02-the-barrens:613 vs accept 863@horde/02-the-barrens:614; tauren: turnin 858@horde/02-the-barrens:613 vs accept 863@horde/02-the-barrens:614 | data prereq of 863 includes 858 → pinned by guid"
+		},
+		"1286": {
+			"title": "unnecessary step in Dun Morogh",
+			"why": "HOLDS (guide): 0.4.0 Dun Morogh visits Helm's Bed Lake only as a quest step (Stolen Blasting Powder, dwarf/01-dun-morogh:473), no bare waypoint"
+		},
+		"1290": {
+			"title": "SilverPine Guide Bug",
+			"why": "HOLDS (guide): Undead chain: tirisfal → 03-silverpine directly; Orgrimmar steps: horde/03-silverpine-forest:319 only {'classes': None, 'races': ['Scourge'], 'factions': None}"
+		},
+		"1330": {
+			"title": "Bug: the pace line says \"On pace for level 21\" when the character is already 21 (guide's end)",
+			"why": "PINNED (linked): rust/crates/forge-addontest/tests/addontest/levels.rs: fn pace_at_or_past_the_guide_s_top_is_on_pace_and_reaches_beyond_it() "
+		},
+		"1332": {
+			"title": "Feature: let another addon show Polestar's guide target (a public Nav API for followers)",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 5/5"
+		},
+		"1361": {
+			"title": "Data: what the open sources still hold for the route gaps (survey, QuestieDB 1.0.13 measured, EG live)",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 3/3"
+		},
+		"1403": {
+			"title": "сундук координаты",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 2/2"
+		},
+		"1404": {
+			"title": "Guiding Stars: thank bug reporters in a third column",
+			"why": "PINNED (linked): rust/crates/forge-addontest/tests/addontest/ui-thanks.rs: fn every_label_fits_its_column_in_every_locale_with_names_and_with_non; rust/crates/forge-addontest/tests/addontest/ui-thanks.rs: fn run(before: &str, script: &str) -> Value {; rust/crates/forge-addontest/tests/addontest/ui-thanks.rs: fn thre"
+		},
+		"1432": {
+			"title": "Wrong spot marked for Vial placement location",
+			"why": "PINNED (sibling): fixed with #1414 (pinned)"
+		},
+		"1433": {
+			"title": "mark is slightly off from where you can place it",
+			"why": "PINNED (sibling): fixed with #1414 (pinned)"
+		},
+		"1435": {
+			"title": "Wrong step: Ashenvale & Thousand Needles, step 1",
+			"why": "HOLDS (guide): fix commit df862871f lines all present in the guides (2/2)"
+		},
+		"1446": {
+			"title": "Private Thorsen idling position should be adjusted.",
+			"why": "PINNED (sibling): fixed with #1425 (pinned)"
+		},
+		"1451": {
+			"title": "Translations for 0.3.6: the new interface texts (70) and guide texts, by language",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 14/14"
+		},
+		"1462": {
+			"title": "Valuable Vantages - Quest step missing?",
+			"why": "HOLDS (guide): Valuable Vantages (98095) is no longer in any guide after the 0.4.0 Horde rework (fix had added the three vial steps); nothing to regress"
+		},
+		"1473": {
+			"title": "Quest objective for Hillsbrad's Hoard. position marked. gotta use the quest item on this position.",
+			"why": "HOLDS (guide): Hillsbrad's Hoard (98059) is no longer in any guide after the 0.4.0 Horde rework"
+		},
+		"1484": {
+			"title": "Message in Polestar Client (0.1.4)",
+			"why": "HOLDS (code): fix lines all present (20/20)"
+		},
+		"1489": {
+			"title": "Quest chain for HOT",
+			"why": "PINNED (sibling): fixed with #1478 (pinned)"
+		},
+		"1499": {
+			"title": "Bug: Suggest higher level to begin.",
+			"why": "HOLDS (code): feature present (class-chain heads-up shipped in 0.3.6; ClassQuests.lua)"
+		},
+		"1502": {
+			"title": "Horde Leveling",
+			"why": "CANT-TELL (code): guide-end false finish on an early Undercity visit (0.3.6 engine fix); no test located"
+		},
+		"1504": {
+			"title": "Class guides: Cold Snap, Ice Block and Frostbite are not tokenized as the Mage's spells",
+			"why": "PINNED (linked): rust/crates/forge-guide/tests/guide/class_spell_tokens.rs: fn a_class_guides_own_spells_are_their_tokens_where_an_npc_object_or_i; rust/crates/forge-guide/tests/guide/class_spell_tokens.rs: fn class_data() -> Data {; rust/crates/forge-guide/tests/guide/class_spell_tokens.rs: fn guide(id: &str, heade"
+		},
+		"1505": {
+			"title": "Pack guides: \"learn\" on a class spell always warns \"is not in data ... (new Forever content?)\"",
+			"why": "PINNED (linked): rust/crates/forge-guide/tests/guide/dsl_verbs.rs: fn learn_of_a_spell_a_skill_line_teaches_in_the_client_build_takes_its; rust/crates/forge-guide/tests/guide/dsl_verbs.rs: fn pinned_data(name: &str, drop: &[&str]) -> Data {; rust/crates/forge-guide/tests/guide/dsl_verbs.rs: fn without_professions_js"
+		},
+		"1528": {
+			"title": "Feature: Add a quick lookup button to the main guide window for quick access.",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 2/2"
+		},
+		"1537": {
+			"title": "SM Quests",
+			"why": "CANT-TELL (code): accept-only steps hide the quest level (0.3.6 UI); no test located"
+		},
+		"1555": {
+			"title": "Quest and quest giver not here to turn in.",
+			"why": "CANT-TELL (code): timed-quest countdown (0.3.6); no test located by number"
+		},
+		"1566": {
+			"title": "Wrong step: Stonetalon Mountains & Ashenvale, step 10",
+			"why": "PINNED (rule): orc: turnin 98251@horde/05-stonetalon-mountains:117 vs accept 98252@horde/05-stonetalon-mountains:118; skyborne: turnin 98251@horde/05-stonetalon-mountains:117 vs accept 98252@horde/05-stonetalon-mountains:118; tauren: turnin 98251@horde/05-stonetalon-mountains:117 vs accept 98252@horde/05-stonetalo"
+		},
+		"1592": {
+			"title": "no offer quest lvl 31",
+			"why": "PINNED (rule): orc: turnin 93680@horde/30-40/05-arathi-highlands:130 vs accept 545@horde/30-40/05-arathi-highlands:131; skyborne: turnin 93680@horde/30-40/05-arathi-highlands:130 vs accept 545@horde/30-40/05-arathi-highlands:131; tauren: turnin 93680@horde/30-40/05-arathi-highlands:130 vs accept 545@horde/30-40/05"
+		},
+		"1619": {
+			"title": "Bad path",
+			"why": "HOLDS (sibling): fixed by the walking-maps / arrow work of #1107 (pinned)"
+		},
+		"1621": {
+			"title": "Feature: take the marked flight when the flight map opens",
+			"why": "PINNED (linked): rust/crates/forge-addontest/tests/addontest/qol.rs: fn flight_auto_take_flies_as_the_map_opens_only_when_on_without_shift_"
+		},
+		"1657": {
+			"title": "Whuut´s the Rush not available",
+			"why": "PINNED (rule): orc: turnin 97242@horde/03-silverpine-forest:234 vs accept 97275@horde/03-silverpine-forest:235; skyborne: turnin 97242@horde/03-silverpine-forest:234 vs accept 97275@horde/03-silverpine-forest:235; tauren: turnin 97242@horde/03-silverpine-forest:234 vs accept 97275@horde/03-silverpine-forest:235 | "
+		},
+		"1740": {
+			"title": "Bug: This guid is inaccurate. For example, you can't start on the Master's Glaive ...",
+			"why": "HOLDS (guide): turnin Onu (948) before accept The Master's Glaive (944): 03-darkshore-return:52 → :53"
+		},
+		"1805": {
+			"title": "MelloUI's Route option hides the guide window and the arrow",
+			"why": "PINNED (linked): rust/crates/forge-addontest/tests/addontest/out-of-sight.rs: fn a_window_another_addon_keeps_out_of_sight_stays_on_through_polestar; rust/crates/forge-addontest/tests/addontest/out-of-sight.rs: fn a_window_scale_changed_while_another_addon_keeps_the_window_out_of_; rust/crates/forge-addontest/tests/"
+		},
+		"1819": {
+			"title": "Navigation Arrow Direction Issues",
+			"why": "HOLDS (sibling): fixed by the walking-maps / arrow work of #1107 (pinned)"
+		},
+		"1838": {
+			"title": "Inkeeper issue",
+			"why": "PINNED (sibling): fixed with #1965 (pinned)"
+		},
+		"1860": {
+			"title": "Bug: its telling me to go to the ratchet flight master in order to fly to shadowpr...",
+			"why": "PINNED (linked): tests/guides-reported.test.js: test('Danger at the spot (#1575, #1695): the Syndicate missives fallba; tests/guides-reported.test.js: test('Tincho on Discord (#1575), Maazias (#1925): Helcular\\'s flames a; tests/guides-reported.test.js: test('forever/horde/30-40/01-hillsbrad-foothills.guide: from th"
+		},
+		"1865": {
+			"title": "Bad routing to certain quest",
+			"why": "PINNED (sibling): fixed with #1945 (pinned)"
+		},
+		"1874": {
+			"title": "Wrong step: Kral von Razorfen: Quests annehmen, step 1",
+			"why": "PINNED (sibling): fixed with #2014 (pinned)"
+		},
+		"1881": {
+			"title": "Bug: Quest not available",
+			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
+		},
+		"1892": {
+			"title": "Bug: Hybrid gear scoring loses the healing component of combined spell power when the Forever ItemDB override is missing",
+			"why": "PINNED (linked): rust/crates/forge-addontest/tests/addontest/gear.rs: fn combined_client_spell_power_scores_damage_and_healing_but_damage_on; rust/crates/forge-addontest/tests/addontest/gear.rs: fn combined_client_spell_power_supplies_healing_before_itemdb_fills_mi"
+		},
+		"1903": {
+			"title": "Spell rank upgrade warning does not check other spells",
+			"why": "PINNED (linked): rust/crates/forge-addontest/tests/addontest/qol-spells.rs: fn a_lower_rank_is_left_alone_when_the_highest_known_rank_is_on_any_ba; rust/crates/forge-addontest/tests/addontest/qol-spells.rs: fn removing_the_highest_rank_from_the_bars_makes_the_lower_rank_eligib"
+		},
+		"1904": {
+			"title": "Wrong step: Duskwood, step 5",
+			"why": "PINNED (sibling): fixed with #2243 (pinned)"
+		},
+		"1924": {
+			"title": "Told to fly from taurajo to crossroads and immediately back",
+			"why": "HOLDS (sibling): fixed by the walking-maps / arrow work of #1238 (pinned)"
+		},
+		"1930": {
+			"title": "Title: Rogue Axes Not Recognized as Usable Weapons",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 1/1"
+		},
+		"1946": {
+			"title": "Bug: I've been cycling spawn points, and the arrow has now decided for me to heart...",
+			"why": "HOLDS (sibling): fixed by the walking-maps / arrow work of #1238 (pinned)"
+		},
+		"1947": {
+			"title": "Horde Druid Aquatic Form navigation issues",
+			"why": "HOLDS (sibling): fixed by the walking-maps / arrow work of #1238 (pinned)"
+		},
+		"1948": {
+			"title": "Bug: 타우라조 야영지에서 바엘 모단으로 가는 경로를 크로스...",
+			"why": "HOLDS (sibling): fixed by the walking-maps / arrow work of #1238 (pinned)"
+		},
+		"1967": {
+			"title": "shredding the machines back and forth",
+			"why": "HOLDS (sibling): fixed by the walking-maps / arrow work of #1238 (pinned)"
+		},
+		"1987": {
+			"title": "Shortest Path Forever 1.34.0 (API version 2): hand-off option gone and Polestar no longer steps aside",
+			"why": "PINNED (linked): rust/crates/forge-addontest/tests/addontest/nav-handoff.rs: fn a_future_version_counts_as_not_installed_nothing_is_sent_or_asked_a; rust/crates/forge-addontest/tests/addontest/nav-handoff.rs: fn spf_version(version: u32) -> String {; rust/crates/forge-addontest/tests/addontest/nav-handoff.rs: fn ver"
+		},
+		"2002": {
+			"title": "Coldbringers Eye quest not in RFD guide",
+			"why": "HOLDS (codex): shipped Codex Dungeons1.lua lists The Coldbringer's Eye (96773/97196) on the Razorfen Downs page"
+		},
+		"2016": {
+			"title": "Bug: Can't skip this quest",
+			"why": "NOT-A-FIX: reporter: nevermind"
+		},
+		"2024": {
+			"title": "New zones in Polestar Experimental: Riverglades, Shen'dralas with The Drowned City, Mount Hyjal",
+			"why": "PINNED (sibling): fixed with #2111 (pinned)"
+		},
+		"2030": {
+			"title": "Settings search: a dropdown of results that also finds pages and sections",
+			"why": "HOLDS (feature): feature shipped in 0.4.0"
+		},
+		"2031": {
+			"title": "Settings window and unlock mode: the small things that make them easier",
+			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
+		},
+		"2033": {
+			"title": "Auction house shopping list: what to buy before a guide, and a reminder in town",
+			"why": "PINNED (linked): rust/crates/forge-addontest/tests/addontest/auction-buys.rs: fn an_item_a_merchant_sells_is_never_an_auction_house_buy() {; rust/crates/forge-addontest/tests/addontest/auction-buys.rs: fn an_item_the_client_has_not_loaded_is_listed_once_it_arrives() {; rust/crates/forge-addontest/tests/addontest/auc"
+		},
+		"2037": {
+			"title": "Reputation guides for Forever factions",
+			"why": "HOLDS (feature): feature shipped in 0.4.0"
+		},
+		"2040": {
+			"title": "Translations for 0.4.0: the new interface texts and guide texts",
+			"why": "PINNED (linked): rust/crates/forge-i18n/tests/i18n/leaks.rs: fn the_recorders_scene_runs_without_polestar_and_every_word_on_screen_"
+		},
+		"2041": {
+			"title": "Release data build, compile and legs bake for 0.4.0",
+			"why": "PINNED (linked): rust/crates/forge-data/tests/data/names.rs: fn the_experimental_index_loads_and_polestar_experimental_s_guides_cou; rust/crates/forge/tests/guide_cli.rs: fn data_from_a_client_build_needs_that_builds_tables_in_the_sources_be; rust/crates/forge/tests/guide_cli.rs: fn data_from_build(name: &str, build"
+		},
+		"2044": {
+			"title": "0.4.0 plan",
+			"why": "NOT-A-FIX: release plan tracker"
+		},
+		"2050": {
+			"title": "Route round on the 0.4.0 data, the writer's advisory run and the timed-margin measurement",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 7/7"
+		},
+		"2051": {
+			"title": "Install flow: an Install button in Settings and a setup in a few pages",
+			"why": "HOLDS (feature): feature shipped in 0.4.0"
+		},
+		"2053": {
+			"title": "Route tools: the format and writer changes the guide audit needs",
+			"why": "HOLDS (feature): feature shipped in 0.4.0"
+		},
+		"2055": {
+			"title": "Show in quest log: right-click a quest line or a While you're here line",
+			"why": "HOLDS (feature): feature shipped in 0.4.0"
+		},
+		"2056": {
+			"title": "Say so when another addon keeps the guide window or the arrow out of sight",
+			"why": "HOLDS (feature): feature shipped in 0.4.0"
+		},
+		"2057": {
+			"title": "Performance: the guide window's layout and the remaining speed items",
+			"why": "HOLDS (feature): feature shipped in 0.4.0"
+		},
+		"2061": {
+			"title": "Release gate tools: what the gates need before they can run",
+			"why": "PINNED (linked): tests/playtest-honest.test.js: test('R1: a chain opening above level 1 starts with the flight paths e; tests/playtest-honest.test.js: test('R1: a character knows its race\\'s starting flight paths (Thelsam; tests/playtest-honest.test.js: test('R5: a talk tied to an objective credits it (Kodo Roundup)"
+		},
+		"2062": {
+			"title": "Public text check for pull requests and commit messages",
+			"why": "PINNED (linked): tests/public-text.test.js: test('a commit message breaking a rule is refused, naming the rule and; tests/public-text.test.js: test('a product name is caught as a whole token, by its hash', () => {; tests/public-text.test.js: test('a pull request: its title, description, branch name and every co; tes"
+		},
+		"2093": {
+			"title": "Bug reports: show the settings a player changed from their defaults",
+			"why": "PINNED (linked): rust/crates/forge-addontest/tests/addontest/ui-report-settings.rs: fn a_few_changes_read_as_compact_lines_ranked_by_what_they_change_with; rust/crates/forge-addontest/tests/addontest/ui-report-settings.rs: fn a_player_on_the_defaults_gets_one_settings_line_that_says_all_defau; rust/crates/forge-addo"
+		},
+		"2101": {
+			"title": "Empty Cleansing Bowl button disappears after turning in another quest in Auberdine",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 1/1"
+		},
+		"2107": {
+			"title": "Darkshore: guide still says to use the Filled Cleansing Bowl after summoning Xabraxxis",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 2/2"
+		},
+		"2128": {
+			"title": "Feature: separate keys for junk and keep marks",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 4/4"
+		},
+		"2136": {
+			"title": "Bug: the guide list forgets finished guides after a relog",
+			"why": "PINNED (linked): rust/crates/forge-addontest/tests/addontest/engine-tabs.rs: fn a_class_guide_finished_in_play_stays_done_after_a_reload() {; rust/crates/forge-addontest/tests/addontest/engine-tabs.rs: fn a_guide_finished_in_play_stays_done_in_the_guide_list_after_a_reloa; rust/crates/forge-addontest/tests/addontest"
+		},
+		"2144": {
+			"title": "Incorrect guidance on the client",
+			"why": "HOLDS (code): client text fix line present (1/1)"
+		},
+		"2221": {
+			"title": "hearth and astral recall",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 61/62"
+		},
+		"2223": {
+			"title": "lvling guide to lv 30 step 7",
+			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
+		},
+		"2263": {
+			"title": "UI issue when grow upwards option is enabled and bar at bottom option is enabled",
+			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
+		},
+		"2266": {
+			"title": "Bug: doctor gregory victor does not offer a quest for me",
+			"why": "HOLDS (sibling): same report as #2284 (pinned)"
+		},
+		"2282": {
+			"title": "Wrong step: Ashenvale & Thousand Needles, step 63",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 7/7"
+		},
+		"2284": {
+			"title": "Silky Sutures Not offered by Doctor Gregory Victor",
+			"why": "PINNED (linked): tests/guides-reported.test.js: test('Danger at the spot (#1575, #1695): the Syndicate missives fallba; tests/guides-reported.test.js: test('Tincho on Discord (#1575), Maazias (#1925): Helcular\\'s flames a; tests/guides-reported.test.js: test('forever/horde/30-40/01-hillsbrad-foothills.guide: from th"
+		},
+		"2297": {
+			"title": "Hearth icon remains",
+			"why": "PINNED (pr-test): tests added by the fixing PR(s) still present: 3/3"
+		},
+		"2298": {
+			"title": "Wrong step: Scharlachrotes Kloster: Quests annehmen, step 2",
+			"why": "NOT-A-FIX: closed without a stated fix (no comment, no commit)"
+		},
+		"2319": {
+			"title": "Quest missing from Razorfen Downs guide",
+			"why": "HOLDS (codex): same as #2002 (Codex Dungeons1.lua, Razorfen Downs page)"
+		},
+		"2333": {
+			"title": "Asks to hand in quest when dead",
+			"why": "CANT-TELL (code): While you're here quiet while dead (0.4.0); no test located"
+		},
+		"2339": {
+			"title": "The Zul'Farrak dungeon quest guide never offered the Witch Doctor's head quest",
+			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
+		},
+		"2346": {
+			"title": "Covert Extraction doesn't point to needed collection items",
+			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
+		},
+		"2368": {
+			"title": "Feature: make it so you can move to steps all the way to the top of screen",
+			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
+		},
+		"2370": {
+			"title": "Locating the Lost City doesn't direction to the dungeon entrance",
+			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
+		},
+		"2376": {
+			"title": "Wrong step: Alterac Mountains & Arathi Highlands, step 5",
+			"why": "PINNED (linked): tests/guides-reported.test.js: test('Danger at the spot (#1575, #1695): the Syndicate missives fallba; tests/guides-reported.test.js: test('Tincho on Discord (#1575), Maazias (#1925): Helcular\\'s flames a; tests/guides-reported.test.js: test('forever/horde/30-40/01-hillsbrad-foothills.guide: from th"
+		},
+		"2378": {
+			"title": "Quest not here",
+			"why": "PINNED (linked): tests/guides-reported.test.js: test('Danger at the spot (#1575, #1695): the Syndicate missives fallba; tests/guides-reported.test.js: test('Tincho on Discord (#1575), Maazias (#1925): Helcular\\'s flames a; tests/guides-reported.test.js: test('forever/horde/30-40/01-hillsbrad-foothills.guide: from th"
+		},
+		"2383": {
+			"title": "Feature: Dungeon Quest Guide for Krol´Dok",
+			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
+		},
+		"2411": {
+			"title": "Réapprivisionnement de l'infirmerie",
+			"why": "PINNED (linked): tests/guides-reported.test.js: test('Danger at the spot (#1575, #1695): the Syndicate missives fallba; tests/guides-reported.test.js: test('Tincho on Discord (#1575), Maazias (#1925): Helcular\\'s flames a; tests/guides-reported.test.js: test('forever/horde/30-40/01-hillsbrad-foothills.guide: from th"
+		},
+		"2420": {
+			"title": "Wrong step: When pointing out to Dalaran Dungeon Entrance the system freaks out and sends you on the right side of the map",
+			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
+		},
+		"2449": {
+			"title": "Inefficient routing picking up quests for Sunken Temple",
+			"why": "CANT-TELL (code): Sunken Temple pick-up plans its quests together (0.4.0 lookup planner); no test located"
+		},
+		"2481": {
+			"title": "Upgrade spells notification:",
+			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
+		},
+		"2506": {
+			"title": "Panther Master step missed",
+			"why": "HOLDS (guide): Alliance 40-50/01-stranglethorn-vale: Shadowmaw Panther kills for 192 at :288 with the STV raptors stop, turnin :303"
+		},
+		"2510": {
+			"title": "zum'rah's head görevini aldırmıyor. skywatcher platosunda camp gev'rek de",
+			"why": "HOLDS (codex): shipped Codex (Polestar_Codex/Dungeons1.lua): Zum'rah's Head 96775 on the zulfarrak page, start Mazu'kon (264074) map 1412 32.5,20.7"
+		},
+		"2577": {
+			"title": "Bug: Ruins of Lordaeron guide is incomplete, it leaves the remaining steps for Une...",
+			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
+		},
+		"2591": {
+			"title": "Love this Addon so far.",
+			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
+		},
+		"2639": {
+			"title": "Wrong location",
+			"why": "closed as completed after the 0.4.0 regression audit (2026-11-16) with no test naming it; not yet checked: pin it or say why nothing can be checked"
+		},
+		"2058": {
+			"title": "Arrow replays on the new walking maps, and the indoor rule",
+			"why": "PINNED (sibling): the 0.4.1 walking-map round (#2571) that closed it; its zone-border fix is #2048's, pinned by rust/crates/forge-addontest/tests/addontest/nav-e2e.rs following_the_arrow_from_the_riverglades_along_the_zone_line_to_a_redridge_goal_never_flips_and_arrives_2048"
+		},
+		"2214": {
+			"title": "Sleeping bag questchain",
+			"why": "HOLDS (nav): fixed by the 0.4.2 walking maps (#3210): the walk from the camp's Pocket Litter to the Mound of Dirt goes straight down to the ledge (about 124 yd, was about 640 round the valley); held by the nav eval's acceptance route stonetalon-camp-mound-of-dirt (tools/lib/nav/eval/acceptance.json:81), which runs on the walking maps, not in the test suites"
+		},
+		"2524": {
+			"title": "Mount Hyjal: measure it as part of the Alliance route once players have recorded it",
+			"why": "PINNED (pr-test): an enhancement, built by #3253 (Mount Hyjal in the 50-60 route for both factions); its tests are still present: tests/guides-reported.test.js 'Mount Hyjal: in both routes before the Silithus guides, no route choice for it' and the quest-log check per faction"
+		},
+		"2807": {
+			"title": "Feature: see what the recordings say about kill time by class, mob level and elites",
+			"why": "PINNED (pr-test): an enhancement, built by #2798 (forge sim fights); its tests are still present: rust/crates/forge/tests/fights.rs (a_sample_is_the_seconds_between_two_kills_less_the_walk, kills_that_are_no_solo_fight_are_left_out, the_fit_gives_back_the_terms_the_players_were_made_from)"
+		},
+		"2850": {
+			"title": "Wrong step: Riverglades, step 16",
+			"why": "HOLDS (data): fixed by 0.4.1's data build, with no correction record: Goren Grayfellow (272435) has one spot, 37.71,76.15 on map 2548 (data/forever/npcs.json, the 0.4.2 build too), where the sell reminder sends the player"
+		},
+		"3077": {
+			"title": "Bug: You need to go into deadmines to blow up the forge.",
+			"why": "NOT-A-FIX: the reporter was on 0.3.4; closed after the reply asking them to update to 0.4.1, with no change made"
+		},
+		"3134": {
+			"title": "Step 3 of 125 - Sorrow Hill",
+			"why": "HOLDS (guide): the 0.4.2 Alliance route (#3285) moved the seam: alliance/50-60/03-winterspring ends at Moonglade's flight master (Sindrayl, :604), and 04-western-plaguelands reaches Chillwind Camp by the flight to Southshore (:124) before Sorrow Hill (:151), no ride across the Plaguelands at the start"
+		},
+		"3169": {
+			"title": "The Experimental Method Quest wrong place marked",
+			"why": "HOLDS (guide): forever/50-60/mount-hyjal.guide:287-288 points the Slime and Alchemy Workstations at 42.5,73.1 and 44.3,68.3, the spots the reporters gave (about 42.4,72.9 and 44.3,68.5), carried in by the 0.4.2 route PRs (#3284, #3285)"
+		},
+		"3278": {
+			"title": "Feature: changing distance units",
+			"why": "NOT-A-FIX: already there: Options, Guide, Arrow & routes, Distances: Metres; closed with no change made"
+		}
+	},
+	"records": {
+		"data/guide-fixes.json fixes 1175-needles-rokalim-back-west": "no guide has quest 1151 (0.4.0)",
+		"data/guide-fixes.json fixes 1333-tear-of-the-moons-twinbraid": "no guide has quest 857 (0.4.0)",
+		"data/guide-fixes.json fixes 1791-sweep-andorhal-araj-accept": "no guide has quest 105 (2026-11-20: Alas, Andorhal left out of the Horde route; its prerequisite 5098 is taken in 50-60/02, so a character starting at 05 never gets it)",
+		"data/guide-fixes.json fixes 1791-sweep-andorhal-araj-shard": "no guide has quest 105 (2026-11-20: Alas, Andorhal left out of the Horde route; its prerequisite 5098 is taken in 50-60/02, so a character starting at 05 never gets it)",
+		"data/guide-fixes.json fixes 1999-feralas-level-45-before-rage-scar": "no guide has quest 7733 (0.4.0)",
+		"data/guide-fixes.json fixes 1999-feralas-pristine-yeti-hide-from-45": "no guide has quest 7735 (0.4.0)",
+		"data/guide-fixes.json fixes 1999-feralas-rage-scar-heads-up": "no guide has quest 7733 (0.4.0)",
+		"data/guide-fixes.json fixes horde-4060-accept-rise-of-the-machines-52": "no guide has quest 4061 (0.4.0)",
+		"data/guide-fixes.json fixes redridge-second-pass-115-tip": "no guide has quest 115 (0.4.0)",
+		"data/guide-fixes.json fixes silithus-rutheran-by-air": "no guide has quest 4901 (2026-11-20: Guardians of the Altar needs Find Ranshalla (979), which Erelas gives only after Wildkin of Elune (978); 978 is handed to him on 50-60/04's Rut'theran stop, after the Winterspring loop, so Ranshalla is behind the Alliance route)",
+		"data/places.json places 1414-hillsbrad-vial-north": "no guide has quest 98095 (0.4.0)",
+		"data/places.json places 1414-hillsbrad-vial-south": "no guide has quest 98095 (0.4.0)",
+		"data/places.json places 1414-hillsbrad-vial-west": "no guide has quest 98095 (0.4.0)",
+		"data/route-fixes.json deliberate.group q=105": "no guide has quest 105 (2026-11-20: Alas, Andorhal left out of the Horde route; the group record keeps why if it comes back)",
+		"data/route-fixes.json deliberate.group q=1380": "no guide has quest 1380 (0.4.0)",
+		"data/route-fixes.json deliberate.group q=304": "no guide has quest 304 (0.4.0)",
+		"data/route-fixes.json deliberate.group q=3566": "no guide has quest 3566 (0.4.0)",
+		"data/route-fixes.json deliberate.group q=517": "no guide has quest 517 (0.4.0)",
+		"data/route-fixes.json deliberate.group q=630": "no guide has quest 630 (0.4.0)",
+		"data/route-fixes.json deliberate.group q=673": "no guide has quest 673 (0.4.0)",
+		"data/route-fixes.json deliberate.group q=7846": "no guide has quest 7846 (0.4.0)",
+		"data/route-fixes.json deliberate.keep q=372": "no guide has quest 372 (0.4.0)",
+		"data/route-fixes.json deliberate.never q=98299": "no guide has quest 98299 (0.4.0)",
+		"data/route-fixes.json deliberate.optional q=515": "no guide has quest 515 (0.4.0)",
+		"data/route-fixes.json deliberate.optional q=517": "no guide has quest 517 (0.4.0)",
+		"data/route-fixes.json deliberate.optional q=524": "no guide has quest 524 (0.4.0)",
+		"data/route-fixes.json deliberate.optional q=712": "no guide has quest 712 (0.4.0)",
+		"data/route-fixes.json deliberate.pairs a=turnin 1150 b=accept 1151 Horde": "no guide has quest 1151 (0.4.0)",
+		"data/route-fixes.json deliberate.pairs a=turnin 356 b=accept 99156": "no guide has quest 99156 (0.4.0)",
+		"data/route-fixes.json deliberate.pairs a=turnin 4449 b=turnin 782": "no guide has quest 782 (0.4.0)",
+		"data/route-fixes.json deliberate.pairs a=turnin 4504 b=accept 5801 Alliance": "no guide has quest 5801 (2026-11-20: Fire Plume Forged needs Mold Rhymes With... (5538, from Arbington in the Western Plaguelands, minimum 55), and the Alliance route's last Tanaris stop (50-60/03, about 53.5) now comes before the Plaguelands guide)",
+		"data/route-fixes.json deliberate.pairs a=turnin 5206 b=task 6133 Horde": "no guide has quest 5206 (2026-11-20: the Alliance 50-60 redraw left it out and the Horde route skips it)",
+		"data/route-fixes.json deliberate.pairs a=turnin 528 b=accept 98094": "no guide has quest 98094 (0.4.0)",
+		"data/route-fixes.json deliberate.pairs a=turnin 5904 b=task 6023 Alliance": "no guide has quest 5904 (2026-11-20: A Plague Upon Thee's Termite Barrel goes to the Northridge lumber mill, which 50-60/04's Plaguelands sweep works before Dumah's last Chillwind stop offers it; left out rather than a ride back north for 2,800 XP before the flight out)",
+		"data/route-fixes.json deliberate.pairs a=turnin 92910 b=accept 92911": "no guide has quest 92911 (0.4.0)",
+		"data/route-fixes.json deliberate.pairs a=turnin 98094 b=task 509 Horde": "no guide has quest 98094 (0.4.0)",
+		"data/route-fixes.json deliberate.pairs a=turnin 98291 b=accept 98297": "no guide has quest 98291, 98297 (0.4.0)",
+		"data/route-fixes.json deliberate.pairs a=turnin 98417 b=accept 98418": "no guide has quest 98418 (0.4.0)",
+		"data/route-fixes.json deliberate.pairs a=turnin 99 b=accept 98298": "no guide has quest 99, 98298 (0.4.0)",
+		"data/route-fixes.json deliberate.stay s=turnin 7733": "no guide has quest 7733 (0.4.0)",
+		"data/route-fixes.json overrides.include q=5846": "no guide has quest 5846 (2026-11-20: neither route takes it since the 0.4.2 route round: the Alliance 50-60 redraw left it out and the Horde route skips it)",
+		"data/route-fixes.json overrides.pairs a=task 529 b=turnin 98095 Horde": "no guide has quest 98095 (0.4.0)",
+		"data/route-fixes.json overrides.pairs a=turnin 228 b=accept 583 Alliance": "no guide has quest 228 (0.4.0)",
+		"data/route-fixes.json overrides.pairs a=turnin 231 b=accept 583 Alliance": "no guide has quest 231 (0.4.0)",
+		"data/route-fixes.json overrides.pairs a=turnin 253 b=accept 583 Alliance": "no guide has quest 253 (0.4.0)",
+		"data/route-fixes.json overrides.pairs a=turnin 3763 b=accept 1395 Alliance": "no guide has quest 1395 (2026-11-20: Supplies for Nethergarde left out: its crate from Darkshire runs for an hour and no Alliance guide rides from Darkshire to Nethergarde any more since the Swamp of Sorrows leg ends at Nethergarde at about 41)",
+		"data/route-fixes.json overrides.pairs a=turnin 4261 b=turnin 4496 Alliance": "no guide has quest 4261 (2026-11-20: Arei's escort (Ancient Spirit) ends at Kayneth Stillwind in Forest Song, south of 50-60/03's Felwood pass, which goes north from the Emerald Sanctuary to Timbermaw and Winterspring)",
+		"data/route-fixes.json overrides.pairs a=turnin 5542 b=task 6024": "no guide has quest 6024 (2026-11-20: the Alliance 50-60 redraw left it out and the Horde route skips it)",
+		"data/route-fixes.json overrides.pairs a=turnin 857 b=turnin 4542 Horde": "no guide has quest 857 (0.4.0)",
+		"data/route-fixes.json overrides.pairs a=turnin 857 b=turnin 5881 Horde": "no guide has quest 857 (0.4.0)",
+		"data/route-fixes.json overrides.pairs a=turnin 96259 b=accept 857 Horde": "no guide has quest 857 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=115 Alliance": "no guide has quest 115 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=1151 Horde": "no guide has quest 1151 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=1187 Horde": "no guide has quest 1187 (2026-11-20: left out, the Horde route does not pass the Mirage Raceway after Dustwallow)",
+		"data/route-fixes.json overrides.skip q=1282 Alliance": "no guide has quest 1282 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=1288 Alliance": "no guide has quest 1288 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=1361 Horde": "no guide has quest 1361 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=1395 Alliance": "no guide has quest 1395 (2026-11-20: the skip record keeps why Supplies for Nethergarde is left out: an hour's crate from Darkshire and no Darkshire to Nethergarde ride left in the Alliance route)",
+		"data/route-fixes.json overrides.skip q=19 Alliance": "no guide has quest 19 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=212 Alliance": "no guide has quest 212 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=3301 Horde": "no guide has quest 3301 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=3381 Alliance": "no guide has quest 3381 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=3381 Horde": "no guide has quest 3381 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=343 Alliance": "no guide has quest 343 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=3504 Horde": "no guide has quest 3504 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=3562 Horde": "no guide has quest 3562 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=3564 Horde": "no guide has quest 3564 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=372": "no guide has quest 372 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=4061 Horde": "no guide has quest 4061 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=4293": "no guide has quest 4293 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=4294": "no guide has quest 4294 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=443 Horde": "no guide has quest 443 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=4973": "no guide has quest 4973 (2026-11-20, #3001: the repeatable second Counting Out Time left the Alliance route; the skip keeps a build from taking it back)",
+		"data/route-fixes.json overrides.skip q=4987 Horde": "no guide has quest 4987 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=507 Horde": "no guide has quest 507 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=508 Horde": "no guide has quest 508 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=5088 Horde": "no guide has quest 5088 (2026-11-20: left out, a trip back to Darkcloud Pinnacle for one quest)",
+		"data/route-fixes.json overrides.skip q=515 Horde": "no guide has quest 515 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=5206 Horde": "no guide has quest 5206 (2026-11-20: the Alliance 50-60 redraw left it out too)",
+		"data/route-fixes.json overrides.skip q=5218": "no guide has quest 5218 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=5221": "no guide has quest 5221 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=5224": "no guide has quest 5224 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=523 Alliance": "no guide has quest 523 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=525 Alliance": "no guide has quest 525 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=537 Alliance": "no guide has quest 537 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=551 Alliance": "no guide has quest 551 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=553 Horde": "no guide has quest 553 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=554 Alliance": "no guide has quest 554 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=5601 Alliance": "no guide has quest 5601 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=566 Horde": "no guide has quest 566 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=5721": "no guide has quest 5721 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=5821": "no guide has quest 5821 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=5846 Horde": "no guide has quest 5846 (2026-11-20: the Alliance 50-60 redraw left it out too)",
+		"data/route-fixes.json overrides.skip q=5941 Horde": "no guide has quest 5941 (2026-11-20: the Alliance 50-60 redraw left it out too)",
+		"data/route-fixes.json overrides.skip q=5943": "no guide has quest 5943 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=6024 Horde": "no guide has quest 6024 (2026-11-20: the Alliance 50-60 redraw left it out too)",
+		"data/route-fixes.json overrides.skip q=620": "no guide has quest 620 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=6384 Horde": "no guide has quest 6384 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=652": "no guide has quest 652 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=6543 Horde": "no guide has quest 6543 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=671 Horde": "no guide has quest 671 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=712 Horde": "no guide has quest 712 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=716 Horde": "no guide has quest 716 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=7492 Horde": "no guide has quest 7492 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=7733 Alliance": "no guide has quest 7733 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=7735 Alliance": "no guide has quest 7735 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=78132": "no guide has quest 78132 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=78133": "no guide has quest 78133 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=78134": "no guide has quest 78134 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=857 Horde": "no guide has quest 857 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=91899 Horde": "no guide has quest 91899 (2026-11-20, #3265: Dokimi's Sealed Crate hand-ins left the Horde route, nothing on it gives the crates; the skip keeps a build from taking them back)",
+		"data/route-fixes.json overrides.skip q=91904 Horde": "no guide has quest 91904 (2026-11-20, #3265: as 91899)",
+		"data/route-fixes.json overrides.skip q=98094 Horde": "no guide has quest 98094 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=98095 Horde": "no guide has quest 98095 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=98297": "no guide has quest 98297 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=98298": "no guide has quest 98298 (0.4.0)",
+		"data/route-fixes.json overrides.skip q=98300": "no guide has quest 98300 (0.4.0)"
+	}
+}

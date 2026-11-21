@@ -124,6 +124,15 @@ step Thundris Windweaver
   level 21
   accept 1442                         -- Thundris Windweaver
 
+# The flooded ruins at the Blackfathom Deeps entrance are not on the walking maps: without a waypoint the arrow
+# leads onto the ridge over the dungeon (#2203). The step before the naga leads to the north end of the Zoram
+# Strand, where players' recordings swim into the ruins; from there the arrow is straight.
+step The north end of the Zoram Strand
+  zone Ashenvale
+  tip The naga's flooded ruins lie just past the north end of the Zoram Strand, south of Darkshore along the coast. The arrow cannot find its own way down into them, so it leads you to the water's edge first: from there swim north into the ruins.
+  level 22
+  goto 14.6,13.7 "The north end of the Zoram Strand"
+
 step The Corrupted Kor Gem
   zone Ashenvale
   tip The Blackfathom naga in the flooded passages around the Blackfathom Deeps entrance, on Ashenvale's north-west coast, drop the Corrupted Kor Gem: Tide Priestesses (level 20-21), Oracles (21-22) and Sea Witches (23-24), one in two. You do not need to enter the instance. All are elite: grouping up is encouraged; players solo them one at a time, with difficulty. They heal themselves, run for help at low health, satyrs stand near some, and the Sea Witches cast Frost Nova up close. Some players report no drop while in a raid group.

@@ -39,6 +39,7 @@ step Back to Thendal Village
 
 step Rorian's errands
   tip Jump off the top of the watchtower and use Walk on Air to float down to Rorian, west of the tower.
+  complete 92474 @43.7,24.1
   accept 92598                        -- Ventaari Brightwish
   turnin 92461                        -- Rorian the Dayseeker
   turnin 92474
@@ -723,7 +724,7 @@ step Traditions of the Bluff
 step Turak Runetotem
   only Druid
   zone Thunder Bluff
-  tip Turak Runetotem trains druids on Elder Rise. He teaches you Teleport: Moonglade; Dendrite Starblaze's welcome waits for your Cat Form trip at about 21 (forever/horde/02-the-barrens).
+  tip Turak Runetotem trains druids on Elder Rise. He teaches you Teleport: Moonglade; Dendrite Starblaze's welcome waits for your Cat Form trip at about 21, in the Barrens guide.
   turnin 94911                        -- Turak Runetotem
   accept 94913
   train class
@@ -778,7 +779,32 @@ step The Crossroads
   tip Learn the flight path from Devrak on the tower platform. The Crossroads' own quests come after Silverpine Forest, in the Barrens guide.
   getfp "Crossroads"
 
+# Rezlak camps beside the road north to Orgrimmar that this walk follows anyway: his quests (Winds in
+# the Desert 834, Securing the Lines 835, A Simmering Storm 97281) are one stop and a short loop into
+# Drygulch Ravine. The mobs (9-10) are easy at 15, and 835 and 97281 still pay their full experience.
+step Rezlak
+  zone Durotar
+  tip Rezlak camps beside the road north to Orgrimmar, below Drygulch Ravine. The stolen sacks lie along the road just east of him.
+  accept 834                          -- Rezlak
+  collect 4918 quest 834.1 @49.1,22.6 map 1411
+  turnin 834                          -- Rezlak
+  accept 835
+
+step Drygulch Ravine
+  zone Durotar
+  tip Savages and Storm Witches nest in Drygulch Ravine, east of Rezlak. A Storm Witch drops the Dull Storm Orb, which starts A Simmering Storm.
+  kill 3117 quest 835.1
+  kill 3118 quest 835.2
+  collect 277661 "Dull Storm Orb" optional
+  accept 97281 optional
+
+step Rezlak
+  zone Durotar
+  tip Back to Rezlak by the road.
+  turnin 835                          -- Rezlak
+  turnin 97281 optional               -- Rezlak
+
 step To Orgrimmar
   zone Orgrimmar
-  tip From the Crossroads follow the road north-east to Far Watch Post, cross the Southfury River into Durotar and keep north to Orgrimmar's main gate. The next guide starts in Orgrimmar: Thrall takes Welcome to Azeroth, and the zeppelin leaves for Tirisfal Glades and Silverpine Forest.
+  tip From Rezlak's camp, go on to Orgrimmar's main gate, a few hundred yards away. The next guide starts in Orgrimmar: Thrall takes Welcome to Azeroth, and the zeppelin leaves for Tirisfal Glades and Silverpine Forest.
   goto 55.6,72.3 "Orgrimmar's main gate"

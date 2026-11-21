@@ -70,19 +70,25 @@ return {
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
 	["{npc:3649} is in {area:442}. Take his quest before you hunt naga: the Kor Gem never drops without it."] = "",
 
-	-- Step 12: The Corrupted Kor Gem
+	-- Step 12: The north end of the Zoram Strand
+	-- {area:414} Zoram Strand
+	["The north end of the {area:414}"] = "",
+	-- {area:414} Zoram Strand · {zone:1439} Darkshore
+	["The naga's flooded ruins lie just past the north end of the {area:414}, south of {zone:1439} along the coast. The arrow cannot find its own way down into them, so it leads you to the water's edge first: from there swim north into the ruins."] = "",
+
+	-- Step 13: The Corrupted Kor Gem
 	-- {item:6995} Corrupted Kor Gem
 	["The {item:6995}"] = "La {item:6995}",
 	-- {area:2797} Blackfathom Deeps · {zone:1440} Ashenvale · {item:6995} Corrupted Kor Gem · {spell:122} Frost Nova
 	["The Blackfathom naga in the flooded passages around the {area:2797} entrance, on {zone:1440}'s north-west coast, drop the {item:6995}: Tide Priestesses (level 20-21), Oracles (21-22) and Sea Witches (23-24), one in two. You do not need to enter the instance. All are elite: grouping up is encouraged; players solo them one at a time, with difficulty. They heal themselves, run for help at low health, satyrs stand near some, and the Sea Witches cast {spell:122} up close. Some players report no drop while in a raid group."] = "",
 
-	-- Step 13: The Purified Kor Gem
+	-- Step 14: The Purified Kor Gem
 	-- {item:7083} Purified Kor Gem
 	["The {item:7083}"] = "La {item:7083}",
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
 	["Back to {npc:3649} in {area:442}: he purifies the gem."] = "Vuelve con {npc:3649} en {area:442}: purifica la gema.",
 
-	-- Step 14: Verigan's Fist
+	-- Step 15: Verigan's Fist
 	-- {npc:6181} Jordan Stilwell · {zone:1455} Ironforge
 	["Bring the four parts to {npc:6181} outside {zone:1455}. Accept his last quest and wait by him while he forges the mace at his anvil."] = "Lleva las cuatro piezas a {npc:6181}, fuera de {zone:1455}. Acepta su última misión y espera a su lado mientras forja la maza en su yunque.",
 

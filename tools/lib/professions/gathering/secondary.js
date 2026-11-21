@@ -298,8 +298,14 @@ function renderBandage(ctx, P, e, L) {
 	step(L, `${recipe.name}: Auction House`, [`tip What ${recipe.name} takes that the Auction House sells: ${what}. The counts drop by what your bags, bank and mail hold.`, ...recipe.reagents.map((rg) => `auction ${rg.item} x${crafts * rg.count}`)]);
 	const levels = (rg) => (CLOTH_LEVELS[itemName(ctx, rg.item)] ? ` levels ${CLOTH_LEVELS[itemName(ctx, rg.item)].join('-')}` : '');
 	step(L, `${recipe.name}: cloth`, [`tip ${tip}`, ...recipe.reagents.map((rg) => `collect ${rg.item} x${crafts * rg.count} anywhere gather${levels(rg)}`)]);
-	// A recipe learned in this step: where and what it costs (sniffed trainer lists).
-	const learnTip = e.learn && e.learn.some((l) => l.startsWith(`learn ${e.spell}`) && !l.includes(' npc ')) && recipe.source === 'trainer' ? `Any ${P.skill} trainer of your faction teaches it from skill ${recipe.learnedAt} for ${money(recipe.cost)}; the arrow picks the nearest.` : '';
+	// A recipe learned in this step: where and what it costs (sniffed trainer lists), or, for a manual the Expert
+	// step had the player buy (Heavy Silk and Mageweave Bandage), that it is read from the bags (#3405: the learn
+	// line has no place to point to, and nothing said where the recipe comes from).
+	const learnsHere = e.learn && e.learn.some((l) => l.startsWith(`learn ${e.spell}`) && !l.includes(' npc '));
+	const learnTip = !learnsHere ? ''
+		: recipe.source === 'trainer' ? `Any ${P.skill} trainer of your faction teaches it from skill ${recipe.learnedAt} for ${money(recipe.cost)}; the arrow picks the nearest.`
+		: recipe.source === 'vendor' && recipe.recipeItem ? `Read the ${itemName(ctx, recipe.recipeItem)} you bought with Expert ${P.skill} to learn it; without one, the vendor who sold you the book sells it too.`
+		: '';
 	const lines = [craftTip(P, recipe, e.from, e.to, crafts, [learnTip, e.tip].filter(Boolean).join(' '))];
 	if (e.learn) lines.push(...e.learn);
 	lines.push(`craft ${e.spell} until ${e.to}`);

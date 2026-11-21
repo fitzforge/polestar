@@ -337,7 +337,9 @@ local function carriedGuide()
 				npc = at.npc, npcName = at.npc and at.name or nil, object = at.object, objName = at.object and at.name or nil,
 				map = at.map, x = at.x, y = at.y, f = at.f }
 		end
-		steps[#steps + 1] = { title = at.name or L["Quest giver"], goals = goals }
+		-- An ender inside a dungeon: the stop is its entrance (RoutePlan.Ender).
+		local note = at.inside and string.format(L["%s: inside %s."], at.name or "?", at.zone or "?") or nil
+		steps[#steps + 1] = { title = at.name or L["Quest giver"], note = note, goals = goals }
 		from = at
 	end
 	return { title = L["Hand in your finished quests"], steps = steps }

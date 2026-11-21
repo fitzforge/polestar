@@ -215,7 +215,9 @@ fn the_step_number_opens_every_step_in_place_of_the_card_marks_the_live_one_and_
 }
 
 // Browsing swaps the content of the existing window: a long list scrolls inside it, and a short list leaves
-// spare space. Neither case changes the height the player was already using (#1835).
+// spare space. Neither case changes the height the player was already using (#1835). The compact window is the
+// exception: too short to browse in, it grows to fit the cards up to the height cap, never below its height,
+// and returns to its height on closing.
 fn browser_heights(guide: &str) -> Vec<serde_json::Value> {
 	run_guide(
 		compile_guide(guide),
@@ -248,26 +250,95 @@ fn browser_heights(guide: &str) -> Vec<serde_json::Value> {
 						SL.Toggle(false)
 						stub.advance(0.3)
 						emit({ compact = compact, growUp = growUp, before = before, opened = opened, refreshed = refreshed,
-							closed = closed, reopened = reopened, content = content, view = view, bar = bar, scrolled = scrolled })
+							closed = closed, reopened = reopened, content = content, view = view, bar = bar, scrolled = scrolled,
+							cap = GF.CapHeight() })
 					end
 				end"#,
 	)
 }
 
 #[test]
-fn a_long_step_browser_keeps_the_window_height_and_scrolls_in_normal_and_compact_modes() {
+fn a_long_step_browser_keeps_the_normal_window_height_and_grows_the_compact_one_to_its_cards() {
 	let out = browser_heights(GUIDE);
 	assert_eq!(out.len(), 4);
 	for state in &out {
+		let content = state["content"].as_f64().unwrap();
+		let view = state["view"].as_f64().unwrap();
+		if state["compact"] == true {
+			for stage in ["refreshed", "reopened"] {
+				assert_eq!(state[stage], state["opened"], "{stage}: {state}");
+			}
+			assert_eq!(state["closed"], state["before"], "{state}");
+			let (before, opened) = (state["before"].as_f64().unwrap(), state["opened"].as_f64().unwrap());
+			assert!(opened > before && opened <= state["cap"].as_f64().unwrap(), "{state}");
+			assert_eq!(content, view, "the cards fit under the cap: {state}");
+			assert_eq!(state["bar"], false, "{state}");
+			continue;
+		}
 		for stage in ["opened", "refreshed", "closed", "reopened"] {
 			assert_eq!(state[stage], state["before"], "{stage}: {state}");
 		}
-		assert!(state["content"].as_f64().unwrap() > state["view"].as_f64().unwrap(), "{state}");
+		assert!(content > view, "{state}");
 		assert_eq!(state["bar"], true, "{state}");
 		assert!(state["scrolled"].as_f64().unwrap() > 0.0, "{state}");
 	}
 }
 
+// A player on Discord: in compact mode the list showed about two steps of a long guide, where 0.3.7 grew the
+// window to show many. The compact window grows to the height cap (and back on closing) at every UI scale; the
+// normal window keeps its height (#1835).
+#[test]
+fn a_compact_window_s_step_browser_grows_to_the_height_cap_at_every_ui_scale() {
+	let mut guide = GUIDE.split("step Deputy Willem").next().unwrap().to_owned();
+	guide.push_str("step Deputy Willem\n  accept 783\n\nstep Marshal McBride\n  turnin 783\n  accept 7\n");
+	for i in 1..=40 {
+		guide.push_str(&format!("\nstep Place {i}\n  goto 47.6,35.1 \"Destination {i}\"\n"));
+	}
+	let out = run_guide(
+		compile_guide(&guide),
+		r#"
+				stub.login()
+				stub.advance(0.5)
+				local GF, SL = Polestar.UI.GuideFrame, Polestar.UI.StepList
+				for _, ui in ipairs({ 0.64, 1, 1.5 }) do
+					UIParent:SetScale(ui)
+					for _, compact in ipairs({ true, false }) do
+						Polestar.Set("ui.compact", compact)
+						stub.advance(0.5)
+						local before = GF.frame:GetHeight()
+						SL.Toggle(true)
+						stub.advance(0.3)
+						local opened, view, scroll = GF.frame:GetHeight(), SL.frame:GetHeight(), SL.scroll:GetVerticalScroll()
+						-- The steps whose whole card is in sight.
+						local cards = 0
+						for i = 1, SL.n do
+							local r = SL.rows[i]
+							local _, _, _, _, oy = r:GetPoint(1)
+							local t = -(oy or 0) - scroll
+							if r:IsShown() and t >= 0 and t + r:GetHeight() <= view + 0.5 then cards = cards + 1 end
+						end
+						SL.Toggle(false)
+						stub.advance(0.3)
+						emit({ ui = ui, compact = compact, before = before, opened = opened, closed = GF.frame:GetHeight(),
+							cards = cards, n = SL.n, cap = GF.CapHeight() })
+					end
+				end"#,
+	);
+	assert_eq!(out.len(), 6);
+	for state in &out {
+		assert_eq!(state["n"], 42, "{state}");
+		assert_eq!(state["closed"], state["before"], "{state}");
+		if state["compact"] == true {
+			assert_eq!(state["opened"], state["cap"], "{state}");
+			assert_eq!(state["cards"], 9, "{state}");
+		} else {
+			assert_eq!(state["opened"], state["before"], "{state}");
+			assert_eq!(state["cards"], 1, "{state}");
+		}
+	}
+}
+
+// The compact window keeps its height when its cards fit in it: it never shrinks below it.
 #[test]
 fn a_one_goal_browser_keeps_a_small_window_height_and_its_card_accessible() {
 	let mut guide = GUIDE.split("step Deputy Willem").next().unwrap().to_owned();
@@ -286,6 +357,7 @@ fn a_one_goal_browser_keeps_a_small_window_height_and_its_card_accessible() {
 	}
 }
 
+// The compact window never shrinks below its height either: these cards fit in it.
 #[test]
 fn a_short_step_browser_keeps_the_window_height_instead_of_shrinking_to_its_cards() {
 	let mut guide = GUIDE.split("step Deputy Willem").next().unwrap().to_owned();

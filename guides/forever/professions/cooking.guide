@@ -53,7 +53,7 @@ step Charred Wolf Meat: Auction House
 step Charred Wolf Meat: ingredients
   only Human
   zone Elwynn Forest
-  collect 2672 x50 nearest gather levels 5-10     -- Prowler (86%) in Elwynn Forest, or wherever the arrow points
+  collect 2672 x50 nearest gather levels 4-10     -- Prowler (86%) in Elwynn Forest, or wherever the arrow points
 
 step Charred Wolf Meat (1-50)
   only Human
@@ -106,7 +106,7 @@ step Charred Wolf Meat: Auction House
 step Charred Wolf Meat: ingredients
   only Skyborne
   zone Zephras Isle
-  collect 2672 x50 nearest gather levels 1-10     -- Vuldren, Vuldren Alpha in Zephras Isle, or wherever the arrow points
+  collect 2672 x50 nearest gather levels 1-10     -- Juvenile Vuldren in Zephras Isle, or wherever the arrow points
 
 step Charred Wolf Meat (1-50)
   only Skyborne

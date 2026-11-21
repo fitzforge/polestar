@@ -369,6 +369,12 @@ return {
   the translations whose English the guide lost, commented out; `i18n guides
   check` names the new English of a changed one where it can tell. Copy the
   translation to the new line, adapt it, and delete the old one.
+- `-- was: ["<old English>"] = "<old translation>"` above an empty line is
+  the old translation of a text whose English changed: sync writes it where
+  an old line of the file reads nearly the same, the names in both read as
+  words (so a name that became words, or another NPC in the sentence, still
+  finds it). Start from it: put the translation on the line below, adapt it
+  to the new English, and keep its tokens. The line stays `""` until you do.
 - The files are written whole by sync: comments you add are rewritten.
 
 The compiler puts each language's translations into the pack's texts addon

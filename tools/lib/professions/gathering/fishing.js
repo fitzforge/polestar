@@ -19,7 +19,7 @@
 const fs = require('node:fs');
 const path = require('node:path');
 const R = require('./route');
-const { RACE_GROUPS, REGIONS, raceCondition } = require('./groups');
+const { RACE_GROUPS, REGIONS, TWO_SIDED, raceCondition } = require('./groups');
 const { dist } = require('../../route/geo');
 const { FACTIONS, GUIDE_HEADER, fmt, liveMark, money, zoneName, npcSpawn, rankInfo, flightMaster, vendorSpawns } = require('./common');
 const { byBanners } = require('../sections');
@@ -33,9 +33,12 @@ const BRIGHT_BAUBLES = 6532;
 const FISH_ATTRACTOR = 6533;
 const FISHING_RACK = 1262990;
 
-// Where each group fishes first: the shore beside its starting area's fishing
-// trainer (`at`), water that loses no fish from skill 25. Zephras Isle has no
-// pools and no base skill in the data: fish beside Valanaar's fishing trainer.
+// Where the faction fishes first: the shore beside each starting area's fishing
+// trainer (`at`), water that loses no fish from skill 25. Below 75 every catch
+// raises the skill, so any of the faction's shores does: the arrow leads to the
+// nearest one wherever the character is (`skill … nearest`, #2529). Zephras
+// Isle has no pools and no base skill in the data: fish beside Valanaar's
+// fishing trainer (Skyborne only).
 const START_SPOTS = {
 	human: { zone: 1429, at: 1651, label: 'Crystal Lake', full: 25 },
 	'dwarf-gnome': { zone: 1426, at: 1700, label: 'Iceflow Lake', full: 25 },
@@ -222,8 +225,8 @@ function render(ctx) {
 	for (const c of [
 		'Fishing 1-300 for both factions. Every catch can raise the skill wherever you',
 		'fish; low skill only makes fish get away in harder waters, so each band sends',
-		'you to water near where you level: the shore beside your starting area\'s',
-		'fishing trainer, then fishing-pool clusters from objects.json. Expert Fishing',
+		'you to water near where you level: the nearest of your faction\'s starting-area',
+		'shores, then fishing-pool clusters from objects.json. Expert Fishing',
 		'is a book sold by Old Man Heming in Booty Bay; Artisan Fishing is Nat Pagle\'s',
 		'quest in Dustwallow Marsh (four rare fish). About 1,300 catches in all.',
 		'',
@@ -296,6 +299,57 @@ function render(ctx) {
 		}
 	};
 
+	// Fishing 1-50 (#2529): one step per faction, its starting areas' shores as the places of a
+	// `skill … nearest` goal, so the arrow leads to the nearest one wherever the character is (an
+	// Undead in Orgrimmar fishes the Durotar coast, a Gnome in Darkshore Rut'theran Village). A
+	// shore only some races reach (Zephras Isle: Skyborne) is theirs alone. The tip names every
+	// shore, and for each cooking recipe the seller nearest each shore.
+	const startStep = (faction) => {
+		const byKey = new Map();
+		for (const g of RACE_GROUPS[faction]) {
+			const def = START_SPOTS[g.key];
+			const key = `${def.zone}|${def.label}`;
+			if (!byKey.has(key)) byKey.set(key, { def, races: [] });
+			byKey.get(key).races.push(...g.races);
+		}
+		const waters = [...byKey.values()].map(({ def, races }) => {
+			const c = spot(ctx, def, anchorFor(ctx, def, faction));
+			if (!c) throw new Error(`Fishing: no water found in ${zoneName(ctx, def.zone)}`);
+			return { def, pt: c.pt, only: races.every((r) => TWO_SIDED.has(r)) ? races : null };
+		});
+		const named = (list) => (list.length > 1 ? `${list.slice(0, -1).join(', ')} and ${list[list.length - 1]}` : list[0]);
+		const where = (w) => `${w.def.label} (${zoneName(ctx, w.def.zone)})`;
+		const open = waters.filter((w) => !w.only).map(where);
+		const own = waters.filter((w) => w.only).map((w) => `, and for ${w.only.join(', ')} also ${where(w)}`);
+		const P = ctx.data.professionNamed('Cooking') || {};
+		const mats = P.materials || {};
+		const recipes = [];
+		for (const [raw, item, water] of FISH_RECIPES.start) {
+			const m = mats[item];
+			const r = (P.recipes || []).find((x) => x.recipeItem === item);
+			if (!m || !r) continue;
+			const all = vendorSpawns(ctx, item, faction, (m.vendors || {})[faction]);
+			const sellers = [];
+			for (const w of waters) {
+				const v = all.filter((s) => s.pt.c === w.pt.c).sort((a, b) => dist(w.pt, a.pt) - dist(w.pt, b.pt) || a.id - b.id)[0];
+				if (v && !sellers.some((s) => s.id === v.id)) sellers.push(v);
+			}
+			if (sellers.length) recipes.push(`${itemName(ctx, item)} for the ${itemName(ctx, raw)} of ${water} (Cooking ${r.learnedAt}, ${money(m.buy)}: ${named(sellers.map((v) => `${v.name} (${zoneName(ctx, v.map)})`))})`);
+		}
+		const tip = [
+			`Fish until skill 50, ${about(catches(1, 50))} catches: below 75 every catch raises the skill, so any of your faction's starting-area shores will do and the arrow leads to the nearest: ${named(open)}${own.join('')}.`,
+			'Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients.',
+			'Fish get away at these shores below skill 25; a lure on the pole adds to your skill for ten minutes and closes the gap.',
+			...(recipes.length ? [`To cook what you catch: ${recipes.join('; ')}.`] : []),
+		].join(' ');
+		step(`Fishing (1-50)`, [
+			`only ${faction}`,
+			`tip ${tip}`,
+			...waters.map((w) => `goto ${fmt(w.pt.x)},${fmt(w.pt.y)}${liveMark(w.pt)} map ${w.def.zone} "${w.def.label}"${w.only ? ` only ${raceCondition(w.only, [faction])}` : ''}`),
+			'skill Fishing 50 nearest',
+		]);
+	};
+
 	section('Apprentice');
 	const apprentice = rankInfo(ctx, 'Fishing', 'Apprentice');
 	const bowl = ctx.data.recipe(1229745).recipe;
@@ -307,8 +361,7 @@ function render(ctx) {
 
 	section('Fishing 1-50');
 	const journeyman = rankInfo(ctx, 'Fishing', 'Journeyman');
-	for (const faction of FACTIONS)
-		spotSteps(RACE_GROUPS[faction], START_SPOTS, faction, 1, 50, `Fish here until skill 50, ${about(catches(1, 50))} catches: below 75 every catch raises the skill. Cast Fishing from your spellbook, click the bobber when it splashes. Keep the fish: they are your first Cooking ingredients.`, 'start');
+	for (const faction of FACTIONS) startStep(faction);
 	// Journeyman opens 50-125: a player past 50 who lacks it is held at its trainer under that range.
 	section('Fishing 50-125');
 	step('Journeyman Fishing', [

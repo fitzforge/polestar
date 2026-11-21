@@ -68,8 +68,8 @@ return {
 	["{item:6888} is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own {object:29784}. {item:6888} comes with {skill:185} (the client teaches it with the skill); {item:2678} are a cooking vendor's. The Strigid owls of {zone:1438} drop a {item:6889} more often than not, and {zone:1439}'s moonkin drop them too. Fishers can cook {item:6290} (recipe 40c) from Rut'theran's waters instead, and {npc:6286} in {area:186} gives Recipe of the Kaldorei (seven Small Spider Legs from the Webwood spiders) for {item:5472}, orange from 10 to 50."] = "{item:6888} é laranja desde 1 (amarelo em 45, verde em 65, cinza em 85): cerca de 50 criações até 50. Cozinhe em qualquer fogueira: a lareira de uma cidade ou a sua própria {object:29784}. {item:6888} vem com {skill:185} (o cliente ensina junto com a habilidade); {item:2678} são de vendedor de culinária. As corujas Estrígidas de {zone:1438} soltam {item:6889} na maioria das vezes, e os luniscantes de {zone:1439} também. Pescadores podem cozinhar {item:6290} (receita 40c) com as águas de Rut'theran, e {npc:6286} em {area:186} dá a Receita dos Kaldorei (sete Pernas Pequenas de Aranha das aranhas Lenhateias) por {item:5472}, laranja de 10 a 50.",
 
 	-- Step 13: Charred Wolf Meat: ingredients
-	-- {npc:250874} Vuldren Alpha
-	["Vuldren, {npc:250874} in Zephras Isle, or wherever the arrow points"] = "Vuldren, {npc:250874} na Ilha de Zefras, ou onde a seta apontar",
+	-- {npc:250873} Juvenile Vuldren
+	["{npc:250873} in Zephras Isle, or wherever the arrow points"] = "{npc:250873} na Ilha de Zefras, ou onde a seta apontar",
 
 	-- Step 14: Charred Wolf Meat (1-50)
 	-- {spell:2538} Charred Wolf Meat · {object:29784} Basic Campfire · {item:2672} Stringy Wolf Meat
@@ -376,6 +376,7 @@ return {
 	-- ["Giant Eggs drop from the Ironbeak owls of {zone:1448}."] = "Ovos Gigantescos caem das Corujas Bico-de-ferro de {zone:1448}.",
 	-- ["Journeyman {skill:185} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:185} trainer of your faction."] = "{skill:185} Profissional eleva o limite para 150; requer perícia 50 e nível de personagem 10: a seta escolhe o instrutor de {skill:185} mais próximo da sua facção.",
 	-- ["Journeyman {skill:185} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:185} trainer of your faction; training costs 5s."] = "{skill:185} Profissional eleva o limite para 150; exige perícia 50 e nível de personagem 10: a seta escolhe o instrutor de {skill:185} mais próximo da sua facção; o treinamento custa 5s.",
+	-- ["Vuldren, {npc:250874} in Zephras Isle, or wherever the arrow points"] = "Vuldren, {npc:250874} na Ilha de Zefras, ou onde a seta apontar",
 	-- ["{area:442} docks"] = "Docas de {area:442}",
 	-- ["{area:702} docks"] = "Docas de {area:702}",
 	-- ["{item:12210} is orange from 175 (yellow at 215, grey at 255): about 40 crafts to 215. Cook at any fire: {object:29784} comes with {skill:185}."] = "{item:12210} fica laranja a partir de 175 (amarelo em 215, cinza em 255): cerca de 40 criações até 215. Cozinhe em qualquer fogo: {object:29784} vem com {skill:185}.",

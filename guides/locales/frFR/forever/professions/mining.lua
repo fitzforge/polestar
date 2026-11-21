@@ -19,8 +19,8 @@ return {
 	-- {skill:186} Mining · {spell:2657} Smelt Copper
 	["Mine every Copper (1, orange), Poor Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "Minez chaque gisement de cuivre (1, orange), cuivre pauvre (1, orange) sur votre passage et faites le tour des points de passage jusqu'à {skill:186} 50. Fondez à une forge quand vos sacs sont pleins : {spell:2657} (orange jusqu'à 25, gris à 70) donne aussi des points. Zone de niveau 1-10. Comptez environ 60 gisements pour ces 49 points.",
 	["Copper"] = "Cuivre",
-	["Poor Copper"] = "Cuivre pauvre",
 	["Copper, Poor Copper"] = "Cuivre, cuivre pauvre",
+	["Poor Copper"] = "Cuivre pauvre",
 
 	-- Step 3: Copper & Poor Copper: Dun Morogh (1-50)
 	-- {zone:1426} Dun Morogh
@@ -39,6 +39,7 @@ return {
 	-- Step 6: Copper & Poor Copper: Durotar (1-50)
 	-- {zone:1411} Durotar
 	["Copper & Poor Copper: {zone:1411} (1-50)"] = "Cuivre et cuivre pauvre : {zone:1411} (1-50)",
+	["Poor Copper, Copper"] = "Cuivre pauvre, cuivre",
 
 	-- Step 7: Copper: Mulgore (1-50)
 	-- {zone:1412} Mulgore
@@ -49,7 +50,6 @@ return {
 	-- Step 8: Copper & Poor Copper: Tirisfal Glades (1-50)
 	-- {zone:1420} Tirisfal Glades
 	["Copper & Poor Copper: {zone:1420} (1-50)"] = "Cuivre et cuivre pauvre : {zone:1420} (1-50)",
-	["Poor Copper, Copper"] = "Cuivre pauvre, cuivre",
 
 	-- Step 9: Journeyman Mining
 	-- {skill:186} Mining
@@ -102,6 +102,7 @@ return {
 	["Incendicite & Tin: {zone:1437} (65-125)"] = "Incendicite et étain : {zone:1437} (65-125)",
 	-- {skill:186} Mining · {spell:2657} Smelt Copper · {spell:3304} Smelt Tin · {spell:2659} Smelt Bronze · {item:2840} Copper Bar · {item:3576} Tin Bar · {spell:2658} Smelt Silver
 	["Mine every Copper (1, green), Incendicite (65, orange), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. Zone level 20-30. Expect about 130 nodes for these 60 points. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "Minez chaque gisement de cuivre (1, vert), incendicite (65, orange), étain (65, orange), argent (dès 75, rare) sur votre passage et faites le tour des points de passage jusqu'à {skill:186} 125. Fondez à une forge quand vos sacs sont pleins : {spell:2657} (orange jusqu'à 25, gris à 70), {spell:3304} (gris à 75), {spell:2659} (gris à 115) donnent aussi des points. {spell:2659} demande une {item:2840} et une {item:3576} chacune : gardez des barres des fontes précédentes. Zone de niveau 20-30. Comptez environ 130 gisements pour ces 60 points. {spell:2658} (2 pa ; orange jusqu'à 100, gris à 125) est enseigné dès 75 : apprenez-le si vous passez près d'un maître de {skill:186}, il ne vaut pas un trajet à lui seul.",
+	["Copper, Tin"] = "Cuivre, Étain",
 	["Tin, Copper"] = "Étain, Cuivre",
 	["Incendicite, Tin"] = "Incendicite, étain",
 
@@ -111,13 +112,6 @@ return {
 	-- {skill:186} Mining · {spell:2657} Smelt Copper · {spell:3304} Smelt Tin · {spell:2659} Smelt Bronze · {item:2840} Copper Bar · {item:3576} Tin Bar · {spell:2658} Smelt Silver
 	["Mine every Copper (1, green), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. Zone level 18-30. Expect about 130 nodes for these 60 points. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "Minez chaque gisement de cuivre (1, vert), étain (65, orange), argent (dès 75, rare) sur votre passage et faites le tour des points de passage jusqu'à {skill:186} 125. Fondez à une forge quand vos sacs sont pleins : {spell:2657} (orange jusqu'à 25, gris à 70), {spell:3304} (gris à 75), {spell:2659} (gris à 115) donnent aussi des points. {spell:2659} demande une {item:2840} et une {item:3576} chacune : gardez des barres des fontes précédentes. Zone de niveau 18-30. Comptez environ 130 gisements pour ces 60 points. {spell:2658} (2 pa ; orange jusqu'à 100, gris à 125) est enseigné dès 75 : apprenez-le si vous passez près d'un maître de {skill:186}, il ne vaut pas un trajet à lui seul.",
 	["Tin"] = "Étain",
-
-	-- Step 20: Copper & Tin: The Barrens (65-125)
-	-- {zone:1413} The Barrens
-	["Copper & Tin: {zone:1413} (65-125)"] = "Cuivre et étain : {zone:1413} (65-125)",
-	-- {skill:186} Mining · {spell:2657} Smelt Copper · {spell:3304} Smelt Tin · {spell:2659} Smelt Bronze · {item:2840} Copper Bar · {item:3576} Tin Bar · {spell:2658} Smelt Silver
-	["Mine every Copper (1, green), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. Zone level 10-25. Expect about 280 nodes for these 60 points. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "Minez chaque gisement de cuivre (1, vert), étain (65, orange), argent (dès 75, rare) sur votre passage et faites le tour des points de passage jusqu'à {skill:186} 125. Fondez à une forge quand vos sacs sont pleins : {spell:2657} (orange jusqu'à 25, gris à 70), {spell:3304} (gris à 75), {spell:2659} (gris à 115) donnent aussi des points. {spell:2659} demande une {item:2840} et une {item:3576} chacune : gardez des barres des fontes précédentes. Zone de niveau 10-25. Comptez environ 280 gisements pour ces 60 points. {spell:2658} (2 pa ; orange jusqu'à 100, gris à 125) est enseigné dès 75 : apprenez-le si vous passez près d'un maître de {skill:186}, il ne vaut pas un trajet à lui seul.",
-	["Copper, Tin"] = "Cuivre, Étain",
 
 	-- Step 21: Tin: Hillsbrad Foothills (65-125)
 	-- {zone:1424} Hillsbrad Foothills
@@ -137,7 +131,7 @@ return {
 	-- {skill:186} Mining · {spell:3307} Smelt Iron
 	["Mine every Tin (65, green), Lesser Bloodstone (75, green), Silver (75, green, rare), Iron (125, orange) node you pass and circle the waypoints until {skill:186} 155. Smelt at a forge when your bags fill: {spell:3307} (orange to 130, grey at 140) gives points too. Zone level 30-40. Expect about 50 nodes for these 30 points."] = "Minez chaque gisement d'étain (65, vert), pierre de sang inférieure (75, vert), argent (75, vert, rare), fer (125, orange) sur votre passage et faites le tour des points de passage jusqu'à {skill:186} 155. Fondez à une forge quand vos sacs sont pleins : {spell:3307} (orange jusqu'à 130, gris à 140) donne aussi des points. Zone de niveau 30-40. Comptez environ 50 gisements pour ces 30 points.",
 	["Iron, Tin"] = "Fer, étain",
-	["Lesser Bloodstone"] = "Pierre de sang inférieure",
+	["Lesser Bloodstone, Iron"] = "Pierre de sang inférieure, Fer",
 
 	-- Step 24: Iron: Arathi Highlands (155-175)
 	-- {zone:1417} Arathi Highlands
@@ -150,6 +144,7 @@ return {
 	["Mithril: {zone:1418} (175-200)"] = "Mithril : {zone:1418} (175-200)",
 	-- {skill:186} Mining · {spell:3308} Smelt Gold
 	["Mine every Iron (125, green), Gold (155, orange), Mithril (175, orange) node you pass and circle the waypoints until {skill:186} 200. Smelt at a forge when your bags fill: {spell:3308} (orange to 170, grey at 185) gives points too. Zone level 35-45. Expect about 40 nodes for these 25 points."] = "Minez chaque gisement de fer (125, vert), or (155, orange), mithril (175, orange) sur votre passage et faites le tour des points de passage jusqu'à {skill:186} 200. Fondez à une forge quand vos sacs sont pleins : {spell:3308} (orange jusqu'à 170, gris à 185) donne aussi des points. Zone de niveau 35-45. Comptez environ 40 gisements pour ces 25 points.",
+	["Mithril, Iron"] = "Mithril, Fer",
 	["Iron, Mithril"] = "Fer, mithril",
 
 	-- Step 26: Artisan Mining
@@ -193,6 +188,7 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Any {skill:186} trainer of your faction teaches Apprentice {skill:186} (character level 5); the arrow picks the nearest. Buy a {item:2901} from a trade goods or general vendor: keep it in your bags, you cannot mine without it."] = "Tout maître de {skill:186} de votre faction enseigne {skill:186} niveau Apprenti (personnage niveau 5) ; la flèche indique le plus proche. Achetez {item:2901} chez un marchand de fournitures d'artisanat ou un marchand général : gardez-la dans vos sacs, impossible de miner sans elle.",
 	-- ["Artisan {skill:186} raises the cap to 300; it needs skill 200 and character level 35. The arrow picks the nearest {skill:186} trainer of your faction."] = "{skill:186} Artisan porte le plafond à 300 ; il faut 200 en compétence et le niveau 35. La flèche indique le maître de {skill:186} le plus proche de votre faction.",
+	-- ["Copper & Tin: {zone:1413} (65-125)"] = "Cuivre et étain : {zone:1413} (65-125)",
 	-- ["Copper, Silver"] = "Cuivre, Argent",
 	-- ["Copper: {zone:1411} (1-50)"] = "Cuivre : {zone:1411} (1-50)",
 	-- ["Copper: {zone:1411} (50-65) cont."] = "Cuivre : {zone:1411} (50-65) (suite)",
@@ -213,12 +209,14 @@ return {
 	-- ["Iron: {zone:1416} (125-155)"] = "Fer : {zone:1416} (125-155)",
 	-- ["Iron: {zone:1431} (125-155)"] = "Fer : {zone:1431} (125-155)",
 	-- ["Journeyman {skill:186} raises the cap to 150; it needs skill 50 and character level 10. The arrow picks the nearest {skill:186} trainer of your faction."] = "{skill:186} Compagnon porte le plafond à 150 ; il faut 50 en compétence et le niveau 10. La flèche indique le maître de {skill:186} le plus proche de votre faction.",
+	-- ["Lesser Bloodstone"] = "Pierre de sang inférieure",
 	-- ["Lesser Bloodstone, Gold"] = "Pierre de sang inférieure, or",
 	-- ["Lesser Bloodstone, Silver"] = "Pierre de sang inférieure, argent",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 10-20."] = "Minez tous les gisements sur votre passage : Cuivre (1, vert), Étain (65, orange), Argent (dès 75). Faites le tour des points de passage jusqu'à {skill:186} 125. Fondez le minerai à une forge quand vos sacs sont pleins : la fonte augmente aussi {skill:186}. Niveau de zone 10-20.",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 10-25."] = "Minez tous les gisements sur votre passage : Cuivre (1, vert), Étain (65, orange), Argent (dès 75). Faites le tour des points de passage jusqu'à {skill:186} 125. Fondez le minerai à une forge quand vos sacs sont pleins : la fonte augmente aussi {skill:186}. Niveau de zone 10-25.",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 15-25."] = "Minez tous les gisements sur votre passage : Cuivre (1, vert), Étain (65, orange), Argent (dès 75). Faites le tour des points de passage jusqu'à {skill:186} 125. Fondez le minerai à une forge quand vos sacs sont pleins : la fonte augmente aussi {skill:186}. Niveau de zone 15-25.",
 	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75) node you pass and circle the waypoints until {skill:186} 125. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 20-30."] = "Minez tous les gisements sur votre passage : Cuivre (1, vert), Étain (65, orange), Argent (dès 75). Faites le tour des points de passage jusqu'à {skill:186} 125. Fondez le minerai à une forge quand vos sacs sont pleins : la fonte augmente aussi {skill:186}. Niveau de zone 20-30.",
+	-- ["Mine every Copper (1, green), Tin (65, orange), Silver (from 75, rare) node you pass and circle the waypoints until {skill:186} 125. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70), {spell:3304} (grey at 75), {spell:2659} (grey at 115) give points too. {spell:2659} takes a {item:2840} and a {item:3576} each: keep bars from the smelts before it. Zone level 10-25. Expect about 280 nodes for these 60 points. {spell:2658} (2s; orange to 100, grey at 125) is taught from 75: learn it if you pass a {skill:186} trainer, it is not worth a trip of its own."] = "Minez chaque gisement de cuivre (1, vert), étain (65, orange), argent (dès 75, rare) sur votre passage et faites le tour des points de passage jusqu'à {skill:186} 125. Fondez à une forge quand vos sacs sont pleins : {spell:2657} (orange jusqu'à 25, gris à 70), {spell:3304} (gris à 75), {spell:2659} (gris à 115) donnent aussi des points. {spell:2659} demande une {item:2840} et une {item:3576} chacune : gardez des barres des fontes précédentes. Zone de niveau 10-25. Comptez environ 280 gisements pour ces 60 points. {spell:2658} (2 pa ; orange jusqu'à 100, gris à 125) est enseigné dès 75 : apprenez-le si vous passez près d'un maître de {skill:186}, il ne vaut pas un trajet à lui seul.",
 	-- ["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 1-10. Expect about 60 nodes for these 49 points."] = "Minez chaque gisement de cuivre (1, orange) sur votre passage et faites le tour des points de passage jusqu'à {skill:186} 50. Fondez à une forge quand vos sacs sont pleins : {spell:2657} (orange jusqu'à 25, gris à 70) donne aussi des points. Zone de niveau 1-10. Comptez environ 60 gisements pour ces 49 points.",
 	-- ["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt at a forge when your bags fill: {spell:2657} (orange to 25, grey at 70) gives points too. Zone level 10-20. Expect about 60 nodes for these 49 points."] = "Minez chaque gisement de cuivre (1, orange) sur votre passage et faites le tour des points de passage jusqu'à {skill:186} 50. Fondez à une forge quand vos sacs sont pleins : {spell:2657} (orange jusqu'à 25, gris à 70) donne aussi des points. Zone de niveau 10-20. Comptez environ 60 gisements pour ces 49 points.",
 	-- ["Mine every Copper (1, orange) node you pass and circle the waypoints until {skill:186} 50. Smelt the ore at a forge when your bags fill: smelting also raises {skill:186}. Zone level 1-10."] = "Minez tous les gisements sur votre passage : Cuivre (1, orange). Faites le tour des points de passage jusqu'à {skill:186} 50. Fondez le minerai à une forge quand vos sacs sont pleins : la fonte augmente aussi {skill:186}. Niveau de zone 1-10.",

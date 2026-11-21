@@ -154,7 +154,7 @@ fn finding_1_fill_stops_at_8192_bytes_leftover_tokens_stay_as_written() {
 }
 
 #[test]
-fn finding_1_a_names_written_value_over_128_bytes_is_refused_by_the_writer() {
+fn finding_1_a_names_value_over_128_bytes_is_refused_by_the_writer() {
 	let mut p = payload();
 	p["guide"]["names"] = json!({ "npc:1": "A".repeat(129) });
 	// importString's longText should catch this
@@ -173,15 +173,54 @@ fn finding_1_a_names_written_value_over_128_bytes_is_refused_by_the_writer() {
 		);
 		assert_eq!(out["refused"], true, "addon must refuse a names value over 128 bytes");
 		assert!(is_match(text(&out["why"]), r"longer than Polestar reads"));
+		// #2523: the message names the cap that applies, not the 4096 of other texts.
+		assert!(is_match(text(&out["why"]), r"\(guide\.names\.npc:1\): 128 characters at most"), "{}", out["why"]);
 	}
 }
 
 #[test]
-fn finding_1_a_names_written_value_at_the_cap_128_bytes_is_accepted() {
+fn finding_1_a_names_value_at_the_cap_128_bytes_is_accepted() {
 	let mut p = payload();
 	p["guide"]["names"] = json!({ "npc:1": "A".repeat(128) });
 	let out = preview_ok(&p);
 	assert_eq!(out["ok"], true, "{}", out["why"]);
+}
+
+// #2523: a `written` value is the author's own words for a whole note (a note
+// that spells a name otherwise than the game), so it holds a note's length,
+// not a game name's 128 bytes.
+#[test]
+fn a_long_note_in_written_imports_2523() {
+	let mut p = payload();
+	let key = format!("Ask {{npc:1}} about the {}", "long road ".repeat(60));
+	let words = format!("Ask Deputy Will about the {}", "long road ".repeat(60));
+	assert!(words.len() > LIMITS.names && words.len() < LIMITS.text);
+	p["guide"]["names"] = json!({ "npc:1": "Deputy Willem" });
+	p["guide"]["written"] = json!({ key.clone(): words.clone() });
+	p["guide"]["steps"][0]["note"] = json!(key);
+	let out = preview_ok(&p);
+	assert_eq!(out["ok"], true, "{}", out["why"]);
+	let out = run(
+		&format!(
+			r#"
+		save({})
+		emit({{ note = G.Get({}).steps[1].note }})
+	"#,
+			str(&encode(&p)),
+			str(ID)
+		),
+		None,
+	);
+	assert_eq!(out["note"], json!(words));
+}
+
+#[test]
+fn a_written_value_over_the_text_cap_is_refused_with_that_cap_2523() {
+	let mut p = payload();
+	p["guide"]["written"] = json!({ "{npc:1}": "A".repeat(LIMITS.text + 1) });
+	let out = preview_refused(&p);
+	assert_eq!(out["refused"], true);
+	assert!(is_match(text(&out["why"]), r"\(guide\.written\.\{npc:1\}\): 4096 characters at most"), "{}", out["why"]);
 }
 
 // ── Finding 2: goals-per-step and candidates-per-goal caps ──────────────────

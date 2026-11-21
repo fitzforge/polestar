@@ -32,6 +32,50 @@ test('the corrections are one file per section in forever-db/corrections', () =>
 	assert.ok(!fs.existsSync(path.join(__dirname, '..', 'tools', 'lib', 'data', 'corrections.json')), 'the old single file is gone');
 });
 
+// JSON keeps the last of two entries with the same id, silently: a second "92474" entry added for its objectives
+// dropped the first one's race fix (2026-11-17). Each id is one entry per file.
+test('no correction file has the same id twice', () => {
+	const dup = [];
+	for (const s of SECTIONS) {
+		const seen = new Set();
+		for (const m of fs.readFileSync(path.join(PUBLIC_DIR, `${s}.json`), 'utf8').matchAll(/^\t"([^"]+)":/gm)) {
+			if (seen.has(m[1])) dup.push(`${s}.json ${m[1]}`);
+			seen.add(m[1]);
+		}
+	}
+	assert.deepEqual(dup, []);
+});
+
+test('Gnomish Garbage counts five discards, not five Wastewander Rogue kills (#3159)', () => {
+	const [goal] = corrections.quests[97536].set.objectives;
+	assert.deepEqual([goal.type, goal.id, goal.count], ['event', null, 5]);
+	const [step] = require('../data/mechanics-public.json').quests[97536].steps;
+	assert.deepEqual([step.action, step.item, step.count], ['use-item', 278194, goal.count]);
+});
+
+test('A Reliquary of Purity opens at Rabine Saturna only after a Dire Maul visit (#3104, #3270)', () => {
+	const [step] = require('../data/mechanics-public.json').quests[5527].steps;
+	assert.deepEqual([step.action, step.target.type, step.target.id], ['accept', 'npc', 11801]);
+	assert.match(step.fact, /inside Dire Maul once/);
+});
+
+test('Goblin Lockpicks is a one-talk hand-in at Veenix, only while The Horn of Xelthos is in the log (#3161, #3213)', () => {
+	assert.equal(corrections.quests[78270].set.direct, true);
+	const [step] = require('../data/mechanics-public.json').quests[78270].steps;
+	assert.deepEqual([step.action, step.target.type, step.target.id], ['turnin', 'npc', 4086]);
+	assert.match(step.fact, /only while The Horn of Xelthos is in your quest log/);
+});
+
+test('Burbik Gearspanner sells no Fishing Pole: off its vendor list (#3037)', () => {
+	assert.deepEqual(corrections.items[6256].removeVendors, [5163]);
+});
+
+test('Damp Note requires The Essence of Aku\'Mai on the recorded Priestess drop, not on its follow-up quest (#1923)', () => {
+	assert.deepEqual(corrections.items[16790].dropRequires, { npc: { 4802: [6563] } });
+	assert.match(corrections.items[16790].source.ref, /#1923.*6820003090/);
+	assert.notEqual(corrections.quests[6564]?.set?.pre?.includes(6563), true, 'accepting the root is enough; it is not a completion prerequisite');
+});
+
 test('the overlay takes mechanics flat or under quests; mechanics 603 and 1064 stay private', () => {
 	const out = overlayCorrections({ mechanics: {} }, { mechanics: { quests: { 603: { note: 'nested' } }, 1064: { note: 'flat' } } });
 	assert.deepEqual(Object.keys(out.mechanics).sort(), ['1064', '603']);
@@ -210,6 +254,13 @@ test("Henrig Lonebrow's Journal lies where players loot it now, its old spot gon
 	assert.deepEqual(corrections.objects[19861].set.spawns, { 1441: { f: 'e', pts: [[31.29, 28.05]] } });
 });
 
+// #2466: the Ancient Egg's world point is inside both The Hinterlands' and Arathi Highlands' map frames, and it was
+// read in Arathi's (81.3,26.2), so the Sunken Temple pick-up guide's collect step led to Hammerfall. Players loot it
+// in The Hinterlands.
+test('The Ancient Egg lies in The Hinterlands, where players loot it, not on Arathi Highlands\' map (#2466)', () => {
+	assert.deepEqual(corrections.objects[175889].set.spawns, { 1425: { f: 'e', pts: [[57.48, 86.69]] } });
+});
+
 // #1992, #2007: Archmage Tervosh and Lady Jaina Proudmoore show at Sentry Point and North Point Tower only to players on
 // The Missing Diplomat; the corrections had made those spots their spawns, so the Maraudon pick-up guide sent everyone to
 // North Point Tower for Shadowshard Fragments. Their spawns are Theramore's tower; the chain's steps keep their own spots.
@@ -291,6 +342,23 @@ test('Shadumbra has her whole path through Raynewood Retreat, not one spot at it
 	}
 });
 
+// Logan (#2672) and a Korean report (#1237): Nikova Raskol walks a loop through Old Town, and the Stockade's pick-up
+// guide pointed at one corner of it (76.4,63.7) while players met her anywhere on it. #2519: quest givers and enders
+// who walk a path of 140 yd or more in Forever's world database, have one spot in the data and no walk circle, and
+// whom 3 or more people met more than 25 yd from that spot in players' recordings, get points along their path.
+test('quest givers who walk a path have points along it, not one spot (#2519, #2672, #1237)', () => {
+	const nikova = corrections.npcs[1721]?.set?.spawns?.[1453];
+	assert.equal(nikova?.f, 'l', "Nikova's points are in the live frame, as her spot");
+	const pts = nikova?.pts || [];
+	assert.ok(pts.some(([x, y]) => x > 76 && y > 63), 'the corner the guide pointed at stays one of them');
+	for (const [x, y, where] of [[73, 55, 'north end'], [76, 60, 'east side'], [71, 59, 'west side']]) {
+		assert.ok(pts.some(([px, py]) => Math.hypot(px - x, py - y) < 1.5), `her loop's ${where} (${x},${y}), where players met her`);
+	}
+	for (const [id, map, name] of [[1481, 1437, 'Bart Tidewater'], [1742, 1420, 'Deathguard Bartholomew'], [2616, 1445, 'Privateer Groy'], [3140, 1411, 'Lar Prowltusk'], [5639, 1454, 'Craven Drok']]) {
+		assert.ok((corrections.npcs[id]?.set?.spawns?.[map]?.pts || []).length >= 3, `${name}: points along the path`);
+	}
+});
+
 test('Daniel Stitchsong stands at the reported Three Corners spot in live coordinates (#1966)', () => {
 	assert.deepEqual(corrections.npcs[256734]?.addSpawns, {
 		1433: { f: 'l', pts: [[9.96, 72.71]] },
@@ -304,6 +372,24 @@ test('Heart of Disruption waits for An Alarming Request (Alliance) and Blood in 
 	const blocks = (id) => blockingPrereqs({ id, start: { npc: [269127] }, ...corrections.quests[id].set });
 	assert.deepEqual(blocks(92458), { all: [], any: [92432] }, 'Alliance: after An Alarming Request');
 	assert.deepEqual(blocks(96984), { all: [], any: [92434] }, 'Horde: after Blood in the Streets');
+});
+
+// Kaxe (#2774): Aza'bek, who sells the Soothing Spices for "Swamp Eye" Jarl, stands still at the Crossroads (one TDB
+// spawn, no path), and 56 people opened the vendor window there. The merged data had five points over about 220 yd, and the
+// Horde Dustwallow Marsh guide's `buy 3713 nearest` pointed at one of them, 64 yd from the vendor.
+test('Aza\'bek has one Crossroads spot, not five points across the hill (#2774)', () => {
+	assert.deepEqual(corrections.npcs[248198]?.set?.spawns, {
+		1413: { f: 'e', pts: [[49.74, 29.35]] },
+	});
+});
+
+// Logan (#2851): Veyric Thunderhame, who takes Call of Air (94789), stands only in Arathi Highlands (12 people opened his
+// window at 59.8,27.6, none met him in Ironforge). The merged data also gave him Eldrun Stormbreaker's Ironforge spot, so
+// While you're here offered the hand-in beside Eldrun.
+test('Veyric Thunderhame stands only in Arathi Highlands, not at Eldrun Stormbreaker\'s spot (#2851)', () => {
+	assert.deepEqual(corrections.npcs[259023]?.set?.spawns, {
+		1417: { f: 'l', pts: [[59.72, 27.59]] },
+	});
 });
 
 test('class quests the data left open are locked to their class, and Magma or Lava? is open to everyone (class-quest card)', () => {
@@ -344,6 +430,18 @@ test('Gnogaine waits for The Day After, whatever breadcrumb links the data has (
 	const dayAfter = { id: 2927, start: { npc: [6569] }, breadcrumbFor: 2926, ...corrections.quests[2927].set };
 	const { all, any } = blockingPrereqs(quest, (id) => (id === 2927 ? dayAfter : null));
 	assert.deepEqual({ all, any }, { all: [], any: [2927] });
+});
+
+// #2667 (GDcontroller, the Wildwood Chain's item guide): the guide started at Kaela Shadowspear, who did not offer On
+// Guard in Stonetalon's second part (1085) before the first (1070, Sentinel Thenysil in Astranaar) was handed in, so it
+// took two trips. The quest data names 1070 as 1085's prerequisite and as its breadcrumb, and a breadcrumb never blocks;
+// players' recordings: all 58 people who took 1085 had handed 1070 in to Kaela seconds before. The corrections clear the
+// breadcrumb links, so the prerequisite stands and the chain starts at Thenysil.
+test('On Guard in Stonetalon waits for its first part, whatever breadcrumb links the data has (#2667)', () => {
+	const quest = { id: 1085, start: { npc: [4080] }, pre: [1070], preAny: [1070], breadcrumbs: [1070], ...corrections.quests[1085].set };
+	const first = { id: 1070, start: { npc: [4079] }, breadcrumbFor: 1085, ...corrections.quests[1070].set };
+	const { all, any } = blockingPrereqs(quest, (id) => (id === 1070 ? first : null));
+	assert.deepEqual({ all, any }, { all: [], any: [1070] });
 });
 
 // The 1.0.13 quest database's trace XP against our data (2026-11-08): 45 quests differed, every one confirmed by
@@ -472,6 +570,80 @@ test('quest XP the recordings confirm is held by the corrections (0.3.8 XP revie
 	assert.deepEqual(corrections.quests[96261].set.preAny, [96259], "The Broodmother's prerequisite stays");
 });
 
+test('Hyjal tracks each seed cast separately and credits the decision at Felflick (#3170, #3121, #3194)', () => {
+	const wrecks = corrections.quests[93747].set.objectives;
+	assert.deepEqual(wrecks.map(o => [o.text, o.type, o.count]), [
+		['Ruined Ballista reclaimed', 'event', 1],
+		['Ruined Catapult reclaimed', 'event', 1],
+		['Ruined Flying Machine reclaimed', 'event', 1],
+	]);
+	assert.deepEqual(corrections.quests[96322].set.objectives, [
+		{ type: 'talk', id: 263757, count: 1, text: 'Decide What to do with Felflick' },
+	]);
+});
+
+test('A Matter of Time asks for fifteen Temporal Parasites in both the goal and its instructions (#3046)', () => {
+	const { objectives: [goal], objectiveText } = corrections.quests[4971].set;
+	assert.deepEqual([goal.type, goal.id, goal.count], ['kill', 10717, 15]);
+	assert.ok(objectiveText.includes(`${goal.count} Temporal Parasites`));
+});
+
+test("Burkrum's stock at Splintertree Post has no ammunition or ammo bags (#3189)", () => {
+	for (const item of [2102, 2512, 2515, 2516, 2519, 3030, 3033, 5439, 11285, 11362]) {
+		assert.ok(corrections.items[item]?.removeVendors.includes(6028), `item ${item} still lists Burkrum`);
+	}
+});
+
+test("Champion's Hall quartermasters sell and repair gear, but offer no inn or auction services (#2984, #3168)", () => {
+	for (const npc of [12777, 12782]) assert.deepEqual(corrections.npcs[npc].set.roles, ['repair', 'vendor']);
+});
+
+// #3112: the Crossroads stall is an auctioneer, a banker or a mailbox by the day (Auctioneer Quickcoin 258878,
+// Steamwheedle Courier 258879 and Uninspected Shipment 258880 share their two spawn points; recordings meet both
+// the auctioneer and the banker there), so the cooking guide's Auction House goal stalled on the other days.
+// Sweep of NPCs sharing every spawn point with another: this stall is the only one that takes turns.
+test('The Crossroads stall that changes by the day gives no Auction House or bank goal (#3112)', () => {
+	for (const npc of [258878, 258880]) assert.deepEqual(corrections.npcs[npc].set.roles, [], `npc ${npc}`);
+});
+
+// #3032: Nearby services' nearest vendor led to Orphan Matron Nightingale, whose vendor flag carries only the
+// Children's Week foods; 36 people's recorded windows with her had no merchant window.
+test('Orphan Matron Nightingale is no everyday vendor (#3032)', () => {
+	assert.deepEqual(corrections.npcs[14450].set.roles, []);
+});
+
+// #3241: Lookup's step for Powering the Pylons (96018) said "Elite: group advised" at the Mana Sieve's altar. The
+// Codex marks an object's objective when hostile elites stand within 40 yards of it, and an elite with no side counts
+// as hostile: the altar's Pylon Protectors (level 61) have none in the merged data, yet players' recordings show them
+// neutral to all 64 people who met them, never fought. Sweep: every elite with no side that marks a Codex objective,
+// checked against the recordings; these six more were seen only neutral or friendly and never killed.
+test('elites players only ever saw neutral are neutral to both sides, so no objective beside them reads "group advised" (#3241)', () => {
+	for (const npc of [252695, 11102, 266878, 266880, 271742, 270571, 269699]) {
+		assert.equal(corrections.npcs[npc]?.set?.faction, 'AH', `npc ${npc}: neutral to both sides`);
+	}
+});
+
+// #3028: Test of Lore's only line is to answer Braug Dimspirit's question, and a wrong answer teleports you to Camp
+// Taurajo; the Scarlet Monastery pick-up guide never said the answer. The mechanics record is the Codex's `how`, the
+// note Lookup shows on the step.
+test('Test of Lore says to answer Braug Dimspirit with Neltharion (#3028)', () => {
+	const [step] = require('../data/mechanics-public.json').quests[6627].steps;
+	assert.deepEqual([step.action, step.target], ['talk', { type: 'npc', id: 4489 }]);
+	assert.match(step.fact, /Neltharion/);
+	assert.match(step.fact, /Camp Taurajo/);
+});
+
+// #3069 (gidi, the Scarlet Monastery pick-up guide): the step for the first Test of Lore (1154) pointed at its book,
+// the Legacy of the Aspects, and never said the book lies underground, at the bottom of the Dor'Danil Barrow Den. The
+// mechanics record is the Codex's `how`, the note Lookup shows on the step.
+test("Test of Lore says its book lies at the bottom of the Dor'Danil Barrow Den (#3069)", () => {
+	const [step] = require('../data/mechanics-public.json').quests[1154].steps;
+	assert.equal(step.action, 'explore');
+	assert.match(step.fact, /Dor'Danil Barrow Den/);
+	assert.match(step.fact, /descend to the bottom/);
+	assert.match(step.fact, /Legacy of the Aspects/);
+});
+
 // #1820: Nearby services' "Bows & guns" at Grom'gol led to Innkeeper Thulbek (5814), who sells food, drink and
 // fish only (the Forever TDB's vendor list, 4 people's recorded merchant windows). pfQuest alone listed him as a
 // vendor of Hunter's Boomstick (2511) and a repairer. Sweep over every Codex `sells:ranged` and `repair` NPC
@@ -538,4 +710,99 @@ test('Blood of My Blood counts 10 of any Fallow Sanctuary Lost One', () => {
 	assert.equal(o.count, 10);
 	assert.deepEqual(o.credit, [759, 760, 761, 762]);
 	assert.ok(o.credit.includes(o.id), 'the kill names one of the credited Lost Ones');
+});
+
+// Dungeon quests whose Forever XP is about twice the Classic QuestXP the merged data has (#394), corrected from dated
+// in-game evidence. (Restored after 0.4.0: the JS data builder's case went with the builder; the corrections and the
+// release data still carry it.)
+test('corrections give dungeon quests their Forever XP over the Classic QuestXP (#394)', (t) => {
+	const xp = { 377: 4400, 959: 2650, 1486: 3100 }; // Crime and Punishment (The Stockade), Trouble at the Docks and Deviate Hides (Wailing Caverns)
+	for (const [q, want] of Object.entries(xp)) assert.equal(corrections.quests[q].set.xp, want, `${q} in the corrections`);
+	const file = path.join(__dirname, '..', 'data', 'forever', 'quests.json');
+	if (!fs.existsSync(file)) return t.skip('no data/forever');
+	const quests = JSON.parse(fs.readFileSync(file, 'utf8'));
+	for (const [q, want] of Object.entries(xp)) assert.equal(quests[q].xp, want, `${q} in the release data`);
+});
+
+// MgM's report (#462): QuestieDB's Forever store gives Deviate Hides (1486) an Orgrimmar Mailbox and Poor Old Blanchy
+// (151) a Stormwind one as a second giver, so the Wailing Caverns pick-up page sent a player from Tirisfal to the
+// Orgrimmar mailbox. Forever's quest data has only the NPC. (Restored after 0.4.0, as #394's.)
+test("MgM's report: the corrections leave Nalpak and Verna Furlbrow as the only givers, not the mailboxes (#462)", (t) => {
+	assert.deepEqual(corrections.quests[1486].set.start, { npc: [5767], object: [], item: [] });
+	assert.deepEqual(corrections.quests[151].set.start, { npc: [238], object: [], item: [] });
+	const file = path.join(__dirname, '..', 'data', 'forever', 'quests.json');
+	if (!fs.existsSync(file)) return t.skip('no data/forever');
+	const quests = JSON.parse(fs.readFileSync(file, 'utf8'));
+	assert.deepEqual([quests[1486].start, quests[151].start], [{ npc: [5767], object: [], item: [] }, { npc: [238], object: [], item: [] }]);
+});
+
+// --- Reports fixed in earlier releases that had no test of their own (regression audit after 0.4.0).
+
+// Indexmatch, Bennistrov (#1410, #1411, #1572): the Image of Archmage Modera stands only at the Kirin Tor camp on the
+// Silverpine lake shore; a second spot by Dalaran's sewer entrance in Alterac sent players there.
+test('the Image of Archmage Modera stands only at the Kirin Tor camp in Silverpine (#1410, #1572)', () => {
+	assert.deepEqual(corrections.npcs[269127].set.spawns, { 1421: { f: 'e', pts: [[68.62, 45.18]] } });
+});
+
+// Aducan (#2464): the data had Overmaster Pyron only on the whole Eastern Kingdoms map; he stands in Searing Gorge's
+// Grinding Quarry.
+test('Overmaster Pyron stands in Searing Gorge\'s Grinding Quarry (#2464)', () => {
+	const spawns = corrections.npcs[9026].set.spawns;
+	assert.deepEqual(Object.keys(spawns), ['1427']);
+	for (const [x, y] of spawns[1427].pts) assert.ok(x > 22 && x < 30 && y > 72 && y < 86, `${x},${y} in the quarry`);
+});
+
+// Merlin, Steffen (#1487, #1321): Starving Arcane and Heart of Disruption are offered only after An Alarming Request
+// (level 30) is handed in to the Image of Archmage Modera.
+test('Starving Arcane and Heart of Disruption wait for An Alarming Request (#1487, #1321)', () => {
+	for (const q of [92457, 92458]) {
+		const { all, any } = blockingPrereqs({ id: q, start: { npc: [269127] }, ...corrections.quests[q].set });
+		assert.deepEqual([...all, ...any], [92432], `${q}`);
+	}
+});
+
+// Colored McLovin (#2389): the last Unending Torment step pointed at Faranell; the serum is given at a spot in the
+// Apothecarium.
+test('Unending Torment\'s serum is given at its Apothecarium spot (#2389)', () => {
+	const [o] = corrections.quests[97292].set.objectives;
+	assert.deepEqual([o.type, o.map, o.x, o.y], ['event', 1458, 44.9, 62.9]);
+});
+
+// Facts the release data takes from the merged sources and players' recordings rather than a correction.
+// swork1 (#2256): Howin Kindfeather offers Death to the Dragonmaw only once Trying Times is handed in. Smitty (#2437):
+// Open the Maw only after Dragonmaw Rumors. rAmandaK (#2508): Trouble in the Deeps is the lead-in to The Essence of
+// Aku'Mai, so Lookup skips it once that is taken.
+test('the release data: Death to the Dragonmaw (#2256) and Open the Maw (#2437) wait for their quests, Trouble in the Deeps leads to The Essence of Aku\'Mai (#2508)', (t) => {
+	const file = path.join(__dirname, '..', 'data', 'forever', 'quests.json');
+	if (!fs.existsSync(file)) return t.skip('no data/forever');
+	const quests = JSON.parse(fs.readFileSync(file, 'utf8'));
+	const pre = (q) => { const { all, any } = blockingPrereqs(quests[q]); return [...all, ...any]; };
+	assert.ok(pre(98291).includes(98246), 'Death to the Dragonmaw after Trying Times');
+	assert.ok(pre(95682).includes(95663), 'Open the Maw after Dragonmaw Rumors');
+	assert.equal(quests[6562].breadcrumbFor, 6563);
+});
+
+// bsolca (#3102): Bloodpetal Poison's goal named the Workers, Reavers and Hive Guards for the Gorishi Sting; players'
+// recordings tick the line only on Wasps and Stingers.
+test('Gorishi Sting is not dropped by the Gorishi Workers, Reavers or Hive Guards (#3102)', () => {
+	assert.deepEqual(corrections.items[22435].removeDrops, { npc: [6552, 6553, 10040] });
+});
+
+// Soggy (#3235): The Super Snapper FX read "Kill Gammerita (elite)"; the snapshot comes from using the camera on her.
+test('Snapshot of Gammerita is no drop of Gammerita: the Super Snapper FX takes it (#3235)', () => {
+	assert.deepEqual(corrections.items[9330].removeDrops, { npc: [7977] });
+});
+
+test('In Demand - Ancient Elven Curiosities is offered from level 60, as the live server says (#3072)', () => {
+	assert.equal(corrections.quests[96076].set.minLevel, 60);
+});
+
+// The Codex's `how` (the public mechanics' facts) is what a Lookup pick-up step says beyond the objectives (#2714).
+test('pick-up steps say what the objectives leave out: the Twilight Key (#3266), Maraudon (#3243), Franclorn the ghost (#3009), the slimes\' chests (#3002)', () => {
+	const { quests } = require('../data/mechanics-public.json');
+	const how = (q) => (quests[q]?.steps ?? []).map((s) => s.fact).join(' ');
+	assert.match(how(94748), /Twilight Champions .* drop the Twilight Key/);
+	assert.match(how(93404), /inside Maraudon/);
+	assert.match(how(3801), /ghost only a dead character can see/);
+	assert.match(how(1027), /Rotting Slimes .* leave a Rusty Chest/);
 });

@@ -140,8 +140,8 @@ test('R3: a collect needs a source in the data (An Apple Treat\'s applejack)', {
 });
 
 test('R3: a loop step\'s collect finds its source near any of its spots, not only the first (Gordo\'s Report)', { skip }, () => {
-	// Gordo walks the road from Brill to the west; Patience asks for his report. The loop's first spot is
-	// 488 yards from his spawn, its last stands on it.
+	// Gordo walks the road from Brill to the west; Patience asks for his report. With players' recordings his
+	// points cover the road (about 40-56 across), so the loop finds him; a spot well off the road does not.
 	const head = 'step Executor Zygand\n  zone Tirisfal Glades\n  accept 99141\n\nstep Gordo\n  zone Tirisfal Glades\n';
 	play(head, { persona: UNDEAD });
 	// Gordo hands his report over when asked (data/rules.json H31c); a data build may not list him as its
@@ -152,11 +152,18 @@ test('R3: a loop step\'s collect finds its source near any of its spots, not onl
 	try {
 		const looped = play(head + '  loop\n  goto 53.8,53.1\n  goto 49.7,58.0\n  goto 43.1,54.7\n  collect 286202 quest 99141.3\n', { persona: UNDEAD });
 		assert.deepEqual(of(looped, 'R3').map((f) => f.reason), [], 'Gordo stands at the last spot of the loop');
-		const single = play(head + '  collect 286202 quest 99141.3 @53.8,53.1\n', { persona: UNDEAD });
-		assert.match(of(single, 'R3')[0].reason, /Gordo's Report at Tirisfal Glades 53.8,53.1: nothing there drops it/, 'one place far from him is still a finding');
+		const single = play(head + '  collect 286202 quest 99141.3 @30.0,70.0\n', { persona: UNDEAD });
+		assert.match(of(single, 'R3')[0].reason, /Gordo's Report at Tirisfal Glades 30,70: nothing there drops it/, 'one place far from him is still a finding');
 	} finally {
 		if (had === undefined) delete drops.npc[10666];
 	}
+});
+
+test('R3: an item put in the bank has left the bags (a `use` after its `deposit`)', { skip }, () => {
+	const bad = play('step Bank\n  buy 4540 nearest\n  deposit 4540\n  use 4540\n', { persona: HUMAN });
+	assert.match(of(bad, 'R3')[0].reason, /use Tough Hunk of Bread: it is not in the bags/);
+	assert.deepEqual(of(play('step Bank\n  buy 4540 x5 nearest\n  deposit 4540 x4\n  use 4540\n', { persona: HUMAN }), 'R3'), [], 'a counted deposit leaves the rest');
+	assert.deepEqual(of(play('step Bank\n  buy 4540 nearest\n  equip 4540\n  use 4540\n', { persona: HUMAN }), 'R3'), [], 'an item worn is still the player\'s');
 });
 
 test('R3: a quest item drops only while its quest is held', { skip }, () => {

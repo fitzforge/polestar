@@ -43,7 +43,7 @@ return {
 	-- Step 6: Grunt Logmar
 	-- {npc:5911} Grunt Logmar · {npc:268623} Outraged Pillager
 	-- plural, as words: Encroaching Soldiers = {npc:268622} Encroaching Soldier
-	["{npc:5911} stands by the flight master. His {npc:268623} (23) is elite: grouping up is advised; the two Encroaching Soldiers are not."] = "{npc:5911} se tient près du maître de vol. Son {npc:268623} (23) est un élite : il est conseillé de se grouper ; les deux Encroaching Soldiers n'en sont pas.",
+	["{npc:5911} stands by the flight master. His {npc:268623} (23) is elite: grouping up is advised; the two Encroaching Soldiers are not."] = "{npc:5911} se tient près du maître de vol. Son {npc:268623} (23) est un élite : il est conseillé de se grouper ; les deux Soldats envahissants n'en sont pas.",
 	-- {npc:5911} Grunt Logmar · {npc:3341} Gann Stonespire
 	["{npc:5911}: the soldiers and the pillager camp just east of {npc:3341}, on the way south"] = "{npc:5911} : les soldats et le camp du pillard juste à l'est de {npc:3341}, sur le chemin du sud",
 
@@ -71,7 +71,7 @@ return {
 	-- Step 11: Wrongly Blamed, Justly Corrected
 	-- {npc:14242} Sulhasa · {npc:268623} Outraged Pillager
 	-- plural, as words: Encroaching Soldiers = {npc:268622} Encroaching Soldier
-	["A few steps east of {npc:14242}'s tree, a small camp: two Encroaching Soldiers and the {npc:268623} for Logmar. The {npc:268623} is elite: grouping up is advised."] = "À quelques pas à l'est de l'arbre de {npc:14242}, un petit camp : deux Encroaching Soldiers et le {npc:268623} pour Logmar. Le {npc:268623} est un élite : il est conseillé de se grouper.",
+	["A few steps east of {npc:14242}'s tree, a small camp: two Encroaching Soldiers and the {npc:268623} for Logmar. The {npc:268623} is elite: grouping up is advised."] = "À quelques pas à l'est de l'arbre de {npc:14242}, un petit camp : deux Soldats envahissants et le {npc:268623} pour Logmar. Le {npc:268623} est un élite : il est conseillé de se grouper.",
 
 	-- Step 12: Bael Modan
 	-- {area:359} Bael Modan · {npc:3392} Prospector Khazgorm
@@ -87,7 +87,7 @@ return {
 	-- Step 14: Field to Clear
 	-- {npc:3341} Gann Stonespire · {npc:3238} Stormhide
 	-- plural, as words: Hecklefang Stalkers = {npc:4128} Hecklefang Stalker · Qiraji Lieutenants = {npc:15806} Qiraji Lieutenant
-	["On the way back east to {npc:3341}: Hecklefang Stalkers and {npc:3238} lizards roam the plain between the ridge and his camp. Careful: Qiraji Lieutenants (28, elite) sometimes stand on that plain: give them a wide berth."] = "En revenant vers l'est jusqu'à {npc:3341} : des Hecklefang Stalkers et des lézards {npc:3238} parcourent la plaine entre la crête et son camp. Attention : des Lieutenants qiraji (28, élites) se tiennent parfois dans cette plaine : passez loin d'eux.",
+	["On the way back east to {npc:3341}: Hecklefang Stalkers and {npc:3238} lizards roam the plain between the ridge and his camp. Careful: Qiraji Lieutenants (28, elite) sometimes stand on that plain: give them a wide berth."] = "En revenant vers l'est jusqu'à {npc:3341} : des Traqueuses Jappecroc et des lézards {npc:3238} parcourent la plaine entre la crête et son camp. Attention : des Lieutenants qiraji (28, élites) se tiennent parfois dans cette plaine : passez loin d'eux.",
 	-- {npc:4128} Hecklefang Stalker · {area:1156} Southern Barrens
 	["{npc:4128} walks around {area:1156}: look inside the circle on the map"] = "{npc:4128} se promène autour de {area:1156} : cherchez dans le cercle sur la carte",
 

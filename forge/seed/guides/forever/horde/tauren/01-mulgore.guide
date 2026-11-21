@@ -182,6 +182,7 @@ step Bloodhoof Village
   accept 748                          -- Mull Thunderhorn
   tip Krang Stonehoof's quest: beat three Novice Warriors (or players in duels) next to him.
   accept 99108
+  kill 10721 x3 quest 99108.1
   turnin 99108
   accept 761                          -- Harken Windtotem
   accept 745                          -- Baine Bloodhoof
@@ -194,7 +195,7 @@ step Bloodhoof Village
 
 step Bloodhoof Village
   train Cooking npc 3067              -- Pyall Silentstride: Camping 101 asks you to learn it
-  complete 96661 @44.92,61.67 map 1412 live
+  complete 96661 @44.89,61.65 map 1412 live
   turnin 96661                        -- Pyall Silentstride
   accept 746
 
@@ -261,6 +262,7 @@ step Bloodhoof Village
 step Mulgore: kill these as you meet them
   zone Mulgore
   tip Chakuyak, a lone wolf, prowls the plains west of the village. Prairie Stalkers and Flatland Cougars roam the plains north and west of it.
+  tip Careful: Ghost Howl (12, a rare white wolf) roams the plains too: leave it be.
   collect 4801 quest 756.1            -- Stalker Claws
   collect 4802 quest 756.2            -- Cougar Claws
   collect 4805 quest 766.2            -- Flatland Cougar Femur
@@ -285,19 +287,46 @@ step Bloodhoof Village
   turnin 758                          -- Mull Thunderhorn
   accept 759
 
-step Galak Camp: kill these as you meet them
-  zone Mulgore
-  tip Prairie Wolf Alphas roam among the wolves on the plains around Malah and the Galak camp to the east.
-  collect 4803 quest 759.1            -- Prairie Alpha Tooth
-
+# One loop east from Bloodhoof does the whole east side: the caravan, Morin's Venture Co. workers outside
+# the mine, the Galak centaurs and the alpha teeth, back by Morin (model level about 10; Galak 8-9, Herak
+# the Pillager 11, Workers 8, Supervisors 9). Supervisor Fizsprocket (12) and his notes, deep in the mine,
+# are left out: they were the only reason for a third trip east at 11 (0.4.2 route round).
 step The Ravaged Caravan
-  tip The wrecked caravan lies north-west of the centaurs, east of the road to Thunder Bluff.
+  tip The wrecked caravan lies north-east of the village, east of the road to Thunder Bluff.
   turnin 749
   accept 751
 
-step Mull Thunderhorn
-  turnin 759
+step Morin Cloudstalker
+  zone Mulgore
+  tip South to the Winterhoof Water Well, south-east of the village.
+  turnin 751                          -- Morin Cloudstalker walks around here: look inside the circle on the map
+  accept 764
+
+step Venture Co. Workers
+  zone Mulgore
+  tip The goblins work the hills north-east of the well, around the mine's mouth: the Workers and Supervisors outside are all The Venture Co. needs. Prairie Wolf Alphas roam among the wolves on the plains on the way.
+  tip Careful: stay out of the mine itself, where the goblins stand close together and Supervisor Fizsprocket is level 12.
+  kill 2978 quest 764.1               -- Venture Co. Worker
+  kill 2979 quest 764.2               -- Venture Co. Supervisor
+  collect 4803 quest 759.1            -- Prairie Alpha Tooth
+
+step Galak centaurs
+  tip South-east to the Galak camp on the plains east of the well; Herak leads them.
+  tip Careful: Herak the Pillager is level 11: clear the centaurs around him first and fight him alone.
+  kill 2967 quest 99080.1             -- Galak Centaur
+  kill 2968 quest 99080.2             -- Galak Outrunner
+  collect 286075 quest 99080.3        -- Herak's Head
+
+step Morin Cloudstalker
+  zone Mulgore
+  tip Back west to the Winterhoof Water Well.
+  turnin 764                          -- Morin Cloudstalker walks around here: look inside the circle on the map
+
+step Bloodhoof Village
+  turnin 759                          -- Mull Thunderhorn
   accept 760
+  turnin 99080                        -- Baine Bloodhoof
+  accept 99082                        -- Baine Bloodhoof, for Cairne in Thunder Bluff
 
 # ---------------------------------------------------------------- Northern Mulgore
 
@@ -349,51 +378,6 @@ step Yaw Sharpmane
   kill 2970 quest 6088.1 "Tame Swoop" -- Tame it with the Taming Rod
   turnin 6088                         -- Tame Beast
   accept 6089
-
-# The Galak centaurs (8-10, Herak 11) and the Venture Co. Mine (8-10, Fizsprocket 12) come after
-# northern Mulgore and the Bloodhoof hand-ins, at about 11 instead of 9 (level tidy 0.4.0).
-step Morin Cloudstalker
-  zone Mulgore
-  tip South-east to the Winterhoof Water Well.
-  turnin 751                          -- Morin Cloudstalker walks around here: look inside the circle on the map
-  accept 764
-  accept 765
-
-step Galak centaurs
-  tip The Galak centaurs camp on the plains east of the well; Herak leads them.
-  kill 2967 quest 99080.1             -- Galak Centaur
-  kill 2968 quest 99080.2             -- Galak Outrunner
-  collect 286075 quest 99080.3        -- Herak's Head
-
-# ---------------------------------------------------------------- The Venture Co. Mine
-
-step Level 11
-  when level<11
-  tip Top up here to level 11 before the mine: Supervisor Fizsprocket is 12. The Venture Co. Workers (8-9) in the hills outside it count for The Venture Co. too.
-  goto 59.2,47.8 map 1412 "Venture Co. Worker"
-  level 11 grind 2978               -- grind on Venture Co. Worker
-
-step The Venture Co. Mine
-  tip The goblins work the mine in the hills north-east of the well. Supervisor Fizsprocket stands in the back of the mine; his Mulgore Expansion Plans start Fizsprocket's Notes, and the other pages lie inside the mine.
-  tip Careful: the goblins stand close together in the tunnels and Supervisor Fizsprocket is level 12: clear the way one pull at a time.
-  goto 64.9,43.3 "The Venture Co. Mine"
-  kill 2978 quest 764.1
-  kill 2979 quest 764.2
-  collect 4819 quest 765.1
-  collect 281031 optional             -- Below ground
-  accept 98424 optional
-  complete 98424
-
-step Morin Cloudstalker
-  zone Mulgore
-  tip Back south to the Winterhoof Water Well.
-  turnin 764                          -- Morin Cloudstalker walks around here: look inside the circle on the map
-  turnin 765
-  turnin 98424 optional
-
-step Bloodhoof Village
-  turnin 99080                        -- Baine Bloodhoof
-  accept 99082                        -- Baine Bloodhoof, for Cairne in Thunder Bluff
 
 step Red Rocks
   tip Head north to Red Rocks, east of Thunder Bluff. Lorekeeper Raintotem stands at the foot of the rocks; the Bristleback Interlopers dig at the burial ground and the Ancestral Spirit waits on top.
@@ -668,13 +652,34 @@ step Thunder lizards on the way north
   tip Careful: Halikor, a level 12 elite, roams Thunder Ridge among the lizards: watch for him before you pull.
   collect 6486 quest 1498.1
 
-step Dustwind Gulch cultists
-  only Shaman
+# Rezlak camps beside the road north to Orgrimmar that this walk follows anyway: his three quests
+# (Winds in the Desert 834, Securing the Lines 835, A Simmering Storm 97281; mobs 9-10 at about 12.5)
+# are one stop and a short loop into Drygulch Ravine, where the Shamans' Burning Blade cultists are too.
+step Rezlak
   zone Durotar
-  tip Burning Blade Cultists hold Dustwind Gulch, east of the road north to Orgrimmar; they drop the Reagent Pouch. The Fire Tar comes from the Razormane on the next guide's first visit to their camp.
-  collect 6652 quest 1525.2
+  tip Rezlak camps beside the road north to Orgrimmar, below Drygulch Ravine. The stolen sacks lie along the road just east of him.
+  accept 834                          -- Rezlak
+  collect 4918 quest 834.1 @49.1,22.6 map 1411
+  turnin 834                          -- Rezlak
+  accept 835
+
+step Drygulch Ravine
+  zone Durotar
+  tip Savages and Storm Witches nest in Drygulch Ravine, east of Rezlak. A Storm Witch drops the Dull Storm Orb, which starts A Simmering Storm.
+  tip Shamans: the Burning Blade Cultists by Dustwind Cave, at the ravine's south end, drop the Reagent Pouch. The Fire Tar comes from the Razormane on the next guide's first visit to their camp.
+  kill 3117 quest 835.1
+  kill 3118 quest 835.2
+  collect 277661 "Dull Storm Orb" optional
+  accept 97281 optional
+  collect 6652 quest 1525.2 only Shaman
+
+step Rezlak
+  zone Durotar
+  tip Back to Rezlak by the road.
+  turnin 835                          -- Rezlak
+  turnin 97281 optional               -- Rezlak
 
 step To Orgrimmar
   zone Orgrimmar
-  tip From the Crossroads follow the road north-east to Far Watch Post, cross the Southfury River into Durotar and keep north to Orgrimmar's main gate. The next guide starts in Orgrimmar and takes the zeppelin to Tirisfal Glades and Silverpine Forest.
+  tip From Rezlak's camp, go on to Orgrimmar's main gate, a few hundred yards away. The next guide starts in Orgrimmar and takes the zeppelin to Tirisfal Glades and Silverpine Forest.
   goto 55.6,72.3 "Orgrimmar's main gate"

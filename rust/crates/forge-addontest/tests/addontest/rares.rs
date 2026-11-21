@@ -128,6 +128,152 @@ emit({
 	assert_eq!(out["keys"], json!(["rare:61", "treasure:2843", "name:Some Name"]));
 }
 
+#[test]
+fn decide_a_rare_on_the_player_s_side_and_the_faction_leaders_never_alert_2929_2942() {
+	let out = run(r#"
+local function d(s, extra)
+	local c = R.Context()
+	for k, v in pairs(extra or {}) do c[k] = v end
+	local a, r = R.Decide(s, c)
+	return { a, r or false }
+end
+local rare = { source = "nameplate", kind = "rare", id = 99, name = "Morgaine the Sly", classification = "rare" }
+local function with(t) local s = {} for k, v in pairs(rare) do s[k] = v end for k, v in pairs(t) do s[k] = v end return s end
+local vignette = { source = "vignette", kind = "rare", id = 99, name = "Morgaine the Sly" }
+emit({
+	hostile = d(with({ attackable = true })),
+	unread = d(rare),
+	friendly = d(with({ attackable = false })),
+	friendlyDead = d(with({ attackable = false, dead = true })),
+	vignetteFriendly = d(vignette, { friendly = function(id) return id == 99 end }),
+	vignetteHostile = d(vignette, { friendly = function() return false end }),
+	leader = d({ source = "nameplate", kind = "rare", id = 4949, name = "Thrall", classification = "rare", attackable = true }),
+	leaderVignette = d({ source = "vignette", kind = "rare", id = 2784, name = "King Magni Bronzebeard" }),
+})"#);
+	let out = &out[0];
+	assert_eq!(out["hostile"], json!(["alert", false]));
+	assert_eq!(out["unread"], json!(["alert", false]), "a unit whose side the client can't tell is left to the other checks");
+	assert_eq!(out["friendly"], json!(["skip", "friendly"]), "a rare the player can't attack is on their side");
+	assert_eq!(out["friendlyDead"], json!(["record", "dead"]), "a death is still recorded");
+	assert_eq!(out["vignetteFriendly"], json!(["skip", "friendly"]), "a vignette whose NPC the Codex puts on the player's side");
+	assert_eq!(out["vignetteHostile"], json!(["alert", false]));
+	assert_eq!(out["leader"], json!(["skip", "notRare"]), "a faction leader is never a rare");
+	assert_eq!(out["leaderVignette"], json!(["skip", "notRare"]));
+}
+
+/// The sample Codex plus what the 0.4.1 Codex had in its rare group: Thrall and King Magni (world bosses, each on
+/// his faction's side, listed as rares from players' sightings) and Serra Mountainhome (classed rare elite, on the
+/// Alliance's side; her spawn here is a stand-in on the test map).
+fn sides_codex() -> Value {
+	let mut codex = sample_codex();
+	let npcs = codex["npcs"].as_object_mut().unwrap();
+	let leader = |id: u32, name: &str, faction: &str, map: u32, x: f64, y: f64| {
+		json!({ "id": id, "name": name, "level": 63, "levelMax": null, "faction": faction, "rare": true, "elite": true, "boss": true,
+			"instance": null, "roles": ["rare"], "loot": [], "spawns": [{ "map": map, "x": x, "y": y, "f": "e" }] })
+	};
+	npcs.insert("4949".into(), leader(4949, "Thrall", "H", 1454, 31.9, 37.8));
+	npcs.insert("2784".into(), leader(2784, "King Magni Bronzebeard", "A", 1455, 39.2, 56.3));
+	npcs.insert(
+		"5789".into(),
+		json!({ "id": 5789, "name": "Serra Mountainhome", "level": 10, "levelMax": null, "faction": "A", "rare": true, "elite": true,
+			"boss": false, "instance": null, "roles": ["rare"], "loot": [], "spawns": [{ "map": 1429, "x": 40.0, "y": 60.0, "f": "e" }] }),
+	);
+	codex
+}
+
+fn run_sides(script: &str, at: [i32; 3], faction: &str) -> Vec<Value> {
+	let codex = sides_codex();
+	let pack = write_codex_pack(&codex, &CodexOpts { ..Default::default() });
+	emitted(&RunAddon {
+		stubs: vec!["stub_world.lua", "stub_rares.lua"],
+		before: format!(
+			"{}\nlocal w = stub.world\n{}\nw.moveTo({}, {}, {})\nw.setLevel(10)\nw.faction = {}\n",
+			pack.stub_lua,
+			maps(&codex),
+			at[0],
+			at[1],
+			at[2],
+			serde_json::to_string(faction).unwrap()
+		),
+		addons: vec![Addon::files("Polestar", &FILES)],
+		saved: vec![],
+		login: true,
+		script: format!("{PRELUDE}{script}"),
+	})
+}
+
+#[test]
+fn a_friendly_rare_never_alerts_on_any_path_and_a_hostile_rare_still_does_2929_2942() {
+	let out = run_sides(
+		r#"
+local U = stub.rares
+Polestar.Codex.Load()
+local serra = { npc = 5789, name = "Serra Mountainhome", level = 10, class = "rareelite", friendly = true }
+local function as(t) local u = {} for k, v in pairs(serra) do u[k] = v end for k, v in pairs(t or {}) do u[k] = v end return u end
+U.unit("nameplate1", as())
+stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate1")
+U.unit("target", as())
+stub.fire("PLAYER_TARGET_CHANGED")
+U.unit("mouseover", as())
+stub.fire("UPDATE_MOUSEOVER_UNIT")
+U.vignette("V1", { npc = 5789, name = "Serra Mountainhome", map = 1429, x = 90, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V1", true)
+local n = 0
+for _ in pairs(R.History()) do n = n + 1 end
+emit({ alerts = #got, history = n, nearby = #R.Nearby() })
+-- A hostile rare still alerts.
+U.unit("nameplate2", { npc = 61, name = "Thuros Lightfingers", level = 11, class = "rare" })
+stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate2")
+-- Serra is the Horde's to fight: her vignette alerts a Horde player.
+stub.world.faction = "Horde"
+U.vignetteGone("V1")
+U.vignette("V2", { npc = 5789, name = "Serra Mountainhome", map = 1429, x = 90, y = 78 })
+stub.fire("VIGNETTE_MINIMAP_UPDATED", "V2", true)
+emit({ alerts = #got, names = names() })"#,
+		[1429, 88, 78],
+		"Alliance",
+	);
+	assert_eq!(out[0], json!({ "alerts": 0, "history": 0, "nearby": 0 }), "an Alliance player is never alerted to an Alliance rare");
+	assert_eq!(out[1], json!({ "alerts": 2, "names": ["Thuros Lightfingers", "Serra Mountainhome"] }));
+}
+
+#[test]
+fn thrall_in_orgrimmar_and_king_magni_on_hover_are_no_rares_for_either_faction_2929_2942() {
+	let out = run_sides(
+		r#"
+local U = stub.rares
+Polestar.Codex.Load()
+local thrall = { npc = 4949, name = "Thrall", level = 63, class = "worldboss", friendly = true }
+U.unit("target", thrall)
+stub.fire("PLAYER_TARGET_CHANGED")
+U.unit("mouseover", thrall)
+stub.fire("UPDATE_MOUSEOVER_UNIT")
+U.unit("nameplate1", thrall)
+stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate1")
+emit({ alerts = #got })
+-- An Alliance player can attack him: still no rare.
+stub.world.faction = "Alliance"
+stub.advance(4)
+U.unit("target", { npc = 4949, name = "Thrall", level = 63, class = "worldboss" })
+stub.fire("PLAYER_TARGET_CHANGED")
+-- King Magni on hover, on the Alliance's side (#2942).
+U.unit("mouseover", { npc = 2784, name = "King Magni Bronzebeard", level = 63, class = "worldboss", friendly = true })
+stub.fire("UPDATE_MOUSEOVER_UNIT")
+local n = 0
+for _ in pairs(R.History()) do n = n + 1 end
+emit({ alerts = #got, history = n, known = R.Known("rare", 4949), info = R.Info("rare", 4949) or false, magni = R.Info("rare", 2784) or false })
+-- A hostile rare in the same city still alerts.
+U.unit("nameplate2", { npc = 61, name = "Thuros Lightfingers", level = 11, class = "rare" })
+stub.fire("NAME_PLATE_UNIT_ADDED", "nameplate2")
+emit({ alerts = #got, names = names() })"#,
+		[1454, 40, 60],
+		"Horde",
+	);
+	assert_eq!(out[0], json!({ "alerts": 0 }), "Thrall on target, mouseover and nameplate: no alert for a Horde player");
+	assert_eq!(out[1], json!({ "alerts": 0, "history": 0, "known": false, "info": false, "magni": false }));
+	assert_eq!(out[2], json!({ "alerts": 1, "names": ["Thuros Lightfingers"] }));
+}
+
 // ---------------------------------------------------- detection and cooldown
 
 #[test]
@@ -1435,4 +1581,38 @@ emit({ first = first, follows = follows, saved = saved, want = { "TOP", wx, wy }
 	assert_eq!(out[0]["first"], true, "from the first pixel");
 	assert_eq!(out[0]["follows"], true, "by exactly the pointer's travel, at the card's scale");
 	assert_eq!(out[0]["saved"], out[0]["want"], "saved on its own point, in whole units");
+}
+
+// #2776 (Liquidor): a search in the Rares section left the sidebar's counts at every rare and treasure, where the
+// Guides and Lookup sidebars count the matches. While searching, each tab counts what it would list.
+#[test]
+fn while_searching_rares_sidebar_counts_the_matches_of_each_tab() {
+	let pack = pack();
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua", "stub_rares.lua"],
+		before: pack.stub_lua.clone(),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml", "Lookup/Lookup.xml", "UI/UI.xml", "Rares/Rares.xml"])],
+		login: true,
+		script: r#"Polestar.Codex.Load()
+local RV = Polestar.UI.RaresSection
+local function counts()
+	local out = {}
+	for _, it in ipairs((RV.Nav())) do out[it.key] = it.count end
+	return out
+end
+local all = counts()
+RV.Search("thuros")
+local found = counts()
+RV.Search("chest")
+local chest = counts()
+RV.Search("")
+emit({ all = all, found = found, chest = chest, again = counts() })"#
+			.into(),
+		..Default::default()
+	});
+	let out = &out[0];
+	assert_eq!(out["all"], json!({ "rare": 1, "treasure": 1, "seen": 0 }), "the sample pack: Thuros Lightfingers and a Battered Chest");
+	assert_eq!(out["found"], json!({ "rare": 1, "treasure": 0, "seen": 0 }));
+	assert_eq!(out["chest"], json!({ "rare": 0, "treasure": 1, "seen": 0 }));
+	assert_eq!(out["again"], out["all"]);
 }

@@ -13,15 +13,15 @@ return {
 	-- {skill:762} Riding
 	["Journeyman {skill:762}"] = "中級{skill:762}",
 	-- {npc:4753} Jartsam · {npc:4730} Lelanai · {area:1658} Cenarion Enclave · {faction:69} Darnassus · {skill:762} Riding
-	["{npc:4753} and {npc:4730}'s sabers are in the {area:1658}'s riding grounds in {faction:69}. At 60 {npc:4753} teaches Journeyman {skill:762} to Night Elves for 1,000g (10% less at Honored with {faction:69}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift saber costs 200g here."] = "",
+	["{npc:4753} and {npc:4730}'s sabers are in the {area:1658}'s riding grounds in {faction:69}. At 60 {npc:4753} teaches Journeyman {skill:762} to Night Elves for 1,000g (10% less at Honored with {faction:69}); Blizzard says it comes with a mount. Other races train it at their own race's riding trainer. Each swift saber costs 200g here."] = "{npc:4753}和{npc:4730}的夜刃豹在{faction:69}的{area:1658}騎術訓練場。60級時{npc:4753}以1,000金教夜精靈中級{skill:762}（{faction:69}尊敬時便宜10%）；暴雪稱會附贈坐騎。其他種族在本族騎術訓練師處學習。此處每隻迅捷夜刃豹200金。",
 	-- {npc:4753} Jartsam
 	["{npc:4753}, riding trainer"] = "騎術訓練師{npc:4753}",
 
 	-- Step 2: Tiger Riding for other races
 	-- {spell:828} Tiger Riding
-	["{spell:828} for other races"] = "",
+	["{spell:828} for other races"] = "其他種族的{spell:828}",
 	-- {spell:828} Tiger Riding · {skill:762} Riding · {npc:4753} Jartsam · {faction:69} Darnassus
-	["Any Alliance race can buy these sabers, but riding one also takes {spell:828}, which only Night Elves get with {skill:762}. {npc:4753} teaches it to other races once they are Exalted with {faction:69} (the Darnassus Reputation guide shows the way). Until then, don't buy a saber for this character."] = "",
+	["Any Alliance race can buy these sabers, but riding one also takes {spell:828}, which only Night Elves get with {skill:762}. {npc:4753} teaches it to other races once they are Exalted with {faction:69} (the Darnassus Reputation guide shows the way). Until then, don't buy a saber for this character."] = "任何聯盟種族都能買這些夜刃豹，但騎乘還需{spell:828}，只有夜精靈隨{skill:762}獲得。其他種族在{faction:69}達到崇拜後，{npc:4753}會教它（達納蘇斯聲望指南有路線）。在此之前，別為這個角色買夜刃豹。",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "挑選顏色",

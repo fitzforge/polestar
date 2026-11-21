@@ -180,9 +180,9 @@ fn within(r: &Value, keys: &[&str]) {
 	let resolution = num(&r["resolution"]);
 	for k in keys {
 		let (ms, units) = budget(k);
-		assert!(num(&r[format!("{k}Ref")]) < units + resolution / num(&r["reference"]), "{k} over budget in reference units: {report}");
+		forge_addontest::assert_timing!(num(&r[format!("{k}Ref")]) < units + resolution / num(&r["reference"]), "{k} over budget in reference units: {report}");
 		if CPU_CLOCK {
-			assert!(num(&r[*k]) < ms + resolution, "{k} over budget in ms: {report}");
+			forge_addontest::assert_timing!(num(&r[*k]) < ms + resolution, "{k} over budget in ms: {report}");
 		}
 	}
 	println!("{report}");

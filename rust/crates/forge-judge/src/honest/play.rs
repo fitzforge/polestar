@@ -32,6 +32,11 @@ pub fn direct_turnins(chain: &[&V], p: &Persona) -> FxHashSet<Id> {
 	out
 }
 
+/// Guide headers use a singular faction; their race/class lists match `only`.
+pub(super) fn guide_fits(guide: &V, p: &Persona) -> bool {
+	fits(guide, p) && guide.get("faction").as_str().filter(|f| !f.is_empty()).is_none_or(|f| f.eq_ignore_ascii_case(&p.faction))
+}
+
 fn nn(a: V, b: impl FnOnce() -> V) -> V {
 	if a.is_nullish() {
 		b()
@@ -108,8 +113,8 @@ pub fn when_holds(w: &World, when: &V) -> bool {
 			}
 			"group" => w.opts.groups == Groups::Do,
 			"bound" => {
-				let loc = p.get("location");
-				!loc.truthy() || w.bound.is_nullish() || w.bound.to_js_string().to_lowercase() == loc.to_js_string().to_lowercase()
+				let name = p.get("name");
+				!name.truthy() || w.bound.is_nullish() || w.bound.to_js_string().to_lowercase() == name.to_js_string().to_lowercase()
 			}
 			// A flight path learnt on the way (a getfp), by its node, else its name.
 			"taxi" => {
@@ -618,7 +623,9 @@ pub fn play_goal(w: &mut World, x: &V, t: &str, gi: usize, h: &Here, explicit_np
 			if has(&o) {
 				if let Some(items) = w.ctx.object_items.get(&id_of(&o)) {
 					for i in items.clone() {
-						w.give_id(i, 1.0);
+						if w.drop_allowed(i, "object", id_of(&o)) {
+							w.give_id(i, 1.0);
+						}
 					}
 				}
 				// (A portal the goal works, the Skyborne Portal to Stormwind in Alterac, takes the player
@@ -915,7 +922,7 @@ fn kill(w: &mut World, x: &V) {
 			let it = ctx.item(oid);
 			let drops = it.get("drops").get("npc");
 			let need = count_or_1(&o);
-			if it.truthy() && drops.truthy() && has(&npc) && drops.has(&nkey) && !w.has(oid, need) {
+			if it.truthy() && drops.truthy() && has(&npc) && drops.has(&nkey) && w.drop_allowed(oid, "npc", nid) && !w.has(oid, need) {
 				let give = need - w.bag(oid);
 				w.give_id(oid, give);
 			}
@@ -924,7 +931,7 @@ fn kill(w: &mut World, x: &V) {
 	if has(&npc) {
 		if let Some(list) = ctx.starters.get(&nid) {
 			for &(q, i) in list {
-				if !w.has(i, 1.0) && !w.done.contains(&q) {
+				if w.drop_allowed(i, "npc", nid) && !w.has(i, 1.0) && !w.done.contains(&q) {
 					w.give_id(i, 1.0);
 				}
 			}
@@ -951,8 +958,10 @@ fn collect(w: &mut World, x: &V, gi: usize, h: &Here, p: Option<&Pos>) {
 		};
 		let mut sourced = true;
 		let drops = it.get("drops");
-		let npcs: Vec<Id> = drops.get("npc").keys().iter().map(|k| forge_guide::js::str_to_num(k) as Id).collect();
-		let objs: Vec<Id> = drops.get("object").keys().iter().map(|k| forge_guide::js::str_to_num(k) as Id).collect();
+		let drop_npcs = drops.get("npc").keys();
+		let drop_objs = drops.get("object").keys();
+		let npcs: Vec<Id> = drop_npcs.iter().map(|k| forge_guide::js::str_to_num(k) as Id).filter(|id| w.drop_allowed(iid, "npc", *id)).collect();
+		let objs: Vec<Id> = drop_objs.iter().map(|k| forge_guide::js::str_to_num(k) as Id).filter(|id| w.drop_allowed(iid, "object", *id)).collect();
 		let vendors = it.get("vendors");
 		let has_vendors = vendors.truthy() && !vendors.is_empty();
 		// (An objective item of a quest the chain hands in `direct`: the quest never enters the log, so the
@@ -961,15 +970,18 @@ fn collect(w: &mut World, x: &V, gi: usize, h: &Here, p: Option<&Pos>) {
 		if npcs.is_empty() && objs.is_empty() && !has_vendors {
 			if !for_direct {
 				sourced = false;
-				find(
-					w,
-					h,
-					gi,
-					"R3",
-					sev,
-					format!("collect {name}: the data has no mob, object or vendor for it and no earlier line gives it"),
-					"write the line that makes it (`buy` what it takes, the object to use, the quest that rewards it) before, or drop the goal".into(),
-				);
+				let (reason, repair) = if !drop_npcs.is_empty() || !drop_objs.is_empty() {
+					(
+						format!("collect {name}: its drop sources require quests that are neither held nor completed"),
+						"accept or complete the drop source's required quests before collecting it, or use another source",
+					)
+				} else {
+					(
+						format!("collect {name}: the data has no mob, object or vendor for it and no earlier line gives it"),
+						"write the line that makes it (`buy` what it takes, the object to use, the quest that rewards it) before, or drop the goal",
+					)
+				};
+				find(w, h, gi, "R3", sev, reason, repair.into());
 			}
 		} else if let (Some(at), false) = (&at, has_vendors) {
 			let near_at = |wp: Option<super::world::Wpt>, r: f64| npcs.iter().any(|m| w.ctx.npc_dist(*m, wp) <= SOURCE_YD + r) || objs.iter().any(|o| w.ctx.obj_dist(*o, wp) <= SOURCE_YD + r);

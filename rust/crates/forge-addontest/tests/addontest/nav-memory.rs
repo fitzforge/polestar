@@ -40,7 +40,25 @@ use forge_addontest::{emitted, Addon, RunAddon};
 /// 92,000 -> 66,000); "live" 42,952 -> 57,165 and "rest" 32,813 -> 52,486 (the batch's and the walks' scratch held
 /// until spareSeconds); idle unchanged 19,848. Kalimdor unchanged. Live rose 14,000 KiB to 57,500 and rest 19,500 to
 /// 53,000.
-const BUDGET: [(&str, f64); 6] = [("loadResident", 22500.0), ("loadPeak", 25100.0), ("live", 57500.0), ("allocated", 66000.0), ("rest", 53000.0), ("idle", 22500.0)];
+/// 0.4.1 (2026-11-16, #2531): a search tree's parent and mark share one table (three hash tables a tree, not four),
+/// the endpoint trees' pool keeps one tree and empties when the queue does, and at rest st.endTrees keeps its newest
+/// two (Path.restTrees). Eastern Kingdoms, 0.4.0's maps: live 55,826 -> 43,739, allocated 65,487 -> 61,633, rest
+/// 51,022 -> 37,339, idle 19,728 -> 19,729; Kalimdor live 29,052 -> 28,172, allocated 7,887 -> 7,005, rest 29,044 ->
+/// 26,242. Budgets lowered: live 57,500 -> 44,500, allocated 66,000 -> 62,000, rest 53,000 -> 38,000.
+/// 2026-11-18 (#2916, the capitals' step joins): Kalimdor's load peak reads 24,950 here and 25,080 to 25,101 on CI
+/// runners (about 150 more), at the 25,100 budget; load peak raised to 25,400 (the CI figure + ~1%).
+/// 0.4.1.1 (2026-11-18): at rest the newest start's endpoint tree goes to the pool (still two trees held) and the next
+/// search's first connection fills it. Eastern Kingdoms allocated 61,867 -> 61,465 (budget lowered 62,000 -> 61,600);
+/// live 43,746 -> 43,747, rest 37,346 -> 37,347; Kalimdor unchanged.
+/// 0.4.2.1 (#3396; Fitz chose the three folders over the 127 region addons, accepting the memory): each region is one
+/// string in its continent's part, loaded with it and unpacked into its pages on first use, so `load` counts every
+/// region's compressed string and the later figures carry the regions not yet walked. Eastern Kingdoms / Kalimdor
+/// against 0.4.2's region addons: loadResident 11,529 -> 30,121 / 13,625 -> 38,830; loadPeak 14,113 -> 32,774 /
+/// 16,340 -> 41,625; live 40,694 -> 54,573 / 19,923 -> 43,986; allocated 59,184 -> 58,641 / 7,401 -> 7,166; rest
+/// 34,356 -> 48,235 / 18,624 -> 42,687; idle 17,963 -> 31,842 / 14,921 -> 38,984. Budgets raised to the new figures
+/// and about 1%: loadResident 22,500 -> 39,300, loadPeak 25,400 -> 42,100, live 44,500 -> 55,200, rest 38,000 ->
+/// 48,800, idle 22,500 -> 39,400; allocated unchanged.
+const BUDGET: [(&str, f64); 6] = [("loadResident", 39300.0), ("loadPeak", 42100.0), ("live", 55200.0), ("allocated", 61600.0), ("rest", 48800.0), ("idle", 39400.0)];
 /// Milliseconds the searches' clock (Path.clock) moves at each read. The searches slice under Path.budget (3 ms) as
 /// in the client, but on this clock rather than the machine's CPU time, which made about 600 KiB of "allocated" (each
 /// slice's garbage) depend on the machine: a slower CI runner read 66,091 KiB where the same searches give 65,654 on

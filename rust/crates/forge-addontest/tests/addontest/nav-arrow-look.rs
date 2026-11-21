@@ -9,6 +9,7 @@ const PRELUDE: &str = r#"
 local N = Polestar.Nav
 local A = N.arrow
 local nav = stub.nav
+Polestar.Set("nav.navRouting", false) -- Show the goal bearing on Testshire, which has no walking map.
 local function target(wx, wy, label)
 	local m, x, y = nav.mapPoint(wx, wy)
 	N.SetTarget(m, x, y, label or "T")
@@ -31,6 +32,30 @@ fn run(script: &str) -> Value {
 		..Default::default()
 	})
 	.remove(0)
+}
+
+#[test]
+fn walking_arrow_repaints_its_tint_only_when_the_display_changes() {
+	let out = run(r#"
+		local result = {}
+		for _, style in ipairs({ "flat", "3d", "halo", "hearth" }) do
+			Polestar.Set("nav.arrowStyle", style)
+			nav.place(0, 0); target(0, 300); stub.advance(1)
+			local paints, set = 0, A.body.SetVertexColor
+			A.body.SetVertexColor = function(self, ...) paints = paints + 1; return set(self, ...) end
+			local tick = A.frame:GetScript("OnUpdate")
+			for i = 1, 60 do tick(A.frame, 1/60) end
+			local stable, far = paints, rgba(A.body)
+			nav.place(0, 272); tick(A.frame, 0.1)
+			local near = rgba(A.body)
+			nav.place(0, 0); tick(A.frame, 0.1)
+			result[style] = { stable, near[1] ~= far[1], rgba(A.body)[1] == far[1], A.GetMode() }
+			A.body.SetVertexColor = set
+		end
+		emit(result)"#);
+	for style in ["flat", "3d", "halo", "hearth"] {
+		assert_eq!(out[style], json!([0, true, true, "travel"]), "{style}: a steady arrow does not repaint; its colour follows the player into and out of range");
+	}
 }
 
 fn r3(v: &Value) -> Value {
@@ -342,4 +367,39 @@ fn the_essentials_band_shows_the_dial_on_its_way_closing_in_and_in_combat() {
 	assert_eq!(out["bigger"], true);
 	assert_eq!(out["centred"], true, "{out}");
 	assert_eq!(out["updates"], true);
+}
+
+// #2588 (Logan, 0.4.0): with Backing on, a long label ran past the dark plate: the plate was as wide as the frame
+// (200), the label wraps at nav.arrowLabelWidth (300 by default). The plate now reaches past the frame's sides as far
+// as the widest line it backs, with a margin, and back to the frame's width for a short one.
+#[test]
+fn the_backing_plate_is_as_wide_as_the_widest_line_it_backs_2588() {
+	let out = run(r#"
+		local out = {}
+		Polestar.Set("nav.arrowBacking", true)
+		local function plate()
+			local _, _, _, left = A.backing:GetPoint(1)
+			local _, _, _, right = A.backing:GetPoint(2)
+			return { left = left, right = right }
+		end
+		target(0, 300, "Kill Giant Wetlands Crocolisk for Giant Crocolisk Skin")
+		stub.advance(1)
+		out.long = plate()
+		out.label = math.min(A.labelText:GetStringWidth(), A.labelText:GetWidth())
+		out.frame = A.frame:GetWidth()
+		target(0, 300, "Kebok")
+		stub.advance(1)
+		out.short = plate()
+		Polestar.Set("nav.arrowTextPos", "above")
+		target(0, 300, "Kill Giant Wetlands Crocolisk for Giant Crocolisk Skin")
+		stub.advance(1)
+		out.above = plate()
+		emit(out)"#);
+	let (label, frame) = (out["label"].as_f64().unwrap(), out["frame"].as_f64().unwrap());
+	assert!(label > frame, "the long label is wider than the frame: {out}");
+	let left = -out["long"]["left"].as_f64().unwrap();
+	assert!(frame + 2.0 * left >= label + 8.0, "the plate covers the label with a margin: {out}");
+	assert_eq!(out["long"]["right"].as_f64().unwrap(), left, "both sides alike");
+	assert_eq!(out["short"], json!({ "left": 0, "right": 0 }), "a short label: the frame's width");
+	assert_eq!(-out["above"]["left"].as_f64().unwrap(), left, "the same over the dial");
 }

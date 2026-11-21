@@ -24,15 +24,20 @@ function session(schema, events) {
 
 // `enter` timestamps the instance transition, but its P is the last outdoor
 // position cached by Finds.lua. A missing position at the loading screen can
-// leave that cache behind later, fresh recorder samples.
+// leave that cache behind later, fresh recorder samples. The next outdoor
+// sample may follow a different exit or a hearthstone, so it starts a new trail.
 const cases = [
-	['stale entrance does not add a return trip', [snapshot(0, 'login', point(0)), pos(10, 2), enter(20, point(0)), pos(30, 4), snapshot(40, 'complete', point(4))], 40],
+	['stale entrance ends the outdoor trail without adding a return trip', [snapshot(0, 'login', point(0)), pos(10, 2), enter(20, point(0)), pos(30, 4), snapshot(40, 'complete', point(4))], 20],
 	['ending inside does not walk back to the cached entrance', [snapshot(0, 'login', point(0)), pos(10, 4), enter(20, point(0)), snapshot(30, 'complete')], 40],
 	['entrance alone cannot anchor a later fresh position', [snapshot(0, 'login'), enter(10, point(0)), pos(20, 4), snapshot(30, 'complete', point(4))], 0],
-	['old entrance on another map does not break a fresh trail', [snapshot(0, 'login', point(0)), pos(10, 2), enter(20, point(80, 1439)), pos(30, 4), snapshot(40, 'complete', point(4))], 40],
-	['same-time entrance does not replace the fresh anchor', [snapshot(0, 'login', point(0)), pos(10, 2), enter(10, point(0)), pos(20, 4), snapshot(30, 'complete', point(4))], 40],
-	['entrance without a position leaves the trail intact', [snapshot(0, 'login', point(0)), pos(10, 2), enter(20), pos(30, 4), snapshot(40, 'complete', point(4))], 40],
-	['fresh portal between player samples keeps their distance', [snapshot(0, 'login', point(0)), pos(10, 2), enter(15, point(3)), pos(20, 4), snapshot(30, 'complete', point(4))], 40],
+	['old entrance on another map still ends the outdoor trail', [snapshot(0, 'login', point(0)), pos(10, 2), enter(20, point(80, 1439)), pos(30, 4), snapshot(40, 'complete', point(4))], 20],
+	['same-time entrance clears the preceding fresh anchor', [snapshot(0, 'login', point(0)), pos(10, 2), enter(10, point(0)), pos(20, 4), snapshot(30, 'complete', point(4))], 20],
+	['entrance without a position still ends the outdoor trail', [snapshot(0, 'login', point(0)), pos(10, 2), enter(20), pos(30, 4), snapshot(40, 'complete', point(4))], 20],
+	['fresh portal between player samples conservatively ends the trail too', [snapshot(0, 'login', point(0)), pos(10, 2), enter(15, point(3)), pos(20, 4), snapshot(30, 'complete', point(4))], 20],
+	['a long instance stay does not count a distant same-map exit as walking', [snapshot(0, 'login', point(0)), pos(10, 2), enter(20, point(0)), pos(1820, 60), pos(1830, 62), snapshot(1840, 'complete', point(62))], 40],
+	['a fresh sample after an entry at the same timestamp starts the new trail', [snapshot(0, 'login', point(0)), enter(10, point(0)), pos(10, 2), pos(20, 4), snapshot(30, 'complete', point(4))], 20],
+	['each instance entry ends the preceding trail', [snapshot(0, 'login', point(0)), pos(10, 2), enter(20, point(0)), pos(1820, 60), enter(1830, point(60)), pos(3700, 90), pos(3710, 92), snapshot(3720, 'complete', point(92))], 40],
+	['ordinary sparse walking without an entry remains counted', [snapshot(0, 'login', point(0)), pos(10, 2), pos(1820, 60), pos(1830, 62), snapshot(1840, 'complete', point(62))], 620],
 	// Fresh and stale entrance positions have no distinguishing timestamp. With
 	// no later player sample, conservatively omit this otherwise valid movement.
 	['sparse fresh entrance is conservatively omitted too', [snapshot(0, 'login', point(0)), enter(10, point(4)), snapshot(20, 'complete')], 0],
@@ -72,7 +77,7 @@ test('record report: an instance-entry timestamp still splits idle gaps and reta
 	const report = buildReport([input]);
 	const run = report.guides[0].runs[0];
 	const step = report.steps[0];
-	assert.equal(step.medianYards, 40);
+	assert.equal(step.medianYards, 20);
 	assert.equal(run.time, 400, 'enter keeps both idle gaps below the cap');
 	assert.equal(run.combatShare, 380 / 400);
 	assert.equal(run.xp, 100);

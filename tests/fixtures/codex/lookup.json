@@ -87,6 +87,8 @@
     "8015": { "id": 8015, "name": "Mystery Box Prize", "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [{ "type": "world", "minLevel": 10, "maxLevel": 30, "from": ["web"] }] },
     "8016": { "id": 8016, "name": "Warden Charger Reins", "quality": 4, "kind": "mount", "spell": null, "reqLevel": null, "repFaction": 9100, "repStanding": 8, "sources": [{ "type": "vendor", "npc": 5007, "cost": 800000, "from": ["client"] }] },
     "8017": { "id": 8017, "name": "Pattern: Vale Cloak", "quality": 2, "kind": "recipe", "spell": null, "reqLevel": null, "reqSkill": 197, "reqSkillRank": 125, "sources": [{ "type": "vendor", "npc": 5001, "cost": 2000, "from": ["client"] }] },
-    "8018": { "id": 8018, "name": "Commission Band", "quality": 3, "kind": "item", "spell": null, "reqLevel": null, "sources": [{ "type": "quest", "quest": 7008, "from": ["questie"] }] }
+    "8018": { "id": 8018, "name": "Commission Band", "quality": 3, "kind": "item", "spell": null, "reqLevel": null, "sources": [{ "type": "quest", "quest": 7008, "from": ["questie"] }] },
+    "8019": { "id": 8019, "name": "Bolt of Vale Silk", "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [{ "type": "craft", "spell": 9602, "skillLine": 197, "profession": "Tailoring", "skill": 100, "from": ["client"] }] },
+    "8020": { "id": 8020, "name": "Pattern: Bolt of Vale Silk", "quality": 1, "kind": "recipe", "spell": 9602, "reqLevel": null, "sources": [{ "type": "vendor", "npc": 5001, "cost": 1500, "from": ["client"] }] }
   }
 }

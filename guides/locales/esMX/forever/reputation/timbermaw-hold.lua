@@ -74,35 +74,43 @@ return {
 	-- plural, as words: Mana Potions = {item:3827} Mana Potion
 	["The northern Deadwood rarely drop a {quest:8470} (about 3%). From Neutral, {npc:11558} takes it in the tunnel, on the {zone:1448} side: 150 reputation and two Major Healing and Mana Potions."] = "Los Muertobosque del norte sueltan muy de vez en cuando un {quest:8470} (más o menos el 3%). Desde Neutral, {npc:11558} lo acepta en el túnel, del lado de {zone:1448}: 150 de reputación y dos pociones de sanación y de maná superiores.",
 
-	-- Step 12: Winterfall Ritual Totem
+	-- Step 12: Kernda: the Deadwood totem
+	-- {npc:11558} Kernda
+	["{npc:11558}: the Deadwood totem"] = "",
+
+	-- Step 13: Winterfall Ritual Totem
 	-- {quest:8471} Winterfall Ritual Totem · {npc:11558} Kernda
 	-- plural, as words: Mana Potions = {item:3827} Mana Potion
 	["The Winterfall furbolgs rarely drop a {quest:8471} (3-4%). {npc:11558} takes it in the tunnel too: 150 reputation and three Major Healing and Mana Potions."] = "Los fúrbolgs Nevada sueltan muy de vez en cuando un {quest:8471} (3-4%). {npc:11558} también lo acepta en el túnel: 150 de reputación y tres pociones de sanación y de maná superiores.",
 
-	-- Step 13: Neutral to Friendly
+	-- Step 14: Kernda: the Winterfall totem
+	-- {npc:11558} Kernda
+	["{npc:11558}: the Winterfall totem"] = "",
+
+	-- Step 15: Neutral to Friendly
 	["Neutral to Friendly"] = "De Neutral a Amistoso",
 	["Neutral to Friendly is 3,000: 600 kills. Keep all feathers and beads."] = "De Neutral a Amistoso son 3.000: 600 muertes. Guarda todas las plumas y cuentas.",
 
-	-- Step 14: Meilosh
+	-- Step 16: Meilosh
 	-- {npc:11557} Meilosh · {zone:1448} Felwood · {item:13484} Recipe: Transmute Earth to Water · {item:22392} Formula: Enchant 2H Weapon - Agility · {item:20253} Pattern: Warbear Harness · {item:15065} Warbear Woolies · {quest:6031} Runecloth · {item:14342} Mooncloth · {item:15802} Mooncloth Boots
 	["{npc:11557} stands in the tunnel, near its {zone:1448} mouth. From Friendly he sells: {item:13484} (1 gold 50 silver), {item:22392} (2 gold 50 silver), {item:20253} (1 gold 60 silver) and {item:15065} (2 gold). He also takes 30 {quest:6031} once for 100 reputation and a choice of shoulders or gauntlets, and Tailors with skill 290 can bring him 2 {item:14342} for 100 more and the {item:15802} pattern."] = "{npc:11557} está en el túnel, cerca de su boca del lado de {zone:1448}. Desde Amistoso vende: {item:13484} (1 de oro 50 de plata), {item:22392} (2 de oro 50 de plata), {item:20253} (1 de oro 60 de plata) y {item:15065} (2 de oro). También acepta 30 {quest:6031} una vez por 100 de reputación y a elegir hombreras o guanteletes, y los sastres con 290 de habilidad pueden llevarle 2 {item:14342} por 100 más y el patrón de {item:15802}.",
 
-	-- Step 15: Runecloth for Meilosh
+	-- Step 17: Runecloth for Meilosh
 	-- {quest:6031} Runecloth · {npc:11557} Meilosh
 	["{quest:6031} for {npc:11557}"] = "{quest:6031} para {npc:11557}",
 	-- {quest:6031} Runecloth
 	["{quest:6031} drops from the humanoids of the level 50-60 zones, the Deadwood and Winterfall furbolgs among them."] = "{quest:6031} lo sueltan los humanoides de las zonas de nivel 50-60, entre ellos los fúrbolgs Muertobosque y Nevada.",
 
-	-- Step 16: Sacred Cloth
+	-- Step 18: Sacred Cloth
 	-- {npc:11557} Meilosh · {item:14342} Mooncloth · {item:15802} Mooncloth Boots
 	["Tailors with skill 290: {npc:11557} takes 2 {item:14342} once for 100 reputation and teaches the {item:15802}."] = "Sastres con 290 de habilidad: {npc:11557} acepta 2 {item:14342} una vez por 100 de reputación y enseña las {item:15802}.",
 
-	-- Step 17: Friendly to Honored
+	-- Step 19: Friendly to Honored
 	["Friendly to Honored"] = "De Amistoso a Honorable",
 	-- {npc:11557} Meilosh · {item:19445} Formula: Enchant Weapon - Agility · {item:19202} Pattern: Heavy Timbermaw Belt · {item:19044} Might of the Timbermaw · {skill:165} Leatherworking · {item:19047} Wisdom of the Timbermaw · {skill:197} Tailoring
 	["Friendly to Honored is 6,000: 1,200 kills. Keep all feathers and beads. Honored opens at {npc:11557}: {item:19445} (3 gold), and for 2 gold 20 silver each {item:19202} and {item:19044} ({skill:165}) and {item:19047} ({skill:197})."] = "De Amistoso a Honorable son 6.000: 1.200 muertes. Guarda todas las plumas y cuentas. Honorable abre con {npc:11557}: {item:19445} (3 de oro), y por 2 de oro 20 de plata cada uno {item:19202} y {item:19044} ({skill:165}) y {item:19047} ({skill:197}).",
 
-	-- Step 18: Honored to Revered
+	-- Step 20: Honored to Revered
 	["Honored to Revered"] = "De Honorable a Reverenciado",
 	["Honored to Revered is 12,000: 2,400 kills, the last ones that count. Kills stop at 11,999 of 12,000 Honored and never tip you into Revered: when they stop, hand in one set of 5 feathers or beads to cross over. Saving every feather and bead pays off now: about 4,800 kills from the start to the end of Honored leave you with about 2,100 feathers and beads, and that is all of Revered to Exalted. Turning them in early would cost you about 2,400 more kills."] = "De Honorable a Reverenciado son 12.000: 2.400 muertes, las últimas que cuentan. Las muertes dejan de contar en 11.999 de 12.000 en Honorable y nunca te hacen pasar a Reverenciado: cuando dejen de contar, entrega un juego de 5 plumas o cuentas para pasar. Guardar cada pluma y cuenta rinde ahora: unas 4.800 muertes desde el inicio hasta el final de Honorable te dejan con unas 2.100 plumas y cuentas, y eso es todo lo de Reverenciado a Exaltado. Entregarlas antes te costaría unas 2.400 muertes más.",
 	-- {item:19445} Formula: Enchant Weapon - Agility · {skill:333} Enchanting
@@ -112,7 +120,7 @@ return {
 	-- {quest:8469} Beads for Salfa
 	["{quest:8469}: or 5 beads"] = "{quest:8469}: o 5 cuentas",
 
-	-- Step 19: Revered to Exalted
+	-- Step 21: Revered to Exalted
 	["Revered to Exalted"] = "De Reverenciado a Exaltado",
 	-- {npc:15395} Nafien · {npc:11554} Grazle · {npc:11556} Salfa · {npc:14342} Ragepaw · {npc:10199} Grizzle Snowpaw · {npc:10738} High Chief Winterfall · {npc:11557} Meilosh · {item:19204} Pattern: Heavy Timbermaw Boots · {item:19049} Timbermaw Brawlers · {skill:165} Leatherworking · {item:19050} Mantle of the Timbermaw · {skill:197} Tailoring
 	["Kills stopped at the end of Honored. Revered to Exalted is 21,000: 420 turn-ins, 2,100 feathers and beads. Hand in the feathers to {npc:15395} at the tunnel or {npc:11554} in the south, the beads to {npc:11556}, five at a time. The named furbolgs (Ror, Bloodmaw, {npc:14342}, {npc:10199}, {npc:10738}) still count. Revered opens at {npc:11557}, for 4 gold each: {item:19204} and {item:19049} ({skill:165}) and {item:19050} ({skill:197})."] = "Las muertes dejaron de contar al final de Honorable. De Reverenciado a Exaltado son 21.000: 420 entregas, 2.100 plumas y cuentas. Entrega las plumas a {npc:15395} en el túnel o a {npc:11554} en el sur, y las cuentas a {npc:11556}, de cinco en cinco. Los fúrbolgs con nombre (Ror, Fauces Sangrientas, {npc:14342}, {npc:10199}, {npc:10738}) siguen contando. Reverenciado abre con {npc:11557}, por 4 de oro cada uno: {item:19204} y {item:19049} ({skill:165}) y {item:19050} ({skill:197}).",
@@ -123,11 +131,11 @@ return {
 	-- {quest:8469} Beads for Salfa
 	["{quest:8469}: 5 beads, 50 reputation"] = "{quest:8469}: 5 cuentas, 50 de reputación",
 
-	-- Step 20: The Root of All Evil
+	-- Step 22: The Root of All Evil
 	-- {npc:11555} Gorn One Eye · {npc:11557} Meilosh · {quest:8481} The Root of All Evil · {item:21144} Demon Summoning Torch · {npc:10738} High Chief Winterfall · {npc:15623} Xandivious · {item:21326} Defender of the Timbermaw
 	["At Exalted, {npc:11555}, in the tunnel by {npc:11557}, gives {quest:8481}: plant his {item:21144} in the mouth of {npc:10738}'s cave and defeat the demon {npc:15623} (level 62, elite: bring a group). The reward is {item:21326}, a trinket that calls a Timbermaw ally, and 200 reputation."] = "En Exaltado, {npc:11555}, en el túnel junto a {npc:11557}, da {quest:8481}: coloca su {item:21144} en la entrada de la cueva de {npc:10738} y derrota al demonio {npc:15623} (nivel 62, élite: lleva un grupo). La recompensa es {item:21326}, un abalorio que invoca a un aliado Fauces de Madera, y 200 de reputación.",
 
-	-- Step 21: Xandivious
+	-- Step 23: Xandivious
 	-- {area:2244} Winterfall Village · {npc:15623} Xandivious
 	["{area:2244}, the cave at the back. Clear the furbolgs around the mouth first, plant the torch, kill {npc:15623} and loot the Essence from his Demon Bag."] = "{area:2244}, la cueva del fondo. Despeja primero los fúrbolgs de la entrada, coloca la antorcha, mata a {npc:15623} y saquea la Esencia de su bolsa demoníaca.",
 	-- {npc:15623} Xandivious

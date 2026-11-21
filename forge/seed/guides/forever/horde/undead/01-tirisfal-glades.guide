@@ -284,6 +284,14 @@ step Gallows' End Tavern
   train Cooking npc 265944            -- William Pickman, at the inn's north end: Camping 101 asks you to learn it
   complete 96658 @61.8,51.5
   turnin 96658
+
+step The cellar stairs
+  when onquest 407
+  tip The Captured Scarlet Zealot is in the cellar under the inn's north end. The stairs down start at the west side of that end: go down them, then turn east to him.
+  goto 61.66,51.50 "The cellar stairs"
+
+step Gallows' End Tavern
+  tip Back up from the cellar: Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) are upstairs, Austil de Mon (warriors) on the ground floor; take the stairs inside, the arrow cannot tell the floors apart.
   turnin 407                          -- The Captured Scarlet Zealot, in the inn's cellar
   train class                         -- The Brill trainers are in the inn (Austil de Mon downstairs, the rest upstairs); Shari Stilwell, the Paladin trainer, by the square
   turnin 5651 only Priest             -- Dark Cleric Beryl, upstairs
@@ -399,7 +407,7 @@ step Tirisfal Glades: kill these as you meet them
   zone Tirisfal Glades
   tip Greater Duskbats (6-7) fly over the fields around Brill and along the road north: Gretchen wants their pelts, Shelene their wings. The Vampiric Duskbats (8-9) farther out drop them too, but hit harder.
   tip The Doom Weed grows in the graveyard fields just north of Brill, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.
-  tip The Rot Hide Mongrels hold the hills further north, around Garren's Haunt. Leave Maggot Eye (level 11) in his hut for now: the guide comes back for him at the end.
+  tip The Rot Hide Mongrels hold the hills further north, around Garren's Haunt. Leave Maggot Eye (level 11) in his hut for now: the guide comes back for him after Agamand Mills.
   tip The Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for Shelene. Straight north of Brill the shore holds Puddlejumpers and Minor Oracles (7-9) with no Muckdwellers (9-10) close by.
   collect 2876 quest 375.1 @60.5,43.1
   collect 278242 quest 97558.1 @60.5,43.1
@@ -443,8 +451,9 @@ step Hadric Harlson
   accept 96898
 
 step Magistrate Sevren
-  tip Back up the road to Brill, on the way north-west to Agamand Mills.
+  tip Back up the road to Brill, on the way north-west to Agamand Mills. The Wanted poster for Maggot Eye stands beside Executor Zygand, in front of the inn.
   turnin 360                          -- Inside
+  accept 398                          -- The Wanted poster beside Zygand
 
 # ---------------------------------------------------------------- Agamand Mills
 
@@ -460,8 +469,17 @@ step Agamand Mills
   collect 2839 optional               -- A Letter to Yvette, a rare drop
   accept 361 optional                 -- Only if the letter dropped
 
+# Maggot Eye (11) is taken on the Agamand loop, at about 10-11 (0.4.0 had moved him to a trip of his own
+# from the last Brill stop, when this loop ran at 7-8): Garren's Haunt is on the walk from the mills back
+# to Brill.
+step Maggot Eye
+  tip On the way back to Brill, Garren's Haunt is the Rot Hide camp on the hill east of the mills, south of the shore. Maggot Eye stands in the hut.
+  tip Careful: Maggot Eye is level 11 and gnoll guards stand outside the hut and can join the fight: clear them one at a time first. If you slip past them and fight him inside, he fights alone.
+  collect 3635 quest 398.1            -- Maggot Eye's Paw; inside
+
 step Brill
   tip Cain Firesong (mages), Dark Cleric Beryl (priests), Rupert Boch (warlocks) and Marion Call (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart.
+  turnin 398                          -- Executor Zygand, in front of the inn
   turnin 426                          -- Deathguard Dillinger
   accept 1819 only Warrior            -- Deathguard Dillinger
   turnin 362                          -- Coleman Farthing, in the inn
@@ -566,22 +584,14 @@ step Brill
   accept 492
   accept 445                          -- Apothecary Johaan: for Renferrel at the Sepulcher
   turnin 371                          -- Executor Zygand
-  accept 398                          -- The Wanted poster beside Zygand
   train class
   turnin 492                          -- The Captured Mountaineer, in the inn's cellar
   turnin 99142                        -- Junior Apothecary Holland walks around Brill: look inside the circle on the map
 
-# Maggot Eye (11) waits for this last Brill stop, at about 11.5: on the 7-8 north loop he was 3-4
-# levels up (level tidy 0.4.0). Garren's Haunt is a short way north on the walk west to Leonid.
-step Maggot Eye
-  tip North to Garren's Haunt, the Rot Hide camp on the hill south of the shore. Maggot Eye (level 11) stands in the hut: clear the gnolls around him first.
-  tip Careful: Gnoll guards stand outside the hut and can join the fight. If you slip past them and fight him inside, he fights alone.
-  collect 3635 quest 398.1            -- Maggot Eye's Paw; inside
-
 # ---------------------------------------------------------------- Leonid, then on to the Barrens
 
 step Leonid Barthalomew the Revered
-  tip West from Garren's Haunt past Agamand Mills to the Whispering Forest. Leonid stands just north of Hilda's camp.
+  tip North-west from Brill past Agamand Mills to the Whispering Forest. Leonid stands just north of Hilda's camp.
   turnin 96899
   accept 96896
   turnin 96896                        -- Listen to Leonid and Danitha Morr, then talk to him again
@@ -664,5 +674,4 @@ step Back to Tirisfal Glades
 step Brill
   zone Tirisfal Glades
   turnin 95314                        -- Carolai Anise, inside
-  turnin 398                          -- Executor Zygand, in front of the inn
   note The next guide walks south from Brill into Silverpine Forest.

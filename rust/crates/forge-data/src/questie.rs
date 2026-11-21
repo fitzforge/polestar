@@ -858,6 +858,55 @@ fn is_empty_table(v: &V) -> bool {
 	matches!(v, V::Arr(a) if a.is_empty()) || matches!(v, V::Obj(o) if o.is_empty())
 }
 
+/// A table's (key, value) pairs: an object's entries, a list's (1-based index, value).
+fn table_entries(v: &V) -> Vec<(String, V)> {
+	match v {
+		V::Obj(o) => o.entries().into_iter().filter(|(_, x)| !x.is_nullish()).map(|(k, x)| (k.to_string(), x)).collect(),
+		V::Arr(_) => lua_list(v).into_iter().enumerate().map(|(i, x)| ((i + 1).to_string(), x)).collect(),
+		_ => Vec::new(),
+	}
+}
+
+/// A list field characters read differently (#2038), as one list where a union is the fact for every
+/// character: a spawn list's points per zone (an NPC or object one faction finds in its city, the other
+/// in its own), and an NPC's or object's quest lists (the quests it starts and ends), each in first-read
+/// order. None for any other field: a quest's id lists (prerequisites all of which a character needs),
+/// an item's (the faction fixes list the NPCs that hand an item over as its droppers: Soothing Spices'
+/// vendors, Signed Field Duty Papers' officers) and single values stay as the store has them.
+fn union_list(entity: &str, f: &Field, reads: &[V]) -> Option<V> {
+	match f.structure.as_deref() {
+		Some("spawnlist") => {
+			let out = Obj::new();
+			let mut seen: FxHashMap<String, FxHashSet<String>> = FxHashMap::default();
+			for r in reads {
+				for (zone, pts) in table_entries(r) {
+					let have = seen.entry(zone.clone()).or_default();
+					let mut list = out.get(&zone).items();
+					for p in lua_list(&pts) {
+						if have.insert(canon(&p)) {
+							list.push(p);
+						}
+					}
+					out.set(&zone, V::Arr(Arr::from_vec(list)));
+				}
+			}
+			Some(V::Obj(out))
+		}
+		Some("idarray") if entity == "Npc" || entity == "Object" => {
+			let mut ids: Vec<V> = Vec::new();
+			for r in reads {
+				for x in lua_list(r) {
+					if !ids.iter().any(|y| canon(y) == canon(&x)) {
+						ids.push(x);
+					}
+				}
+			}
+			Some(V::Arr(Arr::from_vec(ids)))
+		}
+		_ => None,
+	}
+}
+
 /// `{{npcs}, {objects}, {items}}` slot by slot: the store's ids some character still reads
 /// first, then every other id in run order.
 fn union_givers(store: &V, reads: &[V]) -> V {
@@ -957,6 +1006,11 @@ fn apply_dynamic(qdir: &Path, metas: &[Schema], ents: &mut [&mut Entities; 4]) -
 						rec.set(&f.name, u);
 						out.unioned.push((entity, id, f.name.clone()));
 					}
+				} else if let Some(u) = union_list(entity, f, &finals) {
+					if canon(&u) != canon(&store) {
+						rec.set(&f.name, u);
+						out.unioned.push((entity, id, f.name.clone()));
+					}
 				} else {
 					let by_class = factions.iter().all(|fac| {
 						let mut k = part.iter().zip(&keys).filter(|(&r, _)| factions[r] == *fac).map(|(_, k)| k);
@@ -989,6 +1043,11 @@ fn log_dynamic(d: &Dynamic, log: &dyn Fn(&str)) {
 	}
 	if !d.agreed.is_empty() {
 		log(&format!("  taken: {}", list(&mut d.agreed.iter().map(|(e, id, f)| format!("{e} {id} {f}")))));
+	}
+	// What still reads differently stays as the store has it: listed so each QuestieDB update's build shows
+	// which faction or class facts the data does not carry (#2038).
+	if !d.kept.is_empty() {
+		log(&format!("  kept from the store: {}", list(&mut d.kept.iter().map(|(e, id, f, by_class)| format!("{e} {id} {f}{}", if *by_class { " (class)" } else { "" })))));
 	}
 }
 
@@ -1058,16 +1117,25 @@ const PREFIX_ROOTS: &[&str] = &[
 	".var/app/com.valvesoftware.Steam/.local/share/Steam/steamapps/compatdata",
 ];
 const WOW_DIRS: &[&str] = &["Program Files (x86)/World of Warcraft", "Program Files/World of Warcraft", "Games/World of Warcraft", "World of Warcraft"];
+const NATIVE_WOW_DIRS: &[&str] = &["C:\\Program Files (x86)\\World of Warcraft", "/Applications/World of Warcraft"];
 
-fn wow_dirs(home: &Path) -> Vec<PathBuf> {
+// Windows sets USERPROFILE, not HOME.
+fn user_home() -> Option<PathBuf> {
+	std::env::var_os("HOME").or_else(|| std::env::var_os("USERPROFILE")).map(PathBuf::from)
+}
+
+fn native_wow_dirs() -> Vec<PathBuf> {
+	NATIVE_WOW_DIRS.iter().map(PathBuf::from).collect()
+}
+
+fn wow_dirs(home: Option<&Path>, native: &[PathBuf]) -> Vec<PathBuf> {
 	let mut prefixes = Vec::new();
 	let consider = |p: PathBuf, out: &mut Vec<PathBuf>| {
 		if p.join("drive_c").is_dir() {
 			out.push(p);
 		}
 	};
-	for r in PREFIX_ROOTS {
-		let root = home.join(r);
+	for root in home.into_iter().flat_map(|h| PREFIX_ROOTS.iter().map(move |r| h.join(r))) {
 		if !root.is_dir() {
 			continue;
 		}
@@ -1082,9 +1150,7 @@ fn wow_dirs(home: &Path) -> Vec<PathBuf> {
 		}
 	}
 	let mut out: Vec<PathBuf> = prefixes.iter().flat_map(|p| WOW_DIRS.iter().map(move |w| p.join("drive_c").join(w))).collect();
-	for n in ["C:\\Program Files (x86)\\World of Warcraft", "/Applications/World of Warcraft"] {
-		out.push(PathBuf::from(n));
-	}
+	out.extend(native.iter().cloned());
 	out.into_iter().filter(|p| p.is_dir()).collect()
 }
 
@@ -1112,18 +1178,18 @@ fn forever_store(dir: &Path) -> Option<PathBuf> {
 /// Warcraft`, Fitz's forever-test), then any other client's.
 pub fn questie_search_dirs() -> Vec<PathBuf> {
 	let env = std::env::var_os("WOW_FOREVER_ADDONS").map(PathBuf::from);
-	questie_search_dirs_in(std::env::var_os("HOME").map(PathBuf::from).as_deref(), env)
+	questie_search_dirs_in(user_home().as_deref(), env, &native_wow_dirs())
 }
 
-fn questie_search_dirs_in(home: Option<&Path>, env: Option<PathBuf>) -> Vec<PathBuf> {
+fn questie_search_dirs_in(home: Option<&Path>, env: Option<PathBuf>, native: &[PathBuf]) -> Vec<PathBuf> {
 	let mut dirs: Vec<PathBuf> = env.into_iter().filter(|p| p.is_dir()).collect();
-	let Some(home) = home else { return dirs };
-	let installs = std::fs::read_dir(home.join("Games")).map(|rd| rd.flatten().map(|e| e.path().join("World of Warcraft")).filter(|p| p.is_dir()).collect::<Vec<_>>()).unwrap_or_default();
+	let installs =
+		home.and_then(|h| std::fs::read_dir(h.join("Games")).ok()).map(|rd| rd.flatten().map(|e| e.path().join("World of Warcraft")).filter(|p| p.is_dir()).collect::<Vec<_>>()).unwrap_or_default();
 	let mut installs: Vec<(bool, PathBuf)> = installs.into_iter().map(|p| (true, p)).collect();
 	installs.sort();
 	let mut found: Vec<(u8, PathBuf)> = Vec::new();
 	let mut seen = FxHashSet::default();
-	for (test, wow) in wow_dirs(home).into_iter().map(|w| (false, w)).chain(installs) {
+	for (test, wow) in wow_dirs(home, native).into_iter().map(|w| (false, w)).chain(installs) {
 		let mut names: Vec<String> = std::fs::read_dir(&wow).map(|rd| rd.flatten().map(|e| e.file_name().to_string_lossy().to_string()).collect()).unwrap_or_default();
 		names.sort();
 		for name in names {
@@ -1166,17 +1232,14 @@ pub fn find_installed_addon(folder: &str) -> Option<PathBuf> {
 /// tools/lib/addons.js searchAddonsDirs: $WOW_FOREVER_ADDONS, then the Forever clients' AddOns
 /// folders (live before beta).
 pub fn search_addons_dirs() -> Vec<PathBuf> {
-	let mut dirs: Vec<PathBuf> = Vec::new();
-	if let Some(e) = std::env::var_os("WOW_FOREVER_ADDONS") {
-		let p = PathBuf::from(e);
-		if p.is_dir() {
-			dirs.push(p);
-		}
-	}
-	let Some(home) = std::env::var_os("HOME").map(PathBuf::from) else { return dirs };
+	search_addons_dirs_in(user_home().as_deref(), std::env::var_os("WOW_FOREVER_ADDONS").map(PathBuf::from), &native_wow_dirs())
+}
+
+fn search_addons_dirs_in(home: Option<&Path>, env: Option<PathBuf>, native: &[PathBuf]) -> Vec<PathBuf> {
+	let mut dirs: Vec<PathBuf> = env.into_iter().filter(|p| p.is_dir()).collect();
 	let mut found: Vec<(bool, PathBuf)> = Vec::new();
 	let mut seen = FxHashSet::default();
-	for wow in wow_dirs(&home) {
+	for wow in wow_dirs(home, native) {
 		let mut names: Vec<String> = std::fs::read_dir(&wow).map(|rd| rd.flatten().map(|e| e.file_name().to_string_lossy().to_string()).collect()).unwrap_or_default();
 		names.sort();
 		for name in names {
@@ -1250,7 +1313,23 @@ mod tests {
 	}
 
 	fn detect_in(h: &Path) -> Option<PathBuf> {
-		questie_search_dirs_in(Some(h), None).iter().find_map(|d| forever_store(d))
+		questie_search_dirs_in(Some(h), None, &[]).iter().find_map(|d| forever_store(d))
+	}
+
+	#[test]
+	fn questie_found_in_a_native_install_without_a_home() {
+		let wow = std::env::temp_dir().join(format!("forge-questie-native-{}", std::process::id()));
+		let _ = std::fs::remove_dir_all(&wow);
+		let client = wow.join("_forever_");
+		let q = client.join("Interface/AddOns/QuestieDB");
+		std::fs::create_dir_all(&q).unwrap();
+		std::fs::write(q.join(TOC), "## X-Flavor: Forever\n## X-Mode: baked\n").unwrap();
+		std::fs::write(client.join(".flavor.info"), "wowf\n").unwrap();
+		let native = [wow.clone()];
+		let found = questie_search_dirs_in(None, None, &native).iter().find_map(|d| forever_store(d));
+		assert!(found.is_some_and(|f| f.starts_with(&client)), "{:?}", questie_search_dirs_in(None, None, &native));
+		assert_eq!(search_addons_dirs_in(None, None, &native), vec![client.join("Interface/AddOns")]);
+		let _ = std::fs::remove_dir_all(&wow);
 	}
 
 	#[test]
@@ -1259,7 +1338,7 @@ mod tests {
 		// and the live client has no QuestieDB. The old search found nothing and the data was built
 		// without it (975 quests fewer).
 		let h = home("leftover", &[("_classic_beta_", None, true), ("_forever_", Some("wowf"), false), ("_retail_", Some("wow"), false)], false);
-		assert!(detect_in(&h).is_some_and(|q| q.to_string_lossy().contains("_classic_beta_")), "{:?}", questie_search_dirs_in(Some(&h), None));
+		assert!(detect_in(&h).is_some_and(|q| q.to_string_lossy().contains("_classic_beta_")), "{:?}", questie_search_dirs_in(Some(&h), None, &[]));
 		let _ = std::fs::remove_dir_all(&h);
 	}
 
@@ -1279,7 +1358,12 @@ mod tests {
 	/// A QuestieDB release's correction surface in miniature: config, one enum file, the four
 	/// metas, a legacy faction provider (one class-dependent field) and a Forever one over it.
 	fn dynamic_fixture() -> PathBuf {
-		let d = std::env::temp_dir().join(format!("forge-questie-dynamic-{}", std::process::id()));
+		dynamic_fixture_in("dynamic")
+	}
+
+	/// The fixture in its own folder (`tag`): tests run at once, and one that edits its copy must not touch another's.
+	fn dynamic_fixture_in(tag: &str) -> PathBuf {
+		let d = std::env::temp_dir().join(format!("forge-questie-{tag}-{}", std::process::id()));
 		let _ = std::fs::remove_dir_all(&d);
 		let w = |rel: &str, text: &str| {
 			let p = d.join(rel);
@@ -1444,6 +1528,52 @@ end
 		// a table in a number field and an operation key, for each of the three Horde characters
 		assert_eq!(dy.skipped, 6);
 		assert!(!quests.contains_key(&103) && !quests.contains_key(&104), "skipped writes create nothing");
+	}
+
+	#[test]
+	fn dynamic_corrections_union_an_npcs_spawns_and_id_lists_each_faction_reads() {
+		// #2038: QuestieDB's faction fixes give a summoned demon its Horde spawn in the Undercity and its
+		// Alliance one in Stormwind; the record holds both factions' places and quest lists, and only the one
+		// zone it names stays as the store has it.
+		let d = dynamic_fixture_in("dynamic-npc");
+		let cfg = std::fs::read_to_string(d.join("src/config.lua")).unwrap().replace(
+			"  { owned = \"Vanilla\"",
+			"  { owned = \"Forever\", file = \"Forever/legacy/legacyNPCFixes.lua\", module = \"LegacyNPCFixes\", datatype = \"Npc\", static = {\"Load\"}, dynamic = {\"LoadFactionFixes\"} },\n  { owned = \"Vanilla\"",
+		);
+		std::fs::write(d.join("src/config.lua"), cfg).unwrap();
+		std::fs::write(
+			d.join("src/meta/npcMeta.lua"),
+			"local _, LibQuestieDB = ...\nlocal meta = { entity = 'Npc', metaPrefix = 'Npc-', fieldCount = 4, keys = { name = 1, spawns = 2, zoneID = 3, questStarts = 4 }, names = { 'name', 'spawns', 'zoneID', 'questStarts' }, types = { 'string', 'table', 'number', 'table' }, structures = { [2] = 'spawnlist', [4] = 'idarray' } }\nreturn meta\n",
+		)
+		.unwrap();
+		std::fs::write(
+			d.join("src/corrections/Forever/legacy/legacyNPCFixes.lua"),
+			r#"local N = QuestieLoader:CreateModule("LegacyNPCFixes")
+local QuestieDB = QuestieLoader:ImportModule("QuestieDB")
+function N:LoadFactionFixes()
+  local npcKeys = QuestieDB.npcKeys
+  local horde = { [5676] = { [npcKeys.spawns] = { [1497] = {{86.62, 27.05}} }, [npcKeys.zoneID] = 1497, [npcKeys.questStarts] = {1, 2} } }
+  local alliance = { [5676] = { [npcKeys.spawns] = { [1519] = {{25.1, 78.3}} }, [npcKeys.zoneID] = 1519, [npcKeys.questStarts] = {2, 3} } }
+  if UnitFactionGroup("Player") == "Horde" then return horde else return alliance end
+end
+"#,
+		)
+		.unwrap();
+		let metas = load_metas(&d).unwrap();
+		let (mut quests, mut npcs, mut objects, mut items) = (IndexMap::new(), IndexMap::new(), IndexMap::new(), IndexMap::new());
+		let dy = apply_dynamic(&d, &metas, &mut [&mut quests, &mut npcs, &mut objects, &mut items]).unwrap();
+		let _ = std::fs::remove_dir_all(&d);
+		let npc = &npcs[&5676];
+		let s = |v: &V| forge_guide::js::stringify(v, None);
+		assert_eq!(s(&npc.get("spawns").get("1497")), "[[86.62,27.05]]", "the Horde's place");
+		assert_eq!(s(&npc.get("spawns").get("1519")), "[[25.1,78.3]]", "the Alliance's place");
+		let mut starts: Vec<f64> = lua_list(&npc.get("questStarts")).iter().map(V::num).collect();
+		starts.sort_by(f64::total_cmp);
+		assert_eq!(starts, [1.0, 2.0, 3.0], "every quest either faction sees it start");
+		let mut unioned: Vec<String> = dy.unioned.iter().filter(|u| u.0 == "Npc").map(|u| format!("{} {}", u.1, u.2)).collect();
+		unioned.sort();
+		assert_eq!(unioned, ["5676 questStarts", "5676 spawns"]);
+		assert!(dy.kept.iter().any(|k| k.0 == "Npc" && k.1 == 5676 && k.2 == "zoneID" && !k.3), "one zone per NPC: kept, and listed");
 	}
 
 	#[test]

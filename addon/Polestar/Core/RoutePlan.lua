@@ -83,7 +83,9 @@ local function build(active)
 	-- carried: quest -> the later guide that hands it in, from the compiled
 	-- `carriedTo` on the route's quest work: known even where the plan
 	-- cannot reach that guide (not loaded, a choice to make, another race's).
-	local index, carried = {}, {}
+	-- opens: quest -> the accepts of the route that need it first (their
+	-- `pre` or `preAny`), as { chapter, step }.
+	local index, carried, opens = {}, {}, {}
 	for chapter, g in ipairs(route) do
 		for si, step in ipairs(g.steps or {}) do
 			if G.Matches(step.only, player) then
@@ -96,11 +98,20 @@ local function build(active)
 					elseif goal.carriedTo and goal.quest and not carried[goal.quest] and G.Matches(goal.only, player) then
 						carried[goal.quest] = goal.carriedTo
 					end
+					if goal.t == "accept" and G.Matches(goal.only, player) then
+						for _, list in ipairs({ goal.pre or {}, goal.preAny or {} }) do
+							for _, q in ipairs(list) do
+								local entries = opens[q] or {}
+								opens[q] = entries
+								entries[#entries + 1] = { chapter = chapter, step = si }
+							end
+						end
+					end
 				end
 			end
 		end
 	end
-	return { active = active, chapter = seen[active.id], seen = seen, index = index, carried = carried, pending = pending, missing = missing }
+	return { active = active, chapter = seen[active.id], seen = seen, index = index, carried = carried, opens = opens, pending = pending, missing = missing }
 end
 
 local function planOf(g)
@@ -289,7 +300,10 @@ end
 -- hands in beyond the plan's reach (`carriedTo`) is "later", not unplanned.
 -- A quest another open tab's route or a dungeon open in a tab hands in
 -- ("other", GetTurnIn) is never listed, but for a grey one that route hands
--- in in a later chapter which leaves it out too, as above.
+-- in in a later chapter which leaves it out too, as above. Nor is one an
+-- accept still ahead on the active route needs first (its `pre` or
+-- `preAny`, Plan.OpensAhead): abandoning it would close that accept and send
+-- the player back for it (#3132: the Azshara guide's Feralas lead-ins).
 function Plan.Unneeded()
 	local C, E, out = ns.Compat, ns.Engine, {}
 	local level = (C.GetPlayerInfo() or {}).level
@@ -302,9 +316,25 @@ function Plan.Unneeded()
 		elseif (status == "later" or (status == "other" and r.via == "later")) and grey(C, q, level) and E and E.GreyLeftOut and E.GreyLeftOut(r.guide, q, level) then
 			status = "grey"
 		end
-		if NEVER[status] or status == "grey" then out[#out + 1] = { quest = q, title = C.GetQuestTitle(q), status = status } end
+		if (NEVER[status] or status == "grey") and not Plan.OpensAhead(q) then out[#out + 1] = { quest = q, title = C.GetQuestTitle(q), status = status } end
 	end
 	return out
+end
+
+-- Whether an accept on the active tab's route, at its live step or after it,
+-- needs quest q first (the accept's `pre` or `preAny`).
+function Plan.OpensAhead(q)
+	local E = ns.Engine
+	local active = E and E.GetGuide and E.GetGuide()
+	if not active then return false end
+	local plan = planOf(active)
+	local step
+	if E.GetLiveStep then step = E.GetLiveStep() else step = E.GetStepIndex() end
+	step = step or math.huge
+	for _, at in ipairs(plan.opens[q] or {}) do
+		if at.chapter > plan.chapter or (at.chapter == plan.chapter and at.step >= step) then return true end
+	end
+	return false
 end
 
 -- The live step's open accepts would not fit in the log: { take = accepts
@@ -422,15 +452,34 @@ function Plan.LeftBehind(toId)
 	return out
 end
 
+-- An NPC ender who stands only inside a dungeon (Daewyn Songblade, in the
+-- Excavation Site: Wetlands, for Songblade Search, #2582): the dungeon's
+-- entrance, named by the dungeon, `inside` set; nil when none is known.
+local function insideEnder(ends)
+	local X, D = ns.Codex, ns.Dungeons
+	if type(ends) ~= "table" or not (X and X.Npc and D and D.Get) then return nil end
+	for _, id in ipairs(ends.npc or {}) do
+		local npc = X.Npc(id)
+		local inst = npc and npc.instance and D.Get(npc.instance)
+		local e = inst and inst.entrance
+		if e and e.map and e.x and e.y then
+			return { npc = id, name = npc.name, map = e.map, x = e.x, y = e.y, f = e.f, zone = inst.name, inside = true }
+		end
+	end
+	return nil
+end
+
 -- Where quest q is handed in for this character: the Codex's ender of the
 -- character's side nearest the player (Lookup.QuestEnd), as { npc | object,
--- name, map, x, y, f, zone }; nil when unknown.
+-- name, map, x, y, f, zone }, else one inside a dungeon (insideEnder); nil
+-- when unknown or the other side's.
 function Plan.Ender(q)
 	local X, Lk = ns.Codex, ns.Lookup
 	local rec = X and X.Quest and Lk and Lk.QuestEnd and X.Quest(q)
 	local e = rec and Lk.QuestEnd(rec["end"], ns.PlayerPoint(), nil, true)
-	local s = e and not e.hostile and e.spawn
-	if not s then return nil end
+	if e and e.hostile then return nil end
+	local s = e and e.spawn
+	if not s then return rec and insideEnder(rec["end"]) or nil end
 	return { npc = e.npc, object = e.object, name = e.name, map = s.map, x = s.x, y = s.y, f = s.f, zone = ns.Compat.MapName(s.map) }
 end
 
@@ -538,9 +587,26 @@ function Plan.OffRoute(id)
 	return out
 end
 
-for _, event in ipairs({ "GUIDES_REGISTERED", "PACKS_CHANGED", "GUIDE_CHANGED", "ROUTE_CHOSEN", "TABS_CHANGED", "CODEX_LOADED", "DUNGEON_ANSWERED" }) do
+for _, event in ipairs({ "GUIDES_REGISTERED", "PACKS_CHANGED", "GUIDE_CHANGED", "ROUTE_CHOSEN", "CODEX_LOADED", "DUNGEON_ANSWERED" }) do
 	ns.On(event, Plan.Invalidate)
 end
+-- TABS_CHANGED comes after every step update of a tab (each goal ticked: a
+-- kill that counts), not only when a tab opens, closes or takes another
+-- guide. The tabs' live steps (elsewhere) follow each one; the routes
+-- (build) and chain quests only the guides in the tabs, so they are kept
+-- while the same guides are open: rebuilding them walks every registered
+-- guide (firstOf), which made each kill stutter (#2555).
+local tabGuides = {}
+ns.On("TABS_CHANGED", function(list)
+	local G, now = ns.Guides, {}
+	for i, t in ipairs(type(list) == "table" and list or {}) do now[i] = G.Get(t.guideId) or false end
+	local same = #now == #tabGuides
+	for i = 1, #now do
+		if now[i] ~= tabGuides[i] then same = false; break end
+	end
+	tabGuides = now
+	if same then others = nil else Plan.Invalidate() end
+end)
 -- "Dungeons in my route" (behavior.dungeons; a profile switch changes every setting).
 ns.On("SETTING_CHANGED", function(path)
 	if path == "behavior.dungeons" or path == "behavior" or path == nil or path == "" then Plan.Invalidate() end

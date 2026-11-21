@@ -46,7 +46,7 @@ local L = ns.L
 local GuideTexts = {}
 ns.GuideTexts = GuideTexts
 
-local type, pairs, ipairs, tonumber, next = type, pairs, ipairs, tonumber, next
+local type, pairs, ipairs, tonumber = type, pairs, ipairs, tonumber
 local find, sub, upper, concat = string.find, string.sub, string.upper, table.concat
 
 local ENGLISH = { enUS = true, enGB = true }
@@ -58,6 +58,7 @@ local GUIDE_FIELDS = { "title", "why", "pitch" }
 local GUIDE_LISTS = { "pros", "cons" }
 local STEP_FIELDS = { "title", "note" }
 local GOAL_FIELDS = { "note", "text" }
+local EMPTY_GOALS = {}
 
 local texts = {} -- pack id -> { pack = { english = translation }, guides = { [guide id] = { english = translation } } }
 local prepared = setmetatable({}, { __mode = "k" }) -- def -> { names, fields = { holder, key, english, ... } }
@@ -104,11 +105,11 @@ local function fill(s, names, live)
 		if not a then break end
 		local prefix = sub(s, at, a - 1)
 		n = n + 1; parts[n] = prefix; total = total + #prefix
-		local en = names[kind .. ":" .. id]
+		local en = names and names[kind .. ":" .. id]
 		local name = en and live and not english and localName(kind, tonumber(id), en) or nil
 		local token
 		if valid(name) then token = name
-		elseif en then token = en
+		elseif valid(en) then token = en
 		else token = sub(s, a, b) end
 		n = n + 1; parts[n] = token; total = total + #token
 		at = b + 1
@@ -121,7 +122,7 @@ end
 local function render(def, entry, en, live)
 	-- A text that spells a name otherwise than its token's English: an
 	-- English client reads the author's words.
-	if english and entry.written[en] then return entry.written[en] end
+	if english and entry.written and valid(entry.written[en]) then return entry.written[en] end
 	local t = texts[def.pack]
 	local g = t and t.guides[def.id]
 	return fill(g and g[en] or en, entry.names, live)
@@ -132,16 +133,7 @@ function GuideTexts.PackText(packId, s)
 	return t and valid(s) and t.pack[s] or s
 end
 
--- Every prose text of def as holder, key, English triples, in `fields`.
-local function collect(def, fields)
-	local function add(holder, key)
-		local v = holder[key]
-		if valid(v) then
-			fields[#fields + 1] = holder
-			fields[#fields + 1] = key
-			fields[#fields + 1] = v
-		end
-	end
+local function headerFields(def, add)
 	for _, f in ipairs(GUIDE_FIELDS) do add(def, f) end
 	for _, f in ipairs(GUIDE_LISTS) do
 		local list = def[f]
@@ -150,10 +142,15 @@ local function collect(def, fields)
 	if type(def.reward) == "table" then
 		for _, r in ipairs(def.reward) do if type(r) == "table" then add(r, "text") end end
 	end
+end
+
+local function stepFields(def, add)
 	-- Deferred steps not read in yet are left for PrepareSteps.
-	for _, step in ipairs(rawget(def, "steps") or {}) do
+	local steps = rawget(def, "steps")
+	if not steps then return end
+	for _, step in ipairs(steps) do
 		for _, f in ipairs(STEP_FIELDS) do add(step, f) end
-		for _, goal in ipairs(step.goals) do
+		for _, goal in ipairs(step.goals or EMPTY_GOALS) do
 			if type(goal) == "table" then
 				for _, f in ipairs(GOAL_FIELDS) do add(goal, f) end
 				-- A kill of no NPC names its target in words.
@@ -163,18 +160,7 @@ local function collect(def, fields)
 	end
 end
 
--- Writes def's texts; escaped through `escape` (nil: left for RegisterGuide).
-local function apply(def, entry, live, escape, from)
-	local changed = false
-	local f = entry.fields
-	for i = from or 1, #f, 3 do
-		local v = render(def, entry, f[i + 2], live)
-		if escape then v = escape(v) end
-		if f[i][f[i + 1]] ~= v then
-			f[i][f[i + 1]] = v
-			changed = true
-		end
-	end
+local function applyFolder(def, entry, escape)
 	if valid(entry.folder) then
 		local v = GuideTexts.PackText(def.pack, entry.folder)
 		-- A folder named after a class: the client's name of it.
@@ -183,59 +169,69 @@ local function apply(def, entry, live, escape, from)
 		if escape then v = escape(v) end
 		if def.folder ~= v then
 			def.folder = v
+			return true
+		end
+	end
+	return false
+end
+
+-- RegisterGuide escapes def.names after preparation. Only a translated client
+-- needs the original names after the first render.
+local function newEntry(def)
+	local names = type(def.names) == "table" and def.names or nil
+	if not english and names then
+		local raw = {}
+		for k, v in pairs(names) do if valid(k) and valid(v) then raw[k] = v end end
+		names = raw
+	end
+	return { names = names, written = english and type(def.written) == "table" and def.written or nil, fields = {} }
+end
+
+local function collectFields(def, entry, withHeader)
+	local fields = entry.fields
+	local function add(holder, key)
+		local en = holder[key]
+		if not valid(en) then return end
+		-- A weak-key table in Lua 5.1 does not collect a key reachable
+		-- from its value. Never store def in its own refresh list.
+		local n = #fields
+		fields[n + 1] = holder ~= def and holder or false
+		fields[n + 2], fields[n + 3] = key, en
+	end
+	if withHeader then headerFields(def, add) end
+	stepFields(def, add)
+end
+
+local function apply(def, entry, from, live, escape)
+	local changed, fields = false, entry.fields
+	for i = from, #fields, 3 do
+		local holder, key = fields[i] or def, fields[i + 1]
+		local v = render(def, entry, fields[i + 2], live)
+		if escape then v = escape(v) end
+		if holder[key] ~= v then
+			holder[key] = v
 			changed = true
 		end
 	end
-	return changed
+	return applyFolder(def, entry, escape) or changed
 end
 
 function GuideTexts.Prepare(def, live)
-	local names, written = {}, {}
-	if type(def.names) == "table" then
-		for k, v in pairs(def.names) do if valid(k) and valid(v) then names[k] = v end end
-	end
-	if type(def.written) == "table" then
-		for k, v in pairs(def.written) do if valid(k) and valid(v) then written[k] = v end end
-	end
-	local entry = { names = names, written = written, fields = {}, folder = def.folder }
-	collect(def, entry.fields)
-	-- An English client fills the tokens once: nothing ever changes them.
+	local entry = newEntry(def)
+	entry.folder = def.folder
 	if not english then prepared[def] = entry end
-	apply(def, entry, live, nil)
+	collectFields(def, entry, true)
+	apply(def, entry, 1, live)
 end
 
 -- A deferred guide's steps, read in (Guides.Steps): their texts join def's,
 -- written in the client's language now.
 function GuideTexts.PrepareSteps(def)
-	local entry = prepared[def]
-	if not entry then
-		-- An English client keeps no entry: one for these steps alone.
-		local names, written = {}, {}
-		for k, v in pairs(type(def.names) == "table" and def.names or {}) do if valid(k) and valid(v) then names[k] = v end end
-		for k, v in pairs(type(def.written) == "table" and def.written or {}) do if valid(k) and valid(v) then written[k] = v end end
-		entry = { names = names, written = written, fields = {} }
-	end
-	entry.header = entry.header or #entry.fields
+	local entry = prepared[def] or newEntry(def)
 	local from = #entry.fields + 1
-	local f = entry.fields
-	local function add(holder, key)
-		local v = holder[key]
-		if valid(v) then
-			f[#f + 1] = holder
-			f[#f + 1] = key
-			f[#f + 1] = v
-		end
-	end
-	for _, step in ipairs(rawget(def, "steps") or {}) do
-		for _, k in ipairs(STEP_FIELDS) do add(step, k) end
-		for _, goal in ipairs(step.goals or {}) do
-			if type(goal) == "table" then
-				for _, k in ipairs(GOAL_FIELDS) do add(goal, k) end
-				if goal.t == "kill" and goal.npc == nil then add(goal, "target") end
-			end
-		end
-	end
-	apply(def, entry, true, nil, from)
+	entry.header = entry.header or from - 1
+	collectFields(def, entry, false)
+	apply(def, entry, from, true)
 end
 
 -- A deferred guide's steps dropped (Guides.Release): their texts leave def's.
@@ -247,8 +243,7 @@ end
 
 function GuideTexts.Refresh(def)
 	local entry = prepared[def]
-	if not entry then return false end
-	return apply(def, entry, true, ns.EscapeText)
+	return entry and apply(def, entry, 1, true, ns.EscapeText) or false
 end
 
 -- Our pack's texts are in the language folder, beside the game's names.

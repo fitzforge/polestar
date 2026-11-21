@@ -74,7 +74,7 @@ return {
 
 	-- Step 10: The Echo Isles
 	-- {area:368} Echo Isles
-	["The {area:368}"] = "",
+	["The {area:368}"] = "{area:368}",
 	-- {area:368} Echo Isles · {quest:826} Zalazane
 	-- plural, as words: Durotar Tigers = {npc:3121} Durotar Tiger
 	["Swim to the largest of the {area:368}, south-east of the village. {quest:826}, the idols and the skulls at the circle of power are all there; the Durotar Tigers prowl the smaller islands."] = "",
@@ -143,7 +143,7 @@ return {
 	-- {npc:3118} Dustwind Storm Witch · {item:277661} Dull Storm Orb · {quest:97281} A Simmering Storm · {npc:3293} Rezlak · {quest:97282} Stormy Potential
 	["A {npc:3118} may drop a {item:277661}: use it to start {quest:97281}. Once you hand that in, {npc:3293} offers {quest:97282}."] = "",
 	-- {npc:3117} Dustwind Savage · {area:370} Drygulch Ravine
-	["{npc:3117}, in {area:370}"] = "",
+	["{npc:3117}, in {area:370}"] = "{npc:3117}, здесь: {area:370}",
 
 	-- Step 22: Stormy Potential
 	-- {area:369} Thunder Ridge · {npc:3293} Rezlak

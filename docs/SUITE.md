@@ -14,7 +14,7 @@ contracts between the modules are in [docs/ARCHITECTURE.md](ARCHITECTURE.md).
 | Navigation (core) | Arrow, travel planner, waypoints; `/polestar way <x> <y> [label]` (or `/pole way`) points the arrow at a spot on the current map; Shift-click a map to go there; `/polestar near <service>` for the quickest trainer, vendor, inn, bank...; other addons' TomTom waypoints and `/way` without TomTom; `Polestar.Nav.API` for addon authors |
 | Quests | Map and minimap pins for available quests, objective areas, quest givers (off by default, Map options); tooltip lines on mobs and items that a quest needs; quest levels in the log; a quest icon beside the health bar of nameplates of mobs a quest needs (replacement nameplates included) |
 | Lookup (Codex) | One search over guides and entities (items, mounts, pets, recipes, tabards, quests, NPCs, rares, treasures, dungeons, zones). "How to get" for any item, mount or pet: sources ranked for this character, one click to a guide (curated when one exists, otherwise built on the spot). Tooltip source lines; Alt-click an item link to guide; target or mouse over a player to see their mount and how to get it. Search only: no browse-everything lists |
-| Dungeons | A journal page per dungeon: every quest with where to get it, its objective, its chain and its rewards (item choices, XP, money, reputation), plus bosses and the entrance on the map, with "guide me" to givers and the entrance; attunements and keys (Molten Core, Onyxia's Lair, Blackwing Lair, Naxxramas, Scholomance, Blackrock Depths, the City of Dalaran...) with this character's progress and a guide through what is left. No loot tables |
+| Dungeons | A journal page per dungeon: every quest with where to get it, its objective, its chain and its rewards (item choices, XP, money, reputation), plus bosses with their known drops and the entrance on the map, with "guide me" to givers and the entrance; attunements and keys (Molten Core, Onyxia's Lair, Blackwing Lair, Naxxramas, Scholomance, Blackrock Depths, the City of Dalaran...) with this character's progress and a guide through what is left |
 | Upgrades | Upgrade indicator on item tooltips and an upgrade arrow on bag items (the game's bags and Baganator), the best pick on quest reward choices, from stat weights per spec (detected from the client's talent points) and level band, which the player can adjust |
 | Rares | Rare NPC and treasure database with locations and loot, map pins (off by default, Map options), alerts (only through APIs the Forever client has) |
 | Maps | World map without fog of war (the zone-art overlay table), coordinates, zone level ranges, dungeon entrance and travel pins (off by default, Map options) |
@@ -24,7 +24,7 @@ contracts between the modules are in [docs/ARCHITECTURE.md](ARCHITECTURE.md).
 
 Out of scope: a full UI suite (Polestar integrates with EllesmereUI, and with
 ErgoBars through the same contract, through their public skinning APIs), boss and combat warnings, aura tracking, best-in-slot
-lists and loot browsing. Polestar keeps the dungeon quest journal and the
+lists and general loot browsing. Polestar keeps the dungeon quest journal and the
 upgrade indicator on tooltips.
 
 Every module can be switched off in options, and none costs memory until it is

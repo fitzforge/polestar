@@ -22,7 +22,8 @@ next forever/alliance/06-ashenvale
 # Blackfathom Deeps (`when dungeon "Blackfathom Deeps"`, dungeons in the route): for a character who chose
 # it, Gershala Nightwhisper's Researching the Corruption (1275) is taken on the Auberdine stop after the
 # Grove, at about 22; the run is on the Zoram Strand in forever/alliance/06-ashenvale. The Corruption
-# Abroad (3765, Argos Nightwhisper in Stormwind) only leads to her: players take her quest without it.
+# Abroad (3765, Argos Nightwhisper in Stormwind, taken on 03-loch-modan's way to the harbour) goes to her on the
+# first Auberdine stop, beside Terenthis (fix round 2026-11-20); players take her own quest without it.
 
 # ---------------------------------------------------------------- Auberdine
 
@@ -34,6 +35,7 @@ step Auberdine
   accept 729                                  -- Archaeologist Hollee
   vendor nearest optional
   accept 4740                                 -- The WANTED poster
+  turnin 3765                                 -- Gershala Nightwhisper, a short walk west of Terenthis: Argos's message from Stormwind
   accept 986                                  -- Terenthis
   accept 990 optional                         -- Sentinel Selarin, beside Terenthis if she is there: for Raene Wolfrunner in Astranaar, in the next guide
 

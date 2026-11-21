@@ -86,6 +86,24 @@ fn guide_lookup_button_opens_lookup_with_search_focus_without_changing_the_guide
 	assert_eq!(out["sameStep"], true);
 }
 
+// #2769 (Liquidor): a search, another section, then Lookup again. The hub empties its box on the way, and the sidebar
+// drew before Lookup took up the empty search: its kinds still counted the old results under an empty box.
+#[test]
+fn a_search_left_for_another_section_is_gone_from_lookup_s_sidebar_when_it_shows_again() {
+	let out = run(r#"
+		Polestar.Lookup.Show("saber")
+		local searched = { navs = navKeys(), all = nav("all").Count:IsShown() }
+		Polestar.UI.Picker.ShowSection("Guides")
+		Polestar.UI.Picker.ShowSection("Lookup")
+		emit({ searched = searched, query = LK.Query(), box = Polestar.UI.Picker.search:GetText(), navs = navKeys(),
+			all = nav("all").Count:IsShown() })"#);
+	assert_eq!(out["searched"]["all"], true, "while searching, Everything counts the results");
+	assert_eq!(out["query"], "");
+	assert_eq!(out["box"], "");
+	assert_eq!(out["all"], false, "an empty box: no result count on Everything");
+	assert_ne!(out["navs"], out["searched"]["navs"], "the kinds are no longer the old search's");
+}
+
 #[test]
 fn show_lookup_opens_the_hub_at_lookup_on_the_query_results_grouped_by_kind_the_first_selected() {
 	let out = run(r#"
@@ -597,4 +615,137 @@ fn lookup_turned_off_in_options_guides_only_the_section_says_where_to_turn_it_on
 	assert_eq!(out["idle"]["codex"], "Lookup is off: searching guides only");
 	assert!(is_match(text(&out["none"]), r"Nothing matches .saber.\. Lookup is turned off in Options > Discovery > Lookup"));
 	assert_eq!(out["loads"], 0);
+}
+
+// #2692: Lookup's "Lookup is off: searching guides only" sits in the hub's tab row. Going to the guide list hides
+// the section's frame (the hub's), not Lookup's own, and the line read only its own frame's state: it stayed on
+// the guide list over its tabs. The hub hiding with Lookup open keeps it for when the hub comes back.
+#[test]
+fn the_codex_line_leaves_the_tab_row_with_the_section_and_comes_back_with_it_2692() {
+	let out = run(r#"
+		stub.cascadeVisibility = true
+		lookupstub.loaded, lookupstub.reason = false, "off"
+		Polestar.Codex.Load = function() return false, "off" end
+		UI.ShowLookup()
+		local line = LK.root.CodexLine
+		local r = { lookup = { line:GetText(), line:IsVisible() } }
+		Polestar.UI.Picker.ShowSection("Guides")
+		r.guides = { tabs = PolestarPicker.TabRow:IsShown(), line = line:IsVisible() }
+		UI.ShowLookup()
+		r.back = line:IsVisible()
+		PolestarPicker:Hide(); PolestarPicker:Show()
+		r.reopened = line:IsVisible()
+		emit(r)"#);
+	assert_eq!(out["lookup"], json!(["Lookup is off: searching guides only", true]));
+	assert_eq!(out["guides"], json!({ "tabs": true, "line": false }), "the guide list's tab row is its own");
+	assert_eq!(out["back"], true, "back in Lookup, the line is back");
+	assert_eq!(out["reopened"], true, "the hub hidden and shown again with Lookup open keeps it");
+}
+
+// #2554: a quest in a chain shows "Step N of M" among its facts and the whole chain under its sources, each quest
+// with its state (a skipped one marked), the follow-up branches after it, and a click opening another quest's page;
+// hovering another quest's row says so. A chain left with only skipped quests says it is finished, not all done.
+#[test]
+fn a_quest_in_a_chain_shows_its_step_each_quest_s_state_and_its_branches_and_a_row_opens_that_quest() {
+	let out = run(r#"
+		lookupstub.chains[38] = {
+			quests = {
+				{ id = 36, title = "Gathering Ingredients", state = "later", why = "Needs level 14", skipped = true },
+				{ id = 37, title = "Fresh Meat", state = "done" },
+				{ id = 38, title = "Westfall Stew", state = "open" },
+				{ id = 4970, title = "Frostsaber Provisions", state = "later", why = "After an earlier quest" },
+			},
+			step = 3, total = 4, skippedCount = 1,
+			branches = { { id = 40, title = "A Fishy Peril" }, { id = 41, title = "Furlbrow's Deed" } },
+		}
+		Polestar.Lookup.Show(nil, "quest", 38)
+		local d = LK.detail
+		local chainFact
+		for _, f in ipairs(d.facts) do if f[1] == "Chain" then chainFact = f[2] end end
+		local rows = LK.details.ChainRows
+		local first = { head = LK.details.ChainHead.Count:GetText(), fact = chainFact, chain = d.chain,
+			branches = LK.details.ChainBranches:GetText(), clickHere = rows[3].psQuest or false }
+		stub.RunScript(rows[4], "OnEnter")
+		first.tip = GameTooltip.lines
+		stub.RunScript(rows[4], "OnLeave")
+		rows[4]:Click()
+		first.finished = LK.ChainStepText({ done = true, step = 4, total = 4, skippedCount = 1 })
+		emit({ first = first, sel = LK.Selected(), after = LK.detail.chain or false })"#);
+	let f = &out["first"];
+	assert_eq!(f["fact"], "Step 3 of 4");
+	assert_eq!(f["head"], "Step 3 of 4");
+	assert!(f["tip"].as_array().unwrap().iter().any(|l| text(l) == "Click to open its page."), "{}", f["tip"]);
+	assert_eq!(f["finished"], "Finished, 1 skipped");
+	assert_eq!(
+		cols(&f["chain"]["quests"], &["id", "state", "here"]),
+		json!([[36, "Skipped  \u{b7}  Needs level 14", null], [37, "Done", null], [38, "You can take it now", true], [4970, "After an earlier quest", null],])
+	);
+	assert_eq!(f["chain"]["branches"], json!(["A Fishy Peril", "Furlbrow's Deed"]));
+	assert_eq!(f["branches"], "Then any of: A Fishy Peril, Furlbrow's Deed");
+	assert_eq!(f["clickHere"], false, "the quest's own row opens nothing");
+	assert_eq!(out["sel"], json!({ "kind": "quest", "id": 4970 }), "a row opens that quest's page");
+	assert_eq!(out["after"], false, "a quest standing alone has no chain");
+}
+
+#[test]
+fn an_item_s_icon_in_the_details_shows_the_game_s_tooltip_for_it_other_pages_icons_none() {
+	let out = run(r#"
+		local links = {}
+		GameTooltip.SetHyperlink = function(self, link) links[#links + 1] = link end
+		local well
+		local function hover()
+			GameTooltip.owner = nil
+			stub.RunScript(well, "OnEnter")
+			local r = { mouse = well:IsMouseEnabled(), owner = GameTooltip:GetOwner() == well, link = links[#links] or false }
+			stub.RunScript(well, "OnLeave")
+			links = {}
+			return r
+		end
+		Polestar.Lookup.Show(nil, "item", 4386)
+		well = LK.details.Well
+		local item = hover()
+		Polestar.Lookup.Show(nil, "mount", 8631)
+		local mount = hover()
+		Polestar.Lookup.Show(nil, "npc", 4730)
+		local npc = hover()
+		Polestar.Lookup.Show(nil, "item", 4386)
+		stub.RunScript(well, "OnEnter")
+		links = {}
+		Polestar.Lookup.Show(nil, "mount", 8631)
+		local follows = links[1] or false
+		Polestar.Lookup.Show(nil, "npc", 4730)
+		local leftNpc = GameTooltip:IsShown()
+		Polestar.Lookup.Show(nil, "item", 4386)
+		stub.RunScript(well, "OnEnter")
+		LK.Select(nil)
+		local leftEmpty = GameTooltip:IsShown()
+		emit({ item = item, mount = mount, npc = npc, follows = follows, leftNpc = leftNpc, leftEmpty = leftEmpty })"#);
+	assert_eq!(out["item"], json!({ "mouse": true, "owner": true, "link": "item:4386" }));
+	assert_eq!(out["mount"], json!({ "mouse": true, "owner": true, "link": "item:8631" }));
+	assert_eq!(out["npc"]["mouse"], false, "an NPC's glyph leaves the band to drag the window");
+	assert_eq!(out["npc"]["link"], false);
+	assert_eq!(out["follows"], "item:8631", "a tooltip already up follows the newly opened item");
+	assert_eq!(out["leftNpc"], false, "and goes when the page is no item");
+	assert_eq!(out["leftEmpty"], false, "and when the details empty");
+}
+
+#[test]
+fn a_modified_click_on_an_item_s_icon_in_the_details_hands_its_link_to_the_client_a_plain_or_right_click_does_nothing() {
+	let out = run(r#"
+		local modified, handled = false, {}
+		IsModifiedClick = function() return modified end
+		Polestar.Compat.ItemLink = function(id) return "|Hitem:" .. id .. "|h[x]|h" end
+		HandleModifiedItemClick = function(link) handled[#handled + 1] = link end
+		Polestar.Lookup.Show(nil, "item", 4386)
+		local well = LK.details.Well
+		stub.RunScript(well, "OnMouseUp", "LeftButton")
+		local plain = #handled
+		modified = true
+		stub.RunScript(well, "OnMouseUp", "RightButton")
+		stub.RunScript(well, "OnMouseUp", "LeftButton")
+		Polestar.Lookup.Show(nil, "npc", 4730)
+		stub.RunScript(well, "OnMouseUp", "LeftButton")
+		emit({ plain = plain, handled = handled })"#);
+	assert_eq!(out["plain"], 0, "a plain click is not a modified click");
+	assert_eq!(out["handled"], json!(["|Hitem:4386|h[x]|h"]), "Shift / Ctrl on the item hands its link over; an NPC's glyph none");
 }

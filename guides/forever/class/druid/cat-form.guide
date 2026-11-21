@@ -36,9 +36,13 @@ zone Moonglade
 # without a waypoint the arrow led onto a ledge outside his floor, behind the wall (#1338). Each step
 # to him comes after a goto at the building's door on its south side, 35.8,11.6, where players'
 # recordings walk in; from there the arrow points straight at him.
+# Keep each entrance only while its visit is unfinished: class-only quest progress
+# deliberately does not skip a generic approach (#240).
 
 step Cenarion Enclave
   only NightElf,Skyborne,Alliance
+  when !onquest 98393
+  when !turnedin 98393
   zone Darnassus
   tip Mathrengyl Bearwalker stands in the Cenarion Enclave. Skyborne far from Darnassus: cast Teleport: Moonglade and take Silva Fil'naveth's flight from the middle of Nighthaven (she flies druids to Rut'theran Village, no flight path needed), then the portal up. No Aquatic Form yet? Take A Lesson to Learn from him too: it also goes to Dendrite, and its Trial of the Lake (the Aquatic Form guide) is in the same Moonglade.
   level 20
@@ -88,6 +92,7 @@ step Back to Dendrite
 
 step Cenarion Enclave
   only NightElf,Skyborne,Alliance
+  when !turnedin 98397
   zone Darnassus
   tip Take the portal up to Mathrengyl, upstairs in the Cenarion Enclave: he teaches you Cat Form.
   goto 35.8,11.6 "Cenarion Enclave"

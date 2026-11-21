@@ -79,7 +79,6 @@ return {
 	-- Step 13: The mine, the centaurs and the plains
 	["The mine, the centaurs and the plains"] = "矿洞、半人马与平原",
 	-- {quest:765} Supervisor Fizsprocket · {item:281031} Mulgore Expansion Plans · {quest:98424} Fizsprocket's Notes · {zone:1412} Mulgore
-	-- plural, as words: Swoops = {npc:2970} Swoop
 	["Back to the mine for the workers, supervisors and {quest:765} in the back: his {item:281031} start {quest:98424}, and its other pages lie inside the mine. The Galak centaurs and Herak camp east of the village. Swoops fly all over {zone:1412}; the Windfury harpies roost south-east of the village; the Palemane gnolls camp west of it."] = "返回矿洞对付工人、主官和深处的{quest:765}：他掉落的{item:281031}可触发{quest:98424}，其余书页散落在矿洞内。加拉克半人马和赫拉克在村庄东面扎营。猛鹫在{zone:1412}各处飞翔；风怒鹰身人栖息在村庄东南面，白鬃豺狼人则在村庄西面扎营。",
 	-- {item:281031} Mulgore Expansion Plans · {quest:765} Supervisor Fizsprocket
 	["{item:281031}, from {quest:765}"] = "{item:281031}，从{quest:765}获得",
@@ -93,8 +92,8 @@ return {
 	-- Step 15: The Venture Co. Mine: the Clearcutter
 	-- {area:360} The Venture Co. Mine
 	["{area:360}: the Clearcutter"] = "{area:360}：Clearcutter",
-	-- {quest:98427} Ceasing Operations
-	["The elite shredder Venture Co. Clearcutter works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "精英伐木机Venture Co. Clearcutter在矿洞深处作业，比菲兹普罗克原先所在的位置更深；它的钥匙用于{quest:98427}。",
+	-- {npc:272173} Venture Co. Clearclutter · {quest:98427} Ceasing Operations
+	["The elite shredder {npc:272173} works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "精英伐木机{npc:272173}在矿洞深处作业，比菲兹普罗克原先所在的位置更深；它的钥匙用于{quest:98427}。",
 
 	-- Step 16: Bloodhoof Village: last hand-in
 	-- {area:222} Bloodhoof Village

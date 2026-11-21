@@ -293,6 +293,32 @@ fn the_preview_draws_a_copy_of_the_window_by_its_settings_without_touching_the_l
 	assert_eq!(out["hot"], true, "the parts are hotspots that jump to their rows");
 }
 
+// The guide window's own text size (ui.guideTextSize, beside Scale on the Window tab) sizes the preview's copy as it
+// sizes the live window; the general size (ui.textSize, Theme > Text) leaves both alone (PR #1777 review).
+#[test]
+fn the_preview_s_window_follows_the_guide_text_size_and_not_the_general_one() {
+	let out = run(r#"
+		uistub.openTabs(TABS, 1)
+		local f = Polestar.UI.GuideWindowPreview(UIParent)
+		f:Show()
+		f:Layout(900, 305)
+		local C = f.Scene.Copy
+		local function sizes() return { copy = size(C.rows[1].Text), live = size(firstRow().Text) } end
+		local base = sizes()
+		Polestar.Set("ui.guideTextSize", 1.4)
+		local guide = sizes()
+		Polestar.Set("ui.guideTextSize", nil)
+		Polestar.Set("ui.textSize", 1.4)
+		local general = sizes()
+		emit({ base = base, guide = guide, general = general })"#);
+	assert_eq!(out["base"]["copy"], 14);
+	assert_eq!(out["base"]["live"], 14);
+	assert_eq!(out["guide"]["copy"], 19.5, "the preview's window grows with the guide text size");
+	assert_eq!(out["guide"]["live"], 19.5, "as the live window does");
+	assert_eq!(out["general"]["copy"], 14, "the general size leaves the preview's window alone");
+	assert_eq!(out["general"]["live"], 14);
+}
+
 // The copy shows Up next only while it is on (ui.upcoming: how many steps; 0, the default, off), as the window
 // does; compact never shows it.
 #[test]

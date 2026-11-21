@@ -10,7 +10,7 @@
 use forge_addontest::{emitted, lua_string, Addon, RunAddon};
 use serde_json::{json, Value};
 
-const FILES: &[&str] = &["Core/Core.xml", "Quests/Party.lua", "Quests/PartyChat.lua"];
+const FILES: &[&str] = &["Core/Core.xml", "Quests/Party.lua", "Quests/PartyChat.lua", "Quests/QuestLogLink.lua"];
 const STUBS: &[&str] = &["stub_world.lua", "stub_party.lua"];
 const DEFAULTS: &str = "PolestarDB = { schema = 1 }";
 const MARK: &str = "{rt1} Polestar: ";

@@ -30,7 +30,7 @@
 //!     pre / preAll  blocking prerequisites (forge-guide prereqs, breadcrumbs
 //!               dropped): one of `pre` must be done, and every one of `preAll`
 //!     objectives  flat triples kind, id, count: kind 1 kill (npc), 2 item, 3 object,
-//!                 4 event (id = 1-based group in `events`, count nil)
+//!                 4 event (id = 1-based group in `events`, count nil), 5 talk (npc)
 //!     events    flat quads map, frame, x, y (frame 0 Era, 1 live)
 //!     skill     required profession skill line; holiday: event id (never "available")
 //!   npcs[id]    = { name, map, frame, n, x1, y1, r1, ..., map, frame, n, ... }
@@ -222,15 +222,16 @@ pub fn quest_faction(q: &V, npcs: &V) -> Val {
 	Val::Num(side as f64)
 }
 
-/// A creature the game keeps for its own tests or as a placeholder ("TEST WOLF (ALPHA FIRST)", "[PH]"): no drop
-/// source to show, though the data lists it (Tough Wolf Meat's two test wolves, which no spawn puts in the world, read
-/// in the target list's rows for Elwynn Forest's wolves).
+/// A creature the game keeps for its own tests or as a placeholder ("TEST WOLF (ALPHA FIRST)", "[PH]", "[DNT]",
+/// #2614): no drop source to show, though the data lists it (Tough Wolf Meat's two test wolves, which no spawn puts
+/// in the world, read in the target list's rows for Elwynn Forest's wolves; two "[DNT]" creatures listed as
+/// droppers of the Fractured Elemental Shard).
 fn test_creature(npcs: &V, id: f64) -> bool {
 	thread_local! {
 		static RE: regex::Regex = regex::Regex::new(r"(?i)^(QA)?test\b|\[PH\]|\bunused\b|\bdeprecated\b|\bDEBUG\b").unwrap();
 	}
 	let name = npcs.get(&num_str(id)).get("name");
-	name.truthy() && RE.with(|r| r.is_match(&name.to_js_string()))
+	name.as_str().is_some_and(|n| RE.with(|r| r.is_match(n)) || forge_guide::placeholder::banned(n))
 }
 
 /// Sorted top-N sources from { "<id>": chance } (ties by id), the ones `keep` takes.
@@ -323,6 +324,8 @@ pub fn build(data_dir: &Path, root: &Path, o: &Options) -> Result<Output, String
 				Some("item") => 2,
 				Some("object") => 3,
 				Some("event") => 4,
+				// A talk to an NPC keeps its line's place, so later lines keep the quest log's numbers.
+				Some("talk") => 5,
 				_ => continue,
 			};
 			if kind == 4 {
@@ -342,7 +345,7 @@ pub fn build(data_dir: &Path, root: &Path, o: &Options) -> Result<Output, String
 			let Some(oid) = finite(&ob.get("id")) else { continue };
 			objectives.extend([Val::Num(kind as f64), Val::Num(oid), num_or_nil(&ob.get("count"))]);
 			match kind {
-				1 => want_npc.insert(oid as i64),
+				1 | 5 => want_npc.insert(oid as i64),
 				2 => want_item.insert(oid as i64),
 				_ => want_object.insert(oid as i64),
 			};

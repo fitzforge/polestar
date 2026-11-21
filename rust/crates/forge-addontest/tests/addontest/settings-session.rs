@@ -99,7 +99,7 @@ fn a_session_in_the_settings_window_stays_within_each_action_s_budget_and_a_roun
 	if CPU_CLOCK {
 		for (action, ms, _) in BUDGETS {
 			let m = num(&time["actions"][action]["median"]);
-			assert!(m <= ms * scale, "{action}: {m:.3} ms (budget {ms}): {report}");
+			forge_addontest::assert_timing!(m <= ms * scale, "{action}: {m:.3} ms (budget {ms}): {report}");
 		}
 	}
 	println!("{report}");

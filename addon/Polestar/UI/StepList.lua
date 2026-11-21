@@ -20,7 +20,8 @@
 -- goals are ticked and muted, done and skipped steps muted whole, the step on
 -- screen on a lifted ground. A click looks at that step (GuideFrame.LookAt)
 -- and returns to the card. It opens at the step on screen and keeps the
--- window's current height, scrolling inside it. Steps that keep their number but
+-- window's current height, scrolling inside it; the compact window, too
+-- short to browse in, grows to fit the cards up to its height cap. Steps that keep their number but
 -- do not apply to the character now (a `when` that does not hold, such as a
 -- catch-up for quests already handed in) share one muted card per run that
 -- says which numbers they are and why (Engine.GetStepView `why`), so the
@@ -175,7 +176,13 @@ local function row(i)
 			for _, s in ipairs(self.psRun.steps) do lines[#lines + 1] = s end
 			W.Tooltip(self, G.TooltipAnchor(), self.psSummary or "", lines)
 		else
-			W.Tooltip(self, G.TooltipAnchor(), self.psSummary or "", { { L["Click to jump to this step"], Theme.Accent() } })
+			local lines = {}
+			for k = 1, self.psOut and math.min(#self.psOut, 12) or 0 do
+				local o = self.psOut[k]
+				lines[#lines + 1] = { o.title .. ": " .. o.text, Theme.TipColor("textDim") }
+			end
+			lines[#lines + 1] = { L["Click to jump to this step"], Theme.Accent() }
+			W.Tooltip(self, G.TooltipAnchor(), self.psSummary or "", lines)
 		end
 		G.HoverIn()
 	end)
@@ -287,6 +294,20 @@ local function fillRow(r, v, i, live, at)
 		W.Color(g.Text, gone and "textMuted" or "text")
 		key[1] = r.psSummary
 	end
+	-- What the route leaves out of this step (#2634, Engine.LeftOutHere with
+	-- `alone`): one muted line, the quests and why in the card's tooltip.
+	local E = ns.Engine
+	local out = not one and E.LeftOutHere and E.LeftOutHere(i, true) or nil
+	r.psOut = out and #out > 0 and out or nil
+	if r.psOut then
+		n = n + 1
+		local g = line(r, n)
+		g.Icon:SetTexture(Theme.Media("skip"))
+		W.Color(g.Icon, "textMuted")
+		g.Text:SetText(string.format(L["%d left out here"], #out))
+		W.Color(g.Text, "textMuted")
+		key[#key + 1] = "out" .. #out
+	end
 	if one then n, more, key = 0, 0, { "one" } end
 	for j = 1, #r.G do
 		r.G[j].Icon:SetShown(j <= n)
@@ -368,7 +389,10 @@ function SL.Fill()
 	local gates = {}
 	for i = 1, E.StepGate and count or 0 do gates[i] = E.StepGate(i) or "" end
 	local names = ns.Names and ns.Names.revision or 0
-	local sig = table.concat({ guide.id or "", count, at or 0, live or 0, done or 0, total or 0, names, table.concat(gates, ",") }, "|")
+	-- Skip grey quests and the level change what a card says is left out (Engine.LeftOutHere).
+	local level = (ns.Compat.GetPlayerInfo() or {}).level or 0
+	local sig = table.concat({ guide.id or "", count, at or 0, live or 0, done or 0, total or 0, names, table.concat(gates, ","),
+		ns.Get("behavior.skipGrey") and 1 or 0, level }, "|")
 	if sig == SL.sig then
 		for k = 1, 2 do
 			local i = k == 1 and live or (at ~= live and at)
@@ -422,8 +446,10 @@ function SL.Fill()
 end
 
 -- Fill the cards and lay them out `width` wide, each as tall as its wrapped
--- lines; the list fills `room`, scrolling any overflow. -> height
-function SL.Layout(width, room)
+-- lines; the list fills `room`, scrolling any overflow. With `least` (the
+-- compact window) it is as tall as its cards instead, from `least` up to
+-- `room`. -> height
+function SL.Layout(width, room, least)
 	SL.Fill()
 	local sc = SL.scroll
 	local first = SL.n > 0 and SL.rows[1].G[1]
@@ -478,6 +504,7 @@ function SL.Layout(width, room)
 	end
 	local y = SL.H or GAP
 	local view = max(1, room or y)
+	if least then view = max(1, min(view, max(least, y))) end
 	SL.frame:SetHeight(view)
 	W.SetScrollContent(sc, y, view)
 	-- Opened: the step on screen (else the live one) at the top, the steps

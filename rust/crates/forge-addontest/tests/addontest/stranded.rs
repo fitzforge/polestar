@@ -55,7 +55,7 @@ local X = Polestar.Codex
 X.Load = function() return true end
 X.IsLoaded = function() return true end
 X.Quest = function(id)
-	return { id = id, title = "Quest " .. id, faction = "A", level = id == 40 and 5 or 10, xp = 1000, ["end"] = id == 40 and { npc = { 240 } } or nil }
+	return { id = id, title = "Quest " .. id, faction = "A", level = id == 40 and 5 or 10, xp = 1000, ["end"] = (id == 40 or id == 46) and { npc = { 240 } } or nil }
 end
 Polestar.Lookup.QuestEnd = function(ends)
 	if ends and ends.npc and ends.npc[1] == 240 then return { npc = 240, name = "Marshal Dughan", spawn = { map = 1429, x = 42.0, y = 35.1 } } end
@@ -125,6 +125,32 @@ fn a_finished_quest_no_route_hands_in_is_listed_with_its_ender_and_handed_in_whi
 		"{out}"
 	);
 	assert_eq!(out["guide"], json!(["lookup/carried/log", "Marshal Dughan", "turnin", 40, 1]), "{out}");
+}
+
+// #2918 (Chm137): Auto turn-in hands in the guide's quests. A finished quest's stranded line is handed in by
+// automation only when an open guide hands that quest in: A Fishy Peril (40), on no guide, is shown at Marshal
+// Dughan and left to the player; 46, finished and handed in to Dughan at step 2 of test/d in another tab (its live
+// step is 1), still is, and its line shows too.
+#[test]
+fn auto_turn_in_leaves_a_finished_quest_no_open_guide_hands_in_and_still_hands_in_another_tab_s_2918() {
+	let out = run_before(
+		&format!("{WORLD}w.onQuest(46, {{}}, \"Other Tab's\")\n"),
+		r#"
+		Polestar.RegisterGuide({ id = "test/d", pack = "test", title = "D", faction = "Alliance", minLevel = 1, maxLevel = 15, steps = {
+			{ title = "Far", goals = { { t = "goto", map = 1429, x = 10, y = 10 } } },
+			{ title = "Dughan", goals = { { t = "turnin", quest = 46, title = "Other Tab's", npc = 240, npcName = "Marshal Dughan", map = 1429, x = 42.0, y = 35.1 } } },
+		} })
+		E.OpenTab("test/d", false); flush(); flush()
+		local r = { guide = E.GetGuide().id, here = {} }
+		for _, v in ipairs(E.GetWhileHereList()) do r.here[#r.here + 1] = { v.step, v.index } end
+		table.sort(r.here, function(a, b) return a[2] < b[2] end)
+		r.wants = { E.WantsQuest("turnin", 40), E.WantsQuest("turnin", 46) }
+		emit(r)
+	"#,
+	);
+	assert_eq!(out["guide"], "test/a", "{out}");
+	assert_eq!(out["here"], json!([[-2, 40], [-2, 46]]), "{out}");
+	assert_eq!(out["wants"], json!([false, true]), "{out}");
 }
 
 // LeftBehind counts the hand-ins placed on this route before the guide jumped to (41 in test/a, 44 in test/b),
@@ -207,6 +233,68 @@ fn the_guide_window_lists_the_finished_quests_no_route_hands_in_in_one_row_that_
 	assert_eq!(out["rows"], json!(["1 finished quest to hand in elsewhere (800 XP)"]), "{out}");
 	assert_eq!(out["header"], "Still to do", "{out}");
 	assert_eq!(out["room"], json!([true, "Finished quests you're still carrying", "A Fishy Peril"]), "{out}");
+}
+
+// A kill that ticks an objective (#2555): the client's burst (the quest log three times, the objective, XP, loot)
+// is one evaluation, one step update and one tab update, and the row above is drawn again from the route plan as
+// it stands: the plan is not rebuilt, so no walk over every registered guide (Guides.List from RoutePlan). A quest
+// finished in the burst still joins the row. A tab opened in the background (other guides open) builds it afresh.
+#[test]
+fn a_kill_burst_repaints_the_carried_row_without_rebuilding_the_route_plan() {
+	let out = run(r#"
+		local GF, G = Polestar.UI.GuideFrame, Polestar.Guides
+		GF.Render(); flush()
+		local count = { plan = 0, STEP_UPDATED = 0, STEP_CHANGED = 0, TABS_CHANGED = 0 }
+		local list = G.List
+		G.List = function(...)
+			if debug.getinfo(2, "S").source:find("RoutePlan.lua", 1, true) then count.plan = count.plan + 1 end
+			return list(...)
+		end
+		for _, msg in ipairs({ "STEP_UPDATED", "STEP_CHANGED", "TABS_CHANGED" }) do
+			Polestar.On(msg, function() count[msg] = count[msg] + 1 end)
+		end
+		local function kill(finish)
+			stub.fire("PLAYER_REGEN_DISABLED")
+			stub.advance(1)
+			stub.fire("CHAT_MSG_COMBAT_XP_GAIN", "Young Wolf dies, you gain 120 experience.")
+			w.setXP((w.xp or 0) + 120)
+			local o = w.log[33].objectives[1]
+			w.progress(33, 1, o.numFulfilled + 1)
+			if finish then w.finish(42) end
+			stub.fire("QUEST_LOG_UPDATE")
+			stub.fire("PLAYER_REGEN_ENABLED")
+			stub.fire("LOOT_READY", true)
+			stub.fire("LOOT_CLOSED")
+			stub.fire("BAG_UPDATE", 0)
+			stub.fire("BAG_UPDATE_DELAYED")
+			stub.fire("QUEST_LOG_UPDATE")
+			flush(); flush()
+		end
+		local function row()
+			for _, x in ipairs(GF.alongRows) do
+				if x:IsShown() and x.psCarried then return plain(x.Text:GetText()) end
+			end
+		end
+		local r = { kills = {} }
+		for k = 1, 3 do
+			for key in pairs(count) do count[key] = 0 end
+			kill(k == 3)
+			r.kills[k] = { count.plan, count.STEP_UPDATED, count.STEP_CHANGED, count.TABS_CHANGED, row() }
+		end
+		count.plan = 0
+		E.OpenTab("test/c", false); flush()
+		local carried = #Polestar.RoutePlan.Carried()
+		r.tab = { E.GetGuide().id, E.TabIds()["test/c"] == true, count.plan > 0, carried }
+		G.List = list
+		emit(r)
+	"#);
+	let kills = out["kills"].as_array().unwrap();
+	for k in &kills[..2] {
+		assert_eq!(k, &json!([0, 1, 0, 1, "1 finished quest to hand in elsewhere (800 XP)"]), "{out}");
+	}
+	assert_eq!(kills[2].as_array().unwrap()[..4], json!([0, 1, 0, 1]).as_array().unwrap()[..], "{out}");
+	assert!(is_match(text(&kills[2][4]), r"^2 finished quests to hand in elsewhere \(\d{1,3}(,\d{3})* XP\)$"), "{out}");
+	assert_eq!(out["tab"], json!(["test/a", true, true, 2]), "{out}");
 }
 
 // Outlevelled at 13, the banner says what the jump to the suggested guide (test/b) leaves behind: 41, handed in

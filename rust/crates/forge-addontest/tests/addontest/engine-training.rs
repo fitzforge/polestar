@@ -206,8 +206,9 @@ fn a_trainer_close_by_line_but_far_by_the_route_planner_a_mountain_between_loses
 		run(Some(&on_guide("test/route", 10)), pre, "stub.advance(0.5); emit({ npc = DUE[1].npc })")["npc"].clone()
 	};
 	assert_eq!(pick(false), 3063);
-	// Harutt Thunderhorn, the next Mulgore trainer.
-	assert_eq!(pick(true), 3059);
+	// Torm Ragetotem in Thunder Bluff: Harutt Thunderhorn, the next by Mulgore's line, is Camp Narache's, whose
+	// training stops at 6 (#2477), and this character is 12.
+	assert_eq!(pick(true), 3041);
 }
 
 #[test]
@@ -497,4 +498,98 @@ fn with_no_guide_stop_within_10_steps_the_advice_is_the_planner_s_trainer_the_re
 	let none = run(Some(&on_guide("test/barrens", 10)), "", ADVICE);
 	assert_eq!(none["steps"], false, "{none}");
 	assert_eq!(none["trainer"], none["planner"], "{none}");
+}
+
+// Kill stutter (0.4.1): the guide window's training banner asks for the trainer on the guide's way on every
+// repaint (each kill and loot while training is due), and each answer priced up to four trainers with three
+// route plans each. The answer is kept while the player stays put on the same step: ten repaints in a second
+// plan routes once. Walking on in small steps, after a trainer window and at a level-up, it is the same as the
+// uncached answer.
+#[test]
+fn the_banner_s_trainer_on_the_route_is_priced_once_for_repaints_on_one_spot_and_matches_the_uncached_pick() {
+	let out = run(
+		Some(&on_guide("test/route", 10)),
+		"",
+		r#"
+		stub.advance(0.5)
+		local E, w = Polestar.Engine, stub.world
+		local plans = 0
+		local cost = Polestar.TravelCost
+		Polestar.TravelCost = function(...) plans = plans + 1; return cost(...) end
+		local first = E.TrainingAdvice().trainer.npc
+		local p0 = plans
+		for _ = 1, 10 do stub.advance(0.1); E.TrainingAdvice() end
+		local repaints = plans - p0
+		-- The cached pick against a fresh one (a trainer window closing drops the cache), walking south-west.
+		local same, n = true, 0
+		local x, y = 51.9, 30.4
+		for k = 1, 30 do
+			x, y = x - 0.3, y + 0.9
+			w.moveTo(1413, x, y)
+			stub.advance(0.1)
+			local kept = E.NearestClassTrainer(true).npc
+			stub.fire("TRAINER_CLOSED")
+			local fresh = E.NearestClassTrainer(true).npc
+			n = n + 1
+			if kept ~= fresh then same = false end
+		end
+		w.setLevel(14)
+		stub.advance(0.5)
+		local afterLevel = E.NearestClassTrainer(true).npc
+		stub.fire("TRAINER_CLOSED")
+		emit({ first = first ~= nil, repaints = repaints, plans = p0, same = same, n = n, level = afterLevel == E.NearestClassTrainer(true).npc })
+	"#,
+	);
+	assert_eq!(out["first"], true);
+	assert_eq!(out["same"], true, "the kept pick differs from a fresh one on the walk");
+	assert_eq!(out["level"], true);
+	// Measured: 0.4.1 planned 12 routes for each repaint (120 for the ten); kept, none.
+	assert!(out["repaints"].as_u64().unwrap() <= 2, "route plans for ten repaints on one spot: {} (the first answer took {})", out["repaints"], out["plans"]);
+}
+
+// On a flight the player's spot changes every few seconds, and the banner's trainer on the route was priced
+// again at each new spot (up to four trainers with three route plans each: frames of 30 ms and more on a
+// flight). The pick is kept for the whole flight and made afresh once the player lands, as a fresh pick.
+#[test]
+fn on_a_flight_the_banner_s_trainer_is_priced_once_and_picked_afresh_on_landing() {
+	let out = run(
+		Some(&on_guide("test/route", 10)),
+		"",
+		r#"
+		stub.advance(0.5)
+		local E, w = Polestar.Engine, stub.world
+		local plans = 0
+		local cost = Polestar.TravelCost
+		Polestar.TravelCost = function(...) plans = plans + 1; return cost(...) end
+		local before = E.TrainingAdvice().trainer.npc
+		-- Boards a flight at the Crossroads, then flies south-west for 30 seconds, the window repainting each second.
+		w.onTaxi = true
+		stub.fire("PLAYER_CONTROL_LOST")
+		stub.advance(0.5)
+		E.TrainingAdvice()
+		local p0 = plans
+		local x, y = 51.9, 30.4
+		for _ = 1, 30 do
+			x, y = x - 0.5, y + 1.4
+			w.moveTo(1413, x, y)
+			stub.advance(1)
+			E.TrainingAdvice()
+		end
+		local flying = plans - p0
+		-- Lands.
+		w.onTaxi = false
+		stub.fire("PLAYER_CONTROL_GAINED")
+		stub.advance(0.5)
+		local p1 = plans
+		local landed = E.NearestClassTrainer(true).npc
+		local landPlans = plans - p1
+		stub.fire("TRAINER_CLOSED")
+		emit({ before = before ~= nil, flying = flying, landPlans = landPlans, same = landed == E.NearestClassTrainer(true).npc })
+	"#,
+	);
+	assert_eq!(out["before"], true, "{out}");
+	// Measured on 0.4.2-rc1: 300 route plans in the 30 seconds of flight (ten a second); kept, none.
+	assert_eq!(out["flying"], 0, "route plans for the banner's trainer during a flight: {out}");
+	assert!(out["landPlans"].as_u64().unwrap() > 0, "the trainer is not picked afresh on landing: {out}");
+	assert_eq!(out["same"], true, "the pick after landing differs from a fresh one: {out}");
 }

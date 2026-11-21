@@ -1,9 +1,9 @@
 guide forever/horde/50-60/05-eastern-plaguelands
-title Eastern Plaguelands, Winterspring & Tanaris
+title Western & Eastern Plaguelands, Felwood & Winterspring
 faction Horde
-levels 56-58
+levels 55-56
 zone Eastern Plaguelands
-next forever/horde/50-60/06-silithus
+next forever/50-60/mount-hyjal
 # Built from the playthrough simulator's consensus route (Horde, visits
 # 86-93) and machine-checked with lint; not play-tested on Forever yet.
 #
@@ -131,7 +131,7 @@ step Corin's Crossing
   tip Living Rot spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the Mortar and Pestle at once.
   tip With Defenders of Darrowshire in your log (from Carlin at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the Living Rot.
   goto 52.3,58.2 "Corin's Crossing" live
-  kill 11064 quest 5211.1 "Free Darrowshire Spirits: talk to them"
+  talk 11064 quest 5211.1 "Free Darrowshire Spirits: talk to them"
   collect 15447 x7
   complete 6022
 
@@ -180,7 +180,8 @@ step Kernda
 step Rabine Saturna
   zone Moonglade
   tip Go through Timbermaw Hold and take the Moonglade branch of the tunnel. Rabine is in Nighthaven.
-  accept 5527
+  tip Rabine offers A Reliquary of Purity only after you have been inside Dire Maul once: if he doesn't offer it, carry on without it.
+  accept 5527 optional
   turnin 1123
   accept 1124
   note Both quests lead to Silithus: keep them.
@@ -214,6 +215,7 @@ step Sprinkle
   kill 7583 quest 5163.2 "Scare Sprinkle with Umi's Mechanical Yeti"
 
 step Gaeriyan
+  when onquest 3912
   tip Drink the Videre Elixir at the graveyard just east of Gadgetzan: it kills you, and only as a ghost can you see Gaeriyan, in a rocky crevice in the hills due north of it. Talk to him there, then run back to your body and resurrect: the Conspicuous Gravestone he sends you to stands in that graveyard.
   use 11243 @54.0,28.7 map 1446         -- Videre Elixir
   turnin 3912
@@ -229,6 +231,8 @@ step Marvon Rivetseeker
 # ---------------------------------------------------------------- On to Silithus
 
 step On to Silithus
+# Older notes from the export, kept for its history; where they differ from the steps above (Tirion's hunts are
+# handed in on this guide, the bind and hearth are no longer as described), the steps hold.
   zone Un'Goro Crater
   tip Fly to Marshal's Refuge, then ride south-west through Un'Goro to the pass into Silithus. The next guide opens at Valor's Rest, where the pass comes out.
   fly "Marshal's Refuge"

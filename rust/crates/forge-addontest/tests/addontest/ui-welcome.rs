@@ -479,7 +479,7 @@ fn the_questing_page_writes_quest_automation_both_ways_grey_quests_the_login_gui
 		local F = PolestarWelcome
 		local start = { title = title(), on = F.AutoQuest.checked, grey = F.SkipGrey.checked, guide = F.AutoGuide.checked,
 			desc = uistub.findText(F, "Never picks between rewards") ~= nil, login = uistub.findText(F, "when no tab is open") ~= nil,
-			greyDesc = uistub.findText(F, "unless a later quest needs them first") ~= nil }
+			greyDesc = uistub.findText(F, "costs more time than they give") ~= nil }
 		F.AutoQuest:Click()
 		local off = { get("behavior.autoAccept"), get("behavior.autoTurnin"), F.AutoQuest.checked }
 		F.AutoQuest:Click()
@@ -646,6 +646,25 @@ fn the_targeting_page_offers_the_target_button_who_it_targets_its_mark_and_ping_
 	assert_eq!(out["plateWhileOff"], true, "with the button off, who it targets waits on it");
 	assert_eq!(out["after"], json!([false, true, true]), "mark and ping write their settings; right-click put the button back");
 	assert_eq!(out["pages"][2], "Targeting", "after Questing");
+}
+
+// #2592: W.Bind paints a control at once (control:Refresh()), so the Targeting page's preview has its Refresh before
+// it is bound to the three settings it shows. The stub's frames answer any missing method with a no-op, so the page
+// opens either way here: the test watches each bind for a control with no Refresh of its own.
+#[test]
+fn the_targeting_page_gives_its_preview_a_refresh_before_binding_it_to_its_settings_2592() {
+	let out = run(r#"
+		Polestar.RegisterDefaults("qol", { targetButton = true, targetSimple = false, targetPlate = true, markTarget = true, pingTarget = false })
+		local W = Polestar.Widgets
+		local bind, unpainted = W.Bind, {}
+		W.Bind = function(control, path, ...)
+			if rawget(control, "Refresh") == nil then unpainted[#unpainted + 1] = tostring(path) end
+			return bind(control, path, ...)
+		end
+		Wel.Show("targeting")
+		W.Bind = bind
+		emit({ title = title(), unpainted = table.concat(unpainted, ", ") })"#);
+	assert_eq!(out, json!({ "title": "Targeting", "unpainted": "" }), "every bound control can paint itself");
 }
 
 #[test]

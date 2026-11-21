@@ -35,7 +35,7 @@ return {
 
 	-- Step 4: Black Stallion in Menethil Harbor
 	-- {npc:5404} Black Stallion · {area:150} Menethil Harbor
-	["{npc:5404} in {area:150}"] = "",
+	["{npc:5404} in {area:150}"] = "{npc:5404} ({area:150})",
 	-- {npc:5404} Black Stallion · {npc:384} Katie Hunter · {npc:1460} Unger Statforth · {area:150} Menethil Harbor · {zone:1437} Wetlands
 	["The {npc:5404} is not at {npc:384}: {npc:1460} sells it, at the stables of {area:150} in the {zone:1437} (20g in the Forever client). Skip this unless you want that colour."] = "",
 	-- {item:2411} Black Stallion Bridle · {npc:1460} Unger Statforth

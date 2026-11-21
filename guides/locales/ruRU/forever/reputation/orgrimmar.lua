@@ -74,7 +74,7 @@ return {
 
 	-- Step 10: The Echo Isles
 	-- {area:368} Echo Isles
-	["The {area:368}"] = "",
+	["The {area:368}"] = "{area:368}",
 	-- {area:368} Echo Isles · {quest:826} Zalazane
 	-- plural, as words: Durotar Tigers = {npc:3121} Durotar Tiger
 	["Swim to the largest of the {area:368}, south-east of the village. {quest:826}, the idols and the skulls at the circle of power are all there; the Durotar Tigers prowl the smaller islands."] = "",
@@ -98,7 +98,7 @@ return {
 
 	-- Step 14: Skull Rock: the Lieutenant's Insignia
 	-- {quest:827} Skull Rock · {item:14544} Lieutenant's Insignia
-	["{quest:827}: the {item:14544}"] = "",
+	["{quest:827}: the {item:14544}"] = "{quest:827}: {item:14544}",
 	-- {quest:827} Skull Rock · {faction:76} Orgrimmar
 	-- plural, as words: Burning Blade Fanatics = {npc:3197} Burning Blade Fanatic
 	["{quest:827} is the cave just east of {faction:76}. Burning Blade Fanatics and Apprentices inside drop the insignia about one kill in five."] = "",
@@ -109,13 +109,13 @@ return {
 	-- {npc:3216} Neeru Fireblade · {object:172960} Cleft of Shadow
 	["{npc:3216} is in the {object:172960}. Tell him he may speak openly and click through his story."] = "",
 	-- {npc:3216} Neeru Fireblade
-	["{npc:3216}: hear him out"] = "",
+	["{npc:3216}: hear him out"] = "{npc:3216}: выслушайте его",
 
 	-- Step 16: Ragefire Chasm
 	-- {area:2437} Ragefire Chasm · {object:172960} Cleft of Shadow · {npc:11518} Jergosh the Invoker · {npc:11519} Bazzalan
 	["{area:2437} opens off the {object:172960}. {npc:11518} and {npc:11519} wait at the far end."] = "",
 	-- {npc:11518} Jergosh the Invoker · {npc:11519} Bazzalan
-	["{npc:11518} and {npc:11519}"] = "",
+	["{npc:11518} and {npc:11519}"] = "{npc:11518} и {npc:11519}",
 
 	-- Step 17: Orgrimmar: Hidden Enemies done
 	-- {faction:76} Orgrimmar · {quest:5728} Hidden Enemies
@@ -174,7 +174,7 @@ return {
 	-- {npc:3118} Dustwind Storm Witch · {item:277661} Dull Storm Orb · {quest:97281} A Simmering Storm · {npc:3293} Rezlak · {quest:97282} Stormy Potential
 	["A {npc:3118} may drop a {item:277661}: use it to start {quest:97281}. Once you hand that in, {npc:3293} offers {quest:97282}."] = "",
 	-- {npc:3117} Dustwind Savage · {area:370} Drygulch Ravine
-	["{npc:3117}, in {area:370}"] = "",
+	["{npc:3117}, in {area:370}"] = "{npc:3117}, здесь: {area:370}",
 
 	-- Step 27: Stormy Potential
 	-- {area:369} Thunder Ridge · {npc:3293} Rezlak
@@ -339,7 +339,7 @@ return {
 	-- {npc:8578} Magus Rimtori
 	["Find {npc:8578}'s camp"] = "",
 	-- {object:151286} Kaldorei Tome of Summoning
-	["the {object:151286}"] = "",
+	["the {object:151286}"] = "{object:151286}",
 
 	-- Step 56: Valormok and Orgrimmar
 	-- {area:1237} Valormok · {faction:76} Orgrimmar

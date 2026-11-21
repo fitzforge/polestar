@@ -12,25 +12,25 @@ return {
 
 	-- Step 1: Daio the Decrepit
 	-- {npc:14463} Daio the Decrepit · {area:73} Tainted Scar · {zone:1419} Blasted Lands
-	["At 60 {npc:14463} waits in the {area:73}, the demon-filled hollow in the west of the {zone:1419}. The Scar is full of hard-hitting elites: Soulstone yourself first, then keep to the right-hand wall going in, or ride through mounted. {npc:14463} gives you two errands at once."] = "",
+	["At 60 {npc:14463} waits in the {area:73}, the demon-filled hollow in the west of the {zone:1419}. The Scar is full of hard-hitting elites: Soulstone yourself first, then keep to the right-hand wall going in, or ride through mounted. {npc:14463} gives you two errands at once."] = "60級時，{npc:14463}在{zone:1419}西部那片滿是惡魔的谷地{area:73}中等你。傷痕谷裡盡是攻擊兇狠的精英：先給自己綁好靈魂石，進去後貼右側牆壁走，或者直接騎馬衝過去。{npc:14463}會一次交給你兩個差事。",
 
 	-- Step 2: Satyr Blood
 	-- {area:2577} Dire Maul · {area:2518} Lariss Pavilion · {item:18249} Crescent Key · {zone:1444} Feralas
-	["The Wildspawn satyrs (level 55-57, elite) fill the Warpwood Quarter, {area:2577}'s eastern wing: bring a group of five. Four in five drop a blood, but they do not come back for two hours and one full clear may come up short of fifteen; reset and run it again. The back door at {area:2518} needs the {item:18249}, which drops inside this wing; until someone has it, go in by {area:2577}'s main gate in central {zone:1444}."] = "",
+	["The Wildspawn satyrs (level 55-57, elite) fill the Warpwood Quarter, {area:2577}'s eastern wing: bring a group of five. Four in five drop a blood, but they do not come back for two hours and one full clear may come up short of fifteen; reset and run it again. The back door at {area:2518} needs the {item:18249}, which drops inside this wing; until someone has it, go in by {area:2577}'s main gate in central {zone:1444}."] = "野生薩特（55-57級，精英）遍佈{area:2577}東翼的扭木區：帶上五人小隊。五分之四會掉一份血液，但它們兩小時內不重新出現，一次全清可能湊不夠十五份；重置後再刷一趟。{area:2518}的後門需要{item:18249}，它就在這一翼掉落；在有人拿到之前，從{zone:1444}中部{area:2577}的正門進入。",
 	-- {item:18603} Satyr Blood
-	["{item:18603}, from the Wildspawn inside"] = "",
+	["{item:18603}, from the Wildspawn inside"] = "{item:18603}，來自副本內的野生薩特",
 
 	-- Step 3: Tears of the Hederine
 	-- {area:2256} Darkwhisper Gorge · {zone:1452} Winterspring · {spell:7645} Dominate Mind · {spell:710} Banish
-	["The Hederine demons (level 57-60, elite) hold {area:2256} in the far south of {zone:1452}: grouping up is encouraged. Two Slayers guard the gorge past the bridge; the western tunnel leads to more Initiates, the easiest of them (watch for their {spell:7645}). A warlock can solo them one at a time with Fear or {spell:710} and damage over time, but slowly. Any of them can drop the Tears, four kills in five."] = "",
+	["The Hederine demons (level 57-60, elite) hold {area:2256} in the far south of {zone:1452}: grouping up is encouraged. Two Slayers guard the gorge past the bridge; the western tunnel leads to more Initiates, the easiest of them (watch for their {spell:7645}). A warlock can solo them one at a time with Fear or {spell:710} and damage over time, but slowly. Any of them can drop the Tears, four kills in five."] = "赫達林惡魔（57-60級，精英）佔據{zone:1452}最南端的{area:2256}：建議組隊。兩名殺戮者守著橋後的峽谷；西側的隧道通向更多新兵，它們最好對付（小心它們的{spell:7645}）。術士可以用恐懼或{spell:710}配合持續傷害一隻只單刷，但很慢。它們任何一個都可能掉赫達林之淚，五次擊殺有四次。",
 
 	-- Step 4: Suppression
 	-- {npc:14463} Daio the Decrepit · {item:18601} Glowing Crystal Prison · {npc:12396} Doomguard Commander · {area:73} Tainted Scar · {spell:45} War Stomp · {item:18605} Imprisoned Doomguard
-	["Hand both in to {npc:14463} and take the {item:18601}. Find a {npc:12396} (level 61, elite) standing alone in the {area:73}, open from about 30 yards with your voidwalker on him, and channel the prison on him for about 20 seconds: he attacks you to break free, and his {spell:45} can interrupt the channel, so sacrifice the voidwalker for its shield if you must. Grouping up is encouraged: a second player to tank makes it easy. When the channel finishes he becomes the {item:18605}: click it. If the channel breaks, kill him or run, and try another."] = "",
+	["Hand both in to {npc:14463} and take the {item:18601}. Find a {npc:12396} (level 61, elite) standing alone in the {area:73}, open from about 30 yards with your voidwalker on him, and channel the prison on him for about 20 seconds: he attacks you to break free, and his {spell:45} can interrupt the channel, so sacrifice the voidwalker for its shield if you must. Grouping up is encouraged: a second player to tank makes it easy. When the channel finishes he becomes the {item:18605}: click it. If the channel breaks, kill him or run, and try another."] = "把兩樣都交給{npc:14463}，拿走{item:18601}。在{area:73}中找到獨自站立的{npc:12396}（61級，精英），在約30碼外讓你的虛空行者拉住他，然後對他引導牢籠約20秒：他會攻擊你來掙脫，而他的{spell:45}能打斷引導，必要時犧牲虛空行者換取護盾。建議組隊：再有一名玩家抗怪就輕鬆了。引導結束後他會變成{item:18605}：點選它。若引導被打斷，就殺掉他或逃跑，再找下一隻。",
 	-- {item:18601} Glowing Crystal Prison · {npc:12396} Doomguard Commander
 	["{item:18601}, on a {npc:12396}"] = "{item:18601}，對一隻{npc:12396}使用",
 	-- {item:18605} Imprisoned Doomguard
-	["{item:18605}, click it"] = "",
+	["{item:18605}, click it"] = "{item:18605}，點選它",
 
 	-- Step 5: Back to Daio the Decrepit
 	-- {npc:14463} Daio the Decrepit

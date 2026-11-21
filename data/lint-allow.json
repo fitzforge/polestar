@@ -1,0 +1,23 @@
+{
+	"about": "Steps a play check of forge guide lint flags that are right as written (docs/GUIDE_FORMAT.md, Validation, play checks): rule, guide id, the quest or item, and why. An entry that covers no step any more is a warning: drop it.",
+	"allow": [
+		{
+			"rule": "offer",
+			"guide": "forever/class/paladin/tyrs-watch",
+			"quest": 98601,
+			"reason": "A class guide for a Forsaken paladin in Deathknell, opened beside the Tirisfal guide that hands in The Mindless Ones (364). A character who has not done it is not offered A Difficult Path, and Polestar leaves the accept out for them."
+		},
+		{
+			"rule": "offer",
+			"guide": "forever/class/paladin/tyrs-watch",
+			"quest": 90902,
+			"reason": "As A Difficult Path: Rediscovering the Light follows The Mindless Ones (364) from the Tirisfal guide; Polestar leaves the accept out for a character without it."
+		},
+		{
+			"rule": "offer",
+			"guide": "forever/class/shaman/call-of-earth-alliance",
+			"quest": 98581,
+			"reason": "A class guide for a Dwarf shaman off the route, opened beside the Dun Morogh guide, which hands in Dwarven Outfitters (179) before Sten Stoutarm gives the Archaic Rune. A shaman who has not done 179 is not offered it, and Polestar leaves the accept out for them."
+		}
+	]
+}

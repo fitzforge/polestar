@@ -615,7 +615,7 @@ fn a_text_over_the_cap_is_refused_at_once_naming_it_before_any_of_it_is_filled_i
 	.remove(0);
 	assert!(is_match(text(&out["long"]["reason"]), r"holds a text longer than Polestar reads \(guide\.title\): 4096 characters at most"));
 	let seconds = out["long"]["seconds"].as_f64().unwrap();
-	assert!(seconds < 0.2, "refused in {seconds} s");
+	forge_addontest::assert_timing!(seconds < 0.2, "refused in {seconds} s");
 	assert!(is_match(text(&out["key"]["reason"]), r"text longer than Polestar reads \(guide\.written\)"));
 	assert!(is_match(text(&out["ns"]["reason"]), r"text longer than Polestar reads \(guide\.steps\[1\]\.goals\[1\]\.qlvl\)"));
 	assert_eq!(out["imports"], true);

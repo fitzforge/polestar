@@ -10,6 +10,9 @@ next forever/alliance/40-50/05-the-hinterlands
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 # Added here: The Borrower (2941).
+# Mirage Raceway (fix round 2026-11-20): Keeping Pace (1190), Zamek's Distraction (1191) and Rizzle's Schematics (1194)
+# are given by Pozzik, Zamek and Rizzle's plans within the raceway's two camps once News for Fizzle (1137) is handed in
+# there: a diversion and a click on the plans, no race to wait for; 3,300 XP on the stop the route already makes.
 # The Dunemaul Compound (5863, Brutes 46-48 and Gor'marok 49) and the Thistleshrub Valley (2605, 3362, mobs 48-50) are
 # taken at Gadgetzan's first stop and done on the Un'Goro guide's Gadgetzan landing at about 49.5, on the ride west to
 # the crater: here at 47-48 Gor'marok and the Thistleshrub camps are still two over the player, with the Riverglades
@@ -37,9 +40,14 @@ step Thousand Needles
 
 step Mirage Raceway
   zone Thousand Needles
-  tip The Mirage Raceway lies on the Shimmering Flats in south-east Thousand Needles: Fizzle Brassbolts is in the gnomes' camp beside the track, Zamek by the goblin camp.
+  tip The Mirage Raceway lies on the Shimmering Flats in south-east Thousand Needles: Fizzle Brassbolts is in the gnomes' camp beside the track, Pozzik and Zamek by the goblins' camp. With News for Fizzle handed in, Pozzik has work: Pozzik first, then Zamek, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to Pozzik.
   turnin 2769
   turnin 1137                         -- Fizzle Brassbolts: News for Fizzle, from Martek in the Badlands
+  accept 1190                         -- Pozzik
+  turnin 1191 direct
+  turnin 1190                         -- Rizzle's Unguarded Plans
+  accept 1194
+  turnin 1194                         -- Pozzik
 
 
 step Tanaris
@@ -122,12 +130,24 @@ step Steamwheedle Port
   turnin 8366
   turnin 8365                         -- Haughty Modiste
 
+step Ship Schedules
+  when has 9250
+  tip Only if a Southsea pirate gave you a Ship Schedule: it starts a quest for Security Chief Bilgewhizzle, inside, where you stand.
+  accept 2876 item 9250 optional      -- Ship Schedule
+
+step Security Chief Bilgewhizzle
+  when onquest 2876
+  turnin 2876 optional                -- Security Chief Bilgewhizzle, inside
+
 step Noonshade Ruins
   tip Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower.
   collect 8483 x5 -- Wastewander Water Pouch
 
 step Gadgetzan
+  when has 8483 x5
   turnin 1878 direct -- Spigot Operator Luglunket
+
+step Chief Engineer Bilgewhizzle
   turnin 1691                         -- Chief Engineer Bilgewhizzle
 
 step The pool by Sandsorrow Watch
@@ -176,6 +196,8 @@ step Trenton Lighthammer
 step The Broken Pillar
   tip Ride south to the dig camp at the Broken Pillar. Marvon hands you a detector helm: wear it to see the Gahz'ridian mounds, which lie thick in the sand around the camp and south-west toward the ogres.
   accept 3161                         -- Marvon Rivetseeker
+  turnin 3445                         -- Marvon Rivetseeker: The Sunken Temple, from Angelas in Feathermoon
+  accept 3444                         -- Marvon Rivetseeker: the Stone Circle is in Ratchet, on the Un'Goro guide's flight to Gadgetzan, which hands it in here: keep it
   collect 8443 quest 3161             -- Gahz'ridian Ornament
   turnin 3161
 
@@ -189,8 +211,8 @@ step Dunemaul Compound
   level 47.06 grind 5471               -- grind on Dunemaul Ogre, at the compound's south end
 
 step Tooga's escort
-  tip The little turtle Tooga hides at the north end of the Thistleshrub Valley: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife Torta, by the water just east of Steamwheedle Port: he walks slowly and the desert's beasts go for him, so keep him alive.
-  accept 1560                         -- Tooga
+  tip The little turtle Tooga wanders the west edge of the Thistleshrub Valley, most often where the arrow leads: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife Torta, by the water just east of Steamwheedle Port: he walks slowly and the desert's beasts go for him, so keep him alive.
+  accept 1560 @30.2,70.7 map 1446              -- Tooga
   complete 1560
   turnin 1560                         -- Torta
   accept 97540                        -- Tooga, beside her: Oasis
@@ -284,7 +306,7 @@ step Fly to Auberdine
 
 step Boat to Menethil Harbor
   zone Darkshore
-  goto 32.34,44.13 "Boat to Menethil Harbor"
+  goto 32.39,43.87 "Boat to Menethil Harbor"
 
 # ---------------------------------------------------------------- The Hinterlands
 

@@ -72,11 +72,18 @@ end
 -- guides. The empty states and a question at login turn it back on.
 local OWN = "Polestar_Guides"
 
--- Ours to turn on with it: its race and faction parts and the walking
--- packs (Polestar_Nav*), never the 0.2.x language folders a hand install
--- may have left (Polestar_Guides_deDE), nor the Recorder or community addons.
+-- The parts every release needs beside the guides: the settings window and
+-- its looks (load on demand). An update can leave them unticked (#2594, on
+-- GeForce NOW): Options then cannot open. Polestar asks before it turns them
+-- back on, never on its own.
+local NEEDED = { Polestar_Options = true, Polestar_Looks = true }
+
+-- Ours to turn on with it: its race and faction parts, the walking packs
+-- (Polestar_Nav*) and the needed parts, never the 0.2.x language folders a
+-- hand install may have left (Polestar_Guides_deDE), nor the Recorder or
+-- community addons.
 local function ownPart(name)
-	if name == OWN or name:find("^Polestar_Nav") then return true end
+	if name == OWN or NEEDED[name] or name:find("^Polestar_Nav") then return true end
 	return name:find("^Polestar_Guides_") ~= nil and not name:find("_%l%l%u%u$")
 end
 
@@ -108,6 +115,11 @@ function P.OwnGuidesOff()
 	return #offAddOns(function(name) return name == OWN end) > 0
 end
 
+-- The needed parts (settings, looks) installed and turned off: their names.
+function P.NeededOff()
+	return offAddOns(function(name) return NEEDED[name] == true end)
+end
+
 -- Turn Polestar Guides and its parts back on for every character (no
 -- character given: all of them, as the AddOns list's "All"), then reload.
 -- Returns the addons it turned on.
@@ -124,14 +136,35 @@ end
 -- answer is kept per account until the guides are on again, so a player who
 -- keeps them off on purpose is asked once. Never with the gamepad interface
 -- (its focus owns the game's dialogs): the guide window's button stays.
+-- The same question covers the needed parts, and opening Options while one
+-- is off asks again whatever the answer was.
 local POPUP = "POLESTAR_GUIDES_OFF"
 local askPending = false
 
-local function ask()
-	if not askPending then return end
-	if ns.Compat.InCombat() then return end
-	askPending = false
-	if ns.GamepadUI() or not (StaticPopupDialogs and StaticPopup_Show) or not P.OwnGuidesOff() then return end
+-- The addons' titles as the AddOns list shows them ("Polestar Settings").
+local function titles(names)
+	local A = C_AddOns
+	local out = {}
+	for i, name in ipairs(names) do
+		local title = A and A.GetAddOnInfo and select(2, A.GetAddOnInfo(name))
+		out[i] = type(title) == "string" and title ~= "" and title or name
+	end
+	return table.concat(out, ", ")
+end
+
+local function question()
+	if P.OwnGuidesOff() then
+		return L["Polestar Guides is turned off in the AddOns list, so Polestar has no guides to show. Turn it on for all your characters and reload?"]
+	end
+	local needed = P.NeededOff()
+	if #needed == 0 then return nil end
+	return string.format(L["Part of Polestar is turned off in the AddOns list (%s), so its settings cannot open. Turn it on for all your characters and reload?"], titles(needed))
+end
+
+local function showQuestion()
+	if ns.GamepadUI() or not (StaticPopupDialogs and StaticPopup_Show) then return false end
+	local text = question()
+	if not text then return false end
 	ns.DB().guidesOffAsked = true
 	StaticPopupDialogs[POPUP] = StaticPopupDialogs[POPUP] or {
 		text = "%s",
@@ -143,12 +176,26 @@ local function ask()
 		hideOnEscape = true,
 		preferredIndex = 3,
 	}
-	StaticPopup_Show(POPUP, L["Polestar Guides is turned off in the AddOns list, so Polestar has no guides to show. Turn it on for all your characters and reload?"])
+	StaticPopup_Show(POPUP, text)
+	return true
+end
+
+local function ask()
+	if not askPending then return end
+	if ns.Compat.InCombat() then return end
+	askPending = false
+	showQuestion()
+end
+
+-- Options could not load: ask now when a needed part is off (true: asked).
+function P.AskNeeded()
+	if ns.Compat.InCombat() or #P.NeededOff() == 0 then return false end
+	return showQuestion()
 end
 
 ns.OnLogin(function()
 	local db = ns.DB()
-	if not P.OwnGuidesOff() then
+	if not (P.OwnGuidesOff() or #P.NeededOff() > 0) then
 		db.guidesOffAsked = nil
 		return
 	end

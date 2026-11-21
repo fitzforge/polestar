@@ -12,15 +12,15 @@ return {
 	-- Step 1: Learn to ride
 	["Learn to ride"] = "學習騎術",
 	-- {npc:4732} Randal Hunter · {npc:384} Katie Hunter · {area:88} Eastvale Logging Camp · {zone:1429} Elwynn Forest · {skill:762} Riding · {faction:72} Stormwind
-	["{npc:4732} and {npc:384}'s horse pen are at {area:88} in eastern {zone:1429}. At 40 {npc:4732} teaches {skill:762} to Humans for 100g (10% less at Honored with {faction:72}), and it comes with a horse. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "",
+	["{npc:4732} and {npc:384}'s horse pen are at {area:88} in eastern {zone:1429}. At 40 {npc:4732} teaches {skill:762} to Humans for 100g (10% less at Honored with {faction:72}), and it comes with a horse. Other races learn {skill:762}, with their own first mount, at their own race's riding trainer."] = "{npc:4732}和{npc:384}的馬廄在{zone:1429}東部的{area:88}。40級時{npc:4732}以100金教人類{skill:762}（{faction:72}尊敬時便宜10%），並附贈一匹馬。其他種族在本族的騎術訓練師處學習{skill:762}，同時獲得自己的第一隻坐騎。",
 	-- {npc:4732} Randal Hunter
 	["{npc:4732}, riding trainer"] = "騎術訓練師{npc:4732}",
 
 	-- Step 2: Horse Riding for other races
 	-- {spell:824} Horse Riding
-	["{spell:824} for other races"] = "",
+	["{spell:824} for other races"] = "其他種族的{spell:824}",
 	-- {spell:824} Horse Riding · {skill:762} Riding · {npc:4732} Randal Hunter · {faction:72} Stormwind
-	["Any Alliance race can buy these horses, but riding one also takes {spell:824}, which only Humans get with {skill:762}. {npc:4732} teaches it to other races once they are Exalted with {faction:72} (the Stormwind Reputation guide shows the way). Until then, don't buy a horse for this character."] = "",
+	["Any Alliance race can buy these horses, but riding one also takes {spell:824}, which only Humans get with {skill:762}. {npc:4732} teaches it to other races once they are Exalted with {faction:72} (the Stormwind Reputation guide shows the way). Until then, don't buy a horse for this character."] = "任何聯盟種族都能買這些馬，但騎乘還需要{spell:824}，只有人類能隨{skill:762}獲得。其他種族達到{faction:72}崇拜後可由{npc:4732}教授（暴風城聲望攻略給出了路線）。在此之前，別給這個角色買馬。",
 
 	-- Step 3: Pick a colour
 	["Pick a colour"] = "挑選顏色",
@@ -35,11 +35,11 @@ return {
 
 	-- Step 4: Black Stallion in Menethil Harbor
 	-- {npc:5404} Black Stallion · {area:150} Menethil Harbor
-	["{npc:5404} in {area:150}"] = "",
+	["{npc:5404} in {area:150}"] = "{npc:5404}在{area:150}",
 	-- {npc:5404} Black Stallion · {npc:384} Katie Hunter · {npc:1460} Unger Statforth · {area:150} Menethil Harbor · {zone:1437} Wetlands
-	["The {npc:5404} is not at {npc:384}: {npc:1460} sells it, at the stables of {area:150} in the {zone:1437} (20g in the Forever client). Skip this unless you want that colour."] = "",
+	["The {npc:5404} is not at {npc:384}: {npc:1460} sells it, at the stables of {area:150} in the {zone:1437} (20g in the Forever client). Skip this unless you want that colour."] = "{npc:5404}不在{npc:384}處：它由{npc:1460}出售，地點在{zone:1437}的{area:150}馬廄（Forever客戶端裡20金）。除非你想要那個顏色，否則跳過。",
 	-- {item:2411} Black Stallion Bridle · {npc:1460} Unger Statforth
-	["{item:2411}, 20g, {npc:1460}"] = "",
+	["{item:2411}, 20g, {npc:1460}"] = "{item:2411}，20金，{npc:1460}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["{item:2411} is in the client, but no vendor is confirmed to sell it in Forever."] = "{item:2411}存在於用戶端中，但尚未確認Forever中有商人出售。",

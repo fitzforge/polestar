@@ -355,7 +355,9 @@ fn the_map_page_gathers_every_map_setting_from_its_modules_into_the_declared_tab
 	let mut rares: Vec<String> =
 		["maps.dockPins", "maps.dungeonPins", "maps.innPins", "maps.taxiPins", "maps.travelMinimap", "maps.serviceMinimap", "maps.servicePins"].iter().map(|s| s.to_string()).collect();
 	rares.extend(
-		["repair", "mailbox", "class", "weapon", "auctioneer", "banker", "battlemaster", "spirithealer", "stablemaster", "trainer", "vendor"].iter().map(|key| format!("maps.serviceFilters.{key}")),
+		["repair", "mailbox", "class", "weapon", "auctioneer", "banker", "battlemaster", "spirithealer", "stablemaster", "transmogrifier", "trainer", "vendor"]
+			.iter()
+			.map(|key| format!("maps.serviceFilters.{key}")),
 	);
 	rares.extend(["rares.hideGrey", "rares.minimapRares", "rares.minimapTreasures", "rares.worldRares", "rares.worldTreasures"].iter().map(|s| s.to_string()));
 	rares.extend(["maps.coords", "maps.minimapCoords", "maps.reveal", "maps.zoneLevels"].iter().map(|s| s.to_string()));

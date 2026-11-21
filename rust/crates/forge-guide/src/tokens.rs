@@ -27,9 +27,11 @@ pub const GUIDE_LISTS: [&str; 2] = ["pros", "cons"];
 pub const STEP_FIELDS: [&str; 2] = ["title", "note"];
 pub const GOAL_FIELDS: [&str; 2] = ["note", "text"];
 
+// A kill named only by its target's words is prose; one read by its quest-log line (`logLine`, a placeholder
+// target's, #2614) is not: the game words that line in the player's language, its target only the fallback.
 fn goal_fields(goal: &V) -> &'static [&'static str] {
 	static WITH_TARGET: [&str; 3] = ["note", "text", "target"];
-	if goal.get("t").as_str() == Some("kill") && goal.get("npc").is_undef() && str_(&goal.get("target")).is_some() {
+	if goal.get("t").as_str() == Some("kill") && goal.get("npc").is_undef() && !goal.get("logLine").truthy() && str_(&goal.get("target")).is_some() {
 		&WITH_TARGET
 	} else {
 		&GOAL_FIELDS

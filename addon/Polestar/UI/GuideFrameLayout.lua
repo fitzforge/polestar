@@ -431,8 +431,15 @@ ns.UI.GuideFrame.Part(function(GF)
 		if list then
 			for _, f in ipairs({ card, after, along, GF.here, upnext, UI.JourneyPanel and UI.JourneyPanel.frame }) do f:Hide() end
 			local outer = (showStrip and SH or 0) + NAV_H + PROG_H
-			local height = min(UI.StepList.height or F:GetHeight(), max(outer + GF.MIN_BODY_H, roomAbove() or math.huge))
-			y = stack(list, y, UI.StepList.Layout(width, height - outer - y))
+			local kept = UI.StepList.height or F:GetHeight()
+			local limit = max(outer + GF.MIN_BODY_H, roomAbove() or math.huge)
+			if isCompact then
+				-- The compact window is too short to browse in: the list grows it
+				-- to fit its cards, up to the height cap, never below its height.
+				y = stack(list, y, UI.StepList.Layout(width, min(capHeight(), limit) - outer - y, kept - outer - y))
+			else
+				y = stack(list, y, UI.StepList.Layout(width, min(kept, limit) - outer - y))
+			end
 		elseif state == "steps" then
 			fit.fixed = layoutCard(width)
 			fit.top = y

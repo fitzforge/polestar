@@ -79,7 +79,6 @@ return {
 	-- Step 13: The mine, the centaurs and the plains
 	["The mine, the centaurs and the plains"] = "Die Mine, die Zentauren und die Ebenen",
 	-- {quest:765} Supervisor Fizsprocket · {item:281031} Mulgore Expansion Plans · {quest:98424} Fizsprocket's Notes · {zone:1412} Mulgore
-	-- plural, as words: Swoops = {npc:2970} Swoop
 	["Back to the mine for the workers, supervisors and {quest:765} in the back: his {item:281031} start {quest:98424}, and its other pages lie inside the mine. The Galak centaurs and Herak camp east of the village. Swoops fly all over {zone:1412}; the Windfury harpies roost south-east of the village; the Palemane gnolls camp west of it."] = "Zurück zur Mine für die Arbeiter, Aufseher und {quest:765} hinten: Seine {item:281031} starten {quest:98424}, und ihre anderen Seiten liegen in der Mine. Die Galak-Zentauren und Herak lagern östlich des Dorfes. Swoops fliegen überall über {zone:1412}; die Windfury-Harpyien nisten südöstlich des Dorfes; die Palemane-Gnolle lagern westlich davon.",
 	-- {item:281031} Mulgore Expansion Plans · {quest:765} Supervisor Fizsprocket
 	["{item:281031}, from {quest:765}"] = "{item:281031}, von {quest:765}",
@@ -93,8 +92,8 @@ return {
 	-- Step 15: The Venture Co. Mine: the Clearcutter
 	-- {area:360} The Venture Co. Mine
 	["{area:360}: the Clearcutter"] = "{area:360}: der Clearcutter",
-	-- {quest:98427} Ceasing Operations
-	["The elite shredder Venture Co. Clearcutter works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "Der Elite-Schredder Venture Co. Clearcutter arbeitet tief in der Mine, hinter der Stelle, an der Fizsprocket stand: Sein Schlüssel ist für {quest:98427}.",
+	-- {npc:272173} Venture Co. Clearclutter · {quest:98427} Ceasing Operations
+	["The elite shredder {npc:272173} works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "Der Elite-Schredder {npc:272173} arbeitet tief in der Mine, hinter der Stelle, an der Fizsprocket stand: Sein Schlüssel ist für {quest:98427}.",
 
 	-- Step 16: Bloodhoof Village: last hand-in
 	-- {area:222} Bloodhoof Village

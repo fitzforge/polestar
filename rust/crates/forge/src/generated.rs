@@ -740,6 +740,50 @@ pub fn check(checkout: &Path) -> Result<Vec<String>, String> {
 	Ok(out)
 }
 
+/// `forge guide rehash`: both manifests' lists and hashes recomputed from the files on disk.
+/// `guides/GENERATED.json` lists every leveling guide whose first line is [`HEADER`], and
+/// `legs.json` when the checkout has one (what [`publish`] lists); `forge/seed/SEED.json` every
+/// guide under the seed. Every other field stays (the seed's `from`). The maintainer's hand edit
+/// to a generated guide and its seed copy runs it; a merge conflict in either manifest is resolved
+/// by taking either side and running it (docs/FORGE.md, "Fixing a generated guide"). Returns each
+/// manifest the checkout has with the files it now lists.
+pub fn rehash(checkout: &Path) -> Result<Vec<(&'static str, usize)>, String> {
+	let mut done = Vec::new();
+	for (manifest, base) in [(GENERATED, "guides"), (SEED_MANIFEST, SEED_DIR)] {
+		let m = checkout.join(manifest);
+		if !m.is_file() {
+			continue;
+		}
+		let mut doc: Value = serde_json::from_slice(&read(&m)?).map_err(|e| format!("{}: {e} (a merge conflict? take either side first: git checkout --theirs {manifest})", m.display()))?;
+		let dir = checkout.join(base);
+		let list: Vec<String> = if manifest == GENERATED {
+			let mut l = Vec::new();
+			for f in leveling_guides(&dir) {
+				if read(&dir.join(&f))?.starts_with(HEADER.as_bytes()) {
+					l.push(f);
+				}
+			}
+			if dir.join(crate::bake::LEGS_FILE).is_file() {
+				l.push(crate::bake::LEGS_FILE.to_string());
+			}
+			l
+		} else {
+			files(&dir).iter().map(|p| rel(p, &dir)).collect()
+		};
+		let mut hashes = BTreeMap::new();
+		for f in list {
+			let h = sha256(&read(&dir.join(&f))?);
+			hashes.insert(f, h);
+		}
+		let n = hashes.len();
+		let Some(obj) = doc.as_object_mut() else { return Err(format!("{}: not a JSON object", m.display())) };
+		obj.insert("files".into(), json!(hashes));
+		write(&m, (serde_json::to_string_pretty(&doc).map_err(|e| e.to_string())? + "\n").as_bytes())?;
+		done.push((manifest, n));
+	}
+	Ok(done)
+}
+
 #[cfg(test)]
 mod tests {
 	use super::*;
@@ -871,6 +915,43 @@ mod tests {
 		write(&co.join(SEED_DIR).join("forever/horde/02-shared.guide"), b"x").unwrap();
 		write(&g.join("forever/class/mage/01.guide"), b"edited, and fine\n").unwrap();
 		assert_eq!(check(&co).unwrap(), vec!["guides/forever/horde/02-shared.guide: edited".to_string(), "forge/seed/guides/forever/horde/02-shared.guide: edited".to_string()]);
+		std::fs::remove_dir_all(&co).unwrap();
+	}
+
+	#[test]
+	fn rehash_lists_and_hashes_what_is_on_disk() {
+		let (co, out) = round("rehash", |s| {
+			format!("guide forever/{}/02-shared\n\nstep shared\n", if ["Human", "Dwarf", "Gnome", "NightElf"].contains(&s) || s.contains("lliance") { "alliance" } else { "horde" })
+		});
+		publish(&co, &out, &co.join("data")).unwrap();
+		let (gen0, seed0) = (read_s(&co.join(GENERATED)), read_s(&co.join(SEED_MANIFEST)));
+		// Nothing changed: the same bytes.
+		assert_eq!(rehash(&co).unwrap(), vec![(GENERATED, 15), (SEED_MANIFEST, 11)]);
+		assert_eq!((read_s(&co.join(GENERATED)), read_s(&co.join(SEED_MANIFEST))), (gen0.clone(), seed0.clone()));
+		// The maintainer's hand edit (a generated guide and its seed copy), a guide one side of a
+		// merge added and a hand-written guide, with the manifests as the other side left them.
+		let g = co.join("guides");
+		let shared = g.join("forever/horde/02-shared.guide");
+		write(&shared, format!("{}  accept 2\n", read_s(&shared)).as_bytes()).unwrap();
+		write(&co.join(SEED_DIR).join("forever/horde/02-shared.guide"), b"guide forever/horde/02-shared\n\nstep seed\n  accept 1\n  accept 2\n").unwrap();
+		write(&g.join("forever/horde/03-new.guide"), format!("{HEADER}\nguide forever/horde/03-new\n").as_bytes()).unwrap();
+		write(&co.join(SEED_DIR).join("forever/horde/03-new.guide"), b"guide forever/horde/03-new\n").unwrap();
+		write(&g.join("forever/horde/99-by-hand.guide"), b"guide forever/horde/99-by-hand\n").unwrap();
+		assert_eq!(check(&co).unwrap().len(), 2);
+		assert_eq!(rehash(&co).unwrap(), vec![(GENERATED, 16), (SEED_MANIFEST, 12)]);
+		assert_eq!(check(&co).unwrap(), Vec::<String>::new());
+		let gen: Value = serde_json::from_str(&read_s(&co.join(GENERATED))).unwrap();
+		assert!(gen["files"].get("forever/horde/03-new.guide").is_some() && gen["files"].get("legs.json").is_some());
+		assert!(gen["files"].get("forever/horde/99-by-hand.guide").is_none(), "a guide without the header is hand-written");
+		let seed: Value = serde_json::from_str(&read_s(&co.join(SEED_MANIFEST))).unwrap();
+		let seed_was: Value = serde_json::from_str(&seed0).unwrap();
+		assert_eq!(seed["from"], seed_was["from"], "the seed keeps the commit it was cut from");
+		assert_eq!(seed.as_object().unwrap().keys().collect::<Vec<_>>(), seed_was.as_object().unwrap().keys().collect::<Vec<_>>(), "fields stay in their order");
+		// A guide gone from disk leaves the list; a conflicted manifest is refused, naming the way out.
+		std::fs::remove_file(g.join("forever/horde/03-new.guide")).unwrap();
+		assert_eq!(rehash(&co).unwrap()[0], (GENERATED, 15));
+		write(&co.join(GENERATED), b"{\n<<<<<<< HEAD\n").unwrap();
+		assert!(rehash(&co).unwrap_err().contains("take either side"));
 		std::fs::remove_dir_all(&co).unwrap();
 	}
 

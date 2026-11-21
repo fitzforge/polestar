@@ -101,6 +101,7 @@ step Stratholme
   collect 13174 x10 quest 5212.1 group 5 @26.5,10.4 live -- Plagued Flesh Samples: the Scourge inside
   collect 13180 x5 quest 5243.1 group 5 @26.5,10.4 live -- Stratholme Holy Water: the supply crates
   kill 10811 quest 5251.1 group 5 @26.5,10.4 live -- Archivist Galford, Scarlet side
+  interact 176245 quest 5251.2 group 5 @26.5,10.4 live -- the Scarlet Archive: burn it, Scarlet side
 
 step Scholomance
   zone Western Plaguelands

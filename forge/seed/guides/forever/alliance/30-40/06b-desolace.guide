@@ -16,11 +16,15 @@ con A long trip out to Kalimdor
 # into this file.
 # Split from 30-40/06-badlands on 2026-11-13 (0.4.0 route audit, Refs #2025): Desolace's south loop, from Thelsamar,
 # where the Badlands end. Added here: Claim Rackmore's Treasure! (6161, every race), The Karnitol Shipwreck (1456).
+# Since the 2026-11-20 round Claim Rackmore's Treasure! (6161) and Bone Collector (5501) are done on the first Desolace
+# visit (30-40/02); their steps here are for a character who loads this guide without it.
 # Since 0.3.6 the wreck's chest is opened and handed in on the first Desolace visit (30-40/02), so the satchel is
 # dived for on the one trip to the north-west coast, Rackmore's chest is opened right after the Serpent Statue, and
 # Nijel's Point is visited once at the end instead of in the middle of the loop as well.
 # Since 2026-11-07 Theramore's first quests are handed in on the Dustwallow Marsh crossing at 33-34 (30-40/03): the
 # boat lands in Theramore only for the flight to Nijel's Point.
+# Since the 2026-11-20 fix pass the Sceptre of Light (5741) is handed in on the first Desolace visit (30-40/02), which
+# takes the Book of the Ancients (6027) from Azore there and carries it here; his lines here are for a character without them.
 
 # ---------------------------------------------------------------- To Theramore
 
@@ -46,17 +50,18 @@ step Nijel's Point
   turnin 6141                         -- Brother Anton
   accept 261
   accept 1466
-  accept 1454                         -- Kreldig Ungor, if 30-40/02 didn't take it: the wreck lies below Azore's tower
-  accept 93224                        -- Captain Pentigast, if 30-40/02 didn't give it
+  accept 1454                         -- Kreldig Ungor, if the first Desolace visit didn't take it: the wreck lies below Azore's tower
+  accept 93224                        -- Captain Pentigast, if the first Desolace visit didn't give it
 
 # ---------------------------------------------------------------- Desolace: the south loop
 
 step Bibbly F'utzbuckle
   tip Follow the road south to Kormek's Hut.
-  accept 5501
+  accept 5501                         -- Bibbly F'utzbuckle, if the first Desolace visit didn't give it
 
 step Kodo Graveyard
   tip Hornizz stands at the edge of the Kodo Graveyard, south-west of Kormek's Hut; Kodo Bones lie among the skeletons.
+  tip Careful: Rexxar (62, elite), the Horde's champion, walks the road past the graveyard with his bear Misha and attacks Alliance players: when he comes by, step well away from the road and let him pass.
   collect 13703 quest 5501            -- Kodo Bone
 
 step Hornizz Brimbuzzle
@@ -76,7 +81,7 @@ step Maraudine centaurs
 step Melizza Brimbuzzle
   tip Melizza is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.
   tip Careful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help.
-  accept 6132
+  accept 6132 @33.9,53.5 map 1443
   complete 6132 @40.1,61.6            -- escort Melizza back toward the graveyard
 
 step Mannoroc Coven
@@ -107,10 +112,10 @@ step Hornizz Brimbuzzle
   turnin 6134                         -- Hornizz Brimbuzzle
 
 step Azore Aldamort
-  turnin 5741
+  turnin 5741                         -- Azore Aldamort, if the first Desolace visit didn't take the sceptre back to him
   turnin 93464                        -- Azore Aldamort: The Visiting Mage, from Magtoor in the Swamp of Sorrows
   tip Follow the road west across the north of Desolace to the ruins of Ethel Rethor. Azore's tower stands on the hill there, on the way to the wreck.
-  accept 6027
+  accept 6027                         -- Azore Aldamort, if the first Desolace visit didn't give it
 
 step Karnitol's Chest
   tip The wrecked ship's chest lies just south-west of Azore's tower.
@@ -119,13 +124,13 @@ step Karnitol's Chest
 
 step Claim Rackmore's Treasure!
   tip Rackmore's Log lies beside Karnitol's Chest, if you didn't take it on your first Desolace visit. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next.
-  accept 6161                         -- Rackmore's Log, if 30-40/02 didn't take it
+  accept 6161                         -- Rackmore's Log, if the first Desolace visit didn't take it
   collect 15878 quest 6161.1 @34.7,33.5 map 1443 -- Underwater
 
 step Sar'theris Strand: kill these as you meet them
   zone Desolace
-  tip The Slitherblade naga hold the north-west coast north of Azore's tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to Ranazjar Isle off the far northern tip and use the Gem of the Serpent on the Serpent Statue: Lord Kragaru (38) rises; kill him for the Book of the Ancients.
-  collect 6245 quest 1456.1 @33.2,10.5 map 1443 -- Underwater
+  tip The Slitherblade naga hold the north-west coast north of Azore's tower, on the shore and out in the water. Karnitol's satchel drops now and then from their Tidehunters and Sea Witches, most of them underwater (Water Breathing helps): take it if it comes, it is optional. Any naga can drop Rackmore's golden key. Swim out to Ranazjar Isle off the far northern tip and use the Gem of the Serpent on the Serpent Statue: Lord Kragaru (38) rises; kill him for the Book of the Ancients.
+  collect 6245 quest 1456.1 @33.2,10.5 map 1443 optional -- Underwater
   collect 15881 quest 6161.2 @27.9,7.7 map 1443 -- Rackmore's Golden Key, from the Slitherblade naga
   use 15766 quest 6027.1 @28.2,6.7 map 1443 -- Gem of the Serpent, on the Serpent Statue
   collect 15803 quest 6027            -- Book of the Ancients
@@ -145,7 +150,7 @@ step Nijel's Point
   turnin 93224                        -- Captain Pentigast
   turnin 1466                         -- Kreldig Ungor
   turnin 1455                         -- Kreldig Ungor
-  turnin 1456
+  turnin 1456 optional
   accept 1457                         -- for Roetten Stonehammer in Ironforge: keep it
   accept 1467                         -- for Roetten Stonehammer in Ironforge: keep it
   turnin 261                          -- Brother Anton

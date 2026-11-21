@@ -127,7 +127,7 @@ return {
 	-- {npc:251507} Josephine Carson · {area:87} Goldshire
 	["{npc:251507} in {area:87}"] = "{npc:251507} en {area:87}",
 	-- {npc:251507} Josephine Carson · {area:87} Goldshire · {npc:258930} Isaac Chan · {zone:2521} Zephras Isle
-	["At 10 go to {npc:251507}, the hunter trainer who stands with the other trainers by the Lion's Pride Inn in {area:87}; {npc:258930}, the pet trainer, is beside her. Skyborne: this is for one who left {zone:2521} without taming; it teaches the same."] = "A nivel 10 ve con {npc:251507}, la instructora de cazadores que está con los demás instructores junto a la Posada Orgullo de León en {area:87}; {npc:258930}, el instructor de mascotas, está a su lado. Cielonatos: esto es para quien salió de {zone:2521} sin domar; enseña lo mismo.",
+	["At 10 go to {npc:251507}, the hunter trainer who stands with the other trainers by the Lion's Pride Inn in {area:87}; {npc:258930}, the pet trainer, is beside her. Skyborne: this is for one who left {zone:2521} without taming; it teaches the same."] = "A nivel 10 ve con {npc:251507}, la instructora de cazadores que está con los demás instructores junto a la Posada Orgullo de León en {area:87}; {npc:258930}, el instructor de mascotas, está a su lado. Skyborne: esto es para quien salió de {zone:2521} sin domar; enseña lo mismo.",
 	-- {npc:251507} Josephine Carson · {item:15908} Taming Rod
 	["{npc:251507}: the first {item:15908}"] = "{npc:251507}: la primera {item:15908}",
 

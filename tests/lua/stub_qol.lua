@@ -331,6 +331,23 @@ function DeleteCursorItem()
 	q.bags[c[1]].slots[c[2]] = nil
 	C_Timer.After(0.05, function() stub.fire("BAG_UPDATE_DELAYED") end)
 end
+-- Bag slots 1..4 are inventory slots 20..23. PutItemInBag puts the bag on the
+-- cursor into that bag slot when the slot is empty (q.items[id].bagSize
+-- slots): the bag leaves its bag slot and the bags update a moment later.
+-- With the slot taken, the bag stays on the cursor.
+function C_Container.ContainerIDToInventoryID(bag) return 19 + bag end
+function PutItemInBag(invSlot)
+	local c = q.cursor
+	call("PutItemInBag", invSlot)
+	local into = invSlot - 19
+	if not c or not q.bags[into] or q.bags[into].size > 0 then return end
+	local s = q.bags[c[1]].slots[c[2]]
+	q.cursor = nil
+	q.bags[c[1]].slots[c[2]] = nil
+	q.bags[into].size = (q.items[s.itemID] or {}).bagSize or 6
+	q.worn[invSlot] = s.itemID
+	C_Timer.After(0.05, function() stub.fire("BAG_UPDATE_DELAYED") end)
+end
 function GetInventoryItemID(unit, slot) if unit == "player" then return q.worn[slot] end end
 function C_Container.GetItemCooldown(id)
 	local c = q.cooldowns[id]
@@ -705,7 +722,9 @@ function C_GossipInfo.GetOptions() return q.gossip.options end
 function C_GossipInfo.GetNumAvailableQuests() return q.gossip.available end
 function C_GossipInfo.GetNumActiveQuests() return #q.gossip.active end
 function C_GossipInfo.GetActiveQuests() return q.gossip.active end
-function C_GossipInfo.GetAvailableQuests() return {} end
+-- opts.availableQuests ({ { questID }, ... }) gives the quests on offer their ids; without it the count alone
+-- (opts.available), as a client that names none.
+function C_GossipInfo.GetAvailableQuests() return q.gossip.availableQuests or {} end
 function C_GossipInfo.ForceGossip() return q.gossip.force end
 function C_GossipInfo.SelectOption(id) call("SelectOption", id) end
 function C_GossipInfo.SelectOptionByIndex(i) call("SelectOptionByIndex", i) end
@@ -713,7 +732,8 @@ function C_GossipInfo.SelectOptionByIndex(i) call("SelectOptionByIndex", i) end
 function q.openGossip(npc, opts)
 	q.npc = npc
 	q.gossip.options = opts.options or {}
-	q.gossip.available = opts.available or 0
+	q.gossip.availableQuests = opts.availableQuests
+	q.gossip.available = opts.available or (opts.availableQuests and #opts.availableQuests) or 0
 	q.gossip.active = opts.active or {}
 	q.gossip.force = opts.force or false
 	stub.fire("GOSSIP_SHOW")
@@ -873,6 +893,9 @@ end
 
 -- q.engine.kept: { [itemID] = step } the guide keeps for later steps.
 function Engine.KeptItems() return q.engine.kept or {} end
+
+-- q.engine.wants: { ["accept:<id>"] = true, ["direct:<id>"] = true, ... } the quests the guide takes (Engine.WantsQuest).
+function Engine.WantsQuest(verb, questID) return (q.engine.wants or {})[verb .. ":" .. tostring(questID)] == true end
 
 -- A step from raw goals: views get status "active" unless goal.status says otherwise.
 function q.step(goals, index)

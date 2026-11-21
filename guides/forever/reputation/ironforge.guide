@@ -228,7 +228,7 @@ step Ironforge: Royal Historian Archesonus
   tip These quests are level 52 to 59, so they pay in full at 60: about 600 Ironforge reputation. Royal Historian Archesonus stands beside King Magni in the High Seat; he sends you to the ruins of Thaurissan in the Burning Steppes.
   level 55
   accept 3702                         -- The Smoldering Ruins of Thaurissan, +10
-  kill 8879 quest 3702.1 "Hear Royal Historian Archesonus out"
+  talk 8879 quest 3702.1 "Hear Royal Historian Archesonus out"
   turnin 3702
   accept 3701                         -- The Smoldering Ruins of Thaurissan, +100
 

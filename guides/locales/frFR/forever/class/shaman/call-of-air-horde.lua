@@ -44,28 +44,28 @@ return {
 
 	-- Step 12: Twisted Air Totems
 	-- plural, as words: Twisted Air Totems = {item:274047} Twisted Air Totem
-	["Twisted Air Totems"] = "Twisted Air Totems",
+	["Twisted Air Totems"] = "Totems d’air tordus",
 	-- {area:2408} Shadowprey Village · {zone:1443} Desolace · {spell:9654} Jumping Lightning
 	-- plural, as words: Twisted Air Totems = {item:274047} Twisted Air Totem
 	["Five Twisted Air Totems. The Maraudine centaurs (level 36-40) north and north-east of {area:2408} in western {zone:1443} carry them; the Scouts drop one nearly every other kill. Wranglers Net and Disarm, Windchasers heal, Stormers throw {spell:9654}: pull one at a time. Respawn about five minutes."] = "Cinq Totems d'air tordus. Les centaures Maraudine (niveau 36-40) au nord et au nord-est du {area:2408}, dans l'ouest de {zone:1443}, en portent ; les Éclaireurs en lâchent un presque une fois sur deux. Les Dresseurs lancent Filet et Désarmement, les Chasse-vent soignent, les Tempêtes lancent {spell:9654} : attirez-les un par un. Réapparition en cinq minutes environ.",
 
 	-- Step 13: Twisted Water Totems
 	-- plural, as words: Twisted Water Totems = {item:274046} Twisted Water Totem
-	["Twisted Water Totems"] = "Twisted Water Totems",
+	["Twisted Water Totems"] = "Totems d’eau tordus",
 	-- {area:496} Brackenwall Village · {zone:1445} Dustwallow Marsh
 	-- plural, as words: Twisted Water Totems = {item:274046} Twisted Water Totem
 	["Five Twisted Water Totems. The Mirefin murlocs (level 35-38) north-east of {area:496} in northern {zone:1445} carry them."] = "Cinq Totems d'eau tordus. Les murlocs Aileboue (niveau 35-38) au nord-est du {area:496}, dans le nord du {zone:1445}, en portent.",
 
 	-- Step 14: Twisted Fire Totems
 	-- plural, as words: Twisted Fire Totems = {item:274044} Twisted Fire Totem
-	["Twisted Fire Totems"] = "Twisted Fire Totems",
+	["Twisted Fire Totems"] = "Totems de feu tordus",
 	-- {area:338} Angor Fortress · {zone:1418} Badlands · {npc:3560} Healing Ward
 	-- plural, as words: Twisted Fire Totems = {item:274044} Twisted Fire Totem · Fire Nova Totems = {npc:5879} Fire Nova Totem
 	["Five Twisted Fire Totems. The Stonevault troggs (Skullthumpers, Bonesnappers and Shamans, level 37-41) south of {area:338} in the {zone:1418} carry them; the Shamans drop Fire Nova Totems and a {npc:3560}, the Bonesnappers run for help when hurt. Respawn about five minutes."] = "Cinq Totems de feu tordus. Les troggs de la Voûte de pierre (Cogne-crânes, Brise-os et Chamans, niveau 37-41) au sud de la {area:338}, dans les {zone:1418}, en portent ; les Chamans posent des totems Nova de feu et une {npc:3560}, les Brise-os fuient chercher de l'aide quand ils sont blessés. Réapparition en cinq minutes environ.",
 
 	-- Step 15: Twisted Earth Totems
 	-- plural, as words: Twisted Earth Totems = {item:274045} Twisted Earth Totem
-	["Twisted Earth Totems"] = "Twisted Earth Totems",
+	["Twisted Earth Totems"] = "Totems de terre tordus",
 	-- {area:75} Stonard · {zone:1435} Swamp of Sorrows
 	-- plural, as words: Twisted Earth Totems = {item:274045} Twisted Earth Totem · The Lost Ones = {npc:256028} The Lost One
 	["Five Twisted Earth Totems. The Lost Ones (murlocs, level 34-39) north and north-east of {area:75} in the {zone:1435} carry them; most run for help when hurt."] = "Cinq Totems de terre tordus. Les Introuvables (des murlocs, niveau 34-39) au nord et au nord-est de {area:75}, dans le {zone:1435}, en portent ; la plupart fuient chercher de l'aide quand ils sont blessés.",
