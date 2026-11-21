@@ -340,7 +340,7 @@ fn stonefire_does_not_send_a_player_on_the_vendor_floor_back_out_for_an_incomple
 			assert(#finds > before and job.done)
 			local pts = job.points
 			local tip = pts and pts[#pts]
-			return { state = hud.state, bearing = hud.x ~= nil,
+			return { state = hud.state, bearing = hud.x ~= nil, caption = N.noWalk or false,
 				closer = tip and dist(tip.x, tip.y, gx, gy) < dist(x, y, gx, gy) or false }
 		end
 		emit({ street = from(-4821.1, -1152.4, 502.3, false),
@@ -352,7 +352,9 @@ fn stonefire_does_not_send_a_player_on_the_vendor_floor_back_out_for_an_incomple
 	assert!(street["bearing"] == true && street["closer"] == true, "the mapped approach from the flightmaster still guides");
 	let door = &result["door"];
 	assert!(
-		(door["state"] == "travel" && door["bearing"] == true && door["closer"] == true) || (door["state"] == "unmapped" && door["bearing"] == false),
+		(door["state"] == "travel" && door["bearing"] == true && door["closer"] == true)
+			// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+			|| (door["state"] == "travel" && door["bearing"] == true && door["caption"] == "unmapped"),
 		"guide a better approach or withhold the arrow; don't leave the vendor's floor for a dead end farther away: {door}"
 	);
 }
@@ -745,9 +747,9 @@ fn the_arrows_walk_find_answers_before_walk_measures_batch_findmany_gets_any_sli
 
 // One continent's walking maps at a time (Fitz, 2026-10-25: 137 MB in the AddOn Memory readout with both of Leffe's
 // continents): a journey to the other continent searches and measures only the walks on the player's own, so only its
-// part of Polestar_Nav loads (Polestar_Nav_EK in Brill, then the detail regions its walks touch there,
-// Polestar_Nav_R0_*); the walk at the far end keeps the planner's straight estimate. The other part (and its own
-// regions, Polestar_Nav_R1_*) loads once the player is there (Nav/Walk.lua canSearch, Path.Resident).
+// part of Polestar_Nav loads (Polestar_Nav_EK in Brill, its regions inside it, unpacked as its walks touch them); the
+// walk at the far end keeps the planner's straight estimate. The other part loads once the player is there
+// (Nav/Walk.lua canSearch, Path.Resident). No other addon loads: 0.4.2's region addons are gone (#3396).
 #[test]
 fn a_journey_to_the_other_continent_loads_only_the_players_continents_walking_maps_the_other_part_on_arrival() {
 	skip_unless_ready!();
@@ -788,17 +790,12 @@ fn a_journey_to_the_other_continent_loads_only_the_players_continents_walking_ma
 		false,
 	);
 	let loads = out["loads"].as_str().unwrap_or_default();
-	let mut brill = loads.split(',');
-	assert_eq!(brill.next(), Some("Polestar_Nav_EK"), "in Brill the Eastern Kingdoms' part loads first ({loads})");
-	assert!(brill.all(|p| p.starts_with("Polestar_Nav_R0_")), "then only Eastern Kingdoms regions ({loads})");
+	assert_eq!(loads, "Polestar_Nav_EK", "in Brill only the Eastern Kingdoms' part loads");
 	assert_eq!(out["resident1"], false);
 	assert_eq!((f(&out["finds1"]), f(&out["asked1"])), (0.0, 0.0), "nothing is searched or measured on Kalimdor from Brill");
 	assert!(f(&out["asked0"]) > 0.0, "the walks on the Eastern Kingdoms are");
 	assert!(f(&out["far"]) >= 1.0 && out["finite"] == true, "the walk on Kalimdor stays in the journey, timed by its estimate");
-	let arrived = out["arrived"]["loads"].as_str().unwrap_or_default();
-	let mut later = arrived.strip_prefix(loads).and_then(|s| s.strip_prefix(',')).unwrap_or_default().split(',');
-	assert_eq!(later.next(), Some("Polestar_Nav_Kalimdor"), "Kalimdor's part loads on arrival ({arrived})");
-	assert!(later.all(|p| p.starts_with("Polestar_Nav_R1_")), "then only Kalimdor regions ({arrived})");
+	assert_eq!(out["arrived"]["loads"], "Polestar_Nav_EK,Polestar_Nav_Kalimdor", "Kalimdor's part loads on arrival");
 	assert_eq!(out["arrived"]["resident1"], true);
 }
 
@@ -1087,6 +1084,64 @@ fn g_row_6_c17_no_search_starts_in_combat_the_old_path_is_kept_and_one_runs_afte
 	assert!(f(&out["follow"]["along"]) > 1.0 && f(&out["follow"]["off"]) < 2.0, "the arrow follows it");
 }
 
+// PG5K's report (#3409): following a walk, a fight pulls the player off it onto ground the walking map doesn't
+// cover, and the walk asked again from there is refused. 0.4.2 then showed no bearing and no line, and asked again
+// only once the player had gone 25 yd from that spot or the step changed ("it will stop updating, and I can fix it
+// by clicking manually on the step"). Now the arrow points straight and draws its line meanwhile, as 0.4.1.1 did,
+// and a player standing 6 yd on, back on the mapped ground, has the walk asked again.
+#[test]
+fn a_walk_refused_after_a_fight_off_the_walking_map_points_straight_and_is_asked_again_once_the_player_stands_back_on_it() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		local r = {}
+		-- The arrow's own walk to the target (the planner's re-plans aside: a new plan is a new walk, asked at once).
+		Polestar.Set("nav.travel", false)
+		place(1429, GOLDSHIRE[1], GOLDSHIRE[2], GOLDSHIRE[3])
+		local walk = guide()
+		local _, tx, ty = N.GetTargetWorld()
+		for _ = 1, 100 do stub.advance(0.05); aim() end
+		r.following = { got = walk and walk.points and #walk.points or 0, state = aim().state }
+		-- The fight: 39 yd off the walk by the mine, off the walking map. No height, as Forever's client gives none.
+		place(1429, -9816.173, 171.327)
+		local s
+		for _ = 1, 100 do stub.advance(0.05); s = aim() end
+		local g = N.GetRouteGeometry()
+		local leg = g and g.legs and g.legs[1]
+		r.refused = { finds = #finds, cost = finds[#finds].cost, state = s.state, measured = s.measured,
+			atTarget = s.x and dist(s.x, s.y, tx, ty) < 1 or false, line = N.CanDrawGroundApproach(),
+			straight = leg and leg.straight or false, pts = leg and #leg.pts or 0 }
+		-- The fight goes on there for 8 s: past the floor's own re-ask (a floor found within 5 s of a search asked
+		-- without one asks once more, Ruling 36b), which would otherwise answer for the step back.
+		for _ = 1, 160 do stub.advance(0.05); aim() end
+		r.stillRefused = { finds = #finds, state = aim().state }
+		-- Six yards on, back on the mapped ground, standing still there for 20 s.
+		place(1429, -9822.173, 171.327)
+		for _ = 1, 400 do stub.advance(0.05); aim() end
+		local f = finds[#finds]
+		local n = 0
+		while f and not f.done and n < 100 do stub.advance(0.05); n = n + 1 end
+		s = aim()
+		r.after = { finds = #finds, got = f and f.points and #f.points or 0, from = f and dist(f.from[1], f.from[2], -9822.173, 171.327), state = s.state, measured = s.measured }
+		emit(r)"#,
+		false,
+	);
+	assert!(out["following"]["got"].as_u64().unwrap_or(0) > 1 && out["following"]["state"] == "travel", "a walk to follow first ({})", out["following"]);
+	assert_eq!(out["refused"]["cost"], "no safe walking route", "the walk asked again off the walking map is refused ({})", out["refused"]);
+	assert_eq!(out["refused"]["state"], "travel", "the arrow points meanwhile ({})", out["refused"]);
+	assert_eq!(out["refused"]["measured"], false);
+	assert_eq!(out["refused"]["atTarget"], true, "straight at the target");
+	assert_eq!(out["refused"]["line"], true, "and its line is drawn");
+	assert_eq!(out["refused"]["straight"], true, "straight, from the player");
+	assert_eq!(out["refused"]["pts"], 2);
+	assert_eq!(out["stillRefused"]["state"], "travel", "still straight there ({})", out["stillRefused"]);
+	assert!(out["after"]["finds"].as_u64() > out["stillRefused"]["finds"].as_u64(), "asked again from the mapped ground ({})", out["after"]);
+	assert!(f(&out["after"]["from"]) < 0.01, "from where the player stands now");
+	assert!(out["after"]["got"].as_u64().unwrap_or(0) > 1, "a walk this time");
+	assert_eq!(out["after"]["state"], "travel");
+	assert_eq!(out["after"]["measured"], true, "the arrow follows it");
+}
+
 #[test]
 fn z1_a_guide_goal_at_andron_gant_is_walked_to_his_floor_with_his_height_without_it_to_the_cheapest_floor_there_his_own_too_by_the_lift() {
 	skip_unless_ready!();
@@ -1271,7 +1326,9 @@ const WALK_COMPASS: &str = r#"
 		if value then published = published + 1 end
 	end
 	Polestar.Set("nav.blizzardWaypoint", true)
-	local function checkWalk(named)
+	-- straight: no walk can be found there, so the arrow points straight at the goal and says why (#3409, Fitz's
+	-- ruling: as before 0.4.2): -> "<state>|<Nav.noWalk>" once settled.
+	local function checkWalk(named, straight)
 		w.setLevel(8)
 		place(1429, GOLDSHIRE[1], GOLDSHIRE[2], GOLDSHIRE[3])
 		if named then
@@ -1281,6 +1338,12 @@ const WALK_COMPASS: &str = r#"
 			N.SetTarget(1429, 39.5, 82.4, "Fargodeep Mine", "e")
 		end
 		local first = aim()
+		if straight then
+			for _ = 1, 120 do stub.advance(.05); aim() end
+			local settled = aim()
+			assert(settled.state ~= "travel" or settled.x ~= nil, "a straight bearing")
+			return settled.state .. "|" .. tostring(N.noWalk)
+		end
 		assert(not first.x and not first.y and published == 0, "unchecked HUD or waypoint bearing")
 		for _, leg in ipairs(N.GetRouteGeometry().legs) do
 			assert(not leg.current or #leg.pts == 0, "current walk drew an unchecked route")
@@ -1295,7 +1358,7 @@ const WALK_COMPASS: &str = r#"
 	end"#;
 
 const DAMAGED_MAP: &str = r#"
-	local state = checkWalk(false)
+	local state = checkWalk(false, true)
 	local f = finds[#finds]
 	emit({ state = state, available = E.Available(0), points = f and f.points and #f.points or 0, cost = f and f.cost })"#;
 
@@ -1316,10 +1379,11 @@ fn with_maps_and(files: &[PathBuf], extra: &str, script: &str) -> Value {
 }
 
 #[test]
-fn missing_walking_engine_gives_no_hud_map_or_waypoint_bearing() {
+fn missing_walking_engine_points_straight_and_says_why() {
 	skip_unless_ready!();
-	let out = with_maps_and(&[], "stub.packs.Polestar_Nav = nil", "emit(checkWalk(false))");
-	assert_eq!(out, "unmapped");
+	let out = with_maps_and(&[], "stub.packs.Polestar_Nav = nil", "emit(checkWalk(false, true))");
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	assert_eq!(out, "travel|unmapped");
 }
 
 #[test]
@@ -1345,23 +1409,25 @@ fn missing_continent_pack_does_not_publish_a_waypoint_before_the_arrow_samples()
 	skip_unless_ready!();
 	let (_tmp, ns) = ns_file();
 	let part = forge_nav::pack::part_of(0).unwrap();
-	let out = with_maps_and(&nav_files(&ns), &format!("stub.packs.{part} = {{}}"), "emit(checkWalk(false))");
-	assert_eq!(out, "unmapped");
+	let out = with_maps_and(&nav_files(&ns), &format!("stub.packs.{part} = {{}}"), "emit(checkWalk(false, true))");
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	assert_eq!(out, "travel|unmapped");
 }
 
 #[test]
-fn a_map_with_no_walking_data_gives_no_bearing_when_routing_is_enabled() {
+fn a_map_with_no_walking_data_points_straight_and_says_why_when_routing_is_enabled() {
 	skip_unless_ready!();
 	let (_tmp, ns) = ns_file();
 	let mine = Regex::new(r"[\\/]Nav0(_\d+)?\.lua$").unwrap();
 	let files: Vec<PathBuf> = nav_files(&ns).into_iter().filter(|p| !mine.is_match(&p.to_string_lossy())).collect();
 	let out = with_maps(&files, DAMAGED_MAP);
 	assert_eq!(out["available"], false, "no data for map 0");
-	assert_eq!(out["state"], "unmapped");
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	assert_eq!(out["state"], "travel|unmapped");
 }
 
 #[test]
-fn a_corrupted_grid_block_gives_no_bearing_through_that_block() {
+fn a_corrupted_grid_block_finds_no_path_through_it_and_the_arrow_points_straight() {
 	skip_unless_ready!();
 	let (k, file) = cluster_file(-9444.062, 77.667);
 	let file = file.expect("Goldshire's cluster is in one part file");
@@ -1386,7 +1452,8 @@ fn a_corrupted_grid_block_gives_no_bearing_through_that_block() {
 	};
 	assert_eq!(out["available"], true, "the map is there");
 	assert_eq!(out["points"], 0, "no path through the broken cluster ({})", out["cost"]);
-	assert_eq!(out["state"], "unmapped");
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	assert_eq!(out["state"], "travel|unmapped");
 }
 
 /// Geo.toWorld (tools/lib/planner/geo.js): the frame of f's set first ("e": Era, else the live one), the other when
@@ -1621,7 +1688,8 @@ fn ashenvale_west_of_astranaar_prices_safe_walks_before_suggesting_a_flight() {
 			local legs, ci = N.GetRoute()
 			local drawn = N.GetRouteGeometry().legs
 			if refused then
-				assert(not legs and aim().state == "unmapped" and #drawn == 0)
+				-- #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+				assert(not legs and aim().state == "travel" and N.noWalk ~= nil and #drawn == 1)
 			else
 				assert(straight[58] < straight[61] and measured[58] > measured[61], "terrain must reverse the landing")
 				assert(legs[ci].kind == "fly" and legs[ci].to.id == 61 and legs[ci+1].engine == "path")
@@ -2011,11 +2079,13 @@ fn t_234_floor_off_the_undercitys_south_lift_indoors_the_walk_to_the_plundering_
 	);
 	eprintln!("at the lift {}; walked in: from z {}, highest within 60 yd {}, {} yd", out["atLift"], out["walked"]["z"], out["walked"]["top"], out["walked"]["yards"]);
 	assert_eq!(out["atLift"], false, "at the lift the floor is unknown");
-	assert_eq!(out["atLiftAim"], "unmapped");
-	assert_eq!(out["atLiftBearing"], false);
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	assert_eq!(out["atLiftAim"], "travel");
+	assert_eq!(out["atLiftBearing"], true);
 	assert_eq!(out["atLiftFinds"], 0, "no flat search can tell which deck the player is standing on");
 	assert_eq!(out["lowerAim"], true, "the walking bearing follows the lower-floor path");
-	assert_eq!(out["wrong"], serde_json::json!({"from":55.2, "answer":"no safe walking route", "bearing":false}));
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	assert_eq!(out["wrong"], serde_json::json!({"from":55.2, "answer":"no safe walking route", "bearing":true}));
 	assert!((f(&out["walked"]["z"]) + 62.2).abs() <= 3.0, "searched from the lower level ({})", out["walked"]["z"]);
 	assert!(f(&out["walked"]["top"]) < -20.0, "the drawn line's first 60 yd stay down there (highest {})", out["walked"]["top"]);
 }
@@ -2057,12 +2127,22 @@ fn lifts_from_the_undercitys_lower_floor_to_brill_the_walk_goes_to_the_south_lif
 			local leg = N.travel.CurrentLeg()
 			return { state, leg.kind, N.travel.CurrentLabel():match("^[^\n]+") }
 		end
-		r.unknownBoard = at(1544.8, 240.6, 0) -- client placeholder at the exact boarding XY
+		-- With a height from the client, its deck rule (240b852ada).
 		r.wrongBoard = at(1553.1, 240.6, 55.2) -- above the planned boarding deck, still on the walk
 		r.board = at(1544.8, 240.6, -41.4)
 		r.retreat = at(1512, 240.6, -41.4)
 		r.receive = at(1553.1, 240.6, 55.2)
 		r.leave = at(1586, 241.2, 60)
+		-- With no height (Forever's UnitPosition gives 0, read as none): the 2D rule, as before 0.4.2 (Main,
+		-- 2026-11-21: every 0.4.2 report shows height 0, so the deck rule is dormant on real clients).
+		N.ClearTarget()
+		place(1458, 1575, 240, 0)
+		N.SetTarget(1420, 61.9, 52.3, "Brill")
+		for _ = 1, 600 do aim() stub.advance(0.05) end
+		r.unknownApproach = at(1520, 240.6, 0) -- 25 yd off the landing: the ride is shown
+		r.unknownBoard = at(1544.8, 240.6, 0) -- at the boarding landing
+		r.unknownRide = at(1548, 240.6, 0) -- on the car, either deck
+		r.unknownLeave = at(1586, 241.2, 0) -- 41 yd off the boarding landing: the ride is over
 		-- And back in: from Brill's road to the canal by the auction house.
 		place(1420, 2262, 236, 34)
 		N.SetTarget(1458, 59.17, 39.05, "The canal") -- by the auction house: no hall over it (a target with no height under the hall is taken for the hall)
@@ -2088,9 +2168,13 @@ fn lifts_from_the_undercitys_lower_floor_to_brill_the_walk_goes_to_the_south_lif
 	];
 	assert_eq!(strs(&out["route"]), want, "to the south lift, up, and out along the fixed way");
 	assert_eq!(out["to"], serde_json::json!([1544.8, 240.6, -41.4]), "the request is for the lower landing");
-	assert_eq!(out["approach"], serde_json::json!(["no safe walking route", false, false]));
-	assert_eq!(out["unknownBoard"], serde_json::json!(["unmapped", "walk", "Walk to the lift"]));
-	assert_eq!(out["wrongBoard"], serde_json::json!(["unmapped", "walk", "Walk to the lift"]));
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	assert_eq!(out["approach"], serde_json::json!(["no safe walking route", false, true]));
+	assert_eq!(out["unknownApproach"], serde_json::json!(["travel", "walk", "Ride the elevator up"]));
+	assert_eq!(out["unknownBoard"], serde_json::json!(["instruction", "lift", "Ride the elevator up"]));
+	assert_eq!(out["unknownRide"], serde_json::json!(["instruction", "lift", "Ride the elevator up"]));
+	assert_eq!(out["unknownLeave"], serde_json::json!(["travel", "walk", "Follow the path out"]));
+	assert_eq!(out["wrongBoard"], serde_json::json!(["travel", "walk", "Walk to the lift"]));
 	for stage in ["board", "retreat", "receive"] {
 		assert_eq!(out[stage], serde_json::json!(["instruction", "lift", "Ride the elevator up"]), "{stage}");
 	}
@@ -2099,6 +2183,54 @@ fn lifts_from_the_undercitys_lower_floor_to_brill_the_walk_goes_to_the_south_lif
 	let down = back.iter().position(|s| s == "lift|Ride the elevator down");
 	assert!(down.is_some_and(|d| d > 0 && back[d - 1] == "walk|Walk to the lift"), "in by the same way, down the south lift: {}", back.join(", "));
 	assert_eq!(back.last().map(String::as_str), Some("walk|The canal"));
+}
+
+// The Mesa Elevator with no height from the client, as on Forever (every 0.4.2 report says "height zero"). On the way
+// from Red Rocks up to Cairne's tent, 0.4.2 said "The last steps here aren't mapped" at the elevator's bottom landing
+// and never showed the ride (the deck rule of 240b852ada needs the client's height). Main, 2026-11-21: with no height
+// the lift takes 0.4.1.1's 2D rule: the ride is shown within 30 yd of its landing and is over 30 yd from it. The player
+// stands at the foot of the bluff (the route's first crossing end from Red Rocks), where the walk up is split at the lift.
+#[test]
+fn lifts_with_no_client_height_red_rocks_to_cairnes_tent_rides_the_mesa_elevator_and_walks_on_from_the_top() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.setLevel(10)
+		w.faction = "Horde"
+		place(1412, -964.8, -116.5, 0) -- the foot of the bluff, on the way from Red Rocks
+		N.SetTarget(1456, 60.3, 51.7, "Cairne's tent", "e")
+		for _ = 1, 600 do aim() stub.advance(0.05) end
+		local legs, ci = N.GetRoute()
+		local route, lift = {}, nil
+		for i = ci, #(legs or {}) do
+			route[#route + 1] = legs[i].kind
+			if legs[i].kind == "lift" and not lift then lift = legs[i] end
+		end
+		local r = { route = route, height = C.PlayerHeight() }
+		if lift then
+			local f = lift.from
+			local function at(x, y)
+				place(1412, x, y, 0)
+				local state = N.Sample()
+				local leg = N.travel.CurrentLeg()
+				return { state, leg and leg.kind or false, (N.travel.CurrentLabel() or ""):match("^[^\n]+") or "" }
+			end
+			-- toward the target, on the map: the top deck is over the bottom one
+			local _, tx, ty = C.MapToWorld(1456, 60.3, 51.7, "e")
+			local d = dist(f.wx, f.wy, tx, ty)
+			local ux, uy = (tx - f.wx) / d, (ty - f.wy) / d
+			r.board = at(f.wx, f.wy)
+			r.ride = at(f.wx + ux * 3, f.wy + uy * 3)
+			r.leave = at(f.wx + ux * 35, f.wy + uy * 35)
+		end
+		emit(r)"#,
+		true,
+	);
+	assert_eq!(out["height"], "zero", "the stub gives Forever's height of 0");
+	assert!(strs(&out["route"]).iter().any(|k| k == "lift"), "the way up rides a lift: {}", strs(&out["route"]).join(", "));
+	assert_eq!(out["board"], serde_json::json!(["instruction", "lift", "Ride the elevator up"]), "at the bottom landing the ride is shown");
+	assert_eq!(out["ride"], serde_json::json!(["instruction", "lift", "Ride the elevator up"]), "on the car, still the ride");
+	assert_eq!(out["leave"][1], "walk", "30 yd off the landing the ride is over and the walk goes on: {}", out["leave"]);
 }
 
 // #2516 (Trak, 0.4.0 triage): at the Ruins of Lordaeron's portal (Tirisfal 63.2,67.5, live), where the client reports
@@ -2512,10 +2644,11 @@ fn an_alliance_walk_from_ironforge_does_not_draw_a_route_into_guarded_brill() {
 		N.SetTarget(1420, 61.9, 52.3, "Brill", "e")
 		for _ = 1, 300 do aim(); stub.advance(.05) end
 		local a = aim()
-		emit({ state = a.state, bearing = a.x ~= nil, itinerary = N.GetRoute() ~= nil, target = N.GetTarget().label })"#,
+		emit({ state = a.state, bearing = a.x ~= nil, itinerary = N.GetRoute() ~= nil, target = N.GetTarget().label, caption = N.noWalk or false })"#,
 		true,
 	);
-	assert_eq!(out, serde_json::json!({"state":"unsafe","bearing":false,"itinerary":false,"target":"Brill"}));
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	assert_eq!(out, serde_json::json!({"state":"travel","bearing":true,"itinerary":false,"target":"Brill","caption":"unsafe"}));
 }
 
 // Thunder Bluff (Fitz, 2026-10-23, TB 52.2,31.1 off the north lift's top): the walk on from the mesa crossing's far
@@ -2660,15 +2793,17 @@ fn ironforge_gate_after_reload_uses_the_road_below_the_mountain_only_for_the_fri
 		end
 		local a = aim()
 		emit({ from = f and f.from[3] or false, top = top > -math.huge and top or false, n = f and f.points and #f.points or 0,
-			state = a.state, bearing = a.x ~= nil, measured = a.measured == true })"#;
+			state = a.state, bearing = a.x ~= nil, measured = a.measured == true, caption = N.noWalk or false })"#;
 	let friendly = run(&scene.replace("@FACTION", "Alliance"), true);
 	assert_eq!(friendly["measured"], true, "Alliance follows the searched road out");
 	assert!(f(&friendly["n"]) > 2.0, "the walk out is searched");
 	assert!(friendly["from"] == false || f(&friendly["from"]) < 520.0, "searched from the gate's floor or without a height ({})", friendly["from"]);
 	assert!(f(&friendly["top"]) < 520.0, "the first 400 yd stay on the road below the gate ({})", friendly["top"]);
 	let enemy = run(&scene.replace("@FACTION", "Horde"), true);
-	assert_eq!(enemy["state"], "unsafe", "Ironforge is an enemy settlement");
-	assert_eq!(enemy["bearing"], false);
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	assert_eq!(enemy["state"], "travel", "Ironforge is an enemy settlement");
+	assert_eq!(enemy["bearing"], true);
+	assert_eq!(enemy["caption"], "unsafe");
 	assert_eq!(enemy["n"], 0);
 }
 
@@ -2726,13 +2861,15 @@ fn stormwind_street(faction: &str) {
 			for _, p in ipairs(f and f.points or {}) do north = math.max(north, p.x) end
 			local a = aim()
 			emit({ from = f and f.from[3] or false, yards = floor(length(f and f.points or {})), n = f and f.points and #f.points or 0,
-				north = north > -math.huge and floor(north) or false, state = a.state, bearing = a.x ~= nil, measured = a.measured == true })"#
+				north = north > -math.huge and floor(north) or false, state = a.state, bearing = a.x ~= nil, measured = a.measured == true, caption = N.noWalk or false })"#
 			.replace("@FACTION", faction),
 		true,
 	);
 	if faction == "Horde" {
-		assert_eq!(out["state"], "unsafe", "the Trade District is an enemy settlement");
-		assert_eq!(out["bearing"], false, "no straight bearing through the city");
+		// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+		assert_eq!(out["state"], "travel", "the Trade District is an enemy settlement");
+		assert_eq!(out["bearing"], true);
+		assert_eq!(out["caption"], "unsafe", "no safe walking route through the city");
 		assert_eq!(out["n"], 0, "no walking path through the city");
 		return;
 	}
@@ -2926,15 +3063,16 @@ fn the_stormwind_tram_exit_offers_the_city_walk_only_to_alliance() {
 			for _ = 1, 300 do aim(); stub.advance(0.05) end
 			local a = aim()
 			local legs, ci = N.GetRoute()
-			emit({ state = a.state, bearing = a.x ~= nil,
+			emit({ state = a.state, bearing = a.x ~= nil, caption = N.noWalk or false,
 				leg = legs and legs[ci] and legs[ci].kind or false })"#
 				.replace("@SIDE", &lua_string(side)),
 			true,
 		);
 		if side == "Horde" {
-			assert_eq!(out, serde_json::json!({ "state": "unsafe", "bearing": false, "leg": false }));
+			// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+			assert_eq!(out, serde_json::json!({ "state": "travel", "bearing": true, "caption": "unsafe", "leg": false }));
 		} else {
-			assert_eq!(out, serde_json::json!({ "state": "travel", "bearing": true, "leg": "walk" }));
+			assert_eq!(out, serde_json::json!({ "state": "travel", "bearing": true, "caption": false, "leg": "walk" }));
 		}
 	}
 }
@@ -3372,6 +3510,95 @@ fn zone_danger_1490_alterac_counts_from_its_danger_floor_at_level_26_the_walk_to
 	let unweighted = tarren_mill_walk(26, to, true, Some(false));
 	assert!(alterac(&direct) > 0.0 && alterac(&direct) < alterac(&unweighted), "soft cost, not exclusion: {direct} vs {unweighted}");
 	assert!(f(&direct["price"]) > f(&unweighted["price"]), "the walking engine must charge for traversing Alterac");
+}
+
+/// #3447 (0.4.2.1 arrow audit): a Horde 30 on Battle of Hillsbrad, at Tarren Mill (Hillsbrad 60.79,19.92), sent by the
+/// guide to Farmer Kalaba in Hillsbrad Fields (35.05,46.20), the Alliance's farm: 0.4.2 refused every walk into it, a
+/// straight bearing with "No safe walking route" the whole 800 yd. The guide's goal is walked to, with the hostile-town
+/// caption as before 0.4.2; from Kalaba the walk back out to High Executor Darthalia (62.3,20.3) too. Southshore, on
+/// neither, still refuses a walk through it all the while.
+#[test]
+fn enemy_ground_3447_hillsbrad_fields_is_walked_into_and_out_of_while_southshore_still_refuses() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction = "Horde"
+		w.setLevel(30)
+		Polestar.CharState().flags.taxi = {}
+		Polestar.CharState().flags.taxiSeen = { [0] = true }
+		local c, mx, my = C.MapToWorld(1424, 60.79, 19.92, "e")
+		place(1424, mx, my)
+		local function southshore() return N.danger.Blocked(c, -416, -533, -1216, -533, "Horde") or "clear" end
+		local function go(x, y, label)
+			Polestar.Fire("WAYPOINT_CHANGED", { map = 1424, x = x, y = y, f = "e", label = label, kind = "kill", r = 5 })
+			local a, n = aim(), 0
+			while not a.measured and n < 400 do stub.advance(0.05); n = n + 1; a = aim() end
+			local legs, ci = N.GetRoute()
+			local kinds = {}
+			for i = ci or 1, #(legs or {}) do kinds[#kinds + 1] = legs[i].kind end
+			local walk = legs and legs[ci]
+			local _, tx, ty = N.GetTargetWorld()
+			local geo, last = N.GetRouteGeometry().legs, nil
+			for _, leg in ipairs(geo) do if leg.kind == "walk" then last = leg.pts[#leg.pts] end end
+			return { state = a.state, measured = a.measured, caption = N.noWalk or false, kinds = table.concat(kinds, ","),
+				hub = walk and N.travel.HubText(walk) or false, reaches = last ~= nil and dist(last[2], last[3], tx, ty) < 1,
+				southshore = southshore() }
+		end
+		local into = go(35.05, 46.20, "Farmer Kalaba")
+		local _, kx, ky = C.MapToWorld(1424, 35.05, 46.20, "e")
+		place(1424, kx, ky)
+		local out = go(62.3, 20.3, "High Executor Darthalia")
+		emit({ into = into, out = out })"#,
+		true,
+	);
+	assert_eq!(
+		out["into"],
+		serde_json::json!({"state":"travel","measured":true,"caption":false,"kinds":"walk","hub":"Hostile town: Hillsbrad Fields","reaches":true,"southshore":"opposing-settlement"}),
+		"into the guide's goal on enemy ground"
+	);
+	assert_eq!(
+		(&out["out"]["state"], &out["out"]["measured"], &out["out"]["caption"], &out["out"]["kinds"], &out["out"]["reaches"], &out["out"]["southshore"]),
+		(&serde_json::json!("travel"), &serde_json::json!(true), &serde_json::json!(false), &serde_json::json!("walk"), &serde_json::json!(true), &serde_json::json!("opposing-settlement")),
+		"out of it, back to Tarren Mill: {}",
+		out["out"]
+	);
+}
+
+/// #3450 (0.4.2.1 arrow audit): an Alliance Skyborne at Rathiril Sunlance in Shen'dar Village (Zephras Isle 44.96,46.29)
+/// sent to Coriella Calmbreeze (43.05,43.30), 150 yd away past the corner of the village's guard posts (the Horde's on
+/// the ground data). The straight line crosses them, so the plan refused the walk and sent the player 1,600 yd to a
+/// portal, then straight to her again wherever the line came clear: never arriving. A target that near is the arrow's
+/// own walk, round the guards: no route but walks, and the arrow's walk measured.
+#[test]
+fn near_target_3450_coriella_is_a_walk_round_the_shendar_guards_not_a_portal() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction = "Alliance"
+		w.setLevel(4)
+		local c, rx, ry = C.MapToWorld(2521, 44.96, 46.29)
+		place(2521, rx, ry)
+		for _ = 1, 20 do stub.advance(0.05); aim() end
+		Polestar.Fire("WAYPOINT_CHANGED", { map = 2521, x = 43.05, y = 43.30, label = "Coriella Calmbreeze", kind = "talk", r = 5 })
+		local _, cx, cy = N.GetTargetWorld()
+		local a, n = aim(), 0
+		while not a.measured and n < 400 do stub.advance(0.05); n = n + 1; a = aim() end
+		local legs, ci = N.GetRoute()
+		local kinds = {}
+		for i = ci or 1, #(legs or {}) do kinds[#kinds + 1] = legs[i].kind end
+		emit({ chord = N.danger.Blocked(c, rx, ry, cx, cy, "Alliance") or "clear", kinds = table.concat(kinds, ","),
+			state = a.state, measured = a.measured, caption = N.noWalk or false, yards = floor(a.dist or 0) })"#,
+		true,
+	);
+	assert_eq!(out["chord"], "opposing-settlement", "the straight line crosses the guard posts");
+	let kinds = out["kinds"].as_str().unwrap_or("");
+	assert!(kinds.is_empty() || kinds.split(',').all(|k| k == "walk"), "no portal, only the walk: {out}");
+	assert_eq!(
+		(&out["state"], &out["measured"], &out["caption"]),
+		(&serde_json::json!("travel"), &serde_json::json!(true), &serde_json::json!(false)),
+		"the arrow's own walk, round the guards: {out}"
+	);
+	assert!(f(&out["yards"]) < 400.0, "a walk of a few hundred yards, not a portal's 3 km: {out}");
 }
 
 /// #1972 (Rexen, Dwarf Shaman 37, 0.3.7.2): on "Go to Watcher Biggs" (Swamp of Sorrows 26.7,59.8 on the game's map), at
@@ -4025,6 +4252,166 @@ fn t_2005_from_the_lake_shore_the_route_to_the_relic_of_the_claw_goes_in_by_the_
 	);
 	assert_eq!(out["viaMouth"], true, "a leg ends at the den's mouth: {out}");
 	assert!(f(&out["chainLegs"]) >= 2.0, "the walk in follows the chain's nodes: {out}");
+}
+
+// Following the arrow with no height from the client, as on Forever (UnitPosition's 0, read as none): 7 yd a second
+// toward its aim, the height left at 0, for up to `secs` seconds. -> { arrived = seconds | false, left = yards to the
+// target, outs = seconds the label said "Follow the path out", near = seconds within `r` yd of (ax, ay), far = seconds
+// over `R` yd from it after the first near one }.
+const FLAT_FOLLOW: &str = r#"
+function flatFollow(c, x, y, secs, reach, ax, ay, r, R)
+	local map = N.danger.ZoneAt(c, x, y)
+	place(map, x, y, 0)
+	local _, tx, ty = N.GetTargetWorld()
+	local outs, near, far = 0, 0, 0
+	for t = 1, secs do
+		for _ = 1, 20 do N.Sample(); stub.advance(0.05) end
+		if dist(x, y, tx, ty) <= reach then return { arrived = t, left = 0, outs = outs, near = near, far = far } end
+		local _, _, _, dn, dw = N.Sample()
+		if (N.travel.CurrentLabel() or ""):match("^[^\n]*") == "Follow the path out" then outs = outs + 1 end
+		if not dn then break end
+		local da = sqrt(dn * dn + dw * dw)
+		if da > 0 then
+			local step = math.min(7, da)
+			x, y = x + dn / da * step, y + dw / da * step
+		end
+		if ax then
+			local d = dist(x, y, ax, ay)
+			if d <= r then near = near + 1 elseif near > 0 and d > R then far = far + 1 end
+		end
+		local zm = N.danger.ZoneAt(c, x, y) or map
+		place(zm, x, y, 0)
+		if zm ~= map then
+			map = zm
+			stub.fire("ZONE_CHANGED_NEW_AREA")
+		end
+	end
+	return { arrived = false, left = floor(dist(x, y, tx, ty)), outs = outs, near = near, far = far }
+end
+"#;
+
+/// #3449 (0.4.2, every Night Elf): at Ban'ethil Barrow Den's mouth, the step to the Chest of the Raven Claw (in the
+/// den's lower east room, 64 yd off and 50 yd down) showed "Follow the path out" and a bearing that swung back and
+/// forth; the chest was never reached. With no height from the client, the walk into the den (the walking maps join
+/// it now) took the player down the entrance ramp, where the followed floor put them inside the den's approach chain;
+/// the chest lies off every chain, so the plan sent them out by the chain and back in by the walk, and at the mouth
+/// the followed floor, fallen to the hall under it, never let the chain's last node count. A start inside a chain now
+/// keeps the arrow's live walk to the target (or the engine's measured one), and with no client height a chain node is
+/// reached on the map: following the arrow, the player walks the den to the chest, never told to go out.
+#[test]
+fn t_3449_with_no_client_height_from_the_banethil_barrow_den_s_mouth_the_arrow_walks_the_den_to_the_raven_claw_chest() {
+	skip_unless_ready!();
+	let out = run(
+		&[
+			FLAT_FOLLOW,
+			r#"
+		w.faction = "Alliance"
+		w.race, w.raceName = "NightElf", "Night Elf"
+		w.setLevel(5)
+		place(1438, 9873.2, 1555.3, 0) -- at the den's mouth, where the step before ends
+		stub.advance(1)
+		N.Sample()
+		N.SetTarget(1438, 45.61, 57.35, "Chest of the Raven Claw", "e", nil, 1278.8)
+		local r = flatFollow(1, 9873.2, 1555.3, 240, 5)
+		r.height = C.PlayerHeight()
+		emit(r)"#,
+		]
+		.concat(),
+		true,
+	);
+	assert_eq!(out["height"], "zero", "the stub gives Forever's height of 0: {out}");
+	assert!(out["arrived"].as_f64().is_some(), "following the arrow gets the player to the chest: {out}");
+	assert_eq!(out["outs"], 0, "never \"Follow the path out\" on the way: {out}");
+}
+
+/// #3449: leaving Ban'ethil Barrow Den with no height from the client. From Oben Rageclaw the route follows the den's
+/// chain out to its mouth (#1341); the followed floor fell 26 yd to the hall under the mouth on the last stretch of the
+/// ramp, so the mouth's node (height 1329) never counted as reached and the arrow circled it ("Follow the path out").
+/// With no client height a chain node is reached on the map: the player passes the mouth and walks on out.
+#[test]
+fn t_3449_with_no_client_height_from_oben_rageclaw_the_arrow_leads_out_past_the_banethil_barrow_den_s_mouth() {
+	skip_unless_ready!();
+	let out = run(
+		&[
+			FLAT_FOLLOW,
+			r#"
+		w.faction = "Alliance"
+		w.race, w.raceName = "NightElf", "Night Elf"
+		w.setLevel(10)
+		local MOUTH = { 9876.1, 1550.8 } -- Teldrassil 44.46,57.61
+		place(1438, 9741.0, 1526.4, 0) -- Oben Rageclaw, in the den's depths
+		stub.advance(1)
+		N.Sample()
+		N.SetTarget(1438, 56.0, 59.0, "Dolanaar")
+		emit(flatFollow(1, 9741.0, 1526.4, 240, 10, MOUTH[1], MOUTH[2], 10, 60))"#,
+		]
+		.concat(),
+		true,
+	);
+	assert!(f(&out["near"]) >= 1.0, "the way out passes the den's mouth: {out}");
+	assert!(f(&out["far"]) >= 1.0, "past the mouth the player walks on out, never circling it: {out}");
+}
+
+/// #3448 (0.4.2, Northshire, no height from the client): after Llane Beshere's training the first walk to the kobold
+/// camp was refused (the router's departure rule: a start with no height on the Abbey's indoor ground) and the player
+/// standing there got a straight line for 10 to 30 s. The followed floor had been dropped: the player walked a yard
+/// past the last floor read before the arrow said Arrived, and the stop outlasted FRESH (2 s). Walking in to Llane by
+/// the arrow at run speed (7 yd a second in frames of 0.05 s), standing 3 s at him, then the next goal: its first walk
+/// starts on the followed floor and is found.
+#[test]
+fn t_3448_with_no_client_height_after_llane_beshere_the_first_walk_to_the_kobold_camp_is_found_at_once() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction = "Alliance"
+		w.race, w.raceName = "Human", "Human"
+		w.setLevel(4)
+		local x, y = -8871.5, -151.1 -- by the wolves north of the Abbey
+		place(1429, x, y, 0)
+		stub.advance(1)
+		N.Sample()
+		local mx, my = C.WorldToMap(0, -8916.3, -203.8, 1429)
+		N.SetTarget(1429, mx, my, "Llane Beshere", nil, "npc", 82.3)
+		local arrived = false
+		for i = 1, 1200 do
+			local state, _, _, dn, dw = N.Sample()
+			if state == "arrived" then arrived = i * 0.05 break end
+			if dn then
+				local da = sqrt(dn * dn + dw * dw)
+				if da > 0 then
+					local step = math.min(0.35, da)
+					x, y = x + dn / da * step, y + dw / da * step
+					place(1429, x, y, 0)
+				end
+			end
+			stub.advance(0.05)
+		end
+		-- A step on into his range, then the training: 3 s at the trainer with the arrow at Arrived (no floor check).
+		local tx, ty = -8916.3, -203.8
+		local d = dist(x, y, tx, ty)
+		x, y = x + (tx - x) / d * 1.5, y + (ty - y) / d * 1.5
+		place(1429, x, y, 0)
+		for _ = 1, 60 do N.Sample(); stub.advance(0.05) end
+		local before = #finds
+		local kx, ky = C.WorldToMap(0, -8780.5, -160.4, 1429)
+		N.SetTarget(1429, kx, ky, "Kobold Vermin", nil, nil, 82)
+		local first, t = nil, 0
+		while t < 100 do
+			N.Sample(); stub.advance(0.05); t = t + 1
+			for i = before + 1, #finds do
+				if finds[i].done and dist(finds[i].to[1], finds[i].to[2], -8780.5, -160.4) < 3 then first = first or finds[i] end
+			end
+			if first then break end
+		end
+		emit({ arrived = arrived, at = { r1(x), r1(y) }, height = C.PlayerHeight(), answered = first ~= nil,
+			fromZ = first and first.from[3] or false, points = first and first.points and #first.points or 0,
+			blocked = tostring(N.walk.blockedReason) })"#,
+		true,
+	);
+	assert_eq!(out["height"], "zero", "the stub gives Forever's height of 0: {out}");
+	assert!(out["arrived"].as_f64().is_some(), "the arrow leads to Llane: {out}");
+	assert!(out["fromZ"].as_f64().is_some(), "the first walk starts on the followed floor: {out}");
+	assert!(f(&out["points"]) >= 2.0, "and is found, never refused: {out}");
 }
 
 // The walk from the player's spot (map coordinates in `frame`: "e" era, nil live) to a goal point with its compiled

@@ -946,7 +946,7 @@ fn changing_the_target_replans_and_turning_travel_off_preserves_the_players_walk
 		Polestar.Set("nav.travel", false)
 		stub.advance(0.2)
 		r.off = { N.GetRoute() == nil, A.GetMode(), A.labelText:GetText() }
-		r.unmapped = { N.Sample() }
+		r.unmapped = { (N.Sample()) }
 		Polestar.Set("nav.navRouting", false)
 		stub.advance(0.2)
 		local mode, _, _, north, west = N.Sample()
@@ -956,8 +956,9 @@ fn changing_the_target_replans_and_turning_travel_off_preserves_the_players_walk
 		emit(r)"#);
 	assert_eq!(out["first"], 3);
 	assert_eq!(out["second"], json!(["walk|Target"]));
-	assert_eq!(out["off"], json!([true, "unmapped", "Target"]));
-	assert_eq!(out["unmapped"], json!(["unmapped"]), "turning off travel alone must not invent a walking bearing");
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	assert_eq!(out["off"], json!([true, "travel", "Target\nThe last steps here aren't mapped"]));
+	assert_eq!(out["unmapped"], json!(["travel"]), "turning off travel alone points straight, saying why");
 	assert_eq!(out["compass"], json!([true, "travel", 0, -1380]), "the direct bearing is available when the player turns walking maps off too");
 	assert_eq!(out["on"], 3);
 }

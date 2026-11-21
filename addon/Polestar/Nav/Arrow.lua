@@ -790,20 +790,24 @@ local warning, warnUntil -- the warning being said (Travel.TakeWarning) and unti
 local style = "3d"    -- nav.arrowStyle (D.style)
 local noteSeen = 0    -- Walk.Unmapped's version the label shows
 local stoppedUnmapped = false -- the unmapped warning is the status, not a second line under the target
+local noWalkShown -- Nav.noWalk under the label while the arrow points straight for want of a walk (#3409)
 
 -- A target's own warning (Nav.SetTarget's `warning`: a dungeon whose way in
 -- lies in the other faction's land) stays under the label while it is the
 -- target, and so does "The last steps here aren't mapped" while the current walk
 -- ends short of its goal's floor, or a capital walk found none (Walk.Unmapped).
--- The walk's hostile-town warning (`warning`) comes after them.
+-- The walk's hostile-town warning (`warning`) comes after them. While no walk
+-- was found (Nav.noWalk) and the arrow points straight, why: "No safe walking
+-- route" or "The last steps here aren't mapped" (#3409).
 local function withTargetWarning(text)
 	local t = Nav.GetTarget()
 	local tw = t and t.warning
 	local W = Nav.walk
-	if not stoppedUnmapped and W and W.Unmapped and W.Unmapped() then
-		local note = L["The last steps here aren't mapped"]
-		tw = tw and (tw .. "\n" .. note) or note
+	local note = noWalkShown == "unsafe" and L["No safe walking route"] or nil
+	if noWalkShown == "unmapped" or (not stoppedUnmapped and W and W.Unmapped and W.Unmapped()) then
+		note = note and (note .. "\n" .. L["The last steps here aren't mapped"]) or L["The last steps here aren't mapped"]
 	end
+	if note then tw = tw and (tw .. "\n" .. note) or note end
 	if not tw then return text end
 	return text ~= "" and (text .. "\n" .. tw) or tw
 end
@@ -886,7 +890,7 @@ local function setMode(m)
 		distText:SetTextColor(Nav.RGB("text"))
 	elseif m == "submerged" then
 		distText:SetTextColor(Nav.RGB("text"))
-		distText:SetText(L["Underwater target — no verified walk"])
+		distText:SetText(L["Under water nearby: swim down to it"])
 	elseif m == "unsafe" then
 		distText:SetTextColor(Nav.RGB("text"))
 		distText:SetText(L["No safe walking route"])
@@ -1080,7 +1084,7 @@ local function sample(elapsed)
 		local yards = floor(dist + .5)
 		if lastYards ~= yards then
 			lastYards = yards
-			distText:SetFormattedText(L["Waypoint %d yd below — navigate manually"], yards)
+			distText:SetFormattedText(L["%d yd below you: swim down"], yards)
 		end
 		return true
 	end
@@ -1090,6 +1094,11 @@ local function sample(elapsed)
 	end
 	if stoppedUnmapped ~= (state == "unmapped") then
 		stoppedUnmapped = state == "unmapped"
+		routeSeen = -2
+	end
+	local nw = state == "travel" and Nav.noWalk or nil
+	if nw ~= noWalkShown then
+		noWalkShown = nw
 		routeSeen = -2
 	end
 	syncLabel(T, routed)

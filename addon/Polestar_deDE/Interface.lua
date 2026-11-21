@@ -9,7 +9,7 @@ local L = ns.L
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Wähle eine Belohnung, um die Abgabe abzuschließen."
 -- L["%s is an escort: it starts as soon as it is taken. Accept it yourself when your group is ready."] = ""
--- L["Took %s now: %s does it later, so this saves a trip back."] = ""
+-- L["Took %s now for %s, later on your route: this saves a trip back."] = ""
 
 -- Core/Commands.lua
 L["Toggle guide window"] = "Guide-Fenster ein-/ausblenden"
@@ -240,8 +240,8 @@ L["Grey for you: pays %d%% XP (Skip grey quests)"] = "Für dich grau: bringt %d%
 -- L["Ride to the flight master"] = ""
 -- L["Requires level %d: the guide comes back for it then"] = ""
 -- L["Requires level %d: kept for a later guide"] = ""
--- L["Saves a trip back: %s does it later."] = ""
 -- L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = ""
+-- L["For %s, later on your route."] = ""
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Benötigt Polestar %s oder neuer."
@@ -334,8 +334,8 @@ L["Click for the next spot."] = "Klicken für den nächsten Punkt."
 L["Shift-drag to move."] = "Halte Umschalt gedrückt und zieh, um es zu verschieben."
 L["No waypoint"] = "Kein Wegpunkt"
 -- L["Arrived underwater"] = ""
--- L["Underwater target — no verified walk"] = ""
--- L["Waypoint %d yd below — navigate manually"] = ""
+-- L["Under water nearby: swim down to it"] = ""
+-- L["%d yd below you: swim down"] = ""
 
 -- Nav/Layers.lua
 L["Spot %d of %d"] = "Punkt %d von %d"
@@ -658,9 +658,6 @@ L["The step stops waiting for the party and moves on as usual."] = "Der Schritt 
 L["Click to show or hide the party panel."] = "Klicken, um das Gruppenfenster ein- oder auszublenden."
 L["Then out here"] = "Dann hier draußen"
 L["Out here"] = "Hier draußen"
-L["Level %d quest: you're %s"] = "Quest für Stufe %d: du bist auf Stufe %s"
-L["Behind: %s (%d) at step %d, you're %s; grind %s first"] = "Rückstand: %s (%d) bei Schritt %d, du bist auf Stufe %s; erst %s grinden"
-L["Behind: %s (%d) at step %d, you're %s; reach %d first"] = "Rückstand: %s (%d) bei Schritt %d, du bist auf Stufe %s; erst Stufe %d erreichen"
 L["%s levels"] = "%s Stufen"
 L["Behind by %s: step %d grinds to level %s (%s)"] = "Rückstand von %s: In Schritt %d wird bis Stufe %s gegrindet (%s)"
 L["Behind by %s: step %d grinds to level %s"] = "Rückstand von %s: In Schritt %d wird bis Stufe %s gegrindet"
@@ -672,8 +669,6 @@ L["Step %d does this later; done now, that step is shorter or skipped when you g
 L["Left out because you skipped %s"] = "Ausgelassen, weil du %s übersprungen hast"
 L["Ticked by you, but the game still counts its objectives open: finish them first."] = "Von dir abgehakt, aber das Spiel zählt die Ziele noch als offen: Schließe sie zuerst ab."
 L["Right-click: not now, around here (twice: for the rest of this zone)."] = "Rechtsklick: nicht jetzt, hier in der Gegend (zweimal: für den Rest dieses Gebiets)."
-L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"] = "Im Plan, aber %s (%d) bei Schritt %d ist schwer: du bist auf Stufe %s; erst %s grinden"
-L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "Im Plan, aber %s (%d) bei Schritt %d ist schwer: du bist auf Stufe %s; erst Stufe %d erreichen"
 L["The rest of this guide follows from a skipped step"] = "Der Rest dieses Guides baut auf einem übersprungenen Schritt auf"
 L["You skipped %s, and the steps after it need its quests. Undo the skip to carry on, or do that step yourself: the guide picks up from there."] = "Du hast %s übersprungen, und die Schritte danach brauchen dessen Quests. Mach das Überspringen rückgängig, um weiterzumachen, oder erledige diesen Schritt selbst: Von dort an macht der Guide weiter."
 L["Undo the skip"] = "Überspringen rückgängig machen"
@@ -3374,6 +3369,7 @@ L["Chinese (traditional)"] = "Chinesisch (traditionell)"
 
 -- Core/Data.lua
 L["Polestar no longer uses the old folders Polestar_Guides_<language> and Polestar_Names_<language> (%s): Polestar_<language> holds both now. Close the game and delete them from Interface/AddOns."] = "Polestar verwendet die alten Ordner Polestar_Guides_<language> und Polestar_Names_<language> nicht mehr (%s): Polestar_<language> enthält jetzt beides. Schließe das Spiel und lösche sie aus Interface/AddOns."
+L["Polestar no longer uses its %d walking map folders named Polestar_Nav_R (Polestar_Nav_R0_6_6 and the like): Polestar_Nav_EK and Polestar_Nav_Kalimdor hold those maps now. Close the game and delete the Polestar_Nav_R folders from Interface/AddOns."] = "Polestar verwendet seine %d Laufkarten-Ordner namens Polestar_Nav_R (Polestar_Nav_R0_6_6 und ähnliche) nicht mehr: Polestar_Nav_EK und Polestar_Nav_Kalimdor enthalten diese Karten jetzt. Schließe das Spiel und lösche die Polestar_Nav_R-Ordner aus Interface/AddOns."
 L["Your install is mixed or incomplete (%s). Close the game, delete every Polestar folder in Interface/AddOns and install Polestar again: with the Polestar Client, the CurseForge app, or the latest zip from GitHub Releases (not \"Source code\")."] = "Deine Installation ist gemischt oder unvollständig (%s). Schließe das Spiel, lösche jeden Polestar-Ordner in Interface/AddOns und installiere Polestar neu: mit dem Polestar Client, der CurseForge-App oder dem neuesten Zip von GitHub Releases (nicht „Source code“)."
 
 -- Alts/Snapshot.lua
@@ -3403,8 +3399,14 @@ L["%d characters on %d realms · each as of their last logout"] = "%d Charaktere
 L["1 character on %s"] = "1 Charakter auf %s"
 L["1 character on %s · each as of their last logout"] = "1 Charakter auf %s · zum Stand seiner letzten Abmeldung"
 L["%d characters on %s · each as of their last logout"] = "%d Charaktere auf %s · jeweils zum Stand ihrer letzten Abmeldung"
+L["1 character"] = "1 Charakter"
+L["1 character · each as of their last logout"] = "1 Charakter · zum Stand seiner letzten Abmeldung"
+L["%d characters · each as of their last logout"] = "%d Charaktere · jeweils zum Stand ihrer letzten Abmeldung"
 L["Forget %s"] = "%s vergessen"
 L["Characters is turned off. Turn it on under Options > Discovery > Lookup."] = "Charaktere ist ausgeschaltet. Schalte es unter Optionen > Entdecken > Nachschlagen ein."
+-- L["Another character named %s was saved before Forever's client stopped giving addons the realm name. Polestar can't tell whether it is this one, so it stays listed as it was; forget it if it is."] = ""
+-- L["%d characters named %s were saved on different realms before Forever's client stopped giving addons the realm name. Polestar can't tell which one you are playing, so they stay listed as they were and this character has a new entry; forget the old one that was this character."] = ""
+-- L["Rares met on %d realms are kept apart: Forever's client no longer gives addons the realm name, so Polestar can't tell which of them this is. Rares lists what you meet from now on."] = ""
 
 -- QoL/Keep.lua
 L["Don't sell: the guide needs it at step %d"] = "Nicht verkaufen: Der Guide braucht es bei Schritt %d"
@@ -5042,3 +5044,8 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Geland
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "Kein Plunder, um Platz zu schaffen. Strg+Alt-Klick auf einen Gegenstand markiert ihn als Plunder."
 -- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "Während der Pause werden keine Quests für dich angenommen oder abgegeben und keine Belohnung gewählt, bis Polestar weiterläuft."
 -- L["≈ %s"] = "≈ %s"
+-- L["Level %d quest: you're %s"] = "Quest für Stufe %d: du bist auf Stufe %s"
+-- L["Behind: %s (%d) at step %d, you're %s; grind %s first"] = "Rückstand: %s (%d) bei Schritt %d, du bist auf Stufe %s; erst %s grinden"
+-- L["Behind: %s (%d) at step %d, you're %s; reach %d first"] = "Rückstand: %s (%d) bei Schritt %d, du bist auf Stufe %s; erst Stufe %d erreichen"
+-- L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"] = "Im Plan, aber %s (%d) bei Schritt %d ist schwer: du bist auf Stufe %s; erst %s grinden"
+-- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "Im Plan, aber %s (%d) bei Schritt %d ist schwer: du bist auf Stufe %s; erst Stufe %d erreichen"

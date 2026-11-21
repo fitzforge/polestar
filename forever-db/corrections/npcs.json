@@ -244,6 +244,26 @@
 		],
 		"note": "Archmage Ansirem Runeweaver (npc 2543), who takes Magical Analysis (602) and gives Ansirem's Key (603), stands at the Kirin Tor camp by Dalaran, Alterac Mountains 14.16,59.73 (map 1416). Our merged data had the old Dalaran point 18.84,78.49, about 370 yd south-east, where nobody met him; the Arathi Highlands guide's hand-in of 602 used it."
 	},
+	"2910": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-20: 50 people opened Prospector Ryedol's window at the Badlands dig (126 quest windows for 719, 720 and 721), none a merchant window"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3383 (SumnDaiy, Night Elf Druid 38): the guide said to sell at Prospector Ryedol, who is no vendor"
+			},
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB: creature_template 2910 npcflag 2 (quest giver only), no npc_vendor rows"
+			}
+		],
+		"note": "Prospector Ryedol gives the Badlands dig's quests and sells nothing. The merged data listed him as a vendor, so the guide's sell-before-you-go reminder sent players to him (#3383). No roles; a merchant window players record brings the vendor role back."
+	},
 	"2956": {
 		"addSpawns": {
 			"1412": {

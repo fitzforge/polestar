@@ -22,6 +22,11 @@
 // placement does not take their progress as a sign of where the player is in
 // it (anchorStep; Tincho, a 0.3.x Horde Warrior at 28.7 carrying Dangerous!
 // into 0.4.0's Hillsbrad 30-40, which now offers it at Tarren Mill).
+//
+// Per guide, `titles`: its title in each earlier release whose title differs
+// from today's, by that release's guides version (each --old dir's
+// pack.json): a tab an update moved to another guide is named in chat as the
+// player knew it (#3440).
 
 const fs = require('node:fs');
 const path = require('node:path');
@@ -103,10 +108,12 @@ function optionality(g) {
 const accepts = (g) => new Set(g.steps.flatMap((st) => st.goals.filter((goal) => goal.t === 'accept' && goal.quest != null).map((goal) => goal.quest)));
 const now = new Map();
 const nowReq = new Map();
+const nowTitle = new Map();
 const offersNow = new Map(); // id -> { faction, quests }
 for (const g of leveling(current)) {
 	now.set(g.id, new Set(g.steps.map(part)));
 	nowReq.set(g.id, optionality(g).req);
+	nowTitle.set(g.id, g.title);
 	offersNow.set(g.id, { faction: g.faction, quests: accepts(g) });
 }
 const legacy = new Map(); // id -> Map(hash -> part)
@@ -116,8 +123,14 @@ const required = new Map();
 // id -> the quests it offers now that an earlier release offered in another
 // leveling guide of the faction and not in it.
 const movedIn = new Map();
+// id -> Map(release version -> the guide's title in that release), for the
+// releases whose title differs from today's: a tab an update moved to another
+// guide is named in chat as the player knew it (the save keeps the version
+// of the guides it was made with, CharState().shapeVersions).
+const titles = new Map();
 for (const dir of olds) {
 	const gs = leveling(dir);
+	const version = JSON.parse(fs.readFileSync(path.join(dir, 'pack.json'), 'utf8')).version;
 	const offeredThen = new Map(gs.map((g) => [g.id, accepts(g)]));
 	for (const g of gs) {
 		const keep = now.get(g.id);
@@ -129,6 +142,7 @@ for (const dir of olds) {
 		}
 		const r = required.get(g.id) || required.set(g.id, new Set()).get(g.id);
 		for (const x of optionality(g).opt) if (nowReq.get(g.id).has(x)) r.add(x);
+		if (version && g.title && g.title !== nowTitle.get(g.id)) (titles.get(g.id) || titles.set(g.id, new Map()).get(g.id)).set(version, g.title);
 	}
 	for (const [id, { faction, quests }] of offersNow) {
 		const own = offeredThen.get(id) || new Set();
@@ -148,19 +162,23 @@ const lines = [
 	'-- save stores for a step (CharState().stepKeys) -> its goals as the Engine names them',
 	'-- (Own.stepParts). Own.remap carries a changed step\'s check-offs, skips and saved view',
 	'-- to the step that now has the same goal. `required`: quest goals an earlier release had',
-	'-- as optional only that block now (Own.noteAdded passes them behind the player). A function: its table is built only when an',
+	'-- as optional only that block now (Own.noteAdded passes them behind the player). `titles`:',
+	'-- the guide\'s title in each release whose title differs from today\'s, by the guides\' version',
+	'-- (the chat line of a tab an update moved, Own.followReworked). A function: its table is built only when an',
 	'-- update changed a saved guide (Own.legacy), and the Engine drops it once the saved tabs',
 	'-- are mapped, so a session without an update keeps none of it.',
 	'local _, ns = ...',
 	'ns.LegacyStepsLoad = function() return {',
 ];
 let n = 0;
-for (const id of [...new Set([...legacy.keys(), ...required.keys()])].sort()) {
+for (const id of [...new Set([...legacy.keys(), ...required.keys(), ...titles.keys()])].sort()) {
 	const m = legacy.get(id) || new Map();
 	const r = [...(required.get(id) || [])].sort();
-	if (!m.size && !r.length) continue;
+	const t = titles.get(id) || new Map();
+	if (!m.size && !r.length && !t.size) continue;
 	lines.push(`\t[${lua(id)}] = {`);
 	if (r.length) lines.push(`\t\trequired = ${lua(r.join(','))},`);
+	if (t.size) lines.push(`\t\ttitles = { ${[...t].map(([v, title]) => `[${lua(v)}] = ${lua(title)}`).join(', ')} },`);
 	for (const h of [...m.keys()].sort((a, b) => a - b)) {
 		lines.push(`\t\t[${h}] = ${lua(m.get(h))},`);
 		n++;

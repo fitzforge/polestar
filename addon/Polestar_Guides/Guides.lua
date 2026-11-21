@@ -414,21 +414,21 @@ do
 					},
 				},
 				{
-					title = "The ruined catapult and flying machine",
-					note = "Two of the wrecks {npc:256222} named lie at the east end of the fields: use the {item:269944} beside each.",
+					title = "The three wrecks",
+					note = "The three wrecks {npc:256222} named lie at the east end of the fields: use the {item:269944} beside each, the catapult and the flying machine first, then the ballista a little north of them.",
 					goals = {
 						{ t = "use", quest = 93747, title = "Violence Into Verdure", item = 269944, itemName = "Bag of Enchanted Seeds", oi = 2, map = 2482, x = 62.9, y = 82.9, note = "{item:269944}: the {npc:266887}" },
 						{ t = "use", quest = 93747, title = "Violence Into Verdure", item = 269944, itemName = "Bag of Enchanted Seeds", oi = 3, map = 2482, x = 66.1, y = 83.5, note = "{item:269944}: the {npc:266886}" },
+						{ t = "use", quest = 93747, title = "Violence Into Verdure", item = 269944, itemName = "Bag of Enchanted Seeds", oi = 1, map = 2482, x = 66.3, y = 79.2, note = "{item:269944}: the {npc:262036}" },
 					},
 				},
 				{
 					title = "The shrub field",
-					note = "North into the shrub field: the {npc:248395} drop the leaves, and the Scarlet Dart Tubers grow in the open ground, most of them in the field's western half. The ruined ballista stands at the field's north-eastern edge: use the {item:269944} to plant the last seed there. Keep clear of {quest:91923} and {npc:248709}, the field's elites.",
+					note = "North into the shrub field: the {npc:248395} drop the leaves, and the Scarlet Dart Tubers grow in the open ground, most of them in the field's western half. Keep clear of {quest:91923} and {npc:248709}, the field's elites.",
 					goals = {
 						{ t = "kill", quest = 92594, title = "Kindling, Kinda", target = "Tainted Shrubbery", npc = 248395, count = 15, oi = 1, map = 2482, x = 65.55, y = 73.85, spotsPacked = "66.2,71.2,,66,13;64.3,69.3,,49,13;63.8,66.5,,52,8;61.1,67.8,,100,19;59.5,71.4,,58,18;58.2,76.1,,57,18;57.36,79.36,,48,9;68.6,69.1,,68,17;71,72.1,,69,18;72.7,75.3,,42,10", spread = true, lvl = 56 },
 						{ t = "collect", quest = 91755, title = "Leaves to Ligatures", item = 247892, itemName = "Verdant Leaves", count = 12, oi = 1, map = 2482, x = 65.55, y = 73.85, spotsPacked = "66.2,71.2,,66,13;64.3,69.3,,49,13;63.8,66.5,,52,8;61.1,67.8,,100,19;59.5,71.4,,58,18;58.2,76.1,,57,18;56.9,80.3,,80,10;68.6,69.1,,68,17;71,72.1,,69,18;72.7,75.3,,42,10", spread = true, lvl = 56, from = "Tainted Shrubbery", fromKind = "npc", fromId = 248395, fromNpcs = { { npc = 248395, npcName = "Tainted Shrubbery" } } },
 						{ t = "collect", quest = 93759, title = "The Bounty of Nature", item = 267289, itemName = "Scarlet Dart Tuber", count = 6, oi = 2, map = 2482, x = 59.5, y = 73.5, spotsPacked = "57.03,74.82,,0;58.22,78.53,,0;59.38,69.97,,0;59.91,73.26,,0;63.89,70.39,,0;74.39,76.45,,0", from = "Scarlet Dart Tuber", fromKind = "object", fromId = 626685 },
-						{ t = "use", quest = 93747, title = "Violence Into Verdure", item = 269944, itemName = "Bag of Enchanted Seeds", oi = 1, map = 2482, x = 70.4, y = 70.7, note = "{item:269944}: the {npc:262036}" },
 					},
 				},
 				{
@@ -436,7 +436,7 @@ do
 					note = "{quest:91923} is elite: grouping up is advised. He walks the shrub field.",
 					when = { { k = "group", q = 91923 } },
 					goals = {
-						{ t = "collect", quest = 91923, title = "Celastrus the Bitter", item = 282028, itemName = "Broken Frond of Celastrus", count = 1, oi = 1, map = 2482, x = 69.66, y = 72.34, spotsPacked = "69.3,71.5,,25,2;66.8,70,,49,9;65.56,74.15,,15,2;63.4,69.7,,87,9;64.5,79.2,,22,2", lvl = 57, from = "Celastrus the Bitter", fromKind = "npc", fromRank = 1, fromId = 249051, fromNpcs = { { npc = 249051, npcName = "Celastrus the Bitter" } }, group = { kind = "elite", lvl = 57, rank = 1 } },
+						{ t = "collect", quest = 91923, title = "Celastrus the Bitter", item = 282028, itemName = "Broken Frond of Celastrus", count = 1, oi = 1, map = 2482, x = 60.99, y = 70.63, spotsPacked = "63.4,69.7,,87,9;65.56,74.15,,15,2;66.8,70,,49,9;64.5,79.2,,22,2;69.3,71.5,,25,2", lvl = 57, from = "Celastrus the Bitter", fromKind = "npc", fromRank = 1, fromId = 249051, fromNpcs = { { npc = 249051, npcName = "Celastrus the Bitter" } }, group = { kind = "elite", lvl = 57, rank = 1 } },
 					},
 				},
 				{
@@ -3950,6 +3950,7 @@ do
 				{
 					title = "{npc:4086}",
 					note = "{npc:4086}, a goblin friendly to both factions, stands among the Venture Co. in the {area:461}, east Stonetalon, a short way north-east of {area:460}. Horde fly to {area:460}; Alliance to {area:467}. He wants a {item:210187} before he hands over explosives: the Venture Co. Loggers (level 18) working around him carry them in their pockets. Stealth up behind one and {spell:921} it; killing them does not give it. Then talk to {npc:4086}: {quest:78270} never goes into your quest log, you hand the Work Order in at once, and he takes it only while {quest:78261} is in your quest log: if you dropped it, take it again from C's {object:410369} by Pyrewood first.",
+					when = { { k = "turnedin", neg = true, q = 78261 }, { k = "complete", neg = true, q = 78261 } },
 					goals = {
 						{ t = "collect", item = 210187, itemName = "Venture Co. Work Order", count = 1, text = "{spell:921} a {npc:3989} for a {item:210187}", map = 1442, x = 69.3, y = 51.2, f = "e", spotsPacked = "68.1,49.6,,54,5;66.2,51.6,-4,77,16;67.8,56.4,,61,6;65.1,57.4,,50,4;60.3,53.1,,62,7;64.6,46,,73,7;71.2,43.4,,40,5;71.3,48,,40,2;72.7,51.3,4.8,40,2,,19;73.8,54.3,,40,5;74.6,59.1,8.5,40,7;70.9,56.7,4.4,40,3;69.7,54.4,-2,50,7,1;71.4,49.8,-4.9,61,4,1;71.5,55.1,,40,3,1;66,49.7,3.2,41,5,1;73.1,49,,40,2,1;65.9,54.9,,58,5,1;66.5,45.6,38.6,52,6,1;64.3,48.1,11.3,40,4,1;73.3,56.7,-9.2,40,1,1;63.6,55.4,1.7,46,4,1;75.3,56,0.4,40,3,1;61.8,51.7,,40,2,1;62.1,54.4,3.1,44,6,1", spread = true, lvl = 20, fromNpcs = { { npc = 3988, npcName = "Venture Co. Operator" }, { npc = 3989, npcName = "Venture Co. Logger" }, { npc = 3991, npcName = "Venture Co. Deforester" } } },
 						{ t = "talk", npc = 4086, npcName = "Veenix", map = 1442, x = 58.17, y = 51.69, z = 65.5 },
@@ -8825,8 +8826,9 @@ do
 				},
 				{
 					title = "A hundred paces north",
-					note = "Walk north through the camp and drop carefully down the steep slope to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up.",
+					note = "From the {object:424005} walk to the camp's western edge, where the arrow points first, and drop carefully down the steep slope north to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up.",
 					goals = {
+						{ t = "goto", text = "The drop to the ledge", map = 1442, x = 39.9, y = 52.2, f = "e" },
 						{ t = "turnin", quest = 79980, title = "Scramble", object = 424012, objName = "Mound of Dirt", map = 1442, x = 39.56, y = 49.86 },
 						{ t = "accept", quest = 79974, title = "Wet Job", object = 424012, objName = "Mound of Dirt", minLevel = 14, qlvl = 32, pre = { 79980 }, preTitles = { [79980] = "Scramble" }, map = 1442, x = 39.56, y = 49.86 },
 					},
@@ -13157,7 +13159,7 @@ do
 			zoneName = "Ironforge",
 			author = "Polestar",
 			version = 1,
-			names = { ["area:321"] = "Hammerfall", ["area:513"] = "Theramore Isle", ["item:118"] = "Minor Healing Potion", ["item:1251"] = "Linen Bandage", ["item:14047"] = "Runecloth", ["item:14529"] = "Runecloth Bandage", ["item:14530"] = "Heavy Runecloth Bandage", ["item:1475"] = "Small Venom Sac", ["item:159"] = "Refreshing Spring Water", ["item:16084"] = "Expert First Aid - Under Wraps", ["item:16991"] = "Triage Bandage", ["item:2447"] = "Peacebloom", ["item:2450"] = "Briarthorn", ["item:2453"] = "Bruiseweed", ["item:2581"] = "Heavy Linen Bandage", ["item:2589"] = "Linen Cloth", ["item:2592"] = "Wool Cloth", ["item:2678"] = "Mild Spices", ["item:2692"] = "Hot Spices", ["item:279968"] = "First Aid Kit", ["item:3371"] = "Empty Vial", ["item:3372"] = "Leaded Vial", ["item:4306"] = "Silk Cloth", ["item:4338"] = "Mageweave Cloth", ["item:6450"] = "Silk Bandage", ["item:6451"] = "Heavy Silk Bandage", ["item:6452"] = "Anti-Venom", ["item:8544"] = "Mageweave Bandage", ["item:8545"] = "Heavy Mageweave Bandage", ["item:858"] = "Lesser Healing Potion", ["item:929"] = "Healing Potion", ["npc:12920"] = "Doctor Gregory Victor", ["npc:12939"] = "Doctor Gustaf VanHowzen", ["npc:3373"] = "Arnok", ["npc:5150"] = "Nissa Firestone", ["quest:6622"] = "Triage", ["quest:6624"] = "Triage", ["skill:129"] = "First Aid", ["skill:182"] = "Herbalism", ["spell:10841"] = "Heavy Mageweave Bandage", ["spell:18629"] = "Runecloth Bandage", ["spell:3277"] = "Wool Bandage", ["spell:3278"] = "Heavy Wool Bandage", ["spell:9810"] = "Touch of Zanzil", ["zone:1454"] = "Orgrimmar", ["zone:1455"] = "Ironforge" },
+			names = { ["area:321"] = "Hammerfall", ["area:513"] = "Theramore Isle", ["item:118"] = "Minor Healing Potion", ["item:1251"] = "Linen Bandage", ["item:14047"] = "Runecloth", ["item:14529"] = "Runecloth Bandage", ["item:14530"] = "Heavy Runecloth Bandage", ["item:1475"] = "Small Venom Sac", ["item:159"] = "Refreshing Spring Water", ["item:16084"] = "Expert First Aid - Under Wraps", ["item:16112"] = "Manual: Heavy Silk Bandage", ["item:16113"] = "Manual: Mageweave Bandage", ["item:16991"] = "Triage Bandage", ["item:2447"] = "Peacebloom", ["item:2450"] = "Briarthorn", ["item:2453"] = "Bruiseweed", ["item:2581"] = "Heavy Linen Bandage", ["item:2589"] = "Linen Cloth", ["item:2592"] = "Wool Cloth", ["item:2678"] = "Mild Spices", ["item:2692"] = "Hot Spices", ["item:279968"] = "First Aid Kit", ["item:3371"] = "Empty Vial", ["item:3372"] = "Leaded Vial", ["item:4306"] = "Silk Cloth", ["item:4338"] = "Mageweave Cloth", ["item:6450"] = "Silk Bandage", ["item:6451"] = "Heavy Silk Bandage", ["item:6452"] = "Anti-Venom", ["item:8544"] = "Mageweave Bandage", ["item:8545"] = "Heavy Mageweave Bandage", ["item:858"] = "Lesser Healing Potion", ["item:929"] = "Healing Potion", ["npc:12920"] = "Doctor Gregory Victor", ["npc:12939"] = "Doctor Gustaf VanHowzen", ["npc:3373"] = "Arnok", ["npc:5150"] = "Nissa Firestone", ["quest:6622"] = "Triage", ["quest:6624"] = "Triage", ["skill:129"] = "First Aid", ["skill:182"] = "Herbalism", ["spell:10841"] = "Heavy Mageweave Bandage", ["spell:18629"] = "Runecloth Bandage", ["spell:3277"] = "Wool Bandage", ["spell:3278"] = "Heavy Wool Bandage", ["spell:9810"] = "Touch of Zanzil", ["zone:1454"] = "Orgrimmar", ["zone:1455"] = "Ironforge" },
 			sections = { { skill = "First Aid", skillLine = 129, from = 1, to = 40 }, { skill = "First Aid", skillLine = 129, from = 40, to = 50 }, { skill = "First Aid", skillLine = 129, from = 50, to = 80 }, { skill = "First Aid", skillLine = 129, from = 80, to = 115 }, { skill = "First Aid", skillLine = 129, from = 115, to = 125 }, { skill = "First Aid", skillLine = 129, from = 125, to = 150 }, { skill = "First Aid", skillLine = 129, from = 150, to = 180 }, { skill = "First Aid", skillLine = 129, from = 180, to = 210 }, { skill = "First Aid", skillLine = 129, from = 210, to = 225 }, { skill = "First Aid", skillLine = 129, from = 225, to = 240 }, { skill = "First Aid", skillLine = 129, from = 240, to = 260 }, { skill = "First Aid", skillLine = 129, from = 260, to = 300 } },
 			steps = {
 				{
@@ -13377,7 +13379,7 @@ do
 				},
 				{
 					title = "{item:6451} (180-210)",
-					note = "{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere.",
+					note = "{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere. Read the {item:16112} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too.",
 					section = 8,
 					goals = {
 						{ t = "learn", spell = 7929, spellName = "Heavy Silk Bandage", item = 16112, itemName = "Manual: Heavy Silk Bandage", skillLine = 129 },
@@ -13402,7 +13404,7 @@ do
 				},
 				{
 					title = "{item:8544} (210-225)",
-					note = "{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere.",
+					note = "{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere. Read the {item:16113} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too.",
 					section = 9,
 					goals = {
 						{ t = "learn", spell = 10840, spellName = "Mageweave Bandage", item = 16113, itemName = "Manual: Mageweave Bandage", skillLine = 129 },
@@ -16111,8 +16113,29 @@ do
 					},
 				},
 				{
-					title = "Beasts 21-23: {zone:1424} (100-125)",
-					note = "Kill and skin {npc:2351} (21, needs 105), {npc:2354} (22, needs 110), {npc:2384} (23, needs 115) along the loop until {skill:393} 125; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 20-30. Expect about 40 beasts for these 25 points.",
+					title = "Beasts 10-16: {zone:1421} (100-105)",
+					note = "Kill and skin Worg (10), {npc:1778} (11), {npc:1766} (11), {npc:1797} (12), {npc:1923} (16) along the loop until {skill:393} 105; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 30 beasts for these 5 points.",
+					only = { races = { "Scourge" } },
+					section = 3,
+					goals = {
+						{ t = "goto", text = "{npc:1778}, Worg", map = 1421, x = 45.3, y = 49.2, f = "e", r = 30 },
+						{ t = "goto", text = "{npc:1923}", map = 1421, x = 45.3, y = 80, f = "e", r = 30 },
+						{ t = "goto", text = "{npc:1923}", map = 1421, x = 51.9, y = 82.8, f = "e", r = 30 },
+						{ t = "goto", text = "{npc:1923}", map = 1421, x = 49.7, y = 78.3, f = "e", r = 30 },
+						{ t = "goto", text = "{npc:1797}", map = 1421, x = 53, y = 65.4, f = "e", r = 30 },
+						{ t = "goto", text = "{npc:1797}", map = 1421, x = 52.3, y = 55.1, f = "e", r = 30 },
+						{ t = "goto", text = "Worg, {npc:1766}", map = 1421, x = 63.8, y = 9.4, f = "e", r = 30 },
+						{ t = "goto", text = "{npc:1766}, Worg", map = 1421, x = 57.3, y = 11, f = "e", r = 30 },
+						{ t = "goto", text = "{npc:1778}, {npc:1766}", map = 1421, x = 49.2, y = 20, f = "e", r = 30 },
+						{ t = "goto", text = "{npc:1797}, {npc:1778}", map = 1421, x = 42.8, y = 20.6, f = "e", r = 30 },
+						{ t = "goto", text = "{npc:1797}", map = 1421, x = 37.5, y = 16.8, f = "e", r = 30 },
+						{ t = "goto", text = "{npc:1778}", map = 1421, x = 51.1, y = 41.1, f = "e", r = 30 },
+						{ t = "skill", skill = "Skinning", skillLine = 393, level = 105 },
+					},
+				},
+				{
+					title = "Beasts 21-23: {zone:1424} (105-125)",
+					note = "Kill and skin {npc:2351} (21), {npc:2354} (22, needs 110), {npc:2384} (23, needs 115) along the loop until {skill:393} 125; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 20-30. Expect about 30 beasts for these 20 points.",
 					only = { races = { "Scourge" } },
 					section = 3,
 					goals = {
