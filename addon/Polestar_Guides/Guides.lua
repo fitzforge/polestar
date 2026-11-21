@@ -414,21 +414,21 @@ do
 					},
 				},
 				{
-					title = "The ruined catapult and flying machine",
-					note = "Two of the wrecks {npc:256222} named lie at the east end of the fields: use the {item:269944} beside each.",
+					title = "The three wrecks",
+					note = "The three wrecks {npc:256222} named lie at the east end of the fields: use the {item:269944} beside each, the catapult and the flying machine first, then the ballista a little north of them.",
 					goals = {
 						{ t = "use", quest = 93747, title = "Violence Into Verdure", item = 269944, itemName = "Bag of Enchanted Seeds", oi = 2, map = 2482, x = 62.9, y = 82.9, note = "{item:269944}: the {npc:266887}" },
 						{ t = "use", quest = 93747, title = "Violence Into Verdure", item = 269944, itemName = "Bag of Enchanted Seeds", oi = 3, map = 2482, x = 66.1, y = 83.5, note = "{item:269944}: the {npc:266886}" },
+						{ t = "use", quest = 93747, title = "Violence Into Verdure", item = 269944, itemName = "Bag of Enchanted Seeds", oi = 1, map = 2482, x = 66.3, y = 79.2, note = "{item:269944}: the {npc:262036}" },
 					},
 				},
 				{
 					title = "The shrub field",
-					note = "North into the shrub field: the {npc:248395} drop the leaves, and the Scarlet Dart Tubers grow in the open ground, most of them in the field's western half. The ruined ballista stands at the field's north-eastern edge: use the {item:269944} to plant the last seed there. Keep clear of {quest:91923} and {npc:248709}, the field's elites.",
+					note = "North into the shrub field: the {npc:248395} drop the leaves, and the Scarlet Dart Tubers grow in the open ground, most of them in the field's western half. Keep clear of {quest:91923} and {npc:248709}, the field's elites.",
 					goals = {
 						{ t = "kill", quest = 92594, title = "Kindling, Kinda", target = "Tainted Shrubbery", npc = 248395, count = 15, oi = 1, map = 2482, x = 65.55, y = 73.85, spotsPacked = "66.2,71.2,,66,13;64.3,69.3,,49,13;63.8,66.5,,52,8;61.1,67.8,,100,19;59.5,71.4,,58,18;58.2,76.1,,57,18;57.36,79.36,,48,9;68.6,69.1,,68,17;71,72.1,,69,18;72.7,75.3,,42,10", spread = true, lvl = 56 },
 						{ t = "collect", quest = 91755, title = "Leaves to Ligatures", item = 247892, itemName = "Verdant Leaves", count = 12, oi = 1, map = 2482, x = 65.55, y = 73.85, spotsPacked = "66.2,71.2,,66,13;64.3,69.3,,49,13;63.8,66.5,,52,8;61.1,67.8,,100,19;59.5,71.4,,58,18;58.2,76.1,,57,18;56.9,80.3,,80,10;68.6,69.1,,68,17;71,72.1,,69,18;72.7,75.3,,42,10", spread = true, lvl = 56, from = "Tainted Shrubbery", fromKind = "npc", fromId = 248395, fromNpcs = { { npc = 248395, npcName = "Tainted Shrubbery" } } },
 						{ t = "collect", quest = 93759, title = "The Bounty of Nature", item = 267289, itemName = "Scarlet Dart Tuber", count = 6, oi = 2, map = 2482, x = 59.5, y = 73.5, spotsPacked = "57.03,74.82,,0;58.22,78.53,,0;59.38,69.97,,0;59.91,73.26,,0;63.89,70.39,,0;74.39,76.45,,0", from = "Scarlet Dart Tuber", fromKind = "object", fromId = 626685 },
-						{ t = "use", quest = 93747, title = "Violence Into Verdure", item = 269944, itemName = "Bag of Enchanted Seeds", oi = 1, map = 2482, x = 70.4, y = 70.7, note = "{item:269944}: the {npc:262036}" },
 					},
 				},
 				{
@@ -436,7 +436,7 @@ do
 					note = "{quest:91923} is elite: grouping up is advised. He walks the shrub field.",
 					when = { { k = "group", q = 91923 } },
 					goals = {
-						{ t = "collect", quest = 91923, title = "Celastrus the Bitter", item = 282028, itemName = "Broken Frond of Celastrus", count = 1, oi = 1, map = 2482, x = 69.66, y = 72.34, spotsPacked = "69.3,71.5,,25,2;66.8,70,,49,9;65.56,74.15,,15,2;63.4,69.7,,87,9;64.5,79.2,,22,2", lvl = 57, from = "Celastrus the Bitter", fromKind = "npc", fromRank = 1, fromId = 249051, fromNpcs = { { npc = 249051, npcName = "Celastrus the Bitter" } }, group = { kind = "elite", lvl = 57, rank = 1 } },
+						{ t = "collect", quest = 91923, title = "Celastrus the Bitter", item = 282028, itemName = "Broken Frond of Celastrus", count = 1, oi = 1, map = 2482, x = 60.99, y = 70.63, spotsPacked = "63.4,69.7,,87,9;65.56,74.15,,15,2;66.8,70,,49,9;64.5,79.2,,22,2;69.3,71.5,,25,2", lvl = 57, from = "Celastrus the Bitter", fromKind = "npc", fromRank = 1, fromId = 249051, fromNpcs = { { npc = 249051, npcName = "Celastrus the Bitter" } }, group = { kind = "elite", lvl = 57, rank = 1 } },
 					},
 				},
 				{
