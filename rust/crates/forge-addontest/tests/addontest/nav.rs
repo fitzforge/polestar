@@ -154,6 +154,8 @@ fn arrow_points_at_the_target_relative_to_facing_in_all_four_quadrants_in_both_s
 	}
 }
 
+// Main, 2026-11-21, Fitz: "go back to our original danger pathing": stepping onto enemy ground the arrow still walks
+// (0.4.2 said "unsafe" there); turning back out, the first visible stride leads away from town.
 #[test]
 fn leaving_enemy_ground_does_not_point_the_player_back_into_town() {
 	let out = run_compass(
@@ -187,7 +189,7 @@ fn leaving_enemy_ground_does_not_point_the_player_back_into_town() {
 		end
 		emit({refused, "did not resume"})"#,
 	);
-	assert_eq!(out, json!(["unsafe", "clear", true]), "the first visible walking stride must lead away from town");
+	assert_eq!(out, json!(["travel", "clear", true]), "the first visible walking stride must lead away from town");
 }
 
 #[test]
@@ -892,8 +894,10 @@ fn an_empty_walking_batch_is_not_a_refusal_and_does_not_ask_or_replan_again() {
 	assert_eq!(out, json!([1, 0, true, true]));
 }
 
+// Main, 2026-11-21, Fitz: "go back to our original danger pathing": a guard post on the walk refuses nothing; the walk,
+// the flight and the landing stay as they are (0.4.2: "unsafe", no line to the flight master).
 #[test]
-fn a_refused_ground_approach_draws_no_direct_line_and_leaves_the_next_flight_and_landing_intact() {
+fn a_guard_post_on_the_ground_approach_refuses_nothing_and_leaves_the_flight_and_landing_intact() {
 	let out = run_compass(
 		r#"
 		local hubs = N.danger.hubBins[0].Alliance
@@ -928,7 +932,7 @@ fn a_refused_ground_approach_draws_no_direct_line_and_leaves_the_next_flight_and
 		emit({ direct, before, refused, after, still == ci, clear, pathCounts() })"#,
 	);
 	let full = json!([["walk", 2], ["flight", 2], ["walk", 2]]);
-	assert_eq!(out, json!([["unsafe", 0], full, "unsafe", [["walk", 0], ["flight", 2], ["walk", 2]], true, "travel", full]));
+	assert_eq!(out, json!([["travel", 1], full, "travel", full, true, "travel", full]));
 }
 
 // The player's arrow colours, with Theme loaded: the arrow wears its own colour far away and the near colour
@@ -2249,17 +2253,16 @@ fn without_waypoint_ui_the_game_waypoint_is_set_as_before() {
 	assert_eq!(out["native"], json!([["set", 9000, 0.45, 0.5], ["track", true]]));
 }
 
+// Main, 2026-11-21, Fitz: "go back to our original danger pathing": an external waypoint arrow guides across Stonard
+// for either faction (0.4.2 kept the walk through the enemy town on Polestar's own arrow, saying "unsafe").
 #[test]
-fn external_waypoints_check_the_walking_bearing_not_just_its_end() {
+fn external_waypoints_guide_across_an_enemy_town_too() {
 	let out = run(&format!(
 		r#"{WAYPOINT_UI}
 		nav.useGameGround()
 		local town = N.GetTaxiNode(56)
 		nav.maps[town.map] = {{ c = 0, top = -9620.833, bottom = -11150, left = -2222.917, right = -4516.667 }}
 		local start, finish = town.wy - 400, town.wy + 400
-		local function risk(y, Y, side) return N.danger.Blocked(0, town.wx, y, town.wx, Y, side) end
-		assert(not risk(start, start, "Alliance") and not risk(finish, finish, "Alliance"))
-		assert(risk(start, finish, "Alliance") == "opposing-settlement" and not risk(start, finish, "Horde"))
 		local x, y = nav.Compat.WorldToMap(0, town.wx, finish, town.map)
 		Polestar.Set("nav.travel", false)
 		Polestar.Set("nav.navRouting", false) -- direct compass mode, independent of the walking engine
@@ -2297,14 +2300,14 @@ fn external_waypoints_check_the_walking_bearing_not_just_its_end() {
 		out.mirror = {{ last.title, last.crazy }}
 		emit(out)"#
 	));
-	assert_eq!(out["enemy"], json!([false, false, false, true]));
+	assert_eq!(out["enemy"], json!([true, true, true, false]));
 	assert_eq!(out["friendly"], json!([true, true, true, false]));
 	assert_eq!(out["air"][0], true);
 	assert_eq!(out["air"][2], true);
 	assert_eq!(out["near"], json!([true, true, true, false]));
 	assert_eq!(out["mine"], "Player");
-	assert_eq!(out["blocked"], true);
-	assert_eq!(out["native"], json!(["track", false]));
+	assert_eq!(out["blocked"], false);
+	assert_eq!(out["native"], json!(["track", true]), "the game's waypoint tracks the walk as well");
 	assert_eq!(out["mirror"], json!(["Across Stonard", false]));
 }
 
