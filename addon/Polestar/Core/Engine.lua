@@ -4830,8 +4830,10 @@ end
 -- evidence: class chains and item-started quests run on their own schedule (a
 -- Warlock may finish the succubus chain long before the route reaches it).
 -- After an update (`added`, Own.noteAdded), only what the save's guide had
--- in place counts (Own.goalMoved).
-local function anchorStep(added)
+-- in place counts (Own.goalMoved). In a tab an update reworked (`fromTab`,
+-- Own.logPlaced), a quest an earlier release offered in another guide counts
+-- too: the tab's old guide is where the player took it.
+local function anchorStep(added, fromTab)
 	local steps = guide.steps
 	-- Progress counts only on a quest the guide offers before (or at) that
 	-- goal: a quest taken in another guide (or further on in this one) is no
@@ -4851,7 +4853,7 @@ local function anchorStep(added)
 			if goal.t == "accept" and goal.quest and not offered[goal.quest] then offered[goal.quest] = s end
 		end
 	end
-	local moved = Own.movedIn(guide.id)
+	local moved = not fromTab and Own.movedIn(guide.id) or NONE
 	for s = #steps, 1, -1 do
 		local step = steps[s]
 		if not step.only then
@@ -5215,7 +5217,12 @@ local function place()
 	Own.leftOut[guide.id], Own.leftOutWhy[guide.id] = nil, nil
 	local addedAll = ns.CharState().added
 	local added = type(addedAll) == "table" and addedAll[guide.id] or nil
-	local anchor = anchorStep(added)
+	local fromTab = logReady and Own.logPlaced[guide.id]
+	local anchor = anchorStep(added, fromTab)
+	if fromTab then
+		Own.logPlaced[guide.id] = nil
+		added = Own.noteMovedBehind(anchor) or added
+	end
 	if catchUp then Own.leftOut[guide.id], Own.leftOutWhy[guide.id] = Own.catchUp(anchor, level) end
 	Own.passedNow[guide.id], Own.passedWhole[guide.id] = nil, nil
 	local function open(s, g, goal)
@@ -7668,6 +7675,10 @@ end
 function Own.legacyGoals(id, key)
 	local L = Own.legacy()
 	local p = L and L[id] and L[id][key]
+	if type(p) ~= "string" then
+		local planned = Own.plannedOld[id]
+		p = planned and planned[key]
+	end
 	if type(p) ~= "string" then return nil end
 	local out = {}
 	for x in (p .. ","):gmatch("([^,]*),") do out[#out + 1] = x end
@@ -7688,6 +7699,91 @@ end
 
 function Own.legacyDrop()
 	ns.LegacyStepsLoad, Own.legacyTable = nil, false
+end
+
+-- The save's steps of guide g as the plan had them for the character
+-- (Own.feederPlan: the quests it left out taken out of their steps), whose
+-- keys neither the guide nor Core/LegacySteps.lua has: both hold the steps
+-- as released, and the save stores them as planned. Such a step is a
+-- released one (the guide's own now, or an earlier release's) with every
+-- goal of some of its quests taken out, and the plan leaves a quest out of
+-- the whole guide, so none of those quests has a goal in a step the save
+-- shares with the guide or the list. Each released step's versions without
+-- some of its other quests are hashed against the save's unknown keys (#3440:
+-- 0.4.1.1 -> 0.4.2, Wetlands' Menethil Harbor stop with five goals left out
+-- read as unknown, and the accept 0.4.2 added there held the player 8 to 88
+-- steps back). `map`: the steps kept (old index -> new); `old`: the save's
+-- step keys. -> { [key] = parts as planned }, { [key] = true for one from a
+-- step the guide has now }. While the save is mapped, Own.plannedOld[id]
+-- holds the first for Own.legacyGoals.
+Own.plannedOld = {}
+Own.PLANNED_MAX_QUESTS = 12
+function Own.plannedSteps(g, map, old)
+	local found, now = {}, {}
+	local base = g.base or g
+	local L = Own.legacy()
+	local listed = L and L[g.id] or NONE
+	local partsOf = {}
+	for _, src in ipairs({ g, base }) do
+		local parts = Own.stepParts(src)
+		for j, key in ipairs(Own.stepKeys(src)) do partsOf[key] = parts[j] end
+	end
+	-- The ids of the save's steps known as they are: the plan kept their quests.
+	local kept, want, left = {}, {}, 0
+	for k, key in ipairs(old) do
+		local p = partsOf[key] or (type(listed[key]) == "string" and listed[key]) or nil
+		if p then
+			for x in (p .. ","):gmatch("[^,:]*:([^,]*),") do kept[x] = true end
+		elseif not map[k] and not want[key] then
+			want[key], left = true, left + 1
+		end
+	end
+	if left == 0 then return found, now end
+	-- The released steps, the guide's own first; the quests they name.
+	local sources, quests = {}, {}
+	for _, p in ipairs(Own.stepParts(base)) do sources[#sources + 1] = { p = p, now = true } end
+	for key, p in pairs(listed) do
+		if type(key) == "number" and type(p) == "string" then sources[#sources + 1] = { p = p } end
+	end
+	for _, src in ipairs(sources) do
+		for v, q in (src.p .. ","):gmatch("(%a+):(%d+),") do
+			if v == "accept" or v == "turnin" or v == "complete" then quests[q] = true end
+		end
+	end
+	for _, src in ipairs(sources) do
+		local entries, ids, qs, seen = {}, {}, {}, {}
+		for x in (src.p .. ","):gmatch("([^,]*),") do
+			local n = #entries + 1
+			entries[n], ids[n] = x, x:match(":(.*)$") or ""
+			local q = ids[n]
+			if quests[q] and not kept[q] and not seen[q] then
+				seen[q] = true
+				qs[#qs + 1] = q
+			end
+		end
+		if #qs > 0 and #qs <= Own.PLANNED_MAX_QUESTS then
+			for mask = 1, 2 ^ #qs - 1 do
+				local drop, m = {}, mask
+				for i = 1, #qs do
+					if m % 2 == 1 then drop[qs[i]] = true end
+					m = math.floor(m / 2)
+				end
+				local out = {}
+				for n, x in ipairs(entries) do
+					if not drop[ids[n]] then out[#out + 1] = x end
+				end
+				if #out > 0 then
+					local p = table.concat(out, ",")
+					local key = Own.hash(p)
+					if want[key] and not found[key] then
+						found[key], now[key], left = p, src.now, left - 1
+						if left == 0 then return found, now end
+					end
+				end
+			end
+		end
+	end
+	return found, now
 end
 
 -- Old step -> new step, and old goal (step, index) -> new (step, index), for
@@ -7893,12 +7989,19 @@ local function checkShape(g)
 		local upgrade = type(old) == "table" and Own.updated(g)
 		local snap = upgrade and Own.snapState(g.id)
 		if not upgrade or not Own.safely("mapping", g.id, function()
-			Own.noteAdded(g, map, old)
+			-- The save's steps as planned for the character, read as released
+			-- steps with quests left out (Own.plannedSteps).
+			Own.plannedOld[g.id] = Own.plannedSteps(g, map, old)
+			-- A guide the update reworked keeps few of the save's steps, so
+			-- nearly all of it would read as added and pass: its tab is placed
+			-- from the quest log instead (Own.followReworked, Own.noteMovedBehind).
+			if not Own.reworkedTabs[g.id] then Own.noteAdded(g, map, old) end
 			Own.remap(g.id, map, old, g)
 		end) then
 			if snap then Own.snapRestore(g.id, snap) end
 			Own.remap(g.id, map, nil, g)
 		end
+		Own.plannedOld[g.id] = nil
 		-- Its end reached is the old guide's (0.3.5 reused ids for new
 		-- content): the new one says so again when the player gets there.
 		if type(s.guideEnds) == "table" then s.guideEnds[g.id] = nil end
@@ -8461,7 +8564,10 @@ end
 -- with the pack's own version saw none, and its shape is the guide as
 -- planned for the character (feeders in, quests waiting on earlier guides
 -- left out), whose step keys differ from the guide as registered (a /reload
--- moved a fresh-start tab).
+-- moved a fresh-start tab). A save's step planned from one the guide still
+-- has (Own.plannedSteps) is kept too: 0.4.2's Horde Winterspring kept 15 of
+-- a 0.4.1.1 save's 22 steps, 5 of them with quests left out, and its tab
+-- moved to the Plaguelands' first step (#3440).
 function Own.reworked(g)
 	local s = ns.CharState()
 	local stored = type(s.shapes) == "table" and s.shapes[g.id]
@@ -8469,7 +8575,12 @@ function Own.reworked(g)
 	if not stored or stored == shapeOf(g) or type(old) ~= "table" or #old == 0 then return false end
 	if not Own.updated(g) then return false end
 	local kept = 0
-	for _ in pairs(Own.matchSteps(old, Own.stepKeys(g))) do kept = kept + 1 end
+	local map = Own.matchSteps(old, Own.stepKeys(g))
+	for _ in pairs(map) do kept = kept + 1 end
+	local ok, _, now = pcall(Own.plannedSteps, g, map, old)
+	for k, key in ipairs(old) do
+		if ok and not map[k] and now[key] then kept = kept + 1 end
+	end
 	return kept * 2 < #old
 end
 
@@ -17481,13 +17592,28 @@ function Engine.EscortQuest(questID)
 end
 
 -- Saved tabs of leveling guides an update reworked (Own.reworked), by guide
--- id: the quest log decides where they go (Own.followReworked).
+-- id, each with its title as the player knew it (Own.titleThen): the quest
+-- log decides where they go (Own.followReworked).
 Own.reworkedTabs = {}
+
+-- Guide g's title as the character's save knew it: an earlier release's
+-- (Core/LegacySteps.lua `titles`, by the version of the guides the save was
+-- made with, CharState().shapeVersions), else today's. Read before
+-- checkShape stamps the new version. (#3440: 0.4.1.1 -> 0.4.2, the line for
+-- a moved Silithus, Felwood, Winterspring & the Plaguelands tab named it
+-- Silithus, its new title.)
+function Own.titleThen(g)
+	local s = ns.CharState()
+	local v = type(s.shapeVersions) == "table" and s.shapeVersions[g.id]
+	local L = v and Own.legacy()
+	local t = L and L[g.id] and L[g.id].titles
+	return type(t) == "table" and type(t[v]) == "string" and t[v] or g.title
+end
 
 -- A saved tab coming back: at the step the player was looking at (a pack
 -- update carries it to the step's new place first).
 local function restoredTab(g)
-	if (g.category == nil or g.category == "Leveling") and Own.reworked(g) then Own.reworkedTabs[g.id] = true end
+	if (g.category == nil or g.category == "Leveling") and Own.reworked(g) then Own.reworkedTabs[g.id] = Own.titleThen(g) end
 	Own.withFeeders(g.id)
 	g = Guides.Get(g.id) or g
 	checkShape(g)
@@ -17503,16 +17629,20 @@ end
 -- a 0.3.4 character at Sun Rock Retreat in Stonetalon Mountains &
 -- Ashenvale found the same tab holding Ashenvale & Silverpine Forest, and
 -- its Sun Rock quests in The Barrens & Stonetalon Mountains (#1328). The
--- chat says where it went.
+-- chat says where it went, naming the tab as the player knew it. Moved or
+-- not, the tab opens where the log puts the player (Own.logPlaced).
 function Own.followReworked()
 	local moved = {}
-	for id in pairs(Own.reworkedTabs) do
+	for id, title in pairs(Own.reworkedTabs) do
 		local i = tabIndexOf(id)
 		local to = i and Guides.FollowLog(id)
 		local g = to and not tabIndexOf(to) and Guides.Get(to)
 		if g then
-			moved[#moved + 1] = { from = tabs[i].guide, to = g, active = i == activeIndex }
+			moved[#moved + 1] = { title = title, to = g, active = i == activeIndex }
 			tabs[i] = restoredTab(g)
+			Own.logPlaced[g.id] = true
+		elseif i then
+			Own.logPlaced[id] = true
 		end
 	end
 	Own.reworkedTabs = {}
@@ -17521,10 +17651,57 @@ function Own.followReworked()
 	useActive()
 	persist()
 	for _, m in ipairs(moved) do
-		ns.Print(L["%s changed in this update and holds other quests now. Its tab moved to %s, which has the quests in your log."]:format(m.from.title, m.to.title))
+		ns.Print(L["%s changed in this update and holds other quests now. Its tab moved to %s, which has the quests in your log."]:format(m.title, m.to.title))
 		if m.active then ns.Fire("GUIDE_CHANGED", m.to.id) end
 	end
 	evaluate()
+end
+
+-- Guides of the tabs an update reworked (Own.followReworked: the guide a tab
+-- moved to, or the reworked one it stayed on), until their first placement
+-- with the quest log in.
+Own.logPlaced = {}
+
+-- The loaded guide opened in a tab an update reworked (Own.logPlaced): the
+-- quests of the log came with the tab's old guide, so the last of its steps
+-- with their progress (`anchor`, anchorStep), or with none the first with
+-- work of one of them (a kill, collect, use...; not a hand-in), is the
+-- player's place, and its steps before that are the update's, noted as
+-- added (CharState().added) to pass behind the player as an update's new
+-- steps do (Own.passAdded). (#3440: 0.4.1.1 -> 0.4.2, a Horde character
+-- mid-Azshara opened Western Plaguelands, Azshara & Felwood at its first
+-- step, in Western Plaguelands.) -> the guide's added note, or nil with no
+-- place.
+function Own.noteMovedBehind(anchor)
+	if anchor == 0 then
+		local C = Compat()
+		for s, step in ipairs(guide.steps) do
+			if anchor == 0 and stepApplies(step) then
+				for _, goal in ipairs(step.goals) do
+					if goal.t ~= "accept" and goal.t ~= "turnin" and isQuestGoal(goal) and goalApplies(goal) and C.IsOnQuest(goal.quest) then
+						anchor = s
+						break
+					end
+				end
+			end
+		end
+	end
+	if anchor <= 1 then return nil end
+	local s = ns.CharState()
+	if type(s.added) ~= "table" then s.added = {} end
+	local mine = s.added[guide.id] or {}
+	local keys = Own.stepKeys(guide)
+	for j = 1, anchor - 1 do
+		if not guide.steps[j].feeder then
+			mine[keys[j]] = true
+			local bk = Own.baseKey(guide, j)
+			if bk then mine[bk] = true end
+		end
+	end
+	-- Its feeder steps before the place count as added too (Own.feederAdded).
+	if type(mine.savedKeys) ~= "table" then mine.savedKeys = {} end
+	s.added[guide.id] = mine
+	return mine
 end
 
 -- The saved tabs came back before the quest log could be read: once it is,
