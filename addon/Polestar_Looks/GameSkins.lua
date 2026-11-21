@@ -628,6 +628,18 @@ function Theme.KitOpen(f, side)
 				p[7]:SetPoint("BOTTOMRIGHT", p[3], "BOTTOMRIGHT"); p[8]:SetPoint("BOTTOMRIGHT", p[4], "BOTTOMRIGHT")
 			end
 			for _, i in ipairs(OPEN_RIM[side] or {}) do p[i]:SetAlpha(0) end
+			-- The ground under the rim (Classic's tile, laid 3 in) reaches
+			-- the open side's edge too: no gap between it and the window.
+			local n = f.psSkin.kitFill and f.psSkin.kitInset
+			if n and n > 0 then
+				local t = P.fill(f)
+				local l, top, r, bot = n, n, -n, n
+				if side == "LEFT" then l = 0 elseif side == "RIGHT" then r = 0
+				elseif side == "TOP" then top = 0 elseif side == "BOTTOM" then bot = 0 end
+				t:ClearAllPoints()
+				t:SetPoint("TOPLEFT", f, "TOPLEFT", l, -top)
+				t:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", r, bot)
+			end
 		end
 	end
 	local g = OPEN_GRID[side]
@@ -690,6 +702,7 @@ local function body(f, r, g, b, a, inset)
 	f.psSkin.kitFill = true
 	t:ClearAllPoints()
 	inset = inset or 0
+	f.psSkin.kitInset = inset
 	t:SetPoint("TOPLEFT", f, "TOPLEFT", inset, -inset)
 	t:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -inset, inset)
 	t:SetTexture(Theme.Media("white"))
