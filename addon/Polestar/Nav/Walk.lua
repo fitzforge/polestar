@@ -32,7 +32,12 @@
 -- is drawn straight where the danger policy lets it (Nav.Sample's noWalk,
 -- Nav.CanDrawGroundApproach, #3409). A failed search is asked again FAIL_RETRY
 -- seconds after it failed once the player stands FAIL_MOVED yards (the router's
--- ARRIVE) from where it was asked: 0.4.2 asked again only 25 yards away.
+-- ARRIVE) from where it was asked: 0.4.2 asked again only 25 yards away. A
+-- refusal no policy made (no blockedReason: the router's departure rule, a
+-- line it could not check) is asked again once FAIL_AGAIN seconds later,
+-- moved or not (#3448: beside Llane Beshere in Northshire Abbey the first
+-- walk to the next goal was refused and the player standing there waited 15 s
+-- and more for a walk).
 -- Every later walk leg is sketched at once (Path.FindCoarse, its border
 -- crossings), then searched once after it (Walk.LegPath), for the route
 -- lines and its price; the arrow's own walk is drawn by its sketch until its
@@ -121,8 +126,11 @@
 --     above the bank is no floor (#1784, Silverpine's bridge north-east of
 --     the Sepulcher).
 --   Unknown again: another continent; more than JUMP (30) yards since the
---     last read (a hearth, teleport, landing, loading screen); moving after
---     more than FRESH (2) seconds without a check; on a taxi, a transport
+--     last read (a hearth, teleport, landing, loading screen); moving NEAR
+--     (5) yards or more after more than FRESH (2) seconds without a check
+--     (nearer, the floor is followed from where it was read: the last steps
+--     before a stop the arrow said Arrived at, a hand-in or a fight, are no
+--     loss of it, #3448); on a taxi, a transport
 --     (Transit.Riding, Transit.Carried) or within LIFT (8) yards of a lift (Transit.LiftNear:
 --     it changes level without moving); a ghost state change; a read that
 --     raises an error.
@@ -233,7 +241,7 @@ local JOIN = 50             -- yards from a path's start: its first turn there, 
 local ASK_EVERY = 2         -- seconds between asks for the same goal
 local ASK_FAR, ASK_FAR_EVERY = 2000, 10 -- yards left along the path past which a stray is asked again at most this often
 local GOAL_MOVED = 1        -- yards: the goal is another one
-local FAIL_RETRY, FAIL_MOVED = 15, 5 -- a failed search is asked again this late, this far away
+local FAIL_RETRY, FAIL_MOVED, FAIL_AGAIN = 15, 5, 2 -- a failed search is asked again this late, this far away; a refusal for no policy reason once this soon
 local Z_OFF = 30            -- yards: a path ending this far above or below the goal's height missed its floor
 
 ---------------------------------------------------------------------------
@@ -345,6 +353,7 @@ local landX, landY           -- the path just in was searched from here: Walk.Ai
 local askedAt = -huge
 local failed = false
 local failAt, failX, failY = 0, 0, 0
+local failAgain = false -- false: the goal's quick re-ask (FAIL_AGAIN) unused; true: owed; nil: spent
 local shape                  -- the live search's abstract route ({ xs, ys, n }; Find's coarse), drawn until the path is in
 local geomVersion = 0
 local pumpLegs              -- searches the route's later walks (below)
@@ -474,7 +483,7 @@ local RISE = 4        -- yards a reading may climb above the floor: a ramp or st
 local MOVE = 1        -- yards moved before the surfaces are read again
 local EVERY = 0.25    -- seconds between checks
 local JUMP = 30       -- yards between checks: a hearth, a teleport, a landing, a loading screen
-local FRESH = 2       -- seconds: a floor checked longer ago is not used (and moving after such a gap loses it)
+local FRESH = 2       -- seconds: a floor checked longer ago is not used (and moving NEAR yards after such a gap loses it)
 local NEAR = 5        -- yards from where the floor was read: farther, it is not used
 local KEEP = 25       -- yards from where the floor was last on a surface that it is kept over cells with none to follow (the router's SNAP 6 cells of 4.2 yd)
 local ZTOL = 10       -- Routing/PathGrid.lua's ZTOL: surfaces this close the router stands on alike
@@ -1019,7 +1028,7 @@ local function track(P, pc, px, py)
 	local ghost = T and T.IsGhost and T.IsGhost() or false
 	city.Landed(pc, px, py)
 	local held = carried(pc, px, py)
-	if held or pc ~= fC or ghost ~= fGhost or d2 > JUMP * JUMP or (d2 >= MOVE * MOVE and now - fAt > FRESH) then
+	if held or pc ~= fC or ghost ~= fGhost or d2 > JUMP * JUMP or (d2 >= NEAR * NEAR and now - fAt > FRESH) then
 		floorZ = nil
 		dropCandidates()
 	elseif d2 < MOVE * MOVE and not (floorZ ~= nil and city.TalkNew(pc, px, py)) then
@@ -1296,6 +1305,8 @@ local function ask(P, pc, px, py, flat, terminal)
 		if not got and reason == "no safe walking route" then
 			if terminal and count > 0 then return end
 			Walk.blockedReason = type(answer) == "table" and answer.blockedReason or "unmapped"
+			-- No policy said no (the router's departure rule, a line it could not check): asked again once soon.
+			if failAgain == false and not Walk.checkedOnly and not (type(answer) == "table" and answer.blockedReason) then failAgain = true end
 			count, hubs, shape, failed, failAt, failX, failY = 0, nil, nil, true, GetTime(), px, py
 			restore(gc,gx,gy)
 			changed()
@@ -1547,6 +1558,7 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop, checke
 		local had = count > 0 or shape ~= nil
 		cancel()
 		gc, gx, gy, count, idx, failed, hubs, shape = goalC, goalX, goalY, 0, 1, false, nil, nil
+		failAgain = false
 		Walk.blockedReason = nil
 		Walk.checkedOnly, ptsX.checkedPolicy = checkedOnly, nil
 		landX, landY = nil, nil
@@ -1571,7 +1583,11 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop, checke
 		ask(P, pc, px, py)
 	elseif failed then
 		local dx, dy = px - failX, py - failY
-		if GetTime() - failAt >= FAIL_RETRY and dx * dx + dy * dy > FAIL_MOVED * FAIL_MOVED then ask(P, pc, px, py) end
+		local wait = GetTime() - failAt
+		if failAgain and wait >= FAIL_AGAIN then
+			failAgain = nil
+			ask(P, pc, px, py)
+		elseif wait >= FAIL_RETRY and dx * dx + dy * dy > FAIL_MOVED * FAIL_MOVED then ask(P, pc, px, py) end
 	elseif wanted then
 		ask(P, pc, px, py)
 	elseif token ~= nil and ns.Transit and ns.Transit.Carried and ns.Transit.Carried() then

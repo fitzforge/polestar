@@ -5343,7 +5343,8 @@ most every 2 s, every 10 s while more than 2,000 yd of the walk are left:
 each ask searches the whole walk; the old path kept meanwhile); a failed search (`nodata`,
 `outside`, `offmesh`, `unreachable`, `no safe walking route`, `error`, `Path.Available(map)` false,
 or `Find` raising) is asked again after 15 s once the player stands 5 yd (the router's arrival distance) from
-where it was asked. Meanwhile, as before 0.4.2 (#3409, Fitz's ruling), the arrow points straight at the goal
+where it was asked; a `no safe walking route` that no policy gave (no `blockedReason`: the router's departure
+rule, a line it could not check) is asked again once 2 s later, moved or not (#3448). Meanwhile, as before 0.4.2 (#3409, Fitz's ruling), the arrow points straight at the goal
 (`Nav.noWalk`: a refusal on policy, a start off the walking map, no maps there, a capital's floor out of reach, a
 corpse run's checked detour without its walk) and says why under its label ("No safe walking route", "The last
 steps here aren't mapped"); its line is drawn straight where the danger policy lets it
