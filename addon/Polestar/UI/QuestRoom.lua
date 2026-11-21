@@ -1,7 +1,7 @@
 -- Make room in the quest log: a small window listing the quests in the log
 -- that no open route needs (RoutePlan.Unneeded: no tab's route nor a dungeon
--- open in a tab hands them in, or grey), each with its reason and its own
--- Abandon button. A press asks
+-- open in a tab hands them in, or grey), each with its reason (what it is
+-- worth, RoutePlan.Worth, where known) and its own Abandon button. A press asks
 -- through the game's own confirmation (Compat.AskAbandonQuest); nothing is
 -- ever abandoned without it. Opened by the guide window's full-log notice
 -- and menu ("Clean up quest log (N)"), the Options button and
@@ -27,8 +27,9 @@
 -- The quests scroll in a list of at most MAX_ROWS rows, and never so tall
 -- that the window passes the screen's edge (MARGIN clear above and below: a
 -- full log of 40 at UI scale 1 on a 768-high screen): the title, the ✕,
--- the switch and Guide me stay in reach under it. A title or a second line
--- cut short reads whole in the row's tooltip.
+-- the switch and Guide me stay in reach under it. Every row shows the
+-- quest's tooltip on hover (UI.QuestTip, its second line under it), so a
+-- title or a second line cut short reads whole there.
 --
 -- Built on first use; colours are Theme tokens only.
 
@@ -121,11 +122,22 @@ local function build()
 	if ns.Gamepad and ns.Gamepad.Register then ns.Gamepad.Register(F, {}) end
 end
 
--- A row's title or second line cut short: both whole in its tooltip.
+-- A row: the quest's tooltip (UI.QuestTip), its lines under it (psTip, else
+-- its second line; whole where the row cuts it short).
 local function rowEnter(self)
-	if self.Title:IsTruncated() or self.Why:IsTruncated() then
-		W.Tooltip(self, "ANCHOR_RIGHT", self.Title:GetText(), { self.Why:GetText() })
-	end
+	if self.psQuest then UI.QuestTip(self, self.psQuest, "ANCHOR_RIGHT", self.psTip or { self.Why:GetText() }, self.Title:GetText()) end
+end
+
+-- A Make room or Not part of your route row: its plain-word worth
+-- (RoutePlan.Worth) on the row, else why the route leaves it; the tooltip
+-- has both and what it gives now. -> row line, tooltip lines
+local function worthWhy(quest, status)
+	local P, _, worth, xp = ns.RoutePlan
+	if P.Worth then _, worth, xp = P.Worth(quest) end
+	local tip = { status }
+	if worth and worth ~= status then tip[2] = worth end
+	if xp and xp > 0 then tip[#tip + 1] = L["%s XP"]:format(ns.Thousands(xp)) end
+	return worth or status, tip
 end
 
 local function row(i)
@@ -234,12 +246,15 @@ function UI.LayoutQuestRoom()
 		r:SetPoint("TOPLEFT", F.List.Child, "TOPLEFT", 0, -y)
 		r:SetWidth(rowW)
 		r.Title:SetText(u.title or ("#" .. u.quest))
+		r.psTip = nil
 		if mode == "later" then
 			-- A later guide hands it in: kept, no Abandon.
 			r.Why:SetText(laterWhy(u))
 			r.Abandon:Hide()
 		elseif mode == "offroute" then
-			r.Why:SetText(u.ready and L["Finished: no guide of your route hands it in"] or L["Not in any guide of your route"])
+			local why
+			why, r.psTip = worthWhy(u.quest, u.ready and L["Finished: no guide of your route hands it in"] or L["Not in any guide of your route"])
+			r.Why:SetText(why)
 			r.Abandon:Show()
 		elseif carried then
 			local why, e = carriedWhy(u)
@@ -247,14 +262,16 @@ function UI.LayoutQuestRoom()
 			if e then guided = true end
 			r.Abandon:SetShown(u.grey)
 		else
-			r.Why:SetText(WHY[u.status])
+			local why
+			if u.status == "grey" then why = WHY.grey else why, r.psTip = worthWhy(u.quest, WHY[u.status]) end
+			r.Why:SetText(why)
 			r.Abandon:Show()
 		end
 		-- Both lines to the Abandon button, or the row's end without it: cut short past it (the tooltip has them whole).
 		local textW = rowW - (r.Abandon:IsShown() and (r.Abandon:GetWidth() + 8) or 0)
 		r.Title:SetWidth(textW)
 		r.Why:SetWidth(textW)
-		r.Abandon.psQuest = u.quest
+		r.Abandon.psQuest, r.psQuest = u.quest, u.quest
 		r:Show()
 		y = y + ROW_H + ROW_GAP
 	end
