@@ -564,3 +564,53 @@ fn a_last_step_at_the_hub_the_guide_starts_from_with_its_flight_path_known_is_no
 	assert_eq!(json!([out["landed"], out["ended"], out["live"]]), json!([{}, false, 1]), "landing at Kargath at the start is no end");
 	assert_eq!(out["done"], json!(["GUIDE_COMPLETED test/kargath", "GUIDE_END test/kargath undone=0 live=nil next=test/barrens choose=nil"]));
 }
+
+// The guide's last step hands in a quest taken at its start. With the live step at 3, the player stands at that
+// quest's NPC, "While you're here" offers the hand-in and they take it: the route's own work done early, not a skip
+// to the end. No end window then; the end comes with the rest of the guide. Handed in without the line (While you're
+// here off), the last step done ahead still ends the guide as before.
+const ON_THE_WAY: &str = r#"
+	local function at(t, id, x, y) return { goals = { { t = t, quest = id, title = "Errand " .. id, npc = 9000 + id, npcName = "Giver " .. id, map = 1411, x = x, y = y } } } end
+	Polestar.RegisterGuide({ id = "test/onway", pack = "test", title = "On the way", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1411, next = "test/barrens",
+		steps = { at("accept", 300, 52, 43), at("accept", 301, 52, 43), at("turnin", 301, 70, 70), at("accept", 302, 70, 70), at("turnin", 302, 70, 70),
+			{ goals = { { t = "turnin", quest = 300, title = "Errand 300", npc = 9300, npcName = "Giver 300", map = 1411, x = 52, y = 43 } } } } })
+	E.SetGuide("test/onway"); flush(); takeLog()
+	w.accept(300, { 1 }); flush(); w.accept(301, {}); flush()
+	w.finish(300); stub.advance(1.5)
+"#;
+
+#[test]
+fn the_last_hand_in_taken_from_a_while_you_re_here_line_is_no_end_the_rest_of_the_guide_still_comes() {
+	let out = run(Run {
+		next: NEXT,
+		saved: None,
+		script: &format!(
+			r#"{ON_THE_WAY}
+			local line = E.GetWhileHere()
+			local r = {{ live = E.GetLiveStep(), line = line and (line.step .. " " .. line.hereText) or "none" }}
+			w.turnIn(300); flush()
+			r.handedIn = {{ log = takeLog(), live = E.GetLiveStep(), ended = E.GuideEnded("test/onway") }}
+			w.turnIn(301); flush(); w.accept(302, {{}}); flush(); w.turnIn(302); flush()
+			r.rest = takeLog()
+			emit(r)"#
+		),
+	});
+	assert_eq!(out["live"], 3);
+	assert_eq!(out["line"], "6 Hand in “Errand 300” to Giver 300: saves a trip back", "the hand-in is offered on the way");
+	assert_eq!(out["handedIn"], json!({ "log": {}, "live": 3, "ended": false }), "no end window at the hand-in");
+	assert_eq!(out["rest"], json!(["GUIDE_COMPLETED test/onway", "GUIDE_END test/onway undone=0 live=nil next=test/barrens choose=nil"]));
+
+	let without_line = run(Run {
+		next: NEXT,
+		saved: None,
+		script: &format!(
+			r#"Polestar.Set("behavior.whileHere", false)
+			{ON_THE_WAY}
+			local r = {{ line = E.GetWhileHere() or "none" }}
+			w.turnIn(300); flush()
+			r.log = takeLog()
+			emit(r)"#
+		),
+	});
+	assert_eq!(without_line, json!({ "line": "none", "log": ["GUIDE_END test/onway undone=3 live=3 next=test/barrens choose=nil"] }));
+}
