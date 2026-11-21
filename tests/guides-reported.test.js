@@ -18422,6 +18422,15 @@ test('forever/alliance/40-50/01b-riverglades.guide: Apprentice Claire\'s steps n
 	}
 });
 
+// #3411 (Tendertail), #3388 (Yeq): Jom-jom waits at the back of a cave (73.4,24.7: 22 accepts by 19 people, indoors);
+// the step's tip said only that he waits by the ogres' camp. It names the cave.
+test('forever/horde/40-50/01b-riverglades.guide: Jom-jom\'s step says he is at the back of the cave (#3411)', { skip }, () => {
+	const list = goals('forever/horde/40-50/01b-riverglades.guide');
+	const take = list[at(list, 'accept 94556', is('accept', 94556))];
+	assert.deepEqual([take.goal.x, take.goal.y], [73.4, 24.7]);
+	assert.match(take.step.note || '', /back of the cave/);
+});
+
 // #3302 (Maerion's Misery, 0.4.1.1): Maerion's Misery (97009) was taken only after the Dae'gun sweep, so its twelve
 // Felhound Spikes, from the same Defiling Hounds as Elaena's essence (92960), cost a second round of hound kills. It is
 // taken at Maerion before the sweep, the sweep carries the spikes as an optional line, and the later Maerion step is the
