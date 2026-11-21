@@ -482,7 +482,7 @@ return {
 
 	-- Step 109: Corrupted Growth
 	-- {area:16867} Shrine of Aviana · {npc:260825} Phoebe Highfeather
-	["East from the Cradle towards the {area:16867}, where the Wormwing harpies nest: a corrupted growth on the shrine's western slope starts a quest for {npc:260825}."] = "Von der Wiegend nach Osten in Richtung {area:16867}, wo die Wurmflügel-Harpyien nisten: Ein verderbtes Gewächs am westlichen Hang des Schreins startet einen Quest für {npc:260825}.",
+	["East from the Cradle towards the {area:16867}, where the Wormwing harpies nest: a corrupted growth on the shrine's western slope starts a quest for {npc:260825}."] = "Von der Wiege nach Osten in Richtung {area:16867}, wo die Wurmflügel-Harpyien nisten: Ein verderbtes Gewächs am westlichen Hang des Schreins startet einen Quest für {npc:260825}.",
 	["remove the corrupted knots on the trees just north-west of the shrine, on your way"] = "entferne die verderbten Knollen an den Bäumen knapp nordwestlich des Schreins, auf dem Weg",
 
 	-- Step 110: Skylord Omnuron
@@ -533,7 +533,7 @@ return {
 	-- {npc:263406} Elaena Moonwhisper · {npc:249052} Witherbeard · {npc:267121} Yashiro
 	["{npc:263406}, {npc:249052} and {npc:267121}"] = "{npc:263406}, {npc:249052} und {npc:267121}",
 	-- {area:16866} Dae'gun · {npc:263406} Elaena Moonwhisper · {npc:249052} Witherbeard · {npc:267121} Yashiro
-	["Into {area:16866}, north of the Cradle: the ruins of a Horde base, now held by demons. {npc:263406} and {npc:249052} camp at its western edge; {npc:267121}, a blademaster, waits a little east of them. Doomguards (elites, levels 58-59) walk among the demons: pull carefully."] = "In {area:16866}, nördlich der Wiegend: Die Ruinen einer Hordenbasis, jetzt von Dämonen gehalten. {npc:263406} und {npc:249052} lagern an ihrem westlichen Rand; {npc:267121}, ein Klingenmeister, wartet ein Stück östlich von ihnen. Schreckenswächter (Elite, Stufe 58-59) laufen zwischen den Dämonen: Zieh vorsichtig.",
+	["Into {area:16866}, north of the Cradle: the ruins of a Horde base, now held by demons. {npc:263406} and {npc:249052} camp at its western edge; {npc:267121}, a blademaster, waits a little east of them. Doomguards (elites, levels 58-59) walk among the demons: pull carefully."] = "In {area:16866}, nördlich der Wiege: Die Ruinen einer Hordenbasis, jetzt von Dämonen gehalten. {npc:263406} und {npc:249052} lagern an ihrem westlichen Rand; {npc:267121}, ein Klingenmeister, wartet ein Stück östlich von ihnen. Schreckenswächter (Elite, Stufe 58-59) laufen zwischen den Dämonen: Zieh vorsichtig.",
 
 	-- Step 122: Renalard
 	-- {area:16866} Dae'gun · {npc:259695} Renalard
