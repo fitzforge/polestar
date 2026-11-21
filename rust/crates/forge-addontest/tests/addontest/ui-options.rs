@@ -2356,33 +2356,48 @@ fn search_finds_bigger_pins_by_synonym_and_a_result_jumps_to_its_page_and_tab_sc
 	assert!(n(&out["seeThrough"]) >= 1.0, "see-through finds an opacity");
 }
 
-// A setting new in this release puts a New pill on its section's header, and its page's sidebar row counts the new
-// ones until the page is opened; no mark on the row itself (the label's gutter is the changed dot's alone). The
-// pills keep that session and go in the next (the seen state, PolestarDB.optionsSeen, is the account's, not a
-// setting); a later release's settings count again.
+// A setting new in this release puts a quiet accent ring in its row's gutter, and its page's sidebar row one ring
+// (no count) until the page is opened; no pill on the section. The rings keep that session and go in the next (the
+// seen state, PolestarDB.optionsSeen, is the account's, not a setting); a later release's settings are new again. A
+// new setting off its default shows its reset there instead.
 #[test]
-fn new_settings_put_a_pill_on_their_section_and_a_count_on_their_page_until_opened_gone_the_next_session_back_for_a_newer_release() {
+fn new_settings_put_a_ring_on_their_row_and_one_on_their_page_until_opened_gone_the_next_session_back_for_a_newer_release() {
 	let script = r#"
 		UI.ShowOptions("guide")
 		local function navRow(label)
 			for _, b in ipairs(PolestarOptions.navButtons) do if b:IsShown() and b.Label:GetText() == label then return b end end
 		end
-		local function count() local b = navRow("Fake pins") return b.New:IsShown() and b.New.Text:GetText() or false end
-		local before = count()
+		local function mark()
+			local b = navRow("Fake pins")
+			if not b.Changed:IsShown() then return false end
+			return tostring(b.Changed:GetTexture()):match("ring$") and "ring" or "dot"
+		end
+		local before = mark()
 		O.Select("fakepins")
 		local c = O.Controls("fakepins", "World map")
-		local function pill(name) local card = cardOf(name) return card.New:IsShown() and card.New.Text:GetText() or false end
-		local rowMark = rawget(c["fake.pinSize"], "NewDot") ~= nil or rawget(c["fake.pinSize"], "Badge") ~= nil
-		emit({ before = before, opened = count(), rowMark = rowMark, pill = pill("Numbered step pins"), oldPill = pill("Goal pins"),
+		local function ring(key) local r = rawget(c[key], "NewRing") return r ~= nil and r:IsShown() end
+		local pill = false
+		for _, card in ipairs(O.view.cards) do if rawget(card, "New") and card.New:IsShown() then pill = true end end
+		local rows = { size = ring("fake.pinSize"), numbers = ring("fake.numbers"), old = ring("fake.goalSize") }
+		Polestar.Set("fake.numbers", false)
+		local changed = { ring = ring("fake.numbers"), reset = rawget(c["fake.numbers"], "ResetB") ~= nil and c["fake.numbers"].ResetB:IsShown() }
+		emit({ before = before, opened = mark(), rows = rows, pill = pill, changed = changed,
 			seen = PolestarDB.optionsSeen and PolestarDB.optionsSeen.fakepins or false, settings = PolestarDB.settings.optionsSeen == nil })"#;
-	let first = run_opts(script, "", "", LOOK_PAGE);
-	assert_eq!(first, json!({ "before": "2", "opened": false, "rowMark": false, "pill": "New", "oldPill": false, "seen": "0.3.7", "settings": true }));
+	// An account from before these settings (a fresh install sees nothing new: its record starts marked).
+	let first = run_opts(script, "", "", &format!("{LOOK_PAGE}\nPolestarDB.optionsSeen = {{}}"));
+	assert_eq!(first["before"], "ring", "the page's row: one ring, no count");
+	assert_eq!(first["opened"], "dot", "opened: the ring goes, the changed dot shows for the setting just changed");
+	assert_eq!(first["rows"], json!({ "size": true, "numbers": true, "old": false }), "a ring on each new setting's row");
+	assert_eq!(first["pill"], false, "no pill on the section");
+	assert_eq!(first["changed"], json!({ "ring": false, "reset": true }), "off its default: its reset in the ring's place");
+	assert_eq!(first["seen"], "0.3.7");
+	assert_eq!(first["settings"], true);
 	let next = run_opts(script, "", "", &format!("{LOOK_PAGE}\nPolestarDB.optionsSeen = {{ fakepins = \"0.3.7\" }}"));
 	assert_eq!(next["before"], false);
-	assert_eq!(next["pill"], false, "seen in an earlier session: no pill");
+	assert_eq!(next["rows"]["size"], false, "seen in an earlier session: no ring");
 	let later = run_opts(script, "", "", &format!("{LOOK_PAGE}\nPolestarDB.optionsSeen = {{ fakepins = \"0.3.6\" }}"));
-	assert_eq!(later["before"], "2", "seen up to 0.3.6: the 0.3.7 settings are new");
-	assert_eq!(later["pill"], "New");
+	assert_eq!(later["before"], "ring", "seen up to 0.3.6: the 0.3.7 settings are new");
+	assert_eq!(later["rows"]["size"], true);
 }
 
 // A page's sidebar row shows the changed dot while the page holds a setting off its default, whether or not its

@@ -2545,7 +2545,6 @@ L["Manual check-offs and skips, current guide, from your last quest progress on.
 L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "Se borran las marcas manuales y los pasos saltados en %s a partir de tu último progreso en misiones. Las misiones que hayas hecho siguen hechas, y la guía se queda donde te sitúan."
 L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "Se borran las marcas manuales y los pasos saltados en la guía actual a partir de tu último progreso en misiones. Las misiones que hayas hecho siguen hechas, y la guía se queda donde te sitúan."
 L["Points to the current goal. Its look and colours are on the Arrow page."] = "Apunta al objetivo actual. Su aspecto y sus colores están en la página Flecha."
-L["New"] = "Nuevo"
 L["Reset this section?"] = "¿Restablecer esta sección?"
 L["Reset section"] = "Restablecer sección"
 L["%d settings in %s go back to their defaults."] = "%d ajustes de %s vuelven a su valor predeterminado."
@@ -4804,6 +4803,13 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Has at
 -- L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
+-- L["New"] = "Nuevo"
+-- L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = "La ventana de la guía se oculta en mazmorras y campos de batalla. %s Cámbialo en Opciones > Guía > Ventana."
+-- L["In dungeons"] = "En mazmorras"
+-- L["Upcoming steps"] = "Pasos siguientes"
+-- L["Bar at the bottom"] = "Barra abajo"
+-- L["Maximum height"] = "Altura máxima"
+-- L["What it shows"] = "Qué muestra"
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desactiva \"Guiar con Shortest Path Forever si está instalado\" (Opciones, Flecha y rutas) para usar la flecha de Polestar."
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever está guiando. Desactiva \"Guiar con Shortest Path Forever si está instalado\" (Opciones, Integraciones) para usar la flecha de Polestar."
 -- L["Guide with Shortest Path Forever when it's installed"] = "Guiar con Shortest Path Forever si está instalado"
