@@ -286,8 +286,20 @@ local function fillRow(r, v, i, live, at)
 	local gone = v.status == "done" or v.status == "skipped" or v.skipped == true
 	r.psIndex, r.psRun = i, nil
 	r.psSummary = UI.StepSummary(v)
-	-- A finished step (not the one on screen) is one muted line.
-	local one = gone and i ~= at
+	-- A finished step (not the one on screen) is one muted line. One that
+	-- holds a skip of the player's (a quest skipped, an optional goal passed
+	-- on) shows those lines alone under it, each with its Unskip, and no tick.
+	local function mySkip(goal)
+		if goal.psPerson or goal.status == "done" then return false end
+		return goal.dismissed or (goal.quest and E.IsQuestSkipped and E.IsQuestSkipped(goal.quest)) or false
+	end
+	local list = entries(v)
+	local held = false
+	for _, goal in ipairs(list) do
+		if mySkip(goal) then held = true break end
+	end
+	local only = gone and i ~= at and held
+	local one = gone and i ~= at and not held
 	r.psOne = one
 	local no = UI.StepNo(i)
 	local title = (v.title and v.title ~= "") and v.title or string.format(L["Step %d"], no)
@@ -300,8 +312,10 @@ local function fillRow(r, v, i, live, at)
 	local n, more, key = 0, 0, { mine and "unskip" or "" }
 	-- A first goal that says the title draws no line, as on the step card.
 	local said = false
-	for _, goal in ipairs(entries(v)) do
-		if n >= MAX_LINES then
+	for _, goal in ipairs(list) do
+		if only and not mySkip(goal) then
+			-- Folded: only the player's skips show.
+		elseif n >= MAX_LINES then
 			more = more + 1
 		elseif goal.psPerson then
 			n = n + 1
@@ -315,7 +329,7 @@ local function fillRow(r, v, i, live, at)
 			g.Text:SetText(text)
 			W.Color(g.Text, (gone or goal.psDone) and "textMuted" or "text")
 			key[n] = text
-		elseif n == 0 and not said and v.title and v.title ~= "" and not UI.GoalProgress(goal) and not UI.GoalBar(goal)
+		elseif n == 0 and not said and not only and v.title and v.title ~= "" and not UI.GoalProgress(goal) and not UI.GoalBar(goal)
 			and UI.PlainGoalText(UI.ReadingGoal(v, goal)) == v.title then
 			said = true
 		else
@@ -352,7 +366,7 @@ local function fillRow(r, v, i, live, at)
 	end
 	-- What the route leaves out of this step (#2634, Engine.LeftOutHere with
 	-- `alone`): one muted line, the quests and why in the card's tooltip.
-	local out = not one and E.LeftOutHere and E.LeftOutHere(i, true) or nil
+	local out = not one and not only and E.LeftOutHere and E.LeftOutHere(i, true) or nil
 	r.psOut = out and #out > 0 and out or nil
 	if r.psOut then
 		n = n + 1
@@ -373,7 +387,7 @@ local function fillRow(r, v, i, live, at)
 	r.psN = n
 	r.More:SetText(more > 0 and string.format(L["+%d more"], more) or "")
 	r.More:SetShown(more > 0)
-	r.Tick:SetShown(v.status == "done")
+	r.Tick:SetShown(v.status == "done" and not held)
 	r.Mark:SetShown(i == live)
 	r.View:SetShown(i == at)
 	r:Show()
