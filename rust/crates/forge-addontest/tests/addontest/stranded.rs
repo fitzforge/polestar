@@ -55,10 +55,20 @@ local X = Polestar.Codex
 X.Load = function() return true end
 X.IsLoaded = function() return true end
 X.Quest = function(id)
-	return { id = id, title = "Quest " .. id, faction = "A", level = id == 40 and 5 or 10, xp = 1000, ["end"] = (id == 40 or id == 46) and { npc = { 240 } } or nil }
+	return { id = id, title = "Quest " .. id, faction = "A", level = id == 40 and 5 or 10, xp = 1000,
+		["end"] = (id == 40 or id == 46) and { npc = { 240 } } or id == 47 and { npc = { 241 } } or nil }
+end
+-- Nikova (241) walks a round the Codex has as four spawns 34 yd from their middle, 44.8,39.2 (#3019).
+local WALK = { { map = 1429, x = 44.0, y = 38.0 }, { map = 1429, x = 45.6, y = 38.0 }, { map = 1429, x = 45.6, y = 40.4 }, { map = 1429, x = 44.0, y = 40.4 } }
+X.Npc = function(id)
+	if id == 241 then return { id = 241, name = "Nikova", faction = "A", roles = {}, spawns = WALK } end
+	if id == 240 then return { id = 240, name = "Marshal Dughan", faction = "A", roles = {}, spawns = { { map = 1429, x = 42.0, y = 35.1 } } } end
+	return nil
 end
 Polestar.Lookup.QuestEnd = function(ends)
 	if ends and ends.npc and ends.npc[1] == 240 then return { npc = 240, name = "Marshal Dughan", spawn = { map = 1429, x = 42.0, y = 35.1 } } end
+	-- Her spawn nearest the player.
+	if ends and ends.npc and ends.npc[1] == 241 then return { npc = 241, name = "Nikova", spawn = WALK[1] } end
 	return nil
 end
 C_QuestLog.GetQuestDifficultyLevel = function(q) return q == 40 and 5 or 10 end
@@ -125,6 +135,40 @@ fn a_finished_quest_no_route_hands_in_is_listed_with_its_ender_and_handed_in_whi
 		"{out}"
 	);
 	assert_eq!(out["guide"], json!(["lookup/carried/log", "Marshal Dughan", "turnin", 40, 1]), "{out}");
+}
+
+// #3019 (Shuurajou): a finished quest's ender who walks about. Nikova Raskol walks a round of Old Town, which the
+// Codex has as several spawns; the line pointed at the one nearest the player as if she stood there. Her walk is
+// now the hand-in's one spot, its point in the middle (the line measures to it, the maps circle it, the arrow
+// counts it as reached), and the line says she walks. Marshal Dughan, at one spawn, keeps his point.
+#[test]
+fn a_stranded_hand_in_to_an_npc_who_walks_about_circles_her_walk_and_says_so_3019() {
+	let out = run_before(
+		&format!("{WORLD}w.onQuest(47, {{}}, \"The Color of Blood\")\n"),
+		r#"
+		local r = { here = {} }
+		for _, v in ipairs(E.GetWhileHereList()) do r.here[#r.here + 1] = { v.index, v.hereText } end
+		table.sort(r.here, function(a, b) return a[1] < b[1] end)
+		local g = E.AlongGoal(-2, 47)
+		r.goal = { g.x, g.y, #g.spots, g.spots[1].x, g.spots[1].y, g.spots[1].r, g.note }
+		local d = E.AlongGoal(-2, 40)
+		r.dughan = { d.x, d.y, d.spots == nil }
+		for i, v in ipairs(E.GetWhileHereList()) do
+			if v.index == 47 then E.AimWhileHere(i) end
+		end
+		local wp = E.GetWaypoint()
+		r.waypoint = { wp.x, wp.y, wp.area }
+		emit(r)
+	"#,
+	);
+	assert_eq!(
+		out["here"],
+		json!([[40, "Hand in “A Fishy Peril” to Marshal Dughan"], [47, "Hand in “The Color of Blood” to Nikova, who walks around here: look inside the circle on the map"]]),
+		"{out}"
+	);
+	assert_eq!(out["goal"], json!([44.8, 39.2, 1, 44.8, 39.2, 34, "Nikova walks around here: look inside the circle on the map"]), "{out}");
+	assert_eq!(out["dughan"], json!([42, 35.1, true]), "{out}");
+	assert_eq!(out["waypoint"], json!([44.8, 39.2, 34]), "{out}");
 }
 
 // #2918 (Chm137): Auto turn-in hands in the guide's quests. A finished quest's stranded line is handed in by
