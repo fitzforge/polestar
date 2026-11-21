@@ -242,7 +242,7 @@ return {
 
 	-- Step 45: Arbor Tarantula
 	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
-	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s {item:213565}."] = "奈辛瓦里營地東南邊、通往{area:99}的叢林裡有{npc:217588}：用{npc:217412}的{item:213565}裡的工具捕捉一隻。",
+	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s {item:213565}."] = "奈辛瓦裏營地東南邊、通往{area:99}的叢林裡有{npc:217588}：用{npc:217412}的{item:213565}裡的工具捕捉一隻。",
 
 	-- Step 46: Rebel Camp
 	["Head north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale."] = "向東北經過奈辛瓦里的營地，沿著道路向北走到山谷頂端的營地。",

@@ -24,7 +24,7 @@ return {
 	["The Lost City's entrance"] = "失落之城的入口",
 	-- {area:104} Vile Reef · {area:17853} Sunken Hollow · {object:3202} Grom'gol
 	-- plural, as words: Brinescale Skirmishers = {npc:262397} Brinescale Skirmisher
-	["Brinescale Skirmishers around the {area:104} drop the tridents. The cavern entrance the quest asks for is under the reef, in {area:17853}: due west of {object:3202} and south-west of the reef's tablet."] = "{area:104}周圍的鹽鱗鬥者掉落三叉戟。任務要求的洞穴入口在礁石下方的{area:17853}：位於{object:3202}正西、礁石石板的西南。",
+	["Brinescale Skirmishers around the {area:104} drop the tridents. The cavern entrance the quest asks for is under the reef, in {area:17853}: due west of {object:3202} and south-west of the reef's tablet."] = "{area:104}周圍的海鱗爭鬥者掉落三叉戟。任務要求的洞穴入口在礁石下方的{area:17853}：位於{object:3202}正西、礁石石板的西南。",
 
 	-- Step 8: Krazek
 	-- {area:35} Booty Bay

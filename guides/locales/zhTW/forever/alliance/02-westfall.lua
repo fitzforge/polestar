@@ -141,7 +141,7 @@ return {
 
 	-- Step 30: Goretusk Livers as you go
 	-- plural, as words: Goretusk Livers = {item:723} Goretusk Liver
-	["Goretusk Livers as you go"] = "順路收集血牙野豬肝",
+	["Goretusk Livers as you go"] = "順路收集血牙野豬的肝",
 	-- plural, as words: Goretusks = {npc:157} Goretusk · Young Goretusks = {npc:454} Young Goretusk
 	["Goretusks and Young Goretusks root along every leg of this loop: kill the ones you pass for the pie's livers."] = "血牙野豬和幼年血牙野豬在這條路線的每一段遊蕩：順路殺掉遇到的，收集餡餅用的肝臟。",
 
@@ -211,7 +211,7 @@ return {
 
 	-- Step 40: Finish the Goretusk Livers
 	-- plural, as words: Goretusk Livers = {item:723} Goretusk Liver
-	["Finish the Goretusk Livers"] = "湊齊血牙野豬肝",
+	["Finish the Goretusk Livers"] = "湊齊血牙野豬的肝",
 	-- {area:107} Saldean's Farm
 	-- plural, as words: Young Goretusks = {npc:454} Young Goretusk
 	["Still short of eight? Young Goretusks root in the fields just west of {area:107}."] = "還差八個？幼年血牙野豬就在{area:107}西邊的田野裡拱土。",
@@ -221,7 +221,7 @@ return {
 	["Finish the {item:729}"] = "湊齊{item:729}",
 	-- {area:107} Saldean's Farm
 	-- plural, as words: Young Fleshrippers = {npc:199} Young Fleshripper
-	["Still short of three? Young Fleshrippers circle the fields north-west of {area:107}."] = "還差三個？幼年撕皮鳥在{area:107}西北邊的田野上空盤旋。",
+	["Still short of three? Young Fleshrippers circle the fields north-west of {area:107}."] = "還差三個？小碎屍鳥在{area:107}西北邊的田野上空盤旋。",
 
 	-- Step 43: Finish the Red Leather Bandanas
 	-- {quest:153} Red Leather Bandanas

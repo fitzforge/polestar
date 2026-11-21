@@ -46,7 +46,7 @@ return {
 	["Thistlefur Hold"] = "薊皮熊怪的巢穴",
 	-- {npc:12818} Ruul Snowhoof · {area:428} Night Run · {npc:3987} Dal Bloodclaw
 	-- plural, as words: Troll Chests = {object:178144} Troll Chest
-	["Inside the hold, Troll Chests lie along the tunnels. {npc:12818} is held deep inside: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "據點內部的隧道沿線有巨魔的箱子。{npc:12818}被囚禁在深處：釋放他並一路保護他離開，之後他會跑回{area:428}的家。\n小心：會觸發兩次固定伏擊，每次由3名薊皮熊怪組成（一名薩滿祭司、一名探路者，以及一名復仇者、巨熊戰士或巢穴守衛）：第一處在洞內返回隧道岔口時，第二處在越過{npc:3987}遊蕩的大門後不遠處。",
+	["Inside the hold, Troll Chests lie along the tunnels. {npc:12818} is held deep inside: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "據點內部的隧道沿線有食人妖的箱子。{npc:12818}被囚禁在深處：釋放他並一路保護他離開，之後他會跑回{area:428}的家。\n小心：會觸發兩次固定伏擊，每次由3名薊皮熊怪組成（一名薩滿祭司、一名探路者，以及一名復仇者、巨熊戰士或巢穴守衛）：第一處在洞內返回隧道岔口時，第二處在越過{npc:3987}遊蕩的大門後不遠處。",
 	["Below ground"] = "地下",
 	-- {npc:12818} Ruul Snowhoof
 	["{npc:12818}, below ground"] = "{npc:12818}，地下",

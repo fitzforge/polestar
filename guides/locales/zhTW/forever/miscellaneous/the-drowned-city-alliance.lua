@@ -18,7 +18,7 @@ return {
 
 	-- Step 2: Kurzen's Compound
 	-- {area:99} Rebel Camp · {item:2634} Venom Fern Extract · {object:263} Kurzen Supplies
-	["South-east of the {area:99}. The medicine men, headshrinkers and witch doctors drop the remedies; the {item:2634} is in the {object:263}."] = "在{area:99}東南。醫藥師、縮頭師和巫醫掉落藥劑；{item:2634}在{object:263}裡。",
+	["South-east of the {area:99}. The medicine men, headshrinkers and witch doctors drop the remedies; the {item:2634} is in the {object:263}."] = "在{area:99}東南。庫爾森巫醫、庫爾森精神醫師和巫醫掉落藥劑；{item:2634}在{object:263}裡。",
 
 	-- Step 4: The Emperor's Tomb
 	-- {item:2008} The Fourth Troll Legend · {area:99} Rebel Camp · {area:102} Ruins of Zul'Kunda

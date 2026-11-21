@@ -112,7 +112,7 @@ return {
 	["Boulderfist camp"] = "石拳營地",
 	-- {area:272} Tarren Mill · {area:1057} Thoradin's Wall · {area:313} Northfold Manor
 	-- plural, as words: Boulderfist Ogres = {npc:2562} Boulderfist Ogre
-	["Head east out of {area:272} through {area:1057} and follow the road east. The Boulderfist Ogres and Enforcers (32-34) camp south of the road, south of {area:313}; the Enforcers stay in the cave there."] = "從{area:272}向東出發，穿過{area:1057}後沿路繼續向東。石拳食人魔和石拳執行者（32-34級）的營地在路南、{area:313}以南；石拳執行者待在那裡的洞穴中。",
+	["Head east out of {area:272} through {area:1057} and follow the road east. The Boulderfist Ogres and Enforcers (32-34) camp south of the road, south of {area:313}; the Enforcers stay in the cave there."] = "從{area:272}向東出發，穿過{area:1057}後沿路繼續向東。石拳巨魔和石拳執行者（32-34級）的營地在路南、{area:313}以南；石拳執行者待在那裡的洞穴中。",
 	["Below ground"] = "地下",
 
 	-- Step 19: The Shards of Myzrael
