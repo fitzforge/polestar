@@ -18460,3 +18460,14 @@ test('#3277: Grim Message plants Nimboya\'s Laden Pike inside Hiri\'watha (31.9,
 	const plants = naming.flatMap((g) => goals(g).filter(({ goal }) => goal.t === 'use' && goal.item === 9319).map(({ goal }) => [g, goal.map, goal.x, goal.y]));
 	assert.deepEqual(plants, [['forever/horde/40-50/05-the-hinterlands.guide', 1425, 31.9, 58]], 'the one step that plants it points into Hiri\'watha');
 });
+
+// #3405 (Cip1337, 0.4.2): Heavy Silk Bandage (7929) and Mageweave Bandage (10840) are learned from manuals the Expert
+// First Aid step has the player buy; their steps' learn lines have no place, and nothing said to read the manual.
+// Each such step says so, and where to buy it otherwise.
+test('forever/professions/first-aid.guide: the manual bandages say to read the manual bought with Expert First Aid (#3405)', { skip }, () => {
+	const list = goals('forever/professions/first-aid.guide');
+	for (const [spell, manual] of [[7929, 'Manual: Heavy Silk Bandage'], [10840, 'Manual: Mageweave Bandage']]) {
+		const { step } = list[at(list, `learn ${spell}`, (g) => g.t === 'learn' && g.spell === spell)];
+		assert.ok((step.note || '').includes(`Read the ${manual} you bought with Expert First Aid`), `${spell}: ${step.note}`);
+	}
+});
