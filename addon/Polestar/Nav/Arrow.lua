@@ -772,12 +772,6 @@ local function facing()
 	return C and C.GetPlayerFacing and C.GetPlayerFacing() or nil
 end
 
-local function besideSolidFace()
-	local path = Nav.Path
-	if not (path and path.NearSolidFace) then return false end
-	local x, y, z, map = ns.Compat.GetPlayerUnitPosition()
-	return z and path.NearSolidFace(map, x, y, z)
-end
 local lastYards, lastEta
 local floorShown -- the floor glyph's hint ("up" | "down") or nil
 local lastDist, closeSpeed = nil, 0
@@ -797,15 +791,15 @@ local noWalkShown -- Nav.noWalk under the label while the arrow points straight 
 -- target, and so does "The last steps here aren't mapped" while the current walk
 -- ends short of its goal's floor, or a capital walk found none (Walk.Unmapped).
 -- The walk's hostile-town warning (`warning`) comes after them. While no walk
--- was found (Nav.noWalk) and the arrow points straight, why: "No safe walking
--- route" or "The last steps here aren't mapped" (#3409).
+-- was found (Nav.noWalk) and the arrow points straight, why: "The last steps
+-- here aren't mapped" (#3409).
 local function withTargetWarning(text)
 	local t = Nav.GetTarget()
 	local tw = t and t.warning
 	local W = Nav.walk
-	local note = noWalkShown == "unsafe" and L["No safe walking route"] or nil
+	local note
 	if noWalkShown == "unmapped" or (not stoppedUnmapped and W and W.Unmapped and W.Unmapped()) then
-		note = note and (note .. "\n" .. L["The last steps here aren't mapped"]) or L["The last steps here aren't mapped"]
+		note = L["The last steps here aren't mapped"]
 	end
 	if note then tw = tw and (tw .. "\n" .. note) or note end
 	if not tw then return text end
@@ -845,41 +839,20 @@ local function travelDistColor()
 	if c then distText:SetTextColor(c[1], c[2], c[3]) else distText:SetTextColor(Nav.RGB("text")) end
 end
 
--- The hourglass shows for the catch-up (Arrow.SetBusy) and, with no catch-up,
--- while the arrow waits for a walking route (the "routing" mode); the catch-up
--- also hides the text under the dial, the wait leaves "Finding a walking
--- route" in view.
-local catchUp = false
-local function syncGlass()
-	local on = catchUp or mode == "routing"
-	if on ~= glass:IsShown() then
-		if on then
-			glassTime = 0
-			glassBody:SetVertexColor(Nav.RGB("text"))
-			glassSand:SetVertexColor(Nav.RGB("arrow"))
-		end
-		glass:SetShown(on)
-	end
-	local a = catchUp and 0 or 1
-	dial:SetAlpha(a)
-	distText:SetAlpha(a)
-	labelText:SetAlpha(a)
-	etaText:SetAlpha(a)
-	timerText:SetAlpha(a)
-end
+local routingPointed = false -- in the "routing" mode, the arrow shown on its straight bearing
 
 local function setMode(m)
 	if m == mode then return end
 	mode = m
-	syncGlass()
 	if m == "travel" then D.near = nil end -- repaint after a mode or theme change
 	turnVel = 0 -- a speed from before an arrival or an instruction does not carry into the next walk
 	local travel, done, act, idle = m == "travel", m == "arrived" or m == "arrived-underwater" or m == "search", m == "instruction", m == "idle"
-	-- Resume on the new walk's bearing, not a heading from before guidance stopped.
-	if not travel then hasAngle = false end
-	dial:SetShown(travel or done or act or idle)
-	grabArea(travel or done or act or idle)
+	-- Waiting for a walking route, the arrow points straight at what the walk will lead to.
+	local routing = m == "routing"
+	dial:SetShown(travel or done or act or idle or routing)
+	grabArea(travel or done or act or idle or routing)
 	showArrow(travel)
+	routingPointed = false
 	dialArrival(D, done, look)
 	if act then halo:SetShown(look.glow) end
 	legIcon:SetShown(act)
@@ -915,9 +888,6 @@ local function setMode(m)
 	elseif m == "submerged" then
 		distText:SetTextColor(Nav.RGB("text"))
 		distText:SetText(L["Under water nearby: swim down to it"])
-	elseif m == "unsafe" then
-		distText:SetTextColor(Nav.RGB("text"))
-		distText:SetText(L["No safe walking route"])
 	elseif m == "routing" then
 		distText:SetTextColor(Nav.RGB("textDim"))
 		distText:SetText(L["Finding a walking route"])
@@ -1087,7 +1057,7 @@ local function sample(elapsed)
 		frame:Hide()
 		return false
 	end
-	local state, dist, angle, _, _, measured, nearEnemy = Nav.Sample()
+	local state, dist, angle, _, _, measured = Nav.Sample()
 	if Nav.IsHiddenState(state) then
 		frame:Hide()
 		return false
@@ -1126,7 +1096,7 @@ local function sample(elapsed)
 		routeSeen = -2
 	end
 	syncLabel(T, routed)
-	if state == "far" or state == "arrived" or state == "search" or state == "nopos" or state == "unmapped" or state == "unsafe" or state == "routing" then
+	if state == "far" or state == "arrived" or state == "search" or state == "nopos" or state == "unmapped" then
 		setMode(state)
 		return true
 	end
@@ -1137,14 +1107,17 @@ local function sample(elapsed)
 		return true
 	end
 
-	setMode("travel")
+	local routing = state == "routing"
+	setMode(routing and "routing" or "travel")
+	-- Waiting for the walk: the arrow shows once there is a bearing (what the walk leads to is on this map).
+	if routing and angle and not routingPointed then
+		routingPointed = true
+		showArrow(true)
+	end
 	if angle then
 		local f = facing()
 		local bearing = f and wrap(angle + f) or angle
-		-- Do not ease a right-angle walking turn through a nearby wall. Keep
-		-- ordinary open-road turns and changes in the player's facing smooth.
-		local wallTurn = measured and hasAngle and f and abs(wrap(goalAngle-bearing)) > pi/3 and besideSolidFace()
-		if not hasAngle or byBearing ~= (f ~= nil) or wallTurn or (nearEnemy and curBearing ~= bearing) then
+		if not hasAngle or byBearing ~= (f ~= nil) then
 			byBearing = f ~= nil
 			curBearing, hasAngle, turnVel = bearing, true, 0
 			curAngle = angle
@@ -1152,6 +1125,8 @@ local function sample(elapsed)
 		end
 		goalAngle = bearing
 	end
+	-- The caption stays "Finding a walking route" until the walk is in.
+	if routing then return true end
 
 	local yards = floor(dist + 0.5)
 	if yards ~= lastYards then
@@ -1203,7 +1178,7 @@ frame:SetScript("OnUpdate", ns.Safe(function(_, elapsed)
 		accum = 0
 		if not sample(step) then return end
 	end
-	if mode == "travel" and hasAngle then
+	if (mode == "travel" or mode == "routing") and hasAngle then
 		curBearing, turnVel = turnStep(curBearing, turnVel, goalAngle, elapsed, look.turnRate)
 		local f = byBearing and facing()
 		local shown = f and wrap(curBearing - f) or curBearing
@@ -1386,11 +1361,22 @@ end
 -- The catch-up (the guide window's CATCH_UP): the hourglass in the dial's
 -- place, or the arrow back.
 function Arrow.SetBusy(on)
-	catchUp = on and true or false
-	syncGlass()
+	on = on and true or false
+	if on == glass:IsShown() then return end
+	if on then
+		glassTime = 0
+		glassBody:SetVertexColor(Nav.RGB("text"))
+		glassSand:SetVertexColor(Nav.RGB("arrow"))
+	end
+	glass:SetShown(on)
+	local a = on and 0 or 1
+	dial:SetAlpha(a)
+	distText:SetAlpha(a)
+	labelText:SetAlpha(a)
+	etaText:SetAlpha(a)
+	timerText:SetAlpha(a)
 end
 
--- The hourglass is up, for the catch-up or the wait for a walking route.
 function Arrow.IsBusy()
 	return glass:IsShown()
 end

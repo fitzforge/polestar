@@ -5359,10 +5359,9 @@ each ask searches the whole walk; the old path kept meanwhile); a failed search 
 or `Find` raising) is asked again after 15 s once the player stands 5 yd (the router's arrival distance) from
 where it was asked; a `no safe walking route` that no policy gave (no `blockedReason`: the router's departure
 rule, a line it could not check) is asked again once 2 s later, moved or not (#3448). Meanwhile, as before 0.4.2 (#3409, Fitz's ruling), the arrow points straight at the goal
-(`Nav.noWalk`: a refusal on policy, a start off the walking map, no maps there, a capital's floor out of reach, a
-corpse run's checked detour without its walk) and says why under its label ("No safe walking route", "The last
-steps here aren't mapped"); its line is drawn straight where the danger policy lets it
-(`Nav.CanDrawGroundApproach`). 0.4.2 drew nothing and asked again only 25 yd away. While its answer is still to
+(`Nav.noWalk`: a start off the walking map, no maps there, a capital's floor out of reach, a corpse run's checked
+detour without its walk) and says why under its label ("The last steps here aren't mapped"); its line is drawn
+straight (`Nav.CanDrawGroundApproach`). 0.4.2 drew nothing and asked again only 25 yd away. While its answer is still to
 come it gives neither. Nothing is asked for in combat (the engine's own queue waits out combat as well).
 The walk to the target's own point carries the target's height: the Engine
 waypoint's `z` (a guide goal at an NPC or object, Guide data), which
@@ -6367,11 +6366,18 @@ of the map's `hubs` metadata (`{ id, side, name, areaId, disks = { { x, y, r }, 
 } }`) hostile to `profile` that the drawn line enters, each once, in path
 order (`{}` without a profile or hubs). Reasons: `nodata`, `outside`, `offmesh`,
 `unreachable`, `error`. Searches run as coroutines in `C_Timer.After(0)`
-slices of `Path.budget` ms (3 ms at any frame rate; 0.3.1 grew it to 8 ms at
-100 fps, halving the frame rate while a search ran) and wait out combat; for
-`Path.calmSeconds` (1) after a fight they take `Path.calmBudget` (1 ms) a
-frame, as the kill that ends it updates the game, the guide and the quest log
-at once. A decode yields at its slice points to its very end. Once the queue
+slices of `Path.budget` ms (3 ms at 60 fps and up; 0.3.1 grew it to 8 ms at
+100 fps, halving the frame rate while a search ran; below 60 fps the same share
+of each frame, at most `Path.slowScale` (2) times it and never past
+`Path.sliceMax` (6 ms), so a 30 fps client searches as fast a second) and wait
+out combat; for `Path.calmSeconds` (1) after a fight they take
+`Path.calmBudget` (1 ms) a frame, as the kill that ends it updates the game,
+the guide and the quest log at once. A new goal the arrow has no walk for
+(`Path.Rush`) takes `Path.rushBudget` (6 ms) a frame, before the calm, for
+`Path.rushSeconds` (2) from the first frame a search can run (after the fight
+for a goal set in one) or until its walk is in. An urgent sketch (the arrow's
+`FindCoarse`) is sliced before the urgent walk, so its shape is drawn a frame
+after the ask. A decode yields at its slice points to its very end. Once the queue
 is empty the router rests: `Rest` trims the decoded graph to
 `Path.graphRestKB` and keeps `Path.restTrees` (2) endpoint trees (up to four
 while a search runs): the newest start's goes to the spare pool (emptied first;
@@ -6438,57 +6444,22 @@ what is shown and timed.
   `Compat.GetAreaName(areaId)` (`C_Map.GetAreaInfo`; the hub record's
   AreaTable id), else the packed English name, as goto labels and
   `Compat.MapName` do; the "each name once" rule works on the shown name.
-- Enemy ground (`Nav/GroundSafety.lua`, `Nav.danger.Blocked(c, x, y, X, Y,
-  profile)`): a veto on an on-foot segment, never a permission. It answers
-  `"opposing-settlement"` when the straight segment (with the player's
-  shoulders, 0.55 yd) touches a cell the other faction owns
-  (`Nav/DangerAreas.lua`) or a guard post's disk (`Nav/DangerHubs.lua`), nil
-  when it doesn't, `"unknown-profile"` without a faction and `"unknown-ground"`
-  for a map without that data or an end that isn't a world position. The planner
-  (`Travel.lua`'s walks), the walking engine's answers (`Walk.lua`), the
-  arrow's displayed bearing (`Nav.lua`, "unsafe") and the map line's gaps
-  (`Layers.lua`) all refuse a segment it answers for. Both data files were
-  imported by `forge nav layers ground` (`ground_policy.rs`): ownership cells
-  kept only where builds 70532 and 70959 have the same terrain and area
-  hierarchy, guard disks from 70532. Towns and guard posts are positions on
-  the map, so the check runs on every client build (an older one, the next
-  Forever patch); a build newer than 70959 adds one line to the debug log at
-  load ("ground: client build … is newer than the enemy-town data"). Until
-  0.4.2 any other build answered `"unknown-ground"` for every segment, so a
-  client patch refused every walk. The planner asks `p.blocked` when the plan
-  carries one (else `Nav.danger.Blocked`); `Nav.EstimateTravel` passes
-  `Travel.EstimateBlocked`, which remembers each answer by its exact arguments: a
-  step change's candidate prices (up to 8 from one spot, with a second pass
-  for a discounted walk or the hearth) and later step changes ask about the
-  same walks between flight masters, docks and crossings, and checking a walk
-  every 33 yards was two thirds of a plan (0.4.2's step change: 40 ms on the
-  perf test, 17 ms remembered). The data never changes in the game; the
-  answers are forgotten when the check or its data tables are replaced (test
-  worlds) and after 2048. Live routes (`Travel.Replan`) ask the check itself.
-- The guide's goal on enemy ground (0.4.2.1, #3447). `Travel.Replan` calls
-  `Nav.danger.Exempt(goal, player, profile)` before each plan: the piece of
-  enemy ground the guide's goal lies in (its ownership cells and guard disks,
-  as far as they touch one another: Hillsbrad Fields for the Horde, apart from
-  Southshore) is left out of the check, and so is the piece the player stands
-  in while one of the last four goals lay in it (the walk back out). A point
-  picked by hand or held (a corpse) is no goal; a town the player walked into
-  on their own is not walked out of through its streets; every other town
-  still refuses a walk, one on the way in or out too. `Nav.danger.Blocked` is
-  a new function whenever that ground changes, so the router's per-cluster
-  answers and `Travel.EstimateBlocked`'s, kept by the check itself, are asked
-  again; the same ground keeps the same function. The walk in carries the
-  router's "Hostile town: <name>" caption, as before 0.4.2. In 0.4.2 a goal in
-  the Fields was a straight bearing with "No safe walking route" all the way
-  from Tarren Mill.
-- A target within 400 yd of the player (`Walk.lua`'s `MEASURE_NEAR`: not
-  measured) whose straight line from the player crosses enemy ground, both
-  ends clear of it, is the arrow's own walk, which searches round the enemy
-  ground with the same check: `Travel.Replan`'s plan keeps no route then but
-  one of walks (0.4.2.1, #3450). The planner itself still refuses the line
-  (a walk leg never cuts an enemy capital's corner). In 0.4.2 the line from
-  Rathiril Sunlance to Coriella Calmbreeze crossed the corner of Shen'dar
-  Village's guard posts, so the plan sent the player 1,600 yd to a portal,
-  and straight back to her wherever the line came clear: never arriving.
+- Enemy ground walks and warns, as before 0.4.2 (0.4.2.1; Main, 2026-11-21,
+  Fitz: "go back to our original danger pathing"). Nothing refuses a walk for
+  the ground it crosses: the router prices the other faction's towns
+  (`Costs.Mult`, hostile hubs) so a way round one is taken where there is one,
+  walks into one where the goal is there or there is no other way, and the
+  arrow says so ("Hostile town: <names>", above). `Nav.danger.Blocked`
+  (`Nav/GroundSafety.lua`) answers nil for every segment: the router's strict
+  searches (`Path.lua`'s `Safe`) still ask it of each one. The ownership cells
+  (`Nav/DangerAreas.lua`) and guard disks (`Nav/DangerHubs.lua`), imported by
+  `forge nav layers ground` (`ground_policy.rs`), keep the arrow's bearing from
+  easing across a town's edge (`Nav.danger.NearEnemyGround`); a build newer
+  than 70959 adds one line to the debug log at load. 0.4.2 vetoed every
+  segment touching them: quest goals in Hillsbrad Fields and Shen'dar Village
+  and a pin in Dalaran got a straight bearing with "No safe walking route",
+  and 150 yd from Coriella Calmbreeze the plan went round by a portal
+  1,600 yd away; that state and caption are gone.
 
 **Our own maps, always.** The engine reads only `PolestarPathData`, never an
 installed Shortest Path Forever's `ShortestPathForeverPathData`, even when it
