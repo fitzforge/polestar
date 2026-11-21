@@ -18521,6 +18521,28 @@ test('#3512: a talk to an NPC who is a line of a quest in the log reads that lin
 	assert.deepEqual(bare, []);
 });
 
+// #3436 (Stö, 0.4.2, Mount Hyjal): flying back from Everlook with Nami's crate, "Complete Crate Expectations" had no
+// place, so there was no arrow. Its one line, "Shipment delivered to Mount Hyjal before it expires", ticks at
+// Kaylaena's workshop (the data's event spot 60.41,62, from players' recordings).
+test('forever/50-60/mount-hyjal.guide: Crate Expectations leads to Kaylaena\'s workshop (#3436)', { skip }, () => {
+	const list = goals('forever/50-60/mount-hyjal.guide');
+	const { goal } = list[at(list, 'complete 92009', is('complete', 92009))];
+	assert.deepEqual([goal.map, goal.x, goal.y], [2482, 60.4, 62.0]);
+});
+
+// #3457 (siu_sang, 0.4.1.1, zhTW, Horde Feralas & Tanaris step 3): the pirate ghosts' step asked a character without
+// Voodoo Dues (609) to kill Chucky, Maury and Jon-Jon, and those kills never ticked: they were plain `kill` goals,
+// which wait for the player's own tick. Each ghost is now the place of its Voodoo Dues line, so the step is only for
+// a character carrying the quest and ticks from its lines.
+test('forever/horde/40-50/02-feralas.guide: the pirate ghosts are Voodoo Dues lines, not kills of their own (#3457)', { skip }, () => {
+	const list = goals('forever/horde/40-50/02-feralas.guide');
+	for (const [npc, oi] of [[2537, 3], [2535, 1], [2536, 2]]) {
+		assert.ok(!list.some(({ goal }) => goal.t === 'kill' && goal.npc === npc), `no plain kill of ${npc}`);
+		const { goal } = list[at(list, `the line 609.${oi}`, (g) => g.t === 'collect' && g.quest === 609 && g.oi === oi)];
+		assert.ok(goal.x && goal.y, `609.${oi} has a place`);
+	}
+});
+
 // #3383 (SumnDaiy, 0.4.2, Alliance Badlands): the guide said to sell at Prospector Ryedol, who sells nothing. 50
 // people opened his window (126 quest windows), none a merchant window, and the game's data has no goods for him:
 // the correction drops the vendor role the merged data gave him.
