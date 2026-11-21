@@ -46,6 +46,13 @@ ns.UI.GuideFrame.Part(function(GF)
 		local pins = GF.PinItems(GF.View())
 		for _, it in ipairs(pins) do items[#items + 1] = it end
 		if #pins > 0 then items[#items + 1] = { separator = true } end
+		-- Every ready quest, even without a guide or anything to clean up.
+		local handins = ns.Handins
+		if handins then
+			local ready = #handins.Ready() > 0
+			table.insert(items, 5, { text = L["Hand in your finished quests"], icon = "icon-turnin", disabled = not ready,
+				tip = not ready and L["No quests in your log are ready to hand in."] or nil, onClick = function() handins.Start() end })
+		end
 		-- The quest log cleanup (UI/QuestRoom.lua), while it has quests to list.
 		local unneeded = ns.RoutePlan and ns.RoutePlan.Unneeded() or nil
 		if unneeded and #unneeded > 0 then

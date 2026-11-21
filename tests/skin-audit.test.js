@@ -108,3 +108,33 @@ test('the audit reports each kind of breakage a probe makes', { timeout: 5 * 60 
 	const missed = DETECTORS.filter((d) => !findings.some((f) => f.surface === d.surface.key && f.check === d.check && `${f.where}: ${f.detail}`.includes(d.match)));
 	assert.deepEqual(missed.map((d) => `${d.surface.key}: no ${d.check} finding`), [], findings.map(line).join('\n'));
 });
+
+test('long menus keep their rows clear of each game look scrollbar', async () => {
+	const surface = {
+		...PROBE('long-menu', `local items = {}
+for i = 1, 13 do items[i] = { text = "Audit option " .. i } end
+Polestar.Widgets.ShowMenu(GF.menuButton, items)
+assert(PolestarMenu.Scroll:IsShown(), "the probe must exercise a scrolling menu")`, ['PolestarMenu']),
+		targets: ['PolestarMenu'],
+	};
+	const looks = LOOKS.filter((l) => ['forever', 'blizzard', 'classic'].includes(l.id));
+	const { findings } = await audit({ looks, surfaces: [surface] });
+	assert.deepEqual(findings.map(line), []);
+});
+
+test('disabled menu rows are captured without disabling their enabled neighbours', async () => {
+	const surface = {
+		...PROBE('disabled-menu', `Polestar.Widgets.ShowMenu(GF.menuButton, {
+	{ text = "Audit disabled row", disabled = true },
+	{ text = "Audit enabled row" },
+})
+local disabled, enabled = {}, {}
+preview.entryExtra(PolestarMenu.rows[1], disabled)
+preview.entryExtra(PolestarMenu.rows[2], enabled)
+assert(disabled.disabled == true, "the snapshot must record the menu item's disabled state")
+assert(not enabled.disabled, "enabled neighbours must still receive the normal audit checks")`, ['PolestarMenu']),
+		targets: ['PolestarMenu'],
+	};
+	const { findings } = await audit({ looks: LOOKS.filter((l) => l.id === 'polestar'), surfaces: [surface], scales: [1] });
+	assert.deepEqual(findings.map(line), []);
+});

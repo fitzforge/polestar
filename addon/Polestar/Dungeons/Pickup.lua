@@ -1075,14 +1075,16 @@ local AT_HAND = 15 -- seconds of travel from the player: such a stop comes first
 -- must come before it, log the quests it adds to the log (an accept: 1, a
 -- giver: its accepts) or takes off (a turn-in: -1). from: the player's point;
 -- finish: the entrance (nil: the path ends at its last stop). travel(a, b) ->
--- seconds | nil (nil and unknown points cost FAR). opts: { cap, seeds }:
+-- seconds | nil (nil and unknown points cost FAR). opts: { cap, seeds, pause }:
 -- cap, the most quests the route may add to the log at any time (nil: no
 -- limit); seeds, orders of every stop to improve on besides the planner's own
--- (the pick-up guide's one-quest-at-a-time route). -> order (stop indices),
+-- (the pick-up guide's one-quest-at-a-time route); pause, an optional cooperative
+-- budget check for a caller running in a coroutine. -> order (stop indices),
 -- cost. The stops at hand (AT_HAND) come first; ties keep the authored order.
 function Dungeons.PlanStops(stops, from, finish, travel, opts)
 	local n = #stops
 	local cap = opts and opts.cap
+	local pause = opts and opts.pause
 	-- Travel memoised by place: a quest's accept and the giver stop beside it,
 	-- or its turn-in and the next quest's accept, are separate points at one
 	-- spot, and each estimate plans a route.
@@ -1096,6 +1098,7 @@ function Dungeons.PlanStops(stops, from, finish, travel, opts)
 		return k
 	end
 	local function T(a, b)
+		if pause then pause() end
 		if a == nil or b == nil then return FAR end
 		if a == b then return 0 end
 		local ka, kb = pk(a), pk(b)
@@ -1390,7 +1393,7 @@ function Dungeons.PlanStops(stops, from, finish, travel, opts)
 	end
 	if bestO then return bestO, bestC end
 	-- Nothing fits the log's room: the route without it.
-	if cap then return Dungeons.PlanStops(stops, from, finish, travel, { seeds = opts.seeds }) end
+	if cap then return Dungeons.PlanStops(stops, from, finish, travel, { seeds = opts.seeds, pause = pause }) end
 	return near, cost(near)
 end
 

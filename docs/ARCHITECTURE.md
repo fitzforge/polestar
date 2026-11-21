@@ -2803,11 +2803,13 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   character's side nearest the player (`Lookup.QuestEnd`). The guide
   window's "Still to do" list gives them one row, "N finished quests to hand
   in elsewhere (X XP)", and Make room shows a "Finished quests you're still
-  carrying (N)" button while there are any; either opens
-  `UI.ShowQuestRoom("carried")`: each quest
+  carrying (N)" button for all finished quests; either opens
+  `UI.ShowQuestRoom("carried")`, whose `RoutePlan.Carried(true)` includes
+  every ready quest even without a selected route: each quest
   with who takes it in and where, an Abandon button on a grey one, and
   Guide me (the Lookup planner kind `carried`, `lookup/carried/log`: one
-  stop per ender, nearest first). While you're here lists them too
+  stop per ender, ordered by estimated travel time; see "Completed quests
+  across the quest log"). While you're here lists them too
   (Engine `Own.hereStranded`, after `Own.hereGroups`): a finished quest no
   step of the loaded guide from the live one on hands in, whose ender
   stands on the player's map, is a hand-in line
@@ -8267,6 +8269,69 @@ Polestar.Lookup.AcceptPre(goal, quest) -> goal         -- the accept with the qu
   tooltip gets "Mount: <name>" and its best source; `MOUNT_SPOTTED(unit, info)`
   fires on target change and mouseover; `/polestar mount` opens Lookup at the
   target's (else the mouseover's) mount, `/polestar lookup [text]` searches.
+
+### Completed quests across the quest log
+
+`addon/Polestar/Lookup/Handins.lua` builds the existing `carried` planner's
+**Hand in your finished quests** guide. The guide window's menu and the quest
+room's **Guide me** both use `Polestar.Handins.Start()` to open it explicitly.
+The menu entry stays visible without a selected guide or cleanup candidates;
+it is disabled when `Handins.Ready()` is empty. `/polestar questlog` opens
+the quest room even when its cleanup list is empty; its finished-quest
+button reaches this guide. It considers the
+whole quest log, including quests outside the current zone and leveling
+guide. `RoutePlan.Ready()` selects quests the client reports ready, and plain deliveries
+whose client and Codex records both have no objectives. Failed quests are
+excluded. It adds no follow-up accepts or unfinished objectives. The quest
+room offers Guide me for every nonempty finished list, including one whose
+hand-in locations are all unknown. The existing off-route reminder keeps
+using `RoutePlan.Carried()`; the quest room and planner use the all-ready
+selection without depending on the active guide's route.
+
+Its turn-in goals set `currentLog = true`, a runtime guide-goal flag valid
+only on `turnin`. Such a goal completes when the quest leaves the log,
+independently of previous completion flags or check-offs. Quest history
+used by prerequisites and `turnedin` predicates is unchanged; Core does
+not recognize a particular generated guide's ID.
+
+The generated guide keeps its existing ID, `lookup/carried/log`, and groups
+quests at a shared ender from `RoutePlan.Ender`. `Lookup/HandinRoute.lua`
+supplies a quick provisional order using
+direct-distance estimates from the player's position. It refines a sparse
+set of travel costs: the player to each stop, and each stop to its two
+nearest neighbors and its provisional successor. Other pairs use the
+direct-distance approximation. `Nav.EstimateTravelCooperative` runs the
+real transport planner with a yielding CPU clock; suspended time does not
+consume the search's CPU allowance. It does not consume the public API's
+estimate budget or short-lived cache. The final stop-order search uses
+`Dungeons.PlanStops` with the same cooperative clock in `opts.pause`,
+alongside its existing capacity and seed options. Existing synchronous
+callers keep their behavior. The job targets three milliseconds of work
+per 50 ms slice, with a maximum of four new estimates per slice. These are
+cooperative checkpoints, not a hard real-time bound on individual client
+API calls or helpers. If registered travel data changes while work is
+suspended, the job discards the old search and costs before resuming and
+finishes with an approximate order that still includes every stop.
+
+The refined estimates use the travel planner's available connections;
+neither order guarantees the fastest route or establishes that every
+location is reachable. If the cost checks have not finished after 30
+seconds, the guide orders with the costs gathered so far and explains that
+the estimates are incomplete. Every stop with a known destination keeps
+its turn-in goal and waypoint, including when its incoming travel estimate
+is missing; such a stop carries an explanatory note. Quests whose hand-in
+location itself is unknown remain named in a separate step with ordinary
+`currentLog` turn-in goals and no coordinates. They have no invented
+waypoint, and a new attempt of the same repeatable cannot inherit a manual
+task's check-off.
+
+`Start()` opens the guide and shows the guide window; another call replans
+in the same tab. It returns the guide id on success, or `nil, reason` and a
+message when it cannot start. While the guide is open, changes to the set
+of ready quests refresh its remaining hand-ins without switching away from
+the player's active tab. Ordinary objective progress does not republish
+an unchanged guide. This route uses the existing guide and navigation
+controls and does not enable automatic quest actions.
 
 ## Dungeons — dungeon quest journal, pick-up and hand-in guides
 

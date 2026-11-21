@@ -516,6 +516,7 @@ local function checkGoal(goal)
 		return "bad gather"
 	end
 	if goal.text ~= nil and type(goal.text) ~= "string" then return "bad text" end
+	if goal.currentLog ~= nil and (goal.currentLog ~= true or goal.t ~= "turnin") then return "bad currentLog" end
 	if goal.t == "rep" and (goal.standing < 1 or goal.standing > 8) then return "standing outside 1-8" end
 	-- `either` (format 11): one of its step's set.
 	if goal.either ~= nil and goal.either ~= true then return "bad either" end
