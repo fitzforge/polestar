@@ -63,6 +63,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- to 5 the top, bottom, left and right shade) go too: the shade would lie
 	-- on the window's own top row as a dark seam under every tab.
 	local FOOT_EDGES = { { 1, 2 }, { 3 }, { 4 }, { 5 } }
+	local KIT_SIDE = { "TOP", "BOTTOM", "LEFT", "RIGHT" }
 	local function windowPaint(f, footOf)
 		f.psGuide = true
 		f.psFootOf = footOf
@@ -76,6 +77,10 @@ ns.UI.GuideFrame.Part(function(GF)
 			if e then for _, i in ipairs(FOOT_EDGES[side] or {}) do if e[i] then e[i]:SetAlpha(0) end end end
 			local sd = rawget(x, "psShadow")
 			if sd then sd:Hide() end
+			-- A game look's own frame (its chat rim, meter or bronze line) open
+			-- on that side too, so the tab runs into the window's frame and
+			-- does not stand beside it as a box of its own.
+			if Theme.KitOpen then Theme.KitOpen(x, KIT_SIDE[side]) end
 		end
 		Theme.Skin(f, "window")
 	end
