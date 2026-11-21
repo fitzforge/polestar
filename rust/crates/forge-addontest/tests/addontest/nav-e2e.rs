@@ -340,7 +340,7 @@ fn stonefire_does_not_send_a_player_on_the_vendor_floor_back_out_for_an_incomple
 			assert(#finds > before and job.done)
 			local pts = job.points
 			local tip = pts and pts[#pts]
-			return { state = hud.state, bearing = hud.x ~= nil,
+			return { state = hud.state, bearing = hud.x ~= nil, caption = N.noWalk or false,
 				closer = tip and dist(tip.x, tip.y, gx, gy) < dist(x, y, gx, gy) or false }
 		end
 		emit({ street = from(-4821.1, -1152.4, 502.3, false),
@@ -352,7 +352,9 @@ fn stonefire_does_not_send_a_player_on_the_vendor_floor_back_out_for_an_incomple
 	assert!(street["bearing"] == true && street["closer"] == true, "the mapped approach from the flightmaster still guides");
 	let door = &result["door"];
 	assert!(
-		(door["state"] == "travel" && door["bearing"] == true && door["closer"] == true) || (door["state"] == "unmapped" && door["bearing"] == false),
+		(door["state"] == "travel" && door["bearing"] == true && door["closer"] == true)
+			// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+			|| (door["state"] == "travel" && door["bearing"] == true && door["caption"] == "unmapped"),
 		"guide a better approach or withhold the arrow; don't leave the vendor's floor for a dead end farther away: {door}"
 	);
 }
@@ -1324,7 +1326,9 @@ const WALK_COMPASS: &str = r#"
 		if value then published = published + 1 end
 	end
 	Polestar.Set("nav.blizzardWaypoint", true)
-	local function checkWalk(named)
+	-- straight: no walk can be found there, so the arrow points straight at the goal and says why (#3409, Fitz's
+	-- ruling: as before 0.4.2): -> "<state>|<Nav.noWalk>" once settled.
+	local function checkWalk(named, straight)
 		w.setLevel(8)
 		place(1429, GOLDSHIRE[1], GOLDSHIRE[2], GOLDSHIRE[3])
 		if named then
@@ -1334,6 +1338,12 @@ const WALK_COMPASS: &str = r#"
 			N.SetTarget(1429, 39.5, 82.4, "Fargodeep Mine", "e")
 		end
 		local first = aim()
+		if straight then
+			for _ = 1, 120 do stub.advance(.05); aim() end
+			local settled = aim()
+			assert(settled.state ~= "travel" or settled.x ~= nil, "a straight bearing")
+			return settled.state .. "|" .. tostring(N.noWalk)
+		end
 		assert(not first.x and not first.y and published == 0, "unchecked HUD or waypoint bearing")
 		for _, leg in ipairs(N.GetRouteGeometry().legs) do
 			assert(not leg.current or #leg.pts == 0, "current walk drew an unchecked route")
@@ -1348,7 +1358,7 @@ const WALK_COMPASS: &str = r#"
 	end"#;
 
 const DAMAGED_MAP: &str = r#"
-	local state = checkWalk(false)
+	local state = checkWalk(false, true)
 	local f = finds[#finds]
 	emit({ state = state, available = E.Available(0), points = f and f.points and #f.points or 0, cost = f and f.cost })"#;
 
@@ -1369,10 +1379,11 @@ fn with_maps_and(files: &[PathBuf], extra: &str, script: &str) -> Value {
 }
 
 #[test]
-fn missing_walking_engine_gives_no_hud_map_or_waypoint_bearing() {
+fn missing_walking_engine_points_straight_and_says_why() {
 	skip_unless_ready!();
-	let out = with_maps_and(&[], "stub.packs.Polestar_Nav = nil", "emit(checkWalk(false))");
-	assert_eq!(out, "unmapped");
+	let out = with_maps_and(&[], "stub.packs.Polestar_Nav = nil", "emit(checkWalk(false, true))");
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	assert_eq!(out, "travel|unmapped");
 }
 
 #[test]
@@ -1398,23 +1409,25 @@ fn missing_continent_pack_does_not_publish_a_waypoint_before_the_arrow_samples()
 	skip_unless_ready!();
 	let (_tmp, ns) = ns_file();
 	let part = forge_nav::pack::part_of(0).unwrap();
-	let out = with_maps_and(&nav_files(&ns), &format!("stub.packs.{part} = {{}}"), "emit(checkWalk(false))");
-	assert_eq!(out, "unmapped");
+	let out = with_maps_and(&nav_files(&ns), &format!("stub.packs.{part} = {{}}"), "emit(checkWalk(false, true))");
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	assert_eq!(out, "travel|unmapped");
 }
 
 #[test]
-fn a_map_with_no_walking_data_gives_no_bearing_when_routing_is_enabled() {
+fn a_map_with_no_walking_data_points_straight_and_says_why_when_routing_is_enabled() {
 	skip_unless_ready!();
 	let (_tmp, ns) = ns_file();
 	let mine = Regex::new(r"[\\/]Nav0(_\d+)?\.lua$").unwrap();
 	let files: Vec<PathBuf> = nav_files(&ns).into_iter().filter(|p| !mine.is_match(&p.to_string_lossy())).collect();
 	let out = with_maps(&files, DAMAGED_MAP);
 	assert_eq!(out["available"], false, "no data for map 0");
-	assert_eq!(out["state"], "unmapped");
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	assert_eq!(out["state"], "travel|unmapped");
 }
 
 #[test]
-fn a_corrupted_grid_block_gives_no_bearing_through_that_block() {
+fn a_corrupted_grid_block_finds_no_path_through_it_and_the_arrow_points_straight() {
 	skip_unless_ready!();
 	let (k, file) = cluster_file(-9444.062, 77.667);
 	let file = file.expect("Goldshire's cluster is in one part file");
@@ -1439,7 +1452,8 @@ fn a_corrupted_grid_block_gives_no_bearing_through_that_block() {
 	};
 	assert_eq!(out["available"], true, "the map is there");
 	assert_eq!(out["points"], 0, "no path through the broken cluster ({})", out["cost"]);
-	assert_eq!(out["state"], "unmapped");
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	assert_eq!(out["state"], "travel|unmapped");
 }
 
 /// Geo.toWorld (tools/lib/planner/geo.js): the frame of f's set first ("e": Era, else the live one), the other when
@@ -1674,7 +1688,8 @@ fn ashenvale_west_of_astranaar_prices_safe_walks_before_suggesting_a_flight() {
 			local legs, ci = N.GetRoute()
 			local drawn = N.GetRouteGeometry().legs
 			if refused then
-				assert(not legs and aim().state == "unmapped" and #drawn == 0)
+				-- #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+				assert(not legs and aim().state == "travel" and N.noWalk ~= nil and #drawn == 1)
 			else
 				assert(straight[58] < straight[61] and measured[58] > measured[61], "terrain must reverse the landing")
 				assert(legs[ci].kind == "fly" and legs[ci].to.id == 61 and legs[ci+1].engine == "path")
@@ -2064,11 +2079,13 @@ fn t_234_floor_off_the_undercitys_south_lift_indoors_the_walk_to_the_plundering_
 	);
 	eprintln!("at the lift {}; walked in: from z {}, highest within 60 yd {}, {} yd", out["atLift"], out["walked"]["z"], out["walked"]["top"], out["walked"]["yards"]);
 	assert_eq!(out["atLift"], false, "at the lift the floor is unknown");
-	assert_eq!(out["atLiftAim"], "unmapped");
-	assert_eq!(out["atLiftBearing"], false);
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	assert_eq!(out["atLiftAim"], "travel");
+	assert_eq!(out["atLiftBearing"], true);
 	assert_eq!(out["atLiftFinds"], 0, "no flat search can tell which deck the player is standing on");
 	assert_eq!(out["lowerAim"], true, "the walking bearing follows the lower-floor path");
-	assert_eq!(out["wrong"], serde_json::json!({"from":55.2, "answer":"no safe walking route", "bearing":false}));
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	assert_eq!(out["wrong"], serde_json::json!({"from":55.2, "answer":"no safe walking route", "bearing":true}));
 	assert!((f(&out["walked"]["z"]) + 62.2).abs() <= 3.0, "searched from the lower level ({})", out["walked"]["z"]);
 	assert!(f(&out["walked"]["top"]) < -20.0, "the drawn line's first 60 yd stay down there (highest {})", out["walked"]["top"]);
 }
@@ -2141,9 +2158,10 @@ fn lifts_from_the_undercitys_lower_floor_to_brill_the_walk_goes_to_the_south_lif
 	];
 	assert_eq!(strs(&out["route"]), want, "to the south lift, up, and out along the fixed way");
 	assert_eq!(out["to"], serde_json::json!([1544.8, 240.6, -41.4]), "the request is for the lower landing");
-	assert_eq!(out["approach"], serde_json::json!(["no safe walking route", false, false]));
-	assert_eq!(out["unknownBoard"], serde_json::json!(["unmapped", "walk", "Walk to the lift"]));
-	assert_eq!(out["wrongBoard"], serde_json::json!(["unmapped", "walk", "Walk to the lift"]));
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	assert_eq!(out["approach"], serde_json::json!(["no safe walking route", false, true]));
+	assert_eq!(out["unknownBoard"], serde_json::json!(["travel", "walk", "Walk to the lift"]));
+	assert_eq!(out["wrongBoard"], serde_json::json!(["travel", "walk", "Walk to the lift"]));
 	for stage in ["board", "retreat", "receive"] {
 		assert_eq!(out[stage], serde_json::json!(["instruction", "lift", "Ride the elevator up"]), "{stage}");
 	}
@@ -2565,10 +2583,11 @@ fn an_alliance_walk_from_ironforge_does_not_draw_a_route_into_guarded_brill() {
 		N.SetTarget(1420, 61.9, 52.3, "Brill", "e")
 		for _ = 1, 300 do aim(); stub.advance(.05) end
 		local a = aim()
-		emit({ state = a.state, bearing = a.x ~= nil, itinerary = N.GetRoute() ~= nil, target = N.GetTarget().label })"#,
+		emit({ state = a.state, bearing = a.x ~= nil, itinerary = N.GetRoute() ~= nil, target = N.GetTarget().label, caption = N.noWalk or false })"#,
 		true,
 	);
-	assert_eq!(out, serde_json::json!({"state":"unsafe","bearing":false,"itinerary":false,"target":"Brill"}));
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	assert_eq!(out, serde_json::json!({"state":"travel","bearing":true,"itinerary":false,"target":"Brill","caption":"unsafe"}));
 }
 
 // Thunder Bluff (Fitz, 2026-10-23, TB 52.2,31.1 off the north lift's top): the walk on from the mesa crossing's far
@@ -2713,15 +2732,17 @@ fn ironforge_gate_after_reload_uses_the_road_below_the_mountain_only_for_the_fri
 		end
 		local a = aim()
 		emit({ from = f and f.from[3] or false, top = top > -math.huge and top or false, n = f and f.points and #f.points or 0,
-			state = a.state, bearing = a.x ~= nil, measured = a.measured == true })"#;
+			state = a.state, bearing = a.x ~= nil, measured = a.measured == true, caption = N.noWalk or false })"#;
 	let friendly = run(&scene.replace("@FACTION", "Alliance"), true);
 	assert_eq!(friendly["measured"], true, "Alliance follows the searched road out");
 	assert!(f(&friendly["n"]) > 2.0, "the walk out is searched");
 	assert!(friendly["from"] == false || f(&friendly["from"]) < 520.0, "searched from the gate's floor or without a height ({})", friendly["from"]);
 	assert!(f(&friendly["top"]) < 520.0, "the first 400 yd stay on the road below the gate ({})", friendly["top"]);
 	let enemy = run(&scene.replace("@FACTION", "Horde"), true);
-	assert_eq!(enemy["state"], "unsafe", "Ironforge is an enemy settlement");
-	assert_eq!(enemy["bearing"], false);
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	assert_eq!(enemy["state"], "travel", "Ironforge is an enemy settlement");
+	assert_eq!(enemy["bearing"], true);
+	assert_eq!(enemy["caption"], "unsafe");
 	assert_eq!(enemy["n"], 0);
 }
 
@@ -2779,13 +2800,15 @@ fn stormwind_street(faction: &str) {
 			for _, p in ipairs(f and f.points or {}) do north = math.max(north, p.x) end
 			local a = aim()
 			emit({ from = f and f.from[3] or false, yards = floor(length(f and f.points or {})), n = f and f.points and #f.points or 0,
-				north = north > -math.huge and floor(north) or false, state = a.state, bearing = a.x ~= nil, measured = a.measured == true })"#
+				north = north > -math.huge and floor(north) or false, state = a.state, bearing = a.x ~= nil, measured = a.measured == true, caption = N.noWalk or false })"#
 			.replace("@FACTION", faction),
 		true,
 	);
 	if faction == "Horde" {
-		assert_eq!(out["state"], "unsafe", "the Trade District is an enemy settlement");
-		assert_eq!(out["bearing"], false, "no straight bearing through the city");
+		// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+		assert_eq!(out["state"], "travel", "the Trade District is an enemy settlement");
+		assert_eq!(out["bearing"], true);
+		assert_eq!(out["caption"], "unsafe", "no safe walking route through the city");
 		assert_eq!(out["n"], 0, "no walking path through the city");
 		return;
 	}
@@ -2979,15 +3002,16 @@ fn the_stormwind_tram_exit_offers_the_city_walk_only_to_alliance() {
 			for _ = 1, 300 do aim(); stub.advance(0.05) end
 			local a = aim()
 			local legs, ci = N.GetRoute()
-			emit({ state = a.state, bearing = a.x ~= nil,
+			emit({ state = a.state, bearing = a.x ~= nil, caption = N.noWalk or false,
 				leg = legs and legs[ci] and legs[ci].kind or false })"#
 				.replace("@SIDE", &lua_string(side)),
 			true,
 		);
 		if side == "Horde" {
-			assert_eq!(out, serde_json::json!({ "state": "unsafe", "bearing": false, "leg": false }));
+			// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+			assert_eq!(out, serde_json::json!({ "state": "travel", "bearing": true, "caption": "unsafe", "leg": false }));
 		} else {
-			assert_eq!(out, serde_json::json!({ "state": "travel", "bearing": true, "leg": "walk" }));
+			assert_eq!(out, serde_json::json!({ "state": "travel", "bearing": true, "caption": false, "leg": "walk" }));
 		}
 	}
 }

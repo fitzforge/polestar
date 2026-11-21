@@ -1801,6 +1801,8 @@ fn without_a_player_position_the_arrow_says_so_keeps_the_label_and_points_again_
 fn the_arrow_label_keeps_a_long_quest_name_on_one_line_and_wraps_a_longer_one_to_two_1581() {
 	let out = run(r#"
 		local seen = {}
+		-- The label alone: no walk searched, so none missing to be explained under it (#3409).
+		Polestar.Set("nav.navRouting", false)
 		local function snap(label)
 			target(100, 0, label)
 			stub.advance(0.1)
