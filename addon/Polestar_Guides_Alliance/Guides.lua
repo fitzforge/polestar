@@ -11202,8 +11202,8 @@ do
 						{ t = "accept", quest = 1560, title = "Tooga's Quest", npc = 5955, npcName = "Tooga", minLevel = 40, qlvl = 50, limit = 1800, map = 1446, x = 30.2, y = 70.7, f = "e", escort = true },
 						{ t = "complete", quest = 1560, title = "Tooga's Quest", escort = true, objs = { { text = "Lead Tooga to Torta", count = 1 } } },
 						{ t = "turnin", quest = 1560, title = "Tooga's Quest", npc = 6015, npcName = "Torta", map = 1446, x = 66.48, y = 25.73, z = 0.8 },
-						{ t = "accept", quest = 97540, title = "Oasis", npc = 5955, npcName = "Tooga", qlvl = 50, map = 1446, x = 66.38, y = 25.79, z = 0.7, spotsPacked = "67,25.4,,52,4;41,54.6,,40,1;29.5,60.4,,40,1;30.3,64.6,,40,1;28.6,67.4,,40,1;30.2,70.7,,40,1;29.8,73.9,,40,2", note = "{npc:5955}, beside her: Oasis" },
-						{ t = "turnin", quest = 97540, title = "Oasis", npc = 5955, npcName = "Tooga", map = 1446, x = 66.38, y = 25.79, z = 0.7, spotsPacked = "67,25.4,,52,4;41,54.6,,40,1;29.5,60.4,,40,1;30.3,64.6,,40,1;28.6,67.4,,40,1;30.2,70.7,,40,1;29.8,73.9,,40,2" },
+						{ t = "accept", quest = 97540, title = "Oasis", npc = 5955, npcName = "Tooga", qlvl = 50, map = 1446, x = 66.38, y = 25.79, z = 0.7, spotsPacked = "67,25.4,,52,4;29.5,60.4,,40,1;30.3,64.6,,40,1;28.6,67.4,,40,1;30.2,70.7,,40,1;29.8,73.9,,40,2", note = "{npc:5955}, beside her: Oasis" },
+						{ t = "turnin", quest = 97540, title = "Oasis", npc = 5955, npcName = "Tooga", map = 1446, x = 66.38, y = 25.79, z = 0.7, spotsPacked = "67,25.4,,52,4;29.5,60.4,,40,1;30.3,64.6,,40,1;28.6,67.4,,40,1;30.2,70.7,,40,1;29.8,73.9,,40,2" },
 					},
 				},
 				{
