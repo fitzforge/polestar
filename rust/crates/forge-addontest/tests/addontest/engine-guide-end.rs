@@ -685,10 +685,7 @@ fn a_hidden_line_or_another_guide_s_line_is_no_offer_those_ends_still_come() {
 			way = on_the_way(OTHER_TAB)
 		),
 	});
-	assert_eq!(
-		other,
-		json!({ "line": true, "active": "test/onway", "log": ["GUIDE_END test/other undone=1 live=1 next=test/barrens choose=nil"] })
-	);
+	assert_eq!(other, json!({ "line": true, "active": "test/onway", "log": ["GUIDE_END test/other undone=1 live=1 next=test/barrens choose=nil"] }));
 }
 
 // A repeatable last quest handed in from the line and taken again: the step stays seen done, no end on the accept;
@@ -889,11 +886,7 @@ fn the_hand_in_that_finishes_the_last_step_decides_not_one_done_before_or_long_a
 		})
 	};
 	assert_eq!(follow_up("2"), json!({ "handedIn": {}, "taken": {} }), "the follow-up taken at the same visit");
-	assert_eq!(
-		follow_up("120"),
-		json!({ "handedIn": {}, "taken": ["GUIDE_END test/onway undone=3 live=3 next=test/barrens choose=nil"] }),
-		"the follow-up taken on one's own long after"
-	);
+	assert_eq!(follow_up("120"), json!({ "handedIn": {}, "taken": ["GUIDE_END test/onway undone=3 live=3 next=test/barrens choose=nil"] }), "the follow-up taken on one's own long after");
 }
 
 // Dungeons in the route: the live step waits on a level (an accept for level 5, a dungeon run after it). The last
