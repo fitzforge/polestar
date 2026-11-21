@@ -17,7 +17,7 @@ return {
 
 	-- Step 2: The Windstone Formations
 	-- plural, as words: Windstone Formations = {object:697118} Windstone Formation
-	["The Windstone Formations"] = "Las Windstone Formations",
+	["The Windstone Formations"] = "Las formaciones de piedras de viento",
 	-- {area:16636} Falaath Village
 	-- plural, as words: Windstone Formations = {object:697118} Windstone Formation
 	["The bough lies on the ground among the Windstone Formations, the wind shrine on the rise west of Fillion's camp, south of {area:16636}. It does not sparkle, so look at the ground by the stones; there are two spots for it."] = "La rama está en el suelo entre las Formaciones de piedra de viento, el santuario del viento en la elevación al oeste del campamento de Fillion, al sur de {area:16636}. No brilla, así que mira el suelo junto a las piedras; hay dos lugares posibles.",
@@ -62,7 +62,7 @@ return {
 	-- Step 10: Bink's Toolbox
 	-- {area:133} Gnomeregan
 	-- plural, as words: Leper Gnomes = {npc:1211} Leper Gnome
-	["Head west along the road to {area:133}. Just north of its entrance stand two huts; the toolbox is in the taller, eastern one, the hut with the lift: a small grey box on the ground floor, half under the table beside the lift. Leper Gnomes (level 8) guard the huts: pull them singly. There is only one toolbox and it takes 15 minutes to come back after someone opens it, so wait nearby if it is gone."] = "Ve al oeste por el camino hasta {area:133}. Justo al norte de su entrada hay dos chozas; la caja de herramientas está en la más alta, la del este, la choza con el elevador: una cajita gris en la planta baja, medio debajo de la mesa junto al elevador. Los gnomos leprosos (nivel 8) custodian las chozas: atráelos de a uno. Solo hay una caja de herramientas y tarda 15 minutos en volver después de que alguien la abre, así que espera cerca si no está.",
+	["Head west along the road to {area:133}. Just north of its entrance stand two huts; the toolbox is in the taller, eastern one, the hut with the lift: a small grey box on the ground floor, half under the table beside the lift. Leper Gnomes (level 8) guard the huts: pull them singly. There is only one toolbox and it takes 15 minutes to come back after someone opens it, so wait nearby if it is gone."] = "Ve al oeste por el camino hasta {area:133}. Justo al norte de su entrada hay dos chozas; la caja de herramientas está en la más alta, la del este, la choza con el elevador: una cajita gris en la planta baja, medio debajo de la mesa junto al elevador. Los gnomos parias (nivel 8) custodian las chozas: atráelos de a uno. Solo hay una caja de herramientas y tarda 15 minutos en volver después de que alguien la abre, así que espera cerca si no está.",
 
 	-- Step 11: Back to Bink
 	-- {npc:5144} Bink

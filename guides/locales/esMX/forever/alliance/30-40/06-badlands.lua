@@ -58,7 +58,7 @@ return {
 	-- {item:7847} Buzzard Gizzard · {area:345} Agmond's End
 	["{item:7847}, if you still need one: the Buzzards east of {area:345} drop it only rarely"] = "{item:7847}, si aún te falta: las águilas ratoneras al este de {area:345} la sueltan muy rara vez",
 	-- {quest:739} Murdaloc · {zone:1418} Badlands
-	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {zone:1418} guide at 43, and kill the Bonesnappers for this quest now."] = "El propio {quest:739} (42) anda entre los rompehuesos: déjalo para la guía posterior de {zone:1418}, a nivel 43, y mata ahora a los rompehuesos para esta misión.",
+	["{quest:739} himself (42) walks among the Bonesnappers: leave him for the later {zone:1418} guide at 43, and kill the Bonesnappers for this quest now."] = "El propio {quest:739} (42) anda entre los cascahuesos: déjalo para la guía posterior de {zone:1418}, a nivel 43, y mata ahora a los cascahuesos para esta misión.",
 	-- {item:278402} Unstudied Artifact
 	["{item:278402}, from the Shadowforge diggers and the Bonesnappers"] = "{item:278402}, de los excavadores Forjatiniebla y los Cascahuesos",
 

@@ -101,7 +101,7 @@ return {
 
 	-- Step 16: A Donation of Silk
 	-- {item:4306} Silk Cloth · {zone:1437} Wetlands
-	["{item:4306} drops from humanoids level 23 to 40: the Dragonmaw of the {zone:1437}, the Syndicate of Alterac and Arathi, Stranglethorn's trolls."] = "{item:4306} lo sueltan los humanoides de nivel 23 a 40: los Faucedraco de {zone:1437}, el Sindicato de Alterac y Arathi, los trols de Tuercespina.",
+	["{item:4306} drops from humanoids level 23 to 40: the Dragonmaw of the {zone:1437}, the Syndicate of Alterac and Arathi, Stranglethorn's trolls."] = "{item:4306} lo sueltan los humanoides de nivel 23 a 40: los Faucedraco de {zone:1437}, la Hermandad de Alterac y Arathi, los trols de Tuercespina.",
 
 	-- Step 17: A Donation of Mageweave
 	-- {item:4338} Mageweave Cloth · {object:147516} Dark Iron (no name in this language: may be words) · {zone:1418} Badlands · {zone:1427} Searing Gorge · {zone:1446} Tanaris · {zone:1444} Feralas

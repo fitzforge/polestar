@@ -35,7 +35,7 @@ return {
 
 	-- Step 3: Searing Lava Spiders
 	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
-	["Searing Lava Spiders"] = "Arañas de lava superiores",
+	["Searing Lava Spiders"] = "Arañas de lava abrasadoras",
 	["The spiders roam the lava pools and plateaus of the south-west."] = "Las arañas recorren las pozas de lava y mesetas del suroeste.",
 
 	-- Step 4: The Slag Pit
@@ -128,16 +128,16 @@ return {
 	-- plural, as words: Dark Iron Deposits = {object:165658} Dark Iron Deposit
 	["Honored to Revered is 12,000 reputation, all of it from {npc:12944} in the Grim Guzzler, the tavern deep in {area:1584}. The way there: with the {item:11000}, open the East Garrison door near the entrance; without it, win the Ring of Law and climb to the East Garrison. Pull the {object:161460} there to lower the bridge to the Manufactory, the only way to the Guzzler. His Favor Amongst the Brotherhood turn-ins never stop counting: 1 {item:17010}, 1 {item:17011} or 1 {item:11382} for 200, 2 {item:17012} for 150, 10 {item:11370} for 50. To Revered that is 60 cores, 160 {item:17012} or 2,400 {item:11370}. The cores and the leather come only from the {area:2717}, which is not among the first raids Blizzard has announced for Forever; until it opens, {item:11370} is the way. Miners with 230 skill find Dark Iron Deposits around the Cauldron in {zone:1427}, across the {zone:1428} and inside {area:1584}, and a deposit now and then gives a {item:11382}; the ore also sells on the Auction House. Honored opens {item:16980} 18g, {item:19156} 6g, {item:19149} 6g, {item:16984} 16g, {item:16989} 9g, {item:19148} 6g, {item:17015} 22g, {item:17016} 22g and {item:273576} 8g."] = "De Honorable a Reverenciado son 12.000 de reputación, todo con {npc:12944} en la taberna Tragapenas, en lo hondo de {area:1584}. El camino: con la {item:11000}, abre la puerta de la Guarnición Este cerca de la entrada; sin ella, gana el Anillo de la Ley y sube a la Guarnición Este. Tira de la {object:161460} de ahí para bajar el puente a la Manufactoría, el único camino a la taberna. Sus entregas de Favor de la Hermandad nunca dejan de contar: 1 {item:17010}, 1 {item:17011} o 1 {item:11382} por 200, 2 {item:17012} por 150, 10 {item:11370} por 50. Hasta Reverenciado son 60 núcleos, 160 {item:17012} o 2.400 {item:11370}. Los núcleos y el cuero solo salen de {area:2717}, que no está entre las primeras bandas que Blizzard anunció para Forever; hasta que abra, el {item:11370} es la forma. Los mineros con 230 de habilidad encuentran depósitos de hierro negro alrededor de La Caldera en {zone:1427}, por {zone:1428} y dentro de {area:1584}, y de vez en cuando un depósito da una {item:11382}; el mineral también se vende en la casa de subastas. Honorable abre {item:16980} 18g, {item:19156} 6g, {item:19149} 6g, {item:16984} 16g, {item:16989} 9g, {item:19148} 6g, {item:17015} 22g, {item:17016} 22g y {item:273576} 8g.",
 	-- {item:17010} Fiery Core · {area:2717} Molten Core
-	["{item:17010}: Firewalkers, Flameguards and Firelords in the {area:2717}"] = "{item:17010}: caminantes del fuego, guardallamas y señores del fuego en {area:2717}",
+	["{item:17010}: Firewalkers, Flameguards and Firelords in the {area:2717}"] = "{item:17010}: caminafuegos, guardallamas y señores del fuego en {area:2717}",
 	-- {item:17011} Lava Core
 	-- plural, as words: Lava Elementals = {npc:12076} Lava Elemental · Lava Reavers = {npc:12100} Lava Reaver · Molten Destroyers = {npc:11659} Molten Destroyer
-	["{item:17011}: Lava Elementals, Lava Reavers and Molten Destroyers"] = "{item:17011}: elementales de lava, atracadores de lava y destructores fundidos",
+	["{item:17011}: Lava Elementals, Lava Reavers and Molten Destroyers"] = "{item:17011}: elementales de lava, atracadores de lava y destructores de magma",
 	-- {item:17012} Core Leather
 	-- plural, as words: Ancient Core Hounds = {npc:11673} Ancient Core Hound
-	["{item:17012}: skin Ancient Core Hounds and Magmadar"] = "{item:17012}: despelleja a los canes del Núcleo ancestrales y a Magmadar",
+	["{item:17012}: skin Ancient Core Hounds and Magmadar"] = "{item:17012}: despelleja a los canes del Núcleo ancianos y a Magmadar",
 	-- {item:11382} Blood of the Mountain · {object:165658} Dark Iron Deposit
 	-- plural, as words: Molten Destroyers = {npc:11659} Molten Destroyer
-	["{item:11382}: Molten Destroyers, sometimes a {object:165658}"] = "{item:11382}: destructores fundidos, a veces un {object:165658}",
+	["{item:11382}: Molten Destroyers, sometimes a {object:165658}"] = "{item:11382}: destructores de magma, a veces un {object:165658}",
 	-- {item:11370} Dark Iron Ore · {skill:186} Mining
 	-- plural, as words: Dark Iron Deposits = {object:165658} Dark Iron Deposit
 	["{item:11370}: Dark Iron Deposits, {skill:186} 230"] = "{item:11370}: depósitos de hierro negro, {skill:186} 230",

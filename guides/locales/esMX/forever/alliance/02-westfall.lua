@@ -81,13 +81,13 @@ return {
 	-- Step 18: Saldean's Farm
 	-- {npc:233} Farmer Saldean · {npc:235} Salma Saldean · {npc:253395} Ozwin Ironsprocket
 	-- plural, as words: Young Goretusks = {npc:454} Young Goretusk
-	["South along the road, past the fork. {npc:233} stands outside, {npc:235} in the house, {npc:253395} in the barn to the west. Young Goretusks and Fleshrippers roam the fields around the farm: start on livers and the stew's meat on the way."] = "Al sur por el camino, más allá del cruce. {npc:233} está fuera, {npc:235} en la casa, {npc:253395} en el granero al oeste. Jóvenes Colmillos y Desgarradores merodean los campos de la granja: empieza con los hígados y la carne del guiso de camino.",
+	["South along the road, past the fork. {npc:233} stands outside, {npc:235} in the house, {npc:253395} in the barn to the west. Young Goretusks and Fleshrippers roam the fields around the farm: start on livers and the stew's meat on the way."] = "Al sur por el camino, más allá del cruce. {npc:233} está fuera, {npc:235} en la casa, {npc:253395} en el granero al oeste. Los dentosangres jóvenes y los desgarradores merodean los campos de la granja: empieza con los hígados y la carne del guiso de camino.",
 	-- {npc:235} Salma Saldean
 	["{npc:235}, inside"] = "{npc:235}, adentro",
 
 	-- Step 19: Goretusk Snouts
 	-- plural, as words: Goretusk Snouts = {item:731} Goretusk Snout
-	["Goretusk Snouts"] = "Hocicos de Dentosangre",
+	["Goretusk Snouts"] = "Morros de dentosangre",
 	-- {area:108} Sentinel Hill
 	-- plural, as words: Young Goretusks = {npc:454} Young Goretusk
 	["Young Goretusks root in the fields along the road south from Saldean's to {area:108}: take their snouts on the way."] = "Los Dentosangre jóvenes hozan en los campos a lo largo del camino al sur desde lo de Saldean hasta {area:108}: consigue sus hocicos por el camino.",
@@ -185,7 +185,7 @@ return {
 	-- plural, as words: Murloc Coastrunners = {npc:126} Murloc Coastrunner
 	["Murloc Coastrunners and Raiders line the north coast from above the mine east toward the {area:916}: work along the beach eastward. They flee at low health: pull one at a time."] = "Los correcostas y asaltantes múrloc ocupan la costa norte desde encima de la mina al este hacia {area:916}: avanza por la playa hacia el este. Huyen con poca salud: atráelos de a uno.",
 	-- plural, as words: Longshore Murloc Gills = {item:254548} Longshore Murloc Gill
-	["Longshore Murloc Gills"] = "Agallas de múrloc de Playa Larga",
+	["Longshore Murloc Gills"] = "Branquias de múrloc de Playa Larga",
 
 	-- Step 37: Furlbrow's Wardrobe
 	-- {object:290} Furlbrow's Wardrobe · {area:916} The Jansen Stead · {npc:502} Benny Blaanco

@@ -147,7 +147,7 @@ return {
 	-- Step 29: Twilight Outpost
 	-- {npc:11804} Twilight Keeper Havunth · {area:3425} Cenarion Hold
 	-- plural, as words: Encrypted Twilight Texts = {item:20404} Encrypted Twilight Text
-	["{npc:11804} stands in the outpost west of {area:3425}. Keep any Encrypted Twilight Texts that drop here too."] = "{npc:11804} está en el puesto al oeste de {area:3425}. Guarda también los Textos crepusculares cifrados que caigan aquí.",
+	["{npc:11804} stands in the outpost west of {area:3425}. Keep any Encrypted Twilight Texts that drop here too."] = "{npc:11804} está en el puesto al oeste de {area:3425}. Guarda también los Textos Crepusculares codificados que caigan aquí.",
 
 	-- Step 30: Sandy Cookbook
 	-- {object:180503} Sandy Cookbook · {npc:15174} Calandrath

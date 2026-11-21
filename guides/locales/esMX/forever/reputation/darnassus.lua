@@ -44,7 +44,7 @@ return {
 	["{area:188}: the egg and the antidote"] = "{area:188}: el huevo y el antídoto",
 	-- {quest:917} Webwood Egg · {item:10640} Webwood Ichor
 	-- plural, as words: Webwood Lurkers = {npc:1998} Webwood Lurker
-	["The {quest:917} lies at the back of the spider cave; the mushrooms grow by the trees, the lilies by the pools, and the {item:10640} drops from the Webwood Lurkers."] = "{quest:917} está al fondo de la cueva de arañas; los champiñones crecen junto a los árboles, los lirios junto a los estanques, y el {item:10640} lo sueltan los acechadores Tejemadera.",
+	["The {quest:917} lies at the back of the spider cave; the mushrooms grow by the trees, the lilies by the pools, and the {item:10640} drops from the Webwood Lurkers."] = "{quest:917} está al fondo de la cueva de arañas; los champiñones crecen junto a los árboles, los lirios junto a los estanques, y el {item:10640} lo sueltan los rondadores Tejemadera.",
 
 	-- Step 6: Shadowglen: last hand-in
 	-- {area:188} Shadowglen
@@ -129,7 +129,7 @@ return {
 	["{area:442}: the seal, the {npc:6788} and the pelts"] = "{area:442}: el sello, la {npc:6788} y las pieles",
 	-- {item:5338} Ancient Moonstone Seal · {quest:956} Bashal'Aran · {npc:6788} Den Mother · {zone:1439} Darkshore
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
-	["The {item:5338} drops from the satyrs of {quest:956}; destroy the seal at the flame there. The {npc:6788} lairs north-east of {quest:956}; the Moonstalker Sires and Matriarchs roam the south of {zone:1439}."] = "El {item:5338} lo sueltan los sátiros de {quest:956}; destruye el sello en la llama de ahí. La {npc:6788} tiene su guarida al noreste de {quest:956}; los sementales y matriarcas acechalunas recorren el sur de {zone:1439}.",
+	["The {item:5338} drops from the satyrs of {quest:956}; destroy the seal at the flame there. The {npc:6788} lairs north-east of {quest:956}; the Moonstalker Sires and Matriarchs roam the south of {zone:1439}."] = "El {item:5338} lo sueltan los sátiros de {quest:956}; destruye el sello en la llama de ahí. La {npc:6788} tiene su guarida al noreste de {quest:956}; los patriarcas y matriarcas Acechalunas recorren el sur de {zone:1439}.",
 	["the seal at the ancient flame"] = "el sello en la llama antigua",
 
 	-- Step 20: A Donation of Silk
@@ -147,7 +147,7 @@ return {
 	-- Step 23: Morgan's Vigil: Dragonkin Menace
 	-- {npc:9562} Helendis Riverhorn · {area:2418} Morgan's Vigil · {zone:1428} Burning Steppes · {quest:4183} The True Masters · {faction:69} Darnassus · {object:2117} Stormwind Keep · {zone:1453} Stormwind · {npc:7044} Black Drake · {npc:7040} Black Dragonspawn · {npc:7041} Black Wyrmkin
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
-	["{npc:9562} at {area:2418}, in the south-east of the {zone:1428}, starts {quest:4183}: 175 {faction:69} reputation for two quests (level 54: in Classic 140 at 60), and the chain goes on to {object:2117} for 175 {zone:1453}. The Black Broodlings and the {npc:7044} live on the slopes north of the Vigil; the {npc:7040} and {npc:7041} west of it, in the middle of the zone."] = "{npc:9562}, en {area:2418}, en el sureste de {zone:1428}, inicia {quest:4183}: 175 de reputación con {faction:69} por dos misiones (nivel 54: en Classic 140 a nivel 60), y la cadena sigue hasta {object:2117} por 175 con {zone:1453}. Las crías negras y los {npc:7044} viven en las laderas al norte del Vigía; los {npc:7040} y {npc:7041}, al oeste, en el centro de la zona.",
+	["{npc:9562} at {area:2418}, in the south-east of the {zone:1428}, starts {quest:4183}: 175 {faction:69} reputation for two quests (level 54: in Classic 140 at 60), and the chain goes on to {object:2117} for 175 {zone:1453}. The Black Broodlings and the {npc:7044} live on the slopes north of the Vigil; the {npc:7040} and {npc:7041} west of it, in the middle of the zone."] = "{npc:9562}, en {area:2418}, en el sureste de {zone:1428}, inicia {quest:4183}: 175 de reputación con {faction:69} por dos misiones (nivel 54: en Classic 140 a nivel 60), y la cadena sigue hasta {object:2117} por 175 con {zone:1453}. Las estirpes negras y los {npc:7044} viven en las laderas al norte del Vigía; los {npc:7040} y {npc:7041}, al oeste, en el centro de la zona.",
 
 	-- Step 24: Lakeshire: Magistrate Solomon
 	-- {npc:344} Magistrate Solomon · {area:69} Lakeshire · {object:2117} Stormwind Keep · {zone:1453} Stormwind · {faction:69} Darnassus · {npc:7916} Erelas Ambersky · {area:702} Rut'theran Village · {zone:1452} Winterspring · {zone:1448} Felwood · {area:2479} Emerald Sanctuary · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {zone:1422} Western Plaguelands · {item:12663} Glyphed Oaken Branch

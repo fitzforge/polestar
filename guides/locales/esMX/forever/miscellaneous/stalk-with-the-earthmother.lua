@@ -27,13 +27,13 @@ return {
 
 	-- Step 4: Windfury Cones
 	-- plural, as words: Windfury Cones = {item:206170} Windfury Cone
-	["Windfury Cones"] = "Piñas Furia del Viento",
+	["Windfury Cones"] = "Conos de viento furioso",
 	-- {area:819} Windfury Ridge · {zone:1456} Thunder Bluff · {item:206176} Mortar and Pestle
 	-- plural, as words: Windfury Cones = {item:206170} Windfury Cone
-	["Windfury Cones lie on the ground under the harpies' nest trees on {area:819}, north-west of {zone:1456}; the harpies do not drop them. The Windfury Sorceresses (level 9-10) and Matriarchs (10-11) there stand close together: pick the cones from the edges. Once you have eight, use the {item:206176} to grind them."] = "Las piñas Furia del Viento están en el suelo debajo de los árboles con nidos de arpías en {area:819}, al noroeste de {zone:1456}; las arpías no las sueltan. Las hechiceras (nivel 9-10) y matriarcas (10-11) Furia del Viento de ahí están muy juntas: recoge las piñas de los bordes. Cuando tengas ocho, usa el {item:206176} para molerlas.",
+	["Windfury Cones lie on the ground under the harpies' nest trees on {area:819}, north-west of {zone:1456}; the harpies do not drop them. The Windfury Sorceresses (level 9-10) and Matriarchs (10-11) there stand close together: pick the cones from the edges. Once you have eight, use the {item:206176} to grind them."] = "Los conos de viento furioso están en el suelo debajo de los árboles con nidos de arpías en {area:819}, al noroeste de {zone:1456}; las arpías no los sueltan. Las hechiceras (nivel 9-10) y matriarcas (10-11) Viento Furioso de ahí están muy juntas: recoge los conos de los bordes. Cuando tengas ocho, usa el {item:206176} para molerlos.",
 	["the mortar takes all eight"] = "el mortero usa las ocho",
 	-- {item:206175} Pine Salve
-	["grind the eight cones into the {item:206175}"] = "muele las ocho piñas para hacer el {item:206175}",
+	["grind the eight cones into the {item:206175}"] = "muele los ocho conos para hacer el {item:206175}",
 
 	-- Step 5: Boarton Shadetotem
 	-- {npc:205729} Boarton Shadetotem · {item:206344} Knife Set

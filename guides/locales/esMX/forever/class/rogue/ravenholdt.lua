@@ -8,7 +8,7 @@
 return {
 	-- Guide
 	-- {area:3486} Ravenholdt Manor · {npc:13085} Myrokos Silentform
-	["Opens {area:3486}, the hidden rogue house in the Alterac hills, and {npc:13085}'s jobs against the Syndicate."] = "Abre {area:3486}, la casa oculta de los pícaros en las colinas de Alterac, y los trabajos de {npc:13085} contra el Sindicato.",
+	["Opens {area:3486}, the hidden rogue house in the Alterac hills, and {npc:13085}'s jobs against the Syndicate."] = "Abre {area:3486}, la casa oculta de los pícaros en las colinas de Alterac, y los trabajos de {npc:13085} contra la Hermandad.",
 	-- {npc:13936} Ravenholdt
 	["{npc:13936} reputation"] = "Reputación con {npc:13936}",
 
@@ -27,9 +27,9 @@ return {
 	-- Step 3: Lord Tomas
 	-- {npc:266216} Lord Tomas · {area:275} Durnholde Keep · {npc:13085} Myrokos Silentform · {quest:6701} Syndicate Emblems
 	-- plural, as words: Syndicate Rogues = {npc:2260} Syndicate Rogue
-	["{npc:266216} is inside {area:275}, the Syndicate fortress south of the manor; he can stand in any of fifteen spots in the keep, so search. Quick and quiet, says {npc:13085}. Pick the pockets of the level 20-21 Syndicate Rogues, Shadow Mages and Watchmen on your way: they carry {quest:6701} for the guards' repeatable reputation quest."] = "{npc:266216} está dentro de {area:275}, la fortaleza del Sindicato al sur de la mansión; puede estar en cualquiera de quince lugares del castillo, así que búscalo. Rápido y en silencio, dice {npc:13085}. Roba a los pícaros, magos de las sombras y vigilantes del Sindicato de nivel 20-21 en el camino: llevan {quest:6701} para la misión repetible de reputación de los guardias.",
+	["{npc:266216} is inside {area:275}, the Syndicate fortress south of the manor; he can stand in any of fifteen spots in the keep, so search. Quick and quiet, says {npc:13085}. Pick the pockets of the level 20-21 Syndicate Rogues, Shadow Mages and Watchmen on your way: they carry {quest:6701} for the guards' repeatable reputation quest."] = "{npc:266216} está dentro de {area:275}, la fortaleza de la Hermandad al sur de la mansión; puede estar en cualquiera de quince lugares del castillo, así que búscalo. Rápido y en silencio, dice {npc:13085}. Roba a los pícaros, magos de las sombras y vigilantes de la Hermandad de nivel 20-21 en el camino: llevan {quest:6701} para la misión repetible de reputación de los guardias.",
 	-- {quest:6701} Syndicate Emblems
-	["Pick Pocket Syndicate members for {quest:6701}"] = "Roba a los miembros del Sindicato para {quest:6701}",
+	["Pick Pocket Syndicate members for {quest:6701}"] = "Roba a los miembros de la Hermandad para {quest:6701}",
 
 	-- Step 4: Myrokos Silentform
 	-- {npc:6766} Ravenholdt Guard
@@ -37,7 +37,7 @@ return {
 
 	-- Step 5: What's the Big Idea?
 	-- {npc:13085} Myrokos Silentform · {npc:266357} Barton · {area:280} Strahnbrad · {zone:1416} Alterac Mountains · {spell:921} Pick Pocket
-	["In your mid 30s {npc:13085} has two more jobs; take both. {npc:266357} leads a Syndicate scouting party at {area:280}, in the east of the {zone:1416}, inside one of the houses with stealthed Syndicate around him. Pick his pocket for the report and do not kill him: he does not drop it. If you are lower than him he sees through stealth; Master of Deception helps, or Distract him, Vanish and come in from behind. {spell:921} can miss several times in a row."] = "A mediados de tus treintas, {npc:13085} tiene dos trabajos más; toma ambos. {npc:266357} dirige una partida de exploración del Sindicato en {area:280}, en el este de {zone:1416}, dentro de una de las casas, con miembros del Sindicato en sigilo a su alrededor. Róbale el informe y no lo mates: no lo suelta. Si eres de menor nivel que él, te ve a través del sigilo; Maestro del engaño ayuda, o distráelo, usa Esfumarse y entra por detrás. {spell:921} puede fallar varias veces seguidas.",
+	["In your mid 30s {npc:13085} has two more jobs; take both. {npc:266357} leads a Syndicate scouting party at {area:280}, in the east of the {zone:1416}, inside one of the houses with stealthed Syndicate around him. Pick his pocket for the report and do not kill him: he does not drop it. If you are lower than him he sees through stealth; Master of Deception helps, or Distract him, Vanish and come in from behind. {spell:921} can miss several times in a row."] = "A mediados de tus treintas, {npc:13085} tiene dos trabajos más; toma ambos. {npc:266357} dirige una partida de exploración de la Hermandad en {area:280}, en el este de {zone:1416}, dentro de una de las casas, con miembros de la Hermandad en sigilo a su alrededor. Róbale el informe y no lo mates: no lo suelta. Si eres de menor nivel que él, te ve a través del sigilo; Maestro del engaño ayuda, o distráelo, usa Esfumarse y entra por detrás. {spell:921} puede fallar varias veces seguidas.",
 	-- {item:275482} Barton's Scouting Report
 	["Pick Pocket Barton for {item:275482}"] = "Roba a Barton para {item:275482}",
 
@@ -51,14 +51,14 @@ return {
 
 	-- Step 7: A Way In
 	-- {area:324} Stromgarde Keep · {area:313} Northfold Manor · {object:656157} Syndicate Footlocker (no name in this language: may be words) · {quest:96783} A Way In
-	["{area:324} in western Arathi is a Syndicate stronghold; to get in you need a uniform. {area:313}, in north-western Arathi, is held by Syndicate Highwaymen, Pathstalkers and Mercenaries (level 30-32): find the {object:656157} there and take the uniform; that ends {quest:96783}."] = "{area:324}, en el oeste de Arathi, es un bastión del Sindicato; para entrar necesitas un uniforme. {area:313}, en el noroeste de Arathi, la ocupan salteadores, caminantes de senda y mercenarios del Sindicato (nivel 30-32): busca ahí {object:656157} y toma el uniforme; eso termina {quest:96783}.",
+	["{area:324} in western Arathi is a Syndicate stronghold; to get in you need a uniform. {area:313}, in north-western Arathi, is held by Syndicate Highwaymen, Pathstalkers and Mercenaries (level 30-32): find the {object:656157} there and take the uniform; that ends {quest:96783}."] = "{area:324}, en el oeste de Arathi, es un bastión de la Hermandad; para entrar necesitas un uniforme. {area:313}, en el noroeste de Arathi, la ocupan salteadores, caminantes de senda y mercenarios de la Hermandad (nivel 30-32): busca ahí {object:656157} y toma el uniforme; eso termina {quest:96783}.",
 	-- {quest:96784} Master of Disguise · {item:275706} Syndicate Uniform
 	["{quest:96784}: the {item:275706}"] = "{quest:96784}: {item:275706}",
 
 	-- Step 8: Anastasia Miller
 	-- {item:275706} Syndicate Uniform · {quest:96784} Master of Disguise · {quest:96785} Ain't No Telling · {npc:266847} Anastasia Miller
 	-- plural, as words: Syndicate Prowlers = {npc:2588} Syndicate Prowler
-	["Stromgarde's Syndicate Prowlers and Conjurors are elite (level 35-36): a rogue of 36 can slip past them, but fighting one alone is hard, so stay hidden or bring a friend. Put on the {item:275706} ({quest:96784} hands it to you at the footlocker) to pass as one of them; stealth or suspicious acts can break it. If the footlocker gave you no uniform, Anastasia hands you one with {quest:96785}. {npc:266847} is not inside the keep: she stands on a ledge on the outside of the castle wall. Jump across to it from the roof of the house beside the ledge."] = "Los merodeadores y conjuradores del Sindicato de Stromgarde son élite (nivel 35-36): un pícaro de nivel 36 puede pasar a su lado sin que lo vean, pero pelear solo con uno es difícil, así que mantente oculto o trae a un amigo. Ponte {item:275706} ({quest:96784} te lo da en el baúl) para hacerte pasar por uno de ellos; el sigilo o los actos sospechosos pueden romperlo. Si el baúl no te dio uniforme, Anastasia te da uno con {quest:96785}. {npc:266847} no está dentro del castillo: está en una cornisa por fuera de la muralla. Salta hasta ella desde el techo de la casa junto a la cornisa.",
+	["Stromgarde's Syndicate Prowlers and Conjurors are elite (level 35-36): a rogue of 36 can slip past them, but fighting one alone is hard, so stay hidden or bring a friend. Put on the {item:275706} ({quest:96784} hands it to you at the footlocker) to pass as one of them; stealth or suspicious acts can break it. If the footlocker gave you no uniform, Anastasia hands you one with {quest:96785}. {npc:266847} is not inside the keep: she stands on a ledge on the outside of the castle wall. Jump across to it from the roof of the house beside the ledge."] = "Los merodeadores y conjuradores de la Hermandad de Stromgarde son élite (nivel 35-36): un pícaro de nivel 36 puede pasar a su lado sin que lo vean, pero pelear solo con uno es difícil, así que mantente oculto o trae a un amigo. Ponte {item:275706} ({quest:96784} te lo da en el baúl) para hacerte pasar por uno de ellos; el sigilo o los actos sospechosos pueden romperlo. Si el baúl no te dio uniforme, Anastasia te da uno con {quest:96785}. {npc:266847} no está dentro del castillo: está en una cornisa por fuera de la muralla. Salta hasta ella desde el techo de la casa junto a la cornisa.",
 
 	-- Step 9: Ain't No Telling
 	-- {item:275709} Stolen Funds

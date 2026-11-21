@@ -92,7 +92,7 @@ return {
 	-- {npc:2216} Apothecary Lydon
 	["{npc:2216}, inside"] = "{npc:2216}, adentro",
 	-- {npc:2393} Christoph Jeffcoat · {quest:7321} Soothing Turtle Bisque
-	["{npc:2393}: {quest:7321}, the Snapjaws of the river south of town"] = "{npc:2393}: {quest:7321}, las Tortugas Mordedoras del río al sur del pueblo",
+	["{npc:2393}: {quest:7321}, the Snapjaws of the river south of town"] = "{npc:2393}: {quest:7321}, los Quijaforte del río al sur del pueblo",
 	-- {item:3713} Soothing Spices · {npc:2393} Christoph Jeffcoat
 	["{item:3713}, from {npc:2393}"] = "{item:3713}, de {npc:2393}",
 
@@ -143,7 +143,7 @@ return {
 	-- was: ["South from {area:272} along the river: Snapjaws (29) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "Al sur de {area:272} siguiendo el río: las Tortugas Mordedoras (29) toman el sol en sus orillas hasta las colinas sobre {area:271}. Algunas llevan {item:3712}."
 	["South from {area:272} along the river: Snapjaws (29-31) sun themselves on its banks all the way down to the hills above {area:271}. Some of them carry {item:3712}."] = "",
 	-- {item:3712} Turtle Meat
-	["{item:3712}, from the Snapjaws"] = "{item:3712}, de las Tortugas Mordedoras",
+	["{item:3712}, from the Snapjaws"] = "{item:3712}, de los Quijaforte",
 
 	-- Step 27: Mudsnout Blossoms
 	-- {area:290} Dun Garok
@@ -221,9 +221,9 @@ return {
 	-- {npc:2215} High Executor Darthalia · {quest:539} Battle of Hillsbrad · {npc:2419} Deathguard Humbert · {area:290} Dun Garok
 	["{npc:2215}: her next {quest:539}, and {npc:2419}'s sword, are elite group quests at {area:290}: take them only with a group"] = "{npc:2215}: su siguiente {quest:539} y la espada de {npc:2419} son misiones de grupo élite en {area:290}: tómalas solo con un grupo",
 	-- {npc:2229} Krusk
-	["{npc:2229}, inside: Infiltration, worked on the 38-39 visit (its Syndicate are 32-35)"] = "{npc:2229}, adentro: Infiltration, se hace en la visita de 38-39 (su Sindicato es de 32-35)",
+	["{npc:2229}, inside: Infiltration, worked on the 38-39 visit (its Syndicate are 32-35)"] = "{npc:2229}, adentro: Infiltration, se hace en la visita de 38-39 (su Hermandad es de 32-35)",
 	-- {area:272} Tarren Mill
-	["Keep Infiltration in your log: its Syndicate (32-35) are over you now, and the 38-39 guide (Alterac and Arathi) works it on its first {area:272} loop."] = "Guarda Infiltration en tu registro: su Sindicato (32-35) está por encima de ti ahora, y la guía de 38-39 (Alterac y Arathi) la hace en su primera vuelta por {area:272}.",
+	["Keep Infiltration in your log: its Syndicate (32-35) are over you now, and the 38-39 guide (Alterac and Arathi) works it on its first {area:272} loop."] = "Guarda Infiltration en tu registro: su Hermandad (32-35) está por encima de ti ahora, y la guía de 38-39 (Alterac y Arathi) la hace en su primera vuelta por {area:272}.",
 
 	-- Step 40: Level 30
 	["Level 30"] = "Nivel 30",

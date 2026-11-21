@@ -114,10 +114,10 @@ return {
 
 	-- Step 26: Laughing Sisters
 	-- plural, as words: Laughing Sisters = {npc:4054} Laughing Sister
-	["Laughing Sisters"] = "Hermanas risueñas",
+	["Laughing Sisters"] = "Hermanas sonrientes",
 	-- {area:426} Raynewood Retreat · {npc:12677} Shadumbra · {npc:4721} Zangen Stonehoof · {item:5867} Etched Phial
 	-- plural, as words: Laughing Sisters = {npc:4054} Laughing Sister
-	["The Laughing Sisters, dryads, wander {area:426} around {npc:12677}'s woods; one of them drops {npc:4721}'s {item:5867}, which can take several kills."] = "Las Hermanas risueñas, dríades, deambulan por {area:426} alrededor del bosque de {npc:12677}; una de ellas suelta {item:5867} de {npc:4721}, lo que puede requerir varias muertes.",
+	["The Laughing Sisters, dryads, wander {area:426} around {npc:12677}'s woods; one of them drops {npc:4721}'s {item:5867}, which can take several kills."] = "Las Hermanas sonrientes, dríades, deambulan por {area:426} alrededor del bosque de {npc:12677}; una de ellas suelta {item:5867} de {npc:4721}, lo que puede requerir varias muertes.",
 	-- {item:5867} Etched Phial · {npc:4054} Laughing Sister
 	["{item:5867}, from a {npc:4054}"] = "{item:5867}, de una {npc:4054}",
 
@@ -133,7 +133,7 @@ return {
 
 	-- Step 29: Mystral Lake
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
-	["Befouled Water Elementals drift around the lake's shores; the gazebo stands on the island, overlooking the Alliance outpost."] = "Los elementales de agua contaminados flotan por las orillas del lago; el mirador está en la isla, frente al puesto de la Alianza.",
+	["Befouled Water Elementals drift around the lake's shores; the gazebo stands on the island, overlooking the Alliance outpost."] = "Los elementales de agua podrida flotan por las orillas del lago; el mirador está en la isla, frente al puesto de la Alianza.",
 	["Underwater"] = "Bajo el agua",
 	["Gazebo"] = "Mirador",
 

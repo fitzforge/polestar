@@ -47,7 +47,7 @@ return {
 	-- Step 8: Henze Faulk
 	-- {npc:6172} Henze Faulk · {area:56} Heroes' Vigil · {area:86} Stone Cairn Lake · {item:6866} Symbol of Life · {spell:116} Frostbolt
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["{npc:6172} lies dead on {area:56}, the island in {area:86} in eastern Elwynn, on top of one of the mounds around the stone circle. Target his body and use the {item:6866} to raise him, then speak to him. If another paladin just raised him, his body is back within about three minutes. The Defias Rogue Wizards on the island (level 9-10) cast {spell:116} from far off: they stand apart, so pull one at a time."] = "{npc:6172} yace muerto en {area:56}, la isla de {area:86}, en el este de Elwynn, encima de uno de los montículos alrededor del círculo de piedras. Selecciona su cuerpo y usa {item:6866} para revivirlo, luego háblale. Si otro paladín acaba de revivirlo, su cuerpo vuelve en unos tres minutos. Los magos rebeldes Defias de la isla (nivel 9-10) lanzan {spell:116} desde lejos: están separados, así que atráelos de a uno.",
+	["{npc:6172} lies dead on {area:56}, the island in {area:86} in eastern Elwynn, on top of one of the mounds around the stone circle. Target his body and use the {item:6866} to raise him, then speak to him. If another paladin just raised him, his body is back within about three minutes. The Defias Rogue Wizards on the island (level 9-10) cast {spell:116} from far off: they stand apart, so pull one at a time."] = "{npc:6172} yace muerto en {area:56}, la isla de {area:86}, en el este de Elwynn, encima de uno de los montículos alrededor del círculo de piedras. Selecciona su cuerpo y usa {item:6866} para revivirlo, luego háblale. Si otro paladín acaba de revivirlo, su cuerpo vuelve en unos tres minutos. Los zahoríes bribones de Defias de la isla (nivel 9-10) lanzan {spell:116} desde lejos: están separados, así que atráelos de a uno.",
 	-- {item:6866} Symbol of Life · {npc:6172} Henze Faulk
 	["{item:6866} on {npc:6172}'s body"] = "{item:6866} sobre el cuerpo de {npc:6172}",
 
@@ -56,7 +56,7 @@ return {
 	["The {item:6846}"] = "{item:6846}",
 	-- {npc:6172} Henze Faulk · {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["The Defias Rogue Wizards around the big stone tablet east of {npc:6172} carry the {item:6846}: about one kill in two drops it, but some players need many kills. They respawn in three minutes."] = "Los magos rebeldes Defias alrededor de la gran tablilla de piedra al este de {npc:6172} llevan {item:6846}: más o menos una de cada dos muertes lo suelta, pero algunos jugadores necesitan muchas muertes. Reaparecen en tres minutos.",
+	["The Defias Rogue Wizards around the big stone tablet east of {npc:6172} carry the {item:6846}: about one kill in two drops it, but some players need many kills. They respawn in three minutes."] = "Los zahoríes bribones de Defias alrededor de la gran tablilla de piedra al este de {npc:6172} llevan {item:6846}: más o menos una de cada dos muertes lo suelta, pero algunos jugadores necesitan muchas muertes. Reaparecen en tres minutos.",
 	-- {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
 	["{item:6846}: Defias Rogue Wizards"] = "{item:6846}: Zahoríes bribones de Defias",

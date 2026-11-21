@@ -42,7 +42,7 @@ return {
 
 	-- Step 9: Brine
 	-- {npc:5899} Brine · {zone:1413} Barrens · {area:378} Camp Taurajo · {area:1701} Blackthorn Ridge
-	["{npc:5899} lives in the southern {zone:1413}, south of {area:378}: her hut sits on a hilltop of {area:1701} with a spinning windmill beside it, and the way up is the ridge by the lone tree. Quilboar camp all around the hill; Stormhides, thunderhawks and hyenas roam the plains on the way."] = "{npc:5899} vive en el sur de {zone:1413}, al sur de {area:378}: su choza está en lo alto de una colina de {area:1701} con un molino girando al lado, y la subida es la cresta junto al árbol solitario. Hay campamentos de jabaespines alrededor de toda la colina; en el camino, por las llanuras rondan pieltormentas, halcones del trueno y hienas.",
+	["{npc:5899} lives in the southern {zone:1413}, south of {area:378}: her hut sits on a hilltop of {area:1701} with a spinning windmill beside it, and the way up is the ridge by the lone tree. Quilboar camp all around the hill; Stormhides, thunderhawks and hyenas roam the plains on the way."] = "{npc:5899} vive en el sur de {zone:1413}, al sur de {area:378}: su choza está en lo alto de una colina de {area:1701} con un molino girando al lado, y la subida es la cresta junto al árbol solitario. Hay campamentos de jabaespines alrededor de toda la colina; en el camino, por las llanuras rondan tormenteros, halcones del trueno y hienas.",
 
 	-- Step 10: The Quilboar Watering Hole
 	-- {object:107046} Quilboar Watering Hole
