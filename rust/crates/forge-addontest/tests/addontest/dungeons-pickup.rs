@@ -864,6 +864,44 @@ emit(r)"#),
 	);
 }
 
+// #3370: an accept the pick-up guide takes before the character reaches its level (the page's button takes what the
+// dungeon's lowest level opens: The Orb of Soran'ruk, from level 20, for a level 19 at Shadowfang Keep, 22-30) is no
+// task on its step until that level (the goal carries the quest's level, so the guide never sends the player to a
+// giver who does not offer it yet); the level-up brings it back.
+#[test]
+fn an_accept_above_the_character_s_level_waits_on_its_step_until_the_level_up_3370() {
+	let pack = default_pack();
+	let out = run(
+		&pack,
+		&k(r#"
+D.PickUp("{KEY}")
+local E = Polestar.Engine
+Polestar.Set("behavior.autoAccept", false)
+stub.advance(0.25)
+local g = E.GetGuide()
+local at
+for i, s in ipairs(g.steps) do
+	for gi, goal in ipairs(s.goals) do
+		if goal.t == "accept" and goal.quest == 1740 then at = { i, gi } end
+	end
+end
+local function mark()
+	local v = E.GetStepView(at[1]).goals[at[2]]
+	return v.status .. ":" .. tostring(v.unavailableText)
+end
+local r = { minLevel = g.steps[at[1]].goals[at[2]].minLevel, below = mark() }
+stub.world.setLevel(20)
+stub.advance(0.25)
+r.at = mark()
+emit(r)"#),
+		Opts { level: 19, ..Default::default() },
+	)
+	.remove(0);
+	assert_eq!(out["minLevel"], 20, "the accept carries the level its quest is offered from");
+	assert_eq!(out["below"], "na:nil", "below its level it is no task");
+	assert_eq!(out["at"], "pending:nil", "level 20: the accept is open");
+}
+
 #[test]
 fn the_tab_survives_reload_rebuilt_before_the_engine_reopens_it_in_the_same_route_without_a_position() {
 	let pack = default_pack();
