@@ -12,11 +12,11 @@ return {
 
 	-- Step 1: Summon Felsteed (Stormwind)
 	-- {npc:461} Demisette Cloyce · {object:2164} Slaughtered Lamb · {object:2101} Mage Quarter · {npc:6251} Strahad Farsan · {area:392} Ratchet
-	["At 40 {npc:461}, in the cellar of the {object:2164} in the {object:2101}, sends you to {npc:6251} in {area:392}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "",
+	["At 40 {npc:461}, in the cellar of the {object:2164} in the {object:2101}, sends you to {npc:6251} in {area:392}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "40級時，{object:2101}中{object:2164}的地窖裡的{npc:461}會讓你去{area:392}找{npc:6251}。沒看到任務？先完成地獄獵犬任務鏈：玩家反饋坐騎任務在其之後出現。",
 
 	-- Step 2: Summon Felsteed (Ironforge)
 	-- {npc:5172} Briarthorn · {zone:1455} Ironforge · {npc:6251} Strahad Farsan · {area:392} Ratchet
-	["At 40 {npc:5172}, by the warlock trainers in {zone:1455}, sends you to {npc:6251} in {area:392}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "",
+	["At 40 {npc:5172}, by the warlock trainers in {zone:1455}, sends you to {npc:6251} in {area:392}. No quest offered? Finish the felhunter chain first: players report the mount comes after it."] = "40級時，{zone:1455}的術士訓練師旁的{npc:5172}會讓你去{area:392}找{npc:6251}。沒看到任務？先完成地獄獵犬任務鏈：玩家反饋坐騎任務在其之後出現。",
 
 	-- Step 3: Summon Felsteed (Orgrimmar)
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow · {npc:6251} Strahad Farsan · {area:392} Ratchet
@@ -30,7 +30,7 @@ return {
 	-- {npc:6251} Strahad Farsan · {area:392} Ratchet
 	["{npc:6251} in {area:392}"] = "{area:392}的{npc:6251}",
 	-- {area:392} Ratchet · {zone:1413} Barrens · {area:35} Booty Bay · {npc:6251} Strahad Farsan · {quest:3631} Summon Felsteed
-	["{area:392} is the goblin port on the {zone:1413} coast, east of the Crossroads; from the Alliance side take the boat from {area:35}. {npc:6251} stands by his small tower on the hill above the town, not down at the docks. Hand in, then take his own {quest:3631} and hand it straight back: that teaches you the mount. No fight, and the quests ask for nothing."] = "",
+	["{area:392} is the goblin port on the {zone:1413} coast, east of the Crossroads; from the Alliance side take the boat from {area:35}. {npc:6251} stands by his small tower on the hill above the town, not down at the docks. Hand in, then take his own {quest:3631} and hand it straight back: that teaches you the mount. No fight, and the quests ask for nothing."] = "{area:392}是{zone:1413}海岸上的哥布林港口，位於十字路口以東；聯盟一方從{area:35}坐船過去。{npc:6251}站在鎮上山丘的小塔旁，不在下面的碼頭。先交任務，再接他自己的{quest:3631}並立刻交回：那會教你召喚坐騎。無需戰鬥，任務也不要任何物品。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["At 40 {npc:461} in the {object:2164}, in the {object:2101}, sends you to {npc:6251} in {area:392}."] = "40級時，{object:2101}{object:2164}的{npc:461}會派你去找{area:392}的{npc:6251}。",

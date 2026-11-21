@@ -98,7 +98,7 @@ return {
 
 	-- Step 19: Medium Leather (The Barrens)
 	-- {item:2319} Medium Leather · {item:7285} Nimble Leather Gloves · {skill:393} Skinning · {npc:3236} Barrens Kodo
-	["144 {item:2319} for {item:7285}: {skill:393}: beasts of level 18-30. Skin {npc:3236} and Thunderhead here (level 18-30); the {skill:393} guide routes this."] = "144 {item:2319} pour {item:7285} : {skill:393} : bêtes de niveau 18-30. Dépecez {npc:3236} et Thunderhead ici (niveau 18-30) ; le guide de {skill:393} en donne le parcours.",
+	["144 {item:2319} for {item:7285}: {skill:393}: beasts of level 18-30. Skin {npc:3236} and Thunderhead here (level 18-30); the {skill:393} guide routes this."] = "144 {item:2319} pour {item:7285} : {skill:393} : bêtes de niveau 18-30. Dépecez {npc:3236} et Tête-tonnerre ici (niveau 18-30) ; le guide de {skill:393} en donne le parcours.",
 
 	-- Step 21: Elixir of Minor Agility
 	-- {item:2457} Elixir of Minor Agility · {item:7285} Nimble Leather Gloves · {skill:171} Alchemy

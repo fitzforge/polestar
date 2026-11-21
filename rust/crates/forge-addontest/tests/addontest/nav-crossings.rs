@@ -50,13 +50,17 @@ end
 
 // The character has opened a flight map on both continents (flags.taxiSeen): a flight master Polestar doesn't know is
 // one it lacks, as these walks were written for (#1795's flights to ones it may have are in travel.rs).
-fn run_raw(script: &str) -> Value {
+fn run_script(script: &str) -> Value {
 	let script = format!("Polestar.CharState().flags.taxiSeen = {{ [0] = true, [1] = true }}\n{script}");
 	emitted(&RunAddon { stubs: vec!["stub_nav.lua"], addons: vec![nav()], login: true, script, ..Default::default() }).remove(0)
 }
 
+fn run_raw(script: &str) -> Value {
+	run_script(&format!("stub.nav.useGameGround()\n{script}"))
+}
+
 fn run(script: &str) -> Value {
-	run_raw(&format!("{PRELUDE}\nnav.faction = \"Alliance\"\nnav.useTravelWorld()\n{script}"))
+	run_script(&format!("{PRELUDE}\nnav.faction = \"Alliance\"\nnav.useTravelWorld()\n{script}"))
 }
 
 #[test]
@@ -83,9 +87,62 @@ fn a_route_into_another_zone_goes_through_the_crossing_not_a_straight_line_no_cr
 	assert!((total - (yards * 1.25) / 7.0).abs() < 3.0, "real seconds follow the walked line ({} s)", out["total"]);
 }
 
+// A zone or building crossed on the way plans again (a soft replan). When the fresh plan goes the live route's way,
+// the live route stays and takes its prices: no ROUTE_CHANGED, so the route's layers, walk and strokes are not drawn
+// again at every subzone line (about 2.5 ms each, #2537). A plan that goes another way is taken as before.
+#[test]
+fn a_zone_change_on_the_way_keeps_the_live_route_without_a_route_change_another_way_is_taken() {
+	let out = run(r#"
+		crossings()
+		local changes = 0
+		Polestar.On("ROUTE_CHANGED", function() changes = changes + 1 end)
+		nav.place(-500, 500)
+		target(-500, -500, "Kobolds")
+		stub.advance(0.2)
+		local r = { start = route() }
+		local live = N.GetRoute()
+		changes = 0
+		nav.place(-450, 470)                             -- a few steps on, the same way
+		stub.fire("ZONE_CHANGED"); stub.fire("ZONE_CHANGED_INDOORS")
+		r.same = { changes, N.GetRoute() == live, route() }
+		nav.place(-500, -400)                            -- through, in East Vale: another way
+		stub.fire("ZONE_CHANGED_NEW_AREA")
+		r.other = { changes > 0, N.GetRoute() ~= live, route() }
+		emit(r)"#);
+	let start = json!(["walk|Through the gate to East Vale", "walk|Through the gate to East Vale", "walk|Kobolds"]);
+	assert_eq!(out["start"], start);
+	assert_eq!(out["same"], json!([0, true, start]), "the same way: the live route stays, no ROUTE_CHANGED: {out}");
+	assert_eq!(out["other"], json!([true, true, ["walk|Kobolds"]]), "another way: taken, with ROUTE_CHANGED: {out}");
+}
+
 #[test]
 fn captions_follow_the_direction_a_crossing_without_one_says_where_it_goes() {
 	let out = run(r#"
+		crossings()
+		nav.place(-500, -500)                            -- East Vale, heading west
+		target(-500, 500)
+		emit(route())"#);
+	assert_eq!(out, json!(["walk|Walk to West Vale", "walk|Walk to West Vale", "walk|Target"]));
+}
+
+// A character with the riding skill (line 762) reads "Ride to <zone>" where the walker reads "Walk to <zone>".
+#[test]
+fn a_character_who_can_ride_reads_ride_to_on_a_crossing_without_a_caption() {
+	let out = run(r#"
+		Polestar.Compat.GetSkillRank = function(line) if line == 762 then return 75, 75 end end
+		crossings()
+		nav.place(-500, -500)                            -- East Vale, heading west
+		target(-500, 500)
+		emit(route())"#);
+	assert_eq!(out, json!(["walk|Ride to West Vale", "walk|Ride to West Vale", "walk|Target"]));
+}
+
+// A ghost walks (a walk-only plan): "Walk to <zone>" with the riding skill too.
+#[test]
+fn a_ghost_who_can_ride_still_reads_walk_to_on_a_crossing_without_a_caption() {
+	let out = run(r#"
+		Polestar.Compat.GetSkillRank = function(line) if line == 762 then return 75, 75 end end
+		UnitIsGhost = function() return true end
 		crossings()
 		nav.place(-500, -500)                            -- East Vale, heading west
 		target(-500, 500)
@@ -396,6 +453,7 @@ fn a_crossing_set_that_is_not_complete_recorded_crossings_leaves_walking_as_befo
 #[test]
 fn the_arrow_shows_the_leg_caption_aims_at_the_waypoint_advances_inside_its_radius_and_re_plans_there() {
 	let out = run(r#"
+		Polestar.Set("nav.navRouting", false) -- test the compass to each authored crossing waypoint
 		local r, changes, advanced = {}, 0, 0
 		Polestar.On("ROUTE_CHANGED", function() changes = changes + 1 end)
 		Polestar.On("ROUTE_ADVANCED", function() advanced = advanced + 1 end)
@@ -427,10 +485,14 @@ fn the_arrow_shows_the_leg_caption_aims_at_the_waypoint_advances_inside_its_radi
 	assert_eq!(out["after"], json!(["Kobolds"]), "the last leg shows the target");
 }
 
+// The re-plan's own count (Travel.Replan): planned again on the same way, the live route stays and fires no
+// ROUTE_CHANGED (a_zone_change_on_the_way_keeps_the_live_route_...), so the route changes stay at 0 here.
 #[test]
 fn moving_more_than_50_yd_re_plans_once_the_plan_is_30_s_old_at_most_once_a_second_and_only_with_crossing_data() {
 	let out = run(r#"
-		local r, changes = {}, 0
+		local r, plans, changes = {}, 0, 0
+		local replan = N.travel.Replan
+		N.travel.Replan = function(...) plans = plans + 1; return replan(...) end
 		Polestar.On("ROUTE_CHANGED", function() changes = changes + 1 end)
 		local function walk(seconds)
 			for _ = 1, seconds do
@@ -441,24 +503,27 @@ fn moving_more_than_50_yd_re_plans_once_the_plan_is_30_s_old_at_most_once_a_seco
 		end
 		nav.place(-500, 500)
 		target(-500, -500)
-		local c0 = changes
+		local c0 = plans
 		walk(40)                                         -- 200 yd in 40 s, no crossing data
-		r.plain = changes - c0
+		r.plain = plans - c0
 		crossings()
 		nav.place(-500, 500)
 		target(-500, -500)
-		c0 = changes
+		c0 = plans
+		local r0 = changes
 		walk(25)
-		r.early = changes - c0                           -- moved 125 yd, but the plan is younger than 30 s
+		r.early = plans - c0                             -- moved 125 yd, but the plan is younger than 30 s
 		walk(6)
-		r.late = changes - c0
+		r.late = plans - c0
 		walk(5)
-		r.after = changes - c0                           -- the new plan is young again
+		r.after = plans - c0                             -- the new plan is young again
+		r.changes = changes - r0                         -- the same way all along
 		emit(r)"#);
 	assert_eq!(out["plain"], 0, "no crossing data: no movement re-plans");
 	assert_eq!(out["early"], 0);
 	assert_eq!(out["late"], 1);
 	assert_eq!(out["after"], 1);
+	assert_eq!(out["changes"], 0, "planned again on the same way: the live route stays");
 }
 
 // Standing at a flight master not learnt yet, the plan already flies out of it (learnt there, #1174), the flight leg
@@ -519,10 +584,10 @@ fn the_local_crossings_route_real_trips_through_their_gates_within_the_planner_b
 		})
 	};
 	let trips = json!([
-		["Horde", world(1411, 52.0, 43.0), world(1454, 50.0, 60.0)],
-		["Horde", world(1413, 52.0, 30.0), world(1441, 40.0, 40.0)],
-		["Alliance", world(1429, 42.0, 65.0), world(1453, 60.0, 60.0)],
-		["Alliance", world(1426, 47.0, 52.0), world(1432, 35.0, 47.0)],
+		["Horde", world(1411, 52.0, 43.0), world(1454, 50.0, 60.0), 10],
+		["Horde", world(1413, 52.0, 30.0), world(1441, 40.0, 40.0), 30],
+		["Alliance", world(1429, 42.0, 65.0), world(1453, 60.0, 60.0), 10],
+		["Alliance", world(1426, 47.0, 52.0), world(1432, 35.0, 47.0), 18],
 	]);
 	let script = r#"
 			assert(loadfile(__LOCAL__))("Polestar_Travel", {})
@@ -533,7 +598,7 @@ fn the_local_crossings_route_real_trips_through_their_gates_within_the_planner_b
 			local t0 = os.clock()
 			for i, t in ipairs(trips) do
 				local legs = N.PlanRoute({ c = t[2].c, wx = t[2].wx, wy = t[2].wy, map = t[2].map, faction = t[1] == "Horde" and 2 or 1,
-					known = {}, target = { c = t[3].c, wx = t[3].wx, wy = t[3].wy, map = t[3].map, label = "Target" } })
+					level = t[4], known = {}, target = { c = t[3].c, wx = t[3].wx, wy = t[3].wy, map = t[3].map, label = "Target" } })
 				local r = {}
 				for _, l in ipairs(legs or {}) do r[#r + 1] = l.label end
 				out.routes[i] = r
@@ -551,7 +616,7 @@ fn the_local_crossings_route_real_trips_through_their_gates_within_the_planner_b
 	assert_eq!(out["routes"][2], json!(["Enter Stormwind City", "Enter Stormwind City", "Target"]));
 	assert!(out["routes"][3].as_array().unwrap().iter().any(|l| forge_addontest::is_match(forge_addontest::text(l), r"Loch Modan")), "Dun Morogh -> Loch Modan crosses a tunnel: {}", out["routes"][3]);
 	let ms = out["ms"].as_f64().unwrap();
-	assert!(ms < 20.0, "a plan with crossings took {ms:.1} ms");
+	forge_addontest::assert_timing!(ms < 20.0, "a plan with crossings took {ms:.1} ms");
 }
 
 #[test]
@@ -631,7 +696,7 @@ fn thunder_bluff_to_camp_taurajo_walks_to_the_nearby_flight_master_without_leavi
 					wx = 1612.5 + (-5143.75 - 1612.5) * 0.5926,
 					wy = 2622.917 + (-7510.417 - 2622.917) * 0.4455,
 				},
-				faction = 2, known = { [22] = true, [77] = true },
+				faction = 2, level = 25, known = { [22] = true, [77] = true },
 			})
 			emit(legs)"#,
 	);
@@ -651,7 +716,7 @@ fn the_barrens_to_ashenvale_road_plans_made_between_the_crossing_s_ends_keep_hea
 	let out = run_raw(
 		r#"
 			local N, nav = Polestar.Nav, stub.nav
-			nav.faction = "Horde"
+			nav.faction, nav.level = "Horde", 25
 			nav.maps[1413] = { name = "The Barrens", c = 1, top = 1612.5, bottom = -5143.75, left = 2622.917, right = -7510.417 }
 			nav.maps[1440] = { name = "Ashenvale", c = 1, top = 4672.917, bottom = 829.167, left = 1700, right = -4066.667 }
 			-- The client calls everything here the Barrens until the player is through.
@@ -704,7 +769,7 @@ fn a_player_the_client_puts_on_the_continent_map_walks_in_the_zone_it_stands_in_
 	let out = run_raw(
 		r#"
 			local N, nav = Polestar.Nav, stub.nav
-			nav.faction = "Horde"
+			nav.faction, nav.level = "Horde", 28
 			nav.maps[1414] = { name = "Kalimdor", c = 1, top = 12799.9, bottom = -11733.3, left = 17066.6, right = -19733.2 }
 			nav.maps[1440] = { name = "Ashenvale", c = 1, top = 4672.917, bottom = 829.167, left = 1700, right = -4066.667 }
 			function nav.Compat.GetPlayerMapPosition()
@@ -759,13 +824,13 @@ fn cave_and_dungeon_spots_on_the_continent_map_walk_to_a_goal_40_yd_away_1359_sw
 			nav.maps[1414] = { name = "Kalimdor", c = 1, top = 12799.9, bottom = -11733.3, left = 17066.6, right = -19733.2 }
 			local CASES = {
 				-- the Den Mother's cave, Darkshore (frames: Felwood)
-				{ "Alliance", "Darnassus", 1439, 55.04, 33.34, { top = 8333.333, bottom = 3966.667, left = 2941.667, right = -3608.333 } },
+				{ "Alliance", "Darnassus", 1439, 55.04, 33.34, { top = 8333.333, bottom = 3966.667, left = 2941.667, right = -3608.333 }, 20 },
 				-- Dire Maul's entrance, Feralas (frames: Mulgore)
-				{ "Horde", "Orgrimmar", 1444, 60.3, 30.2, { top = -2366.667, bottom = -7000, left = 5441.667, right = -1508.333 } },
+				{ "Horde", "Orgrimmar", 1444, 60.3, 30.2, { top = -2366.667, bottom = -7000, left = 5441.667, right = -1508.333 }, 60 },
 				-- the Venture Co. mine by the centaurs, Mulgore (frames: Dustwallow Marsh)
-				{ "Horde", "Orgrimmar", 1412, 61.19, 62.89, { top = -272.917, bottom = -3697.917, left = 2047.917, right = -3089.583 } },
+				{ "Horde", "Orgrimmar", 1412, 61.19, 62.89, { top = -272.917, bottom = -3697.917, left = 2047.917, right = -3089.583 }, 12 },
 				-- Zul'Farrak's entrance, Tanaris (frames: Un'Goro Crater)
-				{ "Horde", "Orgrimmar", 1446, 38.7, 20, { top = -5875, bottom = -10475, left = -218.75, right = -7118.75 } },
+				{ "Horde", "Orgrimmar", 1446, 38.7, 20, { top = -5875, bottom = -10475, left = -218.75, right = -7118.75 }, 48 },
 			}
 			function nav.Compat.GetPlayerMapPosition()
 				local p, b = nav.player, nav.maps[1414]
@@ -783,7 +848,7 @@ fn cave_and_dungeon_spots_on_the_continent_map_walk_to_a_goal_40_yd_away_1359_sw
 			local r = {}
 			for i, k in ipairs(CASES) do
 				local faction, bind, map, x, y, f = k[1], k[2], k[3], k[4], k[5], k[6]
-				nav.faction, nav.items[6948], nav.bind = faction, 1, bind
+				nav.faction, nav.items[6948], nav.bind, nav.level = faction, 1, bind, k[7]
 				local bit = faction == "Alliance" and 1 or 2
 				local taxi = {}
 				for _, n in ipairs(N.GetTravelData().taxi) do
@@ -825,7 +890,7 @@ fn a_walk_never_stops_at_a_crossing_s_end_it_does_not_cross_kargath_from_the_bad
 		r#"
 			local N = Polestar.Nav
 			local function plan(map, wx, wy, label)
-				local legs = N.PlanRoute({ c = 0, map = 1418, wx = -6718.75, wy = -3322.9, faction = 2, speed = 7,
+				local legs = N.PlanRoute({ c = 0, map = 1418, wx = -6718.75, wy = -3322.9, faction = 2, level = 50, speed = 7,
 					target = { c = 0, map = map, wx = wx, wy = wy, label = label },
 					walkCost = function(_, _, _, start) if start then return 2188, 2188 end end })
 				local out = {}
@@ -855,7 +920,7 @@ fn a_target_on_the_next_zone_s_map_is_in_the_zone_the_walking_maps_put_it_in_a_c
 			local zone
 			N.danger.ZoneAt = function(c) return c == 0 and zone or nil end
 			local function plan(from, map, wx, wy, label, cost)
-				local legs = N.PlanRoute({ c = 0, map = from[1], wx = from[2], wy = from[3], faction = 2, speed = 7,
+				local legs = N.PlanRoute({ c = 0, map = from[1], wx = from[2], wy = from[3], faction = 2, level = 50, speed = 7,
 					target = { c = 0, map = map, wx = wx, wy = wy, label = label },
 					walkCost = cost and function(_, _, _, start) if start then return cost, cost end end or nil })
 				local out = {}
@@ -881,6 +946,40 @@ fn a_target_on_the_next_zone_s_map_is_in_the_zone_the_walking_maps_put_it_in_a_c
 	assert_ne!(out["city"], json!(["walk|Aelthalyste"]), "into the Undercity by its way, not a walk to the ground above");
 }
 
+// #1918, #2208: the walking maps put Grenka Bloodscreech's mesa in Thousand Needles (26.5,55.5) in Un'Goro Crater
+// (their zone field, from the client's area under each chunk), while the game's map there is Thousand Needles (every
+// recorded kill of her). Un'Goro's map frame ends far south of her: the target stays in Thousand Needles, one walk
+// from Freewind Post, and no leg names Un'Goro Crater. The Badlands case above (inside both frames) still moves.
+#[test]
+fn a_target_outside_the_zone_the_walking_maps_name_stays_on_its_map_grenka_1918() {
+	let out = run_raw(
+		r#"
+			local N = Polestar.Nav
+			local grenka = { -5594.7, -1599.3 }
+			local zone
+			N.danger.ZoneAt = function(c, x, y)
+				if c ~= 1 then return nil end
+				if math.abs(x - grenka[1]) < 60 and math.abs(y - grenka[2]) < 60 then return zone end
+				return 1441
+			end
+			local function plan()
+				local legs = N.PlanRoute({ c = 1, map = 1441, wx = -5433.3, wy = -2457.3, faction = 2, level = 40, speed = 7,
+					target = { c = 1, map = 1441, wx = grenka[1], wy = grenka[2], label = "Grenka Bloodscreech" } })
+				local out = {}
+				for _, l in ipairs(legs or {}) do out[#out + 1] = l.kind .. "|" .. l.label .. (l.crossing and ("|" .. l.crossing) or "") end
+				return out
+			end
+			local r = {}
+			zone = 1449
+			r.ungoro = plan()
+			zone = 1441
+			r.plain = plan()
+			emit(r)"#,
+	);
+	assert_eq!(out["plain"], json!(["walk|Grenka Bloodscreech"]), "in Thousand Needles: one walk");
+	assert_eq!(out["ungoro"], out["plain"], "Un'Goro's frame ends south of her: the same walk, no Un'Goro leg");
+}
+
 // #1543's near walk (Nav.PlanRoute's p.nearWalk): a target within that many straight yards over a closed zone border
 // is walked to straight; with p.nearProbe instead the planner only says it would be (nearProbe.yards) and plans the
 // crossing's way. Beyond the reach, without either (an estimate; the live route with no walking engine to ask, as in
@@ -890,7 +989,7 @@ fn a_target_on_the_next_zone_s_map_is_in_the_zone_the_walking_maps_put_it_in_a_c
 fn the_near_walk_over_a_closed_zone_border_goes_only_within_its_reach_and_never_without_a_walking_engine_1543() {
 	let out = run(r#"
 		local function plan(nearWalk, probe)
-			local legs = N.PlanRoute({ c = 0, wx = -500, wy = 100, map = 9002, faction = 1, known = {}, nearWalk = nearWalk,
+			local legs = N.PlanRoute({ c = 0, wx = -500, wy = 100, map = 9002, faction = 1, level = nav.level, known = {}, nearWalk = nearWalk,
 				nearProbe = probe, target = { c = 0, wx = -500, wy = -100, label = "Kobolds", map = 9003 } })
 			if not legs then return "no route" end
 			local out = {}

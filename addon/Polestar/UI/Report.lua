@@ -42,6 +42,7 @@ R.DESC_MIN = 5
 R.TEXT_MAX = 2000
 local LINE_MAX = 100
 local GOALS_MAX = 6
+local LEFT_OUT_MAX = 5
 local ERRORS_MAX = 3
 local SEP = " \194\183 "
 local UI_SEP = "  \194\183  "
@@ -233,6 +234,16 @@ local function guideLines(d, on)
 		add(d, "goal", goalLine(goals[g], raws[g], mark, wp))
 	end
 	if d.goals.more > 0 then add(d, "more", (L["... %d more goals"]):format(d.goals.more)) end
+	-- What the route leaves out here and why, as the guide window says it
+	-- (Engine.LeftOutHere, #2634), the quest ids for whoever fixes it.
+	local outList = E.LeftOutHere and E.LeftOutHere(index) or {}
+	for i, o in ipairs(outList) do
+		if i > LEFT_OUT_MAX then
+			add(d, "leftout", (L["Left out here: %d more"]):format(#outList - LEFT_OUT_MAX))
+			break
+		end
+		add(d, "leftout", cut((L["Left out here: %s"]):format(plain(o.title) .. " (" .. o.quest .. ")" .. SEP .. plain(o.text))))
+	end
 end
 
 local function arrowLine()
@@ -257,7 +268,8 @@ end
 -- Where the player is, and the height of the floor Polestar takes them to stand on (Nav/Walk.lua Walk.Floor: the
 -- client gives no height on Forever; the floor Walk follows while the arrow walks), "z 16": a walk searched from
 -- another floor than the player's goes round (#2215: beside an NPC on his upper floor, the route out of the building
--- and back up).
+-- and back up). Then what the client gives for the player's height (Compat.PlayerHeight), "height none": without a
+-- real one a point with a height is reached by map distance (Nav.lua, heightless).
 local function playerLine()
 	local C = ns.Compat
 	local zone, sub
@@ -271,6 +283,9 @@ local function playerLine()
 	if W and W.Floor and C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
 	local z = pc and W.Floor(pc, px, py)
 	if type(z) == "number" then line = line .. SEP .. ("z %d"):format(floor(z + 0.5)) end
+	if C and C.GetPlayerUnitPosition then C.GetPlayerUnitPosition() end -- a reading now, for PlayerHeight
+	local height = C and C.PlayerHeight and C.PlayerHeight()
+	if height then line = line .. SEP .. "height " .. height end
 	return cut(line)
 end
 
@@ -695,7 +710,7 @@ local function profileName(P)
 	if name == P.DEFAULT then return "Default" end
 	local low, names = name:lower(), {}
 	if UnitName then names[#names + 1] = UnitName("player") end
-	if GetRealmName then names[#names + 1] = GetRealmName() end
+	names[#names + 1] = ns.Compat.RealmName()
 	local db = ns.DB()
 	local alts = type(db.alts) == "table" and type(db.alts.chars) == "table" and db.alts.chars or {}
 	for key, e in pairs(alts) do
@@ -869,6 +884,10 @@ function R.Details()
 	add(d, "install", installLine())
 	errorLines(d)
 	add(d, "questlog", questLogLine())
+	-- The perf probe's figures when it ran this session (Core/Perf.lua).
+	for i, line in ipairs(ns.Perf and ns.Perf.ReportLines() or {}) do
+		add(d, i == 1 and "perfhead" or "perf", cut(line, LINE_MAX * 2))
+	end
 	settingsSection(d)
 	d.tail = logTail()
 	if on.view then
@@ -930,11 +949,12 @@ end
 -- window's current one, the two after it and the arrow's (the furthest
 -- after it first, then the ones before it), the looks line, the settings
 -- list (its last line first), the Packs line, the quest log, the errors but
--- the newest; then, so even the longest description fits, the planned and
--- hidden lines, While here, Travel, Install, Routes, the Settings line and
--- the newest error. Never the versions, the character, the guide and the
--- step, the current goal, Arrow, Where or the Errors header: the lines the
--- Discord bot finds the rest by and a fix starts from.
+-- the newest, the perf probe's lines but its first (its last line first);
+-- then, so even the longest description fits, the planned and hidden lines,
+-- While here, Travel, Install, Routes, the perf probe's first line, the
+-- Settings line and the newest error. Never the versions, the character,
+-- the guide and the step, the current goal, Arrow, Where or the Errors
+-- header: the lines the Discord bot finds the rest by and a fix starts from.
 local function cutOrder(details)
 	local kinds, order = details.kinds, {}
 	local function all(kind, from, to, step)
@@ -959,11 +979,14 @@ local function cutOrder(details)
 	all("packs")
 	all("questlog")
 	all("error", 1, -2)
+	all("perf", -1, 1, -1)
 	all("planned", -1, 1, -1)
+	all("leftout", -1, 1, -1)
 	all("whilehere")
 	all("travel")
 	all("install")
 	all("routes")
+	all("perfhead")
 	all("settings")
 	all("error", -1, -1)
 	return order

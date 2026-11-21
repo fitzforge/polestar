@@ -22,6 +22,7 @@ local CATEGORIES = {
 	{ key = "battlemaster", label = L["Battlemasters"], glyph = "battlemaster" },
 	{ key = "spirithealer", label = L["Spirit healers"], glyph = "ankh" },
 	{ key = "stablemaster", label = L["Stable masters"], glyph = "stable" },
+	{ key = "transmogrifier", label = L["Transmogrifiers"], glyph = "transmog" },
 	{ key = "trainer", label = L["Profession trainers"], glyph = "trainer-profession" },
 	{ key = "vendor", label = L["Vendors"], glyph = "vendor" },
 }

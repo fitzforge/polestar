@@ -140,7 +140,8 @@ test('the guides and the fix records\' own words hold to the prose rules too', (
 	const files = trackedFiles().filter((f) => PROSE_GUIDES.test(rel(f.file)) || RECORD_FILES.test(rel(f.file)));
 	const read = (re) => files.some((f) => re.test(rel(f.file)));
 	assert.ok(files.filter((f) => /^guides\//.test(rel(f.file))).length > 200, 'expected the guides');
-	assert.ok(read(/^forge\/seed\/guides\//) && read(/^experimental\/guides\//), 'expected the seed and the experimental pack');
+	// The experimental pack's guides are read when it has any (none since Mount Hyjal joined the route in 0.4.3).
+	assert.ok(read(/^forge\/seed\/guides\//), 'expected the seed');
 	for (const name of ['data/route-fixes.json', 'data/guide-fixes.json', 'forever-db/corrections/quests.json']) assert.ok(files.some((f) => rel(f.file) === name), `${name} is read`);
 	assert.deepEqual(proseHits(files), [], 'reword each place named: drop the clause, never swap in another word');
 });

@@ -345,8 +345,9 @@ fn the_settings_scroll_glides_on_whole_pixels_and_the_sidebar_nudges_to_its_bott
 }
 
 // A list longer than twelve rows (a profile menu, a long dropdown) scrolls under a filter box that takes the keys:
-// it opens with its current choice in view, typing narrows the rows (nothing left says so), Enter picks the first
-// left, Escape empties the box and then closes the list. A short list stays as it was: no box, no scroll.
+// a list of choices (opts.current) opens with its current choice in view, typing narrows the rows (nothing left says
+// so), Enter picks the first left, Escape empties the box and then closes the list. A short list stays as it was: no
+// box, no scroll.
 #[test]
 fn a_long_list_scrolls_under_a_filter_that_narrows_it_and_enter_picks_the_first_left() {
 	let out = run(r#"
@@ -356,7 +357,7 @@ fn a_long_list_scrolls_under_a_filter_that_narrows_it_and_enter_picks_the_first_
 		local picked
 		local items = {}
 		for i = 1, 20 do items[i] = { text = "Choice " .. i, checked = i == 15, onClick = function() picked = i end } end
-		W.ShowMenu(anchor, items)
+		W.ShowMenu(anchor, items, { current = true })
 		local m = PolestarMenu
 		local function shown()
 			local n = 0
@@ -396,6 +397,29 @@ fn a_long_list_scrolls_under_a_filter_that_narrows_it_and_enter_picks_the_first_
 	assert_eq!(out["esc1"], json!(["", true]), "Escape empties the box first");
 	assert_eq!(out["esc2"], false, "then closes the list");
 	assert_eq!(out["short"], json!({ "filter": false, "scroll": false, "rows": 5, "parent": true }), "a short list as it was");
+}
+
+// #2647: a long menu of actions opens at its top whatever its ticks. The guide window's menu with Compact mode and
+// Transparent ticked opened centred on them, its first row (Choose guide) out of view above.
+#[test]
+fn a_long_action_menu_opens_at_its_top_though_rows_are_ticked() {
+	let out = run(r#"
+		local anchor = CreateFrame("Frame", nil, UIParent)
+		anchor:SetSize(100, 20)
+		anchor:SetPoint("CENTER")
+		local items = { { text = "Choose guide" } }
+		for i = 2, 16 do items[i] = { text = "Action " .. i, checked = i == 12 or i == 13 } end
+		W.ShowMenu(anchor, items)
+		local m = PolestarMenu
+		local top = { long = m.Scroll:IsShown(), at = m.Scroll:GetVerticalScroll() }
+		m.Scroll:SetVerticalScroll(100)
+		W.HideMenu()
+		W.ShowMenu(anchor, items)
+		local again = m.Scroll:GetVerticalScroll()
+		W.HideMenu()
+		emit({ top = top, again = again })"#);
+	assert_eq!(out["top"], json!({ "long": true, "at": 0 }), "a long action menu opens at its first row");
+	assert_eq!(out["again"], 0, "and again after it was scrolled and closed");
 }
 
 // A colour row remembers more: a right-click on one of the recent colours keeps it as a favourite (first among the

@@ -177,6 +177,45 @@ const TURNIN_AHEAD_TO: &str = r#"{ title = "New ahead", goals = { a(110, 70) } }
 	{ title = "Hand in 108", when = { { k = "complete", q = 108 } }, goals = { t(108, 70) } },"#;
 
 #[test]
+fn updated_guide_only_offers_and_targets_behind_work_once_its_level_gate_holds() {
+	let guide = GUIDE
+		.replace(
+			BEHIND_GUIDE_FROM,
+			r#"{ title = "New behind", when = { { k = "level", op = ">=", n = 34 } }, goals = {
+			{ t = "kill", target = "Wolf", npc = 299, quest = 108, oi = 1, map = M, x = 49, y = 50 },
+			{ t = "kill", target = "Bear", npc = 1186, quest = 108, oi = 2, map = M, x = 49, y = 50 },
+		} },"#,
+		)
+		.replace(TURNIN_AHEAD_FROM, TURNIN_AHEAD_TO);
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: format!("{WORLD}\nw.level = 32; w.onQuest(108, {{5, 5}}, 'Quest 108')"),
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+		saved: vec![("Polestar".to_string(), saved(""))],
+		login: false,
+		script: format!(
+			r#"{TEST_PACK}
+			{TEST_SOURCE}
+			{guide}
+			{SCRIPT}
+			assert(PolestarCharDB.behind["test/up"][108], "the update left the held work behind")
+			local w = stub.world
+			for level = 32, 34 do
+				if level ~= 32 then w.setLevel(level); stub.advance(2) end
+				local n = 0
+				for _, c in ipairs(E.GetWhileHereCandidates()) do if c.step == 2 and c.kind == "work" then n = n + 1 end end
+				local aimed = E.AimBehind(108)
+				local pin = aimed and E.GetWaypoint()
+				emit({{ #E.GetBehind(), n, aimed, pin and pin.stepIndex or false }})
+			end"#
+		),
+	});
+	assert_eq!(out[1], json!([0, 0, false, false]), "level 32 after upgrading");
+	assert_eq!(out[2], json!([0, 0, false, false]), "level 33 on the same save");
+	assert_eq!(out[3], json!([1, 2, true, 2]), "at 34 both objectives and their waypoint return");
+}
+
+#[test]
 fn a_carried_quest_whose_work_the_update_put_behind_them_is_still_to_do_when_its_hand_in_is_ahead() {
 	let guide = GUIDE
 		.replace(BEHIND_GUIDE_FROM, r#"{ title = "New behind", goals = { a(108, 40), { t = "kill", target = "Wolf", npc = 299, count = 5, quest = 108, oi = 1, map = M, x = 49, y = 50 } } },"#)
@@ -194,6 +233,42 @@ fn a_carried_quest_whose_work_the_update_put_behind_them_is_still_to_do_when_its
 	assert_eq!(at["status"][1], "na", "{at}");
 	assert_eq!(behind["behind"], 108, "108's kill is still to do, its hand-in ahead or not: {behind}");
 	assert_eq!(behind["step"], 2, "{behind}");
+}
+
+// #2682 and #2595 (0.3.7 -> 0.4.0, Horde Ashenvale & Thousand Needles): 0.4.0 moved Between a Rock and a
+// Thistlefur's and Troll Charm's work into new Thistlefur steps and their hand-ins onto the Zoram'gar stop the
+// player was at. The update passed the work behind them (Still to do), and the live goal was the hand-in of a
+// quest at 0/2, the arrow on Karang 800 yd off: "it says to turn in … but I have not completed that quest". Before a
+// hand-in that is not ready, the arrow leads to the quest's work the update left behind, as its Still to do row's
+// click does (Engine.AimBehind); the hand-in stays the step's goal.
+#[test]
+fn the_arrow_leads_to_a_carried_quest_s_work_an_update_put_behind_the_player_before_its_hand_in_on_the_live_step() {
+	let guide = GUIDE
+		.replace(BEHIND_GUIDE_FROM, r#"{ title = "New behind", goals = { a(108, 40), { t = "kill", target = "Wolf", npc = 299, count = 5, quest = 108, oi = 1, map = M, x = 49, y = 30 } } },"#)
+		.replace(r#"{ title = "Hand in 103", goals = { t(103) } },"#, r#"{ title = "Hand in 103", goals = { t(108, 70), t(103) } },"#);
+	// The save's "Hand in 103" step (turnin:103) changed: the earlier release's goals of it, as Core/LegacySteps.lua
+	// lists them for a real guide.
+	let script = SCRIPT.replace(r#"[h("accept:102")] = "accept:102""#, r#"[h("accept:102")] = "accept:102", [h("turnin:103")] = "turnin:103""#);
+	assert_ne!(script, SCRIPT, "the legacy steps took the changed step");
+	let run = |progress: u32| {
+		emitted(&RunAddon {
+			stubs: vec!["stub_world.lua"],
+			before: format!("{WORLD}\nstub.world.onQuest(108, {{ {{ required = 5, fulfilled = {progress} }} }}, \"Quest 108\")"),
+			addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
+			saved: vec![("Polestar".to_string(), saved(""))],
+			login: false,
+			script: format!(
+				"{TEST_PACK}\n{TEST_SOURCE}\n{guide}\n{script}\nlocal p = E.GetWaypoint()\nlocal b = E.GetBehind()[1]\nemit({{ goal = E.GetStepView(8).goals[1].status, x = p and p.x or false, y = p and p.y or false, behind = b and b.quest or false }})"
+			),
+		})
+		.remove(1)
+	};
+	let open = run(1);
+	assert_eq!(open["behind"], 108, "108's kill is still to do: {open}");
+	assert_eq!(open["goal"], "active", "the hand-in stays the step's goal: {open}");
+	assert_eq!(json!([open["x"], open["y"]]), json!([49, 30]), "the arrow leads to the wolves, not to 108's hand-in: {open}");
+	let ready = run(5);
+	assert_eq!(json!([ready["x"], ready["y"]]), json!([70, 50]), "once 108 is ready, the arrow leads to its hand-in: {ready}");
 }
 
 #[test]

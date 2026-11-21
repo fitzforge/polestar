@@ -37,6 +37,7 @@ step Back to Thendal Grove
 
 step Rorian the Dayseeker
   tip Jump off the top of the watchtower and use Walk on Air to float down to Rorian, west of the tower.
+  complete 92474 @43.7,24.1
   turnin 92461                                -- Rorian the Dayseeker
   turnin 92474
   accept 92532 only Warrior                   -- Rorian the Dayseeker: the Crumpled Note
@@ -374,6 +375,9 @@ step Fendaal Windstone
   turnin 98512                                -- Fendaal Windstone
 
 step Valanaar, the turncoat
+  tip Speak to Alvarion by the inn on the west side, then cross town to Lotheluum and Ealaane.
+  accept 92679                                -- Alvarion Windfield
+  talk 252448 quest 92679.2 "Listen to Alvarion Windfield's story"
   accept 94484                                -- Lotheluum Starbreeze
   accept 94896                                -- Ealaane Nimbuswalker
   accept 94897
@@ -407,8 +411,6 @@ step The road to Valanaar
   level 10 only Hunter
   accept 94978 only Hunter                    -- Quel'ana Quickgale, beside Nyalah: the first Taming Rod
   sethome "Valanaar" npc 255940               -- Innkeeper Donaal Downbreeze, by the west gate
-  accept 92679                                -- Alvarion Windfield
-  talk 252448 quest 92679.2 "Listen to Alvarion Windfield's story"
   accept 93317                                -- Nyalah Brightfire, inside
 
 step Class trainer
@@ -697,7 +699,7 @@ step Elaadrin Evengale
 
 step Leave Zephras Isle to Alterac Mountains
   zone Zephras Isle
-  goto 65.8,83.4 "Leave Zephras Isle to Alterac Mountains" live
+  goto 65.75,83.62 "Leave Zephras Isle to Alterac Mountains" live
 
 step Denaaris Stargale
   zone Alterac Mountains

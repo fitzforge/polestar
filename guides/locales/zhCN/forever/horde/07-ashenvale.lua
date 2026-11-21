@@ -228,48 +228,56 @@ return {
 	-- {spell:199} Two-Handed Maces · {npc:11869} Ansekhwa
 	["While you're here: learn {spell:199} from {npc:11869} (10 silver); two-handers level a Warrior fastest."] = "顺路提示：向{npc:11869}学习{spell:199}（10 银）；战士使用双手武器升级最快。",
 
-	-- Step 56: Fly to Camp Taurajo
+	-- Step 56: Melor Stonehoof
+	-- {npc:3441} Melor Stonehoof · {area:1641} Hunter Rise · {quest:1131} Steelsnap · {zone:1441} Thousand Needles · {area:2237} Whitereach Post
+	["{npc:3441} stands on {area:1641}, the southern rise, beside the hunter trainers: {quest:1131} prowls the far north-west of {zone:1441}, beyond {area:2237}, later in this guide."] = "",
+
+	-- Step 57: Fly to Camp Taurajo
 	-- {area:378} Camp Taurajo
 	["Fly to {area:378}"] = "飞往{area:378}",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "{zone:1456}飞行管理员",
 
-	-- Step 57: Brine
+	-- Step 58: Tatternack Steelforge
+	-- {npc:3433} Tatternack Steelforge · {area:2237} Whitereach Post
+	["{npc:3433} works at his forge a few steps from the flight master: his ore sample comes from the Gravelsnout kobolds west of {area:2237}, later in this guide."] = "",
+
+	-- Step 59: Brine
 	-- {npc:5899} Brine · {area:378} Camp Taurajo · {area:485} Great Lift
 	["{npc:5899}'s hut stands on the ridge above the quilboar watering hole south of {area:378}, on the road to the {area:485}."] = "{npc:5899}的小屋在{area:378}南边野猪人水坑上方的山脊上，就在通往{area:485}的路上。",
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
 	["for {npc:5901}, south of {area:392}: next guide"] = "交给{area:392}南边的{npc:5901}：见下一个指南",
 
-	-- Step 58: Great Lift
+	-- Step 60: Great Lift
 	-- {npc:12576} Grish Longrunner · {npc:10079} Brave Moonhorn · {area:485} Great Lift · {area:484} Freewind Post
 	["{npc:12576} and {npc:10079} wait at the top of the {area:485}: Maggran's letter is for {npc:12576}, and Moonhorn's message goes down to {area:484} with you."] = "{npc:12576}和{npc:10079}在{area:485}顶端等候：马格兰的信是给{npc:12576}的，月角的消息由你带下去交到{area:484}。",
 	-- {npc:10079} Brave Moonhorn · {npc:10537} Cliffwatcher Longhorn · {area:484} Freewind Post
 	["{npc:10079}, at the top of the lift: {npc:10537} at {area:484}"] = "{npc:10079}，在升降梯顶端：交给{area:484}的{npc:10537}",
 
-	-- Step 59: Freewind Post's lift
+	-- Step 61: Freewind Post's lift
 	-- {area:484} Freewind Post
 	["{area:484}'s lift"] = "{area:484}的升降梯",
 
-	-- Step 60: Freewind Post
+	-- Step 62: Freewind Post
 	-- {area:484} Freewind Post
 	["Ride the lift down, then follow the road east through the canyons to {area:484}, a Tauren village on top of the mesas. Its lift is on the north side."] = "乘升降梯下去，然后沿道路向东穿过峡谷前往{area:484}，那是一座建在石柱顶上的牛头人村庄。它的升降梯在北侧。",
 	-- {npc:10377} Elu
 	["{npc:10377}, by the wind rider master"] = "{npc:10377}，在双足飞龙管理员旁边",
 	-- {npc:10537} Cliffwatcher Longhorn
 	["The Wanted poster beside {npc:10537}"] = "{npc:10537}旁的通缉告示",
-	-- {npc:4877} Jandia
-	["{npc:4877}'s two harpy quests are taken when you leave Freewind; their den comes with the next Freewind visit, at about 30."] = "{npc:4877}的两个鹰身人任务在离开乱风岗时接受；它们的巢穴留到下次来乱风岗时完成，约30级。",
+	-- {npc:4877} Jandia · {area:2237} Whitereach Post
+	["{npc:4877}'s two harpy quests come on the next Freewind stop; their den is on the way back from {area:2237}."] = "",
 
-	-- Step 61: Rau Cliffrunner
+	-- Step 63: Rau Cliffrunner
 	-- {npc:4722} Rau Cliffrunner · {area:484} Freewind Post · {npc:4721} Zangen Stonehoof
 	["{npc:4722} stands in {area:484}: {npc:4721}'s filled phial is for him."] = "{npc:4722}站在{area:484}：{npc:4721}装满的药瓶要交给他。",
 	-- {npc:4722} Rau Cliffrunner · {object:20807} Ancient Brazier · {area:1557} Splithoof Hold
 	["{npc:4722}: the {object:20807} in {area:1557}, among the Galak camps"] = "{npc:4722}：{area:1557}中的{object:20807}，在加拉克营地之间",
 
-	-- Step 62: Alien Egg
+	-- Step 64: Alien Egg
 	["Take the lift down. The egg lies in a nest on the canyon floor in one of three spots: south-east of the mesas (52.3,55.2), east (56.4,50.4) or south-west (37.6,56.1)."] = "乘升降梯下去。蛋在峡谷底部的一个巢里，位于三个地点之一：石柱东南（52.3,55.2）、东边（56.4,50.4）或西南（37.6,56.1）。",
 
-	-- Step 63: Galak centaurs
+	-- Step 65: Galak centaurs
 	["Galak centaurs"] = "加拉克半人马",
 	-- {npc:10617} Galak Messenger · {area:2237} Whitereach Post · {npc:216463} Ailgrha Splittusk
 	-- plural, as words: Ravaging Tempests = {npc:216474} Ravaging Tempest
@@ -277,7 +285,7 @@ return {
 	-- {npc:10617} Galak Messenger · {quest:4881} Assassination Plot
 	["{npc:10617}'s {quest:4881}, if you meet him"] = "{npc:10617}的{quest:4881}，如果你遇到他",
 
-	-- Step 64: Splithoof Hold
+	-- Step 66: Splithoof Hold
 	-- {area:1557} Splithoof Hold · {object:20807} Ancient Brazier · {item:5868} Filled Etched Phial · {item:5869} Cloven Hoof · {npc:2986} Dorn Plainstalker
 	-- plural, as words: Galak Flame Guards = {npc:7404} Galak Flame Guard
 	["A short walk north of the Galak camps, the cave of {area:1557} leads down to its deepest chamber, where the {object:20807} burns. Use the {item:5868} on it, then loot the {item:5869} at once: the flame only stays out briefly, and if it relights the phial is gone. Then east to {npc:2986}'s mesa.\nCareful: Two Galak Flame Guards (30) stand by the brazier and a centaur guard walks the cave: pull them away one at a time before you douse the flame."] = "从加拉克营地向北走一小段，{area:1557}的洞穴通往最深处的洞室，{object:20807}就在那里燃烧。对它使用{item:5868}，然后立刻拾取{item:5869}：火焰只会熄灭很短时间，如果重新燃起，药瓶就没了。然后向东前往{npc:2986}所在的石柱。\n小心：两名加拉克火焰卫士（30级）守在火盆旁，还有一名半人马守卫在洞内巡逻：熄灭火焰前，把它们一个个引开。",
@@ -286,21 +294,24 @@ return {
 	-- {item:5869} Cloven Hoof · {object:20807} Ancient Brazier
 	["{item:5869}, from the {object:20807}"] = "{item:5869}，从{object:20807}获取",
 
-	-- Step 65: Dorn Plainstalker
+	-- Step 67: Dorn Plainstalker
 	-- {npc:2986} Dorn Plainstalker · {quest:1149} Test of Faith
-	["{npc:2986} stands on a mesa top east of the Galak camps. For the {quest:1149}, walk off the end of the planks beside him: you land safely."] = "{npc:2986}站在加拉克营地东边的一座石柱顶上。做{quest:1149}时，从他旁边的木板尽头走下去：你会安全落地。",
+	["{npc:2986} stands on a mesa top east of the Galak camps. Taking his {quest:1149} puts you on a high cliff far to the west: follow the stone path to the end of the wooden planks and step off there, and you land safely. Jump from anywhere else and you fall to your death."] = "",
 	-- {npc:2986} Dorn Plainstalker
 	["{npc:2986}, below ground"] = "{npc:2986}：在地下",
+	["the end of the planks"] = "",
 	-- {npc:2986} Dorn Plainstalker · {npc:4490} Grenka Bloodscreech
 	["{npc:2986}: {npc:4490}, in the harpy den west of the post"] = "{npc:2986}：{npc:4490}，在岗哨西边的鹰身人巢穴",
 	-- {quest:1150} Test of Endurance · {npc:4490} Grenka Bloodscreech
 	["{quest:1150} ({npc:4490}, 31) waits for the next Freewind visit, at about 30: keep it."] = "{quest:1150}（{npc:4490}，31级）留到下次来乱风岗时完成，约30级：先保留。",
 
-	-- Step 66: Freewind Post
+	-- Step 68: Freewind Post
 	-- {npc:11116} Innkeeper Abeqwa · {npc:4877} Jandia
 	["{npc:11116}, beside {npc:4877}"] = "{npc:11116}，在{npc:4877}旁边",
+	-- {npc:4877} Jandia · {area:487} Roguefeather Den
+	["{npc:4877}, inside the inn: {area:487}, south-west of the post, on the way back from Whitereach"] = "",
 
-	-- Step 68: Darkcloud Pinnacle
+	-- Step 70: Darkcloud Pinnacle
 	-- {area:2097} Darkcloud Pinnacle
 	-- plural, as words: Document Chests = {object:176344} Document Chest
 	["West of Freewind, the Grimtotem camps below {area:2097}. The Secret Notes are in Document Chests at the south-east, south-west and north-west camps."] = "在乱风岗西边，恐怖图腾的营地在{area:2097}下方。密信在东南、西南和西北营地的文件箱里。",
@@ -311,7 +322,7 @@ return {
 	-- {object:176344} Document Chest
 	["{object:176344}, north-west camp"] = "{object:176344}，西北营地",
 
-	-- Step 69: Level 28
+	-- Step 71: Level 28
 	["Level 28"] = "28级",
 	-- {npc:10646} Lakota Windsong · {area:2797} Blackfathom Deeps
 	["Short of 28? The Grimtotem around these camps (25-28) are the right level: kill a few more before the climb to {npc:10646}. Past it, this step skips itself. Or, with a group, run the {area:2797} dungeon instead."] = "还没到28级？这些营地周围的恐怖图腾（25-28级）等级正合适：爬上去找{npc:10646}之前，再杀一些。达到要求后，本步骤会自动跳过。也可组队挑战{area:2797}地下城。",
@@ -320,52 +331,78 @@ return {
 	-- {npc:10759} Grimtotem Stomper
 	["grind on {npc:10759}"] = "击杀{npc:10759}刷经验",
 
-	-- Step 70: Lakota Windsong
+	-- Step 72: Lakota Windsong
 	-- {area:485} Great Lift · {area:2097} Darkcloud Pinnacle · {npc:10646} Lakota Windsong · {npc:10896} Arnak Grimtotem
 	["{area:485} detour warning: the arrow may miss the path up {area:2097}. If you are on the canyon floor, follow the path and rope bridges up {area:2097}. {npc:10646} is held captive beside {npc:10896} (29): clear the guards and {npc:10896} first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "{area:485}绕路提醒：箭头可能找不到通往{area:2097}的小路。如果你在峡谷底部，沿小路和绳桥爬上{area:2097}。{npc:10646}被囚禁在{npc:10896}（29级）旁边：先清掉守卫和{npc:10896}，再救出她并在下山路上保护她；途中会有恐怖图腾伏击者袭击你。",
 
-	-- Step 71: Highperch
+	-- Step 73: Highperch
 	-- {area:482} Highperch · {npc:10427} Pao'ka Swiftmountain · {area:2237} Whitereach Post
 	-- plural, as words: Highperch Patriarchs = {npc:4110} Highperch Patriarch
 	["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests. {npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "在白沙岗哨西边，双足飞龙在{area:482}的悬崖上筑巢；蛋就在巢里。{npc:10427}在筑巢地东侧等候：救出他，并在走回{area:2237}的路上保护他。\n小心：28-29级的双足飞龙在头顶飞行，可能毫无预警地被引来。经过底部第一根石柱后，可能遭到三只双足飞龙的伏击。雌性风巢飞龙（30-31级）和稀有怪心刃（32级）也栖息在这里：绕开它们拉怪。",
 
-	-- Step 72: Whitereach Post
-	-- {npc:10428} Motega Firemane · {zone:1456} Thunder Bluff
-	["{npc:10428}'s next quest, Sacred Fire, ends in {zone:1456}, off this route. Skip it."] = "{npc:10428}的下一个任务（生命圣火）在{zone:1456}结束，不在本路线上。跳过它。",
+	-- Step 74: Whitereach Post
+	-- {npc:10428} Motega Firemane · {item:12732} Incendia Agave · {area:2097} Darkcloud Pinnacle
+	["{npc:10428}: the {item:12732} grows among the Grimtotem camps below {area:2097}, on the way back east"] = "",
 
-	-- Step 73: Kanati Greycloud
+	-- Step 75: Kanati Greycloud
 	-- {npc:10617} Galak Messenger · {npc:10638} Kanati Greycloud · {area:2237} Whitereach Post
 	["Only if the {npc:10617} dropped his plot for you: {npc:10638} stands at {area:2237}."] = "仅当{npc:10617}给你掉落了他的阴谋书时：{npc:10638}站在{area:2237}。",
 
-	-- Step 75: Hypercapacitor Gizmo
+	-- Step 77: Hypercapacitor Gizmo
 	-- {npc:10992} Enraged Panther
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone."] = "这些都是精英怪：建议组队，找人一起完成。{npc:10992}是30级精英：大多数职业到32级可以单独击败，但你可能仍需要帮助。独自一人就跳过。",
 
-	-- Step 76: Whitereach Post
+	-- Step 78: Whitereach Post
 	-- {npc:10720} Galak Assassin · {npc:10638} Kanati Greycloud
 	["Kill the {npc:10720} that comes for {npc:10638}"] = "杀死前来袭击{npc:10638}的{npc:10720}",
 
-	-- Step 79: Freewind Post
-	-- {area:2237} Whitereach Post · {area:484} Freewind Post
-	["Back east past {area:2237} to {area:484}."] = "向东经过{area:2237}，返回{area:484}。",
+	-- Step 81: Gravelsnout kobolds and Steelsnap
+	-- {quest:1131} Steelsnap
+	["Gravelsnout kobolds and {quest:1131}"] = "",
+	-- {quest:1131} Steelsnap · {npc:3441} Melor Stonehoof
+	-- plural, as words: Gravelsnout Diggers = {npc:4113} Gravelsnout Digger · Pesterhide Snarlers = {npc:4249} Pesterhide Snarler
+	["North-west of Whitereach Post the Gravelsnout Diggers and Surveyors dig in the far western hills; one of them drops the ore sample. {quest:1131}, a lone hyena, prowls the same hills with the Pesterhide Snarlers: his rib is {npc:3441}'s.\nCareful: {quest:1131} is level 30 and the kobolds 28-29: pull them one at a time."] = "",
+	-- plural, as words: Gravelsnout Diggers = {npc:4113} Gravelsnout Digger
+	["Ore Sample, from the Gravelsnout Diggers and Surveyors"] = "",
+
+	-- Step 82: Incendia Agave
+	-- {area:2237} Whitereach Post · {item:12732} Incendia Agave · {area:2097} Darkcloud Pinnacle · {npc:216463} Ailgrha Splittusk
+	["Back east past {area:2237}: the {item:12732} grows on the ground among the Grimtotem camps below {area:2097}. Start with the three plants close together at the camps' north-western edge, where the arrow points, and stay on that side; the agave comes back while you work.\nCareful: the Ravaging elementals (38-40) and {npc:216463} (38, elite) hold the ground south and east of the camps, from about 36,35: don't follow the agave past them."] = "",
+
+	-- Step 83: Roguefeather Den
+	-- {area:487} Roguefeather Den · {npc:4877} Jandia · {npc:4490} Grenka Bloodscreech · {npc:2986} Dorn Plainstalker · {quest:1150} Test of Endurance
+	["South of Darkcloud Pinnacle the Screeching harpies hold {area:487}; {npc:4877}'s stolen supplies lie on the ground around it.\nCareful: the harpies (28-29) stand in packs and the Windcallers cast from range: pull at the edge. {npc:4490} (31) waits deeper in the den: leave her for {npc:2986}'s {quest:1150} at about 30, in the next guide."] = "",
+	-- {quest:98069} Stolen Freewind Supplies
+	["{quest:98069}, on the ground around the den"] = "{quest:98069}，在巢穴周围的地面上",
+
+	-- Step 84: Freewind Post
+	-- {area:484} Freewind Post
+	["Back east to {area:484}."] = "向东返回{area:484}。",
 	-- {npc:10645} Thalia Amberhide
 	["{npc:10645}, inside"] = "{npc:10645}：在屋内",
 	-- {npc:4877} Jandia
 	["{npc:4877}, inside the inn"] = "{npc:4877}，在旅店里",
-	-- {npc:4877} Jandia · {npc:2986} Dorn Plainstalker · {quest:1150} Test of Endurance · {area:487} Roguefeather Den · {area:2240} Mirage Raceway
-	["Keep {npc:4877}'s two harpy quests and {npc:2986}'s {quest:1150}: {area:487} comes with the next Freewind visit, at about 30, with the {area:2240}'s quests."] = "保留{npc:4877}的两个鹰身人任务和{npc:2986}的{quest:1150}：{area:487}留到下次来乱风岗时再做，大约30级，和{area:2240}的任务一起完成。",
+	-- {npc:2986} Dorn Plainstalker · {quest:1150} Test of Endurance
+	["Keep {npc:2986}'s {quest:1150}: Grenka comes with the next Freewind visit, at about 30."] = "",
 
-	-- Step 80: Level 29
-	["Level 29"] = "29级",
-	-- {area:484} Freewind Post · {area:2797} Blackfathom Deeps
-	-- plural, as words: Pesterhide Snarlers = {npc:4249} Pesterhide Snarler
-	["The next guide opens with Korran's The Swarm Grows at the Crossroads, offered from level 29. Short of 29? The Pesterhide Snarlers (28-29) prowl the canyon floor just north-west of {area:484}: kill them until level 29. Or, with a group, run the {area:2797} dungeon instead."] = "下一个指南从十字路口科兰的“疯狂的虫群”开始，29级起可接。不到29级？{area:484}西北边的峡谷底部有杂毛嚎叫者（28-29级）游荡：杀到29级为止。或者组队去打{area:2797}地下城。",
-	-- plural, as words: Pesterhide Snarlers = {npc:4249} Pesterhide Snarler
-	["Pesterhide Snarlers"] = "杂毛嚎叫者",
-	-- {npc:4249} Pesterhide Snarler
-	["grind on {npc:4249}"] = "击杀{npc:4249}刷经验",
+	-- Step 85: Fly to Thunder Bluff
+	-- {area:484} Freewind Post
+	["{area:484} flight master"] = "{area:484}的飞行管理员",
+
+	-- Step 86: Melor Stonehoof
+	-- {npc:3441} Melor Stonehoof · {area:1641} Hunter Rise · {quest:1131} Steelsnap
+	["{npc:3441} on {area:1641} takes {quest:1131}'s rib."] = "",
+
+	-- Step 87: Magatha Grimtotem
+	-- {npc:4046} Magatha Grimtotem · {area:1639} Elder Rise · {area:2097} Darkcloud Pinnacle
+	["{npc:4046} stands on the {area:1639}, east across the bridges. Her next quest, Arikara, goes back to {area:2097} and Whitereach: leave it, the route does not go back there."] = "",
+
+	-- Step 89: Tatternack Steelforge
+	-- {npc:3433} Tatternack Steelforge
+	["{npc:3433} takes the ore sample beside the flight master. The next guide flies on from here."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back east past {area:2237} to {area:484}."] = "向东经过{area:2237}，返回{area:484}。",
 	-- ["Back east to {area:484}: it lies on the way from {area:487} to {npc:2986}'s mesa."] = "向东回到{area:484}：它就在从{area:487}去{npc:2986}所在平顶山的路上。",
 	-- ["Back south-west to {area:421}. Befouled Water Elementals drift around its shores; the gazebo stands on the island, overlooking the Alliance outpost."] = "向西南回到{area:421}。污浊的水元素在湖岸周围漂浮；瞭望台在岛上，俯瞰着联盟的前哨站。",
 	-- ["Back to Zoram'gar from the ruins before heading east for good."] = "从遗迹返回佐拉姆加，再向东离开，不再折返。",
@@ -386,13 +423,16 @@ return {
 	-- ["His crate is for Stranglethorn, later on the route"] = "他的箱子要送去荆棘谷，在路线后面",
 	-- ["If you skipped {quest:5151} and are still short of 29.49, kill harpies here first: {area:487} is your next stop anyway. The Screeching Harpies (28-29) at its edge are at your level; the Roguefeathers and Windcallers (29-30) inside hit harder. Past it, this step skips itself. Or, with a group, run the {area:2797} dungeon instead."] = "如果跳过了 {quest:5151}，而且还没到 29.49 级，先在此击杀鹰身人：反正下一站就是 {area:487}。外围的尖啸的鹰身人（28-29 级）与你等级相当；里面的尖啸的游荡者和尖啸的唤风者（29-30 级）打得更重。已超过这个进度则自动跳过此步骤。也可组队前往 {area:2797} 地下城。",
 	-- ["Inside the hold, Troll Chests lie along the tunnels. {npc:12818} is held deep inside: free him and protect him all the way out, then he runs home to {area:428}."] = "巢穴里，巨魔的箱子散落在坑道各处。{npc:12818}被关在深处：救出他并一路护送他出去，之后他会跑回{area:428}的家。",
+	-- ["Keep {npc:4877}'s two harpy quests and {npc:2986}'s {quest:1150}: {area:487} comes with the next Freewind visit, at about 30, with the {area:2240}'s quests."] = "保留{npc:4877}的两个鹰身人任务和{npc:2986}的{quest:1150}：{area:487}留到下次来乱风岗时再做，大约30级，和{area:2240}的任务一起完成。",
 	-- ["Level 28.9"] = "28.9 级",
+	-- ["Level 29"] = "29级",
 	-- ["Level 29.49"] = "等级 29.49",
 	-- ["Naga brazier"] = "纳迦火盆",
 	-- ["North up the road to {area:431} and {area:428} beside it."] = "沿道路向北前往{area:431}和旁边的{area:428}。",
 	-- ["On the road south to the {area:485}, turn east into the {area:359} dig. {npc:3421} hides at its south edge. {object:3646} stands on the bottom floor of the dwarves' fortress, beside {npc:3414} (30) and his Officers (26): pull them to you one at a time."] = "沿道路向南前往{area:485}，途中向东转入{area:359}挖掘场。{npc:3421}藏在南侧边缘。{object:3646}在矮人要塞的底层，旁边有{npc:3414}（30级）和他的军官（26级）：每次只引一个出来。",
 	-- ["On the way back north-east to Splintertree: {npc:12676} prowls the woods south-east of the Warsong lumber camp."] = "在向东北返回碎木岗哨的路上：{npc:12676}在战歌伐木营地东南的树林里徘徊。",
 	-- ["Paladins know {area:1638}'s flight path from {npc:246344}'s training."] = "圣骑士在接受 {npc:246344} 训练时，已学会 {area:1638} 的飞行路线。",
+	-- ["Pesterhide Snarlers"] = "杂毛嚎叫者",
 	-- ["Shadumbra"] = "萨杜布拉",
 	-- ["Sharptalon"] = "沙普塔隆",
 	-- ["Short of 28.9? The Grimtotem around these camps (25-28) are the right level: kill a few more before the climb to {npc:10646}. Past it, this step skips itself. Or, with a group, run the {area:2797} dungeon instead."] = "还没到28.9级？这些营地周围的恐怖图腾（25-28级）等级正合适：爬上去找{npc:10646}之前，再杀一些。达到要求后，本步骤会自动跳过。也可组队挑战{area:2797}地下城。",
@@ -404,6 +444,7 @@ return {
 	-- ["The fountain stands in the middle of the {area:418}: use the {item:7767} there."] = "喷泉在{area:418}中央：在那里使用{item:7767}。",
 	-- ["The next guide flies on from here to the Crossroads and {zone:1454}."] = "下一篇指南会从这里飞往十字路口和 {zone:1454}。",
 	-- ["The next guide flies on from here to {zone:1454}."] = "下一个指南从这里飞往{zone:1454}。",
+	-- ["The next guide opens with Korran's The Swarm Grows at the Crossroads, offered from level 29. Short of 29? The Pesterhide Snarlers (28-29) prowl the canyon floor just north-west of {area:484}: kill them until level 29. Or, with a group, run the {area:2797} dungeon instead."] = "下一个指南从十字路口科兰的“疯狂的虫群”开始，29级起可接。不到29级？{area:484}西北边的峡谷底部有杂毛嚎叫者（28-29级）游荡：杀到29级为止。或者组队去打{area:2797}地下城。",
 	-- ["The salt flats"] = "盐滩",
 	-- ["The {area:1718}"] = "{area:1718}",
 	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "这些都是精英怪：建议组队，找人一起完成。{npc:10992} 是 30 级精英：大多数职业到 32 级可以单独击败，但你可能仍需要帮助。独自一人就跳过：路线会安排刷怪补回这部分经验。",
@@ -415,10 +456,12 @@ return {
 	-- ["While you're at the lake: Befouled Water Elementals drift around its shores; the gazebo stands on the island, overlooking the Alliance outpost."] = "既然到了湖边：污浊的水元素在湖岸周围漂浮；瞭望台在岛上，俯瞰着联盟的前哨站。",
 	-- ["grind on the Grimtotem below {area:2097}"] = "击杀 {area:2097} 下方的恐怖图腾成员刷经验",
 	-- ["grind on {npc:4100}"] = "击杀{npc:4100}刷经验",
+	-- ["grind on {npc:4249}"] = "击杀{npc:4249}刷经验",
 	-- ["{area:483}: kill these as you meet them"] = "{area:483}：沿途遇到就击杀",
 	-- ["{area:485}, down into {zone:1441}"] = "经{area:485}下到{zone:1441}",
 	-- ["{item:273658}, from {npc:264082}"] = "{item:273658}，从{npc:264082}获取",
 	-- ["{npc:10079}, at the top of the lift"] = "{npc:10079}，在升降梯顶部",
+	-- ["{npc:10428}'s next quest, Sacred Fire, ends in {zone:1456}, off this route. Skip it."] = "{npc:10428}的下一个任务（生命圣火）在{zone:1456}结束，不在本路线上。跳过它。",
 	-- ["{npc:12196}, beside her"] = "{npc:12196}，在她旁边",
 	-- ["{npc:12676}, a big nightsaber, prowls the woods south-east of the Warsong lumber camp, on the way north to Splintertree. Her claw starts the next hunt quest."] = "{npc:12676} 是一只巨大的夜刃豹，在战歌伐木营地东南面的树林中徘徊，位于向北通往碎木岗哨的路上。她的爪子可以触发下一个狩猎任务。",
 	-- ["{npc:12676}, a big nightsaber, prowls the woods south-east of the Warsong lumber camp. Her claw starts the next hunt quest."] = "{npc:12676}是一只巨大的夜刃豹，在战歌伐木营地东南的树林里潜行。它的爪子可以开始下一个狩猎任务。",
@@ -435,16 +478,17 @@ return {
 	-- ["{npc:210995}, a Forever addition, stands on the west shore of {area:421} with three quick Dragonslayer quests."] = "{npc:210995}是无限新增的NPC，站在{area:421}西岸，有三个简短的屠龙者任务。",
 	-- ["{npc:264082} sits at the north end of {area:17044}; her {item:273658} starts {quest:96294}."] = "{npc:264082}在{area:17044}北端；她掉落的{item:273658}可以开始{quest:96294}。",
 	-- ["{npc:2986} offers {quest:1151} once {quest:1150} is in"] = "交还 {quest:1150} 后，{npc:2986} 才会提供 {quest:1151}",
+	-- ["{npc:2986} stands on a mesa top east of the Galak camps. For the {quest:1149}, walk off the end of the planks beside him: you land safely."] = "{npc:2986}站在加拉克营地东边的一座石柱顶上。做{quest:1149}时，从他旁边的木板尽头走下去：你会安全落地。",
 	-- ["{npc:2986}'s mesa is north-east of Freewind."] = "{npc:2986} 所在的台地在乱风岗东北侧。",
 	-- ["{npc:2986}'s mesa is north-east of Freewind; from him, head south-east out to the {area:439}."] = "{npc:2986}所在的平顶山在乱风岗东北；从他那里向东南前往{area:439}。",
 	-- ["{npc:4454}: his letter goes to Martek in the {zone:1418}, around level 38"] = "{npc:4454}：他的信要交给{zone:1418}的马特克，大约38级时",
 	-- ["{npc:4499}, a hard-hitting rock elemental, walks the cliffs of {area:482}, back west past {area:2237}. {npc:4499} is elite: grouping up is advised."] = "{npc:4499} 是一只攻击很重的岩石元素，在向西经过 {area:2237} 后的 {area:482} 悬崖间巡逻。{npc:4499} 是精英：建议组队。",
 	-- ["{npc:4499}, a hard-hitting rock elemental, walks the cliffs of {area:482}. {npc:4499} is elite: grouping up is advised."] = "{npc:4499}是一个攻击力很高的石元素，在{area:482}的悬崖上走动。{npc:4499}是精英：建议组队。",
+	-- ["{npc:4877}'s two harpy quests are taken when you leave Freewind; their den comes with the next Freewind visit, at about 30."] = "{npc:4877}的两个鹰身人任务在离开乱风岗时接受；它们的巢穴留到下次来乱风岗时完成，约30级。",
 	-- ["{npc:4877}, inside"] = "{npc:4877}：在屋内",
 	-- ["{npc:4877}, the trade supplies vendor: the Screeching harpies of {area:487}"] = "{npc:4877}，商业用品商人：{area:487}的尖啸的鹰身人",
 	-- ["{npc:4877}, the trade supplies vendor: the Screeching harpies of {area:487}; inside the inn"] = "{npc:4877}，商业用品商人：{area:487}的尖啸的鹰身人；在旅店里",
 	-- ["{npc:4877}: her stolen supplies lie in the same harpy den"] = "{npc:4877}：她被偷的物资也在同一处鹰身人巢穴",
 	-- ["{object:19868} lies all over the flats north of the raceway. Scorpid Reavers and Sparkleshell Tortoises roam the north half, Salt Flats Scavengers circle overhead, and Saltstone Basilisks graze west of the track. The Crystalhides roam the middle of the flats and the Gazers (34-35, five levels above you: one at a time) the far south."] = "{object:19868}散落在赛道北边的盐滩上。恐蝎劫掠者和盐壳龟在北半部游荡，盐湖食腐鹫在空中盘旋，盐石蜥蜴在赛道西边吃草。盐石水晶蜥蜴在盐滩中部游荡，盐石凝视者（34-35级，比你高五级：一次引一只）在最南边。",
 	-- ["{object:3646}; below ground"] = "{object:3646}：在地下",
-	-- ["{quest:98069}, on the ground around the den"] = "{quest:98069}，在巢穴周围的地面上",
 }

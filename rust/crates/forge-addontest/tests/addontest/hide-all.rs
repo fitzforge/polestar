@@ -574,6 +574,8 @@ const SURFACES: &[(&str, &str, usize, &str, &str)] = &[
 	("Polestar/Nav/MapCanvas.lua", "canvas", 1, "POLESTAR_HIDDEN", "a map's view frame, every map drawing's parent: hidden while Polestar is"),
 	("Polestar/Maps/WorldMap.lua", "owner", 1, "Hidden", "the world map's info bar: off while hidden"),
 	("Polestar/QoL/XPMark.lua", "bar", 1, "Hidden", "the guide level on the XP bar: off while hidden"),
+	("Polestar/QoL/QuestXP.lua", "bar", 1, "Hidden", "the completed quest XP overlay: off while hidden"),
+	("Polestar/QoL/QuestXP.lua", "frame", 1, "Hidden", "the rested pip, under the quest XP overlay"),
 	("Polestar/QoL/Rewards.lua", "button", 1, "Hidden", "the quest reward marks: off while hidden"),
 	("Polestar/QoL/Rewards.lua", "frame", 1, "Hidden", "the reward panel's weights line beside its heading: off while hidden"),
 	("Polestar/Talents/Overlay.lua", "button", 1, "Hidden", "the talent marks: off while hidden"),
@@ -584,6 +586,7 @@ const SURFACES: &[(&str, &str, usize, &str, &str)] = &[
 // menu entries, nameplate icons, text it changes): each file asks Polestar.Hidden().
 const MARKS: &[(&str, &str)] = &[
 	("Polestar/Core/Hooks.lua", "every tooltip line of every module, and modified item clicks"),
+	("Polestar/QoL/QuestXP.lua", "completed quest XP in the XP bar's tooltip"),
 	("Polestar/Gear/Bags.lua", "upgrade arrows on bag items"),
 	("Polestar/QoL/BagGlow.lua", "the step's item glowing in the bags"),
 	("Polestar/Quests/BagMarks.lua", "quest marks on bag items"),

@@ -8,14 +8,14 @@
 return {
 	-- Step 1: Learn Alchemy
 	-- {skill:171} Alchemy
-	["Learn {skill:171}"] = "",
+	["Learn {skill:171}"] = "學習{skill:171}",
 	-- {skill:171} Alchemy · {skill:182} Herbalism · {item:2447} Peacebloom · {item:765} Silverleaf
 	-- plural, as words: Empty Vials = {item:3371} Empty Vial
-	["Apprentice {skill:171} lets you craft up to 75 for 10c, at any character level. Any {skill:171} trainer of your faction teaches it; the arrow picks the nearest. Pair it with {skill:182}: {item:2447} and {item:765} grow in every starting zone, and Empty Vials cost 4c at any alchemy or trade supplies vendor. 1-75 takes about 3s 28c of vendor goods, plus 82 {item:765} and 110 {item:2447} to gather or buy."] = "",
+	["Apprentice {skill:171} lets you craft up to 75 for 10c, at any character level. Any {skill:171} trainer of your faction teaches it; the arrow picks the nearest. Pair it with {skill:182}: {item:2447} and {item:765} grow in every starting zone, and Empty Vials cost 4c at any alchemy or trade supplies vendor. 1-75 takes about 3s 28c of vendor goods, plus 82 {item:765} and 110 {item:2447} to gather or buy."] = "初級{skill:171}讓你在任何角色等級下花10銅把技能練到75。本陣營任意{skill:171}訓練師都教；箭頭會指向最近的一位。配合{skill:182}：{item:2447}和{item:765}在每個新手地區都有生長，空瓶在任何鍊金或雜貨供應商處賣4銅。1-75大約花3銀28銅的商人貨物，外加82個{item:765}和110個{item:2447}，需自行採集或購買。",
 
 	-- Step 2: Alchemy 1-75: vendor goods
 	-- {skill:171} Alchemy
-	["{skill:171} 1-75: vendor goods"] = "",
+	["{skill:171} 1-75: vendor goods"] = "{skill:171} 1-75：商人貨物",
 	-- {item:3371} Empty Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
 	["Buy the whole bracket's share in one go: 82 {item:3371} (3s 28c); about 3s 28c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
 
@@ -85,7 +85,7 @@ return {
 	-- {item:5997} Elixir of Minor Defense
 	["{item:5997} to 75"] = "{item:5997}練到75",
 	-- {item:5997} Elixir of Minor Defense · {item:765} Silverleaf · {item:2447} Peacebloom · {item:3371} Empty Vial
-	["{item:5997} is orange at 1 (yellow 55, green 75, grey 95): about 82 crafts to 75. Each takes 1 {item:765}, 1 {item:2447} and 1 {item:3371}. Known from the start and the cheapest way through the Apprentice range. Keep the elixirs (armour while you level) or sell them."] = "",
+	["{item:5997} is orange at 1 (yellow 55, green 75, grey 95): about 82 crafts to 75. Each takes 1 {item:765}, 1 {item:2447} and 1 {item:3371}. Known from the start and the cheapest way through the Apprentice range. Keep the elixirs (armour while you level) or sell them."] = "{item:5997}在1時為橙色（55黃、75綠、95灰）：大約82次製作可到75。每次需要1個{item:765}、1個{item:2447}和1個{item:3371}。一開始就會，是衝過初級段最便宜的辦法。留著這些藥劑（練級時加護甲），或者賣掉。",
 
 	-- Step 19: Journeyman Alchemy
 	-- {skill:171} Alchemy
@@ -95,7 +95,7 @@ return {
 
 	-- Step 20: Alchemy 75-150: vendor goods
 	-- {skill:171} Alchemy
-	["{skill:171} 75-150: vendor goods"] = "",
+	["{skill:171} 75-150: vendor goods"] = "{skill:171} 75-150：商人貨物",
 	-- {item:3371} Empty Vial · {item:3372} Leaded Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
 	["Buy the whole bracket's share in one go: 77 {item:3371} (3s 8c) and 15 {item:3372} (6s); about 9s 8c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
 
@@ -173,7 +173,7 @@ return {
 	-- {spell:2331} Minor Mana Potion
 	["{spell:2331} to 90"] = "{spell:2331}練到90",
 	-- {spell:2331} Minor Mana Potion · {item:785} Mageroyal · {item:2447} Peacebloom · {item:3371} Empty Vial · {spell:3171} Elixir of Wisdom
-	["{spell:2331} is yellow at 75 (yellow 65, green 85, grey 105): about 28 crafts to 90. Each takes 1 {item:785}, 1 {item:2447} and 1 {item:3371}. The trainer teaches it from 25. It is yellow already, so count on about two crafts a point until {spell:3171} takes over at 90. {item:785} grows in the 10-25 zones."] = "",
+	["{spell:2331} is yellow at 75 (yellow 65, green 85, grey 105): about 28 crafts to 90. Each takes 1 {item:785}, 1 {item:2447} and 1 {item:3371}. The trainer teaches it from 25. It is yellow already, so count on about two crafts a point until {spell:3171} takes over at 90. {item:785} grows in the 10-25 zones."] = "{spell:2331}在75時為黃色（65黃、85綠、105灰）：大約28次製作可到90。每次需要1個{item:785}、1個{item:2447}和1個{item:3371}。訓練師從25起教它。它已經是黃色，所以每漲一點約需兩次製作，直到90時由{spell:3171}接手。{item:785}生長在10-25地區。",
 
 	-- Step 39: Alchemy recipes at 90
 	-- {skill:171} Alchemy
@@ -183,25 +183,25 @@ return {
 
 	-- Step 40: Elixir of Wisdom to 135
 	-- {spell:3171} Elixir of Wisdom
-	["{spell:3171} to 135"] = "",
+	["{spell:3171} to 135"] = "{spell:3171} 到135",
 	-- {spell:3171} Elixir of Wisdom · {item:785} Mageroyal · {item:2450} Briarthorn · {item:3371} Empty Vial
-	["{spell:3171} is orange at 90 (yellow 120, green 140, grey 160): about 49 crafts to 135. Each takes 1 {item:785}, 2 {item:2450} and 1 {item:3371}. Two {item:2450} and a {item:785} a craft, both from the 10-25 zones; orange to 120."] = "",
+	["{spell:3171} is orange at 90 (yellow 120, green 140, grey 160): about 49 crafts to 135. Each takes 1 {item:785}, 2 {item:2450} and 1 {item:3371}. Two {item:2450} and a {item:785} a craft, both from the 10-25 zones; orange to 120."] = "{spell:3171}在90時為橙色（120黃、140綠、160灰）：大約49次製作可到135。每次需要1個{item:785}、2個{item:2450}和1個{item:3371}。每次兩個{item:2450}和一個{item:785}，兩者都來自10-25地區；到120前都是橙色。",
 
 	-- Step 41: Alchemy recipes at 135
 	-- {skill:171} Alchemy
 	["{skill:171} recipes at 135"] = "{skill:171}135的配方",
 	-- {skill:171} Alchemy · {spell:3176} Lesser Troll's Blood Elixir
-	["Back to an {skill:171} trainer: {spell:3176} (from 125)."] = "",
+	["Back to an {skill:171} trainer: {spell:3176} (from 125)."] = "回到{skill:171}訓練師處：{spell:3176}（125起）。",
 
 	-- Step 42: Lesser Troll's Blood Elixir to 150
 	-- {spell:3176} Lesser Troll's Blood Elixir
-	["{spell:3176} to 150"] = "",
+	["{spell:3176} to 150"] = "{spell:3176} 到150",
 	-- {spell:3176} Lesser Troll's Blood Elixir · {item:2453} Bruiseweed · {item:2450} Briarthorn · {item:3372} Leaded Vial · {skill:171} Alchemy
-	["{spell:3176} is orange at 135 (yellow 150, green 170, grey 190): about 15 crafts to 150, a point every craft. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. {skill:171} 150 is a Legacy System milestone."] = "",
+	["{spell:3176} is orange at 135 (yellow 150, green 170, grey 190): about 15 crafts to 150, a point every craft. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones. {skill:171} 150 is a Legacy System milestone."] = "{spell:3176}在135時為橙色（150黃、170綠、190灰）：大約15次製作可到150，每次一點。每次需要2個{item:2453}、2個{item:2450}和1個{item:3372}。每次兩個{item:2453}和兩個{item:2450}；{item:2453}生長在15-30地區。{skill:171} 150是傳承系統里程碑。",
 
 	-- Step 43: Alchemy 150-225: vendor goods
 	-- {skill:171} Alchemy
-	["{skill:171} 150-225: vendor goods"] = "",
+	["{skill:171} 150-225: vendor goods"] = "{skill:171} 150-225：商人貨物",
 	-- {item:3372} Leaded Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
 	["Buy the whole bracket's share in one go: 83 {item:3372} (33s 20c); about 33s 20c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
 
@@ -237,13 +237,13 @@ return {
 
 	-- Step 49: Stranglekelp (Alliance)
 	-- {object:2045} Stranglekelp
-	["{object:2045} (Alliance)"] = "",
+	["{object:2045} (Alliance)"] = "{object:2045}（聯盟）",
 	-- {object:2045} Stranglekelp · {spell:3452} Mana Potion · {skill:182} Herbalism · {zone:1437} Wetlands · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands
 	["39 {object:2045} for {spell:3452}: {skill:182}: {object:2045} (skill 85) in {zone:1437} (20-30), {zone:1434} (30-45) and {zone:1425} (40-50). The densest patch of {object:2045} in {zone:1434} is marked."] = "",
 
 	-- Step 50: Stranglekelp (Horde)
 	-- {object:2045} Stranglekelp
-	["{object:2045} (Horde)"] = "",
+	["{object:2045} (Horde)"] = "{object:2045}（部落）",
 	-- {object:2045} Stranglekelp · {spell:3452} Mana Potion · {skill:182} Herbalism · {zone:1413} The Barrens · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands
 	["39 {object:2045} for {spell:3452}: {skill:182}: {object:2045} (skill 85) in {zone:1413} (10-25), {zone:1434} (30-45) and {zone:1425} (40-50). The densest patch of {object:2045} in {zone:1413} is marked."] = "",
 
@@ -267,43 +267,43 @@ return {
 
 	-- Step 54: Lesser Troll's Blood Elixir to 160
 	-- {spell:3176} Lesser Troll's Blood Elixir
-	["{spell:3176} to 160"] = "",
+	["{spell:3176} to 160"] = "{spell:3176} 到160",
 	-- {spell:3176} Lesser Troll's Blood Elixir · {item:2453} Bruiseweed · {item:2450} Briarthorn · {item:3372} Leaded Vial
-	["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "",
+	["{spell:3176} is yellow at 150 (yellow 150, green 170, grey 190): about 12 crafts to 160. Each takes 2 {item:2453}, 2 {item:2450} and 1 {item:3372}. Two {item:2453} and two {item:2450} a craft; {item:2453} grows in the 15-30 zones."] = "{spell:3176}在150時為黃色（150黃、170綠、190灰）：大約12次製作可到160。每次需要2個{item:2453}、2個{item:2450}和1個{item:3372}。每次兩個{item:2453}和兩個{item:2450}；{item:2453}生長在15-30地區。",
 
 	-- Step 55: Alchemy recipes at 160
 	-- {skill:171} Alchemy
 	["{skill:171} recipes at 160"] = "{skill:171}160的配方",
 	-- {spell:3452} Mana Potion
-	["Still at the Expert trainer: {spell:3452} (from 160)."] = "",
+	["Still at the Expert trainer: {spell:3452} (from 160)."] = "仍在高階訓練師處：{spell:3452}（160起）。",
 
 	-- Step 56: Mana Potion to 195
 	-- {spell:3452} Mana Potion
-	["{spell:3452} to 195"] = "",
+	["{spell:3452} to 195"] = "{spell:3452} 到195",
 	-- {spell:3452} Mana Potion · {item:3820} Stranglekelp · {item:3356} Kingsblood · {item:3372} Leaded Vial
-	["{spell:3452} is orange at 160 (yellow 180, green 200, grey 220): about 39 crafts to 195. Each takes 1 {item:3820}, 1 {item:3356} and 1 {item:3372}. {item:3820} grows under water along the coasts: bring a water breathing elixir or come up for air. {item:3356} grows in the 20-40 zones."] = "",
+	["{spell:3452} is orange at 160 (yellow 180, green 200, grey 220): about 39 crafts to 195. Each takes 1 {item:3820}, 1 {item:3356} and 1 {item:3372}. {item:3820} grows under water along the coasts: bring a water breathing elixir or come up for air. {item:3356} grows in the 20-40 zones."] = "{spell:3452}在160時為橙色（180黃、200綠、220灰）：大約39次製作可到195。每次需要1個{item:3820}、1個{item:3356}和1個{item:3372}。{item:3820}生長在沿海水下：帶上水下呼吸藥劑，或者浮上來換氣。{item:3356}生長在20-40地區。",
 
 	-- Step 57: Alchemy recipes at 195
 	-- {skill:171} Alchemy
 	["{skill:171} recipes at 195"] = "{skill:171}195的配方",
 	-- {spell:11450} Elixir of Defense
-	["Still at the Expert trainer: {spell:11450} (from 195)."] = "",
+	["Still at the Expert trainer: {spell:11450} (from 195)."] = "仍在高階訓練師處：{spell:11450}（195起）。",
 
 	-- Step 58: Elixir of Defense to 225
 	-- {item:8951} Elixir of Defense
 	["{item:8951} to 225"] = "{item:8951}練到225",
 	-- {item:8951} Elixir of Defense · {item:3355} Wild Steelbloom · {item:3821} Goldthorn · {item:3372} Leaded Vial · {zone:1418} Badlands · {skill:171} Alchemy
-	["{item:8951} is orange at 195 (yellow 215, green 235, grey 255): about 32 crafts to 225. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). {skill:171} 225 is a Legacy System milestone."] = "",
+	["{item:8951} is orange at 195 (yellow 215, green 235, grey 255): about 32 crafts to 225. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418}). {skill:171} 225 is a Legacy System milestone."] = "{item:8951}在195時為橙色（215黃、235綠、255灰）：大約32次製作可到225。每次需要1個{item:3355}、1個{item:3821}和1個{item:3372}。{item:3355}和{item:3821}是30-45地區的草藥（荊棘谷、阿拉希、{zone:1418}）。{skill:171} 225是傳承系統里程碑。",
 
 	-- Step 59: Alchemy 225-300: vendor goods
 	-- {skill:171} Alchemy
-	["{skill:171} 225-300: vendor goods"] = "",
+	["{skill:171} 225-300: vendor goods"] = "{skill:171} 225-300：商人貨物",
 	-- {item:3372} Leaded Vial · {item:8925} Crystal Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
 	["Buy the whole bracket's share in one go: 51 {item:3372} (20s 40c) and 86 {item:8925} (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "",
 
 	-- Step 60: Recipe: Elixir of Superior Defense
 	-- {item:13478} Recipe: Elixir of Superior Defense · {item:13445} Elixir of Greater Defense · {skill:171} Alchemy · {npc:5178} Soolie Berryfizz · {zone:1455} Ironforge · {npc:3348} Kor'geld · {zone:1454} Orgrimmar
-	["{item:13478} teaches {item:13445} ({skill:171} 265) for 1g 30s. Sold by Alliance: {npc:5178} ({zone:1455}), limited stock; Horde: {npc:3348} ({zone:1454}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; the Auction House often has it too."] = "",
+	["{item:13478} teaches {item:13445} ({skill:171} 265) for 1g 30s. Sold by Alliance: {npc:5178} ({zone:1455}), limited stock; Horde: {npc:3348} ({zone:1454}), limited stock. Its sellers keep one or two in stock that come back some time after a sale; the Auction House often has it too."] = "{item:13478}教{item:13445}（{skill:171} 265），售價1金30銀。出售者：聯盟{npc:5178}（{zone:1455}），限量；部落{npc:3348}（{zone:1454}），限量。賣家每次只備一兩個，售出後過段時間補貨；拍賣行也常有的賣。",
 
 	-- Step 61: Alchemy 225-300: Auction House
 	-- {skill:171} Alchemy
@@ -355,7 +355,7 @@ return {
 	-- {item:8951} Elixir of Defense
 	["{item:8951} to 230"] = "{item:8951}練到230",
 	-- {item:8951} Elixir of Defense · {item:3355} Wild Steelbloom · {item:3821} Goldthorn · {item:3372} Leaded Vial · {zone:1418} Badlands
-	["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "",
+	["{item:8951} is yellow at 225 (yellow 215, green 235, grey 255): about 8 crafts to 230. Each takes 1 {item:3355}, 1 {item:3821} and 1 {item:3372}. {item:3355} and {item:3821} are the herbs of the 30-45 zones (Stranglethorn, Arathi, the {zone:1418})."] = "{item:8951}在225時為黃色（215黃、235綠、255灰）：大約8次製作可到230。每次需要1個{item:3355}、1個{item:3821}和1個{item:3372}。{item:3355}和{item:3821}是30-45地區的草藥（荊棘谷、阿拉希、{zone:1418}）。",
 
 	-- Step 70: Alchemy recipes at 230
 	-- {skill:171} Alchemy
@@ -368,7 +368,7 @@ return {
 	["{item:9154} to 265"] = "{item:9154}練到265",
 	-- {item:9154} Draught of Detect Undead · {item:8836} Arthas' Tears · {item:8925} Crystal Vial · {zone:1448} Felwood · {skill:182} Herbalism
 	-- plural, as words: Crystal Vials = {item:8925} Crystal Vial
-	["{item:9154} is orange at 230 (yellow 245, green 265, grey 285): about 43 crafts to 265. Each takes 1 {item:8836} and 1 {item:8925}. {item:8836} grow in the Plaguelands and {zone:1448} ({skill:182} 220); Crystal Vials come from alchemy vendors."] = "",
+	["{item:9154} is orange at 230 (yellow 245, green 265, grey 285): about 43 crafts to 265. Each takes 1 {item:8836} and 1 {item:8925}. {item:8836} grow in the Plaguelands and {zone:1448} ({skill:182} 220); Crystal Vials come from alchemy vendors."] = "{item:9154}在230時為橙色（245黃、265綠、285灰）：大約43次製作可到265。每次需要1個{item:8836}和1個{item:8925}。{item:8836}生長在瘟疫之地和{zone:1448}（{skill:182} 220）；水晶瓶來自鍊金供應商。",
 
 	-- Step 72: Alchemy recipes at 265
 	-- {skill:171} Alchemy
@@ -380,7 +380,7 @@ return {
 	-- {item:13445} Elixir of Greater Defense
 	["{item:13445} to 300"] = "{item:13445}練到300",
 	-- {item:13445} Elixir of Greater Defense · {item:13423} Stonescale Oil · {item:8838} Sungrass · {item:8925} Crystal Vial · {item:13422} Stonescale Eel · {skill:171} Alchemy
-	["{item:13445} is orange at 265 (yellow 280, green 300, grey 320): about 43 crafts to 300. Each takes 2 {item:13423}, 1 {item:8838} and 1 {item:8925}. Make the 86 {item:13423} (43 crafts) first. {item:13422} comes from the {item:13422} schools on the coasts of the 40-55 zones, or the Auction House (fishers sell them in stacks). {item:8838} grows in the 40-55 zones. {skill:171} 300 is a Legacy System milestone."] = "",
+	["{item:13445} is orange at 265 (yellow 280, green 300, grey 320): about 43 crafts to 300. Each takes 2 {item:13423}, 1 {item:8838} and 1 {item:8925}. Make the 86 {item:13423} (43 crafts) first. {item:13422} comes from the {item:13422} schools on the coasts of the 40-55 zones, or the Auction House (fishers sell them in stacks). {item:8838} grows in the 40-55 zones. {skill:171} 300 is a Legacy System milestone."] = "{item:13445}在265時為橙色（280黃、300綠、320灰）：大約43次製作可到300。每次需要2個{item:13423}、1個{item:8838}和1個{item:8925}。先做好那86個{item:13423}（43次製作）。{item:13422}來自40-55地區海岸的{item:13422}魚群，或拍賣行（漁夫成組出售）。{item:8838}生長在40-55地區。{skill:171} 300是傳承系統里程碑。",
 	["from the recipe in your bags"] = "使用背包中的配方",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.

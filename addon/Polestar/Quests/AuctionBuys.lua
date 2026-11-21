@@ -11,7 +11,8 @@
 -- whose objectives (the quest database) ask for the item. Left out: optional
 -- goals, a goal naming the NPC who hands the item over, quests done or
 -- skipped, and quests that hand the item over themselves. Scope "all" adds
--- the item objectives of the other quests in the log. Per item: the most each
+-- the item objectives of the other quests in the log, but for a quest the
+-- running guide only takes as optional (#2553). Per item: the most each
 -- quest asks for, summed over the quests, less what the bags and the bank
 -- hold (the bank as far as the client knows it; Core/Materials.lua's count
 -- where it runs); only items still short are listed.
@@ -317,6 +318,12 @@ local function judge(scope)
 		end
 	end
 	local covered, buys = {}, {}
+	-- Per quest the running guide has goals for: true while every one of them
+	-- is optional (an `optional` goal or step: Dustwallow's Jarl Needs a Blade,
+	-- taken only by a player who already carries the sword, #2553), false once
+	-- one is not. A quest of the log the guide only takes as optional is no
+	-- auction house buy.
+	local optionalOnly = {}
 	local g = E and E.GetGuide and E.GetGuide()
 	local steps = g and type(g.steps) == "table" and g.steps
 	local live = steps and E.GetLiveStep and E.GetLiveStep()
@@ -326,6 +333,10 @@ local function judge(scope)
 			for i = 1, goals and #goals or 0 do
 				local goal = goals[i]
 				if goal.t == "buy" and type(goal.item) == "number" then buys[goal.item] = true end
+				local q = goal.quest
+				if type(q) == "number" and optionalOnly[q] ~= false then
+					optionalOnly[q] = (goal.optional or steps[s].optional) and true or false
+				end
 			end
 		end
 		for s = 1, #steps do
@@ -345,7 +356,7 @@ local function judge(scope)
 	end
 	if scope == "all" then
 		for _, q in ipairs(Cp.GetLogQuests()) do
-			local obj = not covered[q] and objectives(objs, q)
+			local obj = not covered[q] and not optionalOnly[q] and objectives(objs, q)
 			if obj then
 				for k = 1, #obj, 3 do
 					local id = obj[k + 1]

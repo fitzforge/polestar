@@ -16,7 +16,7 @@ return {
 
 	-- Step 2: Cain Firesong (Brill)
 	-- {npc:2128} Cain Firesong · {area:159} Brill · {area:2119} Gallows' End Tavern
-	["{npc:2128} is the {area:159} mage trainer, upstairs in the {area:2119}: take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:2128} is the {area:159} mage trainer, upstairs in the {area:2119}: take the stairs inside, the arrow cannot tell the floors apart."] = "{npc:2128}是{area:159}的法師訓練師，在{area:2119}樓上：走裡面的樓梯上去，箭頭分不清樓層。",
 
 	-- Step 3: Anastasia Hartwell
 	-- {npc:4568} Anastasia Hartwell · {object:36082} Magic Quarter · {item:7247} Chest of Containment Coffers · {item:7308} Cantation of Manifestation
@@ -26,11 +26,11 @@ return {
 	["The alchemist shop"] = "煉金商店",
 	-- {item:7308} Cantation of Manifestation · {item:7247} Chest of Containment Coffers · {item:7292} Filled Containment Coffer
 	-- plural, as words: Rift Spawns = {npc:6492} Rift Spawn
-	["Algernon's alchemist shop is in the Apothecarium. Stand on the steps or the bridge outside the shop and read the {item:7308}: up to four invisible Rift Spawns (level 16-17) appear and attack at once, and the city guards do not help. Hit one with a single-target spell and back off over the bridge: the others give up and fade, the one you hit follows. Beat it down on the shop's half of the bridge (past halfway the coffer will not work on it) until it stops fighting and sits stunned under a spiral, use the {item:7247} on it, then click the {item:7292} once it appears on the floor (clicking too early wastes a charge). Three are needed."] = "",
+	["Algernon's alchemist shop is in the Apothecarium. Stand on the steps or the bridge outside the shop and read the {item:7308}: up to four invisible Rift Spawns (level 16-17) appear and attack at once, and the city guards do not help. Hit one with a single-target spell and back off over the bridge: the others give up and fade, the one you hit follows. Beat it down on the shop's half of the bridge (past halfway the coffer will not work on it) until it stops fighting and sits stunned under a spiral, use the {item:7247} on it, then click the {item:7292} once it appears on the floor (clicking too early wastes a charge). Three are needed."] = "阿爾傑農的鍊金店在藥劑師區。站在店外的臺階或橋上，讀{item:7308}：最多四隻隱形的裂隙生物（16-17級）會同時出現並攻擊，城裡的守衛不會幫忙。用單體法術打中一隻，然後退過橋：其餘幾隻放棄並消散，被你打中的那隻會跟過來。在橋的店鋪這一半把它打倒（過了橋中點，箱子對它就無效），直到它停止戰鬥、坐在螺旋法陣下眩暈，對它使用{item:7247}，等{item:7292}出現在地上後點選（點得太早會浪費一次充能）。需要三個。",
 	-- {npc:6492} Rift Spawn
-	["{npc:6492}, down to the stun"] = "",
+	["{npc:6492}, down to the stun"] = "{npc:6492}，打到眩暈為止",
 	-- {item:7247} Chest of Containment Coffers · {npc:6492} Rift Spawn
-	["{item:7247}, on the stunned {npc:6492}"] = "",
+	["{item:7247}, on the stunned {npc:6492}"] = "{item:7247}，對已眩暈的{npc:6492}使用",
 
 	-- Step 5: Back to Anastasia Hartwell
 	-- {npc:4568} Anastasia Hartwell
@@ -43,7 +43,7 @@ return {
 
 	-- Step 7: Josef Gregorian
 	-- {zone:1458} Undercity · {npc:4576} Josef Gregorian · {npc:11048} Victor Ward · {npc:11049} Rhiannon Davis · {object:36082} Magic Quarter · {quest:1962} Spellfire Robes
-	["Back to the {zone:1458}. {npc:4576}, {npc:11048} and {npc:11049} keep the tailor's shop in the {object:36082}. Hand the gems and cloth to {npc:4576} and let the three of them talk for a moment; then {npc:4576} offers {quest:1962}: take it and hand it straight back to him for the robe."] = "",
+	["Back to the {zone:1458}. {npc:4576}, {npc:11048} and {npc:11049} keep the tailor's shop in the {object:36082}. Hand the gems and cloth to {npc:4576} and let the three of them talk for a moment; then {npc:4576} offers {quest:1962}: take it and hand it straight back to him for the robe."] = "回到{zone:1458}。{npc:4576}、{npc:11048}和{npc:11049}在{object:36082}裡經營裁縫店。把寶石和布交給{npc:4576}，等她們三個說幾句；然後{npc:4576}會給{quest:1962}：接下後立刻交回給他，換長袍。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Algernon's alchemist shop is in the Apothecarium. Use the {item:7308} there to make the {npc:6492} visible, subdue one with your spells, then use the {item:7247} to throw down a coffer and capture it."] = "奧格諾恩的煉金商店在 Apothecarium。在那裡使用{item:7308}讓{npc:6492}現形，用你的法術制服一隻，然後使用{item:7247}丟下一個箱子捕捉它。",

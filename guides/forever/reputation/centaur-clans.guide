@@ -153,6 +153,7 @@ step Gelkis: Nerlokh
 
 step Gelkis: the valley's mouth
   tip From the quest data: the Undead Ravagers and the Outcast Necromancers fill the valley from Nerlokh north-east to Orgrul's post at its northern mouth; players have met them all along it. Orgrul's Magram are hostile to a friend of the Gelkis. Corpsefeeders, elite and level 45, walk the valley and attack anyone.
+  tip Careful: Undead Ravagers up to level 45 can roam the valley: watch for them.
   level 39
   kill 11561 x6 quest 93035.1
   collect 255875 quest 93037.1        -- Necromantic Garb: Outcast Necromancers
@@ -308,7 +309,7 @@ step Magram: Corrupting Tears
   turnin 92846                        -- Orgrul: 500
   accept 92847
   collect 254841 quest 92847.1        -- Petrified Bark: the valley's accursed trees
-  collect 254840 quest 92847.2 npc 5398 -- Imbued Tears: Warug
+  collect 254840 npc 5398             -- Imbued Tears: Warug
 
 step Magram: Proof of Concept
   zone Shen'dralas

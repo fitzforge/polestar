@@ -489,6 +489,12 @@ local CLIENT_STATS = {
 	ITEM_MOD_ATTACK_POWER_SHORT = "ap", ITEM_MOD_RANGED_ATTACK_POWER_SHORT = "rap",
 	ITEM_MOD_SPELL_DAMAGE_DONE_SHORT = "sp",
 	ITEM_MOD_SPELL_HEALING_DONE_SHORT = "heal",
+	-- One school's spell damage, as a random "of Holy Wrath" suffix gives it:
+	-- the client lists it apart from spell damage, "+20 Holy Spell Damage"
+	-- (#2373).
+	ITEM_MOD_ARCANE_SPELL_DAMAGE_DONE_SHORT = "spArcane", ITEM_MOD_FIRE_SPELL_DAMAGE_DONE_SHORT = "spFire",
+	ITEM_MOD_FROST_SPELL_DAMAGE_DONE_SHORT = "spFrost", ITEM_MOD_HOLY_SPELL_DAMAGE_DONE_SHORT = "spHoly",
+	ITEM_MOD_NATURE_SPELL_DAMAGE_DONE_SHORT = "spNature", ITEM_MOD_SHADOW_SPELL_DAMAGE_DONE_SHORT = "spShadow",
 	ITEM_MOD_MANA_REGENERATION_SHORT = "mp5", ITEM_MOD_POWER_REGEN0_SHORT = "mp5",
 	ITEM_MOD_HEALTH_REGEN_SHORT = "hp5", ITEM_MOD_HEALTH_REGENERATION_SHORT = "hp5",
 	ITEM_MOD_DEFENSE_SKILL_RATING_SHORT = "defense", -- 1 rating = 1 defense skill (combatratings)
@@ -1139,6 +1145,7 @@ local WEAPON_SKILL = {
 	[0] = 44, [1] = 172, [2] = 45, [3] = 46, [4] = 54, [5] = 160, [6] = 229, [7] = 43,
 	[8] = 55, [10] = 136, [13] = 473, [15] = 173, [16] = 176, [18] = 226, [19] = 228,
 }
+Gear.WEAPON_SKILL = WEAPON_SKILL
 -- line -> known; false when the client can't list weapon skills (then every
 -- weapon the class can train counts, as before). Reset by invalidate().
 local weaponSkills

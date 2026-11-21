@@ -21,7 +21,8 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- moving on from a finished leveling guide (for SKIPPED_SECONDS); the group
 	-- quest the live step waits on
 	-- (`when group`: Skip it, the default, or Do it with a group; it cannot be
-	-- dismissed); the dungeon it waits on ("Dungeons in my route": Ask me; Run
+	-- dismissed; after Skip it, its undo for SKIPPED_SECONDS); the dungeon it
+	-- waits on ("Dungeons in my route": Ask me; Run
 	-- it or Skip it, never dismissed), and after "No group? Skip it" the
 	-- dungeon's quests kept in the log; the step the player just skipped, with
 	-- its undo; why the guide just moved past a quest (while that step's guide
@@ -44,7 +45,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	---------------------------------------------------------------------------
 
 	local SKIPPED_SECONDS = 20 -- how long the "Skipped …" notices stay
-	local notices = { closedTab = nil, questSkip = nil, stepSkip = nil, skipped = nil, away = nil, outlevel = nil, train = nil, riding = nil, classQuest = nil, dungeonKept = nil, soonSeen = nil, freshSeen = {}, taxiMap = nil }
+	local notices = { closedTab = nil, questSkip = nil, groupSkip = nil, stepSkip = nil, skipped = nil, away = nil, outlevel = nil, train = nil, riding = nil, classQuest = nil, dungeonKept = nil, soonSeen = nil, freshSeen = {}, taxiMap = nil }
 	GF.notices = notices
 
 	-- The step on screen when it is not the live step: { guideId, index, live,
@@ -146,6 +147,9 @@ ns.UI.GuideFrame.Part(function(GF)
 		local ct = notices.closedTab
 		if ct and not (E and E.TabIds and E.TabIds()[ct.guideId]) then return "closedTab", ct end
 		if notices.questSkip then return "questSkip", notices.questSkip end
+		-- A group quest just skipped at its banner, while that answer stands.
+		local gs = notices.groupSkip
+		if gs and ns.CharState().groupQuests[gs.quest] == "skip" then return "groupSkip", gs end
 		-- "Continue automatically" moved on from a finished leveling guide.
 		local c = notices.continued
 		if c and g ~= nil and g.id == c.to then return "continued", c end
@@ -237,7 +241,7 @@ ns.UI.GuideFrame.Part(function(GF)
 
 	-- What has been done on step i so far, as one string (GF.Scrub compares it).
 	function GF.ScrubMark(E, i)
-		local v = E.GetStepView(i)
+		local v = E.GetStepView(i, true)
 		if not v then return "" end
 		local parts = { tostring(v.status) }
 		for g, goal in ipairs(v.goals or {}) do
@@ -330,6 +334,19 @@ ns.UI.GuideFrame.Part(function(GF)
 		end)
 	end
 
+	-- "Skip it" at a group quest's banner (#2404): the banner offers the undo
+	-- for SKIPPED_SECONDS, as a skipped quest or step does.
+	local function groupSkipped(quest, title)
+		local notice = { quest = quest, title = title }
+		notices.groupSkip = notice
+		ns.After(SKIPPED_SECONDS, function()
+			if notices.groupSkip == notice then
+				notices.groupSkip = nil
+				if F and ns.IsLoggedIn() then GF.Layout() end
+			end
+		end)
+	end
+
 	local function trainerPlace(t)
 		local zone = t.map and UI.MapName(t.map) or nil
 		if t.npcName and zone then return t.npcName .. ", " .. zone end
@@ -338,12 +355,19 @@ ns.UI.GuideFrame.Part(function(GF)
 
 	-- One link-style action in the banner (label, chevron), `x` right of the
 	-- text's left edge. It never runs past the text's column: a label too long
-	-- for it (a guide's whole title) is cut short with "…".
+	-- for it (a guide's whole title) is cut short with "…". A second action
+	-- that would be cut short beside the first takes its own line under it.
+	local secondRow = false -- a second action on its own line
 	local function placeLink(link, text, x, y)
 		link.Label:SetWordWrap(false)
 		link.Label:SetWidth(0)
 		link.Label:SetText(text)
 		local room = floor(banner.Text:GetWidth() - x - 16)
+		if x > 0 and link.Label:GetStringWidth() > room then
+			x, y = 0, y - 18 - 4
+			room = floor(banner.Text:GetWidth() - 16)
+			secondRow = true
+		end
 		if room > 0 and link.Label:GetStringWidth() > room then link.Label:SetWidth(room) end
 		link:SetWidth(floor(link.Label:GetStringWidth() + 16 + 0.5))
 		link:ClearAllPoints()
@@ -360,6 +384,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		banner.Jump.psDefault = (kind == "group" or kind == "lost" or kind == "dungeon" or kind == "dungeonRun") or nil -- the gamepad's first focus (UI/GamepadGuide.lua)
 		banner.Text:SetWidth(width - PAD * 2 - 21 - 24)
 		banner.Later:Hide()
+		secondRow = false
+		local oneLine = false -- no link row under the text
 		if kind == "skipped" then
 			banner.Icon:SetTexture(Theme.Media("skip"))
 			local lines = {}
@@ -426,9 +452,11 @@ ns.UI.GuideFrame.Part(function(GF)
 			banner.Text:SetText(string.format(L["Closed %s"], n.title))
 			placeLink(banner.Jump, L["Reopen"], 0, -4)
 			banner.Close:Show()
-		elseif kind == "questSkip" then
+		elseif kind == "questSkip" or kind == "groupSkip" then
 			banner.Icon:SetTexture(Theme.Media("skip"))
-			banner.Text:SetText(string.format(L["Skipped %s"], ns.Quoted(n.title) or L["the quest"]) .. "  \194\183  " .. L["and the quests that follow from it"])
+			local text = string.format(L["Skipped %s"], ns.Quoted(n.title) or L["the quest"])
+			if kind == "questSkip" then text = text .. "  \194\183  " .. L["and the quests that follow from it"] end
+			banner.Text:SetText(text)
 			placeLink(banner.Jump, L["Undo"], 0, -4)
 			banner.Close:Show()
 		elseif kind == "lost" then
@@ -576,6 +604,9 @@ ns.UI.GuideFrame.Part(function(GF)
 			elseif n.classKind == "PALADIN" then
 				title = L["Level 40: class mount (Paladin)"]
 				body  = L["Tome of Nobility quest chain (Lord Grayson Shadowbreaker, Stormwind); riding trainer otherwise."]
+			elseif n.classKind == "PALADIN_FORSAKEN" then
+				title = L["Level 40: class mount (Paladin)"]
+				body  = L["Report to Danitha (Garen Largo, the Undercity), then A Paladin's Steed (Danitha Morr, Bandarion Keep): it teaches you to summon your Warhorse."]
 			else
 				title = n.tier == 1 and L["Level 40: you can learn to ride"] or L["Level 60: Journeyman Riding"]
 				local tierName = n.tier == 1 and L["Apprentice Riding"] or L["Journeyman Riding"]
@@ -619,13 +650,21 @@ ns.UI.GuideFrame.Part(function(GF)
 			local title = n.free == 0 and L["Your bags are full."]
 				or string.format(n.free == 1 and L["Bags nearly full: %d slot left."] or L["Bags nearly full: %d slots left."], n.free)
 			local j, Q = n.junk, ns.QoL
-			if j then
+			-- One line: the bags, then the spare bag or the cheapest junk with its
+			-- link under it; without either, the bags alone.
+			if n.spare then
+				-- A spare bag to equip comes before any delete (#2369).
+				local s = n.spare
+				banner.Text:SetText(title .. "  \194\183  " .. string.format(L["Spare bag: %s"], s.link or (L["Item"] .. " " .. s.id)))
+				placeLink(banner.Jump, L["Equip it"], 0, -4)
+			elseif j then
 				local worth = j.value < math.huge and Q.Money(j.value) or "?"
-				banner.Text:SetText(title .. "\n" .. string.format(L["Cheapest junk: %s (%s)"], Q.Space.ItemText(j), worth))
+				banner.Text:SetText(title .. "  \194\183  " .. string.format(L["Cheapest junk: %s (%s)"], Q.Space.ItemText(j), worth))
 				placeLink(banner.Jump, n.armed and L["Click again to delete it"] or L["Delete it"], 0, -4)
 			else
-				banner.Text:SetText(title .. "\n" .. L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."])
+				banner.Text:SetText(title)
 				banner.Jump:Hide()
+				oneLine = true
 			end
 			banner.Close:Show()
 		elseif kind == "wear" then
@@ -646,7 +685,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			placeLink(banner.Jump, n.kind == "old" and L["How to update"] or L["Update"], 0, -4)
 			banner.Close:SetShown(n.closable)
 		end
-		local h = floor(9 + banner.Text:GetStringHeight() + 4 + 18 + 9 + 0.5)
+		local h = floor(9 + banner.Text:GetStringHeight() + (oneLine and 0 or 4 + 18) + (secondRow and banner.Later:IsShown() and 4 + 18 or 0) + 9 + 0.5)
 		banner:SetHeight(h)
 		return h
 	end
@@ -670,7 +709,14 @@ ns.UI.GuideFrame.Part(function(GF)
 		elseif kind == "log" then
 			if UI.ShowQuestRoom then UI.ShowQuestRoom() end
 		elseif kind == "group" then
-			if E and E.AnswerGroup then E.AnswerGroup(n.quest, "skip") end
+			if E and E.AnswerGroup then
+				E.AnswerGroup(n.quest, "skip")
+				if GF.live then groupSkipped(n.quest, n.title) end
+			end
+		elseif kind == "groupSkip" then
+			-- Unanswered again: the step asks once more.
+			notices.groupSkip = nil
+			if E and E.AnswerGroup then E.AnswerGroup(n.quest, nil) end
 		elseif kind == "dungeon" then
 			if E and E.ChooseDungeon then E.ChooseDungeon(n.map, true) end
 		elseif kind == "dungeonRun" then
@@ -727,7 +773,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			local CQ = ns.QoL and ns.QoL.ClassQuests
 			if CQ and CQ.Resolve then CQ.Resolve(n.guideId) end
 		elseif kind == "bags" then
-			-- The first click arms the item, the second deletes it.
+			-- Equips a spare bag; else the first click arms the item, the second deletes it.
 			ns.QoL.Space.Press()
 		elseif kind == "wear" then
 			ns.QoL.Wear.Take()
@@ -846,7 +892,9 @@ ns.UI.GuideFrame.Part(function(GF)
 		-- GUIDE_CONTINUED(fromId, toId, carried): with "Continue automatically" a
 		-- finished leveling guide handed off by itself. Said in the banner for
 		-- SKIPPED_SECONDS, in chat while the window is hidden; the quests a later
-		-- guide hands in (Engine.CarriedQuests) are said in chat, so they are kept.
+		-- guide hands in (Engine.CarriedQuests) are said in chat, so they are kept,
+		-- and so are the accepts still waiting for the character's level
+		-- (Engine.WaitingQuests): the next guide's to take, or a later one's.
 		ns.On("GUIDE_CONTINUED", function(fromId, toId, carried)
 			local G = ns.Guides
 			local from, to = G and G.Get and G.Get(fromId), G and G.Get and G.Get(toId)
@@ -860,6 +908,15 @@ ns.UI.GuideFrame.Part(function(GF)
 				for i, c in ipairs(carried) do titles[i] = ns.Quoted(c.title) end
 				ns.Print(string.format(L["Keep these, a later guide hands them in: %s"], table.concat(titles, ", ")))
 			end
+			local E = Engine()
+			local waiting = E and E.WaitingQuests and E.WaitingQuests(fromId, toId) or {}
+			local here, later = {}, {}
+			for _, w in ipairs(waiting) do
+				local line = string.format(L["%s (level %d)"], ns.Quoted(w.title), w.level)
+				if w.next then here[#here + 1] = line else later[#later + 1] = line end
+			end
+			if #here > 0 then ns.Print(string.format(L["%s takes these once you reach their level: %s"], n.toTitle, table.concat(here, ", "))) end
+			if #later > 0 then ns.Print(string.format(L["Waiting for your level, taken where a later guide passes the giver: %s"], table.concat(later, ", "))) end
 			if not F then return end
 			notices.continued = n
 			if ns.IsLoggedIn() then GF.Layout() end

@@ -77,23 +77,29 @@ return {
 	-- {npc:259649} Ulric Frostveil · {area:2897} Zoram'gar Outpost · {zone:1440} Ashenvale · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1458} Undercity · {zone:1454} Orgrimmar · {zone:1413} Barrens
 	["{npc:259649} waits at {area:2897} on {zone:1440}'s west coast: take the zeppelin from {object:3202} (or the {zone:1458}) to {zone:1454}, then go north through the {zone:1413} into {zone:1440} and west along the road. Andruk, the outpost's wind rider master, saves you the walk next time. Take {npc:259649}'s quest before you hunt the naga: the Kor Gem only drops while you have it."] = "{npc:259649} attend à l'{area:2897}, sur la côte ouest d'{zone:1440} : prenez le zeppelin depuis {object:3202} (ou {zone:1458}) pour {zone:1454}, puis allez vers le nord à travers les {zone:1413} jusqu'en {zone:1440} et vers l'ouest par la route. Andruk, le maître des coursiers du vent de l'avant-poste, vous épargnera la marche la prochaine fois. Acceptez la quête de {npc:259649} avant de chasser les nagas : la gemme kor ne tombe que si vous l'avez.",
 
-	-- Step 11: The Corrupted Kor Gem
+	-- Step 11: The north end of the Zoram Strand
+	-- {area:414} Zoram Strand
+	["The north end of the {area:414}"] = "",
+	-- {area:414} Zoram Strand
+	["The naga's flooded ruins lie just past the north end of the {area:414}. The arrow cannot find its own way down into them, so it leads you to the water's edge first: from there swim north into the ruins."] = "",
+
+	-- Step 12: The Corrupted Kor Gem
 	-- {item:6995} Corrupted Kor Gem
 	["The {item:6995}"] = "La {item:6995}",
 	-- {area:2797} Blackfathom Deeps · {item:6995} Corrupted Kor Gem · {spell:122} Frost Nova
 	["The naga stand in the flooded ruins and passages around the {area:2797} entrance, just north of Zoram'gar: you do not need to enter the instance (its first naga drop the gem too). Tide Priestesses (level 20-21), Oracles (21-22) and Sea Witches (23-24) drop the {item:6995}, one in two. All are elite: grouping up is encouraged. Players solo them one at a time, with difficulty; a group of three makes it easy. They heal themselves, run for help at low health, and the Sea Witches cast {spell:122} up close. Some players report no drop while in a raid group."] = "Les nagas se tiennent dans les ruines inondées et les passages autour de l'entrée de {area:2797}, juste au nord de Zoram'gar : vous n'avez pas besoin d'entrer dans l'instance (ses premiers nagas laissent aussi tomber la gemme). Les Prêtresses des marées (niveau 20-21), Oracles (21-22) et Sorcières des mers (23-24) laissent tomber la {item:6995}, une fois sur deux. Toutes sont élites : il est conseillé de grouper. Des joueurs les tuent en solo une par une, difficilement ; un groupe de trois rend la chose facile. Elles se soignent, fuient chercher de l'aide quand leur vie est basse, et les Sorcières des mers lancent {spell:122} au corps à corps. Certains joueurs signalent n'avoir rien obtenu en groupe de raid.",
 
-	-- Step 12: The Purified Kor Gem
+	-- Step 13: The Purified Kor Gem
 	-- {item:272448} Purified Kor Gem
 	["The {item:272448}"] = "La {item:272448}",
 	-- {npc:259649} Ulric Frostveil · {item:272448} Purified Kor Gem · {npc:248840} Trevan Rol
 	["Back to {npc:259649} at Zoram'gar: he cleanses the gem. Keep the {item:272448} for {npc:248840}."] = "Retournez voir {npc:259649} à Zoram'gar : il purifie la gemme. Gardez la {item:272448} pour {npc:248840}.",
 
-	-- Step 13: Trevan Rol
+	-- Step 14: Trevan Rol
 	-- {npc:248840} Trevan Rol · {area:228} Sepulcher · {item:268192} Bundle of Blacksmithing Materials · {area:272} Tarren Mill
 	["Bring the lumber, the ingot and the gem to {npc:248840} in the {area:228}. He gives you a {item:268192} for a smith in {area:272}: keep it in your bags."] = "Apportez le bois, le lingot et la gemme à {npc:248840} au {area:228}. Il vous donne un {item:268192} pour un forgeron d'{area:272} : gardez-le dans vos sacs.",
 
-	-- Step 14: Ott
+	-- Step 15: Ott
 	-- {npc:3539} Ott · {area:272} Tarren Mill · {zone:1424} Hillsbrad Foothills · {quest:95125} Ott's Masterwork
 	["{npc:3539}, the weaponsmith, stands just south of {area:272} in {zone:1424}. Accepting {quest:95125} starts the forging: step back and wait near him until he is done."] = "{npc:3539}, le fabricant d'armes, se tient juste au sud d'{area:272}, dans les {zone:1424}. Accepter {quest:95125} lance la forge : reculez et attendez près de lui qu'il ait fini.",
 	-- {npc:3539} Ott
@@ -101,15 +107,15 @@ return {
 	-- {npc:3539} Ott · {quest:95125} Ott's Masterwork
 	["{npc:3539} gives you {quest:95125}"] = "{npc:3539} vous donne {quest:95125}",
 
-	-- Step 15: The Moonsilver Blade
+	-- Step 16: The Moonsilver Blade
 	-- {npc:248840} Trevan Rol · {area:228} Sepulcher · {item:268484} Moonsilver Blade
 	["Back to {npc:248840} in the {area:228}'s lower part: he hands you the {item:268484}, a two-handed sword."] = "Retournez voir {npc:248840} dans la partie basse du {area:228} : il vous remet la {item:268484}, une épée à deux mains.",
 
-	-- Step 16: Two-Handed Swords
+	-- Step 17: Two-Handed Swords
 	-- {npc:11870} Archibald · {zone:1458} Undercity · {object:36070} War Quarter · {spell:202} Two-Handed Swords
 	["The blade is a two-handed sword, and you need the skill to hit a level 25 elite with it. {npc:11870}, the weapon master in the {zone:1458}'s {object:36070}, teaches {spell:202} for a small fee; then swing it on easy mobs until the skill is near its cap (five points per level)."] = "La lame est une épée à deux mains, et il vous faut la compétence pour toucher avec elle un élite de niveau 25. {npc:11870}, le maître d'armes du {object:36070} de {zone:1458}, enseigne {spell:202} pour une petite somme ; frappez ensuite des monstres faciles avec jusqu'à ce que la compétence approche de son maximum (cinq points par niveau).",
 
-	-- Step 17: Old Fire-Eye
+	-- Step 18: Old Fire-Eye
 	-- {item:268484} Moonsilver Blade · {quest:95140} Old Fire-Eye · {area:228} Sepulcher · {area:17065} Gilneas
 	["Equip the {item:268484}. {quest:95140}, the great worgen, roams the woods south of the {area:228} toward the gates of {area:17065}. He is elite (level 25): the guide waits for level 25 first, and grouping up is encouraged; players have killed him from 22 up, one needed a second, another soloed him at 25. A purple shield guards him until your first swing with the blade lands: a message tells you it broke."] = "Équipez la {item:268484}. {quest:95140}, le grand worgen, rôde dans les bois au sud du {area:228}, vers les portes de {area:17065}. Il est élite (niveau 25) : le guide attend d'abord le niveau 25, et il est conseillé de grouper ; des joueurs l'ont tué dès le niveau 22, l'un a eu besoin d'un second, un autre l'a tué en solo au niveau 25. Un bouclier violet le protège jusqu'à ce que votre premier coup avec la lame porte : un message vous indique qu'il s'est brisé.",
 	-- {npc:259620} Lumina Windsinger · {area:228} Sepulcher
@@ -117,7 +123,7 @@ return {
 	-- {quest:95140} Old Fire-Eye · {item:268484} Moonsilver Blade
 	["{quest:95140}, with the {item:268484} equipped"] = "{quest:95140}, avec la {item:268484} équipée",
 
-	-- Step 18: Wolfsbane
+	-- Step 19: Wolfsbane
 	-- {npc:259620} Lumina Windsinger · {area:228} Sepulcher · {item:268484} Moonsilver Blade · {item:267369} Wolfsbane
 	["Back to {npc:259620} in the {area:228} with the {item:268484} (the quest asks for it): she takes it and blesses it with the magic of her people into {item:267369}."] = "Retournez voir {npc:259620} au {area:228} avec la {item:268484} (la quête la demande) : elle la prend et la bénit de la magie de son peuple pour en faire {item:267369}.",
 

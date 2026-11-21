@@ -1,4 +1,4 @@
-<!-- Base branch: every pull request goes to next, never main. See CONTRIBUTING.md, "Branches". -->
+<!-- Base branch: next, never main (release/ and hotfix/ branches only when a maintainer asks). See CONTRIBUTING.md, "Branches". -->
 
 ## Issues
 
@@ -20,6 +20,7 @@
 
 - [ ] I ran the tests for what I changed (`node --test tests/<area>.test.js`; guide changes: also `lint` and `playtest --filter <guide>`)
 - [ ] Not run, and why:
+- [ ] A data refresh or a data-build rule change (the built `data/forever` or the Codex changes): `forge data diff --old <the live release's data/forever> --new data/forever` ends in `PASS`, its `data-diff.md` is attached here, and every big row (spawn jumps, moved points and hand-ins, roles gained or lost) is explained or fixed; reviewed by someone other than the author (docs/forge/data.md, "The data-diff gate")
 - [ ] A changelog fragment in `changes/` (`forge changelog add`), crediting the reporter
 - [ ] An AI agent wrote or helped with this — **Model and tool:** ____
 

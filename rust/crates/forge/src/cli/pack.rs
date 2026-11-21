@@ -1,5 +1,5 @@
 //! `forge release pack`: the release archives. In the checkout: dist/Polestar-<version>.zip (Polestar,
-//! Polestar_Guides, Polestar_Nav, Polestar_Options, Polestar_SkinAPI, Polestar_Looks, Polestar_Experimental built
+//! Polestar_Guides, Polestar_Nav, Polestar_Options, Polestar_SkinAPI, Polestar_Looks, Polestar_Arcade, Polestar_Experimental built
 //! from experimental/, the Codex and the built data addons) and dist/Polestar_Recorder-<version>.zip, each with
 //! the GPL in its first folder (and the players' README.txt in Polestar/), plus dist/SHA256SUMS for both. Given
 //! another pack (a folder argument, --pack, or the nearest pack.json): <pack>/dist/<folder>-<version>.zip holding
@@ -24,7 +24,7 @@ In the checkout: compiles our guides into addon/Polestar_Guides and Polestar's o
 (experimental/, with our guides as context) into addon/Polestar_Experimental, then writes
 dist/Polestar-<version>.zip (Polestar, Polestar_Guides with its faction parts and race parts, Polestar_Nav,
 Polestar_Options (the settings window), Polestar_SkinAPI (the Skin API's checks), Polestar_Looks (the
-game's looks and Hearth), Polestar_Experimental (loaded on demand, once a player chooses one of its guides or switches it on),
+game's looks and Hearth), Polestar_Arcade (Freedoom Arcade by petllama, when there), Polestar_Experimental (loaded on demand, once a player chooses one of its guides or switches it on),
 Polestar_QuestDB and Polestar_ItemDB when built, Polestar_Codex, and the language folders
 Polestar_<locale>: our guides' texts and the game's names),
 dist/Polestar_Recorder-<version>.zip and dist/SHA256SUMS (the format `sha256sum -c` reads), the version
@@ -179,11 +179,11 @@ fn pack_release(args: &[String], root: &Path, data_dir: &Path) -> Result<(), sup
 		extras.push((e, src, m));
 	}
 	let shipped = |addons: &Path| {
-		let mut p = release_addons(addons);
+		let mut p = release_addons(addons)?;
 		p.names.retain(|n| !OWN_EXTRAS.iter().any(|e| e.folder == n.as_str()) || extras.iter().any(|(e, _, _)| e.folder == n.as_str()));
-		p
+		Ok::<_, String>(p)
 	};
-	let product = shipped(&addons);
+	let product = shipped(&addons)?;
 	// The Codex is part of Polestar (Lookup, Dungeons, Rares): built from release-safe inputs, or no release.
 	if let Some(why) = codex_refusal(&addons.join(CODEX)) {
 		return Err(format!("{CODEX} {why}").into());
@@ -268,7 +268,7 @@ fn pack_release(args: &[String], root: &Path, data_dir: &Path) -> Result<(), sup
 		forge_guide::project::write_pack_dir(&addons.join(e.folder), f)?;
 	}
 	// The folders again: the build writes our pack's parts (its faction parts, format 8) and the extras.
-	let product = shipped(&addons);
+	let product = shipped(&addons)?;
 	if let Some(why) = guide_notice_refusal(&addons, &product.names) {
 		return Err(why.into());
 	}

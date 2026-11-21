@@ -1,0 +1,10 @@
+# Fixture: tests/packs-parity.test.js. Lint rejects it; the runtime refuses its compiled twin.
+guide parity/deposit-itemname
+title Parity deposit-itemname
+faction Alliance
+levels 1-10
+zone Elwynn Forest
+
+step S
+  level 2
+  deposit 999999

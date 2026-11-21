@@ -35,11 +35,15 @@ const LIMITS = {
 	spots: 1024, when: 16, skipto: 16, reagents: 32, fromNpcs: 32, pre: 64, tokens: 1024, nextWhen: 16,
 };
 
-// The first text or key in v longer than LIMITS.text, as the addon names it
+// The cap of the text at `where`: a names value (a token's game name) holds
+// LIMITS.names bytes, every other text or key (a `written` value, the
+// author's words for a whole note, included) LIMITS.text.
+const capAt = (where) => (/^guide\.names\./.test(where) ? LIMITS.names : LIMITS.text);
+
+// The first text or key in v longer than its cap, as the addon names it
 // (`guide.steps[2].note`), or null.
 function longText(v, where = '') {
-	// names/written map values are capped at LIMITS.names, not LIMITS.text.
-	const cap = /^guide\.(names|written)\./.test(where) ? LIMITS.names : LIMITS.text;
+	const cap = capAt(where);
 	if (typeof v === 'string') return Buffer.byteLength(v) > cap ? where : null;
 	if (Array.isArray(v)) {
 		for (let i = 0; i < v.length; i++) {
@@ -175,7 +179,7 @@ function importString(guide, { manifest, data }) {
 	const frames = data ? framesData(referencedFrames([guide], data)) : {};
 	if (Object.keys(frames).length) payload.frames = frames;
 	const long = longText(payload);
-	if (long !== null) return { error: `${guide.id}: ${long} is longer than ${LIMITS.text} bytes, the most Polestar reads in one text of an import string` };
+	if (long !== null) return { error: `${guide.id}: ${long} is longer than ${capAt(long)} bytes, the most Polestar reads in one text of an import string` };
 	const full = crowded(payload.guide);
 	if (full) return { error: `${guide.id}: ${full.at} has ${full.n} entries; an import string holds ${full.cap} there at most (a guide this big goes in a community addon: forge release pack)` };
 	const bytes = Buffer.byteLength(JSON.stringify(payload));

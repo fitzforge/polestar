@@ -48,7 +48,7 @@ why it does not apply.
 | C6 | Stormwind walks started on the canal bed below the street and doubled back | Fixed 1.2.0 (#29, #41) | Stormwind's flight master to the Mage Quarter never reverses on a level street: `rust/crates/forge-addontest/tests/addontest/nav-maps.rs` |
 | C7 | Walks to a boat crossed the water at Auberdine | Fixed 1.11.1 (#120) | Polestar walks to its own dock points (`travel build`); in game, see below |
 | C8 | Walks to a zeppelin ended on the ground below the tower | Fixed 1.2.0 | Polestar walks to its own dock points; in game, see below |
-| C9 | Tram steps said "Walk to Unknown"; flight steps showed a wait; untimed boats said nothing useful | Fixed 1.2.0, #43 | Flights carry no wait; an untimed loop shows the expected wait as "about": `tests/nav-transit.test.js`, `rust/crates/forge-addontest/tests/addontest/travel-transit.rs`, `rust/crates/forge-addontest/tests/addontest/ui-journey.rs` |
+| C9 | Tram steps said "Walk to Unknown"; flight steps showed a wait; untimed boats said nothing useful | Fixed 1.2.0, #43 | The walk to the tram reads "Walk to the Deeprun Tram" ("Ride to the Deeprun Tram" with the riding skill); flights carry no wait; an untimed loop shows the expected wait as "about": `tests/nav-transit.test.js`, `rust/crates/forge-addontest/tests/addontest/travel-transit.rs`, `rust/crates/forge-addontest/tests/addontest/ui-journey.rs` |
 | C10 | A dock tooltip errored on an empty departure group | Fixed 1.5.0 | Not taken (no dock tooltips) |
 | C11 | A route asked for while a ghost errored | Fixed 1.3.0 | Ghost routes walk only, with no error: `rust/crates/forge-addontest/tests/addontest/nav-journey.rs`, `rust/crates/forge-addontest/tests/addontest/travel-transit.rs` |
 | C12 | A pooled texture kept another icon's texture coordinates | Fixed 1.10.0 | Pooled lines reset theirs: `rust/crates/forge-addontest/tests/addontest/nav-route-lines.rs` |
@@ -96,7 +96,7 @@ lift landings from Polestar_Nav's `Chokepoints.lua`).
 | K7 | Legs under a few yards are merged or dropped; every time stays finite | `rust/crates/forge-addontest/tests/addontest/nav-spf.rs`, `rust/crates/forge-addontest/tests/addontest/nav-route-lines.rs`, `rust/crates/forge-addontest/tests/addontest/ui-journey.rs` |
 | K8 | A hand-made chain node or guide goto at the same spot keeps its own caption | `rust/crates/forge-addontest/tests/addontest/nav-spf.rs`, `rust/crates/forge-addontest/tests/addontest/nav-route-lines.rs` |
 
-## Floors (Z1-Z4)
+## Floors (Z1-Z5)
 
 A walk searched without a height ends on whichever floor the engine picks
 under the target: measured over our guides, 435 of 2,325 NPC and object
@@ -111,6 +111,7 @@ matches the walking maps' floors for 99.1% of them).
 | Z2 | A search with the height that fails, or whose path ends more than 30 yards above or below it, is asked once more without it, and that answer stands | `rust/crates/forge-addontest/tests/addontest/nav-spf.rs` |
 | Z3 | Only a goal whose point stands for an NPC or object gets a height, from a spawn of that NPC or object on the same map within 15 yards; gotos, collect spots, exploration, smart targets and spawn places elsewhere get none | `rust/crates/forge-guide/tests/guide/dsl_heights.rs`, `rust/crates/forge-addontest/tests/addontest/engine-heights.rs` |
 | Z4 | A floor the walking maps cannot reach from its own door gets a guide `goto` at that door before every goal there (the arrow is straight from a reached goto, past goals at the target's own spot): the druids' building of the Cenarion Enclave (#1338) | `tests/guides-floors.test.js`, `rust/crates/forge-addontest/tests/addontest/nav-spf.rs` |
+| Z5 | A goal (or start) with a height whose own cell holds only surfaces joined to nothing (a bar, a counter, a stair's piece a few yards above the floor) settles on the surface nearest its height within a few cells that walks to the rest of the map, before its tries run out: Gwenna Firebrew in the Stonefire Tavern, Nissa Firestone, Connor Rivers (0.4.1, the city sweep) | `rust/crates/forge-addontest/tests/addontest/nav-reported.rs` |
 
 Known gaps in the walking maps (for the next grid build; until then the
 goto of Z4 stands in):
@@ -126,6 +127,17 @@ goto of Z4 stands in):
   Found with the walking router run standalone (`nav eval`'s harness) from
   the doors players' recordings walk through, for every guide target in the
   six capitals.
+- **Ironforge, Thom Filch (32.18,44.50, z 399.1).** Grid-joined from the
+  flight master in 0.4.1, one way: our grid walks down to his floor but not
+  back up, so a walk out from him is not found. In game: how do players
+  leave his floor?
+- **Orgrimmar, the Darkbriar Lodge (Uthel'nay, z 43; the upper floor, z
+  59.1).** Neither map has a floor at those spawns' heights that joins the
+  city (our grid's way ends 15 yards off, at z 39); the 0.4.0 joins add
+  nothing there.
+- **Wetlands, Hervdana Saegrund (#2331).** Grid-joined in 0.4.1; the way
+  down from her ledge is our grid's, a 15-yard drop. In game: is that the
+  way players come down?
 
 ## In game
 

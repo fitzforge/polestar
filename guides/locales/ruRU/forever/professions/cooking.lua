@@ -46,7 +46,7 @@ return {
 
 	-- Step 8: Herb Baked Egg: shopping
 	-- {item:6888} Herb Baked Egg
-	["{item:6888}: shopping"] = "",
+	["{item:6888}: shopping"] = "{item:6888}: покупки",
 	-- {item:2678} Mild Spices
 	["The arrow picks the nearest vendor of your faction for each item. You need 50 {item:2678} (1s)."] = "",
 
@@ -58,7 +58,7 @@ return {
 
 	-- Step 10: Herb Baked Egg: ingredients
 	-- {item:6888} Herb Baked Egg
-	["{item:6888}: ingredients"] = "",
+	["{item:6888}: ingredients"] = "{item:6888}: ингредиенты",
 	-- {npc:1995} Strigid Owl · {zone:1438} Teldrassil
 	["{npc:1995} (58%) in {zone:1438}, or wherever the arrow points"] = "{npc:1995} (58%) – {zone:1438} или там, куда указывает стрелка",
 
@@ -68,8 +68,9 @@ return {
 	["{item:6888} is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own {object:29784}. {item:6888} comes with {skill:185} (the client teaches it with the skill); {item:2678} are a cooking vendor's. The Strigid owls of {zone:1438} drop a {item:6889} more often than not, and {zone:1439}'s moonkin drop them too. Fishers can cook {item:6290} (recipe 40c) from Rut'theran's waters instead, and {npc:6286} in {area:186} gives Recipe of the Kaldorei (seven Small Spider Legs from the Webwood spiders) for {item:5472}, orange from 10 to 50."] = "",
 
 	-- Step 13: Charred Wolf Meat: ingredients
-	-- {npc:250874} Vuldren Alpha
-	["Vuldren, {npc:250874} in Zephras Isle, or wherever the arrow points"] = "Лисвены, {npc:250874} – остров Зефрас или там, куда указывает стрелка",
+	-- {npc:250873} Juvenile Vuldren
+	-- was: ["Vuldren, {npc:250874} in Zephras Isle, or wherever the arrow points"] = "Лисвены, {npc:250874} – остров Зефрас или там, куда указывает стрелка"
+	["{npc:250873} in Zephras Isle, or wherever the arrow points"] = "",
 
 	-- Step 14: Charred Wolf Meat (1-50)
 	-- {spell:2538} Charred Wolf Meat · {object:29784} Basic Campfire · {item:2672} Stringy Wolf Meat
@@ -101,7 +102,7 @@ return {
 
 	-- Step 26: Coyote Steak: ingredients
 	-- {spell:2541} Coyote Steak
-	["{spell:2541}: ingredients"] = "",
+	["{spell:2541}: ingredients"] = "{spell:2541}: ингредиенты",
 	-- {npc:833} Coyote Packleader · {zone:1436} Westfall
 	["Coyote (54%), {npc:833} (51%) in {zone:1436}, or wherever the arrow points"] = "Койот (54%), {npc:833} (51%) – {zone:1436} или там, куда указывает стрелка",
 
@@ -111,7 +112,7 @@ return {
 
 	-- Step 28: Crab Cake: shopping
 	-- {spell:2544} Crab Cake
-	["{spell:2544}: shopping"] = "",
+	["{spell:2544}: shopping"] = "{spell:2544}: покупки",
 	-- {item:2678} Mild Spices
 	["The arrow picks the nearest vendor of your faction for each item. You need 44 {item:2678} (90c)."] = "",
 
@@ -123,7 +124,7 @@ return {
 
 	-- Step 30: Crab Cake: ingredients
 	-- {spell:2544} Crab Cake
-	["{spell:2544}: ingredients"] = "",
+	["{spell:2544}: ingredients"] = "{spell:2544}: ингредиенты",
 	-- {npc:830} Sand Crawler · {zone:1436} Westfall
 	["{npc:830} (43%) in {zone:1436}, or wherever the arrow points"] = "{npc:830} (43%) – {zone:1436} или там, куда указывает стрелка",
 
@@ -133,7 +134,7 @@ return {
 
 	-- Step 32: Smoked Bear Meat: shopping
 	-- {item:6890} Smoked Bear Meat
-	["{item:6890}: shopping"] = "",
+	["{item:6890}: shopping"] = "{item:6890}: покупки",
 	["The arrow picks the nearest vendor of your faction for each item."] = "Для каждого предмета стрелка ведет к ближайшему торговцу вашей фракции.",
 
 	-- Step 33: Smoked Bear Meat: Auction House
@@ -144,7 +145,7 @@ return {
 
 	-- Step 34: Smoked Bear Meat: ingredients
 	-- {item:6890} Smoked Bear Meat
-	["{item:6890}: ingredients"] = "",
+	["{item:6890}: ingredients"] = "{item:6890}: ингредиенты",
 	-- {npc:1189} Black Bear Patriarch · {zone:1432} Loch Modan
 	["{npc:1189} (39%) in {zone:1432}, or wherever the arrow points"] = "{npc:1189} (39%) – {zone:1432} или там, куда указывает стрелка",
 
@@ -154,7 +155,7 @@ return {
 
 	-- Step 36: Dry Pork Ribs: shopping
 	-- {spell:2546} Dry Pork Ribs
-	["{spell:2546}: shopping"] = "",
+	["{spell:2546}: shopping"] = "{spell:2546}: покупки",
 	-- {item:2678} Mild Spices
 	["The arrow picks the nearest vendor of your faction for each item. You need 52 {item:2678} (1s 10c)."] = "",
 
@@ -166,7 +167,7 @@ return {
 
 	-- Step 38: Dry Pork Ribs: ingredients
 	-- {spell:2546} Dry Pork Ribs
-	["{spell:2546}: ingredients"] = "",
+	["{spell:2546}: ingredients"] = "{spell:2546}: ингредиенты",
 	-- {npc:1191} Mangy Mountain Boar · {zone:1432} Loch Modan
 	["{npc:1191} (31%) in {zone:1432}, or wherever the arrow points"] = "{npc:1191} (31%) – {zone:1432} или там, куда указывает стрелка",
 
@@ -176,13 +177,13 @@ return {
 
 	-- Step 40: Boiled Clams: shopping
 	-- {item:5525} Boiled Clams
-	["{item:5525}: shopping"] = "",
+	["{item:5525}: shopping"] = "{item:5525}: покупки",
 	-- {item:159} Refreshing Spring Water
 	["The arrow picks the nearest vendor of your faction for each item. You need 40 {item:159} (2s)."] = "",
 
 	-- Step 41: Boiled Clams: ingredients
 	-- {item:5525} Boiled Clams
-	["{item:5525}: ingredients"] = "",
+	["{item:5525}: ingredients"] = "{item:5525}: ингредиенты",
 	-- {npc:3812} Clattering Crawler · {npc:3814} Spined Crawler · {npc:3944} Wrathtail Priestess · {zone:1439} Darkshore · {item:5523} Small Barnacled Clam · {item:5503} Clam Meat
 	["{npc:3812} (42%), {npc:3814} (42%), {npc:3944} (42%) in {zone:1439}, or wherever the arrow points; open each {item:5523} for its {item:5503}"] = "",
 
@@ -373,6 +374,7 @@ return {
 	-- ["Catch about 68 {item:6361} here by fishing (see the {skill:356} guide)."] = "Наловите здесь около 68 шт.: {item:6361} (см. гайд {skill:356}).",
 	-- ["Giant Eggs drop from the Ironbeak owls of {zone:1448}."] = "{item:12207}: падает с железноклювов (зона {zone:1448}).",
 	-- ["Journeyman {skill:185} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:185} trainer of your faction."] = "{skill:185}, ранг «Подмастерье»: предел 150; нужен навык 50 и уровень персонажа 10. Стрелка ведет к ближайшему учителю вашей фракции ({skill:185}).",
+	-- ["Vuldren, {npc:250874} in Zephras Isle, or wherever the arrow points"] = "Лисвены, {npc:250874} – остров Зефрас или там, куда указывает стрелка",
 	-- ["{area:442} docks"] = "{area:442}: причал",
 	-- ["{area:702} docks"] = "{area:702}: причал",
 	-- ["{item:12210} is orange from 175 (yellow at 215, grey at 255): about 40 crafts to 215. Cook at any fire: {object:29784} comes with {skill:185}."] = "{item:12210}: оранжевый с 175 (желтый с 215, серый с 255) – около 40 приготовлений до 215. Готовьте у любого огня: {object:29784} дается вместе с навыком {skill:185}.",

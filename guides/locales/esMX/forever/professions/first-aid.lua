@@ -131,8 +131,8 @@ return {
 	["{item:6451}: cloth"] = "{item:6451}: paño",
 
 	-- Step 27: Heavy Silk Bandage (180-210)
-	-- {item:6451} Heavy Silk Bandage
-	["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere."] = "{item:6451} es amarillo desde 180 (amarillo a 180, verde a 210, gris a 240): unas 42 fabricaciones hasta 210. Las vendas no necesitan fuego: fabrícalas en cualquier lugar.",
+	-- {item:6451} Heavy Silk Bandage · {item:16112} Manual: Heavy Silk Bandage · {skill:129} First Aid
+	["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere. Read the {item:16112} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "",
 
 	-- Step 28: Mageweave Bandage: Auction House
 	-- {item:8544} Mageweave Bandage
@@ -147,8 +147,8 @@ return {
 	["{item:4338} drops from humanoids of level 35-50: keep what you loot as you level, or take it from your bank."] = "Los humanoides de nivel 35-50 sueltan {item:4338}: guarda lo que saquees mientras subes de nivel o sácalo de tu banco.",
 
 	-- Step 30: Mageweave Bandage (210-225)
-	-- {item:8544} Mageweave Bandage
-	["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere."] = "{item:8544} es amarillo desde 210 (amarillo a 210, verde a 240, gris a 270): unas 18 fabricaciones hasta 225. Las vendas no necesitan fuego: fabrícalas en cualquier lugar.",
+	-- {item:8544} Mageweave Bandage · {item:16113} Manual: Mageweave Bandage · {skill:129} First Aid
+	["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere. Read the {item:16113} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "",
 
 	-- Step 31: Trauma
 	["Trauma"] = "Traumatismo",
@@ -233,7 +233,9 @@ return {
 	-- ["{item:14529} is yellow from 260 (yellow at 260, grey at 320): about 65 crafts to 300. Bandages need no fire: craft them anywhere. {item:14529} stays yellow to 320, so it carries you to 300 without a trip for Heavy Runecloth."] = "{item:14529} es amarilla desde 260 (amarilla en 260, gris en 320): unas 65 creaciones hasta 300. Las vendas no necesitan fuego: fabrícalas en cualquier lugar. {item:14529} sigue amarilla hasta 320, así que te lleva a 300 sin ir a aprender la Venda de paño rúnico gruesa.",
 	-- ["{item:2581} is yellow from 50 (yellow at 50, grey at 100): about 46 crafts to 80. Bandages need no fire: craft them anywhere."] = "{item:2581} es amarillo desde 50 (amarillo en 50, gris en 100): unas 46 creaciones hasta 80. Las vendas no necesitan fuego: créalas en cualquier lugar.",
 	-- ["{item:6450} is yellow from 150 (yellow at 150, grey at 210): about 42 crafts to 180. Bandages need no fire: craft them anywhere."] = "{item:6450} es amarillo desde 150 (amarillo en 150, gris en 210): unas 42 creaciones hasta 180. Las vendas no necesitan fuego: créalas en cualquier lugar.",
+	-- ["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere."] = "{item:6451} es amarillo desde 180 (amarillo a 180, verde a 210, gris a 240): unas 42 fabricaciones hasta 210. Las vendas no necesitan fuego: fabrícalas en cualquier lugar.",
 	-- ["{item:6451} is yellow from 180 (yellow at 180, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere."] = "{item:6451} es amarillo desde 180 (amarillo en 180, gris en 240): unas 42 creaciones hasta 210. Las vendas no necesitan fuego: créalas en cualquier lugar.",
+	-- ["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere."] = "{item:8544} es amarillo desde 210 (amarillo a 210, verde a 240, gris a 270): unas 18 fabricaciones hasta 225. Las vendas no necesitan fuego: fabrícalas en cualquier lugar.",
 	-- ["{item:8544} is yellow from 210 (yellow at 210, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere."] = "{item:8544} es amarillo desde 210 (amarillo en 210, gris en 270): unas 18 creaciones hasta 225. Las vendas no necesitan fuego: créalas en cualquier lugar.",
 	-- ["{item:8544} is yellow from 225 (yellow at 210, grey at 270): about 88 crafts to 260. Bandages need no fire: craft them anywhere. {item:8544} stays yellow to 270; one recipe to 260 saves two trips to the doctor."] = "{item:8544} es amarillo desde 225 (amarillo en 210, gris en 270): unas 88 creaciones hasta 260. Las vendas no necesitan fuego: créalas en cualquier lugar. {item:8544} sigue amarillo hasta 270; una sola receta hasta 260 te ahorra dos viajes al médico.",
 	-- ["{quest:6622}: treat the wounded soldiers in the doctor's tent with the bandages the doctor gives you, the most critical first, before any of them die."] = "{quest:6622}: atiende a los soldados heridos en la tienda del médico con las vendas que te da, primero a los más graves, antes de que muera alguno.",

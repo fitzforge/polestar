@@ -79,7 +79,6 @@ return {
 	-- Step 13: The mine, the centaurs and the plains
 	["The mine, the centaurs and the plains"] = "A mina, os centauros e as planícies",
 	-- {quest:765} Supervisor Fizsprocket · {item:281031} Mulgore Expansion Plans · {quest:98424} Fizsprocket's Notes · {zone:1412} Mulgore
-	-- plural, as words: Swoops = {npc:2970} Swoop
 	["Back to the mine for the workers, supervisors and {quest:765} in the back: his {item:281031} start {quest:98424}, and its other pages lie inside the mine. The Galak centaurs and Herak camp east of the village. Swoops fly all over {zone:1412}; the Windfury harpies roost south-east of the village; the Palemane gnolls camp west of it."] = "De volta à mina para os operários, os supervisores e {quest:765}, nos fundos: o que ele carrega, {item:281031}, inicia {quest:98424}, e as outras páginas ficam dentro da mina. Os centauros Galath e Herak acampam a leste da vila. Rapineiros voam por todo {zone:1412}; as harpias Ventofúria pousam a sudeste da vila; os gnolls Jubalba acampam a oeste dela.",
 	-- {item:281031} Mulgore Expansion Plans · {quest:765} Supervisor Fizsprocket
 	["{item:281031}, from {quest:765}"] = "{item:281031}, de {quest:765}",
@@ -93,8 +92,8 @@ return {
 	-- Step 15: The Venture Co. Mine: the Clearcutter
 	-- {area:360} The Venture Co. Mine
 	["{area:360}: the Clearcutter"] = "{area:360}: o Fio-afiado",
-	-- {quest:98427} Ceasing Operations
-	["The elite shredder Venture Co. Clearcutter works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "O retalhador de elite Fio-afiado da Empreendimentos S.A. trabalha bem no fundo da mina, depois de onde o Geringonça ficava: a chave dele serve para {quest:98427}.",
+	-- {npc:272173} Venture Co. Clearclutter · {quest:98427} Ceasing Operations
+	["The elite shredder {npc:272173} works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "O retalhador de elite {npc:272173} trabalha bem no fundo da mina, depois de onde o Geringonça ficava: a chave dele serve para {quest:98427}.",
 
 	-- Step 16: Bloodhoof Village: last hand-in
 	-- {area:222} Bloodhoof Village

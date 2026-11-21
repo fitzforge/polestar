@@ -1,0 +1,6 @@
+build/
+wad/
+ref/
+shots/
+*.ppm
+dist/

@@ -25,13 +25,13 @@ return {
 
 	-- Step 4: High Sorcerer Andromath
 	-- {quest:1939} High Sorcerer Andromath
-	["{quest:1939} waits on the spiral walkway of the Wizard's Sanctum, just past the door of the portal room as you walk down from the trainers."] = "",
+	["{quest:1939} waits on the spiral walkway of the Wizard's Sanctum, just past the door of the portal room as you walk down from the trainers."] = "{quest:1939}在巫師聖殿的螺旋迴廊上等候，就在你從訓練師那裡往下走時經過的傳送門房間門外。",
 
 	-- Step 5: The Tower of Ilgalar
 	-- {area:96} Tower of Ilgalar
 	["The {area:96}"] = "{area:96}",
 	-- {zone:1429} Elwynn Forest · {area:69} Lakeshire · {area:96} Tower of Ilgalar · {spell:2691} Mana Burn
-	["Head east through {zone:1429} into Redridge, or fly to {area:69}. The {area:96} stands alone in the east of the zone. Climb to the very top floor (not the one below): the treatise is the book sticking out of the shelf where the stairs come up. Two gnoll dogs and a gnoll caster guard the shelf; the dogs' {spell:2691} interrupts the click, so fight them on the stairs out of their sight. Morganth (level 26 elite) stands across the top floor: you do not need him, keep to the left edge of the ramp so he stays put. The book is back two seconds after anyone takes it. If you die, your ghost can run up and come back to life beside it."] = "",
+	["Head east through {zone:1429} into Redridge, or fly to {area:69}. The {area:96} stands alone in the east of the zone. Climb to the very top floor (not the one below): the treatise is the book sticking out of the shelf where the stairs come up. Two gnoll dogs and a gnoll caster guard the shelf; the dogs' {spell:2691} interrupts the click, so fight them on the stairs out of their sight. Morganth (level 26 elite) stands across the top floor: you do not need him, keep to the left edge of the ramp so he stays put. The book is back two seconds after anyone takes it. If you die, your ghost can run up and come back to life beside it."] = "向東穿過{zone:1429}進入赤脊山，或飛往{area:69}。{area:96}孤立在區域東部。爬到最高層（不是下面那層）：論文就是從樓梯上來處書架上露出的那本書。兩隻豺狼人獵犬和一名豺狼人施法者看守書架；獵犬的{spell:2691}會打斷點選，所以在樓梯上避開它們視線戰鬥。摩根斯（26級精英）站在頂層對面：你不需要他，貼著斜坡左邊緣走，讓他待在原地。任何人拿走書後兩秒書就會重新出現。如果你死了，你的鬼魂可以跑上去，在書旁復活。",
 
 	-- Step 6: Back to Andromath
 	["Back to Andromath"] = "返回高階巫師安多瑪斯",
@@ -41,11 +41,11 @@ return {
 	["Carrion Recluses"] = "食腐獨行蛛",
 	-- {area:492} Raven Hill Cemetery · {zone:1431} Duskwood · {spell:3609} Paralyzing Poison · {npc:522} Mor'Ladim
 	-- plural, as words: Carrion Recluses = {npc:949} Carrion Recluse · Black Widow Hatchlings = {npc:930} Black Widow Hatchling
-	["{area:492} in western {zone:1431}: the six Carrion Recluses (level 25-26, green, {spell:3609}) walk the graves, the central statue and the riverbank, and every one drops a silk; they come back after 5 minutes. The Black Widow Hatchlings (24-25) on the slopes east of the cemetery drop it about one time in six, so mix them in while you wait. {npc:522}, a level 35 elite skeleton, walks the cemetery: watch for him."] = "",
+	["{area:492} in western {zone:1431}: the six Carrion Recluses (level 25-26, green, {spell:3609}) walk the graves, the central statue and the riverbank, and every one drops a silk; they come back after 5 minutes. The Black Widow Hatchlings (24-25) on the slopes east of the cemetery drop it about one time in six, so mix them in while you wait. {npc:522}, a level 35 elite skeleton, walks the cemetery: watch for him."] = "{zone:1431}西部的{area:492}：六隻食腐隱士（25-26級，綠色，{spell:3609}）在墳墓、中央雕像和河岸遊蕩，每隻都會掉落一塊絲綢；5分鐘後重新出現。墓園東邊斜坡上的黑寡婦幼蛛（24-25級）約六次掉一次，所以等待時可以混著刷。35級精英骷髏{npc:522}在墓園巡邏：小心他。",
 
 	-- Step 8: Wynne Larson
 	-- {npc:1309} Wynne Larson · {object:23296} Larson Clothiers · {object:2101} Mage Quarter
-	["{npc:1309} works at {object:23296} in the {object:2101}. The robe gives intellect, stamina and spirit; the blouse more intellect and stamina but no spirit."] = "",
+	["{npc:1309} works at {object:23296} in the {object:2101}. The robe gives intellect, stamina and spirit; the blouse more intellect and stamina but no spirit."] = "{npc:1309}在{object:2101}內的{object:23296}處工作。長袍提供智力、耐力和精神；上衣提供更多智力和耐力，但沒有精神。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Carrion Recluses lurk in the woods of western {zone:1431} and each one drops the silk. The Black Widow Hatchlings further east drop it now and then."] = "食腐獨行蛛潛伏在{zone:1431}西部的樹林中，每隻都會掉落蛛絲。更東邊的小型黑寡婦蜘蛛偶爾也會掉落。",

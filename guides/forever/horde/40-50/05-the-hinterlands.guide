@@ -2,7 +2,7 @@
 guide forever/horde/40-50/05-the-hinterlands
 title The Hinterlands & Blasted Lands
 faction Horde
-levels 49-51
+levels 49-50
 zone The Hinterlands
 next forever/horde/40-50/06-azshara
 
@@ -200,8 +200,8 @@ step Grim Message
   tip South of the lodge the Witherbark trolls hold their villages. Every one of them carries a skull: with twenty, use Nimboya's Pike to make the Laden Pike, then plant it inside the village.
   goto 23.4,58.1
   collect 9320 x20 "Witherbark Skull"
-  use 15002 "Nimboya's Pike" @29.5,58.5
-  use 9319 "Nimboya's Laden Pike" @29.5,58.5
+  use 15002 "Nimboya's Pike" @31.9,58.0
+  use 9319 "Nimboya's Laden Pike" @31.9,58.0  -- inside Hiri'watha: it can't be planted outside a village
   complete 2932
 
 # ---------------------------------------------------------------- Aerie Peak
@@ -269,7 +269,7 @@ step The bloodmages
 #   is taken on 40-50/01's Booty Bay inn stop instead, its bottles picked up
 #   on the north coast here and handed in on 40-50/06's Booty Bay stop.
 # - The Swamp of Sorrows return (visit 51) is gone: Threat From the Sea and
-#   Continued Threat (1426-1428) are finished in forever/horde/40-50/03-feralas.
+#   Continued Threat (1426-1428) are finished in forever/horde/40-50/02-feralas.
 # - The Blasted Lands come first, straight from Thorium Point by way of
 #   Stonard, then the Undercity on the way to Tarren Mill: no Undercity
 #   bind, no hearth back to it, no zeppelin.

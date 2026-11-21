@@ -30,6 +30,7 @@ fn db() -> QuestDb {
 			(9008, "Briarthorn Bundle", 2450, 6),
 			(9009, "Spider Silk", 4000, 10),
 			(9010, "A Tailor's Request", 4306, 5),
+			(9011, "A Blade for Jarl", 4000, 10),
 		] {
 			quests.insert(id.to_string(), quest(id, title, item, count));
 		}
@@ -93,7 +94,7 @@ for id, it in pairs({
 "#;
 
 // A guide for both sides: the accepts, then a collect for each quest (the water bought from the guide's own vendor
-// first), then the hand-ins.
+// first), then the hand-ins. The guide takes A Blade for Jarl only as optional (it has no collect for it).
 const GUIDE: &str = r#"
 local function accept(q, title) return { t = "accept", quest = q, title = title, npc = 100, npcName = "Test Giver", map = 1411, x = 50, y = 50 } end
 local function turnin(q, title) return { t = "turnin", quest = q, title = title, npc = 100, npcName = "Test Giver", map = 1411, x = 50, y = 50 } end
@@ -104,6 +105,7 @@ Polestar.RegisterGuide({
 		{ title = "The quests", goals = {
 			accept(9001, "Caught!"), accept(9002, "Thirsty Work"), accept(9003, "Boar Meat"), accept(9004, "Brutal Armor"),
 			accept(9005, "Keepsake"), accept(9006, "Token Run"), accept(9007, "Ice Cold Milk"),
+			{ t = "accept", quest = 9011, title = "A Blade for Jarl", npc = 100, npcName = "Test Giver", map = 1411, x = 50, y = 50, optional = true },
 		} },
 		{ title = "What they need", goals = {
 			{ t = "collect", quest = 9001, title = "Caught!", item = 4306, itemName = "Silk Cloth", count = 15, oi = 1, map = 1411, x = 60, y = 60,
@@ -119,6 +121,7 @@ Polestar.RegisterGuide({
 		{ title = "Hand them in", goals = {
 			turnin(9001, "Caught!"), turnin(9002, "Thirsty Work"), turnin(9003, "Boar Meat"), turnin(9004, "Brutal Armor"),
 			turnin(9005, "Keepsake"), turnin(9006, "Token Run"), turnin(9007, "Ice Cold Milk"),
+			{ t = "turnin", quest = 9011, title = "A Blade for Jarl", npc = 100, npcName = "Test Giver", map = 1411, x = 50, y = 50, optional = true },
 		} },
 	},
 })
@@ -258,6 +261,26 @@ emit(listed)
 	);
 	assert_eq!(out[0], json!({ "water": "farm", "waterBought": false, "milk": false }), "the water alone is a long farm; bought by the guide, it is not listed");
 	assert_eq!(out[1], json!([4306, 3575]));
+}
+
+// A quest in the log that the running guide takes only as optional (#2553: Dustwallow's Jarl Needs a Blade, for a
+// player who already carries the sword) is no auction house buy, though its item would be (ten Spider Silk, 25 kills).
+// A quest of the log the guide has no goal for still is (A Tailor's Request).
+#[test]
+fn a_quest_the_guide_only_takes_as_optional_is_no_auction_house_buy() {
+	let db = db();
+	let out = run(
+		&db,
+		r#"
+E.SetGuide("test/ah")
+stub.advance(5)
+w.accept(9011, { { type = "item", required = 10 } }, "A Blade for Jarl")
+w.accept(9010, { { type = "item", required = 5 } }, "A Tailor's Request")
+stub.advance(1)
+emit(names("all"))
+"#,
+	);
+	assert_eq!(out[0], json!(["Silk Cloth=20:farm", "Iron Bar=10:made"]), "{out:?}");
 }
 
 // ---------------------------------------------------------------------------

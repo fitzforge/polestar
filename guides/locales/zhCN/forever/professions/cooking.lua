@@ -68,8 +68,8 @@ return {
 	["{item:6888} is orange from 1 (yellow at 45, green at 65, grey at 85): about 50 crafts to 50. Cook at any fire: a town hearth or your own {object:29784}. {item:6888} comes with {skill:185} (the client teaches it with the skill); {item:2678} are a cooking vendor's. The Strigid owls of {zone:1438} drop a {item:6889} more often than not, and {zone:1439}'s moonkin drop them too. Fishers can cook {item:6290} (recipe 40c) from Rut'theran's waters instead, and {npc:6286} in {area:186} gives Recipe of the Kaldorei (seven Small Spider Legs from the Webwood spiders) for {item:5472}, orange from 10 to 50."] = "{item:6888}从技能1起为橙色（45变黄，65变绿，85变灰）：约制作50次可到50。可在任意火源旁烹饪：城镇炉火或自己的{object:29784}都行。{item:6888}随{skill:185}一同掌握（客户端在学习技能时教授）；{item:2678}向烹饪商人购买。{zone:1438}的巨翼枭掉落{item:6889}的概率超过一半，{zone:1439}的枭兽也会掉落。钓鱼玩家也可改用鲁瑟兰水域钓到的鱼制作{item:6290}（食谱40铜币）；{area:186}的{npc:6286}提供“卡多雷的菜谱”（需从树林蜘蛛收集7条小蜘蛛腿），奖励{item:5472}，该配方在10-50为橙色。",
 
 	-- Step 13: Charred Wolf Meat: ingredients
-	-- {npc:250874} Vuldren Alpha
-	["Vuldren, {npc:250874} in Zephras Isle, or wherever the arrow points"] = "泽风岛的瓦尔德伦、{npc:250874}，或箭头指向的地点",
+	-- {npc:250873} Juvenile Vuldren
+	["{npc:250873} in Zephras Isle, or wherever the arrow points"] = "泽风岛的 {npc:250873}，或箭头指向的地点。",
 
 	-- Step 14: Charred Wolf Meat (1-50)
 	-- {spell:2538} Charred Wolf Meat · {object:29784} Basic Campfire · {item:2672} Stringy Wolf Meat
@@ -376,6 +376,7 @@ return {
 	-- ["Giant Eggs drop from the Ironbeak owls of {zone:1448}."] = "巨蛋由{zone:1448}的铁喙猫头鹰掉落。",
 	-- ["Journeyman {skill:185} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:185} trainer of your faction."] = "中级{skill:185}将上限提高到150；需要技能50和角色等级10级：箭头指向本阵营最近的{skill:185}训练师。",
 	-- ["Journeyman {skill:185} raises the cap to 150; it needs skill 50 and character level 10: the arrow picks the nearest {skill:185} trainer of your faction; training costs 5s."] = "中级{skill:185}将上限提高到150；需要技能50和角色等级10：箭头会指向你所在阵营最近的{skill:185}训练师；训练花费5银。",
+	-- ["Vuldren, {npc:250874} in Zephras Isle, or wherever the arrow points"] = "泽风岛的瓦尔德伦、{npc:250874}，或箭头指向的地点",
 	-- ["{area:442} docks"] = "{area:442}码头",
 	-- ["{area:702} docks"] = "{area:702}码头",
 	-- ["{item:12210} is orange from 175 (yellow at 215, grey at 255): about 40 crafts to 215. Cook at any fire: {object:29784} comes with {skill:185}."] = "{item:12210}从175起为橙色（215变黄，255变灰）：约制作40次可到215。任何火堆都能烹饪：学会{skill:185}即获得{object:29784}。",

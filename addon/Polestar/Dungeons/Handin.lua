@@ -10,13 +10,15 @@
 --       plan = { dungeon, hand = { { quest, rec, ender, talks, direct } }, unfinished = { quest, ... },
 --         inside = { quest, ... }, unplaced = { quest, ... }, errands = { { quest, rec } } }
 --       the page's quests in the log: hand (objectives done, or only talks
---       left, turned in outside at `ender`, a point { kind, id, name, map,
---       x, y, f }: Dungeons.Ender, the page's own place when it is the
---       character's side's, else the Codex's ender of that side nearest the
---       player; talks: nil, or the open quest-log lines when each is a talk
---       objective at an NPC outside this character may speak to, each a
---       point with its line `oi`: The Glowing Shard's Sputtervalve in
---       Ratchet before Falla Sagewind, #1326), unfinished (other objectives
+--       or placed events left, turned in outside at `ender`, a point { kind,
+--       id, name, map, x, y, f }: Dungeons.Ender, the page's own place when
+--       it is the character's side's, else the Codex's ender of that side
+--       nearest the player; talks: nil, or the open quest-log lines when each
+--       is a talk objective at an NPC outside this character may speak to
+--       (The Glowing Shard's Sputtervalve in Ratchet before Falla Sagewind,
+--       #1326) or an event the Codex places on the continent of the quest's
+--       turn-in (Rot and Regret's Woodwyrd extinguished, #3084: kind "event"),
+--       each a point with its line `oi`), unfinished (other objectives
 --       still open), inside (done, turned in inside the dungeon), unplaced
 --       (done, nowhere known). A page quest handed in at one talk and never
 --       in the log (`direct`: Pozzik's Indurium Ore, #2241) is in `hand`
@@ -28,7 +30,7 @@
 --       (below); HandinGuide places each as HandinFollowUps' `errand`, then
 --       its ender (one it cannot place stays a note). No follow-up search and
 --       no placing: the Dungeons page asks for the plan on every render.
---   Dungeons.HandinFollowUps(plan) -> { { rec, giver, after = { questId, ... }, ender, errand } }
+--   Dungeons.HandinFollowUps(plan) -> { { rec, giver, after = { questId, ... }, ender, errand, direct } }
 --       the quests the `hand` quests open (Codex.FollowUps: every `pre`
 --       done or handed in here, and one of `preAny` when it has any) that
 --       this character can take (Lookup.QuestBlock: faction, race, class,
@@ -46,7 +48,10 @@
 --       a vendor of the character's side sells it (the nearest): Unending
 --       Torment's Toxic Skullcap, Blisterweed and Essence of Agony, #2173.
 --       In objective order, each placed from the one before it; nil when an
---       objective is anything else or has no place
+--       objective is anything else or has no place. direct: one handed in at
+--       one talk, never in the log (the Codex's `direct`: Bloodpetal Sprouts
+--       for Muigin, #2686), listed only with its ender, its errand placed
+--       too though the page does not list it; it has no accept
 --   Dungeons.HandinGuide(key) -> def | nil, reason   -- "nothing" when no quest can be handed in
 --   Dungeons.HandIn(key) -> guideId | nil, reason    -- builds, registers and opens it
 --   Dungeons.HandinText(plan) -> text                -- why nothing can be handed in, one line
@@ -61,7 +66,8 @@
 -- turn-ins they wait on), one per follow-up's errand (a step of its own,
 -- titled with the quest, after the stop that gives it), and one per ender of
 -- a follow-up handed in on the way (after its errand, else after the stop
--- that gives it), in the order of Dungeons.OrderStops (the cheapest path
+-- that gives it; one handed in at one talk: after its errand and the
+-- turn-ins it waits on, with no stop at its giver), in the order of Dungeons.OrderStops (the cheapest path
 -- through them, by travel time) from where the player stands, inside the
 -- dungeon from its entrance, where the run ends, with no fixed end (kept
 -- per character as CharState().dungeonHandin[key]). Stops at the same NPC in a row are one
@@ -127,25 +133,39 @@ end
 
 -- The talks left before quest `id` can be handed in: its open quest-log
 -- lines when each is a talk objective of the Codex quest at an NPC with a
--- place this character may speak to (Lookup.QuestEnd), as points with the
--- line's `oi`; nil when a line is anything else (a kill, an item, an event,
--- one the Codex does not know) or none is open. The client's lines decide
--- which are open; without them, every line of the Codex quest is.
+-- place this character may speak to (Lookup.QuestEnd), or an event the Codex
+-- places on the continent of the quest's turn-in (#3084: Rot and Regret's
+-- "Woodwyrd extinguished" in Shen'dralas, after Maraudon gave the vial), as
+-- points with the line's `oi` (an event's: kind "event", its text as the
+-- name); nil when a line is anything else (a kill, an item, an unplaced
+-- event, one the Codex does not know) or none is open. The client's lines
+-- decide which are open; without them, every line of the Codex quest is.
 local function talksLeft(id, rec, from, p)
 	local objs = rec and rec.objectives
 	if type(objs) ~= "table" or #objs == 0 then return nil end
 	local lines = ns.Compat.GetQuestObjectives(id)
 	local Lk, out = LK(), {}
+	local endC
 	for oi = 1, math.max(#objs, lines and #lines or 0) do
 		local line = lines and lines[oi]
 		if not (line and line.finished) then
 			local o = objs[oi]
-			if not (o and o.type == "talk" and o.id) then return nil end
-			local e = Lk.QuestEnd({ npc = { o.id } }, from, p)
-			local at = e and not e.hostile and endPoint(e)
-			if not at then return nil end
-			at.oi = oi
-			out[#out + 1] = at
+			if o and o.type == "talk" and o.id then
+				local e = Lk.QuestEnd({ npc = { o.id } }, from, p)
+				local at = e and not e.hostile and endPoint(e)
+				if not at then return nil end
+				at.oi = oi
+				out[#out + 1] = at
+			elseif o and not o.id and o.map and o.x and o.y then
+				if endC == nil then
+					local e = rec["end"] and Lk.QuestEnd(rec["end"], from, p)
+					endC = continentOf(endPoint(e)) or false
+				end
+				if not endC or continentOf(o) ~= endC then return nil end
+				out[#out + 1] = { kind = "event", id = id * 100 + oi, name = o.text or rec.title, map = o.map, x = o.x, y = o.y, f = o.f, oi = oi, event = true }
+			else
+				return nil
+			end
 		end
 	end
 	return #out > 0 and out or nil
@@ -237,10 +257,12 @@ end
 
 -- A follow-up's errand (HandinFollowUps' `errand`): one collect goal per
 -- objective, each saying where the item comes from ("Collect Toxic Skullcap
--- from Tawny Grisette"), or nil.
-local function errandGoals(key, rec, from, p)
+-- from Tawny Grisette"), or nil. For one of the page's quests, or, with
+-- `direct`, a follow-up handed in at one talk that the page does not list
+-- (Bloodpetal Sprouts, #2686).
+local function errandGoals(key, rec, from, p, direct)
 	local pq = Dungeons.Quest(key, rec.id)
-	if not pq or pq.inside or (pq.finish and pq.finish.inside) then return nil end
+	if not (pq or direct) or (pq and (pq.inside or (pq.finish and pq.finish.inside))) then return nil end
 	local objs = rec.objectives or {}
 	if #objs == 0 then return nil end
 	local C = ns.Codex
@@ -250,8 +272,9 @@ local function errandGoals(key, rec, from, p)
 		local spot, src, kind, sold
 		if item then spot, src, kind, sold = itemSource(item, at, p) end
 		if not spot then return nil end
-		local goal = { t = "collect", quest = rec.id, oi = oi, title = rec.title, item = o.id, itemName = item.name or o.text,
-			count = o.count or 1, map = spot.map, x = spot.x, y = spot.y, f = spot.f == "e" and "e" or nil }
+		-- A direct one's items are counted in the bags: its quest never enters the log.
+		local goal = { t = "collect", quest = not direct and rec.id or nil, oi = not direct and oi or nil, title = rec.title, item = o.id,
+			itemName = item.name or o.text, count = o.count or 1, map = spot.map, x = spot.x, y = spot.y, f = spot.f == "e" and "e" or nil }
 		if src and src.name then
 			goal.from, goal.fromId, goal.fromKind = src.name, src.id, kind
 			-- A seller (one of the character's side, Lookup.QuestEnd) is no kill.
@@ -357,7 +380,7 @@ function Dungeons.HandinFollowUps(plan)
 					-- once its errand out in the world is done (Unending
 					-- Torment's three Undercity items, #2173), and its ender is
 					-- on the giver's continent (no trip across the sea).
-					local errand = not carried(f) and errandGoals(plan.dungeon.key, f, giver, p) or nil
+					local errand = not carried(f) and errandGoals(plan.dungeon.key, f, giver, p, f.direct) or nil
 					local last = errand and errand[#errand]
 					local e = (carried(f) or errand) and Lk.QuestEnd(f["end"], last or giver, p) or nil
 					local ender = e and not e.hostile and endPoint(e) or nil
@@ -368,7 +391,12 @@ function Dungeons.HandinFollowUps(plan)
 						if continentOf(g) ~= continentOf(giver) then errand = nil break end
 					end
 					if errand and not ender then errand = nil end
-					out[#out + 1] = { rec = f, giver = giver, after = after, ender = ender, errand = errand }
+					-- One handed in at one talk (Bloodpetal Sprouts, #2686:
+					-- Muigin takes the three sprouts and never puts it in the
+					-- log): no accept to take, so only with its hand-in.
+					if not (f.direct and not ender) then
+						out[#out + 1] = { rec = f, giver = giver, after = after, ender = ender, errand = errand, direct = f.direct or nil }
+					end
 				end
 			end
 		end
@@ -443,33 +471,54 @@ local function stopsOf(plan, follow)
 			end
 		end
 		sort(deps)
-		local gk = pointKey(f.giver)
-		local s
-		if #deps == 1 and stops[deps[1]].npcKey == gk then
-			s = stops[deps[1]]
-		else
+		if f.direct then
+			-- Handed in at one talk (Bloodpetal Sprouts, #2686): no accept and
+			-- no stop at its giver; its errand when the bags lack its items
+			-- (whenever the route likes: the items need nothing taken), then
+			-- its hand-in, after the turn-ins it waits on.
+			local need = deps
+			if f.errand then
+				local k = "r" .. f.rec.id
+				local r = stops[byKey[k] or 0] or add({ key = k, npcKey = k, at = { name = f.rec.title }, inP = f.errand[1],
+					outP = f.errand[#f.errand], deps = {}, talks = {}, turnins = {}, accepts = {}, errand = f })
+				need = { byKey[r.key] }
+				for _, i in ipairs(deps) do need[#need + 1] = i end
+			end
 			local keys = {}
-			for i, d in ipairs(deps) do keys[i] = stops[d].key end
-			local k = "g" .. gk .. "<" .. concat(keys, ",")
-			s = stops[byKey[k] or 0] or add({ key = k, npcKey = gk, at = f.giver, inP = f.giver, outP = f.giver,
-				deps = deps, talks = {}, turnins = {}, accepts = {} })
-		end
-		s.accepts[#s.accepts + 1] = f
-		-- Its errand, a stop of its own (`errand`), from its first goal's
-		-- place to its last.
-		local before = s
-		if f.errand then
-			local first, last = f.errand[1], f.errand[#f.errand]
-			local k = "r" .. f.rec.id .. "<" .. s.key
-			before = stops[byKey[k] or 0] or add({ key = k, npcKey = k, at = { name = f.rec.title }, inP = first, outP = last,
-				deps = { byKey[s.key] }, talks = {}, turnins = {}, accepts = {}, errand = f })
-		end
-		-- A follow-up handed in on the way: after it, at its ender.
-		if f.ender then
-			local k = "d" .. pointKey(f.ender) .. "<" .. before.key
+			for i, j in ipairs(need) do keys[i] = stops[j].key end
+			local k = "d" .. pointKey(f.ender) .. "<" .. concat(keys, ",")
 			local d = stops[byKey[k] or 0] or add({ key = k, npcKey = pointKey(f.ender), at = f.ender, inP = f.ender, outP = f.ender,
-				deps = { byKey[before.key] }, talks = {}, turnins = {}, accepts = {} })
-			d.turnins[#d.turnins + 1] = { quest = f.rec, rec = f.rec }
+				deps = need, talks = {}, turnins = {}, accepts = {} })
+			d.turnins[#d.turnins + 1] = { quest = f.rec, rec = f.rec, direct = true }
+		else
+			local gk = pointKey(f.giver)
+			local s
+			if #deps == 1 and stops[deps[1]].npcKey == gk then
+				s = stops[deps[1]]
+			else
+				local keys = {}
+				for i, d in ipairs(deps) do keys[i] = stops[d].key end
+				local k = "g" .. gk .. "<" .. concat(keys, ",")
+				s = stops[byKey[k] or 0] or add({ key = k, npcKey = gk, at = f.giver, inP = f.giver, outP = f.giver,
+					deps = deps, talks = {}, turnins = {}, accepts = {} })
+			end
+			s.accepts[#s.accepts + 1] = f
+			-- Its errand, a stop of its own (`errand`), from its first goal's
+			-- place to its last.
+			local before = s
+			if f.errand then
+				local first, last = f.errand[1], f.errand[#f.errand]
+				local k = "r" .. f.rec.id .. "<" .. s.key
+				before = stops[byKey[k] or 0] or add({ key = k, npcKey = k, at = { name = f.rec.title }, inP = first, outP = last,
+					deps = { byKey[s.key] }, talks = {}, turnins = {}, accepts = {}, errand = f })
+			end
+			-- A follow-up handed in on the way: after it, at its ender.
+			if f.ender then
+				local k = "d" .. pointKey(f.ender) .. "<" .. before.key
+				local d = stops[byKey[k] or 0] or add({ key = k, npcKey = pointKey(f.ender), at = f.ender, inP = f.ender, outP = f.ender,
+					deps = { byKey[before.key] }, talks = {}, turnins = {}, accepts = {} })
+				d.turnins[#d.turnins + 1] = { quest = f.rec, rec = f.rec }
+			end
 		end
 	end
 	return stops
@@ -503,8 +552,15 @@ function Dungeons.HandinGuide(key)
 			steps[#steps + 1] = step
 		end
 		-- A talk line: the engine ticks it by the quest's objective line (Lookup.QuestStep's talk goal).
+		-- An event line: a goal at its place read by that line, as Lookup.QuestStep's placed events (#2833, #3084).
 		for _, t in ipairs(s.talks) do
-			local goal = questGoal("talk", t.quest.id, titleOf(t.quest, t.rec), t.at)
+			local goal
+			if t.at.event then
+				goal = { t = "kill", logLine = true, target = t.at.name, quest = t.quest.id, title = titleOf(t.quest, t.rec), count = 1,
+					map = t.at.map, x = t.at.x, y = t.at.y, f = t.at.f == "e" and "e" or nil }
+			else
+				goal = questGoal("talk", t.quest.id, titleOf(t.quest, t.rec), t.at)
+			end
 			goal.oi = t.at.oi
 			step.goals[#step.goals + 1] = goal
 		end
@@ -655,3 +711,30 @@ if ns.Lookup and ns.Lookup.RegisterPlanner then
 		return Dungeons.HandinGuide(key)
 	end)
 end
+
+-- A saved pick-up tab is rebuilt at /reload or login (Lookup/Guide.lua, whose
+-- restore runs first); once every quest is taken there is nothing to pick up,
+-- so it builds nothing and the tab, with its end card's Hand in the quests,
+-- was dropped (#2765: the guide went back to the leveling route after the
+-- run). The hand-in guide takes its tab instead, as Dungeons.HandIn does, before
+-- the Engine reopens the saved tabs at login. With nothing to hand in either,
+-- the tab stays out as before.
+ns.OnInit(function()
+	local s = ns.CharState()
+	local tabs = type(s.tabs) == "table" and s.tabs or nil
+	local Lk = LK()
+	if not (tabs and Lk and Lk.GuideId and Lk.BuildGuide) then return end
+	local open = {}
+	for _, gid in pairs(tabs) do open[gid] = true end
+	for i, gid in pairs(tabs) do
+		local key = type(gid) == "string" and gid:match("^lookup/pickup/(.+)$")
+		local hid = key and Lk.GuideId(KIND, key)
+		if hid and not open[hid] and not ns.Guides.Get(gid) and Dungeons.IsEnabled() then
+			local def = Lk.BuildGuide(KIND, key)
+			if def and def.id == hid and ns.RegisterGuide(def) then
+				tabs[i], open[hid] = hid, true
+				if s.guide == gid then s.guide = hid end
+			end
+		end
+	end
+end)

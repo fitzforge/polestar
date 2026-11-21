@@ -391,6 +391,17 @@ impl Cluster {
 		Ok(())
 	}
 
+	/// Base cell a's data flags as the grid field writes them (1: its +x step closed, 2: its +y step closed, 4: its +x+y
+	/// diagonal open, 8: its +x-y diagonal open).
+	pub fn flags(&self, a: usize) -> u8 {
+		self.mv[a] / 16
+	}
+
+	/// The grid field with these data flags (one per base cell, as `flags` reads them): run-length, as written.
+	pub fn grid_field(&self, flags: &[u8]) -> String {
+		run_length(&self.val[..self.n()].iter().zip(flags).map(|(v, f)| v * 16 + f).collect::<Vec<u8>>())
+	}
+
 	pub fn n(&self) -> usize {
 		self.c * self.c
 	}

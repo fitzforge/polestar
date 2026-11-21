@@ -8,7 +8,7 @@
 return {
 	-- Step 1: Durotar Supply and Logistics
 	-- {zone:1413} Barrens · {npc:256400} Okamache · {npc:10636} Pack Kodo · {faction:2587} Durotar Supply and Logistics · {item:280179} Shipping Label
-	["The camp stands just outside the west gate of the Crossroads in the {zone:1413}. {npc:256400} sells the {npc:10636} only once you are Exalted with {faction:2587}, and it costs 6,000 Merchant's Favor. Crates pay only Favor (about 15 a crate return); the reputation comes from Craftsman's Writs and the one-time {item:280179}, so follow the Supply Factions Reputation guide and keep 6,000 Favor aside."] = "",
+	["The camp stands just outside the west gate of the Crossroads in the {zone:1413}. {npc:256400} sells the {npc:10636} only once you are Exalted with {faction:2587}, and it costs 6,000 Merchant's Favor. Crates pay only Favor (about 15 a crate return); the reputation comes from Craftsman's Writs and the one-time {item:280179}, so follow the Supply Factions Reputation guide and keep 6,000 Favor aside."] = "營地就在{zone:1413}的十字路口西門外。只有當你在{faction:2587}的聲望達到崇拜後，{npc:256400}才出售{npc:10636}，價格為6,000點商人的恩惠。交板條箱只給恩惠（每次交還約15點）；聲望來自工匠令狀和一次性的{item:280179}，所以請參照補給聲望指南進行，並預留出6,000點恩惠。",
 	-- {faction:2587} Durotar Supply and Logistics
 	["{faction:2587} camp"] = "{faction:2587}營地",
 

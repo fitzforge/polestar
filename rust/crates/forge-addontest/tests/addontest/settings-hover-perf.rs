@@ -260,12 +260,12 @@ fn a_hover_in_the_settings_window_only_lights_what_it_is_on_in_budget_and_hands_
 	let report = format!("measured {out}; reference scale {scale:.3}");
 	if CPU_CLOCK {
 		for key in ["cards", "rows", "spots"] {
-			assert!(num(&out[key]["median"]) < HOVER_MS * scale + slack, "{key}: a hover over {HOVER_MS} ms: {report}");
+			forge_addontest::assert_timing!(num(&out[key]["median"]) < HOVER_MS * scale + slack, "{key}: a hover over {HOVER_MS} ms: {report}");
 		}
 		for key in ["cards", "spots"] {
-			assert!(num(&out[key]["worst"]) < HOVER_MS * scale + slack, "{key}: the slowest hover over {HOVER_MS} ms: {report}");
+			forge_addontest::assert_timing!(num(&out[key]["worst"]) < HOVER_MS * scale + slack, "{key}: the slowest hover over {HOVER_MS} ms: {report}");
 		}
-		assert!(num(&out["rows"]["worst"]) < ROW_WORST_MS * scale + slack, "rows: the slowest hover over {ROW_WORST_MS} ms: {report}");
+		forge_addontest::assert_timing!(num(&out["rows"]["worst"]) < ROW_WORST_MS * scale + slack, "rows: the slowest hover over {ROW_WORST_MS} ms: {report}");
 	}
 	assert_eq!(out["tweens"], 0, "no motion left running after the hovers: {report}");
 	let h = &out["handover"];

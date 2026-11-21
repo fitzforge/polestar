@@ -1,19 +1,19 @@
 {
 	"scope": "all",
-	"through": 1794755631,
+	"through": 1795169594,
 	"archive": {
-		"revision": "efb9deae83d254b6",
-		"files": 7940,
-		"sessions": 7917,
+		"revision": "1648d0b14e5551ac",
+		"files": 13982,
+		"sessions": 13918,
 		"leftOut": {
-			"excluded": 23,
+			"excluded": 64,
 			"olderBuild": 0,
 			"unreadable": 0
 		},
-		"voters": 575,
-		"counted": 271,
+		"voters": 743,
+		"counted": 388,
 		"mergedPeople": 0,
-		"newestBuild": 70938
+		"newestBuild": 70959
 	},
 	"egLink": {
 		"revision": "164bd1e2d89579ada4ee5e2de7e5fd4db684a9f1",
@@ -21,11 +21,11 @@
 		"credit": "EG Link output: World of Warcraft: Forever (https://github.com/JIVESCORP/eg-link-output-wowf), data from Efficient Games (https://efficient.games), licensed under CC BY 4.0 (https://creativecommons.org/licenses/by/4.0/); reduced to quest facts for Polestar."
 	},
 	"verdicts": {
-		"revision": "2026-11-15-1522",
+		"revision": "2026-11-19-1414",
 		"exclude": 2,
-		"suspect": 3
+		"suspect": 2
 	},
-	"data": "2026-11-14T17:07:48.878Z",
+	"data": "2026-11-17T00:00:00.000Z",
 	"thresholds": {
 		"overrideVoters": 3,
 		"agreement": "2/3",
@@ -45,55 +45,55 @@
 		"immediateS": 5
 	},
 	"counts": {
-		"quests": 1826,
+		"quests": 2199,
 		"objective spot": {
-			"trusted": 1869,
-			"gap": 320,
-			"conflict": 34,
-			"stale": 46
+			"trusted": 2265,
+			"gap": 358,
+			"conflict": 31,
+			"stale": 71
 		},
 		"prerequisite": {
-			"trusted": 414,
-			"gap": 16,
-			"conflict": 41,
-			"stale": 51
+			"trusted": 546,
+			"gap": 28,
+			"conflict": 67,
+			"stale": 56
 		},
 		"not a prerequisite": {
-			"trusted": 12,
-			"gap": 0,
-			"conflict": 3,
-			"stale": 10
+			"trusted": 14,
+			"gap": 1,
+			"conflict": 6,
+			"stale": 6
 		},
 		"any-of prerequisites": {
-			"trusted": 50,
-			"gap": 2,
+			"trusted": 58,
+			"gap": 3,
 			"conflict": 0,
-			"stale": 22
+			"stale": 33
 		},
 		"not any-of prerequisites": {
 			"trusted": 0,
-			"gap": 2,
+			"gap": 0,
 			"conflict": 1,
-			"stale": 0
+			"stale": 2
 		},
 		"exclusive with": {
 			"trusted": 1,
-			"gap": 0,
+			"gap": 3,
 			"conflict": 0,
-			"stale": 0
+			"stale": 2
 		},
 		"not exclusive with": {
-			"trusted": 0,
-			"gap": 0,
+			"trusted": 4,
+			"gap": 8,
 			"conflict": 2,
-			"stale": 16
+			"stale": 37
 		},
 		"minimum level": {
-			"trusted": 46,
-			"gap": 4,
+			"trusted": 57,
+			"gap": 8,
 			"conflict": 0,
-			"stale": 12
+			"stale": 22
 		},
-		"questsEveryLineTrusted": 1215
+		"questsEveryLineTrusted": 1475
 	}
 }

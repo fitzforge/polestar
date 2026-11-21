@@ -78,27 +78,34 @@ pub const STEP_KEYS: [&str; 10] = ["title", "note", "image", "label", "only", "w
 pub const IMAGE_KEYS: [&str; 3] = ["file", "w", "h"];
 /// A step's `when` predicates and a `next` option's (`nextWhen`, format 4), in this key order (`node`, a
 /// `taxi` predicate's flight master, sits where no other predicate has a value).
-pub const WHEN_KEYS: [&str; 19] = ["k", "neg", "op", "n", "frac", "q", "item", "spell", "name", "label", "area", "node", "map", "skillLine", "minLevel", "pre", "preAll", "closedBy", "parent"];
+pub const WHEN_KEYS: [&str; 22] =
+	["k", "neg", "op", "n", "frac", "q", "item", "spell", "name", "label", "area", "node", "map", "skillLine", "minLevel", "pre", "preAll", "closedBy", "parent", "faction", "standing", "points"];
 // Keys only the profession/reputation/exploration/achievement verbs use sit
 // where no other goal has a value, so adding them left older output unchanged.
 // `z` (heights.js) follows y, `node` and `area` (places.js) precede map: a
 // goal without them is emitted as before.
-pub const GOAL_KEYS: [&str; 85] = [
+pub const GOAL_KEYS: [&str; 90] = [
 	"t",
 	"class",
 	// `train class`: its step's zone (uiMapID), whose trainers the Engine ranks first (#1357).
 	"zone",
 	"spell",
 	"spellName",
+	// A `buff` or `equip` goal the other way round: done while the aura is gone or the item is not worn (format 11).
+	"off",
 	"faction",
 	"factionName",
 	"standing",
+	// Points inside a `rep` goal's standing (format 11).
+	"points",
 	"achievement",
 	"achievementName",
 	"criteria",
 	"quest",
 	"title",
 	"target",
+	// A kill or talk on one of the game's placeholder targets (#2614): the engine reads it by its quest-log line.
+	"logLine",
 	"npc",
 	"npcName",
 	"object",
@@ -109,6 +116,8 @@ pub const GOAL_KEYS: [&str; 85] = [
 	// A `collect … gather`: the item's gather way, true or { max, min, rank, skill, skillLine } (Core/Materials.lua).
 	"gather",
 	"oi",
+	// Part of the objective's count this goal is done at (format 11).
+	"upto",
 	"skill",
 	"skillLine",
 	"rank",
@@ -155,6 +164,8 @@ pub const GOAL_KEYS: [&str; 85] = [
 	// A kill or collect's spawn areas' level, the one most share (an area of another level carries its own `lvl`).
 	"lvl",
 	"optional",
+	// One of its step's `either` set (format 11).
+	"either",
 	"only",
 	"profLine",
 	"profName",
@@ -1112,8 +1123,10 @@ pub fn emit_map_frames(frames: &V, pack_id: &str) -> String {
 /// the Era bounds of every map they stand on. `z`: the trainer's spawn height
 /// (heights.js); the header then names CMaNGOS classic-db.
 /// trainers: the reminder's candidates (one per town and class); by_class:
-/// { classFile: [npcId, ...] }, every class trainer, for Engine.IsClassTrainer.
-pub fn emit_class_trainers(trainers: &[V], frames: &V, by_class: &V) -> String {
+/// { classFile: [npcId, ...] }, every class trainer, for Engine.IsClassTrainer;
+/// tops: { npcId: level }, the highest level a trainer that stops short of the
+/// cap teaches (#2477), left out when empty.
+pub fn emit_class_trainers(trainers: &[V], frames: &V, by_class: &V, tops: &V) -> String {
 	let heights = trainers.iter().any(|t| !t.get("z").is_undef());
 	let mut out = vec![
 		header(
@@ -1143,6 +1156,14 @@ pub fn emit_class_trainers(trainers: &[V], frames: &V, by_class: &V) -> String {
 		out.push(format!("\t{cls} = {{ {} }},", ids.join(", ")));
 	}
 	out.push("})".into());
+	let ids = numeric_keys(tops);
+	if !ids.is_empty() {
+		out.extend(["".into(), "ns.RegisterClassTrainerTops({".into()]);
+		for id in ids {
+			out.push(format!("\t[{}] = {},", num_str(id), num_str(tops.get(&num_str(id)).num())));
+		}
+		out.push("})".into());
+	}
 	format!("{}\n", out.join("\n"))
 }
 

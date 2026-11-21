@@ -163,8 +163,23 @@ local function enabled() return QoL.On("xpTracker") end
 -- Events
 ---------------------------------------------------------------------------
 
+-- The rest bonus and the frame of the last QOL_XP_UPDATED.
+local firedRested, firedAt
 local function fireUpdate()
-	if enabled() then ns.Fire("QOL_XP_UPDATED", XP.GetStats()) end
+	if not enabled() then return end
+	local stats = XP.GetStats()
+	firedRested, firedAt = stats.rested, GetTime and GetTime()
+	ns.Fire("QOL_XP_UPDATED", stats)
+end
+
+-- UPDATE_EXHAUSTION: the rest bonus may have changed. The client sends it with
+-- every XP gain, in the same frame as PLAYER_XP_UPDATE: the guide window was
+-- painted twice per kill. Within the frame of the last update, with the rest
+-- bonus as it was, there is nothing new to say.
+local function onExhaustion()
+	if firedAt ~= nil and GetTime and GetTime() == firedAt
+		and (readable(GetXPExhaustion and GetXPExhaustion()) or 0) == firedRested then return end
+	fireUpdate()
 end
 
 -- Split one gain into quest XP already announced and the rest.
@@ -273,7 +288,7 @@ ns.RegisterEvent("PLAYER_XP_UPDATE", function(_, unit)
 end)
 ns.RegisterEvent("QUEST_TURNED_IN", onTurnedIn)
 ns.RegisterEvent("CHAT_MSG_COMBAT_XP_GAIN", onKillMessage)
-ns.RegisterEvent("UPDATE_EXHAUSTION", fireUpdate)
+ns.RegisterEvent("UPDATE_EXHAUSTION", onExhaustion)
 ns.RegisterEvent("PLAYER_LOGOUT", tick)
 
 ---------------------------------------------------------------------------

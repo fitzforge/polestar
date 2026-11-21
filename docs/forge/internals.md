@@ -74,7 +74,7 @@ live there; `forge doctor` and every other command is a module in `crates/forge/
 | `forge data ...` | `cli/data.rs` | the data builders one at a time ([data](data.md)) |
 | `forge gamedata ...` | `cli/gamedata.rs` | list and export the client's tables |
 | `forge guide compile\|lint` | `cli/guide.rs` | the guide compiler ([writer](writer.md)) |
-| `forge guide seed\|publish\|check-generated` | `cli/guide.rs`, `generated.rs` | the seed, the generated guides in the checkout, the check that they are not edited ([FORGE.md](../FORGE.md#fixing-a-generated-guide)) |
+| `forge guide seed\|publish\|check-generated\|rehash` | `cli/guide.rs`, `generated.rs` | the seed, the generated guides in the checkout, the check that they are not edited, their manifests recomputed from the files ([FORGE.md](../FORGE.md#fixing-a-generated-guide)) |
 | `forge judge ...` | `cli/judge.rs` | one guide pack, the report, seed tests ([judge](judge.md)) |
 | `forge sim ...` | `cli/sim.rs` | route cuts, the shared route, guards, `why`, `skips` ([routes](routes.md)) |
 | `forge walks ...` | `cli/walks.rs` | the world and walks stages on their own ([nav](nav.md)) |

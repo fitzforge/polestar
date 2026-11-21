@@ -1409,6 +1409,9 @@ VERB_ICON.gather = VERB_ICON.collect
 -- merchant's coin bag and the repairer's anvil and hammer, drawn as our glyphs.
 VERB_ICON.sell = MEDIA .. "UI\\icon-sell"
 VERB_ICON.repair = MEDIA .. "UI\\icon-repair"
+VERB_ICON.buff = VERB_ICON.use
+VERB_ICON.equip = VERB_ICON.use
+VERB_ICON.deposit = VERB_ICON.collect
 VERB_ICON.wait = MEDIA .. "UI\\hourglass"
 
 function Theme.VerbIcon(t)
@@ -1520,10 +1523,66 @@ function Theme.FontKey()
 end
 
 -- The text size against every role's own (ui.textSize, 0.8 to 1.4): the
--- window scale leaves the text as it is, this only the text.
-function Theme.TextScale()
-	local v = tonumber(get("ui.textSize")) or 1
+-- window scale leaves the text as it is, this only the text. `key` names
+-- another setting of the same kind (a window's own, Theme.TextScope).
+function Theme.TextScale(key)
+	local v = tonumber(get(key or "ui.textSize")) or 1
 	return math.max(0.8, math.min(1.4, v))
+end
+
+-- The text scopes (Theme.TextScope) and the font repaint check (Fonts.moved) in one table: this
+-- file keeps to the 190 main-chunk locals the syntax test allows. scopes: frame -> key | false as
+-- set; frames: frame -> key | false as found; outside: frames seen outside every scope.
+local Fonts = {
+	scopes = setmetatable({}, { __mode = "k" }),
+	frames = setmetatable({}, { __mode = "k" }),
+	outside = setmetatable({}, { __mode = "k" }),
+}
+
+-- A window whose text takes its own size setting instead of ui.textSize
+-- (the guide window: ui.guideTextSize). Every string under `frame` follows
+-- it. key = false: back to ui.textSize for `frame` and what is under it,
+-- inside another scope (the class quest card in the guide window); the
+-- innermost scope decides.
+function Theme.TextScope(frame, key)
+	if type(frame) ~= "table" then return end
+	Fonts.scopes[frame] = key or false
+	-- Found again on the next lookup: a scope set now may cover frames
+	-- already seen.
+	for f in pairs(Fonts.frames) do Fonts.frames[f] = nil end
+	for f in pairs(Fonts.outside) do Fonts.outside[f] = nil end
+end
+
+-- The size setting a string follows: its scoped window's, else nil. Found
+-- from the scoped windows down (their own child frames), never by walking up
+-- from the string: Polestar's strings on the world map would read the map's
+-- frames (Nav/MapCanvas reads only what it must there). A parent seen
+-- outside every scope stays outside: the guide window reparents nothing.
+do
+	local markChildren
+	local function markScope(frame, key)
+		local own = Fonts.scopes[frame]
+		if own ~= nil then key = own end
+		Fonts.frames[frame] = key
+		markChildren(key, frame:GetChildren())
+	end
+	-- The children as GetChildren returns them, with no table made: a lookup
+	-- that misses walks every scoped window, and the settings window's rows miss
+	-- often as they are built.
+	function markChildren(key, ...)
+		for i = 1, select("#", ...) do markScope((select(i, ...)), key) end
+	end
+	function Fonts.scopeOf(region)
+		local p = region.GetParent and region:GetParent()
+		if not p then return nil end
+		local key = Fonts.frames[p]
+		if key ~= nil then return key or nil end
+		if Fonts.outside[p] then return nil end
+		for frame, k in pairs(Fonts.scopes) do markScope(frame, k) end
+		key = Fonts.frames[p]
+		if key == nil then Fonts.outside[p] = true end
+		return key or nil
+	end
 end
 
 -- The roles each size nudge moves (ui.headingSize, ui.smallSize, on top of
@@ -1576,10 +1635,11 @@ function Theme.FontChoices()
 	}
 end
 
-function Theme.FontSpec(role)
+-- `scale` (optional): the text size to use instead of ui.textSize's.
+function Theme.FontSpec(role, scale)
 	local own, base = SKIN_ROLES[Theme.SkinId()], SKIN_ROLES[Theme.SkinKey()]
 	local spec = (own and own[role]) or (base and base[role]) or ROLES[role] or ROLES.body
-	local k = Theme.TextScale()
+	local k = scale or Theme.TextScale()
 	if HEADING_ROLES[role] then k = k * nudge("ui.headingSize") elseif SMALL_ROLES[role] then k = k * nudge("ui.smallSize") end
 	local size = math.floor(spec[2] * k * 2 + 0.5) / 2
 	local outline = Theme.OutlineFlags()
@@ -1766,13 +1826,12 @@ end
 -- What every string's font reads besides the string's own (its outline,
 -- size and shadow repaint it as they change): each role's spec and the text
 -- shadow, as the last repaint of every string left them.
-local fontsMoved
 do
 	local fontsSeen, roleNames = {}, nil
 	-- Whether any of it changed since (a font, a size, the skin, the shadow's
 	-- colour), noting it. A refresh where nothing did (a switched look option,
 	-- a colour) leaves every string's font as it is.
-	function fontsMoved()
+	function Fonts.moved()
 		if not roleNames then
 			roleNames = {}
 			for role in pairs(ROLES) do roleNames[#roleNames + 1] = role end
@@ -1791,6 +1850,15 @@ do
 		if seen[i + 1] ~= mode or seen[i + 2] ~= r or seen[i + 3] ~= g or seen[i + 4] ~= b or seen[i + 5] ~= own then
 			seen[i + 1], seen[i + 2], seen[i + 3], seen[i + 4], seen[i + 5] = mode, r, g, b, own
 			moved = true
+		end
+		-- A window's own text size (Theme.TextScope): its strings repaint when it moves.
+		i = i + 5
+		for _, key in pairs(Fonts.scopes) do
+			if key then
+				local k = Theme.TextScale(key)
+				if seen[i + 1] ~= k then seen[i + 1], moved = k, true end
+				i = i + 1
+			end
 		end
 		return moved
 	end
@@ -1812,7 +1880,9 @@ end
 local retextQueued = false
 
 local function paintFont(fs, role)
-	local path, size, flags = fontSpec(role)
+	local scope = Fonts.scopeOf(fs)
+	local path, size, flags
+	if scope then path, size, flags = Theme.FontSpec(role, Theme.TextScale(scope)) else path, size, flags = fontSpec(role) end
 	local text = fs.GetText and fs:GetText()
 	local script = Theme.ScriptFont(text)
 	scripted[fs] = script or false
@@ -2939,14 +3009,14 @@ do
 		local ok, err = pcall(paintSkinned)
 		walked = nil
 		if not ok then error(err, 0) end
-		if fontsMoved() then
+		if Fonts.moved() then
 			for fs, role in pairs(fonted) do paintFont(fs, role) end
 		end
 	end
 end
 
 -- Repaint everything we skinned or fonted (the strings when their fonts'
--- inputs moved: fontsMoved), then tell the listeners.
+-- inputs moved: Fonts.moved), then tell the listeners.
 function Theme.Refresh()
 	P = nil
 	livePending = false
@@ -3093,7 +3163,7 @@ function Theme.RetextLater(frame)
 end
 
 local LOOKS = {
-	["ui.accent"] = true, ["ui.font"] = true, ["ui.textSize"] = true, ["ui.skin"] = true, ["ui.scheme"] = true, ["ui.bgColor"] = true, ["ui.bgOpacity"] = true,
+	["ui.accent"] = true, ["ui.font"] = true, ["ui.textSize"] = true, ["ui.guideTextSize"] = true, ["ui.skin"] = true, ["ui.scheme"] = true, ["ui.bgColor"] = true, ["ui.bgOpacity"] = true,
 	["ui.brightness"] = true, ["ui.matchAccent"] = true, ["ui.classAccent"] = true, ["ui.matchFont"] = true,
 	["ui.border"] = true, ["ui.borderColor"] = true, ["ui.borderAccent"] = true, ["ui.borderSize"] = true,
 	["ui.band"] = true, ["ui.shadow"] = true, ["nav.arrowColor"] = true, ["nav.arrowNearColor"] = true, ["nav.mapIcons"] = true,
@@ -3238,6 +3308,19 @@ local function migrate()
 	P = nil
 end
 if ns.OnInit then ns.OnInit(migrate) end
+
+-- Before the guide window had its own text size, ui.textSize sized it too:
+-- each profile keeps that size for the guide window until the player sets
+-- its own. A migration (Core/Profiles.lua): once, over the settings in use,
+-- every stored profile and a profile string from before it, so a guide size
+-- reset later stays at the default and a fresh install copies nothing.
+if ns.RegisterMigration then
+	ns.RegisterMigration("guideTextSize", function(s)
+		local ui = s.ui
+		if type(ui) == "table" and ui.guideTextSize == nil and tonumber(ui.textSize) then ui.guideTextSize = ui.textSize end
+	end)
+end
+
 -- The class is certain once logged in; a palette read earlier is redone.
 if ns.OnLogin then ns.OnLogin(function() if get("ui.classAccent") then Theme.Refresh() end end) end
 

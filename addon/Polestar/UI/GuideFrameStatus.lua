@@ -106,7 +106,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 		local restLine
 		if not (type(stats) == "table" and stats.maxed) then
-			local pace = GF.PaceText(stats)
+			-- The pace line, unless turned off (guideWindow.pace, #2371, #2379).
+			local pace = GF.On("pace") and GF.PaceText(stats)
 			if pace then parts[#parts + 1] = pace end
 			-- Boosted Rest and the sleeping bag (QoL/Rest.lua): empty while its
 			-- setting is off or there is nothing to say.

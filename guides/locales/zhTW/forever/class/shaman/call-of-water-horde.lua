@@ -22,87 +22,87 @@ return {
 
 	-- Step 3: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
-	["{npc:5901} is not in {area:392}: take the small coast road south from {area:392} past the pirate camp and over a low hill; her fishing hut, with a shark strung up outside, stands by the water before the pirate ship. If you reach the ship you went too far."] = "",
+	["{npc:5901} is not in {area:392}: take the small coast road south from {area:392} past the pirate camp and over a low hill; her fishing hut, with a shark strung up outside, stands by the water before the pirate ship. If you reach the ship you went too far."] = "{npc:5901}不在{area:392}：從{area:392}沿小海岸路向南海邊走去，經過海盜營地，翻過一座矮丘；她的釣魚小屋就在海盜船之前的水邊，門外掛著一條鯊魚。走到海盜船就說明走過頭了。",
 
 	-- Step 4
 	-- {npc:5901} Islen Waterseer · {npc:5892} Searn Firewarder
-	["{npc:5901}: {npc:5892}'s letter"] = "",
+	["{npc:5901}: {npc:5892}'s letter"] = "{npc:5901}：{npc:5892}的信",
 
 	-- Step 5
 	-- {npc:5901} Islen Waterseer · {npc:5906} Xanis Flameweaver
-	["{npc:5901}: {npc:5906}' letter"] = "",
+	["{npc:5901}: {npc:5906}' letter"] = "{npc:5901}：{npc:5906}的信",
 
 	-- Step 6
 	-- {npc:5901} Islen Waterseer
-	["{npc:5901}: Swart's letter"] = "",
+	["{npc:5901}: Swart's letter"] = "{npc:5901}：斯瓦特的信",
 
 	-- Step 7
 	-- {npc:5901} Islen Waterseer
-	["{npc:5901}: Narm's letter"] = "",
+	["{npc:5901}: Narm's letter"] = "{npc:5901}：納姆的信",
 
 	-- Step 9: Brine
 	-- {npc:5899} Brine · {zone:1413} Barrens · {area:378} Camp Taurajo · {area:1701} Blackthorn Ridge
-	["{npc:5899} lives in the southern {zone:1413}, south of {area:378}: her hut sits on a hilltop of {area:1701} with a spinning windmill beside it, and the way up is the ridge by the lone tree. Quilboar camp all around the hill; Stormhides, thunderhawks and hyenas roam the plains on the way."] = "",
+	["{npc:5899} lives in the southern {zone:1413}, south of {area:378}: her hut sits on a hilltop of {area:1701} with a spinning windmill beside it, and the way up is the ridge by the lone tree. Quilboar camp all around the hill; Stormhides, thunderhawks and hyenas roam the plains on the way."] = "{npc:5899}住在{zone:1413}南部、{area:378}以南：她的小屋在{area:1701}的一座山頂上，旁邊有轉動的風車，上山的路是孤樹旁的山脊。山丘周圍到處是野豬人營地；途中的平原上有風暴皮野豬人、雷鷹和鬣狗遊蕩。",
 
 	-- Step 10: The Quilboar Watering Hole
 	-- {object:107046} Quilboar Watering Hole
-	["The {object:107046}"] = "",
+	["The {object:107046}"] = "{object:107046}",
 	-- {npc:5899} Brine · {item:7766} Empty Brown Waterskin · {npc:3456} Razormane Pathfinder
-	["The muddy pond below {npc:5899}'s hut. Step right into the puddle before you use the {item:7766} (too far away and it refuses). Filling it calls a hostile {npc:3456} (level 20): kill it, and watch for the quilboar hunter by the pond, who may start shooting afterwards."] = "",
+	["The muddy pond below {npc:5899}'s hut. Step right into the puddle before you use the {item:7766} (too far away and it refuses). Filling it calls a hostile {npc:3456} (level 20): kill it, and watch for the quilboar hunter by the pond, who may start shooting afterwards."] = "{npc:5899}的小屋下方的泥水塘。使用{item:7766}前要先踏進泥水裡（離得太遠它會拒絕）。裝滿會召來一個敵對的{npc:3456}（20級）：殺掉它，同時留意水塘邊的野豬人獵人，之後他可能會開始射擊。",
 	-- {item:7766} Empty Brown Waterskin
-	["{item:7766}, standing in the puddle"] = "",
+	["{item:7766}, standing in the puddle"] = "{item:7766}，站在泥水中",
 
 	-- Step 12: The Spring Well
 	-- {object:107045} Spring Well
 	["The {object:107045}"] = "{object:107045}",
 	-- {object:107045} Spring Well · {area:272} Tarren Mill · {zone:1413} Barrens · {zone:1454} Orgrimmar · {zone:1420} Tirisfal Glades · {zone:1458} Undercity · {zone:1421} Silverpine Forest · {area:287} Hillsbrad · {item:7768} Empty Red Waterskin
-	["The {object:107045} stands in the middle of {area:272}, just outside the church. From the {zone:1413}: the zeppelin from {zone:1454} to {zone:1420}, then south past the {zone:1458} and through {zone:1421} (or fly once you have the {area:272} flight path). {area:287} is contested: Alliance players may attack. Stand beside the well and use the {item:7768}."] = "",
+	["The {object:107045} stands in the middle of {area:272}, just outside the church. From the {zone:1413}: the zeppelin from {zone:1454} to {zone:1420}, then south past the {zone:1458} and through {zone:1421} (or fly once you have the {area:272} flight path). {area:287} is contested: Alliance players may attack. Stand beside the well and use the {item:7768}."] = "{object:107045}位於{area:272}中央、教堂外。從{zone:1413}出發：坐飛艇從{zone:1454}到{zone:1420}，然後向南經過{zone:1458}，穿過{zone:1421}（有了{area:272}的飛行點時可以直接飛過去）。{area:287}是爭奪區域：聯盟玩家可能會攻擊。站在井邊使用{item:7768}。",
 	-- {item:7768} Empty Red Waterskin
-	["{item:7768}, beside the well"] = "",
+	["{item:7768}, beside the well"] = "{item:7768}，在井旁",
 
 	-- Step 14: The Ruins of Stardust
 	-- {area:415} Astranaar · {zone:1413} Barrens · {area:1703} Mor'shan Rampart · {npc:12836} Wandering Protector · {zone:1440} Ashenvale · {item:7767} Empty Blue Waterskin
-	["The right fountain stands in a ring of standing stones on the island of the small green lake south of {area:415}, west of Lake Mystral (not the island in Lake Mystral itself). From the {zone:1413} take the road north through the {area:1703} and on west. Water elementals and walking treants guard the lake and root you in place; an elite {npc:12836} roams {zone:1440} and can pass close by. Use the {item:7767} beside the fountain."] = "",
+	["The right fountain stands in a ring of standing stones on the island of the small green lake south of {area:415}, west of Lake Mystral (not the island in Lake Mystral itself). From the {zone:1413} take the road north through the {area:1703} and on west. Water elementals and walking treants guard the lake and root you in place; an elite {npc:12836} roams {zone:1440} and can pass close by. Use the {item:7767} beside the fountain."] = "正確的噴泉在{area:415}南邊、米斯特拉爾湖以西的小綠湖島上立石環中（不是米斯特拉爾湖裡的那座島）。從{zone:1413}沿路向北穿過{area:1703}，再往西走。水元素和會行走的樹人守著湖泊，會把你定在原地；一個精英{npc:12836}在{zone:1440}遊蕩，可能會靠近。在噴泉旁使用{item:7767}。",
 	-- {item:7767} Empty Blue Waterskin
-	["{item:7767}, beside the fountain"] = "",
+	["{item:7767}, beside the fountain"] = "{item:7767}，在噴泉旁",
 
 	-- Step 15: Brine
 	-- {npc:5899} Brine · {item:7810} Vial of Purest Water · {npc:5901} Islen Waterseer
-	["Back to {npc:5899}. She gives you the {item:7810} for {npc:5901}."] = "",
+	["Back to {npc:5899}. She gives you the {item:7810} for {npc:5901}."] = "回到{npc:5899}處。她會把要交給{npc:5901}的{item:7810}給你。",
 	-- {item:7810} Vial of Purest Water · {npc:5901} Islen Waterseer
 	["the {item:7810}, for {npc:5901}"] = "{item:7810}，交給{npc:5901}",
 
 	-- Step 16: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {item:6637} Water Sapta · {item:7811} Remaining Drops of Purest Water
-	["{npc:5901} hands you the {item:6637} and the {item:7811}: take everything she offers before you leave for Silverpine, or you will be back for more."] = "",
+	["{npc:5901} hands you the {item:6637} and the {item:7811}: take everything she offers before you leave for Silverpine, or you will be back for more."] = "{npc:5901}會給你{item:6637}和{item:7811}：出發去銀松森林前把她給的東西全拿上，否則你還得再跑一趟。",
 	-- {npc:5901} Islen Waterseer · {item:6637} Water Sapta
 	["{npc:5901}: your {item:6637}"] = "{npc:5901}：你的{item:6637}",
 
 	-- Step 17: Lost the Water Sapta?
 	-- {quest:972} Water Sapta
-	["Lost the {quest:972}?"] = "",
+	["Lost the {quest:972}?"] = "把{quest:972}弄丟了？",
 	-- {quest:972} Water Sapta · {npc:5901} Islen Waterseer
-	["Only if the {quest:972} is gone from your bags: {npc:5901} gives you another."] = "",
+	["Only if the {quest:972} is gone from your bags: {npc:5901} gives you another."] = "只有當{quest:972}從揹包裡消失時才需要：{npc:5901}會再給你一封。",
 	-- {npc:5901} Islen Waterseer · {quest:972} Water Sapta
-	["{npc:5901}: a new {quest:972}"] = "",
+	["{npc:5901}: a new {quest:972}"] = "{npc:5901}：新的{quest:972}",
 
 	-- Step 18: The Brazier of Everfount
 	-- {object:113791} Brazier of Everfount (no name in this language: may be words)
 	["The {object:113791}"] = "{object:113791}",
 	-- {area:228} Sepulcher · {item:6637} Water Sapta · {npc:5894} Corrupt Minor Manifestation of Water · {spell:8056} Frost Shock · {spell:122} Frost Nova
-	["Fly to the {area:228}. The shrine lies in a hollow just south-west of it: go round the back of the crypt to the thick tree between the two hills, hop past it onto the rocks and drop west down the slope to the pool (each drop costs a little health). Drink the {item:6637} beside the tall standing stone by the pool: several water elementals appear, and only the corrupt one near the middle can be attacked (Tab picks it). The {npc:5894} is level 22 and casts {spell:8056} and {spell:122}; if someone just killed it, it is back in about three minutes. Its bracers always drop."] = "",
+	["Fly to the {area:228}. The shrine lies in a hollow just south-west of it: go round the back of the crypt to the thick tree between the two hills, hop past it onto the rocks and drop west down the slope to the pool (each drop costs a little health). Drink the {item:6637} beside the tall standing stone by the pool: several water elementals appear, and only the corrupt one near the middle can be attacked (Tab picks it). The {npc:5894} is level 22 and casts {spell:8056} and {spell:122}; if someone just killed it, it is back in about three minutes. Its bracers always drop."] = "飛到{area:228}。神龕就在它西南邊的一處窪地裡：繞到墓穴後面，走到兩座山丘之間那棵粗樹，跳過它落到岩石上，再往西下坡跳到水潭（每次下落都會掉一點生命值）。在水潭旁的高立石邊喝下{item:6637}：會出現幾個水元素，只有中間附近那個墮落的水元素可以攻擊（按 Tab 選中）。{npc:5894}是22級，會施放{spell:8056}和{spell:122}；如果剛有人殺了它，大約三分鐘後就重新出現。它的護腕必掉。",
 	-- {item:6637} Water Sapta
-	["{item:6637}, beside the standing stone"] = "",
+	["{item:6637}, beside the standing stone"] = "{item:6637}，在立石旁",
 
 	-- Step 19: The Minor Manifestation of Water
 	-- {npc:5895} Minor Manifestation of Water
-	["The {npc:5895}"] = "",
+	["The {npc:5895}"] = "純淨的{npc:5895}",
 	-- {object:113791} Brazier of Everfount (no name in this language: may be words) · {npc:5895} Minor Manifestation of Water · {spell:8202} Sapta Sight · {item:7813} Shard of Water · {npc:5901} Islen Waterseer · {quest:63} Call of Water · {quest:972} Water Sapta · {npc:7007} Tiev Mordune
-	["Click the {object:113791} to place the bracers and the drops. A few seconds later the pure {npc:5895} rises on the stone in the middle of the pool: speak to it while the {spell:8202} lasts (drink again by the stone if it has worn off). It gives you the {item:7813} for {npc:5901}. Gone before you could speak to it? Back at {npc:5901} ask for {quest:63} (a fresh {quest:972} for {npc:7007}, who stands just west of the shrine): hand it to Tiev, stay close while he calls the spirit back, then speak to it."] = "",
+	["Click the {object:113791} to place the bracers and the drops. A few seconds later the pure {npc:5895} rises on the stone in the middle of the pool: speak to it while the {spell:8202} lasts (drink again by the stone if it has worn off). It gives you the {item:7813} for {npc:5901}. Gone before you could speak to it? Back at {npc:5901} ask for {quest:63} (a fresh {quest:972} for {npc:7007}, who stands just west of the shrine): hand it to Tiev, stay close while he calls the spirit back, then speak to it."] = "點選{object:113791}，放上護腕和掉落物。幾秒後，純淨的{npc:5895}會浮現在水池中央的石頭上：趁著{spell:8202}還在，跟它對話（如果效果消失了，就在石頭旁再喝一次）。它會給你要交給{npc:5901}的{item:7813}。還沒輪到說話它就消失了？回到{npc:5901}處要{quest:63}（一封給{npc:7007}的新{quest:972}，他就站在神龕西邊）：把信交給蒂耶夫，在他召回幽靈的過程中保持靠近，然後再跟幽靈對話。",
 
 	-- Step 20: Islen Waterseer
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet · {item:5177} Water Totem
-	["Back to {npc:5901} south of {area:392}. Keep the {item:5177} in your bags for good: every water totem needs it."] = "",
+	["Back to {npc:5901} south of {area:392}. Keep the {item:5177} in your bags for good: every water totem needs it."] = "回到{area:392}南邊的{npc:5901}處。把{item:5177}永久留在揹包裡：每個水圖騰都要用它。",
 	-- {npc:5901} Islen Waterseer · {spell:5394} Healing Stream Totem · {item:5177} Water Totem
 	["{npc:5901}: {spell:5394} and your {item:5177}"] = "{npc:5901}：{spell:5394}和你的{item:5177}",
 

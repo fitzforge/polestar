@@ -82,18 +82,6 @@ local function plain(s)
 	return (s:gsub("[%[%]]", ""))
 end
 
--- The client's link (what a shift-click on the quest puts in chat), else its
--- title as plain text in quote marks (ns.Quoted); nil when neither can be read.
-local function questLink(q)
-	local C = ns.Compat
-	local link = GetQuestLink and GetQuestLink(q)
-	if type(link) == "string" and not C.IsSecret(link) and link ~= "" then return link end
-	local title = C.GetQuestTitle(q) or (ns.Names and ns.Names.Quest and ns.Names.Quest(q))
-		or (ns.QuestDB and ns.QuestDB.GetQuestTitle and ns.QuestDB.GetQuestTitle(q))
-	if type(title) == "string" and not C.IsSecret(title) and title ~= "" then return ns.Quoted(plain(title)) end
-	return nil
-end
-
 -- s cut to at most n bytes, never inside a UTF-8 character.
 local function cut(s, n)
 	if #s <= n then return s end
@@ -188,7 +176,7 @@ local function flushBatch(q, b)
 	if batches[q] ~= b then return end
 	batches[q] = nil
 	if not logLive or #b == 0 then return end
-	local link = questLink(q)
+	local link = ns.QuestChatText(q)
 	if link then say(PartyChat.ObjectivesLine(link, b)) end
 end
 
@@ -219,7 +207,7 @@ local function check(q, objs, quiet)
 	if nowReady then
 		-- The ready line says it all: objectives still waiting are dropped.
 		batches[q] = nil
-		local link = questLink(q)
+		local link = ns.QuestChatText(q)
 		if link then say(L["%s is ready to turn in"]:format(link)) end
 		return
 	end
@@ -320,7 +308,7 @@ local function onLoot(_, msg)
 	C.RequestQuest(q)
 	ns.After(READ_DELAY, function()
 		if not lootLive then return end
-		local ql = questLink(q)
+		local ql = ns.QuestChatText(q)
 		if ql then say(L["looted %s, which starts %s"]:format(link, ql)) end
 	end)
 end

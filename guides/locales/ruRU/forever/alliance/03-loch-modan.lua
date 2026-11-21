@@ -18,7 +18,7 @@ return {
 
 	-- Step 3: Into Loch Modan
 	-- {zone:1432} Loch Modan
-	["Into {zone:1432}"] = "",
+	["Into {zone:1432}"] = "В зону {zone:1432}",
 	-- {area:836} Dun Algaz · {zone:1437} Wetlands
 	["Follow the road east out of Menethil and south through the {area:836} pass. Keep to the road: the {zone:1437} crocolisks and raptors beside it are over your level."] = "",
 
@@ -37,14 +37,14 @@ return {
 
 	-- Step 7: Back to the Algaz Station
 	-- {area:925} Algaz Station
-	["Back to the {area:925}"] = "",
+	["Back to the {area:925}"] = "Назад к месту {area:925}",
 
 	-- Step 8: Stonewrought Dam
 	["Chief Engineer Hinderweir stands on top of the dam, up the ramp at its west end."] = "",
 
 	-- Step 9: The Suspicious Barrel
 	-- {object:257} Suspicious Barrel
-	["The {object:257}"] = "",
+	["The {object:257}"] = "{object:257}",
 	-- plural, as words: Dark Iron Sappers = {npc:1222} Dark Iron Sapper
 	["Walk east along the dam, down its eastern ramp, then back west along the foot of the dam on the land side: two Dark Iron Sappers guard the barrel. Kill them, then open the barrel: it ends this quest and starts the next."] = "",
 
@@ -77,7 +77,7 @@ return {
 	-- {npc:1154} Marek Ironheart · {npc:1187} Daryl the Youngling
 	["North-east to the lodge on the hill. {npc:1154} stands inside, {npc:1187} outside."] = "",
 	-- {npc:1154} Marek Ironheart
-	["{npc:1154}, inside"] = "",
+	["{npc:1154}, inside"] = "{npc:1154}, внутри",
 	-- {npc:1154} Marek Ironheart
 	["{npc:1154}: the loch crocolisks below the lodge"] = "",
 	-- {npc:1187} Daryl the Youngling
@@ -120,9 +120,11 @@ return {
 	-- {npc:269185} Headsplitter · {zone:1418} Badlands
 	-- plural, as words: Stonevault Cave Hunters = {npc:4856} Stonevault Cave Hunter
 	["South of Thelsamar, Ylva lies dead in the mouth of a trogg cave. Take her banner, raise it beside her and hold the spot: troggs come in waves from both sides, then {npc:269185}.\nCareful: Stonevault Cave Hunters (36, elite) hold the pass just south of Ylva, toward the {zone:1418}: stay by the banner and don't chase troggs south."] = "",
+	-- {item:253247} Banner of Ironforge · {npc:269185} Headsplitter
+	["{item:253247}: raise it beside Ylva, then hold the spot until {npc:269185} comes"] = "",
 
 	-- Step 25: The tunnel post
-	["The tunnel post"] = "",
+	["The tunnel post"] = "Пост у туннеля",
 	-- {zone:1426} Dun Morogh
 	["West to the dwarven post at the tunnel to {zone:1426}."] = "",
 
@@ -142,13 +144,13 @@ return {
 
 	-- Step 28: Into Dun Morogh
 	-- {zone:1426} Dun Morogh
-	["Into {zone:1426}"] = "",
+	["Into {zone:1426}"] = "В зону {zone:1426}",
 	-- {zone:1455} Ironforge · {area:144} Thelsamar
 	["Through the South Gate tunnel and west along the road to {zone:1455}. Know the {zone:1455} flight path already? Fly from {area:144} instead: these two waypoints drop once you are in the city."] = "Через туннель Южных врат и на запад по дороге в {zone:1455}. Точка полета {zone:1455} уже открыта? Тогда летите из места {area:144}: эти две путевые точки исчезнут, как только вы окажетесь в городе.",
 
 	-- Step 29: Into Ironforge
 	-- {zone:1455} Ironforge
-	["Into {zone:1455}"] = "",
+	["Into {zone:1455}"] = "В зону {zone:1455}",
 
 	-- Step 30: Ironforge
 	-- {npc:1573} Gryth Thurden · {object:32372} Great Forge · {npc:1356} Prospector Stormpike · {object:32356} Hall of Explorers · {object:171524} Tinker Town
@@ -179,25 +181,25 @@ return {
 	-- {area:1002} Three Corners · {npc:464} Guard Parker
 	["The road crosses into Redridge at {area:1002}. {npc:464} walks around the crossroads."] = "",
 	-- {npc:464} Guard Parker · {area:1002} Three Corners
-	["{npc:464} walks around {area:1002}: look inside the circle on the map"] = "",
+	["{npc:464} walks around {area:1002}: look inside the circle on the map"] = "{npc:464} ходит по месту {area:1002}: ищите внутри круга на карте",
 
 	-- Step 35: Lakeridge Highway
 	-- {area:68} Lake Everstill · {npc:1070} Deputy Feldon
-	["Follow the road along the south shore of {area:68} to the gryphon master. {npc:1070} stands by the road next to her."] = "",
+	["Follow the road along the south shore of {area:68} to the gryphon master. {npc:1070} stands by the road next to her."] = "Идите по дороге вдоль южного берега озера ({area:68}) к распорядителю полетов. {npc:1070} стоит у дороги рядом с ней.",
 
 	-- Step 36: Lakeshire
 	-- {npc:8965} Shawn · {npc:8962} Hilary · {npc:341} Foreman Oslow · {npc:415} Verner Osgood · {npc:344} Magistrate Solomon · {npc:381} Dockmaster Baren · {npc:266} Wiley the Black · {npc:379} Darcy · {npc:343} Chef Breanna
 	["Cross the long bridge north into town: {npc:8965} and {npc:8962} play by the shore at its north end, {npc:341} stands there too, {npc:415} by the smithy, {npc:344} in the town hall, {npc:381} on the docks, {npc:266} upstairs in the inn and {npc:379} and {npc:343} inside it."] = "",
 	-- {npc:415} Verner Osgood · {npc:514} Smith Argus · {area:87} Goldshire
-	["{npc:415}: for {npc:514} in {area:87}"] = "",
+	["{npc:415}: for {npc:514} in {area:87}"] = "{npc:415}: для персонажа {npc:514} ({area:87})",
 	-- {npc:344} Magistrate Solomon · {npc:466} General Marcus Jonathan · {zone:1453} Stormwind
 	["{npc:344}, in the town hall: for {npc:466} in {zone:1453}"] = "",
 	-- {npc:266} Wiley the Black
 	["{npc:266}, in the inn; upstairs"] = "",
 	-- {npc:379} Darcy
-	["{npc:379}, inside"] = "",
+	["{npc:379}, inside"] = "{npc:379}, внутри",
 	-- {npc:343} Chef Breanna
-	["{npc:343}, inside"] = "",
+	["{npc:343}, inside"] = "{npc:343}, внутри",
 
 	-- Step 37: Guard Parker
 	-- {area:1002} Three Corners
@@ -205,7 +207,7 @@ return {
 
 	-- Step 38: Lakeridge Highway: kill these as you meet them
 	-- {area:1001} Lakeridge Highway
-	["{area:1001}: kill these as you meet them"] = "",
+	["{area:1001}: kill these as you meet them"] = "{area:1001}: убивайте их по пути",
 	-- {area:1002} Three Corners
 	-- plural, as words: Redridge Mongrels = {npc:423} Redridge Mongrel · Great Goretusks = {npc:547} Great Goretusk · Dire Condors = {npc:428} Dire Condor
 	["Redridge Mongrels and Thrashers hold the hills east of {area:1002}, north of the road; Poachers camp south of the road. Great Goretusks root around the same hills and Dire Condors circle south of the lake; Tarantulas crawl round {area:1002}."] = "",
@@ -242,7 +244,7 @@ return {
 	-- {npc:381} Dockmaster Baren · {quest:150} Murloc Poachers · {area:69} Lakeshire
 	["From level 20 {npc:381} gives {quest:150}: take it now if he offers it (otherwise on the last {area:69} stop). Its murlocs are for your next Redridge visit, at about 24."] = "",
 	-- {npc:381} Dockmaster Baren
-	["{npc:381}, on the docks"] = "",
+	["{npc:381}, on the docks"] = "{npc:381} – на пристани",
 
 	-- Step 44: Goldshire
 	-- {area:1002} Three Corners · {area:87} Goldshire
@@ -255,8 +257,8 @@ return {
 	-- Step 46: Stormwind's gate
 	-- {zone:1453} Stormwind
 	["{zone:1453}'s gate"] = "",
-	-- {npc:234} Gryan Stoutmantle · {zone:1436} Westfall · {area:87} Goldshire · {zone:1453} Stormwind · {npc:466} General Marcus Jonathan · {object:2096} Trade District · {area:69} Lakeshire
-	["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}."] = "",
+	-- {npc:234} Gryan Stoutmantle · {zone:1436} Westfall · {area:87} Goldshire · {zone:1453} Stormwind · {npc:466} General Marcus Jonathan · {object:2096} Trade District · {area:69} Lakeshire · {area:1617} Valley of Heroes
+	["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}.\nIf {npc:466} isn't at the arrow, he is walking his horse along the {area:1617} nearby: look along the avenue or wait a moment."] = "",
 	-- {npc:466} General Marcus Jonathan
 	["{npc:466}, outside the main gate"] = "",
 
@@ -274,17 +276,17 @@ return {
 	-- {zone:1453} Stormwind
 	["Fly to {zone:1453}"] = "Лететь в {zone:1453}",
 	-- {area:108} Sentinel Hill
-	["{area:108} flight master"] = "",
+	["{area:108} flight master"] = "Распорядитель полетов: {area:108}",
 
 	-- Step 50: Stormwind
-	-- {npc:332} Master Mathias Shaw · {object:2100} Old Town · {npc:466} General Marcus Jonathan · {object:2096} Trade District
-	["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}."] = "",
+	-- {npc:332} Master Mathias Shaw · {object:2100} Old Town · {npc:466} General Marcus Jonathan · {object:2096} Trade District · {area:1617} Valley of Heroes
+	["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}.\nIf {npc:466} isn't at the arrow, he is walking his horse along the {area:1617} nearby: look along the avenue or wait a moment."] = "",
 	-- {npc:332} Master Mathias Shaw
 	["{npc:332}, SI:7; upstairs"] = "",
 
 	-- Step 51: Sentinel Hill
 	-- {npc:234} Gryan Stoutmantle
-	["{npc:234}, at the top of the tower"] = "",
+	["{npc:234}, at the top of the tower"] = "{npc:234}, на вершине башни",
 
 	-- Step 52: Moonbrook and the Defias hills
 	-- {area:20} Moonbrook
@@ -297,7 +299,7 @@ return {
 
 	-- Step 53: The Defias Messenger
 	-- {npc:550} Defias Messenger
-	["The {npc:550}"] = "",
+	["The {npc:550}"] = "{npc:550}",
 	-- {area:20} Moonbrook · {npc:550} Defias Messenger · {area:113} Gold Coast Quarry · {area:111} Jangolode Mine
 	["South along the road to {area:20}. The {npc:550} starts in front of the {area:20} smithy and walks north to the {area:113} and the back of the {area:111}, then back: look along his road. Slow him when he runs at 30% health."] = "",
 	-- {item:1381} A Mysterious Message · {npc:550} Defias Messenger
@@ -382,7 +384,7 @@ return {
 	-- {area:442} Auberdine · {zone:1439} Darkshore · {zone:1453} Stormwind
 	["Back to {area:442} for {zone:1439}'s southern loops: the gryphon to {zone:1453}, then the boat from the harbour. Hearthstone ready (bound in {area:442} since the first {zone:1439} visit)? Use it instead: these steps drop once you are in {zone:1439}."] = "",
 	-- {area:69} Lakeshire
-	["{area:69} flight master"] = "",
+	["{area:69} flight master"] = "Распорядитель полетов: {area:69}",
 
 	-- Step 70: Baros Alexston
 	-- {npc:1646} Baros Alexston · {object:2098} Cathedral Square · {object:28027} Dwarven District
@@ -413,4 +415,8 @@ return {
 	["For your {area:717} run, later in {zone:1453}: keep it until then."] = "Для подземелья {area:717}, позже в городе {zone:1453}: сохраните задание до тех пор.",
 	-- {npc:1646} Baros Alexston · {npc:1719} Warden Thelwater · {area:717} Stockade
 	["{npc:1646}: for {npc:1719}, at the {area:717}'s gate"] = "{npc:1646}: для NPC {npc:1719}, у ворот ({area:717})",
+
+	-- Step 75: Argos Nightwhisper
+	-- {npc:4984} Argos Nightwhisper · {npc:8997} Gershala Nightwhisper · {area:442} Auberdine
+	["On the way to the harbour: {npc:4984}'s message goes to {npc:8997} in {area:442}, beside Terenthis, where the boat lands."] = "",
 }

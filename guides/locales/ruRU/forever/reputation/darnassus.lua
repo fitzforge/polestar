@@ -86,7 +86,7 @@ return {
 	-- plural, as words: Gnarlpine Mystics = {npc:7235} Gnarlpine Mystic
 	["The four relics of Wakening lie in the {area:262}, south-west of {area:186}; Ferocitas and the Gnarlpine Mystics camp east of the village."] = "",
 	-- {item:8050} Tallonkai's Jewel · {quest:2459} Ferocitas the Dream Eater
-	["{item:8050}, from {quest:2459}"] = "",
+	["{item:8050}, from {quest:2459}"] = "{item:8050}: {quest:2459}",
 
 	-- Step 13: Dolanaar: Ursal the Mauler
 	-- {quest:486} Ursal the Mauler · {area:478} Pools of Arlithrien · {zone:1438} Teldrassil

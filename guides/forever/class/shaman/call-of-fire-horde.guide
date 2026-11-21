@@ -7,6 +7,7 @@ faction Horde
 levels 10-13
 zone The Barrens
 keywords Fire Totem, Searing Totem, Totem of Charged Flames, Fire Sapta, Call of Fire, Swart, Searn Firewarder, Narm Skychaser, Xanis Flameweaver, Kranal Fiss, Telf Joolam, Fire Tar, Reagent Pouch, Glowing Ember, Brazier of the Dormant Flame, Torch of Eternal Flame, Sessaria Skystride, Olariaan Swiftburn, Skypriest Faladiel, Kuramaa, Shrine of Flames, Shaman, class quest, totem
+collects 5176
 reward item 5176
 reward spell 3599 "Searing Totem"
 reward item 263412

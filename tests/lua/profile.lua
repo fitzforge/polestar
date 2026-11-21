@@ -30,30 +30,58 @@ local total = 0
 
 local function short(src)
 	src = (src or "?"):gsub("^@", "")
-	return src:match("addon/(.+)$") or src:match("tests/(.+)$") or src
+	return src:match("addon/(.+)$") or src:match("tests/(.+)$") or src:match("/(Polestar[^/]*/.+)$") or src
 end
 
-local function keyOf(fn)
+-- ns.Safe (Core/Init.lua) wraps OnUpdate scripts and timer callbacks: such a
+-- handler is charged to the function it wraps, so the key names the module.
+local function unwrap(fn)
 	local i = debug.getinfo(fn, "S")
-	return short(i.source) .. ":" .. tostring(i.linedefined)
+	if not (i.source or ""):find("Core/Init.lua", 1, true) then return fn, i end
+	for n = 1, 8 do
+		local name, v = debug.getupvalue(fn, n)
+		if not name then break end
+		if name == "fn" and type(v) == "function" then return unwrap(v) end
+	end
+	return fn, i
+end
+
+local keys = setmetatable({}, { __mode = "k" })
+local function keyOf(fn)
+	local k = keys[fn]
+	if not k then
+		local _, i = unwrap(fn)
+		k = short(i.source) .. ":" .. tostring(i.linedefined)
+		keys[fn] = k
+	end
+	return k
 end
 
 -- Runs fn(...) charged to `key`; returns nothing (handlers' returns are unused).
+-- kib: what the handler allocated, nested handlers included (a figure only
+-- while the collector is stopped; with it running a cycle can make it negative),
+-- less the client stub's own share when tests/lua/stub_alloc.lua is loaded.
+local gcount = collectgarbage
 local function timed(key, fn, ...)
 	if not running then return fn(...) end
 	nested[#nested + 1] = 0
+	local A = stub.alloc
+	local s0 = A and A.stub or 0
+	local k0 = gcount("count")
 	local t0 = clock()
 	local ok, err = pcall(fn, ...)
 	local spent = clock() - t0
+	local kib = gcount("count") - k0 - ((A and A.stub or 0) - s0)
 	local child = table.remove(nested)
 	local h = handlers[key]
 	if not h then
-		h = { key = key, calls = 0, incl = 0, excl = 0 }
+		h = { key = key, calls = 0, incl = 0, excl = 0, kib = 0 }
 		handlers[key] = h
 	end
 	h.calls = h.calls + 1
 	h.incl = h.incl + spent
 	h.excl = h.excl + spent - child
+	h.kib = h.kib + kib
 	if #nested > 0 then nested[#nested] = nested[#nested] + spent else total = total + spent end
 	if not ok then error(err, 0) end
 end
@@ -75,7 +103,9 @@ function stub.fire(ev, ...)
 	if not running then return fire(ev, ...) end
 	local list = {}
 	for _, f in ipairs(stub.frames) do
-		if f.events[ev] then list[#list + 1] = f end
+		-- A frame registered with RegisterUnitEvent hears only its units' (wow_stub.lua).
+		local units = f.events[ev] and f.eventUnits and f.eventUnits[ev]
+		if f.events[ev] and (not units or units[(...)]) then list[#list + 1] = f end
 	end
 	for _, f in ipairs(list) do runTimed(f, "OnEvent", ev, ev, ...) end
 end
@@ -213,7 +243,7 @@ function P.report(limit)
 	local hs = {}
 	for _, e in ipairs(sorted(handlers, function(h) return h.excl end, limit)) do
 		local h = e[2]
-		hs[#hs + 1] = { key = h.key, calls = h.calls, incl = h.incl * 1000, excl = h.excl * 1000 }
+		hs[#hs + 1] = { key = h.key, calls = h.calls, incl = h.incl * 1000, excl = h.excl * 1000, kib = h.kib }
 	end
 	local fs = {}
 	for _, e in ipairs(sorted(fnSamples, function(n) return n end, limit)) do

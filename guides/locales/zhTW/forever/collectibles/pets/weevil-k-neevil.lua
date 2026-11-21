@@ -12,29 +12,29 @@ return {
 
 	-- Step 2: Arbor Tarantula in Stranglethorn Vale
 	-- {npc:217588} Arbor Tarantula · {zone:1434} Stranglethorn Vale
-	["{npc:217588} in {zone:1434}"] = "",
+	["{npc:217588} in {zone:1434}"] = "{npc:217588}在{zone:1434}",
 	-- plural, as words: Arbor Tarantulas = {npc:217588} Arbor Tarantula
-	["The Arbor Tarantulas sit in northern Stranglethorn. Use the kit's tool on one to catch it."] = "",
+	["The Arbor Tarantulas sit in northern Stranglethorn. Use the kit's tool on one to catch it."] = "林木狼蛛棲息在荊棘谷北部。用工具包裡的工具對一隻使用，即可捕捉。",
 
 	-- Step 3: Hay Weevil in Arathi Highlands
 	-- {npc:217589} Hay Weevil · {zone:1417} Arathi Highlands
-	["{npc:217589} in {zone:1417}"] = "",
+	["{npc:217589} in {zone:1417}"] = "{npc:217589}在{zone:1417}",
 	-- {zone:1417} Arathi Highlands
 	-- plural, as words: Hay Weevils = {npc:217589} Hay Weevil
-	["The Hay Weevils crawl in the north-west of {zone:1417}. Use the kit's tool on one."] = "",
+	["The Hay Weevils crawl in the north-west of {zone:1417}. Use the kit's tool on one."] = "乾草象鼻蟲在{zone:1417}西北部爬行。用工具包裡的工具對一隻使用。",
 
 	-- Step 4: Flesh Picker in Desolace
 	-- {npc:217590} Flesh Picker · {zone:1443} Desolace
-	["{npc:217590} in {zone:1443}"] = "",
+	["{npc:217590} in {zone:1443}"] = "{npc:217590}在{zone:1443}",
 	-- {area:596} Kodo Graveyard · {zone:1443} Desolace
 	-- plural, as words: Flesh Pickers = {npc:217590} Flesh Picker
-	["The Flesh Pickers feed in the {area:596} in the middle of southern {zone:1443}. Use the kit's tool on one."] = "",
+	["The Flesh Pickers feed in the {area:596} in the middle of southern {zone:1443}. Use the kit's tool on one."] = "食肉蟲在{zone:1443}南部中段的{area:596}覓食。用工具包裡的工具對一隻使用。",
 
 	-- Step 5: Back to Amaryllis Webb
 	-- {npc:217412} Amaryllis Webb
-	["Back to {npc:217412}"] = "",
+	["Back to {npc:217412}"] = "返回{npc:217412}",
 	-- {npc:217412} Amaryllis Webb · {item:280456} Weevil K. Neevil
-	["Hand {npc:217412} the three specimens: she gives you {item:280456} and 35s."] = "",
+	["Hand {npc:217412} the three specimens: she gives you {item:280456} and 35s."] = "把三隻標本交給{npc:217412}：她會給你{item:280456}和35銀。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["{npc:217412} gives you an Entomology Starter Kit: use its items to catch an {npc:217588}, a Hay Weevil Specimen and a {npc:217590}. This quest is named as the weevil's source but gives only money as its reward; the pet may come from the {npc:217589} you catch. If you lose the kit, she sells another."] = "{npc:217412}會給你一個昆蟲學入門套件：用裡面的物品捕捉一隻{npc:217588}、一隻象鼻蟲標本和一隻{npc:217590}。這個任務被列為這隻象鼻蟲的來源，但獎勵只有金錢；寵物可能來自你捕捉的{npc:217589}。如果你弄丟了套件，她會再賣你一個。",

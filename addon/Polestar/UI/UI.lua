@@ -41,7 +41,8 @@ ns.RegisterDefaults("ui", {
 	classCardSound = true, -- the class-quest card's and the class quest heads-up's chime (UI/ClassCard.lua, UI/ClassToast.lua)
 	skin = "polestar", -- "polestar" (the house style, the default) | "halo" | "hearth" | "forever" | "blizzard" | "classic" (Polestar.Theme, "Skins")
 	font = "skin", -- "skin" (the game's in Polestar) | "opensans" | "game" | "inter" | "fira"
-	textSize = 1, -- 0.8..1.4: every text role's size against its own (Theme.FontSpec), apart from the window scale
+	textSize = 1, -- 0.8..1.4: every text role's size against its own (Theme.FontSpec), apart from the window scale; the guide window has its own (guideTextSize)
+	guideTextSize = 1, -- 0.8..1.4: the same, for the guide window's text only (Theme.TextScope)
 	scheme = "dusk", -- "dusk" | "night" | "graphite" | "ellesmere" (Polestar.Theme.SCHEMES)
 	accent = false, -- false: the scheme's (or EllesmereUI's) accent; { r, g, b }: your own
 	bgColor = false, -- false: the scheme's ground; { r, g, b }: your own
@@ -619,8 +620,8 @@ end
 -- A material goal's line (the Engine's `materials`; Core/Materials.lua): what
 -- the bank, the mail and the other characters hold, and on an Auction House
 -- goal what is still to buy, priced for that many: "40 in your bank  ·  47 to
--- buy  ·  ≈ 87s". A price older than 3 days says so; one for fewer than that
--- count says how many are listed.
+-- buy  ·  ≈ 87s" ("~ 87s" in a face without "≈": Theme.Approx). A price older
+-- than 3 days says so; one for fewer than that count says how many are listed.
 function UI.MaterialsLine(goal)
 	local m = goal.materials
 	if type(m) ~= "table" then return nil end
@@ -633,7 +634,7 @@ function UI.MaterialsLine(goal)
 	if goal.t == "auction" and m.toGet > 0 then
 		parts[#parts + 1] = format(L["%s to buy"], thousands(m.toGet))
 		if m.price then
-			local price = format(L["≈ %s"], money(m.price))
+			local price = Theme.Approx() .. " " .. money(m.price)
 			if m.listed then price = price .. " " .. format(L["(only %s listed)"], thousands(m.listed)) end
 			if m.age and m.age > 3 * 86400 then price = price .. " " .. L["(old price)"] end
 			parts[#parts + 1] = price
@@ -836,6 +837,16 @@ function UI.StepTotal(E)
 	E = E or ns.Engine
 	if E and E.StepTotal then return E.StepTotal() end
 	return E and E.GetStepCount and E.GetStepCount() or 0
+end
+
+-- "Guide me" under the guide window's "left out here" (#2634): Lookup's
+-- guide to quest q through the quests it needs first (Lookup.QuestChain), in
+-- a new tab; where Lookup cannot build one (off, no Codex), its page for the
+-- quest.
+function UI.LeftOutGuide(q)
+	local Lk = ns.Lookup
+	if not (Lk and Lk.Guide and type(q) == "number") then return end
+	if not Lk.Guide("quest", q) and Lk.Show then Lk.Show(nil, "quest", q) end
 end
 
 -- The groups of a step view (docs/ARCHITECTURE.md, "Focus: one person at a

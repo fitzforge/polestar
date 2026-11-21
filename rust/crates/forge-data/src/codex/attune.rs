@@ -326,6 +326,16 @@ fn build_one(entry: &V, codex: &V, warn: &mut Vec<String>, inside: &[V]) -> V {
 			s.set("goal", true);
 		}
 	}
+	// `via`: the item the goal item is made from, by a use the steps can't show (#2338: the Sacred Mallet, used at
+	// Jintha'Alor's altar, becomes the Mallet of Zul'Farrak). Its drops and chests come first; the note says how it
+	// turns into the goal item.
+	let via = entry.get("via");
+	if via.truthy() {
+		if !codex.get("items").get(&kstr(&via)).truthy() {
+			warn.push(format!("{eid}: via item {} is not in the Codex", kstr(&via)));
+		}
+		steps.extend(source_steps(&via, codex, true, false));
+	}
 	let item = entry.get("item");
 	if item.truthy() {
 		if !codex.get("items").get(&kstr(&item)).truthy() {
@@ -406,4 +416,43 @@ pub fn attunements_of(codex: &V, table: &V) -> (Vec<(String, Vec<V>)>, Vec<Strin
 		}
 	}
 	(by_key, warnings)
+}
+
+#[cfg(test)]
+mod tests {
+	use super::*;
+	use forge_guide::js::parse_json;
+
+	// #2338: the Mallet of Zul'Farrak drops nowhere; it is the Sacred Mallet (Qiaga the Keeper's drop) used at
+	// Jintha'Alor's altar. Without `via` the entry had no steps and was left out; with it, the page and its guide
+	// lead to Qiaga, and the entry stays done by the goal item.
+	#[test]
+	fn an_item_made_from_another_lists_that_one_s_drops_via_2338() {
+		let codex = parse_json(
+			r#"{ "quests": {}, "instances": { "zulfarrak": {} },
+				"items": { "9240": { "name": "Mallet of Zul'Farrak", "quality": 2, "sources": [] },
+					"9241": { "name": "Sacred Mallet", "quality": 1, "sources": [{ "type": "drop", "npc": 7996, "chance": 100 }] } },
+				"npcs": { "7996": { "name": "Qiaga the Keeper", "spawns": [{ "map": 1425, "x": 48.6, "y": 68.2, "f": "e" }] } } }"#,
+		)
+		.unwrap();
+		let table = |via: &str| {
+			parse_json(&format!(r#"{{ "attunements": [{{ "key": "zulfarrak", "id": "mallet", "name": "Mallet of Zul'Farrak", "kind": "item", "need": "one", "item": 9240{via}, "note": "n" }}] }}"#))
+				.unwrap()
+		};
+
+		let (by_key, warnings) = attunements_of(&codex, &table(""));
+		assert!(by_key.is_empty(), "no steps without via");
+		assert_eq!(warnings, vec!["mallet: no steps".to_string()]);
+
+		let (by_key, warnings) = attunements_of(&codex, &table(r#", "via": 9241"#));
+		assert!(warnings.is_empty(), "{warnings:?}");
+		let a = &by_key[0].1[0];
+		assert_eq!(a.get("item").get("id").num(), 9240.0);
+		let steps = a.get("steps").items();
+		assert_eq!(steps.len(), 1);
+		assert_eq!(steps[0].get("kind").as_str(), Some("drop"));
+		assert_eq!(steps[0].get("item").get("id").num(), 9241.0);
+		assert_eq!(steps[0].get("npc").get("id").num(), 7996.0);
+		assert_eq!(steps[0].get("npc").get("map").num(), 1425.0);
+	}
 }

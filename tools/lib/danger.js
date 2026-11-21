@@ -2,7 +2,8 @@
 // Danger at the spot (#1575): for every located kill/collect/use/interact/complete goal of the leveling guides
 // (forever/alliance, forever/horde, and Polestar's experimental guides in experimental/guides), the hostile mobs
 // around it against the level the route expects there; and for every grind (a `level` goal the route reaches by
-// grinding, #2207), its camp against the level the grind starts at.
+// grinding, #2207), its camp against the level the grind starts at. Steps only a group follows (`when group`, #2816)
+// are left out: a solo player never sees them.
 //
 //   levelsOf(files) -> Map(guide id -> { start, q: Map(quest -> level after its turn-in) })
 //     files: the calibrated level model's output for each faction (the release audit's level run: an array of race x class
@@ -186,6 +187,12 @@ function levelsOf(files) {
 	return out;
 }
 
+// Whether a solo player follows the step: a `when group <quest>` step is only for players who chose to do that group
+// quest (its `!group` way is the solo one), so the sweep leaves it out (#2816).
+function solo(step) {
+	return !(step.when || []).some((p) => p.k === 'group' && !p.neg);
+}
+
 // near: [{ id, count (spawns within R), dmin (yd) }] for the hostile npcs within RARE_R of the goal's points.
 function flagGoal({ goal, level, near, npcs, group, side = null }) {
 	const flags = [];
@@ -328,7 +335,7 @@ function sweep({ dataDir, guidesDir, levels, guides = null, archive = null }) {
 			const lm = levels.get(`${g.id}@${faction}`) || levels.get(g.id);
 			let level = lm ? lm.start : g.minLevel || 1;
 			g.steps.forEach((step, si) => {
-				if (!fits(step.only, faction)) return;
+				if (!fits(step.only, faction) || !solo(step)) return;
 				for (const goal of step.goals) {
 					if (goal.t === 'level') {
 						// Over the route's level here, the route grinds: its camp is the goal's point and spots.
@@ -396,4 +403,4 @@ function compare(flags, baseline) {
 	};
 }
 
-module.exports = { levelsOf, sweep, compare, flagGoal, flagGrind, threatTo, readCensus, KINDS, GATE_MARGIN, CENSUS_MIN, R, RARE_R };
+module.exports = { levelsOf, sweep, solo, compare, flagGoal, flagGrind, threatTo, readCensus, KINDS, GATE_MARGIN, CENSUS_MIN, R, RARE_R };

@@ -57,26 +57,26 @@ not ok	forever/alliance/30-40/01-hillsbrad-foothills.guide: julesbruu's report: 
 not ok	forever/alliance/30-40/01-hillsbrad-foothills.guide: the same pattern as #365, the Soothing Spices for Chef Jessen: asked for again on the step that hands in 555
 not ok	forever/alliance/30-40/06b-desolace.guide: the same pattern as #89: Book of the Ancients is taken from Azore on the way to Karnitol's Chest, not on a walk back from it
 not ok	forever/alliance/40-50/01-stranglethorn-vale.guide: the same pattern as #365, the Soothing Spices for "Swamp Eye" Jarl, from Theramore: asked for again on the step that hands in 1218
-not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: Rumbleshot's Ammo leads to the Ammo Crate by Mountaineer Gretchen, not to Hegnar
-not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: Supplies to Tannok is taken from Hands Springsprocket at the tunnel, leaving Coldridge Valley
-not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: Tom's report: the arrow reaches Frostmane Hold through its mouth at 25.1,50.94
-not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: Tom's report: the arrow reaches the Coldridge troll cave through its mouth at 26.93,80.03
-not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: Tom's report: the arrow reaches the Grizzled Den (Frosthowl) through its mouth at 42.57,54.68
-not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: Tom's report: the arrow reaches the Grizzled Den through its mouth at 42.57,54.68
-not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: rikette's report: the Grizzled Den leads the arrow to the wendigo cave
-not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: the arrow reaches the target through the cave mouth at 26.93,80.03
-not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: thmastin's report: Ammo for Rumbleshot is taken beside Beldin and handed in before the walk back to Kharanos
-not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: thmastin's report: Beer Basted Boar Ribs is offered without Cooking, on arrival in Kharanos
-not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: thmastin's report: Bring Back the Mug is taken from Durnan with the Mornbrew, before Felix
-not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: thmastin's report: Camping 101: Cooking waits for the return to Kharanos, the lesson before the turn-in
-not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: thmastin's report: Gretchen comes first and the Grizzled Den is walked once for the shipments and Cornelius
-not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: thmastin's report: Grik'nir comes after Anvilmar, and the journal and Nori's mug are handed in on one camp visit
-not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: thmastin's report: Kharanos is done outside first (Eric before Tharek), then the distillery, training last
-not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: thmastin's report: Sten's quests and the class letter are taken before Balir, then Anvilmar is entered once
-not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: thmastin's report: The Adventurer is taken from Thalos at the tunnel and turned in at Eric before The Great Outdoors
-not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: thmastin's report: The Reports is taken from Senir with Frostmane Hold and handed to the senator on the way to the tram
-not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: thmastin's report: at Brewnall Gretta's dock comes first, and the village before Frostmane Hold
-not ok	forever/alliance/dwarf-gnome/01-dun-morogh.guide: thmastin's report: kills on the way are counted on the way and finished after
+not ok	forever/alliance/dwarf/01-dun-morogh.guide: Rumbleshot's Ammo leads to the Ammo Crate by Mountaineer Gretchen, not to Hegnar
+not ok	forever/alliance/dwarf/01-dun-morogh.guide: Supplies to Tannok is taken from Hands Springsprocket at the tunnel, leaving Coldridge Valley
+not ok	forever/alliance/dwarf/01-dun-morogh.guide: Tom's report: the arrow reaches Frostmane Hold through its mouth at 25.1,50.94
+not ok	forever/alliance/dwarf/01-dun-morogh.guide: Tom's report: the arrow reaches the Coldridge troll cave through its mouth at 26.93,80.03
+not ok	forever/alliance/dwarf/01-dun-morogh.guide: Tom's report: the arrow reaches the Grizzled Den (Frosthowl) through its mouth at 42.57,54.68
+not ok	forever/alliance/dwarf/01-dun-morogh.guide: Tom's report: the arrow reaches the Grizzled Den through its mouth at 42.57,54.68
+not ok	forever/alliance/dwarf/01-dun-morogh.guide: rikette's report: the Grizzled Den leads the arrow to the wendigo cave
+not ok	forever/alliance/dwarf/01-dun-morogh.guide: the arrow reaches the target through the cave mouth at 26.93,80.03
+not ok	forever/alliance/dwarf/01-dun-morogh.guide: thmastin's report: Ammo for Rumbleshot is taken beside Beldin and handed in before the walk back to Kharanos
+not ok	forever/alliance/dwarf/01-dun-morogh.guide: thmastin's report: Beer Basted Boar Ribs is offered without Cooking, on arrival in Kharanos
+not ok	forever/alliance/dwarf/01-dun-morogh.guide: thmastin's report: Bring Back the Mug is taken from Durnan with the Mornbrew, before Felix
+not ok	forever/alliance/dwarf/01-dun-morogh.guide: thmastin's report: Camping 101: Cooking waits for the return to Kharanos, the lesson before the turn-in
+not ok	forever/alliance/dwarf/01-dun-morogh.guide: thmastin's report: Gretchen comes first and the Grizzled Den is walked once for the shipments and Cornelius
+not ok	forever/alliance/dwarf/01-dun-morogh.guide: thmastin's report: Grik'nir comes after Anvilmar, and the journal and Nori's mug are handed in on one camp visit
+not ok	forever/alliance/dwarf/01-dun-morogh.guide: thmastin's report: Kharanos is done outside first (Eric before Tharek), then the distillery, training last
+not ok	forever/alliance/dwarf/01-dun-morogh.guide: thmastin's report: Sten's quests and the class letter are taken before Balir, then Anvilmar is entered once
+not ok	forever/alliance/dwarf/01-dun-morogh.guide: thmastin's report: The Adventurer is taken from Thalos at the tunnel and turned in at Eric before The Great Outdoors
+not ok	forever/alliance/dwarf/01-dun-morogh.guide: thmastin's report: The Reports is taken from Senir with Frostmane Hold and handed to the senator on the way to the tram
+not ok	forever/alliance/dwarf/01-dun-morogh.guide: thmastin's report: at Brewnall Gretta's dock comes first, and the village before Frostmane Hold
+not ok	forever/alliance/dwarf/01-dun-morogh.guide: thmastin's report: kills on the way are counted on the way and finished after
 not ok	forever/alliance/human/01-elwynn-forest.guide: Bashidian Twotao's report (#279): the bait ingredients count their own objectives
 not ok	forever/alliance/human/01-elwynn-forest.guide: Nittepitte's report (#612): the Mining Tools are picked up on the walk into the Jasperlode Mine, before its far end
 not ok	forever/alliance/human/01-elwynn-forest.guide: Nittepitte's report (#613): Marshal Dughan's turn-ins come between Collecting Kelp and The Escape, while William Pestle brews
@@ -115,15 +115,15 @@ not ok	forever/horde/05-stonetalon-mountains.guide: the Warsong update goals nam
 not ok	forever/horde/07-ashenvale.guide: the arrow reaches the target through the cave mouth at 14.5,14.2
 not ok	forever/horde/30-40/04-dustwallow-marsh.guide: Syrael's report (#575): the ghost-o-plasm points at the Valley of Bones, after Melizza
 not ok	forever/horde/30-40/04-dustwallow-marsh.guide: the same pattern as #365, the Soothing Spices for "Swamp Eye" Jarl, bought in Orgrimmar at the start of the Dustwallow guide: asked for again on the step that hands in 1218
-not ok	forever/horde/orc-troll/01-durotar.guide: AndarKerran's report: A Pain in the Neck is not offered to a Troll Warrior without Enchanting, and is to an enchanter
-ok	forever/horde/orc-troll/01-durotar.guide: Gruko's report (#240): Thazz'ril's Pick and Yarrog are done on one trip into the Burning Blade Coven, for every class
-ok	forever/horde/orc-troll/01-durotar.guide: Tom's report: Cutting Teeth is turned in and Sting of the Scorpid and Galgar's Cactus Apple Surprise accepted before Sarkoth
-not ok	forever/horde/orc-troll/01-durotar.guide: Tom's report: the arrow reaches Skull Rock through its mouth at 55,10
-not ok	forever/horde/orc-troll/01-durotar.guide: Tom's report: the arrow reaches the Burning Blade Coven (the pick) through its mouth at 45,56
-not ok	forever/horde/orc-troll/01-durotar.guide: Tom's report: the arrow's last waypoint before Kzan Thornslash is the Den's mouth
-ok	forever/horde/orc-troll/01-durotar.guide: defect's report (#357): with The Admiral's Orders taken, Tiragarde Keep waits for neither Benedict's Key nor the Aged Envelope
-not ok	forever/horde/orc-troll/01-durotar.guide: tor's report (#351): Encroachment is taken after the Tiragarde Keep and Sen'jin, Echo Isles and Kolkar Crag turn-ins
-ok	forever/horde/orc-troll/01-durotar.guide: tor's report: Securing the Lines is taken after the Sen'jin, Echo Isles and Kolkar Crag turn-ins, on Fizzle Darkstorm's visit
+not ok	forever/horde/orc/01-durotar.guide: AndarKerran's report: A Pain in the Neck is not offered to a Troll Warrior without Enchanting, and is to an enchanter
+not ok	forever/horde/orc/01-durotar.guide: Gruko's report (#240): Thazz'ril's Pick and Yarrog are done on one trip into the Burning Blade Coven, for every class
+not ok	forever/horde/orc/01-durotar.guide: Tom's report: Cutting Teeth is turned in and Sting of the Scorpid and Galgar's Cactus Apple Surprise accepted before Sarkoth
+not ok	forever/horde/orc/01-durotar.guide: Tom's report: the arrow reaches Skull Rock through its mouth at 55,10
+not ok	forever/horde/orc/01-durotar.guide: Tom's report: the arrow reaches the Burning Blade Coven (the pick) through its mouth at 45,56
+not ok	forever/horde/orc/01-durotar.guide: Tom's report: the arrow's last waypoint before Kzan Thornslash is the Den's mouth
+not ok	forever/horde/orc/01-durotar.guide: defect's report (#357): with The Admiral's Orders taken, Tiragarde Keep waits for neither Benedict's Key nor the Aged Envelope
+not ok	forever/horde/orc/01-durotar.guide: tor's report (#351): Encroachment is taken after the Tiragarde Keep and Sen'jin, Echo Isles and Kolkar Crag turn-ins
+not ok	forever/horde/orc/01-durotar.guide: tor's report: Securing the Lines is taken after the Sen'jin, Echo Isles and Kolkar Crag turn-ins, on Fizzle Darkstorm's visit
 not ok	forever/horde/skyborne/01-zephras-isle.guide: Sato's report: Welcome to Shen'dar Village follows its objectives, and is taken before Illaya's talk
 not ok	forever/horde/tauren/01-mulgore.guide: A Task Unfinished at Antur Fallow starts the cougar hunt, with no walk back into the camp
 not ok	forever/horde/tauren/01-mulgore.guide: Sharing the Land (PR#632) leads to an unfinished gnoll objective, never a finished one, and resumes partial progress

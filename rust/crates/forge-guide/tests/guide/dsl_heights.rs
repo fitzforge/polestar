@@ -241,11 +241,21 @@ fn class_trainers_lua_carries_a_trainers_z_and_its_header_then_names_classic_db(
 	let khelden = r#"{ "npc": 198, "npcName": "Khelden Bremen", "map": 1429, "x": 49.66, "y": 39.4, "f": "e", "faction": "A", "classes": ["MAGE"] }"#;
 	let with_z = parse_json(khelden).unwrap();
 	with_z.set("z", 57.25);
-	let lua = forge_guide::emit::emit_class_trainers(&[with_z], &V::obj(), &V::obj());
+	let lua = forge_guide::emit::emit_class_trainers(&[with_z], &V::obj(), &V::obj(), &V::obj());
 	assert_match(&lua, r#"\{ npc = 198, npcName = "Khelden Bremen", map = 1429, x = 49\.66, y = 39\.4, z = 57\.25, f = "e", faction = "A""#);
 	assert_match(lua.lines().next().unwrap(), r"spawnz\.json \(CMaNGOS classic-db spawn heights");
-	let plain_lua = forge_guide::emit::emit_class_trainers(&[parse_json(khelden).unwrap()], &V::obj(), &V::obj());
+	let plain_lua = forge_guide::emit::emit_class_trainers(&[parse_json(khelden).unwrap()], &V::obj(), &V::obj(), &V::obj());
 	assert_no_match(plain_lua.lines().next().unwrap(), r"classic-db");
+}
+
+// #2477: the trainers that stop short of the level cap (the starting areas' teach to 6) go to the engine with the
+// highest level they teach; none, no block.
+#[test]
+fn class_trainers_lua_names_the_trainers_that_stop_short_of_the_cap_2477() {
+	let tops = parse_json(r#"{"911":6,"248415":6}"#).unwrap();
+	let lua = forge_guide::emit::emit_class_trainers(&[], &V::obj(), &V::obj(), &tops);
+	assert!(lua.ends_with("ns.RegisterClassTrainerTops({\n\t[911] = 6,\n\t[248415] = 6,\n})\n"), "{lua}");
+	assert!(!forge_guide::emit::emit_class_trainers(&[], &V::obj(), &V::obj(), &V::obj()).contains("RegisterClassTrainerTops"));
 }
 
 #[test]

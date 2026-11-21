@@ -522,3 +522,108 @@ test('a completed ride start is not a fresh position at its delayed detection ti
 	]);
 	assert.equal(row.medianYards, 20, 'do not add a walk back to the cached ride origin');
 });
+
+const ownPos = (t, x, speed = 7, map = 1) => ({ ...travelPos(t, x, map), speed });
+
+test('walking after a boat ride counts before the recorder observes five still ticks', () => {
+	const events = [
+		travelStep(0, 1, 10), travelPos(10, 11), travelStart('ride', 20, 11), ownPos(30, 15, 0),
+		ownPos(40, 20), { t: 45, e: 'combat', on: true }, ownPos(60, 30),
+		{ t: 65, e: 'turnin', q: 7 }, ownPos(80, 40), { t: 85, e: 'combat', on: false },
+		travelEnd('ride', 90, 40), travelPos(100, 41), travelStep(110, 2, 41, { xp: 100 }),
+	];
+	for (const schema of [1, 2]) {
+		const input = travelSession(events, { schema });
+		const before = structuredClone(input);
+		const row = stepRow(buildReport([input]), G, 1);
+		assert.equal(row.medianYards, 220, 'retain the two 100-yard walking legs; the unobserved disembark remains excluded');
+		assert.deepEqual([row.medianTime, row.xp, row.turnins, row.combatShare], [110, 100, 1, 40 / 110]);
+		assert.deepEqual(input, before);
+	}
+});
+
+test('ride recovery rejects displacement beyond observed own speed and every taxi leg', () => {
+	for (const kind of ['ride', 'taxi']) {
+		const row = travelRow([
+			travelStep(0, 1, 10), travelStart(kind, 1, 10), ownPos(2, 11), ownPos(3, 13),
+			travelEnd(kind, 10, 14), travelPos(20, 15), travelStep(30, 2, 15),
+		]);
+		assert.equal(row.medianYards, 10, '20 yd in a second exceeds the observed 7 yd/s on foot');
+	}
+});
+
+test('ride walking needs readable positive speeds at both ends of a leg', () => {
+	for (const speed of [0, null, undefined, -1, NaN, Infinity]) {
+		const row = travelRow([
+			travelStep(0, 1, 10), travelStart('ride', 1, 10), ownPos(10, 12), { ...ownPos(20, 15), speed },
+			ownPos(30, 18), ownPos(40, 21), travelEnd('ride', 45, 21), travelStep(50, 2, 21),
+		]);
+		assert.equal(row.medianYards, 30, `${speed}: only the final pair has own movement at both ends`);
+	}
+});
+
+test('ride walking respects map changes and repeated timestamps', () => {
+	const row = travelRow([
+		travelStep(0, 1, 10), travelStart('ride', 1, 10), ownPos(10, 12), ownPos(10, 15),
+		ownPos(20, 18, 7, 2), ownPos(30, 21, 7, 2), travelEnd('ride', 35, 21, 2),
+		travelStep(40, 2, 21, { map: 2 }),
+	]);
+	assert.equal(row.medianYards, 30);
+});
+
+test('a taxi nested in a ride excludes its positions while walking on either side remains', () => {
+	const row = travelRow([
+		travelStep(0, 1, 10), travelStart('ride', 1, 10), ownPos(10, 12), ownPos(20, 15),
+		travelStart('taxi', 25, 15), ownPos(30, 18), ownPos(40, 21), travelEnd('taxi', 45, 21),
+		ownPos(50, 24), ownPos(60, 27), travelEnd('ride', 65, 27), travelStep(70, 2, 27),
+	]);
+	assert.equal(row.medianYards, 60, 'the first sample after the taxi starts a fresh walking anchor');
+});
+
+test('ride walking tolerates the recorder coordinate, time and speed rounding', () => {
+	const row = travelRow([
+		travelStep(0, 1, 10), travelStart('ride', 0.1, 10), ownPos(1, 12, 7), ownPos(1.9, 12.71, 7),
+		travelEnd('ride', 8, 12.71), travelStep(9, 2, 12.71),
+	]);
+	assert.equal(row.medianYards, 7, '7.1 recorded yards can fit 7.05 yd/s over 1.0 seconds after rounding');
+});
+
+test('an unreadable ride position breaks the own-movement trail', () => {
+	for (const position of [{ x: null }, { y: undefined }, { map: null }]) {
+		const row = travelRow([
+			travelStep(0, 1, 10), travelStart('ride', 1, 10), ownPos(10, 12),
+			{ ...ownPos(20, 15), ...position }, ownPos(30, 18), ownPos(40, 21),
+			travelEnd('ride', 45, 21), travelStep(50, 2, 21),
+		]);
+		assert.equal(row.medianYards, 30, 'missing positions cannot bridge a ride as walking');
+	}
+});
+
+test('ride walking stays conservative when adjacent chunk clocks overlap', () => {
+	const row = travelRow([
+		{ t: 0, e: 'session' }, travelStep(0, 1, 10), travelStart('ride', 1, 10), ownPos(10, 12),
+		// Each chunk has an integer epoch and its own timer origin. Normalizing
+		// them can shorten this gap; do not enlarge the observed-speed bound.
+		{ t: 9.9, e: 'session' }, ownPos(10.1, 12.7), ownPos(11.1, 13.4),
+		travelEnd('ride', 17, 13.4), travelStep(18, 2, 13.4),
+	], { chunks: [1, 2] });
+	assert.equal(row.medianYards, 7, 'retain the second leg without claiming the ambiguous chunk-boundary leg');
+});
+
+test('recovered ride walking does not charge a leg across a step snapshot to the next step', () => {
+	const report = buildReport([travelSession([
+		travelStep(0, 1, 10), travelStart('ride', 1, 10), ownPos(10, 12), ownPos(20, 15),
+		travelStep(25, 2, 16.5), ownPos(30, 18), ownPos(40, 21), travelEnd('ride', 45, 21),
+		travelStep(50, 3, 21),
+	])]);
+	assert.deepEqual([1, 2].map((n) => stepRow(report, G, n).medianYards), [30, 30], 'drop the uncertain boundary leg rather than move it into step two');
+});
+
+test('ride walking uses the sampled own speed including mounted movement', () => {
+	const row = travelRow([
+		travelStep(0, 1, 10), travelStart('ride', 1, 10), ownPos(10, 12, 7),
+		{ ...ownPos(20, 22, 14), mounted: true }, { ...ownPos(30, 36, 14), mounted: true },
+		travelEnd('ride', 35, 36), travelStep(40, 2, 36),
+	]);
+	assert.equal(row.medianYards, 240);
+});

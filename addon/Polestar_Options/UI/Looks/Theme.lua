@@ -625,7 +625,7 @@ local SPECS = {
 			end },
 		{ kind = "slider", key = "ui.textSize", label = L["Text size"], min = 0.8, max = 1.4, step = 0.05, format = percent,
 			search = "text size, font size, bigger text, smaller text, readability, larger, huge, tiny",
-			help = L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] },
+			help = L["The size of Polestar's text, apart from the window scale. The guide window has its own, on its page. Changes at once. Right-click to reset."] },
 		{ kind = "font", key = "ui.headingFont", label = L["Heading font"], new = NEW,
 			search = "heading font, title font, titles, headline, header font, typeface",
 			help = L["Window titles, step titles and section headings: the text's font (the default), or one of their own."],

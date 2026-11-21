@@ -14,7 +14,11 @@ mod automation_close_skipped;
 mod automation_profession_quests;
 #[path = "automation-spoken.rs"]
 mod automation_spoken;
+#[path = "bag-slots.rs"]
+mod bag_slots;
 mod bagsmith;
+#[path = "class-guide-level-back.rs"]
+mod class_guide_level_back;
 #[path = "class-quests.rs"]
 mod class_quests;
 #[path = "class-skip.rs"]
@@ -56,6 +60,8 @@ mod dsl_verbs;
 mod dungeon_route_held;
 #[path = "dungeons-attune.rs"]
 mod dungeons_attune;
+#[path = "dungeons-forever-quests.rs"]
+mod dungeons_forever_quests;
 #[path = "dungeons-pickup.rs"]
 mod dungeons_pickup;
 #[path = "dungeons-runtime.rs"]
@@ -66,6 +72,8 @@ mod e2e;
 mod engine;
 #[path = "engine-abandon-destroy.rs"]
 mod engine_abandon_destroy;
+#[path = "engine-ahead-later.rs"]
+mod engine_ahead_later;
 #[path = "engine-aim-accept-first.rs"]
 mod engine_aim_accept_first;
 #[path = "engine-along.rs"]
@@ -74,8 +82,12 @@ mod engine_along;
 mod engine_already_across;
 #[path = "engine-alt-start.rs"]
 mod engine_alt_start;
+#[path = "engine-arrival-height.rs"]
+mod engine_arrival_height;
 #[path = "engine-carried.rs"]
 mod engine_carried;
+#[path = "engine-carried-work.rs"]
+mod engine_carried_work;
 #[path = "engine-cast.rs"]
 mod engine_cast;
 #[path = "engine-catchup.rs"]
@@ -84,6 +96,8 @@ mod engine_catchup;
 mod engine_die;
 #[path = "engine-direct.rs"]
 mod engine_direct;
+#[path = "engine-direct-gated.rs"]
+mod engine_direct_gated;
 #[path = "engine-dungeon-route.rs"]
 mod engine_dungeon_route;
 #[path = "engine-dwell.rs"]
@@ -122,8 +136,16 @@ mod engine_heights;
 mod engine_keep;
 #[path = "engine-l10n.rs"]
 mod engine_l10n;
+#[path = "engine-left-out.rs"]
+mod engine_left_out;
 #[path = "engine-level.rs"]
 mod engine_level;
+#[path = "engine-level-carry.rs"]
+mod engine_level_carry;
+#[path = "engine-level-gate.rs"]
+mod engine_level_gate;
+#[path = "engine-level-hold.rs"]
+mod engine_level_hold;
 #[path = "engine-level-pick.rs"]
 mod engine_level_pick;
 #[path = "engine-level-wait.rs"]
@@ -166,6 +188,8 @@ mod engine_skipquest;
 mod engine_skipto;
 #[path = "engine-smart.rs"]
 mod engine_smart;
+#[path = "engine-stutter.rs"]
+mod engine_stutter;
 #[path = "engine-tab-restore.rs"]
 mod engine_tab_restore;
 #[path = "engine-tabs.rs"]
@@ -194,6 +218,8 @@ mod engine_when_cooldown;
 mod engine_when_dungeon;
 #[path = "engine-when-group.rs"]
 mod engine_when_group;
+#[path = "engine-when-handin.rs"]
+mod engine_when_handin;
 #[path = "engine-when-knows.rs"]
 mod engine_when_knows;
 #[path = "engine-when-skill.rs"]
@@ -264,6 +290,8 @@ mod lookup_tooltip_performance;
 #[path = "lua-helper-paths.rs"]
 mod lua_helper_paths;
 mod maps;
+#[path = "maps-arcade.rs"]
+mod maps_arcade;
 #[path = "maps-overlays.rs"]
 mod maps_overlays;
 #[path = "maps-reveal.rs"]
@@ -348,6 +376,9 @@ mod party_pair;
 #[path = "party-sync.rs"]
 mod party_sync;
 mod pause;
+#[path = "perf-probe.rs"]
+mod perf_probe;
+mod placeholders;
 mod profiles;
 mod qol;
 #[path = "qol-bagglow.rs"]
@@ -453,6 +484,8 @@ mod ui_headsup_card;
 mod ui_import;
 #[path = "ui-journey.rs"]
 mod ui_journey;
+#[path = "ui-left-out.rs"]
+mod ui_left_out;
 #[path = "ui-long-translations.rs"]
 mod ui_long_translations;
 #[path = "ui-look-buttons.rs"]

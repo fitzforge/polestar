@@ -123,6 +123,9 @@ step The exiles of Arathi
 
 step Essence of the Exile
   zone Alterac Mountains
+  when has 4479 x8
+  when has 4480 x8
+  when has 4481 x8
   tip Click Bath'rah's Cauldron with the 24 charms in your bags and Cyclonian in your log. Its window asks for the charms straight away, with nothing to accept: Continue, then Complete, and it hands you the Essence of the Exile.
   level 39
   turnin 1714 object 89931 direct             -- Bath'rah's Cauldron: Essence of the Exile

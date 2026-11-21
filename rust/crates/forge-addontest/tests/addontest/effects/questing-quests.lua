@@ -92,6 +92,13 @@ return {
 		-- A Kobold Vermin's tooltip: Kobold Camp Cleanup's line.
 		["qol.questDB"] = function() return table.concat(sq.hoverUnit(6), " / ") end,
 		["qol.questTooltips"] = function() return table.concat(sq.hoverUnit(6), " / ") end,
+		-- #2233's tooltip options (quests.rs plays each): the Kobold Vermin's Large Candle line with its drop chance;
+		-- the client's own rows for Kobold Camp Cleanup left out; Marshal Dughan's stand-in naming the quests he starts.
+		["qol.questDropChance"] = function() return table.concat(sq.hoverUnit(6), " / ") end,
+		["qol.questTooltipsReplace"] = function()
+			return table.concat(sq.hoverUnit(6, nil, { { type = "QuestTitle", id = 7, leftText = "Kobold Camp Cleanup" }, { type = "QuestObjective", leftText = "3/10 Kobold Vermin slain" } }), " / ")
+		end,
+		["qol.questTooltipsNpc"] = function() return table.concat(sq.hoverUnit(196), " / ") end,
 		["qol.questSellWarning"] = sale,
 		["qol.nameplateIcons"] = plate,
 		["qol.nameplateIconSide"] = { with = { ["qol.nameplateIcons"] = true }, value = "right", probe = plate },

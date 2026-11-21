@@ -479,7 +479,7 @@ local function newPicker(f)
 				bandAgain(f)
 			end }
 		end
-		W.ShowMenu(self, items, { minWidth = PICKER_W, point = "TOP", relPoint = "BOTTOM" })
+		W.ShowMenu(self, items, { minWidth = PICKER_W, point = "TOP", relPoint = "BOTTOM", current = true })
 	end)
 	return b
 end

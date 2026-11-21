@@ -1,9 +1,11 @@
-//! A walk to a boat or zeppelin the player is already across passes (#1971, #1978; addon/Polestar/Core/Engine.lua,
+//! A walk to a boat or zeppelin the player is already across passes (#1971, #1978, #1983; addon/Polestar/Core/Engine.lua,
 //! Own.alreadyAcross). 0.3.7.2's Thousand Needles & Desolace opens with "Zeppelin to Orgrimmar", a walk to the
 //! Undercity's tower in Tirisfal Glades, because the previous guide ends in the Undercity. A Scourge Warrior who
 //! loaded it at Freewind Post was sent to Orgrimmar, onto the zeppelin to the Undercity, and back to Orgrimmar for
 //! Craven Drok (#1971); Dustwallow Marsh & Desolace opens the same way at Grom'gol and sent an Orc Shaman in
-//! Orgrimmar to Stranglethorn and back (#1978). Nav is faked as in engine-empty-stop.rs.
+//! Orgrimmar to Stranglethorn and back (#1978). Along one continent (#1983): Feralas's "Boat to Feathermoon
+//! Stronghold" sent a Druid who had flown in to Feathermoon back over the water to the Forgotten Coast's dock and
+//! across again. Nav is faked as in engine-empty-stop.rs.
 
 use forge_addontest::{emitted, Addon, RunAddon, TEST_PACK, TEST_SOURCE};
 use serde_json::{json, Value};
@@ -14,6 +16,7 @@ w.addMap(1420, { name = "Tirisfal Glades", c = 0, left = 3033.333, right = -1485
 w.addMap(1424, { name = "Hillsbrad Foothills", c = 0, left = 1066.667, right = -2133.333, top = 400, bottom = -1733.333 })
 w.addMap(1434, { name = "Stranglethorn Vale", c = 0, left = 2220.833, right = -4160.417, top = -11168.75, bottom = -15422.916 })
 w.addMap(1441, { name = "Thousand Needles", c = 1, left = -433.333, right = -4833.333, top = -3966.667, bottom = -6900 })
+w.addMap(1444, { name = "Feralas", c = 1, left = 5441.667, right = -1508.333, top = -2366.667, bottom = -7000 })
 w.addMap(1454, { name = "Orgrimmar", c = 1, left = -3680.601, right = -5083.206, top = 2273.877, bottom = 1338.461 })
 w.race, w.raceName, w.faction, w.class, w.className, w.level = "Scourge", "Undead", "Horde", "WARRIOR", "Warrior", 32
 w.money = 50000
@@ -58,12 +61,24 @@ Polestar.RegisterGuide({ id = "test/dw", pack = "test", title = "Dustwallow Mars
 } })
 "#;
 
+// Steps 3-4 of 0.4.0.1's forever/alliance/40-50/03-feralas: the walk to the Forgotten Coast's dock, then the
+// Feathermoon Stronghold stop (Pratt McGrubben by the flight master).
+const FERALAS: &str = r#"
+Polestar.RegisterGuide({ id = "test/fe", pack = "test", title = "Feralas", minLevel = 1, maxLevel = 60, steps = {
+	{ title = "Boat to Feathermoon Stronghold", goals = { { t = "goto", map = 1444, x = 43.3, y = 42.7, text = "Boat to Feathermoon Stronghold" } } },
+	{ title = "Feathermoon Stronghold", goals = { { t = "accept", quest = 2821, title = "The Mark of Quality", npc = 7854, map = 1444, x = 30.6, y = 42.7 } } },
+} })
+-- Nav/Travel.lua's Feathermoon boat: Feathermoon Stronghold's end, the Forgotten Coast's dock.
+FEATHERMOON = { a = { c = 1, wx = -4197.3, wy = 3286.6 }, b = { c = 1, wx = -4347.8, wy = 2444.4 } }
+function boats() Polestar.Nav.GetTravelData = function() return { transports = { FEATHERMOON } } end end
+"#;
+
 fn run(script: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: WORLD.to_string(),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
-		script: format!("{TEST_PACK}\n{TEST_SOURCE}\n{NEEDLES}\n{DUSTWALLOW}\nE = Polestar.Engine\nfunction flush() stub.advance(0.25) end\nstub.login()\n{NAV}\n{script}"),
+		script: format!("{TEST_PACK}\n{TEST_SOURCE}\n{NEEDLES}\n{DUSTWALLOW}\n{FERALAS}\nE = Polestar.Engine\nfunction flush() stub.advance(0.25) end\nstub.login()\n{NAV}\n{script}"),
 		..Default::default()
 	})
 	.remove(0)
@@ -124,4 +139,40 @@ fn t_1971_a_walk_passed_across_stays_passed_after_crossing_back() {
 fn t_1978_in_orgrimmar_the_walk_to_gromgol_passes() {
 	let out = at(r#"stub.world.moveTo(1454, 52.04, 83.85); stub.world.setZone("Orgrimmar", "Valley of Strength")"#, "", "test/dw");
 	assert_eq!(out, json!([2, 1454, "goto"]), "gabriel pasternak: in Orgrimmar, not to Grom'gol and back");
+}
+
+const THALANAAR: &str = r#"stub.world.moveTo(1444, 89.5, 45.9); stub.world.setZone("Feralas", "Thalanaar")"#;
+
+// The guide loaded at Thalanaar (the walk to the dock live), then a flight to Feathermoon: the live step before and
+// after landing, and where the arrow points then. (Loading the guide at Feathermoon places past the walk anyway.)
+fn flown_in(setup: &str) -> Value {
+	run(&format!(
+		r#"
+		{THALANAAR}
+		{setup}
+		E.SetGuide("test/fe"); flush()
+		local before = E.GetStepIndex()
+		stub.world.moveTo(1444, 30.47, 42.73); stub.world.setZone("Feralas", "Feathermoon Stronghold"); flush()
+		local wp = E.GetWaypoint()
+		emit({{ before, E.GetStepIndex(), wp and wp.map or false, wp and wp.kind or false }})
+		"#
+	))
+}
+
+#[test]
+fn t_1983_flown_in_to_feathermoon_the_walk_to_the_boat_passes() {
+	assert_eq!(flown_in("boats()"), json!([1, 2, 1444, "accept"]), "Visur: Pratt leads, not the dock across the water");
+}
+
+#[test]
+fn t_1983_on_the_mainland_or_without_crossing_data_the_walk_to_the_boat_holds() {
+	let out = json!({
+		// Thalanaar's flight master, where the guide walks from.
+		"thalanaar": at(THALANAAR, "boats()", "test/fe"),
+		// On the coast by the dock.
+		"coast": at(r#"stub.world.moveTo(1444, 45.0, 43.5); stub.world.setZone("Feralas", "The Forgotten Coast")"#, "boats()", "test/fe"),
+		// Flown in to Feathermoon, with no crossing data: as before.
+		"nodata": flown_in(""),
+	});
+	assert_eq!(out, json!({ "thalanaar": [1, 1444, "goto"], "coast": [1, 1444, "goto"], "nodata": [1, 1, 1444, "goto"] }));
 }

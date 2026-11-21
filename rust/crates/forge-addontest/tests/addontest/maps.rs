@@ -438,11 +438,15 @@ fn a_different_instance_copy_seen_in_a_creature_guid_splits_a_resumed_run_and_co
 		m.enter("The Stockade", 34)
 		w.units.target = "Creature-0-4372-34-100-1706-0000AAAA"
 		stub.fire("PLAYER_TARGET_CHANGED")
+		w.units.target = "Creature-0-4372-34-100-1707-0000AAAB"
+		stub.fire("PLAYER_TARGET_CHANGED")      -- two creatures agree on the copy
 		m.jump(600)
 		m.leave()
 		m.jump(60)
 		m.enter("The Stockade", 34)              -- looks like the same run...
 		w.units.target = "Creature-0-4372-34-200-1706-0000BBBB"
+		stub.fire("PLAYER_TARGET_CHANGED")
+		w.units.target = "Creature-0-4372-34-200-1707-0000BBBC"
 		stub.fire("PLAYER_TARGET_CHANGED")      -- ...but it is another copy
 		local s = M.GetInstanceStatus()
 		local runs = Polestar.CharState().instanceRuns
@@ -761,7 +765,7 @@ fn sorted_strings(v: &Value) -> Vec<String> {
 }
 
 #[test]
-fn every_maps_setting_is_registered_with_a_label_and_help_map_features_on_the_map_page_flights_and_instances_under_quality_of_life() {
+fn every_maps_setting_is_registered_with_a_label_and_help_map_features_on_the_map_page_flights_and_instances_under_quality_of_life_freedoom_arcade_under_integrations() {
 	let out = run(r#"
 		local pages, missing = {}, {}
 		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
@@ -780,7 +784,9 @@ fn every_maps_setting_is_registered_with_a_label_and_help_map_features_on_the_ma
 	assert_eq!(out["missing"], "");
 	let mut pages: Vec<&str> = out["pages"].as_object().unwrap().keys().map(String::as_str).collect();
 	pages.sort();
-	assert_eq!(pages, vec!["Map", "Quality of Life"]);
+	assert_eq!(pages, vec!["Integrations", "Map", "Quality of Life"]);
+	// Freedoom Arcade's offer on flights is with the other addons Polestar works with (Maps/Arcade.lua).
+	assert_eq!(sorted_strings(&out["pages"]["Integrations"]), vec!["maps.flightArcade"]);
 	let mut want: Vec<String> = [
 		"maps.coords",
 		"maps.dockPins",
@@ -797,7 +803,11 @@ fn every_maps_setting_is_registered_with_a_label_and_help_map_features_on_the_ma
 	]
 	.iter()
 	.map(|s| s.to_string())
-	.chain(["repair", "mailbox", "class", "weapon", "auctioneer", "banker", "battlemaster", "spirithealer", "stablemaster", "trainer", "vendor"].iter().map(|key| format!("maps.serviceFilters.{key}")))
+	.chain(
+		["repair", "mailbox", "class", "weapon", "auctioneer", "banker", "battlemaster", "spirithealer", "stablemaster", "transmogrifier", "trainer", "vendor"]
+			.iter()
+			.map(|key| format!("maps.serviceFilters.{key}")),
+	)
 	.collect();
 	want.sort();
 	assert_eq!(sorted_strings(&out["pages"]["Map"]), want);
