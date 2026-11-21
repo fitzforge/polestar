@@ -195,7 +195,7 @@ return {
 	-- {item:8170} Rugged Leather
 	["{item:8170} (Horde)"] = "{item:8170} (Орда)",
 	-- {item:8170} Rugged Leather · {item:13863} Runecloth Gloves · {item:13867} Runecloth Shoulders · {skill:393} Skinning · {npc:6369} Coralshell Tortoise · {npc:8760} Mosshoof Stag · {npc:6380} Thunderhead Consort · {npc:6379} Thunderhead Patriarch · {npc:6378} Thunderhead Skystormer · {npc:6377} Thunderhead Stagwing
-	["420 {item:8170} for {item:13863} and {item:13867}: {skill:393}: beasts of level 48-60. Skin {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377} here (level 48-60); the {skill:393} guide routes this."] = "{item:8170} 420 для {item:13863} и {item:13867}: {skill:393}: звери 48-60 уровня. Снимайте шкуры с {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377} здесь (48-60 уровня); маршрут ведет гайд {skill:393}.",
+	["420 {item:8170} for {item:13863} and {item:13867}: {skill:393}: beasts of level 48-60. Skin {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377} here (level 48-60); the {skill:393} guide routes this."] = "{item:8170} 420 для {item:13863} и {item:13867}: {skill:393}: звери 48-60 уровня. Снимайте шкуры с {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} и {npc:6377} здесь (48-60 уровня); маршрут ведет гайд {skill:393}.",
 
 	-- Step 35: Runecloth
 	-- {item:14047} Runecloth · {item:13856} Runecloth Belt · {item:13863} Runecloth Gloves · {item:13867} Runecloth Shoulders

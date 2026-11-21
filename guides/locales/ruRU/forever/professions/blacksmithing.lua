@@ -186,13 +186,13 @@ return {
 	-- {item:2838} Heavy Stone
 	["{item:2838} (Alliance)"] = "{item:2838} (Альянс)",
 	-- {item:2838} Heavy Stone · {item:6040} Golden Scale Bracers · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale · {zone:1443} Desolace
-	["234 {item:2838} for {item:6040}: {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:1443} (30-40). The densest cluster of {object:1735} in {zone:1417} is marked."] = "{item:2838} 234 для {item:6040}: {skill:186}: {object:1735} (навык 125) в {zone:1417}, {zone:1434} and {zone:1443}. В {zone:1417} отмечено место, где {object:1735} встречается чаще всего.",
+	["234 {item:2838} for {item:6040}: {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:1443} (30-40). The densest cluster of {object:1735} in {zone:1417} is marked."] = "{item:2838} 234 для {item:6040}: {skill:186}: {object:1735} (навык 125) в {zone:1417} (30-40), {zone:1434} (30-45) и {zone:1443} (30-40). В {zone:1417} отмечено место, где {object:1735} встречается чаще всего.",
 
 	-- Step 37: Heavy Stone (Horde)
 	-- {item:2838} Heavy Stone
 	["{item:2838} (Horde)"] = "{item:2838} (Орда)",
 	-- {item:2838} Heavy Stone · {item:6040} Golden Scale Bracers · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1441} Thousand Needles · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
-	["234 {item:2838} for {item:6040}: {skill:186}: {object:1735} (skill 125) in {zone:1441} (25-35), {zone:1417} (30-40) and {zone:1434} (30-45). The densest cluster of {object:1735} in {zone:1441} is marked."] = "{item:2838} 234 для {item:6040}: {skill:186}: {object:1735} (навык 125) в {zone:1441}, {zone:1417} and {zone:1434}. В {zone:1441} отмечено место, где {object:1735} встречается чаще всего.",
+	["234 {item:2838} for {item:6040}: {skill:186}: {object:1735} (skill 125) in {zone:1441} (25-35), {zone:1417} (30-40) and {zone:1434} (30-45). The densest cluster of {object:1735} in {zone:1441} is marked."] = "{item:2838} 234 для {item:6040}: {skill:186}: {object:1735} (навык 125) в {zone:1441} (25-35), {zone:1417} (30-40) и {zone:1434} (30-45). В {zone:1441} отмечено место, где {object:1735} встречается чаще всего.",
 
 	-- Step 38: Iron Bar
 	-- {item:3575} Iron Bar · {spell:3501} Green Iron Bracers · {skill:186} Mining · {item:2772} Iron Ore
@@ -210,13 +210,13 @@ return {
 	-- {item:7912} Solid Stone
 	["{item:7912} (Alliance)"] = "{item:7912} (Альянс)",
 	-- {item:7912} Solid Stone · {item:7964} Solid Sharpening Stone · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["30 {item:7912} for {item:7964}: {skill:186}: {object:2040} (skill 175) in {zone:1434} (30-45), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1434} is marked."] = "{item:7912} 30 для {item:7964}: {skill:186}: {object:2040} (навык 175) в {zone:1434}, {zone:1425} and {zone:1444}. В {zone:1434} отмечено место, где {object:2040} встречается чаще всего.",
+	["30 {item:7912} for {item:7964}: {skill:186}: {object:2040} (skill 175) in {zone:1434} (30-45), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1434} is marked."] = "{item:7912} 30 для {item:7964}: {skill:186}: {object:2040} (навык 175) в {zone:1434} (30-45), {zone:1425} (40-50) и {zone:1444} (40-50). В {zone:1434} отмечено место, где {object:2040} встречается чаще всего.",
 
 	-- Step 42: Solid Stone (Horde)
 	-- {item:7912} Solid Stone
 	["{item:7912} (Horde)"] = "{item:7912} (Орда)",
 	-- {item:7912} Solid Stone · {item:7964} Solid Sharpening Stone · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1443} Desolace · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["30 {item:7912} for {item:7964}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "{item:7912} 30 для {item:7964}: {skill:186}: {object:2040} (навык 175) в {zone:1443}, {zone:1425} and {zone:1444}. В {zone:1443} отмечено место, где {object:2040} встречается чаще всего.",
+	["30 {item:7912} for {item:7964}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "{item:7912} 30 для {item:7964}: {skill:186}: {object:2040} (навык 175) в {zone:1443} (30-40), {zone:1425} (40-50) и {zone:1444} (40-50). В {zone:1443} отмечено место, где {object:2040} встречается чаще всего.",
 
 	-- Step 43: Green Iron Bracers to 175
 	-- {spell:3501} Green Iron Bracers
@@ -296,13 +296,13 @@ return {
 	-- {item:4304} Thick Leather
 	["{item:4304} (Alliance)"] = "{item:4304} (Альянс)",
 	-- {item:4304} Thick Leather · {item:7933} Heavy Mithril Boots · {item:7945} Big Black Mace · {skill:393} Skinning · {npc:2729} Elder Crag Coyote · {npc:2730} Rabid Crag Coyote · {npc:2732} Ridge Huntress · {npc:2734} Ridge Stalker Patriarch
-	["142 {item:4304} for {item:7933} and {item:7945}: {skill:393}: beasts of level 38-50. Skin {npc:2729}, {npc:2730}, {npc:2732} and {npc:2734} here (level 38-50); the {skill:393} guide routes this."] = "{item:4304} 142 для {item:7933} и {item:7945}: {skill:393}: звери 38-50 уровня. Снимайте шкуры с {npc:2729}, {npc:2730}, {npc:2732} and {npc:2734} здесь (38-50 уровня); маршрут ведет гайд {skill:393}.",
+	["142 {item:4304} for {item:7933} and {item:7945}: {skill:393}: beasts of level 38-50. Skin {npc:2729}, {npc:2730}, {npc:2732} and {npc:2734} here (level 38-50); the {skill:393} guide routes this."] = "{item:4304} 142 для {item:7933} и {item:7945}: {skill:393}: звери 38-50 уровня. Снимайте шкуры с {npc:2729}, {npc:2730}, {npc:2732} и {npc:2734} здесь (38-50 уровня); маршрут ведет гайд {skill:393}.",
 
 	-- Step 57: Thick Leather (Horde)
 	-- {item:4304} Thick Leather
 	["{item:4304} (Horde)"] = "{item:4304} (Орда)",
 	-- {item:4304} Thick Leather · {item:7933} Heavy Mithril Boots · {item:7945} Big Black Mace · {skill:393} Skinning · {npc:5292} Feral Scar Yeti · {npc:5300} Frayfeather Hippogryph · {npc:5304} Frayfeather Stagwing · {npc:5272} Grizzled Ironfur Bear · {npc:5260} Groddoc Ape · {npc:5262} Groddoc Thunderer · {npc:5268} Ironfur Bear · {npc:5274} Ironfur Patriarch · {npc:5287} Longtooth Howler · {npc:5286} Longtooth Runner · {npc:5296} Rage Scar Yeti
-	["142 {item:4304} for {item:7933} and {item:7945}: {skill:393}: beasts of level 38-50. Skin {npc:5292}, {npc:5300}, {npc:5304}, {npc:5272}, {npc:5260}, {npc:5262}, {npc:5268}, {npc:5274}, {npc:5287}, {npc:5286} and {npc:5296} here (level 38-50); the {skill:393} guide routes this."] = "{item:4304} 142 для {item:7933} и {item:7945}: {skill:393}: звери 38-50 уровня. Снимайте шкуры с {npc:5292}, {npc:5300}, {npc:5304}, {npc:5272}, {npc:5260}, {npc:5262}, {npc:5268}, {npc:5274}, {npc:5287}, {npc:5286} and {npc:5296} здесь (38-50 уровня); маршрут ведет гайд {skill:393}.",
+	["142 {item:4304} for {item:7933} and {item:7945}: {skill:393}: beasts of level 38-50. Skin {npc:5292}, {npc:5300}, {npc:5304}, {npc:5272}, {npc:5260}, {npc:5262}, {npc:5268}, {npc:5274}, {npc:5287}, {npc:5286} and {npc:5296} here (level 38-50); the {skill:393} guide routes this."] = "{item:4304} 142 для {item:7933} и {item:7945}: {skill:393}: звери 38-50 уровня. Снимайте шкуры с {npc:5292}, {npc:5300}, {npc:5304}, {npc:5272}, {npc:5260}, {npc:5262}, {npc:5268}, {npc:5274}, {npc:5287}, {npc:5286} и {npc:5296} здесь (38-50 уровня); маршрут ведет гайд {skill:393}.",
 
 	-- Step 58: Aquamarine
 	-- {item:7909} Aquamarine · {quest:7654} Imperial Plate Boots · {object:2047} Truesilver Deposit · {object:123309} Ooze Covered Truesilver Deposit
@@ -314,11 +314,11 @@ return {
 
 	-- Step 60: Solid Stone (Alliance)
 	-- {item:7912} Solid Stone · {item:7945} Big Black Mace · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["44 {item:7912} for {item:7945}: {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest cluster of {object:2040} in {zone:1425} is marked."] = "{item:7912} 44 для {item:7945}: {skill:186}: {object:2040} (навык 175) в {zone:1425}, {zone:1444} and {zone:1447}. В {zone:1425} отмечено место, где {object:2040} встречается чаще всего.",
+	["44 {item:7912} for {item:7945}: {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest cluster of {object:2040} in {zone:1425} is marked."] = "{item:7912} 44 для {item:7945}: {skill:186}: {object:2040} (навык 175) в {zone:1425} (40-50), {zone:1444} (40-50) и {zone:1447} (45-55). В {zone:1425} отмечено место, где {object:2040} встречается чаще всего.",
 
 	-- Step 61: Solid Stone (Horde)
 	-- {item:7912} Solid Stone · {item:7945} Big Black Mace · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1443} Desolace · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["44 {item:7912} for {item:7945}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "{item:7912} 44 для {item:7945}: {skill:186}: {object:2040} (навык 175) в {zone:1443}, {zone:1425} and {zone:1444}. В {zone:1443} отмечено место, где {object:2040} встречается чаще всего.",
+	["44 {item:7912} for {item:7945}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "{item:7912} 44 для {item:7945}: {skill:186}: {object:2040} (навык 175) в {zone:1443} (30-40), {zone:1425} (40-50) и {zone:1444} (40-50). В {zone:1443} отмечено место, где {object:2040} встречается чаще всего.",
 
 	-- Step 62: Rugged Leather (Alliance)
 	-- {item:8170} Rugged Leather
@@ -330,7 +330,7 @@ return {
 	-- {item:8170} Rugged Leather
 	["{item:8170} (Horde)"] = "{item:8170} (Орда)",
 	-- {item:8170} Rugged Leather · {item:12773} Ornate Thorium Handaxe · {item:12775} Huge Thorium Battleaxe · {skill:393} Skinning · {npc:6369} Coralshell Tortoise · {npc:8760} Mosshoof Stag · {npc:6380} Thunderhead Consort · {npc:6379} Thunderhead Patriarch · {npc:6378} Thunderhead Skystormer · {npc:6377} Thunderhead Stagwing
-	["206 {item:8170} for {item:12773} and {item:12775}: {skill:393}: beasts of level 48-60. Skin {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377} here (level 48-60); the {skill:393} guide routes this."] = "{item:8170} 206 для {item:12773} и {item:12775}: {skill:393}: звери 48-60 уровня. Снимайте шкуры с {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377} здесь (48-60 уровня); маршрут ведет гайд {skill:393}.",
+	["206 {item:8170} for {item:12773} and {item:12775}: {skill:393}: beasts of level 48-60. Skin {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377} here (level 48-60); the {skill:393} guide routes this."] = "{item:8170} 206 для {item:12773} и {item:12775}: {skill:393}: звери 48-60 уровня. Снимайте шкуры с {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} и {npc:6377} здесь (48-60 уровня); маршрут ведет гайд {skill:393}.",
 
 	-- Step 64: Thorium Bar
 	-- {item:12359} Thorium Bar · {item:12773} Ornate Thorium Handaxe · {item:12775} Huge Thorium Battleaxe · {quest:7654} Imperial Plate Boots · {skill:186} Mining · {item:10620} Thorium Ore
@@ -340,13 +340,13 @@ return {
 	-- {item:12365} Dense Stone
 	["{item:12365} (Alliance)"] = "{item:12365} (Альянс)",
 	-- {item:12365} Dense Stone · {item:12643} Dense Weightstone · {item:12773} Ornate Thorium Handaxe · {item:12775} Huge Thorium Battleaxe · {skill:186} Mining · {object:324} Small Thorium Vein · {zone:1419} Blasted Lands · {zone:1448} Felwood · {zone:1452} Winterspring
-	["801 {item:12365} for {item:12643}, {item:12773} and {item:12775}: {skill:186}: {object:324} (skill 245) in {zone:1419} (45-55), {zone:1448} (48-55) and {zone:1452} (55-60). The densest cluster of {object:324} in {zone:1419} is marked."] = "{item:12365} 801 для {item:12643}, {item:12773} и {item:12775}: {skill:186}: {object:324} (навык 245) в {zone:1419}, {zone:1448} and {zone:1452}. В {zone:1419} отмечено место, где {object:324} встречается чаще всего.",
+	["801 {item:12365} for {item:12643}, {item:12773} and {item:12775}: {skill:186}: {object:324} (skill 245) in {zone:1419} (45-55), {zone:1448} (48-55) and {zone:1452} (55-60). The densest cluster of {object:324} in {zone:1419} is marked."] = "{item:12365} 801 для {item:12643}, {item:12773} и {item:12775}: {skill:186}: {object:324} (навык 245) в {zone:1419} (45-55), {zone:1448} (48-55) и {zone:1452} (55-60). В {zone:1419} отмечено место, где {object:324} встречается чаще всего.",
 
 	-- Step 66: Dense Stone (Horde)
 	-- {item:12365} Dense Stone
 	["{item:12365} (Horde)"] = "{item:12365} (Орда)",
 	-- {item:12365} Dense Stone · {item:12643} Dense Weightstone · {item:12773} Ornate Thorium Handaxe · {item:12775} Huge Thorium Battleaxe · {skill:186} Mining · {object:324} Small Thorium Vein · {zone:1448} Felwood · {zone:1451} Silithus · {zone:1452} Winterspring
-	["801 {item:12365} for {item:12643}, {item:12773} and {item:12775}: {skill:186}: {object:324} (skill 245) in {zone:1448} (48-55), {zone:1451} (55-60) and {zone:1452} (55-60). The densest cluster of {object:324} in {zone:1448} is marked."] = "{item:12365} 801 для {item:12643}, {item:12773} и {item:12775}: {skill:186}: {object:324} (навык 245) в {zone:1448}, {zone:1451} and {zone:1452}. В {zone:1448} отмечено место, где {object:324} встречается чаще всего.",
+	["801 {item:12365} for {item:12643}, {item:12773} and {item:12775}: {skill:186}: {object:324} (skill 245) in {zone:1448} (48-55), {zone:1451} (55-60) and {zone:1452} (55-60). The densest cluster of {object:324} in {zone:1448} is marked."] = "{item:12365} 801 для {item:12643}, {item:12773} и {item:12775}: {skill:186}: {object:324} (навык 245) в {zone:1448} (48-55), {zone:1451} (55-60) и {zone:1452} (55-60). В {zone:1448} отмечено место, где {object:324} встречается чаще всего.",
 
 	-- Step 67: Large Opal
 	-- {item:12799} Large Opal · {item:12773} Ornate Thorium Handaxe · {object:175404} Rich Thorium Vein · {object:177388} Ooze Covered Rich Thorium Vein · {object:180215} Hakkari Thorium Vein

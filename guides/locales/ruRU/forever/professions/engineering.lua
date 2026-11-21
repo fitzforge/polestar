@@ -16,7 +16,7 @@ return {
 	-- {skill:202} Engineering
 	["{skill:202} 1-75: vendor goods"] = "{skill:202} 1-75: товары торговцев",
 	-- {item:2880} Weak Flux · {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:5514} Brooke Stonebraid · {npc:1286} Edna Mullby
-	["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "Купите сразу все для этого этапа: {item:2880} 18 (18с) and {item:5956} (инструмент: один, держите в сумках, 18м); всего около 18с 18м. Стрелка выбирает ближайшего продавца вашей фракции ({zone:1453}: {npc:5519}, {npc:5514} и {npc:1286}).",
+	["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "Купите сразу все для этого этапа: {item:2880} 18 (18с) и {item:5956} (инструмент: один, держите в сумках, 18м); всего около 18с 18м. Стрелка выбирает ближайшего продавца вашей фракции ({zone:1453}: {npc:5519}, {npc:5514} и {npc:1286}).",
 	-- was: ["{item:5956}: a tool, keep it in your bags"] = "{item:5956}: инструмент, держите его в сумке"
 	["a tool, keep it in your bags"] = "инструмент, держите его в сумках",
 
@@ -227,13 +227,13 @@ return {
 	-- {item:2319} Medium Leather
 	["{item:2319} (Alliance)"] = "{item:2319} (Альянс)",
 	-- {item:2319} Medium Leather · {spell:3953} Bronze Framework · {skill:393} Skinning · {npc:2248} Cave Yeti · {npc:2356} Elder Gray Bear · {npc:2385} Feral Mountain Lion · {npc:2351} Gray Bear · {npc:2384} Starving Mountain Lion · {npc:2354} Vicious Gray Bear
-	["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this."] = "{item:2319} 19 для {spell:3953}: {skill:393}: звери 18-30 уровня. Снимайте шкуры с {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} здесь (18-30 уровня); маршрут ведет гайд {skill:393}.",
+	["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this."] = "{item:2319} 19 для {spell:3953}: {skill:393}: звери 18-30 уровня. Снимайте шкуры с {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} и {npc:2354} здесь (18-30 уровня); маршрут ведет гайд {skill:393}.",
 
 	-- Step 44: Medium Leather (Horde)
 	-- {item:2319} Medium Leather
 	["{item:2319} (Horde)"] = "{item:2319} (Орда)",
 	-- {item:2319} Medium Leather · {spell:3953} Bronze Framework · {skill:393} Skinning · {npc:3809} Ashenvale Bear · {npc:3810} Elder Ashenvale Bear · {npc:3818} Elder Shadowhorn Stag · {npc:3823} Ghostpaw Runner · {npc:3811} Giant Ashenvale Bear · {npc:3817} Shadowhorn Stag
-	["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} and {npc:3817} here (level 18-30); the {skill:393} guide routes this."] = "{item:2319} 19 для {spell:3953}: {skill:393}: звери 18-30 уровня. Снимайте шкуры с {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} and {npc:3817} здесь (18-30 уровня); маршрут ведет гайд {skill:393}.",
+	["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} and {npc:3817} here (level 18-30); the {skill:393} guide routes this."] = "{item:2319} 19 для {spell:3953}: {skill:393}: звери 18-30 уровня. Снимайте шкуры с {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} и {npc:3817} здесь (18-30 уровня); маршрут ведет гайд {skill:393}.",
 
 	-- Step 45: Wool Cloth
 	-- {item:2592} Wool Cloth · {spell:3953} Bronze Framework
@@ -243,25 +243,25 @@ return {
 	-- {item:2836} Coarse Stone
 	["{item:2836} (Alliance)"] = "{item:2836} (Альянс)",
 	-- {item:2836} Coarse Stone · {item:6533} Aquadynamic Fish Attractor · {skill:186} Mining · {object:1732} Tin Vein · {zone:1432} Loch Modan · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills
-	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1432} (10-20), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1432} is marked."] = "{item:2836} 31 для {item:6533}: {skill:186}: {object:1732} (навык 65) в {zone:1432}, {zone:1440} and {zone:1424}. В {zone:1432} отмечено место, где {object:1732} встречается чаще всего.",
+	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1432} (10-20), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1432} is marked."] = "{item:2836} 31 для {item:6533}: {skill:186}: {object:1732} (навык 65) в {zone:1432} (10-20), {zone:1440} (18-30) и {zone:1424} (20-30). В {zone:1432} отмечено место, где {object:1732} встречается чаще всего.",
 
 	-- Step 47: Coarse Stone (Horde)
 	-- {item:2836} Coarse Stone
 	["{item:2836} (Horde)"] = "{item:2836} (Орда)",
 	-- {item:2836} Coarse Stone · {item:6533} Aquadynamic Fish Attractor · {skill:186} Mining · {object:1732} Tin Vein · {zone:1413} The Barrens · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills
-	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "{item:2836} 31 для {item:6533}: {skill:186}: {object:1732} (навык 65) в {zone:1413}, {zone:1440} and {zone:1424}. В {zone:1440} отмечено место, где {object:1732} встречается чаще всего.",
+	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "{item:2836} 31 для {item:6533}: {skill:186}: {object:1732} (навык 65) в {zone:1413} (10-25), {zone:1440} (18-30) и {zone:1424} (20-30). В {zone:1440} отмечено место, где {object:1732} встречается чаще всего.",
 
 	-- Step 48: Heavy Stone (Alliance)
 	-- {item:2838} Heavy Stone
 	["{item:2838} (Alliance)"] = "{item:2838} (Альянс)",
 	-- {item:2838} Heavy Stone · {spell:3967} Big Iron Bomb · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale · {zone:1443} Desolace
-	["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:1443} (30-40). The densest cluster of {object:1735} in {zone:1417} is marked."] = "{item:2838} 74 для {spell:3967}: {skill:186}: {object:1735} (навык 125) в {zone:1417}, {zone:1434} and {zone:1443}. В {zone:1417} отмечено место, где {object:1735} встречается чаще всего.",
+	["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:1443} (30-40). The densest cluster of {object:1735} in {zone:1417} is marked."] = "{item:2838} 74 для {spell:3967}: {skill:186}: {object:1735} (навык 125) в {zone:1417} (30-40), {zone:1434} (30-45) и {zone:1443} (30-40). В {zone:1417} отмечено место, где {object:1735} встречается чаще всего.",
 
 	-- Step 49: Heavy Stone (Horde)
 	-- {item:2838} Heavy Stone
 	["{item:2838} (Horde)"] = "{item:2838} (Орда)",
 	-- {item:2838} Heavy Stone · {spell:3967} Big Iron Bomb · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1441} Thousand Needles · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
-	["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1441} (25-35), {zone:1417} (30-40) and {zone:1434} (30-45). The densest cluster of {object:1735} in {zone:1441} is marked."] = "{item:2838} 74 для {spell:3967}: {skill:186}: {object:1735} (навык 125) в {zone:1441}, {zone:1417} and {zone:1434}. В {zone:1441} отмечено место, где {object:1735} встречается чаще всего.",
+	["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1441} (25-35), {zone:1417} (30-40) and {zone:1434} (30-45). The densest cluster of {object:1735} in {zone:1441} is marked."] = "{item:2838} 74 для {spell:3967}: {skill:186}: {object:1735} (навык 125) в {zone:1441} (25-35), {zone:1417} (30-40) и {zone:1434} (30-45). В {zone:1441} отмечено место, где {object:1735} встречается чаще всего.",
 
 	-- Step 50: Bronze Bar
 	-- {item:2841} Bronze Bar · {item:6533} Aquadynamic Fish Attractor · {spell:3953} Bronze Framework · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
@@ -283,13 +283,13 @@ return {
 	-- {item:7912} Solid Stone
 	["{item:7912} (Alliance)"] = "{item:7912} (Альянс)",
 	-- {item:7912} Solid Stone · {item:10505} Solid Blasting Powder · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1434} (30-45), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1434} is marked."] = "{item:7912} 62 для {item:10505}: {skill:186}: {object:2040} (навык 175) в {zone:1434}, {zone:1425} and {zone:1444}. В {zone:1434} отмечено место, где {object:2040} встречается чаще всего.",
+	["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1434} (30-45), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1434} is marked."] = "{item:7912} 62 для {item:10505}: {skill:186}: {object:2040} (навык 175) в {zone:1434} (30-45), {zone:1425} (40-50) и {zone:1444} (40-50). В {zone:1434} отмечено место, где {object:2040} встречается чаще всего.",
 
 	-- Step 55: Solid Stone (Horde)
 	-- {item:7912} Solid Stone
 	["{item:7912} (Horde)"] = "{item:7912} (Орда)",
 	-- {item:7912} Solid Stone · {item:10505} Solid Blasting Powder · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1443} Desolace · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "{item:7912} 62 для {item:10505}: {skill:186}: {object:2040} (навык 175) в {zone:1443}, {zone:1425} and {zone:1444}. В {zone:1443} отмечено место, где {object:2040} встречается чаще всего.",
+	["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "{item:7912} 62 для {item:10505}: {skill:186}: {object:2040} (навык 175) в {zone:1443} (30-40), {zone:1425} (40-50) и {zone:1444} (40-50). В {zone:1443} отмечено место, где {object:2040} встречается чаще всего.",
 
 	-- Step 56: Aquadynamic Fish Attractor to 166
 	-- {item:6533} Aquadynamic Fish Attractor
@@ -368,11 +368,11 @@ return {
 
 	-- Step 69: Solid Stone (Alliance)
 	-- {item:7912} Solid Stone · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest cluster of {object:2040} in {zone:1425} is marked."] = "{item:7912} 212 для {item:10512} и {item:10513}: {skill:186}: {object:2040} (навык 175) в {zone:1425}, {zone:1444} and {zone:1447}. В {zone:1425} отмечено место, где {object:2040} встречается чаще всего.",
+	["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest cluster of {object:2040} in {zone:1425} is marked."] = "{item:7912} 212 для {item:10512} и {item:10513}: {skill:186}: {object:2040} (навык 175) в {zone:1425} (40-50), {zone:1444} (40-50) и {zone:1447} (45-55). В {zone:1425} отмечено место, где {object:2040} встречается чаще всего.",
 
 	-- Step 70: Solid Stone (Horde)
 	-- {item:7912} Solid Stone · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1443} Desolace · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "{item:7912} 212 для {item:10512} и {item:10513}: {skill:186}: {object:2040} (навык 175) в {zone:1443}, {zone:1425} and {zone:1444}. В {zone:1443} отмечено место, где {object:2040} встречается чаще всего.",
+	["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "{item:7912} 212 для {item:10512} и {item:10513}: {skill:186}: {object:2040} (навык 175) в {zone:1443} (30-40), {zone:1425} (40-50) и {zone:1444} (40-50). В {zone:1443} отмечено место, где {object:2040} встречается чаще всего.",
 
 	-- Step 71: Thorium Bar
 	-- {item:12359} Thorium Bar · {item:15994} Thorium Widget · {item:16000} Thorium Tube · {skill:186} Mining · {item:10620} Thorium Ore

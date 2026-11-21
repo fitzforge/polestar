@@ -16,7 +16,7 @@ return {
 	-- {skill:333} Enchanting
 	["{skill:333} 1-75: vendor goods"] = "{skill:333} 1-75: товары торговцев",
 	-- {item:6217} Copper Rod · {item:247786} Mote of Magic · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:1318} Jessara Cordell · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3346} Kithas · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "Купите сразу все для этого этапа: {item:6217} 1 (1с 24м) and {item:247786} 32 (3с 20м); всего около 4с 44м. Стрелка выбирает ближайшего продавца вашей фракции ({zone:1453}: {npc:1286} и {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} и {npc:5817}).",
+	["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "Купите сразу все для этого этапа: {item:6217} 1 (1с 24м) и {item:247786} 32 (3с 20м); всего около 4с 44м. Стрелка выбирает ближайшего продавца вашей фракции ({zone:1453}: {npc:1286} и {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} и {npc:5817}).",
 
 	-- Step 3: Enchanting 1-75: Auction House
 	-- {skill:333} Enchanting
@@ -212,13 +212,13 @@ return {
 	-- {item:8831} Purple Lotus
 	["{item:8831} (Alliance)"] = "{item:8831} (Альянс)",
 	-- {item:8831} Purple Lotus · {item:20747} Lesser Mana Oil · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1425} is marked."] = "{item:8831} 34 для {item:20747}: {skill:182}: {item:8831} (навык 210) в {zone:1425}, {zone:1444} and {zone:1447}. В {zone:1425} отмечено место, где {item:8831} встречается чаще всего.",
+	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1425} is marked."] = "{item:8831} 34 для {item:20747}: {skill:182}: {item:8831} (навык 210) в {zone:1425} (40-50), {zone:1444} (40-50) и {zone:1447} (45-55). В {zone:1425} отмечено место, где {item:8831} встречается чаще всего.",
 
 	-- Step 40: Purple Lotus (Horde)
 	-- {item:8831} Purple Lotus
 	["{item:8831} (Horde)"] = "{item:8831} (Орда)",
 	-- {item:8831} Purple Lotus · {item:20747} Lesser Mana Oil · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1444} is marked."] = "{item:8831} 34 для {item:20747}: {skill:182}: {item:8831} (навык 210) в {zone:1425}, {zone:1444} and {zone:1447}. В {zone:1444} отмечено место, где {item:8831} встречается чаще всего.",
+	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1444} is marked."] = "{item:8831} 34 для {item:20747}: {skill:182}: {item:8831} (навык 210) в {zone:1425} (40-50), {zone:1444} (40-50) и {zone:1447} (45-55). В {zone:1444} отмечено место, где {item:8831} встречается чаще всего.",
 
 	-- Step 41: Vision Dust
 	-- {item:11137} Vision Dust · {spell:13815} Enchant Gloves - Agility · {skill:333} Enchanting
