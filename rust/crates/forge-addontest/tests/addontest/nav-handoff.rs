@@ -416,7 +416,7 @@ fn no_route_lines_while_handing_off_for_a_target_on_the_same_continent_too() {
 	assert_eq!(mine, json!({ "handedOff": false, "lines": 1, "geometry": true }), "without it, Polestar draws the walk");
 	let handed = at_docks(&script, Opts::default());
 	assert_eq!(handed, json!({ "handedOff": true, "lines": 0, "geometry": false }));
-	// Same target and faction, but no mapped connection here. Keeping the target must not publish a chord.
+	// Same target and faction, but no mapped connection here: the straight bearing and line.
 	let off_strip = at_docks(
 		&format!(
 			r#"nav.place(-850, 100)
@@ -427,7 +427,8 @@ fn no_route_lines_while_handing_off_for_a_target_on_the_same_continent_too() {
 		),
 		Opts { spf: None, ..Default::default() },
 	);
-	assert_eq!(off_strip, json!(["unmapped", true, 0, "Testshire Docks"]));
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	assert_eq!(off_strip, json!(["travel", false, 1, "Testshire Docks"]));
 }
 
 #[test]
