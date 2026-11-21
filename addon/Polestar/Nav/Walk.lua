@@ -2878,11 +2878,7 @@ local function build(ground)
 					end
 				end
 			end
-			if i == ci and leg.kind == "walk" and not ground then
-				-- Keep the itinerary entry but leave it without a line. Following
-				-- pieces still start at their own segment, not the refused one.
-				if P and leg.seg then prevSeg = leg.seg end
-			elseif leg.kind == "walk" and P then
+			if leg.kind == "walk" and P then
 				-- A piece of a split walk: its stretch of the path.
 				pt(pts, from.c, from.wx, from.wy)
 				walkPoints(pts, P.c, P.wx, P.wy, prevSeg + 1, leg.seg)
@@ -2894,11 +2890,13 @@ local function build(ground)
 				-- A later walk (or a crossing the arrow walks straight) along its own searched
 				-- path or abstract route; the current one along the arrow's path, or its
 				-- search's abstract route until that is in (a walk after a guide goto:
-				-- straight from the mouth).
+				-- straight from the mouth), drawn as soon as either exists, as in 0.4.1.1.
+				-- Only the straight stand-in for the current walk waits for its answer
+				-- (`ground`: Nav.CanDrawGroundApproach).
 				local lp = ownLine(legs, i, ci, E)
 				if lp then
 					for k = 1, lp.n do pt(pts, from.c, lp.xs[k], lp.ys[k]) end
-				elseif not walkPoints(pts, to.c, to.wx, to.wy) and not (i == ci and shapePoints(pts, to.c, to.wx, to.wy)) then
+				elseif not walkPoints(pts, to.c, to.wx, to.wy) and not (i == ci and shapePoints(pts, to.c, to.wx, to.wy)) and (i ~= ci or ground) then
 					local c, x, y = from.c, from.wx, from.wy
 					if i == ci and pc == c then x, y = px, py end
 					-- A later leg's own evidence is independent of a refusal here.
@@ -2922,9 +2920,9 @@ local function build(ground)
 		end
 	else
 		local tc, tx, ty = Nav.GetTargetWorld()
-		if tc and ground then
+		if tc then
 			local pts = {}
-			if not walkPoints(pts, tc, tx, ty) and not shapePoints(pts, tc, tx, ty) and pc == tc and Nav.CanDrawGroundApproach(pc, px, py, tx, ty) then
+			if not walkPoints(pts, tc, tx, ty) and not shapePoints(pts, tc, tx, ty) and ground and pc == tc and Nav.CanDrawGroundApproach(pc, px, py, tx, ty) then
 				pt(pts, pc, px, py)
 				pt(pts, tc, tx, ty)
 				out[1] = { kind = "walk", pts = pts, current = true, straight = true }
