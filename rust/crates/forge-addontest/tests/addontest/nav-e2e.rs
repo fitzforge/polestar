@@ -768,6 +768,35 @@ fn a_players_walk_sketch_across_clusters_answers_in_one_slice_as_a_coarse_shape(
 	assert!(f(&out["frames"]) <= 1.0, "answered in the first slice: {out}");
 }
 
+// Fitz, 0.4.2.1 candidate: the route line as in 0.4.1.1, drawn as soon as the walk's sketch is in, the checked walk
+// replacing it when it lands. 0.4.2 left the map without a line for the whole search ("no line until checked").
+// The arrow's own search is held here, so only the sketch is in: from Razor Hill towards Sen'jin Village.
+#[test]
+fn the_route_line_draws_the_walks_sketch_while_its_search_is_still_out() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction = "Horde"; w.setLevel(11)
+		local _, px, py = C.MapToWorld(1411, 51.85, 43.49, "e")
+		place(1411, px, py, 11.7)
+		for _ = 1, 40 do aim(); stub.advance(0.05) end
+		local held = 0
+		E.Find = function() held = held + 1 return { held = true } end
+		N.SetTarget(1411, 56.31, 75.11, "Sen'jin Village", "e")
+		local n, a = 0, aim()
+		local function drawn()
+			local g = N.GetRouteGeometry()
+			local l = g and g.legs and g.legs[1]
+			return l and l.current and #l.pts or 0
+		end
+		while drawn() < 3 and n < 100 do a = aim(); stub.advance(0.05); n = n + 1 end
+		emit({ held = held > 0, state = a.state, points = drawn() })"#,
+		false,
+	);
+	assert_eq!(out["held"], true, "the arrow's own search is out: {out}");
+	assert!(f(&out["points"]) >= 3.0, "the sketch is drawn while the walk is searched: {out}");
+}
+
 // One continent's walking maps at a time (Fitz, 2026-10-25: 137 MB in the AddOn Memory readout with both of Leffe's
 // continents): a journey to the other continent searches and measures only the walks on the player's own, so only its
 // part of Polestar_Nav loads (Polestar_Nav_EK in Brill, its regions inside it, unpacked as its walks touch them); the
