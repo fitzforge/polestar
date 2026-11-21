@@ -25,7 +25,16 @@
 -- a crossing, an approach chain past its mouth (Travel's leg.handmade), and a
 -- guide goal after a guide `goto` (the author's way in, a cave mouth) keep
 -- the straight arrow, as does a player who switches walking routes off.
--- A routed walk with no ground answer yet supplies no compass bearing.
+-- A routed walk with no ground answer yet supplies no compass bearing, nor
+-- does a failed one. But a walk the player was following, asked again after
+-- they strayed and refused for no policy reason (a fight pulled them a few
+-- yards off the walking map beside the road: Walk.fallback), outdoors and
+-- outside the capitals, points straight at its goal, as before 0.4.2, its line
+-- drawn straight; both still keep to the danger policy (Nav's groundAim,
+-- Nav.CanDrawGroundApproach). A failed search is asked again FAIL_RETRY seconds
+-- after it failed once the player stands FAIL_MOVED yards (the router's ARRIVE)
+-- from where it was asked: 0.4.2 drew nothing there and asked again only 25
+-- yards away, so the arrow stopped updating until the step changed (#3409).
 -- Every later walk leg is sketched at once (Path.FindCoarse, its border
 -- crossings), then searched once after it (Walk.LegPath), for the route
 -- lines and its price; the arrow's own walk is drawn by its sketch until its
@@ -226,7 +235,7 @@ local JOIN = 50             -- yards from a path's start: its first turn there, 
 local ASK_EVERY = 2         -- seconds between asks for the same goal
 local ASK_FAR, ASK_FAR_EVERY = 2000, 10 -- yards left along the path past which a stray is asked again at most this often
 local GOAL_MOVED = 1        -- yards: the goal is another one
-local FAIL_RETRY, FAIL_MOVED = 15, 25 -- a failed search is asked again this late, this far away
+local FAIL_RETRY, FAIL_MOVED = 15, 5 -- a failed search is asked again this late, this far away
 local Z_OFF = 30            -- yards: a path ending this far above or below the goal's height missed its floor
 
 ---------------------------------------------------------------------------
@@ -395,7 +404,7 @@ function Walk.Clear()
 	local had, c, x, y = gc ~= nil, gc, gx, gy
 	cancel()
 	gc, gx, gy, gzFor, gz, count, idx, wanted, failed, hubs, shape = nil, nil, nil, nil, nil, 0, 1, false, false, nil, nil
-	Walk.blockedReason = nil
+	Walk.blockedReason, Walk.fallback = nil, nil
 	Walk.checkedOnly, ptsX.checkedPolicy = nil, nil
 	city.goal, city.dropped = nil, nil
 	city.Note(false)
@@ -1190,9 +1199,11 @@ function Walk.Unmapped()
 end
 
 -- A failed asynchronous search publishes geometry before the next arrow
--- sample. Never paint its fallback chord, even with the HUD hidden.
+-- sample. Never paint its fallback chord, even with the HUD hidden; but for a
+-- walk refused outdoors from a start off the walking map (Walk.fallback), drawn
+-- straight and checked as any straight line (#3409).
 function Walk.RefusedAt(c, x, y, z)
-	return Walk.blockedReason ~= nil and count == 0 and gc == c and gx ~= nil
+	return Walk.blockedReason ~= nil and not Walk.fallback and count == 0 and gc == c and gx ~= nil
 		and gzFor == (z or false) and (x - gx)^2 + (y - gy)^2 <= GOAL_MOVED^2
 end
 
@@ -1203,6 +1214,7 @@ function Walk.GroundStatus(c, x, y, z)
 	if not Nav.Path then return loadTried and "unmapped" or "routing" end
 	if gc == c and gx and gzFor == (z or false) and (x-gx)^2 + (y-gy)^2 <= GOAL_MOVED^2 then
 		if count > 0 then return nil end
+		if Walk.fallback then return nil end
 		if Walk.blockedReason then return Walk.blockedReason == "unmapped" and "unmapped" or "unsafe" end
 		if failed then return "unmapped" end
 	end
@@ -1248,7 +1260,7 @@ local function ask(P, pc, px, py, flat, terminal)
 	if P.Available and not P.Available(pc) then
 		-- Routing is on but this continent has no walking map. A clear
 		-- faction/level check alone cannot establish a line across it.
-		Walk.blockedReason = "unmapped"
+		Walk.blockedReason, Walk.fallback = "unmapped", nil
 		failed, failAt, failX, failY = true, askedAt, px, py
 		return
 	end
@@ -1294,6 +1306,13 @@ local function ask(P, pc, px, py, flat, terminal)
 		if not got and reason == "no safe walking route" then
 			if terminal and count > 0 then return end
 			Walk.blockedReason = type(answer) == "table" and answer.blockedReason or "unmapped"
+			-- No policy reason, and the goal had a walk until this ask (the player strayed from it, a fight off
+			-- the road): the router found none from where they stand now. Outdoors, outside the capitals (their
+			-- floors stack), the arrow points straight meanwhile, as before 0.4.2 (#3409). A goal no walk ever
+			-- reached stays without a bearing.
+			local C = ns.Compat
+			Walk.fallback = Walk.blockedReason == "unmapped" and (count > 0 or Walk.fallback) and not Walk.checkedOnly
+				and not city.goal and not city.Here(pc, px, py) and not (C and C.IsIndoors and C.IsIndoors()) or nil
 			count, hubs, shape, failed, failAt, failX, failY = 0, nil, nil, true, GetTime(), px, py
 			restore(gc,gx,gy)
 			changed()
@@ -1316,7 +1335,7 @@ local function ask(P, pc, px, py, flat, terminal)
 		city.Note(city.dropped or (z ~= nil and (not got or approach or offFloor(points, z))), type(approach) == "table" and approach.z or nil)
 		if got then
 			failed = false
-			Walk.blockedReason = nil
+			Walk.blockedReason, Walk.fallback = nil, nil
 			sightC = gc
 			ptsX.checkedPolicy = Walk.checkedOnly and o or nil
 			ptsX.checkedTurns = type(answer) == "table" and (answer.walkChecked == true or type(approach) == "table")
@@ -1325,7 +1344,7 @@ local function ask(P, pc, px, py, flat, terminal)
 			hubs = hubsOf(answer)
 			if Walk.Split then Walk.Split() end
 		else
-			failed, failAt, failX, failY = true, GetTime(), px, py
+			failed, failAt, failX, failY, Walk.fallback = true, GetTime(), px, py, nil
 			count, hubs, shape = 0, nil, nil
 			restore(gc, gx, gy)
 			-- No walk joins the player to the goal at all: a portal there may be out of reach (Travel.WalkUnreachable).
@@ -1345,7 +1364,7 @@ local function ask(P, pc, px, py, flat, terminal)
 			return ask(P, pc, px, py, flat)
 		end
 		city.Note(z ~= nil or city.dropped)
-		failed, failAt, failX, failY = true, askedAt, px, py
+		failed, failAt, failX, failY, Walk.fallback = true, askedAt, px, py, nil
 		return
 	end
 	if token == mine then
@@ -1544,7 +1563,7 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop, checke
 		local had = count > 0 or shape ~= nil
 		cancel()
 		gc, gx, gy, count, idx, failed, hubs, shape = goalC, goalX, goalY, 0, 1, false, nil, nil
-		Walk.blockedReason = nil
+		Walk.blockedReason, Walk.fallback = nil, nil
 		Walk.checkedOnly, ptsX.checkedPolicy = checkedOnly, nil
 		landX, landY = nil, nil
 		city.refineX,city.refineY=nil,nil

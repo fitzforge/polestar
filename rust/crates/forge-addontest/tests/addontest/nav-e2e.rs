@@ -1082,6 +1082,64 @@ fn g_row_6_c17_no_search_starts_in_combat_the_old_path_is_kept_and_one_runs_afte
 	assert!(f(&out["follow"]["along"]) > 1.0 && f(&out["follow"]["off"]) < 2.0, "the arrow follows it");
 }
 
+// PG5K's report (#3409): following a walk, a fight pulls the player off it onto ground the walking map doesn't
+// cover, and the walk asked again from there is refused. 0.4.2 then showed no bearing and no line, and asked again
+// only once the player had gone 25 yd from that spot or the step changed ("it will stop updating, and I can fix it
+// by clicking manually on the step"). Now the arrow points straight and draws its line meanwhile, as 0.4.1.1 did,
+// and a player standing 6 yd on, back on the mapped ground, has the walk asked again.
+#[test]
+fn a_walk_refused_after_a_fight_off_the_walking_map_points_straight_and_is_asked_again_once_the_player_stands_back_on_it() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		local r = {}
+		-- The arrow's own walk to the target (the planner's re-plans aside: a new plan is a new walk, asked at once).
+		Polestar.Set("nav.travel", false)
+		place(1429, GOLDSHIRE[1], GOLDSHIRE[2], GOLDSHIRE[3])
+		local walk = guide()
+		local _, tx, ty = N.GetTargetWorld()
+		for _ = 1, 100 do stub.advance(0.05); aim() end
+		r.following = { got = walk and walk.points and #walk.points or 0, state = aim().state }
+		-- The fight: 39 yd off the walk by the mine, off the walking map. No height, as Forever's client gives none.
+		place(1429, -9816.173, 171.327)
+		local s
+		for _ = 1, 100 do stub.advance(0.05); s = aim() end
+		local g = N.GetRouteGeometry()
+		local leg = g and g.legs and g.legs[1]
+		r.refused = { finds = #finds, cost = finds[#finds].cost, state = s.state, measured = s.measured,
+			atTarget = s.x and dist(s.x, s.y, tx, ty) < 1 or false, line = N.CanDrawGroundApproach(),
+			straight = leg and leg.straight or false, pts = leg and #leg.pts or 0 }
+		-- The fight goes on there for 8 s: past the floor's own re-ask (a floor found within 5 s of a search asked
+		-- without one asks once more, Ruling 36b), which would otherwise answer for the step back.
+		for _ = 1, 160 do stub.advance(0.05); aim() end
+		r.stillRefused = { finds = #finds, state = aim().state }
+		-- Six yards on, back on the mapped ground, standing still there for 20 s.
+		place(1429, -9822.173, 171.327)
+		for _ = 1, 400 do stub.advance(0.05); aim() end
+		local f = finds[#finds]
+		local n = 0
+		while f and not f.done and n < 100 do stub.advance(0.05); n = n + 1 end
+		s = aim()
+		r.after = { finds = #finds, got = f and f.points and #f.points or 0, from = f and dist(f.from[1], f.from[2], -9822.173, 171.327), state = s.state, measured = s.measured }
+		emit(r)"#,
+		false,
+	);
+	assert!(out["following"]["got"].as_u64().unwrap_or(0) > 1 && out["following"]["state"] == "travel", "a walk to follow first ({})", out["following"]);
+	assert_eq!(out["refused"]["cost"], "no safe walking route", "the walk asked again off the walking map is refused ({})", out["refused"]);
+	assert_eq!(out["refused"]["state"], "travel", "the arrow points meanwhile ({})", out["refused"]);
+	assert_eq!(out["refused"]["measured"], false);
+	assert_eq!(out["refused"]["atTarget"], true, "straight at the target");
+	assert_eq!(out["refused"]["line"], true, "and its line is drawn");
+	assert_eq!(out["refused"]["straight"], true, "straight, from the player");
+	assert_eq!(out["refused"]["pts"], 2);
+	assert_eq!(out["stillRefused"]["state"], "travel", "still straight there ({})", out["stillRefused"]);
+	assert!(out["after"]["finds"].as_u64() > out["stillRefused"]["finds"].as_u64(), "asked again from the mapped ground ({})", out["after"]);
+	assert!(f(&out["after"]["from"]) < 0.01, "from where the player stands now");
+	assert!(out["after"]["got"].as_u64().unwrap_or(0) > 1, "a walk this time");
+	assert_eq!(out["after"]["state"], "travel");
+	assert_eq!(out["after"]["measured"], true, "the arrow follows it");
+}
+
 #[test]
 fn z1_a_guide_goal_at_andron_gant_is_walked_to_his_floor_with_his_height_without_it_to_the_cheapest_floor_there_his_own_too_by_the_lift() {
 	skip_unless_ready!();
