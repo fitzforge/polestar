@@ -380,7 +380,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		local howTo = GF.HowToShow()
 		local alerts = ns.Nav and ns.Nav.alerts
 		if alerts and alerts.ShowNotice then alerts.ShowNotice(L["Polestar is hidden here"], howTo, 12) end
-		ns.Print(L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."]:format(howTo))
+		ns.Print(L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide window."]:format(howTo))
 	end
 
 	-- The notice goes as soon as the window is back.

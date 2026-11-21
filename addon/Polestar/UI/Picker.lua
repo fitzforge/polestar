@@ -65,8 +65,18 @@ local SIDE_W = SH.sidebar -- the sidebar, left of the list
 
 -- The skin's sizes (Theme.Metric; DIRECTION_B_HALO.md §3: 1100 x 640 beside the rail,
 -- a 230 sidebar, a 380 details pane), read as the window is built.
+local WIN_H = 640
+
+-- The window is as big as the settings window (W.ShellDefaultSize) where the
+-- skin's size is smaller, never past the screen at the Guides scale; the extra
+-- room goes to the list pane and the rows' count.
 local function readSizes()
-	WIN_W = Theme.Metric("pickerW", 1120) + SH.rail
+	local sw, sh = W.ShellDefaultSize()
+	local scale = max(0.01, tonumber(ns.Get("ui.pickerScale")) or 1)
+	local maxW = floor(UIParent:GetWidth() / scale - 32)
+	local maxH = floor(UIParent:GetHeight() / scale - 32)
+	WIN_W = min(maxW, max(W.SHELL_MIN_W, sw))
+	WIN_H = min(maxH, max(W.SHELL_MIN_H, sh))
 	DETAIL_W = Theme.Metric("pickerDetail", 372)
 	SIDE_W = Theme.Metric("pickerSidebar", SH.sidebar)
 	MID_W = WIN_W - SH.rail - SIDE_W - 2 - DETAIL_W
@@ -2234,8 +2244,9 @@ end
 local function build()
 	readSizes()
 	win = W.Shell("PolestarPicker", {
-		width = WIN_W, height = Theme.Metric("pickerH", SH.height), sidebar = SIDE_W,
-		rail = true, title = L["Guides"], scalePath = "ui.menuScale", searchPlaceholder = HUB_SEARCH,
+		width = WIN_W, height = WIN_H, sidebar = SIDE_W,
+		rail = true, title = L["Guides"], scalePath = "ui.pickerScale", scaleLabel = L["Guides scale"],
+		scaleTip = L["The guides window only; applies when you let go. Right-click to reset."], searchPlaceholder = HUB_SEARCH,
 		onSearch = onSearch,
 	})
 	P.frame = win

@@ -1,7 +1,8 @@
 -- The settings window's Guide window page (look group, key "guidewindow"),
--- two tabs. Window: the frame (style, with what only Transparent uses in its
--- cog; size), its ground (background, opacity, fading when away, border),
--- how it behaves (combat, dungeons, flights, growing up, motion). Parts, as
+-- every setting of the guide window, in two tabs. Window: showing it, the
+-- frame (style, with what only Transparent uses in its cog; size), its ground
+-- (background, opacity, fading when away, border), how it behaves (combat,
+-- dungeons, flights, growing up, motion) and where it sits. Parts, as
 -- the window stacks them: the bars, the step card (text sizes, glyphs,
 -- spacing, tick boxes, the target bar), then the tip, Up next and the
 -- progress bar. Every setting is applied by the window itself
@@ -316,6 +317,9 @@ function UI.GuideWindowScene(band)
 			["ui.upcoming"] = { up }, ["guideWindow.upSize"] = { up }, ["guideWindow.progress"] = { foot },
 			["guideWindow.progressHeight"] = { foot }, ["guideWindow.progressColor"] = { foot.Line }, ["guideWindow.progressPct"] = { foot.Pct },
 			["guideWindow.pace"] = { G.xp },
+			-- The window itself shown and held in place; the step's goals, whole or one person's; the tip and Up next open.
+			["ui.shown"] = window, ["ui.locked"] = window, ["ui.wholeStep"] = moving, ["ui.notesOpen"] = { P.tip },
+			["ui.upcomingOpen"] = { up },
 		}) do
 			light(key, parts)
 		end
@@ -404,14 +408,22 @@ end
 local function accentNow() return Theme.Color("accent") end
 local function accentSource() return L["Accent"] end
 
+-- A row's `disabled` while a guide window setting is off (look(key) == false).
+-- The rows under their parent are children now; other branches' rows (Tab style)
+-- still call it.
 local function offKey(key) return function() return look(key) == false end end
 
 local SPECS = {
-	-- Window: the frame as a whole, its ground, then how it behaves.
+	-- Window: the frame as a whole, its ground, how it behaves, then where it sits. Every setting of the guide
+	-- window lives on this page; its first row links to what Polestar does while you play (Guide).
 	{ page = PAGE, key = "guidewindow", icon = "window", order = 21, group = "look", tab = L["Window"], section = L["Window"],
 		preview = buildPreview,
 		subtitle = L["The guide window's frame, bars, step card, tips and progress bar."],
+		link = { text = L["Dynamic Questing, pause and the floating button:"], page = "guide", tab = L["While you play"],
+			to = L["Guiding"] .. " \226\128\186 " .. L["Guide"] },
 		controls = {
+		{ kind = "toggle", key = "ui.shown", label = L["Show the window"], help = L["Also /polestar, or the key binding."],
+			search = "show guide, hide guide, toggle window, open window, visibility" },
 		{ kind = "dropdown", key = "ui.style", label = L["Style"], search = "transparent, standard, background, see through, minimal, style",
 			help = L["Transparent drops every background and border; text is outlined and the controls appear when you hover the window."],
 			choices = { { value = "standard", label = L["Standard"] }, { value = "transparent", label = L["Transparent"] } },
@@ -492,7 +504,7 @@ local SPECS = {
 					help = L["How far the window fades in a fight with In combat set to Fade out."],
 					search = "combat, fade, fighting, opacity, alpha, transparency, combat fade" },
 			} },
-		{ kind = "dropdown", key = "ui.instance", label = L["In dungeons"],
+		{ kind = "dropdown", key = "ui.instance", label = L["In dungeons and battlegrounds"],
 			help = L["What the window, its buttons and alerts do in dungeons, raids, battlegrounds and arenas. Guide window in the minimap button's menu, the key binding or /polestar opens it there until you leave."],
 			search = "dungeon, raid, battleground, arena, instance, hide, pvp, healer, visibility",
 			choices = { { value = "show", label = L["Keep visible"] }, { value = "hide", label = L["Hide"] } } },
@@ -501,15 +513,15 @@ local SPECS = {
 			search = "taxi, flight, flying, gryphon, wyvern, flight path, hide, visibility, while flying" },
 		{ kind = "toggle", key = "ui.growUp", label = L["Grow upward"], help = L["Keep the bottom edge in place, so longer steps extend the window up."],
 			search = "grow, upward, bottom, anchor, direction, growth, position",
-			more = {
-				{ kind = "toggle", key = "ui.barsBottom", label = L["Bars at bottom"], disabled = function() return not ns.Get("ui.growUp") end,
+			children = {
+				{ kind = "toggle", key = "ui.barsBottom", label = L["Bars at bottom"],
 					help = L["With Grow upward, put the tabs and the step bar at the bottom edge, next to where the window is pinned."],
 					search = "bar, bottom, tabs, flip, header at bottom" },
 			} },
 		{ kind = "toggle", key = "guideWindow.stepAnim", label = L["Step slide"], new = NEW,
 			help = L["The next person or step slides up into place as it fades in. Off: it is simply there."],
 			search = "animation, transition, slide, fade, step change, motion",
-			more = {
+			children = {
 				{ kind = "slider", key = "guideWindow.animSpeed", label = L["Speed"], min = 0.5, max = 3, step = 0.1, format = times, new = NEW,
 					help = L["How fast the step change and finished goals move: 2x takes half the time."],
 					search = "animation speed, faster, slower, snappy, transition" },
@@ -518,16 +530,21 @@ local SPECS = {
 			help = L["A goal you finish shuts like a drawer into the done line. Off: it fades and goes."],
 			search = "fold, collapse, animation, done goals, finished, motion" },
 	} },
+	{ page = PAGE, tab = L["Window"], section = L["Position"], controls = {
+		{ kind = "toggle", key = "ui.locked", label = L["Lock window"], help = L["Prevents moving and resizing."], search = "lock, move, drag, resize, unlock",
+			wide = true },
+		{ kind = "button", icon = "reset", button = L["Reset"], label = L["Reset position"], move = "guide", help = L["Put the guide window back in its corner."], wide = true,
+			search = "reset position, corner, lost window, off screen, move", onClick = function() ns.Set("ui.pos", nil) end },
+	} },
 
 	-- Parts, top to bottom as the window stacks them.
 	{ page = PAGE, tab = L["Parts"], section = L["Bars"], preview = buildPreview, controls = {
-		{ kind = "slider", key = "guideWindow.tabHeight", label = L["Tab height"], min = 0.7, max = 1.6, step = 0.05, format = percent, new = NEW,
-			disabled = offKey("tabs"),
-			help = L["How tall the tab bar is."], search = "tab height, taller, shorter, header, size, tabs",
-			extras = {
-				{ kind = "toggle", key = "guideWindow.tabs", label = L["Tabs"], new = NEW,
-					help = L["The tabs of the open guides above the step bar. Off: the step bar names the guide, and the guide menu switches guides."],
-					search = "tabs, tab bar, header, strip, hide tabs, guides" },
+		{ kind = "toggle", key = "guideWindow.tabs", label = L["Tabs"], new = NEW,
+			help = L["The tabs of the open guides above the step bar. Off: the step bar names the guide, and the guide menu switches guides."],
+			search = "tabs, tab bar, header, strip, hide tabs, guides",
+			children = {
+				{ kind = "slider", key = "guideWindow.tabHeight", label = L["Tab height"], min = 0.7, max = 1.6, step = 0.05, format = percent, new = NEW,
+					help = L["How tall the tab bar is."], search = "tab height, taller, shorter, header, size, tabs" },
 			} },
 		{ kind = "slider", key = "guideWindow.navHeight", label = L["Step bar height"], min = 0.7, max = 1.6, step = 0.05, format = percent, new = NEW,
 			help = L["How tall the bar with the step number, Skip and the menu is."], search = "bar height, header, navigator, taller, shorter, size, step bar height" },
@@ -545,6 +562,9 @@ local SPECS = {
 			help = L["The bug button that reports a problem with the step. The guide menu still has it."], search = "bug, report, problem, button, report button" },
 	} },
 	{ page = PAGE, tab = L["Parts"], section = L["Step card"], controls = {
+		{ kind = "toggle", key = "ui.wholeStep", label = L["Show the whole step"],
+			help = L["Every goal of the step at once, finished ones kept, instead of one person at a time with the others on one line each."],
+			search = "whole step, every goal, all goals, one person at a time, hub, expand" },
 		textSize("titleSize", L["Name size"], L["The name of the person to talk to now, or the step's place, at the top of the card."],
 			"title, step title, name, header, npc name, person"),
 		textSize("goalSize", L["Goal size"], L["The goal lines of the step and of While you're here."], "goal, goals, objectives, step text, lines, text size"),
@@ -562,47 +582,48 @@ local SPECS = {
 		{ kind = "slider", key = "guideWindow.checkSize", label = L["Tick boxes"], min = 0.6, max = 1.8, step = 0.05, format = percent, new = NEW,
 			help = L["The tick box at the right of each goal."],
 			search = "tick, checkbox, check box, box, bigger, smaller, size" },
-		{ kind = "slider", key = "guideWindow.targetBarWidth", label = L["Target bar"], min = 1, max = 6, step = 1, format = px, new = NEW,
-			disabled = offKey("targetBar"),
-			help = L["The bar at the left edge of the goal or person the arrow points to: its width."],
-			search = "accent bar, marker, current goal, highlight, selection, target, bar width, thicker, thinner",
-			extras = {
-				{ kind = "toggle", key = "guideWindow.targetBar", label = L["Target bar"], new = NEW,
-					help = L["The bar at the left edge of the goal or person the arrow points to."],
-					search = "accent bar, marker, current goal, highlight, selection, target" },
-				{ kind = "color", key = "guideWindow.targetBarColor", label = L["Target bar colour"], new = NEW,
+		{ kind = "toggle", key = "guideWindow.targetBar", label = L["Target bar"], new = NEW,
+			help = L["The bar at the left edge of the goal or person the arrow points to."],
+			search = "accent bar, marker, current goal, highlight, selection, target",
+			children = {
+				{ kind = "slider", key = "guideWindow.targetBarWidth", label = L["Width"], min = 1, max = 6, step = 1, format = px, new = NEW,
+					help = L["The bar at the left edge of the goal or person the arrow points to: its width."],
+					search = "accent bar, marker, current goal, highlight, selection, target, target bar, bar width, thicker, thinner" },
+				{ kind = "color", key = "guideWindow.targetBarColor", label = L["Colour"], new = NEW,
 					help = L["Its own colour; unset, the accent."],
-					search = "accent bar colour, marker colour, highlight colour", shown = accentNow, source = accentSource },
+					search = "target bar colour, accent bar colour, marker colour, highlight colour", shown = accentNow, source = accentSource },
 			} },
 		{ kind = "toggle", key = "guideWindow.leftOut", label = L["What it leaves out"], new = "0.4.1",
 			help = L["A dim line where the guide passes over quests: open it to see each one and why, with a way to bring it back. Grind steps say what else is worth doing, and a line offers to clean up quests that aren't part of your route."],
 			search = "left out, skipped quests, hidden quests, missing quests, why, grind, clean up, explain" },
 	} },
 	{ page = PAGE, tab = L["Parts"], section = L["Below the goals"], controls = {
-		{ kind = "slider", key = "guideWindow.noteSize", label = L["Tip size"], min = 0.7, max = 1.8, step = 0.05, format = percent, new = NEW,
-			disabled = function() return ns.Get("ui.showNotes") == false end,
-			help = L["The author's tip under the goals, one line until clicked: its text size."],
-			search = "tip, tips, note, notes, author" .. TEXT_SEARCH,
-			extras = {
-				{ kind = "toggle", key = "ui.showNotes", label = L["Step tips"], help = L["The author's tip under the goals, one line until clicked."],
-					search = "tips, notes, author, hint, step tips" },
+		{ kind = "toggle", key = "ui.showNotes", label = L["Step tips"], help = L["The author's tip under the goals, one line until clicked."],
+			search = "tips, notes, author, hint, step tips",
+			children = {
+				{ kind = "slider", key = "guideWindow.noteSize", label = L["Tip size"], min = 0.7, max = 1.8, step = 0.05, format = percent, new = NEW,
+					help = L["The author's tip under the goals, one line until clicked: its text size."],
+					search = "tip, tips, note, notes, author" .. TEXT_SEARCH },
+				{ kind = "toggle", key = "ui.notesOpen", label = L["Expand step tips"], help = L["Start each step with its tip in full instead of one line."],
+					search = "tips, expand, open, full, one line" },
 			} },
 		{ kind = "slider", key = "ui.upcoming", label = L["Up next"], min = 0, max = 6, step = 1, format = "%d",
-			help = L["How many steps the Up next list holds; 0 turns it off."], search = "up next, upcoming, later steps, list, preview, upcoming steps" },
+			help = L["How many steps the Up next list holds; 0 turns it off."], search = "up next, upcoming, later steps, list, preview, upcoming steps",
+			more = {
+				{ kind = "toggle", key = "ui.upcomingOpen", label = L["Expand Up next"], help = L["Start with the upcoming steps listed instead of collapsed."],
+					search = "up next, upcoming, expand, collapsed, listed" },
+			} },
 		textSize("upSize", L["Up next size"], L["Up next and Along the way: their rows and their headers; the rows grow with the text."],
 			"up next, upcoming, along the way, later steps, list, rows"),
-		{ kind = "slider", key = "guideWindow.progressHeight", label = L["Progress bar"], min = 1, max = 12, step = 1, format = px, new = NEW,
-			disabled = offKey("progress"),
-			help = L["The guide's progress at the bottom of the window: its thickness. The game's looks keep their own bar."],
-			search = "progress, bar, footer, completion, thickness, height, thicker, thinner, progress line, progress colour",
-			extras = {
-				{ kind = "toggle", key = "guideWindow.progress", label = L["Progress bar"], new = NEW,
-					help = L["The guide's progress at the bottom of the window."], search = "progress, bar, percent, footer, completion" },
-				{ kind = "color", key = "guideWindow.progressColor", label = L["Progress colour"], new = NEW,
+		{ kind = "toggle", key = "guideWindow.progress", label = L["Progress bar"], new = NEW,
+			help = L["The guide's progress at the bottom of the window."], search = "progress, bar, percent, footer, completion",
+			children = {
+				{ kind = "slider", key = "guideWindow.progressHeight", label = L["Thickness"], min = 1, max = 12, step = 1, format = px, new = NEW,
+					help = L["The guide's progress at the bottom of the window: its thickness. The game's looks keep their own bar."],
+					search = "progress, progress bar, bar, footer, completion, thickness, height, thicker, thinner, progress line" },
+				{ kind = "color", key = "guideWindow.progressColor", label = L["Colour"], new = NEW,
 					help = L["Its own colour; unset, the accent."],
 					search = "progress colour, fill colour, bar colour", shown = accentNow, source = accentSource },
-			},
-			more = {
 				{ kind = "toggle", key = "guideWindow.progressPct", label = L["Percent"], new = NEW,
 					help = L["The percent beside the progress bar."], search = "percent, number, percentage" },
 			} },
