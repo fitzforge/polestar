@@ -199,8 +199,7 @@ end"
 	// the game looks with Hearth (Polestar_Looks: Theme.LoadLooks, the first time one is painted) and Freedoom
 	// Arcade (Polestar_Arcade: Maps/Arcade.lua, the first Play).
 	static PART_FILES: LazyLock<Result<Vec<(String, String)>, String>> = LazyLock::new(|| {
-		let regions = forge_guide::project::nav_region_addons(&addons_dir())?;
-		let names = forge_nav::pack::PARTS.iter().map(|(_, p)| *p).chain(LOAD_ON_DEMAND.iter().copied()).chain(regions.iter().map(String::as_str));
+		let names = forge_nav::pack::PARTS.iter().map(|(_, p)| *p).chain(LOAD_ON_DEMAND.iter().copied());
 		Ok(names
 			.filter_map(|name| {
 				let files = toc_files(name).ok()?;
