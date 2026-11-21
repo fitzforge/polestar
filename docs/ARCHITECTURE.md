@@ -5702,7 +5702,13 @@ leg to its paired landing ("Ride the elevator up" boarded at the bottom,
 "Ride the elevator down" at the top), timed and captioned by
 `Transit.NextDeparture`/`Caption("lift", ...)` (30 s without); within 30 yd
 of the landing the walk's label already reads as the ride; other steps
-carry no wait (K3). The names in the captions are the client's, in its
+carry no wait (K3). With the client's height, the ride is shown only on the
+boarding deck and is over once that height is seen off the receiving deck
+30 yd from it; with none (Forever's `UnitPosition` gives 0, read as none:
+every 0.4.2 report says "height zero"), the deck can't be observed, so the
+ride is shown within 30 yd of the boarding landing on the map and is over 30
+yd from it, as in 0.4.1.1 (Main, 2026-11-21). The names in the captions are
+the client's, in its
 language: each chokepoint carries the AreaTable ids of its name, zone and
 sides (`area`, `zoneArea`, read with `Names.Area`) and a lift its
 GameObject (`liftObject`, the names pack's object name, else the Transit
