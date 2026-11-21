@@ -2127,12 +2127,22 @@ fn lifts_from_the_undercitys_lower_floor_to_brill_the_walk_goes_to_the_south_lif
 			local leg = N.travel.CurrentLeg()
 			return { state, leg.kind, N.travel.CurrentLabel():match("^[^\n]+") }
 		end
-		r.unknownBoard = at(1544.8, 240.6, 0) -- client placeholder at the exact boarding XY
+		-- With a height from the client, its deck rule (240b852ada).
 		r.wrongBoard = at(1553.1, 240.6, 55.2) -- above the planned boarding deck, still on the walk
 		r.board = at(1544.8, 240.6, -41.4)
 		r.retreat = at(1512, 240.6, -41.4)
 		r.receive = at(1553.1, 240.6, 55.2)
 		r.leave = at(1586, 241.2, 60)
+		-- With no height (Forever's UnitPosition gives 0, read as none): the 2D rule, as before 0.4.2 (Main,
+		-- 2026-11-21: every 0.4.2 report shows height 0, so the deck rule is dormant on real clients).
+		N.ClearTarget()
+		place(1458, 1575, 240, 0)
+		N.SetTarget(1420, 61.9, 52.3, "Brill")
+		for _ = 1, 600 do aim() stub.advance(0.05) end
+		r.unknownApproach = at(1520, 240.6, 0) -- 25 yd off the landing: the ride is shown
+		r.unknownBoard = at(1544.8, 240.6, 0) -- at the boarding landing
+		r.unknownRide = at(1548, 240.6, 0) -- on the car, either deck
+		r.unknownLeave = at(1586, 241.2, 0) -- 41 yd off the boarding landing: the ride is over
 		-- And back in: from Brill's road to the canal by the auction house.
 		place(1420, 2262, 236, 34)
 		N.SetTarget(1458, 59.17, 39.05, "The canal") -- by the auction house: no hall over it (a target with no height under the hall is taken for the hall)
@@ -2160,7 +2170,10 @@ fn lifts_from_the_undercitys_lower_floor_to_brill_the_walk_goes_to_the_south_lif
 	assert_eq!(out["to"], serde_json::json!([1544.8, 240.6, -41.4]), "the request is for the lower landing");
 	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
 	assert_eq!(out["approach"], serde_json::json!(["no safe walking route", false, true]));
-	assert_eq!(out["unknownBoard"], serde_json::json!(["travel", "walk", "Walk to the lift"]));
+	assert_eq!(out["unknownApproach"], serde_json::json!(["travel", "walk", "Ride the elevator up"]));
+	assert_eq!(out["unknownBoard"], serde_json::json!(["instruction", "lift", "Ride the elevator up"]));
+	assert_eq!(out["unknownRide"], serde_json::json!(["instruction", "lift", "Ride the elevator up"]));
+	assert_eq!(out["unknownLeave"], serde_json::json!(["travel", "walk", "Follow the path out"]));
 	assert_eq!(out["wrongBoard"], serde_json::json!(["travel", "walk", "Walk to the lift"]));
 	for stage in ["board", "retreat", "receive"] {
 		assert_eq!(out[stage], serde_json::json!(["instruction", "lift", "Ride the elevator up"]), "{stage}");
@@ -2170,6 +2183,54 @@ fn lifts_from_the_undercitys_lower_floor_to_brill_the_walk_goes_to_the_south_lif
 	let down = back.iter().position(|s| s == "lift|Ride the elevator down");
 	assert!(down.is_some_and(|d| d > 0 && back[d - 1] == "walk|Walk to the lift"), "in by the same way, down the south lift: {}", back.join(", "));
 	assert_eq!(back.last().map(String::as_str), Some("walk|The canal"));
+}
+
+// The Mesa Elevator with no height from the client, as on Forever (every 0.4.2 report says "height zero"). On the way
+// from Red Rocks up to Cairne's tent, 0.4.2 said "The last steps here aren't mapped" at the elevator's bottom landing
+// and never showed the ride (the deck rule of 240b852ada needs the client's height). Main, 2026-11-21: with no height
+// the lift takes 0.4.1.1's 2D rule: the ride is shown within 30 yd of its landing and is over 30 yd from it. The player
+// stands at the foot of the bluff (the route's first crossing end from Red Rocks), where the walk up is split at the lift.
+#[test]
+fn lifts_with_no_client_height_red_rocks_to_cairnes_tent_rides_the_mesa_elevator_and_walks_on_from_the_top() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.setLevel(10)
+		w.faction = "Horde"
+		place(1412, -964.8, -116.5, 0) -- the foot of the bluff, on the way from Red Rocks
+		N.SetTarget(1456, 60.3, 51.7, "Cairne's tent", "e")
+		for _ = 1, 600 do aim() stub.advance(0.05) end
+		local legs, ci = N.GetRoute()
+		local route, lift = {}, nil
+		for i = ci, #(legs or {}) do
+			route[#route + 1] = legs[i].kind
+			if legs[i].kind == "lift" and not lift then lift = legs[i] end
+		end
+		local r = { route = route, height = C.PlayerHeight() }
+		if lift then
+			local f = lift.from
+			local function at(x, y)
+				place(1412, x, y, 0)
+				local state = N.Sample()
+				local leg = N.travel.CurrentLeg()
+				return { state, leg and leg.kind or false, (N.travel.CurrentLabel() or ""):match("^[^\n]+") or "" }
+			end
+			-- toward the target, on the map: the top deck is over the bottom one
+			local _, tx, ty = C.MapToWorld(1456, 60.3, 51.7, "e")
+			local d = dist(f.wx, f.wy, tx, ty)
+			local ux, uy = (tx - f.wx) / d, (ty - f.wy) / d
+			r.board = at(f.wx, f.wy)
+			r.ride = at(f.wx + ux * 3, f.wy + uy * 3)
+			r.leave = at(f.wx + ux * 35, f.wy + uy * 35)
+		end
+		emit(r)"#,
+		true,
+	);
+	assert_eq!(out["height"], "zero", "the stub gives Forever's height of 0");
+	assert!(strs(&out["route"]).iter().any(|k| k == "lift"), "the way up rides a lift: {}", strs(&out["route"]).join(", "));
+	assert_eq!(out["board"], serde_json::json!(["instruction", "lift", "Ride the elevator up"]), "at the bottom landing the ride is shown");
+	assert_eq!(out["ride"], serde_json::json!(["instruction", "lift", "Ride the elevator up"]), "on the car, still the ride");
+	assert_eq!(out["leave"][1], "walk", "30 yd off the landing the ride is over and the walk goes on: {}", out["leave"]);
 }
 
 // #2516 (Trak, 0.4.0 triage): at the Ruins of Lordaeron's portal (Tirisfal 63.2,67.5, live), where the client reports
