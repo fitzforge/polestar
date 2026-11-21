@@ -3574,9 +3574,11 @@ route choice, the catch-up takes the option with the most quest work done
 no tab open at login (`behavior.autoSelectGuide`), a character who did quests
 in their race's first guide (`Guides.FirstGuide()`: the suggestion at level
 1) starts there and goes through the guides to where they are; one with
-nothing done there gets `Guides.Suggest()`, as before. `GUIDE_PLACED(guideId,
-step, passed)` fires for the active tab once placement of a guide just
-opened ends, with the guides passed whole.
+nothing done there gets `Guides.Suggest()`, as before; a character at the
+level cap (`Levels.MAX_LEVEL`) gets no tab, and Start guide opens one when
+they want it (#3395). `GUIDE_PLACED(guideId, step, passed)` fires for the
+active tab once placement of a guide just opened ends, with the guides
+passed whole.
 
 **Every step** (`Own.everyStep`): any guide but a leveling one (category
 `Leveling` or none) does every step: no grey quest is left out and nothing
