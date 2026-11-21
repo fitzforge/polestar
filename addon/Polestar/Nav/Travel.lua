@@ -497,6 +497,9 @@ end
 --         zones far above the player it crosses (Nav/Danger.lua Danger.Along;
 --         road = true: a zone's road through, from one of its crossings to
 --         another or over one, #1972; a measured walk carries the engine's own pricing),
+--       blocked = function(c, x1, y1, x2, y2, side) -> why or nil: the enemy-town check asked
+--         of every on-foot segment (default Nav.danger.Blocked; estimates pass estimateBlocked,
+--         which remembers its answers),
 --       places = {}: filled with the places a walk to the target can start
 --         from on its continent { wx, wy, z (a dock's board point), start }, for Walk.Measure }
 -- -> legs or nil, reason
@@ -1247,14 +1250,17 @@ local function planBody(p, S)
 	if hooks and #hooks == 0 then hooks = nil end
 	local hookWalk = hooks and { from = {}, to = {} }
 	local side = faction == 1 and "Alliance" or faction == 2 and "Horde" or nil
+	-- p.blocked: the enemy-town check asked of this plan's walks (Nav.danger.Blocked; estimates pass one that
+	-- remembers its answers, estimateBlocked below).
+	local blocked = p.blocked or Nav.danger.Blocked
 	local function walk(u, v, cost, secs, du, tu, measured)
 		if not hooks and du + cost >= dist[v] then return end
 		-- A measured detour need not follow the chord, but both ends are still on foot.
 		if vc[u] ~= vc[v] then return end
 		if measured then
-			if Nav.danger.Blocked(vc[u], vx[u], vy[u], vx[u], vy[u], side)
-				or Nav.danger.Blocked(vc[v], vx[v], vy[v], vx[v], vy[v], side) then return end
-		elseif Nav.danger.Blocked(vc[u], vx[u], vy[u], vx[v], vy[v], side) then return end
+			if blocked(vc[u], vx[u], vy[u], vx[u], vy[u], side)
+				or blocked(vc[v], vx[v], vy[v], vx[v], vy[v], side) then return end
+		elseif blocked(vc[u], vx[u], vy[u], vx[v], vy[v], side) then return end
 		if hooks then
 			local f, t = hookWalk.from, hookWalk.to
 			f.c, f.wx, f.wy, t.c, t.wx, t.wy = vc[u], vx[u], vy[u], vc[v], vx[v], vy[v]
@@ -1451,7 +1457,7 @@ local function planBody(p, S)
 				if fl then
 					for i = 1, #fl - 1, 2 do
 						local v = taxiV[fl[i]]
-						if v and boarding.reachable[fl[i]] and not Nav.danger.Blocked(vc[v], vx[v], vy[v], vx[v], vy[v], side) then
+						if v and boarding.reachable[fl[i]] and not blocked(vc[v], vx[v], vy[v], vx[v], vy[v], side) then
 							local s = fl[i + 1] / FLIGHT_SPEED + FLIGHT_STOP
 							relax(v, du + s, tu + s, FLY, u)
 						end
@@ -2636,6 +2642,32 @@ local ESTIMATE_MS = 25
 local estimates, estimateOrder = {}, {}
 local budgetFrame, budgetSpent = nil, 0
 
+-- The enemy-town check (Nav.danger.Blocked) for estimates' plans, its answers remembered. A step change prices
+-- several candidates from the same spot (the nearest trainer or vendor: up to 8), and every plan, with its second
+-- pass for a discounted walk or the hearth, asks again about the same walks between flight masters, docks and
+-- crossings, as later step changes in the zone do; each walk is checked every 33 yards, two thirds of a plan's
+-- time. The check reads only its arguments and the enemy-town data, which never change in the game, so a
+-- remembered answer is the one asking again would give. Forgotten when the check or its data tables are replaced
+-- (the test worlds' own ground) and after BLOCKED_KEEP answers (the player's own spot is a new walk each time).
+local BLOCKED_KEEP = 2048
+local blockedSeen = { n = 0, answers = {} }
+local function estimateBlocked(c, x1, y1, x2, y2, side)
+	local D, seen = Nav.danger, blockedSeen
+	if seen.n >= BLOCKED_KEEP or seen.check ~= D.Blocked or seen.cells ~= D.areaCells or seen.bins ~= D.hubBins
+		or seen.radii ~= D.hubRadii then
+		seen.check, seen.cells, seen.bins, seen.radii = D.Blocked, D.areaCells, D.hubBins, D.hubRadii
+		seen.n, seen.answers = 0, {}
+	end
+	local key = format("%s:%.17g:%.17g:%.17g:%.17g:%s", tostring(c), x1, y1, x2, y2, tostring(side))
+	local why = seen.answers[key]
+	if why == nil then
+		why = D.Blocked(c, x1, y1, x2, y2, side) or false
+		seen.answers[key] = why
+		seen.n = seen.n + 1
+	end
+	return why or nil
+end
+
 local function pointWorld(p)
 	if type(p) ~= "table" then return nil end
 	if p.c and p.wx and p.wy then return p.c, p.wx, p.wy end
@@ -2710,6 +2742,7 @@ function Nav.EstimateTravel(from, to, budgeted, noHearth)
 		walkOnly = ghost or timed == "escort",
 		-- The same way the plan takes (its walks through zones far above dearer).
 		walkDanger = walkDanger(fc, fwx, fwy, tc, twx, twy),
+		blocked = estimateBlocked,
 	})
 	if t0 then budgetSpent = budgetSpent + (clock() - t0) end
 	local seconds
