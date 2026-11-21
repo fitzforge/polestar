@@ -3101,6 +3101,29 @@
 			],
 			"issue": 3277,
 			"pr": 3323
+		},
+		{
+			"id": "3400-hyjal-ruined-ballista-seed",
+			"quest": 93747,
+			"objective": 1,
+			"at": {
+				"map": 2482,
+				"x": 66.3,
+				"y": 79.2,
+				"frame": "live"
+			},
+			"note": "Violence Into Verdure: the Ruined Ballista stands at the east end of the Tainted Foothills' fields, a little north of the Ruined Flying Machine, where players planted its seed. The step pointed to 70.4,70.7 at the shrub field's north-eastern edge, where nothing can be planted; the ballista's seed now goes with the other two wrecks.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "data/recorded quests.json 93747 line 1 (Ruined Ballista reclaimed): trusted, 16 of 17 voters at 66.27,79.2 (builds 70938, 70959); lines 2 and 3 at 62.88,82.8 and 66.11,83.18, the guide's catapult and flying machine points"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#3400 (Stö, 0.4.2): standing at 70.25,70.90 with the seed bag, nothing to plant on"
+				}
+			],
+			"issue": 3400
 		}
 	]
 }
