@@ -3404,8 +3404,14 @@ L["%d characters on %d realms · each as of their last logout"] = "%d Charaktere
 L["1 character on %s"] = "1 Charakter auf %s"
 L["1 character on %s · each as of their last logout"] = "1 Charakter auf %s · zum Stand seiner letzten Abmeldung"
 L["%d characters on %s · each as of their last logout"] = "%d Charaktere auf %s · jeweils zum Stand ihrer letzten Abmeldung"
+L["1 character"] = "1 Charakter"
+L["1 character · each as of their last logout"] = "1 Charakter · zum Stand seiner letzten Abmeldung"
+L["%d characters · each as of their last logout"] = "%d Charaktere · jeweils zum Stand ihrer letzten Abmeldung"
 L["Forget %s"] = "%s vergessen"
 L["Characters is turned off. Turn it on under Options > Discovery > Lookup."] = "Charaktere ist ausgeschaltet. Schalte es unter Optionen > Entdecken > Nachschlagen ein."
+-- L["Another character named %s was saved before Forever's client stopped giving addons the realm name. Polestar can't tell whether it is this one, so it stays listed as it was; forget it if it is."] = ""
+-- L["%d characters named %s were saved on different realms before Forever's client stopped giving addons the realm name. Polestar can't tell which one you are playing, so they stay listed as they were and this character has a new entry; forget the old one that was this character."] = ""
+-- L["Rares met on %d realms are kept apart: Forever's client no longer gives addons the realm name, so Polestar can't tell which of them this is. Rares lists what you meet from now on."] = ""
 
 -- QoL/Keep.lua
 L["Don't sell: the guide needs it at step %d"] = "Nicht verkaufen: Der Guide braucht es bei Schritt %d"

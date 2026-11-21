@@ -3443,8 +3443,14 @@ L["%d characters on %d realms · each as of their last logout"] = "%d 個角色�
 L["1 character on %s"] = "%s 上的 1 個角色"
 L["1 character on %s · each as of their last logout"] = "%s 上的 1 個角色 · 以最後登出時為準"
 L["%d characters on %s · each as of their last logout"] = "%2$s 上的 %1$d 個角色 · 各自以最後登出時為準"
+L["1 character"] = "1 個角色"
+L["1 character · each as of their last logout"] = "1 個角色 · 以最後登出時為準"
+L["%d characters · each as of their last logout"] = "%d 個角色 · 各自以最後登出時為準"
 L["Forget %s"] = "忘記 %s"
 L["Characters is turned off. Turn it on under Options > Discovery > Lookup."] = "「角色」已關閉。可在「選項」>「探索」>「查詢」中開啟。"
+-- L["Another character named %s was saved before Forever's client stopped giving addons the realm name. Polestar can't tell whether it is this one, so it stays listed as it was; forget it if it is."] = ""
+-- L["%d characters named %s were saved on different realms before Forever's client stopped giving addons the realm name. Polestar can't tell which one you are playing, so they stay listed as they were and this character has a new entry; forget the old one that was this character."] = ""
+-- L["Rares met on %d realms are kept apart: Forever's client no longer gives addons the realm name, so Polestar can't tell which of them this is. Rares lists what you meet from now on."] = ""
 
 -- QoL/Keep.lua
 L["Don't sell: the guide needs it at step %d"] = "請勿販賣：指南在第 %d 步需要它"
