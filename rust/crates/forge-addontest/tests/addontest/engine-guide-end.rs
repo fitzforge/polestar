@@ -652,9 +652,10 @@ fn a_last_hand_in_from_the_line_is_no_end_whichever_quest_event_comes_first() {
 	assert_eq!(out, json!({ "line": true, "lineAfterRemoved": false, "log": {}, "live": 3 }));
 }
 
-// Only a line on screen counts, and only for its own guide: looking at the last step hides the lines, and handing
-// the quest in from there ends the guide as before; another guide whose last step hands in the same quest still
-// ends, although the active guide's line offered it.
+// Only a line on screen counts (for a few seconds after, as the hand-in's events may come after it), and only for
+// its own guide: looking at the last step hides the lines, and handing the quest in from there a while later ends
+// the guide as before; another guide whose last step hands in the same quest still ends, although the active
+// guide's line offered it.
 #[test]
 fn a_hidden_line_or_another_guide_s_line_is_no_offer_those_ends_still_come() {
 	let looking = run(Run {
@@ -662,7 +663,7 @@ fn a_hidden_line_or_another_guide_s_line_is_no_offer_those_ends_still_come() {
 		saved: None,
 		script: &format!(
 			r#"{way}
-			E.Goto(6); flush()
+			E.Goto(6); stub.advance(6)
 			local r = {{ line = E.GetWhileHere() or "none" }}
 			w.turnIn(300); flush()
 			r.log = takeLog()
@@ -688,4 +689,58 @@ fn a_hidden_line_or_another_guide_s_line_is_no_offer_those_ends_still_come() {
 		other,
 		json!({ "line": true, "active": "test/onway", "log": ["GUIDE_END test/other undone=1 live=1 next=test/barrens choose=nil"] })
 	);
+}
+
+// A repeatable last quest handed in from the line and taken again: the step stays seen done, no end on the accept;
+// the end comes with the rest of the guide.
+#[test]
+fn a_repeatable_last_quest_taken_again_after_its_offered_hand_in_is_no_end_either() {
+	let out = run(Run {
+		next: NEXT,
+		saved: None,
+		script: &format!(
+			r#"w.repeatable[300] = true
+			{way}
+			w.turnIn(300); flush()
+			local r = {{ handedIn = takeLog() }}
+			w.accept(300, {{ 1 }}); stub.advance(1.5)
+			r.again = takeLog()
+			w.turnIn(301); flush(); w.accept(302, {{}}); flush(); w.turnIn(302); flush()
+			r.rest = takeLog()
+			emit(r)"#,
+			way = on_the_way("")
+		),
+	});
+	assert_eq!(out["handedIn"], json!({}));
+	assert_eq!(out["again"], json!({}), "no end on taking it again");
+	assert_eq!(out["rest"], json!(["GUIDE_COMPLETED test/onway", "GUIDE_END test/onway undone=0 live=nil next=test/barrens choose=nil"]));
+}
+
+// The offer that counts is a hand-in that holds the last step: an optional one offered on the way, with the
+// step's own hand-in done out of turn right after, ends the guide as before.
+#[test]
+fn an_optional_hand_in_offered_on_the_way_does_not_hold_the_end_of_the_step_s_own_hand_in() {
+	let out = run(Run {
+		next: NEXT,
+		saved: None,
+		script: r#"
+			local function at(t, id, x, y) return { goals = { { t = t, quest = id, title = "Errand " .. id, npc = 9000 + id, npcName = "Giver " .. id, map = 1411, x = x, y = y } } } end
+			Polestar.RegisterGuide({ id = "test/optional", pack = "test", title = "Optional", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1411, next = "test/barrens",
+				steps = { at("accept", 300, 52, 43), at("accept", 303, 52, 43), at("accept", 301, 52, 43), at("turnin", 301, 70, 70),
+					{ goals = { { t = "turnin", quest = 300, title = "Errand 300", npc = 9300, npcName = "Giver 300", map = 1411, x = 52, y = 43, optional = true },
+						{ t = "turnin", quest = 303, title = "Errand 303", npc = 9303, npcName = "Giver 303", map = 1411, x = 80, y = 80 } } } } })
+			E.SetGuide("test/optional"); flush(); takeLog()
+			w.accept(300, { 1 }); flush(); w.accept(303, { 1 }); flush(); w.accept(301, {}); flush()
+			w.finish(300); w.finish(303); stub.advance(1.5)
+			local line = E.GetWhileHere()
+			local r = { live = E.GetLiveStep(), line = line and line.quest or "none" }
+			w.turnIn(300); flush()
+			r.optional = takeLog()
+			w.moveTo(1411, 80, 80); w.turnIn(303); flush()
+			r.own = takeLog()
+			emit(r)"#,
+	});
+	assert_eq!(out["live"], 4);
+	assert_eq!(out["optional"], json!({}));
+	assert_eq!(out["own"], json!(["GUIDE_END test/optional undone=1 live=4 next=test/barrens choose=nil"]));
 }
