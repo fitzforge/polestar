@@ -125,7 +125,7 @@ return {
 	["{npc:1078} and Whelgar"] = "{npc:1078} и Вельгар",
 	-- {npc:1077} Prospector Whelgar · {item:279993} Titanic Keystone
 	-- plural, as words: Goaz Warders = {npc:270892} Goaz Warder
-	["{npc:1077}, below ground: the {item:279993}, from the elite Goaz Warders"] = "{npc:1077}, под землёй: {item:279993}, от элитных хранителей Гоаза",
+	["{npc:1077}, below ground: the {item:279993}, from the elite Goaz Warders"] = "{npc:1077}, под землёй: {item:279993}, от элитных хранителей Гоаз",
 
 	-- Step 24: Goaz Warders
 	-- plural, as words: Goaz Warders = {npc:270892} Goaz Warder
