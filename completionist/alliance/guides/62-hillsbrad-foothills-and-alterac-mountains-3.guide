@@ -162,7 +162,7 @@ step The Battle of Alterac
 step Speak with Prospector Stonehewer
   tip The reference data has no giver for this quest: it is handed in here once the game offers it.
   zone map 1416
-  turnin 7221 direct
+  turnin 7221 direct @40.6,79.6 map 1416
 
 step Korrak the Bloodrager
   tip A repeatable quest: hand it in once, with what it asks for.

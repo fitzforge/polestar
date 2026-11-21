@@ -163,7 +163,6 @@ step Quel'ana Quickgale
 step Quel'dora Quickgale
   turnin 94050 only Skyborne
 
-
 step Level 58
   level 58
 
@@ -194,9 +193,6 @@ step Ancient Sinew Wrapped Lamina
   when onquest 7634
   zone map 1448
   turnin 7634 optional
-
-step Level 60
-  level 60
 
 step Stave of the Ancients
   only Hunter

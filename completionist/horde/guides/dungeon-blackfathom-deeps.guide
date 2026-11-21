@@ -28,10 +28,6 @@ step Je'neu Sancrea
   turnin 6562
   turnin 6564
 
-step Je'neu Sancrea
-  zone Ashenvale
-  accept 6921
-
 step Bashana Runetotem
   zone Thunder Bluff
   turnin 6561
@@ -39,20 +35,12 @@ step Bashana Runetotem
 step The Heart of the Void
   tip The reference data has no giver for this quest: it is handed in here once the game offers it.
   zone map 1456
-  turnin 78917 direct
+  turnin 78917 direct @71.1,34.2 map 1456
 
 step Je'neu Sancrea
   zone Ashenvale
   accept 6563
   accept 6565
-
-step Inside Blackfathom Deeps
-  zone Ashenvale
-  complete 6921 @15.1,13.2
-
-step Je'neu Sancrea
-  zone Ashenvale
-  turnin 6921
 
 step Inside Blackfathom Deeps, again
   zone Ashenvale
@@ -64,6 +52,8 @@ step Je'neu Sancrea
   turnin 6563
   turnin 6565
 
+step Level 20
+  level 20
 
 step Doan Karhan
   only Warlock
@@ -79,6 +69,21 @@ step Doan Karhan
   only Warlock
   zone The Barrens
   turnin 1740
+
+step Level 21
+  level 21
+
+step Je'neu Sancrea
+  zone Ashenvale
+  accept 6921
+
+step Inside Blackfathom Deeps
+  zone Ashenvale
+  complete 6921 @15.1,13.2
+
+step Je'neu Sancrea
+  zone Ashenvale
+  turnin 6921
 
 step Inside Blackfathom Deeps
   zone Ashenvale

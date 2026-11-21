@@ -251,7 +251,6 @@ step Felstone Field Cauldron
   collect 14047 x4 anywhere optional
   turnin 5218 direct optional
 
-
 step A Call to Arms: The Plaguelands!
   when available 5090
   tip One of several exclusive quests; the route takes A Call to Arms: The Plaguelands! (5066). This one shows for a character the game offers it to instead.

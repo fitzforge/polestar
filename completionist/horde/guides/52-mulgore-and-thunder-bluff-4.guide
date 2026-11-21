@@ -1,7 +1,7 @@
 guide polestar-completionist-horde/52-mulgore-and-thunder-bluff-4
 title 52 Mulgore and Thunder Bluff (60-60) (Completionist)
 faction Horde
-levels 60-60
+levels 59-60
 zone Mulgore
 next polestar-completionist-horde/53-silithus
 pitch On along the line: Mulgore and Thunder Bluff, level 60 quests.
@@ -98,7 +98,6 @@ step Your Fortune Awaits You...
   tip A repeatable quest: hand it in once, with what it asks for.
   zone map 1412
   turnin 7945 direct optional
-
 
 step Stealing Ironforge's Flame
   tip Flame of Ironforge is looted from Flame of Ironforge: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.

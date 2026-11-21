@@ -120,13 +120,6 @@ step Syurna
   accept 2242
   turnin 2259
 
-step Erion's Behest
-  only Rogue
-  when available 2260
-  tip One of several exclusive quests; the route takes Kingly Shakedown (2298). This one shows for a character the game offers it to instead.
-  zone map 1457
-  accept 2260 optional
-
 step Sethir the Ancient
   zone Teldrassil
   collect 7737 x1 quest 2242.1
@@ -178,12 +171,6 @@ step Doc Mixilpixil
   zone Stormwind City
   turnin 2609
   accept 2281
-
-step Erion's Behest
-  only Rogue
-  when onquest 2260
-  zone map 1453
-  turnin 2260 optional
 
 step Kingly Shakedown
   only Rogue
@@ -321,8 +308,15 @@ step The Talisman of Kazdor
   only Rogue
   turnin 80411 optional
 
-step The Eye of Bhossca
+step Erion's Behest
   only Rogue
-  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
-  zone map 1421
-  turnin 78699 direct optional
+  when available 2260
+  tip One of several exclusive quests; the route takes Kingly Shakedown (2298). This one shows for a character the game offers it to instead.
+  zone map 1457
+  accept 2260 optional
+
+step Erion's Behest
+  only Rogue
+  when onquest 2260
+  zone map 1453
+  turnin 2260 optional

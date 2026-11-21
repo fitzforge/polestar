@@ -86,6 +86,8 @@ step Messenger Bag
 step Hastily Rolled-Up Satchel
   turnin 79976
 
+step Level 40
+  level 40
 
 step Your First Riding Galestrider
   only Skyborne

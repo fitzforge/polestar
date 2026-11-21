@@ -22,13 +22,13 @@ step Kreza Darkthorn
 step Farholde Scouting Report
   tip The reference data has no giver for this quest: it is handed in here once the game offers it.
   zone map 2548
-  turnin 93971 direct
+  turnin 93971 direct @59.4,45.6 map 2548
 
 step Hail the Dragonslayer
   when has 271613
   tip The reference data has no giver for this quest: it is handed in here once the game offers it.
   zone map 2548
-  turnin 95936 direct
+  turnin 95936 direct @59.4,45.6 map 2548
 
 step Twilight Scouting Report
   tip The giver and hand-in are not in the reference data. The quest text is Azka's, whom the data does not place, and has her report go to Krom'rosh, taken here to be the hand-in.

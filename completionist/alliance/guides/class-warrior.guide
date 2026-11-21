@@ -441,7 +441,6 @@ step Essence of the Exile
   collect 4481 x8 anywhere optional
   turnin 1714 direct optional
 
-
 step Anthion's Parting Words
   only Warrior
   when turnedin 9015

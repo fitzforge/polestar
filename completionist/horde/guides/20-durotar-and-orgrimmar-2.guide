@@ -13,34 +13,6 @@ step Razor Hill
   zone Durotar
   sethome "Razor Hill"
 
-step Your First Riding Raptor
-  only Troll
-  zone map 1411
-  accept 96989
-
-step Learning to Ride
-  only Troll
-  zone map 1411
-  accept 97200
-
-step Learning to Ride
-  only Troll
-  when onquest 97200
-  zone map 1411
-  turnin 97200
-
-step Your First Riding Raptor
-  only Troll
-  when onquest 96989
-  zone map 1411
-  complete 96989 @55.2,75.6
-
-step Your First Riding Raptor
-  only Troll
-  when onquest 96989
-  zone map 1411
-  turnin 96989
-
 step Orgrimmar
   zone Orgrimmar
   getfp "Orgrimmar"
@@ -49,24 +21,6 @@ step Belgrom Rockmaul
   zone Orgrimmar
   accept 1146
   accept 2950
-
-step The Art of the Armorsmith
-  when available 5301
-  tip One of several exclusive quests; the route takes The Way of the Weaponsmith (5302). This one shows for a character the game offers it to instead.
-  when skill Blacksmithing 200
-  zone map 1454
-  accept 5301 optional
-
-step The Art of the Armorsmith
-  when onquest 5301
-  tip The reference data does not place this quest's objective: follow the quest text.
-  zone map 1454
-  complete 5301 @79.8,24.1 optional
-
-step The Art of the Armorsmith
-  when onquest 5301
-  zone map 1454
-  turnin 5301 optional
 
 step Craven Drok
   accept 1431
@@ -280,3 +234,49 @@ step Joys of Omosh
   when skill Blacksmithing 1
   zone map 1454
   turnin 2755 optional
+
+step Your First Riding Raptor
+  only Troll
+  zone map 1411
+  accept 96989
+
+step Your First Riding Raptor
+  only Troll
+  when onquest 96989
+  zone map 1411
+  complete 96989 @55.2,75.6
+
+step Your First Riding Raptor
+  only Troll
+  when onquest 96989
+  zone map 1411
+  turnin 96989
+
+step Learning to Ride
+  only Troll
+  zone map 1411
+  accept 97200
+
+step Learning to Ride
+  only Troll
+  when onquest 97200
+  zone map 1411
+  turnin 97200
+
+step The Art of the Armorsmith
+  when available 5301
+  tip One of several exclusive quests; the route takes The Way of the Weaponsmith (5302). This one shows for a character the game offers it to instead.
+  when skill Blacksmithing 200
+  zone map 1454
+  accept 5301 optional
+
+step The Art of the Armorsmith
+  when onquest 5301
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 5301 @79.8,24.1 optional
+
+step The Art of the Armorsmith
+  when onquest 5301
+  zone map 1454
+  turnin 5301 optional

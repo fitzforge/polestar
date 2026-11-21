@@ -166,7 +166,7 @@ step Baron Aquanis
   only Orc,Undead,Tauren,Troll
   tip The reference data has no giver for this quest: it is handed in here once the game offers it.
   zone map 1440
-  turnin 909 direct
+  turnin 909 direct @11.6,34.3 map 1440
 
 step Wrathtail Myrmidon
   zone Darkshore

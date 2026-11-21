@@ -93,13 +93,13 @@ step Forlorn Necklace
   when has 260247
   tip The reference data has no giver for this quest: it is handed in here once the game offers it.
   zone map 2652
-  turnin 93609 direct
+  turnin 93609 direct @53.3,76.0 map 2652
 
 step Partially Digested Collar
   when has 259461
   tip The reference data has no giver for this quest: it is handed in here once the game offers it.
   zone map 2652
-  turnin 93568 direct
+  turnin 93568 direct @47.5,65.6 map 2652
 
 step Rowdy Rose
   kill 254566 x1 quest 93362.1
@@ -180,7 +180,7 @@ step Corpsefeeder's Carapace
   when has 259893
   tip The reference data has no giver for this quest: it is handed in here once the game offers it.
   zone map 2652
-  turnin 93574 direct
+  turnin 93574 direct @72.7,31.2 map 2652
 
 step Not on Squealing Terms
   turnin 93606
@@ -189,7 +189,7 @@ step Tattered Journal
   when has 260347
   tip The reference data has no giver for this quest: it is handed in here once the game offers it.
   zone map 2652
-  turnin 93644 direct
+  turnin 93644 direct @35.2,46.6 map 2652
 
 step Uthek the Wise
   zone Desolace

@@ -210,7 +210,7 @@ step Falla Sagewind
 step The Glowing Shard
   tip The reference data has no giver for this quest: it is handed in here once the game offers it.
   zone map 1413
-  turnin 3366 direct
+  turnin 3366 direct @48.2,32.8 map 1413
 
 step Thork
   turnin 906

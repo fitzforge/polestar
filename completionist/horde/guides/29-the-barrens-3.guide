@@ -19,13 +19,6 @@ step Gazlowe
   accept 98906
   turnin 98906
 
-step Goblin Engineering
-  when available 3633
-  tip One of several exclusive quests; the route takes Goblin Engineering (3526). This one shows for a character the game offers it to instead.
-  when skill Engineering 200
-  zone map 1413
-  accept 3633 optional
-
 step Membership Card Renewal
   when turnedin 3639
   when skill Engineering 200
@@ -243,11 +236,18 @@ step Shreev
   zone Tanaris
   turnin 1188
 
+step Crank Fizzlebub
+  zone Stranglethorn Vale
+  turnin 1118
+
+step Goblin Engineering
+  when available 3633
+  tip One of several exclusive quests; the route takes Goblin Engineering (3526). This one shows for a character the game offers it to instead.
+  when skill Engineering 200
+  zone map 1413
+  accept 3633 optional
+
 step Goblin Engineering
   when onquest 3633
   zone map 1446
   turnin 3633 optional
-
-step Crank Fizzlebub
-  zone Stranglethorn Vale
-  turnin 1118

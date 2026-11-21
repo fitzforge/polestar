@@ -151,4 +151,4 @@ step Mirage Mirror
   when has 278744
   tip The reference data has no giver for this quest: it is handed in here once the game offers it.
   zone map 1418
-  turnin 97821 direct
+  turnin 97821 direct @54.6,12.9 map 1418

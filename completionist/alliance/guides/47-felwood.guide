@@ -615,7 +615,6 @@ step Islen Waterseer
   zone The Barrens
   turnin 5158
 
-
 step Corruptor's Scourgestones
   when turnedin 5401
   tip A repeatable quest: hand it in once, with what it asks for.

@@ -333,9 +333,3 @@ step Call of Water
   when onquest 2986
   zone map 1413
   turnin 2986 optional
-
-step Call of Fire
-  only Shaman,Skyborne
-  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
-  zone map 2521
-  turnin 98517 direct optional

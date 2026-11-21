@@ -946,256 +946,6 @@ step The Great Outdoors
 step The Great Outdoors
   turnin 96101
 
-step Camping 101: Tailoring
-  only Skyborne
-  when available 97937
-  tip One of several exclusive quests; the route takes Camping 101: Tailoring (96102). This one shows for a character the game offers it to instead.
-  when skill Tailoring 1
-  zone map 1412
-  accept 97937 optional
-
-step Camping 101: Tailoring
-  only Skyborne
-  when onquest 97937
-  tip The reference data does not place this quest's objective: follow the quest text.
-  zone map 1412
-  complete 97937 @46.2,67.3 optional
-
-step Camping 101: Tailoring
-  only Skyborne
-  when onquest 97937
-  zone map 1456
-  turnin 97937 optional
-
-step Camping 101: Skinning
-  only Skyborne
-  when available 97908
-  tip One of several exclusive quests; the route takes Camping 101: Skinning (97936). This one shows for a character the game offers it to instead.
-  when skill Skinning 1
-  zone map 1411
-  accept 97908 optional
-
-step Camping 101: Skinning
-  only Skyborne
-  when onquest 97908
-  tip The reference data does not place this quest's objective: follow the quest text.
-  zone map 1411
-  complete 97908 @52.0,47.3 optional
-
-step Camping 101: Skinning
-  only Skyborne
-  when onquest 97908
-  zone map 1454
-  turnin 97908 optional
-
-step Camping 101: Mining
-  only Skyborne
-  when available 97907
-  tip One of several exclusive quests; the route takes Camping 101: Mining (97935). This one shows for a character the game offers it to instead.
-  when skill Mining 1
-  zone map 1411
-  accept 97907 optional
-
-step Camping 101: Mining
-  only Skyborne
-  when onquest 97907
-  tip The reference data does not place this quest's objective: follow the quest text.
-  zone map 1411
-  complete 97907 @52.0,47.3 optional
-
-step Camping 101: Mining
-  only Skyborne
-  when onquest 97907
-  zone map 1411
-  turnin 97907 optional
-
-step Camping 101: Leatherworking
-  only Skyborne
-  when available 97906
-  tip One of several exclusive quests; the route takes Camping 101: Leatherworking (97934). This one shows for a character the game offers it to instead.
-  when skill Leatherworking 1
-  zone map 1411
-  accept 97906 optional
-
-step Camping 101: Leatherworking
-  only Skyborne
-  when onquest 97906
-  tip The reference data does not place this quest's objective: follow the quest text.
-  zone map 1411
-  complete 97906 @52.0,47.3 optional
-
-step Camping 101: Leatherworking
-  only Skyborne
-  when onquest 97906
-  zone map 1454
-  turnin 97906 optional
-
-step Camping 101: Herbalism
-  only Skyborne
-  when available 97905
-  tip One of several exclusive quests; the route takes Camping 101: Herbalism (97933). This one shows for a character the game offers it to instead.
-  when skill Herbalism 1
-  zone map 1411
-  accept 97905 optional
-
-step Camping 101: Herbalism
-  only Skyborne
-  when onquest 97905
-  tip The reference data does not place this quest's objective: follow the quest text.
-  zone map 1411
-  complete 97905 @52.0,47.3 optional
-
-step Camping 101: Herbalism
-  only Skyborne
-  when onquest 97905
-  zone map 1454
-  turnin 97905 optional
-
-step Camping 101: Fishing
-  only Skyborne
-  when available 97904
-  tip One of several exclusive quests; the route takes Camping 101: Fishing (97932). This one shows for a character the game offers it to instead.
-  when skill Fishing 1
-  zone map 1411
-  accept 97904 optional
-
-step Camping 101: Fishing
-  only Skyborne
-  when onquest 97904
-  tip The reference data does not place this quest's objective: follow the quest text.
-  zone map 1411
-  complete 97904 @52.0,47.3 optional
-
-step Camping 101: Fishing
-  only Skyborne
-  when onquest 97904
-  zone map 1411
-  turnin 97904 optional
-
-step Camping 101: First Aid
-  only Skyborne
-  when available 97903
-  tip One of several exclusive quests; the route takes Camping 101: First Aid (97931). This one shows for a character the game offers it to instead.
-  when skill "First Aid" 1
-  zone map 1411
-  accept 97903 optional
-
-step Camping 101: First Aid
-  only Skyborne
-  when onquest 97903
-  tip The reference data does not place this quest's objective: follow the quest text.
-  zone map 1411
-  complete 97903 @52.0,47.3 optional
-
-step Camping 101: First Aid
-  only Skyborne
-  when onquest 97903
-  zone map 1411
-  turnin 97903 optional
-
-step Camping 101: Engineering
-  only Skyborne
-  when available 97902
-  tip One of several exclusive quests; the route takes Camping 101: Engineering (97930). This one shows for a character the game offers it to instead.
-  when skill Engineering 1
-  zone map 1411
-  accept 97902 optional
-
-step Camping 101: Engineering
-  only Skyborne
-  when onquest 97902
-  tip The reference data does not place this quest's objective: follow the quest text.
-  zone map 1411
-  complete 97902 @52.0,47.3 optional
-
-step Camping 101: Engineering
-  only Skyborne
-  when onquest 97902
-  zone map 1411
-  turnin 97902 optional
-
-step Camping 101: Enchanting
-  only Skyborne
-  when available 97901
-  tip One of several exclusive quests; the route takes Camping 101: Enchanting (97929). This one shows for a character the game offers it to instead.
-  when skill Enchanting 1
-  zone map 1411
-  accept 97901 optional
-
-step Camping 101: Enchanting
-  only Skyborne
-  when onquest 97901
-  tip The reference data does not place this quest's objective: follow the quest text.
-  zone map 1411
-  complete 97901 @52.0,47.3 optional
-
-step Camping 101: Enchanting
-  only Skyborne
-  when onquest 97901
-  zone map 1454
-  turnin 97901 optional
-
-step Camping 101: Blacksmithing
-  only Skyborne
-  when available 97900
-  tip One of several exclusive quests; the route takes Camping 101: Blacksmithing (97928). This one shows for a character the game offers it to instead.
-  when skill Blacksmithing 1
-  zone map 1411
-  accept 97900 optional
-
-step Camping 101: Blacksmithing
-  only Skyborne
-  when onquest 97900
-  tip The reference data does not place this quest's objective: follow the quest text.
-  zone map 1411
-  complete 97900 @52.0,47.3 optional
-
-step Camping 101: Blacksmithing
-  only Skyborne
-  when onquest 97900
-  zone map 1411
-  turnin 97900 optional
-
-step Camping 101: Alchemy
-  only Skyborne
-  when available 97899
-  tip One of several exclusive quests; the route takes Camping 101: Alchemy (97927). This one shows for a character the game offers it to instead.
-  when skill Alchemy 1
-  zone map 1411
-  accept 97899 optional
-
-step Camping 101: Alchemy
-  only Skyborne
-  when onquest 97899
-  tip The reference data does not place this quest's objective: follow the quest text.
-  zone map 1411
-  complete 97899 @52.0,47.3 optional
-
-step Camping 101: Alchemy
-  only Skyborne
-  when onquest 97899
-  zone map 1454
-  turnin 97899 optional
-
-step Camping 101: Cooking
-  only Skyborne
-  when available 96646
-  tip One of several exclusive quests; the route takes Camping 101: Cooking (96655). This one shows for a character the game offers it to instead.
-  zone map 2521
-  accept 96646 optional
-
-step Camping 101: Cooking
-  only Skyborne
-  when onquest 96646
-  zone map 2521
-  complete 96646 @43.9,43.8 optional
-
-step Camping 101: Cooking
-  only Skyborne
-  when onquest 96646
-  zone map 2521
-  turnin 96646 optional
-
 step Camping 101: Enchanting
   only Skyborne
   when available 98284
@@ -1968,3 +1718,253 @@ step The Fate of the Den
   when onquest 94491
   zone map 2521
   turnin 94491
+
+step Camping 101: Cooking
+  only Skyborne
+  when available 96646
+  tip One of several exclusive quests; the route takes Camping 101: Cooking (96655). This one shows for a character the game offers it to instead.
+  zone map 2521
+  accept 96646 optional
+
+step Camping 101: Cooking
+  only Skyborne
+  when onquest 96646
+  zone map 2521
+  complete 96646 @43.9,43.8 optional
+
+step Camping 101: Cooking
+  only Skyborne
+  when onquest 96646
+  zone map 2521
+  turnin 96646 optional
+
+step Camping 101: Alchemy
+  only Skyborne
+  when available 97899
+  tip One of several exclusive quests; the route takes Camping 101: Alchemy (97927). This one shows for a character the game offers it to instead.
+  when skill Alchemy 1
+  zone map 1411
+  accept 97899 optional
+
+step Camping 101: Alchemy
+  only Skyborne
+  when onquest 97899
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1411
+  complete 97899 @52.0,47.3 optional
+
+step Camping 101: Alchemy
+  only Skyborne
+  when onquest 97899
+  zone map 1454
+  turnin 97899 optional
+
+step Camping 101: Blacksmithing
+  only Skyborne
+  when available 97900
+  tip One of several exclusive quests; the route takes Camping 101: Blacksmithing (97928). This one shows for a character the game offers it to instead.
+  when skill Blacksmithing 1
+  zone map 1411
+  accept 97900 optional
+
+step Camping 101: Blacksmithing
+  only Skyborne
+  when onquest 97900
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1411
+  complete 97900 @52.0,47.3 optional
+
+step Camping 101: Blacksmithing
+  only Skyborne
+  when onquest 97900
+  zone map 1411
+  turnin 97900 optional
+
+step Camping 101: Enchanting
+  only Skyborne
+  when available 97901
+  tip One of several exclusive quests; the route takes Camping 101: Enchanting (97929). This one shows for a character the game offers it to instead.
+  when skill Enchanting 1
+  zone map 1411
+  accept 97901 optional
+
+step Camping 101: Enchanting
+  only Skyborne
+  when onquest 97901
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1411
+  complete 97901 @52.0,47.3 optional
+
+step Camping 101: Enchanting
+  only Skyborne
+  when onquest 97901
+  zone map 1454
+  turnin 97901 optional
+
+step Camping 101: Engineering
+  only Skyborne
+  when available 97902
+  tip One of several exclusive quests; the route takes Camping 101: Engineering (97930). This one shows for a character the game offers it to instead.
+  when skill Engineering 1
+  zone map 1411
+  accept 97902 optional
+
+step Camping 101: Engineering
+  only Skyborne
+  when onquest 97902
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1411
+  complete 97902 @52.0,47.3 optional
+
+step Camping 101: Engineering
+  only Skyborne
+  when onquest 97902
+  zone map 1411
+  turnin 97902 optional
+
+step Camping 101: First Aid
+  only Skyborne
+  when available 97903
+  tip One of several exclusive quests; the route takes Camping 101: First Aid (97931). This one shows for a character the game offers it to instead.
+  when skill "First Aid" 1
+  zone map 1411
+  accept 97903 optional
+
+step Camping 101: First Aid
+  only Skyborne
+  when onquest 97903
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1411
+  complete 97903 @52.0,47.3 optional
+
+step Camping 101: First Aid
+  only Skyborne
+  when onquest 97903
+  zone map 1411
+  turnin 97903 optional
+
+step Camping 101: Fishing
+  only Skyborne
+  when available 97904
+  tip One of several exclusive quests; the route takes Camping 101: Fishing (97932). This one shows for a character the game offers it to instead.
+  when skill Fishing 1
+  zone map 1411
+  accept 97904 optional
+
+step Camping 101: Fishing
+  only Skyborne
+  when onquest 97904
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1411
+  complete 97904 @52.0,47.3 optional
+
+step Camping 101: Fishing
+  only Skyborne
+  when onquest 97904
+  zone map 1411
+  turnin 97904 optional
+
+step Camping 101: Herbalism
+  only Skyborne
+  when available 97905
+  tip One of several exclusive quests; the route takes Camping 101: Herbalism (97933). This one shows for a character the game offers it to instead.
+  when skill Herbalism 1
+  zone map 1411
+  accept 97905 optional
+
+step Camping 101: Herbalism
+  only Skyborne
+  when onquest 97905
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1411
+  complete 97905 @52.0,47.3 optional
+
+step Camping 101: Herbalism
+  only Skyborne
+  when onquest 97905
+  zone map 1454
+  turnin 97905 optional
+
+step Camping 101: Leatherworking
+  only Skyborne
+  when available 97906
+  tip One of several exclusive quests; the route takes Camping 101: Leatherworking (97934). This one shows for a character the game offers it to instead.
+  when skill Leatherworking 1
+  zone map 1411
+  accept 97906 optional
+
+step Camping 101: Leatherworking
+  only Skyborne
+  when onquest 97906
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1411
+  complete 97906 @52.0,47.3 optional
+
+step Camping 101: Leatherworking
+  only Skyborne
+  when onquest 97906
+  zone map 1454
+  turnin 97906 optional
+
+step Camping 101: Mining
+  only Skyborne
+  when available 97907
+  tip One of several exclusive quests; the route takes Camping 101: Mining (97935). This one shows for a character the game offers it to instead.
+  when skill Mining 1
+  zone map 1411
+  accept 97907 optional
+
+step Camping 101: Mining
+  only Skyborne
+  when onquest 97907
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1411
+  complete 97907 @52.0,47.3 optional
+
+step Camping 101: Mining
+  only Skyborne
+  when onquest 97907
+  zone map 1411
+  turnin 97907 optional
+
+step Camping 101: Skinning
+  only Skyborne
+  when available 97908
+  tip One of several exclusive quests; the route takes Camping 101: Skinning (97936). This one shows for a character the game offers it to instead.
+  when skill Skinning 1
+  zone map 1411
+  accept 97908 optional
+
+step Camping 101: Skinning
+  only Skyborne
+  when onquest 97908
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1411
+  complete 97908 @52.0,47.3 optional
+
+step Camping 101: Skinning
+  only Skyborne
+  when onquest 97908
+  zone map 1454
+  turnin 97908 optional
+
+step Camping 101: Tailoring
+  only Skyborne
+  when available 97937
+  tip One of several exclusive quests; the route takes Camping 101: Tailoring (96102). This one shows for a character the game offers it to instead.
+  when skill Tailoring 1
+  zone map 1412
+  accept 97937 optional
+
+step Camping 101: Tailoring
+  only Skyborne
+  when onquest 97937
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1412
+  complete 97937 @46.2,67.3 optional
+
+step Camping 101: Tailoring
+  only Skyborne
+  when onquest 97937
+  zone map 1456
+  turnin 97937 optional

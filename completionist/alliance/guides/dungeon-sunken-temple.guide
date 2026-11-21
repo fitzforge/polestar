@@ -715,46 +715,6 @@ step Tyrande and Remulos
   zone map 1450
   turnin 8734
 
-step The Nightmare's Corruption
-  zone map 1450
-  accept 8735
-
-step The Nightmare's Corruption
-  when onquest 8735
-  tip The reference data does not place this quest's objective: follow the quest text.
-  zone map 1450
-  complete 8735 @36.2,41.8
-
-step The Nightmare's Corruption
-  when onquest 8735
-  zone map 1450
-  turnin 8735
-
-step The Nightmare Manifests
-  when turnedin 8735
-  zone map 1450
-  accept 8736
-
-step The Nightmare Manifests
-  when onquest 8736
-  zone map 1450
-  complete 8736 @51.8,36.4
-
-step The Nightmare Manifests
-  when onquest 8736
-  zone map 1450
-  turnin 8736
-
-step The Champion Returns
-  when turnedin 8736
-  zone map 1450
-  accept 8741
-
-step The Champion Returns
-  when onquest 8741
-  zone map 1446
-  turnin 8741
-
 step Torwa Pathfinder
   only Druid
   zone Tanaris
@@ -806,3 +766,43 @@ step Bloodpetal Sprouts
 step Brohann Caskbelly
   zone Stormwind City
   turnin 1475
+
+step The Nightmare's Corruption
+  zone map 1450
+  accept 8735
+
+step The Nightmare's Corruption
+  when onquest 8735
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1450
+  complete 8735 @36.2,41.8
+
+step The Nightmare's Corruption
+  when onquest 8735
+  zone map 1450
+  turnin 8735
+
+step The Nightmare Manifests
+  when turnedin 8735
+  zone map 1450
+  accept 8736
+
+step The Nightmare Manifests
+  when onquest 8736
+  zone map 1450
+  complete 8736 @51.8,36.4
+
+step The Nightmare Manifests
+  when onquest 8736
+  zone map 1450
+  turnin 8736
+
+step The Champion Returns
+  when turnedin 8736
+  zone map 1450
+  accept 8741
+
+step The Champion Returns
+  when onquest 8741
+  zone map 1446
+  turnin 8741

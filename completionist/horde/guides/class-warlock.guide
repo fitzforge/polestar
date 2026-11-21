@@ -170,13 +170,6 @@ step Strahad Farsan
   zone Winterspring
   turnin 3631
 
-step Shard of a Felhound
-  only Warlock
-  when available 4962
-  tip One of several exclusive quests; the route takes Shard of an Infernal (4963). This one shows for a character the game offers it to instead.
-  zone map 1413
-  accept 4962 optional
-
 step Shard of an Infernal
   only Warlock
   when available 4963
@@ -188,19 +181,6 @@ step Strahad Farsan
   zone Orgrimmar
   accept 4490
   turnin 4490
-
-step Shard of a Felhound
-  only Warlock
-  when onquest 4962
-  tip The reference data does not place this quest's objective: follow the quest text.
-  zone map 1413
-  complete 4962 @62.6,35.3 optional
-
-step Shard of a Felhound
-  only Warlock
-  when onquest 4962
-  zone map 1413
-  turnin 4962 optional
 
 step Shard of an Infernal
   only Warlock
@@ -272,33 +252,9 @@ step Tabetha
   zone Dustwallow Marsh
   turnin 1799
 
-step Cleansing of the Orb of Orahil
-  only Warlock
-  when turnedin 4962
-  zone map 1445
-  accept 4961 optional
-
-step Cleansing of the Orb of Orahil
-  only Warlock
-  when onquest 4961
-  zone map 1445
-  complete 4961 @45.8,57.0 optional
-
-step Cleansing of the Orb of Orahil
-  only Warlock
-  when onquest 4961
-  zone map 1445
-  turnin 4961 optional
-
 step Components for the Enchanted Gold Bloodrobe
   only Warlock
   turnin 4782 optional
-
-step Returning the Cleansed Orb
-  only Warlock
-  when turnedin 4961
-  zone map 1445
-  accept 4976 optional
 
 step Components for the Enchanted Gold Bloodrobe
   only Warlock
@@ -306,12 +262,6 @@ step Components for the Enchanted Gold Bloodrobe
   accept 4783 optional
   tip A class quest, done from the quest text: the reference data does not route it.
   complete 4783 @62.5,35.5 optional
-
-step Returning the Cleansed Orb
-  only Warlock
-  when onquest 4976
-  zone map 1413
-  turnin 4976 optional
 
 step Niby the Almighty
   zone Felwood
@@ -553,22 +503,6 @@ step Strahad Farsan
   turnin 1805
   accept 1795
 
-step The Completed Orb of Noh'Orahil
-  only Warlock
-  when available 4975
-  tip One of several exclusive quests; the route takes Shard of a Felhound (4962). This one shows for a character the game offers it to instead.
-  when turnedin 4976
-  zone map 1413
-  accept 4975 optional
-
-step The Completed Orb of Dar'Orahil
-  only Warlock
-  when available 4964
-  tip One of several exclusive quests; the route takes Shard of an Infernal (4963). This one shows for a character the game offers it to instead.
-  when turnedin 4976
-  zone map 1413
-  accept 4964 optional
-
 step Summon Felsteed
   only Warlock
   when onquest 4489
@@ -596,30 +530,6 @@ step Seeking Strahad
 step Components for the Enchanted Gold Bloodrobe
   only Warlock
   turnin 4783 optional
-
-step The Completed Orb of Noh'Orahil
-  only Warlock
-  when onquest 4975
-  zone map 1413
-  complete 4975 @62.5,35.5 optional
-
-step The Completed Orb of Noh'Orahil
-  only Warlock
-  when onquest 4975
-  zone map 1413
-  turnin 4975 optional
-
-step The Completed Orb of Dar'Orahil
-  only Warlock
-  when onquest 4964
-  zone map 1413
-  complete 4964 @62.5,35.5 optional
-
-step The Completed Orb of Dar'Orahil
-  only Warlock
-  when onquest 4964
-  zone map 1413
-  turnin 4964 optional
 
 step Fine Gold Thread
   only Warlock
@@ -655,7 +565,6 @@ step The Completed Robe
   only Warlock
   turnin 4786 optional
 
-
 step Halgar's Summons
   only Warlock,Orc,Undead,Troll
   when available 1478
@@ -687,3 +596,93 @@ step Atiesh, Greatstaff of the Guardian
   when onquest 9271
   zone map 1446
   turnin 9271 optional
+
+step Shard of a Felhound
+  only Warlock
+  when available 4962
+  tip One of several exclusive quests; the route takes Shard of an Infernal (4963). This one shows for a character the game offers it to instead.
+  zone map 1413
+  accept 4962 optional
+
+step Shard of a Felhound
+  only Warlock
+  when onquest 4962
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1413
+  complete 4962 @62.6,35.3 optional
+
+step Shard of a Felhound
+  only Warlock
+  when onquest 4962
+  zone map 1413
+  turnin 4962 optional
+
+step Cleansing of the Orb of Orahil
+  only Warlock
+  when turnedin 4962
+  zone map 1445
+  accept 4961 optional
+
+step Cleansing of the Orb of Orahil
+  only Warlock
+  when onquest 4961
+  zone map 1445
+  complete 4961 @45.8,57.0 optional
+
+step Cleansing of the Orb of Orahil
+  only Warlock
+  when onquest 4961
+  zone map 1445
+  turnin 4961 optional
+
+step Returning the Cleansed Orb
+  only Warlock
+  when turnedin 4961
+  zone map 1445
+  accept 4976 optional
+
+step Returning the Cleansed Orb
+  only Warlock
+  when onquest 4976
+  zone map 1413
+  turnin 4976 optional
+
+step The Completed Orb of Dar'Orahil
+  only Warlock
+  when available 4964
+  tip One of several exclusive quests; the route takes Shard of an Infernal (4963). This one shows for a character the game offers it to instead.
+  when turnedin 4976
+  zone map 1413
+  accept 4964 optional
+
+step The Completed Orb of Dar'Orahil
+  only Warlock
+  when onquest 4964
+  zone map 1413
+  complete 4964 @62.5,35.5 optional
+
+step The Completed Orb of Dar'Orahil
+  only Warlock
+  when onquest 4964
+  zone map 1413
+  turnin 4964 optional
+
+step The Completed Orb of Noh'Orahil
+  only Warlock
+  when available 4975
+  tip One of several exclusive quests; the route takes Shard of a Felhound (4962). This one shows for a character the game offers it to instead.
+  when turnedin 4976
+  zone map 1413
+  accept 4975 optional
+
+step The Completed Orb of Noh'Orahil
+  only Warlock
+  when onquest 4975
+  zone map 1413
+  complete 4975 @62.5,35.5 optional
+
+step The Completed Orb of Noh'Orahil
+  only Warlock
+  when onquest 4975
+  zone map 1413
+  turnin 4975 optional

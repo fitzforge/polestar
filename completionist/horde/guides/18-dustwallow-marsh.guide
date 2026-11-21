@@ -84,6 +84,15 @@ step "Swamp Eye" Jarl
   zone Dustwallow Marsh
   turnin 1206
 
+step Mebok Mizzyrix
+  zone The Barrens
+  complete 1270 @48.9,24.6 map 1445
+  turnin 1270
+
+step Kin'weelay
+  zone Stranglethorn Vale
+  turnin 1240
+
 step Jarl Needs a Blade
   when available 1203
   tip One of several exclusive quests; the route takes Jarl Needs a Blade (81570). This one shows for a character the game offers it to instead.
@@ -100,12 +109,3 @@ step Jarl Needs a Blade
   when onquest 1203
   zone map 1445
   turnin 1203 optional
-
-step Mebok Mizzyrix
-  zone The Barrens
-  complete 1270 @48.9,24.6 map 1445
-  turnin 1270
-
-step Kin'weelay
-  zone Stranglethorn Vale
-  turnin 1240

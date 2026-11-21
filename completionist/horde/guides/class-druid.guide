@@ -250,7 +250,6 @@ step Ur'endra
 step Urs'endris
   turnin 94638 only Skyborne
 
-
 step Heeding the Call
   only Druid,Tauren
   when available 5927

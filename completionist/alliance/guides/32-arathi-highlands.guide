@@ -13,23 +13,11 @@ step Captain Nials
   getfp "Refuge Pointe"
   accept 681
 
-step Arathor Basic Care Package
-  when available 8260
-  tip One of several exclusive quests; the route takes Arathor Standard Care Package (8261). This one shows for a character the game offers it to instead.
-  tip Needs Friendly standing (3000) with The League of Arathor; without it the quest is not offered.
-  zone map 1417
-  accept 8260 optional
-
 step More Resource Crates
   tip A repeatable quest: hand it in once, with what it asks for.
   zone map 1417
   collect 19725 x1 anywhere optional
   turnin 8298 direct optional
-
-step Arathor Basic Care Package
-  when onquest 8260
-  zone map 1417
-  turnin 8260 optional
 
 step More Resource Crates
   tip A repeatable quest: hand it in once, with what it asks for.
@@ -522,3 +510,15 @@ step Taste Testing
   when onquest 79678
   zone map 1417
   turnin 79678
+
+step Arathor Basic Care Package
+  when available 8260
+  tip One of several exclusive quests; the route takes Arathor Standard Care Package (8261). This one shows for a character the game offers it to instead.
+  tip Needs Friendly standing (3000) with The League of Arathor; without it the quest is not offered.
+  zone map 1417
+  accept 8260 optional
+
+step Arathor Basic Care Package
+  when onquest 8260
+  zone map 1417
+  turnin 8260 optional

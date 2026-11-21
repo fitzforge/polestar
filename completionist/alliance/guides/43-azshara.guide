@@ -121,7 +121,7 @@ step Ekkal
 step Legashi Horns
   tip The reference data has no giver for this quest: it is handed in here once the game offers it.
   zone map 1447
-  turnin 86747 direct
+  turnin 86747 direct @42,38.9 map 1447
 
 step Level 50
   level 50

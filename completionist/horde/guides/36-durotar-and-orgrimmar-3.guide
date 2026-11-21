@@ -57,17 +57,6 @@ step You Too Good.
   when skill Fishing 1
   turnin 6608 optional
 
-step Nat Pagle, Angler Extreme
-  when skill Fishing 1
-  zone map 1445
-  tip The reference data does not place this quest's objective: follow the quest text.
-  accept 6607 optional
-  complete 6607 @58.6,60.1 optional
-
-step Nat Pagle, Angler Extreme
-  when skill Fishing 1
-  turnin 6607 optional
-
 step Level 54
   level 54
 
@@ -171,17 +160,6 @@ step Horde Trauma
   when skill "First Aid" 1
   turnin 6623 optional
 
-step Triage
-  when skill "First Aid" 1
-  zone map 1417
-  tip The reference data does not place this quest's objective: follow the quest text.
-  accept 6622 optional
-  complete 6622 @73.4,36.9 optional
-
-step Triage
-  when skill "First Aid" 1
-  turnin 6622 optional
-
 step Master Gadrin
   when group 2937
   zone Durotar
@@ -266,3 +244,25 @@ step Gordunni Shaman
 
 step Rok Orhan
   turnin 2980
+
+step Nat Pagle, Angler Extreme
+  when skill Fishing 1
+  zone map 1445
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 6607 optional
+  complete 6607 @58.6,60.1 optional
+
+step Nat Pagle, Angler Extreme
+  when skill Fishing 1
+  turnin 6607 optional
+
+step Triage
+  when skill "First Aid" 1
+  zone map 1417
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 6622 optional
+  complete 6622 @73.4,36.9 optional
+
+step Triage
+  when skill "First Aid" 1
+  turnin 6622 optional

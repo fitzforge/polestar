@@ -1,7 +1,7 @@
 guide polestar-completionist-horde/attune-dread-citadel
 title The Dread Citadel (Naxxramas attunement) (Completionist)
 faction Horde
-levels 60-60
+levels 59-60
 category Dungeons
 zone Eastern Plaguelands
 pitch The Dread Citadel: Everyone entering Naxxramas needs it; which of the three quests you take depends on your standing with the Argent Dawn.
@@ -9,6 +9,9 @@ why Everyone entering Naxxramas needs it; which of the three quests you take dep
 
 
 
+
+step Level 60
+  level 60
 
 step The Dread Citadel - Naxxramas
   zone map 1423
@@ -18,6 +21,9 @@ step The Dread Citadel - Naxxramas
 
 step The Dread Citadel - Naxxramas
   turnin 9121
+
+step Level 60
+  level 60
 
 step The Dread Citadel - Naxxramas
   when available 9122
@@ -36,6 +42,9 @@ step The Dread Citadel - Naxxramas
   when onquest 9122
   zone map 1423
   turnin 9122 optional
+
+step Level 60
+  level 60
 
 step The Dread Citadel - Naxxramas
   when available 9123

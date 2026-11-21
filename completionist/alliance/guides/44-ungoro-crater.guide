@@ -84,7 +84,7 @@ step Microcrystal Contamination
   when has 280459
   tip The reference data has no giver for this quest: it is handed in here once the game offers it.
   zone map 1446
-  turnin 87494 direct
+  turnin 87494 direct @27.5,42.7 map 1446
 
 step A Wrecked Raft
   zone Un'Goro Crater

@@ -2,13 +2,16 @@ guide polestar-completionist-horde/raid-ahnqiraj-temple
 title Ahn'Qiraj Temple (Completionist)
 faction Horde
 category Dungeons
-levels 60-60
+levels 59-60
 zone Silithus
 pitch Ahn'Qiraj Temple, in Silithus. A raid.
 why Every Horde quest of Ahn'Qiraj Temple: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
 
 step Getting there
   note The entrance is in Silithus: the arrow leads to it. This is a raid: it needs a raid group.
+
+step Level 60
+  level 60
 
 step The Path of the Protector
   zone Tanaris
@@ -17,6 +20,9 @@ step The Path of the Protector
 step The Path of the Protector
   zone Tanaris
   turnin 8747
+
+step Level 60
+  level 60
 
 step The Path of the Protector
   zone Tanaris
@@ -31,6 +37,9 @@ step The Path of the Protector
   zone Tanaris
   turnin 8748
 
+step Level 60
+  level 60
+
 step The Path of the Protector
   zone Tanaris
   accept 8749
@@ -43,6 +52,9 @@ step The Path of the Protector
 step The Path of the Protector
   zone Tanaris
   turnin 8749
+
+step Level 60
+  level 60
 
 step The Path of the Protector
   zone Tanaris
@@ -57,6 +69,9 @@ step The Path of the Protector
   zone Tanaris
   turnin 8750
 
+step Level 60
+  level 60
+
 step The Protector of Kalimdor
   zone Tanaris
   accept 8751
@@ -70,6 +85,9 @@ step The Protector of Kalimdor
   zone Tanaris
   turnin 8751
 
+step Level 60
+  level 60
+
 step Frame of Atiesh
   only Priest,Mage,Warlock,Druid
   tip This quest starts from an item: use it to take the quest.
@@ -81,134 +99,218 @@ step Frame of Atiesh
   zone Tanaris
   turnin 9250
 
+step Level 60
+  level 60
+
 step Keyl Swiftclaw
   only Warrior
   zone Silithus
   accept 8557
+
+step Level 60
+  level 60
 
 step Keyl Swiftclaw
   only Priest
   zone Silithus
   accept 8689
 
+step Level 60
+  level 60
+
 step Keyl Swiftclaw
   only Shaman
   zone Silithus
   accept 8690
+
+step Level 60
+  level 60
 
 step Keyl Swiftclaw
   only Mage
   zone Silithus
   accept 8691
 
+step Level 60
+  level 60
+
 step Keyl Swiftclaw
   only Druid
   zone Silithus
   accept 8692
+
+step Level 60
+  level 60
 
 step Keyl Swiftclaw
   only Rogue
   zone Silithus
   accept 8693
 
+step Level 60
+  level 60
+
 step Keyl Swiftclaw
   only Warlock
   zone Silithus
   accept 8694
+
+step Level 60
+  level 60
 
 step Keyl Swiftclaw
   only Hunter
   zone Silithus
   accept 8696
 
+step Level 60
+  level 60
+
 step Warden Haro
   only Warrior
   zone Silithus
   accept 8558
+
+step Level 60
+  level 60
 
 step Warden Haro
   only Priest
   zone Silithus
   accept 8705
 
+step Level 60
+  level 60
+
 step Warden Haro
   only Shaman
   zone Silithus
   accept 8706
+
+step Level 60
+  level 60
 
 step Warden Haro
   only Mage
   zone Silithus
   accept 8707
 
+step Level 60
+  level 60
+
 step Warden Haro
   only Druid
   zone Silithus
   accept 8708
+
+step Level 60
+  level 60
 
 step Warden Haro
   only Rogue
   zone Silithus
   accept 8709
 
+step Level 60
+  level 60
+
 step Warden Haro
   only Warlock
   zone Silithus
   accept 8710
+
+step Level 60
+  level 60
 
 step Warden Haro
   only Hunter
   zone Silithus
   accept 8712
 
+step Level 60
+  level 60
+
 step Windcaller Yessendra
   only Warrior
   zone Silithus
   accept 8556
+
+step Level 60
+  level 60
 
 step Windcaller Yessendra
   only Priest
   zone Silithus
   accept 8697
 
+step Level 60
+  level 60
+
 step Windcaller Yessendra
   only Shaman
   zone Silithus
   accept 8698
+
+step Level 60
+  level 60
 
 step Windcaller Yessendra
   only Mage
   zone Silithus
   accept 8699
 
+step Level 60
+  level 60
+
 step Windcaller Yessendra
   only Druid
   zone Silithus
   accept 8700
+
+step Level 60
+  level 60
 
 step Windcaller Yessendra
   only Rogue
   zone Silithus
   accept 8701
 
+step Level 60
+  level 60
+
 step Windcaller Yessendra
   only Warlock
   zone Silithus
   accept 8702
+
+step Level 60
+  level 60
 
 step Windcaller Yessendra
   only Hunter
   zone Silithus
   accept 8704
 
+step Level 60
+  level 60
+
 step Anachronos
   zone Tanaris
   accept 8764
+
+step Level 60
+  level 60
 
 step Anachronos
   only Priest,Mage,Warlock,Druid
   zone Tanaris
   accept 9251
+
+step Level 60
+  level 60
+
+step Level 60
+  level 60
 
 step Inside Ahn'Qiraj Temple
   zone Silithus

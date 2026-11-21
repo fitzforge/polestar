@@ -621,7 +621,6 @@ step Thrall
   zone Orgrimmar
   turnin 4004
 
-
 step The Challenge
   when turnedin 8950
   tip The giver stands inside the instance: the arrow leads to its entrance.

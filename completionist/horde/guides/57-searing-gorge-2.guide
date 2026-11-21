@@ -1,7 +1,7 @@
 guide polestar-completionist-horde/57-searing-gorge-2
 title 57 Searing Gorge (60-60) (Completionist)
 faction Horde
-levels 60-60
+levels 59-60
 zone Searing Gorge
 next polestar-completionist-horde/dungeon-blackrock-spire
 next polestar-completionist-horde/58-tirisfal-glades-and-the-undercity-5
@@ -20,12 +20,6 @@ step Basket of Bloodkelp
 step Bodley
   zone Searing Gorge
   turnin 8970
-
-step More Components of Importance
-  when available 8985
-  tip One of several exclusive quests; the route takes More Components of Importance (8986). This one shows for a character the game offers it to instead.
-  zone map 1427
-  accept 8985 optional
 
 step More Components of Importance
   when available 8988
@@ -59,17 +53,6 @@ step Final Preparations
   tip The reference data does not place this quest's objective: follow the quest text.
   accept 8994
   complete 8994 @39.8,96.5
-
-step More Components of Importance
-  when onquest 8985
-  tip The reference data does not place this quest's objective: follow the quest text.
-  zone map 1427
-  complete 8985 @39.8,96.5 optional
-
-step More Components of Importance
-  when onquest 8985
-  zone map 1427
-  turnin 8985 optional
 
 step More Components of Importance
   when onquest 8988
@@ -106,3 +89,20 @@ step More Components of Importance
 
 step Final Preparations
   turnin 8994
+
+step More Components of Importance
+  when available 8985
+  tip One of several exclusive quests; the route takes More Components of Importance (8986). This one shows for a character the game offers it to instead.
+  zone map 1427
+  accept 8985 optional
+
+step More Components of Importance
+  when onquest 8985
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1427
+  complete 8985 @39.8,96.5 optional
+
+step More Components of Importance
+  when onquest 8985
+  zone map 1427
+  turnin 8985 optional

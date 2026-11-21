@@ -592,23 +592,6 @@ step Bodley
   zone Searing Gorge
   turnin 8961
 
-step Components of Importance
-  when available 8962
-  tip One of several exclusive quests; the route takes Components of Importance (8963). This one shows for a character the game offers it to instead.
-  zone map 1427
-  accept 8962 optional
-
-step Components of Importance
-  when onquest 8962
-  tip The reference data does not place this quest's objective: follow the quest text.
-  zone map 1427
-  complete 8962 @39.8,96.5 optional
-
-step Components of Importance
-  when onquest 8962
-  zone map 1427
-  turnin 8962 optional
-
 step The Right Piece of Lord Valthalak's Amulet
   when onquest 8989
   tip The reference data does not place this quest's objective: follow the quest text.
@@ -746,7 +729,7 @@ step Return to Bodley
   when has 22056
   tip The reference data has no giver for this quest: it is handed in here once the game offers it.
   zone map 1427
-  turnin 8996 direct
+  turnin 8996 direct @39.8,96.5 map 1427
 
 step The Left Piece of Lord Valthalak's Amulet
   when available 8966
@@ -780,7 +763,6 @@ step Back to the Beginning
   when onquest 8997
   zone map 1455
   turnin 8997
-
 
 step Anthion's Parting Words
   only Druid
@@ -857,3 +839,20 @@ step Anthion's Parting Words
   when onquest 8955
   zone map 1455
   turnin 8955 optional
+
+step Components of Importance
+  when available 8962
+  tip One of several exclusive quests; the route takes Components of Importance (8963). This one shows for a character the game offers it to instead.
+  zone map 1427
+  accept 8962 optional
+
+step Components of Importance
+  when onquest 8962
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1427
+  complete 8962 @39.8,96.5 optional
+
+step Components of Importance
+  when onquest 8962
+  zone map 1427
+  turnin 8962 optional

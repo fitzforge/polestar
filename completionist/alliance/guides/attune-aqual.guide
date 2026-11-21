@@ -88,9 +88,6 @@ step Agent of Hydraxis
   zone map 1447
   turnin 6823
 
-step Level 60
-  level 60
-
 step Hands of the Enemy
   when turnedin 6823
   zone map 1447
@@ -106,9 +103,6 @@ step Hands of the Enemy
   when onquest 6824
   zone map 1447
   turnin 6824
-
-step Level 60
-  level 60
 
 step A Hero's Reward
   when turnedin 6824

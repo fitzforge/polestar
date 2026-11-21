@@ -86,6 +86,8 @@ step Captain Sander's Hidden Treasure
   zone map 1436
   turnin 140
 
+step Level 20
+  level 20
 
 step Cut Arathor Supply Lines
   tip The reference data does not place this quest's objective: follow the quest text.

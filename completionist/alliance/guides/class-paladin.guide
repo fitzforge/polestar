@@ -15,18 +15,6 @@ step Lord Grayson Shadowbreaker
   zone Stormwind City
   accept 3000 only Dwarf
 
-step The Bloody Missive
-  only Paladin
-  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
-  zone map 1453
-  turnin 81766 direct optional
-
-step Orders from the Grand Crusader
-  only Paladin
-  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
-  zone map 1453
-  turnin 79945 direct optional
-
 step Level 45
   level 45
 
@@ -65,19 +53,6 @@ step Katherine the Pure
 step Strange Orb
   zone Darkshore
   accept 78088
-
-step A Brother In Need
-  only Paladin
-  when turnedin 79945
-  zone map 1453
-  accept 79946 optional
-
-step A Brother In Need
-  only Paladin
-  when onquest 79946
-  tip The hand-in is inside the instance: the arrow leads to its entrance.
-  zone map 1420
-  turnin 79946 @85.2,31.3 optional
 
 step Delgren the Purifier
   zone Ashenvale
@@ -420,19 +395,6 @@ step Oi!
   only Paladin
   turnin 84318 optional
 
-step Aeonas the Vindicated
-  only Paladin
-  when turnedin 79963
-  tip The giver stands inside the instance: the arrow leads to its entrance.
-  zone map 1420
-  accept 79970 @85.2,31.3 optional
-
-step Aeonas the Vindicated
-  only Paladin
-  when onquest 79970
-  zone map 1453
-  turnin 79970 optional
-
 step By The Light's Grace
   only Paladin
   tip The giver stands inside the instance: the arrow leads to its entrance.
@@ -446,8 +408,15 @@ step By The Light's Grace
   zone map 1420
   turnin 79963 @85.2,31.3 optional
 
-step A Newly Discovered Purpose...
+step Aeonas the Vindicated
   only Paladin
-  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
-  zone map 1424
-  turnin 81944 direct optional
+  when turnedin 79963
+  tip The giver stands inside the instance: the arrow leads to its entrance.
+  zone map 1420
+  accept 79970 @85.2,31.3 optional
+
+step Aeonas the Vindicated
+  only Paladin
+  when onquest 79970
+  zone map 1453
+  turnin 79970 optional

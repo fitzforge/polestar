@@ -123,7 +123,6 @@ step Ozzie Togglevolt
   zone Dun Morogh
   turnin 2962
 
-
 step The Sparklematic 5200!
   tip The giver stands inside the instance: the arrow leads to its entrance.
   zone map 1426
@@ -178,6 +177,9 @@ step The Sparklematic 5200!
   tip The hand-in is inside the instance: the arrow leads to its entrance.
   zone map 1426
   turnin 4601 @22,38.7 optional
+
+step Level 28
+  level 28
 
 step Inside Gnomeregan
   zone Dun Morogh

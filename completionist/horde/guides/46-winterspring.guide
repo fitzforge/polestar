@@ -91,7 +91,7 @@ step Hot Fiery Death
   when skill Blacksmithing 270
   tip The reference data has no giver for this quest: it is handed in here once the game offers it.
   zone map 1452
-  turnin 5103 direct optional
+  turnin 5103 direct @61.0,38.8 map 1452 optional
 
 step Umi Rumplesnicker
   accept 3783

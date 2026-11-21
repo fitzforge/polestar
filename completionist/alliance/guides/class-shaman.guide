@@ -168,7 +168,6 @@ step Call of Water
   only Shaman,Dwarf,Gnome
   turnin 94505 optional
 
-
 step Heed My Call
   only Shaman
   when turnedin 79358

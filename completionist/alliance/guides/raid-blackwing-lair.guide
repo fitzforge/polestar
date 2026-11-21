@@ -2,13 +2,16 @@ guide polestar-completionist-alliance/raid-blackwing-lair
 title Blackwing Lair (Completionist)
 faction Alliance
 category Dungeons
-levels 60-60
+levels 59-60
 zone Burning Steppes
 pitch Blackwing Lair, in Burning Steppes. A raid.
 why Every Alliance quest of Blackwing Lair: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
 
 step Getting there
   note The entrance is in Burning Steppes: the arrow leads to it. This is a raid: it needs a raid group.
+
+step Level 60
+  level 60
 
 step What Tomorrow Brings
   zone Silithus
@@ -23,9 +26,15 @@ step What Tomorrow Brings
   zone Silithus
   turnin 8286
 
+step Level 60
+  level 60
+
 step Baristolth of the Shifting Sands
   zone Silithus
   accept 8288
+
+step Level 60
+  level 60
 
 step Inside Blackwing Lair
   zone Burning Steppes
@@ -40,6 +49,9 @@ step Baristolth of the Shifting Sands
 step Highlord Bolvar Fordragon
   zone Stormwind City
   turnin 7781
+
+step Level 60
+  level 60
 
 step The Path of the Righteous
   zone Silithus
@@ -60,6 +72,9 @@ step The Hand of the Righteous
   collect 20384 x200 anywhere optional
   turnin 8302 direct optional
 
+step Level 60
+  level 60
+
 step Anachronos
   zone Silithus
   accept 8303
@@ -68,6 +83,9 @@ step Anachronos
   zone Tanaris
   turnin 8303
 
+step Level 60
+  level 60
+
 step Long Forgotten Memories
   zone Tanaris
   accept 8305
@@ -75,6 +93,9 @@ step Long Forgotten Memories
 step Long Forgotten Memories
   zone Silithus
   turnin 8305
+
+step Level 60
+  level 60
 
 step A Pawn on the Eternal Board
   zone Silithus
@@ -89,6 +110,9 @@ step A Pawn on the Eternal Board
   zone Tanaris
   turnin 8519
 
+step Level 60
+  level 60
+
 step The Charge of the Dragonflights
   zone Tanaris
   accept 8555
@@ -96,6 +120,9 @@ step The Charge of the Dragonflights
 step The Charge of the Dragonflights
   zone Tanaris
   turnin 8555
+
+step Level 60
+  level 60
 
 step Azuregos's Magical Ledger
   zone Azshara
@@ -105,6 +132,9 @@ step Azuregos's Magical Ledger
   zone Tanaris
   turnin 8575
 
+step Level 60
+  level 60
+
 step Translating the Ledger
   zone Tanaris
   accept 8576
@@ -113,6 +143,9 @@ step Translating the Ledger
   zone Tanaris
   turnin 8576
 
+step Level 60
+  level 60
+
 step Stewvul, Ex-B.F.F.
   zone Tanaris
   accept 8577
@@ -120,6 +153,9 @@ step Stewvul, Ex-B.F.F.
 step Stewvul, Ex-B.F.F.
   zone Silverpine Forest
   turnin 8577
+
+step Level 60
+  level 60
 
 step Scrying Goggles? No Problem!
   zone Silverpine Forest
@@ -134,6 +170,9 @@ step Scrying Goggles? No Problem!
   zone Tanaris
   turnin 8578
 
+step Level 60
+  level 60
+
 step Never Ask Me About My Business
   zone Tanaris
   accept 8584
@@ -141,6 +180,9 @@ step Never Ask Me About My Business
 step Never Ask Me About My Business
   zone Tanaris
   turnin 8584
+
+step Level 60
+  level 60
 
 step The Isle of Dread!
   zone Tanaris
@@ -155,6 +197,9 @@ step The Isle of Dread!
   zone Tanaris
   turnin 8585
 
+step Level 60
+  level 60
+
 step Dirge's Kickin' Chimaerok Chops
   zone Tanaris
   accept 8586
@@ -168,6 +213,9 @@ step Dirge's Kickin' Chimaerok Chops
   zone Tanaris
   turnin 8586
 
+step Level 60
+  level 60
+
 step Return to Narain
   zone Tanaris
   accept 8587
@@ -176,9 +224,15 @@ step Return to Narain
   zone Tanaris
   turnin 8587
 
+step Level 60
+  level 60
+
 step Draconic for Dummies
   zone Tanaris
   accept 8597
+
+step Level 60
+  level 60
 
 step Love Song for Narain
   zone map 1446
@@ -187,6 +241,9 @@ step Love Song for Narain
 step Draconic for Dummies
   zone Azeroth
   turnin 8597
+
+step Level 60
+  level 60
 
 step rAnS0m
   zone Azeroth
@@ -200,6 +257,9 @@ step Love Song for Narain
   when onquest 8599
   zone map 1446
   turnin 8599
+
+step Level 60
+  level 60
 
 step Decoy!
   zone Tanaris

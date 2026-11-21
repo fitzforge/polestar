@@ -18,7 +18,7 @@ step The Giant in the Den
   when has 253711
   tip The reference data has no giver for this quest: it is handed in here once the game offers it.
   zone map 1417
-  turnin 92707 direct
+  turnin 92707 direct @74.2,33.9 map 1417
 
 step Zengu
   when group 639
@@ -37,23 +37,11 @@ step Cut Arathor Supply Lines
   accept 8161
   complete 8161 @73.5,29.8
 
-step Defiler's Basic Care Package
-  when available 8263
-  tip One of several exclusive quests; the route takes Defiler's Standard Care Package (8264). This one shows for a character the game offers it to instead.
-  tip Needs Friendly standing (3000) with The Defilers; without it the quest is not offered.
-  zone map 1417
-  accept 8263 optional
-
 step More Resource Crates
   tip A repeatable quest: hand it in once, with what it asks for.
   zone map 1417
   collect 19725 x1 anywhere optional
   turnin 8300 direct optional
-
-step Defiler's Basic Care Package
-  when onquest 8263
-  zone map 1417
-  turnin 8263 optional
 
 step More Resource Crates
   tip A repeatable quest: hand it in once, with what it asks for.
@@ -548,3 +536,15 @@ step Taste Testing
   when onquest 79678
   zone map 1417
   turnin 79678
+
+step Defiler's Basic Care Package
+  when available 8263
+  tip One of several exclusive quests; the route takes Defiler's Standard Care Package (8264). This one shows for a character the game offers it to instead.
+  tip Needs Friendly standing (3000) with The Defilers; without it the quest is not offered.
+  zone map 1417
+  accept 8263 optional
+
+step Defiler's Basic Care Package
+  when onquest 8263
+  zone map 1417
+  turnin 8263 optional

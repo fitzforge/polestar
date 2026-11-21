@@ -648,4 +648,4 @@ step Hermit Ortell
 step Your Fortune Awaits You...
   tip A repeatable quest: hand it in once, with what it asks for.
   zone map 1412
-  turnin 7945 direct @36.2,64.5 map 1412 optional
+  turnin 7945 direct optional

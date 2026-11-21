@@ -374,7 +374,6 @@ step The Troll Scroll
   only Priest
   turnin 79731 optional
 
-
 step Returning Home
   only Priest,NightElf
   when available 5628

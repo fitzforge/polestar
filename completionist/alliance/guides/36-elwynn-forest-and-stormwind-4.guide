@@ -83,18 +83,6 @@ step Innkeeper Allison
   zone Stormwind City
   accept 3789
 
-step Gnome Engineering
-  when available 3630
-  tip One of several exclusive quests; the route takes Goblin Engineering (3629). This one shows for a character the game offers it to instead.
-  when skill Engineering 200
-  zone map 1453
-  accept 3630 optional
-
-step Gnome Engineering
-  when onquest 3630
-  zone map 1455
-  turnin 3630 optional
-
 step Goblin Engineering
   when available 4181
   tip One of several exclusive quests; the route takes Goblin Engineering (3629). This one shows for a character the game offers it to instead.
@@ -154,3 +142,15 @@ step Learning to Ride
   when onquest 97170
   zone map 1429
   turnin 97170
+
+step Gnome Engineering
+  when available 3630
+  tip One of several exclusive quests; the route takes Goblin Engineering (3629). This one shows for a character the game offers it to instead.
+  when skill Engineering 200
+  zone map 1453
+  accept 3630 optional
+
+step Gnome Engineering
+  when onquest 3630
+  zone map 1455
+  turnin 3630 optional

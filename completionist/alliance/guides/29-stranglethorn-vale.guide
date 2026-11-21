@@ -25,7 +25,7 @@ step Partial Mystical Notes
   when has 213127
   tip The reference data has no giver for this quest: it is handed in here once the game offers it.
   zone map 1434
-  turnin 95384 direct
+  turnin 95384 direct @28.3,76.3 map 1434
 
 step State Secrets
   zone map 1434
@@ -63,7 +63,7 @@ step Terror of the Desert Skies
   when has 211269
   tip The reference data has no giver for this quest: it is handed in here once the game offers it.
   zone map 1434
-  turnin 78823 direct
+  turnin 78823 direct @35.7,10.8 map 1434
 
 step Terror of the Desert Skies
   when turnedin 78823

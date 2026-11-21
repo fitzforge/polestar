@@ -678,7 +678,7 @@ step Last Wishes
   when has 274800
   tip The reference data has no giver for this quest: it is handed in here once the game offers it.
   zone map 2482
-  turnin 96561 direct
+  turnin 96561 direct @35.7,45.2 map 2482
 
 step Jereman
   zone Moonglade
@@ -882,10 +882,10 @@ step Seeds for a New Season
   turnin 95568
 
 step Violence Into Verdure
-  tip The reference data does not place this quest's objective: follow the quest text.
+  tip The place is where players were recorded finishing it.
   zone map 2482
   accept 93747
-  complete 93747 @73.3,81.9
+  complete 93747 @66.3,79.2
 
 step Violence Into Verdure
   zone map 2482

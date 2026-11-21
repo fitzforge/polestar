@@ -16,30 +16,6 @@ step Cenarion Emissary Jademoon
   zone Ironforge
   accept 8275
 
-step The Art of the Armorsmith
-  when available 5283
-  tip One of several exclusive quests; the route takes The Way of the Weaponsmith (5284). This one shows for a character the game offers it to instead.
-  when skill Blacksmithing 200
-  zone map 1455
-  accept 5283 optional
-
-step The Art of the Armorsmith
-  when onquest 5283
-  tip The reference data does not place this quest's objective: follow the quest text.
-  zone map 1455
-  complete 5283 @50.0,42.8 optional
-
-step The Art of the Armorsmith
-  when onquest 5283
-  zone map 1455
-  turnin 5283 optional
-
-step Membership Card Renewal
-  when skill Engineering 200
-  tip A repeatable quest: hand it in once, with what it asks for.
-  zone map 1455
-  turnin 3647 direct optional
-
 step The Pledge of Secrecy
   when available 3640
   tip One of several exclusive quests; the route takes The Pledge of Secrecy (3638). This one shows for a character the game offers it to instead.
@@ -111,17 +87,6 @@ step Alliance Trauma
   when skill "First Aid" 1
   turnin 6625 optional
 
-step Triage
-  when skill "First Aid" 1
-  zone map 1445
-  tip The reference data does not place this quest's objective: follow the quest text.
-  accept 6624 optional
-  complete 6624 @67.8,49.0 optional
-
-step Triage
-  when skill "First Aid" 1
-  turnin 6624 optional
-
 step I Know A Guy...
   when skill Cooking 1
   zone map 1455
@@ -185,17 +150,6 @@ step I Got Nothin' Left!
 step I Got Nothin' Left!
   when skill Fishing 1
   turnin 6609 optional
-
-step Nat Pagle, Angler Extreme
-  when skill Fishing 1
-  zone map 1445
-  tip The reference data does not place this quest's objective: follow the quest text.
-  accept 6607 optional
-  complete 6607 @58.6,60.1 optional
-
-step Nat Pagle, Angler Extreme
-  when skill Fishing 1
-  turnin 6607 optional
 
 step Gerrig Bonegrip
   when group 735
@@ -303,43 +257,6 @@ step Uldum Pedestal
   zone Tanaris
   accept 2977
 
-step The Pledge of Secrecy
-  when available 3638
-  tip One of several exclusive quests; the route takes The Pledge of Secrecy (3640). This one shows for a character the game offers it to instead.
-  when skill Engineering 200
-  zone map 1446
-  accept 3638 optional
-
-step The Pledge of Secrecy
-  when onquest 3638
-  tip The reference data does not place this quest's objective: follow the quest text.
-  zone map 1446
-  complete 3638 @52.5,27.3 optional
-
-step The Pledge of Secrecy
-  when onquest 3638
-  zone map 1446
-  turnin 3638 optional
-
-step Show Your Work
-  when available 3639
-  tip One of several exclusive quests; the route takes The Pledge of Secrecy (3640). This one shows for a character the game offers it to instead.
-  when turnedin 3638
-  when skill Engineering 200
-  zone map 1446
-  accept 3639 optional
-
-step Show Your Work
-  when onquest 3639
-  tip The reference data does not place this quest's objective: follow the quest text.
-  zone map 1446
-  complete 3639 @52.5,27.3 optional
-
-step Show Your Work
-  when onquest 3639
-  zone map 1446
-  turnin 3639 optional
-
 step Historian Karnik
   zone Ironforge
   turnin 2977
@@ -413,6 +330,37 @@ step Show Your Work
   zone map 1455
   turnin 3641 optional
 
+step Membership Card Renewal
+  when skill Engineering 200
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  turnin 3647 direct optional
+
+step Nat Pagle, Angler Extreme
+  when skill Fishing 1
+  zone map 1445
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 6607 optional
+  complete 6607 @58.6,60.1 optional
+
+step Nat Pagle, Angler Extreme
+  when skill Fishing 1
+  turnin 6607 optional
+
+step Triage
+  when skill "First Aid" 1
+  zone map 1445
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 6624 optional
+  complete 6624 @67.8,49.0 optional
+
+step Triage
+  when skill "First Aid" 1
+  turnin 6624 optional
+
+step Thunderbrew Distillery
+  zone Dun Morogh
+  sethome "Thunderbrew Distillery"
 
 step Your First Riding Ram
   zone map 1426
@@ -465,3 +413,58 @@ step Learning to Ride
   when onquest 97188
   zone map 1426
   turnin 97188
+
+step The Art of the Armorsmith
+  when available 5283
+  tip One of several exclusive quests; the route takes The Way of the Weaponsmith (5284). This one shows for a character the game offers it to instead.
+  when skill Blacksmithing 200
+  zone map 1455
+  accept 5283 optional
+
+step The Art of the Armorsmith
+  when onquest 5283
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1455
+  complete 5283 @50.0,42.8 optional
+
+step The Art of the Armorsmith
+  when onquest 5283
+  zone map 1455
+  turnin 5283 optional
+
+step The Pledge of Secrecy
+  when available 3638
+  tip One of several exclusive quests; the route takes The Pledge of Secrecy (3640). This one shows for a character the game offers it to instead.
+  when skill Engineering 200
+  zone map 1446
+  accept 3638 optional
+
+step The Pledge of Secrecy
+  when onquest 3638
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1446
+  complete 3638 @52.5,27.3 optional
+
+step The Pledge of Secrecy
+  when onquest 3638
+  zone map 1446
+  turnin 3638 optional
+
+step Show Your Work
+  when available 3639
+  tip One of several exclusive quests; the route takes The Pledge of Secrecy (3640). This one shows for a character the game offers it to instead.
+  when turnedin 3638
+  when skill Engineering 200
+  zone map 1446
+  accept 3639 optional
+
+step Show Your Work
+  when onquest 3639
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1446
+  complete 3639 @52.5,27.3 optional
+
+step Show Your Work
+  when onquest 3639
+  zone map 1446
+  turnin 3639 optional

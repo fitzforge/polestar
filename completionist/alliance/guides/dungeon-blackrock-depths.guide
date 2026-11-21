@@ -594,6 +594,8 @@ step King Magni Bronzebeard
   zone Ironforge
   turnin 4363
 
+step Level 60
+  level 60
 
 step Inside Blackrock Depths
   zone Searing Gorge

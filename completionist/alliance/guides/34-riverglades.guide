@@ -76,7 +76,7 @@ step Hail the Dragonslayer
   when has 271612
   tip The reference data has no giver for this quest: it is handed in here once the game offers it.
   zone map 2548
-  turnin 95935 direct
+  turnin 95935 direct @39.6,74.7 map 2548
 
 step Cedric Dalton
   when group 94679
@@ -225,7 +225,7 @@ step Drop the Hammer
   when has 266889
   tip The reference data has no giver for this quest: it is handed in here once the game offers it.
   zone map 2548
-  turnin 94926 direct
+  turnin 94926 direct @66.7,81.0 map 2548
 
 step High Stakes
   turnin 96009

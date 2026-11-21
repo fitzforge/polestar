@@ -71,6 +71,8 @@ step Mathrengyl Bearwalker
   zone Darnassus
   turnin 92344
 
+step Level 52
+  level 52
 
 step Archmage Timear
   zone Alterac Mountains

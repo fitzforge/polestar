@@ -19,12 +19,6 @@ step Whiskey Slim
   accept 348
   accept 617
 
-step The Captain's Chest
-  when available 614
-  tip One of several exclusive quests; the route takes The Captain's Chest (8551). This one shows for a character the game offers it to instead.
-  zone map 1434
-  accept 614 optional
-
 step Tip the Scales - Dezian Queenfish
   tip A repeatable quest: hand it in once, with what it asks for.
   zone map 1434
@@ -63,7 +57,7 @@ step Stranglethorn Fever
 step Torn Mystical Scroll
   tip The reference data has no giver for this quest: it is handed in here once the game offers it.
   zone map 1434
-  turnin 95385 direct
+  turnin 95385 direct @28.3,76.3 map 1434
 
 step Mok'rash
   goto 23.3,72.1 "Mok'rash"
@@ -186,17 +180,6 @@ step Captain Hecklebury Smotts
   turnin 8552
   accept 615
 
-step The Captain's Chest
-  when onquest 614
-  tip The reference data does not place this quest's objective: follow the quest text.
-  zone map 1434
-  complete 614 @26.7,73.6 optional
-
-step The Captain's Chest
-  when onquest 614
-  zone map 1434
-  turnin 614 optional
-
 step Traitor to the Bloodsail
   tip A repeatable quest: hand it in once, with what it asks for.
   zone map 1434
@@ -223,12 +206,6 @@ step The Captain's Chest
 
 step Sprogger
   turnin 615
-
-step Facing Negolash
-  when available 618
-  tip One of several exclusive quests; the route takes Facing Negolash (8554). This one shows for a character the game offers it to instead.
-  zone map 1434
-  accept 618 optional
 
 step Facing Negolash
   when available 8554
@@ -285,17 +262,6 @@ step Fleet Master Seahorn
   turnin 608
   turnin 617
   accept 623
-
-step Facing Negolash
-  when onquest 618
-  tip The reference data does not place this quest's objective: follow the quest text.
-  zone map 1434
-  complete 618 @26.7,73.6 optional
-
-step Facing Negolash
-  when onquest 618
-  zone map 1434
-  turnin 618 optional
 
 step Facing Negolash
   when onquest 8554
@@ -526,3 +492,37 @@ step Did You Lose This?
 step Did You Lose This?
   when skill Blacksmithing 1
   turnin 3321 optional
+
+step Facing Negolash
+  when available 618
+  tip One of several exclusive quests; the route takes Facing Negolash (8554). This one shows for a character the game offers it to instead.
+  zone map 1434
+  accept 618 optional
+
+step Facing Negolash
+  when onquest 618
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1434
+  complete 618 @26.7,73.6 optional
+
+step Facing Negolash
+  when onquest 618
+  zone map 1434
+  turnin 618 optional
+
+step The Captain's Chest
+  when available 614
+  tip One of several exclusive quests; the route takes The Captain's Chest (8551). This one shows for a character the game offers it to instead.
+  zone map 1434
+  accept 614 optional
+
+step The Captain's Chest
+  when onquest 614
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1434
+  complete 614 @26.7,73.6 optional
+
+step The Captain's Chest
+  when onquest 614
+  zone map 1434
+  turnin 614 optional

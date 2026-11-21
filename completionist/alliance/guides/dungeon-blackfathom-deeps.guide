@@ -34,7 +34,7 @@ step Dawnwatcher Shaedlass
 step The Heart of the Void
   tip The reference data has no giver for this quest: it is handed in here once the game offers it.
   zone map 1457
-  turnin 78916 direct
+  turnin 78916 direct @56.2,24.4 map 1457
 
 step Inside Blackfathom Deeps
   zone Ashenvale

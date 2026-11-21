@@ -344,7 +344,6 @@ step Quentin
   zone Thousand Needles
   turnin 3841
 
-
 step Troll Necklace Bounty
   when turnedin 2880
   tip A repeatable quest: hand it in once, with what it asks for.

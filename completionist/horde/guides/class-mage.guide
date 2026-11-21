@@ -231,7 +231,6 @@ step Mage's Wand
   zone map 1445
   turnin 1952 optional
 
-
 step Atiesh, Greatstaff of the Guardian
   only Mage
   when turnedin 9251

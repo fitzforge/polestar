@@ -151,7 +151,6 @@ step Varimathras
   zone Undercity
   turnin 6522
 
-
 step Call of Air
   only Shaman,Skyborne
   when available 96136

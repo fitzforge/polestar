@@ -571,7 +571,6 @@ step Talo Thornhoof
   zone Feralas
   turnin 7489
 
-
 step Enchanted Thorium Platemail: Volume I
   when skill Blacksmithing 300
   when has 18769

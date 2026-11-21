@@ -26,7 +26,7 @@ step Major Mattingly
 step Cracked Necrotic Crystal
   tip The reference data has no giver for this quest: it is handed in here once the game offers it.
   zone map 1453
-  turnin 9292 direct
+  turnin 9292 direct @69.0,82.9 map 1453
 
 step Clavicus Knavingham
   accept 7791

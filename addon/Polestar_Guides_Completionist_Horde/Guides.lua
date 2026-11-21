@@ -268,7 +268,7 @@ do
 				{
 					title = "{area:1637}",
 					goals = {
-						{ t = "getfp", location = "Orgrimmar", area = 1637 },
+						{ t = "getfp", npc = 3310, npcName = "Doras", location = "Orgrimmar", node = 23, area = 1637, map = 1454, x = 45.12, y = 63.89, z = 61.7, f = "e" },
 					},
 				},
 				{
@@ -286,7 +286,7 @@ do
 				{
 					title = "{npc:3147}",
 					goals = {
-						{ t = "sethome", location = "Razor Hill", area = 362 },
+						{ t = "sethome", npc = 6928, npcName = "Innkeeper Grosk", location = "Razor Hill", area = 362, map = 1411, x = 51.51, y = 41.64, z = 16.5, f = "e" },
 						{ t = "accept", quest = 791, title = "Carry Your Weight", npc = 3147, npcName = "Furl Scornbrow", minLevel = 4, qlvl = 7, map = 1411, x = 49.88, y = 40.39, z = 76.2, f = "e" },
 						{ t = "accept", quest = 96825, title = "This Fruit Could Bite Back", npc = 3191, npcName = "Cook Torka", minLevel = 3, qlvl = 6, map = 1411, x = 51.11, y = 42.45, z = 16.4, f = "e" },
 					},
@@ -1049,7 +1049,7 @@ do
 				{
 					title = "{npc:2993}",
 					goals = {
-						{ t = "sethome", location = "Bloodhoof Village", area = 222 },
+						{ t = "sethome", npc = 6747, npcName = "Innkeeper Kauth", location = "Bloodhoof Village", area = 222, map = 1412, x = 45.93, y = 64.16, z = -8.9 },
 						{ t = "accept", quest = 745, title = "Sharing the Land", npc = 2993, npcName = "Baine Bloodhoof", minLevel = 1, qlvl = 8, map = 1412, x = 46.67, y = 63.38, z = -7.9 },
 					},
 				},
@@ -1160,7 +1160,7 @@ do
 				{
 					title = "{area:1638}",
 					goals = {
-						{ t = "getfp", location = "Thunder Bluff", area = 1638 },
+						{ t = "getfp", npc = 2995, npcName = "Tal", location = "Thunder Bluff", node = 22, area = 1638, map = 1456, x = 47, y = 49.83, z = 177, f = "e" },
 					},
 				},
 				{
@@ -2179,7 +2179,7 @@ do
 				{
 					title = "{npc:10665}",
 					goals = {
-						{ t = "sethome", location = "Gallows' End Tavern", area = 2119 },
+						{ t = "sethome", npc = 5688, npcName = "Innkeeper Renee", location = "Gallows' End Tavern", area = 2119, map = 1420, x = 61.72, y = 52.05, z = 34.3, f = "e" },
 						{ t = "turnin", quest = 5481, title = "Gordo's Task", npc = 10665, npcName = "Junior Apothecary Holland", map = 1420, x = 57.44, y = 48.85, z = 33.4, f = "e", spots = { { x = 58.3, y = 48.55, r = 71, n = 1 } } },
 						{ t = "accept", quest = 5482, title = "Doom Weed", npc = 10665, npcName = "Junior Apothecary Holland", minLevel = 5, qlvl = 6, pre = { 5481 }, preTitles = { [5481] = "Gordo's Task" }, map = 1420, x = 57.44, y = 48.85, z = 33.4, f = "e", spots = { { x = 58.3, y = 48.55, r = 71, n = 1 } } },
 					},
@@ -2617,7 +2617,7 @@ do
 				{
 					title = "{area:1497}",
 					goals = {
-						{ t = "getfp", location = "Undercity", area = 1497 },
+						{ t = "getfp", npc = 4551, npcName = "Michael Garrett", location = "Undercity", node = 11, area = 1497, map = 1458, x = 63.25, y = 48.56, z = -43, f = "e" },
 					},
 				},
 				{
@@ -2883,7 +2883,7 @@ do
 				{
 					title = "{area:16624}",
 					goals = {
-						{ t = "sethome", location = "Shen'dar Village", area = 16624 },
+						{ t = "sethome", npc = 254089, npcName = "Coriella Calmbreeze", location = "Shen'dar Village", area = 16624, map = 2521, x = 43.01, y = 43.23 },
 					},
 				},
 				{
@@ -4325,317 +4325,6 @@ do
 					},
 				},
 				{
-					title = "{quest:97937}",
-					note = "One of several exclusive quests; the route takes {quest:97937} (96102). This one shows for a character the game offers it to instead.",
-					only = { races = { "Skyborne" } },
-					when = { { k = "available", q = 97937, minLevel = 4, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96057, 96102, 97925, 97950, 97961, 97972, 97973 } }, { k = "skill", n = 1, name = "Tailoring", skillLine = 197 } },
-					goals = {
-						{ t = "accept", quest = 97937, title = "Camping 101: Tailoring", npc = 265810, npcName = "Kaga Wildhoof", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96057, 96102, 97925, 97950, 97961, 97972, 97973 }, endNpcs = { 11051 }, xp = 270, preTitles = { [95998] = "The Great Outdoors", [96057] = "Camping 101: Tailoring", [96101] = "The Great Outdoors", [96102] = "Camping 101: Tailoring", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [97925] = "Camping 101: Tailoring", [97950] = "Camping 101: Tailoring", [97961] = "Camping 101: Tailoring", [97972] = "Camping 101: Tailoring", [97973] = "Camping 101: Tailoring" }, map = 1412, x = 46.18, y = 67.3, z = -11.2, optional = true, profLine = 197, profName = "Tailoring", profRank = 1 },
-					},
-				},
-				{
-					title = "{quest:97937}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					only = { races = { "Skyborne" } },
-					when = { { k = "onquest", q = { 97937 } } },
-					goals = {
-						{ t = "complete", quest = 97937, title = "Camping 101: Tailoring", map = 1412, x = 46.2, y = 67.3, f = "e", optional = true, profLine = 197, profName = "Tailoring", profRank = 1, objs = { { text = "Raise your tailoring skill to 20", count = 1 } } },
-					},
-				},
-				{
-					title = "{quest:97937}",
-					only = { races = { "Skyborne" } },
-					when = { { k = "onquest", q = { 97937 } } },
-					goals = {
-						{ t = "turnin", quest = 97937, title = "Camping 101: Tailoring", npc = 11051, npcName = "Vhan", map = 1456, x = 44.26, y = 44.34, z = 145.9, f = "e", optional = true, profLine = 197, profName = "Tailoring", profRank = 1 },
-					},
-				},
-				{
-					title = "{quest:97908}",
-					note = "One of several exclusive quests; the route takes {quest:97908} (97936). This one shows for a character the game offers it to instead.",
-					only = { races = { "Skyborne" } },
-					when = { { k = "available", q = 97908, minLevel = 4, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96056, 97924, 97936, 97949, 97960, 97971 } }, { k = "skill", n = 1, name = "Skinning", skillLine = 393 } },
-					goals = {
-						{ t = "accept", quest = 97908, title = "Camping 101: Skinning", npc = 265809, npcName = "Brakk", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96056, 97924, 97936, 97949, 97960, 97971 }, endNpcs = { 7088 }, xp = 270, preTitles = { [95998] = "The Great Outdoors", [96056] = "Camping 101: Skinning", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [97924] = "Camping 101: Skinning", [97936] = "Camping 101: Skinning", [97949] = "Camping 101: Skinning", [97960] = "Camping 101: Skinning", [97971] = "Camping 101: Skinning" }, map = 1411, x = 52.02, y = 47.3, z = 18.4, f = "e", optional = true, profLine = 393, profName = "Skinning", profRank = 1 },
-					},
-				},
-				{
-					title = "{quest:97908}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					only = { races = { "Skyborne" } },
-					when = { { k = "onquest", q = { 97908 } } },
-					goals = {
-						{ t = "complete", quest = 97908, title = "Camping 101: Skinning", map = 1411, x = 52, y = 47.3, f = "e", optional = true, profLine = 393, profName = "Skinning", profRank = 1, objs = { { text = "Raise your skinning skill to 20", count = 1 } } },
-					},
-				},
-				{
-					title = "{quest:97908}",
-					only = { races = { "Skyborne" } },
-					when = { { k = "onquest", q = { 97908 } } },
-					goals = {
-						{ t = "turnin", quest = 97908, title = "Camping 101: Skinning", npc = 7088, npcName = "Thuwd", map = 1454, x = 63.36, y = 45.42, z = 24.8, f = "e", optional = true, profLine = 393, profName = "Skinning", profRank = 1 },
-					},
-				},
-				{
-					title = "{quest:97907}",
-					note = "One of several exclusive quests; the route takes {quest:97907} (97935). This one shows for a character the game offers it to instead.",
-					only = { races = { "Skyborne" } },
-					when = { { k = "available", q = 97907, minLevel = 4, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96046, 97923, 97935, 97948, 97959, 97970 } }, { k = "skill", n = 1, name = "Mining", skillLine = 186 } },
-					goals = {
-						{ t = "accept", quest = 97907, title = "Camping 101: Mining", npc = 265809, npcName = "Brakk", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96046, 97923, 97935, 97948, 97959, 97970 }, endNpcs = { 3175 }, xp = 270, preTitles = { [95998] = "The Great Outdoors", [96046] = "Camping 101: Mining", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [97923] = "Camping 101: Mining", [97935] = "Camping 101: Mining", [97948] = "Camping 101: Mining", [97959] = "Camping 101: Mining", [97970] = "Camping 101: Mining" }, map = 1411, x = 52.02, y = 47.3, z = 18.4, f = "e", optional = true, profLine = 186, profName = "Mining", profRank = 1 },
-					},
-				},
-				{
-					title = "{quest:97907}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					only = { races = { "Skyborne" } },
-					when = { { k = "onquest", q = { 97907 } } },
-					goals = {
-						{ t = "complete", quest = 97907, title = "Camping 101: Mining", map = 1411, x = 52, y = 47.3, f = "e", optional = true, profLine = 186, profName = "Mining", profRank = 1, objs = { { text = "Raise your mining skill to 20", count = 1 } } },
-					},
-				},
-				{
-					title = "{quest:97907}",
-					only = { races = { "Skyborne" } },
-					when = { { k = "onquest", q = { 97907 } } },
-					goals = {
-						{ t = "turnin", quest = 97907, title = "Camping 101: Mining", npc = 3175, npcName = "Krunn", map = 1411, x = 51.81, y = 40.88, z = 16.4, f = "e", optional = true, profLine = 186, profName = "Mining", profRank = 1 },
-					},
-				},
-				{
-					title = "{quest:97906}",
-					note = "One of several exclusive quests; the route takes {quest:97906} (97934). This one shows for a character the game offers it to instead.",
-					only = { races = { "Skyborne" } },
-					when = { { k = "available", q = 97906, minLevel = 4, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96031, 97922, 97934, 97946, 97958, 97969 } }, { k = "skill", n = 1, name = "Leatherworking", skillLine = 165 } },
-					goals = {
-						{ t = "accept", quest = 97906, title = "Camping 101: Leatherworking", npc = 265809, npcName = "Brakk", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96031, 97922, 97934, 97946, 97958, 97969 }, endNpcs = { 3365 }, xp = 270, preTitles = { [95998] = "The Great Outdoors", [96031] = "Camping 101: Leatherworking", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [97922] = "Camping 101: Leatherworking", [97934] = "Camping 101: Leatherworking", [97946] = "Camping 101: Leatherworking", [97958] = "Camping 101: Leatherworking", [97969] = "Camping 101: Leatherworking" }, map = 1411, x = 52.02, y = 47.3, z = 18.4, f = "e", optional = true, profLine = 165, profName = "Leatherworking", profRank = 1 },
-					},
-				},
-				{
-					title = "{quest:97906}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					only = { races = { "Skyborne" } },
-					when = { { k = "onquest", q = { 97906 } } },
-					goals = {
-						{ t = "complete", quest = 97906, title = "Camping 101: Leatherworking", map = 1411, x = 52, y = 47.3, f = "e", optional = true, profLine = 165, profName = "Leatherworking", profRank = 1, objs = { { text = "Raise your leatherworking skill to 20", count = 1 } } },
-					},
-				},
-				{
-					title = "{quest:97906}",
-					only = { races = { "Skyborne" } },
-					when = { { k = "onquest", q = { 97906 } } },
-					goals = {
-						{ t = "turnin", quest = 97906, title = "Camping 101: Leatherworking", npc = 3365, npcName = "Karolek", map = 1454, x = 62.81, y = 44.15, z = 24.8, f = "e", optional = true, profLine = 165, profName = "Leatherworking", profRank = 1 },
-					},
-				},
-				{
-					title = "{quest:97905}",
-					note = "One of several exclusive quests; the route takes {quest:97905} (97933). This one shows for a character the game offers it to instead.",
-					only = { races = { "Skyborne" } },
-					when = { { k = "available", q = 97905, minLevel = 4, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96055, 97921, 97933, 97944, 97957, 97968 } }, { k = "skill", n = 1, name = "Herbalism", skillLine = 182 } },
-					goals = {
-						{ t = "accept", quest = 97905, title = "Camping 101: Herbalism", npc = 265809, npcName = "Brakk", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96055, 97921, 97933, 97944, 97957, 97968 }, endNpcs = { 3404 }, xp = 270, preTitles = { [95998] = "The Great Outdoors", [96055] = "Camping 101: Herbalism", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [97921] = "Camping 101: Herbalism", [97933] = "Camping 101: Herbalism", [97944] = "Camping 101: Herbalism", [97957] = "Camping 101: Herbalism", [97968] = "Camping 101: Herbalism" }, map = 1411, x = 52.02, y = 47.3, z = 18.4, f = "e", optional = true, profLine = 182, profName = "Herbalism", profRank = 1 },
-					},
-				},
-				{
-					title = "{quest:97905}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					only = { races = { "Skyborne" } },
-					when = { { k = "onquest", q = { 97905 } } },
-					goals = {
-						{ t = "complete", quest = 97905, title = "Camping 101: Herbalism", map = 1411, x = 52, y = 47.3, f = "e", optional = true, profLine = 182, profName = "Herbalism", profRank = 1, objs = { { text = "Raise your herbalism skill to 20", count = 1 } } },
-					},
-				},
-				{
-					title = "{quest:97905}",
-					only = { races = { "Skyborne" } },
-					when = { { k = "onquest", q = { 97905 } } },
-					goals = {
-						{ t = "turnin", quest = 97905, title = "Camping 101: Herbalism", npc = 3404, npcName = "Jandi", map = 1454, x = 55.62, y = 39.46, z = 53.3, f = "e", optional = true, profLine = 182, profName = "Herbalism", profRank = 1 },
-					},
-				},
-				{
-					title = "{quest:97904}",
-					note = "One of several exclusive quests; the route takes {quest:97904} (97932). This one shows for a character the game offers it to instead.",
-					only = { races = { "Skyborne" } },
-					when = { { k = "available", q = 97904, minLevel = 4, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96050, 97920, 97932, 97943, 97956, 97967 } }, { k = "skill", n = 1, name = "Fishing", skillLine = 356 } },
-					goals = {
-						{ t = "accept", quest = 97904, title = "Camping 101: Fishing", npc = 265809, npcName = "Brakk", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96050, 97920, 97932, 97943, 97956, 97967 }, endNpcs = { 5941 }, xp = 270, preTitles = { [95998] = "The Great Outdoors", [96050] = "Camping 101: Fishing", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [97920] = "Camping 101: Fishing", [97932] = "Camping 101: Fishing", [97943] = "Camping 101: Fishing", [97956] = "Camping 101: Fishing", [97967] = "Camping 101: Fishing" }, map = 1411, x = 52.02, y = 47.3, z = 18.4, f = "e", optional = true, profLine = 356, profName = "Fishing", profRank = 1 },
-					},
-				},
-				{
-					title = "{quest:97904}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					only = { races = { "Skyborne" } },
-					when = { { k = "onquest", q = { 97904 } } },
-					goals = {
-						{ t = "complete", quest = 97904, title = "Camping 101: Fishing", map = 1411, x = 52, y = 47.3, f = "e", optional = true, profLine = 356, profName = "Fishing", profRank = 1, objs = { { text = "Raise your fishing skill to 20", count = 1 } } },
-					},
-				},
-				{
-					title = "{quest:97904}",
-					only = { races = { "Skyborne" } },
-					when = { { k = "onquest", q = { 97904 } } },
-					goals = {
-						{ t = "turnin", quest = 97904, title = "Camping 101: Fishing", npc = 5941, npcName = "Lau'Tiki", map = 1411, x = 53.25, y = 81.59, z = 17.4, f = "e", optional = true, profLine = 356, profName = "Fishing", profRank = 1 },
-					},
-				},
-				{
-					title = "{quest:97903}",
-					note = "One of several exclusive quests; the route takes {quest:97903} (97931). This one shows for a character the game offers it to instead.",
-					only = { races = { "Skyborne" } },
-					when = { { k = "available", q = 97903, minLevel = 4, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96047, 97919, 97931, 97942, 97955, 97965 } }, { k = "skill", n = 1, name = "First Aid", skillLine = 129 } },
-					goals = {
-						{ t = "accept", quest = 97903, title = "Camping 101: First Aid", npc = 265809, npcName = "Brakk", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96047, 97919, 97931, 97942, 97955, 97965 }, endNpcs = { 5943 }, xp = 270, preTitles = { [95998] = "The Great Outdoors", [96047] = "Camping 101: First Aid", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [97919] = "Camping 101: First Aid", [97931] = "Camping 101: First Aid", [97942] = "Camping 101: First Aid", [97955] = "Camping 101: First Aid", [97965] = "Camping 101: First Aid" }, map = 1411, x = 52.02, y = 47.3, z = 18.4, f = "e", optional = true, profLine = 129, profName = "First Aid", profRank = 1 },
-					},
-				},
-				{
-					title = "{quest:97903}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					only = { races = { "Skyborne" } },
-					when = { { k = "onquest", q = { 97903 } } },
-					goals = {
-						{ t = "complete", quest = 97903, title = "Camping 101: First Aid", map = 1411, x = 52, y = 47.3, f = "e", optional = true, profLine = 129, profName = "First Aid", profRank = 1, objs = { { text = "Raise your first aid skill to 20", count = 1 } } },
-					},
-				},
-				{
-					title = "{quest:97903}",
-					only = { races = { "Skyborne" } },
-					when = { { k = "onquest", q = { 97903 } } },
-					goals = {
-						{ t = "turnin", quest = 97903, title = "Camping 101: First Aid", npc = 5943, npcName = "Rawrk", map = 1411, x = 54.17, y = 41.93, z = 10.6, f = "e", optional = true, profLine = 129, profName = "First Aid", profRank = 1 },
-					},
-				},
-				{
-					title = "{quest:97902}",
-					note = "One of several exclusive quests; the route takes {quest:97902} (97930). This one shows for a character the game offers it to instead.",
-					only = { races = { "Skyborne" } },
-					when = { { k = "available", q = 97902, minLevel = 4, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96058, 97918, 97930, 97941, 97954, 98285, 98287 } }, { k = "skill", n = 1, name = "Engineering", skillLine = 202 } },
-					goals = {
-						{ t = "accept", quest = 97902, title = "Camping 101: Engineering", npc = 265809, npcName = "Brakk", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96058, 97918, 97930, 97941, 97954, 98285, 98287 }, endNpcs = { 11025 }, xp = 270, preTitles = { [95998] = "The Great Outdoors", [96058] = "Camping 101: Engineering", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [97918] = "Camping 101: Engineering", [97930] = "Camping 101: Engineering", [97941] = "Camping 101: Engineering", [97954] = "Camping 101: Engineering", [98285] = "Camping 101: Engineering", [98287] = "Camping 101: Engineering" }, map = 1411, x = 52.02, y = 47.3, z = 18.4, f = "e", optional = true, profLine = 202, profName = "Engineering", profRank = 1 },
-					},
-				},
-				{
-					title = "{quest:97902}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					only = { races = { "Skyborne" } },
-					when = { { k = "onquest", q = { 97902 } } },
-					goals = {
-						{ t = "complete", quest = 97902, title = "Camping 101: Engineering", map = 1411, x = 52, y = 47.3, f = "e", optional = true, profLine = 202, profName = "Engineering", profRank = 1, objs = { { text = "Raise your engineering skill to 20", count = 1 } } },
-					},
-				},
-				{
-					title = "{quest:97902}",
-					only = { races = { "Skyborne" } },
-					when = { { k = "onquest", q = { 97902 } } },
-					goals = {
-						{ t = "turnin", quest = 97902, title = "Camping 101: Engineering", npc = 11025, npcName = "Mukdrak", map = 1411, x = 52.18, y = 40.8, z = 13.4, f = "e", optional = true, profLine = 202, profName = "Engineering", profRank = 1 },
-					},
-				},
-				{
-					title = "{quest:97901}",
-					note = "One of several exclusive quests; the route takes {quest:97901} (97929). This one shows for a character the game offers it to instead.",
-					only = { races = { "Skyborne" } },
-					when = { { k = "available", q = 97901, minLevel = 4, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96059, 97917, 97929, 97940, 97953, 98284, 98286 } }, { k = "skill", n = 1, name = "Enchanting", skillLine = 333 } },
-					goals = {
-						{ t = "accept", quest = 97901, title = "Camping 101: Enchanting", npc = 265809, npcName = "Brakk", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96059, 97917, 97929, 97940, 97953, 98284, 98286 }, endNpcs = { 11066 }, xp = 270, preTitles = { [95998] = "The Great Outdoors", [96059] = "Camping 101: Enchanting", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [97917] = "Camping 101: Enchanting", [97929] = "Camping 101: Enchanting", [97940] = "Camping 101: Enchanting", [97953] = "Camping 101: Enchanting", [98284] = "Camping 101: Enchanting", [98286] = "Camping 101: Enchanting" }, map = 1411, x = 52.02, y = 47.3, z = 18.4, f = "e", optional = true, profLine = 333, profName = "Enchanting", profRank = 1 },
-					},
-				},
-				{
-					title = "{quest:97901}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					only = { races = { "Skyborne" } },
-					when = { { k = "onquest", q = { 97901 } } },
-					goals = {
-						{ t = "complete", quest = 97901, title = "Camping 101: Enchanting", map = 1411, x = 52, y = 47.3, f = "e", optional = true, profLine = 333, profName = "Enchanting", profRank = 1, objs = { { text = "Raise your enchanting skill to 20", count = 1 } } },
-					},
-				},
-				{
-					title = "{quest:97901}",
-					only = { races = { "Skyborne" } },
-					when = { { k = "onquest", q = { 97901 } } },
-					goals = {
-						{ t = "turnin", quest = 97901, title = "Camping 101: Enchanting", npc = 11066, npcName = "Jhag", map = 1454, x = 53.47, y = 38.55, z = 24.6, f = "e", optional = true, profLine = 333, profName = "Enchanting", profRank = 1 },
-					},
-				},
-				{
-					title = "{quest:97900}",
-					note = "One of several exclusive quests; the route takes {quest:97900} (97928). This one shows for a character the game offers it to instead.",
-					only = { races = { "Skyborne" } },
-					when = { { k = "available", q = 97900, minLevel = 4, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96044, 97916, 97928, 97939, 97952, 97964 } }, { k = "skill", n = 1, name = "Blacksmithing", skillLine = 164 } },
-					goals = {
-						{ t = "accept", quest = 97900, title = "Camping 101: Blacksmithing", npc = 265809, npcName = "Brakk", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96044, 97916, 97928, 97939, 97952, 97964 }, endNpcs = { 3174 }, xp = 270, preTitles = { [95998] = "The Great Outdoors", [96044] = "Camping 101: Blacksmithing", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [97916] = "Camping 101: Blacksmithing", [97928] = "Camping 101: Blacksmithing", [97939] = "Camping 101: Blacksmithing", [97952] = "Camping 101: Blacksmithing", [97964] = "Camping 101: Blacksmithing" }, map = 1411, x = 52.02, y = 47.3, z = 18.4, f = "e", optional = true, profLine = 164, profName = "Blacksmithing", profRank = 1 },
-					},
-				},
-				{
-					title = "{quest:97900}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					only = { races = { "Skyborne" } },
-					when = { { k = "onquest", q = { 97900 } } },
-					goals = {
-						{ t = "complete", quest = 97900, title = "Camping 101: Blacksmithing", map = 1411, x = 52, y = 47.3, f = "e", optional = true, profLine = 164, profName = "Blacksmithing", profRank = 1, objs = { { text = "Raise your blacksmithing skill to 20", count = 1 } } },
-					},
-				},
-				{
-					title = "{quest:97900}",
-					only = { races = { "Skyborne" } },
-					when = { { k = "onquest", q = { 97900 } } },
-					goals = {
-						{ t = "turnin", quest = 97900, title = "Camping 101: Blacksmithing", npc = 3174, npcName = "Dwukk", map = 1411, x = 52.03, y = 40.72, z = 15.9, f = "e", optional = true, profLine = 164, profName = "Blacksmithing", profRank = 1 },
-					},
-				},
-				{
-					title = "{quest:97899}",
-					note = "One of several exclusive quests; the route takes {quest:97899} (97927). This one shows for a character the game offers it to instead.",
-					only = { races = { "Skyborne" } },
-					when = { { k = "available", q = 97899, minLevel = 4, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96045, 97915, 97927, 97938, 97951, 97963 } }, { k = "skill", n = 1, name = "Alchemy", skillLine = 171 } },
-					goals = {
-						{ t = "accept", quest = 97899, title = "Camping 101: Alchemy", npc = 265809, npcName = "Brakk", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96045, 97915, 97927, 97938, 97951, 97963 }, endNpcs = { 11046 }, xp = 270, preTitles = { [95998] = "The Great Outdoors", [96045] = "Camping 101: Alchemy", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [97915] = "Camping 101: Alchemy", [97927] = "Camping 101: Alchemy", [97938] = "Camping 101: Alchemy", [97951] = "Camping 101: Alchemy", [97963] = "Camping 101: Alchemy" }, map = 1411, x = 52.02, y = 47.3, z = 18.4, f = "e", optional = true, profLine = 171, profName = "Alchemy", profRank = 1 },
-					},
-				},
-				{
-					title = "{quest:97899}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					only = { races = { "Skyborne" } },
-					when = { { k = "onquest", q = { 97899 } } },
-					goals = {
-						{ t = "complete", quest = 97899, title = "Camping 101: Alchemy", map = 1411, x = 52, y = 47.3, f = "e", optional = true, profLine = 171, profName = "Alchemy", profRank = 1, objs = { { text = "Raise your alchemy skill to 20", count = 1 } } },
-					},
-				},
-				{
-					title = "{quest:97899}",
-					only = { races = { "Skyborne" } },
-					when = { { k = "onquest", q = { 97899 } } },
-					goals = {
-						{ t = "turnin", quest = 97899, title = "Camping 101: Alchemy", npc = 11046, npcName = "Whuut", map = 1454, x = 55.79, y = 32.9, z = 25.8, f = "e", optional = true, profLine = 171, profName = "Alchemy", profRank = 1 },
-					},
-				},
-				{
-					title = "{quest:96646}",
-					note = "One of several exclusive quests; the route takes {quest:96646} (96655). This one shows for a character the game offers it to instead.",
-					only = { races = { "Skyborne" } },
-					when = { { k = "available", q = 96646, minLevel = 4, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96626, 96629, 96634, 96655, 96658, 96661 } } },
-					goals = {
-						{ t = "accept", quest = 96646, title = "Camping 101: Cooking", npc = 263664, npcName = "Raan Wildwind", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96626, 96629, 96634, 96655, 96658, 96661 }, endNpcs = { 251905 }, xp = 270, preTitles = { [95998] = "The Great Outdoors", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [96626] = "Camping 101: Cooking", [96629] = "Camping 101: Cooking", [96634] = "Camping 101: Cooking", [96655] = "Camping 101: Cooking", [96658] = "Camping 101: Cooking", [96661] = "Camping 101: Cooking" }, map = 2521, x = 41.69, y = 44.79, optional = true },
-					},
-				},
-				{
-					title = "{quest:96646}",
-					only = { races = { "Skyborne" } },
-					when = { { k = "onquest", q = { 96646 } } },
-					goals = {
-						{ t = "complete", quest = 96646, title = "Camping 101: Cooking", map = 2521, x = 43.9, y = 43.8, optional = true, objs = { { text = "Zerril Softbreeze", count = 1 } } },
-					},
-				},
-				{
-					title = "{quest:96646}",
-					only = { races = { "Skyborne" } },
-					when = { { k = "onquest", q = { 96646 } } },
-					goals = {
-						{ t = "turnin", quest = 96646, title = "Camping 101: Cooking", npc = 251905, npcName = "Zerril Softbreeze", map = 2521, x = 43.85, y = 43.84, optional = true },
-					},
-				},
-				{
 					title = "{quest:98284}",
 					note = "One of several exclusive quests; the route takes {quest:98284} (97901). This one shows for a character the game offers it to instead.",
 					only = { races = { "Skyborne" } },
@@ -5597,6 +5286,317 @@ do
 						{ t = "turnin", quest = 94491, title = "The Fate of the Den", npc = 252359, npcName = "Lotheluum Starbreeze", map = 2521, x = 63.99, y = 75.08 },
 					},
 				},
+				{
+					title = "{quest:96646}",
+					note = "One of several exclusive quests; the route takes {quest:96646} (96655). This one shows for a character the game offers it to instead.",
+					only = { races = { "Skyborne" } },
+					when = { { k = "available", q = 96646, minLevel = 4, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96626, 96629, 96634, 96655, 96658, 96661 } } },
+					goals = {
+						{ t = "accept", quest = 96646, title = "Camping 101: Cooking", npc = 263664, npcName = "Raan Wildwind", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96626, 96629, 96634, 96655, 96658, 96661 }, endNpcs = { 251905 }, xp = 270, preTitles = { [95998] = "The Great Outdoors", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [96626] = "Camping 101: Cooking", [96629] = "Camping 101: Cooking", [96634] = "Camping 101: Cooking", [96655] = "Camping 101: Cooking", [96658] = "Camping 101: Cooking", [96661] = "Camping 101: Cooking" }, map = 2521, x = 41.69, y = 44.79, optional = true },
+					},
+				},
+				{
+					title = "{quest:96646}",
+					only = { races = { "Skyborne" } },
+					when = { { k = "onquest", q = { 96646 } } },
+					goals = {
+						{ t = "complete", quest = 96646, title = "Camping 101: Cooking", map = 2521, x = 43.9, y = 43.8, optional = true, objs = { { text = "Zerril Softbreeze", count = 1 } } },
+					},
+				},
+				{
+					title = "{quest:96646}",
+					only = { races = { "Skyborne" } },
+					when = { { k = "onquest", q = { 96646 } } },
+					goals = {
+						{ t = "turnin", quest = 96646, title = "Camping 101: Cooking", npc = 251905, npcName = "Zerril Softbreeze", map = 2521, x = 43.85, y = 43.84, optional = true },
+					},
+				},
+				{
+					title = "{quest:97899}",
+					note = "One of several exclusive quests; the route takes {quest:97899} (97927). This one shows for a character the game offers it to instead.",
+					only = { races = { "Skyborne" } },
+					when = { { k = "available", q = 97899, minLevel = 4, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96045, 97915, 97927, 97938, 97951, 97963 } }, { k = "skill", n = 1, name = "Alchemy", skillLine = 171 } },
+					goals = {
+						{ t = "accept", quest = 97899, title = "Camping 101: Alchemy", npc = 265809, npcName = "Brakk", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96045, 97915, 97927, 97938, 97951, 97963 }, endNpcs = { 11046 }, xp = 270, preTitles = { [95998] = "The Great Outdoors", [96045] = "Camping 101: Alchemy", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [97915] = "Camping 101: Alchemy", [97927] = "Camping 101: Alchemy", [97938] = "Camping 101: Alchemy", [97951] = "Camping 101: Alchemy", [97963] = "Camping 101: Alchemy" }, map = 1411, x = 52.02, y = 47.3, z = 18.4, f = "e", optional = true, profLine = 171, profName = "Alchemy", profRank = 1 },
+					},
+				},
+				{
+					title = "{quest:97899}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					only = { races = { "Skyborne" } },
+					when = { { k = "onquest", q = { 97899 } } },
+					goals = {
+						{ t = "complete", quest = 97899, title = "Camping 101: Alchemy", map = 1411, x = 52, y = 47.3, f = "e", optional = true, profLine = 171, profName = "Alchemy", profRank = 1, objs = { { text = "Raise your alchemy skill to 20", count = 1 } } },
+					},
+				},
+				{
+					title = "{quest:97899}",
+					only = { races = { "Skyborne" } },
+					when = { { k = "onquest", q = { 97899 } } },
+					goals = {
+						{ t = "turnin", quest = 97899, title = "Camping 101: Alchemy", npc = 11046, npcName = "Whuut", map = 1454, x = 55.79, y = 32.9, z = 25.8, f = "e", optional = true, profLine = 171, profName = "Alchemy", profRank = 1 },
+					},
+				},
+				{
+					title = "{quest:97900}",
+					note = "One of several exclusive quests; the route takes {quest:97900} (97928). This one shows for a character the game offers it to instead.",
+					only = { races = { "Skyborne" } },
+					when = { { k = "available", q = 97900, minLevel = 4, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96044, 97916, 97928, 97939, 97952, 97964 } }, { k = "skill", n = 1, name = "Blacksmithing", skillLine = 164 } },
+					goals = {
+						{ t = "accept", quest = 97900, title = "Camping 101: Blacksmithing", npc = 265809, npcName = "Brakk", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96044, 97916, 97928, 97939, 97952, 97964 }, endNpcs = { 3174 }, xp = 270, preTitles = { [95998] = "The Great Outdoors", [96044] = "Camping 101: Blacksmithing", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [97916] = "Camping 101: Blacksmithing", [97928] = "Camping 101: Blacksmithing", [97939] = "Camping 101: Blacksmithing", [97952] = "Camping 101: Blacksmithing", [97964] = "Camping 101: Blacksmithing" }, map = 1411, x = 52.02, y = 47.3, z = 18.4, f = "e", optional = true, profLine = 164, profName = "Blacksmithing", profRank = 1 },
+					},
+				},
+				{
+					title = "{quest:97900}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					only = { races = { "Skyborne" } },
+					when = { { k = "onquest", q = { 97900 } } },
+					goals = {
+						{ t = "complete", quest = 97900, title = "Camping 101: Blacksmithing", map = 1411, x = 52, y = 47.3, f = "e", optional = true, profLine = 164, profName = "Blacksmithing", profRank = 1, objs = { { text = "Raise your blacksmithing skill to 20", count = 1 } } },
+					},
+				},
+				{
+					title = "{quest:97900}",
+					only = { races = { "Skyborne" } },
+					when = { { k = "onquest", q = { 97900 } } },
+					goals = {
+						{ t = "turnin", quest = 97900, title = "Camping 101: Blacksmithing", npc = 3174, npcName = "Dwukk", map = 1411, x = 52.03, y = 40.72, z = 15.9, f = "e", optional = true, profLine = 164, profName = "Blacksmithing", profRank = 1 },
+					},
+				},
+				{
+					title = "{quest:97901}",
+					note = "One of several exclusive quests; the route takes {quest:97901} (97929). This one shows for a character the game offers it to instead.",
+					only = { races = { "Skyborne" } },
+					when = { { k = "available", q = 97901, minLevel = 4, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96059, 97917, 97929, 97940, 97953, 98284, 98286 } }, { k = "skill", n = 1, name = "Enchanting", skillLine = 333 } },
+					goals = {
+						{ t = "accept", quest = 97901, title = "Camping 101: Enchanting", npc = 265809, npcName = "Brakk", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96059, 97917, 97929, 97940, 97953, 98284, 98286 }, endNpcs = { 11066 }, xp = 270, preTitles = { [95998] = "The Great Outdoors", [96059] = "Camping 101: Enchanting", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [97917] = "Camping 101: Enchanting", [97929] = "Camping 101: Enchanting", [97940] = "Camping 101: Enchanting", [97953] = "Camping 101: Enchanting", [98284] = "Camping 101: Enchanting", [98286] = "Camping 101: Enchanting" }, map = 1411, x = 52.02, y = 47.3, z = 18.4, f = "e", optional = true, profLine = 333, profName = "Enchanting", profRank = 1 },
+					},
+				},
+				{
+					title = "{quest:97901}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					only = { races = { "Skyborne" } },
+					when = { { k = "onquest", q = { 97901 } } },
+					goals = {
+						{ t = "complete", quest = 97901, title = "Camping 101: Enchanting", map = 1411, x = 52, y = 47.3, f = "e", optional = true, profLine = 333, profName = "Enchanting", profRank = 1, objs = { { text = "Raise your enchanting skill to 20", count = 1 } } },
+					},
+				},
+				{
+					title = "{quest:97901}",
+					only = { races = { "Skyborne" } },
+					when = { { k = "onquest", q = { 97901 } } },
+					goals = {
+						{ t = "turnin", quest = 97901, title = "Camping 101: Enchanting", npc = 11066, npcName = "Jhag", map = 1454, x = 53.47, y = 38.55, z = 24.6, f = "e", optional = true, profLine = 333, profName = "Enchanting", profRank = 1 },
+					},
+				},
+				{
+					title = "{quest:97902}",
+					note = "One of several exclusive quests; the route takes {quest:97902} (97930). This one shows for a character the game offers it to instead.",
+					only = { races = { "Skyborne" } },
+					when = { { k = "available", q = 97902, minLevel = 4, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96058, 97918, 97930, 97941, 97954, 98285, 98287 } }, { k = "skill", n = 1, name = "Engineering", skillLine = 202 } },
+					goals = {
+						{ t = "accept", quest = 97902, title = "Camping 101: Engineering", npc = 265809, npcName = "Brakk", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96058, 97918, 97930, 97941, 97954, 98285, 98287 }, endNpcs = { 11025 }, xp = 270, preTitles = { [95998] = "The Great Outdoors", [96058] = "Camping 101: Engineering", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [97918] = "Camping 101: Engineering", [97930] = "Camping 101: Engineering", [97941] = "Camping 101: Engineering", [97954] = "Camping 101: Engineering", [98285] = "Camping 101: Engineering", [98287] = "Camping 101: Engineering" }, map = 1411, x = 52.02, y = 47.3, z = 18.4, f = "e", optional = true, profLine = 202, profName = "Engineering", profRank = 1 },
+					},
+				},
+				{
+					title = "{quest:97902}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					only = { races = { "Skyborne" } },
+					when = { { k = "onquest", q = { 97902 } } },
+					goals = {
+						{ t = "complete", quest = 97902, title = "Camping 101: Engineering", map = 1411, x = 52, y = 47.3, f = "e", optional = true, profLine = 202, profName = "Engineering", profRank = 1, objs = { { text = "Raise your engineering skill to 20", count = 1 } } },
+					},
+				},
+				{
+					title = "{quest:97902}",
+					only = { races = { "Skyborne" } },
+					when = { { k = "onquest", q = { 97902 } } },
+					goals = {
+						{ t = "turnin", quest = 97902, title = "Camping 101: Engineering", npc = 11025, npcName = "Mukdrak", map = 1411, x = 52.18, y = 40.8, z = 13.4, f = "e", optional = true, profLine = 202, profName = "Engineering", profRank = 1 },
+					},
+				},
+				{
+					title = "{quest:97903}",
+					note = "One of several exclusive quests; the route takes {quest:97903} (97931). This one shows for a character the game offers it to instead.",
+					only = { races = { "Skyborne" } },
+					when = { { k = "available", q = 97903, minLevel = 4, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96047, 97919, 97931, 97942, 97955, 97965 } }, { k = "skill", n = 1, name = "First Aid", skillLine = 129 } },
+					goals = {
+						{ t = "accept", quest = 97903, title = "Camping 101: First Aid", npc = 265809, npcName = "Brakk", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96047, 97919, 97931, 97942, 97955, 97965 }, endNpcs = { 5943 }, xp = 270, preTitles = { [95998] = "The Great Outdoors", [96047] = "Camping 101: First Aid", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [97919] = "Camping 101: First Aid", [97931] = "Camping 101: First Aid", [97942] = "Camping 101: First Aid", [97955] = "Camping 101: First Aid", [97965] = "Camping 101: First Aid" }, map = 1411, x = 52.02, y = 47.3, z = 18.4, f = "e", optional = true, profLine = 129, profName = "First Aid", profRank = 1 },
+					},
+				},
+				{
+					title = "{quest:97903}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					only = { races = { "Skyborne" } },
+					when = { { k = "onquest", q = { 97903 } } },
+					goals = {
+						{ t = "complete", quest = 97903, title = "Camping 101: First Aid", map = 1411, x = 52, y = 47.3, f = "e", optional = true, profLine = 129, profName = "First Aid", profRank = 1, objs = { { text = "Raise your first aid skill to 20", count = 1 } } },
+					},
+				},
+				{
+					title = "{quest:97903}",
+					only = { races = { "Skyborne" } },
+					when = { { k = "onquest", q = { 97903 } } },
+					goals = {
+						{ t = "turnin", quest = 97903, title = "Camping 101: First Aid", npc = 5943, npcName = "Rawrk", map = 1411, x = 54.17, y = 41.93, z = 10.6, f = "e", optional = true, profLine = 129, profName = "First Aid", profRank = 1 },
+					},
+				},
+				{
+					title = "{quest:97904}",
+					note = "One of several exclusive quests; the route takes {quest:97904} (97932). This one shows for a character the game offers it to instead.",
+					only = { races = { "Skyborne" } },
+					when = { { k = "available", q = 97904, minLevel = 4, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96050, 97920, 97932, 97943, 97956, 97967 } }, { k = "skill", n = 1, name = "Fishing", skillLine = 356 } },
+					goals = {
+						{ t = "accept", quest = 97904, title = "Camping 101: Fishing", npc = 265809, npcName = "Brakk", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96050, 97920, 97932, 97943, 97956, 97967 }, endNpcs = { 5941 }, xp = 270, preTitles = { [95998] = "The Great Outdoors", [96050] = "Camping 101: Fishing", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [97920] = "Camping 101: Fishing", [97932] = "Camping 101: Fishing", [97943] = "Camping 101: Fishing", [97956] = "Camping 101: Fishing", [97967] = "Camping 101: Fishing" }, map = 1411, x = 52.02, y = 47.3, z = 18.4, f = "e", optional = true, profLine = 356, profName = "Fishing", profRank = 1 },
+					},
+				},
+				{
+					title = "{quest:97904}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					only = { races = { "Skyborne" } },
+					when = { { k = "onquest", q = { 97904 } } },
+					goals = {
+						{ t = "complete", quest = 97904, title = "Camping 101: Fishing", map = 1411, x = 52, y = 47.3, f = "e", optional = true, profLine = 356, profName = "Fishing", profRank = 1, objs = { { text = "Raise your fishing skill to 20", count = 1 } } },
+					},
+				},
+				{
+					title = "{quest:97904}",
+					only = { races = { "Skyborne" } },
+					when = { { k = "onquest", q = { 97904 } } },
+					goals = {
+						{ t = "turnin", quest = 97904, title = "Camping 101: Fishing", npc = 5941, npcName = "Lau'Tiki", map = 1411, x = 53.25, y = 81.59, z = 17.4, f = "e", optional = true, profLine = 356, profName = "Fishing", profRank = 1 },
+					},
+				},
+				{
+					title = "{quest:97905}",
+					note = "One of several exclusive quests; the route takes {quest:97905} (97933). This one shows for a character the game offers it to instead.",
+					only = { races = { "Skyborne" } },
+					when = { { k = "available", q = 97905, minLevel = 4, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96055, 97921, 97933, 97944, 97957, 97968 } }, { k = "skill", n = 1, name = "Herbalism", skillLine = 182 } },
+					goals = {
+						{ t = "accept", quest = 97905, title = "Camping 101: Herbalism", npc = 265809, npcName = "Brakk", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96055, 97921, 97933, 97944, 97957, 97968 }, endNpcs = { 3404 }, xp = 270, preTitles = { [95998] = "The Great Outdoors", [96055] = "Camping 101: Herbalism", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [97921] = "Camping 101: Herbalism", [97933] = "Camping 101: Herbalism", [97944] = "Camping 101: Herbalism", [97957] = "Camping 101: Herbalism", [97968] = "Camping 101: Herbalism" }, map = 1411, x = 52.02, y = 47.3, z = 18.4, f = "e", optional = true, profLine = 182, profName = "Herbalism", profRank = 1 },
+					},
+				},
+				{
+					title = "{quest:97905}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					only = { races = { "Skyborne" } },
+					when = { { k = "onquest", q = { 97905 } } },
+					goals = {
+						{ t = "complete", quest = 97905, title = "Camping 101: Herbalism", map = 1411, x = 52, y = 47.3, f = "e", optional = true, profLine = 182, profName = "Herbalism", profRank = 1, objs = { { text = "Raise your herbalism skill to 20", count = 1 } } },
+					},
+				},
+				{
+					title = "{quest:97905}",
+					only = { races = { "Skyborne" } },
+					when = { { k = "onquest", q = { 97905 } } },
+					goals = {
+						{ t = "turnin", quest = 97905, title = "Camping 101: Herbalism", npc = 3404, npcName = "Jandi", map = 1454, x = 55.62, y = 39.46, z = 53.3, f = "e", optional = true, profLine = 182, profName = "Herbalism", profRank = 1 },
+					},
+				},
+				{
+					title = "{quest:97906}",
+					note = "One of several exclusive quests; the route takes {quest:97906} (97934). This one shows for a character the game offers it to instead.",
+					only = { races = { "Skyborne" } },
+					when = { { k = "available", q = 97906, minLevel = 4, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96031, 97922, 97934, 97946, 97958, 97969 } }, { k = "skill", n = 1, name = "Leatherworking", skillLine = 165 } },
+					goals = {
+						{ t = "accept", quest = 97906, title = "Camping 101: Leatherworking", npc = 265809, npcName = "Brakk", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96031, 97922, 97934, 97946, 97958, 97969 }, endNpcs = { 3365 }, xp = 270, preTitles = { [95998] = "The Great Outdoors", [96031] = "Camping 101: Leatherworking", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [97922] = "Camping 101: Leatherworking", [97934] = "Camping 101: Leatherworking", [97946] = "Camping 101: Leatherworking", [97958] = "Camping 101: Leatherworking", [97969] = "Camping 101: Leatherworking" }, map = 1411, x = 52.02, y = 47.3, z = 18.4, f = "e", optional = true, profLine = 165, profName = "Leatherworking", profRank = 1 },
+					},
+				},
+				{
+					title = "{quest:97906}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					only = { races = { "Skyborne" } },
+					when = { { k = "onquest", q = { 97906 } } },
+					goals = {
+						{ t = "complete", quest = 97906, title = "Camping 101: Leatherworking", map = 1411, x = 52, y = 47.3, f = "e", optional = true, profLine = 165, profName = "Leatherworking", profRank = 1, objs = { { text = "Raise your leatherworking skill to 20", count = 1 } } },
+					},
+				},
+				{
+					title = "{quest:97906}",
+					only = { races = { "Skyborne" } },
+					when = { { k = "onquest", q = { 97906 } } },
+					goals = {
+						{ t = "turnin", quest = 97906, title = "Camping 101: Leatherworking", npc = 3365, npcName = "Karolek", map = 1454, x = 62.81, y = 44.15, z = 24.8, f = "e", optional = true, profLine = 165, profName = "Leatherworking", profRank = 1 },
+					},
+				},
+				{
+					title = "{quest:97907}",
+					note = "One of several exclusive quests; the route takes {quest:97907} (97935). This one shows for a character the game offers it to instead.",
+					only = { races = { "Skyborne" } },
+					when = { { k = "available", q = 97907, minLevel = 4, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96046, 97923, 97935, 97948, 97959, 97970 } }, { k = "skill", n = 1, name = "Mining", skillLine = 186 } },
+					goals = {
+						{ t = "accept", quest = 97907, title = "Camping 101: Mining", npc = 265809, npcName = "Brakk", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96046, 97923, 97935, 97948, 97959, 97970 }, endNpcs = { 3175 }, xp = 270, preTitles = { [95998] = "The Great Outdoors", [96046] = "Camping 101: Mining", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [97923] = "Camping 101: Mining", [97935] = "Camping 101: Mining", [97948] = "Camping 101: Mining", [97959] = "Camping 101: Mining", [97970] = "Camping 101: Mining" }, map = 1411, x = 52.02, y = 47.3, z = 18.4, f = "e", optional = true, profLine = 186, profName = "Mining", profRank = 1 },
+					},
+				},
+				{
+					title = "{quest:97907}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					only = { races = { "Skyborne" } },
+					when = { { k = "onquest", q = { 97907 } } },
+					goals = {
+						{ t = "complete", quest = 97907, title = "Camping 101: Mining", map = 1411, x = 52, y = 47.3, f = "e", optional = true, profLine = 186, profName = "Mining", profRank = 1, objs = { { text = "Raise your mining skill to 20", count = 1 } } },
+					},
+				},
+				{
+					title = "{quest:97907}",
+					only = { races = { "Skyborne" } },
+					when = { { k = "onquest", q = { 97907 } } },
+					goals = {
+						{ t = "turnin", quest = 97907, title = "Camping 101: Mining", npc = 3175, npcName = "Krunn", map = 1411, x = 51.81, y = 40.88, z = 16.4, f = "e", optional = true, profLine = 186, profName = "Mining", profRank = 1 },
+					},
+				},
+				{
+					title = "{quest:97908}",
+					note = "One of several exclusive quests; the route takes {quest:97908} (97936). This one shows for a character the game offers it to instead.",
+					only = { races = { "Skyborne" } },
+					when = { { k = "available", q = 97908, minLevel = 4, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96056, 97924, 97936, 97949, 97960, 97971 } }, { k = "skill", n = 1, name = "Skinning", skillLine = 393 } },
+					goals = {
+						{ t = "accept", quest = 97908, title = "Camping 101: Skinning", npc = 265809, npcName = "Brakk", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96056, 97924, 97936, 97949, 97960, 97971 }, endNpcs = { 7088 }, xp = 270, preTitles = { [95998] = "The Great Outdoors", [96056] = "Camping 101: Skinning", [96101] = "The Great Outdoors", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [97924] = "Camping 101: Skinning", [97936] = "Camping 101: Skinning", [97949] = "Camping 101: Skinning", [97960] = "Camping 101: Skinning", [97971] = "Camping 101: Skinning" }, map = 1411, x = 52.02, y = 47.3, z = 18.4, f = "e", optional = true, profLine = 393, profName = "Skinning", profRank = 1 },
+					},
+				},
+				{
+					title = "{quest:97908}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					only = { races = { "Skyborne" } },
+					when = { { k = "onquest", q = { 97908 } } },
+					goals = {
+						{ t = "complete", quest = 97908, title = "Camping 101: Skinning", map = 1411, x = 52, y = 47.3, f = "e", optional = true, profLine = 393, profName = "Skinning", profRank = 1, objs = { { text = "Raise your skinning skill to 20", count = 1 } } },
+					},
+				},
+				{
+					title = "{quest:97908}",
+					only = { races = { "Skyborne" } },
+					when = { { k = "onquest", q = { 97908 } } },
+					goals = {
+						{ t = "turnin", quest = 97908, title = "Camping 101: Skinning", npc = 7088, npcName = "Thuwd", map = 1454, x = 63.36, y = 45.42, z = 24.8, f = "e", optional = true, profLine = 393, profName = "Skinning", profRank = 1 },
+					},
+				},
+				{
+					title = "{quest:97937}",
+					note = "One of several exclusive quests; the route takes {quest:97937} (96102). This one shows for a character the game offers it to instead.",
+					only = { races = { "Skyborne" } },
+					when = { { k = "available", q = 97937, minLevel = 4, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96057, 96102, 97925, 97950, 97961, 97972, 97973 } }, { k = "skill", n = 1, name = "Tailoring", skillLine = 197 } },
+					goals = {
+						{ t = "accept", quest = 97937, title = "Camping 101: Tailoring", npc = 265810, npcName = "Kaga Wildhoof", minLevel = 4, qlvl = 6, pre = { 95998, 96101, 96604, 96605, 96606, 96607, 96608 }, closedBy = { 96057, 96102, 97925, 97950, 97961, 97972, 97973 }, endNpcs = { 11051 }, xp = 270, preTitles = { [95998] = "The Great Outdoors", [96057] = "Camping 101: Tailoring", [96101] = "The Great Outdoors", [96102] = "Camping 101: Tailoring", [96604] = "The Great Outdoors", [96605] = "The Great Outdoors", [96606] = "The Great Outdoors", [96607] = "The Great Outdoors", [96608] = "The Great Outdoors", [97925] = "Camping 101: Tailoring", [97950] = "Camping 101: Tailoring", [97961] = "Camping 101: Tailoring", [97972] = "Camping 101: Tailoring", [97973] = "Camping 101: Tailoring" }, map = 1412, x = 46.18, y = 67.3, z = -11.2, optional = true, profLine = 197, profName = "Tailoring", profRank = 1 },
+					},
+				},
+				{
+					title = "{quest:97937}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					only = { races = { "Skyborne" } },
+					when = { { k = "onquest", q = { 97937 } } },
+					goals = {
+						{ t = "complete", quest = 97937, title = "Camping 101: Tailoring", map = 1412, x = 46.2, y = 67.3, f = "e", optional = true, profLine = 197, profName = "Tailoring", profRank = 1, objs = { { text = "Raise your tailoring skill to 20", count = 1 } } },
+					},
+				},
+				{
+					title = "{quest:97937}",
+					only = { races = { "Skyborne" } },
+					when = { { k = "onquest", q = { 97937 } } },
+					goals = {
+						{ t = "turnin", quest = 97937, title = "Camping 101: Tailoring", npc = 11051, npcName = "Vhan", map = 1456, x = 44.26, y = 44.34, z = 145.9, f = "e", optional = true, profLine = 197, profName = "Tailoring", profRank = 1 },
+					},
+				},
 			},
 		})
 	end
@@ -5728,8 +5728,8 @@ do
 				{
 					title = "{npc:2121}",
 					goals = {
-						{ t = "sethome", location = "The Sepulcher", area = 228 },
-						{ t = "getfp", location = "The Sepulcher", area = 228 },
+						{ t = "sethome", npc = 6739, npcName = "Innkeeper Bates", location = "The Sepulcher", area = 228, map = 1421, x = 43.18, y = 41.28, z = 126, f = "e" },
+						{ t = "getfp", npc = 2226, npcName = "Karos Razok", location = "The Sepulcher", node = 10, area = 228, map = 1421, x = 45.62, y = 42.6, z = 132, f = "e" },
 						{ t = "accept", quest = 477, title = "Border Crossings", npc = 2121, npcName = "Shadow Priest Allister", minLevel = 10, qlvl = 14, map = 1421, x = 43.98, y = 40.93, z = 126.5, f = "e" },
 						{ t = "accept", quest = 428, title = "Lost Deathstalkers", npc = 1952, npcName = "High Executor Hadrec", minLevel = 10, qlvl = 12, closedBy = { 429 }, endNpcs = { 1950 }, xp = 225, preTitles = { [429] = "Wild Hearts" }, map = 1421, x = 43.42, y = 40.86, z = 105, f = "e" },
 						{ t = "accept", quest = 437, title = "The Dead Fields", npc = 1952, npcName = "High Executor Hadrec", minLevel = 10, qlvl = 14, map = 1421, x = 43.42, y = 40.86, z = 105, f = "e" },
@@ -6343,6 +6343,12 @@ do
 					},
 				},
 				{
+					title = "Level 20",
+					goals = {
+						{ t = "level", level = 20 },
+					},
+				},
+				{
 					title = "{quest:8162}",
 					note = "The reference data does not place this quest's objective: follow the quest text.",
 					goals = {
@@ -6399,7 +6405,7 @@ do
 				{
 					title = "{npc:3390}",
 					goals = {
-						{ t = "getfp", location = "Crossroads" },
+						{ t = "getfp", npc = 3615, npcName = "Devrak", location = "Crossroads", node = 25, map = 1413, x = 51.5, y = 30.34, z = 95.9, f = "e" },
 						{ t = "accept", quest = 848, title = "Fungal Spores", npc = 3390, npcName = "Apothecary Helbrim", minLevel = 10, qlvl = 15, map = 1413, x = 51.44, y = 30.15, z = 95.9, f = "e" },
 						{ t = "accept", quest = 1492, title = "Wharfmaster Dizzywig", npc = 3390, npcName = "Apothecary Helbrim", minLevel = 9, qlvl = 11, map = 1413, x = 51.44, y = 30.15, z = 95.9, f = "e" },
 						{ t = "accept", quest = 871, title = "Disrupt the Attacks", npc = 3429, npcName = "Thork", minLevel = 9, qlvl = 12, map = 1413, x = 51.5, y = 30.87, z = 103.8, f = "e" },
@@ -6455,8 +6461,8 @@ do
 				{
 					title = "{npc:3387}",
 					goals = {
-						{ t = "sethome", location = "Camp Taurajo", area = 378 },
-						{ t = "getfp", location = "Camp Taurajo", area = 378 },
+						{ t = "sethome", npc = 7714, npcName = "Innkeeper Byula", location = "Camp Taurajo", area = 378, map = 1413, x = 45.58, y = 59.04, z = 96.8, f = "e" },
+						{ t = "getfp", npc = 10378, npcName = "Omusa Thunderhorn", location = "Camp Taurajo", node = 77, area = 378, map = 1413, x = 44.45, y = 59.15, z = 95.9, f = "e" },
 						{ t = "turnin", quest = 883, title = "Lakota'mani", npc = 3387, npcName = "Jorn Skyseer", map = 1413, x = 44.86, y = 59.14, z = 95.9, f = "e" },
 					},
 				},
@@ -6596,7 +6602,7 @@ do
 				{
 					title = "{npc:3339}",
 					goals = {
-						{ t = "getfp", location = "Ratchet", area = 392 },
+						{ t = "getfp", npc = 16227, npcName = "Bragok", location = "Ratchet", node = 80, area = 392, map = 1413, x = 63.08, y = 37.16, z = 11.8, f = "e" },
 						{ t = "turnin", quest = 898, title = "Free From the Hold", npc = 3339, npcName = "Captain Thalo'thas Brightsun", map = 1413, x = 62.29, y = 39.03, z = 23.2, f = "e" },
 						{ t = "accept", quest = 891, title = "The Guns of Northwatch", npc = 3339, npcName = "Captain Thalo'thas Brightsun", minLevel = 13, qlvl = 20, map = 1413, x = 62.29, y = 39.03, z = 23.2, f = "e" },
 						{ t = "turnin", quest = 819, title = "Chen's Empty Keg", npc = 3292, npcName = "Brewmaster Drohn", map = 1413, x = 62.26, y = 38.39, z = 9.5, f = "e" },
@@ -7643,14 +7649,14 @@ do
 				{
 					title = "{npc:1499}",
 					goals = {
-						{ t = "sethome", location = "Gallows' End Tavern", area = 2119 },
+						{ t = "sethome", npc = 5688, npcName = "Innkeeper Renee", location = "Gallows' End Tavern", area = 2119, map = 1420, x = 61.72, y = 52.05, z = 34.3, f = "e" },
 						{ t = "accept", quest = 441, title = "Raleigh and the Undercity", npc = 1499, npcName = "Magistrate Sevren", minLevel = 10, qlvl = 16, pre = { 440 }, preTitles = { [440] = "The Engraved Ring" }, map = 1420, x = 61.26, y = 50.84, z = 38.8, f = "e" },
 					},
 				},
 				{
 					title = "{npc:2050}",
 					goals = {
-						{ t = "getfp", location = "Undercity", area = 1497 },
+						{ t = "getfp", npc = 4551, npcName = "Michael Garrett", location = "Undercity", node = 11, area = 1497, map = 1458, x = 63.25, y = 48.56, z = -43, f = "e" },
 						{ t = "turnin", quest = 441, title = "Raleigh and the Undercity", npc = 2050, npcName = "Raleigh Andrean", map = 1458, x = 62.01, y = 42.75, z = -55.3, f = "e" },
 						{ t = "accept", quest = 530, title = "A Husband's Revenge", npc = 2050, npcName = "Raleigh Andrean", minLevel = 10, qlvl = 20, pre = { 441 }, preTitles = { [441] = "Raleigh and the Undercity" }, map = 1458, x = 62.01, y = 42.75, z = -55.3, f = "e" },
 					},
@@ -7731,8 +7737,8 @@ do
 				{
 					title = "{npc:11864}",
 					goals = {
-						{ t = "sethome", location = "Sun Rock Retreat", area = 460 },
-						{ t = "getfp", location = "Sun Rock Retreat", area = 460 },
+						{ t = "sethome", npc = 7731, npcName = "Innkeeper Jayka", location = "Sun Rock Retreat", area = 460, map = 1442, x = 47.47, y = 62.13, z = 106.4, f = "e" },
+						{ t = "getfp", npc = 4312, npcName = "Tharm", location = "Sun Rock Retreat", node = 29, area = 460, map = 1442, x = 45.12, y = 59.84, z = 104.6, f = "e" },
 						{ t = "accept", quest = 6301, title = "Cycle of Rebirth", npc = 11864, npcName = "Tammra Windfield", minLevel = 17, qlvl = 23, map = 1442, x = 47.46, y = 58.38, z = 103.5, f = "e" },
 					},
 				},
@@ -8232,8 +8238,8 @@ do
 				{
 					title = "{npc:12724}",
 					goals = {
-						{ t = "sethome", location = "Splintertree Post", area = 431 },
-						{ t = "getfp", location = "Splintertree Post", area = 431 },
+						{ t = "sethome", npc = 12196, npcName = "Innkeeper Kaylisk", location = "Splintertree Post", area = 431, map = 1440, x = 73.99, y = 60.65, z = 102.9, f = "e" },
+						{ t = "getfp", npc = 12616, npcName = "Vhulgra", location = "Splintertree Post", node = 61, area = 431, map = 1440, x = 73.18, y = 61.59, z = 103.9, f = "e" },
 						{ t = "accept", quest = 6441, title = "Satyr Horns", npc = 12724, npcName = "Pixel", minLevel = 21, qlvl = 26, map = 1440, x = 73.06, y = 61.48, z = 105.4, f = "e" },
 					},
 				},
@@ -8441,7 +8447,7 @@ do
 				{
 					title = "{npc:12717}",
 					goals = {
-						{ t = "getfp", location = "Zoram'gar Outpost", area = 2897 },
+						{ t = "getfp", npc = 11901, npcName = "Andruk", location = "Zoram'gar Outpost", node = 58, area = 2897, map = 1440, x = 12.24, y = 33.8, z = 5.4, f = "e" },
 						{ t = "accept", quest = 6641, title = "Vorsha the Lasher", npc = 12717, npcName = "Muglash", minLevel = 20, qlvl = 23, map = 1440, x = 12.06, y = 34.63, z = 3.9, f = "e", escort = true },
 						{ t = "accept", quest = 216, title = "Between a Rock and a Thistlefur", npc = 12757, npcName = "Karang Amakkar", minLevel = 21, qlvl = 24, map = 1440, x = 11.9, y = 34.54, z = 3.4, f = "e" },
 						{ t = "turnin", quest = 824, title = "Je'neu of the Earthen Ring", npc = 12736, npcName = "Je'neu Sancrea", map = 1440, x = 11.56, y = 34.29, z = 6, f = "e" },
@@ -8454,7 +8460,7 @@ do
 					note = "The reference data has no giver for this quest: it is handed in here once the game offers it.",
 					only = { races = { "Orc", "Scourge", "Tauren", "Troll" } },
 					goals = {
-						{ t = "turnin", quest = 909, title = "Baron Aquanis", npc = 12736, npcName = "Je'neu Sancrea", minLevel = 25, qlvl = 30, map = 1440, x = 11.56, y = 34.29, z = 6, f = "e", direct = true },
+						{ t = "turnin", quest = 909, title = "Baron Aquanis", npc = 12736, npcName = "Je'neu Sancrea", minLevel = 25, qlvl = 30, map = 1440, x = 11.6, y = 34.3, z = 6, f = "e", direct = true },
 					},
 				},
 				{
@@ -8533,7 +8539,7 @@ do
 				{
 					title = "{area:222}",
 					goals = {
-						{ t = "sethome", location = "Bloodhoof Village", area = 222 },
+						{ t = "sethome", npc = 6747, npcName = "Innkeeper Kauth", location = "Bloodhoof Village", area = 222, map = 1412, x = 45.93, y = 64.16, z = -8.9 },
 					},
 				},
 				{
@@ -8563,7 +8569,7 @@ do
 				{
 					title = "{area:1638}",
 					goals = {
-						{ t = "getfp", location = "Thunder Bluff", area = 1638 },
+						{ t = "getfp", npc = 2995, npcName = "Tal", location = "Thunder Bluff", node = 22, area = 1638, map = 1456, x = 47, y = 49.83, z = 177, f = "e" },
 					},
 				},
 				{
@@ -8791,7 +8797,7 @@ do
 				{
 					title = "{npc:3430}",
 					goals = {
-						{ t = "sethome", location = "Camp Taurajo", area = 378 },
+						{ t = "sethome", npc = 7714, npcName = "Innkeeper Byula", location = "Camp Taurajo", area = 378, map = 1413, x = 45.58, y = 59.04, z = 96.8, f = "e" },
 						{ t = "accept", quest = 879, title = "Betrayal from Within", npc = 3430, npcName = "Mangletooth", minLevel = 17, qlvl = 25, pre = { 5052 }, preTitles = { [5052] = "Blood Shards of Agamaggan" }, map = 1413, x = 44.55, y = 59.26, z = 95.8, f = "e" },
 					},
 				},
@@ -9121,7 +9127,7 @@ do
 					title = "{quest:3366}",
 					note = "The reference data has no giver for this quest: it is handed in here once the game offers it.",
 					goals = {
-						{ t = "turnin", quest = 3366, title = "The Glowing Shard", npc = 8418, npcName = "Falla Sagewind", minLevel = 15, qlvl = 25, map = 1413, x = 48.18, y = 32.78, z = 211.6, f = "e", direct = true },
+						{ t = "turnin", quest = 3366, title = "The Glowing Shard", npc = 8418, npcName = "Falla Sagewind", minLevel = 15, qlvl = 25, map = 1413, x = 48.2, y = 32.8, z = 211.6, f = "e", direct = true },
 					},
 				},
 				{
@@ -9354,13 +9360,13 @@ do
 				{
 					title = "{area:272}",
 					goals = {
-						{ t = "sethome", location = "Tarren Mill", area = 272 },
+						{ t = "sethome", npc = 2388, npcName = "Innkeeper Shay", location = "Tarren Mill", area = 272, map = 1424, x = 62.78, y = 19.03, z = 57.2, f = "e" },
 					},
 				},
 				{
 					title = "{area:272}",
 					goals = {
-						{ t = "getfp", location = "Tarren Mill", area = 272 },
+						{ t = "getfp", npc = 2389, npcName = "Zarise", location = "Tarren Mill", node = 13, area = 272, map = 1424, x = 60.14, y = 18.62, z = 58.9, f = "e" },
 					},
 				},
 				{
@@ -9957,8 +9963,8 @@ do
 				{
 					title = "{npc:10377}",
 					goals = {
-						{ t = "sethome", location = "Freewind Post", area = 484 },
-						{ t = "getfp", location = "Freewind Post", area = 484 },
+						{ t = "sethome", npc = 11116, npcName = "Innkeeper Abeqwa", location = "Freewind Post", area = 484, map = 1441, x = 46.07, y = 51.52, z = 89.4, f = "e" },
+						{ t = "getfp", npc = 4317, npcName = "Nyse", location = "Freewind Post", node = 30, area = 484, map = 1441, x = 45.14, y = 49.11, z = 89.7, f = "e" },
 						{ t = "accept", quest = 4767, title = "Wind Rider", npc = 10377, npcName = "Elu", minLevel = 25, qlvl = 29, map = 1441, x = 44.93, y = 48.92, z = 89.3, f = "e" },
 						{ t = "accept", quest = 4821, title = "Alien Egg", npc = 10539, npcName = "Hagar Lightninghoof", minLevel = 24, qlvl = 26, map = 1441, x = 44.64, y = 50.29, z = 89.3, f = "e" },
 						{ t = "accept", quest = 4841, title = "Pacify the Centaur", npc = 10537, npcName = "Cliffwatcher Longhorn", minLevel = 23, qlvl = 25, crumbs = { 4542 }, preTitles = { [4542] = "Message to Freewind Post" }, map = 1441, x = 45.67, y = 50.74, z = 90, f = "e" },
@@ -10481,7 +10487,7 @@ do
 				{
 					title = "{npc:4773}",
 					goals = {
-						{ t = "sethome", location = "Gallows' End Tavern", area = 2119 },
+						{ t = "sethome", npc = 5688, npcName = "Innkeeper Renee", location = "Gallows' End Tavern", area = 2119, map = 1420, x = 61.72, y = 52.05, z = 34.3, f = "e" },
 						{ t = "accept", quest = 97203, title = "Learning to Ride", npc = 4773, npcName = "Velma Warnam", minLevel = 40, qlvl = 40, closedBy = { 97018, 97074, 97170, 97188, 97194, 97200, 97204, 97205 }, endNpcs = { 4731 }, preTitles = { [97018] = "Learning to Ride", [97074] = "Learning to Ride", [97170] = "Learning to Ride", [97188] = "Learning to Ride", [97194] = "Learning to Ride", [97200] = "Learning to Ride", [97204] = "Learning to Ride", [97205] = "Learning to Ride" }, map = 1420, x = 60.08, y = 52.57, z = 36.8, f = "e", only = { races = { "Scourge" } } },
 					},
 				},
@@ -10573,7 +10579,7 @@ do
 				{
 					title = "{area:496}",
 					goals = {
-						{ t = "getfp", location = "Brackenwall Village", area = 496 },
+						{ t = "getfp", npc = 11899, npcName = "Shardi", location = "Brackenwall Village", node = 55, area = 496, map = 1445, x = 35.56, y = 31.88, z = 34.7, f = "e" },
 					},
 				},
 				{
@@ -10685,6 +10691,19 @@ do
 					},
 				},
 				{
+					title = "{npc:3446}",
+					goals = {
+						{ t = "complete", quest = 1270, title = "Stinky's Escape", map = 1445, x = 48.9, y = 24.6, f = "e", escort = true, objs = { { text = "Help Stinky find Bogbean Leaves", count = 1 } } },
+						{ t = "turnin", quest = 1270, title = "Stinky's Escape", npc = 3446, npcName = "Mebok Mizzyrix", map = 1413, x = 62.37, y = 37.62, z = 8.1, f = "e" },
+					},
+				},
+				{
+					title = "{npc:2519}",
+					goals = {
+						{ t = "turnin", quest = 1240, title = "The Troll Witchdoctor", npc = 2519, npcName = "Kin'weelay", map = 1434, x = 32.27, y = 27.71, z = 3.2, f = "e" },
+					},
+				},
+				{
 					title = "{quest:1203}",
 					note = "One of several exclusive quests; the route takes {quest:1203} (81570). This one shows for a character the game offers it to instead.",
 					when = { { k = "available", q = 1203, minLevel = 30, pre = { 1206 }, closedBy = { 81570 } } },
@@ -10705,19 +10724,6 @@ do
 					when = { { k = "onquest", q = { 1203 } } },
 					goals = {
 						{ t = "turnin", quest = 1203, title = "Jarl Needs a Blade", npc = 4792, npcName = "\"Swamp Eye\" Jarl", map = 1445, x = 55.44, y = 26.27, z = 34.3, f = "e", optional = true },
-					},
-				},
-				{
-					title = "{npc:3446}",
-					goals = {
-						{ t = "complete", quest = 1270, title = "Stinky's Escape", map = 1445, x = 48.9, y = 24.6, f = "e", escort = true, objs = { { text = "Help Stinky find Bogbean Leaves", count = 1 } } },
-						{ t = "turnin", quest = 1270, title = "Stinky's Escape", npc = 3446, npcName = "Mebok Mizzyrix", map = 1413, x = 62.37, y = 37.62, z = 8.1, f = "e" },
-					},
-				},
-				{
-					title = "{npc:2519}",
-					goals = {
-						{ t = "turnin", quest = 1240, title = "The Troll Witchdoctor", npc = 2519, npcName = "Kin'weelay", map = 1434, x = 32.27, y = 27.71, z = 3.2, f = "e" },
 					},
 				},
 			},
@@ -10748,8 +10754,8 @@ do
 				{
 					title = "{npc:12031}",
 					goals = {
-						{ t = "sethome", location = "Shadowprey Village", area = 2408 },
-						{ t = "getfp", location = "Shadowprey Village", area = 2408 },
+						{ t = "sethome", npc = 11106, npcName = "Innkeeper Sikewa", location = "Shadowprey Village", area = 2408, map = 1443, x = 24.09, y = 68.21, z = 46.6, f = "e" },
+						{ t = "getfp", npc = 6726, npcName = "Thalon", location = "Shadowprey Village", node = 38, area = 2408, map = 1443, x = 21.6, y = 74.13, z = 5.1, f = "e" },
 						{ t = "accept", quest = 6142, title = "Clam Bait", npc = 12031, npcName = "Mai'Lahii", minLevel = 31, qlvl = 35, map = 1443, x = 22.64, y = 71.97, z = 8, f = "e" },
 					},
 				},
@@ -11668,51 +11674,13 @@ do
 				{
 					title = "{area:362}",
 					goals = {
-						{ t = "sethome", location = "Razor Hill", area = 362 },
-					},
-				},
-				{
-					title = "{quest:96989}",
-					only = { races = { "Troll" } },
-					goals = {
-						{ t = "accept", quest = 96989, title = "Your First Riding Raptor", npc = 7952, npcName = "Zjolnir", minLevel = 40, qlvl = 40, closedBy = { 95511, 96982, 96994, 96996, 96997, 97017, 97045, 97046, 97171, 97446, 98166, 99326 }, endNpcs = { 7952 }, preTitles = { [95511] = "Your First Feline Friend", [96982] = "Your First Riding Kodo", [96994] = "Your First Riding Wolf", [96996] = "Your First Riding Galestrider", [96997] = "A Steed in Death as They Were in Life", [97017] = "Your First Riding Ram", [97045] = "Your First Horse", [97046] = "Your First Mechanostrider", [97171] = "Your First Horse", [97446] = "Your First Riding Kodo", [98166] = "Your First Horse", [99326] = "Your First Horse" }, map = 1411, x = 55.23, y = 75.65, z = 22.1, f = "e" },
-					},
-				},
-				{
-					title = "{quest:97200}",
-					only = { races = { "Troll" } },
-					goals = {
-						{ t = "accept", quest = 97200, title = "Learning to Ride", npc = 7953, npcName = "Xar'Ti", minLevel = 40, qlvl = 40, closedBy = { 97018, 97074, 97170, 97188, 97194, 97203, 97204, 97205 }, endNpcs = { 7952 }, preTitles = { [97018] = "Learning to Ride", [97074] = "Learning to Ride", [97170] = "Learning to Ride", [97188] = "Learning to Ride", [97194] = "Learning to Ride", [97203] = "Learning to Ride", [97204] = "Learning to Ride", [97205] = "Learning to Ride" }, map = 1411, x = 55.28, y = 75.49, z = 22.1, f = "e" },
-					},
-				},
-				{
-					title = "{quest:97200}",
-					only = { races = { "Troll" } },
-					when = { { k = "onquest", q = { 97200 } } },
-					goals = {
-						{ t = "turnin", quest = 97200, title = "Learning to Ride", npc = 7952, npcName = "Zjolnir", map = 1411, x = 55.23, y = 75.65, z = 22.1, f = "e" },
-					},
-				},
-				{
-					title = "{quest:96989}",
-					only = { races = { "Troll" } },
-					when = { { k = "onquest", q = { 96989 } } },
-					goals = {
-						{ t = "complete", quest = 96989, title = "Your First Riding Raptor", map = 1411, x = 55.2, y = 75.6, f = "e", objs = { { text = "Emerald Riding Raptor", count = 1 }, { text = "Turquoise Riding Raptor", count = 1 }, { text = "Violet Riding Raptor", count = 1 } } },
-					},
-				},
-				{
-					title = "{quest:96989}",
-					only = { races = { "Troll" } },
-					when = { { k = "onquest", q = { 96989 } } },
-					goals = {
-						{ t = "turnin", quest = 96989, title = "Your First Riding Raptor", npc = 7952, npcName = "Zjolnir", map = 1411, x = 55.23, y = 75.65, z = 22.1, f = "e" },
+						{ t = "sethome", npc = 6928, npcName = "Innkeeper Grosk", location = "Razor Hill", area = 362, map = 1411, x = 51.51, y = 41.64, z = 16.5, f = "e" },
 					},
 				},
 				{
 					title = "{area:1637}",
 					goals = {
-						{ t = "getfp", location = "Orgrimmar", area = 1637 },
+						{ t = "getfp", npc = 3310, npcName = "Doras", location = "Orgrimmar", node = 23, area = 1637, map = 1454, x = 45.12, y = 63.89, z = 61.7, f = "e" },
 					},
 				},
 				{
@@ -11720,29 +11688,6 @@ do
 					goals = {
 						{ t = "accept", quest = 1146, title = "The Swarm Grows", npc = 4485, npcName = "Belgrom Rockmaul", minLevel = 29, qlvl = 33, pre = { 1145 }, preTitles = { [1145] = "The Swarm Grows" }, map = 1454, x = 75.23, y = 34.24, z = 48.5, f = "e" },
 						{ t = "accept", quest = 2950, title = "Nogg's Ring Redo", npc = 3412, npcName = "Nogg", minLevel = 28, qlvl = 35, pre = { 2949 }, preTitles = { [2949] = "Return of the Ring" }, map = 1454, x = 75.99, y = 25.41, z = 29.2, f = "e" },
-					},
-				},
-				{
-					title = "{quest:5301}",
-					note = "One of several exclusive quests; the route takes {quest:5302} (5302). This one shows for a character the game offers it to instead.",
-					when = { { k = "available", q = 5301, minLevel = 40, closedBy = { 5302 } }, { k = "skill", n = 200, name = "Blacksmithing", skillLine = 164 } },
-					goals = {
-						{ t = "accept", quest = 5301, title = "The Art of the Armorsmith", npc = 11177, npcName = "Okothos Ironrager", minLevel = 40, qlvl = 40, closedBy = { 5302 }, endNpcs = { 11177 }, xp = 3150, preTitles = { [5302] = "The Way of the Weaponsmith" }, map = 1454, x = 79.8, y = 24.06, z = 22.9, f = "e", optional = true, profLine = 164, profName = "Blacksmithing", profRank = 200 },
-					},
-				},
-				{
-					title = "{quest:5301}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					when = { { k = "onquest", q = { 5301 } } },
-					goals = {
-						{ t = "complete", quest = 5301, title = "The Art of the Armorsmith", map = 1454, x = 79.8, y = 24.1, f = "e", optional = true, profLine = 164, profName = "Blacksmithing", profRank = 200, objs = { { text = "Ornate Mithril Helm", count = 4 }, { text = "Ornate Mithril Boots", count = 2 }, { text = "Ornate Mithril Breastplate", count = 1 } } },
-					},
-				},
-				{
-					title = "{quest:5301}",
-					when = { { k = "onquest", q = { 5301 } } },
-					goals = {
-						{ t = "turnin", quest = 5301, title = "The Art of the Armorsmith", npc = 11177, npcName = "Okothos Ironrager", map = 1454, x = 79.8, y = 24.06, z = 22.9, f = "e", optional = true, profLine = 164, profName = "Blacksmithing", profRank = 200 },
 					},
 				},
 				{
@@ -12051,6 +11996,67 @@ do
 						{ t = "turnin", quest = 2755, title = "Joys of Omosh", npc = 7790, npcName = "Orokk Omosh", map = 1454, x = 79.24, y = 22.4, z = 23, f = "e", optional = true, profLine = 164, profName = "Blacksmithing", profRank = 1 },
 					},
 				},
+				{
+					title = "{quest:96989}",
+					only = { races = { "Troll" } },
+					goals = {
+						{ t = "accept", quest = 96989, title = "Your First Riding Raptor", npc = 7952, npcName = "Zjolnir", minLevel = 40, qlvl = 40, closedBy = { 95511, 96982, 96994, 96996, 96997, 97017, 97045, 97046, 97171, 97446, 98166, 99326 }, endNpcs = { 7952 }, preTitles = { [95511] = "Your First Feline Friend", [96982] = "Your First Riding Kodo", [96994] = "Your First Riding Wolf", [96996] = "Your First Riding Galestrider", [96997] = "A Steed in Death as They Were in Life", [97017] = "Your First Riding Ram", [97045] = "Your First Horse", [97046] = "Your First Mechanostrider", [97171] = "Your First Horse", [97446] = "Your First Riding Kodo", [98166] = "Your First Horse", [99326] = "Your First Horse" }, map = 1411, x = 55.23, y = 75.65, z = 22.1, f = "e" },
+					},
+				},
+				{
+					title = "{quest:96989}",
+					only = { races = { "Troll" } },
+					when = { { k = "onquest", q = { 96989 } } },
+					goals = {
+						{ t = "complete", quest = 96989, title = "Your First Riding Raptor", map = 1411, x = 55.2, y = 75.6, f = "e", objs = { { text = "Emerald Riding Raptor", count = 1 }, { text = "Turquoise Riding Raptor", count = 1 }, { text = "Violet Riding Raptor", count = 1 } } },
+					},
+				},
+				{
+					title = "{quest:96989}",
+					only = { races = { "Troll" } },
+					when = { { k = "onquest", q = { 96989 } } },
+					goals = {
+						{ t = "turnin", quest = 96989, title = "Your First Riding Raptor", npc = 7952, npcName = "Zjolnir", map = 1411, x = 55.23, y = 75.65, z = 22.1, f = "e" },
+					},
+				},
+				{
+					title = "{quest:97200}",
+					only = { races = { "Troll" } },
+					goals = {
+						{ t = "accept", quest = 97200, title = "Learning to Ride", npc = 7953, npcName = "Xar'Ti", minLevel = 40, qlvl = 40, closedBy = { 97018, 97074, 97170, 97188, 97194, 97203, 97204, 97205 }, endNpcs = { 7952 }, preTitles = { [97018] = "Learning to Ride", [97074] = "Learning to Ride", [97170] = "Learning to Ride", [97188] = "Learning to Ride", [97194] = "Learning to Ride", [97203] = "Learning to Ride", [97204] = "Learning to Ride", [97205] = "Learning to Ride" }, map = 1411, x = 55.28, y = 75.49, z = 22.1, f = "e" },
+					},
+				},
+				{
+					title = "{quest:97200}",
+					only = { races = { "Troll" } },
+					when = { { k = "onquest", q = { 97200 } } },
+					goals = {
+						{ t = "turnin", quest = 97200, title = "Learning to Ride", npc = 7952, npcName = "Zjolnir", map = 1411, x = 55.23, y = 75.65, z = 22.1, f = "e" },
+					},
+				},
+				{
+					title = "{quest:5301}",
+					note = "One of several exclusive quests; the route takes {quest:5302} (5302). This one shows for a character the game offers it to instead.",
+					when = { { k = "available", q = 5301, minLevel = 40, closedBy = { 5302 } }, { k = "skill", n = 200, name = "Blacksmithing", skillLine = 164 } },
+					goals = {
+						{ t = "accept", quest = 5301, title = "The Art of the Armorsmith", npc = 11177, npcName = "Okothos Ironrager", minLevel = 40, qlvl = 40, closedBy = { 5302 }, endNpcs = { 11177 }, xp = 3150, preTitles = { [5302] = "The Way of the Weaponsmith" }, map = 1454, x = 79.8, y = 24.06, z = 22.9, f = "e", optional = true, profLine = 164, profName = "Blacksmithing", profRank = 200 },
+					},
+				},
+				{
+					title = "{quest:5301}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					when = { { k = "onquest", q = { 5301 } } },
+					goals = {
+						{ t = "complete", quest = 5301, title = "The Art of the Armorsmith", map = 1454, x = 79.8, y = 24.1, f = "e", optional = true, profLine = 164, profName = "Blacksmithing", profRank = 200, objs = { { text = "Ornate Mithril Helm", count = 4 }, { text = "Ornate Mithril Boots", count = 2 }, { text = "Ornate Mithril Breastplate", count = 1 } } },
+					},
+				},
+				{
+					title = "{quest:5301}",
+					when = { { k = "onquest", q = { 5301 } } },
+					goals = {
+						{ t = "turnin", quest = 5301, title = "The Art of the Armorsmith", npc = 11177, npcName = "Okothos Ironrager", map = 1454, x = 79.8, y = 24.06, z = 22.9, f = "e", optional = true, profLine = 164, profName = "Blacksmithing", profRank = 200 },
+					},
+				},
 			},
 		})
 	end
@@ -12098,23 +12104,6 @@ do
 					title = "{object:424082}",
 					goals = {
 						{ t = "accept", quest = 80001, title = "Rekindle", object = 424082, objName = "Firepit", minLevel = 1, qlvl = 40, map = 1442, x = 40.6, y = 52.41, f = "e" },
-					},
-				},
-				{
-					title = "{quest:97446}",
-					note = "One of several exclusive quests; the route takes {quest:97446} (96982). This one shows for a character the game offers it to instead.",
-					only = { races = { "Tauren" } },
-					when = { { k = "available", q = 97446, minLevel = 40, closedBy = { 95511, 96982, 96989, 96994, 96996, 96997, 97017, 97045, 97046, 97171, 98166, 99326 } } },
-					goals = {
-						{ t = "accept", quest = 97446, title = "Your First Riding Kodo", minLevel = 40, qlvl = 40, closedBy = { 95511, 96982, 96989, 96994, 96996, 96997, 97017, 97045, 97046, 97171, 98166, 99326 }, preTitles = { [95511] = "Your First Feline Friend", [96982] = "Your First Riding Kodo", [96989] = "Your First Riding Raptor", [96994] = "Your First Riding Wolf", [96996] = "Your First Riding Galestrider", [96997] = "A Steed in Death as They Were in Life", [97017] = "Your First Riding Ram", [97045] = "Your First Horse", [97046] = "Your First Mechanostrider", [97171] = "Your First Horse", [98166] = "Your First Horse", [99326] = "Your First Horse" }, map = 1442, x = 46.1, y = 59.9, f = "e", optional = true },
-					},
-				},
-				{
-					title = "{quest:97446}",
-					only = { races = { "Tauren" } },
-					when = { { k = "onquest", q = { 97446 } } },
-					goals = {
-						{ t = "turnin", quest = 97446, title = "Your First Riding Kodo", map = 1442, x = 46.1, y = 59.9, f = "e", optional = true },
 					},
 				},
 				{
@@ -12188,6 +12177,23 @@ do
 					},
 				},
 				{
+					title = "{quest:97446}",
+					note = "One of several exclusive quests; the route takes {quest:97446} (96982). This one shows for a character the game offers it to instead.",
+					only = { races = { "Tauren" } },
+					when = { { k = "available", q = 97446, minLevel = 40, closedBy = { 95511, 96982, 96989, 96994, 96996, 96997, 97017, 97045, 97046, 97171, 98166, 99326 } } },
+					goals = {
+						{ t = "accept", quest = 97446, title = "Your First Riding Kodo", minLevel = 40, qlvl = 40, closedBy = { 95511, 96982, 96989, 96994, 96996, 96997, 97017, 97045, 97046, 97171, 98166, 99326 }, preTitles = { [95511] = "Your First Feline Friend", [96982] = "Your First Riding Kodo", [96989] = "Your First Riding Raptor", [96994] = "Your First Riding Wolf", [96996] = "Your First Riding Galestrider", [96997] = "A Steed in Death as They Were in Life", [97017] = "Your First Riding Ram", [97045] = "Your First Horse", [97046] = "Your First Mechanostrider", [97171] = "Your First Horse", [98166] = "Your First Horse", [99326] = "Your First Horse" }, map = 1442, x = 46.1, y = 59.9, f = "e", optional = true },
+					},
+				},
+				{
+					title = "{quest:97446}",
+					only = { races = { "Tauren" } },
+					when = { { k = "onquest", q = { 97446 } } },
+					goals = {
+						{ t = "turnin", quest = 97446, title = "Your First Riding Kodo", map = 1442, x = 46.1, y = 59.9, f = "e", optional = true },
+					},
+				},
+				{
 					title = "{quest:94930}",
 					when = { { k = "onquest", q = { 94930 } } },
 					goals = {
@@ -12253,13 +12259,13 @@ do
 				{
 					title = "{area:272}",
 					goals = {
-						{ t = "sethome", location = "Tarren Mill", area = 272 },
+						{ t = "sethome", npc = 2388, npcName = "Innkeeper Shay", location = "Tarren Mill", area = 272, map = 1424, x = 62.78, y = 19.03, z = 57.2, f = "e" },
 					},
 				},
 				{
 					title = "{npc:2240} and {npc:2440}",
 					goals = {
-						{ t = "collect", quest = 533, title = "Infiltration", item = 3601, itemName = "Syndicate Missive", count = 1, oi = 1, map = 1424, x = 58.79, y = 9.19, f = "e", spots = { { x = 58.79, y = 9.19, r = 15 }, { x = 50.8, y = 19.9, z = 151.5, r = 47, n = 19, lvl = 34 } }, from = "Syndicate Footpad", fromKind = "npc", fromAlso = "Syndicate Thief", fromId = 2240, fromAlsoId = 2241, fromNpcs = { { npc = 2240, npcName = "Syndicate Footpad" }, { npc = 2241, npcName = "Syndicate Thief" } } },
+						{ t = "collect", quest = 533, title = "Infiltration", item = 3601, itemName = "Syndicate Missive", count = 1, oi = 1, map = 1424, x = 60.4, y = 9.4, z = 156.8, f = "e", spots = { { x = 58.79, y = 9.19, r = 15 }, { x = 50.8, y = 19.9, z = 151.5, r = 47, n = 19, lvl = 34 } }, from = "Syndicate Footpad", fromKind = "npc", fromAlso = "Syndicate Thief", fromId = 2240, fromAlsoId = 2241, fromNpcs = { { npc = 2240, npcName = "Syndicate Footpad" }, { npc = 2241, npcName = "Syndicate Thief" } } },
 						{ t = "collect", quest = 535, title = "Valik", item = 3703, itemName = "Southshore Stout", count = 1, oi = 1, map = 1424, x = 60.7, y = 9.5, z = 158.1, f = "e", spots = { { x = 60.4, y = 8.3, r = 30, n = 2 } }, lvl = 33, from = "Drunken Footpad", fromKind = "npc", fromId = 2440, fromNpcs = { { npc = 2440, npcName = "Drunken Footpad" } } },
 					},
 				},
@@ -12663,8 +12669,8 @@ do
 				{
 					title = "{npc:737}",
 					goals = {
-						{ t = "sethome", location = "Booty Bay", area = 35 },
-						{ t = "getfp", location = "Booty Bay", area = 35 },
+						{ t = "sethome", npc = 6807, npcName = "Innkeeper Skindle", location = "Booty Bay", area = 35, map = 1434, x = 27.04, y = 77.31, z = 15.2, f = "e" },
+						{ t = "getfp", npc = 2858, npcName = "Gringer", location = "Booty Bay", node = 18, area = 35, map = 1434, x = 26.87, y = 77.1, z = 26.4, f = "e" },
 						{ t = "accept", quest = 189, title = "Bloodscalp Ears", npc = 737, npcName = "Kebok", minLevel = 30, qlvl = 35, map = 1434, x = 27, y = 77.13, z = 26.4, f = "e" },
 						{ t = "accept", quest = 201, title = "Investigate the Camp", npc = 773, npcName = "Krazek", minLevel = 28, qlvl = 32, map = 1434, x = 26.95, y = 77.21, z = 26.4, f = "e" },
 						{ t = "accept", quest = 79236, title = "Cherry for Your Thoughts?", npc = 215643, npcName = "Tokal", minLevel = 30, qlvl = 40, pre = { 79235 }, preTitles = { [79235] = "On the Lam" }, map = 1434, x = 26.98, y = 77.29, f = "e" },
@@ -12676,7 +12682,7 @@ do
 					note = "The reference data has no giver for this quest: it is handed in here once the game offers it.",
 					when = { { k = "has", n = 1, item = 213127 } },
 					goals = {
-						{ t = "turnin", quest = 95384, title = "Partial Mystical Notes", npc = 260873, npcName = "Dudd Fizzlescroll", minLevel = 32, qlvl = 40, map = 1434, x = 28.27, y = 76.35, f = "e", direct = true },
+						{ t = "turnin", quest = 95384, title = "Partial Mystical Notes", npc = 260873, npcName = "Dudd Fizzlescroll", minLevel = 32, qlvl = 40, map = 1434, x = 28.3, y = 76.3, f = "e", direct = true },
 					},
 				},
 				{
@@ -12741,7 +12747,7 @@ do
 					note = "The reference data has no giver for this quest: it is handed in here once the game offers it.",
 					when = { { k = "has", n = 1, item = 211269 } },
 					goals = {
-						{ t = "turnin", quest = 78823, title = "Terror of the Desert Skies", npc = 715, npcName = "Hemet Nesingwary", minLevel = 26, qlvl = 40, map = 1434, x = 35.66, y = 10.81, z = 11, f = "e", direct = true },
+						{ t = "turnin", quest = 78823, title = "Terror of the Desert Skies", npc = 715, npcName = "Hemet Nesingwary", minLevel = 26, qlvl = 40, map = 1434, x = 35.7, y = 10.8, z = 11, f = "e", direct = true },
 					},
 				},
 				{
@@ -12982,7 +12988,7 @@ do
 				{
 					title = "{object:2076}",
 					goals = {
-						{ t = "getfp", location = "Grom'gol" },
+						{ t = "getfp", npc = 1387, npcName = "Thysta", location = "Grom'gol", node = 20, map = 1434, x = 32.54, y = 29.35, z = 3.4, f = "e" },
 						{ t = "accept", quest = 1261, title = "Marg Speaks", object = 2076, objName = "Bubbling Cauldron", minLevel = 30, qlvl = 40, pre = { 1240 }, preTitles = { [1240] = "The Troll Witchdoctor" }, map = 1434, x = 32.22, y = 27.6, z = 2.9, f = "e" },
 						{ t = "accept", quest = 581, title = "Hunt for Yenniku", npc = 2497, npcName = "Nimboya", minLevel = 30, qlvl = 34, map = 1434, x = 32.16, y = 27.72, z = 3.2, f = "e" },
 						{ t = "accept", quest = 638, title = "Trollbane", npc = 2497, npcName = "Nimboya", minLevel = 32, qlvl = 37, closedBy = { 639 }, endNpcs = { 2703 }, xp = 710, preTitles = { [639] = "Sigil of Strom" }, map = 1434, x = 32.16, y = 27.72, z = 3.2, f = "e" },
@@ -13412,8 +13418,8 @@ do
 				{
 					title = "{npc:2792}",
 					goals = {
-						{ t = "sethome", location = "Hammerfall", area = 321 },
-						{ t = "getfp", location = "Hammerfall", area = 321 },
+						{ t = "sethome", npc = 9501, npcName = "Innkeeper Adegwa", location = "Hammerfall", area = 321, map = 1417, x = 73.84, y = 32.46, z = 72.8, f = "e" },
+						{ t = "getfp", npc = 2851, npcName = "Urda", location = "Hammerfall", node = 17, area = 321, map = 1417, x = 73.02, y = 32.7, z = 70.5, f = "e" },
 						{ t = "accept", quest = 655, title = "Hammerfall", npc = 2792, npcName = "Gor'mul", minLevel = 29, qlvl = 34, map = 1417, x = 72.64, y = 33.93, z = 51.4, f = "e" },
 					},
 				},
@@ -13422,7 +13428,7 @@ do
 					note = "The reference data has no giver for this quest: it is handed in here once the game offers it.",
 					when = { { k = "has", n = 1, item = 253711 } },
 					goals = {
-						{ t = "turnin", quest = 92707, title = "The Giant in the Den", npc = 2771, npcName = "Drum Fel", minLevel = 30, qlvl = 33, map = 1417, x = 74.24, y = 33.92, z = 71, f = "e", direct = true },
+						{ t = "turnin", quest = 92707, title = "The Giant in the Den", npc = 2771, npcName = "Drum Fel", minLevel = 30, qlvl = 33, map = 1417, x = 74.2, y = 33.9, z = 71, f = "e", direct = true },
 					},
 				},
 				{
@@ -13450,26 +13456,11 @@ do
 					},
 				},
 				{
-					title = "{quest:8263}",
-					note = "One of several exclusive quests; the route takes {quest:8264} (8264). This one shows for a character the game offers it to instead.\nNeeds Friendly standing (3000) with The Defilers; without it the quest is not offered.",
-					when = { { k = "available", q = 8263, minLevel = 25, closedBy = { 8264, 8265 } } },
-					goals = {
-						{ t = "accept", quest = 8263, title = "Defiler's Basic Care Package", npc = 15126, npcName = "Rutherford Twing", minLevel = 25, qlvl = 34, closedBy = { 8264, 8265 }, endNpcs = { 15126 }, xp = 270, preTitles = { [8264] = "Defiler's Standard Care Package", [8265] = "Defiler's Advanced Care Package" }, map = 1417, x = 73.37, y = 29.67, z = 73.7, f = "e", optional = true },
-					},
-				},
-				{
 					title = "{quest:8300}",
 					note = "A repeatable quest: hand it in once, with what it asks for.",
 					goals = {
 						{ t = "collect", item = 19725, itemName = "Arathi Resource Crate", count = 1, optional = true },
 						{ t = "turnin", quest = 8300, title = "More Resource Crates", npc = 15022, npcName = "Deathstalker Mortis", minLevel = 60, qlvl = 60, map = 1417, x = 73.46, y = 29.76, z = 73.3, f = "e", optional = true, direct = true },
-					},
-				},
-				{
-					title = "{quest:8263}",
-					when = { { k = "onquest", q = { 8263 } } },
-					goals = {
-						{ t = "turnin", quest = 8263, title = "Defiler's Basic Care Package", npc = 15126, npcName = "Rutherford Twing", map = 1417, x = 73.37, y = 29.67, z = 73.7, f = "e", optional = true },
 					},
 				},
 				{
@@ -14208,6 +14199,21 @@ do
 						{ t = "turnin", quest = 79678, title = "Taste Testing", npc = 217300, npcName = "Skonk", map = 1417, x = 57.68, y = 74.65, z = 107.8, f = "e" },
 					},
 				},
+				{
+					title = "{quest:8263}",
+					note = "One of several exclusive quests; the route takes {quest:8264} (8264). This one shows for a character the game offers it to instead.\nNeeds Friendly standing (3000) with The Defilers; without it the quest is not offered.",
+					when = { { k = "available", q = 8263, minLevel = 25, closedBy = { 8264, 8265 } } },
+					goals = {
+						{ t = "accept", quest = 8263, title = "Defiler's Basic Care Package", npc = 15126, npcName = "Rutherford Twing", minLevel = 25, qlvl = 34, closedBy = { 8264, 8265 }, endNpcs = { 15126 }, xp = 270, preTitles = { [8264] = "Defiler's Standard Care Package", [8265] = "Defiler's Advanced Care Package" }, map = 1417, x = 73.37, y = 29.67, z = 73.7, f = "e", optional = true },
+					},
+				},
+				{
+					title = "{quest:8263}",
+					when = { { k = "onquest", q = { 8263 } } },
+					goals = {
+						{ t = "turnin", quest = 8263, title = "Defiler's Basic Care Package", npc = 15126, npcName = "Rutherford Twing", map = 1417, x = 73.37, y = 29.67, z = 73.7, f = "e", optional = true },
+					},
+				},
 			},
 		})
 	end
@@ -14237,8 +14243,8 @@ do
 				{
 					title = "{npc:269647}",
 					goals = {
-						{ t = "sethome", location = "Kargath", area = 340 },
-						{ t = "getfp", location = "Kargath", area = 340 },
+						{ t = "sethome", npc = 9356, npcName = "Innkeeper Shul'kar", location = "Kargath", area = 340, map = 1418, x = 2.82, y = 45.86, z = 245.4, f = "e" },
+						{ t = "getfp", npc = 2861, npcName = "Gorrik", location = "Kargath", node = 21, area = 340, map = 1418, x = 3.99, y = 44.78, z = 244.2, f = "e" },
 						{ t = "accept", quest = 97663, title = "Supplies and Studies", npc = 269647, npcName = "Mus'hale", qlvl = 40, map = 1418, x = 4.09, y = 46.22, z = 244.1, f = "e" },
 						{ t = "turnin", quest = 97663, title = "Supplies and Studies", npc = 269647, npcName = "Mus'hale", map = 1418, x = 4.09, y = 46.22, z = 244.1, f = "e" },
 						{ t = "accept", quest = 1419, title = "Coyote Thieves", npc = 5394, npcName = "Neeka Bloodscar", minLevel = 30, qlvl = 40, map = 1418, x = 6.49, y = 47.2, z = 278.6, f = "e" },
@@ -14451,7 +14457,7 @@ do
 					note = "The reference data has no giver for this quest: it is handed in here once the game offers it.",
 					when = { { k = "has", n = 1, item = 278744 } },
 					goals = {
-						{ t = "turnin", quest = 97821, title = "Mirage Mirror", npc = 269647, npcName = "Mus'hale", qlvl = 42, map = 1418, x = 4.09, y = 46.22, z = 244.1, f = "e", direct = true },
+						{ t = "turnin", quest = 97821, title = "Mirage Mirror", npc = 269647, npcName = "Mus'hale", qlvl = 42, map = 1418, x = 54.6, y = 12.9, f = "e", direct = true },
 					},
 				},
 			},
@@ -14594,6 +14600,12 @@ do
 					},
 				},
 				{
+					title = "Level 40",
+					goals = {
+						{ t = "level", level = 40 },
+					},
+				},
+				{
 					title = "{quest:96996}",
 					only = { races = { "Skyborne" } },
 					goals = {
@@ -14660,13 +14672,13 @@ do
 				{
 					title = "{area:16724}",
 					goals = {
-						{ t = "sethome", location = "Farholde Keep", area = 16724 },
+						{ t = "sethome", npc = 257595, npcName = "Barracks Master Harlan", location = "Farholde Keep", area = 16724, map = 2548, x = 64.62, y = 84.16, z = 39.7 },
 					},
 				},
 				{
 					title = "{npc:256657}",
 					goals = {
-						{ t = "getfp", location = "Rog'mar", area = 16743 },
+						{ t = "getfp", npc = 255993, npcName = "Grakna", location = "Rog'mar", node = 3203, area = 16743, map = 2548, x = 59.58, y = 45.09, z = 21.7 },
 						{ t = "accept", quest = 93788, title = "Borrowed Blades", npc = 256657, npcName = "Kreza Darkthorn", minLevel = 36, qlvl = 38, map = 2548, x = 59.92, y = 45.97, z = 25.6 },
 						{ t = "accept", quest = 96107, title = "Feathers for Fletching", npc = 258031, npcName = "Neza Bloodsnout", minLevel = 36, qlvl = 40, map = 2548, x = 60.46, y = 47.86, z = 22.8 },
 					},
@@ -14675,7 +14687,7 @@ do
 					title = "{quest:93971}",
 					note = "The reference data has no giver for this quest: it is handed in here once the game offers it.",
 					goals = {
-						{ t = "turnin", quest = 93971, title = "Farholde Scouting Report", npc = 256418, npcName = "Krom'rosh", minLevel = 36, qlvl = 45, map = 2548, x = 59.37, y = 45.6, z = 22.3, direct = true },
+						{ t = "turnin", quest = 93971, title = "Farholde Scouting Report", npc = 256418, npcName = "Krom'rosh", minLevel = 36, qlvl = 45, map = 2548, x = 59.4, y = 45.6, z = 22.3, direct = true },
 					},
 				},
 				{
@@ -14683,7 +14695,7 @@ do
 					note = "The reference data has no giver for this quest: it is handed in here once the game offers it.",
 					when = { { k = "has", n = 1, item = 271613 } },
 					goals = {
-						{ t = "turnin", quest = 95936, title = "Hail the Dragonslayer", npc = 256418, npcName = "Krom'rosh", minLevel = 36, qlvl = 43, map = 2548, x = 59.37, y = 45.6, z = 22.3, direct = true },
+						{ t = "turnin", quest = 95936, title = "Hail the Dragonslayer", npc = 256418, npcName = "Krom'rosh", minLevel = 36, qlvl = 43, map = 2548, x = 59.4, y = 45.6, z = 22.3, direct = true },
 					},
 				},
 				{
@@ -15490,7 +15502,7 @@ do
 					note = "The reference data has no giver for this quest: it is handed in here once the game offers it.",
 					when = { { k = "has", n = 1, item = 260247 } },
 					goals = {
-						{ t = "turnin", quest = 93609, title = "Forlorn Necklace", npc = 254578, npcName = "Mithera", qlvl = 45, map = 2652, x = 53.32, y = 76.02, z = 149.7, direct = true },
+						{ t = "turnin", quest = 93609, title = "Forlorn Necklace", npc = 254578, npcName = "Mithera", qlvl = 45, map = 2652, x = 53.3, y = 76, z = 149.7, direct = true },
 					},
 				},
 				{
@@ -15498,7 +15510,7 @@ do
 					note = "The reference data has no giver for this quest: it is handed in here once the game offers it.",
 					when = { { k = "has", n = 1, item = 259461 } },
 					goals = {
-						{ t = "turnin", quest = 93568, title = "Partially Digested Collar", npc = 255385, npcName = "Liranne", qlvl = 45, map = 2652, x = 47.46, y = 65.63, z = 133.2, direct = true },
+						{ t = "turnin", quest = 93568, title = "Partially Digested Collar", npc = 255385, npcName = "Liranne", qlvl = 45, map = 2652, x = 47.5, y = 65.6, z = 133.2, direct = true },
 					},
 				},
 				{
@@ -15621,7 +15633,7 @@ do
 					note = "The reference data has no giver for this quest: it is handed in here once the game offers it.",
 					when = { { k = "has", n = 1, item = 259893 } },
 					goals = {
-						{ t = "turnin", quest = 93574, title = "Corpsefeeder's Carapace", npc = 253527, npcName = "Kog'thug the Brave", qlvl = 45, map = 2652, x = 72.73, y = 31.17, z = 178.9, direct = true },
+						{ t = "turnin", quest = 93574, title = "Corpsefeeder's Carapace", npc = 253527, npcName = "Kog'thug the Brave", qlvl = 45, map = 2652, x = 72.7, y = 31.2, z = 178.9, direct = true },
 					},
 				},
 				{
@@ -15635,7 +15647,7 @@ do
 					note = "The reference data has no giver for this quest: it is handed in here once the game offers it.",
 					when = { { k = "has", n = 1, item = 260347 } },
 					goals = {
-						{ t = "turnin", quest = 93644, title = "Tattered Journal", npc = 253471, npcName = "Mordent Evenshade", qlvl = 45, map = 2652, x = 35.17, y = 46.61, z = 154.2, direct = true },
+						{ t = "turnin", quest = 93644, title = "Tattered Journal", npc = 253471, npcName = "Mordent Evenshade", qlvl = 45, map = 2652, x = 35.2, y = 46.6, z = 154.2, direct = true },
 					},
 				},
 				{
@@ -15672,7 +15684,7 @@ do
 				{
 					title = "{area:378}",
 					goals = {
-						{ t = "sethome", location = "Camp Taurajo", area = 378 },
+						{ t = "sethome", npc = 7714, npcName = "Innkeeper Byula", location = "Camp Taurajo", area = 378, map = 1413, x = 45.58, y = 59.04, z = 96.8, f = "e" },
 					},
 				},
 				{
@@ -15682,14 +15694,6 @@ do
 						{ t = "accept", quest = 1112, title = "Parts for Kravel", npc = 3453, npcName = "Wharfmaster Dizzywig", minLevel = 30, qlvl = 36, pre = { 1111 }, preTitles = { [1111] = "Wharfmaster Dizzywig" }, map = 1413, x = 63.35, y = 38.45, z = 5.2, f = "e" },
 						{ t = "accept", quest = 98906, title = "The Battle for Darkspear Islands!", npc = 275276, npcName = "Nizook Boof", minLevel = 30, qlvl = 39, map = 1413, x = 65.04, y = 34.91, f = "e" },
 						{ t = "turnin", quest = 98906, title = "The Battle for Darkspear Islands!", npc = 275276, npcName = "Nizook Boof", map = 1413, x = 65.04, y = 34.91, f = "e" },
-					},
-				},
-				{
-					title = "{quest:3633}",
-					note = "One of several exclusive quests; the route takes {quest:3633} (3526). This one shows for a character the game offers it to instead.",
-					when = { { k = "available", q = 3633, minLevel = 30, closedBy = { 3526, 3629, 3630, 3632, 3634, 3635, 3637, 4181, 3640, 3642 } }, { k = "skill", n = 200, name = "Engineering", skillLine = 202 } },
-					goals = {
-						{ t = "accept", quest = 3633, title = "Goblin Engineering", npc = 3494, npcName = "Tinkerwiz", minLevel = 30, qlvl = 47, closedBy = { 3526, 3629, 3630, 3632, 3634, 3635, 3637, 4181, 3640, 3642 }, endNpcs = { 8126 }, xp = 420, preTitles = { [3526] = "Goblin Engineering", [3629] = "Goblin Engineering", [3630] = "Gnome Engineering", [3632] = "Gnome Engineering", [3634] = "Gnome Engineering", [3635] = "Gnome Engineering", [3637] = "Gnome Engineering", [3640] = "The Pledge of Secrecy", [3642] = "The Pledge of Secrecy", [4181] = "Goblin Engineering" }, map = 1413, x = 62.67, y = 36.31, z = 20, f = "e", optional = true, profLine = 202, profName = "Engineering", profRank = 200 },
 					},
 				},
 				{
@@ -16006,16 +16010,24 @@ do
 					},
 				},
 				{
+					title = "{npc:2498}",
+					goals = {
+						{ t = "turnin", quest = 1118, title = "Back to Booty Bay", npc = 2498, npcName = "Crank Fizzlebub", map = 1434, x = 27.12, y = 77.21, z = 15.2, f = "e" },
+					},
+				},
+				{
+					title = "{quest:3633}",
+					note = "One of several exclusive quests; the route takes {quest:3633} (3526). This one shows for a character the game offers it to instead.",
+					when = { { k = "available", q = 3633, minLevel = 30, closedBy = { 3526, 3629, 3630, 3632, 3634, 3635, 3637, 4181, 3640, 3642 } }, { k = "skill", n = 200, name = "Engineering", skillLine = 202 } },
+					goals = {
+						{ t = "accept", quest = 3633, title = "Goblin Engineering", npc = 3494, npcName = "Tinkerwiz", minLevel = 30, qlvl = 47, closedBy = { 3526, 3629, 3630, 3632, 3634, 3635, 3637, 4181, 3640, 3642 }, endNpcs = { 8126 }, xp = 420, preTitles = { [3526] = "Goblin Engineering", [3629] = "Goblin Engineering", [3630] = "Gnome Engineering", [3632] = "Gnome Engineering", [3634] = "Gnome Engineering", [3635] = "Gnome Engineering", [3637] = "Gnome Engineering", [3640] = "The Pledge of Secrecy", [3642] = "The Pledge of Secrecy", [4181] = "Goblin Engineering" }, map = 1413, x = 62.67, y = 36.31, z = 20, f = "e", optional = true, profLine = 202, profName = "Engineering", profRank = 200 },
+					},
+				},
+				{
 					title = "{quest:3633}",
 					when = { { k = "onquest", q = { 3633 } } },
 					goals = {
 						{ t = "turnin", quest = 3633, title = "Goblin Engineering", npc = 8126, npcName = "Nixx Sprocketspring", map = 1446, x = 52.48, y = 27.33, z = 9.1, f = "e", optional = true, profLine = 202, profName = "Engineering", profRank = 200 },
-					},
-				},
-				{
-					title = "{npc:2498}",
-					goals = {
-						{ t = "turnin", quest = 1118, title = "Back to Booty Bay", npc = 2498, npcName = "Crank Fizzlebub", map = 1434, x = 27.12, y = 77.21, z = 15.2, f = "e" },
 					},
 				},
 			},
@@ -16046,8 +16058,8 @@ do
 				{
 					title = "{npc:8021}",
 					goals = {
-						{ t = "sethome", location = "Camp Mojache", area = 1099 },
-						{ t = "getfp", location = "Camp Mojache", area = 1099 },
+						{ t = "sethome", npc = 7737, npcName = "Innkeeper Greul", location = "Camp Mojache", area = 1099, map = 1444, x = 74.8, y = 45.18, z = 39.2, f = "e" },
+						{ t = "getfp", npc = 8020, npcName = "Shyn", location = "Camp Mojache", node = 42, area = 1099, map = 1444, x = 75.45, y = 44.36, z = 25.2, f = "e" },
 						{ t = "accept", quest = 2987, title = "Gordunni Cobalt", npc = 8021, npcName = "Orwin Gizzmick", minLevel = 38, qlvl = 43, map = 1444, x = 75.7, y = 44.31, z = 29.3, f = "e" },
 					},
 				},
@@ -16549,8 +16561,8 @@ do
 				{
 					title = "{npc:4708}",
 					goals = {
-						{ t = "sethome", location = "Gadgetzan", area = 976 },
-						{ t = "getfp", location = "Gadgetzan", area = 976 },
+						{ t = "sethome", npc = 7733, npcName = "Innkeeper Fizzgrimble", location = "Gadgetzan", area = 976, map = 1446, x = 52.51, y = 27.91, z = 8.8, f = "e" },
+						{ t = "getfp", npc = 7824, npcName = "Bulkrek Ragefist", location = "Gadgetzan", node = 40, area = 976, map = 1446, x = 51.6, y = 25.44, z = 10.3, f = "e" },
 						{ t = "accept", quest = 1189, title = "Safety First", npc = 4708, npcName = "Shreev", minLevel = 29, qlvl = 41, pre = { 1188 }, preTitles = { [1188] = "Safety First" }, map = 1446, x = 50.96, y = 27.24, z = 8.4, f = "e" },
 						{ t = "accept", quest = 992, title = "Gadgetzan Water Survey", npc = 7724, npcName = "Senior Surveyor Fizzledowser", minLevel = 38, qlvl = 46, map = 1446, x = 50.21, y = 27.48, z = 21, f = "e" },
 						{ t = "accept", quest = 95144, title = "Overseas Delivery", npc = 7733, npcName = "Innkeeper Fizzgrimble", minLevel = 36, qlvl = 38, map = 1446, x = 52.51, y = 27.91, z = 8.8, f = "e" },
@@ -16997,8 +17009,8 @@ do
 				{
 					title = "{npc:1442}",
 					goals = {
-						{ t = "sethome", location = "Stonard", area = 75 },
-						{ t = "getfp", location = "Stonard", area = 75 },
+						{ t = "sethome", npc = 6930, npcName = "Innkeeper Karakul", location = "Stonard", area = 75, map = 1435, x = 45.16, y = 56.66, z = 21.1, f = "e" },
+						{ t = "getfp", npc = 6026, npcName = "Breyk", location = "Stonard", node = 56, area = 75, map = 1435, x = 46.07, y = 54.83, z = 21.5, f = "e" },
 						{ t = "accept", quest = 1418, title = "Neeka Bloodscar", npc = 1442, npcName = "Helgrum the Swift", minLevel = 30, qlvl = 35, closedBy = { 1420 }, endNpcs = { 5394 }, xp = 1350, preTitles = { [1420] = "Report to Helgrum" }, map = 1435, x = 47.74, y = 55.2, z = 40, f = "e" },
 					},
 				},
@@ -17314,7 +17326,7 @@ do
 				{
 					title = "{npc:2498}",
 					goals = {
-						{ t = "sethome", location = "Booty Bay", area = 35 },
+						{ t = "sethome", npc = 6807, npcName = "Innkeeper Skindle", location = "Booty Bay", area = 35, map = 1434, x = 27.04, y = 77.31, z = 15.2, f = "e" },
 						{ t = "accept", quest = 621, title = "Zanzil's Secret", npc = 2498, npcName = "Crank Fizzlebub", minLevel = 35, qlvl = 44, map = 1434, x = 27.12, y = 77.21, z = 15.2, f = "e" },
 						{ t = "accept", quest = 604, title = "The Bloodsail Buccaneers", npc = 2487, npcName = "Fleet Master Seahorn", minLevel = 37, qlvl = 43, pre = { 599 }, preTitles = { [599] = "The Bloodsail Buccaneers" }, map = 1434, x = 27.17, y = 77.01, z = 28.8, f = "e" },
 						{ t = "accept", quest = 580, title = "Whiskey Slim's Lost Grog", npc = 2491, npcName = "Whiskey Slim", minLevel = 40, qlvl = 50, map = 1434, x = 27.14, y = 77.45, z = 15.2, f = "e" },
@@ -17366,7 +17378,7 @@ do
 					title = "{quest:95385}",
 					note = "The reference data has no giver for this quest: it is handed in here once the game offers it.",
 					goals = {
-						{ t = "turnin", quest = 95385, title = "Torn Mystical Scroll", npc = 260873, npcName = "Dudd Fizzlescroll", qlvl = 43, map = 1434, x = 28.27, y = 76.35, f = "e", direct = true },
+						{ t = "turnin", quest = 95385, title = "Torn Mystical Scroll", npc = 260873, npcName = "Dudd Fizzlescroll", qlvl = 43, map = 1434, x = 28.3, y = 76.3, f = "e", direct = true },
 					},
 				},
 				{
@@ -17577,14 +17589,6 @@ do
 					},
 				},
 				{
-					title = "{quest:618}",
-					note = "One of several exclusive quests; the route takes {quest:618} (8554). This one shows for a character the game offers it to instead.",
-					when = { { k = "available", q = 618, minLevel = 40, pre = { 615, 8553 }, closedBy = { 8554 } } },
-					goals = {
-						{ t = "accept", quest = 618, title = "Facing Negolash", npc = 2594, npcName = "Sprogger", minLevel = 40, qlvl = 50, pre = { 615, 8553 }, closedBy = { 8554 }, endNpcs = { 2500 }, xp = 7100, preTitles = { [615] = "The Captain's Cutlass", [8553] = "The Captain's Cutlass", [8554] = "Facing Negolash" }, map = 1434, x = 26.66, y = 73.64, z = 8.9, f = "e", optional = true },
-					},
-				},
-				{
 					title = "{quest:8554}",
 					note = "One of several exclusive quests; the route takes {quest:8554} (618). This one shows for a character the game offers it to instead.",
 					when = { { k = "available", q = 8554, minLevel = 40, pre = { 615, 8553 }, closedBy = { 618 } } },
@@ -17629,21 +17633,6 @@ do
 					goals = {
 						{ t = "turnin", quest = 608, title = "The Bloodsail Buccaneers", npc = 2487, npcName = "Fleet Master Seahorn", map = 1434, x = 27.17, y = 77.01, z = 28.8, f = "e" },
 						{ t = "turnin", quest = 617, title = "Akiris by the Bundle", npc = 2494, npcName = "Privateer Bloads", map = 1434, x = 26.76, y = 76.38, z = 5, f = "e" },
-					},
-				},
-				{
-					title = "{quest:618}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					when = { { k = "onquest", q = { 618 } } },
-					goals = {
-						{ t = "complete", quest = 618, title = "Facing Negolash", map = 1434, x = 26.7, y = 73.6, f = "e", optional = true, objs = { { text = "Smotts' Cutlass", count = 1 } } },
-					},
-				},
-				{
-					title = "{quest:618}",
-					when = { { k = "onquest", q = { 618 } } },
-					goals = {
-						{ t = "turnin", quest = 618, title = "Facing Negolash", npc = 2500, npcName = "Captain Hecklebury Smotts", map = 1434, x = 26.69, y = 73.61, z = 9, f = "e", optional = true },
 					},
 				},
 				{
@@ -18154,6 +18143,29 @@ do
 						{ t = "turnin", quest = 3321, title = "Did You Lose This?", npc = 7804, npcName = "Trenton Lighthammer", map = 1446, x = 51.41, y = 28.75, z = 8.9, f = "e", optional = true, profLine = 164, profName = "Blacksmithing", profRank = 210 },
 					},
 				},
+				{
+					title = "{quest:618}",
+					note = "One of several exclusive quests; the route takes {quest:618} (8554). This one shows for a character the game offers it to instead.",
+					when = { { k = "available", q = 618, minLevel = 40, pre = { 615, 8553 }, closedBy = { 8554 } } },
+					goals = {
+						{ t = "accept", quest = 618, title = "Facing Negolash", npc = 2594, npcName = "Sprogger", minLevel = 40, qlvl = 50, pre = { 615, 8553 }, closedBy = { 8554 }, endNpcs = { 2500 }, xp = 7100, preTitles = { [615] = "The Captain's Cutlass", [8553] = "The Captain's Cutlass", [8554] = "Facing Negolash" }, map = 1434, x = 26.66, y = 73.64, z = 8.9, f = "e", optional = true },
+					},
+				},
+				{
+					title = "{quest:618}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					when = { { k = "onquest", q = { 618 } } },
+					goals = {
+						{ t = "complete", quest = 618, title = "Facing Negolash", map = 1434, x = 26.7, y = 73.6, f = "e", optional = true, objs = { { text = "Smotts' Cutlass", count = 1 } } },
+					},
+				},
+				{
+					title = "{quest:618}",
+					when = { { k = "onquest", q = { 618 } } },
+					goals = {
+						{ t = "turnin", quest = 618, title = "Facing Negolash", npc = 2500, npcName = "Captain Hecklebury Smotts", map = 1434, x = 26.69, y = 73.61, z = 9, f = "e", optional = true },
+					},
+				},
 			},
 		})
 	end
@@ -18182,7 +18194,7 @@ do
 				{
 					title = "{area:222}",
 					goals = {
-						{ t = "sethome", location = "Bloodhoof Village", area = 222 },
+						{ t = "sethome", npc = 6747, npcName = "Innkeeper Kauth", location = "Bloodhoof Village", area = 222, map = 1412, x = 45.93, y = 64.16, z = -8.9 },
 					},
 				},
 				{
@@ -18494,7 +18506,7 @@ do
 				{
 					title = "{area:362}",
 					goals = {
-						{ t = "sethome", location = "Razor Hill", area = 362 },
+						{ t = "sethome", npc = 6928, npcName = "Innkeeper Grosk", location = "Razor Hill", area = 362, map = 1411, x = 51.51, y = 41.64, z = 16.5, f = "e" },
 					},
 				},
 				{
@@ -18569,22 +18581,6 @@ do
 					when = { { k = "skill", n = 1, name = "Fishing", skillLine = 356 } },
 					goals = {
 						{ t = "turnin", quest = 6608, title = "You Too Good.", npc = 12919, npcName = "Nat Pagle", map = 1445, x = 58.61, y = 60.06, z = 1.5, f = "e", optional = true, profLine = 356, profName = "Fishing", profRank = 225 },
-					},
-				},
-				{
-					title = "{quest:6607}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					when = { { k = "skill", n = 1, name = "Fishing", skillLine = 356 } },
-					goals = {
-						{ t = "accept", quest = 6607, title = "Nat Pagle, Angler Extreme", npc = 12919, npcName = "Nat Pagle", minLevel = 35, qlvl = 45, crumbs = { 6608, 6609 }, preTitles = { [6608] = "You Too Good.", [6609] = "I Got Nothin' Left!" }, map = 1445, x = 58.61, y = 60.06, z = 1.5, f = "e", optional = true, profLine = 356, profName = "Fishing", profRank = 225 },
-						{ t = "complete", quest = 6607, title = "Nat Pagle, Angler Extreme", map = 1445, x = 58.6, y = 60.1, f = "e", optional = true, profLine = 356, profName = "Fishing", profRank = 225, objs = { { text = "Feralas Ahi", count = 1 }, { text = "Misty Reed Mahi Mahi", count = 1 }, { text = "Sar'theris Striker", count = 1 }, { text = "Savage Coast Blue Sailfin", count = 1 } } },
-					},
-				},
-				{
-					title = "{quest:6607}",
-					when = { { k = "skill", n = 1, name = "Fishing", skillLine = 356 } },
-					goals = {
-						{ t = "turnin", quest = 6607, title = "Nat Pagle, Angler Extreme", npc = 12919, npcName = "Nat Pagle", map = 1445, x = 58.61, y = 60.06, z = 1.5, f = "e", optional = true, profLine = 356, profName = "Fishing", profRank = 225 },
 					},
 				},
 				{
@@ -18742,22 +18738,6 @@ do
 					},
 				},
 				{
-					title = "{quest:6622}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					when = { { k = "skill", n = 1, name = "First Aid", skillLine = 129 } },
-					goals = {
-						{ t = "accept", quest = 6622, title = "Triage", npc = 12920, npcName = "Doctor Gregory Victor", minLevel = 35, qlvl = 45, crumbs = { 6623 }, preTitles = { [6623] = "Horde Trauma" }, map = 1417, x = 73.41, y = 36.89, z = 63, f = "e", optional = true, profLine = 129, profName = "First Aid", profRank = 225 },
-						{ t = "complete", quest = 6622, title = "Triage", map = 1417, x = 73.4, y = 36.9, f = "e", optional = true, profLine = 129, profName = "First Aid", profRank = 225, objs = { { text = "15 Patients Saved!", count = 1 } }, startItem = 16991, startItemName = "Triage Bandage" },
-					},
-				},
-				{
-					title = "{quest:6622}",
-					when = { { k = "skill", n = 1, name = "First Aid", skillLine = 129 } },
-					goals = {
-						{ t = "turnin", quest = 6622, title = "Triage", npc = 12920, npcName = "Doctor Gregory Victor", map = 1417, x = 73.41, y = 36.89, z = 63, f = "e", optional = true, profLine = 129, profName = "First Aid", profRank = 225 },
-					},
-				},
-				{
 					title = "{npc:3188}",
 					when = { { k = "group", q = 2937 } },
 					goals = {
@@ -18902,6 +18882,38 @@ do
 						{ t = "turnin", quest = 2980, title = "The Ogres of Feralas", npc = 7777, npcName = "Rok Orhan", map = 1444, x = 75.8, y = 43.58, z = 25.9, f = "e", spots = { { x = 75.7, y = 43.27, r = 90, n = 1 } } },
 					},
 				},
+				{
+					title = "{quest:6607}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					when = { { k = "skill", n = 1, name = "Fishing", skillLine = 356 } },
+					goals = {
+						{ t = "accept", quest = 6607, title = "Nat Pagle, Angler Extreme", npc = 12919, npcName = "Nat Pagle", minLevel = 35, qlvl = 45, crumbs = { 6608, 6609 }, preTitles = { [6608] = "You Too Good.", [6609] = "I Got Nothin' Left!" }, map = 1445, x = 58.61, y = 60.06, z = 1.5, f = "e", optional = true, profLine = 356, profName = "Fishing", profRank = 225 },
+						{ t = "complete", quest = 6607, title = "Nat Pagle, Angler Extreme", map = 1445, x = 58.6, y = 60.1, f = "e", optional = true, profLine = 356, profName = "Fishing", profRank = 225, objs = { { text = "Feralas Ahi", count = 1 }, { text = "Misty Reed Mahi Mahi", count = 1 }, { text = "Sar'theris Striker", count = 1 }, { text = "Savage Coast Blue Sailfin", count = 1 } } },
+					},
+				},
+				{
+					title = "{quest:6607}",
+					when = { { k = "skill", n = 1, name = "Fishing", skillLine = 356 } },
+					goals = {
+						{ t = "turnin", quest = 6607, title = "Nat Pagle, Angler Extreme", npc = 12919, npcName = "Nat Pagle", map = 1445, x = 58.61, y = 60.06, z = 1.5, f = "e", optional = true, profLine = 356, profName = "Fishing", profRank = 225 },
+					},
+				},
+				{
+					title = "{quest:6622}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					when = { { k = "skill", n = 1, name = "First Aid", skillLine = 129 } },
+					goals = {
+						{ t = "accept", quest = 6622, title = "Triage", npc = 12920, npcName = "Doctor Gregory Victor", minLevel = 35, qlvl = 45, crumbs = { 6623 }, preTitles = { [6623] = "Horde Trauma" }, map = 1417, x = 73.41, y = 36.89, z = 63, f = "e", optional = true, profLine = 129, profName = "First Aid", profRank = 225 },
+						{ t = "complete", quest = 6622, title = "Triage", map = 1417, x = 73.4, y = 36.9, f = "e", optional = true, profLine = 129, profName = "First Aid", profRank = 225, objs = { { text = "15 Patients Saved!", count = 1 } }, startItem = 16991, startItemName = "Triage Bandage" },
+					},
+				},
+				{
+					title = "{quest:6622}",
+					when = { { k = "skill", n = 1, name = "First Aid", skillLine = 129 } },
+					goals = {
+						{ t = "turnin", quest = 6622, title = "Triage", npc = 12920, npcName = "Doctor Gregory Victor", map = 1417, x = 73.41, y = 36.89, z = 63, f = "e", optional = true, profLine = 129, profName = "First Aid", profRank = 225 },
+					},
+				},
 			},
 		})
 	end
@@ -18931,7 +18943,7 @@ do
 				{
 					title = "{npc:8576}",
 					goals = {
-						{ t = "getfp", location = "Valormok", area = 1237 },
+						{ t = "getfp", npc = 8610, npcName = "Kroum", location = "Valormok", node = 44, area = 1237, map = 1447, x = 21.96, y = 49.62, z = 113.2, f = "e" },
 						{ t = "accept", quest = 3505, title = "Betrayed", npc = 8576, npcName = "Ag'tor Bloodfist", minLevel = 44, qlvl = 53, map = 1447, x = 22.26, y = 51.48, z = 115.4, f = "e" },
 						{ t = "accept", quest = 91568, title = "Long Walks on the Beach", npc = 247473, npcName = "Izvi Gildfizz", minLevel = 45, qlvl = 51, map = 1447, x = 22.53, y = 51.84, z = 112.5, f = "e" },
 						{ t = "accept", quest = 91569, title = "Blue Gold", npc = 247473, npcName = "Izvi Gildfizz", minLevel = 45, qlvl = 53, map = 1447, x = 22.53, y = 51.84, z = 112.5, f = "e" },
@@ -19264,7 +19276,7 @@ do
 					title = "{quest:86747}",
 					note = "The reference data has no giver for this quest: it is handed in here once the game offers it.",
 					goals = {
-						{ t = "turnin", quest = 86747, title = "Legashi Horns", npc = 235903, npcName = "Ekkal", pre = { 86746 }, map = 1447, x = 42, y = 38.88, z = 116.9, f = "e", direct = true },
+						{ t = "turnin", quest = 86747, title = "Legashi Horns", npc = 235903, npcName = "Ekkal", pre = { 86746 }, map = 1447, x = 42, y = 38.9, z = 116.9, f = "e", direct = true },
 					},
 				},
 				{
@@ -19421,7 +19433,7 @@ do
 				{
 					title = "{npc:9270}",
 					goals = {
-						{ t = "getfp", location = "Marshal's Refuge", area = 541 },
+						{ t = "getfp", npc = 10583, npcName = "Gryfe", location = "Marshal's Refuge", node = 79, area = 541, map = 1449, x = 45.23, y = 5.83, z = -186.9, f = "e" },
 						{ t = "accept", quest = 3881, title = "Expedition Salvation", npc = 9270, npcName = "Williden Marshal", minLevel = 48, qlvl = 53, map = 1449, x = 43.95, y = 7.14, z = -200.2, f = "e" },
 						{ t = "accept", quest = 3883, title = "Alien Ecology", npc = 9271, npcName = "Hol'anyee Marshal", minLevel = 48, qlvl = 52, map = 1449, x = 43.89, y = 7.24, z = -200.2, f = "e" },
 						{ t = "accept", quest = 3882, title = "Roll the Bones", npc = 9272, npcName = "Spark Nilminer", minLevel = 49, qlvl = 51, map = 1449, x = 43.5, y = 7.42, z = -198.9, f = "e" },
@@ -19806,8 +19818,8 @@ do
 				{
 					title = "{npc:14740}",
 					goals = {
-						{ t = "sethome", location = "Revantusk Village", area = 3317 },
-						{ t = "getfp", location = "Revantusk Village", area = 3317 },
+						{ t = "sethome", npc = 14731, npcName = "Lard", location = "Revantusk Village", area = 3317, map = 1425, x = 78.14, y = 81.38, z = 11.8, f = "e" },
+						{ t = "getfp", npc = 4314, npcName = "Gorkas", location = "Revantusk Village", node = 76, area = 3317, map = 1425, x = 81.7, y = 81.76, z = 5.5, f = "e" },
 						{ t = "accept", quest = 7815, title = "Snapjaws, Mon!", npc = 14740, npcName = "Katoom the Angler", minLevel = 44, qlvl = 50, map = 1425, x = 80.33, y = 81.54, z = 6.5, f = "e" },
 					},
 				},
@@ -20179,7 +20191,7 @@ do
 				{
 					title = "{object:179827}",
 					goals = {
-						{ t = "getfp", location = "Thorium Point", area = 1446 },
+						{ t = "getfp", npc = 3305, npcName = "Grisha", location = "Thorium Point", node = 75, area = 1446, map = 1427, x = 34.84, y = 30.87, z = 310.4, f = "e" },
 						{ t = "accept", quest = 7728, title = "STOLEN: Smithing Tuyere and Lookout's Spyglass", object = 179827, objName = "Wanted/Missing/Lost & Found", minLevel = 45, qlvl = 48, map = 1427, x = 37.65, y = 26.47, z = 309.2, f = "e" },
 						{ t = "accept", quest = 7729, title = "JOB OPPORTUNITY: Culling the Competition", object = 179827, objName = "Wanted/Missing/Lost & Found", minLevel = 45, qlvl = 48, map = 1427, x = 37.65, y = 26.47, z = 309.2, f = "e" },
 					},
@@ -20842,7 +20854,7 @@ do
 				{
 					title = "{area:2119}",
 					goals = {
-						{ t = "sethome", location = "Gallows' End Tavern", area = 2119 },
+						{ t = "sethome", npc = 5688, npcName = "Innkeeper Renee", location = "Gallows' End Tavern", area = 2119, map = 1420, x = 61.72, y = 52.05, z = 34.3, f = "e" },
 					},
 				},
 				{
@@ -21032,55 +21044,9 @@ do
 					},
 				},
 				{
-					title = "{quest:3638}",
-					note = "One of several exclusive quests; the route takes {quest:3638} (3642). This one shows for a character the game offers it to instead.",
-					when = { { k = "available", q = 3638, minLevel = 30, pre = { 3526, 3629, 3633, 4181 }, closedBy = { 3640, 3642 } }, { k = "skill", n = 200, name = "Engineering", skillLine = 202 } },
-					goals = {
-						{ t = "accept", quest = 3638, title = "The Pledge of Secrecy", npc = 8126, npcName = "Nixx Sprocketspring", minLevel = 30, qlvl = 47, pre = { 3526, 3629, 3633, 4181 }, closedBy = { 3640, 3642 }, endNpcs = { 8126 }, xp = 420, preTitles = { [3526] = "Goblin Engineering", [3629] = "Goblin Engineering", [3633] = "Goblin Engineering", [3640] = "The Pledge of Secrecy", [3642] = "The Pledge of Secrecy", [4181] = "Goblin Engineering" }, map = 1446, x = 52.48, y = 27.33, z = 9.1, f = "e", optional = true, profLine = 202, profName = "Engineering", profRank = 200 },
-					},
-				},
-				{
-					title = "{quest:3638}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					when = { { k = "onquest", q = { 3638 } } },
-					goals = {
-						{ t = "complete", quest = 3638, title = "The Pledge of Secrecy", map = 1446, x = 52.5, y = 27.3, f = "e", optional = true, profLine = 202, profName = "Engineering", profRank = 200, objs = { { text = "Nixx's Signed Pledge", count = 1 } }, startItem = 10792, startItemName = "Nixx's Pledge of Secrecy" },
-					},
-				},
-				{
-					title = "{quest:3638}",
-					when = { { k = "onquest", q = { 3638 } } },
-					goals = {
-						{ t = "turnin", quest = 3638, title = "The Pledge of Secrecy", npc = 8126, npcName = "Nixx Sprocketspring", map = 1446, x = 52.48, y = 27.33, z = 9.1, f = "e", optional = true, profLine = 202, profName = "Engineering", profRank = 200 },
-					},
-				},
-				{
 					title = "Level 55",
 					goals = {
 						{ t = "level", level = 55 },
-					},
-				},
-				{
-					title = "{quest:3639}",
-					note = "One of several exclusive quests; the route takes {quest:3638} (3642). This one shows for a character the game offers it to instead.",
-					when = { { k = "available", q = 3639, minLevel = 30, pre = { 3638 }, closedBy = { 3640, 3641, 3642, 3643 } }, { k = "turnedin", q = 3638 }, { k = "skill", n = 200, name = "Engineering", skillLine = 202 } },
-					goals = {
-						{ t = "accept", quest = 3639, title = "Show Your Work", npc = 8126, npcName = "Nixx Sprocketspring", minLevel = 30, qlvl = 47, pre = { 3638 }, closedBy = { 3640, 3641, 3642, 3643 }, endNpcs = { 8126 }, xp = 3150, preTitles = { [3638] = "The Pledge of Secrecy", [3640] = "The Pledge of Secrecy", [3641] = "Show Your Work", [3642] = "The Pledge of Secrecy", [3643] = "Show Your Work" }, map = 1446, x = 52.48, y = 27.33, z = 9.1, f = "e", optional = true, profLine = 202, profName = "Engineering", profRank = 200 },
-					},
-				},
-				{
-					title = "{quest:3639}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					when = { { k = "onquest", q = { 3639 } } },
-					goals = {
-						{ t = "complete", quest = 3639, title = "Show Your Work", map = 1446, x = 52.5, y = 27.3, f = "e", optional = true, profLine = 202, profName = "Engineering", profRank = 200, objs = { { text = "Big Iron Bomb", count = 20 }, { text = "Solid Dynamite", count = 20 }, { text = "Explosive Sheep", count = 5 } } },
-					},
-				},
-				{
-					title = "{quest:3639}",
-					when = { { k = "onquest", q = { 3639 } } },
-					goals = {
-						{ t = "turnin", quest = 3639, title = "Show Your Work", npc = 8126, npcName = "Nixx Sprocketspring", map = 1446, x = 52.48, y = 27.33, z = 9.1, f = "e", optional = true, profLine = 202, profName = "Engineering", profRank = 200 },
 					},
 				},
 				{
@@ -21129,6 +21095,52 @@ do
 					when = { { k = "onquest", q = { 864 } } },
 					goals = {
 						{ t = "turnin", quest = 864, title = "Return to Apothecary Zinge", npc = 5204, npcName = "Apothecary Zinge", map = 1458, x = 50.14, y = 67.97, z = -84.9, f = "e" },
+					},
+				},
+				{
+					title = "{quest:3638}",
+					note = "One of several exclusive quests; the route takes {quest:3638} (3642). This one shows for a character the game offers it to instead.",
+					when = { { k = "available", q = 3638, minLevel = 30, pre = { 3526, 3629, 3633, 4181 }, closedBy = { 3640, 3642 } }, { k = "skill", n = 200, name = "Engineering", skillLine = 202 } },
+					goals = {
+						{ t = "accept", quest = 3638, title = "The Pledge of Secrecy", npc = 8126, npcName = "Nixx Sprocketspring", minLevel = 30, qlvl = 47, pre = { 3526, 3629, 3633, 4181 }, closedBy = { 3640, 3642 }, endNpcs = { 8126 }, xp = 420, preTitles = { [3526] = "Goblin Engineering", [3629] = "Goblin Engineering", [3633] = "Goblin Engineering", [3640] = "The Pledge of Secrecy", [3642] = "The Pledge of Secrecy", [4181] = "Goblin Engineering" }, map = 1446, x = 52.48, y = 27.33, z = 9.1, f = "e", optional = true, profLine = 202, profName = "Engineering", profRank = 200 },
+					},
+				},
+				{
+					title = "{quest:3638}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					when = { { k = "onquest", q = { 3638 } } },
+					goals = {
+						{ t = "complete", quest = 3638, title = "The Pledge of Secrecy", map = 1446, x = 52.5, y = 27.3, f = "e", optional = true, profLine = 202, profName = "Engineering", profRank = 200, objs = { { text = "Nixx's Signed Pledge", count = 1 } }, startItem = 10792, startItemName = "Nixx's Pledge of Secrecy" },
+					},
+				},
+				{
+					title = "{quest:3638}",
+					when = { { k = "onquest", q = { 3638 } } },
+					goals = {
+						{ t = "turnin", quest = 3638, title = "The Pledge of Secrecy", npc = 8126, npcName = "Nixx Sprocketspring", map = 1446, x = 52.48, y = 27.33, z = 9.1, f = "e", optional = true, profLine = 202, profName = "Engineering", profRank = 200 },
+					},
+				},
+				{
+					title = "{quest:3639}",
+					note = "One of several exclusive quests; the route takes {quest:3638} (3642). This one shows for a character the game offers it to instead.",
+					when = { { k = "available", q = 3639, minLevel = 30, pre = { 3638 }, closedBy = { 3640, 3641, 3642, 3643 } }, { k = "turnedin", q = 3638 }, { k = "skill", n = 200, name = "Engineering", skillLine = 202 } },
+					goals = {
+						{ t = "accept", quest = 3639, title = "Show Your Work", npc = 8126, npcName = "Nixx Sprocketspring", minLevel = 30, qlvl = 47, pre = { 3638 }, closedBy = { 3640, 3641, 3642, 3643 }, endNpcs = { 8126 }, xp = 3150, preTitles = { [3638] = "The Pledge of Secrecy", [3640] = "The Pledge of Secrecy", [3641] = "Show Your Work", [3642] = "The Pledge of Secrecy", [3643] = "Show Your Work" }, map = 1446, x = 52.48, y = 27.33, z = 9.1, f = "e", optional = true, profLine = 202, profName = "Engineering", profRank = 200 },
+					},
+				},
+				{
+					title = "{quest:3639}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					when = { { k = "onquest", q = { 3639 } } },
+					goals = {
+						{ t = "complete", quest = 3639, title = "Show Your Work", map = 1446, x = 52.5, y = 27.3, f = "e", optional = true, profLine = 202, profName = "Engineering", profRank = 200, objs = { { text = "Big Iron Bomb", count = 20 }, { text = "Solid Dynamite", count = 20 }, { text = "Explosive Sheep", count = 5 } } },
+					},
+				},
+				{
+					title = "{quest:3639}",
+					when = { { k = "onquest", q = { 3639 } } },
+					goals = {
+						{ t = "turnin", quest = 3639, title = "Show Your Work", npc = 8126, npcName = "Nixx Sprocketspring", map = 1446, x = 52.48, y = 27.33, z = 9.1, f = "e", optional = true, profLine = 202, profName = "Engineering", profRank = 200 },
 					},
 				},
 			},
@@ -21420,7 +21432,7 @@ do
 				{
 					title = "{area:1997}",
 					goals = {
-						{ t = "getfp", location = "Bloodvenom Post" },
+						{ t = "getfp", npc = 11900, npcName = "Brakkar", location = "Bloodvenom Post", node = 48, map = 1448, x = 34.44, y = 53.96, z = 367.5, f = "e" },
 					},
 				},
 				{
@@ -22282,7 +22294,7 @@ do
 				{
 					title = "{area:493}",
 					goals = {
-						{ t = "getfp", location = "Moonglade", area = 493 },
+						{ t = "getfp", npc = 12740, npcName = "Faustron", location = "Moonglade", node = 69, area = 493, map = 1450, x = 32.09, y = 66.61, z = 492.4, f = "e" },
 					},
 				},
 				{
@@ -22411,7 +22423,7 @@ do
 				{
 					title = "{npc:248367}",
 					goals = {
-						{ t = "getfp", location = "Tainted Foothills", area = 16853 },
+						{ t = "getfp", npc = 260626, npcName = "Bluebell", location = "Tainted Foothills", node = 3242, area = 16853, map = 2482, x = 55, y = 82.78, z = 1108 },
 						{ t = "accept", quest = 91755, title = "Leaves to Ligatures", npc = 248367, npcName = "Hyacinth", qlvl = 56, map = 2482, x = 54.05, y = 84.39, z = 1102 },
 					},
 				},
@@ -22776,7 +22788,7 @@ do
 					note = "The reference data has no giver for this quest: it is handed in here once the game offers it.",
 					when = { { k = "has", n = 1, item = 274800 } },
 					goals = {
-						{ t = "turnin", quest = 96561, title = "Last Wishes", object = 654150, objName = "Broken Fishing Basket", qlvl = 60, map = 2482, x = 35.74, y = 45.16, direct = true },
+						{ t = "turnin", quest = 96561, title = "Last Wishes", object = 654150, objName = "Broken Fishing Basket", qlvl = 60, map = 2482, x = 35.7, y = 45.2, direct = true },
 					},
 				},
 				{
@@ -22851,7 +22863,7 @@ do
 				{
 					title = "{npc:264795}",
 					goals = {
-						{ t = "sethome", location = "Summit of Eternity", area = 16849 },
+						{ t = "sethome", npc = 243815, npcName = "Sebelia", location = "Summit of Eternity", area = 16849, map = 2482, x = 70.87, y = 51.55 },
 						{ t = "turnin", quest = 96991, title = "Trail Assist", npc = 264795, npcName = "Marn Euhorn", map = 2482, x = 68.3, y = 46.71 },
 						{ t = "accept", quest = 92017, title = "Cleansing Winds", npc = 264795, npcName = "Marn Euhorn", qlvl = 59, map = 2482, x = 68.3, y = 46.71 },
 						{ t = "accept", quest = 92533, title = "Twisted Tools", npc = 243855, npcName = "Toron Rockhoof", qlvl = 60, map = 2482, x = 68.88, y = 48.35 },
@@ -23101,10 +23113,10 @@ do
 				},
 				{
 					title = "{quest:93747}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
+					note = "The place is where players were recorded finishing it.",
 					goals = {
 						{ t = "accept", quest = 93747, title = "Violence Into Verdure", npc = 256222, npcName = "Ketharas", qlvl = 56, pre = { 95568 }, preTitles = { [95568] = "Seeds for a New Season" }, map = 2482, x = 73.34, y = 81.88, z = 1008.4 },
-						{ t = "complete", quest = 93747, title = "Violence Into Verdure", map = 2482, x = 73.3, y = 81.9, objs = { { text = "Ruined Ballista reclaimed", count = 1 }, { text = "Ruined Catapult reclaimed", count = 1 }, { text = "Ruined Flying Machine reclaimed", count = 1 } } },
+						{ t = "complete", quest = 93747, title = "Violence Into Verdure", map = 2482, x = 66.3, y = 79.2, objs = { { text = "Ruined Ballista reclaimed", count = 1 }, { text = "Ruined Catapult reclaimed", count = 1 }, { text = "Ruined Flying Machine reclaimed", count = 1 } } },
 					},
 				},
 				{
@@ -23230,7 +23242,7 @@ do
 					note = "The reference data has no giver for this quest: it is handed in here once the game offers it.",
 					when = { { k = "has", n = 1, item = 250065 } },
 					goals = {
-						{ t = "turnin", quest = 97119, title = "Now We're Cooking", npc = 244512, npcName = "Ortak Lomgok", minLevel = 54, qlvl = 57, map = 2482, x = 12.93, y = 52.85, z = 1343, direct = true },
+						{ t = "turnin", quest = 97119, title = "Now We're Cooking", npc = 244512, npcName = "Ortak Lomgok", minLevel = 54, qlvl = 57, map = 2482, x = 12.9, y = 52.9, z = 1343, direct = true },
 					},
 				},
 				{
@@ -23942,8 +23954,8 @@ do
 				{
 					title = "{npc:11629}",
 					goals = {
-						{ t = "sethome", location = "Everlook", area = 2255 },
-						{ t = "getfp", location = "Everlook", area = 2255 },
+						{ t = "sethome", npc = 11118, npcName = "Innkeeper Vizzie", location = "Everlook", area = 2255, map = 1452, x = 61.36, y = 38.83, z = 721.7, f = "e" },
+						{ t = "getfp", npc = 11139, npcName = "Yugrek", location = "Everlook", node = 53, area = 2255, map = 1452, x = 60.47, y = 36.3, z = 710.8, f = "e" },
 						{ t = "accept", quest = 5601, title = "Sister Pamela", npc = 11629, npcName = "Jessica Redpath", minLevel = 50, qlvl = 55, closedBy = { 5149, 5142 }, endNpcs = { 10926 }, xp = 560, preTitles = { [5142] = "Little Pamela", [5149] = "Pamela's Doll" }, map = 1452, x = 61.28, y = 38.98, z = 721.7, f = "e" },
 						{ t = "accept", quest = 6029, title = "The Everlook Report", npc = 10431, npcName = "Gregor Greystone", minLevel = 50, qlvl = 52, map = 1452, x = 61.35, y = 38.97, z = 721.7, f = "e" },
 						{ t = "accept", quest = 6030, title = "Duke Nicholas Zverenhoff", npc = 10431, npcName = "Gregor Greystone", minLevel = 50, qlvl = 52, map = 1452, x = 61.35, y = 38.97, z = 721.7, f = "e" },
@@ -23968,7 +23980,7 @@ do
 					note = "The reference data has no giver for this quest: it is handed in here once the game offers it.",
 					when = { { k = "skill", n = 270, name = "Blacksmithing", skillLine = 164 } },
 					goals = {
-						{ t = "turnin", quest = 5103, title = "Hot Fiery Death", npc = 10637, npcName = "Malyfous Darkhammer", minLevel = 55, qlvl = 60, map = 1452, x = 60.99, y = 38.78, z = 721.1, f = "e", optional = true, profLine = 164, profName = "Blacksmithing", profRank = 270, direct = true },
+						{ t = "turnin", quest = 5103, title = "Hot Fiery Death", npc = 10637, npcName = "Malyfous Darkhammer", minLevel = 55, qlvl = 60, map = 1452, x = 61, y = 38.8, z = 721.1, f = "e", optional = true, profLine = 164, profName = "Blacksmithing", profRank = 270, direct = true },
 					},
 				},
 				{
@@ -24518,7 +24530,7 @@ do
 				{
 					title = "{npc:7876}",
 					goals = {
-						{ t = "sethome", location = "Gadgetzan", area = 976 },
+						{ t = "sethome", npc = 7733, npcName = "Innkeeper Fizzgrimble", location = "Gadgetzan", area = 976, map = 1446, x = 52.51, y = 27.91, z = 8.8, f = "e" },
 						{ t = "accept", quest = 4504, title = "Super Sticky", npc = 7876, npcName = "Tran'rek", minLevel = 48, qlvl = 54, map = 1446, x = 51.57, y = 26.76, z = 8.8, f = "e" },
 					},
 				},
@@ -25491,7 +25503,7 @@ do
 				{
 					title = "{npc:7643}",
 					goals = {
-						{ t = "sethome", location = "Stonard", area = 75 },
+						{ t = "sethome", npc = 6930, npcName = "Innkeeper Karakul", location = "Stonard", area = 75, map = 1435, x = 45.16, y = 56.66, z = 21.1, f = "e" },
 						{ t = "accept", quest = 2623, title = "The Swamp Talker", npc = 7643, npcName = "Bengor", minLevel = 45, qlvl = 55, pre = { 2622 }, preTitles = { [2622] = "The Missing Orders" }, map = 1435, x = 44.97, y = 57.37, z = 21.1, f = "e" },
 					},
 				},
@@ -25796,7 +25808,7 @@ do
 			pack = "polestar-completionist-horde",
 			title = "51 {zone:1411} and {zone:1454} (60-60) (Completionist)",
 			faction = "Horde",
-			minLevel = 60,
+			minLevel = 59,
 			maxLevel = 60,
 			category = "Leveling",
 			zone = 1411,
@@ -25810,7 +25822,7 @@ do
 				{
 					title = "{area:362}",
 					goals = {
-						{ t = "sethome", location = "Razor Hill", area = 362 },
+						{ t = "sethome", npc = 6928, npcName = "Innkeeper Grosk", location = "Razor Hill", area = 362, map = 1411, x = 51.51, y = 41.64, z = 16.5, f = "e" },
 					},
 				},
 				{
@@ -26020,7 +26032,7 @@ do
 			pack = "polestar-completionist-horde",
 			title = "52 {zone:1412} and {zone:1456} (60-60) (Completionist)",
 			faction = "Horde",
-			minLevel = 60,
+			minLevel = 59,
 			maxLevel = 60,
 			category = "Leveling",
 			zone = 1412,
@@ -26104,7 +26116,7 @@ do
 				{
 					title = "{area:222}",
 					goals = {
-						{ t = "sethome", location = "Bloodhoof Village", area = 222 },
+						{ t = "sethome", npc = 6747, npcName = "Innkeeper Kauth", location = "Bloodhoof Village", area = 222, map = 1412, x = 45.93, y = 64.16, z = -8.9 },
 					},
 				},
 				{
@@ -26219,8 +26231,8 @@ do
 				{
 					title = "{npc:17081}",
 					goals = {
-						{ t = "sethome", location = "Cenarion Hold", area = 3425 },
-						{ t = "getfp", location = "Cenarion Hold", area = 3425 },
+						{ t = "sethome", npc = 15174, npcName = "Calandrath", location = "Cenarion Hold", area = 3425, map = 1451, x = 51.89, y = 39.16, z = 45.7, f = "e" },
+						{ t = "getfp", npc = 15178, npcName = "Runk Windtamer", location = "Cenarion Hold", node = 72, area = 3425, map = 1451, x = 48.68, y = 36.67, z = 49.7, f = "e" },
 						{ t = "accept", quest = 9416, title = "Report to General Kirika", npc = 17081, npcName = "Scout Bloodfist", minLevel = 1, qlvl = 60, map = 1451, x = 48.95, y = 36.69, z = 50.1, f = "e" },
 						{ t = "accept", quest = 8284, title = "The Twilight Mystery", npc = 15183, npcName = "Geologist Larksbane", minLevel = 54, qlvl = 58, map = 1451, x = 49.67, y = 37.46, z = 52.1, f = "e" },
 						{ t = "accept", quest = 8280, title = "Securing the Supply Lines", npc = 15191, npcName = "Windcaller Proudhorn", minLevel = 54, qlvl = 55, crumbs = { 8275, 8276 }, preTitles = { [8275] = "Taking Back Silithus", [8276] = "Taking Back Silithus" }, map = 1451, x = 51.15, y = 38.29, z = 42.2, f = "e" },
@@ -27146,7 +27158,7 @@ do
 				{
 					title = "{area:378}",
 					goals = {
-						{ t = "sethome", location = "Camp Taurajo", area = 378 },
+						{ t = "sethome", npc = 7714, npcName = "Innkeeper Byula", location = "Camp Taurajo", area = 378, map = 1413, x = 45.58, y = 59.04, z = 96.8, f = "e" },
 					},
 				},
 				{
@@ -27675,7 +27687,7 @@ do
 					title = "{quest:79098}",
 					note = "The reference data has no giver for this quest: it is handed in here once the game offers it.",
 					goals = {
-						{ t = "turnin", quest = 79098, title = "Clear the Forest!", npc = 212969, npcName = "Kazragore", minLevel = 18, qlvl = 60, map = 1440, x = 38.87, y = 67.22, f = "e", spots = { { x = 38.7, y = 66.8, r = 55, n = 6 }, { x = 39.3, y = 68, r = 29, n = 3 } }, direct = true },
+						{ t = "turnin", quest = 79098, title = "Clear the Forest!", npc = 212969, npcName = "Kazragore", minLevel = 18, qlvl = 60, map = 1440, x = 37.8, y = 66.4, f = "e", spots = { { x = 37.8, y = 66.4, r = 110, n = 6 }, { x = 39.3, y = 68, r = 29, n = 3, alt = true } }, direct = true },
 					},
 				},
 				{
@@ -27714,13 +27726,13 @@ do
 				{
 					title = "{area:2268}",
 					goals = {
-						{ t = "getfp", location = "Light's Hope Chapel", area = 2268 },
+						{ t = "getfp", npc = 12636, npcName = "Georgia", location = "Light's Hope Chapel", node = 68, area = 2268, map = 1423, x = 70.53, y = 47.55, z = 81.9 },
 					},
 				},
 				{
 					title = "{npc:17072}",
 					goals = {
-						{ t = "sethome", location = "Light's Hope Chapel", area = 2268 },
+						{ t = "sethome", npc = 16256, npcName = "Jessica Chambers", location = "Light's Hope Chapel", area = 2268, map = 1423, x = 71.8, y = 48.52, z = 90.9 },
 						{ t = "accept", quest = 9665, title = "Bolstering Our Defenses", npc = 17072, npcName = "Emmisary Gormok", minLevel = 55, qlvl = 60, map = 1423, x = 70.37, y = 47.94, z = 81.9 },
 					},
 				},
@@ -28735,7 +28747,7 @@ do
 			pack = "polestar-completionist-horde",
 			title = "57 {zone:1427} (60-60) (Completionist)",
 			faction = "Horde",
-			minLevel = 60,
+			minLevel = 59,
 			maxLevel = 60,
 			category = "Leveling",
 			zone = 1427,
@@ -28763,14 +28775,6 @@ do
 					title = "{npc:16033}",
 					goals = {
 						{ t = "turnin", quest = 8970, title = "I See Alcaz Island In Your Future...", npc = 16033, npcName = "Bodley", map = 1427, x = 39.8, y = 96.5, z = 285.4, f = "e" },
-					},
-				},
-				{
-					title = "{quest:8985}",
-					note = "One of several exclusive quests; the route takes {quest:8985} (8986). This one shows for a character the game offers it to instead.",
-					when = { { k = "available", q = 8985, minLevel = 58, pre = { 8970 }, closedBy = { 8986, 8987, 8988 } } },
-					goals = {
-						{ t = "accept", quest = 8985, title = "More Components of Importance", npc = 16033, npcName = "Bodley", minLevel = 58, qlvl = 60, pre = { 8970 }, closedBy = { 8986, 8987, 8988 }, endNpcs = { 16033 }, xp = 6600, preTitles = { [8970] = "I See Alcaz Island In Your Future...", [8986] = "More Components of Importance", [8987] = "More Components of Importance", [8988] = "More Components of Importance" }, map = 1427, x = 39.8, y = 96.5, z = 285.4, f = "e", optional = true },
 					},
 				},
 				{
@@ -28817,21 +28821,6 @@ do
 					goals = {
 						{ t = "accept", quest = 8994, title = "Final Preparations", npc = 16033, npcName = "Bodley", minLevel = 58, qlvl = 60, pre = { 8989, 8990, 8991, 8992 }, preTitles = { [8989] = "The Right Piece of Lord Valthalak's Amulet", [8990] = "The Right Piece of Lord Valthalak's Amulet", [8991] = "The Right Piece of Lord Valthalak's Amulet", [8992] = "The Right Piece of Lord Valthalak's Amulet" }, map = 1427, x = 39.8, y = 96.5, z = 285.4, f = "e" },
 						{ t = "complete", quest = 8994, title = "Final Preparations", map = 1427, x = 39.8, y = 96.5, f = "e", objs = { { text = "Blackrock Bracer", count = 40 }, { text = "Flask of Supreme Power", count = 1 } }, startItem = 22048, startItemName = "Lord Valthalak's Amulet" },
-					},
-				},
-				{
-					title = "{quest:8985}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					when = { { k = "onquest", q = { 8985 } } },
-					goals = {
-						{ t = "complete", quest = 8985, title = "More Components of Importance", map = 1427, x = 39.8, y = 96.5, f = "e", optional = true, objs = { { text = "Starbreeze Village Relic", count = 1 } } },
-					},
-				},
-				{
-					title = "{quest:8985}",
-					when = { { k = "onquest", q = { 8985 } } },
-					goals = {
-						{ t = "turnin", quest = 8985, title = "More Components of Importance", npc = 16033, npcName = "Bodley", map = 1427, x = 39.8, y = 96.5, z = 285.4, f = "e", optional = true },
 					},
 				},
 				{
@@ -28883,6 +28872,29 @@ do
 					title = "{quest:8994}",
 					goals = {
 						{ t = "turnin", quest = 8994, title = "Final Preparations", npc = 16033, npcName = "Bodley", map = 1427, x = 39.8, y = 96.5, z = 285.4, f = "e" },
+					},
+				},
+				{
+					title = "{quest:8985}",
+					note = "One of several exclusive quests; the route takes {quest:8985} (8986). This one shows for a character the game offers it to instead.",
+					when = { { k = "available", q = 8985, minLevel = 58, pre = { 8970 }, closedBy = { 8986, 8987, 8988 } } },
+					goals = {
+						{ t = "accept", quest = 8985, title = "More Components of Importance", npc = 16033, npcName = "Bodley", minLevel = 58, qlvl = 60, pre = { 8970 }, closedBy = { 8986, 8987, 8988 }, endNpcs = { 16033 }, xp = 6600, preTitles = { [8970] = "I See Alcaz Island In Your Future...", [8986] = "More Components of Importance", [8987] = "More Components of Importance", [8988] = "More Components of Importance" }, map = 1427, x = 39.8, y = 96.5, z = 285.4, f = "e", optional = true },
+					},
+				},
+				{
+					title = "{quest:8985}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					when = { { k = "onquest", q = { 8985 } } },
+					goals = {
+						{ t = "complete", quest = 8985, title = "More Components of Importance", map = 1427, x = 39.8, y = 96.5, f = "e", optional = true, objs = { { text = "Starbreeze Village Relic", count = 1 } } },
+					},
+				},
+				{
+					title = "{quest:8985}",
+					when = { { k = "onquest", q = { 8985 } } },
+					goals = {
+						{ t = "turnin", quest = 8985, title = "More Components of Importance", npc = 16033, npcName = "Bodley", map = 1427, x = 39.8, y = 96.5, z = 285.4, f = "e", optional = true },
 					},
 				},
 			},
@@ -29103,7 +29115,7 @@ do
 				{
 					title = "{npc:4773}",
 					goals = {
-						{ t = "sethome", location = "Gallows' End Tavern", area = 2119 },
+						{ t = "sethome", npc = 5688, npcName = "Innkeeper Renee", location = "Gallows' End Tavern", area = 2119, map = 1420, x = 61.72, y = 52.05, z = 34.3, f = "e" },
 						{ t = "accept", quest = 99208, title = "Swift as the Wind", minLevel = 60, qlvl = 60, map = 1420, x = 60.1, y = 52.6, f = "e", only = { races = { "Scourge" } } },
 					},
 				},
@@ -29438,6 +29450,12 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:8299}",
 					note = "The reference data does not place this quest's objective: follow the quest text.",
 					goals = {
@@ -29455,7 +29473,7 @@ do
 					title = "{quest:7222}",
 					note = "The reference data has no giver for this quest: it is handed in here once the game offers it.",
 					goals = {
-						{ t = "turnin", quest = 7222, title = "Speak with Voggah Deathgrip", npc = 13817, npcName = "Voggah Deathgrip", minLevel = 51, qlvl = 60, map = 1416, x = 63.84, y = 60.47, z = 109.3, f = "e", direct = true },
+						{ t = "turnin", quest = 7222, title = "Speak with Voggah Deathgrip", npc = 13817, npcName = "Voggah Deathgrip", minLevel = 51, qlvl = 60, map = 1416, x = 63.8, y = 60.5, z = 109.3, f = "e", direct = true },
 					},
 				},
 			},
@@ -29595,12 +29613,6 @@ do
 					},
 				},
 				{
-					title = "Level 60",
-					goals = {
-						{ t = "level", level = 60 },
-					},
-				},
-				{
 					title = "{quest:6824}",
 					when = { { k = "turnedin", q = 6823 } },
 					goals = {
@@ -29620,12 +29632,6 @@ do
 					when = { { k = "onquest", q = { 6824 } } },
 					goals = {
 						{ t = "turnin", quest = 6824, title = "Hands of the Enemy", npc = 13278, npcName = "Duke Hydraxis", map = 1447, x = 79.28, y = 73.7, z = 20.4, f = "e" },
-					},
-				},
-				{
-					title = "Level 60",
-					goals = {
-						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -29656,7 +29662,7 @@ do
 			pack = "polestar-completionist-horde",
 			title = "{quest:7761} ({area:2677} attunement) (Completionist)",
 			faction = "Horde",
-			minLevel = 60,
+			minLevel = 59,
 			maxLevel = 60,
 			category = "Dungeons",
 			why = "Lets you touch the {object:179879} in Upper Blackrock Spire to reach {area:2677}; without it, walk in through the spire.",
@@ -29698,7 +29704,7 @@ do
 			pack = "polestar-completionist-horde",
 			title = "{quest:7848} ({area:2717} attunement) (Completionist)",
 			faction = "Horde",
-			minLevel = 60,
+			minLevel = 59,
 			maxLevel = 60,
 			category = "Dungeons",
 			why = "Lets {npc:14387} in {area:1445} send you to the {area:2717}; without it, walk in through {area:1584}.",
@@ -29777,7 +29783,7 @@ do
 			pack = "polestar-completionist-horde",
 			title = "{item:16309} ({area:2159} key) (Completionist)",
 			faction = "Horde",
-			minLevel = 60,
+			minLevel = 59,
 			maxLevel = 60,
 			category = "Dungeons",
 			why = "Everyone entering {area:2159} carries the {item:16309}.",
@@ -30025,7 +30031,7 @@ do
 			pack = "polestar-completionist-horde",
 			title = "The Dread Citadel (Naxxramas attunement) (Completionist)",
 			faction = "Horde",
-			minLevel = 60,
+			minLevel = 59,
 			maxLevel = 60,
 			category = "Dungeons",
 			why = "Everyone entering Naxxramas needs it; which of the three quests you take depends on your standing with the {object:92525}.",
@@ -30036,6 +30042,12 @@ do
 			version = 1,
 			names = { ["object:92525"] = "Argent Dawn", ["quest:9121"] = "The Dread Citadel - Naxxramas", ["quest:9122"] = "The Dread Citadel - Naxxramas", ["quest:9123"] = "The Dread Citadel - Naxxramas" },
 			steps = {
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
 				{
 					title = "{quest:9121}",
 					note = "The reference data does not place this quest's objective: follow the quest text.",
@@ -30048,6 +30060,12 @@ do
 					title = "{quest:9121}",
 					goals = {
 						{ t = "turnin", quest = 9121, title = "The Dread Citadel - Naxxramas", npc = 16116, npcName = "Archmage Angela Dosantos", map = 1423, x = 71.7, y = 48.69, z = 90.9 },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -30071,6 +30089,12 @@ do
 					when = { { k = "onquest", q = { 9122 } } },
 					goals = {
 						{ t = "turnin", quest = 9122, title = "The Dread Citadel - Naxxramas", npc = 16116, npcName = "Archmage Angela Dosantos", map = 1423, x = 71.7, y = 48.69, z = 90.9, optional = true },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -31590,12 +31614,6 @@ do
 					},
 				},
 				{
-					title = "Level 60",
-					goals = {
-						{ t = "level", level = 60 },
-					},
-				},
-				{
 					title = "{quest:7636}",
 					only = { classes = { "HUNTER" } },
 					when = { { k = "turnedin", q = 7632 } },
@@ -32183,71 +32201,6 @@ do
 					},
 				},
 				{
-					title = "{quest:95125}",
-					only = { classes = { "PALADIN" } },
-					when = { { k = "turnedin", q = 95111 } },
-					goals = {
-						{ t = "accept", quest = 95125, title = "Ott's Masterwork", npc = 3539, npcName = "Ott", minLevel = 20, qlvl = 25, pre = { 95111 }, preTitles = { [95111] = "An Underrated Talent" }, map = 1416, x = 58.9, y = 88.8, z = 57, f = "e", optional = true },
-					},
-				},
-				{
-					title = "{quest:95125}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					only = { classes = { "PALADIN" } },
-					when = { { k = "onquest", q = { 95125 } } },
-					goals = {
-						{ t = "complete", quest = 95125, title = "Ott's Masterwork", map = 1416, x = 58.9, y = 88.8, f = "e", optional = true, objs = { { text = "Watch Ott craft the blade", count = 1 } } },
-					},
-				},
-				{
-					title = "{quest:95125}",
-					only = { classes = { "PALADIN" } },
-					when = { { k = "onquest", q = { 95125 } } },
-					goals = {
-						{ t = "turnin", quest = 95125, title = "Ott's Masterwork", npc = 3539, npcName = "Ott", map = 1416, x = 58.9, y = 88.8, z = 57, f = "e", optional = true },
-					},
-				},
-				{
-					title = "{quest:95126}",
-					only = { classes = { "PALADIN" } },
-					when = { { k = "turnedin", q = 95125 } },
-					goals = {
-						{ t = "accept", quest = 95126, title = "The Moonsilver Blade", npc = 3539, npcName = "Ott", minLevel = 20, qlvl = 25, pre = { 95125 }, preTitles = { [95125] = "Ott's Masterwork" }, map = 1416, x = 58.9, y = 88.8, z = 57, f = "e", optional = true },
-					},
-				},
-				{
-					title = "{quest:95126}",
-					only = { classes = { "PALADIN" } },
-					when = { { k = "onquest", q = { 95126 } } },
-					goals = {
-						{ t = "turnin", quest = 95126, title = "The Moonsilver Blade", npc = 248840, npcName = "Trevan Rol", map = 1421, x = 43.4, y = 41.1, z = 105, f = "e", optional = true },
-					},
-				},
-				{
-					title = "{quest:95140}",
-					only = { classes = { "PALADIN" }, races = { "Scourge" } },
-					when = { { k = "turnedin", q = 95126 } },
-					goals = {
-						{ t = "accept", quest = 95140, title = "Old Fire-Eye", npc = 259620, npcName = "Lumina Windsinger", minLevel = 20, qlvl = 26, pre = { 95126 }, preTitles = { [95126] = "The Moonsilver Blade" }, map = 1421, x = 43.4, y = 40.99, z = 105, f = "e", optional = true },
-					},
-				},
-				{
-					title = "{quest:95140}",
-					only = { classes = { "PALADIN" }, races = { "Scourge" } },
-					when = { { k = "onquest", q = { 95140 } } },
-					goals = {
-						{ t = "complete", quest = 95140, title = "Old Fire-Eye", map = 1421, x = 49.7, y = 87.9, f = "e", optional = true, objs = { { text = "Old Fire-Eye", count = 1 }, { text = "Moonsilver Blade", count = 1 } } },
-					},
-				},
-				{
-					title = "{quest:95140}",
-					only = { classes = { "PALADIN" }, races = { "Scourge" } },
-					when = { { k = "onquest", q = { 95140 } } },
-					goals = {
-						{ t = "turnin", quest = 95140, title = "Old Fire-Eye", npc = 259620, npcName = "Lumina Windsinger", map = 1421, x = 43.4, y = 40.99, z = 105, f = "e", optional = true },
-					},
-				},
-				{
 					title = "{npc:246378}",
 					goals = {
 						{ t = "accept", quest = 94436, title = "A Lesson in Divinity", npc = 246378, npcName = "Danitha Morr", minLevel = 12, qlvl = 12, pre = { 94435 }, preTitles = { [94435] = "A Lesson in Divinity" }, map = 1420, x = 22.09, y = 44.66, f = "e", only = { races = { "Scourge" } } },
@@ -32384,6 +32337,71 @@ do
 					when = { { k = "onquest", q = { 95111 } } },
 					goals = {
 						{ t = "turnin", quest = 95111, title = "An Underrated Talent", npc = 3539, npcName = "Ott", map = 1416, x = 58.9, y = 88.8, z = 57, f = "e", optional = true },
+					},
+				},
+				{
+					title = "{quest:95125}",
+					only = { classes = { "PALADIN" } },
+					when = { { k = "turnedin", q = 95111 } },
+					goals = {
+						{ t = "accept", quest = 95125, title = "Ott's Masterwork", npc = 3539, npcName = "Ott", minLevel = 20, qlvl = 25, pre = { 95111 }, preTitles = { [95111] = "An Underrated Talent" }, map = 1416, x = 58.9, y = 88.8, z = 57, f = "e", optional = true },
+					},
+				},
+				{
+					title = "{quest:95125}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					only = { classes = { "PALADIN" } },
+					when = { { k = "onquest", q = { 95125 } } },
+					goals = {
+						{ t = "complete", quest = 95125, title = "Ott's Masterwork", map = 1416, x = 58.9, y = 88.8, f = "e", optional = true, objs = { { text = "Watch Ott craft the blade", count = 1 } } },
+					},
+				},
+				{
+					title = "{quest:95125}",
+					only = { classes = { "PALADIN" } },
+					when = { { k = "onquest", q = { 95125 } } },
+					goals = {
+						{ t = "turnin", quest = 95125, title = "Ott's Masterwork", npc = 3539, npcName = "Ott", map = 1416, x = 58.9, y = 88.8, z = 57, f = "e", optional = true },
+					},
+				},
+				{
+					title = "{quest:95126}",
+					only = { classes = { "PALADIN" } },
+					when = { { k = "turnedin", q = 95125 } },
+					goals = {
+						{ t = "accept", quest = 95126, title = "The Moonsilver Blade", npc = 3539, npcName = "Ott", minLevel = 20, qlvl = 25, pre = { 95125 }, preTitles = { [95125] = "Ott's Masterwork" }, map = 1416, x = 58.9, y = 88.8, z = 57, f = "e", optional = true },
+					},
+				},
+				{
+					title = "{quest:95126}",
+					only = { classes = { "PALADIN" } },
+					when = { { k = "onquest", q = { 95126 } } },
+					goals = {
+						{ t = "turnin", quest = 95126, title = "The Moonsilver Blade", npc = 248840, npcName = "Trevan Rol", map = 1421, x = 43.4, y = 41.1, z = 105, f = "e", optional = true },
+					},
+				},
+				{
+					title = "{quest:95140}",
+					only = { classes = { "PALADIN" }, races = { "Scourge" } },
+					when = { { k = "turnedin", q = 95126 } },
+					goals = {
+						{ t = "accept", quest = 95140, title = "Old Fire-Eye", npc = 259620, npcName = "Lumina Windsinger", minLevel = 20, qlvl = 26, pre = { 95126 }, preTitles = { [95126] = "The Moonsilver Blade" }, map = 1421, x = 43.4, y = 40.99, z = 105, f = "e", optional = true },
+					},
+				},
+				{
+					title = "{quest:95140}",
+					only = { classes = { "PALADIN" }, races = { "Scourge" } },
+					when = { { k = "onquest", q = { 95140 } } },
+					goals = {
+						{ t = "complete", quest = 95140, title = "Old Fire-Eye", map = 1421, x = 49.7, y = 87.9, f = "e", optional = true, objs = { { text = "Old Fire-Eye", count = 1 }, { text = "Moonsilver Blade", count = 1 } } },
+					},
+				},
+				{
+					title = "{quest:95140}",
+					only = { classes = { "PALADIN" }, races = { "Scourge" } },
+					when = { { k = "onquest", q = { 95140 } } },
+					goals = {
+						{ t = "turnin", quest = 95140, title = "Old Fire-Eye", npc = 259620, npcName = "Lumina Windsinger", map = 1421, x = 43.4, y = 40.99, z = 105, f = "e", optional = true },
 					},
 				},
 			},
@@ -32753,7 +32771,7 @@ do
 			author = "Polestar",
 			version = 1,
 			group = true,
-			names = { ["npc:15183"] = "Geologist Larksbane", ["npc:2130"] = "Marion Call", ["npc:2391"] = "Serge Hinott", ["npc:2425"] = "Varimathras", ["npc:3401"] = "Shenthul", ["npc:3988"] = "Venture Co. Operator", ["npc:4086"] = "Veenix", ["npc:6467"] = "Mennet Carkad", ["npc:6497"] = "Astor Hadren", ["npc:6522"] = "Andron Gant", ["npc:6707"] = "Fahrad", ["npc:7161"] = "Wrenix the Wretched", ["npc:7168"] = "Polly", ["npc:7233"] = "Taskmaster Fizzule", ["npc:7287"] = "Foreman Silixiz", ["npc:7288"] = "Grand Foreman Puzik Gallywix", ["npc:7307"] = "Venture Co. Lookout", ["npc:7308"] = "Venture Co. Patroller", ["npc:7310"] = "Mutated Venture Co. Drone", ["object:103600"] = "Andron's Bookshelf", ["object:103815"] = "Ambermill Strongbox", ["object:129127"] = "Gallywix's Lockbox", ["quest:1858"] = "The Shattered Hand", ["quest:1859"] = "Therzok", ["quest:1885"] = "Mennet Carkad", ["quest:1963"] = "The Shattered Hand", ["quest:1998"] = "Fenwick Thatros", ["quest:2378"] = "Find the Shattered Hand", ["quest:2380"] = "To Orgrimmar!", ["quest:6681"] = "The Manor, Ravenholdt", ["quest:6701"] = "Syndicate Emblems", ["quest:78699"] = "The Eye of Bhossca", ["quest:80411"] = "The Talisman of Kazdor", ["quest:96779"] = "Syndicate Sabotage", ["quest:96781"] = "What's the Big Idea?", ["quest:96782"] = "Covert Extraction", ["quest:96783"] = "A Way In", ["quest:96784"] = "Master of Disguise", ["quest:96785"] = "Ain't No Telling", ["quest:96786"] = "The Syndicate Sting" },
+			names = { ["npc:15183"] = "Geologist Larksbane", ["npc:2130"] = "Marion Call", ["npc:2391"] = "Serge Hinott", ["npc:2425"] = "Varimathras", ["npc:3401"] = "Shenthul", ["npc:3988"] = "Venture Co. Operator", ["npc:4086"] = "Veenix", ["npc:6467"] = "Mennet Carkad", ["npc:6497"] = "Astor Hadren", ["npc:6522"] = "Andron Gant", ["npc:6707"] = "Fahrad", ["npc:7161"] = "Wrenix the Wretched", ["npc:7168"] = "Polly", ["npc:7233"] = "Taskmaster Fizzule", ["npc:7287"] = "Foreman Silixiz", ["npc:7288"] = "Grand Foreman Puzik Gallywix", ["npc:7307"] = "Venture Co. Lookout", ["npc:7308"] = "Venture Co. Patroller", ["npc:7310"] = "Mutated Venture Co. Drone", ["object:103600"] = "Andron's Bookshelf", ["object:103815"] = "Ambermill Strongbox", ["object:129127"] = "Gallywix's Lockbox", ["quest:1858"] = "The Shattered Hand", ["quest:1859"] = "Therzok", ["quest:1885"] = "Mennet Carkad", ["quest:1963"] = "The Shattered Hand", ["quest:1998"] = "Fenwick Thatros", ["quest:2378"] = "Find the Shattered Hand", ["quest:2380"] = "To Orgrimmar!", ["quest:6681"] = "The Manor, Ravenholdt", ["quest:6701"] = "Syndicate Emblems", ["quest:80411"] = "The Talisman of Kazdor", ["quest:96779"] = "Syndicate Sabotage", ["quest:96781"] = "What's the Big Idea?", ["quest:96782"] = "Covert Extraction", ["quest:96783"] = "A Way In", ["quest:96784"] = "Master of Disguise", ["quest:96785"] = "Ain't No Telling", ["quest:96786"] = "The Syndicate Sting" },
 			steps = {
 				{
 					title = "{npc:2130}",
@@ -32859,14 +32877,6 @@ do
 					title = "{object:103815}",
 					goals = {
 						{ t = "collect", quest = 1999, title = "Tools of the Trade", item = 7309, itemName = "Dalaran Status Report", count = 1, oi = 1, map = 1421, x = 63.71, y = 65.24, z = 69.5, f = "e", only = { races = { "Scourge" } }, from = "Ambermill Strongbox", fromKind = "object", fromId = 103815 },
-					},
-				},
-				{
-					title = "{quest:78699}",
-					note = "The reference data has no giver for this quest: it is handed in here once the game offers it.",
-					only = { classes = { "ROGUE" } },
-					goals = {
-						{ t = "turnin", quest = 78699, title = "The Eye of Bhossca", object = 410369, objName = "Dead Drop", minLevel = 25, qlvl = 35, map = 1421, x = 47.12, y = 70.99, f = "e", optional = true, direct = true },
 					},
 				},
 				{
@@ -33257,7 +33267,7 @@ do
 			zoneName = "Durotar",
 			author = "Polestar",
 			version = 1,
-			names = { ["npc:15183"] = "Geologist Larksbane", ["npc:3199"] = "Burning Blade Cultist", ["npc:3267"] = "Razormane Water Seeker", ["npc:4722"] = "Rau Cliffrunner", ["npc:5892"] = "Searn Firewarder", ["npc:5893"] = "Minor Manifestation of Fire", ["npc:5894"] = "Corrupt Minor Manifestation of Water", ["npc:5899"] = "Brine", ["npc:5900"] = "Telf Joolam", ["npc:5901"] = "Islen Waterseer", ["npc:5907"] = "Kranal Fiss", ["npc:6176"] = "Bath'rah the Windwatcher", ["object:107045"] = "Spring Well", ["object:107046"] = "Quilboar Watering Hole", ["object:107047"] = "Ruins of Stardust Fountain", ["object:113791"] = "Brazier of Everfount", ["object:61934"] = "Brazier of the Dormant Flame", ["quest:1103"] = "Call of Water", ["quest:1523"] = "Call of Fire", ["quest:1529"] = "Call of Water", ["quest:2983"] = "Call of Fire", ["quest:2984"] = "Call of Fire", ["quest:2985"] = "Call of Water", ["quest:2986"] = "Call of Water", ["quest:79361"] = "Storm, Earth, and Fire", ["quest:79364"] = "Eyes on the Sky", ["quest:79366"] = "Heed My Call", ["quest:79442"] = "The Tempest's Weapons", ["quest:972"] = "Water Sapta", ["quest:97243"] = "Call of Fire", ["quest:97244"] = "Call of Fire", ["quest:97245"] = "Call of Fire", ["quest:97257"] = "Call of Fire", ["quest:98517"] = "Call of Fire" },
+			names = { ["npc:15183"] = "Geologist Larksbane", ["npc:3199"] = "Burning Blade Cultist", ["npc:3267"] = "Razormane Water Seeker", ["npc:4722"] = "Rau Cliffrunner", ["npc:5892"] = "Searn Firewarder", ["npc:5893"] = "Minor Manifestation of Fire", ["npc:5894"] = "Corrupt Minor Manifestation of Water", ["npc:5899"] = "Brine", ["npc:5900"] = "Telf Joolam", ["npc:5901"] = "Islen Waterseer", ["npc:5907"] = "Kranal Fiss", ["npc:6176"] = "Bath'rah the Windwatcher", ["object:107045"] = "Spring Well", ["object:107046"] = "Quilboar Watering Hole", ["object:107047"] = "Ruins of Stardust Fountain", ["object:113791"] = "Brazier of Everfount", ["object:61934"] = "Brazier of the Dormant Flame", ["quest:1103"] = "Call of Water", ["quest:1523"] = "Call of Fire", ["quest:1529"] = "Call of Water", ["quest:2983"] = "Call of Fire", ["quest:2984"] = "Call of Fire", ["quest:2985"] = "Call of Water", ["quest:2986"] = "Call of Water", ["quest:79361"] = "Storm, Earth, and Fire", ["quest:79364"] = "Eyes on the Sky", ["quest:79366"] = "Heed My Call", ["quest:79442"] = "The Tempest's Weapons", ["quest:972"] = "Water Sapta", ["quest:97243"] = "Call of Fire", ["quest:97244"] = "Call of Fire", ["quest:97245"] = "Call of Fire", ["quest:97257"] = "Call of Fire" },
 			steps = {
 				{
 					title = "{npc:5892}",
@@ -33720,14 +33730,6 @@ do
 						{ t = "turnin", quest = 2986, title = "Call of Water", npc = 5901, npcName = "Islen Waterseer", map = 1413, x = 65.83, y = 43.78, z = 6, f = "e", optional = true },
 					},
 				},
-				{
-					title = "{quest:98517}",
-					note = "The reference data has no giver for this quest: it is handed in here once the game offers it.",
-					only = { classes = { "SHAMAN" }, races = { "Skyborne" } },
-					goals = {
-						{ t = "turnin", quest = 98517, title = "Call of Fire", npc = 252382, npcName = "Sessaria Skystride", minLevel = 10, qlvl = 10, map = 2521, x = 58.31, y = 78.51, optional = true, direct = true },
-					},
-				},
 			},
 		})
 	end
@@ -33994,15 +33996,6 @@ do
 					},
 				},
 				{
-					title = "{quest:4962}",
-					note = "One of several exclusive quests; the route takes {quest:4963} (4963). This one shows for a character the game offers it to instead.",
-					only = { classes = { "WARLOCK" } },
-					when = { { k = "available", q = 4962, minLevel = 35, closedBy = { 4963 } } },
-					goals = {
-						{ t = "accept", quest = 4962, title = "Shard of a Felhound", npc = 6254, npcName = "Acolyte Wytula", minLevel = 35, qlvl = 40, closedBy = { 4963 }, endNpcs = { 6266 }, xp = 2350, preTitles = { [4963] = "Shard of an Infernal" }, map = 1413, x = 62.64, y = 35.3, z = 42.6, f = "e", optional = true },
-					},
-				},
-				{
 					title = "{quest:4963}",
 					note = "One of several exclusive quests; the route takes {quest:4962} (4962). This one shows for a character the game offers it to instead.",
 					only = { classes = { "WARLOCK" } },
@@ -34016,23 +34009,6 @@ do
 					goals = {
 						{ t = "accept", quest = 4490, title = "Summon Felsteed", npc = 6251, npcName = "Strahad Farsan", minLevel = 40, qlvl = 40, pre = { 3631, 4487, 4488, 4489 }, preTitles = { [3631] = "Summon Felsteed", [4487] = "Summon Felsteed", [4488] = "Summon Felsteed", [4489] = "Summon Felsteed" }, map = 1413, x = 62.63, y = 35.5, z = 40.5, f = "e" },
 						{ t = "turnin", quest = 4490, title = "Summon Felsteed", npc = 6251, npcName = "Strahad Farsan", map = 1413, x = 62.63, y = 35.5, z = 40.5, f = "e" },
-					},
-				},
-				{
-					title = "{quest:4962}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					only = { classes = { "WARLOCK" } },
-					when = { { k = "onquest", q = { 4962 } } },
-					goals = {
-						{ t = "complete", quest = 4962, title = "Shard of a Felhound", map = 1413, x = 62.6, y = 35.3, f = "e", optional = true, objs = { { text = "Imprisoned Felhound Spirit", count = 1 } }, startItem = 12647, startItemName = "Felhas Ruby" },
-					},
-				},
-				{
-					title = "{quest:4962}",
-					only = { classes = { "WARLOCK" } },
-					when = { { k = "onquest", q = { 4962 } } },
-					goals = {
-						{ t = "turnin", quest = 4962, title = "Shard of a Felhound", npc = 6266, npcName = "Menara Voidrender", map = 1413, x = 62.51, y = 35.45, z = 41.4, f = "e", optional = true },
 					},
 				},
 				{
@@ -34137,42 +34113,10 @@ do
 					},
 				},
 				{
-					title = "{quest:4961}",
-					only = { classes = { "WARLOCK" } },
-					when = { { k = "turnedin", q = 4962 } },
-					goals = {
-						{ t = "accept", quest = 4961, title = "Cleansing of the Orb of Orahil", npc = 6546, npcName = "Tabetha", minLevel = 35, qlvl = 40, preAll = { 1799, 4962 }, preTitles = { [1799] = "Fragments of the Orb of Orahil", [4962] = "Shard of a Felhound" }, map = 1445, x = 46.06, y = 57.09, z = 39, f = "e", optional = true },
-					},
-				},
-				{
-					title = "{quest:4961}",
-					only = { classes = { "WARLOCK" } },
-					when = { { k = "onquest", q = { 4961 } } },
-					goals = {
-						{ t = "complete", quest = 4961, title = "Cleansing of the Orb of Orahil", map = 1445, x = 45.8, y = 57, f = "e", optional = true, objs = { { text = "Demon of the Orb", count = 1 } } },
-					},
-				},
-				{
-					title = "{quest:4961}",
-					only = { classes = { "WARLOCK" } },
-					when = { { k = "onquest", q = { 4961 } } },
-					goals = {
-						{ t = "turnin", quest = 4961, title = "Cleansing of the Orb of Orahil", npc = 6546, npcName = "Tabetha", map = 1445, x = 46.06, y = 57.09, z = 39, f = "e", optional = true },
-					},
-				},
-				{
 					title = "{quest:4782}",
 					only = { classes = { "WARLOCK" } },
 					goals = {
 						{ t = "turnin", quest = 4782, title = "Components for the Enchanted Gold Bloodrobe", npc = 6266, npcName = "Menara Voidrender", map = 1413, x = 62.51, y = 35.45, z = 41.4, f = "e", optional = true },
-					},
-				},
-				{
-					title = "{quest:4976}",
-					only = { classes = { "WARLOCK" } },
-					when = { { k = "turnedin", q = 4961 } },
-					goals = {
-						{ t = "accept", quest = 4976, title = "Returning the Cleansed Orb", npc = 6546, npcName = "Tabetha", minLevel = 35, qlvl = 40, pre = { 4961 }, preTitles = { [4961] = "Cleansing of the Orb of Orahil" }, map = 1445, x = 46.06, y = 57.09, z = 39, f = "e", optional = true },
 					},
 				},
 				{
@@ -34182,14 +34126,6 @@ do
 					goals = {
 						{ t = "accept", quest = 4783, title = "Components for the Enchanted Gold Bloodrobe", npc = 6266, npcName = "Menara Voidrender", minLevel = 31, qlvl = 37, pre = { 4782 }, preTitles = { [4782] = "Components for the Enchanted Gold Bloodrobe" }, map = 1413, x = 62.51, y = 35.45, z = 41.4, f = "e", optional = true },
 						{ t = "complete", quest = 4783, title = "Components for the Enchanted Gold Bloodrobe", map = 1413, x = 62.5, y = 35.5, f = "e", optional = true, objs = { { text = "Vial of Hatefury Blood", count = 10 }, { text = "Lesser Infernal Stone", count = 1 } } },
-					},
-				},
-				{
-					title = "{quest:4976}",
-					only = { classes = { "WARLOCK" } },
-					when = { { k = "onquest", q = { 4976 } } },
-					goals = {
-						{ t = "turnin", quest = 4976, title = "Returning the Cleansed Orb", npc = 6266, npcName = "Menara Voidrender", map = 1413, x = 62.51, y = 35.45, z = 41.4, f = "e", optional = true },
 					},
 				},
 				{
@@ -34514,24 +34450,6 @@ do
 					},
 				},
 				{
-					title = "{quest:4975}",
-					note = "One of several exclusive quests; the route takes {quest:4962} (4962). This one shows for a character the game offers it to instead.",
-					only = { classes = { "WARLOCK" } },
-					when = { { k = "available", q = 4975, minLevel = 35, preAll = { 4976 }, closedBy = { 4962 } }, { k = "turnedin", q = 4976 } },
-					goals = {
-						{ t = "accept", quest = 4975, title = "The Completed Orb of Noh'Orahil", npc = 6266, npcName = "Menara Voidrender", minLevel = 35, qlvl = 40, preAll = { 4976 }, closedBy = { 4962 }, endNpcs = { 6266 }, xp = 3900, preTitles = { [4962] = "Shard of a Felhound", [4976] = "Returning the Cleansed Orb" }, map = 1413, x = 62.51, y = 35.45, z = 41.4, f = "e", optional = true },
-					},
-				},
-				{
-					title = "{quest:4964}",
-					note = "One of several exclusive quests; the route takes {quest:4963} (4963). This one shows for a character the game offers it to instead.",
-					only = { classes = { "WARLOCK" } },
-					when = { { k = "available", q = 4964, minLevel = 35, preAll = { 4976 }, closedBy = { 4963 } }, { k = "turnedin", q = 4976 } },
-					goals = {
-						{ t = "accept", quest = 4964, title = "The Completed Orb of Dar'Orahil", npc = 6266, npcName = "Menara Voidrender", minLevel = 35, qlvl = 40, preAll = { 4976 }, closedBy = { 4963 }, endNpcs = { 6266 }, xp = 3900, preTitles = { [4963] = "Shard of an Infernal", [4976] = "Returning the Cleansed Orb" }, map = 1413, x = 62.51, y = 35.45, z = 41.4, f = "e", optional = true },
-					},
-				},
-				{
 					title = "{quest:4489}",
 					only = { classes = { "WARLOCK" } },
 					when = { { k = "onquest", q = { 4489 } } },
@@ -34568,38 +34486,6 @@ do
 					only = { classes = { "WARLOCK" } },
 					goals = {
 						{ t = "turnin", quest = 4783, title = "Components for the Enchanted Gold Bloodrobe", npc = 6266, npcName = "Menara Voidrender", map = 1413, x = 62.51, y = 35.45, z = 41.4, f = "e", optional = true },
-					},
-				},
-				{
-					title = "{quest:4975}",
-					only = { classes = { "WARLOCK" } },
-					when = { { k = "onquest", q = { 4975 } } },
-					goals = {
-						{ t = "complete", quest = 4975, title = "The Completed Orb of Noh'Orahil", map = 1413, x = 62.5, y = 35.5, f = "e", optional = true, objs = { { text = "Menara Voidrender", count = 1 } } },
-					},
-				},
-				{
-					title = "{quest:4975}",
-					only = { classes = { "WARLOCK" } },
-					when = { { k = "onquest", q = { 4975 } } },
-					goals = {
-						{ t = "turnin", quest = 4975, title = "The Completed Orb of Noh'Orahil", npc = 6266, npcName = "Menara Voidrender", map = 1413, x = 62.51, y = 35.45, z = 41.4, f = "e", optional = true },
-					},
-				},
-				{
-					title = "{quest:4964}",
-					only = { classes = { "WARLOCK" } },
-					when = { { k = "onquest", q = { 4964 } } },
-					goals = {
-						{ t = "complete", quest = 4964, title = "The Completed Orb of Dar'Orahil", map = 1413, x = 62.5, y = 35.5, f = "e", optional = true, objs = { { text = "Menara Voidrender", count = 1 } } },
-					},
-				},
-				{
-					title = "{quest:4964}",
-					only = { classes = { "WARLOCK" } },
-					when = { { k = "onquest", q = { 4964 } } },
-					goals = {
-						{ t = "turnin", quest = 4964, title = "The Completed Orb of Dar'Orahil", npc = 6266, npcName = "Menara Voidrender", map = 1413, x = 62.51, y = 35.45, z = 41.4, f = "e", optional = true },
 					},
 				},
 				{
@@ -34694,6 +34580,122 @@ do
 					when = { { k = "onquest", q = { 9271 } } },
 					goals = {
 						{ t = "turnin", quest = 9271, title = "Atiesh, Greatstaff of the Guardian", npc = 15192, npcName = "Anachronos", map = 1446, x = 65.27, y = 50.03, z = 28.1, f = "e", optional = true },
+					},
+				},
+				{
+					title = "{quest:4962}",
+					note = "One of several exclusive quests; the route takes {quest:4963} (4963). This one shows for a character the game offers it to instead.",
+					only = { classes = { "WARLOCK" } },
+					when = { { k = "available", q = 4962, minLevel = 35, closedBy = { 4963 } } },
+					goals = {
+						{ t = "accept", quest = 4962, title = "Shard of a Felhound", npc = 6254, npcName = "Acolyte Wytula", minLevel = 35, qlvl = 40, closedBy = { 4963 }, endNpcs = { 6266 }, xp = 2350, preTitles = { [4963] = "Shard of an Infernal" }, map = 1413, x = 62.64, y = 35.3, z = 42.6, f = "e", optional = true },
+					},
+				},
+				{
+					title = "{quest:4962}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					only = { classes = { "WARLOCK" } },
+					when = { { k = "onquest", q = { 4962 } } },
+					goals = {
+						{ t = "complete", quest = 4962, title = "Shard of a Felhound", map = 1413, x = 62.6, y = 35.3, f = "e", optional = true, objs = { { text = "Imprisoned Felhound Spirit", count = 1 } }, startItem = 12647, startItemName = "Felhas Ruby" },
+					},
+				},
+				{
+					title = "{quest:4962}",
+					only = { classes = { "WARLOCK" } },
+					when = { { k = "onquest", q = { 4962 } } },
+					goals = {
+						{ t = "turnin", quest = 4962, title = "Shard of a Felhound", npc = 6266, npcName = "Menara Voidrender", map = 1413, x = 62.51, y = 35.45, z = 41.4, f = "e", optional = true },
+					},
+				},
+				{
+					title = "{quest:4961}",
+					only = { classes = { "WARLOCK" } },
+					when = { { k = "turnedin", q = 4962 } },
+					goals = {
+						{ t = "accept", quest = 4961, title = "Cleansing of the Orb of Orahil", npc = 6546, npcName = "Tabetha", minLevel = 35, qlvl = 40, preAll = { 1799, 4962 }, preTitles = { [1799] = "Fragments of the Orb of Orahil", [4962] = "Shard of a Felhound" }, map = 1445, x = 46.06, y = 57.09, z = 39, f = "e", optional = true },
+					},
+				},
+				{
+					title = "{quest:4961}",
+					only = { classes = { "WARLOCK" } },
+					when = { { k = "onquest", q = { 4961 } } },
+					goals = {
+						{ t = "complete", quest = 4961, title = "Cleansing of the Orb of Orahil", map = 1445, x = 45.8, y = 57, f = "e", optional = true, objs = { { text = "Demon of the Orb", count = 1 } } },
+					},
+				},
+				{
+					title = "{quest:4961}",
+					only = { classes = { "WARLOCK" } },
+					when = { { k = "onquest", q = { 4961 } } },
+					goals = {
+						{ t = "turnin", quest = 4961, title = "Cleansing of the Orb of Orahil", npc = 6546, npcName = "Tabetha", map = 1445, x = 46.06, y = 57.09, z = 39, f = "e", optional = true },
+					},
+				},
+				{
+					title = "{quest:4976}",
+					only = { classes = { "WARLOCK" } },
+					when = { { k = "turnedin", q = 4961 } },
+					goals = {
+						{ t = "accept", quest = 4976, title = "Returning the Cleansed Orb", npc = 6546, npcName = "Tabetha", minLevel = 35, qlvl = 40, pre = { 4961 }, preTitles = { [4961] = "Cleansing of the Orb of Orahil" }, map = 1445, x = 46.06, y = 57.09, z = 39, f = "e", optional = true },
+					},
+				},
+				{
+					title = "{quest:4976}",
+					only = { classes = { "WARLOCK" } },
+					when = { { k = "onquest", q = { 4976 } } },
+					goals = {
+						{ t = "turnin", quest = 4976, title = "Returning the Cleansed Orb", npc = 6266, npcName = "Menara Voidrender", map = 1413, x = 62.51, y = 35.45, z = 41.4, f = "e", optional = true },
+					},
+				},
+				{
+					title = "{quest:4964}",
+					note = "One of several exclusive quests; the route takes {quest:4963} (4963). This one shows for a character the game offers it to instead.",
+					only = { classes = { "WARLOCK" } },
+					when = { { k = "available", q = 4964, minLevel = 35, preAll = { 4976 }, closedBy = { 4963 } }, { k = "turnedin", q = 4976 } },
+					goals = {
+						{ t = "accept", quest = 4964, title = "The Completed Orb of Dar'Orahil", npc = 6266, npcName = "Menara Voidrender", minLevel = 35, qlvl = 40, preAll = { 4976 }, closedBy = { 4963 }, endNpcs = { 6266 }, xp = 3900, preTitles = { [4963] = "Shard of an Infernal", [4976] = "Returning the Cleansed Orb" }, map = 1413, x = 62.51, y = 35.45, z = 41.4, f = "e", optional = true },
+					},
+				},
+				{
+					title = "{quest:4964}",
+					only = { classes = { "WARLOCK" } },
+					when = { { k = "onquest", q = { 4964 } } },
+					goals = {
+						{ t = "complete", quest = 4964, title = "The Completed Orb of Dar'Orahil", map = 1413, x = 62.5, y = 35.5, f = "e", optional = true, objs = { { text = "Menara Voidrender", count = 1 } } },
+					},
+				},
+				{
+					title = "{quest:4964}",
+					only = { classes = { "WARLOCK" } },
+					when = { { k = "onquest", q = { 4964 } } },
+					goals = {
+						{ t = "turnin", quest = 4964, title = "The Completed Orb of Dar'Orahil", npc = 6266, npcName = "Menara Voidrender", map = 1413, x = 62.51, y = 35.45, z = 41.4, f = "e", optional = true },
+					},
+				},
+				{
+					title = "{quest:4975}",
+					note = "One of several exclusive quests; the route takes {quest:4962} (4962). This one shows for a character the game offers it to instead.",
+					only = { classes = { "WARLOCK" } },
+					when = { { k = "available", q = 4975, minLevel = 35, preAll = { 4976 }, closedBy = { 4962 } }, { k = "turnedin", q = 4976 } },
+					goals = {
+						{ t = "accept", quest = 4975, title = "The Completed Orb of Noh'Orahil", npc = 6266, npcName = "Menara Voidrender", minLevel = 35, qlvl = 40, preAll = { 4976 }, closedBy = { 4962 }, endNpcs = { 6266 }, xp = 3900, preTitles = { [4962] = "Shard of a Felhound", [4976] = "Returning the Cleansed Orb" }, map = 1413, x = 62.51, y = 35.45, z = 41.4, f = "e", optional = true },
+					},
+				},
+				{
+					title = "{quest:4975}",
+					only = { classes = { "WARLOCK" } },
+					when = { { k = "onquest", q = { 4975 } } },
+					goals = {
+						{ t = "complete", quest = 4975, title = "The Completed Orb of Noh'Orahil", map = 1413, x = 62.5, y = 35.5, f = "e", optional = true, objs = { { text = "Menara Voidrender", count = 1 } } },
+					},
+				},
+				{
+					title = "{quest:4975}",
+					only = { classes = { "WARLOCK" } },
+					when = { { k = "onquest", q = { 4975 } } },
+					goals = {
+						{ t = "turnin", quest = 4975, title = "The Completed Orb of Noh'Orahil", npc = 6266, npcName = "Menara Voidrender", map = 1413, x = 62.51, y = 35.45, z = 41.4, f = "e", optional = true },
 					},
 				},
 			},
@@ -35216,12 +35218,6 @@ do
 					goals = {
 						{ t = "accept", quest = 8316, title = "Armaments of War", npc = 15183, npcName = "Geologist Larksbane", minLevel = 58, qlvl = 60, pre = { 8315 }, preTitles = { [8315] = "The Calling" }, map = 1451, x = 49.67, y = 37.46, z = 52.1, f = "e" },
 						{ t = "turnin", quest = 8316, title = "Armaments of War", npc = 15183, npcName = "Geologist Larksbane", map = 1451, x = 49.67, y = 37.46, z = 52.1, f = "e" },
-					},
-				},
-				{
-					title = "Level 58",
-					goals = {
-						{ t = "level", level = 58 },
 					},
 				},
 				{
@@ -38457,12 +38453,6 @@ do
 					},
 				},
 				{
-					title = "{npc:12736}",
-					goals = {
-						{ t = "accept", quest = 6921, title = "Amongst the Ruins", npc = 12736, npcName = "Je'neu Sancrea", minLevel = 21, qlvl = 27, map = 1440, x = 11.56, y = 34.29, z = 6, f = "e", group = { kind = "dungeon", map = 48, name = "Blackfathom Deeps" } },
-					},
-				},
-				{
 					title = "{npc:9087}",
 					goals = {
 						{ t = "turnin", quest = 6561, title = "Blackfathom Villainy", npc = 9087, npcName = "Bashana Runetotem", map = 1456, x = 71.06, y = 34.19, z = 159.3, f = "e", group = { kind = "dungeon", map = 48, name = "Blackfathom Deeps" } },
@@ -38472,7 +38462,7 @@ do
 					title = "{quest:78917}",
 					note = "The reference data has no giver for this quest: it is handed in here once the game offers it.",
 					goals = {
-						{ t = "turnin", quest = 78917, title = "The Heart of the Void", npc = 9087, npcName = "Bashana Runetotem", minLevel = 25, qlvl = 25, map = 1456, x = 71.06, y = 34.19, z = 159.3, f = "e", group = { kind = "dungeon", map = 48, name = "Blackfathom Deeps" }, direct = true },
+						{ t = "turnin", quest = 78917, title = "The Heart of the Void", npc = 9087, npcName = "Bashana Runetotem", minLevel = 25, qlvl = 25, map = 1456, x = 71.1, y = 34.2, z = 159.3, f = "e", group = { kind = "dungeon", map = 48, name = "Blackfathom Deeps" }, direct = true },
 					},
 				},
 				{
@@ -38480,18 +38470,6 @@ do
 					goals = {
 						{ t = "accept", quest = 6563, title = "The Essence of Aku'Mai", npc = 12736, npcName = "Je'neu Sancrea", minLevel = 17, qlvl = 22, crumbs = { 6562 }, preTitles = { [6562] = "Trouble in the Deeps" }, map = 1440, x = 11.56, y = 34.29, z = 6, f = "e" },
 						{ t = "accept", quest = 6565, title = "Allegiance to the Old Gods", npc = 12736, npcName = "Je'neu Sancrea", minLevel = 17, qlvl = 26, pre = { 6564 }, preTitles = { [6564] = "Allegiance to the Old Gods" }, map = 1440, x = 11.56, y = 34.29, z = 6, f = "e", group = { kind = "dungeon", map = 48, name = "Blackfathom Deeps" } },
-					},
-				},
-				{
-					title = "Inside {area:2797}",
-					goals = {
-						{ t = "complete", quest = 6921, title = "Amongst the Ruins", map = 1440, x = 15.1, y = 13.2, f = "e", group = { kind = "dungeon", map = 48, name = "Blackfathom Deeps" }, objs = { { text = "Fathom Core", count = 1 } } },
-					},
-				},
-				{
-					title = "{npc:12736}",
-					goals = {
-						{ t = "turnin", quest = 6921, title = "Amongst the Ruins", npc = 12736, npcName = "Je'neu Sancrea", map = 1440, x = 11.56, y = 34.29, z = 6, f = "e", group = { kind = "dungeon", map = 48, name = "Blackfathom Deeps" } },
 					},
 				},
 				{
@@ -38506,6 +38484,12 @@ do
 					goals = {
 						{ t = "turnin", quest = 6563, title = "The Essence of Aku'Mai", npc = 12736, npcName = "Je'neu Sancrea", map = 1440, x = 11.56, y = 34.29, z = 6, f = "e" },
 						{ t = "turnin", quest = 6565, title = "Allegiance to the Old Gods", npc = 12736, npcName = "Je'neu Sancrea", map = 1440, x = 11.56, y = 34.29, z = 6, f = "e", group = { kind = "dungeon", map = 48, name = "Blackfathom Deeps" } },
+					},
+				},
+				{
+					title = "Level 20",
+					goals = {
+						{ t = "level", level = 20 },
 					},
 				},
 				{
@@ -38527,6 +38511,30 @@ do
 					only = { classes = { "WARLOCK" } },
 					goals = {
 						{ t = "turnin", quest = 1740, title = "The Orb of Soran'ruk", npc = 6247, npcName = "Doan Karhan", map = 1413, x = 49.31, y = 57.21, z = 91.8, f = "e" },
+					},
+				},
+				{
+					title = "Level 21",
+					goals = {
+						{ t = "level", level = 21 },
+					},
+				},
+				{
+					title = "{npc:12736}",
+					goals = {
+						{ t = "accept", quest = 6921, title = "Amongst the Ruins", npc = 12736, npcName = "Je'neu Sancrea", minLevel = 21, qlvl = 27, map = 1440, x = 11.56, y = 34.29, z = 6, f = "e", group = { kind = "dungeon", map = 48, name = "Blackfathom Deeps" } },
+					},
+				},
+				{
+					title = "Inside {area:2797}",
+					goals = {
+						{ t = "complete", quest = 6921, title = "Amongst the Ruins", map = 1440, x = 15.1, y = 13.2, f = "e", group = { kind = "dungeon", map = 48, name = "Blackfathom Deeps" }, objs = { { text = "Fathom Core", count = 1 } } },
+					},
+				},
+				{
+					title = "{npc:12736}",
+					goals = {
+						{ t = "turnin", quest = 6921, title = "Amongst the Ruins", npc = 12736, npcName = "Je'neu Sancrea", map = 1440, x = 11.56, y = 34.29, z = 6, f = "e", group = { kind = "dungeon", map = 48, name = "Blackfathom Deeps" } },
 					},
 				},
 				{
@@ -38660,6 +38668,12 @@ do
 					title = "{npc:5770}",
 					goals = {
 						{ t = "turnin", quest = 92343, title = "Get to the Roots of It", map = 1447, x = 37.6, y = 38.7, f = "e" },
+					},
+				},
+				{
+					title = "Level 52",
+					goals = {
+						{ t = "level", level = 52 },
 					},
 				},
 				{
@@ -40456,29 +40470,6 @@ do
 					},
 				},
 				{
-					title = "{quest:8962}",
-					note = "One of several exclusive quests; the route takes {quest:8962} (8963). This one shows for a character the game offers it to instead.",
-					when = { { k = "available", q = 8962, minLevel = 58, pre = { 8961 }, closedBy = { 8963, 8964, 8965 } } },
-					goals = {
-						{ t = "accept", quest = 8962, title = "Components of Importance", npc = 16033, npcName = "Bodley", minLevel = 58, qlvl = 60, pre = { 8961 }, closedBy = { 8963, 8964, 8965 }, endNpcs = { 16033 }, xp = 6600, preTitles = { [8961] = "Three Kings of Flame", [8963] = "Components of Importance", [8964] = "Components of Importance", [8965] = "Components of Importance" }, map = 1427, x = 39.8, y = 96.5, z = 285.4, f = "e", optional = true },
-					},
-				},
-				{
-					title = "{quest:8962}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					when = { { k = "onquest", q = { 8962 } } },
-					goals = {
-						{ t = "complete", quest = 8962, title = "Components of Importance", map = 1427, x = 39.8, y = 96.5, f = "e", optional = true, objs = { { text = "Druidical Remains", count = 1 } } },
-					},
-				},
-				{
-					title = "{quest:8962}",
-					when = { { k = "onquest", q = { 8962 } } },
-					goals = {
-						{ t = "turnin", quest = 8962, title = "Components of Importance", npc = 16033, npcName = "Bodley", map = 1427, x = 39.8, y = 96.5, z = 285.4, f = "e", optional = true },
-					},
-				},
-				{
 					title = "{quest:8989}",
 					note = "The reference data does not place this quest's objective: follow the quest text.",
 					when = { { k = "onquest", q = { 8989 } } },
@@ -40810,6 +40801,29 @@ do
 					when = { { k = "onquest", q = { 8957 } } },
 					goals = {
 						{ t = "turnin", quest = 8957, title = "Anthion's Parting Words", npc = 16012, npcName = "Mokvar", map = 1454, x = 34.95, y = 38.29, z = 41, f = "e", optional = true },
+					},
+				},
+				{
+					title = "{quest:8962}",
+					note = "One of several exclusive quests; the route takes {quest:8962} (8963). This one shows for a character the game offers it to instead.",
+					when = { { k = "available", q = 8962, minLevel = 58, pre = { 8961 }, closedBy = { 8963, 8964, 8965 } } },
+					goals = {
+						{ t = "accept", quest = 8962, title = "Components of Importance", npc = 16033, npcName = "Bodley", minLevel = 58, qlvl = 60, pre = { 8961 }, closedBy = { 8963, 8964, 8965 }, endNpcs = { 16033 }, xp = 6600, preTitles = { [8961] = "Three Kings of Flame", [8963] = "Components of Importance", [8964] = "Components of Importance", [8965] = "Components of Importance" }, map = 1427, x = 39.8, y = 96.5, z = 285.4, f = "e", optional = true },
+					},
+				},
+				{
+					title = "{quest:8962}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					when = { { k = "onquest", q = { 8962 } } },
+					goals = {
+						{ t = "complete", quest = 8962, title = "Components of Importance", map = 1427, x = 39.8, y = 96.5, f = "e", optional = true, objs = { { text = "Druidical Remains", count = 1 } } },
+					},
+				},
+				{
+					title = "{quest:8962}",
+					when = { { k = "onquest", q = { 8962 } } },
+					goals = {
+						{ t = "turnin", quest = 8962, title = "Components of Importance", npc = 16033, npcName = "Bodley", map = 1427, x = 39.8, y = 96.5, z = 285.4, f = "e", optional = true },
 					},
 				},
 			},
@@ -42356,7 +42370,7 @@ do
 					title = "{quest:80325}",
 					note = "The reference data has no giver for this quest: it is handed in here once the game offers it.",
 					goals = {
-						{ t = "turnin", quest = 80325, title = "The Mad King", npc = 3412, npcName = "Nogg", minLevel = 40, qlvl = 40, map = 1454, x = 75.99, y = 25.41, z = 29.2, f = "e", group = { kind = "dungeon", map = 90, name = "Gnomeregan" }, direct = true },
+						{ t = "turnin", quest = 80325, title = "The Mad King", npc = 3412, npcName = "Nogg", minLevel = 40, qlvl = 40, map = 1454, x = 76, y = 25.4, z = 29.2, f = "e", group = { kind = "dungeon", map = 90, name = "Gnomeregan" }, direct = true },
 					},
 				},
 			},
@@ -45172,15 +45186,6 @@ do
 					},
 				},
 				{
-					title = "{quest:7668}",
-					note = "One of several exclusive quests; the route takes {quest:7668} (8258). This one shows for a character the game offers it to instead.",
-					only = { classes = { "SHAMAN" } },
-					when = { { k = "available", q = 7668, minLevel = 58, pre = { 7667 }, closedBy = { 8258 } } },
-					goals = {
-						{ t = "accept", quest = 7668, title = "The Darkreaver Menace", npc = 13417, npcName = "Sagorne Creststrider", minLevel = 58, qlvl = 60, pre = { 7667 }, closedBy = { 8258 }, endNpcs = { 13417 }, xp = 9950, preTitles = { [7667] = "Material Assistance", [8258] = "The Darkreaver Menace" }, map = 1454, x = 38.66, y = 35.92, z = 42.2, f = "e", optional = true },
-					},
-				},
-				{
 					title = "{quest:8258}",
 					note = "One of several exclusive quests; the route takes {quest:8258} (7668). This one shows for a character the game offers it to instead.",
 					only = { classes = { "SHAMAN" } },
@@ -45622,23 +45627,6 @@ do
 					only = { classes = { "SHAMAN" } },
 					goals = {
 						{ t = "turnin", quest = 7669, title = "Again Into the Great Ossuary", npc = 13417, npcName = "Sagorne Creststrider", minLevel = 58, qlvl = 60, pre = { 7668, 8258 }, map = 1454, x = 38.66, y = 35.92, z = 42.2, f = "e", optional = true, direct = true },
-					},
-				},
-				{
-					title = "{quest:7668}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					only = { classes = { "SHAMAN" } },
-					when = { { k = "onquest", q = { 7668 } } },
-					goals = {
-						{ t = "complete", quest = 7668, title = "The Darkreaver Menace", map = 1454, x = 38.7, y = 35.9, f = "e", optional = true, objs = { { text = "Darkreaver's Head", count = 1 } }, startItem = 18746, startItemName = "Divination Scryer" },
-					},
-				},
-				{
-					title = "{quest:7668}",
-					only = { classes = { "SHAMAN" } },
-					when = { { k = "onquest", q = { 7668 } } },
-					goals = {
-						{ t = "turnin", quest = 7668, title = "The Darkreaver Menace", npc = 13417, npcName = "Sagorne Creststrider", map = 1454, x = 38.66, y = 35.92, z = 42.2, f = "e", optional = true },
 					},
 				},
 				{
@@ -46328,6 +46316,32 @@ do
 					when = { { k = "onquest", q = { 8969 } } },
 					goals = {
 						{ t = "turnin", quest = 8969, title = "The Left Piece of Lord Valthalak's Amulet", npc = 16033, npcName = "Bodley", map = 1427, x = 39.8, y = 96.5, z = 285.4, f = "e", optional = true, group = { kind = "dungeon", map = 289, name = "Scholomance" } },
+					},
+				},
+				{
+					title = "{quest:7668}",
+					note = "One of several exclusive quests; the route takes {quest:7668} (8258). This one shows for a character the game offers it to instead.",
+					only = { classes = { "SHAMAN" } },
+					when = { { k = "available", q = 7668, minLevel = 58, pre = { 7667 }, closedBy = { 8258 } } },
+					goals = {
+						{ t = "accept", quest = 7668, title = "The Darkreaver Menace", npc = 13417, npcName = "Sagorne Creststrider", minLevel = 58, qlvl = 60, pre = { 7667 }, closedBy = { 8258 }, endNpcs = { 13417 }, xp = 9950, preTitles = { [7667] = "Material Assistance", [8258] = "The Darkreaver Menace" }, map = 1454, x = 38.66, y = 35.92, z = 42.2, f = "e", optional = true },
+					},
+				},
+				{
+					title = "{quest:7668}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					only = { classes = { "SHAMAN" } },
+					when = { { k = "onquest", q = { 7668 } } },
+					goals = {
+						{ t = "complete", quest = 7668, title = "The Darkreaver Menace", map = 1454, x = 38.7, y = 35.9, f = "e", optional = true, objs = { { text = "Darkreaver's Head", count = 1 } }, startItem = 18746, startItemName = "Divination Scryer" },
+					},
+				},
+				{
+					title = "{quest:7668}",
+					only = { classes = { "SHAMAN" } },
+					when = { { k = "onquest", q = { 7668 } } },
+					goals = {
+						{ t = "turnin", quest = 7668, title = "The Darkreaver Menace", npc = 13417, npcName = "Sagorne Creststrider", map = 1454, x = 38.66, y = 35.92, z = 42.2, f = "e", optional = true },
 					},
 				},
 			},
@@ -47790,7 +47804,7 @@ do
 					title = "{quest:8946}",
 					note = "The reference data has no giver for this quest: it is handed in here once the game offers it.",
 					goals = {
-						{ t = "turnin", quest = 8946, title = "Proof of Life", npc = 16016, npcName = "Anthion Harmon", minLevel = 58, qlvl = 60, pre = { 8945 }, map = 1423, x = 26.11, y = 11.3, z = 145, direct = true },
+						{ t = "turnin", quest = 8946, title = "Proof of Life", npc = 16016, npcName = "Anthion Harmon", minLevel = 58, qlvl = 60, pre = { 8945 }, map = 1423, x = 26.1, y = 11.3, f = "e", direct = true },
 					},
 				},
 				{
@@ -49295,7 +49309,7 @@ do
 			pack = "polestar-completionist-horde",
 			title = "{area:16985} (Completionist)",
 			faction = "Horde",
-			minLevel = 60,
+			minLevel = 59,
 			maxLevel = 60,
 			category = "Dungeons",
 			why = "The Horde quests of {area:16985} that the reference data can place.",
@@ -54963,7 +54977,7 @@ do
 			pack = "polestar-completionist-horde",
 			title = "Ahn'Qiraj Temple (Completionist)",
 			faction = "Horde",
-			minLevel = 60,
+			minLevel = 59,
 			maxLevel = 60,
 			category = "Dungeons",
 			why = "Every Horde quest of Ahn'Qiraj Temple: the chains that lead to it, the pick-ups before the run and the hand-ins after it.",
@@ -54982,6 +54996,12 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:8747}",
 					goals = {
 						{ t = "accept", quest = 8747, title = "The Path of the Protector", npc = 15192, npcName = "Anachronos", minLevel = 60, qlvl = 60, closedBy = { 8752, 8757 }, endNpcs = { 15192 }, xp = 6600, preTitles = { [8752] = "The Path of the Conqueror", [8757] = "The Path of the Invoker" }, map = 1446, x = 65.27, y = 50.03, z = 28.1, f = "e" },
@@ -54991,6 +55011,12 @@ do
 					title = "{quest:8747}",
 					goals = {
 						{ t = "turnin", quest = 8747, title = "The Path of the Protector", npc = 15192, npcName = "Anachronos", map = 1446, x = 65.27, y = 50.03, z = 28.1, f = "e" },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -55013,6 +55039,12 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:8748}",
 					goals = {
 						{ t = "accept", quest = 8749, title = "The Path of the Protector", npc = 15192, npcName = "Anachronos", minLevel = 60, qlvl = 60, pre = { 8748 }, closedBy = { 8754, 8759, 8752, 8757 }, endNpcs = { 15192 }, xp = 6600, preTitles = { [8748] = "The Path of the Protector", [8752] = "The Path of the Conqueror", [8754] = "The Path of the Conqueror", [8757] = "The Path of the Invoker", [8759] = "The Path of the Invoker" }, map = 1446, x = 65.27, y = 50.03, z = 28.1, f = "e" },
@@ -55029,6 +55061,12 @@ do
 					title = "{quest:8749}",
 					goals = {
 						{ t = "turnin", quest = 8749, title = "The Path of the Protector", npc = 15192, npcName = "Anachronos", map = 1446, x = 65.27, y = 50.03, z = 28.1, f = "e" },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -55051,6 +55089,12 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:8751}",
 					goals = {
 						{ t = "accept", quest = 8751, title = "The Protector of Kalimdor", npc = 15192, npcName = "Anachronos", minLevel = 60, qlvl = 60, pre = { 8750 }, closedBy = { 8756, 8761, 8752, 8757 }, endNpcs = { 15192 }, xp = 9950, preTitles = { [8750] = "The Path of the Protector", [8752] = "The Path of the Conqueror", [8756] = "The Qiraji Conqueror", [8757] = "The Path of the Invoker", [8761] = "The Grand Invoker" }, map = 1446, x = 65.27, y = 50.03, z = 28.1, f = "e" },
@@ -55070,6 +55114,12 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:9250}",
 					note = "This quest starts from an item: use it to take the quest.",
 					only = { classes = { "PRIEST", "MAGE", "WARLOCK", "DRUID" } },
@@ -55086,10 +55136,22 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{npc:15500}",
 					only = { classes = { "WARRIOR" } },
 					goals = {
 						{ t = "accept", quest = 8557, title = "Drape of Unyielding Strength", npc = 15500, npcName = "Keyl Swiftclaw", minLevel = 60, qlvl = 60, map = 1451, x = 51.76, y = 39.54, z = 45.7, f = "e", group = { kind = "raid", map = 531, name = "Ahn'Qiraj Temple" } },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -55100,10 +55162,22 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{npc:15500}",
 					only = { classes = { "SHAMAN" } },
 					goals = {
 						{ t = "accept", quest = 8690, title = "Cloak of the Gathering Storm", npc = 15500, npcName = "Keyl Swiftclaw", minLevel = 60, qlvl = 60, map = 1451, x = 51.76, y = 39.54, z = 45.7, f = "e", group = { kind = "raid", map = 531, name = "Ahn'Qiraj Temple" } },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -55114,10 +55188,22 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{npc:15500}",
 					only = { classes = { "DRUID" } },
 					goals = {
 						{ t = "accept", quest = 8692, title = "Cloak of Unending Life", npc = 15500, npcName = "Keyl Swiftclaw", minLevel = 60, qlvl = 60, map = 1451, x = 51.76, y = 39.54, z = 45.7, f = "e", group = { kind = "raid", map = 531, name = "Ahn'Qiraj Temple" } },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -55128,10 +55214,22 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{npc:15500}",
 					only = { classes = { "WARLOCK" } },
 					goals = {
 						{ t = "accept", quest = 8694, title = "Shroud of Unspoken Names", npc = 15500, npcName = "Keyl Swiftclaw", minLevel = 60, qlvl = 60, map = 1451, x = 51.76, y = 39.54, z = 45.7, f = "e", group = { kind = "raid", map = 531, name = "Ahn'Qiraj Temple" } },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -55142,10 +55240,22 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{npc:15499}",
 					only = { classes = { "WARRIOR" } },
 					goals = {
 						{ t = "accept", quest = 8558, title = "Sickle of Unyielding Strength", npc = 15499, npcName = "Warden Haro", minLevel = 60, qlvl = 60, map = 1451, x = 51.14, y = 38.94, z = 42.6, f = "e", group = { kind = "raid", map = 531, name = "Ahn'Qiraj Temple" } },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -55156,10 +55266,22 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{npc:15499}",
 					only = { classes = { "SHAMAN" } },
 					goals = {
 						{ t = "accept", quest = 8706, title = "Hammer of the Gathering Storm", npc = 15499, npcName = "Warden Haro", minLevel = 60, qlvl = 60, map = 1451, x = 51.14, y = 38.94, z = 42.6, f = "e", group = { kind = "raid", map = 531, name = "Ahn'Qiraj Temple" } },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -55170,10 +55292,22 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{npc:15499}",
 					only = { classes = { "DRUID" } },
 					goals = {
 						{ t = "accept", quest = 8708, title = "Mace of Unending Life", npc = 15499, npcName = "Warden Haro", minLevel = 60, qlvl = 60, map = 1451, x = 51.14, y = 38.94, z = 42.6, f = "e", group = { kind = "raid", map = 531, name = "Ahn'Qiraj Temple" } },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -55184,10 +55318,22 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{npc:15499}",
 					only = { classes = { "WARLOCK" } },
 					goals = {
 						{ t = "accept", quest = 8710, title = "Kris of Unspoken Names", npc = 15499, npcName = "Warden Haro", minLevel = 60, qlvl = 60, map = 1451, x = 51.14, y = 38.94, z = 42.6, f = "e", group = { kind = "raid", map = 531, name = "Ahn'Qiraj Temple" } },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -55198,10 +55344,22 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{npc:15498}",
 					only = { classes = { "WARRIOR" } },
 					goals = {
 						{ t = "accept", quest = 8556, title = "Signet of Unyielding Strength", npc = 15498, npcName = "Windcaller Yessendra", minLevel = 60, qlvl = 60, map = 1451, x = 52.05, y = 38.16, z = 42.6, f = "e", group = { kind = "raid", map = 531, name = "Ahn'Qiraj Temple" } },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -55212,10 +55370,22 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{npc:15498}",
 					only = { classes = { "SHAMAN" } },
 					goals = {
 						{ t = "accept", quest = 8698, title = "Ring of the Gathering Storm", npc = 15498, npcName = "Windcaller Yessendra", minLevel = 60, qlvl = 60, map = 1451, x = 52.05, y = 38.16, z = 42.6, f = "e", group = { kind = "raid", map = 531, name = "Ahn'Qiraj Temple" } },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -55226,10 +55396,22 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{npc:15498}",
 					only = { classes = { "DRUID" } },
 					goals = {
 						{ t = "accept", quest = 8700, title = "Band of Unending Life", npc = 15498, npcName = "Windcaller Yessendra", minLevel = 60, qlvl = 60, map = 1451, x = 52.05, y = 38.16, z = 42.6, f = "e", group = { kind = "raid", map = 531, name = "Ahn'Qiraj Temple" } },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -55240,10 +55422,22 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{npc:15498}",
 					only = { classes = { "WARLOCK" } },
 					goals = {
 						{ t = "accept", quest = 8702, title = "Ring of Unspoken Names", npc = 15498, npcName = "Windcaller Yessendra", minLevel = 60, qlvl = 60, map = 1451, x = 52.05, y = 38.16, z = 42.6, f = "e", group = { kind = "raid", map = 531, name = "Ahn'Qiraj Temple" } },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -55254,9 +55448,21 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{npc:15192}",
 					goals = {
 						{ t = "accept", quest = 8764, title = "The Changing of Paths - Protector No More", npc = 15192, npcName = "Anachronos", minLevel = 60, qlvl = 60, pre = { 8751 }, preTitles = { [8751] = "The Protector of Kalimdor" }, map = 1446, x = 65.27, y = 50.03, z = 28.1, f = "e" },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -55264,6 +55470,18 @@ do
 					only = { classes = { "PRIEST", "MAGE", "WARLOCK", "DRUID" } },
 					goals = {
 						{ t = "accept", quest = 9251, title = "Atiesh, the Befouled Greatstaff", npc = 15192, npcName = "Anachronos", minLevel = 60, qlvl = 60, pre = { 9250 }, preTitles = { [9250] = "Frame of Atiesh" }, map = 1446, x = 65.27, y = 50.03, z = 28.1, f = "e" },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -55754,7 +55972,7 @@ do
 			pack = "polestar-completionist-horde",
 			title = "{area:2677} (Completionist)",
 			faction = "Horde",
-			minLevel = 60,
+			minLevel = 59,
 			maxLevel = 60,
 			category = "Dungeons",
 			why = "Every Horde quest of {area:2677}: the chains that lead to it, the pick-ups before the run and the hand-ins after it.",
@@ -55770,6 +55988,12 @@ do
 					title = "Getting there",
 					goals = {
 						{ t = "note", text = "The entrance is in {zone:1428}: the arrow leads to it. This is a raid: it needs a raid group." },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -55792,9 +56016,21 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{npc:15180}",
 					goals = {
 						{ t = "accept", quest = 8288, title = "Only One May Rise", npc = 15180, npcName = "Baristolth of the Shifting Sands", minLevel = 60, qlvl = 60, pre = { 8286 }, preTitles = { [8286] = "What Tomorrow Brings" }, map = 1451, x = 49.45, y = 36.45, z = 51.3, f = "e", group = { kind = "raid", map = 469, name = "Blackwing Lair" } },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -55815,6 +56051,12 @@ do
 					title = "{npc:4949}",
 					goals = {
 						{ t = "turnin", quest = 7783, title = "The Lord of Blackrock", npc = 4949, npcName = "Thrall", map = 1454, x = 31.73, y = 37.82, z = 43, f = "e" },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -55845,6 +56087,12 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:8303}",
 					goals = {
 						{ t = "accept", quest = 8303, title = "Anachronos", npc = 15180, npcName = "Baristolth of the Shifting Sands", minLevel = 60, qlvl = 60, pre = { 8301 }, preTitles = { [8301] = "The Path of the Righteous" }, map = 1451, x = 49.45, y = 36.45, z = 51.3, f = "e" },
@@ -55857,6 +56105,12 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:8305}",
 					goals = {
 						{ t = "accept", quest = 8305, title = "Long Forgotten Memories", npc = 15192, npcName = "Anachronos", minLevel = 60, qlvl = 60, pre = { 8303 }, preTitles = { [8303] = "Anachronos" }, map = 1446, x = 65.27, y = 50.03, z = 28.1, f = "e" },
@@ -55866,6 +56120,12 @@ do
 					title = "{quest:8305}",
 					goals = {
 						{ t = "turnin", quest = 8305, title = "Long Forgotten Memories", object = 180633, objName = "Crystalline Tear", map = 1451, x = 28.68, y = 89.14, z = 2.6, f = "e" },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -55888,6 +56148,12 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:8555}",
 					goals = {
 						{ t = "accept", quest = 8555, title = "The Charge of the Dragonflights", npc = 15192, npcName = "Anachronos", minLevel = 60, qlvl = 60, pre = { 8519 }, preTitles = { [8519] = "A Pawn on the Eternal Board" }, map = 1446, x = 65.27, y = 50.03, z = 28.1, f = "e" },
@@ -55897,6 +56163,12 @@ do
 					title = "{quest:8555}",
 					goals = {
 						{ t = "turnin", quest = 8555, title = "The Charge of the Dragonflights", npc = 15192, npcName = "Anachronos", map = 1446, x = 65.27, y = 50.03, z = 28.1, f = "e" },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -55912,6 +56184,12 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:8576}",
 					goals = {
 						{ t = "accept", quest = 8576, title = "Translating the Ledger", npc = 11811, npcName = "Narain Soothfancy", minLevel = 60, qlvl = 60, pre = { 8575 }, preTitles = { [8575] = "Azuregos's Magical Ledger" }, map = 1446, x = 65.24, y = 18.58, z = 21.7, f = "e" },
@@ -55924,6 +56202,12 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:8577}",
 					goals = {
 						{ t = "accept", quest = 8577, title = "Stewvul, Ex-B.F.F.", npc = 11811, npcName = "Narain Soothfancy", minLevel = 60, qlvl = 60, pre = { 8576 }, preTitles = { [8576] = "Translating the Ledger" }, map = 1446, x = 65.24, y = 18.58, z = 21.7, f = "e" },
@@ -55933,6 +56217,12 @@ do
 					title = "{quest:8577}",
 					goals = {
 						{ t = "turnin", quest = 8577, title = "Stewvul, Ex-B.F.F.", object = 180642, objName = "Inconspicuous Crate", map = 1421, x = 46.19, y = 86.68, z = 19.3, f = "e" },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -55955,6 +56245,12 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:8584}",
 					goals = {
 						{ t = "accept", quest = 8584, title = "Never Ask Me About My Business", npc = 11811, npcName = "Narain Soothfancy", minLevel = 60, qlvl = 60, pre = { 8576 }, preTitles = { [8576] = "Translating the Ledger" }, map = 1446, x = 65.24, y = 18.58, z = 21.7, f = "e" },
@@ -55964,6 +56260,12 @@ do
 					title = "{quest:8584}",
 					goals = {
 						{ t = "turnin", quest = 8584, title = "Never Ask Me About My Business", npc = 8125, npcName = "Dirge Quikcleave", map = 1446, x = 52.63, y = 28.11, z = 8.8, f = "e" },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -55986,6 +56288,12 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:8586}",
 					goals = {
 						{ t = "accept", quest = 8586, title = "Dirge's Kickin' Chimaerok Chops", npc = 8125, npcName = "Dirge Quikcleave", minLevel = 60, qlvl = 60, pre = { 8585 }, preTitles = { [8585] = "The Isle of Dread!" }, map = 1446, x = 52.63, y = 28.11, z = 8.8, f = "e" },
@@ -56005,6 +56313,12 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:8587}",
 					goals = {
 						{ t = "accept", quest = 8587, title = "Return to Narain", npc = 8125, npcName = "Dirge Quikcleave", minLevel = 60, qlvl = 60, pre = { 8586 }, preTitles = { [8586] = "Dirge's Kickin' Chimaerok Chops" }, map = 1446, x = 52.63, y = 28.11, z = 8.8, f = "e" },
@@ -56017,9 +56331,21 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:8597}",
 					goals = {
 						{ t = "accept", quest = 8597, title = "Draconic for Dummies", npc = 11811, npcName = "Narain Soothfancy", minLevel = 60, qlvl = 60, pre = { 8576 }, preTitles = { [8576] = "Translating the Ledger" }, map = 1446, x = 65.24, y = 18.58, z = 21.7, f = "e" },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -56032,6 +56358,12 @@ do
 					title = "{quest:8597}",
 					goals = {
 						{ t = "turnin", quest = 8597, title = "Draconic for Dummies", object = 180652, objName = "Freshly Dug Dirt", map = 947, x = 29.99, y = 89.15 },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -56051,6 +56383,12 @@ do
 					when = { { k = "onquest", q = { 8599 } } },
 					goals = {
 						{ t = "turnin", quest = 8599, title = "Love Song for Narain", npc = 11811, npcName = "Narain Soothfancy", map = 1446, x = 65.24, y = 18.58, z = 21.7, f = "e" },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -56177,7 +56515,7 @@ do
 			pack = "polestar-completionist-horde",
 			title = "{area:2717} (Completionist)",
 			faction = "Horde",
-			minLevel = 60,
+			minLevel = 59,
 			maxLevel = 60,
 			category = "Dungeons",
 			why = "Every Horde quest of {area:2717}: the chains that lead to it, the pick-ups before the run and the hand-ins after it.",
@@ -56196,6 +56534,12 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:7785}",
 					note = "This quest starts from an item: use it to take the quest.",
 					goals = {
@@ -56207,6 +56551,12 @@ do
 					title = "{quest:7785}",
 					goals = {
 						{ t = "turnin", quest = 7785, title = "Examine the Vessel", npc = 14347, npcName = "Highlord Demitrian", map = 1444, x = 52.7, y = 81.8, z = 29.1, f = "e" },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -56229,6 +56579,12 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:8288}",
 					goals = {
 						{ t = "accept", quest = 8288, title = "Only One May Rise", npc = 15180, npcName = "Baristolth of the Shifting Sands", minLevel = 60, qlvl = 60, pre = { 8286 }, preTitles = { [8286] = "What Tomorrow Brings" }, map = 1451, x = 49.45, y = 36.45, z = 51.3, f = "e", group = { kind = "raid", map = 469, name = "Blackwing Lair" } },
@@ -56245,6 +56601,12 @@ do
 					title = "{quest:8288}",
 					goals = {
 						{ t = "turnin", quest = 8288, title = "Only One May Rise", npc = 15180, npcName = "Baristolth of the Shifting Sands", map = 1451, x = 49.45, y = 36.45, z = 51.3, f = "e", group = { kind = "raid", map = 469, name = "Blackwing Lair" } },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -56267,6 +56629,12 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:8303}",
 					goals = {
 						{ t = "accept", quest = 8303, title = "Anachronos", npc = 15180, npcName = "Baristolth of the Shifting Sands", minLevel = 60, qlvl = 60, pre = { 8301 }, preTitles = { [8301] = "The Path of the Righteous" }, map = 1451, x = 49.45, y = 36.45, z = 51.3, f = "e" },
@@ -56279,6 +56647,12 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:8305}",
 					goals = {
 						{ t = "accept", quest = 8305, title = "Long Forgotten Memories", npc = 15192, npcName = "Anachronos", minLevel = 60, qlvl = 60, pre = { 8303 }, preTitles = { [8303] = "Anachronos" }, map = 1446, x = 65.27, y = 50.03, z = 28.1, f = "e" },
@@ -56288,6 +56662,12 @@ do
 					title = "{quest:8305}",
 					goals = {
 						{ t = "turnin", quest = 8305, title = "Long Forgotten Memories", object = 180633, objName = "Crystalline Tear", map = 1451, x = 28.68, y = 89.14, z = 2.6, f = "e" },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -56310,6 +56690,12 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:8555}",
 					goals = {
 						{ t = "accept", quest = 8555, title = "The Charge of the Dragonflights", npc = 15192, npcName = "Anachronos", minLevel = 60, qlvl = 60, pre = { 8519 }, preTitles = { [8519] = "A Pawn on the Eternal Board" }, map = 1446, x = 65.27, y = 50.03, z = 28.1, f = "e" },
@@ -56319,6 +56705,12 @@ do
 					title = "{quest:8555}",
 					goals = {
 						{ t = "turnin", quest = 8555, title = "The Charge of the Dragonflights", npc = 15192, npcName = "Anachronos", map = 1446, x = 65.27, y = 50.03, z = 28.1, f = "e" },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -56334,6 +56726,12 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:8576}",
 					goals = {
 						{ t = "accept", quest = 8576, title = "Translating the Ledger", npc = 11811, npcName = "Narain Soothfancy", minLevel = 60, qlvl = 60, pre = { 8575 }, preTitles = { [8575] = "Azuregos's Magical Ledger" }, map = 1446, x = 65.24, y = 18.58, z = 21.7, f = "e" },
@@ -56343,6 +56741,12 @@ do
 					title = "{quest:8576}",
 					goals = {
 						{ t = "turnin", quest = 8576, title = "Translating the Ledger", npc = 11811, npcName = "Narain Soothfancy", map = 1446, x = 65.24, y = 18.58, z = 21.7, f = "e" },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -56358,6 +56762,18 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{npc:12944}",
 					goals = {
 						{ t = "accept", quest = 6642, title = "Favor Amongst the Brotherhood, Dark Iron Ore", npc = 12944, npcName = "Lokhtos Darkbargainer", minLevel = 60, qlvl = 60, map = 1427, x = 34.8, y = 85.3, f = "e", group = { kind = "raid", map = 409, name = "Molten Core" } },
@@ -56368,9 +56784,21 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{object:180642}",
 					goals = {
 						{ t = "accept", quest = 8578, title = "Scrying Goggles? No Problem!", object = 180642, objName = "Inconspicuous Crate", minLevel = 60, qlvl = 60, pre = { 8577 }, preTitles = { [8577] = "Stewvul, Ex-B.F.F." }, map = 1421, x = 46.19, y = 86.68, z = 19.3, f = "e", group = { kind = "raid", map = 409, name = "Molten Core" } },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -56389,6 +56817,12 @@ do
 						{ t = "complete", quest = 6646, title = "Favor Amongst the Brotherhood, Blood of the Mountain", map = 1427, x = 34.8, y = 85.3, f = "e", group = { kind = "raid", map = 409, name = "Molten Core" }, objs = { { text = "Blood of the Mountain", count = 1 } } },
 						{ t = "complete", quest = 7786, title = "Thunderaan the Windseeker", map = 1427, x = 34.8, y = 85.3, f = "e", objs = { { text = "Elementium Bar", count = 10 }, { text = "Essence of the Firelord", count = 1 }, { text = "Bindings of the Windseeker", count = 1 }, { text = "Bindings of the Windseeker", count = 1 } } },
 						{ t = "complete", quest = 8578, title = "Scrying Goggles? No Problem!", map = 1427, x = 34.8, y = 85.3, f = "e", group = { kind = "raid", map = 409, name = "Molten Core" }, objs = { { text = "Narain's Scrying Goggles", count = 1 } } },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -56413,6 +56847,12 @@ do
 					title = "{npc:14347}",
 					goals = {
 						{ t = "turnin", quest = 7786, title = "Thunderaan the Windseeker", npc = 14347, npcName = "Highlord Demitrian", map = 1444, x = 52.7, y = 81.8, z = 29.1, f = "e" },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -56457,7 +56897,7 @@ do
 			pack = "polestar-completionist-horde",
 			title = "Naxxramas (Completionist)",
 			faction = "Horde",
-			minLevel = 60,
+			minLevel = 59,
 			maxLevel = 60,
 			category = "Dungeons",
 			why = "Every Horde quest of Naxxramas: the chains that lead to it, the pick-ups before the run and the hand-ins after it.",
@@ -56476,6 +56916,12 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:9250}",
 					note = "This quest starts from an item: use it to take the quest.",
 					only = { classes = { "PRIEST", "MAGE", "WARLOCK", "DRUID" } },
@@ -56489,6 +56935,12 @@ do
 					only = { classes = { "PRIEST", "MAGE", "WARLOCK", "DRUID" } },
 					goals = {
 						{ t = "turnin", quest = 9250, title = "Frame of Atiesh", npc = 15192, npcName = "Anachronos", map = 1446, x = 65.27, y = 50.03, z = 28.1, f = "e" },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -56513,6 +56965,1085 @@ do
 					},
 				},
 				{
+					title = "{npc:15192}",
+					only = { classes = { "PRIEST", "MAGE", "WARLOCK", "DRUID" } },
+					goals = {
+						{ t = "turnin", quest = 9251, title = "Atiesh, the Befouled Greatstaff", npc = 15192, npcName = "Anachronos", map = 1446, x = 65.27, y = 50.03, z = 28.1, f = "e" },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
+					title = "{quest:9033}",
+					when = { { k = "turnedin", q = 9121 } },
+					goals = {
+						{ t = "accept", quest = 9033, title = "Echoes of War", npc = 16115, npcName = "Commander Eligor Dawnbringer", minLevel = 60, qlvl = 60, pre = { 9121, 9122, 9123 }, preTitles = { [9121] = "The Dread Citadel - Naxxramas", [9122] = "The Dread Citadel - Naxxramas", [9123] = "The Dread Citadel - Naxxramas" }, map = 1423, x = 71.72, y = 48.59, z = 90.9, group = { kind = "raid", map = 533, name = "Naxxramas" } },
+					},
+				},
+				{
+					title = "{quest:9033}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					when = { { k = "onquest", q = { 9033 } } },
+					goals = {
+						{ t = "complete", quest = 9033, title = "Echoes of War", map = 1423, x = 71.7, y = 48.6, f = "e", group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Deathknight Captain", count = 8 }, { text = "Venom Stalker", count = 3 }, { text = "Living Monstrosity", count = 5 }, { text = "Stoneskin Gargoyle", count = 5 } } },
+					},
+				},
+				{
+					title = "{quest:9033}",
+					when = { { k = "onquest", q = { 9033 } } },
+					goals = {
+						{ t = "turnin", quest = 9033, title = "Echoes of War", npc = 16115, npcName = "Commander Eligor Dawnbringer", map = 1423, x = 71.72, y = 48.59, z = 90.9, group = { kind = "raid", map = 533, name = "Naxxramas" } },
+					},
+				},
+				{
+					title = "{quest:9034}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "WARRIOR" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22349, itemName = "Desecrated Breastplate", count = 1, optional = true },
+						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 25, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 4, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 2, optional = true },
+						{ t = "turnin", quest = 9034, title = "Dreadnaught Breastplate", npc = 16112, npcName = "Korfax, Champion of the Light", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.95, y = 48.52, z = 91.7, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9036}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "WARRIOR" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22352, itemName = "Desecrated Legplates", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 20, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 4, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
+						{ t = "turnin", quest = 9036, title = "Dreadnaught Legplates", npc = 16112, npcName = "Korfax, Champion of the Light", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.95, y = 48.52, z = 91.7, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9037}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "WARRIOR" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22353, itemName = "Desecrated Helmet", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 15, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 5, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 1, optional = true },
+						{ t = "turnin", quest = 9037, title = "Dreadnaught Helmet", npc = 16112, npcName = "Korfax, Champion of the Light", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.95, y = 48.52, z = 91.7, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9038}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "WARRIOR" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22354, itemName = "Desecrated Pauldrons", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 2, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
+						{ t = "turnin", quest = 9038, title = "Dreadnaught Pauldrons", npc = 16112, npcName = "Korfax, Champion of the Light", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.95, y = 48.52, z = 91.7, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9039}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "WARRIOR" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22358, itemName = "Desecrated Sabatons", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 2, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
+						{ t = "turnin", quest = 9039, title = "Dreadnaught Sabatons", npc = 16112, npcName = "Korfax, Champion of the Light", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.95, y = 48.52, z = 91.7, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9040}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "WARRIOR" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22357, itemName = "Desecrated Gauntlets", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 5, optional = true },
+						{ t = "turnin", quest = 9040, title = "Dreadnaught Gauntlets", npc = 16112, npcName = "Korfax, Champion of the Light", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.95, y = 48.52, z = 91.7, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9041}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "WARRIOR" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22356, itemName = "Desecrated Waistguard", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 5, optional = true },
+						{ t = "turnin", quest = 9041, title = "Dreadnaught Waistguard", npc = 16112, npcName = "Korfax, Champion of the Light", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.95, y = 48.52, z = 91.7, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9042}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "WARRIOR" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22355, itemName = "Desecrated Bracers", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 6, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 1, optional = true },
+						{ t = "turnin", quest = 9042, title = "Dreadnaught Bracers", npc = 16112, npcName = "Korfax, Champion of the Light", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.95, y = 48.52, z = 91.7, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9043}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "PALADIN" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22350, itemName = "Desecrated Tunic", count = 1, optional = true },
+						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 25, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 4, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
+						{ t = "turnin", quest = 9043, title = "Redemption Tunic", npc = 16115, npcName = "Commander Eligor Dawnbringer", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.72, y = 48.59, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9044}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "PALADIN" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22359, itemName = "Desecrated Legguards", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 20, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 4, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 2, optional = true },
+						{ t = "turnin", quest = 9044, title = "Redemption Legguards", npc = 16115, npcName = "Commander Eligor Dawnbringer", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.72, y = 48.59, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9045}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "PALADIN" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22360, itemName = "Desecrated Headpiece", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 15, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 5, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 2, optional = true },
+						{ t = "turnin", quest = 9045, title = "Redemption Headpiece", npc = 16115, npcName = "Commander Eligor Dawnbringer", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.72, y = 48.59, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9046}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "PALADIN" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22361, itemName = "Desecrated Spaulders", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 2, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 2, optional = true },
+						{ t = "turnin", quest = 9046, title = "Redemption Spaulders", npc = 16115, npcName = "Commander Eligor Dawnbringer", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.72, y = 48.59, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9047}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "PALADIN" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22365, itemName = "Desecrated Boots", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 2, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
+						{ t = "turnin", quest = 9047, title = "Redemption Boots", npc = 16115, npcName = "Commander Eligor Dawnbringer", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.72, y = 48.59, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9048}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "PALADIN" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22364, itemName = "Desecrated Handguards", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 5, optional = true },
+						{ t = "turnin", quest = 9048, title = "Redemption Handguards", npc = 16115, npcName = "Commander Eligor Dawnbringer", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.72, y = 48.59, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9049}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "PALADIN" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22363, itemName = "Desecrated Girdle", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 3, optional = true },
+						{ t = "turnin", quest = 9049, title = "Redemption Girdle", npc = 16115, npcName = "Commander Eligor Dawnbringer", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.72, y = 48.59, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9050}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "PALADIN" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22362, itemName = "Desecrated Wristguards", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 6, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 2, optional = true },
+						{ t = "turnin", quest = 9050, title = "Redemption Wristguards", npc = 16115, npcName = "Commander Eligor Dawnbringer", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.72, y = 48.59, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9054}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "HUNTER" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22350, itemName = "Desecrated Tunic", count = 1, optional = true },
+						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 25, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 4, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
+						{ t = "turnin", quest = 9054, title = "Cryptstalker Tunic", npc = 16132, npcName = "Huntsman Leopold", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.69, y = 48.94, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9055}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "HUNTER" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22359, itemName = "Desecrated Legguards", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 20, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 3, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 5, optional = true },
+						{ t = "turnin", quest = 9055, title = "Cryptstalker Legguards", npc = 16132, npcName = "Huntsman Leopold", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.69, y = 48.94, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9056}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "HUNTER" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22360, itemName = "Desecrated Headpiece", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 15, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 4, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 2, optional = true },
+						{ t = "turnin", quest = 9056, title = "Cryptstalker Headpiece", npc = 16132, npcName = "Huntsman Leopold", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.69, y = 48.94, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9057}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "HUNTER" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22361, itemName = "Desecrated Spaulders", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 2, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
+						{ t = "turnin", quest = 9057, title = "Cryptstalker Spaulders", npc = 16132, npcName = "Huntsman Leopold", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.69, y = 48.94, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9058}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "HUNTER" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22365, itemName = "Desecrated Boots", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 3, optional = true },
+						{ t = "turnin", quest = 9058, title = "Cryptstalker Boots", npc = 16132, npcName = "Huntsman Leopold", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.69, y = 48.94, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9059}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "HUNTER" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22364, itemName = "Desecrated Handguards", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 5, optional = true },
+						{ t = "turnin", quest = 9059, title = "Cryptstalker Handguards", npc = 16132, npcName = "Huntsman Leopold", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.69, y = 48.94, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9060}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "HUNTER" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22363, itemName = "Desecrated Girdle", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 3, optional = true },
+						{ t = "turnin", quest = 9060, title = "Cryptstalker Girdle", npc = 16132, npcName = "Huntsman Leopold", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.69, y = 48.94, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9061}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "HUNTER" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22362, itemName = "Desecrated Wristguards", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 6, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 2, optional = true },
+						{ t = "turnin", quest = 9061, title = "Cryptstalker Wristguards", npc = 16132, npcName = "Huntsman Leopold", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.69, y = 48.94, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9068}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "SHAMAN" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22350, itemName = "Desecrated Tunic", count = 1, optional = true },
+						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 25, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 4, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
+						{ t = "turnin", quest = 9068, title = "Earthshatter Tunic", npc = 16134, npcName = "Rimblat Earthshatter", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.34, y = 49.36, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9069}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "SHAMAN" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22359, itemName = "Desecrated Legguards", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 20, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 3, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 5, optional = true },
+						{ t = "turnin", quest = 9069, title = "Earthshatter Legguards", npc = 16134, npcName = "Rimblat Earthshatter", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.34, y = 49.36, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9070}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "SHAMAN" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22360, itemName = "Desecrated Headpiece", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 15, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 4, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 2, optional = true },
+						{ t = "turnin", quest = 9070, title = "Earthshatter Headpiece", npc = 16134, npcName = "Rimblat Earthshatter", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.34, y = 49.36, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9071}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "SHAMAN" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22361, itemName = "Desecrated Spaulders", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 2, optional = true },
+						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 2, optional = true },
+						{ t = "turnin", quest = 9071, title = "Earthshatter Spaulders", npc = 16134, npcName = "Rimblat Earthshatter", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.34, y = 49.36, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9072}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "SHAMAN" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22365, itemName = "Desecrated Boots", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 3, optional = true },
+						{ t = "turnin", quest = 9072, title = "Earthshatter Boots", npc = 16134, npcName = "Rimblat Earthshatter", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.34, y = 49.36, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9073}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "SHAMAN" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22364, itemName = "Desecrated Handguards", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 5, optional = true },
+						{ t = "turnin", quest = 9073, title = "Earthshatter Handguards", npc = 16134, npcName = "Rimblat Earthshatter", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.34, y = 49.36, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9074}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "SHAMAN" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22363, itemName = "Desecrated Girdle", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 3, optional = true },
+						{ t = "turnin", quest = 9074, title = "Earthshatter Girdle", npc = 16134, npcName = "Rimblat Earthshatter", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.34, y = 49.36, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9075}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "SHAMAN" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22362, itemName = "Desecrated Wristguards", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 6, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 2, optional = true },
+						{ t = "turnin", quest = 9075, title = "Earthshatter Wristguards", npc = 16134, npcName = "Rimblat Earthshatter", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.34, y = 49.36, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9077}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "ROGUE" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22349, itemName = "Desecrated Breastplate", count = 1, optional = true },
+						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 25, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 2, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 6, optional = true },
+						{ t = "turnin", quest = 9077, title = "Bonescythe Breastplate", npc = 16131, npcName = "Rohan the Assassin", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.62, y = 48.91, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9078}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "ROGUE" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22352, itemName = "Desecrated Legplates", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 20, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 8, optional = true },
+						{ t = "turnin", quest = 9078, title = "Bonescythe Legplates", npc = 16131, npcName = "Rohan the Assassin", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.62, y = 48.91, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9079}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "ROGUE" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22353, itemName = "Desecrated Helmet", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 15, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 8, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 1, optional = true },
+						{ t = "turnin", quest = 9079, title = "Bonescythe Helmet", npc = 16131, npcName = "Rohan the Assassin", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.62, y = 48.91, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9080}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "ROGUE" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22354, itemName = "Desecrated Pauldrons", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 5, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 1, optional = true },
+						{ t = "turnin", quest = 9080, title = "Bonescythe Pauldrons", npc = 16131, npcName = "Rohan the Assassin", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.62, y = 48.91, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9081}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "ROGUE" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22358, itemName = "Desecrated Sabatons", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 2, optional = true },
+						{ t = "turnin", quest = 9081, title = "Bonescythe Sabatons", npc = 16131, npcName = "Rohan the Assassin", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.62, y = 48.91, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9082}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "ROGUE" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22357, itemName = "Desecrated Gauntlets", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 5, optional = true },
+						{ t = "turnin", quest = 9082, title = "Bonescythe Gauntlets", npc = 16131, npcName = "Rohan the Assassin", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.62, y = 48.91, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9083}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "ROGUE" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22356, itemName = "Desecrated Waistguard", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 5, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 1, optional = true },
+						{ t = "turnin", quest = 9083, title = "Bonescythe Waistguard", npc = 16131, npcName = "Rohan the Assassin", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.62, y = 48.91, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9084}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "ROGUE" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22355, itemName = "Desecrated Bracers", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 6, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 2, optional = true },
+						{ t = "turnin", quest = 9084, title = "Bonescythe Bracers", npc = 16131, npcName = "Rohan the Assassin", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.62, y = 48.91, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9086}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "DRUID" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22350, itemName = "Desecrated Tunic", count = 1, optional = true },
+						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 25, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 6, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 2, optional = true },
+						{ t = "turnin", quest = 9086, title = "Dreamwalker Tunic", npc = 16135, npcName = "Rayne", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.41, y = 49.35, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9087}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "DRUID" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22359, itemName = "Desecrated Legguards", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 20, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 8, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 1, optional = true },
+						{ t = "turnin", quest = 9087, title = "Dreamwalker Legguards", npc = 16135, npcName = "Rayne", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.41, y = 49.35, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9088}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "DRUID" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22360, itemName = "Desecrated Headpiece", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 15, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 6, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 2, optional = true },
+						{ t = "turnin", quest = 9088, title = "Dreamwalker Headpiece", npc = 16135, npcName = "Rayne", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.41, y = 49.35, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9089}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "DRUID" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22361, itemName = "Desecrated Spaulders", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 5, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 1, optional = true },
+						{ t = "turnin", quest = 9089, title = "Dreamwalker Spaulders", npc = 16135, npcName = "Rayne", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.41, y = 49.35, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9090}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "DRUID" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22365, itemName = "Desecrated Boots", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 3, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 2, optional = true },
+						{ t = "turnin", quest = 9090, title = "Dreamwalker Boots", npc = 16135, npcName = "Rayne", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.41, y = 49.35, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9091}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "DRUID" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22364, itemName = "Desecrated Handguards", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 5, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 1, optional = true },
+						{ t = "turnin", quest = 9091, title = "Dreamwalker Handguards", npc = 16135, npcName = "Rayne", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.41, y = 49.35, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9092}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "DRUID" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22363, itemName = "Desecrated Girdle", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 3, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 2, optional = true },
+						{ t = "turnin", quest = 9092, title = "Dreamwalker Girdle", npc = 16135, npcName = "Rayne", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.41, y = 49.35, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9093}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "DRUID" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22362, itemName = "Desecrated Wristguards", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 6, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12363, itemName = "Arcane Crystal", count = 1, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 2, optional = true },
+						{ t = "turnin", quest = 9093, title = "Dreamwalker Wristguards", npc = 16135, npcName = "Rayne", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.41, y = 49.35, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9095}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "MAGE" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22351, itemName = "Desecrated Robe", count = 1, optional = true },
+						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 25, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 4, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 2, optional = true },
+						{ t = "turnin", quest = 9095, title = "Frostfire Robe", npc = 16116, npcName = "Archmage Angela Dosantos", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.7, y = 48.69, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9096}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "MAGE" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22366, itemName = "Desecrated Leggings", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 20, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 4, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 2, optional = true },
+						{ t = "turnin", quest = 9096, title = "Frostfire Leggings", npc = 16116, npcName = "Archmage Angela Dosantos", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.7, y = 48.69, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9097}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "MAGE" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22367, itemName = "Desecrated Circlet", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 15, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 3, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 3, optional = true },
+						{ t = "turnin", quest = 9097, title = "Frostfire Circlet", npc = 16116, npcName = "Archmage Angela Dosantos", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.7, y = 48.69, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9098}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "MAGE" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22368, itemName = "Desecrated Shoulderpads", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 2, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
+						{ t = "turnin", quest = 9098, title = "Frostfire Shoulderpads", npc = 16116, npcName = "Archmage Angela Dosantos", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.7, y = 48.69, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9099}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "MAGE" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22372, itemName = "Desecrated Sandals", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 2, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
+						{ t = "turnin", quest = 9099, title = "Frostfire Sandals", npc = 16116, npcName = "Archmage Angela Dosantos", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.7, y = 48.69, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9100}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "MAGE" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22371, itemName = "Desecrated Gloves", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 4, optional = true },
+						{ t = "turnin", quest = 9100, title = "Frostfire Gloves", npc = 16116, npcName = "Archmage Angela Dosantos", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.7, y = 48.69, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9101}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "MAGE" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22370, itemName = "Desecrated Belt", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12363, itemName = "Arcane Crystal", count = 2, optional = true },
+						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 2, optional = true },
+						{ t = "turnin", quest = 9101, title = "Frostfire Belt", npc = 16116, npcName = "Archmage Angela Dosantos", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.7, y = 48.69, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9102}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "MAGE" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22369, itemName = "Desecrated Bindings", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 6, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12363, itemName = "Arcane Crystal", count = 1, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 1, optional = true },
+						{ t = "turnin", quest = 9102, title = "Frostfire Bindings", npc = 16116, npcName = "Archmage Angela Dosantos", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.7, y = 48.69, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9103}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "WARLOCK" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22351, itemName = "Desecrated Robe", count = 1, optional = true },
+						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 25, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 4, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 2, optional = true },
+						{ t = "turnin", quest = 9103, title = "Plagueheart Robe", npc = 16133, npcName = "Mataus the Wrathcaster", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.58, y = 48.65, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9104}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "WARLOCK" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22366, itemName = "Desecrated Leggings", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 20, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 4, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 2, optional = true },
+						{ t = "turnin", quest = 9104, title = "Plagueheart Leggings", npc = 16133, npcName = "Mataus the Wrathcaster", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.58, y = 48.65, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9105}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "WARLOCK" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22367, itemName = "Desecrated Circlet", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 15, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 3, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 3, optional = true },
+						{ t = "turnin", quest = 9105, title = "Plagueheart Circlet", npc = 16133, npcName = "Mataus the Wrathcaster", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.58, y = 48.65, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9106}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "WARLOCK" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22368, itemName = "Desecrated Shoulderpads", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 2, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
+						{ t = "turnin", quest = 9106, title = "Plagueheart Shoulderpads", npc = 16133, npcName = "Mataus the Wrathcaster", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.58, y = 48.65, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9107}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "WARLOCK" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22372, itemName = "Desecrated Sandals", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 2, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
+						{ t = "turnin", quest = 9107, title = "Plagueheart Sandals", npc = 16133, npcName = "Mataus the Wrathcaster", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.58, y = 48.65, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9108}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "WARLOCK" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22371, itemName = "Desecrated Gloves", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 4, optional = true },
+						{ t = "turnin", quest = 9108, title = "Plagueheart Gloves", npc = 16133, npcName = "Mataus the Wrathcaster", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.58, y = 48.65, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9109}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "WARLOCK" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22370, itemName = "Desecrated Belt", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12363, itemName = "Arcane Crystal", count = 2, optional = true },
+						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 2, optional = true },
+						{ t = "turnin", quest = 9109, title = "Plagueheart Belt", npc = 16133, npcName = "Mataus the Wrathcaster", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.58, y = 48.65, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9110}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "WARLOCK" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22369, itemName = "Desecrated Bindings", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 6, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12363, itemName = "Arcane Crystal", count = 1, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 1, optional = true },
+						{ t = "turnin", quest = 9110, title = "Plagueheart Bindings", npc = 16133, npcName = "Mataus the Wrathcaster", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.58, y = 48.65, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9111}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "PRIEST" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22351, itemName = "Desecrated Robe", count = 1, optional = true },
+						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 25, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 4, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 2, optional = true },
+						{ t = "turnin", quest = 9111, title = "Robe of Faith", npc = 16113, npcName = "Father Inigo Montoy", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.66, y = 48.58, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9112}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "PRIEST" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22366, itemName = "Desecrated Leggings", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 20, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 4, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 2, optional = true },
+						{ t = "turnin", quest = 9112, title = "Leggings of Faith", npc = 16113, npcName = "Father Inigo Montoy", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.66, y = 48.58, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9113}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "PRIEST" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22367, itemName = "Desecrated Circlet", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 15, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 3, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 3, optional = true },
+						{ t = "turnin", quest = 9113, title = "Circlet of Faith", npc = 16113, npcName = "Father Inigo Montoy", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.66, y = 48.58, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9114}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "PRIEST" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22368, itemName = "Desecrated Shoulderpads", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 2, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
+						{ t = "turnin", quest = 9114, title = "Shoulderpads of Faith", npc = 16113, npcName = "Father Inigo Montoy", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.66, y = 48.58, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9115}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "PRIEST" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22372, itemName = "Desecrated Sandals", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 2, optional = true },
+						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
+						{ t = "turnin", quest = 9115, title = "Sandals of Faith", npc = 16113, npcName = "Father Inigo Montoy", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.66, y = 48.58, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9116}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "PRIEST" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22371, itemName = "Desecrated Gloves", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 4, optional = true },
+						{ t = "turnin", quest = 9116, title = "Gloves of Faith", npc = 16113, npcName = "Father Inigo Montoy", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.66, y = 48.58, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9117}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "PRIEST" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22370, itemName = "Desecrated Belt", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12363, itemName = "Arcane Crystal", count = 2, optional = true },
+						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 2, optional = true },
+						{ t = "turnin", quest = 9117, title = "Belt of Faith", npc = 16113, npcName = "Father Inigo Montoy", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.66, y = 48.58, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "{quest:9118}",
+					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
+					only = { classes = { "PRIEST" } },
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "collect", item = 22369, itemName = "Desecrated Bindings", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
+						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 6, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
+						{ t = "collect", item = 12363, itemName = "Arcane Crystal", count = 1, optional = true },
+						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 1, optional = true },
+						{ t = "turnin", quest = 9118, title = "Bindings of Faith", npc = 16113, npcName = "Father Inigo Montoy", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.66, y = 48.58, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
+					title = "{quest:9120}",
+					note = "Started by an item you may have found on the way; the reference data does not say where it comes from.",
+					when = { { k = "turnedin", q = 9121 }, { k = "has", n = 1, item = 22520 } },
+					goals = {
+						{ t = "accept", quest = 9120, title = "The Fall of Kel'Thuzad", item = 22520, itemName = "The Phylactery of Kel'Thuzad", minLevel = 60, qlvl = 60, pre = { 9121, 9122, 9123 }, preTitles = { [9121] = "The Dread Citadel - Naxxramas", [9122] = "The Dread Citadel - Naxxramas", [9123] = "The Dread Citadel - Naxxramas" }, group = { kind = "raid", map = 533, name = "Naxxramas" } },
+					},
+				},
+				{
+					title = "{quest:9120}",
+					when = { { k = "onquest", q = { 9120 } } },
+					goals = {
+						{ t = "turnin", quest = 9120, title = "The Fall of Kel'Thuzad", npc = 16113, npcName = "Father Inigo Montoy", map = 1423, x = 71.66, y = 48.58, z = 90.9, group = { kind = "raid", map = 533, name = "Naxxramas" } },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
+					title = "{quest:9229}",
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "accept", quest = 9229, title = "The Fate of Ramaladni", npc = 16112, npcName = "Korfax, Champion of the Light", minLevel = 60, qlvl = 60, pre = { 9033 }, preTitles = { [9033] = "Echoes of War" }, map = 1423, x = 71.95, y = 48.52, z = 91.7, group = { kind = "raid", map = 533, name = "Naxxramas" } },
+					},
+				},
+				{
+					title = "{quest:9229}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					when = { { k = "onquest", q = { 9229 } } },
+					goals = {
+						{ t = "complete", quest = 9229, title = "The Fate of Ramaladni", map = 1423, x = 72, y = 48.5, f = "e", group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Fate of Ramaladni", count = 1 } } },
+					},
+				},
+				{
+					title = "{quest:9229}",
+					when = { { k = "onquest", q = { 9229 } } },
+					goals = {
+						{ t = "turnin", quest = 9229, title = "The Fate of Ramaladni", npc = 16112, npcName = "Korfax, Champion of the Light", map = 1423, x = 71.95, y = 48.52, z = 91.7, group = { kind = "raid", map = 533, name = "Naxxramas" } },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
+					title = "{quest:9230}",
+					when = { { k = "turnedin", q = 9229 } },
+					goals = {
+						{ t = "accept", quest = 9230, title = "Ramaladni's Icy Grasp", npc = 16112, npcName = "Korfax, Champion of the Light", minLevel = 60, qlvl = 60, pre = { 9229 }, preTitles = { [9229] = "The Fate of Ramaladni" }, map = 1423, x = 71.95, y = 48.52, z = 91.7, group = { kind = "raid", map = 533, name = "Naxxramas" } },
+					},
+				},
+				{
+					title = "{quest:9230}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					when = { { k = "onquest", q = { 9230 } } },
+					goals = {
+						{ t = "complete", quest = 9230, title = "Ramaladni's Icy Grasp", map = 1423, x = 72, y = 48.5, f = "e", group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Frozen Rune", count = 1 }, { text = "Blue Sapphire", count = 1 }, { text = "Arcanite Bar", count = 1 } } },
+					},
+				},
+				{
+					title = "{quest:9230}",
+					when = { { k = "onquest", q = { 9230 } } },
+					goals = {
+						{ t = "turnin", quest = 9230, title = "Ramaladni's Icy Grasp", npc = 16112, npcName = "Korfax, Champion of the Light", map = 1423, x = 71.95, y = 48.52, z = 91.7, group = { kind = "raid", map = 533, name = "Naxxramas" } },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
+					title = "{quest:9232}",
+					when = { { k = "turnedin", q = 9033 } },
+					goals = {
+						{ t = "accept", quest = 9232, title = "The Only Song I Know...", npc = 16376, npcName = "Craftsman Wilhelm", minLevel = 60, qlvl = 60, pre = { 9033 }, preTitles = { [9033] = "Echoes of War" }, map = 1423, x = 71.24, y = 49.9, z = 81.9, group = { kind = "raid", map = 533, name = "Naxxramas" } },
+					},
+				},
+				{
+					title = "{quest:9232}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					when = { { k = "onquest", q = { 9232 } } },
+					goals = {
+						{ t = "complete", quest = 9232, title = "The Only Song I Know...", map = 1423, x = 71.2, y = 49.9, f = "e", group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Frozen Rune", count = 2 }, { text = "Essence of Water", count = 2 }, { text = "Blue Sapphire", count = 2 } } },
+					},
+				},
+				{
+					title = "{quest:9232}",
+					when = { { k = "onquest", q = { 9232 } } },
+					goals = {
+						{ t = "turnin", quest = 9232, title = "The Only Song I Know...", npc = 16376, npcName = "Craftsman Wilhelm", map = 1423, x = 71.24, y = 49.9, z = 81.9, group = { kind = "raid", map = 533, name = "Naxxramas" } },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:9233}",
 					note = "Needs Revered standing (21000) with {object:92525}; without it the quest is not offered.\nStarted by an item you may have found on the way; the reference data does not say where it comes from.",
 					when = { { k = "turnedin", q = 9121 }, { k = "has", n = 1, item = 22719 } },
@@ -56528,300 +58059,9 @@ do
 					},
 				},
 				{
-					title = "{quest:9246}",
-					only = { classes = { "HUNTER", "SHAMAN" } },
-					when = { { k = "turnedin", q = 9233 } },
+					title = "Level 60",
 					goals = {
-						{ t = "accept", quest = 9246, title = "Icy Scale Breastplate", npc = 16376, npcName = "Craftsman Wilhelm", minLevel = 60, qlvl = 60, pre = { 9233 }, preTitles = { [9233] = "Omarion's Handbook" }, map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
-					},
-				},
-				{
-					title = "{quest:9246}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					only = { classes = { "HUNTER", "SHAMAN" } },
-					when = { { k = "onquest", q = { 9246 } } },
-					goals = {
-						{ t = "complete", quest = 9246, title = "Icy Scale Breastplate", map = 1423, x = 71.2, y = 49.9, f = "e", optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Frozen Rune", count = 8 }, { text = "Heavy Scorpid Scale", count = 24 }, { text = "Essence of Water", count = 7 }, { text = "Cured Rugged Hide", count = 5 } } },
-					},
-				},
-				{
-					title = "{quest:9246}",
-					only = { classes = { "HUNTER", "SHAMAN" } },
-					when = { { k = "onquest", q = { 9246 } } },
-					goals = {
-						{ t = "turnin", quest = 9246, title = "Icy Scale Breastplate", npc = 16376, npcName = "Craftsman Wilhelm", map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
-					},
-				},
-				{
-					title = "{quest:9245}",
-					only = { classes = { "HUNTER", "SHAMAN" } },
-					when = { { k = "turnedin", q = 9233 } },
-					goals = {
-						{ t = "accept", quest = 9245, title = "Icy Scale Gauntlets", npc = 16376, npcName = "Craftsman Wilhelm", minLevel = 60, qlvl = 60, pre = { 9233 }, preTitles = { [9233] = "Omarion's Handbook" }, map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
-					},
-				},
-				{
-					title = "{quest:9245}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					only = { classes = { "HUNTER", "SHAMAN" } },
-					when = { { k = "onquest", q = { 9245 } } },
-					goals = {
-						{ t = "complete", quest = 9245, title = "Icy Scale Gauntlets", map = 1423, x = 71.2, y = 49.9, f = "e", optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Frozen Rune", count = 5 }, { text = "Heavy Scorpid Scale", count = 16 }, { text = "Essence of Water", count = 5 }, { text = "Cured Rugged Hide", count = 3 } } },
-					},
-				},
-				{
-					title = "{quest:9245}",
-					only = { classes = { "HUNTER", "SHAMAN" } },
-					when = { { k = "onquest", q = { 9245 } } },
-					goals = {
-						{ t = "turnin", quest = 9245, title = "Icy Scale Gauntlets", npc = 16376, npcName = "Craftsman Wilhelm", map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
-					},
-				},
-				{
-					title = "{quest:9244}",
-					only = { classes = { "HUNTER", "SHAMAN" } },
-					when = { { k = "turnedin", q = 9233 } },
-					goals = {
-						{ t = "accept", quest = 9244, title = "Icy Scale Bracers", npc = 16376, npcName = "Craftsman Wilhelm", minLevel = 60, qlvl = 60, pre = { 9233 }, preTitles = { [9233] = "Omarion's Handbook" }, map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
-					},
-				},
-				{
-					title = "{quest:9244}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					only = { classes = { "HUNTER", "SHAMAN" } },
-					when = { { k = "onquest", q = { 9244 } } },
-					goals = {
-						{ t = "complete", quest = 9244, title = "Icy Scale Bracers", map = 1423, x = 71.2, y = 49.9, f = "e", optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Frozen Rune", count = 4 }, { text = "Heavy Scorpid Scale", count = 16 }, { text = "Essence of Water", count = 5 }, { text = "Cured Rugged Hide", count = 3 } } },
-					},
-				},
-				{
-					title = "{quest:9244}",
-					only = { classes = { "HUNTER", "SHAMAN" } },
-					when = { { k = "onquest", q = { 9244 } } },
-					goals = {
-						{ t = "turnin", quest = 9244, title = "Icy Scale Bracers", npc = 16376, npcName = "Craftsman Wilhelm", map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
-					},
-				},
-				{
-					title = "{quest:9243}",
-					only = { classes = { "ROGUE", "DRUID" } },
-					when = { { k = "turnedin", q = 9233 } },
-					goals = {
-						{ t = "accept", quest = 9243, title = "Polar Tunic", npc = 16376, npcName = "Craftsman Wilhelm", minLevel = 60, qlvl = 60, pre = { 9233 }, preTitles = { [9233] = "Omarion's Handbook" }, map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
-					},
-				},
-				{
-					title = "{quest:9243}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					only = { classes = { "ROGUE", "DRUID" } },
-					when = { { k = "onquest", q = { 9243 } } },
-					goals = {
-						{ t = "complete", quest = 9243, title = "Polar Tunic", map = 1423, x = 71.2, y = 49.9, f = "e", optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Frozen Rune", count = 8 }, { text = "Enchanted Leather", count = 16 }, { text = "Essence of Water", count = 5 }, { text = "Cured Rugged Hide", count = 5 } } },
-					},
-				},
-				{
-					title = "{quest:9243}",
-					only = { classes = { "ROGUE", "DRUID" } },
-					when = { { k = "onquest", q = { 9243 } } },
-					goals = {
-						{ t = "turnin", quest = 9243, title = "Polar Tunic", npc = 16376, npcName = "Craftsman Wilhelm", map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
-					},
-				},
-				{
-					title = "{quest:9242}",
-					only = { classes = { "ROGUE", "DRUID" } },
-					when = { { k = "turnedin", q = 9233 } },
-					goals = {
-						{ t = "accept", quest = 9242, title = "Polar Gloves", npc = 16376, npcName = "Craftsman Wilhelm", minLevel = 60, qlvl = 60, pre = { 9233 }, preTitles = { [9233] = "Omarion's Handbook" }, map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
-					},
-				},
-				{
-					title = "{quest:9242}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					only = { classes = { "ROGUE", "DRUID" } },
-					when = { { k = "onquest", q = { 9242 } } },
-					goals = {
-						{ t = "complete", quest = 9242, title = "Polar Gloves", map = 1423, x = 71.2, y = 49.9, f = "e", optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Frozen Rune", count = 5 }, { text = "Enchanted Leather", count = 12 }, { text = "Essence of Water", count = 3 }, { text = "Cured Rugged Hide", count = 3 } } },
-					},
-				},
-				{
-					title = "{quest:9242}",
-					only = { classes = { "ROGUE", "DRUID" } },
-					when = { { k = "onquest", q = { 9242 } } },
-					goals = {
-						{ t = "turnin", quest = 9242, title = "Polar Gloves", npc = 16376, npcName = "Craftsman Wilhelm", map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
-					},
-				},
-				{
-					title = "{quest:9241}",
-					only = { classes = { "ROGUE", "DRUID" } },
-					when = { { k = "turnedin", q = 9233 } },
-					goals = {
-						{ t = "accept", quest = 9241, title = "Polar Bracers", npc = 16376, npcName = "Craftsman Wilhelm", minLevel = 60, qlvl = 60, pre = { 9233 }, preTitles = { [9233] = "Omarion's Handbook" }, map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
-					},
-				},
-				{
-					title = "{quest:9241}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					only = { classes = { "ROGUE", "DRUID" } },
-					when = { { k = "onquest", q = { 9241 } } },
-					goals = {
-						{ t = "complete", quest = 9241, title = "Polar Bracers", map = 1423, x = 71.2, y = 49.9, f = "e", optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Frozen Rune", count = 4 }, { text = "Enchanted Leather", count = 12 }, { text = "Essence of Water", count = 3 }, { text = "Cured Rugged Hide", count = 3 } } },
-					},
-				},
-				{
-					title = "{quest:9241}",
-					only = { classes = { "ROGUE", "DRUID" } },
-					when = { { k = "onquest", q = { 9241 } } },
-					goals = {
-						{ t = "turnin", quest = 9241, title = "Polar Bracers", npc = 16376, npcName = "Craftsman Wilhelm", map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
-					},
-				},
-				{
-					title = "{quest:9240}",
-					only = { classes = { "PRIEST", "MAGE", "WARLOCK" } },
-					when = { { k = "turnedin", q = 9233 } },
-					goals = {
-						{ t = "accept", quest = 9240, title = "Glacial Vest", npc = 16376, npcName = "Craftsman Wilhelm", minLevel = 60, qlvl = 60, pre = { 9233 }, preTitles = { [9233] = "Omarion's Handbook" }, map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
-					},
-				},
-				{
-					title = "{quest:9240}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					only = { classes = { "PRIEST", "MAGE", "WARLOCK" } },
-					when = { { k = "onquest", q = { 9240 } } },
-					goals = {
-						{ t = "complete", quest = 9240, title = "Glacial Vest", map = 1423, x = 71.2, y = 49.9, f = "e", optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Frozen Rune", count = 8 }, { text = "Bolt of Runecloth", count = 8 }, { text = "Essence of Water", count = 6 }, { text = "Ironweb Spider Silk", count = 4 } } },
-					},
-				},
-				{
-					title = "{quest:9240}",
-					only = { classes = { "PRIEST", "MAGE", "WARLOCK" } },
-					when = { { k = "onquest", q = { 9240 } } },
-					goals = {
-						{ t = "turnin", quest = 9240, title = "Glacial Vest", npc = 16376, npcName = "Craftsman Wilhelm", map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
-					},
-				},
-				{
-					title = "{quest:9239}",
-					only = { classes = { "PRIEST", "MAGE", "WARLOCK" } },
-					when = { { k = "turnedin", q = 9233 } },
-					goals = {
-						{ t = "accept", quest = 9239, title = "Glacial Gloves", npc = 16376, npcName = "Craftsman Wilhelm", minLevel = 60, qlvl = 60, pre = { 9233 }, preTitles = { [9233] = "Omarion's Handbook" }, map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
-					},
-				},
-				{
-					title = "{quest:9239}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					only = { classes = { "PRIEST", "MAGE", "WARLOCK" } },
-					when = { { k = "onquest", q = { 9239 } } },
-					goals = {
-						{ t = "complete", quest = 9239, title = "Glacial Gloves", map = 1423, x = 71.2, y = 49.9, f = "e", optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Frozen Rune", count = 5 }, { text = "Bolt of Runecloth", count = 4 }, { text = "Essence of Water", count = 4 }, { text = "Ironweb Spider Silk", count = 2 } } },
-					},
-				},
-				{
-					title = "{quest:9239}",
-					only = { classes = { "PRIEST", "MAGE", "WARLOCK" } },
-					when = { { k = "onquest", q = { 9239 } } },
-					goals = {
-						{ t = "turnin", quest = 9239, title = "Glacial Gloves", npc = 16376, npcName = "Craftsman Wilhelm", map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
-					},
-				},
-				{
-					title = "{quest:9238}",
-					only = { classes = { "PRIEST", "MAGE", "WARLOCK" } },
-					when = { { k = "turnedin", q = 9233 } },
-					goals = {
-						{ t = "accept", quest = 9238, title = "Glacial Wrists", npc = 16376, npcName = "Craftsman Wilhelm", minLevel = 60, qlvl = 60, pre = { 9233 }, preTitles = { [9233] = "Omarion's Handbook" }, map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
-					},
-				},
-				{
-					title = "{quest:9238}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					only = { classes = { "PRIEST", "MAGE", "WARLOCK" } },
-					when = { { k = "onquest", q = { 9238 } } },
-					goals = {
-						{ t = "complete", quest = 9238, title = "Glacial Wrists", map = 1423, x = 71.2, y = 49.9, f = "e", optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Frozen Rune", count = 4 }, { text = "Bolt of Runecloth", count = 2 }, { text = "Essence of Water", count = 2 }, { text = "Ironweb Spider Silk", count = 2 } } },
-					},
-				},
-				{
-					title = "{quest:9238}",
-					only = { classes = { "PRIEST", "MAGE", "WARLOCK" } },
-					when = { { k = "onquest", q = { 9238 } } },
-					goals = {
-						{ t = "turnin", quest = 9238, title = "Glacial Wrists", npc = 16376, npcName = "Craftsman Wilhelm", map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
-					},
-				},
-				{
-					title = "{quest:9237}",
-					when = { { k = "turnedin", q = 9233 } },
-					goals = {
-						{ t = "accept", quest = 9237, title = "Glacial Cloak", npc = 16376, npcName = "Craftsman Wilhelm", minLevel = 60, qlvl = 60, pre = { 9233 }, preTitles = { [9233] = "Omarion's Handbook" }, map = 1423, x = 71.24, y = 49.9, z = 81.9, group = { kind = "raid", map = 533, name = "Naxxramas" } },
-					},
-				},
-				{
-					title = "{quest:9237}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					when = { { k = "onquest", q = { 9237 } } },
-					goals = {
-						{ t = "complete", quest = 9237, title = "Glacial Cloak", map = 1423, x = 71.2, y = 49.9, f = "e", group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Frozen Rune", count = 5 }, { text = "Bolt of Runecloth", count = 4 }, { text = "Essence of Water", count = 2 }, { text = "Ironweb Spider Silk", count = 4 } } },
-					},
-				},
-				{
-					title = "{quest:9237}",
-					when = { { k = "onquest", q = { 9237 } } },
-					goals = {
-						{ t = "turnin", quest = 9237, title = "Glacial Cloak", npc = 16376, npcName = "Craftsman Wilhelm", map = 1423, x = 71.24, y = 49.9, z = 81.9, group = { kind = "raid", map = 533, name = "Naxxramas" } },
-					},
-				},
-				{
-					title = "{quest:9236}",
-					only = { classes = { "WARRIOR", "PALADIN" } },
-					when = { { k = "turnedin", q = 9233 } },
-					goals = {
-						{ t = "accept", quest = 9236, title = "Icebane Breastplate", npc = 16376, npcName = "Craftsman Wilhelm", minLevel = 60, qlvl = 60, pre = { 9233 }, preTitles = { [9233] = "Omarion's Handbook" }, map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
-					},
-				},
-				{
-					title = "{quest:9236}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					only = { classes = { "WARRIOR", "PALADIN" } },
-					when = { { k = "onquest", q = { 9236 } } },
-					goals = {
-						{ t = "complete", quest = 9236, title = "Icebane Breastplate", map = 1423, x = 71.2, y = 49.9, f = "e", optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Frozen Rune", count = 8 }, { text = "Thorium Bar", count = 16 }, { text = "Arcanite Bar", count = 2 }, { text = "Essence of Water", count = 4 } } },
-					},
-				},
-				{
-					title = "{quest:9236}",
-					only = { classes = { "WARRIOR", "PALADIN" } },
-					when = { { k = "onquest", q = { 9236 } } },
-					goals = {
-						{ t = "turnin", quest = 9236, title = "Icebane Breastplate", npc = 16376, npcName = "Craftsman Wilhelm", map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
-					},
-				},
-				{
-					title = "{quest:9235}",
-					only = { classes = { "WARRIOR", "PALADIN" } },
-					when = { { k = "turnedin", q = 9233 } },
-					goals = {
-						{ t = "accept", quest = 9235, title = "Icebane Bracers", npc = 16376, npcName = "Craftsman Wilhelm", minLevel = 60, qlvl = 60, pre = { 9233 }, preTitles = { [9233] = "Omarion's Handbook" }, map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
-					},
-				},
-				{
-					title = "{quest:9235}",
-					note = "The reference data does not place this quest's objective: follow the quest text.",
-					only = { classes = { "WARRIOR", "PALADIN" } },
-					when = { { k = "onquest", q = { 9235 } } },
-					goals = {
-						{ t = "complete", quest = 9235, title = "Icebane Bracers", map = 1423, x = 71.2, y = 49.9, f = "e", optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Frozen Rune", count = 4 }, { text = "Thorium Bar", count = 12 }, { text = "Arcanite Bar", count = 2 }, { text = "Essence of Water", count = 2 } } },
-					},
-				},
-				{
-					title = "{quest:9235}",
-					only = { classes = { "WARRIOR", "PALADIN" } },
-					when = { { k = "onquest", q = { 9235 } } },
-					goals = {
-						{ t = "turnin", quest = 9235, title = "Icebane Bracers", npc = 16376, npcName = "Craftsman Wilhelm", map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -56850,1046 +58090,372 @@ do
 					},
 				},
 				{
-					title = "{quest:9120}",
-					note = "Started by an item you may have found on the way; the reference data does not say where it comes from.",
-					when = { { k = "turnedin", q = 9121 }, { k = "has", n = 1, item = 22520 } },
+					title = "Level 60",
 					goals = {
-						{ t = "accept", quest = 9120, title = "The Fall of Kel'Thuzad", item = 22520, itemName = "The Phylactery of Kel'Thuzad", minLevel = 60, qlvl = 60, pre = { 9121, 9122, 9123 }, preTitles = { [9121] = "The Dread Citadel - Naxxramas", [9122] = "The Dread Citadel - Naxxramas", [9123] = "The Dread Citadel - Naxxramas" }, group = { kind = "raid", map = 533, name = "Naxxramas" } },
+						{ t = "level", level = 60 },
 					},
 				},
 				{
-					title = "{quest:9120}",
-					when = { { k = "onquest", q = { 9120 } } },
+					title = "{quest:9235}",
+					only = { classes = { "WARRIOR", "PALADIN" } },
+					when = { { k = "turnedin", q = 9233 } },
 					goals = {
-						{ t = "turnin", quest = 9120, title = "The Fall of Kel'Thuzad", npc = 16113, npcName = "Father Inigo Montoy", map = 1423, x = 71.66, y = 48.58, z = 90.9, group = { kind = "raid", map = 533, name = "Naxxramas" } },
+						{ t = "accept", quest = 9235, title = "Icebane Bracers", npc = 16376, npcName = "Craftsman Wilhelm", minLevel = 60, qlvl = 60, pre = { 9233 }, preTitles = { [9233] = "Omarion's Handbook" }, map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
 					},
 				},
 				{
-					title = "{quest:9033}",
-					when = { { k = "turnedin", q = 9121 } },
-					goals = {
-						{ t = "accept", quest = 9033, title = "Echoes of War", npc = 16115, npcName = "Commander Eligor Dawnbringer", minLevel = 60, qlvl = 60, pre = { 9121, 9122, 9123 }, preTitles = { [9121] = "The Dread Citadel - Naxxramas", [9122] = "The Dread Citadel - Naxxramas", [9123] = "The Dread Citadel - Naxxramas" }, map = 1423, x = 71.72, y = 48.59, z = 90.9, group = { kind = "raid", map = 533, name = "Naxxramas" } },
-					},
-				},
-				{
-					title = "{quest:9033}",
+					title = "{quest:9235}",
 					note = "The reference data does not place this quest's objective: follow the quest text.",
-					when = { { k = "onquest", q = { 9033 } } },
+					only = { classes = { "WARRIOR", "PALADIN" } },
+					when = { { k = "onquest", q = { 9235 } } },
 					goals = {
-						{ t = "complete", quest = 9033, title = "Echoes of War", map = 1423, x = 71.7, y = 48.6, f = "e", group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Deathknight Captain", count = 8 }, { text = "Venom Stalker", count = 3 }, { text = "Living Monstrosity", count = 5 }, { text = "Stoneskin Gargoyle", count = 5 } } },
+						{ t = "complete", quest = 9235, title = "Icebane Bracers", map = 1423, x = 71.2, y = 49.9, f = "e", optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Frozen Rune", count = 4 }, { text = "Thorium Bar", count = 12 }, { text = "Arcanite Bar", count = 2 }, { text = "Essence of Water", count = 2 } } },
 					},
 				},
 				{
-					title = "{quest:9033}",
-					when = { { k = "onquest", q = { 9033 } } },
+					title = "{quest:9235}",
+					only = { classes = { "WARRIOR", "PALADIN" } },
+					when = { { k = "onquest", q = { 9235 } } },
 					goals = {
-						{ t = "turnin", quest = 9033, title = "Echoes of War", npc = 16115, npcName = "Commander Eligor Dawnbringer", map = 1423, x = 71.72, y = 48.59, z = 90.9, group = { kind = "raid", map = 533, name = "Naxxramas" } },
+						{ t = "turnin", quest = 9235, title = "Icebane Bracers", npc = 16376, npcName = "Craftsman Wilhelm", map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
 					},
 				},
 				{
-					title = "{quest:9232}",
-					when = { { k = "turnedin", q = 9033 } },
+					title = "Level 60",
 					goals = {
-						{ t = "accept", quest = 9232, title = "The Only Song I Know...", npc = 16376, npcName = "Craftsman Wilhelm", minLevel = 60, qlvl = 60, pre = { 9033 }, preTitles = { [9033] = "Echoes of War" }, map = 1423, x = 71.24, y = 49.9, z = 81.9, group = { kind = "raid", map = 533, name = "Naxxramas" } },
+						{ t = "level", level = 60 },
 					},
 				},
 				{
-					title = "{quest:9232}",
+					title = "{quest:9236}",
+					only = { classes = { "WARRIOR", "PALADIN" } },
+					when = { { k = "turnedin", q = 9233 } },
+					goals = {
+						{ t = "accept", quest = 9236, title = "Icebane Breastplate", npc = 16376, npcName = "Craftsman Wilhelm", minLevel = 60, qlvl = 60, pre = { 9233 }, preTitles = { [9233] = "Omarion's Handbook" }, map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
+					},
+				},
+				{
+					title = "{quest:9236}",
 					note = "The reference data does not place this quest's objective: follow the quest text.",
-					when = { { k = "onquest", q = { 9232 } } },
+					only = { classes = { "WARRIOR", "PALADIN" } },
+					when = { { k = "onquest", q = { 9236 } } },
 					goals = {
-						{ t = "complete", quest = 9232, title = "The Only Song I Know...", map = 1423, x = 71.2, y = 49.9, f = "e", group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Frozen Rune", count = 2 }, { text = "Essence of Water", count = 2 }, { text = "Blue Sapphire", count = 2 } } },
+						{ t = "complete", quest = 9236, title = "Icebane Breastplate", map = 1423, x = 71.2, y = 49.9, f = "e", optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Frozen Rune", count = 8 }, { text = "Thorium Bar", count = 16 }, { text = "Arcanite Bar", count = 2 }, { text = "Essence of Water", count = 4 } } },
 					},
 				},
 				{
-					title = "{quest:9232}",
-					when = { { k = "onquest", q = { 9232 } } },
+					title = "{quest:9236}",
+					only = { classes = { "WARRIOR", "PALADIN" } },
+					when = { { k = "onquest", q = { 9236 } } },
 					goals = {
-						{ t = "turnin", quest = 9232, title = "The Only Song I Know...", npc = 16376, npcName = "Craftsman Wilhelm", map = 1423, x = 71.24, y = 49.9, z = 81.9, group = { kind = "raid", map = 533, name = "Naxxramas" } },
+						{ t = "turnin", quest = 9236, title = "Icebane Breastplate", npc = 16376, npcName = "Craftsman Wilhelm", map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
 					},
 				},
 				{
-					title = "{quest:9229}",
-					when = { { k = "turnedin", q = 9033 } },
+					title = "Level 60",
 					goals = {
-						{ t = "accept", quest = 9229, title = "The Fate of Ramaladni", npc = 16112, npcName = "Korfax, Champion of the Light", minLevel = 60, qlvl = 60, pre = { 9033 }, preTitles = { [9033] = "Echoes of War" }, map = 1423, x = 71.95, y = 48.52, z = 91.7, group = { kind = "raid", map = 533, name = "Naxxramas" } },
+						{ t = "level", level = 60 },
 					},
 				},
 				{
-					title = "{quest:9229}",
+					title = "{quest:9237}",
+					when = { { k = "turnedin", q = 9233 } },
+					goals = {
+						{ t = "accept", quest = 9237, title = "Glacial Cloak", npc = 16376, npcName = "Craftsman Wilhelm", minLevel = 60, qlvl = 60, pre = { 9233 }, preTitles = { [9233] = "Omarion's Handbook" }, map = 1423, x = 71.24, y = 49.9, z = 81.9, group = { kind = "raid", map = 533, name = "Naxxramas" } },
+					},
+				},
+				{
+					title = "{quest:9237}",
 					note = "The reference data does not place this quest's objective: follow the quest text.",
-					when = { { k = "onquest", q = { 9229 } } },
+					when = { { k = "onquest", q = { 9237 } } },
 					goals = {
-						{ t = "complete", quest = 9229, title = "The Fate of Ramaladni", map = 1423, x = 72, y = 48.5, f = "e", group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Fate of Ramaladni", count = 1 } } },
+						{ t = "complete", quest = 9237, title = "Glacial Cloak", map = 1423, x = 71.2, y = 49.9, f = "e", group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Frozen Rune", count = 5 }, { text = "Bolt of Runecloth", count = 4 }, { text = "Essence of Water", count = 2 }, { text = "Ironweb Spider Silk", count = 4 } } },
 					},
 				},
 				{
-					title = "{quest:9229}",
-					when = { { k = "onquest", q = { 9229 } } },
+					title = "{quest:9237}",
+					when = { { k = "onquest", q = { 9237 } } },
 					goals = {
-						{ t = "turnin", quest = 9229, title = "The Fate of Ramaladni", npc = 16112, npcName = "Korfax, Champion of the Light", map = 1423, x = 71.95, y = 48.52, z = 91.7, group = { kind = "raid", map = 533, name = "Naxxramas" } },
+						{ t = "turnin", quest = 9237, title = "Glacial Cloak", npc = 16376, npcName = "Craftsman Wilhelm", map = 1423, x = 71.24, y = 49.9, z = 81.9, group = { kind = "raid", map = 533, name = "Naxxramas" } },
 					},
 				},
 				{
-					title = "{quest:9230}",
-					when = { { k = "turnedin", q = 9229 } },
+					title = "Level 60",
 					goals = {
-						{ t = "accept", quest = 9230, title = "Ramaladni's Icy Grasp", npc = 16112, npcName = "Korfax, Champion of the Light", minLevel = 60, qlvl = 60, pre = { 9229 }, preTitles = { [9229] = "The Fate of Ramaladni" }, map = 1423, x = 71.95, y = 48.52, z = 91.7, group = { kind = "raid", map = 533, name = "Naxxramas" } },
+						{ t = "level", level = 60 },
 					},
 				},
 				{
-					title = "{quest:9230}",
+					title = "{quest:9238}",
+					only = { classes = { "PRIEST", "MAGE", "WARLOCK" } },
+					when = { { k = "turnedin", q = 9233 } },
+					goals = {
+						{ t = "accept", quest = 9238, title = "Glacial Wrists", npc = 16376, npcName = "Craftsman Wilhelm", minLevel = 60, qlvl = 60, pre = { 9233 }, preTitles = { [9233] = "Omarion's Handbook" }, map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
+					},
+				},
+				{
+					title = "{quest:9238}",
 					note = "The reference data does not place this quest's objective: follow the quest text.",
-					when = { { k = "onquest", q = { 9230 } } },
+					only = { classes = { "PRIEST", "MAGE", "WARLOCK" } },
+					when = { { k = "onquest", q = { 9238 } } },
 					goals = {
-						{ t = "complete", quest = 9230, title = "Ramaladni's Icy Grasp", map = 1423, x = 72, y = 48.5, f = "e", group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Frozen Rune", count = 1 }, { text = "Blue Sapphire", count = 1 }, { text = "Arcanite Bar", count = 1 } } },
+						{ t = "complete", quest = 9238, title = "Glacial Wrists", map = 1423, x = 71.2, y = 49.9, f = "e", optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Frozen Rune", count = 4 }, { text = "Bolt of Runecloth", count = 2 }, { text = "Essence of Water", count = 2 }, { text = "Ironweb Spider Silk", count = 2 } } },
 					},
 				},
 				{
-					title = "{quest:9230}",
-					when = { { k = "onquest", q = { 9230 } } },
+					title = "{quest:9238}",
+					only = { classes = { "PRIEST", "MAGE", "WARLOCK" } },
+					when = { { k = "onquest", q = { 9238 } } },
 					goals = {
-						{ t = "turnin", quest = 9230, title = "Ramaladni's Icy Grasp", npc = 16112, npcName = "Korfax, Champion of the Light", map = 1423, x = 71.95, y = 48.52, z = 91.7, group = { kind = "raid", map = 533, name = "Naxxramas" } },
+						{ t = "turnin", quest = 9238, title = "Glacial Wrists", npc = 16376, npcName = "Craftsman Wilhelm", map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
 					},
 				},
 				{
-					title = "{quest:9118}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "PRIEST" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "Level 60",
 					goals = {
-						{ t = "collect", item = 22369, itemName = "Desecrated Bindings", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 6, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12363, itemName = "Arcane Crystal", count = 1, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 1, optional = true },
-						{ t = "turnin", quest = 9118, title = "Bindings of Faith", npc = 16113, npcName = "Father Inigo Montoy", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.66, y = 48.58, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "level", level = 60 },
 					},
 				},
 				{
-					title = "{quest:9117}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "PRIEST" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "{quest:9239}",
+					only = { classes = { "PRIEST", "MAGE", "WARLOCK" } },
+					when = { { k = "turnedin", q = 9233 } },
 					goals = {
-						{ t = "collect", item = 22370, itemName = "Desecrated Belt", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12363, itemName = "Arcane Crystal", count = 2, optional = true },
-						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 2, optional = true },
-						{ t = "turnin", quest = 9117, title = "Belt of Faith", npc = 16113, npcName = "Father Inigo Montoy", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.66, y = 48.58, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "accept", quest = 9239, title = "Glacial Gloves", npc = 16376, npcName = "Craftsman Wilhelm", minLevel = 60, qlvl = 60, pre = { 9233 }, preTitles = { [9233] = "Omarion's Handbook" }, map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
 					},
 				},
 				{
-					title = "{quest:9116}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "PRIEST" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "{quest:9239}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					only = { classes = { "PRIEST", "MAGE", "WARLOCK" } },
+					when = { { k = "onquest", q = { 9239 } } },
 					goals = {
-						{ t = "collect", item = 22371, itemName = "Desecrated Gloves", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 4, optional = true },
-						{ t = "turnin", quest = 9116, title = "Gloves of Faith", npc = 16113, npcName = "Father Inigo Montoy", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.66, y = 48.58, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "complete", quest = 9239, title = "Glacial Gloves", map = 1423, x = 71.2, y = 49.9, f = "e", optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Frozen Rune", count = 5 }, { text = "Bolt of Runecloth", count = 4 }, { text = "Essence of Water", count = 4 }, { text = "Ironweb Spider Silk", count = 2 } } },
 					},
 				},
 				{
-					title = "{quest:9115}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "PRIEST" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "{quest:9239}",
+					only = { classes = { "PRIEST", "MAGE", "WARLOCK" } },
+					when = { { k = "onquest", q = { 9239 } } },
 					goals = {
-						{ t = "collect", item = 22372, itemName = "Desecrated Sandals", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 2, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
-						{ t = "turnin", quest = 9115, title = "Sandals of Faith", npc = 16113, npcName = "Father Inigo Montoy", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.66, y = 48.58, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "turnin", quest = 9239, title = "Glacial Gloves", npc = 16376, npcName = "Craftsman Wilhelm", map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
 					},
 				},
 				{
-					title = "{quest:9114}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "PRIEST" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "Level 60",
 					goals = {
-						{ t = "collect", item = 22368, itemName = "Desecrated Shoulderpads", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 2, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
-						{ t = "turnin", quest = 9114, title = "Shoulderpads of Faith", npc = 16113, npcName = "Father Inigo Montoy", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.66, y = 48.58, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "level", level = 60 },
 					},
 				},
 				{
-					title = "{quest:9113}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "PRIEST" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "{quest:9240}",
+					only = { classes = { "PRIEST", "MAGE", "WARLOCK" } },
+					when = { { k = "turnedin", q = 9233 } },
 					goals = {
-						{ t = "collect", item = 22367, itemName = "Desecrated Circlet", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 15, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 3, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 3, optional = true },
-						{ t = "turnin", quest = 9113, title = "Circlet of Faith", npc = 16113, npcName = "Father Inigo Montoy", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.66, y = 48.58, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "accept", quest = 9240, title = "Glacial Vest", npc = 16376, npcName = "Craftsman Wilhelm", minLevel = 60, qlvl = 60, pre = { 9233 }, preTitles = { [9233] = "Omarion's Handbook" }, map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
 					},
 				},
 				{
-					title = "{quest:9112}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "PRIEST" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "{quest:9240}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					only = { classes = { "PRIEST", "MAGE", "WARLOCK" } },
+					when = { { k = "onquest", q = { 9240 } } },
 					goals = {
-						{ t = "collect", item = 22366, itemName = "Desecrated Leggings", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 20, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 4, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 2, optional = true },
-						{ t = "turnin", quest = 9112, title = "Leggings of Faith", npc = 16113, npcName = "Father Inigo Montoy", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.66, y = 48.58, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "complete", quest = 9240, title = "Glacial Vest", map = 1423, x = 71.2, y = 49.9, f = "e", optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Frozen Rune", count = 8 }, { text = "Bolt of Runecloth", count = 8 }, { text = "Essence of Water", count = 6 }, { text = "Ironweb Spider Silk", count = 4 } } },
 					},
 				},
 				{
-					title = "{quest:9111}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "PRIEST" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "{quest:9240}",
+					only = { classes = { "PRIEST", "MAGE", "WARLOCK" } },
+					when = { { k = "onquest", q = { 9240 } } },
 					goals = {
-						{ t = "collect", item = 22351, itemName = "Desecrated Robe", count = 1, optional = true },
-						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 25, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 4, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 2, optional = true },
-						{ t = "turnin", quest = 9111, title = "Robe of Faith", npc = 16113, npcName = "Father Inigo Montoy", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.66, y = 48.58, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "turnin", quest = 9240, title = "Glacial Vest", npc = 16376, npcName = "Craftsman Wilhelm", map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
 					},
 				},
 				{
-					title = "{quest:9110}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "WARLOCK" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "Level 60",
 					goals = {
-						{ t = "collect", item = 22369, itemName = "Desecrated Bindings", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 6, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12363, itemName = "Arcane Crystal", count = 1, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 1, optional = true },
-						{ t = "turnin", quest = 9110, title = "Plagueheart Bindings", npc = 16133, npcName = "Mataus the Wrathcaster", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.58, y = 48.65, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "level", level = 60 },
 					},
 				},
 				{
-					title = "{quest:9109}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "WARLOCK" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "{quest:9241}",
+					only = { classes = { "ROGUE", "DRUID" } },
+					when = { { k = "turnedin", q = 9233 } },
 					goals = {
-						{ t = "collect", item = 22370, itemName = "Desecrated Belt", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12363, itemName = "Arcane Crystal", count = 2, optional = true },
-						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 2, optional = true },
-						{ t = "turnin", quest = 9109, title = "Plagueheart Belt", npc = 16133, npcName = "Mataus the Wrathcaster", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.58, y = 48.65, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "accept", quest = 9241, title = "Polar Bracers", npc = 16376, npcName = "Craftsman Wilhelm", minLevel = 60, qlvl = 60, pre = { 9233 }, preTitles = { [9233] = "Omarion's Handbook" }, map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
 					},
 				},
 				{
-					title = "{quest:9108}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "WARLOCK" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "{quest:9241}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					only = { classes = { "ROGUE", "DRUID" } },
+					when = { { k = "onquest", q = { 9241 } } },
 					goals = {
-						{ t = "collect", item = 22371, itemName = "Desecrated Gloves", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 4, optional = true },
-						{ t = "turnin", quest = 9108, title = "Plagueheart Gloves", npc = 16133, npcName = "Mataus the Wrathcaster", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.58, y = 48.65, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "complete", quest = 9241, title = "Polar Bracers", map = 1423, x = 71.2, y = 49.9, f = "e", optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Frozen Rune", count = 4 }, { text = "Enchanted Leather", count = 12 }, { text = "Essence of Water", count = 3 }, { text = "Cured Rugged Hide", count = 3 } } },
 					},
 				},
 				{
-					title = "{quest:9107}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "WARLOCK" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "{quest:9241}",
+					only = { classes = { "ROGUE", "DRUID" } },
+					when = { { k = "onquest", q = { 9241 } } },
 					goals = {
-						{ t = "collect", item = 22372, itemName = "Desecrated Sandals", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 2, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
-						{ t = "turnin", quest = 9107, title = "Plagueheart Sandals", npc = 16133, npcName = "Mataus the Wrathcaster", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.58, y = 48.65, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "turnin", quest = 9241, title = "Polar Bracers", npc = 16376, npcName = "Craftsman Wilhelm", map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
 					},
 				},
 				{
-					title = "{quest:9106}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "WARLOCK" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "Level 60",
 					goals = {
-						{ t = "collect", item = 22368, itemName = "Desecrated Shoulderpads", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 2, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
-						{ t = "turnin", quest = 9106, title = "Plagueheart Shoulderpads", npc = 16133, npcName = "Mataus the Wrathcaster", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.58, y = 48.65, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "level", level = 60 },
 					},
 				},
 				{
-					title = "{quest:9105}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "WARLOCK" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "{quest:9242}",
+					only = { classes = { "ROGUE", "DRUID" } },
+					when = { { k = "turnedin", q = 9233 } },
 					goals = {
-						{ t = "collect", item = 22367, itemName = "Desecrated Circlet", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 15, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 3, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 3, optional = true },
-						{ t = "turnin", quest = 9105, title = "Plagueheart Circlet", npc = 16133, npcName = "Mataus the Wrathcaster", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.58, y = 48.65, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "accept", quest = 9242, title = "Polar Gloves", npc = 16376, npcName = "Craftsman Wilhelm", minLevel = 60, qlvl = 60, pre = { 9233 }, preTitles = { [9233] = "Omarion's Handbook" }, map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
 					},
 				},
 				{
-					title = "{quest:9104}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "WARLOCK" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "{quest:9242}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					only = { classes = { "ROGUE", "DRUID" } },
+					when = { { k = "onquest", q = { 9242 } } },
 					goals = {
-						{ t = "collect", item = 22366, itemName = "Desecrated Leggings", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 20, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 4, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 2, optional = true },
-						{ t = "turnin", quest = 9104, title = "Plagueheart Leggings", npc = 16133, npcName = "Mataus the Wrathcaster", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.58, y = 48.65, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "complete", quest = 9242, title = "Polar Gloves", map = 1423, x = 71.2, y = 49.9, f = "e", optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Frozen Rune", count = 5 }, { text = "Enchanted Leather", count = 12 }, { text = "Essence of Water", count = 3 }, { text = "Cured Rugged Hide", count = 3 } } },
 					},
 				},
 				{
-					title = "{quest:9103}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "WARLOCK" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "{quest:9242}",
+					only = { classes = { "ROGUE", "DRUID" } },
+					when = { { k = "onquest", q = { 9242 } } },
 					goals = {
-						{ t = "collect", item = 22351, itemName = "Desecrated Robe", count = 1, optional = true },
-						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 25, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 4, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 2, optional = true },
-						{ t = "turnin", quest = 9103, title = "Plagueheart Robe", npc = 16133, npcName = "Mataus the Wrathcaster", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.58, y = 48.65, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "turnin", quest = 9242, title = "Polar Gloves", npc = 16376, npcName = "Craftsman Wilhelm", map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
 					},
 				},
 				{
-					title = "{quest:9102}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "MAGE" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "Level 60",
 					goals = {
-						{ t = "collect", item = 22369, itemName = "Desecrated Bindings", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 6, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12363, itemName = "Arcane Crystal", count = 1, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 1, optional = true },
-						{ t = "turnin", quest = 9102, title = "Frostfire Bindings", npc = 16116, npcName = "Archmage Angela Dosantos", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.7, y = 48.69, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "level", level = 60 },
 					},
 				},
 				{
-					title = "{quest:9101}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "MAGE" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "{quest:9243}",
+					only = { classes = { "ROGUE", "DRUID" } },
+					when = { { k = "turnedin", q = 9233 } },
 					goals = {
-						{ t = "collect", item = 22370, itemName = "Desecrated Belt", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12363, itemName = "Arcane Crystal", count = 2, optional = true },
-						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 2, optional = true },
-						{ t = "turnin", quest = 9101, title = "Frostfire Belt", npc = 16116, npcName = "Archmage Angela Dosantos", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.7, y = 48.69, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "accept", quest = 9243, title = "Polar Tunic", npc = 16376, npcName = "Craftsman Wilhelm", minLevel = 60, qlvl = 60, pre = { 9233 }, preTitles = { [9233] = "Omarion's Handbook" }, map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
 					},
 				},
 				{
-					title = "{quest:9100}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "MAGE" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "{quest:9243}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					only = { classes = { "ROGUE", "DRUID" } },
+					when = { { k = "onquest", q = { 9243 } } },
 					goals = {
-						{ t = "collect", item = 22371, itemName = "Desecrated Gloves", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 4, optional = true },
-						{ t = "turnin", quest = 9100, title = "Frostfire Gloves", npc = 16116, npcName = "Archmage Angela Dosantos", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.7, y = 48.69, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "complete", quest = 9243, title = "Polar Tunic", map = 1423, x = 71.2, y = 49.9, f = "e", optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Frozen Rune", count = 8 }, { text = "Enchanted Leather", count = 16 }, { text = "Essence of Water", count = 5 }, { text = "Cured Rugged Hide", count = 5 } } },
 					},
 				},
 				{
-					title = "{quest:9099}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "MAGE" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "{quest:9243}",
+					only = { classes = { "ROGUE", "DRUID" } },
+					when = { { k = "onquest", q = { 9243 } } },
 					goals = {
-						{ t = "collect", item = 22372, itemName = "Desecrated Sandals", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 2, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
-						{ t = "turnin", quest = 9099, title = "Frostfire Sandals", npc = 16116, npcName = "Archmage Angela Dosantos", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.7, y = 48.69, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "turnin", quest = 9243, title = "Polar Tunic", npc = 16376, npcName = "Craftsman Wilhelm", map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
 					},
 				},
 				{
-					title = "{quest:9098}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "MAGE" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "Level 60",
 					goals = {
-						{ t = "collect", item = 22368, itemName = "Desecrated Shoulderpads", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 2, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
-						{ t = "turnin", quest = 9098, title = "Frostfire Shoulderpads", npc = 16116, npcName = "Archmage Angela Dosantos", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.7, y = 48.69, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "level", level = 60 },
 					},
 				},
 				{
-					title = "{quest:9097}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "MAGE" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "{quest:9244}",
+					only = { classes = { "HUNTER", "SHAMAN" } },
+					when = { { k = "turnedin", q = 9233 } },
 					goals = {
-						{ t = "collect", item = 22367, itemName = "Desecrated Circlet", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 15, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 3, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 3, optional = true },
-						{ t = "turnin", quest = 9097, title = "Frostfire Circlet", npc = 16116, npcName = "Archmage Angela Dosantos", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.7, y = 48.69, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "accept", quest = 9244, title = "Icy Scale Bracers", npc = 16376, npcName = "Craftsman Wilhelm", minLevel = 60, qlvl = 60, pre = { 9233 }, preTitles = { [9233] = "Omarion's Handbook" }, map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
 					},
 				},
 				{
-					title = "{quest:9096}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "MAGE" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "{quest:9244}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					only = { classes = { "HUNTER", "SHAMAN" } },
+					when = { { k = "onquest", q = { 9244 } } },
 					goals = {
-						{ t = "collect", item = 22366, itemName = "Desecrated Leggings", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 20, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 4, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 2, optional = true },
-						{ t = "turnin", quest = 9096, title = "Frostfire Leggings", npc = 16116, npcName = "Archmage Angela Dosantos", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.7, y = 48.69, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "complete", quest = 9244, title = "Icy Scale Bracers", map = 1423, x = 71.2, y = 49.9, f = "e", optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Frozen Rune", count = 4 }, { text = "Heavy Scorpid Scale", count = 16 }, { text = "Essence of Water", count = 5 }, { text = "Cured Rugged Hide", count = 3 } } },
 					},
 				},
 				{
-					title = "{quest:9095}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "MAGE" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "{quest:9244}",
+					only = { classes = { "HUNTER", "SHAMAN" } },
+					when = { { k = "onquest", q = { 9244 } } },
 					goals = {
-						{ t = "collect", item = 22351, itemName = "Desecrated Robe", count = 1, optional = true },
-						{ t = "collect", item = 22376, itemName = "Wartorn Cloth Scrap", count = 25, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 4, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 2, optional = true },
-						{ t = "turnin", quest = 9095, title = "Frostfire Robe", npc = 16116, npcName = "Archmage Angela Dosantos", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.7, y = 48.69, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "turnin", quest = 9244, title = "Icy Scale Bracers", npc = 16376, npcName = "Craftsman Wilhelm", map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
 					},
 				},
 				{
-					title = "{quest:9093}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "DRUID" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "Level 60",
 					goals = {
-						{ t = "collect", item = 22362, itemName = "Desecrated Wristguards", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 6, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12363, itemName = "Arcane Crystal", count = 1, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 2, optional = true },
-						{ t = "turnin", quest = 9093, title = "Dreamwalker Wristguards", npc = 16135, npcName = "Rayne", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.41, y = 49.35, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "level", level = 60 },
 					},
 				},
 				{
-					title = "{quest:9092}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "DRUID" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "{quest:9245}",
+					only = { classes = { "HUNTER", "SHAMAN" } },
+					when = { { k = "turnedin", q = 9233 } },
 					goals = {
-						{ t = "collect", item = 22363, itemName = "Desecrated Girdle", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 3, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 2, optional = true },
-						{ t = "turnin", quest = 9092, title = "Dreamwalker Girdle", npc = 16135, npcName = "Rayne", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.41, y = 49.35, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "accept", quest = 9245, title = "Icy Scale Gauntlets", npc = 16376, npcName = "Craftsman Wilhelm", minLevel = 60, qlvl = 60, pre = { 9233 }, preTitles = { [9233] = "Omarion's Handbook" }, map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
 					},
 				},
 				{
-					title = "{quest:9091}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "DRUID" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "{quest:9245}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					only = { classes = { "HUNTER", "SHAMAN" } },
+					when = { { k = "onquest", q = { 9245 } } },
 					goals = {
-						{ t = "collect", item = 22364, itemName = "Desecrated Handguards", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 5, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 1, optional = true },
-						{ t = "turnin", quest = 9091, title = "Dreamwalker Handguards", npc = 16135, npcName = "Rayne", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.41, y = 49.35, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "complete", quest = 9245, title = "Icy Scale Gauntlets", map = 1423, x = 71.2, y = 49.9, f = "e", optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Frozen Rune", count = 5 }, { text = "Heavy Scorpid Scale", count = 16 }, { text = "Essence of Water", count = 5 }, { text = "Cured Rugged Hide", count = 3 } } },
 					},
 				},
 				{
-					title = "{quest:9090}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "DRUID" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "{quest:9245}",
+					only = { classes = { "HUNTER", "SHAMAN" } },
+					when = { { k = "onquest", q = { 9245 } } },
 					goals = {
-						{ t = "collect", item = 22365, itemName = "Desecrated Boots", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 3, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 2, optional = true },
-						{ t = "turnin", quest = 9090, title = "Dreamwalker Boots", npc = 16135, npcName = "Rayne", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.41, y = 49.35, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "turnin", quest = 9245, title = "Icy Scale Gauntlets", npc = 16376, npcName = "Craftsman Wilhelm", map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
 					},
 				},
 				{
-					title = "{quest:9089}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "DRUID" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "Level 60",
 					goals = {
-						{ t = "collect", item = 22361, itemName = "Desecrated Spaulders", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 5, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 1, optional = true },
-						{ t = "turnin", quest = 9089, title = "Dreamwalker Spaulders", npc = 16135, npcName = "Rayne", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.41, y = 49.35, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "level", level = 60 },
 					},
 				},
 				{
-					title = "{quest:9088}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "DRUID" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "{quest:9246}",
+					only = { classes = { "HUNTER", "SHAMAN" } },
+					when = { { k = "turnedin", q = 9233 } },
 					goals = {
-						{ t = "collect", item = 22360, itemName = "Desecrated Headpiece", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 15, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 6, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 2, optional = true },
-						{ t = "turnin", quest = 9088, title = "Dreamwalker Headpiece", npc = 16135, npcName = "Rayne", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.41, y = 49.35, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "accept", quest = 9246, title = "Icy Scale Breastplate", npc = 16376, npcName = "Craftsman Wilhelm", minLevel = 60, qlvl = 60, pre = { 9233 }, preTitles = { [9233] = "Omarion's Handbook" }, map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
 					},
 				},
 				{
-					title = "{quest:9087}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "DRUID" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "{quest:9246}",
+					note = "The reference data does not place this quest's objective: follow the quest text.",
+					only = { classes = { "HUNTER", "SHAMAN" } },
+					when = { { k = "onquest", q = { 9246 } } },
 					goals = {
-						{ t = "collect", item = 22359, itemName = "Desecrated Legguards", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 20, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 8, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 1, optional = true },
-						{ t = "turnin", quest = 9087, title = "Dreamwalker Legguards", npc = 16135, npcName = "Rayne", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.41, y = 49.35, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
+						{ t = "complete", quest = 9246, title = "Icy Scale Breastplate", map = 1423, x = 71.2, y = 49.9, f = "e", optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, objs = { { text = "Frozen Rune", count = 8 }, { text = "Heavy Scorpid Scale", count = 24 }, { text = "Essence of Water", count = 7 }, { text = "Cured Rugged Hide", count = 5 } } },
 					},
 				},
 				{
-					title = "{quest:9086}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "DRUID" } },
-					when = { { k = "turnedin", q = 9033 } },
+					title = "{quest:9246}",
+					only = { classes = { "HUNTER", "SHAMAN" } },
+					when = { { k = "onquest", q = { 9246 } } },
 					goals = {
-						{ t = "collect", item = 22350, itemName = "Desecrated Tunic", count = 1, optional = true },
-						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 25, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 6, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 2, optional = true },
-						{ t = "turnin", quest = 9086, title = "Dreamwalker Tunic", npc = 16135, npcName = "Rayne", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.41, y = 49.35, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9084}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "ROGUE" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22355, itemName = "Desecrated Bracers", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 6, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 2, optional = true },
-						{ t = "turnin", quest = 9084, title = "Bonescythe Bracers", npc = 16131, npcName = "Rohan the Assassin", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.62, y = 48.91, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9083}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "ROGUE" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22356, itemName = "Desecrated Waistguard", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 5, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 1, optional = true },
-						{ t = "turnin", quest = 9083, title = "Bonescythe Waistguard", npc = 16131, npcName = "Rohan the Assassin", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.62, y = 48.91, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9082}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "ROGUE" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22357, itemName = "Desecrated Gauntlets", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 5, optional = true },
-						{ t = "turnin", quest = 9082, title = "Bonescythe Gauntlets", npc = 16131, npcName = "Rohan the Assassin", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.62, y = 48.91, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9081}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "ROGUE" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22358, itemName = "Desecrated Sabatons", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 2, optional = true },
-						{ t = "turnin", quest = 9081, title = "Bonescythe Sabatons", npc = 16131, npcName = "Rohan the Assassin", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.62, y = 48.91, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9080}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "ROGUE" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22354, itemName = "Desecrated Pauldrons", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 5, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 1, optional = true },
-						{ t = "turnin", quest = 9080, title = "Bonescythe Pauldrons", npc = 16131, npcName = "Rohan the Assassin", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.62, y = 48.91, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9079}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "ROGUE" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22353, itemName = "Desecrated Helmet", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 15, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 8, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 1, optional = true },
-						{ t = "turnin", quest = 9079, title = "Bonescythe Helmet", npc = 16131, npcName = "Rohan the Assassin", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.62, y = 48.91, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9078}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "ROGUE" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22352, itemName = "Desecrated Legplates", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 20, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 8, optional = true },
-						{ t = "turnin", quest = 9078, title = "Bonescythe Legplates", npc = 16131, npcName = "Rohan the Assassin", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.62, y = 48.91, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9077}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "ROGUE" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22349, itemName = "Desecrated Breastplate", count = 1, optional = true },
-						{ t = "collect", item = 22373, itemName = "Wartorn Leather Scrap", count = 25, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 2, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 6, optional = true },
-						{ t = "turnin", quest = 9077, title = "Bonescythe Breastplate", npc = 16131, npcName = "Rohan the Assassin", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.62, y = 48.91, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9075}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "SHAMAN" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22362, itemName = "Desecrated Wristguards", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 6, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 2, optional = true },
-						{ t = "turnin", quest = 9075, title = "Earthshatter Wristguards", npc = 16134, npcName = "Rimblat Earthshatter", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.34, y = 49.36, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9074}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "SHAMAN" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22363, itemName = "Desecrated Girdle", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 3, optional = true },
-						{ t = "turnin", quest = 9074, title = "Earthshatter Girdle", npc = 16134, npcName = "Rimblat Earthshatter", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.34, y = 49.36, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9073}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "SHAMAN" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22364, itemName = "Desecrated Handguards", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 5, optional = true },
-						{ t = "turnin", quest = 9073, title = "Earthshatter Handguards", npc = 16134, npcName = "Rimblat Earthshatter", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.34, y = 49.36, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9072}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "SHAMAN" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22365, itemName = "Desecrated Boots", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 3, optional = true },
-						{ t = "turnin", quest = 9072, title = "Earthshatter Boots", npc = 16134, npcName = "Rimblat Earthshatter", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.34, y = 49.36, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9071}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "SHAMAN" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22361, itemName = "Desecrated Spaulders", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 2, optional = true },
-						{ t = "collect", item = 14342, itemName = "Mooncloth", count = 2, optional = true },
-						{ t = "turnin", quest = 9071, title = "Earthshatter Spaulders", npc = 16134, npcName = "Rimblat Earthshatter", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.34, y = 49.36, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9070}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "SHAMAN" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22360, itemName = "Desecrated Headpiece", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 15, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 4, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 2, optional = true },
-						{ t = "turnin", quest = 9070, title = "Earthshatter Headpiece", npc = 16134, npcName = "Rimblat Earthshatter", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.34, y = 49.36, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9069}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "SHAMAN" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22359, itemName = "Desecrated Legguards", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 20, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 3, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 5, optional = true },
-						{ t = "turnin", quest = 9069, title = "Earthshatter Legguards", npc = 16134, npcName = "Rimblat Earthshatter", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.34, y = 49.36, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9068}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "SHAMAN" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22350, itemName = "Desecrated Tunic", count = 1, optional = true },
-						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 25, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 4, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
-						{ t = "turnin", quest = 9068, title = "Earthshatter Tunic", npc = 16134, npcName = "Rimblat Earthshatter", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.34, y = 49.36, z = 88.8, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9061}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "HUNTER" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22362, itemName = "Desecrated Wristguards", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 6, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 2, optional = true },
-						{ t = "turnin", quest = 9061, title = "Cryptstalker Wristguards", npc = 16132, npcName = "Huntsman Leopold", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.69, y = 48.94, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9060}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "HUNTER" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22363, itemName = "Desecrated Girdle", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 3, optional = true },
-						{ t = "turnin", quest = 9060, title = "Cryptstalker Girdle", npc = 16132, npcName = "Huntsman Leopold", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.69, y = 48.94, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9059}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "HUNTER" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22364, itemName = "Desecrated Handguards", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 5, optional = true },
-						{ t = "turnin", quest = 9059, title = "Cryptstalker Handguards", npc = 16132, npcName = "Huntsman Leopold", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.69, y = 48.94, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9058}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "HUNTER" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22365, itemName = "Desecrated Boots", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 3, optional = true },
-						{ t = "turnin", quest = 9058, title = "Cryptstalker Boots", npc = 16132, npcName = "Huntsman Leopold", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.69, y = 48.94, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9057}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "HUNTER" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22361, itemName = "Desecrated Spaulders", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 2, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
-						{ t = "turnin", quest = 9057, title = "Cryptstalker Spaulders", npc = 16132, npcName = "Huntsman Leopold", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.69, y = 48.94, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9056}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "HUNTER" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22360, itemName = "Desecrated Headpiece", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 15, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 4, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 2, optional = true },
-						{ t = "turnin", quest = 9056, title = "Cryptstalker Headpiece", npc = 16132, npcName = "Huntsman Leopold", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.69, y = 48.94, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9055}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "HUNTER" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22359, itemName = "Desecrated Legguards", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 20, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 3, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 5, optional = true },
-						{ t = "turnin", quest = 9055, title = "Cryptstalker Legguards", npc = 16132, npcName = "Huntsman Leopold", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.69, y = 48.94, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9054}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "HUNTER" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22350, itemName = "Desecrated Tunic", count = 1, optional = true },
-						{ t = "collect", item = 22374, itemName = "Wartorn Chain Scrap", count = 25, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 4, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
-						{ t = "turnin", quest = 9054, title = "Cryptstalker Tunic", npc = 16132, npcName = "Huntsman Leopold", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.69, y = 48.94, z = 91, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9050}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "PALADIN" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22362, itemName = "Desecrated Wristguards", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 6, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 2, optional = true },
-						{ t = "turnin", quest = 9050, title = "Redemption Wristguards", npc = 16115, npcName = "Commander Eligor Dawnbringer", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.72, y = 48.59, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9049}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "PALADIN" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22363, itemName = "Desecrated Girdle", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 3, optional = true },
-						{ t = "turnin", quest = 9049, title = "Redemption Girdle", npc = 16115, npcName = "Commander Eligor Dawnbringer", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.72, y = 48.59, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9048}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "PALADIN" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22364, itemName = "Desecrated Handguards", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 5, optional = true },
-						{ t = "turnin", quest = 9048, title = "Redemption Handguards", npc = 16115, npcName = "Commander Eligor Dawnbringer", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.72, y = 48.59, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9047}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "PALADIN" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22365, itemName = "Desecrated Boots", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 2, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
-						{ t = "turnin", quest = 9047, title = "Redemption Boots", npc = 16115, npcName = "Commander Eligor Dawnbringer", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.72, y = 48.59, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9046}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "PALADIN" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22361, itemName = "Desecrated Spaulders", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 2, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 2, optional = true },
-						{ t = "turnin", quest = 9046, title = "Redemption Spaulders", npc = 16115, npcName = "Commander Eligor Dawnbringer", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.72, y = 48.59, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9045}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "PALADIN" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22360, itemName = "Desecrated Headpiece", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 15, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 5, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 2, optional = true },
-						{ t = "turnin", quest = 9045, title = "Redemption Headpiece", npc = 16115, npcName = "Commander Eligor Dawnbringer", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.72, y = 48.59, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9044}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "PALADIN" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22359, itemName = "Desecrated Legguards", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 20, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 4, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 2, optional = true },
-						{ t = "turnin", quest = 9044, title = "Redemption Legguards", npc = 16115, npcName = "Commander Eligor Dawnbringer", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.72, y = 48.59, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9043}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "PALADIN" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22350, itemName = "Desecrated Tunic", count = 1, optional = true },
-						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 25, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 4, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
-						{ t = "turnin", quest = 9043, title = "Redemption Tunic", npc = 16115, npcName = "Commander Eligor Dawnbringer", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.72, y = 48.59, z = 90.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9042}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "WARRIOR" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22355, itemName = "Desecrated Bracers", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 6, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 1, optional = true },
-						{ t = "turnin", quest = 9042, title = "Dreadnaught Bracers", npc = 16112, npcName = "Korfax, Champion of the Light", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.95, y = 48.52, z = 91.7, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9041}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "WARRIOR" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22356, itemName = "Desecrated Waistguard", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 5, optional = true },
-						{ t = "turnin", quest = 9041, title = "Dreadnaught Waistguard", npc = 16112, npcName = "Korfax, Champion of the Light", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.95, y = 48.52, z = 91.7, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9040}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "WARRIOR" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22357, itemName = "Desecrated Gauntlets", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 8, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 1, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 5, optional = true },
-						{ t = "turnin", quest = 9040, title = "Dreadnaught Gauntlets", npc = 16112, npcName = "Korfax, Champion of the Light", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.95, y = 48.52, z = 91.7, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9039}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "WARRIOR" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22358, itemName = "Desecrated Sabatons", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 2, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
-						{ t = "turnin", quest = 9039, title = "Dreadnaught Sabatons", npc = 16112, npcName = "Korfax, Champion of the Light", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.95, y = 48.52, z = 91.7, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9038}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "WARRIOR" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22354, itemName = "Desecrated Pauldrons", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 12, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 2, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
-						{ t = "turnin", quest = 9038, title = "Dreadnaught Pauldrons", npc = 16112, npcName = "Korfax, Champion of the Light", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.95, y = 48.52, z = 91.7, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9037}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "WARRIOR" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22353, itemName = "Desecrated Helmet", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 15, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 5, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 1, optional = true },
-						{ t = "turnin", quest = 9037, title = "Dreadnaught Helmet", npc = 16112, npcName = "Korfax, Champion of the Light", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.95, y = 48.52, z = 91.7, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9036}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "WARRIOR" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22352, itemName = "Desecrated Legplates", count = 1, optional = true, group = { kind = "elite", lvl = 63, rank = 3 } },
-						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 20, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 4, optional = true },
-						{ t = "collect", item = 15407, itemName = "Cured Rugged Hide", count = 3, optional = true },
-						{ t = "turnin", quest = 9036, title = "Dreadnaught Legplates", npc = 16112, npcName = "Korfax, Champion of the Light", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.95, y = 48.52, z = 91.7, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{quest:9034}",
-					note = "Needs Honored standing (9000) with {object:92525}; without it the quest is not offered.\nA repeatable quest: hand it in once, with what it asks for.",
-					only = { classes = { "WARRIOR" } },
-					when = { { k = "turnedin", q = 9033 } },
-					goals = {
-						{ t = "collect", item = 22349, itemName = "Desecrated Breastplate", count = 1, optional = true },
-						{ t = "collect", item = 22375, itemName = "Wartorn Plate Scrap", count = 25, optional = true, group = { kind = "elite", lvl = 63, rank = 1 } },
-						{ t = "collect", item = 12360, itemName = "Arcanite Bar", count = 4, optional = true },
-						{ t = "collect", item = 20725, itemName = "Nexus Crystal", count = 2, optional = true },
-						{ t = "turnin", quest = 9034, title = "Dreadnaught Breastplate", npc = 16112, npcName = "Korfax, Champion of the Light", minLevel = 60, qlvl = 60, pre = { 9033 }, map = 1423, x = 71.95, y = 48.52, z = 91.7, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" }, direct = true },
-					},
-				},
-				{
-					title = "{npc:15192}",
-					only = { classes = { "PRIEST", "MAGE", "WARLOCK", "DRUID" } },
-					goals = {
-						{ t = "turnin", quest = 9251, title = "Atiesh, the Befouled Greatstaff", npc = 15192, npcName = "Anachronos", map = 1446, x = 65.27, y = 50.03, z = 28.1, f = "e" },
+						{ t = "turnin", quest = 9246, title = "Icy Scale Breastplate", npc = 16376, npcName = "Craftsman Wilhelm", map = 1423, x = 71.24, y = 49.9, z = 81.9, optional = true, group = { kind = "raid", map = 533, name = "Naxxramas" } },
 					},
 				},
 			},
@@ -57906,7 +58472,7 @@ do
 			pack = "polestar-completionist-horde",
 			title = "{area:2159} (Completionist)",
 			faction = "Horde",
-			minLevel = 60,
+			minLevel = 59,
 			maxLevel = 60,
 			category = "Dungeons",
 			why = "Every Horde quest of {area:2159}: the chains that lead to it, the pick-ups before the run and the hand-ins after it.",
@@ -57922,6 +58488,12 @@ do
 					title = "Getting there",
 					goals = {
 						{ t = "note", text = "The entrance is in {zone:1445}: the arrow leads to it. This is a raid: it needs a raid group." },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -57941,6 +58513,12 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:7508}",
 					only = { classes = { "WARRIOR", "PALADIN" } },
 					goals = {
@@ -57952,6 +58530,12 @@ do
 					only = { classes = { "WARRIOR", "PALADIN" } },
 					goals = {
 						{ t = "turnin", quest = 7508, title = "The Forging of Quel'Serrar", npc = 14368, npcName = "Lorekeeper Lydros", map = 1445, x = 52.6, y = 76.8, f = "e", group = { kind = "dungeon", map = 429, name = "Dire Maul" } },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -57969,6 +58553,12 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:7633}",
 					only = { classes = { "HUNTER" } },
 					goals = {
@@ -57983,10 +58573,22 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{npc:14368}",
 					only = { classes = { "WARRIOR", "PALADIN" } },
 					goals = {
 						{ t = "accept", quest = 7509, title = "The Forging of Quel'Serrar", npc = 14368, npcName = "Lorekeeper Lydros", minLevel = 60, qlvl = 60, pre = { 7508 }, preTitles = { [7508] = "The Forging of Quel'Serrar" }, map = 1445, x = 52.6, y = 76.8, f = "e", group = { kind = "raid", map = 249, name = "Onyxia's Lair" } },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -58031,6 +58633,12 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:7493}",
 					when = { { k = "turnedin", q = 7491 }, { k = "skill", n = 300, name = "Leatherworking", skillLine = 165 } },
 					goals = {
@@ -58042,6 +58650,12 @@ do
 					when = { { k = "onquest", q = { 7493 } } },
 					goals = {
 						{ t = "turnin", quest = 7493, title = "The Journey Has Just Begun", npc = 14392, npcName = "Overlord Runthak", map = 1454, x = 51.71, y = 75.46, z = 8.1, f = "e", optional = true, profLine = 165, profName = "Leatherworking", profRank = 300 },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -58057,6 +58671,12 @@ do
 					when = { { k = "onquest", q = { 7490 } } },
 					goals = {
 						{ t = "turnin", quest = 7490, title = "Victory for the Horde", npc = 4949, npcName = "Thrall", map = 1454, x = 31.73, y = 37.82, z = 43, f = "e" },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -58087,7 +58707,7 @@ do
 			pack = "polestar-completionist-horde",
 			title = "{area:3454} (Completionist)",
 			faction = "Horde",
-			minLevel = 60,
+			minLevel = 59,
 			maxLevel = 60,
 			category = "Dungeons",
 			why = "Every Horde quest of {area:3454}: the chains that lead to it, the pick-ups before the run and the hand-ins after it.",
@@ -58106,9 +58726,21 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:8747}",
 					goals = {
 						{ t = "accept", quest = 8747, title = "The Path of the Protector", npc = 15192, npcName = "Anachronos", minLevel = 60, qlvl = 60, closedBy = { 8752, 8757 }, endNpcs = { 15192 }, xp = 6600, preTitles = { [8752] = "The Path of the Conqueror", [8757] = "The Path of the Invoker" }, map = 1446, x = 65.27, y = 50.03, z = 28.1, f = "e" },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -58117,6 +58749,12 @@ do
 					when = { { k = "available", q = 8757, minLevel = 60, closedBy = { 8747, 8752 } } },
 					goals = {
 						{ t = "accept", quest = 8757, title = "The Path of the Invoker", npc = 15192, npcName = "Anachronos", minLevel = 60, qlvl = 60, closedBy = { 8747, 8752 }, endNpcs = { 15192 }, xp = 6600, preTitles = { [8747] = "The Path of the Protector", [8752] = "The Path of the Conqueror" }, map = 1446, x = 65.27, y = 50.03, z = 28.1, f = "e", optional = true },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -58148,11 +58786,23 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:8757}",
 					note = "One of several exclusive quests; the route takes {quest:8747} (8748). This one shows for a character the game offers it to instead.\nNeeds Friendly standing (3000) with {npc:15185}; without it the quest is not offered.",
 					when = { { k = "available", q = 8758, minLevel = 60, pre = { 8757 }, closedBy = { 8748, 8753, 8747, 8752 } }, { k = "turnedin", q = 8757 } },
 					goals = {
 						{ t = "accept", quest = 8758, title = "The Path of the Invoker", npc = 15192, npcName = "Anachronos", minLevel = 60, qlvl = 60, pre = { 8757 }, closedBy = { 8748, 8753, 8747, 8752 }, endNpcs = { 15192 }, xp = 6600, preTitles = { [8747] = "The Path of the Protector", [8748] = "The Path of the Protector", [8752] = "The Path of the Conqueror", [8753] = "The Path of the Conqueror", [8757] = "The Path of the Invoker" }, map = 1446, x = 65.27, y = 50.03, z = 28.1, f = "e", optional = true },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -58194,11 +58844,23 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:8758}",
 					note = "One of several exclusive quests; the route takes {quest:8747} (8749). This one shows for a character the game offers it to instead.\nNeeds Honored standing (9000) with {npc:15185}; without it the quest is not offered.",
 					when = { { k = "available", q = 8759, minLevel = 60, pre = { 8758 }, closedBy = { 8749, 8754, 8747, 8752 } }, { k = "turnedin", q = 8758 } },
 					goals = {
 						{ t = "accept", quest = 8759, title = "The Path of the Invoker", npc = 15192, npcName = "Anachronos", minLevel = 60, qlvl = 60, pre = { 8758 }, closedBy = { 8749, 8754, 8747, 8752 }, endNpcs = { 15192 }, xp = 6600, preTitles = { [8747] = "The Path of the Protector", [8749] = "The Path of the Protector", [8752] = "The Path of the Conqueror", [8754] = "The Path of the Conqueror", [8758] = "The Path of the Invoker" }, map = 1446, x = 65.27, y = 50.03, z = 28.1, f = "e", optional = true },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -58240,11 +58902,23 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:8759}",
 					note = "One of several exclusive quests; the route takes {quest:8747} (8750). This one shows for a character the game offers it to instead.\nNeeds Revered standing (21000) with {npc:15185}; without it the quest is not offered.",
 					when = { { k = "available", q = 8760, minLevel = 60, pre = { 8759 }, closedBy = { 8750, 8755, 8747, 8752 } }, { k = "turnedin", q = 8759 } },
 					goals = {
 						{ t = "accept", quest = 8760, title = "The Path of the Invoker", npc = 15192, npcName = "Anachronos", minLevel = 60, qlvl = 60, pre = { 8759 }, closedBy = { 8750, 8755, 8747, 8752 }, endNpcs = { 15192 }, xp = 6600, preTitles = { [8747] = "The Path of the Protector", [8750] = "The Path of the Protector", [8752] = "The Path of the Conqueror", [8755] = "The Path of the Conqueror", [8759] = "The Path of the Invoker" }, map = 1446, x = 65.27, y = 50.03, z = 28.1, f = "e", optional = true },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -58286,11 +58960,23 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{quest:8761}",
 					note = "One of several exclusive quests; the route takes {quest:8751} (8751). This one shows for a character the game offers it to instead.\nNeeds Exalted standing (42000) with {npc:15185}; without it the quest is not offered.",
 					when = { { k = "available", q = 8761, minLevel = 60, pre = { 8760 }, closedBy = { 8751, 8756, 8747, 8752 } }, { k = "turnedin", q = 8760 } },
 					goals = {
 						{ t = "accept", quest = 8761, title = "The Grand Invoker", npc = 15192, npcName = "Anachronos", minLevel = 60, qlvl = 60, pre = { 8760 }, closedBy = { 8751, 8756, 8747, 8752 }, endNpcs = { 15192 }, xp = 9950, preTitles = { [8747] = "The Path of the Protector", [8751] = "The Protector of Kalimdor", [8752] = "The Path of the Conqueror", [8756] = "The Qiraji Conqueror", [8760] = "The Path of the Invoker" }, map = 1446, x = 65.27, y = 50.03, z = 28.1, f = "e", optional = true },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{
@@ -58332,6 +59018,12 @@ do
 					},
 				},
 				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
+					},
+				},
+				{
 					title = "{npc:16091}",
 					goals = {
 						{ t = "accept", quest = 9023, title = "The Perfect Poison", npc = 16091, npcName = "Dirk Thunderwood", minLevel = 60, qlvl = 60, map = 1451, x = 52.13, y = 39.14, z = 45.7, f = "e" },
@@ -58359,6 +59051,12 @@ do
 						{ t = "collect", item = 20862, itemName = "Crystal Scarab", count = 15, optional = true },
 						{ t = "collect", item = 20863, itemName = "Clay Scarab", count = 15, optional = true },
 						{ t = "turnin", quest = 8765, title = "The Changing of Paths - Invoker No More", npc = 15192, npcName = "Anachronos", minLevel = 60, qlvl = 60, pre = { 8761 }, map = 1446, x = 65.27, y = 50.03, z = 28.1, f = "e", optional = true, direct = true },
+					},
+				},
+				{
+					title = "Level 60",
+					goals = {
+						{ t = "level", level = 60 },
 					},
 				},
 				{

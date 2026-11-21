@@ -142,40 +142,6 @@ step Gakin the Darkbinder
   zone Durotar
   accept 1798 npc 6122
 
-step Summon Felsteed
-  only Warlock
-  when available 4487
-  tip One of several exclusive quests; the route takes Summon Felsteed (4488). This one shows for a character the game offers it to instead.
-  zone map 1455
-  accept 4487 optional
-
-step Knowledge of the Orb of Orahil
-  only Warlock
-  when available 4965
-  tip One of several exclusive quests; the route takes Knowledge of the Orb of Orahil (4968). This one shows for a character the game offers it to instead.
-  zone map 1455
-  accept 4965 optional
-
-step In Search of Menara Voidrender
-  only Warlock
-  when available 4736
-  tip One of several exclusive quests; the route takes In Search of Menara Voidrender (4738). This one shows for a character the game offers it to instead.
-  zone map 1455
-  accept 4736 optional
-
-step Gakin's Summons
-  only Warlock
-  when available 1717
-  tip One of several exclusive quests; the route takes Devourer of Souls (1716). This one shows for a character the game offers it to instead.
-  zone map 1455
-  accept 1717 optional
-
-step Gakin's Summons
-  only Warlock
-  when onquest 1717
-  zone map 1453
-  turnin 1717 optional
-
 step The Slaughtered Lamb
   only Warlock
   when available 1715
@@ -238,24 +204,6 @@ step Acolyte Wytula
   accept 4962
   turnin 1798
   accept 1758
-
-step Summon Felsteed
-  only Warlock
-  when onquest 4487
-  zone map 1413
-  turnin 4487 optional
-
-step Knowledge of the Orb of Orahil
-  only Warlock
-  when onquest 4965
-  zone map 1413
-  turnin 4965 optional
-
-step In Search of Menara Voidrender
-  only Warlock
-  when onquest 4736
-  zone map 1413
-  turnin 4736 optional
 
 step Shard of an Infernal
   only Warlock
@@ -420,13 +368,6 @@ step Menara Voidrender
   zone The Barrens
   turnin 4976
 
-step The Completed Orb of Dar'Orahil
-  only Warlock
-  when available 4964
-  tip One of several exclusive quests; the route takes Shard of an Infernal (4963). This one shows for a character the game offers it to instead.
-  zone map 1413
-  accept 4964 optional
-
 step The Completed Orb of Noh'Orahil
   only Warlock
   when available 4975
@@ -449,18 +390,6 @@ step The Completed Orb of Noh'Orahil
 step Components for the Enchanted Gold Bloodrobe
   only Warlock
   turnin 4782 optional
-
-step The Completed Orb of Dar'Orahil
-  only Warlock
-  when onquest 4964
-  zone map 1413
-  complete 4964 @62.5,35.5 optional
-
-step The Completed Orb of Dar'Orahil
-  only Warlock
-  when onquest 4964
-  zone map 1413
-  turnin 4964 optional
 
 step Components for the Enchanted Gold Bloodrobe
   only Warlock
@@ -501,7 +430,6 @@ step The Completed Robe
   only Warlock
   turnin 4786 optional
 
-
 step Atiesh, Greatstaff of the Guardian
   only Warlock
   when turnedin 9251
@@ -520,3 +448,74 @@ step Atiesh, Greatstaff of the Guardian
   when onquest 9271
   zone map 1446
   turnin 9271 optional
+
+step Gakin's Summons
+  only Warlock
+  when available 1717
+  tip One of several exclusive quests; the route takes Devourer of Souls (1716). This one shows for a character the game offers it to instead.
+  zone map 1455
+  accept 1717 optional
+
+step Gakin's Summons
+  only Warlock
+  when onquest 1717
+  zone map 1453
+  turnin 1717 optional
+
+step In Search of Menara Voidrender
+  only Warlock
+  when available 4736
+  tip One of several exclusive quests; the route takes In Search of Menara Voidrender (4738). This one shows for a character the game offers it to instead.
+  zone map 1455
+  accept 4736 optional
+
+step In Search of Menara Voidrender
+  only Warlock
+  when onquest 4736
+  zone map 1413
+  turnin 4736 optional
+
+step Knowledge of the Orb of Orahil
+  only Warlock
+  when available 4965
+  tip One of several exclusive quests; the route takes Knowledge of the Orb of Orahil (4968). This one shows for a character the game offers it to instead.
+  zone map 1455
+  accept 4965 optional
+
+step Knowledge of the Orb of Orahil
+  only Warlock
+  when onquest 4965
+  zone map 1413
+  turnin 4965 optional
+
+step Summon Felsteed
+  only Warlock
+  when available 4487
+  tip One of several exclusive quests; the route takes Summon Felsteed (4488). This one shows for a character the game offers it to instead.
+  zone map 1455
+  accept 4487 optional
+
+step Summon Felsteed
+  only Warlock
+  when onquest 4487
+  zone map 1413
+  turnin 4487 optional
+
+step The Completed Orb of Dar'Orahil
+  only Warlock
+  when available 4964
+  tip One of several exclusive quests; the route takes Shard of an Infernal (4963). This one shows for a character the game offers it to instead.
+  zone map 1413
+  accept 4964 optional
+
+step The Completed Orb of Dar'Orahil
+  only Warlock
+  when onquest 4964
+  zone map 1413
+  complete 4964 @62.5,35.5 optional
+
+step The Completed Orb of Dar'Orahil
+  only Warlock
+  when onquest 4964
+  zone map 1413
+  turnin 4964 optional

@@ -2,13 +2,16 @@ guide polestar-completionist-horde/raid-onyxias-lair
 title Onyxia's Lair (Completionist)
 faction Horde
 category Dungeons
-levels 60-60
+levels 59-60
 zone Dustwallow Marsh
 pitch Onyxia's Lair, in Dustwallow Marsh. A raid.
 why Every Horde quest of Onyxia's Lair: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
 
 step Getting there
   note The entrance is in Dustwallow Marsh: the arrow leads to it. This is a raid: it needs a raid group.
+
+step Level 60
+  level 60
 
 step Nostro's Compendium
   only Warrior,Paladin
@@ -21,6 +24,9 @@ step Nostro's Compendium
   zone Dustwallow Marsh
   turnin 7507 @52.6,76.8
 
+step Level 60
+  level 60
+
 step The Forging of Quel'Serrar
   only Warrior,Paladin
   zone Dustwallow Marsh
@@ -30,6 +36,9 @@ step The Forging of Quel'Serrar
   only Warrior,Paladin
   zone Dustwallow Marsh
   turnin 7508 @52.6,76.8
+
+step Level 60
+  level 60
 
 step The Ancient Leaf
   only Hunter
@@ -41,6 +50,9 @@ step The Ancient Leaf
   zone Felwood
   turnin 7632
 
+step Level 60
+  level 60
+
 step An Introduction
   only Hunter
   zone Felwood
@@ -51,10 +63,16 @@ step An Introduction
   zone Felwood
   turnin 7633
 
+step Level 60
+  level 60
+
 step Lorekeeper Lydros
   only Warrior,Paladin
   zone Dustwallow Marsh
   accept 7509 @52.6,76.8
+
+step Level 60
+  level 60
 
 step Stoma the Ancient
   only Hunter
@@ -85,6 +103,9 @@ step Stoma the Ancient
   zone Felwood
   turnin 7635
 
+step Level 60
+  level 60
+
 step The Journey Has Just Begun
   when turnedin 7491
   when skill Leatherworking 300
@@ -96,6 +117,8 @@ step The Journey Has Just Begun
   zone map 1454
   turnin 7493 optional
 
+step Level 60
+  level 60
 
 step Victory for the Horde
   when turnedin 6602
@@ -108,6 +131,9 @@ step Victory for the Horde
   when onquest 7490
   zone map 1454
   turnin 7490
+
+step Level 60
+  level 60
 
 step For All To See
   when turnedin 7490

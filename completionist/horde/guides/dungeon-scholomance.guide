@@ -276,13 +276,6 @@ step Material Assistance
 
 step The Darkreaver Menace
   only Shaman
-  when available 7668
-  tip One of several exclusive quests; the route takes The Darkreaver Menace (8258). This one shows for a character the game offers it to instead.
-  zone map 1454
-  accept 7668 optional
-
-step The Darkreaver Menace
-  only Shaman
   when available 8258
   tip One of several exclusive quests; the route takes The Darkreaver Menace (7668). This one shows for a character the game offers it to instead.
   zone map 1454
@@ -606,19 +599,6 @@ step Again Into the Great Ossuary
   tip A repeatable quest: hand it in once, with what it asks for.
   zone map 1454
   turnin 7669 direct optional
-
-step The Darkreaver Menace
-  only Shaman
-  when onquest 7668
-  tip The reference data does not place this quest's objective: follow the quest text.
-  zone map 1454
-  complete 7668 @38.7,35.9 optional
-
-step The Darkreaver Menace
-  only Shaman
-  when onquest 7668
-  zone map 1454
-  turnin 7668 optional
 
 step An Earnest Proposition
   only Hunter
@@ -1083,7 +1063,6 @@ step Magistrate Marduke
   zone Western Plaguelands
   turnin 5466
 
-
 step The Right Piece of Lord Valthalak's Amulet
   when available 8992
   tip One of several exclusive quests; the route takes The Right Piece of Lord Valthalak's Amulet (8989). This one shows for a character the game offers it to instead.
@@ -1119,3 +1098,23 @@ step The Left Piece of Lord Valthalak's Amulet
   when onquest 8969
   zone map 1427
   turnin 8969 optional
+
+step The Darkreaver Menace
+  only Shaman
+  when available 7668
+  tip One of several exclusive quests; the route takes The Darkreaver Menace (8258). This one shows for a character the game offers it to instead.
+  zone map 1454
+  accept 7668 optional
+
+step The Darkreaver Menace
+  only Shaman
+  when onquest 7668
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 7668 @38.7,35.9 optional
+
+step The Darkreaver Menace
+  only Shaman
+  when onquest 7668
+  zone map 1454
+  turnin 7668 optional

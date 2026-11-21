@@ -112,55 +112,6 @@ step Ott
   accept 97179 @58.9,88.8 map 1416
   turnin 97179 @58.9,88.8 map 1416
 
-step Ott's Masterwork
-  only Paladin
-  when turnedin 95111
-  zone map 1416
-  accept 95125 optional
-
-step Ott's Masterwork
-  only Paladin
-  when onquest 95125
-  tip The reference data does not place this quest's objective: follow the quest text.
-  zone map 1416
-  complete 95125 @58.9,88.8 optional
-
-step Ott's Masterwork
-  only Paladin
-  when onquest 95125
-  zone map 1416
-  turnin 95125 optional
-
-step The Moonsilver Blade
-  only Paladin
-  when turnedin 95125
-  zone map 1416
-  accept 95126 optional
-
-step The Moonsilver Blade
-  only Paladin
-  when onquest 95126
-  zone map 1421
-  turnin 95126 optional
-
-step Old Fire-Eye
-  only Paladin,Undead
-  when turnedin 95126
-  zone map 1421
-  accept 95140 optional
-
-step Old Fire-Eye
-  only Paladin,Undead
-  when onquest 95140
-  zone map 1421
-  complete 95140 @49.7,87.9 optional
-
-step Old Fire-Eye
-  only Paladin,Undead
-  when onquest 95140
-  zone map 1421
-  turnin 95140 optional
-
 step Danitha Morr
   zone Tirisfal Glades
   accept 94436 only Undead
@@ -234,7 +185,6 @@ step The Reliquary of Tyr
   only Paladin
   turnin 99187 @17.6,67.5 map 1420 optional
 
-
 step Oi!
   only Paladin
   zone map 1423
@@ -257,3 +207,52 @@ step An Underrated Talent
   when onquest 95111
   zone map 1416
   turnin 95111 optional
+
+step Ott's Masterwork
+  only Paladin
+  when turnedin 95111
+  zone map 1416
+  accept 95125 optional
+
+step Ott's Masterwork
+  only Paladin
+  when onquest 95125
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1416
+  complete 95125 @58.9,88.8 optional
+
+step Ott's Masterwork
+  only Paladin
+  when onquest 95125
+  zone map 1416
+  turnin 95125 optional
+
+step The Moonsilver Blade
+  only Paladin
+  when turnedin 95125
+  zone map 1416
+  accept 95126 optional
+
+step The Moonsilver Blade
+  only Paladin
+  when onquest 95126
+  zone map 1421
+  turnin 95126 optional
+
+step Old Fire-Eye
+  only Paladin,Undead
+  when turnedin 95126
+  zone map 1421
+  accept 95140 optional
+
+step Old Fire-Eye
+  only Paladin,Undead
+  when onquest 95140
+  zone map 1421
+  complete 95140 @49.7,87.9 optional
+
+step Old Fire-Eye
+  only Paladin,Undead
+  when onquest 95140
+  zone map 1421
+  turnin 95140 optional

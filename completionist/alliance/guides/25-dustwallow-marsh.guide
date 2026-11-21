@@ -114,23 +114,6 @@ step "Stinky" Ignatz
 step "Swamp Eye" Jarl
   turnin 1206
 
-step Jarl Needs a Blade
-  when available 1203
-  tip One of several exclusive quests; the route takes Jarl Needs a Blade (81570). This one shows for a character the game offers it to instead.
-  zone map 1445
-  accept 1203 optional
-
-step Jarl Needs a Blade
-  when onquest 1203
-  tip The reference data does not place this quest's objective: follow the quest text.
-  zone map 1445
-  complete 1203 @55.4,26.3 optional
-
-step Jarl Needs a Blade
-  when onquest 1203
-  zone map 1445
-  turnin 1203 optional
-
 step Theramore Lieutenant
   turnin 1219
   accept 1220
@@ -163,3 +146,20 @@ step Angus Stern
   zone Stormwind City
   accept 1271
   turnin 1271
+
+step Jarl Needs a Blade
+  when available 1203
+  tip One of several exclusive quests; the route takes Jarl Needs a Blade (81570). This one shows for a character the game offers it to instead.
+  zone map 1445
+  accept 1203 optional
+
+step Jarl Needs a Blade
+  when onquest 1203
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1445
+  complete 1203 @55.4,26.3 optional
+
+step Jarl Needs a Blade
+  when onquest 1203
+  zone map 1445
+  turnin 1203 optional

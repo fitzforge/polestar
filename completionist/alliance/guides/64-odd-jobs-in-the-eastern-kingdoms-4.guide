@@ -76,6 +76,8 @@ step Veteran of the Third War
   zone Mount Hyjal
   turnin 93551 @27.5,50.9 map 2482
 
+step Level 60
+  level 60
 
 step Arathi Basin Resources!
   zone map 1417

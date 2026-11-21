@@ -337,7 +337,6 @@ step Whirlwind Weapon
   accept 1792 optional
   turnin 1792 optional
 
-
 step Level 58
   level 58
 
@@ -346,9 +345,6 @@ step Geologist Larksbane
   zone Silithus
   accept 8316
   turnin 8316
-
-step Level 58
-  level 58
 
 step Anthion's Parting Words
   only Warrior

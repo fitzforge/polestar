@@ -835,7 +835,7 @@ step Proof of Life
   when turnedin 8945
   tip The reference data has no giver for this quest: it is handed in here once the game offers it.
   zone map 1423
-  turnin 8946 direct
+  turnin 8946 direct @26.1,11.3 map 1423
 
 step Anthion's Strange Request
   when turnedin 8946
@@ -883,7 +883,6 @@ step Just Compensation
   only Rogue
   zone Ironforge
   turnin 8935
-
 
 step The Left Piece of Lord Valthalak's Amulet
   when available 8968

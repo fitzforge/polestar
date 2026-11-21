@@ -44,6 +44,8 @@ step Marshal Marris
   zone map 1433
   turnin 219
 
+step Level 20
+  level 20
 
 step Arathi Basin Resources!
   zone map 1417

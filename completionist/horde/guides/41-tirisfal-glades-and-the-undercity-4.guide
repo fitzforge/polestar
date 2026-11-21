@@ -407,45 +407,8 @@ step Wastewander Shadow Mage
 step Chief Engineer Bilgewhizzle
   turnin 379
 
-step The Pledge of Secrecy
-  when available 3638
-  tip One of several exclusive quests; the route takes The Pledge of Secrecy (3642). This one shows for a character the game offers it to instead.
-  when skill Engineering 200
-  zone map 1446
-  accept 3638 optional
-
-step The Pledge of Secrecy
-  when onquest 3638
-  tip The reference data does not place this quest's objective: follow the quest text.
-  zone map 1446
-  complete 3638 @52.5,27.3 optional
-
-step The Pledge of Secrecy
-  when onquest 3638
-  zone map 1446
-  turnin 3638 optional
-
 step Level 55
   level 55
-
-step Show Your Work
-  when available 3639
-  tip One of several exclusive quests; the route takes The Pledge of Secrecy (3642). This one shows for a character the game offers it to instead.
-  when turnedin 3638
-  when skill Engineering 200
-  zone map 1446
-  accept 3639 optional
-
-step Show Your Work
-  when onquest 3639
-  tip The reference data does not place this quest's objective: follow the quest text.
-  zone map 1446
-  complete 3639 @52.5,27.3 optional
-
-step Show Your Work
-  when onquest 3639
-  zone map 1446
-  turnin 3639 optional
 
 step Argent Officer Garush
   zone Tirisfal Glades
@@ -480,3 +443,40 @@ step Return to Apothecary Zinge
   when onquest 864
   zone map 1458
   turnin 864
+
+step The Pledge of Secrecy
+  when available 3638
+  tip One of several exclusive quests; the route takes The Pledge of Secrecy (3642). This one shows for a character the game offers it to instead.
+  when skill Engineering 200
+  zone map 1446
+  accept 3638 optional
+
+step The Pledge of Secrecy
+  when onquest 3638
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1446
+  complete 3638 @52.5,27.3 optional
+
+step The Pledge of Secrecy
+  when onquest 3638
+  zone map 1446
+  turnin 3638 optional
+
+step Show Your Work
+  when available 3639
+  tip One of several exclusive quests; the route takes The Pledge of Secrecy (3642). This one shows for a character the game offers it to instead.
+  when turnedin 3638
+  when skill Engineering 200
+  zone map 1446
+  accept 3639 optional
+
+step Show Your Work
+  when onquest 3639
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1446
+  complete 3639 @52.5,27.3 optional
+
+step Show Your Work
+  when onquest 3639
+  zone map 1446
+  turnin 3639 optional

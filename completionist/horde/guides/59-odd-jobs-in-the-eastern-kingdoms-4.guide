@@ -118,7 +118,6 @@ step Oran Snakewrithe
   turnin 84401
   turnin 84402
 
-
 step The Graveyards of Alterac
   zone map 1416
   tip The reference data does not place this quest's objective: follow the quest text.
@@ -169,6 +168,9 @@ step Proving Grounds
 step Proving Grounds
   turnin 7161
 
+step Level 60
+  level 60
+
 step Cut Arathor Supply Lines
   zone map 1417
   tip The reference data does not place this quest's objective: follow the quest text.
@@ -181,4 +183,4 @@ step Cut Arathor Supply Lines
 step Speak with Voggah Deathgrip
   tip The reference data has no giver for this quest: it is handed in here once the game offers it.
   zone map 1416
-  turnin 7222 direct
+  turnin 7222 direct @63.8,60.5 map 1416

@@ -25,19 +25,6 @@ step Firepit
   zone Stonetalon Mountains
   accept 80001
 
-step Your First Riding Kodo
-  only Tauren
-  when available 97446
-  tip One of several exclusive quests; the route takes Your First Riding Kodo (96982). This one shows for a character the game offers it to instead.
-  zone map 1442
-  accept 97446 @46.1,59.9 map 1442 optional
-
-step Your First Riding Kodo
-  only Tauren
-  when onquest 97446
-  zone map 1442
-  turnin 97446 @46.1,59.9 map 1442 optional
-
 step Dirt-stained Map
   zone Mulgore
   collect 4470 x1 quest 80001.1
@@ -81,12 +68,24 @@ step Firepit
   zone Stonetalon Mountains
   turnin 80001
 
-
 step Lost Shipping Crate
   when available 94930
   tip One of several exclusive quests; the route takes Lost Shipping Crate (94895). This one shows for a character the game offers it to instead.
   zone map 1441
   accept 94930 optional
+
+step Your First Riding Kodo
+  only Tauren
+  when available 97446
+  tip One of several exclusive quests; the route takes Your First Riding Kodo (96982). This one shows for a character the game offers it to instead.
+  zone map 1442
+  accept 97446 @46.1,59.9 map 1442 optional
+
+step Your First Riding Kodo
+  only Tauren
+  when onquest 97446
+  zone map 1442
+  turnin 97446 @46.1,59.9 map 1442 optional
 
 step Lost Shipping Crate
   when onquest 94930

@@ -2,7 +2,7 @@ guide polestar-completionist-horde/raid-ruins-of-ahnqiraj
 title Ruins of Ahn'Qiraj (Completionist)
 faction Horde
 category Dungeons
-levels 60-60
+levels 59-60
 zone Silithus
 pitch Ruins of Ahn'Qiraj, in Silithus. A raid.
 why Every Horde quest of Ruins of Ahn'Qiraj: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
@@ -10,15 +10,24 @@ why Every Horde quest of Ruins of Ahn'Qiraj: the chains that lead to it, the pic
 step Getting there
   note The entrance is in Silithus: the arrow leads to it. This is a raid: it needs a raid group.
 
+step Level 60
+  level 60
+
 step The Path of the Protector
   zone Tanaris
   accept 8747
+
+step Level 60
+  level 60
 
 step The Path of the Invoker
   when available 8757
   tip One of several exclusive quests; the route takes The Path of the Protector (8747). This one shows for a character the game offers it to instead.
   zone map 1446
   accept 8757 optional
+
+step Level 60
+  level 60
 
 step The Path of the Conqueror
   when available 8752
@@ -40,6 +49,9 @@ step The Path of the Conqueror
   zone map 1446
   turnin 8752 optional
 
+step Level 60
+  level 60
+
 step The Path of the Invoker
   when available 8758
   tip One of several exclusive quests; the route takes The Path of the Protector (8748). This one shows for a character the game offers it to instead.
@@ -47,6 +59,9 @@ step The Path of the Invoker
   tip Needs Friendly standing (3000) with Brood of Nozdormu; without it the quest is not offered.
   zone map 1446
   accept 8758 optional
+
+step Level 60
+  level 60
 
 step The Path of the Conqueror
   when available 8753
@@ -78,6 +93,9 @@ step The Path of the Conqueror
   zone map 1446
   turnin 8753 optional
 
+step Level 60
+  level 60
+
 step The Path of the Invoker
   when available 8759
   tip One of several exclusive quests; the route takes The Path of the Protector (8749). This one shows for a character the game offers it to instead.
@@ -85,6 +103,9 @@ step The Path of the Invoker
   tip Needs Honored standing (9000) with Brood of Nozdormu; without it the quest is not offered.
   zone map 1446
   accept 8759 optional
+
+step Level 60
+  level 60
 
 step The Path of the Conqueror
   when available 8754
@@ -116,6 +137,9 @@ step The Path of the Conqueror
   zone map 1446
   turnin 8754 optional
 
+step Level 60
+  level 60
+
 step The Path of the Invoker
   when available 8760
   tip One of several exclusive quests; the route takes The Path of the Protector (8750). This one shows for a character the game offers it to instead.
@@ -123,6 +147,9 @@ step The Path of the Invoker
   tip Needs Revered standing (21000) with Brood of Nozdormu; without it the quest is not offered.
   zone map 1446
   accept 8760 optional
+
+step Level 60
+  level 60
 
 step The Path of the Conqueror
   when available 8755
@@ -154,6 +181,9 @@ step The Path of the Conqueror
   zone map 1446
   turnin 8755 optional
 
+step Level 60
+  level 60
+
 step The Grand Invoker
   when available 8761
   tip One of several exclusive quests; the route takes The Protector of Kalimdor (8751). This one shows for a character the game offers it to instead.
@@ -161,6 +191,9 @@ step The Grand Invoker
   tip Needs Exalted standing (42000) with Brood of Nozdormu; without it the quest is not offered.
   zone map 1446
   accept 8761 optional
+
+step Level 60
+  level 60
 
 step The Qiraji Conqueror
   when available 8756
@@ -192,6 +225,9 @@ step The Qiraji Conqueror
   zone map 1446
   turnin 8756 optional
 
+step Level 60
+  level 60
+
 step Dirk Thunderwood
   zone Silithus
   accept 9023
@@ -217,6 +253,9 @@ step The Changing of Paths - Invoker No More
   collect 20862 x15 anywhere optional
   collect 20863 x15 anywhere optional
   turnin 8765 direct optional
+
+step Level 60
+  level 60
 
 step Inside Ruins of Ahn'Qiraj
   zone Silithus
