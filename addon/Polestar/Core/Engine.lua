@@ -13582,63 +13582,118 @@ function Own.huntPartnerPickup(quest, live, last)
 	return false
 end
 
--- The same creature can supply either a named drop or a drop with several sources.
-function Own.huntSource(goal, npc)
-	if goal.fromKind == "npc" and goal.fromId == npc then return true end
-	for _, source in ipairs(goal.fromNpcs or NONE) do
-		if source.npc == npc then return true end
+-- A kill and a drop are both work on the creatures that give credit.
+function Own.huntSources(goal)
+	if goal.t == "kill" then return goal.npc end
+	if goal.t ~= "collect" or goal.fromKind == "object" then return nil end
+	local list = goal.fromNpcs
+	if list and #list > 1 then return list end
+	return (goal.fromKind == "npc" and goal.fromId) or (list and list[1] and list[1].npc)
+end
+
+function Own.huntNpc(source)
+	return type(source) == "table" and source.npc or source
+end
+
+function Own.huntShares(a, b)
+	if type(a) == "number" then
+		if type(b) == "number" then return a == b end
+		for _, source in ipairs(b) do
+			if Own.huntNpc(source) == a then return true end
+		end
+	else
+		for _, source in ipairs(a) do
+			if Own.huntShares(Own.huntNpc(source), b) then return true end
+		end
 	end
 	return false
 end
 
--- Wait for an upcoming pickup that lets the player get both drops. Return true
--- for a single-source goal, the affected spots for a mixed goal, or false.
-function Own.waitForHuntPartner(s, goal, live, nearTo)
-	if s <= live then return false end
-	local sources = goal.fromNpcs
-	local npc = goal.fromKind == "npc" and goal.fromId
-	if sources and #sources > 1 then npc = false end
-	local spots = not npc and sources and goal.fromNpcsAt and goal.spots
-	if not (npc or spots) then return false end
-	local shared
-	if spots then
-		shared = {}
-		for _, mob in ipairs(sources) do shared[mob.npc] = false end
+-- A single source belongs to every camp of its goal. A mixed goal may
+-- record the sources per camp, or only say which creatures count overall.
+function Own.huntLocalSources(goal, sources)
+	if type(sources) == "number" or not (goal.spots and goal.fromNpcsAt) then return nil end
+	local at, i = {}, 0
+	for group in (goal.fromNpcsAt .. ";"):gmatch("([^;]*);") do
+		i = i + 1
+		local list = {}
+		for n in group:gmatch("%d+") do
+			local source = sources[tonumber(n)]
+			if source then list[#list + 1] = Own.huntNpc(source) end
+		end
+		at[i] = list
 	end
-	local C, found, last = Compat(), false, math.min(nearTo, s - 1)
-	for gi, other in ipairs(guide.steps[s].goals) do
-		local q = other.quest
-		if other.t == "collect" and q and q ~= goal.quest
-			and not C.IsOnQuest(q) and not questDone(q) and not Own.questSkipped(q)
-			and Guides.Matches(other.only, player) and not Own.goalSkipped(s, gi) then
-			if npc and Own.huntSource(other, npc) and Own.huntPartnerPickup(q, live, last) then return true end
-			if shared and goal.map == other.map then
-				local pickup
-				for id, waits in pairs(shared) do
-					if not waits and Own.huntSource(other, id) then
-						if pickup == nil then pickup = Own.huntPartnerPickup(q, live, last) end
-						if pickup then shared[id], found = true, true end
-					end
+	return at
+end
+
+-- A shared NPC must be placed by at least one of the two objectives. A
+-- nearby camp alone does not establish that two mixed goals share creatures.
+function Own.huntInCamp(sources, known, c, x, y, radius, partners)
+	for _, p in ipairs(partners) do
+		local other, ids, localIds = p.goal, p.sources, p.at
+		local placed = type(ids) == "number"
+		if other.spots then
+			for i, spot in ipairs(other.spots) do
+				local here = localIds and localIds[i]
+				if (known or here or placed) and Own.huntShares(sources, here or ids) then
+					local d = Spots.dist(other, spot, c, x, y)
+					if d and d <= radius + (spot.r or 0) then return true end
 				end
 			end
+		elseif (known or placed) and Own.huntShares(sources, ids) then
+			local oc, ox, oy = goalWorld(other)
+			if oc == c and (ox - x) ^ 2 + (oy - y) ^ 2 <= radius ^ 2 then return true end
 		end
 	end
-	if not found then return false end
-	local index, deferred = 0, {}
-	for group in (goal.fromNpcsAt .. ";"):gmatch("([^;]*);") do
-		index = index + 1
-		local spot = spots[index]
-		if spot then
-			local allShared = false
-			for n in group:gmatch("%d+") do
-				local mob = sources[tonumber(n)]
-				allShared = mob and shared[mob.npc]
-				if not allShared then break end
+	return false
+end
+
+-- Wait at the camps where an upcoming quest would share the work. For a
+-- mixed camp with explicit sources, leave independent drop sources available.
+function Own.waitForHuntPartner(s, goal, live, nearTo)
+	if s <= live then return false end
+	local sources = Own.huntSources(goal)
+	if not sources then return false end
+	local C, last, partners = Compat(), math.min(nearTo, s - 1)
+	for gi, other in ipairs(guide.steps[s].goals) do
+		local q = other.quest
+		if q and q ~= goal.quest and goal.map == other.map
+			and not C.IsOnQuest(q) and not questDone(q) and not Own.questSkipped(q)
+			and Guides.Matches(other.only, player) and not Own.goalSkipped(s, gi) then
+			local ids = Own.huntSources(other)
+			if ids and Own.huntShares(sources, ids) and Own.huntPartnerPickup(q, live, last) then
+				partners = partners or {}
+				partners[#partners + 1] = { goal = other, sources = ids, at = Own.huntLocalSources(other, ids) }
 			end
-			if allShared then deferred[spot] = true end
 		end
 	end
-	return next(deferred) and deferred or false
+	if not partners then return false end
+	local single = type(sources) == "number"
+	if not goal.spots then
+		local c, x, y = goalWorld(goal)
+		return c and Own.huntInCamp(sources, single, c, x, y, 0, partners) or false
+	end
+	local at, deferred = Own.huntLocalSources(goal, sources), false
+	for i, spot in ipairs(goal.spots) do
+		local c, x, y = C.MapToWorld(goal.map, spot.x, spot.y, goal.f)
+		if c then
+			local here, r = at and at[i], spot.r or 0
+			local wait
+			if here then
+				wait = #here > 0
+				for _, id in ipairs(here) do
+					if not Own.huntInCamp(id, true, c, x, y, r, partners) then wait = false; break end
+				end
+			else
+				wait = Own.huntInCamp(sources, single, c, x, y, r, partners)
+			end
+			if wait then
+				deferred = deferred or {}
+				deferred[spot] = true
+			end
+		end
+	end
+	return deferred
 end
 
 -- Whether goal g of later step s, one of Own.hereGoalsOn's for a quest in
@@ -13691,7 +13746,7 @@ function Own.hereFits(s, g, goal, live, shown, nearTo)
 	if t == "interact" and not Own.hereCarries(q) then return nil end
 	if Own.hereAfterOwn(s, g, q) then return nil end
 	if not Own.hereLevelOk(goal, Own.hereTop) then return nil end
-	local wait = t == "collect" and Own.waitForHuntPartner(s, goal, live, nearTo)
+	local wait = Own.waitForHuntPartner(s, goal, live, nearTo)
 	if wait == true then return nil end
 	local left = (max or goal.count or 1) - (cur or 0)
 	if left < 1 then return nil end

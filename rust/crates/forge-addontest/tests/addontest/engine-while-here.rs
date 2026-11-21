@@ -2369,3 +2369,60 @@ emit({ E.GetLiveStep(), E.GoalDone(2, 1), E.GoalDone(2, 2) })
 	assert_eq!(out[2], json!([50]), "the line leaves when crossing back into the shared camp");
 	assert_eq!(out[3], json!([2, false, false]), "both quests are open at the shared camp after taking the quest");
 }
+
+#[test]
+fn shared_hunts_wait_only_where_the_upcoming_quest_shares_the_work() {
+	// Like the Riverglades heads, the mixed drop lists its sources but has no per-spot source IDs.
+	let guide = r#"
+local function kill(q, x, spots)
+	return { t = "kill", quest = q, npc = 476, target = "Kobold Geomancer",
+		count = 3, oi = 1, map = 1429, x = x, y = 45.1, spots = spots }
+end
+local function drop(q, x, spots)
+	return { t = "collect", quest = q, item = 772, itemName = "Large Candle",
+		count = 3, oi = 1, map = 1429, x = x, y = 45.1, spots = spots,
+		fromNpcs = { { npc = 476, npcName = "Kobold Geomancer" }, { npc = 40, npcName = "Kobold Miner" } } }
+end
+local shared = { x = 47.6, y = 45.1, r = 15 }
+local other = { x = 42.6, y = 45.1, r = 15 }
+local carried = HELD(60, 47.6, { shared, other })
+local upcoming = PARTNER(106, 47.6, { shared })
+assert(Polestar.RegisterGuide({
+	id = "test/shared-hunt", pack = "test", title = "Shared hunt", minLevel = 1, maxLevel = 10,
+	steps = {
+		{ goals = {
+			{ t = "accept", quest = 106, title = "Young Lovers", npc = 251, npcName = "Maybell Maclure",
+				map = 1429, x = 50, y = 45.1 },
+		} },
+		{ goals = {
+			upcoming, carried,
+			{ t = "kill", quest = 50, npc = 46, target = "Murloc", count = 3, oi = 1, map = 1429, x = 47.6, y = 45.1 },
+		} },
+	},
+}))
+"#;
+	let script = r#"
+local function quests()
+	local out = {}
+	for _, row in ipairs(E.GetWhileHereList()) do out[#out + 1] = row.quest end
+	table.sort(out)
+	return out
+end
+emit({ quests(), wp() })
+at(42.6, 45.1)
+emit(quests())
+at(47.6, 45.1)
+emit(quests())
+w.accept(106, { { required = 3, fulfilled = 0 } })
+flush(); stub.advance(0.6)
+emit({ E.GetLiveStep(), E.GoalDone(2, 1), E.GoalDone(2, 2) })
+"#;
+	for (held, partner) in [("drop", "kill"), ("kill", "drop"), ("kill", "kill")] {
+		let guide = guide.replace("HELD", held).replace("PARTNER", partner);
+		let out = run_guide(&guide, "test/shared-hunt", script);
+		assert_eq!(out[0], json!([[50], "1:1"]), "{held}/{partner}: the arrow still leads to the pickup");
+		assert_eq!(out[1], json!([60]), "{held}/{partner}: the separate camp is still offered");
+		assert_eq!(out[2], json!([50]), "{held}/{partner}: sharing only affects the overlapping camp");
+		assert_eq!(out[3], json!([2, false, false]), "{held}/{partner}: after taking the quest, both goals are open");
+	}
+}

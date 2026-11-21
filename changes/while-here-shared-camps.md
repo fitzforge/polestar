@@ -1,6 +1,7 @@
 ---
 section: players
 ---
-- While here waits for the other quest before suggesting a camp where both
-  drops come from the same mobs. In the Badlands, take Study of the Elements:
-  Rock before farming the Lesser Rock Elementals for Badlands Reagent Run.
+- While here waits for an upcoming quest before suggesting a camp where the
+  same creatures count for both quests. This covers the shared drops in the
+  Badlands and the Riverglades murlocs that also count as kills for Freshwater
+  Fiends. Separate camps still show as usual.
