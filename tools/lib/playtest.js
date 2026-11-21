@@ -184,6 +184,11 @@ function playOptions(pack, g, { race, faction, cls, stubs = [], before = '', scr
 			Polestar.Set("behavior.guideEnd", ${handOver ? '"continue"' : '"ask"'})
 			Polestar.Set("behavior.groupQuests", ${luaValue(groups)})
 			Polestar.Set("behavior.dungeons", "skip") -- the solo route, whatever "Dungeons in my route" defaults to; --dungeon chooses below
+			-- The arrow's journey off (a player's "travel planner off"): the simulated player is set down at each
+			-- goal, never riding the journey's boats or portals, in a world without walking maps or floors, so a
+			-- live route would still be on its first leg at the goal. Journey prices (Nav.EstimateTravel, which
+			-- ns.TravelCost and route choices weigh) do not need it.
+			Polestar.Set("nav.travel", false)
 			${dungeonMaps.map((m) => `Polestar.Engine.ChooseDungeon(${Number(m)}, true)`).join('\n')}
 			${handOver ? 'Polestar.Set("behavior.routeChoice", "recommended")' : ''}
 			Polestar.Engine.SetGuide(${luaValue(g.id)})
