@@ -2326,3 +2326,45 @@ fn t_3101_a_shared_drop_waits_for_the_imminent_partner_pickup() {
 	assert_eq!(rows("w.accept(756, {6})"), json!([4802, 4805, 4806]));
 	assert_eq!(rows("w.progress(766, 2, 1); w.accept(756, {6})"), json!([4802, 4806]), "a femur already looted counts");
 }
+
+#[test]
+fn shared_drop_waits_at_the_shared_camp_but_not_at_another_source() {
+	let guide = r#"
+assert(Polestar.RegisterGuide({
+	id = "test/shared-camps", pack = "test", title = "Shared camps", minLevel = 1, maxLevel = 10,
+	steps = {
+		{ title = "Maybell", goals = {
+			{ t = "accept", quest = 106, title = "Young Lovers", npc = 251, npcName = "Maybell Maclure", map = 1429, x = 50, y = 45.1 },
+		} },
+		{ title = "The camp", goals = {
+			{ t = "collect", quest = 106, item = 1000, itemName = "Kobold Token", count = 5, oi = 1, map = 1429, x = 47.6, y = 45.1,
+				fromNpcs = { { npc = 476, npcName = "Kobold Geomancer" }, { npc = 6, npcName = "Kobold Vermin" } } },
+			{ t = "collect", quest = 60, item = 772, itemName = "Large Candle", count = 3, oi = 1, map = 1429, x = 47.6, y = 45.1,
+				spots = { { x = 47.6, y = 45.1, r = 15 }, { x = 42.6, y = 45.1, r = 15 } },
+				fromNpcs = { { npc = 476, npcName = "Kobold Geomancer" }, { npc = 40, npcName = "Kobold Miner" } }, fromNpcsAt = "1;2" },
+			{ t = "kill", quest = 50, npc = 46, target = "Murloc", count = 1, oi = 1, map = 1429, x = 47.6, y = 45.1 },
+		} },
+	},
+}))
+"#;
+	let out = run_guide_with(guide, "test/shared-camps", "", r#"
+local function quests()
+	local out = {}
+	for _, row in ipairs(E.GetWhileHereList()) do out[#out + 1] = row.quest end
+	table.sort(out)
+	return out
+end
+emit(quests())
+at(42.6, 45.1)
+emit(quests())
+at(47.6, 45.1)
+emit(quests())
+w.accept(106, { 5 })
+flush(); stub.advance(0.6)
+emit({ E.GetLiveStep(), E.GoalDone(2, 1), E.GoalDone(2, 2) })
+"#);
+	assert_eq!(out[0], json!([50]), "only unrelated work is offered at the shared camp before the pickup");
+	assert!(list(&out[1]).iter().any(|q| q == 60), "the other source still gives a line: {out:?}");
+	assert_eq!(out[2], json!([50]), "the line leaves when crossing back into the shared camp");
+	assert_eq!(out[3], json!([2, false, false]), "both quests are open at the shared camp after taking the quest");
+}
