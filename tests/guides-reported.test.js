@@ -18416,6 +18416,19 @@ test('forever/50-60/mount-hyjal.guide: Maerion\'s Misery is taken before the Dae
 	assert.ok(holdsQuest(hand.step, 97009), 'the hand-in step shows only while 97009 is in the log');
 });
 
+// #3400 (Stö, 0.4.2): the Ruined Ballista's seed (Violence Into Verdure 93747.1) pointed to 70.4,70.7 at the shrub
+// field's north-eastern edge, where nothing can be planted. Players' recordings put the ballista's credit at
+// 66.27,79.2 (16 of 17 voters), a little north of the flying machine, so all three wrecks are planted in one step.
+test('forever/50-60/mount-hyjal.guide: the Ruined Ballista\'s seed is planted with the other two wrecks, at 66.3,79.2 (#3400)', { skip }, () => {
+	const list = goals('forever/50-60/mount-hyjal.guide');
+	const seeds = [1, 2, 3].map((oi) => list[at(list, `the seed of 93747.${oi}`, (g) => g.t === 'use' && g.item === 269944 && g.quest === 93747 && g.oi === oi)]);
+	assert.deepEqual(seeds.map(({ goal }) => [goal.map, goal.x, goal.y]), [[2482, 66.3, 79.2], [2482, 62.9, 82.9], [2482, 66.1, 83.5]]);
+	assert.equal(new Set(seeds.map(({ s }) => s)).size, 1, 'the three wrecks in one step');
+	const field = list[at(list, 'the shrub field\'s Tainted Shrubbery', (g) => g.t === 'kill' && g.quest === 92594)];
+	assert.ok(field.s > seeds[0].s, 'the wrecks before the shrub field');
+	assert.ok(!list.some(({ goal, s }) => s === field.s && goal.quest === 93747), 'no seed left in the shrub field');
+});
+
 // #3277: Nimboya's Laden Pike (item 9319, Grim Message 2932) can only be planted inside a Witherbark village;
 // the earlier point at 29.5,58.5 was in dead ground between Zun'watha and Hiri'watha. Players' recordings: the
 // planting (spell 11547) credited the quest at 31.85,57.91 (Hiri'watha) and 23.65,58.36 (Zun'watha).
