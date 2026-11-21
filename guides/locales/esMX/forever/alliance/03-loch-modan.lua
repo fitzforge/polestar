@@ -121,7 +121,7 @@ return {
 	-- plural, as words: Stonevault Cave Hunters = {npc:4856} Stonevault Cave Hunter
 	["South of Thelsamar, Ylva lies dead in the mouth of a trogg cave. Take her banner, raise it beside her and hold the spot: troggs come in waves from both sides, then {npc:269185}.\nCareful: Stonevault Cave Hunters (36, elite) hold the pass just south of Ylva, toward the {zone:1418}: stay by the banner and don't chase troggs south."] = "Al sur de Thelsamar, Ylva yace muerta en la entrada de una cueva de troggs. Toma su estandarte, levántalo a su lado y defiende el lugar: los troggs llegan en oleadas desde ambos lados, y luego {npc:269185}.\nCuidado: los cazadores de cueva Grutacanto (36, élite) ocupan el paso justo al sur de Ylva, hacia {zone:1418}: quédate junto al estandarte y no persigas troggs hacia el sur.",
 	-- {item:253247} Banner of Ironforge · {npc:269185} Headsplitter
-	["{item:253247}: raise it beside Ylva, then hold the spot until {npc:269185} comes"] = "",
+	["{item:253247}: raise it beside Ylva, then hold the spot until {npc:269185} comes"] = "{item:253247}: levántalo junto a Ylva y luego aguanta en el lugar hasta que llegue {npc:269185}",
 
 	-- Step 25: The tunnel post
 	["The tunnel post"] = "El puesto del túnel",
@@ -259,7 +259,7 @@ return {
 	["{zone:1453}'s gate"] = "La puerta de {zone:1453}",
 	-- {npc:234} Gryan Stoutmantle · {zone:1436} Westfall · {area:87} Goldshire · {zone:1453} Stormwind · {npc:466} General Marcus Jonathan · {object:2096} Trade District · {area:69} Lakeshire · {area:1617} Valley of Heroes
 	-- was: ["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}."] = "Wiley no da la Hermandad Defias (empieza con la carta de {npc:234} en {zone:1436}): sáltate {zone:1436}. Al norte por el camino desde {area:87} hasta {zone:1453}: {npc:466} está montado en su caballo al final del puente, afuera de la puerta principal. Luego los grifos de {object:2096}, de vuelta a {area:69}."
-	["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}.\nIf {npc:466} isn't at the arrow, he is walking his horse along the {area:1617} nearby: look along the avenue or wait a moment."] = "",
+	["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}.\nIf {npc:466} isn't at the arrow, he is walking his horse along the {area:1617} nearby: look along the avenue or wait a moment."] = "¿Wiley no te da La Hermandad Defias (empieza con la carta de {npc:234} en {zone:1436})? Sáltate {zone:1436}. Al norte por el camino desde {area:87} hasta {zone:1453}: {npc:466} está montado en su caballo al final del puente, afuera de la puerta principal. Luego los grifos de {object:2096}, de vuelta a {area:69}.\nSi {npc:466} no está donde marca la flecha, está paseando a su caballo por {area:1617}, cerca: búscalo por la avenida o espera un momento.",
 	-- {npc:466} General Marcus Jonathan
 	["{npc:466}, outside the main gate"] = "{npc:466}, afuera de la puerta principal",
 
@@ -282,7 +282,7 @@ return {
 	-- Step 50: Stormwind
 	-- {npc:332} Master Mathias Shaw · {object:2100} Old Town · {npc:466} General Marcus Jonathan · {object:2096} Trade District · {area:1617} Valley of Heroes
 	-- was: ["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}."] = "{npc:332} está arriba en el edificio del IV:7 en {object:2100}: al principio cuesta ver la escalera. {npc:466} está montado en su caballo al final del puente, afuera de la puerta principal; luego de vuelta a los grifos de {object:2096}."
-	["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}.\nIf {npc:466} isn't at the arrow, he is walking his horse along the {area:1617} nearby: look along the avenue or wait a moment."] = "",
+	["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}.\nIf {npc:466} isn't at the arrow, he is walking his horse along the {area:1617} nearby: look along the avenue or wait a moment."] = "{npc:332} está arriba en el edificio del IV:7 en {object:2100}: al principio cuesta ver la escalera. {npc:466} está montado en su caballo al final del puente, afuera de la puerta principal; luego de vuelta a los grifos de {object:2096}.\nSi {npc:466} no está donde marca la flecha, está paseando a su caballo por {area:1617}, cerca: búscalo por la avenida o espera un momento.",
 	-- {npc:332} Master Mathias Shaw
 	["{npc:332}, SI:7; upstairs"] = "{npc:332}, IV:7; arriba",
 
@@ -420,7 +420,7 @@ return {
 
 	-- Step 75: Argos Nightwhisper
 	-- {npc:4984} Argos Nightwhisper · {npc:8997} Gershala Nightwhisper · {area:442} Auberdine
-	["On the way to the harbour: {npc:4984}'s message goes to {npc:8997} in {area:442}, beside Terenthis, where the boat lands."] = "",
+	["On the way to the harbour: {npc:4984}'s message goes to {npc:8997} in {area:442}, beside Terenthis, where the boat lands."] = "De camino al puerto: el mensaje de {npc:4984} va a {npc:8997} en {area:442}, junto a Terenthis, donde llega el barco.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back down to the east shore below the boars' hills: {npc:270693}, a crocolisk, patrols it among the Loch Crocolisks."] = "Baja de nuevo a la orilla este, debajo de las colinas de los jabalíes: {npc:270693}, un crocolisco, la patrulla entre los crocoliscos del lago.",

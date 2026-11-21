@@ -68,7 +68,7 @@ return {
 	-- {npc:267} Clerk Daltry
 	["{npc:267}, in the town hall"] = "{npc:267}, en el ayuntamiento",
 	-- {npc:267} Clerk Daltry · {quest:66} The Legend of Stalvan · {zone:1436} Westfall · {area:20} Moonbrook · {zone:1431} Duskwood
-	["{npc:267}: {quest:66}, the footlocker in {zone:1436}'s {area:20}, at the west end of your next {zone:1431} loop (the {zone:1431} guide)"] = "",
+	["{npc:267}: {quest:66}, the footlocker in {zone:1436}'s {area:20}, at the west end of your next {zone:1431} loop (the {zone:1431} guide)"] = "{npc:267}: {quest:66}, el baúl en {area:20} de {zone:1436}, en el extremo oeste de tu próximo circuito por {zone:1431} (la guía de {zone:1431})",
 	-- {npc:264} Commander Althea Ebonlocke
 	["{npc:264}, in the town hall"] = "{npc:264}, en el ayuntamiento",
 	-- {npc:268} Sirra Von'Indi
@@ -154,7 +154,7 @@ return {
 	-- plural, as words: Gooey Spider Legs = {item:2251} Gooey Spider Leg
 	["{npc:272}: six Gooey Spider Legs, which {zone:1431}'s spiders drop even without the quest"] = "{npc:272}: seis patas de araña pegajosas, que las arañas de {zone:1431} sueltan aunque no tengas la misión",
 	-- {npc:272} Chef Grual · {area:1097} The Hushed Bank
-	["{npc:272}: the six legs from the {area:1097}"] = "",
+	["{npc:272}: the six legs from the {area:1097}"] = "{npc:272}: las seis patas de {area:1097}",
 	-- {npc:288} Jitters · {quest:163} Raven Hill · {zone:1431} Duskwood
 	["For {npc:288}, at {quest:163} on the next {zone:1431} loop"] = "Para {npc:288}, en {quest:163}, en el próximo circuito de {zone:1431}",
 	-- {npc:663} Calor
@@ -270,7 +270,7 @@ return {
 	-- {npc:903} Guard Howe
 	["{npc:903}, by the gryphons south of the bridge"] = "{npc:903}, junto a los grifos al sur del puente",
 	-- {area:42} Darkshire · {zone:1431} Duskwood
-	["Next: the gryphon to {area:42} for {zone:1431}'s second loop (the {zone:1431} guide)."] = "",
+	["Next: the gryphon to {area:42} for {zone:1431}'s second loop (the {zone:1431} guide)."] = "Lo siguiente: el grifo a {area:42} para el segundo circuito de {zone:1431} (la guía de {zone:1431}).",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Already carrying six? Hand them in now"] = "¿Ya tienes seis? Entrégalas ahora",

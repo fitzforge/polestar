@@ -16,7 +16,7 @@ return {
 	-- {npc:2216} Apothecary Lydon
 	-- plural, as words: Syndicate Shadow Mages = {npc:2244} Syndicate Shadow Mage
 	["{npc:2216}: the vials come from the Syndicate Shadow Mages on the way to Durnholde"] = "{npc:2216}: los viales los sueltan los magos oscuros de la Hermandad camino a Durnholde",
-	["The WANTED poster by the inn"] = "",
+	["The WANTED poster by the inn"] = "El cartel de ¡Se busca! junto a la posada",
 	-- {npc:2229} Krusk
 	["{npc:2229}, inside"] = "{npc:2229}, adentro",
 
@@ -57,12 +57,12 @@ return {
 	-- {area:287} Hillsbrad
 	-- plural, as words: Kirin Tor Guards = {npc:246848} Kirin Tor Guard
 	-- was: ["The Peasants work the fields south of the farmhouses. Every {area:287} human drops skulls; the Peasants drop them most often.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "Los campesinos trabajan los campos al sur de las granjas. Todos los humanos de {area:287} sueltan cráneos; los campesinos, con más frecuencia.\nCuidado: Un campesino que huye y llega al ayuntamiento puede traer muchos refuerzos, entre ellos infantes de {area:287}; las ralentizaciones, raíces o efectos similares les impiden escapar. Los guardias del Kirin Tor (55) están al norte de las granjas, en el camino que sube hacia Alterac: no te salgas de los campos."
-	["The Peasants work the fields south of the farmhouses.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "",
+	["The Peasants work the fields south of the farmhouses.\nCareful: A fleeing peasant that reaches the town hall can bring back many adds, including {area:287} footmen; snares, roots or similar effects keep them from escaping. Kirin Tor Guards (55) stand north of the farms, on the road up toward Alterac: keep to the fields."] = "Los campesinos trabajan los campos al sur de las granjas.\nCuidado: Un campesino que huye y llega al ayuntamiento puede traer muchos refuerzos, entre ellos infantes de {area:287}; las ralentizaciones, raíces o efectos similares les impiden escapar. Los guardias del Kirin Tor (55) están al norte de las granjas, en el camino que sube hacia Alterac: no te salgas de los campos.",
 
 	-- Step 9: Tarren Mill
 	-- {quest:528} Battle of Hillsbrad
 	-- was: ["Darthalia's next {quest:528} and Lydon's Elixir of Agony are for the next visit, at about 30."] = "La siguiente {quest:528} de Darthalia y el Elixir de agonía de Lydon son para la próxima visita, a nivel 30 aprox."
-	["Darthalia's next {quest:528}, Samsa's Souvenirs of Death and Lydon's Elixir of Agony are for the next visit, at about 30."] = "",
+	["Darthalia's next {quest:528}, Samsa's Souvenirs of Death and Lydon's Elixir of Agony are for the next visit, at about 30."] = "La siguiente {quest:528} de Darthalia, Recuerdos de muerte de Samsa y el Elixir de agonía de Lydon son para la próxima visita, a nivel 30 aprox.",
 
 	-- Step 10: Durnholde Keep: kill these as you meet them
 	-- {area:275} Durnholde Keep
@@ -72,9 +72,9 @@ return {
 	-- {npc:2261} Syndicate Watchman
 	["{npc:2261} walks around here: look inside the circle on the map"] = "{npc:2261} da vueltas por aquí: búscalo dentro del círculo del mapa",
 	-- {item:3467} Dull Iron Key · {npc:2427} Jailor Eston
-	["{item:3467}, from {npc:2427}"] = "",
+	["{item:3467}, from {npc:2427}"] = "{item:3467}, de {npc:2427}",
 	-- {item:3499} Burnished Gold Key · {npc:2428} Jailor Marlgen
-	["{item:3499}, from {npc:2428}"] = "",
+	["{item:3499}, from {npc:2428}"] = "{item:3499}, de {npc:2428}",
 	["Drull's ball and chain"] = "Bola y cadena de Drull",
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "Bola y cadena de {npc:2238}",
