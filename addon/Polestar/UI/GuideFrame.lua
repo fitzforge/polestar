@@ -2333,17 +2333,8 @@ GF.Part(function(GF)
 		local why = view.why
 		person.Why:SetText(why or "")
 		person.Why:SetShown(why ~= nil)
-		-- Work on the step for a quest 3 or more levels above the character
-		-- (the window's StepHint line, Levels.StepHint; never an accept): "Level
-		-- 25 quest: you're 19.7", in a calm colour (Fitz, 0.3.6: players read red
-		-- as being behind).
-		local E, d = Engine(), Derived()
-		local hint = d.StepHint and d.StepHint(view.index)
-		if hint then
-			person.Level:SetText(string.format(L["Level %d quest: you're %s"], hint.level, GF.LevelText(hint.you)))
-			W.Color(person.Level, "textDim")
-		end
-		person.Level:SetShown(hint ~= nil)
+		person.Level:Hide()
+		local E = Engine()
 		-- A profession guide's section: its skill range as the heading over the
 		-- step ("First Aid 1-40"), in the accent colour while the player's skill
 		-- is in it (Engine.GetSection).
