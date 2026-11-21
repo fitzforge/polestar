@@ -309,10 +309,28 @@ step Beasts 19-21: Ashenvale (100-125)
   goto 37.9,61.4 "Ashenvale Bear, Shadowhorn Stag" r 30
   skill Skinning 125
 
-step Beasts 21-23: Hillsbrad Foothills (100-125)
+step Beasts 10-16: Silverpine Forest (100-105)
+  only Undead
+  zone Silverpine Forest
+  tip Kill and skin Worg (10), Ferocious Grizzled Bear (11), Mottled Worg (11), Giant Grizzled Bear (12), Bloodsnout Worg (16) along the loop until Skinning 105; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 30 beasts for these 5 points.
+  goto 45.3,49.2 "Ferocious Grizzled Bear, Worg" r 30
+  goto 45.3,80.0 "Bloodsnout Worg" r 30
+  goto 51.9,82.8 "Bloodsnout Worg" r 30
+  goto 49.7,78.3 "Bloodsnout Worg" r 30
+  goto 53.0,65.4 "Giant Grizzled Bear" r 30
+  goto 52.3,55.1 "Giant Grizzled Bear" r 30
+  goto 63.8,9.4 "Worg, Mottled Worg" r 30
+  goto 57.3,11.0 "Mottled Worg, Worg" r 30
+  goto 49.2,20.0 "Ferocious Grizzled Bear, Mottled Worg" r 30
+  goto 42.8,20.6 "Giant Grizzled Bear, Ferocious Grizzled Bear" r 30
+  goto 37.5,16.8 "Giant Grizzled Bear" r 30
+  goto 51.1,41.1 "Ferocious Grizzled Bear" r 30
+  skill Skinning 105
+
+step Beasts 21-23: Hillsbrad Foothills (105-125)
   only Undead
   zone Hillsbrad Foothills
-  tip Kill and skin Gray Bear (21, needs 105), Vicious Gray Bear (22, needs 110), Starving Mountain Lion (23, needs 115) along the loop until Skinning 125; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 20-30. Expect about 40 beasts for these 25 points.
+  tip Kill and skin Gray Bear (21), Vicious Gray Bear (22, needs 110), Starving Mountain Lion (23, needs 115) along the loop until Skinning 125; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 20-30. Expect about 30 beasts for these 20 points.
   goto 56.0,13.3 "Gray Bear" r 30
   goto 66.8,13.6 "Gray Bear" r 30
   goto 66.3,34.1 "Gray Bear, Vicious Gray Bear" r 30
