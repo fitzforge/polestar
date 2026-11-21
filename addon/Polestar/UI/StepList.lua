@@ -218,6 +218,7 @@ local function row(i)
 				local o = self.psOut[k]
 				lines[#lines + 1] = { o.title .. ": " .. o.text, Theme.TipColor("textDim") }
 			end
+			for _, w in ipairs(self.psWhy or {}) do lines[#lines + 1] = w end
 			lines[#lines + 1] = { L["Click to jump to this step"], Theme.Accent() }
 			W.Tooltip(self, G.TooltipAnchor(), self.psSummary or "", lines)
 		end
@@ -307,6 +308,8 @@ local function fillRow(r, v, i, live, at)
 	W.Color(r.Tab, gone and "textMuted" or (i == live and "accent" or "textMuted"))
 	r.Live:SetShown(i == live and not one)
 	local mine = v.skipped == true and i ~= live
+	local why = {}
+	r.psWhy = why
 	r.Unskip:SetShown(mine)
 	r.Unskip.psTip = L["Bring it back"]
 	local n, more, key = 0, 0, { mine and "unskip" or "" }
@@ -338,10 +341,15 @@ local function fillRow(r, v, i, live, at)
 			local g = line(r, n)
 			local done = goal.status == "done"
 			local off = gone or done or goal.status == "skipped" or goal.dismissed
-			-- Skipped (the quest, the optional goal, or the step by the player):
+			-- The player's own skip (the quest, the optional goal, or the step):
 			-- the skip glyph in the accent, so it reads apart from a step done.
+			-- A goal the guide leaves out itself (another quest first, closed,
+			-- grey) keeps its muted glyph, its reason in the card's tooltip.
 			local qskip = not done and goal.quest and E.IsQuestSkipped and E.IsQuestSkipped(goal.quest) or false
-			local skip = not done and (qskip or goal.dismissed or goal.status == "skipped" or v.skipped == true)
+			local skip = not done and (qskip or goal.dismissed or v.skipped == true)
+			if goal.status == "skipped" and not skip and goal.unavailableText then
+				why[#why + 1] = { UI.PlainGoalText(goal) .. ": " .. goal.unavailableText, Theme.TipColor("textDim") }
+			end
 			g.Icon:SetTexture(done and Theme.Media("check") or (skip and Theme.Media("skip")) or Theme.VerbIcon(goal.t))
 			W.Color(g.Icon, done and "success" or (skip and "accent" or (off and "textMuted" or "textDim")), (done and gone) and 0.6 or 1)
 			g.Unskip.psQuest = qskip and goal.quest or nil
@@ -409,7 +417,7 @@ end
 -- now (`run`: first, last, steps = { "N · title" }, whys = { reason, ... }
 -- in order, each once). -> a key of what it says
 local function fillSkipped(r, run)
-	r.psIndex, r.psRun, r.psOne, r.psHead = nil, run, false, nil
+	r.psIndex, r.psRun, r.psOne, r.psHead, r.psWhy = nil, run, false, nil, nil
 	local nums = run.first == run.last and tostring(run.first) or (run.first .. "\226\128\147" .. run.last)
 	r.Tab:SetText(nums .. " \194\183 " .. L["Skipped for you"])
 	W.Color(r.Tab, "textMuted")
