@@ -3512,6 +3512,95 @@ fn zone_danger_1490_alterac_counts_from_its_danger_floor_at_level_26_the_walk_to
 	assert!(f(&direct["price"]) > f(&unweighted["price"]), "the walking engine must charge for traversing Alterac");
 }
 
+/// #3447 (0.4.2.1 arrow audit): a Horde 30 on Battle of Hillsbrad, at Tarren Mill (Hillsbrad 60.79,19.92), sent by the
+/// guide to Farmer Kalaba in Hillsbrad Fields (35.05,46.20), the Alliance's farm: 0.4.2 refused every walk into it, a
+/// straight bearing with "No safe walking route" the whole 800 yd. The guide's goal is walked to, with the hostile-town
+/// caption as before 0.4.2; from Kalaba the walk back out to High Executor Darthalia (62.3,20.3) too. Southshore, on
+/// neither, still refuses a walk through it all the while.
+#[test]
+fn enemy_ground_3447_hillsbrad_fields_is_walked_into_and_out_of_while_southshore_still_refuses() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction = "Horde"
+		w.setLevel(30)
+		Polestar.CharState().flags.taxi = {}
+		Polestar.CharState().flags.taxiSeen = { [0] = true }
+		local c, mx, my = C.MapToWorld(1424, 60.79, 19.92, "e")
+		place(1424, mx, my)
+		local function southshore() return N.danger.Blocked(c, -416, -533, -1216, -533, "Horde") or "clear" end
+		local function go(x, y, label)
+			Polestar.Fire("WAYPOINT_CHANGED", { map = 1424, x = x, y = y, f = "e", label = label, kind = "kill", r = 5 })
+			local a, n = aim(), 0
+			while not a.measured and n < 400 do stub.advance(0.05); n = n + 1; a = aim() end
+			local legs, ci = N.GetRoute()
+			local kinds = {}
+			for i = ci or 1, #(legs or {}) do kinds[#kinds + 1] = legs[i].kind end
+			local walk = legs and legs[ci]
+			local _, tx, ty = N.GetTargetWorld()
+			local geo, last = N.GetRouteGeometry().legs, nil
+			for _, leg in ipairs(geo) do if leg.kind == "walk" then last = leg.pts[#leg.pts] end end
+			return { state = a.state, measured = a.measured, caption = N.noWalk or false, kinds = table.concat(kinds, ","),
+				hub = walk and N.travel.HubText(walk) or false, reaches = last ~= nil and dist(last[2], last[3], tx, ty) < 1,
+				southshore = southshore() }
+		end
+		local into = go(35.05, 46.20, "Farmer Kalaba")
+		local _, kx, ky = C.MapToWorld(1424, 35.05, 46.20, "e")
+		place(1424, kx, ky)
+		local out = go(62.3, 20.3, "High Executor Darthalia")
+		emit({ into = into, out = out })"#,
+		true,
+	);
+	assert_eq!(
+		out["into"],
+		serde_json::json!({"state":"travel","measured":true,"caption":false,"kinds":"walk","hub":"Hostile town: Hillsbrad Fields","reaches":true,"southshore":"opposing-settlement"}),
+		"into the guide's goal on enemy ground"
+	);
+	assert_eq!(
+		(&out["out"]["state"], &out["out"]["measured"], &out["out"]["caption"], &out["out"]["kinds"], &out["out"]["reaches"], &out["out"]["southshore"]),
+		(&serde_json::json!("travel"), &serde_json::json!(true), &serde_json::json!(false), &serde_json::json!("walk"), &serde_json::json!(true), &serde_json::json!("opposing-settlement")),
+		"out of it, back to Tarren Mill: {}",
+		out["out"]
+	);
+}
+
+/// #3450 (0.4.2.1 arrow audit): an Alliance Skyborne at Rathiril Sunlance in Shen'dar Village (Zephras Isle 44.96,46.29)
+/// sent to Coriella Calmbreeze (43.05,43.30), 150 yd away past the corner of the village's guard posts (the Horde's on
+/// the ground data). The straight line crosses them, so the plan refused the walk and sent the player 1,600 yd to a
+/// portal, then straight to her again wherever the line came clear: never arriving. A target that near is the arrow's
+/// own walk, round the guards: no route but walks, and the arrow's walk measured.
+#[test]
+fn near_target_3450_coriella_is_a_walk_round_the_shendar_guards_not_a_portal() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction = "Alliance"
+		w.setLevel(4)
+		local c, rx, ry = C.MapToWorld(2521, 44.96, 46.29)
+		place(2521, rx, ry)
+		for _ = 1, 20 do stub.advance(0.05); aim() end
+		Polestar.Fire("WAYPOINT_CHANGED", { map = 2521, x = 43.05, y = 43.30, label = "Coriella Calmbreeze", kind = "talk", r = 5 })
+		local _, cx, cy = N.GetTargetWorld()
+		local a, n = aim(), 0
+		while not a.measured and n < 400 do stub.advance(0.05); n = n + 1; a = aim() end
+		local legs, ci = N.GetRoute()
+		local kinds = {}
+		for i = ci or 1, #(legs or {}) do kinds[#kinds + 1] = legs[i].kind end
+		emit({ chord = N.danger.Blocked(c, rx, ry, cx, cy, "Alliance") or "clear", kinds = table.concat(kinds, ","),
+			state = a.state, measured = a.measured, caption = N.noWalk or false, yards = floor(a.dist or 0) })"#,
+		true,
+	);
+	assert_eq!(out["chord"], "opposing-settlement", "the straight line crosses the guard posts");
+	let kinds = out["kinds"].as_str().unwrap_or("");
+	assert!(kinds.is_empty() || kinds.split(',').all(|k| k == "walk"), "no portal, only the walk: {out}");
+	assert_eq!(
+		(&out["state"], &out["measured"], &out["caption"]),
+		(&serde_json::json!("travel"), &serde_json::json!(true), &serde_json::json!(false)),
+		"the arrow's own walk, round the guards: {out}"
+	);
+	assert!(f(&out["yards"]) < 400.0, "a walk of a few hundred yards, not a portal's 3 km: {out}");
+}
+
 /// #1972 (Rexen, Dwarf Shaman 37, 0.3.7.2): on "Go to Watcher Biggs" (Swamp of Sorrows 26.7,59.8 on the game's map), at
 /// Stormwind the arrow said to fly to Darkshire, and at Darkshire to fly on to Lakeshire and walk through the
 /// Riverglades round the coast, past Farholde Keep's flight master. From Darkshire the way is the walk east along the

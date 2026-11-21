@@ -254,3 +254,41 @@ test('a near waypoint is on the other deck in Silithus, not on the slope beside 
 	});
 	assert.deepEqual(floors, [true, true, false, false]);
 });
+
+test('#3447: the goal\'s own enemy ground is walked into, and out of while the player stands on it; another town still refuses', () => {
+	const { emitted: [rows] } = runAddon({
+		stubs: ['stub_world.lua'], before: "stub.clientBuild = '70532'", addons: ['Polestar'],
+		script: `
+			local d = Polestar.Nav.danger
+			local K, K2 = { -585.6, -54.93 }, { -575.6, -44.93 } -- Farmer Kalaba in Hillsbrad Fields (35.05,46.20), and beside him
+			local A = { -581.33, -341.33 }                         -- the road east of the Fields (Hillsbrad 44,46)
+			local N, S, y = -416, -1216, -533                       -- north and south of Southshore, on its road
+			local function row()
+				local function walk(x, y, X, Y) return d.Blocked(0, x, y, X, Y, 'Horde') or 'clear' end
+				return { walk(A[1], A[2], K[1], K[2]), walk(K[1], K[2], A[1], A[2]), walk(N, y, N, y), walk(S, y, S, y), walk(N, y, S, y),
+					d.Blocked(0, A[1], A[2], K[1], K[2], 'Alliance') or 'clear' }
+			end
+			local out = { before = row() }
+			d.Exempt(0, K[1], K[2], 0, -33.07, -926.93, 'Horde') -- the goal in the Fields, the player at Tarren Mill
+			out.goal = row()
+			local check = d.Blocked
+			d.Exempt(0, K2[1], K2[2], 0, -33.07, -926.93, 'Horde')
+			out.same = d.Blocked == check
+			d.Exempt(0, -33.07, -926.93, 0, K[1], K[2], 'Horde') -- back to Tarren Mill from the Fields
+			out.out = row()
+			d.Exempt(0, -33.07, -926.93, 0, A[1], A[2], 'Horde') -- out of the Fields
+			out.after = row()
+			out.renewed = d.Blocked ~= check
+			d.Exempt(0, -33.07, -926.93, 0, -816, -533, 'Horde') -- in Southshore, where no goal lay: no way out through it
+			out.walkedIn = row()
+			emit(out)`,
+	});
+	const blocked = 'opposing-settlement', ok = 'clear';
+	assert.deepEqual(rows.before, [blocked, blocked, ok, ok, blocked, ok], 'the Fields and Southshore both refuse');
+	assert.deepEqual(rows.goal, [ok, ok, ok, ok, blocked, ok], 'into the goal\'s Fields; Southshore still refuses');
+	assert.equal(rows.same, true, 'the same ground keeps the same check (remembered answers stand)');
+	assert.deepEqual(rows.out, [ok, ok, ok, ok, blocked, ok], 'out of the Fields the player stands in; Southshore still refuses');
+	assert.deepEqual(rows.after, rows.before, 'neither the goal nor the player there: refused again');
+	assert.equal(rows.renewed, true);
+	assert.deepEqual(rows.walkedIn, rows.before, 'a town the player walked into on their own is no goal\'s');
+});
