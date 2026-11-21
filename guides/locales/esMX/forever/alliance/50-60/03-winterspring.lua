@@ -94,7 +94,7 @@ return {
 
 	-- Step 15: The Stone Circle
 	-- {quest:3444} The Stone Circle
-	["{quest:3444} stands on the hill just south-west of the flight master."] = "",
+	["{quest:3444} stands on the hill just south-west of the flight master."] = "{quest:3444} está en la colina justo al suroeste del maestro de vuelo.",
 
 	-- Step 16: Islen Waterseer
 	-- {npc:5901} Islen Waterseer
@@ -124,7 +124,7 @@ return {
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar
 	["Ride south-west to {npc:7771}'s camp at the {area:1938}."] = "Cabalga al suroeste hasta el campamento de {npc:7771} en {area:1938}.",
 	-- {npc:7771} Marvon Rivetseeker · {area:1417} Sunken Temple
-	["{npc:7771}'s next task, Into the Depths, is inside the {area:1417}: skip it."] = "",
+	["{npc:7771}'s next task, Into the Depths, is inside the {area:1417}: skip it."] = "La siguiente tarea de {npc:7771}, En las profundidades, está dentro de {area:1417}: omítela.",
 
 	-- Step 22: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge

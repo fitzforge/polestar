@@ -27,7 +27,7 @@ return {
 	-- Step 3: Scout Bolain
 	-- {npc:260026} Scout Bolain · {zone:1434} Stranglethorn Vale · {npc:256881} Overlord Kilgar
 	-- plural, as words: Twilight Enforcers = {npc:256800} Twilight Enforcer
-	["{npc:260026} waits beside the road east of the pass.\nThis guide is written for levels 41-45: the route comes here at about 41, after {zone:1434}. The port's second wave and the Western Front's camps in the north are 43-45, with elite Twilight Enforcers (45) on patrol and {npc:256881} (46, elite) for groups only: below 41, do Stranglethorn first."] = "",
+	["{npc:260026} waits beside the road east of the pass.\nThis guide is written for levels 41-45: the route comes here at about 41, after {zone:1434}. The port's second wave and the Western Front's camps in the north are 43-45, with elite Twilight Enforcers (45) on patrol and {npc:256881} (46, elite) for groups only: below 41, do Stranglethorn first."] = "{npc:260026} espera junto al camino al este del paso.\nEsta guía está escrita para los niveles 41-45: la ruta llega aquí hacia el nivel 41, después de {zone:1434}. La segunda oleada del puerto y los campamentos del Frente Occidental en el norte son de nivel 43-45, con Twilight Enforcers élite (45) patrullando y {npc:256881} (46, élite) solo para grupos: por debajo de 41, haz primero Tuercespina.",
 
 	-- Step 4: Southern Watch
 	-- {area:16744} Southern Watch
@@ -188,7 +188,7 @@ return {
 	-- Step 38: WANTED: Blademaster Kaijo
 	-- {npc:263071} Blademaster Kaijo · {area:16743} Rog'mar
 	["{npc:263071} is an elite (level 42) at the Horde's training grounds north of {area:16743}, where this guide goes later: grouping up is advised."] = "{npc:263071} es un élite (nivel 42) en el campo de entrenamiento de la Horda al norte de {area:16743}, adonde esta guía va más adelante: se recomienda ir en grupo.",
-	["the Wanted poster"] = "",
+	["the Wanted poster"] = "el cartel de Se busca",
 
 	-- Step 39: Ghostmaw
 	-- {npc:263380} Ghostmaw · {area:16725} Wheeler's Grange · {area:16729} Terral's Watch
@@ -196,9 +196,9 @@ return {
 
 	-- Step 40: Sunnyglade
 	-- {area:16724} Farholde Keep · {area:16729} Terral's Watch · {area:16723} Sunnyglade · {area:16743} Rog'mar · {npc:259158} Fuzzle · {npc:256831} Apprentice Claire · {npc:258697} Farmer Elbrim
-	["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold waits in a cage at the arrow, {npc:256831} below ground in a cave at the town's eastern edge (the entrance is at 50.0,46.0), and {npc:258697} waits at his farm on the north-eastern edge."] = "",
+	["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold waits in a cage at the arrow, {npc:256831} below ground in a cave at the town's eastern edge (the entrance is at 50.0,46.0), and {npc:258697} waits at his farm on the north-eastern edge."] = "Al norte desde {area:16724}, pasando {area:16729} y cruzando el río, hasta {area:16723}, el pueblo granjero que controla el culto Crepuscular; mantente lejos de {area:16743}, el fuerte de la Horda al este del pueblo. {npc:259158} el kóbold espera en una jaula donde marca la flecha, {npc:256831}, bajo tierra en una cueva del borde este del pueblo (la entrada está en 50.0,46.0), y {npc:258697} espera en su granja en el borde noreste.",
 	-- {npc:259158} Fuzzle · {quest:94961} Biting the Hand
-	["{npc:259158}: {quest:94961}, in his cage"] = "",
+	["{npc:259158}: {quest:94961}, in his cage"] = "{npc:259158}: {quest:94961}, en su jaula",
 
 	-- Step 41: The Twilight cult
 	["The Twilight cult"] = "El culto Crepuscular",
@@ -209,13 +209,13 @@ return {
 	["fill the {item:269990} at the ritual circles"] = "llena el {item:269990} en los círculos rituales",
 	-- {object:621813} Loose Soil (no name in this language: may be words) · {item:266148} Farmers' Mementos
 	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
-	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "",
+	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "Tierra suelta, al oeste de la granja de Elbrim: cada tumba lleva uno de los {item:266148} que sueltan los Twilight Raiders, así que consigue cinco primero",
 	-- {quest:94885} Field Marshal's Log
 	["{quest:94885}: only if a cultist dropped the log"] = "{quest:94885}: solo si un cultista soltó el registro",
 
 	-- Step 42: Apprentice Claire
 	-- {area:16723} Sunnyglade
-	["Claire is in the cave under the eastern edge of {area:16723}: its entrance is at 50.0,46.0."] = "",
+	["Claire is in the cave under the eastern edge of {area:16723}: its entrance is at 50.0,46.0."] = "Claire está en la cueva debajo del borde este de {area:16723}: su entrada está en 50.0,46.0.",
 
 	-- Step 43: Cut Off the Heads
 	-- {npc:256899} Chogg'Zac · {area:16723} Sunnyglade · {npc:257591} Ashe Amberhall · {area:16724} Farholde Keep
@@ -355,10 +355,10 @@ return {
 	["Most beasts in the {zone:2548} drop {item:268632} for {npc:260231}: the shore crawlers on this coast and the boars on the ridge west of the pirates.\nCareful: {npc:257001} (elite, 42), Komuk (a Horde elite, 45) and {npc:263380} (elite, 42) range over the zone's wilds: take your beasts away from them."] = "La mayoría de las bestias de {zone:2548} sueltan {item:268632} para {npc:260231}: los reptadores de la costa y los jabalíes de la cresta al oeste de los piratas.\nCuidado: {npc:257001} (élite, 42), Komuk (un élite de la Horda, 45) y {npc:263380} (élite, 42) recorren las zonas salvajes: lleva a tus bestias lejos de ellos.",
 
 	-- Step 68: Level 44 on the Eastsea pirates
-	["Level 44 on the Eastsea pirates"] = "",
+	["Level 44 on the Eastsea pirates"] = "Nivel 44 con los piratas de Mareste",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash · {area:1517} Uldaman
 	-- was: ["Before the second wave: its raiders and bombardiers (43-45) and the pirates' ships after them are a level over you below 44.4. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "Antes de la segunda oleada: sus asaltantes y bombarderos (43-45) y, después, los barcos piratas te superan en un nivel si estás por debajo de 44.4. Completa la experiencia con los bucaneros y mosqueteros (41-43) del primer campamento, en su extremo suroeste, lejos del puerto. {npc:259758}, un élite raro de nivel 49, recorre estos acantilados: si lo ves, mantente bien lejos. O, con un grupo, haz el calabozo {area:1517}."
-	["Before the second wave: its raiders (44-45), bombardiers (43-44) and {quest:95124}'s ships after them (45) are more than a level over you below 44. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "",
+	["Before the second wave: its raiders (44-45), bombardiers (43-44) and {quest:95124}'s ships after them (45) are more than a level over you below 44. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "Antes de la segunda oleada: sus asaltantes (44-45), bombarderos (43-44) y, después, los barcos de {quest:95124} (45) te superan en más de un nivel por debajo de 44. Completa la experiencia con los bucaneros y mosqueteros (41-43) del primer campamento, en su extremo suroeste, lejos del puerto. {npc:259758}, un élite raro de nivel 49, recorre estos acantilados: si lo ves, mantente bien lejos. O, con un grupo, haz el calabozo {area:1517}.",
 	-- {npc:257901} Eastsea Buccaneer
 	["grind on {npc:257901}"] = "mata a {npc:257901}",
 
@@ -377,7 +377,7 @@ return {
 	-- Step 72: The pirates' ships
 	["The pirates' ships"] = "Los barcos piratas",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
-	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} (level 45) walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way."] = "",
+	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} (level 45) walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way."] = "Vuelve una vez más a los acantilados de los piratas. Coloca las cargas de Whizzbuzz en los tres barcos amarrados bajo el campamento, de sur a norte. {quest:95124} (nivel 45) recorre la cubierta superior del barco del medio; su cofre de botín está bajo cubierta. Atento a {npc:259758} en el camino.",
 	-- {item:268505} Remote Explosive Charge
 	["{item:268505}, the southern ship"] = "{item:268505}, el barco del sur",
 	["the middle ship"] = "el barco del medio",
@@ -464,7 +464,7 @@ return {
 	-- Step 94: The Western Front
 	-- {npc:256881} Overlord Kilgar
 	-- plural, as words: Twilight Champions = {npc:256799} Twilight Champion · Twilight Enforcers = {npc:256800} Twilight Enforcer
-	["Careful: the Western Front is written for level 44 and up. Its Twilight Champions are 43-44 and its Thralls 44, Twilight Enforcers (elites, 45) patrol through the camps, and {npc:256881} (46, elite) is for a group only. Below 44, top up on the Eastsea pirates by the port first, or come back with a friend."] = "",
+	["Careful: the Western Front is written for level 44 and up. Its Twilight Champions are 43-44 and its Thralls 44, Twilight Enforcers (elites, 45) patrol through the camps, and {npc:256881} (46, elite) is for a group only. Below 44, top up on the Eastsea pirates by the port first, or come back with a friend."] = "Cuidado: el Frente Occidental está escrito para nivel 44 en adelante. Sus Twilight Champions son de nivel 43-44 y sus esclavos de 44, los Twilight Enforcers (élites, 45) patrullan los campamentos, y {npc:256881} (46, élite) es solo para grupos. Por debajo de 44, completa primero la experiencia con los piratas de Mareste junto al puerto, o vuelve con un amigo.",
 
 	-- Step 95: Sergeant Riftan
 	-- {area:16685} Twilight's Shroud · {npc:258023} Sergeant Riftan

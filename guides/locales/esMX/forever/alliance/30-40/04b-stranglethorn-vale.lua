@@ -21,9 +21,9 @@ return {
 
 	-- Step 3: Clerk Daltry
 	-- {npc:267} Clerk Daltry · {area:42} Darkshire · {npc:661} Jonathan Carevin
-	["{npc:267} works in {area:42}'s town hall, a short walk from the flight master; {npc:661} stands just east of it."] = "",
+	["{npc:267} works in {area:42}'s town hall, a short walk from the flight master; {npc:661} stands just east of it."] = "{npc:267} trabaja en el ayuntamiento de {area:42}, a poca distancia del maestro de vuelo; {npc:661} está justo al este de él.",
 	-- {npc:661} Jonathan Carevin · {area:121} Tranquil Gardens Cemetery · {zone:1435} Swamp of Sorrows
-	["{npc:661}: the evidence lies in the {area:121}, on the next guide's way to the {zone:1435}: keep it"] = "",
+	["{npc:661}: the evidence lies in the {area:121}, on the next guide's way to the {zone:1435}: keep it"] = "{npc:661}: las pruebas están en {area:121}, de camino a {zone:1435} en la siguiente guía: guárdala",
 
 	-- Step 4: Stranglethorn Vale
 	-- {zone:1434} Stranglethorn Vale
@@ -33,16 +33,16 @@ return {
 	-- {zone:1431} Duskwood
 	["From {zone:1431} take the road south; the camp sits in the hills west of the road."] = "Desde {zone:1431} toma el camino al sur; el campamento está en las colinas al oeste del camino.",
 	-- {npc:770} Corporal Kaleb · {npc:773} Krazek · {area:35} Booty Bay
-	["{npc:770}, if the first Stranglethorn loop didn't give it: for {npc:773} in {area:35}"] = "",
+	["{npc:770}, if the first Stranglethorn loop didn't give it: for {npc:773} in {area:35}"] = "{npc:770}, si el primer circuito de Tuercespina no te la dio: para {npc:773} en {area:35}",
 
 	-- Step 6: Nesingwary's Expedition
 	-- {npc:717} Ajeck Rouack
 	["South along the road: the hunters' tents stand just west of it. {npc:717} and Hemet gave you these on the first loop: take them now only if you didn't."] = "Al sur por el camino: las tiendas de los cazadores están justo al oeste. {npc:717} y Hemet te las dieron en el primer circuito: tómalas ahora solo si no lo hiciste.",
 	-- {npc:717} Ajeck Rouack · {npc:729} Sin'Dall
-	["{npc:717}. Keep it for the later visit if you skip {npc:729} on the raptor hill."] = "",
+	["{npc:717}. Keep it for the later visit if you skip {npc:729} on the raptor hill."] = "{npc:717}. Guárdala para la visita posterior si te saltas a {npc:729} en la colina de los raptores.",
 	-- {npc:715} Hemet Nesingwary
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["{npc:715}, if the first Stranglethorn loop didn't give it: the Lashtail Raptors, after the jungle ruins"] = "",
+	["{npc:715}, if the first Stranglethorn loop didn't give it: the Lashtail Raptors, after the jungle ruins"] = "{npc:715}, si el primer circuito de Tuercespina no te la dio: los raptores colazote, después de las ruinas de la jungla",
 
 	-- Step 7: Bookie Herod
 	-- {area:101} Kurzen's Compound
@@ -86,23 +86,23 @@ return {
 
 	-- Step 12: Sin'Dall on the raptor hill
 	-- {npc:729} Sin'Dall
-	["{npc:729} on the raptor hill"] = "",
+	["{npc:729} on the raptor hill"] = "{npc:729} en la colina de los raptores",
 	-- {npc:729} Sin'Dall · {npc:717} Ajeck Rouack
-	["Check the hilltop on your way to the raptors. If {npc:729} isn't here or you can't pull her alone, keep moving; {npc:717} can take the paw on the later visit."] = "",
+	["Check the hilltop on your way to the raptors. If {npc:729} isn't here or you can't pull her alone, keep moving; {npc:717} can take the paw on the later visit."] = "Revisa la cima de la colina de camino a los raptores. Si {npc:729} no está o no puedes atraerla sola, sigue adelante; {npc:717} puede recibir la zarpa en la visita posterior.",
 	-- {npc:729} Sin'Dall
-	["{npc:729}'s hill"] = "",
+	["{npc:729}'s hill"] = "La colina de {npc:729}",
 	-- {npc:729} Sin'Dall
-	["{npc:729} (37) prowls the hilltop."] = "",
+	["{npc:729} (37) prowls the hilltop."] = "{npc:729} (37) merodea por la cima de la colina.",
 
 	-- Step 13: The Lashtail raptors
 	["The Lashtail raptors"] = "Los raptores colazote",
 	-- {quest:187} Tiger Mastery · {npc:729} Sin'Dall
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["East from the ruins, hunt Lashtail Raptors around the hill south-west of Nesingwary's camp. If you have {quest:187}, are at least 36 and see {npc:729} (37) alone, you can take her paw here or leave the hunt for your next visit."] = "",
+	["East from the ruins, hunt Lashtail Raptors around the hill south-west of Nesingwary's camp. If you have {quest:187}, are at least 36 and see {npc:729} (37) alone, you can take her paw here or leave the hunt for your next visit."] = "Al este de las ruinas, caza raptores colazote alrededor de la colina al suroeste del campamento de Nesingwary. Si tienes {quest:187}, eres al menos de nivel 36 y ves a {npc:729} (37) sola, puedes tomar su zarpa aquí o dejar la cacería para tu próxima visita.",
 
 	-- Step 14: Ajeck Rouack
 	-- {npc:717} Ajeck Rouack
-	["Hand the paw to {npc:717} beside Hemet."] = "",
+	["Hand the paw to {npc:717} beside Hemet."] = "Entrégale la zarpa a {npc:717}, junto a Hemet.",
 
 	-- Step 15: Nesingwary's Expedition
 	-- {npc:715} Hemet Nesingwary
@@ -126,9 +126,9 @@ return {
 
 	-- Step 18: Tokal
 	-- {npc:215643} Tokal · {object:56910} Salty Sailor Tavern · {item:4600} Cherry Grog · {npc:2832} Nixxrax Fillamug
-	["{npc:215643}, whom Bibbly sent you to find, waits by the {object:56910}. He asks for a {item:4600}: {npc:2832} sells it in the tavern, a few steps away."] = "",
+	["{npc:215643}, whom Bibbly sent you to find, waits by the {object:56910}. He asks for a {item:4600}: {npc:2832} sells it in the tavern, a few steps away."] = "{npc:215643}, a quien Bibbly te mandó a buscar, espera junto a la {object:56910}. Te pide un {item:4600}: {npc:2832} lo vende en la taberna, a unos pasos.",
 	-- {item:4600} Cherry Grog · {npc:2832} Nixxrax Fillamug
-	["{item:4600}, from {npc:2832}"] = "",
+	["{item:4600}, from {npc:2832}"] = "{item:4600}, de {npc:2832}",
 
 	-- Step 19: Booty Bay
 	-- {npc:2495} Drizzlik
