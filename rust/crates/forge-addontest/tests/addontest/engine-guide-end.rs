@@ -808,3 +808,43 @@ fn a_class_s_own_trailing_step_does_not_bring_back_an_end_the_line_s_hand_in_hel
 	assert_eq!(out["back"], json!({ "log": {}, "live": 5 }), "no end when the route goes back");
 	assert_eq!(out["rest"], json!(["GUIDE_COMPLETED test/onway", "GUIDE_END test/onway undone=0 live=nil next=test/barrens choose=nil"]));
 }
+
+// A repeatable `direct` hand-in (never flagged completed; its QUEST_TURNED_IN tells it) as the last step, offered by
+// the line and handed in right after paging to its step: no end either. And a pack replacing the guide's steps while the line shows keeps the offer.
+#[test]
+fn a_direct_last_hand_in_or_steps_replaced_while_the_line_shows_keep_the_offer() {
+	let direct = run(Run {
+		next: NEXT,
+		saved: None,
+		script: &format!(
+			r#"w.repeatable[300] = true
+			{way}
+			local line = E.GetWhileHere()
+			local r = {{ line = line and line.quest or "none" }}
+			E.Goto(6); flush()
+			w.turnIn(300); flush()
+			r.log = takeLog(); r.live = E.GetLiveStep()
+			emit(r)"#,
+			way = on_the_way("").replace(r#"{ goals = { { t = "turnin", quest = 300"#, r#"{ goals = { { t = "turnin", direct = true, quest = 300"#)
+		),
+	});
+	assert_eq!(direct, json!({ "line": 300, "log": {}, "live": 3 }));
+
+	let replaced = run(Run {
+		next: NEXT,
+		saved: None,
+		script: &format!(
+			r#"{way}
+			local line = E.GetWhileHere()
+			local r = {{ line = line and line.quest or "none" }}
+			local steps = {{}}
+			for i, step in ipairs(Polestar.Guides.Get("test/onway").steps) do steps[i] = step end
+			r.replaced = E.ReplaceSteps("test/onway", steps); takeLog()
+			w.turnIn(300); flush()
+			r.log = takeLog(); r.live = E.GetLiveStep()
+			emit(r)"#,
+			way = on_the_way("")
+		),
+	});
+	assert_eq!(replaced, json!({ "line": 300, "replaced": true, "log": {}, "live": 3 }));
+}

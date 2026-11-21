@@ -10057,11 +10057,11 @@ function Own.hereNoteOffers()
 end
 
 -- For a hand-in of step s, the last one, that holds it (Own.holds: not
--- optional; for the character): whether its quest is really handed in (a
--- tick is not). nil for any other goal.
+-- optional; for the character): whether its quest is really handed in, by
+-- the game or this session's QUEST_TURNED_IN (a repeatable `direct` one is
+-- never flagged completed; a tick is no hand-in). nil for any other goal.
 function Own.handInDone(s, goal)
 	if not (goal.t == "turnin" and goal.quest and Own.holds(s, goal) and goalApplies(goal)) then return nil end
-	if goal.direct then return Compat().IsQuestCompleted(goal.quest) and true or false end
 	return questDone(goal.quest) and true or false
 end
 
@@ -17892,6 +17892,8 @@ function Engine.ReplaceSteps(id, steps)
 		checkShape(g) -- stamps the new shape: nothing left to map
 	end
 	Own.passedNow[id], Own.skipQueue[id], Own.endOpen[id], Own.lastOpen[id] = nil, nil, nil, nil
+	-- Hand-ins offered on the way are by quest: they hold for the new steps (Own.handedOnTheWay).
+	Own.hereOfferAt[g], Own.handedSeen[g] = Own.hereOfferAt[from], Own.handedSeen[from]
 	if not i then return true end
 	local t = tabs[i]
 	if mapped then
