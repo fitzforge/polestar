@@ -3166,6 +3166,47 @@ fn searches_carry_the_player_faction_and_an_unknown_faction_gets_the_straight_be
 	assert_eq!(out["batch"], "Alliance", "the planner's measure too");
 }
 
+// The arrow shows its hourglass, turning, in the dial's place while it says "Finding a walking route"; the
+// catch-up's own use wins while it is on (the text hidden), and the hourglass is gone once a route is in.
+#[test]
+fn the_arrow_shows_its_hourglass_while_it_finds_a_walking_route() {
+	let out = run_priced(
+		&[
+			TERRAIN,
+			r#"
+		nav.faction = "Horde"
+		nav.place(0, 0)
+		target(0, -300)
+		N.Sample()
+		local a = N.arrow
+		local function look()
+			a:Refresh()
+			local mode = N.Sample()
+			return { mode, a.GetMode(), a.glass:IsShown(), a.IsBusy(), a.distText:GetText(), a.distText:GetAlpha() }
+		end
+		local r = {}
+		r.routing = look()
+		stub.advance(0.3)
+		local upright = a.glassBody:GetRotation()
+		stub.advance(0.35)
+		r.turning = a.glassBody:GetRotation() > upright
+		Polestar.Fire("CATCH_UP", true)
+		r.catchUp = look()
+		Polestar.Fire("CATCH_UP", false)
+		r.after = look()
+		assert(finish(fake.of(false)[1]).job.walkChecked)
+		r.route = look()
+		emit(r)"#,
+		]
+		.concat(),
+	);
+	assert_eq!(out["routing"], json!(["routing", "routing", true, true, "Finding a walking route", 1]));
+	assert_eq!(out["turning"], true, "the glass turns over while it waits");
+	assert_eq!(out["catchUp"], json!(["routing", "routing", true, true, "Finding a walking route", 0]), "the catch-up hides the text");
+	assert_eq!(out["after"], json!(["routing", "routing", true, true, "Finding a walking route", 1]), "the wait goes on after the catch-up");
+	assert_eq!(out["route"], json!(["travel", "travel", false, false, "300 yd", 1]), "gone once the route is in");
+}
+
 #[test]
 fn cost_and_yards_the_measure_s_cost_picks_the_landing_its_yards_time_the_walk_a_road_walk_costs_less_than_its_yards() {
 	let out = run_many(
