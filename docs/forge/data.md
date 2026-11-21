@@ -1002,6 +1002,10 @@ forge data publish --check forever-db                           # the guard
 - `index.json` and `CHANGELOG.md` give coverage. A field most entities lack is counted over the
   entities the full data knows one for: prerequisites over the known chain links, spawns over the
   NPCs and objects with a known spawn, drop sources over the items with a known dropper.
+- `CHANGELOG.md` is never edited by hand. What its counts can't say (why a table lost rows, a
+  release that replaces one never tagged) goes in a Markdown file passed as `--release-note FILE`:
+  publish puts it under this version's heading, before the lists. Pass it on every run of that
+  version, since a run without it writes the section without it.
 - `--zip` writes `forever-db-<version>.zip` beside the folder (the folder under `forever-db/`),
   `--sqlite FILE` the tables as one sqlite file, `--lua DIR` the library; `--from DIR` writes these
   from an existing release without rebuilding it.
