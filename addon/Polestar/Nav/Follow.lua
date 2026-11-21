@@ -210,6 +210,7 @@ local SIGHT_AHEAD = 150 -- yards along the path past the projection the sight ai
 local SIGHT_GAP = 8    -- yards along the path between the closest sight candidates
 local SIGHT_MOVE = 2   -- yards the player moves before the sight aim is looked for again
 local REACH_MOVE = 1   -- yards the player or the corridor's aim moves before its reach is looked for again
+local SHUT_LOOKS = 4   -- looks running (REACH_MOVE yards apart) a point held in reach may be shut before the aim comes back from it (2 let posts in Goldshire swing it back)
 local SIGHT_HOLD = 12  -- yards the player may move with the point last seen in sight held while it is not seen again
 local SIGHT_NEAR = BODY - 5 -- yards beside the path: a point held in sight stays the sight aim until the player comes this near
 local LOOK_AHEAD = 40  -- yards along the path the aim may lie ahead on it, at a point the player can walk to straight (open ground)
@@ -226,7 +227,7 @@ function Follow.Reset(S)
 	S.marked = false -- S.dbl is the last path's until Follow.Mark
 	S.reached = 0 -- the furthest floor change come within REACH of, outdoors (blocked)
 	S.aimSeg = nil -- the corridor's last aim's segment (Step)
-	S.reachPX, S.reachHeld, S.reachShut = nil, nil, false -- reachBack's last look; the aim in reach held; it was shut at that look (Step)
+	S.reachPX, S.reachHeld, S.reachShut = nil, nil, 0 -- reachBack's last look; the aim in reach held; looks it has been shut (Step)
 end
 
 -- Marks, into S.dbl (reused; true or false per point), the points where the
@@ -486,7 +487,7 @@ local function reachBack(S, reach, xs, ys, left, a, n, px, py, z, along, lo, hi,
 	S.reachPX, S.reachPY, S.reachQX, S.reachQY, S.reachAlong = px, py, qx, qy, along
 	local at
 	if not reach(px, py, qx, qy, z) then
-		local held = S.reachHeld
+		local held, far = S.reachHeld, along + hi
 		at = lo
 		for _ = 1, BISECT do
 			local mid = (lo + hi) * 0.5
@@ -494,13 +495,17 @@ local function reachBack(S, reach, xs, ys, left, a, n, px, py, z, along, lo, hi,
 			if reach(px, py, x, y, z) then at, lo = mid, mid else hi = mid end
 		end
 		at = along + at
-		-- Never back along the path past a point aimed at before while it is in reach, or was at the last look (the
-		-- grid's line closes for a look at a post or a fence: a wall stays shut).
-		if held and held > at and held < along + hi then
+		-- Never back along the path past a point aimed at before while it is in reach, or was shut for fewer than
+		-- SHUT_LOOKS looks running (the grid's line closes for a few yards at a post or a fence; a wall stays shut).
+		if held and held > at and held <= far then
 			local x, y = pointAlong(xs, ys, left, a, n, held)
-			local clear = reach(px, py, x, y, z)
-			if clear or not S.reachShut then at = held end
-			S.reachShut = not clear and not S.reachShut
+			if reach(px, py, x, y, z) then
+				at, S.reachShut = held, 0
+			elseif S.reachShut < SHUT_LOOKS then
+				at, S.reachShut = held, S.reachShut + 1
+			else
+				S.reachShut = 0
+			end
 		end
 	end
 	S.reachAt = at
@@ -737,11 +742,10 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill, re
 	-- behind a wall from the player. 0.4.1.1 aimed through the solid corner at
 	-- the Ironforge roost; 0.4.2 held every walk's aim on the current piece
 	-- instead. Here it comes back toward the next point only as far as the walls
-	-- need, so open corners stay smooth. It never runs back along the path: a
-	-- point once aimed at stays while the corridor's aim lies past it (the
-	-- grid's line opens and closes at posts and fences from one look to the
-	-- next, and a look that found a nearer point swung the arrow back).
-	-- (Beside the path the point in sight, below, is the aim: checked already.)
+	-- need, so open corners stay smooth, and never back along the path past a
+	-- point once aimed at unless a wall has stood in front of it for SHUT_LOOKS
+	-- looks (reachBack). Beside the path the point in sight, below, is the aim:
+	-- checked already.
 	if reach and qSeg and qSeg > a and not (sat and bestD > BODY) then
 		local nx, ny = xs[idx] - p0x, ys[idx] - p0y
 		local next = S.along + sqrt(nx * nx + ny * ny)
