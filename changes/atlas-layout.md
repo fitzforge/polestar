@@ -19,3 +19,8 @@ section: players
   action on its first line. A layout may also default the step number's size
   and the step card's gaps (over and under the step's title, over and round
   the tip, Up next's and the steps before's rows, the XP row).
+- Atlas in the game looks: the cards over the guide window (Along the way,
+  Party) wear the window's own frame (Classic's chat rim, Blizzard's meter,
+  WoW Forever's bronze line) instead of a flat panel, and cast no shadow of
+  their own. With Boosted Rest under the XP line, the two lines sit centred
+  in the row and Rest no longer runs past its bottom.

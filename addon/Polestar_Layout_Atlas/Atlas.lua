@@ -814,8 +814,11 @@ local function backing(stack, i)
 	local b = stack.cards[i]
 	if not b then
 		b = CreateFrame("Frame", nil, stack)
-		b.psGuide = true
-		Theme.Skin(b, "guide")
+		-- Painted as the guide window is (a window flagged psGuide): a game
+		-- look's GUIDE frame, a skin's own guide painter. "guide" is no paint
+		-- kind, so it fell to the house panel in every look.
+		b.psGuide, b.psNoShadow = true, true
+		Theme.Skin(b, "window")
 		b:SetFrameLevel(stack:GetFrameLevel())
 		b.Close = closeButton(b)
 		b.Close:SetPoint("TOPRIGHT", b, "TOPRIGHT", -4, -4)
@@ -2996,9 +2999,15 @@ local function xpLook(xp)
 			for i = 1, xp.Text:GetNumPoints() do text[i] = { xp.Text:GetPoint(i) } end
 			own.points = { icon = { xp.Icon:GetPoint(1) }, text = text }
 		end
-		-- From the row's own point (kept above), 1px lower: with the row's
-		-- 2px more height (xpRowHeight) the line clears the rule over it.
-		local iy = (own.points.icon[5] or -1) - 1
+		-- 2px under the row's middle: with the row's 2px more height
+		-- (xpRowHeight) the line clears the rule over it. Boosted Rest's line
+		-- under it (the row grows by XPROW.restH, GF.XPHeight) lifts the text
+		-- by half that, so the two stand where one would and Rest stays in
+		-- the row. Worked out each layout: a point kept from a row with Rest
+		-- shown held the lift after Rest went, and the other way round.
+		local G = frame()
+		local lift = xp.psRest and G and G.XPROW and G.XPROW.restH / 2 or 0
+		local iy = -2 + lift
 		xp.Icon:ClearAllPoints()
 		xp.Icon:SetPoint("CENTER", xp, "LEFT", RAIL, iy)
 		xp.Text:ClearAllPoints()
