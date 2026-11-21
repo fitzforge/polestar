@@ -1018,6 +1018,29 @@ function city.Pick(P, pc, px, py, n)
 	return best
 end
 
+-- An approach chain's node the player has reached with no height from the client (Nav/Travel.lua, Walk.AtNode): its
+-- authored floor puts the followed one right, as an NPC's window does (city.Talk): the read surface nearest the node's
+-- height within RISE of it, once, while the player stands within city.NODE yd of it (track reads the surfaces for it
+-- even standing still). The chains lie where the walking maps fail: at Ban'ethil Barrow Den's mouth the follow, walked
+-- up the entrance ramp, fell onto the hall 26 yd under the mouth and stayed there outside (#3449).
+city.NODE = 8
+function city.Node(pc, px, py, n)
+	local z = city.nodeZ
+	if z == nil then return nil end
+	local dx, dy = px - city.nodeX, py - city.nodeY
+	if pc ~= city.nodeC or dx * dx + dy * dy > city.NODE * city.NODE then
+		city.nodeZ = nil
+		return nil
+	end
+	local best, gap = nil, RISE
+	for i = 1, n do
+		local d = abs(surf[i] - z)
+		if d <= gap then best, gap = surf[i], d end
+	end
+	if best ~= nil then city.nodeZ = nil end
+	return best
+end
+
 local function track(P, pc, px, py)
 	local now = GetTime()
 	aimAt = now
@@ -1031,7 +1054,7 @@ local function track(P, pc, px, py)
 	if held or pc ~= fC or ghost ~= fGhost or d2 > JUMP * JUMP or (d2 >= NEAR * NEAR and now - fAt > FRESH) then
 		floorZ = nil
 		dropCandidates()
-	elseif d2 < MOVE * MOVE and not (floorZ ~= nil and city.TalkNew(pc, px, py)) then
+	elseif d2 < MOVE * MOVE and city.nodeZ == nil and not (floorZ ~= nil and city.TalkNew(pc, px, py)) then
 		fAt = now
 		return
 	end
@@ -1065,7 +1088,7 @@ local function track(P, pc, px, py)
 		else
 			-- The floor a landing, an NPC beside the player or (in a capital) the trails say, before movement: seed
 			-- takes the lowest surface within ZTOL, the ground a street was built 2 yd over (Stormwind's Dwarven District).
-			floorZ = city.Pick(P, pc, px, py, n)
+			floorZ = city.Node(pc, px, py, n) or city.Pick(P, pc, px, py, n)
 			if floorZ ~= nil then
 				dropCandidates()
 			elseif candN > 0 then
@@ -1097,13 +1120,26 @@ local function track(P, pc, px, py)
 		if z ~= nil and abs(z - floorZ) > ZTOL then
 			floorZ, onX, onY = z, px, py
 		else
-			local f = city.Talk(pc, px, py, n) or follow(n, bridgeDeck(pc, px, py))
+			local f = city.Node(pc, px, py, n) or city.Talk(pc, px, py, n) or follow(n, bridgeDeck(pc, px, py))
 			if f ~= nil then
 				floorZ, onX, onY = f, px, py
 			else
 				local ox, oy = px - onX, py - onY
 				if ox * ox + oy * oy > KEEP * KEEP then floorZ = nil end
 			end
+		end
+	end
+end
+
+-- (city.Node) Read at once, so the plan made on reaching the node starts on its floor.
+function Walk.AtNode(c, x, y, z)
+	city.nodeC, city.nodeX, city.nodeY, city.nodeZ = c, x, y, z
+	local P, C = engine(), ns.Compat
+	if P and P.SurfacesAt and C and C.GetPlayerWorldPosition then
+		local pc, px, py = C.GetPlayerWorldPosition()
+		if pc == c then
+			fAt = -huge
+			track(P, pc, px, py)
 		end
 	end
 end
@@ -1790,6 +1826,13 @@ function Walk.LastAim()
 	return aimC, aimX, aimY
 end
 
+-- The yards left along the arrow's live walk to the goal (c, x, y) while the player follows it, else nil (Nav/Travel.lua:
+-- a start inside an approach chain keeps that walk where no measure prices it, a target nearer than MEASURE_NEAR, #3449).
+function Walk.LiveLeft(c, x, y)
+	if count == 0 or not aimC or gc ~= c or gx == nil or (x - gx) * (x - gx) + (y - gy) * (y - gy) > GOAL_MOVED * GOAL_MOVED then return nil end
+	return lastLeft
+end
+
 -- Has the player gone past segment `seg` of the path to (c, x, y)?
 function Walk.Passed(c, x, y, seg)
 	return seg ~= nil and isGoal(c, x, y) and idx > seg + 1
@@ -1914,7 +1957,10 @@ local function measuredCost(e, c, wx, wy, start, z)
 	local i
 	if start then
 		i = e.si
-		if not i or wx ~= e.sx or wy ~= e.sy or e.pts[i].z ~= z then return nil end
+		if not i then return nil end
+		-- A start inside an approach chain (Travel's "inside": sealed but for this walk) keeps the player's last measure
+		-- until the next one lands: without it each plan in between led out by the chain (#3449).
+		if start ~= "inside" and (wx ~= e.sx or wy ~= e.sy or e.pts[i].z ~= z) then return nil end
 	else
 		i = placeIndex(e, wx, wy, z)
 	end

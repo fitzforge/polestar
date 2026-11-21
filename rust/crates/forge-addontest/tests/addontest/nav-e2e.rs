@@ -4165,6 +4165,166 @@ fn t_2005_from_the_lake_shore_the_route_to_the_relic_of_the_claw_goes_in_by_the_
 	assert!(f(&out["chainLegs"]) >= 2.0, "the walk in follows the chain's nodes: {out}");
 }
 
+// Following the arrow with no height from the client, as on Forever (UnitPosition's 0, read as none): 7 yd a second
+// toward its aim, the height left at 0, for up to `secs` seconds. -> { arrived = seconds | false, left = yards to the
+// target, outs = seconds the label said "Follow the path out", near = seconds within `r` yd of (ax, ay), far = seconds
+// over `R` yd from it after the first near one }.
+const FLAT_FOLLOW: &str = r#"
+function flatFollow(c, x, y, secs, reach, ax, ay, r, R)
+	local map = N.danger.ZoneAt(c, x, y)
+	place(map, x, y, 0)
+	local _, tx, ty = N.GetTargetWorld()
+	local outs, near, far = 0, 0, 0
+	for t = 1, secs do
+		for _ = 1, 20 do N.Sample(); stub.advance(0.05) end
+		if dist(x, y, tx, ty) <= reach then return { arrived = t, left = 0, outs = outs, near = near, far = far } end
+		local _, _, _, dn, dw = N.Sample()
+		if (N.travel.CurrentLabel() or ""):match("^[^\n]*") == "Follow the path out" then outs = outs + 1 end
+		if not dn then break end
+		local da = sqrt(dn * dn + dw * dw)
+		if da > 0 then
+			local step = math.min(7, da)
+			x, y = x + dn / da * step, y + dw / da * step
+		end
+		if ax then
+			local d = dist(x, y, ax, ay)
+			if d <= r then near = near + 1 elseif near > 0 and d > R then far = far + 1 end
+		end
+		local zm = N.danger.ZoneAt(c, x, y) or map
+		place(zm, x, y, 0)
+		if zm ~= map then
+			map = zm
+			stub.fire("ZONE_CHANGED_NEW_AREA")
+		end
+	end
+	return { arrived = false, left = floor(dist(x, y, tx, ty)), outs = outs, near = near, far = far }
+end
+"#;
+
+/// #3449 (0.4.2, every Night Elf): at Ban'ethil Barrow Den's mouth, the step to the Chest of the Raven Claw (in the
+/// den's lower east room, 64 yd off and 50 yd down) showed "Follow the path out" and a bearing that swung back and
+/// forth; the chest was never reached. With no height from the client, the walk into the den (the walking maps join
+/// it now) took the player down the entrance ramp, where the followed floor put them inside the den's approach chain;
+/// the chest lies off every chain, so the plan sent them out by the chain and back in by the walk, and at the mouth
+/// the followed floor, fallen to the hall under it, never let the chain's last node count. A start inside a chain now
+/// keeps the arrow's live walk to the target (or the engine's measured one), and with no client height a chain node is
+/// reached on the map: following the arrow, the player walks the den to the chest, never told to go out.
+#[test]
+fn t_3449_with_no_client_height_from_the_banethil_barrow_den_s_mouth_the_arrow_walks_the_den_to_the_raven_claw_chest() {
+	skip_unless_ready!();
+	let out = run(
+		&[
+			FLAT_FOLLOW,
+			r#"
+		w.faction = "Alliance"
+		w.race, w.raceName = "NightElf", "Night Elf"
+		w.setLevel(5)
+		place(1438, 9873.2, 1555.3, 0) -- at the den's mouth, where the step before ends
+		stub.advance(1)
+		N.Sample()
+		N.SetTarget(1438, 45.61, 57.35, "Chest of the Raven Claw", "e", nil, 1278.8)
+		local r = flatFollow(1, 9873.2, 1555.3, 240, 5)
+		r.height = C.PlayerHeight()
+		emit(r)"#,
+		]
+		.concat(),
+		true,
+	);
+	assert_eq!(out["height"], "zero", "the stub gives Forever's height of 0: {out}");
+	assert!(out["arrived"].as_f64().is_some(), "following the arrow gets the player to the chest: {out}");
+	assert_eq!(out["outs"], 0, "never \"Follow the path out\" on the way: {out}");
+}
+
+/// #3449: leaving Ban'ethil Barrow Den with no height from the client. From Oben Rageclaw the route follows the den's
+/// chain out to its mouth (#1341); the followed floor fell 26 yd to the hall under the mouth on the last stretch of the
+/// ramp, so the mouth's node (height 1329) never counted as reached and the arrow circled it ("Follow the path out").
+/// With no client height a chain node is reached on the map: the player passes the mouth and walks on out.
+#[test]
+fn t_3449_with_no_client_height_from_oben_rageclaw_the_arrow_leads_out_past_the_banethil_barrow_den_s_mouth() {
+	skip_unless_ready!();
+	let out = run(
+		&[
+			FLAT_FOLLOW,
+			r#"
+		w.faction = "Alliance"
+		w.race, w.raceName = "NightElf", "Night Elf"
+		w.setLevel(10)
+		local MOUTH = { 9876.1, 1550.8 } -- Teldrassil 44.46,57.61
+		place(1438, 9741.0, 1526.4, 0) -- Oben Rageclaw, in the den's depths
+		stub.advance(1)
+		N.Sample()
+		N.SetTarget(1438, 56.0, 59.0, "Dolanaar")
+		emit(flatFollow(1, 9741.0, 1526.4, 240, 10, MOUTH[1], MOUTH[2], 10, 60))"#,
+		]
+		.concat(),
+		true,
+	);
+	assert!(f(&out["near"]) >= 1.0, "the way out passes the den's mouth: {out}");
+	assert!(f(&out["far"]) >= 1.0, "past the mouth the player walks on out, never circling it: {out}");
+}
+
+/// #3448 (0.4.2, Northshire, no height from the client): after Llane Beshere's training the first walk to the kobold
+/// camp was refused (the router's departure rule: a start with no height on the Abbey's indoor ground) and the player
+/// standing there got a straight line for 10 to 30 s. The followed floor had been dropped: the player walked a yard
+/// past the last floor read before the arrow said Arrived, and the stop outlasted FRESH (2 s). Walking in to Llane by
+/// the arrow at run speed (7 yd a second in frames of 0.05 s), standing 3 s at him, then the next goal: its first walk
+/// starts on the followed floor and is found.
+#[test]
+fn t_3448_with_no_client_height_after_llane_beshere_the_first_walk_to_the_kobold_camp_is_found_at_once() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction = "Alliance"
+		w.race, w.raceName = "Human", "Human"
+		w.setLevel(4)
+		local x, y = -8871.5, -151.1 -- by the wolves north of the Abbey
+		place(1429, x, y, 0)
+		stub.advance(1)
+		N.Sample()
+		local mx, my = C.WorldToMap(0, -8916.3, -203.8, 1429)
+		N.SetTarget(1429, mx, my, "Llane Beshere", nil, "npc", 82.3)
+		local arrived = false
+		for i = 1, 1200 do
+			local state, _, _, dn, dw = N.Sample()
+			if state == "arrived" then arrived = i * 0.05 break end
+			if dn then
+				local da = sqrt(dn * dn + dw * dw)
+				if da > 0 then
+					local step = math.min(0.35, da)
+					x, y = x + dn / da * step, y + dw / da * step
+					place(1429, x, y, 0)
+				end
+			end
+			stub.advance(0.05)
+		end
+		-- A step on into his range, then the training: 3 s at the trainer with the arrow at Arrived (no floor check).
+		local tx, ty = -8916.3, -203.8
+		local d = dist(x, y, tx, ty)
+		x, y = x + (tx - x) / d * 1.5, y + (ty - y) / d * 1.5
+		place(1429, x, y, 0)
+		for _ = 1, 60 do N.Sample(); stub.advance(0.05) end
+		local before = #finds
+		local kx, ky = C.WorldToMap(0, -8780.5, -160.4, 1429)
+		N.SetTarget(1429, kx, ky, "Kobold Vermin", nil, nil, 82)
+		local first, t = nil, 0
+		while t < 100 do
+			N.Sample(); stub.advance(0.05); t = t + 1
+			for i = before + 1, #finds do
+				if finds[i].done and dist(finds[i].to[1], finds[i].to[2], -8780.5, -160.4) < 3 then first = first or finds[i] end
+			end
+			if first then break end
+		end
+		emit({ arrived = arrived, at = { r1(x), r1(y) }, height = C.PlayerHeight(), answered = first ~= nil,
+			fromZ = first and first.from[3] or false, points = first and first.points and #first.points or 0,
+			blocked = tostring(N.walk.blockedReason) })"#,
+		true,
+	);
+	assert_eq!(out["height"], "zero", "the stub gives Forever's height of 0: {out}");
+	assert!(out["arrived"].as_f64().is_some(), "the arrow leads to Llane: {out}");
+	assert!(out["fromZ"].as_f64().is_some(), "the first walk starts on the followed floor: {out}");
+	assert!(f(&out["points"]) >= 2.0, "and is found, never refused: {out}");
+}
+
 // The walk from the player's spot (map coordinates in `frame`: "e" era, nil live) to a goal point with its compiled
 // height (the goal's `z`, docs/GUIDE_FORMAT.md "Heights"): where it ends (yards from the goal in the plane, its
 // height), its length and its cost ("unreachable" when the walking maps have no way there).
