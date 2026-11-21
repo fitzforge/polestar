@@ -343,8 +343,17 @@ pub struct OwnExtra {
 	pub folder: &'static str,
 }
 
-/// The extra packs: the experimental guides (Forever's new zones, alpha), never suggested in game.
-pub static OWN_EXTRAS: [OwnExtra; 1] = [OwnExtra { source: "experimental", id: "polestar-experimental", folder: "Polestar_Experimental" }];
+/// The pack id of the experimental guides: the one extra pack our route choices offer ([`experimental_index`]).
+pub const EXPERIMENTAL: &str = "polestar-experimental";
+
+/// The extra packs: the experimental guides (Forever's new zones, alpha), never suggested in game, and the
+/// completionist guides (every quest of a faction, zone by zone), one pack a faction, which a player switches
+/// on like a community pack (docs/PACK_FORMAT.md, "Polestar's own extra packs").
+pub static OWN_EXTRAS: [OwnExtra; 3] = [
+	OwnExtra { source: "experimental", id: EXPERIMENTAL, folder: "Polestar_Experimental" },
+	OwnExtra { source: "completionist/alliance", id: "polestar-completionist-alliance", folder: "Polestar_Guides_Completionist_Alliance" },
+	OwnExtra { source: "completionist/horde", id: "polestar-completionist-horde", folder: "Polestar_Guides_Completionist_Horde" },
+];
 
 /// The extra pack whose addon folder is `folder`.
 pub fn own_extra(folder: &str) -> Option<&'static OwnExtra> {
@@ -1265,18 +1274,19 @@ mod native {
 	/// The guides of Polestar's own extra packs (OWN_EXTRAS) in checkout `root` (each one's folder with its
 	/// pack.json), resolved with `data` and localised; their own diagnostics are their pack's lint's.
 	pub fn read_extras(root: &Path, data: &Data) -> Vec<V> {
-		let mut out = Vec::new();
-		for e in &OWN_EXTRAS {
-			let dir = root.join(e.source);
-			if !dir.join("pack.json").is_file() {
-				continue;
-			}
-			let sources = read_sources(&dir, &find_guide_files(&dir, false));
-			let guides = resolve_sources(&sources, data, &mut Diagnostics::new(), Some(e.id), Some("Polestar"));
-			localise(&guides, data, &mut Diagnostics::new());
-			out.extend(guides);
+		OWN_EXTRAS.iter().flat_map(|e| read_extra(root, e, data)).collect()
+	}
+
+	/// The guides of one extra pack of the checkout at `root`, resolved and localised; none without its pack.json.
+	pub fn read_extra(root: &Path, e: &OwnExtra, data: &Data) -> Vec<V> {
+		let dir = root.join(e.source);
+		if !dir.join("pack.json").is_file() {
+			return Vec::new();
 		}
-		out
+		let sources = read_sources(&dir, &find_guide_files(&dir, false));
+		let guides = resolve_sources(&sources, data, &mut Diagnostics::new(), Some(e.id), Some("Polestar"));
+		localise(&guides, data, &mut Diagnostics::new());
+		guides
 	}
 
 	/// buildPack for a pack folder: compile (with our guides as context for another pack), the pack's
@@ -1292,8 +1302,9 @@ mod native {
 		// --guides): the experimental index, read only when a `next` line of ours names one, and the check that
 		// each zone is offered to every side it is for.
 		let ours = manifest.get("id").as_str() == Some("guides");
-		let extras = if ours { pack_dir.parent().map(|beside| read_extras(beside, data)).unwrap_or_default() } else { Vec::new() };
-		let offering = ours && project.guides.iter().any(|g| next_list(g).iter().any(|t| extra_of(t).is_some()));
+		// Only the experimental pack is offered by our route choices: the completionist packs stand on their own.
+		let extras = if ours { pack_dir.parent().map(|beside| read_extra(beside, &OWN_EXTRAS[0], data)).unwrap_or_default() } else { Vec::new() };
+		let offering = ours && project.guides.iter().any(|g| next_list(g).iter().any(|t| extra_of(t) == Some(EXPERIMENTAL)));
 		let offers = if offering { experimental_index(&project.guides, &extras, data, &mut project.diag) } else { Vec::new() };
 		if ours {
 			experimental_offered_everywhere(&project.guides, &extras, &mut project.diag);

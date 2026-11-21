@@ -116,11 +116,15 @@ const FOLDER_RE = /^[A-Za-z0-9_-]{1,64}$/;
 // Polestar's own prefixes and packs use, and each of Polestar's own extra
 // packs' (OWN_EXTRAS). As forge-guide's format.rs RESERVED_IDS and
 // Core/Guides.lua's Guides.RESERVED have them.
-const RESERVED_IDS = new Set(['guides', 'forever', 'lookup', 'draft', 'polestar', 'imported', 'polestar-experimental']);
+const RESERVED_IDS = new Set(['guides', 'forever', 'lookup', 'draft', 'polestar', 'imported', 'polestar-experimental', 'polestar-completionist-alliance', 'polestar-completionist-horde']);
 // Polestar's own extra packs (forge-guide's project.rs OWN_EXTRAS): built from
 // their folder in the checkout into an addon of Polestar's that ships in the
 // release zip. Read as another pack's, each may give its reserved id.
-const OWN_EXTRAS = [{ source: 'experimental', id: 'polestar-experimental', folder: 'Polestar_Experimental' }];
+const OWN_EXTRAS = [
+	{ source: 'experimental', id: 'polestar-experimental', folder: 'Polestar_Experimental' },
+	{ source: 'completionist/alliance', id: 'polestar-completionist-alliance', folder: 'Polestar_Guides_Completionist_Alliance' },
+	{ source: 'completionist/horde', id: 'polestar-completionist-horde', folder: 'Polestar_Guides_Completionist_Horde' },
+];
 
 // A folder we generated says so in its TOC (and the old layout in Pack.xml):
 // only such a folder is ever replaced by compile, install or dev.

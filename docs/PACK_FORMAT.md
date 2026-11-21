@@ -341,6 +341,32 @@ testing (alpha). It is built from `experimental/` in the checkout
   player chose it and its guides are in. Choosing it switches the pack on
   (rule 10), with nothing to install.
 
+### The completionist guides
+
+Two more extra packs are built the same way, one a faction: **Polestar
+Completionist Guides (Alliance)** and **(Horde)**
+(`Polestar_Guides_Completionist_Alliance`, `Polestar_Guides_Completionist_Horde`;
+pack ids `polestar-completionist-alliance` and `polestar-completionist-horde`),
+from `completionist/alliance/` and `completionist/horde/` in the checkout.
+Each holds every quest of its faction that the reference data can place,
+zone by zone to level 60: the starting zones, one guide a zone visit in level
+order, a guide a dungeon, raid, attunement or key, a guide a class, a guide a
+seasonal event, and a checklist of the quests the data names but cannot lead
+to.
+
+- Their ids are reserved and their `pack.json` is read as the experimental
+  pack's is: `"author": "Polestar"`, no `folder`, the version set by
+  `forge release version`. `forge guide lint completionist/alliance` and
+  `forge guide compile completionist/alliance` check and build one.
+- They are not part of the leveling route and no guide of ours offers them:
+  our pack reads only the experimental pack for its route choices.
+- In game they are not listed with our guides (they are not in
+  `Guides.OWN_EXTRA`). Their TOC says `## LoadOnDemand: 1`, so rule 10
+  applies as for a community pack: off until the player switches one on on
+  the Community guides page.
+- Their guides are drafted from the reference data with `polestar draft` and
+  repaired from lint and the simulated playthrough; none of it is played.
+
 ## Format 3
 
 The format the compiler writes for a pack whose guides have no `when` (on a

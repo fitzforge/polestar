@@ -64,6 +64,34 @@ const TEXT = {
 			zhTW: 'Polestar 的一部分：Forever 新區域的實驗性指南（Alpha 版），與 Polestar 的指南一同列出。',
 		},
 	},
+	Polestar_Guides_Completionist_Alliance: {
+		title: { deDE: 'Polestar: Komplettisten-Guides (Allianz)', esES: 'Polestar: guías completistas (Alianza)', esMX: 'Polestar: guías completistas (Alianza)', frFR: 'Polestar : guides complétionnistes (Alliance)', koKR: 'Polestar 완전 정복 가이드 (얼라이언스)', ptBR: 'Polestar: guias completistas (Aliança)', ruRU: 'Polestar: гайды для комплеционистов (Альянс)', zhCN: 'Polestar 全任务指南（联盟）', zhTW: 'Polestar 全任務指南（聯盟）' },
+		notes: {
+			deDE: 'Teil von Polestar: jede Quest der Allianz, Zone für Zone, bis Stufe 60. Wird bei Bedarf geladen.',
+			esES: 'Parte de Polestar: todas las misiones de la Alianza, zona por zona, hasta el nivel 60. Se carga bajo demanda.',
+			esMX: 'Parte de Polestar: todas las misiones de la Alianza, zona por zona, hasta el nivel 60. Se carga bajo demanda.',
+			frFR: 'Fait partie de Polestar : toutes les quêtes de l’Alliance, zone par zone, jusqu’au niveau 60. Chargé à la demande.',
+			koKR: 'Polestar의 일부: 얼라이언스의 모든 퀘스트를 지역별로 60레벨까지. 필요할 때 불러옵니다.',
+			ptBR: 'Parte do Polestar: todas as missões da Aliança, zona por zona, até o nível 60. Carregado sob demanda.',
+			ruRU: 'Часть Polestar: все задания Альянса, зона за зоной, до 60-го уровня. Загружается по требованию.',
+			zhCN: 'Polestar 的组成部分：联盟的全部任务，逐个区域，直到 60 级。按需加载。',
+			zhTW: 'Polestar 的一部分：聯盟的全部任務，逐個區域，直到 60 級。按需載入。',
+		},
+	},
+	Polestar_Guides_Completionist_Horde: {
+		title: { deDE: 'Polestar: Komplettisten-Guides (Horde)', esES: 'Polestar: guías completistas (Horda)', esMX: 'Polestar: guías completistas (Horda)', frFR: 'Polestar : guides complétionnistes (Horde)', koKR: 'Polestar 완전 정복 가이드 (호드)', ptBR: 'Polestar: guias completistas (Horda)', ruRU: 'Polestar: гайды для комплеционистов (Орда)', zhCN: 'Polestar 全任务指南（部落）', zhTW: 'Polestar 全任務指南（部落）' },
+		notes: {
+			deDE: 'Teil von Polestar: jede Quest der Horde, Zone für Zone, bis Stufe 60. Wird bei Bedarf geladen.',
+			esES: 'Parte de Polestar: todas las misiones de la Horda, zona por zona, hasta el nivel 60. Se carga bajo demanda.',
+			esMX: 'Parte de Polestar: todas las misiones de la Horda, zona por zona, hasta el nivel 60. Se carga bajo demanda.',
+			frFR: 'Fait partie de Polestar : toutes les quêtes de la Horde, zone par zone, jusqu’au niveau 60. Chargé à la demande.',
+			koKR: 'Polestar의 일부: 호드의 모든 퀘스트를 지역별로 60레벨까지. 필요할 때 불러옵니다.',
+			ptBR: 'Parte do Polestar: todas as missões da Horda, zona por zona, até o nível 60. Carregado sob demanda.',
+			ruRU: 'Часть Polestar: все задания Орды, зона за зоной, до 60-го уровня. Загружается по требованию.',
+			zhCN: 'Polestar 的组成部分：部落的全部任务，逐个区域，直到 60 级。按需加载。',
+			zhTW: 'Polestar 的一部分：部落的全部任務，逐個區域，直到 60 級。按需載入。',
+		},
+	},
 	Polestar_Guides: {
 		title: { deDE: 'Polestar Guides', esES: 'Polestar: guías', esMX: 'Polestar: guías', frFR: 'Polestar : guides', koKR: 'Polestar 가이드', ptBR: 'Polestar: guias', ruRU: 'Polestar: гайды', zhCN: 'Polestar 指南', zhTW: 'Polestar 指南' },
 		notes: {

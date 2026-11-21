@@ -760,9 +760,13 @@ Guides.FORMATS = { [1] = true, [2] = true, [3] = true, [4] = true, [5] = true, [
 -- Polestar_Guides, and our experimental guides, Polestar_Experimental).
 -- Lookup's and the imported guides' packs register as their files load,
 -- before any pack can.
-Guides.RESERVED = { guides = true, forever = true, lookup = true, draft = true, polestar = true, imported = true, ["polestar-experimental"] = true }
+Guides.RESERVED = { guides = true, forever = true, lookup = true, draft = true, polestar = true, imported = true, ["polestar-experimental"] = true,
+	["polestar-completionist-alliance"] = true, ["polestar-completionist-horde"] = true }
 local OFFICIAL_ADDON = "Polestar_Guides"
-local RESERVED_ADDON = { guides = OFFICIAL_ADDON, ["polestar-experimental"] = "Polestar_Experimental" }
+-- The completionist guides (every quest of a faction, zone by zone) are Polestar's too, one addon a faction.
+-- They are not in OWN_EXTRA below: a player switches one on like a community pack, on the Community guides page.
+local RESERVED_ADDON = { guides = OFFICIAL_ADDON, ["polestar-experimental"] = "Polestar_Experimental",
+	["polestar-completionist-alliance"] = "Polestar_Guides_Completionist_Alliance", ["polestar-completionist-horde"] = "Polestar_Guides_Completionist_Horde" }
 
 -- Is pack id `id` reserved, and `addon` not the addon it belongs to?
 local function reservedAgainst(id, addon)

@@ -441,7 +441,7 @@ fn our_route(data: &forge_guide::data::Data, offers: bool) -> forge_addontest::d
 	assert_eq!(compiled.errors, Vec::<String>::new());
 	let index = if offers {
 		let mut diag = forge_guide::diag::Diagnostics::new();
-		let extras = forge_guide::project::read_extras(root(), data);
+		let extras = forge_guide::project::read_extra(root(), &forge_guide::project::OWN_EXTRAS[0], data);
 		let index = forge_guide::project::experimental_index(&compiled.guides, &extras, data, &mut diag);
 		// Every zone has its way in for each side it is for (none left: the Riverglades and Shen'dralas are guides of
 		// both routes since 0.4.0, Mount Hyjal since 0.4.3).

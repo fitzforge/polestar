@@ -51,7 +51,20 @@ pub fn readme(version: &str, names: &[String]) -> String {
 			.map(|s| s.to_string()),
 		);
 	}
-	if names.iter().any(|n| forge_guide::project::own_extra(n).is_some()) {
+	if names.iter().any(|n| n.starts_with("Polestar_Guides_Completionist_")) {
+		lines.extend(
+			[
+				"   Polestar_Guides_Completionist_Alliance and _Horde hold the",
+				"   completionist guides: every quest of a faction, zone by zone, to",
+				"   level 60, with its dungeons, raids, attunements and events. They",
+				"   are off until you switch one on: the guide menu > Community",
+				"   guides.",
+			]
+			.iter()
+			.map(|s| s.to_string()),
+		);
+	}
+	if names.iter().any(|n| n == "Polestar_Experimental") {
 		lines.extend(
 			[
 				"   Polestar_Experimental holds experimental guides for Forever's new",
@@ -174,6 +187,20 @@ mod tests {
 
 	// What the players read about the experimental guides: on for everyone, listed under Leveling, offered by a
 	// route choice where they fit, and the setting that hides them; only when the folder ships.
+	// The completionist packs are off until switched on, and the README says so only when they ship. The
+	// experimental pack's paragraph is its own: one does not bring the other's.
+	#[test]
+	fn the_readme_says_the_completionist_guides_are_off_until_switched_on_only_when_they_ship() {
+		let with: Vec<String> = ["Polestar", "Polestar_Guides", "Polestar_Guides_Completionist_Alliance", "Polestar_Guides_Completionist_Horde"].iter().map(|s| s.to_string()).collect();
+		let text = readme("0.4.3", &with);
+		assert!(text.contains("\r\n     Polestar_Guides_Completionist_Alliance\r\n"));
+		assert!(text.contains("\r\n   Polestar_Guides_Completionist_Alliance and _Horde hold the\r\n   completionist guides"), "{text}");
+		assert!(text.contains("are off until you switch one on: the guide menu > Community\r\n   guides.\r\n"), "{text}");
+		assert!(!text.contains("Polestar_Experimental holds"), "{text}");
+		let without: Vec<String> = ["Polestar", "Polestar_Guides", "Polestar_Experimental"].iter().map(|s| s.to_string()).collect();
+		assert!(!readme("0.4.3", &without).contains("ompletionist"));
+	}
+
 	#[test]
 	fn the_readme_says_the_experimental_guides_are_on_and_where_to_hide_them_only_when_they_ship() {
 		let with: Vec<String> = ["Polestar", "Polestar_Guides", "Polestar_Experimental", "Polestar_Codex"].iter().map(|s| s.to_string()).collect();
