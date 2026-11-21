@@ -57,6 +57,7 @@ const GROUPS: &[Group] = &[
 	Group { name: "discovery_lookup", src: include_str!("effects/discovery-lookup.lua") },
 	Group { name: "discovery_dungeons", src: include_str!("effects/discovery-dungeons.lua") },
 	Group { name: "discovery_dungeon_route", src: include_str!("effects/discovery-dungeon-route.lua") },
+	Group { name: "discovery_macros", src: include_str!("effects/discovery-macros.lua") },
 	Group { name: "gamepad", src: include_str!("effects/gamepad.lua") },
 	Group { name: "qol", src: include_str!("effects/qol.lua") },
 	Group { name: "qol_spells", src: include_str!("effects/qol-spells.lua") },

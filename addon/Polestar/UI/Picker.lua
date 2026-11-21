@@ -1882,12 +1882,23 @@ end
 -- The hub's sections as rail items (the settings window shows the same rail);
 -- a section with `foot = true` sits at the rail's foot instead, above
 -- Options (P.FootItems).
+-- The list and each section's item are kept from one render to the next: the
+-- rail is drawn on every render, and each section's new tables were garbage
+-- (memory-session.rs, the guide menu's churn).
+local railItems = {}
 function P.RailItems()
-	local items = {}
+	local n = 0
 	for _, s in ipairs(sections) do
-		if not s.foot then items[#items + 1] = { key = s.key, label = s.label or s.key, icon = s.icon } end
+		if not s.foot then
+			local item = s.psRailItem or {}
+			s.psRailItem = item
+			item.key, item.label, item.icon = s.key, s.label or s.key, s.icon
+			n = n + 1
+			railItems[n] = item
+		end
 	end
-	return items
+	for i = #railItems, n + 1, -1 do railItems[i] = nil end
+	return railItems
 end
 
 -- The rail's foot from the bottom up: Options (onOptions opens the settings;

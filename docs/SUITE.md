@@ -20,6 +20,7 @@ contracts between the modules are in [docs/ARCHITECTURE.md](ARCHITECTURE.md).
 | Maps | World map without fog of war (the zone-art overlay table), coordinates, zone level ranges, dungeon entrance and travel pins (off by default, Map options) |
 | QoL | Quality of life helpers: action buttons, XP and pace, merchant, reward marks, flight masters, death helper, toggles, requests from other players |
 | Characters | An account-wide page of every character you have played: level, class, zone, hearth, gold, professions, the guide it follows and an XP bar with rested XP worked out to now. Each is as of its last logout; sorts by last played, most rested or level |
+| Class macros | Ready-made macros for your class, by spec and PvE or PvP, from Classic WoW Forever's macro pages: what each does, its modifier keys and what it needs, spell names in your game's language; one click puts it on your macro list (character or account) and keeps it current |
 | Talents (planned) | Where your next talent points go, level by level, on the talent panel, per class and spec. The trees are read from the client; the builds are written by contributors |
 
 Out of scope: a full UI suite (Polestar integrates with EllesmereUI, and with
@@ -118,7 +119,7 @@ Search" and "Lookup"; in short:
 
 ## UI
 
-One hub, grown from the guide menu: Guides, Lookup, Dungeons, Rares, Talents and
+One hub, grown from the guide menu: Guides, Lookup, Dungeons, Rares, Talents, Macros and
 Characters as top-level sections, Options at the rail's foot, all in
 Polestar's world ([`docs/DESIGN.md`](DESIGN.md)). New surfaces extend that
 world; they never introduce another look.
