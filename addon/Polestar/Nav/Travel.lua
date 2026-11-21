@@ -2422,6 +2422,7 @@ end
 
 -- A plan from where the player stands to the target, or nil; and where from.
 local function plan(target, held)
+	Travel.held = nil
 	-- Handed to Shortest Path Forever (Nav/Handoff.lua): it plans the way; no route here.
 	if not (target and ns.Get("nav.travel") and not Nav.HandedOff() and #taxiList + #transports + #portals + #inns + pathCount + #crossEnds + #chains > 0) then return nil end
 	local tc, twx, twy, tz = Nav.GetTargetWorld()
@@ -2558,7 +2559,11 @@ local function plan(target, held)
 	local pending = places and W.Measure(tc, twx, twy, ghost, places, tz) or false
 	-- A completed batch for another floor (or without a checked price) is no
 	-- better than a pending batch. Replanning must not resurrect that ticket.
-	if waitForWalk and landing and W.UnpricedTransfer(tc, twx, twy, ghost, tz, landing) then route = nil end
+	-- While the batch runs, the route is held for it (Travel.Waiting).
+	if waitForWalk and landing and W.UnpricedTransfer(tc, twx, twy, ghost, tz, landing) then
+		route = nil
+		Travel.held = pending and target or nil
+	end
 	-- The near walk the planner would offer: the engine asked for it (Travel.NearWalk with its answer).
 	if probe and probe.yards and W.Probe then
 		nearWalk.job = W.Probe(pc, px, py, twx, twy, tz, function(along, sx, sy)
@@ -2619,6 +2624,17 @@ end
 -- Legs of the current route (read-only) and the current leg's index.
 function Nav.GetRoute()
 	return legs, legs and ci or nil
+end
+
+-- The route for the target is held while the walk from its landing into the target is checked (plan's
+-- waitForWalk): the arrow's own walk straight to the target waits too (Nav.lua's sample), so that measure gets the
+-- frames and the route comes first, as before 0.4.2 (#3369). Not once the measure is done: the planner then has
+-- its answer, a route or none (a walk: the arrow's own search).
+function Travel.Waiting()
+	local t = Travel.held
+	if not t or legs or t ~= Nav.GetTarget() then return false end
+	local W = Nav.walk
+	return W and W.MeasureBusy and W.MeasureBusy() or false
 end
 
 ---------------------------------------------------------------------------
