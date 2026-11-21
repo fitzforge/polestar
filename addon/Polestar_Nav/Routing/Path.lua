@@ -3261,12 +3261,17 @@ function Safe.many(job)
 		return job.costs, Safe.refusal, job.yards
 	end
 	-- Publish nearby verified transfers first, regardless of the planner's target
-	-- order. A pending entry stays nil with a conservative radius of zero.
-	local order, dist, any = {}, {}, false
+	-- order; a target marked `first` (the landing a planned route waits on) before
+	-- them. Each target is its own search, so the order changes no answer, only when
+	-- each is published. A pending entry stays nil with a conservative radius of zero.
+	local order, dist, lead, any = {}, {}, {}, false
 	for i, p in ipairs(job.targets) do
-		order[i], dist[i] = i, (p.x-from.x)^2 + (p.y-from.y)^2
+		order[i], dist[i], lead[i] = i, (p.x-from.x)^2 + (p.y-from.y)^2, p.first and 0 or 1
 	end
-	table.sort(order, function(a,b) return dist[a] < dist[b] or (dist[a] == dist[b] and a < b) end)
+	table.sort(order, function(a,b)
+		if lead[a] ~= lead[b] then return lead[a] < lead[b] end
+		return dist[a] < dist[b] or (dist[a] == dist[b] and a < b)
+	end)
 	for _, i in ipairs(order) do
 		local target = job.targets[i]
 		if job.costs[i] == nil then

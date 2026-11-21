@@ -771,6 +771,13 @@ local function sample()
 		end
 		-- nil: the last leg, straight to the target
 	end
+	-- The planner holds a route while its landing's walk into the target is checked (Travel.Waiting): no walk
+	-- straight to the target meanwhile, which would take that check's frames (#3369).
+	if T and T.Waiting and T.Waiting() then
+		local W = Nav.walk
+		if W and W.Clear then W.Clear() end
+		return "routing"
+	end
 
 	if pc ~= tC then return "far" end
 	local dist, angle, dn, dw = toward(C, px, py, tX, tY)

@@ -1316,6 +1316,7 @@ local function ask(P, pc, px, py, flat, terminal)
 		city.Note(city.dropped or (z ~= nil and (not got or approach or offFloor(points, z))), type(approach) == "table" and approach.z or nil)
 		if got then
 			failed = false
+			if P.Rush then P.Rush(false) end
 			Walk.blockedReason = nil
 			sightC = gc
 			ptsX.checkedPolicy = Walk.checkedOnly and o or nil
@@ -1557,7 +1558,10 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop, checke
 		city.Note(false)
 		askedAt = -huge
 		if had then changed() end
-		if checkedOnly or not takeBaked(pc, px, py) then ask(P, pc, px, py) end
+		if checkedOnly or not takeBaked(pc, px, py) then
+			if P.Rush then P.Rush(true) end
+			ask(P, pc, px, py)
+		end
 	elseif floorAsk then
 		-- Ruling 36b: arrived (login, hearth, a landing) or off ambiguous ground,
 		-- the floor found after a search without a height: once more with it.
@@ -1864,13 +1868,22 @@ local function placeIndex(e, x, y, z)
 end
 
 -- Once an onward walk has been requested, finishing the batch without a
--- checked price for that floor is not permission to fall back to a fare.
+-- checked price for that floor is not permission to fall back to a fare. While
+-- the batch runs, a place it has already priced is: a strict batch publishes a
+-- place's cost only once that walk is checked (Routing/Path.lua Safe.many).
 function Walk.UnpricedTransfer(c, x, y, water, goalZ, from)
 	water = water or false
 	local e = measuring
 	if not (e and sameTarget(e, c, x, y, water, goalZ)) then e = findMeasure(c, x, y, water, goalZ) end
 	local i = e and placeIndex(e, from.wx, from.wy, from.z)
-	return i ~= nil and (not e.checked or (goalZ and e.z ~= goalZ) or not e.costs or type(e.costs[i]) ~= "number")
+	if i == nil then return false end
+	local costs = e.costs or e.partial
+	return not (e.checked or (not e.costs and e.partial)) or (goalZ and e.z ~= goalZ) or not costs or type(costs[i]) ~= "number"
+end
+
+-- A measure is being taken (Nav/Travel.lua Travel.Waiting: a route held for its landing's walk).
+function Walk.MeasureBusy()
+	return measuring ~= nil
 end
 
 -- The walk from (c, wx, wy) to the measure's target (the player's walk when
@@ -1923,7 +1936,23 @@ end
 local function batch(P, mine, z)
 	local pts, water = mine.pts, mine.water
 	mine.z, mine.o = z, mine.o or opts(water, mine.c, nil, nil, mine.x, mine.y)
+	mine.partial, mine.firstPriced = nil, false
 	local inCity = z ~= nil and mine.city
+	local first
+	for i = 1, #pts do
+		if pts[i].first then first = i break end
+	end
+	-- The landing a planned route waits on (Travel.Waiting) is searched first; once it is priced the route is
+	-- offered (Travel.Remeasured) while the batch goes on with the other places.
+	local function progress(costs)
+		if measuring ~= mine or type(costs) ~= "table" then return end
+		mine.partial = costs
+		if first and not mine.firstPriced and costs[first] ~= nil then
+			mine.firstPriced = true
+			local T = Nav.travel
+			if T and T.Waiting and T.Waiting() then T.Remeasured() end
+		end
+	end
 	local ok, handle = pcall(P.FindMany, mine.c, { x = mine.x, y = mine.y, z = z, reach = z ~= nil and city.GOAL or nil }, pts, function(costs, reason, answer)
 		if measuring ~= mine then return end
 		mine.job = nil
@@ -1938,7 +1967,7 @@ local function batch(P, mine, z)
 		if not found and z and not inCity and not (mine.goalZ and refused) and reason ~= "no safe walking route" then return batch(P, mine, nil) end
 		mine.costs = costs
 		measured(mine, refused or (found and mine.checked))
-	end, mine.o, true)
+	end, mine.o, true, progress)
 	if not ok then
 		if z and not inCity then return batch(P, mine, nil) end
 		measuring = nil
@@ -2100,7 +2129,8 @@ function Walk.Measure(c, x, y, water, places, goalZ)
 	-- The places picked, the player's walk, and those the last measure had.
 	local pts, si = {}, nil
 	for _, p in ipairs(pick) do
-		pts[#pts + 1] = { x = p.wx, y = p.wy, z = p.z, floors = p.start and p.z == nil and startFloors(c, p.wx, p.wy) or nil }
+		pts[#pts + 1] = { x = p.wx, y = p.wy, z = p.z, floors = p.start and p.z == nil and startFloors(c, p.wx, p.wy) or nil,
+			first = p.chosen and not p.start or nil }
 		if p.start then si = #pts end
 	end
 	if e then
@@ -2881,6 +2911,9 @@ function Walk:OnTarget(target)
 		cancelMeasure()
 		cancelLeg()
 		cancelShape()
+	elseif Nav.Path and Nav.Path.Rush then
+		-- A new goal: the planner's measure and the arrow's walk take the larger budget until the walk is in.
+		Nav.Path.Rush(true)
 	end
 	changed()
 end
