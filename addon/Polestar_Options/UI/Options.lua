@@ -372,6 +372,9 @@ local BUILTIN = {
 			search = "hide polestar, hidden, arrow only, keep arrow, minimap button, hide all",
 			needs = function() return ns.SetHideKeepsArrow ~= nil end,
 			get = function() return ns.HideKeepsArrow() end, set = function(on) ns.SetHideKeepsArrow(on) end },
+		{ kind = "toggle", key = "ui.chatMessages", label = L["Chat messages"],
+			help = L["Lines in chat about what Polestar did for you, such as \"Choose a reward to finish the turn-in\" or upgraded action buttons. Errors and command replies always show."],
+			search = "chat, messages, quiet, silence, spam, print, chat lines, notices" },
 	} },
 	-- Pause (Core/Init.lua, Core/Pause.lua): per character, like hiding; its two extras are
 	-- account settings. A section of its own, so its rows stay together.

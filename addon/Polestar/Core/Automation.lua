@@ -263,7 +263,7 @@ local function onComplete()
 	if not wantsTurnIn(q) then return end
 	local choices = GetNumQuestChoices and GetNumQuestChoices() or 0
 	if choices > 1 then
-		ns.Print(L["Choose a reward to finish the turn-in."])
+		ns.Notice(L["Choose a reward to finish the turn-in."])
 		return
 	end
 	local money = GetQuestMoneyToGet and GetQuestMoneyToGet() or 0
