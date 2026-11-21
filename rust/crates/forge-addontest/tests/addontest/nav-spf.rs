@@ -1264,6 +1264,43 @@ fn a_walk_refused_on_policy_points_straight_says_why_and_draws_its_line() {
 	assert_eq!(out["drawn"], json!([true, 2]), "its line straight from the player");
 }
 
+// #3448: a walk refused with no policy reason (no blockedReason: the router's departure rule) is asked again once 2 s
+// later, the player standing still; refused again, it waits as any failed search (15 s and 5 yd). A refusal on policy
+// is not asked again standing still.
+#[test]
+fn a_refusal_no_policy_gave_is_asked_again_once_after_2_s_standing_still_a_policy_refusal_is_not() {
+	let out = run(r#"
+		local r = {}
+		nav.place(0, 0)
+		target(0, -500)
+		aim()
+		local job = fake.last()
+		job.callback(nil, "no safe walking route", job)
+		r.refused = { aim(), calls() }
+		stub.advance(1); aim()
+		r.at1 = calls()
+		stub.advance(1.2); aim()
+		r.at2 = calls()
+		job = fake.last()
+		job.callback(nil, "no safe walking route", job)
+		stub.advance(5); aim()
+		r.again = calls()
+		target(0, 400)
+		aim()
+		job = fake.last()
+		job.blockedReason = "hostile town"
+		job.callback(nil, "no safe walking route", job)
+		local before = calls()
+		stub.advance(5); aim()
+		r.policy = calls() - before
+		emit(r)"#);
+	assert_eq!(out["refused"], json!([["travel", 500, 0, -500], 1]), "refused: straight at the target");
+	assert_eq!(out["at1"], 1, "not at once");
+	assert_eq!(out["at2"], 2, "asked again 2 s later, standing still");
+	assert_eq!(out["again"], 2, "once: refused again, it waits as any failed search");
+	assert_eq!(out["policy"], 0, "a refusal on policy is not asked again standing still");
+}
+
 #[test]
 fn nav_navrouting_off_the_straight_arrow_the_search_in_flight_cancelled() {
 	let out = run(r#"

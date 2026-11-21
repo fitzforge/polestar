@@ -470,7 +470,8 @@ end
 --       walkOnly = true: walking only (a ghost), noFlights = true: no flights (Travel.AtField),
 --       walkCost = function(c, wx, wy, start, z) -> cost, yards, checked | false | nil: the
 --         walking engine's measure of the walk from that place (the player when
---         start) to the target (Nav/Walk.lua Walk.Measured): its cost (in
+--         start; "inside": a start inside an approach chain, which keeps the
+--         player's last measure until the next) to the target (Nav/Walk.lua Walk.Measured): its cost (in
 --         running yards, priced by ground and the player's faction: a road
 --         walk costs less than its yards) chooses, its yards time it and
 --         measure the leg; false: the engine found no walk from there, so a
@@ -478,6 +479,8 @@ end
 --         game puts the player on, not a deck off its pier; #989); nil keeps
 --         its straight estimate. Only a strict measure from this origin floor
 --         to this target, for the same faction and level, can certify a detour.
+--       liveLeft = yards or nil: left along the arrow's live walk to the target (Nav/Walk.lua Walk.LiveLeft):
+--         a start inside an approach chain on it walks on by it alone,
 --       noDirect = true: no walk from the player straight to the target (the
 --         engine found none from where they stand: Travel.WalkUnreachable),
 --       nearWalk = yards or nil: the near walk, a target within this many
@@ -1000,8 +1003,19 @@ local function planBody(p, S)
 			if nodes[nd.idx - 1] then fn(chainV[nodes[nd.idx - 1]]) end
 			if nodes[nd.idx + 1] then fn(chainV[nodes[nd.idx + 1]]) end
 		end
-		if startIn then near(startIn, function(v) link(1, v) end) end
-		if targetIn then near(targetIn, function(v) link(v, 2) end) end
+		-- Chains that share their way in (Ban'ethil Barrow Den's three, the Stormrage dens' two) list the same nodes: a
+		-- start or target at one is at each, so a walk to a sibling branch goes on down, never out by the mouth and in
+		-- again round and round (#3449).
+		local function twins(nd, fn)
+			for _, ch in ipairs(chains) do
+				for _, o in ipairs(ch.nodes) do
+					if o.c == nd.c and o.wx == nd.wx and o.wy == nd.wy and o.z == nd.z and chainV[o] then near(o, fn) end
+				end
+			end
+		end
+		-- On the arrow's live walk to the target (p.liveLeft), a start inside a chain walks on by it alone (below).
+		if startIn and type(p.liveLeft) ~= "number" then twins(startIn, function(v) link(1, v) end) end
+		if targetIn then twins(targetIn, function(v) link(v, 2) end) end
 		if startIn and targetIn and startIn.chain == targetIn.chain then link(1, 2) end
 		-- A dock inside a chain (the Deeprun Tram's Stormwind end, down its building past the door, #1242) is
 		-- reached like an inside target: through its nearest node and that node's neighbours only. Which node is the
@@ -1050,14 +1064,15 @@ local function planBody(p, S)
 	if walkCost or places then
 		for v = 1, keys do
 			-- A place only portals reach has no floor on the walking maps: its walks are drawn straight, never measured.
-			if v ~= 2 and vc[v] == tg.c and not sealed(v) and not learnV[v] and not Travel.places[vzone[v]] then
+			-- The start is measured inside a chain too: its measured walk to the target is offered beside the chain.
+			if v ~= 2 and vc[v] == tg.c and (not sealed(v) or v == 1) and not learnV[v] and not Travel.places[vzone[v]] then
 				-- Keep the player's floor and each authored landing/waypoint floor in
 				-- both the measurement request and the lookup. XY can name two decks.
 				local ref = dockEnd[v] or vref[v]
 				local z = ref and ref.z or (v == 1 and p.z or nil)
 				if places then places[#places + 1] = { wx = vx[v], wy = vy[v], z = z, start = v == 1 or nil } end
 				if walkCost then
-					local cost, yd, checked = walkCost(vc[v], vx[v], vy[v], v == 1, z)
+					local cost, yd, checked = walkCost(vc[v], vx[v], vy[v], v == 1 and (startIn and "inside" or true), z)
 					if type(cost) == "number" then
 						local y = type(yd) == "number" and yd or cost
 						if cost < y then
@@ -1074,6 +1089,10 @@ local function planBody(p, S)
 			end
 		end
 	end
+	-- A start inside a chain on the arrow's live walk to the target (p.liveLeft, its yards left): that walk, as it stands.
+	-- A plan made on the way down (the floor found, a replan after 30 s) priced the chain's way out and an unmeasured
+	-- walk back in straight through the rock, cheaper, and the arrow turned back to the mouth (#3449).
+	if startIn and type(p.liveLeft) == "number" then tw[1], ty[1], nw[1] = p.liveLeft, p.liveLeft, nil end
 
 	-- Links between key vertices and their nearest learned path nodes (zone rules apply). Each key's nearest
 	-- (MAX_LINKS at most, nearest first) in bv/bd, the same two lists for every key.
@@ -1375,7 +1394,10 @@ local function planBody(p, S)
 			elseif learnV[u] then
 				-- a flight master not learnt yet: flown out of only, never walked on from (#989's portal stays the way up)
 			elseif sealed(u) then
-				-- explicit links only (below)
+				-- explicit links only (below); a start inside a chain also the walking engine's own walk to the
+				-- target when it measured one (#3449: in Ban'ethil Barrow Den, whose walking maps join it now, the
+				-- plan went out by the chain to reach a chest off every chain and in again by the walk, round and round)
+				if u == 1 and tw[1] then walk(1, 2, tw[1] / speed, ty[1] / speed, du, tu, certified[1]) end
 			elseif onFoot[u] and not covered[cu] then
 				-- walked to: the walk into it goes anywhere on the continent straight
 			elseif not covered[cu] then
@@ -1606,8 +1628,9 @@ local function planBody(p, S)
 					if ex[k] == to then linked = true break end
 				end
 			end
-			-- In a place only portals reach (no floor on the walking maps) every walk is drawn straight too.
-			if (linked and not lift) or vkind[to] == DARK or (u == 1 and startIn ~= nil) or Travel.places[vzone[u]] then leg.handmade = true end
+			-- In a place only portals reach (no floor on the walking maps) every walk is drawn straight too. A start
+			-- inside a chain walks straight to its nodes, but the engine's measured walk to the target is walked as found.
+			if (linked and not lift) or vkind[to] == DARK or (u == 1 and startIn ~= nil and not (to == 2 and tw[1])) or Travel.places[vzone[u]] then leg.handmade = true end
 			if cross and vref[u].id ~= nil then
 				leg.crossing, leg.side = vref[u].id, vref[u].side
 			end
@@ -2492,6 +2515,7 @@ local function plan(target, held)
 	local route = Nav.PlanRoute({
 		c = pc, wx = px, wy = py, map = playerMap(), z = pz, floors = pfloors, place = Travel.Inside(pc, px, py),
 		target = { c = tc, wx = twx, wy = twy, z = tz, label = target.label, map = target.map, x = target.x, y = target.y, f = target.f, kind = target.kind },
+		liveLeft = W and W.LiveLeft and W.LiveLeft(tc, twx, twy) or nil,
 		liveTaxi = true,
 		liftFloor = Travel.ObservedFloor,
 		approaches = pc == tc and Travel.CrossingApproaches(target, pc, px, py, pz, twx, twy, tz, walkCost),
@@ -2811,13 +2835,17 @@ end
 -- own floor above the player), farther than FLAT_ARRIVE yards, or, at a dock (`dock`: a boat, zeppelin, airship or tram
 -- leaves from the end), farther than the walk's reach: the deck or tower top is broad and the board point one spot
 -- on it (at the Undercity's zeppelin tower, where Fitz stood was 6.6 yards from it, #1125). PlanRoute drops a
--- leading walk by the same rule.
+-- leading walk by the same rule. An approach chain's node is laid where the walking maps fail (a den's mouth cut apart
+-- from the hall under it), so without a height from the client (Forever's: Compat reads its 0 as none) the floor
+-- followed over those maps is no evidence there: the node is reached within FLAT_ARRIVE on the map, as an unknown
+-- floor's end (Ban'ethil Barrow Den's mouth, where the followed floor fell to the hall 26 yd under it, #3449).
 local FLOOR_DZ, FLAT_ARRIVE = 20, 5
 local function offFloor(to, pc, px, py, d, dock, reach)
 	-- In a place only portals reach the walking maps have no floor, so the player's floor tells nothing there.
 	if not to.z or Travel.place then return false end
 	local W = Nav.walk
 	local fz = W and W.Floor and W.Floor(pc, px, py)
+	if to.chain and Travel.ObservedFloor(pc) == nil then fz = nil end
 	if fz then return fz - to.z > FLOOR_DZ or to.z - fz > FLOOR_DZ end
 	return d > (dock and reach or FLAT_ARRIVE)
 end
@@ -3593,6 +3621,8 @@ function Travel.Aim(pc, px, py)
 			-- or far, passes its near end (passCrossing), as skipping the walk to it does (Travel.SkipLeg); the far end,
 			-- the crossing walked through.
 			if leg.waypoint then dirty = true end
+			-- A chain's node reached with no height from the client: its floor is the player's (Walk.AtNode, #3449).
+			if to.chain and to.z and W and W.AtNode and Travel.ObservedFloor(pc) == nil then W.AtNode(pc, to.wx, to.wy, to.z) end
 			local nx = legs[ci + 1]
 			if leg.passes then
 				passCrossing(leg.passes, leg.passSide, true)

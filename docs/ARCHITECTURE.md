@@ -5357,7 +5357,8 @@ most every 2 s, every 10 s while more than 2,000 yd of the walk are left:
 each ask searches the whole walk; the old path kept meanwhile); a failed search (`nodata`,
 `outside`, `offmesh`, `unreachable`, `no safe walking route`, `error`, `Path.Available(map)` false,
 or `Find` raising) is asked again after 15 s once the player stands 5 yd (the router's arrival distance) from
-where it was asked. Meanwhile, as before 0.4.2 (#3409, Fitz's ruling), the arrow points straight at the goal
+where it was asked; a `no safe walking route` that no policy gave (no `blockedReason`: the router's departure
+rule, a line it could not check) is asked again once 2 s later, moved or not (#3448). Meanwhile, as before 0.4.2 (#3409, Fitz's ruling), the arrow points straight at the goal
 (`Nav.noWalk`: a refusal on policy, a start off the walking map, no maps there, a capital's floor out of reach, a
 corpse run's checked detour without its walk) and says why under its label ("No safe walking route", "The last
 steps here aren't mapped"); its line is drawn straight where the danger policy lets it
@@ -5766,7 +5767,9 @@ walk stays inside one zone; between zones it goes only through
   dungeon approach). Only the mouth (and with `open = "both"` the last node)
   links to its zone; the other nodes link only to their chain neighbours. A
   start or target within max(2 x radius, 30) yd of such a node is inside the
-  chain and attaches only to the nearest node and its neighbours, so routes
+  chain and attaches only to the nearest node and its neighbours (and to the
+  same node of each chain sharing it: branches that share their way in, so a
+  walk to a sibling branch goes on down, never out and in again, #3449), so routes
   enter at the mouth and leave the way they came ("Follow the path out", or the
   node's `back` caption). A node may carry its floor's height (`z`): a start
   (with the player's floor, `Walk.Floor`, known and within 20 yd of it) or a
@@ -5792,7 +5795,19 @@ walk stays inside one zone; between zones it goes only through
   (`banethil-barrow-den`, `-east`, `-lower`, #1341), one chain per branch
   sharing the way in, each node with its floor's height, so a player at a
   relic or at Oben Rageclaw is routed back to the mouth, never through the
-  rock, and one on the hill above is not held by them;
+  rock, and one on the hill above is not held by them. A start inside a
+  chain on the arrow's live walk to the target (`Walk.LiveLeft`) walks on by
+  it alone; otherwise it is also measured by the walking engine (keeping the
+  player's last measure until the next) and that walk to the target (where
+  the walking maps do join the inside, as Ban'ethil's do now) is offered
+  beside the chain's way: a chest off every chain is walked to through the
+  den, not out by the chain and back in by the walk (#3449). With no height
+  from the client (Forever's `UnitPosition` gives 0, read as none) a chain
+  node is reached within 5 yd on the map, whatever floor is followed, and
+  its floor becomes the followed one (`Walk.AtNode`): the chains lie where
+  the walking maps fail, and at Ban'ethil's mouth the followed floor fell to
+  the hall 26 yd under it, so the mouth never counted and the arrow circled
+  it (#3449);
 - an area: a box of a zone's map no walk joins to the rest of the zone. It is
   a zone of its own, reached by no crossing, only by portals, ships and
   flights. Rut'theran Village, `rutheran-village`, lies on Teldrassil's map at
