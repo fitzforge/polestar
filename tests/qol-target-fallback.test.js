@@ -284,3 +284,29 @@ test('uniform target macros retain their existing command sequence', () => {
 			+ '/targetexact [noexists] Boar\n/cleartarget [dead]\n/ping [@target]\n/tm [@target,harm,nodead] !8');
 	}
 });
+
+test('the target button names a clicked While you\'re here pick-up\'s NPC first, with the NPC icon', () => {
+	const rows = run(`
+		local function aim(waypoint, goals)
+			shown = {
+				{ t = "accept", npcName = "Demar Brant", quest = 9, step = 30, index = 2, status = "active" },
+				{ t = "kill", subject = "Roosting Duskbat", step = 31, index = 1, status = "active" },
+			}
+			q.engine.waypoint = waypoint
+			q.step(goals)
+		end
+		-- Not clicked: the step's NPC, then the row's mob; the pick-up is not named.
+		aim(nil, { { t = "talk", npcName = "Scout Bolain" } })
+		world(unit("Scout Bolain"), unit("Demar Brant")); emit(click(PolestarTargetButton))
+		-- Clicked: its NPC before the step's NPC and the row's mob.
+		aim({ stepIndex = 30, goalIndex = 2 }, { { t = "talk", npcName = "Scout Bolain" } })
+		world(unit("Scout Bolain"), unit("Demar Brant")); emit(click(PolestarTargetButton))
+		-- And before the step's own mobs.
+		aim({ stepIndex = 30, goalIndex = 2 }, { { t = "kill", target = "Skeletal Fiend" } })
+		world(unit("Skeletal Fiend", true), unit("Demar Brant")); emit(click(PolestarTargetButton))
+		world(unit("Skeletal Fiend", true)); emit(click(PolestarTargetButton))
+	`);
+	assert.deepEqual(rows.map(outcome), [
+		['Scout Bolain', 1, 1], ['Demar Brant', 1, 1], ['Demar Brant', 1, 1], ['Skeletal Fiend', 8, 1],
+	]);
+});
