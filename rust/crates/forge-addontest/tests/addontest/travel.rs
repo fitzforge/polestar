@@ -278,6 +278,37 @@ fn traveldatas_own_places_are_known_departures_a_yard_off_is_not() {
 	assert_eq!(out, json!({ "fm": want, "portal": want, "tram": want, "deck": want }));
 }
 
+// The enemy-town data was paired on builds 70532 and 70959; any other client build (an older one, the next
+// Forever patch) still has its walks checked against it: an ordinary walk is planned and a walk into an enemy
+// capital is refused, as on 70532. Before, every walk there was refused as unknown ground.
+#[test]
+fn a_client_build_the_ground_data_was_not_paired_on_still_plans_walks_and_keeps_enemy_towns_out() {
+	for build in ["70338", "70959", "71000"] {
+		let out = emitted(&RunAddon {
+			stubs: vec!["stub_nav.lua"],
+			before: format!("stub.clientBuild = \"{build}\""),
+			addons: vec![nav()],
+			login: true,
+			script: r#"
+				stub.nav.useGameGround()
+				local N = Polestar.Nav
+				N.RegisterTravelData({}, true)
+				local function walk(map, x, y, X, Y, side)
+					local legs = N.PlanRoute({ c = 0, map = map, wx = x, wy = y, faction = side, level = 23, walkOnly = true,
+						target = { c = 0, map = map, wx = X, wy = Y, label = "Destination" } })
+					return legs and #legs == 1 and legs[1].kind == "walk" or false
+				end
+				emit({ alterac = walk(1416, 204.7, 262.5, 244.1, 221.9, 1),
+					hordeIntoCity = walk(1453, -8613.9, 1241.5, -8422.4, 551.8, 2),
+					clear = N.danger.Blocked(0, 204.7, 262.5, 244.1, 221.9, "Alliance") or "clear",
+					city = N.danger.Blocked(0, -8613.9, 1241.5, -8422.4, 551.8, "Horde") or "clear" })"#
+				.into(),
+			..Default::default()
+		});
+		assert_eq!(out, vec![json!({ "alterac": true, "hordeIntoCity": false, "clear": "clear", "city": "opposing-settlement" })], "client build {build}");
+	}
+}
+
 #[test]
 fn every_leg_caption_is_in_the_client_language_flight_boat_and_tram() {
 	let out = run_with(
