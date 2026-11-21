@@ -745,6 +745,29 @@ fn the_arrows_walk_find_answers_before_walk_measures_batch_findmany_gets_any_sli
 	assert_eq!(out["done"], true, "the batch completes after it");
 }
 
+// 0.4.2.1: the walk's sketch (Path.FindCoarse, drawn while the walk is searched) for a player's walk (opts.walkLevel)
+// is the entrance graph's shape again, answered in the slice it gets, not a full checked walk search: from Razor Hill
+// towards Sen'jin Village it answers in one frame with points.coarse. The checked walk replaces it when it lands.
+#[test]
+fn a_players_walk_sketch_across_clusters_answers_in_one_slice_as_a_coarse_shape() {
+	skip_unless_ready!();
+	let out = run(
+		r#"
+		w.faction = "Horde"; w.setLevel(11)
+		local _, px, py = C.MapToWorld(1411, 51.85, 43.49, "e")
+		local _, gx, gy = C.MapToWorld(1411, 56.31, 75.11, "e")
+		local got, frames = nil, 0
+		E.FindCoarse(1, { x = px, y = py, z = 11.7 }, { x = gx, y = gy }, function(points) got = points or false end,
+			{ profile = "Horde", walkLevel = 11 })
+		while got == nil and frames < 200 do stub.advance(0.05); frames = frames + 1 end
+		emit({ frames = frames, points = type(got) == "table" and #got or 0, coarse = type(got) == "table" and got.coarse or false })"#,
+		false,
+	);
+	assert_eq!(out["coarse"], true, "the sketch is the coarse shape: {out}");
+	assert!(f(&out["points"]) >= 2.0, "it has a line: {out}");
+	assert!(f(&out["frames"]) <= 1.0, "answered in the first slice: {out}");
+}
+
 // One continent's walking maps at a time (Fitz, 2026-10-25: 137 MB in the AddOn Memory readout with both of Leffe's
 // continents): a journey to the other continent searches and measures only the walks on the player's own, so only its
 // part of Polestar_Nav loads (Polestar_Nav_EK in Brill, its regions inside it, unpacked as its walks touch them); the

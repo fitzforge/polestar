@@ -3339,6 +3339,17 @@ local function start(job)
 	Expansions(0)
 	if job.walkLevel ~= nil then
 		if job.targets then return Safe.many(job) end
+		-- A sketch across clusters (FindCoarse) is a drawn shape over the entrance graph (points.coarse), never a walk
+		-- the arrow follows or a leg is priced on: it is drawn at once, as before strict jobs, and the checked walk
+		-- replaces it. Inside one cluster `whole` draws the cluster's real walk, which a leg is priced on (Walk.lua's
+		-- later legs): that one is still checked.
+		if job.coarseOnly then
+			local st = State(job.map)
+			local sk = st and locate(st, job.from.x, job.from.y)
+			if not (sk and job.whole and sk == locate(st, job.to.x, job.to.y)) then
+				return sketch(job.map, job.from, job.to, job.waterWalking, job.profile, job, job.style, job.danger)
+			end
+		end
 		return Safe.find(job)
 	end
 	if job.targets then
