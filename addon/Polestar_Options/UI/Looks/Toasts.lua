@@ -203,6 +203,7 @@ local function classPart(f, play)
 	TS.Attach("classcard", card, { titles = { card.Title }, bodies = { card.Head, card.Learn, card.Trip, card.Only }, inline = true, sandbox = true })
 	part.hots = { f:Hot(card.Glow, "toasts.classcard.glow"), f:Hot(card.Stripe, "toasts.classcard.stripe"),
 		f:Hot(card.Title, "toasts.classcard.titleSize"), f:Hot(card.Trip, "toasts.classcard.bodySize") }
+	f:Light("toasts.classcard.mode", card)
 	f:Light("toasts.classcard.glow", card)
 	f:Light("toasts.classcard.stripe", card.Stripe)
 	f:Light("toasts.classcard.titleSize", card.Title)
@@ -517,6 +518,10 @@ cardSection(HEADS, "headsup", L["heads-up card"], { scaleNote = " " .. L["It sit
 -- Class quest card (in the guide window: its scale, ground and opacity are the window's)
 local CARD = L["Class quest card"]
 local card = {
+	{ kind = "dropdown", key = "toasts.classcard.mode", label = L["Show"], new = NEW,
+		help = L["The whole card, a smaller one with no trip or note, or none: the quest's accept is then a row like any other. Full turns compact with the window."],
+		search = "show, hide, off, compact, small, smaller, slim, size, class quest card",
+		choices = { { value = "full", label = L["Full"] }, { value = "compact", label = L["Compact"] }, { value = "off", label = L["Off"] } } },
 	{ kind = "slider", key = "toasts.classcard.glow", label = L["Glow"], min = 0, max = 2, step = 0.1, format = pct, new = NEW,
 		help = L["The class colour's soft glow across the card."],
 		search = "glow, class colour, brightness, highlight, class quest card" },

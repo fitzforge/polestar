@@ -178,6 +178,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		["ui.showNotes"] = function() GF.Render() end,
 		["ui.notesOpen"] = function() GF.SetTipOpen(ns.Get("ui.notesOpen") and true or false); GF.Render() end,
 		["ui.newInForever"] = function() GF.Render() end,
+		-- The class quest card full, compact or off (UI/ClassCard.lua).
+		["toasts.classcard.mode"] = function() GF.Render() end,
 		["ui.maxHeight"] = function() GF.Layout() end,
 		-- Another way of reading the card: nothing kept from the one before.
 		["ui.wholeStep"] = function() resetModel(); GF.Render() end,
