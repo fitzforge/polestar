@@ -1372,6 +1372,9 @@ options:
                          (default: <root>/data/sources)
   --producer-commit SHA  index.json producerCommit (default: $PRODUCER_COMMIT, else this forge's git HEAD)
   --date YYYY-MM-DD      release date (default: today, or SOURCE_DATE_EPOCH)
+  --release-note FILE    a Markdown paragraph placed under this version's CHANGELOG.md heading, before
+                         the generated lists: what the counts can't say (pass it on every run of that
+                         version; a run without it writes the section without it)
   --zip                  also write forever-db-<version>.zip beside DIR
   --sqlite FILE          also write the tables as one sqlite file
   --lua DIR              also write the in-game library DIR/LibForeverData
@@ -1392,7 +1395,7 @@ fn publish(args: Vec<String>) -> Result<(), Fail> {
 			}
 			"--zip" => kv.push((a, None)),
 			"--out" | "--check" | "--root" | "--kb" | "--public-data" | "--public-drops" | "--provenance" | "--previous" | "--version" | "--factoruide" | "--cmangos" | "--tdb" | "--corrections"
-			| "--producer-commit" | "--date" | "--evidence" | "--sources" | "--sqlite" | "--notes" | "--note-fixes" | "--lua" | "--from" => {
+			| "--producer-commit" | "--date" | "--evidence" | "--sources" | "--sqlite" | "--notes" | "--note-fixes" | "--release-note" | "--lua" | "--from" => {
 				let v = it.next().ok_or_else(|| usage(format!("publish: {a} needs a value")))?;
 				kv.push((a, Some(v)));
 			}
@@ -1477,7 +1480,7 @@ fn publish(args: Vec<String>) -> Result<(), Fail> {
 		o.evidence = Some(abs(v));
 	}
 	o.sqlite = sqlite;
-	for (k, slot) in [("--notes", &mut o.notes), ("--note-fixes", &mut o.note_fixes)] {
+	for (k, slot) in [("--notes", &mut o.notes), ("--note-fixes", &mut o.note_fixes), ("--release-note", &mut o.release_note)] {
 		if let Some(v) = get(k) {
 			let p = abs(v);
 			if !p.is_file() {
