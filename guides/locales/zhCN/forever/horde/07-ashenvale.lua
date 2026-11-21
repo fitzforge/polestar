@@ -281,7 +281,7 @@ return {
 	["Galak centaurs"] = "加拉克半人马",
 	-- {npc:10617} Galak Messenger · {area:2237} Whitereach Post · {npc:216463} Ailgrha Splittusk
 	-- plural, as words: Ravaging Tempests = {npc:216474} Ravaging Tempest
-	["The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone {npc:10617} walks a long path between the camps: if you meet him, kill him, his note starts a quest for {area:2237}. Don't wait for him. Careful: storm elementals roam the canyon floor around the camps: Stormheart (30), the Ravaging Tempests (40) and {npc:216463} (38), all elite. Keep clear of them."] = "加拉克半人马的营地遍布乱风岗北边的峡谷；每个营地都有加拉克斥候、加拉克争斗者和加拉克逐风者。一个落单的{npc:10617}沿着一条很长的路线在营地之间走动：如果遇到他，就杀了他，他的信件可以开始一个{area:2237}的任务。不要专门等他。小心：风暴元素在营地周围的峡谷底部游荡：Stormheart（30级）、Ravaging Tempest（40级）和{npc:216463}（38级），全都是精英。远离它们。",
+	["The Galak camps fill the canyon north of Freewind; Scouts, Wranglers and Windchasers share every camp. A lone {npc:10617} walks a long path between the camps: if you meet him, kill him, his note starts a quest for {area:2237}. Don't wait for him. Careful: storm elementals roam the canyon floor around the camps: Stormheart (30), the Ravaging Tempests (40) and {npc:216463} (38), all elite. Keep clear of them."] = "加拉克半人马的营地遍布乱风岗北边的峡谷；每个营地都有加拉克斥候、加拉克争斗者和加拉克逐风者。一个落单的{npc:10617}沿着一条很长的路线在营地之间走动：如果遇到他，就杀了他，他的信件可以开始一个{area:2237}的任务。不要专门等他。小心：风暴元素在营地周围的峡谷底部游荡：风暴之心（30级）、Ravaging Tempest（40级）和{npc:216463}（38级），全都是精英。远离它们。",
 	-- {npc:10617} Galak Messenger · {quest:4881} Assassination Plot
 	["{npc:10617}'s {quest:4881}, if you meet him"] = "{npc:10617}的{quest:4881}，如果你遇到他",
 

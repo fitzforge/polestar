@@ -58,7 +58,7 @@ return {
 	-- {npc:2104} Captain Stoutfist
 	["{npc:2104}, by the keep; on the top floor"] = "{npc:2104}，在要塞处；顶层",
 	-- {npc:2104} Captain Stoutfist · {quest:98221} From the Ashes · {area:1036} Angerfang Encampment
-	["{npc:2104}: {quest:98221}, the Attack Plans in the {area:1036}"] = "{npc:2104}：{quest:98221}，收集{area:1036}的Attack Plans",
+	["{npc:2104}: {quest:98221}, the Attack Plans in the {area:1036}"] = "{npc:2104}：{quest:98221}，摧毁{area:1036}的进攻计划",
 	-- {npc:1242} Karl Boran
 	["{npc:1242}, on the pier north of the inn"] = "{npc:1242}，在旅店北边的码头上",
 	-- {npc:2094} James Halloran
@@ -172,7 +172,7 @@ return {
 
 	-- Step 32: Angerfang Encampment
 	-- {zone:1455} Ironforge · {npc:2091} Chieftain Nek'rosh · {quest:98221} From the Ashes
-	["North from the dig into the Dragonmaw camp: click the four sets of Attack Plans. The {zone:1455} plan lies at the camp's west end, the other three further east. {npc:2091}, an elite, stands apart to the south-east: {quest:98221} doesn't need him."] = "从挖掘场向北进入龙喉营地，点击四份Attack Plans。{zone:1455}的计划在营地西端，其余三份在更东面。精英{npc:2091}单独站在东南方，{quest:98221}不需要击杀他。",
+	["North from the dig into the Dragonmaw camp: click the four sets of Attack Plans. The {zone:1455} plan lies at the camp's west end, the other three further east. {npc:2091}, an elite, stands apart to the south-east: {quest:98221} doesn't need him."] = "从挖掘场向北进入龙喉营地，点击并摧毁四份进攻计划。{zone:1455}的计划在营地西端，其余三份在更东面。精英{npc:2091}单独站在东南方，{quest:98221}不需要击杀他。",
 	-- {item:3337} Dragonmaw War Banner
 	["{item:3337}: the camp's Raiders and Swamprunners"] = "{item:3337}：营地里的龙喉袭击者和龙喉沼泽行者掉落",
 
@@ -271,7 +271,7 @@ return {
 
 	-- Step 49: Excavation Site: Wetlands
 	-- {area:17732} Excavation Site: Wetlands · {npc:260808} Highland Horror · {npc:1244} Rethiel the Greenwarden · {npc:260326} Relic Guardian · {item:270865} Titan Relic · {npc:1077} Prospector Whelgar
-	["{area:17732} is a dungeon for a group of five at about level 28 to 31. Its entrance lies just south of the road west, east of Whelgar's dig.\nInside: the Thicket raptors and Shadetooth drop the hides for Halloran, a {npc:260808} the root core for {npc:1244}. Saltspine, Shadetooth and the {npc:260326} are the bosses; the {npc:260326} drops a {item:270865}, which starts a quest for {npc:1077}."] = "{area:17732}是适合28-31级左右五人小队的地下城。入口就在向西道路的南边，维尔加挖掘场的东边。\n副本内：Thicket迅猛龙和Shadetooth掉落哈洛兰要的皮，{npc:260808}掉落{npc:1244}要的根核。Saltspine、Shadetooth和{npc:260326}是首领；{npc:260326}掉落{item:270865}，它会开启一个交给{npc:1077}的任务。",
+	["{area:17732} is a dungeon for a group of five at about level 28 to 31. Its entrance lies just south of the road west, east of Whelgar's dig.\nInside: the Thicket raptors and Shadetooth drop the hides for Halloran, a {npc:260808} the root core for {npc:1244}. Saltspine, Shadetooth and the {npc:260326} are the bosses; the {npc:260326} drops a {item:270865}, which starts a quest for {npc:1077}."] = "{area:17732}是适合28-31级左右五人小队的地下城。入口就在向西道路的南边，维尔加挖掘场的东边。\n副本内：灌木丛迅猛龙和暗齿掉落哈洛兰要的皮，{npc:260808}掉落{npc:1244}要的根核。盐脊、暗齿和{npc:260326}是首领；{npc:260326}掉落{item:270865}，它会开启一个交给{npc:1077}的任务。",
 	-- {quest:98815} Highland Hides
 	["{quest:98815}: the hides, inside"] = "{quest:98815}：皮，在副本内",
 	-- {quest:95646} Horrors in the Highland

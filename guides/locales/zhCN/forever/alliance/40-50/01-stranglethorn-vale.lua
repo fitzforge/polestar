@@ -37,7 +37,7 @@ return {
 	-- Step 4: "Stinky" Ignatz
 	["\"Stinky\" Ignatz"] = "伊格纳兹",
 	-- {area:504} North Point Tower
-	["Stinky waits west of the manor, in the marsh below {area:504}. Lead him to his Bogbean leaves and keep the swamp creatures off him."] = "伊格纳兹在庄园西边、{area:504}下方的沼泽中等候。带他去找Bogbean叶子，别让沼泽生物靠近他。",
+	["Stinky waits west of the manor, in the marsh below {area:504}. Lead him to his Bogbean leaves and keep the swamp creatures off him."] = "伊格纳兹在庄园西边、{area:504}下方的沼泽中等候。带他去找睡菜叶，别让沼泽生物靠近他。",
 
 	-- Step 5: North Point Tower
 	-- {npc:4966} Private Hendel · {npc:4967} Archmage Tervosh · {npc:4968} Lady Jaina Proudmoore

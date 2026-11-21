@@ -340,7 +340,7 @@ return {
 	["Spitelash naga"] = "恶鞭纳迦",
 	-- {area:370} Drygulch Ravine · {npc:275657} Heglan Shadeeye · {npc:3107} Surf Crawler
 	-- plural, as words: Spitelash Scouts = {npc:275662} Spitelash Scout
-	["North-east to the beach below {area:370}, north of {npc:275657}: Spitelash Scouts and Attendants hold it. Hunters: tame a {npc:3107} on the beach."] = "向东北走到{area:370}下方、{npc:275657}北边的海滩：Spitelash Scouts和Spitelash Attendants占据着这里。猎人：在海滩上驯服一只{npc:3107}。",
+	["North-east to the beach below {area:370}, north of {npc:275657}: Spitelash Scouts and Attendants hold it. Hunters: tame a {npc:3107} on the beach."] = "向东北走到{area:370}下方、{npc:275657}北边的海滩：恶鞭斥候和恶鞭侍从占据着这里。猎人：在海滩上驯服一只{npc:3107}。",
 
 	-- Step 78: Margoz
 	-- {quest:828} Margoz · {quest:827} Skull Rock

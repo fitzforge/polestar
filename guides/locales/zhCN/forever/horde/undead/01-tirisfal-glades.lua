@@ -440,7 +440,7 @@ return {
 	["{area:165}: kill these as you meet them"] = "{area:165}：沿途遇到就击杀",
 	-- {quest:99142} Tomb Weed · {npc:1664} Captain Vachon
 	-- plural, as words: Bleeding Horrors = {npc:1529} Bleeding Horror · Wandering Spirits = {npc:1532} Wandering Spirit · Scarlet Friars = {npc:1538} Scarlet Friar
-	["Follow the road east past the cult's farm. Bleeding Horrors and Wandering Spirits haunt the graves on the east side of the farmstead, where the {quest:99142} grows: Linnea wants eight of each.\nThe Scarlet Friars camp just north-east of the graves; {npc:1664} stands among them.\nThe spiders lurk in the woods at the far east end of the glades.\nCareful: Riptear (13) is elite and prowls west and north of the Scarlet Friars' camp: watch for him before you pull."] = "沿道路向东经过教派的农场。{npc:1529}和{npc:1532}在农场东侧的墓地里出没，{quest:99142}也生长在那里：林奈各需要八个。\n{npc:1538}在墓地东北方不远处扎营；{npc:1664}站在他们中间。\n蜘蛛潜伏在林地最东端的树林里。\n小心：Riptear（13级）是精英，在{npc:1538}营地的西边和北边徘徊：引怪前先注意他的位置。",
+	["Follow the road east past the cult's farm. Bleeding Horrors and Wandering Spirits haunt the graves on the east side of the farmstead, where the {quest:99142} grows: Linnea wants eight of each.\nThe Scarlet Friars camp just north-east of the graves; {npc:1664} stands among them.\nThe spiders lurk in the woods at the far east end of the glades.\nCareful: Riptear (13) is elite and prowls west and north of the Scarlet Friars' camp: watch for him before you pull."] = "沿道路向东经过教派的农场。{npc:1529}和{npc:1532}在农场东侧的墓地里出没，{quest:99142}也生长在那里：林奈各需要八个。\n{npc:1538}在墓地东北方不远处扎营；{npc:1664}站在他们中间。\n蜘蛛潜伏在林地最东端的树林里。\n小心：撕裂者（13级）是精英，在{npc:1538}营地的西边和北边徘徊：引怪前先注意他的位置。",
 	-- {item:7227} Balnir Snapdragons
 	["{item:7227}, in the farmstead's garden"] = "{item:7227}，在农场的花园里",
 

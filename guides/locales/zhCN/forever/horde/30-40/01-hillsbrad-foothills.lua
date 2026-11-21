@@ -292,7 +292,7 @@ return {
 
 	-- Step 51: Calder Gray
 	-- {npc:270038} Calder Gray · {quest:97985} Thundering Hearts · {area:484} Freewind Post · {area:439} Shimmering Flats
-	["{npc:270038} stands in the Apothecarium. His {quest:97985} is for Stormheart, a level 30 elite who walks the canyon east of {area:484}, on the next guide's way to the {area:439}."] = "{npc:270038}站在炼金房里。他的{quest:97985}的目标是Stormheart，一个30级精英，在{area:484}东边的峡谷里走动，就在下一份指南前往{area:439}的路上。",
+	["{npc:270038} stands in the Apothecarium. His {quest:97985} is for Stormheart, a level 30 elite who walks the canyon east of {area:484}, on the next guide's way to the {area:439}."] = "{npc:270038}站在炼金房里。他的{quest:97985}的目标是风暴之心，一个30级精英，在{area:484}东边的峡谷里走动，就在下一份指南前往{area:439}的路上。",
 	-- {npc:270038} Calder Gray · {zone:1458} Undercity
 	["{npc:270038}: back to him on the next {zone:1458} stop, at about 38"] = "{npc:270038}：下次到{zone:1458}时（约38级）再回来找他",
 
