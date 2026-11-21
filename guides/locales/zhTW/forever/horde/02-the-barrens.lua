@@ -179,7 +179,7 @@ return {
 	["Savannah lions"] = "薩凡納獅子",
 	-- {npc:3682} Vrang Wildgore
 	-- plural, as words: Savannah Patriarchs = {npc:3241} Savannah Patriarch · Sprung Traps = {object:640104} Sprung Trap
-	["Savannah Patriarchs roam the plains east of {npc:3682}'s camp, and the Sprung Traps lie among them."] = "薩凡納獅王在{npc:3682}營地東邊的平原上游蕩，觸發式陷阱就在它們中間。",
+	["Savannah Patriarchs roam the plains east of {npc:3682}'s camp, and the Sprung Traps lie among them."] = "草原獅族王在{npc:3682}營地東邊的平原上游蕩，發動過的陷阱就在它們中間。",
 
 	-- Step 39: Vrang Wildgore
 	-- {npc:261366} Walton · {npc:3682} Vrang Wildgore · {area:383} Dry Hills · {npc:3452} Serena Bloodfeather
@@ -305,7 +305,7 @@ return {
 
 	-- Step 64: The Barrens: kill these as you meet them
 	-- {area:383} Dry Hills · {quest:876} Serena Bloodfeather
-	["North to the {area:383}: {quest:876} leads the Witchwing harpies in the hills to the west.\nCareful: The route in passes stealthed Harpy Ambushers and an elite harpy that patrols."] = "向北前往{area:383}：{quest:876}帶領西邊山丘中的女巫之翼鷹身人。\n注意：進入的路會經過隱身的女巫之翼伏擊者和一隻巡邏的精英鷹身人。",
+	["North to the {area:383}: {quest:876} leads the Witchwing harpies in the hills to the west.\nCareful: The route in passes stealthed Harpy Ambushers and an elite harpy that patrols."] = "向北前往{area:383}：{quest:876}帶領西邊山丘中的巫翼鷹身人。\n注意：進入的路會經過隱身的巫翼伏擊者和一隻巡邏的精英鷹身人。",
 	-- {quest:865} Raptor Horns · {npc:3682} Vrang Wildgore
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
 	["{quest:865}, if still open: Sunscale Scytheclaws prowl among the lions below {npc:3682}'s camp"] = "如果 {quest:865} 還沒完成：赤鱗鐮爪龍就在{npc:3682}營地下方的獅群之間遊蕩",

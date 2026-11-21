@@ -83,7 +83,7 @@ return {
 	-- Step 18: Direforge Hill
 	-- {area:1016} Direforge Hill · {item:280806} Stolen Explosives · {area:880} Thandol Span
 	-- plural, as words: Dark Irons = {object:147516} Dark Iron
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. South-east of Dun Modr, about 500 yards, the Dark Irons camp on {area:1016}: the {item:280806} lie among their tents. Then back past the camp and north to the {area:880}."] = "這些都是精英怪物：丹莫羅東南約500碼，黑鐵在{area:1016}紮營：{item:280806}就在他們的帳篷之間。然後折返，經過營地向北前往{area:880}。",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. South-east of Dun Modr, about 500 yards, the Dark Irons camp on {area:1016}: the {item:280806} lie among their tents. Then back past the camp and north to the {area:880}."] = "這些都是精英怪物：丹莫德東南約500碼，黑鐵在{area:1016}紮營：{item:280806}就在他們的帳篷之間。然後折返，經過營地向北前往{area:880}。",
 
 	-- Step 19: Ebenezer Rustlocke
 	["Ebenezer Rustlocke"] = "伊貝尼瑟的屍體",
