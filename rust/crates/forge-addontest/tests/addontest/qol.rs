@@ -2982,17 +2982,20 @@ fn merchant_never_sells_an_item_a_later_step_keeps_names_the_sellable_ones_first
 		r#"
 		-- The guide keeps Ruined Pelt (grey) for step 14, Linen Cloth for step 9 and a valueless quest item for step 3.
 		q.engine.kept = { [5] = 14, [2] = 9, [4] = 3 }
-		local before = { QoL.KeptLine(2) }
+		-- Its tooltip block (QoL.KeptLines): the guide that uses Linen Cloth, under a header that warns at a merchant.
+		q.engine.itemGuides = { [2] = { { guide = { id = "g", title = "Guide", steps = {} }, step = 9 } } }
+		local function header(id) local b = QoL.KeptLines(id); return b and b.header[1] or false end
+		local before = header(2)
 		q.openMerchant()
 		stub.advance(2)
 		local sold = {}
 		for _, id in ipairs(q.sold) do sold[id] = (sold[id] or 0) + 1 end
-		local open = { QoL.KeptLine(2) }
+		local open = header(2)
 		q.closeMerchant()
 		emit({
 			pelt = sold[5] or 0, fangs = sold[1] or 0,
 			warned = printed("Linen Cloth.*Ruined Pelt.*: later steps of the guide need them"),
-			before = before[1], open = open[1], after = QoL.KeptLine(2), none = QoL.KeptLine(3) or false,
+			before = before, open = open, after = header(2), none = header(3),
 		})
 	"#,
 	]
@@ -3001,9 +3004,9 @@ fn merchant_never_sells_an_item_a_later_step_keeps_names_the_sellable_ones_first
 		out[0],
 		json!({
 			"pelt": 0, "fangs": 5, "warned": true,
-			"before": "Kept for the guide: step 9 needs it",
-			"open": "Don't sell: the guide needs it at step 9",
-			"after": "Kept for the guide: step 9 needs it",
+			"before": "Used in guides:",
+			"open": "Don't sell, used in guides:",
+			"after": "Used in guides:",
 			"none": false,
 		})
 	);
