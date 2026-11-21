@@ -2587,24 +2587,24 @@ local function plan(target, held)
 end
 
 local keepLive -- (old, i, progress, fresh, target, pc, px, py) -> keep the live route against the fresh plan (below sameWay)
--- The guide's goal on enemy ground, and the enemy ground the player stands on while a recent goal lay in it, are
--- walked into and out of (#3447, Nav.danger.Exempt): set before each plan, so the plan's walks and the arrow's own
--- walk are checked alike. A point picked by hand or held (a corpse) is no goal the guide sent the player to.
-local function exemptGround()
-	local D, C = Nav.danger, ns.Compat
-	if not (D and D.Exempt and C) then return end
-	local gc, gx, gy
-	if not (Nav.IsOverride() or Nav.IsHeld()) then gc, gx, gy = Nav.GetTargetWorld() end
-	local ok, pc, px, py = pcall(C.GetPlayerWorldPosition)
-	if not ok then pc = nil end
-	D.Exempt(gc, gx, gy, pc, px, py, C.GetPlayerFaction())
-end
 function Travel.Replan()
 	if onTaxi() then
 		dirty = true
 		return
 	end
-	exemptGround()
+	-- The guide's goal on enemy ground, and the enemy ground the player stands on while a recent goal lay in it, are
+	-- walked into and out of (#3447, Nav.danger.Exempt): set before each plan, so the plan's walks and the arrow's own
+	-- walk are checked alike. A point picked by hand or held (a corpse) is no goal the guide sent the player to.
+	do
+		local D, C = Nav.danger, ns.Compat
+		if D and D.Exempt and C then
+			local gc, gx, gy
+			if not (Nav.IsOverride() or Nav.IsHeld()) then gc, gx, gy = Nav.GetTargetWorld() end
+			local ok, pc, px, py = pcall(C.GetPlayerWorldPosition)
+			if not ok then pc = nil end
+			D.Exempt(gc, gx, gy, pc, px, py, C.GetPlayerFaction())
+		end
+	end
 	-- Planned again for a zone change or for walking on (dirty "zone", not for anything that changed the way):
 	-- the live route stays unless the fresh plan goes another way and saves keep.SAVES seconds (keepLive).
 	local soft = dirty == "zone"
