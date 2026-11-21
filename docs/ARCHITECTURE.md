@@ -1273,6 +1273,9 @@ Compat.Readable(v)              -> v | nil (a secret value reads as unknown)
 Compat.Now()                    -> seconds since the epoch, server clock
 Compat.GetPlayerInfo()          -> { name, realm, guid, level, xp, xpMax, race, class, faction }
                                    -- race = raceFile ("Human","Scourge",...), class = classFile ("WARRIOR"), faction = "Alliance"|"Horde"|"Neutral"
+                                   -- realm = Compat.RealmName()
+Compat.RealmName()              -> string | nil  (GetRealmName; nil for "", a secret or none: "Unknown realm" below)
+Compat.NormalizedRealmName()    -> string | nil  (GetNormalizedRealmName, the same way)
 Compat.GetPlayerFaction()       -> "Alliance" | "Horde" | nil  (UnitFactionGroup; nil when neutral, unread or secret;
                                    -- the walking router's profile, Nav/Walk.lua)
 Compat.GetPlayerMapPosition()   -> uiMapID, x, y | nil      (nil in instances / unknown)
@@ -1327,6 +1330,50 @@ Compat.GetFactionStanding(factionID)   -> standingID (1 Hated .. 8 Exalted), val
 Compat.IsAreaExploredAt(uiMapID, x, y) -> bool | nil   (C_MapExplorationInfo)
 Compat.GetAchievement(id)              -> { completed, name, criteria = { { text, completed, cur, max }, ... } } | nil
 ```
+
+#### Unknown realm
+
+Forever's client stopped telling addons the realm in 1.60.1 (a hotfix in
+November 2026): GetRealmName and GetNormalizedRealmName read `""`,
+GetRealmID `0`. `Compat.RealmName()` and `Compat.NormalizedRealmName()` read
+those as nil, and nothing else in the addon calls them. Every key filed by
+realm falls back, and takes over its old entry once, at login (or the first
+read), while the realm is unknown:
+
+| Data | Key with the realm | Key without | Taken over |
+|---|---|---|---|
+| Characters page (`PolestarDB.alts.chars`) | `"Name-Realm"` | `"Name"` | the character's one `"Name-<realm>"` entry, its saved `realm` kept; with several (one name on more than one realm) none, and the page says so under the list (`Alts.Unclaimed`) |
+| Instance entries (`PolestarDB.instances.entries[].char`) | `"Name-Realm"` | `"Name"` | entries naming one realm for this name; several: kept |
+| Prices (`PolestarDB.materials.prices`) | `"Realm-Faction"` | `"Faction"` | the faction's one realm; several: kept until they age out (14 days) |
+| Boat and zeppelin timings (`PolestarDB.transit`) | `realm` | `"?"` | the one realm's sightings, the newer per route; several: kept until they age out (6 hours) |
+| Rares met (`PolestarDB.rares.history`) | `realm` | `"?"` | the one realm's history (a rare in both keeps the newer entry, both counts); several: kept, and the Characters page says so (`Rares.UnclaimedRealms`) |
+
+Keys written while the client already read `""` and before this was handled
+(`"Name-"`, `"-Faction"`) always move to the key without the realm: they are
+this character's. Matching realms: Materials counts an alt's materials when its
+saved realm matches the character's, the client's realm or else the one
+saved on the character's own entry, and when either is unknown; a transit
+sighting from a sender named with a realm counts only when that is this
+realm's name, so never while it is unknown. The Characters page's subtitle
+names the realm only while the client gives it ("3 characters", "1
+character"). Two characters with one full name on different realms share
+the realm-less key; Forever's names carry a surname, so this is rare.
+
+#### Creature and object GUIDs
+
+`Creature-0-<realm>-<instanceMap>-<server>-<id>-<spawn>` (also `Vehicle`,
+`Pet`, `GameObject`). Forever obfuscates the server and spawn parts, and
+(announced for a later hotfix) the realm part too, so every reader takes the
+kind and the id by their place (`strsplit` or `[^-]*` per part) and never
+reads or keeps the other parts across sessions. A GUID used as a key (a
+rare's sighting debounce and held card, the Recorder's units seen) lives in
+memory for the session only; the Recorder's `spawn`/`unitx` records carry the
+spawn part as a tag within one recording, and nothing reads it across
+recordings. The one reader of another part is Instances'
+copy check (the fifth part): it trusts the part only once two creatures of one
+visit agree on it, compares it only with a value read in this session, and
+stops for the session when two creatures of one visit disagree
+(`Maps/Instances.lua`'s header).
 
 #### Map frames
 
@@ -4169,7 +4216,8 @@ Polestar.Engine.RefreshMaterials()                               -- the ways cha
   makes for a tracked material (`COMMODITY_SEARCH_RESULTS_UPDATED`,
   `ITEM_SEARCH_RESULTS_UPDATED` into `Materials.NoteSearch`): the cheapest
   listings, up to 40, so a count is priced for that many ("only N listed" past
-  them), kept per auction house (realm and faction) for 14 days and dropped at
+  them), kept per auction house (realm and faction; the faction alone while
+  the client does not give the realm, "Unknown realm") for 14 days and dropped at
   login after; else Auctionator's (`Auctionator.API.v1.GetAuctionPriceByItemID`
   and `GetAuctionAgeByItemID`, caller "Polestar") when it is installed. Shown
   with their age, never a gate.
@@ -6008,7 +6056,8 @@ loops sharing a lane both fit). It fits every 10 samples and when 30 s pass
 without one or the player leaves the world; a new sighting prints "Timed the
 <route> from your ride" unless one of yours is under 10 minutes old.
 Sightings are kept per realm in `PolestarDB.transit[realm][route] = { epoch,
-seen, source }` and dropped after 6 hours (a restart resets the loops).
+seen, source }` (realm `"?"` while the client does not give it, "Unknown
+realm") and dropped after 6 hours (a restart resets the loops).
 Sharing is opt-in: with `nav.shareTransit` (off by default; Options, Arrow &
 routes, "Share boat times") a new sighting of yours goes to the guild and
 group as an addon message (`PolestarT1`: `S<route>:<seen s>:<phase ms at
@@ -10452,7 +10501,8 @@ Polestar.Rares.FounderSighting(unit, source, guid)  -- a player unit from Detect
   earlier sighting, else alerts as "Unknown rare" marked `unnamed`. A later
   sighting that alerts nothing (cooldown, combat hold) and carries the name
   sends `RARE_NAMED(key, name)`, and the card showing that rare unnamed takes it.
-- **History**: account-wide per realm, `PolestarDB.rares.history[realm][key]`
+- **History**: account-wide per realm (`"?"` while the client does not give
+  it, "Unknown realm"), `PolestarDB.rares.history[realm][key]`
   (`"rare:<npc>"`, `"treasure:<object>"`, `"name:<name>"` without an id), at
   most 400 entries; the cooldown reads `alerted` (epoch seconds), so it
   survives a reload. Losing it only resets cooldowns and the Seen list.
@@ -10591,7 +10641,8 @@ them, the `alts` command), `Options.lua` (Discovery → Lookup),
 `View.lua` (the hub section, order 60).
 
 ```
-Polestar.Alts.Key() -> "Name-Realm"                         -- as Maps/Instances.lua files its entries
+Polestar.Alts.Key() -> "Name-Realm" | "Name"                -- as Maps/Instances.lua files its entries; "Name" with the realm unknown
+Polestar.Alts.Unclaimed() -> entries                        -- this name's "Name-<realm>" entries left apart with the realm unknown
 Polestar.Alts.List(sortBy) -> entries                       -- the playing character first, then "seen" (default) | "rested" | "level"
 Polestar.Alts.Forget(key) -> boolean                        -- never the playing character
 Polestar.Alts.Write(silent, touch) -> boolean               -- the playing character's entry (touch: only `seen`); false with alts.enabled off
@@ -10607,7 +10658,10 @@ Polestar.Alts.IsCurrent(entry), Polestar.Alts.MaxLevel(), Polestar.Alts.Enabled(
   mats (item to count: the profession guides' materials in its bags, bank and
   mail, `Materials.OwnCounts`), `seen`
   (server time), `key`. Values that equal nothing are left out. An alt's
-  entry is as of its last write, normally its logout.
+  entry is as of its last write, normally its logout. While the client does
+  not give the realm the key is the name alone and the character's one
+  "Name-<realm>" entry moves there at login; with several, none moves and the
+  page says so under the list ("Unknown realm").
 - **Writes.** All in the world: at login (after five seconds, once the tabs
   exist), on resting changes at once, on level-ups, XP, zone, money, skill and
   tab changes and new bank and mail counts (`MATERIALS_COUNTS`) coalesced into

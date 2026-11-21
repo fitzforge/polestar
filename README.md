@@ -1101,6 +1101,9 @@ runs solo or in a raid.
   nearby and targets it by name (Options, Questing, Buttons, Rare button).
 - **Characters** (`/polestar alts`): every character on the account with its
   level, zone, guide, gold and an estimate of its rested XP.
+  Forever's client no longer tells addons the realm name: each character
+  keeps its entry, materials, boat timings and rares met, and if two saved
+  characters share your name the page says so and keeps both.
 
 Lookup, Dungeons and Rares read the Codex, a data pack that ships in the
 release as `Polestar_Codex`. Without it Lookup still searches the guides, and
