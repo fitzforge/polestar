@@ -192,9 +192,10 @@ fn the_committed_traveldata_lua_has_the_flight_points_forever_added_on_their_liv
 	);
 }
 
-// The short walk from Stonard's flight master to its inn uses Horde ground.
+// The short walk from Stonard's flight master to its inn. Main, 2026-11-21, Fitz: "go back to our original danger
+// pathing": an Alliance character walks it too, as before 0.4.2 (0.4.2 refused it).
 #[test]
-fn stonard_is_walkable_for_horde_but_not_alliance() {
+fn stonard_is_walkable_for_both_factions() {
 	let out = nav_run(
 		r#"
 		stub.nav.useGameGround()
@@ -211,7 +212,7 @@ fn stonard_is_walkable_for_horde_but_not_alliance() {
 		end
 		emit({ walk(2, 45), walk(2, 1), walk(2, nil), walk(1, 60), walk(1, nil) })"#,
 	);
-	assert_eq!(out, json!([46, 46, 46, false, false]));
+	assert_eq!(out, json!([46, 46, 46, 46, 46]));
 }
 
 // A Horde character at Stonard's flight master who knows Rog'mar is flown there (the planner over the committed
@@ -266,10 +267,6 @@ fn from_stonard_a_horde_character_who_knows_rog_mar_flies_there() {
 			p.walkOnly = true
 			for _, l in ipairs(N.PlanRoute(p) or {}) do assert(l.kind == "walk" and not l.taxiOffer, "ghost cannot board") end
 			p.walkOnly = nil
-			local destination = p.target
-			p.target = { c = 0, wx = -8840.6, wy = 489.7, label = "Enemy capital" }
-			assert(not N.PlanRoute(p), "boarding is not permission for the destination walk")
-			p.target = destination
 			local legs = N.PlanRoute(p)
 			assert(legs and legs[1].kind == "fly" and legs[1].from.id == 56 and legs[1].taxiOffer, "board here without a ground approach")
 			local flights = N.GetTravelData().flights[56]

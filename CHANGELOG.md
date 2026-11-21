@@ -10,6 +10,23 @@
 - Riverglades: the arrow to the Cubic Draconia for Proof of Profit and to the
   Cinderscale whelps and warriors now leads into the dragonkin's hollow
   instead of over the hill above it (#3394, thanks Roflsauce).
+- The walking arrow points along the walk again, past its next turn, instead
+  of at the very next point, so it no longer swings round at every corner,
+  outdoors, in cities and indoors alike. Where a wall stands in the way, as
+  beside the Ironforge gryphon roost, it points only as far round the turn as
+  you can walk straight. This was broken in 0.4.2 (#3509, thanks Fitz).
+- The arrow eases every turn again, as in 0.4.1.1. In 0.4.2 it jumped to its
+  new direction in one frame after any pause in guidance (an arrival, a ride,
+  the wait for a walking route), beside the other faction's towns, and at
+  sharp turns beside a wall (thanks Fitz).
+- After a step change, a spot change or a new waypoint, the arrow points
+  straight at the place at once until the walking route arrives (as in
+  0.4.1.1). The walk's rough line is drawn on the map within a frame.
+- The walking route arrives sooner after a step change or a spot change:
+  a step completed by the kill that ends a fight is searched at full speed
+  once the fight is over, and when the game runs below 60 fps (30 fps in
+  the background) the search keeps the same speed per second instead of
+  slowing down with the frame rate.
 - Ban'ethil Barrow Den (Teldrassil): the arrow leads you through the den to
   the Chest of the Raven Claw and the other chests, and back out past the
   entrance. It no longer swings back and forth with "Follow the path out" at
@@ -26,14 +43,18 @@
 - The Dungeons page no longer reads "Speak with Speak with …" for a quest
   whose objective is a sentence of its own, such as The Glowing Shard's
   "Speak with someone in Ratchet about the Glowing Shard" (#3426).
-- A quest goal on the other faction's ground has a walking route again: the
-  Horde's Hillsbrad Fields targets on Battle of Hillsbrad, the Alliance
-  Skyborne's turn-ins in Shen'dar Village and the like no longer say "No safe
-  walking route" for the whole way. The arrow walks you in, says the town is
-  hostile, and walks you back out; a walk that only passes another faction's
-  town still goes round it.
+- The other faction's towns are walked round again, not refused: as before
+  0.4.2, the arrow keeps you out of them where there is another way, walks
+  you in when your goal is there (Hillsbrad Fields on Battle of Hillsbrad, the
+  Alliance Skyborne's turn-ins in Shen'dar Village, a pin you set in Dalaran)
+  or there is no other way, and says "Hostile town" under the step. "No safe
+  walking route" is gone.
 - Coriella Calmbreeze in Shen'dar Village is a short walk again: the route no
   longer swaps between a portal and the walk to her every few seconds.
+- Feralas & Tanaris (Horde): the pirate ghosts in Stranglethorn Vale are only
+  asked for while you carry Voodoo Dues, and their lines tick from the quest
+  log; before, they showed as kills of their own that never ticked (thanks
+  siu_sang).
 - First Aid: the Heavy Silk and Mageweave Bandage steps say to read the manual
   you bought with Expert First Aid, and where to buy it if you have none
   (thanks Cip1337, #3405).
@@ -49,6 +70,11 @@
   objectives are done before the guide reaches its step (an elite you killed
   on the way), the guide goes on to the hand-in instead of waiting for "Skip
   it" or "Do it with a group" (thanks Stö, #3402, #3412).
+- With no height from the game (Forever gives none), the arrow follows a
+  guide step's saved walk as 0.4.1.1 did, without first checking it against
+  a floor it can only guess. In 0.4.2 a guessed floor that missed the walk,
+  or a goal standing above or below the walk's end, sent the step's walk to a
+  live search (thanks Fitz).
 - The Horn of Xelthos (Rogue): the guide no longer sends you to Veenix once
   you have the horn or have handed it in; he only deals while the horn job is
   open, so the step could never finish (thanks kevqon, #3362).
@@ -56,6 +82,13 @@
   with the other two wrecks at the east end of the fields, where the ballista
   stands; the arrow used to point to the shrub field's far edge, where there
   is nothing to plant on (thanks Stö, #3400).
+- Mount Hyjal: Crate Expectations' arrow leads to Kaylaena's workshop when you
+  fly back with Nami's crate, instead of nothing (thanks Stö).
+- Mount Hyjal: talking to Shalla'kal's kittens, the two elders in Barkskin
+  Burrow, the peasant at the Alliance outpost and Ortak's two wounded now
+  ticks the guide's step: those lines count as soon as you meet them, and the
+  guide now reads them from your quest log. The Forsaken Paladin's tour of
+  Bandarion Keep in Tirisfal Glades ticks the same way (thanks Stö).
 - Install no longer calls the leveling routes a beta: players have played
   them through.
 - On a game client that isn't in English, the guide window's "Left out" list
@@ -88,8 +121,18 @@
   quest: you're 35.7"), and its pace line no longer calls a quest on the step
   hard; it keeps saying whether you're on pace or behind (thanks Foomix,
   #3438).
+- The arrow says Arrived at a quest giver, trainer or other NPC when you are
+  within talking distance of them again, as in 0.4.0. Since 0.4.1, an NPC the
+  game data lists at a few nearby spots (Marshal McBride in Northshire Abbey)
+  counted as reached anywhere in that spread, up to 27 yards away, and the
+  arrow pointed at the middle of the spots rather than at the NPC (thanks
+  Fitz).
 - Riverglades (Horde): Jom-jom's Escape says that Jom-jom waits at the back of
   the cave (thanks Tendertail and Yeq, #3411, #3388).
+- The route line on the map and minimap shows the walk's sketch as soon as
+  it is in, as in 0.4.1.1, and the checked walk replaces it when it lands. In
+  0.4.2 the map showed no line at all until the walk had been checked (thanks
+  Fitz).
 - Cozy Sleeping Bag: Scramble's hand-in first leads to the edge of the camp
   where you drop down to the Mound of Dirt, instead of a walk that never gets
   there (thanks Hnrq, #3386).
@@ -109,10 +152,13 @@
   giver: ...") names every quest by its title. A quest the next guide
   doesn't take could show as "Quest 4023".
 - The arrow no longer goes blank when it can't find a walk: it points
-  straight at the goal again, as before 0.4.2, says why under its label ("No
-  safe walking route" or "The last steps here aren't mapped") and draws a
-  straight line where that line is safe. After a fight off the road it looks
-  for the walk again once you're 5 yards on instead of 25 (thanks PG5K).
+  straight at the goal again, as before 0.4.2, says "The last steps here
+  aren't mapped" under its label and draws a straight line. After a fight off
+  the road it looks for the walk again once you're 5 yards on instead of 25
+  (thanks PG5K).
+- The rough lines of the walks on your route are drawn on the map again as
+  soon as the route is planned, instead of each waiting for a full checked
+  walk first. The checked walk still replaces each one when it is ready.
 - "Finding a walking route" is quick again when the way has a flight: the
   arrow no longer works out the whole walk straight to the goal first, which
   could take 10 to 40 seconds and showed a long walk on foot until the
