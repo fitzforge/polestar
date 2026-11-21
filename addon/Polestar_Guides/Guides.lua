@@ -766,7 +766,7 @@ do
 					title = "{npc:249235}'s workshop",
 					note = "North from {npc:260626} to the workshop, crate first. Watch for Ghansurok, the elite chimaera (level 61) that prowls around the workshop.",
 					goals = {
-						{ t = "complete", quest = 92009, title = "Crate Expectations", map = 2482, x = 60.1, y = 61.7, note = "deliver the crate before it fizzles", objs = { { text = "Shipment delivered to Mount Hyjal before it expires", count = 1 } } },
+						{ t = "talk", quest = 92009, title = "Crate Expectations", npc = 249235, npcName = "Kaylaena Springwhisper", map = 2482, x = 60.08, y = 61.72, z = 1196.5, spotsPacked = "60.1,61.7,1196.5,15,2", note = "deliver the crate before it fizzles" },
 						{ t = "turnin", quest = 92009, title = "Crate Expectations", npc = 249235, npcName = "Kaylaena Springwhisper", map = 2482, x = 60.01, y = 61.36, z = 1196.5, spotsPacked = "60.1,61.7,1196.5,15,2" },
 						{ t = "turnin", quest = 92594, title = "Kindling, Kinda", npc = 249235, npcName = "Kaylaena Springwhisper", map = 2482, x = 60.01, y = 61.36, z = 1196.5, spotsPacked = "60.1,61.7,1196.5,15,2" },
 						{ t = "accept", quest = 92011, title = "Rubble Rummage", npc = 249235, npcName = "Kaylaena Springwhisper", qlvl = 58, pre = { 92009 }, preTitles = { [92009] = "Crate Expectations" }, map = 2482, x = 60.01, y = 61.36, z = 1196.5, spotsPacked = "60.1,61.7,1196.5,15,2", note = "{quest:92011}: in {area:16866}, later in this guide; keep it" },
