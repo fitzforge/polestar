@@ -500,7 +500,7 @@ end
 local SPECS = {
 	-- Colour
 	-- general: the settings of every Polestar window, before a module's of the same label in a search.
-	{ page = PAGE, key = "theme", icon = "palette", order = 20, group = "look", general = true, tab = L["Colour"], section = L["Skin & accent"],
+	{ page = PAGE, key = "theme", icon = "palette", order = 21, group = "look", general = true, tab = L["Colour"], section = L["Skin & accent"],
 		preview = buildPreview,
 		subtitle = L["The look every Polestar window shares: skin, colours, type, frames and motion."],
 		controls = {
@@ -701,9 +701,6 @@ local SPECS = {
 		{ kind = "toggle", key = "ui.rim", label = L["Accent rim"], disabled = houseOnly, new = NEW,
 			search = "rim, glow, light, top edge, accent line, corner glow, shine",
 			help = L["The lit accent line along the top edge of Polestar's windows, and the light it throws."] },
-		{ kind = "toggle", key = "ui.gameMenuButton", label = L["Game menu button"],
-			help = L["A Polestar button in the game menu (Esc) that opens the guide menu."],
-			search = "game menu, escape, esc, main menu, button, open polestar" },
 		{ kind = "toggle", key = "ui.reduceMotion", label = L["Reduce motion"], help = L["No sliding or popping; fades stay short."],
 			search = "animations, motion sickness, fps, frame rate, performance, lag, stutter, cpu, slow" },
 		{ kind = "slider", key = "ui.animSpeed", label = L["Speed"], min = 0.5, max = 2, step = 0.1, format = times, new = NEW,
@@ -720,7 +717,8 @@ if O and O.Ref then
 	local ESSENTIALS = L["Essentials"]
 	local list = {
 		{ page = PAGE, tab = ESSENTIALS, lead = true, section = L["Skin"], preview = buildPreview,
-			controls = { R(skinCards and "cards" or "dropdown", "ui.skin") } },
+			jump = { tab = L["Colour"], section = L["Skin & accent"] },
+			controls = { R(skinCards and "cards" or "dropdown", "ui.skin", skinCards and { limit = 6 } or nil) } },
 		{ page = PAGE, tab = ESSENTIALS, section = L["Colour & frames"], jump = { tab = L["Colour"], section = L["Skin & accent"] },
 			controls = { R("color", "ui.accent"), R("dropdown", "ui.scheme", { wide = false }), R("slider", "ui.bgOpacity"), R("slider", "ui.brightness"),
 				R("slider", "ui.borderSize"), R("toggle", "ui.reduceMotion") } },

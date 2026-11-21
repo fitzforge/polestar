@@ -262,11 +262,11 @@ fn the_theme_page_lays_its_settings_out_by_element_in_full_rows_short_labels_too
 		"ui.borderSize",
 		"ui.band",
 		"ui.shadow",
-		"ui.gameMenuButton",
 	] {
 		assert!(keys.contains(&k), "{k} is on the Theme page");
 	}
-	assert!(!keys.contains(&"ui.menuScale") && !keys.contains(&"ui.classCardSound"), "one home per setting");
+	// The game menu button sits with the guide window's showing and hiding (Look > Guide window).
+	assert!(!keys.contains(&"ui.menuScale") && !keys.contains(&"ui.classCardSound") && !keys.contains(&"ui.gameMenuButton"), "one home per setting");
 	for k in [
 		"ui.fontOutline",
 		"ui.textShadow",
@@ -287,7 +287,8 @@ fn the_theme_page_lays_its_settings_out_by_element_in_full_rows_short_labels_too
 	assert!(n(&out["news"]) >= 25.0, "many new controls: {}", out["news"]);
 	assert_eq!(out["tabs"], json!(["Colour", "Text", "Names", "Frames"]));
 	assert_eq!(out["withPreview"], 4, "every tab pins the live preview");
-	assert_eq!(out["page"], json!({ "key": "theme", "order": 20, "group": "look" }));
+	// The Look pages in the player's journey: Theme after Guide window.
+	assert_eq!(out["page"], json!({ "key": "theme", "order": 21, "group": "look" }));
 	assert!(n(&out["infos"]) <= 2.0, "an (i) on at most two rows");
 	assert_eq!(out["toggles"], json!({}), "no header switches: each on/off sits beside its own row");
 	assert_eq!(out["extras"], json!(["ui.bgColor", "ui.border", "ui.borderColor", "ui.shadow", "ui.band"]), "an element's on/off and colour beside its slider");

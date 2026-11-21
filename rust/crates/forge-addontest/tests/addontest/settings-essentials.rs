@@ -89,7 +89,9 @@ fn every_look_page_opens_on_essentials_cards_first_then_at_most_ten_references_t
 		assert!((4.0..=10.0).contains(&rows), "{key}: {rows} rows under the cards (at most ten)");
 		assert_eq!(e["notRef"], json!({}), "{key}: every row a reference to its home");
 		assert_eq!(e["homeless"], json!({}), "{key}: every reference's home on its page");
-		assert_eq!(e["more"].as_f64().unwrap(), e["sections"].as_f64().unwrap() - 1.0, "{key}: a More link on every section but the cards'");
+		// Theme's cards show the first six skins, and their More link opens the full list on the Colour tab.
+		let cards_more = if key == "theme" { 0.0 } else { 1.0 };
+		assert_eq!(e["more"].as_f64().unwrap(), e["sections"].as_f64().unwrap() - cards_more, "{key}: a More link on every section but the cards' (Theme's too)");
 	}
 }
 

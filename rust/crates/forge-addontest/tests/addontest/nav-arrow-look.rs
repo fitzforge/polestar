@@ -243,7 +243,8 @@ fn the_preview_paints_its_own_dials_with_the_arrows_code_never_the_live_arrow_an
 		local function visit(c)
 			n = n + 1
 			if c.key then keys[#keys + 1] = c.key end
-			if not (c.search and c.help) then out.missing = c.key or c.label end
+			-- A reference (W.Ref) takes its search words and help from its home row on Guide.
+			if not (c.ref or (c.search and c.help)) then out.missing = c.key or c.label end
 			if c.kind == "slider" and type(c.format) ~= "function" then out.unformatted = c.key end
 			if c.info then infos = infos + 1 end
 			local _, words = (c.label or ""):gsub("%S+", "")

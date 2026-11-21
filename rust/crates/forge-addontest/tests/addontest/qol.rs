@@ -63,12 +63,17 @@ fn options_every_qol_setting_is_registered_on_questing_or_quality_of_life_with_l
 	let out = run(r#"
 		local out = {}
 		for _, spec in ipairs(Polestar.Widgets.OptionsRegistry) do
-			if spec.page == "Quality of Life" or spec.page == "Questing" then
+			-- The guiding-only conveniences (buying and binding for a step, the flight master's) sit on the Guide page.
+			local guide = spec.page == "Guide"
+			if spec.page == "Quality of Life" or spec.page == "Questing" or guide then
 				-- A feature's switch in its section's header counts with the rows.
 				local list = { spec.toggle }
 				for _, c in ipairs(spec.controls) do list[#list + 1] = c end
+				-- A reference (W.Ref) stands for its home row elsewhere, which has the label and help.
 				for _, c in ipairs(list) do
-					out[#out + 1] = { key = c.key, kind = c.kind, label = c.label, help = c.help, page = spec.page, tab = spec.tab, section = spec.section }
+					if not c.ref and not (guide and not (c.key or ""):find("^qol%.")) then
+						out[#out + 1] = { key = c.key, kind = c.kind, label = c.label, help = c.help, page = spec.page, tab = spec.tab, section = spec.section }
+					end
 				end
 			end
 		end
@@ -100,7 +105,7 @@ fn options_every_qol_setting_is_registered_on_questing_or_quality_of_life_with_l
 	for c in specs.as_array().unwrap() {
 		let name = if truthy(&c["key"]) { text(&c["key"]) } else { text(&c["label"]) };
 		assert!(truthy(&c["label"]) && truthy(&c["help"]), "{name} has label and help");
-		assert!(c["page"] == "Questing" || c["page"] == "Quality of Life");
+		assert!(c["page"] == "Questing" || c["page"] == "Quality of Life" || c["page"] == "Guide");
 		assert!(truthy(&c["tab"]) && truthy(&c["section"]));
 	}
 	assert_eq!(defaults["rewardAutoPick"], false, "auto-pick is off by default");
@@ -2860,7 +2865,8 @@ fn xp_mark_on_by_default_on_quality_of_life_trackers_and_map_experience() {
 		end
 		emit({ default = Polestar.GetDefault("qol.xpTargetMark"), where = found or "none" })
 	"#);
-	assert_eq!(out[0], json!({ "default": true, "where": { "page": "Quality of Life", "tab": "Trackers & map", "section": "Experience" } }));
+	// A guiding-only convenience: the mark sits with the level pace on the Guide page.
+	assert_eq!(out[0], json!({ "default": true, "where": { "page": "Guide", "tab": "While you play", "section": "Level pace" } }));
 }
 
 #[test]
@@ -2876,7 +2882,8 @@ fn options_open_the_quest_log_cleanup_from_quest_log_and_tooltips() {
 		if found then found.c.onClick(); found.c = nil end
 		emit({ where = found or "none", asked = asked or false })
 	"#);
-	assert_eq!(out[0], json!({ "where": { "page": "Questing", "tab": "Quests", "section": "Quest log and tooltips" }, "asked": true }));
+	// Quests' sections follow the player's journey: the cleanup sits in Quest log.
+	assert_eq!(out[0], json!({ "where": { "page": "Questing", "tab": "Quests", "section": "Quest log" }, "asked": true }));
 }
 
 // ---------------------------------------------------------------------------
