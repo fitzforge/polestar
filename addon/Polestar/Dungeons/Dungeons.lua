@@ -473,6 +473,9 @@ function Dungeons.ObjectiveText(q)
 		local f = OBJECTIVE[o.k]
 		if f then
 			local name = (N and N.Get(f[3], o.id)) or o.name or ""
+			if o.k == "talk" and name ~= "" then
+				name = gsub(name, "^[Ss]peak with ", "")
+			end
 			lines[#lines + 1] = (o.n and f[2]) and format(f[2], o.n, name) or format(f[1], name)
 		elseif not summaryDone then
 			local text = N and N.Get("objective", q.id)

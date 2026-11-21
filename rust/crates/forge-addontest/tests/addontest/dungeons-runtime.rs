@@ -736,6 +736,15 @@ emit({ old, none })"#);
 	assert_eq!(out, json!(["Kill 5 Kobolds", true]));
 }
 
+#[test]
+fn runtime_talk_objective_strips_duplicate_speak_with_prefix() {
+	let out = run(r#"
+local speak = D.ObjectiveText({ id = 93016, objectives = { { k = "talk", id = 253471, name = "Speak with Mordent Evenshade" } } })
+local plain = D.ObjectiveText({ id = 93016, objectives = { { k = "talk", id = 253471, name = "Mordent Evenshade" } } })
+emit({ speak, plain })"#);
+	assert_eq!(out, json!(["Speak with Mordent Evenshade", "Speak with Mordent Evenshade"]));
+}
+
 // Fitz (2026-11-07): Alliance can do Ruins of Lordaeron, but its entrance is outside the Undercity, through Horde
 // land; Horde reach The Hall of Thanes only through Ironforge. Both show for both factions, and the other faction is
 // told: Dungeons.EnemyEntrance gives the line for a side whose land it is not, nil for the owners. The arrow gets it

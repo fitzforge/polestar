@@ -2962,7 +2962,7 @@
 					"type": "talk",
 					"id": 3442,
 					"count": 1,
-					"text": "Speak with someone in Ratchet about the Glowing Shard"
+					"text": "Sputtervalve"
 				}
 			]
 		},
@@ -5318,7 +5318,7 @@
 					"type": "talk",
 					"id": 253471,
 					"count": 1,
-					"text": "Speak with Mordent Evenshade"
+					"text": "Mordent Evenshade"
 				}
 			]
 		},
@@ -16347,7 +16347,7 @@
 					"type": "talk",
 					"id": 260146,
 					"count": 1,
-					"text": "Find Shaw's Agent in Theramore"
+					"text": "Sully McCleary"
 				}
 			]
 		},
