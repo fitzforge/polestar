@@ -710,7 +710,7 @@ local function profileName(P)
 	if name == P.DEFAULT then return "Default" end
 	local low, names = name:lower(), {}
 	if UnitName then names[#names + 1] = UnitName("player") end
-	if GetRealmName then names[#names + 1] = GetRealmName() end
+	names[#names + 1] = ns.Compat.RealmName()
 	local db = ns.DB()
 	local alts = type(db.alts) == "table" and type(db.alts.chars) == "table" and db.alts.chars or {}
 	for key, e in pairs(alts) do
