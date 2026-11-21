@@ -97,7 +97,16 @@ if CreateFrame then
 		calmUntil = (GetTime and GetTime() or 0) + Path.calmSeconds
 	end)
 end
-
+-- A new goal the arrow has no path for yet (Path.Rush(true), Polestar's Nav/Walk.lua: a new target or route leg)
+-- takes Path.rushBudget a frame for up to Path.rushSeconds, until its first path is in (Path.Rush(false)): the
+-- "Finding a walking route" wait after a step change is that much shorter, and a moment of slower frames then is
+-- what the player is waiting through anyway. The calm after a fight still comes first.
+Path.rushBudget = 8
+Path.rushSeconds = 2
+local rushUntil = 0
+function Path.Rush(on)
+	rushUntil = on and GetTime and GetTime() + Path.rushSeconds or 0
+end
 -- With the queue empty the router rests: Search.Rest empties the endpoint trees' pool, Grid.Rest trims the decoded
 -- graph to Path.graphRestKB and keeps Path.restTrees endpoint trees (the newest start's in the pool, for the next
 -- search's first connection to fill), and decoded clusters, the decoder's scratch and the kept endpoint trees stay
@@ -146,7 +155,8 @@ pump = function()
 		return
 	end
 	local now = clock()
-	local budget = GetTime and GetTime() < calmUntil and Path.calmBudget or Path.budget
+	local t = GetTime and GetTime() or 0
+	local budget = t < calmUntil and Path.calmBudget or t < rushUntil and Path.rushBudget or Path.budget
 	local finish = now + budget
 	repeat
 		if #queue == 0 then
