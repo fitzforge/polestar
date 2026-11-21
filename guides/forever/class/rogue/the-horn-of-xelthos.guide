@@ -47,6 +47,8 @@ step C's dead drop
 
 step Veenix
   zone Stonetalon Mountains
+  when !turnedin 78261
+  when !complete 78261
   tip Veenix, a goblin friendly to both factions, stands among the Venture Co. in the Windshear Crag, east Stonetalon, a short way north-east of Sun Rock Retreat. Horde fly to Sun Rock Retreat; Alliance to Stonetalon Peak. He wants a Venture Co. Work Order before he hands over explosives: the Venture Co. Loggers (level 18) working around him carry them in their pockets. Stealth up behind one and Pick Pocket it; killing them does not give it. Then talk to Veenix: Goblin Lockpicks never goes into your quest log, you hand the Work Order in at once, and he takes it only while The Horn of Xelthos is in your quest log: if you dropped it, take it again from C's Dead Drop by Pyrewood first.
   collect 210187 x1 "Pick Pocket a Venture Co. Logger for a Venture Co. Work Order"
   talk 4086                                   -- Veenix

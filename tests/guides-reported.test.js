@@ -1150,6 +1150,18 @@ test('forever/class/rogue/the-horn-of-xelthos.guide: the Work Order first, then 
 	assert.ok(at(list, 'accept 78261', is('accept', 78261)) < hand, 'the horn comes first');
 });
 
+// #3362 (kevqon, 0.4.1.1): a Rogue got into Shadowfang Keep without Veenix's Breaching Charge, handed the horn in and
+// took C's ring, and the guide then sent them to Veenix, who offers Goblin Lockpicks only while The Horn of Xelthos
+// (78261) is in the log (players' recordings: the 2 people offered it both had 78261 in the log): a step that could
+// never finish. The Veenix step applies only while the horn is neither in hand nor handed in.
+test('forever/class/rogue/the-horn-of-xelthos.guide: Veenix only while the horn is still to get (#3362)', { skip }, () => {
+	const list = goals('forever/class/rogue/the-horn-of-xelthos.guide');
+	const { step } = list[at(list, 'turnin 78270', is('turnin', 78270))];
+	const holds = (k) => (step.when || []).some((p) => p.k === k && p.neg && [p.q].flat().includes(78261));
+	assert.ok(holds('turnedin'), 'not once 78261 is handed in');
+	assert.ok(holds('complete'), 'not once the horn is in hand');
+});
+
 // --- Bandarion Keep (Mike_, 0.2.3): Hilda the Breaker and Ephram Barbaro offer their quests to Paladins only.
 
 test(`${TIRISFAL}: Mike_'s report: only Paladins are sent to Hilda the Breaker and Ephram Barbaro at Bandarion Keep`, { skip }, () => {
