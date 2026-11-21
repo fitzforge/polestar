@@ -13706,7 +13706,9 @@ function Own.hereStranded(list, n, live)
 			local goal = not have[q] and Own.strandGoal(q, map)
 			if goal then
 				local plan = ns.RoutePlan and ns.RoutePlan.GetTurnIn(q)
-				local later = plan and (plan.status == "later" or plan.status == "future" or plan.status == "other")
+				-- A dungeon quest only its pick-up guide covers (pickupOnly) is
+				-- not handed in ahead, though its status is "other".
+				local later = plan and not plan.pickupOnly and (plan.status == "later" or plan.status == "future" or plan.status == "other")
 				n = n + 1
 				list[n] = { s = Own.STRAND_STEP, g = q, goal = goal, kind = "turnin", left = 0, places = 1,
 					npcs = false, seen = false, spot = false, d = false, pick = 0,

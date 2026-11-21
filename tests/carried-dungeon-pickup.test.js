@@ -37,7 +37,8 @@ local list = Polestar.RoutePlan.Carried()
 local ids = {}
 for _, c in ipairs(list or {}) do ids[#ids + 1] = c.quest end
 emit({ active = active and active.id, ready = Polestar.Compat.IsQuestReadyForTurnIn(50), carried = list and ids or "nil", n = list and #list or -1,
-	status = Polestar.RoutePlan.GetTurnIn(50).status })`;
+	status = Polestar.RoutePlan.GetTurnIn(50).status,
+	describe = Polestar.RoutePlan.Describe(Polestar.RoutePlan.GetTurnIn(50)) })`;
 
 const run = (kind) => runAddon({ stubs: ['stub_world.lua'], addons: ['Polestar'], script: script(kind) }).emitted[0];
 
@@ -47,10 +48,13 @@ test('with only the dungeon pick-up guide open, its finished quest is one no ope
 	assert.equal(out.ready, true);
 	assert.equal(out.status, 'other', 'still kept off the cleanup list');
 	assert.deepEqual(out.carried, [50]);
+	assert.match(out.describe, /^No turn-in in this route/, 'the caption agrees: ' + out.describe);
+	assert.match(out.describe, /The Hall: hand in the quests/, "and names the dungeon's hand-in guide");
 });
 
 test('with the dungeon hand-in guide open, that guide hands it in', () => {
 	const out = run('handin');
 	assert.equal(out.ready, true);
 	assert.equal(out.n, 0);
+	assert.match(out.describe, /^Turn in at The Hall: hand in the quests/);
 });

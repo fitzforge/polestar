@@ -266,6 +266,9 @@ function Plan.Describe(result)
 	-- A numbered step can visit several NPCs. Being on that step does not
 	-- mean this hand-in is the current interaction or that we should navigate.
 	if r.status == "now" then text = L["Turn in at this step · %s"]:format(where)
+	-- A dungeon quest only its pick-up guide covers: no open guide hands it
+	-- in; the dungeon's hand-in guide (r.title) is the one that would.
+	elseif r.pickupOnly then text = L["%s · %s"]:format(L["No turn-in in this route"], where)
 	elseif r.status == "future" or r.status == "later" or r.status == "other" then text = L["Turn in at %s"]:format(where)
 	elseif r.status == "missed" then text = L["Earlier turn-in · %s — check"]:format(where)
 	elseif r.status == "skipped" then text = L["Skipped turn-in · %s — check"]:format(where)
