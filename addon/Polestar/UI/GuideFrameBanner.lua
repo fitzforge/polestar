@@ -511,7 +511,11 @@ ns.UI.GuideFrame.Part(function(GF)
 			banner.Icon:SetTexture(Theme.Media(n.skipped and "skip" or (n.live and n.index > n.live and "chevron-right" or "chevron-left")))
 			if n.skipped then
 				banner.Text:SetText(L["You skipped this step."])
-				placeLink(banner.Jump, L["Unskip it"], 0, -4)
+				local w = placeLink(banner.Jump, L["Unskip it"], 0, -4)
+				-- The way back to the live step stays beside it (LaterBanner).
+				if n.live and n.live ~= n.index then
+					placeLink(banner.Later, string.format(L["Back to step %d"], UI.StepNo(n.live)), w + 10, -4)
+				end
 			else
 				local live = UI.StepNo(n.live)
 				banner.Text:SetText(string.format(n.index > n.live and L["Looking ahead. The guide is at step %d."]
@@ -801,6 +805,9 @@ ns.UI.GuideFrame.Part(function(GF)
 		elseif kind == "wear" then
 			ns.QoL.Wear.Decline()
 			GF.Layout()
+		elseif kind == "away" and n.live then
+			-- A skipped step looked at: back to the live one, the skip kept.
+			if E and E.Goto then E.Goto(n.live) end
 		else
 			GF.DismissBanner(true)
 		end
