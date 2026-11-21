@@ -226,7 +226,7 @@ function Follow.Reset(S)
 	S.marked = false -- S.dbl is the last path's until Follow.Mark
 	S.reached = 0 -- the furthest floor change come within REACH of, outdoors (blocked)
 	S.aimSeg = nil -- the corridor's last aim's segment (Step)
-	S.reachPX, S.reachHeld = nil, nil -- reachBack's last look; the aim in reach held (Step)
+	S.reachPX, S.reachHeld, S.reachShut = nil, nil, false -- reachBack's last look; the aim in reach held; it was shut at that look (Step)
 end
 
 -- Marks, into S.dbl (reused; true or false per point), the points where the
@@ -474,22 +474,33 @@ end
 -- The corridor's aim (qx, qy, `hi` yards along past the projection, `along` yards in, on segment a or later) when
 -- the player at (px, py, the path's height z there) can walk to it in a straight line (reach); else the farthest
 -- point along the path between the next point (`lo` yards on) and it that they can (BISECT halvings), at worst the
--- next point itself. Its yards past the projection, or nil for the aim as it is. Looked for again only once the
--- player or the aim has moved REACH_MOVE yards (2 yd, the sight aim's SIGHT_MOVE, left the arrow 10° behind the
--- turn at the Ironforge roost's corners, against 3° at 1 yd).
+-- next point itself. Its yards along the path from its start, or nil for the aim as it is. Looked for again only
+-- once the player, their place on the path or the aim has moved REACH_MOVE yards (2 yd, the sight aim's SIGHT_MOVE,
+-- left the arrow 10° behind the turn at the Ironforge roost's corners, against 3° at 1 yd).
 local function reachBack(S, reach, xs, ys, left, a, n, px, py, z, along, lo, hi, qx, qy)
 	local m2 = REACH_MOVE * REACH_MOVE
-	if S.reachPX and (px - S.reachPX) ^ 2 + (py - S.reachPY) ^ 2 < m2 and (qx - S.reachQX) ^ 2 + (qy - S.reachQY) ^ 2 < m2 then
+	if S.reachPX and (px - S.reachPX) ^ 2 + (py - S.reachPY) ^ 2 < m2 and (qx - S.reachQX) ^ 2 + (qy - S.reachQY) ^ 2 < m2
+		and abs(along - S.reachAlong) < REACH_MOVE then
 		return S.reachAt
 	end
-	S.reachPX, S.reachPY, S.reachQX, S.reachQY = px, py, qx, qy
+	S.reachPX, S.reachPY, S.reachQX, S.reachQY, S.reachAlong = px, py, qx, qy, along
 	local at
 	if not reach(px, py, qx, qy, z) then
+		local held = S.reachHeld
 		at = lo
 		for _ = 1, BISECT do
 			local mid = (lo + hi) * 0.5
 			local x, y = pointAlong(xs, ys, left, a, n, along + mid)
 			if reach(px, py, x, y, z) then at, lo = mid, mid else hi = mid end
+		end
+		at = along + at
+		-- Never back along the path past a point aimed at before while it is in reach, or was at the last look (the
+		-- grid's line closes for a look at a post or a fence: a wall stays shut).
+		if held and held > at and held < along + hi then
+			local x, y = pointAlong(xs, ys, left, a, n, held)
+			local clear = reach(px, py, x, y, z)
+			if clear or not S.reachShut then at = held end
+			S.reachShut = not clear and not S.reachShut
 		end
 	end
 	S.reachAt = at
@@ -730,19 +741,28 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill, re
 	-- point once aimed at stays while the corridor's aim lies past it (the
 	-- grid's line opens and closes at posts and fences from one look to the
 	-- next, and a look that found a nearer point swung the arrow back).
-	if reach and qSeg and qSeg > a then
+	-- (Beside the path the point in sight, below, is the aim: checked already.)
+	if reach and qSeg and qSeg > a and not (sat and bestD > BODY) then
 		local nx, ny = xs[idx] - p0x, ys[idx] - p0y
+		local next = S.along + sqrt(nx * nx + ny * ny)
 		local za, zb = zs[a], zs[a + 1]
 		local z = za and zb and za + (zb - za) * bestT or za or zb or nil
-		local at = reachBack(S, reach, xs, ys, left, a, n, px, py, z, S.along, sqrt(nx * nx + ny * ny), qAlong, qx, qy)
-		local far, held = S.along + qAlong, S.reachHeld
-		if at then
-			local want = S.along + at
-			if held and held > want and held <= far then want = held end
+		local at = reachBack(S, reach, xs, ys, left, a, n, px, py, z, S.along, next - S.along, qAlong, qx, qy)
+		local far = S.along + qAlong
+		local want = at and (at < next and next or at > far and far or at)
+		local wx, wy
+		if want then wx, wy = pointAlong(xs, ys, left, a, n, want) end
+		-- Within REACH of the player that is no aim (on a steep way down the grid's
+		-- line fails at each step, and the arrow stood on the player's feet): the
+		-- corridor's stands.
+		if want and (wx - px) ^ 2 + (wy - py) ^ 2 > REACH * REACH then
 			S.reachHeld = want
-			qx, qy = pointAlong(xs, ys, left, a, n, want)
+			qx, qy = wx, wy
 			qAlong, open, joined = want - S.along, false, false
-			for j = a, n - 1 do
+			-- At or past the next point: once the player reaches it, the piece after
+			-- the point takes over (S.aimSeg), or they stand on the aim in a hairpin.
+			qSeg = a + 1
+			for j = a + 1, n - 1 do
 				if left[1] - left[j + 1] >= want then qSeg = j break end
 			end
 		else
