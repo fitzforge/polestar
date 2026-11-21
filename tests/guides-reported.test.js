@@ -6101,6 +6101,17 @@ test("forever/miscellaneous/cozy-sleeping-bag.guide: #1813: Alliance come into S
 	assert.match([].concat(talondeep.step.note || []).join(' '), /Stonetalon Peak/, 'the tip names the Stonetalon Peak flight');
 });
 
+// #3386 (Hnrq, 0.4.1.1): Scramble's Mound of Dirt (39.56,49.86) lies on a ledge below the Stonetalon camp; the tip said
+// to drop down the slope, but the arrow walked the long way round. The step leads first to the drop at the camp's
+// western edge (39.9,52.2, the reporter's spot), then to the mound.
+test('forever/miscellaneous/cozy-sleeping-bag.guide: Scramble\'s hand-in leads to the drop at 39.9,52.2 first (#3386)', { skip }, () => {
+	const list = goals('forever/miscellaneous/cozy-sleeping-bag.guide');
+	const hand = at(list, 'turnin 79980', is('turnin', 79980));
+	const drop = list.slice(0, hand).filter(({ s, goal }) => s === list[hand].s && goal.t === 'goto');
+	assert.deepEqual(drop.map(({ goal }) => [goal.x, goal.y]), [[39.9, 52.2]], 'one waypoint, the drop, before the hand-in');
+	assert.match(list[hand].step.note || '', /drop/);
+});
+
 // shatteredeagle (#1496), Alliance: the "North of Honor's Stand" safe spot was the first goal of
 // the Stonetalon step, so a character already in Stonetalon (on foot or off the Stonetalon Peak
 // flight) was sent 3,114 yd back to the Barrens. The way in (since #1813 the Talondeep Path) is its
