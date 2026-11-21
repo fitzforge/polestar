@@ -353,18 +353,29 @@ fn the_settings_window_lays_the_page_out_by_element_with_inline_switches_swatche
 			return keys
 		end
 		local window = O.Controls("guidewindow", "Window")
-		-- What only the Transparent style uses sits behind the Style row's cog,
-		-- the step slide's speed behind its own.
+		-- What only the Transparent style uses sits behind the Style row's cog;
+		-- the step slide's speed and Bars at bottom are rows of the tab, under
+		-- their switches (children).
 		window["ui.style"].Cog:Click()
 		local styleMore = keysOf(O.MoreControls())
-		window["guideWindow.stepAnim"].Cog:Click()
-		local slideMore = keysOf(O.MoreControls())
 		O.Select("guidewindow", "Parts")
 		emit({ tabs = page and page.tabs or false, window = keysOf(window), parts = keysOf(O.Controls("guidewindow", "Parts")),
-			styleMore = styleMore, slideMore = slideMore })"#);
+			styleMore = styleMore })"#);
 	assert_eq!(out["tabs"], json!(["Essentials", "Window", "Parts"]), "Essentials, the frame as a whole, then its parts in the window's order");
 	let has = |list: &str, k: &str| out[list].as_array().unwrap().iter().any(|v| v == k);
-	for k in ["ui.style", "ui.scale", "ui.width", "ui.opacity", "guideWindow.idleAlpha", "guideWindow.bgOpacity", "guideWindow.bgColor", "ui.combat", "guideWindow.hideTaxi"] {
+	for k in [
+		"ui.style",
+		"ui.scale",
+		"ui.width",
+		"ui.opacity",
+		"guideWindow.idleAlpha",
+		"guideWindow.bgOpacity",
+		"guideWindow.bgColor",
+		"ui.combat",
+		"guideWindow.hideTaxi",
+		"guideWindow.animSpeed",
+		"ui.barsBottom",
+	] {
 		assert!(has("window", k), "{k} on the Window tab: {}", out["window"]);
 	}
 	for k in [
@@ -382,7 +393,6 @@ fn the_settings_window_lays_the_page_out_by_element_with_inline_switches_swatche
 		assert!(has("parts", k), "{k} on the Parts tab (inline switches and swatches included): {}", out["parts"]);
 	}
 	assert_eq!(out["styleMore"], json!(["guideWindow.outline", "guideWindow.shade", "guideWindow.veil", "ui.backing", "ui.barShown"]), "the transparent style's settings in the Style cog");
-	assert_eq!(out["slideMore"], json!(["guideWindow.animSpeed"]), "the slide's speed in its cog");
 }
 
 // A registered skin's `guideTitle` hook dresses the navigator: the title bar and the close square shown, the band

@@ -163,6 +163,7 @@ local function put(c, page)
 	specs[id] = specs[id] or c
 	for _, e in ipairs(c.extras or {}) do put(e, page) end
 	for _, m in ipairs(type(c.more) == "table" and c.more or {}) do put(m, page) end
+	for _, k in ipairs(type(c.children) == "table" and c.children or {}) do put(k, page) end
 end
 for _, spec in ipairs(W.OptionsRegistry or {}) do
 	if spec.toggle then put(spec.toggle, spec.page) end

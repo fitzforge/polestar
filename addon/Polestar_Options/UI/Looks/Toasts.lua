@@ -336,7 +336,7 @@ local function secs(v) return format(L["%d s"], floor(v + 0.5)) end
 local function px(v) return format(L["%d px"], floor(v + 0.5)) end
 
 local function register(spec)
-	spec.page, spec.key, spec.icon, spec.order, spec.group = PAGE, "alerts", "info", 26, "look"
+	spec.page, spec.key, spec.icon, spec.order, spec.group = PAGE, "alerts", "bolt", 26, "look"
 	local ok, err = ns.RegisterOptions(spec)
 	if not ok and geterrorhandler then geterrorhandler()(err) end
 end
