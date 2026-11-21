@@ -109,7 +109,6 @@ P.CATEGORIES = CATEGORIES
 local CATEGORY_RANK = {}
 for i, c in ipairs(CATEGORIES) do CATEGORY_RANK[c] = i end
 local CATEGORY_ICON = UI.CATEGORY_ICON
-P.CATEGORY_ICON = CATEGORY_ICON
 
 local categoryOf = UI.Category
 
@@ -1063,7 +1062,7 @@ local function layoutCards(tabs, active, byId, y)
 		c.psTipLines = { { L["Right-click for tab options"], Theme.Accent() } }
 		local sel = P.Selected() == t.guideId
 		c.Ring:SetShown(sel)
-		c.Icon:SetTexture(Theme.Media(UI.CategoryIcon(byId[t.guideId] or (ns.Guides and ns.Guides.Get and ns.Guides.Get(t.guideId)) or t.category)))
+		c.Icon:SetTexture(Theme.Media(UI.CategoryIcon(byId[t.guideId] or (ns.Guides and ns.Guides.Get and ns.Guides.Get(t.guideId)) or t.category, true)))
 		W.Color(c.Icon, i == active and "accent" or "textDim")
 		c.Title:SetText(t.title or t.guideId)
 		local total = t.total or t.stepCount or 0

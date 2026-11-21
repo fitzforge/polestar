@@ -157,10 +157,9 @@ ns.UI.GuideFrame.Part(function(GF)
 		return b
 	end
 
-	GF.CATEGORY_ICON = UI.CATEGORY_ICON -- the picker's glyph for each category
 	-- A tab's glyph: its guide's category glyph, as the picker draws it.
 	local function tabIcon(t, guide)
-		return UI.CategoryIcon(guide or (ns.Guides and ns.Guides.Get and ns.Guides.Get(t.guideId)) or t.category)
+		return UI.CategoryIcon(guide or (ns.Guides and ns.Guides.Get and ns.Guides.Get(t.guideId)) or t.category, true)
 	end
 
 	function GF.RenderTabs()
@@ -247,7 +246,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			local guide = G and G.Get and G.Get(t.guideId) or (t.minLevel and t) or nil
 			local lv = guide and UI.GuideLevels(guide)
 			local text = (t.title or t.guideId) .. (lv and ("  |c" .. Theme.Hex("textMuted") .. "(" .. lv .. ")|r") or "")
-			items[#items + 1] = { text = text, icon = tabIcon(t), checked = i == active,
+			items[#items + 1] = { text = text, icon = tabIcon(t, guide), checked = i == active,
 				onClick = function() if E.SelectTab and i ~= active then E.SelectTab(i) end end }
 		end
 		items[#items + 1] = { separator = true }

@@ -1,10 +1,8 @@
 ---
 section: players
 ---
-- Guide window: a guide's tab wears the icon of its guide's category, the same
-  one the guide picker's category list draws (Leveling chevrons, Class book,
-  Professions anvil, Reputation shield, Exploration compass, Legacy trophy,
-  Collectibles flask, Miscellaneous toolbox). A dungeon guide, and a
-  dungeon's Pick up the quests and Hand in the quests guides, wear the
-  dungeon arch. Collectibles tabs showed a star before; the
-  picker's flask is used now.
+- Guide window: a dungeon's guides, its Pick up the quests and Hand in the
+  quests guides included, wear the dungeon arch on their tab, as in the
+  guide picker. Collectibles tabs wear the picker's flask instead of a star,
+  and a Dungeons tab the arch instead of the kill mark. Other tabs keep their
+  icon.
