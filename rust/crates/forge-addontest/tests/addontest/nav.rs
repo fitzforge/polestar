@@ -154,6 +154,30 @@ fn arrow_points_at_the_target_relative_to_facing_in_all_four_quadrants_in_both_s
 	}
 }
 
+// Fitz, 0.4.2.1 candidate: the arrow's manners as in 0.4.1.1. After a pause in guidance (an arrival, a ride's
+// instruction, the wait for a walking route) the arrow turns from the heading it showed, eased as every other turn,
+// never snapping to the new bearing in one frame.
+#[test]
+fn after_a_pause_in_guidance_the_arrow_eases_from_the_heading_it_showed_never_snapping() {
+	let out = run_compass(
+		r#"
+		target(100, 0)
+		stub.advance(1)
+		local before = A.GetAngle()
+		nav.place(100, 0)                   -- at the target: Arrived, no bearing
+		stub.advance(0.5)
+		local paused = A.GetMode()
+		nav.place(100, 100)                 -- walked off west of it: the target is now to the right
+		stub.advance(0.1)
+		emit({ before = before, paused = paused, mode = A.GetMode(), early = A.GetAngle() })"#,
+	);
+	near(num(&out["before"]), 0.0, 1e-6, "before");
+	assert_eq!(out["paused"], "arrived");
+	assert_eq!(out["mode"], "travel");
+	let early = num(&out["early"]);
+	assert!(early < 0.0 && early >= -3.5 * 0.1 - 1e-6, "the turn eases from the shown heading (MAX_TURN 3.5 rad/s), not a snap to -pi/2: {early}");
+}
+
 // Main, 2026-11-21, Fitz: "go back to our original danger pathing": stepping onto enemy ground the arrow still walks
 // (0.4.2 said "unsafe" there); turning back out, the first visible stride leads away from town.
 #[test]
@@ -192,8 +216,9 @@ fn leaving_enemy_ground_does_not_point_the_player_back_into_town() {
 	assert_eq!(out, json!(["travel", "clear", true]), "the first visible walking stride must lead away from town");
 }
 
+// Beside enemy ground the arrow eases its turns as anywhere else (0.4.1.1's manners; 0.4.2 snapped it there).
 #[test]
-fn turning_onto_a_tangent_keeps_the_painted_stride_out_of_enemy_ground() {
+fn turning_onto_a_tangent_beside_enemy_ground_eases_as_on_friendly_ground() {
 	let out = run_compass(
 		r#"
 		nav.useGameGround()
@@ -219,8 +244,8 @@ fn turning_onto_a_tangent_keeps_the_painted_stride_out_of_enemy_ground() {
 		local h = approach("Horde")
 		emit({h, approach("Alliance")})"#,
 	);
-	assert!(num(&out[0]) >= -0.001, "Horde's visible next stride enters the enemy settlement: {}", out[0]);
-	assert!(num(&out[1]) < -0.001, "the same turn on friendly ground should still ease");
+	assert!(num(&out[1]) < -0.001, "on friendly ground the turn eases: {}", out[1]);
+	near(num(&out[0]), num(&out[1]), 1e-6, "beside enemy ground the same turn eases the same way");
 }
 
 #[test]

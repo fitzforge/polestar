@@ -257,8 +257,11 @@ fn an_ironforge_waypoint_across_the_signpost_is_not_a_visit_from_the_pavement() 
 	assert_eq!(out, serde_json::json!({"outward":false,"inward":false,"open":true,"atGoal":true}));
 }
 
+// The arrow eases its turn onto the Ironforge trainer ramp as every other turn (Fitz, 0.4.2.1: 0.4.1.1's manners;
+// 0.4.2 snapped it at a sharp turn beside a mapped wall): the first stride past the bend still shows the heading it
+// is turning from, and standing a second it settles on the ramp.
 #[test]
-fn the_displayed_arrow_turns_away_from_the_wall_at_the_ironforge_trainer_ramp() {
+fn the_displayed_arrow_eases_onto_the_ironforge_trainer_ramp_and_settles_on_it() {
 	skip_unless_ready!();
 	let out = run(
 		r#"
@@ -278,12 +281,17 @@ fn the_displayed_arrow_turns_away_from_the_wall_at_the_ironforge_trainer_ramp() 
 		end
 		local state,_,a,_,_,measured=N.Sample()
 		local shown=N.arrow.GetAngle()+w.facing
-		emit({travel=state=="travel" and measured==true, requestedWest=math.sin(a+w.facing), shownWest=math.sin(shown)})"#,
+		for _=1,20 do stub.advance(.05) end
+		local _,_,a2=N.Sample()
+		local settled=N.arrow.GetAngle()+w.facing
+		emit({travel=state=="travel" and measured==true, requestedWest=math.sin(a+w.facing), shownWest=math.sin(shown),
+			gap=math.abs(math.atan2(math.sin(settled-(a2+w.facing)), math.cos(settled-(a2+w.facing))))})"#,
 		true,
 	);
 	assert_eq!(out["travel"], true);
 	assert!(f(&out["requestedWest"]) < -0.5, "the walk has turned onto the ramp");
-	assert!(f(&out["shownWest"]) < -0.5, "the visible arrow must not carry the player straight into the side wall: {out}");
+	assert!(f(&out["shownWest"]) > f(&out["requestedWest"]) + 0.1, "the first stride shows the eased heading, not a snap: {out}");
+	assert!(f(&out["gap"]) < 0.05, "a second later the arrow has settled on the ramp: {out}");
 }
 
 #[test]
