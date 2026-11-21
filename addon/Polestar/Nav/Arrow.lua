@@ -772,12 +772,6 @@ local function facing()
 	return C and C.GetPlayerFacing and C.GetPlayerFacing() or nil
 end
 
-local function besideSolidFace()
-	local path = Nav.Path
-	if not (path and path.NearSolidFace) then return false end
-	local x, y, z, map = ns.Compat.GetPlayerUnitPosition()
-	return z and path.NearSolidFace(map, x, y, z)
-end
 local lastYards, lastEta
 local floorShown -- the floor glyph's hint ("up" | "down") or nil
 local lastDist, closeSpeed = nil, 0
@@ -855,9 +849,6 @@ local function setMode(m)
 	local travel, done, act, idle = m == "travel", m == "arrived" or m == "arrived-underwater" or m == "search", m == "instruction", m == "idle"
 	-- Waiting for a walking route, the arrow points straight at what the walk will lead to.
 	local routing = m == "routing"
-	-- Resume on the new walk's bearing, not a heading from before guidance stopped; from the straight bearing the
-	-- arrow held while the walk was found, turn on to the walk's.
-	if not (travel or routing) then hasAngle = false end
 	dial:SetShown(travel or done or act or idle or routing)
 	grabArea(travel or done or act or idle or routing)
 	showArrow(travel)
@@ -1066,7 +1057,7 @@ local function sample(elapsed)
 		frame:Hide()
 		return false
 	end
-	local state, dist, angle, _, _, measured, nearEnemy = Nav.Sample()
+	local state, dist, angle, _, _, measured = Nav.Sample()
 	if Nav.IsHiddenState(state) then
 		frame:Hide()
 		return false
@@ -1126,10 +1117,7 @@ local function sample(elapsed)
 	if angle then
 		local f = facing()
 		local bearing = f and wrap(angle + f) or angle
-		-- Do not ease a right-angle walking turn through a nearby wall. Keep
-		-- ordinary open-road turns and changes in the player's facing smooth.
-		local wallTurn = measured and hasAngle and f and abs(wrap(goalAngle-bearing)) > pi/3 and besideSolidFace()
-		if not hasAngle or byBearing ~= (f ~= nil) or wallTurn or (nearEnemy and curBearing ~= bearing) then
+		if not hasAngle or byBearing ~= (f ~= nil) then
 			byBearing = f ~= nil
 			curBearing, hasAngle, turnVel = bearing, true, 0
 			curAngle = angle
