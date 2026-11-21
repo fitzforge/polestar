@@ -22,6 +22,7 @@
 	<Script file="PartyLoot.lua"/>
 	<Script file="ClassRewards.lua"/>
 	<Script file="ClassCard.lua"/>
+	<Script file="OtherTab.lua"/>
 	<Script file="ClassToast.lua"/>
 	<Script file="DungeonToast.lua"/>
 	<Script file="SpellCards.lua"/>

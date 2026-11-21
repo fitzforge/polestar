@@ -306,7 +306,7 @@ function UI.GuideWindowScene(band)
 			["ui.barsBottom"] = { P.strip, nav }, ["guideWindow.stepAnim"] = moving, ["guideWindow.animSpeed"] = moving,
 			-- A goal done shuts into the done line.
 			["guideWindow.foldAnim"] = { G.lines[1] or person }, ["guideWindow.leftOut"] = { G.lines[1] or person },
-			["guideWindow.tabs"] = { P.strip }, ["guideWindow.tabHeight"] = { P.strip }, ["guideWindow.navHeight"] = { nav },
+			["guideWindow.tabs"] = { P.strip }, ["guideWindow.otherTabNear"] = window, ["guideWindow.tabHeight"] = { P.strip }, ["guideWindow.navHeight"] = { nav },
 			["guideWindow.barTextSize"] = bars, ["guideWindow.stepCount"] = { nav.Steps }, ["guideWindow.guideTitle"] = { nav.Title },
 			["guideWindow.skipButton"] = { nav.Skip }, ["guideWindow.reportButton"] = { nav.Report },
 			["guideWindow.titleSize"] = { person.Name }, ["guideWindow.goalSize"] = texts, ["guideWindow.detailSize"] = details,
@@ -529,6 +529,9 @@ local SPECS = {
 					help = L["The tabs of the open guides above the step bar. Off: the step bar names the guide, and the guide menu switches guides."],
 					search = "tabs, tab bar, header, strip, hide tabs, guides" },
 			} },
+		{ kind = "toggle", key = "guideWindow.otherTabNear", label = L["Other tab nearby"], new = "0.4.3",
+			help = L["When another open tab's next step is close, a card above the step names that tab. Click it to switch."],
+			search = "other tab, nearby, close, switch tab, tabs, alert, card" },
 		{ kind = "slider", key = "guideWindow.navHeight", label = L["Step bar height"], min = 0.7, max = 1.6, step = 0.05, format = percent, new = NEW,
 			help = L["How tall the bar with the step number, Skip and the menu is."], search = "bar height, header, navigator, taller, shorter, size, step bar height" },
 		textSize("barTextSize", L["Bar text"], L["The tabs, the step number, the guide's title, Skip and the percent."],

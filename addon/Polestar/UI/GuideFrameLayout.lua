@@ -61,6 +61,20 @@ ns.UI.GuideFrame.Part(function(GF)
 		-- the live window's alone.
 		local CC = GF.live and UI.ClassCard or nil
 		if CC then y = CC.Layout(width) end
+		-- Another tab's step close by (UI/OtherTab.lua), over the class card,
+		-- under the alerts.
+		local OT = GF.live and UI.OtherTabCard or nil
+		if OT then
+			local oh = OT.Layout(width, 0)
+			if oh > 0 then
+				local CF = CC and CC.Frame and CC.Frame()
+				if y > 0 and CF and CF:GetParent() == card then
+					local p, rel, rp, x, cy = CF:GetPoint(1)
+					CF:SetPoint(p, rel, rp, x, (cy or 0) - oh)
+				end
+				y = y + oh
+			end
+		end
 		-- A profession guide's skill-range heading over the step (fillCard).
 		local sec = card.Section
 		if sec:IsShown() then
