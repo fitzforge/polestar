@@ -12898,11 +12898,8 @@ do
 					title = "Pirate ghosts and Zanzil's camps",
 					note = "On south-west to the jungle north-east of Mistvale: the three ghostly pirates haunt it beside Zanzil's camps. {npc:2535} and Jon-Jon stand together, {npc:2537} further east. Every one of Zanzil's followers can carry the mixture.\nCareful: the Zanzil Witch Doctors (44) cast and the camps are packed: pull from the edge, one at a time. {npc:2534} (46) himself stands in the southern camp around 39.6,58.6, a few steps from {npc:2537}'s ghost: pull {npc:2537} out to the north or east before you fight him.",
 					goals = {
-						{ t = "kill", target = "Chucky \"Ten Thumbs\"", npc = 2537, map = 1434, x = 40, y = 58.2, z = 8.4, f = "e" },
 						{ t = "collect", quest = 609, title = "Voodoo Dues", item = 3926, itemName = "Chucky's Huge Ring", count = 1, oi = 3, map = 1434, x = 40, y = 58.24, z = 8.4, f = "e", from = "Chucky \"Ten Thumbs\"", fromKind = "npc", fromId = 2537, fromNpcs = { { npc = 2537, npcName = "Chucky \"Ten Thumbs\"" } } },
-						{ t = "kill", target = "Maury \"Club Foot\" Wilkins", npc = 2535, map = 1434, x = 35.3, y = 51.3, z = 22.3, f = "e" },
 						{ t = "collect", quest = 609, title = "Voodoo Dues", item = 3924, itemName = "Maury's Clubbed Foot", count = 1, oi = 1, map = 1434, x = 35.26, y = 51.27, z = 22.3, f = "e", from = "Maury \"Club Foot\" Wilkins", fromKind = "npc", fromId = 2535, fromNpcs = { { npc = 2535, npcName = "Maury \"Club Foot\" Wilkins" } } },
-						{ t = "kill", target = "Jon-Jon the Crow", npc = 2536, map = 1434, x = 34.9, y = 51.8, z = 22, f = "e" },
 						{ t = "collect", quest = 609, title = "Voodoo Dues", item = 3925, itemName = "Jon-Jon's Golden Spyglass", count = 1, oi = 2, map = 1434, x = 34.92, y = 51.84, z = 22, f = "e", from = "Jon-Jon the Crow", fromKind = "npc", fromId = 2536, fromNpcs = { { npc = 2536, npcName = "Jon-Jon the Crow" } } },
 						{ t = "collect", quest = 621, title = "Zanzil's Secret", item = 4016, itemName = "Zanzil's Mixture", count = 12, oi = 1, map = 1434, x = 34.92, y = 51.84, z = 22, f = "e", spotsPacked = "34.73,51.59,22.4,40,10;38.8,57.1,,40,2;39.2,58.7,8.3,58,10,,46;40.2,57.9,8.7,40,4;40.5,59.1,,40,2;41.54,56.94,0.7,27,2", spread = true, lvl = 44, fromNpcs = { { npc = 2536, npcName = "Jon-Jon the Crow" }, { npc = 2530, npcName = "Yenniku" }, { npc = 1488, npcName = "Zanzil Zombie" }, { npc = 1489, npcName = "Zanzil Hunter" }, { npc = 1490, npcName = "Zanzil Witch Doctor" }, { npc = 1491, npcName = "Zanzil Naga" }, { npc = 2537, npcName = "Chucky \"Ten Thumbs\"" }, { npc = 2534, npcName = "Zanzil the Outcast" }, { npc = 2535, npcName = "Maury \"Club Foot\" Wilkins" } }, fromNpcsAt = "3,6,4,5,1,9;3,5,6,2,4,8,7;3,5,6,2,4,8,7;5,6,7,3,2,4,8;3,6,5,2,4,8,7;3,6,5,2,4,8,7" },
 					},
@@ -23259,7 +23256,7 @@ do
 					note = "{quest:91208}: the {npc:246143} fled into the hills west of the church, on the way to {area:155}.",
 					only = { classes = { "PALADIN" } },
 					goals = {
-						{ t = "talk", npc = 246143, npcName = "Frightened Paladin", map = 1420, x = 27.66, y = 63.88, z = 118.8, note = "Offer aid to the {npc:246143}" },
+						{ t = "talk", quest = 91208, title = "Coming to Terms", npc = 246143, npcName = "Frightened Paladin", oi = 1, map = 1420, x = 27.66, y = 63.88, z = 118.8, note = "Offer aid to the {npc:246143}" },
 					},
 				},
 				{
@@ -23958,9 +23955,9 @@ do
 					goals = {
 						{ t = "turnin", quest = 91285, title = "Murlocs at the Gates", npc = 246349, npcName = "Breton Samuels", map = 1420, x = 21.8, y = 45.37, z = 136.9, rewards = { choices = { { item = 246164, itemName = "Skullthumper" }, { item = 246165, itemName = "Driftwood Smasher" } } } },
 						{ t = "accept", quest = 91294, title = "Touring the Grounds", npc = 246349, npcName = "Breton Samuels", minLevel = 8, qlvl = 11, pre = { 91285 }, preTitles = { [91285] = "Murlocs at the Gates" }, map = 1420, x = 21.8, y = 45.37, z = 136.9 },
-						{ t = "talk", npc = 246389, npcName = "Hilda the Breaker", map = 1420, x = 21.84, y = 47.15, z = 134.5 },
-						{ t = "talk", npc = 246393, npcName = "Jorin Croge", map = 1420, x = 22.61, y = 44.77, z = 137.4 },
-						{ t = "talk", npc = 246394, npcName = "Ander Solliden", map = 1420, x = 22.11, y = 49.41, z = 130, spotsPacked = "22.9,49.7,,42,5;24.7,50.4,98.9,28,3" },
+						{ t = "talk", quest = 91294, title = "Touring the Grounds", npc = 246389, npcName = "Hilda the Breaker", oi = 1, map = 1420, x = 21.84, y = 47.15, z = 134.5 },
+						{ t = "talk", quest = 91294, title = "Touring the Grounds", npc = 246393, npcName = "Jorin Croge", oi = 2, map = 1420, x = 22.61, y = 44.77, z = 137.4 },
+						{ t = "talk", quest = 91294, title = "Touring the Grounds", npc = 246394, npcName = "Ander Solliden", oi = 3, map = 1420, x = 22.11, y = 49.41, z = 130, spotsPacked = "22.9,49.7,,42,5;24.7,50.4,98.9,28,3" },
 						{ t = "turnin", quest = 91294, title = "Touring the Grounds", npc = 246378, npcName = "Danitha Morr", map = 1420, x = 22, y = 44.66, z = 155.7, note = "{npc:246378}, inside the keep" },
 					},
 				},

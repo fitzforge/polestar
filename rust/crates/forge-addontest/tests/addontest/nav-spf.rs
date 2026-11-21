@@ -306,7 +306,7 @@ fn the_arrow_follows_the_path_s_points_with_the_yards_left_along_it() {
 		r.arrived = aim()[1]
 		r.calls = calls()
 		emit(r)"#);
-	assert_eq!(out["before"], json!(["routing"]), "no bearing before a route is found");
+	assert_eq!(out["before"], json!(["routing", 600, 0, -600]), "straight at the target until a route is found, as 0.4.1.1");
 	assert_eq!(out["ask"], json!([1, 0, 0, 0, 0, -600]), "one search on the player's continent, player to target");
 	assert_eq!(out["first"][1], 683, "the whole path's length");
 	heads(&out["first"], (0.0, 0.0), (100.0, -100.0), "toward the first corner");
@@ -316,6 +316,50 @@ fn the_arrow_follows_the_path_s_points_with_the_yards_left_along_it() {
 	heads(&out["along"], (100.0, -300.0), (100.0, -500.0), "along the second leg");
 	assert_eq!(out["arrived"], "arrived", "arrival is the target's radius, as before");
 	assert_eq!(out["calls"], 1, "walking along the path asks nothing more");
+}
+
+// 0.4.2 held the arrow on the current piece of every searched (checked) walk: it pointed at the walk's next point and
+// swung round at each one (#3509, Fitz on 0.4.2.1: "we don't actually point at the first waypoint, but one further
+// away; this stops the 90-degree angles"). With no height from the client (Forever's 0), outdoors and indoors, the
+// corridor's aim runs on past the first corner of a two-corner walk, as in 0.4.1.1: with no floor read freely, with
+// one up to the farthest point the walking map's line reaches (a wall past 0, -20 here: never pointing into it).
+#[test]
+fn a_checked_walk_s_arrow_aims_past_its_first_corner_with_no_height_kept_in_reach_of_walls() {
+	let out = run(r#"
+		-- Each case on its own stretch of ground, ox yards along x (a floor is read only where the player has moved).
+		local function walk(ox, indoors, surfaces, sight)
+			nav.indoors, fake.surfaces, fake.sight = indoors, surfaces, sight
+			N.ClearTarget()
+			nav.place(ox, 0)
+			target(ox + 12, -120)
+			N.Sample()
+			local job = fake.last()
+			job.walkChecked = true
+			-- Two corners 12 yd apart, each turning 45 degrees.
+			fake.resolve(ox, 0, ox, -12, ox + 12, -24, ox + 12, -120)
+			nav.place(ox, -2)
+			stub.advance(0.3)
+			local s = aim()
+			if s[3] then s[3] = s[3] - ox end
+			return s
+		end
+		local floor0 = function() return { 0 } end
+		local wall = function(x1, y1, z1, x2, y2) return y2 >= -20 end
+		local r = {}
+		r.outdoors, r.indoors = walk(-300, false), walk(-100, true)
+		r.outdoorsWall, r.indoorsWall = walk(100, false, floor0, wall), walk(300, true, floor0, wall)
+		emit(r)"#);
+	for mode in ["outdoors", "indoors"] {
+		let s = &out[mode];
+		assert_eq!(s[0], "travel", "{mode}: {s}");
+		assert!(num(&s[3]) < -24.0 && num(&s[2]) > 10.0, "{mode}: the aim lies past both corners, not on the first at 0, -12 (aim {}, {})", s[2], s[3]);
+	}
+	for mode in ["outdoorsWall", "indoorsWall"] {
+		let s = &out[mode];
+		assert_eq!(s[0], "travel", "{mode}: {s}");
+		let (x, y) = (num(&s[2]), num(&s[3]));
+		assert!(x > 2.0 && y < -14.0 && y >= -21.0, "{mode}: the aim lies past the first corner, short of the wall (aim {x}, {y})");
+	}
 }
 
 // The look-ahead (Walk.lua's AHEAD 30, PAD 10): the arrow aims up to 30 yd
@@ -1007,8 +1051,8 @@ fn c1_c2_a_new_target_cancels_the_stale_search_whose_late_answer_is_dropped_neve
 		emit(r)"#);
 	assert_eq!(out["cancelled"], true);
 	assert_eq!(out["calls"], 2);
-	assert_eq!(out["aim"], json!(["routing"]));
-	assert_eq!(out["late"], json!(["routing"]), "the old target's path is never followed");
+	assert_eq!(out["aim"], json!(["routing", 500, 500, 0]), "straight at the new target");
+	assert_eq!(out["late"], json!(["routing", 500, 500, 0]), "the old target's path is never followed");
 }
 
 #[test]
@@ -1024,7 +1068,7 @@ fn nothing_is_searched_in_combat_the_search_follows_once_combat_ends() {
 		aim()
 		r.after = calls()
 		emit(r)"#);
-	assert_eq!(out["fight"], json!(["routing"]), "no bearing for an unsearched walk");
+	assert_eq!(out["fight"], json!(["routing", 600, 0, -600]), "straight at the target while its walk waits for the fight's end");
 	assert_eq!(out["inCombat"], 0);
 	assert_eq!(out["after"], 1);
 }
@@ -1237,10 +1281,11 @@ fn unavailable_and_failed_walks_point_straight_and_are_asked_again_later() {
 }
 
 // #3409, Fitz's ruling: wherever no walk is found the arrow points straight, as before 0.4.2, and says why under
-// its label; the line is drawn where the danger policy lets it. Here a walk refused on policy (Safe's
-// blockedReason: the other faction's town).
+// its label; the line is drawn straight. Here a walk refused with a reason (Safe's blockedReason). Main, 2026-11-21,
+// Fitz: "go back to our original danger pathing": no reason is the other faction's ground any more, and the arrow
+// says what it says for any walk it did not find (0.4.2: "No safe walking route").
 #[test]
-fn a_walk_refused_on_policy_points_straight_says_why_and_draws_its_line() {
+fn a_walk_refused_with_a_reason_points_straight_says_why_and_draws_its_line() {
 	let out = run(r#"
 		local r = {}
 		nav.place(0, 0)
@@ -1259,7 +1304,7 @@ fn a_walk_refused_on_policy_points_straight_says_why_and_draws_its_line() {
 		r.drawn = { leg and leg.straight or false, leg and #leg.pts or 0 }
 		emit(r)"#);
 	assert_eq!(out["aim"], json!(["travel", 500, 0, -500]), "straight at the target");
-	assert!(out["label"].as_str().unwrap_or("").contains("No safe walking route"), "and why: {}", out["label"]);
+	assert!(out["label"].as_str().unwrap_or("").contains("The last steps here aren't mapped"), "and why: {}", out["label"]);
 	assert_eq!(out["line"], true);
 	assert_eq!(out["drawn"], json!([true, 2]), "its line straight from the player");
 }
@@ -3159,17 +3204,17 @@ fn searches_carry_the_player_faction_and_an_unknown_faction_gets_the_straight_be
 	);
 	assert_eq!(out["horde"], json!(["Horde", "table", false]), "the arrow's own walk: opts {{ waterWalking, profile }}");
 	assert_eq!(out["hordeAim"], "travel");
-	assert_eq!(out["pending"], json!(["routing", false, "routing", false, "Finding a walking route"]));
+	assert_eq!(out["pending"], json!(["routing", true, "routing", true, "Finding a walking route"]), "straight at the target meanwhile");
 	assert_eq!(out["reason"], "unknown faction");
 	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
 	assert_eq!(out["settled"], json!(["travel", true, "travel", true, "200 yd"]));
 	assert_eq!(out["batch"], "Alliance", "the planner's measure too");
 }
 
-// The arrow shows its hourglass, turning, in the dial's place while it says "Finding a walking route"; the
-// catch-up's own use wins while it is on (the text hidden), and the hourglass is gone once a route is in.
+// The arrow's hourglass follows the catch-up only: while it says "Finding a walking route" there is none (the
+// arrow already points straight), the catch-up still brings it (the text hidden) and takes it away again.
 #[test]
-fn the_arrow_shows_its_hourglass_while_it_finds_a_walking_route() {
+fn the_arrow_shows_no_hourglass_while_it_finds_a_walking_route_only_for_the_catch_up() {
 	let out = run_priced(
 		&[
 			TERRAIN,
@@ -3186,10 +3231,6 @@ fn the_arrow_shows_its_hourglass_while_it_finds_a_walking_route() {
 		end
 		local r = {}
 		r.routing = look()
-		stub.advance(0.3)
-		local upright = a.glassBody:GetRotation()
-		stub.advance(0.35)
-		r.turning = a.glassBody:GetRotation() > upright
 		Polestar.Fire("CATCH_UP", true)
 		r.catchUp = look()
 		Polestar.Fire("CATCH_UP", false)
@@ -3200,11 +3241,10 @@ fn the_arrow_shows_its_hourglass_while_it_finds_a_walking_route() {
 		]
 		.concat(),
 	);
-	assert_eq!(out["routing"], json!(["routing", "routing", true, true, "Finding a walking route", 1]));
-	assert_eq!(out["turning"], true, "the glass turns over while it waits");
-	assert_eq!(out["catchUp"], json!(["routing", "routing", true, true, "Finding a walking route", 0]), "the catch-up hides the text");
-	assert_eq!(out["after"], json!(["routing", "routing", true, true, "Finding a walking route", 1]), "the wait goes on after the catch-up");
-	assert_eq!(out["route"], json!(["travel", "travel", false, false, "300 yd", 1]), "gone once the route is in");
+	assert_eq!(out["routing"], json!(["routing", "routing", false, false, "Finding a walking route", 1]), "no hourglass in the routing wait");
+	assert_eq!(out["catchUp"], json!(["routing", "routing", true, true, "Finding a walking route", 0]), "the catch-up brings it and hides the text");
+	assert_eq!(out["after"], json!(["routing", "routing", false, false, "Finding a walking route", 1]), "and takes it away");
+	assert_eq!(out["route"], json!(["travel", "travel", false, false, "300 yd", 1]));
 }
 
 #[test]
