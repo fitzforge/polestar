@@ -1534,6 +1534,36 @@ GF.Part(function(GF)
 	-- Upcoming steps (off by default; collapsed when on)
 	---------------------------------------------------------------------------
 
+	-- A row's step number, right-aligned in its column (22 px; a layout may
+	-- set n.psColumn, or pass `column`). One or two digits keep the row's
+	-- number size. Three or more start at 80% of it and step down 1 px at a
+	-- time until the text fits the column, to 60% of the base at least, so
+	-- they never read "1...". The size a skin or Text size sets is taken
+	-- again whenever it changes.
+	function GF.FitNum(r, column)
+		local n = r.Num
+		local font, size, flags = n:GetFont()
+		if not (font and size) then return end
+		if size ~= n.psNumSet then n.psNumBase = size end
+		local base = n.psNumBase or size
+		local col = column or n.psColumn or 22
+		local want = base
+		if #(n:GetText() or "") >= 3 then
+			want = floor(base * 0.8 + 0.5)
+			local floorSize = floor(base * 0.6 + 0.5)
+			n:SetWidth(col)
+			if want ~= size then n:SetFont(font, want, flags) end
+			local measure = n.GetUnboundedStringWidth or n.GetStringWidth
+			while want > floorSize and measure(n) > col - 1 do
+				want = want - 1
+				n:SetFont(font, want, flags)
+			end
+		end
+		if want ~= select(2, n:GetFont()) then n:SetFont(font, want, flags) end
+		n.psNumSet = want
+		n:SetWidth(col)
+	end
+
 	local function upRow(i)
 		local r = upRows[i]
 		if r then return r end
@@ -1993,6 +2023,7 @@ GF.Part(function(GF)
 				end
 				if warn then r.psSummary = r.psSummary .. " (" .. (warn == true and L["pinned, still open"] or L["still open"]) .. ")" end
 				r.Num:SetText(UI.StepNo(i, E))
+				GF.FitNum(r)
 				r.Icon:SetTexture(Theme.VerbIcon(UI.FirstVerb(v)))
 				r.Text:SetText(r.psSummary)
 				W.Color(r.Text, warn and "warning" or "textDim")
