@@ -399,7 +399,7 @@ return {
 
 	-- Step 85: Amaryllis Webb
 	-- {npc:217412} Amaryllis Webb · {quest:93176} My Little Friends · {zone:1417} Arathi Highlands
-	["{npc:217412}: {quest:93176}, from the {zone:1417} guide"] = "",
+	["{npc:217412}: {quest:93176}, from the {zone:1417} guide"] = "把走{zone:1417}路线时接到的「{quest:93176}」交给{npc:217412}。",
 
 	-- Step 86: Watcher Biggs
 	-- {npc:5476} Watcher Biggs

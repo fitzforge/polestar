@@ -152,7 +152,7 @@ return {
 	-- {area:1057} Thoradin's Wall · {area:320} Refuge Pointe
 	["From the Syndicate camp, follow the road east over {area:1057} to {area:320}."] = "从辛迪加营地出发，沿道路向东越过{area:1057}前往{area:320}。",
 	-- {npc:2700} Captain Nials · {npc:1075} Rhag Garmason · {zone:1437} Wetlands
-	["{npc:2700}: {npc:1075}'s plea, from the {zone:1437}"] = "",
+	["{npc:2700}: {npc:1075}'s plea, from the {zone:1437}"] = "把{npc:1075}在{zone:1437}托付的求援任务交给{npc:2700}。",
 
 	-- Step 31: Northfold Manor
 	-- {area:320} Refuge Pointe

@@ -68,7 +68,7 @@ return {
 
 	-- Step 15: Harlo Barnaby
 	-- {npc:2097} Harlo Barnaby · {npc:1071} Longbraid the Grim · {area:205} Dun Modr
-	["{npc:2097}, by the north gate: {npc:1071} takes it at {area:205}, at the north end of this visit's east loop"] = "",
+	["{npc:2097}, by the north gate: {npc:1071} takes it at {area:205}, at the north end of this visit's east loop"] = "在北门旁找{npc:2097}接任务。本次东线走到最北端的{area:205}时，交给{npc:1071}。",
 
 	-- Step 16: Glorin Steelbrow
 	-- {quest:270} The Doomed Fleet · {npc:1212} Bishop Farthing · {zone:1453} Stormwind City · {npc:1217} Glorin Steelbrow · {area:2104} Deepwater Tavern · {quest:321} Lightforge Iron · {item:279915} Nord'el
@@ -191,7 +191,7 @@ return {
 	["{npc:270637} camps among the Fenrunners, just west of {npc:1244}."] = "{npc:270637}的营地在{npc:1244}西边不远，周围是藓皮沼泽行者。",
 	-- {area:1038} Dragonmaw Gates
 	-- plural, as words: Razormaw Incisors = {item:280103} Razormaw Incisor · Fen Creepers = {npc:1040} Fen Creeper
-	["Razormaw Incisors: from the raptors by the {area:1038}, after the Fen Creepers"] = "",
+	["Razormaw Incisors: from the raptors by the {area:1038}, after the Fen Creepers"] = "打完沼泽爬行者后，去{area:1038}附近击杀迅猛龙，收集刺喉龙门牙。",
 	-- {quest:98246} Trying Times
 	-- was: ["{quest:98246}: the Razormaw eggs, on the same loop"] = "{quest:98246}：同一趟路线上的刺喉龙蛋"
 	["{quest:98246}: the Razormaw eggs, on the same walk"] = "",
@@ -211,7 +211,7 @@ return {
 
 	-- Step 38: Rethiel the Greenwarden
 	-- {quest:98283} Carnage · {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
-	["{quest:98283}, an elite raptor, on the {zone:1437} loop of the {zone:1424} guide"] = "",
+	["{quest:98283}, an elite raptor, on the {zone:1437} loop of the {zone:1424} guide"] = "「{quest:98283}」的目标是一只精英迅猛龙，等{zone:1424}路线走到{zone:1437}环线时再打。",
 
 	-- Step 39: Dragonmaw Gates: kill these as you meet them
 	-- {area:1038} Dragonmaw Gates
@@ -291,7 +291,7 @@ return {
 	["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:2094} by the docks."] = "",
 	["On the top floor"] = "在最顶层",
 	-- {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
-	["For the Dragonmaw catapult, on the {zone:1437} loop of the {zone:1424} guide"] = "",
+	["For the Dragonmaw catapult, on the {zone:1437} loop of the {zone:1424} guide"] = "走{zone:1424}路线的{zone:1437}环线时，再去处理龙喉投石车。",
 	-- {npc:2094} James Halloran · {npc:270637} Howin Kindfeather · {zone:1437} Wetlands · {zone:1424} Hillsbrad Foothills
 	["{npc:2094}: the crate for {npc:270637}, on the {zone:1437} loop of the {zone:1424} guide"] = "",
 
@@ -335,7 +335,7 @@ return {
 	["{npc:3649} stands at the north end of {area:442}."] = "{npc:3649}在{area:442}北端。",
 	-- {zone:1439} Darkshore · {area:442} Auberdine
 	-- was: ["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "巴隆斯·阿历克斯顿的回信，如果还带在身上（路线已安排在03-darkshore-return首次到{area:442}时交还）"
-	["Alexston's reply, if you still carry it (the route hands it in on the {zone:1439} return's first {area:442} stop)"] = "",
+	["Alexston's reply, if you still carry it (the route hands it in on the {zone:1439} return's first {area:442} stop)"] = "如果还带着巴隆斯·阿历克斯顿的回信，就在这里交还。路线原本安排在回访{zone:1439}、第一次到{area:442}时交还。",
 
 	-- Step 59: Auberdine
 	-- {npc:3693} Terenthis · {quest:990} Trek to Ashenvale · {npc:3694} Sentinel Selarin

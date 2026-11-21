@@ -266,7 +266,7 @@ return {
 	-- {npc:377} Priestess Josetta · {npc:328} Zaldimar Wefhellt · {npc:917} Keryn Sylvius
 	["{npc:377} (priests), {npc:328} (mages) and {npc:917} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "{npc:377}（牧师）、{npc:328}（法师）和{npc:917}（潜行者）在旅店楼上：走室内楼梯上去，箭头无法区分楼层。",
 	-- {npc:279} Morgan Pestle · {zone:1453} Stormwind · {zone:1436} Westfall
-	["{npc:279} in {zone:1453} takes it (the {zone:1436} guide)"] = "",
+	["{npc:279} in {zone:1453} takes it (the {zone:1436} guide)"] = "走{zone:1436}路线到{zone:1453}时，交给{npc:279}。",
 
 	-- Step 52: Level 8.39
 	["Level 8.39"] = "等级 8.39",
@@ -390,7 +390,7 @@ return {
 	["{npc:240}, while William brews"] = "{npc:240}，趁威廉酿酒时",
 	-- {npc:514} Smith Argus · {npc:1416} Grimand Elmore · {zone:1453} Stormwind · {zone:1436} Westfall
 	-- was: ["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (02-westfall)"] = "{npc:514}，在杜汉旁边的铁匠铺：交给{zone:1453}的{npc:1416}（02-westfall）"
-	["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (the {zone:1436} guide)"] = "",
+	["{npc:514}, at the smithy beside Dughan: {npc:1416} in {zone:1453} takes it (the {zone:1436} guide)"] = "在杜汉旁边的铁匠铺找{npc:514}。走{zone:1436}路线到{zone:1453}时，交给{npc:1416}。",
 	-- {npc:253} William Pestle
 	["{npc:253}, back in the inn"] = "{npc:253}，回到旅店里",
 	-- {npc:377} Priestess Josetta · {npc:376} High Priestess Laurena · {zone:1453} Stormwind

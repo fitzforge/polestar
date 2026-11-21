@@ -113,7 +113,7 @@ return {
 	-- Step 17: Nesingwary's camp
 	["Back north to the camp."] = "向北回到营地。",
 	-- {npc:717} Ajeck Rouack · {npc:729} Sin'Dall
-	["{npc:717}: {npc:729} (37) comes at the end of this guide, from level 36"] = "",
+	["{npc:717}: {npc:729} (37) comes at the end of this guide, from level 36"] = "{npc:717}的任务留到本路线末尾，36级起去打{npc:729}（37级）。",
 
 	-- Step 18: Thoroughly Scavenged Supplies
 	-- {object:661516} Thoroughly Scavenged Supplies (no name in this language: may be words) · {quest:97328} Anything of Value · {area:102} Ruins of Zul'Kunda
@@ -210,9 +210,9 @@ return {
 	-- {object:3202} Grom'gol
 	["Back to {object:3202}."] = "返回{object:3202}。",
 	-- {npc:2465} Far Seer Mok'thardin · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
-	["{npc:2465}: for the {zone:1434} & {zone:1435} guide, at about 40"] = "",
+	["{npc:2465}: for the {zone:1434} & {zone:1435} guide, at about 40"] = "约40级走{zone:1434}与{zone:1435}路线时，再做{npc:2465}的任务。",
 	-- {npc:2497} Nimboya · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
-	["{npc:2497}: for the {zone:1434} & {zone:1435} guide, at about 40"] = "",
+	["{npc:2497}: for the {zone:1434} & {zone:1435} guide, at about 40"] = "约40级走{zone:1434}与{zone:1435}路线时，再做{npc:2497}的任务。",
 	-- {npc:729} Sin'Dall · {zone:1454} Orgrimmar
 	-- was: ["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "下一份指南会从营地西侧的塔楼乘飞艇前往{zone:1454}。"
 	["After {npc:729}, back here: the next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "",
