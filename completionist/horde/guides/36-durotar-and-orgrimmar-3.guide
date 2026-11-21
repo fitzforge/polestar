@@ -1,0 +1,268 @@
+guide polestar-completionist-horde/36-durotar-and-orgrimmar-3
+title 36 Durotar and Orgrimmar (43-55) (Completionist)
+faction Horde
+levels 43-55
+zone Orgrimmar
+next polestar-completionist-horde/37-azshara
+pitch On along the line: Durotar and Orgrimmar, quests of level 43 to 55.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 20 quests; estimated level at the end 45.8 (heuristic XP, class quests not counted).
+# Skipped: 2 exclusive with N (done).
+
+step Razor Hill
+  zone Durotar
+  sethome "Razor Hill"
+
+step Neeru Fireblade
+  accept 3122
+
+step Dran Droffers
+  accept 649
+  turnin 649
+  accept 650
+
+step Witch Doctor Uzer'i
+  zone Feralas
+  turnin 3122
+  accept 3123
+  accept 3128
+
+step Sprite Darter
+  collect 9589 x6 quest 3128.2
+
+step Frayfeather Hippogryph
+  collect 9591 x20 quest 3128.3
+  collect 9592 x40 quest 3128.4
+
+step Wandering Forest Walker
+  collect 9590 x2 quest 3128.1
+
+step Vicious Owlbeast
+  zone The Hinterlands
+  collect 9594 x10 quest 3123.1
+
+step Gilveradin Sunchaser
+  turnin 650
+
+step Belgrom Rockmaul
+  accept 2981
+
+step You Too Good.
+  when skill Fishing 1
+  zone map 1454
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 6608 optional
+
+step You Too Good.
+  when skill Fishing 1
+  turnin 6608 optional
+
+step Nat Pagle, Angler Extreme
+  when skill Fishing 1
+  zone map 1445
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 6607 optional
+  complete 6607 @58.6,60.1 optional
+
+step Nat Pagle, Angler Extreme
+  when skill Fishing 1
+  turnin 6607 optional
+
+step Level 54
+  level 54
+
+step Cenarion Emissary Blackhoof
+  zone Orgrimmar
+  accept 8276
+
+step The New Frontier
+  when available 1018
+  tip One of several exclusive quests; the route takes The New Frontier (1000). This one shows for a character the game offers it to instead.
+  zone map 1454
+  accept 1018 optional
+
+step The New Frontier
+  when onquest 1018
+  zone map 1456
+  turnin 1018 optional
+
+step Assisting Arch Druid Runetotem
+  when available 936
+  tip One of several exclusive quests; the route takes Assisting Arch Druid Runetotem (3762). This one shows for a character the game offers it to instead.
+  zone map 1454
+  accept 936 optional
+
+step Assisting Arch Druid Runetotem
+  when onquest 936
+  zone map 1456
+  turnin 936 optional
+
+step Windcaller Proudhorn
+  zone Silithus
+  turnin 8276
+
+step Eitrigg
+  zone Orgrimmar
+  accept 95283
+
+step Zilzibin Drumlore
+  zone Orgrimmar
+  accept 4494
+
+step To Gadgetzan You Go!
+  when skill Cooking 1
+  zone map 1454
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 6611 optional
+
+step Alchemist Pestlezugg
+  zone Tanaris
+  turnin 4494
+
+step To Gadgetzan You Go!
+  when skill Cooking 1
+  turnin 6611 optional
+
+step Clamlette Surprise
+  when skill Cooking 1
+  zone map 1446
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 6610 optional
+  complete 6610 @52.6,28.1 optional
+
+step Clamlette Surprise
+  when skill Cooking 1
+  turnin 6610 optional
+
+step Belgrom Rockmaul
+  zone The Hinterlands
+  accept 3504
+
+step Ag'tor Bloodfist
+  zone Azshara
+  turnin 3504
+
+step Jes'rimon
+  zone Orgrimmar
+  accept 4300
+
+step Venomhide Ravasaur
+  zone Un'Goro Crater
+  collect 11477 x8 quest 4300.1
+
+step Jes'rimon
+  zone Tanaris
+  turnin 4300
+
+step Jes'rimon
+  zone Orgrimmar
+  accept 91735
+
+step Jediga
+  turnin 91735
+
+step Horde Trauma
+  when skill "First Aid" 1
+  zone map 1454
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 6623 optional
+
+step Horde Trauma
+  when skill "First Aid" 1
+  turnin 6623 optional
+
+step Triage
+  when skill "First Aid" 1
+  zone map 1417
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 6622 optional
+  complete 6622 @73.4,36.9 optional
+
+step Triage
+  when skill "First Aid" 1
+  turnin 6622 optional
+
+step Master Gadrin
+  when group 2937
+  zone Durotar
+  accept 2937
+
+step Shadra
+  when group 2937
+  zone The Hinterlands
+  tip Summoning Shadra is group work: elites. Grouping up is advised.
+  collect 9324 x1 quest 2937.1
+
+step Apothecary Lydon
+  when group 2937
+  zone Alterac Mountains
+  turnin 2937
+
+step Nazeer Bloodpike
+  zone The Barrens
+  turnin 95283
+
+step Rok Orhan
+  zone Feralas
+  turnin 2981
+  accept 2975
+
+step Gordunni Ogre Mage
+  kill 5237 x10 quest 2975.2
+
+step Gordunni Ogre
+  kill 5229 x10 quest 2975.1
+
+step Gordunni Brute
+  kill 5232 x5 quest 2975.3
+
+step Witch Doctor Uzer'i
+  turnin 3123
+  turnin 3128
+  accept 3124
+
+step Frayfeather Hippogryph
+  collect 9595 x10 quest 3124.1
+
+step Witch Doctor Uzer'i
+  turnin 3124
+  accept 3125
+
+step Sprite Darter
+  collect 9596 x8 quest 3125.1
+
+step Witch Doctor Uzer'i
+  turnin 3125
+  accept 3126
+
+step Wandering Forest Walker
+  collect 9593 x3 quest 3126.1
+
+step Witch Doctor Uzer'i
+  turnin 3126
+  accept 3127
+
+step Land Walker
+  collect 9597 x7 quest 3127.1
+
+step Witch Doctor Uzer'i
+  turnin 3127
+
+step Witch Doctor Uzer'i
+  zone Feralas
+  accept 3129
+  turnin 3129
+  turnin 2975
+  accept 2980
+
+step Gordunni Mauler
+  kill 5234 x5 quest 2980.3
+
+step Gordunni Warlock
+  kill 5240 x10 quest 2980.2
+
+step Gordunni Shaman
+  kill 5236 x10 quest 2980.1
+
+step Rok Orhan
+  turnin 2980

@@ -1,0 +1,174 @@
+guide polestar-completionist-alliance/attune-drakefire-a
+title Drakefire Amulet (Onyxia's Lair key) (Completionist)
+faction Alliance
+levels 54-60
+category Dungeons
+zone Dustwallow Marsh
+pitch Drakefire Amulet: Everyone entering Onyxia's Lair carries the Drakefire Amulet.
+why Everyone entering Onyxia's Lair carries the Drakefire Amulet.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 8 quests; estimated level at the end 54.3 (heuristic XP, class quests not counted).
+
+step Helendis Riverhorn
+  zone Burning Steppes
+  accept 4182
+
+step Black Wyrmkin
+  kill 7041 x4 quest 4182.4
+
+step Black Dragonspawn and Black Drake
+  kill 7040 x10 quest 4182.2
+  kill 7044 x1 quest 4182.3
+
+step Black Broodling
+  kill 7047 x15 quest 4182.1
+
+step Helendis Riverhorn
+  turnin 4182
+  accept 4183
+
+step Magistrate Solomon
+  zone Redridge Mountains
+  turnin 4183
+  accept 4184
+
+step Highlord Bolvar Fordragon
+  zone Stormwind City
+  turnin 4184
+
+step The True Masters
+  zone map 1453
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 4185
+  complete 4185 @80.2,38.4
+
+step The True Masters
+  turnin 4185
+
+step Highlord Bolvar Fordragon
+  zone Stormwind City
+  accept 4186
+
+step Magistrate Solomon
+  zone Redridge Mountains
+  turnin 4186
+
+step Magistrate Solomon
+  zone Redridge Mountains
+  accept 4223
+
+step Marshal Maxwell
+  zone Burning Steppes
+  turnin 4223
+
+step The True Masters
+  zone map 1428
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 4224
+  complete 4224 @84.7,69.0
+
+step The True Masters
+  turnin 4224
+
+step Marshal Windsor
+  zone map 1428
+  accept 4241
+
+step Marshal Windsor
+  when onquest 4241
+  tip The hand-in is inside the instance: the arrow leads to its entrance.
+  zone map 1445
+  turnin 4241 @52.6,76.8
+
+step Abandoned Hope
+  when turnedin 4241
+  tip The giver stands inside the instance: the arrow leads to its entrance.
+  zone map 1445
+  accept 4242 @52.6,76.8
+
+step Abandoned Hope
+  when onquest 4242
+  zone map 1428
+  turnin 4242
+
+step A Crumpled Up Note
+  when turnedin 4242
+  tip A Crumpled Up Note drops from Anvilrage Guardsman, Anvilrage Footman, Anvilrage Soldier: it starts this quest.
+  zone map 1427
+  collect 11446 x1
+  accept 4264 item 11446
+
+step A Crumpled Up Note
+  when onquest 4264
+  tip The hand-in is inside the instance: the arrow leads to its entrance.
+  zone map 1445
+  turnin 4264 @52.6,76.8
+
+step A Shred of Hope
+  when turnedin 4264
+  tip The giver stands inside the instance: the arrow leads to its entrance.
+  zone map 1445
+  accept 4282 @52.6,76.8
+
+step A Shred of Hope
+  when onquest 4282
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1445
+  complete 4282 @52.6,76.8
+
+step A Shred of Hope
+  when onquest 4282
+  tip The hand-in is inside the instance: the arrow leads to its entrance.
+  zone map 1445
+  turnin 4282 @52.6,76.8
+
+step Jail Break!
+  when turnedin 4282
+  tip The giver stands inside the instance: the arrow leads to its entrance.
+  zone map 1445
+  accept 4322 @52.6,76.8
+
+step Jail Break!
+  when onquest 4322
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1445
+  complete 4322 @52.6,76.8
+
+step Jail Break!
+  when onquest 4322
+  zone map 1428
+  turnin 4322
+
+step Helendis Riverhorn
+  zone Burning Steppes
+  accept 6402
+
+step Reginald Windsor
+  zone Stormwind City
+  turnin 6402
+
+step Reginald Windsor
+  zone Stormwind City
+  accept 6403
+
+step Highlord Bolvar Fordragon
+  zone Stormwind City
+  turnin 6403
+
+step Highlord Bolvar Fordragon
+  zone Stormwind City
+  accept 6501
+
+step Haleh
+  zone Winterspring
+  turnin 6501
+
+step Drakefire Amulet
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1452
+  accept 6502
+  complete 6502 @54.5,51.2
+
+step Drakefire Amulet
+  zone map 1452
+  turnin 6502

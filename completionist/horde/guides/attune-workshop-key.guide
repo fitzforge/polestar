@@ -1,0 +1,13 @@
+guide polestar-completionist-horde/attune-workshop-key
+title Workshop Key (Gnomeregan key or item) (Completionist)
+faction Horde
+category Dungeons
+levels 1-60
+zone Dun Morogh
+pitch Workshop Key: Opens Gnomeregan's back door, the Workshop entrance.
+why Opens Gnomeregan's back door, the Workshop entrance.
+
+step Workshop Key
+  tip Opens Gnomeregan's back door, the Workshop entrance. No quest gives it: it comes from inside Gnomeregan; the arrow leads to the entrance.
+  zone map 1426
+  collect 6893 x1 @22,38.7 map 1426 optional

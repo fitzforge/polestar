@@ -1,0 +1,296 @@
+guide polestar-completionist-horde/37-azshara
+title 37 Azshara (48-60) (Completionist)
+faction Horde
+levels 48-60
+zone Azshara
+next polestar-completionist-horde/dungeon-blackmaw-hold
+next polestar-completionist-horde/38-ungoro-crater
+pitch On along the line: Azshara, quests of level 48 to 60.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 34 quests; estimated level at the end 50.5 (heuristic XP, class quests not counted).
+# Skipped: 2 prerequisite N not in this route.
+
+step Ag'tor Bloodfist
+  getfp "Valormok"
+  accept 3505
+  accept 91568
+  accept 91569
+  accept 3517
+  accept 91488
+
+step Pay Dirt!
+  when has 246888
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1447
+  turnin 91607 direct @22.5,51.8 map 1447
+
+step Blood Elf Arcanist
+  collect 246680 x1 quest 91569.1
+
+step Makrinni Burrower
+  collect 246684 x10 quest 91568.1
+
+step Tablet of Beth'Amara
+  collect 10538 x1 quest 3517.1
+
+step Tablet of Sael'hai
+  collect 10541 x1 quest 3517.4
+
+step Blood Elf Reclaimer and Blood Elf Surveyor
+  kill 6199 x10 quest 3505.1
+  kill 6198 x10 quest 3505.2
+
+step Tablet of Markri
+  collect 10540 x1 quest 3517.3
+
+step Tablet of Jin'yael
+  collect 10539 x1 quest 3517.2
+
+step Mosshoof Runner
+  zone Ashenvale
+  collect 238463 x5 quest 91488.1
+
+step Kurll
+  zone Azshara
+  turnin 91488
+  accept 91608
+  turnin 91568
+  turnin 91569
+
+step Winter Frontier Fishery
+  zone map 1447
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 91610
+  complete 91610 @21.8,52.1
+
+step Izvi Gildfizz
+  when group 91685
+  zone Azshara
+  accept 91685
+
+step Jediga
+  turnin 3517
+  accept 3518
+  accept 3541
+  accept 3542
+  accept 3561
+
+step Winter Frontier Fishery
+  turnin 91610
+
+step Celegosa
+  when group 91685
+  zone Azshara
+  tip Ley of the Land is group work: elites. Grouping up is advised.
+  collect 246938 x1 quest 91685.1
+
+step Honey Wasp
+  collect 238503 x5 quest 91608.1
+
+step Kurll
+  turnin 91608
+
+step Izvi Gildfizz
+  when group 91685
+  zone Azshara
+  turnin 91685
+
+step Sanath Lim-yo
+  accept 3381
+
+step Return Trip
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1447
+  turnin 3421 direct optional
+
+step Thunderhead Hippogryph
+  collect 10450 x2 quest 3381.1
+
+step Sanath Lim-yo
+  turnin 3381
+
+step Meeting with the Master
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1447
+  turnin 3503 direct optional
+
+step Archmage Xylem
+  turnin 3561
+  accept 3565
+
+step Jediga
+  turnin 3565
+
+step Ekkal
+  accept 86746
+  accept 86752 @42,38.9 map 1447
+
+step Legashi Hellcaller
+  kill 6202 x5 quest 86746.3
+
+step Legashi Cauldron
+  accept 86925 @57.8,21.1 map 1447
+
+step Legashi Satyr and Legashi Rogue
+  kill 6200 x5 quest 86746.1
+  kill 6201 x5 quest 86746.2
+
+step Legashi Blackguard
+  collect 235645 x1 quest 86925.1
+
+step Level 50
+  level 50
+
+step Kurll
+  when group 91611
+  zone Azshara
+  accept 91611
+
+step Mammoth Shark
+  when group 91611
+  zone Azshara
+  tip Deadliest Catch is group work: elites. Grouping up is advised.
+  collect 238507 x1 quest 91611.1
+
+step Kurll
+  when group 91611
+  zone Azshara
+  turnin 91611
+
+step Legashi Cauldron
+  turnin 86925 @57.8,21.1 map 1447
+
+step Kim'jael
+  accept 3601
+
+step Kim'jael's Equipment
+  collect 10717 x1 quest 3601.1
+  collect 10715 x1 quest 3601.2
+  collect 10722 x1 quest 3601.3
+  collect 10718 x1 quest 3601.4
+
+step Kaldorei Tome of Summoning
+  turnin 3505
+  accept 3506
+  accept 91497
+
+step Magus Rimtori
+  collect 10597 x1 quest 3506.1
+
+step Ranger Lydrea
+  collect 246722 x1 quest 91497.3
+
+step Lieutenant Suncrest
+  collect 246725 x1 quest 91497.1
+
+step Magister Hawkhelm
+  collect 246721 x1 quest 91497.2
+
+step Sin'dorei Tome of Summoning
+  turnin 91497
+  accept 91500
+  accept 91538
+
+step Magus Rimtori
+  collect 10597 x1 quest 91500.1
+
+step Kim'jael
+  turnin 3601
+  accept 5534
+
+step Loramus Thalipedes
+  accept 91877
+
+step Spitelash Battlemaster
+  collect 13815 x1 quest 5534.1
+
+step Ekkal
+  turnin 86746
+
+step Legashi Horns
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1447
+  turnin 86747 direct
+
+step Furze
+  accept 86799 @45.4,22.4 map 1447
+
+step Gatekeeper Rageroar
+  turnin 86752 @42.4,20.9 map 1447
+  accept 92065 @42.4,20.9 map 1447
+  turnin 92065 @42.4,20.9 map 1447
+
+step Elder Bramblesnap
+  turnin 86799 @41.7,19.6 map 1447
+  accept 86804 @41.7,19.6 map 1447
+
+step Lorekeeper Nok
+  accept 92066 @41.4,20 map 1447
+  turnin 92066 @41.4,20 map 1447
+
+step Kim'jael
+  turnin 5534
+
+step Legashi Cauldron
+  turnin 86804 @57.8,21.1 map 1447
+
+step Jediga
+  turnin 91538
+  accept 91547
+  turnin 3506
+  turnin 91500
+  accept 3507
+  accept 91531
+
+step Jes'rimon
+  zone Orgrimmar
+  turnin 3541
+  accept 3563
+  turnin 91547
+
+step Zevrost
+  when group 91548
+  zone Orgrimmar
+  accept 91548
+
+step Vek'zol
+  when group 91548
+  zone Blasted Lands
+  tip Vek'zol is group work: elites. Grouping up is advised.
+  collect 246780 x1 quest 91548.1
+
+step Andron Gant
+  zone Undercity
+  turnin 3542
+
+step Maerion Thaelemaches
+  zone Mount Hyjal
+  turnin 91877 @63.3,25.9 map 2482
+
+step Jediga
+  zone Azshara
+  turnin 3563
+
+step Belgrom Rockmaul
+  zone Orgrimmar
+  turnin 3507
+  turnin 91531
+
+step Zevrost
+  when group 91548
+  zone Orgrimmar
+  turnin 91548
+
+step Magatha Grimtotem
+  zone Thunder Bluff
+  turnin 3518
+  accept 3562
+
+step Jediga
+  zone Azshara
+  turnin 3562
+
+step A Crew Under Fire
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1447
+  turnin 3382 direct optional

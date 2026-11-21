@@ -1,0 +1,168 @@
+guide polestar-completionist-alliance/30-hillsbrad-foothills-and-alterac-mountains-2
+title 30 Hillsbrad Foothills and Alterac Mountains (34-40) (Completionist)
+faction Alliance
+levels 34-40
+zone Hillsbrad Foothills
+next polestar-completionist-alliance/31-swamp-of-sorrows
+pitch On along the line: Hillsbrad Foothills and Alterac Mountains, quests of level 34 to 40.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 20 quests; estimated level at the end 35.2 (heuristic XP, class quests not counted).
+
+step Loremaster Dibbs
+  sethome "Southshore"
+  accept 540
+  accept 95798
+  accept 95799
+
+step Bartolo's Yeti Fur Cloak
+  zone map 1424
+  tip The place is where players were recorded finishing it.
+  accept 565
+  complete 565 @44.5,29.4
+
+step Shadowy Assassin
+  goto 50.1,57.9 "Shadowy Assassin"
+  accept 522 item 3668 -- Drops from Shadowy Assassin
+
+step Marshal Redpath
+  accept 500
+  turnin 522
+  accept 523
+
+step Crushridge Ogre
+  collect 2843 x9 quest 500.1
+
+step Baron Vardus
+  zone Alterac Mountains
+  collect 3626 x1 quest 523.1
+
+step Worn Wooden Chest
+  goto 39.2,14.7 "Worn Wooden Chest"
+  accept 551 item 3706 -- Found in Worn Wooden Chest
+
+step Weathered Bookcase
+  collect 3659 x1 quest 540.2
+
+step Crushridge Warmonger
+  collect 3658 x5 quest 540.1
+
+step Archmage Ansirem Runeweaver
+  accept 603
+
+step Abra Cadabra
+  turnin 95798
+
+step Syndicate Documents
+  accept 510 object 1738
+  accept 511 object 1738
+
+step Darren Malvew
+  zone Hillsbrad Foothills
+  accept 564
+
+step Hulking Mountain Lion
+  zone Alterac Mountains
+  kill 2407 x10 quest 564.2
+
+step Mountain Lion
+  kill 2406 x8 quest 564.1
+
+step Magistrate Henry Maleb
+  zone Hillsbrad Foothills
+  turnin 510
+  turnin 523
+  accept 512
+  turnin 500
+
+step Marshal Redpath
+  when group 504
+  zone Hillsbrad Foothills
+  accept 504
+
+step Loremaster Dibbs
+  turnin 511
+  turnin 540
+  turnin 551
+  accept 514
+  accept 542
+  accept 554
+  turnin 564
+
+step Bartolo's Yeti Fur Cloak
+  turnin 565
+
+step Syndicate Spy
+  zone Alterac Mountains
+  collect 3505 x7 quest 512.1
+
+step Crushridge Warmonger
+  when group 504
+  zone Alterac Mountains
+  tip Crushridge Warmongers is group work: elites. Grouping up is advised.
+  kill 2287 x15 quest 504.1
+
+step Magistrate Henry Maleb
+  zone Hillsbrad Foothills
+  turnin 512
+
+step Marshal Redpath
+  when group 504
+  zone Hillsbrad Foothills
+  turnin 504
+
+step Prospector Stormpike
+  zone Ironforge
+  turnin 514
+  turnin 554
+  accept 525
+  turnin 95799
+
+step Magistrate Henry Maleb
+  zone Hillsbrad Foothills
+  turnin 525
+  accept 537
+
+step Argus Shadow Mage
+  zone Alterac Mountains
+  kill 2318 x4 quest 537.1
+
+step Nagaz
+  collect 3672 x1 quest 537.2
+
+step Strahnbrad Mystery
+  tip Singed Note drops from Argus Shadow Mage, Syndicate Wizard: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1416
+  collect 213421 x1 optional
+  accept 95534 item 213421 optional
+  complete 95534 @48.6,59.0
+
+step Magistrate Henry Maleb
+  zone Hillsbrad Foothills
+  turnin 537
+
+step Strahnbrad Mystery
+  when onquest 95534
+  zone map 1424
+  turnin 95534
+
+step Milton Sheaf
+  zone Stormwind City
+  turnin 542
+
+step Catelyn the Blade
+  zone Stranglethorn Vale
+  turnin 603
+  accept 610
+
+step "Pretty Boy" Duncan
+  collect 4027 x1 quest 610.1
+
+step Catelyn the Blade
+  turnin 610
+  accept 611
+
+step Gazban
+  collect 4034 x1 quest 611.1
+
+step Baron Revilgaz
+  turnin 611

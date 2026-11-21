@@ -1,0 +1,1121 @@
+guide polestar-completionist-horde/dungeon-scholomance
+title Scholomance (Completionist)
+faction Horde
+category Dungeons
+levels 58-60
+zone Western Plaguelands
+next polestar-completionist-horde/50-swamp-of-sorrows-2
+pitch Scholomance, in Western Plaguelands.
+why Every Horde quest of Scholomance: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Western Plaguelands: the arrow leads to it.
+
+step Broodling Essence
+  zone Burning Steppes
+  accept 4726
+
+step Broodling Essence
+  zone Burning Steppes
+  complete 4726 @81.0,28.0
+
+step Broodling Essence
+  zone Burning Steppes
+  turnin 4726
+
+step Felnok Steelspring
+  zone Burning Steppes
+  accept 4808
+
+step Felnok Steelspring
+  zone Winterspring
+  turnin 4808
+
+step Chillwind Horns
+  zone Winterspring
+  accept 4809
+
+step Chillwind Horns
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Winterspring
+  complete 4809 @61.63,38.61
+
+step Chillwind Horns
+  zone Winterspring
+  turnin 4809
+
+step Return to Tinkee
+  zone Winterspring
+  accept 4810
+
+step Return to Tinkee
+  zone Burning Steppes
+  turnin 4810
+
+step Level 60
+  level 60
+
+step Mor'zul Bloodbringer
+  only Warlock
+  zone Stormwind City
+  accept 7562
+
+step Mor'zul Bloodbringer
+  only Warlock
+  zone Burning Steppes
+  turnin 7562
+
+step Rage of Blood
+  only Warlock
+  zone Burning Steppes
+  accept 7563
+
+step Rage of Blood
+  only Warlock
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Burning Steppes
+  complete 7563 @12.69,31.64
+
+step Rage of Blood
+  only Warlock
+  zone Burning Steppes
+  turnin 7563
+
+step Wildeyes
+  only Warlock
+  zone Burning Steppes
+  accept 7564
+
+step Wildeyes
+  only Warlock
+  zone Burning Steppes
+  turnin 7564
+
+step Lord Banehollow
+  only Warlock
+  zone Burning Steppes
+  accept 7623
+
+step Lord Banehollow
+  only Warlock
+  zone Darkshore
+  turnin 7623
+
+step Ulathek the Traitor
+  only Warlock
+  zone Darkshore
+  accept 7624
+
+step Ulathek the Traitor
+  only Warlock
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Darkshore
+  complete 7624 @51.4,66.5
+
+step Ulathek the Traitor
+  only Warlock
+  zone Darkshore
+  turnin 7624
+
+step Tinkee Steamboil
+  zone Winterspring
+  accept 4907
+
+step Tinkee Steamboil
+  zone Burning Steppes
+  turnin 4907
+
+step Pip Quickwit, At Your Service!
+  zone Western Plaguelands
+  accept 5047 @69.9,74
+
+step Pip Quickwit, At Your Service!
+  zone Winterspring
+  turnin 5047
+
+step The Matron Protectorate
+  zone Western Plaguelands
+  accept 5160 @69.9,74
+
+step The Matron Protectorate
+  zone Winterspring
+  turnin 5160
+
+step Wrath of the Blue Flight
+  zone Winterspring
+  accept 5161
+
+step Wrath of the Blue Flight
+  zone Winterspring
+  turnin 5161
+
+step Wrath of the Blue Flight
+  zone Winterspring
+  accept 5162
+
+step Wrath of the Blue Flight
+  zone Western Plaguelands
+  turnin 5162
+
+step Catalogue of the Wayward
+  zone Western Plaguelands
+  accept 5164
+
+step Catalogue of the Wayward
+  zone Western Plaguelands
+  turnin 5164
+
+step Elven Legends
+  zone Feralas
+  accept 7481
+
+step Elven Legends
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Feralas
+  complete 7481 @74.4,44
+
+step Elven Legends
+  zone Feralas
+  turnin 7481
+
+step Xorothian Stardust
+  only Warlock
+  zone Darkshore
+  accept 7625
+
+step Xorothian Stardust
+  only Warlock
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Darkshore
+  complete 7625 @51.4,66.5
+
+step Xorothian Stardust
+  only Warlock
+  zone Burning Steppes
+  turnin 7625
+
+step Bell of Dethmoora
+  only Warlock
+  zone Burning Steppes
+  accept 7626
+
+step Bell of Dethmoora
+  only Warlock
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Burning Steppes
+  complete 7626 @12.69,31.64
+
+step Bell of Dethmoora
+  only Warlock
+  zone Burning Steppes
+  turnin 7626
+
+step Wheel of the Black March
+  only Warlock
+  zone Burning Steppes
+  accept 7627
+
+step Wheel of the Black March
+  only Warlock
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Burning Steppes
+  complete 7627 @12.69,31.64
+
+step Wheel of the Black March
+  only Warlock
+  zone Burning Steppes
+  turnin 7627
+
+step Doomsday Candle
+  only Warlock
+  zone Burning Steppes
+  accept 7628
+
+step Doomsday Candle
+  only Warlock
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Burning Steppes
+  complete 7628 @12.69,31.64
+
+step Doomsday Candle
+  only Warlock
+  zone Burning Steppes
+  turnin 7628
+
+step Arcanite
+  only Warlock
+  zone Burning Steppes
+  accept 7630
+
+step Arcanite
+  only Warlock
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Burning Steppes
+  complete 7630 @12.44,31.63
+
+step Arcanite
+  only Warlock
+  zone Burning Steppes
+  turnin 7630
+
+step Material Assistance
+  only Shaman
+  zone Orgrimmar
+  accept 7667
+
+step Material Assistance
+  only Shaman
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Orgrimmar
+  complete 7667 @38.66,35.92
+
+step Material Assistance
+  only Shaman
+  zone Orgrimmar
+  turnin 7667
+
+step The Darkreaver Menace
+  only Shaman
+  when available 7668
+  tip One of several exclusive quests; the route takes The Darkreaver Menace (8258). This one shows for a character the game offers it to instead.
+  zone map 1454
+  accept 7668 optional
+
+step The Darkreaver Menace
+  only Shaman
+  when available 8258
+  tip One of several exclusive quests; the route takes The Darkreaver Menace (7668). This one shows for a character the game offers it to instead.
+  zone map 1454
+  accept 8258 optional
+
+step Egg Freezing
+  zone Burning Steppes
+  accept 4734
+
+step Egg Freezing
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Burning Steppes
+  complete 4734 @65.24,24
+
+step Egg Freezing
+  zone Burning Steppes
+  turnin 4734
+
+step Egg Collection
+  zone Burning Steppes
+  accept 4735
+
+step Egg Collection
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Burning Steppes
+  complete 4735 @65.24,24
+
+step Egg Collection
+  zone Burning Steppes
+  turnin 4735
+
+step Leonid Barthalomew
+  zone Burning Steppes
+  accept 5522
+
+step Leonid Barthalomew
+  zone Eastern Plaguelands
+  turnin 5522
+
+step Catalogue of the Wayward
+  zone Western Plaguelands
+  accept 5167
+
+step Eva Sarkhoff
+  when turnedin 5383
+  zone Western Plaguelands
+  accept 5382
+
+step Lorekeeper Lydros
+  only Orc,Undead,Tauren,Troll
+  zone Western Plaguelands
+  accept 7479 @69.9,74
+
+step Alexi Barov
+  zone Tirisfal Glades
+  accept 5341
+
+step Betina Bigglezink
+  zone Eastern Plaguelands
+  accept 5529
+
+step Leonid Barthalomew the Revered
+  zone Eastern Plaguelands
+  accept 5531
+
+step Gorzeeki Wildeyes
+  only Warlock
+  zone Burning Steppes
+  accept 7629
+
+step Malyfous's Catalogue
+  zone Winterspring
+  accept 5067
+  accept 5068
+
+step Mokvar
+  only Druid
+  zone Orgrimmar
+  accept 8913
+
+step Saving the Best for Last
+  only Mage
+  when turnedin 8998
+  zone map 1454
+  accept 9014 optional
+
+step Saving the Best for Last
+  only Warrior
+  when turnedin 8998
+  zone map 1454
+  accept 9013 optional
+
+step Saving the Best for Last
+  only Warlock
+  when turnedin 8998
+  zone map 1454
+  accept 9012 optional
+
+step Saving the Best for Last
+  only Shaman
+  when turnedin 8998
+  zone map 1454
+  accept 9011 optional
+
+step Saving the Best for Last
+  only Rogue
+  when turnedin 8998
+  zone map 1454
+  accept 9010 optional
+
+step Saving the Best for Last
+  only Priest
+  when turnedin 8998
+  zone map 1454
+  accept 9009 optional
+
+step Saving the Best for Last
+  only Hunter
+  when turnedin 8998
+  zone map 1454
+  accept 9008 optional
+
+step Saving the Best for Last
+  only Druid
+  when turnedin 8998
+  zone map 1454
+  accept 9007 optional
+
+step The Darkreaver Menace
+  only Shaman
+  when onquest 8258
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 8258 @38.7,35.9 optional
+
+step The Darkreaver Menace
+  only Shaman
+  when onquest 8258
+  zone map 1454
+  turnin 8258 optional
+
+step Inside Scholomance
+  zone Western Plaguelands
+  collect 21514 @69.9,74
+  accept 8829 item 21514
+  complete 5529 @69.9,74
+  complete 5067 @69.9,74
+  complete 5068 @69.9,74
+  complete 5167 @69.9,74
+  complete 5341 @69.9,74
+  complete 8829 @69.9,74
+
+step Inside Scholomance
+  when turnedin 5383
+  zone Western Plaguelands
+  complete 5382 @69.9,74
+
+step Inside Scholomance
+  only Orc,Undead,Tauren,Troll
+  zone Western Plaguelands
+  complete 7479 @69.9,74
+
+step Inside Scholomance
+  only Warlock
+  zone Western Plaguelands
+  complete 7629 @69.9,74
+
+step Inside Scholomance
+  only Druid
+  zone Western Plaguelands
+  complete 8913 @69.9,74
+
+step Eva Sarkhoff
+  when turnedin 5383
+  zone Western Plaguelands
+  turnin 5382
+
+step Jeziba
+  zone Western Plaguelands
+  turnin 5167
+
+step Lorekeeper Lydros
+  only Orc,Undead,Tauren,Troll
+  zone Western Plaguelands
+  turnin 7479 @69.9,74
+
+step Alexi Barov
+  zone Tirisfal Glades
+  turnin 5341
+
+step Betina Bigglezink
+  zone Eastern Plaguelands
+  turnin 5529
+  turnin 5531
+
+step Gorzeeki Wildeyes
+  only Warlock
+  zone Burning Steppes
+  turnin 7629
+
+step Aurel Goldleaf
+  zone Silithus
+  turnin 8829
+
+step Malyfous Darkhammer
+  zone Winterspring
+  turnin 5067
+  turnin 5068
+
+step Mokvar
+  only Druid
+  zone Orgrimmar
+  turnin 8913
+
+step Saving the Best for Last
+  only Mage
+  when onquest 9014
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 9014 @35.0,38.3 optional
+
+step Saving the Best for Last
+  only Mage
+  when onquest 9014
+  zone map 1454
+  turnin 9014 optional
+
+step Saving the Best for Last
+  only Warrior
+  when onquest 9013
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 9013 @35.0,38.3 optional
+
+step Saving the Best for Last
+  only Warrior
+  when onquest 9013
+  zone map 1454
+  turnin 9013 optional
+
+step Saving the Best for Last
+  only Warlock
+  when onquest 9012
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 9012 @35.0,38.3 optional
+
+step Saving the Best for Last
+  only Warlock
+  when onquest 9012
+  zone map 1454
+  turnin 9012 optional
+
+step Saving the Best for Last
+  only Shaman
+  when onquest 9011
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 9011 @35.0,38.3 optional
+
+step Saving the Best for Last
+  only Shaman
+  when onquest 9011
+  zone map 1454
+  turnin 9011 optional
+
+step Saving the Best for Last
+  only Rogue
+  when onquest 9010
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 9010 @35.0,38.3 optional
+
+step Saving the Best for Last
+  only Rogue
+  when onquest 9010
+  zone map 1454
+  turnin 9010 optional
+
+step Saving the Best for Last
+  only Priest
+  when onquest 9009
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 9009 @35.0,38.3 optional
+
+step Saving the Best for Last
+  only Priest
+  when onquest 9009
+  zone map 1454
+  turnin 9009 optional
+
+step Saving the Best for Last
+  only Hunter
+  when onquest 9008
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 9008 @35.0,38.3 optional
+
+step Saving the Best for Last
+  only Hunter
+  when onquest 9008
+  zone map 1454
+  turnin 9008 optional
+
+step Saving the Best for Last
+  only Druid
+  when onquest 9007
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 9007 @35.0,38.3 optional
+
+step Saving the Best for Last
+  only Druid
+  when onquest 9007
+  zone map 1454
+  turnin 9007 optional
+
+step Again Into the Great Ossuary
+  only Shaman
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  turnin 7669 direct optional
+
+step The Darkreaver Menace
+  only Shaman
+  when onquest 7668
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 7668 @38.7,35.9 optional
+
+step The Darkreaver Menace
+  only Shaman
+  when onquest 7668
+  zone map 1454
+  turnin 7668 optional
+
+step An Earnest Proposition
+  only Hunter
+  zone Orgrimmar
+  accept 8914
+
+step An Earnest Proposition
+  only Hunter
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Orgrimmar
+  complete 8914 @34.95,38.29
+
+step An Earnest Proposition
+  only Hunter
+  zone Orgrimmar
+  turnin 8914
+
+step An Earnest Proposition
+  only Mage
+  zone Orgrimmar
+  accept 8915
+
+step An Earnest Proposition
+  only Mage
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Orgrimmar
+  complete 8915 @34.95,38.29
+
+step An Earnest Proposition
+  only Mage
+  zone Orgrimmar
+  turnin 8915
+
+step An Earnest Proposition
+  only Priest
+  zone Orgrimmar
+  accept 8916
+
+step An Earnest Proposition
+  only Priest
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Orgrimmar
+  complete 8916 @34.95,38.29
+
+step An Earnest Proposition
+  only Priest
+  zone Orgrimmar
+  turnin 8916
+
+step An Earnest Proposition
+  only Rogue
+  zone Orgrimmar
+  accept 8917
+
+step An Earnest Proposition
+  only Rogue
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Orgrimmar
+  complete 8917 @34.95,38.29
+
+step An Earnest Proposition
+  only Rogue
+  zone Orgrimmar
+  turnin 8917
+
+step Eva Sarkhoff
+  when turnedin 5382
+  zone Western Plaguelands
+  accept 5515
+
+step Betina Bigglezink
+  zone Eastern Plaguelands
+  accept 4771
+
+step Mokvar
+  only Shaman
+  zone Orgrimmar
+  accept 8918
+
+step Inside Scholomance, again
+  zone Western Plaguelands
+  collect 13920 @69.9,74
+  accept 5582 item 13920
+  complete 4771 @69.9,74
+
+step Inside Scholomance
+  when turnedin 5382
+  zone Western Plaguelands
+  complete 5515 @69.9,74
+
+step Inside Scholomance
+  only Shaman
+  zone Western Plaguelands
+  complete 8918 @69.9,74
+
+step Eva Sarkhoff
+  when turnedin 5382
+  zone Western Plaguelands
+  turnin 5515
+
+step Betina Bigglezink
+  zone Eastern Plaguelands
+  turnin 5582
+  turnin 4771
+
+step Anthion's Parting Words
+  only Warlock
+  when turnedin 9015
+  zone map 1423
+  accept 9021 optional
+
+step Anthion's Parting Words
+  only Rogue
+  when turnedin 9015
+  zone map 1423
+  accept 9020 optional
+
+step Anthion's Parting Words
+  only Mage
+  when turnedin 9015
+  zone map 1423
+  accept 9018 optional
+
+step Mokvar
+  only Shaman
+  zone Orgrimmar
+  turnin 8918
+
+step Anthion's Parting Words
+  only Warlock
+  when onquest 9021
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 9021 @26.1,11.3 optional
+
+step Anthion's Parting Words
+  only Warlock
+  when onquest 9021
+  zone map 1454
+  turnin 9021 optional
+
+step Anthion's Parting Words
+  only Rogue
+  when onquest 9020
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 9020 @26.1,11.3 optional
+
+step Anthion's Parting Words
+  only Rogue
+  when onquest 9020
+  zone map 1454
+  turnin 9020 optional
+
+step Anthion's Parting Words
+  only Mage
+  when onquest 9018
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 9018 @26.1,11.3 optional
+
+step Anthion's Parting Words
+  only Mage
+  when onquest 9018
+  zone map 1454
+  turnin 9018 optional
+
+step An Earnest Proposition
+  only Warlock
+  zone Orgrimmar
+  accept 8919
+
+step An Earnest Proposition
+  only Warlock
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Orgrimmar
+  complete 8919 @34.95,38.29
+
+step An Earnest Proposition
+  only Warlock
+  zone Orgrimmar
+  turnin 8919
+
+step An Earnest Proposition
+  only Warrior
+  zone Orgrimmar
+  accept 8920
+
+step An Earnest Proposition
+  only Warrior
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Orgrimmar
+  complete 8920 @34.95,38.29
+
+step An Earnest Proposition
+  only Warrior
+  zone Orgrimmar
+  turnin 8920
+
+step A Supernatural Device
+  zone Orgrimmar
+  accept 8923
+
+step A Supernatural Device
+  zone Tanaris
+  turnin 8923
+
+step The Ectoplasmic Distiller
+  zone Tanaris
+  accept 8921
+
+step The Ectoplasmic Distiller
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 8921 @52.47,27.23
+
+step The Ectoplasmic Distiller
+  zone Tanaris
+  turnin 8921
+
+step Hunting for Ectoplasm
+  zone Tanaris
+  accept 8924
+
+step Hunting for Ectoplasm
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 8924 @52.47,27.23
+
+step Hunting for Ectoplasm
+  zone Tanaris
+  turnin 8924
+
+step A Portable Power Source
+  zone Tanaris
+  accept 8925
+
+step A Portable Power Source
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 8925 @52.47,27.23
+
+step A Portable Power Source
+  zone Tanaris
+  turnin 8925
+
+step A Shifty Merchant
+  zone Tanaris
+  accept 8928
+
+step A Shifty Merchant
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 8928 @52.47,27.23
+
+step A Shifty Merchant
+  zone Tanaris
+  turnin 8928
+
+step Return to Mokvar
+  zone Tanaris
+  accept 8978
+
+step Return to Mokvar
+  zone Orgrimmar
+  turnin 8978
+
+step Just Compensation
+  only Druid
+  zone Orgrimmar
+  accept 8927
+
+step Just Compensation
+  only Druid
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Orgrimmar
+  complete 8927 @34.95,38.29
+
+step Just Compensation
+  only Druid
+  zone Orgrimmar
+  turnin 8927
+
+step Just Compensation
+  only Hunter
+  zone Orgrimmar
+  accept 8938
+
+step Just Compensation
+  only Hunter
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Orgrimmar
+  complete 8938 @34.95,38.29
+
+step Just Compensation
+  only Hunter
+  zone Orgrimmar
+  turnin 8938
+
+step Just Compensation
+  only Mage
+  zone Orgrimmar
+  accept 8939
+
+step Just Compensation
+  only Mage
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Orgrimmar
+  complete 8939 @34.95,38.29
+
+step Just Compensation
+  only Mage
+  zone Orgrimmar
+  turnin 8939
+
+step Just Compensation
+  only Priest
+  zone Orgrimmar
+  accept 8940
+
+step Just Compensation
+  only Priest
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Orgrimmar
+  complete 8940 @34.95,38.29
+
+step Just Compensation
+  only Priest
+  zone Orgrimmar
+  turnin 8940
+
+step Just Compensation
+  only Rogue
+  zone Orgrimmar
+  accept 8941
+
+step Just Compensation
+  only Rogue
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Orgrimmar
+  complete 8941 @34.95,38.29
+
+step Just Compensation
+  only Rogue
+  zone Orgrimmar
+  turnin 8941
+
+step Just Compensation
+  only Shaman
+  zone Orgrimmar
+  accept 8942
+
+step Just Compensation
+  only Shaman
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Orgrimmar
+  complete 8942 @34.95,38.29
+
+step Just Compensation
+  only Shaman
+  zone Orgrimmar
+  turnin 8942
+
+step Eva Sarkhoff
+  when turnedin 5515
+  zone Western Plaguelands
+  accept 5384
+
+step Mokvar
+  only Warlock
+  zone Orgrimmar
+  accept 8943
+
+step Inside Scholomance
+  when turnedin 5515
+  zone Western Plaguelands
+  complete 5384 @69.9,74
+
+step Inside Scholomance
+  only Warlock
+  zone Western Plaguelands
+  complete 8943 @69.9,74
+
+step Eva Sarkhoff
+  when turnedin 5515
+  zone Western Plaguelands
+  turnin 5384
+
+step Mokvar
+  only Warlock
+  zone Orgrimmar
+  turnin 8943
+
+step The Human, Ras Frostwhisper
+  when turnedin 5384
+  zone Western Plaguelands
+  accept 5461
+
+step The Human, Ras Frostwhisper
+  when turnedin 5384
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Western Plaguelands
+  complete 5461 @70.57,74.11
+
+step The Human, Ras Frostwhisper
+  when turnedin 5384
+  zone Western Plaguelands
+  turnin 5461
+
+step The Dying, Ras Frostwhisper
+  when turnedin 5461
+  zone Western Plaguelands
+  accept 5462
+
+step The Dying, Ras Frostwhisper
+  when turnedin 5461
+  zone Eastern Plaguelands
+  turnin 5462
+
+step Menethil's Gift
+  when turnedin 5462
+  zone Eastern Plaguelands
+  accept 5463
+
+step Menethil's Gift
+  when turnedin 5462
+  zone Western Plaguelands
+  turnin 5463 @69.9,74
+
+step Menethil's Gift
+  when turnedin 5463
+  zone Western Plaguelands
+  accept 5464 @69.9,74
+
+step Menethil's Gift
+  when turnedin 5463
+  zone Eastern Plaguelands
+  turnin 5464
+
+step Soulbound Keepsake
+  when turnedin 5464
+  zone Eastern Plaguelands
+  accept 5465
+
+step Soulbound Keepsake
+  when turnedin 5464
+  zone Western Plaguelands
+  turnin 5465
+
+step Magistrate Marduke
+  when turnedin 5465
+  zone Western Plaguelands
+  accept 5466
+
+step Inside Scholomance
+  when turnedin 5465
+  zone Western Plaguelands
+  complete 5466 @69.9,74
+
+step Magistrate Marduke
+  when turnedin 5465
+  zone Western Plaguelands
+  turnin 5466
+
+
+step The Right Piece of Lord Valthalak's Amulet
+  when available 8992
+  tip One of several exclusive quests; the route takes The Right Piece of Lord Valthalak's Amulet (8989). This one shows for a character the game offers it to instead.
+  when turnedin 8985
+  zone map 1427
+  accept 8992 optional
+
+step The Right Piece of Lord Valthalak's Amulet
+  when onquest 8992
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1427
+  complete 8992 @39.8,96.5 optional
+
+step The Right Piece of Lord Valthalak's Amulet
+  when onquest 8992
+  zone map 1427
+  turnin 8992 optional
+
+step The Left Piece of Lord Valthalak's Amulet
+  when available 8969
+  tip One of several exclusive quests; the route takes The Left Piece of Lord Valthalak's Amulet (8966). This one shows for a character the game offers it to instead.
+  when turnedin 8962
+  zone map 1427
+  accept 8969 optional
+
+step The Left Piece of Lord Valthalak's Amulet
+  when onquest 8969
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1427
+  complete 8969 @39.8,96.5 optional
+
+step The Left Piece of Lord Valthalak's Amulet
+  when onquest 8969
+  zone map 1427
+  turnin 8969 optional

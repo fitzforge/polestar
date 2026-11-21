@@ -1,0 +1,640 @@
+guide polestar-completionist-horde/dungeon-blackrock-depths
+title Blackrock Depths (Completionist)
+faction Horde
+category Dungeons
+levels 1-60
+zone Searing Gorge
+next polestar-completionist-horde/41-tirisfal-glades-and-the-undercity-4
+pitch Blackrock Depths, in Searing Gorge.
+why Every Horde quest of Blackrock Depths: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Searing Gorge: the arrow leads to it.
+
+step Level 40
+  level 40
+
+step Divine Retribution
+  zone Searing Gorge
+  accept 3441
+
+step Divine Retribution
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Searing Gorge
+  complete 3441 @39.06,38.99
+
+step Divine Retribution
+  zone Searing Gorge
+  turnin 3441
+
+step The Flawless Flame
+  zone Searing Gorge
+  accept 3442
+
+step The Flawless Flame
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Searing Gorge
+  complete 3442 @39.06,38.99
+
+step The Flawless Flame
+  zone Searing Gorge
+  turnin 3442
+
+step Forging the Shaft
+  zone Searing Gorge
+  accept 3443
+
+step Forging the Shaft
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Searing Gorge
+  complete 3443 @39.06,38.99
+
+step Forging the Shaft
+  zone Searing Gorge
+  turnin 3443
+
+step The Flame's Casing
+  zone Searing Gorge
+  accept 3452
+
+step The Flame's Casing
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Searing Gorge
+  complete 3452 @39.06,38.99
+
+step The Flame's Casing
+  zone Searing Gorge
+  turnin 3452
+
+step The Torch of Retribution
+  zone Searing Gorge
+  accept 3453
+
+step The Torch of Retribution
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Searing Gorge
+  complete 3453 @39.06,38.99
+
+step The Torch of Retribution
+  zone Searing Gorge
+  turnin 3453
+
+step The Torch of Retribution
+  zone Searing Gorge
+  accept 3454
+
+step The Torch of Retribution
+  zone Searing Gorge
+  turnin 3454
+
+step Squire Maltrake
+  zone Searing Gorge
+  accept 3462
+
+step Squire Maltrake
+  zone Searing Gorge
+  turnin 3462
+
+step Set Them Ablaze!
+  zone Searing Gorge
+  accept 3463
+
+step Set Them Ablaze!
+  zone Searing Gorge
+  complete 3463 @35.67,60.68
+
+step Set Them Ablaze!
+  zone Searing Gorge
+  turnin 3463
+
+step Level 45
+  level 45
+
+step What the Flux?
+  zone Searing Gorge
+  accept 7722
+
+step What the Flux?
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Searing Gorge
+  complete 7722 @38.8,28.51
+
+step What the Flux?
+  zone Searing Gorge
+  turnin 7722
+
+step Restoring Fiery Flux Supplies via Heavy Leather
+  tip Needs Neutral standing (1) with Thorium Brotherhood; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1427
+  collect 18944 x2 anywhere optional
+  collect 4234 x10 anywhere optional
+  collect 3857 x1 anywhere optional
+  turnin 8242 direct optional
+
+step Restoring Fiery Flux Supplies via Iron
+  tip Needs Neutral standing (1) with Thorium Brotherhood; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1427
+  collect 18944 x2 anywhere optional
+  collect 3575 x4 anywhere optional
+  collect 3857 x1 anywhere optional
+  turnin 8241 direct optional
+
+step Restoring Fiery Flux Supplies via Kingsblood
+  tip Needs Neutral standing (1) with Thorium Brotherhood; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1427
+  collect 18944 x2 anywhere optional
+  collect 3356 x4 anywhere optional
+  collect 3857 x1 anywhere optional
+  turnin 7736 direct optional
+
+step Level 48
+  level 48
+
+step Disharmony of Flame
+  zone Badlands
+  accept 3906
+
+step Disharmony of Flame
+  zone Searing Gorge
+  complete 3906 @25.4,80.1
+
+step Disharmony of Flame
+  zone Badlands
+  turnin 3906
+
+step Level 52
+  level 52
+
+step The Rise of the Machines
+  zone Badlands
+  accept 4061
+
+step The Rise of the Machines
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Badlands
+  complete 4061 @3.02,47.81
+
+step The Rise of the Machines
+  zone Badlands
+  turnin 4061
+
+step The Rise of the Machines
+  zone Badlands
+  accept 4062
+
+step The Rise of the Machines
+  zone Badlands
+  turnin 4062
+
+step Level 58
+  level 58
+
+step An Earnest Proposition
+  only Druid
+  zone Orgrimmar
+  accept 8913
+
+step An Earnest Proposition
+  only Druid
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Orgrimmar
+  complete 8913 @34.95,38.29
+
+step An Earnest Proposition
+  only Druid
+  zone Orgrimmar
+  turnin 8913
+
+step An Earnest Proposition
+  only Hunter
+  zone Orgrimmar
+  accept 8914
+
+step An Earnest Proposition
+  only Hunter
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Orgrimmar
+  complete 8914 @34.95,38.29
+
+step An Earnest Proposition
+  only Hunter
+  zone Orgrimmar
+  turnin 8914
+
+step An Earnest Proposition
+  only Mage
+  zone Orgrimmar
+  accept 8915
+
+step An Earnest Proposition
+  only Mage
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Orgrimmar
+  complete 8915 @34.95,38.29
+
+step An Earnest Proposition
+  only Mage
+  zone Orgrimmar
+  turnin 8915
+
+step An Earnest Proposition
+  only Priest
+  zone Orgrimmar
+  accept 8916
+
+step An Earnest Proposition
+  only Priest
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Orgrimmar
+  complete 8916 @34.95,38.29
+
+step An Earnest Proposition
+  only Priest
+  zone Orgrimmar
+  turnin 8916
+
+step An Earnest Proposition
+  only Rogue
+  zone Orgrimmar
+  accept 8917
+
+step An Earnest Proposition
+  only Rogue
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Orgrimmar
+  complete 8917 @34.95,38.29
+
+step An Earnest Proposition
+  only Rogue
+  zone Orgrimmar
+  turnin 8917
+
+step An Earnest Proposition
+  only Shaman
+  zone Orgrimmar
+  accept 8918
+
+step An Earnest Proposition
+  only Shaman
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Orgrimmar
+  complete 8918 @34.95,38.29
+
+step An Earnest Proposition
+  only Shaman
+  zone Orgrimmar
+  turnin 8918
+
+step An Earnest Proposition
+  only Warlock
+  zone Orgrimmar
+  accept 8919
+
+step An Earnest Proposition
+  only Warlock
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Orgrimmar
+  complete 8919 @34.95,38.29
+
+step An Earnest Proposition
+  only Warlock
+  zone Orgrimmar
+  turnin 8919
+
+step An Earnest Proposition
+  only Warrior
+  zone Orgrimmar
+  accept 8920
+
+step An Earnest Proposition
+  only Warrior
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Orgrimmar
+  complete 8920 @34.95,38.29
+
+step An Earnest Proposition
+  only Warrior
+  zone Orgrimmar
+  turnin 8920
+
+step A Supernatural Device
+  zone Orgrimmar
+  accept 8923
+
+step A Supernatural Device
+  zone Tanaris
+  turnin 8923
+
+step Trinkets...
+  zone Searing Gorge
+  accept 3481
+
+step Trinkets...
+  zone Searing Gorge
+  turnin 3481
+
+step A Taste of Flame
+  zone Burning Steppes
+  accept 4022
+
+step A Taste of Flame
+  when available 4023
+  tip One of several exclusive quests; the route takes A Taste of Flame (4022). This one shows for a character the game offers it to instead.
+  zone map 1428
+  accept 4023 optional
+
+step A Taste of Flame
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Burning Steppes
+  complete 4022 @95.09,31.56
+
+step A Taste of Flame
+  zone Burning Steppes
+  turnin 4022
+
+step A Taste of Flame
+  when onquest 4023
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1428
+  complete 4023 @95.1,31.6 optional
+
+step A Taste of Flame
+  when onquest 4023
+  zone map 1428
+  turnin 4023 optional
+
+step The Ectoplasmic Distiller
+  zone Tanaris
+  accept 8921
+
+step The Ectoplasmic Distiller
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 8921 @52.47,27.23
+
+step The Ectoplasmic Distiller
+  zone Tanaris
+  turnin 8921
+
+step Hunting for Ectoplasm
+  zone Tanaris
+  accept 8924
+
+step Hunting for Ectoplasm
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 8924 @52.47,27.23
+
+step Hunting for Ectoplasm
+  zone Tanaris
+  turnin 8924
+
+step Master Smith Burninate
+  zone Searing Gorge
+  accept 7737
+
+step Alaana Stormwalker
+  zone Mulgore
+  accept 97197
+
+step Galamav the Marksman
+  zone Badlands
+  accept 3981
+
+step Lotwil Veriatus
+  zone Badlands
+  accept 4063
+
+step Shadowmage Vivian Lagrave
+  zone Badlands
+  accept 7201
+
+step Thunderheart
+  zone Badlands
+  accept 3907
+
+step WANTED
+  zone Badlands
+  accept 4081
+
+step Cyrus Therepentous
+  zone Burning Steppes
+  accept 4024
+
+step Mathredis Firestar
+  zone Burning Steppes
+  accept 4463
+  accept 4481
+  accept 4482
+  accept 4483
+  accept 4484
+
+step Maxwort Uberglint
+  zone Burning Steppes
+  accept 4123
+
+step Yorba Screwspigot
+  zone Tanaris
+  accept 4324
+
+step Apothecary Zinge
+  zone Undercity
+  accept 4133
+
+step Inside Blackrock Depths
+  zone Searing Gorge
+  accept 4295 @34.8,85.3
+  accept 4201 @34.8,85.3
+  accept 4083 @34.8,85.3
+  collect 18628 @34.8,85.3
+  complete 4295 @34.8,85.3
+  turnin 4295 @34.8,85.3
+  turnin 3981 @34.8,85.3
+  complete 4081 @34.8,85.3
+  complete 4201 @34.8,85.3
+  turnin 4201 @34.8,85.3
+  complete 7201 @34.8,85.3
+  complete 4083 @34.8,85.3
+  turnin 4083 @34.8,85.3
+  complete 4123 @34.8,85.3
+  complete 4463 @34.8,85.3
+  complete 4481 @34.8,85.3
+  complete 4482 @34.8,85.3
+  complete 4483 @34.8,85.3
+  complete 4484 @34.8,85.3
+  complete 97197 @34.8,85.3
+  complete 3907 @34.8,85.3
+  complete 4024 @34.8,85.3
+  complete 4063 @34.8,85.3
+  complete 7737 @34.8,85.3
+
+step Master Smith Burninate
+  zone Searing Gorge
+  turnin 7737
+
+step Alaana Stormwalker
+  zone Mulgore
+  turnin 97197
+
+step Lotwil Veriatus
+  zone Badlands
+  turnin 4063
+
+step Shadowmage Vivian Lagrave
+  zone Badlands
+  turnin 7201
+  turnin 4133
+
+step Thunderheart
+  zone Badlands
+  turnin 3907
+
+step Warlord Goretooth
+  zone Badlands
+  turnin 4081
+
+step Yuka Screwspigot
+  zone Badlands
+  turnin 4324
+
+step Cyrus Therepentous
+  zone Burning Steppes
+  turnin 4024
+
+step Mathredis Firestar
+  zone Burning Steppes
+  turnin 4463
+  turnin 4481
+  turnin 4482
+  turnin 4483
+  turnin 4484
+
+step Maxwort Uberglint
+  zone Burning Steppes
+  turnin 4123
+
+step KILL ON SIGHT
+  zone Badlands
+  accept 4082
+
+step Shadowmage Vivian Lagrave
+  zone Badlands
+  accept 4134
+
+step Yuka Screwspigot
+  zone Badlands
+  accept 4136
+
+step Inside Blackrock Depths, again
+  zone Searing Gorge
+  accept 3982 @34.8,85.3
+  complete 4136 @34.8,85.3
+  complete 3982 @34.8,85.3
+  turnin 3982 @34.8,85.3
+  complete 4082 @34.8,85.3
+  complete 4134 @34.8,85.3
+
+step Shadowmage Vivian Lagrave
+  zone Badlands
+  turnin 4134
+
+step Warlord Goretooth
+  zone Badlands
+  turnin 4082
+
+step Yuka Screwspigot
+  zone Badlands
+  turnin 4136
+
+step Lexlort
+  zone Badlands
+  accept 4122
+
+step Inside Blackrock Depths, again
+  zone Searing Gorge
+  accept 4001 @34.8,85.3
+  complete 4001 @34.8,85.3
+
+step Grark Lorkrub
+  zone Burning Steppes
+  turnin 4122
+
+step Thrall
+  zone Orgrimmar
+  turnin 4001
+
+step Grark Lorkrub
+  zone Burning Steppes
+  accept 4121
+
+step Thrall
+  zone Orgrimmar
+  accept 4002
+
+step Inside Blackrock Depths, again
+  zone Searing Gorge
+  complete 4121 @34.8,85.3
+
+step Lexlort
+  zone Badlands
+  turnin 4121
+
+step Thrall
+  zone Orgrimmar
+  turnin 4002
+
+step Warlord Goretooth
+  zone Badlands
+  accept 4132
+
+step Thrall
+  zone Orgrimmar
+  accept 4003
+
+step Inside Blackrock Depths, again
+  zone Searing Gorge
+  complete 4132 @34.8,85.3
+  complete 4003 @34.8,85.3
+  turnin 4003 @34.8,85.3
+
+step Warlord Goretooth
+  zone Badlands
+  turnin 4132
+
+step Level 60
+  level 60
+
+step Inside Blackrock Depths
+  zone Searing Gorge
+  accept 7604 item 18628
+  complete 7604 @34.8,85.3
+  turnin 7604 @34.8,85.3
+
+step Inside Blackrock Depths, again
+  zone Searing Gorge
+  accept 4004 @34.8,85.3
+
+step Thrall
+  zone Orgrimmar
+  turnin 4004
+
+
+step The Challenge
+  when turnedin 8950
+  tip The giver stands inside the instance: the arrow leads to its entrance.
+  zone map 1427
+  accept 9015 @34.8,85.3
+
+step The Challenge
+  when onquest 9015
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1427
+  complete 9015 @34.8,85.3
+
+step The Challenge
+  when onquest 9015
+  zone map 1423
+  turnin 9015

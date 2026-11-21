@@ -1,0 +1,238 @@
+guide polestar-completionist-alliance/45-searing-gorge
+title 45 Searing Gorge (45-55) (Completionist)
+faction Alliance
+levels 45-55
+zone Searing Gorge
+next polestar-completionist-alliance/dungeon-maraudon
+next polestar-completionist-alliance/46-odd-jobs-in-the-eastern-kingdoms-3
+pitch On along the line: Searing Gorge, quests of level 45 to 55.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 15 quests; estimated level at the end 46.1 (heuristic XP, class quests not counted).
+# Skipped: 1 profession.
+
+step Hansel Heavyhands
+  getfp "Thorium Point"
+  accept 7723
+  accept 7724
+  accept 7727
+  accept 7728
+  accept 7729
+
+step Wanted/Missing/Lost & Found
+  when group 7701
+  zone Searing Gorge
+  accept 7701
+
+step Searing Lava Spider
+  kill 5858 x20 quest 7724.1
+
+step Dark Iron Lookout
+  collect 18960 x1 quest 7728.2
+
+step Heavy War Golem
+  kill 5854 x20 quest 7723.1
+
+step Dark Iron Steamsmith
+  collect 18959 x1 quest 7728.1
+
+step Dark Iron Slaver
+  kill 5844 x15 quest 7729.2
+
+step Overseer Maltorius
+  when group 7701
+  zone Searing Gorge
+  tip WANTED: Overseer Maltorius is group work: elites. Grouping up is advised.
+  collect 18946 x1 quest 7701.1
+
+step Dark Iron Taskmaster
+  kill 5846 x15 quest 7729.1
+
+step Incendosaur
+  kill 9318 x20 quest 7727.1
+
+step Taskmaster Scrange
+  turnin 7728
+  turnin 7729
+  turnin 7723
+  turnin 7724
+  turnin 7727
+
+step Lookout Captain Lolo Longstriker
+  when group 7701
+  zone Searing Gorge
+  turnin 7701
+
+step Weathered Etching
+  accept 81900
+
+step Dorius Stonetender
+  accept 3367
+  accept 4449
+
+step Dark Iron Geologist
+  kill 5839 x8 quest 4449.1
+
+step Singed Letter
+  turnin 3367
+  accept 3368
+
+step Ratchet Bruiser
+  zone The Barrens
+  collect 4306 x15 quest 4449.2
+
+step Bloodmage Lynnore
+  zone Blasted Lands
+  turnin 81900
+
+step Wooden Outhouse
+  zone Searing Gorge
+  turnin 4449
+  accept 4450
+
+step Goodsteel Ledger
+  collect 11727 x1 quest 4450.1
+
+step Glassweb Spider
+  collect 11725 x20 quest 4450.2
+
+step Jarquia
+  zone Swamp of Sorrows
+  collect 11723 x1 quest 4450.4
+
+step Damaged Crate
+  zone Dustwallow Marsh
+  collect 11724 x1 quest 4450.3
+
+step Krinkle Goodsteel
+  zone Tanaris
+  turnin 4450
+
+step Curator Thorius
+  zone Ironforge
+  turnin 3368
+  accept 3371
+
+step Dying Archaeologist
+  zone Searing Gorge
+  turnin 3371
+  accept 3372
+
+step Twilight Artifact
+  collect 10442 x1 quest 3372.1
+
+step Altar of Suntara
+  turnin 3372
+
+step Dying Archaeologist
+  when group 3566
+  zone Searing Gorge
+  accept 3566
+
+step Lathoric the Black and Obsidion
+  when group 3566
+  zone Searing Gorge
+  tip Rise, Obsidion! is group work: elites. Grouping up is advised.
+  collect 10447 x1 quest 3566.1
+  collect 10446 x1 quest 3566.2
+
+step Curator Thorius
+  when group 3566
+  zone Ironforge
+  turnin 3566
+
+step Shadoweaver
+  when skill Tailoring 1
+  zone map 1427
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 3379 optional
+  complete 3379 @41.0,75.0 optional
+
+step Shadoweaver
+  when skill Tailoring 1
+  turnin 3379 optional
+
+step The Undermarket
+  when skill Tailoring 1
+  zone map 1427
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 3385 optional
+  complete 3385 @41.0,75.0 optional
+
+step The Undermarket
+  when skill Tailoring 1
+  turnin 3385 optional
+
+step The Undermarket
+  when skill Tailoring 1
+  zone map 1427
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 3402 optional
+
+step The Undermarket
+  when skill Tailoring 1
+  turnin 3402 optional
+
+step Prayer to Elune
+  zone map 1427
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 3377
+  complete 3377 @29.6,26.3
+
+step Prayer to Elune
+  turnin 3377
+
+step Zamael Lunthistle
+  when group 3378
+  zone Searing Gorge
+  accept 3378
+
+step Twilight Fire Guard
+  when group 3378
+  zone Searing Gorge
+  tip Prayer to Elune is group work: elites. Grouping up is advised.
+  collect 10458 x1 quest 3378.1
+
+step Astarii Starseeker
+  when group 3378
+  zone Darnassus
+  turnin 3378
+
+step The Key to Freedom
+  tip Grimesilt Outhouse Key drops from Dark Iron Steamsmith, Dark Iron Slaver, Dark Iron Taskmaster: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1427
+  collect 11818 x1 optional
+  accept 4451 item 11818 optional
+
+step Elemental Leatherworking
+  when available 5144
+  tip One of several exclusive quests; the route takes Dragonscale Leatherworking (5141). This one shows for a character the game offers it to instead.
+  when skill Leatherworking 225
+  zone map 1427
+  accept 5144 optional
+
+step Elemental Leatherworking
+  when onquest 5144
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1427
+  complete 5144 @63.6,76.0 optional
+
+step Elemental Leatherworking
+  when onquest 5144
+  zone map 1427
+  turnin 5144 optional
+
+step The Key to Freedom
+  when onquest 4451
+  zone map 1427
+  turnin 4451
+
+step Look at the Size of It!
+  when has 18950
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1427
+  accept 7704 item 18950
+
+step Look at the Size of It!
+  when onquest 7704
+  zone map 1427
+  turnin 7704

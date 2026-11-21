@@ -1,0 +1,73 @@
+guide polestar-completionist-horde/44-moonglade
+title 44 Moonglade (55-60) (Completionist)
+faction Horde
+levels 55-60
+zone Moonglade
+next polestar-completionist-horde/45-mount-hyjal
+pitch On along the line: Moonglade, quests of level 55 to 60.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 8 quests; estimated level at the end 55.3 (heuristic XP, class quests not counted).
+
+step Moonglade
+  zone Moonglade
+  getfp "Moonglade"
+
+step Rabine Saturna
+  zone Moonglade
+  accept 1124
+
+step Layo Starstrike
+  zone Un'Goro Crater
+  turnin 1124
+  accept 1125
+
+step Tortured Druid and Tortured Sentinel
+  zone Silithus
+  kill 12178 x8 quest 1125.1
+  kill 12179 x8 quest 1125.2
+
+step Layo Starstrike
+  zone Un'Goro Crater
+  turnin 1125
+  accept 1126
+
+step Hive'Ashi Ambusher
+  zone Silithus
+  collect 17346 x1 quest 1126.1
+
+step Layo Starstrike
+  zone Un'Goro Crater
+  turnin 1126
+  accept 6844
+
+step Umber
+  zone Moonglade
+  turnin 6844
+  accept 6845
+
+step Level 60
+  level 60
+
+step Ysondre
+  zone The Hinterlands
+  accept 8446 item 20644 -- Drops from Ysondre
+
+step Keeper Remulos
+  zone Moonglade
+  turnin 8446
+
+step Keeper Remulos
+  zone Moonglade
+  accept 8447
+
+step Keeper Remulos
+  zone Moonglade
+  complete 8447 @40,48.6 map 1450
+  turnin 8447
+
+step Rabine Saturna
+  turnin 6845
+
+step Umber
+  accept 1185
+  turnin 1185

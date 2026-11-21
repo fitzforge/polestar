@@ -1,0 +1,788 @@
+guide polestar-completionist-alliance/34-riverglades
+title 34 Riverglades (36-47) (Completionist)
+faction Alliance
+levels 36-47
+zone Riverglades
+next polestar-completionist-alliance/dungeon-kroldok-stronghold
+next polestar-completionist-alliance/35-undercity-2
+pitch On along the line: Riverglades, quests of level 36 to 47.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 61 quests; estimated level at the end 42.2 (heuristic XP, class quests not counted).
+# Skipped: 5 prerequisite N not in this route.
+
+step Sister Rowland
+  sethome "Farholde Keep"
+  getfp "Farholde Keep"
+  accept 95603
+
+step Foreman's Plight
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 95943
+  complete 95943 @63.4,80.6
+
+step Roosting Duskbat
+  kill 262037 x5 quest 95603.1
+
+step Sister Rowland
+  turnin 95603
+  accept 95613
+
+step Foreman's Plight
+  turnin 95943
+
+step High Stakes
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 96009
+  complete 96009 @63.4,80.6
+
+step Picked Carcass
+  accept 95983
+
+step Dawn Brightstar
+  zone Elwynn Forest
+  buy 17028 x5 npc 958 -- for Keeping the Light On
+
+step Scout Bolain
+  zone Riverglades
+  accept 95147
+
+step Gelinda Coppergleam
+  accept 95792
+
+step Proof of Profit
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 95934
+  complete 95934 @30.2,69.1
+
+step Cinderscale Whelp and Cinderscale Warrior
+  kill 262473 x8 quest 95792.1
+  kill 262477 x4 quest 95792.2
+
+step Gelinda Coppergleam
+  turnin 95792
+
+step Proof of Profit
+  turnin 95934
+
+step Cedric Dalton
+  turnin 95147
+  accept 94678
+  accept 95148
+
+step Hail the Dragonslayer
+  when has 271612
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 2548
+  turnin 95935 direct
+
+step Cedric Dalton
+  when group 94679
+  zone Riverglades
+  accept 94679
+
+step Redridge Mystic, Redridge Trapper and Snargl
+  kill 255770 x8 quest 94678.1
+  kill 255772 x8 quest 94678.2
+
+step Redridge Mystic, Redridge Trapper and Snargl
+  when group 94679
+  zone Riverglades
+  tip Snargl's Snout is group work: elites. Grouping up is advised.
+  collect 265357 x1 quest 94679.1
+
+step Redridge Brute
+  zone Redridge Mountains
+  kill 255769 x6 quest 94678.3
+
+step Cedric Dalton
+  zone Riverglades
+  turnin 94678
+
+step Cedric Dalton
+  when group 94679
+  zone Riverglades
+  turnin 94679
+
+step Eleanor Holmsby
+  accept 94999
+
+step Hats Off
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 94923
+  complete 94923 @43.3,82.7
+
+step Hats Off
+  turnin 94923
+
+step Curly
+  accept 94857
+
+step Hurley
+  turnin 94857
+
+step Stolen Saws
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 94931
+  complete 94931 @41.2,62.9
+
+step Helping Hands
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 94861
+  complete 94861 @41.4,64.5
+
+step Stolen Saws
+  turnin 94931
+
+step Unsavory Plant Food
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 94842
+  complete 94842 @41.2,62.9
+
+step Helping Hands
+  turnin 94861
+
+step Watcher Fredericks
+  turnin 94999
+
+step Benjy Wheeler
+  accept 94614
+
+step Mudfin Oracle
+  kill 258573 x8 quest 94614.2
+
+step Mudfin Warrior
+  kill 258574 x8 quest 94614.1
+
+step Fuzzle
+  accept 94961
+
+step Abominable Magics
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 95642
+  complete 95642 @47.6,47.2
+
+step Twilight Instigator
+  collect 267073 x20 quest 94961.1
+
+step Friz Frazzlespark
+  accept 95059
+  accept 95254
+
+step Not My Circus
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 95982
+  complete 95982 @76.0,52.6
+
+step Gaseous Gold
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 96063
+  complete 96063 @68.2,48.6
+
+step Gaseous Gold
+  turnin 96063
+
+step Sleebo Fizzlespout
+  zone Riverglades
+  accept 96067
+  turnin 96067
+
+step WANTED!
+  when group 95120
+  zone Riverglades
+  accept 95120
+
+step Fimbo Greasemitz
+  accept 95121
+  accept 95118
+
+step Trapclaw
+  collect 268586 x1 quest 95254.1
+
+step Old Rot-Chum
+  when group 95120
+  zone Riverglades
+  tip WANTED: Old Rot-Chum is group work: elites. Grouping up is advised.
+  collect 268341 x1 quest 95120.1
+
+step Demar Brant
+  turnin 95059
+  turnin 95148
+  accept 94613
+  accept 94877
+  accept 95330
+
+step Drop the Hammer
+  when has 266889
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 2548
+  turnin 94926 direct
+
+step High Stakes
+  turnin 96009
+
+step Stuff 'Em and Stick 'Em
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 95156
+  complete 95156 @66.2,79.6
+
+step Murloc Warrior and Murloc Oracle
+  kill 256801 x8 quest 95118.1
+  kill 255898 x8 quest 95118.2
+  collect 268344 x12 quest 95121.1
+
+step Twilight Shadowmancer
+  kill 254560 x8 quest 94877.2
+
+step Twilight Raider and Twilight Neophyte
+  kill 256952 x8 quest 94877.1
+  kill 256798 x8 quest 94877.3
+
+step Halligan Turner
+  turnin 95330
+
+step Unsavory Plant Food
+  turnin 94842
+
+step From Seed to Sprout
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 94843
+  complete 94843 @41.2,62.9
+
+step From Seed to Sprout
+  turnin 94843
+
+step Sand Crawler
+  collect 268345 x6 quest 95121.2
+
+step Sister Rowland
+  turnin 95613
+
+step In Memoriam
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 95615
+  complete 95615 @61.8,83.1
+
+step Level 40
+  level 40
+
+step Friz Frazzlespark
+  zone Riverglades
+  accept 95219
+
+step Not My Circus
+  turnin 95982
+
+step Wharfmaster Whizzbuzz
+  zone Riverglades
+  accept 95119
+
+step Eastsea Buccaneer and Eastsea Musketeer
+  zone Riverglades
+  kill 257901 x10 quest 95119.1
+  kill 257910 x10 quest 95119.2
+
+step Demar Brant
+  turnin 94877
+  accept 95329
+
+step Stuff 'Em and Stick 'Em
+  turnin 95156
+
+step The Sharpest of Blades
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 95184
+  complete 95184 @66.2,79.6
+
+step Wanted
+  when group 95912
+  zone Riverglades
+  accept 95912
+
+step Blademaster Kaijo
+  when group 95912
+  zone Riverglades
+  tip WANTED: Blademaster Kaijo is group work: elites. Grouping up is advised.
+  collect 271425 x1 quest 95912.1
+
+step Ember Bladewhisper
+  when group 95912
+  zone Riverglades
+  turnin 95912
+
+step WANTED!
+  when group 95991
+  zone Riverglades
+  accept 95991
+
+step Ghostmaw
+  when group 95991
+  zone Riverglades
+  tip WANTED: Ghostmaw is group work: elites. Grouping up is advised.
+  collect 271828 x1 quest 95991.1
+
+step Wheatley
+  when group 95991
+  zone Riverglades
+  turnin 95991
+
+step Brother Lowley
+  accept 96081
+
+step The Sharpest of Blades
+  turnin 95184
+
+step Baron Bloodbane
+  zone Eastern Plaguelands
+  collect 4338 x20 quest 96081.1
+
+step Farmer Elbrim
+  zone Riverglades
+  accept 94829
+
+step Loose Soil
+  interact 621813 quest 94829.1
+
+step Apprentice Claire
+  accept 95643
+
+step Abominable Magics
+  turnin 95642
+
+step Empowered Brute and Twilight Ritualist
+  kill 261711 x5 quest 95643.1
+  kill 262169 x5 quest 95643.2
+
+step Fuzzle
+  turnin 94961
+  turnin 95643
+
+step Apprentice Claire
+  when group 95562
+  zone Riverglades
+  accept 95562
+
+step Biting the Hand
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 94963
+  complete 94963 @45.6,47.8
+
+step Apprentice Claire
+  when group 95562
+  zone Riverglades
+  turnin 95562
+
+step Biting the Hand
+  turnin 94963
+
+step Field Marshal's Log
+  tip Field Marshal's Log drops from Twilight Shadowmancer, Twilight Neophyte, Twilight Raider: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 2548
+  collect 266427 x1 optional
+  accept 94885 item 266427 optional
+  complete 94885 @66.7,81.0
+
+step Apprentice Claire
+  zone Riverglades
+  accept 94884
+
+step Farmer Elbrim
+  turnin 94829
+
+step All That's Left
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 94858
+  complete 94858 @52.8,42.4
+
+step All That's Left
+  turnin 94858
+
+step Watcher Cornelius
+  turnin 95329
+  turnin 95983
+  accept 94924
+  accept 94925
+  accept 95984
+
+step Roving Tallstrider
+  collect 271778 x1 quest 95984.1
+
+step Rog'mar Poacher
+  kill 259052 x12 quest 94924.1
+
+step Wildplains Patriarch
+  collect 266888 x8 quest 94925.1
+
+step Watcher Cornelius
+  turnin 94924
+  turnin 94925
+  turnin 95984
+  accept 94928
+  accept 95064
+  accept 96125
+
+step Rog'mar Supplies
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 95426
+  complete 95426 @59.5,64.0
+
+step Watcher Cornelius
+  when group 95986
+  zone Riverglades
+  accept 95986
+
+step Ombassa
+  when group 95986
+  zone Riverglades
+  tip King of the Wild Plains is group work: elites. Grouping up is advised.
+  collect 281052 x1 quest 95986.1
+
+step Rog'mar Trainee
+  kill 256749 x12 quest 95064.1
+
+step Watcher Cornelius
+  turnin 95064
+
+step Rog'mar Supplies
+  turnin 95426
+
+step Watcher Cornelius
+  zone Riverglades
+  accept 95066
+
+step Watcher Cornelius
+  when group 95986
+  zone Riverglades
+  turnin 95986
+
+step Benjy Wheeler
+  turnin 94613
+  turnin 94614
+
+step Foal Play
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 94615
+  complete 94615 @54.9,73
+
+step Foal Play
+  turnin 94615
+
+step Benjy Wheeler
+  zone Riverglades
+  accept 94617
+
+step Benjy Wheeler
+  zone Riverglades
+  accept 94618
+
+step Benjy Wheeler
+  zone Riverglades
+  turnin 94617
+
+step Lost Horse
+  zone Riverglades
+  turnin 94618
+
+step Rescue Roundup
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 94992
+  complete 94992 @53.7,66.3
+
+step Rescue Roundup
+  turnin 94992
+
+step Brother Lowley
+  turnin 96081
+  accept 96082
+
+step Field Marshal's Log
+  when onquest 94885
+  zone map 2548
+  turnin 94885
+
+step Ashe Amberhall
+  zone Riverglades
+  turnin 94884
+
+step Saving Marshal Ryan
+  when turnedin 94885
+  zone map 2548
+  accept 94887
+  complete 94887 @26.1,40.8
+
+step Saving Marshal Ryan
+  when onquest 94887
+  zone map 2548
+  turnin 94887
+
+step Demar Brant
+  zone Riverglades
+  turnin 95066
+
+step Wounded Soldier
+  kill 263614 x3 quest 96082.1
+
+step Brother Lowley
+  turnin 96082
+  accept 96083
+
+step Sister Rowland
+  turnin 96083
+
+step Something's in the Water
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 96084
+  complete 96084 @61.8,83.1
+
+step In Memoriam
+  turnin 95615
+
+step Something's in the Water
+  turnin 96084
+
+step Sister Rowland
+  when group 96085
+  zone Riverglades
+  accept 96085
+
+step Apple of My Eye
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 95561
+  complete 95561 @63.9,82.2
+
+step Sister Rowland
+  when group 96085
+  zone Riverglades
+  complete 96085
+  turnin 96085
+
+step Apple of My Eye
+  turnin 95561
+
+step Tessa Dawnbright
+  zone Riverglades
+  accept 95913
+
+step Tessa Dawnbright
+  zone Riverglades
+  turnin 95913
+
+step Tessa Dawnbright
+  zone Riverglades
+  accept 95961
+
+step Painted Hide
+  accept 95260
+
+step Friz Frazzlespark
+  turnin 94928
+  accept 95288
+
+step Gray Dawnbright
+  zone Riverglades
+  turnin 95961
+
+step Innkeeper Zizplink
+  zone Riverglades
+  accept 95988
+
+step Eastsea Buccaneer
+  collect 268796 x8 quest 95288.1
+
+step Argo Brinewhistle
+  turnin 95260
+  turnin 95118
+  turnin 95119
+  accept 95122
+
+step Innkeeper Zizplink
+  zone Riverglades
+  turnin 95988
+
+step Innkeeper Zizplink
+  zone Riverglades
+  accept 95957
+
+step It Takes Guts
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 95261
+  complete 95261 @80.0,52.5
+
+step Gray Dawnbright
+  zone Riverglades
+  turnin 95957
+
+step Her World
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 95975
+  complete 95975 @78.8,54.2
+
+step Her World
+  turnin 95975
+
+step A Blast Ye Scurvy Dogs!
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 95123
+  complete 95123 @79.5,52.7
+
+step It Takes Guts
+  turnin 95261
+
+step Argo Brinewhistle
+  zone Riverglades
+  accept 95267
+
+step Wharfmaster Whizzbuzz
+  when group 95120
+  zone Riverglades
+  turnin 95120
+
+step Fimbo Greasemitz
+  turnin 95121
+  turnin 95254
+
+step Argo Brinewhistle
+  zone Riverglades
+  turnin 95267
+
+step A Blast Ye Scurvy Dogs!
+  turnin 95123
+
+step See Ya, Scallywags!
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 95165
+  complete 95165 @79.5,52.7
+
+step Admiral Lamora
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 95124
+  complete 95124 @79.5,52.7
+
+step See Ya, Scallywags!
+  turnin 95165
+
+step Gritta Chumwater
+  buy 271657 x1 npc 260487 -- for Goes Down Smooth
+
+step Friz Frazzlespark
+  turnin 95288
+  accept 95293
+
+step Admiral Lamora
+  turnin 95124
+
+step Kor'gar and Krikshank
+  buy 271653 x1 npc 260565 -- for Goes Down Smooth
+  buy 271654 x1 npc 260560 -- for Goes Down Smooth
+
+step Eastsea Raider
+  kill 257915 x8 quest 95122.1
+
+step Eastsea Bombardier
+  kill 257916 x8 quest 95122.2
+
+step Wharfmaster Whizzbuzz
+  turnin 95122
+
+step Captain Bentcoin
+  turnin 95293
+  accept 95294
+
+step Friz Frazzlespark
+  turnin 95294
+  accept 95295
+  accept 95296
+
+step Dunston Willis
+  turnin 96125
+  accept 96126
+
+step Gronok the Butcher
+  collect 272190 x1 quest 96126.1
+
+step Dunston Willis
+  turnin 96126
+
+step Dunston Checks Out
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 94927
+  complete 94927 @68.6,12.7
+
+step Dunston Checks Out
+  turnin 94927
+
+step Caravaneer Ruzzgot
+  zone Stranglethorn Vale
+  turnin 95295
+  accept 95322
+  turnin 95322
+  accept 95325
+
+step Venture Co. Ledger
+  turnin 95325
+  accept 95326
+
+step Venture Co. Agent
+  collect 268810 x1 quest 95326.1
+
+step Caravaneer Ruzzgot
+  turnin 95326
+  accept 95327
+
+step Friz Frazzlespark
+  zone Riverglades
+  turnin 95327
+
+step Dying Wish
+  when turnedin 94887
+  zone map 2548
+  accept 94892
+
+step Dying Wish
+  when onquest 94892
+  zone map 2548
+  turnin 94892
+
+step Delivering Closure
+  when turnedin 94892
+  zone map 1453
+  accept 94893
+
+step Delivering Closure
+  when onquest 94893
+  zone map 1453
+  turnin 94893
+
+step Wharfmaster Steamfizzle
+  zone Tanaris
+  turnin 95296
+
+step Mardrack Greenwell
+  zone Feralas
+  turnin 95219

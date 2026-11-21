@@ -1,0 +1,108 @@
+guide polestar-completionist-horde/07-odd-jobs-in-the-eastern-kingdoms
+title 07 Odd jobs in the Eastern Kingdoms (15-25) (Completionist)
+faction Horde
+levels 15-25
+zone Arathi Highlands
+next polestar-completionist-horde/08-the-barrens
+pitch On along the line: errands across the Eastern Kingdoms, quests of level 15 to 25.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 4 quests; estimated level at the end 15.7 (heuristic XP, class quests not counted).
+
+step Shawn
+  zone Redridge Mountains
+  accept 3741
+
+step Glinting Mud
+  collect 10958 x1 quest 3741.1
+
+step Hilary
+  turnin 3741
+
+step Captain Grayson
+  zone Westfall
+  accept 103
+  accept 104
+  accept 152
+
+step Old Murk-Eye
+  collect 3636 x1 quest 104.1
+
+step Murloc Tidehunter and Murloc Oracle
+  kill 127 x7 quest 152.3
+  kill 517 x7 quest 152.4
+
+step Murloc Warrior
+  kill 171 x7 quest 152.2
+
+step Murloc Coastrunner
+  kill 126 x7 quest 152.1
+
+step Harvest Reaper
+  collect 814 x5 quest 103.1
+
+step Captain Grayson
+  turnin 103
+  turnin 104
+  turnin 152
+
+step Captain Sander's Hidden Treasure
+  tip Captain Sander's Treasure Map drops from Murloc Coastrunner, Murloc Tidehunter, Murloc Warrior: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1436
+  collect 1357 x1 optional
+  accept 136 item 1357 optional
+
+step Captain Sander's Hidden Treasure
+  when onquest 136
+  zone map 1436
+  turnin 136
+
+step Captain Sander's Hidden Treasure
+  when turnedin 136
+  zone map 1436
+  accept 138
+
+step Captain Sander's Hidden Treasure
+  when onquest 138
+  zone map 1436
+  turnin 138
+
+step Captain Sander's Hidden Treasure
+  when turnedin 138
+  zone map 1436
+  accept 139
+
+step Captain Sander's Hidden Treasure
+  when onquest 139
+  zone map 1436
+  turnin 139
+
+step Captain Sander's Hidden Treasure
+  when turnedin 139
+  zone map 1436
+  accept 140
+
+step Captain Sander's Hidden Treasure
+  when onquest 140
+  zone map 1436
+  turnin 140
+
+
+step Cut Arathor Supply Lines
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1417
+  accept 8162
+  complete 8162 @73.5,29.8
+
+step Cut Arathor Supply Lines
+  zone map 1417
+  turnin 8162
+
+step The Battle for Arathi Basin!
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1417
+  accept 8171
+  complete 8171 @73.2,29.7
+
+step The Battle for Arathi Basin!
+  zone map 1417
+  turnin 8171

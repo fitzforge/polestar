@@ -1,0 +1,120 @@
+guide polestar-completionist-alliance/raid-onyxias-lair
+title Onyxia's Lair (Completionist)
+faction Alliance
+category Dungeons
+levels 60-60
+zone Dustwallow Marsh
+pitch Onyxia's Lair, in Dustwallow Marsh. A raid.
+why Every Alliance quest of Onyxia's Lair: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Dustwallow Marsh: the arrow leads to it. This is a raid: it needs a raid group.
+
+step Nostro's Compendium
+  only Warrior,Paladin
+  tip This quest starts from an item: use it to take the quest.
+  collect 18401 x1 anywhere
+  accept 7507 item 18401
+
+step Nostro's Compendium
+  only Warrior,Paladin
+  zone Dustwallow Marsh
+  turnin 7507 @52.6,76.8
+
+step The Forging of Quel'Serrar
+  only Warrior,Paladin
+  zone Dustwallow Marsh
+  accept 7508 @52.6,76.8
+
+step The Forging of Quel'Serrar
+  only Warrior,Paladin
+  zone Dustwallow Marsh
+  turnin 7508 @52.6,76.8
+
+step The Ancient Leaf
+  only Hunter
+  zone Dustwallow Marsh
+  accept 7632 @52.6,76.8
+
+step The Ancient Leaf
+  only Hunter
+  zone Felwood
+  turnin 7632
+
+step An Introduction
+  only Hunter
+  zone Felwood
+  accept 7633
+
+step An Introduction
+  only Hunter
+  zone Felwood
+  turnin 7633
+
+step Lorekeeper Lydros
+  only Warrior,Paladin
+  zone Dustwallow Marsh
+  accept 7509 @52.6,76.8
+
+step Stoma the Ancient
+  only Hunter
+  zone Felwood
+  accept 7635
+
+step Inside Onyxia's Lair
+  zone Dustwallow Marsh
+  collect 18423 @52.6,76.8
+
+step Inside Onyxia's Lair
+  only Warrior,Paladin
+  zone Dustwallow Marsh
+  complete 7509 @52.6,76.8
+
+step Inside Onyxia's Lair
+  only Hunter
+  zone Dustwallow Marsh
+  complete 7635 @52.6,76.8
+
+step Lorekeeper Lydros
+  only Warrior,Paladin
+  zone Dustwallow Marsh
+  turnin 7509 @52.6,76.8
+
+step Stoma the Ancient
+  only Hunter
+  zone Felwood
+  turnin 7635
+
+step The Journey Has Just Begun
+  when turnedin 7496
+  when skill Leatherworking 300
+  zone map 1453
+  accept 7497 optional
+
+step The Journey Has Just Begun
+  when onquest 7497
+  zone map 1453
+  turnin 7497 optional
+
+
+step Victory for the Alliance
+  when turnedin 6502
+  when has 18423
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1453
+  accept 7495 item 18423
+
+step Victory for the Alliance
+  when onquest 7495
+  zone map 1453
+  turnin 7495
+
+step Celebrating Good Times
+  when turnedin 7495
+  zone map 1453
+  accept 7496
+
+step Celebrating Good Times
+  when onquest 7496
+  zone map 1453
+  turnin 7496

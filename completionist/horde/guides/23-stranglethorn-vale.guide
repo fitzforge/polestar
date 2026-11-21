@@ -1,0 +1,457 @@
+guide polestar-completionist-horde/23-stranglethorn-vale
+title 23 Stranglethorn Vale (30-42) (Completionist)
+faction Horde
+levels 30-42
+zone Stranglethorn Vale
+next polestar-completionist-horde/dungeon-razorfen-downs
+next polestar-completionist-horde/24-arathi-highlands
+pitch On along the line: Stranglethorn Vale, quests of level 30 to 42.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 56 quests; estimated level at the end 36.9 (heuristic XP, class quests not counted).
+# Skipped: 2 prerequisite N not in this route.
+
+step Kebok
+  sethome "Booty Bay"
+  getfp "Booty Bay"
+  accept 189
+  accept 201
+  accept 79236
+  accept 605
+
+step Partial Mystical Notes
+  when has 213127
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1434
+  turnin 95384 direct
+
+step State Secrets
+  zone map 1434
+  accept 96379 optional
+
+step A Special Gift
+  zone map 1434
+  accept 60870 optional
+
+step State Secrets
+  when onquest 96379
+  zone map 1434
+  turnin 96379 optional
+
+step Nixxrax Fillamug
+  buy 4600 x1 npc 2832 -- for Cherry for Your Thoughts?
+
+step Tokal
+  turnin 79236
+  accept 79242
+  accept 606
+  accept 575
+
+step A Special Gift
+  when onquest 60870
+  zone map 1434
+  turnin 60870 optional
+
+step Elder Mistvale Gorilla
+  collect 3919 x5 quest 606.1
+
+step Barnil Stonepot
+  accept 583
+  turnin 583
+  accept 194
+  accept 185
+  accept 190
+
+step Terror of the Desert Skies
+  when has 211269
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1434
+  turnin 78823 direct
+
+step Terror of the Desert Skies
+  when turnedin 78823
+  zone map 1434
+  accept 78830
+
+step The Green Hills of Stranglethorn
+  zone map 1434
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 338
+  complete 338 @35.7,10.5
+
+step Terror of the Desert Skies
+  when onquest 78830
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1434
+  complete 78830 @35.7,10.8
+
+step Terror of the Desert Skies
+  when onquest 78830
+  zone map 1434
+  turnin 78830
+
+step Barnil Stonepot
+  accept 339
+  accept 340
+  accept 341
+  accept 342
+
+step The Green Hills of Stranglethorn
+  turnin 338
+
+step River Crocolisk
+  collect 4053 x2 quest 575.1
+
+step Young Stranglethorn Tiger
+  kill 681 x10 quest 185.1
+
+step Stone Maw Basilisk
+  zone Duskwood
+  collect 3918 x10 quest 605.1
+
+step Stranglethorn Raptor
+  kill 685 x10 quest 194.1
+
+step Bloodscalp Axe Thrower
+  collect 1519 x15 quest 189.1
+
+step Lord Sakrasis
+  collect 2732 x1 quest 339.4
+
+step Negolash
+  collect 2738 x1 quest 340.3
+  collect 2749 x1 quest 342.1
+
+step Roloch
+  collect 2742 x1 quest 341.1
+  collect 2748 x1 quest 341.4
+  collect 2750 x1 quest 342.2
+  collect 2751 x1 quest 342.3
+
+step Gluggle
+  collect 2725 x1 quest 339.1
+  collect 2728 x1 quest 339.2
+
+step Young Panther
+  kill 683 x10 quest 190.1
+
+step Bookie Herod
+  collect 2730 x1 quest 339.3
+  collect 2734 x1 quest 340.1
+  collect 2735 x1 quest 340.2
+  collect 2740 x1 quest 340.4
+  collect 2744 x1 quest 341.2
+  collect 2745 x1 quest 341.3
+
+step Level 31
+  level 31
+
+step Kebok
+  zone Stranglethorn Vale
+  accept 213
+
+step Venture Co. Geologist
+  zone Stranglethorn Vale
+  collect 4106 x8 quest 213.1
+
+step Wendel Mathers
+  accept 97047
+
+step Level 40
+  level 40
+
+step The Mithril Order
+  when skill Blacksmithing 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1434
+  accept 2760 optional
+
+step The Mithril Order
+  when skill Blacksmithing 1
+  zone map 1434
+  turnin 2760 optional
+
+step Kurzen Subchief
+  collect 216616 x1 quest 97047.1
+
+step Kurzen Supply Crate
+  collect 216617 x1 quest 97047.2
+
+step Wendel Mathers
+  turnin 97047
+  accept 97048
+
+step Barnil Stonepot
+  turnin 339
+  turnin 340
+  turnin 341
+  turnin 342
+  turnin 185
+  accept 186
+  turnin 190
+  accept 191
+
+step Level 37
+  level 37
+
+step First Mate Crazz
+  zone Stranglethorn Vale
+  accept 595
+
+step Hemet Nesingwary
+  turnin 194
+  accept 195
+
+step Stranglethorn Tiger
+  kill 682 x10 quest 186.1
+
+step Panther
+  kill 736 x10 quest 191.1
+
+step Lashtail Raptor
+  kill 686 x10 quest 195.1
+
+step Bubbling Cauldron
+  getfp "Grom'gol"
+  accept 1261
+  accept 581
+  accept 638
+  accept 2932
+  accept 596
+  accept 97453
+  accept 568
+  accept 95141
+
+step Carnivorous Weed
+  kill 269175 x6 quest 97453.1
+
+step Muckshell Razorclaw
+  zone Dustwallow Marsh
+  collect 5942 x1 quest 1261.1
+
+step Bloodscalp Scout
+  zone Stranglethorn Vale
+  collect 3901 x9 quest 581.1
+  collect 3915 x25 quest 596.1
+
+step Lashtail Raptor
+  kill 686 x15 quest 568.1
+
+step Kin'weelay
+  zone map 1425
+  turnin 596
+  turnin 581
+  complete 2932 @23.4,58.1 map 1425
+  turnin 2932
+  accept 582
+  turnin 568
+  accept 569
+  accept 570
+  turnin 97453
+
+step Stranglethorn Tigress
+  collect 3839 x1 quest 570.2
+
+step Elder Shadowmaw Panther
+  collect 3838 x8 quest 570.1
+
+step Mosh'Ogg Brute and Mosh'Ogg Witch Doctor
+  kill 1142 x10 quest 569.1
+  kill 1144 x5 quest 569.2
+
+step Bloodscalp Headhunter
+  collect 1532 x20 quest 582.1
+
+step Zimmix Sputterspark
+  accept 97329
+
+step Bloodscalp Scout
+  collect 277957 x1 quest 97329.1
+
+step Zimmix Sputterspark
+  turnin 97329
+  accept 97331
+
+step Ajeck Rouack
+  turnin 186
+  accept 187
+  turnin 191
+  accept 192
+  turnin 195
+  accept 196
+
+step Elder Stranglethorn Tiger
+  kill 1085 x10 quest 187.1
+
+step Jungle Stalker
+  kill 687 x10 quest 196.1
+
+step Shadowmaw Panther
+  kill 684 x10 quest 192.1
+
+step Far Seer Mok'thardin
+  turnin 570
+  accept 572
+  turnin 569
+  turnin 582
+  accept 584
+
+step Jungle Stalker
+  collect 3863 x10 quest 572.1
+
+step Gan'zulah and Nezzliok the Dire
+  collect 3904 x1 quest 584.1
+  collect 3905 x1 quest 584.2
+
+step Thoroughly Scavenged Supplies
+  accept 97328
+
+step Stolen Shipment
+  collect 277953 x8 quest 97328.1
+
+step Ajeck Rouack
+  turnin 187
+  accept 188
+  turnin 192
+
+step Sir S. J. Erlgadin
+  when group 193
+  zone Stranglethorn Vale
+  accept 193
+
+step Hemet Nesingwary
+  turnin 196
+
+step Bhag'thera
+  when group 193
+  zone Stranglethorn Vale
+  tip Panther Mastery is group work: elites. Grouping up is advised.
+  collect 3876 x1 quest 193.1
+
+step Sin'Dall
+  collect 3879 x1 quest 188.1
+
+step Ajeck Rouack
+  turnin 188
+
+step Sir S. J. Erlgadin
+  when group 193
+  zone Stranglethorn Vale
+  turnin 193
+
+step Bubbling Cauldron
+  turnin 584
+  accept 585
+
+step Ziata'jai Trophy Skulls
+  collect 3907 x1 quest 585.2
+
+step Zul'Mamwe Trophy Skulls
+  collect 3908 x1 quest 585.3
+
+step Balia'mah Trophy Skulls
+  collect 3906 x1 quest 585.1
+
+step Far Seer Mok'thardin
+  turnin 572
+  accept 571
+
+step Elder Mistvale Gorilla
+  collect 3862 x1 quest 571.1
+
+step Bloodsail Correspondence
+  turnin 595
+  accept 597
+
+step "Shaky" Phillipe
+  turnin 606
+  accept 607
+  turnin 97328
+  complete 97331 @26.8,11.4 map 1434
+  turnin 97331
+  accept 97332
+
+step Kebok
+  turnin 189
+  turnin 213
+  accept 209
+  complete 201 @35.6,10.6 map 1434
+  turnin 201
+  turnin 605
+  accept 600
+  turnin 97048
+  turnin 607
+
+step First Mate Crazz
+  turnin 597
+  accept 599
+  turnin 599
+  accept 587
+
+step Bloodsail Swashbuckler
+  collect 3910 x15 quest 587.1
+
+step Skullsplitter Spiritchaser
+  collect 1524 x18 quest 209.1
+
+step Venture Co. Surveyor
+  collect 3917 x10 quest 600.1
+
+step Far Seer Mok'thardin
+  turnin 571
+  turnin 585
+
+step Dizzy One-Eye
+  accept 576
+  turnin 575
+  accept 577
+
+step Bloodsail Swashbuckler
+  collect 3897 x1 quest 576.1
+
+step Dizzy One-Eye
+  turnin 576
+
+step Snapjaw Crocolisk
+  collect 4104 x5 quest 577.1
+
+step Drizzlik
+  turnin 577
+
+step Drizzlik
+  when group 628
+  zone Stranglethorn Vale
+  accept 628
+
+step Elder Saltwater Crocolisk
+  when group 628
+  zone Stranglethorn Vale
+  tip Excelsior is group work: elites. Grouping up is advised.
+  collect 4105 x1 quest 628.1
+
+step Kebok
+  turnin 209
+  turnin 600
+  turnin 587
+
+step Drizzlik
+  when group 628
+  zone Stranglethorn Vale
+  turnin 628
+
+step Krom'rosh
+  zone Riverglades
+  turnin 95141
+
+step Wharfmaster Whizzbuzz
+  turnin 97332
+
+step Illari's Loot Cache
+  zone Arathi Highlands
+  turnin 79242
+
+step Zengu
+  turnin 638
+
+step Nazeer Bloodpike
+  zone The Barrens
+  turnin 1261

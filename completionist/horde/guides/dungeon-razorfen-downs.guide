@@ -1,0 +1,175 @@
+guide polestar-completionist-horde/dungeon-razorfen-downs
+title Razorfen Downs (Completionist)
+faction Horde
+category Dungeons
+levels 32-45
+zone The Barrens
+next polestar-completionist-horde/dungeon-the-drowned-city
+next polestar-completionist-horde/24-arathi-highlands
+pitch Razorfen Downs, in The Barrens.
+why Every Horde quest of Razorfen Downs: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in The Barrens: the arrow leads to it.
+
+step Strange Pylons
+  zone Shen'dralas
+  accept 92914
+
+step Strange Pylons
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Shen'dralas
+  complete 92914 @43.67,34.37
+
+step Strange Pylons
+  zone Shen'dralas
+  turnin 92914
+
+step Fragments of the Pylons
+  zone Shen'dralas
+  accept 96010
+
+step Fragments of the Pylons
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Shen'dralas
+  complete 96010 @35.17,46.61
+
+step Fragments of the Pylons
+  zone Shen'dralas
+  turnin 96010
+
+step Powering the Pylons
+  zone Shen'dralas
+  accept 96018
+
+step Powering the Pylons
+  zone Shen'dralas
+  turnin 96018
+
+step A Brief History Lesson
+  zone Shen'dralas
+  accept 93016
+
+step A Brief History Lesson
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Shen'dralas
+  complete 93016 @35.17,46.61
+
+step A Brief History Lesson
+  zone Shen'dralas
+  turnin 93016
+
+step Level 37
+  level 37
+
+step Meeting the Magister
+  zone Shen'dralas
+  accept 93394
+
+step Meeting the Magister
+  zone Shen'dralas
+  turnin 93394
+
+step Forlorn Gardens
+  zone Shen'dralas
+  accept 93341
+
+step Forlorn Gardens
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Shen'dralas
+  complete 93341 @53.32,76.02
+
+step Forlorn Gardens
+  zone Shen'dralas
+  turnin 93341
+
+step Word of the Woods
+  zone Shen'dralas
+  accept 93594
+
+step Word of the Woods
+  zone Shen'dralas
+  turnin 93594
+
+step Rot and Regret
+  zone Shen'dralas
+  accept 93404
+
+step Rot and Regret
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Shen'dralas
+  complete 93404 @69.66,71.78
+
+step Rot and Regret
+  zone Shen'dralas
+  turnin 93404
+
+step Passing the Blame
+  zone Shen'dralas
+  accept 93601
+
+step Passing the Blame
+  zone Shen'dralas
+  turnin 93601
+
+step Myriam Moonsinger
+  zone The Barrens
+  accept 6626
+
+step Sutara Plainstalker
+  zone Mulgore
+  accept 97196
+
+step Andrew Brownell
+  zone Undercity
+  accept 3341
+
+step Kog'thug the Brave
+  zone Shen'dralas
+  accept 93604
+
+step Inside Razorfen Downs
+  zone The Barrens
+  collect 17008 @49.8,93
+  accept 6522 item 17008
+  accept 3523 @49.8,93
+  complete 6626 @49.8,93
+  turnin 3523 @49.8,93
+  complete 97196 @49.8,93
+  complete 3341 @49.8,93
+  complete 93604 @49.8,93
+
+step Myriam Moonsinger
+  zone The Barrens
+  turnin 6626
+
+step Sutara Plainstalker
+  zone Mulgore
+  turnin 97196
+
+step Andrew Brownell
+  zone Undercity
+  turnin 3341
+
+step Varimathras
+  zone Undercity
+  turnin 6522
+
+step Kog'thug the Brave
+  zone Shen'dralas
+  turnin 93604
+
+step Varimathras
+  zone Undercity
+  accept 6521
+
+step Inside Razorfen Downs, again
+  zone The Barrens
+  accept 3525 @49.8,93
+  complete 6521 @49.8,93
+  complete 3525 @49.8,93
+  turnin 3525 @49.8,93
+
+step Varimathras
+  zone Undercity
+  turnin 6521

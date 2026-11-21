@@ -1,0 +1,172 @@
+guide polestar-completionist-horde/dungeon-gnomeregan
+title Gnomeregan (Completionist)
+faction Horde
+category Dungeons
+levels 25-40
+zone Dun Morogh
+next polestar-completionist-horde/dungeon-excavation-site-wetlands
+next polestar-completionist-horde/17-tirisfal-glades-and-the-undercity-3
+pitch Gnomeregan, in Dun Morogh.
+why Every Horde quest of Gnomeregan: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Dun Morogh: the arrow leads to it.
+
+step Nogg
+  zone Orgrimmar
+  accept 2841
+
+step Sovik
+  zone Orgrimmar
+  accept 2842
+
+step Inside Gnomeregan
+  zone Dun Morogh
+  accept 2904 @22,38.7
+  collect 9326 @22,38.7
+  complete 2904 @22,38.7
+  complete 2841 @22,38.7
+
+step Scooty
+  zone Stranglethorn Vale
+  turnin 2904
+  turnin 2842
+
+step Nogg
+  zone Orgrimmar
+  turnin 2841
+
+step Scooty
+  zone Stranglethorn Vale
+  accept 2843
+
+step Inside Gnomeregan, again
+  zone Dun Morogh
+  complete 2843 @22,38.7
+
+step Scooty
+  zone Stranglethorn Vale
+  turnin 2843
+
+step The Sparklematic 5200!
+  tip The giver stands inside the instance: the arrow leads to its entrance.
+  zone map 1426
+  accept 2951 @22,38.7
+
+step The Sparklematic 5200!
+  when onquest 2951
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1426
+  complete 2951 @22,38.7
+
+step The Sparklematic 5200!
+  when onquest 2951
+  tip The hand-in is inside the instance: the arrow leads to its entrance.
+  zone map 1426
+  turnin 2951 @22,38.7
+
+step The Sparklematic 5200!
+  when turnedin 2951
+  tip The giver stands inside the instance: the arrow leads to its entrance.
+  zone map 1426
+  accept 2952 @22,38.7
+
+step The Sparklematic 5200!
+  when onquest 2952
+  tip The hand-in is inside the instance: the arrow leads to its entrance.
+  zone map 1426
+  turnin 2952 @22,38.7
+
+step More Sparklematic Action
+  when turnedin 2952
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1426
+  collect 9308 x1 anywhere optional
+  turnin 2953 direct @22,38.7 map 1426 optional
+
+step The Sparklematic 5200!
+  when available 4601
+  tip One of several exclusive quests; the route takes The Sparklematic 5200! (2951). This one shows for a character the game offers it to instead.
+  tip The giver stands inside the instance: the arrow leads to its entrance.
+  zone map 1426
+  accept 4601 @22,38.7 optional
+
+step The Sparklematic 5200!
+  when onquest 4601
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1426
+  complete 4601 @22,38.7 optional
+
+step The Sparklematic 5200!
+  when onquest 4601
+  tip The hand-in is inside the instance: the arrow leads to its entrance.
+  zone map 1426
+  turnin 4601 @22,38.7 optional
+
+step The Sparklematic 5200!
+  when available 4602
+  tip One of several exclusive quests; the route takes The Sparklematic 5200! (2951). This one shows for a character the game offers it to instead.
+  tip The giver stands inside the instance: the arrow leads to its entrance.
+  zone map 1426
+  accept 4602 @22,38.7 optional
+
+step The Sparklematic 5200!
+  when onquest 4602
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1426
+  complete 4602 @22,38.7 optional
+
+step The Sparklematic 5200!
+  when onquest 4602
+  tip The hand-in is inside the instance: the arrow leads to its entrance.
+  zone map 1426
+  turnin 4602 @22,38.7 optional
+
+step Level 28
+  level 28
+
+step Inside Gnomeregan
+  zone Dun Morogh
+  accept 2945 item 9326
+  turnin 2945 @22,38.7
+
+step Inside Gnomeregan, again
+  zone Dun Morogh
+  accept 2949 @22,38.7
+
+step Nogg
+  zone Orgrimmar
+  turnin 2949
+
+step The Sparklematic 5200!
+  when available 4605
+  tip One of several exclusive quests; the route takes The Sparklematic 5200! (2952). This one shows for a character the game offers it to instead.
+  when turnedin 2951
+  tip The giver stands inside the instance: the arrow leads to its entrance.
+  zone map 1426
+  accept 4605 @22,38.7 optional
+
+step The Sparklematic 5200!
+  when onquest 4605
+  tip The hand-in is inside the instance: the arrow leads to its entrance.
+  zone map 1426
+  turnin 4605 @22,38.7 optional
+
+step The Sparklematic 5200!
+  when available 4606
+  tip One of several exclusive quests; the route takes The Sparklematic 5200! (2952). This one shows for a character the game offers it to instead.
+  when turnedin 2951
+  tip The giver stands inside the instance: the arrow leads to its entrance.
+  zone map 1426
+  accept 4606 @22,38.7 optional
+
+step The Sparklematic 5200!
+  when onquest 4606
+  tip The hand-in is inside the instance: the arrow leads to its entrance.
+  zone map 1426
+  turnin 4606 @22,38.7 optional
+
+step The Mad King
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1454
+  turnin 80325 direct

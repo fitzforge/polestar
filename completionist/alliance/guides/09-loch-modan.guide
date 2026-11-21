@@ -1,0 +1,303 @@
+guide polestar-completionist-alliance/09-loch-modan
+title 09 Loch Modan (10-22) (Completionist)
+faction Alliance
+levels 10-22
+zone Loch Modan
+next polestar-completionist-alliance/dungeon-the-hall-of-thanes
+next polestar-completionist-alliance/10-dun-morogh-and-ironforge-2
+pitch On along the line: Loch Modan, quests of level 10 to 22.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 28 quests; estimated level at the end 14.9 (heuristic XP, class quests not counted).
+
+step Vidra Hearthstove
+  sethome "Stoutlager Inn"
+  getfp "Thelsamar"
+  accept 418
+
+step Snowbound
+  zone map 1432
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 86667
+  complete 86667 @36.5,48.3
+
+step Snowbound
+  turnin 86667
+
+step Mangy Mountain Boar
+  collect 3172 x3 quest 418.1
+
+step Wildthorn Lurker
+  zone Ashenvale
+  collect 3174 x3 quest 418.3
+
+step Black Bear Patriarch
+  zone Loch Modan
+  collect 3173 x3 quest 418.2
+
+step Marek Ironheart
+  accept 385
+
+step Loch Crocolisk
+  collect 2924 x5 quest 385.1
+
+step Giant Wetlands Crocolisk
+  zone Wetlands
+  collect 2925 x6 quest 385.2
+
+step Brock Stoneseeker
+  accept 6387 only Dwarf,Gnome
+
+step Marek Ironheart
+  turnin 385
+
+step Level 12
+  level 12
+
+step Marek Ironheart
+  zone Loch Modan
+  accept 86758
+
+step Daggerfang
+  zone Loch Modan
+  collect 279591 x1 quest 86758.1
+
+step Marek Ironheart
+  zone Loch Modan
+  turnin 86758
+
+step Daryl the Youngling
+  zone Wetlands
+  accept 257
+
+step Mountain Buzzard
+  zone Wetlands
+  kill 1194 x6 quest 257.1
+
+step Daryl the Youngling
+  zone Wetlands
+  turnin 257
+
+step Level 13
+  level 13
+
+step Discarded Fishing Toolbox
+  zone Wetlands
+  accept 86614
+
+step Khara Deepwater
+  zone Wetlands
+  turnin 86614
+
+step Level 17
+  level 17
+
+step WANTED
+  when group 256
+  zone Wetlands
+  accept 256
+
+step Chok'sul
+  when group 256
+  zone Wetlands
+  tip WANTED: Chok'sul is group work: elites. Grouping up is advised.
+  collect 2561 x1 quest 256.1
+
+step Jern Hornhelm
+  zone Wetlands
+  accept 436
+
+step Daryl the Youngling
+  zone Wetlands
+  accept 258
+
+step Elder Mountain Boar
+  kill 1192 x5 quest 258.1
+
+step Prospector Ironband
+  accept 298
+  turnin 436
+  accept 297
+
+step Excavation Tools
+  tip Excavation Tools is looted from Excavation Tools: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1432
+  collect 278049 x1 optional
+  accept 86613 item 278049 optional
+  complete 86613 @65.9,65.6
+
+step Stonesplinter Digger
+  collect 2636 x8 quest 297.1
+
+step Magmar Fellhew
+  turnin 297
+
+step Excavation Tools
+  when onquest 86613
+  zone map 1432
+  turnin 86613
+
+step Daryl the Youngling
+  turnin 258
+
+step Vyrin Swiftwind
+  when group 271
+  zone Wetlands
+  accept 271
+
+step Ol' Sooty
+  when group 271
+  zone Wetlands
+  tip Vyrin's Revenge is group work: elites. Grouping up is advised.
+  collect 2713 x1 quest 271.1
+
+step Thorgrum Borrelson
+  zone Dun Morogh
+  turnin 6387 only Dwarf,Gnome
+  accept 6391 only Dwarf,Gnome
+
+step Vidra Hearthstove
+  zone Loch Modan
+  turnin 418
+
+step Jern Hornhelm
+  turnin 298
+  accept 301
+
+step Magistrate Bluntnose
+  when group 255
+  zone Loch Modan
+  accept 255
+
+step Magistrate Bluntnose
+  when group 256
+  zone Loch Modan
+  turnin 256
+
+step Mo'grosh Ogre
+  when group 255
+  zone Loch Modan
+  tip Mercenaries is group work: elites. Grouping up is advised.
+  kill 1178 x4 quest 255.1
+
+step Mo'grosh Brute
+  when group 255
+  zone Loch Modan
+  tip Mercenaries is group work: elites. Grouping up is advised.
+  kill 1180 x4 quest 255.2
+
+step Mo'grosh Enforcer
+  when group 255
+  zone Loch Modan
+  tip Mercenaries is group work: elites. Grouping up is advised.
+  kill 1179 x4 quest 255.3
+
+step Chief Engineer Hinderweir VII
+  accept 250
+
+step Suspicious Barrel
+  turnin 250
+  accept 199
+
+step Chief Engineer Hinderweir VII
+  turnin 199
+  accept 161
+
+step Mountaineer Stormpike
+  accept 307
+
+step Miners' League Crates
+  collect 2640 x4 quest 307.1
+
+step Mountaineer Stormpike
+  turnin 307
+
+step Magistrate Bluntnose
+  when group 255
+  zone Loch Modan
+  turnin 255
+
+step Captain Rugelfuss
+  accept 267
+  accept 224
+
+step Stonesplinter Scout
+  kill 1162 x10 quest 224.2
+
+step Stonesplinter Digger
+  collect 2536 x8 quest 267.1
+
+step Stonesplinter Trogg
+  kill 1161 x10 quest 224.1
+
+step Mountaineer Ylva
+  accept 86585
+
+step Headsplitter
+  kill 269185 x1 quest 86585.1
+
+step Captain Rugelfuss
+  turnin 267
+  turnin 86585
+  turnin 224
+  accept 237
+
+step Stonesplinter Seer
+  kill 1166 x10 quest 237.2
+
+step Stonesplinter Skullthumper
+  kill 1163 x10 quest 237.1
+
+step Mountaineer Gravelgaw
+  turnin 237
+  accept 263
+
+step Stonesplinter Shaman and Stonesplinter Bonesnapper
+  kill 1197 x10 quest 263.1
+  kill 1164 x10 quest 263.2
+
+step Mountaineer Wallbang
+  turnin 263
+
+step Captain Rugelfuss
+  zone Loch Modan
+  accept 217
+
+step Grawmug, Gnasher and Brawler
+  zone Loch Modan
+  kill 1205 x1 quest 217.1
+  kill 1206 x1 quest 217.2
+  kill 1207 x1 quest 217.3
+
+step Captain Rugelfuss
+  zone Loch Modan
+  turnin 217
+
+step Daryl the Youngling
+  when group 271
+  zone Loch Modan
+  turnin 271
+
+step Daryl the Youngling
+  zone Loch Modan
+  accept 531
+  turnin 531
+
+step Prospector Stormpike
+  zone Ironforge
+  turnin 301
+
+step Golnir Bouldertoe
+  turnin 6391 only Dwarf,Gnome
+  accept 6388 only Dwarf,Gnome
+
+step Gryth Thurden
+  turnin 6388 only Dwarf,Gnome
+  accept 6392 only Dwarf,Gnome
+
+step Brock Stoneseeker
+  zone Loch Modan
+  turnin 6392 only Dwarf,Gnome
+
+step Ashlan Stonesmirk
+  zone Wetlands
+  turnin 161

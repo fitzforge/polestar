@@ -1,0 +1,19 @@
+guide polestar-completionist-horde/event-other
+title Other event quests (Completionist)
+faction Horde
+category Miscellaneous
+levels 1-60
+zone Orgrimmar
+pitch Event quests whose event the data numbers but does not name.
+
+step About this guide
+  note Each quest here is offered only while the event runs. Every step is optional: do what the calendar offers now, and come back for the rest.
+
+step New Year Celebrations!
+  zone map 1411
+  accept 8861 optional
+
+step New Year Celebrations!
+  when onquest 8861
+  zone map 1456
+  turnin 8861 optional

@@ -1,0 +1,196 @@
+guide polestar-completionist-alliance/37-shendralas
+title 37 Shen'dralas (38-45) (Completionist)
+faction Alliance
+levels 38-45
+zone Shen'dralas
+next polestar-completionist-alliance/38-feralas
+pitch On along the line: Shen'dralas, quests of level 38 to 45.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 17 quests; estimated level at the end 38.7 (heuristic XP, class quests not counted).
+
+step Nerlokh
+  accept 93035
+  accept 93037
+  turnin 93035
+  turnin 93037
+  accept 93041
+
+step Rokren
+  accept 93125
+
+step Historian Biraxas
+  accept 99257
+
+step Phantasmal Problems
+  zone map 2652
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 93450
+  complete 93450 @42,79.0
+
+step Phantasmal Problems
+  turnin 93450
+
+step Spectral Iron Ore
+  zone map 2652
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 93546
+  complete 93546 @42,79.0
+
+step Spectral Iron Ore
+  turnin 93546
+
+step Vindael
+  zone Shen'dralas
+  accept 96060
+  turnin 96060
+
+step Decrepit Pylon Protector
+  collect 286647 x1 quest 99257.1
+
+step Hagiak
+  accept 93072
+  accept 93129
+  turnin 93129
+
+step Outcast Marauder
+  kill 254284 x6 quest 93072.2
+
+step Outcast Scout
+  kill 254283 x2 quest 93072.1
+
+step Outcast Necromancer
+  zone Desolace
+  kill 11559 x8 quest 93072.3
+
+step Nerlokh
+  zone Shen'dralas
+  turnin 93125
+
+step Hagiak
+  zone Shen'dralas
+  turnin 93072
+
+step Hagiak
+  zone Shen'dralas
+  accept 93188
+
+step Orgrul
+  zone Desolace
+  turnin 93188
+
+step Orgrul
+  zone Desolace
+  accept 93196
+
+step Khan Jehn
+  zone Desolace
+  turnin 93196
+
+step Mithera
+  accept 93362
+
+step Forlorn Necklace
+  when has 260247
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 2652
+  turnin 93609 direct
+
+step Partially Digested Collar
+  when has 259461
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 2652
+  turnin 93568 direct
+
+step Rowdy Rose
+  kill 254566 x1 quest 93362.1
+
+step Terrible Tulip
+  kill 254567 x1 quest 93362.2
+
+step Malevolent Marigold
+  kill 254572 x1 quest 93362.3
+
+step Mithera
+  turnin 93362
+
+step Historian Biraxas
+  turnin 99257
+
+step Historian Biraxas
+  when group 99258
+  zone Desolace
+  accept 99258
+
+step Nascent Pylon Protector
+  when group 99258
+  zone Desolace
+  tip Mana Mania is group work: elites. Grouping up is advised.
+  kill 276401 x1 quest 99258.1
+
+step Historian Biraxas
+  when group 99258
+  zone Desolace
+  turnin 99258
+
+step Uthek the Wise
+  zone Desolace
+  turnin 93041
+  accept 93044
+  turnin 93044
+  accept 93045
+
+step Nerlokh
+  zone Shen'dralas
+  turnin 93045
+
+step Saving Our Own
+  zone map 2652
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 93058
+  complete 93058 @20.9,22.7
+
+step Nerlokh
+  zone Shen'dralas
+  accept 93062
+  turnin 93062
+
+step Saving Our Own
+  turnin 93058
+
+step Nerlokh
+  zone Shen'dralas
+  accept 93122
+
+step Nerlokh
+  zone Shen'dralas
+  complete 93122 @34.9,74.8 map 2652
+  turnin 93122
+
+step Nerlokh
+  zone Shen'dralas
+  accept 93128
+
+step Not on Squealing Terms
+  zone map 2652
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 93606
+  complete 93606 @72.7,31.2
+
+step Corpsefeeder's Carapace
+  when has 259893
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 2652
+  turnin 93574 direct
+
+step Not on Squealing Terms
+  turnin 93606
+
+step Tattered Journal
+  when has 260347
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 2652
+  turnin 93644 direct
+
+step Uthek the Wise
+  zone Desolace
+  turnin 93128

@@ -1,0 +1,103 @@
+guide polestar-completionist-alliance/28-stonetalon-mountains-2
+title 28 Stonetalon Mountains (35-45) (Completionist)
+faction Alliance
+levels 35-45
+zone Stonetalon Mountains
+next polestar-completionist-alliance/29-stranglethorn-vale
+pitch On along the line: Stonetalon Mountains, quests of level 35 to 45.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 12 quests; estimated level at the end 36.0 (heuristic XP, class quests not counted).
+# Skipped: 1 exclusive with N.
+
+step Stonetalon Peak
+  zone Stonetalon Mountains
+  sethome "Stonetalon Peak"
+
+step Captain Pentigast
+  accept 1382
+  accept 1385
+  accept 93224
+  accept 1454
+  accept 1459
+
+step Scorpashi Snapper
+  collect 6248 x7 quest 1459.1
+
+step Aged Kodo
+  zone Desolace
+  collect 6249 x3 quest 1459.2
+
+step Gelkis Windchaser
+  collect 254432 x5 quest 93224.1
+
+step Uthek the Wise
+  turnin 1382
+
+step Karnitol's Chest
+  turnin 1454
+  accept 1455
+
+step Kreldig Ungor
+  zone Stonetalon Mountains
+  turnin 1455
+  turnin 1459
+  accept 1456
+  accept 1466
+  turnin 93224
+  accept 93226
+
+step Buying Friendship: Gelkis
+  when available 93227
+  tip One of several exclusive quests; the route takes Buying Friendship: Magram (93226). This one shows for a character the game offers it to instead.
+  zone map 1442
+  accept 93227 optional
+
+step Buying Friendship: Gelkis
+  when onquest 93227
+  zone map 1443
+  turnin 93227 optional
+
+step Mage Hunter
+  zone Desolace
+  collect 6250 x10 quest 1466.1
+
+step Nether Sorceress and Doomwarder Captain
+  collect 6251 x10 quest 1466.2
+  collect 6252 x10 quest 1466.3
+
+step Slitherblade Sea Witch
+  collect 6245 x1 quest 1456.1
+
+step Kreldig Ungor
+  zone Stonetalon Mountains
+  turnin 1456
+  turnin 1466
+  accept 1457
+  accept 1467
+
+step Firepit
+  accept 80001
+
+step Dirt-stained Map
+  zone Mulgore
+  collect 4470 x1 quest 80001.1
+
+step Horizon Scout Crewman
+  zone Azshara
+  collect 4471 x1 quest 80001.2
+
+step Firepit
+  zone Stonetalon Mountains
+  turnin 80001
+
+step Warug
+  zone Desolace
+  turnin 1385
+
+step Gorhak
+  turnin 93226
+
+step Roetten Stonehammer
+  zone Ironforge
+  turnin 1457
+  turnin 1467

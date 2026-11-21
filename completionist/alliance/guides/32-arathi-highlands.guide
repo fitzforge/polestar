@@ -1,0 +1,524 @@
+guide polestar-completionist-alliance/32-arathi-highlands
+title 32 Arathi Highlands (30-45) (Completionist)
+faction Alliance
+levels 30-45
+zone Arathi Highlands
+next polestar-completionist-alliance/33-badlands
+pitch On along the line: Arathi Highlands, quests of level 30 to 45.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 35 quests; estimated level at the end 32.5 (heuristic XP, class quests not counted).
+# Skipped: 2 exploration objective has no location in data.
+
+step Captain Nials
+  getfp "Refuge Pointe"
+  accept 681
+
+step Arathor Basic Care Package
+  when available 8260
+  tip One of several exclusive quests; the route takes Arathor Standard Care Package (8261). This one shows for a character the game offers it to instead.
+  tip Needs Friendly standing (3000) with The League of Arathor; without it the quest is not offered.
+  zone map 1417
+  accept 8260 optional
+
+step More Resource Crates
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1417
+  collect 19725 x1 anywhere optional
+  turnin 8298 direct optional
+
+step Arathor Basic Care Package
+  when onquest 8260
+  zone map 1417
+  turnin 8260 optional
+
+step More Resource Crates
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1417
+  collect 19725 x1 anywhere optional
+  turnin 8081 direct optional
+
+step More Resource Crates
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1417
+  collect 19725 x1 anywhere optional
+  turnin 8157 direct optional
+
+step The Battle for Arathi Basin!
+  when available 8167
+  tip One of several exclusive quests; the route takes The Battle for Arathi Basin! (8168). This one shows for a character the game offers it to instead.
+  zone map 1417
+  accept 8167 optional
+
+step More Resource Crates
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1417
+  collect 19725 x1 anywhere optional
+  turnin 8159 direct optional
+
+step Level 45
+  level 45
+
+step Arathor Advanced Care Package
+  when available 8262
+  tip One of several exclusive quests; the route takes Arathor Basic Care Package (8260). This one shows for a character the game offers it to instead.
+  tip Needs Friendly standing (3000) with The League of Arathor; without it the quest is not offered.
+  zone map 1417
+  accept 8262 optional
+
+step Arathor Advanced Care Package
+  when onquest 8262
+  zone map 1417
+  turnin 8262 optional
+
+step Level 60
+  level 60
+
+step Control Four Bases
+  tip Needs Friendly standing (3000) with The League of Arathor; without it the quest is not offered.
+  zone map 1417
+  accept 8114 optional
+
+step Control Four Bases
+  when onquest 8114
+  zone map 1417
+  complete 8114 @46.0,45.3 optional
+
+step Control Four Bases
+  when onquest 8114
+  zone map 1417
+  turnin 8114 optional
+
+step Arathor Standard Care Package
+  when available 8261
+  tip One of several exclusive quests; the route takes Arathor Basic Care Package (8260). This one shows for a character the game offers it to instead.
+  tip Needs Friendly standing (3000) with The League of Arathor; without it the quest is not offered.
+  zone map 1417
+  accept 8261 optional
+
+step The Battle for Arathi Basin!
+  when available 8166
+  tip One of several exclusive quests; the route takes The Battle for Arathi Basin! (8167). This one shows for a character the game offers it to instead.
+  zone map 1417
+  accept 8166 optional
+
+step The Battle for Arathi Basin!
+  when onquest 8166
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1417
+  complete 8166 @45.8,45.5 optional
+
+step The Battle for Arathi Basin!
+  when onquest 8166
+  zone map 1417
+  turnin 8166 optional
+
+step Control Five Bases
+  when turnedin 8114
+  tip Needs Exalted standing (42000) with The League of Arathor; without it the quest is not offered.
+  zone map 1417
+  accept 8115 optional
+
+step Control Five Bases
+  when onquest 8115
+  zone map 1417
+  complete 8115 @46.0,45.3 optional
+
+step Control Five Bases
+  when onquest 8115
+  zone map 1417
+  turnin 8115 optional
+
+step Arathor Standard Care Package
+  when onquest 8261
+  zone map 1417
+  turnin 8261 optional
+
+step The Battle for Arathi Basin!
+  when onquest 8167
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1417
+  complete 8167 @45.8,45.5 optional
+
+step The Battle for Arathi Basin!
+  when onquest 8167
+  zone map 1417
+  turnin 8167 optional
+
+step More Resource Crates
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1417
+  collect 19725 x1 anywhere optional
+  turnin 8158 direct optional
+
+step Arathi Basin Resources!
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1417
+  accept 8154
+  complete 8154 @45.9,45.3
+
+step Arathi Basin Resources!
+  zone map 1417
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 8156
+  complete 8156 @45.9,45.3
+
+step Arathi Basin Resources!
+  zone map 1417
+  turnin 8154
+
+step Wanted Board
+  when group 685
+  zone Arathi Highlands
+  accept 685
+
+step Wanted Board
+  when group 684
+  zone Arathi Highlands
+  accept 684
+
+step Apprentice Kryten
+  accept 691
+
+step Arathi Basin Resources!
+  turnin 8156
+
+step Witherbark Witch Doctor
+  collect 4522 x4 quest 691.2
+
+step Witherbark Shadow Hunter
+  collect 5040 x1 quest 691.3
+
+step Witherbark Axe Thrower
+  collect 4503 x10 quest 691.1
+
+step Marez Cowl
+  when group 684
+  zone Arathi Highlands
+  tip WANTED: Marez Cowl is group work: elites. Grouping up is advised.
+  collect 4515 x1 quest 684.1
+
+step Otto and Lord Falconcrest
+  when group 685
+  zone Arathi Highlands
+  tip WANTED: Otto and Falconcrest is group work: elites. Grouping up is advised.
+  collect 4516 x1 quest 685.1
+  collect 4517 x1 quest 685.2
+
+step Syndicate Mercenary
+  kill 2589 x6 quest 681.2
+
+step Syndicate Highwayman
+  kill 2586 x10 quest 681.1
+
+step Messenger Bag
+  accept 79976
+  turnin 79976
+
+step Level 36
+  level 36
+
+step Captain Nials
+  zone Arathi Highlands
+  accept 95315
+
+step Lolo the Lookout
+  zone Arathi Highlands
+  accept 663
+
+step Shakes O'Breen
+  zone Arathi Highlands
+  turnin 663
+
+step Professor Phizzlethorpe
+  zone Arathi Highlands
+  accept 665
+
+step First Mate Nilzlix
+  zone Arathi Highlands
+  accept 662
+
+step Caretaker Alaric
+  zone Arathi Highlands
+  accept 92872
+  turnin 92872
+
+step Groundskeeper Lomar
+  when group 92867
+  zone Arathi Highlands
+  accept 92867
+
+step Syndicate Conjuror and Syndicate Prowler
+  when group 92867
+  zone Arathi Highlands
+  tip Ground to Keep is group work: elites. Grouping up is advised.
+  kill 2590 x1 quest 92867.2
+  kill 2588 x1 quest 92867.3
+
+step Witherbark Berserker
+  when group 92867
+  zone Arathi Highlands
+  tip Ground to Keep is group work: elites. Grouping up is advised.
+  kill 2558 x1 quest 92867.4
+
+step Boulderfist Mauler
+  when group 92867
+  zone Arathi Highlands
+  tip Ground to Keep is group work: elites. Grouping up is advised.
+  kill 2569 x1 quest 92867.1
+
+step Groundskeeper Lomar
+  when group 92867
+  zone Arathi Highlands
+  turnin 92867
+
+step Captain Steelgut
+  accept 664
+
+step Doctor Draxlegauge
+  turnin 665
+  accept 666
+
+step Maiden's Folly Log and Calcified Elven Gem
+  collect 4489 x1 quest 662.2
+  collect 4492 x10 quest 666.1
+
+step Spirit of Silverpine Charts, Spirit of Silverpine Log and Daggerspine Raider
+  collect 4488 x1 quest 662.3
+  collect 4490 x1 quest 662.4
+  kill 2595 x10 quest 664.1
+
+step Maiden's Folly Charts and Daggerspine Sorceress
+  collect 4487 x1 quest 662.1
+  kill 2596 x3 quest 664.2
+
+step First Mate Nilzlix
+  turnin 662
+  turnin 666
+  accept 668
+  turnin 664
+  turnin 668
+  accept 669
+
+step Foggy MacKreel
+  accept 647
+  accept 632
+
+step Rhag Garmason
+  zone Wetlands
+  turnin 632
+  accept 633
+
+step Cache of Explosives
+  zone Arathi Highlands
+  interact 2704 quest 633.1
+
+step Rhag Garmason
+  zone Wetlands
+  turnin 633
+  accept 634
+
+step Quae
+  zone Arathi Highlands
+  accept 658
+
+step Forsaken Courier
+  collect 4482 x1 quest 658.1
+
+step Quae
+  turnin 658
+  accept 657
+  turnin 657
+  accept 660
+
+step Quae
+  turnin 660
+  accept 661
+
+step Shards of Myzrael
+  accept 642
+
+step Drywhisker Kobold
+  collect 4435 x12 quest 642.1
+
+step Iridescent Shards
+  turnin 642
+  accept 651
+
+step Stone of East Binding
+  collect 4484 x1 quest 651.2
+
+step Stone of Outer Binding
+  collect 4485 x1 quest 651.3
+
+step Apprentice Kryten
+  turnin 691
+  turnin 634
+  turnin 681
+
+step Captain Nials
+  when group 682
+  zone Arathi Highlands
+  accept 682
+
+step Captain Nials
+  when group 685
+  zone Arathi Highlands
+  turnin 685
+
+step Captain Nials
+  when group 684
+  zone Arathi Highlands
+  turnin 684
+
+step Skuerto
+  accept 693
+
+step Stone of West Binding
+  collect 4483 x1 quest 651.1
+
+step Syndicate Prowler
+  when group 682
+  zone Arathi Highlands
+  tip Stromgarde Badges is group work: elites. Grouping up is advised.
+  collect 4506 x7 quest 682.1
+
+step Kor'gresh Coldrage
+  collect 4525 x1 quest 693.1
+
+step Captain Nials
+  when group 682
+  zone Arathi Highlands
+  turnin 682
+
+step Skuerto
+  turnin 693
+
+step Skuerto
+  when group 694
+  zone Arathi Highlands
+  accept 694
+
+step Stone of Inner Binding
+  turnin 651
+
+step Stone of Inner Binding
+  when group 652
+  zone Arathi Highlands
+  accept 652
+
+step Fozruk
+  when group 652
+  zone Arathi Highlands
+  tip Breaking the Keystone is group work: elites. Grouping up is advised.
+  collect 4469 x1 quest 652.1
+
+step Boulderfist Shaman
+  when group 694
+  zone Arathi Highlands
+  tip Trelane's Defenses is group work: elites. Grouping up is advised.
+  collect 4527 x1 quest 694.1
+
+step Keystone
+  when group 652
+  zone Arathi Highlands
+  turnin 652
+
+step Keystone
+  when turnedin 652
+  zone Arathi Highlands
+  accept 653 optional
+
+step Apprentice Kryten
+  when group 694
+  zone Arathi Highlands
+  turnin 694
+
+step Apprentice Kryten
+  zone Arathi Highlands
+  accept 695
+  turnin 695
+  accept 696
+
+step Trelane's Footlocker, Trelane's Chest and Trelane's Lockbox
+  collect 4530 x1 quest 696.1
+  collect 4531 x1 quest 696.2
+  collect 4532 x1 quest 696.3
+
+step Skuerto
+  turnin 696
+  accept 697
+
+step Brewmeister Bilger
+  zone Hillsbrad Foothills
+  turnin 647
+  turnin 661
+
+step Gerrig Bonegrip
+  when onquest 653
+  zone Ironforge
+  turnin 653
+
+step Archmage Malin
+  zone Stormwind City
+  turnin 697
+
+step Fleet Master Seahorn
+  zone Stranglethorn Vale
+  turnin 669
+  accept 670
+
+step Crystal in the Mountains
+  tip Pendant of Myzrael drops from Gluggle, Singer, Achellios the Banished: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1434
+  collect 4614 x1 optional
+  accept 635 item 4614 optional
+
+step Crystal in the Mountains
+  when onquest 635
+  zone map 1417
+  turnin 635
+
+step Demar Brant
+  zone Riverglades
+  turnin 95315
+
+step Shakes O'Breen
+  zone Arathi Highlands
+  turnin 670
+  accept 667
+
+step Shakes O'Breen
+  turnin 667
+
+step Anyone Can Cook
+  tip Illegible Recipe drops from Boulderfist Ogre, Boulderfist Enforcer, Boulderfist Brute: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1417
+  collect 213422 x1 optional
+  accept 79624 item 213422 optional
+  complete 79624 @57.7,74.7
+
+step Anyone Can Cook
+  when onquest 79624
+  zone map 1417
+  turnin 79624
+
+step A Quick Grocery Run
+  when turnedin 79624
+  zone map 1417
+  accept 79677
+  complete 79677 @57.7,74.7
+
+step A Quick Grocery Run
+  when onquest 79677
+  zone map 1417
+  turnin 79677
+
+step Taste Testing
+  when turnedin 79677
+  zone map 1417
+  accept 79678
+
+step Taste Testing
+  when onquest 79678
+  zone map 1417
+  turnin 79678

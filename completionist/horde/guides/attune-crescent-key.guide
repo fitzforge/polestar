@@ -1,0 +1,13 @@
+guide polestar-completionist-horde/attune-crescent-key
+title Crescent Key (Dire Maul key or item) (Completionist)
+faction Horde
+category Dungeons
+levels 1-60
+zone Feralas
+pitch Crescent Key: Opens the inner doors of Dire Maul's North and West wings.
+why Opens the inner doors of Dire Maul's North and West wings.
+
+step Crescent Key
+  tip Opens the inner doors of Dire Maul's North and West wings. No quest gives it: it comes from inside Dire Maul; the arrow leads to the entrance.
+  zone map 1444
+  collect 18249 x1 @62.3,25.5 map 1444 optional

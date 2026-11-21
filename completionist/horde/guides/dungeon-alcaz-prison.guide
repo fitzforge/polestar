@@ -1,0 +1,83 @@
+guide polestar-completionist-horde/dungeon-alcaz-prison
+title Alcaz Prison (Completionist)
+faction Horde
+category Dungeons
+levels 48-53
+zone Dustwallow Marsh
+next polestar-completionist-horde/49-western-plaguelands
+pitch Alcaz Prison, in Dustwallow Marsh.
+why Every Horde quest of Alcaz Prison: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Dustwallow Marsh: the arrow leads to it.
+
+step The Elite of the Elite
+  zone The Barrens
+  accept 95284
+
+step The Elite of the Elite
+  zone Dustwallow Marsh
+  turnin 95284
+
+step Right Place, Wrong Time
+  zone Dustwallow Marsh
+  accept 95285
+
+step Right Place, Wrong Time
+  zone Dustwallow Marsh
+  turnin 95285
+
+step Sergeant Ulka
+  zone Dustwallow Marsh
+  accept 95309
+  accept 96332
+  accept 96334
+
+step Inside Alcaz Prison
+  zone Dustwallow Marsh
+  accept 96335 @75.4,14
+  turnin 95309 @75.4,14
+  complete 96332 @75.4,14
+  complete 96334 @75.4,14
+  complete 96335 @75.4,14
+  turnin 96335 @75.4,14
+
+step Sergeant Ulka
+  zone Dustwallow Marsh
+  turnin 96332
+
+step Eitrigg
+  zone Orgrimmar
+  turnin 96334
+
+step Inside Alcaz Prison, again
+  zone Dustwallow Marsh
+  accept 95454 @75.4,14
+  accept 96337 @75.4,14
+  turnin 95454 @75.4,14
+
+step Connery's Trunk
+  zone Westfall
+  turnin 96337
+
+step Nazgrel
+  zone Orgrimmar
+  accept 96376
+
+step Inside Alcaz Prison, again
+  zone Dustwallow Marsh
+  accept 96369 @75.4,14
+  turnin 96369 @75.4,14
+  complete 96376 @75.4,14
+
+step Nazgrel
+  zone Orgrimmar
+  turnin 96376
+
+step Inside Alcaz Prison, again
+  zone Dustwallow Marsh
+  accept 95483 @75.4,14
+
+step Thrall
+  zone Orgrimmar
+  turnin 95483

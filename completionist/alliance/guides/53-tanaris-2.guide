@@ -1,0 +1,281 @@
+guide polestar-completionist-alliance/53-tanaris-2
+title 53 Tanaris (52-60) (Completionist)
+faction Alliance
+levels 52-60
+zone Tanaris
+next polestar-completionist-alliance/54-blasted-lands
+pitch On along the line: Tanaris, quests of level 52 to 60.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 22 quests; estimated level at the end 53.0 (heuristic XP, class quests not counted).
+# Skipped: 3 prerequisite N not in this route.
+
+step Alchemist Pestlezugg
+  sethome "Gadgetzan"
+  accept 4496
+  accept 4504
+
+step War at Sea
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1446
+  collect 4338 x40 anywhere optional
+  collect 3466 x4 anywhere optional
+  turnin 9268 direct optional
+
+step A Blue Light Bargain
+  when skill Blacksmithing 1
+  zone map 1446
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 7652 optional
+
+step Wizzik Dustfizz
+  accept 96912
+  turnin 96912 @51.9,27.2 map 1446
+
+step A Blue Light Bargain
+  when skill Blacksmithing 1
+  turnin 7652 optional
+
+step Egg-O-Matic
+  accept 2741
+
+step Imperial Plate Shoulders
+  when skill Blacksmithing 1
+  zone map 1446
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 7659 optional
+  complete 7659 @51.4,28.7 optional
+
+step Imperial Plate Leggings
+  when skill Blacksmithing 1
+  zone map 1446
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 7658 optional
+  complete 7658 @51.4,28.7 optional
+
+step Imperial Plate Helm
+  when skill Blacksmithing 1
+  zone map 1446
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 7657 optional
+  complete 7657 @51.4,28.7 optional
+
+step Imperial Plate Chest
+  when skill Blacksmithing 1
+  zone map 1446
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 7656 optional
+  complete 7656 @51.4,28.7 optional
+
+step Imperial Plate Bracer
+  when skill Blacksmithing 1
+  zone map 1446
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 7655 optional
+  complete 7655 @51.4,28.7 optional
+
+step Imperial Plate Boots
+  when skill Blacksmithing 1
+  zone map 1446
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 7654 optional
+  complete 7654 @51.4,28.7 optional
+
+step Imperial Plate Belt
+  when skill Blacksmithing 1
+  zone map 1446
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 7653 optional
+  complete 7653 @51.4,28.7 optional
+
+step Gorishi Worker
+  zone Un'Goro Crater
+  collect 11837 x1 quest 4496.1
+
+step Un'Goro Dirt Pile
+  collect 11018 x5 quest 4496.2
+
+step Hippogryph Egg
+  zone Feralas
+  collect 8564 x1 quest 2741.1
+
+step Tar Lurker
+  zone Un'Goro Crater
+  collect 11834 x12 quest 4504.1
+
+step Torwa Pathfinder
+  zone Tanaris
+  accept 4289
+  accept 4290
+  accept 87492
+
+step Damaged Blue Crystal
+  zone Un'Goro Crater
+  collect 280417 x1 quest 87492.1
+
+step Un'Goro Gorilla, Un'Goro Stomper and Un'Goro Thunderer
+  collect 11478 x2 quest 4289.1
+  collect 11479 x2 quest 4289.2
+  collect 11480 x2 quest 4289.3
+
+step Fresh Threshadon Carcass
+  collect 11504 x1 quest 4290.1
+
+step Torwa Pathfinder
+  zone Tanaris
+  turnin 4289
+  turnin 4290
+  turnin 87492
+  accept 4291
+  accept 4301
+
+step Lar'korwi Mate
+  zone Un'Goro Crater
+  collect 11509 x2 quest 4291.1
+
+step U'cha
+  collect 11476 x1 quest 4301.1
+
+step Torwa Pathfinder
+  zone Tanaris
+  turnin 4291
+  turnin 4301
+  accept 4292
+
+step Lar'korwi
+  zone Un'Goro Crater
+  collect 11510 x1 quest 4292.1
+
+step Torwa Pathfinder
+  zone Tanaris
+  turnin 4292
+
+step Alchemist Pestlezugg
+  turnin 4496
+  accept 4507
+  turnin 4504
+  turnin 2741
+
+step An Ordinary Egg
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1446
+  collect 8645 x1 anywhere optional
+  turnin 2749 direct optional
+
+step A Fine Egg
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1446
+  collect 8644 x1 anywhere optional
+  turnin 2748 direct optional
+
+step An Extraordinary Egg
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1446
+  collect 8643 x1 anywhere optional
+  turnin 2747 direct optional
+
+step Imperial Plate Shoulders
+  when skill Blacksmithing 1
+  turnin 7659 optional
+
+step Imperial Plate Leggings
+  when skill Blacksmithing 1
+  turnin 7658 optional
+
+step Imperial Plate Helm
+  when skill Blacksmithing 1
+  turnin 7657 optional
+
+step Imperial Plate Chest
+  when skill Blacksmithing 1
+  turnin 7656 optional
+
+step Imperial Plate Bracer
+  when skill Blacksmithing 1
+  turnin 7655 optional
+
+step Imperial Plate Boots
+  when skill Blacksmithing 1
+  turnin 7654 optional
+
+step Imperial Plate Belt
+  when skill Blacksmithing 1
+  turnin 7653 optional
+
+step Gorishi Hive Queen
+  zone Un'Goro Crater
+  collect 11835 x1 quest 4507.1
+
+step Alchemist Pestlezugg
+  zone Tanaris
+  turnin 4507
+  accept 4508
+
+step Gaeriyan
+  accept 3913
+
+step A Conspicuous Gravestone
+  turnin 3913
+  accept 3914
+
+step Linken
+  zone Un'Goro Crater
+  turnin 3914
+  accept 3941
+
+step J.D. Collie
+  turnin 3941
+  accept 3942
+
+step Eridan Bluewind
+  zone Felwood
+  turnin 3942
+  accept 4084
+
+step Felpaw Wolf
+  zone Ashenvale
+  collect 11172 x11 quest 4084.1
+
+step Irontree Stomper
+  zone Felwood
+  collect 11173 x1 quest 4084.2
+
+step Eridan Bluewind
+  turnin 4084
+  accept 4005
+
+step Aquementas
+  zone Tanaris
+  collect 11522 x1 quest 4005.1
+
+step J.D. Collie
+  zone Un'Goro Crater
+  turnin 4005
+  accept 3961
+
+step Linken
+  turnin 3961
+
+step Linken
+  when group 3962
+  zone Un'Goro Crater
+  accept 3962
+
+step Blazerunner and Ornate Chest
+  when group 3962
+  zone Un'Goro Crater
+  tip It's Dangerous to Go Alone is group work: elites. Grouping up is advised.
+  kill 9376 x1 quest 3962.1
+  collect 11179 x1 quest 3962.2
+
+step Linken
+  when group 3962
+  zone Un'Goro Crater
+  turnin 3962
+
+step Gracina Spiritmight
+  zone Darnassus
+  turnin 4508
+  accept 4510
+
+step Idriana
+  turnin 4510

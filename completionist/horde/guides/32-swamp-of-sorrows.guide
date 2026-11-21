@@ -1,0 +1,188 @@
+guide polestar-completionist-horde/32-swamp-of-sorrows
+title 32 Swamp of Sorrows (35-50) (Completionist)
+faction Horde
+levels 35-50
+zone Swamp of Sorrows
+next polestar-completionist-horde/33-stranglethorn-vale-2
+pitch On along the line: Swamp of Sorrows, quests of level 35 to 50.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 21 quests; estimated level at the end 36.7 (heuristic XP, class quests not counted).
+
+step Helgrum the Swift
+  sethome "Stonard"
+  getfp "Stonard"
+  accept 1418
+
+step Noboru the Cudgel
+  goto 54.9,34.1 "Noboru the Cudgel"
+  accept 1392 item 6196 -- Drops from Noboru the Cudgel
+
+step Dar
+  accept 698
+  accept 1430
+
+step Lost in Transit
+  zone map 1435
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 93663
+  complete 93663 @44.7,57.2
+
+step Sawtooth Crocolisk
+  collect 6169 x8 quest 698.1
+
+step Monstrous Crawler
+  collect 6184 x10 quest 1430.1
+
+step Cortello's Riddle
+  zone Stranglethorn Vale
+  goto 29.2,88.6 "Cortello's Riddle"
+  accept 624 item 4056 -- Found in Cortello's Riddle
+
+step Dar
+  turnin 1430
+
+step Amaryllis Webb
+  accept 93176
+
+step Arbor Tarantula
+  zone Stranglethorn Vale
+  collect 213566 x1 quest 93176.1
+
+step Flesh Picker
+  zone Desolace
+  collect 213567 x1 quest 93176.3
+
+step Hay Weevil
+  zone Arathi Highlands
+  collect 213568 x1 quest 93176.2
+
+step Neeka Bloodscar
+  zone Badlands
+  turnin 1418
+
+step Pelluk
+  zone Swamp of Sorrows
+  accept 93430
+  turnin 1392
+  accept 1389
+  accept 93429
+
+step Lost in Transit
+  turnin 93663
+
+step Lost One Fisherman
+  collect 258530 x1 quest 93430.1
+
+step Draenethyst Crystals
+  collect 6071 x6 quest 1389.1
+
+step Lost One Hunter
+  kill 759 x10 quest 93429.1
+
+step Galen Goodward
+  accept 1393
+
+step Galen's Strongbox
+  complete 1393 @53.1,29.6 map 1435
+  turnin 1393
+
+step Pelluk
+  turnin 93430
+  turnin 1389
+  accept 93464
+  turnin 93429
+
+step A Soggy Scroll
+  turnin 624
+  accept 625
+
+step Amaryllis Webb
+  turnin 93176
+
+step Tok'Kar
+  turnin 698
+  accept 699
+
+step Sawtooth Snapper
+  collect 6168 x6 quest 699.1
+
+step Tok'Kar
+  turnin 699
+  accept 1422
+  turnin 1422
+  accept 1426
+
+step Marsh Murloc
+  kill 747 x10 quest 1426.1
+
+step Marsh Inkspewer and Marsh Flesheater
+  zone Blasted Lands
+  kill 750 x10 quest 1426.2
+  kill 751 x10 quest 1426.3
+
+step Katar
+  zone Swamp of Sorrows
+  turnin 1426
+  accept 1427
+  turnin 1427
+  accept 1428
+
+step Marsh Inkspewer and Marsh Flesheater
+  zone Blasted Lands
+  kill 750 x10 quest 1428.1
+  kill 751 x10 quest 1428.2
+
+step Marsh Oracle
+  kill 752 x10 quest 1428.3
+
+step Katar
+  zone Swamp of Sorrows
+  turnin 1428
+
+step Azore Aldamort
+  zone Desolace
+  turnin 93464
+  accept 93465
+
+step Gimashi
+  collect 258774 x1 quest 93465.1
+
+step Azore Aldamort
+  turnin 93465
+  accept 93678
+
+step Musty Scroll
+  zone The Barrens
+  turnin 625
+
+step Magtoor
+  zone Swamp of Sorrows
+  turnin 93678
+
+step Level 45
+  level 45
+
+step Fall From Grace
+  zone map 1435
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 2784
+  complete 2784 @34.3,66.1
+
+step Fall From Grace
+  turnin 2784
+
+step Fallen Hero of the Horde
+  zone Swamp of Sorrows
+  accept 2621
+
+step Dispatch Commander Ruag
+  zone Swamp of Sorrows
+  turnin 2621
+
+step Dispatch Commander Ruag
+  zone Stranglethorn Vale
+  accept 2622
+
+step Bengor
+  zone Stranglethorn Vale
+  turnin 2622

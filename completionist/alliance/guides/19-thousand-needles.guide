@@ -1,0 +1,73 @@
+guide polestar-completionist-alliance/19-thousand-needles
+title 19 Thousand Needles (29-37) (Completionist)
+faction Alliance
+levels 29-37
+zone Thousand Needles
+next polestar-completionist-alliance/20-elwynn-forest-and-stormwind-3
+pitch On along the line: Thousand Needles, quests of level 29 to 37.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 8 quests; estimated level at the end 29.9 (heuristic XP, class quests not counted).
+# Skipped: 1 prerequisite N not in this route.
+
+step Kravel Koalbeard
+  accept 1110
+  accept 5762
+
+step Rocket Car Rubble
+  collect 5798 x30 quest 1110.1
+
+step Kravel Koalbeard
+  turnin 1110
+  accept 1176
+
+step Salt Flats Scavenger
+  collect 5848 x10 quest 1176.1
+
+step Pozzik
+  turnin 1176
+  accept 1178
+  accept 1175
+
+step Saltstone Gazer
+  kill 4150 x6 quest 1175.3
+
+step Saltstone Crystalhide
+  kill 4151 x10 quest 1175.2
+
+step Saltstone Basilisk
+  kill 4147 x10 quest 1175.1
+
+step Trackmaster Zherin
+  turnin 1175
+
+step Level 30
+  level 30
+
+step Kravel Koalbeard
+  zone Thousand Needles
+  accept 1111
+
+step Kristy Grant
+  accept 98155
+
+step Pesterhide Snarler
+  zone The Barrens
+  collect 279472 x5 quest 98155.1
+
+step Kristy Grant
+  zone Thousand Needles
+  turnin 98155
+  accept 98156
+
+step Wharfmaster Dizzywig
+  zone The Barrens
+  turnin 1111
+  turnin 1178
+
+step Kimberly Grant
+  zone Stormwind City
+  turnin 98156
+
+step Hemet Nesingwary
+  zone Stranglethorn Vale
+  turnin 5762

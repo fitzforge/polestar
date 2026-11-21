@@ -1,0 +1,130 @@
+guide polestar-completionist-horde/event-love-is-in-the-air
+title Love is in the Air (Completionist)
+faction Horde
+category Miscellaneous
+levels 1-60
+zone Orgrimmar
+pitch The quests of Love is in the Air, as far as the reference data places them.
+
+step About this guide
+  note Each quest here is offered only while the event runs. Every step is optional: do what the calendar offers now, and come back for the rest.
+
+step Dearest Elenia,
+  zone map 1454
+  accept 8900 optional
+
+step Dearest Elenia,
+  when onquest 8900
+  zone map 1458
+  turnin 8900 optional
+
+step Dearest Elenia,
+  when available 8901
+  tip One of several exclusive quests; the route takes Dearest Elenia, (8900). This one shows for a character the game offers it to instead.
+  zone map 1456
+  accept 8901 optional
+
+step Dearest Elenia,
+  when onquest 8901
+  zone map 1458
+  turnin 8901 optional
+
+step Dearest Elenia,
+  when available 8902
+  tip One of several exclusive quests; the route takes Dearest Elenia, (8900). This one shows for a character the game offers it to instead.
+  zone map 1420
+  accept 8902 optional
+
+step Dearest Elenia,
+  when onquest 8902
+  zone map 1458
+  turnin 8902 optional
+
+step Dangerous Love
+  when available 8904
+  tip One of several exclusive quests; the route takes Dearest Elenia, (8900). This one shows for a character the game offers it to instead.
+  zone map 1458
+  accept 8904 optional
+
+step Dangerous Love
+  when onquest 8904
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1458
+  complete 8904 @66.7,44.7 optional
+
+step Dangerous Love
+  when onquest 8904
+  zone map 1458
+  turnin 8904 optional
+
+step Fenstad's Hunch
+  when turnedin 8900
+  zone map 1458
+  accept 8979 optional
+
+step Fenstad's Hunch
+  when onquest 8979
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1458
+  complete 8979 @66.7,44.7 optional
+
+step Fenstad's Hunch
+  when onquest 8979
+  zone map 1458
+  turnin 8979 optional
+
+step Zinge's Assessment
+  when turnedin 8979
+  zone map 1458
+  accept 8980 optional
+
+step Zinge's Assessment
+  when onquest 8980
+  zone map 1458
+  turnin 8980 optional
+
+step Tracing the Source
+  when turnedin 8980
+  zone map 1458
+  accept 8982 optional
+
+step Tracing the Source
+  when onquest 8982
+  zone map 1458
+  turnin 8982 optional
+
+step Tracing the Source
+  when turnedin 8982
+  zone map 1458
+  accept 8983 optional
+
+step Tracing the Source
+  when onquest 8983
+  zone map 1458
+  turnin 8983 optional
+
+step The Source Revealed
+  when turnedin 8983
+  zone map 1458
+  accept 8984 optional
+
+step The Source Revealed
+  when onquest 8984
+  zone map 1416
+  turnin 8984 optional
+
+step A Bubbling Cauldron
+  when turnedin 8984
+  zone map 1416
+  accept 9029 optional
+
+step A Bubbling Cauldron
+  when onquest 9029
+  zone map 1416
+  turnin 9029 optional
+
+step Gift Giving
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1453
+  collect 22263 x1 anywhere optional
+  turnin 8981 direct optional

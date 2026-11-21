@@ -1,0 +1,351 @@
+guide polestar-completionist-alliance/dungeon-deadmines
+title Deadmines (Completionist)
+faction Alliance
+category Dungeons
+levels 15-22
+zone Westfall
+next polestar-completionist-alliance/09-loch-modan
+pitch Deadmines, in Westfall.
+why Every Alliance quest of Deadmines: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Westfall: the arrow leads to it.
+
+step Murloc Gills
+  zone Westfall
+  accept 92744
+
+step Murloc Gills
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Westfall
+  complete 92744 @52.48,52.97
+
+step Murloc Gills
+  zone Westfall
+  turnin 92744
+
+step Speak with Shoni
+  zone Ironforge
+  accept 2041
+
+step Speak with Shoni
+  zone Stormwind City
+  turnin 2041
+
+step The Defias Brotherhood
+  zone Westfall
+  accept 65
+
+step The Defias Brotherhood
+  zone Redridge Mountains
+  turnin 65
+
+step The Defias Brotherhood
+  zone Redridge Mountains
+  accept 132
+
+step The Defias Brotherhood
+  zone Westfall
+  turnin 132
+
+step The Defias Brotherhood
+  zone Westfall
+  accept 135
+
+step The Defias Brotherhood
+  zone Stormwind City
+  turnin 135
+
+step The Defias Brotherhood
+  zone Stormwind City
+  accept 141
+
+step The Defias Brotherhood
+  zone Westfall
+  turnin 141
+
+step The Defias Brotherhood
+  zone Westfall
+  accept 142
+
+step The Defias Brotherhood
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Westfall
+  complete 142 @56.33,47.52
+
+step The Defias Brotherhood
+  zone Westfall
+  turnin 142
+
+step The Defias Brotherhood
+  zone Westfall
+  accept 155
+
+step The Defias Brotherhood
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Westfall
+  complete 155 @55.68,47.5
+
+step The Defias Brotherhood
+  zone Westfall
+  turnin 155
+
+step The Tome of Valor
+  only Paladin,Human,Dwarf
+  tip This quest starts from an item: use it to take the quest.
+  collect 6776 x1 anywhere
+
+step Testing the Wells
+  zone Westfall
+  accept 92742
+
+step Testing the Wells
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Westfall
+  complete 92742 @52.48,52.97
+
+step Testing the Wells
+  zone Westfall
+  turnin 92742
+
+step The State of the Mines
+  zone Westfall
+  accept 92745
+
+step The State of the Mines
+  zone Westfall
+  complete 92745 @44.62,19.99
+
+step The State of the Mines
+  zone Westfall
+  turnin 92745
+
+step Level 20
+  level 20
+
+step The Tome of Valor
+  only Paladin,Human,Dwarf
+  tip This quest starts from an item: use it to take the quest.
+  zone Westfall
+  accept 1649 item 6776
+
+step The Tome of Valor
+  only Paladin,Human,Dwarf
+  zone Stormwind City
+  turnin 1649
+
+step The Tome of Valor
+  only Paladin,Human,Dwarf
+  zone Stormwind City
+  accept 1650
+
+step The Tome of Valor
+  only Paladin,Human,Dwarf
+  zone Westfall
+  turnin 1650
+
+step The Tome of Valor
+  only Paladin,Human,Dwarf
+  zone Westfall
+  accept 1651
+
+step The Tome of Valor
+  only Paladin,Human,Dwarf
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Westfall
+  complete 1651 @41.69,89.24
+
+step The Tome of Valor
+  only Paladin,Human,Dwarf
+  zone Westfall
+  turnin 1651
+
+step The Tome of Valor
+  only Paladin,Human,Dwarf
+  zone Westfall
+  accept 1652
+
+step The Tome of Valor
+  only Paladin,Human,Dwarf
+  zone Stormwind City
+  turnin 1652
+
+step Moonbrook Espionage
+  zone Westfall
+  accept 92747
+
+step Moonbrook Espionage
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Westfall
+  complete 92747 @52.48,52.97
+
+step Moonbrook Espionage
+  zone Westfall
+  turnin 92747
+
+step Explosive Consultation
+  zone Westfall
+  accept 92748
+
+step Explosive Consultation
+  zone Stormwind City
+  turnin 92748
+
+step A Dynamite Plan
+  zone Stormwind City
+  accept 92749
+
+step A Dynamite Plan
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Stormwind City
+  complete 92749 @61.88,30.56
+
+step A Dynamite Plan
+  zone Stormwind City
+  turnin 92749
+
+step Detonation at a Distance
+  zone Stormwind City
+  accept 92750
+
+step Detonation at a Distance
+  zone Stormwind City
+  turnin 92750
+
+step Detonation at a Distance
+  zone Stormwind City
+  accept 92751
+
+step Detonation at a Distance
+  zone Stormwind City
+  turnin 92751
+
+step Explosive Consultation
+  zone Stormwind City
+  accept 92752
+
+step Explosive Consultation
+  zone Westfall
+  turnin 92752
+
+step The Test of Righteousness
+  only Paladin,Human,Dwarf
+  zone Stormwind City
+  accept 1653
+
+step The Test of Righteousness
+  only Paladin,Human,Dwarf
+  zone Dun Morogh
+  turnin 1653
+
+step Alba Fairmoon
+  zone Westfall
+  accept 92753
+
+step Gryan Stoutmantle
+  zone Westfall
+  accept 166
+
+step Scout Riell
+  zone Westfall
+  accept 214
+
+step Jordan Stilwell
+  only Paladin,Human,Dwarf
+  zone Dun Morogh
+  accept 1654
+
+step Bailor's Ore Shipment
+  only Paladin,Human,Dwarf
+  when onquest 1654
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1432
+  collect 6992 x1 anywhere optional
+  turnin 1655 direct optional
+
+step Seeking the Kor Gem
+  only Paladin,Human,Dwarf
+  when onquest 1654
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1439
+  collect 6995 x1 anywhere optional
+  turnin 1442 direct optional
+
+step Shoni the Shilent
+  zone Stormwind City
+  accept 2040
+
+step Wilder Thistlenettle
+  zone Stormwind City
+  accept 168
+  accept 167
+
+step Inside Deadmines
+  zone Westfall
+  collect 2874 @41.9,72.8
+  accept 373 item 2874
+  complete 214 @41.9,72.8
+  complete 168 @41.9,72.8
+  complete 92753 @41.9,72.8
+  complete 167 @41.9,72.8
+  complete 2040 @41.9,72.8
+  complete 166 @41.9,72.8
+
+step Inside Deadmines
+  only Paladin,Human,Dwarf
+  zone Westfall
+  complete 1654 @41.9,72.8
+
+step Alba Fairmoon
+  zone Westfall
+  turnin 92753
+
+step Destruction in Deadmines
+  zone map 1436
+  accept 92819
+
+step Destruction in Deadmines
+  when onquest 92819
+  zone map 1436
+  complete 92819 @38.7,83.6
+
+step Destruction in Deadmines
+  when onquest 92819
+  zone map 1436
+  turnin 92819
+
+step Gryan Stoutmantle
+  zone Westfall
+  turnin 166
+
+step Scout Riell
+  zone Westfall
+  turnin 214
+
+step Jordan Stilwell
+  only Paladin,Human,Dwarf
+  zone Dun Morogh
+  turnin 1654
+
+step Baros Alexston
+  zone Stormwind City
+  turnin 373
+
+step Shoni the Shilent
+  zone Stormwind City
+  turnin 2040
+
+step Wilder Thistlenettle
+  zone Stormwind City
+  turnin 168
+  turnin 167
+
+step Jordan Stilwell
+  only Paladin,Human,Dwarf
+  zone Dun Morogh
+  accept 1806
+
+step Jordan Stilwell
+  only Paladin,Human,Dwarf
+  zone Dun Morogh
+  turnin 1806

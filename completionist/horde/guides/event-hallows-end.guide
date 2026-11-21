@@ -1,0 +1,92 @@
+guide polestar-completionist-horde/event-hallows-end
+title Hallow's End (Completionist)
+faction Horde
+category Miscellaneous
+levels 1-60
+zone Orgrimmar
+pitch The quests of Hallow's End, as far as the reference data places them.
+
+step About this guide
+  note Each quest here is offered only while the event runs. Every step is optional: do what the calendar offers now, and come back for the rest.
+
+step Chicken Clucking for a Mint
+  when turnedin 8312
+  when onquest 8312
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1458
+  turnin 8354 direct optional
+
+step Incoming Gumdrop
+  when turnedin 8312
+  when onquest 8312
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1411
+  turnin 8358 direct optional
+
+step Flexing for Nougat
+  when turnedin 8312
+  when onquest 8312
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  turnin 8359 direct optional
+
+step Level 25
+  level 25
+
+step Stinking Up Southshore
+  zone map 1420
+  accept 1657 optional
+
+step Stinking Up Southshore
+  when onquest 1657
+  zone map 1424
+  complete 1657 @50.3,57.6 optional
+
+step Stinking Up Southshore
+  when onquest 1657
+  zone map 1420
+  turnin 1657 optional
+
+step Hallow's End Treats for Spoops!
+  zone map 1454
+  accept 8312 optional
+
+step Hallow's End Treats for Spoops!
+  when onquest 8312
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 8312 @71.4,22.8 optional
+
+step Hallow's End Treats for Spoops!
+  when onquest 8312
+  zone map 1454
+  turnin 8312 optional
+
+step Level 30
+  level 30
+
+step Rotten Eggs
+  zone map 1420
+  accept 8322 optional
+
+step Rotten Eggs
+  when onquest 8322
+  zone map 1424
+  turnin 8322 optional
+
+step Dancing for Marzipan
+  when turnedin 8312
+  when onquest 8312
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1456
+  turnin 8360 direct optional
+
+step Ruined Kegs
+  when turnedin 8322
+  zone map 1424
+  accept 8409 optional
+
+step Ruined Kegs
+  when onquest 8409
+  zone map 1420
+  turnin 8409 optional

@@ -1,0 +1,197 @@
+guide polestar-completionist-horde/11-ashenvale
+title 11 Ashenvale (19-30) (Completionist)
+faction Horde
+levels 19-30
+zone Ashenvale
+next polestar-completionist-horde/dungeon-blackfathom-deeps
+next polestar-completionist-horde/12-mulgore-and-thunder-bluff-2
+pitch On along the line: Ashenvale, quests of level 19 to 30.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 20 quests; estimated level at the end 21.7 (heuristic XP, class quests not counted).
+
+step Aean Swiftriver
+  zone The Barrens
+  goto 46.0,70.0 "Aean Swiftriver"
+  accept 3513 item 10621 -- Drops from Aean Swiftriver
+
+step Kadrak
+  turnin 3513
+
+step Level 21
+  level 21
+
+step Pixel
+  zone Ashenvale
+  sethome "Splintertree Post"
+  getfp "Splintertree Post"
+  accept 6441
+
+step Bleakheart Shadowstalker
+  zone Ashenvale
+  collect 5481 x16 quest 6441.1
+
+step Senani Thunderheart
+  zone Ashenvale
+  accept 6383
+  turnin 6383
+
+step Sharptalon
+  zone Ashenvale
+  accept 2 item 16305 -- Drops from Sharptalon
+
+step Ursangous
+  zone Ashenvale
+  accept 23 item 16303 -- Drops from Ursangous
+
+step Shadumbra
+  zone Ashenvale
+  accept 24 item 16304 -- Drops from Shadumbra
+
+step Level 23
+  level 23
+
+step Mastok Wrilehiss
+  zone Ashenvale
+  accept 25
+
+step Befouled Water Elemental
+  zone Ashenvale
+  kill 3917 x12 quest 25.1
+
+step Tideress
+  zone Ashenvale
+  accept 1918 item 16408 -- Drops from Tideress
+
+step Kuray'bin
+  accept 6503
+
+step The Lost Pages
+  zone map 1440
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 6504
+  complete 6504 @70.0,71.2
+
+step The Lost Pages
+  turnin 6504
+
+step Torek
+  zone Ashenvale
+  accept 6544
+
+step Locke Okarr
+  accept 6571
+
+step Warsong Saw Blades
+  when onquest 6571
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1440
+  collect 4369 x1 anywhere optional
+  turnin 6581 direct optional
+
+step Ashenvale Outrunner
+  kill 12856 x9 quest 6503.1
+
+step Warsong Axe Shipment
+  zone Stranglethorn Vale
+  collect 16745 x1 quest 6571.2
+
+step Thistlefur Totemic
+  zone Felwood
+  collect 16743 x1 quest 6571.4
+
+step Ruul Snowhoof
+  zone Ashenvale
+  accept 6482
+
+step Warsong Oil
+  collect 16744 x1 quest 6571.3
+
+step Pixel
+  collect 16742 x1 quest 6571.1
+
+step Pixel
+  turnin 6441
+  complete 6544 @64.7,75.3 map 1440
+  turnin 6544
+  turnin 2
+  turnin 23
+  turnin 24
+  accept 247
+  turnin 247
+  complete 6482 @38.5,37.3 map 1440
+  turnin 6482
+
+step Mastok Wrilehiss
+  complete 25 @48.9,69.6 map 1440
+  turnin 25
+  turnin 1918
+  accept 824
+
+step Locke Okarr
+  turnin 6571
+  turnin 6503
+
+step Va'xug Firefure
+  accept 98251
+
+step Shadowhorn Stag
+  kill 3817 x6 quest 98251.1
+
+step Ashenvale Bear
+  zone The Barrens
+  kill 3809 x6 quest 98251.2
+
+step Va'xug Firefure
+  zone Ashenvale
+  turnin 98251
+
+step A Void Path
+  zone map 1440
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 98252
+  complete 98252 @40.5,61.4
+
+step A Void Path
+  turnin 98252
+
+step Muglash
+  getfp "Zoram'gar Outpost"
+  accept 6641
+  accept 216
+  turnin 824
+  accept 6442
+  accept 6462
+
+step Baron Aquanis
+  only Orc,Undead,Tauren,Troll
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1440
+  turnin 909 direct
+
+step Wrathtail Myrmidon
+  zone Darkshore
+  collect 5490 x20 quest 6442.1
+
+step Troll Chest
+  zone Ashenvale
+  collect 16602 x8 quest 6462.1
+
+step Thistlefur Avenger
+  kill 3925 x8 quest 216.1
+
+step Thistlefur Shaman
+  kill 3924 x8 quest 216.2
+
+step Warsong Runner
+  complete 6641 @9.6,27.6 map 1440
+  turnin 6641
+  turnin 216
+  accept 6621
+  turnin 6442
+  turnin 6462
+
+step Chief Murgut
+  collect 16976 x1 quest 6621.1
+
+step Karang Amakkar
+  turnin 6621

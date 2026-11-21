@@ -1,0 +1,126 @@
+guide polestar-completionist-horde/event-childrens-week
+title Children's Week (Completionist)
+faction Horde
+category Miscellaneous
+levels 1-60
+zone Orgrimmar
+pitch The quests of Children's Week, as far as the reference data places them.
+
+step About this guide
+  note Each quest here is offered only while the event runs. Every step is optional: do what the calendar offers now, and come back for the rest.
+
+step Level 10
+  level 10
+
+step Children's Week
+  zone map 1454
+  accept 172 optional
+
+step Children's Week
+  when onquest 172
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 172 @70.7,25.2 optional
+
+step Children's Week
+  when onquest 172
+  zone map 1454
+  turnin 172 optional
+
+step Down at the Docks
+  when turnedin 172
+  zone map 1454
+  accept 910 optional
+
+step Down at the Docks
+  when onquest 910
+  zone map 1413
+  complete 910 @63.0,38.0 optional
+
+step Down at the Docks
+  when onquest 910
+  zone map 1454
+  turnin 910 optional
+
+step Gateway to the Frontier
+  when turnedin 172
+  zone map 1454
+  accept 911 optional
+
+step Gateway to the Frontier
+  when onquest 911
+  zone map 1413
+  complete 911 @47.9,5.4 optional
+
+step Gateway to the Frontier
+  when onquest 911
+  zone map 1454
+  turnin 911 optional
+
+step Lordaeron Throne Room
+  when turnedin 172
+  zone map 1454
+  accept 1800 optional
+
+step Lordaeron Throne Room
+  when onquest 1800
+  zone map 1458
+  complete 1800 @66.0,36.1 optional
+
+step Lordaeron Throne Room
+  when onquest 1800
+  zone map 1454
+  turnin 1800 optional
+
+step You Scream, I Scream...
+  when turnedin 1800
+  when turnedin 910
+  when turnedin 911
+  zone map 1454
+  accept 915 optional
+
+step You Scream, I Scream...
+  when onquest 915
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 915 @70.9,25.6 optional
+
+step You Scream, I Scream...
+  when onquest 915
+  zone map 1454
+  turnin 915 optional
+
+step Cairne's Hoofprint
+  when turnedin 1800
+  when turnedin 910
+  when turnedin 911
+  zone map 1454
+  accept 925 optional
+
+step Cairne's Hoofprint
+  when onquest 925
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 925 @70.9,25.6 optional
+
+step Cairne's Hoofprint
+  when onquest 925
+  zone map 1454
+  turnin 925 optional
+
+step A Warden of the Horde
+  when turnedin 915
+  when turnedin 925
+  zone map 1454
+  accept 5502 optional
+
+step A Warden of the Horde
+  when onquest 5502
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 5502 @70.9,25.6 optional
+
+step A Warden of the Horde
+  when onquest 5502
+  zone map 1454
+  turnin 5502 optional

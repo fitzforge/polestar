@@ -1,0 +1,53 @@
+guide polestar-completionist-alliance/59-odd-jobs-in-kalimdor-4
+title 59 Odd jobs in Kalimdor (58-60) (Completionist)
+faction Alliance
+levels 58-60
+zone Ashenvale
+next polestar-completionist-alliance/60-dun-morogh-and-ironforge-4
+pitch On along the line: errands across Kalimdor, quests of level 58 to 60.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 2 quests; estimated level at the end 58.1 (heuristic XP, class quests not counted).
+
+step Veteran of the Third War
+  zone Thousand Needles
+  accept 92102
+
+step Gorhak
+  zone Desolace
+  accept 92811
+
+step Gelkis Windchaser
+  collect 254432 x1 quest 92811.1
+
+step Gorhak
+  turnin 92811
+
+step Veteran of the Third War
+  zone Mount Hyjal
+  turnin 92102
+
+
+step Ribbons of Sacrifice
+  zone map 1440
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 8269
+  complete 8269 @61.9,83.9
+
+step Ribbons of Sacrifice
+  turnin 8269
+
+step Repelling Invaders
+  tip Warsong Outrider Mark drops from Warsong Grunt, Warsong Raider, Warsong Shaman: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1440
+  collect 211814 x1 optional
+  accept 79090 item 211814 optional
+
+step Repelling Invaders
+  when onquest 79090
+  zone map 1440
+  turnin 79090
+
+step Brawl at the Maul
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1444
+  turnin 99233 direct @62,30.1 map 1444

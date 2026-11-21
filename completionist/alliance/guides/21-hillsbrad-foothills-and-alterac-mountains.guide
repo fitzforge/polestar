@@ -1,0 +1,168 @@
+guide polestar-completionist-alliance/21-hillsbrad-foothills-and-alterac-mountains
+title 21 Hillsbrad Foothills and Alterac Mountains (21-33) (Completionist)
+faction Alliance
+levels 21-33
+zone Hillsbrad Foothills
+next polestar-completionist-alliance/dungeon-city-of-dalaran
+next polestar-completionist-alliance/22-wetlands-2
+pitch On along the line: Hillsbrad Foothills and Alterac Mountains, quests of level 21 to 33.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 15 quests; estimated level at the end 23.0 (heuristic XP, class quests not counted).
+
+step Bath'rah the Windwatcher
+  zone Alterac Mountains
+  accept 79362
+  accept 79363
+  accept 96137
+
+step Young Black Ravager
+  zone Duskwood
+  kill 923 x10 quest 96137.1
+
+step Defias Night Blade and Defias Enchanter
+  kill 909 x7 quest 79363.1
+  kill 910 x7 quest 79363.2
+
+step Black Ravager
+  kill 628 x7 quest 96137.2
+
+step Skeletal Horror
+  collect 281146 x1 quest 79362.1
+
+step Sirra Von'Indi
+  turnin 79362 npc 268
+  turnin 79363 npc 268
+  turnin 96137
+
+step Tom "Half-fish" Wilson
+  zone Hillsbrad Foothills
+  accept 98459
+
+step Level 23
+  level 23
+
+step Captain McManus
+  zone Hillsbrad Foothills
+  getfp "Southshore"
+  accept 98059
+
+step Captain McManus
+  zone Hillsbrad Foothills
+  complete 98059 @29.7,41.6 map 1424
+  turnin 98059
+
+step Level 26
+  level 26
+
+step Magistrate Henry Maleb
+  zone Hillsbrad Foothills
+  sethome "Southshore"
+  accept 505
+
+step Syndicate Thief
+  zone Alterac Mountains
+  kill 2241 x8 quest 505.2
+
+step More Unstable Magic
+  when turnedin 96603
+  zone map 1416
+  accept 96602 optional
+
+step More Unstable Magic
+  when onquest 96602
+  zone map 1416
+  turnin 96602 optional
+
+step Syndicate Footpad
+  zone Hillsbrad Foothills
+  kill 2240 x12 quest 505.1
+
+step Lieutenant Farren Orinelle
+  zone Hillsbrad Foothills
+  accept 536
+
+step Brewer's Trade
+  zone map 1424
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 98071
+  complete 98071 @52.1,58.7
+
+step Torn Fin Oracle
+  zone Hillsbrad Foothills
+  kill 2376 x10 quest 536.2
+
+step Torn Fin Tidehunter
+  zone Hillsbrad Foothills
+  kill 2377 x10 quest 536.1
+
+step Gunder Thornbush
+  zone Duskwood
+  buy 3713 x1 npc 960 -- for Soothing Turtle Bisque
+
+step Bart Tidewater
+  zone Wetlands
+  turnin 98459
+
+step Lieutenant Farren Orinelle
+  turnin 536
+  accept 559
+
+step Brewer's Trade
+  turnin 98071
+
+step Level 30
+  level 30
+
+step Phin Odelic
+  zone Hillsbrad Foothills
+  accept 659
+  turnin 505
+
+step Torn Fin Muckdweller
+  collect 3716 x10 quest 559.1
+
+step Lieutenant Farren Orinelle
+  turnin 559
+  accept 560
+
+step Barkeep Kelly
+  zone Hillsbrad Foothills
+  accept 98463
+
+step Chef Jessen
+  zone Hillsbrad Foothills
+  accept 555
+
+step Coralshell Tortoise
+  zone Azshara
+  collect 3712 x10 quest 555.1
+
+step Chef Jessen
+  zone Hillsbrad Foothills
+  turnin 555
+  turnin 560
+  accept 561
+  turnin 561
+  accept 562
+
+step Daggerspine Shorehunter
+  kill 2369 x10 quest 562.1
+
+step Daggerspine Siren
+  kill 2371 x10 quest 562.2
+
+step Lieutenant Farren Orinelle
+  turnin 562
+  accept 563
+
+step Quae
+  zone Arathi Highlands
+  turnin 659
+
+step Major Samuelson
+  zone Stormwind City
+  turnin 563
+
+step Nixxrax Fillamug
+  zone Stranglethorn Vale
+  turnin 98463

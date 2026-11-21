@@ -1,0 +1,23 @@
+guide polestar-completionist-alliance/attune-blackhand
+title Blackhand's Command (Blackwing Lair attunement) (Completionist)
+faction Alliance
+levels 60-60
+category Dungeons
+zone Burning Steppes
+pitch Blackhand's Command: Lets you touch the Orb of Command in Upper Blackrock Spire to reach Blackwing Lair; without it, walk in through the spire.
+why Lets you touch the Orb of Command in Upper Blackrock Spire to reach Blackwing Lair; without it, walk in through the spire.
+
+
+
+
+step Blackhand's Command
+  tip Blackhand's Command drops from Scarshield Quartermaster: it starts this quest.
+  zone map 1427
+  collect 18987 x1
+  accept 7761 item 18987
+
+step Blackhand's Command
+  when onquest 7761
+  tip The hand-in is inside the instance: the arrow leads to its entrance.
+  zone map 1428
+  turnin 7761 @29.4,38.3

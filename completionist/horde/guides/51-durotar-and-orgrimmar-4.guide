@@ -1,0 +1,148 @@
+guide polestar-completionist-horde/51-durotar-and-orgrimmar-4
+title 51 Durotar and Orgrimmar (60-60) (Completionist)
+faction Horde
+levels 60-60
+zone Durotar
+next polestar-completionist-horde/52-mulgore-and-thunder-bluff-4
+pitch On along the line: Durotar and Orgrimmar, level 60 quests.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 22 quests; estimated level at the end 60.0 (heuristic XP, class quests not counted).
+# Skipped: 7 prerequisite N not in this route.
+
+step Razor Hill
+  zone Durotar
+  sethome "Razor Hill"
+
+step Mokvar
+  zone Orgrimmar
+  accept 8930
+  accept 9032
+
+step Mokvar
+  accept 84155 @34.9,38.1 map 1454
+  accept 84156 @34.9,38.1 map 1454
+  accept 84157 @34.9,38.1 map 1454
+  accept 84158 @34.9,38.1 map 1454
+  accept 84159 @34.9,38.1 map 1454
+  accept 84160 @34.9,38.1 map 1454
+  accept 84161 @34.9,38.1 map 1454
+  accept 97411 @34.9,38.1 map 1454
+  turnin 84155 @34.9,38.1 map 1454
+  turnin 84156 @34.9,38.1 map 1454
+  turnin 84157 @34.9,38.1 map 1454
+  turnin 84158 @34.9,38.1 map 1454
+  turnin 84159 @34.9,38.1 map 1454
+  turnin 84160 @34.9,38.1 map 1454
+  turnin 84161 @34.9,38.1 map 1454
+  turnin 97411 @34.9,38.1 map 1454
+
+step Sagorne Creststrider
+  accept 8259
+  turnin 8259
+
+step Kaymard Copperpinch
+  accept 79483
+  accept 79495
+  turnin 79495
+  accept 7241
+
+step Vehena
+  accept 7833
+  accept 7834
+  accept 7835
+
+step Ratchet Bruiser
+  zone The Barrens
+  collect 4306 x60 quest 7834.1
+
+step Farrin Daris
+  zone Duskwood
+  collect 2592 x60 quest 7833.1
+
+step Baron Bloodbane
+  zone Eastern Plaguelands
+  collect 4338 x60 quest 7835.1
+
+step Anthion Harmon
+  turnin 8930
+
+step Warmaster Laggrond
+  zone Alterac Mountains
+  turnin 7241
+
+step Strange Snowman
+  turnin 79483
+
+step Bodley
+  zone Searing Gorge
+  turnin 9032
+
+step Rashona Straglash
+  zone Orgrimmar
+  accept 7826
+  accept 7827
+  accept 7831
+
+step Ratchet Bruiser
+  zone The Barrens
+  collect 4306 x60 quest 7827.1
+
+step Farrin Daris
+  zone Duskwood
+  collect 2592 x60 quest 7826.1
+
+step Baron Bloodbane
+  zone Eastern Plaguelands
+  collect 4338 x60 quest 7831.1
+
+step Rashona Straglash
+  zone Orgrimmar
+  turnin 7826
+  turnin 7827
+  turnin 7831
+  accept 7824
+
+step Stormwind Royal Guard
+  zone Stormwind City
+  collect 14047 x60 quest 7824.1
+
+step Rashona Straglash
+  zone Orgrimmar
+  turnin 7824
+
+step Additional Runecloth
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 14047 x20 anywhere optional
+  turnin 7832 direct optional
+
+step Vehena
+  turnin 7833
+  turnin 7834
+  turnin 7835
+  accept 7836
+
+step Stormwind Royal Guard
+  zone Stormwind City
+  collect 14047 x60 quest 7836.1
+
+step Vehena
+  zone Orgrimmar
+  turnin 7836
+
+step Additional Runecloth
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 14047 x20 anywhere optional
+  turnin 7837 direct optional
+
+step A Fair Trade
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 15997 x200 anywhere optional
+  turnin 7341 direct optional
+
+step Your Fortune Awaits You...
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1429
+  turnin 7937 direct @84.8,64.4 map 1429 optional

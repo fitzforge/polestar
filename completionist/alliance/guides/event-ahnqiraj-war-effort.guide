@@ -1,0 +1,533 @@
+guide polestar-completionist-alliance/event-ahnqiraj-war-effort
+title Ahn'Qiraj War Effort (Completionist)
+faction Alliance
+category Miscellaneous
+levels 1-60
+zone Stormwind City
+pitch The quests of Ahn'Qiraj War Effort, as far as the reference data places them.
+
+step About this guide
+  note Each quest here is offered only while the event runs. Every step is optional: do what the calendar offers now, and come back for the rest.
+
+step The Alliance Needs Your Help!
+  zone map 1455
+  accept 8795 optional
+
+step The Alliance Needs Your Help!
+  when onquest 8795
+  zone map 1455
+  turnin 8795 optional
+
+step The Alliance Needs Your Help!
+  when available 8796
+  tip One of several exclusive quests; the route takes The Alliance Needs Your Help! (8795). This one shows for a character the game offers it to instead.
+  zone map 1453
+  accept 8796 optional
+
+step The Alliance Needs Your Help!
+  when onquest 8796
+  zone map 1455
+  turnin 8796 optional
+
+step The Alliance Needs Your Help!
+  when available 8797
+  tip One of several exclusive quests; the route takes The Alliance Needs Your Help! (8795). This one shows for a character the game offers it to instead.
+  zone map 1457
+  accept 8797 optional
+
+step The Alliance Needs Your Help!
+  when onquest 8797
+  zone map 1455
+  turnin 8797 optional
+
+step Thirty Signets for War Supplies
+  when turnedin 8795
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  collect 21436 x30 anywhere optional
+  turnin 8850 direct optional
+
+step One Commendation Signet
+  when turnedin 8795
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1453
+  collect 21436 x1 anywhere optional
+  turnin 8811 direct optional
+
+step One Commendation Signet
+  when turnedin 8795
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  collect 21436 x1 anywhere optional
+  turnin 8812 direct optional
+
+step One Commendation Signet
+  when turnedin 8795
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1457
+  collect 21436 x1 anywhere optional
+  turnin 8813 direct optional
+
+step One Commendation Signet
+  when turnedin 8795
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  collect 21436 x1 anywhere optional
+  turnin 8814 direct optional
+
+step Ten Commendation Signets
+  when turnedin 8795
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1453
+  collect 21436 x10 anywhere optional
+  turnin 8819 direct optional
+
+step Ten Commendation Signets
+  when turnedin 8795
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  collect 21436 x10 anywhere optional
+  turnin 8820 direct optional
+
+step Ten Commendation Signets
+  when turnedin 8795
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1457
+  collect 21436 x10 anywhere optional
+  turnin 8821 direct optional
+
+step Ten Commendation Signets
+  when turnedin 8795
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  collect 21436 x10 anywhere optional
+  turnin 8822 direct optional
+
+step Five Signets for War Supplies
+  when turnedin 8795
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  collect 21436 x5 anywhere optional
+  turnin 8846 direct optional
+
+step Ten Signets for War Supplies
+  when turnedin 8795
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  collect 21436 x10 anywhere optional
+  turnin 8847 direct optional
+
+step Fifteen Signets for War Supplies
+  when turnedin 8795
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  collect 21436 x15 anywhere optional
+  turnin 8848 direct optional
+
+step Twenty Signets for War Supplies
+  when turnedin 8795
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  collect 21436 x20 anywhere optional
+  turnin 8849 direct optional
+
+step The Alliance Needs Copper Bars!
+  when turnedin 8795
+  zone map 1455
+  accept 8492 optional
+
+step The Alliance Needs Copper Bars!
+  when onquest 8492
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1455
+  complete 8492 @64.1,65.5 optional
+
+step The Alliance Needs Copper Bars!
+  when onquest 8492
+  zone map 1455
+  turnin 8492 optional
+
+step The Alliance Needs More Copper Bars!
+  when turnedin 8492
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  collect 2840 x20 anywhere optional
+  turnin 8493 direct optional
+
+step The Alliance Needs Iron Bars!
+  when turnedin 8795
+  zone map 1455
+  accept 8494 optional
+
+step The Alliance Needs Iron Bars!
+  when onquest 8494
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1455
+  complete 8494 @65.5,63.9 optional
+
+step The Alliance Needs Iron Bars!
+  when onquest 8494
+  zone map 1455
+  turnin 8494 optional
+
+step The Alliance Needs More Iron Bars!
+  when turnedin 8494
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  collect 3575 x20 anywhere optional
+  turnin 8495 direct optional
+
+step The Alliance Needs Thorium Bars!
+  when turnedin 8795
+  zone map 1455
+  accept 8499 optional
+
+step The Alliance Needs Thorium Bars!
+  when onquest 8499
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1455
+  complete 8499 @63.9,68.2 optional
+
+step The Alliance Needs Thorium Bars!
+  when onquest 8499
+  zone map 1455
+  turnin 8499 optional
+
+step The Alliance Needs More Thorium Bars!
+  when turnedin 8499
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  collect 12359 x20 anywhere optional
+  turnin 8500 direct optional
+
+step The Alliance Needs Stranglekelp!
+  when turnedin 8795
+  zone map 1455
+  accept 8503 optional
+
+step The Alliance Needs Stranglekelp!
+  when onquest 8503
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1455
+  complete 8503 @70.3,74.3 optional
+
+step The Alliance Needs Stranglekelp!
+  when onquest 8503
+  zone map 1455
+  turnin 8503 optional
+
+step The Alliance Needs More Stranglekelp!
+  when turnedin 8503
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  collect 3820 x20 anywhere optional
+  turnin 8504 direct optional
+
+step The Alliance Needs Purple Lotus!
+  when turnedin 8795
+  zone map 1455
+  accept 8505 optional
+
+step The Alliance Needs Purple Lotus!
+  when onquest 8505
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1455
+  complete 8505 @71.9,70.4 optional
+
+step The Alliance Needs Purple Lotus!
+  when onquest 8505
+  zone map 1455
+  turnin 8505 optional
+
+step The Alliance Needs More Purple Lotus!
+  when turnedin 8505
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  collect 8831 x20 anywhere optional
+  turnin 8506 direct optional
+
+step The Alliance Needs Arthas' Tears!
+  when turnedin 8795
+  zone map 1455
+  accept 8509 optional
+
+step The Alliance Needs Arthas' Tears!
+  when onquest 8509
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1455
+  complete 8509 @71.3,71.4 optional
+
+step The Alliance Needs Arthas' Tears!
+  when onquest 8509
+  zone map 1455
+  turnin 8509 optional
+
+step The Alliance Needs More Arthas' Tears!
+  when turnedin 8509
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  collect 8836 x20 anywhere optional
+  turnin 8510 direct optional
+
+step The Alliance Needs Light Leather!
+  when turnedin 8795
+  zone map 1455
+  accept 8511 optional
+
+step The Alliance Needs Light Leather!
+  when onquest 8511
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1455
+  complete 8511 @58,75.9 optional
+
+step The Alliance Needs Light Leather!
+  when onquest 8511
+  zone map 1455
+  turnin 8511 optional
+
+step The Alliance Needs Light Leather!
+  when turnedin 8511
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  collect 2318 x10 anywhere optional
+  turnin 8512 direct optional
+
+step The Alliance Needs Medium Leather!
+  when turnedin 8795
+  zone map 1455
+  accept 8513 optional
+
+step The Alliance Needs Medium Leather!
+  when onquest 8513
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1455
+  complete 8513 @58.7,75 optional
+
+step The Alliance Needs Medium Leather!
+  when onquest 8513
+  zone map 1455
+  turnin 8513 optional
+
+step The Alliance Needs More Medium Leather!
+  when turnedin 8513
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  collect 2319 x10 anywhere optional
+  turnin 8514 direct optional
+
+step The Alliance Needs Thick Leather!
+  when turnedin 8795
+  zone map 1455
+  accept 8515 optional
+
+step The Alliance Needs Thick Leather!
+  when onquest 8515
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1455
+  complete 8515 @57.1,75 optional
+
+step The Alliance Needs Thick Leather!
+  when onquest 8515
+  zone map 1455
+  turnin 8515 optional
+
+step The Alliance Needs More Thick Leather!
+  when turnedin 8515
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  collect 4304 x10 anywhere optional
+  turnin 8516 direct optional
+
+step The Alliance Needs Linen Bandages!
+  when turnedin 8795
+  zone map 1455
+  accept 8517 optional
+
+step The Alliance Needs Linen Bandages!
+  when onquest 8517
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1455
+  complete 8517 @54.5,77.9 optional
+
+step The Alliance Needs Linen Bandages!
+  when onquest 8517
+  zone map 1455
+  turnin 8517 optional
+
+step The Alliance Needs More Linen Bandages!
+  when turnedin 8517
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  collect 1251 x20 anywhere optional
+  turnin 8518 direct optional
+
+step The Alliance Needs Silk Bandages!
+  when turnedin 8795
+  zone map 1455
+  accept 8520 optional
+
+step The Alliance Needs Silk Bandages!
+  when onquest 8520
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1455
+  complete 8520 @57.6,75.8 optional
+
+step The Alliance Needs Silk Bandages!
+  when onquest 8520
+  zone map 1455
+  turnin 8520 optional
+
+step The Alliance Needs More Silk Bandages!
+  when turnedin 8520
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  collect 6450 x20 anywhere optional
+  turnin 8521 direct optional
+
+step The Alliance Needs Runecloth Bandages!
+  when turnedin 8795
+  zone map 1455
+  accept 8522 optional
+
+step The Alliance Needs Runecloth Bandages!
+  when onquest 8522
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1455
+  complete 8522 @55.7,75.9 optional
+
+step The Alliance Needs Runecloth Bandages!
+  when onquest 8522
+  zone map 1455
+  turnin 8522 optional
+
+step The Alliance Needs More Runecloth Bandages!
+  when turnedin 8522
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  collect 14529 x20 anywhere optional
+  turnin 8523 direct optional
+
+step The Alliance Needs Rainbow Fin Albacore!
+  when turnedin 8795
+  zone map 1455
+  accept 8524 optional
+
+step The Alliance Needs Rainbow Fin Albacore!
+  when onquest 8524
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1455
+  complete 8524 @71.6,69.2 optional
+
+step The Alliance Needs Rainbow Fin Albacore!
+  when onquest 8524
+  zone map 1455
+  turnin 8524 optional
+
+step The Alliance Needs More Rainbow Fin Albacore!
+  when turnedin 8524
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  collect 5095 x20 anywhere optional
+  turnin 8525 direct optional
+
+step The Alliance Needs Roast Raptor!
+  when turnedin 8795
+  zone map 1455
+  accept 8526 optional
+
+step The Alliance Needs Roast Raptor!
+  when onquest 8526
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1455
+  complete 8526 @72.1,69.6 optional
+
+step The Alliance Needs Roast Raptor!
+  when onquest 8526
+  zone map 1455
+  turnin 8526 optional
+
+step The Alliance Needs More Roast Raptor!
+  when turnedin 8526
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  collect 12210 x20 anywhere optional
+  turnin 8527 direct optional
+
+step The Alliance Needs Spotted Yellowtail!
+  when turnedin 8795
+  zone map 1455
+  accept 8528 optional
+
+step The Alliance Needs Spotted Yellowtail!
+  when onquest 8528
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1455
+  complete 8528 @73,68.5 optional
+
+step The Alliance Needs Spotted Yellowtail!
+  when onquest 8528
+  zone map 1455
+  turnin 8528 optional
+
+step The Alliance Needs More Spotted Yellowtail!
+  when turnedin 8528
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  collect 6887 x20 anywhere optional
+  turnin 8529 direct optional
+
+step One Commendation Signet
+  when turnedin 8811
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1453
+  collect 21436 x1 anywhere optional
+  turnin 8830 direct optional
+
+step Ten Commendation Signets
+  when turnedin 8819
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1453
+  collect 21436 x10 anywhere optional
+  turnin 8831 direct optional
+
+step One Commendation Signet
+  when turnedin 8812
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  collect 21436 x1 anywhere optional
+  turnin 8834 direct optional
+
+step Ten Commendation Signets
+  when turnedin 8820
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  collect 21436 x10 anywhere optional
+  turnin 8835 direct optional
+
+step One Commendation Signet
+  when turnedin 8813
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1457
+  collect 21436 x1 anywhere optional
+  turnin 8836 direct optional
+
+step Ten Commendation Signets
+  when turnedin 8821
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1457
+  collect 21436 x10 anywhere optional
+  turnin 8837 direct optional
+
+step One Commendation Signet
+  when turnedin 8814
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  collect 21436 x1 anywhere optional
+  turnin 8838 direct optional
+
+step Ten Commendation Signets
+  when turnedin 8822
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  collect 21436 x10 anywhere optional
+  turnin 8839 direct optional

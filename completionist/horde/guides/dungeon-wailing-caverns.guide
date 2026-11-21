@@ -1,0 +1,175 @@
+guide polestar-completionist-horde/dungeon-wailing-caverns
+title Wailing Caverns (Completionist)
+faction Horde
+category Dungeons
+levels 13-26
+zone The Barrens
+next polestar-completionist-horde/09-tirisfal-glades-and-the-undercity-2
+pitch Wailing Caverns, in The Barrens.
+why Every Horde quest of Wailing Caverns: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in The Barrens: the arrow leads to it.
+
+step The Barrens Oases
+  zone Thunder Bluff
+  accept 886
+
+step The Barrens Oases
+  zone The Barrens
+  turnin 886
+
+step The Forgotten Pools
+  zone The Barrens
+  accept 870
+
+step The Forgotten Pools
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone The Barrens
+  complete 870 @52.26,31.93
+
+step The Forgotten Pools
+  zone The Barrens
+  turnin 870
+
+step The Stagnant Oasis
+  zone The Barrens
+  accept 877
+
+step The Stagnant Oasis
+  zone The Barrens
+  complete 877 @55.61,42.75
+
+step The Stagnant Oasis
+  zone The Barrens
+  turnin 877
+
+step Altered Beings
+  zone The Barrens
+  accept 880
+
+step Altered Beings
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone The Barrens
+  complete 880 @52.26,31.93
+
+step Altered Beings
+  zone The Barrens
+  turnin 880
+
+step Mura Runetotem
+  zone map 1413
+  accept 3301
+
+step Mura Runetotem
+  when onquest 3301
+  zone map 1421
+  turnin 3301
+
+step Raptor Horns
+  zone The Barrens
+  accept 865
+
+step Raptor Horns
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone The Barrens
+  complete 865 @62.37,37.62
+
+step Raptor Horns
+  zone The Barrens
+  turnin 865
+
+step Mebok Mizzyrix
+  zone The Barrens
+  accept 1491
+
+step Nalpak
+  zone The Barrens
+  accept 1486
+
+step Tonga Runetotem
+  zone The Barrens
+  accept 1489
+
+step Inside Wailing Caverns
+  zone The Barrens
+  collect 10441 @46.6,35.7
+  complete 1486 @46.6,35.7
+  complete 1491 @46.6,35.7
+
+step Mebok Mizzyrix
+  zone The Barrens
+  turnin 1491
+
+step Crane Operator Bigglefuzz
+  zone The Barrens
+  accept 959
+
+step Inside Wailing Caverns
+  zone The Barrens
+  complete 959 @46.6,35.7
+
+step Crane Operator Bigglefuzz
+  zone The Barrens
+  turnin 959
+
+step Nalpak
+  zone The Barrens
+  turnin 1486
+
+step Apothecary Zamah
+  zone Thunder Bluff
+  accept 962
+
+step Inside Wailing Caverns
+  zone The Barrens
+  accept 6981 item 10441
+  complete 6981 @46.6,35.7
+
+step Falla Sagewind
+  zone The Barrens
+  turnin 6981
+
+step Inside Wailing Caverns
+  zone The Barrens
+  complete 962 @46.6,35.7
+
+step Apothecary Zamah
+  zone Thunder Bluff
+  turnin 962
+
+step Arch Druid Hamuul Runetotem
+  zone Thunder Bluff
+  turnin 1489
+
+step Ebru
+  zone The Barrens
+  accept 1487
+
+step Inside Wailing Caverns
+  zone The Barrens
+  complete 1487 @46.6,35.7
+
+step Ebru
+  zone The Barrens
+  turnin 1487
+
+step Arch Druid Hamuul Runetotem
+  zone Thunder Bluff
+  accept 1490
+
+step Nara Wildmane
+  zone Thunder Bluff
+  turnin 1490
+
+step Nara Wildmane
+  zone Thunder Bluff
+  accept 914
+
+step Inside Wailing Caverns, again
+  zone The Barrens
+  complete 914 @46.6,35.7
+
+step Nara Wildmane
+  zone Thunder Bluff
+  turnin 914

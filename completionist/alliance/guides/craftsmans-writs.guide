@@ -1,0 +1,2184 @@
+guide polestar-completionist-alliance/craftsmans-writs
+title Craftsman's Writs (Completionist)
+faction Alliance
+category Miscellaneous
+levels 1-60
+zone Stormwind City
+pitch The Craftsman's Writ crafting contracts: each starts from its writ in your bags.
+
+step About this guide
+  note A Craftsman's Writ is a crafting contract that starts from the writ item. Every step is optional and shows only while you carry its writ.
+
+step Craftsman's Writ: Elixir of Ogre's Strength
+  when has 264011
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1416
+  accept 94004 item 264011 optional
+
+step Craftsman's Writ: Elixir of Ogre's Strength
+  when onquest 94004
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1416
+  complete 94004 @38.4,61.1 optional
+
+step Craftsman's Writ: Elixir of Ogre's Strength
+  when onquest 94004
+  zone map 1416
+  turnin 94004 optional
+
+step Craftsman's Writ: Shadow Protection Potion
+  when has 264014
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1431
+  accept 94214 item 264014 optional
+
+step Craftsman's Writ: Shadow Protection Potion
+  when onquest 94214
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1431
+  complete 94214 @81.8,19.8 optional
+
+step Craftsman's Writ: Shadow Protection Potion
+  when onquest 94214
+  zone map 1431
+  turnin 94214 optional
+
+step Craftsman's Writ: Free Action Potion
+  when has 264015
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1424
+  accept 94215 item 264015 optional
+
+step Craftsman's Writ: Free Action Potion
+  when onquest 94215
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1424
+  complete 94215 @62.4,69.2 optional
+
+step Craftsman's Writ: Free Action Potion
+  when onquest 94215
+  zone map 1424
+  turnin 94215 optional
+
+step Craftsman's Writ: Lesser Troll's Blood Elixir
+  when has 264017
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1434
+  accept 94217 item 264017 optional
+
+step Craftsman's Writ: Lesser Troll's Blood Elixir
+  when onquest 94217
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1434
+  complete 94217 @29.6,47.4 optional
+
+step Craftsman's Writ: Lesser Troll's Blood Elixir
+  when onquest 94217
+  zone map 1434
+  turnin 94217 optional
+
+step Craftsman's Writ: Elixir of Defense
+  when has 264018
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1441
+  accept 94218 item 264018 optional
+
+step Craftsman's Writ: Elixir of Defense
+  when onquest 94218
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1441
+  complete 94218 @77.2,77.4 optional
+
+step Craftsman's Writ: Elixir of Defense
+  when onquest 94218
+  zone map 1441
+  turnin 94218 optional
+
+step Craftsman's Writ: Draught of Water Breathing
+  when has 264019
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1437
+  accept 94219 item 264019 optional
+
+step Craftsman's Writ: Draught of Water Breathing
+  when onquest 94219
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1437
+  complete 94219 @50.2,37.7 optional
+
+step Craftsman's Writ: Draught of Water Breathing
+  when onquest 94219
+  zone map 1437
+  turnin 94219 optional
+
+step Craftsman's Writ: Pearl-Handled Dagger
+  when has 264020
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1416
+  accept 94220 item 264020 optional
+
+step Craftsman's Writ: Pearl-Handled Dagger
+  when onquest 94220
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1416
+  complete 94220 @30.6,61.0 optional
+
+step Craftsman's Writ: Pearl-Handled Dagger
+  when onquest 94220
+  zone map 1416
+  turnin 94220 optional
+
+step Craftsman's Writ: Golden Rod
+  when has 264021
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1417
+  accept 94221 item 264021 optional
+
+step Craftsman's Writ: Golden Rod
+  when onquest 94221
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1417
+  complete 94221 @48.7,55.8 optional
+
+step Craftsman's Writ: Golden Rod
+  when onquest 94221
+  zone map 1417
+  turnin 94221 optional
+
+step Craftsman's Writ: Iridescent Hammer
+  when has 264022
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1440
+  accept 94222 item 264022 optional
+
+step Craftsman's Writ: Iridescent Hammer
+  when onquest 94222
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1440
+  complete 94222 @78.5,68.9 optional
+
+step Craftsman's Writ: Iridescent Hammer
+  when onquest 94222
+  zone map 1440
+  turnin 94222 optional
+
+step Craftsman's Writ: Silver Skeleton Key
+  when has 264023
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1431
+  accept 94223 item 264023 optional
+
+step Craftsman's Writ: Silver Skeleton Key
+  when onquest 94223
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1431
+  complete 94223 @26.3,36.2 optional
+
+step Craftsman's Writ: Silver Skeleton Key
+  when onquest 94223
+  zone map 1431
+  turnin 94223 optional
+
+step Craftsman's Writ: Heavy Bronze Mace
+  when has 264024
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1424
+  accept 94224 item 264024 optional
+
+step Craftsman's Writ: Heavy Bronze Mace
+  when onquest 94224
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1424
+  complete 94224 @80.0,48.5 optional
+
+step Craftsman's Writ: Heavy Bronze Mace
+  when onquest 94224
+  zone map 1424
+  turnin 94224 optional
+
+step Craftsman's Writ: Rough Bronze Leggings
+  when has 264025
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1442
+  accept 94225 item 264025 optional
+
+step Craftsman's Writ: Rough Bronze Leggings
+  when onquest 94225
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1442
+  complete 94225 @59.0,62.6 optional
+
+step Craftsman's Writ: Rough Bronze Leggings
+  when onquest 94225
+  zone map 1442
+  turnin 94225 optional
+
+step Craftsman's Writ: Green Iron Gauntlets
+  when has 264026
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1434
+  accept 94226 item 264026 optional
+
+step Craftsman's Writ: Green Iron Gauntlets
+  when onquest 94226
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1434
+  complete 94226 @27.8,77.1 optional
+
+step Craftsman's Writ: Green Iron Gauntlets
+  when onquest 94226
+  zone map 1434
+  turnin 94226 optional
+
+step Craftsman's Writ: Big Bronze Knife
+  when has 264027
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1441
+  accept 94227 item 264027 optional
+
+step Craftsman's Writ: Big Bronze Knife
+  when onquest 94227
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1441
+  complete 94227 @79.6,75.6 optional
+
+step Craftsman's Writ: Big Bronze Knife
+  when onquest 94227
+  zone map 1441
+  turnin 94227 optional
+
+step Craftsman's Writ: Green Iron Boots
+  when has 264028
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1437
+  accept 94228 item 264028 optional
+
+step Craftsman's Writ: Green Iron Boots
+  when onquest 94228
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1437
+  complete 94228 @50.2,37.7 optional
+
+step Craftsman's Writ: Green Iron Boots
+  when onquest 94228
+  zone map 1437
+  turnin 94228 optional
+
+step Craftsman's Writ: Ornate Spyglass
+  when has 264029
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1416
+  accept 94229 item 264029 optional
+
+step Craftsman's Writ: Ornate Spyglass
+  when onquest 94229
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1416
+  complete 94229 @30.6,61.0 optional
+
+step Craftsman's Writ: Ornate Spyglass
+  when onquest 94229
+  zone map 1416
+  turnin 94229 optional
+
+step Craftsman's Writ: Explosive Sheep
+  when has 264030
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1417
+  accept 94230 item 264030 optional
+
+step Craftsman's Writ: Explosive Sheep
+  when onquest 94230
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1417
+  complete 94230 @34.0,23.3 optional
+
+step Craftsman's Writ: Explosive Sheep
+  when onquest 94230
+  zone map 1417
+  turnin 94230 optional
+
+step Craftsman's Writ: Moonsight Rifle
+  when has 264031
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1440
+  accept 94231 item 264031 optional
+
+step Craftsman's Writ: Moonsight Rifle
+  when onquest 94231
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1440
+  complete 94231 @82.1,51.0 optional
+
+step Craftsman's Writ: Moonsight Rifle
+  when onquest 94231
+  zone map 1440
+  turnin 94231 optional
+
+step Craftsman's Writ: Minor Recombobulator
+  when has 264032
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1431
+  accept 94232 item 264032 optional
+
+step Craftsman's Writ: Minor Recombobulator
+  when onquest 94232
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1431
+  complete 94232 @81.8,19.8 optional
+
+step Craftsman's Writ: Minor Recombobulator
+  when onquest 94232
+  zone map 1431
+  turnin 94232 optional
+
+step Craftsman's Writ: Practice Lock
+  when has 264033
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1424
+  accept 94233 item 264033 optional
+
+step Craftsman's Writ: Practice Lock
+  when onquest 94233
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1424
+  complete 94233 @80.0,48.5 optional
+
+step Craftsman's Writ: Practice Lock
+  when onquest 94233
+  zone map 1424
+  turnin 94233 optional
+
+step Craftsman's Writ: Shadow Goggles
+  when has 264034
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1442
+  accept 94234 item 264034 optional
+
+step Craftsman's Writ: Shadow Goggles
+  when onquest 94234
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1442
+  complete 94234 @59.0,62.6 optional
+
+step Craftsman's Writ: Shadow Goggles
+  when onquest 94234
+  zone map 1442
+  turnin 94234 optional
+
+step Craftsman's Writ: Gnomish Universal Remote
+  when has 264035
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1434
+  accept 94235 item 264035 optional
+
+step Craftsman's Writ: Gnomish Universal Remote
+  when onquest 94235
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1434
+  complete 94235 @27.6,77.5 optional
+
+step Craftsman's Writ: Gnomish Universal Remote
+  when onquest 94235
+  zone map 1434
+  turnin 94235 optional
+
+step Craftsman's Writ: Big Bronze Bomb
+  when has 264036
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1441
+  accept 94236 item 264036 optional
+
+step Craftsman's Writ: Big Bronze Bomb
+  when onquest 94236
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1441
+  complete 94236 @80.3,76.1 optional
+
+step Craftsman's Writ: Big Bronze Bomb
+  when onquest 94236
+  zone map 1441
+  turnin 94236 optional
+
+step Craftsman's Writ: Crafted Solid Shot
+  when has 264037
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1437
+  accept 94237 item 264037 optional
+
+step Craftsman's Writ: Crafted Solid Shot
+  when onquest 94237
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1437
+  complete 94237 @50.2,37.7 optional
+
+step Craftsman's Writ: Crafted Solid Shot
+  when onquest 94237
+  zone map 1437
+  turnin 94237 optional
+
+step Craftsman's Writ: Heavy Leather Ball
+  when has 264038
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1416
+  accept 94238 item 264038 optional
+
+step Craftsman's Writ: Heavy Leather Ball
+  when onquest 94238
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1416
+  complete 94238 @38.4,61.1 optional
+
+step Craftsman's Writ: Heavy Leather Ball
+  when onquest 94238
+  zone map 1416
+  turnin 94238 optional
+
+step Craftsman's Writ: Fine Leather Pants
+  when has 264039
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1417
+  accept 94239 item 264039 optional
+
+step Craftsman's Writ: Fine Leather Pants
+  when onquest 94239
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1417
+  complete 94239 @34.0,23.3 optional
+
+step Craftsman's Writ: Fine Leather Pants
+  when onquest 94239
+  zone map 1417
+  turnin 94239 optional
+
+step Craftsman's Writ: Herbalist's Gloves
+  when has 264040
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1440
+  accept 94240 item 264040 optional
+
+step Craftsman's Writ: Herbalist's Gloves
+  when onquest 94240
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1440
+  complete 94240 @64.8,80.2 optional
+
+step Craftsman's Writ: Herbalist's Gloves
+  when onquest 94240
+  zone map 1440
+  turnin 94240 optional
+
+step Craftsman's Writ: Pilferer's Gloves
+  when has 264042
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1424
+  accept 94242 item 264042 optional
+
+step Craftsman's Writ: Pilferer's Gloves
+  when onquest 94242
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1424
+  complete 94242 @80.1,38.9 optional
+
+step Craftsman's Writ: Pilferer's Gloves
+  when onquest 94242
+  zone map 1424
+  turnin 94242 optional
+
+step Craftsman's Writ: Heavy Quiver
+  when has 264043
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1442
+  accept 94243 item 264043 optional
+
+step Craftsman's Writ: Heavy Quiver
+  when onquest 94243
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1442
+  complete 94243 @59.0,62.6 optional
+
+step Craftsman's Writ: Heavy Quiver
+  when onquest 94243
+  zone map 1442
+  turnin 94243 optional
+
+step Craftsman's Writ: Dark Leather Shoulders
+  when has 264044
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1434
+  accept 94244 item 264044 optional
+
+step Craftsman's Writ: Dark Leather Shoulders
+  when onquest 94244
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1434
+  complete 94244 @28.1,74.4 optional
+
+step Craftsman's Writ: Dark Leather Shoulders
+  when onquest 94244
+  zone map 1434
+  turnin 94244 optional
+
+step Craftsman's Writ: Barbaric Gloves
+  when has 264045
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1441
+  accept 94245 item 264045 optional
+
+step Craftsman's Writ: Barbaric Gloves
+  when onquest 94245
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1441
+  complete 94245 @79.9,76.7 optional
+
+step Craftsman's Writ: Barbaric Gloves
+  when onquest 94245
+  zone map 1441
+  turnin 94245 optional
+
+step Craftsman's Writ: Red Whelp Gloves
+  when has 264046
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1437
+  accept 94246 item 264046 optional
+
+step Craftsman's Writ: Red Whelp Gloves
+  when onquest 94246
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1437
+  complete 94246 @50.2,37.7 optional
+
+step Craftsman's Writ: Red Whelp Gloves
+  when onquest 94246
+  zone map 1437
+  turnin 94246 optional
+
+step Craftsman's Writ: Lesser Wizard's Robe
+  when has 264047
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1416
+  accept 94247 item 264047 optional
+
+step Craftsman's Writ: Lesser Wizard's Robe
+  when onquest 94247
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1416
+  complete 94247 @30.6,61.0 optional
+
+step Craftsman's Writ: Lesser Wizard's Robe
+  when onquest 94247
+  zone map 1416
+  turnin 94247 optional
+
+step Craftsman's Writ: Blue Overalls
+  when has 264048
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1417
+  accept 94248 item 264048 optional
+
+step Craftsman's Writ: Blue Overalls
+  when onquest 94248
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1417
+  complete 94248 @34.0,23.3 optional
+
+step Craftsman's Writ: Blue Overalls
+  when onquest 94248
+  zone map 1417
+  turnin 94248 optional
+
+step Craftsman's Writ: Azure Silk Hood
+  when has 264049
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1440
+  accept 94249 item 264049 optional
+
+step Craftsman's Writ: Azure Silk Hood
+  when onquest 94249
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1440
+  complete 94249 @78.5,68.9 optional
+
+step Craftsman's Writ: Azure Silk Hood
+  when onquest 94249
+  zone map 1440
+  turnin 94249 optional
+
+step Craftsman's Writ: Small Silk Pack
+  when has 264050
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1431
+  accept 94250 item 264050 optional
+
+step Craftsman's Writ: Small Silk Pack
+  when onquest 94250
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1431
+  complete 94250 @81.8,19.8 optional
+
+step Craftsman's Writ: Small Silk Pack
+  when onquest 94250
+  zone map 1431
+  turnin 94250 optional
+
+step Craftsman's Writ: Phoenix Pants
+  when has 264051
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1416
+  accept 94251 item 264051 optional
+
+step Craftsman's Writ: Phoenix Pants
+  when onquest 94251
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1416
+  complete 94251 @80.5,66.9 optional
+
+step Craftsman's Writ: Phoenix Pants
+  when onquest 94251
+  zone map 1416
+  turnin 94251 optional
+
+step Craftsman's Writ: Red Woolen Boots
+  when has 264052
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1442
+  accept 94252 item 264052 optional
+
+step Craftsman's Writ: Red Woolen Boots
+  when onquest 94252
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1442
+  complete 94252 @59.0,62.6 optional
+
+step Craftsman's Writ: Red Woolen Boots
+  when onquest 94252
+  zone map 1442
+  turnin 94252 optional
+
+step Craftsman's Writ: Colorful Kilt
+  when has 264053
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1434
+  accept 94253 item 264053 optional
+
+step Craftsman's Writ: Colorful Kilt
+  when onquest 94253
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1434
+  complete 94253 @50.7,19.3 optional
+
+step Craftsman's Writ: Colorful Kilt
+  when onquest 94253
+  zone map 1434
+  turnin 94253 optional
+
+step Craftsman's Writ: Greater Adept's Robe
+  when has 264054
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1441
+  accept 94254 item 264054 optional
+
+step Craftsman's Writ: Greater Adept's Robe
+  when onquest 94254
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1441
+  complete 94254 @78.3,75.7 optional
+
+step Craftsman's Writ: Greater Adept's Robe
+  when onquest 94254
+  zone map 1441
+  turnin 94254 optional
+
+step Craftsman's Writ: Spider Silk Slippers
+  when has 264055
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1437
+  accept 94255 item 264055 optional
+
+step Craftsman's Writ: Spider Silk Slippers
+  when onquest 94255
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1437
+  complete 94255 @50.2,37.7 optional
+
+step Craftsman's Writ: Spider Silk Slippers
+  when onquest 94255
+  zone map 1437
+  turnin 94255 optional
+
+step Craftsman's Writ: Frost Protection Potion
+  when has 264056
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1418
+  accept 94256 item 264056 optional
+
+step Craftsman's Writ: Frost Protection Potion
+  when onquest 94256
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1418
+  complete 94256 @25.9,44.9 optional
+
+step Craftsman's Writ: Frost Protection Potion
+  when onquest 94256
+  zone map 1418
+  turnin 94256 optional
+
+step Craftsman's Writ: Lesser Invisibility Potion
+  when has 264057
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1443
+  accept 94257 item 264057 optional
+
+step Craftsman's Writ: Lesser Invisibility Potion
+  when onquest 94257
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1443
+  complete 94257 @50.4,86.7 optional
+
+step Craftsman's Writ: Lesser Invisibility Potion
+  when onquest 94257
+  zone map 1443
+  turnin 94257 optional
+
+step Craftsman's Writ: Lesser Stoneshield Potion
+  when has 264058
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1413
+  accept 94258 item 264058 optional
+
+step Craftsman's Writ: Lesser Stoneshield Potion
+  when onquest 94258
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1413
+  complete 94258 @53.7,73.8 optional
+
+step Craftsman's Writ: Lesser Stoneshield Potion
+  when onquest 94258
+  zone map 1413
+  turnin 94258 optional
+
+step Craftsman's Writ: Nature Protection Potion
+  when has 264059
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1448
+  accept 94259 item 264059 optional
+
+step Craftsman's Writ: Nature Protection Potion
+  when onquest 94259
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1448
+  complete 94259 @51.2,82.1 optional
+
+step Craftsman's Writ: Nature Protection Potion
+  when onquest 94259
+  zone map 1448
+  turnin 94259 optional
+
+step Craftsman's Writ: Catseye Draught
+  when has 264060
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1444
+  accept 94260 item 264060 optional
+
+step Craftsman's Writ: Catseye Draught
+  when onquest 94260
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1444
+  complete 94260 @72.4,52.5 optional
+
+step Craftsman's Writ: Catseye Draught
+  when onquest 94260
+  zone map 1444
+  turnin 94260 optional
+
+step Craftsman's Writ: Great Rage Potion
+  when has 264061
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1450
+  accept 94261 item 264061 optional
+
+step Craftsman's Writ: Great Rage Potion
+  when onquest 94261
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1450
+  complete 94261 @56.2,30.6 optional
+
+step Craftsman's Writ: Great Rage Potion
+  when onquest 94261
+  zone map 1450
+  turnin 94261 optional
+
+step Craftsman's Writ: Mana Potion
+  when has 264062
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 2548
+  accept 94262 item 264062 optional
+
+step Craftsman's Writ: Mana Potion
+  when onquest 94262
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2548
+  complete 94262 @76.9,54.1 optional
+
+step Craftsman's Writ: Mana Potion
+  when onquest 94262
+  zone map 2548
+  turnin 94262 optional
+
+step Craftsman's Writ: Fire Protection Potion
+  when has 264063
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1427
+  accept 94263 item 264063 optional
+
+step Craftsman's Writ: Fire Protection Potion
+  when onquest 94263
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1427
+  complete 94263 @41.1,58.3 optional
+
+step Craftsman's Writ: Fire Protection Potion
+  when onquest 94263
+  zone map 1427
+  turnin 94263 optional
+
+step Craftsman's Writ: Shadow Oil
+  when has 264064
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1435
+  accept 94264 item 264064 optional
+
+step Craftsman's Writ: Shadow Oil
+  when onquest 94264
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1435
+  complete 94264 @62.4,52.9 optional
+
+step Craftsman's Writ: Shadow Oil
+  when onquest 94264
+  zone map 1435
+  turnin 94264 optional
+
+step Craftsman's Writ: Goblin Rocket Fuel
+  when has 264065
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1446
+  accept 94265 item 264065 optional
+
+step Craftsman's Writ: Goblin Rocket Fuel
+  when onquest 94265
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1446
+  complete 94265 @50.9,27.0 optional
+
+step Craftsman's Writ: Goblin Rocket Fuel
+  when onquest 94265
+  zone map 1446
+  turnin 94265 optional
+
+step Craftsman's Writ: Elixir of Agility
+  when has 264066
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1425
+  accept 94266 item 264066 optional
+
+step Craftsman's Writ: Elixir of Agility
+  when onquest 94266
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1425
+  complete 94266 @80.1,55.4 optional
+
+step Craftsman's Writ: Elixir of Agility
+  when onquest 94266
+  zone map 1425
+  turnin 94266 optional
+
+step Craftsman's Writ: Wildvine Potion
+  when has 264067
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1449
+  accept 94267 item 264067 optional
+
+step Craftsman's Writ: Wildvine Potion
+  when onquest 94267
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1449
+  complete 94267 @43.5,7.4 optional
+
+step Craftsman's Writ: Wildvine Potion
+  when onquest 94267
+  zone map 1449
+  turnin 94267 optional
+
+step Craftsman's Writ: Steel Plate Helm
+  when has 264068
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1418
+  accept 94268 item 264068 optional
+
+step Craftsman's Writ: Steel Plate Helm
+  when onquest 94268
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1418
+  complete 94268 @44.3,11.4 optional
+
+step Craftsman's Writ: Steel Plate Helm
+  when onquest 94268
+  zone map 1418
+  turnin 94268 optional
+
+step Craftsman's Writ: Inlaid Mithril Cylinder
+  when has 264069
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1443
+  accept 94269 item 264069 optional
+
+step Craftsman's Writ: Inlaid Mithril Cylinder
+  when onquest 94269
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1443
+  complete 94269 @62.3,39.0 optional
+
+step Craftsman's Writ: Inlaid Mithril Cylinder
+  when onquest 94269
+  zone map 1443
+  turnin 94269 optional
+
+step Craftsman's Writ: Steel Weapon Chain
+  when has 264070
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1445
+  accept 94270 item 264070 optional
+
+step Craftsman's Writ: Steel Weapon Chain
+  when onquest 94270
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1445
+  complete 94270 @41.0,27.9 optional
+
+step Craftsman's Writ: Steel Weapon Chain
+  when onquest 94270
+  zone map 1445
+  turnin 94270 optional
+
+step Craftsman's Writ: Ornate Mithril Shoulders
+  when has 264071
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1448
+  accept 94271 item 264071 optional
+
+step Craftsman's Writ: Ornate Mithril Shoulders
+  when onquest 94271
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1448
+  complete 94271 @50.9,81.6 optional
+
+step Craftsman's Writ: Ornate Mithril Shoulders
+  when onquest 94271
+  zone map 1448
+  turnin 94271 @50.9,81.6 map 1448 optional
+
+step Craftsman's Writ: Blue Glittering Axe
+  when has 264072
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1444
+  accept 94272 item 264072 optional
+
+step Craftsman's Writ: Blue Glittering Axe
+  when onquest 94272
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1444
+  complete 94272 @72.4,52.5 optional
+
+step Craftsman's Writ: Blue Glittering Axe
+  when onquest 94272
+  zone map 1444
+  turnin 94272 optional
+
+step Craftsman's Writ: Moonsteel Broadsword
+  when has 264073
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1450
+  accept 94273 item 264073 optional
+
+step Craftsman's Writ: Moonsteel Broadsword
+  when onquest 94273
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1450
+  complete 94273 @51.2,42.3 optional
+
+step Craftsman's Writ: Moonsteel Broadsword
+  when onquest 94273
+  zone map 1450
+  turnin 94273 optional
+
+step Craftsman's Writ: Golden Scale Coif
+  when has 264074
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 2548
+  accept 94274 item 264074 optional
+
+step Craftsman's Writ: Golden Scale Coif
+  when onquest 94274
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2548
+  complete 94274 @76.9,54.1 optional
+
+step Craftsman's Writ: Golden Scale Coif
+  when onquest 94274
+  zone map 2548
+  turnin 94274 optional
+
+step Craftsman's Writ: Solid Sharpening Stone
+  when has 264075
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1427
+  accept 94275 item 264075 optional
+
+step Craftsman's Writ: Solid Sharpening Stone
+  when onquest 94275
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1427
+  complete 94275 @38.8,28.5 optional
+
+step Craftsman's Writ: Solid Sharpening Stone
+  when onquest 94275
+  zone map 1427
+  turnin 94275 optional
+
+step Craftsman's Writ: Wicked Mithril Blade
+  when has 264076
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1435
+  accept 94276 item 264076 optional
+
+step Craftsman's Writ: Wicked Mithril Blade
+  when onquest 94276
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1435
+  complete 94276 @62.4,52.9 optional
+
+step Craftsman's Writ: Wicked Mithril Blade
+  when onquest 94276
+  zone map 1435
+  turnin 94276 @62.4,52.9 map 1435 optional
+
+step Craftsman's Writ: Truesilver Rod
+  when has 264077
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1446
+  accept 94277 item 264077 optional
+
+step Craftsman's Writ: Truesilver Rod
+  when onquest 94277
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1446
+  complete 94277 @52.5,28.4 optional
+
+step Craftsman's Writ: Truesilver Rod
+  when onquest 94277
+  zone map 1446
+  turnin 94277 optional
+
+step Craftsman's Writ: Golden Scale Gauntlets
+  when has 264078
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1425
+  accept 94278 item 264078 optional
+
+step Craftsman's Writ: Golden Scale Gauntlets
+  when onquest 94278
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1425
+  complete 94278 @26.7,48.6 optional
+
+step Craftsman's Writ: Golden Scale Gauntlets
+  when onquest 94278
+  zone map 1425
+  turnin 94278 @26.7,48.6 map 1425 optional
+
+step Craftsman's Writ: Heavy Mithril Axe
+  when has 264079
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1446
+  accept 94279 item 264079 optional
+
+step Craftsman's Writ: Heavy Mithril Axe
+  when onquest 94279
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1446
+  complete 94279 @27.5,42.7 optional
+
+step Craftsman's Writ: Heavy Mithril Axe
+  when onquest 94279
+  zone map 1446
+  turnin 94279 @27.5,42.7 map 1446 optional
+
+step Craftsman's Writ: Mechanical Dragonling
+  when has 264080
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1418
+  accept 94280 item 264080 optional
+
+step Craftsman's Writ: Mechanical Dragonling
+  when onquest 94280
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1418
+  complete 94280 @67.7,51.7 optional
+
+step Craftsman's Writ: Mechanical Dragonling
+  when onquest 94280
+  zone map 1418
+  turnin 94280 optional
+
+step Craftsman's Writ: Advanced Target Dummy
+  when has 264081
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1443
+  accept 94281 item 264081 optional
+
+step Craftsman's Writ: Advanced Target Dummy
+  when onquest 94281
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1443
+  complete 94281 @62.3,39.0 optional
+
+step Craftsman's Writ: Advanced Target Dummy
+  when onquest 94281
+  zone map 1443
+  turnin 94281 optional
+
+step Craftsman's Writ: Craftsman's Monocle
+  when has 264082
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1445
+  accept 94282 item 264082 optional
+
+step Craftsman's Writ: Craftsman's Monocle
+  when onquest 94282
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1445
+  complete 94282 @54,56.5 optional
+
+step Craftsman's Writ: Craftsman's Monocle
+  when onquest 94282
+  zone map 1445
+  turnin 94282 optional
+
+step Craftsman's Writ: Goblin Land Mine
+  when has 264083
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1448
+  accept 94283 item 264083 optional
+
+step Craftsman's Writ: Goblin Land Mine
+  when onquest 94283
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1448
+  complete 94283 @51.4,82.0 optional
+
+step Craftsman's Writ: Goblin Land Mine
+  when onquest 94283
+  zone map 1448
+  turnin 94283 optional
+
+step Craftsman's Writ: Catseye Ultra Goggles
+  when has 264084
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1444
+  accept 94284 item 264084 optional
+
+step Craftsman's Writ: Catseye Ultra Goggles
+  when onquest 94284
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1444
+  complete 94284 @72.4,52.5 optional
+
+step Craftsman's Writ: Catseye Ultra Goggles
+  when onquest 94284
+  zone map 1444
+  turnin 94284 @72.4,52.5 map 1444 optional
+
+step Craftsman's Writ: Unstable Trigger
+  when has 264085
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1450
+  accept 94285 item 264085 optional
+
+step Craftsman's Writ: Unstable Trigger
+  when onquest 94285
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1450
+  complete 94285 @53.3,42.7 optional
+
+step Craftsman's Writ: Unstable Trigger
+  when onquest 94285
+  zone map 1450
+  turnin 94285 optional
+
+step Craftsman's Writ: Flash Bomb
+  when has 264086
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 2548
+  accept 94286 item 264086 optional
+
+step Craftsman's Writ: Flash Bomb
+  when onquest 94286
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2548
+  complete 94286 @76.9,54.1 optional
+
+step Craftsman's Writ: Flash Bomb
+  when onquest 94286
+  zone map 2548
+  turnin 94286 optional
+
+step Craftsman's Writ: Fire Goggles
+  when has 264087
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1427
+  accept 94287 item 264087 optional
+
+step Craftsman's Writ: Fire Goggles
+  when onquest 94287
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1427
+  complete 94287 @41.1,58.3 optional
+
+step Craftsman's Writ: Fire Goggles
+  when onquest 94287
+  zone map 1427
+  turnin 94287 @41.1,58.3 map 1427 optional
+
+step Craftsman's Writ: Mithril Frag Bomb
+  when has 264088
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1435
+  accept 94288 item 264088 optional
+
+step Craftsman's Writ: Mithril Frag Bomb
+  when onquest 94288
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1435
+  complete 94288 @70.0,41.6 optional
+
+step Craftsman's Writ: Mithril Frag Bomb
+  when onquest 94288
+  zone map 1435
+  turnin 94288 optional
+
+step Craftsman's Writ: Gyromatic Micro-Adjuster
+  when has 264089
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1446
+  accept 94289 item 264089 optional
+
+step Craftsman's Writ: Gyromatic Micro-Adjuster
+  when onquest 94289
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1446
+  complete 94289 @52.3,26.9 optional
+
+step Craftsman's Writ: Gyromatic Micro-Adjuster
+  when onquest 94289
+  zone map 1446
+  turnin 94289 optional
+
+step Craftsman's Writ: Mechanical Repair Kit
+  when has 264090
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1425
+  accept 94290 item 264090 optional
+
+step Craftsman's Writ: Mechanical Repair Kit
+  when onquest 94290
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1425
+  complete 94290 @26.9,48.6 optional
+
+step Craftsman's Writ: Mechanical Repair Kit
+  when onquest 94290
+  zone map 1425
+  turnin 94290 optional
+
+step Craftsman's Writ: Comfortable Leather Hat
+  when has 264092
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1418
+  accept 94292 item 264092 optional
+
+step Craftsman's Writ: Comfortable Leather Hat
+  when onquest 94292
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1418
+  complete 94292 @61.9,54.3 optional
+
+step Craftsman's Writ: Comfortable Leather Hat
+  when onquest 94292
+  zone map 1418
+  turnin 94292 optional
+
+step Craftsman's Writ: Guardian Cloak
+  when has 264093
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1443
+  accept 94293 item 264093 optional
+
+step Craftsman's Writ: Guardian Cloak
+  when onquest 94293
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1443
+  complete 94293 @38.9,27.2 optional
+
+step Craftsman's Writ: Guardian Cloak
+  when onquest 94293
+  zone map 1443
+  turnin 94293 optional
+
+step Craftsman's Writ: Dusky Bracers
+  when has 264094
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1445
+  accept 94294 item 264094 optional
+
+step Craftsman's Writ: Dusky Bracers
+  when onquest 94294
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1445
+  complete 94294 @54,56.5 optional
+
+step Craftsman's Writ: Dusky Bracers
+  when onquest 94294
+  zone map 1445
+  turnin 94294 optional
+
+step Craftsman's Writ: Wild Leather Helmet
+  when has 264095
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1448
+  accept 94295 item 264095 optional
+
+step Craftsman's Writ: Wild Leather Helmet
+  when onquest 94295
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1448
+  complete 94295 @51.0,81.6 optional
+
+step Craftsman's Writ: Wild Leather Helmet
+  when onquest 94295
+  zone map 1448
+  turnin 94295 optional
+
+step Craftsman's Writ: Wild Leather Shoulders
+  when has 264096
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1444
+  accept 94296 item 264096 optional
+
+step Craftsman's Writ: Wild Leather Shoulders
+  when onquest 94296
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1444
+  complete 94296 @72.4,52.5 optional
+
+step Craftsman's Writ: Wild Leather Shoulders
+  when onquest 94296
+  zone map 1444
+  turnin 94296 optional
+
+step Craftsman's Writ: Quickdraw Quiver
+  when has 264097
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1450
+  accept 94297 item 264097 optional
+
+step Craftsman's Writ: Quickdraw Quiver
+  when onquest 94297
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1450
+  complete 94297 @53.3,42.7 optional
+
+step Craftsman's Writ: Quickdraw Quiver
+  when onquest 94297
+  zone map 1450
+  turnin 94297 optional
+
+step Craftsman's Writ: Swift Boots
+  when has 264098
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 2548
+  accept 94298 item 264098 optional
+
+step Craftsman's Writ: Swift Boots
+  when onquest 94298
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2548
+  complete 94298 @76.9,54.1 optional
+
+step Craftsman's Writ: Swift Boots
+  when onquest 94298
+  zone map 2548
+  turnin 94298 optional
+
+step Craftsman's Writ: Nightscape Shoulders
+  when has 264099
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1427
+  accept 94299 item 264099 optional
+
+step Craftsman's Writ: Nightscape Shoulders
+  when onquest 94299
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1427
+  complete 94299 @38.4,27.7 optional
+
+step Craftsman's Writ: Nightscape Shoulders
+  when onquest 94299
+  zone map 1427
+  turnin 94299 optional
+
+step Craftsman's Writ: Big Voodoo Mask
+  when has 264100
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1435
+  accept 94300 item 264100 optional
+
+step Craftsman's Writ: Big Voodoo Mask
+  when onquest 94300
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1435
+  complete 94300 @62.4,52.9 optional
+
+step Craftsman's Writ: Big Voodoo Mask
+  when onquest 94300
+  zone map 1435
+  turnin 94300 optional
+
+step Craftsman's Writ: Big Voodoo Robe
+  when has 264101
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1446
+  accept 94301 item 264101 optional
+
+step Craftsman's Writ: Big Voodoo Robe
+  when onquest 94301
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1446
+  complete 94301 @67.0,22.4 optional
+
+step Craftsman's Writ: Big Voodoo Robe
+  when onquest 94301
+  zone map 1446
+  turnin 94301 optional
+
+step Craftsman's Writ: Turtle Scale Breastplate
+  when has 264102
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1425
+  accept 94302 item 264102 optional
+
+step Craftsman's Writ: Turtle Scale Breastplate
+  when onquest 94302
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1425
+  complete 94302 @80.1,55.4 optional
+
+step Craftsman's Writ: Turtle Scale Breastplate
+  when onquest 94302
+  zone map 1425
+  turnin 94302 optional
+
+step Craftsman's Writ: Thick Leather Ammo Pouch
+  when has 264103
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1449
+  accept 94303 item 264103 optional
+
+step Craftsman's Writ: Thick Leather Ammo Pouch
+  when onquest 94303
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1449
+  complete 94303 @43.3,7.7 optional
+
+step Craftsman's Writ: Thick Leather Ammo Pouch
+  when onquest 94303
+  zone map 1449
+  turnin 94303 optional
+
+step Craftsman's Writ: Mageweave Bag
+  when has 264104
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1418
+  accept 94304 item 264104 optional
+
+step Craftsman's Writ: Mageweave Bag
+  when onquest 94304
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1418
+  complete 94304 @42.4,52.9 optional
+
+step Craftsman's Writ: Mageweave Bag
+  when onquest 94304
+  zone map 1418
+  turnin 94304 optional
+
+step Craftsman's Writ: Shadoweave Gloves
+  when has 264105
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1443
+  accept 94305 item 264105 optional
+
+step Craftsman's Writ: Shadoweave Gloves
+  when onquest 94305
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1443
+  complete 94305 @62.2,39.6 optional
+
+step Craftsman's Writ: Shadoweave Gloves
+  when onquest 94305
+  zone map 1443
+  turnin 94305 @62.2,39.6 map 1443 optional
+
+step Craftsman's Writ: Crimson Silk Robe
+  when has 264106
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1445
+  accept 94306 item 264106 optional
+
+step Craftsman's Writ: Crimson Silk Robe
+  when onquest 94306
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1445
+  complete 94306 @46.1,57.1 optional
+
+step Craftsman's Writ: Crimson Silk Robe
+  when onquest 94306
+  zone map 1445
+  turnin 94306 optional
+
+step Craftsman's Writ: Shadoweave Robe
+  when has 264107
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1448
+  accept 94307 item 264107 optional
+
+step Craftsman's Writ: Shadoweave Robe
+  when onquest 94307
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1448
+  complete 94307 @51.4,81.5 optional
+
+step Craftsman's Writ: Shadoweave Robe
+  when onquest 94307
+  zone map 1448
+  turnin 94307 optional
+
+step Craftsman's Writ: Enchanted Mageweave Pouch
+  when has 264108
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1448
+  accept 94308 item 264108 optional
+
+step Craftsman's Writ: Enchanted Mageweave Pouch
+  when onquest 94308
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1448
+  complete 94308 @41.4,45.0 optional
+
+step Craftsman's Writ: Enchanted Mageweave Pouch
+  when onquest 94308
+  zone map 1448
+  turnin 94308 optional
+
+step Craftsman's Writ: Star Belt
+  when has 264109
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1450
+  accept 94309 item 264109 optional
+
+step Craftsman's Writ: Star Belt
+  when onquest 94309
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1450
+  complete 94309 @51.8,32.6 optional
+
+step Craftsman's Writ: Star Belt
+  when onquest 94309
+  zone map 1450
+  turnin 94309 @51.8,32.6 map 1450 optional
+
+step Craftsman's Writ: Black Mageweave Vest
+  when has 264110
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 2548
+  accept 94310 item 264110 optional
+
+step Craftsman's Writ: Black Mageweave Vest
+  when onquest 94310
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2548
+  complete 94310 @76.9,54.1 optional
+
+step Craftsman's Writ: Black Mageweave Vest
+  when onquest 94310
+  zone map 2548
+  turnin 94310 optional
+
+step Craftsman's Writ: Red Mageweave Pants
+  when has 264111
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1427
+  accept 94311 item 264111 optional
+
+step Craftsman's Writ: Red Mageweave Pants
+  when onquest 94311
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1427
+  complete 94311 @37.7,26.6 optional
+
+step Craftsman's Writ: Red Mageweave Pants
+  when onquest 94311
+  zone map 1427
+  turnin 94311 optional
+
+step Craftsman's Writ: Orange Martial Shirt
+  when has 264112
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1435
+  accept 94312 item 264112 optional
+
+step Craftsman's Writ: Orange Martial Shirt
+  when onquest 94312
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1435
+  complete 94312 @70.0,41.6 optional
+
+step Craftsman's Writ: Orange Martial Shirt
+  when onquest 94312
+  zone map 1435
+  turnin 94312 optional
+
+step Craftsman's Writ: White Bandit Mask
+  when has 264113
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1446
+  accept 94313 item 264113 optional
+
+step Craftsman's Writ: White Bandit Mask
+  when onquest 94313
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1446
+  complete 94313 @51.0,27.4 optional
+
+step Craftsman's Writ: White Bandit Mask
+  when onquest 94313
+  zone map 1446
+  turnin 94313 optional
+
+step Craftsman's Writ: Cindercloth Robe
+  when has 264114
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1425
+  accept 94314 item 264114 optional
+
+step Craftsman's Writ: Cindercloth Robe
+  when onquest 94314
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1425
+  complete 94314 @33.8,75.2 optional
+
+step Craftsman's Writ: Cindercloth Robe
+  when onquest 94314
+  zone map 1425
+  turnin 94314 optional
+
+step Craftsman's Writ: Earthen Silk Belt
+  when has 264115
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1449
+  accept 94315 item 264115 optional
+
+step Craftsman's Writ: Earthen Silk Belt
+  when onquest 94315
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1449
+  complete 94315 @43.7,7.2 optional
+
+step Craftsman's Writ: Earthen Silk Belt
+  when onquest 94315
+  zone map 1449
+  turnin 94315 optional
+
+step Craftsman's Writ: Potion of Demonslaying
+  zone map 1447
+  accept 94316 optional
+
+step Craftsman's Writ: Potion of Demonslaying
+  when onquest 94316
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1447
+  complete 94316 @29.2,40.2 optional
+
+step Craftsman's Writ: Potion of Demonslaying
+  when onquest 94316
+  zone map 1447
+  turnin 94316 @29.2,40.2 map 1447 optional
+
+step Craftsman's Writ: Dreamless Sleep Potion
+  when has 264117
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1419
+  accept 94317 item 264117 optional
+
+step Craftsman's Writ: Dreamless Sleep Potion
+  when onquest 94317
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1419
+  complete 94317 @52.0,35.6 optional
+
+step Craftsman's Writ: Dreamless Sleep Potion
+  when onquest 94317
+  zone map 1419
+  turnin 94317 @52.0,35.6 map 1419 optional
+
+step Craftsman's Writ: Greater Fire Protection Potion
+  when has 264118
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1428
+  accept 94318 item 264118 optional
+
+step Craftsman's Writ: Greater Fire Protection Potion
+  when onquest 94318
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1428
+  complete 94318 @12.4,31.6 optional
+
+step Craftsman's Writ: Greater Fire Protection Potion
+  when onquest 94318
+  zone map 1428
+  turnin 94318 @12.4,31.6 map 1428 optional
+
+step Craftsman's Writ: Draught of Detect Demon
+  when has 264119
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1430
+  accept 94319 item 264119 optional
+
+step Craftsman's Writ: Draught of Detect Demon
+  when onquest 94319
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1430
+  complete 94319 @47,75.4 optional
+
+step Craftsman's Writ: Draught of Detect Demon
+  when onquest 94319
+  zone map 1430
+  turnin 94319 @47,75.4 map 1430 optional
+
+step Craftsman's Writ: Gift of Arthas
+  when has 264120
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1423
+  accept 94320 item 264120 optional
+
+step Craftsman's Writ: Gift of Arthas
+  when onquest 94320
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 94320 @50.9,11.5 optional
+
+step Craftsman's Writ: Gift of Arthas
+  when onquest 94320
+  zone map 1423
+  turnin 94320 @50.9,11.5 map 1423 optional
+
+step Craftsman's Writ: Limited Invulnerability Potion
+  when has 264122
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1449
+  accept 94322 item 264122 optional
+
+step Craftsman's Writ: Limited Invulnerability Potion
+  when onquest 94322
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1449
+  complete 94322 @23.1,16.7 optional
+
+step Craftsman's Writ: Limited Invulnerability Potion
+  when onquest 94322
+  zone map 1449
+  turnin 94322 @23.1,16.7 map 1449 optional
+
+step Craftsman's Writ: Major Rejuvenation Potion
+  when has 264123
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1422
+  accept 94323 item 264123 optional
+
+step Craftsman's Writ: Major Rejuvenation Potion
+  when onquest 94323
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1422
+  complete 94323 @58.2,52.1 optional
+
+step Craftsman's Writ: Major Rejuvenation Potion
+  when onquest 94323
+  zone map 1422
+  turnin 94323 @58.2,52.1 map 1422 optional
+
+step Craftsman's Writ: Distilled Firewater
+  when has 264124
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1452
+  accept 94324 item 264124 optional
+
+step Craftsman's Writ: Distilled Firewater
+  when onquest 94324
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1452
+  complete 94324 @64.8,32.6 optional
+
+step Craftsman's Writ: Distilled Firewater
+  when onquest 94324
+  zone map 1452
+  turnin 94324 @64.8,32.6 map 1452 optional
+
+step Craftsman's Writ: Radiant Belt
+  when has 264126
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1419
+  accept 94326 item 264126 optional
+
+step Craftsman's Writ: Radiant Belt
+  when onquest 94326
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1419
+  complete 94326 @52.0,35.6 optional
+
+step Craftsman's Writ: Radiant Belt
+  when onquest 94326
+  zone map 1419
+  turnin 94326 @52.0,35.6 map 1419 optional
+
+step Craftsman's Writ: Mithril Spurs
+  when has 264128
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1430
+  accept 94328 item 264128 optional
+
+step Craftsman's Writ: Mithril Spurs
+  when onquest 94328
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1430
+  complete 94328 @48.3,68.5 optional
+
+step Craftsman's Writ: Mithril Spurs
+  when onquest 94328
+  zone map 1430
+  turnin 94328 @48.3,68.5 map 1430 optional
+
+step Craftsman's Writ: Ebon Shiv
+  when has 264133
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1452
+  accept 94333 item 264133 optional
+
+step Craftsman's Writ: Ebon Shiv
+  when onquest 94333
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1452
+  complete 94333 @60.8,38.6 optional
+
+step Craftsman's Writ: Ebon Shiv
+  when onquest 94333
+  zone map 1452
+  turnin 94333 @60.8,38.6 map 1452 optional
+
+step Craftsman's Writ: Masterwork Target Dummy
+  when has 264134
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1447
+  accept 94334 item 264134 optional
+
+step Craftsman's Writ: Masterwork Target Dummy
+  when onquest 94334
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1447
+  complete 94334 @30.0,40.2 optional
+
+step Craftsman's Writ: Masterwork Target Dummy
+  when onquest 94334
+  zone map 1447
+  turnin 94334 @30.0,40.2 map 1447 optional
+
+step Craftsman's Writ: Green Lens
+  when has 264135
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1419
+  accept 94335 item 264135 optional
+
+step Craftsman's Writ: Green Lens
+  when onquest 94335
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1419
+  complete 94335 @52.0,35.6 optional
+
+step Craftsman's Writ: Green Lens
+  when onquest 94335
+  zone map 1419
+  turnin 94335 @52.0,35.6 map 1419 optional
+
+step Craftsman's Writ: Truesilver Transformer
+  when has 264140
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1451
+  accept 94340 item 264140 optional
+
+step Craftsman's Writ: Truesilver Transformer
+  when onquest 94340
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1451
+  complete 94340 @48.7,37 optional
+
+step Craftsman's Writ: Truesilver Transformer
+  when onquest 94340
+  zone map 1451
+  turnin 94340 @48.7,37 map 1451 optional
+
+step Craftsman's Writ: Sniper Scope
+  when has 264141
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1422
+  accept 94341 item 264141 optional
+
+step Craftsman's Writ: Sniper Scope
+  when onquest 94341
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1422
+  complete 94341 @65.7,76.2 optional
+
+step Craftsman's Writ: Sniper Scope
+  when onquest 94341
+  zone map 1422
+  turnin 94341 @65.7,76.2 map 1422 optional
+
+step Craftsman's Writ: Runic Leather Headband
+  when has 264146
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1430
+  accept 94346 item 264146 optional
+
+step Craftsman's Writ: Runic Leather Headband
+  when onquest 94346
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1430
+  complete 94346 @47,75.4 optional
+
+step Craftsman's Writ: Runic Leather Headband
+  when onquest 94346
+  zone map 1430
+  turnin 94346 @47,75.4 map 1430 optional
+
+step Craftsman's Writ: Wicked Leather Bracers
+  when has 264147
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1423
+  accept 94347 item 264147 optional
+
+step Craftsman's Writ: Wicked Leather Bracers
+  when onquest 94347
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 94347 @71.8,50.2 optional
+
+step Craftsman's Writ: Wicked Leather Bracers
+  when onquest 94347
+  zone map 1423
+  turnin 94347 @71.8,50.2 map 1423 optional
+
+step Craftsman's Writ: Chimeric Vest
+  when has 264148
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1452
+  accept 94348 item 264148 optional
+
+step Craftsman's Writ: Chimeric Vest
+  when onquest 94348
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1452
+  complete 94348 @54.0,90.4 optional
+
+step Craftsman's Writ: Chimeric Vest
+  when onquest 94348
+  zone map 1452
+  turnin 94348 @54.0,90.4 map 1452 optional
+
+step Craftsman's Writ: Runic Leather Bracers
+  when has 264150
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1422
+  accept 94350 item 264150 optional
+
+step Craftsman's Writ: Runic Leather Bracers
+  when onquest 94350
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1422
+  complete 94350 @36.9,73.8 optional
+
+step Craftsman's Writ: Runic Leather Bracers
+  when onquest 94350
+  zone map 1422
+  turnin 94350 @36.9,73.8 map 1422 optional
+
+step Craftsman's Writ: Frostsaber Boots
+  when has 264151
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1452
+  accept 94351 item 264151 optional
+
+step Craftsman's Writ: Frostsaber Boots
+  when onquest 94351
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1452
+  complete 94351 @61.7,37.8 optional
+
+step Craftsman's Writ: Frostsaber Boots
+  when onquest 94351
+  zone map 1452
+  turnin 94351 @61.7,37.8 map 1452 optional
+
+step Craftsman's Writ: Wizardweave Turban
+  when has 264152
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1447
+  accept 94352 item 264152 optional
+
+step Craftsman's Writ: Wizardweave Turban
+  when onquest 94352
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1447
+  complete 94352 @30.0,40.1 optional
+
+step Craftsman's Writ: Wizardweave Turban
+  when onquest 94352
+  zone map 1447
+  turnin 94352 @30.0,40.1 map 1447 optional
+
+step Craftsman's Writ: Runecloth Bag
+  when has 264153
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1419
+  accept 94353 item 264153 optional
+
+step Craftsman's Writ: Runecloth Bag
+  when onquest 94353
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1419
+  complete 94353 @52.0,35.6 optional
+
+step Craftsman's Writ: Runecloth Bag
+  when onquest 94353
+  zone map 1419
+  turnin 94353 @52.0,35.6 map 1419 optional
+
+step Craftsman's Writ: Runecloth Boots
+  when has 264154
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1428
+  accept 94354 item 264154 optional
+
+step Craftsman's Writ: Runecloth Boots
+  when onquest 94354
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1428
+  complete 94354 @12.4,31.6 optional
+
+step Craftsman's Writ: Runecloth Boots
+  when onquest 94354
+  zone map 1428
+  turnin 94354 @12.4,31.6 map 1428 optional
+
+step Craftsman's Writ: Tuxedo Jacket
+  when has 264155
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1430
+  accept 94355 item 264155 optional
+
+step Craftsman's Writ: Tuxedo Jacket
+  when onquest 94355
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1430
+  complete 94355 @47,75.4 optional
+
+step Craftsman's Writ: Tuxedo Jacket
+  when onquest 94355
+  zone map 1430
+  turnin 94355 @47,75.4 map 1430 optional
+
+step Craftsman's Writ: Felcloth Boots
+  when has 264156
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1423
+  accept 94356 item 264156 optional
+
+step Craftsman's Writ: Felcloth Boots
+  when onquest 94356
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 94356 @11.4,26.6 optional
+
+step Craftsman's Writ: Felcloth Boots
+  when onquest 94356
+  zone map 1423
+  turnin 94356 @11.4,26.6 map 1423 optional
+
+step Craftsman's Writ: Shadoweave Mask
+  when has 264158
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1449
+  accept 94358 item 264158 optional
+
+step Craftsman's Writ: Shadoweave Mask
+  when onquest 94358
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1449
+  complete 94358 @9.1,65.4 optional
+
+step Craftsman's Writ: Shadoweave Mask
+  when onquest 94358
+  zone map 1449
+  turnin 94358 @9.1,65.4 map 1449 optional
+
+step Craftsman's Writ: Ghostweave Vest
+  when has 264159
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1422
+  accept 94359 item 264159 optional
+
+step Craftsman's Writ: Ghostweave Vest
+  when onquest 94359
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1422
+  complete 94359 @49.8,77.6 optional
+
+step Craftsman's Writ: Ghostweave Vest
+  when onquest 94359
+  zone map 1422
+  turnin 94359 @49.8,77.6 map 1422 optional
+
+step Craftsman's Writ: Soul Pouch
+  when has 264160
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1452
+  accept 94360 item 264160 optional
+
+step Craftsman's Writ: Soul Pouch
+  when onquest 94360
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1452
+  complete 94360 @57.8,86.0 optional
+
+step Craftsman's Writ: Soul Pouch
+  when onquest 94360
+  zone map 1452
+  turnin 94360 @57.8,86.0 map 1452 optional

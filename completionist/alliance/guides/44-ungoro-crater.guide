@@ -1,0 +1,234 @@
+guide polestar-completionist-alliance/44-ungoro-crater
+title 44 Un'Goro Crater (50-55) (Completionist)
+faction Alliance
+levels 50-55
+zone Un'Goro Crater
+next polestar-completionist-alliance/45-searing-gorge
+pitch On along the line: Un'Goro Crater, quests of level 50 to 55.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 20 quests; estimated level at the end 50.8 (heuristic XP, class quests not counted).
+# Skipped: 1 prerequisite N not in this route.
+
+step Williden Marshal
+  getfp "Marshal's Refuge"
+  accept 3881
+  accept 3883
+  accept 3882
+  accept 4501
+  accept 4492
+
+step Dadanga is Hungry!
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1449
+  collect 11315 x15 anywhere optional
+  turnin 5150 direct optional
+
+step Pterrordax
+  kill 9166 x10 quest 4501.1
+
+step Crate of Foodstuffs
+  collect 11113 x1 quest 3881.1
+
+step Gorishi Hive Hatchery
+  collect 11131 x1 quest 3883.1
+
+step Dinosaur Bone
+  collect 11114 x8 quest 3882.1
+
+step Research Equipment
+  collect 11112 x1 quest 3881.2
+
+step Frenzied Pterrordax
+  zone Silithus
+  kill 9167 x15 quest 4501.2
+
+step Ringo
+  turnin 4492
+  accept 4491
+
+step Karna Remtravel
+  accept 4243
+  accept 4503
+
+step Spraggle Frock
+  turnin 4501
+  turnin 3882
+  turnin 3883
+  turnin 3881
+
+step Young Diemetradon
+  collect 11830 x8 quest 4503.1
+
+step Fledgling Pterrordax
+  zone Tanaris
+  collect 11831 x8 quest 4503.2
+
+step Shizzle
+  zone Un'Goro Crater
+  turnin 4503
+
+step Spraggle Frock
+  turnin 4491
+
+step J.D. Collie
+  accept 4284
+
+step Red Power Crystal, Yellow Power Crystal, Green Power Crystal and Blue Power Crystal
+  zone Tanaris
+  collect 11186 x7 quest 4284.1
+  collect 11188 x7 quest 4284.2
+  collect 11185 x7 quest 4284.3
+  collect 11184 x7 quest 4284.4
+
+step Microcrystal Contamination
+  when has 280459
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1446
+  turnin 87494 direct
+
+step A Wrecked Raft
+  zone Un'Goro Crater
+  accept 3844
+  turnin 3844
+
+step It's a Secret to Everybody
+  zone map 1449
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 3845
+  complete 3845 @63.1,69.1
+
+step Level 55
+  level 55
+
+step Hol'anyee Marshal
+  zone Un'Goro Crater
+  accept 92020
+
+step It's a Secret to Everybody
+  turnin 3845
+
+step Linken
+  zone Un'Goro Crater
+  accept 3908
+
+step Krakle
+  zone Un'Goro Crater
+  accept 974
+
+step Fire Plume Ridge Hot Spot
+  zone Un'Goro Crater
+  interact 148503 quest 974.1
+
+step Krakle
+  turnin 974
+  accept 980
+
+step J.D. Collie
+  turnin 4284
+  accept 4285
+  accept 4287
+  accept 4288
+
+step Northern Crystal Pylon
+  interact 164955 quest 4285.1
+
+step Eastern Crystal Pylon
+  interact 164957 quest 4287.1
+
+step Western Crystal Pylon
+  interact 164956 quest 4288.1
+
+step J.D. Collie
+  turnin 4285
+  turnin 4287
+  turnin 4288
+  accept 4321
+  turnin 4321
+
+step A-Me 01
+  turnin 4243
+  accept 4244
+
+step Clunk
+  zone Searing Gorge
+  collect 10561 x1 quest 4244.1
+
+step Tiala Whitemane
+  zone Mount Hyjal
+  turnin 92020
+
+step Donova Snowden
+  zone Winterspring
+  turnin 980
+
+step Donova Snowden
+  zone Winterspring
+  turnin 3908
+
+step A-Me 01
+  zone Un'Goro Crater
+  turnin 4244
+  accept 4245
+
+step Karna Remtravel
+  turnin 4245
+
+step Crystal Restore
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1449
+  collect 11188 x10 anywhere optional
+  collect 11185 x10 anywhere optional
+  turnin 4381 direct optional
+
+step Crystal Charge
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1449
+  collect 11186 x10 anywhere optional
+  collect 11188 x10 anywhere optional
+  turnin 4385 direct optional
+
+step Williden's Journal
+  tip A Mangled Journal drops from Ravasaur Runner, Ravasaur, Thunderstomp Stegodon: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1449
+  collect 11116 x1 optional
+  accept 3884 item 11116 optional
+
+step Crystal Force
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1449
+  collect 11185 x10 anywhere optional
+  collect 11184 x10 anywhere optional
+  turnin 4382 direct optional
+
+step Crystal Spire
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1449
+  collect 11184 x10 anywhere optional
+  collect 11188 x10 anywhere optional
+  turnin 4386 direct optional
+
+step Crystal Ward
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1449
+  collect 11186 x10 anywhere optional
+  collect 11185 x10 anywhere optional
+  turnin 4383 direct optional
+
+step Crystal Yield
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1449
+  collect 11186 x10 anywhere optional
+  collect 11184 x10 anywhere optional
+  turnin 4384 direct optional
+
+step Still Believing
+  when turnedin 8323
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1449
+  collect 20404 x10 anywhere optional
+  turnin 8324 direct optional
+
+step Williden's Journal
+  when onquest 3884
+  zone map 1449
+  turnin 3884

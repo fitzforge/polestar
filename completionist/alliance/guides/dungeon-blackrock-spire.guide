@@ -1,0 +1,859 @@
+guide polestar-completionist-alliance/dungeon-blackrock-spire
+title Blackrock Spire (Completionist)
+faction Alliance
+category Dungeons
+levels 57-60
+zone Searing Gorge
+next polestar-completionist-alliance/64-odd-jobs-in-the-eastern-kingdoms-4
+pitch Blackrock Spire, in Searing Gorge.
+why Every Alliance quest of Blackrock Spire: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Searing Gorge: the arrow leads to it.
+
+step Screecher Spirits
+  zone Tanaris
+  accept 3520
+
+step Screecher Spirits
+  zone Feralas
+  complete 3520 @42.01,36.27
+
+step Screecher Spirits
+  zone Tanaris
+  turnin 3520
+
+step The Prophecy of Mosh'aru
+  zone Tanaris
+  accept 3527
+
+step The Prophecy of Mosh'aru
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 3527 @66.99,22.36
+
+step The Prophecy of Mosh'aru
+  zone Tanaris
+  turnin 3527
+
+step The Ancient Egg
+  zone Tanaris
+  accept 4787
+
+step The Ancient Egg
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 4787 @66.99,22.36
+
+step The Ancient Egg
+  zone Tanaris
+  turnin 4787
+
+step Broodling Essence
+  zone Burning Steppes
+  accept 4726
+
+step Broodling Essence
+  zone Burning Steppes
+  complete 4726 @81.0,28.0
+
+step Broodling Essence
+  zone Burning Steppes
+  turnin 4726
+
+step The God Hakkar
+  zone Tanaris
+  accept 3528
+
+step The God Hakkar
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 3528 @66.99,22.36
+
+step The God Hakkar
+  zone Tanaris
+  turnin 3528
+
+step Felnok Steelspring
+  zone Burning Steppes
+  accept 4808
+
+step Felnok Steelspring
+  zone Winterspring
+  turnin 4808
+
+step Chillwind Horns
+  zone Winterspring
+  accept 4809
+
+step Chillwind Horns
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Winterspring
+  complete 4809 @61.63,38.61
+
+step Chillwind Horns
+  zone Winterspring
+  turnin 4809
+
+step Return to Tinkee
+  zone Winterspring
+  accept 4810
+
+step Return to Tinkee
+  zone Burning Steppes
+  turnin 4810
+
+step The Lost Tablets of Mosh'aru
+  zone Tanaris
+  accept 5065
+
+step The Lost Tablets of Mosh'aru
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 5065 @66.89,24.03
+
+step The Lost Tablets of Mosh'aru
+  zone Tanaris
+  turnin 5065
+
+step Lorax's Tale
+  only Warrior,Paladin,Shaman
+  zone Winterspring
+  accept 5126
+
+step Lorax's Tale
+  only Warrior,Paladin,Shaman
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Winterspring
+  complete 5126 @63.79,73.76
+
+step Lorax's Tale
+  only Warrior,Paladin,Shaman
+  zone Winterspring
+  turnin 5126
+
+step Pip Quickwit
+  zone Searing Gorge
+  accept 5047 @34.8,85.3
+
+step Kibler
+  zone Badlands
+  accept 4729
+  accept 4862
+
+step Helendis Riverhorn
+  zone Burning Steppes
+  accept 4701
+
+step Ragged John
+  zone Burning Steppes
+  accept 4866
+
+step Prospector Ironboot
+  zone Tanaris
+  accept 4788
+
+step Felnok Steelspring
+  zone Winterspring
+  accept 4907
+
+step Kilram
+  zone Winterspring
+  accept 5306
+
+step Lorax
+  zone Winterspring
+  accept 5127
+
+step Count Remington Ridgewell
+  zone Stormwind City
+  accept 4766
+
+step Inside Blackrock Spire
+  zone Searing Gorge
+  accept 5001 @34.8,85.3
+  accept 4742 @34.8,85.3
+  accept 4867 @34.8,85.3
+  collect 12780 @34.8,85.3
+  accept 5089 item 12780
+  accept 5160 @34.8,85.3
+  collect 227911 @34.8,85.3
+  accept 84377 item 227911
+  complete 4788 @34.8,85.3
+  complete 4701 @34.8,85.3
+  complete 4729 @34.8,85.3
+  complete 4862 @34.8,85.3
+  complete 5001 @34.8,85.3
+  turnin 5001 @34.8,85.3
+  complete 4742 @34.8,85.3
+  turnin 4742 @34.8,85.3
+  complete 4866 @34.8,85.3
+  complete 4867 @34.8,85.3
+  turnin 4867 @34.8,85.3
+  complete 5127 @34.8,85.3
+  complete 5306 @34.8,85.3
+
+step Hand in
+  zone Searing Gorge
+  turnin 84377 @34.8,85.3
+
+step Kibler
+  zone Badlands
+  turnin 4729
+  turnin 4862
+
+step Helendis Riverhorn
+  zone Burning Steppes
+  turnin 4701
+
+step Marshal Maxwell
+  zone Burning Steppes
+  turnin 5089
+
+step An Earnest Proposition
+  only Druid
+  zone Ironforge
+  accept 8905
+
+step An Earnest Proposition
+  only Druid
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Ironforge
+  complete 8905 @43.53,52.64
+
+step An Earnest Proposition
+  only Druid
+  zone Ironforge
+  turnin 8905
+
+step Mayara Brightwing
+  zone Burning Steppes
+  turnin 4766
+
+step Deliana
+  only Hunter
+  zone Ironforge
+  accept 8906
+
+step Inside Blackrock Spire
+  only Hunter
+  zone Searing Gorge
+  complete 8906 @34.8,85.3
+
+step Ragged John
+  zone Burning Steppes
+  turnin 4866
+
+step Tinkee Steamboil
+  zone Burning Steppes
+  turnin 4907
+
+step Prospector Ironboot
+  zone Tanaris
+  turnin 4788
+
+step Haleh
+  zone Winterspring
+  turnin 5160
+
+step Kilram
+  zone Winterspring
+  turnin 5306
+
+step Lorax
+  zone Winterspring
+  turnin 5127
+
+step Malyfous Darkhammer
+  zone Winterspring
+  turnin 5047
+
+step Deliana
+  only Hunter
+  zone Ironforge
+  turnin 8906
+
+step Wrath of the Blue Flight
+  zone Winterspring
+  accept 5161
+
+step Wrath of the Blue Flight
+  zone Winterspring
+  turnin 5161
+
+step Wrath of the Blue Flight
+  zone Winterspring
+  accept 5162
+
+step Wrath of the Blue Flight
+  zone Western Plaguelands
+  turnin 5162
+
+step Catalogue of the Wayward
+  zone Western Plaguelands
+  accept 5164
+
+step Catalogue of the Wayward
+  zone Western Plaguelands
+  turnin 5164
+
+step Catalogue of the Wayward
+  zone Western Plaguelands
+  accept 5166
+  accept 5167
+
+step Marshal Maxwell
+  zone Burning Steppes
+  accept 5102
+
+step Mayara Brightwing
+  zone Burning Steppes
+  accept 4764
+
+step Tinkee Steamboil
+  zone Burning Steppes
+  accept 4734
+
+step Deliana
+  only Mage
+  zone Ironforge
+  accept 8907
+
+step Inside Blackrock Spire, again
+  zone Searing Gorge
+  accept 5002 @34.8,85.3
+  accept 4743 @34.8,85.3
+  complete 4734 @34.8,85.3
+  complete 4743 @34.8,85.3
+  turnin 4743 @34.8,85.3
+  complete 4764 @34.8,85.3
+  complete 5102 @34.8,85.3
+  complete 5166 @34.8,85.3
+  complete 5167 @34.8,85.3
+
+step Inside Blackrock Spire
+  only Mage
+  zone Searing Gorge
+  complete 8907 @34.8,85.3
+
+step Jeziba
+  zone Western Plaguelands
+  turnin 5166
+  turnin 5167
+
+step Marshal Maxwell
+  zone Burning Steppes
+  turnin 5002
+  turnin 5102
+
+step Mayara Brightwing
+  zone Burning Steppes
+  turnin 4764
+
+step Tinkee Steamboil
+  zone Burning Steppes
+  turnin 4734
+
+step Deliana
+  only Mage
+  zone Ironforge
+  turnin 8907
+
+step An Earnest Proposition
+  only Paladin
+  zone Ironforge
+  accept 8908
+
+step An Earnest Proposition
+  only Paladin
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Ironforge
+  complete 8908 @43.53,52.64
+
+step An Earnest Proposition
+  only Paladin
+  zone Ironforge
+  turnin 8908
+
+step An Earnest Proposition
+  only Priest
+  zone Ironforge
+  accept 8909
+
+step An Earnest Proposition
+  only Priest
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Ironforge
+  complete 8909 @43.53,52.64
+
+step An Earnest Proposition
+  only Priest
+  zone Ironforge
+  turnin 8909
+
+step An Earnest Proposition
+  only Rogue
+  zone Ironforge
+  accept 8910
+
+step An Earnest Proposition
+  only Rogue
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Ironforge
+  complete 8910 @43.53,52.64
+
+step An Earnest Proposition
+  only Rogue
+  zone Ironforge
+  turnin 8910
+
+step An Earnest Proposition
+  only Warlock
+  zone Ironforge
+  accept 8911
+
+step An Earnest Proposition
+  only Warlock
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Ironforge
+  complete 8911 @43.53,52.64
+
+step An Earnest Proposition
+  only Warlock
+  zone Ironforge
+  turnin 8911
+
+step Marshal Maxwell
+  zone Burning Steppes
+  accept 5081
+
+step Mayara Brightwing
+  zone Burning Steppes
+  accept 4765
+
+step Tinkee Steamboil
+  zone Burning Steppes
+  accept 4735
+
+step Deliana
+  only Warrior
+  zone Ironforge
+  accept 8912
+
+step Inside Blackrock Spire, again
+  zone Searing Gorge
+  complete 4735 @34.8,85.3
+  complete 5081 @34.8,85.3
+
+step Inside Blackrock Spire
+  only Warrior
+  zone Searing Gorge
+  complete 8912 @34.8,85.3
+
+step Marshal Maxwell
+  zone Burning Steppes
+  turnin 5081
+
+step Tinkee Steamboil
+  zone Burning Steppes
+  turnin 4735
+
+step Count Remington Ridgewell
+  zone Stormwind City
+  turnin 4765
+
+step Deliana
+  only Warrior
+  zone Ironforge
+  turnin 8912
+
+step A Supernatural Device
+  zone Ironforge
+  accept 8922
+
+step A Supernatural Device
+  zone Tanaris
+  turnin 8922
+
+step The Ectoplasmic Distiller
+  zone Tanaris
+  accept 8921
+
+step The Ectoplasmic Distiller
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 8921 @52.47,27.23
+
+step The Ectoplasmic Distiller
+  zone Tanaris
+  turnin 8921
+
+step Hunting for Ectoplasm
+  zone Tanaris
+  accept 8924
+
+step Hunting for Ectoplasm
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 8924 @52.47,27.23
+
+step Hunting for Ectoplasm
+  zone Tanaris
+  turnin 8924
+
+step A Portable Power Source
+  zone Tanaris
+  accept 8925
+
+step A Portable Power Source
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 8925 @52.47,27.23
+
+step A Portable Power Source
+  zone Tanaris
+  turnin 8925
+
+step A Shifty Merchant
+  zone Tanaris
+  accept 8928
+
+step A Shifty Merchant
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 8928 @52.47,27.23
+
+step A Shifty Merchant
+  zone Tanaris
+  turnin 8928
+
+step Return to Deliana
+  zone Tanaris
+  accept 8977
+
+step Return to Deliana
+  zone Ironforge
+  turnin 8977
+
+step Just Compensation
+  only Druid
+  zone Ironforge
+  accept 8926
+
+step Just Compensation
+  only Druid
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Ironforge
+  complete 8926 @43.53,52.64
+
+step Just Compensation
+  only Druid
+  zone Ironforge
+  turnin 8926
+
+step Bodley
+  zone Searing Gorge
+  accept 8961
+  accept 8995
+
+step The Right Piece of Lord Valthalak's Amulet
+  when available 8989
+  tip One of several exclusive quests; the route takes The Right Piece of Lord Valthalak's Amulet (8990). This one shows for a character the game offers it to instead.
+  when turnedin 8985
+  zone map 1427
+  accept 8989 optional
+
+step Deliana
+  only Hunter
+  zone Ironforge
+  accept 8931
+
+step Deliana
+  only Warrior
+  zone Ironforge
+  accept 8937
+
+step Inside Blackrock Spire, again
+  zone Searing Gorge
+  complete 8961 @34.8,85.3
+  complete 8995 @34.8,85.3
+
+step Inside Blackrock Spire
+  only Hunter
+  zone Searing Gorge
+  complete 8931 @34.8,85.3
+
+step Inside Blackrock Spire
+  only Warrior
+  zone Searing Gorge
+  complete 8937 @34.8,85.3
+
+step Bodley
+  zone Searing Gorge
+  turnin 8961
+
+step Components of Importance
+  when available 8962
+  tip One of several exclusive quests; the route takes Components of Importance (8963). This one shows for a character the game offers it to instead.
+  zone map 1427
+  accept 8962 optional
+
+step Components of Importance
+  when onquest 8962
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1427
+  complete 8962 @39.8,96.5 optional
+
+step Components of Importance
+  when onquest 8962
+  zone map 1427
+  turnin 8962 optional
+
+step The Right Piece of Lord Valthalak's Amulet
+  when onquest 8989
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1427
+  complete 8989 @39.8,96.5 optional
+
+step The Right Piece of Lord Valthalak's Amulet
+  when onquest 8989
+  zone map 1427
+  turnin 8989 optional
+
+step Components of Importance
+  when available 8965
+  tip One of several exclusive quests; the route takes Components of Importance (8962). This one shows for a character the game offers it to instead.
+  zone map 1427
+  accept 8965 optional
+
+step Components of Importance
+  when available 8964
+  tip One of several exclusive quests; the route takes Components of Importance (8962). This one shows for a character the game offers it to instead.
+  zone map 1427
+  accept 8964 optional
+
+step Components of Importance
+  when available 8963
+  tip One of several exclusive quests; the route takes Components of Importance (8962). This one shows for a character the game offers it to instead.
+  zone map 1427
+  accept 8963 optional
+
+step Components of Importance
+  when onquest 8965
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1427
+  complete 8965 @39.8,96.5 optional
+
+step Components of Importance
+  when onquest 8965
+  zone map 1427
+  turnin 8965 optional
+
+step Components of Importance
+  when onquest 8964
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1427
+  complete 8964 @39.8,96.5 optional
+
+step Components of Importance
+  when onquest 8964
+  zone map 1427
+  turnin 8964 optional
+
+step Components of Importance
+  when onquest 8963
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1427
+  complete 8963 @39.8,96.5 optional
+
+step Components of Importance
+  when onquest 8963
+  zone map 1427
+  turnin 8963 optional
+
+step Spirit of Lord Valthalak
+  zone Searing Gorge
+  turnin 8995 @34.8,85.3
+
+step Deliana
+  only Hunter
+  zone Ironforge
+  turnin 8931
+
+step Deliana
+  only Warrior
+  zone Ironforge
+  turnin 8937
+
+step Just Compensation
+  only Mage
+  zone Ironforge
+  accept 8932
+
+step Just Compensation
+  only Mage
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Ironforge
+  complete 8932 @43.53,52.64
+
+step Just Compensation
+  only Mage
+  zone Ironforge
+  turnin 8932
+
+step Just Compensation
+  only Paladin
+  zone Ironforge
+  accept 8933
+
+step Just Compensation
+  only Paladin
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Ironforge
+  complete 8933 @43.53,52.64
+
+step Just Compensation
+  only Paladin
+  zone Ironforge
+  turnin 8933
+
+step Deliana
+  only Priest
+  zone Ironforge
+  accept 8934
+
+step Inside Blackrock Spire
+  only Priest
+  zone Searing Gorge
+  complete 8934 @34.8,85.3
+
+step Deliana
+  only Priest
+  zone Ironforge
+  turnin 8934
+
+step Deliana
+  only Rogue
+  zone Ironforge
+  accept 8935
+
+step Inside Blackrock Spire
+  only Rogue
+  zone Searing Gorge
+  complete 8935 @34.8,85.3
+
+step Return to Bodley
+  when has 22056
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1427
+  turnin 8996 direct
+
+step The Left Piece of Lord Valthalak's Amulet
+  when available 8966
+  tip One of several exclusive quests; the route takes The Left Piece of Lord Valthalak's Amulet (8969). This one shows for a character the game offers it to instead.
+  when turnedin 8962
+  zone map 1427
+  accept 8966 optional
+
+step The Left Piece of Lord Valthalak's Amulet
+  when onquest 8966
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1427
+  complete 8966 @39.8,96.5 optional
+
+step The Left Piece of Lord Valthalak's Amulet
+  when onquest 8966
+  zone map 1427
+  turnin 8966 optional
+
+step Back to the Beginning
+  when turnedin 8996
+  zone map 1427
+  accept 8997
+
+step Deliana
+  only Rogue
+  zone Ironforge
+  turnin 8935
+
+step Back to the Beginning
+  when onquest 8997
+  zone map 1455
+  turnin 8997
+
+
+step Anthion's Parting Words
+  only Druid
+  when turnedin 9015
+  zone map 1423
+  accept 8951 optional
+
+step Anthion's Parting Words
+  only Druid
+  when onquest 8951
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 8951 @26.1,11.3 optional
+
+step Anthion's Parting Words
+  only Druid
+  when onquest 8951
+  zone map 1455
+  turnin 8951 optional
+
+step Anthion's Parting Words
+  only Hunter
+  when turnedin 9015
+  zone map 1423
+  accept 8952 optional
+
+step Anthion's Parting Words
+  only Hunter
+  when onquest 8952
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 8952 @26.1,11.3 optional
+
+step Anthion's Parting Words
+  only Hunter
+  when onquest 8952
+  zone map 1455
+  turnin 8952 optional
+
+step Anthion's Parting Words
+  only Paladin
+  when turnedin 9015
+  zone map 1423
+  accept 8954 optional
+
+step Anthion's Parting Words
+  only Paladin
+  when onquest 8954
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 8954 @26.1,11.3 optional
+
+step Anthion's Parting Words
+  only Paladin
+  when onquest 8954
+  zone map 1455
+  turnin 8954 optional
+
+step Anthion's Parting Words
+  only Priest
+  when turnedin 9015
+  zone map 1423
+  accept 8955 optional
+
+step Anthion's Parting Words
+  only Priest
+  when onquest 8955
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 8955 @26.1,11.3 optional
+
+step Anthion's Parting Words
+  only Priest
+  when onquest 8955
+  zone map 1455
+  turnin 8955 optional

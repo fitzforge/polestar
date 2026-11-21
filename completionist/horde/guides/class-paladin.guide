@@ -1,0 +1,259 @@
+guide polestar-completionist-horde/class-paladin
+title Paladin class quests (11-60) (Completionist)
+faction Horde
+class Paladin
+levels 11-60
+category Class
+zone Durotar
+why Every Paladin class quest from level 10 on, in level order. The earlier ones are in the starting zone guides.
+reward text What the Paladin quests give, quest by quest: abilities, forms, pets, totems or gear.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 17 quests; estimated level at the end 13.3 (heuristic XP).
+# Skipped: 4 prerequisite N not in this route; 3 objective N (item N) outside the zones; 1 exploration objective has no location in data; 1 objective N (talk N) outside the zones.
+
+step Breton Samuels
+  accept 91285 only Undead
+
+step Vile Fin Attacker
+  kill 250283 x8 quest 91285.1 only Undead
+
+step Vile Fin Seer
+  kill 250282 x8 quest 91285.2 only Undead
+
+step Breton Samuels
+  turnin 91285 only Undead
+
+step Touring the Grounds
+  only Paladin,Undead
+  zone map 1420
+  accept 91294 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 91294 @21.9,45.2 optional
+
+step Shari Stilwell
+  accept 91282 only Undead
+
+step Level 60
+  level 60
+
+step Danitha Morr
+  zone Tirisfal Glades
+  accept 97175 @22.1,44.7 map 1420
+
+step Touring the Grounds
+  only Paladin,Undead
+  turnin 91294 optional
+
+step The Tarnished
+  only Paladin,Undead
+  zone map 1420
+  accept 91317 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 91317 @22.1,44.7 optional
+
+step Making Repairs
+  only Paladin,Undead
+  zone map 1420
+  accept 91316 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 91316 @22.7,44.7 optional
+
+step The Tarnished
+  only Paladin,Undead
+  turnin 91317 optional
+
+step A Token of Good Faith
+  only Paladin,Undead
+  zone map 1420
+  accept 95803 optional
+
+step A Token of Good Faith
+  only Paladin,Undead
+  turnin 95803 optional
+
+step Danitha Morr
+  zone Tirisfal Glades
+  accept 94427 only Undead
+
+step Making Repairs
+  only Paladin,Undead
+  turnin 91316 optional
+
+step Tanis Alderwood
+  zone Undercity
+  turnin 94427 only Undead
+
+step Tanis Alderwood
+  zone Durotar
+  accept 94434 only Undead
+
+step Adam Lind
+  zone Wetlands
+  collect 2589 x10 quest 94434.1 only Undead
+
+step Tanis Alderwood
+  zone Undercity
+  turnin 94434 only Undead
+
+step Tanis Alderwood
+  zone Undercity
+  accept 94435 only Undead
+
+step Danitha Morr
+  zone Tirisfal Glades
+  turnin 94435 only Undead
+
+step Garen Largo
+  zone Undercity
+  accept 97022 npc 260093 only Undead
+
+step Ott
+  zone Alterac Mountains
+  accept 97179 @58.9,88.8 map 1416
+  turnin 97179 @58.9,88.8 map 1416
+
+step Ott's Masterwork
+  only Paladin
+  when turnedin 95111
+  zone map 1416
+  accept 95125 optional
+
+step Ott's Masterwork
+  only Paladin
+  when onquest 95125
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1416
+  complete 95125 @58.9,88.8 optional
+
+step Ott's Masterwork
+  only Paladin
+  when onquest 95125
+  zone map 1416
+  turnin 95125 optional
+
+step The Moonsilver Blade
+  only Paladin
+  when turnedin 95125
+  zone map 1416
+  accept 95126 optional
+
+step The Moonsilver Blade
+  only Paladin
+  when onquest 95126
+  zone map 1421
+  turnin 95126 optional
+
+step Old Fire-Eye
+  only Paladin,Undead
+  when turnedin 95126
+  zone map 1421
+  accept 95140 optional
+
+step Old Fire-Eye
+  only Paladin,Undead
+  when onquest 95140
+  zone map 1421
+  complete 95140 @49.7,87.9 optional
+
+step Old Fire-Eye
+  only Paladin,Undead
+  when onquest 95140
+  zone map 1421
+  turnin 95140 optional
+
+step Danitha Morr
+  zone Tirisfal Glades
+  accept 94436 only Undead
+
+step Deathguard Billmuth
+  zone Tirisfal Glades
+  turnin 94436 only Undead
+
+step Deathguard Billmuth
+  zone Durotar
+  accept 94438 only Undead
+
+step Danitha Morr
+  zone Tirisfal Glades
+  turnin 97022 only Undead
+
+step Danitha Morr
+  zone Tirisfal Glades
+  accept 94971 only Undead
+  turnin 94971 only Undead
+  turnin 91282 only Undead
+
+step Deathguard Falgan
+  turnin 94438 only Undead
+  accept 94440 only Undead
+
+step Scarlet Zealot
+  zone Western Plaguelands
+  collect 264693 x1 quest 94440.1 only Undead
+
+step Deathguard Billmuth
+  zone Tirisfal Glades
+  turnin 94440 only Undead
+  accept 94441 only Undead
+  turnin 94441 only Undead
+
+step Alodan the Hopeful
+  zone Thunder Bluff
+  accept 97174 @25.4,14.7 map 1456
+
+step Ulric Frostveil
+  zone Ashenvale
+  accept 95042
+
+step Blackfathom Oracle
+  zone Darkshore
+  collect 6995 x1 quest 95042.1
+
+step Ulric Frostveil
+  zone Ashenvale
+  turnin 95042
+
+step Zayus
+  zone Orgrimmar
+  turnin 97175 @35.7,86.9 map 1454
+  accept 97177 @35.7,86.9 map 1454
+
+step Danitha Morr
+  zone Tirisfal Glades
+  turnin 97174 @22.1,44.7 map 1420
+  turnin 97177 @22.1,44.7 map 1420
+
+step The Reliquary of Tyr
+  only Paladin
+  zone map 1420
+  accept 99187 @17.6,67.5 map 1420 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 99187 @17.6,67.5 optional
+
+step The Reliquary of Tyr
+  only Paladin
+  turnin 99187 @17.6,67.5 map 1420 optional
+
+
+step Oi!
+  only Paladin
+  zone map 1423
+  accept 84318 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 84318 @24.3,69.1 optional
+
+step Oi!
+  only Paladin
+  turnin 84318 optional
+
+step An Underrated Talent
+  only Paladin
+  when turnedin 95036
+  zone map 1421
+  accept 95111 optional
+
+step An Underrated Talent
+  only Paladin
+  when onquest 95111
+  zone map 1416
+  turnin 95111 optional

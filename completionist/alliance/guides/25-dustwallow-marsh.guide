@@ -1,0 +1,165 @@
+guide polestar-completionist-alliance/25-dustwallow-marsh
+title 25 Dustwallow Marsh (35-44) (Completionist)
+faction Alliance
+levels 35-44
+zone Dustwallow Marsh
+next polestar-completionist-alliance/26-odd-jobs-in-kalimdor-2
+pitch On along the line: Dustwallow Marsh, quests of level 35 to 44.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 15 quests; estimated level at the end 37.5 (heuristic XP, class quests not counted).
+# Skipped: 2 exclusive with N (done).
+
+step Commander Samaul
+  sethome "Theramore Isle"
+  getfp "Theramore"
+  accept 1265
+
+step Morgan Stern
+  accept 1204
+
+step They Call Him Smiling Jim
+  when available 1282
+  tip One of several exclusive quests; the route takes James Hyal (1302). This one shows for a character the game offers it to instead.
+  zone map 1445
+  accept 1282 optional
+
+step Mudrock Spikeshell
+  zone The Barrens
+  collect 5883 x8 quest 1204.1
+
+step Drazzit Dripvalve
+  accept 98205
+  accept 98215
+
+step Active Ingredient
+  zone map 1445
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 98231
+  complete 98231 @41.0,75.7
+
+step Searing Hatchling and Searing Whelp
+  zone The Barrens
+  kill 4323 x8 quest 98205.1
+  kill 4324 x8 quest 98205.2
+
+step Firemane Ash Tail
+  collect 279934 x20 quest 98215.1
+
+step Drazzit Dripvalve
+  zone Dustwallow Marsh
+  turnin 98205
+  turnin 98215
+
+step Active Ingredient
+  turnin 98231
+
+step Archmage Tervosh
+  complete 1265 @59.9,40.9 map 1445
+  turnin 1265
+  accept 1266
+
+step They Call Him Smiling Jim
+  when onquest 1282
+  zone map 1445
+  turnin 1282 optional
+
+step Morgan Stern
+  turnin 1204
+  accept 1258
+
+step Silt Crawler
+  zone Swamp of Sorrows
+  collect 5938 x12 quest 1258.1
+
+step "Swamp Eye" Jarl
+  zone Dustwallow Marsh
+  accept 1218
+  accept 1219
+
+step Jarl Needs a Blade
+  when available 81570
+  tip One of several exclusive quests; the route takes Jarl Needs a Blade (1203). This one shows for a character the game offers it to instead.
+  zone map 1445
+  accept 81570 optional
+
+step Gunder Thornbush
+  zone Duskwood
+  buy 3713 x3 npc 960 -- for Soothing Spices
+
+step "Swamp Eye" Jarl
+  zone Dustwallow Marsh
+  turnin 1218
+  accept 1206
+
+step Jarl Needs a Blade
+  when onquest 81570
+  zone map 1445
+  turnin 81570 optional
+
+step Private Hendel
+  turnin 1266
+  accept 1324
+
+step Private Hendel
+  kill 4966 x1 quest 1324.1
+
+step Darkmist Silkspinner
+  zone The Barrens
+  collect 5884 x40 quest 1206.1
+
+step "Stinky" Ignatz
+  zone Dustwallow Marsh
+  accept 1222
+
+step "Swamp Eye" Jarl
+  turnin 1206
+
+step Jarl Needs a Blade
+  when available 1203
+  tip One of several exclusive quests; the route takes Jarl Needs a Blade (81570). This one shows for a character the game offers it to instead.
+  zone map 1445
+  accept 1203 optional
+
+step Jarl Needs a Blade
+  when onquest 1203
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1445
+  complete 1203 @55.4,26.3 optional
+
+step Jarl Needs a Blade
+  when onquest 1203
+  zone map 1445
+  turnin 1203 optional
+
+step Theramore Lieutenant
+  turnin 1219
+  accept 1220
+  complete 1222 @48.9,24.6 map 1445
+  turnin 1222
+  turnin 1258
+  turnin 1324
+  accept 1267
+  turnin 1267
+
+step Captain Garran Vimes
+  turnin 1220
+
+step Level 36
+  level 36
+
+step Guard Jameson
+  zone Dustwallow Marsh
+  accept 98233
+
+step Corrosive Swamp Ooze
+  zone Dustwallow Marsh
+  collect 280203 x1 quest 98233.1
+
+step Guard Jameson
+  zone Dustwallow Marsh
+  turnin 98233
+
+step Angus Stern
+  zone Stormwind City
+  accept 1271
+  turnin 1271

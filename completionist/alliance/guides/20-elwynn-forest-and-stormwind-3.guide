@@ -1,0 +1,262 @@
+guide polestar-completionist-alliance/20-elwynn-forest-and-stormwind-3
+title 20 Elwynn Forest and Stormwind (27-38) (Completionist)
+faction Alliance
+levels 27-38
+zone Elwynn Forest
+next polestar-completionist-alliance/21-hillsbrad-foothills-and-alterac-mountains
+pitch On along the line: Elwynn Forest and Stormwind, quests of level 27 to 38.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 41 quests; estimated level at the end 28.1 (heuristic XP, class quests not counted).
+
+step Zardeth of the Black Claw
+  accept 335
+
+step Tear of Tilloa
+  zone Duskwood
+  collect 2779 x1 quest 335.1
+
+step Musquash Root
+  zone Wetlands
+  collect 2784 x1 quest 335.2
+
+step Milton Sheaf
+  zone Stormwind City
+  accept 538
+
+step Bishop Farthing
+  accept 270
+  accept 98219
+
+step Warden Thelwater
+  accept 392
+
+step Zardeth of the Black Claw
+  turnin 335
+  accept 336
+
+step Baros Alexston
+  turnin 392
+  accept 393
+
+step Lord Baurles K. Wishock
+  turnin 336
+
+step Master Mathias Shaw
+  turnin 393
+  accept 350
+  turnin 350
+  accept 2745
+
+step Level 33
+  level 33
+
+step Angus Stern
+  zone Stormwind City
+  accept 1260
+
+step Connor Rivers
+  zone Elwynn Forest
+  accept 1301
+
+step Vincent Hyal
+  zone Wetlands
+  turnin 1301
+
+step Archmage Malin
+  zone Elwynn Forest
+  accept 690
+
+step Thomas
+  zone Stormwind City
+  accept 1274
+
+step Bishop DeLavey
+  zone Arathi Highlands
+  turnin 1274
+
+step Bishop DeLavey
+  zone Stormwind City
+  accept 1241
+
+step Jorgen
+  zone Stormwind City
+  turnin 1241
+
+step Jorgen
+  zone Stormwind City
+  accept 1242
+
+step Elling Trias
+  zone Stormwind City
+  turnin 1242
+
+step Elling Trias
+  zone Stormwind City
+  accept 1243
+
+step Skuerto
+  zone Arathi Highlands
+  turnin 690
+
+step Tyrion
+  turnin 2745
+  accept 2746
+
+step Clara's Fresh Apples
+  zone Elwynn Forest
+  collect 8683 x2 quest 2746.2
+
+step Ratchet Bruiser
+  zone The Barrens
+  collect 4306 x3 quest 2746.1
+
+step Morgan Stern
+  zone Dustwallow Marsh
+  turnin 1260
+
+step Glorin Steelbrow
+  zone Wetlands
+  turnin 270
+  accept 321
+
+step Waterlogged Chest
+  turnin 321
+  accept 324
+
+step Bluegill Raider
+  collect 2702 x5 quest 324.1
+
+step Glorin Steelbrow
+  turnin 324
+  accept 322
+  accept 526
+
+step Bluegill Raider
+  collect 2702 x5 quest 526.1
+
+step Glorin Steelbrow
+  turnin 526
+
+step Lieutenant Farren Orinelle
+  zone Hillsbrad Foothills
+  turnin 98219
+  turnin 538
+
+step Tyrion
+  zone Stormwind City
+  turnin 2746
+  accept 434
+
+step Lord Gregor Lescovar, Marzon the Silent Blade and Overhear Lescovar and Marzon's Conversation
+  kill 1754 x1 quest 434.1
+  kill 1755 x1 quest 434.2
+  goto 68.7,14.4 "Overhear Lescovar and Marzon's Conversation" -- Explore for The Attack!
+
+step Grimand Elmore
+  turnin 322
+  accept 325
+
+step Elling Trias
+  complete 434 @72.8,35.6 map 1453
+  turnin 434
+  accept 394
+  turnin 394
+  accept 395
+
+step Baros Alexston
+  turnin 395
+  accept 396
+
+step Lady Katrana Prestor
+  turnin 396
+
+step Innkeeper Farley
+  zone Elwynn Forest
+  sethome "Goldshire"
+  accept 70
+
+step Storage Chest
+  collect 910 x1 quest 70.1
+
+step Theocritus
+  when group 249
+  zone Elwynn Forest
+  accept 249 npc 313
+
+step Morganth
+  when group 249
+  zone Redridge Mountains
+  tip Morganth is group work: elites. Grouping up is advised.
+  collect 3617 x1 quest 249.1
+
+step Watcher Backus
+  zone Duskwood
+  turnin 1243
+  accept 1244
+
+step Defias Strongbox
+  collect 5947 x1 quest 1244.1
+
+step Sven Yorgen
+  turnin 325
+
+step Caretaker Folsom
+  zone Stormwind City
+  turnin 70
+  accept 72
+  turnin 72
+  accept 74
+
+step Theocritus
+  when group 249
+  zone Elwynn Forest
+  turnin 249
+
+step Marshal Haggard
+  turnin 74
+  accept 75
+
+step Marshal Haggard's Chest
+  collect 921 x1 quest 75.1
+
+step Marshal Haggard
+  turnin 75
+  accept 78
+
+step Watcher Backus
+  zone Duskwood
+  turnin 1244
+  accept 1245
+  turnin 78
+  accept 79
+  turnin 79
+  accept 80
+
+step Clerk Daltry
+  turnin 80
+  accept 97
+  turnin 97
+
+step Elling Trias
+  zone Stormwind City
+  turnin 1245
+  accept 1246
+
+step Dashel Stonefist
+  turnin 1246
+  accept 1447
+
+step Dashel Stonefist
+  kill 4961 x1 quest 1447.1
+
+step Dashel Stonefist
+  turnin 1447
+  accept 1247
+
+step Elling Trias
+  turnin 1247
+  accept 1248
+
+step Mikhail
+  zone Wetlands
+  turnin 1248

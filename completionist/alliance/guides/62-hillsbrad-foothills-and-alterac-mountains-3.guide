@@ -1,0 +1,304 @@
+guide polestar-completionist-alliance/62-hillsbrad-foothills-and-alterac-mountains-3
+title 62 Hillsbrad Foothills and Alterac Mountains (47-60) (Completionist)
+faction Alliance
+levels 47-60
+zone Alterac Mountains
+next polestar-completionist-alliance/63-searing-gorge-2
+pitch On along the line: Hillsbrad Foothills and Alterac Mountains, quests of level 47 to 60.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 15 quests; estimated level at the end 48.6 (heuristic XP, class quests not counted).
+
+step Southshore
+  zone Hillsbrad Foothills
+  sethome "Southshore"
+
+step Gryphon Master Talonaxe
+  zone Hillsbrad Foothills
+  accept 2994
+
+step Sharpbeak's Cage
+  zone The Hinterlands
+  interact 144070 quest 2994.1
+
+step Agnar Beastamer
+  zone Hillsbrad Foothills
+  accept 4297
+
+step Silvermane Stalker
+  zone The Hinterlands
+  collect 11472 x5 quest 4297.1
+
+step Agnar Beastamer
+  zone Hillsbrad Foothills
+  turnin 4297
+  accept 4298
+  turnin 4298
+
+step Gryphon Master Talonaxe
+  turnin 2994
+
+step Orphan Matron Aria
+  accept 96797
+
+step Arille Azuregaze
+  accept 96609
+
+step Ranger Lydrea
+  zone Azshara
+  collect 274966 x10 quest 96609.1
+
+step Lieutenant Connar
+  zone Blasted Lands
+  turnin 96797
+  accept 96798
+
+step Sergeant Danneth
+  turnin 96798
+  accept 96811
+
+step Lieutenant Connar
+  turnin 96811
+  accept 96799
+
+step Sergeant Danneth
+  turnin 96799
+  accept 96812
+
+step Orphan Matron Aria
+  zone Alterac Mountains
+  turnin 96812
+
+step Arille Azuregaze
+  turnin 96609
+
+step Belanaa Windveil
+  accept 99191
+  accept 99192
+  accept 99193
+
+step Baron Bloodbane
+  zone Eastern Plaguelands
+  collect 4338 x1 quest 99193.1
+
+step Ratchet Bruiser
+  zone The Barrens
+  collect 4306 x1 quest 99192.1
+
+step Farrin Daris
+  zone Duskwood
+  collect 2592 x60 quest 99191.1
+
+step Belanaa Windveil
+  zone Alterac Mountains
+  turnin 99191
+  turnin 99192
+  turnin 99193
+
+step Level 48
+  level 48
+
+step Archmage Celindra
+  zone Alterac Mountains
+  accept 96603
+
+step Anvilrage Overseer
+  zone Burning Steppes
+  collect 274964 x10 quest 96603.1
+
+step Archmage Celindra
+  zone Alterac Mountains
+  turnin 96603
+
+step Level 50
+  level 50
+
+step Belanaa Windveil
+  zone Alterac Mountains
+  accept 99194
+
+step Stormwind Royal Guard
+  zone Stormwind City
+  collect 14047 x1 quest 99194.1
+
+step Belanaa Windveil
+  zone Alterac Mountains
+  turnin 99194
+
+step Additional Runecloth
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1416
+  collect 14047 x1 anywhere optional
+  turnin 99195 direct optional
+
+step Level 51
+  level 51
+
+step Alterac Valley Graveyards
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1416
+  accept 7081
+  complete 7081 @36.8,77.2
+
+step Alterac Valley Graveyards
+  zone map 1416
+  turnin 7081
+
+step Towers and Bunkers
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1416
+  accept 7102
+  complete 7102 @36.8,77.2
+
+step Towers and Bunkers
+  zone Alterac Mountains
+  turnin 7102
+
+step The Battle of Alterac
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1416
+  accept 7141
+  complete 7141 @40.6,79.6
+
+step Speak with Prospector Stonehewer
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1416
+  turnin 7221 direct
+
+step Korrak the Bloodrager
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1416
+  turnin 7202 direct optional
+
+step Korrak the Everliving
+  when turnedin 7202
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1416
+  collect 18148 x1 anywhere optional
+  turnin 7382 direct optional
+
+step The Battle of Alterac
+  zone map 1416
+  turnin 7141
+
+step Capture a Mine
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1416
+  accept 7122
+  complete 7122 @36.8,77.2
+
+step Capture a Mine
+  zone Alterac Mountains
+  turnin 7122
+
+step Prospector Stonehewer
+  zone Alterac Mountains
+  accept 8271
+  turnin 8271
+
+step Proving Grounds
+  zone map 1416
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 7162
+  complete 7162 @39.5,81.2
+
+step Proving Grounds
+  turnin 7162
+
+step Rise and Be Recognized
+  tip Needs Friendly standing (3000) with Stormpike Guard; without it the quest is not offered.
+  zone map 1416
+  accept 7168 optional
+
+step Junkboxes Needed
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1416
+  collect 16885 x5 anywhere optional
+  turnin 8249 direct optional
+
+step Rise and Be Recognized
+  when onquest 7168
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1416
+  complete 7168 @39.5,81.2 optional
+
+step Rise and Be Recognized
+  when onquest 7168
+  zone map 1416
+  turnin 7168 optional
+
+step Honored Amongst the Guard
+  when turnedin 7168
+  tip Needs Honored standing (9000) with Stormpike Guard; without it the quest is not offered.
+  zone map 1416
+  accept 7169 optional
+
+step Honored Amongst the Guard
+  when onquest 7169
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1416
+  complete 7169 @39.5,81.2 optional
+
+step Honored Amongst the Guard
+  when onquest 7169
+  zone map 1416
+  turnin 7169 optional
+
+step Earned Reverence
+  when turnedin 7169
+  tip Needs Revered standing (21000) with Stormpike Guard; without it the quest is not offered.
+  zone map 1416
+  accept 7170 optional
+
+step Earned Reverence
+  when onquest 7170
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1416
+  complete 7170 @39.5,81.2 optional
+
+step Earned Reverence
+  when onquest 7170
+  zone map 1416
+  turnin 7170 optional
+
+step Legendary Heroes
+  when turnedin 7170
+  tip Needs Exalted standing (42000) with Stormpike Guard; without it the quest is not offered.
+  zone map 1416
+  accept 7171 optional
+
+step Legendary Heroes
+  when onquest 7171
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1416
+  complete 7171 @39.5,81.2 optional
+
+step Legendary Heroes
+  when onquest 7171
+  zone map 1416
+  turnin 7171 optional
+
+step The Eye of Command
+  when turnedin 7171
+  tip Needs Exalted standing (42999) with Stormpike Guard; without it the quest is not offered.
+  zone map 1416
+  accept 7172 optional
+
+step The Eye of Command
+  when onquest 7172
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1416
+  complete 7172 @39.5,81.2 optional
+
+step The Eye of Command
+  when onquest 7172
+  zone map 1416
+  turnin 7172 optional
+
+step Fledgling Rescue
+  zone map 1424
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 86620
+  complete 86620 @94.3,3.5
+
+step Fledgling Rescue
+  turnin 86620

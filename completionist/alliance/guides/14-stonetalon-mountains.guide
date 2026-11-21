@@ -1,0 +1,96 @@
+guide polestar-completionist-alliance/14-stonetalon-mountains
+title 14 Stonetalon Mountains (21-33) (Completionist)
+faction Alliance
+levels 21-33
+zone Stonetalon Mountains
+next polestar-completionist-alliance/dungeon-shadowfang-keep
+next polestar-completionist-alliance/15-ashenvale
+pitch On along the line: Stonetalon Mountains, quests of level 21 to 33.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 10 quests; estimated level at the end 22.3 (heuristic XP, class quests not counted).
+
+step Pocket Litter
+  accept 79980
+  turnin 79980
+  accept 79974
+
+step Night Elf Courier
+  accept 86574
+
+step Pridewing Skyhunter
+  collect 277917 x1 quest 86574.1
+
+step Ziz Fizziks
+  accept 1093
+
+step Venture Co. Operator
+  collect 5734 x1 quest 1093.1
+
+step Ziz Fizziks
+  turnin 1093
+  accept 1094
+
+step Innkeeper Faralia
+  sethome "Stonetalon Peak"
+  getfp "Stonetalon Peak"
+  turnin 86574
+
+step Sputtervalve
+  zone The Barrens
+  turnin 1094
+  accept 1095
+
+step Ziz Fizziks
+  zone Stonetalon Mountains
+  turnin 1095
+  accept 1096
+
+step Gerenzo Wrenchwhistle
+  collect 5736 x1 quest 1096.1
+
+step Level 30
+  level 30
+
+step Corporal Melkins
+  zone Stonetalon Mountains
+  accept 1387
+
+step Gelkis Windchaser
+  zone Desolace
+  collect 6067 x15 quest 1387.1
+
+step Corporal Melkins
+  zone Stonetalon Mountains
+  turnin 1387
+
+step Vahlarriel Demonslayer
+  zone Stonetalon Mountains
+  accept 1437
+
+step Malem Chest
+  zone Stonetalon Mountains
+  turnin 1437
+
+step Ziz Fizziks
+  turnin 1096
+
+step Gerenzo's Orders
+  zone map 1442
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 1090
+  complete 1090 @71.9,60
+
+step Gerenzo's Orders
+  turnin 1090
+
+step Piznik
+  zone Stonetalon Mountains
+  accept 1092
+
+step Ziz Fizziks
+  zone Stonetalon Mountains
+  turnin 1092
+
+step Carved Figurine
+  zone Loch Modan
+  turnin 79974

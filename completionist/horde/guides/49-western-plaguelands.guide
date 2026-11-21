@@ -1,0 +1,202 @@
+guide polestar-completionist-horde/49-western-plaguelands
+title 49 Western Plaguelands (52-60) (Completionist)
+faction Horde
+levels 52-60
+zone Western Plaguelands
+next polestar-completionist-horde/dungeon-scholomance
+next polestar-completionist-horde/50-swamp-of-sorrows-2
+pitch On along the line: Western Plaguelands, quests of level 52 to 60.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 20 quests; estimated level at the end 52.7 (heuristic XP, class quests not counted).
+# Skipped: 3 prerequisite N not in this route; 2 exclusive with N (done).
+
+step Mrs. Dalson's Diary
+  accept 5058
+  turnin 5058
+  accept 5060
+
+step Locked Away
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1422
+  collect 12738 x1 anywhere optional
+  turnin 5059 direct optional
+
+step Farmer Dalson
+  collect 12739 x1 quest 5060.1
+
+step Locked Cabinet
+  turnin 5060
+
+step Janice Felstone
+  accept 5021
+  turnin 5021
+  accept 5023
+
+step Mulgris Deepriver
+  accept 4984
+
+step Gahrron's Withering Cauldron
+  when turnedin 5236
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1422
+  collect 13320 x1 anywhere optional
+  collect 13354 x4 anywhere optional
+  collect 14047 x4 anywhere optional
+  turnin 5227 direct optional
+
+step Diseased Wolf
+  zone Tirisfal Glades
+  kill 1817 x8 quest 4984.1
+
+step Mulgris Deepriver
+  turnin 4984
+  accept 4985
+
+step Diseased Grizzly
+  kill 1816 x8 quest 4985.1
+
+step Mulgris Deepriver
+  turnin 4985
+  accept 4987
+
+step Termite Barrel
+  accept 6390
+
+step Kirsta Deepshadow
+  accept 6004
+
+step Scarlet Mage
+  kill 1826 x2 quest 6004.3
+
+step Scarlet Knight
+  kill 1833 x2 quest 6004.4
+
+step Scarlet Hunter
+  kill 1831 x2 quest 6004.2
+
+step Scarlet Medic
+  kill 10605 x2 quest 6004.1
+
+step Mickey Levine
+  zone Tirisfal Glades
+  turnin 6390
+
+step Level 53
+  level 53
+
+step Chromie
+  zone Western Plaguelands
+  accept 4971
+
+step Temporal Parasite
+  zone Western Plaguelands
+  kill 10717 x15 quest 4971.1
+
+step Chromie
+  zone Western Plaguelands
+  turnin 4971
+
+step Chromie
+  zone Western Plaguelands
+  accept 4972
+
+step Small Lockbox
+  zone Western Plaguelands
+  collect 12638 x5 quest 4972.1
+
+step Chromie
+  zone Western Plaguelands
+  turnin 4972
+
+step Counting Out Time
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1422
+  collect 12638 x5 anywhere optional
+  turnin 4973 direct optional
+
+step Kirsta Deepshadow
+  turnin 6004
+  accept 6023
+
+step Cavalier Durgen
+  kill 11611 x1 quest 6023.2
+
+step Huntsman Radley
+  kill 11613 x1 quest 6023.1
+
+step Kirsta Deepshadow
+  turnin 6023
+  accept 6025
+
+step Kirsta Deepshadow
+  complete 6025 @45.8,18.2 map 1422
+  turnin 6025
+
+step Royal Overseer Bauhaus
+  zone Undercity
+  turnin 5023
+  accept 5049
+
+step Jeremiah Payson
+  turnin 5049
+  accept 5050
+
+step Janice Felstone
+  zone Western Plaguelands
+  turnin 5050
+
+step Two Halves Become One
+  zone map 1422
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 5051
+  complete 5051 @38.4,54.0
+
+step Two Halves Become One
+  turnin 5051
+
+step Argent Dawn Commission
+  when available 5401
+  tip One of several exclusive quests; the route takes Argent Dawn Commission (5405). This one shows for a character the game offers it to instead.
+  zone map 1422
+  accept 5401 optional
+
+step Argent Dawn Commission
+  when onquest 5401
+  zone map 1422
+  turnin 5401 optional
+
+step Corruptor's Scourgestones
+  when turnedin 5401
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1422
+  collect 12843 x1 anywhere optional
+  turnin 5404 direct optional
+
+step Invader's Scourgestones
+  when turnedin 5401
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1422
+  collect 12841 x10 anywhere optional
+  turnin 5403 direct optional
+
+step Minion's Scourgestones
+  when turnedin 5401
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1422
+  collect 12840 x20 anywhere optional
+  turnin 5402 direct optional
+
+step Little Pamela
+  when available 5142
+  tip One of several exclusive quests; the route takes Sister Pamela (5601). This one shows for a character the game offers it to instead.
+  zone map 1422
+  accept 5142 optional
+
+step Little Pamela
+  when onquest 5142
+  zone map 1423
+  turnin 5142 optional
+
+step Nara Wildmane
+  zone Thunder Bluff
+  turnin 4987

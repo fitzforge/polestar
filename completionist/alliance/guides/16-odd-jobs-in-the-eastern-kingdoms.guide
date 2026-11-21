@@ -1,0 +1,64 @@
+guide polestar-completionist-alliance/16-odd-jobs-in-the-eastern-kingdoms
+title 16 Odd jobs in the Eastern Kingdoms (13-25) (Completionist)
+faction Alliance
+levels 13-25
+zone Arathi Highlands
+next polestar-completionist-alliance/17-duskwood
+pitch On along the line: errands across the Eastern Kingdoms, quests of level 13 to 25.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 3 quests; estimated level at the end 13.3 (heuristic XP, class quests not counted).
+
+step Denaaris Stargale
+  zone Alterac Mountains
+  accept 94947 only Skyborne
+
+step Skyborne Portal to Stormwind
+  interact 631299 quest 94947.1 only Skyborne
+
+step Highlord Bolvar Fordragon
+  zone Stormwind City
+  turnin 94947 only Skyborne
+  accept 98021 only Skyborne
+
+step Exploring the Alliance
+  zone map 1453
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 93963
+  complete 93963 @80.2,38.4
+
+step Exploring the Alliance
+  turnin 93963
+
+step Gryan Stoutmantle
+  zone Westfall
+  turnin 98021 only Skyborne
+
+step Level 19
+  level 19
+
+step Corporal Keeshan
+  zone Burning Steppes
+  accept 219
+
+step Marshal Marris
+  zone map 1433
+  turnin 219
+
+
+step Arathi Basin Resources!
+  zone map 1417
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 8155
+  complete 8155 @45.9,45.3
+
+step Arathi Basin Resources!
+  turnin 8155
+
+step The Battle for Arathi Basin!
+  zone map 1417
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 8168
+  complete 8168 @45.8,45.5
+
+step The Battle for Arathi Basin!
+  turnin 8168

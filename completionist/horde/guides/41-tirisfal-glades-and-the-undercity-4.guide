@@ -1,0 +1,482 @@
+guide polestar-completionist-horde/41-tirisfal-glades-and-the-undercity-4
+title 41 Tirisfal Glades and the Undercity (40-56) (Completionist)
+faction Horde
+levels 40-56
+zone Undercity
+next polestar-completionist-horde/dungeon-maraudon
+next polestar-completionist-horde/42-odd-jobs-in-the-eastern-kingdoms-3
+pitch On along the line: Tirisfal Glades and the Undercity, quests of level 40 to 56.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 31 quests; estimated level at the end 40.9 (heuristic XP, class quests not counted).
+# Skipped: 4 profession; 2 exclusive with N (done); 2 prerequisite N not in this route.
+
+step Keeper Bel'dugur
+  when group 736
+  zone Undercity
+  accept 736
+
+step Grel'borg the Miser
+  when group 736
+  zone Alterac Mountains
+  tip The Star, the Hand and the Heart is group work: elites. Grouping up is advised.
+  collect 4646 x1 quest 736.1
+
+step Mogh the Undying
+  when group 736
+  zone Stranglethorn Vale
+  tip The Star, the Hand and the Heart is group work: elites. Grouping up is advised.
+  collect 4644 x1 quest 736.3
+
+step Dagun the Ravenous
+  when group 736
+  zone Dustwallow Marsh
+  tip The Star, the Hand and the Heart is group work: elites. Grouping up is advised.
+  collect 4641 x1 quest 736.2
+
+step Book
+  zone Feralas
+  accept 81951 object 441249
+
+step Book
+  collect 220347 x1 quest 81951.1
+
+step Book
+  zone Azshara
+  accept 81952 object 441250
+
+step Book
+  collect 220348 x1 quest 81952.1
+
+step Book
+  zone Tanaris
+  accept 81949 object 441248
+
+step Book
+  collect 220346 x1 quest 81949.1
+
+step Level 44
+  level 44
+
+step Andron Gant
+  zone Undercity
+  accept 91734
+
+step Jediga
+  zone Feralas
+  turnin 91734
+
+step Level 45
+  level 45
+
+step Andron Gant
+  zone Undercity
+  accept 3564
+
+step Jediga
+  zone Feralas
+  turnin 3564
+
+step Chemist Cuely
+  accept 3568
+
+step Level 47
+  level 47
+
+step Arch Druid Hamuul Runetotem
+  zone Thunder Bluff
+  accept 3761
+
+step Un'Goro Dirt Pile
+  zone Un'Goro Crater
+  collect 11018 x20 quest 3761.1
+
+step Ghede
+  zone Thunder Bluff
+  turnin 3761
+
+step Arch Druid Hamuul Runetotem
+  zone Feralas
+  accept 3782
+
+step Bashana Runetotem
+  zone Feralas
+  turnin 3782
+
+step Morrowgrain Research
+  zone map 1456
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 3786
+  complete 3786 @71.1,34.2
+
+step Morrowgrain Research
+  turnin 3786
+
+step Apothecary Zinge
+  accept 232
+
+step the Fourth Tide Pool
+  zone Azshara
+  collect 10694 x1 quest 3568.4
+
+step the Third Tide Pool
+  collect 10693 x1 quest 3568.3
+
+step the Second Tide Pool
+  collect 10692 x1 quest 3568.2
+
+step the First Tide Pool
+  collect 10691 x1 quest 3568.1
+
+step Chemist Cuely
+  turnin 3568
+  accept 3569
+  turnin 3569
+  accept 3570
+  turnin 3570
+
+step Level 48
+  level 48
+
+step Chemist Fuely
+  zone Undercity
+  accept 4294
+
+step Testing for Impurities - Un'Goro Crater
+  when onquest 4294
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1458
+  collect 12235 x1 anywhere optional
+  turnin 4561 direct optional
+
+step Testing Equipment
+  zone Undercity
+  collect 12236 x5 quest 4294.1
+
+step Chemist Fuely
+  zone Undercity
+  turnin 4294
+
+step Chemist Fuely
+  zone Undercity
+  accept 4293
+
+step Testing for Corruption - Felwood
+  when onquest 4293
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1458
+  collect 12230 x1 anywhere optional
+  turnin 4661 direct optional
+
+step Testing Equipment
+  zone Undercity
+  collect 12234 x5 quest 4293.1
+
+step Chemist Fuely
+  zone Undercity
+  turnin 4293
+
+step Chemist Fuely
+  zone Azshara
+  accept 4642
+
+step Gargantuan Ooze
+  zone Un'Goro Crater
+  collect 12291 x1 quest 4642.1
+
+step Chemist Fuely
+  zone Undercity
+  turnin 4642
+
+step Keeper Bel'dugur
+  when group 736
+  zone Undercity
+  turnin 736
+
+step Keeper Bel'dugur
+  zone Azshara
+  accept 737
+
+step Alessandro Luca
+  turnin 232
+  accept 238
+
+step Apothecary Zinge
+  turnin 238
+  accept 243
+
+step Oran Snakewrithe
+  accept 2995
+  accept 8273
+  turnin 8273
+
+step Assisting Arch Druid Runetotem
+  when available 3784
+  tip One of several exclusive quests; the route takes Assisting Arch Druid Runetotem (936). This one shows for a character the game offers it to instead.
+  zone map 1458
+  accept 3784 optional
+
+step Assisting Arch Druid Runetotem
+  when onquest 3784
+  zone map 1456
+  turnin 3784 optional
+
+step Owen Thadd
+  turnin 81949
+  turnin 81951
+  turnin 81952
+  accept 81947 npc 211022
+  accept 81953 npc 211022
+  accept 81954 npc 211022
+  accept 81955 npc 211022
+  accept 81956 npc 211022
+  accept 82208
+  turnin 82208
+
+step Highvale Report
+  zone The Hinterlands
+  interact 144073 quest 2995.3
+
+step Highvale Notes
+  interact 144072 quest 2995.2
+
+step Highvale Records
+  interact 144071 quest 2995.1
+
+step Book
+  collect 220350 x1 quest 81954.1
+
+step Book
+  zone Swamp of Sorrows
+  collect 220345 x1 quest 81947.1
+
+step Book
+  zone Blasted Lands
+  collect 220353 x1 quest 81956.1
+
+step Book
+  zone Burning Steppes
+  collect 220349 x1 quest 81953.1
+
+step Book
+  zone Searing Gorge
+  collect 220352 x1 quest 81955.1
+
+step Theldurin the Lost
+  zone Badlands
+  turnin 737
+
+step Gallows' End Tavern
+  zone Tirisfal Glades
+  sethome "Gallows' End Tavern"
+
+step Mickey Levine
+  zone Tirisfal Glades
+  accept 5901
+
+step Minion's Scourgestones
+  when turnedin 5401
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1420
+  collect 12840 x20 anywhere optional
+  turnin 5408 direct optional
+
+step Invader's Scourgestones
+  when turnedin 5401
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1420
+  collect 12841 x10 anywhere optional
+  turnin 5407 direct optional
+
+step Corruptor's Scourgestones
+  when turnedin 5401
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1420
+  collect 12843 x1 anywhere optional
+  turnin 5406 direct optional
+
+step Large Termite Mound
+  zone Eastern Plaguelands
+  collect 15043 x100 quest 5901.1
+
+step Mickey Levine
+  turnin 5901
+  accept 5902
+
+step Owen Thadd
+  zone Undercity
+  turnin 81947
+  turnin 81953
+  turnin 81954
+  turnin 81955
+  turnin 81956
+  turnin 2995
+
+step Gnome Engineering
+  when available 3635
+  tip One of several exclusive quests; the route takes Goblin Engineering (3526). This one shows for a character the game offers it to instead.
+  when skill Engineering 200
+  zone map 1458
+  accept 3635 optional
+
+step Level 54
+  level 54
+
+step The New Frontier
+  when available 1004
+  tip One of several exclusive quests; the route takes The New Frontier (1000). This one shows for a character the game offers it to instead.
+  zone map 1458
+  accept 1004 optional
+
+step The New Frontier
+  when onquest 1004
+  zone map 1456
+  turnin 1004 optional
+
+step Gnome Engineering
+  when onquest 3635
+  zone map 1434
+  turnin 3635 optional
+
+step The Pledge of Secrecy
+  when available 3642
+  tip One of several exclusive quests; the route takes The Pledge of Secrecy (3638). This one shows for a character the game offers it to instead.
+  when turnedin 3635
+  when skill Engineering 200
+  zone map 1434
+  accept 3642 optional
+
+step Argent Officer Garush
+  zone Tirisfal Glades
+  accept 5405
+  turnin 5405
+
+step The Pledge of Secrecy
+  when onquest 3642
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1434
+  complete 3642 @28.4,76.3 optional
+
+step The Pledge of Secrecy
+  when onquest 3642
+  zone map 1434
+  turnin 3642 optional
+
+step Show Your Work
+  when available 3643
+  tip One of several exclusive quests; the route takes The Pledge of Secrecy (3638). This one shows for a character the game offers it to instead.
+  when turnedin 3642
+  when skill Engineering 200
+  zone map 1434
+  accept 3643 optional
+
+step Show Your Work
+  when onquest 3643
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1434
+  complete 3643 @28.4,76.3 optional
+
+step Show Your Work
+  when onquest 3643
+  zone map 1434
+  turnin 3643 optional
+
+step Goblin Engineering
+  when available 3526
+  tip One of several exclusive quests; the route takes Goblin Engineering (3633). This one shows for a character the game offers it to instead.
+  when skill Engineering 200
+  zone map 1458
+  accept 3526 optional
+
+step Termite Barrel
+  zone Western Plaguelands
+  turnin 5902
+
+step Chief Engineer Bilgewhizzle
+  zone Tanaris
+  turnin 243
+  accept 379
+
+step Goblin Engineering
+  when onquest 3526
+  zone map 1446
+  turnin 3526 optional
+
+step Wastewander Shadow Mage
+  collect 8483 x5 quest 379.1
+
+step Chief Engineer Bilgewhizzle
+  turnin 379
+
+step The Pledge of Secrecy
+  when available 3638
+  tip One of several exclusive quests; the route takes The Pledge of Secrecy (3642). This one shows for a character the game offers it to instead.
+  when skill Engineering 200
+  zone map 1446
+  accept 3638 optional
+
+step The Pledge of Secrecy
+  when onquest 3638
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1446
+  complete 3638 @52.5,27.3 optional
+
+step The Pledge of Secrecy
+  when onquest 3638
+  zone map 1446
+  turnin 3638 optional
+
+step Level 55
+  level 55
+
+step Show Your Work
+  when available 3639
+  tip One of several exclusive quests; the route takes The Pledge of Secrecy (3642). This one shows for a character the game offers it to instead.
+  when turnedin 3638
+  when skill Engineering 200
+  zone map 1446
+  accept 3639 optional
+
+step Show Your Work
+  when onquest 3639
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1446
+  complete 3639 @52.5,27.3 optional
+
+step Show Your Work
+  when onquest 3639
+  zone map 1446
+  turnin 3639 optional
+
+step Argent Officer Garush
+  zone Tirisfal Glades
+  accept 97319
+
+step Thark Gorax
+  zone Mount Hyjal
+  turnin 97319
+
+step Tanaris Field Sampling
+  when has 8524
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1446
+  accept 654 item 8524
+
+step Tanaris Field Sampling
+  when onquest 654
+  zone map 1446
+  complete 654 @52.5,28.5
+
+step Tanaris Field Sampling
+  when onquest 654
+  zone map 1446
+  turnin 654
+
+step Return to Apothecary Zinge
+  when turnedin 654
+  zone map 1458
+  accept 864
+
+step Return to Apothecary Zinge
+  when onquest 864
+  zone map 1458
+  turnin 864

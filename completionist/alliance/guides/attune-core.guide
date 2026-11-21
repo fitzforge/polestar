@@ -1,0 +1,26 @@
+guide polestar-completionist-alliance/attune-core
+title Attunement to the Core (Molten Core attunement) (Completionist)
+faction Alliance
+levels 60-60
+category Dungeons
+zone Searing Gorge
+pitch Attunement to the Core: Lets Lothos Riftwaker in Blackrock Mountain send you to the Molten Core; without it, walk in through Blackrock Depths.
+why Lets Lothos Riftwaker in Blackrock Mountain send you to the Molten Core; without it, walk in through Blackrock Depths.
+
+
+
+
+step Attunement to the Core
+  zone map 1427
+  accept 7848
+
+step Attunement to the Core
+  when onquest 7848
+  tip The objective is inside Blackrock Depths: the arrow leads to its entrance.
+  zone map 1427
+  complete 7848 @34.8,85.3
+
+step Attunement to the Core
+  when onquest 7848
+  zone map 1427
+  turnin 7848

@@ -1,0 +1,139 @@
+guide polestar-completionist-alliance/31-swamp-of-sorrows
+title 31 Swamp of Sorrows (34-43) (Completionist)
+faction Alliance
+levels 34-43
+zone Swamp of Sorrows
+next polestar-completionist-alliance/32-arathi-highlands
+pitch On along the line: Swamp of Sorrows, quests of level 34 to 43.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 17 quests; estimated level at the end 35.0 (heuristic XP, class quests not counted).
+
+step Magtoor
+  accept 1389
+  accept 93430
+  accept 93429
+
+step Lost One Hunter
+  kill 759 x10 quest 93429.1
+
+step Draenethyst Crystals
+  collect 6071 x6 quest 1389.1
+
+step Noboru the Cudgel and Lost One Fisherman
+  goto 55.0,30.5 "Noboru the Cudgel and Lost One Fisherman"
+  accept 1392 item 6196 -- Drops from Noboru the Cudgel
+  collect 258530 x1 quest 93430.1
+
+step Watcher Biggs
+  zone Swamp of Sorrows
+  accept 1396
+
+step Young Sawtooth Crocolisk
+  kill 1084 x8 quest 1396.1
+
+step Amaryllis Webb
+  accept 93176
+
+step Sorrow Spinner
+  kill 858 x10 quest 1396.2
+
+step Swamp Jaguar
+  kill 767 x10 quest 1396.3
+
+step Arbor Tarantula
+  zone Stranglethorn Vale
+  collect 213566 x1 quest 93176.1
+
+step Flesh Picker
+  zone Desolace
+  collect 213567 x1 quest 93176.3
+
+step Hay Weevil
+  zone Arathi Highlands
+  collect 213568 x1 quest 93176.2
+
+step Galen Goodward
+  zone Swamp of Sorrows
+  accept 1393
+
+step Galen's Strongbox
+  complete 1393 @53.1,29.6 map 1435
+  turnin 1393
+
+step Pelluk
+  turnin 93430
+  turnin 1389
+  turnin 1392
+  accept 93464
+  turnin 93429
+
+step Father Tuttle
+  accept 93585
+
+step Magtoor
+  turnin 93585
+
+step Amaryllis Webb
+  turnin 93176
+
+step Watcher Biggs
+  turnin 1396
+  accept 1421
+
+step Caravan Chest
+  collect 6170 x1 quest 1421.1
+
+step Watcher Biggs
+  turnin 1421
+  accept 1398
+
+step Sundried Driftwood
+  collect 6146 x8 quest 1398.1
+
+step Level 36
+  level 36
+
+step Watcher Biggs
+  turnin 1398
+  accept 1425
+  accept 94929
+
+step Quartermaster Lungertz
+  zone Blasted Lands
+  turnin 1425
+
+step Demar Brant
+  zone Riverglades
+  turnin 94929
+
+step Azore Aldamort
+  zone Desolace
+  turnin 93464
+  accept 93465
+
+step Gimashi
+  collect 258774 x1 quest 93465.1
+
+step Cortello's Riddle
+  zone Stranglethorn Vale
+  accept 624 item 4056 -- Found in Cortello's Riddle
+
+step A Soggy Scroll
+  zone Stranglethorn Vale
+  turnin 624
+
+step A Soggy Scroll
+  zone Swamp of Sorrows
+  accept 625
+
+step Azore Aldamort
+  turnin 93465
+  accept 93678
+
+step Musty Scroll
+  zone The Barrens
+  turnin 625
+
+step Magtoor
+  zone Swamp of Sorrows
+  turnin 93678

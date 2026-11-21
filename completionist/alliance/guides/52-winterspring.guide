@@ -1,0 +1,353 @@
+guide polestar-completionist-alliance/52-winterspring
+title 52 Winterspring (52-60) (Completionist)
+faction Alliance
+levels 52-60
+zone Winterspring
+next polestar-completionist-alliance/53-tanaris-2
+pitch On along the line: Winterspring, quests of level 52 to 60.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 36 quests; estimated level at the end 53.9 (heuristic XP, class quests not counted).
+
+step Nami
+  sethome "Everlook"
+  getfp "Everlook"
+  accept 92009
+  accept 3783
+  accept 6603
+  accept 93406
+  turnin 93406
+  accept 93269
+  accept 6028
+  accept 6030
+
+step Making Amends
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1452
+  collect 14047 x40 anywhere optional
+  collect 3857 x4 anywhere optional
+  turnin 9266 direct optional
+
+step Hot Fiery Death
+  when skill Blacksmithing 270
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1452
+  turnin 5103 direct optional
+
+step Jessica Redpath
+  accept 5601
+
+step Umaron Stragarelm
+  when group 97490
+  zone Winterspring
+  accept 97490
+
+step Hailspite
+  when group 97490
+  zone Winterspring
+  tip Halt the Hail is group work: elites. Grouping up is advised.
+  collect 278091 x1 quest 97490.1
+
+step Kaylaena Springwhisper
+  complete 92009 @60.4,62 map 2482
+  turnin 92009
+
+step Rubble Rummage
+  zone map 2482
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 92011
+  complete 92011 @60.1,61.2
+
+step Rubble Rummage
+  turnin 92011
+
+step Kaylaena Springwhisper
+  zone Mount Hyjal
+  accept 92328
+  turnin 92328
+
+step Kaylaena Springwhisper
+  zone Mount Hyjal
+  accept 92329
+  turnin 92329
+
+step Rogue Ice Thistle
+  collect 12366 x10 quest 3783.1
+
+step Donova Snowden
+  turnin 6603
+  accept 3909
+  accept 4842
+  accept 5082
+
+step The Videre Elixir
+  when onquest 3909
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1444
+  collect 11242 x1 anywhere optional
+  turnin 4041 direct optional
+
+step Winterfall Den Watcher
+  kill 7440 x8 quest 5082.2
+
+step Winterfall Pathfinder
+  kill 7442 x8 quest 5082.1
+
+step Winterfall Totemic
+  kill 7441 x8 quest 5082.3
+  accept 5083 item 12771 -- Drops from Winterfall Totemic
+
+step Gregan Brewspewer
+  zone Feralas
+  collect 11243 x1 quest 3909.1
+
+step Sebelia
+  zone Mount Hyjal
+  turnin 93269
+
+step Ranshalla
+  zone Winterspring
+  accept 4901
+
+step Umaron Stragarelm
+  when group 97490
+  zone Winterspring
+  turnin 97490
+
+step Umi Rumplesnicker
+  turnin 3783
+  accept 977
+
+step Ice Thistle Matriarch
+  collect 12367 x2 quest 977.1
+
+step Level 55
+  level 55
+
+step Evie Whirlbrew
+  zone Winterspring
+  accept 92859
+
+step Fledgling Chillwind
+  zone Winterspring
+  collect 281241 x1 quest 92859.1
+
+step Winterspring Owl
+  zone Winterspring
+  collect 281242 x5 quest 92859.2
+
+step Harlo Wigglesworth
+  zone Winterspring
+  accept 6604
+
+step Evie Whirlbrew
+  zone Winterspring
+  turnin 92859
+
+step Evie Whirlbrew
+  zone Winterspring
+  accept 98462
+
+step Fiery Plate Gauntlets
+  when turnedin 5103
+  when skill Blacksmithing 275
+  zone map 1452
+  accept 5124 optional
+
+step Fiery Plate Gauntlets
+  when onquest 5124
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1452
+  complete 5124 @61.0,38.8 optional
+
+step Fiery Plate Gauntlets
+  when onquest 5124
+  zone map 1452
+  turnin 5124 optional
+
+step Fledgling Chillwind
+  collect 281241 x5 quest 98462.1
+
+step Winterspring Owl
+  collect 281242 x5 quest 98462.2
+
+step Wynd Nightchaser
+  accept 5244
+  turnin 5244
+  turnin 6604
+  accept 4861
+  accept 5245
+
+step Highborne Relic Fragment
+  collect 12897 x1 quest 5245.2
+
+step Highborne Relic Fragment
+  collect 12899 x1 quest 5245.4
+
+step Highborne Relic Fragment
+  collect 12898 x1 quest 5245.3
+
+step Highborne Relic Fragment
+  collect 12896 x1 quest 5245.1
+
+step Evie Whirlbrew
+  turnin 98462
+  turnin 977
+  accept 5163
+
+step Legacki
+  kill 10978 x1 quest 5163.1
+
+step Sprinkle
+  zone Tanaris
+  kill 7583 x1 quest 5163.2
+
+step Quixxil
+  zone Un'Goro Crater
+  kill 10977 x1 quest 5163.3
+
+step Damaged Crate
+  zone Winterspring
+  turnin 4861
+  accept 4863
+  turnin 4863
+  accept 4864
+
+step Jaron's Supplies
+  collect 12525 x1 quest 4864.1
+
+step Crazed Owlbeast
+  collect 12524 x1 quest 4864.2
+
+step Umi Rumplesnicker
+  turnin 5163
+
+step A Yeti of Your Own
+  when skill Engineering 1
+  zone map 1452
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 8798 optional
+
+step A Yeti of Your Own
+  when skill Engineering 1
+  turnin 8798 optional
+
+step Jaron Stoneshaper
+  turnin 4864
+
+step Donova Snowden
+  turnin 3909
+  complete 4842 @59.8,74.2 map 1452
+  turnin 4842
+  turnin 5082
+  turnin 5083
+  accept 3912
+  accept 5084
+
+step Wennzut Togglespring
+  tip The giver and hand-in are not in the reference data. A player's report names Wennzut Togglespring, in the mountains between Winterspring and Felwood, as the giver; the quest text sends you to his brother Fenwick in Hyjal, taken here to be the hand-in.
+  accept 92094 @27.7,44.0 map 1452
+
+step Deadwood Cauldron
+  zone Felwood
+  turnin 5084
+  accept 5085
+
+step Donova Snowden
+  zone Winterspring
+  turnin 5085
+  accept 5086
+
+step Toxic Horror
+  zone Felwood
+  collect 12822 x3 quest 5086.1
+
+step Donova Snowden
+  zone Winterspring
+  turnin 5086
+  accept 5087
+
+step Winterfall Runner
+  zone Felwood
+  collect 12829 x1 quest 5087.1
+
+step Donova Snowden
+  zone Winterspring
+  turnin 5087
+
+step Donova Snowden
+  when group 5121
+  zone Winterspring
+  accept 5121
+
+step High Chief Winterfall
+  accept 5123 item 12842 -- Drops from High Chief Winterfall
+
+step High Chief Winterfall
+  when group 5121
+  zone Winterspring
+  tip High Chief Winterfall is group work: elites. Grouping up is advised.
+  kill 10738 x1 quest 5121.1
+
+step Donova Snowden
+  turnin 5123
+  accept 5128
+
+step Frostsaber Provisions
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1452
+  collect 12622 x5 anywhere optional
+  collect 12623 x5 anywhere optional
+  turnin 4970 direct optional
+
+step Rampaging Giants
+  tip Needs Honored standing (9000) with Wintersaber Trainers; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1452
+  turnin 5981 direct optional
+
+step Winterfall Intrusion
+  tip Needs Neutral standing (1500) with Wintersaber Trainers; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1452
+  turnin 5201 direct optional
+
+step Donova Snowden
+  when group 5121
+  zone Winterspring
+  turnin 5121
+
+step Fenwick Togglespring
+  zone Mount Hyjal
+  turnin 92094 @25.3,75.9 map 2482
+
+step Kelek Skykeeper
+  zone Felwood
+  turnin 5128
+
+step Erelas Ambersky
+  zone Teldrassil
+  complete 4901 @64.8,63.7 map 1452
+  turnin 4901
+  accept 4902
+
+step Arch Druid Fandral Staghelm
+  zone Darnassus
+  turnin 4902
+
+step Gaeriyan
+  zone Tanaris
+  turnin 3912
+
+step Aurora Skycaller
+  zone Eastern Plaguelands
+  turnin 5245
+
+step Duke Nicholas Zverenhoff
+  turnin 6030
+
+step Pamela Redpath
+  turnin 5601
+
+step Argent Officer Pureheart
+  zone Western Plaguelands
+  turnin 6028

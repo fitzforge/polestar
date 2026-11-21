@@ -1,0 +1,579 @@
+guide polestar-completionist-horde/33-stranglethorn-vale-2
+title 33 Stranglethorn Vale (43-55) (Completionist)
+faction Horde
+levels 43-55
+zone Stranglethorn Vale
+next polestar-completionist-horde/34-mulgore-and-thunder-bluff-3
+pitch On along the line: Stranglethorn Vale, quests of level 43 to 55.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 32 quests; estimated level at the end 44.5 (heuristic XP, class quests not counted).
+# Skipped: 3 exclusive with N.
+
+step Crank Fizzlebub
+  sethome "Booty Bay"
+  accept 621
+  accept 604
+  accept 580
+  accept 617
+  accept 348
+  accept 609
+  accept 2872
+
+step Tip the Scales - Dezian Queenfish
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1434
+  turnin 97067 direct optional
+
+step Tip the Scales - Brownell's Blue Striped Racer
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1434
+  turnin 97066 direct optional
+
+step Tip the Scales - Keefer's Angelfish
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1434
+  turnin 97065 direct optional
+
+step Membership Card Renewal
+  when turnedin 3639
+  when skill Engineering 200
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1434
+  turnin 3645 direct optional
+
+step Stranglethorn Fever
+  when onquest 348
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1434
+  collect 2799 x10 anywhere optional
+  turnin 349 direct optional
+
+step Torn Mystical Scroll
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1434
+  turnin 95385 direct
+
+step Mok'rash
+  goto 23.3,72.1 "Mok'rash"
+  accept 620 item 3985 -- Drops from Mok'rash
+  accept 8552 item 3985 -- Drops from Mok'rash
+
+step Naga Explorer
+  collect 4029 x10 quest 617.1
+
+step Arena Treasure Chest
+  goto 30.5,47.9 "Arena Treasure Chest"
+  accept 7810 item 18706 -- Found in Arena Treasure Chest
+
+step Pupellyverbos Port
+  zone The Hinterlands
+  collect 3900 x1 quest 580.1
+
+step Maury "Club Foot" Wilkins and Jon-Jon the Crow
+  zone Stranglethorn Vale
+  collect 3924 x1 quest 609.1
+  collect 3925 x1 quest 609.2
+
+step Chucky "Ten Thumbs"
+  collect 3926 x1 quest 609.3
+
+step Zanzil Zombie
+  collect 4016 x12 quest 621.1
+
+step Mokk the Savage
+  collect 2797 x1 quest 348.1
+
+step Bloodsail Swashbuckler, Bloodsail Charts and Bloodsail Orders
+  kill 1563 x10 quest 604.1
+  collect 3920 x1 quest 604.2
+  collect 3921 x1 quest 604.3
+
+step Whiskey Slim
+  turnin 580
+  turnin 621
+
+step Crank Fizzlebub
+  zone Stranglethorn Vale
+  accept 1119
+  turnin 604
+  accept 608
+  turnin 348
+  turnin 609
+
+step "Sea Wolf" MacKinley
+  when group 613
+  zone Stranglethorn Vale
+  accept 613
+
+step Captain Keelhaul
+  kill 2548 x1 quest 608.2
+
+step Fleet Master Firallon
+  kill 2546 x1 quest 608.3
+
+step Captain Stillwater
+  kill 2550 x1 quest 608.1
+
+step Mosh'Ogg Lord
+  when group 613
+  zone Stranglethorn Vale
+  tip Cracking Maury's Foot is group work: elites. Grouping up is advised.
+  collect 3930 x1 quest 613.1
+
+step Commander Aggro'gosh
+  when group 97386
+  zone Stranglethorn Vale
+  accept 97386
+
+step Far Seer Mok'thardin
+  accept 573
+
+step Tribal Leatherworking
+  when skill Leatherworking 1
+  zone map 1434
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 5148 optional
+  complete 5148 @36.5,34.1 optional
+
+step Tribal Leatherworking
+  when skill Leatherworking 1
+  turnin 5148 optional
+
+step Mosh'Ogg Spellcrafter, Mosh'Ogg Mauler and Mosh'Ogg Shaman
+  when group 97386
+  zone Stranglethorn Vale
+  tip The Offense of Grom'gol is group work: elites. Grouping up is advised.
+  kill 710 x1 quest 97386.1
+  kill 678 x1 quest 97386.3
+  kill 679 x1 quest 97386.4
+
+step Mosh'Ogg Warmonger
+  when group 97386
+  zone Stranglethorn Vale
+  tip The Offense of Grom'gol is group work: elites. Grouping up is advised.
+  kill 709 x1 quest 97386.2
+
+step The Holy Spring
+  collect 737 x1 quest 573.2
+
+step Naga Explorer
+  kill 1907 x10 quest 573.1
+
+step Captain Hecklebury Smotts
+  turnin 620
+  turnin 8552
+  accept 615
+
+step Traitor to the Bloodsail
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1434
+  collect 4306 x40 anywhere optional
+  collect 2604 x4 anywhere optional
+  turnin 9259 direct optional
+
+step The Captain's Cutlass
+  when available 8553
+  tip One of several exclusive quests; the route takes The Captain's Cutlass (615). This one shows for a character the game offers it to instead.
+  zone map 1434
+  accept 8553 optional
+
+step Captain Hecklebury Smotts
+  when group 8551
+  zone Stranglethorn Vale
+  accept 8551
+
+step Sprogger
+  turnin 615
+
+step Facing Negolash
+  when available 618
+  tip One of several exclusive quests; the route takes Facing Negolash (8554). This one shows for a character the game offers it to instead.
+  zone map 1434
+  accept 618 optional
+
+step Facing Negolash
+  when available 8554
+  tip One of several exclusive quests; the route takes Facing Negolash (618). This one shows for a character the game offers it to instead.
+  zone map 1434
+  accept 8554 optional
+
+step Enticing Negolash
+  when onquest 8554
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1434
+  collect 4457 x10 anywhere optional
+  collect 4595 x5 anywhere optional
+  turnin 619 direct optional
+
+step The Captain's Cutlass
+  when onquest 8553
+  zone map 1434
+  turnin 8553 optional
+
+step Gorlash
+  when group 8551
+  zone Stranglethorn Vale
+  tip The Captain's Chest is group work: elites. Grouping up is advised.
+  collect 3932 x1 quest 8551.1
+
+step "Sea Wolf" MacKinley
+  when group 613
+  zone Stranglethorn Vale
+  turnin 613
+
+step Fleet Master Seahorn
+  turnin 608
+  turnin 617
+
+step Facing Negolash
+  when onquest 618
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1434
+  complete 618 @26.7,73.6 optional
+
+step Facing Negolash
+  when onquest 618
+  zone map 1434
+  turnin 618 optional
+
+step Facing Negolash
+  when onquest 8554
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1434
+  complete 8554 @26.7,73.6 optional
+
+step Facing Negolash
+  when onquest 8554
+  zone map 1434
+  turnin 8554 optional
+
+step Level 45
+  level 45
+
+step Half-Buried Bottle
+  zone Stranglethorn Vale
+  accept 594 item 4098 -- Found in Half-Buried Bottle
+
+step Princess Poobah
+  zone Stranglethorn Vale
+  turnin 594
+
+step Princess Poobah
+  when group 630
+  zone Stranglethorn Vale
+  accept 630
+
+step King Mukla
+  when group 630
+  zone Stranglethorn Vale
+  tip Message in a Bottle is group work: elites. Grouping up is advised.
+  collect 4103 x1 quest 630.1
+
+step Princess Poobah
+  when group 630
+  zone Stranglethorn Vale
+  turnin 630
+
+step Captain Hecklebury Smotts
+  when group 8551
+  zone Stranglethorn Vale
+  turnin 8551
+
+step Short John Mithril
+  turnin 7810
+
+step Arena Grandmaster
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1434
+  collect 18706 x12 anywhere optional
+  turnin 7838 direct optional
+
+step Far Seer Mok'thardin
+  turnin 573
+
+step Commander Aggro'gosh
+  when group 97386
+  zone Stranglethorn Vale
+  turnin 97386
+
+step Level 49
+  level 49
+
+step Fleet Master Firallon
+  zone Stranglethorn Vale
+  accept 9272
+  turnin 9272
+
+step Bubbling Cauldron
+  accept 586
+
+step Skullsplitter Headhunter and Skullsplitter Berserker
+  kill 781 x6 quest 586.2
+  kill 783 x4 quest 586.3
+
+step Level 55
+  level 55
+
+step Avast Ye, Scallywag
+  tip Needs Friendly standing (3000) with Bloodsail Buccaneers; without it the quest is not offered.
+  zone map 1434
+  accept 1036 optional
+
+step Avast Ye, Scallywag
+  when onquest 1036
+  zone map 1434
+  turnin 1036 optional
+
+step Skullsplitter Hunter
+  kill 669 x8 quest 586.1
+
+step Ana'thek the Cruel
+  collect 3909 x1 quest 586.4
+
+step Bubbling Cauldron
+  turnin 586
+
+step Bubbling Cauldron
+  zone Stranglethorn Vale
+  accept 588
+
+step Kin'weelay
+  zone Stranglethorn Vale
+  turnin 588
+
+step Kin'weelay
+  zone Stranglethorn Vale
+  accept 589
+
+step Ironjaw Basilisk
+  zone Stranglethorn Vale
+  collect 3911 x3 quest 589.1
+
+step Kin'weelay
+  zone Stranglethorn Vale
+  turnin 589
+
+step Kin'weelay
+  when group 591
+  zone Stranglethorn Vale
+  accept 591
+
+step Mai'Zoth
+  when group 591
+  zone Stranglethorn Vale
+  tip The Mind's Eye is group work: elites. Grouping up is advised.
+  collect 3616 x1 quest 591.1
+
+step Hemet Nesingwary
+  when group 197
+  zone Stranglethorn Vale
+  accept 197
+
+step Tethis
+  when group 197
+  zone Stranglethorn Vale
+  tip Raptor Mastery is group work: elites. Grouping up is advised.
+  collect 3877 x1 quest 197.1
+
+step Kin'weelay
+  when group 591
+  zone Stranglethorn Vale
+  turnin 591
+
+step Kin'weelay
+  when turnedin 591
+  zone Stranglethorn Vale
+  accept 592 optional
+
+step Filling the Soul Gem
+  when onquest 592
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1434
+  collect 3912 x1 anywhere optional
+  turnin 593 direct optional
+
+step Yenniku
+  when onquest 592
+  collect 3913 x1 quest 592.1
+
+step Nimboya
+  when onquest 592
+  turnin 592
+
+step Hemet Nesingwary
+  when group 197
+  zone Stranglethorn Vale
+  turnin 197
+
+step Hemet Nesingwary
+  when group 208
+  zone Stranglethorn Vale
+  accept 208
+
+step King Bangalash
+  when group 208
+  zone Stranglethorn Vale
+  tip Big Game Hunter is group work: elites. Grouping up is advised.
+  collect 3880 x1 quest 208.1
+
+step Hemet Nesingwary
+  when group 208
+  zone Stranglethorn Vale
+  turnin 208
+
+step Kravel Koalbeard
+  zone Thousand Needles
+  turnin 1119
+  accept 1120
+  accept 1122
+  turnin 1120
+
+step Get the Goblins Drunk
+  when available 1121
+  tip One of several exclusive quests; the route takes Get the Gnomes Drunk (1120). This one shows for a character the game offers it to instead.
+  zone map 1441
+  accept 1121 optional
+
+step Get the Goblins Drunk
+  when onquest 1121
+  zone map 1441
+  turnin 1121 optional
+
+step Stoley
+  zone Tanaris
+  turnin 2872
+  accept 2873
+
+step Stolen Cargo
+  collect 9244 x1 quest 2873.1
+
+step Stoley
+  turnin 2873
+  accept 2874
+
+step Crank Fizzlebub
+  zone Stranglethorn Vale
+  turnin 1122
+
+step Fool's Stout
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1434
+  collect 4016 x12 anywhere optional
+  turnin 1127 direct optional
+
+step "Sea Wolf" MacKinley
+  turnin 2874
+
+step Avast Ye, Admiral!
+  when turnedin 1036
+  tip Needs Friendly standing (3000) with Bloodsail Buccaneers; without it the quest is not offered.
+  zone map 1434
+  accept 4621 optional
+
+step Avast Ye, Admiral!
+  when onquest 4621
+  zone map 1434
+  complete 4621 @27.2,76.9 optional
+
+step Avast Ye, Admiral!
+  when onquest 4621
+  zone map 1434
+  turnin 4621 optional
+
+step The Art of the Imbue
+  when skill Blacksmithing 1
+  zone map 1434
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 2763 optional
+  complete 2763 @50.6,20.5 optional
+
+step The Art of the Imbue
+  when skill Blacksmithing 1
+  turnin 2763 optional
+
+step The Great Silver Deceiver
+  when skill Blacksmithing 1
+  zone map 1434
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 2762 optional
+  complete 2762 @50.6,20.5 optional
+
+step The Great Silver Deceiver
+  when skill Blacksmithing 1
+  turnin 2762 optional
+
+step Smelt On, Smelt Off
+  when skill Blacksmithing 1
+  zone map 1434
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 2761 optional
+  complete 2761 @50.6,20.5 optional
+
+step Smelt On, Smelt Off
+  when skill Blacksmithing 1
+  turnin 2761 optional
+
+step Expert Blacksmith!
+  when skill Blacksmithing 1
+  zone map 1434
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 2765 optional
+  complete 2765 @50.6,20.5 optional
+
+step Expert Blacksmith!
+  when skill Blacksmithing 1
+  turnin 2765 optional
+
+step Galvan's Finest Pupil
+  when skill Blacksmithing 1
+  zone map 1434
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 2764 optional
+
+step Galvan's Finest Pupil
+  when skill Blacksmithing 1
+  turnin 2764 optional
+
+step The Mithril Kid
+  when skill Blacksmithing 1
+  zone map 1446
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 2773 optional
+  complete 2773 @51.4,28.8 optional
+
+step The Mithril Kid
+  when skill Blacksmithing 1
+  turnin 2773 optional
+
+step The World At Your Feet
+  when skill Blacksmithing 1
+  zone map 1446
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 2772 optional
+  complete 2772 @51.4,28.8 optional
+
+step The World At Your Feet
+  when skill Blacksmithing 1
+  turnin 2772 optional
+
+step A Good Head On Your Shoulders
+  when skill Blacksmithing 1
+  zone map 1446
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 2771 optional
+  complete 2771 @51.4,28.8 optional
+
+step A Good Head On Your Shoulders
+  when skill Blacksmithing 1
+  turnin 2771 optional
+
+step Did You Lose This?
+  when skill Blacksmithing 1
+  zone map 1446
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 3321 optional
+  complete 3321 @51.4,28.8 optional
+
+step Did You Lose This?
+  when skill Blacksmithing 1
+  turnin 3321 optional

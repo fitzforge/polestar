@@ -1,0 +1,462 @@
+guide polestar-completionist-alliance/class-warrior
+title Warrior class quests (10-60) (Completionist)
+faction Alliance
+class Warrior
+levels 10-60
+category Class
+zone Durotar
+why Every Warrior class quest from level 10 on, in level order. The earlier ones are in the starting zone guides.
+reward text What the Warrior quests give, quest by quest: abilities, forms, pets, totems or gear.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 23 quests; estimated level at the end 14.4 (heuristic XP).
+# Skipped: 6 prerequisite N not in this route; 5 exclusive with N; 4 objective N (item N) outside the zones; 1 profession.
+
+step Elanaria
+  zone Darnassus
+  accept 1683
+
+step Vorlus Vilehoof
+  zone Teldrassil
+  collect 6805 x1 quest 1683.1
+
+step Elanaria
+  zone Darnassus
+  turnin 1683
+  accept 1686
+
+step Crate of Elunite and Shade of Elura
+  zone Darkshore
+  collect 6808 x8 quest 1686.1
+  collect 6809 x1 quest 1686.2
+
+step Elanaria
+  zone Darnassus
+  turnin 1686
+  accept 1692
+  turnin 1692
+  accept 1693
+  turnin 1693
+
+step Level 15
+  level 15
+
+step Alonso
+  zone Ashenvale
+  accept 78134
+
+step Dark Iron Entrepreneur
+  zone Wetlands
+  buy 209874 x1 npc 3180 -- for Dragonslayer's Lance
+
+step Tormus Deepforge
+  zone Ironforge
+  accept 1681
+
+step Muren Stormpike
+  accept 1680
+
+step Ironband's Strongbox
+  zone Dun Morogh
+  collect 6800 x1 quest 1681.1
+
+step Tormus Deepforge
+  zone Ironforge
+  turnin 1680
+  turnin 1681
+  accept 1682
+  turnin 1682
+
+step Alonso
+  zone Ashenvale
+  turnin 78134
+
+step Seena Skybreaker
+  zone map 2521
+  accept 94003 only Skyborne
+
+step Zaal Stormshield
+  collect 263993 x1 quest 94003.1 only Skyborne
+
+step Seena Skybreaker
+  turnin 94003 only Skyborne
+
+step Beat Bartleby
+  only Warrior
+  zone map 1453
+  accept 1640 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 1640 @76.8,52.5 optional
+
+step Beat Bartleby
+  only Warrior
+  turnin 1640 optional
+
+step Bartleby's Mug
+  only Warrior
+  zone map 1453
+  accept 1665 optional
+  turnin 1665 optional
+
+step Marshal Haggard
+  only Warrior
+  zone map 1453
+  accept 1666 optional
+
+step Level 30
+  level 30
+
+step Furen's Armor
+  only Warrior
+  when turnedin 1701
+  zone map 1453
+  accept 1782 optional
+
+step Furen's Armor
+  only Warrior
+  when onquest 1782
+  zone map 1453
+  turnin 1782 optional
+
+step Burning Blood
+  only Warrior
+  when turnedin 1782
+  zone map 1453
+  accept 1705 optional
+
+step Burning Blood
+  only Warrior
+  when onquest 1705
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1453
+  complete 1705 @59.7,33.8 optional
+
+step Burning Blood
+  only Warrior
+  when onquest 1705
+  zone map 1453
+  turnin 1705 optional
+
+step Grimand's Armor
+  only Warrior
+  when turnedin 1705
+  zone map 1453
+  accept 1706 optional
+
+step Grimand's Armor
+  only Warrior
+  when onquest 1706
+  zone map 1453
+  turnin 1706 optional
+
+step Klockmort Spannerspan
+  only Warrior,Dwarf,Gnome
+  when turnedin 1782
+  zone map 1453
+  accept 1704 optional
+
+step Klockmort Spannerspan
+  only Warrior,Dwarf,Gnome
+  when onquest 1704
+  zone map 1455
+  turnin 1704 optional
+
+step Mathiel
+  only Warrior,NightElf
+  when turnedin 1782
+  zone map 1453
+  accept 1703 optional
+
+step Mathiel
+  only Warrior,NightElf
+  when onquest 1703
+  zone map 1457
+  turnin 1703 optional
+
+step Grimand Elmore
+  only Warrior,Human
+  when turnedin 1782
+  zone map 1453
+  accept 1700 optional
+
+step Grimand Elmore
+  only Warrior,Human
+  when onquest 1700
+  zone map 1453
+  turnin 1700 optional
+
+step Sunscorched Shells
+  only Warrior
+  when turnedin 1782
+  zone map 1457
+  accept 1710 optional
+
+step Sunscorched Shells
+  only Warrior
+  when onquest 1710
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1457
+  complete 1710 @59.5,45.4 optional
+
+step Sunscorched Shells
+  only Warrior
+  when onquest 1710
+  zone map 1457
+  turnin 1710 optional
+
+step Mathiel's Armor
+  only Warrior
+  when turnedin 1710
+  zone map 1457
+  accept 1711 optional
+
+step Mathiel's Armor
+  only Warrior
+  when onquest 1711
+  zone map 1457
+  turnin 1711 optional
+
+step Kelv Sternhammer
+  zone Ironforge
+  accept 1718 npc 5113
+
+step Klannoc Macleod
+  zone The Barrens
+  turnin 1718
+
+step Klannoc Macleod
+  zone The Barrens
+  accept 1719
+
+step Big Will and Step on the grate to begin the Affray
+  zone The Barrens
+  kill 6238 x1 quest 1719.1
+
+step Klannoc Macleod
+  zone The Barrens
+  turnin 1719
+
+step Klannoc Macleod
+  zone Ironforge
+  accept 1791
+
+step Iron Coral
+  only Warrior
+  when turnedin 1782
+  zone map 1455
+  accept 1708 optional
+
+step Iron Coral
+  only Warrior
+  when onquest 1708
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1455
+  complete 1708 @67.9,46.1 optional
+
+step Iron Coral
+  only Warrior
+  when onquest 1708
+  zone map 1455
+  turnin 1708 optional
+
+step Klockmort's Creation
+  only Warrior
+  when turnedin 1708
+  zone map 1455
+  accept 1709 optional
+
+step Klockmort's Creation
+  only Warrior
+  when onquest 1709
+  zone map 1455
+  turnin 1709 optional
+
+step Bath'rah the Windwatcher
+  zone Alterac Mountains
+  turnin 1791
+
+step Marshal Haggard
+  only Warrior
+  turnin 1666 optional
+
+step Dead-tooth Jack
+  only Warrior
+  zone map 1429
+  accept 1667 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 1667 @84.6,69.4 optional
+
+step Dead-tooth Jack
+  only Warrior
+  turnin 1667 optional
+
+step The Quarry's Smith
+  only Warrior,Paladin,Shaman
+  zone map 1426
+  accept 95217 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 95217 @69,55.9 optional
+
+step The Quarry's Smith
+  only Warrior,Paladin,Shaman
+  turnin 95217 optional
+
+step Level 58
+  level 58
+
+step Geologist Larksbane
+  when turnedin 8315
+  zone Silithus
+  accept 8316
+  turnin 8316
+
+step Dragonslayer's Helm
+  only Warrior
+  zone map 1440
+  accept 78132 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 78132 @42,69.2 optional
+
+step Dragonslayer's Helm
+  only Warrior
+  turnin 78132 optional
+
+step Dragonslayer's Shield
+  only Warrior
+  zone map 1440
+  accept 78133 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 78133 @42,69.2 optional
+
+step Dragonslayer's Shield
+  only Warrior
+  turnin 78133 optional
+
+step Cyclonian
+  only Warrior
+  zone map 1416
+  accept 1712 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 1712 @80.5,66.9 optional
+
+step Cyclonian
+  only Warrior
+  turnin 1712 optional
+
+step The Summoning
+  only Warrior
+  zone map 1416
+  accept 1713 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 1713 @80.5,66.9 optional
+
+step The Summoning
+  only Warrior
+  turnin 1713 optional
+
+step Whirlwind Weapon
+  only Warrior
+  zone map 1416
+  accept 1792 optional
+  turnin 1792 optional
+
+step A Warrior's Training
+  only Warrior
+  when available 1638
+  tip One of several exclusive quests; the route takes Vorlus Vilehoof (1683). This one shows for a character the game offers it to instead.
+  zone map 1429
+  accept 1638 optional
+
+step A Warrior's Training
+  only Warrior
+  when onquest 1638
+  zone map 1453
+  turnin 1638 optional
+
+step Bartleby the Drunk
+  only Warrior
+  when available 1639
+  tip One of several exclusive quests; the route takes Vorlus Vilehoof (1683). This one shows for a character the game offers it to instead.
+  zone map 1453
+  accept 1639 optional
+
+step Bartleby the Drunk
+  only Warrior
+  when onquest 1639
+  zone map 1453
+  turnin 1639 optional
+
+step Muren Stormpike
+  only Warrior
+  when available 1679
+  tip One of several exclusive quests; the route takes A Warrior's Training (1638). This one shows for a character the game offers it to instead.
+  zone map 1426
+  accept 1679 optional
+
+step Muren Stormpike
+  only Warrior
+  when onquest 1679
+  zone map 1455
+  turnin 1679 optional
+
+step Elanaria
+  only Warrior
+  when available 1684
+  tip One of several exclusive quests; the route takes A Warrior's Training (1638). This one shows for a character the game offers it to instead.
+  zone map 1438
+  accept 1684 optional
+
+step Elanaria
+  only Warrior
+  when onquest 1684
+  zone map 1457
+  turnin 1684 optional
+
+step Vejrek
+  only Warrior
+  when available 1678
+  tip One of several exclusive quests; the route takes Bartleby the Drunk (1639). This one shows for a character the game offers it to instead.
+  zone map 1455
+  accept 1678 optional
+
+step Vejrek
+  only Warrior
+  when onquest 1678
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1455
+  complete 1678 @70.8,90.3 optional
+
+step Vejrek
+  only Warrior
+  when onquest 1678
+  zone map 1455
+  turnin 1678 optional
+
+step Essence of the Exile
+  only Warrior
+  when onquest 1712
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1416
+  collect 4480 x8 anywhere optional
+  collect 4479 x8 anywhere optional
+  collect 4481 x8 anywhere optional
+  turnin 1714 direct optional
+
+
+step Anthion's Parting Words
+  only Warrior
+  when turnedin 9015
+  zone map 1423
+  accept 8959 optional
+
+step Anthion's Parting Words
+  only Warrior
+  when onquest 8959
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 8959 @26.1,11.3 optional
+
+step Anthion's Parting Words
+  only Warrior
+  when onquest 8959
+  zone map 1455
+  turnin 8959 optional

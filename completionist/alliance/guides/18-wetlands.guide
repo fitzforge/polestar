@@ -1,0 +1,348 @@
+guide polestar-completionist-alliance/18-wetlands
+title 18 Wetlands (18-30) (Completionist)
+faction Alliance
+levels 18-30
+zone Wetlands
+next polestar-completionist-alliance/19-thousand-needles
+pitch On along the line: Wetlands, quests of level 18 to 30.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 37 quests; estimated level at the end 21.6 (heuristic XP, class quests not counted).
+# Skipped: 5 prerequisite N not in this route.
+
+step Valstag Ironjaw
+  sethome "Deepwater Tavern"
+  getfp "Menethil Harbor"
+  accept 98197
+
+step Bloom of the Heavens
+  zone map 1437
+  tip The place is where players were recorded finishing it.
+  accept 98208
+  complete 98208 @12.2,63.8
+
+step Khaz Modan Iron
+  collect 279822 x30 quest 98197.2
+
+step Khaz Modan Timber
+  collect 279821 x6 quest 98197.1
+
+step Einar Stonegrip
+  accept 469
+
+step Level 30
+  level 30
+
+step Red Jack Flint
+  zone Wetlands
+  accept 1132
+
+step Razormaw Needling
+  zone map 1437
+  accept 98245
+
+step Razormaw Needling
+  when onquest 98245
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1437
+  complete 98245 @49.4,42.1
+
+step Razormaw Needling
+  when onquest 98245
+  zone map 1437
+  turnin 98245
+
+step Trying Times
+  tip The place is where players were recorded finishing it.
+  zone map 1437
+  accept 98246
+  complete 98246 @69.2,32.7
+
+step Trying Times
+  zone map 1437
+  turnin 98246
+
+step Death to the Dragonmaw
+  when turnedin 98245
+  zone map 1437
+  accept 98291
+
+step Death to the Dragonmaw
+  when onquest 98291
+  zone map 1437
+  complete 98291 @52.1,40.9
+
+step Death to the Dragonmaw
+  when onquest 98291
+  zone map 1437
+  turnin 98291
+
+step Forced Disarmament
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1437
+  accept 98293
+  complete 98293 @58.9,45.1
+
+step Forced Disarmament
+  turnin 98293
+
+step Captain Stoutfist
+  zone Wetlands
+  accept 98221
+
+step Bloom of the Heavens
+  turnin 98208
+
+step Sylessa Duskwhisper
+  zone Wetlands
+  accept 98209
+
+step Thundris Windweaver
+  zone Darkshore
+  turnin 98209
+
+step Attack Plan: Ironforge
+  zone Wetlands
+  interact 671487 quest 98221.4
+
+step Attack Plan: Menethil Harbor
+  zone Wetlands
+  interact 671481 quest 98221.1
+
+step Dragonmaw Bonewarder and Attack Plan: Thelsamar
+  zone Wetlands
+  interact 671486 quest 98221.2
+
+step Attack Plan: Southshore
+  zone Wetlands
+  interact 671483 quest 98221.3
+
+step Valstag Ironjaw
+  zone Wetlands
+  accept 473
+
+step Captain Stoutfist
+  zone Wetlands
+  turnin 473
+
+step Captain Stoutfist
+  zone Wetlands
+  accept 464
+
+step Dragonmaw Bonewarder and Attack Plan: Thelsamar
+  zone Wetlands
+  collect 3337 x8 quest 464.1
+
+step Ormer Ironbraid
+  accept 294
+  accept 299
+
+step Ancient Relic and Loose Soil
+  collect 2658 x1 quest 299.1
+  collect 2659 x1 quest 299.2
+  collect 2660 x1 quest 299.3
+  collect 2661 x1 quest 299.4
+
+step Mottled Raptor
+  kill 1020 x10 quest 294.1
+
+step Mottled Screecher
+  kill 1021 x10 quest 294.2
+
+step Caitlin Grassman
+  accept 98282
+  accept 470
+  accept 288
+  accept 943
+
+step Mottled Razormaw
+  collect 5233 x1 quest 943.1
+
+step Ormer Ironbraid
+  turnin 294
+  accept 295
+  turnin 299
+
+step Flagongut's Fossil
+  collect 5234 x1 quest 943.2
+
+step Cave Stalker
+  collect 280319 x1 quest 98282.1
+
+step Malgin Barleybrew
+  zone The Barrens
+  collect 2594 x1 quest 288.1
+
+step Crimson Ooze
+  zone Wetlands
+  collect 3349 x1 quest 470.1
+
+step Mottled Razormaw
+  kill 1023 x10 quest 295.2
+
+step Mottled Scytheclaw
+  kill 1022 x10 quest 295.1
+
+step Ormer Ironbraid
+  turnin 295
+  accept 296
+
+step Sarltooth
+  collect 3638 x1 quest 296.1
+
+step Ormer Ironbraid
+  turnin 296
+
+step Captive Fire Elemental
+  accept 87491
+
+step Roggo Harlbarrow
+  complete 87491 @47.8,16.8 map 1437
+  turnin 87491
+  accept 274
+
+step Tarrel Rockweaver
+  accept 305
+
+step Harlo Barnaby
+  accept 472
+  turnin 98197
+  turnin 464
+  turnin 98221
+
+step First Mate Fitzsimmons
+  turnin 288
+  accept 289
+  turnin 943
+  turnin 98282
+  turnin 470
+
+step Cursed Marine
+  kill 1158 x5 quest 289.2
+
+step Cursed Sailor and First Mate Snellig
+  kill 1157 x13 quest 289.1
+  collect 3619 x1 quest 289.3
+
+step James Halloran
+  turnin 469
+  accept 279
+
+step Bluegill Murloc
+  kill 1024 x12 quest 279.1
+
+step Gobbler
+  collect 3618 x1 quest 279.2
+
+step First Mate Fitzsimmons
+  turnin 289
+  accept 290
+
+step Captain Halyndor
+  collect 2629 x1 quest 290.1
+
+step Intrepid's Locked Strongbox
+  turnin 290
+  accept 292
+
+step Karl Boran
+  turnin 279
+  accept 281
+
+step Glorin Steelbrow
+  turnin 292
+  accept 293
+
+step Damaged Crate
+  turnin 281
+  accept 284
+
+step Sealed Barrel
+  turnin 284
+  accept 285
+
+step Half-buried Barrel
+  turnin 285
+  accept 286
+
+step Karl Boran
+  turnin 286
+  accept 98189
+  turnin 98189
+  accept 98190
+
+step Merrin Rockweaver
+  turnin 305
+  accept 306
+
+step Longbraid the Grim
+  turnin 472
+
+step Tarrel Rockweaver
+  turnin 306
+
+step Chief Engineer Hinderweir VII
+  zone Loch Modan
+  turnin 274
+
+step Chief Engineer Hinderweir VII
+  when group 278
+  zone Loch Modan
+  accept 278
+
+step Loch Crocolisk
+  when group 278
+  zone Loch Modan
+  tip A Dark Threat Looms is group work: elites. Grouping up is advised.
+  collect 2939 x1 quest 278.3
+
+step Wood Lurker
+  when group 278
+  zone Loch Modan
+  tip A Dark Threat Looms is group work: elites. Grouping up is advised.
+  collect 2606 x1 quest 278.1
+
+step Mo'grosh Ogre
+  when group 278
+  zone Loch Modan
+  tip A Dark Threat Looms is group work: elites. Grouping up is advised.
+  collect 2607 x1 quest 278.2
+
+step Chief Engineer Hinderweir VII
+  when group 278
+  zone Loch Modan
+  turnin 278
+
+step Chief Engineer Hinderweir VII
+  when turnedin 278
+  zone Loch Modan
+  accept 280 optional
+
+step Explosive Charge
+  when turnedin 280
+  accept 283 optional
+
+step Explosive Charge
+  when onquest 280
+  turnin 280
+
+step Chief Engineer Hinderweir VII
+  when onquest 283
+  turnin 283
+
+step Highlord Bolvar Fordragon
+  zone Stormwind City
+  turnin 98190
+  accept 98191
+
+step Archbishop Benedictus
+  turnin 293
+  turnin 98191
+
+step Fiora Longears
+  zone Dustwallow Marsh
+  turnin 1132
+  accept 1133
+
+step Shindrell Swiftfire
+  zone Ashenvale
+  turnin 1133

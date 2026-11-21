@@ -1,0 +1,60 @@
+guide polestar-completionist-alliance/40-odd-jobs-in-kalimdor-3
+title 40 Odd jobs in Kalimdor (47-55) (Completionist)
+faction Alliance
+levels 47-55
+zone Ashenvale
+next polestar-completionist-alliance/41-stranglethorn-vale-2
+pitch On along the line: errands across Kalimdor, quests of level 47 to 55.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 3 quests; estimated level at the end 47.1 (heuristic XP, class quests not counted).
+# Skipped: 1 prerequisite N not in this route.
+
+step Loh'atu
+  zone Ashenvale
+  accept 5535
+  accept 5536
+
+step Highborne Apparition
+  kill 6116 x6 quest 5535.1
+
+step Haldarr Satyr, Haldarr Trickster and Haldarr Felsworn
+  zone Azshara
+  kill 6125 x6 quest 5536.1
+  kill 6126 x2 quest 5536.2
+  kill 6127 x2 quest 5536.3
+
+step Highborne Lichling
+  kill 6117 x6 quest 5535.2
+
+step Loh'atu
+  zone Ashenvale
+  turnin 5535
+  turnin 5536
+
+step Tribal Leatherworking
+  when skill Leatherworking 1
+  zone map 1441
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 5143 optional
+  complete 5143 @7.7,19 optional
+
+step Tribal Leatherworking
+  when skill Leatherworking 1
+  turnin 5143 optional
+
+step A Short Incubation
+  zone map 1441
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 3842
+  complete 3842 @78.3,74.7
+
+step A Short Incubation
+  turnin 3842
+
+step Quentin
+  zone Thousand Needles
+  accept 3843
+
+step Agnar Beastamer
+  zone Hillsbrad Foothills
+  turnin 3843

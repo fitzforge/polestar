@@ -1,0 +1,275 @@
+guide polestar-completionist-alliance/attune-skeleton-key-a
+title Skeleton Key (Scholomance key) (Completionist)
+faction Alliance
+levels 50-60
+category Dungeons
+zone Western Plaguelands
+pitch Skeleton Key: Opens Scholomance's gate; one key opens it for the group.
+why Opens Scholomance's gate; one key opens it for the group.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 9 quests; estimated level at the end 50.3 (heuristic XP, class quests not counted).
+# Skipped: 2 exclusive with N.
+
+step Crier Goodman
+  zone Stormwind City
+  accept 5066
+
+step Commander Ashlam Valorfist
+  zone Western Plaguelands
+  turnin 5066
+  accept 5092
+
+step Skeletal Flayer and Slavering Ghoul
+  kill 1783 x10 quest 5092.1
+  kill 1791 x10 quest 5092.2
+
+step Commander Ashlam Valorfist
+  turnin 5092
+  accept 5097
+
+step The Scourge Cauldrons
+  zone map 1422
+  accept 5215
+
+step Andorhal Tower One
+  kill 10902 x1 quest 5097.1
+
+step Andorhal Tower Two
+  kill 10903 x1 quest 5097.2
+
+step Andorhal Tower Three
+  kill 10904 x1 quest 5097.3
+
+step Andorhal Tower Four
+  kill 10905 x1 quest 5097.4
+
+step Level 55
+  level 55
+
+step Commander Ashlam Valorfist
+  turnin 5097
+  accept 5533
+  turnin 5533
+  accept 5537
+
+step Alas, Andorhal
+  zone map 1422
+  accept 211
+
+step The Scourge Cauldrons
+  when onquest 5215
+  zone map 1422
+  turnin 5215
+
+step Skeletal Terror
+  collect 14619 x15 quest 5537.1
+
+step Alchemist Arbington
+  turnin 5537
+  accept 5538
+
+step Alas, Andorhal
+  when onquest 211
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1422
+  complete 211 @42.7,84.0
+
+step Alas, Andorhal
+  when onquest 211
+  zone map 1422
+  turnin 211
+
+step Target: Felstone Field
+  when turnedin 5215
+  zone map 1422
+  accept 5216
+
+step Target: Felstone Field
+  when onquest 5216
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1422
+  complete 5216 @43.0,84.5
+
+step Target: Felstone Field
+  when onquest 5216
+  zone map 1422
+  turnin 5216
+
+step Krinkle Goodsteel
+  zone Tanaris
+  turnin 5538
+  accept 5801
+
+step Fire Plume Ridge Lava Lake
+  zone Un'Goro Crater
+  collect 14645 x1 quest 5801.1
+
+step Alchemist Arbington
+  zone Western Plaguelands
+  turnin 5801
+  accept 5803
+
+step Araj's Phylactery
+  collect 14610 x1 quest 5803.1
+
+step Alchemist Arbington
+  turnin 5803
+  accept 5505
+  turnin 5505
+
+step Return to Chillwind Camp
+  when turnedin 5216
+  zone map 1422
+  accept 5217
+
+step Return to Chillwind Camp
+  when onquest 5217
+  zone map 1422
+  turnin 5217
+
+step Target: Dalson's Tears
+  when turnedin 5217
+  zone map 1422
+  accept 5219
+
+step Target: Dalson's Tears
+  when onquest 5219
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1422
+  complete 5219 @43.0,84.5
+
+step Target: Dalson's Tears
+  when onquest 5219
+  zone map 1422
+  turnin 5219
+
+step Return to Chillwind Camp
+  when turnedin 5219
+  zone map 1422
+  accept 5220
+
+step Return to Chillwind Camp
+  when onquest 5220
+  zone map 1422
+  turnin 5220
+
+step Target: Writhing Haunt
+  when turnedin 5220
+  zone map 1422
+  accept 5222
+
+step Target: Writhing Haunt
+  when onquest 5222
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1422
+  complete 5222 @43.0,84.5
+
+step Target: Writhing Haunt
+  when onquest 5222
+  zone map 1422
+  turnin 5222
+
+step Return to Chillwind Camp
+  when turnedin 5222
+  zone map 1422
+  accept 5223
+
+step Return to Chillwind Camp
+  when onquest 5223
+  zone map 1422
+  turnin 5223
+
+step Target: Gahrron's Withering
+  when turnedin 5223
+  zone map 1422
+  accept 5225
+
+step Target: Gahrron's Withering
+  when onquest 5225
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1422
+  complete 5225 @43.0,84.5
+
+step Target: Gahrron's Withering
+  when onquest 5225
+  zone map 1422
+  turnin 5225
+
+step Return to Chillwind Camp
+  when turnedin 5225
+  zone map 1422
+  accept 5226
+
+step Return to Chillwind Camp
+  when onquest 5226
+  zone map 1422
+  turnin 5226
+
+step Mission Accomplished!
+  when turnedin 5226
+  zone map 1422
+  accept 5237
+
+step Mission Accomplished!
+  when onquest 5237
+  zone map 1422
+  turnin 5237
+
+step Gahrron's Withering Cauldron
+  when turnedin 5226
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1422
+  collect 13320 x1 anywhere optional
+  collect 13354 x4 anywhere optional
+  collect 14047 x4 anywhere optional
+  turnin 5227 direct optional
+
+step Writhing Haunt Cauldron
+  when turnedin 5223
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1422
+  collect 13320 x1 anywhere optional
+  collect 13356 x5 anywhere optional
+  collect 14047 x4 anywhere optional
+  turnin 5224 direct optional
+
+step Dalson's Tears Cauldron
+  when turnedin 5220
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1422
+  collect 13320 x1 anywhere optional
+  collect 13356 x5 anywhere optional
+  collect 14047 x4 anywhere optional
+  turnin 5221 direct optional
+
+step Felstone Field Cauldron
+  when turnedin 5217
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1422
+  collect 13320 x1 anywhere optional
+  collect 13357 x6 anywhere optional
+  collect 14047 x4 anywhere optional
+  turnin 5218 direct optional
+
+
+step A Call to Arms: The Plaguelands!
+  when available 5090
+  tip One of several exclusive quests; the route takes A Call to Arms: The Plaguelands! (5066). This one shows for a character the game offers it to instead.
+  zone map 1455
+  accept 5090 optional
+
+step A Call to Arms: The Plaguelands!
+  when onquest 5090
+  zone map 1422
+  turnin 5090 optional
+
+step A Call to Arms: The Plaguelands!
+  when available 5091
+  tip One of several exclusive quests; the route takes A Call to Arms: The Plaguelands! (5066). This one shows for a character the game offers it to instead.
+  zone map 1457
+  accept 5091 optional
+
+step A Call to Arms: The Plaguelands!
+  when onquest 5091
+  zone map 1422
+  turnin 5091 optional

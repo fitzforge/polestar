@@ -1,0 +1,184 @@
+guide polestar-completionist-horde/59-odd-jobs-in-the-eastern-kingdoms-4
+title 59 Odd jobs in the Eastern Kingdoms (58-60) (Completionist)
+faction Horde
+levels 58-60
+zone Stranglethorn Vale
+next polestar-completionist-horde/dungeon-dire-maul
+pitch On along the line: errands across the Eastern Kingdoms, quests of level 58 to 60.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 15 quests; estimated level at the end 58.2 (heuristic XP, class quests not counted).
+
+step Pix Xizzix
+  accept 83934
+  turnin 83934
+
+step Enchanted Azsharite Fel Weaponry
+  zone map 1434
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 3625
+  complete 3625 @50.6,20.5
+
+step Enchanted Azsharite Fel Weaponry
+  turnin 3625
+
+step Galvan the Ancient
+  zone Stranglethorn Vale
+  accept 3626
+
+step Fallen Hero of the Horde
+  zone Swamp of Sorrows
+  turnin 3626
+
+step Fallen Hero of the Horde
+  when group 3627
+  zone Swamp of Sorrows
+  accept 3627
+
+step Fallen Hero of the Horde
+  when group 3627
+  zone Swamp of Sorrows
+  turnin 3627
+
+step Fallen Hero of the Horde
+  when group 3628
+  zone Swamp of Sorrows
+  accept 3628
+
+step Fallen Hero of the Horde
+  when group 3628
+  zone Swamp of Sorrows
+  turnin 3628
+
+step Night Watch Guard
+  zone Duskwood
+  accept 98372
+  turnin 98372
+
+step Veteran of the Third War
+  zone Redridge Mountains
+  accept 93551
+
+step Book
+  zone Burning Steppes
+  accept 84396 object 463206
+
+step Book
+  collect 228133 x1 quest 84396.1
+
+step Book
+  zone Western Plaguelands
+  accept 84395 object 463213
+
+step Book
+  collect 228132 x1 quest 84395.1
+
+step Oran Snakewrithe
+  zone Undercity
+  turnin 84395
+  turnin 84396
+  accept 84397 npc 7825
+  accept 84398 npc 7825
+  accept 84399 npc 7825
+  accept 84400 npc 7825
+  accept 84401 npc 7825
+  accept 84402 npc 7825
+
+step Book
+  zone Western Plaguelands
+  collect 228141 x1 quest 84402.1
+
+step Book
+  zone Eastern Plaguelands
+  collect 228140 x1 quest 84401.1
+
+step Book
+  collect 228138 x1 quest 84400.1
+
+step Book
+  collect 228135 x1 quest 84398.1
+
+step Book
+  zone Felwood
+  collect 228134 x1 quest 84397.1
+
+step Book
+  zone Winterspring
+  collect 228136 x1 quest 84399.1
+
+step Veteran of the Third War
+  zone Mount Hyjal
+  turnin 93551 @27.5,50.9 map 2482
+
+step Oran Snakewrithe
+  zone Undercity
+  turnin 84397
+  turnin 84398
+  turnin 84399
+  turnin 84400
+  turnin 84401
+  turnin 84402
+
+
+step The Graveyards of Alterac
+  zone map 1416
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 7082
+  complete 7082 @65.5,55.1
+
+step The Graveyards of Alterac
+  turnin 7082
+
+step Towers and Bunkers
+  zone map 1416
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 7101
+  complete 7101 @65.5,55.1
+
+step Towers and Bunkers
+  turnin 7101
+
+step Capture a Mine
+  zone map 1416
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 7124
+  complete 7124 @65.5,55.1
+
+step Capture a Mine
+  turnin 7124
+
+step The Battle for Alterac
+  zone map 1416
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 7142
+  complete 7142 @63.8,60.5
+
+step The Battle for Alterac
+  turnin 7142
+
+step Voggah Deathgrip
+  zone Alterac Mountains
+  accept 8272
+  turnin 8272
+
+step Proving Grounds
+  zone map 1416
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 7161
+  complete 7161 @62.3,58.9
+
+step Proving Grounds
+  turnin 7161
+
+step Cut Arathor Supply Lines
+  zone map 1417
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 8299
+  complete 8299 @73.5,29.8
+
+step Cut Arathor Supply Lines
+  turnin 8299
+
+step Speak with Voggah Deathgrip
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1416
+  turnin 7222 direct

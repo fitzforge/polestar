@@ -1,0 +1,642 @@
+guide polestar-completionist-horde/53-silithus
+title 53 Silithus (55-60) (Completionist)
+faction Horde
+levels 55-60
+zone Silithus
+next polestar-completionist-horde/54-the-barrens-4
+pitch On along the line: Silithus, quests of level 55 to 60.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 21 quests; estimated level at the end 56.3 (heuristic XP, class quests not counted).
+
+step Scout Bloodfist
+  sethome "Cenarion Hold"
+  getfp "Cenarion Hold"
+  accept 9416
+  accept 8284
+  accept 8280
+
+step Allegiance to Cenarion Circle
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  collect 20802 x1 anywhere optional
+  collect 20800 x1 anywhere optional
+  collect 20801 x1 anywhere optional
+  turnin 9338 direct optional
+
+step Bandages for the Field
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  collect 14530 x30 anywhere optional
+  collect 8545 x30 anywhere optional
+  collect 6451 x30 anywhere optional
+  turnin 8810 direct optional
+
+step Extraordinary Materials
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  collect 12655 x2 anywhere optional
+  collect 12810 x2 anywhere optional
+  turnin 8809 direct optional
+
+step Uniform Supplies
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  collect 14342 x1 anywhere optional
+  collect 14048 x2 anywhere optional
+  collect 14227 x1 anywhere optional
+  turnin 8808 direct optional
+
+step Scrying Materials
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  collect 14344 x1 anywhere optional
+  collect 11178 x1 anywhere optional
+  collect 12364 x1 anywhere optional
+  turnin 8807 direct optional
+
+step Desert Survival Kits
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  collect 7079 x4 anywhere optional
+  collect 19440 x4 anywhere optional
+  collect 20452 x4 anywhere optional
+  turnin 8804 direct optional
+
+step Target: Hive'Regal Burrowers
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  turnin 8777 direct optional
+
+step Grinding Stones for the Guard
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  collect 12644 x10 anywhere optional
+  collect 7966 x10 anywhere optional
+  collect 3486 x10 anywhere optional
+  turnin 8806 direct optional
+
+step Boots for the Guard
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  collect 7936 x3 anywhere optional
+  turnin 8805 direct optional
+
+step Target: Hive'Regal Slavemakers
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  turnin 8776 direct optional
+
+step Target: Hive'Regal Spitfires
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  turnin 8775 direct optional
+
+step Target: Hive'Regal Ambushers
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  turnin 8774 direct optional
+
+step Target: Hive'Zora Reavers
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  turnin 8773 direct optional
+
+step Target: Hive'Zora Waywatchers
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  turnin 8772 direct optional
+
+step Target: Hive'Ashi Sandstalkers
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  turnin 8771 direct optional
+
+step Target: Hive'Ashi Defenders
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  turnin 8770 direct optional
+
+step Twilight Marauders
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  turnin 8740 direct optional
+
+step Hive'Ashi Scout Report
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  collect 21161 x1 anywhere optional
+  turnin 8739 direct optional
+
+step Hive'Regal Scout Report
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  collect 21160 x1 anywhere optional
+  turnin 8738 direct optional
+
+step Azure Templar
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  turnin 8737 direct optional
+
+step Target: Hive'Zora Tunnelers
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  turnin 8687 direct optional
+
+step Target: Hive'Zora Hive Sisters
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  turnin 8539 direct optional
+
+step The Four Dukes
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  turnin 8538 direct optional
+
+step Crimson Templar
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  turnin 8537 direct optional
+
+step Earthen Templar
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  turnin 8536 direct optional
+
+step Hoary Templar
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  turnin 8535 direct optional
+
+step Hive'Zora Scout Report
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  collect 21158 x1 anywhere optional
+  turnin 8534 direct optional
+
+step Target: Hive'Ashi Workers
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  turnin 8502 direct optional
+
+step Target: Hive'Ashi Stingers
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  turnin 8501 direct optional
+
+step Twilight Battle Orders
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  collect 20803 x1 anywhere optional
+  turnin 8498 direct optional
+
+step Desert Recipe
+  when skill Cooking 1
+  zone map 1451
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 8307 optional
+
+step Desert Recipe
+  when skill Cooking 1
+  turnin 8307 optional
+
+step Wanted Poster: Deathclasp
+  when group 8283
+  zone Silithus
+  accept 8283
+
+step Beetix Ficklespragg
+  accept 8277
+
+step Stonelash Scorpid
+  zone Un'Goro Crater
+  collect 20373 x8 quest 8277.1
+
+step Sand Skitterer and Dredge Striker
+  collect 20376 x8 quest 8277.2
+  kill 11740 x15 quest 8280.1
+
+step Deathclasp
+  when group 8283
+  zone Silithus
+  tip Wanted - Deathclasp, Terror of the Sands is group work: elites. Grouping up is advised.
+  collect 20385 x1 quest 8283.1
+
+step Desert Rumbler
+  zone Feralas
+  collect 20378 x8 quest 8284.1
+
+step Geologist Larksbane
+  turnin 8284
+  accept 8285
+
+step Level 60
+  level 60
+
+step Goldleaf's Discovery
+  tip Needs Revered standing (21000) with Cenarion Circle; without it the quest is not offered.
+  zone map 1451
+  accept 8343 optional
+
+step Goldleaf's Discovery
+  when onquest 8343
+  zone map 1451
+  turnin 8343 optional
+
+step Aurel Goldleaf
+  tip Needs Friendly standing (3000) with Cenarion Circle; without it the quest is not offered.
+  zone map 1451
+  accept 8331 optional
+
+step Aurel Goldleaf
+  when onquest 8331
+  zone map 1451
+  turnin 8331 optional
+
+step Dearest Natalia
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1451
+  accept 8304
+  complete 8304 @49.2,34.2
+
+step Bor Wildmane
+  when group 8361
+  zone Silithus
+  accept 8361
+
+step Crimson Templar and Lord Skwol
+  when group 8361
+  zone Silithus
+  tip Abyssal Contacts is group work: elites. Grouping up is advised.
+  collect 20513 x1 quest 8361.1
+
+step Huum Wildmane
+  zone Silithus
+  accept 8320
+
+step Lords of the Council
+  when turnedin 8343
+  tip Needs Revered standing (21000) with Cenarion Circle; without it the quest is not offered.
+  zone map 1451
+  accept 8341 optional
+
+step Dukes of the Council
+  when turnedin 8331
+  tip Needs Friendly standing (3000) with Cenarion Circle; without it the quest is not offered.
+  zone map 1451
+  accept 8332 optional
+
+step Twilight Geolord
+  zone Silithus
+  kill 11881 x10 quest 8320.1
+
+step Bor Wildmane
+  zone Silithus
+  accept 8318
+
+step Twilight Prophet
+  zone Silithus
+  collect 20404 x10 quest 8318.1
+
+step Bor Wildmane
+  zone Silithus
+  turnin 8318
+
+step Encrypted Twilight Texts
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  collect 20404 x10 anywhere optional
+  turnin 8319 direct optional
+
+step Huum Wildmane
+  zone Silithus
+  turnin 8320
+
+step Aurel Goldleaf
+  when group 9248
+  zone Silithus
+  accept 9248
+
+step Crimson Templar and Lord Skwol
+  when group 9248
+  zone Silithus
+  tip A Humble Offering is group work: elites. Grouping up is advised.
+  collect 20515 x1 quest 9248.1
+
+step Huum Wildmane
+  zone Feralas
+  accept 8321
+
+step Bor Wildmane
+  when group 8361
+  zone Silithus
+  turnin 8361
+
+step Windcaller Proudhorn
+  turnin 8280
+  accept 8281
+  turnin 8277
+  accept 8278
+
+step Lords of the Council
+  when onquest 8341
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1451
+  complete 8341 @52.0,38.2 optional
+
+step Lords of the Council
+  when onquest 8341
+  zone map 1451
+  turnin 8341 optional
+
+step Abyssal Crests
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  collect 20513 x3 anywhere optional
+  turnin 8362 direct optional
+
+step Scepter of the Council
+  when turnedin 8341
+  tip Needs Revered standing (21000) with Cenarion Circle; without it the quest is not offered.
+  zone map 1451
+  accept 8352 optional
+
+step Dukes of the Council
+  when onquest 8332
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1451
+  complete 8332 @52.0,38.2 optional
+
+step Dukes of the Council
+  when onquest 8332
+  zone map 1451
+  turnin 8332 optional
+
+step Aurel Goldleaf
+  when group 9248
+  zone Silithus
+  turnin 9248
+
+step Vyral the Vile
+  collect 20466 x1 quest 8321.1
+
+step Stonelash Pincer
+  zone Un'Goro Crater
+  collect 20374 x3 quest 8278.2
+
+step Hermit Ortell
+  turnin 8285
+  accept 8279
+
+step Stonelash Flayer
+  collect 20375 x3 quest 8278.1
+
+step Twilight Keeper Exeter
+  collect 20395 x1 quest 8279.2
+
+step Rock Stalker
+  collect 20377 x3 quest 8278.3
+
+step Dredge Crusher
+  kill 11741 x20 quest 8281.1
+
+step Twilight Keeper Mayna
+  collect 20394 x1 quest 8279.1
+
+step Twilight Keeper Havunth
+  collect 20396 x1 quest 8279.3
+
+step General Kirika
+  turnin 9416
+  accept 9422
+
+step Armor Kits for the Field
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  collect 15564 x8 anywhere optional
+  collect 4265 x8 anywhere optional
+  turnin 8787 direct optional
+
+step Arms for the Field
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  collect 3855 x3 anywhere optional
+  turnin 8786 direct optional
+
+step The Orgrimmar Legion Needs Mojo!
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  collect 8956 x8 anywhere optional
+  collect 8152 x6 anywhere optional
+  collect 12804 x6 anywhere optional
+  turnin 8785 direct optional
+
+step Silithus Dust Turnin Quest Doodad Horde
+  kill 18199 x1 quest 9422.1
+
+step General Kirika
+  turnin 9422
+
+step Hermit Ortell
+  zone Un'Goro Crater
+  turnin 8279
+  accept 8287
+  accept 8323
+
+step Twilight Prophet
+  zone Silithus
+  collect 20404 x10 quest 8323.1
+
+step Huum Wildmane
+  turnin 8321
+  turnin 8281
+
+step Scepter of the Council
+  when onquest 8352
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1451
+  complete 8352 @48.6,37.8 optional
+
+step Scepter of the Council
+  when onquest 8352
+  zone map 1451
+  turnin 8352 optional
+
+step Bor Wishes to Speak
+  when turnedin 8341
+  tip Needs Revered standing (21000) with Cenarion Circle; without it the quest is not offered.
+  zone map 1451
+  accept 8351 optional
+
+step Twilight Ring of Lordship
+  when turnedin 8341
+  tip Needs Revered standing (21000) with Cenarion Circle; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  collect 20514 x3 anywhere optional
+  collect 14344 x5 anywhere optional
+  turnin 8342 direct optional
+
+step Bor Wildmane
+  when turnedin 8332
+  tip Needs Friendly standing (3000) with Cenarion Circle; without it the quest is not offered.
+  zone map 1451
+  accept 8349 optional
+
+step Signet of the Dukes
+  when turnedin 8332
+  tip Needs Friendly standing (3000) with Cenarion Circle; without it the quest is not offered.
+  zone map 1451
+  accept 8348 optional
+
+step Medallion of Station
+  when turnedin 8332
+  tip Needs Friendly standing (3000) with Cenarion Circle; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  collect 14344 x1 anywhere optional
+  collect 20513 x3 anywhere optional
+  turnin 8333 direct optional
+
+step Beetix Ficklespragg
+  turnin 8278
+  accept 8282
+
+step Noggle's Satchel
+  collect 20379 x1 quest 8282.1
+
+step Hermit Ortell
+  zone Un'Goro Crater
+  turnin 8323
+
+step Noggle Ficklespragg
+  zone Silithus
+  turnin 8282
+
+step Vish Kozus
+  when group 8283
+  zone Silithus
+  turnin 8283
+
+step Commander Mar'alith
+  turnin 8287
+
+step Dearest Natalia
+  turnin 8304
+
+step Into The Maw of Madness
+  zone map 1451
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 8306
+  complete 8306 @49.2,34.2
+
+step Into The Maw of Madness
+  turnin 8306
+
+step Glyph Chasing
+  zone map 1451
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 8309
+  complete 8309 @41.3,88.5
+
+step Glyph Chasing
+  turnin 8309
+
+step Frankal Stonebridge
+  when group 8310
+  zone Silithus
+  accept 8310
+
+step Frankal Stonebridge
+  when group 8310
+  zone Silithus
+  turnin 8310
+
+step Rutgar Glyphshaper
+  when turnedin 8310
+  zone Silithus
+  accept 8314 optional
+
+step Geologist Larksbane
+  when onquest 8314
+  zone Silithus
+  turnin 8314
+
+step Abyssal Scepters
+  when turnedin 8352
+  tip Needs Revered standing (21000) with Cenarion Circle; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  collect 20515 x3 anywhere optional
+  turnin 8364 direct optional
+
+step Bor Wishes to Speak
+  when onquest 8351
+  zone map 1451
+  turnin 8351 optional
+
+step Bor Wildmane
+  when onquest 8349
+  zone map 1451
+  turnin 8349 optional
+
+step Signet of the Dukes
+  when onquest 8348
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1451
+  complete 8348 @48.6,37.8 optional
+
+step Signet of the Dukes
+  when onquest 8348
+  zone map 1451
+  turnin 8348 optional
+
+step Brann Bronzebeard's Lost Letter
+  tip Brann Bronzebeard's Lost Letter drops from Hive'Ashi Ambusher, Hive'Ashi Drone, Hive'Regal Hive Lord: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1451
+  collect 20461 x1 optional
+  accept 8308 item 20461 optional
+
+step Abyssal Signets
+  when turnedin 8348
+  tip Needs Friendly standing (3000) with Cenarion Circle; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  collect 20514 x3 anywhere optional
+  turnin 8363 direct optional
+
+step Brann Bronzebeard's Lost Letter
+  when onquest 8308
+  zone map 1451
+  turnin 8308
+
+step Geologist Larksbane
+  when group 8315
+  zone Feralas
+  accept 8315
+
+step Geologist Larksbane
+  when group 8315
+  zone Silithus
+  turnin 8315
+
+step Sharing the Knowledge
+  when skill Cooking 1
+  zone map 1451
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 8313 optional
+
+step Sharing the Knowledge
+  when skill Cooking 1
+  turnin 8313 optional
+
+step Kitchen Assistance
+  when skill Cooking 1
+  zone map 1451
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 8317 optional
+  complete 8317 @51.9,39.2 optional
+
+step Kitchen Assistance
+  when skill Cooking 1
+  turnin 8317 optional

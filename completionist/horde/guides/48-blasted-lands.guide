@@ -1,0 +1,140 @@
+guide polestar-completionist-horde/48-blasted-lands
+title 48 Blasted Lands (50-55) (Completionist)
+faction Horde
+levels 50-55
+zone Blasted Lands
+next polestar-completionist-horde/dungeon-sunken-temple
+next polestar-completionist-horde/49-western-plaguelands
+pitch On along the line: Blasted Lands, quests of level 50 to 55.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 9 quests; estimated level at the end 50.8 (heuristic XP, class quests not counted).
+
+step Bloodmage Lynnore
+  accept 2601
+  accept 2603
+  accept 81917
+
+step Bloodmage Lynnore
+  when group 81919
+  zone Blasted Lands
+  accept 81919
+
+step Bloodmage Drazial
+  accept 2581
+  accept 2583
+  accept 2585
+
+step Redstone Basilisk
+  collect 8394 x1 quest 2583.3
+  collect 8394 x10 quest 2601.1
+
+step Shadowsworn Cultist
+  collect 220214 x5 quest 81917.1
+
+step Helboar and Black Slayer
+  collect 8392 x2 quest 2581.2
+  collect 8392 x3 quest 2583.1
+  collect 8396 x2 quest 2585.2
+  collect 8392 x1 quest 2585.3
+  collect 8396 x2 quest 2601.2
+  collect 8396 x10 quest 2603.1
+
+step Kum'isha the Collector
+  accept 2521
+  accept 3501
+
+step Teremus the Devourer
+  collect 8244 x1 quest 2521.1
+
+step Ravage
+  collect 8391 x3 quest 2581.1
+  collect 8391 x2 quest 2603.2
+
+step Calefactus the Unleashed
+  when group 81919
+  zone Blasted Lands
+  tip Brought to Heel is group work: elites. Grouping up is advised.
+  collect 220213 x1 quest 81919.1
+
+step Scorpok Stinger
+  collect 8393 x1 quest 2581.3
+  collect 8393 x2 quest 2583.2
+  collect 8393 x3 quest 2585.1
+
+step Nethergarde Analyst
+  collect 10593 x1 quest 3501.1
+
+step Kum'isha the Collector
+  turnin 2521
+  turnin 3501
+
+step One Draenei's Junk...
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1419
+  collect 10593 x1 anywhere optional
+  turnin 3502 direct optional
+
+step Kum'isha's Endeavors
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1419
+  collect 8244 x1 anywhere optional
+  turnin 2522 direct optional
+
+step Bloodmage Lynnore
+  turnin 2601
+  turnin 2603
+  turnin 81917
+
+step Spiritual Domination
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1419
+  collect 8396 x10 anywhere optional
+  collect 8391 x2 anywhere optional
+  turnin 2604 direct optional
+
+step Infallible Mind
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1419
+  collect 8394 x10 anywhere optional
+  collect 8396 x2 anywhere optional
+  turnin 2602 direct optional
+
+step Bloodmage Lynnore
+  when group 81919
+  zone Blasted Lands
+  turnin 81919
+
+step Bloodmage Drazial
+  turnin 2581
+  turnin 2583
+  turnin 2585
+
+step Salt of the Scorpok
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1419
+  collect 8393 x3 anywhere optional
+  collect 8396 x2 anywhere optional
+  collect 8392 x1 anywhere optional
+  turnin 2586 direct optional
+
+step Spirit of the Boar
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1419
+  collect 8392 x3 anywhere optional
+  collect 8393 x2 anywhere optional
+  collect 8394 x1 anywhere optional
+  turnin 2584 direct optional
+
+step Rage of Ages
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1419
+  collect 8391 x3 anywhere optional
+  collect 8392 x2 anywhere optional
+  collect 8393 x1 anywhere optional
+  turnin 2582 direct optional
+
+
+step Memories of Rockard
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1435
+  turnin 87451 direct @47.8,54.9 map 1435

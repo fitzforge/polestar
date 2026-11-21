@@ -1,0 +1,247 @@
+guide polestar-completionist-horde/event-darkmoon-faire
+title Darkmoon Faire (Completionist)
+faction Horde
+category Miscellaneous
+levels 1-60
+zone Orgrimmar
+pitch The quests of Darkmoon Faire, as far as the reference data places them.
+
+step About this guide
+  note Each quest here is offered only while the event runs. Every step is optional: do what the calendar offers now, and come back for the rest.
+
+step Carnival Boots
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 2309 x3 anywhere optional
+  turnin 7881 direct optional
+
+step Carnival Jerkins
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 2314 x3 anywhere optional
+  turnin 7882 direct optional
+
+step The World's Largest Gnome!
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 5739 x3 anywhere optional
+  turnin 7883 direct optional
+
+step Crocolisk Boy and the Bearded Murloc
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 8185 x1 anywhere optional
+  turnin 7884 direct optional
+
+step Armor Kits
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 15564 x8 anywhere optional
+  turnin 7885 direct optional
+
+step More Armor Kits
+  when turnedin 7885
+  tip Needs Friendly standing (5500) with Darkmoon Faire; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 15564 x8 anywhere optional
+  turnin 7941 direct optional
+
+step Coarse Weightstone
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 3240 x10 anywhere optional
+  turnin 7889 direct optional
+
+step Heavy Grinding Stone
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 3486 x7 anywhere optional
+  turnin 7890 direct optional
+
+step Green Iron Bracers
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 3835 x3 anywhere optional
+  turnin 7891 direct optional
+
+step Big Black Mace
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 7945 x1 anywhere optional
+  turnin 7892 direct optional
+
+step Rituals of Strength
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 12644 x8 anywhere optional
+  turnin 7893 direct optional
+
+step Copper Modulator
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 4363 x5 anywhere optional
+  turnin 7894 direct optional
+
+step Whirring Bronze Gizmo
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 4375 x7 anywhere optional
+  turnin 7895 direct optional
+
+step Green Fireworks
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 9313 x36 anywhere optional
+  turnin 7896 direct optional
+
+step Mechanical Repair Kits
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 11590 x6 anywhere optional
+  turnin 7897 direct optional
+
+step Thorium Widget
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 15994 x6 anywhere optional
+  turnin 7898 direct optional
+
+step Small Furry Paws
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 5134 x5 anywhere optional
+  turnin 7899 direct optional
+
+step Torn Bear Pelts
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 11407 x5 anywhere optional
+  turnin 7900 direct optional
+
+step Soft Bushy Tails
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 4582 x5 anywhere optional
+  turnin 7901 direct optional
+
+step Vibrant Plumes
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 5117 x5 anywhere optional
+  turnin 7902 direct optional
+
+step Evil Bat Eyes
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 11404 x10 anywhere optional
+  turnin 7903 direct optional
+
+step 5 Tickets - Darkmoon Flower
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 19182 x5 anywhere optional
+  turnin 7930 direct optional
+
+step 5 Tickets - Minor Darkmoon Prize
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 19182 x5 anywhere optional
+  turnin 7931 direct optional
+
+step 12 Tickets - Lesser Darkmoon Prize
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 19182 x12 anywhere optional
+  turnin 7932 direct optional
+
+step 40 Tickets - Greater Darkmoon Prize
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 19182 x40 anywhere optional
+  turnin 7933 direct optional
+
+step 50 Tickets - Darkmoon Storage Box
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 19182 x50 anywhere optional
+  turnin 7934 direct optional
+
+step 10 Tickets - Last Month's Mutton
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 19182 x10 anywhere optional
+  turnin 7935 direct optional
+
+step 50 Tickets - Last Year's Mutton
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 19182 x50 anywhere optional
+  turnin 7936 direct optional
+
+step More Dense Grinding Stones
+  when turnedin 7893
+  tip Needs Friendly standing (5500) with Darkmoon Faire; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 12644 x8 anywhere optional
+  turnin 7939 direct optional
+
+step 1200 Tickets - Orb of the Darkmoon
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 19182 x1200 anywhere optional
+  turnin 7940 direct optional
+
+step More Thorium Widgets
+  when turnedin 7898
+  tip Needs Friendly standing (5500) with Darkmoon Faire; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 15994 x6 anywhere optional
+  turnin 7942 direct optional
+
+step More Bat Eyes
+  when turnedin 7903
+  tip Needs Friendly standing (5500) with Darkmoon Faire; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 11404 x10 anywhere optional
+  turnin 7943 direct optional
+
+step Level 6
+  level 6
+
+step The Darkmoon Faire
+  zone map 1454
+  accept 7926 optional
+
+step The Darkmoon Faire
+  when onquest 7926
+  zone map 1412
+  turnin 7926 optional
+
+step Spawn of Jubjub
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 11325 x1 anywhere optional
+  turnin 7946 direct optional
+
+step 1200 Tickets - Amulet of the Darkmoon
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 19182 x1200 anywhere optional
+  turnin 7981 direct optional
+
+step Glowing Scorpid Blood
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 19933 x10 anywhere optional
+  turnin 8222 direct optional
+
+step More Glowing Scorpid Blood
+  tip Needs Friendly standing (5500) with Darkmoon Faire; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 19933 x10 anywhere optional
+  turnin 8223 direct optional

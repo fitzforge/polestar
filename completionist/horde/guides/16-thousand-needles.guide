@@ -1,0 +1,202 @@
+guide polestar-completionist-horde/16-thousand-needles
+title 16 Thousand Needles (25-37) (Completionist)
+faction Horde
+levels 25-37
+zone Thousand Needles
+next polestar-completionist-horde/dungeon-gnomeregan
+next polestar-completionist-horde/17-tirisfal-glades-and-the-undercity-3
+pitch On along the line: Thousand Needles, quests of level 25 to 37.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 21 quests; estimated level at the end 26.7 (heuristic XP, class quests not counted).
+# Skipped: 1 prerequisite N not in this route.
+
+step Elu
+  sethome "Freewind Post"
+  getfp "Freewind Post"
+  accept 4767
+  accept 4821
+  accept 4841
+  accept 5147
+  accept 98070
+
+step Stolen Freewind Supplies
+  zone map 1441
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 98069
+  complete 98069 @46.2,51.5
+
+step Rau Cliffrunner
+  accept 1197
+
+step Stolen Freewind Supplies
+  turnin 98069
+
+step Alien Egg
+  collect 12467 x1 quest 4821.1
+
+step Screeching Harpy
+  kill 4100 x5 quest 98070.1
+
+step Screeching Roguefeather and Screeching Windcaller
+  kill 4101 x5 quest 98070.2
+  kill 4104 x5 quest 98070.3
+
+step Highperch Wyvern Egg
+  collect 12356 x10 quest 4767.1
+
+step Wizlo Bearingshiner
+  when group 5151
+  zone Thousand Needles
+  accept 5151
+
+step Enraged Panther
+  when group 5151
+  zone The Barrens
+  tip Hypercapacitor Gizmo is group work: elites. Grouping up is advised.
+  collect 12946 x1 quest 5151.1
+
+step Arnak Grimtotem
+  collect 12884 x1 quest 5147.1
+
+step Ancient Brazier
+  collect 5869 x1 quest 1197.1
+
+step Galak Messenger
+  goto 47.3,96.9 "Galak Messenger"
+  accept 4881 item 12564 -- Drops from Galak Messenger
+
+step Galak Scout
+  kill 4094 x12 quest 4841.1
+
+step Galak Wrangler
+  zone Thousand Needles
+  kill 4093 x10 quest 4841.2
+
+step Galak Windchaser
+  zone The Barrens
+  kill 4096 x6 quest 4841.3
+
+step Elu
+  zone Thousand Needles
+  turnin 4767
+  turnin 4821
+  accept 4865
+  turnin 4841
+  turnin 5147
+  accept 5064
+  turnin 98070
+
+step Rau Cliffrunner
+  turnin 1197
+
+step Document Chest
+  zone The Barrens
+  collect 12765 x1 quest 5064.1
+  collect 12766 x1 quest 5064.2
+  collect 12768 x1 quest 5064.3
+
+step Motega Firemane
+  zone Thousand Needles
+  turnin 4865
+  accept 5062
+
+step Wizlo Bearingshiner
+  when group 5151
+  zone Thousand Needles
+  turnin 5151
+
+step Kanati Greycloud
+  turnin 4881
+  accept 4966
+
+step Galak Assassin
+  kill 10720 x1 quest 4966.1
+
+step Kanati Greycloud
+  turnin 4966
+
+step Incendia Agave
+  zone The Barrens
+  collect 12732 x10 quest 5062.1
+
+step Pao'ka Swiftmountain
+  zone Thousand Needles
+  accept 4770
+
+step Motega Firemane
+  complete 4770 @15.2,32.6 map 1441
+  turnin 4770
+
+step Level 32
+  level 32
+
+step Cliffwatcher Longhorn
+  zone Thousand Needles
+  accept 5361
+  turnin 5064
+
+step Kravel Koalbeard
+  accept 1110
+  accept 1111
+  accept 5762
+
+step Rocket Car Rubble
+  collect 5798 x30 quest 1110.1
+
+step Kravel Koalbeard
+  turnin 1110
+  accept 1176
+
+step Salt Flats Scavenger
+  collect 5848 x10 quest 1176.1
+
+step Pozzik
+  turnin 1176
+  accept 1178
+  accept 1175
+
+step Saltstone Gazer
+  kill 4150 x6 quest 1175.3
+
+step Saltstone Crystalhide
+  kill 4151 x10 quest 1175.2
+
+step Saltstone Basilisk
+  kill 4147 x10 quest 1175.1
+
+step Trackmaster Zherin
+  turnin 1175
+
+step Wharfmaster Dizzywig
+  zone The Barrens
+  turnin 1111
+  turnin 1178
+
+step Magatha Grimtotem
+  zone Thunder Bluff
+  turnin 5062
+
+step Magatha Grimtotem
+  when group 5088
+  zone Thunder Bluff
+  accept 5088
+
+step Arikara and Sacred Fire of Life
+  when group 5088
+  zone The Barrens
+  tip Arikara is group work: elites. Grouping up is advised.
+  collect 12925 x1 quest 5088.1
+  interact 175944 quest 5088.2
+
+step Motega Firemane
+  when group 5088
+  zone Thousand Needles
+  turnin 5088
+
+step Nataka Longhorn
+  zone Desolace
+  turnin 5361
+
+step Hemet Nesingwary
+  zone Stranglethorn Vale
+  turnin 5762

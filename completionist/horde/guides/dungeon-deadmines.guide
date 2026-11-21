@@ -1,0 +1,119 @@
+guide polestar-completionist-horde/dungeon-deadmines
+title Deadmines (Completionist)
+faction Horde
+category Dungeons
+levels 20-25
+zone Westfall
+pitch Deadmines, in Westfall.
+why Every Horde quest of Deadmines: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Westfall: the arrow leads to it.
+
+step Diplomatic Incident
+  only Paladin,Undead
+  zone Tirisfal Glades
+  accept 91858
+
+step Diplomatic Incident
+  only Paladin,Undead
+  zone Silverpine Forest
+  turnin 91858
+
+step A Curious Pair
+  only Paladin
+  zone Silverpine Forest
+  accept 91859
+
+step A Curious Pair
+  only Paladin
+  zone Silverpine Forest
+  turnin 91859
+
+step A Grim Fate
+  only Paladin
+  zone Silverpine Forest
+  accept 91860
+
+step A Grim Fate
+  only Paladin
+  zone Silverpine Forest
+  complete 91860 @65.02,34.1
+
+step A Grim Fate
+  only Paladin
+  zone Silverpine Forest
+  turnin 91860
+
+step Into Fenris Keep
+  only Paladin,Undead
+  zone Silverpine Forest
+  accept 91861
+
+step Into Fenris Keep
+  only Paladin,Undead
+  zone Silverpine Forest
+  turnin 91861
+
+step Lumina Windsinger
+  only Paladin,Undead
+  zone Silverpine Forest
+  accept 91862
+
+step Lumina Windsinger
+  only Paladin,Undead
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Silverpine Forest
+  complete 91862 @65.55,23.27
+
+step Lumina Windsinger
+  only Paladin,Undead
+  zone Silverpine Forest
+  turnin 91862
+
+step The Windshaper's Wrath
+  only Paladin,Undead
+  zone Silverpine Forest
+  accept 96204
+
+step The Windshaper's Wrath
+  only Paladin,Undead
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Silverpine Forest
+  complete 96204 @65.55,23.27
+
+step The Windshaper's Wrath
+  only Paladin,Undead
+  zone Silverpine Forest
+  turnin 96204
+
+step The Debt
+  only Paladin,Undead
+  zone Silverpine Forest
+  accept 95034
+
+step The Debt
+  only Paladin,Undead
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Silverpine Forest
+  complete 95034 @43.4,40.99
+
+step The Debt
+  only Paladin,Undead
+  zone Silverpine Forest
+  turnin 95034
+
+step Lumina Windsinger
+  only Paladin,Undead
+  zone Silverpine Forest
+  accept 95036
+
+step Inside Deadmines
+  only Paladin,Undead
+  zone Westfall
+  complete 95036 @41.9,72.8
+
+step Trevan Rol
+  only Paladin,Undead
+  zone Silverpine Forest
+  turnin 95036

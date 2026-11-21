@@ -1,0 +1,748 @@
+guide polestar-completionist-horde/dungeon-sunken-temple
+title Sunken Temple (Completionist)
+faction Horde
+category Dungeons
+levels 50-60
+zone Swamp of Sorrows
+next polestar-completionist-horde/dungeon-alcaz-prison
+next polestar-completionist-horde/49-western-plaguelands
+pitch Sunken Temple, in Swamp of Sorrows.
+why Every Horde quest of Sunken Temple: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Swamp of Sorrows: the arrow leads to it.
+
+step Pool of Tears
+  zone Swamp of Sorrows
+  accept 1424
+
+step Pool of Tears
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Swamp of Sorrows
+  complete 1424 @47.93,54.78
+
+step Pool of Tears
+  zone Swamp of Sorrows
+  turnin 1424
+
+step The Atal'ai Exile
+  zone Swamp of Sorrows
+  accept 1429
+
+step The Atal'ai Exile
+  zone The Hinterlands
+  turnin 1429
+
+step Return to Fel'Zerul
+  zone The Hinterlands
+  accept 1444
+
+step Return to Fel'Zerul
+  zone Swamp of Sorrows
+  turnin 1444
+
+step Screecher Spirits
+  zone Tanaris
+  accept 3520
+
+step Screecher Spirits
+  zone Feralas
+  complete 3520 @42.01,36.27
+
+step Screecher Spirits
+  zone Tanaris
+  turnin 3520
+
+step The Prophecy of Mosh'aru
+  zone Tanaris
+  accept 3527
+
+step The Prophecy of Mosh'aru
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 3527 @66.99,22.36
+
+step The Prophecy of Mosh'aru
+  zone Tanaris
+  turnin 3527
+
+step The Ancient Egg
+  zone Tanaris
+  accept 4787
+
+step The Ancient Egg
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 4787 @66.99,22.36
+
+step The Ancient Egg
+  zone Tanaris
+  turnin 4787
+
+step Elemental Mastery
+  only Shaman
+  zone Thunder Bluff
+  accept 8410
+
+step Elemental Mastery
+  only Shaman
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Thunder Bluff
+  complete 8410 @21.99,18.8
+
+step Elemental Mastery
+  only Shaman
+  zone Alterac Mountains
+  turnin 8410
+
+step Mastering the Elements
+  only Shaman
+  when available 8411
+  tip One of several exclusive quests; the route takes Elemental Mastery (8410). This one shows for a character the game offers it to instead.
+  zone map 1416
+  accept 8411 optional
+
+step A Troubled Spirit
+  only Warrior
+  zone Thunder Bluff
+  accept 8417
+
+step A Troubled Spirit
+  only Warrior
+  zone Swamp of Sorrows
+  turnin 8417
+
+step Larion and Muigin
+  zone Un'Goro Crater
+  accept 4145
+
+step Larion and Muigin
+  zone Un'Goro Crater
+  complete 4145 @56.69,33.15
+
+step Larion and Muigin
+  zone Un'Goro Crater
+  turnin 4145
+
+step Marvon's Workshop
+  zone Un'Goro Crater
+  accept 4147
+
+step Marvon's Workshop
+  zone The Barrens
+  turnin 4147
+
+step The Hunter's Charm
+  only Hunter
+  zone Thunder Bluff
+  accept 8151
+
+step The Hunter's Charm
+  only Hunter
+  zone Azshara
+  turnin 8151
+
+step Courser Antlers
+  only Hunter
+  zone Azshara
+  accept 8153
+
+step Courser Antlers
+  only Hunter
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Azshara
+  complete 8153 @42.4,42.62
+
+step Courser Antlers
+  only Hunter
+  zone Azshara
+  turnin 8153
+
+step Wavethrashing
+  only Hunter
+  zone Azshara
+  accept 8231
+
+step Wavethrashing
+  only Hunter
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Azshara
+  complete 8231 @42.4,42.62
+
+step Wavethrashing
+  only Hunter
+  zone Azshara
+  turnin 8231
+
+step A Simple Request
+  only Rogue
+  zone Stormwind City
+  accept 8233
+
+step A Simple Request
+  only Rogue
+  zone Alterac Mountains
+  turnin 8233
+
+step Sealed Azure Bag
+  only Rogue
+  zone Alterac Mountains
+  accept 8234
+
+step Sealed Azure Bag
+  only Rogue
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Alterac Mountains
+  complete 8234 @86.02,78.88
+
+step Sealed Azure Bag
+  only Rogue
+  zone Azshara
+  turnin 8234
+
+step Encoded Fragments
+  only Rogue
+  zone Azshara
+  accept 8235
+
+step Encoded Fragments
+  only Rogue
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Azshara
+  complete 8235 @29.25,40.21
+
+step Encoded Fragments
+  only Rogue
+  zone Azshara
+  turnin 8235
+
+step Magecraft
+  only Mage
+  zone Stormwind City
+  accept 8250
+
+step Magecraft
+  only Mage
+  zone Azshara
+  turnin 8250
+
+step Magic Dust
+  only Mage
+  zone Azshara
+  accept 8251
+
+step Magic Dust
+  only Mage
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Azshara
+  complete 8251 @29.25,40.21
+
+step Magic Dust
+  only Mage
+  zone Azshara
+  turnin 8251
+
+step The Siren's Coral
+  only Mage
+  zone Azshara
+  accept 8252
+
+step The Siren's Coral
+  only Mage
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Azshara
+  complete 8252 @29.25,40.21
+
+step The Siren's Coral
+  only Mage
+  zone Azshara
+  turnin 8252
+
+step Cenarion Aid
+  only Priest
+  zone Stormwind City
+  accept 8254
+
+step Cenarion Aid
+  only Priest
+  zone Azshara
+  turnin 8254
+
+step Of Coursers We Know
+  only Priest
+  zone Azshara
+  accept 8255
+
+step Of Coursers We Know
+  only Priest
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Azshara
+  complete 8255 @42.4,42.62
+
+step Of Coursers We Know
+  only Priest
+  zone Azshara
+  turnin 8255
+
+step The Ichor of Undeath
+  only Priest
+  zone Azshara
+  accept 8256
+
+step The Ichor of Undeath
+  only Priest
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Azshara
+  complete 8256 @42.4,42.62
+
+step The Ichor of Undeath
+  only Priest
+  zone Azshara
+  turnin 8256
+
+step Spirit Totem
+  only Shaman
+  zone Alterac Mountains
+  accept 8412
+
+step Mastering the Elements
+  only Shaman
+  when onquest 8411
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1416
+  complete 8411 @80.5,66.9 optional
+
+step Mastering the Elements
+  only Shaman
+  when onquest 8411
+  zone map 1416
+  turnin 8411 optional
+
+step Spirit Totem
+  only Shaman
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Alterac Mountains
+  complete 8412 @80.5,66.92
+
+step Spirit Totem
+  only Shaman
+  zone Alterac Mountains
+  turnin 8412
+
+step An Imp's Request
+  only Warlock
+  zone Stormwind City
+  accept 8419
+
+step An Imp's Request
+  only Warlock
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Stormwind City
+  complete 8419 @39.24,84.96
+
+step An Imp's Request
+  only Warlock
+  zone Felwood
+  turnin 8419
+
+step Hot and Itchy
+  only Warlock
+  when available 8420
+  tip One of several exclusive quests; the route takes An Imp's Request (8419). This one shows for a character the game offers it to instead.
+  zone map 1448
+  accept 8420 optional
+
+step The Wrong Stuff
+  only Warlock
+  zone Felwood
+  accept 8421
+
+step Hot and Itchy
+  only Warlock
+  when onquest 8420
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1448
+  complete 8420 @41.4,45.0 optional
+
+step Hot and Itchy
+  only Warlock
+  when onquest 8420
+  zone map 1448
+  turnin 8420 optional
+
+step The Wrong Stuff
+  only Warlock
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Felwood
+  complete 8421 @41.36,45.02
+
+step The Wrong Stuff
+  only Warlock
+  zone Felwood
+  turnin 8421
+
+step Warrior Kinship
+  only Warrior
+  zone Swamp of Sorrows
+  accept 8423
+
+step Warrior Kinship
+  only Warrior
+  zone Blasted Lands
+  complete 8423 @44.4,32.4
+
+step Warrior Kinship
+  only Warrior
+  zone Swamp of Sorrows
+  turnin 8423
+
+step War on the Shadowsworn
+  only Warrior
+  zone Swamp of Sorrows
+  accept 8424
+
+step War on the Shadowsworn
+  only Warrior
+  zone Blasted Lands
+  complete 8424 @61.75,41.11
+
+step War on the Shadowsworn
+  only Warrior
+  zone Swamp of Sorrows
+  turnin 8424
+
+step Torwa Pathfinder
+  only Druid
+  zone Thunder Bluff
+  accept 9063
+
+step Torwa Pathfinder
+  only Druid
+  zone Tanaris
+  turnin 9063
+
+step Level 60
+  level 60
+
+step What Tomorrow Brings
+  zone Silithus
+  accept 8286
+
+step What Tomorrow Brings
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Silithus
+  complete 8286 @49.45,36.45
+
+step What Tomorrow Brings
+  zone Silithus
+  turnin 8286
+
+step Only One May Rise
+  zone Silithus
+  accept 8288
+
+step Only One May Rise
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Silithus
+  complete 8288 @49.45,36.45
+
+step Only One May Rise
+  zone Silithus
+  turnin 8288
+
+step The Path of the Righteous
+  zone Silithus
+  accept 8301
+
+step The Path of the Righteous
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Silithus
+  complete 8301 @49.45,36.45
+
+step The Path of the Righteous
+  zone Silithus
+  turnin 8301
+
+step Anachronos
+  zone Silithus
+  accept 8303
+
+step Anachronos
+  zone Tanaris
+  turnin 8303
+
+step Long Forgotten Memories
+  zone Tanaris
+  accept 8305
+
+step Long Forgotten Memories
+  zone Silithus
+  turnin 8305
+
+step A Pawn on the Eternal Board
+  zone Silithus
+  accept 8519
+
+step A Pawn on the Eternal Board
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Silithus
+  complete 8519 @28.68,89.14
+
+step A Pawn on the Eternal Board
+  zone Tanaris
+  turnin 8519
+
+step The Charge of the Dragonflights
+  zone Tanaris
+  accept 8555
+
+step The Charge of the Dragonflights
+  zone Tanaris
+  turnin 8555
+
+step Bloodpetal Poison
+  only Druid
+  zone Tanaris
+  accept 9052
+
+step Bloodpetal Poison
+  only Druid
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 9052 @27.5,42.7
+
+step Bloodpetal Poison
+  only Druid
+  zone Tanaris
+  turnin 9052
+
+step Toxic Test
+  only Druid
+  zone Tanaris
+  accept 9051
+
+step Toxic Test
+  only Druid
+  zone Un'Goro Crater
+  complete 9051 @31.19,36.42
+
+step Toxic Test
+  only Druid
+  zone Tanaris
+  turnin 9051
+
+step Fallen Hero of the Horde
+  only Warrior
+  zone Swamp of Sorrows
+  accept 8425
+
+step Fel'zerul
+  zone Swamp of Sorrows
+  accept 1445
+
+step Malfurion Stormrage
+  zone Swamp of Sorrows
+  accept 8733 @69.9,53.5
+
+step Liv Rizzlefix
+  zone The Barrens
+  accept 4146
+
+step Bath'rah the Windwatcher
+  only Shaman
+  zone Alterac Mountains
+  accept 8413
+
+step Atal'ai Exile
+  zone The Hinterlands
+  accept 1446
+
+step Witch Doctor Uzer'i
+  zone Feralas
+  accept 3380
+
+step Torwa Pathfinder
+  only Druid
+  zone Tanaris
+  accept 9053
+
+step Yeh'kinya
+  zone Tanaris
+  accept 3528
+
+step Archmage Xylem
+  only Rogue
+  zone Azshara
+  accept 8236
+
+step Archmage Xylem
+  only Mage
+  zone Azshara
+  accept 8253
+
+step Ogtinc
+  only Hunter
+  zone Azshara
+  accept 8232
+
+step Ogtinc
+  only Priest
+  zone Azshara
+  accept 8257
+
+step Impsy
+  only Warlock
+  zone Felwood
+  accept 8422
+
+step Inside Sunken Temple
+  zone Swamp of Sorrows
+  collect 10454 @69.9,53.5
+  accept 3373 item 10454
+  complete 1445 @69.9,53.5
+  complete 4146 @69.9,53.5
+  complete 1446 @69.9,53.5
+  complete 3528 @69.9,53.5
+  turnin 3373 @69.9,53.5
+
+step Inside Sunken Temple
+  only Hunter
+  zone Swamp of Sorrows
+  complete 8232 @69.9,53.5
+
+step Inside Sunken Temple
+  only Rogue
+  zone Swamp of Sorrows
+  complete 8236 @69.9,53.5
+
+step Inside Sunken Temple
+  only Mage
+  zone Swamp of Sorrows
+  complete 8253 @69.9,53.5
+
+step Inside Sunken Temple
+  only Priest
+  zone Swamp of Sorrows
+  complete 8257 @69.9,53.5
+
+step Inside Sunken Temple
+  only Shaman
+  zone Swamp of Sorrows
+  complete 8413 @69.9,53.5
+
+step Inside Sunken Temple
+  only Warlock
+  zone Swamp of Sorrows
+  complete 8422 @69.9,53.5
+
+step Inside Sunken Temple
+  only Warrior
+  zone Swamp of Sorrows
+  complete 8425 @69.9,53.5
+
+step Inside Sunken Temple
+  only Druid
+  zone Swamp of Sorrows
+  complete 9053 @69.9,53.5
+
+step Fallen Hero of the Horde
+  only Warrior
+  zone Swamp of Sorrows
+  turnin 8425
+
+step Fel'zerul
+  zone Swamp of Sorrows
+  turnin 1445
+
+step Bath'rah the Windwatcher
+  only Shaman
+  zone Alterac Mountains
+  turnin 8413
+
+step Lord Jorach Ravenholdt
+  only Rogue
+  zone Alterac Mountains
+  turnin 8236
+
+step Atal'ai Exile
+  zone The Hinterlands
+  turnin 1446
+
+step Forest Wisp
+  zone Teldrassil
+  turnin 8733
+
+step Marvon Rivetseeker
+  zone Tanaris
+  turnin 3380
+
+step Torwa Pathfinder
+  only Druid
+  zone Tanaris
+  turnin 9053
+
+step Yeh'kinya
+  zone Tanaris
+  turnin 3528
+
+step Archmage Xylem
+  only Mage
+  zone Azshara
+  turnin 8253
+
+step Ogtinc
+  only Hunter
+  zone Azshara
+  turnin 8232
+
+step Greta Mosshoof
+  only Priest
+  zone Felwood
+  turnin 8257
+
+step Impsy
+  only Warlock
+  zone Felwood
+  turnin 8422
+
+step Larion
+  zone Un'Goro Crater
+  turnin 4146
+
+step Bloodpetal Zapper
+  zone map 1449
+  accept 4148
+
+step Bloodpetal Zapper
+  when onquest 4148
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1449
+  complete 4148 @45.5,8.7
+
+step Bloodpetal Zapper
+  when onquest 4148
+  zone map 1449
+  turnin 4148
+
+step The Stone Circle
+  zone Tanaris
+  accept 3444
+
+step The Stone Circle
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 3444 @52.71,45.92
+
+step The Stone Circle
+  zone Tanaris
+  turnin 3444
+
+step Marvon Rivetseeker
+  zone Tanaris
+  accept 3446
+  accept 3447
+
+step Inside Sunken Temple, again
+  zone Swamp of Sorrows
+  turnin 3446 @69.9,53.5
+  turnin 3447 @69.9,53.5

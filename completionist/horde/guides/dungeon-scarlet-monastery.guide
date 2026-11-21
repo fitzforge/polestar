@@ -1,0 +1,273 @@
+guide polestar-completionist-horde/dungeon-scarlet-monastery
+title Scarlet Monastery (Completionist)
+faction Horde
+category Dungeons
+levels 30-42
+zone Tirisfal Glades
+next polestar-completionist-horde/18-dustwallow-marsh
+pitch Scarlet Monastery, in Tirisfal Glades.
+why Every Horde quest of Scarlet Monastery: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Tirisfal Glades: the arrow leads to it.
+
+step The Horn of Xelthos
+  only Rogue
+  zone Silverpine Forest
+  accept 78261
+
+step The Horn of Xelthos
+  only Rogue
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Silverpine Forest
+  complete 78261 @47.12,70.99
+
+step The Horn of Xelthos
+  only Rogue
+  zone Silverpine Forest
+  turnin 78261
+
+step The Horn of Xelthos
+  only Rogue
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone Silverpine Forest
+  turnin 78307 direct
+
+step Test of Faith
+  zone Thousand Needles
+  accept 1149
+
+step Test of Faith
+  zone Thousand Needles
+  complete 1149 @26.43,32.93
+
+step Test of Faith
+  zone Thousand Needles
+  turnin 1149
+
+step Test of Endurance
+  zone Thousand Needles
+  accept 1150
+
+step Test of Endurance
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Thousand Needles
+  complete 1150 @53.95,41.49
+
+step Test of Endurance
+  zone Thousand Needles
+  turnin 1150
+
+step Test of Strength
+  zone Thousand Needles
+  accept 1151
+
+step Test of Strength
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Thousand Needles
+  complete 1151 @53.95,41.49
+
+step Test of Strength
+  zone Thousand Needles
+  turnin 1151
+
+step Test of Lore
+  zone Thousand Needles
+  accept 1152
+
+step Test of Lore
+  zone Stonetalon Mountains
+  turnin 1152
+
+step Test of Lore
+  zone Stonetalon Mountains
+  accept 1154
+
+step Test of Lore
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Stonetalon Mountains
+  complete 1154 @78.8,45.69
+
+step Test of Lore
+  zone Stonetalon Mountains
+  turnin 1154
+
+step Test of Lore
+  zone Stonetalon Mountains
+  accept 6627
+
+step Test of Lore
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Stonetalon Mountains
+  complete 6627 @78.8,45.69
+
+step Test of Lore
+  zone Stonetalon Mountains
+  turnin 6627
+
+step Going, Going, Guano!
+  zone Undercity
+  accept 1109
+
+step Going, Going, Guano!
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Undercity
+  complete 1109 @48.82,69.28
+
+step Going, Going, Guano!
+  zone Undercity
+  turnin 1109
+
+step Journey to the Marsh
+  only Mage
+  zone Thunder Bluff
+  accept 1947
+
+step Journey to the Marsh
+  only Mage
+  zone Dustwallow Marsh
+  turnin 1947
+
+step Hidden Secrets
+  only Mage
+  zone Dustwallow Marsh
+  accept 1949
+
+step Hidden Secrets
+  only Mage
+  zone Thousand Needles
+  turnin 1949
+
+step Test of Lore
+  zone Stonetalon Mountains
+  accept 1159
+
+step Test of Lore
+  zone Undercity
+  turnin 1159
+
+step Get the Scoop
+  only Mage
+  zone Thousand Needles
+  accept 1950
+
+step Get the Scoop
+  only Mage
+  zone Thousand Needles
+  complete 1950 @79.61,75.63
+
+step Get the Scoop
+  only Mage
+  zone Thousand Needles
+  turnin 1950
+
+step Dead Drop
+  only Rogue
+  zone Silverpine Forest
+  accept 78676
+
+step Magus Tirth
+  only Mage
+  zone Thousand Needles
+  accept 1951
+
+step Sage Truthseeker
+  only Orc,Tauren,Troll
+  zone Thunder Bluff
+  accept 1049
+
+step Master Apothecary Faranell
+  zone Undercity
+  accept 1113
+
+step Parqual Fintallas
+  zone Undercity
+  accept 1160
+
+step Inside Scarlet Monastery
+  zone Tirisfal Glades
+  accept 1051 @85.2,31.3
+  complete 1051 @85.2,31.3
+  complete 1113 @85.2,31.3
+  complete 1160 @85.2,31.3
+
+step Inside Scarlet Monastery
+  only Rogue
+  zone Tirisfal Glades
+  complete 78676 @85.2,31.3
+
+step Inside Scarlet Monastery
+  only Orc,Tauren,Troll
+  zone Tirisfal Glades
+  complete 1049 @85.2,31.3
+
+step Inside Scarlet Monastery
+  only Mage
+  zone Tirisfal Glades
+  complete 1951 @85.2,31.3
+
+step Monika Sengutz
+  zone Alterac Mountains
+  turnin 1051
+
+step Dead Drop
+  only Rogue
+  zone Silverpine Forest
+  turnin 78676
+
+step Tabetha
+  only Mage
+  zone Dustwallow Marsh
+  turnin 1951
+
+step Sage Truthseeker
+  only Orc,Tauren,Troll
+  zone Thunder Bluff
+  turnin 1049
+
+step Master Apothecary Faranell
+  zone Undercity
+  turnin 1113
+
+step Parqual Fintallas
+  zone Undercity
+  turnin 1160
+
+step Test of Lore
+  zone map 1458
+  accept 6628
+
+step Test of Lore
+  when onquest 6628
+  zone map 1458
+  complete 6628 @57.7,65.2
+
+step Test of Lore
+  when onquest 6628
+  zone map 1458
+  turnin 6628
+
+step Level 33
+  level 33
+
+step Varimathras
+  zone Undercity
+  accept 1048
+
+step Inside Scarlet Monastery
+  zone Tirisfal Glades
+  complete 1048 @85.2,31.3
+
+step Varimathras
+  zone Undercity
+  turnin 1048
+
+step Final Passage
+  when turnedin 6628
+  zone map 1458
+  accept 1394
+
+step Final Passage
+  when onquest 1394
+  zone map 1441
+  turnin 1394

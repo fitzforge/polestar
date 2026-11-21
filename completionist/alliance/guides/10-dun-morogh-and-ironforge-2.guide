@@ -1,0 +1,133 @@
+guide polestar-completionist-alliance/10-dun-morogh-and-ironforge-2
+title 10 Dun Morogh and Ironforge (14-23) (Completionist)
+faction Alliance
+levels 14-23
+zone Dun Morogh
+next polestar-completionist-alliance/11-redridge-mountains
+pitch On along the line: Dun Morogh and Ironforge, quests of level 14 to 23.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 12 quests; estimated level at the end 14.8 (heuristic XP, class quests not counted).
+
+step Ironforge
+  zone Ironforge
+  getfp "Ironforge"
+
+step Prospector Stormpike
+  zone Ironforge
+  accept 302
+
+step Gnoarn
+  accept 2039
+
+step Mountaineer Kadrell
+  zone Loch Modan
+  accept 1339
+
+step Gearing Redridge
+  when skill Blacksmithing 1
+  zone map 1455
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 1618 optional
+  complete 1618 @48.6,42.5 optional
+
+step Gearing Redridge
+  zone map 1433
+  when skill Blacksmithing 1
+  turnin 1618 optional
+
+step Pilot Stonegear
+  zone Dun Morogh
+  sethome "Thunderbrew Distillery"
+
+step Jern Hornhelm
+  turnin 302
+  accept 273
+
+step Huldar
+  complete 273 @51.2,69.0 map 1432
+  turnin 273
+  accept 454
+  turnin 454
+  accept 309
+
+step Prospector Ironband
+  complete 309 @65.1,65.8 map 1432
+  turnin 309
+
+step Bingles Blastenheimer
+  turnin 2039
+  accept 2038
+
+step Bingles's Blastencapper
+  collect 7376 x1 quest 2038.4
+
+step Bingles's Toolbucket
+  collect 7346 x1 quest 2038.3
+
+step Bingles's Toolbucket
+  collect 7345 x1 quest 2038.2
+
+step Level 19
+  level 19
+
+step Mountaineer Kadrell
+  zone Loch Modan
+  accept 468
+
+step Mountaineer Rockgar
+  zone Loch Modan
+  turnin 468
+
+step Mountaineer Rockgar
+  zone Loch Modan
+  accept 455
+
+step Valstag Ironjaw
+  zone Wetlands
+  complete 455 @53.7,70.3 map 1437
+  turnin 455
+
+step Level 20
+  level 20
+
+step Pilot Longbeard
+  zone Ironforge
+  accept 467 npc 2092
+
+step Pilot Stonegear
+  zone Dun Morogh
+  turnin 467
+
+step Bingles's Toolbucket
+  collect 7343 x1 quest 2038.1
+
+step Bingles Blastenheimer
+  turnin 2038
+
+step Pilot Stonegear
+  zone Dun Morogh
+  accept 466
+
+step Pilot Stonegear
+  zone Dun Morogh
+  turnin 466
+
+step Mountaineer Stormpike
+  turnin 1339
+  accept 1338
+
+step Furen Longbeard
+  zone Stormwind City
+  turnin 1338
+
+
+step The Powers Below
+  tip Book: The Powers Below drops from Twilight Disciple, Twilight Thug: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1439
+  collect 5352 x1 optional
+  accept 968 item 5352 optional
+
+step The Powers Below
+  when onquest 968
+  zone map 1455
+  turnin 968

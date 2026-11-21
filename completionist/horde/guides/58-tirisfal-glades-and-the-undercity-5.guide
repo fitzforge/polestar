@@ -1,0 +1,192 @@
+guide polestar-completionist-horde/58-tirisfal-glades-and-the-undercity-5
+title 58 Tirisfal Glades and the Undercity (57-60) (Completionist)
+faction Horde
+levels 57-60
+zone Tirisfal Glades
+next polestar-completionist-horde/59-odd-jobs-in-the-eastern-kingdoms-4
+pitch On along the line: Tirisfal Glades and the Undercity, quests of level 57 to 60.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 17 quests; estimated level at the end 57.7 (heuristic XP, class quests not counted).
+# Skipped: 1 prerequisite N not in this route.
+
+step Alexi Barov
+  when group 5342
+  zone Tirisfal Glades
+  accept 5342
+
+step Weldon Barov
+  when group 5342
+  zone Western Plaguelands
+  tip The Last Barov is group work: elites. Grouping up is advised.
+  collect 13469 x1 quest 5342.1
+
+step Alexi Barov
+  when group 5342
+  zone Tirisfal Glades
+  turnin 5342
+
+step Ralston Farnsley
+  zone Undercity
+  accept 7813
+  accept 7814
+  accept 7817
+
+step Faint Necrotic Crystal
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1458
+  turnin 9310 direct
+
+step Baron Bloodbane
+  zone Eastern Plaguelands
+  collect 4338 x60 quest 7817.1
+
+step Ratchet Bruiser
+  zone The Barrens
+  collect 4306 x60 quest 7814.1
+
+step Farrin Daris
+  zone Duskwood
+  collect 2592 x60 quest 7813.1
+
+step Varimathras
+  when group 6145
+  zone Undercity
+  accept 6145
+
+step Crimson Courier
+  when group 6145
+  zone Eastern Plaguelands
+  tip The Crimson Courier is group work: elites. Grouping up is advised.
+  collect 15868 x1 quest 6145.1
+
+step Nathanos Blightcaller
+  when group 6145
+  zone Eastern Plaguelands
+  turnin 6145
+
+step Nathanos' Ruse
+  when turnedin 6145
+  zone map 1423
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 6146 optional
+  complete 6146 @22.2,63.5 optional
+
+step Nathanos' Ruse
+  when onquest 6146
+  turnin 6146
+
+step Crusader Lord Valdelmar
+  when turnedin 6146
+  zone Eastern Plaguelands
+  accept 6147 optional
+
+step Nathanos Blightcaller
+  when onquest 6147
+  zone Eastern Plaguelands
+  turnin 6147
+
+step Nathanos Blightcaller
+  when group 6148
+  zone Eastern Plaguelands
+  accept 6148
+
+step Nathanos Blightcaller
+  when group 6148
+  zone Eastern Plaguelands
+  complete 6148
+  turnin 6148
+
+step Ralston Farnsley
+  zone Undercity
+  turnin 7813
+  turnin 7814
+  turnin 7817
+  accept 7818
+
+step Royal Overseer Bauhaus
+  accept 97007 @69.8,43.2 map 1458
+
+step Stormwind Royal Guard
+  zone Stormwind City
+  collect 14047 x60 quest 7818.1
+
+step Abigail Sawyer
+  zone Undercity
+  turnin 97007 @54.7,38.8 map 1458
+  accept 97000
+  accept 97006 @54.7,38.8 map 1458
+
+step Royal Overseer Bauhaus
+  turnin 97006 @69.8,43.2 map 1458
+
+step Ralston Farnsley
+  turnin 7818
+
+step Additional Runecloth
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1458
+  collect 14047 x20 anywhere optional
+  turnin 7819 direct optional
+
+step Danitha Morr
+  accept 97178 @22.1,44.7 map 1420
+
+step Knight of Mourning
+  accept 93030 @17.6,67.5 map 1420
+  turnin 93030 @17.6,67.5 map 1420
+
+step Level 60
+  level 60
+
+step Velma Warnam
+  zone Tirisfal Glades
+  sethome "Gallows' End Tavern"
+  accept 99208 only Undead @60.1,52.6 map 1420
+
+step Zachariah Post
+  zone Tirisfal Glades
+  turnin 99208 only Undead @59.9,52.7 map 1420
+
+step Mantles of the Dawn
+  when available 5504
+  tip One of several exclusive quests; the route takes Mantles of the Dawn (5513). This one shows for a character the game offers it to instead.
+  tip Needs Revered standing (21000) with Argent Dawn; without it the quest is not offered.
+  zone map 1420
+  accept 5504 optional
+
+step Mantles of the Dawn
+  when onquest 5504
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1420
+  complete 5504 @83.3,68.1 optional
+
+step Mantles of the Dawn
+  when onquest 5504
+  zone map 1420
+  turnin 5504 optional
+
+step Chromatic Mantle of the Dawn
+  when available 5524
+  tip One of several exclusive quests; the route takes Chromatic Mantle of the Dawn (5517). This one shows for a character the game offers it to instead.
+  tip Needs Exalted standing (42000) with Argent Dawn; without it the quest is not offered.
+  zone map 1420
+  accept 5524 optional
+
+step Chromatic Mantle of the Dawn
+  when onquest 5524
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1420
+  complete 5524 @83.3,68.1 optional
+
+step Chromatic Mantle of the Dawn
+  when onquest 5524
+  zone map 1420
+  turnin 5524 optional
+
+step Ott
+  zone Alterac Mountains
+  turnin 97178 @58.9,88.8 map 1416
+
+step Old Wardrobe
+  zone Mount Hyjal
+  turnin 97000 @33.3,41 map 2482

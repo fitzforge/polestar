@@ -1,0 +1,197 @@
+guide polestar-completionist-alliance/56-swamp-of-sorrows-2
+title 56 Swamp of Sorrows (55-60) (Completionist)
+faction Alliance
+levels 55-60
+zone Swamp of Sorrows
+next polestar-completionist-alliance/57-eastern-plaguelands
+pitch On along the line: Swamp of Sorrows, quests of level 55 to 60.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 14 quests; estimated level at the end 55.4 (heuristic XP, class quests not counted).
+
+step Magtoor
+  accept 93679
+  turnin 93679
+  accept 93684
+
+step Kum'isha the Collector
+  zone Blasted Lands
+  turnin 93684
+  accept 93685
+
+step Teremus the Devourer
+  collect 8244 x1 quest 93685.1
+
+step Kum'isha the Collector
+  turnin 93685
+
+step A Tale of Sorrow
+  zone map 1435
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 2801
+  complete 2801 @34.3,66.1
+
+step A Tale of Sorrow
+  turnin 2801
+
+step Fallen Hero of the Horde
+  zone Swamp of Sorrows
+  accept 2681
+
+step Servant of Grol
+  zone Blasted Lands
+  kill 7669 x3 quest 2681.2
+
+step Servant of Sevine
+  zone Blasted Lands
+  kill 7671 x3 quest 2681.4
+
+step Servant of Razelikh
+  zone Blasted Lands
+  kill 7668 x9 quest 2681.1
+
+step Servant of Allistarj
+  zone Blasted Lands
+  kill 7670 x3 quest 2681.3
+
+step Fallen Hero of the Horde
+  zone Swamp of Sorrows
+  turnin 2681
+
+step Fallen Hero of the Horde
+  zone Swamp of Sorrows
+  accept 2702
+
+step Corporal Thund Splithoof
+  zone Swamp of Sorrows
+  turnin 2702
+
+step Corporal Thund Splithoof
+  zone Swamp of Sorrows
+  accept 2701
+
+step Spectral Lockbox
+  zone Swamp of Sorrows
+  turnin 2701
+
+step Fallen Hero of the Horde
+  zone Swamp of Sorrows
+  accept 2721
+
+step Spirit of Kirith
+  zone Blasted Lands
+  turnin 2721
+
+step Spirit of Kirith
+  zone Blasted Lands
+  accept 2743
+
+step Fallen Hero of the Horde
+  zone Swamp of Sorrows
+  turnin 2743
+
+step The Demon Hunter
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1435
+  accept 2744
+  complete 2744 @34.3,66.1
+
+step The Demon Hunter
+  zone map 1435
+  turnin 2744
+
+step Loramus
+  zone map 1447
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 3141
+  complete 3141 @60.8,66.3
+
+step Loramus
+  turnin 3141
+
+step Loramus Thalipedes
+  zone Azshara
+  accept 3508
+  turnin 3508
+
+step Loramus Thalipedes
+  zone Azshara
+  accept 3509
+
+step Lord Arkkoroc
+  zone Azshara
+  turnin 3509
+
+step Lord Arkkoroc
+  when group 3510
+  zone Blasted Lands
+  accept 3510
+
+step Hetaera
+  when group 3510
+  zone Blasted Lands
+  tip The Name of the Beast is group work: elites. Grouping up is advised.
+  collect 10599 x1 quest 3510.1
+  collect 10598 x1 quest 3510.2
+  collect 10600 x1 quest 3510.3
+
+step Lord Arkkoroc
+  when group 3510
+  zone Blasted Lands
+  turnin 3510
+
+step Lord Arkkoroc
+  when turnedin 3510
+  zone Blasted Lands
+  accept 3511 optional
+
+step Loramus Thalipedes
+  when onquest 3511
+  zone Blasted Lands
+  turnin 3511
+
+step Loramus Thalipedes
+  when turnedin 3511
+  zone Blasted Lands
+  accept 3602 optional
+
+step Azsharite Formation
+  when onquest 3602
+  zone Blasted Lands
+  collect 10714 x20 quest 3602.1
+
+step Loramus Thalipedes
+  when onquest 3602
+  zone Blasted Lands
+  turnin 3602
+
+step Loramus Thalipedes
+  when turnedin 3602
+  zone Blasted Lands
+  accept 3621 optional
+
+step Galvan the Ancient
+  when onquest 3621
+  zone Stranglethorn Vale
+  turnin 3621
+
+step The Essence of Eranikus
+  tip Oathstone of Ysera's Dragonflight drops from Itharius: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1435
+  collect 10589 x1 optional
+  accept 3374 item 10589 optional
+  complete 3374 @13.7,71.7
+
+step The Essence of Eranikus
+  when onquest 3374
+  zone map 1435
+  turnin 3374
+
+step In Eranikus' Own Words
+  when turnedin 3374
+  zone map 1452
+  accept 3512
+
+step In Eranikus' Own Words
+  when onquest 3512
+  zone map 1452
+  turnin 3512

@@ -1,0 +1,116 @@
+guide polestar-completionist-horde/event-midsummer-fire-festival
+title Midsummer Fire Festival (Completionist)
+faction Horde
+category Miscellaneous
+levels 1-60
+zone Orgrimmar
+pitch The quests of Midsummer Fire Festival, as far as the reference data places them.
+
+step About this guide
+  note Each quest here is offered only while the event runs. Every step is optional: do what the calendar offers now, and come back for the rest.
+
+step Flickering Flames in Kalimdor
+  zone map 1438
+  accept 9388 optional
+
+step Flickering Flames in Kalimdor
+  when onquest 9388
+  zone map 1440
+  complete 9388 @64.8,71.6 optional
+
+step Flickering Flames in Kalimdor
+  when onquest 9388
+  zone map 1438
+  turnin 9388 optional
+
+step Flickering Flames in the Eastern Kingdoms
+  zone map 1438
+  accept 9389 optional
+
+step Flickering Flames in the Eastern Kingdoms
+  when onquest 9389
+  zone map 1416
+  complete 9389 @52,97.6 optional
+
+step Flickering Flames in the Eastern Kingdoms
+  when onquest 9389
+  zone map 1438
+  turnin 9389 optional
+
+step Wild Fires in Kalimdor
+  zone map 1438
+  accept 9322 optional
+
+step Wild Fires in Kalimdor
+  when onquest 9322
+  zone map 1447
+  complete 9322 @41.4,43.2 optional
+
+step Wild Fires in Kalimdor
+  when onquest 9322
+  zone map 1438
+  turnin 9322 optional
+
+step Wild Fires in the Eastern Kingdoms
+  zone map 1438
+  accept 9323 optional
+
+step Wild Fires in the Eastern Kingdoms
+  when onquest 9323
+  zone map 1419
+  complete 9323 @54.1,31.1 optional
+
+step Wild Fires in the Eastern Kingdoms
+  when onquest 9323
+  zone map 1438
+  turnin 9323 optional
+
+step Level 50
+  level 50
+
+step A Thief's Reward
+  when turnedin 9330
+  when turnedin 9331
+  when turnedin 9332
+  zone map 1454
+  accept 9339 optional
+
+step A Thief's Reward
+  when onquest 9339
+  zone map 1454
+  turnin 9339 optional
+
+step A Light in Dark Places
+  zone map 1438
+  accept 9319 optional
+
+step A Light in Dark Places
+  when onquest 9319
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1438
+  complete 9319 @56.6,91.9 optional
+
+step A Light in Dark Places
+  when onquest 9319
+  zone map 1438
+  turnin 9319 optional
+
+step The Festival of Fire
+  zone map 1454
+  accept 9368 optional
+
+step The Festival of Fire
+  when onquest 9368
+  zone map 1454
+  complete 9368 @42.1,34.3 optional
+
+step The Festival of Fire
+  when onquest 9368
+  zone map 1454
+  turnin 9368 optional
+
+step A Light in Dark Places
+  when turnedin 9319
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1438
+  turnin 9386 direct optional

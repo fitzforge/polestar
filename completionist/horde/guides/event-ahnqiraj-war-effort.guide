@@ -1,0 +1,533 @@
+guide polestar-completionist-horde/event-ahnqiraj-war-effort
+title Ahn'Qiraj War Effort (Completionist)
+faction Horde
+category Miscellaneous
+levels 1-60
+zone Orgrimmar
+pitch The quests of Ahn'Qiraj War Effort, as far as the reference data places them.
+
+step About this guide
+  note Each quest here is offered only while the event runs. Every step is optional: do what the calendar offers now, and come back for the rest.
+
+step The Horde Needs Your Help!
+  zone map 1456
+  accept 8792 optional
+
+step The Horde Needs Your Help!
+  when onquest 8792
+  zone map 1454
+  turnin 8792 optional
+
+step The Horde Needs Your Help!
+  when available 8793
+  tip One of several exclusive quests; the route takes The Horde Needs Your Help! (8792). This one shows for a character the game offers it to instead.
+  zone map 1458
+  accept 8793 optional
+
+step The Horde Needs Your Help!
+  when onquest 8793
+  zone map 1454
+  turnin 8793 optional
+
+step The Horde Needs Your Help!
+  when available 8794
+  tip One of several exclusive quests; the route takes The Horde Needs Your Help! (8792). This one shows for a character the game offers it to instead.
+  zone map 1454
+  accept 8794 optional
+
+step The Horde Needs Your Help!
+  when onquest 8794
+  zone map 1454
+  turnin 8794 optional
+
+step Thirty Signets for War Supplies
+  when turnedin 8792
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 21438 x30 anywhere optional
+  turnin 8855 direct optional
+
+step One Commendation Signet
+  when turnedin 8792
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 21438 x1 anywhere optional
+  turnin 8815 direct optional
+
+step One Commendation Signet
+  when turnedin 8792
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1458
+  collect 21438 x1 anywhere optional
+  turnin 8816 direct optional
+
+step One Commendation Signet
+  when turnedin 8792
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1456
+  collect 21438 x1 anywhere optional
+  turnin 8817 direct optional
+
+step One Commendation Signet
+  when turnedin 8792
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 21438 x1 anywhere optional
+  turnin 8818 direct optional
+
+step Ten Commendation Signets
+  when turnedin 8792
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 21438 x10 anywhere optional
+  turnin 8823 direct optional
+
+step Ten Commendation Signets
+  when turnedin 8792
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1458
+  collect 21438 x10 anywhere optional
+  turnin 8824 direct optional
+
+step Ten Commendation Signets
+  when turnedin 8792
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1456
+  collect 21438 x10 anywhere optional
+  turnin 8825 direct optional
+
+step Ten Commendation Signets
+  when turnedin 8792
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 21438 x10 anywhere optional
+  turnin 8826 direct optional
+
+step Five Signets for War Supplies
+  when turnedin 8792
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 21438 x5 anywhere optional
+  turnin 8851 direct optional
+
+step Ten Signets for War Supplies
+  when turnedin 8792
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 21438 x10 anywhere optional
+  turnin 8852 direct optional
+
+step Fifteen Signets for War Supplies
+  when turnedin 8792
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 21438 x15 anywhere optional
+  turnin 8853 direct optional
+
+step Twenty Signets for War Supplies
+  when turnedin 8792
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 21438 x20 anywhere optional
+  turnin 8854 direct optional
+
+step The Horde Needs Copper Bars!
+  when turnedin 8792
+  zone map 1454
+  accept 8532 optional
+
+step The Horde Needs Copper Bars!
+  when onquest 8532
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 8532 @31.1,66.1 optional
+
+step The Horde Needs Copper Bars!
+  when onquest 8532
+  zone map 1454
+  turnin 8532 optional
+
+step The Horde Needs More Copper Bars!
+  when turnedin 8532
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 2840 x20 anywhere optional
+  turnin 8533 direct optional
+
+step The Horde Needs Tin Bars!
+  when turnedin 8792
+  zone map 1454
+  accept 8542 optional
+
+step The Horde Needs Tin Bars!
+  when onquest 8542
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 8542 @30.9,65.4 optional
+
+step The Horde Needs Tin Bars!
+  when onquest 8542
+  zone map 1454
+  turnin 8542 optional
+
+step The Horde Needs More Tin Bars!
+  when turnedin 8542
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 3576 x20 anywhere optional
+  turnin 8543 direct optional
+
+step The Horde Needs Mithril Bars!
+  when turnedin 8792
+  zone map 1454
+  accept 8545 optional
+
+step The Horde Needs Mithril Bars!
+  when onquest 8545
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 8545 @31.5,66.8 optional
+
+step The Horde Needs Mithril Bars!
+  when onquest 8545
+  zone map 1454
+  turnin 8545 optional
+
+step The Horde Needs More Mithril Bars!
+  when turnedin 8545
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 3860 x20 anywhere optional
+  turnin 8546 direct optional
+
+step The Horde Needs Peacebloom!
+  when turnedin 8792
+  zone map 1454
+  accept 8549 optional
+
+step The Horde Needs Peacebloom!
+  when onquest 8549
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 8549 @33.3,69.6 optional
+
+step The Horde Needs Peacebloom!
+  when onquest 8549
+  zone map 1454
+  turnin 8549 optional
+
+step The Horde Needs Peacebloom!
+  when turnedin 8549
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 2447 x20 anywhere optional
+  turnin 8550 direct optional
+
+step The Horde Needs Firebloom!
+  when turnedin 8792
+  zone map 1454
+  accept 8580 optional
+
+step The Horde Needs Firebloom!
+  when onquest 8580
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 8580 @32.8,70.4 optional
+
+step The Horde Needs Firebloom!
+  when onquest 8580
+  zone map 1454
+  turnin 8580 optional
+
+step The Horde Needs More Firebloom!
+  when turnedin 8580
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 4625 x20 anywhere optional
+  turnin 8581 direct optional
+
+step The Horde Needs Purple Lotus!
+  when turnedin 8792
+  zone map 1454
+  accept 8582 optional
+
+step The Horde Needs Purple Lotus!
+  when onquest 8582
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 8582 @32.8,68.7 optional
+
+step The Horde Needs Purple Lotus!
+  when onquest 8582
+  zone map 1454
+  turnin 8582 optional
+
+step The Horde Needs More Purple Lotus!
+  when turnedin 8582
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 8831 x20 anywhere optional
+  turnin 8583 direct optional
+
+step The Horde Needs Heavy Leather!
+  when turnedin 8792
+  zone map 1454
+  accept 8588 optional
+
+step The Horde Needs Heavy Leather!
+  when onquest 8588
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 8588 @36,73.4 optional
+
+step The Horde Needs Heavy Leather!
+  when onquest 8588
+  zone map 1454
+  turnin 8588 optional
+
+step The Horde Needs More Heavy Leather!
+  when turnedin 8588
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 4234 x10 anywhere optional
+  turnin 8589 direct optional
+
+step The Horde Needs Thick Leather!
+  when turnedin 8792
+  zone map 1454
+  accept 8590 optional
+
+step The Horde Needs Thick Leather!
+  when onquest 8590
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 8590 @34,72.7 optional
+
+step The Horde Needs Thick Leather!
+  when onquest 8590
+  zone map 1454
+  turnin 8590 optional
+
+step The Horde Needs More Thick Leather!
+  when turnedin 8590
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 4304 x10 anywhere optional
+  turnin 8591 direct optional
+
+step The Horde Needs Rugged Leather!
+  when turnedin 8792
+  zone map 1454
+  accept 8600 optional
+
+step The Horde Needs Rugged Leather!
+  when onquest 8600
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 8600 @35.1,72.6 optional
+
+step The Horde Needs Rugged Leather!
+  when onquest 8600
+  zone map 1454
+  turnin 8600 optional
+
+step The Horde Needs More Rugged Leather!
+  when turnedin 8600
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 8170 x10 anywhere optional
+  turnin 8601 direct optional
+
+step The Horde Needs Wool Bandages!
+  when turnedin 8792
+  zone map 1454
+  accept 8604 optional
+
+step The Horde Needs Wool Bandages!
+  when onquest 8604
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 8604 @31.2,74.1 optional
+
+step The Horde Needs Wool Bandages!
+  when onquest 8604
+  zone map 1454
+  turnin 8604 optional
+
+step The Horde Needs More Wool Bandages!
+  when turnedin 8604
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 3530 x20 anywhere optional
+  turnin 8605 direct optional
+
+step The Horde Needs Mageweave Bandages!
+  when turnedin 8792
+  zone map 1454
+  accept 8607 optional
+
+step The Horde Needs Mageweave Bandages!
+  when onquest 8607
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 8607 @31.3,75.1 optional
+
+step The Horde Needs Mageweave Bandages!
+  when onquest 8607
+  zone map 1454
+  turnin 8607 optional
+
+step The Horde Needs More Mageweave Bandages!
+  when turnedin 8607
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 8544 x20 anywhere optional
+  turnin 8608 direct optional
+
+step The Horde Needs Runecloth Bandages!
+  when turnedin 8792
+  zone map 1454
+  accept 8609 optional
+
+step The Horde Needs Runecloth Bandages!
+  when onquest 8609
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 8609 @32.2,75.3 optional
+
+step The Horde Needs Runecloth Bandages!
+  when onquest 8609
+  zone map 1454
+  turnin 8609 optional
+
+step The Horde Needs More Runecloth Bandages!
+  when turnedin 8609
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 14529 x20 anywhere optional
+  turnin 8610 direct optional
+
+step The Horde Needs Lean Wolf Steaks!
+  when turnedin 8792
+  zone map 1454
+  accept 8611 optional
+
+step The Horde Needs Lean Wolf Steaks!
+  when onquest 8611
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 8611 @29.5,68.8 optional
+
+step The Horde Needs Lean Wolf Steaks!
+  when onquest 8611
+  zone map 1454
+  turnin 8611 optional
+
+step The Horde Needs More Lean Wolf Steaks!
+  when turnedin 8611
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 12209 x20 anywhere optional
+  turnin 8612 direct optional
+
+step The Horde Needs Spotted Yellowtail!
+  when turnedin 8792
+  zone map 1454
+  accept 8613 optional
+
+step The Horde Needs Spotted Yellowtail!
+  when onquest 8613
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 8613 @29,68.5 optional
+
+step The Horde Needs Spotted Yellowtail!
+  when onquest 8613
+  zone map 1454
+  turnin 8613 optional
+
+step The Horde Needs More Spotted Yellowtail!
+  when turnedin 8613
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 6887 x20 anywhere optional
+  turnin 8614 direct optional
+
+step The Horde Needs Baked Salmon!
+  when turnedin 8792
+  zone map 1454
+  accept 8615 optional
+
+step The Horde Needs Baked Salmon!
+  when onquest 8615
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 8615 @28.8,67.8 optional
+
+step The Horde Needs Baked Salmon!
+  when onquest 8615
+  zone map 1454
+  turnin 8615 optional
+
+step The Horde Needs More Baked Salmon!
+  when turnedin 8615
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 13935 x20 anywhere optional
+  turnin 8616 direct optional
+
+step One Commendation Signet
+  when turnedin 8815
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 21438 x1 anywhere optional
+  turnin 8832 direct optional
+
+step Ten Commendation Signets
+  when turnedin 8823
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 21438 x10 anywhere optional
+  turnin 8833 direct optional
+
+step One Commendation Signet
+  when turnedin 8816
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1458
+  collect 21438 x1 anywhere optional
+  turnin 8840 direct optional
+
+step Ten Commendation Signets
+  when turnedin 8824
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1458
+  collect 21438 x10 anywhere optional
+  turnin 8841 direct optional
+
+step One Commendation Signet
+  when turnedin 8817
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1456
+  collect 21438 x1 anywhere optional
+  turnin 8842 direct optional
+
+step Ten Commendation Signets
+  when turnedin 8825
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1456
+  collect 21438 x10 anywhere optional
+  turnin 8843 direct optional
+
+step One Commendation Signet
+  when turnedin 8818
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 21438 x1 anywhere optional
+  turnin 8844 direct optional
+
+step Ten Commendation Signets
+  when turnedin 8826
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 21438 x10 anywhere optional
+  turnin 8845 direct optional

@@ -1,0 +1,874 @@
+guide polestar-completionist-horde/raid-zulgurub
+title Zul'Gurub (Completionist)
+faction Horde
+category Dungeons
+levels 58-61
+zone Stranglethorn Vale
+pitch Zul'Gurub, in Stranglethorn Vale. A raid.
+why Every Horde quest of Zul'Gurub: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Stranglethorn Vale: the arrow leads to it. This is a raid: it needs a raid group.
+
+step Screecher Spirits
+  zone Tanaris
+  accept 3520
+
+step Screecher Spirits
+  zone Feralas
+  complete 3520 @42.01,36.27
+
+step Screecher Spirits
+  zone Tanaris
+  turnin 3520
+
+step The Prophecy of Mosh'aru
+  zone Tanaris
+  accept 3527
+
+step The Prophecy of Mosh'aru
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 3527 @66.99,22.36
+
+step The Prophecy of Mosh'aru
+  zone Tanaris
+  turnin 3527
+
+step The Ancient Egg
+  zone Tanaris
+  accept 4787
+
+step The Ancient Egg
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 4787 @66.99,22.36
+
+step The Ancient Egg
+  zone Tanaris
+  turnin 4787
+
+step The God Hakkar
+  zone Tanaris
+  accept 3528
+
+step The God Hakkar
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 3528 @66.99,22.36
+
+step The God Hakkar
+  zone Tanaris
+  turnin 3528
+
+step The Lost Tablets of Mosh'aru
+  zone Tanaris
+  accept 5065
+
+step The Lost Tablets of Mosh'aru
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 5065 @66.89,24.03
+
+step The Lost Tablets of Mosh'aru
+  zone Tanaris
+  turnin 5065
+
+step The Final Tablets
+  zone Tanaris
+  accept 4788
+
+step The Final Tablets
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 4788 @66.89,24.03
+
+step The Final Tablets
+  zone Tanaris
+  turnin 4788
+
+step Exzhal
+  zone Stranglethorn Vale
+  accept 8201
+
+step Rin'wosho the Trader
+  zone Stranglethorn Vale
+  accept 8196
+  accept 8243
+  accept 8246
+
+step Level 60
+  level 60
+
+step Al'tabim the All-Seeing
+  only Priest
+  zone Stranglethorn Vale
+  accept 8071
+
+step Al'tabim the All-Seeing
+  only Warlock
+  zone Stranglethorn Vale
+  accept 8106
+
+step Al'tabim the All-Seeing
+  only Mage
+  zone Stranglethorn Vale
+  accept 8101
+
+step Al'tabim the All-Seeing
+  only Mage
+  zone Stranglethorn Vale
+  accept 8069
+
+step Falthir the Sightless
+  only Hunter
+  zone Stranglethorn Vale
+  accept 8145
+
+step Falthir the Sightless
+  only Rogue
+  zone Stranglethorn Vale
+  accept 8141
+
+step Jin'rokh the Breaker
+  only Warrior
+  zone Stranglethorn Vale
+  accept 8079
+
+step Jin'rokh the Breaker
+  only Paladin
+  zone Stranglethorn Vale
+  accept 8055
+
+step Maywiki of Zuldazar
+  only Shaman
+  zone Stranglethorn Vale
+  accept 8116
+
+step Maywiki of Zuldazar
+  only Druid
+  zone Stranglethorn Vale
+  accept 8110
+
+step Maywiki of Zuldazar
+  only Druid
+  zone Stranglethorn Vale
+  accept 8065
+
+step Maywiki of Zuldazar
+  only Druid
+  zone Stranglethorn Vale
+  accept 8064
+
+step Maywiki of Zuldazar
+  only Druid
+  zone Stranglethorn Vale
+  accept 8057
+
+step Maywiki of Zuldazar
+  only Shaman
+  zone Stranglethorn Vale
+  accept 8075
+
+step Maywiki of Zuldazar
+  only Shaman
+  zone Stranglethorn Vale
+  accept 8074
+
+step Maywiki of Zuldazar
+  only Shaman
+  zone Stranglethorn Vale
+  accept 8056
+
+step Jin'rokh the Breaker
+  only Paladin
+  zone Stranglethorn Vale
+  accept 8054
+
+step Jin'rokh the Breaker
+  only Paladin
+  zone Stranglethorn Vale
+  accept 8053
+
+step Jin'rokh the Breaker
+  only Warrior
+  zone Stranglethorn Vale
+  accept 8078
+
+step Jin'rokh the Breaker
+  only Warrior
+  zone Stranglethorn Vale
+  accept 8058
+
+step Jin'rokh the Breaker
+  only Warrior
+  zone Stranglethorn Vale
+  accept 8041
+
+step Falthir the Sightless
+  only Rogue
+  zone Stranglethorn Vale
+  accept 8073
+
+step Falthir the Sightless
+  only Rogue
+  zone Stranglethorn Vale
+  accept 8072
+
+step Falthir the Sightless
+  only Rogue
+  zone Stranglethorn Vale
+  accept 8063
+
+step Falthir the Sightless
+  only Hunter
+  zone Stranglethorn Vale
+  accept 8067
+
+step Falthir the Sightless
+  only Hunter
+  zone Stranglethorn Vale
+  accept 8066
+
+step Falthir the Sightless
+  only Hunter
+  zone Stranglethorn Vale
+  accept 8062
+
+step Al'tabim the All-Seeing
+  only Mage
+  zone Stranglethorn Vale
+  accept 8068
+
+step Al'tabim the All-Seeing
+  only Mage
+  zone Stranglethorn Vale
+  accept 8060
+
+step Al'tabim the All-Seeing
+  only Warlock
+  zone Stranglethorn Vale
+  accept 8077
+
+step Al'tabim the All-Seeing
+  only Warlock
+  zone Stranglethorn Vale
+  accept 8076
+
+step Al'tabim the All-Seeing
+  only Warlock
+  zone Stranglethorn Vale
+  accept 8059
+
+step Al'tabim the All-Seeing
+  only Priest
+  zone Stranglethorn Vale
+  accept 8070
+
+step Al'tabim the All-Seeing
+  only Priest
+  zone Stranglethorn Vale
+  accept 8061
+
+step Al'tabim the All-Seeing
+  only Priest
+  zone Stranglethorn Vale
+  accept 8049
+
+step Vinchaxa
+  zone Stranglethorn Vale
+  accept 8195
+  accept 8238
+  accept 8239
+  accept 8240
+
+step Prospector Ironboot
+  zone Tanaris
+  accept 8181
+
+step Dirk Thunderwood
+  zone Silithus
+  accept 9023
+
+step Inside Zul'Gurub
+  zone Stranglethorn Vale
+  collect 19802 @53.9,17.6
+  accept 8183 item 19802
+  accept 8227 @53.9,17.6
+  accept 9208 @53.9,17.6
+  accept 9209 @53.9,17.6
+  accept 9210 @53.9,17.6
+  complete 8195 @53.9,17.6
+  complete 8196 @53.9,17.6
+  complete 8201 @53.9,17.6
+  complete 8238 @53.9,17.6
+  complete 8239 @53.9,17.6
+  complete 8243 @53.9,17.6
+  complete 8246 @53.9,17.6
+  complete 9023 @53.9,17.6
+  complete 9208 @53.9,17.6
+  turnin 9208 @53.9,17.6
+  complete 9209 @53.9,17.6
+  turnin 9209 @53.9,17.6
+  complete 9210 @53.9,17.6
+  turnin 9210 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Warrior
+  zone Stranglethorn Vale
+  accept 8184 @53.9,17.6
+  complete 8058 @53.9,17.6
+  complete 8078 @53.9,17.6
+  complete 8079 @53.9,17.6
+  complete 8184 @53.9,17.6
+  turnin 8184 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Rogue
+  zone Stranglethorn Vale
+  accept 8186 @53.9,17.6
+  complete 8063 @53.9,17.6
+  complete 8072 @53.9,17.6
+  complete 8073 @53.9,17.6
+  complete 8186 @53.9,17.6
+  turnin 8186 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Hunter
+  zone Stranglethorn Vale
+  accept 8187 @53.9,17.6
+  complete 8062 @53.9,17.6
+  complete 8066 @53.9,17.6
+  complete 8067 @53.9,17.6
+  complete 8187 @53.9,17.6
+  turnin 8187 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Shaman
+  zone Stranglethorn Vale
+  accept 8188 @53.9,17.6
+  complete 8056 @53.9,17.6
+  complete 8074 @53.9,17.6
+  complete 8075 @53.9,17.6
+  complete 8188 @53.9,17.6
+  turnin 8188 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Mage
+  zone Stranglethorn Vale
+  accept 8189 @53.9,17.6
+  complete 8060 @53.9,17.6
+  complete 8068 @53.9,17.6
+  complete 8069 @53.9,17.6
+  complete 8189 @53.9,17.6
+  turnin 8189 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Warlock
+  zone Stranglethorn Vale
+  accept 8190 @53.9,17.6
+  complete 8059 @53.9,17.6
+  complete 8076 @53.9,17.6
+  complete 8077 @53.9,17.6
+  complete 8190 @53.9,17.6
+  turnin 8190 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Priest
+  zone Stranglethorn Vale
+  accept 8191 @53.9,17.6
+  complete 8061 @53.9,17.6
+  complete 8070 @53.9,17.6
+  complete 8071 @53.9,17.6
+  complete 8191 @53.9,17.6
+  turnin 8191 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Druid
+  zone Stranglethorn Vale
+  accept 8192 @53.9,17.6
+  complete 8057 @53.9,17.6
+  complete 8064 @53.9,17.6
+  complete 8065 @53.9,17.6
+  complete 8192 @53.9,17.6
+  turnin 8192 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Paladin
+  zone Stranglethorn Vale
+  complete 8053 @53.9,17.6
+  complete 8054 @53.9,17.6
+  complete 8055 @53.9,17.6
+
+step Al'tabim the All-Seeing
+  only Priest
+  zone Stranglethorn Vale
+  turnin 8049
+  turnin 8061
+  turnin 8070
+  turnin 8071
+
+step Al'tabim the All-Seeing
+  only Warlock
+  zone Stranglethorn Vale
+  turnin 8059
+  turnin 8076
+  turnin 8077
+  turnin 8106
+
+step Al'tabim the All-Seeing
+  only Mage
+  zone Stranglethorn Vale
+  turnin 8060
+  turnin 8068
+  turnin 8069
+  turnin 8101
+
+step Exzhal
+  zone Stranglethorn Vale
+  turnin 8201
+
+step Falthir the Sightless
+  only Hunter
+  zone Stranglethorn Vale
+  turnin 8062
+  turnin 8066
+  turnin 8067
+  turnin 8145
+
+step Falthir the Sightless
+  only Rogue
+  zone Stranglethorn Vale
+  turnin 8063
+  turnin 8072
+  turnin 8073
+  turnin 8141
+
+step Jin'rokh the Breaker
+  only Warrior
+  zone Stranglethorn Vale
+  turnin 8041
+  turnin 8058
+  turnin 8078
+  turnin 8079
+
+step Jin'rokh the Breaker
+  only Paladin
+  zone Stranglethorn Vale
+  turnin 8053
+  turnin 8054
+  turnin 8055
+
+step Maywiki of Zuldazar
+  only Shaman
+  zone Stranglethorn Vale
+  turnin 8056
+  turnin 8074
+  turnin 8075
+  turnin 8116
+
+step Maywiki of Zuldazar
+  only Druid
+  zone Stranglethorn Vale
+  turnin 8057
+  turnin 8064
+  turnin 8065
+  turnin 8110
+
+step Molthor
+  zone Stranglethorn Vale
+  turnin 8183
+
+step Rin'wosho the Trader
+  zone Stranglethorn Vale
+  turnin 8196
+  turnin 8243
+  turnin 8246
+
+step Vinchaxa
+  zone Stranglethorn Vale
+  turnin 8195
+  turnin 8238
+  turnin 8239
+  turnin 8240
+
+step Nat Pagle
+  zone Dustwallow Marsh
+  turnin 8227
+
+step Yeh'kinya
+  zone Tanaris
+  turnin 8181
+
+step The Hand of Rastakhan
+  zone map 1446
+  accept 8182
+
+step Dirk Thunderwood
+  zone Silithus
+  turnin 9023
+
+step Al'tabim the All-Seeing
+  only Priest
+  zone Stranglethorn Vale
+  accept 8050
+
+step The Hand of Rastakhan
+  when onquest 8182
+  zone map 1434
+  turnin 8182
+
+step Al'tabim the All-Seeing
+  only Mage
+  zone Stranglethorn Vale
+  accept 8102
+
+step Al'tabim the All-Seeing
+  only Warlock
+  zone Stranglethorn Vale
+  accept 8107
+
+step Falthir the Sightless
+  only Rogue
+  zone Stranglethorn Vale
+  accept 8142
+
+step Falthir the Sightless
+  only Hunter
+  zone Stranglethorn Vale
+  accept 8146
+
+step Jin'rokh the Breaker
+  only Warrior
+  zone Stranglethorn Vale
+  accept 8042
+
+step Maywiki of Zuldazar
+  only Druid
+  zone Stranglethorn Vale
+  accept 8111
+
+step Maywiki of Zuldazar
+  only Shaman
+  zone Stranglethorn Vale
+  accept 8117
+
+step Inside Zul'Gurub
+  only Warrior
+  zone Stranglethorn Vale
+  complete 8042 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Priest
+  zone Stranglethorn Vale
+  complete 8050 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Mage
+  zone Stranglethorn Vale
+  complete 8102 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Warlock
+  zone Stranglethorn Vale
+  complete 8107 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Druid
+  zone Stranglethorn Vale
+  complete 8111 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Shaman
+  zone Stranglethorn Vale
+  complete 8117 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Rogue
+  zone Stranglethorn Vale
+  complete 8142 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Hunter
+  zone Stranglethorn Vale
+  complete 8146 @53.9,17.6
+
+step Al'tabim the All-Seeing
+  only Priest
+  zone Stranglethorn Vale
+  turnin 8050
+
+step Al'tabim the All-Seeing
+  only Mage
+  zone Stranglethorn Vale
+  turnin 8102
+
+step Al'tabim the All-Seeing
+  only Warlock
+  zone Stranglethorn Vale
+  turnin 8107
+
+step Falthir the Sightless
+  only Rogue
+  zone Stranglethorn Vale
+  turnin 8142
+
+step Falthir the Sightless
+  only Hunter
+  zone Stranglethorn Vale
+  turnin 8146
+
+step Jin'rokh the Breaker
+  only Warrior
+  zone Stranglethorn Vale
+  turnin 8042
+
+step Maywiki of Zuldazar
+  only Druid
+  zone Stranglethorn Vale
+  turnin 8111
+
+step Maywiki of Zuldazar
+  only Shaman
+  zone Stranglethorn Vale
+  turnin 8117
+
+step Al'tabim the All-Seeing
+  only Priest
+  zone Stranglethorn Vale
+  accept 8051
+
+step Al'tabim the All-Seeing
+  only Mage
+  zone Stranglethorn Vale
+  accept 8103
+
+step Al'tabim the All-Seeing
+  only Warlock
+  zone Stranglethorn Vale
+  accept 8108
+
+step Falthir the Sightless
+  only Rogue
+  zone Stranglethorn Vale
+  accept 8143
+
+step Falthir the Sightless
+  only Hunter
+  zone Stranglethorn Vale
+  accept 8147
+
+step Jin'rokh the Breaker
+  only Warrior
+  zone Stranglethorn Vale
+  accept 8043
+
+step Maywiki of Zuldazar
+  only Druid
+  zone Stranglethorn Vale
+  accept 8112
+
+step Maywiki of Zuldazar
+  only Shaman
+  zone Stranglethorn Vale
+  accept 8118
+
+step Inside Zul'Gurub
+  only Warrior
+  zone Stranglethorn Vale
+  complete 8043 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Priest
+  zone Stranglethorn Vale
+  complete 8051 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Mage
+  zone Stranglethorn Vale
+  complete 8103 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Warlock
+  zone Stranglethorn Vale
+  complete 8108 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Druid
+  zone Stranglethorn Vale
+  complete 8112 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Shaman
+  zone Stranglethorn Vale
+  complete 8118 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Rogue
+  zone Stranglethorn Vale
+  complete 8143 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Hunter
+  zone Stranglethorn Vale
+  complete 8147 @53.9,17.6
+
+step Al'tabim the All-Seeing
+  only Priest
+  zone Stranglethorn Vale
+  turnin 8051
+
+step Al'tabim the All-Seeing
+  only Mage
+  zone Stranglethorn Vale
+  turnin 8103
+
+step Al'tabim the All-Seeing
+  only Warlock
+  zone Stranglethorn Vale
+  turnin 8108
+
+step Falthir the Sightless
+  only Rogue
+  zone Stranglethorn Vale
+  turnin 8143
+
+step Falthir the Sightless
+  only Hunter
+  zone Stranglethorn Vale
+  turnin 8147
+
+step Jin'rokh the Breaker
+  only Warrior
+  zone Stranglethorn Vale
+  turnin 8043
+
+step Maywiki of Zuldazar
+  only Druid
+  zone Stranglethorn Vale
+  turnin 8112
+
+step Maywiki of Zuldazar
+  only Shaman
+  zone Stranglethorn Vale
+  turnin 8118
+
+step Al'tabim the All-Seeing
+  only Priest
+  zone Stranglethorn Vale
+  accept 8052
+
+step Al'tabim the All-Seeing
+  only Mage
+  zone Stranglethorn Vale
+  accept 8104
+
+step Al'tabim the All-Seeing
+  only Warlock
+  zone Stranglethorn Vale
+  accept 8109
+
+step Falthir the Sightless
+  only Rogue
+  zone Stranglethorn Vale
+  accept 8144
+
+step Falthir the Sightless
+  only Hunter
+  zone Stranglethorn Vale
+  accept 8148
+
+step Jin'rokh the Breaker
+  only Warrior
+  zone Stranglethorn Vale
+  accept 8044
+
+step Maywiki of Zuldazar
+  only Druid
+  zone Stranglethorn Vale
+  accept 8113
+
+step Maywiki of Zuldazar
+  only Shaman
+  zone Stranglethorn Vale
+  accept 8119
+
+step Inside Zul'Gurub
+  only Warrior
+  zone Stranglethorn Vale
+  complete 8044 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Priest
+  zone Stranglethorn Vale
+  complete 8052 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Mage
+  zone Stranglethorn Vale
+  complete 8104 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Warlock
+  zone Stranglethorn Vale
+  complete 8109 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Druid
+  zone Stranglethorn Vale
+  complete 8113 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Shaman
+  zone Stranglethorn Vale
+  complete 8119 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Rogue
+  zone Stranglethorn Vale
+  complete 8144 @53.9,17.6
+
+step Inside Zul'Gurub
+  only Hunter
+  zone Stranglethorn Vale
+  complete 8148 @53.9,17.6
+
+step Al'tabim the All-Seeing
+  only Priest
+  zone Stranglethorn Vale
+  turnin 8052
+
+step Al'tabim the All-Seeing
+  only Mage
+  zone Stranglethorn Vale
+  turnin 8104
+
+step Al'tabim the All-Seeing
+  only Warlock
+  zone Stranglethorn Vale
+  turnin 8109
+
+step Falthir the Sightless
+  only Rogue
+  zone Stranglethorn Vale
+  turnin 8144
+
+step Falthir the Sightless
+  only Hunter
+  zone Stranglethorn Vale
+  turnin 8148
+
+step Jin'rokh the Breaker
+  only Warrior
+  zone Stranglethorn Vale
+  turnin 8044
+
+step Maywiki of Zuldazar
+  only Druid
+  zone Stranglethorn Vale
+  turnin 8113
+
+step Maywiki of Zuldazar
+  only Shaman
+  zone Stranglethorn Vale
+  turnin 8119

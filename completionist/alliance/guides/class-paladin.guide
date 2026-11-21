@@ -1,0 +1,453 @@
+guide polestar-completionist-alliance/class-paladin
+title Paladin class quests (12-60) (Completionist)
+faction Alliance
+class Paladin
+levels 12-60
+category Class
+zone Durotar
+why Every Paladin class quest from level 10 on, in level order. The earlier ones are in the starting zone guides.
+reward text What the Paladin quests give, quest by quest: abilities, forms, pets, totems or gear.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 21 quests; estimated level at the end 20.6 (heuristic XP).
+# Skipped: 14 prerequisite N not in this route; 4 exclusive with N; 2 objective N (item N) outside the zones.
+
+step Lord Grayson Shadowbreaker
+  zone Stormwind City
+  accept 3000 only Dwarf
+
+step The Bloody Missive
+  only Paladin
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1453
+  turnin 81766 direct optional
+
+step Orders from the Grand Crusader
+  only Paladin
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1453
+  turnin 79945 direct optional
+
+step Level 45
+  level 45
+
+step Katherine the Pure
+  zone Stormwind City
+  accept 96476 @48.5,49.1 map 1453
+
+step Aeonas the Vindicated
+  zone Felwood
+  complete 96476 @43,57.0 map 1448
+  turnin 96476 @45,52.2 map 1448
+
+step Materials of Significance
+  only Paladin
+  zone map 1448
+  accept 81790 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 81790 @44.7,52.0 optional
+
+step Materials of Significance
+  only Paladin
+  turnin 81790 optional
+
+step Aeonas the Vindicated
+  zone Stormwind City
+  accept 81762
+
+step Katherine the Pure
+  zone Stormwind City
+  turnin 81762
+
+step Katherine the Pure
+  zone Stormwind City
+  accept 96438
+
+step Strange Orb
+  zone Darkshore
+  accept 78088
+
+step A Brother In Need
+  only Paladin
+  when turnedin 79945
+  zone map 1453
+  accept 79946 optional
+
+step A Brother In Need
+  only Paladin
+  when onquest 79946
+  tip The hand-in is inside the instance: the arrow leads to its entrance.
+  zone map 1420
+  turnin 79946 @85.2,31.3 optional
+
+step Delgren the Purifier
+  zone Ashenvale
+  turnin 78088
+
+step Shattered Orb
+  zone Felwood
+  accept 78093 only Human,Dwarf
+
+step Delgren the Purifier
+  zone Felwood
+  turnin 78093 only Human,Dwarf
+
+step Broken Warhammer
+  zone Desolace
+  accept 79939
+
+step Level 58
+  level 58
+
+step Geologist Larksbane
+  when turnedin 8315
+  zone Silithus
+  accept 8376
+  turnin 8376
+
+step Delgren the Purifier
+  zone Ashenvale
+  accept 78089
+
+step Broken Warhammer
+  zone Desolace
+  turnin 96438
+
+step Katherine the Pure
+  zone Stormwind City
+  accept 81764
+
+step Elrick
+  zone Dustwallow Marsh
+  turnin 81764
+  accept 81765
+  turnin 81765
+
+step Katherine the Pure
+  turnin 78089
+  turnin 79939
+  accept 78090 only Human,Dwarf
+  accept 79940
+  turnin 79940
+
+step Ursula Deline
+  turnin 78090 only Human,Dwarf
+  accept 78091 only Human,Dwarf
+
+step Blackrock Shadowcaster
+  zone Redridge Mountains
+  collect 209778 x14 quest 78091.1 only Human,Dwarf
+
+step Brother Wilhelm
+  zone Elwynn Forest
+  accept 2998 only Human
+
+step Ursula Deline
+  zone Stormwind City
+  turnin 78091 only Human,Dwarf
+  accept 78092 only Human,Dwarf
+
+step Mannoroc Lasher
+  zone The Barrens
+  collect 209779 x12 quest 78092.1 only Human,Dwarf
+
+step Spear of Mannoroth
+  zone Ashenvale
+  turnin 78092 only Human,Dwarf
+
+step Argent Quartermaster Hasana
+  zone Tirisfal Glades
+  buy 13724 x20 npc 10856 -- for Manna-Enriched Horse Feed
+
+step Harold Riggs
+  zone Wetlands
+  accept 96449
+
+step Brandur Ironhammer
+  zone Ironforge
+  accept 4486 only Human,Dwarf
+  turnin 3000 only Dwarf
+
+step The Tome of Nobility
+  only Paladin,Human,Dwarf
+  when available 4485
+  tip One of several exclusive quests; the route takes The Tome of Nobility (4486). This one shows for a character the game offers it to instead.
+  zone map 1455
+  accept 4485 optional
+
+step Tome of Divinity
+  only Paladin,Human
+  when available 3681
+  tip One of several exclusive quests; the route takes Tome of Divinity (2998). This one shows for a character the game offers it to instead.
+  zone map 1455
+  accept 3681 optional
+
+step Tome of Divinity
+  only Paladin,Dwarf
+  when available 2999
+  tip One of several exclusive quests; the route takes Tome of Divinity (2997). This one shows for a character the game offers it to instead.
+  zone map 1455
+  accept 2999 optional
+
+step Tome of Divinity
+  only Paladin,Dwarf
+  when onquest 2999
+  zone map 1455
+  turnin 2999 optional
+
+step Slain Scarlet Crusader
+  zone Dun Morogh
+  turnin 96449
+
+step Tome of Divinity
+  only Paladin,Dwarf
+  when available 2997
+  tip One of several exclusive quests; the route takes Tome of Divinity (3000). This one shows for a character the game offers it to instead.
+  zone map 1426
+  accept 2997 optional
+
+step Tome of Divinity
+  only Paladin,Dwarf
+  when onquest 2997
+  zone map 1455
+  turnin 2997 optional
+
+step Duthorian Rall
+  zone Stormwind City
+  turnin 2998 only Human
+  turnin 4486 only Human,Dwarf
+  accept 1661 only Human,Dwarf
+  turnin 1661 only Human,Dwarf
+
+step The Tome of Nobility
+  only Paladin,Human,Dwarf
+  when onquest 4485
+  zone map 1453
+  turnin 4485 optional
+
+step Tome of Divinity
+  only Paladin,Human
+  when onquest 3681
+  zone map 1453
+  turnin 3681 optional
+
+step The Tome of Divinity
+  only Paladin,Human
+  zone map 1453
+  accept 1642 optional
+
+step The Tome of Divinity
+  only Paladin,Human
+  turnin 1642 optional
+
+step The Tome of Divinity
+  only Paladin,Human
+  zone map 1453
+  accept 1643 optional
+
+step The Tome of Divinity
+  only Paladin,Human
+  zone map 1453
+  turnin 1643 optional
+
+step The Tome of Divinity
+  only Paladin,Human
+  tip A class quest, done from the quest text: the reference data does not route it.
+  zone map 1453
+  accept 1644 optional
+  complete 1644 @63.8,72.2 optional
+
+step The Tome of Divinity
+  only Paladin,Human
+  zone map 1453
+  turnin 1644 optional
+
+step The Tome of Divinity
+  only Paladin,Human
+  zone map 1453
+  accept 1780 optional
+
+step The Tome of Divinity
+  only Paladin,Human
+  zone Stormwind City
+  turnin 1780 optional
+
+step The Tome of Divinity
+  only Paladin,Human
+  zone map 1453
+  accept 1781 optional
+  turnin 1781 optional
+
+step The Tome of Divinity
+  only Paladin,Human
+  tip A class quest, done from the quest text: the reference data does not route it.
+  zone map 1453
+  accept 1786 optional
+  complete 1786 @49.5,45.0 optional
+
+step The Tome of Divinity
+  only Paladin,Human
+  zone map 1453
+  turnin 1786 optional
+
+step The Tome of Divinity
+  only Paladin,Human
+  tip A class quest, done from the quest text: the reference data does not route it.
+  zone map 1429
+  accept 1787 optional
+  complete 1787 @72.6,51.4 optional
+
+step The Tome of Divinity
+  only Paladin,Human
+  zone map 1453
+  turnin 1787 optional
+
+step The Tome of Divinity
+  only Paladin,Human
+  zone map 1453
+  accept 1788 optional
+  turnin 1788 optional
+
+step The Tome of Divinity
+  only Paladin,Dwarf
+  zone map 1455
+  accept 1646 optional
+
+step The Tome of Divinity
+  only Paladin,Dwarf
+  turnin 1646 optional
+
+step The Tome of Divinity
+  only Paladin,Dwarf
+  zone map 1455
+  accept 1647 optional
+
+step The Tome of Divinity
+  only Paladin,Dwarf
+  zone map 1455
+  turnin 1647 optional
+
+step The Tome of Divinity
+  only Paladin,Dwarf
+  tip A class quest, done from the quest text: the reference data does not route it.
+  zone map 1455
+  accept 1648 optional
+  complete 1648 @23.3,61.9 optional
+
+step The Tome of Divinity
+  only Paladin,Dwarf
+  zone map 1455
+  turnin 1648 optional
+
+step The Tome of Divinity
+  only Paladin,Dwarf
+  zone map 1455
+  accept 1778 optional
+
+step The Tome of Divinity
+  only Paladin,Dwarf
+  zone map 1455
+  turnin 1778 optional
+
+step The Tome of Divinity
+  only Paladin,Dwarf
+  zone map 1455
+  accept 1779 optional
+  turnin 1779 optional
+
+step The Tome of Divinity
+  only Paladin,Dwarf
+  tip A class quest, done from the quest text: the reference data does not route it.
+  zone map 1455
+  accept 1783 optional
+  complete 1783 @23.5,8.3 optional
+
+step The Tome of Divinity
+  only Paladin,Dwarf
+  zone map 1455
+  turnin 1783 optional
+
+step The Tome of Divinity
+  only Paladin,Dwarf
+  tip A class quest, done from the quest text: the reference data does not route it.
+  zone map 1426
+  accept 1784 optional
+  complete 1784 @78.3,58.1 optional
+
+step The Tome of Divinity
+  only Paladin,Dwarf
+  zone map 1426
+  turnin 1784 optional
+
+step Level 60
+  level 60
+
+step Grimand's Finest Work
+  only Paladin,Human,Dwarf
+  when turnedin 7642
+  zone map 1453
+  accept 7648 optional
+
+step Grimand's Finest Work
+  only Paladin,Human,Dwarf
+  when onquest 7648
+  zone map 1453
+  turnin 7648 optional
+
+step The Tome of Divinity
+  only Paladin,Dwarf
+  zone map 1455
+  accept 1785 optional
+  turnin 1785 optional
+
+step Merideth Carlson
+  when onquest 7643
+  zone Hillsbrad Foothills
+  accept 7645 only Human,Dwarf
+
+step Merideth Carlson
+  when onquest 7643
+  zone Hillsbrad Foothills
+  turnin 7645 only Human,Dwarf
+
+step Oi!
+  only Paladin
+  zone map 1423
+  accept 84318 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 84318 @24.3,69.1 optional
+
+step Oi!
+  only Paladin
+  turnin 84318 optional
+
+step Aeonas the Vindicated
+  only Paladin
+  when turnedin 79963
+  tip The giver stands inside the instance: the arrow leads to its entrance.
+  zone map 1420
+  accept 79970 @85.2,31.3 optional
+
+step Aeonas the Vindicated
+  only Paladin
+  when onquest 79970
+  zone map 1453
+  turnin 79970 optional
+
+step By The Light's Grace
+  only Paladin
+  tip The giver stands inside the instance: the arrow leads to its entrance.
+  zone map 1420
+  accept 79963 @85.2,31.3 optional
+
+step By The Light's Grace
+  only Paladin
+  when onquest 79963
+  tip The hand-in is inside the instance: the arrow leads to its entrance.
+  zone map 1420
+  turnin 79963 @85.2,31.3 optional
+
+step A Newly Discovered Purpose...
+  only Paladin
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1424
+  turnin 81944 direct optional

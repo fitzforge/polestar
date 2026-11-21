@@ -1,0 +1,57 @@
+guide polestar-completionist-horde/dungeon-the-shapers-terrace
+title The Shaper's Terrace (Completionist)
+faction Horde
+category Dungeons
+levels 60-60
+zone Un'Goro Crater
+pitch The Shaper's Terrace, in Un'Goro Crater.
+why The Horde quests of The Shaper's Terrace that the reference data can place.
+
+step About this guide
+  note The reference data has no entrance for The Shaper's Terrace, in Un'Goro Crater: find the way in from the quest text. The quests below are taken and handed in outside.
+
+
+step The Dark Crystal
+  zone map 1458
+  accept 95926
+
+step The Dark Crystal
+  when onquest 95926
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1458
+  complete 95926 @48.8,69.3
+
+step The Dark Crystal
+  when onquest 95926
+  zone map 1458
+  turnin 95926 @48.8,69.3 map 1458
+
+step Crystalline Elements
+  zone map 1412
+  accept 95928
+
+step Crystalline Elements
+  when onquest 95928
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1412
+  complete 95928 @34.9,22.1
+
+step Crystalline Elements
+  when onquest 95928
+  zone map 1412
+  turnin 95928 @34.9,22.1 map 1412
+
+step Essence of Seeping Slimes
+  zone map 1458
+  accept 97049
+
+step Essence of Seeping Slimes
+  when onquest 97049
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1458
+  complete 97049 @47.5,73.3
+
+step Essence of Seeping Slimes
+  when onquest 97049
+  zone map 1458
+  turnin 97049

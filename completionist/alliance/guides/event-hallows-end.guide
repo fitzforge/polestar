@@ -1,0 +1,84 @@
+guide polestar-completionist-alliance/event-hallows-end
+title Hallow's End (Completionist)
+faction Alliance
+category Miscellaneous
+levels 1-60
+zone Stormwind City
+pitch The quests of Hallow's End, as far as the reference data places them.
+
+step About this guide
+  note Each quest here is offered only while the event runs. Every step is optional: do what the calendar offers now, and come back for the rest.
+
+step Chicken Clucking for a Mint
+  when turnedin 8311
+  when onquest 8311
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  turnin 8353 direct optional
+
+step Incoming Gumdrop
+  when turnedin 8311
+  when onquest 8311
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  turnin 8355 direct optional
+
+step Flexing for Nougat
+  when turnedin 8311
+  when onquest 8311
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1453
+  turnin 8356 direct optional
+
+step Dancing for Marzipan
+  when turnedin 8311
+  when onquest 8311
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1457
+  turnin 8357 direct optional
+
+step Level 25
+  level 25
+
+step The Power of Pine
+  zone map 1424
+  accept 8373 optional
+
+step Crashing the Wickerman Festival
+  zone map 1424
+  accept 1658 optional
+
+step Crashing the Wickerman Festival
+  when onquest 1658
+  zone map 1420
+  complete 1658 @55.5,69.8 optional
+
+step Crashing the Wickerman Festival
+  when onquest 1658
+  zone map 1424
+  turnin 1658 optional
+
+step Hallow's End Treats for Jesper!
+  zone map 1453
+  accept 8311 optional
+
+step Hallow's End Treats for Jesper!
+  when onquest 8311
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1453
+  complete 8311 @56.5,51.8 optional
+
+step Hallow's End Treats for Jesper!
+  when onquest 8311
+  zone map 1453
+  turnin 8311 optional
+
+step The Power of Pine
+  when onquest 8373
+  zone map 1424
+  complete 8373 @49.5,57.8 optional
+
+step The Power of Pine
+  when onquest 8373
+  zone map 1424
+  turnin 8373 optional

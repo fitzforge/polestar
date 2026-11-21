@@ -1,0 +1,625 @@
+guide polestar-completionist-horde/event-lunar-festival
+title Lunar Festival (Completionist)
+faction Horde
+category Miscellaneous
+levels 1-60
+zone Orgrimmar
+pitch The quests of Lunar Festival, as far as the reference data places them.
+
+step About this guide
+  note Each quest here is offered only while the event runs. Every step is optional: do what the calendar offers now, and come back for the rest.
+
+step Morndeep the Elder
+  tip The giver stands inside the instance: the arrow leads to its entrance.
+  zone map 1427
+  accept 8619 @34.8,85.3 optional
+
+step Morndeep the Elder
+  when onquest 8619
+  tip The hand-in is inside the instance: the arrow leads to its entrance.
+  zone map 1427
+  turnin 8619 @34.8,85.3 optional
+
+step Splitrock the Elder
+  tip The giver stands inside the instance: the arrow leads to its entrance.
+  zone map 1443
+  accept 8635 @31,60.8 optional
+
+step Splitrock the Elder
+  when onquest 8635
+  tip The hand-in is inside the instance: the arrow leads to its entrance.
+  zone map 1443
+  turnin 8635 @31,60.8 optional
+
+step Rumblerock the Elder
+  zone map 1428
+  accept 8636 optional
+
+step Rumblerock the Elder
+  when onquest 8636
+  zone map 1428
+  turnin 8636 optional
+
+step Silvervein the Elder
+  zone map 1432
+  accept 8642 optional
+
+step Silvervein the Elder
+  when onquest 8642
+  zone map 1432
+  turnin 8642 optional
+
+step Highpeak the Elder
+  zone map 1425
+  accept 8643 optional
+
+step Highpeak the Elder
+  when onquest 8643
+  zone map 1425
+  turnin 8643 optional
+
+step Stonefort the Elder
+  tip The giver stands inside the instance: the arrow leads to its entrance.
+  zone map 1427
+  accept 8644 @34.8,85.3 optional
+
+step Stonefort the Elder
+  when onquest 8644
+  tip The hand-in is inside the instance: the arrow leads to its entrance.
+  zone map 1427
+  turnin 8644 @34.8,85.3 optional
+
+step Obsidian the Elder
+  zone map 1421
+  accept 8645 optional
+
+step Obsidian the Elder
+  when onquest 8645
+  zone map 1421
+  turnin 8645 optional
+
+step Hammershout the Elder
+  zone map 1453
+  accept 8646 optional
+
+step Hammershout the Elder
+  when onquest 8646
+  zone map 1453
+  turnin 8646 optional
+
+step Bellowrage the Elder
+  zone map 1419
+  accept 8647 optional
+
+step Bellowrage the Elder
+  when onquest 8647
+  zone map 1419
+  turnin 8647 optional
+
+step Darkcore the Elder
+  zone map 1458
+  accept 8648 optional
+
+step Darkcore the Elder
+  when onquest 8648
+  zone map 1458
+  turnin 8648 optional
+
+step Stormbrow the Elder
+  zone map 1429
+  accept 8649 optional
+
+step Stormbrow the Elder
+  when onquest 8649
+  zone map 1429
+  turnin 8649 optional
+
+step Snowcrown the Elder
+  zone map 1423
+  accept 8650 optional
+
+step Snowcrown the Elder
+  when onquest 8650
+  zone map 1423
+  turnin 8650 optional
+
+step Ironband the Elder
+  zone map 1427
+  accept 8651 optional
+
+step Ironband the Elder
+  when onquest 8651
+  zone map 1427
+  turnin 8651 optional
+
+step Graveborn the Elder
+  zone map 1420
+  accept 8652 optional
+
+step Graveborn the Elder
+  when onquest 8652
+  zone map 1420
+  turnin 8652 optional
+
+step Goldwell the Elder
+  zone map 1426
+  accept 8653 optional
+
+step Goldwell the Elder
+  when onquest 8653
+  zone map 1426
+  turnin 8653 optional
+
+step Primestone the Elder
+  zone map 1451
+  accept 8654 optional
+
+step Primestone the Elder
+  when onquest 8654
+  zone map 1451
+  turnin 8654 optional
+
+step Runetotem the Elder
+  zone map 1411
+  accept 8670 optional
+
+step Runetotem the Elder
+  when onquest 8670
+  zone map 1411
+  turnin 8670 optional
+
+step Ragetotem the Elder
+  zone map 1446
+  accept 8671 optional
+
+step Ragetotem the Elder
+  when onquest 8671
+  zone map 1446
+  turnin 8671 optional
+
+step Stonespire the Elder
+  zone map 1452
+  accept 8672 optional
+
+step Stonespire the Elder
+  when onquest 8672
+  zone map 1452
+  turnin 8672 optional
+
+step Bloodhoof the Elder
+  zone map 1412
+  accept 8673 optional
+
+step Bloodhoof the Elder
+  when onquest 8673
+  zone map 1412
+  turnin 8673 optional
+
+step Winterhoof the Elder
+  zone map 1434
+  accept 8674 optional
+
+step Winterhoof the Elder
+  when onquest 8674
+  zone map 1434
+  turnin 8674 optional
+
+step Skychaser the Elder
+  zone map 1436
+  accept 8675 optional
+
+step Skychaser the Elder
+  when onquest 8675
+  zone map 1436
+  turnin 8675 optional
+
+step Wildmane the Elder
+  tip The giver stands inside the instance: the arrow leads to its entrance.
+  zone map 1446
+  accept 8676 @39.8,21.8 optional
+
+step Wildmane the Elder
+  when onquest 8676
+  tip The hand-in is inside the instance: the arrow leads to its entrance.
+  zone map 1446
+  turnin 8676 @39.8,21.8 optional
+
+step Darkhorn the Elder
+  zone map 1454
+  accept 8677 optional
+
+step Darkhorn the Elder
+  when onquest 8677
+  zone map 1454
+  turnin 8677 optional
+
+step Proudhorn the Elder
+  zone map 1456
+  accept 8678 optional
+
+step Proudhorn the Elder
+  when onquest 8678
+  zone map 1456
+  turnin 8678 optional
+
+step Grimtotem the Elder
+  zone map 1444
+  accept 8679 optional
+
+step Grimtotem the Elder
+  when onquest 8679
+  zone map 1444
+  turnin 8679 optional
+
+step Windtotem the Elder
+  zone map 1413
+  accept 8680 optional
+
+step Windtotem the Elder
+  when onquest 8680
+  zone map 1413
+  turnin 8680 optional
+
+step Thunderhorn the Elder
+  zone map 1449
+  accept 8681 optional
+
+step Thunderhorn the Elder
+  when onquest 8681
+  zone map 1449
+  turnin 8681 optional
+
+step Skyseer the Elder
+  zone map 1441
+  accept 8682 optional
+
+step Skyseer the Elder
+  when onquest 8682
+  zone map 1441
+  turnin 8682 optional
+
+step Dawnstrider the Elder
+  zone map 1428
+  accept 8683 optional
+
+step Dawnstrider the Elder
+  when onquest 8683
+  zone map 1428
+  turnin 8683 optional
+
+step Dreamseer the Elder
+  zone map 1446
+  accept 8684 optional
+
+step Dreamseer the Elder
+  when onquest 8684
+  zone map 1446
+  turnin 8684 optional
+
+step Mistwalker the Elder
+  zone map 1444
+  accept 8685 optional
+
+step Mistwalker the Elder
+  when onquest 8685
+  zone map 1444
+  turnin 8685 optional
+
+step High Mountain the Elder
+  zone map 1413
+  accept 8686 optional
+
+step High Mountain the Elder
+  when onquest 8686
+  zone map 1413
+  turnin 8686 optional
+
+step Windrun the Elder
+  zone map 1423
+  accept 8688 optional
+
+step Windrun the Elder
+  when onquest 8688
+  zone map 1423
+  turnin 8688 optional
+
+step Starsong the Elder
+  tip The giver stands inside the instance: the arrow leads to its entrance.
+  zone map 1435
+  accept 8713 @69.9,53.5 optional
+
+step Starsong the Elder
+  when onquest 8713
+  tip The hand-in is inside the instance: the arrow leads to its entrance.
+  zone map 1435
+  turnin 8713 @69.9,53.5 optional
+
+step Moonstrike the Elder
+  zone map 1422
+  accept 8714 optional
+
+step Moonstrike the Elder
+  when onquest 8714
+  zone map 1422
+  turnin 8714 optional
+
+step Bladeleaf the Elder
+  zone map 1438
+  accept 8715 optional
+
+step Bladeleaf the Elder
+  when onquest 8715
+  zone map 1438
+  turnin 8715 optional
+
+step Starglade the Elder
+  zone map 1434
+  accept 8716 optional
+
+step Starglade the Elder
+  when onquest 8716
+  zone map 1434
+  turnin 8716 optional
+
+step Moonwarden the Elder
+  zone map 1413
+  accept 8717 optional
+
+step Moonwarden the Elder
+  when onquest 8717
+  zone map 1413
+  turnin 8717 optional
+
+step Bladeswift the Elder
+  zone map 1457
+  accept 8718 optional
+
+step Bladeswift the Elder
+  when onquest 8718
+  zone map 1457
+  turnin 8718 optional
+
+step Bladesing the Elder
+  zone map 1451
+  accept 8719 optional
+
+step Bladesing the Elder
+  when onquest 8719
+  zone map 1451
+  turnin 8719 optional
+
+step Skygleam the Elder
+  zone map 1447
+  accept 8720 optional
+
+step Skygleam the Elder
+  when onquest 8720
+  zone map 1447
+  turnin 8720 optional
+
+step Starweave the Elder
+  zone map 1439
+  accept 8721 optional
+
+step Starweave the Elder
+  when onquest 8721
+  zone map 1439
+  turnin 8721 optional
+
+step Meadowrun the Elder
+  zone map 1422
+  accept 8722 optional
+
+step Meadowrun the Elder
+  when onquest 8722
+  zone map 1422
+  turnin 8722 optional
+
+step Nightwind the Elder
+  zone map 1448
+  accept 8723 optional
+
+step Nightwind the Elder
+  when onquest 8723
+  zone map 1448
+  turnin 8723 optional
+
+step Morningdew the Elder
+  zone map 1441
+  accept 8724 optional
+
+step Morningdew the Elder
+  when onquest 8724
+  zone map 1441
+  turnin 8724 optional
+
+step Riversong the Elder
+  zone map 1440
+  accept 8725 optional
+
+step Riversong the Elder
+  when onquest 8725
+  zone map 1440
+  turnin 8725 optional
+
+step Brightspear the Elder
+  zone map 1452
+  accept 8726 optional
+
+step Brightspear the Elder
+  when onquest 8726
+  zone map 1452
+  turnin 8726 optional
+
+step Farwhisper the Elder
+  tip The giver stands inside the instance: the arrow leads to its entrance.
+  zone map 1423
+  accept 8727 @26.3,18.3 optional
+
+step Farwhisper the Elder
+  when onquest 8727
+  tip The hand-in is inside the instance: the arrow leads to its entrance.
+  zone map 1423
+  turnin 8727 @26.3,18.3 optional
+
+step Festival Dumplings
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1450
+  collect 21100 x1 anywhere optional
+  turnin 8863 direct optional
+
+step Festive Lunar Dresses
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1450
+  collect 21100 x5 anywhere optional
+  turnin 8864 direct optional
+
+step Festive Lunar Pant Suits
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1450
+  collect 21100 x5 anywhere optional
+  turnin 8865 direct optional
+
+step Bronzebeard the Elder
+  zone map 1455
+  accept 8866 optional
+
+step Bronzebeard the Elder
+  when onquest 8866
+  zone map 1455
+  turnin 8866 optional
+
+step The Lunar Festival
+  zone map 1454
+  accept 8873 optional
+
+step The Lunar Festival
+  when onquest 8873
+  zone map 1453
+  turnin 8873 optional
+
+step The Lunar Festival
+  when available 8874
+  tip One of several exclusive quests; the route takes The Lunar Festival (8873). This one shows for a character the game offers it to instead.
+  zone map 1454
+  accept 8874 optional
+
+step The Lunar Festival
+  when onquest 8874
+  zone map 1453
+  turnin 8874 optional
+
+step The Lunar Festival
+  when available 8875
+  tip One of several exclusive quests; the route takes The Lunar Festival (8873). This one shows for a character the game offers it to instead.
+  zone map 1454
+  accept 8875 optional
+
+step The Lunar Festival
+  when onquest 8875
+  zone map 1453
+  turnin 8875 optional
+
+step Small Rockets
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1450
+  collect 21100 x5 anywhere optional
+  turnin 8876 direct optional
+
+step Firework Launcher
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1450
+  collect 21100 x5 anywhere optional
+  turnin 8877 direct optional
+
+step Festive Recipes
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1450
+  collect 21100 x5 anywhere optional
+  turnin 8878 direct optional
+
+step Large Rockets
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1450
+  collect 21100 x5 anywhere optional
+  turnin 8879 direct optional
+
+step Level 10
+  level 10
+
+step Elune's Candle
+  zone map 1450
+  accept 8862 optional
+
+step Elune's Candle
+  when onquest 8862
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1450
+  complete 8862 @53.6,35.3 optional
+
+step Elune's Candle
+  when onquest 8862
+  zone map 1450
+  turnin 8862 optional
+
+step Cluster Rockets
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1450
+  collect 21100 x5 anywhere optional
+  turnin 8880 direct optional
+
+step Large Cluster Rockets
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1450
+  collect 21100 x5 anywhere optional
+  turnin 8881 direct optional
+
+step Cluster Launcher
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1450
+  collect 21100 x5 anywhere optional
+  turnin 8882 direct optional
+
+step Lunar Fireworks
+  when turnedin 8873
+  when turnedin 8874
+  when turnedin 8875
+  zone map 1453
+  accept 8867 optional
+
+step Lunar Fireworks
+  when onquest 8867
+  zone map 1450
+  complete 8867 @35.7,58.4 optional
+
+step Level 40
+  level 40
+
+step Elune's Blessing
+  zone map 1450
+  accept 8868 optional
+
+step Elune's Blessing
+  when onquest 8868
+  zone map 1450
+  complete 8868 @63.9,62.5 optional
+
+step Elune's Blessing
+  when onquest 8868
+  zone map 1450
+  turnin 8868 optional
+
+step Lunar Fireworks
+  when onquest 8867
+  zone map 1453
+  turnin 8867 optional
+
+step Valadar Starsong
+  when turnedin 8867
+  zone map 1453
+  accept 8883 optional
+
+step Valadar Starsong
+  when onquest 8883
+  zone map 1450
+  turnin 8883 optional

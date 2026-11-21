@@ -1,0 +1,779 @@
+guide polestar-completionist-alliance/02-dun-morogh-and-ironforge
+title 02 Dun Morogh and Ironforge (1-13) (Completionist)
+faction Alliance
+levels 1-13
+zone Dun Morogh
+next polestar-completionist-alliance/01-elwynn-forest-and-stormwind when !turnedin 95065
+next polestar-completionist-alliance/03-teldrassil-and-darnassus when !turnedin 941
+next polestar-completionist-alliance/04-zephras-isle when !turnedin 94946
+next polestar-completionist-alliance/05-odd-jobs-in-kalimdor
+pitch Where Dwarves and Gnomes start. The other starting zones follow, then the route goes on by level.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 69 quests; estimated level at the end 12.8 (heuristic XP, class quests not counted).
+# Skipped: 1 exclusive with N.
+
+step Sten Stoutarm
+  accept 179
+
+step Welcome!
+  when has 14647
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1426
+  accept 5841 item 14647
+
+step Timber Wolf
+  zone Elwynn Forest
+  collect 750 x8 quest 179.1
+
+step Grelin Whitebeard
+  zone Dun Morogh
+  accept 182
+
+step Frostmane Troll Whelp
+  kill 706 x14 quest 182.1
+
+step Grelin Whitebeard
+  turnin 182
+  accept 218
+
+step Grik'nir the Cold
+  collect 2004 x1 quest 218.1
+
+step Sten Stoutarm
+  turnin 179
+  accept 233
+  accept 3106 only Warrior,Dwarf
+  accept 3107 only Paladin,Dwarf
+  accept 3108 only Hunter,Dwarf
+  accept 3109 only Rogue,Dwarf
+  accept 3110 only Priest,Dwarf
+  accept 3112 only Warrior,Gnome
+  accept 3113 only Rogue,Gnome
+  accept 3114 only Mage,Gnome
+  accept 3115 only Warlock,Gnome
+  accept 98574 only Priest,Gnome
+  accept 98581 only Shaman,Dwarf
+
+step Welcome!
+  when onquest 5841
+  zone map 1426
+  turnin 5841
+
+step Balir Frosthammer
+  accept 170
+
+step Rockjaw Trogg
+  kill 707 x6 quest 170.1
+
+step Grelin Whitebeard
+  turnin 218
+  accept 282
+
+step Burly Rockjaw Trogg
+  kill 724 x6 quest 170.2
+
+step Talin Keeneye
+  turnin 233
+  accept 183
+  accept 234
+
+step Small Crag Boar
+  kill 708 x12 quest 183.1
+
+step Talin Keeneye
+  turnin 183
+
+step Grelin Whitebeard
+  turnin 234
+  accept 3364
+
+step Balir Frosthammer
+  turnin 170
+
+step Bromos Grummner
+  only Paladin
+  turnin 3107 only Dwarf
+
+step Felix Whindlebolt
+  accept 3361
+  accept 97277
+
+step Thran Khorman
+  only Warrior
+  turnin 3106 only Dwarf
+  turnin 3112 only Gnome
+
+step Thorgas Grimson
+  only Hunter
+  turnin 3108 only Dwarf
+
+step Solm Hargrin
+  only Rogue
+  turnin 3109 only Dwarf
+  turnin 3113 only Gnome
+
+step Branstock Khalder
+  only Priest
+  turnin 3110 only Dwarf
+  turnin 98574 only Gnome
+
+step Marryk Nurribit
+  only Mage
+  turnin 3114 only Gnome
+
+step Durnan Furcutter
+  turnin 3364
+  accept 3365
+
+step Teo Hammerstorm
+  only Shaman
+  turnin 98581 only Dwarf
+  accept 94373
+
+step Alamar Grimm
+  only Warlock
+  turnin 3115 only Gnome
+  accept 1599 only Dwarf,Gnome
+
+step Gozwin's Mechanic's Log and Snow Leopard Prowler
+  collect 277976 x1 quest 97277.1
+  kill 269075 x1 quest 97277.2
+
+step Felix's Box
+  collect 10438 x1 quest 3361.1
+
+step Felix's Chest
+  collect 16313 x1 quest 3361.2
+
+step Felix's Bucket of Bolts
+  collect 16314 x1 quest 3361.3
+
+step Frostmane Troll Whelp
+  only Shaman
+  collect 264356 x1 quest 94373.1
+
+step Frostmane Novice
+  only Warlock
+  collect 6753 x3 quest 1599.1 only Dwarf,Gnome
+
+step Nori Pridedrift
+  turnin 3365
+
+step Felix Whindlebolt
+  turnin 3361
+  turnin 97277
+
+step Branstock Khalder
+  only Priest
+  accept 5626 only Dwarf,Gnome
+
+step Alamar Grimm
+  only Warlock
+  turnin 1599 only Dwarf,Gnome
+
+step Teo Hammerstorm
+  only Shaman
+  turnin 94373
+  accept 94374
+
+step Earth Sapta
+  only Shaman
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1426
+  turnin 94472 direct optional
+
+step Minor Manifestation of Earth
+  only Shaman
+  turnin 94374
+
+step Mountaineer Thalos
+  turnin 282
+  accept 420
+  accept 96628 only Dwarf,Gnome
+  accept 2160
+
+step Eric Brighthammer
+  sethome "Thunderbrew Distillery"
+  turnin 96628 only Dwarf,Gnome
+  turnin 420
+  accept 98322
+  accept 384
+  turnin 2160
+  turnin 5626 only Priest,Dwarf,Gnome
+  accept 5625 only Priest,Dwarf,Gnome
+  accept 99158
+
+step Frostmane Hold
+  zone map 1426
+  accept 287
+
+step Frostmane Hold
+  when onquest 287
+  zone map 1426
+  complete 287 @21.1,51.6
+
+step Frostmane Hold
+  when onquest 287
+  zone map 1426
+  turnin 287
+
+step The Great Outdoors
+  zone map 1426
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 96608
+  complete 96608 @46.6,53.9
+
+step Innkeeper Belm
+  collect 2894 x1 quest 384.2
+
+step Ingrid Dunwald
+  only Shaman
+  accept 96243 npc 258113 only Dwarf,Gnome
+
+step Rudra Amberstill
+  when group 314
+  zone Dun Morogh
+  accept 314
+
+step Mountaineer Dolf
+  only Priest
+  kill 12427 x1 quest 5625.1 only Dwarf,Gnome
+
+step Scarred Crag Boar
+  collect 2886 x6 quest 384.1
+
+step Vagash
+  when group 314
+  zone Dun Morogh
+  tip Protecting the Herd is group work: elites. Grouping up is advised.
+  collect 3627 x1 quest 314.1
+
+step Rudra Amberstill
+  when group 314
+  zone Dun Morogh
+  turnin 314
+
+step Father Gavin
+  turnin 99158
+  accept 99159
+
+step Fallen Log
+  collect 286339 x14 quest 99159.1
+
+step Father Gavin
+  turnin 99159
+  accept 99160
+  accept 99162
+
+step Sunhammer's Rifle
+  collect 286359 x1 quest 99162.2
+
+step Stoneanvil's Rifle
+  collect 286360 x1 quest 99162.1
+
+step Coalbeard's Rifle
+  collect 286358 x1 quest 99162.3
+
+step Minor Ice Elemental
+  kill 276003 x10 quest 99160.1
+
+step Father Gavin
+  turnin 99160
+  turnin 99162
+  accept 99161
+
+step Avala
+  collect 286325 x1 quest 99161.1
+
+step Father Gavin
+  turnin 99161
+
+step Rudra Amberstill
+  accept 95212
+
+step Black Ram Exchange
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1426
+  collect 13328 x1 anywhere optional
+  turnin 7674 direct optional
+
+step Frost Ram Exchange
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1426
+  collect 13329 x1 anywhere optional
+  turnin 7673 direct optional
+
+step Elder Snow Leopard
+  collect 267414 x6 quest 95212.1
+
+step Foreman Stonebrow
+  accept 432
+  accept 433
+
+step Rockjaw Skullthumper and Rockjaw Bonesnapper
+  kill 1115 x6 quest 432.1
+  kill 1117 x10 quest 433.1
+
+step Foreman Stonebrow
+  turnin 432
+  turnin 433
+
+step Rudra Amberstill
+  turnin 95212
+
+step Beldin Steelgrill
+  accept 96408
+  accept 5541
+  accept 313
+  accept 317
+
+step White Mechanostrider Replacement
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1426
+  collect 13326 x1 anywhere optional
+  turnin 7676 direct optional
+
+step Icy Blue Mechanostrider Replacement
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1426
+  collect 13327 x1 anywhere optional
+  turnin 7675 direct optional
+
+step Maxan Anvol
+  only Priest
+  turnin 5625 only Dwarf,Gnome
+
+step The Great Outdoors
+  turnin 96608
+
+step Camping 101: Engineering
+  when skill Engineering 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1426
+  accept 96058 optional
+  complete 96058 @46.6,53.9 optional
+
+step Camping 101: Engineering
+  when skill Engineering 1
+  zone map 1426
+  turnin 96058 optional
+
+step Camping 101: Tailoring
+  when skill Tailoring 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1426
+  accept 96057 optional
+  complete 96057 @46.6,53.9 optional
+
+step Camping 101: Tailoring
+  when skill Tailoring 1
+  zone map 1426
+  turnin 96057 optional
+
+step Camping 101: Skinning
+  when skill Skinning 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1426
+  accept 96056 optional
+  complete 96056 @46.6,53.9 optional
+
+step Camping 101: Skinning
+  when skill Skinning 1
+  zone map 1426
+  turnin 96056 optional
+
+step Camping 101: Herbalism
+  when skill Herbalism 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1426
+  accept 96055 optional
+  complete 96055 @46.6,53.9 optional
+
+step Camping 101: Herbalism
+  when skill Herbalism 1
+  zone map 1426
+  turnin 96055 optional
+
+step Camping 101: Fishing
+  when skill Fishing 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1426
+  accept 96050 optional
+  complete 96050 @46.6,53.9 optional
+
+step Camping 101: Fishing
+  when skill Fishing 1
+  zone map 1426
+  turnin 96050 optional
+
+step Camping 101: First Aid
+  when skill "First Aid" 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1426
+  accept 96047 optional
+  complete 96047 @46.6,53.9 optional
+
+step Camping 101: First Aid
+  when skill "First Aid" 1
+  zone map 1426
+  turnin 96047 optional
+
+step Camping 101: Mining
+  when skill Mining 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1426
+  accept 96046 optional
+  complete 96046 @46.6,53.9 optional
+
+step Camping 101: Mining
+  when skill Mining 1
+  zone map 1426
+  turnin 96046 optional
+
+step Camping 101: Blacksmithing
+  when skill Blacksmithing 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1426
+  accept 96044 optional
+  complete 96044 @46.6,53.9 optional
+
+step Camping 101: Blacksmithing
+  when skill Blacksmithing 1
+  zone map 1426
+  turnin 96044 optional
+
+step Camping 101: Leatherworking
+  when skill Leatherworking 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1426
+  accept 96031 optional
+  complete 96031 @46.6,53.9 optional
+
+step Camping 101: Leatherworking
+  when skill Leatherworking 1
+  zone map 1426
+  turnin 96031 optional
+
+step Camping 101: Cooking
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1426
+  accept 96629
+  complete 96629 @46.6,53.9
+
+step Camping 101: Cooking
+  zone map 1426
+  turnin 96629
+
+step Ragnar Thunderbrew
+  turnin 384
+  accept 400
+  accept 98321
+
+step Flintfire's Shipment
+  collect 280413 x1 quest 98321.1
+
+step Young Wendigo
+  collect 2671 x8 quest 313.1
+
+step Ammo Crate
+  collect 13850 x1 quest 5541.1
+
+step Mountaineer Gretchen
+  turnin 98322
+
+step Secure the Mountain
+  zone map 1426
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 98319
+  complete 98319 @44.1,57.1
+
+step Secure the Mountain
+  turnin 98319
+
+step Mountaineer Gretchen
+  zone Dun Morogh
+  accept 98323
+
+step Young Black Bear
+  collect 6952 x2 quest 317.2
+
+step Dire Mottled Boar
+  zone Durotar
+  collect 769 x4 quest 317.1
+
+step Ironforge
+  zone Ironforge
+  getfp "Ironforge"
+
+step Jemma Quikswitch
+  zone Ironforge
+  accept 95041
+  accept 97263
+
+step Deeprun Rat Roundup
+  tip Monty stands on the Ironforge platform inside the Deeprun Tram (the arrow leads to the tram's entrance in Tinker Town). Use his Rat Catcher's Flute on the Deeprun Rats around the platform.
+  zone map 1455
+  accept 6661 @78.0,51.4 map 1455
+
+step Deeprun Rat Roundup
+  when onquest 6661
+  zone map 1455
+  complete 6661 @78.0,51.4
+
+step Deeprun Rat Roundup
+  when onquest 6661
+  zone map 1455
+  turnin 6661 @78.0,51.4 map 1455
+
+step Camping 101: Alchemy
+  when skill Alchemy 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1455
+  accept 96045 optional
+  complete 96045 @66.3,55.7 optional
+
+step Camping 101: Alchemy
+  when skill Alchemy 1
+  zone map 1455
+  turnin 96045 optional
+
+step Camping 101: Enchanting
+  when skill Enchanting 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1455
+  accept 96059 optional
+  complete 96059 @60.3,45.4 optional
+
+step Camping 101: Enchanting
+  when skill Enchanting 1
+  zone map 1455
+  turnin 96059 optional
+
+step Snowdrift
+  zone Dun Morogh
+  collect 267413 x7 quest 95041.1
+
+step Marleth Barleybrew
+  accept 310
+  accept 315
+  accept 98326
+
+step Distracting Jarven
+  when turnedin 403
+  when onquest 310
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1426
+  collect 2686 x1 anywhere optional
+  turnin 308 direct optional
+
+step Guarded Thunderbrew Barrel
+  when onquest 310
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1426
+  turnin 403 direct optional
+
+step Frosthowl
+  collect 280426 x1 quest 98326.1
+
+step Shimmerweed Basket
+  collect 2676 x6 quest 315.1
+
+step Razzle Sprysprocket
+  accept 412
+
+step Leper Gnome
+  collect 3083 x8 quest 412.1
+  collect 3084 x8 quest 412.2
+
+step Rejold Barleybrew
+  turnin 315
+  accept 413
+  turnin 98326
+
+step Tundra MacGrann
+  accept 312
+
+step MacGrann's Meat Locker
+  collect 2667 x1 quest 312.1
+
+step Tundra MacGrann
+  turnin 312
+
+step Tognus Flintfire
+  turnin 98321
+
+step Senir Whitebeard
+  zone Dun Morogh
+  turnin 98323
+
+step The Reports
+  when turnedin 287
+  zone map 1426
+  accept 291
+
+step The Reports
+  when onquest 291
+  zone map 1455
+  turnin 291
+
+step Tharek Blackstone
+  accept 415 npc 1872
+
+step Razzle Sprysprocket
+  turnin 412
+
+step Unguarded Thunder Ale Barrel
+  turnin 310
+  accept 311 object 270
+
+step Pilot Stonegear
+  turnin 313
+  turnin 317
+  accept 318
+  turnin 400
+
+step Hegnar Rumbleshot
+  turnin 5541
+
+step Teo Hammerstorm
+  only Shaman
+  turnin 96243 only Dwarf,Gnome
+
+step Rejold Barleybrew
+  turnin 318
+  turnin 415
+  accept 319
+  turnin 311
+
+step Snow Leopard
+  kill 1201 x8 quest 319.3
+
+step Ice Claw Bear
+  kill 1196 x6 quest 319.1
+
+step Elder Crag Boar
+  kill 1127 x8 quest 319.2
+
+step Rejold Barleybrew
+  turnin 319
+  accept 320
+
+step Pilot Bellowfiz
+  turnin 320
+
+step Earthseer Farsen
+  turnin 96408
+
+step Stolen Blasting Powder
+  tip Empty Powder Keg drops from Rockjaw Skullthumper, Rockjaw Ambusher, Rockjaw Bonesnapper: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1426
+  collect 268548 x1 optional
+  accept 95213 item 268548 optional
+  complete 95213 @69.2,54.8
+
+step Stolen Blasting Powder
+  when onquest 95213
+  zone map 1426
+  turnin 95213
+
+step Farsen's Watch
+  zone map 1426
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 96392
+  complete 96392 @64.9,58.5
+
+step Stolen Blasting Powder
+  when turnedin 95213
+  zone map 1426
+  accept 95214
+  complete 95214 @69.2,54.8
+
+step Stolen Blasting Powder
+  when onquest 95214
+  zone map 1426
+  turnin 95214
+
+step Farsen's Watch
+  turnin 96392
+
+step Earthseer Farsen
+  zone Dun Morogh
+  accept 96390
+
+step Earthseer Farsen
+  zone Dun Morogh
+  complete 96390
+  turnin 96390
+
+step Jemma Quikswitch
+  zone Ironforge
+  turnin 95041
+
+step Eldrun Stormbreaker
+  turnin 97263
+
+step Your Reward has Arrived!
+  zone map 1455
+  accept 60860 optional
+
+step The Tome of Divinity
+  only Paladin,Dwarf
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  turnin 1645 direct optional
+
+step Me Brother, Nipsy
+  tip Nipsy stands on the Stormwind platform of the Deeprun Tram: ride the tram across.
+  when turnedin 6661
+  zone map 1455
+  accept 6662 @78.0,51.4 map 1455
+
+step Me Brother, Nipsy
+  when onquest 6662
+  zone map 1453
+  turnin 6662 @64.5,7.5 map 1453
+
+step Your Reward has Arrived!
+  when onquest 60860
+  zone map 1455
+  turnin 60860 optional
+
+step Supplying the Front
+  when skill Blacksmithing 1
+  zone map 1455
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 1578 optional
+  complete 1578 @48.6,42.5 optional
+
+step Supplying the Front
+  when skill Blacksmithing 1
+  turnin 1578 optional
+
+step Pilot Hammerfoot
+  zone Dun Morogh
+  accept 419
+
+step A Dwarven Corpse
+  turnin 419
+  accept 417
+
+step Mangeclaw
+  collect 3183 x1 quest 417.1
+
+step Pilot Hammerfoot
+  turnin 417
+
+step Mountaineer Barleybrew
+  turnin 413
+  accept 414
+
+step Mountaineer Kadrell
+  turnin 414
+  accept 416
+
+step Tunnel Rat Digger
+  zone Loch Modan
+  collect 3110 x12 quest 416.1
+
+step Mountaineer Kadrell
+  turnin 416

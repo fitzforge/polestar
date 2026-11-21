@@ -1,0 +1,83 @@
+guide polestar-completionist-alliance/dungeon-wailing-caverns
+title Wailing Caverns (Completionist)
+faction Alliance
+category Dungeons
+levels 14-26
+zone The Barrens
+next polestar-completionist-alliance/08-westfall
+pitch Wailing Caverns, in The Barrens.
+why Every Alliance quest of Wailing Caverns: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in The Barrens: the arrow leads to it.
+
+step Raptor Horns
+  zone The Barrens
+  accept 865
+
+step Raptor Horns
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone The Barrens
+  complete 865 @62.37,37.62
+
+step Raptor Horns
+  zone The Barrens
+  turnin 865
+
+step Crane Operator Bigglefuzz
+  zone The Barrens
+  accept 959
+
+step Level 15
+  level 15
+
+step Ebru
+  zone The Barrens
+  accept 1487
+
+step Mebok Mizzyrix
+  zone The Barrens
+  accept 1491
+
+step Nalpak
+  zone The Barrens
+  accept 1486
+
+step Inside Wailing Caverns
+  zone The Barrens
+  collect 10441 @46.6,35.7
+  accept 6981 item 10441
+  complete 1486 @46.6,35.7
+  complete 959 @46.6,35.7
+  complete 1491 @46.6,35.7
+  complete 1487 @46.6,35.7
+  complete 6981 @46.6,35.7
+
+step Crane Operator Bigglefuzz
+  zone The Barrens
+  turnin 959
+
+step Ebru
+  zone The Barrens
+  turnin 1487
+
+step Falla Sagewind
+  zone The Barrens
+  turnin 6981
+
+step In Nightmares
+  zone map 1413
+  accept 3370
+
+step In Nightmares
+  when onquest 3370
+  zone map 1457
+  turnin 3370
+
+step Mebok Mizzyrix
+  zone The Barrens
+  turnin 1491
+
+step Nalpak
+  zone The Barrens
+  turnin 1486

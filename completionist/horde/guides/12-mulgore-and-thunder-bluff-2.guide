@@ -1,0 +1,163 @@
+guide polestar-completionist-horde/12-mulgore-and-thunder-bluff-2
+title 12 Mulgore and Thunder Bluff (14-30) (Completionist)
+faction Horde
+levels 14-30
+zone Mulgore
+next polestar-completionist-horde/13-the-barrens-2
+pitch On along the line: Mulgore and Thunder Bluff, quests of level 14 to 30.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 12 quests; estimated level at the end 17.1 (heuristic XP, class quests not counted).
+# Skipped: 1 exclusive with N (done).
+
+step Bloodhoof Village
+  zone Mulgore
+  sethome "Bloodhoof Village"
+
+step Cairne Bloodhoof
+  accept 776
+
+step Magatha Grimtotem
+  accept 1064
+
+step Arra'chea
+  zone Mulgore
+  collect 4841 x1 quest 776.1
+
+step Level 20
+  level 20
+
+step Thunder Bluff
+  zone Thunder Bluff
+  getfp "Thunder Bluff"
+
+step Tah Winterhoof
+  zone Thunder Bluff
+  accept 97538
+
+step Mirkweed
+  zone Stonetalon Mountains
+  collect 278201 x30 quest 97538.1
+
+step Zangen Stonehoof
+  zone Mulgore
+  accept 1195
+
+step Ashenvale Moonwell
+  zone Ashenvale
+  collect 5868 x1 quest 1195.1
+
+step Level 23
+  level 23
+
+step Yorn Grimtotem
+  zone Mulgore
+  accept 96260
+
+step Gloomrise Spinner
+  zone Desolace
+  collect 273181 x3 quest 96260.1
+
+step Yorn Grimtotem
+  zone Mulgore
+  turnin 96260
+
+step Mazu'kon
+  zone Mulgore
+  accept 96241
+
+step Gnawed Corpse
+  zone Mulgore
+  collect 273001 x5 quest 96241.1
+
+step Mazu'kon
+  zone Ashenvale
+  turnin 96241
+
+step Muln Earthfury
+  zone Mulgore
+  accept 96259
+
+step Gloomrise Hatchling
+  zone Ashenvale
+  kill 264079 x10 quest 96259.1
+
+step Gloomrise Soldier
+  zone Stonetalon Mountains
+  kill 264083 x5 quest 96259.2
+
+step Muln Earthfury
+  zone Mulgore
+  turnin 96259
+
+step A Darker Truth
+  tip Bloody Parchment drops from Broodmother Valraxx: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1412
+  collect 273658 x1 optional
+  accept 96294 item 273658 optional
+
+step A Darker Truth
+  when onquest 96294
+  zone map 1412
+  turnin 96294
+
+step Muln Earthfury
+  when group 96261
+  zone Mulgore
+  accept 96261
+
+step Broodmother Valraxx
+  when group 96261
+  zone Mulgore
+  tip The Broodmother is group work: elites. Grouping up is advised.
+  kill 264082 x1 quest 96261.1
+
+step Muln Earthfury
+  when group 96261
+  zone Mulgore
+  turnin 96261
+
+step Apothecary Zamah
+  zone Thunder Bluff
+  turnin 1064
+  accept 1065
+  accept 264
+
+step Tah Winterhoof
+  turnin 97538
+  turnin 1195
+  accept 1196
+  turnin 776
+
+step Melor Stonehoof
+  accept 1131
+
+step Steelsnap
+  zone The Barrens
+  collect 5837 x1 quest 1131.1
+
+step Rau Cliffrunner
+  zone Thousand Needles
+  turnin 1196
+
+step Melor Stonehoof
+  zone Thunder Bluff
+  turnin 1131
+
+step The Ashenvale Hunt
+  when available 742
+  tip One of several exclusive quests; the route takes The Ashenvale Hunt (235). This one shows for a character the game offers it to instead.
+  zone map 1456
+  accept 742 optional
+
+step The Ashenvale Hunt
+  when onquest 742
+  zone map 1440
+  turnin 742 optional
+
+step Apothecary Lydon
+  zone Alterac Mountains
+  turnin 1065
+
+step Yuriv's Tombstone
+  zone Silverpine Forest
+  turnin 264

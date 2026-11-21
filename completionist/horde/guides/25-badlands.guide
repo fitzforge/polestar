@@ -1,0 +1,154 @@
+guide polestar-completionist-horde/25-badlands
+title 25 Badlands (37-45) (Completionist)
+faction Horde
+levels 37-45
+zone Badlands
+next polestar-completionist-horde/dungeon-uldaman
+next polestar-completionist-horde/26-odd-jobs-in-the-eastern-kingdoms-2
+pitch On along the line: Badlands, quests of level 37 to 45.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 14 quests; estimated level at the end 38.1 (heuristic XP, class quests not counted).
+# Skipped: 1 prerequisite N not in this route.
+
+step Mus'hale
+  sethome "Kargath"
+  getfp "Kargath"
+  accept 97663
+  turnin 97663
+  accept 1419
+  accept 1420
+
+step Rigglefuzz
+  accept 703
+  accept 705
+
+step Feral Crag Coyote
+  collect 6166 x30 quest 1419.1
+
+step Greater Firebird
+  zone Tanaris
+  collect 3404 x4 quest 703.1
+
+step Giant Clam
+  zone Stranglethorn Vale
+  collect 4611 x9 quest 705.1
+
+step Helgrum the Swift
+  zone Swamp of Sorrows
+  turnin 1420
+
+step Rigglefuzz
+  zone Badlands
+  turnin 703
+  turnin 705
+
+step Flash Bomb Recipe
+  when skill Engineering 1
+  zone map 1418
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 1559 optional
+
+step Flash Bomb Recipe
+  when skill Engineering 1
+  turnin 1559 optional
+
+step Lotwil Veriatus
+  accept 710
+  accept 713
+
+step Lesser Rock Elemental
+  collect 4626 x10 quest 710.1
+
+step Vilebranch Witch Doctor
+  zone The Hinterlands
+  collect 3829 x1 quest 713.1
+
+step Lotwil Veriatus
+  zone Badlands
+  turnin 710
+  turnin 713
+  accept 711
+  accept 714
+
+step Rock Elemental
+  collect 4627 x3 quest 711.1
+
+step Compact Harvest Reaper
+  zone Stranglethorn Vale
+  collect 4389 x1 quest 714.1
+
+step Neeka Bloodscar
+  zone Badlands
+  turnin 1419
+
+step Lotwil Veriatus
+  turnin 711
+  turnin 714
+  accept 712
+
+step Liquid Stone
+  zone map 1418
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 715
+  complete 715 @25.8,44.2
+
+step Greater Rock Elemental
+  zone Searing Gorge
+  collect 4628 x5 quest 712.1
+
+step Lotwil Veriatus
+  zone Badlands
+  turnin 712
+
+step Stone Is Better than Cloth
+  zone map 1418
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 716
+  complete 716 @25.8,44.2
+
+step Liquid Stone
+  turnin 715
+
+step Stone Is Better than Cloth
+  turnin 716
+
+step Lotwil Veriatus
+  zone Badlands
+  accept 734
+
+step Lucien Tosselwrench
+  zone Badlands
+  turnin 734
+
+step Lucien Tosselwrench
+  zone Badlands
+  accept 777
+
+step Lotwil Veriatus
+  zone Badlands
+  turnin 777
+
+step Lotwil Veriatus
+  zone Badlands
+  accept 778
+
+step Level 40
+  level 40
+
+step Gorn
+  zone Badlands
+  accept 782
+
+step Gorn
+  zone Badlands
+  turnin 782
+
+step Lotwil Veriatus
+  zone Badlands
+  turnin 778
+
+step Mirage Mirror
+  when has 278744
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1418
+  turnin 97821 direct

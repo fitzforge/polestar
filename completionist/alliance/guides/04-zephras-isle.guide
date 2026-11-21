@@ -1,0 +1,1078 @@
+guide polestar-completionist-alliance/04-zephras-isle
+title 04 Zephras Isle (1-13) (Completionist)
+faction Alliance
+levels 1-13
+zone map 2521
+next polestar-completionist-alliance/01-elwynn-forest-and-stormwind when !turnedin 95065
+next polestar-completionist-alliance/02-dun-morogh-and-ironforge when !turnedin 96390
+next polestar-completionist-alliance/03-teldrassil-and-darnassus when !turnedin 941
+next polestar-completionist-alliance/05-odd-jobs-in-kalimdor
+pitch Where Skyborne start. The other starting zones follow, then the route goes on by level.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 76 quests; estimated level at the end 17.1 (heuristic XP, class quests not counted).
+# Skipped: 1 exclusive with N.
+
+step Shen'dar Village
+  zone Zephras Isle
+  sethome "Shen'dar Village"
+
+step Ailee Farheart
+  accept 92460
+  turnin 92460
+  accept 92461
+
+step Juvenile Vuldren
+  kill 250873 x8 quest 92461.1
+
+step Elatrell Featherlight
+  accept 92462
+
+step Pesky Cirrusfly
+  kill 251169 x8 quest 92462.1
+
+step Elatrell Featherlight
+  turnin 92462
+  accept 92463
+
+step Cirrusfly Queen
+  kill 251404 x1 quest 92463.1
+
+step Elatrell Featherlight
+  turnin 92463
+  turnin 92461
+  accept 92464
+  accept 92481 only Mage
+  accept 92482 only Hunter
+  accept 92483 only Rogue
+  accept 92485 only Druid
+  accept 92532 only Warrior
+
+step Yala Windwatcher
+  zone map 2521
+  accept 92465
+
+step Al'Aketh Convert and Roiling Winds
+  zone map 2521
+  kill 251160 x7 quest 92465.1
+  kill 251143 x6 quest 92465.2
+
+step Yala Windwatcher
+  zone map 2521
+  turnin 92465
+
+step Myriaal Mistwake
+  zone map 2521
+  accept 92474 only Skyborne
+
+step Rorian the Dayseeker
+  zone map 2521
+  complete 92474 @43.7,24.1 map 2521
+  turnin 92474 only Skyborne
+
+step Yala Windwatcher
+  zone map 2521
+  accept 92469
+
+step Rorian the Dayseeker
+  zone map 2521
+  turnin 92469
+
+step Xyton Silverwind
+  only Druid
+  turnin 92485
+
+step Dorii Brightwhisper
+  only Mage
+  turnin 92481
+
+step Tai'ree Farsight
+  only Hunter
+  turnin 92482
+
+step Dalia the Collector
+  accept 93552
+
+step Blademaster Ren
+  only Warrior
+  turnin 92532
+
+step Akeri Duskblade
+  only Rogue
+  turnin 92483
+
+step Falorne Fallwind
+  accept 92597 only Skyborne
+
+step Ley Line
+  interact 460002 quest 92597.1 only Skyborne
+
+step Raw Windstone
+  collect 258772 x15 quest 93552.1
+
+step Hanaa Nightwind
+  accept 92544
+
+step Al'Aketh Brute and Al'Aketh Neophyte
+  kill 251145 x6 quest 92544.1
+  kill 251448 x4 quest 92544.2
+
+step Malduko Cloudcrush
+  kill 256935 x1 quest 92544.3
+
+step Hanaa Nightwind
+  turnin 92544
+
+step Rorian the Dayseeker
+  accept 92471
+  turnin 92471
+  accept 92470
+  turnin 93552
+  turnin 92597 only Skyborne
+  accept 92473
+
+step Scrawny Ursera
+  collect 251918 x6 quest 92473.1
+
+step Urs'anah
+  collect 252665 x1 quest 92470.2
+
+step Ursera Scavenger
+  kill 250937 x8 quest 92470.1
+
+step Valreaa Valewind
+  turnin 92473
+  turnin 92470
+  accept 92472
+  accept 96638 only Skyborne
+
+step Yala Windwatcher
+  turnin 92464
+
+step Ancient Hilt
+  accept 93161
+
+step Ealaane Nimbuswalker
+  turnin 93161
+  accept 97029
+  turnin 97029
+
+step Nyalah Brightfire
+  accept 93317
+
+step Windsong Crawler
+  collect 257941 x6 quest 93317.1
+
+step Nyalah Brightfire
+  turnin 93317
+
+step Fendaal Windstone
+  zone map 2521
+  accept 98512
+
+step Al'Aketh Assassin
+  zone map 2521
+  kill 254626 x10 quest 98512.1
+
+step Fendaal Windstone
+  zone map 2521
+  turnin 98512
+
+step Level 8
+  level 8
+
+step Lotheluum Starbreeze
+  zone map 2521
+  accept 94484
+
+step Elegael Thornpaw
+  zone map 2521
+  turnin 94484
+
+step A Sacrifice in Vain
+  when available 94493
+  tip One of several exclusive quests; the route takes Unnerving Silence (94484). This one shows for a character the game offers it to instead.
+  zone map 2521
+  accept 94493 optional
+
+step Elegael Thornpaw
+  zone map 2521
+  accept 94487
+
+step A Sacrifice in Vain
+  when onquest 94493
+  zone map 2521
+  turnin 94493 optional
+
+step Al'Aketh Footsoldier
+  zone map 2521
+  collect 265141 x1 quest 94487.1
+
+step Vayn Moongaze
+  zone map 2521
+  accept 93165
+
+step Al'Aketh Footsoldier
+  zone map 2521
+  collect 258771 x5 quest 93165.1
+
+step Vayn Moongaze
+  zone map 2521
+  turnin 93165
+
+step More Al'Aketh Ears
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 2521
+  collect 258771 x1 anywhere optional
+  turnin 93459 direct optional
+
+step Ealaane Nimbuswalker
+  zone map 2521
+  accept 94896
+
+step Abandoned Belongings
+  zone map 2521
+  collect 266433 x8 quest 94896.1
+
+step Ealaane Nimbuswalker
+  zone map 2521
+  accept 94897
+
+step Resaan Nimbuswalker
+  zone map 2521
+  collect 266434 x1 quest 94897.1
+
+step Elegael Thornpaw
+  zone map 2521
+  accept 94486
+
+step Elegael Thornpaw
+  zone map 2521
+  accept 94485
+
+step Lady's Tear Moss
+  zone map 2521
+  collect 265105 x8 quest 94485.1
+
+step Shadowgale Shriekling
+  collect 265140 x20 quest 94486.1
+
+step Constable Aonda
+  turnin 92472
+
+step Raan Wildwind
+  turnin 96638 only Skyborne
+
+step Ealaane Nimbuswalker
+  turnin 94896
+  turnin 94897
+
+step Elegael Thornpaw
+  turnin 94485
+  turnin 94486
+  turnin 94487
+  accept 94488
+
+step Commander Haalien
+  collect 265475 x1 quest 94488.1
+
+step Elegael Thornpaw
+  turnin 94488
+
+step The High Order
+  zone map 2521
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 92596
+  complete 92596 @45.0,46.4
+
+step The High Order
+  turnin 92596
+
+step Rathiril Sunlance
+  zone map 2521
+  accept 94413
+
+step Windshaper Novice Seer
+  zone map 2521
+  kill 257532 x6 quest 94413.1
+
+step Rathiril Sunlance
+  zone map 2521
+  turnin 94413
+
+step Blood Tithe
+  zone map 2521
+  tip The place is where players were recorded finishing it.
+  accept 92679
+  complete 92679 @46.7,81.95
+
+step Blood Tithe
+  turnin 92679
+
+step Aamelia Windfield
+  zone map 2521
+  accept 92684
+
+step Ornery Galestrider
+  zone map 2521
+  collect 253597 x7 quest 92684.1
+
+step Aamelia Windfield
+  zone map 2521
+  turnin 92684
+
+step Aamelia Windfield
+  zone map 2521
+  accept 92683
+
+step Flutterfly Dust
+  zone map 2521
+  collect 253595 x5 quest 92683.1
+
+step Aamelia Windfield
+  zone map 2521
+  turnin 92683
+
+step Aamelia Windfield
+  zone map 2521
+  accept 92682
+
+step Ripe Stormapple
+  zone map 2521
+  collect 253591 x10 quest 92682.1
+
+step Hungry Bandit
+  zone map 2521
+  kill 252802 x5 quest 92682.2
+
+step Aamelia Windfield
+  zone map 2521
+  turnin 92682
+
+step Aamelia Windfield
+  zone map 2521
+  accept 92685
+
+step Bandit Highwayman
+  zone map 2521
+  collect 253596 x7 quest 92685.1
+
+step Aamelia Windfield
+  zone map 2521
+  turnin 92685
+
+step Malfunctioning Cyclone Construct
+  zone map 2521
+  accept 92698
+
+step Aamelia Windfield
+  zone map 2521
+  turnin 92698
+
+step Standing Our Ground
+  zone map 2521
+  tip The place is where players were recorded finishing it.
+  accept 92693
+  complete 92693 @46.7,81.95
+
+step Standing Our Ground
+  turnin 92693
+
+step Aamelia Windfield
+  zone map 2521
+  accept 92703
+
+step Alvarion Windfield
+  zone map 2521
+  turnin 92703
+
+step The Strange Hermit
+  zone map 2521
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 93159
+  complete 93159 @54.0,38.9
+
+step The Strange Hermit
+  turnin 93159
+
+step Strange Hermit
+  zone map 2521
+  accept 93172
+
+step Wind Hollow
+  zone map 2521
+  kill 251676 x10 quest 93172.1
+
+step Strange Hermit
+  zone map 2521
+  turnin 93172
+
+step Strange Hermit
+  zone map 2521
+  accept 93160
+
+step Zephyrseed Cone
+  zone map 2521
+  collect 257128 x1 quest 93160.1
+
+step Strange Hermit
+  zone map 2521
+  turnin 93160
+
+step Welcome to Shen'dar Village
+  zone map 2521
+  tip The place is where players were recorded finishing it.
+  accept 93461
+  complete 93461 @43.05,43.3
+
+step Welcome to Shen'dar Village
+  turnin 93461
+
+step Bounty Available: Vulgara the Insatiable!
+  when group 93318
+  zone map 2521
+  accept 93318
+
+step Vulgara the Insatiable
+  when group 93318
+  zone map 2521
+  collect 257942 x1 quest 93318.1
+
+step Danarii Bellowveil
+  when group 93318
+  zone map 2521
+  turnin 93318
+
+step Zerril Softbreeze
+  zone map 2521
+  accept 92553
+
+step Foreststrider
+  zone Darkshore
+  collect 5469 x8 quest 92553.2
+
+step Mountain Buzzard
+  zone Loch Modan
+  collect 6889 x3 quest 92553.1
+
+step Zerril Softbreeze
+  zone Loch Modan
+  turnin 92553
+
+step Taleen Shimmerthread
+  zone map 2521
+  accept 93951
+
+step Hippogryph Down
+  zone Loch Modan
+  collect 263493 x8 quest 93951.1
+
+step Taleen Shimmerthread
+  zone Loch Modan
+  turnin 93951
+
+step Indari Sunseam
+  zone map 2521
+  accept 92515
+
+step Prideclaw
+  zone Loch Modan
+  collect 252670 x10 quest 92515.1
+
+step Indari Sunseam
+  zone Loch Modan
+  turnin 92515
+
+step Teeri Wellwind
+  zone map 2521
+  accept 93319
+
+step Highlands Bandit
+  zone map 2521
+  collect 257945 x10 quest 93319.1
+
+step Teeri Wellwind
+  zone Loch Modan
+  turnin 93319
+
+step Teeri Wellwind
+  zone map 2521
+  accept 92516
+
+step Hippogryph Youth and Hippogryph Matriarch
+  zone map 2521
+  kill 251291 x8 quest 92516.1
+  kill 251261 x1 quest 92516.3
+
+step Hippogryph Protector
+  zone map 2521
+  kill 251284 x6 quest 92516.2
+
+step Teeri Wellwind
+  zone map 2521
+  turnin 92516
+
+step Constable Aonda
+  zone map 2521
+  accept 92517
+
+step Highlands Bandit
+  zone map 2521
+  kill 251918 x10 quest 92517.1
+
+step "Badwind" Bennic
+  zone map 2521
+  kill 255534 x1 quest 92517.2
+
+step Constable Aonda
+  zone map 2521
+  turnin 92517
+
+step Constable Aonda
+  zone map 2521
+  accept 93036
+
+step Sania Silverstream
+  zone map 2521
+  turnin 93036
+
+step Sania Silverstream
+  zone map 2521
+  accept 92529
+
+step Missionary Jasaan
+  zone map 2521
+  turnin 92529
+
+step Missionary Jasaan
+  zone map 2521
+  accept 92528
+
+step Wardrobe
+  zone map 2521
+  kill 254128 x1 quest 92528.1
+
+step Constable Aonda
+  zone map 2521
+  turnin 92528
+
+step Danarii Bellowveil
+  zone map 2521
+  accept 92551
+
+step Galemender Delanea
+  zone map 2521
+  collect 252760 x10 quest 92551.1
+
+step Danarii Bellowveil
+  zone map 2521
+  turnin 92551
+
+step Constable Aonda
+  zone map 2521
+  accept 92550
+
+step Al'Aketh Stormcaller and Living Lightning
+  zone map 2521
+  kill 252068 x6 quest 92550.1
+  kill 251662 x4 quest 92550.2
+
+step Commander Cyclas
+  zone map 2521
+  collect 252661 x1 quest 92550.3
+
+step Constable Aonda
+  zone map 2521
+  turnin 92550
+
+step The Western Watch
+  zone map 2521
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 93926
+  complete 93926 @45.7,45.5
+
+step The Western Watch
+  turnin 93926
+
+step Peacekeeper Vaaniel
+  zone map 2521
+  accept 93927
+
+step Bloody Note
+  zone map 2521
+  collect 254871 x1 quest 93927.1
+
+step Skypriest Aanders, Raani Windgazer and Arvensus Shadowsong
+  zone map 2521
+  kill 256966 x1 quest 93927.2
+  collect 263415 x1 quest 93927.3
+  collect 263418 x1 quest 93927.4
+
+step Constable Aonda
+  zone map 2521
+  turnin 93927
+
+step Constable Aonda
+  zone map 2521
+  accept 92701
+
+step Valennia Stormfist
+  zone map 2521
+  turnin 92701
+
+step Valennia Stormfist
+  zone map 2521
+  accept 92699
+
+step Elaadrin Evengale
+  zone map 2521
+  turnin 92699
+
+step Dondallion Whisperwind
+  zone map 2521
+  accept 92727
+
+step Bloodstained Satchel
+  zone map 2521
+  turnin 92727
+
+step The Missing Scholar
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  accept 92849
+  complete 92849 @53.3,72.1
+
+step The Missing Scholar
+  zone map 2521
+  turnin 92849
+
+step Fillion Flamebreeze
+  zone map 2521
+  accept 92850
+
+step Shriekling Matriarch
+  zone map 2521
+  collect 257107 x1 quest 92850.1
+
+step Fillion Flamebreeze
+  zone map 2521
+  turnin 92850
+
+step Fillion Flamebreeze
+  zone map 2521
+  accept 99260
+
+step Elaadrin Evengale
+  zone map 2521
+  turnin 99260
+
+step Elaadrin Evengale
+  zone map 2521
+  accept 92840
+
+step Windstone Formation
+  zone map 2521
+  interact 697118 quest 92840.1
+
+step Elaadrin Evengale
+  zone map 2521
+  turnin 92840
+
+step Elaadrin Evengale
+  zone map 2521
+  accept 92860
+
+step Valennia Stormfist
+  zone map 2521
+  turnin 92860
+
+step Valennia Stormfist
+  zone map 2521
+  accept 93320
+
+step Yorana Windyreed
+  zone map 2521
+  turnin 93320
+
+step Yorana Windyreed
+  zone map 2521
+  accept 92645
+
+step Commander Belguilos
+  zone map 2521
+  kill 252666 x1 quest 92645.1
+
+step Yorana Windyreed
+  zone map 2521
+  turnin 92645
+
+step Yorana Windyreed
+  zone map 2521
+  accept 92642
+
+step Al'Aketh Brawler
+  zone map 2521
+  kill 270201 x8 quest 92642.2
+
+step Al'Aketh Healer
+  zone map 2521
+  kill 254596 x4 quest 92642.1
+
+step Yorana Windyreed
+  zone map 2521
+  turnin 92642
+
+step Yorana Windyreed
+  zone map 2521
+  accept 92880
+
+step Valennia Stormfist
+  zone map 2521
+  turnin 92880
+
+step Valennia Stormfist
+  zone map 2521
+  accept 92881
+  turnin 92881
+
+step The Turncoat
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  accept 92643
+  complete 92643 @66.2,76.5
+
+step The Turncoat
+  zone map 2521
+  turnin 92643
+
+step Dead Cultist
+  zone map 2521
+  accept 92644
+
+step Talaanis Shadowsong
+  zone map 2521
+  turnin 92644
+
+step Elaadrin Evengale
+  zone map 2521
+  accept 92834
+
+step Al'Aketh Footsoldier
+  zone map 2521
+  collect 255658 x10 quest 92834.1
+
+step Elaadrin Evengale
+  zone map 2521
+  turnin 92834
+
+step Iaadaria Bitterwind
+  zone map 2521
+  accept 92741
+
+step Shadowgale Shriekling
+  zone map 2521
+  collect 254378 x8 quest 92741.1
+
+step Iaadaria Bitterwind
+  zone map 2521
+  turnin 92741
+
+step A Grand Adventure
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  accept 92709
+  complete 92709 @66.6,79.9
+
+step A Grand Adventure
+  zone map 2521
+  turnin 92709
+
+step Constable Aonda
+  zone map 2521
+  accept 93948
+
+step Talaanis Shadowsong
+  zone map 2521
+  turnin 93948
+
+step Valennia Stormfist
+  zone map 2521
+  accept 93949
+
+step Skyhopper
+  zone map 2521
+  kill 251727 x1 quest 93949.1
+
+step Valennia Stormfist
+  zone map 2521
+  turnin 93949
+
+step The Anchors of Zephras
+  zone map 2521
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 94414
+  complete 94414 @43.8,24.1
+
+step The Anchors of Zephras
+  turnin 94414
+
+step The Wounds of Betrayal
+  zone map 2521
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 94489
+  complete 94489 @61.7,39.2
+
+step The Wounds of Betrayal
+  turnin 94489
+
+step The Cult's True Plans
+  zone map 2521
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 94568
+  complete 94568 @66.2,76.5
+
+step The Cult's True Plans
+  turnin 94568
+
+step Desperate Times
+  tip The place is where players were recorded finishing it.
+  zone map 2521
+  accept 92640
+  complete 92640 @59.15,79.73
+
+step Desperate Times
+  zone map 2521
+  turnin 92640
+
+step Prepare for Battle
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  accept 93065
+  complete 93065 @66.1,76.6
+
+step Prepare for Battle
+  zone map 2521
+  turnin 93065
+
+step Making Our Move
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  accept 92947
+  complete 92947 @61.1,70.9
+
+step Making Our Move
+  zone map 2521
+  turnin 92947
+
+step Hyusaa Quickbreeze
+  zone map 2521
+  accept 93958
+
+step Valennia Stormfist
+  zone map 2521
+  turnin 93958
+
+step Valennia Stormfist
+  zone map 2521
+  accept 93835 only Skyborne
+
+step Elaadrin Evengale
+  zone map 2521
+  complete 93835 @74.9,53.0 map 2521
+  turnin 93835 only Skyborne
+
+step The Fate of Zephras
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  accept 94369
+  complete 94369 @66.6,79.9
+
+step The Fate of Zephras
+  zone map 2521
+  turnin 94369
+
+step Talaanis Shadowsong
+  zone map 2521
+  accept 93089
+
+step Elaadrin Evengale
+  zone map 2521
+  turnin 93089
+
+step Elaadrin Evengale
+  zone map 2521
+  accept 94946
+
+step Denaaris Stargale
+  zone Alterac Mountains
+  turnin 94946
+
+step The Great Outdoors
+  zone map 2521
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 96101
+  complete 96101 @41.7,44.8
+
+step The Great Outdoors
+  turnin 96101
+
+step Camping 101: Enchanting
+  when skill Enchanting 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  accept 98286 optional
+  complete 98286 @41.7,44.8 optional
+
+step Camping 101: Enchanting
+  when skill Enchanting 1
+  zone map 2521
+  turnin 98286 optional
+
+step Camping 101: Engineering
+  when skill Engineering 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  accept 98285 optional
+  complete 98285 @54.0,38.9 optional
+
+step Camping 101: Engineering
+  when skill Engineering 1
+  zone map 2521
+  turnin 98285 optional
+
+step Camping 101: Tailoring
+  when skill Tailoring 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  accept 97973 optional
+  complete 97973 @41.7,44.8 optional
+
+step Camping 101: Tailoring
+  when skill Tailoring 1
+  zone map 2521
+  turnin 97973 optional
+
+step Camping 101: Skinning
+  when skill Skinning 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  accept 97971 optional
+  complete 97971 @41.7,44.8 optional
+
+step Camping 101: Skinning
+  when skill Skinning 1
+  zone map 2521
+  turnin 97971 optional
+
+step Camping 101: Mining
+  when skill Mining 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  accept 97970 optional
+  complete 97970 @41.7,44.8 optional
+
+step Camping 101: Mining
+  when skill Mining 1
+  zone map 2521
+  turnin 97970 optional
+
+step Camping 101: Leatherworking
+  when skill Leatherworking 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  accept 97969 optional
+  complete 97969 @41.7,44.8 optional
+
+step Camping 101: Leatherworking
+  when skill Leatherworking 1
+  zone map 2521
+  turnin 97969 optional
+
+step Camping 101: Herbalism
+  when skill Herbalism 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  accept 97968 optional
+  complete 97968 @41.7,44.8 optional
+
+step Camping 101: Herbalism
+  when skill Herbalism 1
+  zone map 2521
+  turnin 97968 optional
+
+step Camping 101: Fishing
+  when skill Fishing 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  accept 97967 optional
+  complete 97967 @41.7,44.8 optional
+
+step Camping 101: Fishing
+  when skill Fishing 1
+  zone map 2521
+  turnin 97967 optional
+
+step Camping 101: First Aid
+  when skill "First Aid" 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  accept 97965 optional
+  complete 97965 @41.7,44.8 optional
+
+step Camping 101: First Aid
+  when skill "First Aid" 1
+  zone map 2521
+  turnin 97965 optional
+
+step Camping 101: Blacksmithing
+  when skill Blacksmithing 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  accept 97964 optional
+  complete 97964 @41.7,44.8 optional
+
+step Camping 101: Blacksmithing
+  when skill Blacksmithing 1
+  zone map 2521
+  turnin 97964 optional
+
+step Camping 101: Alchemy
+  when skill Alchemy 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  accept 97963 optional
+  complete 97963 @41.7,44.8 optional
+
+step Camping 101: Alchemy
+  when skill Alchemy 1
+  zone map 2521
+  turnin 97963 optional
+
+step Camping 101: Cooking
+  zone map 2521
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 96646
+  complete 96646 @41.7,44.8
+
+step Camping 101: Cooking
+  turnin 96646
+
+step Ripped Missive
+  tip Ripped Missive drops from Commander Haalien: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 2521
+  collect 265476 x1 optional
+  accept 94490 item 265476 optional
+
+step Ripped Missive
+  when onquest 94490
+  zone map 2521
+  turnin 94490
+
+step The Fate of the Den
+  when turnedin 94490
+  zone map 2521
+  accept 94491
+
+step The Fate of the Den
+  when onquest 94491
+  zone map 2521
+  turnin 94491

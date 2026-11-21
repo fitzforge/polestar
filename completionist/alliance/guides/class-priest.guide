@@ -1,0 +1,499 @@
+guide polestar-completionist-alliance/class-priest
+title Priest class quests (10-60) (Completionist)
+faction Alliance
+class Priest
+levels 10-60
+category Class
+zone Durotar
+why Every Priest class quest from level 10 on, in level order. The earlier ones are in the starting zone guides.
+reward text What the Priest quests give, quest by quest: abilities, forms, pets, totems or gear.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 11 quests; estimated level at the end 13.5 (heuristic XP).
+# Skipped: 30 exclusive with N; 1 objective N (kill N) outside the zones.
+
+step High Priestess Mims
+  zone Dun Morogh
+  accept 94817 only Gnome @55.0,22.4 map 1426
+  turnin 94817 only Gnome @55.0,22.4 map 1426
+
+step High Priestess Laurena
+  zone Stormwind City
+  accept 5634 only Dwarf
+  accept 94773 only Human @49.5,44.6 map 1453
+  turnin 94773 only Human @49.5,44.6 map 1453
+
+step Confounding Flash
+  only Priest,Gnome
+  when available 94821
+  tip One of several exclusive quests; the route takes Confounding Flash (94817). This one shows for a character the game offers it to instead.
+  zone map 1453
+  accept 94821 @49.5,44.6 map 1453 optional
+
+step Returning Home
+  only Priest,NightElf
+  when available 5631
+  tip One of several exclusive quests; the route takes Stars of Elune (5627). This one shows for a character the game offers it to instead.
+  zone map 1453
+  accept 5631 optional
+
+step High Priest Rohan
+  zone Ironforge
+  turnin 5634 only Dwarf
+
+step Divine Grace
+  only Priest,Human
+  when available 94778
+  tip One of several exclusive quests; the route takes Divine Grace (94773). This one shows for a character the game offers it to instead.
+  zone map 1455
+  accept 94778 @24.7,8.2 map 1455 optional
+
+step Desperate Prayer
+  only Priest,Dwarf
+  when available 5639
+  tip One of several exclusive quests; the route takes Desperate Prayer (5634). This one shows for a character the game offers it to instead.
+  zone map 1455
+  accept 5639 optional
+
+step Returning Home
+  only Priest,NightElf
+  when available 5633
+  tip One of several exclusive quests; the route takes Stars of Elune (5627). This one shows for a character the game offers it to instead.
+  zone map 1455
+  accept 5633 optional
+
+step Priestess Alathea
+  zone Darnassus
+  accept 5627 only NightElf
+  turnin 5627 only NightElf
+
+step Level 20
+  level 20
+
+step Contingency Plan
+  only Priest,Gnome
+  when available 94819
+  tip One of several exclusive quests; the route takes Contingency Plan (94818). This one shows for a character the game offers it to instead.
+  zone map 1453
+  accept 94819 optional
+
+step Elune's Grace
+  only Priest,NightElf
+  when available 5673
+  tip One of several exclusive quests; the route takes Elune's Grace (5672). This one shows for a character the game offers it to instead.
+  zone map 1453
+  accept 5673 optional
+
+step Elune's Grace
+  only Priest,NightElf
+  when onquest 5673
+  zone map 1457
+  turnin 5673 optional
+
+step A Lack of Fear
+  only Priest,Dwarf
+  when available 5645
+  tip One of several exclusive quests; the route takes A Lack of Fear (5641). This one shows for a character the game offers it to instead.
+  zone map 1453
+  accept 5645 optional
+
+step A Lack of Fear
+  only Priest,Dwarf
+  when onquest 5645
+  zone map 1455
+  turnin 5645 optional
+
+step A Lack of Fear
+  only Priest,Dwarf
+  when available 5647
+  tip One of several exclusive quests; the route takes A Lack of Fear (5641). This one shows for a character the game offers it to instead.
+  zone map 1457
+  accept 5647 optional
+
+step Contingency Plan
+  only Priest,Gnome
+  when available 94820
+  tip One of several exclusive quests; the route takes Contingency Plan (94818). This one shows for a character the game offers it to instead.
+  zone map 1457
+  accept 94820 optional
+
+step Arcane Feedback
+  only Priest,Human
+  when available 5677
+  tip One of several exclusive quests; the route takes Arcane Feedback (5676). This one shows for a character the game offers it to instead.
+  zone map 1455
+  accept 5677 optional
+
+step Elune's Grace
+  only Priest,NightElf
+  when available 5675
+  tip One of several exclusive quests; the route takes Elune's Grace (5672). This one shows for a character the game offers it to instead.
+  zone map 1455
+  accept 5675 optional
+
+step Elune's Grace
+  only Priest,NightElf
+  when onquest 5675
+  zone map 1457
+  turnin 5675 optional
+
+step Arcane Feedback
+  only Priest,Human
+  when available 5678
+  tip One of several exclusive quests; the route takes Arcane Feedback (5676). This one shows for a character the game offers it to instead.
+  zone map 1457
+  accept 5678 optional
+
+step Desperate Prayer
+  only Priest,Dwarf
+  when available 5640
+  tip One of several exclusive quests; the route takes Desperate Prayer (5634). This one shows for a character the game offers it to instead.
+  zone map 1457
+  accept 5640 optional
+
+step Returning Home
+  only Priest,NightElf
+  when onquest 5633
+  zone map 1457
+  turnin 5633 optional
+
+step Returning Home
+  only Priest,NightElf
+  when onquest 5631
+  zone map 1457
+  turnin 5631 optional
+
+step Level 20
+  level 20
+
+step High Priest Rohan
+  zone Ironforge
+  accept 5641 only Dwarf
+  turnin 5641 only Dwarf
+
+step A Lack of Fear
+  only Priest,Dwarf
+  when onquest 5647
+  zone map 1455
+  turnin 5647 optional
+
+step Desperate Prayer
+  only Priest,Dwarf
+  when onquest 5640
+  zone map 1455
+  turnin 5640 optional
+
+step Desperate Prayer
+  only Priest,Dwarf
+  when onquest 5639
+  zone map 1455
+  turnin 5639 optional
+
+step High Priestess Mims
+  zone Dun Morogh
+  accept 94818 only Gnome
+  turnin 94818 only Gnome
+
+step Contingency Plan
+  only Priest,Gnome
+  when onquest 94820
+  zone map 1426
+  turnin 94820 optional
+
+step Contingency Plan
+  only Priest,Gnome
+  when onquest 94819
+  zone map 1426
+  turnin 94819 optional
+
+step Confounding Flash
+  only Priest,Gnome
+  when available 94824
+  tip One of several exclusive quests; the route takes Confounding Flash (94817). This one shows for a character the game offers it to instead.
+  zone map 1426
+  accept 94824 @47.3,52.2 map 1426 optional
+
+step Confounding Flash
+  only Priest,Gnome
+  when onquest 94824
+  zone map 1426
+  turnin 94824 @55.0,22.4 map 1426 optional
+
+step Confounding Flash
+  only Priest,Gnome
+  when onquest 94821
+  zone map 1426
+  turnin 94821 @55.0,22.4 map 1426 optional
+
+step Divine Grace
+  only Priest,Human
+  when available 94776
+  tip One of several exclusive quests; the route takes Divine Grace (94773). This one shows for a character the game offers it to instead.
+  zone map 1426
+  accept 94776 optional
+
+step Desperate Prayer
+  only Priest,Dwarf
+  when available 5637
+  tip One of several exclusive quests; the route takes Desperate Prayer (5634). This one shows for a character the game offers it to instead.
+  zone map 1426
+  accept 5637 optional
+
+step Desperate Prayer
+  only Priest,Dwarf
+  when onquest 5637
+  zone map 1455
+  turnin 5637 optional
+
+step Returning Home
+  only Priest,NightElf
+  when available 5630
+  tip One of several exclusive quests; the route takes Stars of Elune (5627). This one shows for a character the game offers it to instead.
+  zone map 1426
+  accept 5630 optional
+
+step High Priestess Laurena
+  zone Stormwind City
+  accept 5676 only Human
+  turnin 5676 only Human
+
+step Arcane Feedback
+  only Priest,Human
+  when onquest 5678
+  zone map 1453
+  turnin 5678 optional
+
+step Arcane Feedback
+  only Priest,Human
+  when onquest 5677
+  zone map 1453
+  turnin 5677 optional
+
+step Divine Grace
+  only Priest,Human
+  when onquest 94778
+  zone map 1453
+  turnin 94778 @49.5,44.6 map 1453 optional
+
+step Divine Grace
+  only Priest,Human
+  when onquest 94776
+  zone map 1453
+  turnin 94776 optional
+
+step Level 60
+  level 60
+
+step Elune's Grace
+  only Priest,NightElf
+  when available 5674
+  tip One of several exclusive quests; the route takes Elune's Grace (5672). This one shows for a character the game offers it to instead.
+  zone map 1453
+  accept 5674 optional
+
+step Divine Grace
+  only Priest,Human
+  when available 94777
+  tip One of several exclusive quests; the route takes Divine Grace (94773). This one shows for a character the game offers it to instead.
+  zone map 1453
+  accept 94777 optional
+
+step Divine Grace
+  only Priest,Human
+  when onquest 94777
+  zone map 1453
+  turnin 94777 optional
+
+step Desperate Prayer
+  only Priest,Dwarf
+  when available 5638
+  tip One of several exclusive quests; the route takes Desperate Prayer (5634). This one shows for a character the game offers it to instead.
+  zone map 1453
+  accept 5638 optional
+
+step Desperate Prayer
+  only Priest,Dwarf
+  when onquest 5638
+  zone map 1455
+  turnin 5638 optional
+
+step Returning Home
+  only Priest,NightElf
+  when available 5632
+  tip One of several exclusive quests; the route takes Stars of Elune (5627). This one shows for a character the game offers it to instead.
+  zone map 1453
+  accept 5632 optional
+
+step Eris Havenfire
+  zone Eastern Plaguelands
+  accept 7621
+  turnin 7621
+
+step Eris Havenfire
+  zone Eastern Plaguelands
+  accept 7622
+
+step Eris Havenfire
+  zone Eastern Plaguelands
+  turnin 7622
+
+step Priestess Alathea
+  zone Darnassus
+  accept 5672 only NightElf
+  turnin 5672 only NightElf
+
+step Elune's Grace
+  only Priest,NightElf
+  when onquest 5674
+  zone map 1457
+  turnin 5674 optional
+
+step Returning Home
+  only Priest,NightElf
+  when onquest 5632
+  zone map 1457
+  turnin 5632 optional
+
+step Returning Home
+  only Priest,NightElf
+  when onquest 5630
+  zone map 1457
+  turnin 5630 optional
+
+step Geologist Larksbane
+  when turnedin 8315
+  zone Silithus
+  accept 8379
+  turnin 8379
+
+step The Troll Scroll
+  only Priest
+  zone map 1434
+  accept 79731 optional
+
+step The Troll Scroll
+  only Priest
+  turnin 79731 optional
+
+
+step Returning Home
+  only Priest,NightElf
+  when available 5628
+  tip One of several exclusive quests; the route takes Stars of Elune (5627). This one shows for a character the game offers it to instead.
+  zone map 1429
+  accept 5628 optional
+
+step Returning Home
+  only Priest,NightElf
+  when onquest 5628
+  zone map 1457
+  turnin 5628 optional
+
+step Returning Home
+  only Priest,NightElf
+  when available 5629
+  tip One of several exclusive quests; the route takes Stars of Elune (5627). This one shows for a character the game offers it to instead.
+  zone map 1438
+  accept 5629 optional
+
+step Returning Home
+  only Priest,NightElf
+  when onquest 5629
+  zone map 1457
+  turnin 5629 optional
+
+step Desperate Prayer
+  only Priest,Dwarf
+  when available 5635
+  tip One of several exclusive quests; the route takes Desperate Prayer (5634). This one shows for a character the game offers it to instead.
+  zone map 1429
+  accept 5635 optional
+
+step Desperate Prayer
+  only Priest,Dwarf
+  when onquest 5635
+  zone map 1455
+  turnin 5635 optional
+
+step Desperate Prayer
+  only Priest,Dwarf
+  when available 5636
+  tip One of several exclusive quests; the route takes Desperate Prayer (5634). This one shows for a character the game offers it to instead.
+  zone map 1438
+  accept 5636 optional
+
+step Desperate Prayer
+  only Priest,Dwarf
+  when onquest 5636
+  zone map 1455
+  turnin 5636 optional
+
+step Divine Grace
+  only Priest,Human
+  when available 94774
+  tip One of several exclusive quests; the route takes Divine Grace (94773). This one shows for a character the game offers it to instead.
+  zone map 1429
+  accept 94774 optional
+
+step Divine Grace
+  only Priest,Human
+  when onquest 94774
+  zone map 1453
+  turnin 94774 optional
+
+step Divine Grace
+  only Priest,Human
+  when available 94775
+  tip One of several exclusive quests; the route takes Divine Grace (94773). This one shows for a character the game offers it to instead.
+  zone map 1438
+  accept 94775 optional
+
+step Divine Grace
+  only Priest,Human
+  when onquest 94775
+  zone map 1453
+  turnin 94775 optional
+
+step Confounding Flash
+  only Priest,Gnome
+  when available 94822
+  tip One of several exclusive quests; the route takes Confounding Flash (94817). This one shows for a character the game offers it to instead.
+  zone map 1429
+  accept 94822 @43.3,65.7 map 1429 optional
+
+step Confounding Flash
+  only Priest,Gnome
+  when onquest 94822
+  zone map 1426
+  turnin 94822 @55.0,22.4 map 1426 optional
+
+step Confounding Flash
+  only Priest,Gnome
+  when available 94823
+  tip One of several exclusive quests; the route takes Confounding Flash (94817). This one shows for a character the game offers it to instead.
+  zone map 1438
+  accept 94823 @55.6,56.8 map 1438 optional
+
+step Confounding Flash
+  only Priest,Gnome
+  when onquest 94823
+  zone map 1426
+  turnin 94823 @55.0,22.4 map 1426 optional
+
+step Atiesh, Greatstaff of the Guardian
+  only Priest
+  when turnedin 9251
+  zone map 1446
+  accept 9257 optional
+
+step Atiesh, Greatstaff of the Guardian
+  only Priest
+  when onquest 9257
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1446
+  complete 9257 @65.3,50.0 optional
+
+step Atiesh, Greatstaff of the Guardian
+  only Priest
+  when onquest 9257
+  zone map 1446
+  turnin 9257 optional

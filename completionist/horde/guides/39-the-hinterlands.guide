@@ -1,0 +1,231 @@
+guide polestar-completionist-horde/39-the-hinterlands
+title 39 The Hinterlands (47-51) (Completionist)
+faction Horde
+levels 47-51
+zone The Hinterlands
+next polestar-completionist-horde/40-searing-gorge
+pitch On along the line: The Hinterlands, quests of level 47 to 51.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 22 quests; estimated level at the end 48.5 (heuristic XP, class quests not counted).
+
+step Katoom the Angler
+  sethome "Revantusk Village"
+  getfp "Revantusk Village"
+  accept 7815
+
+step Katoom the Angler
+  when group 7816
+  zone The Hinterlands
+  accept 7816
+
+step Huntsman Markhor
+  accept 7828
+  accept 7829
+  accept 7830
+  accept 7849
+  accept 7841
+
+step Call to Arms!
+  when group 7861
+  zone The Hinterlands
+  accept 7861
+
+step Call to Arms!
+  when group 7862
+  zone The Hinterlands
+  accept 7862
+
+step Mystic Yayo'jin
+  accept 7844
+  accept 98203
+
+step Saltwater Snapjaw
+  kill 2505 x15 quest 7815.1
+
+step Vilebranch Berserker
+  when group 7862
+  zone The Hinterlands
+  tip Job Opening: Guard Captain of Revantusk Village is group work: elites. Grouping up is advised.
+  kill 2643 x20 quest 7862.1
+
+step Vilebranch Blood Drinker and Vilebranch Soul Eater
+  when group 7862
+  zone The Hinterlands
+  tip Job Opening: Guard Captain of Revantusk Village is group work: elites. Grouping up is advised.
+  kill 2646 x20 quest 7862.3
+  kill 2647 x20 quest 7862.4
+
+step Vilebranch Aman'zasi Guard
+  when group 7861
+  zone Arathi Highlands
+  tip Wanted: Vile Priestess Hexx and Her Minions is group work: elites. Grouping up is advised.
+  kill 2648 x20 quest 7861.2
+
+step Vile Priestess Hexx
+  when group 7861
+  zone Arathi Highlands
+  tip Wanted: Vile Priestess Hexx and Her Minions is group work: elites. Grouping up is advised.
+  kill 7995 x1 quest 7861.1
+
+step Pile of Bones
+  zone The Hinterlands
+  collect 19070 x1 quest 7849.2
+
+step Vilebranch Shadow Hunter
+  when group 7862
+  zone The Hinterlands
+  tip Job Opening: Guard Captain of Revantusk Village is group work: elites. Grouping up is advised.
+  kill 2645 x20 quest 7862.2
+
+step Pile of Skulls
+  collect 19069 x1 quest 7849.1
+
+step Silvermane Stalker
+  kill 2926 x10 quest 7828.1
+
+step Vilebranch Soothsayer
+  kill 4467 x15 quest 7844.2
+
+step Witch Doctor Ti'ik
+  collect 279913 x1 quest 98203.1
+
+step Highvale Outrunner
+  kill 2691 x15 quest 7841.2
+
+step Highvale Scout, Highvale Ranger and Highvale Marksman
+  kill 2692 x15 quest 7841.1
+  kill 2694 x15 quest 7841.3
+  kill 2693 x15 quest 7841.4
+
+step Silvermane Howler
+  kill 2925 x10 quest 7828.2
+
+step Razorbeak Skylord
+  collect 19025 x1 quest 7830.1
+
+step Savage Owlbeast
+  kill 2929 x20 quest 7829.1
+
+step Vilebranch Scalper
+  kill 4466 x30 quest 7844.1
+
+step Gammerita
+  when group 7816
+  zone The Hinterlands
+  tip Gammerita, Mon! is group work: elites. Grouping up is advised.
+  collect 19023 x1 quest 7816.1
+
+step Qujo
+  turnin 98203
+  turnin 7844
+  turnin 7841
+  accept 7842
+  turnin 7828
+  turnin 7829
+  turnin 7830
+  turnin 7849
+
+step Primal Torntusk
+  accept 7845
+  accept 7850
+
+step Primal Torntusk
+  when group 7861
+  zone The Hinterlands
+  turnin 7861
+
+step Primal Torntusk
+  when group 7862
+  zone The Hinterlands
+  turnin 7862
+
+step Lard
+  accept 7840
+  accept 7839
+
+step Vessel of Tainted Blood
+  zone Arathi Highlands
+  collect 19071 x10 quest 7850.1
+
+step Elder Torntusk
+  turnin 7845
+
+step Razorbeak Skylord
+  zone The Hinterlands
+  collect 4589 x10 quest 7842.1
+
+step Slagtree's Lost Tools
+  collect 19033 x1 quest 7839.1
+
+step Vilebranch Kidnapper
+  collect 19034 x1 quest 7840.1
+
+step Otho Moji'ko
+  turnin 7842
+  accept 7843
+  turnin 7839
+  turnin 7850
+  turnin 7840
+
+step Gilveradin Sunchaser
+  accept 77
+
+step Rin'ji
+  accept 2742
+
+step Find OOX-09/HL!
+  tip OOX-09/HL Distress Beacon drops from Jalinde Summerdrake, Zul'arek Hatefowler, Shadra: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1425
+  collect 8704 x1 optional
+  accept 485 item 8704 optional
+
+step Find OOX-09/HL!
+  when onquest 485
+  zone map 1425
+  turnin 485
+
+step Horde Supply Crate
+  collect 8684 x10 quest 77.1
+
+step Gilveradin Sunchaser
+  turnin 77
+  accept 81
+
+step Otho Moji'ko
+  complete 7843 @14.3,48.1 map 1425
+  turnin 7843
+  turnin 7815
+
+step Katoom the Angler
+  when group 7816
+  zone The Hinterlands
+  turnin 7816
+
+step Rin'ji's Secret
+  complete 2742 @34.6,56.3 map 1425
+  turnin 2742
+  accept 2782
+
+step Rescue OOX-09/HL!
+  when turnedin 485
+  zone map 1434
+  accept 836
+  complete 836 @28.4,76.3
+
+step Rescue OOX-09/HL!
+  when onquest 836
+  zone map 1434
+  turnin 836
+
+step Oglethorpe Obnoticus
+  zone Stranglethorn Vale
+  accept 3721
+  turnin 3721
+
+step Oran Snakewrithe
+  zone Undercity
+  turnin 2782
+
+step Dran Droffers
+  zone Orgrimmar
+  turnin 81

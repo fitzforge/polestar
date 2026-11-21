@@ -1,0 +1,203 @@
+guide polestar-completionist-alliance/46-odd-jobs-in-the-eastern-kingdoms-3
+title 46 Odd jobs in the Eastern Kingdoms (45-56) (Completionist)
+faction Alliance
+levels 45-56
+zone The Hinterlands
+next polestar-completionist-alliance/47-felwood
+pitch On along the line: errands across the Eastern Kingdoms, quests of level 45 to 56.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 13 quests; estimated level at the end 46.6 (heuristic XP, class quests not counted).
+# Skipped: 1 exploration objective has no location in data; 1 objective N (item N) outside the zones.
+
+step Margol the Rager
+  zone Searing Gorge
+  goto 73.5,82.3 "Margol the Rager"
+  accept 3181 item 10000 -- Drops from Margol the Rager
+
+step Level 50
+  level 50
+
+step Maxwort Uberglint
+  zone Burning Steppes
+  accept 4296
+
+step Tablet of the Seven
+  zone Burning Steppes
+  collect 11470 x1 quest 4296.1
+
+step Maxwort Uberglint
+  zone Burning Steppes
+  turnin 4296
+
+step Oralius
+  zone Searing Gorge
+  accept 3823
+
+step Firegut Ogre Mage
+  zone Searing Gorge
+  kill 7034 x15 quest 3823.1
+
+step Firegut Brute
+  zone Searing Gorge
+  kill 7035 x7 quest 3823.3
+
+step Firegut Ogre
+  zone Searing Gorge
+  kill 7033 x15 quest 3823.2
+
+step Oralius
+  zone Searing Gorge
+  turnin 3823
+
+step Oralius
+  zone Searing Gorge
+  accept 4283
+
+step Blackrock Worg
+  zone Searing Gorge
+  collect 11467 x50 quest 4283.1
+
+step Oralius
+  zone Searing Gorge
+  turnin 4283
+
+step Oralius
+  zone Searing Gorge
+  accept 3824
+
+step Gor'tesh
+  zone Searing Gorge
+  collect 11080 x1 quest 3824.1
+
+step Oralius
+  zone Searing Gorge
+  turnin 3824
+
+step Oralius
+  zone Searing Gorge
+  accept 3825
+
+step Soft Dirt Mound
+  interact 160840 quest 3825.1
+
+step Oralius
+  turnin 3825
+
+step Ever After
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1428
+  turnin 82062 direct @35.8,19.8 map 1428
+
+step Mountaineer Pebblebitty
+  zone Loch Modan
+  turnin 3181
+  accept 3182
+
+step Curator Thorius
+  zone Ironforge
+  turnin 3182
+  accept 3201
+
+step Mountaineer Pebblebitty
+  zone Loch Modan
+  turnin 3201
+
+step Fraggar Thundermantle
+  zone The Hinterlands
+  accept 2877
+  accept 2880
+  accept 86616
+
+step Green Sludge
+  kill 2655 x10 quest 2877.1
+
+step Jade Ooze
+  kill 2656 x10 quest 2877.2
+
+step Vilebranch Aman'zasi Guard
+  zone Arathi Highlands
+  collect 9259 x5 quest 2880.1
+
+step The Battle for Arathi Basin!
+  when available 8105
+  tip One of several exclusive quests; the route takes The Battle for Arathi Basin! (8166). This one shows for a character the game offers it to instead.
+  zone map 1417
+  accept 8105 optional
+
+step The Battle for Arathi Basin!
+  when onquest 8105
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1417
+  complete 8105 @45.8,45.5 optional
+
+step The Battle for Arathi Basin!
+  when onquest 8105
+  zone map 1417
+  turnin 8105 optional
+
+step Arathi Basin Resources!
+  when available 8080
+  tip One of several exclusive quests; the route takes Arathi Basin Resources! (8154). This one shows for a character the game offers it to instead.
+  zone map 1417
+  accept 8080 optional
+
+step Arathi Basin Resources!
+  when onquest 8080
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1417
+  complete 8080 @45.9,45.3 optional
+
+step Arathi Basin Resources!
+  when onquest 8080
+  zone map 1417
+  turnin 8080 optional
+
+step Vilebranch Soothsayer
+  zone The Hinterlands
+  collect 279225 x12 quest 86616.1
+
+step Fraggar Thundermantle
+  turnin 2877
+  turnin 2880
+  turnin 86616
+
+step Argent Officer Garush
+  zone Tirisfal Glades
+  accept 5405
+  turnin 5405
+
+step Treaty Obligations
+  zone map 1425
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 86615
+  complete 86615 @11.8,46.7
+
+step Treaty Obligations
+  turnin 86615
+
+step Find OOX-09/HL!
+  tip OOX-09/HL Distress Beacon drops from Jalinde Summerdrake, Zul'arek Hatefowler, Shadra: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1425
+  collect 8704 x1 optional
+  accept 485 item 8704 optional
+
+step Find OOX-09/HL!
+  when onquest 485
+  zone map 1425
+  turnin 485
+
+step Rescue OOX-09/HL!
+  when turnedin 485
+  zone map 1434
+  accept 836
+  complete 836 @28.4,76.3
+
+step Rescue OOX-09/HL!
+  when onquest 836
+  zone map 1434
+  turnin 836
+
+step Oglethorpe Obnoticus
+  zone Stranglethorn Vale
+  accept 3721
+  turnin 3721

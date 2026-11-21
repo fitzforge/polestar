@@ -1,0 +1,19 @@
+guide polestar-completionist-horde/unplaced-quests
+title Quests the data cannot place (Completionist)
+faction Horde
+category Miscellaneous
+levels 1-60
+zone Orgrimmar
+pitch A checklist: the quests Polestar's reference data names but cannot lead to.
+
+step About this guide
+  note The reference data has no giver, hand-in, level or zone for these quests, so no guide can lead to them. Each is listed by its title for you to find and tick off. Some may not be in the game.
+
+step Alterac Valley
+  task "Launch the Attack!, level 60" optional -- quest 6901
+
+step Ironforge
+  task "Your Reward has Arrived!" optional -- quest 60860
+
+step No zone in the data
+  task "A Ticking Present, level 40" optional -- quest 79637

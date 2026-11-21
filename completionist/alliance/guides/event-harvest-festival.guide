@@ -1,0 +1,22 @@
+guide polestar-completionist-alliance/event-harvest-festival
+title Harvest Festival (Completionist)
+faction Alliance
+category Miscellaneous
+levels 1-60
+zone Stormwind City
+pitch The quests of Harvest Festival, as far as the reference data places them.
+
+step About this guide
+  note Each quest here is offered only while the event runs. Every step is optional: do what the calendar offers now, and come back for the rest.
+
+step Level 30
+  level 30
+
+step Honoring a Hero
+  zone map 1426
+  accept 8149 optional
+
+step Honoring a Hero
+  when onquest 8149
+  zone map 1426
+  turnin 8149 optional

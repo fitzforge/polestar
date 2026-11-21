@@ -1,0 +1,157 @@
+guide polestar-completionist-alliance/26-odd-jobs-in-kalimdor-2
+title 26 Odd jobs in Kalimdor (30-40) (Completionist)
+faction Alliance
+levels 30-40
+zone Dustwallow Marsh
+next polestar-completionist-alliance/27-desolace
+pitch On along the line: errands across Kalimdor, quests of level 30 to 40.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 22 quests; estimated level at the end 31.0 (heuristic XP, class quests not counted).
+# Skipped: 2 exclusive with N (done).
+
+step Fiora Longears
+  accept 1135
+
+step Highperch Wyvern
+  zone Thousand Needles
+  collect 5809 x10 quest 1135.1
+
+step Black Shield
+  zone The Barrens
+  accept 1253
+  accept 1252
+  accept 1284 object 21015
+
+step Brelinda McFarry
+  accept 98903
+  turnin 98903
+
+step Wharfmaster Dizzywig
+  accept 1112
+  accept 1180
+
+step Fiora Longears
+  zone Dustwallow Marsh
+  turnin 1135
+
+step Captain Garran Vimes
+  turnin 1252
+  turnin 1253
+  turnin 1284
+  accept 1259
+  accept 1319
+  turnin 1259
+  accept 1285
+
+step Captain Garran Vimes
+  turnin 1285
+  accept 1286
+
+step Caz Twosprocket
+  turnin 1319
+  accept 1320
+
+step Captain Garran Vimes
+  turnin 1320
+
+step Balos Jacken
+  zone The Barrens
+  turnin 1286
+  accept 1287
+
+step Captain Garran Vimes
+  zone Dustwallow Marsh
+  turnin 1287
+  accept 1288
+  turnin 1288
+
+step Kravel Koalbeard
+  zone Thousand Needles
+  turnin 1112
+  accept 1114
+  turnin 1114
+  accept 1115
+
+step Balthule Shadowstrike
+  zone Darkshore
+  accept 1143
+
+step Athrikus Narassin
+  collect 5383 x1 quest 1143.1
+
+step Balthule Shadowstrike
+  turnin 1143
+  accept 981
+
+step Thyn'tel Bladeweaver
+  zone Darnassus
+  accept 1038
+
+step Velinde's Locker
+  collect 5520 x1 quest 1038.1
+
+step Thyn'tel Bladeweaver
+  turnin 1038
+  accept 1039
+
+step Delgren the Purifier
+  zone Ashenvale
+  turnin 981
+
+step Wharfmaster Dizzywig
+  zone The Barrens
+  turnin 1039
+  accept 1040
+
+step Caravaneer Ruzzgot
+  zone Stranglethorn Vale
+  turnin 1040
+
+step Level 32
+  level 32
+
+step Mudcrush Durtfeet
+  zone The Barrens
+  accept 1177
+
+step Mirefin Muckdweller
+  zone The Barrens
+  collect 5847 x12 quest 1177.1
+
+step Mudcrush Durtfeet
+  zone The Barrens
+  turnin 1177
+
+step Level 40
+  level 40
+
+step Learning to Ride
+  only NightElf
+  zone map 1457
+  accept 97074
+
+step Learning to Ride
+  only NightElf
+  when onquest 97074
+  zone map 1457
+  turnin 97074
+
+step Your First Feline Friend
+  only NightElf
+  when available 95511
+  tip One of several exclusive quests; the route takes Your First Riding Ram (97017). This one shows for a character the game offers it to instead.
+  when turnedin 97074
+  zone map 1457
+  accept 95511 optional
+
+step Your First Feline Friend
+  only NightElf
+  when onquest 95511
+  zone map 1457
+  turnin 95511 optional
+
+step Wharfmaster Lozgil
+  turnin 1180
+
+step Krazek
+  turnin 1115

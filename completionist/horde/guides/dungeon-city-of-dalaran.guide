@@ -1,0 +1,36 @@
+guide polestar-completionist-horde/dungeon-city-of-dalaran
+title City of Dalaran (Completionist)
+faction Horde
+category Dungeons
+levels 24-33
+zone Alterac Mountains
+next polestar-completionist-horde/23-stranglethorn-vale
+pitch City of Dalaran, in Alterac Mountains.
+why Every Horde quest of City of Dalaran: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Alterac Mountains: the arrow leads to it.
+
+step Melisara
+  zone Alterac Mountains
+  accept 96986
+
+step Doctor Martin Felben
+  zone Undercity
+  accept 96988
+
+step Inside City of Dalaran
+  zone Alterac Mountains
+  accept 96987 @8.8,59.6
+  complete 96986 @8.8,59.6
+  complete 96987 @8.8,59.6
+  turnin 96987 @8.8,59.6
+  complete 96988 @8.8,59.6
+
+step Melisara
+  zone Alterac Mountains
+  turnin 96986
+
+step Doctor Martin Felben
+  zone Undercity
+  turnin 96988

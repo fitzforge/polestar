@@ -1,0 +1,240 @@
+guide polestar-completionist-alliance/dungeon-gnomeregan
+title Gnomeregan (Completionist)
+faction Alliance
+category Dungeons
+levels 25-35
+zone Dun Morogh
+next polestar-completionist-alliance/dungeon-razorfen-kraul
+next polestar-completionist-alliance/23-odd-jobs-in-the-eastern-kingdoms-2
+pitch Gnomeregan, in Dun Morogh.
+why Every Alliance quest of Gnomeregan: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Dun Morogh: the arrow leads to it.
+
+step Gaxim Rustfizzle
+  zone Stonetalon Mountains
+  accept 2931
+
+step Brother Sarno
+  zone Stormwind City
+  accept 2923
+
+step Shoni the Shilent
+  zone Stormwind City
+  accept 2928
+
+step Gnoarn
+  zone Ironforge
+  accept 2927
+
+step High Tinker Mekkatorque
+  zone Ironforge
+  accept 2929
+
+step Mathiel
+  zone Darnassus
+  accept 2925
+
+step Inside Gnomeregan
+  zone Dun Morogh
+  accept 2904 @22,38.7
+  collect 9326 @22,38.7
+  complete 2904 @22,38.7
+  complete 2928 @22,38.7
+  complete 2929 @22,38.7
+
+step Ozzie Togglevolt
+  zone Dun Morogh
+  turnin 2927
+
+step Scooty
+  zone Stranglethorn Vale
+  turnin 2904
+
+step Shoni the Shilent
+  zone Stormwind City
+  turnin 2928
+
+step High Tinker Mekkatorque
+  zone Ironforge
+  turnin 2929
+
+step Klockmort Spannerspan
+  zone Ironforge
+  turnin 2925
+
+step Master Mechanic Castpipe
+  zone Ironforge
+  turnin 2931
+
+step Tinkmaster Overspark
+  zone Ironforge
+  turnin 2923
+
+step Ozzie Togglevolt
+  zone Dun Morogh
+  accept 2926
+
+step Klockmort Spannerspan
+  zone Ironforge
+  accept 2924
+
+step Master Mechanic Castpipe
+  zone Ironforge
+  accept 2930
+
+step Tinkmaster Overspark
+  zone Ironforge
+  accept 2922
+
+step Inside Gnomeregan, again
+  zone Dun Morogh
+  complete 2922 @22,38.7
+  complete 2926 @22,38.7
+  complete 2924 @22,38.7
+  complete 2930 @22,38.7
+
+step Ozzie Togglevolt
+  zone Dun Morogh
+  turnin 2926
+
+step Klockmort Spannerspan
+  zone Ironforge
+  turnin 2924
+
+step Master Mechanic Castpipe
+  zone Ironforge
+  turnin 2930
+
+step Tinkmaster Overspark
+  zone Ironforge
+  turnin 2922
+
+step Ozzie Togglevolt
+  zone Dun Morogh
+  accept 2962
+
+step Inside Gnomeregan, again
+  zone Dun Morogh
+  complete 2962 @22,38.7
+
+step Ozzie Togglevolt
+  zone Dun Morogh
+  turnin 2962
+
+
+step The Sparklematic 5200!
+  tip The giver stands inside the instance: the arrow leads to its entrance.
+  zone map 1426
+  accept 2951 @22,38.7
+
+step The Sparklematic 5200!
+  when onquest 2951
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1426
+  complete 2951 @22,38.7
+
+step The Sparklematic 5200!
+  when onquest 2951
+  tip The hand-in is inside the instance: the arrow leads to its entrance.
+  zone map 1426
+  turnin 2951 @22,38.7
+
+step The Sparklematic 5200!
+  when turnedin 2951
+  tip The giver stands inside the instance: the arrow leads to its entrance.
+  zone map 1426
+  accept 2952 @22,38.7
+
+step The Sparklematic 5200!
+  when onquest 2952
+  tip The hand-in is inside the instance: the arrow leads to its entrance.
+  zone map 1426
+  turnin 2952 @22,38.7
+
+step More Sparklematic Action
+  when turnedin 2952
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1426
+  collect 9308 x1 anywhere optional
+  turnin 2953 direct @22,38.7 map 1426 optional
+
+step The Sparklematic 5200!
+  when available 4601
+  tip One of several exclusive quests; the route takes The Sparklematic 5200! (2951). This one shows for a character the game offers it to instead.
+  tip The giver stands inside the instance: the arrow leads to its entrance.
+  zone map 1426
+  accept 4601 @22,38.7 optional
+
+step The Sparklematic 5200!
+  when onquest 4601
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1426
+  complete 4601 @22,38.7 optional
+
+step The Sparklematic 5200!
+  when onquest 4601
+  tip The hand-in is inside the instance: the arrow leads to its entrance.
+  zone map 1426
+  turnin 4601 @22,38.7 optional
+
+step Inside Gnomeregan
+  zone Dun Morogh
+  accept 2945 item 9326
+  turnin 2945 @22,38.7
+
+step Inside Gnomeregan, again
+  zone Dun Morogh
+  accept 2947 @22,38.7
+
+step Talvash del Kissel
+  zone Ironforge
+  turnin 2947
+
+step The Sparklematic 5200!
+  when available 4602
+  tip One of several exclusive quests; the route takes The Sparklematic 5200! (2951). This one shows for a character the game offers it to instead.
+  tip The giver stands inside the instance: the arrow leads to its entrance.
+  zone map 1426
+  accept 4602 @22,38.7 optional
+
+step The Sparklematic 5200!
+  when onquest 4602
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1426
+  complete 4602 @22,38.7 optional
+
+step The Sparklematic 5200!
+  when onquest 4602
+  tip The hand-in is inside the instance: the arrow leads to its entrance.
+  zone map 1426
+  turnin 4602 @22,38.7 optional
+
+step The Sparklematic 5200!
+  when available 4605
+  tip One of several exclusive quests; the route takes The Sparklematic 5200! (2952). This one shows for a character the game offers it to instead.
+  when turnedin 2951
+  tip The giver stands inside the instance: the arrow leads to its entrance.
+  zone map 1426
+  accept 4605 @22,38.7 optional
+
+step The Sparklematic 5200!
+  when onquest 4605
+  tip The hand-in is inside the instance: the arrow leads to its entrance.
+  zone map 1426
+  turnin 4605 @22,38.7 optional
+
+step The Sparklematic 5200!
+  when available 4606
+  tip One of several exclusive quests; the route takes The Sparklematic 5200! (2952). This one shows for a character the game offers it to instead.
+  when turnedin 2951
+  tip The giver stands inside the instance: the arrow leads to its entrance.
+  zone map 1426
+  accept 4606 @22,38.7 optional
+
+step The Sparklematic 5200!
+  when onquest 4606
+  tip The hand-in is inside the instance: the arrow leads to its entrance.
+  zone map 1426
+  turnin 4606 @22,38.7 optional

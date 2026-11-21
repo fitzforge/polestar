@@ -1,0 +1,670 @@
+guide polestar-completionist-horde/08-the-barrens
+title 08 The Barrens (10-22) (Completionist)
+faction Horde
+levels 10-22
+zone The Barrens
+next polestar-completionist-horde/dungeon-ragefire-chasm
+next polestar-completionist-horde/09-tirisfal-glades-and-the-undercity-2
+pitch On along the line: The Barrens, quests of level 10 to 22.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 77 quests; estimated level at the end 20.0 (heuristic XP, class quests not counted).
+# Skipped: 1 exclusive with N; 1 exclusive with N (done); 1 prerequisite N not in this route.
+
+step Apothecary Helbrim
+  getfp "Crossroads"
+  accept 848
+  accept 1492
+  accept 871
+  accept 5041
+  accept 869
+  accept 844
+
+step Crossroads' Supply Crates
+  collect 12708 x1 quest 5041.1
+
+step Fleeting Plainstrider
+  zone Durotar
+  collect 5087 x7 quest 844.1
+
+step Razormane Hunter
+  zone The Barrens
+  kill 3265 x3 quest 871.3
+
+step Razormane Water Seeker and Razormane Thornweaver
+  kill 3267 x8 quest 871.1
+  kill 3268 x8 quest 871.2
+
+step Sunscale Lashtail
+  collect 5062 x12 quest 869.1
+
+step Laden Mushroom
+  collect 5012 x4 quest 848.1
+
+step Lakota'mani
+  goto 45.1,52.7 "Lakota'mani"
+  accept 883 item 5099 -- Drops from Lakota'mani
+
+step Jorn Skyseer
+  sethome "Camp Taurajo"
+  getfp "Camp Taurajo"
+  turnin 883
+
+step Journey to the Crossroads
+  only Tauren
+  when available 854
+  tip One of several exclusive quests; the route takes Plainstrider Menace (844). This one shows for a character the game offers it to instead.
+  zone map 1413
+  accept 854 optional
+
+step Level 17
+  level 17
+
+step Lost in Battle
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1413
+  accept 4921
+  complete 4921 @52.0,31.6
+
+step Thork
+  zone The Barrens
+  accept 6541
+
+step Journey to the Crossroads
+  only Tauren
+  when onquest 854
+  zone map 1413
+  turnin 854 optional
+
+step Lost in Battle
+  turnin 4921
+
+step Mankrik
+  zone The Barrens
+  accept 95774
+
+step Darsok Swiftdagger
+  zone The Barrens
+  accept 867
+
+step Mankrik
+  zone The Barrens
+  turnin 95774
+
+step Witchwing Harpy
+  zone The Barrens
+  collect 5064 x8 quest 867.1
+
+step Chen's Empty Keg
+  zone The Barrens
+  accept 819 item 4926 -- Found in Chen's Empty Keg
+
+step Mankrik
+  zone The Barrens
+  accept 899
+
+step Bristleback Water Seeker
+  zone The Barrens
+  collect 5085 x60 quest 899.1
+
+step Mangletooth
+  zone The Barrens
+  accept 878
+
+step Bristleback Water Seeker
+  zone The Barrens
+  kill 3260 x6 quest 878.1
+
+step Bristleback Geomancer
+  zone The Barrens
+  kill 3263 x12 quest 878.3
+
+step Bristleback Thornweaver
+  zone The Barrens
+  kill 3261 x12 quest 878.2
+
+step Mangletooth
+  zone The Barrens
+  turnin 878
+
+step Mangletooth
+  zone The Barrens
+  accept 5052
+
+step Bristleback Geomancer
+  collect 5075 x1 quest 5052.1
+
+step Gilthares Firebough
+  accept 898
+
+step Captain Thalo'thas Brightsun
+  getfp "Ratchet"
+  turnin 898
+  accept 891
+  turnin 819
+  accept 821
+  accept 1069
+  accept 895
+
+step Root Samples
+  when skill Herbalism 1
+  zone map 1413
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 866 optional
+  complete 866 @62.4,37.6 optional
+
+step WANTED
+  when group 92706
+  zone The Barrens
+  accept 92706
+
+step Sputtervalve
+  accept 894
+  accept 1483
+  turnin 1492
+  accept 896
+
+step Root Samples
+  when skill Herbalism 1
+  turnin 866 optional
+
+step Bruuz
+  when group 92706
+  zone The Barrens
+  tip WANTED: Bruuz is group work: elites. Grouping up is advised.
+  collect 253710 x1 quest 92706.1
+
+step Baron Longshore
+  collect 5084 x1 quest 895.1
+
+step Cannoneer Smythe
+  kill 3454 x1 quest 891.3
+
+step Theramore Marine
+  zone Dustwallow Marsh
+  collect 5078 x10 quest 891.4
+
+step Captain Fairmount
+  zone The Barrens
+  kill 3393 x1 quest 891.1
+
+step Cannoneer Whessan
+  kill 3455 x1 quest 891.2
+
+step Stormsnout
+  zone Mulgore
+  collect 4895 x1 quest 821.3
+
+step Deepmoss Eggs
+  zone Stonetalon Mountains
+  collect 5570 x15 quest 1069.1
+
+step Venture Co. Enforcer
+  zone Ashenvale
+  collect 5097 x1 quest 896.1
+
+step Kargal Battlescar
+  zone The Barrens
+  accept 842
+  accept 924
+
+step Flawed Power Stone
+  when onquest 924
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  turnin 926 direct optional
+
+step Fleeting Plainstrider
+  zone Durotar
+  collect 4894 x5 quest 821.2
+
+step Savannah Matriarch
+  zone The Barrens
+  collect 4893 x5 quest 821.1
+
+step The Altar of Fire
+  interact 3525 quest 924.1
+
+step Control Console
+  turnin 894
+  accept 900
+
+step Main Control Valve, Fuel Control Valve and Regulator Valve
+  interact 4072 quest 900.1
+  interact 61936 quest 900.2
+  interact 61935 quest 900.3
+
+step Control Console
+  turnin 900
+  accept 901
+
+step Tinkerer Sniggles
+  collect 5089 x1 quest 901.1
+
+step Control Console
+  turnin 901
+  accept 902
+
+step Kadrak
+  turnin 6541
+
+step Vrang Wildgore
+  accept 95494
+
+step Savannah Patriarch
+  collect 269715 x6 quest 95494.1
+
+step Vrang Wildgore
+  turnin 95494
+  accept 95507
+
+step Sprung Trap
+  collect 269719 x8 quest 95507.1
+
+step Vrang Wildgore
+  turnin 95507
+
+step Vrang Wildgore
+  zone The Barrens
+  accept 95495
+
+step Walton
+  zone The Barrens
+  turnin 95495
+
+step Walton
+  zone The Barrens
+  accept 95621
+
+step Corporal Adamore
+  zone The Barrens
+  collect 270151 x1 quest 95621.1
+
+step Walton
+  zone The Barrens
+  turnin 95621
+
+step Walton
+  zone The Barrens
+  accept 95508
+
+step Terry Longdrink
+  zone The Barrens
+  kill 261367 x1 quest 95508.1
+
+step Walton
+  zone The Barrens
+  turnin 95508
+
+step Regthar Deathgate
+  accept 850
+
+step Barak Kodobane
+  collect 5022 x1 quest 850.1
+
+step Regthar Deathgate
+  turnin 850
+  accept 851
+
+step Verog the Dervish
+  collect 5023 x1 quest 851.1
+
+step Mankrik
+  turnin 899
+  turnin 842
+  turnin 844
+  accept 845
+  turnin 869
+  accept 3281
+  turnin 867
+  accept 875
+
+step Thork
+  turnin 871
+  turnin 5041
+  accept 872
+  turnin 848
+  accept 853
+  accept 868
+  accept 6361 only Tauren
+
+step Gur'ak
+  when group 97003
+  zone The Barrens
+  accept 97003
+
+step Zargh
+  accept 6365 only Orc,Troll
+
+step Witchwing Slayer
+  collect 5065 x6 quest 875.1
+
+step Silithid Mound
+  collect 5058 x12 quest 868.1
+
+step Stolen Silver
+  collect 5061 x1 quest 3281.1
+
+step Wharfmaster Dizzywig
+  turnin 896
+
+step Zhevra Runner
+  zone Durotar
+  collect 5086 x4 quest 845.1
+
+step Razormane Defender
+  zone The Barrens
+  kill 3266 x8 quest 872.2
+
+step Razormane Geomancer
+  kill 3269 x8 quest 872.1
+
+step Kreenig Snarlsnout
+  collect 5063 x1 quest 872.3
+
+step Chol'aruk
+  when group 97003
+  zone The Barrens
+  tip Chol'aruk the Ravener is group work: elites. Grouping up is advised.
+  collect 276070 x1 quest 97003.1
+
+step Gur'ak
+  when group 97003
+  zone The Barrens
+  turnin 97003
+
+step Gazrog
+  turnin 3281
+  turnin 6361 only Tauren
+  turnin 6365 only Orc,Troll
+  accept 6362 only Tauren
+  accept 6384 only Orc,Troll
+  turnin 872
+  turnin 875
+  accept 876
+
+step Korran
+  turnin 868
+
+step Serena Bloodfeather
+  collect 5067 x1 quest 876.1
+
+step Makaba Flathoof
+  accept 6548
+  accept 1062
+
+step Grimtotem Ruffian and Grimtotem Mercenary
+  kill 11910 x8 quest 6548.1
+  kill 11911 x6 quest 6548.2
+
+step Venture Co. Logger
+  zone Stonetalon Mountains
+  kill 3989 x15 quest 1062.1
+
+step Ziz Fizziks
+  turnin 1483
+
+step Makaba Flathoof
+  zone The Barrens
+  turnin 6548
+  accept 6629
+  turnin 1062
+  accept 1063
+
+step Grimtotem Brute
+  kill 11912 x6 quest 6629.2
+
+step Grundig Darkcloud
+  zone Stonetalon Mountains
+  kill 11858 x1 quest 6629.1
+
+step Makaba Flathoof
+  zone The Barrens
+  turnin 6629
+
+step Regthar Deathgate
+  turnin 851
+  accept 852
+  accept 855
+
+step Kolkar Wrangler
+  collect 5030 x15 quest 855.1
+
+step Hezrul Bloodmark
+  collect 5025 x1 quest 852.1
+
+step Regthar Deathgate
+  turnin 852
+  turnin 855
+  accept 4021
+
+step Krom'zar's Banner
+  collect 11227 x1 quest 4021.1
+
+step Regthar Deathgate
+  turnin 4021
+
+step Darsok Swiftdagger
+  turnin 876
+  accept 1060
+  turnin 845
+  accept 903
+
+step Savannah Prowler
+  collect 5096 x7 quest 903.1
+
+step Witch Doctor Jin'Zil
+  zone Stonetalon Mountains
+  turnin 1060
+
+step Magatha Grimtotem
+  zone Thunder Bluff
+  turnin 1063
+
+step Ahanu
+  turnin 6362 only Tauren
+  accept 6363 only Tauren
+  turnin 6363 only Tauren
+  accept 6364 only Tauren
+
+step Apothecary Zamah
+  turnin 853
+
+step Mangletooth
+  zone The Barrens
+  turnin 5052
+
+step Razorhide
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 5075 x4 anywhere optional
+  turnin 5046 direct optional
+
+step Rising Spirit
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 5075 x4 anywhere optional
+  turnin 5045 direct optional
+
+step Wisdom of Agamaggan
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 5075 x4 anywhere optional
+  turnin 5044 direct optional
+
+step Agamaggan's Agility
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 5075 x4 anywhere optional
+  turnin 5043 direct optional
+
+step Agamaggan's Strength
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 5075 x4 anywhere optional
+  turnin 5042 direct optional
+
+step Spirit of the Wind
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 5075 x10 anywhere optional
+  turnin 889 direct optional
+
+step Burned-Out Remains
+  accept 79007
+
+step Captain Thalo'thas Brightsun
+  turnin 891
+  turnin 821
+  turnin 1069
+  turnin 902
+  accept 3921
+  accept 97253
+  turnin 895
+  accept 887
+
+step Gazlowe
+  when group 92706
+  zone The Barrens
+  turnin 92706
+
+step Southsea Brigand
+  kill 3381 x12 quest 887.1
+
+step Southsea Cannoneer
+  kill 3382 x6 quest 887.2
+
+step Pile of Complicated Parts
+  collect 277331 x5 quest 97253.1
+
+step Wrenix the Wretched
+  turnin 97253
+  turnin 887
+  accept 890
+  turnin 890
+  accept 892
+  turnin 892
+  accept 888
+
+step Fragile - Do Not Drop
+  collect 5077 x1 quest 888.2
+
+step Drizzlik's Emporium
+  collect 5076 x1 quest 888.1
+
+step Gazlowe
+  turnin 888
+
+step Ak'Zeloth
+  turnin 924
+
+step Wizzlecrank's Shredder
+  accept 858
+
+step Supervisor Lugwizzle
+  collect 5050 x1 quest 858.1
+
+step Wizzlecrank's Shredder
+  turnin 858
+  accept 863
+
+step Wenikee Boltbucket
+  turnin 3921
+  accept 3922
+
+step Tool Bucket
+  collect 11143 x15 quest 3922.1
+
+step Wenikee Boltbucket
+  turnin 3922
+  accept 3923
+
+step Jahan Hawkwing
+  turnin 6364 only Tauren
+  turnin 903
+  accept 881
+
+step Echeyakee
+  collect 5100 x1 quest 881.1
+
+step Sergra Darkthorn
+  turnin 881
+  accept 905
+
+step Blue Raptor Nest and Red Raptor Nest
+  interact 6907 quest 905.1
+  interact 6906 quest 905.3
+
+step Yellow Raptor Nest
+  interact 6908 quest 905.2
+
+step Sergra Darkthorn
+  turnin 905
+  accept 3261
+
+step Sputtervalve
+  complete 863 @55.4,7.7 map 1413
+  turnin 863
+
+step Jorn Skyseer
+  turnin 3261
+  accept 882
+
+step Ishamuhale
+  collect 5101 x1 quest 882.1
+
+step Innkeeper Gryshka
+  zone Orgrimmar
+  turnin 6384 only Orc,Troll
+  accept 6385 only Orc,Troll
+  turnin 6385 only Orc,Troll
+  accept 6386 only Orc,Troll
+
+step Rilli Greasygob
+  turnin 3923
+
+step Samophlange Manual
+  zone map 1454
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 3924
+  complete 3924 @76.5,24.4
+
+step Samophlange Manual
+  turnin 3924
+
+step Zargh
+  zone The Barrens
+  turnin 6386 only Orc,Troll
+
+step Jorn Skyseer
+  turnin 882
+  accept 907
+
+step The Ashenvale Hunt
+  when available 6382
+  tip One of several exclusive quests; the route takes The Ashenvale Hunt (235). This one shows for a character the game offers it to instead.
+  zone map 1413
+  accept 6382 optional
+
+step The Ashenvale Hunt
+  when onquest 6382
+  zone map 1440
+  turnin 6382 optional
+
+step Stormsnout
+  zone Mulgore
+  collect 5143 x3 quest 907.1
+
+step Jorn Skyseer
+  zone The Barrens
+  turnin 907
+  accept 913
+
+step Greater Thunderhawk
+  collect 5164 x1 quest 913.1
+
+step Jorn Skyseer
+  turnin 913
+
+step Burned-Out Remains
+  zone Westfall
+  turnin 79007

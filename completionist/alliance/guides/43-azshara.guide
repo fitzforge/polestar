@@ -1,0 +1,274 @@
+guide polestar-completionist-alliance/43-azshara
+title 43 Azshara (47-60) (Completionist)
+faction Alliance
+levels 47-60
+zone Azshara
+next polestar-completionist-alliance/dungeon-blackmaw-hold
+next polestar-completionist-alliance/44-ungoro-crater
+pitch On along the line: Azshara, quests of level 47 to 60.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 24 quests; estimated level at the end 49.2 (heuristic XP, class quests not counted).
+# Skipped: 2 prerequisite N not in this route; 1 profession.
+
+step Commander Truesong
+  getfp "Talrendis Point"
+  accept 88807
+  accept 89001
+
+step Pay Dirt!
+  when has 243203
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1447
+  turnin 90813 direct @12.6,77.4 map 1447
+
+step Mosshoof Runner
+  zone Ashenvale
+  collect 238463 x5 quest 89001.1
+
+step Spitelash Warrior
+  zone Azshara
+  kill 6190 x8 quest 88807.1
+
+step Kim'jael
+  accept 3601
+
+step Kim'jael's Equipment
+  collect 10717 x1 quest 3601.1
+  collect 10715 x1 quest 3601.2
+  collect 10722 x1 quest 3601.3
+  collect 10718 x1 quest 3601.4
+
+step Spitelash Screamer
+  kill 6193 x8 quest 88807.2
+
+step Sanath Lim-yo
+  accept 3381
+
+step Return Trip
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1447
+  turnin 3421 direct optional
+
+step Thunderhead Hippogryph
+  collect 10450 x2 quest 3381.1
+
+step Sentinel Keldara Sunblade
+  accept 88857
+
+step Sanath Lim-yo
+  turnin 3381
+
+step Meeting with the Master
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1447
+  turnin 3503 direct optional
+
+step Ekkal
+  accept 86746
+  accept 86752 @42,38.9 map 1447
+
+step Legashi Hellcaller
+  kill 6202 x5 quest 86746.3
+
+step Legashi Cauldron
+  accept 86925 @57.8,21.1 map 1447
+
+step Legashi Satyr and Legashi Rogue
+  kill 6200 x5 quest 86746.1
+  kill 6201 x5 quest 86746.2
+
+step Legashi Blackguard
+  collect 235645 x1 quest 86925.1
+
+step Legashi Cauldron
+  turnin 86925 @57.8,21.1 map 1447
+
+step Kim'jael
+  turnin 3601
+  accept 5534
+
+step Loramus Thalipedes
+  accept 91877
+
+step Spitelash Battlemaster
+  collect 13815 x1 quest 5534.1
+
+step Pilot Xiggs Fuselighter
+  accept 3461
+
+step Kim'jael
+  turnin 5534
+
+step Furze
+  accept 86799 @45.4,22.4 map 1447
+
+step Gatekeeper Rageroar
+  turnin 86752 @42.4,20.9 map 1447
+  accept 92065 @42.4,20.9 map 1447
+  turnin 92065 @42.4,20.9 map 1447
+
+step Elder Bramblesnap
+  turnin 86799 @41.7,19.6 map 1447
+  accept 86804 @41.7,19.6 map 1447
+
+step Lorekeeper Nok
+  accept 92066 @41.4,20 map 1447
+  turnin 92066 @41.4,20 map 1447
+
+step Ekkal
+  turnin 86746
+
+step Legashi Horns
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1447
+  turnin 86747 direct
+
+step Level 50
+  level 50
+
+step Berdun Cliffbrew
+  when group 89015
+  zone Azshara
+  accept 89015
+
+step Mammoth Shark
+  when group 89015
+  zone Azshara
+  tip Deadliest Catch is group work: elites. Grouping up is advised.
+  collect 238507 x1 quest 89015.1
+
+step Legashi Cauldron
+  turnin 86804 @57.8,21.1 map 1447
+
+step Berdun Cliffbrew
+  turnin 89001
+  accept 89013
+
+step Winter Frontier Fishery
+  zone map 1447
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 89228
+  complete 89228 @12.6,77.4
+
+step Berdun Cliffbrew
+  when group 89015
+  zone Azshara
+  turnin 89015
+
+step Commander Truesong
+  turnin 88807
+  turnin 88857
+  accept 88809
+  accept 88812
+  accept 88821
+  turnin 88812
+
+step Winter Frontier Fishery
+  turnin 89228
+
+step Honey Wasp
+  collect 238503 x5 quest 89013.1
+
+step Spitelash Serpent Guard
+  collect 280608 x12 quest 88809.1
+
+step Lord Sarthiss
+  collect 280610 x1 quest 88809.2
+
+step Saria Fairmoon
+  turnin 88821
+
+step Slithering Looters
+  zone map 1447
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 88917
+  complete 88917 @50.6,42.7
+
+step Slithering Looters
+  turnin 88917
+
+step Highborne Tablets
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1447
+  accept 88884
+  complete 88884 @50.6,42.7
+
+step Highborne Tablets
+  zone map 1447
+  turnin 88884
+
+step Saria Fairmoon
+  zone Azshara
+  accept 89037
+
+step Saria Fairmoon
+  zone Azshara
+  turnin 89037
+
+step A Monumental Task
+  zone map 1447
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 89038
+  complete 89038 @50.6,42.7
+
+step A Monumental Task
+  turnin 89038
+
+step Saria Fairmoon
+  zone Azshara
+  accept 89053
+
+step Saria's Knapsack
+  zone Azshara
+  turnin 89053
+
+step Saria's Knapsack
+  zone Azshara
+  accept 89470
+
+step Berdun Cliffbrew
+  turnin 89013
+  turnin 88809
+
+step Commander Truesong
+  zone Azshara
+  turnin 89470
+
+step Commander Truesong
+  zone Azshara
+  accept 88813
+
+step Commander Truesong
+  zone Azshara
+  turnin 88813
+
+step A Crew Under Fire
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1447
+  turnin 3382 direct optional
+
+step Dragonscale Leatherworking
+  when available 5141
+  tip One of several exclusive quests; the route takes Tribal Leatherworking (5143). This one shows for a character the game offers it to instead.
+  when skill Leatherworking 225
+  zone map 1447
+  accept 5141 optional
+
+step Dragonscale Leatherworking
+  when onquest 5141
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1447
+  complete 5141 @37.6,65.4 optional
+
+step Dragonscale Leatherworking
+  when onquest 5141
+  zone map 1447
+  turnin 5141 optional
+
+step Maerion Thaelemaches
+  zone Mount Hyjal
+  turnin 91877 @63.3,25.9 map 2482
+
+step Tymor
+  zone Ironforge
+  turnin 3461

@@ -1,0 +1,84 @@
+guide polestar-completionist-alliance/24-duskwood-2
+title 24 Duskwood (31-35) (Completionist)
+faction Alliance
+levels 31-35
+zone Duskwood
+next polestar-completionist-alliance/25-dustwallow-marsh
+pitch On along the line: Duskwood, quests of level 31 to 35.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 9 quests; estimated level at the end 31.4 (heuristic XP, class quests not counted).
+
+step Calor
+  sethome "Darkshire"
+  accept 222
+
+step Nightbane Vile Fang
+  kill 206 x8 quest 222.1
+
+step Nightbane Tainted One
+  kill 920 x8 quest 222.2
+
+step Commander Althea Ebonlocke
+  accept 98
+
+step Stalvan Mistmantle
+  collect 3629 x1 quest 98.1
+
+step Madame Eva
+  turnin 98
+  turnin 222
+  accept 223
+
+step Jonathan Carevin
+  turnin 223
+
+step A Weathered Grave
+  accept 225
+
+step Sven Yorgen
+  when group 55
+  zone Duskwood
+  accept 55
+
+step Morbent Fel
+  when group 55
+  zone Duskwood
+  tip Morbent Fel is group work: elites. Grouping up is advised.
+  kill 1200 x1 quest 55.1
+
+step Sven Yorgen
+  when group 55
+  zone Duskwood
+  turnin 55
+
+step Sirra Von'Indi
+  turnin 225
+  accept 227
+  turnin 227
+
+step Commander Althea Ebonlocke
+  when group 228
+  zone Duskwood
+  accept 228
+
+step Mor'Ladim
+  when group 228
+  zone Duskwood
+  tip Mor'Ladim is group work: elites. Grouping up is advised.
+  collect 3514 x1 quest 228.1
+
+step Commander Althea Ebonlocke
+  when group 228
+  zone Duskwood
+  turnin 228
+
+step Commander Althea Ebonlocke
+  when turnedin 228
+  zone Duskwood
+  accept 229 optional
+  turnin 229 optional
+  accept 231 optional
+
+step A Weathered Grave
+  when onquest 231
+  turnin 231

@@ -1,0 +1,37 @@
+guide polestar-completionist-horde/attune-shadowforge-key
+title Shadowforge Key (Blackrock Depths key) (Completionist)
+faction Horde
+levels 52-52
+category Dungeons
+zone Searing Gorge
+pitch Shadowforge Key: Opens the Shadowforge gates in Blackrock Depths; one key opens them for the group.
+why Opens the Shadowforge gates in Blackrock Depths; one key opens them for the group.
+
+
+
+
+step Dark Iron Legacy
+  zone map 1428
+  accept 3801
+
+step Dark Iron Legacy
+  when onquest 3801
+  zone map 1428
+  turnin 3801
+
+step Dark Iron Legacy
+  when turnedin 3801
+  zone map 1428
+  accept 3802
+
+step Dark Iron Legacy
+  when onquest 3802
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1428
+  complete 3802 @29.0,28.9
+
+step Dark Iron Legacy
+  when onquest 3802
+  tip The hand-in is inside the instance: the arrow leads to its entrance.
+  zone map 1427
+  turnin 3802 @34.8,85.3

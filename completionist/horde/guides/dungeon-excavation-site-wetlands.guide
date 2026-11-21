@@ -1,0 +1,59 @@
+guide polestar-completionist-horde/dungeon-excavation-site-wetlands
+title Excavation Site: Wetlands (Completionist)
+faction Horde
+category Dungeons
+levels 24-31
+zone Wetlands
+next polestar-completionist-horde/17-tirisfal-glades-and-the-undercity-3
+pitch Excavation Site: Wetlands, in Wetlands.
+why Every Horde quest of Excavation Site: Wetlands: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Wetlands: the arrow leads to it.
+
+step Zaruk
+  zone Arathi Highlands
+  accept 95663
+
+step Borstan
+  zone Orgrimmar
+  accept 95697
+
+step Inside Excavation Site: Wetlands
+  zone Wetlands
+  collect 270866 @50.8,61.1
+  accept 95664 item 270866
+  complete 95664 @50.8,61.1
+  complete 95697 @50.8,61.1
+
+step Deathstalker Agent
+  zone Wetlands
+  turnin 95663
+
+step Borstan
+  zone Orgrimmar
+  turnin 95697
+
+step Bashana Runetotem
+  zone Thunder Bluff
+  turnin 95664
+
+step Deathstalker Agent
+  zone Wetlands
+  accept 95682
+
+step Bashana Runetotem
+  zone Thunder Bluff
+  accept 98823
+
+step Inside Excavation Site: Wetlands, again
+  zone Wetlands
+  complete 95682 @50.8,61.1
+
+step Deathstalker Agent
+  zone Wetlands
+  turnin 95682
+
+step Muln Earthfury
+  zone Mulgore
+  turnin 98823

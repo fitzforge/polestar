@@ -1,0 +1,128 @@
+guide polestar-completionist-alliance/event-love-is-in-the-air
+title Love is in the Air (Completionist)
+faction Alliance
+category Miscellaneous
+levels 1-60
+zone Stormwind City
+pitch The quests of Love is in the Air, as far as the reference data places them.
+
+step About this guide
+  note Each quest here is offered only while the event runs. Every step is optional: do what the calendar offers now, and come back for the rest.
+
+step Dearest Colara,
+  zone map 1453
+  accept 8897 optional
+
+step Dearest Colara,
+  when onquest 8897
+  zone map 1453
+  turnin 8897 optional
+
+step Dearest Colara,
+  when available 8898
+  tip One of several exclusive quests; the route takes Dearest Colara, (8897). This one shows for a character the game offers it to instead.
+  zone map 1455
+  accept 8898 optional
+
+step Dearest Colara,
+  when onquest 8898
+  zone map 1453
+  turnin 8898 optional
+
+step Dearest Colara,
+  when available 8899
+  tip One of several exclusive quests; the route takes Dearest Colara, (8897). This one shows for a character the game offers it to instead.
+  zone map 1457
+  accept 8899 optional
+
+step Dearest Colara,
+  when onquest 8899
+  zone map 1453
+  turnin 8899 optional
+
+step Dangerous Love
+  zone map 1453
+  accept 8903 optional
+
+step Dangerous Love
+  when onquest 8903
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1453
+  complete 8903 @61.9,75.0 optional
+
+step Dangerous Love
+  when onquest 8903
+  zone map 1453
+  turnin 8903 optional
+
+step Aristan's Hunch
+  when turnedin 8903
+  zone map 1453
+  accept 9024 optional
+
+step Aristan's Hunch
+  when onquest 9024
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1453
+  complete 9024 @61.9,75.0 optional
+
+step Aristan's Hunch
+  when onquest 9024
+  zone map 1453
+  turnin 9024 optional
+
+step Morgan's Discovery
+  when turnedin 9024
+  zone map 1453
+  accept 9025 optional
+
+step Morgan's Discovery
+  when onquest 9025
+  zone map 1453
+  turnin 9025 optional
+
+step Tracing the Source
+  when turnedin 9025
+  zone map 1453
+  accept 9026 optional
+
+step Tracing the Source
+  when onquest 9026
+  zone map 1453
+  turnin 9026 optional
+
+step Tracing the Source
+  when turnedin 9026
+  zone map 1453
+  accept 9027 optional
+
+step Tracing the Source
+  when onquest 9027
+  zone map 1453
+  turnin 9027 optional
+
+step The Source Revealed
+  when turnedin 9027
+  zone map 1453
+  accept 9028 optional
+
+step The Source Revealed
+  when onquest 9028
+  zone map 1416
+  turnin 9028 optional
+
+step A Bubbling Cauldron
+  when turnedin 9028
+  zone map 1416
+  accept 9029 optional
+
+step A Bubbling Cauldron
+  when onquest 9029
+  zone map 1416
+  turnin 9029 optional
+
+step Gift Giving
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1453
+  collect 22262 x1 anywhere optional
+  turnin 8993 direct optional

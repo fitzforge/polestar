@@ -1,0 +1,276 @@
+guide polestar-completionist-alliance/class-hunter
+title Hunter class quests (10-60) (Completionist)
+faction Alliance
+class Hunter
+levels 10-60
+category Class
+zone Durotar
+why Every Hunter class quest from level 10 on, in level order. The earlier ones are in the starting zone guides.
+reward text What the Hunter quests give, quest by quest: abilities, forms, pets, totems or gear.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 18 quests; estimated level at the end 12.2 (heuristic XP).
+# Skipped: 7 exclusive with N; 3 prerequisite N not in this route.
+
+step Jocaste
+  zone Darnassus
+  accept 6071 only NightElf
+
+step Dazalar
+  zone Teldrassil
+  turnin 6071 only NightElf
+  accept 6063 only NightElf
+
+step Webwood Lurker
+  kill 1998 x1 quest 6063.1 only NightElf
+
+step Dazalar
+  turnin 6063 only NightElf
+  accept 6101 only NightElf
+
+step Nightsaber Stalker
+  kill 2043 x1 quest 6101.1 only NightElf
+
+step Dazalar
+  turnin 6101 only NightElf
+  accept 6102 only NightElf
+
+step Strigid Screecher
+  kill 1996 x1 quest 6102.1 only NightElf
+
+step Dazalar
+  turnin 6102 only NightElf
+  accept 6103 only NightElf
+
+step The Hunter's Path
+  only Hunter,NightElf
+  when available 6072
+  tip One of several exclusive quests; the route takes The Hunter's Path (6071). This one shows for a character the game offers it to instead.
+  zone map 1438
+  accept 6072 optional
+
+step The Hunter's Path
+  only Hunter,NightElf
+  when onquest 6072
+  zone map 1438
+  turnin 6072 optional
+
+step Jocaste
+  zone Darnassus
+  turnin 6103 only NightElf
+
+step Josephine Carson
+  zone Elwynn Forest
+  accept 94792
+
+step Rockhide Boar
+  kill 524 x1 quest 94792.1
+
+step Josephine Carson
+  turnin 94792
+  accept 94863
+
+step Gray Forest Wolf
+  kill 1922 x1 quest 94863.1
+
+step Josephine Carson
+  turnin 94863
+  accept 94864
+
+step Young Forest Bear
+  kill 822 x1 quest 94864.1
+
+step Josephine Carson
+  turnin 94864
+  accept 94793
+  turnin 94793
+
+step Olmin Burningbeard
+  zone Ironforge
+  accept 6074 only Dwarf
+
+step The Hunter's Path
+  only Hunter,NightElf
+  when available 6721
+  tip One of several exclusive quests; the route takes The Hunter's Path (6071). This one shows for a character the game offers it to instead.
+  zone map 1455
+  accept 6721 optional
+
+step The Hunter's Path
+  only Hunter,NightElf
+  when onquest 6721
+  zone map 1438
+  turnin 6721 optional
+
+step Grif Wildheart
+  zone Dun Morogh
+  turnin 6074 only Dwarf
+  accept 6064 only Dwarf
+
+step The Hunter's Path
+  only Hunter,NightElf
+  when available 6722
+  tip One of several exclusive quests; the route takes The Hunter's Path (6071). This one shows for a character the game offers it to instead.
+  zone map 1426
+  accept 6722 optional
+
+step The Hunter's Path
+  only Hunter,NightElf
+  when onquest 6722
+  zone map 1438
+  turnin 6722 optional
+
+step Large Crag Boar
+  kill 1126 x1 quest 6064.1 only Dwarf
+
+step Grif Wildheart
+  turnin 6064 only Dwarf
+  accept 6084 only Dwarf
+
+step Snow Leopard
+  kill 1201 x1 quest 6084.1 only Dwarf
+
+step Grif Wildheart
+  turnin 6084 only Dwarf
+  accept 6085 only Dwarf
+
+step Ice Claw Bear
+  kill 1196 x1 quest 6085.1 only Dwarf
+
+step Grif Wildheart
+  turnin 6085 only Dwarf
+  accept 6086 only Dwarf
+
+step The Hunter's Path
+  only Hunter,Dwarf
+  when available 6075
+  tip One of several exclusive quests; the route takes The Hunter's Path (6074). This one shows for a character the game offers it to instead.
+  zone map 1426
+  accept 6075 optional
+
+step The Hunter's Path
+  only Hunter,Dwarf
+  when onquest 6075
+  zone map 1426
+  turnin 6075 optional
+
+step Belia Thundergranite
+  zone Ironforge
+  turnin 6086 only Dwarf
+
+step Quel'ana Quickgale
+  zone map 2521
+  accept 94978 only Skyborne
+
+step Windsong Crawler
+  kill 254588 x1 quest 94978.1 only Skyborne
+
+step Elayaa Easewind
+  accept 94007 only Skyborne
+
+step Quel'ana Quickgale
+  turnin 94007 only Skyborne
+  turnin 94978 only Skyborne
+  accept 94979 only Skyborne
+
+step Ornery Galestrider
+  kill 251707 x1 quest 94979.1 only Skyborne
+
+step Quel'ana Quickgale
+  turnin 94979 only Skyborne
+
+step Taming the Beast
+  only Hunter,Skyborne
+  zone map 2521
+  accept 94013 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 94013 @59.6,72.6 optional
+
+step Taming the Beast
+  only Hunter,Skyborne
+  turnin 94013 optional
+
+step Training the Beast
+  only Hunter,Skyborne
+  zone map 2521
+  accept 94050 optional
+  turnin 94050 optional
+
+
+step Level 58
+  level 58
+
+step Geologist Larksbane
+  when turnedin 8315
+  zone Silithus
+  accept 8377
+  turnin 8377
+
+step The Hunter's Path
+  only Hunter,NightElf
+  when available 6073
+  tip One of several exclusive quests; the route takes The Hunter's Path (6071). This one shows for a character the game offers it to instead.
+  zone map 1453
+  accept 6073 optional
+
+step The Hunter's Path
+  only Hunter,NightElf
+  when onquest 6073
+  zone map 1438
+  turnin 6073 optional
+
+step The Hunter's Path
+  only Hunter,Dwarf
+  when available 6076
+  tip One of several exclusive quests; the route takes The Hunter's Path (6074). This one shows for a character the game offers it to instead.
+  zone map 1453
+  accept 6076 optional
+
+step The Hunter's Path
+  only Hunter,Dwarf
+  when onquest 6076
+  zone map 1426
+  turnin 6076 optional
+
+step Level 60
+  level 60
+
+step Ancient Sinew Wrapped Lamina
+  only Hunter
+  when turnedin 7632
+  zone map 1448
+  accept 7634 optional
+
+step Ancient Sinew Wrapped Lamina
+  only Hunter
+  when onquest 7634
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1448
+  complete 7634 @46.7,24.1 optional
+
+step Ancient Sinew Wrapped Lamina
+  only Hunter
+  when onquest 7634
+  zone map 1448
+  turnin 7634 optional
+
+step Level 60
+  level 60
+
+step Stave of the Ancients
+  only Hunter
+  when turnedin 7632
+  zone map 1448
+  accept 7636 optional
+
+step Stave of the Ancients
+  only Hunter
+  when onquest 7636
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1448
+  complete 7636 @47.8,24.1 optional
+
+step Stave of the Ancients
+  only Hunter
+  when onquest 7636
+  zone map 1448
+  turnin 7636 optional

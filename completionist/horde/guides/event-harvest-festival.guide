@@ -1,0 +1,22 @@
+guide polestar-completionist-horde/event-harvest-festival
+title Harvest Festival (Completionist)
+faction Horde
+category Miscellaneous
+levels 1-60
+zone Orgrimmar
+pitch The quests of Harvest Festival, as far as the reference data places them.
+
+step About this guide
+  note Each quest here is offered only while the event runs. Every step is optional: do what the calendar offers now, and come back for the rest.
+
+step Level 30
+  level 30
+
+step Honoring a Hero
+  zone map 1411
+  accept 8150 optional
+
+step Honoring a Hero
+  when onquest 8150
+  zone map 1411
+  turnin 8150 optional

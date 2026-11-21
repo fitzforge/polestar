@@ -1,0 +1,83 @@
+guide polestar-completionist-horde/35-odd-jobs-in-kalimdor-3
+title 35 Odd jobs in Kalimdor (45-56) (Completionist)
+faction Horde
+levels 45-56
+zone Ashenvale
+next polestar-completionist-horde/36-durotar-and-orgrimmar-3
+pitch On along the line: errands across Kalimdor, quests of level 45 to 56.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 6 quests; estimated level at the end 45.4 (heuristic XP, class quests not counted).
+
+step Loh'atu
+  zone Ashenvale
+  accept 5535
+  accept 5536
+
+step Highborne Apparition
+  kill 6116 x6 quest 5535.1
+
+step Haldarr Satyr, Haldarr Trickster and Haldarr Felsworn
+  zone Azshara
+  kill 6125 x6 quest 5536.1
+  kill 6126 x2 quest 5536.2
+  kill 6127 x2 quest 5536.3
+
+step Highborne Lichling
+  kill 6117 x6 quest 5535.2
+
+step Loh'atu
+  zone Ashenvale
+  turnin 5535
+  turnin 5536
+
+step Melor Stonehoof
+  zone Thunder Bluff
+  accept 1205
+
+step Deadmire
+  zone Dustwallow Marsh
+  collect 5945 x1 quest 1205.1
+
+step Melor Stonehoof
+  zone Thunder Bluff
+  turnin 1205
+  accept 97378
+
+step Level 52
+  level 52
+
+step Trull Failbane
+  zone Darkshore
+  accept 4521
+
+step Raging Owlbeast
+  zone Winterspring
+  kill 7451 x15 quest 4521.1
+
+step Ragged Owlbeast
+  zone Felwood
+  kill 7450 x15 quest 4521.2
+
+step Trull Failbane
+  zone Darkshore
+  turnin 4521
+
+step Dreka'Sur
+  zone Ashenvale
+  accept 6162
+
+step Overlord Ror
+  zone Felwood
+  collect 15879 x1 quest 6162.1
+
+step Dreka'Sur
+  zone Darkshore
+  turnin 6162
+
+step Mirrorscale
+  zone Feralas
+  collect 277972 x1 quest 97378.1
+
+step Melor Stonehoof
+  zone Thunder Bluff
+  turnin 97378

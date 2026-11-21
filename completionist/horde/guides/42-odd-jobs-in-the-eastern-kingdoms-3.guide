@@ -1,0 +1,175 @@
+guide polestar-completionist-horde/42-odd-jobs-in-the-eastern-kingdoms-3
+title 42 Odd jobs in the Eastern Kingdoms (50-56) (Completionist)
+faction Horde
+levels 50-56
+zone Arathi Highlands
+next polestar-completionist-horde/43-felwood
+pitch On along the line: errands across the Eastern Kingdoms, quests of level 50 to 56.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 8 quests; estimated level at the end 50.3 (heuristic XP, class quests not counted).
+# Skipped: 2 profession; 1 exploration objective has no location in data.
+
+step Elder Torntusk
+  when group 7846
+  zone Arathi Highlands
+  accept 7846
+
+step Hitah'ya the Keeper
+  when group 7846
+  zone Arathi Highlands
+  tip Recover the Key! is group work: elites. Grouping up is advised.
+  collect 19064 x1 quest 7846.1
+
+step Elder Torntusk
+  when group 7846
+  zone Arathi Highlands
+  turnin 7846
+
+step Elder Torntusk
+  zone Arathi Highlands
+  accept 7847
+
+step Cut Arathor Supply Lines
+  zone map 1417
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 8123
+  complete 8123 @73.5,29.8
+
+step The Battle for Arathi Basin!
+  when available 8120
+  tip One of several exclusive quests; the route takes The Battle for Arathi Basin! (8169). This one shows for a character the game offers it to instead.
+  zone map 1417
+  accept 8120 optional
+
+step Cut Arathor Supply Lines
+  turnin 8123
+
+step The Battle for Arathi Basin!
+  when onquest 8120
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1417
+  complete 8120 @73.2,29.7 optional
+
+step The Battle for Arathi Basin!
+  when onquest 8120
+  zone map 1417
+  turnin 8120 optional
+
+step Elemental Leatherworking
+  when available 5146
+  tip One of several exclusive quests; the route takes Dragonscale Leatherworking (5145). This one shows for a character the game offers it to instead.
+  when skill Leatherworking 225
+  zone map 1417
+  accept 5146 optional
+
+step Elemental Leatherworking
+  when onquest 5146
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1417
+  complete 5146 @28.3,45.1 optional
+
+step Elemental Leatherworking
+  when onquest 5146
+  zone map 1417
+  turnin 5146 optional
+
+step Primal Torntusk
+  zone The Hinterlands
+  turnin 7847
+
+step Apothecary Lydon
+  zone Alterac Mountains
+  accept 2938
+
+step Master Apothecary Faranell
+  zone Undercity
+  turnin 2938
+
+step Gorn
+  when group 793
+  zone Badlands
+  accept 793
+
+step Seal of the Earth
+  when onquest 793
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1418
+  collect 4845 x1 anywhere optional
+  collect 4844 x1 anywhere optional
+  collect 4843 x1 anywhere optional
+  turnin 795 direct optional
+
+step Thal'trak Proudtusk
+  accept 3821
+
+step Blacklash and Hematus
+  when group 793
+  zone Badlands
+  tip Broken Alliances is group work: elites. Grouping up is advised.
+  collect 4615 x1 quest 793.1
+  collect 4645 x1 quest 793.2
+
+step Theldurin the Lost
+  when group 656
+  zone Badlands
+  accept 656
+
+step Myzrael
+  when group 656
+  zone Arathi Highlands
+  tip Summoning the Princess is group work: elites. Grouping up is advised.
+  collect 4473 x1 quest 656.1
+
+step Shards of Myzrael
+  when group 656
+  zone Arathi Highlands
+  turnin 656
+
+step Gorn
+  when group 793
+  zone Badlands
+  turnin 793
+
+step Maxwort Uberglint
+  zone Burning Steppes
+  accept 4296
+
+step Tablet of the Seven
+  collect 11470 x1 quest 4296.1
+
+step Maxwort Uberglint
+  turnin 4296
+
+step Sha'ni Proudtusk
+  turnin 3821
+  accept 3822
+
+step Krom'Grul
+  collect 11058 x1 quest 3822.1
+
+step Ever After
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1428
+  turnin 82062 direct @35.8,19.8 map 1428
+
+step Thal'trak Proudtusk
+  zone Badlands
+  turnin 3822
+
+step Dragonscale Leatherworking
+  when available 5145
+  tip One of several exclusive quests; the route takes Tribal Leatherworking (5148). This one shows for a character the game offers it to instead.
+  when skill Leatherworking 225
+  zone map 1418
+  accept 5145 optional
+
+step Dragonscale Leatherworking
+  when onquest 5145
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1418
+  complete 5145 @62.7,57.4 optional
+
+step Dragonscale Leatherworking
+  when onquest 5145
+  zone map 1418
+  turnin 5145 optional

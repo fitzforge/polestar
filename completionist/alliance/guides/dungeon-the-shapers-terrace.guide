@@ -1,0 +1,42 @@
+guide polestar-completionist-alliance/dungeon-the-shapers-terrace
+title The Shaper's Terrace (Completionist)
+faction Alliance
+category Dungeons
+levels 60-60
+zone Un'Goro Crater
+pitch The Shaper's Terrace, in Un'Goro Crater.
+why The Alliance quests of The Shaper's Terrace that the reference data can place.
+
+step About this guide
+  note The reference data has no entrance for The Shaper's Terrace, in Un'Goro Crater: find the way in from the quest text. The quests below are taken and handed in outside.
+
+
+step Digestible Research
+  when has 271972
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1455
+  turnin 95790 direct @71.5,15.7 map 1455
+
+step Panic at the Digsite
+  zone map 1455
+  accept 95924
+
+step Panic at the Digsite
+  when onquest 95924
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1455
+  complete 95924 @71.5,15.7
+
+step Panic at the Digsite
+  when onquest 95924
+  zone map 1455
+  turnin 95924 @71.5,15.7 map 1455
+
+step Mapping the Way Forward
+  zone map 1455
+  accept 95925
+
+step Mapping the Way Forward
+  when onquest 95925
+  zone map 1455
+  turnin 95925 @71.5,15.7 map 1455

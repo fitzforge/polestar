@@ -1,0 +1,280 @@
+guide polestar-completionist-horde/31-tanaris
+title 31 Tanaris (38-50) (Completionist)
+faction Horde
+levels 38-50
+zone Tanaris
+next polestar-completionist-horde/dungeon-zulfarrak
+next polestar-completionist-horde/32-swamp-of-sorrows
+pitch On along the line: Tanaris, quests of level 38 to 50.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 30 quests; estimated level at the end 40.3 (heuristic XP, class quests not counted).
+# Skipped: 1 prerequisite N not in this route.
+
+step Shreev
+  sethome "Gadgetzan"
+  getfp "Gadgetzan"
+  accept 1189
+  accept 992
+  accept 95144
+
+step The Super Egg-O-Matic
+  when turnedin 2741
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1446
+  collect 8564 x1 anywhere optional
+  turnin 8893 direct optional
+
+step Membership Card Renewal
+  when turnedin 3639
+  when skill Engineering 200
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1446
+  turnin 3644 direct optional
+
+step A Bad Egg
+  when turnedin 2741
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1446
+  collect 8646 x1 anywhere optional
+  turnin 2750 direct optional
+
+step Sandsorrow Watch Water Hole
+  collect 8585 x1 quest 992.1
+
+step Tooga
+  accept 97540
+  turnin 97540
+
+step Level 45
+  level 45
+
+step Tran'rek
+  zone Tanaris
+  accept 3362
+
+step Gnarled Thistleshrub and Thistleshrub Rootshaper
+  zone Tanaris
+  kill 5490 x8 quest 3362.1
+  kill 5485 x8 quest 3362.2
+
+step Wanted Poster
+  zone Tanaris
+  accept 2875 object 150075
+
+step Wanted Poster
+  zone Tanaris
+  accept 2781 object 150075
+
+step Tooga
+  zone Tanaris
+  accept 1560
+
+step Marin Noggenfogger
+  zone Tanaris
+  accept 2605
+
+step Gritty Business
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1446
+  accept 97534
+  complete 97534 @51.1,27.9
+
+step Gritty Business
+  zone Tanaris
+  turnin 97534
+
+step Thistleshrub Dew Collector
+  zone Tanaris
+  collect 8428 x1 quest 2605.1
+
+step Chief Engineer Bilgewhizzle
+  zone Tanaris
+  accept 1690
+
+step Wastewander Bandit and Wastewander Thief
+  zone Tanaris
+  kill 5618 x10 quest 1690.1
+  kill 5616 x10 quest 1690.2
+
+step Spigot Operator Luglunket
+  zone Tanaris
+  accept 1707
+
+step Andi Lynn
+  zone Tanaris
+  accept 5863
+
+step Dunemaul Brute and Dunemaul Enforcer
+  kill 5474 x10 quest 5863.1
+  kill 5472 x10 quest 5863.2
+
+step Gor'marok the Ravager
+  kill 12046 x1 quest 5863.3
+
+step Andre Firebeard
+  collect 9246 x1 quest 2875.1
+
+step Caliph Scorpidsting
+  collect 8723 x1 quest 2781.1
+
+step Wastewander Shadow Mage
+  collect 8483 x5 quest 1707.1
+
+step Torta
+  turnin 1560
+  turnin 2875
+  accept 8366
+  accept 97530
+  accept 95383
+  turnin 95383
+  accept 95312
+
+step Southsea Swashbuckler
+  kill 7858 x10 quest 8366.4
+
+step Southsea Dock Worker
+  kill 7857 x10 quest 8366.3
+
+step Southsea Pirate
+  kill 7855 x10 quest 8366.1
+
+step Southsea Freebooter
+  kill 7856 x10 quest 8366.2
+
+step Dunemaul Enforcer
+  collect 278186 x1 quest 97530.1
+
+step Odd Totem
+  accept 95753
+
+step Odd Totem
+  turnin 95753
+
+step Senior Surveyor Fizzledowser
+  turnin 992
+  accept 82
+
+step Centipaar Worker
+  collect 8587 x5 quest 82.1
+
+step Marvon Rivetseeker
+  accept 3161
+
+step Gahz'ridian
+  collect 8443 x30 quest 3161.1
+
+step Marvon Rivetseeker
+  turnin 3161
+
+step Marin Noggenfogger
+  turnin 2605
+  accept 2606
+  turnin 1690
+  turnin 2781
+  accept 1691
+  turnin 1707
+  turnin 5863
+
+step Water Pouch Bounty
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1446
+  collect 8483 x5 anywhere optional
+  turnin 1878 direct optional
+
+step Wastewander Shadow Mage
+  kill 5617 x10 quest 1691.3
+
+step Wastewander Rogue
+  kill 5615 x8 quest 1691.1
+
+step Wastewander Assassin
+  kill 5623 x6 quest 1691.2
+
+step Chief Engineer Bilgewhizzle
+  turnin 1691
+  turnin 95312
+  turnin 3362
+  turnin 2606
+  accept 2641
+  turnin 82
+  accept 10
+
+step Tazzik's Dues
+  zone map 1446
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 95321
+  complete 95321 @51.6,27.4
+
+step Scrimshank's Surveying Gear
+  collect 8593 x1 quest 10.1
+
+step Violet Tragan
+  zone The Hinterlands
+  collect 8526 x1 quest 2641.1
+
+step Friz Frazzlespark
+  zone Riverglades
+  turnin 95144
+
+step Haughty Modiste
+  zone Tanaris
+  accept 8365
+  turnin 8366
+  turnin 97530
+
+step Tazzik's Dues
+  turnin 95321
+
+step Tazzik
+  zone Tanaris
+  accept 95472
+
+step Friz Frazzlespark
+  zone Riverglades
+  turnin 95472
+
+step Southsea Dock Worker
+  collect 20519 x20 quest 8365.1
+
+step Haughty Modiste
+  turnin 8365
+
+step Sprinkle
+  turnin 2641
+  accept 2661
+  turnin 10
+  accept 110
+  turnin 110
+  accept 113
+  turnin 113
+  accept 32
+
+step Marin Noggenfogger
+  turnin 2661
+  accept 2662
+  turnin 2662
+
+step Ship Schedules
+  tip Ship Schedule is pickpocketed from Southsea Pirate and is in the Pirate's Footlocker: it starts this quest. Take it if it comes, and move on if it does not.
+  zone map 1446
+  collect 9250 x1 optional
+  accept 2876 item 9250 optional
+
+step Cuergo's Gold
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1446
+  collect 9275 x1 anywhere optional
+  turnin 2882 direct optional
+
+step Ship Schedules
+  when onquest 2876
+  zone map 1446
+  turnin 2876
+
+step Razzeric
+  zone Thousand Needles
+  turnin 1189
+
+step Zilzibin Drumlore
+  zone Orgrimmar
+  turnin 32

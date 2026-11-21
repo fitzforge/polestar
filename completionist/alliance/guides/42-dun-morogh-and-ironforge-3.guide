@@ -1,0 +1,467 @@
+guide polestar-completionist-alliance/42-dun-morogh-and-ironforge-3
+title 42 Dun Morogh and Ironforge (40-55) (Completionist)
+faction Alliance
+levels 40-55
+zone Ironforge
+next polestar-completionist-alliance/43-azshara
+pitch On along the line: Dun Morogh and Ironforge, quests of level 40 to 55.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 17 quests; estimated level at the end 42.0 (heuristic XP, class quests not counted).
+# Skipped: 5 profession; 3 exclusive with N (done); 2 objective N (talk N) outside the zones.
+
+step Level 54
+  level 54
+
+step Cenarion Emissary Jademoon
+  zone Ironforge
+  accept 8275
+
+step The Art of the Armorsmith
+  when available 5283
+  tip One of several exclusive quests; the route takes The Way of the Weaponsmith (5284). This one shows for a character the game offers it to instead.
+  when skill Blacksmithing 200
+  zone map 1455
+  accept 5283 optional
+
+step The Art of the Armorsmith
+  when onquest 5283
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1455
+  complete 5283 @50.0,42.8 optional
+
+step The Art of the Armorsmith
+  when onquest 5283
+  zone map 1455
+  turnin 5283 optional
+
+step Membership Card Renewal
+  when skill Engineering 200
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  turnin 3647 direct optional
+
+step The Pledge of Secrecy
+  when available 3640
+  tip One of several exclusive quests; the route takes The Pledge of Secrecy (3638). This one shows for a character the game offers it to instead.
+  when turnedin 3630
+  when skill Engineering 200
+  zone map 1455
+  accept 3640 optional
+
+step The Pledge of Secrecy
+  when onquest 3640
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1455
+  complete 3640 @69.5,50.3 optional
+
+step The Pledge of Secrecy
+  when onquest 3640
+  zone map 1455
+  turnin 3640 optional
+
+step Gnome Engineering
+  when available 3632
+  tip One of several exclusive quests; the route takes Goblin Engineering (3629). This one shows for a character the game offers it to instead.
+  when skill Engineering 200
+  zone map 1455
+  accept 3632 optional
+
+step Gnome Engineering
+  when onquest 3632
+  zone map 1455
+  turnin 3632 optional
+
+step Goblin Engineering
+  when available 3629
+  tip One of several exclusive quests; the route takes Gnome Engineering (3630). This one shows for a character the game offers it to instead.
+  when skill Engineering 200
+  zone map 1455
+  accept 3629 optional
+
+step Goblin Engineering
+  when onquest 3629
+  zone map 1446
+  turnin 3629 optional
+
+step The Way of the Weaponsmith
+  when available 5284
+  tip One of several exclusive quests; the route takes The Art of the Armorsmith (5283). This one shows for a character the game offers it to instead.
+  when skill Blacksmithing 200
+  zone map 1455
+  accept 5284 optional
+
+step The Way of the Weaponsmith
+  when onquest 5284
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1455
+  complete 5284 @50.3,43.6 optional
+
+step The Way of the Weaponsmith
+  when onquest 5284
+  zone map 1455
+  turnin 5284 optional
+
+step Alliance Trauma
+  when skill "First Aid" 1
+  zone map 1455
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 6625 optional
+
+step Alliance Trauma
+  when skill "First Aid" 1
+  turnin 6625 optional
+
+step Triage
+  when skill "First Aid" 1
+  zone map 1445
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 6624 optional
+  complete 6624 @67.8,49.0 optional
+
+step Triage
+  when skill "First Aid" 1
+  turnin 6624 optional
+
+step I Know A Guy...
+  when skill Cooking 1
+  zone map 1455
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 6612 optional
+
+step I Know A Guy...
+  when skill Cooking 1
+  turnin 6612 optional
+
+step Windcaller Proudhorn
+  zone Silithus
+  turnin 8275
+
+step High Explorer Magellas
+  zone Ironforge
+  accept 2963
+
+step Laris Geardawdle
+  zone Ironforge
+  accept 4512
+
+step Cursed Ooze
+  zone Felwood
+  collect 11947 x6 quest 4512.1
+
+step Tainted Ooze
+  zone Felwood
+  collect 11949 x6 quest 4512.2
+
+step Laris Geardawdle
+  zone Ironforge
+  turnin 4512
+
+step Laris Geardawdle
+  zone Ironforge
+  accept 4513
+
+step Primal Ooze
+  zone Un'Goro Crater
+  collect 11954 x10 quest 4513.1
+
+step Courier Hammerfall
+  zone Ironforge
+  accept 1019
+
+step Arch Druid Fandral Staghelm
+  zone Darnassus
+  turnin 1019
+
+step Gerrig Bonegrip
+  zone Ironforge
+  accept 687
+
+step I Got Nothin' Left!
+  when skill Fishing 1
+  zone map 1455
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 6609 optional
+
+step I Got Nothin' Left!
+  when skill Fishing 1
+  turnin 6609 optional
+
+step Nat Pagle, Angler Extreme
+  when skill Fishing 1
+  zone map 1445
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 6607 optional
+  complete 6607 @58.6,60.1 optional
+
+step Nat Pagle, Angler Extreme
+  when skill Fishing 1
+  turnin 6607 optional
+
+step Gerrig Bonegrip
+  when group 735
+  zone Ironforge
+  accept 735
+
+step Grel'borg the Miser
+  when group 735
+  zone Alterac Mountains
+  tip The Star, the Hand and the Heart is group work: elites. Grouping up is advised.
+  collect 4646 x1 quest 735.1
+
+step Dagun the Ravenous
+  when group 735
+  zone Dustwallow Marsh
+  tip The Star, the Hand and the Heart is group work: elites. Grouping up is advised.
+  collect 4641 x1 quest 735.2
+
+step Mogh the Undying
+  when group 735
+  zone Stranglethorn Vale
+  tip The Star, the Hand and the Heart is group work: elites. Grouping up is advised.
+  collect 4644 x1 quest 735.3
+
+step Theldurin the Lost
+  zone Badlands
+  turnin 687
+  accept 692
+
+step Enraged Rock Elemental
+  collect 4518 x1 quest 692.1
+  collect 4519 x1 quest 692.2
+  collect 4520 x1 quest 692.3
+
+step Theldurin the Lost
+  turnin 692
+
+step Theldurin the Lost
+  when group 656
+  zone Badlands
+  accept 656
+
+step Myzrael
+  when group 656
+  zone Arathi Highlands
+  tip Summoning the Princess is group work: elites. Grouping up is advised.
+  collect 4473 x1 quest 656.1
+
+step Shards of Myzrael
+  when group 656
+  zone Arathi Highlands
+  turnin 656
+
+step Historian Karnik
+  zone Ironforge
+  turnin 2963
+  accept 2946
+  accept 3448
+  turnin 4513
+
+step Gerrig Bonegrip
+  when group 735
+  zone Ironforge
+  turnin 735
+
+step Gerrig Bonegrip
+  zone Ironforge
+  accept 737
+
+step Tymor
+  turnin 3448
+  accept 3449
+  accept 3450
+
+step Rune of Jin'yael
+  zone Azshara
+  collect 10564 x1 quest 3449.2
+
+step Rune of Beth'Amara
+  collect 10563 x1 quest 3449.1
+
+step Rune of Markri
+  collect 10565 x1 quest 3449.3
+
+step Rune of Sael'hai
+  collect 10566 x1 quest 3449.4
+
+step Pilot Xiggs Fuselighter
+  turnin 3449
+
+step Uldum Pedestal
+  zone Tanaris
+  turnin 2946
+
+step The Stone Watcher
+  zone map 1446
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 2954
+  complete 2954 @37.6,81.4
+
+step The Stone Watcher
+  turnin 2954
+
+step Uldum Pedestal
+  zone Tanaris
+  accept 2977
+
+step The Pledge of Secrecy
+  when available 3638
+  tip One of several exclusive quests; the route takes The Pledge of Secrecy (3640). This one shows for a character the game offers it to instead.
+  when skill Engineering 200
+  zone map 1446
+  accept 3638 optional
+
+step The Pledge of Secrecy
+  when onquest 3638
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1446
+  complete 3638 @52.5,27.3 optional
+
+step The Pledge of Secrecy
+  when onquest 3638
+  zone map 1446
+  turnin 3638 optional
+
+step Show Your Work
+  when available 3639
+  tip One of several exclusive quests; the route takes The Pledge of Secrecy (3640). This one shows for a character the game offers it to instead.
+  when turnedin 3638
+  when skill Engineering 200
+  zone map 1446
+  accept 3639 optional
+
+step Show Your Work
+  when onquest 3639
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1446
+  complete 3639 @52.5,27.3 optional
+
+step Show Your Work
+  when onquest 3639
+  zone map 1446
+  turnin 3639 optional
+
+step Historian Karnik
+  zone Ironforge
+  turnin 2977
+
+step Historian Karnik
+  zone Ironforge
+  accept 2964
+
+step High Explorer Magellas
+  zone Ironforge
+  turnin 2964
+
+step Clamlette Surprise
+  when skill Cooking 1
+  zone map 1446
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 6610 optional
+  complete 6610 @52.6,28.1 optional
+
+step Clamlette Surprise
+  when skill Cooking 1
+  turnin 6610 optional
+
+step Theldurin the Lost
+  zone Badlands
+  turnin 737
+
+step Xiggs Fuselighter
+  zone Ironforge
+  turnin 3450
+  accept 3451
+  turnin 3451
+
+step Signal for Pickup
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  turnin 3483 direct optional
+
+step The Black Box
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  turnin 708 direct optional
+
+step Assisting Arch Druid Staghelm
+  when available 3790
+  tip One of several exclusive quests; the route takes Assisting Arch Druid Staghelm (3763). This one shows for a character the game offers it to instead.
+  zone map 1455
+  accept 3790 optional
+
+step Assisting Arch Druid Staghelm
+  when onquest 3790
+  zone map 1457
+  turnin 3790 optional
+
+step Show Your Work
+  when available 3641
+  tip One of several exclusive quests; the route takes The Pledge of Secrecy (3638). This one shows for a character the game offers it to instead.
+  when turnedin 3640
+  when skill Engineering 200
+  zone map 1455
+  accept 3641 optional
+
+step Show Your Work
+  when onquest 3641
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1455
+  complete 3641 @69.5,50.3 optional
+
+step Show Your Work
+  when onquest 3641
+  zone map 1455
+  turnin 3641 optional
+
+
+step Your First Riding Ram
+  zone map 1426
+  accept 97017
+
+step Your First Riding Ram
+  when onquest 97017
+  zone map 1426
+  complete 97017 @64.3,50.2
+
+step Your First Riding Ram
+  when onquest 97017
+  zone map 1426
+  turnin 97017
+
+step Learning to Ride
+  only Dwarf
+  zone map 1426
+  accept 97018
+
+step Learning to Ride
+  only Dwarf
+  when onquest 97018
+  zone map 1426
+  turnin 97018
+
+step Your First Mechanostrider
+  when available 97046
+  tip One of several exclusive quests; the route takes Your First Riding Ram (97017). This one shows for a character the game offers it to instead.
+  zone map 1426
+  accept 97046 optional
+
+step Your First Mechanostrider
+  when onquest 97046
+  zone map 1426
+  complete 97046 @49.1,48.1 optional
+
+step Your First Mechanostrider
+  when onquest 97046
+  zone map 1426
+  turnin 97046 optional
+
+step Learning to Ride
+  only Gnome
+  zone map 1426
+  accept 97188
+
+step Learning to Ride
+  only Gnome
+  when onquest 97188
+  zone map 1426
+  turnin 97188

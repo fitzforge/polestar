@@ -1,0 +1,287 @@
+guide polestar-completionist-horde/class-druid
+title Druid class quests (10-60) (Completionist)
+faction Horde
+class Druid
+levels 10-60
+category Class
+zone Durotar
+why Every Druid class quest from level 10 on, in level order. The earlier ones are in the starting zone guides.
+reward text What the Druid quests give, quest by quest: abilities, forms, pets, totems or gear.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 22 quests; estimated level at the end 12.9 (heuristic XP).
+# Skipped: 5 exclusive with N; 1 exploration objective has no location in data; 1 objective N (kill N) outside the zones; 1 objective N (talk N) outside the zones; 1 prerequisite N not in this route.
+
+step Muln Earthfury
+  zone Mulgore
+  accept 94911 only Skyborne
+
+step Level 14
+  level 14
+
+step Hana Lighthoof
+  accept 6126 npc 262560 only Tauren,Skyborne
+
+step Innkeeper Pala
+  zone Thunder Bluff
+  accept 5926 only Tauren
+
+step Turak Runetotem
+  turnin 5926 only Tauren
+  turnin 94911 only Skyborne
+  accept 5922 only Tauren
+  accept 94913 only Skyborne
+
+step Level 14
+  level 14
+
+step Dendrite Starblaze
+  zone Moonglade
+  turnin 5922 only Tauren
+  turnin 6126 only Tauren,Skyborne
+  turnin 94913 only Skyborne
+  accept 6127 only Tauren,Skyborne
+
+step Great Bear Spirit
+  only Druid,Tauren
+  zone map 1450
+  accept 5930 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 5930 @56.2,30.6 optional
+
+step Dreadmist Peak Pool
+  zone The Barrens
+  collect 15843 x1 quest 6127.1 only Tauren,Skyborne
+
+step Level 18
+  level 18
+
+step Turak Runetotem
+  zone Thunder Bluff
+  accept 98340 only Tauren,Skyborne
+
+step Dendrite Starblaze
+  zone Moonglade
+  turnin 98340 only Tauren,Skyborne
+
+step Great Bear Spirit
+  only Druid,Tauren
+  turnin 5930 optional
+
+step Back to Thunder Bluff
+  only Druid,Tauren
+  zone map 1450
+  accept 5932 optional
+
+step Level 40
+  level 40
+
+step Tyrisius
+  zone Feralas
+  accept 81924
+  turnin 81924
+
+step Level 58
+  level 58
+
+step The Great Windborne Cat Spirit
+  only Druid,Skyborne
+  zone map 1450
+  accept 98341 optional
+
+step The Great Windborne Cat Spirit
+  only Druid,Skyborne
+  zone map 1450
+  turnin 98341 optional
+
+step The Great Windborne Cat Spirit
+  only Druid,Skyborne
+  tip A class quest, done from the quest text: the reference data does not route it.
+  zone map 1450
+  accept 98404 optional
+  complete 98404 @43.9,73.4 optional
+
+step The Great Windborne Cat Spirit
+  only Druid,Skyborne
+  zone map 1450
+  turnin 98404 optional
+
+step Blessings of the Great Windborne Cat Spirit
+  only Druid,Skyborne
+  zone map 1450
+  accept 98738 optional
+
+step Blessings of the Great Windborne Cat Spirit
+  only Druid,Skyborne
+  zone map 1450
+  turnin 98738 optional
+
+step Geologist Larksbane
+  when turnedin 8315
+  zone Silithus
+  accept 8382
+  turnin 8382
+
+step Turak Runetotem
+  zone Thunder Bluff
+  accept 27 only Tauren,Skyborne
+
+step Back to Thunder Bluff
+  only Druid,Tauren
+  turnin 5932 optional
+
+step Body and Heart
+  only Druid,Tauren
+  zone map 1456
+  accept 6002 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 6002 @76.5,27.2 optional
+
+step Dendrite Starblaze
+  zone Moonglade
+  turnin 27 only Tauren,Skyborne
+
+step Dendrite Starblaze
+  zone Moonglade
+  accept 28 only Tauren,Skyborne
+
+step Shrine Of Remulos
+  zone Moonglade
+  interact 15885 quest 28.1 only Tauren,Skyborne
+
+step Dendrite Starblaze
+  zone Moonglade
+  accept 98405 only Tauren
+
+step Great Cat Spirit
+  zone Moonglade
+  turnin 98405 only Tauren
+
+step Great Cat Spirit
+  zone Moonglade
+  accept 98342 only Tauren
+
+step Relic of the Fang and Relic of the Silent Shadow
+  zone Moonglade
+  collect 280502 x1 quest 98342.1 only Tauren
+  collect 280680 x1 quest 98342.3 only Tauren
+
+step Relic of the Claw
+  zone Moonglade
+  collect 280679 x1 quest 98342.2 only Tauren
+
+step Tajarri
+  zone Moonglade
+  turnin 28 only Tauren,Skyborne
+
+step Tajarri
+  zone Moonglade
+  accept 30 only Tauren,Skyborne
+
+step Shrine Of Remulos
+  zone Moonglade
+  collect 15885 x1 quest 30.1 only Tauren,Skyborne
+
+step Tonga Runetotem
+  turnin 6127 only Tauren,Skyborne
+  accept 6128 only Tauren,Skyborne
+
+step Barrens Kodo
+  collect 15852 x5 quest 6128.2 only Tauren,Skyborne
+
+step Earthroot
+  zone Mulgore
+  collect 2449 x5 quest 6128.1 only Tauren,Skyborne
+
+step Heeding the Call
+  only Druid,Tauren
+  when available 5928
+  tip One of several exclusive quests; the route takes Heeding the Call (5926). This one shows for a character the game offers it to instead.
+  zone map 1412
+  accept 5928 optional
+
+step Tonga Runetotem
+  zone The Barrens
+  turnin 6128 only Tauren,Skyborne
+  accept 6129 only Tauren,Skyborne
+
+step Sickly Gazelle
+  kill 12296 x10 quest 6129.1 only Tauren,Skyborne
+
+step Great Cat Spirit
+  zone Moonglade
+  turnin 98342 only Tauren
+  accept 98739 only Tauren
+
+step Dendrite Starblaze
+  turnin 30 only Tauren,Skyborne
+  turnin 6129 only Tauren,Skyborne
+  turnin 98739 only Tauren
+  accept 31 only Tauren,Skyborne
+  accept 6130 only Tauren,Skyborne
+  accept 98362 only Tauren,Skyborne
+
+step Turak Runetotem
+  zone Thunder Bluff
+  turnin 31 only Tauren,Skyborne
+  turnin 6130 only Tauren,Skyborne
+  turnin 98362 only Tauren,Skyborne
+
+step Heeding the Call
+  only Druid,Tauren
+  when onquest 5928
+  zone map 1456
+  turnin 5928 optional
+
+step Body and Heart
+  only Druid,Tauren
+  turnin 6002 optional
+
+step Lotheluum Starbreeze
+  zone map 2521
+  accept 94006 only Skyborne
+
+step Urs'endris
+  turnin 94006 only Skyborne
+  accept 94638 only Skyborne
+
+step Ur'endra
+  kill 258443 x1 quest 94638.1 only Skyborne
+
+step Urs'endris
+  turnin 94638 only Skyborne
+
+
+step Heeding the Call
+  only Druid,Tauren
+  when available 5927
+  tip One of several exclusive quests; the route takes Heeding the Call (5926). This one shows for a character the game offers it to instead.
+  zone map 1454
+  accept 5927 optional
+
+step Heeding the Call
+  only Druid,Tauren
+  when onquest 5927
+  zone map 1456
+  turnin 5927 optional
+
+step Level 60
+  level 60
+
+step Atiesh, Greatstaff of the Guardian
+  only Druid
+  when turnedin 9251
+  zone map 1446
+  accept 9269 optional
+
+step Atiesh, Greatstaff of the Guardian
+  only Druid
+  when onquest 9269
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1446
+  complete 9269 @65.3,50.0 optional
+
+step Atiesh, Greatstaff of the Guardian
+  only Druid
+  when onquest 9269
+  zone map 1446
+  turnin 9269 optional

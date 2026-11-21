@@ -1,0 +1,471 @@
+guide polestar-completionist-alliance/dungeon-uldaman
+title Uldaman (Completionist)
+faction Alliance
+category Dungeons
+levels 35-47
+zone Badlands
+next polestar-completionist-alliance/34-riverglades
+pitch Uldaman, in Badlands.
+why Every Alliance quest of Uldaman: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Badlands: the arrow leads to it.
+
+step Salt Flat Venom
+  zone Thousand Needles
+  accept 1104
+
+step Salt Flat Venom
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Thousand Needles
+  complete 1104 @78.06,77.13
+
+step Salt Flat Venom
+  zone Thousand Needles
+  turnin 1104
+
+step Hardened Shells
+  zone Thousand Needles
+  accept 1105
+
+step Hardened Shells
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Thousand Needles
+  complete 1105 @78.14,77.12
+
+step Hardened Shells
+  zone Thousand Needles
+  turnin 1105
+
+step Encrusted Tail Fins
+  zone map 1441
+  accept 1107
+
+step A Sign of Hope
+  zone Badlands
+  accept 720
+
+step A Sign of Hope
+  zone Badlands
+  turnin 720
+
+step Martek the Exiled
+  zone Thousand Needles
+  accept 1106
+
+step Encrusted Tail Fins
+  when onquest 1107
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1441
+  complete 1107 @78.1,77.1
+
+step Encrusted Tail Fins
+  when onquest 1107
+  zone map 1441
+  turnin 1107
+
+step Martek the Exiled
+  zone Badlands
+  turnin 1106
+
+step Ironband Wants You!
+  zone Ironforge
+  accept 707
+
+step Ironband Wants You!
+  zone Loch Modan
+  turnin 707
+
+step Find Agmond
+  zone Loch Modan
+  accept 738
+
+step Find Agmond
+  zone Badlands
+  turnin 738
+
+step Indurium
+  zone Badlands
+  accept 1108
+
+step Indurium
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Badlands
+  complete 1108 @42.22,52.69
+
+step Indurium
+  zone Badlands
+  turnin 1108
+
+step Return to the Marsh
+  only Mage
+  zone Thunder Bluff
+  accept 1953
+
+step Return to the Marsh
+  only Mage
+  zone Dustwallow Marsh
+  turnin 1953
+
+step The Infernal Orb
+  only Mage
+  zone Dustwallow Marsh
+  accept 1954
+
+step The Infernal Orb
+  only Mage
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Dustwallow Marsh
+  complete 1954 @46.06,57.09
+
+step The Infernal Orb
+  only Mage
+  zone Dustwallow Marsh
+  turnin 1954
+
+step The Exorcism
+  only Mage
+  zone Dustwallow Marsh
+  accept 1955
+
+step The Exorcism
+  only Mage
+  zone Dustwallow Marsh
+  complete 1955 @45.79,56.97
+
+step The Exorcism
+  only Mage
+  zone Dustwallow Marsh
+  turnin 1955
+
+step Murdaloc
+  zone Badlands
+  accept 739
+
+step Murdaloc
+  zone Badlands
+  complete 739 @49.63,66.31
+
+step Murdaloc
+  zone Loch Modan
+  turnin 739
+
+step News for Fizzle
+  zone Badlands
+  accept 1137
+
+step News for Fizzle
+  zone Thousand Needles
+  turnin 1137
+
+step Keeping Pace
+  zone Thousand Needles
+  accept 1190
+
+step Zamek's Distraction
+  when onquest 1190
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1441
+  turnin 1191 direct optional
+
+step Keeping Pace
+  zone Thousand Needles
+  turnin 1190
+
+step Rizzle's Schematics
+  zone Thousand Needles
+  accept 1194
+
+step Rizzle's Schematics
+  zone Thousand Needles
+  turnin 1194
+
+step Prospector Ryedol
+  zone Badlands
+  accept 721
+
+step Rigglefuzz
+  zone Badlands
+  accept 2418
+
+step Theldurin the Lost
+  zone Badlands
+  accept 709
+
+step Prospector Ironband
+  zone Loch Modan
+  accept 704
+
+step Pozzik
+  zone Thousand Needles
+  accept 1192
+
+step Tabetha
+  only Mage
+  zone Dustwallow Marsh
+  accept 1956
+
+step Level 36
+  level 36
+
+step Badlands Reagent Run
+  zone Loch Modan
+  accept 2500
+
+step Badlands Reagent Run
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Loch Modan
+  complete 2500 @37.07,49.38
+
+step Badlands Reagent Run
+  zone Loch Modan
+  turnin 2500
+
+step Krom Stoutarm
+  zone Ironforge
+  accept 1360
+
+step Prospector Stormpike
+  zone Ironforge
+  accept 2398
+
+step Inside Uldaman
+  zone Badlands
+  collect 7666
+  complete 2418 @67.8,44.4
+  complete 704 @67.8,44.4
+  complete 709 @67.8,44.4
+  turnin 2398 @67.8,44.4
+  complete 1192 @67.8,44.4
+  complete 1360 @67.8,44.4
+
+step Inside Uldaman
+  only Mage
+  zone Badlands
+  complete 1956 @67.8,44.4
+
+step Hammertoe Grez
+  zone Badlands
+  turnin 721
+
+step Rigglefuzz
+  zone Badlands
+  turnin 2418
+
+step Theldurin the Lost
+  zone Badlands
+  turnin 709
+
+step To Ironforge for Yagyin's Digest
+  zone map 1418
+  accept 727
+
+step To Ironforge for Yagyin's Digest
+  when onquest 727
+  zone map 1455
+  turnin 727
+
+step Prospector Ironband
+  zone Loch Modan
+  turnin 704
+
+step Pozzik
+  zone Thousand Needles
+  turnin 1192
+
+step Tabetha
+  only Mage
+  zone Dustwallow Marsh
+  turnin 1956
+
+step Krom Stoutarm
+  zone Ironforge
+  turnin 1360
+
+step Hammertoe Grez
+  zone Badlands
+  accept 722
+
+step Inside Uldaman, again
+  zone Badlands
+  accept 2240 @67.8,44.4
+  complete 722 @67.8,44.4
+  complete 2240 @67.8,44.4
+
+step Hammertoe Grez
+  zone Badlands
+  turnin 722
+
+step Level 38
+  level 38
+
+step Ghak Healtouch
+  zone Loch Modan
+  accept 17
+
+step Inside Uldaman
+  zone Badlands
+  complete 17 @67.8,44.4
+
+step Ghak Healtouch
+  zone Loch Modan
+  turnin 17
+
+step Prospector Stormpike
+  zone Ironforge
+  turnin 2240
+
+step Level 40
+  level 40
+
+step Inside Uldaman
+  zone Badlands
+  accept 2278 @67.8,44.4
+  complete 2278 @67.8,44.4
+  turnin 2278 @67.8,44.4
+
+step Inside Uldaman, again
+  zone Badlands
+  accept 2279 @67.8,44.4
+
+step High Explorer Magellas
+  zone Ironforge
+  turnin 2279
+
+step Inside Uldaman
+  zone Badlands
+  accept 2198 item 7666
+
+step Talvash del Kissel
+  zone Ironforge
+  turnin 2198
+
+step Talvash del Kissel
+  zone Ironforge
+  accept 2199
+
+step Badlands Reagent Run II
+  when skill Alchemy 210
+  zone map 1432
+  accept 2501 optional
+
+step Badlands Reagent Run II
+  when onquest 2501
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1432
+  complete 2501 @37.1,49.4 optional
+
+step Badlands Reagent Run II
+  when onquest 2501
+  zone map 1432
+  turnin 2501 optional
+
+step Inside Uldaman, again
+  zone Badlands
+  complete 2199 @67.8,44.4
+
+step Talvash del Kissel
+  zone Ironforge
+  turnin 2199
+
+step Prospect of Faith
+  zone Badlands
+  accept 723
+
+step Prospect of Faith
+  zone Badlands
+  turnin 723
+
+step Prospect of Faith
+  zone Badlands
+  accept 724
+
+step Prospect of Faith
+  zone Ironforge
+  turnin 724
+
+step Passing Word of a Threat
+  zone Ironforge
+  accept 725
+
+step Passing Word of a Threat
+  zone Ironforge
+  turnin 725
+
+step Passing Word of a Threat
+  zone Ironforge
+  accept 726
+
+step Passing Word of a Threat
+  zone Ironforge
+  turnin 726
+
+step An Ambassador of Evil
+  zone Ironforge
+  accept 762
+
+step An Ambassador of Evil
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Ironforge
+  complete 762 @77.54,11.82
+
+step An Ambassador of Evil
+  zone Ironforge
+  turnin 762
+
+step Advisor Belgrum
+  zone Ironforge
+  accept 1139
+
+step High Explorer Magellas
+  zone Ironforge
+  accept 2439
+
+step Talvash del Kissel
+  zone Ironforge
+  accept 2200
+
+step Inside Uldaman, again
+  zone Badlands
+  turnin 2200 @67.8,44.4
+  complete 1139 @67.8,44.4
+
+step Advisor Belgrum
+  zone Ironforge
+  turnin 1139
+
+step Dinita Stonemantle
+  zone Ironforge
+  turnin 2439
+
+step Inside Uldaman, again
+  zone Badlands
+  accept 2201 @67.8,44.4
+  complete 2201 @67.8,44.4
+
+step Talvash's Scrying Bowl
+  zone Ironforge
+  turnin 2201 @67.8,44.4 map 1418
+
+step Talvash del Kissel
+  zone Ironforge
+  accept 3375
+  accept 2204
+
+step Inside Uldaman, again
+  zone Badlands
+  complete 3375 @67.8,44.4
+  complete 2204 @67.8,44.4
+
+step Talvash del Kissel
+  zone Ironforge
+  turnin 3375
+  turnin 2204
+
+step Talvash del Kissel
+  zone Ironforge
+  accept 2361
+
+step Talvash del Kissel
+  zone Ironforge
+  turnin 2361

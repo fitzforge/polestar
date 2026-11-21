@@ -1,0 +1,173 @@
+guide polestar-completionist-horde/17-tirisfal-glades-and-the-undercity-3
+title 17 Tirisfal Glades and the Undercity (30-40) (Completionist)
+faction Horde
+levels 30-40
+zone Undercity
+next polestar-completionist-horde/dungeon-scarlet-monastery
+next polestar-completionist-horde/18-dustwallow-marsh
+pitch On along the line: Tirisfal Glades and the Undercity, quests of level 30 to 40.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 14 quests; estimated level at the end 30.5 (heuristic XP, class quests not counted).
+# Skipped: 2 prerequisite N not in this route.
+
+step Genavie Callow
+  accept 1164
+
+step Marcel Dabyrie and Fardel Dabyrie
+  zone Arathi Highlands
+  collect 5832 x1 quest 1164.2
+  collect 5831 x1 quest 1164.3
+
+step Kenata Dabyrie
+  collect 5830 x1 quest 1164.1
+
+step Scrolls
+  accept 79949 object 423897
+
+step Scrolls
+  collect 215816 x1 quest 79949.1
+
+step Manual
+  accept 79948 object 423896
+
+step Manual
+  collect 215815 x1 quest 79948.1
+
+step Calder Gray
+  when group 97985
+  zone Arathi Highlands
+  accept 97985
+
+step Stormheart
+  when group 97985
+  zone Thousand Needles
+  tip Thundering Hearts is group work: elites. Grouping up is advised.
+  collect 279186 x1 quest 97985.1
+
+step Scrolls
+  accept 79947 object 423895
+
+step Scrolls
+  collect 215683 x1 quest 79947.1
+
+step Waterlogged Book
+  zone Dustwallow Marsh
+  accept 79952 object 423900
+
+step Waterlogged Book
+  collect 215822 x1 quest 79952.1
+
+step Mysterious Book
+  zone Desolace
+  accept 79950 object 423898
+
+step Mysterious Book
+  collect 215817 x1 quest 79950.1
+
+step Owen Thadd
+  zone Undercity
+  turnin 79947
+  turnin 79948
+  turnin 79949
+  turnin 79950
+  turnin 79952
+  accept 79535 npc 211022
+  accept 79536
+  accept 79951 npc 211022
+  turnin 79536
+
+step Scrolls
+  zone Badlands
+  collect 215820 x1 quest 79951.1
+
+step Research Notes
+  zone Stranglethorn Vale
+  collect 213165 x1 quest 79535.1
+
+step Calder Gray
+  when group 97985
+  zone Undercity
+  turnin 97985
+
+step Genavie Callow
+  turnin 1164
+
+step Owen Thadd
+  turnin 79535
+  turnin 79951
+
+step Elixir of Agony
+  zone map 1458
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 515
+  complete 515 @48.8,69.3
+
+step Elixir of Agony
+  turnin 515
+
+step Apothecary Lydon
+  zone Alterac Mountains
+  accept 517
+
+step Keg of Shindigger Stout
+  zone Arathi Highlands
+  collect 3517 x1 quest 517.1
+
+step Apothecary Lydon
+  zone Alterac Mountains
+  turnin 517
+
+step Apothecary Lydon
+  zone Alterac Mountains
+  accept 524
+
+step Dusty Rug
+  zone Alterac Mountains
+  turnin 524
+
+step Level 40
+  level 40
+
+step Velma Warnam
+  zone Tirisfal Glades
+  sethome "Gallows' End Tavern"
+  accept 97203 only Undead
+
+step Zachariah Post
+  zone Tirisfal Glades
+  turnin 97203 only Undead
+
+step A Ludite's Guide to Caring for Your Demonic Pet
+  zone map 1458
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 79953
+  complete 79953 @73.4,33
+
+step A Ludite's Guide to Caring for Your Demonic Pet
+  turnin 79953
+
+step A Steed in Death as They Were in Life
+  zone map 1420
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 96997
+  complete 96997 @59.9,52.7
+
+step Sharlindra
+  zone Undercity
+  accept 495
+
+step Melisara
+  zone Alterac Mountains
+  turnin 495
+
+step A Steed in Death as They Were in Life
+  turnin 96997
+
+step Armory of Sunnyglade
+  zone map 1458
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 97884
+  complete 97884 @61.6,28.9
+
+step Armory of Sunnyglade
+  turnin 97884

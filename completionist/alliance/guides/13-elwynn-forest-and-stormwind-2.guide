@@ -1,0 +1,208 @@
+guide polestar-completionist-alliance/13-elwynn-forest-and-stormwind-2
+title 13 Elwynn Forest and Stormwind (14-26) (Completionist)
+faction Alliance
+levels 14-26
+zone Elwynn Forest
+next polestar-completionist-alliance/dungeon-stormwind-stockade
+next polestar-completionist-alliance/14-stonetalon-mountains
+pitch On along the line: Elwynn Forest and Stormwind, quests of level 14 to 26.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 24 quests; estimated level at the end 16.3 (heuristic XP, class quests not counted).
+
+step Stormwind
+  zone Stormwind City
+  getfp "Stormwind"
+
+step Grimand Elmore
+  zone Stormwind City
+  accept 353
+  accept 97894
+
+step Baros Alexston
+  accept 399
+  accept 97926
+
+step The Tome of Valor
+  only Paladin,Human,Dwarf
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1453
+  turnin 1793 direct optional
+
+step Alexston's Chest
+  zone Westfall
+  collect 2998 x1 quest 399.1
+
+step Gorbold Steelhand
+  zone Darkshore
+  turnin 97894
+  turnin 97926
+
+step Mountaineer Stormpike
+  zone Loch Modan
+  turnin 353
+
+step Baros Alexston
+  turnin 399
+
+step Roy Lewells
+  accept 97234
+
+step General Marcus Jonathan
+  accept 121
+
+step Donyal Tovald
+  turnin 97234
+  accept 97237
+
+step Field Accounts of Horde Razings, Trollbane Conquests, The Forsaken Ally and Cycles of Morality
+  collect 277196 x1 quest 97237.1
+  collect 277194 x1 quest 97237.2
+  collect 277195 x1 quest 97237.3
+  collect 277197 x1 quest 97237.4
+
+step Roy Lewells
+  turnin 97237
+
+step Manifest Clerk Philmor
+  accept 97220
+
+step Elaine Trias
+  turnin 97220
+  accept 97222
+
+step Gatehouse Door
+  interact 460004 quest 97222.1
+
+step Elaine Trias
+  turnin 97222
+
+step Smith Argus
+  sethome "Goldshire"
+  accept 119
+
+step Level 20
+  level 20
+
+step Brother Kristoff
+  zone Stormwind City
+  accept 343
+
+step Milton Sheaf
+  zone Stormwind City
+  turnin 343
+
+step Milton Sheaf
+  zone Stormwind City
+  accept 344
+
+step Collin Mauren
+  zone Stormwind City
+  accept 1078
+
+step Saltstone Basilisk
+  zone Thousand Needles
+  collect 5675 x8 quest 1078.1
+
+step Collin Mauren
+  zone Stormwind City
+  turnin 1078
+
+step Brother Paxton
+  zone Elwynn Forest
+  turnin 344
+
+step Brother Paxton
+  zone Elwynn Forest
+  accept 345
+
+step Theocritus
+  accept 94
+
+step Magistrate Solomon
+  zone Redridge Mountains
+  turnin 121
+  accept 143
+  turnin 119
+  accept 122
+  accept 124
+
+step Foreman Oslow
+  turnin 345
+  accept 347
+
+step Snarlflare
+  collect 1221 x6 quest 122.1
+
+step Redridge Brute
+  kill 426 x10 quest 124.1
+
+step Redridge Drudger
+  zone Burning Steppes
+  collect 2798 x5 quest 347.1
+
+step Redridge Mystic
+  zone Redridge Mountains
+  kill 430 x8 quest 124.2
+
+step Verner Osgood
+  turnin 122
+  turnin 124
+  accept 126
+
+step Yowler
+  collect 3614 x1 quest 126.1
+
+step Verner Osgood
+  turnin 126
+
+step Old Lion Statue
+  turnin 94
+  accept 248
+
+step An Empty Jar
+  turnin 248
+
+step Brother Paxton
+  zone Elwynn Forest
+  turnin 347
+  accept 346
+
+step Brother Kristoff
+  zone Stormwind City
+  turnin 346
+
+step Gryan Stoutmantle
+  zone Westfall
+  turnin 143
+  accept 144
+
+step Magistrate Solomon
+  zone Redridge Mountains
+  turnin 144
+  accept 145
+
+step Theocritus' Retrieval
+  tip Glowing Shadowhide Pendant drops from Shadowhide Darkweaver, Shadowhide Slayer, Shadowhide Brute: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1433
+  collect 1962 x1 optional
+  accept 178 item 1962 optional
+
+step Theocritus' Retrieval
+  when onquest 178
+  zone map 1429
+  turnin 178
+
+step Lord Ello Ebonlocke
+  zone Duskwood
+  turnin 145
+
+step An Old History Book
+  tip An Old History Book drops from Flesh Eater, Skeletal Warrior, Skeletal Horror: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1431
+  collect 2794 x1 optional
+  accept 337 item 2794 optional
+
+step An Old History Book
+  when onquest 337
+  zone map 1453
+  turnin 337

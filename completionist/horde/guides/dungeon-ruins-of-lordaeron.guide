@@ -1,0 +1,167 @@
+guide polestar-completionist-horde/dungeon-ruins-of-lordaeron
+title Ruins of Lordaeron (Completionist)
+faction Horde
+category Dungeons
+levels 15-22
+zone Undercity
+next polestar-completionist-horde/10-stonetalon-mountains
+pitch Ruins of Lordaeron, in Undercity.
+why Every Horde quest of Ruins of Lordaeron: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Undercity: the arrow leads to it.
+
+step Rear Guard Patrol
+  zone Tirisfal Glades
+  accept 356
+
+step Rear Guard Patrol
+  zone Tirisfal Glades
+  complete 356 @74.16,62.79
+
+step Rear Guard Patrol
+  zone Tirisfal Glades
+  turnin 356
+
+step A Recipe For Death
+  zone Silverpine Forest
+  accept 447
+
+step A Recipe For Death
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Silverpine Forest
+  complete 447 @42.8,40.86
+
+step A Recipe For Death
+  zone Undercity
+  turnin 447
+
+step Rear Guard Patrol
+  zone Tirisfal Glades
+  accept 99156
+
+step Rear Guard Patrol
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tirisfal Glades
+  complete 99156 @65.49,60.25
+
+step Rear Guard Patrol
+  zone Tirisfal Glades
+  turnin 99156
+
+step A Recipe For Death
+  zone Undercity
+  accept 450
+
+step A Recipe For Death
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Undercity
+  complete 450 @48.82,69.28
+
+step A Recipe For Death
+  zone Silverpine Forest
+  turnin 450
+
+step A Recipe For Death
+  zone Silverpine Forest
+  accept 451
+
+step A Recipe For Death
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Silverpine Forest
+  complete 451 @42.8,40.86
+
+step A Recipe For Death
+  zone Undercity
+  turnin 451
+
+step Morbin Lightbane
+  zone Undercity
+  accept 92421
+
+step Theodore Griffs
+  zone Undercity
+  accept 95216
+
+step Deathguard Kristof
+  zone Tirisfal Glades
+  accept 92422
+
+step Tabitha Heartweaver
+  zone Silverpine Forest
+  accept 92401
+
+step Inside Ruins of Lordaeron
+  zone Undercity
+  collect 280438 @72.8,11.5
+  accept 97288 item 280438
+  collect 275521 @72.8,11.5
+  accept 95204 item 275521
+  complete 92401 @72.8,11.5
+  complete 92421 @72.8,11.5
+  complete 92422 @72.8,11.5
+  complete 95216 @72.8,11.5
+
+step Master Apothecary Faranell
+  zone Undercity
+  turnin 97288
+
+step Morbin Lightbane
+  zone Undercity
+  turnin 92421
+
+step Oran Snakewrithe
+  zone Undercity
+  turnin 95204
+
+step Theodore Griffs
+  zone Undercity
+  turnin 95216
+
+step Deathguard Kristof
+  zone Tirisfal Glades
+  turnin 92422
+
+step Tabitha Heartweaver
+  zone Silverpine Forest
+  turnin 92401
+
+step Master Apothecary Faranell
+  zone Undercity
+  accept 97289
+
+step Unfinished Abomination
+  zone Undercity
+  turnin 97289
+
+step Unfinished Abomination
+  zone Undercity
+  accept 97290
+
+step Master Apothecary Faranell
+  zone Undercity
+  turnin 97290
+
+step Master Apothecary Faranell
+  zone Undercity
+  accept 97291
+
+step Inside Ruins of Lordaeron, again
+  zone Undercity
+  complete 97291 @72.8,11.5
+
+step Master Apothecary Faranell
+  zone Undercity
+  turnin 97291
+
+step Master Apothecary Faranell
+  zone Undercity
+  accept 97292
+
+step Inside Ruins of Lordaeron, again
+  zone Undercity
+  complete 97292 @72.8,11.5
+
+step Master Apothecary Faranell
+  zone Undercity
+  turnin 97292

@@ -1,0 +1,471 @@
+guide polestar-completionist-alliance/17-duskwood
+title 17 Duskwood (18-30) (Completionist)
+faction Alliance
+levels 18-30
+zone Duskwood
+next polestar-completionist-alliance/18-wetlands
+pitch On along the line: Duskwood, quests of level 18 to 30.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 60 quests; estimated level at the end 25.1 (heuristic XP, class quests not counted).
+
+step Madame Eva
+  sethome "Darkshire"
+  getfp "Darkshire"
+  accept 101
+
+step Elaine Carevin
+  accept 163
+  accept 164
+  accept 165
+
+step Skeletal Warrior
+  collect 2378 x10 quest 101.3
+
+step Flesh Eater
+  collect 1129 x10 quest 101.1
+
+step Level 22
+  level 22
+
+step Madame Eva
+  zone Duskwood
+  accept 66
+
+step Level 23
+  level 23
+
+step Calor
+  zone Duskwood
+  accept 173
+
+step Nightbane Shadow Weaver
+  zone Duskwood
+  kill 533 x6 quest 173.1
+
+step Field Captain Palandar
+  zone Duskwood
+  accept 81730
+
+step Field Captain Palandar
+  zone Duskwood
+  accept 81737
+
+step Field Captain Palandar
+  zone Duskwood
+  accept 81741
+
+step Field Captain Palandar
+  zone Duskwood
+  accept 81742
+
+step Field Captain Palandar
+  zone Duskwood
+  accept 81743
+
+step Field Captain Palandar
+  zone Duskwood
+  accept 81744
+
+step Field Captain Palandar
+  zone Duskwood
+  accept 81747
+  turnin 81747
+
+step Field Captain Palandar
+  zone Duskwood
+  accept 81746
+  turnin 81746
+
+step Field Captain Palandar
+  zone Duskwood
+  accept 81745
+  turnin 81745
+
+step Amokarok
+  zone Duskwood
+  kill 221207 x1 quest 81744.1
+
+step Vvarc' Zul
+  zone Duskwood
+  kill 221206 x1 quest 81743.1
+
+step Unhatched Green Dragon Egg and Ylanthrius
+  zone Duskwood
+  kill 221204 x1 quest 81742.1
+
+step Wyrmkin Terrorwalker and Nightterror Whelp
+  zone Duskwood
+  collect 219402 x10 quest 81741.1
+
+step Field Captain Palandar
+  zone Duskwood
+  accept 81738
+
+step Unhatched Green Dragon Egg and Ylanthrius
+  zone Duskwood
+  collect 219406 x1 quest 81738.1
+
+step Deranged Ogre, Demented Fire Weaver and Ogre Magi Text
+  zone Duskwood
+  collect 219405 x1 quest 81737.1
+
+step Field Captain Palandar
+  zone Duskwood
+  accept 81736
+
+step Field Captain Palandar
+  zone Duskwood
+  accept 81732
+
+step Wyrmkin Terrorwalker and Nightterror Whelp
+  zone Duskwood
+  kill 221200 x3 quest 81732.1
+  kill 221176 x10 quest 81732.2
+
+step Field Captain Palandar
+  zone Duskwood
+  accept 81731
+
+step Deranged Ogre, Demented Fire Weaver and Ogre Magi Text
+  zone Duskwood
+  kill 221174 x3 quest 81731.1
+  kill 221175 x3 quest 81731.2
+
+step Nightmare Runner and Nightmare Weaver
+  zone Duskwood
+  kill 221171 x10 quest 81730.1
+  kill 221172 x10 quest 81730.2
+
+step Mysterious Box
+  collect 219404 x1 quest 81736.1
+
+step Green Recluse
+  collect 1130 x5 quest 101.2
+
+step Field Captain Palandar
+  turnin 81730
+  turnin 81731
+  turnin 81732
+  turnin 81736
+  turnin 81737
+  turnin 81738
+  turnin 81741
+  turnin 81742
+  turnin 81743
+  turnin 81744
+
+step Watcher Dodds
+  accept 245
+
+step Pygmy Venom Web Spider
+  kill 539 x15 quest 245.1
+
+step Sven Yorgen
+  turnin 164
+  accept 95
+  accept 226
+
+step Rabid Dire Wolf
+  zone Elwynn Forest
+  kill 565 x8 quest 226.2
+
+step Starving Dire Wolf
+  zone Duskwood
+  kill 213 x12 quest 226.1
+
+step Abercrombie
+  turnin 165
+  accept 148
+
+step Jitters
+  turnin 163
+  accept 5
+
+step Lars
+  turnin 226
+
+step Watcher Dodds
+  turnin 245
+
+step Mound of loose dirt
+  turnin 95
+  accept 230
+
+step Sirra Von'Indi
+  accept 96139
+  turnin 66
+  accept 67
+  accept 146
+  accept 56
+
+step Chef Grual
+  turnin 5
+  accept 93
+  turnin 101
+  turnin 148
+  accept 149
+
+step Calor
+  turnin 173
+  accept 221
+
+step Skeletal Warrior and Skeletal Mage
+  kill 48 x8 quest 56.1
+  kill 203 x6 quest 56.2
+
+step Nightbane Dark Runner
+  kill 205 x12 quest 221.1
+
+step Memory of Valor
+  collect 281046 x1 quest 96139.1
+
+step Giant Plains Creeper
+  zone Arathi Highlands
+  collect 2251 x6 quest 93.1
+
+step Magistrate Solomon
+  zone Redridge Mountains
+  turnin 146
+
+step Viktori Prism'Antras
+  zone Duskwood
+  accept 174
+
+step XT:4
+  zone Stonetalon Mountains
+  collect 4371 x1 quest 174.1
+
+step Commander Althea Ebonlocke
+  zone Duskwood
+  turnin 56
+  accept 57
+  turnin 96139
+
+step Skeletal Fiend
+  kill 531 x15 quest 57.1
+
+step Skeletal Horror
+  kill 202 x15 quest 57.2
+
+step Blind Mary
+  turnin 149
+  accept 154
+
+step Viktori Prism'Antras
+  turnin 174
+  accept 175
+
+step Calor
+  turnin 221
+  turnin 154
+  accept 157
+
+step Chef Grual
+  turnin 93
+  accept 240
+
+step Commander Althea Ebonlocke
+  turnin 57
+  accept 58
+
+step Plague Spreader
+  kill 604 x20 quest 58.1
+
+step Abercrombie
+  turnin 157
+  accept 158
+
+step Jitters
+  turnin 240
+
+step Sven Yorgen
+  turnin 230
+  accept 262
+
+step Old Footlocker
+  zone Westfall
+  turnin 67
+  accept 68
+
+step Clerk Daltry
+  zone Duskwood
+  turnin 68
+  accept 69
+  turnin 58
+  turnin 158
+  accept 156
+
+step Madame Eva
+  turnin 262
+  accept 265
+
+step Blind Mary
+  turnin 175
+  accept 177
+
+step Insane Ghoul
+  collect 1946 x1 quest 177.1
+
+step Skeletal Horror
+  collect 1598 x8 quest 156.1
+
+step Viktori Prism'Antras
+  turnin 177
+  accept 181
+
+step Zzarc' Vul
+  collect 1968 x1 quest 181.1
+
+step Clerk Daltry
+  turnin 265
+  accept 266
+  turnin 156
+  turnin 266
+  accept 159
+  accept 453
+
+step Viktori Prism'Antras
+  turnin 181
+
+step Abercrombie
+  turnin 159
+  accept 133
+
+step Bone Chewer
+  collect 884 x7 quest 133.1
+
+step Abercrombie
+  turnin 133
+  accept 134
+
+step Abercrombie's Crate
+  collect 1349 x1 quest 134.1
+
+step Jitters
+  turnin 453
+  accept 268
+
+step Sven Yorgen
+  turnin 268
+  accept 323
+
+step Skeletal Raider, Skeletal Healer and Skeletal Warder
+  kill 1110 x15 quest 323.1
+  kill 787 x3 quest 323.2
+  kill 785 x3 quest 323.3
+
+step Sven Yorgen
+  turnin 323
+  accept 269
+
+step Abercrombie
+  turnin 134
+  accept 160
+
+step Innkeeper Farley
+  zone Elwynn Forest
+  turnin 69
+
+step Bishop Farthing
+  zone Stormwind City
+  turnin 269
+
+step Lord Ello Ebonlocke
+  zone Duskwood
+  turnin 160
+  accept 251
+  turnin 251
+  accept 401
+  turnin 401
+  accept 252
+  turnin 252
+
+step Lord Ello Ebonlocke
+  when group 253
+  zone Duskwood
+  accept 253
+
+step Digging Through the Dirt
+  when onquest 253
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1431
+  turnin 254 direct optional
+
+step Eliza
+  when group 253
+  zone Duskwood
+  tip Bride of the Embalmer is group work: elites. Grouping up is advised.
+  collect 2382 x1 quest 253.1
+
+step Lord Ello Ebonlocke
+  when group 253
+  zone Duskwood
+  turnin 253
+
+step Seasoned Wolf Kabobs
+  when skill Cooking 1
+  zone map 1431
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 90 optional
+  complete 90 @73.8,43.5 optional
+
+step Seasoned Wolf Kabobs
+  when skill Cooking 1
+  turnin 90 optional
+
+step Duskwood Mission IV: Ogre Intelligence
+  zone map 1431
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 81733
+  complete 81733 @45.4,51.2
+
+step Duskwood Mission IV: Ogre Intelligence
+  turnin 81733
+
+step Duskwood Mission V: Worgen Intelligence
+  zone map 1431
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 81734
+  complete 81734 @45.4,51.2
+
+step Duskwood Mission V: Worgen Intelligence
+  turnin 81734
+
+step Duskwood Mission VI: Dragon Intelligence
+  zone map 1431
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 81735
+  complete 81735 @45.4,51.2
+
+step Duskwood Mission VI: Dragon Intelligence
+  turnin 81735
+
+step Duskwood Mission X: Nightmare Moss
+  zone map 1431
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 81739
+  complete 81739 @45.4,51.2
+
+step Duskwood Mission X: Nightmare Moss
+  turnin 81739
+
+step Duskwood Mission XI: Cold Iron Ore
+  zone map 1431
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 81740
+  complete 81740 @45.4,51.2
+
+step Duskwood Mission XI: Cold Iron Ore
+  turnin 81740
+
+step Merrick's Bow
+  tip Merrick's Bow drops from Lost Watcher: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1431
+  collect 281142 x1 optional
+  accept 96138 item 281142 optional
+  complete 96138 @72.6,47.6
+
+step Merrick's Bow
+  when onquest 96138
+  zone map 1431
+  turnin 96138

@@ -1,0 +1,111 @@
+guide polestar-completionist-horde/18-dustwallow-marsh
+title 18 Dustwallow Marsh (35-44) (Completionist)
+faction Horde
+levels 35-44
+zone Dustwallow Marsh
+next polestar-completionist-horde/19-desolace
+pitch On along the line: Dustwallow Marsh, quests of level 35 to 44.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 8 quests; estimated level at the end 37.0 (heuristic XP, class quests not counted).
+# Skipped: 1 exclusive with N (done).
+
+step Brackenwall Village
+  zone Dustwallow Marsh
+  getfp "Brackenwall Village"
+
+step "Swamp Eye" Jarl
+  accept 1218
+  accept 1238
+
+step Jarl Needs a Blade
+  when available 81570
+  tip One of several exclusive quests; the route takes Jarl Needs a Blade (1203). This one shows for a character the game offers it to instead.
+  zone map 1445
+  accept 81570 optional
+
+step Banalash
+  zone Swamp of Sorrows
+  buy 3713 x3 npc 989 -- for Soothing Spices
+
+step Drazzit Dripvalve
+  zone Dustwallow Marsh
+  accept 98205
+  accept 98215
+
+step Active Ingredient
+  zone map 1445
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 98231
+  complete 98231 @41.0,75.7
+
+step Searing Hatchling and Searing Whelp
+  zone The Barrens
+  kill 4323 x8 quest 98205.1
+  kill 4324 x8 quest 98205.2
+
+step Firemane Ash Tail
+  collect 279934 x20 quest 98215.1
+
+step Drazzit Dripvalve
+  zone Dustwallow Marsh
+  turnin 98205
+  turnin 98215
+
+step Active Ingredient
+  turnin 98231
+
+step Nazeer Bloodpike
+  zone The Barrens
+  turnin 1238
+
+step "Stinky" Ignatz
+  zone Dustwallow Marsh
+  accept 1270
+
+step Loose Dirt
+  accept 1239
+  turnin 1218
+  accept 1206
+
+step Jarl Needs a Blade
+  when onquest 81570
+  zone map 1445
+  turnin 81570 optional
+
+step Darkmist Silkspinner
+  zone The Barrens
+  collect 5884 x40 quest 1206.1
+
+step Nazeer Bloodpike
+  turnin 1239
+  accept 1240
+
+step "Swamp Eye" Jarl
+  zone Dustwallow Marsh
+  turnin 1206
+
+step Jarl Needs a Blade
+  when available 1203
+  tip One of several exclusive quests; the route takes Jarl Needs a Blade (81570). This one shows for a character the game offers it to instead.
+  zone map 1445
+  accept 1203 optional
+
+step Jarl Needs a Blade
+  when onquest 1203
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1445
+  complete 1203 @55.4,26.3 optional
+
+step Jarl Needs a Blade
+  when onquest 1203
+  zone map 1445
+  turnin 1203 optional
+
+step Mebok Mizzyrix
+  zone The Barrens
+  complete 1270 @48.9,24.6 map 1445
+  turnin 1270
+
+step Kin'weelay
+  zone Stranglethorn Vale
+  turnin 1240

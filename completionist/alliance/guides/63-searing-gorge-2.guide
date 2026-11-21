@@ -1,0 +1,108 @@
+guide polestar-completionist-alliance/63-searing-gorge-2
+title 63 Searing Gorge (60-60) (Completionist)
+faction Alliance
+levels 60-60
+zone Searing Gorge
+next polestar-completionist-alliance/dungeon-blackrock-spire
+next polestar-completionist-alliance/64-odd-jobs-in-the-eastern-kingdoms-4
+pitch On along the line: Searing Gorge, level 60 quests.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 3 quests; estimated level at the end 60.0 (heuristic XP, class quests not counted).
+# Skipped: 6 exclusive with N; 1 prerequisite N not in this route.
+
+step Bodley
+  accept 8970
+
+step Basket of Bloodkelp
+  zone Dustwallow Marsh
+  collect 22094 x20 quest 8970.1
+
+step Bodley
+  zone Searing Gorge
+  turnin 8970
+
+step More Components of Importance
+  when available 8985
+  tip One of several exclusive quests; the route takes More Components of Importance (8986). This one shows for a character the game offers it to instead.
+  zone map 1427
+  accept 8985 optional
+
+step More Components of Importance
+  when available 8988
+  tip One of several exclusive quests; the route takes More Components of Importance (8986). This one shows for a character the game offers it to instead.
+  zone map 1427
+  accept 8988 optional
+
+step More Components of Importance
+  when available 8987
+  tip One of several exclusive quests; the route takes More Components of Importance (8986). This one shows for a character the game offers it to instead.
+  zone map 1427
+  accept 8987 optional
+
+step More Components of Importance
+  when available 8986
+  tip One of several exclusive quests; the route takes More Components of Importance (8985). This one shows for a character the game offers it to instead.
+  zone map 1427
+  accept 8986 optional
+
+step Attunement to the Core
+  zone map 1427
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 7487
+  complete 7487 @32.1,94.7
+
+step Attunement to the Core
+  turnin 7487
+
+step Final Preparations
+  zone map 1427
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 8994
+  complete 8994 @39.8,96.5
+
+step More Components of Importance
+  when onquest 8985
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1427
+  complete 8985 @39.8,96.5 optional
+
+step More Components of Importance
+  when onquest 8985
+  zone map 1427
+  turnin 8985 optional
+
+step More Components of Importance
+  when onquest 8988
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1427
+  complete 8988 @39.8,96.5 optional
+
+step More Components of Importance
+  when onquest 8988
+  zone map 1427
+  turnin 8988 optional
+
+step More Components of Importance
+  when onquest 8987
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1427
+  complete 8987 @39.8,96.5 optional
+
+step More Components of Importance
+  when onquest 8987
+  zone map 1427
+  turnin 8987 optional
+
+step More Components of Importance
+  when onquest 8986
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1427
+  complete 8986 @39.8,96.5 optional
+
+step More Components of Importance
+  when onquest 8986
+  zone map 1427
+  turnin 8986 optional
+
+step Final Preparations
+  turnin 8994

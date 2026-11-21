@@ -1,0 +1,792 @@
+guide polestar-completionist-alliance/01-elwynn-forest-and-stormwind
+title 01 Elwynn Forest and Stormwind (1-12) (Completionist)
+faction Alliance
+levels 1-12
+zone Elwynn Forest
+next polestar-completionist-alliance/02-dun-morogh-and-ironforge when !turnedin 96390
+next polestar-completionist-alliance/03-teldrassil-and-darnassus when !turnedin 941
+next polestar-completionist-alliance/04-zephras-isle when !turnedin 94946
+next polestar-completionist-alliance/05-odd-jobs-in-kalimdor
+pitch Where Humans start. The other starting zones follow, then the route goes on by level.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 70 quests; estimated level at the end 12.2 (heuristic XP, class quests not counted).
+
+step Stormwind
+  zone Stormwind City
+  getfp "Stormwind"
+
+step Renato Gallina
+  zone Stormwind City
+  accept 332
+  accept 333
+  turnin 333
+  accept 334
+  turnin 332
+
+step Thurman Schneider
+  turnin 334
+
+step Falkhaan Isenstrider
+  zone Elwynn Forest
+  accept 2158
+
+step Deputy Willem
+  accept 783
+  turnin 783
+  accept 7
+  accept 5261
+
+step Welcome!
+  when has 14646
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1429
+  accept 5805 item 14646
+
+step Drusilla La Salle
+  only Warlock
+  accept 1598 only Human
+
+step Welcome!
+  when onquest 5805
+  zone map 1429
+  turnin 5805
+
+step Eagan Peltskinner
+  turnin 5261
+  accept 33
+
+step Kobold Vermin
+  kill 6 x10 quest 7.1
+
+step Stolen Books
+  only Warlock
+  collect 6785 x1 quest 1598.1 only Human
+
+step Timber Wolf
+  collect 750 x8 quest 33.1
+
+step Drusilla La Salle
+  only Warlock
+  turnin 1598 only Human
+
+step Marshal McBride
+  turnin 7
+  accept 15
+  accept 3100 only Warrior,Human
+  accept 3101 only Paladin,Human
+  accept 3102 only Rogue,Human
+  accept 3103 only Priest,Human
+  accept 3104 only Mage,Human
+  accept 3105 only Warlock,Human
+  accept 92479 only Hunter,Human
+
+step Eagan Peltskinner
+  turnin 33
+  accept 18
+
+step Drusilla La Salle
+  only Warlock
+  turnin 3105 only Human
+
+step Llane Beshere
+  only Warrior
+  turnin 3100 only Human
+
+step Brother Sammuel
+  only Paladin
+  turnin 3101 only Human
+
+step Tordrin Sternblade
+  only Hunter
+  turnin 92479 only Human
+
+step Jorik Kerridan
+  only Rogue
+  turnin 3102 only Human
+
+step Priestess Anetta
+  only Priest
+  turnin 3103 only Human
+
+step Khelden Bremen
+  only Mage
+  turnin 3104 only Human
+
+step Nibbled-On Book
+  tip Nibbled-On Book drops from Kobold Vermin, Kobold Laborer, Kobold Worker: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1429
+  collect 247834 x1 optional
+  accept 91741 item 247834 optional
+
+step Kobold Worker
+  kill 257 x10 quest 15.1
+
+step Marshal McBride
+  turnin 15
+  accept 21
+
+step Nibbled-On Book
+  when onquest 91741
+  zone map 1429
+  turnin 91741
+
+step Defias Thug
+  collect 752 x12 quest 18.1
+
+step Kobold Laborer
+  kill 80 x12 quest 21.1
+
+step Marshal McBride
+  turnin 21
+  accept 54
+  accept 96627 only Human
+  turnin 18
+  accept 6
+  accept 3903
+
+step Book Inventory
+  when turnedin 91741
+  zone map 1429
+  accept 92124
+
+step Garrick Padfoot
+  collect 182 x1 quest 6.1
+
+step Milly Osworth
+  turnin 3903
+  accept 3904
+
+step Book Inventory
+  when onquest 92124
+  zone map 1429
+  turnin 92124
+
+step Priestess Anetta
+  only Priest
+  accept 5623 only Human
+
+step Rascally Rodents
+  when turnedin 92124
+  zone map 1429
+  accept 91743
+  complete 91743 @49.6,40.4
+
+step Milly's Harvest
+  collect 11119 x8 quest 3904.1
+
+step Deputy Willem
+  turnin 6
+
+step Rascally Rodents
+  when onquest 91743
+  zone map 1429
+  turnin 91743
+
+step Milly Osworth
+  turnin 3904
+  accept 3905
+  turnin 3905
+
+step Mining Consultant
+  when turnedin 91743
+  zone map 1429
+  accept 91745
+
+step Mining Consultant
+  when onquest 91745
+  zone map 1429
+  turnin 91745
+
+step Jason Mathers
+  sethome "Goldshire"
+  accept 99127
+  accept 99143
+
+step Rough Wolf Pelts
+  when skill Skinning 1
+  zone map 1429
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 91751 optional
+  complete 91751 @46.2,62.2 optional
+
+step Fishing Trap
+  collect 286205 x1 quest 99127.1
+
+step Junk Pile
+  collect 286209 x6 quest 99143.1
+
+step Lee Brown
+  turnin 99143
+  turnin 99127
+  accept 99128
+
+step Rough Wolf Pelts
+  when skill Skinning 1
+  turnin 91751 optional
+
+step Murloc Streamrunner
+  kill 735 x4 quest 99128.2
+
+step Murloc
+  kill 285 x7 quest 99128.1
+
+step Jason Mathers
+  turnin 99128
+  accept 99129
+  turnin 96627 only Human
+
+step The Great Outdoors
+  zone map 1429
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 95998
+  complete 95998 @44.9,63.4
+
+step Innkeeper Farley
+  turnin 2158
+  accept 60
+
+step The Great Outdoors
+  turnin 95998
+
+step Camping 101: Cooking
+  zone map 1429
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 96626
+  complete 96626 @44.9,63.4
+
+step Camping 101: Alchemy
+  when skill Alchemy 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1429
+  accept 97915 optional
+  complete 97915 @44.9,63.4 optional
+
+step Camping 101: Alchemy
+  when skill Alchemy 1
+  zone map 1429
+  turnin 97915 optional
+
+step Camping 101: Blacksmithing
+  when skill Blacksmithing 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1429
+  accept 97916 optional
+  complete 97916 @44.9,63.4 optional
+
+step Camping 101: Enchanting
+  when skill Enchanting 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1429
+  accept 97917 optional
+  complete 97917 @44.9,63.4 optional
+
+step Camping 101: Enchanting
+  when skill Enchanting 1
+  zone map 1429
+  turnin 97917 optional
+
+step Camping 101: Engineering
+  when skill Engineering 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1429
+  accept 97918 optional
+  complete 97918 @44.9,63.4 optional
+
+step Camping 101: Engineering
+  when skill Engineering 1
+  zone map 1429
+  turnin 97918 optional
+
+step Camping 101: First Aid
+  when skill "First Aid" 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1429
+  accept 97919 optional
+  complete 97919 @44.9,63.4 optional
+
+step Camping 101: Fishing
+  when skill Fishing 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1429
+  accept 97920 optional
+  complete 97920 @44.9,63.4 optional
+
+step Camping 101: Herbalism
+  when skill Herbalism 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1429
+  accept 97921 optional
+  complete 97921 @44.9,63.4 optional
+
+step Camping 101: Herbalism
+  when skill Herbalism 1
+  zone map 1429
+  turnin 97921 optional
+
+step Camping 101: Leatherworking
+  when skill Leatherworking 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1429
+  accept 97922 optional
+  complete 97922 @44.9,63.4 optional
+
+step Camping 101: Mining
+  when skill Mining 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1429
+  accept 97923 optional
+  complete 97923 @44.9,63.4 optional
+
+step Camping 101: Mining
+  when skill Mining 1
+  zone map 1429
+  turnin 97923 optional
+
+step Camping 101: Skinning
+  when skill Skinning 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1429
+  accept 97924 optional
+  complete 97924 @44.9,63.4 optional
+
+step Camping 101: Tailoring
+  when skill Tailoring 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1429
+  accept 97925 optional
+  complete 97925 @44.9,63.4 optional
+
+step Priestess Josetta
+  only Priest
+  turnin 5623 only Human
+  accept 5624 only Human
+
+step Camping 101: Cooking
+  turnin 96626
+
+step Camping 101: Blacksmithing
+  when skill Blacksmithing 1
+  zone map 1429
+  turnin 97916 optional
+
+step Camping 101: First Aid
+  when skill "First Aid" 1
+  zone map 1429
+  turnin 97919 optional
+
+step Marshal Dughan
+  turnin 54
+  accept 62
+  turnin 99129
+  accept 47
+  accept 99130
+
+step Guard Roberts
+  only Priest
+  kill 12423 x1 quest 5624.1 only Human
+
+step Kobold Tunneler and Scout through the Fargodeep Mine
+  collect 773 x10 quest 47.1
+  collect 772 x8 quest 60.1
+  goto 40.6,82.3 "Scout through the Fargodeep Mine" -- Explore for The Fargodeep Mine
+
+step Stonetusk Boar
+  collect 286215 x6 quest 99130.1
+
+step Overgrown Duskweed
+  collect 286214 x18 quest 99130.2
+
+step Gruff Swiftbite
+  goto 27.0,86.4 "Gruff Swiftbite"
+  accept 123 item 1307 -- Drops from Gruff Swiftbite
+
+step Wanted Poster
+  when group 176
+  zone Elwynn Forest
+  accept 176 object 156561
+
+step Hogger
+  when group 176
+  zone Elwynn Forest
+  tip WANTED: "Hogger" is group work: elites. Grouping up is advised.
+  collect 1931 x1 quest 176.1
+
+step "Auntie" Bernice Stonefield
+  accept 85
+  accept 88
+
+step Billy Maclure
+  turnin 85
+  accept 86
+
+step Give Gerard a Drink
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1429
+  collect 159 x1 anywhere optional
+  turnin 16 direct optional
+
+step Princess
+  collect 1006 x1 quest 88.1
+
+step Dire Mottled Boar
+  zone Durotar
+  collect 769 x4 quest 86.1
+
+step Supervisor Raelen
+  zone Elwynn Forest
+  accept 5545
+
+step Palomino Exchange
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1429
+  collect 12354 x1 anywhere optional
+  turnin 7678 direct optional
+
+step White Stallion Exchange
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1429
+  collect 12353 x1 anywhere optional
+  turnin 7677 direct optional
+
+step Bundle of Wood
+  collect 13872 x8 quest 5545.1
+
+step Hagar Lowe
+  accept 91732
+
+step Mining Tools
+  collect 247816 x4 quest 91732.1
+
+step Hamish Bergwort
+  accept 91723
+
+step An Enchanting Lesson
+  when skill Enchanting 1
+  zone map 1429
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 91753 optional
+  complete 91753 @64.9,70.7 optional
+
+step Kobold Geomancer
+  kill 476 x8 quest 91723.1
+
+step Hamish Bergwort
+  turnin 91723
+  accept 91724
+
+step An Enchanting Lesson
+  when skill Enchanting 1
+  turnin 91753 optional
+
+step Defias Rogue Wizard
+  kill 474 x8 quest 91724.1
+
+step Hagar Lowe
+  turnin 91732
+  turnin 5545
+
+step Sara Timberlain
+  accept 83
+
+step Camping 101: Tailoring
+  when skill Tailoring 1
+  zone map 1429
+  turnin 97925 optional
+
+step Defias Rogue Wizard
+  collect 1019 x6 quest 83.1
+
+step Sara Timberlain
+  turnin 83
+
+step Ormin Pelford
+  accept 91733
+
+step Waterlogged Saw
+  collect 247813 x1 quest 91733.2
+
+step Waterlogged Toolbox
+  collect 247818 x1 quest 91733.3
+
+step Waterlogged Axe
+  collect 247817 x1 quest 91733.1
+
+step Ormin Pelford
+  turnin 91733
+  accept 52
+
+step Croaky's Head
+  tip Croaky's Head drops from Croaky: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1429
+  collect 247826 x1 optional
+  accept 91740 item 247826 optional
+
+step Croaky's Head
+  when onquest 91740
+  zone map 1429
+  turnin 91740
+
+step Prowler
+  kill 118 x8 quest 52.1
+
+step Young Forest Bear
+  kill 822 x5 quest 52.2
+
+step "Auntie" Bernice Stonefield
+  turnin 86
+  accept 84
+  turnin 88
+
+step Billy Maclure
+  turnin 84
+  accept 87
+
+step Goldtooth
+  collect 981 x1 quest 87.1
+
+step Remy "Two Times"
+  turnin 47
+  turnin 99130
+  accept 40
+  accept 99131
+
+step Marshal Dughan
+  turnin 40
+  complete 62 @40.6,82.3 map 1429
+  turnin 62
+  turnin 123
+  accept 35
+  accept 76
+  accept 147
+
+step Marshal Dughan
+  when group 176
+  zone Elwynn Forest
+  turnin 176
+
+step William Pestle
+  turnin 60
+  accept 61
+
+step Priestess Josetta
+  only Priest
+  turnin 5624 only Human
+
+step Jason Mathers
+  turnin 99131
+
+step Camping 101: Fishing
+  when skill Fishing 1
+  zone map 1429
+  turnin 97920 optional
+
+step Camping 101: Leatherworking
+  when skill Leatherworking 1
+  zone map 1429
+  turnin 97922 optional
+
+step Camping 101: Skinning
+  when skill Skinning 1
+  zone map 1429
+  turnin 97924 optional
+
+step Morgan the Collector
+  collect 2239 x1 quest 147.1
+
+step Guard Thomas
+  turnin 35
+  turnin 52
+  accept 37
+
+step A half-eaten body
+  turnin 37
+  accept 45
+
+step Elmpaw's Head
+  tip Elmpaw's Head drops from Elmpaw: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1429
+  collect 247862 x1 optional
+  accept 91746 item 247862 optional
+
+step Elmpaw's Head
+  when onquest 91746
+  zone map 1429
+  turnin 91746
+
+step Rolf's corpse
+  turnin 45
+  accept 71
+
+step Guard Thomas
+  turnin 71
+  accept 39
+
+step Hamish Bergwort
+  turnin 91724
+
+step Blixie Fitzwink
+  accept 91725
+
+step Stolen Enchanting Supplies
+  collect 247805 x5 quest 91725.1
+
+step Blixie Fitzwink
+  turnin 91725
+
+step Marshal Dughan
+  turnin 39
+  complete 76 @61.9,53.2 map 1429
+  turnin 76
+  turnin 147
+  accept 59
+  accept 239
+
+step "Auntie" Bernice Stonefield
+  turnin 87
+
+step Maybell Maclure
+  accept 106
+
+step Tommy Joe Stonefield
+  turnin 106
+  accept 111
+
+step Gramma Stonefield
+  turnin 111
+  accept 107
+
+step Deputy Rainer
+  turnin 239
+  accept 11
+
+step An Apple Treat
+  zone map 1429
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 91738
+  complete 91738 @24.1,73.2
+
+step Riverpaw Runt
+  collect 782 x8 quest 11.1
+
+step Deputy Rainer
+  turnin 11
+
+step An Apple Treat
+  turnin 91738
+
+step William Pestle
+  turnin 107
+  accept 112
+
+step Murloc
+  collect 1256 x4 quest 112.1
+
+step William Pestle
+  turnin 112
+  accept 114
+
+step Maybell Maclure
+  turnin 114
+
+step Guard Thomas
+  accept 46
+
+step Murloc Forager
+  collect 780 x8 quest 46.1
+
+step Guard Thomas
+  turnin 46
+
+step Sara Timberlain
+  turnin 59
+
+step Morgan Pestle
+  zone Stormwind City
+  turnin 61
+
+step Gilbert Gray
+  accept 95065
+
+step Tharynn Bouden
+  zone Elwynn Forest
+  buy 6529 x1 npc 66 -- for Fishin' Time
+
+step Applejack Still
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1429
+  collect 4536 x1 anywhere optional
+  turnin 91736 direct optional
+
+step The Big Picture
+  when turnedin 91745
+  zone map 1429
+  accept 91752
+  complete 91752 @48.9,41.6
+
+step The Big Picture
+  when onquest 91752
+  zone map 1429
+  turnin 91752
+
+step Follow That Kobold!
+  when turnedin 91752
+  zone map 1429
+  accept 91758
+
+step Follow That Kobold!
+  when onquest 91758
+  zone map 1429
+  turnin 91758
+
+step Shhh! We're Hunting Kobolds
+  when turnedin 91758
+  zone map 1429
+  accept 91772
+  complete 91772 @42.1,65.9
+
+step Shhh! We're Hunting Kobolds
+  when onquest 91772
+  zone map 1429
+  turnin 91772
+
+step Book Return
+  when turnedin 91772
+  zone map 1429
+  accept 91775
+  complete 91775 @42.1,65.9
+
+step Book Return
+  when onquest 91775
+  zone map 1429
+  turnin 91775
+
+step Rare Books
+  when turnedin 91775
+  zone map 1429
+  accept 91777
+  complete 91777 @49.6,40.4
+
+step Rare Books
+  when onquest 91777
+  zone map 1429
+  turnin 91777
+
+step Ziggurat Protector
+  zone Eastern Plaguelands
+  collect 6530 x3 quest 95065.2
+
+step Gilbert Gray
+  zone Stormwind City
+  turnin 95065
+
+step Stormwind Library
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1453
+  collect 3898 x1 anywhere optional
+  turnin 579 direct optional
+
+step The Tome of Divinity
+  only Paladin,Human
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1453
+  turnin 1641 direct optional

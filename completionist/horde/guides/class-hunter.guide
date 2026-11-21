@@ -1,0 +1,218 @@
+guide polestar-completionist-horde/class-hunter
+title Hunter class quests (10-60) (Completionist)
+faction Horde
+class Hunter
+levels 10-60
+category Class
+zone Durotar
+why Every Hunter class quest from level 10 on, in level order. The earlier ones are in the starting zone guides.
+reward text What the Hunter quests give, quest by quest: abilities, forms, pets, totems or gear.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 16 quests; estimated level at the end 12.0 (heuristic XP).
+# Skipped: 4 exclusive with N; 2 prerequisite N not in this route.
+
+step Kary Thunderhorn
+  zone Thunder Bluff
+  accept 6065 only Tauren
+
+step The Hunter's Path
+  only Hunter,Orc,Troll
+  when available 6070
+  tip One of several exclusive quests; the route takes The Hunter's Path (6068). This one shows for a character the game offers it to instead.
+  zone map 1456
+  accept 6070 optional
+
+step Yaw Sharpmane
+  zone Mulgore
+  turnin 6065 only Tauren
+  accept 6061 only Tauren
+
+step Adult Plainstrider
+  kill 2956 x1 quest 6061.1 only Tauren
+
+step Yaw Sharpmane
+  turnin 6061 only Tauren
+  accept 6087 only Tauren
+
+step Prairie Stalker
+  kill 2959 x1 quest 6087.1 only Tauren
+
+step Yaw Sharpmane
+  turnin 6087 only Tauren
+  accept 6088 only Tauren
+
+step Swoop
+  kill 2970 x1 quest 6088.1 only Tauren
+
+step Yaw Sharpmane
+  turnin 6088 only Tauren
+  accept 6089 only Tauren
+
+step Holt Thunderhorn
+  zone Thunder Bluff
+  turnin 6089 only Tauren
+
+step Sian'dur
+  zone Orgrimmar
+  accept 6068 only Orc,Troll
+
+step The Hunter's Path
+  only Hunter,Tauren
+  when available 6066
+  tip One of several exclusive quests; the route takes The Hunter's Path (6065). This one shows for a character the game offers it to instead.
+  zone map 1454
+  accept 6066 optional
+
+step The Hunter's Path
+  only Hunter,Tauren
+  when onquest 6066
+  zone map 1412
+  turnin 6066 optional
+
+step Thotar
+  zone Durotar
+  turnin 6068 only Orc,Troll
+  accept 6062 only Orc,Troll
+
+step The Hunter's Path
+  only Hunter,Orc,Troll
+  when onquest 6070
+  zone map 1411
+  turnin 6070 optional
+
+step The Hunter's Path
+  only Hunter,Tauren
+  when available 6067
+  tip One of several exclusive quests; the route takes The Hunter's Path (6065). This one shows for a character the game offers it to instead.
+  zone map 1411
+  accept 6067 optional
+
+step The Hunter's Path
+  only Hunter,Tauren
+  when onquest 6067
+  zone map 1412
+  turnin 6067 optional
+
+step Dire Mottled Boar
+  kill 3099 x1 quest 6062.1 only Orc,Troll
+
+step Thotar
+  turnin 6062 only Orc,Troll
+  accept 6083 only Orc,Troll
+
+step Surf Crawler
+  kill 3107 x1 quest 6083.1 only Orc,Troll
+
+step Thotar
+  turnin 6083 only Orc,Troll
+  accept 6082 only Orc,Troll
+
+step Armored Scorpid
+  kill 3126 x1 quest 6082.1 only Orc,Troll
+
+step Thotar
+  turnin 6082 only Orc,Troll
+  accept 6081 only Orc,Troll
+
+step The Hunter's Path
+  only Hunter,Orc,Troll
+  when available 6069
+  tip One of several exclusive quests; the route takes The Hunter's Path (6068). This one shows for a character the game offers it to instead.
+  zone map 1411
+  accept 6069 optional
+
+step The Hunter's Path
+  only Hunter,Orc,Troll
+  when onquest 6069
+  zone map 1411
+  turnin 6069 optional
+
+step Ormak Grimshot
+  zone Orgrimmar
+  turnin 6081 only Orc,Troll
+
+step Quel'ana Quickgale
+  zone map 2521
+  accept 94978 only Skyborne
+
+step Windsong Crawler
+  kill 254588 x1 quest 94978.1 only Skyborne
+
+step Elayaa Easewind
+  accept 94007 only Skyborne
+
+step Quel'ana Quickgale
+  turnin 94007 only Skyborne
+  turnin 94978 only Skyborne
+  accept 94979 only Skyborne
+
+step Ornery Galestrider
+  kill 251707 x1 quest 94979.1 only Skyborne
+
+step Quel'ana Quickgale
+  turnin 94979 only Skyborne
+  accept 94013 only Skyborne
+
+step Vuldren Alpha
+  kill 250874 x1 quest 94013.1 only Skyborne
+
+step Quel'ana Quickgale
+  turnin 94013 only Skyborne
+  accept 94050 only Skyborne
+
+step Quel'dora Quickgale
+  turnin 94050 only Skyborne
+
+
+step Level 58
+  level 58
+
+step Geologist Larksbane
+  when turnedin 8315
+  zone Silithus
+  accept 8377
+  turnin 8377
+
+step Level 60
+  level 60
+
+step Ancient Sinew Wrapped Lamina
+  only Hunter
+  when turnedin 7632
+  zone map 1448
+  accept 7634 optional
+
+step Ancient Sinew Wrapped Lamina
+  only Hunter
+  when onquest 7634
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1448
+  complete 7634 @46.7,24.1 optional
+
+step Ancient Sinew Wrapped Lamina
+  only Hunter
+  when onquest 7634
+  zone map 1448
+  turnin 7634 optional
+
+step Level 60
+  level 60
+
+step Stave of the Ancients
+  only Hunter
+  when turnedin 7632
+  zone map 1448
+  accept 7636 optional
+
+step Stave of the Ancients
+  only Hunter
+  when onquest 7636
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1448
+  complete 7636 @47.8,24.1 optional
+
+step Stave of the Ancients
+  only Hunter
+  when onquest 7636
+  zone map 1448
+  turnin 7636 optional

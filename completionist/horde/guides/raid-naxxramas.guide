@@ -1,0 +1,1236 @@
+guide polestar-completionist-horde/raid-naxxramas
+title Naxxramas (Completionist)
+faction Horde
+category Dungeons
+levels 60-60
+zone Eastern Plaguelands
+pitch Naxxramas, in Eastern Plaguelands. A raid.
+why Every Horde quest of Naxxramas: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Eastern Plaguelands: the arrow leads to it. This is a raid: it needs a raid group.
+
+step Frame of Atiesh
+  only Priest,Mage,Warlock,Druid
+  tip This quest starts from an item: use it to take the quest.
+  collect 22727 x1 anywhere
+  accept 9250 item 22727
+
+step Frame of Atiesh
+  only Priest,Mage,Warlock,Druid
+  zone Tanaris
+  turnin 9250
+
+step Anachronos
+  only Priest,Mage,Warlock,Druid
+  zone Tanaris
+  accept 9251
+
+step Inside Naxxramas
+  zone Eastern Plaguelands
+  collect 22520 @34.3,19.5
+  collect 22719 @34.3,19.5
+
+step Inside Naxxramas
+  only Priest,Mage,Warlock,Druid
+  zone Eastern Plaguelands
+  complete 9251 @34.3,19.5
+
+step Omarion's Handbook
+  when turnedin 9121
+  tip Needs Revered standing (21000) with Argent Dawn; without it the quest is not offered.
+  when has 22719
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1423
+  accept 9233 item 22719 optional
+
+step Omarion's Handbook
+  when onquest 9233
+  zone map 1423
+  turnin 9233 optional
+
+step Icy Scale Breastplate
+  only Hunter,Shaman
+  when turnedin 9233
+  zone map 1423
+  accept 9246 optional
+
+step Icy Scale Breastplate
+  only Hunter,Shaman
+  when onquest 9246
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 9246 @71.2,49.9 optional
+
+step Icy Scale Breastplate
+  only Hunter,Shaman
+  when onquest 9246
+  zone map 1423
+  turnin 9246 optional
+
+step Icy Scale Gauntlets
+  only Hunter,Shaman
+  when turnedin 9233
+  zone map 1423
+  accept 9245 optional
+
+step Icy Scale Gauntlets
+  only Hunter,Shaman
+  when onquest 9245
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 9245 @71.2,49.9 optional
+
+step Icy Scale Gauntlets
+  only Hunter,Shaman
+  when onquest 9245
+  zone map 1423
+  turnin 9245 optional
+
+step Icy Scale Bracers
+  only Hunter,Shaman
+  when turnedin 9233
+  zone map 1423
+  accept 9244 optional
+
+step Icy Scale Bracers
+  only Hunter,Shaman
+  when onquest 9244
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 9244 @71.2,49.9 optional
+
+step Icy Scale Bracers
+  only Hunter,Shaman
+  when onquest 9244
+  zone map 1423
+  turnin 9244 optional
+
+step Polar Tunic
+  only Rogue,Druid
+  when turnedin 9233
+  zone map 1423
+  accept 9243 optional
+
+step Polar Tunic
+  only Rogue,Druid
+  when onquest 9243
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 9243 @71.2,49.9 optional
+
+step Polar Tunic
+  only Rogue,Druid
+  when onquest 9243
+  zone map 1423
+  turnin 9243 optional
+
+step Polar Gloves
+  only Rogue,Druid
+  when turnedin 9233
+  zone map 1423
+  accept 9242 optional
+
+step Polar Gloves
+  only Rogue,Druid
+  when onquest 9242
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 9242 @71.2,49.9 optional
+
+step Polar Gloves
+  only Rogue,Druid
+  when onquest 9242
+  zone map 1423
+  turnin 9242 optional
+
+step Polar Bracers
+  only Rogue,Druid
+  when turnedin 9233
+  zone map 1423
+  accept 9241 optional
+
+step Polar Bracers
+  only Rogue,Druid
+  when onquest 9241
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 9241 @71.2,49.9 optional
+
+step Polar Bracers
+  only Rogue,Druid
+  when onquest 9241
+  zone map 1423
+  turnin 9241 optional
+
+step Glacial Vest
+  only Priest,Mage,Warlock
+  when turnedin 9233
+  zone map 1423
+  accept 9240 optional
+
+step Glacial Vest
+  only Priest,Mage,Warlock
+  when onquest 9240
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 9240 @71.2,49.9 optional
+
+step Glacial Vest
+  only Priest,Mage,Warlock
+  when onquest 9240
+  zone map 1423
+  turnin 9240 optional
+
+step Glacial Gloves
+  only Priest,Mage,Warlock
+  when turnedin 9233
+  zone map 1423
+  accept 9239 optional
+
+step Glacial Gloves
+  only Priest,Mage,Warlock
+  when onquest 9239
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 9239 @71.2,49.9 optional
+
+step Glacial Gloves
+  only Priest,Mage,Warlock
+  when onquest 9239
+  zone map 1423
+  turnin 9239 optional
+
+step Glacial Wrists
+  only Priest,Mage,Warlock
+  when turnedin 9233
+  zone map 1423
+  accept 9238 optional
+
+step Glacial Wrists
+  only Priest,Mage,Warlock
+  when onquest 9238
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 9238 @71.2,49.9 optional
+
+step Glacial Wrists
+  only Priest,Mage,Warlock
+  when onquest 9238
+  zone map 1423
+  turnin 9238 optional
+
+step Glacial Cloak
+  when turnedin 9233
+  zone map 1423
+  accept 9237
+
+step Glacial Cloak
+  when onquest 9237
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 9237 @71.2,49.9
+
+step Glacial Cloak
+  when onquest 9237
+  zone map 1423
+  turnin 9237
+
+step Icebane Breastplate
+  only Warrior,Paladin
+  when turnedin 9233
+  zone map 1423
+  accept 9236 optional
+
+step Icebane Breastplate
+  only Warrior,Paladin
+  when onquest 9236
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 9236 @71.2,49.9 optional
+
+step Icebane Breastplate
+  only Warrior,Paladin
+  when onquest 9236
+  zone map 1423
+  turnin 9236 optional
+
+step Icebane Bracers
+  only Warrior,Paladin
+  when turnedin 9233
+  zone map 1423
+  accept 9235 optional
+
+step Icebane Bracers
+  only Warrior,Paladin
+  when onquest 9235
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 9235 @71.2,49.9 optional
+
+step Icebane Bracers
+  only Warrior,Paladin
+  when onquest 9235
+  zone map 1423
+  turnin 9235 optional
+
+step Icebane Gauntlets
+  only Warrior,Paladin
+  when turnedin 9233
+  zone map 1423
+  accept 9234 optional
+
+step Icebane Gauntlets
+  only Warrior,Paladin
+  when onquest 9234
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 9234 @71.2,49.9 optional
+
+step Icebane Gauntlets
+  only Warrior,Paladin
+  when onquest 9234
+  zone map 1423
+  turnin 9234 optional
+
+step The Fall of Kel'Thuzad
+  when turnedin 9121
+  when has 22520
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1423
+  accept 9120 item 22520
+
+step The Fall of Kel'Thuzad
+  when onquest 9120
+  zone map 1423
+  turnin 9120
+
+step Echoes of War
+  when turnedin 9121
+  zone map 1423
+  accept 9033
+
+step Echoes of War
+  when onquest 9033
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 9033 @71.7,48.6
+
+step Echoes of War
+  when onquest 9033
+  zone map 1423
+  turnin 9033
+
+step The Only Song I Know...
+  when turnedin 9033
+  zone map 1423
+  accept 9232
+
+step The Only Song I Know...
+  when onquest 9232
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 9232 @71.2,49.9
+
+step The Only Song I Know...
+  when onquest 9232
+  zone map 1423
+  turnin 9232
+
+step The Fate of Ramaladni
+  when turnedin 9033
+  zone map 1423
+  accept 9229
+
+step The Fate of Ramaladni
+  when onquest 9229
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 9229 @72.0,48.5
+
+step The Fate of Ramaladni
+  when onquest 9229
+  zone map 1423
+  turnin 9229
+
+step Ramaladni's Icy Grasp
+  when turnedin 9229
+  zone map 1423
+  accept 9230
+
+step Ramaladni's Icy Grasp
+  when onquest 9230
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 9230 @72.0,48.5
+
+step Ramaladni's Icy Grasp
+  when onquest 9230
+  zone map 1423
+  turnin 9230
+
+step Bindings of Faith
+  only Priest
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22369 x1 anywhere optional
+  collect 22376 x6 anywhere optional
+  collect 12363 x1 anywhere optional
+  collect 20725 x1 anywhere optional
+  turnin 9118 direct optional
+
+step Belt of Faith
+  only Priest
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22370 x1 anywhere optional
+  collect 22376 x8 anywhere optional
+  collect 12363 x2 anywhere optional
+  collect 14342 x2 anywhere optional
+  turnin 9117 direct optional
+
+step Gloves of Faith
+  only Priest
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22371 x1 anywhere optional
+  collect 22376 x8 anywhere optional
+  collect 14342 x4 anywhere optional
+  turnin 9116 direct optional
+
+step Sandals of Faith
+  only Priest
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22372 x1 anywhere optional
+  collect 22376 x12 anywhere optional
+  collect 14342 x2 anywhere optional
+  collect 15407 x3 anywhere optional
+  turnin 9115 direct optional
+
+step Shoulderpads of Faith
+  only Priest
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22368 x1 anywhere optional
+  collect 22376 x12 anywhere optional
+  collect 14342 x2 anywhere optional
+  collect 15407 x3 anywhere optional
+  turnin 9114 direct optional
+
+step Circlet of Faith
+  only Priest
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22367 x1 anywhere optional
+  collect 22376 x15 anywhere optional
+  collect 14342 x3 anywhere optional
+  collect 20725 x3 anywhere optional
+  turnin 9113 direct optional
+
+step Leggings of Faith
+  only Priest
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22366 x1 anywhere optional
+  collect 22376 x20 anywhere optional
+  collect 14342 x4 anywhere optional
+  collect 20725 x2 anywhere optional
+  turnin 9112 direct optional
+
+step Robe of Faith
+  only Priest
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22351 x1 anywhere optional
+  collect 22376 x25 anywhere optional
+  collect 14342 x4 anywhere optional
+  collect 20725 x2 anywhere optional
+  turnin 9111 direct optional
+
+step Plagueheart Bindings
+  only Warlock
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22369 x1 anywhere optional
+  collect 22376 x6 anywhere optional
+  collect 12363 x1 anywhere optional
+  collect 20725 x1 anywhere optional
+  turnin 9110 direct optional
+
+step Plagueheart Belt
+  only Warlock
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22370 x1 anywhere optional
+  collect 22376 x8 anywhere optional
+  collect 12363 x2 anywhere optional
+  collect 14342 x2 anywhere optional
+  turnin 9109 direct optional
+
+step Plagueheart Gloves
+  only Warlock
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22371 x1 anywhere optional
+  collect 22376 x8 anywhere optional
+  collect 14342 x4 anywhere optional
+  turnin 9108 direct optional
+
+step Plagueheart Sandals
+  only Warlock
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22372 x1 anywhere optional
+  collect 22376 x12 anywhere optional
+  collect 14342 x2 anywhere optional
+  collect 15407 x3 anywhere optional
+  turnin 9107 direct optional
+
+step Plagueheart Shoulderpads
+  only Warlock
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22368 x1 anywhere optional
+  collect 22376 x12 anywhere optional
+  collect 14342 x2 anywhere optional
+  collect 15407 x3 anywhere optional
+  turnin 9106 direct optional
+
+step Plagueheart Circlet
+  only Warlock
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22367 x1 anywhere optional
+  collect 22376 x15 anywhere optional
+  collect 14342 x3 anywhere optional
+  collect 20725 x3 anywhere optional
+  turnin 9105 direct optional
+
+step Plagueheart Leggings
+  only Warlock
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22366 x1 anywhere optional
+  collect 22376 x20 anywhere optional
+  collect 14342 x4 anywhere optional
+  collect 20725 x2 anywhere optional
+  turnin 9104 direct optional
+
+step Plagueheart Robe
+  only Warlock
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22351 x1 anywhere optional
+  collect 22376 x25 anywhere optional
+  collect 14342 x4 anywhere optional
+  collect 20725 x2 anywhere optional
+  turnin 9103 direct optional
+
+step Frostfire Bindings
+  only Mage
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22369 x1 anywhere optional
+  collect 22376 x6 anywhere optional
+  collect 12363 x1 anywhere optional
+  collect 20725 x1 anywhere optional
+  turnin 9102 direct optional
+
+step Frostfire Belt
+  only Mage
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22370 x1 anywhere optional
+  collect 22376 x8 anywhere optional
+  collect 12363 x2 anywhere optional
+  collect 14342 x2 anywhere optional
+  turnin 9101 direct optional
+
+step Frostfire Gloves
+  only Mage
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22371 x1 anywhere optional
+  collect 22376 x8 anywhere optional
+  collect 14342 x4 anywhere optional
+  turnin 9100 direct optional
+
+step Frostfire Sandals
+  only Mage
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22372 x1 anywhere optional
+  collect 22376 x12 anywhere optional
+  collect 14342 x2 anywhere optional
+  collect 15407 x3 anywhere optional
+  turnin 9099 direct optional
+
+step Frostfire Shoulderpads
+  only Mage
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22368 x1 anywhere optional
+  collect 22376 x12 anywhere optional
+  collect 14342 x2 anywhere optional
+  collect 15407 x3 anywhere optional
+  turnin 9098 direct optional
+
+step Frostfire Circlet
+  only Mage
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22367 x1 anywhere optional
+  collect 22376 x15 anywhere optional
+  collect 14342 x3 anywhere optional
+  collect 20725 x3 anywhere optional
+  turnin 9097 direct optional
+
+step Frostfire Leggings
+  only Mage
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22366 x1 anywhere optional
+  collect 22376 x20 anywhere optional
+  collect 14342 x4 anywhere optional
+  collect 20725 x2 anywhere optional
+  turnin 9096 direct optional
+
+step Frostfire Robe
+  only Mage
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22351 x1 anywhere optional
+  collect 22376 x25 anywhere optional
+  collect 14342 x4 anywhere optional
+  collect 20725 x2 anywhere optional
+  turnin 9095 direct optional
+
+step Dreamwalker Wristguards
+  only Druid
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22362 x1 anywhere optional
+  collect 22373 x6 anywhere optional
+  collect 12363 x1 anywhere optional
+  collect 15407 x2 anywhere optional
+  turnin 9093 direct optional
+
+step Dreamwalker Girdle
+  only Druid
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22363 x1 anywhere optional
+  collect 22373 x8 anywhere optional
+  collect 14342 x3 anywhere optional
+  collect 15407 x2 anywhere optional
+  turnin 9092 direct optional
+
+step Dreamwalker Handguards
+  only Druid
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22364 x1 anywhere optional
+  collect 22373 x8 anywhere optional
+  collect 15407 x5 anywhere optional
+  collect 20725 x1 anywhere optional
+  turnin 9091 direct optional
+
+step Dreamwalker Boots
+  only Druid
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22365 x1 anywhere optional
+  collect 22373 x12 anywhere optional
+  collect 14342 x3 anywhere optional
+  collect 15407 x2 anywhere optional
+  turnin 9090 direct optional
+
+step Dreamwalker Spaulders
+  only Druid
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22361 x1 anywhere optional
+  collect 22373 x12 anywhere optional
+  collect 15407 x5 anywhere optional
+  collect 20725 x1 anywhere optional
+  turnin 9089 direct optional
+
+step Dreamwalker Headpiece
+  only Druid
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22360 x1 anywhere optional
+  collect 22373 x15 anywhere optional
+  collect 15407 x6 anywhere optional
+  collect 20725 x2 anywhere optional
+  turnin 9088 direct optional
+
+step Dreamwalker Legguards
+  only Druid
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22359 x1 anywhere optional
+  collect 22373 x20 anywhere optional
+  collect 15407 x8 anywhere optional
+  collect 20725 x1 anywhere optional
+  turnin 9087 direct optional
+
+step Dreamwalker Tunic
+  only Druid
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22350 x1 anywhere optional
+  collect 22373 x25 anywhere optional
+  collect 15407 x6 anywhere optional
+  collect 20725 x2 anywhere optional
+  turnin 9086 direct optional
+
+step Bonescythe Bracers
+  only Rogue
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22355 x1 anywhere optional
+  collect 22373 x6 anywhere optional
+  collect 12360 x1 anywhere optional
+  collect 15407 x2 anywhere optional
+  turnin 9084 direct optional
+
+step Bonescythe Waistguard
+  only Rogue
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22356 x1 anywhere optional
+  collect 22373 x8 anywhere optional
+  collect 15407 x5 anywhere optional
+  collect 20725 x1 anywhere optional
+  turnin 9083 direct optional
+
+step Bonescythe Gauntlets
+  only Rogue
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22357 x1 anywhere optional
+  collect 22373 x8 anywhere optional
+  collect 12360 x1 anywhere optional
+  collect 15407 x5 anywhere optional
+  turnin 9082 direct optional
+
+step Bonescythe Sabatons
+  only Rogue
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22358 x1 anywhere optional
+  collect 22373 x12 anywhere optional
+  collect 15407 x3 anywhere optional
+  collect 20725 x2 anywhere optional
+  turnin 9081 direct optional
+
+step Bonescythe Pauldrons
+  only Rogue
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22354 x1 anywhere optional
+  collect 22373 x12 anywhere optional
+  collect 15407 x5 anywhere optional
+  collect 20725 x1 anywhere optional
+  turnin 9080 direct optional
+
+step Bonescythe Helmet
+  only Rogue
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22353 x1 anywhere optional
+  collect 22373 x15 anywhere optional
+  collect 15407 x8 anywhere optional
+  collect 20725 x1 anywhere optional
+  turnin 9079 direct optional
+
+step Bonescythe Legplates
+  only Rogue
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22352 x1 anywhere optional
+  collect 22373 x20 anywhere optional
+  collect 12360 x1 anywhere optional
+  collect 15407 x8 anywhere optional
+  turnin 9078 direct optional
+
+step Bonescythe Breastplate
+  only Rogue
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22349 x1 anywhere optional
+  collect 22373 x25 anywhere optional
+  collect 12360 x2 anywhere optional
+  collect 15407 x6 anywhere optional
+  turnin 9077 direct optional
+
+step Earthshatter Wristguards
+  only Shaman
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22362 x1 anywhere optional
+  collect 22374 x6 anywhere optional
+  collect 12360 x1 anywhere optional
+  collect 15407 x2 anywhere optional
+  turnin 9075 direct optional
+
+step Earthshatter Girdle
+  only Shaman
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22363 x1 anywhere optional
+  collect 22374 x8 anywhere optional
+  collect 12360 x1 anywhere optional
+  collect 20725 x3 anywhere optional
+  turnin 9074 direct optional
+
+step Earthshatter Handguards
+  only Shaman
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22364 x1 anywhere optional
+  collect 22374 x8 anywhere optional
+  collect 12360 x1 anywhere optional
+  collect 15407 x5 anywhere optional
+  turnin 9073 direct optional
+
+step Earthshatter Boots
+  only Shaman
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22365 x1 anywhere optional
+  collect 22374 x12 anywhere optional
+  collect 12360 x1 anywhere optional
+  collect 20725 x3 anywhere optional
+  turnin 9072 direct optional
+
+step Earthshatter Spaulders
+  only Shaman
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22361 x1 anywhere optional
+  collect 22374 x12 anywhere optional
+  collect 12360 x2 anywhere optional
+  collect 14342 x2 anywhere optional
+  turnin 9071 direct optional
+
+step Earthshatter Headpiece
+  only Shaman
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22360 x1 anywhere optional
+  collect 22374 x15 anywhere optional
+  collect 12360 x4 anywhere optional
+  collect 20725 x2 anywhere optional
+  turnin 9070 direct optional
+
+step Earthshatter Legguards
+  only Shaman
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22359 x1 anywhere optional
+  collect 22374 x20 anywhere optional
+  collect 12360 x3 anywhere optional
+  collect 15407 x5 anywhere optional
+  turnin 9069 direct optional
+
+step Earthshatter Tunic
+  only Shaman
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22350 x1 anywhere optional
+  collect 22374 x25 anywhere optional
+  collect 12360 x4 anywhere optional
+  collect 15407 x3 anywhere optional
+  turnin 9068 direct optional
+
+step Cryptstalker Wristguards
+  only Hunter
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22362 x1 anywhere optional
+  collect 22374 x6 anywhere optional
+  collect 12360 x1 anywhere optional
+  collect 15407 x2 anywhere optional
+  turnin 9061 direct optional
+
+step Cryptstalker Girdle
+  only Hunter
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22363 x1 anywhere optional
+  collect 22374 x8 anywhere optional
+  collect 12360 x1 anywhere optional
+  collect 20725 x3 anywhere optional
+  turnin 9060 direct optional
+
+step Cryptstalker Handguards
+  only Hunter
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22364 x1 anywhere optional
+  collect 22374 x8 anywhere optional
+  collect 12360 x1 anywhere optional
+  collect 15407 x5 anywhere optional
+  turnin 9059 direct optional
+
+step Cryptstalker Boots
+  only Hunter
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22365 x1 anywhere optional
+  collect 22374 x12 anywhere optional
+  collect 12360 x1 anywhere optional
+  collect 20725 x3 anywhere optional
+  turnin 9058 direct optional
+
+step Cryptstalker Spaulders
+  only Hunter
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22361 x1 anywhere optional
+  collect 22374 x12 anywhere optional
+  collect 12360 x2 anywhere optional
+  collect 15407 x3 anywhere optional
+  turnin 9057 direct optional
+
+step Cryptstalker Headpiece
+  only Hunter
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22360 x1 anywhere optional
+  collect 22374 x15 anywhere optional
+  collect 12360 x4 anywhere optional
+  collect 20725 x2 anywhere optional
+  turnin 9056 direct optional
+
+step Cryptstalker Legguards
+  only Hunter
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22359 x1 anywhere optional
+  collect 22374 x20 anywhere optional
+  collect 12360 x3 anywhere optional
+  collect 15407 x5 anywhere optional
+  turnin 9055 direct optional
+
+step Cryptstalker Tunic
+  only Hunter
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22350 x1 anywhere optional
+  collect 22374 x25 anywhere optional
+  collect 12360 x4 anywhere optional
+  collect 15407 x3 anywhere optional
+  turnin 9054 direct optional
+
+step Redemption Wristguards
+  only Paladin
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22362 x1 anywhere optional
+  collect 22375 x6 anywhere optional
+  collect 12360 x1 anywhere optional
+  collect 15407 x2 anywhere optional
+  turnin 9050 direct optional
+
+step Redemption Girdle
+  only Paladin
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22363 x1 anywhere optional
+  collect 22375 x8 anywhere optional
+  collect 12360 x1 anywhere optional
+  collect 20725 x3 anywhere optional
+  turnin 9049 direct optional
+
+step Redemption Handguards
+  only Paladin
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22364 x1 anywhere optional
+  collect 22375 x8 anywhere optional
+  collect 12360 x1 anywhere optional
+  collect 15407 x5 anywhere optional
+  turnin 9048 direct optional
+
+step Redemption Boots
+  only Paladin
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22365 x1 anywhere optional
+  collect 22375 x12 anywhere optional
+  collect 12360 x2 anywhere optional
+  collect 15407 x3 anywhere optional
+  turnin 9047 direct optional
+
+step Redemption Spaulders
+  only Paladin
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22361 x1 anywhere optional
+  collect 22375 x12 anywhere optional
+  collect 12360 x2 anywhere optional
+  collect 20725 x2 anywhere optional
+  turnin 9046 direct optional
+
+step Redemption Headpiece
+  only Paladin
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22360 x1 anywhere optional
+  collect 22375 x15 anywhere optional
+  collect 12360 x5 anywhere optional
+  collect 15407 x2 anywhere optional
+  turnin 9045 direct optional
+
+step Redemption Legguards
+  only Paladin
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22359 x1 anywhere optional
+  collect 22375 x20 anywhere optional
+  collect 12360 x4 anywhere optional
+  collect 20725 x2 anywhere optional
+  turnin 9044 direct optional
+
+step Redemption Tunic
+  only Paladin
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22350 x1 anywhere optional
+  collect 22375 x25 anywhere optional
+  collect 12360 x4 anywhere optional
+  collect 15407 x3 anywhere optional
+  turnin 9043 direct optional
+
+step Dreadnaught Bracers
+  only Warrior
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22355 x1 anywhere optional
+  collect 22375 x6 anywhere optional
+  collect 12360 x1 anywhere optional
+  collect 20725 x1 anywhere optional
+  turnin 9042 direct optional
+
+step Dreadnaught Waistguard
+  only Warrior
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22356 x1 anywhere optional
+  collect 22375 x8 anywhere optional
+  collect 12360 x1 anywhere optional
+  collect 15407 x5 anywhere optional
+  turnin 9041 direct optional
+
+step Dreadnaught Gauntlets
+  only Warrior
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22357 x1 anywhere optional
+  collect 22375 x8 anywhere optional
+  collect 12360 x1 anywhere optional
+  collect 15407 x5 anywhere optional
+  turnin 9040 direct optional
+
+step Dreadnaught Sabatons
+  only Warrior
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22358 x1 anywhere optional
+  collect 22375 x12 anywhere optional
+  collect 12360 x2 anywhere optional
+  collect 15407 x3 anywhere optional
+  turnin 9039 direct optional
+
+step Dreadnaught Pauldrons
+  only Warrior
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22354 x1 anywhere optional
+  collect 22375 x12 anywhere optional
+  collect 12360 x2 anywhere optional
+  collect 15407 x3 anywhere optional
+  turnin 9038 direct optional
+
+step Dreadnaught Helmet
+  only Warrior
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22353 x1 anywhere optional
+  collect 22375 x15 anywhere optional
+  collect 12360 x5 anywhere optional
+  collect 20725 x1 anywhere optional
+  turnin 9037 direct optional
+
+step Dreadnaught Legplates
+  only Warrior
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22352 x1 anywhere optional
+  collect 22375 x20 anywhere optional
+  collect 12360 x4 anywhere optional
+  collect 15407 x3 anywhere optional
+  turnin 9036 direct optional
+
+step Dreadnaught Breastplate
+  only Warrior
+  when turnedin 9033
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22349 x1 anywhere optional
+  collect 22375 x25 anywhere optional
+  collect 12360 x4 anywhere optional
+  collect 20725 x2 anywhere optional
+  turnin 9034 direct optional
+
+step Anachronos
+  only Priest,Mage,Warlock,Druid
+  zone Tanaris
+  turnin 9251

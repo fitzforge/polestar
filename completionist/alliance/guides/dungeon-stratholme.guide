@@ -1,0 +1,922 @@
+guide polestar-completionist-alliance/dungeon-stratholme
+title Stratholme (Completionist)
+faction Alliance
+category Dungeons
+levels 57-60
+zone Eastern Plaguelands
+next polestar-completionist-alliance/58-silithus
+pitch Stratholme, in Eastern Plaguelands.
+why Every Alliance quest of Stratholme: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Eastern Plaguelands: the arrow leads to it.
+
+step Demon Dogs
+  zone Western Plaguelands
+  accept 5542
+
+step Demon Dogs
+  zone Western Plaguelands
+  complete 5542 @66.1,23.8
+
+step Demon Dogs
+  zone Western Plaguelands
+  turnin 5542
+
+step Blood Tinged Skies
+  zone Western Plaguelands
+  accept 5543
+
+step Blood Tinged Skies
+  zone Western Plaguelands
+  complete 5543 @73,54.8
+
+step Blood Tinged Skies
+  zone Western Plaguelands
+  turnin 5543
+
+step Carrion Grubbage
+  zone Western Plaguelands
+  accept 5544
+
+step Carrion Grubbage
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Western Plaguelands
+  complete 5544 @67.3,24.2
+
+step Carrion Grubbage
+  zone Western Plaguelands
+  turnin 5544
+
+step Redemption
+  zone Western Plaguelands
+  accept 5742
+
+step Redemption
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Western Plaguelands
+  complete 5742 @67.3,24.2
+
+step Redemption
+  zone Western Plaguelands
+  turnin 5742
+
+step Of Forgotten Memories
+  zone Western Plaguelands
+  accept 5781
+
+step Of Forgotten Memories
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Western Plaguelands
+  complete 5781 @67.3,24.2
+
+step Of Forgotten Memories
+  zone Western Plaguelands
+  turnin 5781
+
+step Of Lost Honor
+  zone Western Plaguelands
+  accept 5845
+
+step Of Lost Honor
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Western Plaguelands
+  complete 5845 @67.3,24.2
+
+step Of Lost Honor
+  zone Western Plaguelands
+  turnin 5845
+
+step Of Love and Family
+  zone Western Plaguelands
+  accept 5846
+
+step Of Love and Family
+  zone Western Plaguelands
+  turnin 5846
+
+step Pip Quickwit, At Your Service!
+  zone Eastern Plaguelands
+  accept 5047 @26.3,18.3
+
+step Pip Quickwit, At Your Service!
+  zone Winterspring
+  turnin 5047
+
+step The Matron Protectorate
+  zone Eastern Plaguelands
+  accept 5160 @26.3,18.3
+
+step The Matron Protectorate
+  zone Winterspring
+  turnin 5160
+
+step Wrath of the Blue Flight
+  zone Winterspring
+  accept 5161
+
+step Wrath of the Blue Flight
+  zone Winterspring
+  turnin 5161
+
+step Wrath of the Blue Flight
+  zone Winterspring
+  accept 5162
+
+step Wrath of the Blue Flight
+  zone Western Plaguelands
+  turnin 5162
+
+step Catalogue of the Wayward
+  zone Western Plaguelands
+  accept 5164
+
+step Catalogue of the Wayward
+  zone Western Plaguelands
+  turnin 5164
+
+step The Restless Souls
+  zone Eastern Plaguelands
+  accept 5281
+
+step The Restless Souls
+  zone Eastern Plaguelands
+  turnin 5281
+
+step Doctor Theolen Krastinov, the Butcher
+  when turnedin 5383
+  zone Western Plaguelands
+  accept 5382
+
+step Doctor Theolen Krastinov, the Butcher
+  when turnedin 5383
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Western Plaguelands
+  complete 5382 @70.22,73.71
+
+step Doctor Theolen Krastinov, the Butcher
+  when turnedin 5383
+  zone Western Plaguelands
+  turnin 5382
+
+step Krastinov's Bag of Horrors
+  when turnedin 5382
+  zone Western Plaguelands
+  accept 5515
+
+step Krastinov's Bag of Horrors
+  when turnedin 5382
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Western Plaguelands
+  complete 5515 @70.22,73.71
+
+step Krastinov's Bag of Horrors
+  when turnedin 5382
+  zone Western Plaguelands
+  turnin 5515
+
+step Level 60
+  level 60
+
+step Lord Grayson Shadowbreaker
+  only Paladin,Human,Dwarf
+  zone Stormwind City
+  accept 7638
+
+step Lord Grayson Shadowbreaker
+  only Paladin,Human,Dwarf
+  zone Stormwind City
+  turnin 7638
+
+step Emphasis on Sacrifice
+  only Paladin,Human,Dwarf
+  zone Stormwind City
+  accept 7637
+
+step Emphasis on Sacrifice
+  only Paladin,Human,Dwarf
+  zone Ironforge
+  turnin 7637
+
+step To Show Due Judgment
+  only Paladin,Human,Dwarf
+  zone Ironforge
+  accept 7639
+
+step To Show Due Judgment
+  only Paladin,Human,Dwarf
+  zone Stormwind City
+  turnin 7639
+
+step Exorcising Terrordale
+  only Paladin,Human,Dwarf
+  zone Stormwind City
+  accept 7640
+
+step Exorcising Terrordale
+  only Paladin,Human,Dwarf
+  zone Eastern Plaguelands
+  complete 7640 @8.11,20.86
+
+step Exorcising Terrordale
+  only Paladin,Human,Dwarf
+  zone Stormwind City
+  turnin 7640
+
+step Lord Grayson Shadowbreaker
+  only Paladin
+  zone Ironforge
+  accept 7670
+
+step Lord Grayson Shadowbreaker
+  only Paladin
+  zone Stormwind City
+  turnin 7670
+
+step The Work of Grimand Elmore
+  only Paladin,Human,Dwarf
+  zone Stormwind City
+  accept 7641
+
+step The Work of Grimand Elmore
+  only Paladin,Human,Dwarf
+  zone Stormwind City
+  turnin 7641
+
+step Kirtonos the Herald
+  when turnedin 5515
+  zone Western Plaguelands
+  accept 5384
+
+step Kirtonos the Herald
+  when turnedin 5515
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Western Plaguelands
+  complete 5384 @70.22,73.71
+
+step Kirtonos the Herald
+  when turnedin 5515
+  zone Western Plaguelands
+  turnin 5384
+
+step The Human, Ras Frostwhisper
+  when turnedin 5384
+  zone Western Plaguelands
+  accept 5461
+
+step The Human, Ras Frostwhisper
+  when turnedin 5384
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Western Plaguelands
+  complete 5461 @70.57,74.11
+
+step The Human, Ras Frostwhisper
+  when turnedin 5384
+  zone Western Plaguelands
+  turnin 5461
+
+step The Dying, Ras Frostwhisper
+  when turnedin 5461
+  zone Western Plaguelands
+  accept 5462
+
+step The Dying, Ras Frostwhisper
+  when turnedin 5461
+  zone Eastern Plaguelands
+  turnin 5462
+
+step Betina Bigglezink
+  zone Eastern Plaguelands
+  accept 5212
+
+step Duke Nicholas Zverenhoff
+  zone Eastern Plaguelands
+  accept 5251
+
+step Egan
+  zone Eastern Plaguelands
+  accept 5282
+
+step Leonid Barthalomew the Revered
+  zone Eastern Plaguelands
+  accept 5243
+
+step Leonid Barthalomew the Revered
+  when turnedin 5462
+  zone Eastern Plaguelands
+  accept 5463
+
+step Orthas
+  only Paladin
+  zone Eastern Plaguelands
+  accept 84330
+
+step Smokey LaRue
+  zone Eastern Plaguelands
+  accept 5214
+
+step Artist Renfray
+  zone Western Plaguelands
+  accept 5848
+
+step Catalogue of the Wayward
+  zone Western Plaguelands
+  accept 5166
+
+step Lilith the Lithe
+  zone Winterspring
+  accept 5305
+
+step Malyfous's Catalogue
+  zone Winterspring
+  accept 5063
+  accept 5067
+  accept 5068
+
+step Seril Scourgebane
+  zone Winterspring
+  accept 5307
+
+step Grimand Elmore
+  only Paladin,Human,Dwarf
+  zone Stormwind City
+  accept 7642
+
+step Deliana
+  only Druid
+  zone Ironforge
+  accept 8905
+
+step Inside Stratholme
+  zone Eastern Plaguelands
+  accept 5122 @26.3,18.3
+  collect 21514 @26.3,18.3
+  accept 8829 item 21514
+  complete 5063 @26.3,18.3
+  complete 5067 @26.3,18.3
+  complete 5068 @26.3,18.3
+  complete 5122 @26.3,18.3
+  turnin 5122 @26.3,18.3
+  complete 5166 @26.3,18.3
+  complete 5212 @26.3,18.3
+  complete 5214 @26.3,18.3
+  complete 5243 @26.3,18.3
+  complete 5251 @26.3,18.3
+  complete 5282 @26.3,18.3
+  complete 5305 @26.3,18.3
+  complete 5307 @26.3,18.3
+  complete 5848 @26.3,18.3
+  complete 8829 @26.3,18.3
+
+step Inside Stratholme
+  only Paladin
+  zone Eastern Plaguelands
+  complete 84330 @26.3,18.3
+
+step Inside Stratholme
+  when turnedin 5462
+  zone Eastern Plaguelands
+  turnin 5463 @26.3,18.3
+
+step Inside Stratholme
+  only Paladin,Human,Dwarf
+  zone Eastern Plaguelands
+  complete 7642 @26.3,18.3
+
+step Inside Stratholme
+  only Druid
+  zone Eastern Plaguelands
+  complete 8905 @26.3,18.3
+
+step Betina Bigglezink
+  zone Eastern Plaguelands
+  turnin 5212
+
+step Duke Nicholas Zverenhoff
+  zone Eastern Plaguelands
+  turnin 5251
+
+step Egan
+  zone Eastern Plaguelands
+  turnin 5282
+
+step Leonid Barthalomew the Revered
+  zone Eastern Plaguelands
+  turnin 5243
+
+step Rotting Dwarf Corpse
+  only Paladin
+  zone Eastern Plaguelands
+  turnin 84330
+
+step Smokey LaRue
+  zone Eastern Plaguelands
+  turnin 5214
+
+step Tirion Fordring
+  zone Eastern Plaguelands
+  turnin 5848
+
+step Find Myranda
+  zone map 1422
+  accept 5861
+
+step Find Myranda
+  when onquest 5861
+  zone map 1422
+  turnin 5861
+
+step Jeziba
+  zone Western Plaguelands
+  turnin 5166
+
+step Scarlet Subterfuge
+  when turnedin 5861
+  zone map 1422
+  accept 5862
+
+step Scarlet Subterfuge
+  when onquest 5862
+  zone map 1422
+  turnin 5862
+
+step In Dreams
+  when turnedin 5862
+  zone map 1422
+  accept 5944
+
+step In Dreams
+  when onquest 5944
+  zone map 1422
+  complete 5944 @53.9,24.3
+
+step In Dreams
+  when onquest 5944
+  zone map 1422
+  turnin 5944
+
+step Aurel Goldleaf
+  zone Silithus
+  turnin 8829
+
+step Lilith the Lithe
+  zone Winterspring
+  turnin 5305
+
+step Malyfous Darkhammer
+  zone Winterspring
+  turnin 5063
+  turnin 5067
+  turnin 5068
+
+step Seril Scourgebane
+  zone Winterspring
+  turnin 5307
+
+step Grimand Elmore
+  only Paladin,Human,Dwarf
+  zone Stormwind City
+  turnin 7642
+
+step Deliana
+  only Druid
+  zone Ironforge
+  turnin 8905
+
+step Betina Bigglezink
+  zone Eastern Plaguelands
+  accept 5213
+
+step Deliana
+  only Hunter
+  zone Ironforge
+  accept 8906
+
+step Inside Stratholme, again
+  zone Eastern Plaguelands
+  accept 5125 @26.3,18.3
+  collect 13250 @26.3,18.3
+  accept 5262 item 13250
+  turnin 5125 @26.3,18.3
+  complete 5213 @26.3,18.3
+
+step Inside Stratholme
+  when turnedin 5463
+  zone Eastern Plaguelands
+  accept 5464 @26.3,18.3
+
+step Inside Stratholme
+  only Hunter
+  zone Eastern Plaguelands
+  complete 8906 @26.3,18.3
+
+step Betina Bigglezink
+  zone Eastern Plaguelands
+  turnin 5213
+
+step Duke Nicholas Zverenhoff
+  zone Eastern Plaguelands
+  turnin 5262
+
+step Leonid Barthalomew the Revered
+  when turnedin 5463
+  zone Eastern Plaguelands
+  turnin 5464
+
+step Deliana
+  only Hunter
+  zone Ironforge
+  turnin 8906
+
+step An Earnest Proposition
+  only Mage
+  zone Ironforge
+  accept 8907
+
+step An Earnest Proposition
+  only Mage
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Ironforge
+  complete 8907 @43.53,52.64
+
+step An Earnest Proposition
+  only Mage
+  zone Ironforge
+  turnin 8907
+
+step Duke Nicholas Zverenhoff
+  zone Eastern Plaguelands
+  accept 5263
+
+step Deliana
+  only Paladin
+  zone Ironforge
+  accept 8908
+
+step Inside Stratholme, again
+  zone Eastern Plaguelands
+  complete 5263 @26.3,18.3
+
+step Inside Stratholme
+  only Paladin
+  zone Eastern Plaguelands
+  complete 8908 @26.3,18.3
+
+step Duke Nicholas Zverenhoff
+  zone Eastern Plaguelands
+  turnin 5263
+
+step Lord Maxwell Tyrosus
+  zone map 1423
+  accept 5264
+
+step Lord Maxwell Tyrosus
+  when onquest 5264
+  zone map 1423
+  turnin 5264
+
+step Deliana
+  only Paladin
+  zone Ironforge
+  turnin 8908
+
+step Deliana
+  only Priest
+  zone Ironforge
+  accept 8909
+
+step Inside Stratholme
+  only Priest
+  zone Eastern Plaguelands
+  complete 8909 @26.3,18.3
+
+step Deliana
+  only Priest
+  zone Ironforge
+  turnin 8909
+
+step An Earnest Proposition
+  only Rogue
+  zone Ironforge
+  accept 8910
+
+step An Earnest Proposition
+  only Rogue
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Ironforge
+  complete 8910 @43.53,52.64
+
+step An Earnest Proposition
+  only Rogue
+  zone Ironforge
+  turnin 8910
+
+step An Earnest Proposition
+  only Warlock
+  zone Ironforge
+  accept 8911
+
+step An Earnest Proposition
+  only Warlock
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Ironforge
+  complete 8911 @43.53,52.64
+
+step An Earnest Proposition
+  only Warlock
+  zone Ironforge
+  turnin 8911
+
+step An Earnest Proposition
+  only Warrior
+  zone Ironforge
+  accept 8912
+
+step An Earnest Proposition
+  only Warrior
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Ironforge
+  complete 8912 @43.53,52.64
+
+step An Earnest Proposition
+  only Warrior
+  zone Ironforge
+  turnin 8912
+
+step A Supernatural Device
+  zone Ironforge
+  accept 8922
+
+step A Supernatural Device
+  zone Tanaris
+  turnin 8922
+
+step The Ectoplasmic Distiller
+  zone Tanaris
+  accept 8921
+
+step The Ectoplasmic Distiller
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 8921 @52.47,27.23
+
+step The Ectoplasmic Distiller
+  zone Tanaris
+  turnin 8921
+
+step Hunting for Ectoplasm
+  zone Tanaris
+  accept 8924
+
+step Hunting for Ectoplasm
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 8924 @52.47,27.23
+
+step Hunting for Ectoplasm
+  zone Tanaris
+  turnin 8924
+
+step A Portable Power Source
+  zone Tanaris
+  accept 8925
+
+step A Portable Power Source
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 8925 @52.47,27.23
+
+step A Portable Power Source
+  zone Tanaris
+  turnin 8925
+
+step A Shifty Merchant
+  zone Tanaris
+  accept 8928
+
+step A Shifty Merchant
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 8928 @52.47,27.23
+
+step A Shifty Merchant
+  zone Tanaris
+  turnin 8928
+
+step Return to Deliana
+  zone Tanaris
+  accept 8977
+
+step Return to Deliana
+  zone Ironforge
+  turnin 8977
+
+step Just Compensation
+  only Druid
+  zone Ironforge
+  accept 8926
+
+step Just Compensation
+  only Druid
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Ironforge
+  complete 8926 @43.53,52.64
+
+step Just Compensation
+  only Druid
+  zone Ironforge
+  turnin 8926
+
+step Just Compensation
+  only Hunter
+  zone Ironforge
+  accept 8931
+
+step Just Compensation
+  only Hunter
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Ironforge
+  complete 8931 @43.53,52.64
+
+step Just Compensation
+  only Hunter
+  zone Ironforge
+  turnin 8931
+
+step Just Compensation
+  only Mage
+  zone Ironforge
+  accept 8932
+
+step Just Compensation
+  only Mage
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Ironforge
+  complete 8932 @43.53,52.64
+
+step Just Compensation
+  only Mage
+  zone Ironforge
+  turnin 8932
+
+step Deliana
+  only Paladin
+  zone Ironforge
+  accept 8933
+
+step Deliana
+  only Warlock
+  zone Ironforge
+  accept 8936
+
+step Deliana
+  only Warrior
+  zone Ironforge
+  accept 8937
+
+step Inside Stratholme
+  only Paladin
+  zone Eastern Plaguelands
+  complete 8933 @26.3,18.3
+
+step Inside Stratholme
+  only Warlock
+  zone Eastern Plaguelands
+  complete 8936 @26.3,18.3
+
+step Inside Stratholme
+  only Warrior
+  zone Eastern Plaguelands
+  complete 8937 @26.3,18.3
+
+step Deliana
+  only Paladin
+  zone Ironforge
+  turnin 8933
+
+step Deliana
+  only Warlock
+  zone Ironforge
+  turnin 8936
+
+step Deliana
+  only Warrior
+  zone Ironforge
+  turnin 8937
+
+step Deliana
+  only Priest
+  zone Ironforge
+  accept 8934
+
+step Inside Stratholme
+  only Priest
+  zone Eastern Plaguelands
+  complete 8934 @26.3,18.3
+
+step Dead Man's Plea
+  when turnedin 8929
+  zone map 1423
+  accept 8945
+
+step Dead Man's Plea
+  when onquest 8945
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 8945 @26.1,11.3
+
+step Dead Man's Plea
+  when onquest 8945
+  tip The hand-in is inside the instance: the arrow leads to its entrance.
+  zone map 1423
+  turnin 8945 @26.3,18.3
+
+step Proof of Life
+  when turnedin 8945
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1423
+  turnin 8946 direct
+
+step Anthion's Strange Request
+  when turnedin 8946
+  zone map 1423
+  accept 8947
+
+step Anthion's Strange Request
+  when onquest 8947
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 8947 @26.1,11.3
+
+step Anthion's Strange Request
+  when onquest 8947
+  zone map 1423
+  turnin 8947
+
+step The Argent Hold
+  when turnedin 5264
+  zone map 1423
+  accept 5265
+
+step The Argent Hold
+  when onquest 5265
+  zone map 1423
+  turnin 5265
+
+step Deliana
+  only Priest
+  zone Ironforge
+  turnin 8934
+
+step Just Compensation
+  only Rogue
+  zone Ironforge
+  accept 8935
+
+step Just Compensation
+  only Rogue
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Ironforge
+  complete 8935 @43.53,52.64
+
+step Just Compensation
+  only Rogue
+  zone Ironforge
+  turnin 8935
+
+
+step The Left Piece of Lord Valthalak's Amulet
+  when available 8968
+  tip One of several exclusive quests; the route takes The Left Piece of Lord Valthalak's Amulet (8966). This one shows for a character the game offers it to instead.
+  when turnedin 8962
+  zone map 1427
+  accept 8968 optional
+
+step The Left Piece of Lord Valthalak's Amulet
+  when onquest 8968
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1427
+  complete 8968 @39.8,96.5 optional
+
+step The Left Piece of Lord Valthalak's Amulet
+  when onquest 8968
+  zone map 1427
+  turnin 8968 optional
+
+step The Right Piece of Lord Valthalak's Amulet
+  when available 8991
+  tip One of several exclusive quests; the route takes The Right Piece of Lord Valthalak's Amulet (8989). This one shows for a character the game offers it to instead.
+  when turnedin 8985
+  zone map 1427
+  accept 8991 optional
+
+step The Right Piece of Lord Valthalak's Amulet
+  when onquest 8991
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1427
+  complete 8991 @39.8,96.5 optional
+
+step The Right Piece of Lord Valthalak's Amulet
+  when onquest 8991
+  zone map 1427
+  turnin 8991 optional

@@ -1,0 +1,233 @@
+guide polestar-completionist-horde/raid-ruins-of-ahnqiraj
+title Ruins of Ahn'Qiraj (Completionist)
+faction Horde
+category Dungeons
+levels 60-60
+zone Silithus
+pitch Ruins of Ahn'Qiraj, in Silithus. A raid.
+why Every Horde quest of Ruins of Ahn'Qiraj: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Silithus: the arrow leads to it. This is a raid: it needs a raid group.
+
+step The Path of the Protector
+  zone Tanaris
+  accept 8747
+
+step The Path of the Invoker
+  when available 8757
+  tip One of several exclusive quests; the route takes The Path of the Protector (8747). This one shows for a character the game offers it to instead.
+  zone map 1446
+  accept 8757 optional
+
+step The Path of the Conqueror
+  when available 8752
+  tip One of several exclusive quests; the route takes The Path of the Protector (8747). This one shows for a character the game offers it to instead.
+  zone map 1446
+  accept 8752 optional
+
+step The Path of the Protector
+  zone Tanaris
+  turnin 8747
+
+step The Path of the Invoker
+  when onquest 8757
+  zone map 1446
+  turnin 8757 optional
+
+step The Path of the Conqueror
+  when onquest 8752
+  zone map 1446
+  turnin 8752 optional
+
+step The Path of the Invoker
+  when available 8758
+  tip One of several exclusive quests; the route takes The Path of the Protector (8748). This one shows for a character the game offers it to instead.
+  when turnedin 8757
+  tip Needs Friendly standing (3000) with Brood of Nozdormu; without it the quest is not offered.
+  zone map 1446
+  accept 8758 optional
+
+step The Path of the Conqueror
+  when available 8753
+  tip One of several exclusive quests; the route takes The Path of the Protector (8748). This one shows for a character the game offers it to instead.
+  when turnedin 8752
+  tip Needs Friendly standing (3000) with Brood of Nozdormu; without it the quest is not offered.
+  zone map 1446
+  accept 8753 optional
+
+step The Path of the Invoker
+  when onquest 8758
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1446
+  complete 8758 @65.3,50.0 optional
+
+step The Path of the Invoker
+  when onquest 8758
+  zone map 1446
+  turnin 8758 optional
+
+step The Path of the Conqueror
+  when onquest 8753
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1446
+  complete 8753 @65.3,50.0 optional
+
+step The Path of the Conqueror
+  when onquest 8753
+  zone map 1446
+  turnin 8753 optional
+
+step The Path of the Invoker
+  when available 8759
+  tip One of several exclusive quests; the route takes The Path of the Protector (8749). This one shows for a character the game offers it to instead.
+  when turnedin 8758
+  tip Needs Honored standing (9000) with Brood of Nozdormu; without it the quest is not offered.
+  zone map 1446
+  accept 8759 optional
+
+step The Path of the Conqueror
+  when available 8754
+  tip One of several exclusive quests; the route takes The Path of the Protector (8749). This one shows for a character the game offers it to instead.
+  when turnedin 8753
+  tip Needs Honored standing (9000) with Brood of Nozdormu; without it the quest is not offered.
+  zone map 1446
+  accept 8754 optional
+
+step The Path of the Invoker
+  when onquest 8759
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1446
+  complete 8759 @65.3,50.0 optional
+
+step The Path of the Invoker
+  when onquest 8759
+  zone map 1446
+  turnin 8759 optional
+
+step The Path of the Conqueror
+  when onquest 8754
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1446
+  complete 8754 @65.3,50.0 optional
+
+step The Path of the Conqueror
+  when onquest 8754
+  zone map 1446
+  turnin 8754 optional
+
+step The Path of the Invoker
+  when available 8760
+  tip One of several exclusive quests; the route takes The Path of the Protector (8750). This one shows for a character the game offers it to instead.
+  when turnedin 8759
+  tip Needs Revered standing (21000) with Brood of Nozdormu; without it the quest is not offered.
+  zone map 1446
+  accept 8760 optional
+
+step The Path of the Conqueror
+  when available 8755
+  tip One of several exclusive quests; the route takes The Path of the Protector (8750). This one shows for a character the game offers it to instead.
+  when turnedin 8754
+  tip Needs Revered standing (21000) with Brood of Nozdormu; without it the quest is not offered.
+  zone map 1446
+  accept 8755 optional
+
+step The Path of the Invoker
+  when onquest 8760
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1446
+  complete 8760 @65.3,50.0 optional
+
+step The Path of the Invoker
+  when onquest 8760
+  zone map 1446
+  turnin 8760 optional
+
+step The Path of the Conqueror
+  when onquest 8755
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1446
+  complete 8755 @65.3,50.0 optional
+
+step The Path of the Conqueror
+  when onquest 8755
+  zone map 1446
+  turnin 8755 optional
+
+step The Grand Invoker
+  when available 8761
+  tip One of several exclusive quests; the route takes The Protector of Kalimdor (8751). This one shows for a character the game offers it to instead.
+  when turnedin 8760
+  tip Needs Exalted standing (42000) with Brood of Nozdormu; without it the quest is not offered.
+  zone map 1446
+  accept 8761 optional
+
+step The Qiraji Conqueror
+  when available 8756
+  tip One of several exclusive quests; the route takes The Protector of Kalimdor (8751). This one shows for a character the game offers it to instead.
+  when turnedin 8755
+  tip Needs Exalted standing (42000) with Brood of Nozdormu; without it the quest is not offered.
+  zone map 1446
+  accept 8756 optional
+
+step The Grand Invoker
+  when onquest 8761
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1446
+  complete 8761 @65.3,50.0 optional
+
+step The Grand Invoker
+  when onquest 8761
+  zone map 1446
+  turnin 8761 optional
+
+step The Qiraji Conqueror
+  when onquest 8756
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1446
+  complete 8756 @65.3,50.0 optional
+
+step The Qiraji Conqueror
+  when onquest 8756
+  zone map 1446
+  turnin 8756 optional
+
+step Dirk Thunderwood
+  zone Silithus
+  accept 9023
+
+step The Changing of Paths - Conqueror No More
+  when turnedin 8756
+  tip Needs Exalted standing (42000) with Brood of Nozdormu; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1446
+  collect 21205 x1 anywhere optional
+  collect 20864 x15 anywhere optional
+  collect 20865 x15 anywhere optional
+  collect 20858 x15 anywhere optional
+  turnin 8766 direct optional
+
+step The Changing of Paths - Invoker No More
+  when turnedin 8761
+  tip Needs Exalted standing (42000) with Brood of Nozdormu; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1446
+  collect 21210 x1 anywhere optional
+  collect 20861 x15 anywhere optional
+  collect 20862 x15 anywhere optional
+  collect 20863 x15 anywhere optional
+  turnin 8765 direct optional
+
+step Inside Ruins of Ahn'Qiraj
+  zone Silithus
+  collect 21220 @28.6,92.3
+  accept 8791 item 21220
+  complete 9023 @28.6,92.3
+
+step Commander Mar'alith
+  zone Silithus
+  turnin 8791
+
+step Dirk Thunderwood
+  zone Silithus
+  turnin 9023

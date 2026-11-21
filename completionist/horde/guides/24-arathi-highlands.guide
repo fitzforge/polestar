@@ -1,0 +1,550 @@
+guide polestar-completionist-horde/24-arathi-highlands
+title 24 Arathi Highlands (32-45) (Completionist)
+faction Horde
+levels 32-45
+zone Arathi Highlands
+next polestar-completionist-horde/25-badlands
+pitch On along the line: Arathi Highlands, quests of level 32 to 45.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 35 quests; estimated level at the end 35.1 (heuristic XP, class quests not counted).
+# Skipped: 2 exploration objective has no location in data.
+
+step Gor'mul
+  sethome "Hammerfall"
+  getfp "Hammerfall"
+  accept 655
+
+step The Giant in the Den
+  when has 253711
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1417
+  turnin 92707 direct
+
+step Zengu
+  when group 639
+  zone Arathi Highlands
+  accept 639
+
+step Drum Fel
+  accept 677
+  turnin 655
+  accept 671
+  accept 672
+
+step Cut Arathor Supply Lines
+  zone map 1417
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 8161
+  complete 8161 @73.5,29.8
+
+step Defiler's Basic Care Package
+  when available 8263
+  tip One of several exclusive quests; the route takes Defiler's Standard Care Package (8264). This one shows for a character the game offers it to instead.
+  tip Needs Friendly standing (3000) with The Defilers; without it the quest is not offered.
+  zone map 1417
+  accept 8263 optional
+
+step More Resource Crates
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1417
+  collect 19725 x1 anywhere optional
+  turnin 8300 direct optional
+
+step Defiler's Basic Care Package
+  when onquest 8263
+  zone map 1417
+  turnin 8263 optional
+
+step More Resource Crates
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1417
+  collect 19725 x1 anywhere optional
+  turnin 8124 direct optional
+
+step More Resource Crates
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1417
+  collect 19725 x1 anywhere optional
+  turnin 8163 direct optional
+
+step The Battle for Arathi Basin!
+  when available 8170
+  tip One of several exclusive quests; the route takes The Battle for Arathi Basin! (8171). This one shows for a character the game offers it to instead.
+  zone map 1417
+  accept 8170 optional
+
+step More Resource Crates
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1417
+  collect 19725 x1 anywhere optional
+  turnin 8164 direct optional
+
+step Level 45
+  level 45
+
+step Defiler's Advanced Care Package
+  when available 8265
+  tip One of several exclusive quests; the route takes Defiler's Basic Care Package (8263). This one shows for a character the game offers it to instead.
+  tip Needs Friendly standing (3000) with The Defilers; without it the quest is not offered.
+  zone map 1417
+  accept 8265 optional
+
+step Defiler's Advanced Care Package
+  when onquest 8265
+  zone map 1417
+  turnin 8265 optional
+
+step Level 60
+  level 60
+
+step Take Four Bases
+  tip Needs Friendly standing (3000) with The Defilers; without it the quest is not offered.
+  zone map 1417
+  accept 8121 optional
+
+step Take Four Bases
+  when onquest 8121
+  zone map 1417
+  complete 8121 @73.7,29.5 optional
+
+step Take Four Bases
+  when onquest 8121
+  zone map 1417
+  turnin 8121 optional
+
+step Defiler's Standard Care Package
+  when available 8264
+  tip One of several exclusive quests; the route takes Defiler's Basic Care Package (8263). This one shows for a character the game offers it to instead.
+  tip Needs Friendly standing (3000) with The Defilers; without it the quest is not offered.
+  zone map 1417
+  accept 8264 optional
+
+step The Battle for Arathi Basin!
+  when available 8169
+  tip One of several exclusive quests; the route takes The Battle for Arathi Basin! (8170). This one shows for a character the game offers it to instead.
+  zone map 1417
+  accept 8169 optional
+
+step The Battle for Arathi Basin!
+  when onquest 8169
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1417
+  complete 8169 @73.2,29.7 optional
+
+step The Battle for Arathi Basin!
+  when onquest 8169
+  zone map 1417
+  turnin 8169 optional
+
+step Take Five Bases
+  when turnedin 8121
+  tip Needs Exalted standing (42000) with The Defilers; without it the quest is not offered.
+  zone map 1417
+  accept 8122 optional
+
+step Take Five Bases
+  when onquest 8122
+  zone map 1417
+  complete 8122 @73.7,29.5 optional
+
+step Take Five Bases
+  when onquest 8122
+  zone map 1417
+  turnin 8122 optional
+
+step Defiler's Standard Care Package
+  when onquest 8264
+  zone map 1417
+  turnin 8264 optional
+
+step The Battle for Arathi Basin!
+  when onquest 8170
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1417
+  complete 8170 @73.2,29.7 optional
+
+step The Battle for Arathi Basin!
+  when onquest 8170
+  zone map 1417
+  turnin 8170 optional
+
+step More Resource Crates
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1417
+  collect 19725 x1 anywhere optional
+  turnin 8165 direct optional
+
+step Cut Arathor Supply Lines
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1417
+  accept 8160
+  complete 8160 @73.5,29.8
+
+step Cut Arathor Supply Lines
+  turnin 8161
+
+step Cut Arathor Supply Lines
+  zone map 1417
+  turnin 8160
+
+step Doctor Gregory Victor
+  accept 97539
+
+step Shards of Myzrael
+  accept 642
+
+step Syndicate Pathstalker
+  collect 4495 x10 quest 671.1
+
+step Highland Strider
+  collect 4512 x10 quest 672.1
+
+step Plains Creeper
+  collect 278225 x12 quest 97539.1
+
+step Syndicate Conjuror
+  when group 639
+  zone Arathi Highlands
+  tip Sigil of Strom is group work: elites. Grouping up is advised.
+  collect 4440 x1 quest 639.1
+
+step Witherbark Axe Thrower
+  kill 2554 x10 quest 677.1
+
+step Witherbark Headhunter
+  kill 2556 x10 quest 677.2
+
+step Witherbark Witch Doctor
+  kill 2555 x8 quest 677.3
+
+step Drywhisker Kobold
+  collect 4435 x12 quest 642.1
+
+step Tor'gan
+  turnin 671
+  turnin 672
+  accept 674
+  turnin 97539
+
+step Ward Restocking
+  zone map 1417
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 92519
+  complete 92519 @73.4,36.9
+
+step Level 36
+  level 36
+
+step Tor'gan
+  zone Arathi Highlands
+  accept 95143
+
+step Ward Restocking
+  turnin 92519
+
+step Tor'gan
+  when group 673
+  zone Arathi Highlands
+  accept 673
+
+step Marez Cowl
+  when group 673
+  zone Arathi Highlands
+  tip Foul Magics is group work: elites. Grouping up is advised.
+  collect 4510 x1 quest 673.1
+
+step Lolo the Lookout
+  zone Arathi Highlands
+  accept 663
+
+step Shakes O'Breen
+  zone Arathi Highlands
+  turnin 663
+
+step First Mate Nilzlix
+  zone Arathi Highlands
+  accept 662
+
+step Professor Phizzlethorpe
+  zone Arathi Highlands
+  accept 665
+
+step Doctor Draxlegauge
+  zone Arathi Highlands
+  turnin 665
+
+step Doctor Draxlegauge
+  zone Arathi Highlands
+  accept 666
+
+step Maiden's Folly Log and Calcified Elven Gem
+  zone Arathi Highlands
+  collect 4492 x10 quest 666.1
+
+step Captain Steelgut
+  zone Arathi Highlands
+  accept 664
+
+step Maiden's Folly Log and Calcified Elven Gem
+  zone Arathi Highlands
+  collect 4489 x1 quest 662.2
+
+step Spirit of Silverpine Charts, Spirit of Silverpine Log and Daggerspine Raider
+  collect 4488 x1 quest 662.3
+  collect 4490 x1 quest 662.4
+  kill 2595 x10 quest 664.1
+
+step Maiden's Folly Charts and Daggerspine Sorceress
+  collect 4487 x1 quest 662.1
+  kill 2596 x3 quest 664.2
+
+step First Mate Nilzlix
+  turnin 662
+  turnin 666
+  accept 668
+  turnin 664
+  turnin 668
+  accept 669
+
+step Gor'mul
+  turnin 674
+  accept 675
+
+step Zengu
+  when group 639
+  zone Arathi Highlands
+  turnin 639
+
+step Zengu
+  when group 640
+  zone Arathi Highlands
+  accept 640
+
+step Drum Fel
+  turnin 677
+  accept 678
+  turnin 675
+  accept 701
+
+step Tor'gan
+  when group 673
+  zone Arathi Highlands
+  turnin 673
+
+step Boulderfist Brute and Boulderfist Magus
+  kill 2566 x10 quest 678.1
+  kill 2567 x4 quest 678.2
+
+step Highland Fleshstalker
+  collect 4513 x12 quest 701.1
+
+step Stromgarde Troll Hunter
+  when group 640
+  zone Arathi Highlands
+  tip The Broken Sigil is group work: elites. Grouping up is advised.
+  collect 4450 x11 quest 640.1
+
+step Tor'gan
+  turnin 701
+  accept 702
+
+step Tor'gan
+  when group 640
+  zone Arathi Highlands
+  turnin 640
+
+step Tor'gan
+  zone Arathi Highlands
+  accept 641
+  turnin 678
+
+step Drum Fel
+  when group 679
+  zone Arathi Highlands
+  accept 679
+
+step Zengu
+  turnin 641
+
+step Zengu
+  when group 643
+  zone Arathi Highlands
+  accept 643
+
+step Korin Fel
+  when group 680
+  zone Arathi Highlands
+  accept 680
+
+step Gor'mul
+  turnin 702
+  accept 847
+
+step Lieutenant Valorcall
+  when group 643
+  zone Arathi Highlands
+  tip Sigil of Arathor is group work: elites. Grouping up is advised.
+  collect 4458 x1 quest 643.1
+
+step Boulderfist Lord and Or'Kalar
+  when group 680
+  zone Arathi Highlands
+  tip The Real Threat is group work: elites. Grouping up is advised.
+  collect 4551 x1 quest 680.1
+
+step Boulderfist Lord and Or'Kalar
+  when group 679
+  zone Arathi Highlands
+  tip Call to Arms is group work: elites. Grouping up is advised.
+  kill 2571 x3 quest 679.2
+
+step Boulderfist Shaman
+  when group 679
+  zone Arathi Highlands
+  tip Call to Arms is group work: elites. Grouping up is advised.
+  kill 2570 x7 quest 679.1
+
+step Zengu
+  when group 643
+  zone Arathi Highlands
+  turnin 643
+
+step Zengu
+  when group 644
+  zone Arathi Highlands
+  accept 644
+
+step Drum Fel
+  when group 679
+  zone Arathi Highlands
+  turnin 679
+
+step Korin Fel
+  when group 680
+  zone Arathi Highlands
+  turnin 680
+
+step Prince Galen Trollbane
+  when group 644
+  zone Arathi Highlands
+  tip Sigil of Trollbane is group work: elites. Grouping up is advised.
+  collect 4466 x1 quest 644.1
+
+step Zengu
+  when group 644
+  zone Arathi Highlands
+  turnin 644
+
+step Zengu
+  zone Arathi Highlands
+  accept 645
+  turnin 847
+
+step Iridescent Shards
+  turnin 642
+  accept 651
+
+step Stone of East Binding
+  collect 4484 x1 quest 651.2
+
+step Stone of Outer Binding
+  collect 4485 x1 quest 651.3
+
+step Stone of West Binding
+  collect 4483 x1 quest 651.1
+
+step Trollbane's Tomb
+  turnin 645
+  accept 646
+
+step Stone of Inner Binding
+  turnin 651
+
+step Stone of Inner Binding
+  when group 652
+  zone Arathi Highlands
+  accept 652
+
+step Fozruk
+  when group 652
+  zone Arathi Highlands
+  tip Breaking the Keystone is group work: elites. Grouping up is advised.
+  collect 4469 x1 quest 652.1
+
+step Zengu
+  turnin 646
+
+step Keystone
+  when group 652
+  zone Arathi Highlands
+  turnin 652
+
+step Keystone
+  when turnedin 652
+  zone Arathi Highlands
+  accept 688 optional
+
+step Zaruk
+  when onquest 688
+  turnin 688
+
+step Tan'jani
+  zone Riverglades
+  turnin 95143
+
+step Fleet Master Seahorn
+  zone Stranglethorn Vale
+  turnin 669
+  accept 670
+
+step Crystal in the Mountains
+  tip Pendant of Myzrael drops from Gluggle, Singer, Achellios the Banished: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1434
+  collect 4614 x1 optional
+  accept 635 item 4614 optional
+
+step Crystal in the Mountains
+  when onquest 635
+  zone map 1417
+  turnin 635
+
+step Shakes O'Breen
+  zone Arathi Highlands
+  turnin 670
+  accept 667
+
+step Shakes O'Breen
+  turnin 667
+
+step Anyone Can Cook
+  tip Illegible Recipe drops from Boulderfist Ogre, Boulderfist Enforcer, Boulderfist Brute: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1417
+  collect 213422 x1 optional
+  accept 79624 item 213422 optional
+  complete 79624 @57.7,74.7
+
+step Anyone Can Cook
+  when onquest 79624
+  zone map 1417
+  turnin 79624
+
+step A Quick Grocery Run
+  when turnedin 79624
+  zone map 1417
+  accept 79677
+  complete 79677 @57.7,74.7
+
+step A Quick Grocery Run
+  when onquest 79677
+  zone map 1417
+  turnin 79677
+
+step Taste Testing
+  when turnedin 79677
+  zone map 1417
+  accept 79678
+
+step Taste Testing
+  when onquest 79678
+  zone map 1417
+  turnin 79678

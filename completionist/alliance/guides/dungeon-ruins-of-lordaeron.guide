@@ -1,0 +1,44 @@
+guide polestar-completionist-alliance/dungeon-ruins-of-lordaeron
+title Ruins of Lordaeron (Completionist)
+faction Alliance
+category Dungeons
+levels 15-22
+zone Undercity
+pitch Ruins of Lordaeron, in Undercity.
+why Every Alliance quest of Ruins of Lordaeron: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Undercity: the arrow leads to it.
+
+step Inside Ruins of Lordaeron
+  zone Undercity
+  accept 95250 @72.8,11.5
+  collect 251270 @72.8,11.5
+  accept 92415 item 251270
+  collect 268579 @72.8,11.5
+  accept 95189 item 268579
+  collect 268535 @72.8,11.5
+  accept 95195 item 268535
+  complete 95250 @72.8,11.5
+  turnin 95250 @72.8,11.5
+  complete 95195 @72.8,11.5
+
+step General Marcus Jonathan
+  zone Stormwind City
+  turnin 95195
+
+step Lady Dena Kennedy
+  zone Stormwind City
+  turnin 95189
+
+step Orphan Matron Nightingale
+  zone Stormwind City
+  turnin 92415
+
+step Orphan Matron Nightingale
+  zone Stormwind City
+  accept 95161
+
+step Avette Fellwood
+  zone Duskwood
+  turnin 95161

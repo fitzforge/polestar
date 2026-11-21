@@ -1,0 +1,166 @@
+guide polestar-completionist-horde/dungeon-razorfen-kraul
+title Razorfen Kraul (Completionist)
+faction Horde
+category Dungeons
+levels 26-36
+zone The Barrens
+next polestar-completionist-horde/14-hillsbrad-foothills-and-alterac-mountains
+pitch Razorfen Kraul, in The Barrens.
+why Every Horde quest of Razorfen Kraul: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in The Barrens: the arrow leads to it.
+
+step Speak with Ruga
+  only Warrior
+  zone Thunder Bluff
+  accept 1823
+
+step Speak with Ruga
+  only Warrior
+  zone The Barrens
+  turnin 1823
+
+step Trial at the Field of Giants
+  only Warrior
+  zone The Barrens
+  accept 1824
+
+step Trial at the Field of Giants
+  only Warrior
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone The Barrens
+  complete 1824 @44.67,59.42
+
+step Trial at the Field of Giants
+  only Warrior
+  zone The Barrens
+  turnin 1824
+
+step Speak with Thun'grim
+  only Warrior
+  zone The Barrens
+  accept 1825
+
+step Speak with Thun'grim
+  only Warrior
+  zone The Barrens
+  turnin 1825
+
+step Mebok Mizzyrix
+  zone The Barrens
+  accept 1221
+
+step Thun'grim Firegaze
+  only Warrior
+  zone The Barrens
+  accept 1838
+
+step Inside Razorfen Kraul
+  zone The Barrens
+  accept 1144 @42.5,90
+  collect 17008 @42.5,90
+  complete 1221 @42.5,90
+  complete 1144 @42.5,90
+  turnin 1144 @42.5,90
+
+step Inside Razorfen Kraul
+  only Warrior
+  zone The Barrens
+  complete 1838 @42.5,90
+
+step Mebok Mizzyrix
+  zone The Barrens
+  turnin 1221
+
+step Thun'grim Firegaze
+  only Warrior
+  zone The Barrens
+  turnin 1838
+
+step Level 30
+  level 30
+
+step Call of Air
+  only Shaman
+  zone Orgrimmar
+  accept 1531
+
+step Call of Air
+  only Shaman
+  zone Thousand Needles
+  turnin 1531
+
+step Prate Cloudseer
+  only Shaman
+  zone Thousand Needles
+  accept 79360
+
+step Inside Razorfen Kraul
+  only Shaman
+  zone The Barrens
+  complete 79360 @42.5,90
+
+step Rau Cliffrunner
+  only Shaman
+  zone Thousand Needles
+  turnin 79360
+
+step Auld Stonespire
+  zone Thunder Bluff
+  accept 1102
+
+step Inside Razorfen Kraul
+  zone The Barrens
+  complete 1102 @42.5,90
+
+step Auld Stonespire
+  zone Thunder Bluff
+  turnin 1102
+
+step Call of Air
+  only Shaman
+  when available 1532
+  tip One of several exclusive quests; the route takes Call of Air (1531). This one shows for a character the game offers it to instead.
+  zone map 1456
+  accept 1532 optional
+
+step Call of Air
+  only Shaman
+  when onquest 1532
+  zone map 1441
+  turnin 1532 optional
+
+step Master Apothecary Faranell
+  zone Undercity
+  accept 1109
+
+step Inside Razorfen Kraul
+  zone The Barrens
+  complete 1109 @42.5,90
+
+step Inside Razorfen Kraul
+  zone The Barrens
+  accept 6522 item 17008
+
+step Master Apothecary Faranell
+  zone Undercity
+  turnin 1109
+
+step Varimathras
+  zone Undercity
+  turnin 6522
+
+
+step Call of Air
+  only Shaman,Skyborne
+  when available 96136
+  tip One of several exclusive quests; the route takes Call of Air (1531). This one shows for a character the game offers it to instead.
+  zone map 1412
+  accept 96136 optional
+
+step Call of Air
+  only Shaman,Skyborne
+  when onquest 96136
+  zone map 1441
+  turnin 96136 optional

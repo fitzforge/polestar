@@ -1,0 +1,196 @@
+guide polestar-completionist-alliance/22-wetlands-2
+title 22 Wetlands (29-40) (Completionist)
+faction Alliance
+levels 29-40
+zone Wetlands
+next polestar-completionist-alliance/dungeon-gnomeregan
+next polestar-completionist-alliance/23-odd-jobs-in-the-eastern-kingdoms-2
+pitch On along the line: Wetlands, quests of level 29 to 40.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 16 quests; estimated level at the end 30.2 (heuristic XP, class quests not counted).
+
+step Mikhail
+  sethome "Deepwater Tavern"
+  accept 1249
+
+step Tapoke "Slim" Jahn
+  kill 4962 x1 quest 1249.1
+
+step Mikhail
+  turnin 1249
+  accept 1250
+  turnin 1250
+  accept 1264
+
+step Captain Stoutfist
+  accept 465
+
+step Prospector Whelgar
+  when group 98216
+  zone Wetlands
+  accept 98216
+
+step Goaz Warder
+  when group 98216
+  zone Wetlands
+  tip Understanding Our Present is group work: elites. Grouping up is advised.
+  collect 279993 x1 quest 98216.1
+
+step Prospector Whelgar
+  when group 98216
+  zone Wetlands
+  turnin 98216
+
+step Prospector Whelgar
+  when group 98310
+  zone Wetlands
+  accept 98310
+
+step Modr
+  when group 98310
+  zone Wetlands
+  tip Gleaning Our Future is group work: elites. Grouping up is advised.
+  collect 280396 x1 quest 98310.2
+
+step Neru
+  when group 98310
+  zone Wetlands
+  tip Gleaning Our Future is group work: elites. Grouping up is advised.
+  collect 280398 x1 quest 98310.4
+
+step Ados
+  when group 98310
+  zone Wetlands
+  tip Gleaning Our Future is group work: elites. Grouping up is advised.
+  collect 280395 x1 quest 98310.1
+
+step Golm
+  when group 98310
+  zone Wetlands
+  tip Gleaning Our Future is group work: elites. Grouping up is advised.
+  collect 280397 x1 quest 98310.3
+
+step Tattered Spellbook
+  accept 98223
+
+step Dragonmaw Catapult
+  turnin 465 object 1609
+
+step Dragonmaw Catapult
+  when group 474
+  zone Wetlands
+  accept 474 object 1609
+
+step Chieftain Nek'rosh
+  when group 474
+  zone Wetlands
+  tip Defeat Nek'rosh is group work: elites. Grouping up is advised.
+  collect 3625 x1 quest 474.1
+
+step Howin Kindfeather
+  when group 98297
+  zone Wetlands
+  accept 98297
+
+step Subdued Dragonspawn
+  when group 98297
+  zone Wetlands
+  tip Stopping the Cycle is group work: elites. Grouping up is advised.
+  kill 271373 x1 quest 98297.1
+
+step Howin Kindfeather
+  when group 98297
+  zone Wetlands
+  turnin 98297
+
+step Howin Kindfeather
+  when turnedin 98297
+  when turnedin 98245
+  when turnedin 98291
+  zone Wetlands
+  accept 98300 optional
+
+step Prospector Whelgar
+  when group 98310
+  zone Wetlands
+  turnin 98310
+
+step Prospector Whelgar
+  zone Wetlands
+  accept 98313
+
+step Longbraid the Grim
+  when group 304
+  zone Wetlands
+  accept 304
+
+step Rhag Garmason
+  accept 631
+
+step Bring Back a Bang
+  zone map 1437
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 88756
+  complete 88756 @50.0,18.2
+
+step Bring Back a Bang
+  turnin 88756
+
+step Balgaras the Foul
+  when group 304
+  zone Wetlands
+  tip A Grim Task is group work: elites. Grouping up is advised.
+  collect 3639 x1 quest 304.1
+
+step Longbraid the Grim
+  when group 304
+  zone Wetlands
+  turnin 304
+
+step Ebenezer Rustlocke's Corpse
+  zone Arathi Highlands
+  turnin 631
+
+step Captain Stoutfist
+  zone Wetlands
+  turnin 98223
+
+step Captain Stoutfist
+  when group 474
+  zone Wetlands
+  turnin 474
+
+step Captain Stoutfist
+  zone Wetlands
+  accept 98230
+
+step Vincent Hyal
+  zone Wetlands
+  accept 1302
+
+step Historian Karnik
+  zone Ironforge
+  turnin 98313
+
+step Level 40
+  level 40
+
+step Unger Statforth
+  zone Wetlands
+  accept 97171 only Human @8.6,54.3 map 1437
+  turnin 97171 only Human @8.6,54.3 map 1437
+
+step King Magni Bronzebeard
+  when onquest 98300
+  turnin 98300
+
+step Howin Kindfeather
+  zone Wetlands
+  turnin 98230
+
+step Commander Samaul
+  zone Dustwallow Marsh
+  turnin 1264
+
+step Clerk Lendry
+  turnin 1302

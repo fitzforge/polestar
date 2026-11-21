@@ -1,0 +1,589 @@
+guide polestar-completionist-alliance/raid-ahnqiraj-temple
+title Ahn'Qiraj Temple (Completionist)
+faction Alliance
+category Dungeons
+levels 60-60
+zone Silithus
+pitch Ahn'Qiraj Temple, in Silithus. A raid.
+why Every Alliance quest of Ahn'Qiraj Temple: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Silithus: the arrow leads to it. This is a raid: it needs a raid group.
+
+step The Path of the Protector
+  zone Tanaris
+  accept 8747
+
+step The Path of the Protector
+  zone Tanaris
+  turnin 8747
+
+step The Path of the Protector
+  zone Tanaris
+  accept 8748
+
+step The Path of the Protector
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 8748 @65.27,50.03
+
+step The Path of the Protector
+  zone Tanaris
+  turnin 8748
+
+step The Path of the Protector
+  zone Tanaris
+  accept 8749
+
+step The Path of the Protector
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 8749 @65.27,50.03
+
+step The Path of the Protector
+  zone Tanaris
+  turnin 8749
+
+step The Path of the Protector
+  zone Tanaris
+  accept 8750
+
+step The Path of the Protector
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 8750 @65.27,50.03
+
+step The Path of the Protector
+  zone Tanaris
+  turnin 8750
+
+step The Protector of Kalimdor
+  zone Tanaris
+  accept 8751
+
+step The Protector of Kalimdor
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 8751 @65.27,50.03
+
+step The Protector of Kalimdor
+  zone Tanaris
+  turnin 8751
+
+step Frame of Atiesh
+  only Priest,Mage,Warlock,Druid
+  tip This quest starts from an item: use it to take the quest.
+  collect 22727 x1 anywhere
+  accept 9250 item 22727
+
+step Frame of Atiesh
+  only Priest,Mage,Warlock,Druid
+  zone Tanaris
+  turnin 9250
+
+step Keyl Swiftclaw
+  only Warrior
+  zone Silithus
+  accept 8557
+
+step Keyl Swiftclaw
+  only Priest
+  zone Silithus
+  accept 8689
+
+step Keyl Swiftclaw
+  only Mage
+  zone Silithus
+  accept 8691
+
+step Keyl Swiftclaw
+  only Druid
+  zone Silithus
+  accept 8692
+
+step Keyl Swiftclaw
+  only Rogue
+  zone Silithus
+  accept 8693
+
+step Keyl Swiftclaw
+  only Warlock
+  zone Silithus
+  accept 8694
+
+step Keyl Swiftclaw
+  only Paladin
+  zone Silithus
+  accept 8695
+
+step Keyl Swiftclaw
+  only Hunter
+  zone Silithus
+  accept 8696
+
+step Warden Haro
+  only Warrior
+  zone Silithus
+  accept 8558
+
+step Warden Haro
+  only Priest
+  zone Silithus
+  accept 8705
+
+step Warden Haro
+  only Mage
+  zone Silithus
+  accept 8707
+
+step Warden Haro
+  only Druid
+  zone Silithus
+  accept 8708
+
+step Warden Haro
+  only Rogue
+  zone Silithus
+  accept 8709
+
+step Warden Haro
+  only Warlock
+  zone Silithus
+  accept 8710
+
+step Warden Haro
+  only Paladin
+  zone Silithus
+  accept 8711
+
+step Warden Haro
+  only Hunter
+  zone Silithus
+  accept 8712
+
+step Windcaller Yessendra
+  only Warrior
+  zone Silithus
+  accept 8556
+
+step Windcaller Yessendra
+  only Priest
+  zone Silithus
+  accept 8697
+
+step Windcaller Yessendra
+  only Mage
+  zone Silithus
+  accept 8699
+
+step Windcaller Yessendra
+  only Druid
+  zone Silithus
+  accept 8700
+
+step Windcaller Yessendra
+  only Rogue
+  zone Silithus
+  accept 8701
+
+step Windcaller Yessendra
+  only Warlock
+  zone Silithus
+  accept 8702
+
+step Windcaller Yessendra
+  only Paladin
+  zone Silithus
+  accept 8703
+
+step Windcaller Yessendra
+  only Hunter
+  zone Silithus
+  accept 8704
+
+step Anachronos
+  zone Tanaris
+  accept 8764
+
+step Anachronos
+  only Priest,Mage,Warlock,Druid
+  zone Tanaris
+  accept 9251
+
+step Inside Ahn'Qiraj Temple
+  zone Silithus
+  accept 8579 @28.6,92.3
+  collect 21230 @28.6,92.3
+  accept 8784 item 21230
+  accept 8789 @28.6,92.3
+  accept 8790 @28.6,92.3
+  collect 21221 @28.6,92.3
+  accept 8801 item 21221
+  complete 8579 @28.6,92.3
+  turnin 8579 @28.6,92.3
+  complete 8764 @28.6,92.3
+  turnin 8784 @28.6,92.3
+  complete 8789 @28.6,92.3
+  turnin 8789 @28.6,92.3
+  complete 8790 @28.6,92.3
+  turnin 8790 @28.6,92.3
+
+step Inside Ahn'Qiraj Temple
+  only Warrior
+  zone Silithus
+  complete 8556 @28.6,92.3
+  complete 8557 @28.6,92.3
+  complete 8558 @28.6,92.3
+
+step Inside Ahn'Qiraj Temple
+  only Priest
+  zone Silithus
+  complete 8689 @28.6,92.3
+  complete 8697 @28.6,92.3
+  complete 8705 @28.6,92.3
+
+step Inside Ahn'Qiraj Temple
+  only Mage
+  zone Silithus
+  complete 8691 @28.6,92.3
+  complete 8699 @28.6,92.3
+  complete 8707 @28.6,92.3
+
+step Inside Ahn'Qiraj Temple
+  only Druid
+  zone Silithus
+  complete 8692 @28.6,92.3
+  complete 8700 @28.6,92.3
+  complete 8708 @28.6,92.3
+
+step Inside Ahn'Qiraj Temple
+  only Rogue
+  zone Silithus
+  complete 8693 @28.6,92.3
+  complete 8701 @28.6,92.3
+  complete 8709 @28.6,92.3
+
+step Inside Ahn'Qiraj Temple
+  only Warlock
+  zone Silithus
+  complete 8694 @28.6,92.3
+  complete 8702 @28.6,92.3
+  complete 8710 @28.6,92.3
+
+step Inside Ahn'Qiraj Temple
+  only Paladin
+  zone Silithus
+  complete 8695 @28.6,92.3
+  complete 8703 @28.6,92.3
+  complete 8711 @28.6,92.3
+
+step Inside Ahn'Qiraj Temple
+  only Hunter
+  zone Silithus
+  complete 8696 @28.6,92.3
+  complete 8704 @28.6,92.3
+  complete 8712 @28.6,92.3
+
+step Inside Ahn'Qiraj Temple
+  only Priest,Mage,Warlock,Druid
+  zone Silithus
+  complete 9251 @28.6,92.3
+
+step Caelestrasz
+  zone Silithus
+  turnin 8801 @28.6,92.3 map 1451
+
+step Keyl Swiftclaw
+  only Warrior
+  zone Silithus
+  turnin 8557
+
+step Keyl Swiftclaw
+  only Priest
+  zone Silithus
+  turnin 8689
+
+step Keyl Swiftclaw
+  only Mage
+  zone Silithus
+  turnin 8691
+
+step Keyl Swiftclaw
+  only Druid
+  zone Silithus
+  turnin 8692
+
+step Keyl Swiftclaw
+  only Rogue
+  zone Silithus
+  turnin 8693
+
+step Keyl Swiftclaw
+  only Warlock
+  zone Silithus
+  turnin 8694
+
+step Keyl Swiftclaw
+  only Paladin
+  zone Silithus
+  turnin 8695
+
+step Keyl Swiftclaw
+  only Hunter
+  zone Silithus
+  turnin 8696
+
+step Warden Haro
+  only Warrior
+  zone Silithus
+  turnin 8558
+
+step Warden Haro
+  only Priest
+  zone Silithus
+  turnin 8705
+
+step Warden Haro
+  only Mage
+  zone Silithus
+  turnin 8707
+
+step Warden Haro
+  only Druid
+  zone Silithus
+  turnin 8708
+
+step Warden Haro
+  only Rogue
+  zone Silithus
+  turnin 8709
+
+step Warden Haro
+  only Warlock
+  zone Silithus
+  turnin 8710
+
+step Warden Haro
+  only Paladin
+  zone Silithus
+  turnin 8711
+
+step Warden Haro
+  only Hunter
+  zone Silithus
+  turnin 8712
+
+step Windcaller Yessendra
+  only Warrior
+  zone Silithus
+  turnin 8556
+
+step Windcaller Yessendra
+  only Priest
+  zone Silithus
+  turnin 8697
+
+step Windcaller Yessendra
+  only Mage
+  zone Silithus
+  turnin 8699
+
+step Windcaller Yessendra
+  only Druid
+  zone Silithus
+  turnin 8700
+
+step Windcaller Yessendra
+  only Rogue
+  zone Silithus
+  turnin 8701
+
+step Windcaller Yessendra
+  only Warlock
+  zone Silithus
+  turnin 8702
+
+step Windcaller Yessendra
+  only Paladin
+  zone Silithus
+  turnin 8703
+
+step Windcaller Yessendra
+  only Hunter
+  zone Silithus
+  turnin 8704
+
+step Anachronos
+  zone Tanaris
+  turnin 8764
+
+step Anachronos
+  only Priest,Mage,Warlock,Druid
+  zone Tanaris
+  turnin 9251
+
+step Caelestrasz
+  zone Silithus
+  accept 8802 @28.6,92.3 map 1451
+
+step Inside Ahn'Qiraj Temple, again
+  zone Silithus
+  accept 8595 @28.6,92.3
+  complete 8595 @28.6,92.3
+  turnin 8595 @28.6,92.3
+
+step Inside Ahn'Qiraj Temple
+  only Warrior
+  zone Silithus
+  accept 8544 @28.6,92.3
+  accept 8559 @28.6,92.3
+  accept 8560 @28.6,92.3
+  accept 8561 @28.6,92.3
+  accept 8562 @28.6,92.3
+  complete 8544 @28.6,92.3
+  turnin 8544 @28.6,92.3
+  complete 8559 @28.6,92.3
+  turnin 8559 @28.6,92.3
+  complete 8560 @28.6,92.3
+  turnin 8560 @28.6,92.3
+  complete 8561 @28.6,92.3
+  turnin 8561 @28.6,92.3
+  complete 8562 @28.6,92.3
+  turnin 8562 @28.6,92.3
+
+step Inside Ahn'Qiraj Temple
+  only Priest
+  zone Silithus
+  accept 8592 @28.6,92.3
+  accept 8593 @28.6,92.3
+  accept 8594 @28.6,92.3
+  accept 8596 @28.6,92.3
+  accept 8603 @28.6,92.3
+  complete 8592 @28.6,92.3
+  turnin 8592 @28.6,92.3
+  complete 8593 @28.6,92.3
+  turnin 8593 @28.6,92.3
+  complete 8594 @28.6,92.3
+  turnin 8594 @28.6,92.3
+  complete 8596 @28.6,92.3
+  turnin 8596 @28.6,92.3
+  complete 8603 @28.6,92.3
+  turnin 8603 @28.6,92.3
+
+step Inside Ahn'Qiraj Temple
+  only Mage
+  zone Silithus
+  accept 8625 @28.6,92.3
+  accept 8631 @28.6,92.3
+  accept 8632 @28.6,92.3
+  accept 8633 @28.6,92.3
+  accept 8634 @28.6,92.3
+  complete 8625 @28.6,92.3
+  turnin 8625 @28.6,92.3
+  complete 8631 @28.6,92.3
+  turnin 8631 @28.6,92.3
+  complete 8632 @28.6,92.3
+  turnin 8632 @28.6,92.3
+  complete 8633 @28.6,92.3
+  turnin 8633 @28.6,92.3
+  complete 8634 @28.6,92.3
+  turnin 8634 @28.6,92.3
+
+step Inside Ahn'Qiraj Temple
+  only Hunter
+  zone Silithus
+  accept 8626 @28.6,92.3
+  accept 8656 @28.6,92.3
+  accept 8657 @28.6,92.3
+  accept 8658 @28.6,92.3
+  accept 8659 @28.6,92.3
+  complete 8626 @28.6,92.3
+  turnin 8626 @28.6,92.3
+  complete 8656 @28.6,92.3
+  turnin 8656 @28.6,92.3
+  complete 8657 @28.6,92.3
+  turnin 8657 @28.6,92.3
+  complete 8658 @28.6,92.3
+  turnin 8658 @28.6,92.3
+  complete 8659 @28.6,92.3
+  turnin 8659 @28.6,92.3
+
+step Inside Ahn'Qiraj Temple
+  only Paladin
+  zone Silithus
+  accept 8627 @28.6,92.3
+  accept 8628 @28.6,92.3
+  accept 8629 @28.6,92.3
+  accept 8630 @28.6,92.3
+  accept 8655 @28.6,92.3
+  complete 8627 @28.6,92.3
+  turnin 8627 @28.6,92.3
+  complete 8628 @28.6,92.3
+  turnin 8628 @28.6,92.3
+  complete 8629 @28.6,92.3
+  turnin 8629 @28.6,92.3
+  complete 8630 @28.6,92.3
+  turnin 8630 @28.6,92.3
+  complete 8655 @28.6,92.3
+  turnin 8655 @28.6,92.3
+
+step Inside Ahn'Qiraj Temple
+  only Rogue
+  zone Silithus
+  accept 8637 @28.6,92.3
+  accept 8638 @28.6,92.3
+  accept 8639 @28.6,92.3
+  accept 8640 @28.6,92.3
+  accept 8641 @28.6,92.3
+  complete 8637 @28.6,92.3
+  turnin 8637 @28.6,92.3
+  complete 8638 @28.6,92.3
+  turnin 8638 @28.6,92.3
+  complete 8639 @28.6,92.3
+  turnin 8639 @28.6,92.3
+  complete 8640 @28.6,92.3
+  turnin 8640 @28.6,92.3
+  complete 8641 @28.6,92.3
+  turnin 8641 @28.6,92.3
+
+step Inside Ahn'Qiraj Temple
+  only Warlock
+  zone Silithus
+  accept 8660 @28.6,92.3
+  accept 8661 @28.6,92.3
+  accept 8662 @28.6,92.3
+  accept 8663 @28.6,92.3
+  accept 8664 @28.6,92.3
+  complete 8660 @28.6,92.3
+  turnin 8660 @28.6,92.3
+  complete 8661 @28.6,92.3
+  turnin 8661 @28.6,92.3
+  complete 8662 @28.6,92.3
+  turnin 8662 @28.6,92.3
+  complete 8663 @28.6,92.3
+  turnin 8663 @28.6,92.3
+  complete 8664 @28.6,92.3
+  turnin 8664 @28.6,92.3
+
+step Inside Ahn'Qiraj Temple
+  only Druid
+  zone Silithus
+  accept 8665 @28.6,92.3
+  accept 8666 @28.6,92.3
+  accept 8667 @28.6,92.3
+  accept 8668 @28.6,92.3
+  accept 8669 @28.6,92.3
+  complete 8665 @28.6,92.3
+  turnin 8665 @28.6,92.3
+  complete 8666 @28.6,92.3
+  turnin 8666 @28.6,92.3
+  complete 8667 @28.6,92.3
+  turnin 8667 @28.6,92.3
+  complete 8668 @28.6,92.3
+  turnin 8668 @28.6,92.3
+  complete 8669 @28.6,92.3
+  turnin 8669 @28.6,92.3
+
+step Anachronos
+  zone Tanaris
+  turnin 8802

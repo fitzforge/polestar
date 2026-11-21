@@ -1,0 +1,916 @@
+guide polestar-completionist-horde/45-mount-hyjal
+title 45 Mount Hyjal (56-60) (Completionist)
+faction Horde
+levels 56-60
+zone Mount Hyjal
+next polestar-completionist-horde/46-winterspring
+pitch On along the line: Mount Hyjal, quests of level 56 to 60.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 98 quests; estimated level at the end 60.0 (heuristic XP, class quests not counted).
+
+step Thylaen
+  when group 91923
+  zone Mount Hyjal
+  accept 91923
+
+step Hyacinth
+  getfp "Tainted Foothills"
+  accept 91755
+
+step Rub Some Dirt In It
+  zone map 2482
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 91754
+  complete 91754 @54.0,84.4
+
+step Tainted Shrubbery
+  collect 247892 x12 quest 91755.1
+
+step Celastrus the Bitter
+  when group 91923
+  zone Mount Hyjal
+  tip Celastrus the Bitter is group work: elites. Grouping up is advised.
+  collect 282028 x1 quest 91923.1
+
+step Kaylaena Springwhisper
+  accept 92008
+  accept 92594
+
+step Tainted Shrubbery
+  kill 248395 x15 quest 92594.1
+
+step Thylaen
+  when group 91923
+  zone Mount Hyjal
+  turnin 91923
+
+step Hyacinth
+  turnin 91755
+
+step Rub Some Dirt In It
+  turnin 91754
+
+step Hyacinth
+  zone Mount Hyjal
+  accept 91770
+
+step Fraxinus
+  zone Mount Hyjal
+  turnin 91770
+
+step Fraxinus
+  zone Mount Hyjal
+  accept 92959
+  turnin 92959
+
+step Fraxinus
+  zone Mount Hyjal
+  accept 95766
+
+step Curious Crow
+  accept 95317
+  accept 95320
+
+step Curious Crow
+  zone Mount Hyjal
+  turnin 95766
+
+step Ashen Acolyte
+  collect 274396 x12 quest 95317.1
+
+step Felflick
+  turnin 95320
+  accept 95318
+
+step Ashen Acolyte and Frezzlie Popwhiz
+  kill 260422 x12 quest 95318.1
+
+step Felflick
+  turnin 95318
+
+step Crystalline Collection
+  zone map 2482
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 95319
+  complete 95319 @48.6,73.5
+
+step Crystalline Collection
+  turnin 95319
+
+step Felflick
+  zone Mount Hyjal
+  accept 95378
+
+step Felflick
+  zone Mount Hyjal
+  accept 95379
+
+step Felflick
+  zone Mount Hyjal
+  turnin 95378
+
+step Felflick
+  zone Mount Hyjal
+  accept 96435
+
+step Bone Pile
+  zone Mount Hyjal
+  turnin 96435
+
+step Bone Pile
+  when group 96255
+  zone Mount Hyjal
+  accept 96255
+
+step Felflick
+  zone Mount Hyjal
+  complete 95379
+  turnin 95379
+
+step Felflick
+  when group 96255
+  zone Mount Hyjal
+  complete 96255
+  turnin 96255
+
+step Curious Crow
+  turnin 95317
+  accept 95380
+
+step Prickly Pinecones
+  zone map 2482
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 96262
+  complete 96262 @48.3,85.7
+
+step Noxious Slime and Awakened Fel Ash Slime
+  collect 273008 x8 quest 95380.1
+
+step Velician
+  accept 96321
+
+step Curious Crow
+  turnin 95380
+  turnin 96321
+  accept 96131
+
+step Prickly Pinecones
+  turnin 96262
+
+step Curious Crow
+  zone Mount Hyjal
+  accept 95316
+  turnin 95316
+
+step Curious Crow
+  zone Mount Hyjal
+  accept 94782
+
+step Skylord Omnuron
+  accept 91883
+  accept 92147
+
+step A Revenge Now Bitter
+  zone map 2482
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 96322
+  complete 96322 @48.6,73.5
+
+step Tarnished Treasures
+  zone map 2482
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 96252
+  complete 96252 @54.5,63.9
+
+step Wormwing Fledgling
+  collect 268997 x1 quest 92147.1
+
+step Zarrat Wormwing
+  collect 268998 x1 quest 91883.1
+
+step Corrupted Growth
+  accept 96296
+
+step Corrupted Growth
+  interact 651409 quest 96296.1
+
+step Lisbael Highfeather
+  accept 96145
+
+step Galvinquam Leafsyre
+  accept 96979
+  turnin 96979
+  accept 96991
+
+step Barkskin Matriarch
+  accept 91696
+  accept 91698
+
+step Deadwood Warden
+  collect 272936 x1 quest 91698.1
+
+step Barkskin Matriarch
+  turnin 91698
+
+step Veteran of the Third War
+  accept 93567
+
+step Veteran of the Third War
+  turnin 93567
+  accept 96558
+
+step Battle Cache
+  turnin 96558
+
+step Kits and Cats
+  zone map 2482
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 93615
+  complete 93615 @31.3,50.3
+
+step Kits and Cats
+  turnin 93615
+
+step Old Wardrobe
+  accept 97001 @33.3,41 map 2482
+
+step Last Wishes
+  when has 274800
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 2482
+  turnin 96561 direct
+
+step Elaena Moonwhisper
+  accept 92960
+  accept 95793
+
+step Felguard Sentinel
+  kill 249229 x12 quest 95793.1
+
+step Witherbeard
+  turnin 95793
+
+step Defiling Hound
+  collect 271220 x6 quest 92960.1
+
+step Yashiro
+  accept 96959
+  turnin 96959
+  accept 96983
+  turnin 96983
+
+step Elaena Moonwhisper
+  turnin 92960
+
+step Elaena Moonwhisper
+  when group 96003
+  zone Mount Hyjal
+  accept 96003
+
+step Mazzogore
+  when group 96003
+  zone Mount Hyjal
+  tip Drawing Down the Malevolent is group work: elites. Grouping up is advised.
+  kill 252457 x1 quest 96003.2
+
+step Bethra'zel the Feeble
+  when group 96003
+  zone Mount Hyjal
+  tip Drawing Down the Malevolent is group work: elites. Grouping up is advised.
+  kill 263394 x1 quest 96003.1
+
+step Troll Remains
+  accept 96998
+
+step Marn Euhorn
+  sethome "Summit of Eternity"
+  turnin 96991
+  accept 92017
+  accept 92533
+
+step A Thorn in the Paw
+  zone map 2482
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 93407
+  complete 93407 @68.8,50.6
+
+step Thisalee Crow
+  accept 93584
+
+step A Thorn in the Paw
+  turnin 93407
+
+step Tiala Whitemane
+  zone Mount Hyjal
+  accept 93127
+  turnin 93127
+
+step Tiala Whitemane
+  zone Mount Hyjal
+  accept 93547
+  turnin 93547
+
+step Mountain Squallclimber
+  collect 274287 x5 quest 92017.1
+
+step Brerufa
+  turnin 91696
+  accept 93952
+
+step Deadwood Den Guardian
+  kill 252063 x9 quest 93952.1
+
+step Wildbreath Chimaerok
+  collect 274288 x3 quest 92017.2
+
+step Veteran of the Third War
+  accept 92100
+
+step Blackthorne Cultist and Blackthorne Adept
+  kill 249551 x1 quest 93584.1
+  kill 264570 x10 quest 93584.2
+
+step Blackthorne Priest
+  collect 273828 x1 quest 92533.2
+
+step Blackthorne Outrunner
+  collect 273832 x1 quest 92533.1
+
+step Bookshelf
+  accept 93521
+
+step Marn Euhorn
+  turnin 92017
+  accept 92016
+  accept 96302
+  turnin 96302
+  turnin 92533
+
+step Fayran Elthas
+  zone Mount Hyjal
+  accept 93444
+  turnin 93444
+
+step Marn Euhorn
+  zone Mount Hyjal
+  accept 96301
+
+step Thisalee Crow
+  turnin 93584
+  accept 96303
+  turnin 96303
+  turnin 93521
+
+step Marn Euhorn
+  complete 92016 @74.3,36.2 map 2482
+  turnin 92016
+
+step Marn Euhorn
+  zone Mount Hyjal
+  complete 96301 @72.8,38.4 map 2482
+  turnin 96301
+
+step Rhylin Stonethorn
+  when group 93422
+  zone Mount Hyjal
+  accept 93422
+
+step Sebelia
+  accept 93197
+
+step Blackthorne Courier
+  when group 93422
+  zone Mount Hyjal
+  tip Blackthorne Blackout is group work: elites. Grouping up is advised.
+  kill 264508 x1 quest 93422.1
+  collect 273772 x1 quest 93422.2
+
+step Rhylin Stonethorn
+  when group 93422
+  zone Mount Hyjal
+  turnin 93422
+
+step Kaylaena Springwhisper
+  turnin 92594
+
+step Phoebe Highfeather
+  turnin 92147
+  turnin 96145
+  turnin 96296
+  turnin 91883
+
+step Tarnished Treasures
+  turnin 96252
+
+step Ketharas
+  turnin 96131
+  accept 92612
+
+step Hope for Hatchlings
+  zone map 2482
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 95569
+  complete 95569 @73.3,81.9
+
+step Seeds for a New Season
+  zone map 2482
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 95568
+  complete 95568 @73.3,81.9
+
+step Hope for Hatchlings
+  turnin 95569
+
+step Loose Cog
+  accept 94479
+
+step Ketharas
+  turnin 94479
+  accept 96796
+
+step Seeds for a New Season
+  turnin 95568
+
+step The Bounty of Nature
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2482
+  accept 93759
+  complete 93759 @73.3,81.9
+
+step Violence Into Verdure
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2482
+  accept 93747
+  complete 93747 @73.3,81.9
+
+step The Bounty of Nature
+  zone map 2482
+  turnin 93759
+
+step Ketharas
+  zone Mount Hyjal
+  accept 95611
+  turnin 95611
+
+step Thark Gorax
+  accept 96830
+
+step Kaylaena Springwhisper
+  turnin 96796
+
+step Elaena Moonwhisper
+  when group 96003
+  zone Mount Hyjal
+  turnin 96003
+
+step Elaena Moonwhisper
+  zone Mount Hyjal
+  accept 96025
+
+step Thisalee Crow
+  turnin 96025
+
+step Brerufa
+  turnin 93952
+  accept 92111
+
+step Beads for Brerufa
+  zone map 2482
+  accept 93925 optional
+
+step Beads for Brerufa
+  when onquest 93925
+  zone map 2482
+  turnin 93925 optional
+
+step Fennar Mossmane
+  accept 95273 @20.2,78.0 map 2482
+  turnin 95273 @20.2,78.0 map 2482
+
+step Elder Mistpaw
+  accept 93832 @21.8,79.0 map 2482
+  accept 94504
+  accept 95107 @21.8,79.0 map 2482
+  turnin 93832 @21.8,79.0 map 2482
+  turnin 94504
+
+step Elder Pinespeaker
+  turnin 95107 @21.8,79.4 map 2482
+  accept 95108 @21.8,79.4 map 2482
+
+step Elder Mistpaw
+  turnin 95108 @21.8,79.0 map 2482
+
+step Osi Mistpaw
+  turnin 92111
+
+step Sweetpaw Jam
+  zone map 2482
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 93831
+  complete 93831 @21.1,80.2
+
+step Zet'gan
+  turnin 96998
+  accept 92592
+  accept 92609
+  accept 95026
+  accept 96999
+
+step Now We're Cooking
+  when has 250065
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 2482
+  turnin 97119 direct
+
+step Herbs for the Bruised and Weary
+  zone map 2482
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 96616
+  complete 96616 @12.9,52.9
+
+step Zet'gan
+  zone Mount Hyjal
+  turnin 94782
+
+step Herbs for the Bruised and Weary
+  turnin 96616
+
+step Ortak Lomgok
+  zone Mount Hyjal
+  accept 96622
+  turnin 96622
+
+step Eluneth
+  zone Mount Hyjal
+  accept 90865
+
+step Eluneth
+  zone Mount Hyjal
+  turnin 90865
+
+step Flags of Our Forebears
+  zone map 2482
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 91794
+  complete 91794 @13.8,53.1
+
+step Kal'tinzan
+  accept 95769 @13.8,53.1 map 2482
+
+step Flags of Our Forebears
+  turnin 91794
+
+step Ortak Lomgok
+  turnin 96830
+
+step Fleshflay Ravener
+  kill 249228 x12 quest 95026.2
+
+step Forgotten Soldier
+  kill 249247 x3 quest 95026.1
+
+step Scourge Reanimator
+  collect 268573 x1 quest 92592.1
+
+step Hyjal Owl
+  zone Winterspring
+  collect 253341 x9 quest 92609.1
+
+step Shore Strider
+  zone Feralas
+  collect 14048 x6 quest 95769.1
+
+step Tai'tasi
+  zone Durotar
+  turnin 96999
+
+step Level 59
+  level 59
+
+step Fennar Mossmane
+  zone Mount Hyjal
+  accept 93830
+  turnin 93830
+
+step Sweetpaw Jam
+  turnin 93831
+
+step Meet the Elders
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2482
+  accept 91697
+  complete 91697 @21.1,80.2
+
+step Dala Fairmaw
+  zone Mount Hyjal
+  accept 93834
+
+step Meet the Elders
+  zone map 2482
+  turnin 91697
+
+step Elder Mistpaw
+  zone Mount Hyjal
+  accept 93826
+
+step Barkbound Blessings
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2482
+  accept 93825
+  complete 93825 @20.8,79.8
+
+step Thobon Sapclaw
+  zone Mount Hyjal
+  accept 93827
+
+step Elder Pinespeaker
+  zone Mount Hyjal
+  complete 93826
+  turnin 93826
+
+step Burrow Beetle
+  zone Mount Hyjal
+  collect 262803 x6 quest 93834.1
+
+step Dala Fairmaw
+  zone Mount Hyjal
+  turnin 93834
+
+step Thobon Sapclaw
+  zone Mount Hyjal
+  turnin 93827
+
+step Barkbound Blessings
+  zone map 2482
+  turnin 93825
+
+step Elder Pinespeaker
+  zone Mount Hyjal
+  accept 96666
+  turnin 96666
+
+step Elder Pinespeaker
+  zone Mount Hyjal
+  accept 93833
+
+step Fennar Mossmane
+  zone Mount Hyjal
+  accept 93828
+  turnin 93828
+
+step Elder Pinespeaker
+  zone Mount Hyjal
+  turnin 93833
+
+step Zet'gan
+  turnin 92592
+  turnin 92609
+  turnin 95026
+
+step Zet'gan
+  zone Mount Hyjal
+  accept 95248
+
+step Leather for Inclement Weather
+  zone map 2482
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 90854
+  complete 90854 @13.8,54.8
+
+step Zet'gan
+  when group 92446
+  zone Mount Hyjal
+  accept 92446
+
+step Kal'tinzan
+  turnin 95769 @13.8,53.1 map 2482
+
+step Leather for Inclement Weather
+  turnin 90854
+
+step Head Scratcher
+  when group 92446
+  zone Mount Hyjal
+  tip Head Scratcher is group work: elites. Grouping up is advised.
+  collect 251781 x1 quest 92446.1
+
+step Zet'gan
+  when group 92446
+  zone Mount Hyjal
+  turnin 92446
+
+step Embroidered Scabbard
+  turnin 92100
+  accept 96550
+  turnin 96550
+  accept 92101
+  accept 93510
+
+step Weathered Anchor
+  zone map 1433
+  turnin 93510
+
+step Carving
+  zone map 1441
+  turnin 92101
+
+step Innkeeper Vizzie
+  zone Winterspring
+  turnin 93197
+  turnin 92008
+
+step Dendrite Starblaze
+  zone Moonglade
+  turnin 92612
+  accept 96209
+
+step Orokai
+  turnin 96209
+
+step Stolen Power
+  zone map 1450
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 95006
+  complete 95006 @41.5,43.6
+
+step Stolen Power
+  turnin 95006
+
+step Dendrite Starblaze
+  zone Moonglade
+  accept 93773
+
+step Ketharas
+  zone Mount Hyjal
+  turnin 93773
+
+step Violence Into Verdure
+  zone map 2482
+  turnin 93747
+
+step Ketharas
+  zone Mount Hyjal
+  accept 90487
+
+step Fraxinus
+  zone Mount Hyjal
+  turnin 90487
+
+step Ketharas
+  zone Mount Hyjal
+  accept 92171
+
+step Skylord Omnuron
+  zone Mount Hyjal
+  turnin 92171
+
+step A Bit of the Sky
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2482
+  accept 92500
+  complete 92500 @54.3,64.0
+
+step Ketharas
+  zone Mount Hyjal
+  accept 96930
+
+step A Bit of the Sky
+  zone map 2482
+  turnin 92500
+
+step Curious Crow
+  zone Mount Hyjal
+  turnin 96930
+
+step A Revenge Now Bitter
+  turnin 96322
+
+step Curious Crow
+  zone Moonglade
+  accept 96931
+
+step Jereman
+  zone Moonglade
+  turnin 96931
+
+step Jereman
+  zone Moonglade
+  accept 96939
+
+step Marrosis
+  zone Moonglade
+  turnin 96939
+
+step Bone Sweet Bone
+  zone map 2482
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 96957
+  complete 96957 @27.1,50.0
+
+step Marrosis
+  zone Moonglade
+  accept 92317
+
+step Bone Sweet Bone
+  turnin 96957
+
+step Jereman
+  zone Moonglade
+  accept 96964
+
+step Renalard
+  zone Moonglade
+  turnin 96964
+
+step To Outfox a Demon
+  zone map 2482
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 96971
+  complete 96971 @60.0,49.4
+
+step Ashes of the Legion Ascent
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2482
+  accept 92335
+  complete 92335 @60.0,49.4
+
+step To Outfox a Demon
+  turnin 96971
+
+step Ashes of the Legion Ascent
+  zone map 2482
+  turnin 92335
+
+step Ketharas
+  zone Moonglade
+  turnin 92317
+
+step Ketharas
+  zone Mount Hyjal
+  accept 90647
+
+step Tiala Whitemane
+  zone Mount Hyjal
+  turnin 90647
+
+step Thisalee Crow
+  zone Mount Hyjal
+  turnin 95248
+
+step Tiala Whitemane
+  zone Mount Hyjal
+  accept 92169
+
+step Tiala Whitemane
+  zone Mount Hyjal
+  complete 92169 @73.4,41.0 map 2482
+  turnin 92169
+
+step Tiala Whitemane
+  when group 92833
+  zone Mount Hyjal
+  accept 92833
+
+step Tiala Whitemane
+  when group 92833
+  zone Mount Hyjal
+  complete 92833
+  turnin 92833
+
+step Jereman
+  zone Moonglade
+  accept 96978
+
+step Kala'th
+  zone Moonglade
+  turnin 96978
+
+step Kala'th
+  zone Moonglade
+  accept 93617
+
+step Kala'th
+  zone Moonglade
+  complete 93617
+  turnin 93617
+
+step Tiala Whitemane
+  zone Mount Hyjal
+  accept 99670
+
+step Tiala Whitemane
+  zone Mount Hyjal
+  accept 93848
+
+step Ketharas
+  zone Mount Hyjal
+  turnin 93848
+
+step Jereman
+  zone Mount Hyjal
+  turnin 99670
+
+step Abigail Sawyer
+  zone Undercity
+  turnin 97001 @54.7,38.8 map 1458

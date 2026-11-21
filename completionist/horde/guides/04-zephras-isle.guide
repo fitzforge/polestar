@@ -1,0 +1,1970 @@
+guide polestar-completionist-horde/04-zephras-isle
+title 04 Zephras Isle (1-13) (Completionist)
+faction Horde
+levels 1-13
+zone map 2521
+next polestar-completionist-horde/01-durotar-and-orgrimmar when !turnedin 809
+next polestar-completionist-horde/02-mulgore-and-thunder-bluff when !turnedin 93739
+next polestar-completionist-horde/03-tirisfal-glades-and-the-undercity when !turnedin 408
+next polestar-completionist-horde/05-odd-jobs-in-kalimdor
+pitch Where Skyborne start. The other starting zones follow, then the route goes on by level.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 78 quests; estimated level at the end 17.3 (heuristic XP, class quests not counted).
+# Skipped: 33 profession; 3 objective N (talk N) outside the zones; 1 exclusive with N.
+
+step Shen'dar Village
+  zone Zephras Isle
+  sethome "Shen'dar Village"
+
+step Ailee Farheart
+  accept 92460
+  turnin 92460
+  accept 92461
+
+step Juvenile Vuldren
+  kill 250873 x8 quest 92461.1
+
+step Elatrell Featherlight
+  accept 92462
+
+step Rorian the Dayseeker
+  turnin 92461
+
+step Level 2
+  level 2
+
+step Yala Windwatcher
+  zone map 2521
+  accept 92465
+
+step Al'Aketh Convert and Roiling Winds
+  zone map 2521
+  kill 251160 x7 quest 92465.1
+  kill 251143 x6 quest 92465.2
+
+step Yala Windwatcher
+  zone map 2521
+  turnin 92465
+
+step Myriaal Mistwake
+  zone map 2521
+  accept 92474 only Skyborne
+
+step Rorian the Dayseeker
+  zone map 2521
+  complete 92474 @43.7,24.1 map 2521
+  turnin 92474 only Skyborne
+
+step Level 3
+  level 3
+
+step Windshaper Boro
+  only Shaman
+  zone map 2521
+  accept 92466 only Skyborne
+
+step Ventaari Brightwish
+  zone map 2521
+  accept 92598 only Skyborne
+
+step Rorian the Dayseeker
+  zone map 2521
+  accept 92482 only Hunter
+
+step Rorian the Dayseeker
+  zone map 2521
+  accept 92484 only Shaman
+
+step Rorian the Dayseeker
+  zone map 2521
+  accept 92532 only Warrior
+
+step Rorian the Dayseeker
+  zone map 2521
+  accept 92485 only Druid
+
+step Windshaper Boro
+  only Shaman
+  zone map 2521
+  turnin 92484
+
+step Rorian the Dayseeker
+  zone map 2521
+  accept 92483 only Rogue
+
+step Yala Windwatcher
+  zone map 2521
+  accept 92469
+
+step Tai'ree Farsight
+  only Hunter
+  zone map 2521
+  turnin 92482
+
+step Rorian the Dayseeker
+  zone map 2521
+  accept 92464
+
+step Rorian the Dayseeker
+  zone map 2521
+  turnin 92469
+  accept 93552
+
+step Blademaster Ren
+  only Warrior
+  turnin 92532
+
+step Akeri Duskblade
+  only Rogue
+  turnin 92483
+
+step Yala Windwatcher
+  turnin 92464
+
+step Elemental Convergence
+  interact 460001 quest 92598.1 only Skyborne
+
+step Pesky Cirrusfly
+  kill 251169 x8 quest 92462.1
+
+step Al'Aketh Brute
+  only Shaman
+  collect 251924 x1 quest 92466.1 only Skyborne
+
+step Raw Windstone
+  collect 258772 x15 quest 93552.1
+
+step Hanaa Nightwind
+  accept 92544
+
+step Al'Aketh Brute and Al'Aketh Neophyte
+  kill 251145 x6 quest 92544.1
+  kill 251448 x4 quest 92544.2
+
+step Malduko Cloudcrush
+  kill 256935 x1 quest 92544.3
+
+step Hanaa Nightwind
+  turnin 92544
+
+step Ventaari Brightwish
+  turnin 92598 only Skyborne
+
+step Windshaper Boro
+  only Shaman
+  turnin 92466 only Skyborne
+  accept 92467
+
+step Dalia the Collector
+  turnin 93552
+  turnin 92462
+  accept 92463
+
+step Cirrusfly Queen
+  kill 251404 x1 quest 92463.1
+
+step Minor Manifestation of Earth
+  only Shaman
+  turnin 92467
+  accept 92468
+
+step Elatrell Featherlight
+  turnin 92463
+
+step Windshaper Boro
+  only Shaman
+  turnin 92468
+
+step Rorian the Dayseeker
+  accept 92471
+  turnin 92471
+  accept 92470
+
+step Xyton Silverwind
+  only Druid
+  turnin 92485
+
+step Ursera Scavenger
+  kill 250937 x8 quest 92470.1
+
+step Urs'anah
+  collect 252665 x1 quest 92470.2
+
+step Valreaa Valewind
+  accept 92473
+  turnin 92470
+  accept 92472
+  accept 96638 only Skyborne
+
+step Scrawny Ursera
+  collect 251918 x6 quest 92473.1
+
+step Valreaa Valewind
+  turnin 92473
+
+step Constable Aonda
+  turnin 92472
+
+step Nyalah Brightfire
+  accept 93317
+
+step Windsong Crawler
+  collect 257941 x6 quest 93317.1
+
+step Fendaal Windstone
+  accept 98512
+
+step Al'Aketh Assassin
+  kill 254626 x10 quest 98512.1
+
+step Fendaal Windstone
+  turnin 98512
+
+step Nyalah Brightfire
+  turnin 93317
+
+step Ancient Hilt
+  accept 93161
+
+step Level 8
+  level 8
+
+step Lotheluum Starbreeze
+  zone map 2521
+  accept 94484
+
+step Elegael Thornpaw
+  zone map 2521
+  turnin 94484
+
+step A Sacrifice in Vain
+  when available 94493
+  tip One of several exclusive quests; the route takes Unnerving Silence (94484). This one shows for a character the game offers it to instead.
+  zone map 2521
+  accept 94493 optional
+
+step Vayn Moongaze
+  zone map 2521
+  accept 93165
+
+step Al'Aketh Footsoldier
+  zone map 2521
+  collect 258771 x5 quest 93165.1
+
+step Vayn Moongaze
+  zone map 2521
+  turnin 93165
+
+step More Al'Aketh Ears
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 2521
+  collect 258771 x1 anywhere optional
+  turnin 93459 direct optional
+
+step Elegael Thornpaw
+  zone map 2521
+  accept 94487
+
+step A Sacrifice in Vain
+  when onquest 94493
+  zone map 2521
+  turnin 94493 optional
+
+step Al'Aketh Footsoldier
+  zone map 2521
+  collect 265141 x1 quest 94487.1
+
+step Ealaane Nimbuswalker
+  zone map 2521
+  accept 94896
+
+step Abandoned Belongings
+  zone map 2521
+  collect 266433 x8 quest 94896.1
+
+step Ealaane Nimbuswalker
+  zone map 2521
+  accept 94897
+
+step Resaan Nimbuswalker
+  zone map 2521
+  collect 266434 x1 quest 94897.1
+
+step Elegael Thornpaw
+  zone map 2521
+  accept 94486
+
+step Elegael Thornpaw
+  zone map 2521
+  accept 94485
+
+step Lady's Tear Moss
+  zone map 2521
+  collect 265105 x8 quest 94485.1
+
+step Shadowgale Shriekling
+  collect 265140 x20 quest 94486.1
+
+step Elegael Thornpaw
+  turnin 94485
+  turnin 94486
+  turnin 94487
+  accept 94488
+
+step Commander Haalien
+  collect 265475 x1 quest 94488.1
+
+step Elegael Thornpaw
+  turnin 94488
+
+step Ealaane Nimbuswalker
+  turnin 93161
+  turnin 94896
+  turnin 94897
+  accept 97029
+  turnin 97029
+
+step Raan Wildwind
+  turnin 96638 only Skyborne
+
+step Welcome to Shen'dar Village
+  zone map 2521
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 92514
+  complete 92514 @45.7,45.5
+
+step Welcome to Shen'dar Village
+  turnin 92514
+
+step Zerril Softbreeze
+  zone map 2521
+  accept 92553
+
+step Foreststrider
+  zone Darkshore
+  collect 5469 x8 quest 92553.2
+
+step Mountain Buzzard
+  zone Loch Modan
+  collect 6889 x3 quest 92553.1
+
+step Zerril Softbreeze
+  zone Loch Modan
+  turnin 92553
+
+step Indari Sunseam
+  zone map 2521
+  accept 92515
+
+step Prideclaw
+  zone Loch Modan
+  collect 252670 x10 quest 92515.1
+
+step Indari Sunseam
+  zone Loch Modan
+  turnin 92515
+
+step Constable Aonda
+  zone map 2521
+  accept 92517
+
+step "Badwind" Bennic
+  zone Loch Modan
+  kill 255534 x1 quest 92517.2
+
+step Highlands Bandit
+  zone Loch Modan
+  kill 251918 x10 quest 92517.1
+
+step Constable Aonda
+  zone Loch Modan
+  turnin 92517
+
+step Constable Aonda
+  zone map 2521
+  accept 93036
+  turnin 93036
+
+step Constable Aonda
+  zone map 2521
+  accept 92529
+
+step Missionary Jasaan
+  zone map 2521
+  turnin 92529
+
+step Missionary Jasaan
+  zone map 2521
+  accept 92528
+
+step Wardrobe
+  zone map 2521
+  kill 254128 x1 quest 92528.1
+
+step Constable Aonda
+  zone map 2521
+  turnin 92528
+
+step Constable Aonda
+  zone map 2521
+  accept 92551
+
+step Galemender Delanea
+  zone map 2521
+  collect 252760 x10 quest 92551.1
+
+step Constable Aonda
+  zone map 2521
+  turnin 92551
+
+step Constable Aonda
+  zone map 2521
+  accept 92550
+
+step Al'Aketh Stormcaller and Living Lightning
+  zone map 2521
+  kill 252068 x6 quest 92550.1
+  kill 251662 x4 quest 92550.2
+
+step Commander Cyclas
+  zone map 2521
+  collect 252661 x1 quest 92550.3
+
+step Constable Aonda
+  zone map 2521
+  turnin 92550
+
+step Teeri Wellwind
+  zone map 2521
+  accept 93319
+
+step Highlands Bandit
+  zone Loch Modan
+  collect 257945 x10 quest 93319.1
+
+step Teeri Wellwind
+  zone Loch Modan
+  turnin 93319
+
+step Teeri Wellwind
+  zone map 2521
+  accept 92516
+
+step Hippogryph Youth and Hippogryph Matriarch
+  zone Loch Modan
+  kill 251291 x8 quest 92516.1
+  kill 251261 x1 quest 92516.3
+
+step Hippogryph Protector
+  zone Loch Modan
+  kill 251284 x6 quest 92516.2
+
+step Teeri Wellwind
+  zone Loch Modan
+  turnin 92516
+
+step Taleen Shimmerthread
+  zone map 2521
+  accept 93951
+
+step Hippogryph Down
+  zone Loch Modan
+  collect 263493 x8 quest 93951.1
+
+step Taleen Shimmerthread
+  zone Loch Modan
+  turnin 93951
+
+step Bounty Available: Vulgara the Insatiable!
+  when group 93318
+  zone map 2521
+  accept 93318
+
+step Vulgara the Insatiable
+  when group 93318
+  zone map 2521
+  collect 257942 x1 quest 93318.1
+
+step Danarii Bellowveil
+  when group 93318
+  zone map 2521
+  turnin 93318
+
+step The Windshapers
+  zone map 2521
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 92595
+  complete 92595 @43.5,44.8
+
+step The Windshapers
+  turnin 92595
+
+step Illaya Amberwind
+  zone map 2521
+  accept 94411
+
+step High Order Apprentice
+  zone map 2521
+  kill 257521 x6 quest 94411.1
+
+step Illaya Amberwind
+  zone Loch Modan
+  turnin 94411
+
+step Blood Tithe
+  zone map 2521
+  tip The place is where players were recorded finishing it.
+  accept 92679
+  complete 92679 @46.7,81.95
+
+step Blood Tithe
+  turnin 92679
+
+step Aamelia Windfield
+  zone map 2521
+  accept 92684
+
+step Ornery Galestrider
+  zone map 2521
+  collect 253597 x7 quest 92684.1
+
+step Aamelia Windfield
+  zone map 2521
+  turnin 92684
+
+step Aamelia Windfield
+  zone map 2521
+  accept 92683
+
+step Flutterfly Dust
+  zone map 2521
+  collect 253595 x5 quest 92683.1
+
+step Aamelia Windfield
+  zone map 2521
+  turnin 92683
+
+step Aamelia Windfield
+  zone map 2521
+  accept 92682
+
+step Ripe Stormapple
+  zone map 2521
+  collect 253591 x10 quest 92682.1
+
+step Hungry Bandit
+  zone map 2521
+  kill 252802 x5 quest 92682.2
+
+step Aamelia Windfield
+  zone map 2521
+  turnin 92682
+
+step Aamelia Windfield
+  zone map 2521
+  accept 92685
+
+step Bandit Highwayman
+  zone map 2521
+  collect 253596 x7 quest 92685.1
+
+step Aamelia Windfield
+  zone map 2521
+  turnin 92685
+
+step Malfunctioning Cyclone Construct
+  zone map 2521
+  accept 92698
+
+step Aamelia Windfield
+  zone map 2521
+  turnin 92698
+
+step Standing Our Ground
+  zone map 2521
+  tip The place is where players were recorded finishing it.
+  accept 92693
+  complete 92693 @46.7,81.95
+
+step Standing Our Ground
+  turnin 92693
+
+step Aamelia Windfield
+  zone map 2521
+  accept 92703
+
+step Alvarion Windfield
+  zone map 2521
+  turnin 92703
+
+step The Strange Hermit
+  zone map 2521
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 93159
+  complete 93159 @54.0,38.9
+
+step The Strange Hermit
+  turnin 93159
+
+step Strange Hermit
+  zone map 2521
+  accept 93172
+
+step Wind Hollow
+  zone map 2521
+  kill 251676 x10 quest 93172.1
+
+step Strange Hermit
+  zone map 2521
+  turnin 93172
+
+step Strange Hermit
+  zone map 2521
+  accept 93160
+
+step Zephyrseed Cone
+  zone map 2521
+  collect 257128 x1 quest 93160.1
+
+step Strange Hermit
+  zone map 2521
+  turnin 93160
+
+step The Western Watch
+  zone map 2521
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 93926
+  complete 93926 @45.7,45.5
+
+step The Western Watch
+  turnin 93926
+
+step Peacekeeper Vaaniel
+  zone map 2521
+  accept 93927
+
+step Bloody Note
+  zone map 2521
+  collect 254871 x1 quest 93927.1
+
+step Skypriest Aanders, Raani Windgazer and Arvensus Shadowsong
+  zone map 2521
+  kill 256966 x1 quest 93927.2
+  collect 263415 x1 quest 93927.3
+  collect 263418 x1 quest 93927.4
+
+step Constable Aonda
+  zone map 2521
+  turnin 93927
+
+step Constable Aonda
+  zone map 2521
+  accept 93948
+
+step Talaanis Shadowsong
+  zone map 2521
+  turnin 93948
+
+step Talaanis Shadowsong
+  zone map 2521
+  accept 93949
+
+step Skyhopper
+  zone map 2521
+  kill 251727 x1 quest 93949.1
+
+step Valennia Stormfist
+  zone map 2521
+  turnin 93949
+
+step Constable Aonda
+  zone map 2521
+  accept 92579
+
+step Talaanis Shadowsong
+  zone map 2521
+  turnin 92579
+
+step Talaanis Shadowsong
+  zone map 2521
+  accept 92700
+
+step Ayessa Dawnsinger
+  zone map 2521
+  turnin 92700
+
+step A Grand Adventure
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  accept 92708
+  complete 92708 @59.1,79.8
+
+step A Grand Adventure
+  zone map 2521
+  turnin 92708
+
+step Ayessa Dawnsinger
+  zone map 2521
+  accept 93736
+
+step Wind Hollow
+  zone map 2521
+  collect 262357 x10 quest 93736.1
+
+step Endaria Mistgaze
+  zone map 2521
+  turnin 93736
+
+step Ayessa Dawnsinger
+  zone map 2521
+  accept 93735
+
+step Riaani Nightwind
+  zone map 2521
+  turnin 93735
+
+step The Broken Construct
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  accept 93737
+  complete 93737 @59.1,73.0
+
+step The Broken Construct
+  zone map 2521
+  turnin 93737
+
+step Riaani Nightwind
+  zone map 2521
+  accept 93738
+
+step Ayessa Dawnsinger
+  zone map 2521
+  turnin 93738
+
+step Ayessa Dawnsinger
+  zone map 2521
+  accept 93746
+
+step Belathaan Brightwish
+  zone map 2521
+  kill 256247 x1 quest 93746.1
+
+step Ayessa Dawnsinger
+  zone map 2521
+  turnin 93746
+
+step Ayessa Dawnsinger
+  zone map 2521
+  accept 92871
+
+step Talaanis Shadowsong
+  zone map 2521
+  turnin 92871
+
+step Talaanis Shadowsong
+  zone map 2521
+  accept 93320
+
+step Yorana Windyreed
+  zone map 2521
+  turnin 93320
+
+step Yorana Windyreed
+  zone map 2521
+  accept 92642
+
+step Al'Aketh Brawler
+  zone map 2521
+  kill 270201 x8 quest 92642.2
+
+step Al'Aketh Healer
+  zone map 2521
+  kill 254596 x4 quest 92642.1
+
+step Yorana Windyreed
+  zone map 2521
+  turnin 92642
+
+step Yorana Windyreed
+  zone map 2521
+  accept 92645
+
+step Commander Belguilos
+  zone map 2521
+  kill 252666 x1 quest 92645.1
+
+step Yorana Windyreed
+  zone map 2521
+  turnin 92645
+
+step Yorana Windyreed
+  zone map 2521
+  accept 92880
+
+step Valennia Stormfist
+  zone map 2521
+  turnin 92880
+
+step Valennia Stormfist
+  zone map 2521
+  accept 92881
+  turnin 92881
+
+step The Turncoat
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  accept 92643
+  complete 92643 @66.2,76.5
+
+step The Turncoat
+  zone map 2521
+  turnin 92643
+
+step Dead Cultist
+  zone map 2521
+  accept 92644
+
+step Talaanis Shadowsong
+  zone map 2521
+  turnin 92644
+
+step Ayessa Dawnsinger
+  zone map 2521
+  accept 93740
+
+step Al'Aketh Footsoldier
+  zone map 2521
+  collect 255658 x10 quest 93740.1
+
+step Ayessa Dawnsinger
+  zone map 2521
+  turnin 93740
+
+step The Anchors of Zephras
+  zone map 2521
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 94414
+  complete 94414 @43.8,24.1
+
+step The Anchors of Zephras
+  turnin 94414
+
+step The Wounds of Betrayal
+  zone map 2521
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 94489
+  complete 94489 @61.7,39.2
+
+step The Wounds of Betrayal
+  turnin 94489
+
+step The Cult's True Plans
+  zone map 2521
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 94568
+  complete 94568 @66.2,76.5
+
+step The Cult's True Plans
+  turnin 94568
+
+step Desperate Times
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  accept 92640
+  complete 92640 @66.2,76.5
+
+step Desperate Times
+  zone map 2521
+  turnin 92640
+
+step Prepare for Battle
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  accept 93065
+  complete 93065 @66.1,76.6
+
+step Prepare for Battle
+  zone map 2521
+  turnin 93065
+
+step Making Our Move
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  accept 92947
+  complete 92947 @61.1,70.9
+
+step Making Our Move
+  zone map 2521
+  turnin 92947
+
+step Hyusaa Quickbreeze
+  zone map 2521
+  accept 93958
+  turnin 93958
+
+step Hyusaa Quickbreeze
+  zone map 2521
+  accept 92646 only Skyborne
+
+step Ayessa Dawnsinger
+  zone map 2521
+  complete 92646 @74.9,53.0 map 2521
+  turnin 92646 only Skyborne
+
+step The Fate of Zephras
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  accept 93836
+  complete 93836 @59.1,79.8
+
+step The Fate of Zephras
+  zone map 2521
+  turnin 93836
+
+step Ealaane Nimbuswalker
+  zone map 2521
+  accept 93090
+
+step Ayessa Dawnsinger
+  zone map 2521
+  turnin 93090
+
+step Ayessa Dawnsinger
+  zone map 2521
+  accept 95349
+
+step Alaana Stormwalker
+  zone Mulgore
+  turnin 95349
+
+step The Great Outdoors
+  zone map 2521
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 96101
+  complete 96101 @41.7,44.8
+
+step The Great Outdoors
+  turnin 96101
+
+step Camping 101: Tailoring
+  only Skyborne
+  when available 97937
+  tip One of several exclusive quests; the route takes Camping 101: Tailoring (96102). This one shows for a character the game offers it to instead.
+  when skill Tailoring 1
+  zone map 1412
+  accept 97937 optional
+
+step Camping 101: Tailoring
+  only Skyborne
+  when onquest 97937
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1412
+  complete 97937 @46.2,67.3 optional
+
+step Camping 101: Tailoring
+  only Skyborne
+  when onquest 97937
+  zone map 1456
+  turnin 97937 optional
+
+step Camping 101: Skinning
+  only Skyborne
+  when available 97908
+  tip One of several exclusive quests; the route takes Camping 101: Skinning (97936). This one shows for a character the game offers it to instead.
+  when skill Skinning 1
+  zone map 1411
+  accept 97908 optional
+
+step Camping 101: Skinning
+  only Skyborne
+  when onquest 97908
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1411
+  complete 97908 @52.0,47.3 optional
+
+step Camping 101: Skinning
+  only Skyborne
+  when onquest 97908
+  zone map 1454
+  turnin 97908 optional
+
+step Camping 101: Mining
+  only Skyborne
+  when available 97907
+  tip One of several exclusive quests; the route takes Camping 101: Mining (97935). This one shows for a character the game offers it to instead.
+  when skill Mining 1
+  zone map 1411
+  accept 97907 optional
+
+step Camping 101: Mining
+  only Skyborne
+  when onquest 97907
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1411
+  complete 97907 @52.0,47.3 optional
+
+step Camping 101: Mining
+  only Skyborne
+  when onquest 97907
+  zone map 1411
+  turnin 97907 optional
+
+step Camping 101: Leatherworking
+  only Skyborne
+  when available 97906
+  tip One of several exclusive quests; the route takes Camping 101: Leatherworking (97934). This one shows for a character the game offers it to instead.
+  when skill Leatherworking 1
+  zone map 1411
+  accept 97906 optional
+
+step Camping 101: Leatherworking
+  only Skyborne
+  when onquest 97906
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1411
+  complete 97906 @52.0,47.3 optional
+
+step Camping 101: Leatherworking
+  only Skyborne
+  when onquest 97906
+  zone map 1454
+  turnin 97906 optional
+
+step Camping 101: Herbalism
+  only Skyborne
+  when available 97905
+  tip One of several exclusive quests; the route takes Camping 101: Herbalism (97933). This one shows for a character the game offers it to instead.
+  when skill Herbalism 1
+  zone map 1411
+  accept 97905 optional
+
+step Camping 101: Herbalism
+  only Skyborne
+  when onquest 97905
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1411
+  complete 97905 @52.0,47.3 optional
+
+step Camping 101: Herbalism
+  only Skyborne
+  when onquest 97905
+  zone map 1454
+  turnin 97905 optional
+
+step Camping 101: Fishing
+  only Skyborne
+  when available 97904
+  tip One of several exclusive quests; the route takes Camping 101: Fishing (97932). This one shows for a character the game offers it to instead.
+  when skill Fishing 1
+  zone map 1411
+  accept 97904 optional
+
+step Camping 101: Fishing
+  only Skyborne
+  when onquest 97904
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1411
+  complete 97904 @52.0,47.3 optional
+
+step Camping 101: Fishing
+  only Skyborne
+  when onquest 97904
+  zone map 1411
+  turnin 97904 optional
+
+step Camping 101: First Aid
+  only Skyborne
+  when available 97903
+  tip One of several exclusive quests; the route takes Camping 101: First Aid (97931). This one shows for a character the game offers it to instead.
+  when skill "First Aid" 1
+  zone map 1411
+  accept 97903 optional
+
+step Camping 101: First Aid
+  only Skyborne
+  when onquest 97903
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1411
+  complete 97903 @52.0,47.3 optional
+
+step Camping 101: First Aid
+  only Skyborne
+  when onquest 97903
+  zone map 1411
+  turnin 97903 optional
+
+step Camping 101: Engineering
+  only Skyborne
+  when available 97902
+  tip One of several exclusive quests; the route takes Camping 101: Engineering (97930). This one shows for a character the game offers it to instead.
+  when skill Engineering 1
+  zone map 1411
+  accept 97902 optional
+
+step Camping 101: Engineering
+  only Skyborne
+  when onquest 97902
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1411
+  complete 97902 @52.0,47.3 optional
+
+step Camping 101: Engineering
+  only Skyborne
+  when onquest 97902
+  zone map 1411
+  turnin 97902 optional
+
+step Camping 101: Enchanting
+  only Skyborne
+  when available 97901
+  tip One of several exclusive quests; the route takes Camping 101: Enchanting (97929). This one shows for a character the game offers it to instead.
+  when skill Enchanting 1
+  zone map 1411
+  accept 97901 optional
+
+step Camping 101: Enchanting
+  only Skyborne
+  when onquest 97901
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1411
+  complete 97901 @52.0,47.3 optional
+
+step Camping 101: Enchanting
+  only Skyborne
+  when onquest 97901
+  zone map 1454
+  turnin 97901 optional
+
+step Camping 101: Blacksmithing
+  only Skyborne
+  when available 97900
+  tip One of several exclusive quests; the route takes Camping 101: Blacksmithing (97928). This one shows for a character the game offers it to instead.
+  when skill Blacksmithing 1
+  zone map 1411
+  accept 97900 optional
+
+step Camping 101: Blacksmithing
+  only Skyborne
+  when onquest 97900
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1411
+  complete 97900 @52.0,47.3 optional
+
+step Camping 101: Blacksmithing
+  only Skyborne
+  when onquest 97900
+  zone map 1411
+  turnin 97900 optional
+
+step Camping 101: Alchemy
+  only Skyborne
+  when available 97899
+  tip One of several exclusive quests; the route takes Camping 101: Alchemy (97927). This one shows for a character the game offers it to instead.
+  when skill Alchemy 1
+  zone map 1411
+  accept 97899 optional
+
+step Camping 101: Alchemy
+  only Skyborne
+  when onquest 97899
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1411
+  complete 97899 @52.0,47.3 optional
+
+step Camping 101: Alchemy
+  only Skyborne
+  when onquest 97899
+  zone map 1454
+  turnin 97899 optional
+
+step Camping 101: Cooking
+  only Skyborne
+  when available 96646
+  tip One of several exclusive quests; the route takes Camping 101: Cooking (96655). This one shows for a character the game offers it to instead.
+  zone map 2521
+  accept 96646 optional
+
+step Camping 101: Cooking
+  only Skyborne
+  when onquest 96646
+  zone map 2521
+  complete 96646 @43.9,43.8 optional
+
+step Camping 101: Cooking
+  only Skyborne
+  when onquest 96646
+  zone map 2521
+  turnin 96646 optional
+
+step Camping 101: Enchanting
+  only Skyborne
+  when available 98284
+  tip One of several exclusive quests; the route takes Camping 101: Enchanting (97901). This one shows for a character the game offers it to instead.
+  when skill Enchanting 1
+  zone map 2521
+  accept 98284 optional
+
+step Camping 101: Tailoring
+  only Skyborne
+  when available 97972
+  tip One of several exclusive quests; the route takes Camping 101: Tailoring (97937). This one shows for a character the game offers it to instead.
+  when skill Tailoring 1
+  zone map 2521
+  accept 97972 optional
+
+step Camping 101: Skinning
+  only Skyborne
+  when available 97971
+  tip One of several exclusive quests; the route takes Camping 101: Skinning (97908). This one shows for a character the game offers it to instead.
+  when skill Skinning 1
+  zone map 2521
+  accept 97971 optional
+
+step Camping 101: Mining
+  only Skyborne
+  when available 97970
+  tip One of several exclusive quests; the route takes Camping 101: Mining (97907). This one shows for a character the game offers it to instead.
+  when skill Mining 1
+  zone map 2521
+  accept 97970 optional
+
+step Camping 101: Leatherworking
+  only Skyborne
+  when available 97969
+  tip One of several exclusive quests; the route takes Camping 101: Leatherworking (97906). This one shows for a character the game offers it to instead.
+  when skill Leatherworking 1
+  zone map 2521
+  accept 97969 optional
+
+step Camping 101: Herbalism
+  only Skyborne
+  when available 97968
+  tip One of several exclusive quests; the route takes Camping 101: Herbalism (97905). This one shows for a character the game offers it to instead.
+  when skill Herbalism 1
+  zone map 2521
+  accept 97968 optional
+
+step Camping 101: Fishing
+  only Skyborne
+  when available 97967
+  tip One of several exclusive quests; the route takes Camping 101: Fishing (97904). This one shows for a character the game offers it to instead.
+  when skill Fishing 1
+  zone map 2521
+  accept 97967 optional
+
+step Camping 101: Fishing
+  only Skyborne
+  when onquest 97967
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  complete 97967 @41.7,44.8 optional
+
+step Camping 101: Fishing
+  only Skyborne
+  when onquest 97967
+  zone map 2521
+  turnin 97967 optional
+
+step Camping 101: First Aid
+  only Skyborne
+  when available 97965
+  tip One of several exclusive quests; the route takes Camping 101: First Aid (97903). This one shows for a character the game offers it to instead.
+  when skill "First Aid" 1
+  zone map 2521
+  accept 97965 optional
+
+step Camping 101: Blacksmithing
+  only Skyborne
+  when available 97964
+  tip One of several exclusive quests; the route takes Camping 101: Blacksmithing (97900). This one shows for a character the game offers it to instead.
+  when skill Blacksmithing 1
+  zone map 2521
+  accept 97964 optional
+
+step Camping 101: Alchemy
+  only Skyborne
+  when available 97963
+  tip One of several exclusive quests; the route takes Camping 101: Alchemy (97899). This one shows for a character the game offers it to instead.
+  when skill Alchemy 1
+  zone map 2521
+  accept 97963 optional
+
+step Camping 101: Tailoring
+  only Skyborne
+  when available 97961
+  tip One of several exclusive quests; the route takes Camping 101: Tailoring (97937). This one shows for a character the game offers it to instead.
+  when skill Tailoring 1
+  zone map 1420
+  accept 97961 optional
+
+step Camping 101: Tailoring
+  only Skyborne
+  when onquest 97961
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1420
+  complete 97961 @57.3,55.5 optional
+
+step Camping 101: Tailoring
+  only Skyborne
+  when onquest 97961
+  zone map 1420
+  turnin 97961 optional
+
+step Camping 101: Skinning
+  only Skyborne
+  when available 97960
+  tip One of several exclusive quests; the route takes Camping 101: Skinning (97908). This one shows for a character the game offers it to instead.
+  when skill Skinning 1
+  zone map 1420
+  accept 97960 optional
+
+step Camping 101: Skinning
+  only Skyborne
+  when onquest 97960
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1420
+  complete 97960 @57.3,55.5 optional
+
+step Camping 101: Skinning
+  only Skyborne
+  when onquest 97960
+  zone map 1420
+  turnin 97960 optional
+
+step Camping 101: Mining
+  only Skyborne
+  when available 97959
+  tip One of several exclusive quests; the route takes Camping 101: Mining (97907). This one shows for a character the game offers it to instead.
+  when skill Mining 1
+  zone map 1420
+  accept 97959 optional
+
+step Camping 101: Mining
+  only Skyborne
+  when onquest 97959
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1420
+  complete 97959 @57.3,55.5 optional
+
+step Camping 101: Mining
+  only Skyborne
+  when onquest 97959
+  zone map 1458
+  turnin 97959 optional
+
+step Camping 101: Leatherworking
+  only Skyborne
+  when available 97958
+  tip One of several exclusive quests; the route takes Camping 101: Leatherworking (97906). This one shows for a character the game offers it to instead.
+  when skill Leatherworking 1
+  zone map 1420
+  accept 97958 optional
+
+step Camping 101: Leatherworking
+  only Skyborne
+  when onquest 97958
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1420
+  complete 97958 @57.3,55.5 optional
+
+step Camping 101: Leatherworking
+  only Skyborne
+  when onquest 97958
+  zone map 1420
+  turnin 97958 optional
+
+step Camping 101: Herbalism
+  only Skyborne
+  when available 97957
+  tip One of several exclusive quests; the route takes Camping 101: Herbalism (97905). This one shows for a character the game offers it to instead.
+  when skill Herbalism 1
+  zone map 1420
+  accept 97957 optional
+
+step Camping 101: Herbalism
+  only Skyborne
+  when onquest 97957
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1420
+  complete 97957 @57.3,55.5 optional
+
+step Camping 101: Herbalism
+  only Skyborne
+  when onquest 97957
+  zone map 1420
+  turnin 97957 optional
+
+step Camping 101: Fishing
+  only Skyborne
+  when available 97956
+  tip One of several exclusive quests; the route takes Camping 101: Fishing (97904). This one shows for a character the game offers it to instead.
+  when skill Fishing 1
+  zone map 1420
+  accept 97956 optional
+
+step Camping 101: Fishing
+  only Skyborne
+  when onquest 97956
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1420
+  complete 97956 @57.3,55.5 optional
+
+step Camping 101: Fishing
+  only Skyborne
+  when onquest 97956
+  zone map 1420
+  turnin 97956 optional
+
+step Camping 101: First Aid
+  only Skyborne
+  when available 97955
+  tip One of several exclusive quests; the route takes Camping 101: First Aid (97903). This one shows for a character the game offers it to instead.
+  when skill "First Aid" 1
+  zone map 1420
+  accept 97955 optional
+
+step Camping 101: First Aid
+  only Skyborne
+  when onquest 97955
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1420
+  complete 97955 @57.3,55.5 optional
+
+step Camping 101: First Aid
+  only Skyborne
+  when onquest 97955
+  zone map 1420
+  turnin 97955 optional
+
+step Camping 101: Engineering
+  only Skyborne
+  when available 97954
+  tip One of several exclusive quests; the route takes Camping 101: Engineering (97902). This one shows for a character the game offers it to instead.
+  when skill Engineering 1
+  zone map 1420
+  accept 97954 optional
+
+step Camping 101: Engineering
+  only Skyborne
+  when onquest 97954
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1420
+  complete 97954 @57.3,55.5 optional
+
+step Camping 101: Engineering
+  only Skyborne
+  when onquest 97954
+  zone map 1458
+  turnin 97954 optional
+
+step Camping 101: Enchanting
+  only Skyborne
+  when available 97953
+  tip One of several exclusive quests; the route takes Camping 101: Enchanting (97901). This one shows for a character the game offers it to instead.
+  when skill Enchanting 1
+  zone map 1420
+  accept 97953 optional
+
+step Camping 101: Enchanting
+  only Skyborne
+  when onquest 97953
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1420
+  complete 97953 @57.3,55.5 optional
+
+step Camping 101: Enchanting
+  only Skyborne
+  when onquest 97953
+  zone map 1420
+  turnin 97953 optional
+
+step Camping 101: Blacksmithing
+  only Skyborne
+  when available 97952
+  tip One of several exclusive quests; the route takes Camping 101: Blacksmithing (97900). This one shows for a character the game offers it to instead.
+  when skill Blacksmithing 1
+  zone map 1420
+  accept 97952 optional
+
+step Camping 101: Blacksmithing
+  only Skyborne
+  when onquest 97952
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1420
+  complete 97952 @57.3,55.5 optional
+
+step Camping 101: Blacksmithing
+  only Skyborne
+  when onquest 97952
+  zone map 1458
+  turnin 97952 optional
+
+step Camping 101: Alchemy
+  only Skyborne
+  when available 97951
+  tip One of several exclusive quests; the route takes Camping 101: Alchemy (97899). This one shows for a character the game offers it to instead.
+  when skill Alchemy 1
+  zone map 1420
+  accept 97951 optional
+
+step Camping 101: Alchemy
+  only Skyborne
+  when onquest 97951
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1420
+  complete 97951 @57.3,55.5 optional
+
+step Camping 101: Alchemy
+  only Skyborne
+  when onquest 97951
+  zone map 1420
+  turnin 97951 optional
+
+step Camping 101: Skinning
+  only Skyborne
+  when available 97936
+  tip One of several exclusive quests; the route takes Camping 101: Skinning (97908). This one shows for a character the game offers it to instead.
+  when skill Skinning 1
+  zone map 1412
+  accept 97936 optional
+
+step Camping 101: Skinning
+  only Skyborne
+  when onquest 97936
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1412
+  complete 97936 @46.2,67.3 optional
+
+step Camping 101: Skinning
+  only Skyborne
+  when onquest 97936
+  zone map 1412
+  turnin 97936 optional
+
+step Camping 101: Mining
+  only Skyborne
+  when available 97935
+  tip One of several exclusive quests; the route takes Camping 101: Mining (97907). This one shows for a character the game offers it to instead.
+  when skill Mining 1
+  zone map 1412
+  accept 97935 optional
+
+step Camping 101: Mining
+  only Skyborne
+  when onquest 97935
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1412
+  complete 97935 @46.2,67.3 optional
+
+step Camping 101: Mining
+  only Skyborne
+  when onquest 97935
+  zone map 1456
+  turnin 97935 optional
+
+step Camping 101: Leatherworking
+  only Skyborne
+  when available 97934
+  tip One of several exclusive quests; the route takes Camping 101: Leatherworking (97906). This one shows for a character the game offers it to instead.
+  when skill Leatherworking 1
+  zone map 1412
+  accept 97934 optional
+
+step Camping 101: Leatherworking
+  only Skyborne
+  when onquest 97934
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1412
+  complete 97934 @46.2,67.3 optional
+
+step Camping 101: Leatherworking
+  only Skyborne
+  when onquest 97934
+  zone map 1412
+  turnin 97934 optional
+
+step Camping 101: Herbalism
+  only Skyborne
+  when available 97933
+  tip One of several exclusive quests; the route takes Camping 101: Herbalism (97905). This one shows for a character the game offers it to instead.
+  when skill Herbalism 1
+  zone map 1412
+  accept 97933 optional
+
+step Camping 101: Herbalism
+  only Skyborne
+  when onquest 97933
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1412
+  complete 97933 @46.2,67.3 optional
+
+step Camping 101: Herbalism
+  only Skyborne
+  when onquest 97933
+  zone map 1456
+  turnin 97933 optional
+
+step Camping 101: Fishing
+  only Skyborne
+  when available 97932
+  tip One of several exclusive quests; the route takes Camping 101: Fishing (97904). This one shows for a character the game offers it to instead.
+  when skill Fishing 1
+  zone map 1412
+  accept 97932 optional
+
+step Camping 101: Fishing
+  only Skyborne
+  when onquest 97932
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1412
+  complete 97932 @46.2,67.3 optional
+
+step Camping 101: Fishing
+  only Skyborne
+  when onquest 97932
+  zone map 1412
+  turnin 97932 optional
+
+step Camping 101: First Aid
+  only Skyborne
+  when available 97931
+  tip One of several exclusive quests; the route takes Camping 101: First Aid (97903). This one shows for a character the game offers it to instead.
+  when skill "First Aid" 1
+  zone map 1412
+  accept 97931 optional
+
+step Camping 101: First Aid
+  only Skyborne
+  when onquest 97931
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1412
+  complete 97931 @46.2,67.3 optional
+
+step Camping 101: First Aid
+  only Skyborne
+  when onquest 97931
+  zone map 1412
+  turnin 97931 optional
+
+step Camping 101: Engineering
+  only Skyborne
+  when available 97930
+  tip One of several exclusive quests; the route takes Camping 101: Engineering (97902). This one shows for a character the game offers it to instead.
+  when skill Engineering 1
+  zone map 1412
+  accept 97930 optional
+
+step Camping 101: Engineering
+  only Skyborne
+  when onquest 97930
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1412
+  complete 97930 @46.2,67.3 optional
+
+step Camping 101: Engineering
+  only Skyborne
+  when onquest 97930
+  zone map 1412
+  turnin 97930 optional
+
+step Camping 101: Enchanting
+  only Skyborne
+  when available 97929
+  tip One of several exclusive quests; the route takes Camping 101: Enchanting (97901). This one shows for a character the game offers it to instead.
+  when skill Enchanting 1
+  zone map 1412
+  accept 97929 optional
+
+step Camping 101: Enchanting
+  only Skyborne
+  when onquest 97929
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1412
+  complete 97929 @46.2,67.3 optional
+
+step Camping 101: Enchanting
+  only Skyborne
+  when onquest 97929
+  zone map 1456
+  turnin 97929 optional
+
+step Camping 101: Blacksmithing
+  only Skyborne
+  when available 97928
+  tip One of several exclusive quests; the route takes Camping 101: Blacksmithing (97900). This one shows for a character the game offers it to instead.
+  when skill Blacksmithing 1
+  zone map 1412
+  accept 97928 optional
+
+step Camping 101: Blacksmithing
+  only Skyborne
+  when onquest 97928
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1412
+  complete 97928 @46.2,67.3 optional
+
+step Camping 101: Blacksmithing
+  only Skyborne
+  when onquest 97928
+  zone map 1456
+  turnin 97928 optional
+
+step Camping 101: Alchemy
+  only Skyborne
+  when available 97927
+  tip One of several exclusive quests; the route takes Camping 101: Alchemy (97899). This one shows for a character the game offers it to instead.
+  when skill Alchemy 1
+  zone map 1412
+  accept 97927 optional
+
+step Camping 101: Alchemy
+  only Skyborne
+  when onquest 97927
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1412
+  complete 97927 @46.2,67.3 optional
+
+step Camping 101: Alchemy
+  only Skyborne
+  when onquest 97927
+  zone map 1456
+  turnin 97927 optional
+
+step Camping 101: Cooking
+  only Skyborne
+  when available 96661
+  tip One of several exclusive quests; the route takes Camping 101: Cooking (96646). This one shows for a character the game offers it to instead.
+  zone map 1412
+  accept 96661 optional
+
+step Camping 101: Cooking
+  only Skyborne
+  when onquest 96661
+  zone map 1412
+  complete 96661 @44.9,61.7 optional
+
+step Camping 101: Cooking
+  only Skyborne
+  when onquest 96661
+  zone map 1412
+  turnin 96661 optional
+
+step Camping 101: Cooking
+  only Skyborne
+  when available 96658
+  tip One of several exclusive quests; the route takes Camping 101: Cooking (96646). This one shows for a character the game offers it to instead.
+  zone map 1420
+  accept 96658 optional
+
+step Camping 101: Cooking
+  only Skyborne
+  when onquest 96658
+  zone map 1420
+  complete 96658 @61.8,51.4 optional
+
+step Camping 101: Cooking
+  only Skyborne
+  when onquest 96658
+  zone map 1420
+  turnin 96658 optional
+
+step Camping 101: Cooking
+  only Skyborne
+  when available 96655
+  tip One of several exclusive quests; the route takes Camping 101: Cooking (96646). This one shows for a character the game offers it to instead.
+  zone map 1411
+  accept 96655 optional
+
+step Camping 101: Cooking
+  only Skyborne
+  when onquest 96655
+  zone map 1411
+  complete 96655 @51.1,42.5 optional
+
+step Camping 101: Cooking
+  only Skyborne
+  when onquest 96655
+  zone map 1411
+  turnin 96655 optional
+
+step Camping 101: Tailoring
+  only Skyborne
+  when available 96102
+  tip One of several exclusive quests; the route takes Camping 101: Tailoring (97937). This one shows for a character the game offers it to instead.
+  when turnedin 2161
+  when turnedin 96655
+  when skill Tailoring 1
+  zone map 1411
+  accept 96102 optional
+
+step Camping 101: Tailoring
+  only Skyborne
+  when onquest 96102
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1411
+  complete 96102 @52.0,47.3 optional
+
+step Camping 101: Tailoring
+  only Skyborne
+  when onquest 96102
+  zone map 1454
+  turnin 96102 optional
+
+step Camping 101: Enchanting
+  only Skyborne
+  when onquest 98284
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  complete 98284 @41.7,44.8 optional
+
+step Camping 101: Enchanting
+  only Skyborne
+  when onquest 98284
+  zone map 2521
+  turnin 98284 optional
+
+step Camping 101: Skinning
+  only Skyborne
+  when onquest 97971
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  complete 97971 @41.7,44.8 optional
+
+step Camping 101: Skinning
+  only Skyborne
+  when onquest 97971
+  zone map 2521
+  turnin 97971 optional
+
+step Camping 101: Herbalism
+  only Skyborne
+  when onquest 97968
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  complete 97968 @41.7,44.8 optional
+
+step Camping 101: Herbalism
+  only Skyborne
+  when onquest 97968
+  zone map 2521
+  turnin 97968 optional
+
+step Camping 101: First Aid
+  only Skyborne
+  when onquest 97965
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  complete 97965 @41.7,44.8 optional
+
+step Camping 101: First Aid
+  only Skyborne
+  when onquest 97965
+  zone map 2521
+  turnin 97965 optional
+
+step Camping 101: Alchemy
+  only Skyborne
+  when onquest 97963
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  complete 97963 @41.7,44.8 optional
+
+step Camping 101: Alchemy
+  only Skyborne
+  when onquest 97963
+  zone map 2521
+  turnin 97963 optional
+
+step Camping 101: Engineering
+  only Skyborne
+  when available 98285
+  tip One of several exclusive quests; the route takes Camping 101: Engineering (97902). This one shows for a character the game offers it to instead.
+  when skill Engineering 1
+  zone map 2521
+  accept 98285 optional
+
+step Camping 101: Engineering
+  only Skyborne
+  when onquest 98285
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  complete 98285 @54.0,38.9 optional
+
+step Camping 101: Engineering
+  only Skyborne
+  when onquest 98285
+  zone map 2521
+  turnin 98285 optional
+
+step Camping 101: Tailoring
+  only Skyborne
+  when onquest 97972
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  complete 97972 @41.7,44.8 optional
+
+step Camping 101: Tailoring
+  only Skyborne
+  when onquest 97972
+  zone map 2521
+  turnin 97972 optional
+
+step Camping 101: Mining
+  only Skyborne
+  when onquest 97970
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  complete 97970 @41.7,44.8 optional
+
+step Camping 101: Mining
+  only Skyborne
+  when onquest 97970
+  zone map 2521
+  turnin 97970 optional
+
+step Camping 101: Leatherworking
+  only Skyborne
+  when onquest 97969
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  complete 97969 @41.7,44.8 optional
+
+step Camping 101: Leatherworking
+  only Skyborne
+  when onquest 97969
+  zone map 2521
+  turnin 97969 optional
+
+step Camping 101: Blacksmithing
+  only Skyborne
+  when onquest 97964
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2521
+  complete 97964 @41.7,44.8 optional
+
+step Camping 101: Blacksmithing
+  only Skyborne
+  when onquest 97964
+  zone map 2521
+  turnin 97964 optional
+
+step Ripped Missive
+  tip Ripped Missive drops from Commander Haalien: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 2521
+  collect 265476 x1 optional
+  accept 94490 item 265476 optional
+
+step Ripped Missive
+  when onquest 94490
+  zone map 2521
+  turnin 94490
+
+step The Fate of the Den
+  when turnedin 94490
+  zone map 2521
+  accept 94491
+
+step The Fate of the Den
+  when onquest 94491
+  zone map 2521
+  turnin 94491

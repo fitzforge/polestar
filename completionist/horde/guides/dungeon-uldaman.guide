@@ -1,0 +1,335 @@
+guide polestar-completionist-horde/dungeon-uldaman
+title Uldaman (Completionist)
+faction Horde
+category Dungeons
+levels 36-47
+zone Badlands
+next polestar-completionist-horde/26-odd-jobs-in-the-eastern-kingdoms-2
+pitch Uldaman, in Badlands.
+why Every Horde quest of Uldaman: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Badlands: the arrow leads to it.
+
+step Salt Flat Venom
+  zone Thousand Needles
+  accept 1104
+
+step Salt Flat Venom
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Thousand Needles
+  complete 1104 @78.06,77.13
+
+step Salt Flat Venom
+  zone Thousand Needles
+  turnin 1104
+
+step Hardened Shells
+  zone Thousand Needles
+  accept 1105
+
+step Hardened Shells
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Thousand Needles
+  complete 1105 @78.14,77.12
+
+step Hardened Shells
+  zone Thousand Needles
+  turnin 1105
+
+step Martek the Exiled
+  zone Thousand Needles
+  accept 1106
+
+step Martek the Exiled
+  zone Badlands
+  turnin 1106
+
+step Indurium
+  zone Badlands
+  accept 1108
+
+step Indurium
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Badlands
+  complete 1108 @42.22,52.69
+
+step Indurium
+  zone Badlands
+  turnin 1108
+
+step Badlands Reagent Run
+  zone Badlands
+  accept 2258
+
+step Badlands Reagent Run
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Badlands
+  complete 2258 @2.42,46.06
+
+step Badlands Reagent Run
+  zone Badlands
+  turnin 2258
+
+step Return to the Marsh
+  only Mage
+  zone Thunder Bluff
+  accept 1953
+
+step Return to the Marsh
+  only Mage
+  zone Dustwallow Marsh
+  turnin 1953
+
+step The Infernal Orb
+  only Mage
+  zone Dustwallow Marsh
+  accept 1954
+
+step The Infernal Orb
+  only Mage
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Dustwallow Marsh
+  complete 1954 @46.06,57.09
+
+step The Infernal Orb
+  only Mage
+  zone Dustwallow Marsh
+  turnin 1954
+
+step The Exorcism
+  only Mage
+  zone Dustwallow Marsh
+  accept 1955
+
+step The Exorcism
+  only Mage
+  zone Dustwallow Marsh
+  complete 1955 @45.79,56.97
+
+step The Exorcism
+  only Mage
+  zone Dustwallow Marsh
+  turnin 1955
+
+step News for Fizzle
+  zone Badlands
+  accept 1137
+
+step News for Fizzle
+  zone Thousand Needles
+  turnin 1137
+
+step Keeping Pace
+  zone Thousand Needles
+  accept 1190
+
+step Keeping Pace
+  zone Thousand Needles
+  turnin 1190
+
+step Rizzle's Schematics
+  zone Thousand Needles
+  accept 1194
+
+step Rizzle's Schematics
+  zone Thousand Needles
+  turnin 1194
+
+step Jarkal Mossmeld
+  zone Badlands
+  accept 2202
+
+step Rigglefuzz
+  zone Badlands
+  accept 2418
+
+step Theldurin the Lost
+  zone Badlands
+  accept 709
+
+step Pozzik
+  zone Thousand Needles
+  accept 1192
+
+step Tabetha
+  only Mage
+  zone Dustwallow Marsh
+  accept 1956
+
+step Patrick Garrett
+  zone Undercity
+  accept 2342
+
+step Inside Uldaman
+  zone Badlands
+  complete 2418 @67.8,44.4
+  complete 709 @67.8,44.4
+  complete 1192 @67.8,44.4
+  complete 2202 @67.8,44.4
+  complete 2342 @67.8,44.4
+
+step Inside Uldaman
+  only Mage
+  zone Badlands
+  complete 1956 @67.8,44.4
+
+step Jarkal Mossmeld
+  zone Badlands
+  turnin 2202
+
+step Rigglefuzz
+  zone Badlands
+  turnin 2418
+
+step Theldurin the Lost
+  zone Badlands
+  turnin 709
+
+step Pozzik
+  zone Thousand Needles
+  turnin 1192
+
+step Tabetha
+  only Mage
+  zone Dustwallow Marsh
+  turnin 1956
+
+step Patrick Garrett
+  zone Undercity
+  turnin 2342
+
+step Dran Droffers
+  zone Orgrimmar
+  accept 2283
+
+step Inside Uldaman
+  zone Badlands
+  complete 2283 @67.8,44.4
+
+step Dran Droffers
+  zone Orgrimmar
+  turnin 2283
+
+step Dran Droffers
+  zone Orgrimmar
+  accept 2284
+
+step Inside Uldaman, again
+  zone Badlands
+  turnin 2284 @67.8,44.4
+
+step Inside Uldaman, again
+  zone Badlands
+  accept 2318 @67.8,44.4
+
+step Jarkal Mossmeld
+  zone Badlands
+  turnin 2318
+
+step Jarkal Mossmeld
+  zone Badlands
+  accept 2338
+
+step Jarkal Mossmeld
+  zone Badlands
+  turnin 2338
+
+step Jarkal Mossmeld
+  zone Badlands
+  accept 2339
+
+step Inside Uldaman, again
+  zone Badlands
+  complete 2339 @67.8,44.4
+
+step Jarkal Mossmeld
+  zone Badlands
+  turnin 2339
+
+step Jarkal Mossmeld
+  zone Badlands
+  accept 2340
+
+step Dran Droffers
+  zone Orgrimmar
+  turnin 2340
+
+step Level 40
+  level 40
+
+step Inside Uldaman
+  zone Badlands
+  accept 2278 @67.8,44.4
+  complete 2278 @67.8,44.4
+  turnin 2278 @67.8,44.4
+
+step Inside Uldaman, again
+  zone Badlands
+  accept 2280 @67.8,44.4
+
+step Sage Truthseeker
+  zone Thunder Bluff
+  turnin 2280
+
+step Sage Truthseeker
+  zone Thunder Bluff
+  accept 2440
+
+step Bena Winterhoof
+  zone Thunder Bluff
+  turnin 2440
+
+step Encrusted Tail Fins
+  zone map 1441
+  accept 1107
+
+step Encrusted Tail Fins
+  when onquest 1107
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1441
+  complete 1107 @78.1,77.1
+
+step Encrusted Tail Fins
+  when onquest 1107
+  zone map 1441
+  turnin 1107
+
+step To the Undercity for Yagyin's Digest
+  zone map 1418
+  accept 728
+
+step Dran Droffers
+  zone Orgrimmar
+  accept 2341
+
+step Jarkal Mossmeld
+  zone Badlands
+  turnin 2341
+
+step To the Undercity for Yagyin's Digest
+  when onquest 728
+  zone map 1458
+  turnin 728
+
+step Zamek's Distraction
+  when onquest 1190
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1441
+  turnin 1191 direct optional
+
+step Badlands Reagent Run II
+  when skill Alchemy 210
+  zone map 1418
+  accept 2203 optional
+
+step Badlands Reagent Run II
+  when onquest 2203
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1418
+  complete 2203 @2.4,46.1 optional
+
+step Badlands Reagent Run II
+  when onquest 2203
+  zone map 1418
+  turnin 2203 optional

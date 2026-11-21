@@ -1,0 +1,731 @@
+guide polestar-completionist-horde/class-rogue
+title Rogue class quests (10-60) (Completionist)
+faction Horde
+class Rogue
+levels 10-60
+category Class
+zone Durotar
+why Every Rogue class quest from level 10 on, in level order. The earlier ones are in the starting zone guides.
+reward text What the Rogue quests give, quest by quest: abilities, forms, pets, totems or gear.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 19 quests; estimated level at the end 12.9 (heuristic XP).
+# Skipped: 5 objective N (item N) outside the zones; 5 prerequisite N not in this route; 2 exclusive with N.
+
+step Marion Call
+  zone Tirisfal Glades
+  accept 1885 only Undead
+
+step Mennet Carkad
+  zone Undercity
+  turnin 1885 only Undead
+  accept 1886 only Undead
+
+step Astor Hadren
+  collect 7231 x1 quest 1886.1 only Undead
+
+step Mennet Carkad
+  zone Undercity
+  turnin 1886 only Undead
+  accept 1898 only Undead
+
+step Andron Gant
+  zone Undercity
+  turnin 1898 only Undead
+  accept 1899 only Undead
+
+step Andron's Bookshelf
+  collect 7294 x1 quest 1899.1 only Undead
+
+step Mennet Carkad
+  turnin 1899 only Undead
+  accept 1978 only Undead
+
+step Varimathras
+  turnin 1978 only Undead
+
+step Veenix
+  zone Stonetalon Mountains
+  accept 78270
+
+step Venture Co. Operator
+  collect 210187 x1 quest 78270.1
+
+step Veenix
+  turnin 78270
+
+step Level 16
+  level 16
+
+step Mennet Carkad
+  zone Undercity
+  accept 1998 only Undead
+
+step Fenwick Thatros
+  zone Silverpine Forest
+  collect 7306 x1 quest 1998.1 only Undead
+
+step Mennet Carkad
+  zone Undercity
+  turnin 1998 only Undead
+
+step Mennet Carkad
+  zone Undercity
+  accept 1999 only Undead
+
+step Ambermill Strongbox
+  zone Silverpine Forest
+  collect 7309 x1 quest 1999.1 only Undead
+
+step The Eye of Bhossca
+  only Rogue
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1421
+  turnin 78699 direct optional
+
+step Mennet Carkad
+  zone Undercity
+  turnin 1999 only Undead
+
+step Mennet Carkad
+  zone Undercity
+  accept 2378
+
+step Shenthul
+  zone Orgrimmar
+  turnin 2378
+
+step The Shattered Hand
+  only Rogue,Orc,Troll
+  zone map 1454
+  accept 1963 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 1963 @42.7,53.5 optional
+
+step Level 45
+  level 45
+
+step Fahrad
+  zone Alterac Mountains
+  accept 80526
+  turnin 80526
+
+step Syndicate Emblems
+  only Rogue
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1416
+  collect 17124 x1 anywhere optional
+
+step The Talisman of Kazdor
+  only Rogue
+  zone map 1416
+  accept 80411 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 80411 @84.5,80.3 optional
+
+step The Talisman of Kazdor
+  only Rogue
+  turnin 80411 optional
+
+step Level 58
+  level 58
+
+step Geologist Larksbane
+  when turnedin 8315
+  zone Silithus
+  accept 8378
+  turnin 8378
+
+step Shenthul
+  zone Orgrimmar
+  accept 2379
+  turnin 2379
+  accept 2382
+
+step The Shattered Hand
+  only Rogue,Orc,Troll
+  turnin 1963 optional
+
+step The Shattered Hand
+  only Rogue,Orc,Troll
+  tip A class quest, done from the quest text: the reference data does not route it.
+  zone map 1454
+  accept 1858 optional
+  complete 1858 @42.7,53.5 optional
+
+step Wrenix the Wretched
+  zone The Barrens
+  turnin 2382
+  accept 2381
+
+step Shenthul
+  zone Orgrimmar
+  accept 2460
+
+step The Shattered Hand
+  only Rogue,Orc,Troll
+  zone map 1454
+  turnin 1858 optional
+
+step Shenthul
+  zone Orgrimmar
+  kill 3401 x1 quest 2460.1
+
+step Shenthul
+  zone Orgrimmar
+  turnin 2460
+
+step Shenthul
+  zone Orgrimmar
+  accept 2458
+
+step Taskmaster Fizzule
+  zone The Barrens
+  turnin 2458
+
+step Taskmaster Fizzule
+  zone The Barrens
+  accept 2478
+
+step Mutated Venture Co. Drone, Venture Co. Lookout, Venture Co. Patroller, Grand Foreman Puzik Gallywix, Foreman Silixiz and Gallywix's Lockbox
+  zone The Barrens
+  kill 7310 x2 quest 2478.1
+  kill 7307 x2 quest 2478.2
+  kill 7308 x2 quest 2478.3
+  collect 8074 x1 quest 2478.4
+  collect 8072 x1 quest 2478.5
+  collect 8073 x1 quest 2478.6
+
+step Shenthul
+  zone Orgrimmar
+  turnin 2478
+
+step Shenthul
+  zone Orgrimmar
+  accept 2479
+
+step Polly
+  collect 7968 x1 quest 2381.1
+
+step Wrenix the Wretched
+  turnin 2381
+
+step Serge Hinott
+  zone Alterac Mountains
+  turnin 2479
+  accept 2480
+
+step Serge Hinott
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone map 1424
+  zone Alterac Mountains
+  complete 2480 @61.6,19.2 map 1424
+  turnin 2480
+
+step Therzok
+  only Rogue,Orc
+  zone map 1411
+  accept 1859 optional
+
+step Therzok
+  only Rogue,Orc
+  turnin 1859 optional
+
+step The Manor, Ravenholdt
+  only Rogue
+  zone map 1416
+  accept 6681 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 6681 @84.5,80.3 optional
+
+step The Manor, Ravenholdt
+  only Rogue
+  turnin 6681 optional
+
+step Syndicate Sabotage
+  only Rogue
+  tip A class quest, done from the quest text: the reference data does not route it.
+  zone map 1416
+  accept 96779 optional
+  complete 96779 @84.9,80.4 optional
+
+step Syndicate Sabotage
+  only Rogue
+  zone map 1416
+  turnin 96779 optional
+
+step What's the Big Idea?
+  only Rogue
+  tip A class quest, done from the quest text: the reference data does not route it.
+  zone map 1416
+  accept 96781 optional
+  complete 96781 @84.9,80.4 optional
+
+step What's the Big Idea?
+  only Rogue
+  zone map 1416
+  turnin 96781 optional
+
+step Covert Extraction
+  only Rogue
+  tip A class quest, done from the quest text: the reference data does not route it.
+  zone map 1416
+  accept 96782 optional
+  complete 96782 @84.9,80.4 optional
+
+step Covert Extraction
+  only Rogue
+  zone map 1416
+  turnin 96782 optional
+
+step A Way In
+  only Rogue
+  zone map 1416
+  accept 96783 optional
+
+step A Way In
+  only Rogue
+  zone map 1416
+  turnin 96783 optional
+
+step Master of Disguise
+  only Rogue
+  zone map 1417
+  accept 96784 optional
+
+step Master of Disguise
+  only Rogue
+  zone map 1417
+  turnin 96784 optional
+
+step Ain't No Telling
+  only Rogue
+  tip A class quest, done from the quest text: the reference data does not route it.
+  zone map 1417
+  accept 96785 optional
+  complete 96785 @26.8,64.4 optional
+
+step Ain't No Telling
+  only Rogue
+  zone map 1417
+  turnin 96785 optional
+
+step The Syndicate Sting
+  only Rogue
+  tip A class quest, done from the quest text: the reference data does not route it.
+  zone map 1417
+  accept 96786 optional
+  complete 96786 @26.8,64.4 optional
+
+step The Syndicate Sting
+  only Rogue
+  zone map 1416
+  turnin 96786 optional
+
+step Syndicate Emblems
+  only Rogue
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1416
+  turnin 6701 direct optional
+
+step To Orgrimmar!
+  only Rogue
+  when available 2380
+  tip One of several exclusive quests; the route takes Find the Shattered Hand (2378). This one shows for a character the game offers it to instead.
+  zone map 1411
+  accept 2380 optional
+
+step To Orgrimmar!
+  only Rogue
+  when onquest 2380
+  zone map 1454
+  turnin 2380 optional

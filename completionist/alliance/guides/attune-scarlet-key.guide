@@ -1,0 +1,13 @@
+guide polestar-completionist-alliance/attune-scarlet-key
+title The Scarlet Key (Scarlet Monastery key or item) (Completionist)
+faction Alliance
+category Dungeons
+levels 1-60
+zone Tirisfal Glades
+pitch The Scarlet Key: Opens the doors of the Armory and the Cathedral.
+why Opens the doors of the Armory and the Cathedral.
+
+step The Scarlet Key
+  tip Opens the doors of the Armory and the Cathedral. No quest gives it: it comes from inside Scarlet Monastery; the arrow leads to the entrance.
+  zone map 1420
+  collect 7146 x1 @85.2,31.3 map 1420 optional

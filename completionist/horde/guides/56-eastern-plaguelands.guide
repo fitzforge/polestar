@@ -1,0 +1,737 @@
+guide polestar-completionist-horde/56-eastern-plaguelands
+title 56 Eastern Plaguelands (55-60) (Completionist)
+faction Horde
+levels 55-60
+zone Eastern Plaguelands
+next polestar-completionist-horde/dungeon-stratholme
+next polestar-completionist-horde/57-searing-gorge-2
+pitch On along the line: Eastern Plaguelands, quests of level 55 to 60.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 17 quests; estimated level at the end 55.5 (heuristic XP, class quests not counted).
+# Skipped: 3 prerequisite N not in this route; 1 exclusive with N (done).
+
+step Light's Hope Chapel
+  zone Eastern Plaguelands
+  getfp "Light's Hope Chapel"
+
+step Emmisary Gormok
+  sethome "Light's Hope Chapel"
+  accept 9665
+
+step Epic Armaments of Battle - Exalted Amongst the Dawn
+  tip Needs Exalted standing (42000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22523 x27 anywhere optional
+  collect 22524 x27 anywhere optional
+  turnin 9228 direct optional
+
+step Superior Armaments of Battle - Exalted Amongst the Dawn
+  tip Needs Exalted standing (42000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22523 x6 anywhere optional
+  collect 22524 x6 anywhere optional
+  turnin 9227 direct optional
+
+step Superior Armaments of Battle - Revered Amongst the Dawn
+  tip Needs Revered standing (21000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22523 x7 anywhere optional
+  collect 22524 x7 anywhere optional
+  turnin 9226 direct optional
+
+step Epic Armaments of Battle - Revered Amongst the Dawn
+  tip Needs Revered standing (21000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22523 x45 anywhere optional
+  collect 22524 x45 anywhere optional
+  turnin 9225 direct optional
+
+step Epic Armaments of Battle - Honored Amongst the Dawn
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22523 x75 anywhere optional
+  collect 22524 x75 anywhere optional
+  turnin 9224 direct optional
+
+step Superior Armaments of Battle - Honored Amongst the Dawn
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22523 x20 anywhere optional
+  collect 22524 x20 anywhere optional
+  turnin 9223 direct optional
+
+step Epic Armaments of Battle - Friend of the Dawn
+  tip Needs Friendly standing (3000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22523 x110 anywhere optional
+  collect 22524 x110 anywhere optional
+  turnin 9222 direct optional
+
+step Superior Armaments of Battle - Friend of the Dawn
+  tip Needs Friendly standing (3000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22523 x30 anywhere optional
+  collect 22524 x30 anywhere optional
+  turnin 9221 direct optional
+
+step The Shadow Guard
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22524 x10 anywhere optional
+  turnin 9213 direct optional
+
+step The Ice Guard
+  tip Needs Honored standing (9000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22524 x10 anywhere optional
+  turnin 9211 direct optional
+
+step Craftsman's Writ - Lightning Eel
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 13757 x30 anywhere optional
+  turnin 9206 direct optional
+
+step Craftsman's Writ - Plated Armorfish
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 13890 x30 anywhere optional
+  turnin 9205 direct optional
+
+step Craftsman's Writ - Stonescale Eel
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 13422 x40 anywhere optional
+  turnin 9204 direct optional
+
+step Craftsman's Writ - Flask of Petrification
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 13506 x1 anywhere optional
+  turnin 9203 direct optional
+
+step Craftsman's Writ - Major Healing Potion
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 13446 x20 anywhere optional
+  turnin 9202 direct optional
+
+step Craftsman's Writ - Greater Arcane Protection Potion
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 13461 x15 anywhere optional
+  turnin 9201 direct optional
+
+step Craftsman's Writ - Major Mana Potion
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 13444 x10 anywhere optional
+  turnin 9200 direct optional
+
+step Craftsman's Writ - Thorium Tube
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 16000 x14 anywhere optional
+  turnin 9198 direct optional
+
+step Craftsman's Writ - Gnomish Battle Chicken
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 10725 x4 anywhere optional
+  turnin 9197 direct optional
+
+step Craftsman's Writ - Thorium Grenade
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 15993 x20 anywhere optional
+  turnin 9196 direct optional
+
+step Craftsman's Writ - Goblin Sapper Charge
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 10646 x20 anywhere optional
+  turnin 9195 direct optional
+
+step Craftsman's Writ - Runecloth Robe
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 13858 x8 anywhere optional
+  turnin 9194 direct optional
+
+step Craftsman's Writ - Runecloth Bag
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 14046 x8 anywhere optional
+  turnin 9191 direct optional
+
+step Craftsman's Writ - Runecloth Boots
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 13864 x8 anywhere optional
+  turnin 9190 direct optional
+
+step Craftsman's Writ - Brightcloth Pants
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 14104 x6 anywhere optional
+  turnin 9188 direct optional
+
+step Craftsman's Writ - Runic Leather Pants
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 15095 x4 anywhere optional
+  turnin 9187 direct optional
+
+step Craftsman's Writ - Wicked Leather Belt
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 15088 x9 anywhere optional
+  turnin 9186 direct optional
+
+step Craftsman's Writ - Rugged Armor Kit
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 15564 x25 anywhere optional
+  turnin 9185 direct optional
+
+step Craftsman's Writ - Wicked Leather Headband
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 15086 x10 anywhere optional
+  turnin 9184 direct optional
+
+step Craftsman's Writ - Radiant Circlet
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 12417 x3 anywhere optional
+  turnin 9183 direct optional
+
+step Craftsman's Writ - Huge Thorium Battleaxe
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 12775 x3 anywhere optional
+  turnin 9182 direct optional
+
+step Craftsman's Writ - Volcanic Hammer
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 12792 x3 anywhere optional
+  turnin 9181 direct optional
+
+step Craftsman's Writ - Imperial Plate Chest
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 12422 x3 anywhere optional
+  turnin 9179 direct optional
+
+step Craftsman's Writ - Dense Weightstone
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 12643 x120 anywhere optional
+  turnin 9178 direct optional
+
+step Writ of Safe Passage
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  turnin 9165 direct optional
+
+step They Call Me "The Rooster"
+  tip Needs Friendly standing (3000) with Argent Dawn; without it the quest is not offered.
+  zone map 1423
+  accept 9141 optional
+
+step Savage Flora
+  tip Needs Friendly standing (3000) with Argent Dawn; without it the quest is not offered.
+  zone map 1423
+  accept 9136 optional
+
+step They Call Me "The Rooster"
+  when onquest 9141
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 9141 @71.3,48.0 optional
+
+step They Call Me "The Rooster"
+  when onquest 9141
+  zone map 1423
+  turnin 9141 optional
+
+step Binding the Dreadnaught
+  tip Needs Friendly standing (3000) with Argent Dawn; without it the quest is not offered.
+  zone map 1423
+  accept 9131 optional
+
+step Craftsman's Writ
+  when turnedin 9141
+  tip Needs Friendly standing (3000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 12844 x1 anywhere optional
+  turnin 9142 direct optional
+
+step Savage Flora
+  when onquest 9136
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 9136 @71.4,49.4 optional
+
+step Savage Flora
+  when onquest 9136
+  zone map 1423
+  turnin 9136 optional
+
+step The Elemental Equation
+  tip Needs Friendly standing (3000) with Argent Dawn; without it the quest is not offered.
+  zone map 1423
+  accept 9128 optional
+
+step Savage Fronds
+  when turnedin 9136
+  tip Needs Friendly standing (3000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22529 x30 anywhere optional
+  turnin 9137 direct optional
+
+step Binding the Dreadnaught
+  when onquest 9131
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 9131 @72.0,48.5 optional
+
+step Binding the Dreadnaught
+  when onquest 9131
+  zone map 1423
+  turnin 9131 optional
+
+step Bonescythe Digs
+  tip Needs Friendly standing (3000) with Argent Dawn; without it the quest is not offered.
+  zone map 1423
+  accept 9126 optional
+
+step Dark Iron Scraps
+  when turnedin 9131
+  tip Needs Friendly standing (3000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22528 x30 anywhere optional
+  turnin 9132 direct optional
+
+step The Elemental Equation
+  when onquest 9128
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 9128 @71.7,48.7 optional
+
+step The Elemental Equation
+  when onquest 9128
+  zone map 1423
+  turnin 9128 optional
+
+step Cryptstalker Armor Doesn't Make Itself...
+  tip Needs Friendly standing (3000) with Argent Dawn; without it the quest is not offered.
+  zone map 1423
+  accept 9124 optional
+
+step Core of Elements
+  when turnedin 9128
+  tip Needs Friendly standing (3000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22527 x30 anywhere optional
+  turnin 9129 direct optional
+
+step Bonescythe Digs
+  when onquest 9126
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 9126 @71.6,48.9 optional
+
+step Bonescythe Digs
+  when onquest 9126
+  zone map 1423
+  turnin 9126 optional
+
+step Chromatic Mantle of the Dawn
+  tip Needs Exalted standing (42000) with Argent Dawn; without it the quest is not offered.
+  zone map 1423
+  accept 5517 optional
+
+step Bone Fragments
+  when turnedin 9126
+  tip Needs Friendly standing (3000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22526 x30 anywhere optional
+  turnin 9127 direct optional
+
+step Cryptstalker Armor Doesn't Make Itself...
+  when onquest 9124
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 9124 @71.7,48.9 optional
+
+step Cryptstalker Armor Doesn't Make Itself...
+  when onquest 9124
+  zone map 1423
+  turnin 9124 optional
+
+step Mantles of the Dawn
+  when available 5513
+  tip One of several exclusive quests; the route takes Mantles of the Dawn (5504). This one shows for a character the game offers it to instead.
+  tip Needs Revered standing (21000) with Argent Dawn; without it the quest is not offered.
+  zone map 1423
+  accept 5513 optional
+
+step Minion's Scourgestones
+  when turnedin 5401
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 12840 x20 anywhere optional
+  turnin 5510 direct optional
+
+step Invader's Scourgestones
+  when turnedin 5401
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 12841 x10 anywhere optional
+  turnin 5509 direct optional
+
+step Corruptor's Scourgestones
+  when turnedin 5401
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 12843 x1 anywhere optional
+  turnin 5508 direct optional
+
+step Argent Dawn Commission
+  when available 5503
+  tip One of several exclusive quests; the route takes Argent Dawn Commission (5401). This one shows for a character the game offers it to instead.
+  zone map 1423
+  accept 5503 optional
+
+step Document from the Front
+  when has 22975
+  tip A Smudged Document drops from Skeletal Shocktrooper, Ghoul Berserker, Spectral Soldier; the reference data does not place that, so no arrow leads there.
+  zone map 1423
+  accept 9304 item 22975
+
+step Missive from the Front
+  when has 22973
+  tip A Crumpled Missive drops from Ghoul Berserker, Skeletal Shocktrooper, Spectral Soldier; the reference data does not place that, so no arrow leads there.
+  zone map 1423
+  accept 9302 item 22973
+
+step Envelope from the Front
+  when has 22970
+  tip A Bloodstained Envelope drops from Skeletal Shocktrooper, Ghoul Berserker, Spectral Soldier; the reference data does not place that, so no arrow leads there.
+  zone map 1423
+  accept 9301 item 22970
+
+step Page from the Front
+  when has 22974
+  tip A Ragged Page drops from Ghoul Berserker, Skeletal Shocktrooper, Spectral Soldier; the reference data does not place that, so no arrow leads there.
+  zone map 1423
+  accept 9300 item 22974
+
+step Note from the Front
+  when has 22972
+  tip A Careworn Note drops from Skeletal Shocktrooper, Ghoul Berserker, Spectral Soldier; the reference data does not place that, so no arrow leads there.
+  zone map 1423
+  accept 9299 item 22972
+
+step Letter from the Front
+  when has 22977
+  tip A Torn Letter drops from Ghoul Berserker, Skeletal Shocktrooper, Spectral Soldier; the reference data does not place that, so no arrow leads there.
+  zone map 1423
+  accept 9295 item 22977
+
+step The Keeper's Call
+  when has 22723
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1423
+  accept 9247 item 22723
+
+step That's Asking A Lot
+  zone map 1423
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 6026
+  complete 6026 @70.9,48.4
+
+step Crypt Fiend Parts
+  when turnedin 9124
+  tip Needs Friendly standing (3000) with Argent Dawn; without it the quest is not offered.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22525 x30 anywhere optional
+  turnin 9125 direct optional
+
+step Chromatic Mantle of the Dawn
+  when onquest 5517
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 5517 @71.8,50.2 optional
+
+step Chromatic Mantle of the Dawn
+  when onquest 5517
+  zone map 1423
+  turnin 5517 optional
+
+step Mantles of the Dawn
+  when onquest 5513
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 5513 @71.8,50.2 optional
+
+step Mantles of the Dawn
+  when onquest 5513
+  zone map 1423
+  turnin 5513 optional
+
+step Argent Dawn Commission
+  when onquest 5503
+  zone map 1423
+  turnin 5503 optional
+
+step Document from the Front
+  when onquest 9304
+  zone map 1423
+  turnin 9304
+
+step Missive from the Front
+  when onquest 9302
+  zone map 1423
+  turnin 9302
+
+step Envelope from the Front
+  when onquest 9301
+  zone map 1423
+  turnin 9301
+
+step Page from the Front
+  when onquest 9300
+  zone map 1423
+  turnin 9300
+
+step Note from the Front
+  when onquest 9299
+  zone map 1423
+  turnin 9299
+
+step Letter from the Front
+  when onquest 9295
+  zone map 1423
+  turnin 9295
+
+step The Keeper's Call
+  when onquest 9247
+  zone map 1423
+  turnin 9247
+
+step Orthas
+  accept 84319 @24.3,69.1 map 1423
+
+step <TXT>Eastwall Capture Quest Doodad
+  kill 17690 x1 quest 9665.2
+
+step <TXT>Crown Guard Capture Quest Doodad
+  kill 17689 x1 quest 9665.1
+
+step Abomination
+  collect 227689 x1 quest 84319.1
+
+step <TXT>Northpass Capture Quest Doodad
+  kill 17696 x1 quest 9665.3
+
+step <TXT>Plaguewood Capture Quest Doodad
+  kill 17698 x1 quest 9665.4
+
+step Augustus the Touched
+  accept 6164
+
+step Augustus' Receipt Book
+  collect 15884 x1 quest 6164.1
+
+step Augustus the Touched
+  turnin 6164
+
+step Orthas
+  turnin 84319 @24.3,69.1 map 1423
+
+step Torn Scroll
+  accept 6024
+
+step Infiltrator Hameya
+  collect 15767 x1 quest 6024.1
+
+step Adon
+  accept 97988 @50.9,11.5 map 1423
+
+step Emmisary Gormok
+  turnin 9665
+
+step That's Asking A Lot
+  turnin 6026
+
+step Smokey LaRue
+  zone Eastern Plaguelands
+  accept 6041
+
+step Caretaker Alen
+  accept 6021
+
+step Mound of Dirt
+  turnin 6024
+
+step Pamela's Doll
+  zone map 1423
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 5149
+  complete 5149 @31.1,78.0
+
+step Pamela's Doll
+  turnin 5149
+
+step Pamela Redpath
+  zone Eastern Plaguelands
+  accept 5152
+
+step Marlene Redpath
+  zone Western Plaguelands
+  turnin 5152
+
+step Marlene Redpath
+  zone Western Plaguelands
+  accept 5153
+
+step Chromie
+  zone Western Plaguelands
+  turnin 5153
+
+step Chromie
+  zone Eastern Plaguelands
+  accept 5154
+
+step Chromie
+  zone Western Plaguelands
+  turnin 5154
+
+step Chromie
+  zone Western Plaguelands
+  accept 5210
+
+step Pamela Redpath
+  zone Eastern Plaguelands
+  accept 5241
+
+step Carlin Redpath
+  zone Eastern Plaguelands
+  turnin 5241
+
+step Smokey LaRue
+  zone Eastern Plaguelands
+  complete 6041
+  turnin 6041
+
+step Defenders of Darrowshire
+  zone map 1423
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 5211
+  complete 5211 @71.7,50.0
+
+step Carlin Redpath
+  zone Eastern Plaguelands
+  turnin 5210
+
+step Defenders of Darrowshire
+  turnin 5211
+
+step Carlin Redpath
+  zone Eastern Plaguelands
+  accept 5168
+
+step Carlin Redpath
+  zone Eastern Plaguelands
+  accept 5181
+
+step Carlin Redpath
+  zone Eastern Plaguelands
+  turnin 5168
+
+step Carlin Redpath
+  zone Eastern Plaguelands
+  turnin 5181
+
+step Marauders of Darrowshire
+  zone map 1423
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 5206
+  complete 5206 @71.7,50.0
+
+step Marauders of Darrowshire
+  turnin 5206
+
+step Carlin Redpath
+  zone Eastern Plaguelands
+  accept 5941
+
+step Chromie
+  zone Western Plaguelands
+  turnin 5941
+
+step Chromie
+  zone Eastern Plaguelands
+  accept 5721
+
+step Pamela Redpath
+  zone Eastern Plaguelands
+  complete 5721
+  turnin 5721
+
+step Pamela Redpath
+  zone Eastern Plaguelands
+  accept 5942
+
+step Joseph's Chest
+  zone Eastern Plaguelands
+  turnin 5942
+
+step Zaeldarr the Outcast
+  collect 15785 x1 quest 6021.1
+
+step Caretaker Alen
+  turnin 6021
+
+step Argent Arbiter
+  when turnedin 8152
+  zone map 1423
+  accept 97986
+
+step Argent Arbiter
+  when onquest 97986
+  zone map 1423
+  turnin 97986 @40.4,35.2 map 1423
+
+step Bleeding Edge
+  when turnedin 97986
+  zone map 1423
+  accept 98109 @40.4,35.2 map 1423
+
+step Bleeding Edge
+  when onquest 98109
+  zone map 1423
+  turnin 98109
+
+step Corswyn Aseril
+  zone Orgrimmar
+  turnin 97988 @38.3,38.6 map 1454

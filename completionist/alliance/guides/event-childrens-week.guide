@@ -1,0 +1,120 @@
+guide polestar-completionist-alliance/event-childrens-week
+title Children's Week (Completionist)
+faction Alliance
+category Miscellaneous
+levels 1-60
+zone Stormwind City
+pitch The quests of Children's Week, as far as the reference data places them.
+
+step About this guide
+  note Each quest here is offered only while the event runs. Every step is optional: do what the calendar offers now, and come back for the rest.
+
+step Level 10
+  level 10
+
+step Children's Week
+  zone map 1453
+  accept 1468 optional
+
+step Children's Week
+  when onquest 1468
+  zone map 1453
+  turnin 1468 optional
+
+step The Bough of the Eternals
+  when turnedin 1468
+  zone map 1453
+  accept 1479 optional
+
+step The Bough of the Eternals
+  when onquest 1479
+  zone map 1457
+  complete 1479 @41.3,43.5 optional
+
+step The Bough of the Eternals
+  when onquest 1479
+  zone map 1453
+  turnin 1479 optional
+
+step The Stonewrought Dam
+  when turnedin 1468
+  zone map 1453
+  accept 1558 optional
+
+step The Stonewrought Dam
+  when onquest 1558
+  zone map 1432
+  complete 1558 @47.6,14.3 optional
+
+step The Stonewrought Dam
+  when onquest 1558
+  zone map 1453
+  turnin 1558 optional
+
+step Spooky Lighthouse
+  when turnedin 1468
+  zone map 1453
+  accept 1687 optional
+
+step Spooky Lighthouse
+  when onquest 1687
+  zone map 1436
+  complete 1687 @30.4,85.6 optional
+
+step Spooky Lighthouse
+  when onquest 1687
+  zone map 1453
+  turnin 1687 optional
+
+step You Scream, I Scream...
+  when turnedin 1479
+  when turnedin 1558
+  when turnedin 1687
+  zone map 1453
+  accept 4822 optional
+
+step You Scream, I Scream...
+  when onquest 4822
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1453
+  complete 4822 @56.3,54.3 optional
+
+step You Scream, I Scream...
+  when onquest 4822
+  zone map 1453
+  turnin 4822 optional
+
+step Jaina's Autograph
+  when turnedin 1687
+  when turnedin 1479
+  when turnedin 1558
+  zone map 1453
+  accept 558 optional
+
+step Jaina's Autograph
+  when onquest 558
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1453
+  complete 558 @56.3,54.3 optional
+
+step Jaina's Autograph
+  when onquest 558
+  zone map 1453
+  turnin 558 optional
+
+step A Warden of the Alliance
+  when turnedin 558
+  when turnedin 4822
+  zone map 1453
+  accept 171 optional
+
+step A Warden of the Alliance
+  when onquest 171
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1453
+  complete 171 @56.3,54.3 optional
+
+step A Warden of the Alliance
+  when onquest 171
+  zone map 1453
+  turnin 171 optional

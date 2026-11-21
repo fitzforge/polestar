@@ -1,0 +1,54 @@
+guide polestar-completionist-horde/05-odd-jobs-in-kalimdor
+title 05 Odd jobs in Kalimdor (15-20) (Completionist)
+faction Horde
+levels 15-20
+zone Orgrimmar
+next polestar-completionist-horde/06-silverpine-forest
+pitch On along the line: errands across Kalimdor, quests of level 15 to 20.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 7 quests; estimated level at the end 15.1 (heuristic XP, class quests not counted).
+
+step Thatog
+  accept 97246
+
+step Borstan
+  turnin 97246
+  accept 97249
+
+step Kor'geld
+  accept 97242
+
+step Cattail and Speargrass
+  collect 277278 x1 quest 97242.1
+  collect 277279 x1 quest 97242.2
+
+step Kor'geld
+  turnin 97242
+  accept 97275
+  turnin 97275
+
+step Zor Lonetree
+  accept 1061
+  turnin 97249
+  accept 97326
+
+step Level 20
+  level 20
+
+step Warcaller Gorlach
+  zone Orgrimmar
+  accept 235
+
+step Smooth Boulder
+  collect 277952 x8 quest 97326.1
+
+step Thra
+  turnin 97326
+
+step Senani Thunderheart
+  zone Ashenvale
+  turnin 235
+
+step Seereth Stonebreak
+  zone The Barrens
+  turnin 1061

@@ -1,0 +1,677 @@
+guide polestar-completionist-alliance/pvp-battlegrounds
+title Battleground and world PvP quests (Completionist)
+faction Alliance
+category Miscellaneous
+levels 1-60
+zone Stormwind City
+pitch The battleground and world PvP quests that are done once.
+
+step About this guide
+  note These quests ask for battleground or world PvP play. Every step is optional.
+
+step CLUCK!
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 11109 x1 anywhere optional
+  turnin 3861 direct optional
+
+step Past Victories in Arathi
+  zone map 1413
+  accept 8565 optional
+
+step Past Victories in Arathi
+  when onquest 8565
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1413
+  complete 8565 @63.6,58.6 optional
+
+step Past Victories in Arathi
+  when onquest 8565
+  zone map 1413
+  turnin 8565 optional
+
+step Past Victories in Warsong Gulch
+  zone map 1413
+  accept 8567 optional
+
+step Past Victories in Warsong Gulch
+  when onquest 8567
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1413
+  complete 8567 @63.6,58.6 optional
+
+step Past Victories in Warsong Gulch
+  when onquest 8567
+  zone map 1413
+  turnin 8567 optional
+
+step Past Efforts in Warsong Gulch
+  zone map 1413
+  accept 8569 optional
+
+step Past Efforts in Warsong Gulch
+  when onquest 8569
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1413
+  complete 8569 @63.6,58.6 optional
+
+step Past Efforts in Warsong Gulch
+  when onquest 8569
+  zone map 1413
+  turnin 8569 optional
+
+step Talismans of Merit
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1440
+  collect 19213 x1 anywhere optional
+  turnin 8289 direct optional
+
+step Fight for Warsong Gulch
+  when turnedin 8372
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 20558 x3 anywhere optional
+  turnin 8386 direct optional
+
+step Vanquish the Invaders!
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1440
+  collect 20558 x1 anywhere optional
+  turnin 7788 direct optional
+
+step Talismans of Merit
+  when turnedin 7788
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1440
+  collect 19213 x1 anywhere optional
+  turnin 7921 direct optional
+
+step Claiming Arathi Basin
+  when turnedin 8374
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 20559 x3 anywhere optional
+  turnin 8384 direct optional
+
+step Fight for Warsong Gulch
+  when turnedin 8372
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 20558 x3 anywhere optional
+  turnin 8404 direct optional
+
+step Talismans of Merit
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1440
+  collect 19213 x1 anywhere optional
+  turnin 7887 direct optional
+
+step Claiming Arathi Basin
+  when turnedin 8374
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 20559 x3 anywhere optional
+  turnin 8391 direct optional
+
+step Level 10
+  level 10
+
+step Fight for Warsong Gulch
+  zone map 1413
+  accept 8372 optional
+
+step Fight for Warsong Gulch
+  when onquest 8372
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1413
+  complete 8372 @63.6,58.6 optional
+
+step Fight for Warsong Gulch
+  when onquest 8372
+  zone map 1413
+  turnin 8372 optional
+
+step Level 20
+  level 20
+
+step Claiming Arathi Basin
+  zone map 1413
+  accept 8374 optional
+
+step Claiming Arathi Basin
+  when onquest 8374
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1413
+  complete 8374 @63.6,58.6 optional
+
+step Claiming Arathi Basin
+  when onquest 8374
+  zone map 1413
+  turnin 8374 optional
+
+step Fight for Warsong Gulch
+  when available 8399
+  tip One of several exclusive quests; the route takes Fight for Warsong Gulch (8372). This one shows for a character the game offers it to instead.
+  zone map 1413
+  accept 8399 optional
+
+step Fight for Warsong Gulch
+  when onquest 8399
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1413
+  complete 8399 @63.6,58.6 optional
+
+step Fight for Warsong Gulch
+  when onquest 8399
+  zone map 1413
+  turnin 8399 optional
+
+step Fight for Warsong Gulch
+  when turnedin 8372
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 20558 x3 anywhere optional
+  turnin 8405 direct optional
+
+step Level 30
+  level 30
+
+step Claiming Arathi Basin
+  when available 8393
+  tip One of several exclusive quests; the route takes Claiming Arathi Basin (8374). This one shows for a character the game offers it to instead.
+  zone map 1413
+  accept 8393 optional
+
+step Claiming Arathi Basin
+  when onquest 8393
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1413
+  complete 8393 @63.6,58.6 optional
+
+step Claiming Arathi Basin
+  when onquest 8393
+  zone map 1413
+  turnin 8393 optional
+
+step Darkspear Islands Clash
+  when turnedin 98895
+  zone map 1413
+  accept 98896 @63.6,58.6 map 1413 optional
+
+step Darkspear Islands Clash
+  when onquest 98896
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1413
+  complete 98896 @63.6,58.6 optional
+
+step Fight for Warsong Gulch
+  when available 8400
+  tip One of several exclusive quests; the route takes Fight for Warsong Gulch (8372). This one shows for a character the game offers it to instead.
+  zone map 1413
+  accept 8400 optional
+
+step Fight for Warsong Gulch
+  when onquest 8400
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1413
+  complete 8400 @63.6,58.6 optional
+
+step Fight for Warsong Gulch
+  when onquest 8400
+  zone map 1413
+  turnin 8400 optional
+
+step Darkspear Islands Clash
+  zone map 1413
+  accept 98895 @63.6,58.6 map 1413 optional
+
+step Darkspear Islands Clash
+  when onquest 98895
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1413
+  complete 98895 @63.6,58.6 optional
+
+step Darkspear Islands Clash
+  when onquest 98895
+  zone map 1413
+  turnin 98895 @63.6,58.6 map 1413 optional
+
+step Darkspear Islands Clash
+  when onquest 98896
+  zone map 1413
+  turnin 98896 @63.6,58.6 map 1413 optional
+
+step Talismans of Merit
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1440
+  collect 19213 x1 anywhere optional
+  turnin 7888 direct optional
+
+step Claiming Arathi Basin
+  when turnedin 8374
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 20559 x3 anywhere optional
+  turnin 8392 direct optional
+
+step Fight for Warsong Gulch
+  when turnedin 8372
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 20558 x3 anywhere optional
+  turnin 8406 direct optional
+
+step Darkspear Islands Clash
+  zone map 1413
+  accept 98898 @63.6,58.6 map 1413 optional
+
+step Darkspear Islands Clash
+  when onquest 98898
+  zone map 1413
+  turnin 98898 @63.6,58.6 map 1413 optional
+
+step Irondeep Supplies
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1459
+  collect 17522 x10 anywhere optional
+  turnin 5892 direct optional
+
+step Coldtooth Supplies
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1459
+  collect 17542 x10 anywhere optional
+  turnin 6982 direct optional
+
+step Level 40
+  level 40
+
+step Claiming Arathi Basin
+  when available 8394
+  tip One of several exclusive quests; the route takes Claiming Arathi Basin (8374). This one shows for a character the game offers it to instead.
+  zone map 1413
+  accept 8394 optional
+
+step Claiming Arathi Basin
+  when onquest 8394
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1413
+  complete 8394 @63.6,58.6 optional
+
+step Claiming Arathi Basin
+  when onquest 8394
+  zone map 1413
+  turnin 8394 optional
+
+step Fight for Warsong Gulch
+  when available 8401
+  tip One of several exclusive quests; the route takes Fight for Warsong Gulch (8372). This one shows for a character the game offers it to instead.
+  zone map 1413
+  accept 8401 optional
+
+step Fight for Warsong Gulch
+  when onquest 8401
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1413
+  complete 8401 @63.6,58.6 optional
+
+step Fight for Warsong Gulch
+  when onquest 8401
+  zone map 1413
+  turnin 8401 optional
+
+step Darkspear Islands Clash
+  zone map 1413
+  accept 98897 @63.6,58.6 map 1413 optional
+
+step Darkspear Islands Clash
+  when onquest 98897
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1413
+  complete 98897 @63.6,58.6 optional
+
+step Darkspear Islands Clash
+  when onquest 98897
+  zone map 1413
+  turnin 98897 @63.6,58.6 map 1413 optional
+
+step Claiming Arathi Basin
+  when turnedin 8374
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 20559 x3 anywhere optional
+  turnin 8397 direct optional
+
+step Fight for Warsong Gulch
+  when turnedin 8372
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 20558 x3 anywhere optional
+  turnin 8407 direct optional
+
+step Begin the Attack!
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1459
+  collect 17353 x1 anywhere optional
+  turnin 6846 direct optional
+
+step Master Ryson's All Seeing Eye
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1459
+  turnin 6848 direct optional
+
+step Level 50
+  level 50
+
+step Claiming Arathi Basin
+  when available 8395
+  tip One of several exclusive quests; the route takes Claiming Arathi Basin (8374). This one shows for a character the game offers it to instead.
+  zone map 1413
+  accept 8395 optional
+
+step Claiming Arathi Basin
+  when onquest 8395
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1413
+  complete 8395 @63.6,58.6 optional
+
+step Claiming Arathi Basin
+  when onquest 8395
+  zone map 1413
+  turnin 8395 optional
+
+step Zinfizzlex's Portable Shredder Unit
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1459
+  collect 12359 x30 anywhere optional
+  collect 3860 x50 anywhere optional
+  collect 3575 x75 anywhere optional
+  collect 17411 x1 anywhere optional
+  turnin 6862 direct optional
+
+step Fight for Warsong Gulch
+  when available 8402
+  tip One of several exclusive quests; the route takes Fight for Warsong Gulch (8372). This one shows for a character the game offers it to instead.
+  zone map 1413
+  accept 8402 optional
+
+step Fight for Warsong Gulch
+  when onquest 8402
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1413
+  complete 8402 @63.6,58.6 optional
+
+step Fight for Warsong Gulch
+  when onquest 8402
+  zone map 1413
+  turnin 8402 optional
+
+step Ivus the Forest Lord
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1459
+  collect 17423 x1 anywhere optional
+  turnin 6881 direct optional
+
+step Darkspear Islands Clash
+  zone map 1413
+  accept 98899 @63.6,58.6 map 1413 optional
+
+step Darkspear Islands Clash
+  when onquest 98899
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1413
+  complete 98899 @63.6,58.6 optional
+
+step Darkspear Islands Clash
+  when onquest 98899
+  zone map 1413
+  turnin 98899 @63.6,58.6 map 1413 optional
+
+step Call of Air - Vipore's Fleet
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1459
+  collect 17503 x1 anywhere optional
+  turnin 6941 direct optional
+
+step Call of Air - Slidore's Fleet
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1459
+  collect 17502 x1 anywhere optional
+  turnin 6942 direct optional
+
+step Call of Air - Ichman's Fleet
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1459
+  collect 17504 x1 anywhere optional
+  turnin 6943 direct optional
+
+step Ram Riding Harnesses
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1459
+  collect 17643 x1 anywhere optional
+  turnin 7026 direct optional
+
+step Empty Stables
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1459
+  turnin 7027 direct optional
+
+step Level 51
+  level 51
+
+step The Quartermaster
+  zone map 1459
+  accept 7121 optional
+
+step The Quartermaster
+  when onquest 7121
+  zone map 1459
+  turnin 7121 optional
+
+step Armor Scraps
+  zone map 1459
+  accept 7223 optional
+
+step Armor Scraps
+  when onquest 7223
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1459
+  complete 7223 @43.5,15.5 optional
+
+step Armor Scraps
+  when onquest 7223
+  zone map 1459
+  turnin 7223 optional
+
+step Brotherly Love
+  zone map 1459
+  accept 7282 optional
+
+step Brotherly Love
+  when onquest 7282
+  zone map 1459
+  complete 7282 @50.7,65.7 optional
+
+step Brotherly Love
+  when onquest 7282
+  zone map 1459
+  turnin 7282 optional
+
+step Fallen Sky Lords
+  zone map 1459
+  accept 7301 optional
+
+step Fallen Sky Lords
+  when onquest 7301
+  zone map 1459
+  complete 7301 @48,84 optional
+
+step Fallen Sky Lords
+  when onquest 7301
+  zone map 1459
+  turnin 7301 optional
+
+step Gnomeregan Bounty
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1459
+  collect 18145 x1 anywhere optional
+  turnin 7364 direct optional
+
+step Staghelm's Requiem
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1459
+  collect 18146 x1 anywhere optional
+  turnin 7365 direct optional
+
+step The Archbishop's Mercy
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1459
+  collect 18147 x1 anywhere optional
+  turnin 7366 direct optional
+
+step Defusing the Threat
+  zone map 1459
+  accept 7367 optional
+
+step Defusing the Threat
+  when onquest 7367
+  zone map 1459
+  complete 7367 @49.6,82.3 optional
+
+step Defusing the Threat
+  when onquest 7367
+  zone map 1459
+  turnin 7367 optional
+
+step Crystal Cluster
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1459
+  collect 17423 x5 anywhere optional
+  turnin 7386 direct optional
+
+step Wanted: ORCS!
+  zone map 1459
+  accept 7402 optional
+
+step Wanted: ORCS!
+  when onquest 7402
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1459
+  complete 7402 @43.3,16.5 optional
+
+step Wanted: ORCS!
+  when onquest 7402
+  zone map 1459
+  turnin 7402 optional
+
+step What the Hoof?
+  when turnedin 7364
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1459
+  collect 18145 x1 anywhere optional
+  turnin 7424 direct optional
+
+step Staghelm's Mojo Jamboree
+  when turnedin 7365
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1459
+  collect 18146 x1 anywhere optional
+  turnin 7425 direct optional
+
+step One Man's Love
+  when turnedin 7366
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1459
+  collect 18147 x1 anywhere optional
+  turnin 7426 direct optional
+
+step Wanted: MORE ORCS!
+  when turnedin 7402
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1459
+  collect 18207 x1 anywhere optional
+  turnin 7428 direct optional
+
+step Vanquish the Invaders!
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1440
+  collect 20558 x1 anywhere optional
+  turnin 8291 direct optional
+
+step Talismans of Merit
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1440
+  collect 19213 x1 anywhere optional
+  turnin 8292 direct optional
+
+step Claiming Arathi Basin
+  when turnedin 8374
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 20559 x3 anywhere optional
+  turnin 8398 direct optional
+
+step Level 60
+  level 60
+
+step Fight for Warsong Gulch
+  when available 8403
+  tip One of several exclusive quests; the route takes Fight for Warsong Gulch (8372). This one shows for a character the game offers it to instead.
+  zone map 1413
+  accept 8403 optional
+
+step Fight for Warsong Gulch
+  when onquest 8403
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1413
+  complete 8403 @63.6,58.6 optional
+
+step Fight for Warsong Gulch
+  when onquest 8403
+  zone map 1413
+  turnin 8403 optional
+
+step Fight for Warsong Gulch
+  when turnedin 8372
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 20558 x3 anywhere optional
+  turnin 8408 direct optional
+
+step Darkspear Islands Clash
+  zone map 1413
+  accept 98901 @63.6,58.6 map 1413 optional
+
+step Darkspear Islands Clash
+  when onquest 98901
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1413
+  complete 98901 @63.6,58.6 optional
+
+step Darkspear Islands Clash
+  when onquest 98901
+  zone map 1413
+  turnin 98901 @63.6,58.6 map 1413 optional
+
+step Claiming Arathi Basin
+  when available 8396
+  tip One of several exclusive quests; the route takes Claiming Arathi Basin (8374). This one shows for a character the game offers it to instead.
+  zone map 1413
+  accept 8396 optional
+
+step Claiming Arathi Basin
+  when onquest 8396
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1413
+  complete 8396 @63.6,58.6 optional
+
+step Claiming Arathi Basin
+  when onquest 8396
+  zone map 1413
+  turnin 8396 optional
+
+step More Armor Scraps
+  when turnedin 7223
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1459
+  collect 17422 x20 anywhere optional
+  turnin 6781 direct optional

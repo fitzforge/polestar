@@ -1,0 +1,328 @@
+guide polestar-completionist-alliance/class-rogue
+title Rogue class quests (10-60) (Completionist)
+faction Alliance
+class Rogue
+levels 10-60
+category Class
+zone Durotar
+why Every Rogue class quest from level 10 on, in level order. The earlier ones are in the starting zone guides.
+reward text What the Rogue quests give, quest by quest: abilities, forms, pets, totems or gear.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 19 quests; estimated level at the end 13.6 (heuristic XP).
+# Skipped: 4 objective N (item N) outside the zones; 4 prerequisite N not in this route; 3 exclusive with N.
+
+step Keryn Sylvius
+  zone Elwynn Forest
+  accept 2205
+
+step Master Mathias Shaw
+  zone Stormwind City
+  turnin 2205
+  accept 2206
+
+step Defias Dockmaster
+  zone Elwynn Forest
+  collect 7675 x1 quest 2206.1
+
+step Master Mathias Shaw
+  zone Stormwind City
+  turnin 2206
+
+step Level 20
+  level 20
+
+step Master Mathias Shaw
+  zone Stormwind City
+  accept 2360
+
+step Agent Kearnen
+  zone Westfall
+  turnin 2360
+
+step Agent Kearnen
+  zone Westfall
+  accept 2359
+
+step Duskwood Chest and Malformed Defias Drone
+  zone Westfall
+  collect 7908 x1 quest 2359.1
+  collect 7923 x1 quest 2359.2
+
+step Master Mathias Shaw
+  zone Stormwind City
+  turnin 2359
+
+step SI:7
+  only Rogue
+  when available 2300
+  tip One of several exclusive quests; the route takes Erion's Behest (2260). This one shows for a character the game offers it to instead.
+  zone map 1429
+  accept 2300 optional
+
+step SI:7
+  only Rogue
+  when onquest 2300
+  zone map 1453
+  turnin 2300 optional
+
+step Master Mathias Shaw
+  zone Stormwind City
+  accept 2607
+
+step Doc Mixilpixil
+  zone Stormwind City
+  turnin 2607
+
+step Doc Mixilpixil
+  zone Stormwind City
+  accept 2608
+
+step Doc Mixilpixil
+  zone Stormwind City
+  turnin 2608
+
+step Doc Mixilpixil
+  zone Stormwind City
+  accept 2609
+
+step Bernard Gump
+  zone Stormwind City
+  collect 3421 x1 quest 2609.1
+
+step Keldric Boucher
+  zone Stormwind City
+  collect 3372 x1 quest 2609.2
+
+step Spool of Light Chartreuse Silk Thread
+  collect 8431 x1 quest 2609.4
+
+step XT:4
+  zone Stonetalon Mountains
+  collect 4371 x1 quest 2609.3
+
+step Veenix
+  accept 78270
+
+step Venture Co. Operator
+  collect 210187 x1 quest 78270.1
+
+step Veenix
+  turnin 78270
+
+step Jannok Breezesong
+  zone Teldrassil
+  accept 2241
+  accept 2259
+
+step Syurna
+  zone Darnassus
+  turnin 2241
+  accept 2242
+  turnin 2259
+
+step Erion's Behest
+  only Rogue
+  when available 2260
+  tip One of several exclusive quests; the route takes Kingly Shakedown (2298). This one shows for a character the game offers it to instead.
+  zone map 1457
+  accept 2260 optional
+
+step Sethir the Ancient
+  zone Teldrassil
+  collect 7737 x1 quest 2242.1
+
+step Syurna
+  zone Darnassus
+  turnin 2242
+
+step Hogral Bakkan
+  zone Dun Morogh
+  accept 2218
+
+step To Hulfdan!
+  only Rogue
+  when available 2299
+  tip One of several exclusive quests; the route takes Erion Shadewhisper (2259). This one shows for a character the game offers it to instead.
+  zone map 1426
+  accept 2299 optional
+
+step Hulfdan Blackbeard
+  zone Ironforge
+  turnin 2218
+  accept 2238
+
+step To Hulfdan!
+  only Rogue
+  when onquest 2299
+  zone map 1455
+  turnin 2299 optional
+
+step Onin MacHammar
+  zone Dun Morogh
+  turnin 2238
+  accept 2239
+
+step Hulfdan Blackbeard
+  zone Ironforge
+  turnin 2239
+
+step Kingly Shakedown
+  only Rogue
+  when available 2298
+  tip One of several exclusive quests; the route takes Erion's Behest (2260). This one shows for a character the game offers it to instead.
+  when turnedin 2299
+  zone map 1455
+  accept 2298 optional
+
+step Doc Mixilpixil
+  zone Stormwind City
+  turnin 2609
+  accept 2281
+
+step Erion's Behest
+  only Rogue
+  when onquest 2260
+  zone map 1453
+  turnin 2260 optional
+
+step Kingly Shakedown
+  only Rogue
+  when onquest 2298
+  zone map 1453
+  turnin 2298 optional
+
+step Lucius
+  zone Redridge Mountains
+  turnin 2281
+  accept 2282
+
+step Lucius's Lockbox
+  collect 7871 x1 quest 2282.1
+
+step Lucius
+  turnin 2282
+
+step Level 58
+  level 58
+
+step Geologist Larksbane
+  when turnedin 8315
+  zone Silithus
+  accept 8378
+  turnin 8378
+
+step The Manor, Ravenholdt
+  only Rogue
+  tip A class quest, done from the quest text: the reference data does not route it.
+  zone map 1416
+  accept 6681 optional
+  complete 6681 @84.5,80.3 optional
+
+step The Manor, Ravenholdt
+  only Rogue
+  zone map 1416
+  turnin 6681 optional
+
+step Syndicate Emblems
+  only Rogue
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1416
+  collect 17124 x1 anywhere optional
+  turnin 6701 direct optional
+
+step What's the Big Idea?
+  only Rogue
+  tip A class quest, done from the quest text: the reference data does not route it.
+  zone map 1416
+  accept 96781 optional
+  complete 96781 @84.9,80.4 optional
+
+step What's the Big Idea?
+  only Rogue
+  zone map 1416
+  turnin 96781 optional
+
+step Covert Extraction
+  only Rogue
+  tip A class quest, done from the quest text: the reference data does not route it.
+  zone map 1416
+  accept 96782 optional
+  complete 96782 @84.9,80.4 optional
+
+step Syndicate Sabotage
+  only Rogue
+  tip A class quest, done from the quest text: the reference data does not route it.
+  zone map 1416
+  accept 96779 optional
+  complete 96779 @84.9,80.4 optional
+
+step Syndicate Sabotage
+  only Rogue
+  zone Alterac Mountains
+  turnin 96779 optional
+
+step Fahrad
+  zone Alterac Mountains
+  accept 80526
+  turnin 80526
+
+step Covert Extraction
+  only Rogue
+  turnin 96782 optional
+
+step A Way In
+  only Rogue
+  zone map 1416
+  accept 96783 optional
+
+step A Way In
+  only Rogue
+  turnin 96783 optional
+
+step Master of Disguise
+  only Rogue
+  zone map 1417
+  accept 96784 optional
+
+step Master of Disguise
+  only Rogue
+  turnin 96784 optional
+
+step Ain't No Telling
+  only Rogue
+  zone map 1417
+  accept 96785 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 96785 @26.8,64.4 optional
+
+step Ain't No Telling
+  only Rogue
+  turnin 96785 optional
+
+step The Syndicate Sting
+  only Rogue
+  zone map 1417
+  accept 96786 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 96786 @26.8,64.4 optional
+
+step The Syndicate Sting
+  only Rogue
+  turnin 96786 optional
+
+step The Talisman of Kazdor
+  only Rogue
+  zone map 1416
+  accept 80411 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 80411 @84.5,80.3 optional
+
+step The Talisman of Kazdor
+  only Rogue
+  turnin 80411 optional
+
+step The Eye of Bhossca
+  only Rogue
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1421
+  turnin 78699 direct optional

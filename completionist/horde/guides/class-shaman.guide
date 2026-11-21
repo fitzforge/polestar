@@ -1,0 +1,341 @@
+guide polestar-completionist-horde/class-shaman
+title Shaman class quests (10-60) (Completionist)
+faction Horde
+class Shaman
+levels 10-60
+category Class
+zone Durotar
+why Every Shaman class quest from level 10 on, in level order. The earlier ones are in the starting zone guides.
+reward text What the Shaman quests give, quest by quest: abilities, forms, pets, totems or gear.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 20 quests; estimated level at the end 17.5 (heuristic XP).
+# Skipped: 7 exclusive with N; 3 prerequisite N not in this route.
+
+step Searn Firewarder
+  zone Orgrimmar
+  accept 1522 only Orc,Tauren,Troll @38.0,37.7 map 1454
+
+step Kranal Fiss
+  zone The Barrens
+  turnin 1522 only Orc,Tauren,Troll
+  accept 1524 only Orc,Tauren,Troll @56.0,19.9 map 1413
+
+step Telf Joolam
+  zone Durotar
+  turnin 1524 only Orc,Tauren,Troll
+  accept 1525 @38.5,59.0 map 1411
+
+step Razormane Water Seeker
+  zone The Barrens
+  collect 5026 x1 quest 1525.1
+
+step Burning Blade Cultist
+  zone Durotar
+  collect 6652 x1 quest 1525.2
+
+step Telf Joolam
+  turnin 1525
+  accept 1526 @38.5,59.0 map 1411
+
+step Minor Manifestation of Fire
+  collect 6655 x1 quest 1526.1
+
+step Brazier of the Dormant Flame
+  turnin 1526
+  accept 1527 @39.0,58.2 map 1411
+
+step Call of Fire
+  only Shaman,Orc,Tauren,Troll
+  when available 2983
+  tip One of several exclusive quests; the route takes Call of Fire (1522). This one shows for a character the game offers it to instead.
+  zone map 1411
+  accept 2983 @54.4,42.6 map 1411 optional
+
+step Kranal Fiss
+  zone The Barrens
+  turnin 1527
+
+step Call of Fire
+  only Shaman,Orc,Tauren,Troll
+  when onquest 2983
+  zone map 1413
+  turnin 2983 optional
+
+step Level 20
+  level 20
+
+step Searn Firewarder
+  zone Orgrimmar
+  accept 1528
+
+step Islen Waterseer
+  zone The Barrens
+  turnin 1528
+
+step Islen Waterseer
+  zone The Barrens
+  accept 1530
+
+step Brine
+  zone The Barrens
+  turnin 1530
+
+step Brine
+  zone The Barrens
+  accept 1535
+
+step Call of Water
+  only Shaman
+  when available 2985
+  tip One of several exclusive quests; the route takes Call of Water (1528). This one shows for a character the game offers it to instead.
+  zone map 1411
+  accept 2985 optional
+
+step Call of Water
+  only Shaman
+  when onquest 2985
+  zone map 1413
+  turnin 2985 optional
+
+step Quilboar Watering Hole
+  zone The Barrens
+  collect 7769 x1 quest 1535.1
+
+step Brine
+  zone The Barrens
+  turnin 1535
+
+step Level 30
+  level 30
+
+step Bath'rah the Windwatcher
+  zone The Barrens
+  accept 79365
+
+step Brine
+  zone The Barrens
+  accept 1536
+
+step Spring Well
+  zone Alterac Mountains
+  collect 7771 x1 quest 1536.1
+
+step Brine
+  turnin 1536
+  accept 1534
+
+step Ruins of Stardust Fountain
+  zone Ashenvale
+  collect 7770 x1 quest 1534.1
+
+step Brine
+  zone The Barrens
+  turnin 1534
+  accept 220
+
+step Rau Cliffrunner
+  zone map 1441
+  turnin 79365
+
+step Eyes on the Sky
+  only Shaman
+  when turnedin 79360
+  zone map 1441
+  accept 79364 optional
+
+step Eyes on the Sky
+  only Shaman
+  when onquest 79364
+  zone map 1441
+  turnin 79364 optional
+
+step Storm, Earth, and Fire
+  only Shaman
+  when turnedin 79364
+  zone map 1441
+  accept 79361 optional
+
+step Storm, Earth, and Fire
+  only Shaman
+  when onquest 79361
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1441
+  complete 79361 @53.5,42.6 optional
+
+step Storm, Earth, and Fire
+  only Shaman
+  when onquest 79361
+  zone map 1441
+  turnin 79361 optional
+
+step Heed My Call
+  only Shaman
+  when turnedin 79361
+  zone map 1441
+  accept 79366 optional
+
+step Heed My Call
+  only Shaman
+  when onquest 79366
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1441
+  complete 79366 @53.5,42.6 optional
+
+step Heed My Call
+  only Shaman
+  when onquest 79366
+  zone map 1441
+  turnin 79366 optional
+
+step The Tempest's Weapons
+  only Shaman
+  when turnedin 79366
+  zone map 1441
+  accept 79442 optional
+
+step The Tempest's Weapons
+  only Shaman
+  when onquest 79442
+  zone map 1416
+  turnin 79442 optional
+
+step Islen Waterseer
+  zone The Barrens
+  turnin 220
+  accept 63
+
+step Water Sapta
+  only Shaman
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  turnin 972 direct optional
+
+step Corrupt Minor Manifestation of Water
+  zone Silverpine Forest
+  collect 7812 x1 quest 63.1
+
+step Brazier of Everfount
+  turnin 63
+  accept 100
+  turnin 100
+  accept 96
+
+step Call of Water
+  only Shaman
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1421
+  collect 6637 x1 anywhere optional
+  turnin 1103 direct optional
+
+step Islen Waterseer
+  zone The Barrens
+  turnin 96
+
+step Call of Fire
+  only Shaman,Skyborne
+  zone map 2521
+  accept 97243 @58.3,78.5 map 2521 optional
+
+step Call of Fire
+  only Shaman,Skyborne
+  turnin 97243 optional
+
+step Call of Fire
+  only Shaman
+  zone map 2521
+  accept 97244 @51.2,86.2 map 2521 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 97244 @51.2,86.2 optional
+
+step Call of Fire
+  only Shaman
+  turnin 97244 optional
+
+step Call of Fire
+  only Shaman
+  zone map 2521
+  accept 97245 @51.2,86.2 map 2521 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 97245 @51.2,86.2 optional
+
+step Call of Fire
+  only Shaman
+  turnin 97245 optional
+
+step Call of Fire
+  only Shaman
+  zone map 2521
+  accept 97257 @51.2,86.2 map 2521 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 97257 @51.2,86.2 optional
+
+step Call of Fire
+  only Shaman
+  turnin 97257 optional
+
+step Level 58
+  level 58
+
+step Geologist Larksbane
+  when turnedin 8315
+  zone Silithus
+  accept 8380
+  turnin 8380
+
+step Call of Fire
+  only Shaman,Orc,Tauren,Troll
+  when available 1523
+  tip One of several exclusive quests; the route takes Call of Fire (1522). This one shows for a character the game offers it to instead.
+  zone map 1456
+  accept 1523 optional
+
+step Call of Fire
+  only Shaman,Orc,Tauren,Troll
+  when onquest 1523
+  zone map 1413
+  turnin 1523 optional
+
+step Call of Fire
+  only Shaman,Orc,Tauren,Troll
+  when available 2984
+  tip One of several exclusive quests; the route takes Call of Fire (1522). This one shows for a character the game offers it to instead.
+  zone map 1412
+  accept 2984 optional
+
+step Call of Fire
+  only Shaman,Orc,Tauren,Troll
+  when onquest 2984
+  zone map 1413
+  turnin 2984 optional
+
+step Call of Water
+  only Shaman
+  when available 1529
+  tip One of several exclusive quests; the route takes Call of Water (1528). This one shows for a character the game offers it to instead.
+  zone map 1456
+  accept 1529 optional
+
+step Call of Water
+  only Shaman
+  when onquest 1529
+  zone map 1413
+  turnin 1529 optional
+
+step Call of Water
+  only Shaman
+  when available 2986
+  tip One of several exclusive quests; the route takes Call of Water (1528). This one shows for a character the game offers it to instead.
+  zone map 1412
+  accept 2986 optional
+
+step Call of Water
+  only Shaman
+  when onquest 2986
+  zone map 1413
+  turnin 2986 optional
+
+step Call of Fire
+  only Shaman,Skyborne
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 2521
+  turnin 98517 direct optional

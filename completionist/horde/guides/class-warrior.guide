@@ -1,0 +1,370 @@
+guide polestar-completionist-horde/class-warrior
+title Warrior class quests (10-60) (Completionist)
+faction Horde
+class Warrior
+levels 10-60
+category Class
+zone Durotar
+why Every Warrior class quest from level 10 on, in level order. The earlier ones are in the starting zone guides.
+reward text What the Warrior quests give, quest by quest: abilities, forms, pets, totems or gear.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 18 quests; estimated level at the end 15.0 (heuristic XP).
+# Skipped: 7 prerequisite N not in this route; 5 objective N (item N) outside the zones; 3 exclusive with N.
+
+step Torm Ragetotem
+  zone Thunder Bluff
+  accept 1505 npc 3041
+
+step Boarton Shadetotem
+  accept 76156 only Tauren
+
+step Blasting Supplies
+  zone Mulgore
+  collect 206157 x5 quest 76156.1 only Tauren
+
+step Boarton Shadetotem
+  zone Thunder Bluff
+  turnin 76156 only Tauren
+
+step Stalk With The Earthmother
+  only Tauren
+  zone map 1456
+  accept 76160
+
+step Stalk With The Earthmother
+  only Tauren
+  when onquest 76160
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1456
+  complete 76160 @39.4,65.8
+
+step Stalk With The Earthmother
+  only Tauren
+  when onquest 76160
+  zone map 1456
+  turnin 76160
+
+step Uzzek
+  turnin 1505
+
+step Path of Defense
+  only Warrior
+  zone map 1413
+  accept 1498 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 1498 @61.4,21.1 optional
+
+step Path of Defense
+  only Warrior
+  turnin 1498 optional
+
+step Speak with Coleman
+  only Warrior
+  zone map 1420
+  accept 1820 optional
+
+step Ulag the Cleaver
+  only Warrior
+  when available 1819
+  tip One of several exclusive quests; the route takes Path of Defense (1498). This one shows for a character the game offers it to instead.
+  zone map 1420
+  accept 1819 optional
+
+step Ulag the Cleaver
+  only Warrior
+  when onquest 1819
+  zone map 1420
+  complete 1819 @59.5,48.3 optional
+
+step Ulag the Cleaver
+  only Warrior
+  when onquest 1819
+  zone map 1420
+  turnin 1819 optional
+
+step Speak with Coleman
+  only Warrior
+  turnin 1820 optional
+
+step Speak with Dillinger
+  only Warrior
+  when available 1818
+  tip One of several exclusive quests; the route takes Veteran Uzzek (1505). This one shows for a character the game offers it to instead.
+  zone map 1420
+  accept 1818 optional
+
+step Speak with Dillinger
+  only Warrior
+  when onquest 1818
+  zone map 1420
+  turnin 1818 optional
+
+step Agamand Heirlooms
+  only Warrior
+  zone map 1420
+  accept 1821 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 1821 @61.7,52.3 optional
+
+step Agamand Heirlooms
+  only Warrior
+  turnin 1821 optional
+
+step Heirloom Weapon
+  only Warrior
+  zone map 1420
+  accept 1822 optional
+  turnin 1822 optional
+
+step Thun'grim Firegaze
+  only Warrior
+  zone map 1413
+  accept 1502 optional
+
+step Level 15
+  level 15
+
+step Alonso
+  accept 78134
+
+step Level 15
+  level 15
+
+step Dragonslayer's Shield
+  only Warrior
+  zone map 1440
+  accept 78133 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 78133 @42,69.2 optional
+
+step Level 15
+  level 15
+
+step Dragonslayer's Helm
+  only Warrior
+  zone map 1440
+  accept 78132 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 78132 @42,69.2 optional
+
+step Dragonslayer's Shield
+  only Warrior
+  turnin 78133 optional
+
+step Dark Iron Entrepreneur
+  zone Wetlands
+  buy 209874 x1 npc 3180 -- for Dragonslayer's Lance
+
+step Level 30
+  level 30
+
+step Torm Ragetotem
+  zone Thunder Bluff
+  accept 1718 npc 3041
+
+step Thun'grim Firegaze
+  when turnedin 1838
+  zone The Barrens
+  accept 1848
+  turnin 1848
+
+step Thun'grim Firegaze
+  only Warrior
+  turnin 1502 optional
+
+step Forged Steel
+  only Warrior
+  zone map 1413
+  accept 1503 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 1503 @57.2,30.3 optional
+
+step Orm Stonehoof
+  zone Thunder Bluff
+  accept 1844
+
+step Stalk With The Earthmother
+  only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock,Druid,Tauren
+  tip A class quest, done from the quest text: the reference data does not route it.
+  zone map 1456
+  accept 76240 optional
+  complete 76240 @39.4,65.8 optional
+
+step Stalk With The Earthmother
+  only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Warlock,Druid,Tauren
+  zone map 1456
+  turnin 76240 optional
+
+step Velora Nitely
+  zone Undercity
+  accept 1846
+
+step Dragonmaw Bonewarder
+  zone Wetlands
+  collect 7134 x8 quest 1846.1
+
+step Velora Nitely
+  zone Undercity
+  turnin 1846
+
+step Velora Nitely
+  zone Undercity
+  accept 1847
+  turnin 1847
+
+step Thun'grim Firegaze
+  zone The Barrens
+  accept 1841
+
+step Forged Steel
+  only Warrior
+  turnin 1503 optional
+
+step Velora Nitely
+  zone Undercity
+  turnin 1841
+
+step Ula'elek
+  zone Durotar
+  accept 1842
+
+step Bleakheart Shadowstalker
+  zone Ashenvale
+  collect 7128 x7 quest 1842.1
+
+step Thun'grim Firegaze
+  zone The Barrens
+  accept 1840
+
+step Orm Stonehoof
+  zone Thunder Bluff
+  turnin 1840
+
+step Thun'grim Firegaze
+  zone The Barrens
+  accept 1839
+
+step Ula'elek
+  zone Durotar
+  turnin 1839
+
+step Chimaera Matriarch
+  zone Stonetalon Mountains
+  collect 6840 x1 quest 1844.1
+
+step Orm Stonehoof
+  zone Thunder Bluff
+  turnin 1844
+  accept 1845
+  turnin 1845
+
+step Alonso
+  zone Ashenvale
+  turnin 78134
+
+step Dragonslayer's Helm
+  only Warrior
+  turnin 78132 optional
+
+step Ula'elek
+  zone Durotar
+  turnin 1842
+  accept 1843
+  turnin 1843
+
+step Klannoc Macleod
+  zone The Barrens
+  turnin 1718
+  accept 1719
+
+step Big Will and Step on the grate to begin the Affray
+  kill 6238 x1 quest 1719.1
+  goto 68.6,48.7 "Step on the grate to begin the Affray" -- Explore for The Affray
+
+step Klannoc Macleod
+  turnin 1719
+  accept 1791
+
+step Seena Skybreaker
+  zone map 2521
+  accept 94003 only Skyborne
+
+step Zaal Stormshield
+  collect 263993 x1 quest 94003.1 only Skyborne
+
+step Seena Skybreaker
+  turnin 94003 only Skyborne
+
+step Bath'rah the Windwatcher
+  zone Alterac Mountains
+  turnin 1791
+
+step Cyclonian
+  only Warrior
+  zone map 1416
+  accept 1712 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 1712 @80.5,66.9 optional
+
+step Essence of the Exile
+  only Warrior
+  when onquest 1712
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1416
+  collect 4480 x8 anywhere optional
+  collect 4479 x8 anywhere optional
+  collect 4481 x8 anywhere optional
+  turnin 1714 direct optional
+
+step Cyclonian
+  only Warrior
+  turnin 1712 optional
+
+step The Summoning
+  only Warrior
+  zone map 1416
+  accept 1713 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 1713 @80.5,66.9 optional
+
+step The Summoning
+  only Warrior
+  turnin 1713 optional
+
+step Whirlwind Weapon
+  only Warrior
+  zone map 1416
+  accept 1792 optional
+  turnin 1792 optional
+
+
+step Level 58
+  level 58
+
+step Geologist Larksbane
+  when turnedin 8315
+  zone Silithus
+  accept 8316
+  turnin 8316
+
+step Level 58
+  level 58
+
+step Anthion's Parting Words
+  only Warrior
+  when turnedin 9015
+  zone map 1423
+  accept 9022 optional
+
+step Anthion's Parting Words
+  only Warrior
+  when onquest 9022
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 9022 @26.1,11.3 optional
+
+step Anthion's Parting Words
+  only Warrior
+  when onquest 9022
+  zone map 1454
+  turnin 9022 optional

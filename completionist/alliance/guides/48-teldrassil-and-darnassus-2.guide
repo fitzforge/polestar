@@ -1,0 +1,283 @@
+guide polestar-completionist-alliance/48-teldrassil-and-darnassus-2
+title 48 Teldrassil and Darnassus (47-60) (Completionist)
+faction Alliance
+levels 47-60
+zone Teldrassil
+next polestar-completionist-alliance/49-the-barrens-2
+pitch On along the line: Teldrassil and Darnassus, quests of level 47 to 60.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 17 quests; estimated level at the end 47.9 (heuristic XP, class quests not counted).
+# Skipped: 3 exclusive with N (done); 1 exclusive with N; 1 prerequisite N not in this route.
+
+step Dolanaar
+  zone Teldrassil
+  sethome "Dolanaar"
+
+step Erelas Ambersky
+  getfp "Rut'theran Village"
+  accept 3661
+  accept 2940
+  turnin 2940
+  accept 2941
+
+step Wildkin Feather
+  zone The Hinterlands
+  collect 10819 x15 quest 3661.1
+
+step Raedon Duskstriker
+  zone Darnassus
+  accept 7792
+  accept 7798
+  accept 7799
+
+step Assisting Arch Druid Staghelm
+  when available 3763
+  tip One of several exclusive quests; the route takes Assisting Arch Druid Staghelm (3789). This one shows for a character the game offers it to instead.
+  zone map 1457
+  accept 3763 optional
+
+step Ratchet Bruiser
+  zone The Barrens
+  collect 4306 x60 quest 7798.1
+
+step Farrin Daris
+  zone Duskwood
+  collect 2592 x60 quest 7792.1
+
+step Baron Bloodbane
+  zone Eastern Plaguelands
+  collect 4338 x60 quest 7799.1
+
+step Raedon Duskstriker
+  zone Darnassus
+  turnin 7792
+  turnin 7798
+  turnin 7799
+
+step Arch Druid Fandral Staghelm
+  accept 3764
+
+step Assisting Arch Druid Staghelm
+  when onquest 3763
+  zone map 1457
+  turnin 3763 optional
+
+step Sentinel Dalia Sunblade
+  accept 98096
+
+step Un'Goro Dirt Pile
+  zone Un'Goro Crater
+  collect 11018 x20 quest 3764.1
+
+step Curgle Cranklehop
+  turnin 2941
+
+step The Super Snapper FX
+  zone map 1446
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 2944
+  complete 2944 @52.4,26.9
+
+step Commander Truesong
+  zone Azshara
+  turnin 98096
+
+step Erelas Ambersky
+  zone Teldrassil
+  turnin 3661
+
+step The Super Snapper FX
+  turnin 2944
+
+step Daryn Lightwind
+  zone Teldrassil
+  accept 2943
+
+step Jenal
+  zone Darnassus
+  turnin 3764
+
+step Level 50
+  level 50
+
+step Raedon Duskstriker
+  zone Darnassus
+  accept 7800
+
+step Stormwind Royal Guard
+  zone Stormwind City
+  collect 14047 x60 quest 7800.1
+
+step Raedon Duskstriker
+  zone Darnassus
+  turnin 7800
+
+step Additional Runecloth
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1457
+  collect 14047 x20 anywhere optional
+  turnin 7801 direct optional
+
+step Level 60
+  level 60
+
+step Jartsam
+  zone Darnassus
+  accept 99205 only NightElf
+
+step Lelanai
+  zone Darnassus
+  turnin 99205 only NightElf @38.3,15.4 map 1457
+
+step Erelas Ambersky
+  zone Teldrassil
+  accept 978
+
+step Starfall
+  when available 5250
+  tip One of several exclusive quests; the route takes To Winterspring! (5249). This one shows for a character the game offers it to instead.
+  zone map 1438
+  accept 5250 optional
+
+step Starfall
+  when onquest 5250
+  zone map 1452
+  turnin 5250 optional
+
+step Moontouched Feather
+  zone Winterspring
+  collect 12383 x10 quest 978.1
+
+step Erelas Ambersky
+  zone Teldrassil
+  turnin 978
+
+step Gracina Spiritmight
+  zone Darnassus
+  accept 4493
+
+step The New Frontier
+  when available 1047
+  tip One of several exclusive quests; the route takes The New Frontier (1015). This one shows for a character the game offers it to instead.
+  zone map 1457
+  accept 1047 optional
+
+step Alchemist Pestlezugg
+  zone Tanaris
+  turnin 4493
+
+step Erelas Ambersky
+  zone Teldrassil
+  accept 979
+
+step Arch Druid Fandral Staghelm
+  accept 3781
+  turnin 3781
+
+step The New Frontier
+  when onquest 1047
+  zone map 1457
+  turnin 1047 optional
+
+step Morrowgrain Research
+  zone map 1457
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 3785
+  complete 3785 @35.4,8.4
+
+step Morrowgrain Research
+  turnin 3785
+
+step Morrowgrain to Darnassus
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1457
+  collect 11040 x10 anywhere optional
+  turnin 3803 direct optional
+
+step Ranshalla
+  zone Winterspring
+  turnin 979
+
+step Tannysa
+  zone Stormwind City
+  accept 3787
+
+step Quintis Jonespyre
+  zone Feralas
+  turnin 3787
+
+step Jonespyre's Request
+  when available 3788
+  tip One of several exclusive quests; the route takes Jonespyre's Request (3787). This one shows for a character the game offers it to instead.
+  zone map 1444
+  accept 3788 optional
+
+step The Mystery of Morrowgrain
+  zone map 1444
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 3791
+  complete 3791 @32.5,43.8
+
+step Jonespyre's Request
+  when onquest 3788
+  zone map 1444
+  turnin 3788 optional
+
+step Troyas Moonbreeze
+  zone Feralas
+  turnin 2943
+
+step The Mystery of Morrowgrain
+  turnin 3791
+
+step Troyas Moonbreeze
+  zone Feralas
+  accept 2879
+
+step Equinex Monolith
+  zone Tanaris
+  turnin 2879
+
+step The Morrow Stone
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1444
+  accept 2942
+  complete 2942 @38.8,13.2
+
+step The Morrow Stone
+  zone map 1444
+  turnin 2942
+
+
+step Stealing Orgrimmar's Flame
+  tip Flame of Orgrimmar is looted from Flame of Orgrimmar: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1454
+  collect 23179 x1 optional
+  accept 9324 item 23179 optional
+
+step Stealing Orgrimmar's Flame
+  when onquest 9324
+  zone map 1438
+  turnin 9324
+
+step Stealing Thunder Bluff's Flame
+  tip Flame of Thunder Bluff is looted from Flame of Thunder Bluff: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1456
+  collect 23180 x1 optional
+  accept 9325 item 23180 optional
+
+step Stealing Thunder Bluff's Flame
+  when onquest 9325
+  zone map 1438
+  turnin 9325
+
+step Stealing the Undercity's Flame
+  tip Flame of the Undercity is looted from Flame of the Undercity: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1458
+  collect 23181 x1 optional
+  accept 9326 item 23181 optional
+
+step Stealing the Undercity's Flame
+  when onquest 9326
+  zone map 1438
+  turnin 9326

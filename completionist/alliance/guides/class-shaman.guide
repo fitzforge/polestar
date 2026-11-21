@@ -1,0 +1,201 @@
+guide polestar-completionist-alliance/class-shaman
+title Shaman class quests (10-60) (Completionist)
+faction Alliance
+class Shaman
+levels 10-60
+category Class
+zone Durotar
+why Every Shaman class quest from level 10 on, in level order. The earlier ones are in the starting zone guides.
+reward text What the Shaman quests give, quest by quest: abilities, forms, pets, totems or gear.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 10 quests; estimated level at the end 12.6 (heuristic XP).
+# Skipped: 4 prerequisite N not in this route; 3 objective N (item N) outside the zones.
+
+step Eldrun Stormbreaker
+  zone Ironforge
+  accept 94449 npc 258098
+
+step Bruegs Kindleborn
+  zone Dun Morogh
+  turnin 94449
+  accept 94465
+
+step Braldir Ashmantle
+  zone Loch Modan
+  turnin 94465
+  accept 94466
+
+step Razormane Water Seeker
+  zone The Barrens
+  collect 5026 x1 quest 94466.1
+
+step Burning Blade Cultist
+  zone Durotar
+  collect 6652 x1 quest 94466.2
+
+step Braldir Ashmantle
+  zone Loch Modan
+  turnin 94466
+  accept 94467
+
+step Fire Sapta
+  only Shaman
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1432
+  turnin 94473 direct optional
+
+step Minor Manifestation of Fire
+  zone Durotar
+  collect 6655 x1 quest 94467.1
+
+step Brazier of the Dormant Flame
+  turnin 94467
+  accept 94468
+
+step Bruegs Kindleborn
+  zone Dun Morogh
+  turnin 94468
+
+step Level 58
+  level 58
+
+step Eldrun Stormbreaker
+  zone Ironforge
+  accept 97168 @47.1,13.8 map 1455
+
+step Doomguard Commander
+  zone Blasted Lands
+  collect 18335 x1 quest 97168.2
+
+step Rich Thorium Vein
+  zone Western Plaguelands
+  collect 12800 x1 quest 97168.1
+
+step Eldrun Stormbreaker
+  zone Ironforge
+  turnin 97168 @47.1,13.8 map 1455
+
+step Eldrun Stormbreaker
+  zone Ironforge
+  accept 94494 npc 258098
+
+step Norric Lochthane
+  zone Loch Modan
+  turnin 94494
+
+step Norric Lochthane
+  zone Loch Modan
+  accept 94495
+
+step Hervdana Saegrund
+  zone Wetlands
+  turnin 94495
+
+step Call of Water
+  only Shaman
+  zone map 1437
+  accept 94497 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 94497 @65.8,76.5 optional
+
+step Call of Water
+  only Shaman
+  turnin 94497 optional
+
+step Call of Water
+  only Shaman
+  zone map 1437
+  accept 94499 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 94499 @65.8,76.5 optional
+
+step Call of Water
+  only Shaman
+  turnin 94499 optional
+
+step Call of Water
+  only Shaman
+  zone map 1437
+  accept 94500 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 94500 @65.8,76.5 optional
+
+step Call of Water
+  only Shaman
+  turnin 94500 optional
+
+step Call of Water
+  only Shaman
+  zone map 1437
+  accept 94501 optional
+
+step Call of Water
+  only Shaman
+  turnin 94501 optional
+
+step Water Sapta
+  only Shaman
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1432
+  turnin 94616 direct optional
+
+step Call of Water
+  only Shaman
+  zone map 1432
+  accept 94502 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 94502 @41.8,19.1 optional
+
+step Call of Water
+  only Shaman
+  turnin 94502 optional
+
+step Call of Water
+  only Shaman,Dwarf,Gnome
+  zone map 1436
+  accept 94503 optional
+
+step Call of Water
+  only Shaman,Dwarf,Gnome
+  turnin 94503 optional
+
+step Call of Water
+  only Shaman,Dwarf,Gnome
+  zone map 1421
+  accept 94505 optional
+
+step Call of Water
+  only Shaman,Dwarf,Gnome
+  turnin 94505 optional
+
+
+step Heed My Call
+  only Shaman
+  when turnedin 79358
+  zone map 1417
+  accept 96135 optional
+
+step Heed My Call
+  only Shaman
+  when onquest 96135
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1417
+  complete 96135 @59.7,27.6 optional
+
+step Heed My Call
+  only Shaman
+  when onquest 96135
+  zone map 1417
+  turnin 96135 optional
+
+step The Tempest's Weapons
+  only Shaman
+  when turnedin 96135
+  zone map 1417
+  accept 96016 optional
+
+step The Tempest's Weapons
+  only Shaman
+  when onquest 96016
+  zone map 1416
+  turnin 96016 optional

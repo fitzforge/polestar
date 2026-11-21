@@ -1,0 +1,108 @@
+guide polestar-completionist-horde/34-mulgore-and-thunder-bluff-3
+title 34 Mulgore and Thunder Bluff (50-55) (Completionist)
+faction Horde
+levels 50-55
+zone Mulgore
+next polestar-completionist-horde/35-odd-jobs-in-kalimdor-3
+pitch On along the line: Mulgore and Thunder Bluff, quests of level 50 to 55.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 8 quests; estimated level at the end 50.1 (heuristic XP, class quests not counted).
+
+step Bloodhoof Village
+  zone Mulgore
+  sethome "Bloodhoof Village"
+
+step Innkeeper Pala
+  accept 3762
+
+step Sage Truthseeker
+  accept 2965
+
+step Magatha Grimtotem
+  accept 91737
+  turnin 2965
+  accept 2966
+  turnin 3762
+
+step Morrowgrain to Thunder Bluff
+  when turnedin 3786
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1456
+  collect 11040 x10 anywhere optional
+  turnin 3804 direct optional
+
+step Jediga
+  zone Azshara
+  turnin 91737
+
+step Uldum Pedestal
+  zone Tanaris
+  turnin 2966
+
+step Level 54
+  level 54
+
+step Bluff Runner Windstrider
+  zone Thunder Bluff
+  accept 1000
+
+step Arch Druid Hamuul Runetotem
+  zone Thunder Bluff
+  turnin 1000
+
+step Arch Druid Hamuul Runetotem
+  zone Mulgore
+  accept 1123
+
+step Darkmoon Beast Deck
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 19228 x1 anywhere optional
+  turnin 7907 direct optional
+
+step Darkmoon Elementals Deck
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 19267 x1 anywhere optional
+  turnin 7929 direct optional
+
+step Darkmoon Warlords Deck
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 19257 x1 anywhere optional
+  turnin 7928 direct optional
+
+step Darkmoon Portals Deck
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 19277 x1 anywhere optional
+  turnin 7927 direct optional
+
+step Rabine Saturna
+  zone Moonglade
+  turnin 1123
+
+step The Stone Watcher
+  zone map 1446
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 2954
+  complete 2954 @37.6,81.4
+
+step The Stone Watcher
+  turnin 2954
+
+step Uldum Pedestal
+  zone Tanaris
+  accept 2967
+
+step Nara Wildmane
+  zone Thunder Bluff
+  turnin 2967
+
+step Nara Wildmane
+  zone Thunder Bluff
+  accept 2968
+
+step Sage Truthseeker
+  zone Thunder Bluff
+  turnin 2968

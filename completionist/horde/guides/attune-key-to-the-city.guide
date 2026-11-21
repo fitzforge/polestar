@@ -1,0 +1,13 @@
+guide polestar-completionist-horde/attune-key-to-the-city
+title Key to the City (Stratholme key or item) (Completionist)
+faction Horde
+category Dungeons
+levels 1-60
+zone Eastern Plaguelands
+pitch Key to the City: Opens the Eastwall Gate into Stratholme's Scourge-held districts.
+why Opens the Eastwall Gate into Stratholme's Scourge-held districts.
+
+step Key to the City
+  tip Opens the Eastwall Gate into Stratholme's Scourge-held districts. No quest gives it: it comes from inside Stratholme; the arrow leads to the entrance.
+  zone map 1423
+  collect 12382 x1 @26.3,18.3 map 1423 optional

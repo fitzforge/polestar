@@ -1,0 +1,280 @@
+guide polestar-completionist-horde/14-hillsbrad-foothills-and-alterac-mountains
+title 14 Hillsbrad Foothills and Alterac Mountains (20-32) (Completionist)
+faction Horde
+levels 20-32
+zone Alterac Mountains
+next polestar-completionist-horde/15-duskwood
+pitch On along the line: Hillsbrad Foothills and Alterac Mountains, quests of level 20 to 32.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 27 quests; estimated level at the end 23.8 (heuristic XP, class quests not counted).
+
+step High Executor Darthalia
+  accept 527
+
+step Tarren Mill
+  zone Hillsbrad Foothills
+  sethome "Tarren Mill"
+
+step Tarren Mill
+  zone Hillsbrad Foothills
+  getfp "Tarren Mill"
+
+step Dangerous!
+  zone Hillsbrad Foothills
+  accept 567 object 556669
+  accept 549 object 1763
+  accept 498
+  accept 496
+  accept 1066
+
+step Forest Moss Creeper
+  collect 3477 x1 quest 496.2
+
+step Hillsbrad Farmhand and Farmer Getz
+  zone Hillsbrad Foothills
+  kill 2360 x6 quest 527.2
+  kill 2403 x1 quest 527.4
+
+step Hillsbrad Farmer and Farmer Ray
+  zone Alterac Mountains
+  kill 2266 x6 quest 527.1
+  kill 232 x1 quest 527.3
+
+step Clerk Horrace Whitesteed and Citizen Wilkes
+  zone Hillsbrad Foothills
+  kill 2448 x1 quest 567.1
+  kill 2449 x1 quest 567.2
+
+step Gray Bear
+  zone Silverpine Forest
+  collect 3476 x10 quest 496.1
+
+step Deathstalker Lesh
+  zone Hillsbrad Foothills
+  accept 494
+
+step Miner Hackett
+  kill 2450 x1 quest 567.3
+
+step Farmer Kalaba
+  kill 2451 x1 quest 567.4
+
+step Syndicate Rogue
+  zone Hillsbrad Foothills
+  kill 2260 x10 quest 549.1
+
+step Level 26
+  level 26
+
+step Deathguard Humbert
+  when group 547
+  zone Alterac Mountains
+  accept 547
+
+step Dun Garok Mountaineer
+  when group 547
+  zone Arathi Highlands
+  tip Humbert's Sword is group work: elites. Grouping up is advised.
+  collect 3693 x1 quest 547.1
+
+step Level 30
+  level 30
+
+step Krusk
+  zone Hillsbrad Foothills
+  accept 1361 npc 2229
+
+step Tallow
+  zone Hillsbrad Foothills
+  accept 676
+
+step Soothing Turtle Bisque
+  when skill Cooking 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1416
+  accept 7321 optional
+  complete 7321 @61.1,80.7 optional
+
+step Soothing Turtle Bisque
+  when skill Cooking 1
+  zone Hillsbrad Foothills
+  turnin 7321 optional
+
+step Boulderfist Enforcer
+  zone Arathi Highlands
+  kill 2564 x10 quest 676.2
+
+step Boulderfist Ogre
+  zone Hillsbrad Foothills
+  kill 2562 x8 quest 676.1
+
+step Apothecary Lydon
+  zone Hillsbrad Foothills
+  accept 501
+
+step Starving Mountain Lion
+  zone Hillsbrad Foothills
+  collect 3496 x10 quest 501.1
+
+step Apothecary Lydon
+  zone Hillsbrad Foothills
+  accept 509
+
+step Mudsnout Blossom
+  zone Hillsbrad Foothills
+  collect 3502 x6 quest 509.1
+
+step Locked ball and chain and Syndicate Shadow Mage
+  interact 1722 quest 498.2
+  collect 5620 x5 quest 1066.1
+
+step Locked ball and chain and Syndicate Watchman
+  interact 1721 quest 498.1
+  kill 2261 x10 quest 549.2
+
+step Krusk
+  zone Alterac Mountains
+  turnin 498
+
+step Deathguard Humbert
+  when group 547
+  zone Alterac Mountains
+  turnin 547
+
+step High Executor Darthalia
+  turnin 494
+  turnin 527
+  turnin 549
+  turnin 567
+  accept 528
+  accept 546
+
+step Apothecary Lydon
+  turnin 496
+  turnin 501
+  turnin 509
+  turnin 1066
+  accept 499
+  accept 502
+  accept 513
+  accept 1067
+
+step Umpi
+  turnin 499
+
+step Hillsbrad Peasant
+  zone Hillsbrad Foothills
+  kill 2267 x15 quest 528.1
+
+step Judge Thelgram
+  collect 3692 x30 quest 546.1
+
+step Stanley
+  zone Alterac Mountains
+  turnin 502
+
+step Deathguard Samsa
+  turnin 546
+  turnin 528
+  accept 529
+  accept 98094
+
+step Blacksmith Verringtan, Hillsbrad Apprentice Blacksmith and Shipment of Iron
+  zone Hillsbrad Foothills
+  kill 2404 x1 quest 529.1
+  kill 2265 x4 quest 529.2
+  collect 3564 x1 quest 529.3
+
+step Deathstalker Masoj
+  turnin 98094
+  accept 98095
+
+step Deathstalker Masoj
+  complete 98095 @38.4,87.2 map 1416
+  turnin 98095
+
+step High Executor Darthalia
+  zone Alterac Mountains
+  turnin 529
+  accept 532
+
+step Magistrate Burnside, Hillsbrad Councilman, Hillsbrad Proclamation and Hillsbrad Town Registry
+  zone Hillsbrad Foothills
+  kill 2335 x1 quest 532.1
+  kill 2387 x5 quest 532.2
+  interact 1761 quest 532.3
+  collect 3657 x1 quest 532.4
+
+step High Executor Darthalia
+  zone Alterac Mountains
+  turnin 532
+  accept 539
+
+step Foreman Bonds and Hillsbrad Miner
+  zone Hillsbrad Foothills
+  kill 2305 x1 quest 539.1
+  kill 2269 x10 quest 539.2
+
+step High Executor Darthalia
+  zone Alterac Mountains
+  turnin 539
+
+step High Executor Darthalia
+  when group 541
+  zone Alterac Mountains
+  accept 541
+
+step Dun Garok Mountaineer, Dun Garok Rifleman, Dun Garok Priest and Captain Ironhill
+  when group 541
+  zone Arathi Highlands
+  tip Battle of Hillsbrad is group work: elites. Grouping up is advised.
+  kill 2344 x8 quest 541.1
+  kill 2345 x4 quest 541.2
+  kill 2346 x2 quest 541.3
+  kill 2304 x1 quest 541.4
+
+step High Executor Darthalia
+  when group 541
+  zone Alterac Mountains
+  turnin 541
+
+step High Executor Darthalia
+  when turnedin 541
+  zone Alterac Mountains
+  accept 550 optional
+
+step Varimathras
+  when onquest 550
+  zone Undercity
+  turnin 550
+
+step Master Apothecary Faranell
+  turnin 513
+
+step Drum Fel
+  zone Arathi Highlands
+  turnin 676
+
+step Regthar Deathgate
+  zone The Barrens
+  turnin 1361
+  accept 1362
+
+step Apothecary Zamah
+  zone Thunder Bluff
+  turnin 1067
+  accept 1086
+
+step Venture Co. Copter Pad and Place the Toxic Fogger
+  zone Stonetalon Mountains
+  interact 19594 quest 1086.1
+  goto 66.4,45.5 "Place the Toxic Fogger" -- Explore for The Flying Machine Airport
+
+step Apothecary Zamah
+  zone Thunder Bluff
+  complete 1086 @66.4,45.5 map 1442
+  turnin 1086
+
+step Felgur Twocuts
+  zone Desolace
+  turnin 1362

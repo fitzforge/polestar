@@ -1,0 +1,290 @@
+guide polestar-completionist-horde/22-hillsbrad-foothills-and-alterac-mountains-2
+title 22 Hillsbrad Foothills and Alterac Mountains (33-43) (Completionist)
+faction Horde
+levels 33-43
+zone Alterac Mountains
+next polestar-completionist-horde/dungeon-city-of-dalaran
+next polestar-completionist-horde/23-stranglethorn-vale
+pitch On along the line: Hillsbrad Foothills and Alterac Mountains, quests of level 33 to 43.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 15 quests; estimated level at the end 34.0 (heuristic XP, class quests not counted).
+# Skipped: 1 prerequisite N not in this route.
+
+step Krusk
+  accept 533
+  accept 556
+
+step Henchman Valik
+  accept 535
+
+step The Legend of Korrak
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1416
+  turnin 7181 direct optional
+
+step The Return of Korrak
+  when turnedin 7181
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1416
+  collect 18148 x1 anywhere optional
+  turnin 7381 direct optional
+
+step Tarren Mill
+  zone Hillsbrad Foothills
+  sethome "Tarren Mill"
+
+step Syndicate Footpad and Drunken Footpad
+  zone Hillsbrad Foothills
+  collect 3601 x1 quest 533.1
+  collect 3703 x1 quest 535.1
+
+step Henchman Valik
+  zone Alterac Mountains
+  turnin 535
+
+step Dalaran Shield Guard
+  collect 3714 x10 quest 556.1
+
+step Keeper Bel'varil
+  turnin 556
+  accept 557
+  turnin 533
+  accept 503
+
+step Novice Thaivand
+  accept 552
+
+step Jailor Borhuin
+  collect 3704 x1 quest 503.1
+
+step Gol'dir
+  complete 503 @60.6,43.8 map 1416
+  turnin 503
+  accept 506
+
+step Elemental Slave
+  collect 3715 x4 quest 557.1
+
+step Level 34
+  level 34
+
+step Melisara
+  when group 518
+  zone Alterac Mountains
+  accept 518
+
+step Crushridge Mauler
+  when group 518
+  zone Alterac Mountains
+  tip The Crown of Will is group work: elites. Grouping up is advised.
+  kill 2254 x10 quest 518.1
+
+step Melisara
+  when group 518
+  zone Alterac Mountains
+  turnin 518
+
+step Melisara
+  when group 519
+  zone Alterac Mountains
+  accept 519
+
+step Glommus
+  when group 519
+  zone Alterac Mountains
+  tip The Crown of Will is group work: elites. Grouping up is advised.
+  collect 3552 x1 quest 519.3
+
+step Level 51
+  level 51
+
+step Rise and Be Recognized
+  when turnedin 7161
+  tip Needs Friendly standing (3000) with Frostwolf Clan; without it the quest is not offered.
+  zone map 1416
+  accept 7163 optional
+
+step Rise and Be Recognized
+  when onquest 7163
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1416
+  complete 7163 @62.3,58.9 optional
+
+step Rise and Be Recognized
+  when onquest 7163
+  zone map 1416
+  turnin 7163 optional
+
+step Muckrake
+  when group 519
+  zone Alterac Mountains
+  tip The Crown of Will is group work: elites. Grouping up is advised.
+  collect 3551 x1 quest 519.2
+
+step Targ
+  when group 519
+  zone Alterac Mountains
+  tip The Crown of Will is group work: elites. Grouping up is advised.
+  collect 3550 x1 quest 519.1
+
+step Level 35
+  level 35
+
+step Honored Amongst the Clan
+  when turnedin 7163
+  tip Needs Honored standing (9000) with Frostwolf Clan; without it the quest is not offered.
+  zone map 1416
+  accept 7164 optional
+
+step Honored Amongst the Clan
+  when onquest 7164
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1416
+  complete 7164 @62.3,58.9 optional
+
+step Honored Amongst the Clan
+  when onquest 7164
+  zone map 1416
+  turnin 7164 optional
+
+step WANTED
+  zone Alterac Mountains
+  accept 566 object 1763
+
+step Baron Vardus
+  zone Alterac Mountains
+  collect 3626 x1 quest 566.1
+
+step High Executor Darthalia
+  zone Alterac Mountains
+  turnin 566
+
+step Ferocious Yeti
+  collect 3708 x1 quest 552.1
+
+step Keeper Bel'varil
+  turnin 557
+
+step Melisara
+  when group 519
+  zone Alterac Mountains
+  turnin 519
+
+step Melisara
+  when group 520
+  zone Alterac Mountains
+  accept 520
+
+step Krusk
+  turnin 506
+  accept 507
+  turnin 552
+  accept 553
+
+step Lord Aliden Perenolde
+  kill 2423 x1 quest 507.1
+
+step Elysa
+  turnin 507
+  accept 508
+
+step Strahnbrad Mystery
+  tip Singed Note drops from Argus Shadow Mage, Syndicate Wizard: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1416
+  collect 213421 x1 optional
+  accept 95534 item 213421 optional
+  complete 95534 @48.6,59.0
+
+step Strahnbrad Mystery
+  when onquest 95534
+  zone map 1424
+  turnin 95534
+
+step Mug'thol
+  when group 520
+  zone Alterac Mountains
+  tip The Crown of Will is group work: elites. Grouping up is advised.
+  collect 3553 x1 quest 520.1
+  collect 3554 x1 quest 520.2
+
+step Flame of Uzel
+  interact 1770 quest 553.3
+
+step Flame of Azel and Flame of Veraz
+  interact 1768 quest 553.1
+  interact 1769 quest 553.2
+
+step Melisara
+  when group 520
+  zone Alterac Mountains
+  turnin 520
+
+step Melisara
+  zone Alterac Mountains
+  accept 521
+  turnin 508
+
+step Junkboxes Needed
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1416
+  collect 16885 x5 anywhere optional
+  turnin 8249 direct optional
+
+step Earned Reverence
+  when turnedin 7164
+  tip Needs Revered standing (21000) with Frostwolf Clan; without it the quest is not offered.
+  zone map 1416
+  accept 7165 optional
+
+step Earned Reverence
+  when onquest 7165
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1416
+  complete 7165 @62.3,58.9 optional
+
+step Earned Reverence
+  when onquest 7165
+  zone map 1416
+  turnin 7165 optional
+
+step Legendary Heroes
+  when turnedin 7165
+  tip Needs Exalted standing (42000) with Frostwolf Clan; without it the quest is not offered.
+  zone map 1416
+  accept 7166 optional
+
+step Legendary Heroes
+  when onquest 7166
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1416
+  complete 7166 @62.3,58.9 optional
+
+step Legendary Heroes
+  when onquest 7166
+  zone map 1416
+  turnin 7166 optional
+
+step The Eye of Command
+  when turnedin 7166
+  tip Needs Exalted standing (42999) with Frostwolf Clan; without it the quest is not offered.
+  zone map 1416
+  accept 7167 optional
+
+step The Eye of Command
+  when onquest 7167
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1416
+  complete 7167 @62.3,58.9 optional
+
+step The Eye of Command
+  when onquest 7167
+  zone map 1416
+  turnin 7167 optional
+
+step Helcular's Grave
+  zone Hillsbrad Foothills
+  turnin 553
+
+step Sharlindra
+  zone Undercity
+  turnin 521

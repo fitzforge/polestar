@@ -1,0 +1,123 @@
+guide polestar-completionist-horde/52-mulgore-and-thunder-bluff-4
+title 52 Mulgore and Thunder Bluff (60-60) (Completionist)
+faction Horde
+levels 60-60
+zone Mulgore
+next polestar-completionist-horde/53-silithus
+pitch On along the line: Mulgore and Thunder Bluff, level 60 quests.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 8 quests; estimated level at the end 60.0 (heuristic XP, class quests not counted).
+
+step Rumstag Proudstrider
+  zone Thunder Bluff
+  accept 7820
+  accept 7821
+  accept 7822
+
+step Ratchet Bruiser
+  zone The Barrens
+  collect 4306 x60 quest 7821.1
+
+step Farrin Daris
+  zone Duskwood
+  collect 2592 x60 quest 7820.1
+
+step Baron Bloodbane
+  zone Eastern Plaguelands
+  collect 4338 x60 quest 7822.1
+
+step Rumstag Proudstrider
+  zone Thunder Bluff
+  turnin 7820
+  turnin 7821
+  turnin 7822
+  accept 7823
+
+step Stormwind Royal Guard
+  zone Stormwind City
+  collect 14047 x60 quest 7823.1
+
+step Stealing Stormwind's Flame
+  tip Flame of Stormwind is looted from Flame of Stormwind: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1453
+  collect 23182 x1 optional
+  accept 9330 item 23182 optional
+
+step Stealing Stormwind's Flame
+  when onquest 9330
+  zone map 1454
+  turnin 9330
+
+step Rumstag Proudstrider
+  zone Thunder Bluff
+  turnin 7823
+
+step Additional Runecloth
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1456
+  collect 14047 x20 anywhere optional
+  turnin 7825 direct optional
+
+step Bloodhoof Village
+  zone Mulgore
+  sethome "Bloodhoof Village"
+
+step Oura Stormspinner
+  zone Mulgore
+  accept 99196
+  accept 99197
+  accept 99198
+  accept 98477
+
+step Baron Bloodbane
+  zone Eastern Plaguelands
+  collect 4338 x1 quest 99198.1
+
+step Anvilrage Overseer
+  zone Burning Steppes
+  collect 274964 x10 quest 98477.1
+
+step Farrin Daris
+  zone Duskwood
+  collect 2592 x60 quest 99196.1
+
+step Ratchet Bruiser
+  zone The Barrens
+  collect 4306 x1 quest 99197.1
+
+step Oura Stormspinner
+  zone Mulgore
+  turnin 99196
+  turnin 99197
+  turnin 99198
+
+step Nuara Tremorhoof
+  turnin 98477
+
+step Your Fortune Awaits You...
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  turnin 7945 direct optional
+
+
+step Stealing Ironforge's Flame
+  tip Flame of Ironforge is looted from Flame of Ironforge: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1455
+  collect 23183 x1 optional
+  accept 9331 item 23183 optional
+
+step Stealing Ironforge's Flame
+  when onquest 9331
+  zone map 1454
+  turnin 9331
+
+step Stealing Darnassus's Flame
+  tip Flame of Darnassus is looted from Flame of Darnassus: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1438
+  collect 23184 x1 optional
+  accept 9332 item 23184 optional
+
+step Stealing Darnassus's Flame
+  when onquest 9332
+  zone map 1454
+  turnin 9332

@@ -1,0 +1,196 @@
+guide polestar-completionist-alliance/23-odd-jobs-in-the-eastern-kingdoms-2
+title 23 Odd jobs in the Eastern Kingdoms (30-44) (Completionist)
+faction Alliance
+levels 30-44
+zone Loch Modan
+next polestar-completionist-alliance/24-duskwood-2
+pitch On along the line: errands across the Eastern Kingdoms, quests of level 30 to 44.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 17 quests; estimated level at the end 31.3 (heuristic XP, class quests not counted).
+# Skipped: 1 objective N (talk N) outside the zones.
+
+step Waterlogged Letter
+  zone Arathi Highlands
+  goto 44.3,92.9 "Waterlogged Letter"
+  accept 637 item 4433 -- Found in Waterlogged Letter
+
+step Carved Figurine
+  zone Loch Modan
+  accept 79975
+
+step Ingredients for the Forge
+  when skill Mining 1
+  zone map 1432
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 86776 optional
+  complete 86776 @34.0,46.5 optional
+
+step Ingredients for the Forge
+  when skill Mining 1
+  turnin 86776 optional
+
+step Roetten Stonehammer
+  zone Ironforge
+  accept 1453
+
+step Sara Balloo
+  turnin 637
+  accept 683
+
+step Pilot Longbeard
+  accept 1179
+
+step King Magni Bronzebeard
+  turnin 683
+  accept 686
+
+step Grand Mason Marblesten
+  turnin 686
+  accept 689
+
+step Talvash del Kissel
+  accept 2948
+
+step Alterac Granite
+  zone Alterac Mountains
+  collect 4521 x5 quest 689.1
+
+step Alliance Chest
+  zone Silverpine Forest
+  collect 2842 x1 quest 2948.1
+
+step Venture Co. Drone
+  zone The Barrens
+  collect 1206 x1 quest 2948.2
+
+step Kreldig Ungor
+  zone Stonetalon Mountains
+  turnin 1453
+  accept 1458
+
+step Hatefury Hellcaller
+  collect 6246 x10 quest 1458.1
+  collect 6247 x10 quest 1458.2
+
+step Kreldig Ungor
+  turnin 1458
+
+step Wizzle Brassbolts
+  zone Thousand Needles
+  turnin 1179
+
+step Level 40
+  level 40
+
+step Grimbooze Thunderbrew
+  zone Westfall
+  accept 48
+
+step The Holy Spring
+  zone Stranglethorn Vale
+  collect 737 x1 quest 48.1
+
+step Grimbooze Thunderbrew
+  zone Westfall
+  turnin 48
+
+step Grimbooze Thunderbrew
+  zone Westfall
+  accept 49
+
+step Sack of Barley
+  zone Swamp of Sorrows
+  collect 738 x1 quest 49.1
+
+step Sack of Rye
+  zone The Hinterlands
+  collect 740 x1 quest 49.3
+
+step Sack of Corn
+  zone Tanaris
+  collect 739 x1 quest 49.2
+
+step Grimbooze Thunderbrew
+  zone Westfall
+  turnin 49
+
+step Grimbooze Thunderbrew
+  zone Westfall
+  accept 50
+
+step Solid Chest
+  zone Dustwallow Marsh
+  collect 6037 x1 quest 50.1
+
+step Grimbooze Thunderbrew
+  zone Westfall
+  turnin 50
+
+step Grimbooze Thunderbrew
+  zone Westfall
+  accept 51
+
+step Cursed Sycamore
+  zone Feralas
+  collect 742 x1 quest 51.1
+
+step Grimbooze Thunderbrew
+  zone Westfall
+  turnin 51
+
+step Grimbooze Thunderbrew
+  zone Westfall
+  accept 53
+
+step The Charred Oak
+  zone Searing Gorge
+  collect 743 x1 quest 53.1
+
+step Grand Mason Marblesten
+  zone Ironforge
+  turnin 689
+  accept 700
+
+step King Magni Bronzebeard
+  turnin 700
+
+step Talvash del Kissel
+  turnin 2948
+
+step Messenger Bag
+  zone Arathi Highlands
+  turnin 79975
+
+step Image of Archmage Modera
+  zone Silverpine Forest
+  accept 92459
+
+step Archmage Celindra
+  zone Alterac Mountains
+  turnin 92459
+
+step Grimbooze Thunderbrew
+  zone Westfall
+  turnin 53
+
+step Genn Fairweather
+  zone map 2521
+  accept 97205 only Skyborne
+  turnin 97205 only Skyborne
+
+step Your First Riding Galestrider
+  only Skyborne
+  zone map 2521
+  accept 96996
+
+step Your First Riding Galestrider
+  only Skyborne
+  when onquest 96996
+  zone map 2521
+  complete 96996 @53.6,81.3
+
+step Your First Riding Galestrider
+  only Skyborne
+  when onquest 96996
+  zone map 2521
+  turnin 96996

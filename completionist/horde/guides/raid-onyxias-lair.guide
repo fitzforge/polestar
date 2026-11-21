@@ -1,0 +1,120 @@
+guide polestar-completionist-horde/raid-onyxias-lair
+title Onyxia's Lair (Completionist)
+faction Horde
+category Dungeons
+levels 60-60
+zone Dustwallow Marsh
+pitch Onyxia's Lair, in Dustwallow Marsh. A raid.
+why Every Horde quest of Onyxia's Lair: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Dustwallow Marsh: the arrow leads to it. This is a raid: it needs a raid group.
+
+step Nostro's Compendium
+  only Warrior,Paladin
+  tip This quest starts from an item: use it to take the quest.
+  collect 18401 x1 anywhere
+  accept 7507 item 18401
+
+step Nostro's Compendium
+  only Warrior,Paladin
+  zone Dustwallow Marsh
+  turnin 7507 @52.6,76.8
+
+step The Forging of Quel'Serrar
+  only Warrior,Paladin
+  zone Dustwallow Marsh
+  accept 7508 @52.6,76.8
+
+step The Forging of Quel'Serrar
+  only Warrior,Paladin
+  zone Dustwallow Marsh
+  turnin 7508 @52.6,76.8
+
+step The Ancient Leaf
+  only Hunter
+  zone Dustwallow Marsh
+  accept 7632 @52.6,76.8
+
+step The Ancient Leaf
+  only Hunter
+  zone Felwood
+  turnin 7632
+
+step An Introduction
+  only Hunter
+  zone Felwood
+  accept 7633
+
+step An Introduction
+  only Hunter
+  zone Felwood
+  turnin 7633
+
+step Lorekeeper Lydros
+  only Warrior,Paladin
+  zone Dustwallow Marsh
+  accept 7509 @52.6,76.8
+
+step Stoma the Ancient
+  only Hunter
+  zone Felwood
+  accept 7635
+
+step Inside Onyxia's Lair
+  zone Dustwallow Marsh
+  collect 18422 @52.6,76.8
+
+step Inside Onyxia's Lair
+  only Warrior,Paladin
+  zone Dustwallow Marsh
+  complete 7509 @52.6,76.8
+
+step Inside Onyxia's Lair
+  only Hunter
+  zone Dustwallow Marsh
+  complete 7635 @52.6,76.8
+
+step Lorekeeper Lydros
+  only Warrior,Paladin
+  zone Dustwallow Marsh
+  turnin 7509 @52.6,76.8
+
+step Stoma the Ancient
+  only Hunter
+  zone Felwood
+  turnin 7635
+
+step The Journey Has Just Begun
+  when turnedin 7491
+  when skill Leatherworking 300
+  zone map 1454
+  accept 7493 optional
+
+step The Journey Has Just Begun
+  when onquest 7493
+  zone map 1454
+  turnin 7493 optional
+
+
+step Victory for the Horde
+  when turnedin 6602
+  when has 18422
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1454
+  accept 7490 item 18422
+
+step Victory for the Horde
+  when onquest 7490
+  zone map 1454
+  turnin 7490
+
+step For All To See
+  when turnedin 7490
+  zone map 1454
+  accept 7491
+
+step For All To See
+  when onquest 7491
+  zone map 1454
+  turnin 7491

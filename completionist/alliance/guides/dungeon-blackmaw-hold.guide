@@ -1,0 +1,85 @@
+guide polestar-completionist-alliance/dungeon-blackmaw-hold
+title Blackmaw Hold (Completionist)
+faction Alliance
+category Dungeons
+levels 1-60
+zone Azshara
+next polestar-completionist-alliance/44-ungoro-crater
+pitch Blackmaw Hold, in Azshara.
+why Every Alliance quest of Blackmaw Hold: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Azshara: the arrow leads to it.
+
+step Ekkal
+  zone Azshara
+  accept 97327 @42,38.9 map 1447
+
+step Ogtinc
+  zone Azshara
+  accept 92069
+
+step Inside Blackmaw Hold
+  zone Azshara
+  collect 249698 @37.6,38.7
+  accept 92070 item 249698
+  complete 92070 @37.6,38.7
+  complete 92069 @37.6,38.7
+  complete 97327 @37.6,38.7
+
+step Ekkal
+  zone Azshara
+  turnin 97327 @42,38.9 map 1447
+
+step Blackmaw Pouches
+  zone map 1447
+  accept 96246 @42,38.9 map 1447
+
+step Blackmaw Pouches
+  when onquest 96246
+  zone map 1447
+  turnin 96246 @42,38.9 map 1447
+
+step Ogtinc
+  zone Azshara
+  turnin 92069
+
+step Unele
+  zone Azshara
+  turnin 92070 @37.6,38.7 map 1447
+
+step Level 45
+  level 45
+
+step Beneath Nordrassil
+  zone Azshara
+  accept 92345
+
+step Beneath Nordrassil
+  zone Darnassus
+  turnin 92345
+
+step Mathrengyl Bearwalker
+  zone Darnassus
+  accept 92344
+
+step Inside Blackmaw Hold
+  zone Azshara
+  complete 92344 @37.6,38.7
+
+step Mathrengyl Bearwalker
+  zone Darnassus
+  turnin 92344
+
+
+step Archmage Timear
+  zone Alterac Mountains
+  accept 97173
+
+step Inside Blackmaw Hold
+  zone Azshara
+  complete 97173 @37.6,38.7
+
+step Archmage Timear
+  zone Alterac Mountains
+  turnin 97173

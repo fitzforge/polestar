@@ -1,0 +1,290 @@
+guide polestar-completionist-horde/10-stonetalon-mountains
+title 10 Stonetalon Mountains (18-29) (Completionist)
+faction Horde
+levels 18-29
+zone Stonetalon Mountains
+next polestar-completionist-horde/11-ashenvale
+pitch On along the line: Stonetalon Mountains, quests of level 18 to 29.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 21 quests; estimated level at the end 22.5 (heuristic XP, class quests not counted).
+# Skipped: 1 exclusive with N (done).
+
+step Tammra Windfield
+  sethome "Sun Rock Retreat"
+  getfp "Sun Rock Retreat"
+  accept 6301
+
+step Gaea Seed
+  collect 16205 x10 quest 6301.1
+
+step Tammra Windfield
+  turnin 6301
+  accept 6381
+
+step Gaea Dirt Mound
+  interact 177929 quest 6381.1
+
+step Kadrak
+  zone The Barrens
+  accept 6543
+
+step Warsong Outrider Update
+  when onquest 6543
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1440
+  collect 16746 x1 anywhere optional
+  turnin 6546 direct optional
+
+step Warsong Scout Update
+  when onquest 6543
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1440
+  collect 16746 x1 anywhere optional
+  turnin 6547 direct optional
+
+step Warsong Runner Update
+  when onquest 6543
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1440
+  collect 16746 x1 anywhere optional
+  turnin 6545 direct optional
+
+step Warsong Scout
+  zone Ashenvale
+  buy 16764 x1 npc 12862 -- for The Warsong Reports
+
+step Warsong Outrider
+  buy 16765 x1 npc 12864 -- for The Warsong Reports
+
+step Warsong Runner
+  buy 16763 x1 npc 12863 -- for The Warsong Reports
+
+step Tammra Windfield
+  zone Stonetalon Mountains
+  turnin 6381
+  accept 6282
+  accept 86576
+
+step Bloodfury Harpy
+  kill 4022 x7 quest 6282.1
+
+step Bloodfury Ambusher
+  kill 4025 x7 quest 6282.2
+
+step Bloodfury Roguefeather
+  kill 4023 x7 quest 6282.4
+
+step Level 20
+  level 20
+
+step Braelyn Firehand
+  zone Stonetalon Mountains
+  accept 1087
+
+step Son of Cenarius, Daughter of Cenarius and Cenarion Botanist
+  zone Stonetalon Mountains
+  kill 4057 x4 quest 1087.1
+  kill 4053 x4 quest 1087.2
+  kill 4051 x4 quest 1087.3
+
+step Braelyn Firehand
+  zone Stonetalon Mountains
+  turnin 1087
+
+step Braelyn Firehand
+  zone Stonetalon Mountains
+  accept 1088
+
+step Keeper Ordanus
+  zone Ashenvale
+  collect 5686 x1 quest 1088.1
+
+step Braelyn Firehand
+  zone Stonetalon Mountains
+  turnin 1088
+
+step Braelyn Firehand
+  zone Stonetalon Mountains
+  accept 1089
+
+step Druids' Cache
+  zone Stonetalon Mountains
+  collect 5690 x1 quest 1089.2
+
+step Bloodfury Slayer and Bloodfury Storm Witch
+  kill 4024 x7 quest 6282.3
+  collect 277936 x15 quest 86576.1
+
+step Barrow Cache
+  collect 5691 x1 quest 1089.3
+
+step Sleepers' Cache
+  collect 5689 x1 quest 1089.1
+
+step Talon Den Hoard
+  turnin 1089
+
+step Maggran Earthbinder
+  turnin 6282
+
+step Maggran Earthbinder
+  when group 6283
+  zone Stonetalon Mountains
+  accept 6283
+
+step Bloodfury Ripper
+  when group 6283
+  zone Stonetalon Mountains
+  tip Bloodfury Bloodline is group work: elites. Grouping up is advised.
+  collect 16190 x1 quest 6283.1
+
+step Maggran Earthbinder
+  when group 6283
+  zone Stonetalon Mountains
+  turnin 6283
+
+step Mor'rogal
+  turnin 86576
+  accept 6421
+  accept 6393
+
+step Rogue Flame Spirit
+  collect 16312 x10 quest 6393.1
+
+step Level 23
+  level 23
+
+step Maggran Earthbinder
+  zone Stonetalon Mountains
+  accept 5881
+
+step Resonite Crystal
+  zone Desolace
+  collect 16581 x10 quest 6421.1
+
+step Wanted Poster: Besseleth
+  when group 6284
+  zone Stonetalon Mountains
+  accept 6284
+
+step Besseleth
+  when group 6284
+  zone Stonetalon Mountains
+  tip Arachnophobia is group work: elites. Grouping up is advised.
+  collect 16192 x1 quest 6284.1
+
+step Tsunaman
+  turnin 6393
+  complete 6421 @58.2,89.5 map 1442
+  turnin 6421
+
+step Mor'rogal
+  when group 6481
+  zone Stonetalon Mountains
+  accept 6481
+
+step Goggeroc
+  when group 6481
+  zone Stonetalon Mountains
+  tip Earthen Arise is group work: elites. Grouping up is advised.
+  kill 11920 x1 quest 6481.1
+
+step Xen'Zilla
+  accept 6461
+
+step Report to Kadrak
+  when available 6542
+  tip One of several exclusive quests; the route takes Report to Kadrak (6541). This one shows for a character the game offers it to instead.
+  zone map 1442
+  accept 6542 optional
+
+step Deepmoss Creeper
+  kill 4005 x10 quest 6461.1
+
+step Deepmoss Venomspitter
+  kill 4007 x7 quest 6461.2
+
+step Maggran Earthbinder
+  when group 6284
+  zone Stonetalon Mountains
+  turnin 6284
+
+step Mor'rogal
+  when group 6481
+  zone Stonetalon Mountains
+  turnin 6481
+
+step Ziz Fizziks
+  accept 1093
+
+step Venture Co. Operator
+  collect 5734 x1 quest 1093.1
+
+step Ziz Fizziks
+  turnin 1093
+  accept 1094
+
+step Kaya Flathoof
+  accept 6523
+
+step Witch Doctor Jin'Zil
+  accept 1058
+
+step Antlered Courser
+  collect 5585 x30 quest 1058.3
+
+step Twilight Runner
+  collect 5584 x5 quest 1058.2
+
+step Sap Beast
+  collect 5582 x5 quest 1058.1
+
+step Fey Dragon
+  collect 5583 x1 quest 1058.4
+
+step Xen'Zilla
+  turnin 6461
+
+step Witch Doctor Jin'Zil
+  turnin 1058
+
+step Makaba Flathoof
+  zone The Barrens
+  complete 6523 @77.1,90.8 map 1442
+  turnin 6523
+  accept 6401
+
+step Kadrak
+  turnin 6543
+
+step Report to Kadrak
+  when onquest 6542
+  zone map 1413
+  turnin 6542 optional
+
+step Sputtervalve
+  turnin 1094
+
+step Grish Longrunner
+  turnin 5881
+
+step Tammra Windfield
+  zone Stonetalon Mountains
+  turnin 6401
+
+step Gerenzo's Orders
+  zone map 1442
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 1090
+  complete 1090 @71.9,60
+
+step Gerenzo's Orders
+  turnin 1090
+
+step Piznik
+  zone Stonetalon Mountains
+  accept 1092
+
+step Ziz Fizziks
+  zone Stonetalon Mountains
+  turnin 1092

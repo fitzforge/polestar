@@ -1,0 +1,314 @@
+guide polestar-completionist-alliance/08-westfall
+title 08 Westfall (9-24) (Completionist)
+faction Alliance
+levels 9-24
+zone Westfall
+next polestar-completionist-alliance/dungeon-deadmines
+next polestar-completionist-alliance/09-loch-modan
+pitch On along the line: Westfall, quests of level 9 to 24.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 23 quests; estimated level at the end 16.2 (heuristic XP, class quests not counted).
+# Skipped: 1 prerequisite N not in this route.
+
+step Captain Danuvin
+  getfp "Sentinel Hill"
+  accept 102
+
+step Level 10
+  level 10
+
+step Scout Galiaan
+  zone Westfall
+  sethome "Sentinel Hill"
+  accept 153
+
+step Defias Highwayman
+  zone Westfall
+  collect 829 x15 quest 153.1
+
+step Scout Galiaan
+  zone Westfall
+  turnin 153
+
+step Level 15
+  level 15
+
+step Mouse
+  zone Westfall
+  accept 93928
+
+step My First Alchemy Set
+  when skill Alchemy 1
+  zone map 1436
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 92109 optional
+  complete 92109 @42.8,72.8 optional
+
+step My First Alchemy Set
+  when skill Alchemy 1
+  turnin 92109 optional
+
+step Captain Grayson
+  zone Westfall
+  accept 103
+
+step Captain Grayson
+  zone Westfall
+  accept 104
+
+step Old Murk-Eye
+  zone Westfall
+  collect 3636 x1 quest 104.1
+
+step Captain Grayson
+  zone Westfall
+  accept 152
+
+step Murloc Tidehunter and Murloc Oracle
+  zone Westfall
+  kill 127 x7 quest 152.3
+  kill 517 x7 quest 152.4
+
+step Murloc Warrior
+  zone Westfall
+  kill 171 x7 quest 152.2
+
+step Murloc Coastrunner
+  zone Westfall
+  kill 126 x7 quest 152.1
+
+step Harvest Reaper
+  zone Westfall
+  collect 814 x5 quest 103.1
+
+step Gryan Stoutmantle
+  accept 12
+  accept 6181 only Human
+
+step Defias Smuggler
+  kill 95 x15 quest 12.2
+
+step Riverpaw Shaman
+  collect 725 x8 quest 102.1
+
+step Defias Trapper
+  kill 504 x15 quest 12.1
+
+step Gryan Stoutmantle
+  turnin 12
+  accept 13
+  turnin 102
+
+step Defias Pillager
+  kill 589 x15 quest 13.1
+
+step Defias Looter
+  kill 590 x15 quest 13.2
+
+step Burned-Out Remains
+  accept 79008
+
+step Ozwin Ironsprocket
+  accept 92909
+
+step Bulky Protective Ironweave
+  collect 255010 x5 quest 92909.2
+
+step Decrepit Harvester
+  zone Tirisfal Glades
+  collect 255007 x14 quest 92909.1
+
+step Marshal Dughan
+  zone Elwynn Forest
+  accept 109 npc 240
+
+step Furlbrow's Deed
+  tip Westfall Deed drops from Defias Dockmaster, Defias Bodyguard, Defias Bandit: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1429
+  collect 1972 x1 optional
+  accept 184 item 1972 optional
+
+step Farmer Furlbrow
+  zone Westfall
+  accept 64
+  accept 36
+  accept 151
+
+step Furlbrow's Deed
+  when onquest 184
+  zone map 1436
+  turnin 184
+
+step Furlbrow's Wardrobe
+  collect 841 x1 quest 64.1
+
+step Sack of Oats
+  collect 1528 x8 quest 151.1
+
+step Captain Grayson
+  turnin 103
+  turnin 104
+  turnin 152
+
+step Thor
+  turnin 6181 only Human
+  accept 6281 only Human
+
+step Gryan Stoutmantle
+  turnin 13
+  turnin 109
+  accept 14
+
+step Defias Pathstalker and Defias Knuckleduster
+  kill 121 x5 quest 14.2
+  kill 449 x5 quest 14.3
+
+step Defias Highwayman
+  kill 122 x15 quest 14.1
+
+step Gryan Stoutmantle
+  turnin 14
+
+step Farmer Saldean
+  accept 9
+  turnin 36
+  accept 22
+  accept 38
+
+step Harvest Watcher
+  kill 114 x20 quest 9.1
+
+step Goretusk
+  collect 731 x3 quest 38.3
+
+step Salt Flats Vulture
+  zone Thousand Needles
+  collect 729 x3 quest 38.1
+
+step Bluegill Raider
+  zone Wetlands
+  collect 730 x3 quest 38.2
+
+step Great Goretusk
+  zone Redridge Mountains
+  collect 723 x8 quest 22.1
+
+step Harvest Reaper
+  zone Westfall
+  collect 732 x3 quest 38.4
+
+step Farmer Saldean
+  turnin 9
+  turnin 22
+  turnin 38
+
+step Ozwin Ironsprocket
+  turnin 92909
+
+step Verna Furlbrow
+  turnin 151
+  turnin 64
+
+step Osric Strang
+  zone Stormwind City
+  turnin 6281 only Human
+  accept 6261 only Human
+  turnin 6261 only Human
+  accept 6285 only Human
+
+step Quartermaster Lewis
+  zone Westfall
+  turnin 6285 only Human
+
+step Captain Sander's Hidden Treasure
+  tip Captain Sander's Treasure Map drops from Murloc Coastrunner, Murloc Tidehunter, Murloc Warrior: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1436
+  collect 1357 x1 optional
+  accept 136 item 1357 optional
+
+step Harvesting the Harvesters
+  tip Precessive Autocognition Assembly drops from Harvest Golem, Harvest Watcher, Harvest Reaper: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1436
+  collect 255155 x1 optional
+  accept 92910 item 255155 optional
+
+step Thunderbrew
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1436
+  collect 1274 x5 anywhere optional
+  turnin 117 direct optional
+
+step Harvesting the Harvesters
+  when onquest 92910
+  zone map 1436
+  turnin 92910 optional
+
+step Harvesting the Harvesters
+  when turnedin 92910
+  zone map 1436
+  accept 92911 optional
+  complete 92911 @51.5,32.3 optional
+
+step Harvesting the Harvesters
+  when onquest 92911
+  zone map 1436
+  turnin 92911 optional
+
+step Captain Sander's Hidden Treasure
+  when onquest 136
+  zone map 1436
+  turnin 136
+
+step Captain Sander's Hidden Treasure
+  when turnedin 136
+  zone map 1436
+  accept 138
+
+step Captain Sander's Hidden Treasure
+  when onquest 138
+  zone map 1436
+  turnin 138
+
+step Captain Sander's Hidden Treasure
+  when turnedin 138
+  zone map 1436
+  accept 139
+
+step Captain Sander's Hidden Treasure
+  when onquest 139
+  zone map 1436
+  turnin 139
+
+step Captain Sander's Hidden Treasure
+  when turnedin 139
+  zone map 1436
+  accept 140
+
+step Captain Sander's Hidden Treasure
+  when onquest 140
+  zone map 1436
+  turnin 140
+
+step My First Real Potion
+  when skill Alchemy 1
+  zone map 1436
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 92110 optional
+  complete 92110 @42.8,72.8 optional
+
+step My First Real Potion
+  when skill Alchemy 1
+  turnin 92110 optional
+
+step Hemet Nesingwary
+  zone Stranglethorn Vale
+  turnin 93928
+
+step Burned-Out Remains
+  zone The Barrens
+  turnin 79008 object 415106
+  accept 79192 object 417072
+
+step Pocket Litter
+  zone Stonetalon Mountains
+  turnin 79192

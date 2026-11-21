@@ -1,0 +1,627 @@
+guide polestar-completionist-horde/01-durotar-and-orgrimmar
+title 01 Durotar and Orgrimmar (1-13) (Completionist)
+faction Horde
+levels 1-13
+zone Durotar
+next polestar-completionist-horde/02-mulgore-and-thunder-bluff when !turnedin 93739
+next polestar-completionist-horde/03-tirisfal-glades-and-the-undercity when !turnedin 408
+next polestar-completionist-horde/04-zephras-isle when !turnedin 95349
+next polestar-completionist-horde/05-odd-jobs-in-kalimdor
+pitch Where Orcs and Trolls start. The other starting zones follow, then the route goes on by level.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 67 quests; estimated level at the end 13.3 (heuristic XP, class quests not counted).
+
+step Gornek
+  accept 97279
+
+step Earth Sapta
+  only Shaman
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1411
+  turnin 1463 direct optional
+
+step Welcome!
+  when has 14649
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1411
+  accept 5843 item 14649
+
+step Ruzan
+  only Warlock
+  accept 1485 only Orc,Troll
+
+step Welcome!
+  when onquest 5843
+  zone map 1411
+  turnin 5843
+
+step Kaltunk
+  accept 4641
+
+step Vile Familiar
+  only Warlock
+  collect 6487 x6 quest 1485.1 only Orc,Troll
+
+step Benedict's Chest
+  goto 59.3,57.7 "Benedict's Chest"
+  accept 830 item 4881 -- Found in Benedict's Chest
+
+step Abandoned Training Weapon
+  collect 277653 x6 quest 97279.1
+
+step Ruzan
+  only Warlock
+  turnin 1485 only Orc,Troll
+
+step Gornek
+  turnin 4641
+  accept 788
+
+step Mottled Boar
+  zone The Barrens
+  kill 3098 x10 quest 788.1
+
+step Zureetha Fargaze
+  zone Durotar
+  only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Druid
+  accept 792
+
+step Gornek
+  turnin 788
+  accept 789
+  accept 2383 only Warrior,Orc
+  accept 3065 only Warrior,Troll
+  accept 3082 only Hunter,Troll
+  accept 3083 only Rogue,Troll
+  accept 3084 only Shaman,Troll
+  accept 3085 only Priest,Troll
+  accept 3086 only Mage,Troll
+  accept 3087 only Hunter,Orc
+  accept 3088 only Rogue,Orc
+  accept 3089 only Shaman,Orc
+  accept 3090 only Warlock,Orc
+  accept 98575 only Warlock,Troll
+  accept 98576 only Mage,Orc
+
+step Ken'jai
+  only Priest
+  turnin 3085 only Troll
+
+step Shikrik
+  only Shaman
+  turnin 3084 only Troll
+  turnin 3089 only Orc
+
+step Mai'ah
+  only Mage
+  turnin 3086 only Troll
+  turnin 98576 only Orc
+
+step Jen'shan
+  only Hunter
+  turnin 3082 only Troll
+  turnin 3087 only Orc
+
+step Frang
+  only Warrior
+  turnin 2383 only Orc
+  turnin 3065 only Troll
+
+step Rwag
+  only Rogue
+  turnin 3083 only Troll
+  turnin 3088 only Orc
+
+step Nartok
+  only Warlock
+  turnin 3090 only Orc
+  turnin 98575 only Troll
+
+step Kzan Thornslash
+  turnin 97279
+
+step Scorpid Worker
+  zone The Barrens
+  collect 4862 x10 quest 789.1
+
+step Vile Familiar
+  zone Durotar
+  only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Druid
+  kill 3101 x12 quest 792.1
+
+step Hana'zua
+  accept 790
+
+step Fire Sapta
+  only Shaman
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1411
+  turnin 1464 direct optional
+
+step Sarkoth
+  collect 4905 x1 quest 790.1
+
+step Gornek
+  turnin 789
+  accept 4402
+
+step Cactus Apple
+  collect 11583 x10 quest 4402.1
+
+step Galgar
+  turnin 4402
+  turnin 792 only Warrior,Paladin,Hunter,Rogue,Priest,Shaman,Mage,Druid
+  accept 794
+
+step Yarrog Baneshadow
+  collect 4859 x1 quest 794.1
+
+step Hana'zua
+  turnin 790
+  accept 804
+
+step Gazz'uz
+  zone The Barrens
+  goto 52.6,8.8 "Gazz'uz"
+  accept 832 item 4903 -- Drops from Gazz'uz
+
+step Orgrimmar
+  zone Orgrimmar
+  getfp "Orgrimmar"
+
+step Neeru Fireblade
+  zone Orgrimmar
+  turnin 832
+
+step Eitrigg
+  accept 787
+
+step Furl Scornbrow
+  zone Durotar
+  sethome "Razor Hill"
+  accept 791
+  accept 96825
+
+step Gar'Thok
+  turnin 830
+  accept 784
+  accept 831
+
+step Prickly Pear Fruit
+  collect 275718 x8 quest 96825.1
+
+step Kul Tiras Sailor and Lieutenant Benedict
+  kill 3128 x10 quest 784.1
+  kill 3192 x1 quest 784.3
+
+step Kul Tiras Marine
+  kill 3129 x8 quest 784.2
+  collect 4870 x8 quest 791.1
+
+step Turroc
+  accept 96822
+
+step Raider's Shield
+  collect 275717 x1 quest 96822.3
+
+step Raider's Battleaxe
+  collect 275716 x1 quest 96822.2
+
+step Raider's Bow
+  collect 275713 x1 quest 96822.1
+
+step Turroc
+  turnin 96822
+  turnin 784
+  accept 825
+  accept 837
+  turnin 96825
+  accept 815
+
+step Razormane Quilboar and Razormane Scout
+  kill 3111 x4 quest 837.1
+  kill 3112 x4 quest 837.2
+
+step Razormane Dustrunner
+  kill 3113 x4 quest 837.3
+
+step Razormane Battleguard
+  kill 3114 x4 quest 837.4
+
+step Taillasher Eggs
+  collect 4890 x3 quest 815.1
+
+step Gnomish Toolbox
+  collect 4863 x3 quest 825.1
+
+step Ukor
+  accept 2161
+
+step Lar Prowltusk
+  accept 786
+
+step Red Raptor Replacement
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1411
+  collect 8586 x1 anywhere optional
+  turnin 7665 direct optional
+
+step Ivory Raptor Replacement
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1411
+  collect 13317 x1 anywhere optional
+  turnin 7664 direct optional
+
+step A Pain in the Neck
+  when skill Enchanting 1
+  zone map 1411
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 96873 optional
+  complete 96873 @56.7,73.7 optional
+
+step Attack Plan: Valley of Trials
+  interact 3189 quest 786.1
+
+step Attack Plan: Orgrimmar
+  interact 3192 quest 786.3
+
+step Attack Plan: Sen'jin Village
+  interact 3190 quest 786.2
+
+step Foreman Thazz'ril
+  accept 5441
+  turnin 794
+  accept 805
+  accept 96652 only Orc,Troll
+
+step Canaga Earthcaller
+  only Shaman
+  accept 1516 only Orc,Troll
+
+step Ken'jai
+  only Priest
+  accept 5649 only Troll
+
+step Gornek
+  turnin 787
+  turnin 804
+
+step Felstalker
+  only Shaman
+  collect 6640 x2 quest 1516.1 only Orc,Troll
+
+step Canaga Earthcaller
+  only Shaman
+  turnin 1516 only Orc,Troll
+  accept 1517
+
+step Lazy Peon
+  kill 10556 x5 quest 5441.1
+
+step Minor Manifestation of Earth
+  only Shaman
+  turnin 1517
+  accept 1518
+
+step Lost in the Shadows
+  zone map 1411
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 99123
+  complete 99123 @46.3,78.6
+
+step Canaga Earthcaller
+  only Shaman
+  turnin 1518
+
+step Foreman Thazz'ril
+  turnin 5441
+  accept 6394
+
+step Thazz'ril's Pick
+  collect 16332 x1 quest 6394.1
+
+step Brakk
+  turnin 96652 only Orc,Troll
+
+step Ukor's Lost Pack
+  tip Ukor's Lost Pack drops from Ukorsbane: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1411
+  collect 275722 x1 optional
+  accept 96876 item 275722 optional
+
+step Ukor's Lost Pack
+  when onquest 96876
+  zone map 1411
+  turnin 96876
+
+step The Great Outdoors
+  zone map 1411
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 96604
+  complete 96604 @52.0,47.3
+
+step The Great Outdoors
+  turnin 96604
+
+step Gar'Thok
+  turnin 825
+  turnin 837
+  turnin 815
+  turnin 2161
+
+step Furl Scornbrow
+  turnin 791
+
+step Tai'jin
+  only Priest
+  turnin 5649 only Troll
+  accept 5648 only Troll
+
+step Grunt Kor'ja
+  only Priest
+  kill 12430 x1 quest 5648.1 only Troll
+
+step Tai'jin
+  only Priest
+  turnin 5648 only Troll
+
+step Rezlak
+  accept 834
+
+step Stolen Supply Sack
+  collect 4918 x5 quest 834.1
+
+step Rezlak
+  turnin 834
+  accept 835
+
+step Dustwind Storm Witch
+  kill 3118 x8 quest 835.2
+
+step Dustwind Savage
+  kill 3117 x12 quest 835.1
+
+step Rezlak
+  turnin 835
+
+step Rhinag
+  accept 812
+
+step Finding the Antidote
+  when onquest 812
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 4886 x4 anywhere optional
+  turnin 813 direct optional
+
+step Kor'ghan
+  zone Orgrimmar
+  collect 4904 x1 quest 812.1
+
+step Nazgrel
+  turnin 831
+
+step Rhinag
+  zone Durotar
+  turnin 812
+
+step Misha Tor'kren
+  accept 816
+
+step Halikor's Hoof
+  tip Halikor's Hoof drops from Halikor: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1411
+  collect 275723 x1 optional
+  accept 96877 item 275723 optional
+
+step Halikor's Hoof
+  when onquest 96877
+  zone map 1454
+  turnin 96877
+
+step Dreadmaw Crocolisk
+  collect 4891 x1 quest 816.1
+
+step Misha Tor'kren
+  turnin 816
+
+step Orgnil Soulscar
+  accept 99048
+
+step Heglan Shadeeye
+  turnin 99048
+  accept 99049
+
+step Abandoned Dagger
+  collect 286012 x1 quest 99049.1
+
+step Weapon Piece
+  collect 286010 x1 quest 99049.3
+
+step Strange Debris
+  collect 286011 x1 quest 99049.2
+
+step Orgnil Soulscar
+  turnin 99049
+  accept 99051
+
+step Spitelash Scout
+  collect 286008 x9 quest 99051.1
+
+step Orgnil Soulscar
+  turnin 99051
+
+step Orgnil Soulscar
+  when group 99052
+  zone Durotar
+  accept 99052
+
+step Aggor the Young
+  when group 99052
+  zone Durotar
+  tip Threat from Below is group work: elites. Grouping up is advised.
+  collect 286009 x1 quest 99052.1
+
+step Orgnil Soulscar
+  when group 99052
+  zone Durotar
+  turnin 99052
+
+step Takrin Pathseeker
+  accept 840
+
+step Foreman Thazz'ril
+  turnin 6394
+
+step Lar Prowltusk
+  turnin 786
+  accept 97223
+  turnin 805
+  accept 808
+  accept 823
+  accept 826
+  accept 818
+  accept 97225
+
+step Lost in the Shadows
+  turnin 99123
+
+step A Pain in the Neck
+  when skill Enchanting 1
+  turnin 96873 optional
+
+step Vel'rin Fang
+  accept 817
+  accept 96821
+
+step Pygmy Surf Crawler
+  collect 4888 x8 quest 818.2
+
+step Slimeshell Makrura
+  zone The Barrens
+  collect 4887 x4 quest 818.1
+
+step Ridgeshade Creeper and Ridgeshade Lurker
+  zone Durotar
+  kill 266850 x6 quest 96821.1
+  kill 266849 x6 quest 96821.2
+
+step Bloodtalon Matriarch
+  collect 277128 x1 quest 97223.1
+
+step Hexed Troll and Voodoo Troll
+  kill 3207 x8 quest 826.1
+  kill 3206 x8 quest 826.2
+
+step Imprisoned Darkspear and Zalazane
+  collect 4864 x1 quest 808.1
+  collect 4866 x1 quest 826.3
+
+step Forgotten Loa Idol
+  collect 277135 x8 quest 97225.1
+
+step Durotar Tiger
+  zone The Barrens
+  collect 4892 x4 quest 817.1
+
+step Xar'Ti
+  zone Durotar
+  turnin 97223
+  turnin 808
+  turnin 826
+  turnin 97225
+  turnin 818
+  turnin 817
+
+step Gar'Thok
+  turnin 96821
+  turnin 823
+  accept 806
+
+step Fizzle Darkstorm
+  collect 4869 x1 quest 806.1
+
+step Kargal Battlescar
+  zone The Barrens
+  turnin 840
+
+step Orgnil Soulscar
+  zone Durotar
+  turnin 806
+  accept 828
+
+step Margoz
+  turnin 828
+  accept 827
+
+step A Simmering Storm
+  tip Dull Storm Orb drops from Dustwind Storm Witch, Dustwind Eggtender: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1411
+  collect 277661 x1 optional
+  accept 97281 item 277661 optional
+
+step A Simmering Storm
+  when onquest 97281
+  zone map 1411
+  turnin 97281
+
+step Burning Blade Fanatic
+  collect 4871 x6 quest 827.1
+
+step Margoz
+  turnin 827
+  accept 829
+
+step Stormy Potential
+  when turnedin 97281
+  zone map 1411
+  accept 97282
+  complete 97282 @46.4,22.9
+
+step Stormy Potential
+  when onquest 97282
+  zone map 1411
+  turnin 97282
+
+step Neeru Fireblade
+  zone Orgrimmar
+  turnin 829
+  accept 809
+
+step Wolf Swapping - Arctic Wolf
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 12351 x1 anywhere optional
+  turnin 7660 direct optional
+
+step Wolf Swapping - Red Wolf
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1454
+  collect 12330 x1 anywhere optional
+  turnin 7661 direct optional
+
+step Beasts of Thunder Ridge
+  when skill Leatherworking 1
+  zone map 1454
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 96875 optional
+  complete 96875 @63.3,44.8 optional
+
+step Beasts of Thunder Ridge
+  when skill Leatherworking 1
+  turnin 96875 optional
+
+step This Is Spinal Axe
+  when skill Blacksmithing 1
+  zone map 1454
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 96874 optional
+  complete 96874 @80.8,23.7 optional
+
+step This Is Spinal Axe
+  when skill Blacksmithing 1
+  turnin 96874 optional
+
+step Ak'Zeloth
+  zone The Barrens
+  turnin 809

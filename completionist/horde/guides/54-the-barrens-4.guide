@@ -1,0 +1,225 @@
+guide polestar-completionist-horde/54-the-barrens-4
+title 54 The Barrens (49-60) (Completionist)
+faction Horde
+levels 49-60
+zone The Barrens
+next polestar-completionist-horde/55-odd-jobs-in-kalimdor-4
+pitch On along the line: The Barrens, quests of level 49 to 60.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 9 quests; estimated level at the end 49.4 (heuristic XP, class quests not counted).
+
+step Camp Taurajo
+  zone The Barrens
+  sethome "Camp Taurajo"
+
+step Liv Rizzlefix
+  accept 4502
+  accept 96339
+  accept 96383
+  turnin 96339
+  turnin 96383
+
+step Mending Old Wounds
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 2589 x40 anywhere optional
+  collect 3371 x4 anywhere optional
+  turnin 9267 direct optional
+
+step Living Blaze
+  zone Un'Goro Crater
+  collect 11829 x9 quest 4502.1
+
+step Musty Scroll
+  zone The Barrens
+  accept 626
+
+step Islen Waterseer
+  accept 5159
+
+step Liv Rizzlefix
+  turnin 4502
+
+step Nizook Boof
+  accept 98907 @65.0,34.9 map 1413
+  turnin 98907 @65.0,34.9 map 1413
+
+step Ribbons of Sacrifice
+  zone map 1413
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 8267
+  complete 8267 @46.6,8.4
+
+step Quell the Silverwing Usurpers
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 20558 x1 anywhere optional
+  turnin 8294 direct optional
+
+step Mark of Honor
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 19322 x1 anywhere optional
+  turnin 8293 direct optional
+
+step Outrider Advanced Care Package
+  when available 7868
+  tip One of several exclusive quests; the route takes Outrider Basic Care Package (7866). This one shows for a character the game offers it to instead.
+  tip Needs Friendly standing (3000) with Warsong Outriders; without it the quest is not offered.
+  zone map 1413
+  accept 7868 optional
+
+step Outrider Advanced Care Package
+  when onquest 7868
+  zone map 1413
+  turnin 7868 optional
+
+step Ribbons of Sacrifice
+  turnin 8267
+
+step For Great Honor
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 20560 x3 anywhere optional
+  collect 20559 x3 anywhere optional
+  collect 20558 x3 anywhere optional
+
+step Crate Return
+  zone map 1413
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 93862
+  complete 93862 @50.1,29.4
+
+step Sign Me Up!
+  tip Needs Honored standing (9000) with Durotar Supply and Logistics; without it the quest is not offered.
+  tip Advertising License Application is sold by Gishah: it starts this quest.
+  zone map 1413
+  buy 270887 x1 npc 256384 optional
+  accept 95819 item 270887 optional
+
+step A Sealed Crate
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  turnin 91907 direct optional
+
+step Sign Me Up!
+  when onquest 95819
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1413
+  complete 95819 @49.9,29.4 optional
+
+step Sign Me Up!
+  when onquest 95819
+  zone map 1413
+  turnin 95819 optional
+
+step A Sealed Crate
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  turnin 91906 direct optional
+
+step A Sealed Crate
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 248771 x1 anywhere optional
+  turnin 91905 direct optional
+
+step A Sealed Crate
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 248770 x1 anywhere optional
+  turnin 91904 direct optional
+
+step A Sealed Crate
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  turnin 91902 direct optional
+
+step A Sealed Crate
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  turnin 91901 direct optional
+
+step A Sealed Crate
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 248766 x1 anywhere optional
+  turnin 91900 direct optional
+
+step A Sealed Crate
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 248765 x1 anywhere optional
+  turnin 91899 direct optional
+
+step Shipping Label
+  when has 280180
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1413
+  accept 98248 item 280180
+  complete 98248 @50.1,29.4
+
+step Crate Return
+  turnin 93862
+
+step Shipping Label
+  when onquest 98248
+  zone map 1413
+  turnin 98248
+
+step Level 50
+  level 50
+
+step Nizook Boof
+  zone The Barrens
+  accept 98908 @65.0,34.9 map 1413
+  turnin 98908 @65.0,34.9 map 1413
+
+step Greta Mosshoof
+  zone Felwood
+  turnin 5159
+  accept 5165
+
+step Brazier of Pain and Brazier of Hatred
+  interact 176158 quest 5165.1
+  interact 176161 quest 5165.4
+
+step Brazier of Suffering
+  interact 176160 quest 5165.3
+
+step Brazier of Malice
+  interact 176159 quest 5165.2
+
+step Level 51
+  level 51
+
+step For Great Honor
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1413
+  accept 8367
+  complete 8367 @46.7,8.7
+
+step For Great Honor
+  zone map 1413
+  turnin 8367
+
+step For Great Honor
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  turnin 8388 direct optional
+
+step Greta Mosshoof
+  turnin 5165
+  accept 5242
+
+step Moora, Salia and Shadow Lord Fel'dan
+  kill 9861 x1 quest 5242.1
+  kill 9860 x1 quest 5242.2
+  collect 13207 x1 quest 5242.3
+
+step Greta Mosshoof
+  turnin 5242
+
+step Cortello's Treasure
+  zone The Hinterlands
+  turnin 626

@@ -1,0 +1,19 @@
+guide polestar-completionist-alliance/event-other
+title Other event quests (Completionist)
+faction Alliance
+category Miscellaneous
+levels 1-60
+zone Stormwind City
+pitch Event quests whose event the data numbers but does not name.
+
+step About this guide
+  note Each quest here is offered only while the event runs. Every step is optional: do what the calendar offers now, and come back for the rest.
+
+step New Year Celebrations!
+  zone map 1411
+  accept 8860 optional
+
+step New Year Celebrations!
+  when onquest 8860
+  zone map 1453
+  turnin 8860 optional

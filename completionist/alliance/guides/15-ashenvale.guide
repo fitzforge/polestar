@@ -1,0 +1,530 @@
+guide polestar-completionist-alliance/15-ashenvale
+title 15 Ashenvale (18-32) (Completionist)
+faction Alliance
+levels 18-32
+zone Ashenvale
+next polestar-completionist-alliance/dungeon-blackfathom-deeps
+next polestar-completionist-alliance/16-odd-jobs-in-the-eastern-kingdoms
+pitch On along the line: Ashenvale, quests of level 18 to 32.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 57 quests; estimated level at the end 24.2 (heuristic XP, class quests not counted).
+
+step Shindrell Swiftfire
+  sethome "Astranaar"
+  getfp "Astranaar"
+  accept 1008
+  accept 1070
+  accept 1056
+  accept 991
+  accept 1054
+
+step Dal Bloodclaw
+  collect 5544 x1 quest 1054.1
+
+step Wrathtail Myrmidon
+  zone Darkshore
+  collect 5490 x20 quest 1008.1
+
+step Teronis' Corpse
+  turnin 991
+  accept 1023
+
+step Saltspittle Oracle
+  collect 5463 x1 quest 1023.1
+
+step Delgren the Purifier
+  accept 970
+
+step Dark Strand Cultist
+  collect 5366 x1 quest 970.1
+
+step Level 24
+  level 24
+
+step Shindrell Swiftfire
+  zone Ashenvale
+  accept 4581
+
+step Orendil Broadleaf
+  zone Darkshore
+  accept 1010
+
+step Plant Bundle
+  zone Ashenvale
+  collect 5437 x5 quest 1010.1
+
+step Orendil Broadleaf
+  zone Ashenvale
+  turnin 1010
+
+step Orendil Broadleaf
+  zone Darkshore
+  accept 1020
+
+step Talen
+  zone Ashenvale
+  accept 1007
+
+step Ancient Statuette
+  zone Ashenvale
+  collect 5424 x1 quest 1007.1
+
+step Talen
+  zone Ashenvale
+  turnin 1007
+
+step Talen
+  zone Darkshore
+  accept 1009
+
+step Ruuzel
+  zone Darkshore
+  collect 5445 x1 quest 1009.1
+
+step Talen
+  zone Ashenvale
+  turnin 1009
+
+step Delgren the Purifier
+  turnin 970
+  accept 973
+
+step Ilkrud Magthrull
+  collect 5533 x1 quest 973.1
+
+step Raene Wolfrunner
+  turnin 1023
+  turnin 1054
+  accept 1024
+  accept 1025
+  turnin 1020
+  accept 1033
+
+step Elune's Tear
+  collect 5493 x1 quest 1033.1
+
+step Foulweald Totemic
+  kill 3750 x10 quest 1025.3
+
+step Foulweald Warrior
+  kill 3743 x12 quest 1025.4
+
+step Foulweald Den Watcher and Foulweald Ursa
+  kill 3746 x1 quest 1025.1
+  kill 3749 x2 quest 1025.2
+
+step Maseara Autumnmoon
+  accept 98417
+
+step Kurothel's Knapsack
+  collect 281014 x1 quest 98417.1
+
+step Kayneth Stillwind
+  turnin 4581
+  accept 1011
+
+step Bottle of Disease
+  collect 5440 x1 quest 1011.1
+
+step Gleaming Crescent Pendant
+  accept 98027
+
+step Level 25
+  level 25
+
+step Sentinel Melyria Frostshadow
+  zone Ashenvale
+  accept 1022
+
+step Tome of Mel'Thandris
+  zone Ashenvale
+  interact 19027 quest 1022.1
+
+step Level 26
+  level 26
+
+step Illiyana
+  zone Ashenvale
+  accept 1021
+
+step Anilia
+  zone Ashenvale
+  turnin 1021
+
+step Anilia
+  zone Ashenvale
+  accept 1031
+
+step Geltharis
+  zone Ashenvale
+  collect 5461 x1 quest 1031.1
+
+step Shandrina
+  zone Ashenvale
+  accept 86757
+
+step Horde Scout
+  zone Ashenvale
+  collect 279507 x1 quest 86757.2
+
+step Horde Grunt
+  zone Ashenvale
+  collect 279505 x1 quest 86757.1
+
+step Shandrina
+  zone Ashenvale
+  turnin 86757
+
+step Shael'dryn
+  turnin 1024
+  accept 1026
+
+step Worn Chest
+  collect 5464 x1 quest 1026.1
+
+step Shael'dryn
+  turnin 1026
+  accept 1027
+
+step Rusty Chest
+  collect 5519 x1 quest 1027.1
+
+step Shael'dryn
+  turnin 1027
+  accept 1028
+
+step Hidden Shrine
+  turnin 1028
+  accept 1055
+
+step Shael'dryn
+  turnin 1055
+  accept 1029
+
+step Pelturas Whitemoon
+  turnin 1033
+  accept 1034
+
+step Stardust Covered Bush
+  collect 5494 x5 quest 1034.1
+
+step Pelturas Whitemoon
+  turnin 1034
+  accept 1035
+
+step Shadethicket Oracle
+  collect 5508 x1 quest 1035.1
+
+step Maseara Autumnmoon
+  turnin 98417
+  accept 98418
+  turnin 1011
+  accept 1012
+
+step Xavian Betrayer, Xavian Felsworn, Xavian Hellcaller and Xavian Rogue
+  kill 3754 x5 quest 98418.1
+  kill 3755 x5 quest 98418.2
+  kill 3757 x5 quest 98418.3
+  kill 3752 x5 quest 98418.4
+
+step Mavoris Cloudsbreak
+  kill 3942 x1 quest 1012.3
+
+step Taneel Darkwood
+  kill 3940 x1 quest 1012.1
+
+step Uthil Mooncall
+  kill 3941 x1 quest 1012.2
+
+step Maseara Autumnmoon
+  turnin 98418
+  turnin 1012
+
+step Pelturas Whitemoon
+  turnin 1035
+  turnin 98027
+  turnin 1025
+  turnin 1029
+  accept 1030
+
+step Shindrell Swiftfire
+  turnin 1008
+  accept 1134
+
+step Pridewing Skyhunter
+  zone Stonetalon Mountains
+  collect 5808 x12 quest 1134.1
+
+step Illiyana
+  zone Ashenvale
+  turnin 1031
+  accept 1032
+  turnin 1022
+  accept 1037
+
+step Bleakheart Shadowstalker
+  collect 5481 x16 quest 1032.1
+
+step Krolg
+  turnin 1030
+  accept 1045
+
+step Bloodtooth Guard
+  kill 3932 x4 quest 1045.1
+
+step Ran Bloodtooth
+  collect 5388 x1 quest 1045.2
+
+step Krolg
+  turnin 1045
+
+step Shindrell Swiftfire
+  turnin 1134
+
+step Delgren the Purifier
+  turnin 973
+  accept 1140
+  accept 976
+
+step Circle of Imprisonment
+  interact 19901 quest 1140.1
+
+step Circle of Imprisonment
+  interact 20352 quest 1140.2
+
+step Delgren the Purifier
+  complete 976 @29.5,16.8 map 1440
+  turnin 976
+  turnin 1140
+  accept 1167
+
+step Illiyana
+  turnin 1032
+
+step Keeper Albagorm
+  zone Stonetalon Mountains
+  turnin 1056
+  accept 1057
+
+step Bloodfury Harpy
+  kill 4022 x7 quest 1057.1
+
+step Bloodfury Ambusher
+  kill 4025 x7 quest 1057.2
+
+step Bloodfury Roguefeather
+  kill 4023 x7 quest 1057.4
+
+step Bloodfury Slayer
+  kill 4024 x7 quest 1057.3
+
+step Kaela Shadowspear
+  turnin 1070
+  accept 1085
+  turnin 1085
+  accept 1071
+
+step Venture Co. Logger
+  kill 3989 x10 quest 1071.1
+
+step Venture Co. Deforester
+  kill 3991 x10 quest 1071.2
+
+step Gaxim Rustfizzle
+  turnin 1071
+  accept 1072
+  accept 1075
+
+step Keeper Albagorm
+  turnin 1057
+  accept 1059
+
+step Balthule Shadowstrike
+  zone Darkshore
+  turnin 1167
+
+step Thyn'tel Bladeweaver
+  zone Darnassus
+  turnin 1037
+
+step Falfindel Waywarder
+  zone Thousand Needles
+  turnin 1059
+
+step Collin Mauren
+  zone Stormwind City
+  turnin 1075
+  accept 1076
+
+step Dust Devil
+  zone Westfall
+  collect 5669 x1 quest 1076.1
+
+step Collin Mauren
+  zone Stormwind City
+  turnin 1076
+  accept 1077
+
+step Lomac Gearstrip
+  zone Ironforge
+  turnin 1072
+
+step Gaxim Rustfizzle
+  zone Stonetalon Mountains
+  turnin 1077
+
+step Elemental Bracers
+  zone map 1440
+  tip The place is where players were recorded finishing it.
+  accept 1016
+  complete 1016 @49.6,71.3
+
+step Elemental Bracers
+  turnin 1016
+
+step Sentinel Velene Starstrike
+  zone Ashenvale
+  accept 1017
+
+step Sarilus Foulborne
+  zone The Barrens
+  collect 5537 x1 quest 1017.1
+
+step Sentinel Velene Starstrike
+  zone Ashenvale
+  turnin 1017
+
+step Raene's Cleansing
+  zone map 1440
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 1046
+  complete 1046 @50.8,75.1
+
+step Raene's Cleansing
+  turnin 1046
+
+step Ineptitude + Chemicals = Fun
+  zone map 1455
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 1073
+  complete 1073 @72.1,51.9
+
+step Ineptitude + Chemicals = Fun
+  turnin 1073
+
+step Lomac Gearstrip
+  zone Ironforge
+  accept 1074
+
+step Gaxim Rustfizzle
+  zone Stonetalon Mountains
+  turnin 1074
+
+step Gaxim Rustfizzle
+  zone Stonetalon Mountains
+  accept 1080
+
+step Venture Co. Documents
+  zone Stonetalon Mountains
+  collect 5717 x1 quest 1080.1
+
+step Gaxim Rustfizzle
+  zone Stonetalon Mountains
+  turnin 1080
+
+step Gaxim Rustfizzle
+  zone Stonetalon Mountains
+  accept 1079
+
+step Venture Co. Engineering Plans
+  zone Stonetalon Mountains
+  collect 5718 x1 quest 1079.1
+
+step Gaxim Rustfizzle
+  zone Stonetalon Mountains
+  turnin 1079
+
+step Gaxim Rustfizzle
+  zone Stonetalon Mountains
+  accept 1091
+
+step Kaela Shadowspear
+  zone Stonetalon Mountains
+  turnin 1091
+
+step Kaela Shadowspear
+  zone Stonetalon Mountains
+  accept 1084
+
+step Charred Ancient
+  zone Stonetalon Mountains
+  collect 5664 x1 quest 1084.1
+
+step Kaela Shadowspear
+  zone Stonetalon Mountains
+  turnin 1084
+
+step Kaela Shadowspear
+  zone Stonetalon Mountains
+  accept 1083
+
+step Rogue Flame Spirit
+  zone Stonetalon Mountains
+  collect 5659 x8 quest 1083.1
+
+step Kaela Shadowspear
+  zone Stonetalon Mountains
+  turnin 1083
+
+step Kaela Shadowspear
+  zone Stonetalon Mountains
+  accept 1082
+
+step Sentinel Thenysil
+  zone Ashenvale
+  turnin 1082
+
+step Sentinel Thenysil
+  zone Ashenvale
+  accept 1081
+
+step Sentinel Basic Care Package
+  tip Needs Friendly standing (3000) with Silverwing Sentinels; without it the quest is not offered.
+  zone map 1440
+  accept 7863 optional
+
+step Level 45
+  level 45
+
+step Sentinel Advanced Care Package
+  when available 7865
+  tip One of several exclusive quests; the route takes Sentinel Basic Care Package (7863). This one shows for a character the game offers it to instead.
+  tip Needs Friendly standing (3000) with Silverwing Sentinels; without it the quest is not offered.
+  zone map 1440
+  accept 7865 optional
+
+step Sentinel Advanced Care Package
+  when onquest 7865
+  zone map 1440
+  turnin 7865 optional
+
+step Sentinel Standard Care Package
+  when available 7864
+  tip One of several exclusive quests; the route takes Sentinel Basic Care Package (7863). This one shows for a character the game offers it to instead.
+  tip Needs Friendly standing (3000) with Silverwing Sentinels; without it the quest is not offered.
+  zone map 1440
+  accept 7864 optional
+
+step Sentinel Standard Care Package
+  when onquest 7864
+  zone map 1440
+  turnin 7864 optional
+
+step Sentinel Basic Care Package
+  when onquest 7863
+  zone map 1440
+  turnin 7863 optional
+
+step Tyrande Whisperwind
+  zone Darnassus
+  turnin 1081

@@ -1,0 +1,757 @@
+guide polestar-completionist-alliance/03-teldrassil-and-darnassus
+title 03 Teldrassil and Darnassus (1-12) (Completionist)
+faction Alliance
+levels 1-12
+zone Teldrassil
+next polestar-completionist-alliance/01-elwynn-forest-and-stormwind when !turnedin 95065
+next polestar-completionist-alliance/02-dun-morogh-and-ironforge when !turnedin 96390
+next polestar-completionist-alliance/04-zephras-isle when !turnedin 94946
+next polestar-completionist-alliance/05-odd-jobs-in-kalimdor
+pitch Where Night Elves start. The other starting zones follow, then the route goes on by level.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 72 quests; estimated level at the end 14.9 (heuristic XP, class quests not counted).
+# Skipped: 1 exclusive with N.
+
+step Conservator Ilthalaine
+  accept 456
+
+step Welcome!
+  when has 14648
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1438
+  accept 5842 item 14648
+
+step Young Nightsaber
+  kill 2031 x7 quest 456.1
+
+step Young Thistle Boar
+  kill 1984 x4 quest 456.2
+
+step Conservator Ilthalaine
+  turnin 456
+  accept 457
+  accept 3116 only Warrior,NightElf
+  accept 3117 only Hunter,NightElf
+  accept 3118 only Rogue,NightElf
+  accept 3119 only Priest,NightElf
+  accept 3120 only Druid,NightElf
+  accept 458
+
+step Welcome!
+  when onquest 5842
+  zone map 1438
+  turnin 5842
+
+step The Goddess Provides
+  zone map 1438
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 97979
+  complete 97979 @59.2,40.4
+
+step Mangy Nightsaber
+  kill 2032 x7 quest 457.1
+
+step Thistle Boar
+  kill 1985 x7 quest 457.2
+
+step Alyissia
+  only Warrior
+  turnin 3116 only NightElf
+
+step The Goddess Provides
+  turnin 97979
+
+step Frahun Shadewhisper
+  only Rogue
+  turnin 3118 only NightElf
+
+step Shanda
+  only Priest
+  turnin 3119 only NightElf
+
+step Ayanna Everstride
+  only Hunter
+  turnin 3117 only NightElf
+
+step Mardant Strongoak
+  only Druid
+  turnin 3120 only NightElf
+
+step Dirania Silvershine
+  zone Teldrassil
+  accept 4495
+
+step Iverron
+  zone Teldrassil
+  turnin 4495
+
+step Fang of Githyiss
+  tip Fang of Githyiss drops from Githyiss the Vile: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1438
+  collect 277190 x1 optional
+  accept 97236 item 277190 optional
+
+step Iverron
+  zone Teldrassil
+  accept 3519
+
+step Conservator Ilthalaine
+  turnin 457
+  turnin 458
+  accept 459
+  accept 97977
+
+step Fang of Githyiss
+  when onquest 97236
+  zone map 1438
+  turnin 97236
+
+step Grellkin and Gnarlpine Totem
+  collect 3297 x8 quest 459.1
+  collect 279082 x4 quest 97977.1
+
+step Gilshalan Windwalker
+  zone Teldrassil
+  accept 916
+
+step Webwood Spider
+  zone Teldrassil
+  collect 5166 x10 quest 916.1
+
+step Gilshalan Windwalker
+  zone Teldrassil
+  turnin 916
+
+step Gilshalan Windwalker
+  zone Teldrassil
+  accept 917
+
+step Webwood Eggs
+  zone Teldrassil
+  collect 5167 x1 quest 917.1
+
+step Gilshalan Windwalker
+  zone Teldrassil
+  turnin 917
+
+step Gilshalan Windwalker
+  zone Teldrassil
+  accept 920
+  turnin 920
+  accept 921
+
+step Shadowglen Moonwell
+  collect 5184 x1 quest 921.1
+
+step Tenaron Stormgrip
+  turnin 921
+  accept 928
+  accept 96630 only NightElf
+
+step Dirania Silvershine
+  turnin 3519
+  accept 3521
+
+step Moonpetal Lily
+  collect 10641 x4 quest 3521.2
+
+step Webwood Spider
+  collect 10640 x1 quest 3521.3
+
+step Hyacinth Mushroom
+  collect 10639 x7 quest 3521.1
+
+step Dirania Silvershine
+  turnin 3521
+  accept 3522
+
+step Porthannius
+  accept 2159
+
+step Tarindrella
+  turnin 459
+  turnin 97977
+
+step Lyreena Duskblade
+  sethome "Dolanaar"
+  turnin 96630 only NightElf
+  accept 475
+  accept 997
+  accept 932
+  accept 2438
+  accept 5621 only Priest,NightElf
+  accept 98391
+
+step The Great Outdoors
+  zone map 1438
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 96606
+  complete 96606 @57.6,56.6
+
+step Elixirs for the Bladeleafs
+  when skill Alchemy 1
+  zone map 1438
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 1581 optional
+  complete 1581 @56.1,57.7 optional
+
+step Blackmoss the Fetid
+  zone Teldrassil
+  accept 927 item 5179 -- Drops from Blackmoss the Fetid
+
+step Aldia
+  accept 87288
+
+step The Great Outdoors
+  turnin 96606
+
+step Camping 101: Tailoring
+  when skill Tailoring 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1438
+  accept 97950 optional
+  complete 97950 @57.6,56.6 optional
+
+step Camping 101: Tailoring
+  when skill Tailoring 1
+  zone map 1438
+  turnin 97950 optional
+
+step Camping 101: Skinning
+  when skill Skinning 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1438
+  accept 97949 optional
+  complete 97949 @57.6,56.6 optional
+
+step Camping 101: Mining
+  when skill Mining 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1438
+  accept 97948 optional
+  complete 97948 @57.6,56.6 optional
+
+step Camping 101: Mining
+  when skill Mining 1
+  zone map 1438
+  turnin 97948 optional
+
+step Camping 101: Leatherworking
+  when skill Leatherworking 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1438
+  accept 97946 optional
+  complete 97946 @57.6,56.6 optional
+
+step Camping 101: Herbalism
+  when skill Herbalism 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1438
+  accept 97944 optional
+  complete 97944 @57.6,56.6 optional
+
+step Camping 101: Fishing
+  when skill Fishing 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1438
+  accept 97943 optional
+  complete 97943 @57.6,56.6 optional
+
+step Camping 101: Fishing
+  when skill Fishing 1
+  zone map 1438
+  turnin 97943 optional
+
+step Camping 101: First Aid
+  when skill "First Aid" 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1438
+  accept 97942 optional
+  complete 97942 @57.6,56.6 optional
+
+step Camping 101: First Aid
+  when skill "First Aid" 1
+  zone map 1438
+  turnin 97942 optional
+
+step Camping 101: Engineering
+  when skill Engineering 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1438
+  accept 97941 optional
+  complete 97941 @57.6,56.6 optional
+
+step Camping 101: Engineering
+  when skill Engineering 1
+  zone map 1438
+  turnin 97941 optional
+
+step Camping 101: Enchanting
+  when skill Enchanting 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1438
+  accept 97940 optional
+  complete 97940 @57.6,56.6 optional
+
+step Camping 101: Blacksmithing
+  when skill Blacksmithing 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1438
+  accept 97939 optional
+  complete 97939 @57.6,56.6 optional
+
+step Camping 101: Blacksmithing
+  when skill Blacksmithing 1
+  zone map 1438
+  turnin 97939 optional
+
+step Camping 101: Alchemy
+  when skill Alchemy 1
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1438
+  accept 97938 optional
+  complete 97938 @57.6,56.6 optional
+
+step Camping 101: Cooking
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1438
+  accept 96634
+  complete 96634 @57.6,56.6
+
+step Elixirs for the Bladeleafs
+  when skill Alchemy 1
+  turnin 1581 optional
+
+step Shanda
+  only Priest
+  zone Teldrassil
+  accept 5622 only NightElf
+
+step Laurna Morninglight
+  zone Teldrassil
+  turnin 5622 only Priest,NightElf
+  accept 99046
+
+step Camping 101: Cooking
+  turnin 96634
+
+step Camping 101: Alchemy
+  when skill Alchemy 1
+  zone map 1438
+  turnin 97938 optional
+
+step Camping 101: Herbalism
+  when skill Herbalism 1
+  zone map 1438
+  turnin 97944 optional
+
+step Recipe of the Kaldorei
+  when skill Cooking 1
+  zone map 1438
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 4161 optional
+  complete 4161 @57.1,61.3 optional
+
+step Innkeeper Keldamyr
+  turnin 2159
+  turnin 928
+  accept 929
+
+step Recipe of the Kaldorei
+  when skill Cooking 1
+  turnin 4161 optional
+
+step Sentinel Shaya
+  only Priest
+  kill 12429 x1 quest 5621.1 only NightElf
+
+step Gaerolas Talvethren
+  turnin 475
+  accept 476
+
+step Tallonkai's Dresser
+  collect 8048 x1 quest 2438.1
+
+step Starbreeze Village Moonwell
+  collect 5639 x1 quest 929.1
+
+step Zenn Foulhoof
+  accept 488
+
+step Lord Melenas
+  collect 5221 x1 quest 932.1
+
+step Elder Nightsaber
+  collect 3409 x3 quest 488.1
+
+step Sentinel Eralya Leafshadow
+  turnin 99046
+  accept 99047
+
+step Camping 101: Enchanting
+  when skill Enchanting 1
+  zone map 1438
+  turnin 97940 optional
+
+step Strigid Hunter
+  collect 3411 x3 quest 488.2
+
+step Webwood Silkspinner
+  collect 3412 x3 quest 488.3
+
+step Nightsaber
+  collect 280087 x6 quest 87288.1
+
+step Moon Priestess Amara
+  accept 487
+
+step Gnarlpine Ambusher
+  kill 2152 x6 quest 487.1
+
+step Sentinel Shayla Nightbreeze
+  accept 490
+
+step Camping 101: Leatherworking
+  when skill Leatherworking 1
+  zone map 1438
+  turnin 97946 optional
+
+step Camping 101: Skinning
+  when skill Skinning 1
+  zone map 1438
+  turnin 97949 optional
+
+step Gnarlpine Ambusher
+  collect 5220 x15 quest 490.1
+
+step Sentinel Shayla Nightbreeze
+  turnin 490
+
+step Oben Rageclaw
+  accept 2541
+
+step Escaping Ban'ethil
+  zone map 1438
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 99053
+  complete 99053 @44.7,58.9
+
+step Gnarlpine Shaman
+  collect 8363 x1 quest 2541.1
+
+step Oben Rageclaw
+  turnin 2541
+  accept 2561
+
+step Rageclaw
+  kill 7318 x1 quest 2561.1
+
+step Oben Rageclaw
+  turnin 2561
+
+step Moon Priestess Amara
+  turnin 487
+  turnin 99047
+  accept 99050
+
+step Escaping Ban'ethil
+  turnin 99053
+
+step Laurna Morninglight
+  only Priest
+  turnin 5621 only NightElf
+
+step Tallonkai Swiftroot
+  turnin 932
+  turnin 2438
+
+step Ferocitas the Dream Eater
+  zone map 1438
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 2459
+  complete 2459 @55.6,57.0
+
+step Tallonkai Swiftroot
+  when group 98403
+  zone Teldrassil
+  accept 98403
+
+step Aldia
+  turnin 87288
+  turnin 476
+  accept 483
+
+step Ferocitas the Dream Eater
+  turnin 2459
+
+step Xethorr the Wicked
+  when group 98403
+  zone Teldrassil
+  tip Twisted Hatred is group work: elites. Grouping up is advised.
+  collect 281023 x1 quest 98403.2
+
+step Befouled Webwood
+  when group 98403
+  zone Teldrassil
+  tip Twisted Hatred is group work: elites. Grouping up is advised.
+  kill 272096 x8 quest 98403.1
+
+step Chest of the Raven Claw
+  collect 3405 x1 quest 483.1
+
+step Chest of the Black Feather, Chest of the Sky and Chest of Nesting
+  collect 3406 x1 quest 483.2
+  collect 3407 x1 quest 483.3
+  collect 3408 x1 quest 483.4
+
+step Tharynn Bouden
+  zone Elwynn Forest
+  buy 3371 x1 npc 66 -- for The Great Tree Provides
+
+step Water Barrel
+  zone Mulgore
+  collect 159 x1 quest 99050.3
+
+step Wrathvine
+  zone Teldrassil
+  collect 286017 x6 quest 99050.1
+
+step Corithras Moonrage
+  turnin 929
+  accept 933
+
+step Pools of Arlithrien Moonwell
+  collect 5645 x1 quest 933.1
+
+step Sister Aquinne
+  turnin 98391
+  accept 2519
+
+step Priestess A'moora
+  turnin 2519
+  accept 2518
+  accept 98067
+
+step Lady Sathrah
+  zone Teldrassil
+  collect 8344 x1 quest 2518.1
+
+step Iverron
+  turnin 3522
+
+step Byancie
+  turnin 99050
+  accept 99073
+
+step Tallonkai Swiftroot
+  when group 98403
+  zone Teldrassil
+  turnin 98403
+
+step Athridas Bearmantle
+  turnin 483
+  accept 486
+
+step Ursal the Mauler
+  kill 2039 x1 quest 486.1
+
+step Sentinel Dalia Sunblade
+  zone Darnassus
+  complete 98067 @33.4,16.8 map 1457
+  turnin 98067
+  turnin 2518
+  accept 2520
+
+step Temple of the Moon Fountain
+  interact 138498 quest 2520.1
+
+step Priestess A'moora
+  turnin 2520
+
+step Sentinel Eralya Leafshadow
+  zone Teldrassil
+  turnin 99073
+  accept 937
+
+step Bloodfeather Rogue
+  collect 5204 x6 quest 937.1
+
+step Mist
+  accept 938
+
+step Sentinel Arynia Cloudsbreak
+  turnin 937
+  accept 98392
+
+step Mydrannul
+  zone Darnassus
+  accept 6344 only NightElf
+
+step Sentinel Arynia Cloudsbreak
+  turnin 938
+
+step Hatescreech
+  collect 280831 x1 quest 98392.1
+
+step Windmistress Gaedress
+  collect 280832 x1 quest 98392.2
+
+step Witchmother Arysa
+  collect 280834 x1 quest 98392.3
+
+step Sentinel Arynia Cloudsbreak
+  turnin 98392
+  accept 98398
+  turnin 98398
+  accept 940 object 673378
+
+step Arch Druid Fandral Staghelm
+  zone Darnassus
+  turnin 940
+
+step Athridas Bearmantle
+  zone Teldrassil
+  turnin 486
+
+step Corithras Moonrage
+  turnin 933
+  accept 934
+
+step Crown of the Earth
+  when available 7383
+  tip One of several exclusive quests; the route takes Crown of the Earth (934). This one shows for a character the game offers it to instead.
+  zone map 1438
+  accept 7383 optional
+
+step Temple of the Moon Fountain
+  zone Darnassus
+  collect 5646 x1 quest 934.1
+
+step Corithras Moonrage
+  zone Teldrassil
+  turnin 934
+  accept 935
+
+step Crown of the Earth
+  when onquest 7383
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1438
+  complete 7383 @56.1,61.7 optional
+
+step Crown of the Earth
+  when onquest 7383
+  zone map 1438
+  turnin 7383 optional
+
+step Zenn Foulhoof
+  turnin 488
+
+step Syral Bladeleaf
+  accept 489 npc 2083
+
+step Fel Cone
+  collect 3418 x3 quest 489.1
+
+step Arch Druid Fandral Staghelm
+  zone Darnassus
+  turnin 935
+  accept 98046
+
+step Lariia
+  turnin 98046
+  accept 98065
+  turnin 98065
+
+step Zenn Foulhoof
+  zone Teldrassil
+  turnin 489
+
+step Denalan
+  turnin 927
+  turnin 997
+  accept 918
+  accept 919
+  accept 941
+  turnin 941
+
+step Timberling Sprout
+  collect 5169 x12 quest 919.1
+
+step Elder Timberling
+  collect 5168 x8 quest 918.1
+
+step Denalan
+  turnin 918
+  turnin 919
+  accept 922
+
+step Nessa Shadowsong
+  getfp "Rut'theran Village"
+  turnin 6344 only NightElf
+  accept 6341 only NightElf
+  turnin 6341 only NightElf
+  accept 6342 only NightElf
+
+step Strange Fruited Plant
+  accept 930
+
+step Denalan
+  turnin 930
+
+step Strange Fronded Plant
+  accept 931
+
+step Rellian Greenspyre
+  zone Darnassus
+  turnin 922
+  accept 923
+
+step Frostsaber Replacement
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1457
+  collect 12302 x1 anywhere optional
+  turnin 7671 direct optional
+
+step Nightsaber Replacement
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1457
+  collect 12303 x1 anywhere optional
+  turnin 7672 direct optional
+
+step Timberling Mire Beast
+  zone Teldrassil
+  collect 5170 x5 quest 923.1
+
+step Rellian Greenspyre
+  zone Darnassus
+  turnin 923
+  accept 2498
+
+step Denalan
+  zone Teldrassil
+  turnin 931
+  turnin 2498
+
+step Denalan
+  when group 2499
+  zone Teldrassil
+  accept 2499
+
+step Sprouted Frond
+  accept 2399
+  turnin 2399
+
+step Oakenscowl
+  when group 2499
+  zone Teldrassil
+  tip Oakenscowl is group work: elites. Grouping up is advised.
+  collect 8136 x1 quest 2499.1
+
+step Denalan
+  when group 2499
+  zone Teldrassil
+  turnin 2499
+
+step Laird
+  zone Darkshore
+  turnin 6342 only NightElf

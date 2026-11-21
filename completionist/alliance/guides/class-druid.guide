@@ -1,0 +1,294 @@
+guide polestar-completionist-alliance/class-druid
+title Druid class quests (10-60) (Completionist)
+faction Alliance
+class Druid
+levels 10-60
+category Class
+zone Durotar
+why Every Druid class quest from level 10 on, in level order. The earlier ones are in the starting zone guides.
+reward text What the Druid quests give, quest by quest: abilities, forms, pets, totems or gear.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 22 quests; estimated level at the end 12.8 (heuristic XP).
+# Skipped: 5 exclusive with N; 1 exploration objective has no location in data; 1 objective N (kill N) outside the zones; 1 objective N (talk N) outside the zones; 1 prerequisite N not in this route.
+
+step Level 14
+  level 14
+
+step Mathrengyl Bearwalker
+  zone Darnassus
+  accept 6121 only NightElf,Skyborne
+  accept 5923 only NightElf
+  turnin 5923 only NightElf
+  accept 5921 only NightElf
+
+step Level 14
+  level 14
+
+step Dendrite Starblaze
+  zone Moonglade
+  turnin 5921 only NightElf
+  turnin 6121 only NightElf,Skyborne
+  accept 6122 only NightElf,Skyborne
+
+step Great Bear Spirit
+  only Druid,NightElf
+  zone map 1450
+  accept 5929 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 5929 @56.2,30.6 optional
+
+step Cliffspring Falls Cave Mouth
+  zone Darkshore
+  collect 15845 x1 quest 6122.1 only NightElf,Skyborne
+
+step Level 20
+  level 20
+
+step Mathrengyl Bearwalker
+  zone Darnassus
+  accept 98393 only NightElf,Skyborne
+
+step Dendrite Starblaze
+  zone Moonglade
+  turnin 98393 only NightElf,Skyborne
+
+step The Great Windborne Cat Spirit
+  only Druid,Skyborne
+  zone map 1450
+  accept 98341 optional
+
+step The Great Windborne Cat Spirit
+  only Druid,Skyborne
+  turnin 98341 optional
+
+step The Great Windborne Cat Spirit
+  only Druid,Skyborne
+  zone map 1450
+  accept 98404 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 98404 @43.9,73.4 optional
+
+step The Great Windborne Cat Spirit
+  only Druid,Skyborne
+  turnin 98404 optional
+
+step Blessings of the Great Windborne Cat Spirit
+  only Druid,Skyborne
+  zone map 1450
+  accept 98738 optional
+
+step Great Bear Spirit
+  only Druid,NightElf
+  turnin 5929 optional
+
+step Blessings of the Great Windborne Cat Spirit
+  only Druid,Skyborne
+  turnin 98738 optional
+
+step Back to Darnassus
+  only Druid,NightElf
+  zone map 1450
+  accept 5931 optional
+
+step Dendrite Starblaze
+  zone Moonglade
+  accept 98394 only NightElf
+
+step Great Cat Spirit
+  zone Darkshore
+  turnin 98394 only NightElf
+
+step Great Cat Spirit
+  zone Darkshore
+  accept 98396 only NightElf
+
+step Relic of the Fang and Relic of the Silent Shadow
+  zone Darkshore
+  collect 280502 x1 quest 98396.1 only NightElf
+  collect 280680 x1 quest 98396.3 only NightElf
+
+step Mathrengyl Bearwalker
+  zone Darnassus
+  accept 26 only NightElf,Skyborne
+
+step Back to Darnassus
+  only Druid,NightElf
+  turnin 5931 optional
+
+step Body and Heart
+  only Druid,NightElf
+  zone map 1457
+  accept 6001 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 6001 @35.4,8.4 optional
+
+step Dendrite Starblaze
+  zone Moonglade
+  turnin 26 only NightElf,Skyborne
+
+step Dendrite Starblaze
+  zone Moonglade
+  accept 29 only NightElf,Skyborne
+
+step Shrine Of Remulos
+  zone Moonglade
+  interact 15885 quest 29.1 only NightElf,Skyborne
+
+step Tajarri
+  zone Moonglade
+  turnin 29 only NightElf,Skyborne
+
+step Tajarri
+  zone Darkshore
+  accept 272 only NightElf,Skyborne
+
+step Shrine Of Remulos
+  zone Darkshore
+  collect 15885 x1 quest 272.1 only NightElf,Skyborne
+
+step Dendrite Starblaze
+  zone Darkshore
+  turnin 272 only NightElf,Skyborne
+
+step Dendrite Starblaze
+  zone Darkshore
+  accept 5061 only NightElf,Skyborne
+
+step Relic of the Claw
+  collect 280679 x1 quest 98396.2 only NightElf
+
+step Great Cat Spirit
+  turnin 98396 only NightElf
+  accept 98731 only NightElf
+
+step Dendrite Starblaze
+  turnin 98731 only NightElf
+  accept 98397 only NightElf,Skyborne
+
+step Alanndarian Nightsong
+  zone Darkshore
+  turnin 6122 only NightElf,Skyborne
+  accept 6123 only NightElf,Skyborne
+
+step Lunar Fungal Bloom
+  collect 15851 x12 quest 6123.2 only NightElf,Skyborne
+
+step Earthroot
+  zone Mulgore
+  collect 2449 x5 quest 6123.1 only NightElf,Skyborne
+
+step Alanndarian Nightsong
+  zone Darkshore
+  turnin 6123 only NightElf,Skyborne
+  accept 6124 only NightElf,Skyborne
+
+step Sickly Deer
+  kill 12298 x10 quest 6124.1 only NightElf,Skyborne
+
+step Dendrite Starblaze
+  zone Moonglade
+  turnin 6124 only NightElf,Skyborne
+  accept 6125 only NightElf,Skyborne
+
+step Mathrengyl Bearwalker
+  zone Darnassus
+  turnin 5061 only NightElf,Skyborne
+  turnin 6125 only NightElf,Skyborne
+  turnin 98397 only NightElf,Skyborne
+
+step Body and Heart
+  only Druid,NightElf
+  turnin 6001 optional
+
+step Lotheluum Starbreeze
+  zone map 2521
+  accept 94006 only Skyborne
+
+step Urs'endris
+  turnin 94006 only Skyborne
+  accept 94638 only Skyborne
+
+step Ur'endra
+  kill 258443 x1 quest 94638.1 only Skyborne
+
+step Urs'endris
+  turnin 94638 only Skyborne
+
+step Archmage Ansirem Runeweaver
+  zone Alterac Mountains
+  accept 94912 npc 2543 only Skyborne
+
+step Sheldras Moontree
+  zone Stormwind City
+  turnin 94912 only Skyborne
+  accept 94914 only Skyborne
+
+step Heeding the Call
+  only Druid,NightElf
+  when available 5924
+  tip One of several exclusive quests; the route takes Heeding the Call (5923). This one shows for a character the game offers it to instead.
+  zone map 1453
+  accept 5924 optional
+
+step Heeding the Call
+  only Druid,NightElf
+  when onquest 5924
+  zone map 1457
+  turnin 5924 optional
+
+step Dendrite Starblaze
+  zone Moonglade
+  turnin 94914 only Skyborne
+
+
+step Level 40
+  level 40
+
+step Tyrisius
+  zone Feralas
+  accept 81924
+  turnin 81924
+
+step Level 58
+  level 58
+
+step Geologist Larksbane
+  when turnedin 8315
+  zone Silithus
+  accept 8382
+  turnin 8382
+
+step Heeding the Call
+  only Druid,NightElf
+  when available 5925
+  tip One of several exclusive quests; the route takes Heeding the Call (5923). This one shows for a character the game offers it to instead.
+  zone map 1438
+  accept 5925 optional
+
+step Heeding the Call
+  only Druid,NightElf
+  when onquest 5925
+  zone map 1457
+  turnin 5925 optional
+
+step Level 60
+  level 60
+
+step Atiesh, Greatstaff of the Guardian
+  only Druid
+  when turnedin 9251
+  zone map 1446
+  accept 9269 optional
+
+step Atiesh, Greatstaff of the Guardian
+  only Druid
+  when onquest 9269
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1446
+  complete 9269 @65.3,50.0 optional
+
+step Atiesh, Greatstaff of the Guardian
+  only Druid
+  when onquest 9269
+  zone map 1446
+  turnin 9269 optional

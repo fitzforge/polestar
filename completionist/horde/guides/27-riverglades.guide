@@ -1,0 +1,438 @@
+guide polestar-completionist-horde/27-riverglades
+title 27 Riverglades (36-46) (Completionist)
+faction Horde
+levels 36-46
+zone Riverglades
+next polestar-completionist-horde/dungeon-kroldok-stronghold
+next polestar-completionist-horde/28-shendralas
+pitch On along the line: Riverglades, quests of level 36 to 46.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 41 quests; estimated level at the end 43.5 (heuristic XP, class quests not counted).
+# Skipped: 6 prerequisite N not in this route.
+
+step Farholde Keep
+  zone Riverglades
+  sethome "Farholde Keep"
+
+step Kreza Darkthorn
+  getfp "Rog'mar"
+  accept 93788
+  accept 96107
+
+step Farholde Scouting Report
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 2548
+  turnin 93971 direct
+
+step Hail the Dragonslayer
+  when has 271613
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 2548
+  turnin 95936 direct
+
+step Twilight Scouting Report
+  tip The giver and hand-in are not in the reference data. The quest text is Azka's, whom the data does not place, and has her report go to Krom'rosh, taken here to be the hand-in.
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 2548
+  turnin 95181 direct @59.4,45.6 map 2548
+
+step Gaseous Gold
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 96063
+  complete 96063 @68.2,48.6
+
+step Gaseous Gold
+  turnin 96063
+
+step Sleebo Fizzlespout
+  zone Riverglades
+  accept 96067
+  turnin 96067
+
+step Fetch 'n' Fletch
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 95951
+  complete 95951 @58.1,45.3
+
+step Fetch 'n' Fletch
+  turnin 95951
+
+step Tan'jani
+  zone Riverglades
+  accept 95955
+
+step Low Plains Buzzard
+  collect 271793 x6 quest 96107.1
+
+step Turner's Mill Lumberjack
+  collect 263972 x10 quest 93788.1
+
+step Fuzzle
+  accept 94961
+
+step Twilight Instigator
+  collect 267073 x20 quest 94961.1
+
+step Friz Frazzlespark
+  zone Riverglades
+  accept 95062
+  accept 95254
+
+step Not My Circus
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 95982
+  complete 95982 @76.0,52.6
+
+step WANTED!
+  when group 95120
+  zone Riverglades
+  accept 95120
+
+step Level 38
+  level 38
+
+step Key Ingredients
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2548
+  accept 94974
+  complete 94974 @59.9,46.0
+
+step Wanted
+  when group 95882
+  zone Riverglades
+  accept 95882
+
+step Scoutmaster Vargas
+  when group 95882
+  zone Riverglades
+  tip WANTED: Scoutmaster Vargas is group work: elites. Grouping up is advised.
+  collect 268581 x1 quest 95882.1
+
+step WANTED!
+  when group 95992
+  zone Riverglades
+  accept 95992
+
+step Ghostmaw
+  when group 95992
+  zone Riverglades
+  tip WANTED: Ghostmaw is group work: elites. Grouping up is advised.
+  collect 271828 x1 quest 95992.1
+
+step Tan'jani
+  when group 95992
+  zone Riverglades
+  turnin 95992
+
+step Na'zok
+  zone Riverglades
+  accept 95162
+
+step Dire Mottled Boar
+  zone Durotar
+  collect 769 x10 quest 95162.1
+
+step Na'zok
+  zone Riverglades
+  accept 95163
+
+step Level 40
+  level 40
+
+step Tan'jani
+  zone Riverglades
+  accept 95033
+
+step Tan'jani
+  zone Riverglades
+  complete 95955
+  turnin 95955
+
+step Key Ingredients
+  turnin 94974
+
+step Witch Doctor Uzer'i
+  zone Feralas
+  turnin 95033
+
+step Fimbo Greasemitz
+  accept 95121
+  accept 95118
+  accept 95119
+
+step Eastsea Buccaneer and Eastsea Musketeer
+  kill 257901 x10 quest 95119.1
+  kill 257910 x10 quest 95119.2
+
+step Trapclaw
+  collect 268586 x1 quest 95254.1
+
+step Old Rot-Chum
+  when group 95120
+  zone Feralas
+  tip WANTED: Old Rot-Chum is group work: elites. Grouping up is advised.
+  collect 268341 x1 quest 95120.1
+
+step Sand Crawler
+  collect 268345 x6 quest 95121.2
+
+step Murloc Warrior and Murloc Oracle
+  kill 256801 x8 quest 95118.1
+  kill 255898 x8 quest 95118.2
+  collect 268344 x12 quest 95121.1
+
+step Picked Carcass
+  accept 96103
+
+step Neza Bloodsnout
+  turnin 96103
+  turnin 96107
+  accept 96104
+  accept 96108
+
+step Neza Bloodsnout
+  when group 95882
+  zone Feralas
+  turnin 95882
+
+step Glade Viper
+  collect 271776 x4 quest 96108.1
+
+step Roving Tallstrider
+  collect 271778 x1 quest 96104.1
+
+step Fuzzle
+  turnin 94961
+
+step Biting the Hand
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 94963
+  complete 94963 @45.6,47.8
+
+step Biting the Hand
+  turnin 94963
+
+step Krom'rosh
+  turnin 95062
+  turnin 93788
+  accept 93976
+  turnin 96104
+  turnin 96108
+  accept 96109
+
+step Neza Bloodsnout
+  when group 96105
+  zone Feralas
+  accept 96105
+
+step Ombassa
+  when group 96105
+  zone Feralas
+  tip King of the Wild Plains is group work: elites. Grouping up is advised.
+  collect 281052 x1 quest 96105.1
+
+step Wildplains Patriarch
+  collect 266888 x6 quest 96109.1
+
+step Neza Bloodsnout
+  turnin 96109
+  accept 94532
+
+step Neza Bloodsnout
+  when group 94533
+  zone Feralas
+  accept 94533
+
+step Neza Bloodsnout
+  when group 96105
+  zone Feralas
+  turnin 96105
+
+step Redridge Brute
+  zone Redridge Mountains
+  kill 255769 x6 quest 94532.3
+
+step Redridge Mystic, Redridge Trapper and Snargl
+  zone Riverglades
+  kill 255770 x8 quest 94532.1
+  kill 255772 x8 quest 94532.2
+
+step Redridge Mystic, Redridge Trapper and Snargl
+  when group 94533
+  zone Riverglades
+  tip Snargl's Snout is group work: elites. Grouping up is advised.
+  collect 265357 x1 quest 94533.1
+
+step Gelinda Coppergleam
+  accept 95792
+
+step Proof of Profit
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 95934
+  complete 95934 @30.2,69.1
+
+step Cinderscale Whelp and Cinderscale Warrior
+  kill 262473 x8 quest 95792.1
+  kill 262477 x4 quest 95792.2
+
+step Gelinda Coppergleam
+  turnin 95792
+
+step Proof of Profit
+  turnin 95934
+
+step Kreza Darkthorn
+  accept 94535
+
+step Redridge Brute
+  zone Redridge Mountains
+  collect 265358 x40 quest 94535.1
+
+step Kreza Darkthorn
+  zone Riverglades
+  turnin 94535
+  turnin 94532
+
+step Neza Bloodsnout
+  when group 94533
+  zone Riverglades
+  turnin 94533
+
+step Friz Frazzlespark
+  turnin 93976
+  accept 95288
+
+step Not My Circus
+  turnin 95982
+
+step Eastsea Buccaneer
+  collect 268796 x8 quest 95288.1
+
+step Wharfmaster Whizzbuzz
+  turnin 95118
+  turnin 95119
+  accept 95122
+
+step A Blast Ye Scurvy Dogs!
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 95123
+  complete 95123 @79.5,52.7
+
+step Wharfmaster Whizzbuzz
+  when group 95120
+  zone Riverglades
+  turnin 95120
+
+step Fimbo Greasemitz
+  turnin 95121
+  turnin 95254
+
+step A Blast Ye Scurvy Dogs!
+  turnin 95123
+
+step See Ya, Scallywags!
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 95165
+  complete 95165 @79.5,52.7
+
+step Admiral Lamora
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 95124
+  complete 95124 @79.5,52.7
+
+step See Ya, Scallywags!
+  turnin 95165
+
+step Eastsea Raider
+  kill 257915 x8 quest 95122.1
+
+step Eastsea Bombardier
+  kill 257916 x8 quest 95122.2
+
+step Friz Frazzlespark
+  turnin 95288
+  accept 95293
+  turnin 95122
+
+step Admiral Lamora
+  turnin 95124
+
+step Painted Hide
+  accept 95260
+
+step Argo Brinewhistle
+  turnin 95260
+
+step It Takes Guts
+  zone map 2548
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 95261
+  complete 95261 @80.0,52.5
+
+step Captain Bentcoin
+  turnin 95293
+  accept 95294
+
+step Friz Frazzlespark
+  turnin 95294
+  accept 95295
+  accept 95296
+
+step It Takes Guts
+  turnin 95261
+
+step Argo Brinewhistle
+  zone Feralas
+  accept 95267
+
+step Na'zok
+  turnin 95162
+  complete 95163 @72.4,39.5 map 2548
+  turnin 95163
+
+step Caravaneer Ruzzgot
+  zone Stranglethorn Vale
+  turnin 95295
+  accept 95322
+  turnin 95322
+  accept 95325
+
+step Venture Co. Ledger
+  turnin 95325
+  accept 95326
+
+step Venture Co. Agent
+  collect 268810 x1 quest 95326.1
+
+step Caravaneer Ruzzgot
+  turnin 95326
+  accept 95327
+
+step Friz Frazzlespark
+  zone Riverglades
+  turnin 95327
+
+step Argo Brinewhistle
+  zone Riverglades
+  turnin 95267
+
+step Jom-jom's Escape
+  zone map 2548
+  tip The place is where players were recorded finishing it.
+  accept 94556
+  complete 94556 @73.4,24.7
+
+step Jom-jom's Escape
+  turnin 94556
+
+step Wharfmaster Steamfizzle
+  zone Tanaris
+  turnin 95296

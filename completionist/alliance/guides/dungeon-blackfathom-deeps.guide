@@ -1,0 +1,90 @@
+guide polestar-completionist-alliance/dungeon-blackfathom-deeps
+title Blackfathom Deeps (Completionist)
+faction Alliance
+category Dungeons
+levels 18-27
+zone Ashenvale
+next polestar-completionist-alliance/16-odd-jobs-in-the-eastern-kingdoms
+pitch Blackfathom Deeps, in Ashenvale.
+why Every Alliance quest of Blackfathom Deeps: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Ashenvale: the arrow leads to it.
+
+step The Corruption Abroad
+  zone Stormwind City
+  accept 3765
+
+step The Corruption Abroad
+  zone Darkshore
+  turnin 3765
+
+step Gershala Nightwhisper
+  zone Darkshore
+  accept 1275
+
+step Gerrig Bonegrip
+  zone Ironforge
+  accept 971
+
+step Dawnwatcher Shaedlass
+  zone Darnassus
+  accept 1198
+
+step The Heart of the Void
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1457
+  turnin 78916 direct
+
+step Inside Blackfathom Deeps
+  zone Ashenvale
+  complete 971 @15.1,13.2
+  turnin 1198 @15.1,13.2
+  complete 1275 @15.1,13.2
+
+step Gershala Nightwhisper
+  zone Darkshore
+  turnin 1275
+
+step Gerrig Bonegrip
+  zone Ironforge
+  turnin 971
+
+step Level 20
+  level 20
+
+step Doan Karhan
+  only Warlock
+  zone The Barrens
+  accept 1740
+
+step Inside Blackfathom Deeps
+  only Warlock
+  zone Ashenvale
+  complete 1740 @15.1,13.2
+
+step Doan Karhan
+  only Warlock
+  zone The Barrens
+  turnin 1740
+
+step Inside Blackfathom Deeps, again
+  zone Ashenvale
+  accept 1200 @15.1,13.2
+  complete 1200 @15.1,13.2
+
+step Dawnwatcher Selgorm
+  zone Darnassus
+  turnin 1200
+
+step Argent Guard Manados
+  zone Darnassus
+  accept 1199
+
+step Inside Blackfathom Deeps
+  zone Ashenvale
+  complete 1199 @15.1,13.2
+
+step Argent Guard Manados
+  zone Darnassus
+  turnin 1199

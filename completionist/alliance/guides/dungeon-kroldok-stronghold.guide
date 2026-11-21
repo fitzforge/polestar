@@ -1,0 +1,217 @@
+guide polestar-completionist-alliance/dungeon-kroldok-stronghold
+title Krol'dok Stronghold (Completionist)
+faction Alliance
+category Dungeons
+levels 38-45
+zone Riverglades
+next polestar-completionist-alliance/35-undercity-2
+pitch Krol'dok Stronghold, in Riverglades.
+why Every Alliance quest of Krol'dok Stronghold: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Riverglades: the arrow leads to it.
+
+step Curious Trinkets
+  zone Riverglades
+  accept 94881
+
+step Curious Trinkets
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Riverglades
+  complete 94881 @66.75,81.1
+
+step Curious Trinkets
+  zone Riverglades
+  turnin 94881
+
+step Scraps of Knowledge
+  zone Riverglades
+  accept 94879
+
+step Scraps of Knowledge
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Riverglades
+  complete 94879 @66.75,81.1
+
+step Scraps of Knowledge
+  zone Riverglades
+  turnin 94879
+
+step The Western Front
+  zone Riverglades
+  accept 94886
+
+step The Western Front
+  zone Riverglades
+  turnin 94886
+
+step A Miner Problem
+  zone map 2548
+  accept 96015
+
+step No Soldier Left Behind
+  zone Riverglades
+  accept 94888
+
+step A Miner Problem
+  when onquest 96015
+  zone map 2548
+  complete 96015 @26.5,35.6
+
+step A Miner Problem
+  when onquest 96015
+  zone map 2548
+  turnin 96015
+
+step No Soldier Left Behind
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Riverglades
+  complete 94888 @30.71,49.06
+
+step No Soldier Left Behind
+  zone Riverglades
+  turnin 94888
+
+step Carving a Path
+  zone Riverglades
+  accept 94889
+
+step Carving a Path
+  zone Riverglades
+  complete 94889 @25.29,40.47
+
+step Carving a Path
+  zone Riverglades
+  turnin 94889
+
+step A Small Favor
+  zone Riverglades
+  accept 94907
+
+step A Small Favor
+  zone Riverglades
+  complete 94907 @26.64,47.77
+
+step A Small Favor
+  zone Riverglades
+  turnin 94907
+
+step Bring Me His Head
+  zone Riverglades
+  accept 94890
+
+step Bring Me His Head
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Riverglades
+  complete 94890 @30.71,49.06
+
+step Bring Me His Head
+  zone Riverglades
+  turnin 94890
+
+step News to Farholde
+  zone map 2548
+  accept 94891
+
+step Sergeant Riftan
+  zone Riverglades
+  accept 94983
+
+step Ranath Nightstride
+  zone Alterac Mountains
+  accept 96771
+
+step Inside Krol'dok Stronghold
+  zone Riverglades
+  collect 267138 @36.9,44.1
+  accept 94980 item 267138
+  complete 94983 @36.9,44.1
+  complete 96771 @36.9,44.1
+
+step Alphonse Dumas
+  zone Riverglades
+  turnin 94980
+
+step News to Farholde
+  when onquest 94891
+  zone map 2548
+  turnin 94891
+
+step The Twilight Threat
+  when turnedin 94891
+  zone map 2548
+  accept 94894
+
+step The Twilight Threat
+  when onquest 94894
+  zone map 1453
+  turnin 94894
+
+step Key Ingredients
+  zone map 2548
+  accept 94981
+
+step Key Ingredients
+  when onquest 94981
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2548
+  complete 94981 @64.5,82.0
+
+step Key Ingredients
+  when onquest 94981
+  zone map 2548
+  turnin 94981
+
+step Ashe Amberhall
+  zone Riverglades
+  accept 94984
+
+step Inside Krol'dok Stronghold
+  zone Riverglades
+  complete 94984 @36.9,44.1
+
+step Ashe Amberhall
+  zone Riverglades
+  turnin 94984
+
+step Sergeant Riftan
+  zone Riverglades
+  turnin 94983
+
+step Lingering Essence
+  zone map 2548
+  accept 94997
+
+step Lingering Essence
+  when onquest 94997
+  zone map 2548
+  turnin 94997
+
+step Curios of Curiosity
+  when turnedin 94997
+  zone map 2548
+  accept 94998
+
+step Curios of Curiosity
+  when onquest 94998
+  zone map 2548
+  turnin 94998
+
+step Level 40
+  level 40
+
+step Demar Brant
+  zone Riverglades
+  accept 94982
+
+step Inside Krol'dok Stronghold
+  zone Riverglades
+  complete 94982 @36.9,44.1
+
+step Demar Brant
+  zone Riverglades
+  turnin 94982
+
+step Ranath Nightstride
+  zone Alterac Mountains
+  turnin 96771

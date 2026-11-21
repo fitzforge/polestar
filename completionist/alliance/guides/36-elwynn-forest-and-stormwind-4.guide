@@ -1,0 +1,156 @@
+guide polestar-completionist-alliance/36-elwynn-forest-and-stormwind-4
+title 36 Elwynn Forest and Stormwind (40-50) (Completionist)
+faction Alliance
+levels 40-50
+zone Elwynn Forest
+next polestar-completionist-alliance/dungeon-razorfen-downs
+next polestar-completionist-alliance/37-shendralas
+pitch On along the line: Elwynn Forest and Stormwind, quests of level 40 to 50.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 7 quests; estimated level at the end 40.2 (heuristic XP, class quests not counted).
+# Skipped: 2 exclusive with N (done); 1 profession.
+
+step Goldshire
+  zone Elwynn Forest
+  sethome "Goldshire"
+
+step Angus Stern
+  zone Stormwind City
+  accept 212
+
+step Cold Eye Basilisk
+  zone Stranglethorn Vale
+  collect 2476 x1 quest 212.1
+
+step Angus Stern
+  zone Stormwind City
+  turnin 212
+  accept 1477
+
+step Mazen Mac'Nadir
+  accept 1363
+  turnin 1363
+  accept 1364
+
+step Swampwalker
+  zone Swamp of Sorrows
+  collect 6065 x1 quest 1364.1
+
+step Watcher Mahar Ba
+  zone Blasted Lands
+  turnin 1364
+
+step Watchmaster Sorigal
+  zone Duskwood
+  turnin 1477
+  accept 1395
+
+step Quartermaster Lungertz
+  zone Blasted Lands
+  turnin 1395
+
+step Count Remington Ridgewell
+  when group 543
+  zone Stormwind City
+  accept 543
+
+step Grel'borg the Miser
+  when group 543
+  zone Alterac Mountains
+  tip The Perenolde Tiara is group work: elites. Grouping up is advised.
+  collect 3684 x1 quest 543.1
+
+step Count Remington Ridgewell
+  when group 543
+  zone Stormwind City
+  turnin 543
+
+step The Origins of Smithing
+  when skill Blacksmithing 1
+  zone map 1453
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 2758 optional
+  complete 2758 @62.9,36.8 optional
+
+step The Origins of Smithing
+  when skill Blacksmithing 1
+  turnin 2758 optional
+
+step Level 47
+  level 47
+
+step Innkeeper Allison
+  zone Stormwind City
+  accept 3789
+
+step Gnome Engineering
+  when available 3630
+  tip One of several exclusive quests; the route takes Goblin Engineering (3629). This one shows for a character the game offers it to instead.
+  when skill Engineering 200
+  zone map 1453
+  accept 3630 optional
+
+step Gnome Engineering
+  when onquest 3630
+  zone map 1455
+  turnin 3630 optional
+
+step Goblin Engineering
+  when available 4181
+  tip One of several exclusive quests; the route takes Goblin Engineering (3629). This one shows for a character the game offers it to instead.
+  when skill Engineering 200
+  zone map 1453
+  accept 4181 optional
+
+step Goblin Engineering
+  when onquest 4181
+  zone map 1446
+  turnin 4181 optional
+
+step Arch Druid Fandral Staghelm
+  zone Darnassus
+  turnin 3789
+
+step In Search of Galvan
+  when skill Blacksmithing 1
+  zone map 1453
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 2759 optional
+
+step In Search of Galvan
+  when skill Blacksmithing 1
+  turnin 2759 optional
+
+step The Mithril Order
+  when skill Blacksmithing 1
+  zone map 1434
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 2760 optional
+
+step The Mithril Order
+  when skill Blacksmithing 1
+  turnin 2760 optional
+
+step Your First Horse
+  only Human
+  when available 97045
+  tip One of several exclusive quests; the route takes Your First Riding Ram (97017). This one shows for a character the game offers it to instead.
+  zone map 1429
+  accept 97045 optional
+
+step Your First Horse
+  only Human
+  when onquest 97045
+  zone map 1429
+  turnin 97045 optional
+
+step Learning to Ride
+  only Human
+  zone map 1429
+  accept 97170
+
+step Learning to Ride
+  only Human
+  when onquest 97170
+  zone map 1429
+  turnin 97170

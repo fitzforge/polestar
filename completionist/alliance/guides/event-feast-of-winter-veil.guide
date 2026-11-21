@@ -1,0 +1,206 @@
+guide polestar-completionist-alliance/event-feast-of-winter-veil
+title Feast of Winter Veil (Completionist)
+faction Alliance
+category Miscellaneous
+levels 1-60
+zone Stormwind City
+pitch The quests of Feast of Winter Veil, as far as the reference data places them.
+
+step About this guide
+  note Each quest here is offered only while the event runs. Every step is optional: do what the calendar offers now, and come back for the rest.
+
+step Level 10
+  level 10
+
+step Greatfather Winter is Here!
+  zone map 1455
+  accept 7022 optional
+
+step Greatfather Winter is Here!
+  when onquest 7022
+  zone map 1455
+  turnin 7022 optional
+
+step Greatfather Winter is Here!
+  when available 7023
+  tip One of several exclusive quests; the route takes Greatfather Winter is Here! (7022). This one shows for a character the game offers it to instead.
+  zone map 1453
+  accept 7023 optional
+
+step Greatfather Winter is Here!
+  when onquest 7023
+  zone map 1455
+  turnin 7023 optional
+
+step Treats for Greatfather Winter
+  zone map 1455
+  accept 7025 optional
+
+step Treats for Greatfather Winter
+  when onquest 7025
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1455
+  complete 7025 @33.2,65.4 optional
+
+step Treats for Greatfather Winter
+  when onquest 7025
+  zone map 1455
+  turnin 7025 optional
+
+step Level 30
+  level 30
+
+step Stolen Winter Veil Treats
+  zone map 1455
+  accept 7042 optional
+
+step Stolen Winter Veil Treats
+  when onquest 7042
+  zone map 1416
+  turnin 7042 optional
+
+step The Reason for the Season
+  zone map 1455
+  accept 7062 optional
+
+step The Reason for the Season
+  when onquest 7062
+  zone map 1455
+  turnin 7062 optional
+
+step A Carefully Wrapped Present
+  zone map 1454
+  accept 8744 optional
+
+step A Carefully Wrapped Present
+  when onquest 8744
+  zone map 1454
+  turnin 8744 optional
+
+step A Gently Shaken Gift
+  only Warrior,Paladin,Hunter,Rogue
+  zone map 1454
+  accept 8767 optional
+
+step A Gently Shaken Gift
+  only Warrior,Paladin,Hunter,Rogue
+  when onquest 8767
+  zone map 1454
+  turnin 8767 optional
+
+step A Gently Shaken Gift
+  only Priest,Shaman,Mage,Warlock,Druid
+  zone map 1454
+  accept 8788 optional
+
+step A Gently Shaken Gift
+  only Priest,Shaman,Mage,Warlock,Druid
+  when onquest 8788
+  zone map 1454
+  turnin 8788 optional
+
+step Winter's Presents
+  zone map 1411
+  accept 8827 optional
+
+step Winter's Presents
+  when onquest 8827
+  zone map 1455
+  turnin 8827 optional
+
+step A Festive Gift
+  zone map 1454
+  accept 8803 optional
+
+step A Festive Gift
+  when onquest 8803
+  zone map 1454
+  turnin 8803 optional
+
+step A Gaily Wrapped Present
+  zone map 1454
+  accept 8768 optional
+
+step A Gaily Wrapped Present
+  when onquest 8768
+  zone map 1454
+  turnin 8768 optional
+
+step The Feast of Winter Veil
+  when turnedin 7062
+  zone map 1455
+  accept 7063 optional
+
+step Level 40
+  level 40
+
+step Metzen the Reindeer
+  zone map 1455
+  accept 8762 optional
+
+step Metzen the Reindeer
+  when onquest 8762
+  zone map 1427
+  complete 8762 @68.8,34.2 optional
+
+step Metzen the Reindeer
+  when onquest 8762
+  zone map 1455
+  turnin 8762 optional
+
+step The Hero of the Day
+  when turnedin 8762
+  when skill Cooking 300
+  zone map 1455
+  accept 8763 optional
+
+step The Hero of the Day
+  when onquest 8763
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1455
+  complete 8763 @33.7,67.2 optional
+
+step The Hero of the Day
+  when onquest 8763
+  zone map 1453
+  turnin 8763 optional
+
+step The Feast of Winter Veil
+  when onquest 7063
+  zone map 1455
+  turnin 7063 optional
+
+step You're a Mean One...
+  when turnedin 7042
+  zone map 1416
+  accept 7043 optional
+
+step A Ticking Present
+  zone map 1454
+  accept 8769 optional
+
+step A Ticking Present
+  when onquest 8769
+  zone map 1454
+  turnin 8769 optional
+
+step You're a Mean One...
+  when onquest 7043
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1416
+  complete 7043 @35.4,72.5 optional
+
+step You're a Mean One...
+  when onquest 7043
+  zone map 1455
+  turnin 7043 optional
+
+step A Smokywood Pastures' Thank You!
+  when turnedin 7043
+  zone map 1455
+  accept 7045 optional
+
+step A Smokywood Pastures' Thank You!
+  when onquest 7045
+  zone map 1455
+  turnin 7045 optional

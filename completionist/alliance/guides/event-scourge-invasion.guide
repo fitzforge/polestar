@@ -1,0 +1,136 @@
+guide polestar-completionist-alliance/event-scourge-invasion
+title Scourge Invasion (Completionist)
+faction Alliance
+category Miscellaneous
+levels 1-60
+zone Stormwind City
+pitch The quests of Scourge Invasion, as far as the reference data places them.
+
+step About this guide
+  note Each quest here is offered only while the event runs. Every step is optional: do what the calendar offers now, and come back for the rest.
+
+step Investigate the Scourge of Stormwind
+  zone map 1453
+  accept 9260 optional
+
+step Investigate the Scourge of Stormwind
+  when onquest 9260
+  zone map 1429
+  complete 9260 @34.7,51.0 optional
+
+step Investigate the Scourge of Stormwind
+  when onquest 9260
+  zone map 1453
+  turnin 9260 optional
+
+step Investigate the Scourge of Ironforge
+  zone map 1455
+  accept 9261 optional
+
+step Investigate the Scourge of Ironforge
+  when onquest 9261
+  zone map 1426
+  complete 9261 @48.5,39.5 optional
+
+step Investigate the Scourge of Ironforge
+  when onquest 9261
+  zone map 1455
+  turnin 9261 optional
+
+step Investigate the Scourge of Darnassus
+  zone map 1457
+  accept 9262 optional
+
+step Investigate the Scourge of Darnassus
+  when onquest 9262
+  zone map 1438
+  complete 9262 @37.0,55.5 optional
+
+step Investigate the Scourge of Darnassus
+  when onquest 9262
+  zone map 1457
+  turnin 9262 optional
+
+step Argent Dawn Gloves
+  when turnedin 9153
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22484 x30 anywhere optional
+  turnin 9094 direct optional
+
+step Consecrated Sharpening Stones
+  when turnedin 9153
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22484 x8 anywhere optional
+  turnin 9317 direct optional
+
+step Blessed Wizard Oil
+  when turnedin 9153
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22484 x8 anywhere optional
+  turnin 9318 direct optional
+
+step Major Healing Potion
+  when turnedin 9153
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22484 x15 anywhere optional
+  turnin 9321 direct optional
+
+step Major Mana Potion
+  when turnedin 9153
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22484 x15 anywhere optional
+  turnin 9337 direct optional
+
+step Tabard of the Argent Dawn
+  when turnedin 9153
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1423
+  collect 22484 x10 anywhere optional
+  turnin 9341 direct optional
+
+step Level 50
+  level 50
+
+step Under the Shadow
+  zone map 1423
+  accept 9153 optional
+
+step Under the Shadow
+  when onquest 9153
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 9153 @71.2,50.6 optional
+
+step Under the Shadow
+  when onquest 9153
+  zone map 1423
+  turnin 9153 optional
+
+step Light's Hope Chapel
+  zone map 1453
+  accept 9154 optional
+
+step Light's Hope Chapel
+  when onquest 9154
+  zone map 1423
+  turnin 9154 optional
+
+step Shadows of Doom
+  when turnedin 9153
+  zone map 1423
+  accept 9085 optional
+
+step Shadows of Doom
+  when onquest 9085
+  zone map 1419
+  complete 9085 @45.9,19 optional
+
+step Shadows of Doom
+  when onquest 9085
+  zone map 1423
+  turnin 9085 optional

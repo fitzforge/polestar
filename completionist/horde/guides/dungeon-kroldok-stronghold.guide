@@ -1,0 +1,529 @@
+guide polestar-completionist-horde/dungeon-kroldok-stronghold
+title Krol'dok Stronghold (Completionist)
+faction Horde
+category Dungeons
+levels 39-45
+zone Riverglades
+next polestar-completionist-horde/28-shendralas
+pitch Krol'dok Stronghold, in Riverglades.
+why Every Horde quest of Krol'dok Stronghold: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Riverglades: the arrow leads to it.
+
+step A Message in Blood
+  zone Riverglades
+  accept 93786
+
+step A Message in Blood
+  zone Riverglades
+  complete 93786 @42.29,82.23
+
+step A Message in Blood
+  zone Riverglades
+  turnin 93786
+
+step Food for the Taking
+  zone Riverglades
+  accept 93787
+
+step Food for the Taking
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Riverglades
+  complete 93787 @59.37,45.6
+
+step Food for the Taking
+  zone Riverglades
+  turnin 93787
+
+step A Gift From Our Enemies
+  zone map 2548
+  accept 94480
+
+step Show Them How It's Done
+  zone Riverglades
+  accept 94483
+
+step A Gift From Our Enemies
+  when onquest 94480
+  zone map 2548
+  turnin 94480
+
+step Show Them How It's Done
+  zone Riverglades
+  complete 94483 @43.05,64.84
+
+step Show Them How It's Done
+  zone Riverglades
+  turnin 94483
+
+step A Serving of Strength
+  when turnedin 94480
+  zone map 2548
+  accept 94481
+
+step Encroaching Twilight
+  zone Riverglades
+  accept 94672
+
+step A Serving of Strength
+  when onquest 94481
+  zone map 2548
+  complete 94481 @55.5,36.3
+
+step A Serving of Strength
+  when onquest 94481
+  zone map 2548
+  turnin 94481
+
+step Encroaching Twilight
+  zone Riverglades
+  complete 94672 @38.96,45.21
+
+step Encroaching Twilight
+  zone Riverglades
+  turnin 94672
+
+step Twilight Missives
+  zone Riverglades
+  accept 94680
+
+step Twilight Missives
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Riverglades
+  complete 94680 @59.51,43.96
+
+step Twilight Missives
+  zone Riverglades
+  turnin 94680
+
+step Digging for Answers
+  zone Riverglades
+  accept 94727
+
+step Digging for Answers
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Riverglades
+  complete 94727 @59.51,43.96
+
+step Digging for Answers
+  zone Riverglades
+  turnin 94727
+
+step The Purple Ones
+  zone Riverglades
+  accept 95417
+
+step The Purple Ones
+  zone Riverglades
+  turnin 95417
+
+step The Purple Ones
+  zone Riverglades
+  accept 95601
+
+step The Purple Ones
+  zone Riverglades
+  complete 95601 @44.97,51.19
+
+step The Purple Ones
+  zone Riverglades
+  turnin 95601
+
+step Sickening Lights
+  zone Riverglades
+  accept 95602
+
+step Sickening Lights
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Riverglades
+  complete 95602 @49.95,46.99
+
+step Sickening Lights
+  zone Riverglades
+  turnin 95602
+
+step Twilight No More!
+  zone Riverglades
+  accept 95427
+
+step Twilight No More!
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Riverglades
+  complete 95427 @49.95,46.99
+
+step Twilight No More!
+  zone Riverglades
+  turnin 95427
+
+step Spread the Word
+  zone Riverglades
+  accept 95418
+
+step Spread the Word
+  zone Riverglades
+  turnin 95418
+
+step Land of Giants
+  zone Riverglades
+  accept 95420
+
+step Land of Giants
+  zone Riverglades
+  turnin 95420
+
+step Might Makes Right
+  zone Riverglades
+  accept 95424
+
+step Might Makes Right
+  zone Riverglades
+  complete 95424 @67,31.59
+
+step Might Makes Right
+  zone Riverglades
+  turnin 95424
+
+step Unworthy Champion
+  zone Riverglades
+  accept 95425
+
+step Unworthy Champion
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Riverglades
+  complete 95425 @64.25,15.72
+
+step Unworthy Champion
+  zone Riverglades
+  turnin 95425
+
+step Step One: Rock
+  zone map 2548
+  accept 95183
+
+step Step One: Rock
+  when onquest 95183
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2548
+  complete 95183 @69.7,25.9
+
+step Step One: Rock
+  when onquest 95183
+  zone map 2548
+  turnin 95183
+
+step Bloodmaster's Ring
+  zone map 2548
+  accept 94668
+
+step Step Two: More Rock
+  when turnedin 95183
+  zone map 2548
+  accept 96026
+
+step Step Two: More Rock
+  when onquest 96026
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2548
+  complete 96026 @67.2,21.8
+
+step Step Two: More Rock
+  when onquest 96026
+  zone map 2548
+  turnin 96026
+
+step Bloodmaster's Ring
+  when onquest 94668
+  zone map 2548
+  turnin 94668
+
+step Clugfist's Decree
+  zone Riverglades
+  accept 95428
+
+step Pay to Play
+  when turnedin 94668
+  zone map 2548
+  accept 94669
+
+step Pay to Play
+  when onquest 94669
+  zone map 2548
+  turnin 94669
+
+step Clugfist's Decree
+  zone Riverglades
+  turnin 95428
+
+step The Wayward Warrior
+  zone Riverglades
+  accept 94744
+
+step The Wayward Warrior
+  zone Riverglades
+  turnin 94744
+
+step Rumblings of Discontent
+  zone map 2548
+  accept 95431
+
+step Rumblings of Discontent
+  when onquest 95431
+  zone map 2548
+  turnin 95431
+
+step Carving a Path
+  zone Riverglades
+  accept 94745
+
+step Rise Up!
+  when turnedin 95431
+  zone map 2548
+  accept 95432
+
+step Rise Up!
+  when onquest 95432
+  zone map 2548
+  complete 95432 @26.5,35.6
+
+step Rise Up!
+  when onquest 95432
+  zone map 2548
+  turnin 95432
+
+step Carving a Path
+  zone Riverglades
+  complete 94745 @25.29,40.47
+
+step Carving a Path
+  zone Riverglades
+  turnin 94745
+
+step Death to the Executioner
+  when turnedin 95432
+  zone map 2548
+  accept 95433
+
+step Death to the Executioner
+  when onquest 95433
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2548
+  complete 95433 @27.7,36.5
+
+step Death to the Executioner
+  when onquest 95433
+  zone map 2548
+  turnin 95433
+
+step Break Their Chains
+  zone Riverglades
+  accept 94748
+
+step Break Their Chains
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Riverglades
+  complete 94748 @33.4,38
+
+step Break Their Chains
+  zone Riverglades
+  turnin 94748
+
+step Bring Me His Head
+  zone Riverglades
+  accept 94768
+
+step Bring Me His Head
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Riverglades
+  complete 94768 @33.4,38
+
+step Bring Me His Head
+  zone Riverglades
+  turnin 94768
+
+step It Is Time, Brother...
+  zone Riverglades
+  accept 95278
+
+step It Is Time, Brother...
+  zone Riverglades
+  turnin 95278
+
+step Tome of Twilight
+  when turnedin 95431
+  when turnedin 95432
+  zone map 2548
+  accept 94972
+
+step Da'grosh
+  zone Riverglades
+  accept 94975
+
+step Krom'rosh
+  zone Riverglades
+  accept 94968
+
+step Tome of Twilight
+  when onquest 94972
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2548
+  complete 94972 @59.5,44.0
+
+step Tome of Twilight
+  when onquest 94972
+  zone map 2548
+  turnin 94972
+
+step Inside Krol'dok Stronghold
+  zone Riverglades
+  collect 267137 @36.9,44.1
+  accept 94973 item 267137
+  complete 94975 @36.9,44.1
+  complete 94968 @36.9,44.1
+
+step Da'grosh
+  zone Riverglades
+  turnin 94975
+
+step Kreza Darkthorn
+  zone Riverglades
+  turnin 94973
+
+step Krom'rosh
+  zone Riverglades
+  turnin 94968
+
+step Bloodmaster's Ring
+  when turnedin 94669
+  zone map 2548
+  accept 94670
+
+step Bloodmaster's Ring
+  when onquest 94670
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2548
+  complete 94670 @65.6,21.4
+
+step Bloodmaster's Ring
+  when onquest 94670
+  zone map 2548
+  turnin 94670
+
+step Bloodmaster's Ring
+  when turnedin 94670
+  zone map 2548
+  accept 94739
+
+step Bloodmaster's Ring
+  when onquest 94739
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2548
+  complete 94739 @65.6,21.4
+
+step Bloodmaster's Ring
+  when onquest 94739
+  zone map 2548
+  turnin 94739
+
+step Bloodmaster's Ring
+  when turnedin 94739
+  zone map 2548
+  accept 94962
+
+step Bloodmaster's Ring
+  when onquest 94962
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2548
+  complete 94962 @65.6,21.4
+
+step Bloodmaster's Ring
+  when onquest 94962
+  zone map 2548
+  turnin 94962
+
+step Bloodmaster's Ring
+  when turnedin 94962
+  zone map 2548
+  accept 94964
+
+step Bloodmaster's Ring
+  when onquest 94964
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2548
+  complete 94964 @65.6,21.4
+
+step Bloodmaster's Ring
+  when onquest 94964
+  zone map 2548
+  turnin 94964
+
+step Our Ogre Friend
+  when turnedin 94964
+  zone map 2548
+  accept 94733
+
+step Our Ogre Friend
+  when onquest 94733
+  zone map 2548
+  turnin 94733
+
+step A Boar's Delight
+  when turnedin 94733
+  zone map 2548
+  accept 94734
+
+step A Boar's Delight
+  when onquest 94734
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2548
+  complete 94734 @67,17.2
+
+step A Boar's Delight
+  when onquest 94734
+  zone map 2548
+  turnin 94734
+
+step A Treat for a Friend
+  when turnedin 94734
+  zone map 2548
+  accept 94737
+
+step A Treat for a Friend
+  when onquest 94737
+  zone map 2548
+  turnin 94737
+
+step Bloodmaster's Ring
+  when turnedin 94737
+  when turnedin 94734
+  zone map 2548
+  accept 94965
+
+step Bloodmaster's Ring
+  when onquest 94965
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2548
+  complete 94965 @65.6,21.4
+
+step Bloodmaster's Ring
+  when onquest 94965
+  zone map 2548
+  turnin 94965
+
+step Bloodmaster's Ring
+  when turnedin 94965
+  when turnedin 94734
+  when turnedin 94737
+  zone map 2548
+  accept 95063
+
+step Bloodmaster's Ring
+  when onquest 95063
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 2548
+  complete 95063 @65.6,21.4
+
+step Bloodmaster's Ring
+  when onquest 95063
+  zone map 2548
+  turnin 95063

@@ -1,0 +1,150 @@
+guide polestar-completionist-alliance/dungeon-razorfen-kraul
+title Razorfen Kraul (Completionist)
+faction Alliance
+category Dungeons
+levels 25-43
+zone The Barrens
+next polestar-completionist-alliance/dungeon-excavation-site-wetlands
+next polestar-completionist-alliance/23-odd-jobs-in-the-eastern-kingdoms-2
+pitch Razorfen Kraul, in The Barrens.
+why Every Alliance quest of Razorfen Kraul: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in The Barrens: the arrow leads to it.
+
+step Yorus Barleybrew
+  only Warrior
+  zone Ironforge
+  accept 1698
+
+step Yorus Barleybrew
+  only Warrior
+  zone Redridge Mountains
+  turnin 1698
+
+step The Rethban Gauntlet
+  only Warrior
+  zone Redridge Mountains
+  accept 1699
+
+step The Rethban Gauntlet
+  only Warrior
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Redridge Mountains
+  complete 1699 @21.49,44.72
+
+step The Rethban Gauntlet
+  only Warrior
+  zone Redridge Mountains
+  turnin 1699
+
+step The Shieldsmith
+  only Warrior
+  zone Redridge Mountains
+  accept 1702
+
+step The Shieldsmith
+  only Warrior
+  zone Stormwind City
+  turnin 1702
+
+step Lonebrow's Journal
+  tip This quest starts from an item: use it to take the quest.
+  collect 5791 x1 anywhere
+
+step Mebok Mizzyrix
+  zone The Barrens
+  accept 1221
+
+step Furen Longbeard
+  only Warrior
+  zone Stormwind City
+  accept 1701
+
+step Inside Razorfen Kraul
+  zone The Barrens
+  accept 1142 @42.5,90
+  accept 1144 @42.5,90
+  complete 1221 @42.5,90
+  complete 1142 @42.5,90
+  complete 1144 @42.5,90
+  turnin 1144 @42.5,90
+
+step Inside Razorfen Kraul
+  only Warrior
+  zone The Barrens
+  complete 1701 @42.5,90
+
+step Mebok Mizzyrix
+  zone The Barrens
+  turnin 1221
+
+step Furen Longbeard
+  only Warrior
+  zone Stormwind City
+  turnin 1701
+
+step Level 30
+  level 30
+
+step Call of Air
+  only Shaman
+  zone Ironforge
+  accept 94789
+
+step Call of Air
+  only Shaman
+  zone Arathi Highlands
+  turnin 94789
+
+step Veyric Thunderhame
+  only Shaman
+  zone Arathi Highlands
+  accept 96264
+
+step Inside Razorfen Kraul
+  only Shaman
+  zone The Barrens
+  complete 96264 @42.5,90
+
+step Veyric Thunderhame
+  only Shaman
+  zone Arathi Highlands
+  turnin 96264
+
+step Lonebrow's Journal
+  tip This quest starts from an item: use it to take the quest.
+  zone Stormwind City
+  accept 1100 item 5791
+
+step Lonebrow's Journal
+  zone Thousand Needles
+  turnin 1100
+
+step Falfindel Waywarder
+  zone Feralas
+  accept 1101
+
+step Inside Razorfen Kraul
+  zone The Barrens
+  complete 1101 @42.5,90
+
+step Falfindel Waywarder
+  zone Feralas
+  turnin 1101
+
+step Treshala Fallowbrook
+  zone Darnassus
+  turnin 1142
+
+step Inside Razorfen Kraul
+  only Shaman
+  zone The Barrens
+  collect 212748 @42.5,90
+  accept 79358 item 212748
+  complete 79358 @42.5,90
+
+step Rau Cliffrunner
+  only Shaman
+  zone Thousand Needles
+  turnin 79358

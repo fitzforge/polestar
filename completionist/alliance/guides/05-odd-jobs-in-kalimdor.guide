@@ -1,0 +1,76 @@
+guide polestar-completionist-alliance/05-odd-jobs-in-kalimdor
+title 05 Odd jobs in Kalimdor (4-18) (Completionist)
+faction Alliance
+levels 4-18
+zone Teldrassil
+next polestar-completionist-alliance/06-darkshore
+pitch On along the line: errands across Kalimdor, quests of level 4 to 18.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 5 quests; estimated level at the end 6.0 (heuristic XP, class quests not counted).
+
+step Minor Manifestation of Earth
+  only Shaman
+  accept 94375
+
+step Level 14
+  level 14
+
+step Chief Archaeologist Greywhisker
+  zone Darnassus
+  accept 730
+
+step Archaeologist Hollee
+  zone Darkshore
+  turnin 730
+
+step Arch Druid Fandral Staghelm
+  zone Teldrassil
+  accept 952
+
+step Moonglow Vest
+  when skill Leatherworking 1
+  zone map 1457
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 1582 optional
+  complete 1582 @64.4,22.2 optional
+
+step Moonglow Vest
+  when skill Leatherworking 1
+  turnin 1582 optional
+
+step Onu
+  zone Teldrassil
+  turnin 952
+
+step Rezlak
+  zone Durotar
+  accept 834
+
+step Stolen Supply Sack
+  zone Durotar
+  collect 4918 x5 quest 834.1
+
+step Rezlak
+  zone Durotar
+  turnin 834
+
+step Rezlak
+  zone Teldrassil
+  accept 835
+
+step Dustwind Storm Witch
+  zone Teldrassil
+  kill 3118 x8 quest 835.2
+
+step Dustwind Savage
+  zone Teldrassil
+  kill 3117 x12 quest 835.1
+
+step Rezlak
+  zone Teldrassil
+  turnin 835
+
+step Teo Hammerstorm
+  zone Dun Morogh
+  only Shaman
+  turnin 94375

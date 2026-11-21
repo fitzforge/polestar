@@ -1,0 +1,279 @@
+guide polestar-completionist-alliance/raid-blackwing-lair
+title Blackwing Lair (Completionist)
+faction Alliance
+category Dungeons
+levels 60-60
+zone Burning Steppes
+pitch Blackwing Lair, in Burning Steppes. A raid.
+why Every Alliance quest of Blackwing Lair: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Burning Steppes: the arrow leads to it. This is a raid: it needs a raid group.
+
+step What Tomorrow Brings
+  zone Silithus
+  accept 8286
+
+step What Tomorrow Brings
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Silithus
+  complete 8286 @49.45,36.45
+
+step What Tomorrow Brings
+  zone Silithus
+  turnin 8286
+
+step Baristolth of the Shifting Sands
+  zone Silithus
+  accept 8288
+
+step Inside Blackwing Lair
+  zone Burning Steppes
+  collect 19003 @29.4,38.3
+  accept 7781 item 19003
+  complete 8288 @29.4,38.3
+
+step Baristolth of the Shifting Sands
+  zone Silithus
+  turnin 8288
+
+step Highlord Bolvar Fordragon
+  zone Stormwind City
+  turnin 7781
+
+step The Path of the Righteous
+  zone Silithus
+  accept 8301
+
+step The Path of the Righteous
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Silithus
+  complete 8301 @49.45,36.45
+
+step The Path of the Righteous
+  zone Silithus
+  turnin 8301
+
+step The Hand of the Righteous
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  collect 20384 x200 anywhere optional
+  turnin 8302 direct optional
+
+step Anachronos
+  zone Silithus
+  accept 8303
+
+step Anachronos
+  zone Tanaris
+  turnin 8303
+
+step Long Forgotten Memories
+  zone Tanaris
+  accept 8305
+
+step Long Forgotten Memories
+  zone Silithus
+  turnin 8305
+
+step A Pawn on the Eternal Board
+  zone Silithus
+  accept 8519
+
+step A Pawn on the Eternal Board
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Silithus
+  complete 8519 @28.68,89.14
+
+step A Pawn on the Eternal Board
+  zone Tanaris
+  turnin 8519
+
+step The Charge of the Dragonflights
+  zone Tanaris
+  accept 8555
+
+step The Charge of the Dragonflights
+  zone Tanaris
+  turnin 8555
+
+step Azuregos's Magical Ledger
+  zone Azshara
+  accept 8575
+
+step Azuregos's Magical Ledger
+  zone Tanaris
+  turnin 8575
+
+step Translating the Ledger
+  zone Tanaris
+  accept 8576
+
+step Translating the Ledger
+  zone Tanaris
+  turnin 8576
+
+step Stewvul, Ex-B.F.F.
+  zone Tanaris
+  accept 8577
+
+step Stewvul, Ex-B.F.F.
+  zone Silverpine Forest
+  turnin 8577
+
+step Scrying Goggles? No Problem!
+  zone Silverpine Forest
+  accept 8578
+
+step Scrying Goggles? No Problem!
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Silverpine Forest
+  complete 8578 @46.19,86.68
+
+step Scrying Goggles? No Problem!
+  zone Tanaris
+  turnin 8578
+
+step Never Ask Me About My Business
+  zone Tanaris
+  accept 8584
+
+step Never Ask Me About My Business
+  zone Tanaris
+  turnin 8584
+
+step The Isle of Dread!
+  zone Tanaris
+  accept 8585
+
+step The Isle of Dread!
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 8585 @52.63,28.11
+
+step The Isle of Dread!
+  zone Tanaris
+  turnin 8585
+
+step Dirge's Kickin' Chimaerok Chops
+  zone Tanaris
+  accept 8586
+
+step Dirge's Kickin' Chimaerok Chops
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 8586 @52.63,28.11
+
+step Dirge's Kickin' Chimaerok Chops
+  zone Tanaris
+  turnin 8586
+
+step Return to Narain
+  zone Tanaris
+  accept 8587
+
+step Return to Narain
+  zone Tanaris
+  turnin 8587
+
+step Draconic for Dummies
+  zone Tanaris
+  accept 8597
+
+step Love Song for Narain
+  zone map 1446
+  accept 8599
+
+step Draconic for Dummies
+  zone Azeroth
+  turnin 8597
+
+step rAnS0m
+  zone Azeroth
+  accept 8598
+
+step rAnS0m
+  zone Tanaris
+  turnin 8598
+
+step Love Song for Narain
+  when onquest 8599
+  zone map 1446
+  turnin 8599
+
+step Decoy!
+  zone Tanaris
+  accept 8606
+
+step Decoy!
+  zone Winterspring
+  complete 8606 @67.2,72.6
+
+step Decoy!
+  zone Tanaris
+  turnin 8606
+
+step The Only Prescription
+  zone Tanaris
+  accept 8620
+
+step The Only Prescription
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Tanaris
+  complete 8620 @65.24,18.58
+
+step The Only Prescription
+  zone Tanaris
+  turnin 8620
+
+step Narain Soothfancy
+  zone Tanaris
+  accept 8728
+
+step Highlord Bolvar Fordragon
+  zone Stormwind City
+  accept 7782
+
+step Inside Blackwing Lair, again
+  zone Burning Steppes
+  accept 8730 @29.4,38.3
+  complete 8728 @29.4,38.3
+  complete 8730 @29.4,38.3
+
+step Anachronos
+  zone Tanaris
+  turnin 8730
+
+step Narain Soothfancy
+  zone Tanaris
+  turnin 8728
+
+step The Wrath of Neptulon
+  zone map 1446
+  accept 8729
+
+step The Wrath of Neptulon
+  when onquest 8729
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1446
+  complete 8729 @65.2,18.6
+
+step The Wrath of Neptulon
+  when onquest 8729
+  zone map 1446
+  turnin 8729
+
+step The Might of Kalimdor
+  when turnedin 8729
+  when turnedin 8741
+  zone map 1446
+  accept 8742
+
+step The Might of Kalimdor
+  when onquest 8742
+  zone map 1446
+  turnin 8742
+
+step Field Marshal Stonebridge
+  zone Stormwind City
+  turnin 7782

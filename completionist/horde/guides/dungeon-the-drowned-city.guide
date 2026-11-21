@@ -1,0 +1,146 @@
+guide polestar-completionist-horde/dungeon-the-drowned-city
+title The Drowned City (Completionist)
+faction Horde
+category Dungeons
+levels 30-40
+zone Stranglethorn Vale
+next polestar-completionist-horde/24-arathi-highlands
+pitch The Drowned City, in Stranglethorn Vale.
+why Every Horde quest of The Drowned City: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Stranglethorn Vale: the arrow leads to it.
+
+step The Vile Reef
+  zone Stranglethorn Vale
+  accept 629
+
+step The Vile Reef
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Stranglethorn Vale
+  complete 629 @32.27,27.71
+
+step The Vile Reef
+  zone Stranglethorn Vale
+  turnin 629
+
+step Split Bone Necklace
+  when turnedin 596
+  zone map 1434
+  accept 598
+
+step The Gurubashi Legends of Old
+  zone Stranglethorn Vale
+  accept 95748
+
+step Split Bone Necklace
+  when onquest 598
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1434
+  complete 598 @32.3,27.7
+
+step Split Bone Necklace
+  when onquest 598
+  zone map 1434
+  turnin 598
+
+step The Gurubashi Legends of Old
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Stranglethorn Vale
+  complete 95748 @32.27,27.71
+
+step The Gurubashi Legends of Old
+  zone Stranglethorn Vale
+  turnin 95748
+
+step Locating the Lost City
+  zone Stranglethorn Vale
+  accept 95770
+
+step Locating the Lost City
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Stranglethorn Vale
+  complete 95770 @32.27,27.71
+
+step Locating the Lost City
+  zone Stranglethorn Vale
+  turnin 95770
+
+step Enemies in the Water
+  zone Stranglethorn Vale
+  accept 95773
+
+step Enemies in the Water
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Stranglethorn Vale
+  complete 95773 @32.17,28.9
+
+step Enemies in the Water
+  zone Stranglethorn Vale
+  turnin 95773
+
+step Commander Aggro'gosh
+  zone Stranglethorn Vale
+  accept 95776
+
+step Kin'weelay
+  zone Stranglethorn Vale
+  accept 95775
+
+step Mazu'kon
+  zone Mulgore
+  accept 96774
+
+step Inside The Drowned City
+  zone Stranglethorn Vale
+  complete 95776 @21.6,27.7
+  complete 95775 @21.6,27.7
+  complete 96774 @21.6,27.7
+
+step Commander Aggro'gosh
+  zone Stranglethorn Vale
+  turnin 95776
+
+step Kin'weelay
+  zone Stranglethorn Vale
+  turnin 95775
+
+step A Tale Spun Around the Fire
+  zone map 1434
+  accept 96078
+
+step Level 33
+  level 33
+
+step Krazek
+  zone Stranglethorn Vale
+  accept 95791
+
+step Krazek
+  zone Stranglethorn Vale
+  accept 95789
+
+step Inside The Drowned City
+  zone Stranglethorn Vale
+  complete 95791 @21.6,27.7
+
+step Krazek
+  zone Stranglethorn Vale
+  turnin 95791
+
+step Inside The Drowned City
+  zone Stranglethorn Vale
+  complete 95789 @21.6,27.7
+
+step Krazek
+  zone Stranglethorn Vale
+  turnin 95789
+
+step A Tale Spun Around the Fire
+  when onquest 96078
+  zone map 1411
+  turnin 96078
+
+step Mazu'kon
+  zone Mulgore
+  turnin 96774

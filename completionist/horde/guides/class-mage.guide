@@ -1,0 +1,252 @@
+guide polestar-completionist-horde/class-mage
+title Mage class quests (10-60) (Completionist)
+faction Horde
+class Mage
+levels 10-60
+category Class
+zone Durotar
+why Every Mage class quest from level 10 on, in level order. The earlier ones are in the starting zone guides.
+reward text What the Mage quests give, quest by quest: abilities, forms, pets, totems or gear.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 17 quests; estimated level at the end 15.3 (heuristic XP).
+# Skipped: 3 exclusive with N; 1 objective N (kill N) outside the zones.
+
+step Level 15
+  level 15
+
+step Cain Firesong
+  zone Tirisfal Glades
+  accept 1881 only Undead,Troll
+  accept 1959 npc 2128 only Undead,Troll
+
+step Level 15
+  level 15
+
+step Anastasia Hartwell
+  zone Undercity
+  turnin 1881 only Undead,Troll
+  turnin 1959 only Undead,Troll
+  accept 1960 only Orc,Undead,Troll
+
+step Owen Thadd
+  accept 97286
+  turnin 97286
+
+step Filled Containment Coffer
+  collect 7292 x3 quest 1960.1 only Orc,Undead,Troll
+
+step Chest of Containment Coffers and Cantation of Manifestation
+  zone Stormwind City
+  collect 7247 x1 quest 1960.2 only Orc,Undead,Troll
+  collect 7308 x1 quest 1960.3 only Orc,Undead,Troll
+
+step Level 15
+  level 15
+
+step Anastasia Hartwell
+  zone Undercity
+  turnin 1960 only Orc,Undead,Troll
+  accept 1961 only Orc,Undead,Troll
+
+step Adam Lind
+  zone Wetlands
+  collect 2589 x10 quest 1961.1 only Orc,Undead,Troll
+
+step Dalaran Wizard
+  zone Hillsbrad Foothills
+  collect 7293 x6 quest 1961.2 only Orc,Undead,Troll
+
+step Level 15
+  level 15
+
+step Josef Gregorian
+  zone Undercity
+  turnin 1961 only Orc,Undead,Troll
+  accept 1962 only Undead,Troll
+  turnin 1962 npc 4576 only Undead,Troll
+
+step Level 26
+  level 26
+
+step Anastasia Hartwell
+  zone Undercity
+  accept 1943 only Orc,Undead,Troll
+
+step Deino
+  zone Orgrimmar
+  turnin 1943 only Orc,Undead,Troll
+
+step Deino
+  zone Orgrimmar
+  accept 1944 only Orc,Undead,Troll
+
+step Xavian Waterfall
+  zone Ashenvale
+  collect 7268 x1 quest 1944.1 only Orc,Undead,Troll
+
+step Deino
+  zone Orgrimmar
+  turnin 1944 only Orc,Undead,Troll
+
+step Deino
+  zone Orgrimmar
+  accept 1945 only Orc,Undead,Troll
+
+step Level 58
+  level 58
+
+step Geologist Larksbane
+  when turnedin 8315
+  zone Silithus
+  accept 8381
+  turnin 8381
+
+step Laughing Sister
+  zone Ashenvale
+  collect 7270 x12 quest 1945.1 only Orc,Undead,Troll
+
+step Kil'hala
+  zone The Barrens
+  turnin 1945 only Orc,Undead,Troll
+  accept 1946 only Orc,Undead,Troll
+  turnin 1946 only Orc,Undead,Troll
+
+step The Balnir Farmstead
+  only Mage,Undead,Troll
+  zone map 1458
+  accept 1882 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 1882 @85.1,10.0 optional
+
+step The Balnir Farmstead
+  only Mage,Undead,Troll
+  turnin 1882 optional
+
+step Speak with Un'thuwa
+  only Mage
+  zone map 1456
+  accept 1883 optional
+
+step Speak with Un'thuwa
+  only Mage
+  turnin 1883 optional
+
+step Ju-Ju Heaps
+  only Mage,Orc,Undead,Troll
+  zone map 1411
+  accept 1884 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 1884 @56.3,75.1 optional
+
+step Ju-Ju Heaps
+  only Mage,Orc,Undead,Troll
+  turnin 1884 optional
+
+step Level 60
+  level 60
+
+step Archmage Xylem
+  zone Azshara
+  accept 9362
+
+step Warlord Krellian
+  zone Azshara
+  collect 23250 x1 quest 9362.1
+
+step Archmage Xylem
+  zone Azshara
+  turnin 9362
+
+step Archmage Xylem
+  zone Dustwallow Marsh
+  accept 9364
+
+step Polymorph Clone
+  zone Dustwallow Marsh
+  kill 16479 x50 quest 9364.1
+
+step Archmage Xylem
+  zone Dustwallow Marsh
+  turnin 9364
+
+step Mana Surges
+  only Mage
+  when turnedin 1956
+  zone map 1445
+  accept 1957 optional
+
+step Mana Surges
+  only Mage
+  when onquest 1957
+  zone map 1445
+  complete 1957 @45.8,56.9 optional
+
+step Mana Surges
+  only Mage
+  when onquest 1957
+  zone map 1445
+  turnin 1957 optional
+
+step Celestial Power
+  only Mage
+  when turnedin 1957
+  zone map 1445
+  accept 1958 optional
+
+step Celestial Power
+  only Mage
+  when onquest 1958
+  zone map 1445
+  turnin 1958 optional
+
+step Items of Power
+  only Mage
+  when turnedin 1947
+  zone map 1445
+  accept 1948 optional
+
+step Items of Power
+  only Mage
+  when onquest 1948
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1445
+  complete 1948 @46.1,57.1 optional
+
+step Items of Power
+  only Mage
+  when onquest 1948
+  zone map 1445
+  turnin 1948 optional
+
+step Mage's Wand
+  only Mage
+  when turnedin 1948
+  when turnedin 1951
+  zone map 1445
+  accept 1952 optional
+
+step Mage's Wand
+  only Mage
+  when onquest 1952
+  zone map 1445
+  turnin 1952 optional
+
+
+step Atiesh, Greatstaff of the Guardian
+  only Mage
+  when turnedin 9251
+  zone map 1446
+  accept 9270 optional
+
+step Atiesh, Greatstaff of the Guardian
+  only Mage
+  when onquest 9270
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1446
+  complete 9270 @65.3,50.0 optional
+
+step Atiesh, Greatstaff of the Guardian
+  only Mage
+  when onquest 9270
+  zone map 1446
+  turnin 9270 optional

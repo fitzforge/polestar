@@ -1,0 +1,99 @@
+guide polestar-completionist-horde/attune-sewer-key
+title Dalaran Sewer Key (City of Dalaran key) (Completionist)
+faction Horde
+levels 33-35
+category Dungeons
+zone Alterac Mountains
+pitch Dalaran Sewer Key: Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows.
+why Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows.
+
+
+
+
+step Prison Break In
+  zone map 1416
+  accept 544
+
+step Prison Break In
+  when onquest 544
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1416
+  complete 544 @60.3,82.8
+
+step Prison Break In
+  when onquest 544
+  zone map 1416
+  turnin 544
+
+step Key to the City
+  zone map 1416
+  accept 93680
+
+step Key to the City
+  when onquest 93680
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1416
+  complete 93680 @60.3,82.8
+
+step Key to the City
+  when onquest 93680
+  zone map 1416
+  turnin 93680
+
+step Dalaran Patrols
+  when turnedin 544
+  when turnedin 93680
+  zone map 1416
+  accept 545
+
+step Dalaran Patrols
+  when onquest 545
+  zone map 1416
+  complete 545 @10.9,78.7
+
+step Dalaran Patrols
+  when onquest 545
+  zone map 1416
+  turnin 545
+
+step Blood in the Streets
+  when turnedin 545
+  when turnedin 93680
+  zone map 1416
+  accept 92434
+
+step Blood in the Streets
+  when onquest 92434
+  zone map 1421
+  complete 92434 @68.5,45.9
+
+step Blood in the Streets
+  when onquest 92434
+  zone map 1421
+  turnin 92434
+
+step Heart of Disruption
+  when turnedin 92434
+  zone map 1421
+  accept 96984
+
+step Heart of Disruption
+  when onquest 96984
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1421
+  complete 96984 @68.6,45.2
+
+step Heart of Disruption
+  when onquest 96984
+  zone map 1416
+  turnin 96984
+
+step Shrewd Negotiations
+  when turnedin 96984
+  zone map 1416
+  accept 97287
+
+step Shrewd Negotiations
+  when onquest 97287
+  zone map 1421
+  turnin 97287

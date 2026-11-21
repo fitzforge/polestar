@@ -1,0 +1,17 @@
+guide polestar-completionist-horde/dungeon-the-hall-of-thanes
+title The Hall of Thanes (Completionist)
+faction Horde
+category Dungeons
+levels 10-15
+zone Ironforge
+pitch The Hall of Thanes, in Ironforge.
+why Every Horde quest of The Hall of Thanes: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Ironforge: the arrow leads to it.
+
+step Inside The Hall of Thanes
+  zone Ironforge
+  accept 96395 @15.1,86
+  complete 96395 @15.1,86
+  turnin 96395 @15.1,86

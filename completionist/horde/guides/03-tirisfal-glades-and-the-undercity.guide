@@ -1,0 +1,589 @@
+guide polestar-completionist-horde/03-tirisfal-glades-and-the-undercity
+title 03 Tirisfal Glades and the Undercity (1-13) (Completionist)
+faction Horde
+levels 1-13
+zone Tirisfal Glades
+next polestar-completionist-horde/01-durotar-and-orgrimmar when !turnedin 809
+next polestar-completionist-horde/02-mulgore-and-thunder-bluff when !turnedin 93739
+next polestar-completionist-horde/04-zephras-isle when !turnedin 95349
+next polestar-completionist-horde/05-odd-jobs-in-kalimdor
+pitch Where Undead start. The other starting zones follow, then the route goes on by level.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 68 quests; estimated level at the end 15.3 (heuristic XP, class quests not counted).
+# Skipped: 2 objective N (talk N) outside the zones.
+
+step Calvin Montague
+  accept 8
+
+step Venya Marthand
+  only Warlock
+  accept 1470 only Undead
+
+step Welcome!
+  when has 14651
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1420
+  accept 5847 item 14651
+
+step Rattlecage Skeleton
+  only Warlock
+  collect 6281 x3 quest 1470.1 only Undead
+
+step Venya Marthand
+  only Warlock
+  turnin 1470 only Undead
+
+step Welcome!
+  when onquest 5847
+  zone map 1420
+  turnin 5847
+
+step Undertaker Mordo
+  accept 363 only Undead
+
+step Shadow Priest Sarvis
+  turnin 363 only Undead
+  accept 364
+
+step Mindless Zombie and Wretched Zombie
+  kill 1501 x8 quest 364.1
+  kill 1502 x8 quest 364.2
+
+step Novice Elreth
+  accept 376
+
+step Shadow Priest Sarvis
+  turnin 364
+  accept 3095 only Warrior,Undead
+  accept 3096 only Rogue,Undead
+  accept 3097 only Priest,Undead
+  accept 3098 only Mage,Undead
+  accept 3099 only Warlock,Undead
+  accept 3901
+  accept 98601 only Paladin,Undead
+
+step Maximillion
+  only Warlock
+  turnin 3099 only Undead
+
+step Aramis Hammerhand
+  only Paladin
+  turnin 98601 only Undead
+  accept 90902 only Undead
+
+step Isabella
+  only Mage
+  turnin 3098 only Undead
+
+step Dark Cleric Duesten
+  only Priest
+  turnin 3097 only Undead
+
+step David Trias
+  only Rogue
+  turnin 3096 only Undead
+
+step Dannal Stern
+  only Warrior
+  turnin 3095 only Undead
+
+step Mangy Duskbat
+  collect 3264 x6 quest 376.2
+
+step Rattlecage Skeleton
+  kill 1890 x12 quest 3901.1
+
+step Young Scavenger
+  collect 3265 x6 quest 376.1
+
+step Novice Elreth
+  turnin 376
+  accept 6395
+  turnin 3901
+  accept 98389
+  accept 3902
+  accept 380
+
+step Equipment Boxes
+  collect 11127 x6 quest 3902.1
+
+step Young Night Web Spider
+  kill 1504 x10 quest 380.1
+
+step Night Web Spider and Webbed Forsaken
+  kill 1505 x8 quest 380.2
+  kill 271961 x6 quest 98389.1
+
+step Marla's Grave and Injured Deathguard
+  interact 178090 quest 6395.1
+  kill 259377 x5 quest 90902.1 only Paladin,Undead
+
+step Deathguard Saltain
+  turnin 3902
+  turnin 90902 only Paladin,Undead
+  turnin 98389
+  turnin 6395
+  turnin 380
+  accept 381
+
+step Continue Your Training
+  only Paladin,Undead
+  zone map 1420
+  accept 91209 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 91209 @31.0,66.2 optional
+
+step Coming to Terms
+  only Paladin,Undead
+  zone map 1420
+  accept 91208 optional
+  tip A class quest, done from the quest text: the reference data does not route it.
+  complete 91208 @31.0,66.2 optional
+
+step Scarlet Convert
+  collect 3266 x12 quest 381.1
+
+step Executor Arren
+  turnin 381
+  accept 382
+
+step Coming to Terms
+  only Paladin,Undead
+  turnin 91208 optional
+
+step Meven Korgal
+  collect 2885 x1 quest 382.1
+
+step Executor Arren
+  turnin 382
+  accept 383
+  accept 96656 only Undead
+
+step Deathguard Simmer
+  accept 365
+
+step Tirisfal Pumpkin
+  collect 2846 x10 quest 365.1
+
+step Gordo
+  accept 5481
+
+step Gloom Weed
+  collect 12737 x3 quest 5481.1
+
+step Junior Apothecary Holland
+  sethome "Gallows' End Tavern"
+  turnin 5481
+  accept 5482
+
+step Dark Cleric Duesten
+  only Priest
+  zone Tirisfal Glades
+  accept 5651 only Undead
+
+step Deathguard Bartholomew
+  accept 86784
+
+step Continue Your Training
+  only Paladin,Undead
+  turnin 91209 optional
+
+step Discipline
+  zone map 1420
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 99134
+  complete 99134 @60.6,51.8
+
+step Doom Weed
+  collect 13702 x10 quest 5482.1
+
+step Dry Branch
+  collect 279991 x6 quest 86784.1
+
+step Junior Apothecary Holland
+  turnin 5482
+  accept 99142
+  accept 404
+
+step Discipline
+  turnin 99134
+
+step Ravaged Corpse
+  collect 2855 x7 quest 404.1
+
+step Eleanor Shackleton
+  turnin 86784
+  turnin 96656 only Undead
+
+step The Great Outdoors
+  zone map 1420
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 96607
+  complete 96607 @57.3,55.5
+
+step The Great Outdoors
+  turnin 96607
+
+step Shelene Rhobart
+  accept 97558
+
+step Vampiric Duskbat
+  collect 278242 x8 quest 97558.1
+
+step Cursed Darkhound
+  collect 278243 x6 quest 97558.2
+
+step Tomb Weed
+  collect 286204 x5 quest 99142.1
+
+step Dark Cleric Beryl
+  only Priest
+  turnin 5651 only Undead
+  accept 5650 only Undead
+
+step Innkeeper Renee
+  turnin 8
+  turnin 383
+  accept 427
+  accept 99141
+  accept 398
+  accept 358
+
+step Rot Hide Mongrel and Maggot Eye
+  kill 1675 x5 quest 358.2
+  collect 3635 x1 quest 398.1
+
+step Deathguard Kel
+  only Priest
+  kill 12428 x1 quest 5650.1 only Undead
+
+step Gretchen Dedmar
+  zone Tirisfal Glades
+  accept 375
+
+step Coleman Farthing
+  zone Tirisfal Glades
+  accept 362
+
+step Coleman Farthing
+  zone Tirisfal Glades
+  accept 354
+
+step Junior Apothecary Holland
+  turnin 99142
+
+step Rot Hide Graverobber
+  kill 1941 x8 quest 358.1
+  collect 2834 x8 quest 358.3
+
+step Nissa Agamand
+  collect 2828 x1 quest 354.2
+
+step Devlin Agamand
+  collect 2831 x1 quest 362.1
+
+step Gregor Agamand
+  collect 2829 x1 quest 354.1
+
+step Thurman Agamand
+  collect 2830 x1 quest 354.3
+
+step Vile Fin Minor Oracle
+  collect 278244 x3 quest 97558.3
+
+step Scarlet Warrior
+  kill 1535 x10 quest 427.1
+
+step Gordo
+  collect 286202 x1 quest 99141.3
+
+step Deathguard Dillinger
+  collect 286200 x1 quest 99141.1
+
+step Deathguard Dillinger
+  turnin 404
+  accept 426
+  accept 95314
+  turnin 365
+  accept 367
+  accept 407
+
+step Executor Zygand
+  turnin 398
+  turnin 427
+  accept 370
+  accept 374
+
+step Level 10
+  level 10
+
+step Deathguard Terrence
+  zone Tirisfal Glades
+  accept 96895
+
+step Hadric Harlson
+  zone Tirisfal Glades
+  turnin 96895
+
+step Hadric Harlson
+  zone Tirisfal Glades
+  accept 96898
+
+step Hadric Harlson
+  zone Tirisfal Glades
+  accept 96897
+
+step Dark Cleric Beryl
+  only Priest
+  turnin 5650 only Undead
+
+step Coleman Farthing
+  turnin 354
+  turnin 362
+  accept 355
+  turnin 407
+
+step Magistrate Sevren
+  turnin 355
+  turnin 358
+  accept 359
+  accept 405
+  accept 408
+
+step Apothecary Johaan
+  zone Tirisfal Glades
+  accept 445
+
+step Wailing Ancestor, Rotting Ancestor and Captain Dargol
+  kill 1534 x8 quest 408.1
+  kill 1530 x8 quest 408.2
+  collect 3082 x1 quest 408.3
+
+step Cracked Skull Soldier
+  collect 3162 x5 quest 426.1
+
+step Darkeye Bonecaster
+  collect 3163 x3 quest 426.2
+
+step Bottle
+  collect 268801 x8 quest 95314.1
+
+step Banalash
+  zone Swamp of Sorrows
+  buy 2320 x1 npc 989 -- for The Chill of Death
+
+step Vampiric Duskbat
+  zone Tirisfal Glades
+  collect 2876 x5 quest 375.1
+
+step Scarlet Zealot
+  zone Western Plaguelands
+  kill 1537 x3 quest 370.2
+  collect 2875 x10 quest 374.1
+
+step Ravenous Darkhound
+  zone Tirisfal Glades
+  collect 2858 x5 quest 367.1
+
+step Dark Neophyte
+  kill 267006 x8 quest 96897.1
+
+step Naxxramas Crystal Fragment
+  collect 275851 x12 quest 96898.1
+
+step Dark Enforcer
+  kill 275437 x8 quest 96897.2
+
+step Hadric Harlson
+  turnin 96897
+  turnin 96898
+  accept 96899
+  turnin 359
+  accept 360
+  turnin 97558
+
+step Deathguard Kristof
+  collect 286201 x1 quest 99141.2
+
+step Captain Perrine and Scarlet Missionary
+  kill 1662 x1 quest 370.1
+  kill 1536 x3 quest 370.3
+
+step Deathguard Dillinger
+  turnin 426
+  turnin 95314
+  turnin 367
+  accept 368
+  turnin 370
+  turnin 99141
+  accept 371
+  turnin 374
+
+step Magistrate Sevren
+  turnin 360
+  turnin 408
+
+step Vile Fin Puddlejumper
+  collect 2859 x5 quest 368.1
+
+step Scarlet Friar
+  kill 1538 x5 quest 371.2
+
+step Captain Vachon
+  kill 1664 x1 quest 371.1
+
+step Undercity
+  zone Undercity
+  getfp "Undercity"
+
+step Bethor Iceshard
+  zone Undercity
+  turnin 405
+  accept 357
+
+step Gunther's Books
+  zone Tirisfal Glades
+  collect 2833 x1 quest 357.1
+
+step Gretchen Dedmar
+  turnin 375
+  turnin 371
+  accept 372
+  turnin 368
+  accept 369
+
+step Vicious Night Web Spider
+  collect 2872 x4 quest 369.1
+
+step Captain Melrache and Scarlet Bodyguard
+  kill 1665 x1 quest 372.1
+  kill 1660 x2 quest 372.2
+
+step Executor Zygand
+  turnin 372
+  turnin 369
+  accept 492
+  turnin 492
+
+step Bethor Iceshard
+  zone Undercity
+  turnin 357
+  accept 366
+
+step Gunther Arcanus
+  zone Tirisfal Glades
+  turnin 366
+  accept 409
+
+step Candles of Beckoning
+  when onquest 409
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1420
+  turnin 431 direct optional
+
+step The Dormant Shade
+  when onquest 409
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1420
+  collect 3080 x1 anywhere optional
+  turnin 410 direct optional
+
+step Lillith Nefara
+  kill 1946 x1 quest 409.1
+
+step Gunther Arcanus
+  turnin 409
+  accept 411
+
+step Bethor Iceshard
+  zone Undercity
+  turnin 411
+
+step Calvin Montague
+  zone Tirisfal Glades
+  accept 590
+
+step Calvin Montague and Defeat Calvin Montague
+  kill 6784 x1 quest 590.1
+  goto 38.2,56.7 "Defeat Calvin Montague" -- Explore for A Rogue's Deal
+
+step Calvin Montague
+  turnin 590
+
+step Leonid Barthalomew the Revered
+  turnin 96899
+  accept 96896
+  turnin 96896
+
+step Leonid Barthalomew the Revered
+  zone Tirisfal Glades
+  accept 98545
+  accept 99152
+
+step Seeking Refuge
+  zone map 1420
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 99144
+  complete 99144 @32.0,46.4
+
+step Seeking Refuge
+  turnin 99144
+
+step Shadowvale Mystic
+  collect 286259 x6 quest 99152.1
+
+step Ephram Barbaro
+  accept 99153
+
+step Glowing Crystal Fragment
+  collect 286269 x1 quest 99153.1
+
+step Ephram Barbaro
+  turnin 99153
+  turnin 99152
+
+step A Letter Undelivered
+  tip A Letter to Yvette drops from Darkeye Bonecaster, Rattlecage Soldier, Cracked Skull Soldier: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1420
+  collect 2839 x1 optional
+  accept 361 item 2839 optional
+
+step Whispering Horror Residue
+  tip Whispering Horror Residue drops from Whispering Horror: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1420
+  collect 268812 x1 optional
+  accept 95328 item 268812 optional
+  complete 95328 @49.1,14.6
+
+step Whispering Horror Residue
+  when onquest 95328
+  zone map 1458
+  turnin 95328
+
+step A Letter Undelivered
+  when onquest 361
+  zone map 1420
+  turnin 361
+
+step Apothecary Renferrel
+  zone Silverpine Forest
+  turnin 445
+
+step Glix Xizzix
+  zone Undercity
+  turnin 98545
+
+step WRIGGLE.
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1458
+  collect 278265 x1 anywhere optional
+  turnin 97583 direct optional
+
+step Ruzan
+  zone Durotar
+  only Warlock
+  accept 1499
+
+step Zureetha Fargaze
+  only Warlock
+  turnin 1499

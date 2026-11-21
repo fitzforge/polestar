@@ -1,0 +1,340 @@
+guide polestar-completionist-horde/13-the-barrens-2
+title 13 The Barrens (23-35) (Completionist)
+faction Horde
+levels 23-35
+zone The Barrens
+next polestar-completionist-horde/dungeon-razorfen-kraul
+next polestar-completionist-horde/14-hillsbrad-foothills-and-alterac-mountains
+pitch On along the line: The Barrens, quests of level 23 to 35.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 32 quests; estimated level at the end 25.5 (heuristic XP, class quests not counted).
+
+step Mangletooth
+  sethome "Camp Taurajo"
+  accept 879
+
+step Grunt Logmar
+  when group 97250
+  zone The Barrens
+  accept 97250
+
+step Jorn Skyseer
+  accept 874
+  accept 1130
+
+step Encroaching Soldier and Outraged Pillager
+  when group 97250
+  zone The Barrens
+  tip Wrongly Blamed, Justly Corrected is group work: elites. Grouping up is advised.
+  kill 268622 x1 quest 97250.1
+  kill 268623 x1 quest 97250.2
+
+step Sulhasa
+  accept 98093
+
+step Hecklefang Stalker
+  kill 4128 x7 quest 98093.1
+
+step Stormhide
+  kill 3238 x7 quest 98093.2
+
+step Kuz
+  collect 5074 x1 quest 879.1
+
+step Nak
+  collect 5073 x1 quest 879.2
+
+step Washte Pawne
+  goto 43.2,80.9 "Washte Pawne"
+  accept 885 item 5103 -- Drops from Washte Pawne
+
+step Lok Orcbane
+  collect 5072 x1 quest 879.3
+
+step Silithid Harvester
+  goto 42.0,70.0 "Silithid Harvester"
+  accept 897 item 5138 -- Drops from Silithid Harvester
+
+step Owatanka
+  goto 44.2,62.0 "Owatanka"
+  accept 884 item 5102 -- Drops from Owatanka
+
+step Mangletooth
+  turnin 879
+  accept 906
+
+step Grunt Logmar
+  when group 97250
+  zone The Barrens
+  turnin 97250
+
+step Jorn Skyseer
+  turnin 884
+  turnin 885
+  turnin 897
+  accept 893
+
+step Razormane Warfrenzy
+  collect 5094 x1 quest 893.3
+
+step Razormane Seer
+  collect 5092 x1 quest 893.2
+
+step Razormane Pathfinder
+  collect 5093 x1 quest 893.1
+
+step Gann Stonespire
+  accept 843
+
+step Bael'dun Excavator, Bael'dun Foreman and Prospector Khazgorm
+  kill 3374 x15 quest 843.1
+  kill 3375 x5 quest 843.2
+  collect 5006 x1 quest 843.3
+
+step Feegly the Exiled
+  accept 857
+
+step General Twinbraid's Strongbox
+  collect 5038 x1 quest 857.1
+
+step Feegly the Exiled
+  turnin 857
+
+step Sulhasa
+  turnin 98093
+  turnin 843
+  accept 846
+
+step Bael'dun Soldier
+  zone Dustwallow Marsh
+  collect 5017 x6 quest 846.1
+  collect 5018 x6 quest 846.2
+  collect 5019 x6 quest 846.3
+
+step Gann Stonespire
+  zone The Barrens
+  turnin 846
+  accept 849
+
+step Bael Modan Flying Machine
+  interact 3644 quest 849.1
+
+step Brave Moonhorn
+  accept 4542
+
+step Cliffwatcher Longhorn
+  turnin 4542
+
+step Gann Stonespire
+  zone The Barrens
+  turnin 849
+
+step Nailed Plank
+  accept 79192 object 417072
+
+step Level 30
+  level 30
+
+step Black Shield
+  zone The Barrens
+  accept 1251
+
+step Krog
+  zone The Barrens
+  turnin 1251
+
+step Krog
+  zone The Barrens
+  accept 1321
+
+step Do'gol
+  zone The Barrens
+  turnin 1321
+
+step Hoofprints
+  zone The Barrens
+  accept 1268 object 21015
+
+step Krog
+  zone The Barrens
+  turnin 1268
+
+step Nazeer Bloodpike
+  zone The Barrens
+  accept 1201
+
+step Theramore Infiltrator
+  zone Dustwallow Marsh
+  kill 4834 x9 quest 1201.1
+
+step Nazeer Bloodpike
+  zone The Barrens
+  turnin 1201
+
+step Lakota Windsong
+  zone The Barrens
+  accept 4904
+
+step Thalia Amberhide
+  zone The Barrens
+  complete 4904 @30.9,37.1 map 1441
+  turnin 4904
+
+step Nazeer Bloodpike
+  zone The Barrens
+  accept 1202
+
+step Captain's Footlocker
+  zone Dustwallow Marsh
+  collect 5882 x1 quest 1202.1
+
+step Nazeer Bloodpike
+  zone The Barrens
+  turnin 1202
+
+step Tatternack Steelforge
+  turnin 893
+  accept 1153
+
+step Gravelsnout Surveyor
+  zone Thousand Needles
+  collect 5842 x1 quest 1153.1
+
+step Tatternack Steelforge
+  zone The Barrens
+  turnin 1153
+
+step Falla Sagewind
+  accept 3369
+
+step The Glowing Shard
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1413
+  turnin 3366 direct
+
+step Thork
+  turnin 906
+  accept 1145
+
+step Dig Rat Stew
+  when skill Cooking 1
+  zone map 1413
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 862 optional
+  complete 862 @55.3,31.8 optional
+
+step Dig Rat Stew
+  when skill Cooking 1
+  turnin 862 optional
+
+step Sputtervalve
+  accept 1095
+
+step Chen's Empty Keg
+  when turnedin 821
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 4898 x5 anywhere optional
+  collect 4897 x1 anywhere optional
+  collect 4896 x1 anywhere optional
+  turnin 822 direct optional
+
+step Mahren Skyseer
+  turnin 874
+  accept 873
+
+step Isha Awak
+  collect 5104 x1 quest 873.1
+
+step Mahren Skyseer
+  turnin 873
+
+step Kadrak
+  when group 3514
+  zone The Barrens
+  accept 3514
+
+step Rynthariel the Keymaster
+  when group 3514
+  zone Stonetalon Mountains
+  tip Horde Presence is group work: elites. Grouping up is advised.
+  kill 8518 x1 quest 3514.1
+
+step Pocket Litter
+  turnin 79192
+  accept 79980
+  turnin 79980
+  accept 79974
+
+step Ziz Fizziks
+  turnin 1095
+  accept 1096
+
+step Gerenzo Wrenchwhistle
+  collect 5736 x1 quest 1096.1
+
+step Ziz Fizziks
+  turnin 1096
+
+step Seereth Stonebreak
+  zone The Barrens
+  accept 1068
+
+step XT:9
+  zone Stonetalon Mountains
+  kill 4074 x1 quest 1068.2
+
+step XT:4
+  kill 4073 x1 quest 1068.1
+
+step Seereth Stonebreak
+  zone The Barrens
+  turnin 1068
+
+step Quell the Silverwing Usurpers
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 20558 x1 anywhere optional
+  turnin 7789 direct optional
+
+step Mark of Honor
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 19322 x1 anywhere optional
+  turnin 7924 direct optional
+
+step Outrider Basic Care Package
+  tip Needs Friendly standing (3000) with Warsong Outriders; without it the quest is not offered.
+  zone map 1413
+  accept 7866 optional
+
+step Mark of Honor
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1413
+  collect 19322 x1 anywhere optional
+  turnin 7925 direct optional
+
+step Outrider Basic Care Package
+  when onquest 7866
+  zone map 1413
+  turnin 7866 optional
+
+step Arch Druid Hamuul Runetotem
+  zone Thunder Bluff
+  turnin 3369
+
+step Melor Stonehoof
+  turnin 1130
+
+step Kadrak
+  when group 3514
+  zone The Barrens
+  turnin 3514
+
+step Belgrom Rockmaul
+  zone Orgrimmar
+  turnin 1145
+
+step Carved Figurine
+  zone Loch Modan
+  turnin 79974

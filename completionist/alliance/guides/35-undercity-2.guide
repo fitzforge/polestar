@@ -1,0 +1,119 @@
+guide polestar-completionist-alliance/35-undercity-2
+title 35 Undercity (35-45) (Completionist)
+faction Alliance
+levels 35-45
+zone Undercity
+next polestar-completionist-alliance/dungeon-scarlet-monastery
+next polestar-completionist-alliance/36-elwynn-forest-and-stormwind-4
+pitch On along the line: Undercity, quests of level 35 to 45.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 17 quests; estimated level at the end 35.2 (heuristic XP, class quests not counted).
+
+step Garion Wendell
+  zone Stormwind City
+  accept 79535 npc 211033
+  accept 79536
+  accept 79947 npc 211033
+  accept 79948 npc 211033
+  accept 79949 npc 211033
+  accept 79950 npc 211033
+  accept 79951 npc 211033
+  accept 79952 npc 211033
+  accept 81947 npc 211033
+  accept 81949 npc 211033
+  accept 81951 npc 211033
+  accept 81952 npc 211033
+  accept 81953 npc 211033
+  accept 81954 npc 211033
+  accept 81955 npc 211033
+  accept 81956 npc 211033
+  turnin 79536
+  accept 82208
+  turnin 82208
+
+step A Ludite's Guide to Caring for Your Demonic Pet
+  zone map 1458
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 79953
+  complete 79953 @73.4,33
+
+step Research Notes
+  zone Stranglethorn Vale
+  collect 213165 x1 quest 79535.1
+
+step Book
+  zone Blasted Lands
+  collect 220353 x1 quest 81956.1
+
+step Book
+  zone Swamp of Sorrows
+  collect 220345 x1 quest 81947.1
+
+step Book
+  zone Azshara
+  collect 220348 x1 quest 81952.1
+
+step Mysterious Book
+  zone Desolace
+  collect 215817 x1 quest 79950.1
+
+step Book
+  zone Feralas
+  collect 220347 x1 quest 81951.1
+
+step Scrolls
+  zone Thousand Needles
+  collect 215683 x1 quest 79947.1
+
+step Waterlogged Book
+  zone Dustwallow Marsh
+  collect 215822 x1 quest 79952.1
+
+step Book
+  zone Tanaris
+  collect 220346 x1 quest 81949.1
+
+step Manual
+  zone Alterac Mountains
+  collect 215815 x1 quest 79948.1
+
+step Book
+  zone The Hinterlands
+  collect 220350 x1 quest 81954.1
+
+step Scrolls
+  zone Arathi Highlands
+  collect 215816 x1 quest 79949.1
+
+step Scrolls
+  zone Badlands
+  collect 215820 x1 quest 79951.1
+
+step Book
+  zone Searing Gorge
+  collect 220352 x1 quest 81955.1
+
+step Book
+  zone Burning Steppes
+  collect 220349 x1 quest 81953.1
+
+step Garion Wendell
+  zone Stormwind City
+  turnin 79535
+  turnin 79947
+  turnin 79948
+  turnin 79949
+  turnin 79950
+  turnin 79951
+  turnin 79952
+  turnin 81947
+  turnin 81949
+  turnin 81951
+  turnin 81952
+  turnin 81953
+  turnin 81954
+  turnin 81955
+  turnin 81956
+
+step A Ludite's Guide to Caring for Your Demonic Pet
+  turnin 79953

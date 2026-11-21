@@ -1,0 +1,184 @@
+guide polestar-completionist-alliance/raid-molten-core
+title Molten Core (Completionist)
+faction Alliance
+category Dungeons
+levels 60-60
+zone Searing Gorge
+pitch Molten Core, in Searing Gorge. A raid.
+why Every Alliance quest of Molten Core: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Searing Gorge: the arrow leads to it. This is a raid: it needs a raid group.
+
+step Examine the Vessel
+  tip This quest starts from an item: use it to take the quest.
+  collect 19016 x1 anywhere
+  accept 7785 item 19016
+
+step Examine the Vessel
+  zone Feralas
+  turnin 7785
+
+step What Tomorrow Brings
+  zone Silithus
+  accept 8286
+
+step What Tomorrow Brings
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Silithus
+  complete 8286 @49.45,36.45
+
+step What Tomorrow Brings
+  zone Silithus
+  turnin 8286
+
+step Only One May Rise
+  zone Silithus
+  accept 8288
+
+step Only One May Rise
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Silithus
+  complete 8288 @49.45,36.45
+
+step Only One May Rise
+  zone Silithus
+  turnin 8288
+
+step The Path of the Righteous
+  zone Silithus
+  accept 8301
+
+step The Path of the Righteous
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Silithus
+  complete 8301 @49.45,36.45
+
+step The Path of the Righteous
+  zone Silithus
+  turnin 8301
+
+step Anachronos
+  zone Silithus
+  accept 8303
+
+step Anachronos
+  zone Tanaris
+  turnin 8303
+
+step Long Forgotten Memories
+  zone Tanaris
+  accept 8305
+
+step Long Forgotten Memories
+  zone Silithus
+  turnin 8305
+
+step A Pawn on the Eternal Board
+  zone Silithus
+  accept 8519
+
+step A Pawn on the Eternal Board
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Silithus
+  complete 8519 @28.68,89.14
+
+step A Pawn on the Eternal Board
+  zone Tanaris
+  turnin 8519
+
+step The Charge of the Dragonflights
+  zone Tanaris
+  accept 8555
+
+step The Charge of the Dragonflights
+  zone Tanaris
+  turnin 8555
+
+step Azuregos's Magical Ledger
+  zone Azshara
+  accept 8575
+
+step Azuregos's Magical Ledger
+  zone Tanaris
+  turnin 8575
+
+step Translating the Ledger
+  zone Tanaris
+  accept 8576
+
+step Translating the Ledger
+  zone Tanaris
+  turnin 8576
+
+step Stewvul, Ex-B.F.F.
+  zone Tanaris
+  accept 8577
+
+step Stewvul, Ex-B.F.F.
+  zone Silverpine Forest
+  turnin 8577
+
+step Lokhtos Darkbargainer
+  zone Searing Gorge
+  accept 6642 @34.8,85.3
+  accept 6643 @34.8,85.3
+  accept 6644 @34.8,85.3
+  accept 6645 @34.8,85.3
+  accept 6646 @34.8,85.3
+
+step Inconspicuous Crate
+  zone Silverpine Forest
+  accept 8578
+
+step Highlord Demitrian
+  zone Feralas
+  accept 7786
+
+step Inside Molten Core
+  zone Searing Gorge
+  complete 6642 @34.8,85.3
+  complete 6643 @34.8,85.3
+  complete 6644 @34.8,85.3
+  complete 6645 @34.8,85.3
+  complete 6646 @34.8,85.3
+  complete 7786 @34.8,85.3
+  complete 8578 @34.8,85.3
+
+step Inside Molten Core
+  only Hunter
+  zone Searing Gorge
+  collect 18703 @34.8,85.3
+  accept 7632 item 18703
+
+step Lokhtos Darkbargainer
+  zone Searing Gorge
+  turnin 6642 @34.8,85.3
+  turnin 6643 @34.8,85.3
+  turnin 6644 @34.8,85.3
+  turnin 6645 @34.8,85.3
+  turnin 6646 @34.8,85.3
+
+step Highlord Demitrian
+  zone Feralas
+  turnin 7786
+
+step Rise, Thunderfury!
+  when has 19018
+  tip Dormant Wind Kissed Blade drops from Prince Thunderaan; the reference data does not place that, so no arrow leads there.
+  zone map 1444
+  accept 7787 item 19018
+
+step Rise, Thunderfury!
+  when onquest 7787
+  zone map 1444
+  turnin 7787
+
+step Narain Soothfancy
+  zone Tanaris
+  turnin 8578
+
+step Vartrus the Ancient
+  only Hunter
+  zone Felwood
+  turnin 7632

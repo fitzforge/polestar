@@ -1,0 +1,50 @@
+guide polestar-completionist-alliance/attune-dread-citadel
+title The Dread Citadel (Naxxramas attunement) (Completionist)
+faction Alliance
+levels 60-60
+category Dungeons
+zone Eastern Plaguelands
+pitch The Dread Citadel: Everyone entering Naxxramas needs it; which of the three quests you take depends on your standing with the Argent Dawn.
+why Everyone entering Naxxramas needs it; which of the three quests you take depends on your standing with the Argent Dawn.
+
+
+
+
+step The Dread Citadel - Naxxramas
+  zone map 1423
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 9121
+  complete 9121 @71.7,48.7
+
+step The Dread Citadel - Naxxramas
+  turnin 9121
+
+step The Dread Citadel - Naxxramas
+  when available 9122
+  tip One of several exclusive quests; the route takes The Dread Citadel - Naxxramas (9121). This one shows for a character the game offers it to instead.
+  tip Needs Revered standing (21000) with Argent Dawn; without it the quest is not offered.
+  zone map 1423
+  accept 9122 optional
+
+step The Dread Citadel - Naxxramas
+  when onquest 9122
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1423
+  complete 9122 @71.7,48.7 optional
+
+step The Dread Citadel - Naxxramas
+  when onquest 9122
+  zone map 1423
+  turnin 9122 optional
+
+step The Dread Citadel - Naxxramas
+  when available 9123
+  tip One of several exclusive quests; the route takes The Dread Citadel - Naxxramas (9121). This one shows for a character the game offers it to instead.
+  tip Needs Exalted standing (42000) with Argent Dawn; without it the quest is not offered.
+  zone map 1423
+  accept 9123 optional
+
+step The Dread Citadel - Naxxramas
+  when onquest 9123
+  zone map 1423
+  turnin 9123 optional

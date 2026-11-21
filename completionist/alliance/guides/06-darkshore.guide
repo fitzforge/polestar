@@ -1,0 +1,537 @@
+guide polestar-completionist-alliance/06-darkshore
+title 06 Darkshore (10-22) (Completionist)
+faction Alliance
+levels 10-22
+zone Darkshore
+next polestar-completionist-alliance/07-the-barrens
+pitch On along the line: Darkshore, quests of level 10 to 22.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 65 quests; estimated level at the end 17.9 (heuristic XP, class quests not counted).
+# Skipped: 1 exclusive with N.
+
+step Laird
+  sethome "Auberdine"
+  getfp "Auberdine"
+  accept 6343 only NightElf
+  accept 983
+  accept 98025
+
+step The Family and the Fishing Pole
+  zone map 1439
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 1141
+  complete 1141 @36.1,44.9
+
+step Gaffer Jacks
+  when skill Fishing 1
+  zone map 1439
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 1579 optional
+  complete 1579 @37.0,44.1 optional
+
+step Thundris Windweaver
+  accept 954
+  accept 958
+
+step Easy Strider Living
+  when skill Cooking 1
+  zone map 1439
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 2178 optional
+  complete 2178 @37.7,40.7 optional
+
+step Level 11
+  level 11
+
+step Gwennyth Bly'Leggonde
+  zone Darkshore
+  accept 3524
+
+step The Family and the Fishing Pole
+  turnin 1141
+
+step Gaffer Jacks
+  when skill Fishing 1
+  turnin 1579 optional
+
+step Level 15
+  level 15
+
+step Gubber Blump
+  zone Darkshore
+  accept 1138
+
+step Electropellers
+  when skill Fishing 1
+  zone map 1439
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 1580 optional
+  complete 1580 @37.0,44.1 optional
+
+step Reef Crawler
+  zone Darkshore
+  collect 12237 x6 quest 1138.1
+
+step WANTED: Murkdeep!
+  zone Darkshore
+  accept 4740
+
+step Electropellers
+  when skill Fishing 1
+  turnin 1580 optional
+
+step Barithras Moonshade
+  zone Darkshore
+  accept 947
+
+step Easy Strider Living
+  when skill Cooking 1
+  turnin 2178 optional
+
+step Sentinel Glynda Nal'Shea
+  zone Darkshore
+  accept 4811
+
+step Level 18
+  level 18
+
+step Archaeologist Hollee
+  zone Darkshore
+  accept 98461
+
+step Gorbold Steelhand
+  zone Darkshore
+  accept 982
+
+step Silver Dawning's Lockbox
+  zone Darkshore
+  collect 12191 x1 quest 982.1
+
+step Mist Veil's Lockbox
+  zone Darkshore
+  collect 12192 x1 quest 982.2
+
+step Thundris Windweaver
+  zone Darkshore
+  accept 97914
+
+step Archaeologist Hollee
+  zone Darkshore
+  accept 729
+
+step Scaber Stalk and Death Cap
+  collect 5271 x5 quest 947.1
+  collect 5270 x1 quest 947.2
+
+step Asterion
+  turnin 954
+  accept 955
+
+step Vile Sprite
+  collect 5336 x8 quest 955.1
+
+step Mysterious Red Crystal and Locate the large, red crystal on Darkshore's eastern mountain range
+  interact 175524 quest 4811.1
+  goto 47.2,48.7 "Locate the large, red crystal on Darkshore's eastern mountain range" -- Explore for The Red Crystal
+
+step Jai'vhanel
+  collect 281038 x1 quest 98025.1
+
+step Wailing Highborne
+  collect 5360 x7 quest 958.1
+
+step Murkdeep
+  kill 10323 x1 quest 4740.1
+
+step Raging Reef Crawler
+  collect 5385 x6 quest 983.1
+
+step Beached Sea Creature
+  collect 12242 x1 quest 3524.1
+
+step Buzzbox 827
+  turnin 983
+  accept 1001
+  turnin 3524
+  accept 4681
+  turnin 1138
+  accept 963
+
+step Skeletal Sea Turtle
+  collect 12289 x1 quest 4681.1
+
+step Sentinel Tysha Moonblade
+  accept 953
+
+step Anaya Dawnrunner
+  collect 5382 x1 quest 963.1
+
+step The Fall of Ameth'Aran
+  interact 17189 quest 953.2
+
+step The Lay of Ameth'Aran
+  interact 17188 quest 953.1
+
+step Elder Darkshore Thresher
+  collect 5412 x3 quest 1001.1
+
+step Gelkak Gyromast
+  accept 2098
+
+step Greymist Tidehunter
+  collect 7499 x1 quest 2098.2
+
+step Sentinel Tysha Moonblade
+  turnin 953
+
+step Raging Reef Crawler
+  collect 7500 x1 quest 2098.3
+
+step Giant Foreststrider
+  collect 7498 x1 quest 2098.1
+
+step Therylune
+  accept 945
+
+step Prospector Remtravel
+  turnin 729
+  accept 731
+
+step Kerlonian Evershade
+  accept 5321
+
+step Corrupted Night Dragon
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1439
+  collect 11516 x4 anywhere optional
+  turnin 4462 direct optional
+
+step Corrupted Windblossom
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1439
+  collect 11516 x2 anywhere optional
+  turnin 4222 direct optional
+
+step Sentinel Aynasha
+  accept 5713
+
+step Liladris Moonriver
+  zone Ashenvale
+  complete 5321 @41.6,89.9 map 1439
+  turnin 5321
+  complete 5713 @45.9,90.4 map 1439
+  turnin 5713
+
+step Therysil
+  complete 945 @40.5,87.1 map 1439
+  turnin 945
+
+step Gwennyth Bly'Leggonde
+  zone Darkshore
+  turnin 4681
+  turnin 947
+  accept 948
+  turnin 4740
+  complete 4811 @47.2,48.7 map 1439
+  turnin 4811
+  turnin 98025
+  accept 4812
+
+step Auberdine Moonwell
+  collect 14339 x1 quest 4812.1
+
+step Tharnariun Treetender
+  accept 2118
+  accept 965
+  accept 984
+
+step Rabid Thistle Bear
+  kill 2164 x1 quest 2118.1
+
+step Beached Sea Turtle
+  accept 4722
+
+step Beached Sea Creature
+  accept 4728
+
+step Beached Sea Creature
+  accept 4730
+
+step Beached Sea Turtle
+  accept 4731
+  accept 4732
+
+step Onu
+  turnin 948
+  accept 944
+
+step Scrying Bowl
+  turnin 944
+  accept 949
+  turnin 949
+  accept 950
+
+step Onu
+  turnin 950
+  accept 951
+
+step Onu is meditating
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1439
+  turnin 961 direct optional
+
+step Onu is meditating
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1439
+  turnin 960 direct optional
+
+step Mathystra Relic
+  collect 5273 x6 quest 951.1
+
+step Gelkak Gyromast
+  turnin 2098
+  accept 2078
+
+step The Threshwackonator 4100
+  kill 6669 x1 quest 2078.1
+
+step Gelkak Gyromast
+  turnin 2078
+
+step Beached Sea Turtle
+  accept 4727
+
+step Balthule Shadowstrike
+  turnin 965
+  accept 966
+
+step Baron Marinous
+  tip Clouded Water Globe drops from Baron Marinous: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1439
+  collect 279275 x1 optional
+  accept 98028 item 279275 optional
+
+step Dark Strand Fanatic
+  collect 5348 x4 quest 966.1
+
+step Balthule Shadowstrike
+  turnin 966
+  accept 967
+
+step Asterion
+  turnin 955
+  accept 956
+
+step Deth'ryll Satyr
+  collect 5338 x1 quest 956.1
+
+step Asterion
+  turnin 956
+  accept 957
+
+step Ancient Flame
+  interact 16393 quest 957.1
+
+step Onu
+  turnin 951
+  accept 98013
+
+step Baron Marinous
+  when onquest 98028
+  zone map 1439
+  turnin 98028
+
+step Stormscale Sorceress
+  kill 2182 x8 quest 98013.2
+
+step Stormscale Warrior
+  kill 2183 x6 quest 98013.3
+
+step Stormscale Myrmidon
+  kill 2181 x12 quest 98013.1
+
+step Buzzbox 411
+  turnin 1001
+  accept 1002
+
+step Arbal
+  turnin 98013
+
+step Moonstalker Sire
+  collect 5413 x6 quest 1002.1
+
+step Twilight Tome
+  accept 98042
+
+step Twilight Thug
+  collect 279279 x1 quest 98042.1
+
+step Delgren the Purifier
+  zone Ashenvale
+  turnin 967
+
+step Beached Sea Creature
+  zone Darkshore
+  accept 4733
+
+step Gwennyth Bly'Leggonde
+  turnin 4722
+  turnin 4727
+  turnin 4728
+  turnin 4730
+  turnin 4731
+  turnin 4732
+  turnin 4733
+
+step Archaeologist Hollee
+  complete 731 @35.7,84.0 map 1439
+  turnin 731
+  accept 741
+  turnin 982
+
+step Beached Sea Creature
+  accept 4723
+
+step Beached Sea Turtle
+  accept 4725
+
+step Buzzbox 323
+  turnin 1002
+  accept 1003
+
+step Mysterious Red Crystal
+  turnin 4812
+  accept 4813
+
+step Grizzled Thistle Bear
+  collect 5414 x4 quest 1003.1
+
+step Buzzbox 525
+  turnin 1003
+
+step Gwennyth Bly'Leggonde
+  turnin 4723
+  turnin 4725
+
+step Gwennyth Bly'Leggonde
+  zone Darkshore
+  accept 87760
+
+step Stormscale Beastmistress
+  zone Darkshore
+  collect 280686 x1 quest 87760.1
+
+step Gwennyth Bly'Leggonde
+  zone Darkshore
+  turnin 87760
+  turnin 963
+  turnin 4813
+
+step Tharnariun Treetender
+  turnin 2118
+  accept 2138
+  complete 984 @39.9,53.9 map 1439
+  turnin 984
+  accept 985
+  accept 4761
+
+step Blackwood Pathfinder and Blackwood Windtalker
+  kill 2167 x8 quest 985.1
+  kill 2324 x5 quest 985.2
+
+step Rabid Thistle Bear
+  kill 2164 x20 quest 2138.1
+
+step Tharnariun Treetender
+  turnin 2138
+  accept 2139
+  turnin 985
+  accept 986
+
+step Den Mother
+  kill 6788 x1 quest 2139.1
+
+step Moonstalker Sire
+  collect 5386 x5 quest 986.1
+
+step Terenthis
+  turnin 986
+  accept 993
+  turnin 2139
+
+step Thundris Windweaver
+  turnin 958
+  turnin 4761
+  turnin 98042
+  accept 4762
+
+step Cliffspring River Waterfall
+  collect 12349 x1 quest 4762.1
+
+step Asterion
+  turnin 957
+
+step Thundris Windweaver
+  turnin 4762
+  accept 4763
+
+step Xabraxxis' Demon Bag
+  collect 12355 x1 quest 4763.1
+
+step Thundris Windweaver
+  turnin 4763
+
+step Volcor
+  turnin 993
+  accept 994
+
+step Escape Through Stealth
+  when available 995
+  tip One of several exclusive quests; the route takes Escape Through Force (994). This one shows for a character the game offers it to instead.
+  zone map 1439
+  accept 995 optional
+
+step Terenthis
+  complete 994 @41.9,81.8 map 1439
+  turnin 994
+  accept 990
+
+step Corrupted Night Dragon
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1439
+  collect 11516 x4 anywhere optional
+  turnin 4448 direct optional
+
+step Escape Through Stealth
+  when onquest 995
+  zone map 1439
+  complete 995 @44.6,85 optional
+
+step Escape Through Stealth
+  when onquest 995
+  zone map 1439
+  turnin 995 optional
+
+step Nessa Shadowsong
+  zone Teldrassil
+  turnin 6343 only NightElf
+
+step Chief Archaeologist Greywhisker
+  zone Darnassus
+  turnin 741
+  accept 942
+
+step Raene Wolfrunner
+  zone Ashenvale
+  turnin 990
+
+step Baros Alexston
+  zone Stormwind City
+  turnin 97914
+
+step Archaeologist Flagongut
+  zone Wetlands
+  turnin 942
+
+step Tarrel Rockweaver
+  turnin 98461

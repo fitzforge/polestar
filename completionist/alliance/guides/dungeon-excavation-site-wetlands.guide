@@ -1,0 +1,195 @@
+guide polestar-completionist-alliance/dungeon-excavation-site-wetlands
+title Excavation Site: Wetlands (Completionist)
+faction Alliance
+category Dungeons
+levels 24-31
+zone Wetlands
+next polestar-completionist-alliance/23-odd-jobs-in-the-eastern-kingdoms-2
+pitch Excavation Site: Wetlands, in Wetlands.
+why Every Alliance quest of Excavation Site: Wetlands: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Wetlands: the arrow leads to it.
+
+step The Greenwarden
+  zone Wetlands
+  accept 463
+
+step The Greenwarden
+  zone Wetlands
+  turnin 463
+
+step Young Crocolisk Skins
+  zone Wetlands
+  accept 484
+
+step Young Crocolisk Skins
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Wetlands
+  complete 484 @8.55,55.74
+
+step Young Crocolisk Skins
+  zone Wetlands
+  turnin 484
+
+step Apprentice's Duties
+  zone map 1437
+  accept 471
+
+step Tramping Paws
+  zone Wetlands
+  accept 276
+
+step Tramping Paws
+  zone Wetlands
+  complete 276 @54.37,73.73
+
+step Tramping Paws
+  zone Wetlands
+  turnin 276
+
+step Fire Taboo
+  zone Wetlands
+  accept 277
+
+step Fire Taboo
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Wetlands
+  complete 277 @56.37,40.4
+
+step Fire Taboo
+  zone Wetlands
+  turnin 277
+
+step Blisters on The Land
+  zone Wetlands
+  accept 275
+
+step Blisters on The Land
+  zone Wetlands
+  complete 275 @18.52,27.74
+
+step Blisters on The Land
+  zone Wetlands
+  turnin 275
+
+step Carnage
+  zone map 1437
+  accept 98283
+
+step Caitlin Grassman
+  zone Wetlands
+  accept 95647
+
+step James Halloran
+  zone Wetlands
+  accept 98815
+
+step Apprentice's Duties
+  when onquest 471
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1437
+  complete 471 @8.6,55.7
+
+step Apprentice's Duties
+  when onquest 471
+  zone map 1437
+  turnin 471
+
+step Rethiel the Greenwarden
+  zone Wetlands
+  accept 95646
+
+step Carnage
+  when onquest 98283
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1437
+  complete 98283 @56.4,40.4
+
+step Carnage
+  when onquest 98283
+  zone map 1437
+  turnin 98283
+
+step Dorin Songblade
+  zone Redridge Mountains
+  accept 95772
+
+step Llana
+  zone Ashenvale
+  accept 95737
+
+step Inside Excavation Site: Wetlands
+  zone Wetlands
+  collect 270865 @50.8,61.1
+  accept 95810 item 270865
+  complete 98815 @50.8,61.1
+  complete 95646 @50.8,61.1
+  complete 95647 @50.8,61.1
+  turnin 95647 @50.8,61.1
+  turnin 95772 @50.8,61.1
+  complete 95810 @50.8,61.1
+
+step Caitlin Grassman
+  zone Wetlands
+  turnin 95737
+
+step James Halloran
+  zone Wetlands
+  turnin 98815
+
+step Crocs of the Sky
+  when turnedin 471
+  zone map 1437
+  accept 98072
+
+step Crocs of the Sky
+  when onquest 98072
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1437
+  complete 98072 @8.6,55.7
+
+step Crocs of the Sky
+  when onquest 98072
+  zone map 1437
+  turnin 98072
+
+step Prospector Whelgar
+  zone Wetlands
+  turnin 95810
+
+step Rethiel the Greenwarden
+  zone Wetlands
+  turnin 95646
+
+step Prospector Whelgar
+  zone Wetlands
+  accept 98824
+
+step Inside Excavation Site: Wetlands, again
+  zone Wetlands
+  accept 95795 @50.8,61.1
+  accept 95809 @50.8,61.1
+  complete 98824 @50.8,61.1
+
+step Caitlin Grassman
+  zone Wetlands
+  turnin 95809
+
+step Crimson Crate Delivery
+  when turnedin 98072
+  zone map 1437
+  accept 98240
+
+step Crimson Crate Delivery
+  when onquest 98240
+  zone map 1437
+  turnin 98240
+
+step Dorin Songblade
+  zone Redridge Mountains
+  turnin 95795
+
+step High Explorer Magellas
+  zone Ironforge
+  turnin 98824

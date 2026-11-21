@@ -1,0 +1,112 @@
+guide polestar-completionist-horde/15-duskwood
+title 15 Duskwood (27-27) (Completionist)
+faction Horde
+levels 27-27
+zone Duskwood
+next polestar-completionist-horde/dungeon-shadowfang-keep
+next polestar-completionist-horde/16-thousand-needles
+pitch On along the line: Duskwood, level 27 quests.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 13 quests; estimated level at the end 28.8 (heuristic XP, class quests not counted).
+
+step Field Captain Palandar
+  accept 81730
+  accept 81731
+  accept 81732
+  accept 81736
+  accept 81737
+  accept 81738
+  accept 81741
+  accept 81742
+  accept 81743
+  accept 81744
+  accept 81745
+  accept 81746
+  accept 81747
+  turnin 81745
+  turnin 81746
+  turnin 81747
+
+step Duskwood Mission XI: Cold Iron Ore
+  zone map 1431
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 81740
+  complete 81740 @45.4,51.2
+
+step Duskwood Mission X: Nightmare Moss
+  zone map 1431
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 81739
+  complete 81739 @45.4,51.2
+
+step Duskwood Mission XI: Cold Iron Ore
+  turnin 81740
+
+step Duskwood Mission VI: Dragon Intelligence
+  zone map 1431
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 81735
+  complete 81735 @45.4,51.2
+
+step Duskwood Mission X: Nightmare Moss
+  turnin 81739
+
+step Duskwood Mission V: Worgen Intelligence
+  zone map 1431
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 81734
+  complete 81734 @45.4,51.2
+
+step Duskwood Mission VI: Dragon Intelligence
+  turnin 81735
+
+step Duskwood Mission IV: Ogre Intelligence
+  zone map 1431
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 81733
+  complete 81733 @45.4,51.2
+
+step Duskwood Mission V: Worgen Intelligence
+  turnin 81734
+
+step Nightmare Runner and Mysterious Box
+  kill 221171 x10 quest 81730.1
+  collect 219404 x1 quest 81736.1
+
+step Nightmare Weaver
+  kill 221172 x10 quest 81730.2
+
+step Amokarok
+  kill 221207 x1 quest 81744.1
+
+step Wyrmkin Terrorwalker and Nightterror Whelp
+  kill 221200 x3 quest 81732.1
+  kill 221176 x10 quest 81732.2
+  collect 219402 x10 quest 81741.1
+
+step Unhatched Green Dragon Egg and Ylanthrius
+  collect 219406 x1 quest 81738.1
+  kill 221204 x1 quest 81742.1
+
+step Vvarc' Zul
+  kill 221206 x1 quest 81743.1
+
+step Deranged Ogre, Demented Fire Weaver and Ogre Magi Text
+  kill 221174 x3 quest 81731.1
+  kill 221175 x3 quest 81731.2
+  collect 219405 x1 quest 81737.1
+
+step Field Captain Palandar
+  turnin 81730
+  turnin 81731
+  turnin 81732
+  turnin 81736
+  turnin 81737
+  turnin 81738
+  turnin 81741
+  turnin 81742
+  turnin 81743
+  turnin 81744
+
+step Duskwood Mission IV: Ogre Intelligence
+  turnin 81733

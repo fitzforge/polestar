@@ -1,0 +1,163 @@
+guide polestar-completionist-horde/09-tirisfal-glades-and-the-undercity-2
+title 09 Tirisfal Glades and the Undercity (15-24) (Completionist)
+faction Horde
+levels 15-24
+zone Undercity
+next polestar-completionist-horde/dungeon-ruins-of-lordaeron
+next polestar-completionist-horde/10-stonetalon-mountains
+pitch On along the line: Tirisfal Glades and the Undercity, quests of level 15 to 24.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 24 quests; estimated level at the end 15.7 (heuristic XP, class quests not counted).
+
+step Alessandro Luca
+  accept 97891
+
+step Apothecary Zinge
+  accept 1358
+  turnin 97891
+
+step Owen Thadd
+  accept 78124 npc 211022
+  accept 78127 npc 211022
+  accept 78142 npc 211022
+  accept 78143 npc 211022
+  accept 78145 npc 211022
+  accept 78146 npc 211022
+  accept 78147 npc 211022
+  accept 78148 npc 211022
+  accept 78149 npc 211022
+  accept 78150
+  accept 79091 npc 211022
+  accept 79092 npc 211022
+  accept 79093 npc 211022
+  accept 79094 npc 211022
+  accept 79095 npc 211022
+  accept 79096 npc 211022
+  accept 79097 npc 211022
+  turnin 78150
+
+step Apothecary Society Primer
+  zone Tirisfal Glades
+  collect 208185 x1 quest 79095.1
+
+step Scrolls
+  zone Stonetalon Mountains
+  collect 209851 x1 quest 78149.1
+
+step Scrolls
+  zone The Barrens
+  collect 209846 x1 quest 78143.1
+
+step Goblin Tome
+  collect 208800 x1 quest 79097.1
+
+step Manual
+  collect 209847 x1 quest 78145.1
+
+step Mural of Ta'zo
+  zone Orgrimmar
+  collect 207972 x1 quest 79094.1
+
+step Scrolls
+  zone Darkshore
+  collect 209843 x1 quest 78124.1
+
+step Spellbook
+  zone Westfall
+  collect 209845 x1 quest 78142.1
+
+step Spellbook
+  zone Duskwood
+  collect 209849 x1 quest 78147.1
+
+step Library Book
+  zone Elwynn Forest
+  collect 203755 x1 quest 79092.1
+
+step Gnomish Tome
+  zone Loch Modan
+  collect 208860 x1 quest 79093.1
+
+step Scrolls
+  collect 209850 x1 quest 78148.1
+
+step Library Book
+  zone Ironforge
+  collect 203754 x1 quest 79091.1
+
+step Scrolls
+  zone Wetlands
+  collect 209848 x1 quest 78146.1
+
+step Dalaran Digest
+  zone Silverpine Forest
+  collect 209844 x1 quest 78127.1
+
+step Arcane Secrets
+  collect 210177 x1 quest 79096.1
+
+step Owen Thadd
+  zone Undercity
+  turnin 78124
+  turnin 78127
+  turnin 78142
+  turnin 78143
+  turnin 78145
+  turnin 78146
+  turnin 78147
+  turnin 78148
+  turnin 78149
+  turnin 79091
+  turnin 79092
+  turnin 79093
+  turnin 79094
+  turnin 79095
+  turnin 79096
+  turnin 79097
+
+step Bethor Iceshard
+  accept 446
+
+step Magistrate Sevren
+  zone Tirisfal Glades
+  sethome "Gallows' End Tavern"
+  accept 441
+
+step Raleigh Andrean
+  zone Undercity
+  getfp "Undercity"
+  turnin 441
+  accept 530
+
+step Valdred Moray
+  zone Silverpine Forest
+  collect 3613 x1 quest 530.1
+
+step Apothecary Renferrel
+  turnin 446
+  accept 448
+  turnin 448
+
+step High Executor Hadrec
+  when group 442
+  zone Silverpine Forest
+  accept 442
+
+step Thule Ravenclaw
+  when group 442
+  zone Silverpine Forest
+  tip Assault on Fenris Isle is group work: elites. Grouping up is advised.
+  collect 3623 x1 quest 442.1
+
+step Raleigh Andrean
+  zone Undercity
+  turnin 530
+
+step High Executor Hadrec
+  when group 442
+  zone Silverpine Forest
+  turnin 442
+
+step Apothecary Helbrim
+  zone The Barrens
+  turnin 1358

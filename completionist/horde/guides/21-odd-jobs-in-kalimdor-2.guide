@@ -1,0 +1,94 @@
+guide polestar-completionist-horde/21-odd-jobs-in-kalimdor-2
+title 21 Odd jobs in Kalimdor (37-40) (Completionist)
+faction Horde
+levels 37-40
+zone Thousand Needles
+next polestar-completionist-horde/22-hillsbrad-foothills-and-alterac-mountains-2
+pitch On along the line: errands across Kalimdor, quests of level 37 to 40.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 2 quests; estimated level at the end 37.2 (heuristic XP, class quests not counted).
+# Skipped: 3 exclusive with N (done); 1 objective N (talk N) outside the zones.
+
+step Melor Stonehoof
+  zone Thunder Bluff
+  accept 1136
+
+step Frostmaw
+  zone Alterac Mountains
+  collect 5811 x1 quest 1136.1
+
+step Melor Stonehoof
+  zone Thunder Bluff
+  turnin 1136
+
+step Firepit
+  zone Stonetalon Mountains
+  accept 80001
+
+step Your First Riding Kodo
+  only Tauren
+  when available 97446
+  tip One of several exclusive quests; the route takes Your First Riding Kodo (96982). This one shows for a character the game offers it to instead.
+  zone map 1442
+  accept 97446 @46.1,59.9 map 1442 optional
+
+step Your First Riding Kodo
+  only Tauren
+  when onquest 97446
+  zone map 1442
+  turnin 97446 @46.1,59.9 map 1442 optional
+
+step Dirt-stained Map
+  zone Mulgore
+  collect 4470 x1 quest 80001.1
+
+step Level 40
+  level 40
+
+step Your First Riding Kodo
+  only Tauren
+  zone map 1412
+  accept 96982 @46.6,62.1 map 1412
+
+step Learning to Ride
+  only Tauren
+  zone map 1412
+  accept 97204
+
+step Learning to Ride
+  only Tauren
+  when onquest 97204
+  zone map 1412
+  turnin 97204
+
+step Your First Riding Kodo
+  only Tauren
+  when onquest 96982
+  zone map 1412
+  complete 96982 @46.9,62.0
+
+step Your First Riding Kodo
+  only Tauren
+  when onquest 96982
+  zone map 1412
+  turnin 96982 @46.6,62.1 map 1412
+
+step Horizon Scout Crewman
+  zone Azshara
+  collect 4471 x1 quest 80001.2
+
+step Firepit
+  zone Stonetalon Mountains
+  turnin 80001
+
+
+step Lost Shipping Crate
+  when available 94930
+  tip One of several exclusive quests; the route takes Lost Shipping Crate (94895). This one shows for a character the game offers it to instead.
+  zone map 1441
+  accept 94930 optional
+
+step Lost Shipping Crate
+  when onquest 94930
+  zone map 2548
+  turnin 94930 optional

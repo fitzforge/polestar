@@ -1,0 +1,268 @@
+guide polestar-completionist-horde/attune-skeleton-key-h
+title Skeleton Key (Scholomance key) (Completionist)
+faction Horde
+levels 50-60
+category Dungeons
+zone Western Plaguelands
+pitch Skeleton Key: Opens Scholomance's gate; one key opens it for the group.
+why Opens Scholomance's gate; one key opens it for the group.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 9 quests; estimated level at the end 50.3 (heuristic XP, class quests not counted).
+# Skipped: 2 exclusive with N.
+
+step Warcaller Gorlach
+  zone Orgrimmar
+  accept 5093
+
+step High Executor Derrington
+  zone Tirisfal Glades
+  turnin 5093
+  accept 5096
+
+step High Executor Derrington
+  zone Tirisfal Glades
+  complete 5096 @40.7,52.0 map 1422
+  turnin 5096
+  accept 5098
+
+step The Scourge Cauldrons
+  zone map 1420
+  accept 5228
+
+step Andorhal Tower One
+  zone Western Plaguelands
+  kill 10902 x1 quest 5098.1
+
+step Andorhal Tower Four
+  kill 10905 x1 quest 5098.4
+
+step Andorhal Tower Three
+  kill 10904 x1 quest 5098.3
+
+step Andorhal Tower Two
+  kill 10903 x1 quest 5098.2
+
+step Level 55
+  level 55
+
+step High Executor Derrington
+  zone Tirisfal Glades
+  turnin 5098
+  accept 838
+  turnin 838
+  accept 964
+
+step Alas, Andorhal
+  zone map 1420
+  accept 105
+
+step The Scourge Cauldrons
+  when onquest 5228
+  zone map 1420
+  turnin 5228
+
+step Skeletal Terror
+  zone Western Plaguelands
+  collect 14619 x15 quest 964.1
+
+step Apothecary Dithers
+  zone Tirisfal Glades
+  turnin 964
+  accept 5514
+
+step Alas, Andorhal
+  when onquest 105
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1420
+  complete 105 @83.1,68.9
+
+step Alas, Andorhal
+  when onquest 105
+  zone map 1420
+  turnin 105
+
+step Target: Felstone Field
+  when turnedin 5228
+  zone map 1420
+  accept 5229
+
+step Target: Felstone Field
+  when onquest 5229
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1420
+  complete 5229 @83.0,71.9
+
+step Target: Felstone Field
+  when onquest 5229
+  zone map 1422
+  turnin 5229
+
+step Krinkle Goodsteel
+  zone Tanaris
+  turnin 5514
+  accept 5802
+
+step Fire Plume Ridge Lava Lake
+  zone Un'Goro Crater
+  collect 14645 x1 quest 5802.1
+
+step Apothecary Dithers
+  zone Tirisfal Glades
+  turnin 5802
+  accept 5804
+
+step Araj's Phylactery
+  zone Western Plaguelands
+  collect 14610 x1 quest 5804.1
+
+step Return to the Bulwark
+  zone map 1422
+  accept 5230
+
+step Apothecary Dithers
+  zone Tirisfal Glades
+  turnin 5804
+  accept 5511
+  turnin 5511
+
+step Return to the Bulwark
+  when onquest 5230
+  zone map 1420
+  turnin 5230
+
+step Felstone Field Cauldron
+  when turnedin 5230
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1422
+  collect 13320 x1 anywhere optional
+  collect 13357 x6 anywhere optional
+  collect 14047 x4 anywhere optional
+  turnin 5218 direct optional
+
+step Target: Dalson's Tears
+  when turnedin 5230
+  zone map 1420
+  accept 5231
+
+step Target: Dalson's Tears
+  when onquest 5231
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1420
+  complete 5231 @83.0,71.9
+
+step Target: Dalson's Tears
+  when onquest 5231
+  zone map 1422
+  turnin 5231
+
+step Return to the Bulwark
+  when turnedin 5231
+  zone map 1422
+  accept 5232
+
+step Return to the Bulwark
+  when onquest 5232
+  zone map 1420
+  turnin 5232
+
+step Dalson's Tears Cauldron
+  when turnedin 5232
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1422
+  collect 13320 x1 anywhere optional
+  collect 13356 x5 anywhere optional
+  collect 14047 x4 anywhere optional
+  turnin 5221 direct optional
+
+step Target: Writhing Haunt
+  when turnedin 5232
+  zone map 1420
+  accept 5233
+
+step Target: Writhing Haunt
+  when onquest 5233
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1420
+  complete 5233 @83.0,71.9
+
+step Target: Writhing Haunt
+  when onquest 5233
+  zone map 1422
+  turnin 5233
+
+step Return to the Bulwark
+  when turnedin 5233
+  zone map 1422
+  accept 5234
+
+step Return to the Bulwark
+  when onquest 5234
+  zone map 1420
+  turnin 5234
+
+step Target: Gahrron's Withering
+  zone map 1420
+  accept 5235
+
+step Target: Gahrron's Withering
+  when onquest 5235
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1420
+  complete 5235 @83.0,71.9
+
+step Target: Gahrron's Withering
+  when onquest 5235
+  zone map 1422
+  turnin 5235
+
+step Return to the Bulwark
+  when turnedin 5235
+  zone map 1422
+  accept 5236
+
+step Return to the Bulwark
+  when onquest 5236
+  zone map 1420
+  turnin 5236
+
+step Mission Accomplished!
+  when turnedin 5236
+  zone map 1420
+  accept 5238
+
+step Mission Accomplished!
+  when onquest 5238
+  zone map 1420
+  turnin 5238
+
+step Writhing Haunt Cauldron
+  when turnedin 5234
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1422
+  collect 13320 x1 anywhere optional
+  collect 13356 x5 anywhere optional
+  collect 14047 x4 anywhere optional
+  turnin 5224 direct optional
+
+
+step A Call to Arms: The Plaguelands!
+  when available 5094
+  tip One of several exclusive quests; the route takes A Call to Arms: The Plaguelands! (5093). This one shows for a character the game offers it to instead.
+  zone map 1458
+  accept 5094 optional
+
+step A Call to Arms: The Plaguelands!
+  when onquest 5094
+  zone map 1420
+  turnin 5094 optional
+
+step A Call to Arms: The Plaguelands!
+  when available 5095
+  tip One of several exclusive quests; the route takes A Call to Arms: The Plaguelands! (5093). This one shows for a character the game offers it to instead.
+  zone map 1456
+  accept 5095 optional
+
+step A Call to Arms: The Plaguelands!
+  when onquest 5095
+  zone map 1420
+  turnin 5095 optional

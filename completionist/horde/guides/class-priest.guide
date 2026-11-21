@@ -1,0 +1,244 @@
+guide polestar-completionist-horde/class-priest
+title Priest class quests (10-60) (Completionist)
+faction Horde
+class Priest
+levels 10-60
+category Class
+zone Durotar
+why Every Priest class quest from level 10 on, in level order. The earlier ones are in the starting zone guides.
+reward text What the Priest quests give, quest by quest: abilities, forms, pets, totems or gear.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 7 quests; estimated level at the end 13.1 (heuristic XP).
+# Skipped: 12 exclusive with N; 1 objective N (kill N) outside the zones.
+
+step Ur'kyo
+  zone Orgrimmar
+  accept 5652 only Troll
+  turnin 5652 only Troll
+
+step Touch of Weakness
+  only Priest,Undead
+  when available 5662
+  tip One of several exclusive quests; the route takes Touch of Weakness (5658). This one shows for a character the game offers it to instead.
+  zone map 1454
+  accept 5662 optional
+
+step Aelthalyste
+  zone Undercity
+  accept 5658 only Undead
+  turnin 5658 only Undead
+
+step Touch of Weakness
+  only Priest,Undead
+  when onquest 5662
+  zone map 1458
+  turnin 5662 optional
+
+step Hex of Weakness
+  only Priest,Troll
+  when available 5657
+  tip One of several exclusive quests; the route takes Hex of Weakness (5652). This one shows for a character the game offers it to instead.
+  zone map 1458
+  accept 5657 optional
+
+step Hex of Weakness
+  only Priest,Troll
+  when onquest 5657
+  zone map 1454
+  turnin 5657 optional
+
+step The Troll Scroll
+  only Priest
+  zone map 1434
+  accept 79731 optional
+
+step The Troll Scroll
+  only Priest
+  turnin 79731 optional
+
+step Level 20
+  level 20
+
+step Dark Sacrifice
+  only Priest,Undead
+  when available 5646
+  tip One of several exclusive quests; the route takes Dark Sacrifice (5644). This one shows for a character the game offers it to instead.
+  zone map 1454
+  accept 5646 optional
+
+step Dark Sacrifice
+  only Priest,Undead
+  when onquest 5646
+  zone map 1458
+  turnin 5646 optional
+
+step Ur'kyo
+  zone Orgrimmar
+  accept 5680 only Troll
+  turnin 5680 only Troll
+
+step Shadowguard
+  only Priest,Troll
+  when available 5643
+  tip One of several exclusive quests; the route takes Shadowguard (5642). This one shows for a character the game offers it to instead.
+  zone map 1458
+  accept 5643 optional
+
+step Shadowguard
+  only Priest,Troll
+  when onquest 5643
+  zone map 1454
+  turnin 5643 optional
+
+step Hex of Weakness
+  only Priest,Troll
+  when available 5654
+  tip One of several exclusive quests; the route takes Hex of Weakness (5652). This one shows for a character the game offers it to instead.
+  zone map 1411
+  accept 5654 optional
+
+step Aelthalyste
+  zone Undercity
+  accept 5679 only Undead
+  turnin 5679 only Undead
+
+step Hex of Weakness
+  only Priest,Troll
+  when onquest 5654
+  zone map 1454
+  turnin 5654 optional
+
+step Hex of Weakness
+  only Priest,Troll
+  when available 5655
+  tip One of several exclusive quests; the route takes Hex of Weakness (5652). This one shows for a character the game offers it to instead.
+  zone map 1412
+  accept 5655 optional
+
+step Level 58
+  level 58
+
+step Geologist Larksbane
+  when turnedin 8315
+  zone Silithus
+  accept 8379
+  turnin 8379
+
+step Hex of Weakness
+  only Priest,Troll
+  when onquest 5655
+  zone map 1454
+  turnin 5655 optional
+
+step Level 60
+  level 60
+
+step Eris Havenfire
+  zone Eastern Plaguelands
+  accept 7621
+  turnin 7621
+
+step Eris Havenfire
+  zone Eastern Plaguelands
+  accept 7622
+
+step Eris Havenfire
+  zone Eastern Plaguelands
+  turnin 7622
+
+step Hex of Weakness
+  only Priest,Troll
+  when available 5656
+  tip One of several exclusive quests; the route takes Hex of Weakness (5652). This one shows for a character the game offers it to instead.
+  zone map 1456
+  accept 5656 optional
+
+step Hex of Weakness
+  only Priest,Troll
+  when onquest 5656
+  zone map 1454
+  turnin 5656 optional
+
+step Touch of Weakness
+  only Priest,Undead
+  when available 5660
+  tip One of several exclusive quests; the route takes Touch of Weakness (5658). This one shows for a character the game offers it to instead.
+  zone map 1411
+  accept 5660 optional
+
+step Touch of Weakness
+  only Priest,Undead
+  when onquest 5660
+  zone map 1458
+  turnin 5660 optional
+
+step Touch of Weakness
+  only Priest,Undead
+  when available 5661
+  tip One of several exclusive quests; the route takes Touch of Weakness (5658). This one shows for a character the game offers it to instead.
+  zone map 1412
+  accept 5661 optional
+
+step Touch of Weakness
+  only Priest,Undead
+  when onquest 5661
+  zone map 1458
+  turnin 5661 optional
+
+step Touch of Weakness
+  only Priest,Undead
+  when available 5663
+  tip One of several exclusive quests; the route takes Touch of Weakness (5658). This one shows for a character the game offers it to instead.
+  zone map 1456
+  accept 5663 optional
+
+step Touch of Weakness
+  only Priest,Undead
+  when onquest 5663
+  zone map 1458
+  turnin 5663 optional
+
+step Shadowguard
+  only Priest,Troll
+  when available 5642
+  tip One of several exclusive quests; the route takes Shadowguard (5680). This one shows for a character the game offers it to instead.
+  zone map 1456
+  accept 5642 optional
+
+step Shadowguard
+  only Priest,Troll
+  when onquest 5642
+  zone map 1454
+  turnin 5642 optional
+
+step Dark Sacrifice
+  only Priest,Undead
+  when available 5644
+  tip One of several exclusive quests; the route takes Dark Sacrifice (5679). This one shows for a character the game offers it to instead.
+  zone map 1456
+  accept 5644 optional
+
+step Dark Sacrifice
+  only Priest,Undead
+  when onquest 5644
+  zone map 1458
+  turnin 5644 optional
+
+step Atiesh, Greatstaff of the Guardian
+  only Priest
+  when turnedin 9251
+  zone map 1446
+  accept 9257 optional
+
+step Atiesh, Greatstaff of the Guardian
+  only Priest
+  when onquest 9257
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1446
+  complete 9257 @65.3,50.0 optional
+
+step Atiesh, Greatstaff of the Guardian
+  only Priest
+  when onquest 9257
+  zone map 1446
+  turnin 9257 optional

@@ -1,0 +1,146 @@
+guide polestar-completionist-alliance/07-the-barrens
+title 07 The Barrens (14-25) (Completionist)
+faction Alliance
+levels 14-25
+zone The Barrens
+next polestar-completionist-alliance/dungeon-wailing-caverns
+next polestar-completionist-alliance/08-westfall
+pitch On along the line: The Barrens, quests of level 14 to 25.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 16 quests; estimated level at the end 15.8 (heuristic XP, class quests not counted).
+# Skipped: 1 prerequisite N not in this route.
+
+step Sputtervalve
+  sethome "Ratchet"
+  getfp "Ratchet"
+  accept 894
+  accept 895
+
+step Root Samples
+  when skill Herbalism 1
+  zone map 1413
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 866 optional
+  complete 866 @62.4,37.6 optional
+
+step Baron Longshore
+  collect 5084 x1 quest 895.1
+
+step Gazlowe
+  turnin 895
+  accept 887
+  accept 97253
+  accept 896
+
+step Root Samples
+  when skill Herbalism 1
+  turnin 866 optional
+
+step Southsea Brigand
+  kill 3381 x12 quest 887.1
+
+step Southsea Cannoneer
+  kill 3382 x6 quest 887.2
+
+step Pile of Complicated Parts
+  collect 277331 x5 quest 97253.1
+
+step Venture Co. Enforcer
+  zone Ashenvale
+  collect 5097 x1 quest 896.1
+
+step Wizzlecrank's Shredder
+  zone The Barrens
+  accept 858
+
+step Supervisor Lugwizzle
+  collect 5050 x1 quest 858.1
+
+step Wizzlecrank's Shredder
+  turnin 858
+  accept 863
+
+step Control Console
+  turnin 894
+  accept 900
+
+step Main Control Valve, Fuel Control Valve and Regulator Valve
+  interact 4072 quest 900.1
+  interact 61936 quest 900.2
+  interact 61935 quest 900.3
+
+step Control Console
+  turnin 900
+  accept 901
+
+step Level 16
+  level 16
+
+step Sputtervalve
+  zone The Barrens
+  accept 1483
+
+step Tinkerer Sniggles
+  collect 5089 x1 quest 901.1
+
+step Mebok Mizzyrix
+  zone The Barrens
+  accept 1069
+
+step Deepmoss Eggs
+  zone Stonetalon Mountains
+  collect 5570 x15 quest 1069.1
+
+step Bainham
+  when group 97005
+  zone The Barrens
+  accept 97005
+
+step Chol'aruk
+  when group 97005
+  zone The Barrens
+  tip Chol'aruk the Ravener is group work: elites. Grouping up is advised.
+  collect 276070 x1 quest 97005.1
+
+step Bainham
+  when group 97005
+  zone The Barrens
+  turnin 97005
+
+step Control Console
+  turnin 901
+  accept 902
+
+step Gazlowe
+  turnin 887
+  accept 890
+  turnin 97253
+  complete 863 @55.4,7.7 map 1413
+  turnin 863
+  turnin 902
+  turnin 1069
+
+step Wharfmaster Dizzywig
+  turnin 890
+  turnin 896
+  accept 892
+  turnin 892
+  accept 888
+
+step Fragile - Do Not Drop
+  collect 5077 x1 quest 888.2
+
+step Drizzlik's Emporium
+  collect 5076 x1 quest 888.1
+
+step Gazlowe
+  turnin 888
+
+step The Glowing Shard
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1413
+  turnin 3366 direct
+
+step Ziz Fizziks
+  zone Stonetalon Mountains
+  turnin 1483

@@ -1,0 +1,315 @@
+guide polestar-completionist-horde/06-silverpine-forest
+title 06 Silverpine Forest (10-23) (Completionist)
+faction Horde
+levels 10-23
+zone Silverpine Forest
+next polestar-completionist-horde/07-odd-jobs-in-the-eastern-kingdoms
+pitch On along the line: Silverpine Forest, quests of level 10 to 23.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 37 quests; estimated level at the end 15.5 (heuristic XP, class quests not counted).
+
+step Shadow Priest Allister
+  sethome "The Sepulcher"
+  getfp "The Sepulcher"
+  accept 477
+  accept 428
+  accept 437
+  accept 6321 only Undead
+  accept 421
+
+step Nightlash and Enter the Dead Fields
+  collect 3622 x1 quest 437.1
+  goto 45.9,21.3 "Enter the Dead Fields" -- Explore for The Dead Fields
+
+step Moonrage Whitescalp
+  kill 1769 x5 quest 421.1
+
+step Dalaran Crate
+  turnin 477
+  accept 478
+
+step Karos Razok
+  turnin 6321 only Undead
+  accept 6323 only Undead
+  turnin 478
+  accept 481
+  complete 437 @45.9,21.3 map 1421
+  turnin 437
+  accept 438
+
+step Dalar Dawnweaver
+  turnin 421
+  turnin 481
+  accept 422
+  accept 482
+  turnin 482
+  accept 479
+  accept 95981
+
+step Dalaran Watcher
+  kill 1888 x8 quest 95981.1
+
+step Dalaran Conjuror
+  collect 3354 x8 quest 479.1
+
+step Dalaran Wizard
+  zone Hillsbrad Foothills
+  kill 1889 x8 quest 95981.2
+
+step Dusty Spellbooks
+  zone Silverpine Forest
+  collect 3155 x1 quest 422.1
+
+step Level 16
+  level 16
+
+step Shadow Priest Allister
+  zone Silverpine Forest
+  accept 516
+
+step Ravenclaw Drudger and Ravenclaw Guardian
+  zone Silverpine Forest
+  kill 1974 x6 quest 516.1
+  kill 1973 x6 quest 516.2
+
+step Shadow Priest Allister
+  zone Silverpine Forest
+  turnin 516
+
+step Corpse Laden Boat
+  turnin 438
+  accept 439
+
+step Dalar Dawnweaver
+  turnin 422
+  accept 423
+  turnin 479
+  turnin 95981
+  accept 480
+  turnin 439
+  accept 440
+  accept 443
+
+step Deathstalker Faerleia
+  when group 452
+  zone Silverpine Forest
+  accept 452
+
+step Councilman Smithers
+  when group 452
+  zone Silverpine Forest
+  tip Pyrewood Ambush is group work: elites. Grouping up is advised.
+  kill 2060 x1 quest 452.1
+
+step Deathstalker Faerleia
+  when group 452
+  zone Silverpine Forest
+  turnin 452
+
+step Archmage Ataeric
+  collect 3515 x1 quest 480.1
+
+step Rot Hide Savage
+  collect 3236 x8 quest 443.1
+
+step Moonrage Glutton
+  collect 3156 x6 quest 423.1
+
+step Moonrage Darksoul
+  collect 3157 x3 quest 423.2
+
+step Dalar Dawnweaver
+  turnin 423
+  accept 424
+  turnin 480
+  turnin 443
+  accept 444
+
+step Level 19
+  level 19
+
+step Apothecary Renferrel
+  zone Silverpine Forest
+  accept 493
+
+step Grimson the Pale
+  collect 3634 x1 quest 424.1
+
+step Dalar Dawnweaver
+  turnin 424
+
+step Dalar Dawnweaver
+  when group 99
+  zone Silverpine Forest
+  accept 99
+
+step Pyrewood Sentry
+  when group 99
+  zone Silverpine Forest
+  tip Arugal's Folly is group work: elites. Grouping up is advised.
+  collect 3218 x6 quest 99.1
+
+step Dalar Dawnweaver
+  when group 99
+  zone Silverpine Forest
+  turnin 99
+
+step Dalar Dawnweaver
+  when turnedin 99
+  zone Silverpine Forest
+  accept 98299 optional
+
+step Dalar Dawnweaver
+  when turnedin 99
+  zone Silverpine Forest
+  accept 98298 optional
+
+step Moonrage Bloodhowler
+  when onquest 98298
+  collect 280375 x6 quest 98298.1
+
+step Haggard Refugee and Sickly Refugee
+  when onquest 98299
+  kill 2053 x5 quest 98299.1
+  kill 2054 x5 quest 98299.2
+
+step Dalar Dawnweaver
+  when onquest 98298
+  turnin 98298
+
+step Dalar Dawnweaver
+  when onquest 98299
+  turnin 98299
+
+step Rane Yorick
+  turnin 428
+  accept 429
+
+step Deathstalker Erland
+  accept 435
+
+step Gorefang
+  collect 3164 x6 quest 429.1
+
+step Rane Yorick
+  complete 435 @54.4,13.4 map 1421
+  turnin 435
+  accept 449
+
+step High Executor Hadrec
+  turnin 449
+  accept 3221
+  turnin 429
+  turnin 3221
+  accept 430
+  accept 1359
+
+step Quinn Yorick
+  turnin 430
+  accept 91920
+
+step Bluegill Raider
+  zone Wetlands
+  collect 730 x3 quest 91920.1
+
+step Apothecary Lydon
+  zone Alterac Mountains
+  turnin 493
+
+step Apothecary Zinge
+  zone Undercity
+  turnin 1359
+
+step Gordon Wendham
+  turnin 6323 only Undead
+  accept 6322 only Undead
+  turnin 6322 only Undead
+  accept 6324 only Undead
+
+step Bethor Iceshard
+  turnin 444
+
+step Magistrate Sevren
+  zone Tirisfal Glades
+  turnin 440
+
+step Apothecary Renferrel
+  zone Silverpine Forest
+  turnin 91920
+  accept 91921
+  turnin 6324 only Undead
+
+step Quinn Yorick
+  turnin 91921
+  accept 425
+
+step Ivar the Foul
+  collect 3621 x1 quest 425.1
+
+step Rane Yorick
+  turnin 425
+
+step Resting in Pieces
+  tip A Talking Head drops from Rot Hide Brute, Rot Hide Plague Weaver, Rot Hide Savage: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1421
+  collect 3317 x1 optional
+  accept 460 item 3317 optional
+
+step The Offering Stone
+  tip Note Scrap drops from Ravenclaw Guardian, Ravenclaw Drudger: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1421
+  collect 271343 x1 optional
+  accept 95884 item 271343 optional
+  complete 95884 @58.1,69.8
+
+step The Offering Stone
+  when onquest 95884
+  zone map 1421
+  turnin 95884
+
+step The Tortured Soul
+  when turnedin 95884
+  zone map 1421
+  accept 95883
+  complete 95883 @58.1,69.8
+
+step The Tortured Soul
+  when onquest 95883
+  zone map 1421
+  turnin 95883
+
+step The Offering of Blood
+  when turnedin 95883
+  zone map 1421
+  accept 95885
+  complete 95885 @58.1,69.8
+
+step The Offering of Blood
+  when onquest 95885
+  zone map 1421
+  turnin 95885
+
+step Resting in Pieces
+  when onquest 460
+  zone map 1421
+  turnin 460
+
+step The Hidden Niche
+  when turnedin 460
+  zone map 1421
+  accept 461
+
+step The Hidden Niche
+  when onquest 461
+  zone map 1421
+  turnin 461
+
+step Wand to Bethor
+  when turnedin 461
+  zone map 1458
+  accept 491
+
+step Wand to Bethor
+  when onquest 491
+  zone map 1458
+  turnin 491

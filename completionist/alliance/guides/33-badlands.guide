@@ -1,0 +1,211 @@
+guide polestar-completionist-alliance/33-badlands
+title 33 Badlands (35-50) (Completionist)
+faction Alliance
+levels 35-50
+zone Badlands
+next polestar-completionist-alliance/dungeon-uldaman
+next polestar-completionist-alliance/34-riverglades
+pitch On along the line: Badlands, quests of level 35 to 50.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 16 quests; estimated level at the end 36.4 (heuristic XP, class quests not counted).
+# Skipped: 1 prerequisite N not in this route.
+
+step Prospector Ryedol
+  accept 719
+  accept 718
+
+step Shadowforge Tunneler
+  collect 4616 x1 quest 719.1
+
+step Excavation Supply Crate
+  collect 4629 x1 quest 718.1
+
+step Sigrun Ironhew
+  turnin 718
+  accept 733
+  turnin 719
+
+step Dustbelcher Warrior
+  collect 4630 x7 quest 733.1
+
+step Sigrun Ironhew
+  turnin 733
+
+step Lotwil Veriatus
+  accept 710
+  accept 713
+
+step Lesser Rock Elemental
+  collect 4626 x10 quest 710.1
+
+step Vilebranch Witch Doctor
+  zone The Hinterlands
+  collect 3829 x1 quest 713.1
+
+step Lotwil Veriatus
+  zone Badlands
+  turnin 710
+  turnin 713
+  accept 711
+  accept 714
+
+step Rock Elemental
+  collect 4627 x3 quest 711.1
+
+step Compact Harvest Reaper
+  zone Stranglethorn Vale
+  collect 4389 x1 quest 714.1
+
+step Lotwil Veriatus
+  zone Badlands
+  turnin 711
+  turnin 714
+  accept 712
+
+step Greater Rock Elemental
+  zone Searing Gorge
+  collect 4628 x5 quest 712.1
+
+step Lotwil Veriatus
+  zone Badlands
+  turnin 712
+
+step Level 40
+  level 40
+
+step Sigrun Ironhew
+  zone Badlands
+  accept 706
+
+step Scalding Whelp
+  zone Badlands
+  collect 4612 x1 quest 706.1
+
+step Sigrun Ironhew
+  zone Badlands
+  turnin 706
+
+step Lotwil Veriatus
+  zone Badlands
+  accept 734
+
+step Lucien Tosselwrench
+  zone Badlands
+  turnin 734
+
+step Lucien Tosselwrench
+  zone Badlands
+  accept 777
+
+step Lotwil Veriatus
+  zone Badlands
+  turnin 777
+
+step Lotwil Veriatus
+  zone Badlands
+  accept 778
+
+step Garek
+  zone Badlands
+  accept 732
+
+step Boss Tho'grun
+  zone Badlands
+  collect 4640 x1 quest 732.1
+
+step Fam'retor Guardian
+  zone Badlands
+  collect 4847 x1 quest 778.1
+
+step Lotwil Veriatus
+  zone Badlands
+  turnin 778
+
+step Rigglefuzz
+  accept 703
+  accept 705
+
+step Giant Clam
+  zone Stranglethorn Vale
+  collect 4611 x9 quest 705.1
+
+step Greater Firebird
+  zone Tanaris
+  collect 3404 x4 quest 703.1
+
+step Rigglefuzz
+  zone Badlands
+  turnin 703
+  turnin 705
+
+step Garek
+  turnin 732
+
+step Garek
+  when group 717
+  zone Badlands
+  accept 717
+
+step Seal of the Earth
+  when onquest 717
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1418
+  collect 4845 x1 anywhere optional
+  collect 4844 x1 anywhere optional
+  collect 4843 x1 anywhere optional
+  turnin 779 direct optional
+
+step Blacklash and Hematus
+  when group 717
+  zone Badlands
+  tip Tremors of the Earth is group work: elites. Grouping up is advised.
+  collect 4615 x1 quest 717.1
+  collect 4645 x1 quest 717.2
+
+step Garek
+  when group 717
+  zone Badlands
+  turnin 717
+
+step Flash Bomb Recipe
+  when skill Engineering 1
+  zone map 1418
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 1559 optional
+
+step Flash Bomb Recipe
+  when skill Engineering 1
+  turnin 1559 optional
+
+step Liquid Stone
+  zone map 1418
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 715
+  complete 715 @25.8,44.2
+
+step Liquid Stone
+  turnin 715
+
+step Stone Is Better than Cloth
+  zone map 1418
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 716
+  complete 716 @25.8,44.2
+
+step Stone Is Better than Cloth
+  turnin 716
+
+step Safety Checks
+  zone map 1418
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 97617
+  complete 97617 @54.6,12.9
+
+step Mirage Mirror
+  when has 278744
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1418
+  turnin 97821 direct
+
+step Safety Checks
+  turnin 97617

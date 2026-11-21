@@ -1,0 +1,116 @@
+guide polestar-completionist-horde/26-odd-jobs-in-the-eastern-kingdoms-2
+title 26 Odd jobs in the Eastern Kingdoms (32-42) (Completionist)
+faction Horde
+levels 32-42
+zone Ironforge
+next polestar-completionist-horde/27-riverglades
+pitch On along the line: errands across the Eastern Kingdoms, quests of level 32 to 42.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 8 quests; estimated level at the end 32.4 (heuristic XP, class quests not counted).
+# Skipped: 1 exclusive with N (done); 1 objective N (talk N) outside the zones.
+
+step Zaruk
+  zone Arathi Highlands
+  accept 687
+
+step Carved Figurine
+  zone Loch Modan
+  accept 79975
+
+step Theldurin the Lost
+  zone Badlands
+  turnin 687
+  accept 692
+
+step Enraged Rock Elemental
+  collect 4518 x1 quest 692.1
+  collect 4519 x1 quest 692.2
+  collect 4520 x1 quest 692.3
+
+step Theldurin the Lost
+  turnin 692
+
+step Level 37
+  level 37
+
+step Deathstalker Zraedus
+  zone Duskwood
+  accept 1372
+  turnin 1372
+
+step Apothecary Faustin
+  when group 1383
+  zone Duskwood
+  accept 1383
+
+step Mire Lord
+  when group 1383
+  zone Swamp of Sorrows
+  tip Nothing But The Truth is group work: elites. Grouping up is advised.
+  collect 6081 x1 quest 1383.2
+
+step Shadow Panther
+  when group 1383
+  zone Swamp of Sorrows
+  tip Nothing But The Truth is group work: elites. Grouping up is advised.
+  collect 6080 x5 quest 1383.1
+
+step Deepstrider Giant
+  when group 1383
+  zone Desolace
+  tip Nothing But The Truth is group work: elites. Grouping up is advised.
+  collect 6082 x1 quest 1383.3
+
+step Apothecary Faustin
+  when group 1383
+  zone Duskwood
+  turnin 1383
+
+step Apothecary Faustin
+  when turnedin 1383
+  zone Duskwood
+  accept 1388 optional
+  turnin 1388 optional
+  accept 1391 optional
+
+step Infiltrator Marksen
+  when onquest 1391
+  zone Swamp of Sorrows
+  turnin 1391
+
+step Messenger Bag
+  zone Arathi Highlands
+  turnin 79975
+  accept 79976
+
+step Hastily Rolled-Up Satchel
+  turnin 79976
+
+
+step Your First Riding Galestrider
+  only Skyborne
+  zone map 2521
+  accept 96996
+
+step Your First Riding Galestrider
+  only Skyborne
+  when onquest 96996
+  zone map 2521
+  complete 96996 @53.6,81.3
+
+step Your First Riding Galestrider
+  only Skyborne
+  when onquest 96996
+  zone map 2521
+  turnin 96996
+
+step Learning to Ride
+  only Skyborne
+  zone map 2521
+  accept 97205
+
+step Learning to Ride
+  only Skyborne
+  when onquest 97205
+  zone map 2521
+  turnin 97205

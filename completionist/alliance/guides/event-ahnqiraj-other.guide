@@ -1,0 +1,130 @@
+guide polestar-completionist-alliance/event-ahnqiraj-other
+title Ahn'Qiraj event quests (Completionist)
+faction Alliance
+category Miscellaneous
+levels 1-60
+zone Stormwind City
+pitch The quests of Ahn'Qiraj event quests, as far as the reference data places them.
+
+step About this guide
+  note Each quest here is offered only while the event runs. Every step is optional: do what the calendar offers now, and come back for the rest.
+
+step Field Duty
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  collect 20810 x1 anywhere optional
+  turnin 8507 direct optional
+
+step Level 51
+  level 51
+
+step Secrets of the Colossus - Ashi
+  zone map 1451
+  accept 8857 optional
+
+step Secrets of the Colossus - Ashi
+  when onquest 8857
+  zone map 1434
+  turnin 8857 optional
+
+step Secrets of the Colossus - Regal
+  zone map 1451
+  accept 8858 optional
+
+step Secrets of the Colossus - Regal
+  when onquest 8858
+  zone map 1427
+  turnin 8858 optional
+
+step Secrets of the Colossus - Zora
+  zone map 1451
+  accept 8859 optional
+
+step Secrets of the Colossus - Zora
+  when onquest 8859
+  zone map 1423
+  turnin 8859 optional
+
+step Level 60
+  level 60
+
+step Bang a Gong!
+  when turnedin 8742
+  zone map 1451
+  accept 8743 optional
+
+step Bang a Gong!
+  when onquest 8743
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1451
+  complete 8743 @25.7,90.9 optional
+
+step Bang a Gong!
+  when onquest 8743
+  zone map 1451
+  turnin 8743 optional
+
+step Treasure of the Timeless One
+  when turnedin 8742
+  zone map 1451
+  accept 8745 optional
+
+step Treasure of the Timeless One
+  when onquest 8745
+  zone map 1451
+  turnin 8745 optional
+
+step Cenarion Battlegear
+  zone map 1451
+  accept 8800 optional
+
+step Cenarion Battlegear
+  when onquest 8800
+  zone map 1451
+  turnin 8800 optional
+
+step Field Duty Papers
+  when turnedin 8507
+  when onquest 8507
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  collect 23024 x1 anywhere optional
+  turnin 8508 direct optional
+
+step Volunteer's Battlegear
+  when turnedin 8800
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  collect 20802 x5 anywhere optional
+  collect 20800 x3 anywhere optional
+  collect 20801 x7 anywhere optional
+  turnin 8548 direct optional
+
+step Veteran's Battlegear
+  when turnedin 8800
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  collect 20802 x7 anywhere optional
+  collect 20800 x4 anywhere optional
+  collect 20801 x4 anywhere optional
+  turnin 8572 direct optional
+
+step Champion's Battlegear
+  when turnedin 8800
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  collect 20802 x15 anywhere optional
+  collect 20800 x20 anywhere optional
+  collect 20801 x20 anywhere optional
+  collect 21508 x1 anywhere optional
+  turnin 8573 direct optional
+
+step Stalwart's Battlegear
+  when turnedin 8800
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1451
+  collect 20802 x15 anywhere optional
+  collect 20800 x20 anywhere optional
+  collect 20801 x17 anywhere optional
+  collect 21515 x1 anywhere optional
+  turnin 8574 direct optional

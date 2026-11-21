@@ -1,0 +1,140 @@
+guide polestar-completionist-alliance/dungeon-the-drowned-city
+title The Drowned City (Completionist)
+faction Alliance
+category Dungeons
+levels 33-40
+zone Stranglethorn Vale
+next polestar-completionist-alliance/30-hillsbrad-foothills-and-alterac-mountains-2
+pitch The Drowned City, in Stranglethorn Vale.
+why Every Alliance quest of The Drowned City: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Stranglethorn Vale: the arrow leads to it.
+
+step Bad Medicine
+  zone Stranglethorn Vale
+  accept 204
+
+step Bad Medicine
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Stranglethorn Vale
+  complete 204 @38.02,3.33
+
+step Bad Medicine
+  zone Stranglethorn Vale
+  turnin 204
+
+step The Second Rebellion
+  zone Stranglethorn Vale
+  accept 203
+
+step The Second Rebellion
+  zone Stranglethorn Vale
+  complete 203 @43.57,9.73
+
+step The Second Rebellion
+  zone Stranglethorn Vale
+  turnin 203
+
+step Special Forces
+  zone map 1434
+  accept 574
+
+step Kurzen's Mystery
+  zone Stranglethorn Vale
+  accept 207
+
+step Special Forces
+  when onquest 574
+  zone map 1434
+  complete 574 @44.1,7.9
+
+step Special Forces
+  when onquest 574
+  zone map 1434
+  turnin 574
+
+step Kurzen's Mystery
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Stranglethorn Vale
+  complete 207 @37.83,3.56
+
+step Kurzen's Mystery
+  zone Stranglethorn Vale
+  turnin 207
+
+step Colonel Kurzen
+  when turnedin 574
+  zone map 1434
+  accept 202
+
+step Troll Witchery
+  zone Stranglethorn Vale
+  accept 205
+
+step Colonel Kurzen
+  when onquest 202
+  zone map 1434
+  complete 202 @46.7,6.2
+
+step Colonel Kurzen
+  when onquest 202
+  zone map 1434
+  turnin 202
+
+step Troll Witchery
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Stranglethorn Vale
+  complete 205 @37.83,3.56
+
+step Troll Witchery
+  zone Stranglethorn Vale
+  turnin 205
+
+step An Acquaintance in Southshore
+  zone Stranglethorn Vale
+  accept 95786
+
+step An Acquaintance in Southshore
+  zone Hillsbrad Foothills
+  turnin 95786
+
+step Krazek
+  zone Stranglethorn Vale
+  accept 95789
+  accept 95791
+
+step Loremaster Dibbs
+  zone Hillsbrad Foothills
+  accept 95787
+  accept 95788
+
+step Inside The Drowned City
+  zone Stranglethorn Vale
+  complete 95787 @21.6,27.7
+  complete 95788 @21.6,27.7
+  complete 95789 @21.6,27.7
+  complete 95791 @21.6,27.7
+
+step Krazek
+  zone Stranglethorn Vale
+  turnin 95789
+  turnin 95791
+
+step Loremaster Dibbs
+  zone Hillsbrad Foothills
+  turnin 95787
+  turnin 95788
+
+
+step Archmage Timear
+  zone Alterac Mountains
+  accept 97130
+
+step Inside The Drowned City
+  zone Stranglethorn Vale
+  complete 97130 @21.6,27.7
+
+step Archmage Timear
+  zone Alterac Mountains
+  turnin 97130

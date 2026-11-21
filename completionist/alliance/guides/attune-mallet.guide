@@ -1,0 +1,13 @@
+guide polestar-completionist-alliance/attune-mallet
+title Mallet of Zul'Farrak (Zul'Farrak key or item) (Completionist)
+faction Alliance
+category Dungeons
+levels 1-60
+zone Tanaris
+pitch Mallet of Zul'Farrak: Rings the gong by the sacred pool in Zul'Farrak to call Gahz'rilla; one mallet does it for the group. Qiaga the Keeper (elite) on top of the Altar of Zul in the Hinterlands drops the Sacred Mallet: use it at the altar at the very top of Jintha'Alor and it becomes the Mallet of Zul'Farrak. Both places are full of elites.
+why Rings the gong by the sacred pool in Zul'Farrak to call Gahz'rilla; one mallet does it for the group. Qiaga the Keeper (elite) on top of the Altar of Zul in the Hinterlands drops the Sacred Mallet: use it at the altar at the very top of Jintha'Alor and it becomes the Mallet of Zul'Farrak. Both places are full of elites.
+
+step Mallet of Zul'Farrak
+  tip Rings the gong by the sacred pool in Zul'Farrak to call Gahz'rilla; one mallet does it for the group. Qiaga the Keeper (elite) on top of the Altar of Zul in the Hinterlands drops the Sacred Mallet: use it at the altar at the very top of Jintha'Alor and it becomes the Mallet of Zul'Farrak. Both places are full of elites. No quest gives it: it comes from inside Zul'Farrak; the arrow leads to the entrance.
+  zone map 1446
+  collect 9240 x1 @39.8,21.8 map 1446 optional

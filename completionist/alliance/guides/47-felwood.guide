@@ -1,0 +1,662 @@
+guide polestar-completionist-alliance/47-felwood
+title 47 Felwood (48-58) (Completionist)
+faction Alliance
+levels 48-58
+zone Felwood
+next polestar-completionist-alliance/48-teldrassil-and-darnassus-2
+pitch On along the line: Felwood, quests of level 48 to 58.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 24 quests; estimated level at the end 50.0 (heuristic XP, class quests not counted).
+
+step Greta Mosshoof
+  accept 5155
+  accept 91952
+  accept 86577
+  accept 5156
+
+step Corrupted Windblossom
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11516 x2 anywhere optional
+  turnin 4115 direct optional
+
+step Corrupted Songflower
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11516 x2 anywhere optional
+  turnin 2523 direct optional
+
+step Arathandris Silversky
+  accept 4101
+
+step Corrupted Night Dragon
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11516 x4 anywhere optional
+  turnin 4119 direct optional
+
+step Corrupted Songflower
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11516 x2 anywhere optional
+  turnin 4113 direct optional
+
+step Angerclaw Bear
+  zone Ashenvale
+  collect 277958 x8 quest 86577.1
+
+step Felpaw Wolf
+  collect 277959 x10 quest 86577.2
+
+step Jaedenar Cultist
+  kill 7112 x6 quest 5155.4
+
+step Jaedenar Hound, Jaedenar Guardian and Jaedenar Adept
+  zone Felwood
+  kill 7125 x4 quest 5155.1
+  kill 7113 x4 quest 5155.2
+  kill 7115 x6 quest 5155.3
+
+step Entropic Beast and Entropic Horror
+  kill 9878 x2 quest 5156.1
+  kill 9879 x2 quest 5156.2
+
+step Warpwood Moss Flayer
+  collect 11503 x15 quest 4101.1
+
+step Nafien
+  accept 8461
+
+step Corrupted Songflower
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11516 x2 anywhere optional
+  turnin 4465 direct optional
+
+step Corrupted Songflower
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11516 x2 anywhere optional
+  turnin 3363 direct optional
+
+step The Root of All Evil
+  tip Needs Exalted standing (42000) with Timbermaw Hold; without it the quest is not offered.
+  zone map 1448
+  accept 8481 optional
+
+step The Root of All Evil
+  when onquest 8481
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1448
+  complete 8481 @65.2,2.7 optional
+
+step The Root of All Evil
+  when onquest 8481
+  zone map 1448
+  turnin 8481 optional
+
+step Corrupted Songflower
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11516 x2 anywhere optional
+  turnin 4114 direct optional
+
+step Corrupted Songflower
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11516 x2 anywhere optional
+  turnin 4464 direct optional
+
+step Corrupted Songflower
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11516 x2 anywhere optional
+  turnin 4118 direct optional
+
+step Corrupted Whipper Root
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11516 x3 anywhere optional
+  turnin 4461 direct optional
+
+step Corrupted Whipper Root
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11516 x3 anywhere optional
+  turnin 4444 direct optional
+
+step Corrupted Whipper Root
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11516 x3 anywhere optional
+  turnin 4443 direct optional
+
+step Corrupted Whipper Root
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11516 x3 anywhere optional
+  turnin 4446 direct optional
+
+step Deadwood Ritual Totem
+  tip Deadwood Ritual Totem drops from Deadwood Avenger, Deadwood Den Watcher, Deadwood Shaman: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1448
+  collect 20741 x1 optional
+  accept 8470 item 20741 optional
+
+step Deadwood Ritual Totem
+  when onquest 8470
+  zone map 1448
+  turnin 8470
+
+step Deadwood Avenger
+  kill 7157 x6 quest 8461.2
+
+step Deadwood Shaman
+  kill 7158 x6 quest 8461.3
+
+step Deadwood Den Watcher
+  kill 7156 x6 quest 8461.1
+
+step Level 50
+  level 50
+
+step Runecloth
+  tip Needs Friendly standing (3000) with Timbermaw Hold; without it the quest is not offered.
+  zone map 1448
+  accept 6031 optional
+
+step Runecloth
+  when onquest 6031
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1448
+  complete 6031 @65.7,2.8 optional
+
+step Runecloth
+  when onquest 6031
+  zone map 1448
+  turnin 6031 optional
+
+step Nafien
+  turnin 8461
+  accept 8465
+
+step Feathers for Nafien
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 21377 x5 anywhere optional
+  turnin 8467 direct optional
+
+step Salfa
+  turnin 8465
+  accept 8464
+
+step Sacred Cloth
+  when skill Tailoring 280
+  tip Needs Friendly standing (3000) with Timbermaw Hold; without it the quest is not offered.
+  zone map 1448
+  accept 6032 optional
+
+step Sacred Cloth
+  when onquest 6032
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1448
+  complete 6032 @65.7,2.8 optional
+
+step Sacred Cloth
+  when onquest 6032
+  zone map 1448
+  turnin 6032 optional
+
+step The Brokering of Peace
+  when turnedin 8481
+  tip Needs Exalted standing (42000) with Timbermaw Hold; without it the quest is not offered.
+  zone map 1448
+  accept 8484 optional
+
+step The Brokering of Peace
+  when onquest 8484
+  zone map 1455
+  turnin 8484 optional
+
+step Winterfall Den Watcher
+  zone Winterspring
+  kill 7440 x8 quest 8464.2
+
+step Winterfall Ursa
+  kill 7438 x8 quest 8464.3
+
+step Winterfall Shaman
+  kill 7439 x8 quest 8464.1
+
+step Level 53
+  level 53
+
+step Ivy Leafrunner
+  zone Felwood
+  accept 5249
+
+step Xavaric
+  zone Darkshore
+  accept 939 item 11668 -- Drops from Xavaric
+
+step Jadefire Trickster
+  zone Felwood
+  collect 11674 x5 quest 939.1
+
+step Eridan Bluewind
+  zone Felwood
+  accept 4421
+
+step Jadefire Felsworn, Jadefire Shadowstalker, Jadefire Rogue and Xavathras
+  zone Darkshore
+  kill 7109 x11 quest 4421.1
+  kill 7110 x9 quest 4421.2
+  kill 7106 x9 quest 4421.3
+  kill 9454 x1 quest 4421.4
+
+step Salfa
+  zone Darkshore
+  accept 6241
+
+step Winterfall Den Watcher
+  zone Winterspring
+  kill 7440 x6 quest 6241.1
+
+step Winterfall Pathfinder
+  zone Winterspring
+  kill 7442 x6 quest 6241.3
+
+step Winterfall Totemic
+  zone Winterspring
+  kill 7441 x6 quest 6241.2
+
+step Wynd Nightchaser
+  turnin 5249
+
+step Winterfall Ritual Totem
+  tip Winterfall Ritual Totem drops from Winterfall Totemic, Winterfall Runner, Winterfall Pathfinder: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1452
+  collect 20742 x1 optional
+  accept 8471 item 20742 optional
+
+step Winterfall Ritual Totem
+  when onquest 8471
+  zone map 1448
+  turnin 8471
+
+step Salfa
+  zone Felwood
+  turnin 6241
+  turnin 8464
+
+step Beads for Salfa
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 21383 x5 anywhere optional
+  turnin 8469 direct optional
+
+step Statue of Malorne
+  accept 86611
+
+step Corrupted Songflower
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11516 x2 anywhere optional
+  turnin 2878 direct optional
+
+step Corrupted Windblossom
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11516 x2 anywhere optional
+  turnin 4343 direct optional
+
+step Corrupted Windblossom
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11516 x2 anywhere optional
+  turnin 1514 direct optional
+
+step Corrupted Windblossom
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11516 x2 anywhere optional
+  turnin 4221 direct optional
+
+step Taronn Redfeather
+  complete 5156 @41.0,42.0 map 1448
+  turnin 5156
+  turnin 86577
+  turnin 5155
+  accept 5157
+  turnin 939
+  turnin 4421
+  accept 4441
+  accept 4906
+
+step Corrupt Jaedenar Moonwell
+  zone Darkshore
+  collect 12907 x1 quest 5157.1
+
+step Temple of the Moon Fountain
+  zone Darnassus
+  collect 5646 x1 quest 4441.1
+
+step Jadefire Trickster
+  zone Felwood
+  kill 7107 x8 quest 4906.3
+
+step Jadefire Betrayer
+  kill 7108 x8 quest 4906.2
+
+step Jadefire Hellcaller and Xavaric
+  zone Darkshore
+  kill 7111 x8 quest 4906.1
+  kill 10648 x1 quest 4906.4
+
+step Golhine the Hooded
+  zone Felwood
+  getfp "Talonbranch Glade"
+  turnin 86611
+
+step Corrupted Songflower
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11516 x2 anywhere optional
+  turnin 4116 direct optional
+
+step Corrupted Windblossom
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11516 x2 anywhere optional
+  turnin 998 direct optional
+
+step Corrupted Windblossom
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11516 x2 anywhere optional
+  turnin 4466 direct optional
+
+step Corrupted Windblossom
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11516 x2 anywhere optional
+  turnin 4467 direct optional
+
+step Eridan Bluewind
+  turnin 4441
+  turnin 4906
+  accept 4442
+  turnin 4442
+  turnin 5157
+  accept 5158
+
+step Grazle
+  accept 6131
+  accept 6221
+  accept 8460
+
+step Corrupted Night Dragon
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11516 x4 anywhere optional
+  turnin 4447 direct optional
+
+step Corrupted Songflower
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11516 x2 anywhere optional
+  turnin 4401 direct optional
+
+step Deadwood Warrior
+  kill 7153 x7 quest 6131.1
+  kill 7153 x6 quest 8460.1
+
+step Deadwood Gardener and Deadwood Pathfinder
+  kill 7154 x7 quest 6131.2
+  kill 7155 x7 quest 6131.3
+  kill 7155 x6 quest 8460.2
+  kill 7154 x6 quest 8460.3
+
+step Deadwood Den Watcher
+  kill 7156 x5 quest 6221.1
+
+step Deadwood Avenger
+  kill 7157 x5 quest 6221.2
+
+step Deadwood Shaman
+  kill 7158 x5 quest 6221.3
+
+step Arei
+  accept 4261
+
+step Grazle
+  turnin 6131
+  turnin 6221
+  turnin 8460
+  accept 8462
+
+step Feathers for Grazle
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 21377 x5 anywhere optional
+  turnin 8466 direct optional
+
+step Arathandris Silversky
+  turnin 4101
+  accept 5882
+
+step Salve via Disenchanting
+  when skill Enchanting 1
+  zone map 1448
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 5886 optional
+  complete 5886 @54.1,86.8 optional
+
+step Salve via Skinning
+  when skill Skinning 1
+  zone map 1448
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 5885 optional
+  complete 5885 @54.1,86.8 optional
+
+step Salve via Gathering
+  when skill Herbalism 1
+  zone map 1448
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 5884 optional
+  complete 5884 @54.1,86.8 optional
+
+step Salve via Mining
+  when skill Mining 1
+  zone map 1448
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 5883 optional
+  complete 5883 @54.1,86.8 optional
+
+step Jaedenar Warlock
+  zone Darkshore
+  collect 11515 x6 quest 5882.1
+
+step A Strange Red Key
+  tip Blood Red Key drops from Jaedenar Darkweaver, Jaedenar Warlock, Jaedenar Enforcer: it starts this quest. The data gives it a low drop rate: take it if it comes, and move on if it does not.
+  zone map 1439
+  collect 13140 x1 optional
+  accept 5202 item 13140 optional
+
+step A Strange Red Key
+  when onquest 5202
+  zone map 1448
+  turnin 5202
+
+step Arathandris Silversky
+  zone Felwood
+  turnin 5882
+
+step Salve via Hunting
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11515 x6 anywhere optional
+  turnin 4103 direct optional
+
+step Salve via Disenchanting
+  when skill Enchanting 1
+  turnin 5886 optional
+
+step Salve via Skinning
+  when skill Skinning 1
+  turnin 5885 optional
+
+step Salve via Gathering
+  when skill Herbalism 1
+  turnin 5884 optional
+
+step Salve via Mining
+  when skill Mining 1
+  turnin 5883 optional
+
+step Kayneth Stillwind
+  zone Ashenvale
+  complete 4261 @49.4,14.5 map 1448
+  turnin 4261
+
+step Ketharas
+  zone Mount Hyjal
+  turnin 91952
+
+step Nafien
+  zone Felwood
+  turnin 8462
+
+step Corrupted Windblossom
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11516 x2 anywhere optional
+  turnin 996 direct optional
+
+step Corrupted Whipper Root
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11516 x3 anywhere optional
+  turnin 4445 direct optional
+
+step Corrupted Whipper Root
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11516 x3 anywhere optional
+  turnin 4117 direct optional
+
+step Corrupted Windblossom
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11516 x2 anywhere optional
+  turnin 4403 direct optional
+
+step Salve via Disenchanting
+  when skill Enchanting 1
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11174 x1 anywhere optional
+  turnin 4107 direct optional
+
+step Salve via Skinning
+  when skill Skinning 1
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11512 x5 anywhere optional
+  turnin 4106 direct optional
+
+step Salve via Gathering
+  when skill Herbalism 1
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11514 x4 anywhere optional
+  turnin 4105 direct optional
+
+step Salve via Mining
+  when skill Mining 1
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1448
+  collect 11513 x4 anywhere optional
+  turnin 4104 direct optional
+
+step Rescue From Jaedenar
+  when turnedin 5202
+  zone map 1448
+  accept 5203
+  complete 5203 @51.4,82.0
+
+step Rescue From Jaedenar
+  when onquest 5203
+  zone map 1448
+  turnin 5203
+
+step Retribution of the Light
+  when turnedin 5203
+  zone map 1448
+  accept 5204
+  complete 5204 @38.5,50.4
+
+step Retribution of the Light
+  when onquest 5204
+  zone map 1448
+  turnin 5204
+
+step The Remains of Trey Lightforge
+  when turnedin 5204
+  zone map 1448
+  accept 5385
+
+step The Remains of Trey Lightforge
+  when onquest 5385
+  zone map 1448
+  turnin 5385
+
+step Islen Waterseer
+  zone The Barrens
+  turnin 5158
+
+
+step Corruptor's Scourgestones
+  when turnedin 5401
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1420
+  collect 12843 x1 anywhere optional
+  turnin 5406 direct optional
+
+step Invader's Scourgestones
+  when turnedin 5401
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1420
+  collect 12841 x10 anywhere optional
+  turnin 5407 direct optional
+
+step Minion's Scourgestones
+  when turnedin 5401
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1420
+  collect 12840 x20 anywhere optional
+  turnin 5408 direct optional
+
+step Darkmoon Beast Deck
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 19228 x1 anywhere optional
+  turnin 7907 direct optional
+
+step Darkmoon Portals Deck
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 19277 x1 anywhere optional
+  turnin 7927 direct optional
+
+step Darkmoon Warlords Deck
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 19257 x1 anywhere optional
+  turnin 7928 direct optional
+
+step Darkmoon Elementals Deck
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1412
+  collect 19267 x1 anywhere optional
+  turnin 7929 direct optional

@@ -1,0 +1,87 @@
+guide polestar-completionist-alliance/64-odd-jobs-in-the-eastern-kingdoms-4
+title 64 Odd jobs in the Eastern Kingdoms (58-60) (Completionist)
+faction Alliance
+levels 58-60
+zone Stranglethorn Vale
+next polestar-completionist-alliance/dungeon-dire-maul
+pitch On along the line: errands across the Eastern Kingdoms, quests of level 58 to 60.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 7 quests; estimated level at the end 58.2 (heuristic XP, class quests not counted).
+
+step Pix Xizzix
+  accept 83934
+  turnin 83934
+
+step Enchanted Azsharite Fel Weaponry
+  zone map 1434
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 3625
+  complete 3625 @50.6,20.5
+
+step Enchanted Azsharite Fel Weaponry
+  turnin 3625
+
+step Galvan the Ancient
+  zone Stranglethorn Vale
+  accept 3626
+
+step Fallen Hero of the Horde
+  zone Swamp of Sorrows
+  turnin 3626
+
+step Fallen Hero of the Horde
+  when group 3627
+  zone Swamp of Sorrows
+  accept 3627
+
+step Fallen Hero of the Horde
+  when group 3627
+  zone Swamp of Sorrows
+  turnin 3627
+
+step Fallen Hero of the Horde
+  when group 3628
+  zone Swamp of Sorrows
+  accept 3628
+
+step Fallen Hero of the Horde
+  when group 3628
+  zone Swamp of Sorrows
+  turnin 3628
+
+step Night Watch Guard
+  zone Duskwood
+  accept 98372
+  accept 99267
+  turnin 98372
+  turnin 99267
+
+step Veteran of the Third War
+  zone Redridge Mountains
+  accept 93551
+
+step Shipping Label
+  when has 280179
+  tip Started by an item you may have found on the way; the reference data does not say where it comes from.
+  zone map 1433
+  accept 98247 item 280179
+  complete 98247 @9.7,70.9
+
+step Shipping Label
+  when onquest 98247
+  zone map 1433
+  turnin 98247
+
+step Veteran of the Third War
+  zone Mount Hyjal
+  turnin 93551 @27.5,50.9 map 2482
+
+
+step Arathi Basin Resources!
+  zone map 1417
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 8297
+  complete 8297 @45.9,45.3
+
+step Arathi Basin Resources!
+  turnin 8297

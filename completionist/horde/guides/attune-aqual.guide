@@ -1,0 +1,121 @@
+guide polestar-completionist-horde/attune-aqual
+title Aqual Quintessence (Molten Core item) (Completionist)
+faction Horde
+levels 56-60
+category Dungeons
+zone Searing Gorge
+pitch Aqual Quintessence: Douses the Molten Core's runes; Majordomo Executus comes out only when every rune is doused. Duke Hydraxis hands it out once Hands of the Enemy is done.
+why Douses the Molten Core's runes; Majordomo Executus comes out only when every rune is doused. Duke Hydraxis hands it out once Hands of the Enemy is done.
+
+
+
+
+step Poisoned Water
+  zone map 1447
+  accept 6804
+
+step Poisoned Water
+  when onquest 6804
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1447
+  complete 6804 @79.3,73.7
+
+step Poisoned Water
+  when onquest 6804
+  zone map 1447
+  turnin 6804
+
+step Stormers and Rumblers
+  zone map 1447
+  accept 6805
+
+step Stormers and Rumblers
+  when onquest 6805
+  zone map 1444
+  complete 6805 @58.5,84
+
+step Stormers and Rumblers
+  when onquest 6805
+  zone map 1447
+  turnin 6805
+
+step Eye of the Emberseer
+  when turnedin 6804
+  when turnedin 6805
+  zone map 1447
+  accept 6821
+
+step Eye of the Emberseer
+  when onquest 6821
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1447
+  complete 6821 @79.3,73.7
+
+step Eye of the Emberseer
+  when onquest 6821
+  zone map 1447
+  turnin 6821
+
+step Level 57
+  level 57
+
+step The Molten Core
+  when turnedin 6821
+  zone map 1447
+  accept 6822
+
+step The Molten Core
+  when onquest 6822
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1447
+  complete 6822 @79.3,73.7
+
+step The Molten Core
+  when onquest 6822
+  zone map 1447
+  turnin 6822
+
+step Level 60
+  level 60
+
+step Agent of Hydraxis
+  when turnedin 6822
+  zone map 1447
+  accept 6823
+
+step Agent of Hydraxis
+  when onquest 6823
+  zone map 1447
+  turnin 6823
+
+step Level 60
+  level 60
+
+step Hands of the Enemy
+  when turnedin 6823
+  zone map 1447
+  accept 6824
+
+step Hands of the Enemy
+  when onquest 6824
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1447
+  complete 6824 @79.3,73.7
+
+step Hands of the Enemy
+  when onquest 6824
+  zone map 1447
+  turnin 6824
+
+step Level 60
+  level 60
+
+step A Hero's Reward
+  when turnedin 6824
+  zone map 1447
+  accept 7486
+
+step A Hero's Reward
+  when onquest 7486
+  zone map 1447
+  turnin 7486

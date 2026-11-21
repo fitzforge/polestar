@@ -1,0 +1,249 @@
+guide polestar-completionist-alliance/55-western-plaguelands
+title 55 Western Plaguelands (52-60) (Completionist)
+faction Alliance
+levels 52-60
+zone Western Plaguelands
+next polestar-completionist-alliance/dungeon-scholomance
+next polestar-completionist-alliance/56-swamp-of-sorrows-2
+pitch On along the line: Western Plaguelands, quests of level 52 to 60.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 18 quests; estimated level at the end 52.6 (heuristic XP, class quests not counted).
+# Skipped: 15 prerequisite N not in this route; 2 exclusive with N (done).
+
+step Nathaniel Dumah
+  getfp "Chillwind Camp"
+  accept 5903
+
+step Argent Dawn Commission
+  when available 5401
+  tip One of several exclusive quests; the route takes Argent Dawn Commission (5405). This one shows for a character the game offers it to instead.
+  zone map 1422
+  accept 5401 optional
+
+step Mulgris Deepriver
+  accept 4984
+
+step Diseased Wolf
+  zone Tirisfal Glades
+  kill 1817 x8 quest 4984.1
+
+step Large Termite Mound
+  zone Eastern Plaguelands
+  collect 15043 x100 quest 5903.1
+
+step Kirsta Deepshadow
+  zone Western Plaguelands
+  accept 6004
+
+step Scarlet Mage
+  kill 1826 x2 quest 6004.3
+
+step Scarlet Knight
+  kill 1833 x2 quest 6004.4
+
+step Scarlet Hunter
+  kill 1831 x2 quest 6004.2
+
+step Scarlet Medic
+  kill 10605 x2 quest 6004.1
+
+step Janice Felstone
+  accept 5021
+  turnin 5021
+  accept 5022
+
+step Mulgris Deepriver
+  turnin 4984
+  accept 4985
+
+step Diseased Grizzly
+  kill 1816 x8 quest 4985.1
+
+step Mrs. Dalson's Diary
+  accept 5058
+  turnin 5058
+  accept 5060
+
+step Locked Away
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1422
+  collect 12738 x1 anywhere optional
+  turnin 5059 direct optional
+
+step Farmer Dalson
+  collect 12739 x1 quest 5060.1
+
+step Locked Cabinet
+  turnin 5060
+
+step Mulgris Deepriver
+  turnin 4985
+  accept 4986
+
+step Nathaniel Dumah
+  turnin 5903
+  accept 5904
+
+step Argent Dawn Commission
+  when onquest 5401
+  zone map 1422
+  turnin 5401 optional
+
+step Level 55
+  level 55
+
+step Chromatic Mantle of the Dawn
+  when available 5521
+  tip One of several exclusive quests; the route takes Chromatic Mantle of the Dawn (5517). This one shows for a character the game offers it to instead.
+  tip Needs Exalted standing (42000) with Argent Dawn; without it the quest is not offered.
+  zone map 1422
+  accept 5521 optional
+
+step Chromatic Mantle of the Dawn
+  when onquest 5521
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1422
+  complete 5521 @42.8,83.7 optional
+
+step Chromatic Mantle of the Dawn
+  when onquest 5521
+  zone map 1422
+  turnin 5521 optional
+
+step Mantles of the Dawn
+  tip Needs Revered standing (21000) with Argent Dawn; without it the quest is not offered.
+  zone map 1422
+  accept 5507 optional
+
+step Mantles of the Dawn
+  when onquest 5507
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1422
+  complete 5507 @42.8,83.7 optional
+
+step Mantles of the Dawn
+  when onquest 5507
+  zone map 1422
+  turnin 5507 optional
+
+step Termite Barrel
+  turnin 5904
+  accept 6389
+
+step Kirsta Deepshadow
+  turnin 6004
+  accept 6023
+
+step Cavalier Durgen
+  kill 11611 x1 quest 6023.2
+
+step Level 55
+  level 55
+
+step Argent Officer Pureheart
+  zone Western Plaguelands
+  accept 92842
+
+step Corruptor's Scourgestones
+  when turnedin 5401
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1422
+  collect 12843 x1 anywhere optional
+  turnin 5404 direct optional
+
+step Invader's Scourgestones
+  when turnedin 5401
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1422
+  collect 12841 x10 anywhere optional
+  turnin 5403 direct optional
+
+step Minion's Scourgestones
+  when turnedin 5401
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1422
+  collect 12840 x20 anywhere optional
+  turnin 5402 direct optional
+
+step Little Pamela
+  when available 5142
+  tip One of several exclusive quests; the route takes Sister Pamela (5601). This one shows for a character the game offers it to instead.
+  zone map 1422
+  accept 5142 optional
+
+step Little Pamela
+  when onquest 5142
+  zone map 1423
+  turnin 5142 optional
+
+step Chromie
+  zone Western Plaguelands
+  accept 4971
+
+step Temporal Parasite
+  zone Western Plaguelands
+  kill 10717 x15 quest 4971.1
+
+step Chromie
+  zone Western Plaguelands
+  turnin 4971
+
+step Chromie
+  zone Western Plaguelands
+  accept 4972
+
+step Small Lockbox
+  zone Western Plaguelands
+  collect 12638 x5 quest 4972.1
+
+step Chromie
+  zone Western Plaguelands
+  turnin 4972
+
+step Counting Out Time
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1422
+  collect 12638 x5 anywhere optional
+  turnin 4973 direct optional
+
+step Huntsman Radley
+  kill 11613 x1 quest 6023.1
+
+step Kirsta Deepshadow
+  turnin 6023
+  accept 6025
+
+step Kirsta Deepshadow
+  complete 6025 @45.8,18.2 map 1422
+  turnin 6025
+
+step Nathaniel Dumah
+  turnin 6389
+
+step Royal Factor Bathrilor
+  zone Stormwind City
+  turnin 5022
+  accept 5048
+  turnin 5048
+  accept 5050
+
+step Janice Felstone
+  zone Western Plaguelands
+  turnin 5050
+
+step Two Halves Become One
+  zone map 1422
+  tip The reference data does not place this quest's objective: follow the quest text.
+  accept 5051
+  complete 5051 @38.4,54.0
+
+step Two Halves Become One
+  turnin 5051
+
+step Quintus Wainworth
+  zone Mount Hyjal
+  turnin 92842
+
+step Mathrengyl Bearwalker
+  zone Darnassus
+  turnin 4986

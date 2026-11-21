@@ -1,0 +1,176 @@
+guide polestar-completionist-horde/dungeon-shadowfang-keep
+title Shadowfang Keep (Completionist)
+faction Horde
+category Dungeons
+levels 18-27
+zone Silverpine Forest
+next polestar-completionist-horde/16-thousand-needles
+pitch Shadowfang Keep, in Silverpine Forest.
+why Every Horde quest of Shadowfang Keep: the chains that lead to it, the pick-ups before the run and the hand-ins after it.
+
+step Getting there
+  note The entrance is in Silverpine Forest: the arrow leads to it.
+
+step Diplomatic Incident
+  only Paladin,Undead
+  zone Tirisfal Glades
+  accept 91858
+
+step Diplomatic Incident
+  only Paladin,Undead
+  zone Silverpine Forest
+  turnin 91858
+
+step A Curious Pair
+  only Paladin
+  zone Silverpine Forest
+  accept 91859
+
+step A Curious Pair
+  only Paladin
+  zone Silverpine Forest
+  turnin 91859
+
+step A Grim Fate
+  only Paladin
+  zone Silverpine Forest
+  accept 91860
+
+step A Grim Fate
+  only Paladin
+  zone Silverpine Forest
+  complete 91860 @65.02,34.1
+
+step A Grim Fate
+  only Paladin
+  zone Silverpine Forest
+  turnin 91860
+
+step Into Fenris Keep
+  only Paladin,Undead
+  zone Silverpine Forest
+  accept 91861
+
+step Into Fenris Keep
+  only Paladin,Undead
+  zone Silverpine Forest
+  turnin 91861
+
+step Lumina Windsinger
+  only Paladin,Undead
+  zone Silverpine Forest
+  accept 91862
+
+step Lumina Windsinger
+  only Paladin,Undead
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Silverpine Forest
+  complete 91862 @65.55,23.27
+
+step Lumina Windsinger
+  only Paladin,Undead
+  zone Silverpine Forest
+  turnin 91862
+
+step The Windshaper's Wrath
+  only Paladin,Undead
+  zone Silverpine Forest
+  accept 96204
+
+step The Windshaper's Wrath
+  only Paladin,Undead
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Silverpine Forest
+  complete 96204 @65.55,23.27
+
+step The Windshaper's Wrath
+  only Paladin,Undead
+  zone Silverpine Forest
+  turnin 96204
+
+step The Debt
+  only Paladin,Undead
+  zone Silverpine Forest
+  accept 95034
+
+step The Debt
+  only Paladin,Undead
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone Silverpine Forest
+  complete 95034 @43.4,40.99
+
+step The Debt
+  only Paladin,Undead
+  zone Silverpine Forest
+  turnin 95034
+
+step Dalar Dawnweaver
+  zone Silverpine Forest
+  accept 1014
+
+step Dead Drop
+  only Rogue
+  zone Silverpine Forest
+  accept 78261
+
+step High Executor Hadrec
+  zone Silverpine Forest
+  accept 1098
+
+step Keeper Bel'dugur
+  zone Undercity
+  accept 1013
+
+step Inside Shadowfang Keep
+  zone Silverpine Forest
+  turnin 1098 @45,67.9
+  complete 1013 @45,67.9
+  complete 1014 @45,67.9
+
+step Inside Shadowfang Keep
+  only Rogue
+  zone Silverpine Forest
+  complete 78261 @45,67.9
+
+step Dalar Dawnweaver
+  zone Silverpine Forest
+  turnin 1014
+
+step Dead Drop
+  only Rogue
+  zone Silverpine Forest
+  turnin 78261
+
+step Lumina Windsinger
+  only Paladin,Undead
+  zone Silverpine Forest
+  accept 95036
+
+step Inside Shadowfang Keep
+  only Paladin,Undead
+  zone Silverpine Forest
+  complete 95036 @45,67.9
+
+step Trevan Rol
+  only Paladin,Undead
+  zone Silverpine Forest
+  turnin 95036
+
+step Doan Karhan
+  only Warlock
+  zone The Barrens
+  accept 1740
+
+step Inside Shadowfang Keep
+  only Warlock
+  zone Silverpine Forest
+  complete 1740 @45,67.9
+
+step Doan Karhan
+  only Warlock
+  zone The Barrens
+  turnin 1740
+
+step Keeper Bel'dugur
+  zone Undercity
+  turnin 1013

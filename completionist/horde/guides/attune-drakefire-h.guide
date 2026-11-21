@@ -1,0 +1,162 @@
+guide polestar-completionist-horde/attune-drakefire-h
+title Drakefire Amulet (Onyxia's Lair key) (Completionist)
+faction Horde
+levels 60-60
+category Dungeons
+zone Dustwallow Marsh
+pitch Drakefire Amulet: Everyone entering Onyxia's Lair carries the Drakefire Amulet.
+why Everyone entering Onyxia's Lair carries the Drakefire Amulet.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 10 quests; estimated level at the end 60.0 (heuristic XP, class quests not counted).
+
+step Warlord's Command
+  zone map 1418
+  accept 4903
+
+step Warlord's Command
+  when onquest 4903
+  tip The objective is inside Blackrock Spire: the arrow leads to its entrance.
+  zone map 1427
+  complete 4903 @34.8,85.3
+
+step Warlord's Command
+  when onquest 4903
+  zone map 1418
+  turnin 4903
+
+step Warlord Goretooth
+  zone Badlands
+  accept 4941
+
+step Thrall
+  zone Badlands
+  complete 4941 @34.1,39.3 map 1454
+  turnin 4941
+
+step For The Horde!
+  zone map 1454
+  accept 4974
+
+step For The Horde!
+  when onquest 4974
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1454
+  complete 4974 @31.7,37.8
+
+step For The Horde!
+  when onquest 4974
+  zone map 1454
+  turnin 4974
+
+step Thrall
+  zone Dustwallow Marsh
+  accept 6566
+
+step Thrall
+  zone Dustwallow Marsh
+  turnin 6566
+
+step Thrall
+  zone Dustwallow Marsh
+  accept 6567
+
+step Rexxar
+  zone Desolace
+  turnin 6567
+
+step Rexxar
+  zone Desolace
+  accept 6568
+
+step Myranda the Hag
+  zone Western Plaguelands
+  turnin 6568
+
+step Oculus Illusions
+  zone map 1422
+  accept 6569
+
+step Oculus Illusions
+  when onquest 6569
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1422
+  complete 6569 @50.8,77.8
+
+step Oculus Illusions
+  when onquest 6569
+  zone map 1422
+  turnin 6569
+
+step Myranda the Hag
+  zone Western Plaguelands
+  accept 6570
+
+step Emberstrife
+  zone Dustwallow Marsh
+  turnin 6570
+
+step Emberstrife
+  zone Dustwallow Marsh
+  accept 6584
+
+step Chronalis
+  zone Tanaris
+  collect 16871 x1 quest 6584.1
+
+step Emberstrife
+  zone Dustwallow Marsh
+  turnin 6584
+
+step Emberstrife
+  zone Dustwallow Marsh
+  accept 6583
+
+step Somnus
+  zone Swamp of Sorrows
+  collect 16870 x1 quest 6583.1
+
+step Emberstrife
+  zone Dustwallow Marsh
+  turnin 6583
+
+step Emberstrife
+  zone Dustwallow Marsh
+  accept 6582
+
+step Scryer
+  zone Winterspring
+  collect 16869 x1 quest 6582.1
+
+step Emberstrife
+  zone Dustwallow Marsh
+  turnin 6582
+
+step Emberstrife
+  zone Dustwallow Marsh
+  accept 6585
+
+step Axtroz
+  zone Wetlands
+  collect 16872 x1 quest 6585.1
+
+step Emberstrife
+  zone Dustwallow Marsh
+  turnin 6585
+
+step Emberstrife
+  zone Dustwallow Marsh
+  accept 6601
+
+step Rexxar
+  zone Desolace
+  turnin 6601
+
+step Blood of the Black Dragon Champion
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1443
+  accept 6602
+  complete 6602 @54,2
+
+step Blood of the Black Dragon Champion
+  zone map 1443
+  turnin 6602

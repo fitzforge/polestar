@@ -1,0 +1,13 @@
+guide polestar-completionist-horde/attune-prison-cell-key
+title Prison Cell Key (Blackrock Depths key or item) (Completionist)
+faction Horde
+category Dungeons
+levels 1-60
+zone Searing Gorge
+pitch Prison Cell Key: Opens the cells of Blackrock Depths' prison.
+why Opens the cells of Blackrock Depths' prison.
+
+step Prison Cell Key
+  tip Opens the cells of Blackrock Depths' prison. No quest gives it: it comes from inside Blackrock Depths; the arrow leads to the entrance.
+  zone map 1427
+  collect 11140 x1 @34.8,85.3 map 1427 optional

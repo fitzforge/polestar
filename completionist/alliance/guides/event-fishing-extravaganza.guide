@@ -1,0 +1,46 @@
+guide polestar-completionist-alliance/event-fishing-extravaganza
+title Fishing Extravaganza (Completionist)
+faction Alliance
+category Miscellaneous
+levels 1-60
+zone Stormwind City
+pitch The quests of Fishing Extravaganza, as far as the reference data places them.
+
+step About this guide
+  note Each quest here is offered only while the event runs. Every step is optional: do what the calendar offers now, and come back for the rest.
+
+step Could I get a Fishing Flier?
+  when skill Fishing 150
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1455
+  turnin 8229 direct optional
+
+step Master Angler
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1434
+  collect 19807 x40 anywhere optional
+  turnin 8193 direct optional
+
+step Apprentice Angler
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1434
+  collect 19807 x5 anywhere optional
+  turnin 8194 direct optional
+
+step Rare Fish - Keefer's Angelfish
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1434
+  collect 19805 x1 anywhere optional
+  turnin 8221 direct optional
+
+step Rare Fish - Dezian Queenfish
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1434
+  collect 19806 x1 anywhere optional
+  turnin 8224 direct optional
+
+step Rare Fish - Brownell's Blue Striped Racer
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1434
+  collect 19803 x1 anywhere optional
+  turnin 8225 direct optional

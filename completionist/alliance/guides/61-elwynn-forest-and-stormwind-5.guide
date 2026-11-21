@@ -1,0 +1,306 @@
+guide polestar-completionist-alliance/61-elwynn-forest-and-stormwind-5
+title 61 Elwynn Forest and Stormwind (55-60) (Completionist)
+faction Alliance
+levels 55-60
+zone Elwynn Forest
+next polestar-completionist-alliance/62-hillsbrad-foothills-and-alterac-mountains-3
+pitch On along the line: Elwynn Forest and Stormwind, quests of level 55 to 60.
+# Drafted from the reference data and repaired from lint: not yet played.
+# Routed 21 quests; estimated level at the end 55.8 (heuristic XP, class quests not counted).
+# Skipped: 14 prerequisite N not in this route; 1 exclusive with N (done).
+
+step Goldshire
+  zone Elwynn Forest
+  sethome "Goldshire"
+
+step Master Mathias Shaw
+  accept 96676
+  accept 97883 @78.3,70.7 map 1453
+
+step Squire Rowe
+  accept 99435
+
+step Major Mattingly
+  turnin 97883 @67.2,85.5 map 1453
+
+step Cracked Necrotic Crystal
+  tip The reference data has no giver for this quest: it is handed in here once the game offers it.
+  zone map 1453
+  turnin 9292 direct
+
+step Clavicus Knavingham
+  accept 7791
+  accept 7793
+  accept 7794
+
+step The New Frontier
+  when available 1015
+  tip One of several exclusive quests; the route takes The New Frontier (1019). This one shows for a character the game offers it to instead.
+  zone map 1453
+  accept 1015 optional
+
+step The New Frontier
+  when onquest 1015
+  zone map 1457
+  turnin 1015 optional
+
+step The New Frontier
+  when turnedin 1015
+  zone map 1457
+  accept 6761
+
+step The New Frontier
+  when onquest 6761
+  zone map 1457
+  turnin 6761
+
+step Rabine Saturna
+  when turnedin 6761
+  zone map 1457
+  accept 6762
+
+step Rabine Saturna
+  when onquest 6762
+  zone map 1450
+  turnin 6762
+
+step Wasteland
+  when turnedin 6762
+  zone map 1450
+  accept 1124
+
+step Wasteland
+  when onquest 1124
+  zone map 1449
+  turnin 1124
+
+step The Spirits of Southwind
+  when turnedin 1124
+  zone map 1449
+  accept 1125
+
+step The Spirits of Southwind
+  when onquest 1125
+  zone map 1451
+  complete 1125 @58.8,52.8
+
+step The Spirits of Southwind
+  when onquest 1125
+  zone map 1449
+  turnin 1125
+
+step Hive in the Tower
+  when turnedin 1125
+  zone map 1449
+  accept 1126
+
+step Hive in the Tower
+  when onquest 1126
+  tip The reference data does not place this quest's objective: follow the quest text.
+  zone map 1449
+  complete 1126 @22.9,17.5
+
+step Hive in the Tower
+  when onquest 1126
+  zone map 1449
+  turnin 1126
+
+step Umber, Archivist
+  when turnedin 1126
+  zone map 1449
+  accept 6844
+
+step Umber, Archivist
+  when onquest 6844
+  zone map 1450
+  turnin 6844
+
+step Uncovering Past Secrets
+  when turnedin 6844
+  zone map 1450
+  accept 6845
+
+step Uncovering Past Secrets
+  when onquest 6845
+  zone map 1450
+  turnin 6845
+
+step Under the Chitin Was...
+  when turnedin 6845
+  zone map 1450
+  accept 1185
+
+step Under the Chitin Was...
+  when onquest 1185
+  zone map 1450
+  turnin 1185
+
+step Farrin Daris
+  zone Duskwood
+  collect 2592 x60 quest 7791.1
+
+step Ratchet Bruiser
+  zone The Barrens
+  collect 4306 x60 quest 7793.1
+
+step Baron Bloodbane
+  zone Eastern Plaguelands
+  collect 4338 x60 quest 7794.1
+
+step Book
+  accept 84401 object 463212
+
+step Book
+  collect 228140 x1 quest 84401.1
+
+step Book
+  accept 84400 object 463208
+
+step Book
+  collect 228138 x1 quest 84400.1
+
+step Book
+  accept 84398 object 463207
+
+step Book
+  collect 228135 x1 quest 84398.1
+
+step Book
+  zone Western Plaguelands
+  accept 84402 object 463211
+
+step Book
+  collect 228141 x1 quest 84402.1
+
+step Book
+  accept 84395 object 463213
+
+step Level 56
+  level 56
+
+step Highlord Bolvar Fordragon
+  zone Stormwind City
+  accept 6182
+
+step Master Mathias Shaw
+  zone Stormwind City
+  turnin 6182
+
+step Master Mathias Shaw
+  zone Elwynn Forest
+  accept 6183
+  turnin 6183
+
+step Master Mathias Shaw
+  zone Elwynn Forest
+  accept 6184
+
+step Your Fortune Awaits You...
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1429
+  turnin 7937 direct optional
+
+step Flint Shadowmore
+  zone Western Plaguelands
+  turnin 6184
+
+step Flint Shadowmore
+  zone Western Plaguelands
+  accept 6185
+
+step Mangled Human Remains and The Blightcaller Uncovered
+  zone Eastern Plaguelands
+  collect 16001 x1 quest 6185.2
+
+step Mangled Human Remains
+  zone Eastern Plaguelands
+  collect 16002 x1 quest 6185.3
+
+step Mangled Human Remains
+  zone Eastern Plaguelands
+  collect 16003 x1 quest 6185.1
+
+step Flint Shadowmore
+  zone Western Plaguelands
+  complete 6185 @22.5,63.6 map 1423
+  turnin 6185
+
+step Flint Shadowmore
+  zone Western Plaguelands
+  accept 6186
+
+step Book
+  collect 228132 x1 quest 84395.1
+
+step Book
+  zone Burning Steppes
+  accept 84396 object 463206
+
+step Book
+  collect 228133 x1 quest 84396.1
+
+step Highlord Bolvar Fordragon
+  zone Stormwind City
+  turnin 6186
+  turnin 99435 @80.2,38.4 map 1453
+
+step Highlord Bolvar Fordragon
+  when group 6187
+  zone Stormwind City
+  accept 6187
+
+step Nathanos Blightcaller
+  when group 6187
+  zone Eastern Plaguelands
+  tip Order Must Be Restored is group work: elites. Grouping up is advised.
+  kill 11878 x1 quest 6187.1
+
+step Highlord Bolvar Fordragon
+  when group 6187
+  zone Stormwind City
+  turnin 6187
+
+step Clavicus Knavingham
+  turnin 7791
+  turnin 7793
+  turnin 7794
+  accept 7795
+
+step Stormwind Royal Guard
+  collect 14047 x60 quest 7795.1
+
+step Clavicus Knavingham
+  turnin 7795
+
+step Additional Runecloth
+  tip A repeatable quest: hand it in once, with what it asks for.
+  zone map 1453
+  collect 14047 x20 anywhere optional
+  turnin 7796 direct optional
+
+step Jennea Cannon
+  turnin 84395
+  turnin 84396
+  turnin 84398
+  turnin 84400
+  turnin 84401
+  turnin 84402
+  accept 84397 npc 5497
+  accept 84399 npc 5497
+
+step Book
+  zone Felwood
+  collect 228134 x1 quest 84397.1
+
+step Book
+  zone Winterspring
+  collect 228136 x1 quest 84399.1
+
+step Johun "Punchy" Dillas
+  zone Mount Hyjal
+  turnin 96676 @43.9,37.8 map 2482
+
+step Jennea Cannon
+  zone Stormwind City
+  turnin 84397
+  turnin 84399
