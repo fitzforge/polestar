@@ -791,15 +791,15 @@ local noWalkShown -- Nav.noWalk under the label while the arrow points straight 
 -- target, and so does "The last steps here aren't mapped" while the current walk
 -- ends short of its goal's floor, or a capital walk found none (Walk.Unmapped).
 -- The walk's hostile-town warning (`warning`) comes after them. While no walk
--- was found (Nav.noWalk) and the arrow points straight, why: "No safe walking
--- route" or "The last steps here aren't mapped" (#3409).
+-- was found (Nav.noWalk) and the arrow points straight, why: "The last steps
+-- here aren't mapped" (#3409).
 local function withTargetWarning(text)
 	local t = Nav.GetTarget()
 	local tw = t and t.warning
 	local W = Nav.walk
-	local note = noWalkShown == "unsafe" and L["No safe walking route"] or nil
+	local note
 	if noWalkShown == "unmapped" or (not stoppedUnmapped and W and W.Unmapped and W.Unmapped()) then
-		note = note and (note .. "\n" .. L["The last steps here aren't mapped"]) or L["The last steps here aren't mapped"]
+		note = L["The last steps here aren't mapped"]
 	end
 	if note then tw = tw and (tw .. "\n" .. note) or note end
 	if not tw then return text end
@@ -911,9 +911,6 @@ local function setMode(m)
 	elseif m == "submerged" then
 		distText:SetTextColor(Nav.RGB("text"))
 		distText:SetText(L["Under water nearby: swim down to it"])
-	elseif m == "unsafe" then
-		distText:SetTextColor(Nav.RGB("text"))
-		distText:SetText(L["No safe walking route"])
 	elseif m == "routing" then
 		distText:SetTextColor(Nav.RGB("textDim"))
 		distText:SetText(L["Finding a walking route"])
@@ -1122,7 +1119,7 @@ local function sample(elapsed)
 		routeSeen = -2
 	end
 	syncLabel(T, routed)
-	if state == "far" or state == "arrived" or state == "search" or state == "nopos" or state == "unmapped" or state == "unsafe" then
+	if state == "far" or state == "arrived" or state == "search" or state == "nopos" or state == "unmapped" then
 		setMode(state)
 		return true
 	end

@@ -178,6 +178,44 @@ fn after_a_pause_in_guidance_the_arrow_eases_from_the_heading_it_showed_never_sn
 	assert!(early < 0.0 && early >= -3.5 * 0.1 - 1e-6, "the turn eases from the shown heading (MAX_TURN 3.5 rad/s), not a snap to -pi/2: {early}");
 }
 
+// Main, 2026-11-21, Fitz: "go back to our original danger pathing": stepping onto enemy ground the arrow still walks
+// (0.4.2 said "unsafe" there); turning back out, the first visible stride leads away from town.
+#[test]
+fn leaving_enemy_ground_does_not_point_the_player_back_into_town() {
+	let out = run_compass(
+		r#"
+		nav.useGameGround()
+		nav.faction = "Horde"
+		Polestar.Set("nav.travel", false)
+		-- An Alliance boundary near Stormwind. The same waypoint stays on the safe side
+		-- while the player passes it, steps onto enemy ground and turns back out.
+		local wx, edge = -8143-1/3, 600
+		nav.maps[1429] = { c = 0, top = -8100, bottom = -8200, left = 700, right = 500 }
+		nav.place(wx, edge + 34)
+		local tx, ty = nav.Compat.WorldToMap(0, wx, edge + 11, 1429)
+		N.SetTarget(1429, tx, ty, "Outside town")
+		stub.advance(.5)
+		local function walk(i)
+			nav.place(wx, edge + 34 - i * .32)
+			stub.advance(.05)
+		end
+		for i = 1, 120 do walk(i) end
+		local refused = A.GetMode()
+		for i = 119, 0, -1 do
+			walk(i)
+			if A.GetMode() == "travel" then
+				local y = nav.player.wy
+				local a = nav.facing + A.GetAngle()
+				local why = N.danger.Blocked(0, wx, y, wx+.32*math.cos(a), y+.32*math.sin(a), nav.faction)
+				emit({ refused, why or "clear", math.sin(a) > 0 })
+				return
+			end
+		end
+		emit({refused, "did not resume"})"#,
+	);
+	assert_eq!(out, json!(["travel", "clear", true]), "the first visible walking stride must lead away from town");
+}
+
 // Beside enemy ground the arrow eases its turns as anywhere else (0.4.1.1's manners; 0.4.2 snapped it there).
 #[test]
 fn turning_onto_a_tangent_beside_enemy_ground_eases_as_on_friendly_ground() {
@@ -881,8 +919,10 @@ fn an_empty_walking_batch_is_not_a_refusal_and_does_not_ask_or_replan_again() {
 	assert_eq!(out, json!([1, 0, true, true]));
 }
 
+// Main, 2026-11-21, Fitz: "go back to our original danger pathing": a guard post on the walk refuses nothing; the walk,
+// the flight and the landing stay as they are (0.4.2: "unsafe", no line to the flight master).
 #[test]
-fn a_refused_ground_approach_draws_no_direct_line_and_leaves_the_next_flight_and_landing_intact() {
+fn a_guard_post_on_the_ground_approach_refuses_nothing_and_leaves_the_flight_and_landing_intact() {
 	let out = run_compass(
 		r#"
 		local hubs = N.danger.hubBins[0].Alliance
@@ -917,7 +957,7 @@ fn a_refused_ground_approach_draws_no_direct_line_and_leaves_the_next_flight_and
 		emit({ direct, before, refused, after, still == ci, clear, pathCounts() })"#,
 	);
 	let full = json!([["walk", 2], ["flight", 2], ["walk", 2]]);
-	assert_eq!(out, json!([["unsafe", 0], full, "unsafe", [["walk", 0], ["flight", 2], ["walk", 2]], true, "travel", full]));
+	assert_eq!(out, json!([["travel", 1], full, "travel", full, true, "travel", full]));
 }
 
 // The player's arrow colours, with Theme loaded: the arrow wears its own colour far away and the near colour
@@ -2238,17 +2278,16 @@ fn without_waypoint_ui_the_game_waypoint_is_set_as_before() {
 	assert_eq!(out["native"], json!([["set", 9000, 0.45, 0.5], ["track", true]]));
 }
 
+// Main, 2026-11-21, Fitz: "go back to our original danger pathing": an external waypoint arrow guides across Stonard
+// for either faction (0.4.2 kept the walk through the enemy town on Polestar's own arrow, saying "unsafe").
 #[test]
-fn external_waypoints_check_the_walking_bearing_not_just_its_end() {
+fn external_waypoints_guide_across_an_enemy_town_too() {
 	let out = run(&format!(
 		r#"{WAYPOINT_UI}
 		nav.useGameGround()
 		local town = N.GetTaxiNode(56)
 		nav.maps[town.map] = {{ c = 0, top = -9620.833, bottom = -11150, left = -2222.917, right = -4516.667 }}
 		local start, finish = town.wy - 400, town.wy + 400
-		local function risk(y, Y, side) return N.danger.Blocked(0, town.wx, y, town.wx, Y, side) end
-		assert(not risk(start, start, "Alliance") and not risk(finish, finish, "Alliance"))
-		assert(risk(start, finish, "Alliance") == "opposing-settlement" and not risk(start, finish, "Horde"))
 		local x, y = nav.Compat.WorldToMap(0, town.wx, finish, town.map)
 		Polestar.Set("nav.travel", false)
 		Polestar.Set("nav.navRouting", false) -- direct compass mode, independent of the walking engine
@@ -2286,14 +2325,14 @@ fn external_waypoints_check_the_walking_bearing_not_just_its_end() {
 		out.mirror = {{ last.title, last.crazy }}
 		emit(out)"#
 	));
-	assert_eq!(out["enemy"], json!([false, false, false, true]));
+	assert_eq!(out["enemy"], json!([true, true, true, false]));
 	assert_eq!(out["friendly"], json!([true, true, true, false]));
 	assert_eq!(out["air"][0], true);
 	assert_eq!(out["air"][2], true);
 	assert_eq!(out["near"], json!([true, true, true, false]));
 	assert_eq!(out["mine"], "Player");
-	assert_eq!(out["blocked"], true);
-	assert_eq!(out["native"], json!(["track", false]));
+	assert_eq!(out["blocked"], false);
+	assert_eq!(out["native"], json!(["track", true]), "the game's waypoint tracks the walk as well");
 	assert_eq!(out["mirror"], json!(["Across Stonard", false]));
 }
 

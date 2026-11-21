@@ -26,11 +26,11 @@
 -- guide goal after a guide `goto` (the author's way in, a cave mouth) keep
 -- the straight arrow, as does a player who switches walking routes off.
 -- A routed walk with no ground answer yet supplies no compass bearing. One
--- whose search found no walk (refused on policy, off the walking map, no maps
--- there, a capital's floor out of reach, a corpse run's checked detour) points
--- straight at its goal, as before 0.4.2, and says why under the label; its line
--- is drawn straight where the danger policy lets it (Nav.Sample's noWalk,
--- Nav.CanDrawGroundApproach, #3409). A failed search is asked again FAIL_RETRY
+-- whose search found no walk (off the walking map, no maps there, a capital's
+-- floor out of reach, a corpse run's checked detour) points straight at its
+-- goal, as before 0.4.2, and says why under the label; its line is drawn
+-- straight (Nav.Sample's noWalk, Nav.CanDrawGroundApproach, #3409). Enemy
+-- ground refuses no walk (0.4.2.1). A failed search is asked again FAIL_RETRY
 -- seconds after it failed once the player stands FAIL_MOVED yards (the router's
 -- ARRIVE) from where it was asked: 0.4.2 asked again only 25 yards away. A
 -- refusal no policy made (no blockedReason: the router's departure rule, a
@@ -1193,7 +1193,7 @@ local function sight(x1, y1, x2, y2, z2, z1)
 	local C = ns.Compat
 	local profile = C and C.GetPlayerFaction and C.GetPlayerFaction() or nil
 	local ok, clear = pcall(P.Sight, sightC, x1, y1, z1 or sightZ, x2, y2, z2 or nil, profile)
-	return ok and clear == true and not Nav.danger.Blocked(sightC,x1,y1,x2,y2,profile)
+	return ok and clear == true
 end
 
 -- While the floor is unknown indoors: the candidate floors (a new list) the player stands on one of, checked within
@@ -1244,13 +1244,13 @@ end
 -- A renderer can run before the first arrow sample. Never start a search from
 -- here: only query whether this goal has a walking answer on its own floor.
 -- nil: it has (or routing is off); "routing": its answer is still to come; else
--- why none was found ("unmapped" or "unsafe": the arrow points straight and says so).
+-- why none was found ("unmapped": the arrow points straight and says so).
 function Walk.GroundStatus(c, x, y, z)
 	if not ns.Get("nav.navRouting") or Nav.HandedOff() then return nil end
 	if not Nav.Path then return loadTried and "unmapped" or "routing" end
 	if gc == c and gx and gzFor == (z or false) and (x-gx)^2 + (y-gy)^2 <= GOAL_MOVED^2 then
 		if count > 0 then return nil end
-		if Walk.blockedReason then return Walk.blockedReason == "unmapped" and "unmapped" or "unsafe" end
+		if Walk.blockedReason then return "unmapped" end
 		if failed then return "unmapped" end
 	end
 	if Nav.Path.Available and not Nav.Path.Available(c) then return "unmapped" end
@@ -1476,7 +1476,6 @@ function Walk.Probe(pc, px, py, gx, gy, gz, callback, place, originZ)
 			for i = 1, n do
 				local q = points[i]
 				if type(q) ~= "table" or type(q.x) ~= "number" or type(q.y) ~= "number" then return callback(false) end
-				if not checked and Nav.danger.Blocked(pc, x, y, q.x, q.y, o.profile) then return callback(false) end
 				if i > 1 then
 					local dx, dy = q.x - x, q.y - y
 					along = along + sqrt(dx * dx + dy * dy)
@@ -2902,7 +2901,7 @@ local function build(ground)
 					local c, x, y = from.c, from.wx, from.wy
 					if i == ci and pc == c then x, y = px, py end
 					-- A later leg's own evidence is independent of a refusal here.
-					if c == to.c and not Nav.danger.Blocked(c, x, y, to.wx, to.wy, C.GetPlayerFaction()) then
+					if c == to.c then
 						pt(pts, c, x, y)
 						pt(pts, to.c, to.wx, to.wy)
 						straight = true
