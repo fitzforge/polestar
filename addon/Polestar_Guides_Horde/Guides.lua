@@ -23259,7 +23259,7 @@ do
 					note = "{quest:91208}: the {npc:246143} fled into the hills west of the church, on the way to {area:155}.",
 					only = { classes = { "PALADIN" } },
 					goals = {
-						{ t = "talk", npc = 246143, npcName = "Frightened Paladin", map = 1420, x = 27.66, y = 63.88, z = 118.8, note = "Offer aid to the {npc:246143}" },
+						{ t = "talk", quest = 91208, title = "Coming to Terms", npc = 246143, npcName = "Frightened Paladin", oi = 1, map = 1420, x = 27.66, y = 63.88, z = 118.8, note = "Offer aid to the {npc:246143}" },
 					},
 				},
 				{
@@ -23958,9 +23958,9 @@ do
 					goals = {
 						{ t = "turnin", quest = 91285, title = "Murlocs at the Gates", npc = 246349, npcName = "Breton Samuels", map = 1420, x = 21.8, y = 45.37, z = 136.9, rewards = { choices = { { item = 246164, itemName = "Skullthumper" }, { item = 246165, itemName = "Driftwood Smasher" } } } },
 						{ t = "accept", quest = 91294, title = "Touring the Grounds", npc = 246349, npcName = "Breton Samuels", minLevel = 8, qlvl = 11, pre = { 91285 }, preTitles = { [91285] = "Murlocs at the Gates" }, map = 1420, x = 21.8, y = 45.37, z = 136.9 },
-						{ t = "talk", npc = 246389, npcName = "Hilda the Breaker", map = 1420, x = 21.84, y = 47.15, z = 134.5 },
-						{ t = "talk", npc = 246393, npcName = "Jorin Croge", map = 1420, x = 22.61, y = 44.77, z = 137.4 },
-						{ t = "talk", npc = 246394, npcName = "Ander Solliden", map = 1420, x = 22.11, y = 49.41, z = 130, spotsPacked = "22.9,49.7,,42,5;24.7,50.4,98.9,28,3" },
+						{ t = "talk", quest = 91294, title = "Touring the Grounds", npc = 246389, npcName = "Hilda the Breaker", oi = 1, map = 1420, x = 21.84, y = 47.15, z = 134.5 },
+						{ t = "talk", quest = 91294, title = "Touring the Grounds", npc = 246393, npcName = "Jorin Croge", oi = 2, map = 1420, x = 22.61, y = 44.77, z = 137.4 },
+						{ t = "talk", quest = 91294, title = "Touring the Grounds", npc = 246394, npcName = "Ander Solliden", oi = 3, map = 1420, x = 22.11, y = 49.41, z = 130, spotsPacked = "22.9,49.7,,42,5;24.7,50.4,98.9,28,3" },
 						{ t = "turnin", quest = 91294, title = "Touring the Grounds", npc = 246378, npcName = "Danitha Morr", map = 1420, x = 22, y = 44.66, z = 155.7, note = "{npc:246378}, inside the keep" },
 					},
 				},

@@ -18485,6 +18485,42 @@ test('forever/professions/first-aid.guide: the manual bandages say to read the m
 	}
 });
 
+// #3512 #3492 #3489 #3486 #3481 (Stö, 0.4.2, Mount Hyjal): "talked with Whisperfur / Brie / Solstice / the Peasant /
+// Elder Pinespeaker but the guide didn't mark it". A `talk` with no quest ticks only on something the player does in
+// the NPC's window (a gossip choice, an accept, a hand-in: #741), but players' recordings show these lines tick with
+// no such act: Shalla'kal's kittens (Kits and Cats 93615, 17 people) on sight, the elders (Meet the Elders 91697, 18
+// people), the Peasant (More Work? 90750, 8 people) and Ortak's wounded (A Rest Without Pain 96622, 7 people) as
+// their window opens. Each talk now reads its quest's line.
+test('forever/50-60/mount-hyjal.guide: the kittens, elders, Peasant and wounded are ticked by their quest lines (#3512 #3492 #3489 #3486 #3481)', { skip }, () => {
+	const list = goals('forever/50-60/mount-hyjal.guide');
+	for (const [npc, quest, oi] of [[256650, 91697, 1], [256627, 91697, 2], [255685, 93615, 1], [255771, 93615, 2], [255773, 93615, 3], [251320, 90750], [265895, 96622], [265862, 96622]]) {
+		const { goal } = list[at(list, `talk ${npc}`, (g) => g.t === 'talk' && g.npc === npc)];
+		assert.equal(goal.quest, quest, `talk ${npc} reads quest ${quest}`);
+		if (oi) assert.equal(goal.oi, oi, `talk ${npc} reads line ${quest}.${oi}`);
+	}
+});
+
+// The pattern behind #3512 and the others: no guide has a `talk` with no quest to an NPC who is a line of a quest
+// the guide has taken and not handed in yet; such a talk waits for a gossip choice the line may never need.
+test('#3512: a talk to an NPC who is a line of a quest in the log reads that line', { skip }, () => {
+	data = data || loadData(DATA);
+	const bare = [];
+	for (const guide of allGuides()) {
+		const open = new Set();
+		for (const { goal, s } of goals(guide)) {
+			if (goal.t === 'accept') open.add(goal.quest);
+			else if (goal.t === 'turnin') open.delete(goal.quest);
+			else if (goal.t === 'talk' && !goal.quest && !goal.optional) {
+				for (const q of open) {
+					const objs = (data.quests[q] || {}).objectives || [];
+					if (objs.some((o) => (o.type === 'talk' || o.type === 'kill') && o.id === goal.npc)) bare.push(`${guide} step ${s}: talk ${goal.npc} is a line of ${q}`);
+				}
+			}
+		}
+	}
+	assert.deepEqual(bare, []);
+});
+
 // #3383 (SumnDaiy, 0.4.2, Alliance Badlands): the guide said to sell at Prospector Ryedol, who sells nothing. 50
 // people opened his window (126 quest windows), none a merchant window, and the game's data has no goods for him:
 // the correction drops the vendor role the merged data gave him.
