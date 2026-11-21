@@ -258,8 +258,10 @@ fn an_ironforge_waypoint_across_the_signpost_is_not_a_visit_from_the_pavement() 
 }
 
 // The arrow eases its turn onto the Ironforge trainer ramp as every other turn (Fitz, 0.4.2.1: 0.4.1.1's manners;
-// 0.4.2 snapped it at a sharp turn beside a mapped wall): the first stride past the bend still shows the heading it
-// is turning from, and standing a second it settles on the ramp.
+// 0.4.2 snapped it at a sharp turn beside a mapped wall): along the whole approach the shown bearing never moves more
+// than MAX_TURN (3.5 rad/s) allows in a frame, it trails the walk's bearing somewhere on the way (it eased, it did not
+// jump), and standing a second at the end it has settled on the ramp. Since #3513 the aim looks past the next point,
+// so the walk's bearing itself turns gradually and the shown one keeps up with it closely.
 #[test]
 fn the_displayed_arrow_eases_onto_the_ironforge_trainer_ramp_and_settles_on_it() {
 	skip_unless_ready!();
@@ -271,26 +273,31 @@ fn the_displayed_arrow_eases_onto_the_ironforge_trainer_ramp_and_settles_on_it()
 		local mx,my=C.WorldToMap(0,-4876.6,-1149.2,1455)
 		assert(N.SetTarget(1455,mx,my,"Trainer",nil,"npc",512.5))
 		for _=1,500 do aim();stub.advance(.05) end
-		-- Approach on the pavement, then take the first stride past the bend.
+		local function gap(a,b) return math.abs(math.atan2(math.sin(a-b), math.cos(a-b))) end
+		local prev, step, lag = nil, 0, 0
+		-- Approach on the pavement and walk on down the ramp past the bend.
 		for _,p in ipairs({{-4822.9167,-1156.25},{-4827.0833,-1160.4167},{-4835.4167,-1160.4167},{-4860.5958,-1135.2313}}) do
 			local ax,ay=x,y; local n=math.ceil(dist(ax,ay,p[1],p[2])/.32)
 			for i=1,n do
 				x,y=ax+(p[1]-ax)*i/n,ay+(p[2]-ay)*i/n
 				place(1455,x,y,502.18);stub.advance(.05)
+				local cur, goal = N.arrow.GetTurn()
+				if prev then step = math.max(step, gap(cur, prev)) end
+				prev, lag = cur, math.max(lag, gap(cur, goal))
 			end
 		end
 		local state,_,a,_,_,measured=N.Sample()
-		local shown=N.arrow.GetAngle()+w.facing
 		for _=1,20 do stub.advance(.05) end
 		local _,_,a2=N.Sample()
 		local settled=N.arrow.GetAngle()+w.facing
-		emit({travel=state=="travel" and measured==true, requestedWest=math.sin(a+w.facing), shownWest=math.sin(shown),
-			gap=math.abs(math.atan2(math.sin(settled-(a2+w.facing)), math.cos(settled-(a2+w.facing))))})"#,
+		emit({travel=state=="travel" and measured==true, requestedWest=math.sin(a+w.facing), step=step, lag=lag,
+			gap=gap(settled, a2+w.facing)})"#,
 		true,
 	);
 	assert_eq!(out["travel"], true);
 	assert!(f(&out["requestedWest"]) < -0.5, "the walk has turned onto the ramp");
-	assert!(f(&out["shownWest"]) > f(&out["requestedWest"]) + 0.1, "the first stride shows the eased heading, not a snap: {out}");
+	assert!(f(&out["step"]) <= 3.5 * 0.05 + 1e-6, "the shown bearing never snaps (at most MAX_TURN a frame): {out}");
+	assert!(f(&out["lag"]) > 0.05, "it trails the walk's bearing on the way: eased, not jumped: {out}");
 	assert!(f(&out["gap"]) < 0.05, "a second later the arrow has settled on the ramp: {out}");
 }
 

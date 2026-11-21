@@ -318,6 +318,34 @@ fn the_arrow_follows_the_path_s_points_with_the_yards_left_along_it() {
 	assert_eq!(out["calls"], 1, "walking along the path asks nothing more");
 }
 
+// While the walk is searched the arrow points straight at the target at once (#3518); when the walk lands, the arrow
+// turns from the heading it shows onto the walk's, eased as every turn (#3525, Fitz: 0.4.1.1's manners), never a snap.
+#[test]
+fn when_the_walk_lands_the_arrow_eases_from_its_straight_bearing_onto_the_walk() {
+	let out = run(r#"
+		local function gap(a, b) return math.abs(math.atan2(math.sin(a - b), math.cos(a - b))) end
+		nav.place(0, 0)
+		target(0, -600)
+		for _ = 1, 4 do aim(); stub.advance(0.05) end
+		local shown, goal = N.arrow.GetTurn()
+		local r = { mode = N.arrow.GetMode(), straight = gap(shown, goal) }
+		fake.resolve(0, 0, 100, -100, 100, -500, 0, -600)
+		aim(); stub.advance(0.05)
+		local now, walk = N.arrow.GetTurn()
+		r.mode2, r.turned, r.step, r.behind = N.arrow.GetMode(), gap(walk, goal), gap(now, shown), gap(now, walk)
+		for _ = 1, 40 do aim(); stub.advance(0.05) end
+		local late, walk2 = N.arrow.GetTurn()
+		r.settled = gap(late, walk2)
+		emit(r)"#);
+	assert_eq!(out["mode"], "routing", "the walk is still searched: {out}");
+	assert!(num(&out["straight"]) < 1e-6, "straight at the target at once: {out}");
+	assert_eq!(out["mode2"], "travel");
+	assert!(num(&out["turned"]) > 0.5, "the walk's first point lies well off the straight line: {out}");
+	assert!(num(&out["step"]) <= 3.5 * 0.05 + 1e-6, "from the shown heading at most MAX_TURN a frame, not a snap: {out}");
+	assert!(num(&out["behind"]) > 0.3, "still turning onto the walk: {out}");
+	assert!(num(&out["settled"]) < 0.01, "and settles on it: {out}");
+}
+
 // 0.4.2 held the arrow on the current piece of every searched (checked) walk: it pointed at the walk's next point and
 // swung round at each one (#3509, Fitz on 0.4.2.1: "we don't actually point at the first waypoint, but one further
 // away; this stops the 90-degree angles"). With no height from the client (Forever's 0), outdoors and indoors, the
