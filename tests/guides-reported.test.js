@@ -18551,6 +18551,13 @@ test('#3383: Prospector Ryedol (2910) is no vendor', { skip }, () => {
 	assert.ok(!(loadData(DATA).npcs[2910].roles || []).includes('vendor'), 'the built data has no vendor role for him');
 });
 
+// #3470 (Shuurajou, 0.4.1.1, Thousand Needles): the nearest-vendor arrow led to Wizzle Brassbolts at the Mirage
+// Raceway, who sells nothing: 165 contributors opened his window, none a merchant window. The correction clears the
+// vendor role; the built data carries it from the next data build on, so only the record is checked here.
+test('#3470: Wizzle Brassbolts (4453) is no vendor', () => {
+	assert.deepEqual(((loadCorrections().npcs[4453] || {}).set || {}).roles, [], 'the correction clears his roles');
+});
+
 // #3394 (0.4.2, Riverglades): the Cubic Draconia for Proof of Profit lies at the back of the Cinderscale hollow;
 // without a height the walk to 30,73.3 ended on the hill above it. The hollow's three goal points have its floor
 // (data/goal-heights.json, from players' recordings: done indoors, the grid's floor walkable from the camp).
