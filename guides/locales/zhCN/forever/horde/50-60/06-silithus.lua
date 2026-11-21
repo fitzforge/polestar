@@ -91,7 +91,8 @@ return {
 
 	-- Step 17: Twilight Base Camp
 	-- plural, as words: Dust Stormers = {npc:11744} Dust Stormer · Desert Rumblers = {npc:11746} Desert Rumbler · Whirling Invaders = {npc:14455} Whirling Invader
-	["The glowing tablet fragments lie around the Twilight camp in the far north-west; the Dust Stormers and Desert Rumblers there drop them too. Careful: the biggest Rumblers and the Whirling Invaders are 58: pull them one at a time."] = "发光的石板碎片散落在遥远西北的暮光营地周围；那里的灰尘风暴和沙漠奔行者也会掉落碎片。小心：最大的沙漠奔行者和旋风入侵者是58级：一次引一只。",
+	-- was: ["The glowing tablet fragments lie around the Twilight camp in the far north-west; the Dust Stormers and Desert Rumblers there drop them too. Careful: the biggest Rumblers and the Whirling Invaders are 58: pull them one at a time."] = "发光的石板碎片散落在遥远西北的暮光营地周围；那里的灰尘风暴和沙漠奔行者也会掉落碎片。小心：最大的沙漠奔行者和旋风入侵者是58级：一次引一只。"
+	["The glowing tablet fragments lie on the ground around the Twilight camp in the far north-west: pick them up. The Dust Stormers and Desert Rumblers there may carry them too. Careful: the biggest Rumblers and the Whirling Invaders are 58: pull them one at a time."] = "",
 
 	-- Step 18: Cenarion Hold
 	-- {npc:15189} Beetix Ficklespragg
@@ -340,6 +341,7 @@ return {
 	-- ["The Dredge Crushers (57-58) of the south-east are two over you below 57. First top up to 57 on the Dredge Strikers (55-56) on the sands east of {area:3425}, where Sand Skitterers and Stonelash Scorpids (54-56) roam among them, away from the Silithid Darters of the northern sands. Or, with a group, run the {area:1583} dungeon (Lower) or the {quest:838} dungeon instead."] = "你低于57级时，东南方的掘泥摧毁者（57-58级）比你高两级。先在{area:3425}东边沙地上的掘泥打击者（55-56级）身上升到57级，掠沙蜘蛛和石鞭蝎（54-56级）也在其间游荡，远离北部沙地的异种虫投掷者。或者组队去打{area:1583}地下城（下层）或{quest:838}地下城。",
 	-- ["The Spirits of Southwind"] = "南风村的灵魂",
 	-- ["The glowing tablet fragments lie around the Twilight camp in the far north-west; the Dust Stormers and Desert Rumblers there drop them too."] = "发光的石板碎片散落在遥远西北的暮光营地周围；那里的灰尘风暴和沙漠奔行者也会掉落碎片。",
+	-- ["The glowing tablet fragments lie around the Twilight camp in the far north-west; the Dust Stormers and Desert Rumblers there drop them too. Careful: the biggest Rumblers and the Whirling Invaders are 58: pull them one at a time."] = "发光的石板碎片散落在遥远西北的暮光营地周围；那里的灰尘风暴和沙漠奔行者也会掉落碎片。小心：最大的沙漠奔行者和旋风入侵者是58级：一次引一只。",
 	-- ["The lake for {quest:5845}"] = "{quest:5845}所需的湖泊",
 	-- ["The libram lies further north, on the way to {area:190}."] = "圣契在更北边，通往{area:190}的路上。",
 	-- ["The lockboxes sit in Andorhal's ruined houses around {npc:10667}'s inn. Careful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "锁箱放在{npc:10667}所在旅店周围的安多哈尔废弃房屋里。小心：食尸鬼和骷髅通常站在箱子旁，你靠近时会发动攻击。灼热食尸鬼还会伤害附近所有人，并会打破潜行。",

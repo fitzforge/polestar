@@ -238,7 +238,7 @@ return {
 	-- Step 50: The Drowned Reef: kill these as you meet them
 	-- {area:328} The Drowned Reef
 	["{area:328}: kill these as you meet them"] = "{area:328}：遇到就殺",
-	["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay."] = "兩艘沉船在海灣西邊的海灣裡。海圖和航海日誌在船內；寶石散落在周圍的海床上。刺脊納迦在整個海灣游動。",
+	["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay.\nCareful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy."] = "",
 	-- {npc:2595} Daggerspine Raider
 	["{npc:2595}, underwater"] = "{npc:2595}，水下",
 	-- {item:4492} Elven Gem
@@ -403,6 +403,7 @@ return {
 	-- ["The Witherbark trolls live in the hills south of {area:314}; Witch Doctors stand in the village, Shadow Hunters guard the far end of the valley."] = "枯木食人妖住在{area:314}南邊的丘陵；枯木巫醫站在村子裡，枯木暗影獵手守在山谷遠端。",
 	-- ["The courier walks the road west of {area:314} with two guards; pull them off the road."] = "被遺忘者信差帶著兩名守衛走在{area:314}西邊的道路上；把他們拉離道路。",
 	-- ["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins."] = "書卷在{area:280}西邊的城堡廢墟中；暗影大法師佔據著廢墟。",
+	-- ["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay."] = "兩艘沉船在海灣西邊的海灣裡。海圖和航海日誌在船內；寶石散落在周圍的海床上。刺脊納迦在整個海灣游動。",
 	-- ["The wrecked caravan lies off the road near Biggs."] = "失事的商隊在衛兵比格斯附近的路邊。",
 	-- ["The wrecks"] = "沉船",
 	-- ["Walk back onto the span: Ebenezer lies under its Arathi end."] = "走回橋上：伊貝尼瑟的屍體在橋的阿拉希那一端下方。",

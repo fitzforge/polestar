@@ -146,6 +146,8 @@ return {
 	["for {npc:5204} in the {zone:1458}, around level 52"] = "",
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["for {npc:7010} in {zone:1454}, around level 50"] = "50레벨쯤 {zone:1454}의 {npc:7010}에게",
+	-- {item:4306} Silk Cloth · {npc:8661} Auctioneer Beardo · {quest:4449} Caught! · {area:247} Grimesilt Dig Site · {zone:1427} Searing Gorge
+	["{item:4306}: {npc:8661}, for {quest:4449} at the {area:247} in the {zone:1427}"] = "",
 
 	-- Step 29: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
@@ -160,9 +162,10 @@ return {
 	["The {area:247}"] = "{area:247}",
 
 	-- Step 32: The Grimesilt Dig Site
-	-- {area:16727} Powderfuse Port · {zone:1427} Searing Gorge · {object:173265} Wooden Outhouse · {item:4306} Silk Cloth
+	-- {area:16727} Powderfuse Port · {zone:1427} Searing Gorge · {object:173265} Wooden Outhouse · {item:4306} Silk Cloth · {area:976} Gadgetzan
 	-- plural, as words: Dark Iron Geologists = {npc:5839} Dark Iron Geologist
-	["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "{area:16727}에서 동쪽 고갯길로 {zone:1427}에 들어간 뒤 서쪽 발굴지로 가세요. {object:173265}은(는) 발굴지 남쪽 끝에 있고, 검은무쇠단 지질학자는 그 바로 북쪽에서 땅을 팝니다. {item:4306} 15개를 가져오세요(경매장에서 팝니다).",
+	-- was: ["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "{area:16727}에서 동쪽 고갯길로 {zone:1427}에 들어간 뒤 서쪽 발굴지로 가세요. {object:173265}은(는) 발굴지 남쪽 끝에 있고, 검은무쇠단 지질학자는 그 바로 북쪽에서 땅을 팝니다. {item:4306} 15개를 가져오세요(경매장에서 팝니다)."
+	["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring the 15 {item:4306} from {area:976}'s Auction House: the Geologists drop it only now and then."] = "",
 	-- {object:173265} Wooden Outhouse
 	["the {object:173265}"] = "{object:173265}",
 
@@ -230,6 +233,7 @@ return {
 	-- ["Fly to {area:340}"] = "{area:340}(으)로 날아가기",
 	-- ["Fly to {area:392}"] = "{area:392}(으)로 날아가기",
 	-- ["From the {area:35} flight master, above the harbour."] = "항구 위쪽, {area:35}의 비행 조련사에게서",
+	-- ["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "{area:16727}에서 동쪽 고갯길로 {zone:1427}에 들어간 뒤 서쪽 발굴지로 가세요. {object:173265}은(는) 발굴지 남쪽 끝에 있고, 검은무쇠단 지질학자는 그 바로 북쪽에서 땅을 팝니다. {item:4306} 15개를 가져오세요(경매장에서 팝니다).",
 	-- ["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive."] = "더 남쪽, 센티파르 벌집 입구에 견습 측량사 스크림섕크의 장비가 있습니다.",
 	-- ["Greater Lava Spiders"] = "거대한 용암거미",
 	-- ["Heavy War Golems patrol the Cauldron below Kalaran and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it."] = "육중한 전투골렘이 칼라란 아래 용광로를 순찰하며 기름을 떨어뜨리고, 그 사이를 떠다니는 용암 정령과 이글거리는 정령이 심장을 떨어뜨립니다. 검은무쇠단 감독관과 노예상인이 길에서 노예를 부립니다. 노예상인이 {item:11818}을(를) 떨어뜨릴 수 있습니다. 보관하세요.",

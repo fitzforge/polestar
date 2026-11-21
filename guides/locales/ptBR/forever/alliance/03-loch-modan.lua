@@ -120,6 +120,8 @@ return {
 	-- {npc:269185} Headsplitter · {zone:1418} Badlands
 	-- plural, as words: Stonevault Cave Hunters = {npc:4856} Stonevault Cave Hunter
 	["South of Thelsamar, Ylva lies dead in the mouth of a trogg cave. Take her banner, raise it beside her and hold the spot: troggs come in waves from both sides, then {npc:269185}.\nCareful: Stonevault Cave Hunters (36, elite) hold the pass just south of Ylva, toward the {zone:1418}: stay by the banner and don't chase troggs south."] = "Ao sul de Thelsamar, Ylva jaz morta na boca de uma caverna de troggs. Pegue o estandarte dela, erga-o ao lado dela e segure o ponto: troggs chegam em ondas pelos dois lados, e depois {npc:269185}.\nCuidado: Caçadores da Caverna da Abóbada de Pedra (36, elite) ocupam o desfiladeiro logo ao sul de Ylva, rumo a {zone:1418}: fique junto ao estandarte e não persiga troggs para o sul.",
+	-- {item:253247} Banner of Ironforge · {npc:269185} Headsplitter
+	["{item:253247}: raise it beside Ylva, then hold the spot until {npc:269185} comes"] = "",
 
 	-- Step 25: The tunnel post
 	["The tunnel post"] = "O posto do túnel",
@@ -255,8 +257,9 @@ return {
 	-- Step 46: Stormwind's gate
 	-- {zone:1453} Stormwind
 	["{zone:1453}'s gate"] = "o portão de {zone:1453}",
-	-- {npc:234} Gryan Stoutmantle · {zone:1436} Westfall · {area:87} Goldshire · {zone:1453} Stormwind · {npc:466} General Marcus Jonathan · {object:2096} Trade District · {area:69} Lakeshire
-	["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}."] = "Sem a Irmandade Défias de Wiley (ela começa com a carta de {npc:234} em {zone:1436}): pule {zone:1436}. Siga para o norte pela estrada de {area:87} até {zone:1453}: {npc:466} fica montado no cavalo na ponta da ponte, fora do portão principal. Depois, os grifos no {object:2096}, de volta a {area:69}.",
+	-- {npc:234} Gryan Stoutmantle · {zone:1436} Westfall · {area:87} Goldshire · {zone:1453} Stormwind · {npc:466} General Marcus Jonathan · {object:2096} Trade District · {area:69} Lakeshire · {area:1617} Valley of Heroes
+	-- was: ["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}."] = "Sem a Irmandade Défias de Wiley (ela começa com a carta de {npc:234} em {zone:1436}): pule {zone:1436}. Siga para o norte pela estrada de {area:87} até {zone:1453}: {npc:466} fica montado no cavalo na ponta da ponte, fora do portão principal. Depois, os grifos no {object:2096}, de volta a {area:69}."
+	["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}.\nIf {npc:466} isn't at the arrow, he is walking his horse along the {area:1617} nearby: look along the avenue or wait a moment."] = "",
 	-- {npc:466} General Marcus Jonathan
 	["{npc:466}, outside the main gate"] = "{npc:466}, do lado de fora do portão principal",
 
@@ -277,8 +280,9 @@ return {
 	["{area:108} flight master"] = "Mestre de voo de {area:108}",
 
 	-- Step 50: Stormwind
-	-- {npc:332} Master Mathias Shaw · {object:2100} Old Town · {npc:466} General Marcus Jonathan · {object:2096} Trade District
-	["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}."] = "{npc:332} fica no andar de cima do prédio do SI:7 na {object:2100}: a escada é difícil de ver no começo. {npc:466} está montado no cavalo dele na ponta mais distante da ponte, do lado de fora do portão principal; depois, volte aos grifos no {object:2096}.",
+	-- {npc:332} Master Mathias Shaw · {object:2100} Old Town · {npc:466} General Marcus Jonathan · {object:2096} Trade District · {area:1617} Valley of Heroes
+	-- was: ["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}."] = "{npc:332} fica no andar de cima do prédio do SI:7 na {object:2100}: a escada é difícil de ver no começo. {npc:466} está montado no cavalo dele na ponta mais distante da ponte, do lado de fora do portão principal; depois, volte aos grifos no {object:2096}."
+	["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}.\nIf {npc:466} isn't at the arrow, he is walking his horse along the {area:1617} nearby: look along the avenue or wait a moment."] = "",
 	-- {npc:332} Master Mathias Shaw
 	["{npc:332}, SI:7; upstairs"] = "{npc:332}, SI:7; no andar de cima",
 
@@ -421,9 +425,11 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back toward town, swim east from the bridge into {area:68}; the chest lies on the lake bed beside a sunken boat. Murloc Flesheaters and Tidecallers line the south shore around it: any of them can carry a {item:1467}."] = "De volta em direção à cidade, nade para leste a partir da ponte até {area:68}; o baú fica no fundo do lago, ao lado de um barco afundado. Carniceiros e Chamarés Murloc ocupam a margem sul em volta dele: qualquer um deles pode carregar {item:1467}.",
 	-- ["Elder Mountain Boars and {npc:270693}"] = "Javalis Montanheses Anciões e {npc:270693}",
+	-- ["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}."] = "Sem a Irmandade Défias de Wiley (ela começa com a carta de {npc:234} em {zone:1436}): pule {zone:1436}. Siga para o norte pela estrada de {area:87} até {zone:1453}: {npc:466} fica montado no cavalo na ponta da ponte, fora do portão principal. Depois, os grifos no {object:2096}, de volta a {area:69}.",
 	-- ["South along the west shore. A {object:665289} lies on the loch bed east of {area:144} (it moves between several spots): open it for the {item:278051}, which starts the quest."] = "Ao sul pela margem oeste. {object:665289} está no fundo do lago a leste de {area:144} (ele muda entre vários pontos): abra-o para pegar {item:278051}, que inicia a missão.",
 	-- ["Through the South Gate tunnel and west along the road to {zone:1455}."] = "Pelo túnel do Portão Sul e para oeste pela estrada até {zone:1455}.",
 	-- ["{npc:261} guards the bridge on this road east, past the {area:91}: {npc:240}'s {quest:35}, from your walk through {area:87}, goes to him."] = "{npc:261} guarda a ponte nesta estrada a leste, depois de {area:91}: {quest:35}, de {npc:240}, da sua caminhada por {area:87}, vai para ele.",
+	-- ["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}."] = "{npc:332} fica no andar de cima do prédio do SI:7 na {object:2100}: a escada é difícil de ver no começo. {npc:466} está montado no cavalo dele na ponta mais distante da ponte, do lado de fora do portão principal; depois, volte aos grifos no {object:2096}.",
 	-- ["{npc:341}: {quest:98386}, for your next Redridge visit"] = "{npc:341}: {quest:98386}, para a sua próxima visita a Cristarrubra",
 	-- ["{npc:382}: the Blackrock camps are for your next Redridge visit, at about 24"] = "{npc:382}: os acampamentos Rocha Negra ficam para a sua próxima visita a Cristarrubra, por volta do nível 24",
 }

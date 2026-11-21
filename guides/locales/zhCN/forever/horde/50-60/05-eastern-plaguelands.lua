@@ -380,8 +380,8 @@ return {
 	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558}在附近巡逻，请在地图标示的圆圈内寻找",
 
 	-- Step 87: Rabine Saturna
-	-- {area:1769} Timbermaw Hold · {zone:1450} Moonglade · {npc:11801} Rabine Saturna · {area:2361} Nighthaven
-	["Go through {area:1769} and take the {zone:1450} branch of the tunnel. {npc:11801} is in {area:2361}."] = "穿过{area:1769}，走隧道通往{zone:1450}的岔路。{npc:11801}在{area:2361}。",
+	-- {area:1769} Timbermaw Hold · {zone:1450} Moonglade · {npc:11801} Rabine Saturna · {area:2361} Nighthaven · {quest:5527} A Reliquary of Purity · {area:2577} Dire Maul
+	["Go through {area:1769} and take the {zone:1450} branch of the tunnel. {npc:11801} is in {area:2361}.\n{npc:11801} offers {quest:5527} only after you have been inside {area:2577} once: if he doesn't offer it, carry on without it."] = "",
 
 	-- Step 88: Rabine Saturna
 	-- {zone:1451} Silithus
@@ -427,6 +427,7 @@ return {
 	-- ["Frenzied Plaguehounds and Monstrous Plaguebats share the fields around {area:2272} and {area:2271}, south of {area:2273}."] = "狂怒的瘟疫犬和巨型瘟疫蝙蝠共处于{area:2273}南边、{area:2272}和{area:2271}周围的田野上。",
 	-- ["Frenzied Plaguehounds share the fields around {area:2272} and {area:2271}, south of {area:2273}; Noxious Plaguebats fly over the fields of the north, and Monstrous Plaguebats around {area:2272} and {area:2271}. Careful: the hounds are 57-58 and the biggest Monstrous Plaguebats 58: pull them one at a time."] = "狂怒的瘟疫犬分布在{area:2273}南边{area:2272}和{area:2271}周围的田野；毒性瘟疫蝙蝠在北部田野上空飞行，巨型瘟疫蝙蝠在{area:2272}和{area:2271}周围。小心：瘟疫犬是57-58级，最大的巨型瘟疫蝙蝠是58级：一次引一只。",
 	-- ["Go through {area:1769} and take the {area:493} branch of the tunnel. {npc:11801} is in {area:2361}."] = "穿过{area:1769}，走隧道通往{area:493}的岔路。{npc:11801}在{area:2361}。",
+	-- ["Go through {area:1769} and take the {zone:1450} branch of the tunnel. {npc:11801} is in {area:2361}."] = "穿过{area:1769}，走隧道通往{zone:1450}的岔路。{npc:11801}在{area:2361}。",
 	-- ["Hameya hides among the Mossflayer trolls of {area:2273}, in the north-east corner."] = "哈米亚躲在东北角{area:2273}的烂苔巨魔中间。",
 	-- ["Hameya's mound"] = "哈米亚的土堆",
 	-- ["Hameya's scroll"] = "哈米亚的卷轴",

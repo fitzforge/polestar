@@ -196,7 +196,9 @@ return {
 
 	-- Step 40: Sunnyglade
 	-- {area:16724} Farholde Keep · {area:16729} Terral's Watch · {area:16723} Sunnyglade · {area:16743} Rog'mar · {npc:259158} Fuzzle · {npc:256831} Apprentice Claire · {npc:258697} Farmer Elbrim
-	["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold hides in the middle of the town, {npc:256831} at its eastern edge, and {npc:258697} waits at his farm on the north-eastern edge."] = "Ve al norte desde {area:16724}, pasa {area:16729} y cruza el río hasta {area:16723}, el pueblo agrícola que ocupa el culto Crepuscular; mantente lejos de {area:16743}, el fuerte de la Horda al este del pueblo. {npc:259158}, el kóbold, se esconde en el centro del pueblo, {npc:256831} en su borde este y {npc:258697} espera en su granja, en el borde noreste.",
+	["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold waits in a cage at the arrow, {npc:256831} below ground in a cave at the town's eastern edge (the entrance is at 50.0,46.0), and {npc:258697} waits at his farm on the north-eastern edge."] = "",
+	-- {npc:259158} Fuzzle · {quest:94961} Biting the Hand
+	["{npc:259158}: {quest:94961}, in his cage"] = "",
 
 	-- Step 41: The Twilight cult
 	["The Twilight cult"] = "El culto Crepuscular",
@@ -210,6 +212,10 @@ return {
 	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "",
 	-- {quest:94885} Field Marshal's Log
 	["{quest:94885}: only if a cultist dropped the log"] = "{quest:94885}: solo si un cultista soltó el diario",
+
+	-- Step 42: Apprentice Claire
+	-- {area:16723} Sunnyglade
+	["Claire is in the cave under the eastern edge of {area:16723}: its entrance is at 50.0,46.0."] = "",
 
 	-- Step 43: Cut Off the Heads
 	-- {npc:256899} Chogg'Zac · {area:16723} Sunnyglade · {npc:257591} Ashe Amberhall · {area:16724} Farholde Keep
@@ -371,7 +377,7 @@ return {
 	-- Step 72: The pirates' ships
 	["The pirates' ships"] = "Los barcos piratas",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
-	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way."] = "Vuelve una vez más a los acantilados de los piratas. Coloca las cargas de Whizzbuzz en los tres barcos amarrados bajo el campamento, de sur a norte; {quest:95124} (nivel 45) está junto al del medio, con su cofre de botín al lado. Vigila a {npc:259758} por el camino.",
+	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} (level 45) walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way."] = "",
 	-- {item:268505} Remote Explosive Charge
 	["{item:268505}, the southern ship"] = "{item:268505}, el barco del sur",
 	["the middle ship"] = "el barco del medio",
@@ -558,6 +564,8 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Before the second wave: its raiders and bombardiers (43-45) and the pirates' ships after them are a level over you below 44.4. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "Antes de la segunda oleada: sus asaltantes y bombarderos (43-45) y los barcos piratas que vienen después te superan en un nivel si estás por debajo de 44.4. Termina de subir con los bucaneros y mosqueteros del primer campamento (41-43), en su extremo suroeste, lejos del puerto. {npc:259758}, un élite raro de nivel 49, ronda estos acantilados: si lo ves, mantente bien lejos. O, en grupo, haz la mazmorra de {area:1517}.",
 	-- ["Level 44.4 on the Eastsea pirates"] = "Sube al nivel 44.4 con los piratas de Mareste",
+	-- ["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold hides in the middle of the town, {npc:256831} at its eastern edge, and {npc:258697} waits at his farm on the north-eastern edge."] = "Ve al norte desde {area:16724}, pasa {area:16729} y cruza el río hasta {area:16723}, el pueblo agrícola que ocupa el culto Crepuscular; mantente lejos de {area:16743}, el fuerte de la Horda al este del pueblo. {npc:259158}, el kóbold, se esconde en el centro del pueblo, {npc:256831} en su borde este y {npc:258697} espera en su granja, en el borde noreste.",
+	-- ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way."] = "Vuelve una vez más a los acantilados de los piratas. Coloca las cargas de Whizzbuzz en los tres barcos amarrados bajo el campamento, de sur a norte; {quest:95124} (nivel 45) está junto al del medio, con su cofre de botín al lado. Vigila a {npc:259758} por el camino.",
 	-- ["the {object:707245} poster"] = "el cartel de {object:707245}",
 	-- ["{item:17028}, from {npc:272437}"] = "{item:17028}, de {npc:272437}",
 	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026} espera junto al camino, al este del paso.",

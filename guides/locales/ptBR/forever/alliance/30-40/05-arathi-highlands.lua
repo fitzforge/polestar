@@ -238,7 +238,7 @@ return {
 	-- Step 50: The Drowned Reef: kill these as you meet them
 	-- {area:328} The Drowned Reef
 	["{area:328}: kill these as you meet them"] = "{area:328}: vá matando estes pelo caminho",
-	["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay."] = "Os dois naufrágios ficam na baía a oeste da enseada. As cartas náuticas e os diários estão dentro deles; as gemas estão no fundo do mar em volta. Nagas Espinhadaga nadam pela baía inteira.",
+	["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay.\nCareful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy."] = "",
 	-- {npc:2595} Daggerspine Raider
 	["{npc:2595}, underwater"] = "{npc:2595}, debaixo d'água",
 	-- {item:4492} Elven Gem
@@ -415,6 +415,7 @@ return {
 	-- ["The courier walks the road west of {area:314} with two guards; pull them off the road."] = "A mensageira anda pela estrada a oeste da {area:314} com dois guardas; atraia-os para fora da estrada.",
 	-- ["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins."] = "Os tomos estão na fortaleza em ruínas a oeste de {area:280}; Magos das Sombras Argus ocupam as ruínas.",
 	-- ["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins.\nCareful: Crushridge Warmongers call nearby allies within 15 yd once they fall below half health."] = "Os tomos estão na fortaleza em ruínas a oeste de {area:280}; Magos das Sombras Argus ocupam as ruínas.\nCuidado: os Fomentadores da Guerra Massacrista chamam aliados num raio de 15 m quando ficam abaixo de metade da vida.",
+	-- ["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay."] = "Os dois naufrágios ficam na baía a oeste da enseada. As cartas náuticas e os diários estão dentro deles; as gemas estão no fundo do mar em volta. Nagas Espinhadaga nadam pela baía inteira.",
 	-- ["The wrecked caravan lies off the road near Biggs."] = "A caravana destruída fica fora da estrada, perto de Biggs.",
 	-- ["The wrecks"] = "Os naufrágios",
 	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:2417} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {npc:2417} é elite de nível 40: a maioria das classes encara sozinha no nível 42, mas talvez você precise de ajuda. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.",

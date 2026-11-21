@@ -146,6 +146,8 @@ return {
 	["for {npc:5204} in the {zone:1458}, around level 52"] = "",
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["for {npc:7010} in {zone:1454}, around level 50"] = "para {npc:7010} en {zone:1454}, hacia el nivel 50",
+	-- {item:4306} Silk Cloth · {npc:8661} Auctioneer Beardo · {quest:4449} Caught! · {area:247} Grimesilt Dig Site · {zone:1427} Searing Gorge
+	["{item:4306}: {npc:8661}, for {quest:4449} at the {area:247} in the {zone:1427}"] = "",
 
 	-- Step 29: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
@@ -160,9 +162,10 @@ return {
 	["The {area:247}"] = "{area:247}",
 
 	-- Step 32: The Grimesilt Dig Site
-	-- {area:16727} Powderfuse Port · {zone:1427} Searing Gorge · {object:173265} Wooden Outhouse · {item:4306} Silk Cloth
+	-- {area:16727} Powderfuse Port · {zone:1427} Searing Gorge · {object:173265} Wooden Outhouse · {item:4306} Silk Cloth · {area:976} Gadgetzan
 	-- plural, as words: Dark Iron Geologists = {npc:5839} Dark Iron Geologist
-	["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "Desde {area:16727}, entra en {zone:1427} por su paso del este y luego cabalga al oeste hasta la excavación. El {object:173265} está en su extremo sur; los Geólogos Hierro Negro excavan justo al norte. Lleva 15 {item:4306} (se vende en la casa de subastas).",
+	-- was: ["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "Desde {area:16727}, entra en {zone:1427} por su paso del este y luego cabalga al oeste hasta la excavación. El {object:173265} está en su extremo sur; los Geólogos Hierro Negro excavan justo al norte. Lleva 15 {item:4306} (se vende en la casa de subastas)."
+	["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring the 15 {item:4306} from {area:976}'s Auction House: the Geologists drop it only now and then."] = "",
 	-- {object:173265} Wooden Outhouse
 	["the {object:173265}"] = "el {object:173265}",
 
@@ -230,6 +233,7 @@ return {
 	-- ["Fly to {area:340}"] = "Vuela a {area:340}",
 	-- ["Fly to {area:392}"] = "Vuela a {area:392}",
 	-- ["From the {area:35} flight master, above the harbour."] = "Desde el maestro de vuelo de {area:35}, sobre el puerto.",
+	-- ["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "Desde {area:16727}, entra en {zone:1427} por su paso del este y luego cabalga al oeste hasta la excavación. El {object:173265} está en su extremo sur; los Geólogos Hierro Negro excavan justo al norte. Lleva 15 {item:4306} (se vende en la casa de subastas).",
 	-- ["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive."] = "Más al sur, el equipo de análisis de Patagolpe está en la entrada de una colmena Centipaar.",
 	-- ["Greater Lava Spiders"] = "Arañas de lava abrasadoras",
 	-- ["Heavy War Golems patrol the Cauldron below Kalaran and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it."] = "Los Gólems de guerra pesados patrullan La Caldera bajo Kalaran y sueltan el aceite; los Elementales de magma y los Elementales de fuego que vagan entre ellos sueltan los corazones. Los Capataces Hierro Negro y los Esclavistas Hierro Negro arrean a los esclavos por los caminos; un Esclavista puede soltar la {item:11818}: guárdala.",

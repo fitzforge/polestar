@@ -49,9 +49,10 @@ return {
 	["Fly to {area:271}"] = "飛往{area:271}",
 
 	-- Step 9: The Super Snapper FX
-	-- {zone:1425} Hinterlands · {area:307} Overlook Cliffs
-	-- was: ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} (level 48 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\n{npc:7977} walks the {zone:1425} shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "這些是精英怪物：建議組隊，找人一起完成。{npc:7977}（48級精英）需要2人隊伍。如果你是單獨一人就跳過：路線會讓你練級把經驗值補回來。\n{npc:7977}在{area:307}下方的{zone:1425}海岸上走動，從箭頭處往南到約75,66，往北到約82,52：如果她不在箭頭處，就沿著海岸找。"
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. Gammerita (level 48 elite) needs a group of 2. Skip it if you are alone.\nGammerita walks the {zone:1425} shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "",
+	-- {item:9328} Super Snapper FX · {zone:1425} Hinterlands · {area:307} Overlook Cliffs
+	["Gammerita need not die: target her and use the {item:9328}. She is a level 48 elite, so keep your distance.\nGammerita walks the {zone:1425} shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "",
+	-- {item:9328} Super Snapper FX
+	["the {item:9328} on Gammerita: no kill"] = "",
 
 	-- Step 10: Fly to Southshore
 	-- {area:348} Aerie Peak

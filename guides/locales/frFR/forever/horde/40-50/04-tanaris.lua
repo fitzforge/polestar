@@ -146,6 +146,8 @@ return {
 	["for {npc:5204} in the {zone:1458}, around level 52"] = "pour {npc:5204} à {zone:1458}, vers le niveau 52",
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["for {npc:7010} in {zone:1454}, around level 50"] = "pour {npc:7010} à {zone:1454}, vers le niveau 50",
+	-- {item:4306} Silk Cloth · {npc:8661} Auctioneer Beardo · {quest:4449} Caught! · {area:247} Grimesilt Dig Site · {zone:1427} Searing Gorge
+	["{item:4306}: {npc:8661}, for {quest:4449} at the {area:247} in the {zone:1427}"] = "",
 
 	-- Step 29: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
@@ -160,9 +162,10 @@ return {
 	["The {area:247}"] = "{area:247}",
 
 	-- Step 32: The Grimesilt Dig Site
-	-- {area:16727} Powderfuse Port · {zone:1427} Searing Gorge · {object:173265} Wooden Outhouse · {item:4306} Silk Cloth
+	-- {area:16727} Powderfuse Port · {zone:1427} Searing Gorge · {object:173265} Wooden Outhouse · {item:4306} Silk Cloth · {area:976} Gadgetzan
 	-- plural, as words: Dark Iron Geologists = {npc:5839} Dark Iron Geologist
-	["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "Depuis {area:16727}, entrez dans la {zone:1427} par son col est, puis allez vers l'ouest jusqu'au site de fouilles. Les {object:173265} se trouvent à son extrémité sud ; les Géologues Sombrefer creusent juste au nord. Apportez 15 {item:4306} (l'hôtel des ventes en vend).",
+	-- was: ["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "Depuis {area:16727}, entrez dans la {zone:1427} par son col est, puis allez vers l'ouest jusqu'au site de fouilles. Les {object:173265} se trouvent à son extrémité sud ; les Géologues Sombrefer creusent juste au nord. Apportez 15 {item:4306} (l'hôtel des ventes en vend)."
+	["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring the 15 {item:4306} from {area:976}'s Auction House: the Geologists drop it only now and then."] = "",
 	-- {object:173265} Wooden Outhouse
 	["the {object:173265}"] = "les {object:173265}",
 
@@ -231,6 +234,7 @@ return {
 	-- ["Fly to {area:392}"] = "Prendre un vol pour {area:392}",
 	-- ["From the {area:35} flight master, above the harbour."] = "Depuis le maître de vol de {area:35}, au-dessus du port.",
 	-- ["From {area:1099}'s flight master."] = "Depuis le maître de vol de {area:1099}.",
+	-- ["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "Depuis {area:16727}, entrez dans la {zone:1427} par son col est, puis allez vers l'ouest jusqu'au site de fouilles. Les {object:173265} se trouvent à son extrémité sud ; les Géologues Sombrefer creusent juste au nord. Apportez 15 {item:4306} (l'hôtel des ventes en vend).",
 	-- ["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive."] = "Plus au sud, l'Équipement d'analyse de Scrimshank se trouve à l'entrée d'une ruche Centipaar.",
 	-- ["Greater Lava Spiders"] = "Grandes araignées de lave",
 	-- ["Hearth to {area:976}"] = "Pierre de foyer vers {area:976}",

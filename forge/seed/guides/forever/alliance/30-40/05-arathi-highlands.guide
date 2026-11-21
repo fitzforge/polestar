@@ -338,6 +338,7 @@ step The Drowned Reef: kill these as you meet them
   when group 665
   zone Arathi Highlands
   tip The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay.
+  tip Careful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy.
   kill 2595 quest 664.1               -- Daggerspine Raider, underwater
   collect 4492 quest 666              -- Elven Gem; underwater
   kill 2596 quest 664.2               -- Daggerspine Sorceress, underwater

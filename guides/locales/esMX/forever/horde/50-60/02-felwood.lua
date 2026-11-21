@@ -76,7 +76,11 @@ return {
 	["Ride east to the ruins on the coast. The four tablets lie among the ruins, guarded by Spitelash naga (52-55): pull them one at a time."] = "Cabalga al este hasta las ruinas de la costa. Las cuatro tablillas están entre las ruinas, custodiadas por nagas Látigo de Ira (52-55): atráelos de uno en uno.",
 
 	-- Step 17: Ruins of Eldarath
-	["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "Cabalga al este hasta las ruinas de la costa. Llena los cuatro viales de Cuely en las pozas de marea a lo largo de la orilla; las nagas Látigo de Ira patrullan entre ellas.",
+	-- {area:1231} Southridge Beach
+	["Fill Cuely's four vials at the tide pools on the shore, from {area:1231} north up the coast; Spitelash naga patrol between them."] = "",
+	-- {item:10691} Filled Vial Labeled #1 · {area:1231} Southridge Beach
+	["{item:10691}: the tide pool on {area:1231}"] = "",
+	["#2, north along the shore"] = "",
 
 	-- Step 18: Makrinni Burrowers
 	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower
@@ -315,6 +319,7 @@ return {
 	-- ["Ride back south-east to the Sanctuary."] = "Cabalga de vuelta al sureste hasta el Santuario.",
 	-- ["Ride back to the {area:1497}, take the zeppelin to {zone:1454} and fly to {area:431}. Follow the road west out of Splintertree and take the fork north into {zone:1448}."] = "Cabalga de vuelta a {area:1497}, toma el zepelín a {zone:1454} y vuela a {area:431}. Sigue el camino al oeste fuera del Puesto del Hachazo y toma el desvío al norte hacia {zone:1448}.",
 	-- ["Ride back west over the river and on to the {area:192}; {npc:11610} hides on the hill north-east of it."] = "Cabalga de vuelta al oeste cruzando el río y sigue hasta {area:192}; {npc:11610} se esconde en la colina al noreste.",
+	-- ["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "Cabalga al este hasta las ruinas de la costa. Llena los cuatro viales de Cuely en las pozas de marea a lo largo de la orilla; las nagas Látigo de Ira patrullan entre ellas.",
 	-- ["Ride north along the eastern hills; {npc:1855} lives in a small house by the {area:2619}, at the border with the {zone:1423}."] = "Cabalga al norte por las colinas del este; {npc:1855} vive en una casita junto a {area:2619}, en la frontera con {zone:1423}.",
 	-- ["Ride north up the road again."] = "Cabalga otra vez al norte por el camino.",
 	-- ["Ride north-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges."] = "Cabalga al noroeste hacia Andorhal. {npc:10667} espera en la posada en ruinas del lado oeste del pueblo; los esqueletos de dentro son de nivel 54-57, así que no te alejes de los bordes.",

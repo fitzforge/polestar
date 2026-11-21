@@ -238,7 +238,7 @@ return {
 	-- Step 50: The Drowned Reef: kill these as you meet them
 	-- {area:328} The Drowned Reef
 	["{area:328}: kill these as you meet them"] = "{area:328}：沿途击杀以下目标",
-	["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay."] = "两艘沉船在海湾以西的海湾里。海图和航海日志在船里；宝石在周围的海底。整个海湾都有刺脊纳迦游动。",
+	["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay.\nCareful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy."] = "",
 	-- {npc:2595} Daggerspine Raider
 	["{npc:2595}, underwater"] = "{npc:2595}：在水下",
 	-- {item:4492} Elven Gem
@@ -416,6 +416,7 @@ return {
 	-- ["The courier walks the road west of {area:314} with two guards; pull them off the road."] = "被遗忘者信使带着两名卫兵在{area:314}以西的路上行走；把他们引离道路。",
 	-- ["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins."] = "书卷在{area:280}以西的废弃城堡（奥特兰克废墟）中；暗影大法师占据着废墟。",
 	-- ["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins.\nCareful: Crushridge Warmongers call nearby allies within 15 yd once they fall below half health."] = "书籍位于{area:280}以西的城堡废墟内，由暗影大法师占据。\n注意：破碎岭好战者生命值低于一半时，会召唤 15 码内的盟友支援。",
+	-- ["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay."] = "两艘沉船在海湾以西的海湾里。海图和航海日志在船里；宝石在周围的海底。整个海湾都有刺脊纳迦游动。",
 	-- ["The wrecked caravan lies off the road near Biggs."] = "被毁的货车在比格斯附近的路边。",
 	-- ["The wrecks"] = "沉船",
 	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:2417} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:2417}是 40 级精英，多数职业到 42 级可以尝试单独击败，但可能仍需帮助。独自一人时可跳过，路线会安排刷怪补回经验。",

@@ -146,6 +146,8 @@ return {
 	["for {npc:5204} in the {zone:1458}, around level 52"] = "",
 	-- {npc:7010} Zilzibin Drumlore · {zone:1454} Orgrimmar
 	["for {npc:7010} in {zone:1454}, around level 50"] = "для персонажа {npc:7010} ({zone:1454}), примерно на 50-м уровне",
+	-- {item:4306} Silk Cloth · {npc:8661} Auctioneer Beardo · {quest:4449} Caught! · {area:247} Grimesilt Dig Site · {zone:1427} Searing Gorge
+	["{item:4306}: {npc:8661}, for {quest:4449} at the {area:247} in the {zone:1427}"] = "",
 
 	-- Step 29: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
@@ -160,9 +162,10 @@ return {
 	["The {area:247}"] = "{area:247}",
 
 	-- Step 32: The Grimesilt Dig Site
-	-- {area:16727} Powderfuse Port · {zone:1427} Searing Gorge · {object:173265} Wooden Outhouse · {item:4306} Silk Cloth
+	-- {area:16727} Powderfuse Port · {zone:1427} Searing Gorge · {object:173265} Wooden Outhouse · {item:4306} Silk Cloth · {area:976} Gadgetzan
 	-- plural, as words: Dark Iron Geologists = {npc:5839} Dark Iron Geologist
-	["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "Из места {area:16727} езжайте в край {zone:1427} через восточный перевал, затем на запад к раскопкам. {object:173265} стоит в южной части; геологи из клана Черного Железа копают чуть к северу. Принесите 15 шт.: {item:4306} (продается на аукционе).",
+	-- was: ["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "Из места {area:16727} езжайте в край {zone:1427} через восточный перевал, затем на запад к раскопкам. {object:173265} стоит в южной части; геологи из клана Черного Железа копают чуть к северу. Принесите 15 шт.: {item:4306} (продается на аукционе)."
+	["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring the 15 {item:4306} from {area:976}'s Auction House: the Geologists drop it only now and then."] = "",
 	-- {object:173265} Wooden Outhouse
 	["the {object:173265}"] = "{object:173265}",
 
@@ -230,6 +233,7 @@ return {
 	-- ["Fly to {area:340}"] = "Летите сюда: {area:340}",
 	-- ["Fly to {area:392}"] = "Летите сюда: {area:392}",
 	-- ["From the {area:35} flight master, above the harbour."] = "У распорядителя полетов ({area:35}) над гаванью.",
+	-- ["From {area:16727}, ride into the {zone:1427} by its eastern pass, then west to the dig site. The {object:173265} stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 {item:4306} (the Auction House sells it)."] = "Из места {area:16727} езжайте в край {zone:1427} через восточный перевал, затем на запад к раскопкам. {object:173265} стоит в южной части; геологи из клана Черного Железа копают чуть к северу. Принесите 15 шт.: {item:4306} (продается на аукционе).",
 	-- ["Further south, Junior Surveyor Scrimshank's gear lies at the mouth of a Centipaar hive."] = "Дальше к югу обозревательное устройство младшего геодезиста лежит у входа в улей сентипааров.",
 	-- ["Greater Lava Spiders"] = "Опаляющие лавовые пауки",
 	-- ["Heavy War Golems patrol the Cauldron below Kalaran and drop the oil; the Magma and Blazing Elementals drifting among them drop the hearts. The Dark Iron Taskmasters and Slavers drive the slaves on the paths; a Slaver may drop the {item:11818}: keep it."] = "Тяжелые боевые големы патрулируют Котлован под Калараном – с них падает масло; с элементалей магмы и пылающих элементалей среди них падают сердца. Надсмотрщики и поработители из клана Черного Железа гонят рабов по тропам; с поработителя может упасть {item:11818}: сохраните его.",

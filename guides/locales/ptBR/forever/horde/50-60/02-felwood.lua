@@ -76,7 +76,11 @@ return {
 	["Ride east to the ruins on the coast. The four tablets lie among the ruins, guarded by Spitelash naga (52-55): pull them one at a time."] = "Siga para o leste até as ruínas na costa. As quatro tábuas estão entre as ruínas, guardadas por nagas Açoitadores (52-55): puxe um de cada vez.",
 
 	-- Step 17: Ruins of Eldarath
-	["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "Siga para leste até as ruínas na costa. Encha os quatro frascos de Cuely nas poças de maré ao longo da praia; nagas Iralisca patrulham entre elas.",
+	-- {area:1231} Southridge Beach
+	["Fill Cuely's four vials at the tide pools on the shore, from {area:1231} north up the coast; Spitelash naga patrol between them."] = "",
+	-- {item:10691} Filled Vial Labeled #1 · {area:1231} Southridge Beach
+	["{item:10691}: the tide pool on {area:1231}"] = "",
+	["#2, north along the shore"] = "",
 
 	-- Step 18: Makrinni Burrowers
 	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower
@@ -321,6 +325,7 @@ return {
 	-- ["Ride back south-east to the Sanctuary."] = "Cavalgue de volta para sudeste até o Santuário.",
 	-- ["Ride back to the {area:1497}, take the zeppelin to {zone:1454} and fly to {area:431}. Follow the road west out of Splintertree and take the fork north into {zone:1448}."] = "Volte a {area:1497}, pegue o zepelim para {zone:1454} e voe para {area:431}. Siga a estrada para o oeste saindo do Posto Machadada e pegue a bifurcação para o norte até {zone:1448}.",
 	-- ["Ride back west over the river and on to the {area:192}; {npc:11610} hides on the hill north-east of it."] = "Cavalgue de volta para o oeste atravessando o rio e siga até {area:192}; {npc:11610} se esconde na colina a nordeste dele.",
+	-- ["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "Siga para leste até as ruínas na costa. Encha os quatro frascos de Cuely nas poças de maré ao longo da praia; nagas Iralisca patrulham entre elas.",
 	-- ["Ride north along the eastern hills; {npc:1855} lives in a small house by the {area:2619}, at the border with the {zone:1423}."] = "Cavalgue para o norte pelas colinas do leste; {npc:1855} mora numa casinha junto a {area:2619}, na fronteira com {zone:1423}.",
 	-- ["Ride north up the road again."] = "Cavalgue de novo para o norte pela estrada.",
 	-- ["Ride north-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges."] = "Cavalgue para noroeste até Andorhal. {npc:10667} espera na estalagem em ruínas do lado oeste da cidade; os esqueletos lá dentro são 54-57, então fique pelas bordas.",

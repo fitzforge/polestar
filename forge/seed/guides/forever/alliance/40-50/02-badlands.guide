@@ -44,6 +44,7 @@ step Agmond's End
   collect 278404 quest 97617 @49.3,68.3 map 1418 -- Pristine Mattock
 
 step Valley of Fangs
+  when complete 705
   turnin 705                          -- Rigglefuzz: Blue Pearls from Stranglethorn
   note Rigglefuzz's next quest pays no experience: skip it.
 

@@ -196,7 +196,9 @@ return {
 
 	-- Step 40: Sunnyglade
 	-- {area:16724} Farholde Keep · {area:16729} Terral's Watch · {area:16723} Sunnyglade · {area:16743} Rog'mar · {npc:259158} Fuzzle · {npc:256831} Apprentice Claire · {npc:258697} Farmer Elbrim
-	["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold hides in the middle of the town, {npc:256831} at its eastern edge, and {npc:258697} waits at his farm on the north-eastern edge."] = "{area:16724}에서 북쪽으로 {area:16729}을(를) 지나 강을 건너, 황혼의 교단이 장악한 농촌 마을 {area:16723}(으)로 가십시오. 마을 동쪽의 호드 요새 {area:16743}에는 가까이 가지 마십시오. 코볼트 {npc:259158}은(는) 마을 한가운데 숨어 있고, {npc:256831}은(는) 동쪽 끝에, {npc:258697}은(는) 북동쪽 끝 자기 농장에서 기다립니다.",
+	["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold waits in a cage at the arrow, {npc:256831} below ground in a cave at the town's eastern edge (the entrance is at 50.0,46.0), and {npc:258697} waits at his farm on the north-eastern edge."] = "",
+	-- {npc:259158} Fuzzle · {quest:94961} Biting the Hand
+	["{npc:259158}: {quest:94961}, in his cage"] = "",
 
 	-- Step 41: The Twilight cult
 	["The Twilight cult"] = "황혼의 교단",
@@ -210,6 +212,10 @@ return {
 	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "",
 	-- {quest:94885} Field Marshal's Log
 	["{quest:94885}: only if a cultist dropped the log"] = "{quest:94885}: 교단원이 일지를 떨어뜨린 경우에만",
+
+	-- Step 42: Apprentice Claire
+	-- {area:16723} Sunnyglade
+	["Claire is in the cave under the eastern edge of {area:16723}: its entrance is at 50.0,46.0."] = "",
 
 	-- Step 43: Cut Off the Heads
 	-- {npc:256899} Chogg'Zac · {area:16723} Sunnyglade · {npc:257591} Ashe Amberhall · {area:16724} Farholde Keep
@@ -371,7 +377,7 @@ return {
 	-- Step 72: The pirates' ships
 	["The pirates' ships"] = "해적선",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
-	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way."] = "다시 해적 절벽으로 가십시오. 야영지 아래 정박한 배 세 척에 남쪽부터 북쪽 순서로 위즈버즈의 폭약을 설치하십시오. {quest:95124}(45레벨)은(는) 가운데 배 옆에 전리품 상자와 함께 있습니다. 가는 길에 {npc:259758}을(를) 주의하십시오.",
+	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} (level 45) walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way."] = "",
 	-- {item:268505} Remote Explosive Charge
 	["{item:268505}, the southern ship"] = "{item:268505}, 남쪽 배",
 	["the middle ship"] = "가운데 배",
@@ -558,6 +564,8 @@ return {
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Before the second wave: its raiders and bombardiers (43-45) and the pirates' ships after them are a level over you below 44.4. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "두 번째 무리 전에: 그 약탈자와 폭격수(43-45), 그리고 그다음의 해적선은 44.4레벨 미만이면 당신보다 한 레벨 높습니다. 항구에서 떨어진 첫 번째 야영지 남서쪽 끝의 해적과 머스킷병(41-43)으로 경험치를 채우십시오. 49레벨 희귀 정예 {npc:259758}이(가) 이 절벽을 돌아다닙니다. 보이면 멀리 피하십시오. 또는 파티가 있다면 대신 {area:1517} 던전을 도십시오.",
 	-- ["Level 44.4 on the Eastsea pirates"] = "동부해 해적에게서 44.4레벨까지 사냥",
+	-- ["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold hides in the middle of the town, {npc:256831} at its eastern edge, and {npc:258697} waits at his farm on the north-eastern edge."] = "{area:16724}에서 북쪽으로 {area:16729}을(를) 지나 강을 건너, 황혼의 교단이 장악한 농촌 마을 {area:16723}(으)로 가십시오. 마을 동쪽의 호드 요새 {area:16743}에는 가까이 가지 마십시오. 코볼트 {npc:259158}은(는) 마을 한가운데 숨어 있고, {npc:256831}은(는) 동쪽 끝에, {npc:258697}은(는) 북동쪽 끝 자기 농장에서 기다립니다.",
+	-- ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way."] = "다시 해적 절벽으로 가십시오. 야영지 아래 정박한 배 세 척에 남쪽부터 북쪽 순서로 위즈버즈의 폭약을 설치하십시오. {quest:95124}(45레벨)은(는) 가운데 배 옆에 전리품 상자와 함께 있습니다. 가는 길에 {npc:259758}을(를) 주의하십시오.",
 	-- ["the {object:707245} poster"] = "{object:707245} 전단",
 	-- ["{item:17028}, from {npc:272437}"] = "{npc:272437}에게서 {item:17028}",
 	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026}은(는) 고개 동쪽 길가에서 기다립니다.",

@@ -238,7 +238,7 @@ return {
 	-- Step 50: The Drowned Reef: kill these as you meet them
 	-- {area:328} The Drowned Reef
 	["{area:328}: kill these as you meet them"] = "",
-	["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay."] = "난파선 두 척은 만 서쪽 바다에 있습니다. 해도와 일지는 배 안에 있고, 보석은 주변 바다 바닥에 있습니다. 비수가시일족 나가가 바다 전체를 헤엄칩니다.",
+	["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay.\nCareful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy."] = "",
 	-- {npc:2595} Daggerspine Raider
 	["{npc:2595}, underwater"] = "",
 	-- {item:4492} Elven Gem
@@ -404,6 +404,7 @@ return {
 	-- ["The Witherbark trolls live in the hills south of {area:314}; Witch Doctors stand in the village, Shadow Hunters guard the far end of the valley."] = "마른나무껍질 트롤은 {area:314} 남쪽 언덕에 삽니다. 의술사는 마을에 서 있고, 어둠사냥꾼은 계곡 맨 끝을 지킵니다.",
 	-- ["The courier walks the road west of {area:314} with two guards; pull them off the road."] = "급사는 경비병 둘과 함께 {area:314} 서쪽 길을 걸어다닙니다. 길에서 끌어내세요.",
 	-- ["The tomes lie in the ruined keep west of {area:280}; Argus Shadow Mages hold the ruins."] = "고서는 {area:280} 서쪽의 무너진 성채에 있습니다. 아르거스재림회 어둠마법사가 폐허를 차지하고 있습니다.",
+	-- ["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay."] = "난파선 두 척은 만 서쪽 바다에 있습니다. 해도와 일지는 배 안에 있고, 보석은 주변 바다 바닥에 있습니다. 비수가시일족 나가가 바다 전체를 헤엄칩니다.",
 	-- ["The wrecked caravan lies off the road near Biggs."] = "부서진 대상단 마차는 비그스 근처 길가에 있습니다.",
 	-- ["The wrecks"] = "난파선",
 	-- ["Walk back onto the span: Ebenezer lies under its Arathi end."] = "다리 위로 다시 걸어가세요. 에벤에셀은 다리의 아라시 쪽 끝 아래에 쓰러져 있습니다.",

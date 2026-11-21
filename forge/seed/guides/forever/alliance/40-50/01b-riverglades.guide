@@ -275,8 +275,8 @@ step Ghostmaw
   collect 271828 quest 95991.1 @52.9,57.8  -- Ghostmaw's Fang
 
 step Sunnyglade
-  tip North from Farholde Keep, past Terral's Watch and across the river, to Sunnyglade, the farm town the Twilight cult holds; keep clear of Rog'mar, the Horde's fort east of the town. Fuzzle the kobold hides in the middle of the town, Apprentice Claire at its eastern edge, and Farmer Elbrim waits at his farm on the north-eastern edge.
-  accept 94961                          -- Fuzzle: Biting the Hand
+  tip North from Farholde Keep, past Terral's Watch and across the river, to Sunnyglade, the farm town the Twilight cult holds; keep clear of Rog'mar, the Horde's fort east of the town. Fuzzle the kobold waits in a cage at the arrow, Apprentice Claire below ground in a cave at the town's eastern edge (the entrance is at 50.0,46.0), and Farmer Elbrim waits at his farm on the north-eastern edge.
+  accept 94961 @47.2,51.2               -- Fuzzle: Biting the Hand, in his cage
   accept 95642                          -- Apprentice Claire: Abominable Magics
   accept 95643                          -- Indiscriminate Purge
   accept 94829                          -- Farmer Elbrim: What We Lost
@@ -299,6 +299,7 @@ step The Twilight cult
   accept 94885 optional                 -- Field Marshal's Log: only if a cultist dropped the log
 
 step Apprentice Claire
+  tip Claire is in the cave under the eastern edge of Sunnyglade: its entrance is at 50.0,46.0.
   turnin 95642
   turnin 95643
 
@@ -512,7 +513,7 @@ step Powderfuse Port
   turnin 95294                          -- Friz Frazzlespark
 
 step The pirates' ships
-  tip Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; Admiral Lamora (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for Gul'gash on the way.
+  tip Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. Admiral Lamora (level 45) walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for Gul'gash on the way.
   use 268505 quest 95165.3 @90.9,39.5   -- Remote Explosive Charge, the southern ship
   kill 257861 quest 95124.1             -- Admiral Lamora
   collect 268506 quest 95124.2          -- Lamora's Loot
