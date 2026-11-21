@@ -1773,7 +1773,9 @@ local INDOOR_CLASS, CITY_CLASS = Costs.CLASS.INDOOR, Costs.CLASS.CITY
 -- z2, the connected floor suffices. A blocked step or an unusable start returns false. Reads decoded clusters only:
 -- nil when the line (or a diagonal step's corner) touches one that is not, touches more than SIGHT_CLUSTERS, or
 -- leaves the map's data. It decodes nothing, puts back every use stamp it moved (the cache's order and the
--- reader's slot stay as they were), never yields and allocates nothing.
+-- reader's slot stay as they were), never yields and allocates nothing. With walls, indoor and indoor city ground
+-- pass: only walls, cliffs, floor changes, water and hostile towns block (the arrow's aim kept in reach,
+-- Nav/Follow.lua `reach`).
 ---@param map number
 ---@param x1 number
 ---@param y1 number
@@ -1782,8 +1784,9 @@ local INDOOR_CLASS, CITY_CLASS = Costs.CLASS.INDOOR, Costs.CLASS.CITY
 ---@param y2 number
 ---@param z2? number
 ---@param profile? string
+---@param walls? boolean
 ---@return boolean?
-function Path.Sight(map, x1, y1, z1, x2, y2, z2, profile)
+function Path.Sight(map, x1, y1, z1, x2, y2, z2, profile, walls)
 	local st = states[map]
 	if not (st and x1 and y1 and z1 and x2 and y2) then
 		return nil
@@ -1835,7 +1838,7 @@ function Path.Sight(map, x1, y1, z1, x2, y2, z2, profile)
 			elseif classed then
 				local cb = CLS[byte(st.cl[k].kind, node + 1)]
 				local base = cb % 8
-				if base == INDOOR_CLASS or base == CITY_CLASS or (hb and cb % (hb + hb) >= hb) then
+				if (not walls and (base == INDOOR_CLASS or base == CITY_CLASS)) or (hb and cb % (hb + hb) >= hb) then
 					clear = false
 				end
 			end
