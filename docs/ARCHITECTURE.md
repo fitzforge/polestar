@@ -6410,7 +6410,16 @@ what is shown and timed.
   Forever patch); a build newer than 70959 adds one line to the debug log at
   load ("ground: client build … is newer than the enemy-town data"). Until
   0.4.2 any other build answered `"unknown-ground"` for every segment, so a
-  client patch refused every walk.
+  client patch refused every walk. The planner asks `p.blocked` when the plan
+  carries one (else `Nav.danger.Blocked`); `Nav.EstimateTravel` passes
+  `Travel.EstimateBlocked`, which remembers each answer by its exact arguments: a
+  step change's candidate prices (up to 8 from one spot, with a second pass
+  for a discounted walk or the hearth) and later step changes ask about the
+  same walks between flight masters, docks and crossings, and checking a walk
+  every 33 yards was two thirds of a plan (0.4.2's step change: 40 ms on the
+  perf test, 17 ms remembered). The data never changes in the game; the
+  answers are forgotten when the check or its data tables are replaced (test
+  worlds) and after 2048. Live routes (`Travel.Replan`) ask the check itself.
 
 **Our own maps, always.** The engine reads only `PolestarPathData`, never an
 installed Shortest Path Forever's `ShortestPathForeverPathData`, even when it

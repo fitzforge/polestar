@@ -1042,6 +1042,59 @@ fn estimatetravel_stays_cheap_for_a_burst_of_candidates_on_the_real_network() {
 	forge_addontest::assert_timing!(ms < 200.0, "10 estimates took {ms:.1} ms");
 }
 
+// A step change prices up to 8 candidates from where the player stands, and later step changes price them again:
+// each walk's enemy-town check (Nav.danger.Blocked, every 33 yards of it) is asked once, its answer remembered, and
+// asked afresh once the data is replaced. The prices stay the ones the check gives.
+#[test]
+fn estimates_ask_the_enemy_town_check_once_per_walk_until_its_data_is_replaced() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_nav.lua"],
+		addons: vec![nav()],
+		login: true,
+		script: r#"
+			local N, nav = Polestar.Nav, stub.nav
+			nav.useGameGround()
+			nav.faction, nav.level = "Alliance", 25
+			Polestar.RegisterMapFrames({ era = { [1436] = { c = 0, left = 3016.667, right = -483.333, top = -9400, bottom = -11733.333 },
+				[1433] = { c = 0, left = -1570.833, right = -3741.667, top = -8575, bottom = -10022.916 } } })
+			nav.place(-10500, 1046, 0)
+			Polestar.CharState().flags.taxi = { [2] = true, [4] = true, [5] = true }
+			local D, check = N.danger, N.danger.Blocked
+			local asked, twice = {}, 0
+			D.Blocked = function(c, x, y, X, Y, side)
+				local k = string.format("%s:%.17g:%.17g:%.17g:%.17g:%s", tostring(c), x, y, X, Y, tostring(side))
+				if asked[k] then twice = twice + 1 end
+				asked[k] = true
+				return check(c, x, y, X, Y, side)
+			end
+			local function prices()
+				local out = {}
+				for i = 1, 8 do out[i] = N.EstimateTravel(nil, { map = 1433, x = 20 + i, y = 44, f = "e" }) end
+				return out
+			end
+			local r = { first = prices() }
+			r.walks, r.twice = 0, twice
+			for _ in pairs(asked) do r.walks = r.walks + 1 end
+			stub.advance(6) -- past the estimates' own 5 s: the same trips are planned again
+			r.again, r.twiceAgain = prices(), twice
+			D.areaCells = setmetatable({}, { __index = D.areaCells }) -- the same ground in a new table
+			asked = {}
+			stub.advance(6)
+			r.replaced, r.askedAfresh = prices(), next(asked) ~= nil
+			emit(r)"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert!(out["walks"].as_u64().unwrap() > 0, "the estimates checked their walks");
+	assert!(out["first"][0].as_f64().unwrap() > 0.0, "Sentinel Hill -> Redridge: {}", out["first"]);
+	assert_eq!(out["twice"], 0, "no walk checked twice within the step change's estimates");
+	assert_eq!(out["twiceAgain"], 0, "nor when the same trips are priced again");
+	assert_eq!(out["again"], out["first"]);
+	assert_eq!(out["askedAfresh"], true, "replaced data is asked again");
+	assert_eq!(out["replaced"], out["first"]);
+}
+
 #[test]
 fn only_discovered_flight_masters_are_recorded_from_the_flight_map() {
 	let out = run(r#"
