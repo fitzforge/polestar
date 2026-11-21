@@ -100,7 +100,7 @@ return {
 	["Lashtail Raptors"] = "鞭尾迅猛龙",
 	-- {quest:195} Raptor Mastery · {object:3202} Grom'gol
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["{quest:195} is still open: the Lashtail Raptors (35-36) hunt the jungle between {object:3202} and Nesingwary's camp, on your way north."] = "{quest:195}仍未完成：鞭尾迅猛龙（35-36级）在{object:3202}和奈辛瓦里营地之间的丛林中狩猎，顺路向北。",
+	["{quest:195} is still open: the Lashtail Raptors (35-36) hunt the jungle between {object:3202} and Nesingwary's camp, on your way north."] = "{quest:195}仍未完成：鞭尾迅猛龙（35-36级）在{object:3202}和奈辛瓦里远征队营地之间的丛林中狩猎，顺路向北。",
 
 	-- Step 20: Nesingwary's camp
 	["Nesingwary's camp"] = "奈辛瓦里的营地",

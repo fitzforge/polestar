@@ -78,12 +78,12 @@ return {
 
 	-- Step 17: The Dark Iron War
 	-- {npc:1364} Balgaras the Foul
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. Dark Iron Dwarves, Tunnelers, Saboteurs and Demolitionists (27-31) fill the ruins west of the camp; {npc:1364} (34, elite) walks among them."] = "这些都是精英怪物：黑铁矮人、坑道者、破坏者和爆破手（27-31级）挤满了营地西边的废墟；{npc:1364}（34级，精英）在其中走动。",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. Dark Iron Dwarves, Tunnelers, Saboteurs and Demolitionists (27-31) fill the ruins west of the camp; {npc:1364} (34, elite) walks among them."] = "这些是精英怪：建议组队，找人一起做。黑铁矮人、黑铁隧道工、黑铁破坏者和黑铁爆破手（27-31级）挤满了营地西边的废墟；{npc:1364}（34级，精英）在其中走动。",
 
 	-- Step 18: Direforge Hill
 	-- {area:1016} Direforge Hill · {item:280806} Stolen Explosives · {area:880} Thandol Span
 	-- plural, as words: Dark Irons = {object:147516} Dark Iron
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. South-east of Dun Modr, about 500 yards, the Dark Irons camp on {area:1016}: the {item:280806} lie among their tents. Then back past the camp and north to the {area:880}."] = "这些都是精英怪物：丹莫罗东南约500码，黑铁在{area:1016}扎营：{item:280806}就在他们的帐篷之间。然后折返，经过营地向北前往{area:880}。",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. South-east of Dun Modr, about 500 yards, the Dark Irons camp on {area:1016}: the {item:280806} lie among their tents. Then back past the camp and north to the {area:880}."] = "这些是精英怪：建议组队，找人一起做。丹莫德东南约500码，黑铁在{area:1016}扎营：{item:280806}就在他们的帐篷之间。然后折返，经过营地向北前往{area:880}。",
 
 	-- Step 19: Ebenezer Rustlocke
 	["Ebenezer Rustlocke"] = "伊贝尼瑟的尸体",
@@ -135,7 +135,7 @@ return {
 	-- Step 30: Dragonmaw Retreat
 	-- {npc:270637} Howin Kindfeather
 	-- plural, as words: Dragonmaw Reclaimers = {npc:271351} Dragonmaw Reclaimer
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. The Dragonmaw Reclaimers, Soulbinders and Infiltrators (29-30, elite) camp just east of {npc:270637}."] = "这些都是精英怪物：龙喉夺回者、缚魂者和渗透者（29-30级，精英）就在{npc:270637}东边扎营。",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. The Dragonmaw Reclaimers, Soulbinders and Infiltrators (29-30, elite) camp just east of {npc:270637}."] = "这些是精英怪：建议组队，找人一起做。龙喉收复者、龙喉缚魂者和龙喉间谍（29-30级，精英）就在{npc:270637}东边扎营。",
 
 	-- Step 31: Howin Kindfeather
 	-- {npc:270637} Howin Kindfeather

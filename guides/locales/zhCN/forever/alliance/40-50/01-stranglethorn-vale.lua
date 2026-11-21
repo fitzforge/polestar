@@ -230,7 +230,7 @@ return {
 
 	-- Step 40: Sin'Dall
 	-- {npc:729} Sin'Dall
-	["North-east from the bay toward Nesingwary's camp: {npc:729}, the great tiger (37), lairs on the hilltop just south-west of the camp."] = "从海湾向东北朝奈辛瓦里营地走：巨虎{npc:729}（37级）盘踞在营地西南不远的山顶上。",
+	["North-east from the bay toward Nesingwary's camp: {npc:729}, the great tiger (37), lairs on the hilltop just south-west of the camp."] = "从海湾向东北朝奈辛瓦里远征队营地走：巨虎{npc:729}（37级）盘踞在营地西南不远的山顶上。",
 
 	-- Step 41: Hemet Nesingwary
 	-- {npc:718} Sir S. J. Erlgadin
@@ -242,10 +242,10 @@ return {
 
 	-- Step 45: Arbor Tarantula
 	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
-	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s {item:213565}."] = "奈辛瓦里营地东南边、通往{area:99}的丛林里有{npc:217588}：用{npc:217412}的{item:213565}里的工具捕捉一只。",
+	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s {item:213565}."] = "奈辛瓦里远征队营地东南边、通往{area:99}的丛林里有{npc:217588}：用{npc:217412}的{item:213565}里的工具捕捉一只。",
 
 	-- Step 46: Rebel Camp
-	["Head north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale."] = "向东北经过奈辛瓦里营地，再沿道路向北前往山谷最北端的营地。",
+	["Head north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale."] = "向东北经过奈辛瓦里远征队营地，再沿道路向北前往山谷最北端的营地。",
 
 	-- Step 47: Brother Nimetz
 	-- {npc:739} Brother Nimetz · {area:301} Savage Coast · {npc:2277} Loremaster Dibbs · {area:271} Southshore · {zone:1418} Badlands · {zone:1425} Hinterlands

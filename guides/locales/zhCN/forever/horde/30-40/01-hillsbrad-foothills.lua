@@ -124,7 +124,7 @@ return {
 
 	-- Step 26: Durnholde Keep
 	-- {npc:2238} Tog'thar · {npc:2427} Jailor Eston · {item:3467} Dull Iron Key · {npc:2428} Jailor Marlgen · {item:3499} Burnished Gold Key
-	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings, and each lock needs its key: {npc:2427} carries the {item:3467} for Drull's, {npc:2428} the {item:3499} for {npc:2238}'s, both in the keep. Kill them first, then open both locks."] = "在塔伦米尔东南。德尔和{npc:2238}被锁在要塞庭院的建筑里，每把锁都需要钥匙：{npc:2427}带着德尔的{item:3467}，{npc:2428}带着{npc:2238}的{item:3499}，都在要塞里。先杀他们，再打开两把锁。",
+	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings, and each lock needs its key: {npc:2427} carries the {item:3467} for Drull's, {npc:2428} the {item:3499} for {npc:2238}'s, both in the keep. Kill them first, then open both locks."] = "在塔伦米尔东南。德鲁尔和{npc:2238}被锁在要塞庭院的建筑里，每把锁都需要钥匙：{npc:2427}带着德鲁尔的{item:3467}，{npc:2428}带着{npc:2238}的{item:3499}，都在要塞里。先杀他们，再打开两把锁。",
 	-- {item:3467} Dull Iron Key · {npc:2427} Jailor Eston
 	["{item:3467}, from {npc:2427}"] = "{item:3467}，来自{npc:2427}",
 	-- {item:3499} Burnished Gold Key · {npc:2428} Jailor Marlgen

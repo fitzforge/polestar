@@ -18,7 +18,7 @@ return {
 
 	-- Step 2: Kurzen's Compound
 	-- {area:99} Rebel Camp · {item:2634} Venom Fern Extract · {object:263} Kurzen Supplies
-	["South-east of the {area:99}. The medicine men, headshrinkers and witch doctors drop the remedies; the {item:2634} is in the {object:263}."] = "在{area:99}东南。医药师、缩头师和巫医掉落药剂；{item:2634}在{object:263}里。",
+	["South-east of the {area:99}. The medicine men, headshrinkers and witch doctors drop the remedies; the {item:2634} is in the {object:263}."] = "在{area:99}东南。库尔森药草师、库尔森精神医师和库尔森巫医掉落药剂；{item:2634}在{object:263}里。",
 
 	-- Step 4: The Emperor's Tomb
 	-- {item:2008} The Fourth Troll Legend · {area:99} Rebel Camp · {area:102} Ruins of Zul'Kunda
@@ -59,7 +59,7 @@ return {
 	["A dungeon for five players of level 35 to 42. Meet your group at its entrance in {area:17853}, under the {area:104}: due west of {object:3202} and south-west of the reef's tablet. {object:3202} is the Horde's camp: keep clear of its guards. Water breathing helps."] = "适合35-42级的五人地下城。在{area:104}下方的{area:17853}入口与小队会合：位于{object:3202}正西、礁石石板的西南。{object:3202}是部落营地：避开它的守卫。水下呼吸有帮助。",
 
 	-- Step 15: I'lalai Fetishes
-	["I'lalai Fetishes"] = "伊拉莱符咒",
+	["I'lalai Fetishes"] = "伊拉莱神像",
 	-- plural, as words: Profane Necromancers = {npc:263196} Profane Necromancer · Undying Offerings = {npc:263899} Undying Offering
 	["Risen Sentries, Profane Necromancers and Undying Offerings drop them."] = "复生哨兵、亵渎通灵师和不死供品掉落它们。",
 
@@ -75,7 +75,7 @@ return {
 	["Brinescale Explorers and Sorceresses guard the way to {npc:258924}, the second boss. The second tablet is close to him. No Alliance quest asks for him, but once he is dead, disrupt the barrier close to where he fell; you do it once more after {npc:260042}."] = "盐鳞探险者和女法师守在{npc:258924}——第二个首领——的路上。第二块石板就在他旁边。没有联盟任务需要他，但他死后，摧毁他倒下的地方附近的屏障；在{npc:260042}之后还要再做一次。",
 
 	-- Step 18: Captain Dreadrise
-	["The Saltseer pirates hold his ground: Murderers, Manhunters, Cultists and Coroners, and any of them can drop an artifact. The third tablet is among them, before you reach the captain. After he dies, disrupt the barrier a second time."] = "盐海海盗守着他的地盘：凶手、猎人头目、邪教徒和验尸官，他们任何一方都可能掉落神器。第三块石板就在他们中间，在到达船长之前。他死后，第二次摧毁屏障。",
+	["The Saltseer pirates hold his ground: Murderers, Manhunters, Cultists and Coroners, and any of them can drop an artifact. The third tablet is among them, before you reach the captain. After he dies, disrupt the barrier a second time."] = "盐水先知海盗守着他的地盘：凶手、猎人头目、邪教徒和盐水先知验尸官，他们任何一方都可能掉落神器。第三块石板就在他们中间，在到达船长之前。他死后，第二次摧毁屏障。",
 	-- {npc:773} Krazek
 	["One pass through the pirates may give fewer than ten: {npc:773} takes the quest whenever you have them."] = "清一遍海盗可能不到十个：{npc:773}随时会接受这个任务。",
 

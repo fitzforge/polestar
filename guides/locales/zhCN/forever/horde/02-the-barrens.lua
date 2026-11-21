@@ -176,10 +176,10 @@ return {
 	["East from the keg toward {quest:881}: {npc:3682} camps below the hills, and his errands lie in the plains beside his camp."] = "从酒桶向东朝{quest:881}方向：{npc:3682}在山丘下方扎营，他的差事就在营地旁的平原上。",
 
 	-- Step 38: Savannah lions
-	["Savannah lions"] = "萨凡纳狮子",
+	["Savannah lions"] = "草原狮",
 	-- {npc:3682} Vrang Wildgore
 	-- plural, as words: Savannah Patriarchs = {npc:3241} Savannah Patriarch · Sprung Traps = {object:640104} Sprung Trap
-	["Savannah Patriarchs roam the plains east of {npc:3682}'s camp, and the Sprung Traps lie among them."] = "萨凡纳狮王在{npc:3682}营地东边的平原上游荡，触发式陷阱就在它们中间。",
+	["Savannah Patriarchs roam the plains east of {npc:3682}'s camp, and the Sprung Traps lie among them."] = "草原狮王在{npc:3682}营地东边的平原上游荡，爆炸陷阱就在它们中间。",
 
 	-- Step 39: Vrang Wildgore
 	-- {npc:261366} Walton · {npc:3682} Vrang Wildgore · {area:383} Dry Hills · {npc:3452} Serena Bloodfeather
@@ -305,7 +305,7 @@ return {
 
 	-- Step 64: The Barrens: kill these as you meet them
 	-- {area:383} Dry Hills · {quest:876} Serena Bloodfeather
-	["North to the {area:383}: {quest:876} leads the Witchwing harpies in the hills to the west.\nCareful: The route in passes stealthed Harpy Ambushers and an elite harpy that patrols."] = "向北前往{area:383}：{quest:876}带领西边山丘中的女巫之翼鹰身人。\n注意：进入的路会经过隐身的女巫之翼伏击者和一只巡逻的精英鹰身人。",
+	["North to the {area:383}: {quest:876} leads the Witchwing harpies in the hills to the west.\nCareful: The route in passes stealthed Harpy Ambushers and an elite harpy that patrols."] = "向北前往{area:383}：{quest:876}带领西边山丘中的巫翼鹰身人。\n注意：进入的路会经过隐身的巫翼伏击者和一只巡逻的精英鹰身人。",
 	-- {quest:865} Raptor Horns · {npc:3682} Vrang Wildgore
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
 	-- was: ["{quest:865}, if still open: Sunscale Scytheclaws prowl among the lions"] = "如果 {quest:865} 还没完成：赤鳞镰爪龙就在狮群之间游荡"

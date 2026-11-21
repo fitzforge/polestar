@@ -160,7 +160,7 @@ return {
 	["{npc:1494}'s bait"] = "{npc:1494}的诱饵",
 	-- {npc:1494} Negolash · {quest:619} Enticing Negolash · {area:35} Booty Bay · {item:4595} Junglevine Wine · {npc:2832} Nixxrax Fillamug
 	-- plural, as words: Barbecued Buzzard Wings = {item:4457} Barbecued Buzzard Wing
-	["{npc:1494} comes only for his food: hand in {quest:619} at Captain Smotts' ruined lifeboat on the shore south-east of {area:35}, with 10 Barbecued Buzzard Wings and 5 {item:4595}, and he comes to the boat. {npc:2832}, the food and drink vendor at the inn, sells the wine. The wings are a cook's dish: if you don't cook, bring them from the Auction House."] = "{npc:1494}只为食物而来：在{area:35}东南海岸斯莫茨船长失事的救生艇处交还{quest:619}，需要10块烤秃鹫翅和5个{item:4595}，他就会来到船上。旅店里的饮食商人{npc:2832}卖酒。这些翅膀是烹饪菜品：如果你不会烹饪，就从拍卖行买。",
+	["{npc:1494} comes only for his food: hand in {quest:619} at Captain Smotts' ruined lifeboat on the shore south-east of {area:35}, with 10 Barbecued Buzzard Wings and 5 {item:4595}, and he comes to the boat. {npc:2832}, the food and drink vendor at the inn, sells the wine. The wings are a cook's dish: if you don't cook, bring them from the Auction House."] = "{npc:1494}只为食物而来：在{area:35}东南海岸斯莫茨船长那艘破损的救生艇处交还{quest:619}，需要10块烧烤秃鹰翅膀和5个{item:4595}，他就会来到船上。旅店里的饮食商人{npc:2832}卖酒。这些翅膀是烹饪菜品：如果你不会烹饪，就从拍卖行买。",
 	-- {item:4457} Barbecued Buzzard Wing
 	["{item:4457}: in your bags already if you cook"] = "{item:4457}：如果你会烹饪，背包里已经有了",
 	-- {object:2289} Ruined Lifeboat · {npc:1494} Negolash

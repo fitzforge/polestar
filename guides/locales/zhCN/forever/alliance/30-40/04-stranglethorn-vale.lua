@@ -25,7 +25,7 @@ return {
 	-- {npc:773} Krazek · {npc:738} Private Thorsen · {area:99} Rebel Camp
 	["{npc:773}, in the tavern; upstairs: {npc:738} is at the {area:99}, on the way"] = "{npc:773}，在酒馆；楼上：{npc:738}在{area:99}，顺路",
 	-- {npc:773} Krazek
-	["{npc:773}: Nesingwary's camp, on the way"] = "{npc:773}：奈辛瓦里营地，顺路",
+	["{npc:773}: Nesingwary's camp, on the way"] = "{npc:773}：奈辛瓦里远征队营地，顺路",
 	-- {npc:737} Kebok
 	["{npc:737}, in the tavern"] = "{npc:737}，在旅店里",
 	-- {npc:2496} Baron Revilgaz
@@ -53,7 +53,7 @@ return {
 	["River crocolisks"] = "淡水鳄",
 	-- {area:99} Rebel Camp
 	-- plural, as words: River Crocolisks = {npc:1150} River Crocolisk
-	["River Crocolisks (30-31) swim the river right beside Nesingwary's camp and up toward the {area:99}."] = "河鳄（30-31级）在奈辛瓦里营地旁边的河里，向上游{area:99}方向游去。",
+	["River Crocolisks (30-31) swim the river right beside Nesingwary's camp and up toward the {area:99}."] = "河鳄（30-31级）在奈辛瓦里远征队营地旁边的河里，向上游{area:99}方向游去。",
 
 	-- Step 10: Stranglethorn Tigers
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger
@@ -72,7 +72,7 @@ return {
 	["Gluggle (37, rare) on the coast west of camp drops the {item:4614}: four levels over you, leave him unless you are grouped"] = "戈鲁格尔（37级，稀有）在营地西边海岸，掉落{item:4614}：比你高四级，除非组队否则别惹他",
 	-- {object:661516} Thoroughly Scavenged Supplies (no name in this language: may be words)
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment
-	["{object:661516}, a looted crate west of Nesingwary's camp: the Stolen Shipments lie in the Bloodscalp ruins on the coast, for the second Stranglethorn loop"] = "{object:661516}，奈辛瓦里营地西边一个被洗劫过的箱子：被盗的货物在海岸边的血顶废墟中，第二轮荆棘谷路线再去",
+	["{object:661516}, a looted crate west of Nesingwary's camp: the Stolen Shipments lie in the Bloodscalp ruins on the coast, for the second Stranglethorn loop"] = "{object:661516}，奈辛瓦里远征队营地西边一个被洗劫过的箱子：被盗的货物在海岸边的血顶废墟中，第二轮荆棘谷路线再去",
 
 	-- Step 13: Sir S. J. Erlgadin
 	-- {area:99} Rebel Camp
@@ -83,7 +83,7 @@ return {
 	-- Step 14: Rebel Camp
 	-- {npc:738} Private Thorsen · {quest:215} Jungle Secrets · {quest:200} Bookie Herod · {area:99} Rebel Camp
 	-- plural, as words: Kurzen's Agents = {npc:775} Kurzen's Agent
-	["Take the road north; the camp sits in the hills to the west.\n{npc:738} offers {quest:215} only while he is out of the camp: about every half hour he walks down the path to the road, where two Kurzen's Agents ambush him. Help him kill them and take the quest at once, before he walks back up. He isn't there? Leave it: the guide passes {quest:200}, which follows from it, as well.\n{npc:738} spends most of his time at the top of the {area:99}'s path, by the huts, and now and then walks down it to the road and back (about eight minutes). If he isn't at the arrow, look along that path."] = "向北走大路；营地就在西边的山丘里。\n{npc:738}只在离开营地时提供{quest:215}：他大约每半小时沿小径走到路上一次，两名库尔森特工在那里伏击他。帮他杀掉他们并立刻接任务，趁他还没走回去。他不在？算了：指南也会经过由它引出的{quest:200}。\n{npc:738}大部分时间待在{area:99}小径顶端的小屋旁，偶尔沿小径下去再到路上，然后再回来（约八分钟）。如果箭头处找不到他，就沿那条小径找。",
+	["Take the road north; the camp sits in the hills to the west.\n{npc:738} offers {quest:215} only while he is out of the camp: about every half hour he walks down the path to the road, where two Kurzen's Agents ambush him. Help him kill them and take the quest at once, before he walks back up. He isn't there? Leave it: the guide passes {quest:200}, which follows from it, as well.\n{npc:738} spends most of his time at the top of the {area:99}'s path, by the huts, and now and then walks down it to the road and back (about eight minutes). If he isn't at the arrow, look along that path."] = "向北走大路；营地就在西边的山丘里。\n{npc:738}只在离开营地时提供{quest:215}：他大约每半小时沿小径走到路上一次，两名库尔森的密探在那里伏击他。帮他杀掉他们并立刻接任务，趁他还没走回去。他不在？算了：指南也会经过由它引出的{quest:200}。\n{npc:738}大部分时间待在{area:99}小径顶端的小屋旁，偶尔沿小径下去再到路上，然后再回来（约八分钟）。如果箭头处找不到他，就沿那条小径找。",
 	-- {npc:738} Private Thorsen
 	["{npc:738}, at the foot of the path"] = "{npc:738}，在小路下端",
 	-- {npc:738} Private Thorsen
@@ -133,7 +133,7 @@ return {
 	-- {area:310} Crystalvein Mine
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk · Lesser Water Elementals = {npc:691} Lesser Water Elemental
 	-- was: ["From {area:108} the way leads south out of {zone:1436} into Stranglethorn's north-west, to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach its edge. Careful: its Lesser Water Elementals are 36-37: don't stay. The Bloodscalp ruins of Zul'Kunda to the north wait for the second Stranglethorn loop."] = "从{area:108}向南离开{zone:1436}，进入荆棘谷西北部，前往海岸附近的{area:310}；周围的晶背蜥蜴会掉落碎片。\n闹鬼的岛屿就在矿洞西南边的近海，只需抵达其边缘即可。注意：岛上的次级水元素为36-37级：不要逗留。北边的血顶巨魔废墟祖昆达留到第二轮荆棘谷路线。"
-	["From Nesingwary's camp head west to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach its edge. Careful: its Lesser Water Elementals are 36-37: don't stay. The Bloodscalp ruins of Zul'Kunda to the north wait for the second Stranglethorn loop."] = "从奈辛瓦里营地向西前往海岸附近的{area:310}；周围的晶背蜥蜴会掉落碎片。\n闹鬼的岛屿就在矿洞西南边的近海，只需抵达其边缘即可。注意：岛上的次级水元素为36-37级：不要逗留。北边的血顶巨魔废墟祖昆达留到第二轮荆棘谷路线。",
+	["From Nesingwary's camp head west to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach its edge. Careful: its Lesser Water Elementals are 36-37: don't stay. The Bloodscalp ruins of Zul'Kunda to the north wait for the second Stranglethorn loop."] = "从奈辛瓦里远征队营地向西前往海岸附近的{area:310}；周围的晶背蜥蜴会掉落碎片。\n闹鬼的岛屿就在矿洞西南边的近海，只需抵达其边缘即可。注意：岛上的次级水元素为36-37级：不要逗留。北边的血顶巨魔废墟祖昆达留到第二轮荆棘谷路线。",
 	["The haunted island"] = "闹鬼的小岛",
 
 	-- Step 21: Booty Bay

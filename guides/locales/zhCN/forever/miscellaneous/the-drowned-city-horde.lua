@@ -21,10 +21,10 @@ return {
 	["In the {area:102}, on the hill north of the {area:104}. Click the tablet for the rubbing."] = "在{area:102}，{area:104}北边的山丘上。点击石板拓印。",
 
 	-- Step 6: The Lost City's entrance
-	["The Lost City's entrance"] = "失落之城的入口",
+	["The Lost City's entrance"] = "沉没之城入口",
 	-- {area:104} Vile Reef · {area:17853} Sunken Hollow · {object:3202} Grom'gol
 	-- plural, as words: Brinescale Skirmishers = {npc:262397} Brinescale Skirmisher
-	["Brinescale Skirmishers around the {area:104} drop the tridents. The cavern entrance the quest asks for is under the reef, in {area:17853}: due west of {object:3202} and south-west of the reef's tablet."] = "{area:104}周围的盐鳞斗者掉落三叉戟。任务要求的洞穴入口在礁石下方的{area:17853}：位于{object:3202}正西、礁石石板的西南。",
+	["Brinescale Skirmishers around the {area:104} drop the tridents. The cavern entrance the quest asks for is under the reef, in {area:17853}: due west of {object:3202} and south-west of the reef's tablet."] = "{area:104}周围的盐鳞游击者掉落盐鳞三叉戟。任务要求的洞穴入口在礁石下方的{area:17853}：位于{object:3202}正西、礁石石板的西南。",
 
 	-- Step 8: Krazek
 	-- {area:35} Booty Bay
@@ -52,7 +52,7 @@ return {
 	["Brinescale Explorers and Sorceresses guard the way to {npc:258924}, the second boss. The second tablet is close to him. Once he is dead, disrupt the barrier close to where he fell; you do it once more after {npc:260042}."] = "盐鳞探险者和女法师守在{npc:258924}——第二个首领——的路上。第二块石板就在他旁边。他死后，摧毁他倒下的地方附近的屏障；在{npc:260042}之后还要再做一次。",
 
 	-- Step 13: Captain Dreadrise
-	["The Saltseer pirates hold his ground: Murderers, Manhunters, Cultists and Coroners, and any of them can drop an artifact. The third tablet is among them, before you reach the captain. After he dies, disrupt the barrier a second time."] = "盐海海盗守着他的地盘：凶手、猎人头目、邪教徒和验尸官，他们任何一方都可能掉落神器。第三块石板就在他们中间，在到达船长之前。他死后，第二次摧毁屏障。",
+	["The Saltseer pirates hold his ground: Murderers, Manhunters, Cultists and Coroners, and any of them can drop an artifact. The third tablet is among them, before you reach the captain. After he dies, disrupt the barrier a second time."] = "盐水先知海盗守着他的地盘：凶手、猎人头目、邪教徒和盐水先知验尸官，他们任何一方都可能掉落神器。第三块石板就在他们中间，在到达船长之前。他死后，第二次摧毁屏障。",
 	-- {npc:773} Krazek
 	["One pass through the pirates may give fewer than ten: {npc:773} takes the quest whenever you have them."] = "清一遍海盗可能不到十个：{npc:773}随时会接受这个任务。",
 
