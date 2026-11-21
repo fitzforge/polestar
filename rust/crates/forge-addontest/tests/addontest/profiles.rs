@@ -533,7 +533,7 @@ fn every_setting_has_a_category_and_every_control_takes_its_page_s() {
 		-- and one no page shows under a start of key no rule knows goes to the fallback: each fails above.
 		Polestar.RegisterDefaults("ui", { profileTestSwitch = true, profileTestPage = true })
 		Polestar.RegisterDefaults("profileTest", { thing = true })
-		assert(Polestar.RegisterOptions({ page = Polestar.L["Guide"], tab = Polestar.L["Window"], section = Polestar.L["What it shows"],
+		assert(Polestar.RegisterOptions({ page = Polestar.L["Guide"], tab = Polestar.L["While you play"], section = Polestar.L["Show and hide"],
 			controls = { { kind = "toggle", key = "ui.profileTestSwitch", label = "Test" } } }))
 		assert(Polestar.RegisterOptions({ page = "Profile test", key = "profiletest", controls = { { kind = "toggle", key = "ui.profileTestPage", label = "Test" } } }))
 		emit({ settings = #paths, controls = controls, missing = table.concat(missing, ", "), fromNoPage = table.concat(fromNoPage, ", "),

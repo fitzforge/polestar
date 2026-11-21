@@ -52,7 +52,7 @@ fn run(script: &str) -> Value {
 	.remove(0)
 }
 
-// A setting that places a frame carries a Move: on its row (the floating button) or in its section's header (the
+// A setting that places a frame carries a Move: a glyph on its row (the floating button) or in its section's header (the
 // flight timer's, Look > Trackers). A click hides the window, opens Move frames with that frame's box picked and
 // pulsing a few times; Save and exit brings the window back on its page, the row lit. Move is off while the frame
 // has no box (its feature off); an alert in the alerts' line picks the line; in a fight nothing opens.
@@ -64,7 +64,8 @@ fn a_settings_move_opens_move_frames_with_its_frame_picked_and_pulsing_and_bring
 		local w = ctl("ui.launcher")
 		local move = rawget(w, "MoveButton")
 		local row = { has = move ~= nil, shown = move and move:IsShown() or false, on = move and move:IsEnabled() or false,
-			label = move and move.Label:GetText() or false, inCogColumn = rawget(w, "Cog") == move }
+			glyph = move and rawget(move, "psMove") == true or false, inExtras = false }
+		for _, e in ipairs(rawget(w, "psExtras") or {}) do if e == move then row.inExtras = true end end
 		local page = O.page.key
 		move:Click()
 		local box = M.Box("launcher")
@@ -95,7 +96,7 @@ fn a_settings_move_opens_move_frames_with_its_frame_picked_and_pulsing_and_bring
 		local fought = { O.MoveFrame("launcher"), PolestarOptions:IsShown(), M.IsUnlocked() }
 		stub.inCombat = false
 		emit({ row = row, during = during, pulsed = pulsed, after = after, off = off, header = header, section = section, line = line, fought = fought })"#);
-	assert_eq!(out["row"], json!({ "has": true, "shown": true, "on": true, "label": "Move", "inCogColumn": true }), "the row's Move, in the cog's column");
+	assert_eq!(out["row"], json!({ "has": true, "shown": true, "on": true, "glyph": true, "inExtras": true }), "the row's Move, a glyph in its extras' Move column");
 	assert_eq!(out["during"], json!({ "settings": false, "unlocked": true, "selected": "launcher", "pulse": true }));
 	assert_eq!(out["pulsed"], true, "the pulse ends by itself");
 	assert_eq!(out["after"], json!({ "settings": true, "page": true, "lit": true }), "the window back on its page, the row lit");
@@ -124,12 +125,12 @@ fn a_reset_offers_one_undo_in_the_footer_for_a_while() {
 		-- Already at its default: nothing to undo.
 		ctl("ui.combat"):Click("RightButton")
 		local idle = chip:IsShown()
-		-- A section's Reset (three settings or fewer: at once).
+		-- A section's Reset (three settings or fewer: at once), the guide window's Behaviour.
 		Polestar.Set("ui.launcher", false)
 		Polestar.Set("ui.combat", "hide")
 		Polestar.Set("ui.instance", "show")
 		ctl("ui.combat")
-		cardOf("Show and hide").Reset:Click()
+		cardOf("Behaviour").Reset:Click()
 		local section = { Polestar.Get("ui.combat"), Polestar.Get("ui.instance"), chip.Text:GetText() }
 		stub.advance(11)
 		local gone = { chip:IsShown(), O.Undo(), Polestar.Get("ui.combat") }
@@ -299,11 +300,18 @@ fn a_dragged_slider_lands_on_its_default_zero_or_100_percent_when_near_it() {
 #[test]
 fn the_settings_scroll_glides_on_whole_pixels_and_the_sidebar_nudges_to_its_bottom() {
 	let out = run(r#"
-		Polestar.RegisterDefaults("many", { on = true })
+		-- A page long enough to glide through: forty lines of switches.
+		local rows, defaults = {}, { on = true }
+		for i = 1, 80 do
+			defaults["row" .. i] = true
+			rows[i] = { kind = "toggle", key = "many.row" .. i, label = "Row " .. i }
+		end
+		Polestar.RegisterDefaults("many", defaults)
+		Polestar.RegisterOptions({ page = "Long page", key = "longpage", order = 60, controls = rows })
 		for i = 1, 20 do
 			Polestar.RegisterOptions({ page = "Module " .. i, order = 60 + i, controls = { { kind = "toggle", key = "many.on", label = "On" } } })
 		end
-		UI.ShowOptions("guide")
+		UI.ShowOptions("longpage")
 		stub.advance(1)
 		local F = PolestarOptions
 		local sf = F.Scroll
