@@ -46,6 +46,7 @@ fn the_translations_keep_polestars_name_fill_every_locale_and_the_language_folde
 		"Polestar_QuestDB",
 		"Polestar_Recorder",
 		"Polestar_SkinAPI",
+		"Polestar_Tetris",
 		"Polestar_deDE",
 		"Polestar_zhTW",
 	] {

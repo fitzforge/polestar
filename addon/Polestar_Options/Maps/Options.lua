@@ -23,14 +23,19 @@ local function register(spec)
 	if not ok and err then ns.Debug(err) end
 end
 
--- Integrations > Freedoom Arcade (Maps/Arcade.lua): there while a copy of the game is (Polestar's own
--- ships with it; the standalone addon takes its place when installed).
+-- The flight arcade's offer and preferred game.
 if ns.Arcade then
-	register({ page = L["Integrations"], section = "Freedoom Arcade", controls = {
-		{ kind = "toggle", key = "maps.flightArcade", label = L["Offer Freedoom Arcade on flights"],
-			help = L["On a flight with a minute or more to go, Polestar asks if you want to play Freedoom Arcade by petllama while you wait: three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade opens it any time."],
-			search = "doom, freedoom, arcade, game, flight, taxi, petllama",
+	register({ page = L["Integrations"], section = L["Flight arcade"], controls = {
+		{ kind = "toggle", key = "maps.flightArcade", label = L["Offer games on flights"],
+			help = L["On a flight with a minute or more left, offer Tetris or Freedoom Arcade. Games save and pause before landing or combat."],
+			search = "tetris, doom, freedoom, arcade, game, flight, taxi",
 			needs = function() return ns.Arcade.Available() end },
+		{ kind = "dropdown", key = "maps.flightArcadeMode", label = L["Flight game prompt"],
+			choices = { { value = "ask", label = L["Ask each flight"] }, { value = "default", label = L["Use preferred game"] } },
+			disabled = off("maps.flightArcade") },
+		{ kind = "dropdown", key = "maps.flightArcadeDefault", label = L["Preferred game"],
+			choices = { { value = "tetris", label = L["Tetris"] }, { value = "doom", label = L["Doom"] } },
+			disabled = off("maps.flightArcade") },
 	} })
 end
 

@@ -36,13 +36,20 @@ local L = ns.L
 
 local type, pcall, floor, max = type, pcall, math.floor, math.max
 
-local STANDALONE, BUNDLED = "FreedoomArcade", "Polestar_Arcade"
+local STANDALONE, BUNDLED, TETRIS = "FreedoomArcade", "Polestar_Arcade", "Polestar_Tetris"
 local MIN_LEFT = 60 -- seconds of flight left to offer a game
 local LANDING = 10  -- seconds before arrival: the game is put away
 local TICK = 0.5
 local PROMPT_W, MAX_LINE, PAD, BTN_H = 320, 380, 12, 24
 
-ns.RegisterDefaults("maps", { flightArcade = true })
+ns.RegisterDefaults("maps", { flightArcade = true, flightArcadeMode = "ask", flightArcadeDefault = "doom", flightArcadeMigrated = false })
+-- The old opt-out applied only to Doom. Give those players the new choice.
+ns.OnInit(function()
+	if not ns.Get("maps.flightArcadeMigrated") then
+		if not ns.Get("maps.flightArcade") then ns.Set("maps.flightArcade", true) end
+		ns.Set("maps.flightArcadeMigrated", true)
+	end
+end)
 
 local Arcade = { MIN_LEFT = MIN_LEFT, LANDING = LANDING }
 ns.Arcade = Arcade
@@ -74,7 +81,17 @@ function Arcade.Which()
 	return nil
 end
 
-function Arcade.Available() return Arcade.Which() ~= nil end
+function Arcade.TetrisAvailable() return present(TETRIS) end
+function Arcade.Available() return Arcade.Which() ~= nil or Arcade.TetrisAvailable() end
+local function tetrisAPI()
+	local A = _G.PolestarTetrisAPI
+	if type(A) == "table" and type(A.version) == "number" and A.version >= 1 then return A end
+end
+local function tetrisCall(name, ...)
+	local A = tetrisAPI()
+	if not A or type(A[name]) ~= "function" then return false end
+	return pcall(A[name], ...)
+end
 
 -- The API table when one is there (version 1 or later), else nil.
 local function api()
@@ -99,6 +116,8 @@ local function loaded(name)
 end
 
 function Arcade.IsOpen()
+	local tOk, tOpen = tetrisCall("IsOpen")
+	if tOk and tOpen then return true end
 	local ok, open = call("IsOpen")
 	if ok then return open and true or false end
 	-- Without the API: the standalone window, by its name, read safely.
@@ -108,6 +127,11 @@ function Arcade.IsOpen()
 		return fine and shown and true or false
 	end
 	return false
+end
+function Arcade.Active()
+	local ok, open = tetrisCall("IsOpen")
+	if ok and open then return "tetris" end
+	if Arcade.IsOpen() then return "doom" end
 end
 
 -- Polestar's look on the copy we ship: the window skin round the game's
@@ -154,6 +178,10 @@ end
 
 -- Saves, pauses and closes it, through the API only: closed, saved.
 function Arcade.PutAway()
+	if Arcade.Active() == "tetris" then
+		local ok, saved = tetrisCall("Close", true)
+		return ok, saved and true or false
+	end
 	if not Arcade.IsOpen() then return false, false end
 	local ok, saved = call("Close", true)
 	if not ok then return false, false end
@@ -161,12 +189,30 @@ function Arcade.PutAway()
 end
 
 -- The command that brings it back (its own, else ours).
-function Arcade.ResumeCommand()
+function Arcade.ResumeCommand(game)
+	if game == "tetris" then return "/polestar tetris" end
 	local slash = SlashCmdList and SlashCmdList.FREEDOOMARCADE
 	return type(slash) == "function" and "/doom" or "/polestar arcade"
 end
 
 ns.RegisterCommand("arcade", function() Arcade.Open() end, L["Play Freedoom Arcade"])
+ns.RegisterCommand("tetris", function() Arcade.Open("tetris") end, L["Play Tetris"])
+
+local function openTetris()
+	if not Arcade.TetrisAvailable() then ns.Print(L["Polestar Tetris is missing or disabled."]); return false end
+	if ns.Compat.InCombat() then ns.Print(L["Tetris opens after the fight."]); return false end
+	if not loaded(TETRIS) then
+		local A = C_AddOns
+		local load = A and A.LoadAddOn or LoadAddOn
+		if not load or not pcall(load, TETRIS) or not loaded(TETRIS) then
+			ns.Print(L["Polestar Tetris could not load."])
+			return false
+		end
+	end
+	local ok, opened = tetrisCall("Open")
+	if not ok or opened == false then ns.Print(L["Polestar Tetris could not open."]); return false end
+	return true
+end
 
 ---------------------------------------------------------------------------
 -- The game's window in Polestar's look (our copy only)
@@ -249,10 +295,12 @@ local function build()
 	q.By:SetPoint("TOPLEFT", q.Title, "BOTTOMLEFT", 0, -3)
 	q.By:SetPoint("RIGHT", q, "RIGHT", -PAD, 0)
 	q.By:SetJustifyH("LEFT")
-	q.Play = W.Button(q, ns.LC("a game", "Play"), function() Arcade.Play() end, { primary = true, height = BTN_H })
+	q.Play = W.Button(q, L["Doom"], function() Arcade.Play("doom") end, { primary = true, height = BTN_H })
 	q.Play:SetPoint("BOTTOMRIGHT", q, "BOTTOMRIGHT", -PAD, PAD)
+	q.Tetris = W.Button(q, L["Tetris"], function() Arcade.Play("tetris") end, { primary = true, height = BTN_H })
+	q.Tetris:SetPoint("RIGHT", q.Play, "LEFT", -6, 0)
 	q.Later = W.Button(q, L["Not now"], function() Arcade.NotNow() end, { height = BTN_H })
-	q.Later:SetPoint("RIGHT", q.Play, "LEFT", -6, 0)
+	q.Later:SetPoint("RIGHT", q.Tetris, "LEFT", -6, 0)
 	q.Never = W.Checkbox(q)
 	q.Never:SetPoint("BOTTOMLEFT", q, "BOTTOMLEFT", PAD, PAD + (BTN_H - 18) / 2)
 	q.NeverText = W.Text(q, "note", "textDim")
@@ -262,7 +310,7 @@ local function build()
 	q.NeverText:SetWordWrap(false)
 
 	-- The row: Play Freedoom Arcade.
-	local row = W.Button(f, L["Play Freedoom Arcade"], function() Arcade.Play() end, { ghost = true, icon = "gamepad", height = BTN_H })
+	local row = W.Button(f, L["Play Tetris"], function() Arcade.Play(Arcade.Selected()) end, { ghost = true, icon = "gamepad", height = BTN_H })
 	row:SetPoint("TOPLEFT", f, "TOPLEFT", 4, -3)
 	row:SetPoint("BOTTOMRIGHT", f, "BOTTOMRIGHT", -4, 3)
 	f.Row = row
@@ -279,12 +327,22 @@ local function build()
 		row:SetShown(mode == "row")
 		local pw = floor(parent:GetWidth() + 0.5)
 		if mode == "ask" then
-			q.Title:SetText(L["Do you want to play Doom while waiting?"])
-			q.By:SetText(L["Freedoom Arcade by petllama"])
+			q.Title:SetText(L["Play a game while waiting for your flight?"])
+			q.By:SetText(ns.GamepadUI() and L["Tetris"] or
+				(Arcade.TetrisAvailable() and Arcade.Which() and L["Choose Tetris or Freedoom Arcade."]
+				or (Arcade.TetrisAvailable() and L["Tetris"] or L["Freedoom Arcade by petllama"])))
 			q.NeverText:SetText(L["Don't ask again"])
-			W.SetButtonText(q.Play, ns.LC("a game", "Play"))
+			q.Play:SetShown(not ns.GamepadUI() and Arcade.Which() ~= nil)
+			q.Tetris:SetShown(Arcade.TetrisAvailable())
+			q.Tetris:ClearAllPoints()
+			if q.Play:IsShown() then q.Tetris:SetPoint("RIGHT", q.Play, "LEFT", -6, 0)
+			else q.Tetris:SetPoint("BOTTOMRIGHT", q, "BOTTOMRIGHT", -PAD, PAD) end
+			q.Later:ClearAllPoints()
+			q.Later:SetPoint("RIGHT", q.Tetris:IsShown() and q.Tetris or q.Play, "LEFT", -6, 0)
+			W.SetButtonText(q.Play, L["Doom"])
+			W.SetButtonText(q.Tetris, L["Tetris"])
 			W.SetButtonText(q.Later, L["Not now"])
-			local foot = PAD + 18 + 6 + q.NeverText:GetStringWidth() + 12 + q.Later:GetWidth() + 6 + q.Play:GetWidth() + PAD
+			local foot = PAD + 18 + 6 + q.NeverText:GetStringWidth() + 12 + q.Later:GetWidth() + (q.Tetris:IsShown() and 6 + q.Tetris:GetWidth() or 0) + (q.Play:IsShown() and 6 + q.Play:GetWidth() or 0) + PAD
 			local head = PAD + 24 + max(q.By:GetStringWidth(), math.min(q.Title:GetStringWidth(), MAX_LINE)) + PAD
 			local w = math.ceil(max(PROMPT_W, pw, foot, head))
 			self:SetWidth(w)
@@ -293,13 +351,16 @@ local function build()
 			local h = PAD + q.Title:GetStringHeight() + 3 + q.By:GetStringHeight() + 12 + max(BTN_H, q.Play:GetHeight()) + PAD
 			self:SetHeight(math.ceil(h))
 		else
-			W.SetButtonText(row, L["Play Freedoom Arcade"])
+			W.SetButtonText(row, Arcade.Selected() == "tetris" and L["Play Tetris"] or L["Play Freedoom Arcade"])
 			-- The row's button fills the card: the card holds its label, glyph and padding.
 			self:SetWidth(max(pw, math.ceil(row.Label:GetStringWidth() + 19 + 2 * Theme.Metric("buttonPad", 16) + 8)))
 			self:SetHeight(BTN_H + 6)
 		end
 	end
 	if Theme.OnChanged then Theme.OnChanged(function() if f:IsShown() then f:Layout() end end) end
+	if ns.Gamepad and ns.Gamepad.Register then
+		ns.Gamepad.Register(f, { back = function() Arcade.NotNow() end })
+	end
 	return f
 end
 
@@ -320,6 +381,15 @@ end
 -- mode "ask" | "row".
 function Arcade.ShowCard(mode) show(mode) end
 function Arcade.Card() return card end
+function Arcade.Selected()
+	if ns.GamepadUI() then return Arcade.TetrisAvailable() and "tetris" or nil end
+	if ns.Get("maps.flightArcadeMode") == "default" then
+		local preferred = ns.Get("maps.flightArcadeDefault")
+		if preferred == "tetris" and Arcade.TetrisAvailable() then return "tetris" end
+		if preferred == "doom" and Arcade.Which() then return "doom" end
+	end
+	return Arcade.Which() and "doom" or "tetris"
+end
 
 ---------------------------------------------------------------------------
 -- The flight
@@ -347,8 +417,10 @@ local stopTrip
 local function onFight()
 	if not trip then return end
 	hide()
-	if Arcade.IsOpen() and Arcade.PutAway() then
-		ns.Print(L["Freedoom Arcade is saved and paused for the fight: type %s to continue."]:format(Arcade.ResumeCommand()))
+	local game = Arcade.Active()
+	if game and Arcade.PutAway() then
+		if game == "tetris" then ns.Print(L["Tetris is saved and paused for the fight."])
+		else ns.Print(L["Freedoom Arcade is saved and paused for the fight: type %s to continue."]:format(Arcade.ResumeCommand())) end
 	end
 end
 
@@ -365,12 +437,15 @@ function Arcade.Tick()
 		if not trip.warned then
 			trip.warned = true
 			if Arcade.IsOpen() then
+				local game = Arcade.Active()
 				local closed = Arcade.PutAway()
 				trip.closedByUs = closed
+				trip.lastClosed = game
 				local A = ns.Nav and ns.Nav.alerts
 				if A and A.ShowNotice then
 					A.ShowNotice(L["Landing in 10 seconds"],
-						closed and L["Freedoom Arcade is saved and paused."] or L["Close Freedoom Arcade to get your keys back."], LANDING)
+						closed and (game == "tetris" and L["Tetris is saved and paused."] or L["Freedoom Arcade is saved and paused."])
+						or (game == "tetris" and L["Close Tetris to get your keys back."] or L["Close Freedoom Arcade to get your keys back."]), LANDING)
 				end
 			end
 		end
@@ -380,10 +455,11 @@ function Arcade.Tick()
 		hide()
 		return
 	end
-	if not trip.asked then
+	if not trip.asked and ns.Get("maps.flightArcadeMode") ~= "default" then
 		trip.asked = true
 		show("ask")
 	elseif not (card and card:IsShown() and card.mode == "ask") then
+		trip.asked = true
 		show("row")
 	end
 end
@@ -413,16 +489,31 @@ end
 
 -- Opens the game (never closes it): true when it is open after. Opened on a
 -- flight (whatever opened it), the landing guard runs for it.
-function Arcade.Open()
-	local ok = openGame()
+function Arcade.Open(game)
+	game = game or "doom"
+	local active = Arcade.Active()
+	if active and active ~= game then
+		Arcade.PutAway()
+		if Arcade.IsOpen() then
+			ns.Print(L["Close the current arcade game before opening another."])
+			return false
+		end
+	end
+	local ok = game == "tetris" and openTetris() or openGame()
 	if ok and not trip and Maps.GetFlight() then startTrip(true) end
 	return ok
 end
 
-function Arcade.Play()
+function Arcade.Play(game)
+	game = game or Arcade.Selected()
+	local prefer = card and card.mode == "ask" and card.Ask.Never:GetChecked()
 	hide()
-	if card and card.mode == "ask" and card.Ask.Never:GetChecked() then ns.Set("maps.flightArcade", false) end
-	Arcade.Open()
+	local opened = Arcade.Open(game)
+	if prefer and opened then
+		ns.Set("maps.flightArcadeDefault", game)
+		ns.Set("maps.flightArcadeMode", "default")
+	end
+	return opened
 end
 
 function Arcade.NotNow()
@@ -436,7 +527,7 @@ function Arcade.NotNow()
 end
 
 ns.On("FLIGHT_STARTED", function()
-	if ns.Get("maps.flightArcade") then startTrip(false) end
+	if ns.Get("maps.flightArcade") or Arcade.IsOpen() then startTrip(false) end
 end)
 
 -- Landed (or a loading screen ended the flight): a game still open is put
@@ -444,15 +535,17 @@ end)
 ns.On("FLIGHT_ENDED", function()
 	if not trip then return end
 	local closedByUs = trip.closedByUs
+	local game = Arcade.Active() or trip.lastClosed
 	if Arcade.IsOpen() then closedByUs = Arcade.PutAway() or closedByUs end
 	stopTrip()
 	if closedByUs then
-		ns.Print(L["Landed. Freedoom Arcade is saved and paused: type %s to continue."]:format(Arcade.ResumeCommand()))
+		if game == "tetris" then ns.Print(L["Landed. Tetris is saved and paused; open it again to continue."])
+		else ns.Print(L["Landed. Freedoom Arcade is saved and paused: type %s to continue."]:format(Arcade.ResumeCommand())) end
 	end
 end)
 
 ns.On("SETTING_CHANGED", function(path)
-	if not (path == "maps.flightArcade" or path == "maps" or path == "") then return end
+	if not (path == "maps.flightArcade" or path == "maps.flightArcadeMode" or path == "maps.flightArcadeDefault" or path == "maps" or path == "") then return end
 	if trip then
 		Arcade.Tick()
 	elseif ns.Get("maps.flightArcade") and Maps.GetFlight() then

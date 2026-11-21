@@ -99,10 +99,105 @@ fn run_with(script: &str, saved: Option<&str>) -> Value {
 	.remove(0)
 }
 
-const OFF: &str = "PolestarDB = { schema = 1, settings = { maps = { flightArcade = false } } }";
+const OFF: &str = "PolestarDB = { schema = 1, settings = { maps = { flightArcade = false, flightArcadeMigrated = true } } }";
 
 fn run(script: &str) -> Value {
 	run_with(script, None)
+}
+
+#[test]
+fn an_old_doom_opt_out_gets_the_new_game_prompt() {
+	let out = run_with(
+		r#"
+		present("Polestar_Tetris", { reason = "DEMAND_LOADED" })
+		takeoff(120)
+		emit({ card = card(), enabled = Polestar.Get("maps.flightArcade"),
+			migrated = Polestar.Get("maps.flightArcadeMigrated") })"#,
+		Some("PolestarDB = { schema = 1, settings = { maps = { flightArcade = false } } }"),
+	);
+	assert_eq!(out, json!({"card":"ask","enabled":true,"migrated":true}));
+}
+
+#[test]
+fn choosing_tetris_with_dont_ask_again_saves_a_preferred_play_button() {
+	let out = run(r#"
+		present("Polestar_Tetris", { reason = "DEMAND_LOADED" })
+		takeoff(120)
+		local c = stub.frame("PolestarArcadeOffer")
+		c.Ask.Never:SetChecked(true)
+		A.Play("tetris")
+		local opened = PolestarTetrisAPI and PolestarTetrisAPI.IsOpen()
+		local mode, preferred = Polestar.Get("maps.flightArcadeMode"), Polestar.Get("maps.flightArcadeDefault")
+		land()
+		takeoff(120)
+		emit({ opened = opened, mode = mode, preferred = preferred, next = card(),
+			paused = PolestarTetris.Run().paused, needsRespawn = PolestarTetris.Run().needsRespawn })"#);
+	assert_eq!(
+		out,
+		json!({"opened":true,"mode":"default","preferred":"tetris","next":"row",
+		"paused":true,"needsRespawn":true})
+	);
+}
+
+#[test]
+fn gamepad_ui_offers_only_tetris_even_with_doom_preferred() {
+	let out = run(r#"
+		present("Polestar_Arcade", { reason = "DEMAND_LOADED" })
+		present("Polestar_Tetris", { reason = "DEMAND_LOADED" })
+		Polestar.Set("maps.flightArcadeMode", "default")
+		Polestar.Set("maps.flightArcadeDefault", "doom")
+		Polestar.GamepadUI = function() return true end
+		takeoff(120)
+		local c = stub.frame("PolestarArcadeOffer")
+		emit({ mode = card(), selected = A.Selected(), doom = A.Which(),
+			tetris = A.TetrisAvailable(), row = c.Row.Label:GetText() })"#);
+	assert_eq!(out, json!({"mode":"row","selected":"tetris","tetris":true,"row":"Play Tetris"}));
+}
+
+#[test]
+fn native_gamepad_button_moves_the_tetris_piece() {
+	let out = run(r#"
+		present("Polestar_Tetris", { reason = "DEMAND_LOADED" })
+		Polestar.GamepadUI = function() return true end
+		A.Open("tetris")
+		local f = PolestarTetrisFrame
+		local g = PolestarTetris.Run()
+		local x = g.piece.x
+		f:GetScript("OnGamePadButtonDown")(f, "PADDLEFT")
+		emit({moved = g.piece.x == x - 1})"#);
+	assert_eq!(out, json!({"moved":true}));
+}
+
+#[test]
+fn tetris_closes_and_pauses_for_combat() {
+	let out = run(r#"
+		present("Polestar_Tetris", { reason = "DEMAND_LOADED" })
+		takeoff(120)
+		A.Play("tetris")
+		local opened = A.Active()
+		stub.inCombat = true
+		stub.fire("PLAYER_REGEN_DISABLED")
+		emit({ opened = opened, closed = not PolestarTetrisAPI.IsOpen(),
+			paused = PolestarTetris.Run().paused, reset = PolestarTetris.Run().needsRespawn })"#);
+	assert_eq!(out, json!({"opened":"tetris","closed":true,"paused":true,"reset":true}));
+}
+
+#[test]
+fn switching_games_puts_the_current_game_away() {
+	let out = run(r#"
+		present("Polestar_Tetris", { reason = "DEMAND_LOADED" })
+		local doom = standalone(true)
+		A.Open("doom")
+		A.Open("tetris")
+		local first = {doom = doom:IsShown(), tetris = PolestarTetrisAPI.IsOpen(), calls = #calls}
+		A.Open("doom")
+		emit({first = first, doom = doom:IsShown(), tetris = PolestarTetrisAPI.IsOpen(),
+			paused = PolestarTetris.Run().paused, calls = calls})"#);
+	assert_eq!(
+		out,
+		json!({"first":{"doom":false,"tetris":true,"calls":2},
+		"doom":true,"tetris":false,"paused":true,"calls":["Open","Close:true","Open"]})
+	);
 }
 
 // The standalone addon without the API: Play runs its command once (it toggles), a second Play leaves the
@@ -188,7 +283,7 @@ fn the_setting_off_offers_nothing_and_dont_ask_again_turns_it_off() {
 		standalone(true)
 		takeoff(300)
 		emit({ card = card(), calls = calls })"#,
-		Some("PolestarDB = { schema = 1, settings = { maps = { flightArcade = false } } }"),
+		Some(OFF),
 	);
 	assert_eq!(off, json!({ "card": false, "calls": {} }));
 	let never = run(r#"
