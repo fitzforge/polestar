@@ -1,6 +1,7 @@
-//! Integrity of an imported regional map pack. Data and XML are pinned byte-for-byte. The release
-//! versioner and translator may change only display metadata in a TOC without changing its loader hash.
-use super::{sha256, toc_files, PARTS};
+//! Integrity of an imported walking pack (tools/lib/nav/import-regions.js): each region's pages are one string in
+//! its continent's part, so the pack's loaders (Nav.xml and the TOCs) are pinned in PACK.json. The release versioner
+//! and translator may change only display metadata in a TOC without changing its loader hash.
+use super::{sha256, PARTS};
 use serde_json::{Map, Value};
 use std::collections::BTreeSet;
 use std::path::Path;
@@ -22,72 +23,30 @@ fn loader_hash(key: &str, bytes: &[u8]) -> Option<String> {
 	Some(sha256(text.split('\n').filter(|l| !display_header(l)).collect::<Vec<_>>().join("\n").as_bytes()))
 }
 
-pub(super) fn check<'a>(addon: &Path, doc: &'a Value, files: &Map<String, Value>, problems: &mut Vec<String>) -> BTreeSet<&'a str> {
+pub(super) fn check(addon: &Path, doc: &Value, files: &Map<String, Value>, problems: &mut Vec<String>) {
 	let parent = addon.parent().unwrap_or(Path::new("."));
-	let mut regions = BTreeSet::new();
-	if let Some(list) = doc["regions"].as_array() {
-		for item in list {
-			match item.as_str().filter(|name| forge_guide::toc::nav_region(name).is_some()) {
-				Some(name) if regions.insert(name) => (),
-				_ => problems.push("invalid or duplicate region in PACK.json".into()),
-			}
-		}
-	} else if doc.get("regions").is_some() || doc.get("import").is_some() {
-		problems.push("PACK.json lacks a regions array".into());
+	// 0.4.2 shipped each region as an addon of its own; their pages are in the parts now.
+	let mut leftovers: Vec<String> = std::fs::read_dir(parent).into_iter().flatten().flatten().filter_map(|e| e.file_name().into_string().ok()).filter(|n| n.starts_with("Polestar_Nav_R")).collect();
+	leftovers.sort();
+	problems.extend(leftovers.into_iter().map(|name| format!("{name} is left from 0.4.2's regional addons: delete it")));
+	if doc.get("regions").is_some() {
+		problems.push("PACK.json lists regional addons: rerun tools/lib/nav/import-regions.js".into());
 	}
-	for entry in std::fs::read_dir(parent).into_iter().flatten().flatten() {
-		let name = entry.file_name();
-		if let Some(name) = name.to_str().filter(|n| n.starts_with("Polestar_Nav_R")) {
-			if !regions.contains(name) {
-				problems.push(format!("{name} is not listed in PACK.json"));
-			}
-		}
-	}
-	if regions.is_empty() && doc.get("regions").is_none() && doc.get("loaders").is_none() {
-		return regions;
-	}
+	let Some(loaders) = doc["loaders"].as_object() else { return };
 	let mut expected = BTreeSet::from(["Nav/Nav.xml".to_string(), "Polestar_Nav/Polestar_Nav.toc".to_string()]);
 	for (_, part) in PARTS {
 		if files.keys().any(|f| f.split_once('/').is_some_and(|(dir, _)| dir == part)) {
 			expected.insert(format!("{part}/{part}.toc"));
 		}
 	}
-	for &region in &regions {
-		let toc = format!("{region}.toc");
-		expected.insert(format!("{region}/{toc}"));
-		if !files.contains_key(&format!("{region}/Pages.lua")) {
-			problems.push(format!("{region}/Pages.lua lacks a data hash"));
-		}
-		let dir = parent.join(region);
-		let text = std::fs::read_to_string(dir.join(&toc)).unwrap_or_default();
-		let (map, _, _) = forge_guide::toc::nav_region(region).unwrap();
-		let dependency = match map {
-			"0" => "Polestar_Nav_EK",
-			"1" => "Polestar_Nav_Kalimdor",
-			_ => "Polestar_Nav",
-		};
-		if toc_files(&text) != ["Pages.lua"] || !text.lines().any(|l| l.strip_prefix("## Dependencies: ") == Some(dependency)) || !text.lines().any(|l| l == "## LoadOnDemand: 1") {
-			problems.push(format!("{region}/{toc} is not a regional page loader"));
-		}
-		for entry in std::fs::read_dir(dir).into_iter().flatten().flatten() {
-			let name = entry.file_name();
-			if name != toc.as_str() && name != "Pages.lua" {
-				problems.push(format!("{region}/{} is not a packed file", name.to_string_lossy()));
-			}
-		}
-	}
-	let loaders = doc["loaders"].as_object();
 	for key in &expected {
 		let path = if key.starts_with("Nav/") { addon.join(key) } else { parent.join(key) };
 		let digest = std::fs::read(path).ok().and_then(|b| loader_hash(key, &b));
-		if digest.is_none() || digest.as_deref() != loaders.and_then(|m| m.get(key)).and_then(Value::as_str) {
+		if digest.is_none() || digest.as_deref() != loaders.get(key).and_then(Value::as_str) {
 			problems.push(format!("{key} loader differs from PACK.json"));
 		}
 	}
-	if let Some(loaders) = loaders {
-		problems.extend(loaders.keys().filter(|k| !expected.contains(*k)).map(|k| format!("{k} is not a packed loader")));
-	}
-	regions
+	problems.extend(loaders.keys().filter(|k| !expected.contains(*k)).map(|k| format!("{k} is not a packed loader")));
 }
 
 #[cfg(test)]

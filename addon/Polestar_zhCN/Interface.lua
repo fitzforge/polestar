@@ -24,6 +24,7 @@ L["Another addon is hiding the guide window or the arrow. The chat says how to g
 -- Core/Data.lua
 L["%s not installed"] = "%s 未安装"
 L["Polestar no longer uses the old folders Polestar_Guides_<language> and Polestar_Names_<language> (%s): Polestar_<language> holds both now. Close the game and delete them from Interface/AddOns."] = "Polestar 不再使用旧文件夹 Polestar_Guides_<语言> 和 Polestar_Names_<语言>（%s）：现在两者都包含在 Polestar_<语言> 中。请关闭游戏，并从 Interface/AddOns 中删除这些旧文件夹。"
+L["Polestar no longer uses its %d walking map folders named Polestar_Nav_R (Polestar_Nav_R0_6_6 and the like): Polestar_Nav_EK and Polestar_Nav_Kalimdor hold those maps now. Close the game and delete the Polestar_Nav_R folders from Interface/AddOns."] = "Polestar 不再使用名为 Polestar_Nav_R 的 %d 个步行地图文件夹（例如 Polestar_Nav_R0_6_6）：这些地图现在包含在 Polestar_Nav_EK 和 Polestar_Nav_Kalimdor 中。请关闭游戏，并从 Interface/AddOns 中删除这些 Polestar_Nav_R 文件夹。"
 L["Your install is mixed or incomplete (%s). Close the game, delete every Polestar folder in Interface/AddOns and install Polestar again: with the Polestar Client, the CurseForge app, or the latest zip from GitHub Releases (not \"Source code\")."] = "你的安装混杂了不同版本或不完整（%s）。请关闭游戏，删除 Interface/AddOns 中所有 Polestar 文件夹，然后重新安装 Polestar：使用 Polestar Client、CurseForge 应用，或 GitHub Releases 上最新的压缩包（不要用“Source code”）。"
 
 -- Core/Guides.lua
