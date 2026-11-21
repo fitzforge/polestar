@@ -287,7 +287,7 @@ C_Map.GetMapArtID = function(id) local m = ART[id]; return m and m.artID end`);
 		// Theme.LoadLooks, the first time one is painted) and the experimental guides (Polestar_Experimental,
 		// at login unless switched off: Core/Guides.lua, Guides.OWN_EXTRA). Without them a game look draws as
 		// Polestar's own.
-		for (const part of ['Polestar_Options', 'Polestar_SkinAPI', 'Polestar_Looks', 'Polestar_Experimental']) {
+		for (const part of ['Polestar_Options', 'Polestar_SkinAPI', 'Polestar_Looks', 'Polestar_Experimental', 'Polestar_SkyJewels']) {
 			if (fs.existsSync(path.join(ADDONS, part, `${part}.toc`))) lines.push(`stub.packs.${part} = stub.packs.${part} or { ${tocFiles(part).map(luaString).join(', ')} }`);
 		}
 		// Freedoom Arcade (Polestar_Arcade), installed as in the client, loaded on demand by the first Play

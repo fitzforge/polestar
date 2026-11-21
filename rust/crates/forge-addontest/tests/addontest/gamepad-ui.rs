@@ -35,6 +35,7 @@ emit({
 	slash = SlashCmdList.POLESTAR ~= nil and SLASH_POLESTAR1 ~= nil,
 	rl = SlashCmdList.POLESTAR_RL ~= nil and SLASH_POLESTAR_RL1 ~= nil,
 	way = SLASH_POLESTARWAY1 ~= nil,
+	jewels = type(Polestar.OpenSkyJewels) == "function",
 	recorderSlash = SlashCmdList.POLESTARREC ~= nil,
 	recorderCommand = type(PolestarRecorder_Command),
 	menus = #__menus,
@@ -77,6 +78,7 @@ fn with_the_keyboard_and_mouse_polestar_registers_its_slash_commands_menu_entrie
 	);
 	assert_eq!(r["menus"], 7, "nearby and service filters on the world map and minimap, two quest menus, and the quest log's pin entry");
 	assert!(r["special"].as_f64().unwrap() > 0.0, "its windows close with Escape");
+	assert_eq!(r["jewels"], true);
 }
 
 // A client playing with the keyboard and mouse whose style CVar still reads "1" (Gamepad): the interface's own
@@ -100,6 +102,7 @@ fn with_the_gamepad_interface_polestar_keeps_to_its_own_windows_and_its_minimap_
 		"no slash command, menu entry, UISpecialFrames entry or world map opened from addon code"
 	);
 	assert_eq!(r["recorderCommand"], "function", "the Recorder's page in Polestar's options still runs its commands");
+	assert_eq!(r["jewels"], false);
 	assert_eq!(r["minimapButton"], true, "the minimap button, on by default");
 }
 

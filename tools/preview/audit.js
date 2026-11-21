@@ -167,6 +167,10 @@ T.Show({ t = "kill", here = "goal", verb = "Kill", subject = "Kobold Vermin", ya
 assert(Polestar.Arcade.Open(), "the game did not open")`,
 	},
 	{
+		key: 'sky-jewels-window', title: 'Sky Jewels', roots: ['PolestarSkyJewels'], files: P.MODULE_FILES, needs: 'Polestar.OpenSkyJewels',
+		script: 'math.randomseed(1); assert(Polestar.OpenSkyJewels())',
+	},
+	{
 		key: 'dialog-confirm', title: 'the confirm dialog', roots: ['PolestarModal'],
 		script: `${TABS}
 Polestar.Widgets.Modal({ title = "Reset this guide?", text = "Your check-offs in this guide are cleared.", action = "Reset", danger = true, onAccept = function() end })`,
