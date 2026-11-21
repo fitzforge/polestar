@@ -856,8 +856,8 @@ do
 					goals = {
 						{ t = "turnin", quest = 93831, title = "Sweetpaw Jam", npc = 256646, npcName = "Osi Mistpaw", map = 2482, x = 21.04, y = 80.1 },
 						{ t = "accept", quest = 91697, title = "Meet the Elders", npc = 256646, npcName = "Osi Mistpaw", qlvl = 57, pre = { 93831 }, preTitles = { [93831] = "Sweetpaw Jam" }, map = 2482, x = 21.04, y = 80.1, note = "{quest:91697}" },
-						{ t = "talk", npc = 256650, npcName = "Elder Pinespeaker", map = 2482, x = 21.63, y = 79.32 },
-						{ t = "talk", npc = 256627, npcName = "Elder Mistpaw", map = 2482, x = 21.57, y = 78.95 },
+						{ t = "talk", quest = 91697, title = "Meet the Elders", npc = 256650, npcName = "Elder Pinespeaker", oi = 1, map = 2482, x = 21.63, y = 79.32 },
+						{ t = "talk", quest = 91697, title = "Meet the Elders", npc = 256627, npcName = "Elder Mistpaw", oi = 2, map = 2482, x = 21.57, y = 78.95 },
 						{ t = "turnin", quest = 91697, title = "Meet the Elders", npc = 256627, npcName = "Elder Mistpaw", map = 2482, x = 21.57, y = 78.95 },
 						{ t = "accept", quest = 93826, title = "Deal Dread to Deadwood", npc = 256627, npcName = "Elder Mistpaw", qlvl = 57, pre = { 91697 }, preTitles = { [91697] = "Meet the Elders" }, map = 2482, x = 21.57, y = 78.95, note = "{quest:93826}: on your way back here later; keep it" },
 						{ t = "accept", quest = 93825, title = "Barkbound Blessings", npc = 260661, npcName = "Suma Mossmane", qlvl = 57, pre = { 91697 }, preTitles = { [91697] = "Meet the Elders" }, map = 2482, x = 20.84, y = 79.81, note = "{npc:260661}: {quest:93825}" },
@@ -1046,7 +1046,7 @@ do
 					note = "The worker {npc:244517} means is a peasant just north of her; {npc:264521} stands between them.",
 					only = { factions = { "Alliance" } },
 					goals = {
-						{ t = "talk", npc = 251320, npcName = "Peasant", map = 2482, x = 15.1, y = 51.5, spotsPacked = "15.1,51.5,,40,8" },
+						{ t = "talk", quest = 90750, title = "More Work?", npc = 251320, npcName = "Peasant", map = 2482, x = 15.1, y = 51.5, spotsPacked = "15.1,51.5,,40,8" },
 						{ t = "turnin", quest = 90750, title = "More Work?", npc = 264521, npcName = "Daythor Brellan", map = 2482, x = 15.43, y = 52.05 },
 						{ t = "accept", quest = 95218, title = "More of the Same", npc = 264521, npcName = "Daythor Brellan", minLevel = 54, qlvl = 56, pre = { 90750 }, preTitles = { [90750] = "More Work?" }, map = 2482, x = 15.43, y = 52.05, note = "{quest:95218}" },
 						{ t = "turnin", quest = 95218, title = "More of the Same", npc = 244517, npcName = "Sefira Everbright", map = 2482, x = 15.55, y = 54.66 },
@@ -1073,8 +1073,8 @@ do
 					only = { factions = { "Horde" } },
 					when = { { k = "onquest", q = { 96622 } } },
 					goals = {
-						{ t = "talk", npc = 265895, npcName = "Maruke", map = 2482, x = 11.9, y = 48.6 },
-						{ t = "talk", npc = 265862, npcName = "Enho Runehoof", map = 2482, x = 12.9, y = 53.7 },
+						{ t = "talk", quest = 96622, title = "A Rest Without Pain", npc = 265895, npcName = "Maruke", map = 2482, x = 11.9, y = 48.6 },
+						{ t = "talk", quest = 96622, title = "A Rest Without Pain", npc = 265862, npcName = "Enho Runehoof", map = 2482, x = 12.9, y = 53.7 },
 						{ t = "turnin", quest = 96622, title = "A Rest Without Pain", npc = 244512, npcName = "Ortak Lomgok", map = 2482, x = 12.9, y = 52.9, z = 1343 },
 					},
 				},
@@ -1127,7 +1127,7 @@ do
 					note = "Fill {npc:267109}'s gourd at the falls beside the bridge. {npc:255685}, one of {npc:255683}'s kittens, plays just west of the falls: walk up to her.",
 					goals = {
 						{ t = "complete", quest = 96979, title = "Sacred Refreshment", map = 2482, x = 41.6, y = 44.6, note = "fill the gourd" },
-						{ t = "talk", npc = 255685, npcName = "Solstice", map = 2482, x = 38.5, y = 47.3 },
+						{ t = "talk", quest = 93615, title = "Kits and Cats", npc = 255685, npcName = "Solstice", oi = 1, map = 2482, x = 38.5, y = 47.3 },
 					},
 				},
 				{
@@ -1145,7 +1145,7 @@ do
 					title = "{npc:255773}",
 					note = "{npc:255773}, the second kitten, plays just west of {npc:249234}'s camp.",
 					goals = {
-						{ t = "talk", npc = 255773, npcName = "Brie", map = 2482, x = 41.4, y = 36.4, spotsPacked = "41.4,36.4,,68,7" },
+						{ t = "talk", quest = 93615, title = "Kits and Cats", npc = 255773, npcName = "Brie", oi = 3, map = 2482, x = 41.4, y = 36.4, spotsPacked = "41.4,36.4,,68,7" },
 					},
 				},
 				{
@@ -1254,7 +1254,7 @@ do
 					title = "{npc:255771}",
 					note = "The last kitten, {npc:255771}, plays at the southern end of {area:16868}.",
 					goals = {
-						{ t = "talk", npc = 255771, npcName = "Whisperfur", map = 2482, x = 27, y = 61.9 },
+						{ t = "talk", quest = 93615, title = "Kits and Cats", npc = 255771, npcName = "Whisperfur", oi = 2, map = 2482, x = 27, y = 61.9 },
 					},
 				},
 				{
