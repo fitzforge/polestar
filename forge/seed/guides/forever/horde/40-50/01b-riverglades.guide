@@ -41,7 +41,7 @@ step Fly to Kargath
   when taxi "Kargath"
   when zone "Swamp of Sorrows"
   zone Swamp of Sorrows
-  tip The Riverglades lie south of the Badlands. Ride east from the Harborage to Stonard and fly to Kargath: the way down into the zone starts there.
+  tip The Riverglades lie south of the Badlands. Fly from Stonard to Kargath: the way down into the zone starts there.
   goto 46.1,54.7 "Stonard flight master"
   fly "Kargath"
   zone Badlands
@@ -277,13 +277,15 @@ step Tan'jani
 # Bloodmaster's Ring after the one before, the last two after Gobam's errands.
 # The Bloodmaster's Ring bouts are one-on-one fights against elite ogres and beasts (41-45): an optional side chain
 # for players who want it. Recorded players of levels 41-43 won them (one lost a bout and took it again).
-# Elites: Scoutmaster Vargas (42), behind a group choice. Chogg'Zac (41) is Land of Giants' way to Bolder'ok: by
-# then a few levels under you, and recorded players of 42-43 killed him alone.
+# Elites, each behind a group choice: Scoutmaster Vargas (42); Chogg'Zac (41), the two heads Twilight No More! asks
+# for. The rest of the ogre story waits on him (Land of Giants, Bolder'ok and its Ring, Da'grosh's camp in part 4):
+# a player who skips him skips those too, and leaves the zone by the hearth to Rog'mar and Grakna's flight to Kargath.
+# Gobam's errands (Our Ogre Friend 94733, A Boar's Delight 94734, A Treat for a Friend 94737) and Hamur's Step One:
+# Rock (95183) are for players who beat the Ring's fourth bout: taken in Bolder'ok after it, the rocks gathered on
+# the way down to the port, the sweetberries on the pirates' slopes, the riverweed along the river on the ride back
+# up to Bolder'ok after the port (part 4), with the Ring's last two bouts (20 of 23 recorded Ring players did it all).
 # Left out on purpose:
-# - Step One: Rock (95183): Hamur offers it only once Might Makes Right is handed in, when the rock piles are back
-#   in the hills behind you; Step Two: More Rock (96026) asks for ten Heavy Weightstones, a blacksmith's make.
-# - Our Ogre Friend (94733), A Boar's Delight (94734) and A Treat for a Friend (94737): offered only after the fourth
-#   bout of the Ring, and the sweetberries grow by the Eastsea pirates far to the south-east.
+# - Step Two: More Rock (96026) asks for ten Heavy Weightstones, a blacksmith's make.
 
 step Tran'gul
   tip Tran'gul stands beside Krom'rosh in the middle of Rog'mar: now that the Farholde camp has had its lesson, he has work in Sunnyglade.
@@ -291,8 +293,8 @@ step Tran'gul
   accept 94680                          -- Twilight Missives
 
 step Fuzzle
-  tip West of Rog'mar the Twilight cult holds the farm town of Sunnyglade. Fuzzle, a kobold who wants out, hides in the middle of the town.
-  accept 94961                          -- Biting the Hand
+  tip West of Rog'mar the Twilight cult holds the farm town of Sunnyglade. Fuzzle, a kobold who wants out, waits in a cage at the arrow.
+  accept 94961 @47.2,51.2               -- Biting the Hand, Fuzzle in his cage
 
 step Sunnyglade
   tip The cultists fill the streets and fields; the Shadowmancers on the town's northern side carry the missives. The finger bones drop from all of them.
@@ -335,12 +337,17 @@ step The ritual grounds
 step Clubtoe
   turnin 95601
   turnin 95602
-  accept 95427                          -- Twilight No More!
+
+step Twilight No More!
+  when group 95427
+  tip Chogg'Zac, the two-headed ogre at the western edge of Sunnyglade, is an elite (level 41): grouping up is advised. Clubtoe wants both his heads, and the rest of the zone's ogre story waits on them: Land of Giants, Clugfist's quests and the Bloodmaster's Ring in Bolder'ok, then Da'grosh's camp in the west (about 21,000 XP in all). Skip him and the guide leaves those out.
+  accept 95427                          -- Clubtoe
 
 step Chogg'Zac
-  tip Careful: Chogg'Zac, the two-headed ogre at the western edge of Sunnyglade, is an elite (level 41): grouping up is advised under 43. Clear the cultists around him first and come in with full health and mana: recorded players of 42-43 killed him alone. Clugfist's quests in Bolder'ok wait on this one: skip him and Land of Giants, the Bolder'ok quests and Da'grosh's camp in the west go with him (about 21,000 XP); the guide then leaves them out.
-  collect 265750 quest 95427.2 optional @44.9,51.0  -- Chogg's Head
-  collect 265751 quest 95427.1 optional @44.9,51.0  -- Zac's Head
+  when group 95427
+  tip Clear the cultists around him first and come in with full health and mana.
+  collect 265750 quest 95427.2 @44.9,51.0  -- Chogg's Head
+  collect 265751 quest 95427.1 @44.9,51.0  -- Zac's Head
 
 step Clubtoe
   when complete 95427
@@ -427,19 +434,24 @@ step The Bloodmaster's Ring: Kronk and Bonegnaw
 
 step The Bloodmaster's Ring: Mog'thar
   when turnedin 94962
-  accept 94964 optional                 -- Mog'thar (43)
+  when group 94964
+  tip Mog'thar is a level 43 elite, at or above your level here: a hard one-on-one fight in the ring, where nobody can help you. Take it only rested, with full health and mana; Gobam's and Hamur's errands and the last two bouts come after him.
+  accept 94964                          -- Mog'thar (43)
   complete 94964 @65.7,20.2
   turnin 94964
 
-step The Bloodmaster's Ring: Snufflesnout and Chub'chob
-  when turnedin 94737
-  tip Jezap offers the last two once Gobam's errands are done (players' recordings), which this guide leaves out. They are level 44 and 45: leave them for later if Mog'thar was a close fight.
-  accept 94965 optional                 -- Snufflesnout (44)
-  complete 94965 @65.7,20.2
-  turnin 94965
-  accept 95063 optional                 -- Chub'chob (45)
-  complete 95063 @65.7,20.2
-  turnin 95063                          -- Clugfist, on the hill
+step Gobam and Hamur
+  when turnedin 94964
+  tip With Mog'thar beaten, Jezap sends you to Gobam, who keeps the Ring's beasts a few steps north-east of the ring; Hamur, just south of the ring, wants good rock. Gobam's boar treat needs Sweetberries from the pirates' slopes north of Powderfuse Port and Riverweed from the river between Rog'mar and Bolder'ok: this guide gathers both and brings you back here after the port, for the Ring's last two bouts.
+  accept 94733                          -- Jezap Jinglesprocket: Our Ogre Friend
+  turnin 94733                          -- Gobam
+  accept 94734                          -- A Boar's Delight
+  accept 95183                          -- Hamur: Step One: Rock
+
+step The rock piles
+  when onquest 95183
+  tip South-east from Bolder'ok on the way down to the port: Hamur's rock piles lie in the hills just south of the town and on the slopes west of the Twilight ogres' camp.
+  collect 271892 x10 quest 95183.1      -- Good Rock
 
 # Riverglades for the Horde, part 3 of 4 (2026-11-12). Hand-written from players'
 # recordings of the zone and Forever's quest data for titles, levels, objectives and places.
@@ -531,6 +543,11 @@ step The pirates' second wave
   kill 257916 x8 quest 95122.2 @79.1,33.8  -- Eastsea Bombardier
   collect 268346 x5 quest 95123.1       -- Eastsea Powder Keg
 
+step Sweetberries
+  when onquest 94734
+  tip Gobam's Sweetberry bushes grow on these slopes among the raiders' powder kegs, the last one a little to the north.
+  collect 265808 x8 quest 94734.1 @78.9,37.3  -- Sweetberry
+
 step Captain Bentcoin
   tip East along the cliffs to the far end of the pirates' camp: Captain Bentcoin waits by the water, Captain Haynes beside him.
   turnin 95293                          -- Captain Bentcoin
@@ -546,7 +563,7 @@ step Powderfuse Port
   accept 95296                          -- Friz: Shipping and Handling, for Wharfmaster Steamfizzle at Steamwheedle Port in the Feralas & Tanaris guide
 
 step The pirates' ships
-  tip Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; Admiral Lamora stands by the middle one, with her loot chest beside her. Keep an eye out for Gul'gash on the way.
+  tip Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. Admiral Lamora walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for Gul'gash on the way.
   tip Careful: Admiral Lamora is level 45, a level or two over you here: clear the deck around her first and come in with full health.
   use 268505 quest 95165.3 @90.9,39.5   -- Remote Explosive Charge, the southern ship
   kill 257861 quest 95124.1             -- Admiral Lamora
@@ -582,7 +599,8 @@ step Argo Brinewhistle
 
 # Riverglades for the Horde, part 4 of 4 (2026-11-12). Hand-written from players'
 # recordings of the zone and Forever's quest data for titles, levels, objectives and places.
-# Order: the hearth to Rog'mar; west through Sunnyglade to Da'grosh's camp below Twilight's
+# Order: Ring players ride back up to Bolder'ok along the river (the riverweed, Gobam and Hamur, the Ring's last two
+# bouts), everyone else hearths; Rog'mar; west through Sunnyglade to Da'grosh's camp below Twilight's
 # Shroud, Crag'rog's cave, the Twilight cult's camps and ogre mine (levels 41-44); out through Twilight's Shroud to
 # Kargath (its flight path), where the Feralas & Tanaris guide picks up.
 # Offered only after another quest is handed in (players' recordings): The Wayward Warrior after Clugfist's Decree;
@@ -598,15 +616,54 @@ step Argo Brinewhistle
 # - It Is Time, Brother... (95278): Da'grosh's message goes back to Krom'rosh in Rog'mar, and this route leaves the
 #   zone through Twilight's Shroud instead.
 
+step The river: Riverweed
+  when onquest 94734
+  tip From the port, ride north-west to the river and follow it upstream towards Bolder'ok: Gobam's Riverweed grows along its banks between Rog'mar and Bolder'ok.
+  collect 265806 x12 quest 94734.2 @62.6,39.0  -- Riverweed
+
+step Bolder'ok
+  when onquest 95183
+  turnin 95183                          -- Hamur
+
+step Gobam
+  when onquest 94734
+  tip North up the river to Bolder'ok: Hamur just south of the ring, Gobam north-east of it, then Jezap.
+  turnin 94734                          -- Gobam
+  accept 94737                          -- A Treat for a Friend
+  turnin 94737                          -- Jezap Jinglesprocket
+
+step The Bloodmaster's Ring: Snufflesnout
+  when turnedin 94737
+  when group 94965
+  tip Snufflesnout (44) is elite: a hard one-on-one fight in the ring, where nobody can help you. Come in rested, with full health and mana.
+  accept 94965                          -- Snufflesnout (44)
+  complete 94965 @65.7,20.2
+  turnin 94965
+
+step The Bloodmaster's Ring: Chub'chob
+  when turnedin 94965
+  when group 95063
+  tip Chub'chob (45) is elite: a hard one-on-one fight in the ring, where nobody can help you. Come in rested, with full health and mana.
+  accept 95063                          -- Chub'chob (45)
+  complete 95063 @65.7,20.2
+  turnin 95063                          -- Clugfist, on the hill
+
 step Rog'mar
   when onquest 95428
-  tip Back to Rog'mar from the port, where your Hearthstone is set. Krom'rosh in the middle of the fort: Clugfist's word sends him looking for Da'grosh, his warrior in the west.
+  tip Back to Rog'mar: from Bolder'ok south-west down the river, or from the port, where your Hearthstone is set. Krom'rosh in the middle of the fort: Clugfist's word sends him looking for Da'grosh, his warrior in the west.
   turnin 95428                          -- Krom'rosh: Clugfist's Decree
   accept 94744                          -- The Wayward Warrior: for Da'grosh, west of Sunnyglade
 
 step Neza Bloodsnout
   when onquest 95882
   turnin 95882
+
+step Fly to Kargath
+  when !onquest 94744
+  when !turnedin 94744
+  when taxi "Kargath"
+  tip The rest of this guide is Da'grosh's camp in the west, which waits on Chogg'Zac: without him the Riverglades end here. Back to Rog'mar from the port, where your Hearthstone is set: Grakna, the wind rider master in the middle of the fort, flies to Kargath in the Badlands, where the next guide starts.
+  fly "Kargath"
 
 step Da'grosh
   when onquest 94744
@@ -624,7 +681,7 @@ step Crag'rog
 
 step The Twilight camps
   when onquest 94745,94748
-  tip The cult's camps fill the valley south and west of Da'grosh. Free the captive Rog'mar Scouts as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. Overlord Kilgar and Executioner Morg (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. Sergeant Riftan's Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it.
+  tip The cult's camps fill the valley south and west of Da'grosh. Twilight Champions drop the Twilight Key that frees a captive Rog'mar Scout: free them as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. Overlord Kilgar and Executioner Morg (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. Sergeant Riftan's Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it.
   kill 256795 x8 quest 94745.1          -- Twilight Fanatic
   kill 256797 x8 quest 94745.2          -- Twilight Corrupter
   kill 256799 x8 quest 94745.3          -- Twilight Champion
@@ -654,7 +711,8 @@ step Bring Me His Head
   turnin 94768
 
 step Twilight's Shroud
-  tip The next guide flies from Kargath in the Badlands: north out of Da'grosh's valley and up through Twilight's Shroud, the way through to the Badlands.
+  when !zone "Badlands"
+  tip The next guide flies from Kargath in the Badlands: up through Twilight's Shroud, the pass at the valley's north-west end, just north of Da'grosh's camp. Coming from Rog'mar, ride west through Sunnyglade and keep north of the Twilight camps below the pass.
   goto 32.0,29.9 "Twilight's Shroud"
 
 step Kargath

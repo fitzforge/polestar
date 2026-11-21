@@ -996,6 +996,10 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 			if ie.get("A").truthy() {
 				o.set("A", ie.get("A"));
 			}
+			// (the door's floor, Polestar/Dungeons' arrow to the entrance: instances.rs choose_entrance)
+			if ie.get("z").is_num() {
+				o.set("z", ie.get("z"));
+			}
 			V::Obj(o)
 		} else {
 			V::Null
@@ -1746,9 +1750,10 @@ mod tests {
 
 	/// The named exceptions Fitz approved, and nothing else: The Hall of Thanes' top of 18 (his in-game check)
 	/// is the only top override, Krol'dok Stronghold's floor of 43 (its only slot in the guides sits at players'
-	/// 25th percentile) the only floor under the rule. A third needs a row here and a reason. The one
-	/// check-only row, Ruins of Lordaeron's overleveledRuns (0.4.1: players' recorded runs above level 25 are
-	/// full clears in a party of five), changes no range or floor.
+	/// 25th percentile) the only floor under the rule. A third needs a row here and a reason. The check-only
+	/// rows, overleveledRuns, change no range or floor: Ruins of Lordaeron (0.4.1: players' recorded runs above
+	/// level 25 are full clears in a party of five) and Wailing Caverns (0.4.2: 16 characters at 30-60, 126 boss
+	/// kills, every one in a party of five).
 	#[test]
 	fn levels_json_holds_exactly_the_two_named_exceptions() {
 		let text = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/../../../data/codex/levels.json")).unwrap();
@@ -1760,9 +1765,12 @@ mod tests {
 		assert_eq!((hot.get("max").num(), hot.get("floor").is_undef()), (18.0, true), "the only top override");
 		let krol = t.get("kroldok-stronghold");
 		assert_eq!((krol.get("floor").num(), krol.get("max").is_undef()), (43.0, true), "the only floor exception");
-		let checks: Vec<String> = t.keys().iter().map(|k| k.to_string()).filter(|k| t.get(k).get("overleveledRuns") == V::Bool(true)).collect();
-		assert_eq!(checks, ["ruins-of-lordaeron"], "the one check-only row");
-		let ruins = t.get("ruins-of-lordaeron");
-		assert!(ruins.get("max").is_undef() && ruins.get("floor").is_undef(), "check-only: no range or floor");
+		let mut checks: Vec<String> = t.keys().iter().map(|k| k.to_string()).filter(|k| t.get(k).get("overleveledRuns") == V::Bool(true)).collect();
+		checks.sort();
+		assert_eq!(checks, ["ruins-of-lordaeron", "wailing-caverns"], "the check-only rows");
+		for k in &checks {
+			let row = t.get(k);
+			assert!(row.get("max").is_undef() && row.get("floor").is_undef(), "{k}: check-only, no range or floor");
+		}
 	}
 }

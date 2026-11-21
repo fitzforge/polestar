@@ -2,7 +2,7 @@
 guide forever/alliance/03-darkshore
 title Darkshore
 faction Alliance
-levels 15-19
+levels 16-20
 zone Darkshore
 next forever/alliance/03-loch-modan
 
@@ -46,7 +46,7 @@ step Boat to Auberdine
 #   Hollee gives 729 directly. Its third step (741) is left out: it ends in
 #   Darnassus, a detour off the route, and the chain's last step (943) needs
 #   the Stone of Relu, a 1.5% raptor drop in the Wetlands.
-# - Refresh: Expanding Horizons (97914, Forever) is taken at the end:
+# - Refresh: Expanding Horizons (97914, Forever) is taken on the first Auberdine stop:
 #   Thundris Windweaver's letter goes to Baros Alexston on 03-loch-modan's
 #   Stormwind stop (the Westfall stretch, #1415), his reply (Making Do, 97926,
 #   a Shipwright's Satchel) to Thundris on the first Auberdine stop
@@ -85,6 +85,13 @@ step Boat to Auberdine
 #   own at the northern Blackwood camp, on the way from the Tower to the
 #   cave. The quest's only objective is the Talisman, but Xabraxxis comes
 #   only for the mixed bowl.
+# - Night Elves (fix pass 2026-11-20): Night Elf Darkshore already did the
+#   Cliffspring River sample and the turtle north of Bashal'Aran, so for them
+#   the Beached Sea Turtle by the falls (4727) and Fruit of the Sea's crab
+#   chunks (1138) are taken on the north loop (the turtle on the shore north
+#   of the falls, the chunks from the bay's crabs) and handed in on its last
+#   Auberdine stop: they no longer walk Auberdine -> the falls -> Auberdine
+#   -> north again (about 3 km).
 #
 # Optional: The Family and the Fishing Pole (1141) needs Fishing.
 # Gyromast's Revenge (2078) ends with the Threshwackonator 4100, an elite: not
@@ -118,12 +125,13 @@ step Auberdine
   accept 963                                  -- Cerellean Whiteclaw, on the pier
   accept 954 only Dwarf,Gnome,Human,Skyborne -- Thundris Windweaver, north end of the village
   accept 97914                                -- Thundris Windweaver: for Baros Alexston in Stormwind
+  turnin 97926 optional                       -- Thundris Windweaver: Baros Alexston's reply, if you brought it (Night Elves, from Night Elf Darkshore's Stormwind walk)
   vendor nearest optional
   accept 958 only Dwarf,Gnome,Human,Skyborne
   turnin 97894                                -- Gorbold Steelhand
   accept 982
   accept 984 only Dwarf,Gnome,Human,Skyborne -- Terenthis
-  accept 965                                  -- Sentinel Elissa Starbreeze
+  accept 965 only Dwarf,Gnome,Human,Skyborne -- Sentinel Elissa Starbreeze, beside Terenthis
   accept 2118 only Dwarf,Gnome,Human,Skyborne -- Tharnariun Treetender
   accept 4811 only Dwarf,Gnome,Human,Skyborne -- Sentinel Glynda Nal'Shea
   accept 947                                  -- Barithras Moonshade
@@ -197,7 +205,7 @@ step Rabid Thistle Bear
   kill 2164 quest 2138
 
 step Bashal'Aran
-  tip North along the hills. Asterion waits in the ruins of Bashal'Aran; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. Buzzbox 411 stands by the road west of the ruins; a Beached Sea Creature lies on the shore on the way to him.
+  tip North along the hills. Asterion waits in the ruins of Bashal'Aran; Wild Grells and Vile Sprites fill them, Deth'ryll Satyrs the eastern edge. Buzzbox 411 stands by the road north-north-west of Asterion; a Beached Sea Creature lies on the shore on the way to him.
   turnin 954 only Dwarf,Gnome,Human,Skyborne -- Asterion
   accept 955 only Dwarf,Gnome,Human,Skyborne
   collect 5336 quest 955 @44.6,36.6 map 1439 only Dwarf,Gnome,Human,Skyborne -- Grell Earrings
@@ -212,6 +220,7 @@ step Auberdine
   turnin 984 only Dwarf,Gnome,Human,Skyborne -- Terenthis
   accept 4761
   accept 985 only Dwarf,Gnome,Human,Skyborne
+  accept 965 only NightElf                    -- Sentinel Elissa Starbreeze, beside Terenthis and Tharnariun
   turnin 2138                                 -- Tharnariun Treetender
   accept 2139                                 -- Tharnariun Treetender
   turnin 4811 only Dwarf,Gnome,Human,Skyborne -- Sentinel Glynda Nal'Shea
@@ -289,9 +298,9 @@ step Cliffspring Falls
   use 12350 quest 4762.1 @50.8,25.6 map 1439
   collect 12349 quest 4762                    -- Cliffspring River Sample, at the waterfall
   collect 15845 quest 6122.1 only NightElf,Skyborne,Druid -- Filled Cliffspring Falls Sampler: at the mouth of the cave by the falls
-  accept 4727                                 -- Beached Sea Turtle
+  accept 4727 only Dwarf,Gnome,Human,Skyborne -- Beached Sea Turtle
   accept 4725                                 -- Beached Sea Turtle
-  collect 12237 quest 1138                    -- Fine Crab Chunks from Encrusted Tide Crawler and Reef Crawler, by this stop
+  collect 12237 quest 1138 only Dwarf,Gnome,Human,Skyborne -- Fine Crab Chunks from Encrusted Tide Crawler and Reef Crawler, by this stop
 
 step Bashal'Aran
   turnin 957 only Dwarf,Gnome,Human,Skyborne -- Asterion
@@ -304,9 +313,9 @@ step Auberdine
   use 12346 @37.8,44.0 map 1439
   collect 12347                               -- Filled Cleansing Bowl: fill the Empty Cleansing Bowl at the Auberdine Moonwell
   turnin 4813 only Dwarf,Gnome,Human,Skyborne -- Sentinel Glynda Nal'Shea
-  turnin 4727                                 -- Gwennyth Bly'Leggonde
+  turnin 4727 only Dwarf,Gnome,Human,Skyborne -- Gwennyth Bly'Leggonde
   turnin 4725
-  turnin 1138                                 -- Gubber Blump, on the pier
+  turnin 1138 only Dwarf,Gnome,Human,Skyborne -- Gubber Blump, on the pier
   vendor nearest optional
 
 step Mist's Edge
@@ -319,6 +328,7 @@ step The bay wrecks
   tip Careful: The murlocs inside the wrecks are close together and fast. They often swim through the hull walls and holes, so you will usually pull extra murlocs.
   collect 12191 quest 982                     -- Silver Dawning's Lockbox; underwater
   collect 12192 quest 982                     -- Mist Veil's Lockbox; underwater
+  collect 12237 quest 1138                    -- Fine Crab Chunks from the Reef Crawlers and Encrusted Tide Crawlers on this shore, if you still need them
 
 step Bashal'Aran
   turnin 1001                                 -- Buzzbox 411
@@ -332,6 +342,10 @@ step Darkshore: kill these as you meet them
 step Cliffspring River
   turnin 1002                                 -- Buzzbox 323
   accept 1003
+
+step Beached Sea Turtle
+  tip North from the falls to the shore: the Beached Sea Turtle lies on the beach there, for Gwennyth in Auberdine.
+  accept 4727                                 -- Beached Sea Turtle
 
 step The Tower of Althalaxx
   tip East of Buzzbox 323, Balthule Shadowstrike hides at the foot of the tower among the Dark Strand Fanatics. Keep his letter for Delgren in Ashenvale.
@@ -365,3 +379,5 @@ step Auberdine
   turnin 4763                                 -- Thundris Windweaver
   turnin 947                                  -- Barithras Moonshade
   accept 948                                  -- For Onu at the Grove, on Darkshore's southern loop after the trip east
+  turnin 4727                                 -- Gwennyth Bly'Leggonde
+  turnin 1138                                 -- Gubber Blump, on the pier

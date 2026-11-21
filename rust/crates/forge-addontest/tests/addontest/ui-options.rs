@@ -2941,3 +2941,74 @@ fn show_who_it_targets_is_greyed_out_beside_the_target_list_and_follows_simple_t
 	);
 	assert_eq!(out, json!([[false, true], [true, false], true]));
 }
+
+// A colour picker opened from a cog popup raises to FULLSCREEN_DIALOG (level 15) so it sits above the
+// popup's full-screen click catcher, and restores strata and level on hide (#2994).
+const COG_COLOR_PAGE: &str = r#"
+Polestar.RegisterDefaults("fakecog", { size = 1, rimColor = { 1, 0, 0 }, pinColor = { 0, 1, 0 } })
+Polestar.RegisterOptions({ page = "Quests", icon = "icon-accept", order = 30, tab = "Map", section = "Markers", controls = {
+	{ kind = "slider", key = "fakecog.size", label = "Size", min = 0.5, max = 2, step = 0.05,
+		more = {
+			{ kind = "color", key = "fakecog.rimColor", label = "Rim colour" },
+			{ kind = "color", key = "fakecog.pinColor", label = "Pin colour" },
+		} },
+} })
+"#;
+
+#[test]
+fn color_picker_opened_from_cog_raises_strata_and_restores_on_hide() {
+	let out = run_opts(
+		r#"
+		UI.ShowOptions("quests")
+		O.Select("quests", "Map")
+		local row = O.Controls("quests", "Map")["fakecog.size"]
+		row.Cog:Click()
+		local more = PolestarOptionsMore
+		local moreShownBefore = more:IsShown()
+		local controls = O.MoreControls()
+		local defaultStrata = ColorPickerFrame:GetFrameStrata()
+		local defaultLevel = ColorPickerFrame:GetFrameLevel()
+
+		-- First swatch raises strata and level above the catcher
+		controls["fakecog.rimColor"]:Click("LeftButton")
+		local pickerStrata = ColorPickerFrame:GetFrameStrata()
+		local pickerLevel = ColorPickerFrame:GetFrameLevel()
+		local pickerShown = ColorPickerFrame:IsShown()
+
+		-- Opening a second swatch keeps the elevated strata
+		controls["fakecog.pinColor"]:Click("LeftButton")
+		local secondStrata = ColorPickerFrame:GetFrameStrata()
+
+		-- Clicking the catcher closes the popup and Polestar's open picker, restoring strata
+		more.Catcher:Click()
+		local moreClosed = not more:IsShown()
+		local pickerClosed = not ColorPickerFrame:IsShown()
+		local restoredStrata = ColorPickerFrame:GetFrameStrata()
+		local restoredLevel = ColorPickerFrame:GetFrameLevel()
+
+		-- Closing the popup does not close a picker opened by another addon
+		row.Cog:Click()
+		ColorPickerFrame:Show()
+		more.Catcher:Click()
+		local externalLeft = ColorPickerFrame:IsShown()
+		ColorPickerFrame:Hide()
+
+		emit({ moreBefore = moreShownBefore, defaultStrata = defaultStrata, defaultLevel = defaultLevel,
+			pickerStrata = pickerStrata, pickerLevel = pickerLevel, pickerShown = pickerShown,
+			secondStrata = secondStrata, moreClosed = moreClosed, pickerClosed = pickerClosed,
+			restoredStrata = restoredStrata, restoredLevel = restoredLevel, externalLeft = externalLeft })"#,
+		"",
+		"",
+		COG_COLOR_PAGE,
+	);
+	assert_eq!(out["moreBefore"], true, "cog popup opens");
+	assert_eq!(out["pickerShown"], true, "colour picker opens");
+	assert_eq!(out["pickerStrata"], "FULLSCREEN_DIALOG", "picker strata is raised to FULLSCREEN_DIALOG above catcher");
+	assert_eq!(out["pickerLevel"], 15, "picker level is raised above popup and catcher");
+	assert_eq!(out["secondStrata"], "FULLSCREEN_DIALOG", "second swatch keeps raised strata");
+	assert_eq!(out["moreClosed"], true, "clicking catcher closes popup");
+	assert_eq!(out["pickerClosed"], true, "closing popup closes Polestar's open picker");
+	assert_eq!(out["restoredStrata"], out["defaultStrata"], "strata restored on close");
+	assert_eq!(out["restoredLevel"], out["defaultLevel"], "frame level restored on close");
+	assert_eq!(out["externalLeft"], true, "closing popup does not close another addon's picker");
+}

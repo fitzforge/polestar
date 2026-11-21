@@ -17,6 +17,36 @@
 			],
 			"note": "Chief Engineer Scooty (2842) is offered from Sovik's (3413) chat option (gossip option 95758), never from his window's quest list. Source: players' in-game recordings to 2026-11-11: 11 people opened it, every one through that option, and no window of his in the recordings listed it; the player report #1762. The server data puts the same option in his menu, beside his goods, and asks for Rig Wars (2841) in the log: 10 of the 11 people had it, one did not."
 		},
+		"5527": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "accept",
+					"target": {
+						"type": "npc",
+						"id": 11801
+					},
+					"fact": "Rabine Saturna offers A Reliquary of Purity only after you have been inside Dire Maul once: go into Dire Maul, come back, ask her about Dire Maul, and the quest opens.",
+					"confidence": "medium"
+				}
+			],
+			"note": "A Reliquary of Purity (5527) is not offered by Rabine Saturna (11801) until the player has entered Dire Maul. Source: two player reports (#3104, #3270), one of them tried it: after zoning into Dire Maul East and asking Rabine about Dire Maul, the quest opened. Players' in-game recordings to 2026-11-20 agree: Rabine refused it to 6 people who could take it (level 56 and up) and offered it to 4; one person's windows at level 57 refused it six times before one offered it."
+		},
+		"78270": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "turnin",
+					"target": {
+						"type": "npc",
+						"id": 4086
+					},
+					"fact": "Goblin Lockpicks never goes into the quest log: Pick Pocket the Venture Co. Work Order first, then hand it to Veenix at one talk. He takes it only while The Horn of Xelthos is in your quest log: take that from C's Dead Drop by Pyrewood Village first.",
+					"confidence": "medium"
+				}
+			],
+			"note": "Goblin Lockpicks (78270) is handed in to Veenix (4086) at one talk, only while The Horn of Xelthos (78261) is in the quest log. Source: players' in-game recordings to 2026-11-20: 10 people handed it in to Veenix, none with an accept or the quest in the log first; ys's report (#3161) found the order wrong; every window of his that listed it came from a Rogue with 78261 in the log (9 people), and one was refused it in the window after 78261 had left the log; Traesheur's report (#3213), whose log had no 78261 when Veenix gave nothing."
+		},
 		"1918": {
 			"steps": [
 				{
@@ -480,6 +510,70 @@
 			],
 			"note": "Facing Negolash (8554): Negolash (1494) is called up by Enticing Negolash (619), a quest started and ended at the Ruined Lifeboat (object 2289) that takes 10 Barbecued Buzzard Wings (4457) and 5 Junglevine Wine (4595). Source: the game's data (619's start and end at object 2289, its two item objectives; 8554's text asks for the food in the lifeboat); players' in-game recordings to 2026-11-17: 619 handed in by 1 person, Negolash seen by 5 people only at 30-32,72-82 and killed by 2 there; and Soggy's report (#2711)."
 		},
+		"1024": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "other",
+					"item": 5463,
+					"count": 1,
+					"fact": "Keep the Glowing Gem that Raene gives you in your bags. Shael'dryn needs it at the moonwell; if you banked it, collect it before going there.",
+					"confidence": "high"
+				}
+			],
+			"note": "The server lists one Glowing Gem as both supplied and required. In #3043 the quest log showed no item counter at the moonwell."
+		},
+		"98071": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "use-item",
+					"item": { "id": 279390, "name": "Case of Fallrook Varietal" },
+					"fact": "In Dun Garok, use the Case of Fallrook Varietal by the fire on the lowest floor. Pick up the Sack of Homebrew Hops between the stairs and take it back to Brewmeister Bilger.",
+					"confidence": "high"
+				}
+			],
+			"note": "The report in #3054 places the wine by the fire and the sack between the stairs. Two people recorded both counters, one in each order: the delivery is not a prerequisite for the hops."
+		},
+		"1154": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "explore",
+					"fact": "Enter the Dor'Danil Barrow Den in southern Ashenvale and descend to the bottom for the Legacy of the Aspects.",
+					"confidence": "high"
+				}
+			],
+			"note": "The quest describes the book at the bottom of the den. In #3069 the player was at its map point but had no directions underground."
+		},
+		"6627": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "talk",
+					"target": {
+						"type": "npc",
+						"id": 4489
+					},
+					"fact": "Answer Braug Dimspirit's question with Neltharion. A wrong answer sends you away to Camp Taurajo, and you walk back to try again.",
+					"confidence": "medium"
+				}
+			],
+			"note": "Test of Lore (6627, Braug Dimspirit in Stonetalon, after The Legacy of the Aspects): the quest's only line is to answer his question correctly, and the guide never said the answer. A player's in-game report (#3028): a wrong answer teleports you to Camp Taurajo, and the right one is Neltharion."
+		},
+		"97536": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "use-item",
+					"item": 278194,
+					"count": 5,
+					"fact": "Use the Crate of Radioactive Refuse five times in the Tanaris desert. Stay clear of Gadgetzan and move away from the last pile before using it again.",
+					"confidence": "high"
+				}
+			],
+			"note": "The quest supplies the crate and describes where to empty it. Seven people's recordings show discard credit on cast 1303853; MIG reported the item use in #3159."
+		},
 		"96018": {
 			"kinds": [
 				{
@@ -550,6 +644,65 @@
 				}
 			],
 			"note": "Doctor's Orderly (96082) is done by using the Makeshift Bandages (272126, given with the quest) on the Wounded Soldiers (263614) at Farholde Keep; the game stores the objective as a kill credit, so a step built from it said \"Kill Wounded Soldier\" (#2831). Source: players' in-game recordings to 2026-11-17: 31 people, every one of their 88 ticks right after a cast of Apply Bandage (spell 1290242) on a Wounded Soldier; the client's item tables give that spell as the bandages' use."
+		},
+		"94748": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "kill",
+					"target": {
+						"type": "npc",
+						"id": 256799
+					},
+					"item": 265821,
+					"fact": "Twilight Champions in the cult's camps drop the Twilight Key: with one in your bags, free a captive Rog'mar Scout (the key unlocks his chains).",
+					"confidence": "medium"
+				}
+			],
+			"note": "Break Their Chains (94748): each scout is freed with a Twilight Key (265821), a quest item the Twilight Champions (256799) drop; the objective names only the scouts. Source: the game's item data (Twilight Key, a quest item; QuestieDB's Forever drop data puts it on the Twilight Champion); players' in-game recordings to 2026-11-20: 25 people, every tick of \"Rog'mar Scout rescued\" right after a cast of Unlocking (spell 1277271); Etienne's report (#3266)."
+		},
+		"93404": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "other",
+					"item": 258296,
+					"fact": "The Vial of Earth Song Water is inside Maraudon, the five-player dungeon in Desolace: this quest needs a Maraudon run.",
+					"confidence": "high"
+				}
+			],
+			"note": "Rot and Regret (93404): its vial (258296) comes only from an object (612179) that no outdoor spawn data places, and the quest's own text says \"Venture to Maraudon and recover a Vial of Earth Song Water\"; players' in-game recordings to 2026-11-20: 46 people looted it. Emil's report (#3243): the Razorfen Downs pick-up chain sent him through it with no word of the dungeon."
+		},
+		"3801": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "other",
+					"target": {
+						"type": "npc",
+						"id": 8888
+					},
+					"fact": "Franclorn Forgewright is a ghost only a dead character can see: die near his tomb in Blackrock Mountain and walk to him as a spirit to talk to him.",
+					"confidence": "high"
+				}
+			],
+			"note": "Dark Iron Legacy (3801): its giver and ender, Franclorn Forgewright (8888), shows only to the dead. Source: Nostaroi's report (#3009: \"you have to be dead to get this quest\"); players' in-game recordings to 2026-11-20: 14 people met him at Forgewright's Tomb; the Thorium Brotherhood guide's step for the Shadowforge Key says the same."
+		},
+		"1027": {
+			"steps": [
+				{
+					"n": 1,
+					"action": "kill",
+					"target": {
+						"type": "npc",
+						"id": 3928
+					},
+					"item": 5519,
+					"fact": "Rotting Slimes in and around the Dor'danil Barrow Den leave a Rusty Chest when they die: open the chests until one holds the Iron Pommel.",
+					"confidence": "medium"
+				}
+			],
+			"note": "Raene's Cleansing (1027): the Iron Pommel (5519) comes only from Rusty Chests (19021), and the chests come from Rotting Slimes (3928). Source: Shuurajou's report (#3002: \"they are inside and dropped by rotting slimes\"); the chests' known points are spread over the barrow den's slopes, where the slimes roam, not set like a camp's; players' in-game recordings to 2026-11-20: pommel ticks right after a Rotting Slime was seen or killed."
 		}
 	}
 }

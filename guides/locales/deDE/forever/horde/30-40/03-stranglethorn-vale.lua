@@ -113,7 +113,7 @@ return {
 	-- Step 17: Nesingwary's camp
 	["Back north to the camp."] = "Zurück nach Norden zum Lager.",
 	-- {npc:717} Ajeck Rouack · {npc:729} Sin'Dall
-	["{npc:717}: {npc:729} (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale"] = "{npc:717}: {npc:729} (37) wartet auf deinen nächsten Halt bei Nesingwary, mit etwa 40 in forever/horde/40-50/01-stranglethorn-vale",
+	["{npc:717}: {npc:729} (37) comes at the end of this guide, from level 36"] = "",
 
 	-- Step 18: Thoroughly Scavenged Supplies
 	-- {object:661516} Thoroughly Scavenged Supplies · {quest:97328} Anything of Value · {area:102} Ruins of Zul'Kunda
@@ -125,7 +125,8 @@ return {
 	["{area:301}: kill these as you meet them"] = "{area:301}: Töte diese, sobald sie dir begegnen",
 	-- {npc:729} Sin'Dall
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk
-	["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "Westlich am Lager vorbei sitzen Kristallrückenbasilisken (34-35) auf den Felsen; jeder Bloodscalp im Dorf dahinter kann ein Ohr fallen lassen.\nLass {npc:729}, den Tiger der Stufe 37 auf dem Hügel südwestlich des Lagers, vorerst in Ruhe: Er ist hier zwei Stufen über dir, und der Schlingendorn-Guide für 40-50 kommt zu ihm zurück.\nVorsicht: Das Raptornest hat junge Raptoren, die in den Kampf eingreifen, wenn du die ausgewachsenen angreifst.",
+	-- was: ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "Westlich am Lager vorbei sitzen Kristallrückenbasilisken (34-35) auf den Felsen; jeder Bloodscalp im Dorf dahinter kann ein Ohr fallen lassen.\nLass {npc:729}, den Tiger der Stufe 37 auf dem Hügel südwestlich des Lagers, vorerst in Ruhe: Er ist hier zwei Stufen über dir, und der Schlingendorn-Guide für 40-50 kommt zu ihm zurück.\nVorsicht: Das Raptornest hat junge Raptoren, die in den Kampf eingreifen, wenn du die ausgewachsenen angreifst."
+	["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and this guide comes back to him at its end, from level 36.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "",
 
 	-- Step 20: Zimmix Sputterspark
 	-- {npc:268992} Zimmix Sputterspark · {area:102} Ruins of Zul'Kunda · {item:277957} Primitive Key · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
@@ -208,25 +209,37 @@ return {
 	-- Step 33: Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Back to {object:3202}."] = "Zurück nach {object:3202}.",
-	-- {npc:2465} Far Seer Mok'thardin
-	["{npc:2465}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2465}: für forever/horde/40-50/01-stranglethorn-vale",
-	-- {npc:2497} Nimboya
-	["{npc:2497}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2497}: für forever/horde/40-50/01-stranglethorn-vale",
-	-- {zone:1454} Orgrimmar
-	["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "Der nächste Guide nimmt den Zeppelin nach {zone:1454} vom Turm auf der Westseite des Lagers.",
+	-- {npc:2465} Far Seer Mok'thardin · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
+	["{npc:2465}: for the {zone:1434} & {zone:1435} guide, at about 40"] = "",
+	-- {npc:2497} Nimboya · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
+	["{npc:2497}: for the {zone:1434} & {zone:1435} guide, at about 40"] = "",
+	-- {npc:729} Sin'Dall · {zone:1454} Orgrimmar
+	-- was: ["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "Der nächste Guide nimmt den Zeppelin nach {zone:1454} vom Turm auf der Westseite des Lagers."
+	["After {npc:729}, back here: the next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "",
 
 	-- Step 34: Level 36
 	["Level 36"] = "Stufe 36",
-	-- {object:3202} Grom'gol (no name in this language: may be words)
+	-- {npc:729} Sin'Dall · {object:3202} Grom'gol (no name in this language: may be words)
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
-	["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36, then walk back to the zeppelin tower. Leave the Mosh'Ogg ogres (36-37) above them alone."] = "Die Quests in Düstermarschen sind Stufe 35-38. Nach den Abgaben in {object:3202} noch unter Stufe 36? Die Schnappkieferkrokilisken (35-36) säumen den Fluss direkt östlich des Lagers, unterhalb der Mosh'Ogg-Hügel: Töte sie bis Stufe 36 und lauf dann zurück zum Zeppelinturm. Lass die Mosh'Ogg-Oger (36-37) darüber in Ruhe.",
+	-- was: ["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36, then walk back to the zeppelin tower. Leave the Mosh'Ogg ogres (36-37) above them alone."] = "Die Quests in Düstermarschen sind Stufe 35-38. Nach den Abgaben in {object:3202} noch unter Stufe 36? Die Schnappkieferkrokilisken (35-36) säumen den Fluss direkt östlich des Lagers, unterhalb der Mosh'Ogg-Hügel: Töte sie bis Stufe 36 und lauf dann zurück zum Zeppelinturm. Lass die Mosh'Ogg-Oger (36-37) darüber in Ruhe."
+	["Dustwallow's quests are 35-38, and {npc:729} (37) is next. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36. Leave the Mosh'Ogg ogres (36-37) above them alone."] = "",
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks"] = "Schnappkieferkrokilisken",
 	-- {npc:1152} Snapjaw Crocolisk
 	["grind on {npc:1152}"] = "Grinde an {npc:1152}",
 
+	-- Step 35: Sin'Dall
+	-- {object:3202} Grom'gol (no name in this language: may be words) · {npc:729} Sin'Dall
+	-- plural, as words: Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger
+	["North from {object:3202} to the hilltop just south-west of Nesingwary's camp: {npc:729} prowls there alone.\nCareful: {npc:729} (37) is a level over you: pull him at full health, clear of the Elder Stranglethorn Tigers (34-35) on the hill's slopes."] = "",
+
+	-- Step 36: Nesingwary's camp
+	-- {npc:717} Ajeck Rouack · {object:3202} Grom'gol (no name in this language: may be words)
+	["North to {npc:717} in Nesingwary's camp, then back south to {object:3202}'s zeppelin tower."] = "",
+
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Mosh'Ogg Brutes and Witch Doctors camp in the hills just east of the camp: kill them until level 36, pulling one at a time, then walk back to the zeppelin tower."] = "Die Quests von Dustwallow sind 35-38. Nach den Abgaben bei {object:3202} noch unter 36? Die Mosh'Ogg-Rohlinge und Hexendoktoren lagern in den Hügeln direkt östlich des Lagers: Töte sie, bis du Stufe 36 bist, und zieh dabei einen nach dem anderen; geh dann zurück zum Zeppelinturm.",
+	-- ["Dustwallow's quests are 35-38. Still below 36 after {object:3202}'s hand-ins? The Snapjaw Crocolisks (35-36) line the river just east of the camp, below the Mosh'Ogg hills: kill them until level 36, then walk back to the zeppelin tower. Leave the Mosh'Ogg ogres (36-37) above them alone."] = "Die Quests in Düstermarschen sind Stufe 35-38. Nach den Abgaben in {object:3202} noch unter Stufe 36? Die Schnappkieferkrokilisken (35-36) säumen den Fluss direkt östlich des Lagers, unterhalb der Mosh'Ogg-Hügel: Töte sie bis Stufe 36 und lauf dann zurück zum Zeppelinturm. Lass die Mosh'Ogg-Oger (36-37) darüber in Ruhe.",
 	-- ["East of the Mosh'Ogg hills, Shadowmaw Panthers (37-38) stalk the jungle towards the lake; the Stranglethorn Tigresses roam the same ground and now and then drop a pristine fang. Snapjaw Crocolisks line the river just west of the jungle; keep their skins for {npc:2495}. Careful: Shadowmaw Panthers (level 37-38) and Elder Shadowmaw Panthers (level 42-43) use Sneak while out of combat, so they remain hidden until you get near them."] = "Östlich der Mosh'Ogg-Hügel pirschen Shadowmaw-Panther (37-38) durch den Dschungel Richtung See; die Schlingendorn-Tigerinnen streifen über dasselbe Gelände und lassen hin und wieder einen makellosen Fang fallen. Snapjaw-Krokilisken säumen den Fluss direkt westlich des Dschungels; behalte ihre Häute für {npc:2495}. Vorsicht: Shadowmaw-Panther (Stufe 37-38) und Ältere Shadowmaw-Panther (Stufe 42-43) benutzen Schleichen außerhalb des Kampfes, sodass sie verborgen bleiben, bis du nah herankommst.",
 	-- ["Elder tigers and Lashtail raptors"] = "Alte Tiger und Schmetterschwänze",
 	-- ["Follow the road north out of {object:3202}; Nesingwary's hunting camp sits on the hill north-east of the river. From here on, keep every page of {quest:338} you loot: {npc:716} asks for them later."] = "Folge der Straße von {object:3202} nach Norden; Nesingwarys Jagdlager liegt auf dem Hügel nordöstlich des Flusses. Ab hier behältst du jede Seite von {quest:338}, die du erbeutest: {npc:716} Stonepot will sie später.",
@@ -245,8 +258,10 @@ return {
 	-- ["The Mosh'Ogg ogres camp in the hills just east of {object:3202}. Kill one Brute and one Witch Doctor (36-37); pull them one at a time."] = "Die Oger der Mosh'Ogg lagern in den Hügeln gleich östlich von {object:3202}. Töte einen Schläger der Mosh'Ogg und einen Hexendoktor der Mosh'Ogg (36-37); zieh sie einzeln.",
 	-- ["The Shadowmaw Panthers (37-38) stalk the jungle east of the Mosh'Ogg hills and north-east towards the lake; they strike from stealth. Loot every Green Hills page you find on the way."] = "Die Schattentatzenpanther (37-38) schleichen durch den Dschungel östlich der Hügel der Mosh'Ogg und nordöstlich Richtung See; sie greifen aus der Verstohlenheit an. Erbeute unterwegs jede Seite der Grünen Hügel.",
 	-- ["The camp by the river"] = "Das Lager am Fluss",
+	-- ["The next guide takes the zeppelin to {zone:1454} from the tower on the west side of the camp."] = "Der nächste Guide nimmt den Zeppelin nach {zone:1454} vom Turm auf der Westseite des Lagers.",
 	-- ["The zeppelin lands at the tower on the west side of the camp."] = "Der Zeppelin landet am Turm auf der Westseite des Lagers.",
 	-- ["Venture Co. camp"] = "Lager der Venture Co.",
+	-- ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\nLeave {npc:729}, the level 37 tiger on the hilltop south-west of the camp, for now: he is two over you here, and the 40-50 Stranglethorn guide comes back to him.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "Westlich am Lager vorbei sitzen Kristallrückenbasilisken (34-35) auf den Felsen; jeder Bloodscalp im Dorf dahinter kann ein Ohr fallen lassen.\nLass {npc:729}, den Tiger der Stufe 37 auf dem Hügel südwestlich des Lagers, vorerst in Ruhe: Er ist hier zwei Stufen über dir, und der Schlingendorn-Guide für 40-50 kommt zu ihm zurück.\nVorsicht: Das Raptornest hat junge Raptoren, die in den Kampf eingreifen, wenn du die ausgewachsenen angreifst.",
 	-- ["West past the camp, Crystal Spine Basilisks (34-35) sit on the rocks; every Bloodscalp in the village beyond can drop an ear.\n{npc:729}, a level 37 tiger, prowls the hilltop south-west of the camp.\nCareful: The raptor nest has young raptors that join the fight when you attack the adults."] = "Westlich am Lager vorbei sitzen Crystal Spine-Basilisken (34-35) auf den Felsen; jeder Bloodscalp im Dorf dahinter kann ein Ohr fallen lassen.\n{npc:729}, ein Tiger der Stufe 37, streift über den Hügelkamm südwestlich des Lagers.\nVorsicht: Das Raptornest hat junge Raptoren, die in den Kampf eingreifen, wenn du die ausgewachsenen angreifst.",
 	-- ["Zeppelin to {object:3202}"] = "Zeppelin nach {object:3202}",
 	-- ["from {npc:4723}"] = "von {npc:4723}",
@@ -254,9 +269,12 @@ return {
 	-- ["grind on {npc:686}"] = "grinde an {npc:686}",
 	-- ["{area:35}'s and {object:3202}'s next quests are 35-38. Still below 35 after Aggro'gosh's hand-in? The Lashtail Raptors (35) hunt the jungle just north of {object:3202}: kill them until level 35."] = "Die nächsten Quests von {area:35} und {object:3202} sind 35-38. Nach der Abgabe bei Aggro'gosh noch unter 35? Die Lashtail-Raptoren (35) jagen im Dschungel direkt nördlich von {object:3202}: Töte sie, bis du Stufe 35 bist.",
 	-- ["{item:5852}, in {object:20691}"] = "{item:5852}, in {object:20691}",
+	-- ["{npc:2465}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2465}: für forever/horde/40-50/01-stranglethorn-vale",
 	-- ["{npc:2495}'s shop is in the building east of the inn; {npc:2498} is on the inn's bottom floor, {npc:2496}, {npc:737} and {npc:773} upstairs beside the flight master."] = "{npc:2495}s Laden ist im Gebäude östlich des Gasthauses; {npc:2498} ist im Erdgeschoss des Gasthauses, {npc:2496}, {npc:737} und {npc:773} oben neben dem Flugmeister.",
 	-- ["{npc:2496}: Cozzle's footlocker is at {area:37}, later in this guide"] = "{npc:2496}: Cozzles Schließkiste steht am {area:37}, später in diesem Guide",
 	-- ["{npc:2496}: for Pozzik at the {area:2240}, on the way to {zone:1446} around level 43"] = "{npc:2496}: für Pozzik an der {area:2240}, auf dem Weg nach {zone:1446} um Stufe 43",
+	-- ["{npc:2497}: for forever/horde/40-50/01-stranglethorn-vale"] = "{npc:2497}: für forever/horde/40-50/01-stranglethorn-vale",
 	-- ["{npc:4723} (38) is inside the Venture Co. house on {area:37}'s west shore, among the geologists: his key opens {object:20691} in the same house, which holds the blueprints for {npc:2496}. Careful: Venture Co. Agents (39) stand in and around the house: clear the doorway before you go in."] = "{npc:4723} (38) ist im Haus der Venture Co. am Westufer des {area:37}, zwischen den Geologen: Sein Schlüssel öffnet {object:20691} im selben Haus, in der die Baupläne für {npc:2496} liegen. Vorsicht: Agenten der Venture Co. (39) stehen im Haus und drumherum: Räum den Eingang frei, bevor du hineingehst.",
+	-- ["{npc:717}: {npc:729} (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale"] = "{npc:717}: {npc:729} (37) wartet auf deinen nächsten Halt bei Nesingwary, mit etwa 40 in forever/horde/40-50/01-stranglethorn-vale",
 	-- ["{npc:773}'s missing hunters' camp is Nesingwary's: walk among its tents and the investigation completes. River Crocolisks lie along the river below the camp."] = "Das Lager der vermissten Jäger von {npc:773} ist das von Nesingwary: Geh zwischen den Zelten umher, dann ist die Untersuchung abgeschlossen. Flusskrokilisken liegen am Fluss unterhalb des Lagers.",
 }

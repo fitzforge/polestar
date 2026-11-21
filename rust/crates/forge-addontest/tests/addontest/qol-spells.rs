@@ -140,6 +140,29 @@ fn a_ding_in_combat_waits_for_the_fight_to_end_and_an_instance_stays_silent() {
 	assert_eq!(out[2], 0, "nothing in a dungeon");
 }
 
+// #2930: a Warrior reached 32 inside the Excavation Site and Polestar never said there were spells to train. A ding
+// in an instance is held and told on the way out, with any level reached after it, in one notice, once.
+#[test]
+fn a_ding_in_an_instance_is_told_on_the_way_out_with_every_level_since() {
+	let out = run_qol(
+		r#"
+		IsInInstance = function() return true, "party" end
+		levelUp(10)
+		levelUp(14)
+		emit(#cards)
+		IsInInstance = function() return false end
+		stub.fire("PLAYER_ENTERING_WORLD", false, false)
+		stub.advance(3)
+		emit({ count = #cards, level = cards[1] and cards[1].level, ids = ids(cards[1] and cards[1].spells) })
+		stub.fire("PLAYER_ENTERING_WORLD", false, false)
+		stub.advance(3)
+		emit(#cards)"#,
+	);
+	assert_eq!(out[0], 0, "nothing inside");
+	assert_eq!(out[1], json!({ "count": 1, "level": 14, "ids": [139, 586, 594, 598] }), "10's and 14's spells, told once outside");
+	assert_eq!(out[2], 1, "not told twice");
+}
+
 #[test]
 fn the_setting_off_shows_no_level_up_card() {
 	let out = run_qol(

@@ -1,15 +1,15 @@
 guide forever/horde/40-50/04-tanaris
 title Tanaris & Searing Gorge
 faction Horde
-levels 48-49
+levels 47-49
 zone Tanaris
 next forever/horde/40-50/05-the-hinterlands
-pitch Gadgetzan and the Searing Gorge at 46-48: the Wastewander camps, Tooga's escort and Thorium Point.
+pitch Gadgetzan and the Searing Gorge at 47-49: the Wastewander camps, Tooga's escort and Thorium Point.
 # Route from the Polestar route simulator's Horde consensus (Tauren export),
 # visits 44-48, levels 45.9-47.6. Checked by lint, not play-tested on
 # Forever yet. Era + known Forever quests only.
 #
-# Flow: Camp Mojache (where the previous guide ends) -> fly Gadgetzan
+# Flow: Brackenwall Village (where the previous guide ends; Camp Mojache for a start there) -> fly Gadgetzan
 # (bind) -> Sandsorrow Watch -> Gadgetzan -> Caliph Scorpidsting -> Marvon
 # Rivetseeker -> the Noxious Lair -> Dunemaul Compound -> Thistleshrub
 # Valley -> Tooga's escort to Steamwheedle Port -> Gadgetzan -> Marvon ->
@@ -51,15 +51,24 @@ pitch Gadgetzan and the Searing Gorge at 46-48: the Wastewander camps, Tooga's e
 #
 # Class training: none in this guide or the next. Every class trains next in
 # Orgrimmar at about 50 (40-50/06; Druids and Paladins in Thunder Bluff); the
-# Undercity's classes trained there at about 40 and 45 (40-50/01, 40-50/03).
+# Undercity's classes trained there at about 40 and 45 (40-50/01, 40-50/02).
 #
-# Left out: Into the Field (243: no longer accepted on this route), Ledger
+# Into the Field (243) is taken on 40-50/02 and handed in there; this guide's lines for it are fallbacks. Left out: Ledger
 # from Tanaris (4450: the export never hands it in), Broken Alliances (782),
 # see above.
 
 # ---------------------------------------------------------------- Gadgetzan
 
 step Fly to Gadgetzan
+  when zone "Dustwallow Marsh"
+  zone Dustwallow Marsh
+  tip Coming from Dustwallow Marsh: Brackenwall Village's flight master flies you to Gadgetzan.
+  goto 35.6,31.8 "Brackenwall Village flight master"
+  fly "Gadgetzan"
+  zone Tanaris
+
+step Fly to Gadgetzan
+  when !zone "Dustwallow Marsh"
   zone Feralas
   tip From Camp Mojache's flight master.
   fly "Gadgetzan"
@@ -152,6 +161,7 @@ step Gadgetzan
   turnin 113                            -- Senior Surveyor Fizzledowser
   accept 32                             -- for Zilzibin Drumlore in Orgrimmar, around level 50
   accept 2741                           -- The Egg-O-Matic machine, in the middle of town: the egg is in southern Feralas, around level 50
+  collect 4306 x15 npc 8661 optional    -- Silk Cloth: Auctioneer Beardo, for Caught! at the Grimesilt Dig Site in the Searing Gorge
 
 step Orgrimmar
   only Hunter,Shaman
@@ -184,7 +194,7 @@ step Fly to Kargath
 
 step The Grimesilt Dig Site
   zone Searing Gorge
-  tip From Powderfuse Port, ride into the Searing Gorge by its eastern pass, then west to the dig site. The Wooden Outhouse stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 Silk Cloth (the Auction House sells it).
+  tip From Powderfuse Port, ride into the Searing Gorge by its eastern pass, then west to the dig site. The Wooden Outhouse stands at its southern end; the Dark Iron Geologists dig just north of it. Bring the 15 Silk Cloth from Gadgetzan's Auction House: the Geologists drop it only now and then.
   accept 4449 object 173265             -- the Wooden Outhouse
   kill 5839 quest 4449.1
   collect 4306 quest 4449.2

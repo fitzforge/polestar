@@ -293,8 +293,8 @@ fn with_the_local_codex_the_onyxia_blackwing_lair_naxxramas_and_dalaran_chains_f
 	assert_eq!(shape(&get("blackwing-lair", "blackhand")), "drop:18987 > 7761*", "the Quartermaster drops the letter that starts it");
 	assert_eq!(shape(&get("naxxramas", "dread-citadel")), "9121* > 9122* > 9123*");
 	assert!(by["blackrock-spire"].is_null(), "Forever removed the Seal of Ascension");
-	// Every cited `inside` place is one a chain meets, of an NPC or object that still has no spawn and no Codex
-	// instance.
+	// Every cited `inside` place is one a chain meets, of an NPC or object that still has no spawn, in the instance
+	// the Codex has for it once it has one (the 0.4.2 data places the Inconspicuous Documents in Blackrock Spire).
 	let mut used: HashSet<String> = HashSet::new();
 	for l in by.as_object().unwrap().values() {
 		for a in list(l) {
@@ -307,9 +307,16 @@ fn with_the_local_codex_the_onyxia_blackwing_lair_naxxramas_and_dalaran_chains_f
 		assert!(used.contains(&format!("{}:{}:{}", text(&e["kind"]), e["id"], text(&e["instance"]))), "{} is in no chain", text(&e["name"]));
 		let records = if e["kind"] == "npc" { &real["npcs"] } else { &real["objects"] };
 		let rec = &records[e["id"].to_string()];
-		assert!(truthy(rec) && list(&rec["spawns"]).is_empty() && !truthy(&rec["instance"]), "{}: the Codex places it now", text(&e["name"]));
+		assert!(truthy(rec) && list(&rec["spawns"]).is_empty(), "{}: the Codex has it, with no spawn", text(&e["name"]));
+		assert!(!truthy(&rec["instance"]) || rec["instance"] == e["instance"], "{}: the Codex places it in {}, not {}", text(&e["name"]), rec["instance"], e["instance"]);
 	}
 	assert_eq!(get("molten-core", "core")["inside"], json!([{ "kind": "object", "id": 179553, "instance": "blackrock-depths" }]), "the Core Fragment, by the Molten Core portal in Blackrock Depths");
+	assert_eq!(
+		get("onyxias-lair", "drakefire-h")["inside"],
+		json!([{ "kind": "object", "id": 175785, "instance": "blackrock-spire" }]),
+		"Warlord's Command's Inconspicuous Documents, in Blackrock Spire, where the Codex has them"
+	);
+	assert_eq!(real["objects"]["175785"]["instance"], "blackrock-spire", "the data places the documents in Blackrock Spire");
 }
 
 fn quests_of(a: &Value) -> Vec<i64> {

@@ -92,8 +92,8 @@ return {
 	-- Step 15: The Venture Co. Mine: the Clearcutter
 	-- {area:360} The Venture Co. Mine
 	["{area:360}: the Clearcutter"] = "{area:360}：清伐者",
-	-- {quest:98427} Ceasing Operations
-	["The elite shredder Venture Co. Clearcutter works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "精英風險投資公司清伐者在礦洞深處作業，就在菲茲斯普羅基特原先待的位置再往裡：它的鑰匙是給{quest:98427}的。",
+	-- {npc:272173} Venture Co. Clearclutter · {quest:98427} Ceasing Operations
+	["The elite shredder {npc:272173} works deep inside the mine, beyond where Fizsprocket stood: its key is for {quest:98427}."] = "精英{npc:272173}在礦洞深處作業，就在菲茲斯普羅基特原先待的位置再往裡：它的鑰匙是給{quest:98427}的。",
 
 	-- Step 16: Bloodhoof Village: last hand-in
 	-- {area:222} Bloodhoof Village
