@@ -306,7 +306,7 @@ fn the_arrow_follows_the_path_s_points_with_the_yards_left_along_it() {
 		r.arrived = aim()[1]
 		r.calls = calls()
 		emit(r)"#);
-	assert_eq!(out["before"], json!(["routing"]), "no bearing before a route is found");
+	assert_eq!(out["before"], json!(["routing", 600, 0, -600]), "straight at the target until a route is found, as 0.4.1.1");
 	assert_eq!(out["ask"], json!([1, 0, 0, 0, 0, -600]), "one search on the player's continent, player to target");
 	assert_eq!(out["first"][1], 683, "the whole path's length");
 	heads(&out["first"], (0.0, 0.0), (100.0, -100.0), "toward the first corner");
@@ -1007,8 +1007,8 @@ fn c1_c2_a_new_target_cancels_the_stale_search_whose_late_answer_is_dropped_neve
 		emit(r)"#);
 	assert_eq!(out["cancelled"], true);
 	assert_eq!(out["calls"], 2);
-	assert_eq!(out["aim"], json!(["routing"]));
-	assert_eq!(out["late"], json!(["routing"]), "the old target's path is never followed");
+	assert_eq!(out["aim"], json!(["routing", 500, 500, 0]), "straight at the new target");
+	assert_eq!(out["late"], json!(["routing", 500, 500, 0]), "the old target's path is never followed");
 }
 
 #[test]
@@ -1024,7 +1024,7 @@ fn nothing_is_searched_in_combat_the_search_follows_once_combat_ends() {
 		aim()
 		r.after = calls()
 		emit(r)"#);
-	assert_eq!(out["fight"], json!(["routing"]), "no bearing for an unsearched walk");
+	assert_eq!(out["fight"], json!(["routing", 600, 0, -600]), "straight at the target while its walk waits for the fight's end");
 	assert_eq!(out["inCombat"], 0);
 	assert_eq!(out["after"], 1);
 }
@@ -3160,7 +3160,7 @@ fn searches_carry_the_player_faction_and_an_unknown_faction_gets_the_straight_be
 	);
 	assert_eq!(out["horde"], json!(["Horde", "table", false]), "the arrow's own walk: opts {{ waterWalking, profile }}");
 	assert_eq!(out["hordeAim"], "travel");
-	assert_eq!(out["pending"], json!(["routing", false, "routing", false, "Finding a walking route"]));
+	assert_eq!(out["pending"], json!(["routing", true, "routing", true, "Finding a walking route"]), "straight at the target under the hourglass meanwhile");
 	assert_eq!(out["reason"], "unknown faction");
 	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
 	assert_eq!(out["settled"], json!(["travel", true, "travel", true, "200 yd"]));

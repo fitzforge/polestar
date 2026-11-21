@@ -6366,11 +6366,18 @@ of the map's `hubs` metadata (`{ id, side, name, areaId, disks = { { x, y, r }, 
 } }`) hostile to `profile` that the drawn line enters, each once, in path
 order (`{}` without a profile or hubs). Reasons: `nodata`, `outside`, `offmesh`,
 `unreachable`, `error`. Searches run as coroutines in `C_Timer.After(0)`
-slices of `Path.budget` ms (3 ms at any frame rate; 0.3.1 grew it to 8 ms at
-100 fps, halving the frame rate while a search ran) and wait out combat; for
-`Path.calmSeconds` (1) after a fight they take `Path.calmBudget` (1 ms) a
-frame, as the kill that ends it updates the game, the guide and the quest log
-at once. A decode yields at its slice points to its very end. Once the queue
+slices of `Path.budget` ms (3 ms at 60 fps and up; 0.3.1 grew it to 8 ms at
+100 fps, halving the frame rate while a search ran; below 60 fps the same share
+of each frame, at most `Path.slowScale` (2) times it and never past
+`Path.sliceMax` (6 ms), so a 30 fps client searches as fast a second) and wait
+out combat; for `Path.calmSeconds` (1) after a fight they take
+`Path.calmBudget` (1 ms) a frame, as the kill that ends it updates the game,
+the guide and the quest log at once. A new goal the arrow has no walk for
+(`Path.Rush`) takes `Path.rushBudget` (6 ms) a frame, before the calm, for
+`Path.rushSeconds` (2) from the first frame a search can run (after the fight
+for a goal set in one) or until its walk is in. An urgent sketch (the arrow's
+`FindCoarse`) is sliced before the urgent walk, so its shape is drawn a frame
+after the ask. A decode yields at its slice points to its very end. Once the queue
 is empty the router rests: `Rest` trims the decoded graph to
 `Path.graphRestKB` and keeps `Path.restTrees` (2) endpoint trees (up to four
 while a search runs): the newest start's goes to the spare pool (emptied first;

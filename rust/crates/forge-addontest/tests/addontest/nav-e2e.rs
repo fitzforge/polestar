@@ -1080,7 +1080,7 @@ fn g_row_6_c17_no_search_starts_in_combat_the_old_path_is_kept_and_one_runs_afte
 		stub.advance(5)
 		local s = aim()
 		r.fight = { finds = #finds, along = alongOf(f, s.x, s.y), state = s.state }
-		-- A new target in combat: wait without borrowing a bearing from the old walk.
+		-- A new target in combat: straight at it until its walk is found, never the old walk's bearing.
 		N.SetTarget(1429, 39.5, 80.0, "Lower mouth", "e")
 		stub.advance(2)
 		s = aim()
@@ -1100,7 +1100,7 @@ fn g_row_6_c17_no_search_starts_in_combat_the_old_path_is_kept_and_one_runs_afte
 	);
 	assert_eq!(out["fight"]["finds"], 1, "nothing asked in combat");
 	assert!(f(&out["fight"]["along"]) > 1.0, "the old path is kept");
-	assert_eq!(out["newTarget"], serde_json::json!({ "finds": 1, "state": "routing", "bearing": false }));
+	assert_eq!(out["newTarget"], serde_json::json!({ "finds": 1, "state": "routing", "bearing": true }));
 	assert_eq!(out["after"], 2, "one search once combat ends");
 	assert_eq!(out["follow"]["combat"], false);
 	assert!(f(&out["follow"]["from"]) < 0.01);
@@ -1367,7 +1367,8 @@ const WALK_COMPASS: &str = r#"
 			assert(settled.state ~= "travel" or settled.x ~= nil, "a straight bearing")
 			return settled.state .. "|" .. tostring(N.noWalk)
 		end
-		assert(not first.x and not first.y and published == 0, "unchecked HUD or waypoint bearing")
+		-- Until the walk is found: the straight bearing under the hourglass, as 0.4.1.1 pointed; no waypoint published.
+		assert(first.state == "routing" and published == 0, "unchecked waypoint bearing")
 		for _, leg in ipairs(N.GetRouteGeometry().legs) do
 			assert(not leg.current or #leg.pts == 0, "current walk drew an unchecked route")
 		end
@@ -1375,7 +1376,7 @@ const WALK_COMPASS: &str = r#"
 		C_Map.SetUserWaypoint(manual); C_SuperTrack.SetSuperTrackedUserWaypoint(true)
 		for _ = 1, 120 do stub.advance(.05); aim() end
 		local settled = aim()
-		assert(not settled.x and not settled.y and published == 1)
+		assert(settled.state == "routing" and published == 1)
 		assert(pin == manual and tracked, "an independent waypoint must keep guiding")
 		return settled.state
 	end"#;
@@ -1616,7 +1617,8 @@ fn ashenvale_40_70_from_the_crossroads_the_route_lands_where_the_engines_walk_is
 		end
 		N.SetTarget(1440, 40, 70, "Fitz's marker", "e")
 		local cold = aim()
-		local r = { cold = cold.state, unchecked = route() ~= nil or cold.x ~= nil or #N.GetRouteGeometry().legs > 0 }
+		-- (The arrow points straight at the marker meanwhile, under its hourglass: no route or line drawn.)
+		local r = { cold = cold.state, unchecked = route() ~= nil or #N.GetRouteGeometry().legs > 0 }
 		for _ = 1, 400 do
 			stub.advance(0.05); aim()
 			r.after = route()
@@ -1685,7 +1687,7 @@ fn ashenvale_west_of_astranaar_prices_safe_walks_before_suggesting_a_flight() {
 			N.SetTarget(1440, x, y, "Behind the ridge", "e")
 			local c, tx, ty, tz = N.GetTargetWorld()
 			local pending = aim()
-			assert(pending.state == "routing" and not pending.x and not N.GetRoute() and #N.GetRouteGeometry().legs == 0,
+			assert(pending.state == "routing" and not N.GetRoute() and #N.GetRouteGeometry().legs == 0,
 				"offered an itinerary before its onward walk was priced")
 			for _ = 1, 600 do
 				local legs, ci = N.GetRoute()
@@ -3426,7 +3428,7 @@ fn camp_taurajo_does_not_sell_a_flight_on_an_unchecked_walk_to_feegly_1728() {
 		emit({ waiting=waiting, flight=leg and leg.kind, node=leg and leg.to.id, ticket=leg and leg.taxiOffer~=nil, state=nextAim.state })"#,
 		true,
 	);
-	assert_eq!(out["waiting"], serde_json::json!({"state":"routing","bearing":false,"sold":false}));
+	assert_eq!(out["waiting"], serde_json::json!({"state":"routing","bearing":true,"sold":false}));
 	assert_eq!((out["state"].as_str(), out["flight"].as_str(), out["node"].as_i64(), out["ticket"].as_bool()), (Some("instruction"), Some("fly"), Some(30), Some(true)));
 }
 

@@ -850,6 +850,7 @@ end
 -- also hides the text under the dial, the wait leaves "Finding a walking
 -- route" in view.
 local catchUp = false
+local routingPointed = false -- in the "routing" mode, the arrow shown on its straight bearing
 local function syncGlass()
 	local on = catchUp or mode == "routing"
 	if on ~= glass:IsShown() then
@@ -875,11 +876,15 @@ local function setMode(m)
 	if m == "travel" then D.near = nil end -- repaint after a mode or theme change
 	turnVel = 0 -- a speed from before an arrival or an instruction does not carry into the next walk
 	local travel, done, act, idle = m == "travel", m == "arrived" or m == "arrived-underwater" or m == "search", m == "instruction", m == "idle"
-	-- Resume on the new walk's bearing, not a heading from before guidance stopped.
-	if not travel then hasAngle = false end
-	dial:SetShown(travel or done or act or idle)
-	grabArea(travel or done or act or idle)
+	-- Waiting for a walking route, the arrow points straight at what the walk will lead to under its hourglass.
+	local routing = m == "routing"
+	-- Resume on the new walk's bearing, not a heading from before guidance stopped; from the straight bearing the
+	-- arrow held while the walk was found, turn on to the walk's.
+	if not (travel or routing) then hasAngle = false end
+	dial:SetShown(travel or done or act or idle or routing)
+	grabArea(travel or done or act or idle or routing)
 	showArrow(travel)
+	routingPointed = false
 	dialArrival(D, done, look)
 	if act then halo:SetShown(look.glow) end
 	legIcon:SetShown(act)
@@ -1123,7 +1128,7 @@ local function sample(elapsed)
 		routeSeen = -2
 	end
 	syncLabel(T, routed)
-	if state == "far" or state == "arrived" or state == "search" or state == "nopos" or state == "unmapped" or state == "routing" then
+	if state == "far" or state == "arrived" or state == "search" or state == "nopos" or state == "unmapped" then
 		setMode(state)
 		return true
 	end
@@ -1134,7 +1139,13 @@ local function sample(elapsed)
 		return true
 	end
 
-	setMode("travel")
+	local routing = state == "routing"
+	setMode(routing and "routing" or "travel")
+	-- Waiting for the walk: the arrow shows once there is a bearing (what the walk leads to is on this map).
+	if routing and angle and not routingPointed then
+		routingPointed = true
+		showArrow(true)
+	end
 	if angle then
 		local f = facing()
 		local bearing = f and wrap(angle + f) or angle
@@ -1149,6 +1160,8 @@ local function sample(elapsed)
 		end
 		goalAngle = bearing
 	end
+	-- The caption stays "Finding a walking route" until the walk is in.
+	if routing then return true end
 
 	local yards = floor(dist + 0.5)
 	if yards ~= lastYards then
@@ -1200,7 +1213,7 @@ frame:SetScript("OnUpdate", ns.Safe(function(_, elapsed)
 		accum = 0
 		if not sample(step) then return end
 	end
-	if mode == "travel" and hasAngle then
+	if (mode == "travel" or mode == "routing") and hasAngle then
 		curBearing, turnVel = turnStep(curBearing, turnVel, goalAngle, elapsed, look.turnRate)
 		local f = byBearing and facing()
 		local shown = f and wrap(curBearing - f) or curBearing

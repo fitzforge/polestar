@@ -565,7 +565,8 @@ end
 --   state: "none" | "instance" | "taxi" | "unknown" | "far" | "travel" | "arrived"
 --          | "instruction" (a route leg to act on here: fly, ride, hearth)
 --          | "submerged" (no verified walk or swim bearing) | "arrived-underwater" (observed, not inferred)
---          | "routing" (waiting for walking data or a route)
+--          | "routing" (waiting for walking data or a route; distance and angle straight to what the walk will lead
+--            to, the arrow pointing that way under its hourglass until the walk is in, as 0.4.1.1 pointed at once)
 --          | "unmapped" (the known walk ended short; no verified walking bearing beyond it)
 --          | "search" (reached a spot of an area objective: look around here)
 --          | "nopos" (the client gives no player position here: the Deeprun
@@ -760,7 +761,12 @@ local function sample()
 	local T = Nav.travel
 	if T and T.Active and T.Active() then
 		local mode, ac, ax, ay, left = T.Aim(pc, px, py)
-		if mode == "routing" or mode == "unmapped" then return mode end
+		-- The leg's walk still to come: straight to the leg's end meanwhile.
+		if mode == "routing" then
+			if ac == pc then return "routing", toward(C, px, py, ax, ay) end
+			return "routing"
+		end
+		if mode == "unmapped" then return mode end
 		if mode == "instruction" then
 			if ac == pc then return "instruction", toward(C, px, py, ax, ay) end
 			return "instruction"
@@ -772,10 +778,11 @@ local function sample()
 		-- nil: the last leg, straight to the target
 	end
 	-- The planner holds a route while its landing's walk into the target is checked (Travel.Waiting): no walk
-	-- straight to the target meanwhile, which would take that check's frames (#3369).
+	-- straight to the target meanwhile, which would take that check's frames (#3369); the bearing straight to it.
 	if T and T.Waiting and T.Waiting() then
 		local W = Nav.walk
 		if W and W.Clear then W.Clear() end
+		if pc == tC then return "routing", toward(C, px, py, tX, tY) end
 		return "routing"
 	end
 
@@ -849,7 +856,11 @@ local function sample()
 	local checkedOnly = leg and (leg.corpseGround or (leg.parent and leg.parent.leg.corpseGround))
 	if W then
 		local wc, wx, wy, left, unmapped = W.Aim(pc, px, py, tC, tX, tY, (leg and leg.handmade) or W.FollowsGoto(target), nil, nil, checkedOnly)
-		if unmapped == "routing" then return "routing" end
+		-- The walk still to come: the straight bearing meanwhile, but for a checked detour (Walk.checkedOnly).
+		if unmapped == "routing" then
+			if checkedOnly then return "routing" end
+			return "routing", dist, angle, dn, dw
+		end
 		-- No walk found (Walk.GroundStatus' reason, or true: a partial or a checked detour without its walk): straight.
 		if unmapped then Nav.noWalk = "unmapped" end
 		if wc then

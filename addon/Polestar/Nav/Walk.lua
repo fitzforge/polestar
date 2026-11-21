@@ -1404,7 +1404,8 @@ local function ask(P, pc, px, py, flat, terminal)
 		-- the player walks on, every frame it waits is yards it lands behind them.
 		if type(handle) == "table" then handle.urgent = true end
 	end
-	-- No path yet: the walk's shape at once (Path.FindCoarse across clusters), drawn until the path is in.
+	-- No path yet: the walk's shape at once (Path.FindCoarse across clusters), drawn until the path is in. Urgent as
+	-- the walk is: Routing/PathJobs.lua slices the urgent sketch first, so the shape is drawn a frame after the ask.
 	if count == 0 and not shape and P.FindCoarse then
 		local okShape, h = pcall(P.FindCoarse, pc, { x = px, y = py, z = sz }, to, function(points)
 			if token ~= mine then return end
@@ -1415,7 +1416,10 @@ local function ask(P, pc, px, py, flat, terminal)
 			shape = { xs = xs, ys = ys, n = n }
 			changed()
 		end, o)
-		if okShape and token == mine then sketchJob = h end
+		if okShape and token == mine then
+			sketchJob = h
+			if type(h) == "table" then h.urgent = true end
+		end
 	end
 end
 

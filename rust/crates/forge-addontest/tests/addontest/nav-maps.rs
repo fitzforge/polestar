@@ -707,6 +707,69 @@ emit({ waited = waited, calm = calm, after = after, askedCalm = askedCalm, done 
 	assert_eq!(got["calmSeconds"], 1, "{got}");
 }
 
+// 0.4.2.1: the largest slice a walk takes a frame, at a frame rate, with a new goal's rush (Path.Rush) and/or a fight
+// just over; the clock moves 0.2 ms at each read.
+fn slice_budget(fps: u32, rush: bool, fight: bool) -> Value {
+	run(
+		&format!(
+			r#"local Path = Polestar_NavEngine
+GetFramerate = function() return {fps} end
+local frames = {{}}
+Path.after = function(fn) frames[#frames + 1] = fn end
+local now = 0
+Path.clock = function() now = now + 0.2 return now end
+local function frame() local fn = table.remove(frames, 1) if fn then fn() end end
+{fight}
+{rush}
+local job = Path.Find(0, {{ x = -651.7, y = 1270.2 }}, {{ x = 2246.1, y = 239.8, z = 34.3 }}, function() end, {{ profile = "Horde" }})
+local most = 0
+for _ = 1, 30 do local cpu = job.cpu frame() most = math.max(most, job.cpu - cpu) end
+local done = job.done == true
+Path.Cancel(job)
+emit({{ most = most, done = done, budget = Path.budget, rushBudget = Path.rushBudget, slowScale = Path.slowScale, sliceMax = Path.sliceMax }})"#,
+			fight = if fight { "stub.fire(\"PLAYER_REGEN_ENABLED\")" } else { "" },
+			rush = if rush { "Path.Rush(true)" } else { "" },
+		),
+		"",
+		vec![Addon::name("Polestar_Nav")],
+	)
+}
+
+// Fitz, 0.4.2.1 ("it takes forever for the arrow to find a path"): the client runs at 30 fps in the background, and a
+// frame's budget was the same 3 ms at any rate, so a walk took twice the time there. Below 60 fps a frame takes the
+// same share of its time (6 ms at 30 fps, at most Path.slowScale times the budget); at 60 fps and up, Path.budget.
+#[test]
+fn below_60_fps_a_frame_searches_the_same_share_of_its_time_so_a_walk_takes_as_long_at_30_fps() {
+	let at60 = slice_budget(60, false, false);
+	let at30 = slice_budget(30, false, false);
+	let at10 = slice_budget(10, false, false);
+	let at144 = slice_budget(144, false, false);
+	let ms = |v: &Value| v["most"].as_f64().unwrap();
+	assert_eq!(at60["done"], false, "the walk outlasts the frames measured: {at60}");
+	assert!(ms(&at60) >= 2.5 && ms(&at60) <= 3.5, "60 fps: Path.budget a frame: {at60}");
+	assert!(ms(&at144) >= 2.5 && ms(&at144) <= 3.5, "144 fps: Path.budget a frame, never less: {at144}");
+	assert!(ms(&at30) >= 5.5 && ms(&at30) <= 6.5, "30 fps: twice the budget, the same path work a second: {at30}");
+	assert!(ms(&at10) <= 6.5, "10 fps: at most Path.slowScale times the budget: {at10}");
+	assert_eq!(at30["slowScale"], 2, "{at30}");
+}
+
+// The kill that completes a step is the step change the player waits on: a new goal's rush (Path.Rush, Nav/Walk.lua
+// on any new target, spot or leg) comes before the calm after the fight (0.4.2: 1 ms a frame for that second).
+#[test]
+fn a_new_goals_rush_comes_before_the_calm_after_a_fight() {
+	let ms = |v: &Value| v["most"].as_f64().unwrap();
+	let calm = slice_budget(60, false, true);
+	let rush = slice_budget(60, true, false);
+	let both = slice_budget(60, true, true);
+	let both30 = slice_budget(30, true, true);
+	assert!(ms(&calm) <= 1.5, "a fight just over, no new goal: Path.calmBudget: {calm}");
+	assert!(ms(&rush) >= 5.5 && ms(&rush) <= 6.5, "a new goal: Path.rushBudget: {rush}");
+	assert!(ms(&both) >= 5.5 && ms(&both) <= 6.5, "a new goal just after a fight: still Path.rushBudget: {both}");
+	assert!(ms(&both30) >= 5.5 && ms(&both30) <= 6.5, "the same at 30 fps, never past Path.sliceMax: {both30}");
+	assert_eq!(rush["rushBudget"], 6, "{rush}");
+	assert_eq!(both30["sliceMax"], 6, "{both30}");
+}
+
 #[test]
 fn polestar_nav_ships_in_the_release_credits_shortest_path_forever_and_carries_the_gpl() {
 	assert!(forge_release::addons::release_addons(&addons_dir()).unwrap().names.iter().any(|n| n == "Polestar_Nav"));
