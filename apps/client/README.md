@@ -94,8 +94,10 @@ the upload API, and the public list of what is never collected.
   `AddOns/.polestar-client-backup-<time>` and the message names it; it is
   never wiped by a later install. A product only
   touches its own folders: Polestar's are `Polestar` and the `Polestar_*`
-  folders whose .toc says `## Author: Polestar` (an update also removes the
-  ones its new release no longer has); never another addon. Updates are
+  folders whose .toc says `## Author: Polestar`, plus Polestar 0.4.2's
+  walking-map folders `Polestar_Nav_R<map>_<row>_<col>` whose .toc title
+  starts with `Polestar Nav [` (they had no author line); an update also
+  removes the ones its new release no longer has; never another addon. Updates are
   looked for every 6 hours (off in Settings) and announced in the tray;
   they install by themselves only if you turn that on, and never while the
   game is running. The Stable channel offers releases, Beta pre-releases too.
