@@ -362,7 +362,7 @@ step Fly to the Tainted Foothills
 
 step Kaylaena's workshop
   tip North from Bluebell to the workshop, crate first. Watch for Ghansurok, the elite chimaera (level 61) that prowls around the workshop.
-  complete 92009 @60.4,62.0             -- deliver the crate before it fizzles
+  complete 92009 @60.1,61.7             -- deliver the crate before it fizzles
   turnin 92009                          -- Kaylaena Springwhisper
   turnin 92594
   accept 92011                          -- Rubble Rummage: in Dae'gun, later in this guide; keep it

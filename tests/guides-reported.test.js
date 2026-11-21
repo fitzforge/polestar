@@ -18523,11 +18523,13 @@ test('#3512: a talk to an NPC who is a line of a quest in the log reads that lin
 
 // #3436 (Stö, 0.4.2, Mount Hyjal): flying back from Everlook with Nami's crate, "Complete Crate Expectations" had no
 // place, so there was no arrow. Its one line, "Shipment delivered to Mount Hyjal before it expires", ticks at
-// Kaylaena's workshop (the data's event spot 60.41,62, from players' recordings).
+// Kaylaena's workshop (the data's event spot 60.41,62, from players' recordings): the goal leads to Kaylaena there.
 test('forever/50-60/mount-hyjal.guide: Crate Expectations leads to Kaylaena\'s workshop (#3436)', { skip }, () => {
 	const list = goals('forever/50-60/mount-hyjal.guide');
 	const { goal } = list[at(list, 'complete 92009', is('complete', 92009))];
-	assert.deepEqual([goal.map, goal.x, goal.y], [2482, 60.4, 62.0]);
+	assert.deepEqual([goal.map, goal.x, goal.y], [2482, 60.1, 61.7]);
+	const hand = list[at(list, 'turnin 92009', is('turnin', 92009))].goal;
+	assert.ok(hand.z, 'the hand-in keeps the height of Kaylaena\'s spot');
 });
 
 // #3457 (siu_sang, 0.4.1.1, zhTW, Horde Feralas & Tanaris step 3): the pirate ghosts' step asked a character without
