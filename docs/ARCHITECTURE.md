@@ -7962,32 +7962,22 @@ Polestar.QoL.XPMark.frame                                -- the mark, once made
   kills' and loot's mobs, from the Codex) are kept per guide and class, race
   and faction until a guide, pack or Codex change, for the last 8 of them: a
   step change moves every span's start, and a new span only sums those rows
-  (whether a quest is done is asked then). It also looks for the first open
-  quest before the target (not a turn-in or a talk) that will be 3 or more
-  levels above the character when the route gets there (`hard`; its level
-  from the guide's `qlvl`, else the Codex, else the client). The guide
+  (whether a quest is done is asked then). The guide
   window's XP row (`GF.PaceText(stats)`) always says one of: "On pace for
   level 14 by step 32" (on pace, ahead, or up to `GF.PACE_SLACK`, one
   level, short: Fitz, 0.3.6, players read a few bars short as being behind);
   "Behind by 1.2 levels: step 32 grinds to level 14 (~12m)" (a `level` goal
   ahead makes up the gap, said plainly); in the warning colour, "Behind by
   2.4 levels for level 24 by step 21: grind ~1h 10m before then" ("and no
-  grind step ahead" without a rate). The hard quest is named only on its own
-  step: calmly, "On pace, but Ashenvale Outrunners (24) at step 4 is hard:
-  you're 21.3; reach 22 first", or past the slack, in the warning colour,
-  "Behind: Missing In Action (25) at step 20, you're 21.0; grind ~1h 10m
-  first" ("reach 23 first" without an XP rate). Grinding time is the XP
-  short over the QoL tracker's XP an hour. Nothing without the Codex
-  (Lookup), at 60, or with no target (a guide that is not a leveling one
-  with no `level` goal ahead), or with the Pace line switch off
+  grind step ahead" without a rate). It never names a quest or a quest's
+  level, and no step says what level its quest is (Fitz, #3438: players read
+  "Level 38 quest: you're 35.7" as a warning on normal steps). Grinding time
+  is the XP short over the QoL tracker's XP an hour. Nothing without the
+  Codex (Lookup), at 60, or with no target (a guide that is not a leveling
+  one with no `level` goal ahead), or with the Pace line switch off
   (`guideWindow.pace`, Guide window > Parts > Below the goals; #2371,
   #2379: the row keeps the XP an hour). Re-read with the XP row, on that
   switch and on `STEP_CHANGED`.
-- **A quest well over your level, on its step** (`Levels.StepHint(i)`): a
-  step with work (not an accept, a hand-in or a talk: taking a quest early
-  is normal) on an open quest 3 or more levels above the character says so
-  under its header, "Level 25 quest: you're 19.7" (your level and share of
-  it, cut to one place), in a calm colour, never red.
 
 ### Boosted Rest status — QoL/Rest
 
@@ -9175,7 +9165,7 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   read API (GetGuide, GetTabs, GetStepIndex, GetLiveStep, GetStepCount,
   GetStepView, StepNumber, StepTotal, GetProgress, GetAlong,
   GetWhileHereList; a gate, notice or action it lacks is nothing to show or
-  do) and five lines worked out from it: StepHint and Pace
+  do) and four lines worked out from it: Pace
   (`Core/Levels.lua`), XPStats and RestParts (QoL), Target (Nav, else the
   Engine's waypoint). The live window reads the Engine and those modules
   straight (`GF.Engine()`, `GF.Derived()`), so its step change pays nothing

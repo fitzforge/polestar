@@ -168,7 +168,7 @@ emit(out)"#
 // The parts Fitz found missing from the hand-drawn preview the copy has by being the window: the "+" that opens a tab,
 // the search (Lookup), the "Then:" line naming the step's other person, the XP pace line. The sample answers the whole
 // content interface; the live window reads the Engine itself (no provider between them on its step change) and its
-// five lines from their modules.
+// four lines from their modules. No step says what level its quest is (#3438): StepHint is gone from the interface.
 #[test]
 fn the_preview_s_window_has_the_tab_plus_the_search_the_then_line_and_the_xp_line() {
 	let out = run(r#"
@@ -177,7 +177,7 @@ fn the_preview_s_window_has_the_tab_plus_the_search_the_then_line_and_the_xp_lin
 		for _, l in ipairs(copy.lines) do
 			if l:IsShown() and (l.Text:GetText() or ""):find("^Then:") then thenLine = true end
 		end
-		local DERIVED = { StepHint = true, Pace = true, XPStats = true, RestParts = true, Target = true }
+		local DERIVED = { Pace = true, XPStats = true, RestParts = true, Target = true }
 		local missing = {}
 		for _, name in ipairs(GF.CONTENT) do
 			local live = DERIVED[name] and GF.Derived() or GF.Engine()
