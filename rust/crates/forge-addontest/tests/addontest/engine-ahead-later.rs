@@ -89,7 +89,10 @@ fn talking_to_a_giver_whose_quest_the_next_guide_takes_auto_accept_takes_it_and_
 	"#);
 	// 7: the loaded guide's step 2, as before, without a word; 9: Westfall's step 2, with one line saying why. Not 61
 	// (timed: never taken for a later guide) nor 106 (Redridge starts at 15).
-	assert_eq!(out, json!({ "calls": "7 9", "live": 1, "guide": "test/elwynn", "said": ["|cff4fd1c5Polestar|r: Took “The Killing Fields” now for Westfall, later on your route: this saves a trip back."] }));
+	assert_eq!(
+		out,
+		json!({ "calls": "7 9", "live": 1, "guide": "test/elwynn", "said": ["|cff4fd1c5Polestar|r: Took “The Killing Fields” now for Westfall, later on your route: this saves a trip back."] })
+	);
 }
 
 #[test]
