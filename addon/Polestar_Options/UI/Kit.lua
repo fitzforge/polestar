@@ -678,8 +678,11 @@ do
 	-- H: the header's height, centred on the card's top edge; INSET: from the
 	-- card's sides to a gap's edge; PAD: a gap's room either side of what it
 	-- holds; GAP: between the right side's widgets; EDGE: a gap's height, the
-	-- border line's thickness (Theme.Border draws 1 or 2).
-	local LEGEND = { H = 30, INSET = 18, PAD = 10, GAP = 12, EDGE = 2 }
+	-- border line's thickness (Theme.Border draws 1 or 2); ROOM: the card's
+	-- ground left between its border and its rows, on the sides and under
+	-- them (half of it over them, under the title's half of the header), so
+	-- a skin's thick frame (Hearth's) never sits on a row.
+	local LEGEND = { H = 30, INSET = 18, PAD = 10, GAP = 12, EDGE = 2, ROOM = 12 }
 	local PILL = { W = 64, H = 26, KNOB = 20, IN = 3 }
 	W.LEGEND = LEGEND
 

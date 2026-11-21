@@ -2165,8 +2165,9 @@ local function layoutSections(view, groups, y, opts)
 				card.Legend = lg
 			end
 			lg:Show()
-			-- The rows start under the border's half of the header.
-			card.RowsTop = W.LEGEND.H / 2 + 6
+			-- The rows start under the border's half of the header, past the
+			-- card's own room inside its border (W.LEGEND.ROOM).
+			card.RowsTop = W.LEGEND.H / 2 + 6 + W.LEGEND.ROOM / 2
 			-- The title stands above the card's top edge: room for it.
 			y = y + W.LEGEND.H / 2
 		elseif lg then
@@ -2199,7 +2200,7 @@ local function layoutSections(view, groups, y, opts)
 				end
 			end
 			noteH = Note.place(card, Note.of(card, "OffNote"), string.format(L["%s is off. Turn it on to change its settings."], labelOf(t) or ""),
-				width, opts.gutter or 0)
+				width, (opts.gutter or 0) + (legend and W.LEGEND.ROOM or 0))
 		elseif rawget(card, "OffNote") then
 			card.OffNote:Hide()
 		end
@@ -2207,25 +2208,28 @@ local function layoutSections(view, groups, y, opts)
 		-- body as one muted line, not an empty strip under the header.
 		local lone = t ~= nil and not folded and #g.controls == 0 and type(t.help) == "string" and t.help ~= ""
 		if lone then
-			noteH = Note.place(card, Note.of(card, "HelpNote"), t.help, width, opts and opts.gutter or 0)
+			noteH = Note.place(card, Note.of(card, "HelpNote"), t.help, width, (opts and opts.gutter or 0) + (legend and W.LEGEND.ROOM or 0))
 		elseif rawget(card, "HelpNote") then
 			card.HelpNote:Hide()
 		end
 		card.More:SetShown(header and not view.psSearch and s ~= nil and s.jump ~= nil)
 		card.Move:SetShown(header and not view.psSearch and s ~= nil and s.move ~= nil and ns.Movers ~= nil and ns.Movers.Unlock ~= nil)
 		if card.Move:IsShown() then card.Move:Refresh() end
-		local gutter = opts and opts.gutter or 0
+		-- A Legend card keeps W.LEGEND.ROOM of its ground between its border
+		-- and the rows on the left and right, and under the last row.
+		local room = legend and W.LEGEND.ROOM or 0
+		local gutter = (opts and opts.gutter or 0) + room
 		local whole = opts and opts.whole
 		-- A caption over each half (s.columns), while the rows stand in halves.
 		local capH = 0
 		local cols = s and s.columns
-		if cols and not whole and not folded and width - gutter >= HALVES_MIN then
+		if cols and not whole and not folded and width - gutter - room >= HALVES_MIN then
 			capH = COLUMNS_H
 			local c = columnsOf(card)
-			local half = floor((width - gutter) / 2)
+			local half = floor((width - gutter - room) / 2)
 			c:ClearAllPoints()
 			c:SetPoint("TOPLEFT", card, "TOPLEFT", gutter, -card.RowsTop)
-			c:SetSize(width - gutter, COLUMNS_H)
+			c:SetSize(width - gutter - room, COLUMNS_H)
 			c.Left:SetText(cols[1] or "")
 			c.Right:SetText(cols[2] or "")
 			c.Right:ClearAllPoints()
@@ -2239,7 +2243,7 @@ local function layoutSections(view, groups, y, opts)
 			before = {}
 			for _, w in pairs(view.cache) do if w:IsShown() then before[w] = true end end
 		end
-		local rowsH = layoutRows(view, controls, y + card.RowsTop + capH + noteH, SH.pad + gutter, width - gutter, whole)
+		local rowsH = layoutRows(view, controls, y + card.RowsTop + capH + noteH, SH.pad + gutter, width - gutter - room, whole)
 		-- The rows of a folded card a jump or the search shows: dimmed.
 		if before then
 			view.psDimmed = rawget(view, "psDimmed") or {}
@@ -2251,7 +2255,7 @@ local function layoutSections(view, groups, y, opts)
 			end
 		end
 		card.psTop = y
-		y = y + card:Place(SH.pad, y, width, rowsH + capH + noteH) + SECTION_GAP
+		y = y + card:Place(SH.pad, y, width, rowsH + capH + noteH + room) + SECTION_GAP
 	end
 	for i = n + 1, #view.cards do view.cards[i]:Hide() end
 	markSections(view)
