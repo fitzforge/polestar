@@ -334,8 +334,8 @@ L["Click for the next spot."] = "Klicken für den nächsten Punkt."
 L["Shift-drag to move."] = "Halte Umschalt gedrückt und zieh, um es zu verschieben."
 L["No waypoint"] = "Kein Wegpunkt"
 -- L["Arrived underwater"] = ""
--- L["Underwater target — no verified walk"] = ""
--- L["Waypoint %d yd below — navigate manually"] = ""
+-- L["Under water nearby: swim down to it"] = ""
+-- L["%d yd below you: swim down"] = ""
 
 -- Nav/Layers.lua
 L["Spot %d of %d"] = "Punkt %d von %d"
@@ -3406,6 +3406,12 @@ L["1 character on %s · each as of their last logout"] = "1 Charakter auf %s · 
 L["%d characters on %s · each as of their last logout"] = "%d Charaktere auf %s · jeweils zum Stand ihrer letzten Abmeldung"
 L["Forget %s"] = "%s vergessen"
 L["Characters is turned off. Turn it on under Options > Discovery > Lookup."] = "Charaktere ist ausgeschaltet. Schalte es unter Optionen > Entdecken > Nachschlagen ein."
+-- L["Another character named %s was saved before Forever's client stopped giving addons the realm name. Polestar can't tell whether it is this one, so it stays listed as it was; forget it if it is."] = ""
+-- L["%d characters named %s were saved on different realms before Forever's client stopped giving addons the realm name. Polestar can't tell which one you are playing, so they stay listed as they were and this character has a new entry; forget the old one that was this character."] = ""
+-- L["Rares met on %d realms are kept apart: Forever's client no longer gives addons the realm name, so Polestar can't tell which of them this is. Rares lists what you meet from now on."] = ""
+-- L["1 character"] = ""
+-- L["1 character · each as of their last logout"] = ""
+-- L["%d characters · each as of their last logout"] = ""
 
 -- QoL/Keep.lua
 L["Don't sell: the guide needs it at step %d"] = "Nicht verkaufen: Der Guide braucht es bei Schritt %d"
