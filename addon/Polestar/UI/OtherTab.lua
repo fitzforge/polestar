@@ -81,10 +81,15 @@ local function build()
 	return F
 end
 
--- The sky colour (its own, not the accent the guide's own parts wear).
+-- The card's own sky blue, not the accent the guide's own parts wear (the
+-- house look's link blue): the same in every look, since a look's own blue is
+-- its ground ("sky" is the dark header band) or its gold (a game look's
+-- link). A look may give its own as the palette's `otherTab`.
+local SKY = { 0x8C / 255, 0xCB / 255, 1 }
 local function paint()
-	local r, g, b = Theme.Color("sky")
-	if not r then r, g, b = Theme.Accent() end
+	local pal = Theme.Palette and Theme.Palette()
+	local c = type(pal) == "table" and rawget(pal, "otherTab") or SKY
+	local r, g, b = c[1], c[2], c[3]
 	F.Wash:SetVertexColor(r, g, b, 0.12)
 	F.Stripe:SetVertexColor(r, g, b, 1)
 	F.Icon:SetVertexColor(r, g, b, 1)
@@ -171,6 +176,9 @@ end
 -- height with its margins (0 while hidden).
 function O.Layout(width, y)
 	if not (F and near and F:IsShown()) then return 0 end
+	-- Again on each layout: a look's repaint gives the strings back their
+	-- theme colours (the head's textMuted) and leaves the wash in the old look's.
+	paint()
 	local w = width - INSET * 2
 	local x = STRIPE + 10
 	F.Head:ClearAllPoints()

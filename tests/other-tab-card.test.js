@@ -80,3 +80,31 @@ Polestar.Set("guideWindow.otherTabNear", true) draw()
 emit({ before = before, off = off, on = shown() })`);
 	assert.deepEqual(out, { before: true, off: false, on: true });
 });
+
+// The card wears its own sky blue in every look: a look's "sky" is its dark
+// header ground (Classic's is brown, so the card read olive with a dark
+// title), and a game look's link is its gold. Its title stays blue and
+// readable on the window's ground.
+test('in every bundled look the card is sky blue and its title reads on the window', () => {
+	const out = run(`
+at(10); draw()
+local looks = { "polestar", "halo", "hearth", "forever", "blizzard", "classic" }
+local res = {}
+local function lum(r, g, b)
+	local function ch(c) return c <= 0.03928 and c / 12.92 or ((c + 0.055) / 1.055) ^ 2.4 end
+	return 0.2126 * ch(r) + 0.7152 * ch(g) + 0.0722 * ch(b)
+end
+for _, id in ipairs(looks) do
+	Polestar.Set("ui.skin", id); stub.advance(0.5); draw()
+	local f = OT.Frame()
+	local r, g, b = f.Head:GetTextColor()
+	local br, bg, bb = Polestar.Theme.Color("bg")
+	local a, z = lum(r, g, b), lum(br, bg, bb)
+	res[id] = { blue = b > r and b > g, contrast = (math.max(a, z) + 0.05) / (math.min(a, z) + 0.05), skin = Polestar.Theme.SkinKey() }
+end
+emit(res)`, ['Polestar', 'Polestar_Looks']);
+	for (const [id, r] of Object.entries(out)) {
+		assert.equal(r.blue, true, `${id}: the title is blue ${JSON.stringify(r)}`);
+		assert.ok(r.contrast >= 3, `${id}: the title reads on the window ${JSON.stringify(r)}`);
+	}
+});
