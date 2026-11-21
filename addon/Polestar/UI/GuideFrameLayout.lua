@@ -420,9 +420,9 @@ ns.UI.GuideFrame.Part(function(GF)
 		local content = 0
 		-- The step browser (UI/StepList.lua) in place of the card and what
 		-- follows it: the live window's alone.
-		local list = GF.live and UI.StepList and UI.StepList.Place(body, state == "steps")
+		local list = GF.live and UI.StepList and UI.StepList.Place(body, state == "steps" or state == "complete" or state == "skippedout")
 		if list then
-			for _, f in ipairs({ card, after, along, GF.here, upnext, UI.JourneyPanel and UI.JourneyPanel.frame }) do f:Hide() end
+			for _, f in ipairs({ card, after, along, GF.here, upnext, empty, UI.JourneyPanel and UI.JourneyPanel.frame }) do f:Hide() end
 			local outer = (showStrip and SH or 0) + NAV_H + PROG_H
 			local kept = UI.StepList.height or F:GetHeight()
 			local limit = max(outer + GF.MIN_BODY_H, roomAbove() or math.huge)

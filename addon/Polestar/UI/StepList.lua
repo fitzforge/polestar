@@ -122,6 +122,29 @@ function SL.Place(parent, steps)
 	return on and SL.frame or nil
 end
 
+-- What the player set aside in the open guide that is still undone: steps
+-- skipped, quests skipped and goals dismissed, each counted once. -> n
+function SL.Skips()
+	local E = ns.Engine
+	if not (E and E.GetStepCount and E.GetStepView and E.GetGuide and E.GetGuide()) then return 0 end
+	local n, seen = 0, {}
+	for i = 1, E.GetStepCount() do
+		local v = E.GetStepView(i)
+		if v and v.skipped == true then
+			n = n + 1
+		elseif v and v.goals then
+			for _, goal in ipairs(v.goals) do
+				if goal.status ~= "done" then
+					local q = goal.quest and E.IsQuestSkipped and E.IsQuestSkipped(goal.quest) and goal.quest
+					if q and not seen[q] then seen[q] = true; n = n + 1
+					elseif not q and goal.dismissed then n = n + 1 end
+				end
+			end
+		end
+	end
+	return n
+end
+
 -- The list read again and drawn: after an unskip from a card.
 function SL.Refresh()
 	SL.sig, SL.lsig = nil, nil
