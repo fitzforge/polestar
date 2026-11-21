@@ -14230,8 +14230,8 @@
 				"objective": 2,
 				"guide": "forever/50-60/mount-hyjal"
 			},
-			"tip": "Two of the wrecks Ketharas named lie at the east end of the fields: use the Bag of Enchanted Seeds beside each.",
-			"note": "#3170: the wreck step had only gotos, which tick on arrival, and the ballista was one `complete` for the whole quest, so a player who rode past without planting was sent to Ketharas with nothing done. Each wreck is now a `use 269944` line on its own objective (93747.1 Ballista, .2 Catapult, .3 Flying Machine, as the corrections set them), held until the seed is planted there, and both steps' tips name the Bag of Enchanted Seeds. Players' recordings to 2026-11-20: 19 players, each wreck ticked by a cast of the bag (spell 1287099) beside it. ESp3cter's fix (#3257).",
+			"tip": "The three wrecks Ketharas named lie at the east end of the fields: use the Bag of Enchanted Seeds beside each, the catapult and the flying machine first, then the ballista a little north of them.",
+			"note": "#3170: the wreck step had only gotos, which tick on arrival, and the ballista was one `complete` for the whole quest, so a player who rode past without planting was sent to Ketharas with nothing done. Each wreck is now a `use 269944` line on its own objective (93747.1 Ballista, .2 Catapult, .3 Flying Machine, as the corrections set them), held until the seed is planted there, and both steps' tips name the Bag of Enchanted Seeds. Players' recordings to 2026-11-20: 19 players, each wreck ticked by a cast of the bag (spell 1287099) beside it. ESp3cter's fix (#3257). #3400 (Stö, 0.4.2): the ballista stands with the other two wrecks at 66.3,79.2 (data/places.json 3400-hyjal-ruined-ballista-seed), not at the shrub field's north-eastern edge, so all three are planted in this step and the shrub field step has none.",
 			"source": [
 				{
 					"kind": "recording",
