@@ -462,7 +462,7 @@ fn the_pause_the_guide_key_binding_pauses_and_resumes() {
 	assert!(is_match(&xml, r#"(?s)<Binding name="POLESTAR_PAUSE" category="Polestar">\s*Polestar\.Bindings\.Pause\(\)\s*</Binding>"#), "{xml}");
 }
 
-// Options, Guide, Window: the Pause switch pauses and resumes, and repaints when Polestar resumes by itself (or by
+// Options, Guide, While you play: the Pause switch pauses and resumes, and repaints when Polestar resumes by itself (or by
 // any other way) while the page is open.
 #[test]
 fn the_options_pause_switch_pauses_and_repaints_when_polestar_resumes_another_way() {
@@ -472,7 +472,7 @@ fn the_options_pause_switch_pauses_and_repaints_when_polestar_resumes_another_wa
 		UI.ShowOptions("guide")
 		-- The settings window is its own addon, loaded on demand by the first ShowOptions.
 		local O = Polestar.UI.Options
-		local row = O.Controls("guide", "Window")["Pause"]
+		local row = O.Controls("guide", "While you play")["Pause"]
 		local before = row.checked
 		row:Click()
 		local clicked = { checked = row.checked, paused = Polestar.Paused() or false }
