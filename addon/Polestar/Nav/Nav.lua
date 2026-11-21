@@ -567,7 +567,6 @@ end
 --          | "submerged" (no verified walk or swim bearing) | "arrived-underwater" (observed, not inferred)
 --          | "routing" (waiting for walking data or a route)
 --          | "unmapped" (the known walk ended short; no verified walking bearing beyond it)
---          | "unsafe" (no recommended ground bearing for this faction and level)
 --          | "search" (reached a spot of an area objective: look around here)
 --          | "nopos" (the client gives no player position here: the Deeprun
 --            Tram, a map of its own without a world map)
@@ -730,20 +729,11 @@ end
 
 -- Check the actual displayed segment, including smoothing, baked guidance and a direct fallback.
 -- The sampler's taxi and ride-instruction states never enter this function.
--- Nav.noWalk (#3409, Fitz's ruling): the walking engine found no walk there ("unmapped" or "unsafe"), so the
--- bearing is the straight one, as before 0.4.2, and the arrow says why under its label (Arrow.lua). Across
--- dangerous ground it still points, saying "unsafe"; the line is drawn only where the danger policy lets it
--- (Nav.CanDrawGroundApproach). Set by each sample (Travel.Aim for a route's walk), nil when a walk guides.
+-- Nav.noWalk (#3409, Fitz's ruling): the walking engine found no walk there ("unmapped"), so the bearing is the
+-- straight one, as before 0.4.2, and the arrow says why under its label (Arrow.lua). Set by each sample
+-- (Travel.Aim for a route's walk), nil when a walk guides. Enemy ground refuses no bearing (0.4.2.1, as before 0.4.2).
 local function groundAim(C,pc,px,py,d,angle,dn,dw,measured)
-	local D,side=Nav.danger,C.GetPlayerFaction()
-	if D.Blocked(pc,px,py,px+dn,py+dw,side) then
-		if not Nav.noWalk then return "unsafe" end
-		-- Pointing straight for want of a walk, across ground the policy refuses: say so, and keep the bearing
-		-- checked (near enemy ground: no easing through unchecked headings).
-		Nav.noWalk = "unsafe"
-		return "travel",d,angle,dn,dw,measured,true
-	end
-	return "travel",d,angle,dn,dw,measured,D.NearEnemyGround(pc,px,py,side)
+	return "travel",d,angle,dn,dw,measured,Nav.danger.NearEnemyGround(pc,px,py,C.GetPlayerFaction())
 end
 
 local function sample()
@@ -770,7 +760,7 @@ local function sample()
 	local T = Nav.travel
 	if T and T.Active and T.Active() then
 		local mode, ac, ax, ay, left = T.Aim(pc, px, py)
-		if mode == "routing" or mode == "unmapped" or mode == "unsafe" then return mode end
+		if mode == "routing" or mode == "unmapped" then return mode end
 		if mode == "instruction" then
 			if ac == pc then return "instruction", toward(C, px, py, ax, ay) end
 			return "instruction"
@@ -861,7 +851,7 @@ local function sample()
 		local wc, wx, wy, left, unmapped = W.Aim(pc, px, py, tC, tX, tY, (leg and leg.handmade) or W.FollowsGoto(target), nil, nil, checkedOnly)
 		if unmapped == "routing" then return "routing" end
 		-- No walk found (Walk.GroundStatus' reason, or true: a partial or a checked detour without its walk): straight.
-		if unmapped then Nav.noWalk = unmapped == "unsafe" and "unsafe" or "unmapped" end
+		if unmapped then Nav.noWalk = "unmapped" end
 		if wc then
 			if exact and liveZ and dist <= 20 and bodyBlocked(pc,px,py,liveZ,wx,wy,2.75) then
 				if W.RefineTerminal then W.RefineTerminal(pc,px,py,tX,tY,tZ) end
@@ -908,9 +898,8 @@ end
 
 -- Map painters must not run the sampler: it advances route legs and can
 -- announce a visit. Remember a refusal only for the target and leg it was
--- about. A fallback line also needs its own policy check: the HUD may be
--- pointing along a detour, not at the straight line the map would draw.
-local noGround = { unsafe = true, unmapped = true, submerged = true, ["water-depth"] = true, ["arrived-underwater"] = true }
+-- about.
+local noGround = { unmapped = true, submerged = true, ["water-depth"] = true, ["arrived-underwater"] = true }
 local refusedTarget, refusedLeg
 local function groundLeg()
 	local T = Nav.travel
@@ -935,15 +924,13 @@ function Nav.CanDrawGroundApproach(c, x, y, gx, gy)
 		end
 	end
 	local whole = current and (current.parent and current.parent.leg or current)
-	if c ~= nil and whole and whole.kind == "walk" and (whole.corpseGround or whole.crossingPolicy) then
+	if c ~= nil and whole and whole.kind == "walk" and whole.corpseGround then
 		-- Once its checked path is in, only that path supplies geometry for this
 		-- detour: a straight trail from the player to its end is not the path that was checked.
 		local to = whole.to
 		if W and W.CheckedAt(to.c, to.wx, to.wy, to.z) then return false end
 	end
-	if c == nil then return true end
-	local C, D = ns.Compat, Nav.danger
-	return not D.Blocked(c, x, y, gx, gy, C.GetPlayerFaction())
+	return true
 end
 
 local function recordSample(sampled, state, ...)
