@@ -12101,6 +12101,19 @@ fileDataID from wago.tools into `data/sources/casc` (local, never shipped):
   (`Nav/Walk.lua` canSearch, `Path.Resident`), so a journey to the other continent keeps the planner's straight
   estimate for the walks there (their danger unweighed, `Nav/Danger.lua`) until the player arrives and that part loads
   with the first search there.
+  The 70532 maps are imported in regions (`tools/lib/nav/import-regions.js`; `addon/Polestar_Nav/CREDITS.md`,
+  "Reproducing the regional 70532 import"): the continent keeps its routing graph and a directory of pages, and
+  each eight-by-four-tile sector's coarse floors and fine local geometry are regions of their own. A region is one
+  string in its continent's part (`Region<map>_<row>_<col>.lua` in `Polestar_Nav_EK`/`_Kalimdor`, Zephras Isle's
+  in `Polestar_Nav/Nav`), loaded with the part and not decoded: `d.regions[id] = "<fields>:<pages>"`. The first
+  page a walk needs from a region unpacks all of it into the map's page tables and drops the string (`PathGrid.lua`
+  loadRegion/unpackRegion: the same page strings and block lists, byte for byte; never in combat; 0.2 ms a region
+  at the median, 3 ms the largest, in Lua 5.1). 0.4.2 shipped each region as an addon of its own (127
+  `Polestar_Nav_R*` folders, loaded on demand one by one); 0.4.2.1 put them back in the three folders (#3396). The
+  cost is every region's compressed string held from the part's load: Polestar_Nav and the part read 29,583 KiB
+  (Eastern Kingdoms) and 38,285 KiB (Kalimdor) in Lua 5.1 after loading, against 10,983 and 13,078 with the regions
+  in their own addons, and the part's one load takes about 0.1 s more. A walk over the whole continent holds what
+  0.4.2 held (about 30 and 39 MB): each region's string goes once its pages are out.
   Where our grid joins two places players walk between and his maps do not (`pack/joins.rs`, the pairs of
   `pack/joins.json`: caves and mines his maps cut off from their mouths, Felwood's road, the top of Brill's zeppelin
   tower, Darkcloud Pinnacle's rope bridges), our grid's way goes in: his surface where he has one near the way's

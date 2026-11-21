@@ -745,9 +745,9 @@ fn the_arrows_walk_find_answers_before_walk_measures_batch_findmany_gets_any_sli
 
 // One continent's walking maps at a time (Fitz, 2026-10-25: 137 MB in the AddOn Memory readout with both of Leffe's
 // continents): a journey to the other continent searches and measures only the walks on the player's own, so only its
-// part of Polestar_Nav loads (Polestar_Nav_EK in Brill, then the detail regions its walks touch there,
-// Polestar_Nav_R0_*); the walk at the far end keeps the planner's straight estimate. The other part (and its own
-// regions, Polestar_Nav_R1_*) loads once the player is there (Nav/Walk.lua canSearch, Path.Resident).
+// part of Polestar_Nav loads (Polestar_Nav_EK in Brill, its regions inside it, unpacked as its walks touch them); the
+// walk at the far end keeps the planner's straight estimate. The other part loads once the player is there
+// (Nav/Walk.lua canSearch, Path.Resident). No other addon loads: 0.4.2's region addons are gone (#3396).
 #[test]
 fn a_journey_to_the_other_continent_loads_only_the_players_continents_walking_maps_the_other_part_on_arrival() {
 	skip_unless_ready!();
@@ -788,17 +788,12 @@ fn a_journey_to_the_other_continent_loads_only_the_players_continents_walking_ma
 		false,
 	);
 	let loads = out["loads"].as_str().unwrap_or_default();
-	let mut brill = loads.split(',');
-	assert_eq!(brill.next(), Some("Polestar_Nav_EK"), "in Brill the Eastern Kingdoms' part loads first ({loads})");
-	assert!(brill.all(|p| p.starts_with("Polestar_Nav_R0_")), "then only Eastern Kingdoms regions ({loads})");
+	assert_eq!(loads, "Polestar_Nav_EK", "in Brill only the Eastern Kingdoms' part loads");
 	assert_eq!(out["resident1"], false);
 	assert_eq!((f(&out["finds1"]), f(&out["asked1"])), (0.0, 0.0), "nothing is searched or measured on Kalimdor from Brill");
 	assert!(f(&out["asked0"]) > 0.0, "the walks on the Eastern Kingdoms are");
 	assert!(f(&out["far"]) >= 1.0 && out["finite"] == true, "the walk on Kalimdor stays in the journey, timed by its estimate");
-	let arrived = out["arrived"]["loads"].as_str().unwrap_or_default();
-	let mut later = arrived.strip_prefix(loads).and_then(|s| s.strip_prefix(',')).unwrap_or_default().split(',');
-	assert_eq!(later.next(), Some("Polestar_Nav_Kalimdor"), "Kalimdor's part loads on arrival ({arrived})");
-	assert!(later.all(|p| p.starts_with("Polestar_Nav_R1_")), "then only Kalimdor regions ({arrived})");
+	assert_eq!(out["arrived"]["loads"], "Polestar_Nav_EK,Polestar_Nav_Kalimdor", "Kalimdor's part loads on arrival");
 	assert_eq!(out["arrived"]["resident1"], true);
 }
 
