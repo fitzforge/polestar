@@ -286,6 +286,9 @@ fn the_displayed_arrow_turns_away_from_the_wall_at_the_ironforge_trainer_ramp() 
 	assert!(f(&out["shownWest"]) < -0.5, "the visible arrow must not carry the player straight into the side wall: {out}");
 }
 
+// The arrow aims past the aisle's first turn (13 yd on: 0.4.2 held it there, #3509) but never through the solid
+// corner (0.4.1.1 aimed straight at the far end): the farthest point along the walk the player can walk to straight.
+// With the client's height and with Forever's 0, flagged indoors or not.
 #[test]
 fn guidance_takes_the_open_aisle_at_the_ironforge_roost_with_or_without_an_indoor_flag() {
 	skip_unless_ready!();
@@ -293,30 +296,34 @@ fn guidance_takes_the_open_aisle_at_the_ironforge_roost_with_or_without_an_indoo
 		r#"
 		w.faction = "Alliance"; w.setLevel(23)
 		local a, b = {-4856.25,-1131.25,502.20826}, {-4831.25,-1156.25,502.20923}
-		local function departure(p, q)
+		local function departure(p, q, height)
 			N.ClearTarget()
-			place(1455, unpack(p))
+			place(1455, p[1], p[2], height and p[3] or 0)
 			local mx, my = C.WorldToMap(0, q[1], q[2], 1455)
 			assert(N.SetTarget(1455, mx, my, "Roost", nil, "npc", q[3]))
 			for _ = 1, 500 do aim(); stub.advance(.05) end
 			local h = aim()
 			assert(h.state == "travel" and h.measured and dist(p[1], p[2], h.x, h.y) > 2)
-			return math.deg(math.atan2(h.y-p[2], h.x-p[1]))
+			return { heading = math.deg(math.atan2(h.y-p[2], h.x-p[1])), ahead = dist(p[1], p[2], h.x, h.y) }
 		end
-		local function both(indoors)
+		local function both(indoors, height)
 			w.indoors = indoors
-			return {outward = departure(a,b), inward = departure(b,a)}
+			return {outward = departure(a, b, height), inward = departure(b, a, height)}
 		end
-		emit({indoors = both(true), outdoors = both(false)})"#,
+		emit({indoors = both(true, true), outdoors = both(false, true), indoorsZ0 = both(true, false), outdoorsZ0 = both(false, false)})"#,
 		true,
 	);
 	// A body swept two yards from these two spots meets solid geometry in these
 	// sectors. Leave a margin at the measured edges; do not pin a particular path.
-	for mode in ["indoors", "outdoors"] {
-		let outward = f(&out[mode]["outward"]);
-		let inward = f(&out[mode]["inward"]);
+	for mode in ["indoors", "outdoors", "indoorsZ0", "outdoorsZ0"] {
+		let outward = f(&out[mode]["outward"]["heading"]);
+		let inward = f(&out[mode]["inward"]["heading"]);
 		assert!(!(-52.0..=113.0).contains(&outward), "{mode}: outward heading {outward} cuts the solid corner");
 		assert!(!(4.0..=144.0).contains(&inward), "{mode}: return heading {inward} cuts the solid corner");
+		for way in ["outward", "inward"] {
+			let ahead = f(&out[mode][way]["ahead"]);
+			assert!(ahead > 15.0, "{mode}: the {way} aim lies past the aisle's first turn 13 yd on, not on it ({ahead:.1} yd)");
+		}
 	}
 }
 

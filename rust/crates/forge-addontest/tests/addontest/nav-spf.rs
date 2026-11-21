@@ -320,33 +320,45 @@ fn the_arrow_follows_the_path_s_points_with_the_yards_left_along_it() {
 
 // 0.4.2 held the arrow on the current piece of every searched (checked) walk: it pointed at the walk's next point and
 // swung round at each one (#3509, Fitz on 0.4.2.1: "we don't actually point at the first waypoint, but one further
-// away; this stops the 90-degree angles"). With no height from the client (Forever's 0), outdoors and indoors, with
-// no floor read or with one and every line check failing (a town's fences and posts): the corridor's aim runs on past
-// the first corner of a two-corner walk, as in 0.4.1.1.
+// away; this stops the 90-degree angles"). With no height from the client (Forever's 0), outdoors and indoors, the
+// corridor's aim runs on past the first corner of a two-corner walk, as in 0.4.1.1: with no floor read freely, with
+// one up to the farthest point the walking map's line reaches (a wall past 0, -20 here: never pointing into it).
 #[test]
-fn a_checked_walk_s_arrow_aims_past_its_first_corner_with_no_height_outdoors_and_indoors() {
+fn a_checked_walk_s_arrow_aims_past_its_first_corner_with_no_height_kept_in_reach_of_walls() {
 	let out = run(r#"
-		local function walk(indoors, surfaces, sight)
+		-- Each case on its own stretch of ground, ox yards along x (a floor is read only where the player has moved).
+		local function walk(ox, indoors, surfaces, sight)
 			nav.indoors, fake.surfaces, fake.sight = indoors, surfaces, sight
 			N.ClearTarget()
-			nav.place(0, 0)
-			target(12, -120)
+			nav.place(ox, 0)
+			target(ox + 12, -120)
 			N.Sample()
 			local job = fake.last()
 			job.walkChecked = true
 			-- Two corners 12 yd apart, each turning 45 degrees.
-			fake.resolve(0, 0, 0, -12, 12, -24, 12, -120)
-			nav.place(0, -2)
+			fake.resolve(ox, 0, ox, -12, ox + 12, -24, ox + 12, -120)
+			nav.place(ox, -2)
 			stub.advance(0.3)
-			return aim()
+			local s = aim()
+			if s[3] then s[3] = s[3] - ox end
+			return s
 		end
-		local floor0, blocked = function() return { 0 } end, function() return false end
-		emit({ outdoors = walk(false), indoors = walk(true),
-			outdoorsBlocked = walk(false, floor0, blocked), indoorsBlocked = walk(true, floor0, blocked) })"#);
-	for mode in ["outdoors", "indoors", "outdoorsBlocked", "indoorsBlocked"] {
+		local floor0 = function() return { 0 } end
+		local wall = function(x1, y1, z1, x2, y2) return y2 >= -20 end
+		local r = {}
+		r.outdoors, r.indoors = walk(-300, false), walk(-100, true)
+		r.outdoorsWall, r.indoorsWall = walk(100, false, floor0, wall), walk(300, true, floor0, wall)
+		emit(r)"#);
+	for mode in ["outdoors", "indoors"] {
 		let s = &out[mode];
 		assert_eq!(s[0], "travel", "{mode}: {s}");
-		assert!(num(&s[3]) < -14.0 && num(&s[2]) > 2.0, "{mode}: the aim lies past the first corner at 0, -12, not on it (aim {}, {})", s[2], s[3]);
+		assert!(num(&s[3]) < -24.0 && num(&s[2]) > 10.0, "{mode}: the aim lies past both corners, not on the first at 0, -12 (aim {}, {})", s[2], s[3]);
+	}
+	for mode in ["outdoorsWall", "indoorsWall"] {
+		let s = &out[mode];
+		assert_eq!(s[0], "travel", "{mode}: {s}");
+		let (x, y) = (num(&s[2]), num(&s[3]));
+		assert!(x > 2.0 && y < -14.0 && y >= -21.0, "{mode}: the aim lies past the first corner, short of the wall (aim {x}, {y})");
 	}
 }
 

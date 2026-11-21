@@ -163,10 +163,13 @@
 --     point within `upto` + WINDOW yards along and `within` yards of them,
 --     never past `stop`; with `z` (their floor, when known) only a place
 --     within CATCH_DZ yards of it. False (left as Reset left it) when none.
---   Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill) -> ax, ay | nil
+--   Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill, reach) -> ax, ay | nil
 --     the point to aim at; nil once the player is within REACH of the last
 --     point (from there: straight at the goal). Indoors (no `hill`) with S.dbl
---     from Follow.Mark, 45° except at its marked points. Sets, in S (the caller's table,
+--     from Follow.Mark, 45° except at its marked points. With `reach` (a line
+--     check reach(x1, y1, x2, y2, z1), z1 the path's height at the player's
+--     place on it), the corridor's aim past the next point is one the player
+--     can walk to in a straight line. Sets, in S (the caller's table,
 --     reused, so it is allocation-free):
 --       S.idx     the end point of the segment the player projects onto
 --       S.along   yards along the path from its start to the projection
@@ -206,6 +209,7 @@ local OPEN = 100       -- yards beside the path the player may run with the arro
 local SIGHT_AHEAD = 150 -- yards along the path past the projection the sight aim may lie
 local SIGHT_GAP = 8    -- yards along the path between the closest sight candidates
 local SIGHT_MOVE = 2   -- yards the player moves before the sight aim is looked for again
+local REACH_MOVE = 1   -- yards the player or the corridor's aim moves before its reach is looked for again
 local SIGHT_HOLD = 12  -- yards the player may move with the point last seen in sight held while it is not seen again
 local SIGHT_NEAR = BODY - 5 -- yards beside the path: a point held in sight stays the sight aim until the player comes this near
 local LOOK_AHEAD = 40  -- yards along the path the aim may lie ahead on it, at a point the player can walk to straight (open ground)
@@ -222,6 +226,7 @@ function Follow.Reset(S)
 	S.marked = false -- S.dbl is the last path's until Follow.Mark
 	S.reached = 0 -- the furthest floor change come within REACH of, outdoors (blocked)
 	S.aimSeg = nil -- the corridor's last aim's segment (Step)
+	S.reachPX, S.reachHeld = nil, nil -- reachBack's last look; the aim in reach held (Step)
 end
 
 -- Marks, into S.dbl (reused; true or false per point), the points where the
@@ -466,7 +471,32 @@ local function inSight(xs, ys, zs, left, idx, along, limit, zRef, px, py, sight,
 	return false
 end
 
-function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill)
+-- The corridor's aim (qx, qy, `hi` yards along past the projection, `along` yards in, on segment a or later) when
+-- the player at (px, py, the path's height z there) can walk to it in a straight line (reach); else the farthest
+-- point along the path between the next point (`lo` yards on) and it that they can (BISECT halvings), at worst the
+-- next point itself. Its yards past the projection, or nil for the aim as it is. Looked for again only once the
+-- player or the aim has moved REACH_MOVE yards (2 yd, the sight aim's SIGHT_MOVE, left the arrow 10° behind the
+-- turn at the Ironforge roost's corners, against 3° at 1 yd).
+local function reachBack(S, reach, xs, ys, left, a, n, px, py, z, along, lo, hi, qx, qy)
+	local m2 = REACH_MOVE * REACH_MOVE
+	if S.reachPX and (px - S.reachPX) ^ 2 + (py - S.reachPY) ^ 2 < m2 and (qx - S.reachQX) ^ 2 + (qy - S.reachQY) ^ 2 < m2 then
+		return S.reachAt
+	end
+	S.reachPX, S.reachPY, S.reachQX, S.reachQY = px, py, qx, qy
+	local at
+	if not reach(px, py, qx, qy, z) then
+		at = lo
+		for _ = 1, BISECT do
+			local mid = (lo + hi) * 0.5
+			local x, y = pointAlong(xs, ys, left, a, n, along + mid)
+			if reach(px, py, x, y, z) then at, lo = mid, mid else hi = mid end
+		end
+	end
+	S.reachAt = at
+	return at
+end
+
+function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill, reach)
 	S.sighted, S.aimAlong = false, nil
 	marks = not hill and S.marked and S.dbl or nil
 	grade = (hill or marks) and FLOOR_GRADE or 0
@@ -691,6 +721,35 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill)
 			done = done + L
 		end
 		sx, sy = ex, ey
+	end
+	-- In reach (`reach`): the corridor's aim past the next point never lies
+	-- behind a wall from the player. 0.4.1.1 aimed through the solid corner at
+	-- the Ironforge roost; 0.4.2 held every walk's aim on the current piece
+	-- instead. Here it comes back toward the next point only as far as the walls
+	-- need, so open corners stay smooth. It never runs back along the path: a
+	-- point once aimed at stays while the corridor's aim lies past it (the
+	-- grid's line opens and closes at posts and fences from one look to the
+	-- next, and a look that found a nearer point swung the arrow back).
+	if reach and qSeg and qSeg > a then
+		local nx, ny = xs[idx] - p0x, ys[idx] - p0y
+		local za, zb = zs[a], zs[a + 1]
+		local z = za and zb and za + (zb - za) * bestT or za or zb or nil
+		local at = reachBack(S, reach, xs, ys, left, a, n, px, py, z, S.along, sqrt(nx * nx + ny * ny), qAlong, qx, qy)
+		local far, held = S.along + qAlong, S.reachHeld
+		if at then
+			local want = S.along + at
+			if held and held > want and held <= far then want = held end
+			S.reachHeld = want
+			qx, qy = pointAlong(xs, ys, left, a, n, want)
+			qAlong, open, joined = want - S.along, false, false
+			for j = a, n - 1 do
+				if left[1] - left[j + 1] >= want then qSeg = j break end
+			end
+		else
+			S.reachHeld = far
+		end
+	else
+		S.reachHeld = nil
 	end
 	-- The point in sight beside the path; within BODY of it, only when it lies
 	-- further along than the corridor's aim.

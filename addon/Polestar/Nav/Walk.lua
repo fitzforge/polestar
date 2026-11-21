@@ -1196,6 +1196,19 @@ local function sight(x1, y1, x2, y2, z2, z1)
 	return ok and clear == true and not Nav.danger.Blocked(sightC,x1,y1,x2,y2,profile)
 end
 
+-- The follower's reach check (Nav/Follow.lua `reach`): sight's line over indoor and city ground too (Path.Sight's
+-- walls: only walls, cliffs, floor changes, water and hostile towns block), from the floor Walk.Aim set, else from
+-- z1 (the path's height at the player's place on it). A line the grid cannot tell (a cluster not decoded, an error)
+-- is no wall: the aim stays as it was before 0.4.2.
+function city.Walls(x1, y1, x2, y2, z1)
+	local P = Nav.Path
+	local C = ns.Compat
+	local profile = C and C.GetPlayerFaction and C.GetPlayerFaction() or nil
+	local ok, clear = pcall(P.Sight, sightC, x1, y1, sightZ or z1, x2, y2, nil, profile, true)
+	if ok and clear == false then return false end
+	return not Nav.danger.Blocked(sightC,x1,y1,x2,y2,profile)
+end
+
 -- While the floor is unknown indoors: the candidate floors (a new list) the player stands on one of, checked within
 -- FRESH seconds and read within NEAR yards; nil otherwise. A search from the player starts only on surfaces near them
 -- (Path.Find's from.floors): in the Undercity its canals and streets, never the roofs or the Ruins over them.
@@ -1657,12 +1670,14 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop, checke
 	-- between two corners is no floor change (Follow.lua `hill`); indoors
 	-- neither, except where the path doubles back over itself (Follow.Mark,
 	-- run on each path as it comes in: a spiral stair, the Undercity's rings).
+	-- Indoors or out, the corridor's aim past the next point is one the player
+	-- can walk to straight (Follow.lua `reach`).
 	local outdoors = not (IsIndoors and IsIndoors())
 	local join = outdoors and JOIN or nil
-	local look
-	if outdoors and P.Sight then
-		sightZ = startZ(pc, px, py)
-		if sightZ ~= nil then sightC, look = pc, sight end
+	local look, reach
+	if P.Sight then
+		sightC, sightZ, reach = pc, startZ(pc, px, py), city.Walls
+		if outdoors and sightZ ~= nil then look = sight end
 	end
 	-- A path just in was searched from where the player stood when it was asked, seconds ago: walking on, they
 	-- may be far along it, past corners the follower would hold behind them (Follow.Catch; 0.3.7, down a slope
@@ -1672,7 +1687,7 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop, checke
 		Nav.follow.Catch(ptsX, ptsY, ptsZ, left, count, fstate, px, py, sqrt(mx * mx + my * my), STRAY, stop, (startZ(pc, px, py)))
 		landX, landY = nil, nil
 	end
-	local ax, ay = Nav.follow.Step(ptsX, ptsY, ptsZ, left, count, fstate, px, py, stop, join, look, outdoors)
+	local ax, ay = Nav.follow.Step(ptsX, ptsY, ptsZ, left, count, fstate, px, py, stop, join, look, outdoors, reach)
 	idx = fstate.idx
 	aimC, aimX, aimY = ax and pc, ax, ay
 	if not ax then
