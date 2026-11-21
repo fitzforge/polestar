@@ -111,6 +111,7 @@ local ROLES = {
 	display = { "semibold", 18 },  -- the guide's step title, empty-state titles
 	title = { "semibold", 15 },    -- window and guide titles
 	heading = { "semibold", 13 },  -- section headers
+	cardTitle = { "semibold", 14 }, -- a settings card's title: the heading, 1px larger (every skin's, see Theme.FontSpec)
 	body = { "medium", 13 },       -- goal lines, row labels
 	label = { "medium", 12 },      -- controls
 	note = { "regular", 12 },      -- tips and descriptions

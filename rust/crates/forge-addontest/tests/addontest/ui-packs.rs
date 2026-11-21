@@ -295,8 +295,9 @@ fn a_refused_pack_s_id_and_addon_kept_as_given_print_literally_in_the_row_title_
 
 #[test]
 fn the_source_wraps_on_its_own_line_under_the_website_box_at_the_row_s_full_width() {
+	// Long enough to wrap at the 16:9 settings window's row width.
 	let long =
-		"Written from my own play on a fresh character, every quest done in the order the route takes them, with the shortest walks between the givers and every flight path picked up on the way";
+		"Written from my own play on a fresh character, every quest done in the order the route takes them, with the shortest walks between the givers, every flight path picked up on the way and every inn along the road set as home before a long run";
 	let out = run_with(
 		r#"
 		openPage()

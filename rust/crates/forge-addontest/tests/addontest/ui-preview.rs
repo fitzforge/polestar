@@ -115,6 +115,11 @@ fn the_guide_window_band_crops_a_window_taller_than_its_room_and_fades_it_out_at
 #[test]
 fn every_band_is_as_tall_as_its_element_and_its_parts_and_never_over_55_percent() {
 	let out = run(r#"
+		-- The window draws at 0.8 (W.SETTINGS_SCALE_BASE): 1183 tall is 946 pixels on screen, room for every band but
+		-- Theme's at its real size.
+		Polestar.Set("ui.optionsSize", { 1680, 1183 })
+		stub.advance(0.2)
+		O.Relayout()
 		local out, win = {}, PolestarOptions
 		local room = win:GetHeight() - 112 - 40 - 56
 		for _, at in ipairs(lookTabs()) do
@@ -200,9 +205,10 @@ fn a_band_holds_its_element_alone_at_its_real_size_centred_its_strings_12_px_or_
 	}
 }
 
-// Theme at the default window (1300 x 946): its three are too wide for the band at their real size, so all three
-// are drawn alike at 80-86% on the stage's one line, the cards on whole pixels, and the hint line stays the
-// preview's own (the stage says no "Shown at N% to fit"); in a window wide enough, at their real size.
+// Theme at the default window (1680 x 946, drawn at 0.8): its three are too big for the band at their real size, so
+// all three are drawn alike at 80-86% on the stage's one line, the cards on whole pixels, and the hint line stays the
+// preview's own (the stage says no "Shown at N% to fit"); in a window big enough (1183 tall: 946 pixels on screen),
+// at their real size.
 #[test]
 fn theme_s_three_fit_the_default_window_at_80_to_86_percent_without_a_fit_note_and_a_wide_one_draws_them_whole() {
 	let out = run(r#"
@@ -212,7 +218,7 @@ fn theme_s_three_fit_the_default_window_at_80_to_86_percent_without_a_fit_note_a
 		end
 		local f = shown("theme", "Essentials")
 		local default = { fit = f.psFit, hint = f.Hint:IsShown() and f.Hint:GetText() or false, whole = whole(f.Heads) and whole(f.Toast) }
-		Polestar.Set("ui.optionsSize", { 1800, 946 })
+		Polestar.Set("ui.optionsSize", { 1800, 1183 })
 		stub.advance(0.2)
 		O.Relayout()
 		f = shown("theme", "Essentials")
