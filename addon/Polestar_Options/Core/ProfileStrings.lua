@@ -22,7 +22,7 @@ local concat, sort, floor, huge, abs = table.concat, table.sort, math.floor, mat
 local Q = P.Parts
 local LIMITS, PREFIX, FORMAT, NOT_SHARED = P.LIMITS, Q.PREFIX, Q.FORMAT, Q.NOT_SHARED
 local store, data, deepCopy, missing, cleanName = Q.store, Q.data, Q.deepCopy, Q.missing, P.CleanName
-local migrations, migrationOrder = Q.migrations, Q.migrationOrder
+local migrations, migrationOrder, savedOnly = Q.migrations, Q.migrationOrder, Q.savedOnly
 
 local function finite(v) return type(v) == "number" and v == v and v ~= huge and v ~= -huge end
 
@@ -637,7 +637,7 @@ function P.Import(text)
 		end
 	end
 	for _, id in ipairs(migrationOrder) do
-		if not applied[id] then ns.SafeCall(migrations[id], nested) end
+		if not applied[id] and not savedOnly[id] then ns.SafeCall(migrations[id], nested) end
 	end
 	local ix = index()
 	local preview = { settings = {}, keys = {}, labels = {}, category = {}, held = {}, holds = {}, order = {}, dropped = dropped }
