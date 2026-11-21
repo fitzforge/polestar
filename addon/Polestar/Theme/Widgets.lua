@@ -68,9 +68,17 @@ function W.Color(region, name, alpha)
 	if region.psMutedFrom and name ~= "textMuted" then
 		region.psMutedFrom, name = name, "textMuted"
 	end
-	file(region, name)
+	-- Subject colours supplied by a caller (e.g. an item's quality) are
+	-- already resolved. Only palette names participate in palette repaints.
+	local r, g, b, a
+	if type(name) == "table" then
+		file(region, nil)
+		r, g, b, a = unpack(name)
+	else
+		file(region, name)
+		r, g, b, a = Theme.Color(name)
+	end
 	region.psAlpha = alpha
-	local r, g, b, a = Theme.Color(name)
 	a = region.psVeiled and 0 or (a or 1) * (alpha or 1)
 	if region:GetObjectType() == "Texture" then
 		region:SetVertexColor(r, g, b, a)
@@ -1278,6 +1286,7 @@ local function settingRow(parent, label, desc)
 	row.psTipAnchor = "ANCHOR_TOPLEFT"
 	return row
 end
+W.SettingRow = settingRow
 
 -- Bound the label on the left of a row's control. span(row, width) -> the
 -- width the control takes from the row's right edge, its 12px inset and the
@@ -2646,10 +2655,19 @@ end
 local DROPDOWN_ARROW = "Interface\\ChatFrame\\UI-ChatIcon-ScrollDown-Up"
 
 local function dropdownRefresh(self)
-	self.Button.Label:SetText(choiceText(choicesOf(self), valueOf(self)))
+	if self.psDisplay then
+		local text, color = self.psDisplay()
+		self.Button.Label:SetText(text)
+		W.Color(self.Button.Label, color or "text")
+	else
+		self.Button.Label:SetText(choiceText(choicesOf(self), valueOf(self)))
+	end
 	self:SetHeight(keptHeight(self))
 	local b = self.Button
 	b:SetSize(self.psBoxW or Theme.Metric("dropdownW", DROPDOWN_W), Theme.Metric("dropdownH", 28))
+	if self.psDisplay then
+		b.psTip = (self.psDesc or b.Label:IsTruncated()) and b.Label:GetText() or nil
+	end
 	local bliz = Theme.GameSkin()
 	local size = bliz and 22 or Theme.Metric("chevron", 12)
 	b.Arrow:SetTexture(bliz and DROPDOWN_ARROW or Theme.Media("chevron-down"))
@@ -2688,6 +2706,7 @@ end
 
 local function openChoices(self)
 	local row = self.psRow
+	if row.psOpenMenu then return row.psOpenMenu(self) end
 	if W.MenuShown(self) then return W.HideMenu() end
 	local items = {}
 	local cur = valueOf(row)
@@ -2722,8 +2741,10 @@ end
 local function dropdownSpan(row, width)
 	local b = row.Button
 	local shown = b.Label:GetText()
-	local need = 0
-	for _, c in ipairs(choicesOf(row)) do need = max(need, textWidth(b.Label, c.text)) end
+	local need = row.psDisplay and textWidth(b.Label) or 0
+	if row.psChoices then
+		for _, c in ipairs(choicesOf(row)) do need = max(need, textWidth(b.Label, c.text)) end
+	end
 	b.Label:SetText(shown or "")
 	local desired = max(DROPDOWN_W, math.ceil(need) + 36)
 	local room = width - 12 - 10 - 12 - math.ceil(widestWord(row))
@@ -2736,6 +2757,9 @@ end
 function W.Dropdown(parent, label, path, choices, desc, depends, opts)
 	local row = settingRow(parent, label, desc)
 	row.psChoices = choices
+	-- Custom pickers (searchable or multi-select): openMenu(button) owns
+	-- the popup, display() returns the current label and optional colour.
+	row.psOpenMenu, row.psDisplay = opts and opts.openMenu, opts and opts.display
 	row.psGet, row.psSet = opts and opts.get, opts and opts.set
 	-- opts.faces: a font list, each choice ({ value, text, font = path })
 	-- drawn in its own face, in the box and in the list. opts.reset: state
@@ -2762,6 +2786,11 @@ function W.Dropdown(parent, label, path, choices, desc, depends, opts)
 	Theme.Skin(b, "dropdown")
 	b.psRow = row
 	b:SetScript("OnClick", openChoices)
+	if row.psDisplay then
+		b.psTipLines = row.psTipLines
+		b:SetScript("OnEnter", simpleTip)
+		b:SetScript("OnLeave", hideTip)
+	end
 	row.Button = b
 	fitLabel(row, b, dropdownSpan)
 	-- Right-click on the row puts the setting back to its default (state
