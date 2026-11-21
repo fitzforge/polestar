@@ -262,7 +262,7 @@ return {
 
 	-- Step 58: Jom-jom's Escape
 	-- {npc:258048} Jom-jom · {npc:256728} Na'zok · {area:16726} Bolder'ok
-	["{npc:258048} waits by the Twilight ogres' camp north-east of {npc:256728}: take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "{npc:258048}在{npc:256728}东北的暮光食人魔营地旁等着：护送他回到{area:16726}，别让邪教徒伤到他。如果他倒下了，再从他那里接受任务。",
+	["{npc:258048} waits at the back of the cave by the Twilight ogres' camp north-east of {npc:256728}: go all the way in to find him, then take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "",
 	-- {npc:258048} Jom-jom
 	["{npc:258048}, in the cave"] = "",
 	-- {npc:258048} Jom-jom · {area:16726} Bolder'ok
@@ -492,5 +492,6 @@ return {
 	-- ["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, hides in the middle of the town."] = "罗格玛西边，暮光教派占据着农镇{area:16723}。想要脱身的狗头人{npc:259158}躲在镇子中央。",
 	-- ["the {object:707249} poster"] = "{object:707249}通缉令",
 	-- ["{npc:257062} offers the last two once Gobam's errands are done (players' recordings), which this guide leaves out. They are level 44 and 45: leave them for later if {npc:258626} was a close fight."] = "完成戈巴姆的差事后，{npc:257062}会提供最后两场（据玩家记录），本指南未包含这两场。它们是44级和45级：如果打{npc:258626}很吃力，就留到以后再打。",
+	-- ["{npc:258048} waits by the Twilight ogres' camp north-east of {npc:256728}: take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "{npc:258048}在{npc:256728}东北的暮光食人魔营地旁等着：护送他回到{area:16726}，别让邪教徒伤到他。如果他倒下了，再从他那里接受任务。",
 	-- ["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "对淡水鳄使用{npc:263190}的长矛",
 }

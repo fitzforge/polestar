@@ -1150,6 +1150,18 @@ test('forever/class/rogue/the-horn-of-xelthos.guide: the Work Order first, then 
 	assert.ok(at(list, 'accept 78261', is('accept', 78261)) < hand, 'the horn comes first');
 });
 
+// #3362 (kevqon, 0.4.1.1): a Rogue got into Shadowfang Keep without Veenix's Breaching Charge, handed the horn in and
+// took C's ring, and the guide then sent them to Veenix, who offers Goblin Lockpicks only while The Horn of Xelthos
+// (78261) is in the log (players' recordings: the 2 people offered it both had 78261 in the log): a step that could
+// never finish. The Veenix step applies only while the horn is neither in hand nor handed in.
+test('forever/class/rogue/the-horn-of-xelthos.guide: Veenix only while the horn is still to get (#3362)', { skip }, () => {
+	const list = goals('forever/class/rogue/the-horn-of-xelthos.guide');
+	const { step } = list[at(list, 'turnin 78270', is('turnin', 78270))];
+	const holds = (k) => (step.when || []).some((p) => p.k === k && p.neg && [p.q].flat().includes(78261));
+	assert.ok(holds('turnedin'), 'not once 78261 is handed in');
+	assert.ok(holds('complete'), 'not once the horn is in hand');
+});
+
 // --- Bandarion Keep (Mike_, 0.2.3): Hilda the Breaker and Ephram Barbaro offer their quests to Paladins only.
 
 test(`${TIRISFAL}: Mike_'s report: only Paladins are sent to Hilda the Breaker and Ephram Barbaro at Bandarion Keep`, { skip }, () => {
@@ -6087,6 +6099,17 @@ test("forever/miscellaneous/cozy-sleeping-bag.guide: #1813: Alliance come into S
 	assert.ok(talondeep, "Alliance go by the Talondeep Path's Ashenvale mouth");
 	assert.ok((talondeep.step.when || []).some((p) => p.k === 'zone' && p.neg && p.name === 'Stonetalon Mountains'), 'only while the character is not yet in Stonetalon');
 	assert.match([].concat(talondeep.step.note || []).join(' '), /Stonetalon Peak/, 'the tip names the Stonetalon Peak flight');
+});
+
+// #3386 (Hnrq, 0.4.1.1): Scramble's Mound of Dirt (39.56,49.86) lies on a ledge below the Stonetalon camp; the tip said
+// to drop down the slope, but the arrow walked the long way round. The step leads first to the drop at the camp's
+// western edge (39.9,52.2, the reporter's spot), then to the mound.
+test('forever/miscellaneous/cozy-sleeping-bag.guide: Scramble\'s hand-in leads to the drop at 39.9,52.2 first (#3386)', { skip }, () => {
+	const list = goals('forever/miscellaneous/cozy-sleeping-bag.guide');
+	const hand = at(list, 'turnin 79980', is('turnin', 79980));
+	const drop = list.slice(0, hand).filter(({ s, goal }) => s === list[hand].s && goal.t === 'goto');
+	assert.deepEqual(drop.map(({ goal }) => [goal.x, goal.y]), [[39.9, 52.2]], 'one waypoint, the drop, before the hand-in');
+	assert.match(list[hand].step.note || '', /drop/);
 });
 
 // shatteredeagle (#1496), Alliance: the "North of Honor's Stand" safe spot was the first goal of
@@ -18399,6 +18422,15 @@ test('forever/alliance/40-50/01b-riverglades.guide: Apprentice Claire\'s steps n
 	}
 });
 
+// #3411 (Tendertail), #3388 (Yeq): Jom-jom waits at the back of a cave (73.4,24.7: 22 accepts by 19 people, indoors);
+// the step's tip said only that he waits by the ogres' camp. It names the cave.
+test('forever/horde/40-50/01b-riverglades.guide: Jom-jom\'s step says he is at the back of the cave (#3411)', { skip }, () => {
+	const list = goals('forever/horde/40-50/01b-riverglades.guide');
+	const take = list[at(list, 'accept 94556', is('accept', 94556))];
+	assert.deepEqual([take.goal.x, take.goal.y], [73.4, 24.7]);
+	assert.match(take.step.note || '', /back of the cave/);
+});
+
 // #3302 (Maerion's Misery, 0.4.1.1): Maerion's Misery (97009) was taken only after the Dae'gun sweep, so its twelve
 // Felhound Spikes, from the same Defiling Hounds as Elaena's essence (92960), cost a second round of hound kills. It is
 // taken at Maerion before the sweep, the sweep carries the spikes as an optional line, and the later Maerion step is the
@@ -18440,4 +18472,15 @@ test('#3277: Grim Message plants Nimboya\'s Laden Pike inside Hiri\'watha (31.9,
 	const naming = allGuides().filter((g) => /\b9319\b/.test(fs.readFileSync(path.join(OFFICIAL_DIR, g), 'utf8')));
 	const plants = naming.flatMap((g) => goals(g).filter(({ goal }) => goal.t === 'use' && goal.item === 9319).map(({ goal }) => [g, goal.map, goal.x, goal.y]));
 	assert.deepEqual(plants, [['forever/horde/40-50/05-the-hinterlands.guide', 1425, 31.9, 58]], 'the one step that plants it points into Hiri\'watha');
+});
+
+// #3405 (Cip1337, 0.4.2): Heavy Silk Bandage (7929) and Mageweave Bandage (10840) are learned from manuals the Expert
+// First Aid step has the player buy; their steps' learn lines have no place, and nothing said to read the manual.
+// Each such step says so, and where to buy it otherwise.
+test('forever/professions/first-aid.guide: the manual bandages say to read the manual bought with Expert First Aid (#3405)', { skip }, () => {
+	const list = goals('forever/professions/first-aid.guide');
+	for (const [spell, manual] of [[7929, 'Manual: Heavy Silk Bandage'], [10840, 'Manual: Mageweave Bandage']]) {
+		const { step } = list[at(list, `learn ${spell}`, (g) => g.t === 'learn' && g.spell === spell)];
+		assert.ok((step.note || '').includes(`Read the ${manual} you bought with Expert First Aid`), `${spell}: ${step.note}`);
+	}
 });

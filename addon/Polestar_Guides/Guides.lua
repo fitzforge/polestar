@@ -3950,6 +3950,7 @@ do
 				{
 					title = "{npc:4086}",
 					note = "{npc:4086}, a goblin friendly to both factions, stands among the Venture Co. in the {area:461}, east Stonetalon, a short way north-east of {area:460}. Horde fly to {area:460}; Alliance to {area:467}. He wants a {item:210187} before he hands over explosives: the Venture Co. Loggers (level 18) working around him carry them in their pockets. Stealth up behind one and {spell:921} it; killing them does not give it. Then talk to {npc:4086}: {quest:78270} never goes into your quest log, you hand the Work Order in at once, and he takes it only while {quest:78261} is in your quest log: if you dropped it, take it again from C's {object:410369} by Pyrewood first.",
+					when = { { k = "turnedin", neg = true, q = 78261 }, { k = "complete", neg = true, q = 78261 } },
 					goals = {
 						{ t = "collect", item = 210187, itemName = "Venture Co. Work Order", count = 1, text = "{spell:921} a {npc:3989} for a {item:210187}", map = 1442, x = 69.3, y = 51.2, f = "e", spotsPacked = "68.1,49.6,,54,5;66.2,51.6,-4,77,16;67.8,56.4,,61,6;65.1,57.4,,50,4;60.3,53.1,,62,7;64.6,46,,73,7;71.2,43.4,,40,5;71.3,48,,40,2;72.7,51.3,4.8,40,2,,19;73.8,54.3,,40,5;74.6,59.1,8.5,40,7;70.9,56.7,4.4,40,3;69.7,54.4,-2,50,7,1;71.4,49.8,-4.9,61,4,1;71.5,55.1,,40,3,1;66,49.7,3.2,41,5,1;73.1,49,,40,2,1;65.9,54.9,,58,5,1;66.5,45.6,38.6,52,6,1;64.3,48.1,11.3,40,4,1;73.3,56.7,-9.2,40,1,1;63.6,55.4,1.7,46,4,1;75.3,56,0.4,40,3,1;61.8,51.7,,40,2,1;62.1,54.4,3.1,44,6,1", spread = true, lvl = 20, fromNpcs = { { npc = 3988, npcName = "Venture Co. Operator" }, { npc = 3989, npcName = "Venture Co. Logger" }, { npc = 3991, npcName = "Venture Co. Deforester" } } },
 						{ t = "talk", npc = 4086, npcName = "Veenix", map = 1442, x = 58.17, y = 51.69, z = 65.5 },
@@ -8825,8 +8826,9 @@ do
 				},
 				{
 					title = "A hundred paces north",
-					note = "Walk north through the camp and drop carefully down the steep slope to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up.",
+					note = "From the {object:424005} walk to the camp's western edge, where the arrow points first, and drop carefully down the steep slope north to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up.",
 					goals = {
+						{ t = "goto", text = "The drop to the ledge", map = 1442, x = 39.9, y = 52.2, f = "e" },
 						{ t = "turnin", quest = 79980, title = "Scramble", object = 424012, objName = "Mound of Dirt", map = 1442, x = 39.56, y = 49.86 },
 						{ t = "accept", quest = 79974, title = "Wet Job", object = 424012, objName = "Mound of Dirt", minLevel = 14, qlvl = 32, pre = { 79980 }, preTitles = { [79980] = "Scramble" }, map = 1442, x = 39.56, y = 49.86 },
 					},
@@ -13157,7 +13159,7 @@ do
 			zoneName = "Ironforge",
 			author = "Polestar",
 			version = 1,
-			names = { ["area:321"] = "Hammerfall", ["area:513"] = "Theramore Isle", ["item:118"] = "Minor Healing Potion", ["item:1251"] = "Linen Bandage", ["item:14047"] = "Runecloth", ["item:14529"] = "Runecloth Bandage", ["item:14530"] = "Heavy Runecloth Bandage", ["item:1475"] = "Small Venom Sac", ["item:159"] = "Refreshing Spring Water", ["item:16084"] = "Expert First Aid - Under Wraps", ["item:16991"] = "Triage Bandage", ["item:2447"] = "Peacebloom", ["item:2450"] = "Briarthorn", ["item:2453"] = "Bruiseweed", ["item:2581"] = "Heavy Linen Bandage", ["item:2589"] = "Linen Cloth", ["item:2592"] = "Wool Cloth", ["item:2678"] = "Mild Spices", ["item:2692"] = "Hot Spices", ["item:279968"] = "First Aid Kit", ["item:3371"] = "Empty Vial", ["item:3372"] = "Leaded Vial", ["item:4306"] = "Silk Cloth", ["item:4338"] = "Mageweave Cloth", ["item:6450"] = "Silk Bandage", ["item:6451"] = "Heavy Silk Bandage", ["item:6452"] = "Anti-Venom", ["item:8544"] = "Mageweave Bandage", ["item:8545"] = "Heavy Mageweave Bandage", ["item:858"] = "Lesser Healing Potion", ["item:929"] = "Healing Potion", ["npc:12920"] = "Doctor Gregory Victor", ["npc:12939"] = "Doctor Gustaf VanHowzen", ["npc:3373"] = "Arnok", ["npc:5150"] = "Nissa Firestone", ["quest:6622"] = "Triage", ["quest:6624"] = "Triage", ["skill:129"] = "First Aid", ["skill:182"] = "Herbalism", ["spell:10841"] = "Heavy Mageweave Bandage", ["spell:18629"] = "Runecloth Bandage", ["spell:3277"] = "Wool Bandage", ["spell:3278"] = "Heavy Wool Bandage", ["spell:9810"] = "Touch of Zanzil", ["zone:1454"] = "Orgrimmar", ["zone:1455"] = "Ironforge" },
+			names = { ["area:321"] = "Hammerfall", ["area:513"] = "Theramore Isle", ["item:118"] = "Minor Healing Potion", ["item:1251"] = "Linen Bandage", ["item:14047"] = "Runecloth", ["item:14529"] = "Runecloth Bandage", ["item:14530"] = "Heavy Runecloth Bandage", ["item:1475"] = "Small Venom Sac", ["item:159"] = "Refreshing Spring Water", ["item:16084"] = "Expert First Aid - Under Wraps", ["item:16112"] = "Manual: Heavy Silk Bandage", ["item:16113"] = "Manual: Mageweave Bandage", ["item:16991"] = "Triage Bandage", ["item:2447"] = "Peacebloom", ["item:2450"] = "Briarthorn", ["item:2453"] = "Bruiseweed", ["item:2581"] = "Heavy Linen Bandage", ["item:2589"] = "Linen Cloth", ["item:2592"] = "Wool Cloth", ["item:2678"] = "Mild Spices", ["item:2692"] = "Hot Spices", ["item:279968"] = "First Aid Kit", ["item:3371"] = "Empty Vial", ["item:3372"] = "Leaded Vial", ["item:4306"] = "Silk Cloth", ["item:4338"] = "Mageweave Cloth", ["item:6450"] = "Silk Bandage", ["item:6451"] = "Heavy Silk Bandage", ["item:6452"] = "Anti-Venom", ["item:8544"] = "Mageweave Bandage", ["item:8545"] = "Heavy Mageweave Bandage", ["item:858"] = "Lesser Healing Potion", ["item:929"] = "Healing Potion", ["npc:12920"] = "Doctor Gregory Victor", ["npc:12939"] = "Doctor Gustaf VanHowzen", ["npc:3373"] = "Arnok", ["npc:5150"] = "Nissa Firestone", ["quest:6622"] = "Triage", ["quest:6624"] = "Triage", ["skill:129"] = "First Aid", ["skill:182"] = "Herbalism", ["spell:10841"] = "Heavy Mageweave Bandage", ["spell:18629"] = "Runecloth Bandage", ["spell:3277"] = "Wool Bandage", ["spell:3278"] = "Heavy Wool Bandage", ["spell:9810"] = "Touch of Zanzil", ["zone:1454"] = "Orgrimmar", ["zone:1455"] = "Ironforge" },
 			sections = { { skill = "First Aid", skillLine = 129, from = 1, to = 40 }, { skill = "First Aid", skillLine = 129, from = 40, to = 50 }, { skill = "First Aid", skillLine = 129, from = 50, to = 80 }, { skill = "First Aid", skillLine = 129, from = 80, to = 115 }, { skill = "First Aid", skillLine = 129, from = 115, to = 125 }, { skill = "First Aid", skillLine = 129, from = 125, to = 150 }, { skill = "First Aid", skillLine = 129, from = 150, to = 180 }, { skill = "First Aid", skillLine = 129, from = 180, to = 210 }, { skill = "First Aid", skillLine = 129, from = 210, to = 225 }, { skill = "First Aid", skillLine = 129, from = 225, to = 240 }, { skill = "First Aid", skillLine = 129, from = 240, to = 260 }, { skill = "First Aid", skillLine = 129, from = 260, to = 300 } },
 			steps = {
 				{
@@ -13377,7 +13379,7 @@ do
 				},
 				{
 					title = "{item:6451} (180-210)",
-					note = "{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere.",
+					note = "{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere. Read the {item:16112} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too.",
 					section = 8,
 					goals = {
 						{ t = "learn", spell = 7929, spellName = "Heavy Silk Bandage", item = 16112, itemName = "Manual: Heavy Silk Bandage", skillLine = 129 },
@@ -13402,7 +13404,7 @@ do
 				},
 				{
 					title = "{item:8544} (210-225)",
-					note = "{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere.",
+					note = "{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere. Read the {item:16113} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too.",
 					section = 9,
 					goals = {
 						{ t = "learn", spell = 10840, spellName = "Mageweave Bandage", item = 16113, itemName = "Manual: Mageweave Bandage", skillLine = 129 },
