@@ -10017,7 +10017,10 @@ end
 -- the kinds of its goals). The guide must have been seen unfinished once
 -- placed this session (Own.endOpen), and for the last step done ahead, that
 -- step seen open (Own.lastOpen), so a guide opened, or brought back by a
--- login, already at its end does not ask; and once per guide per character
+-- login, already at its end does not ask. A last step whose hand-in the
+-- player took from a "While you're here" line is the route's own work done
+-- early, not a skip to the end (Own.handedOnTheWay): the end comes with the
+-- rest of the guide. And once per guide per character
 -- (CharState().guideEnds[guideId], kept over a reload or relog). That record
 -- is not the end itself: with a live step, it stands only while the end
 -- still holds (Own.endHolds), and Engine.ResetProgress forgets it.
@@ -10028,6 +10031,27 @@ end
 
 Own.endOpen = {} -- guideId -> true: seen unfinished once placed, this session
 Own.lastOpen = {} -- guideId -> the last step (Own.lastWork) seen open once placed, this session
+Own.handedHere = {} -- quest id -> true: handed in while a "While you're here" line offered it, this session
+
+-- QUEST_TURNED_IN: note a hand-in a shown "While you're here" line offered.
+function Own.noteHandedHere(q)
+	for i = 1, Own.hereOnN do
+		local goal = Own.hereOn[i].goal
+		if goal.t == "turnin" and goal.quest == q then
+			Own.handedHere[q] = true
+			return
+		end
+	end
+end
+
+-- Whether step s hands in a quest the player handed in from a "While you're
+-- here" line: the guide offered it on the way, so it is no end done ahead.
+function Own.handedOnTheWay(s)
+	for _, goal in ipairs(guide.steps[s].goals) do
+		if goal.t == "turnin" and Own.handedHere[goal.quest] then return true end
+	end
+	return false
+end
 Own.pendingEnds, Own.pendingContinued = {}, {} -- fired at the end of the evaluation
 
 function Own.leveling(g)
@@ -10131,9 +10155,10 @@ function Own.noteEnd()
 		-- or a `when` step that applies late already done, ends the guide only
 		-- when the rest is done; so does one whose work only reads done as
 		-- unavailable for now (Own.endWorkDone, #998). Trailing steps of only
-		-- optional goals or notes are offered, not the end (Own.lastWork).
+		-- optional goals or notes are offered, not the end (Own.lastWork). Nor
+		-- does a hand-in taken from a "While you're here" line (Own.handedOnTheWay).
 		local waits = last ~= nil and computed > last and Own.lastWork(computed - 1) ~= nil
-		if waits or not holds then
+		if waits or not holds or Own.handedOnTheWay(last) then
 			if last then Own.lastOpen[id] = last end
 			return
 		end
@@ -17054,7 +17079,10 @@ ns.RegisterEvent("UNIT_QUEST_LOG_CHANGED", function(_, unit)
 end)
 
 ns.RegisterEvent("QUEST_TURNED_IN", function(_, questID)
-	if questID then turnedIn[questID] = true end
+	if questID then
+		turnedIn[questID] = true
+		Own.noteHandedHere(questID)
+	end
 	if questID and player then
 		for i = 1, #tabs do
 			use(tabs[i])
