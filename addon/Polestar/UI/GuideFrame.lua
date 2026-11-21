@@ -437,9 +437,10 @@ GF.Part(function(GF)
 			local name = goal.subjectKind == "npc" and goal.subject or goal.npcName
 			lines[#lines + 1] = { left = L["NPC"], right = name and (name .. id .. goal.npc .. "|r") or ("#" .. goal.npc) }
 		end
-		if goal.item then
-			local name = goal.subjectKind == "item" and goal.subject or nil
-			lines[#lines + 1] = { left = L["Item"], right = name and (name .. id .. goal.item .. "|r") or ("#" .. goal.item) }
+		-- An item goal shows the game's tooltip of its item, the guide's lines under it.
+		local itemTip = goal.item and goal.subjectKind == "item" and W.ItemTip and W.TooltipLines
+		if goal.item and not itemTip then
+			lines[#lines + 1] = { left = L["Item"], right = "#" .. goal.item }
 		end
 		if goal.map and goal.x then
 			lines[#lines + 1] = { left = L["Location"], right = string.format("%s  %.1f, %.1f", UI.MapName(goal.map) or "", goal.x, goal.y) }
@@ -502,6 +503,14 @@ GF.Part(function(GF)
 		end
 		if goal.optional and goal.status ~= "done" then
 			lines[#lines + 1] = goal.dismissed and L["Skipped. Undo brings it back."] or L["Optional: not needed for the route. Skip it if you pass on it."]
+		end
+		if itemTip then
+			W.ItemTip(row, goal.item, function(tip)
+				tip:AddLine(" ")
+				tip:AddLine(goal.text or "", 1, 1, 1, true)
+				W.TooltipLines(tip, lines)
+			end, tooltipAnchor())
+			return
 		end
 		if #lines == 0 then return end
 		W.Tooltip(row, tooltipAnchor(), goal.text or "", lines)
