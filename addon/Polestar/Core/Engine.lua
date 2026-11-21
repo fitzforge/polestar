@@ -10034,13 +10034,18 @@ Own.endOpen = {} -- guideId -> true: seen unfinished once placed, this session
 Own.lastOpen = {} -- guideId -> the last step (Own.lastWork) seen open once placed (false: seen done by hand-ins on the way, Own.handedOnTheWay), this session
 
 -- The hand-ins "While you're here" offers on screen, by guide (its table):
--- noted on each poll while the lines show (Own.hereTick), good for
--- HERE_OFFER_GRACE seconds after (the hand-in's events can come after its
--- line is gone). A last step's hand-in done is told once, when the guide
--- first sees it done (Own.noteHanded): taken from a line or not.
+-- noted on each poll while the lines show (Own.hereTick) and on each
+-- evaluation (Own.noteEnd), good for HERE_OFFER_GRACE seconds after (the
+-- hand-in's events can come after its line is gone). Each hand-in of the
+-- last step is told once, when the guide sees it newly done (Own.noteHanded):
+-- one taken from a line stamps Own.handedAt, one that was not clears it, so
+-- the stamp is that of the last hand-in done and only while it came from a
+-- line.
 Own.hereOfferAt = setmetatable({}, { __mode = "k" }) -- guide -> { [quest id] = GetTime() its hand-in line was last on screen }
-Own.handedSeen = setmetatable({}, { __mode = "k" }) -- guide -> { [quest id] = true (from a line) | false (not) }
+Own.handedDone = setmetatable({}, { __mode = "k" }) -- guide -> { [quest id] = true }: the last step's hand-ins seen done
+Own.handedAt = setmetatable({}, { __mode = "k" }) -- guide -> GetTime() the last step's latest hand-in done, taken from a line
 Own.HERE_OFFER_GRACE = 5
+Own.HERE_HANDED_WINDOW = 60 -- seconds after such a hand-in in which the step's being done is that hand-in's (a follow-up taken at the same NPC)
 function Own.hereNoteOffers()
 	if not (Own.hereVisible() and Own.hereGuide == guide) then return end
 	local at, now = Own.hereOfferAt[guide], GetTime()
@@ -10065,40 +10070,33 @@ function Own.handInDone(s, goal)
 	return questDone(goal.quest) and true or false
 end
 
--- Note how each hand-in of step s, the last one, came to be done (from a
--- line offered just now, or not), the first time it reads done; one that
--- reads open again is forgotten.
+-- Note the hand-ins of step s, the last one, newly done (see above); one
+-- that reads open again is forgotten.
 function Own.noteHanded(s)
-	local seen, at, now = Own.handedSeen[guide], Own.hereOfferAt[guide], nil
+	local known, at, now = Own.handedDone[guide], Own.hereOfferAt[guide], nil
 	for _, goal in ipairs(guide.steps[s].goals) do
 		local done = Own.handInDone(s, goal)
 		if done == false then
-			if seen then seen[goal.quest] = nil end
-		elseif done and (not seen or seen[goal.quest] == nil) then
-			if not seen then
-				seen = {}
-				Own.handedSeen[guide] = seen
+			if known then known[goal.quest] = nil end
+		elseif done and not (known and known[goal.quest]) then
+			if not known then
+				known = {}
+				Own.handedDone[guide] = known
 			end
+			known[goal.quest] = true
 			now = now or GetTime()
 			local t = at and at[goal.quest]
-			seen[goal.quest] = t ~= nil and now - t <= Own.HERE_OFFER_GRACE
+			Own.handedAt[guide] = t ~= nil and now - t <= Own.HERE_OFFER_GRACE and now or nil
 		end
 	end
 end
 
--- Whether step s, the last one, is done by hand-ins "While you're here"
--- offered on screen (Own.noteHanded): each of its hand-ins done was taken
--- from a line, and it has one.
+-- Whether step s, the last one, is done on the way: its latest hand-in was
+-- taken from a "While you're here" line, within HERE_HANDED_WINDOW seconds
+-- (Own.noteHanded).
 function Own.handedOnTheWay(s)
-	local seen, any = Own.handedSeen[guide], false
-	if not seen then return false end
-	for _, goal in ipairs(guide.steps[s].goals) do
-		if Own.handInDone(s, goal) then
-			if not seen[goal.quest] then return false end
-			any = true
-		end
-	end
-	return any
+	local t = Own.handedAt[guide]
+	return t ~= nil and GetTime() - t <= Own.HERE_HANDED_WINDOW
 end
 
 Own.pendingEnds, Own.pendingContinued = {}, {} -- fired at the end of the evaluation
@@ -10173,20 +10171,23 @@ end
 -- The loaded tab's guide: note its end (see above).
 function Own.noteEnd()
 	if placing or not Own.endAsks(guide) then return end
-	-- A live step with nothing left to do now (waiting on a level, Own.holdsBefore)
-	-- is no end yet: the end comes after it.
-	if computed and stepDone(computed) and Own.levelHold() == computed then return end
-	local id, steps = guide.id, guide.steps
-	local ends = ns.CharState().guideEnds
 	-- The end done ahead is judged on the last step for everyone (Own.forSome).
 	-- With the live step past it, a class's or race's own steps after it
 	-- still to come (Own.lastWork from the live step) are no end yet: the end
 	-- comes with them.
 	local last = Own.lastWork(0, true)
+	-- Its hand-ins newly done, then the lines on screen now (back on the
+	-- live step, before the next poll): Own.handedOnTheWay.
+	if computed and last then Own.noteHanded(last) end
+	Own.hereNoteOffers()
+	-- A live step with nothing left to do now (waiting on a level, Own.holdsBefore)
+	-- is no end yet: the end comes after it.
+	if computed and stepDone(computed) and Own.levelHold() == computed then return end
+	local id, steps = guide.id, guide.steps
+	local ends = ns.CharState().guideEnds
 	if computed then
 		-- Seen unfinished once placed: finishing it from now on reaches its end.
 		Own.endOpen[id] = true
-		if last then Own.noteHanded(last) end
 		local holds = Own.endHolds(last)
 		-- An end told before stands only while it holds: a quest of the last
 		-- step abandoned, or a record from before 0.3.6 that slipped through
@@ -17893,7 +17894,7 @@ function Engine.ReplaceSteps(id, steps)
 	end
 	Own.passedNow[id], Own.skipQueue[id], Own.endOpen[id], Own.lastOpen[id] = nil, nil, nil, nil
 	-- Hand-ins offered on the way are by quest: they hold for the new steps (Own.handedOnTheWay).
-	Own.hereOfferAt[g], Own.handedSeen[g] = Own.hereOfferAt[from], Own.handedSeen[from]
+	Own.hereOfferAt[g], Own.handedDone[g], Own.handedAt[g] = Own.hereOfferAt[from], Own.handedDone[from], Own.handedAt[from]
 	if not i then return true end
 	local t = tabs[i]
 	if mapped then

@@ -848,3 +848,50 @@ fn a_direct_last_hand_in_or_steps_replaced_while_the_line_shows_keep_the_offer()
 	});
 	assert_eq!(replaced, json!({ "line": 300, "replaced": true, "log": {}, "live": 3 }));
 }
+
+// What counts is the hand-in that finishes the step. A last step of two hand-ins, one done before (here: before the
+// guide, so before this session), the other taken from the line: no end. A last step that hands in and then takes a
+// follow-up: taking it at the same visit is no end; taking it on one's own long after is the end done ahead.
+#[test]
+fn the_hand_in_that_finishes_the_last_step_decides_not_one_done_before_or_long_ago() {
+	let earlier = run(Run {
+		next: NEXT,
+		saved: None,
+		script: &format!(
+			r#"w.complete({{ 304 }})
+			{way}
+			w.turnIn(300); flush()
+			emit({{ log = takeLog(), live = E.GetLiveStep() }})"#,
+			way = on_the_way("").replace(
+				r#"{ goals = { { t = "turnin", quest = 300, title = "Errand 300", npc = 9300, npcName = "Giver 300", map = 1411, x = 52, y = 43 } } }"#,
+				r#"{ goals = { { t = "turnin", quest = 304, title = "Errand 304", npc = 9300, npcName = "Giver 300", map = 1411, x = 52, y = 43 }, { t = "turnin", quest = 300, title = "Errand 300", npc = 9300, npcName = "Giver 300", map = 1411, x = 52, y = 43 } } }"#
+			)
+		),
+	});
+	assert_eq!(earlier, json!({ "log": {}, "live": 3 }), "the other hand-in done before is no matter");
+
+	let follow_up = |wait: &str| {
+		run(Run {
+			next: NEXT,
+			saved: None,
+			script: &format!(
+				r#"{way}
+				w.turnIn(300); flush()
+				local r = {{ handedIn = takeLog() }}
+				stub.advance({wait}); w.accept(340, {{}}); flush()
+				r.taken = takeLog()
+				emit(r)"#,
+				way = on_the_way("").replace(
+					r#"{ goals = { { t = "turnin", quest = 300, title = "Errand 300", npc = 9300, npcName = "Giver 300", map = 1411, x = 52, y = 43 } } }"#,
+					r#"{ goals = { { t = "turnin", quest = 300, title = "Errand 300", npc = 9300, npcName = "Giver 300", map = 1411, x = 52, y = 43 }, { t = "accept", quest = 340, title = "Errand 340", npc = 9300, npcName = "Giver 300", map = 1411, x = 52, y = 43 } } }"#
+				)
+			),
+		})
+	};
+	assert_eq!(follow_up("2"), json!({ "handedIn": {}, "taken": {} }), "the follow-up taken at the same visit");
+	assert_eq!(
+		follow_up("120"),
+		json!({ "handedIn": {}, "taken": ["GUIDE_END test/onway undone=3 live=3 next=test/barrens choose=nil"] }),
+		"the follow-up taken on one's own long after"
+	);
+}
