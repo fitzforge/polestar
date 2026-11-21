@@ -658,6 +658,17 @@ function Theme.KitOpen(f, side)
 	end
 end
 
+-- How far in from a frame's edge its kit frame starts to draw: Classic's
+-- chat rim is clear on its outer pixels, its tile laid that far in. A tab
+-- strip beside the window stands that far over its edge, or the world
+-- shows between the two. 0 with no rim (the sliced frames reach the edge).
+function Theme.KitSeam(f)
+	local s = rawget(f, "psSkin")
+	local p = s and s.kit and s.kit.rim
+	if not (p and p[1]:IsShown() and s.kitFill) then return 0 end
+	return s.kitInset or 0
+end
+
 -- A close button in the kit's art (UIPanelCloseButton): normal, pushed and
 -- the additive highlight.
 local function closeArt(b, kit, size)

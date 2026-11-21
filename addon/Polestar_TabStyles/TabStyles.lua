@@ -490,10 +490,13 @@ ns.UI.GuideFrame.Part(function(GF)
 		local bottom = GF.BarsBottom()
 		local n = #tabs
 		s:ClearAllPoints()
+		-- Over the window's edge by its kit frame's clear rim (Theme.KitSeam),
+		-- so no gap shows between the strip and the window's frame.
+		local seam = (not F.psBare and Theme.KitSeam) and Theme.KitSeam(F) or 0
 		if bottom then
-			s:SetPoint("BOTTOMRIGHT", F, "BOTTOMLEFT", 0, 0)
+			s:SetPoint("BOTTOMRIGHT", F, "BOTTOMLEFT", seam, 0)
 		else
-			s:SetPoint("TOPRIGHT", F, "TOPLEFT", 0, 0)
+			s:SetPoint("TOPRIGHT", F, "TOPLEFT", seam, 0)
 		end
 		local y = SIDE_PAD
 		for i = 1, n do
