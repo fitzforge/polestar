@@ -129,6 +129,17 @@ test('the curated table: the City of Dalaran sends the Alliance in through Cantr
 	assert.ok(d.A.note);
 });
 
+test("the curated table: Blackrock Mountain instances send the Alliance in through Burning Steppes, from Morgan's Vigil", () => {
+	const t = loadEntranceTable();
+	for (const key of ['blackrock-depths', 'blackrock-spire', 'molten-core']) {
+		const d = t[key];
+		assert.ok(d && d.A, `${key}: an Alliance way in`);
+		assert.deepEqual([d.A.map, d.A.x, d.A.y], [1428, 29.4, 38.3], `${key}: Burning Steppes southern entrance`);
+		assert.match(d.A.source, /^https:\/\//);
+		assert.ok(d.A.note);
+	}
+});
+
 // The decoder handing it to an Alliance character only is
 // rust/crates/forge-addontest/tests/addontest/dungeons-pickup.rs.
 test('pack: the Alliance way in follows the entrance', () => {
