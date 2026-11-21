@@ -348,8 +348,9 @@ Completionist Guides (Alliance)** and **(Horde)**
 (`Polestar_Guides_Completionist_Alliance`, `Polestar_Guides_Completionist_Horde`;
 pack ids `polestar-completionist-alliance` and `polestar-completionist-horde`),
 from `completionist/alliance/` and `completionist/horde/` in the checkout.
-Each holds every quest of its faction that the reference data can place,
-zone by zone to level 60: the starting zones, one guide a zone visit in level
+Each holds every quest of its faction that the reference data can place, in
+every zone, grouped by zone and ordered by the level of the quests (it is not
+a leveling route): the starting zones, one guide a zone visit in level
 order, a guide a dungeon, raid, attunement or key, a guide a class, a guide a
 seasonal event, and a checklist of the quests the data names but cannot lead
 to.

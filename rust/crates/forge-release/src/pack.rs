@@ -55,10 +55,9 @@ pub fn readme(version: &str, names: &[String]) -> String {
 		lines.extend(
 			[
 				"   Polestar_Guides_Completionist_Alliance and _Horde hold the",
-				"   completionist guides: every quest of a faction, zone by zone, to",
-				"   level 60, with its dungeons, raids, attunements and events. They",
-				"   are off until you switch one on: the guide menu > Community",
-				"   guides.",
+				"   completionist guides: every quest of a faction, zone by zone, with",
+				"   its dungeons, raids, attunements and events. They are off until you",
+				"   switch one on: the guide menu > Community guides.",
 			]
 			.iter()
 			.map(|s| s.to_string()),
@@ -195,7 +194,7 @@ mod tests {
 		let text = readme("0.4.3", &with);
 		assert!(text.contains("\r\n     Polestar_Guides_Completionist_Alliance\r\n"));
 		assert!(text.contains("\r\n   Polestar_Guides_Completionist_Alliance and _Horde hold the\r\n   completionist guides"), "{text}");
-		assert!(text.contains("are off until you switch one on: the guide menu > Community\r\n   guides.\r\n"), "{text}");
+		assert!(text.contains("They are off until you\r\n   switch one on: the guide menu > Community guides.\r\n"), "{text}");
 		assert!(!text.contains("Polestar_Experimental holds"), "{text}");
 		let without: Vec<String> = ["Polestar", "Polestar_Guides", "Polestar_Experimental"].iter().map(|s| s.to_string()).collect();
 		assert!(!readme("0.4.3", &without).contains("ompletionist"));

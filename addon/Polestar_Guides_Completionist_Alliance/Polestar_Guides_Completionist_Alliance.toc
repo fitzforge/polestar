@@ -1,24 +1,24 @@
 ## Interface: 16001
 ## Title: Polestar Completionist Guides (Alliance)
-## Notes: Part of Polestar: every Alliance quest, zone by zone, to level 60, with its dungeons, raids, attunements and events. Off until switched on under Community guides.
+## Notes: Part of Polestar: every Alliance quest, zone by zone, with its dungeons, raids, attunements and events. Off until switched on under Community guides.
 ## Title-deDE: Polestar: Komplettisten-Guides (Allianz)
-## Notes-deDE: Teil von Polestar: jede Quest der Allianz, Zone für Zone, bis Stufe 60. Wird bei Bedarf geladen.
+## Notes-deDE: Teil von Polestar: jede Quest der Allianz, Zone für Zone. Wird bei Bedarf geladen.
 ## Title-esES: Polestar: guías completistas (Alianza)
-## Notes-esES: Parte de Polestar: todas las misiones de la Alianza, zona por zona, hasta el nivel 60. Se carga bajo demanda.
+## Notes-esES: Parte de Polestar: todas las misiones de la Alianza, zona por zona. Se carga bajo demanda.
 ## Title-esMX: Polestar: guías completistas (Alianza)
-## Notes-esMX: Parte de Polestar: todas las misiones de la Alianza, zona por zona, hasta el nivel 60. Se carga bajo demanda.
+## Notes-esMX: Parte de Polestar: todas las misiones de la Alianza, zona por zona. Se carga bajo demanda.
 ## Title-frFR: Polestar : guides complétionnistes (Alliance)
-## Notes-frFR: Fait partie de Polestar : toutes les quêtes de l’Alliance, zone par zone, jusqu’au niveau 60. Chargé à la demande.
+## Notes-frFR: Fait partie de Polestar : toutes les quêtes de l’Alliance, zone par zone. Chargé à la demande.
 ## Title-koKR: Polestar 완전 정복 가이드 (얼라이언스)
-## Notes-koKR: Polestar의 일부: 얼라이언스의 모든 퀘스트를 지역별로 60레벨까지. 필요할 때 불러옵니다.
+## Notes-koKR: Polestar의 일부: 얼라이언스의 모든 퀘스트를 지역별로 담았습니다. 필요할 때 불러옵니다.
 ## Title-ptBR: Polestar: guias completistas (Aliança)
-## Notes-ptBR: Parte do Polestar: todas as missões da Aliança, zona por zona, até o nível 60. Carregado sob demanda.
+## Notes-ptBR: Parte do Polestar: todas as missões da Aliança, zona por zona. Carregado sob demanda.
 ## Title-ruRU: Polestar: гайды для комплеционистов (Альянс)
-## Notes-ruRU: Часть Polestar: все задания Альянса, зона за зоной, до 60-го уровня. Загружается по требованию.
+## Notes-ruRU: Часть Polestar: все задания Альянса, зона за зоной. Загружается по требованию.
 ## Title-zhCN: Polestar 全任务指南（联盟）
-## Notes-zhCN: Polestar 的组成部分：联盟的全部任务，逐个区域，直到 60 级。按需加载。
+## Notes-zhCN: Polestar 的组成部分：联盟的全部任务，逐个区域。按需加载。
 ## Title-zhTW: Polestar 全任務指南（聯盟）
-## Notes-zhTW: Polestar 的一部分：聯盟的全部任務，逐個區域，直到 60 級。按需載入。
+## Notes-zhTW: Polestar 的一部分：聯盟的全部任務，逐個區域。按需載入。
 ## Author: Polestar
 ## Version: 0.4.2
 ## Category: Polestar
