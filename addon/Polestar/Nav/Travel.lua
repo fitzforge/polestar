@@ -2548,6 +2548,19 @@ local function plan(target, held)
 		walkDanger = walkDanger(pc, px, py, tc, twx, twy),
 		places = places,
 	})
+	-- A target within nearWalk.CROSS yards (Walk.lua's MEASURE_NEAR: not measured) whose straight line from the player
+	-- crosses enemy ground, both ends clear of it: the planner refuses that line, so it offered any other way (#3450:
+	-- 150 yd from Coriella Calmbreeze, past the corner of Shen'dar Village's guard posts, a portal 1,600 yd off, and
+	-- straight to her again wherever the line came clear: the arrow swung between them and never arrived). That near,
+	-- the walk is the arrow's own search, round the enemy ground by the same check: no route but walks.
+	if route and pc == tc and yards(pc, px, py, tc, twx, twy) < nearWalk.CROSS then
+		local D, side = Nav.danger, ns.Compat.GetPlayerFaction()
+		if D.Blocked(pc, px, py, twx, twy, side) and not D.Blocked(pc, px, py, px, py, side) and not D.Blocked(tc, twx, twy, twx, twy, side) then
+			for _, leg in ipairs(route) do
+				if leg.kind ~= "walk" then route = nil break end
+			end
+		end
+	end
 	-- The route rides to a landing and walks on from there, the walk still the
 	-- straight estimate while the target's walks are measured (a landing past
 	-- Walk.Measure's reach): that landing is measured too (`chosen`), and the
@@ -2602,6 +2615,19 @@ function Travel.Replan()
 	if onTaxi() then
 		dirty = true
 		return
+	end
+	-- The guide's goal on enemy ground, and the enemy ground the player stands on while a recent goal lay in it, are
+	-- walked into and out of (#3447, Nav.danger.Exempt): set before each plan, so the plan's walks and the arrow's own
+	-- walk are checked alike. A point picked by hand or held (a corpse) is no goal the guide sent the player to.
+	do
+		local D, C = Nav.danger, ns.Compat
+		if D and D.Exempt and C then
+			local gc, gx, gy
+			if not (Nav.IsOverride() or Nav.IsHeld()) then gc, gx, gy = Nav.GetTargetWorld() end
+			local ok, pc, px, py = pcall(C.GetPlayerWorldPosition)
+			if not ok then pc = nil end
+			D.Exempt(gc, gx, gy, pc, px, py, C.GetPlayerFaction())
+		end
 	end
 	-- Planned again for a zone change or for walking on (dirty "zone", not for anything that changed the way):
 	-- the live route stays unless the fresh plan goes another way and saves keep.SAVES seconds (keepLive).
