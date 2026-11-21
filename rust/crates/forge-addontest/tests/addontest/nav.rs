@@ -154,44 +154,33 @@ fn arrow_points_at_the_target_relative_to_facing_in_all_four_quadrants_in_both_s
 	}
 }
 
+// Fitz, 0.4.2.1 candidate: the arrow's manners as in 0.4.1.1. After a pause in guidance (an arrival, a ride's
+// instruction, the wait for a walking route) the arrow turns from the heading it showed, eased as every other turn,
+// never snapping to the new bearing in one frame.
 #[test]
-fn leaving_enemy_ground_does_not_point_the_player_back_into_town() {
+fn after_a_pause_in_guidance_the_arrow_eases_from_the_heading_it_showed_never_snapping() {
 	let out = run_compass(
 		r#"
-		nav.useGameGround()
-		nav.faction = "Horde"
-		Polestar.Set("nav.travel", false)
-		-- An Alliance boundary near Stormwind. The same waypoint stays on the safe side
-		-- while the player passes it, steps onto enemy ground and turns back out.
-		local wx, edge = -8143-1/3, 600
-		nav.maps[1429] = { c = 0, top = -8100, bottom = -8200, left = 700, right = 500 }
-		nav.place(wx, edge + 34)
-		local tx, ty = nav.Compat.WorldToMap(0, wx, edge + 11, 1429)
-		N.SetTarget(1429, tx, ty, "Outside town")
-		stub.advance(.5)
-		local function walk(i)
-			nav.place(wx, edge + 34 - i * .32)
-			stub.advance(.05)
-		end
-		for i = 1, 120 do walk(i) end
-		local refused = A.GetMode()
-		for i = 119, 0, -1 do
-			walk(i)
-			if A.GetMode() == "travel" then
-				local y = nav.player.wy
-				local a = nav.facing + A.GetAngle()
-				local why = N.danger.Blocked(0, wx, y, wx+.32*math.cos(a), y+.32*math.sin(a), nav.faction)
-				emit({ refused, why or "clear", math.sin(a) > 0 })
-				return
-			end
-		end
-		emit({refused, "did not resume"})"#,
+		target(100, 0)
+		stub.advance(1)
+		local before = A.GetAngle()
+		nav.place(100, 0)                   -- at the target: Arrived, no bearing
+		stub.advance(0.5)
+		local paused = A.GetMode()
+		nav.place(100, 100)                 -- walked off west of it: the target is now to the right
+		stub.advance(0.1)
+		emit({ before = before, paused = paused, mode = A.GetMode(), early = A.GetAngle() })"#,
 	);
-	assert_eq!(out, json!(["unsafe", "clear", true]), "the first visible walking stride must lead away from town");
+	near(num(&out["before"]), 0.0, 1e-6, "before");
+	assert_eq!(out["paused"], "arrived");
+	assert_eq!(out["mode"], "travel");
+	let early = num(&out["early"]);
+	assert!(early < 0.0 && early >= -3.5 * 0.1 - 1e-6, "the turn eases from the shown heading (MAX_TURN 3.5 rad/s), not a snap to -pi/2: {early}");
 }
 
+// Beside enemy ground the arrow eases its turns as anywhere else (0.4.1.1's manners; 0.4.2 snapped it there).
 #[test]
-fn turning_onto_a_tangent_keeps_the_painted_stride_out_of_enemy_ground() {
+fn turning_onto_a_tangent_beside_enemy_ground_eases_as_on_friendly_ground() {
 	let out = run_compass(
 		r#"
 		nav.useGameGround()
@@ -217,8 +206,8 @@ fn turning_onto_a_tangent_keeps_the_painted_stride_out_of_enemy_ground() {
 		local h = approach("Horde")
 		emit({h, approach("Alliance")})"#,
 	);
-	assert!(num(&out[0]) >= -0.001, "Horde's visible next stride enters the enemy settlement: {}", out[0]);
-	assert!(num(&out[1]) < -0.001, "the same turn on friendly ground should still ease");
+	assert!(num(&out[1]) < -0.001, "on friendly ground the turn eases: {}", out[1]);
+	near(num(&out[0]), num(&out[1]), 1e-6, "beside enemy ground the same turn eases the same way");
 }
 
 #[test]
