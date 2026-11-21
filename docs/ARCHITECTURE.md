@@ -5732,7 +5732,10 @@ The pieces' seconds are whole seconds of the path at run
 speed that add up exactly to the walk (K6), and every piece keeps `parent`
 (the whole walk), `seg` (the path segment its end lies on) and `tail` (path
 yards after it): the arrow keeps following the one path to the whole walk's
-end and moves to the next piece within its radius or once past its segment.
+end and moves to the next piece within its radius or once past its segment;
+standing within 5 yd of the whole walk's end on its floor (arrived another
+way: a login or a teleport there), every piece is passed, so the goto there
+completes (Brill's inn cellar).
 The split runs once per path (`Travel.SplitWalk`, `ROUTE_CHANGED`) and again
 after a fresh plan of the same walk from the path already in, so the steps
 stay the same as the player walks (K2). A walk with no stops on its path
