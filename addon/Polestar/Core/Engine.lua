@@ -10180,6 +10180,9 @@ function Own.noteEnd()
 	-- live step, before the next poll): Own.handedOnTheWay.
 	if computed and last then Own.noteHanded(last) end
 	Own.hereNoteOffers()
+	-- Done on the way, the last step is seen done at once (false), whatever
+	-- holds the end back below (a level wait, a class's own steps after it).
+	if computed and last and Own.lastOpen[guide.id] == last and Own.endHolds(last) and Own.handedOnTheWay(last) then Own.lastOpen[guide.id] = false end
 	-- A live step with nothing left to do now (waiting on a level, Own.holdsBefore)
 	-- is no end yet: the end comes after it.
 	if computed and stepDone(computed) and Own.levelHold() == computed then return end

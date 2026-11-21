@@ -895,3 +895,37 @@ fn the_hand_in_that_finishes_the_last_step_decides_not_one_done_before_or_long_a
 		"the follow-up taken on one's own long after"
 	);
 }
+
+// Dungeons in the route: the live step waits on a level (an accept for level 5, a dungeon run after it). The last
+// step handed in from the line meanwhile stays seen done however long the wait: no end when the level comes.
+#[test]
+fn a_last_hand_in_from_the_line_during_a_level_wait_is_no_end_when_the_level_comes() {
+	let out = run(Run {
+		next: NEXT,
+		saved: None,
+		script: r#"
+			Polestar.dungeonRoute = true
+			Polestar.Set("behavior.dungeons", "run")
+			local function at(t, id, x, y) return { goals = { { t = t, quest = id, title = "Errand " .. id, npc = 9000 + id, npcName = "Giver " .. id, map = 1411, x = x, y = y } } } end
+			Polestar.RegisterGuide({ id = "test/wait", pack = "test", title = "Wait", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1411, next = "test/barrens",
+				steps = { at("accept", 300, 52, 43), at("accept", 301, 52, 43),
+					{ goals = { { t = "accept", quest = 360, title = "Errand 360", npc = 9360, npcName = "Giver 360", minLevel = 5, map = 1411, x = 70, y = 70 } } },
+					{ title = "Deadmines", when = { { k = "dungeon", name = "The Deadmines", map = 36 } }, goals = { { t = "accept", quest = 361, title = "Errand 361", map = 1411, x = 75, y = 75 } } },
+					at("turnin", 301, 70, 70),
+					{ goals = { { t = "turnin", quest = 300, title = "Errand 300", npc = 9300, npcName = "Giver 300", map = 1411, x = 52, y = 43 } } } } })
+			E.SetGuide("test/wait"); flush(); takeLog()
+			w.accept(300, { 1 }); flush(); w.accept(301, {}); flush()
+			w.finish(300); stub.advance(1.5)
+			local line = E.GetWhileHere()
+			local r = { live = E.GetLiveStep(), line = line and line.quest or "none" }
+			w.turnIn(300); flush()
+			r.handedIn = takeLog()
+			stub.advance(90); w.setLevel(5); flush()
+			r.level = { log = takeLog(), live = E.GetLiveStep() }
+			emit(r)"#,
+	});
+	assert_eq!(out["live"], 3, "waiting on the level");
+	assert_eq!(out["line"], 300);
+	assert_eq!(out["handedIn"], json!({}));
+	assert_eq!(out["level"]["log"], json!({}), "no end when the level comes");
+}
