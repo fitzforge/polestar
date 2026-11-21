@@ -1775,6 +1775,7 @@ fn the_header_menu_picker_new_tab_compact_transparent_lock_destructive_items_ask
 			"Report a problem",
 			"Compact mode",
 			"Transparent",
+			"Dock to quest tracker",
 			"Lock window",
 			"Reset guide progress",
 			"Quick settings",

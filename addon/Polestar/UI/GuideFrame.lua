@@ -2929,7 +2929,7 @@ GF.Part(function(GF)
 
 	local function draggable(frame)
 		if not GF.live then return frame end
-		ns.DragWindow(frame, F, { locked = function() return ns.Get("ui.locked") end, onStop = function() GF.DragStop() end })
+		ns.DragWindow(frame, F, { locked = function() return GF.dock or ns.Get("ui.locked") end, onStop = function() GF.DragStop() end })
 		return hoverable(frame)
 	end
 
