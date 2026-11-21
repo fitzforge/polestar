@@ -9,7 +9,7 @@ return {
 	-- Step 1: The Altar of Zul
 	-- {area:355} Altar of Zul · {zone:1425} The Hinterlands · {npc:8636} Morta'gya the Keeper · {npc:7996} Qiaga the Keeper
 	-- plural, as words: Vilebranch Soothsayers = {npc:4467} Vilebranch Soothsayer
-	["Ride south-east to the {area:355}, the stepped Vilebranch temple in the south of the {zone:1425}, and climb to the top. Qiaga and {npc:8636} (elite, 50) stand up there: touch the top and come straight back down.\nCareful: Elite trolls guard the top platform, including {npc:7996} and {npc:8636}, along with several Vilebranch Soothsayers. The soothsayers cast spells and are linked to the rest of the group."] = "Reite nach Südosten zum {area:355}, dem Stufentempel der Vilebranch im Süden von {zone:1425}, und steig ganz nach oben. Qiaga und {npc:8636} (Elite, 50) stehen dort oben: Berühre die Spitze und komm direkt wieder herunter.\nVorsicht: Elite-Trolle bewachen die oberste Plattform, darunter {npc:7996} und {npc:8636}, zusammen mit mehreren Vilebranch Soothsayers. Die Soothsayers wirken Zauber und sind mit dem Rest der Gruppe verbunden.",
+	["Ride south-east to the {area:355}, the stepped Vilebranch temple in the south of the {zone:1425}, and climb to the top. Qiaga and {npc:8636} (elite, 50) stand up there: touch the top and come straight back down.\nCareful: Elite trolls guard the top platform, including {npc:7996} and {npc:8636}, along with several Vilebranch Soothsayers. The soothsayers cast spells and are linked to the rest of the group."] = "Reite nach Südosten zum {area:355}, dem Stufentempel der Vilebranch im Süden von {zone:1425}, und steig ganz nach oben. Qiaga und {npc:8636} (Elite, 50) stehen dort oben: Berühre die Spitze und komm direkt wieder herunter.\nVorsicht: Elite-Trolle bewachen die oberste Plattform, darunter {npc:7996} und {npc:8636}, zusammen mit mehreren Sterndeutern der Vilebranch. Die Sterndeuter wirken Zauber und sind mit dem Rest der Gruppe verbunden.",
 
 	-- Step 2: Vilebranch Soothsayers
 	-- plural, as words: Vilebranch Soothsayers = {npc:4467} Vilebranch Soothsayer
@@ -17,7 +17,7 @@ return {
 	-- {area:355} Altar of Zul · {npc:7996} Qiaga the Keeper · {npc:8636} Morta'gya the Keeper
 	-- plural, as words: Vilebranch Soothsayers = {npc:4467} Vilebranch Soothsayer · Vilebranch Totems = {item:279225} Vilebranch Totem
 	-- was: ["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "Die Sterndeuter der Vilebranch (46-47) laufen rund um den Fuß des {area:355}: Ihre Totems sind für Maret Firetend. Vorsicht: {npc:7996} und {npc:8636} (50, Elite) stehen an der Südostseite des Altars: Nimm dir die Sterndeuter auf seiner Westseite vor, weg von ihnen, und bleib vom Altar runter."
-	["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend, and more Vilebranch Totems lie on the ground among them: pick those up too. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "Les Devins Vilebranch (46-47) parcourent le terrain au pied de l'{area:355} : leurs totems sont pour Maret Gardefeu, et d'autres totems Vilebranch gisent au sol parmi eux : ramassez-les aussi. Attention : {npc:7996} et {npc:8636} (50, élites) se tiennent du côté sud-est de l'autel : attaquez les Devins du côté ouest, loin d'elles, et restez hors de l'autel.",
+	["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend, and more Vilebranch Totems lie on the ground among them: pick those up too. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "Die Sterndeuter der Vilebranch (46-47) streifen über das Gelände am Fuß von {area:355}: ihre Toteme sind für Maret Firetend, und weitere Toteme der Vilebranch liegen am Boden unter ihnen: heb auch diese auf. Vorsicht: {npc:7996} und {npc:8636} (50, Elite) stehen an der Südostseite des Altars: nimm die Sterndeuter an seiner Westseite, fern von ihnen, und betrete den Altar nicht.",
 
 	-- Step 3: Skulk Rock
 	-- {area:351} Skulk Rock · {zone:1425} The Hinterlands
@@ -157,14 +157,14 @@ return {
 
 	-- Step 34: Negolash's bait
 	-- {npc:1494} Negolash
-	["{npc:1494}'s bait"] = "l'appât de {npc:1494}",
+	["{npc:1494}'s bait"] = "der Köder von {npc:1494}",
 	-- {npc:1494} Negolash · {quest:619} Enticing Negolash · {area:35} Booty Bay · {item:4595} Junglevine Wine · {npc:2832} Nixxrax Fillamug
 	-- plural, as words: Barbecued Buzzard Wings = {item:4457} Barbecued Buzzard Wing
-	["{npc:1494} comes only for his food: hand in {quest:619} at Captain Smotts' ruined lifeboat on the shore south-east of {area:35}, with 10 Barbecued Buzzard Wings and 5 {item:4595}, and he comes to the boat. {npc:2832}, the food and drink vendor at the inn, sells the wine. The wings are a cook's dish: if you don't cook, bring them from the Auction House."] = "{npc:1494} ne vient que pour sa nourriture : rendez {quest:619} auprès de l'embarcation de sauvetage en ruine du capitaine Smotts, sur la rive au sud-est de {area:35}, avec 10 ailes de busard grillées et 5 {item:4595}, et il vient au bateau. {npc:2832}, le marchand de nourriture et de boissons de l'auberge, vend le vin. Les ailes sont un plat de cuisinier : si vous ne cuisinez pas, apportez-les de l'hôtel des ventes.",
+	["{npc:1494} comes only for his food: hand in {quest:619} at Captain Smotts' ruined lifeboat on the shore south-east of {area:35}, with 10 Barbecued Buzzard Wings and 5 {item:4595}, and he comes to the boat. {npc:2832}, the food and drink vendor at the inn, sells the wine. The wings are a cook's dish: if you don't cook, bring them from the Auction House."] = "{npc:1494} kommt nur wegen seines Essens: gib {quest:619} am zerstörten Rettungsboot von Kapitän Smotts am Ufer südöstlich von {area:35} ab, mit 10 Gegrillten Bussardflügeln und 5 {item:4595}, und er kommt zum Boot. {npc:2832}, der Essens- und Getränkehändler in der Gaststätte, verkauft den Wein. Die Flügel sind ein Kochgericht: Wenn du nicht kochst, besorg sie im Auktionshaus.",
 	-- {item:4457} Barbecued Buzzard Wing
-	["{item:4457}: in your bags already if you cook"] = "{item:4457} : déjà dans vos sacs si vous cuisinez",
+	["{item:4457}: in your bags already if you cook"] = "{item:4457}: schon in deinen Taschen, wenn du kochst",
 	-- {object:2289} Ruined Lifeboat · {npc:1494} Negolash
-	["{object:2289}: the food goes in, {npc:1494} comes"] = "{object:2289} : la nourriture dedans, {npc:1494} arrive",
+	["{object:2289}: the food goes in, {npc:1494} comes"] = "{object:2289}: das Essen hinein, {npc:1494} kommt",
 
 	-- Step 35: Facing Negolash
 	-- {npc:1494} Negolash

@@ -244,13 +244,13 @@ return {
 	["{npc:265944}, at the inn's north end: Camping 101 asks you to learn it"] = "{npc:265944}, am Nordende des Gasthauses: Camping 101 verlangt, dass du es lernst",
 
 	-- Step 44: The cellar stairs
-	["The cellar stairs"] = "L'escalier de la cave",
+	["The cellar stairs"] = "Die Kellertreppe",
 	-- {npc:1931} Captured Scarlet Zealot
-	["The {npc:1931} is in the cellar under the inn's north end. The stairs down start at the west side of that end: go down them, then turn east to him."] = "{npc:1931} est dans la cave sous l'extrémité nord de l'auberge. L'escalier vers le bas commence du côté ouest de cette extrémité : descendez-le, puis tournez vers l'est vers lui.",
+	["The {npc:1931} is in the cellar under the inn's north end. The stairs down start at the west side of that end: go down them, then turn east to him."] = "{npc:1931} ist im Keller unter dem Nordende der Gaststätte. Die Treppe nach unten beginnt an der Westseite dieses Endes: geh hinunter und wende dich dann nach Osten zu ihm.",
 
 	-- Step 45: Gallows' End Tavern
 	-- {npc:2128} Cain Firesong · {npc:2129} Dark Cleric Beryl · {npc:2127} Rupert Boch · {npc:2130} Marion Call · {npc:2131} Austil de Mon
-	["Back up from the cellar: {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) are upstairs, {npc:2131} (warriors) on the ground floor; take the stairs inside, the arrow cannot tell the floors apart."] = "Remontez de la cave : {npc:2128} (mages), {npc:2129} (prêtres), {npc:2127} (démonistes) et {npc:2130} (voleurs) sont à l'étage, {npc:2131} (guerriers) au rez-de-chaussée ; prenez l'escalier intérieur, la flèche ne peut pas distinguer les étages.",
+	["Back up from the cellar: {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) are upstairs, {npc:2131} (warriors) on the ground floor; take the stairs inside, the arrow cannot tell the floors apart."] = "Zurück aus dem Keller: {npc:2128} (Magier), {npc:2129} (Priester), {npc:2127} (Hexenmeister) und {npc:2130} (Schurken) sind oben, {npc:2131} (Krieger) im Erdgeschoss; nimm die Treppe im Inneren, der Pfeil kann die Stockwerke nicht unterscheiden.",
 	-- {npc:1931} Captured Scarlet Zealot
 	["The {npc:1931}, in the inn's cellar"] = "Der {npc:1931}, im Keller des Gasthauses",
 	-- {area:159} Brill · {npc:2131} Austil de Mon · {npc:246152} Shari Stilwell
