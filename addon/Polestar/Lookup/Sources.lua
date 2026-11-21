@@ -315,7 +315,8 @@ Lookup.SideOK = sideOK
 -- goal at such an NPC, with no spots of its own, gets that ground as its one
 -- spot { x, y, r, n = 1 } (r in yards, at least WALK.MIN_R), as compiled
 -- guides give a walker's goal, and its point moves to the middle: the maps
--- circle it, the arrow counts it as reached, While you're here measures to
+-- circle it, the arrow leads to the middle (Arrived within the goal's radius
+-- of it, as at any NPC: Engine's Own.onePlace), While you're here measures to
 -- it. `walks` marks it; `note` (when it has none) says so, as the guides do.
 -- -> goal, changed or not.
 local WALK = { YARDS = 20, PLACE = 70, MIN_R = 15 }

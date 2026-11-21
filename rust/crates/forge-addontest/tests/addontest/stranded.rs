@@ -139,8 +139,10 @@ fn a_finished_quest_no_route_hands_in_is_listed_with_its_ender_and_handed_in_whi
 
 // #3019 (Shuurajou): a finished quest's ender who walks about. Nikova Raskol walks a round of Old Town, which the
 // Codex has as several spawns; the line pointed at the one nearest the player as if she stood there. Her walk is
-// now the hand-in's one spot, its point in the middle (the line measures to it, the maps circle it, the arrow
-// counts it as reached), and the line says she walks. Marshal Dughan, at one spawn, keeps his point.
+// now the hand-in's one spot, its point in the middle: the line measures to it, the maps circle it (the line's
+// layer, then the arrow's once the arrow leads there), and the line says she walks. The arrow leads to the middle
+// and says Arrived within the goal's radius of it, as at any NPC (Own.onePlace), not anywhere in the circle.
+// Marshal Dughan, at one spawn, keeps his point.
 #[test]
 fn a_stranded_hand_in_to_an_npc_who_walks_about_circles_her_walk_and_says_so_3019() {
 	let out = run_before(
@@ -153,11 +155,26 @@ fn a_stranded_hand_in_to_an_npc_who_walks_about_circles_her_walk_and_says_so_301
 		r.goal = { g.x, g.y, #g.spots, g.spots[1].x, g.spots[1].y, g.spots[1].r, g.note }
 		local d = E.AlongGoal(-2, 40)
 		r.dughan = { d.x, d.y, d.spots == nil }
+		-- The maps' circle: one area at her walk's middle, in the While-here layer, then in the arrow's once it leads there.
+		local _, cx, cy = Polestar.Compat.MapToWorld(1429, 44.8, 39.2)
+		local function circles(layer)
+			local out = {}
+			for _, p in ipairs(Polestar.Pins.GetLayer(layer) or {}) do
+				if p.areaOnly then out[#out + 1] = { math.floor(p.wx - cx + 0.5), math.floor(p.wy - cy + 0.5) } end
+			end
+			return out
+		end
+		flush()
+		r.mapBefore = circles("nav.hereAreas")
+		E.DismissWhileHere(1)
+		flush()
 		for i, v in ipairs(E.GetWhileHereList()) do
 			if v.index == 47 then E.AimWhileHere(i) end
 		end
+		flush()
+		r.mapAimed = circles("nav.areas")
 		local wp = E.GetWaypoint()
-		r.waypoint = { wp.x, wp.y, wp.area }
+		r.waypoint = { wp.x, wp.y, wp.area or false }
 		emit(r)
 	"#,
 	);
@@ -168,7 +185,9 @@ fn a_stranded_hand_in_to_an_npc_who_walks_about_circles_her_walk_and_says_so_301
 	);
 	assert_eq!(out["goal"], json!([44.8, 39.2, 1, 44.8, 39.2, 34, "Nikova walks around here: look inside the circle on the map"]), "{out}");
 	assert_eq!(out["dughan"], json!([42, 35.1, true]), "{out}");
-	assert_eq!(out["waypoint"], json!([44.8, 39.2, 34]), "{out}");
+	assert_eq!(out["mapBefore"], json!([[0, 0]]), "{out}");
+	assert_eq!(out["mapAimed"], json!([[0, 0]]), "{out}");
+	assert_eq!(out["waypoint"], json!([44.8, 39.2, false]), "{out}");
 }
 
 // #2918 (Chm137): Auto turn-in hands in the guide's quests. A finished quest's stranded line is handed in by
