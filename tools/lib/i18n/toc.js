@@ -221,6 +221,21 @@ const TEXT = {
 			zhTW: 'Polestar 的一部分：petllama 的 Freedoom Arcade，飛行途中可玩的三個 Freedoom 關卡。點擊「開始遊戲」時載入。',
 		},
 	},
+	// The Stats page and what it counts (Core/StatsPack.lua): loaded at login while stats.enabled is on.
+	Polestar_Stats: {
+		title: { deDE: 'Polestar: Statistik', esES: 'Polestar: estadísticas', esMX: 'Polestar: estadísticas', frFR: 'Polestar : statistiques', koKR: 'Polestar 통계', ptBR: 'Polestar: estatísticas', ruRU: 'Polestar: статистика', zhCN: 'Polestar 统计', zhTW: 'Polestar 統計' },
+		notes: {
+			deDE: 'Teil von Polestar: die Statistikseite und was sie für diesen Charakter zählt, nur auf diesem Computer gespeichert. Wird geladen, solange die Statistik eingeschaltet ist.',
+			esES: 'Parte de Polestar: la página de estadísticas y lo que cuenta para este personaje, guardado solo en este equipo. Se carga mientras las estadísticas están activadas.',
+			esMX: 'Parte de Polestar: la página de estadísticas y lo que cuenta para este personaje, guardado solo en este equipo. Se carga mientras las estadísticas están activadas.',
+			frFR: "Fait partie de Polestar : la page des statistiques et ce qu'elle compte pour ce personnage, conservé uniquement sur cet ordinateur. Chargé tant que les statistiques sont activées.",
+			koKR: 'Polestar의 일부: 통계 페이지와 이 캐릭터에 대해 집계하는 내용. 이 컴퓨터에만 저장됩니다. 통계가 켜져 있는 동안 불러옵니다.',
+			ptBR: 'Parte do Polestar: a página de estatísticas e o que ela conta para este personagem, guardado apenas neste computador. Carregado enquanto as estatísticas estão ativadas.',
+			ruRU: 'Часть Polestar: страница статистики и то, что она считает для этого персонажа; хранится только на этом компьютере. Загружается, пока статистика включена.',
+			zhCN: 'Polestar 的组成部分：统计页面及其为该角色统计的内容，仅保存在这台电脑上。统计开启时加载。',
+			zhTW: 'Polestar 的一部分：統計頁面及其為該角色統計的內容，僅保存在這台電腦上。統計開啟時載入。',
+		},
+	},
 	// The Skin API's example (docs/SKINS-API.md): in the repository only, never in a release.
 	Polestar_Skin_Example: {
 		title: { deDE: 'Polestar: Design-Beispiel', esES: 'Polestar: tema de ejemplo', esMX: 'Polestar: tema de ejemplo', frFR: "Polestar : habillage d'exemple", koKR: 'Polestar 스킨 예제', ptBR: 'Polestar: tema de exemplo', ruRU: 'Polestar: пример оформления', zhCN: 'Polestar 皮肤示例', zhTW: 'Polestar 皮膚範例' },

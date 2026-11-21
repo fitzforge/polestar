@@ -1,0 +1,36 @@
+## Interface: 16001
+## Title: Polestar Stats
+## Notes: Part of Polestar: the Stats page and what it counts for this character, kept on this computer only. Loaded while Stats is on.
+## Title-deDE: Polestar: Statistik
+## Notes-deDE: Teil von Polestar: die Statistikseite und was sie für diesen Charakter zählt, nur auf diesem Computer gespeichert. Wird geladen, solange die Statistik eingeschaltet ist.
+## Title-esES: Polestar: estadísticas
+## Notes-esES: Parte de Polestar: la página de estadísticas y lo que cuenta para este personaje, guardado solo en este equipo. Se carga mientras las estadísticas están activadas.
+## Title-esMX: Polestar: estadísticas
+## Notes-esMX: Parte de Polestar: la página de estadísticas y lo que cuenta para este personaje, guardado solo en este equipo. Se carga mientras las estadísticas están activadas.
+## Title-frFR: Polestar : statistiques
+## Notes-frFR: Fait partie de Polestar : la page des statistiques et ce qu'elle compte pour ce personnage, conservé uniquement sur cet ordinateur. Chargé tant que les statistiques sont activées.
+## Title-koKR: Polestar 통계
+## Notes-koKR: Polestar의 일부: 통계 페이지와 이 캐릭터에 대해 집계하는 내용. 이 컴퓨터에만 저장됩니다. 통계가 켜져 있는 동안 불러옵니다.
+## Title-ptBR: Polestar: estatísticas
+## Notes-ptBR: Parte do Polestar: a página de estatísticas e o que ela conta para este personagem, guardado apenas neste computador. Carregado enquanto as estatísticas estão ativadas.
+## Title-ruRU: Polestar: статистика
+## Notes-ruRU: Часть Polestar: страница статистики и то, что она считает для этого персонажа; хранится только на этом компьютере. Загружается, пока статистика включена.
+## Title-zhCN: Polestar 统计
+## Notes-zhCN: Polestar 的组成部分：统计页面及其为该角色统计的内容，仅保存在这台电脑上。统计开启时加载。
+## Title-zhTW: Polestar 統計
+## Notes-zhTW: Polestar 的一部分：統計頁面及其為該角色統計的內容，僅保存在這台電腦上。統計開啟時載入。
+## Author: Polestar
+## Version: 0.4.2
+## Category: Polestar
+## Group: Polestar
+## LoadOnDemand: 1
+## Dependencies: Polestar
+## SavedVariablesPerCharacter: PolestarStatsCharDB
+## X-License: GPL-3.0-only
+## X-Website: https://github.com/fitzforge/polestar
+
+Collect.lua
+Progress.lua
+Charts.lua
+WorldArt.lua
+View.lua

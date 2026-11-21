@@ -137,6 +137,7 @@ function Maps.ShowMenu(anchor)
 	items[#items + 1] = { separator = true }
 	items[#items + 1] = { text = L["Guides"], icon = "guides", onClick = open("SHOW_PICKER") }
 	items[#items + 1] = { text = L["Lookup"], icon = "search", onClick = open("SHOW_LOOKUP") }
+	if ns.StatsPack and ns.StatsPack.Installed() then items[#items + 1] = { text = L["Stats"], icon = "layers", onClick = open("SHOW_STATS") } end
 	items[#items + 1] = { text = L["Settings"], icon = "sliders", onClick = open("SHOW_OPTIONS") }
 	items[#items + 1] = { separator = true }
 	items[#items + 1] = { text = L["Report a problem"], icon = "bug", onClick = open("SHOW_REPORT") }

@@ -73,6 +73,10 @@ ns.UI.GuideFrame.Part(function(GF)
 				ns.Print(L["Guide window hidden. Type /polestar to bring it back."])
 			end },
 		}) do items[#items + 1] = it end
+		-- The Stats section of the hub (Stats/View.lua), under the Recorder's and the Arcade's entries.
+		if ns.StatsPack and ns.StatsPack.Installed() then
+			table.insert(items, 5, { text = L["Stats"], icon = "layers", onClick = function() ns.Fire("SHOW_STATS") end })
+		end
 		-- Freedoom Arcade (Maps/Arcade.lua), while a copy of it is there.
 		local arcade = ns.Arcade
 		if arcade and arcade.Available() then

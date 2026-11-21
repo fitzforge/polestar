@@ -54,6 +54,7 @@ const GROUPS: &[Group] = &[
 	Group { name: "integrations", src: include_str!("effects/integrations.lua") },
 	Group { name: "integrations_arcade", src: include_str!("effects/integrations-arcade.lua") },
 	Group { name: "discovery", src: include_str!("effects/discovery.lua") },
+	Group { name: "discovery_stats", src: include_str!("effects/discovery-stats.lua") },
 	Group { name: "discovery_lookup", src: include_str!("effects/discovery-lookup.lua") },
 	Group { name: "discovery_dungeons", src: include_str!("effects/discovery-dungeons.lua") },
 	Group { name: "discovery_dungeon_route", src: include_str!("effects/discovery-dungeon-route.lua") },
@@ -375,6 +376,8 @@ fn env(name: &str) -> Env {
 		},
 		// The whole addon with EllesmereUI installed before it loads (theme.rs).
 		"eui" => Env { before: "stub.withEllesmere()\n", ..env("world") },
+		// The whole addon with the Stats addon (Polestar_Stats) in the AddOns list: Core/StatsPack.lua loads it at login.
+		"stats" => Env { before: "stub.addons[#stub.addons + 1] = { name = \"Polestar_Stats\", reason = \"DEMAND_LOADED\" }\n", ..env("world") },
 		// The whole addon with a guide that has a step for every dungeon in the route (Dungeons.ROUTE's, read from
 		// the settings' addon's list without it: the group's own list), registered before the settings window's
 		// addon loads, so Discovery > Dungeons has a row for each (Polestar_Options/Dungeons/Options.lua). Dungeons in
@@ -594,6 +597,11 @@ fn discovery() {
 }
 
 #[test]
+fn discovery_stats() {
+	check("discovery_stats");
+}
+
+#[test]
 fn discovery_lookup() {
 	check("discovery_lookup");
 }
@@ -804,6 +812,8 @@ fn every_control_has_an_effect_check() {
 	}
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
+		// The Stats addon in the AddOns list: its rows on Discovery > Stats are controls while it is installed.
+		before: "stub.addons[#stub.addons + 1] = { name = \"Polestar_Stats\", reason = \"DEMAND_LOADED\" }\n".into(),
 		addons: vec![Addon::name("Polestar")],
 		login: true,
 		script: format!(

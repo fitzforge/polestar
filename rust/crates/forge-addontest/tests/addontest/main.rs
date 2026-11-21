@@ -458,6 +458,7 @@ mod skins_hearth;
 mod skins_login;
 #[path = "skins-sweep.rs"]
 mod skins_sweep;
+mod stats;
 mod stranded;
 mod syntax;
 mod talents;

@@ -555,7 +555,7 @@ local BUILTIN = {
 }
 
 -- Pages filled by modules alone: Quests, QoL, Gear and Talents on Questing; Lookup,
--- Alts, Dungeons and Rares on Discovery; QoL, Nav and Maps on Quality of Life.
+-- Alts, Dungeons, Rares and Stats on Discovery; QoL, Nav and Maps on Quality of Life.
 for _, list in ipairs({
 	declare(QUESTING, "questing", "icon-accept", 40, L["Quest information, rewards and gear advice, and the quest buttons."], {
 		{ L["Quests"], { L["Faster questing"], L["Quest log and tooltips"], L["Group"], L["Party chat"] } },
@@ -567,6 +567,7 @@ for _, list in ipairs({
 		{ L["Lookup"], { L["How to get anything"], L["Dungeons and characters"] } },
 		{ L["Dungeons"], { L["Dungeons in leveling guides"] } },
 		{ L["Rares"], { L["When a rare shows up"], L["How rares are noticed"] } },
+		{ L["Stats"], { L["Stats"] } },
 	}),
 	declare(QOL, "qualityoflife", "qol-toggles", 60, L["Small conveniences: questing, travel, invitations, merchants, bags, trackers and the map."], {
 		-- Conveniences that also live on their home pages (Questing, Guide, Map): players look for them here (Fitz, 2026-11-05).
@@ -926,6 +927,7 @@ local ALIASES = {
 	quests = { "questing", L["Quests"] }, gear = { "questing", L["Rewards & gear"] },
 	lookup = { "discovery", L["Lookup"] }, dungeons = { "discovery", L["Dungeons"] }, rares = { "discovery", L["Rares"] },
 	characters = { "discovery", L["Lookup"] }, alts = { "discovery", L["Lookup"] },
+	stats = { "discovery", L["Stats"] },
 	appearance = { "theme" }, look = { "theme" }, qol = { "qualityoflife" },
 	-- The target list's Polestar mark (QoL/Buttons.lua): Questing > Buttons, where Targeting is.
 	targeting = { "questing", L["Buttons"] },

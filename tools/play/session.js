@@ -292,6 +292,11 @@ C_Map.GetMapArtID = function(id) local m = ART[id]; return m and m.artID end`);
 		}
 		// Freedoom Arcade (Polestar_Arcade), installed as in the client, loaded on demand by the first Play
 		// (Maps/Arcade.lua).
+		// The Stats page (Polestar_Stats), installed as in the client: Core/StatsPack.lua loads it at login.
+		if (fs.existsSync(path.join(ADDONS, 'Polestar_Stats', 'Polestar_Stats.toc'))) {
+			lines.push(`stub.packs.Polestar_Stats = stub.packs.Polestar_Stats or { ${tocFiles('Polestar_Stats').map(luaString).join(', ')} }`);
+			lines.push('stub.addons[#stub.addons + 1] = { name = "Polestar_Stats", reason = "DEMAND_LOADED" }');
+		}
 		if (fs.existsSync(path.join(ADDONS, 'Polestar_Arcade', 'Polestar_Arcade.toc'))) {
 			lines.push(`stub.packs.Polestar_Arcade = stub.packs.Polestar_Arcade or { ${tocFiles('Polestar_Arcade').map(luaString).join(', ')} }`);
 			lines.push('stub.addons[#stub.addons + 1] = { name = "Polestar_Arcade", reason = "DEMAND_LOADED" }');

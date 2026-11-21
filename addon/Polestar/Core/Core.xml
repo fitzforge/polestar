@@ -2,6 +2,7 @@
 	<Script file="Init.lua"/>
 	<Script file="Compat.lua"/>
 	<Script file="Data.lua"/>
+	<Script file="StatsPack.lua"/>
 	<Script file="LuaChunks.lua"/>
 	<Script file="Credits.lua"/>
 	<Script file="Names.lua"/>

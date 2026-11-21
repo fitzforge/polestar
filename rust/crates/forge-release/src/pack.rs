@@ -51,6 +51,17 @@ pub fn readme(version: &str, names: &[String]) -> String {
 			.map(|s| s.to_string()),
 		);
 	}
+	if names.iter().any(|n| n == crate::addons::STATS) {
+		lines.extend(
+			[
+				"   Polestar_Stats is the Stats page and what it counts for it, kept",
+				"   on this computer only. Leave the folder out, or untick it in the",
+				"   AddOns list, and Polestar counts nothing.",
+			]
+			.iter()
+			.map(|s| s.to_string()),
+		);
+	}
 	if names.iter().any(|n| forge_guide::project::own_extra(n).is_some()) {
 		lines.extend(
 			[

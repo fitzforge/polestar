@@ -38,6 +38,12 @@
 --   ZoneArt.FullOverlays(uiMapID, tileWidth, tileHeight) -> art table | nil
 --     the table above for the art the client shows, only when it was built
 --     for that art and tile size (Maps' world map reveal uses it too).
+--   ZoneArt.ArtLayer(uiMapID) -> layer info, tile files | nil
+--     the client's first art layer of a map (layerWidth, layerHeight,
+--     tileWidth, tileHeight) and its tiles, row-major.
+--   ZoneArt.OverlaysOf(uiMapID, layer info) -> list, "full" | "explored" | nil
+--     the map's overlays: the table's (the art it was built for), else the
+--     client's explored ones (Stats' world map lays them out itself).
 --   ZoneArt.EachOverlayTile(tileW, tileH, width, height, offX, offY, files,
 --       first, place, ctx[, x0, y0, x1, y1])
 --     one overlay's tiles as the world map splits them:
@@ -122,6 +128,7 @@ local function artLayer(uiMapID)
 	if not (ok2 and type(list) == "table" and #list > 0) then return nil end
 	return info, list
 end
+ZA.ArtLayer = artLayer
 
 -- The overlay table of the art the client shows for a map, when it was built
 -- for that art (same art ID, same tile size): { tileWidth, tileHeight,
@@ -149,6 +156,7 @@ local function overlaysOf(uiMapID, info)
 	end
 	return nil
 end
+ZA.OverlaysOf = overlaysOf
 
 -- The next texture of a pool, made on first use.
 local function acquire(a, pool, n, sub)

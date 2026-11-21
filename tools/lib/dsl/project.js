@@ -545,6 +545,8 @@ function textsDirRefusal(dir, packId) {
 const RELEASE_ADDONS = ['Polestar', 'Polestar_Guides', 'Polestar_Nav', 'Polestar_Options', 'Polestar_SkinAPI', 'Polestar_Looks'];
 // forge-release addons.rs ARCADE.
 const ARCADE = 'Polestar_Arcade';
+// forge-release addons.rs STATS: the Stats page's addon, shipped when there, after Freedoom Arcade.
+const STATS = 'Polestar_Stats';
 const RELEASE_DATA_ADDONS = [
 	'Polestar_QuestDB', 'Polestar_ItemDB', 'Polestar_Codex',
 	...LOCALE_CODES.map(languageAddon),
@@ -557,7 +559,7 @@ function releaseAddons(addonsDir) {
 	// guide compile, format 8), each once built (as forge-release's release_addons).
 	const walking = navParts(path.join(addonsDir, 'Polestar_Nav'));
 	const guides = ['Alliance', 'Horde', ...RACE_FILES].map((r) => partAddon(OWN_FOLDER, r));
-	const parts = [ARCADE, ...walking, ...guides].filter((n) => fs.existsSync(path.join(addonsDir, n, `${n}.toc`)));
+	const parts = [ARCADE, STATS, ...walking, ...guides].filter((n) => fs.existsSync(path.join(addonsDir, n, `${n}.toc`)));
 	return { names: [...RELEASE_ADDONS, ...parts, ...RELEASE_DATA_ADDONS.filter((n) => !skipped.includes(n))], skipped };
 }
 

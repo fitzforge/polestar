@@ -457,6 +457,47 @@ function badge() {
 	return new Canvas(32, 16).fill(sdf.box(16, 8, 15.25, 7.25, 7.25), WHITE);
 }
 
+// The masks that fade a map's art out at its frame where maps are laid side
+// by side (Stats/WorldArt.lua): alpha only, 0 at the texture's edge.
+// feather: a rectangle, full from 6% in (a zone's art, to its frame);
+// feather-round: a rounded one, full from 20% in (a city's map, whose paper
+// border and corners drop away).
+function smoothstep(t) {
+	t = Math.max(0, Math.min(1, t));
+	return t * t * (3 - 2 * t);
+}
+function feather(fade, radius) {
+	const N = 256;
+	const c = new Canvas(N, N);
+	const box = sdf.box(N / 2, N / 2, N / 2 - 1, N / 2 - 1, radius * N);
+	for (let y = 0; y < N; y++) {
+		for (let x = 0; x < N; x++) {
+			const a = smoothstep(-box(x + 0.5, y + 0.5) / (fade * N));
+			const i = (y * N + x) * 4;
+			c.px[i] = c.px[i + 1] = c.px[i + 2] = 1;
+			c.px[i + 3] = a;
+		}
+	}
+	return c;
+}
+
+// A heat blob (Stats' map): a round fade, full at the centre, 0 at the rim,
+// so cells laid over each other run together instead of showing as squares.
+function blob() {
+	const N = 64;
+	const c = new Canvas(N, N);
+	for (let y = 0; y < N; y++) {
+		for (let x = 0; x < N; x++) {
+			const t = Math.hypot(x + 0.5 - N / 2, y + 0.5 - N / 2) / (N / 2);
+			if (t >= 1) continue;
+			const i = (y * N + x) * 4;
+			c.px[i] = c.px[i + 1] = c.px[i + 2] = 1;
+			c.px[i + 3] = (1 - t * t) ** 2;
+		}
+	}
+	return c;
+}
+
 // The glyphs the addon uses, by file name (Media/Map/icon-<name>.tga).
 function generate(addonRoot) {
 	const dir = path.join(addonRoot, 'Media', 'Map');
@@ -468,6 +509,9 @@ function generate(addonRoot) {
 	out.push(glow().write(path.join(dir, 'glow.tga')));
 	out.push(edge().write(path.join(dir, 'edge.tga')));
 	out.push(badge().write(path.join(dir, 'badge.tga')));
+	out.push(feather(0.06, 0.04).write(path.join(dir, 'feather.tga')));
+	out.push(feather(0.2, 0.3).write(path.join(dir, 'feather-round.tga')));
+	out.push(blob().write(path.join(dir, 'blob.tga')));
 	return out;
 }
 

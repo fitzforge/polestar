@@ -1792,6 +1792,7 @@ end
 
 local GUIDES = { key = "Guides", label = L["Guides"], icon = "guides", order = 10, builtin = true }
 local sections, section = { GUIDES }, nil
+local railItems -- P.RailItems()'s list, made anew once a section registers
 P.GUIDES = GUIDES.key
 
 function UI.RegisterSection(spec)
@@ -1800,6 +1801,7 @@ function UI.RegisterSection(spec)
 	for i = #sections, 1, -1 do if sections[i].key == spec.key then table.remove(sections, i) end end
 	sections[#sections + 1] = spec
 	table.sort(sections, function(a, b) return (a.order or 100) < (b.order or 100) end)
+	railItems = nil
 	if win and win:IsShown() then P.Render() end
 	return true
 end
@@ -1881,12 +1883,15 @@ end
 
 -- The hub's sections as rail items (the settings window shows the same rail);
 -- a section with `foot = true` sits at the rail's foot instead, above
--- Options (P.FootItems).
+-- Options (P.FootItems). One list for every render (the rail is drawn at
+-- each of them), until a section registers.
 function P.RailItems()
+	if railItems then return railItems end
 	local items = {}
 	for _, s in ipairs(sections) do
 		if not s.foot then items[#items + 1] = { key = s.key, label = s.label or s.key, icon = s.icon } end
 	end
+	railItems = items
 	return items
 end
 
