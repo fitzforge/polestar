@@ -430,4 +430,8 @@ register(QOL, L["Game"], L["Game options"], {
 		end,
 		set = setSharpen },
 	C.instantQuestText(), C.hideErrors(), C.hideQuestTracker(),
+	-- Enchanting your own gear (QoL/Enchant.lua).
+	{ kind = "toggle", key = "qol.autoReplaceEnchant", label = L["Replace enchants without asking"],
+		help = L["When you enchant your own gear and the item already has an enchant, replaces it without the game's question and names both enchants in chat. Never in a trade window. Hold Shift to be asked."],
+		search = "enchant, enchanting, replace enchant, overwrite, confirm, scroll, professions" },
 })

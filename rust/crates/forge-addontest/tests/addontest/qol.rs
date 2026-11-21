@@ -79,7 +79,7 @@ fn options_every_qol_setting_is_registered_on_questing_or_quality_of_life_with_l
 			"rewardHighlight", "rewardAutoPick", "flightAutoOpen", "flightHighlight", "flightAutoTake", "deathHelper", "instantQuestText",
 			"skipGossip", "fastLoot", "declineDuels", "repairGuild", "hideErrors", "autoReleasePvP", "declineGuildInvites",
 			"declinePartyStrangers", "acceptPartyFriends", "acceptSummon", "acceptResurrect", "buyGoals",
-			"rewardEquip", "autoBind", "hideQuestTracker", "restock", "itemMarks", "itemMarksClick", "bagSpace", "bagsLow", "spareBag", "wearOffer",
+			"rewardEquip", "autoBind", "autoReplaceEnchant", "hideQuestTracker", "restock", "itemMarks", "itemMarksClick", "bagSpace", "bagsLow", "spareBag", "wearOffer",
 			"questLoot", "instanceTrack" }) do keys[k] = Polestar.GetDefault("qol." .. k) end
 		emit(keys)
 	"#);
@@ -109,6 +109,7 @@ fn options_every_qol_setting_is_registered_on_questing_or_quality_of_life_with_l
 	assert_eq!(defaults["rewardEquip"], false, "wearing rewards is off by default");
 	assert_eq!(defaults["spareBag"], false, "equipping a spare bag is off by default");
 	assert_eq!(defaults["autoBind"], false, "binding the Hearthstone is off by default");
+	assert_eq!(defaults["autoReplaceEnchant"], false, "replacing an enchant without asking is off by default");
 	assert_eq!(defaults["hideQuestTracker"], false, "the game's quest tracker shows by default");
 	assert_eq!(defaults["sellJunk"], true);
 }
@@ -4674,6 +4675,56 @@ fn bind_at_the_step_s_innkeeper_picks_the_bind_option_and_confirms_the_bind_off_
 	assert_eq!(out[2], 92);
 	assert_eq!(out[3], json!({ "binder": 20, "cleared": 20, "closed": 1 }));
 	assert_eq!(out[4], 90);
+}
+
+// ---------------------------------------------------------------------------
+// Replacing an enchant on your own gear
+// ---------------------------------------------------------------------------
+
+// Enchanting an item that already has an enchant: the game's question (the event, then Blizzard's popup of the same
+// name). replace(event) counts what answered it and whether the popup closed.
+const REPLACE: &str = r#"
+local function replace(event)
+	q.calls = {}
+	q.showPopup(event); stub.fire(event, "Minor Stamina", "Lesser Agility"); stub.runTimers()
+	local open = q.shownPopups[event] ~= nil
+	q.shownPopups[event] = nil
+	return { scroll = #calls("ReplaceEnchant"), tradeskill = #calls("ReplaceTradeskillEnchant"), closed = #calls("StaticPopup_Hide"), open = open }
+end
+"#;
+
+#[test]
+fn replace_enchant_answers_the_game_s_question_on_your_own_gear_off_by_default_never_in_a_trade_or_with_shift() {
+	let out = run(&[
+		REPLACE,
+		r#"
+		emit({ answer = replace("REPLACE_ENCHANT"), watching = QoL.Watching("REPLACE_ENCHANT") })
+		set("autoReplaceEnchant", true)
+		emit({ answer = replace("REPLACE_ENCHANT"), said = printed("Replaced Minor Stamina with Lesser Agility."), watching = QoL.Watching("REPLACE_ENCHANT") })
+		emit(replace("REPLACE_TRADESKILL_ENCHANT"))
+		-- In a trade window the item is someone else's.
+		emit(replace("TRADE_REPLACE_ENCHANT"))
+		stub.keys.shift = true
+		emit(replace("REPLACE_ENCHANT"))
+		stub.keys.shift = false
+		-- Names the client keeps secret: the answer still, a line without them.
+		local secret = issecretvalue
+		issecretvalue = function(v) return v == "Minor Stamina" end
+		emit({ answer = replace("REPLACE_ENCHANT"), said = printed("Replaced the enchant.") })
+		issecretvalue = secret
+		set("autoReplaceEnchant", false)
+		emit({ answer = replace("REPLACE_ENCHANT"), watching = QoL.Watching("REPLACE_ENCHANT") })
+	"#,
+	]
+	.concat());
+	let none = json!({ "scroll": 0, "tradeskill": 0, "closed": 0, "open": true });
+	assert_eq!(out[0], json!({ "answer": none.clone(), "watching": false }), "off by default: the game asks");
+	assert_eq!(out[1], json!({ "answer": { "scroll": 1, "tradeskill": 0, "closed": 1, "open": false }, "said": true, "watching": true }));
+	assert_eq!(out[2], json!({ "scroll": 0, "tradeskill": 1, "closed": 1, "open": false }), "from the profession window");
+	assert_eq!(out[3], none, "a trade window is left to the player");
+	assert_eq!(out[4], none, "Shift held: the game asks");
+	assert_eq!(out[5], json!({ "answer": { "scroll": 1, "tradeskill": 0, "closed": 1, "open": false }, "said": true }), "secret names");
+	assert_eq!(out[6], json!({ "answer": none, "watching": false }), "turned off again");
 }
 
 // #1965: Menethil Harbor's step binds at Innkeeper Helbrek, then buys a Flagon of Dwarven Honeymead from him. The

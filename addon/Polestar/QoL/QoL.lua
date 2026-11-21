@@ -80,6 +80,7 @@ local defaults = {
 	flightAutoTake = false,  -- take the guide's flight as soon as the flight map opens (QoL/Flight.lua, #1621)
 	stepGossip = true,       -- pick the gossip option the live step asks for, open goods or training for its buy and train goals (QoL/Gossip.lua)
 	autoBind = false,        -- bind the Hearthstone at the step's innkeeper
+	autoReplaceEnchant = false, -- answer "Replace enchant?" on your own gear (QoL/Enchant.lua, #3126)
 	deathHelper = true,
 	breathWarning = false,   -- red screen edge, sound and taskbar flash as breath runs out (QoL/Breath.lua)
 	instantQuestText = true,
