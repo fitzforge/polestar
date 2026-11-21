@@ -845,38 +845,15 @@ local function travelDistColor()
 	if c then distText:SetTextColor(c[1], c[2], c[3]) else distText:SetTextColor(Nav.RGB("text")) end
 end
 
--- The hourglass shows for the catch-up (Arrow.SetBusy) and, with no catch-up,
--- while the arrow waits for a walking route (the "routing" mode); the catch-up
--- also hides the text under the dial, the wait leaves "Finding a walking
--- route" in view.
-local catchUp = false
 local routingPointed = false -- in the "routing" mode, the arrow shown on its straight bearing
-local function syncGlass()
-	local on = catchUp or mode == "routing"
-	if on ~= glass:IsShown() then
-		if on then
-			glassTime = 0
-			glassBody:SetVertexColor(Nav.RGB("text"))
-			glassSand:SetVertexColor(Nav.RGB("arrow"))
-		end
-		glass:SetShown(on)
-	end
-	local a = catchUp and 0 or 1
-	dial:SetAlpha(a)
-	distText:SetAlpha(a)
-	labelText:SetAlpha(a)
-	etaText:SetAlpha(a)
-	timerText:SetAlpha(a)
-end
 
 local function setMode(m)
 	if m == mode then return end
 	mode = m
-	syncGlass()
 	if m == "travel" then D.near = nil end -- repaint after a mode or theme change
 	turnVel = 0 -- a speed from before an arrival or an instruction does not carry into the next walk
 	local travel, done, act, idle = m == "travel", m == "arrived" or m == "arrived-underwater" or m == "search", m == "instruction", m == "idle"
-	-- Waiting for a walking route, the arrow points straight at what the walk will lead to under its hourglass.
+	-- Waiting for a walking route, the arrow points straight at what the walk will lead to.
 	local routing = m == "routing"
 	-- Resume on the new walk's bearing, not a heading from before guidance stopped; from the straight bearing the
 	-- arrow held while the walk was found, turn on to the walk's.
@@ -1399,11 +1376,22 @@ end
 -- The catch-up (the guide window's CATCH_UP): the hourglass in the dial's
 -- place, or the arrow back.
 function Arrow.SetBusy(on)
-	catchUp = on and true or false
-	syncGlass()
+	on = on and true or false
+	if on == glass:IsShown() then return end
+	if on then
+		glassTime = 0
+		glassBody:SetVertexColor(Nav.RGB("text"))
+		glassSand:SetVertexColor(Nav.RGB("arrow"))
+	end
+	glass:SetShown(on)
+	local a = on and 0 or 1
+	dial:SetAlpha(a)
+	distText:SetAlpha(a)
+	labelText:SetAlpha(a)
+	etaText:SetAlpha(a)
+	timerText:SetAlpha(a)
 end
 
--- The hourglass is up, for the catch-up or the wait for a walking route.
 function Arrow.IsBusy()
 	return glass:IsShown()
 end

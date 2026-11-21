@@ -566,7 +566,7 @@ end
 --          | "instruction" (a route leg to act on here: fly, ride, hearth)
 --          | "submerged" (no verified walk or swim bearing) | "arrived-underwater" (observed, not inferred)
 --          | "routing" (waiting for walking data or a route; distance and angle straight to what the walk will lead
---            to, the arrow pointing that way under its hourglass until the walk is in, as 0.4.1.1 pointed at once)
+--            to, the arrow pointing that way until the walk is in, as 0.4.1.1 pointed at once)
 --          | "unmapped" (the known walk ended short; no verified walking bearing beyond it)
 --          | "unsafe" (no recommended ground bearing for this faction and level)
 --          | "search" (reached a spot of an area objective: look around here)
