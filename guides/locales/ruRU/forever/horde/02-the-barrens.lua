@@ -179,7 +179,7 @@ return {
 	["Savannah lions"] = "Львы саванны",
 	-- {npc:3682} Vrang Wildgore
 	-- plural, as words: Savannah Patriarchs = {npc:3241} Savannah Patriarch · Sprung Traps = {object:640104} Sprung Trap
-	["Savannah Patriarchs roam the plains east of {npc:3682}'s camp, and the Sprung Traps lie among them."] = "Матриархи саванны бродят по равнинам к востоку от лагеря {npc:3682}, а капканы с пружиной лежат среди них.",
+	["Savannah Patriarchs roam the plains east of {npc:3682}'s camp, and the Sprung Traps lie among them."] = "Патриархи саванны бродят по равнинам к востоку от лагеря {npc:3682}, а сработавшие ловушки лежат среди них.",
 
 	-- Step 39: Vrang Wildgore
 	-- {npc:261366} Walton · {npc:3682} Vrang Wildgore · {area:383} Dry Hills · {npc:3452} Serena Bloodfeather
@@ -194,7 +194,7 @@ return {
 	["Finish the Raptor Heads"] = "Доберите головы ящеров",
 	-- {quest:881} Echeyakee
 	-- plural, as words: Sunscale Lashtails = {npc:3254} Sunscale Lashtail
-	["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "Всё ещё не хватает двенадцати? Яркочешуйчатые пламехвосты и крикуны бродят по равнинам к северо-востоку от Перекрёстка, по пути обратно на юг от логова {quest:881}.",
+	["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "Всё ещё не хватает двенадцати? Яркочешуйчатые кнутохвосты и крикуны бродят по равнинам к северо-востоку от Перекрёстка, по пути обратно на юг от логова {quest:881}.",
 
 	-- Step 42: The Crossroads
 	-- {npc:3464} Gazrog · {npc:3338} Sergra Darkthorn · {npc:3449} Darsok Swiftdagger · {npc:3429} Thork
@@ -508,7 +508,7 @@ return {
 	["{quest:882}, a big Sunscale raptor, only comes to a fresh kill: loot a {item:10338} from a zhevra, then use it at the {object:147538} north-west of {area:392}, north of the road to the Crossroads, and be ready when he arrives."] = "{quest:882}, крупный Яркочешуйчатый ящер, приходит только на свежий труп: добудьте {item:10338} с зевры, затем примените его у {object:147538} к северо-западу от места {area:392}, к северу от дороги на Перекрёсток, и будьте готовы, когда он придёт.",
 	-- {item:10338} Fresh Zhevra Carcass
 	-- plural, as words: Zhevra Chargers = {npc:3426} Zhevra Charger
-	["{item:10338}, from any zhevra; Zhevra Chargers graze around the tree"] = "{item:10338}, с любой зевры; зевры-бегуны пасутся вокруг дерева",
+	["{item:10338}, from any zhevra; Zhevra Chargers graze around the tree"] = "{item:10338}, с любой зевры; жевры-скакуны пасутся вокруг дерева",
 	-- {object:147538} Dead Tree (no name in this language: may be words) · {quest:882} Ishamuhale
 	["At the {object:147538}: summons {quest:882}"] = "У {object:147538}: призывает {quest:882}",
 
@@ -547,7 +547,7 @@ return {
 	-- Step 123: Olgra's Adornments
 	-- {area:458} Gold Road · {area:378} Camp Taurajo · {item:277277} Olgra's Adornments · {npc:3432} Mankrik
 	-- plural, as words: Razormane Raiders = {npc:268624} Razormane Raider
-	["On the way back down the {area:458} to {area:378}: the Razormane Raiders among the Bristleback camps, either side of the road north of the camp, carry {item:277277}. Hand them to {npc:3432} on your last Crossroads stop."] = "На обратном пути вниз по дороге ({area:458}) к месту {area:378}: рейдеры из племени Бритвохватов среди лагерей Дыбогривов по обе стороны дороги к северу от лагеря несут {item:277277}. Сдайте их {npc:3432} на последней остановке на Перекрёстке.",
+	["On the way back down the {area:458} to {area:378}: the Razormane Raiders among the Bristleback camps, either side of the road north of the camp, carry {item:277277}. Hand them to {npc:3432} on your last Crossroads stop."] = "На обратном пути вниз по дороге ({area:458}) к месту {area:378}: налетчики из племени Иглогривых среди лагерей Дыбогривов по обе стороны дороги к северу от лагеря несут {item:277277}. Сдайте их {npc:3432} на последней остановке на Перекрёстке.",
 
 	-- Step 124: Camp Taurajo
 	-- {area:458} Gold Road · {area:378} Camp Taurajo
@@ -651,7 +651,7 @@ return {
 	["{area:1076}: kill these as you meet them"] = "{area:1076}: убивайте их по пути",
 	-- {area:2539} Malaka'jin · {npc:11858} Grundig Darkcloud
 	-- plural, as words: Grimtotem Brutes = {npc:11912} Grimtotem Brute · Deepmoss Creepers = {npc:4005} Deepmoss Creeper
-	["North up the road from {area:2539}: {npc:11858} and his Grimtotem Brutes hold the bend in the road, and the Deepmoss Creepers and Venomspitters lurk in the webs on both sides of the path all the way up."] = "На север по дороге от места {area:2539}: {npc:11858} и его громилы из племени Зловещих Тотемов держат поворот дороги, а глубинные мохоходы и ядоплюи прячутся в паутине по обе стороны тропы всю дорогу наверх.",
+	["North up the road from {area:2539}: {npc:11858} and his Grimtotem Brutes hold the bend in the road, and the Deepmoss Creepers and Venomspitters lurk in the webs on both sides of the path all the way up."] = "На север по дороге от места {area:2539}: {npc:11858} и его громилы из племени Зловещих Тотемов держат поворот дороги, а ползуны из густого мха и ядоплюи прячутся в паутине по обе стороны тропы всю дорогу наверх.",
 
 	-- Step 145: Ziz Fizziks
 	-- {area:1076} Webwinder Path · {quest:1483} Ziz Fizziks · {area:461} Windshear Crag

@@ -46,7 +46,7 @@ return {
 	-- {object:257} Suspicious Barrel
 	["The {object:257}"] = "{object:257}",
 	-- plural, as words: Dark Iron Sappers = {npc:1222} Dark Iron Sapper
-	["Walk east along the dam, down its eastern ramp, then back west along the foot of the dam on the land side: two Dark Iron Sappers guard the barrel. Kill them, then open the barrel: it ends this quest and starts the next."] = "Идите на восток вдоль плотины, спуститесь по восточной рампе, затем вернитесь на запад вдоль подошвы плотины со стороны суши: два подрывника из Тёмного Железа охраняют бочку. Убейте их, затем откройте бочку: это завершит задание и начнёт следующее.",
+	["Walk east along the dam, down its eastern ramp, then back west along the foot of the dam on the land side: two Dark Iron Sappers guard the barrel. Kill them, then open the barrel: it ends this quest and starts the next."] = "Идите на восток вдоль плотины, спуститесь по восточной рампе, затем вернитесь на запад вдоль подошвы плотины со стороны суши: два сапера из клана Черного Железа охраняют бочку. Убейте их, затем откройте бочку: это завершит задание и начнёт следующее.",
 
 	-- Step 11: The loch
 	["The loch"] = "Лох",
@@ -67,7 +67,7 @@ return {
 	["The dig site"] = "Место раскопок",
 	-- {item:2636} Carved Stone Idol · {quest:86613} Excavation Tools
 	-- plural, as words: Stonesplinter Diggers = {npc:1167} Stonesplinter Digger · Berserk Troggs = {npc:1393} Berserk Trogg
-	["Stonesplinter Diggers, Geomancers and Berserk Troggs hold the dig east of Ironband; any of them can drop a {item:2636}. Piles of Excavation Tools lie around the dig: open one and right-click the tools to start {quest:86613}, then gather six.\nCareful: Berserk Troggs (19-20) enrage below 40% health."] = "Землекопы, геоманты и берсерки племени Каменного Раскола держат раскопки восточнее Айронбенда; любой из них может уронить {item:2636}. Кучи инструментов для раскопок разбросаны вокруг: откройте одну и щёлкните правой кнопкой по инструментам, чтобы начать {quest:86613}, затем соберите шесть.\nОсторожно: берсерки (19–20) впадают в ярость ниже 40% здоровья.",
+	["Stonesplinter Diggers, Geomancers and Berserk Troggs hold the dig east of Ironband; any of them can drop a {item:2636}. Piles of Excavation Tools lie around the dig: open one and right-click the tools to start {quest:86613}, then gather six.\nCareful: Berserk Troggs (19-20) enrage below 40% health."] = "Землекопы из племени Камнедробов, геоманты и трогги-берсерки держат раскопки восточнее Айронбенда; любой из них может уронить {item:2636}. Кучи инструментов для раскопок разбросаны вокруг: откройте одну и щёлкните правой кнопкой по инструментам, чтобы начать {quest:86613}, затем соберите шесть.\nОсторожно: трогги-берсерки (19–20) впадают в ярость ниже 40% здоровья.",
 	-- {quest:86613} Excavation Tools
 	["{quest:86613}: open a pile at the dig"] = "{quest:86613}: откройте кучу на раскопках",
 	-- {quest:86613} Excavation Tools
@@ -98,7 +98,7 @@ return {
 	["Elder Mountain Boars"] = "Старые горные вепри",
 	-- {quest:258} A Hunter's Challenge
 	-- plural, as words: Elder Mountain Boars = {npc:1192} Elder Mountain Boar
-	["The Elder Mountain Boars roam the hills north-west of the lodge, along the east shore. {quest:258} runs for 12 minutes: kill five and go straight back to Daryl; the crocolisks come after."] = "Старые горные кабаны бродят по холмам северо-западнее приюта, вдоль восточного берега. {quest:258} длится 12 минут: убейте пять и сразу возвращайтесь к Даррилу; кроколиски придут позже.",
+	["The Elder Mountain Boars roam the hills north-west of the lodge, along the east shore. {quest:258} runs for 12 minutes: kill five and go straight back to Daryl; the crocolisks come after."] = "Старые горные вепри бродят по холмам северо-западнее приюта, вдоль восточного берега. {quest:258} длится 12 минут: убейте пять и сразу возвращайтесь к Даррилу; кроколиски придут позже.",
 
 	-- Step 21: Daggerfang and the loch crocolisks
 	-- {npc:270693} Daggerfang
@@ -108,7 +108,7 @@ return {
 	["Back down to the east shore below the boars' hills: {npc:270693}, a crocolisk, patrols it among the Loch Crocolisks."] = "Назад вниз к восточному берегу под холмами вепрей: {npc:270693}, кроколиск, патрулирует его среди озерных кроколисков.",
 	-- {item:2924} Crocolisk Meat
 	-- plural, as words: Loch Crocolisks = {npc:1693} Loch Crocolisk
-	["{item:2924}: Loch Crocolisks"] = "{item:2924}: озёрные кроколиски",
+	["{item:2924}: Loch Crocolisks"] = "{item:2924}: озерные кроколиски",
 
 	-- Step 23: Thelsamar
 	-- {area:144} Thelsamar · {npc:1105} Jern Hornhelm · {npc:1572} Thorgrum Borrelson
@@ -119,7 +119,7 @@ return {
 	-- Step 24: Mountaineer Ylva
 	-- {npc:269185} Headsplitter · {zone:1418} Badlands
 	-- plural, as words: Stonevault Cave Hunters = {npc:4856} Stonevault Cave Hunter
-	["South of Thelsamar, Ylva lies dead in the mouth of a trogg cave. Take her banner, raise it beside her and hold the spot: troggs come in waves from both sides, then {npc:269185}.\nCareful: Stonevault Cave Hunters (36, elite) hold the pass just south of Ylva, toward the {zone:1418}: stay by the banner and don't chase troggs south."] = "Южнее Телсамара Йлва лежит мертвой у входа в троггскую пещеру. Возьмите её знамя, поднимите его рядом с ней и удерживайте точку: трогги идут волнами с обеих сторон, затем {npc:269185}.\nОсторожно: охотники за пещерами из Каменной Сокровищницы (36, элита) держат перевал сразу южнее Йлвы, по дороге в {zone:1418}: оставайтесь у знамени и не гонитесь за троггами на юг.",
+	["South of Thelsamar, Ylva lies dead in the mouth of a trogg cave. Take her banner, raise it beside her and hold the spot: troggs come in waves from both sides, then {npc:269185}.\nCareful: Stonevault Cave Hunters (36, elite) hold the pass just south of Ylva, toward the {zone:1418}: stay by the banner and don't chase troggs south."] = "Южнее Телсамара Йлва лежит мертвой у входа в троггскую пещеру. Возьмите её знамя, поднимите его рядом с ней и удерживайте точку: трогги идут волнами с обеих сторон, затем {npc:269185}.\nОсторожно: охотники из племени Каменного Свода (36, элита) держат перевал сразу южнее Йлвы, по дороге в {zone:1418}: оставайтесь у знамени и не гонитесь за троггами на юг.",
 
 	-- Step 25: The tunnel post
 	["The tunnel post"] = "Пост у туннеля",
@@ -168,7 +168,7 @@ return {
 	-- Step 33: Henze Faulk
 	-- {area:86} Stone Cairn Lake · {npc:6172} Henze Faulk · {item:6866} Symbol of Life · {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["From the bridge, head north to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "От моста идите на север к {area:86}. {npc:6172} лежит южнее озера: используйте на нём {item:6866}. Колдуны-плуты Братства Справедливости вокруг него несут {item:6846}.",
+	["From the bridge, head north to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "От моста идите на север к {area:86}. {npc:6172} лежит южнее озера: используйте на нём {item:6866}. Волшебники-плуты из Братства Справедливости вокруг него несут {item:6846}.",
 	-- {item:6866} Symbol of Life · {npc:6172} Henze Faulk
 	["Use the {item:6866} on {npc:6172}"] = "Используйте {item:6866}. Цель: {npc:6172}",
 	-- {item:6846} Defias Script
@@ -208,7 +208,7 @@ return {
 	["{area:1001}: kill these as you meet them"] = "{area:1001}: убивайте их по пути",
 	-- {area:1002} Three Corners
 	-- plural, as words: Redridge Mongrels = {npc:423} Redridge Mongrel · Great Goretusks = {npc:547} Great Goretusk · Dire Condors = {npc:428} Dire Condor
-	["Redridge Mongrels and Thrashers hold the hills east of {area:1002}, north of the road; Poachers camp south of the road. Great Goretusks root around the same hills and Dire Condors circle south of the lake; Tarantulas crawl round {area:1002}."] = "Пещерные псы и громилы Красногорья держат холмы восточнее {area:1002}, севернее дороги; браконьеры разбили лагерь южнее дороги. Большие кровокопы роются на тех же холмах, а проклятые стервятники кружат южнее озера; тарантулы ползают вокруг {area:1002}.",
+	["Redridge Mongrels and Thrashers hold the hills east of {area:1002}, north of the road; Poachers camp south of the road. Great Goretusks root around the same hills and Dire Condors circle south of the lake; Tarantulas crawl round {area:1002}."] = "Полукровки и громилы из стаи Красногорья держат холмы восточнее {area:1002}, севернее дороги; браконьеры разбили лагерь южнее дороги. Большие жутевепри роются на тех же холмах, а ужасающие кондоры кружат южнее озера; тарантулы ползают вокруг {area:1002}.",
 	-- {item:280911} Spiked Collar
 	-- plural, as words: Redridge Thrashers = {npc:712} Redridge Thrasher
 	["{item:280911}: Redridge Thrashers"] = "{item:280911}: твердозубы из стаи Красногорья",
@@ -318,7 +318,7 @@ return {
 	-- Step 56: Captain Grayson
 	-- {zone:1436} Westfall · {npc:392} Captain Grayson
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
-	["Kept five Flasks of Oil from {zone:1436}'s Harvest Watchers? {npc:392} takes them for his lighthouse fire."] = "Сохранили пять фляг масла от жнецов урожая {zone:1436}? {npc:392} берёт их для огня своего маяка.",
+	["Kept five Flasks of Oil from {zone:1436}'s Harvest Watchers? {npc:392} takes them for his lighthouse fire."] = "Сохранили пять фляг масла от дозорных полей {zone:1436}? {npc:392} берёт их для огня своего маяка.",
 
 	-- Step 57: Sentinel Hill
 	-- {area:108} Sentinel Hill · {npc:467} The Defias Traitor
@@ -367,10 +367,10 @@ return {
 	-- Step 66: Redridge Canyons
 	-- {spell:133} Fireball
 	-- plural, as words: Redridge Brutes = {npc:426} Redridge Brute · Iron Pikes = {item:2856} Iron Pike · Black Dragon Whelps = {npc:441} Black Dragon Whelp
-	["Redridge Brutes and Mystics hold the hills north and north-west of town; both carry the Iron Pikes and Rivets. Black Dragon Whelps nest in the same hills.\nCareful: The whelps cast {spell:133} from range, and the gnolls run for help at low health."] = "Громилы и мистики Красногорья держат холмы севернее и северо-западнее города; те и другие несут железные пики и заклёпки. Дракончики чёрных драконов гнездятся на тех же холмах.\nОсторожно: дракончики колдуют {spell:133} издалека, а гноллы бегут за помощью при низком здоровье.",
+	["Redridge Brutes and Mystics hold the hills north and north-west of town; both carry the Iron Pikes and Rivets. Black Dragon Whelps nest in the same hills.\nCareful: The whelps cast {spell:133} from range, and the gnolls run for help at low health."] = "Громилы из стаи Красногорья и мистики держат холмы севернее и северо-западнее города; те и другие несут железные пики и заклёпки. Детеныши черных драконов гнездятся на тех же холмах.\nОсторожно: детеныши колдуют {spell:133} издалека, а гноллы бегут за помощью при низком здоровье.",
 	-- {item:1221} Underbelly Whelp Scale
 	-- plural, as words: Black Dragon Whelps = {npc:441} Black Dragon Whelp
-	["{item:1221}: Black Dragon Whelps"] = "{item:1221}: дракончики чёрных драконов",
+	["{item:1221}: Black Dragon Whelps"] = "{item:1221}: детеныши черных драконов",
 
 	-- Step 67: Lakeshire
 	-- {npc:415} Verner Osgood · {npc:341} Foreman Oslow · {npc:381} Dockmaster Baren

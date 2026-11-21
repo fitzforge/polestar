@@ -76,7 +76,7 @@ return {
 	["{spell:3922} to 57"] = "{spell:3922} до 57",
 	-- {spell:3922} Handful of Copper Bolts · {item:2840} Copper Bar · {item:5956} Blacksmith Hammer
 	-- plural, as words: Practice Locks = {item:6712} Practice Lock
-	["{spell:3922} is orange at 35 (yellow 45, green 52, grey 60): about 33 crafts to 57. Each takes 1 {item:2840}. One {item:2840} a craft. Keep the bolts: Practice Locks and later gadgets take them. Needs an anvil nearby. {item:5956} is a tool: keep it in your bags."] = "{spell:3922}: оранжевый на 35 (желтый 45, зеленый 52, серый 60): около 33 изготовлений до 57. Каждое требует 1 {item:2840}. По одному {item:2840} на изготовление. Сохраняйте болты: тренировочные замки и поздние устройства их требуют. Нужна наковальня рядом. {item:5956} – инструмент: держите его в сумках.",
+	["{spell:3922} is orange at 35 (yellow 45, green 52, grey 60): about 33 crafts to 57. Each takes 1 {item:2840}. One {item:2840} a craft. Keep the bolts: Practice Locks and later gadgets take them. Needs an anvil nearby. {item:5956} is a tool: keep it in your bags."] = "{spell:3922}: оранжевый на 35 (желтый 45, зеленый 52, серый 60): около 33 изготовлений до 57. Каждое требует 1 {item:2840}. По одному {item:2840} на изготовление. Сохраняйте болты: учебные замки и поздние устройства их требуют. Нужна наковальня рядом. {item:5956} – инструмент: держите его в сумках.",
 
 	-- Step 15: Engineering recipes at 57
 	-- {skill:202} Engineering
@@ -178,7 +178,7 @@ return {
 	["{item:6712} to 125"] = "{item:6712} до 125",
 	-- {item:6712} Practice Lock · {item:2841} Bronze Bar · {spell:3922} Handful of Copper Bolts · {item:2880} Weak Flux
 	-- plural, as words: Practice Locks = {item:6712} Practice Lock
-	["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby."] = "{item:6712}: оранжевый на 100 (желтый 115, зеленый 122, серый 130): около 31 изготовлений до 125. Каждое требует 1 {item:2841}, 2 {spell:3922} и 1 {item:2880}. Сначала сделайте 29 {spell:3922}. Используйте 33 {spell:3922}, сделанных ранее; в подсчете выше они не учтены. Тренировочные замки продаются разбойникам, или вскрывайте их сами. Нужна наковальня рядом.",
+	["{item:6712} is orange at 100 (yellow 115, green 122, grey 130): about 31 crafts to 125. Each takes 1 {item:2841}, 2 {spell:3922} and 1 {item:2880}. Make the 29 {spell:3922} first. Use the 33 {spell:3922} you made earlier; the counts above leave them out. Practice Locks sell to rogues, or open them yourself. Needs an anvil nearby."] = "{item:6712}: оранжевый на 100 (желтый 115, зеленый 122, серый 130): около 31 изготовлений до 125. Каждое требует 1 {item:2841}, 2 {spell:3922} и 1 {item:2880}. Сначала сделайте 29 {spell:3922}. Используйте 33 {spell:3922}, сделанных ранее; в подсчете выше они не учтены. Учебные замки продаются разбойникам, или вскрывайте их сами. Нужна наковальня рядом.",
 
 	-- Step 36: Engineering recipes at 125
 	-- {skill:202} Engineering
@@ -191,7 +191,7 @@ return {
 	["{spell:3945} to 140"] = "{spell:3945} до 140",
 	-- {spell:3945} Heavy Blasting Powder · {item:2838} Heavy Stone
 	-- plural, as words: Iron Deposits = {object:1735} Iron Deposit · Iron Grenades = {item:4390} Iron Grenade
-	["{spell:3945} is yellow at 125 (yellow 125, green 135, grey 145): about 27 crafts to 140. Each takes 1 {item:2838}. One {item:2838} a craft (Iron Deposits). Keep some: Iron Grenades take one each."] = "{spell:3945}: желтый на 125 (желтый 125, зеленый 135, серый 145): около 27 изготовлений до 140. Каждое требует 1 {item:2838}. По одному {item:2838} на изготовление (железные жилы). Оставьте несколько: железные гранаты требуют по одному.",
+	["{spell:3945} is yellow at 125 (yellow 125, green 135, grey 145): about 27 crafts to 140. Each takes 1 {item:2838}. One {item:2838} a craft (Iron Deposits). Keep some: Iron Grenades take one each."] = "{spell:3945}: желтый на 125 (желтый 125, зеленый 135, серый 145): около 27 изготовлений до 140. Каждое требует 1 {item:2838}. По одному {item:2838} на изготовление (залежи железа). Оставьте несколько: железные гранаты требуют по одному.",
 
 	-- Step 38: Engineering recipes at 140
 	-- {skill:202} Engineering
@@ -315,7 +315,7 @@ return {
 	["{item:10505} to 191"] = "{item:10505} до 191",
 	-- {item:10505} Solid Blasting Powder · {item:7912} Solid Stone
 	-- plural, as words: Mithril Deposits = {object:2040} Mithril Deposit
-	["{item:10505} is yellow at 175 (yellow 175, green 185, grey 195): about 31 crafts to 191. Each takes 2 {item:7912}. Two {item:7912} a craft (Mithril Deposits). Make plenty: the triggers, slugs and Gyro-Shot all use it."] = "{item:10505}: желтый на 175 (желтый 175, зеленый 185, серый 195): около 31 изготовлений до 191. Каждое требует 2 {item:7912}. По два {item:7912} на изготовление (мифриловые жилы). Сделайте с запасом: курки, пули и гирострел используют его.",
+	["{item:10505} is yellow at 175 (yellow 175, green 185, grey 195): about 31 crafts to 191. Each takes 2 {item:7912}. Two {item:7912} a craft (Mithril Deposits). Make plenty: the triggers, slugs and Gyro-Shot all use it."] = "{item:10505}: желтый на 175 (желтый 175, зеленый 185, серый 195): около 31 изготовлений до 191. Каждое требует 2 {item:7912}. По два {item:7912} на изготовление (мифриловые залежи). Сделайте с запасом: курки, пули и гирострел используют его.",
 
 	-- Step 60: Engineering recipes at 191
 	-- {skill:202} Engineering

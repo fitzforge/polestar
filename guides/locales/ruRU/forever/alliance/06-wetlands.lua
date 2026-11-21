@@ -84,7 +84,7 @@ return {
 	["{area:1039}: kill these as you meet them"] = "{area:1039}: убивайте их по пути",
 	-- {npc:1159} First Mate Snellig
 	-- plural, as words: Cursed Sailors = {npc:1157} Cursed Sailor · Cursed Marines = {npc:1158} Cursed Marine · Giant Wetlands Crocolisks = {npc:2089} Giant Wetlands Crocolisk · Fen Creepers = {npc:1040} Fen Creeper
-	["Follow the coast north to the wrecked ship. Cursed Sailors walk the beach, Cursed Marines the deck; {npc:1159} stands on the beach by the bow. Giant Wetlands Crocolisks lurk on the coast just north of it.\nCareful: Fen Creepers hide in stealth where the river splits close to the ghost ship, and they can join a fight."] = "Идите вдоль побережья на север к разбитому кораблю. Проклятые моряки ходят по пляжу, Проклятые морпехи — по палубе; {npc:1159} стоит на пляже у носа. Гигантские кроколиски Болот прячутся на побережье сразу севернее него.\nОсторожно: Топевые ползуны скрываются в скрытности там, где река раздваивается рядом с кораблём-призраком, и могут вступить в бой.",
+	["Follow the coast north to the wrecked ship. Cursed Sailors walk the beach, Cursed Marines the deck; {npc:1159} stands on the beach by the bow. Giant Wetlands Crocolisks lurk on the coast just north of it.\nCareful: Fen Creepers hide in stealth where the river splits close to the ghost ship, and they can join a fight."] = "Идите вдоль побережья на север к разбитому кораблю. Проклятые матросы ходят по пляжу, Проклятые стражи бухты — по палубе; {npc:1159} стоит на пляже у носа. Огромные болотные кроколиски прячутся на побережье сразу севернее него.\nОсторожно: Трясинные ползуны скрываются в скрытности там, где река раздваивается рядом с кораблём-призраком, и могут вступить в бой.",
 	-- {npc:1158} Cursed Marine · {npc:270589} Nightveiled Rotheap
 	["{npc:1158}; careful: {npc:270589}, a level 31 elite, roams this coast"] = "{npc:1158}; осторожно: по этому побережью бродит {npc:270589}, элитный противник 31-го уровня",
 
@@ -125,14 +125,14 @@ return {
 	["{npc:1078} and Whelgar"] = "{npc:1078} и Вельгар",
 	-- {npc:1077} Prospector Whelgar · {item:279993} Titanic Keystone
 	-- plural, as words: Goaz Warders = {npc:270892} Goaz Warder
-	["{npc:1077}, below ground: the {item:279993}, from the elite Goaz Warders"] = "{npc:1077}, под землёй: {item:279993}, от элитных стражей Гоаза",
+	["{npc:1077}, below ground: the {item:279993}, from the elite Goaz Warders"] = "{npc:1077}, под землёй: {item:279993}, от элитных хранителей Гоаза",
 
 	-- Step 24: Goaz Warders
 	-- plural, as words: Goaz Warders = {npc:270892} Goaz Warder
-	["Goaz Warders"] = "Стражи Гоаза",
+	["Goaz Warders"] = "Хранители Гоаз",
 	-- {item:279996} Goaz Stone · {npc:270892} Goaz Warder
 	-- plural, as words: Goaz Warders = {npc:270892} Goaz Warder
-	["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one.\n{npc:270892} is elite: grouping up is advised."] = "Стражи Гоаза стоят сразу западнее лагеря Велгара: примените {item:279996}, который он дал, рядом с одним из них.\n{npc:270892} — элитный: рекомендуется искать группу.",
+	["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one.\n{npc:270892} is elite: grouping up is advised."] = "Хранители Гоаз стоят сразу западнее лагеря Велгара: примените {item:279996}, который он дал, рядом с одним из них.\n{npc:270892} — элитный: рекомендуется искать группу.",
 
 	-- Step 25: Prospector Whelgar
 	["Below ground"] = "Под землей",
@@ -162,7 +162,7 @@ return {
 	["{npc:270637} camps among the Fenrunners, just west of {npc:1244}."] = "{npc:270637} стоит лагерем среди топебегов, сразу западнее {npc:1244}.",
 	-- {area:1038} Dragonmaw Gates · {zone:1437} Wetlands
 	-- plural, as words: Razormaw Incisors = {item:280103} Razormaw Incisor
-	["Razormaw Incisors: from the raptors by the {area:1038}, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "Резцы Бритвочелюсти: с ящеров у {area:1038}, на контуре {zone:1437} в 30-40/01-hillsbrad-foothills",
+	["Razormaw Incisors: from the raptors by the {area:1038}, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "Резцы острозуба: с ящеров у {area:1038}, на контуре {zone:1437} в 30-40/01-hillsbrad-foothills",
 	-- {quest:98246} Trying Times
 	["{quest:98246}: the Razormaw eggs, on the same loop"] = "{quest:98246}: яйца Бритвочелюсти, на том же контуре",
 
@@ -174,10 +174,10 @@ return {
 
 	-- Step 32: Fen Creepers along the river
 	-- plural, as words: Fen Creepers = {npc:1040} Fen Creeper
-	["Fen Creepers along the river"] = "Топевые ползуны вдоль реки",
+	["Fen Creepers along the river"] = "Трясинные ползуны вдоль реки",
 	-- {npc:2093} Einar Stonegrip · {area:1024} Sundown Marsh · {npc:1244} Rethiel the Greenwarden
 	-- plural, as words: Fen Creepers = {npc:1040} Fen Creeper
-	["North-west from {npc:2093} to the river: Fen Creepers hide in its pools and along its banks all the way west to {area:1024}. Work west along it until you have twelve, then back east to {npc:1244}.\nCareful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see."] = "На северо-запад от {npc:2093} к реке: Топевые ползуны прячутся в её заводях и вдоль берегов до самого {area:1024} на западе. Идите на запад вдоль неё, пока не наберёте двенадцать, затем обратно на восток к {npc:1244}.\nОсторожно: вне боя Топевые ползуны время от времени применяют Скрытность, поэтому они незаметны и их трудно увидеть.",
+	["North-west from {npc:2093} to the river: Fen Creepers hide in its pools and along its banks all the way west to {area:1024}. Work west along it until you have twelve, then back east to {npc:1244}.\nCareful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see."] = "На северо-запад от {npc:2093} к реке: Трясинные ползуны прячутся в её заводях и вдоль берегов до самого {area:1024} на западе. Идите на запад вдоль неё, пока не наберёте двенадцать, затем обратно на восток к {npc:1244}.\nОсторожно: вне боя Трясинные ползуны время от времени применяют Скрытность, поэтому они незаметны и их трудно увидеть.",
 
 	-- Step 33: Rethiel the Greenwarden
 	-- {quest:98283} Carnage · {zone:1437} Wetlands

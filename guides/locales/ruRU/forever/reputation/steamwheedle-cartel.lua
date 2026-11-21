@@ -24,7 +24,7 @@ return {
 	["Zapped giants"] = "Уменьшенные великаны",
 	-- {item:18904} Zorbin's Ultra-Shrinker · {npc:5357} Land Walker · {npc:5358} Cliff Giant · {npc:5361} Wave Strider · {item:18956} Miniaturization Residue
 	-- plural, as words: Land Walkers = {npc:5357} Land Walker · Cliff Giants = {npc:5358} Cliff Giant
-	["Use {item:18904} on a living giant ({npc:5357}, {npc:5358}, or a Shore, Deep or {npc:5361}, level 47-50) and it shrinks into a zapped version; kill that for its {item:18956}, one every time. The Land Walkers and Cliff Giants in the north-west hills are the thickest; the striders walk the coast and the shallows. The shrinker lasts two hours: if it runs out, abandon the quest and take it again."] = "Используйте {item:18904} на живом великане ({npc:5357}, {npc:5358} или береговом, глубинном, {npc:5361}, 47–50 уровни), и он уменьшается до истыканной версии; убейте её ради {item:18956}, одного каждый раз. Землеходы и скальные великаны на северо-западных холмах — самые густые; волноходы ходят по побережью и отмелям. Уменьшитель держится два часа: если он кончается, откажитесь от задания и возьмите снова.",
+	["Use {item:18904} on a living giant ({npc:5357}, {npc:5358}, or a Shore, Deep or {npc:5361}, level 47-50) and it shrinks into a zapped version; kill that for its {item:18956}, one every time. The Land Walkers and Cliff Giants in the north-west hills are the thickest; the striders walk the coast and the shallows. The shrinker lasts two hours: if it runs out, abandon the quest and take it again."] = "Используйте {item:18904} на живом великане ({npc:5357}, {npc:5358} или береговом, глубинном, {npc:5361}, 47–50 уровни), и он уменьшается до истыканной версии; убейте её ради {item:18956}, одного каждый раз. Сухопутные бродяги и скальные великаны на северо-западных холмах — самые густые; волноходы ходят по побережью и отмелям. Уменьшитель держится два часа: если он кончается, откажитесь от задания и возьмите снова.",
 	-- {item:18904} Zorbin's Ultra-Shrinker
 	["{item:18904}, on a living giant"] = "{item:18904}, на живом великане",
 	-- {item:18956} Miniaturization Residue
@@ -51,20 +51,20 @@ return {
 	["{area:1336}, below 56"] = "{area:1336}, ниже 56",
 	-- {area:1336} Lost Rigger Cove · {zone:1446} Tanaris · {faction:369} Gadgetzan · {area:977} Steamwheedle Port · {quest:8366} Southsea Shakedown · {quest:8365} Pirate Hats Ahoy!
 	-- plural, as words: Southsea Pirate Hats = {item:20519} Southsea Pirate Hat
-	["The Southsea pirates of {area:1336} (level 44-45) on the east coast of {zone:1446} give {faction:369} 5 each up to the end of Honored, and the other towns half. Two quests at {area:977} pay 100 {faction:369} each: {quest:8366} (10 of each pirate) and {quest:8365} (20 Southsea Pirate Hats, one in ten pirates). From level 56 the pirates are grey and pay little: skip this step then."] = "Южноморские пираты {area:1336} (44–45 уровни) на восточном побережье {zone:1446} дают {faction:369} по 5 до конца «Уважения», а остальным городам — половину. Два задания в {area:977} платят по 100 {faction:369}: {quest:8366} (по 10 каждого пирата) и {quest:8365} (20 шляп южноморских пиратов, у одного из десяти пиратов). С 56 уровня пираты серые и платят мало: тогда пропустите этот шаг.",
+	["The Southsea pirates of {area:1336} (level 44-45) on the east coast of {zone:1446} give {faction:369} 5 each up to the end of Honored, and the other towns half. Two quests at {area:977} pay 100 {faction:369} each: {quest:8366} (10 of each pirate) and {quest:8365} (20 Southsea Pirate Hats, one in ten pirates). From level 56 the pirates are grey and pay little: skip this step then."] = "Южноморские пираты {area:1336} (44–45 уровни) на восточном побережье {zone:1446} дают {faction:369} по 5 до конца «Уважения», а остальным городам — половину. Два задания в {area:977} платят по 100 {faction:369}: {quest:8366} (по 10 каждого пирата) и {quest:8365} (20 шляп пиратов Южных морей, у одного из десяти пиратов). С 56 уровня пираты серые и платят мало: тогда пропустите этот шаг.",
 
 	-- Step 6: Tinkee Steamboil
 	-- {npc:10267} Tinkee Steamboil · {area:251} Flame Crest · {zone:1428} Burning Steppes · {faction:577} Everlook · {item:12284} Draco-Incarcinatrix 900 · {quest:4726} Broodling Essence
 	-- plural, as words: Scalding Broodlings = {npc:7048} Scalding Broodling · Flamescale Broodlings = {npc:7049} Flamescale Broodling · Black Broodlings = {npc:7047} Black Broodling
-	["{npc:10267}, a goblin at {area:251} in the north of the {zone:1428}, has a chain that pays every town 150 and {faction:577} 150 more. Use her {item:12284} on a broodling, kill it while the device holds it, and pick up the {quest:4726} it leaves. The device takes only Black and Scalding Broodlings, not the Flamescale Broodlings of the west: Scalding Broodlings (level 53-54) roam just west and east of {area:251}, Black Broodlings (51-52) the north-east corner of the zone, the thickest group. They are few and spread out: the path passes both and ends among the Black Broodlings."] = "{npc:10267}, гоблин в {area:251} на севере {zone:1428}, имеет цепочку, которая платит каждому городу 150 и ещё 150 {faction:577}. Используйте её {item:12284} на дракончике, убейте его, пока устройство держит, и подберите {quest:4726}, которое он оставляет. Устройство берёт только чёрных и обжигающих дракончиков, но не огнечешуйных дракончиков запада: обжигающие дракончики (53–54 уровни) бродят сразу западнее и восточнее {area:251}, чёрные (51–52) — северо-восточный угол зоны, самая густая группа. Их мало и они разбросаны: путь проходит мимо обоих и заканчивается среди чёрных дракончиков.",
+	["{npc:10267}, a goblin at {area:251} in the north of the {zone:1428}, has a chain that pays every town 150 and {faction:577} 150 more. Use her {item:12284} on a broodling, kill it while the device holds it, and pick up the {quest:4726} it leaves. The device takes only Black and Scalding Broodlings, not the Flamescale Broodlings of the west: Scalding Broodlings (level 53-54) roam just west and east of {area:251}, Black Broodlings (51-52) the north-east corner of the zone, the thickest group. They are few and spread out: the path passes both and ends among the Black Broodlings."] = "{npc:10267}, гоблин в {area:251} на севере {zone:1428}, имеет цепочку, которая платит каждому городу 150 и ещё 150 {faction:577}. Используйте её {item:12284} на дракончике, убейте его, пока устройство держит, и подберите {quest:4726}, которое он оставляет. Устройство берёт только детенышей черного дракона и детенышей Опаляющего дракона, но не детенышей огнечешуйного дракона запада: детеныши Опаляющего дракона (53–54 уровни) бродят сразу западнее и восточнее {area:251}, детеныши черного дракона (51–52) — северо-восточный угол зоны, самая густая группа. Их мало и они разбросаны: путь проходит мимо обоих и заканчивается среди детенышей черного дракона.",
 	-- {area:251} Flame Crest
 	-- plural, as words: Scalding Broodlings = {npc:7048} Scalding Broodling
-	["Scalding Broodlings west of {area:251}"] = "Обжигающие дракончики западнее {area:251}",
+	["Scalding Broodlings west of {area:251}"] = "Детеныши Опаляющего дракона западнее {area:251}",
 	-- {area:251} Flame Crest
 	-- plural, as words: Scalding Broodlings = {npc:7048} Scalding Broodling
-	["Scalding Broodlings east of {area:251}"] = "Обжигающие дракончики восточнее {area:251}",
+	["Scalding Broodlings east of {area:251}"] = "Детеныши Опаляющего дракона восточнее {area:251}",
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
-	["Black Broodlings in the north-east"] = "Чёрные дракончики на северо-востоке",
+	["Black Broodlings in the north-east"] = "Детеныши черного дракона на северо-востоке",
 	-- {item:12284} Draco-Incarcinatrix 900 · {npc:7048} Scalding Broodling
 	["{item:12284}, on a Black or {npc:7048}"] = "{item:12284}, на чёрном или {npc:7048}",
 	-- {quest:4726} Broodling Essence
@@ -74,10 +74,10 @@ return {
 	-- Step 7: Everlook: Felnok Steelspring
 	-- {quest:4808} Felnok Steelspring · {faction:577} Everlook
 	-- plural, as words: Chillwind Chimaeras = {npc:7448} Chillwind Chimaera
-	["{quest:4808} is in {faction:577}. The Chillwind Chimaeras (level 55-57) south-west of {faction:577} drop the horns one time in five."] = "{quest:4808} — в {faction:577}. Хладнокрылые чимаеры (55–57 уровни) юго-западнее {faction:577} роняют рога один раз из пяти.",
+	["{quest:4808} is in {faction:577}. The Chillwind Chimaeras (level 55-57) south-west of {faction:577} drop the horns one time in five."] = "{quest:4808} — в {faction:577}. Хладноветрые химеры (55–57 уровни) юго-западнее {faction:577} роняют рога один раз из пяти.",
 	-- {item:12444} Uncracked Chillwind Horn
 	-- plural, as words: Chillwind Chimaeras = {npc:7448} Chillwind Chimaera
-	["{item:12444}: Chillwind Chimaeras"] = "{item:12444}: хладнокрылые чимаеры",
+	["{item:12444}: Chillwind Chimaeras"] = "{item:12444}: хладноветрые химеры",
 
 	-- Step 8: Back to Tinkee Steamboil
 	-- {npc:10267} Tinkee Steamboil

@@ -80,7 +80,7 @@ return {
 	["{area:157} again"] = "Снова здесь: {area:157}",
 	-- {area:157} Agamand Mills
 	-- plural, as words: Darkeye Bonecasters = {npc:1522} Darkeye Bonecaster
-	["The skeletons of {area:157} drop the ribs; the Darkeye Bonecasters the skulls."] = "Скелеты из {area:157} роняют рёбра; черепа — темноглазые костоправы.",
+	["The skeletons of {area:157} drop the ribs; the Darkeye Bonecasters the skulls."] = "Скелеты из {area:157} роняют рёбра; черепа — мрачноокие скелеты-заклинатели.",
 
 	-- Step 13: Ralston Farnsley: A Donation of Wool
 	-- {npc:14729} Ralston Farnsley · {item:14047} Runecloth · {quest:7819} Additional Runecloth
@@ -179,7 +179,7 @@ return {
 	["Plaguebats, {area:2276} and {area:2264}"] = "Чумные нетопыри, {area:2276} и {area:2264}",
 	-- {area:2276} Quel'Lithien Lodge · {area:2268} Light's Hope Chapel · {item:15847} Quel'Thalas Registry · {area:2264} Corin's Crossing · {item:15447} Living Rot · {item:15454} Mortar and Pestle · {item:15448} Coagulated Rot
 	-- plural, as words: Noxious Plaguebats = {npc:8601} Noxious Plaguebat · Monstrous Plaguebats = {npc:8602} Monstrous Plaguebat
-	["The Noxious Plaguebats fly in the south of the zone, the Monstrous Plaguebats further north-west. {area:2276} is north-west of {area:2268}; the {item:15847} lies inside. Do {area:2264} last: its Scourge drop {item:15447}, which lasts only 10 minutes. With 7 in your bags, use the {item:15454} at once for the {item:15448}."] = "Ядовитые чумные нетопыри летают на юге зоны, чудовищные — дальше на северо-запад. {area:2276} находится северо-западнее {area:2268}; внутри лежит {item:15847}. Делайте {area:2264} последним: с его Плети падает {item:15447}, который живёт всего 10 минут. Собрав 7 в сумку, сразу примените {item:15454} для {item:15448}.",
+	["The Noxious Plaguebats fly in the south of the zone, the Monstrous Plaguebats further north-west. {area:2276} is north-west of {area:2268}; the {item:15847} lies inside. Do {area:2264} last: its Scourge drop {item:15447}, which lasts only 10 minutes. With 7 in your bags, use the {item:15454} at once for the {item:15448}."] = "Пагубные нетопыри летают на юге зоны, чудовищные — дальше на северо-запад. {area:2276} находится северо-западнее {area:2268}; внутри лежит {item:15847}. Делайте {area:2264} последним: с его Плети падает {item:15447}, который живёт всего 10 минут. Собрав 7 в сумку, сразу примените {item:15454} для {item:15448}.",
 	-- {item:15448} Coagulated Rot · {item:15447} Living Rot · {item:15454} Mortar and Pestle
 	["{item:15448}: 7 {item:15447} and the {item:15454}"] = "{item:15448}: 7 {item:15447} и {item:15454}",
 
@@ -206,10 +206,10 @@ return {
 	["{area:353}: an {quest:2934}"] = "{area:353}: {quest:2934}",
 	-- {area:353} Shadra'Alor · {zone:1425} Hinterlands
 	-- plural, as words: Witherbark Broodguards = {npc:2686} Witherbark Broodguard
-	["The Witherbark Broodguards crawl around {area:353} in the south-west of the {zone:1425}; about one in ten carries an undamaged sac."] = "Стражи выводка Увядающей Коры ползают вокруг {area:353} на юго-западе {zone:1425}; примерно у одного из десяти есть целый мешок.",
+	["The Witherbark Broodguards crawl around {area:353} in the south-west of the {zone:1425}; about one in ten carries an undamaged sac."] = "Пауки-няньки племени Сухокожих ползают вокруг {area:353} на юго-западе {zone:1425}; примерно у одного из десяти есть целый мешок.",
 	-- {quest:2934} Undamaged Venom Sac
 	-- plural, as words: Witherbark Broodguards = {npc:2686} Witherbark Broodguard
-	["{quest:2934}, from Witherbark Broodguards"] = "{quest:2934}, от стражей выводка Увядающей Коры",
+	["{quest:2934}, from Witherbark Broodguards"] = "{quest:2934}, от пауков-нянек племени Сухокожих",
 
 	-- Step 35: Tarren Mill, then Sen'jin Village
 	-- {area:272} Tarren Mill · {area:367} Sen'jin Village

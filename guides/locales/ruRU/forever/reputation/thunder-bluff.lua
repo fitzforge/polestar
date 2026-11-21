@@ -46,7 +46,7 @@ return {
 	-- Step 6: Camp Narache: the Battleboars
 	-- {area:221} Camp Narache
 	-- plural, as words: Battleboars = {npc:2966} Battleboar
-	["{area:221}: the Battleboars"] = "{area:221}: боевые кабаны",
+	["{area:221}: the Battleboars"] = "{area:221}: боевые вепри",
 
 	-- Step 7: Brambleblade Ravine
 	-- {quest:780} The Battleboars · {npc:8554} Chief Sharptusk Thornmantle · {area:358} Brambleblade Ravine · {item:4851} Dirt-stained Map · {quest:781} Attack on Camp Narache

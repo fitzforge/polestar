@@ -75,7 +75,7 @@ return {
 	-- Step 10: Honored Amongst the Guard
 	-- {npc:13217} Thanthaldis Snowgleam · {npc:13841} Lieutenant Haggerdin
 	-- plural, as words: Sage's Cloaks = {item:6614} Sage's Cloak
-	["Honored: insignia rank 3, 100 reputation. Honored to Revered is 12000 reputation. {npc:13217} beside {npc:13841} sells the Stormpike Soldier's and Sage's Cloaks and Pendants (about 7g each), the Stormpike belts (4g74s to 7g12s) and the Major Healing and Mana Draughts (10s)."] = "«Уважение»: знак различия 3-го ранга, 100 репутации. От «Уважения» до «Почтения» — 12000 репутации. {npc:13217} рядом с {npc:13841} продаёт плащи и подвески солдата и мудреца Громового Копья (около 7 з каждый), пояса Громового Копья (4з74с – 7з12с) и мощные напитки лечения и маны (10 с).",
+	["Honored: insignia rank 3, 100 reputation. Honored to Revered is 12000 reputation. {npc:13217} beside {npc:13841} sells the Stormpike Soldier's and Sage's Cloaks and Pendants (about 7g each), the Stormpike belts (4g74s to 7g12s) and the Major Healing and Mana Draughts (10s)."] = "«Уважение»: знак различия 3-го ранга, 100 репутации. От «Уважения» до «Почтения» — 12000 репутации. {npc:13217} рядом с {npc:13841} продаёт плащи и подвески солдата и книжника Громового Копья (около 7 з каждый), пояса Громового Копья (4з74с – 7з12с) и мощные напитки лечения и маны (10 с).",
 	-- {npc:15351} Alliance Brigadier General
 	["{npc:15351}: 100 for 3 marks"] = "{npc:15351}: 100 за 3 знака",
 

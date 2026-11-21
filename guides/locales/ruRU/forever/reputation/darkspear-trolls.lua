@@ -77,7 +77,7 @@ return {
 	["The {area:368}"] = "{area:368}",
 	-- {area:368} Echo Isles · {quest:826} Zalazane
 	-- plural, as words: Durotar Tigers = {npc:3121} Durotar Tiger
-	["Swim to the largest of the {area:368}, south-east of the village. {quest:826}, the idols and the skulls at the circle of power are all there; the Durotar Tigers prowl the smaller islands."] = "Плывите к крупнейшему из {area:368}, юго-восточнее деревни. {quest:826}, идолы и черепа у круга силы — всё там; тигры Дуротара бродят по меньшим островам.",
+	["Swim to the largest of the {area:368}, south-east of the village. {quest:826}, the idols and the skulls at the circle of power are all there; the Durotar Tigers prowl the smaller islands."] = "Плывите к крупнейшему из {area:368}, юго-восточнее деревни. {quest:826}, идолы и черепа у круга силы — всё там; дуротарские тигры бродят по меньшим островам.",
 	-- {quest:808} Minshina's Skull · {object:3237} Imprisoned Darkspear
 	["{quest:808}: click an {object:3237} skull"] = "{quest:808}: щёлкните по черепу {object:3237}",
 
@@ -148,7 +148,7 @@ return {
 	-- Step 22: Stormy Potential
 	-- {area:369} Thunder Ridge · {npc:3293} Rezlak
 	-- plural, as words: Charged Thunder Lizard Organs = {item:277665} Charged Thunder Lizard Organ
-	["The Charged Thunder Lizard Organs come from the thunder lizards on {area:369}, just west of {npc:3293}."] = "Заряженные органы громового ящера добываются с громовых ящеров на {area:369}, прямо западнее {npc:3293}.",
+	["The Charged Thunder Lizard Organs come from the thunder lizards on {area:369}, just west of {npc:3293}."] = "Заряженные органы рокочущей ящерицы добываются с громовых ящеров на {area:369}, прямо западнее {npc:3293}.",
 
 	-- Step 24: Skull Rock
 	-- {quest:828} Margoz · {quest:827} Skull Rock · {zone:1454} Orgrimmar

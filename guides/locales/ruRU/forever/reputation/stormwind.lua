@@ -145,14 +145,14 @@ return {
 	["Eastvale: the work"] = "Восточная Долина: работа",
 	-- {area:91} Tower of Azora · {area:54} Jasperlode Mine
 	-- plural, as words: Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear · Kobold Geomancers = {npc:476} Kobold Geomancer
-	["The murlocs along the river south of the bridge drop the fins; Prowlers and Young Forest Bears roam the woods; the Defias around the Brackwell farm and the {area:91} carry the bandanas; the enchanting supplies lie in their camps north of the tower; the Kobold Geomancers dig at {area:54}; the tools and the river finds lie along the river north of the logging camp."] = "Мурлоки вдоль реки южнее моста роняют плавники; проныры и молодые лесные медведи бродят по лесам; Братство Справедливости вокруг фермы Бреквеллов и {area:91} несёт банданы; зачарованные припасы лежат в их лагерях севернее башни; кобольды-геоманты роют в {area:54}; инструменты и находки у реки лежат вдоль реки севернее лесопилки.",
+	["The murlocs along the river south of the bridge drop the fins; Prowlers and Young Forest Bears roam the woods; the Defias around the Brackwell farm and the {area:91} carry the bandanas; the enchanting supplies lie in their camps north of the tower; the Kobold Geomancers dig at {area:54}; the tools and the river finds lie along the river north of the logging camp."] = "Мурлоки вдоль реки южнее моста роняют плавники; лесные хищники и молодые лесные медведи бродят по лесам; Братство Справедливости вокруг фермы Бреквеллов и {area:91} несёт банданы; зачарованные припасы лежат в их лагерях севернее башни; кобольды-геоманты роют в {area:54}; инструменты и находки у реки лежат вдоль реки севернее лесопилки.",
 
 	-- Step 24: Eastvale: hand in
 	["Eastvale: hand in"] = "Восточная Долина: сдача",
 
 	-- Step 25: Eastvale: Defias Rogue Wizards
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["Eastvale: Defias Rogue Wizards"] = "Восточная Долина: колдуны-плуты Братства Справедливости",
+	["Eastvale: Defias Rogue Wizards"] = "Восточная Долина: волшебники-плуты из Братства Справедливости",
 	["opens with Thomas' report"] = "начинается с доклада Томаса",
 	-- {item:780} Torn Murloc Fin
 	["{item:780}, from the murlocs south of the bridge"] = "{item:780}, от мурлоков южнее моста",
@@ -189,7 +189,7 @@ return {
 	-- Step 32: Chillwind Camp: Clear the Way
 	-- {npc:10838} Commander Ashlam Valorfist · {npc:11053} High Priestess MacDonnell · {area:3197} Chillwind Camp · {zone:1422} Western Plaguelands · {faction:72} Stormwind · {object:92525} Argent Dawn
 	-- plural, as words: Skeletal Flayers = {npc:1783} Skeletal Flayer · Slavering Ghouls = {npc:1791} Slavering Ghoul
-	["These quests are level 52 to 58, so they pay in full at 60. {npc:10838} and {npc:11053} at {area:3197}, in the south of the {zone:1422}, send you against the four Scourge cauldrons: 820 {faction:72} reputation in all and 600 {object:92525} on the side. The Skeletal Flayers and Slavering Ghouls roam the fields north of the camp."] = "Это задания 52–58 уровней, так что на 60 они платят полностью. {npc:10838} и {npc:11053} в {area:3197}, на юге {zone:1422}, отправляют вас против четырёх котлов Плети: всего 820 репутации {faction:72} и 600 {object:92525} попутно. Костяные потрошители и слюнявые упыри бродят по полям севернее лагеря.",
+	["These quests are level 52 to 58, so they pay in full at 60. {npc:10838} and {npc:11053} at {area:3197}, in the south of the {zone:1422}, send you against the four Scourge cauldrons: 820 {faction:72} reputation in all and 600 {object:92525} on the side. The Skeletal Flayers and Slavering Ghouls roam the fields north of the camp."] = "Это задания 52–58 уровней, так что на 60 они платят полностью. {npc:10838} и {npc:11053} в {area:3197}, на юге {zone:1422}, отправляют вас против четырёх котлов Плети: всего 820 репутации {faction:72} и 600 {object:92525} попутно. Скелеты-живодеры и слюнявые вурдалаки бродят по полям севернее лагеря.",
 
 	-- Step 33: Andorhal and Felstone Field
 	-- {area:199} Felstone Field
@@ -248,7 +248,7 @@ return {
 	-- Step 42: Morgan's Vigil: Dragonkin Menace
 	-- {npc:9562} Helendis Riverhorn · {area:2418} Morgan's Vigil · {zone:1428} Burning Steppes · {quest:4183} The True Masters · {area:69} Lakeshire · {object:2117} Stormwind Keep · {faction:72} Stormwind · {zone:1457} Darnassus · {npc:7044} Black Drake · {npc:7040} Black Dragonspawn · {npc:7041} Black Wyrmkin
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
-	["{npc:9562} at {area:2418}, in the south-east of the {zone:1428}, starts {quest:4183}: a chain to {area:69} and {object:2117}, 175 {faction:72} and 175 {zone:1457} reputation (level 54). The Black Broodlings and the {npc:7044} live on the slopes north of the Vigil; the {npc:7040} and {npc:7041} west of it, in the middle of the zone."] = "{npc:9562} в {area:2418}, на юго-востоке {zone:1428}, запускает {quest:4183}: цепочку к {area:69} и {object:2117}, 175 репутации {faction:72} и 175 {zone:1457} (54 уровень). Чёрные дракончики и {npc:7044} живут на склонах севернее дозора; {npc:7040} и {npc:7041} — западнее него, в середине зоны.",
+	["{npc:9562} at {area:2418}, in the south-east of the {zone:1428}, starts {quest:4183}: a chain to {area:69} and {object:2117}, 175 {faction:72} and 175 {zone:1457} reputation (level 54). The Black Broodlings and the {npc:7044} live on the slopes north of the Vigil; the {npc:7040} and {npc:7041} west of it, in the middle of the zone."] = "{npc:9562} в {area:2418}, на юго-востоке {zone:1428}, запускает {quest:4183}: цепочку к {area:69} и {object:2117}, 175 репутации {faction:72} и 175 {zone:1457} (54 уровень). Детеныши черного дракона и {npc:7044} живут на склонах севернее дозора; {npc:7040} и {npc:7041} — западнее него, в середине зоны.",
 
 	-- Step 43: Lakeshire: Magistrate Solomon
 	-- {npc:344} Magistrate Solomon · {area:69} Lakeshire
