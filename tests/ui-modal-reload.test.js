@@ -56,15 +56,29 @@ test('every choice runs before the dialog closes; a choice that opens another di
 		stub.mouseClick(m.Box.Action, {})
 		local next = m:IsShown() and m.Box.Title:GetText()
 		W.HideModal()
-		-- A choice that fails still closes the dialog, and its error is not lost.
+		-- A choice that asks again with the same spec table: the new dialog stays.
+		local again = spec()
+		local asked = 0
+		again.onAccept = function() asked = asked + 1; if asked == 1 then W.Modal(again) end end
+		W.Modal(again); stub.mouseClick(m.Box.Action, {})
+		local askedAgain = m:IsShown()
+		W.HideModal()
+		-- A choice that fails still closes the dialog, and its error reaches the
+		-- game's error handler.
+		local caught
+		local oldHandler = geterrorhandler
+		geterrorhandler = function() return function(err) caught = tostring(err) end end
 		W.Modal(spec({ onAccept = function() error("boom") end }))
-		pcall(function() stub.mouseClick(m.Box.Action, {}) end)
+		stub.mouseClick(m.Box.Action, {})
+		geterrorhandler = oldHandler
 		emit({ seen = seen, afterAccept = afterAccept, afterCancel = afterCancel, afterAlt = afterAlt, next = next,
-			afterFail = m:IsShown() })`);
+			askedAgain = askedAgain, afterFail = m:IsShown(), caught = caught })`);
 	assert.deepEqual(out.seen, [['accept', true], ['cancel', true], ['alt', true]], 'each choice runs with the dialog up');
 	assert.equal(out.afterAccept, false, 'the action closes it');
 	assert.equal(out.afterCancel, false, 'Cancel closes it');
 	assert.equal(out.afterAlt, false, 'the third choice closes it');
 	assert.equal(out.next, 'Next', 'the dialog a choice opened stays up');
+	assert.equal(out.askedAgain, true, 'a choice that asks again with the same spec keeps the new dialog up');
 	assert.equal(out.afterFail, false, 'a failing choice still closes the dialog');
+	assert.match(out.caught || '', /boom/, "the failing choice's error goes to the error handler");
 });

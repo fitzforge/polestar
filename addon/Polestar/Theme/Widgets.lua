@@ -3374,13 +3374,15 @@ end
 -- popups do (StaticPopup_OnClick): a call that needs the player's hardware
 -- event (ReloadUI, the settings window's "Reload UI") runs inside the click
 -- with its button shown. Closed first, that reload did nothing in the client.
+-- A failing choice still closes it; its error goes to the game's handler with
+-- the choice's own stack. W.Modal counts each dialog it opens, so a choice that
+-- asks again (even with the same spec table) keeps the new one up.
+local modalSerial = 0
 local function closeModal(accept)
-	local spec = modal.psSpec
+	local spec, serial = modal.psSpec, modalSerial
 	local fn = spec and (accept == "alt" and spec.onAlt or accept == true and spec.onAccept or (not accept and spec.onCancel))
-	local ok, err = true, nil
-	if fn then ok, err = pcall(fn) end
-	if modal.psSpec == spec then modal:Hide() end
-	if not ok then error(err, 0) end
+	if fn then xpcall(fn, geterrorhandler()) end
+	if modalSerial == serial then modal:Hide() end
 end
 
 local function buildModal()
@@ -3469,6 +3471,7 @@ function W.Modal(spec)
 	if not modal then buildModal() end
 	W.HideMenu()
 	local box = modal.Box
+	modalSerial = modalSerial + 1
 	modal.psSpec = spec
 	local x = MODAL_PAD
 	box.Icon:SetShown(spec.icon ~= nil)
@@ -4021,7 +4024,6 @@ function W.ShellFooter(f, left, right)
 			else
 				b:SetScript("OnClick", spec.onClick)
 			end
-			Theme.Repaint(b)
 			W.RepaintButton(b)
 			b:ClearAllPoints()
 			if side == "left" then
