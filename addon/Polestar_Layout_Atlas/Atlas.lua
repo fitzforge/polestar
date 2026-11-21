@@ -2793,10 +2793,23 @@ end)
 local function numColumn(r, on)
 	local num, G = rawget(r, "Num"), frame()
 	if not (num and G and G.FitNum) then return end
+	-- The number is anchored by its left edge (Polestar's: PAD - 10 in, a
+	-- 22 px column): on the rail that edge moves clear of the disc and the
+	-- column narrows by as much, so its right edge stays where it was.
+	local p, rel, rp, x, y = num:GetPoint(1)
+	if not p then return end
+	local clear = RAIL - UP_X + 4 + 2
 	local col
 	if on then
-		local _, _, _, x = num:GetPoint(1)
-		col = (x or 26) - (RAIL - UP_X + 4 + 2)
+		if x < clear then
+			num.psRailX = x
+			num:SetPoint(p, rel, rp, clear, y)
+			x = clear
+		end
+		col = (num.psRailX or x) + 22 - x
+	elseif num.psRailX then
+		num:SetPoint(p, rel, rp, num.psRailX, y)
+		num.psRailX = nil
 	end
 	if num.psColumn ~= col then
 		num.psColumn = col

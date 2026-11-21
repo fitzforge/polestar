@@ -1580,7 +1580,8 @@ local function sweep(kind, pool, n)
 					if p and p[2] == r and t:IsShown() and t:GetWidth() == 8 then disc = { x = p[4], w = t:GetWidth() } end
 				end
 			end
-			rows[#rows + 1] = { kind = kind, num = num, left = x - r.Num:GetUnboundedStringWidth(), disc = disc and (disc.x + disc.w / 2) or false }
+			-- Anchored by its left edge, the text right-aligned in its column.
+			rows[#rows + 1] = { kind = kind, num = num, left = x + r.Num:GetWidth() - r.Num:GetUnboundedStringWidth(), disc = disc and (disc.x + disc.w / 2) or false }
 		end
 	end
 end
