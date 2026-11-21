@@ -730,14 +730,24 @@ end
 
 -- Check the actual displayed segment, including smoothing, baked guidance and a direct fallback.
 -- The sampler's taxi and ride-instruction states never enter this function.
+-- Nav.noWalk (#3409, Fitz's ruling): the walking engine found no walk there ("unmapped" or "unsafe"), so the
+-- bearing is the straight one, as before 0.4.2, and the arrow says why under its label (Arrow.lua). Across
+-- dangerous ground it still points, saying "unsafe"; the line is drawn only where the danger policy lets it
+-- (Nav.CanDrawGroundApproach). Set by each sample (Travel.Aim for a route's walk), nil when a walk guides.
 local function groundAim(C,pc,px,py,d,angle,dn,dw,measured)
 	local D,side=Nav.danger,C.GetPlayerFaction()
-	if D.Blocked(pc,px,py,px+dn,py+dw,side) then return "unsafe" end
+	if D.Blocked(pc,px,py,px+dn,py+dw,side) then
+		if not Nav.noWalk then return "unsafe" end
+		-- Pointing straight for want of a walk, across ground the policy refuses: say so, and keep the bearing
+		-- checked (near enemy ground: no easing through unchecked headings).
+		Nav.noWalk = "unsafe"
+		return "travel",d,angle,dn,dw,measured,true
+	end
 	return "travel",d,angle,dn,dw,measured,D.NearEnemyGround(pc,px,py,side)
 end
 
 local function sample()
-	floorHint = nil
+	floorHint, Nav.noWalk = nil, nil
 	if not target then return "none" end
 	local C = ns.Compat
 	if not C then return "unknown" end
@@ -849,7 +859,9 @@ local function sample()
 	local checkedOnly = leg and (leg.corpseGround or (leg.parent and leg.parent.leg.corpseGround))
 	if W then
 		local wc, wx, wy, left, unmapped = W.Aim(pc, px, py, tC, tX, tY, (leg and leg.handmade) or W.FollowsGoto(target), nil, nil, checkedOnly)
-		if unmapped then return unmapped == true and "unmapped" or unmapped end
+		if unmapped == "routing" then return "routing" end
+		-- No walk found (Walk.GroundStatus' reason, or true: a partial or a checked detour without its walk): straight.
+		if unmapped then Nav.noWalk = unmapped == "unsafe" and "unsafe" or "unmapped" end
 		if wc then
 			if exact and liveZ and dist <= 20 and bodyBlocked(pc,px,py,liveZ,wx,wy,2.75) then
 				if W.RefineTerminal then W.RefineTerminal(pc,px,py,tX,tY,tZ) end
@@ -888,7 +900,7 @@ local function sample()
 		return groundAim(C,pc,px,py,dist,angle,dn,dw,true)
 	end
 	if exact and liveZ and not floorHint and dist <= r and W and W.RefineTerminal then W.RefineTerminal(pc,px,py,tX,tY,tZ) end
-	if checkedOnly then return "unmapped" end
+	if checkedOnly then Nav.noWalk = Nav.noWalk or "unmapped" end
 	if wet or (exact and dist <= r) or (stacked and W and W.Searches and W.Searches(pc) and not (tDock or W.FollowsGoto(target))) then return "unmapped" end
 	if exact and liveZ and dist <= 20 and bodyBlocked(pc,px,py,liveZ,tX,tY,2.75,tZ) then return "unmapped" end
 	return groundAim(C,pc,px,py,dist,angle,dn,dw)
@@ -918,24 +930,16 @@ function Nav.CanDrawGroundApproach(c, x, y, gx, gy)
 			local status
 			if to then status = W.GroundStatus(to.c, to.wx, to.wy, to.z)
 			else status = W.GroundStatus(tC, tX, tY, tZ) end
-			if status then return false end
+			-- Its answer still to come: no line yet. No walk found: the straight line, as before 0.4.2 (#3409).
+			if status == "routing" then return false end
 		end
 	end
 	local whole = current and (current.parent and current.parent.leg or current)
-	if whole and whole.kind == "walk" and (whole.corpseGround or whole.crossingPolicy) then
-		-- Only the live path supplies geometry for this detour. A straight
-		-- trail from the player to its end is not the path that was checked.
+	if c ~= nil and whole and whole.kind == "walk" and (whole.corpseGround or whole.crossingPolicy) then
+		-- Once its checked path is in, only that path supplies geometry for this
+		-- detour: a straight trail from the player to its end is not the path that was checked.
 		local to = whole.to
-		if c ~= nil or not (W and W.CheckedAt(to.c, to.wx, to.wy, to.z)) then return false end
-	end
-	if W and W.blockedReason then
-		local leg = groundLeg()
-		if not leg then
-			if W.RefusedAt(tC, tX, tY, tZ) then return false end
-		elseif leg.kind == "walk" then
-			local to = leg.parent and leg.parent.leg.to or leg.to
-			if W.RefusedAt(to.c, to.wx, to.wy, to.z) then return false end
-		end
+		if W and W.CheckedAt(to.c, to.wx, to.wy, to.z) then return false end
 	end
 	if c == nil then return true end
 	local C, D = ns.Compat, Nav.danger

@@ -25,7 +25,14 @@
 -- a crossing, an approach chain past its mouth (Travel's leg.handmade), and a
 -- guide goal after a guide `goto` (the author's way in, a cave mouth) keep
 -- the straight arrow, as does a player who switches walking routes off.
--- A routed walk with no ground answer yet supplies no compass bearing.
+-- A routed walk with no ground answer yet supplies no compass bearing. One
+-- whose search found no walk (refused on policy, off the walking map, no maps
+-- there, a capital's floor out of reach, a corpse run's checked detour) points
+-- straight at its goal, as before 0.4.2, and says why under the label; its line
+-- is drawn straight where the danger policy lets it (Nav.Sample's noWalk,
+-- Nav.CanDrawGroundApproach, #3409). A failed search is asked again FAIL_RETRY
+-- seconds after it failed once the player stands FAIL_MOVED yards (the router's
+-- ARRIVE) from where it was asked: 0.4.2 asked again only 25 yards away.
 -- Every later walk leg is sketched at once (Path.FindCoarse, its border
 -- crossings), then searched once after it (Walk.LegPath), for the route
 -- lines and its price; the arrow's own walk is drawn by its sketch until its
@@ -226,7 +233,7 @@ local JOIN = 50             -- yards from a path's start: its first turn there, 
 local ASK_EVERY = 2         -- seconds between asks for the same goal
 local ASK_FAR, ASK_FAR_EVERY = 2000, 10 -- yards left along the path past which a stray is asked again at most this often
 local GOAL_MOVED = 1        -- yards: the goal is another one
-local FAIL_RETRY, FAIL_MOVED = 15, 25 -- a failed search is asked again this late, this far away
+local FAIL_RETRY, FAIL_MOVED = 15, 5 -- a failed search is asked again this late, this far away
 local Z_OFF = 30            -- yards: a path ending this far above or below the goal's height missed its floor
 
 ---------------------------------------------------------------------------
@@ -1189,15 +1196,10 @@ function Walk.Unmapped()
 	return gc ~= nil and city.note == true, city.noteVersion
 end
 
--- A failed asynchronous search publishes geometry before the next arrow
--- sample. Never paint its fallback chord, even with the HUD hidden.
-function Walk.RefusedAt(c, x, y, z)
-	return Walk.blockedReason ~= nil and count == 0 and gc == c and gx ~= nil
-		and gzFor == (z or false) and (x - gx)^2 + (y - gy)^2 <= GOAL_MOVED^2
-end
-
 -- A renderer can run before the first arrow sample. Never start a search from
 -- here: only query whether this goal has a walking answer on its own floor.
+-- nil: it has (or routing is off); "routing": its answer is still to come; else
+-- why none was found ("unmapped" or "unsafe": the arrow points straight and says so).
 function Walk.GroundStatus(c, x, y, z)
 	if not ns.Get("nav.navRouting") or Nav.HandedOff() then return nil end
 	if not Nav.Path then return loadTried and "unmapped" or "routing" end

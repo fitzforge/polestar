@@ -5341,9 +5341,14 @@ in flight and drops the path; more than 25 yd off the path asks again, unless
 the aim is in sight as above (at
 most every 2 s, every 10 s while more than 2,000 yd of the walk are left:
 each ask searches the whole walk; the old path kept meanwhile); a failed search (`nodata`,
-`outside`, `offmesh`, `unreachable`, `error`, `Path.Available(map)` false,
-or `Find` raising) is asked again only after 15 s and 25 yd. Nothing is
-asked for in combat (the engine's own queue waits out combat as well).
+`outside`, `offmesh`, `unreachable`, `no safe walking route`, `error`, `Path.Available(map)` false,
+or `Find` raising) is asked again after 15 s once the player stands 5 yd (the router's arrival distance) from
+where it was asked. Meanwhile, as before 0.4.2 (#3409, Fitz's ruling), the arrow points straight at the goal
+(`Nav.noWalk`: a refusal on policy, a start off the walking map, no maps there, a capital's floor out of reach, a
+corpse run's checked detour without its walk) and says why under its label ("No safe walking route", "The last
+steps here aren't mapped"); its line is drawn straight where the danger policy lets it
+(`Nav.CanDrawGroundApproach`). 0.4.2 drew nothing and asked again only 25 yd away. While its answer is still to
+come it gives neither. Nothing is asked for in combat (the engine's own queue waits out combat as well).
 The walk to the target's own point carries the target's height: the Engine
 waypoint's `z` (a guide goal at an NPC or object, Guide data), which
 `Nav.GetTargetWorld()` returns fourth (a target set with `Nav.SetTarget` has

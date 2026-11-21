@@ -3554,7 +3554,11 @@ function Travel.Aim(pc, px, py)
 				atLift = near
 				Travel.version = Travel.version + 1
 			end
-			if unknownDeck then return "unmapped" end
+			-- The lift's deck unknown at its landing: no walk to it can be told, so straight, saying why (#3409).
+			if unknownDeck then
+				Nav.noWalk = "unmapped"
+				return "walk", leg.to.c, leg.to.wx, leg.to.wy
+			end
 			-- On a crossing's walk from an end with a floor height, near that end but found on another floor
 			-- (the floor became known after the plan took the player for there): plan again.
 			local from = leg.from
@@ -3574,7 +3578,9 @@ function Travel.Aim(pc, px, py)
 					if P then gc, gx, gy, gz = P.c, P.wx, P.wy, P.leg.to.z end
 					-- A piece aims no further than its chokepoint's spot on the path (leg.stop, Walk.Stops).
 					local wc, wx, wy, left, unmapped = W.Aim(pc, px, py, gc, gx, gy, leg.handmade, gz, P and leg.stop, checked)
-					if unmapped then return unmapped == true and "unmapped" or unmapped end
+					if unmapped == "routing" then return "routing" end
+					-- No walk found: straight to the leg's end, and the arrow says why (Nav.noWalk, #3409).
+					if unmapped then Nav.noWalk = unmapped == "unsafe" and "unsafe" or "unmapped" end
 					if wc then
 						left = left - (leg.tail or 0)
 						if left < 0 then left = 0 end
@@ -3582,7 +3588,7 @@ function Travel.Aim(pc, px, py)
 						return "walk", wc, wx, wy, left
 					end
 				end
-				if checked then return "unmapped" end
+				if checked then Nav.noWalk = Nav.noWalk or "unmapped" end
 				progressYards = yards(pc, px, py, to.c, to.wx, to.wy) * WALK_DETOUR
 				return "walk", to.c, to.wx, to.wy
 			end
