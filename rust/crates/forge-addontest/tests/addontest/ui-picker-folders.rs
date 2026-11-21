@@ -20,7 +20,8 @@ local function shownIn(kind)
 	return out
 end
 local function isFolder(f) return rawget(f, "Count") ~= nil and rawget(f, "Rule") ~= nil and rawget(f, "Range") == nil end
-local function isRow(f) return f.psGuide ~= nil and rawget(f, "Range") ~= nil end
+-- A list row: not the Play next card above the list.
+local function isRow(f) return f.psGuide ~= nil and rawget(f, "Range") ~= nil and not rawget(f, "psPlayNext") end
 -- The middle pane top down: "[Folder count v]" ("v" open, ">" folded, nothing where it does not fold), "Title (range)".
 local function pane()
 	local out = {}
