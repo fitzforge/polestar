@@ -2236,9 +2236,10 @@ local function menuRow(i)
 end
 
 -- A list longer than MENU_MAX rows scrolls in an area under a filter box
--- that narrows the rows to those holding what is typed (the box takes the
--- keys as the list opens): Enter picks the first one left, Escape empties
--- the box, then closes the list.
+-- that narrows the rows to those holding what is typed. The box takes the
+-- keys only once clicked, never as the list opens (#3371: a player who
+-- opened a menu on the run typed "wwww" into it): Enter picks the first one
+-- left, Escape empties the box, then closes the list.
 local MENU_MAX, MENU_FILTER = 12, 26
 local layoutMenu -- (): the open list's rows laid out anew (below)
 
@@ -2272,6 +2273,7 @@ local function menuLong()
 			if r:IsShown() and r.psItem and not r.psItem.disabled then return menuRowClick(r) end
 		end
 	end)
+	f:SetScript("OnMouseDown", function(self) self:SetFocus() end)
 	f:SetScript("OnEditFocusGained", function(self) Theme.SetFocused(self, true) end)
 	f:SetScript("OnEditFocusLost", function(self) Theme.SetFocused(self, false) end)
 	menu.Filter = f
@@ -2445,9 +2447,6 @@ function W.ShowMenu(anchor, items, opts)
 	Anim.Anchor(menu, point, anchor, relPoint, opts.x or 0, opts.y or -4)
 	catcher:Show()
 	menu:Show()
-	-- A long list's filter takes the keys at once (not while a gamepad
-	-- drives: its buttons would go to the box).
-	if long and not (ns.Gamepad and ns.Gamepad.IsActive and ns.Gamepad.IsActive()) then menu.Filter:SetFocus() end
 	-- Popovers grow out of their trigger: a short fade with a 4px drop.
 	Anim.To(menu, "alpha", 0, 1, Anim.FAST, "out")
 	Anim.To(menu, "offset", 4, 0, Anim.FAST, "out")
