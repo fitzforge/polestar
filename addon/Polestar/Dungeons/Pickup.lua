@@ -574,15 +574,16 @@ end
 -- from where the player stands, the entrance, or any other stop of the plan
 -- (another giver, a chain quest's giver or turn-in), breadcrumbs left out
 -- (one with a prerequisite of its own in the plan: from that one's turn-in
--- or the entrance only):
+-- or the entrance only; a delivery across the sea without one: from where
+-- the player stands only, when located):
 -- min over A of T(A, giver) + T(giver, target) - T(A, target). It is left out
--- when its giver is on a continent no other stop is on, when the detour is
--- over DETOUR seconds, or when it is a delivery across the sea (its giver on
--- another continent than every one of its targets) and the detour is over
--- NEAR seconds. Kept: one on the way (Tinkmaster Overspark in Stormwind for
--- a player there, The Greenwarden in Menethil Harbor, #1226), one across the
--- sea from a giver beside the player (Tabetha's Task at a city's mage
--- trainer), and any the plan cannot place.
+-- when its giver is on a continent none of those anchors is on, when the
+-- detour is over DETOUR seconds, or when it is a delivery across the sea
+-- (its giver on another continent than every one of its targets) and the
+-- detour is over NEAR seconds. Kept: one on the way (Tinkmaster Overspark
+-- in Stormwind for a player there, The Greenwarden in Menethil Harbor,
+-- #1226), one across the sea from a giver beside the player (Tabetha's Task
+-- at a city's mage trainer), and any the plan cannot place.
 -- DETOUR: over every dungeon page, both sides, the breadcrumbs players take
 -- on the way cost at most 185 s (Speak with Ruga from Orgrimmar, A Troubled
 -- Spirit), the real detours at least 479 s (Tran'rek in Stranglethorn for
@@ -592,7 +593,10 @@ end
 -- NEAR: a breadcrumb that crosses the sea is worth its few hundred XP only
 -- when its giver is in the town the player is in (#1402, Geekmandem: from
 -- Stonetalon Peak, Castpipe's Task at Windshear Crag cost 200 s of the
--- route, a walk of 394 s, for 230 XP and a quest Ironforge gives anyway).
+-- route, a walk of 394 s, for 230 XP and a quest Ironforge gives anyway;
+-- #2795: at Nijel's Point for Scarlet Monastery, Brother Anton from Brother
+-- Crowley in Stormwind is judged from where the player stands rather than
+-- from other Eastern Kingdoms stops on the route).
 -- Kept: Tabetha's Task at the Undercity's mage trainer for a player in the
 -- Undercity (100 s), at Stormwind's (4 s). Left out
 -- besides Castpipe's Task: A Troubled Spirit (Orgrimmar to Stonard, 185 s),
@@ -693,9 +697,11 @@ local function dropDetours(plan, from, p)
 				local tc = continentOf(at[tid])
 				if tc == nil or tc == c then sea = false end
 			end
-			for _, a in ipairs(stops) do near = near or continentOf(a) == c end
+			local own = afterOwn(recs[id])
+			local anchors = own or (sea and located(from) and { from }) or stops
+			for _, a in ipairs(anchors) do near = near or continentOf(a) == c end
 			local best
-			for _, a in ipairs(afterOwn(recs[id]) or stops) do
+			for _, a in ipairs(anchors) do
 				for _, tid in ipairs(targets) do
 					local x, y, z = T(a, g), T(g, at[tid]), T(a, at[tid])
 					if x and y and z and (not best or x + y - z < best) then best = x + y - z end

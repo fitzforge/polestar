@@ -1964,6 +1964,65 @@ fn accepts_of(v: &Value, id: i64) -> bool {
 	v["accepts"].as_array().into_iter().flatten().any(|x| x.as_i64() == Some(id))
 }
 
+// #2795 (Ashwarden, 38labadmin): a cross-sea breadcrumb without a prerequisite of its own is
+// judged from where the player stands, never from another stop on the route. Here 1010/1014 put
+// Eastern Kingdoms stops (including Bethor Iceshard in the Undercity) on the plan, while Doan
+// Karhan's 1740 is in the Barrens. A player already in the Barrens skips Bethor's cross-sea
+// breadcrumb to Doan (90820), whereas a player in the Undercity beside Bethor keeps it.
+#[test]
+fn a_cross_sea_breadcrumb_is_judged_from_where_the_player_stands_not_other_stops_2795() {
+	let (mut c, mut i) = fixture_parts();
+	c["quests"]["90820"] = json!({
+		"id": 90820,
+		"title": "Word from the Undercity",
+		"level": 22,
+		"minLevel": 18,
+		"faction": "H",
+		"races": null,
+		"classes": null,
+		"start": { "npc": [1498], "object": [], "item": [] },
+		"end": { "npc": [6247], "object": [] },
+		"objectives": [],
+		"pre": [],
+		"zone": 1413,
+		"rewards": [],
+		"choices": [],
+		"preAny": [],
+	});
+	i["forever"]["quests"]["90820"] = json!({ "area": 209 });
+	let pack = pack_of(&c, &i);
+	let script = k(&format!(
+		r#"{CRUMB_TRAVEL}
+local plan = D.PickupPlan("{{KEY}}")
+local take, crumbs, accepts = {{}}, {{}}, {{}}
+for _, t in ipairs(plan.take) do take[#take + 1] = t.quest.id end
+table.sort(take)
+for _, b in ipairs(plan.breadcrumbs or {{}}) do
+	crumbs[tostring(b.id)] = {{ far = b.far, sea = b.sea, taken = b.taken }}
+end
+for _, s in ipairs(D.PickupGuide("{{KEY}}").steps) do
+	for _, g in ipairs(s.goals) do
+		if g.t == "accept" then accepts[#accepts + 1] = g.quest end
+	end
+end
+table.sort(accepts)
+emit({{ take = take, crumbs = crumbs, accepts = accepts }})"#
+	));
+	let barrens = run(&pack, &script, Opts { at: Some(BARRENS), ..Default::default() }).remove(0);
+	let show = serde_json::to_string(&barrens).unwrap();
+	assert!(takes(&barrens, 1740), "target quest taken directly in the Barrens: {show}");
+	assert_eq!(barrens["crumbs"]["90820"]["sea"], true, "cross-sea breadcrumb: {show}");
+	assert_eq!(barrens["crumbs"]["90820"]["far"], true, "judged from the Barrens: {show}");
+	assert_eq!(barrens["crumbs"]["90820"]["taken"], false, "dropped from the Barrens: {show}");
+	assert!(!accepts_of(&barrens, 90820), "no accept for dropped cross-sea breadcrumb: {show}");
+
+	let uc = run(&pack, &script, Opts::default()).remove(0);
+	let show = serde_json::to_string(&uc).unwrap();
+	assert_eq!(uc["crumbs"]["90820"]["far"], false, "player is on its continent: {show}");
+	assert_eq!(uc["crumbs"]["90820"]["taken"], true, "kept from the Undercity: {show}");
+	assert!(accepts_of(&uc, 90820), "accepted when standing in the Undercity: {show}");
+}
+
 // Travel between the fixture's zones by the way a player goes (seconds): Undercity and Silverpine are next
 // door, the Barrens a zeppelin away.
 const ZONE_TRAVEL: &str = r#"
