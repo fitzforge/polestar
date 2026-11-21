@@ -1588,7 +1588,7 @@ stub.RunScript(d, "OnTextChanged", true)`,
 	},
 	{
 		file: 'options.svg',
-		title: 'Options: Guide (Window, Arrow & routes, Automation)',
+		title: 'Options: Guide (While you play, Arrow & routes, Automation)',
 		panels: [
 			{ roots: OPTIONS, script: 'Polestar.UI.ShowOptions("guide")' },
 			{ roots: OPTIONS, script: 'Polestar.UI.ShowOptions("guide"); Polestar.UI.Options.Select("guide", "Arrow & routes")' },
@@ -1597,7 +1597,7 @@ stub.RunScript(d, "OnTextChanged", true)`,
 	},
 	{
 		file: 'skins-options.svg',
-		title: 'Skins: the settings window in Halo and Hearth (Guide, Window; Theme, Frames)',
+		title: 'Skins: the settings window in Halo and Hearth (Guide, While you play; Theme, Frames)',
 		panels: [
 			{ roots: OPTIONS, script: 'Polestar.Set("ui.skin", "halo"); Polestar.UI.ShowOptions("guide")' },
 			{ roots: OPTIONS, script: `Polestar.Set("ui.skin", "halo"); ${lookTab('theme', 3)}` },

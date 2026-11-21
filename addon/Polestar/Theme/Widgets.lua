@@ -2646,14 +2646,20 @@ end
 ---------------------------------------------------------------------------
 -- Compact rows (the settings window, DESIGN.md "The Row Rule"): a setting
 -- is a half of a 36px row: its label (Body, textDim; text and a 6px gold dot
--- before it while off its default) from 16, one line, cut with an ellipsis;
--- its control right-aligned 16 from the half's right edge at a fixed width
--- per kind (slider: a 120 track, 8, the value box; dropdown 168; colour: the
--- 20px chip, the hex, the opacity). Left of the control zone (as wide as the
--- widest control) stand fixed columns, right to left: a swatch, a switch,
--- the cog; an empty one keeps its place, so they line up down the page. No
--- description: the help is the tooltip, 0.25s after the cursor arrives
--- (W.ShowRowTip; opts.tip(row) -> lines). An optional (i) after the label.
+-- before it while off its default) from 16, on two lines at most before it
+-- is cut with an ellipsis (the row grows when two lines need it), in a
+-- column 196 wide; its control 10 after that column, at the left of the
+-- control zone (as wide as the widest control), at a fixed width per kind
+-- (slider: a 120 track, 8, the value box; dropdown 168; colour: the 20px
+-- chip, the hex, the opacity). Right of the zone stand fixed columns, left
+-- to right: a swatch, a switch, the cog, Move (a widget with psMove); an
+-- empty one keeps its place, so they line up down the page, and one no row
+-- of the page uses takes no room (row.psColumns, set by the page). A half too
+-- narrow for that (the label column under 120) keeps the label at the left
+-- and the control right-aligned 16 from its right edge, the columns left of
+-- the zone, right to left. No description: the help is the tooltip, 0.25s
+-- after the cursor arrives (W.ShowRowTip; opts.tip(row) -> lines). An
+-- optional (i) after the label.
 --   W.CompactRow(row, { tip = fn, info = bool, height = 36,
 --     extras = { widget, ... }, cog = widget }) -> row
 -- W.LayoutRow(row, halfWidth) lays it out (W.LayoutCompact).
@@ -2663,9 +2669,12 @@ local HALF_PAD, COMPACT_H, INLINE_GAP = 16, 36, 8
 W.COMPACT_H = COMPACT_H
 local COMPACT_SLIDER, COMPACT_DROPDOWN, COMPACT_HEX, COMPACT_CHIP = 120, 168, 72, 20
 
--- The main control's width, re-anchored on the 16 edge, by kind.
-local function compactControl(row)
-	local right = HALF_PAD
+-- The main control re-anchored `right` (16 by default) from the half's
+-- right edge, by kind. -> its width fn(row, width), and true for a control
+-- that can stand at the label column's end (any kind but picture cards and
+-- rows that place their own parts).
+local function compactControl(row, right, anchorOnly)
+	right = right or HALF_PAD
 	if rawget(row, "Track") and rawget(row, "Knob") then
 		row.Track:ClearAllPoints()
 		row.Track:SetPoint("RIGHT", row, "RIGHT", -right, 0)
@@ -2676,20 +2685,23 @@ local function compactControl(row)
 			gear:SetPoint("RIGHT", row.Track, "LEFT", -6, 0)
 			w = w + 6 + gear:GetWidth()
 		end
-		return function() return w end
+		if anchorOnly then return nil, true end
+		return function() return w end, true
 	elseif rawget(row, "Slider") and rawget(row, "ValueHit") then
 		row.psTrackW = COMPACT_SLIDER
 		row.Value:ClearAllPoints()
 		row.Value:SetPoint("RIGHT", row, "RIGHT", -(right + VALUE_PAD), 0)
 		placeTrack(row)
+		if anchorOnly then return nil, true end
 		return function(self)
 			return COMPACT_SLIDER + INLINE_GAP + 2 * VALUE_PAD + valueWidth(self)
-		end
+		end, true
 	elseif rawget(row, "Button") and row.psChoices ~= nil then
 		row.psBoxW = COMPACT_DROPDOWN
 		row.Button:ClearAllPoints()
 		row.Button:SetPoint("RIGHT", row, "RIGHT", -right, 0)
-		return function() return COMPACT_DROPDOWN end
+		if anchorOnly then return nil, true end
+		return function() return COMPACT_DROPDOWN end, true
 	elseif rawget(row, "ChipFrame") then
 		local w, anchor = 0, nil
 		local alpha = rawget(row, "Alpha")
@@ -2708,13 +2720,15 @@ local function compactControl(row)
 		chip:SetPoint("RIGHT", row.Hex, "LEFT", -INLINE_GAP, 0)
 		w = w + INLINE_GAP + COMPACT_CHIP
 		row.Note:Hide()
-		return function() return w end
+		if anchorOnly then return nil, true end
+		return function() return w end, true
 	elseif rawget(row, "psCardBy") then
 		return function() return 0 end
 	elseif rawget(row, "Button") then
 		row.Button:ClearAllPoints()
 		row.Button:SetPoint("RIGHT", row, "RIGHT", -right, 0)
-		return function(self) return self.Button:GetWidth() end
+		if anchorOnly then return nil, true end
+		return function(self) return self.Button:GetWidth() end, true
 	end
 	-- Any other row (a key binding's, an info row's): what its span asks.
 	return function(self, width)
@@ -2734,7 +2748,10 @@ function W.CompactRow(row, opts)
 	row.psTipAnchor = "ANCHOR_TOPLEFT"
 	row.psExtras = opts.extras
 	row.Cog = opts.cog
-	row.Label:SetWordWrap(false)
+	-- A long or translated label wraps to a second line before it is cut;
+	-- picture cards keep theirs on the one line of their band.
+	row.Label:SetWordWrap(not row.psBelow)
+	row.Label:SetMaxLines(row.psBelow and 1 or 2)
 	if rawget(row, "Help") then row.Help:Hide() end
 	if rawget(row, "psConnector") then for _, t in ipairs(row.psConnector) do t:Hide() end end
 	if not rawget(row, "ModDot") then
@@ -2747,7 +2764,7 @@ function W.CompactRow(row, opts)
 		row.Info = W.Tex(row, "ARTWORK", "info", "textMuted")
 		row.Info:SetSize(12, 12)
 	end
-	row.psControlW = compactControl(row)
+	row.psControlW, row.psAligned = compactControl(row)
 	markRow(row)
 	return row
 end
@@ -2759,9 +2776,11 @@ local function controlZone()
 	return max(slider, COMPACT_DROPDOWN)
 end
 
-function W.LayoutCompact(row, width)
-	row:SetWidth(width)
-	local h = row.psCompactH or COMPACT_H
+-- A half laid out right-aligned (too narrow for the label column): the
+-- control on the 16 edge, the extras' columns left of the zone, right to
+-- left: swatch, switch, cog (Move there when the row has no cog). -> how
+-- far from the right edge they reach
+local function layoutRight(row, width)
 	local used = HALF_PAD + (row.psControlW and row.psControlW(row, width) or 0)
 	local x = used
 	local extras, cog = row.psExtras, rawget(row, "Cog")
@@ -2773,10 +2792,12 @@ function W.LayoutCompact(row, width)
 		local switchX = swatchX + COMPACT_CHIP + INLINE_GAP
 		local cogX = switchX + TOGGLE_W + 8 + INLINE_GAP
 		local spill = cogX + COMPACT_CHIP
-		local hasSwatch, hasSwitch
+		local hasSwatch, hasSwitch, hasCog = nil, nil, cog ~= nil
 		for _, e in ipairs(extras or {}) do
 			local at
-			if rawget(e, "Fill") and not hasSwatch then
+			if rawget(e, "psMove") and not hasCog then
+				at, hasCog = cogX, true
+			elseif rawget(e, "Fill") and not hasSwatch then
 				at, hasSwatch = swatchX, true
 			elseif rawget(e, "Knob") and not hasSwitch then
 				at, hasSwitch = switchX, true
@@ -2795,9 +2816,95 @@ function W.LayoutCompact(row, width)
 			x = max(x, cogX + cog:GetWidth())
 		end
 	end
+	return x
+end
+
+-- The label's column and the gap to its control; under BESIDE.MIN the half
+-- keeps the right-aligned layout. One table each, for the main chunk's
+-- locals budget.
+local BESIDE = { COL = 196, MIN = 120, GAP = 10, xs = {}, taken = {}, none = {} }
+-- The extras' columns right of the zone, left to right, and their widths.
+local COLUMNS = { order = { "swatch", "switch", "cog", "move" },
+	w = { swatch = COMPACT_CHIP, switch = TOGGLE_W + 8, cog = COMPACT_CHIP, move = COMPACT_CHIP } }
+
+-- Where each extras column stands, from `at` (the control's left edge):
+-- the columns in row.psColumns ({ swatch = true, ... }: those some row of
+-- the page uses; nil: all four), each after the last, 8 apart, written
+-- into `out` (a table reused from layout to layout; none: only the x).
+-- -> out ({ kind = x }), the x past the last
+local function columnsAt(row, at, out)
+	local cols, x = rawget(row, "psColumns"), at + controlZone()
+	for _, k in ipairs(COLUMNS.order) do
+		if out then out[k] = nil end
+		if not cols or cols[k] then
+			x = x + INLINE_GAP
+			if out then out[k] = x end
+			x = x + COLUMNS.w[k]
+		end
+	end
+	return out, x
+end
+
+-- The kind of extras column a row's widget stands in.
+local function columnOf(e)
+	if rawget(e, "psMove") then return "move" end
+	if rawget(e, "Fill") then return "swatch" end
+	if rawget(e, "Knob") then return "switch" end
+	return nil
+end
+
+-- A widget of a row at x from its left edge.
+function BESIDE.put(row, e, x)
+	e:ClearAllPoints()
+	e:SetPoint("LEFT", row, "LEFT", x, 0)
+	e:Show()
+end
+
+-- A half laid out with its control at the label column's end: the control
+-- re-anchored there (its width as row.psControlW tells it, the same at any
+-- anchor), the extras in their columns after the zone. No table or closure
+-- per layout: the search lays every result row out on each keystroke.
+local function layoutBeside(row, width, labelW)
+	local at = HALF_PAD + labelW + BESIDE.GAP
+	local own = row.psControlW(row, width)
+	compactControl(row, max(HALF_PAD, width - at - own), true)
+	local xs, spill = columnsAt(row, at, BESIDE.xs)
+	local put = BESIDE.put
+	local cog = rawget(row, "Cog")
+	local taken = BESIDE.taken
+	for _, k in ipairs(COLUMNS.order) do taken[k] = nil end
+	taken.cog = cog ~= nil
+	for _, e in ipairs(row.psExtras or BESIDE.none) do
+		local k = columnOf(e)
+		if k and xs[k] and not taken[k] then
+			taken[k] = true
+			put(row, e, xs[k])
+		else
+			-- A second of a kind (the page's mistake) stands after the columns.
+			put(row, e, spill + INLINE_GAP)
+			spill = spill + INLINE_GAP + e:GetWidth()
+		end
+	end
+	if cog then put(row, cog, xs.cog or spill + INLINE_GAP) end
+end
+
+function W.LayoutCompact(row, width)
+	row:SetWidth(width)
+	local h = row.psCompactH or COMPACT_H
+	local _, past = columnsAt(row, 0)
+	local labelW = min(BESIDE.COL, width - 2 * HALF_PAD - BESIDE.GAP - past)
 	local info = rawget(row, "Info")
+	local lw
+	if row.psAligned and labelW >= BESIDE.MIN then
+		layoutBeside(row, width, labelW)
+		lw = labelW
+	else
+		-- Back on the 16 edge, should a wider layout have moved it.
+		if row.psAligned then compactControl(row, nil, true) end
+		lw = width - HALF_PAD - layoutRight(row, width) - INLINE_GAP
+	end
+	lw = max(1, lw - (info and 16 or 0))
 	local label = row.Label
-	local lw = max(1, width - HALF_PAD - x - INLINE_GAP - (info and 16 or 0))
 	label:ClearAllPoints()
 	local below = row.psBelow
 	if below then
@@ -2806,9 +2913,15 @@ function W.LayoutCompact(row, width)
 		label:SetPoint("LEFT", row, "LEFT", HALF_PAD, 0)
 	end
 	label:SetWidth(lw)
+	-- Two lines of label: the row grows to hold them with 3px over and under.
+	if not below then h = max(h, math.ceil(label:GetStringHeight()) + 6) end
 	if info then
+		-- The (i) right after the text: a label shorter than its column ends
+		-- there, so the mark stands beside it, not inside its box.
+		local tw = min(lw, math.ceil(textWidth(label)))
+		label:SetWidth(max(1, tw))
 		info:ClearAllPoints()
-		info:SetPoint("LEFT", label, "LEFT", min(lw, math.ceil(textWidth(label))) + 4, 0)
+		info:SetPoint("LEFT", label, "LEFT", tw + 4, 0)
 	end
 	-- Picture cards run under the label's band, across the row.
 	if below then
@@ -3359,7 +3472,7 @@ local function wordTyped()
 	local word = spec and spec.typeToConfirm
 	if not word then return true end
 	local typed = modal.Box.Word:GetText() or ""
-	return typed:gsub("^%s+", ""):gsub("%s+$", ""):upper() == tostring(word):upper()
+	return ns.Upper((typed:gsub("^%s+", ""):gsub("%s+$", ""))) == ns.Upper(word)
 end
 
 local function paintAction()
@@ -3633,8 +3746,8 @@ local function navButton(f, i)
 	b.Label:SetWordWrap(true)
 	b.Label:SetMaxLines(2)
 	b.Label:SetPoint("LEFT", b.Icon, "RIGHT", 12, 0)
-	-- The parts at the right edge (count, warning dot, chevron, New chip) are
-	-- placed by navRow.
+	-- The parts at the right edge (count, warning dot, chevron) are placed by
+	-- navRow.
 	b.Count = W.Text(b, "number", "textMuted")
 	b.Count:SetJustifyH("RIGHT")
 	-- A warning dot: something on that page needs the player's attention.
@@ -3647,14 +3760,14 @@ local function navButton(f, i)
 	b.Chevron = b:CreateTexture(nil, "ARTWORK")
 	b.Chevron:SetSize(12, 12)
 	b.Chevron:Hide()
-	-- New settings not seen yet: their count in an accent chip.
-	b.New = W.Chip(b)
-	b.New:Hide()
 	-- Settings off their default on that page: a small accent dot.
 	b.Changed = W.Tex(b, "ARTWORK", "circle", "accent")
 	b.Changed:SetSize(6, 6)
 	b.Changed:Hide()
 	b:SetScript("OnClick", function(self) if f.psOnNav and not self.psHeading then f.psOnNav(self.psKey) end end)
+	-- A row with a mark (item.markTip) says what the mark means.
+	b:SetScript("OnEnter", simpleTip)
+	b:SetScript("OnLeave", hideTip)
 	b.psShell = f
 	f.navButtons[i] = b
 	return b
@@ -3670,8 +3783,9 @@ end
 -- muted label on the text edge, a chevron at the right: down open, right
 -- folded), a choice that folds or opens it (onSelect(key)); rows with
 -- `indent` sit under it, their glyph 12px further in. A row's `new` (a
--- number) is an accent chip at its right edge, `changed` a 6px accent dot
--- (settings off their default there) before that.
+-- `changed` is a 6px accent dot at its right edge (settings off their
+-- default there); `new = true` (new settings) a 6px accent ring in its place
+-- instead. `markTip` is the row's tooltip, saying what that mark means.
 --
 -- The rows live in their own scroll area, from 12px under the search down
 -- to the line of the main column's footer bar (SHELL.footer from the
@@ -3697,26 +3811,20 @@ local function navRow(b, item, on)
 	b.Count:SetShown(item.count ~= nil and not empty)
 	b.Dot:SetShown(item.dot and true or false)
 	if item.dot then b.Count:Hide() end
-	local new = not item.dot and not item.group and type(item.new) == "number" and item.new > 0
-	if new then
-		W.SetChip(b.New, tostring(item.new), "accent")
-		b.Count:Hide()
-	else
-		b.New:Hide()
-	end
+	b.psTip, b.psTipAnchor = item.markTip, "ANCHOR_RIGHT"
 	b.Count:ClearAllPoints()
 	b.Count:SetPoint("RIGHT", b, "RIGHT", -pad, 0)
 	b.Dot:ClearAllPoints()
 	b.Dot:SetPoint("RIGHT", b, "RIGHT", -pad, 0)
 	b.Chevron:ClearAllPoints()
 	b.Chevron:SetPoint("RIGHT", b, "RIGHT", -pad, 0)
-	b.New:ClearAllPoints()
-	b.New:SetPoint("RIGHT", b, "RIGHT", -pad + 4, 0)
 	-- The changed dot, left of whatever stands at the right edge.
-	local edge = b.Dot:IsShown() and 6 or new and b.New:GetWidth() - 4 or b.Count:IsShown() and math.ceil(textWidth(b.Count)) or 0
+	local edge = b.Dot:IsShown() and 6 or b.Count:IsShown() and math.ceil(textWidth(b.Count)) or 0
 	b.Changed:ClearAllPoints()
 	b.Changed:SetPoint("RIGHT", b, "RIGHT", -(pad + (edge > 0 and edge + 8 or 0)), 0)
-	b.Changed:SetShown(item.changed and not item.group and true or false)
+	local ring = item.new == true
+	b.Changed:SetTexture(Theme.Media(ring and "ring" or "circle"))
+	b.Changed:SetShown((ring or item.changed) and not item.group and true or false)
 	b.Chevron:SetShown(item.group and true or false)
 	b.Selected:SetShown(on)
 	b.Bar:SetShown(on)
