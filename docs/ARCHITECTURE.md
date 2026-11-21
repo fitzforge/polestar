@@ -252,7 +252,14 @@ changed step's goals come from `ns.LegacySteps` (Core/LegacySteps.lua,
 written by `tools/legacy-steps.js` from earlier releases' guides), so a
 check-off goes to the goal with the same verb and quest (or item, landing),
 a skip and the saved view to the step sharing most of its quest goals
-(`Own.remap`, `Own.legacyMaps`). `shapeVersions` holds the pack version a
+(`Own.remap`, `Own.legacyMaps`). The save's keys are those of the steps as
+planned for the character (the feeder plan's left-out quests taken out of
+them), the list's and the guide's those of the steps as released: a saved
+step neither has is read as a released step (the guide's own, or a listed
+one) with every goal of some of its quests taken out, quests no step the
+save shares with them has (`Own.plannedSteps`, hashing each released step's
+versions; #3440: read as unknown, they held 0.4.1.1 players up to 88 steps
+back). `shapeVersions` holds the pack version a
 guide's shape was saved with, `ownShapes` the shape of the guide as
 registered (never as planned for the character) then.
 An update never moves a player back (#1353 upgrade): when a guide's shape
@@ -303,11 +310,18 @@ passed in the new steps of the stretch it became (`Own.carryGone`). A save
 from before `ownShapes` existed counts a version change as an update of each
 of its guides once, as before, and keeps its passes.
 A saved tab of a leveling guide that kept fewer than half of those steps
-(`Own.reworked`: an update reused the id for another part of the route, as
+(`Own.reworked`, a step planned from one the guide still has counting as
+kept: an update reused the id for another part of the route, as
 0.3.5 did for Horde 04-06, #1328) moves, at the first `QUEST_LOG_UPDATE`
 after it comes back, to the pack's leveling guide with the most quests of
 the log to work on (`Guides.FollowLog`; never one open already), and chat
-says so.
+says so, naming the guide by its title in the save's release
+(`titles` in LegacySteps.lua, by `shapeVersions`). Moved or not, such a tab
+notes no update (`Own.noteAdded`: nearly all of it would pass) and opens
+where the log puts the player (`Own.logPlaced`, `Own.noteMovedBehind`): the
+last step with progress on a quest of the log (a quest an earlier release
+offered in another guide counting), else the first with work of one; its
+steps before pass as an update's new steps do.
 
 ### Profiles
 
