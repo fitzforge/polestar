@@ -511,6 +511,14 @@ on("guideLayout", function() return 8 end)
 ---------------------------------------------------------------------------
 
 local GAP = 5
+
+-- How far in a frame's kit draws from its edge (Classic's clear rim,
+-- Theme.KitSeam; 0 elsewhere). Two frames GAP apart then show GAP plus both
+-- rims, so the space between them is set that much closer: GAP shows.
+local function seamOf(window)
+	return (window and not window.psBare and Theme.KitSeam) and Theme.KitSeam(window) or 0
+end
+local function gapOf(window) return GAP - 2 * seamOf(window) end
 local OPT_ROW, OPT_PAD = 23, 14
 -- Optional's heading this far under its card's top; the card's foot this far under its last row.
 local OPT_TOP, OPT_FOOT = 9, 6
@@ -788,11 +796,12 @@ local function stackFrame(window)
 	-- Above the window's own parts past its top edge (the On the top edge
 	-- tabs: Theme.GuideReach, set before this layout), its gap over them.
 	local reach = Theme.GuideReach and Theme.GuideReach(window) or 0
-	if own.stackReach ~= reach then
-		own.stackReach = reach
+	local at = gapOf(window) + reach
+	if own.stackAt ~= at then
+		own.stackAt = at
 		own.stack:ClearAllPoints()
-		own.stack:SetPoint("BOTTOMLEFT", window, "TOPLEFT", 0, GAP + reach)
-		own.stack:SetPoint("BOTTOMRIGHT", window, "TOPRIGHT", 0, GAP + reach)
+		own.stack:SetPoint("BOTTOMLEFT", window, "TOPLEFT", 0, at)
+		own.stack:SetPoint("BOTTOMRIGHT", window, "TOPRIGHT", 0, at)
 	end
 	return own.stack
 end
@@ -1850,7 +1859,7 @@ local function layoutStack(parts)
 	stack.psAlong = s.along and isUnder(s.along, window) and s.along or nil
 	slots = {}
 	local width = window:GetWidth() or 300
-	local y = 0
+	local y, gap = 0, gapOf(window)
 	for i = #list, 1, -1 do
 		local f = list[i].f
 		local h = f:GetHeight() or 0
@@ -1876,11 +1885,11 @@ local function layoutStack(parts)
 			badge:ClearAllPoints()
 			badge:SetPoint("TOPRIGHT", f, "TOPRIGHT", -26, -10)
 		end
-		y = y + h + GAP
+		y = y + h + gap
 	end
 	for i = #list + 1, #stack.cards do stack.cards[i]:Hide() end
 	if #list > 0 then
-		stack:SetHeight(y - GAP)
+		stack:SetHeight(y - gap)
 		stack:Show()
 		markRows(stack)
 	else
@@ -1921,8 +1930,6 @@ local function layoutBottom(parts, journey, foot)
 	if not journey and not own.bottom then return end
 	if not own.bottom then
 		local b = CreateFrame("Frame", nil, window)
-		b:SetPoint("TOPLEFT", window, "BOTTOMLEFT", 0, 0)
-		b:SetPoint("TOPRIGHT", window, "BOTTOMRIGHT", 0, 0)
 		b:SetHeight(1)
 		-- The window's own kit (and its psGuide ground), so the Journey
 		-- reads as the window going on, not a panel under it.
@@ -1931,6 +1938,15 @@ local function layoutBottom(parts, journey, foot)
 		own.bottom = b
 	end
 	local b = own.bottom
+	-- Joined to the window's foot; under a kit with a clear rim (Classic) the
+	-- two frames show their rims, so it stands GAP below as the cards above do.
+	local under = seamOf(window) > 0 and -gapOf(window) or 0
+	if own.bottomAt ~= under then
+		own.bottomAt = under
+		b:ClearAllPoints()
+		b:SetPoint("TOPLEFT", window, "BOTTOMLEFT", 0, under)
+		b:SetPoint("TOPRIGHT", window, "BOTTOMRIGHT", 0, under)
+	end
 	if journey then foldedHead(not foot and journeyStyle() == "folded", journey) end
 	if layoutFoot(parts, b, journey and foot, journey) then
 		dress(b, window)
@@ -1953,7 +1969,7 @@ local function layoutBottom(parts, journey, foot)
 	local joined = b:IsShown()
 	seam(window, b, joined)
 	-- Its height for a host that shows the window whole (GF.Below).
-	window.psBelow = joined and b:GetHeight() or 0
+	window.psBelow = joined and (b:GetHeight() - (own.bottomAt or 0)) or 0
 end
 
 -- The window's resize grip (16 a side, 1 in from the bottom right corner)
@@ -2405,15 +2421,24 @@ on("guideProgress", function(foot, frac)
 		own.edge = nav:CreateTexture(nil, "ARTWORK")
 		own.edge:SetTexture(Theme.Media("white"))
 	end
-	local w = math.max(0.01, (nav:GetWidth() or 0) * math.min(1, math.max(0, tonumber(frac) or 0)))
+	-- Inside the window's drawn frame: a kit's clear rim (Classic) left out
+	-- where the bar meets the window's sides.
+	local seam = seamOf(parts.window)
+	local nl, wl = nav:GetLeft(), parts.window:GetLeft()
+	local nr, wr = nav:GetRight(), parts.window:GetRight()
+	local l = (nl and wl) and math.max(0, seam - (nl - wl)) or 0
+	local rt = (nr and wr) and math.max(0, seam - (wr - nr)) or 0
+	local w = math.max(0.01, ((nav:GetWidth() or 0) - l - rt) * math.min(1, math.max(0, tonumber(frac) or 0)))
 	local r, g, b = Theme.Accent()
 	own.fill:ClearAllPoints()
-	own.fill:SetPoint("TOPLEFT", nav, "TOPLEFT", 0, 0)
-	own.fill:SetPoint("BOTTOMLEFT", nav, "BOTTOMLEFT", 0, 0)
+	local nt, wt = nav:GetTop(), parts.window:GetTop()
+	local top = (nt and wt) and math.max(0, seam - (wt - nt)) or 0
+	own.fill:SetPoint("TOPLEFT", nav, "TOPLEFT", l, -top)
+	own.fill:SetPoint("BOTTOMLEFT", nav, "BOTTOMLEFT", l, 0)
 	own.fill:SetWidth(w)
 	own.fill:SetVertexColor(r, g, b, 0.10)
 	own.edge:ClearAllPoints()
-	own.edge:SetPoint("BOTTOMLEFT", nav, "BOTTOMLEFT", 0, 0)
+	own.edge:SetPoint("BOTTOMLEFT", nav, "BOTTOMLEFT", l, 0)
 	own.edge:SetSize(w, 2 * pixel(nav))
 	own.edge:SetVertexColor(r, g, b, 1)
 	own.fill:Show()

@@ -160,3 +160,39 @@ emit({ rows = list, height = here:GetHeight(), lines = { aimed(here.Rows[1]), ai
 	assert.ok(out.height >= -b.y + b.h, `the card holds its last row: ${out.height}`);
 	assert.deepEqual(out.lines, [{ lit: false, line: false }, { lit: true, line: false }], 'the row at the target is lit, not underlined');
 });
+
+// In Classic the kit draws its frame 3 in from each frame's edge (the chat
+// rim's clear outer pixels, Theme.KitSeam). The cards above stand that much
+// closer, so 5 shows between the drawn frames as in the house look, and the
+// top bar's progress line starts inside the window's drawn frame.
+test('in Classic the cards above stand closer by both rims, and the progress line stays inside the frame', () => {
+	const out = runAddon({
+		stubs: ['stub_world.lua'],
+		addons: ['Polestar', 'Polestar_Looks', 'Polestar_Skin_Atlas', 'Polestar_Layout_Atlas'],
+		script: `${GUIDE}
+local function read()
+	draw()
+	local seam = T.KitSeam and T.KitSeam(parts.window) or 0
+	local lineX
+	for _, t in ipairs({ parts.nav:GetRegions() }) do
+		if t:GetObjectType() == "Texture" and t:IsShown() and t:GetDrawLayer() == "ARTWORK" and t:GetHeight() <= 2.5 and t:GetHeight() > 0 then
+			local p, rel, _, x = t:GetPoint(1)
+			if rel == parts.nav and p == "BOTTOMLEFT" then lineX = x end
+		end
+	end
+	local _, rel, _, _, y = stack:GetPoint(1)
+	return { seam = seam, gap = rel == parts.window and y or false, lineX = lineX or false }
+end
+local house = read()
+Polestar.Set("ui.skin", "classic")
+stub.advance(0.5)
+local classic = read()
+emit({ house = house, classic = classic })`,
+	}).emitted[0];
+	assert.equal(out.house.seam, 0, JSON.stringify(out));
+	assert.equal(out.house.gap, 5, 'the house look: 5 between the window and the cards');
+	assert.ok(out.classic.seam > 0, 'Classic has a clear rim: ' + JSON.stringify(out));
+	assert.equal(out.classic.gap, 5 - 2 * out.classic.seam, 'Classic: closer by both rims');
+	assert.equal(out.house.lineX, 0, 'the house look: the progress line from the window\'s edge');
+	assert.equal(out.classic.lineX, out.classic.seam, 'Classic: the progress line starts inside the rim');
+});
