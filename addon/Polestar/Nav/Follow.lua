@@ -601,10 +601,11 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill)
 		S.sightAt = nil
 	end
 	S.sighted = sat ~= nil
-	-- A searched path already discarded the corners it could skip. The corridor
-	-- below is only a geometric estimate: keep its aim on the current piece.
-	-- Outdoors a straight line actually cleared by sight can still lead farther.
-	if xs.checkedTurns and idx < limit then limit = idx end
+	-- A searched walk's corridor runs on past its next point as any path's does:
+	-- 0.4.2 held it on the current piece, and the arrow pointed at the walk's
+	-- next point and swung round at every one (#3509, Fitz: "we don't actually
+	-- point at the first waypoint, but one further away; this stops the
+	-- 90-degree angles").
 	local r2 = RADIUS * RADIUS
 	local sx, sy, done = p0x, p0y, 0
 	local qx, qy, qAlong, qSeg -- the corridor's aim, its yards along the path past the projection and its segment

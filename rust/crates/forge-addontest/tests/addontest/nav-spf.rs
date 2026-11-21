@@ -318,6 +318,38 @@ fn the_arrow_follows_the_path_s_points_with_the_yards_left_along_it() {
 	assert_eq!(out["calls"], 1, "walking along the path asks nothing more");
 }
 
+// 0.4.2 held the arrow on the current piece of every searched (checked) walk: it pointed at the walk's next point and
+// swung round at each one (#3509, Fitz on 0.4.2.1: "we don't actually point at the first waypoint, but one further
+// away; this stops the 90-degree angles"). With no height from the client (Forever's 0), outdoors and indoors, with
+// no floor read or with one and every line check failing (a town's fences and posts): the corridor's aim runs on past
+// the first corner of a two-corner walk, as in 0.4.1.1.
+#[test]
+fn a_checked_walk_s_arrow_aims_past_its_first_corner_with_no_height_outdoors_and_indoors() {
+	let out = run(r#"
+		local function walk(indoors, surfaces, sight)
+			nav.indoors, fake.surfaces, fake.sight = indoors, surfaces, sight
+			N.ClearTarget()
+			nav.place(0, 0)
+			target(12, -120)
+			N.Sample()
+			local job = fake.last()
+			job.walkChecked = true
+			-- Two corners 12 yd apart, each turning 45 degrees.
+			fake.resolve(0, 0, 0, -12, 12, -24, 12, -120)
+			nav.place(0, -2)
+			stub.advance(0.3)
+			return aim()
+		end
+		local floor0, blocked = function() return { 0 } end, function() return false end
+		emit({ outdoors = walk(false), indoors = walk(true),
+			outdoorsBlocked = walk(false, floor0, blocked), indoorsBlocked = walk(true, floor0, blocked) })"#);
+	for mode in ["outdoors", "indoors", "outdoorsBlocked", "indoorsBlocked"] {
+		let s = &out[mode];
+		assert_eq!(s[0], "travel", "{mode}: {s}");
+		assert!(num(&s[3]) < -14.0 && num(&s[2]) > 2.0, "{mode}: the aim lies past the first corner at 0, -12, not on it (aim {}, {})", s[2], s[3]);
+	}
+}
+
 // The look-ahead (Walk.lua's AHEAD 30, PAD 10): the arrow aims up to 30 yd
 // along the path while every path point on the way stays within 10 yd of the
 // line to it. LOOK samples the arrow from (x, y): its offset to the aim point
