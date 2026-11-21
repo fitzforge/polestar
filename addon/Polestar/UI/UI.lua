@@ -63,6 +63,12 @@ ns.RegisterDefaults("ui", {
 })
 
 UI.MIN_WIDTH, UI.MAX_WIDTH = 260, 560
+-- The guide window's scale is kept inside these whatever ui.scale holds (a
+-- profile import may carry any number), and its height cap never cuts it
+-- shorter than MIN_HEIGHT (its own units) however small ui.maxHeight of the
+-- screen comes out at that scale.
+UI.MIN_SCALE, UI.MAX_SCALE = 0.5, 2
+UI.MIN_HEIGHT = 200
 
 -- The player's faction through Compat, when Compat is there.
 function UI.PlayerFaction()

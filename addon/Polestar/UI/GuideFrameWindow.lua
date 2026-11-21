@@ -131,8 +131,15 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- Polestar set last (GF.scale), not the window's own: another addon may hold
 	-- the window out of sight at a scale far below a pixel (ns.OutOfSight), and a
 	-- place worked out from that would land in the corner of the screen.
+	-- ui.scale kept inside UI.MIN_SCALE..UI.MAX_SCALE: a tiny or huge stored
+	-- number (an imported profile) never leaves the window unreadable.
+	local function scaleSetting()
+		return min(UI.MAX_SCALE, max(UI.MIN_SCALE, tonumber(ns.Get("ui.scale")) or 1))
+	end
+	GF.ScaleSetting = scaleSetting
+
 	function GF.ApplyScale()
-		local new = ns.Get("ui.scale") or 1
+		local new = scaleSetting()
 		local old = GF.scale or F:GetScale()
 		if old == new then return end
 		local l = F:GetLeft()
@@ -201,7 +208,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	local function applyAll()
 		GF.ApplySkin()
 		if GF.live then
-			GF.scale = ns.Get("ui.scale") or 1
+			GF.scale = scaleSetting()
 			F:SetScale(GF.scale)
 			GF.ApplyPosition()
 		end
@@ -409,6 +416,21 @@ ns.UI.GuideFrame.Part(function(GF)
 		ns.RegisterEvent("ZONE_CHANGED_NEW_AREA", checkInstance)
 		-- Paused or resumed: the window goes or comes back as it was.
 		ns.On("POLESTAR_PAUSED", function() GF.ApplyVisibility() end)
+	end
+
+	-- The window's size back to its defaults (the guide menu's Reset window
+	-- size): width, scale and height cap, each to its default. Its place stays.
+	GF.WINDOW_SIZE_KEYS = { "ui.width", "ui.scale", "ui.maxHeight" }
+	function GF.SizeChanged()
+		for _, path in ipairs(GF.WINDOW_SIZE_KEYS) do
+			if ns.GetStored(path) ~= nil then return true end
+		end
+		return false
+	end
+	function GF.ResetSize()
+		ns.Batch(function()
+			for _, path in ipairs(GF.WINDOW_SIZE_KEYS) do ns.Set(path, ns.GetDefault(path)) end
+		end)
 	end
 
 	GF.ApplyAll = applyAll

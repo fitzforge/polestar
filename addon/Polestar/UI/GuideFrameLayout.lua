@@ -284,11 +284,12 @@ ns.UI.GuideFrame.Part(function(GF)
 	end
 
 	-- The tallest the window may be: ui.maxHeight of the screen's height, in
-	-- the window's own units (its scale and the game's UI scale applied).
+	-- the window's own units (its scale and the game's UI scale applied), and
+	-- never under UI.MIN_HEIGHT, so the cap always leaves a readable window.
 	local function capHeight()
 		local share = tonumber(ns.Get("ui.maxHeight")) or 0.5
 		local screen = UIParent:GetHeight() * UIParent:GetEffectiveScale()
-		return screen * share / max(0.01, screenScale())
+		return max(UI.MIN_HEIGHT or 0, screen * share / max(0.01, screenScale()))
 	end
 	GF.CapHeight = function() return F and capHeight() or nil end
 

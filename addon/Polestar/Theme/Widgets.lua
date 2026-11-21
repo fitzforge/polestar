@@ -2107,9 +2107,13 @@ local function paintMenuRow(row, lit)
 	if not item then return end
 	local off = item.disabled and 0.45 or 1
 	local on = (lit and not item.disabled) or item.checked
-	W.Color(row.Text, item.color or (on and "text" or "textDim"), off)
+	-- A disabled row's text is textMuted at full strength, not faded: a fade
+	-- left it near-invisible on the menu ground (the skin audit's contrast).
+	local ink = item.disabled and not item.color and "textMuted" or item.color or (on and "text" or "textDim")
+	local textOff = (item.disabled and not item.color) and 1 or off
+	W.Color(row.Text, ink, textOff)
 	local face = rawget(row, "Face")
-	if face then W.Color(face, item.color or (on and "text" or "textDim"), off) end
+	if face then W.Color(face, ink, textOff) end
 	if item.icon then W.Color(row.Icon, item.color or (on and "text" or "textDim"), off) end
 end
 
@@ -2298,7 +2302,8 @@ function layoutMenu()
 		if it.preview then anyPreview = true end
 		if not it.separator then total = total + 1 end
 	end
-	local long = total > MENU_MAX
+	-- opts.short: a menu of actions, every row shown, never a filtered list.
+	local long = not opts.short and total > MENU_MAX
 	local sc = long and menuLong() or rawget(menu, "Scroll")
 	-- Rows hang from the menu, or from the scroll area's child in a long list.
 	local holder = long and sc.Child or menu
@@ -2420,7 +2425,7 @@ function layoutMenu()
 end
 
 -- items: { { text, icon, checked, disabled, onClick, tip, color, confirm, preview }, { separator = true }, ... }
--- opts: { point = "TOPRIGHT", relPoint = "BOTTOMRIGHT", x = 0, y = -4, minWidth = 168, current = true }
+-- opts: { point = "TOPRIGHT", relPoint = "BOTTOMRIGHT", x = 0, y = -4, minWidth = 168, current = true, short = true }
 -- opts.current: a list of choices whose checked row is the current one; a
 -- long one opens scrolled to it. Any other menu (actions, toggles) opens at
 -- its top, whatever its ticks (#2647: the guide window's menu opened centred
