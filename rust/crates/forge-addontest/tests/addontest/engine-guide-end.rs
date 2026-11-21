@@ -575,8 +575,21 @@ const ON_THE_WAY: &str = r#"
 		steps = { at("accept", 300, 52, 43), at("accept", 301, 52, 43), at("turnin", 301, 70, 70), at("accept", 302, 70, 70), at("turnin", 302, 70, 70),
 			{ goals = { { t = "turnin", quest = 300, title = "Errand 300", npc = 9300, npcName = "Giver 300", map = 1411, x = 52, y = 43 } } } } })
 	E.SetGuide("test/onway"); flush(); takeLog()
+	@OTHER@
 	w.accept(300, { 1 }); flush(); w.accept(301, {}); flush()
 	w.finish(300); stub.advance(1.5)
+"#;
+
+fn on_the_way(other: &str) -> String {
+	ON_THE_WAY.replace("@OTHER@", other)
+}
+
+// A second guide in a background tab whose own last step hands in the same quest, its first step still to do.
+const OTHER_TAB: &str = r#"
+	Polestar.RegisterGuide({ id = "test/other", pack = "test", title = "Other", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1411, next = "test/barrens",
+		steps = { { goals = { { t = "accept", quest = 310, title = "Errand 310", map = 1411, x = 80, y = 80 } } },
+			{ goals = { { t = "turnin", quest = 300, title = "Errand 300", npc = 9300, npcName = "Giver 300", map = 1411, x = 52, y = 43 } } } } })
+	E.OpenTab("test/other", false); stub.advance(3); takeLog()
 "#;
 
 #[test]
@@ -585,14 +598,15 @@ fn the_last_hand_in_taken_from_a_while_you_re_here_line_is_no_end_the_rest_of_th
 		next: NEXT,
 		saved: None,
 		script: &format!(
-			r#"{ON_THE_WAY}
+			r#"{way}
 			local line = E.GetWhileHere()
 			local r = {{ live = E.GetLiveStep(), line = line and (line.step .. " " .. line.hereText) or "none" }}
 			w.turnIn(300); flush()
 			r.handedIn = {{ log = takeLog(), live = E.GetLiveStep(), ended = E.GuideEnded("test/onway") }}
 			w.turnIn(301); flush(); w.accept(302, {{}}); flush(); w.turnIn(302); flush()
 			r.rest = takeLog()
-			emit(r)"#
+			emit(r)"#,
+			way = on_the_way("")
 		),
 	});
 	assert_eq!(out["live"], 3);
@@ -605,12 +619,73 @@ fn the_last_hand_in_taken_from_a_while_you_re_here_line_is_no_end_the_rest_of_th
 		saved: None,
 		script: &format!(
 			r#"Polestar.Set("behavior.whileHere", false)
-			{ON_THE_WAY}
+			{way}
 			local r = {{ line = E.GetWhileHere() or "none" }}
 			w.turnIn(300); flush()
 			r.log = takeLog()
-			emit(r)"#
+			emit(r)"#,
+			way = on_the_way("")
 		),
 	});
 	assert_eq!(without_line, json!({ "line": "none", "log": ["GUIDE_END test/onway undone=3 live=3 next=test/barrens choose=nil"] }));
+}
+
+// The same hand-in with the client's events the other way round: the quest leaves the log and the lines are built
+// again before QUEST_TURNED_IN comes. The line offered it all the same.
+#[test]
+fn a_last_hand_in_from_the_line_is_no_end_whichever_quest_event_comes_first() {
+	let out = run(Run {
+		next: NEXT,
+		saved: None,
+		script: &format!(
+			r#"{way}
+			local r = {{ line = E.GetWhileHere() ~= nil }}
+			w.log[300] = nil; w.completed[300] = true
+			stub.fire("QUEST_REMOVED", 300, false); stub.fire("QUEST_LOG_UPDATE"); stub.advance(1.5)
+			r.lineAfterRemoved = E.GetWhileHere() ~= nil
+			stub.fire("QUEST_TURNED_IN", 300, 0, 0); flush()
+			r.log = takeLog(); r.live = E.GetLiveStep()
+			emit(r)"#,
+			way = on_the_way("")
+		),
+	});
+	assert_eq!(out, json!({ "line": true, "lineAfterRemoved": false, "log": {}, "live": 3 }));
+}
+
+// Only a line on screen counts, and only for its own guide: looking at the last step hides the lines, and handing
+// the quest in from there ends the guide as before; another guide whose last step hands in the same quest still
+// ends, although the active guide's line offered it.
+#[test]
+fn a_hidden_line_or_another_guide_s_line_is_no_offer_those_ends_still_come() {
+	let looking = run(Run {
+		next: NEXT,
+		saved: None,
+		script: &format!(
+			r#"{way}
+			E.Goto(6); flush()
+			local r = {{ line = E.GetWhileHere() or "none" }}
+			w.turnIn(300); flush()
+			r.log = takeLog()
+			emit(r)"#,
+			way = on_the_way("")
+		),
+	});
+	assert_eq!(looking, json!({ "line": "none", "log": ["GUIDE_END test/onway undone=3 live=3 next=test/barrens choose=nil"] }));
+
+	let other = run(Run {
+		next: NEXT,
+		saved: None,
+		script: &format!(
+			r#"{way}
+			local r = {{ line = E.GetWhileHere() ~= nil, active = E.GetGuide().id }}
+			w.turnIn(300); flush()
+			r.log = takeLog()
+			emit(r)"#,
+			way = on_the_way(OTHER_TAB)
+		),
+	});
+	assert_eq!(
+		other,
+		json!({ "line": true, "active": "test/onway", "log": ["GUIDE_END test/other undone=1 live=1 next=test/barrens choose=nil"] })
+	);
 }

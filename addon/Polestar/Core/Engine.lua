@@ -10031,24 +10031,34 @@ end
 
 Own.endOpen = {} -- guideId -> true: seen unfinished once placed, this session
 Own.lastOpen = {} -- guideId -> the last step (Own.lastWork) seen open once placed, this session
-Own.handedHere = {} -- quest id -> true: handed in while a "While you're here" line offered it, this session
+Own.handedHere = {} -- guideId -> { [quest id] = true }: handed in while that guide's "While you're here" line showed it, this session
 
--- QUEST_TURNED_IN: note a hand-in a shown "While you're here" line offered.
+-- QUEST_REMOVED and QUEST_TURNED_IN (either may come first): note a hand-in
+-- a "While you're here" line of the active guide offered on screen. Taken
+-- again, the quest starts afresh (QUEST_ACCEPTED: Own.forgetHandedHere).
 function Own.noteHandedHere(q)
+	if not Own.hereVisible() then return end
 	for i = 1, Own.hereOnN do
 		local goal = Own.hereOn[i].goal
 		if goal.t == "turnin" and goal.quest == q then
-			Own.handedHere[q] = true
+			local mine = Own.handedHere[guide.id] or {}
+			Own.handedHere[guide.id] = mine
+			mine[q] = true
 			return
 		end
 	end
+end
+function Own.forgetHandedHere(q)
+	for _, mine in pairs(Own.handedHere) do mine[q] = nil end
 end
 
 -- Whether step s hands in a quest the player handed in from a "While you're
 -- here" line: the guide offered it on the way, so it is no end done ahead.
 function Own.handedOnTheWay(s)
+	local mine = Own.handedHere[guide.id]
+	if not mine then return false end
 	for _, goal in ipairs(guide.steps[s].goals) do
-		if goal.t == "turnin" and Own.handedHere[goal.quest] then return true end
+		if goal.t == "turnin" and mine[goal.quest] then return true end
 	end
 	return false
 end
@@ -16891,7 +16901,7 @@ function Engine.ResetProgress()
 	end
 	state.guideEnds[id] = nil
 	state.guideDone[id] = nil
-	Own.endOpen[id], Own.lastOpen[id] = nil, nil
+	Own.endOpen[id], Own.lastOpen[id], Own.handedHere[id] = nil, nil, nil
 	pin, pinDone, aim, passedUpTo, placing = nil, nil, nil, 0, GetTime() + PLACE_SECONDS
 	for _, p in pairs(Own.sectionPlans) do
 		p.memo = {}
@@ -17059,12 +17069,16 @@ ns.RegisterEvent("QUEST_LOG_UPDATE", function() logReady = true end)
 -- A quest leaving the log (abandoned, failed, or handed in) may be held
 -- (Own.holdLost); taking it again ends that.
 ns.RegisterEvent("QUEST_REMOVED", function(_, questID)
-	if type(questID) == "number" then Own.removed[questID] = true end
+	if type(questID) == "number" then
+		Own.removed[questID] = true
+		Own.noteHandedHere(questID)
+	end
 end)
 ns.RegisterEvent("QUEST_ACCEPTED", function(_, a, b)
 	local q = type(b) == "number" and b or a
 	if type(q) ~= "number" then return end
 	Own.removed[q], Own.wasFailed[q] = nil, nil
+	Own.forgetHandedHere(q)
 	-- The cast belongs to the previous attempt. Keep the player's own ticks.
 	local cast = "item-cast:" .. q
 	for _, marks in pairs(ns.CharState().manual) do
@@ -17836,7 +17850,7 @@ function Engine.ReplaceSteps(id, steps)
 		s.shapes[id] = nil
 		checkShape(g) -- stamps the new shape: nothing left to map
 	end
-	Own.passedNow[id], Own.skipQueue[id], Own.endOpen[id], Own.lastOpen[id] = nil, nil, nil, nil
+	Own.passedNow[id], Own.skipQueue[id], Own.endOpen[id], Own.lastOpen[id], Own.handedHere[id] = nil, nil, nil, nil, nil
 	if not i then return true end
 	local t = tabs[i]
 	if mapped then
