@@ -3160,17 +3160,17 @@ fn searches_carry_the_player_faction_and_an_unknown_faction_gets_the_straight_be
 	);
 	assert_eq!(out["horde"], json!(["Horde", "table", false]), "the arrow's own walk: opts {{ waterWalking, profile }}");
 	assert_eq!(out["hordeAim"], "travel");
-	assert_eq!(out["pending"], json!(["routing", true, "routing", true, "Finding a walking route"]), "straight at the target under the hourglass meanwhile");
+	assert_eq!(out["pending"], json!(["routing", true, "routing", true, "Finding a walking route"]), "straight at the target meanwhile");
 	assert_eq!(out["reason"], "unknown faction");
 	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
 	assert_eq!(out["settled"], json!(["travel", true, "travel", true, "200 yd"]));
 	assert_eq!(out["batch"], "Alliance", "the planner's measure too");
 }
 
-// The arrow shows its hourglass, turning, in the dial's place while it says "Finding a walking route"; the
-// catch-up's own use wins while it is on (the text hidden), and the hourglass is gone once a route is in.
+// The arrow's hourglass follows the catch-up only: while it says "Finding a walking route" there is none (the
+// arrow already points straight), the catch-up still brings it (the text hidden) and takes it away again.
 #[test]
-fn the_arrow_shows_its_hourglass_while_it_finds_a_walking_route() {
+fn the_arrow_shows_no_hourglass_while_it_finds_a_walking_route_only_for_the_catch_up() {
 	let out = run_priced(
 		&[
 			TERRAIN,
@@ -3187,10 +3187,6 @@ fn the_arrow_shows_its_hourglass_while_it_finds_a_walking_route() {
 		end
 		local r = {}
 		r.routing = look()
-		stub.advance(0.3)
-		local upright = a.glassBody:GetRotation()
-		stub.advance(0.35)
-		r.turning = a.glassBody:GetRotation() > upright
 		Polestar.Fire("CATCH_UP", true)
 		r.catchUp = look()
 		Polestar.Fire("CATCH_UP", false)
@@ -3201,11 +3197,10 @@ fn the_arrow_shows_its_hourglass_while_it_finds_a_walking_route() {
 		]
 		.concat(),
 	);
-	assert_eq!(out["routing"], json!(["routing", "routing", true, true, "Finding a walking route", 1]));
-	assert_eq!(out["turning"], true, "the glass turns over while it waits");
-	assert_eq!(out["catchUp"], json!(["routing", "routing", true, true, "Finding a walking route", 0]), "the catch-up hides the text");
-	assert_eq!(out["after"], json!(["routing", "routing", true, true, "Finding a walking route", 1]), "the wait goes on after the catch-up");
-	assert_eq!(out["route"], json!(["travel", "travel", false, false, "300 yd", 1]), "gone once the route is in");
+	assert_eq!(out["routing"], json!(["routing", "routing", false, false, "Finding a walking route", 1]), "no hourglass in the routing wait");
+	assert_eq!(out["catchUp"], json!(["routing", "routing", true, true, "Finding a walking route", 0]), "the catch-up brings it and hides the text");
+	assert_eq!(out["after"], json!(["routing", "routing", false, false, "Finding a walking route", 1]), "and takes it away");
+	assert_eq!(out["route"], json!(["travel", "travel", false, false, "300 yd", 1]));
 }
 
 #[test]

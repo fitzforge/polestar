@@ -1396,7 +1396,7 @@ const WALK_COMPASS: &str = r#"
 			assert(settled.state ~= "travel" or settled.x ~= nil, "a straight bearing")
 			return settled.state .. "|" .. tostring(N.noWalk)
 		end
-		-- Until the walk is found: the straight bearing under the hourglass, as 0.4.1.1 pointed; no waypoint published.
+		-- Until the walk is found: the straight bearing, as 0.4.1.1 pointed; no waypoint published.
 		assert(first.state == "routing" and published == 0, "unchecked waypoint bearing")
 		for _, leg in ipairs(N.GetRouteGeometry().legs) do
 			assert(not leg.current or #leg.pts == 0, "current walk drew an unchecked route")
@@ -1646,7 +1646,7 @@ fn ashenvale_40_70_from_the_crossroads_the_route_lands_where_the_engines_walk_is
 		end
 		N.SetTarget(1440, 40, 70, "Fitz's marker", "e")
 		local cold = aim()
-		-- (The arrow points straight at the marker meanwhile, under its hourglass: no route or line drawn.)
+		-- (The arrow points straight at the marker meanwhile: no route or line drawn.)
 		local r = { cold = cold.state, unchecked = route() ~= nil or #N.GetRouteGeometry().legs > 0 }
 		for _ = 1, 400 do
 			stub.advance(0.05); aim()
