@@ -200,6 +200,22 @@
 		],
 		"note": "Awaiting Word (Watcher Dodds to Watcher Callahan, Duskwood) is not in the game on Forever: the live quest scans have nothing for it, Forever's own quest list does not have it, and in the built data it came from pfQuest alone, with Classic's race mask and no XP. The quest leaves the data, so the map stops marking Watcher Dodds with it."
 	},
+	"238": {
+		"set": {
+			"objectives": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): in all 30 recorded runs of Errand for Apothecary Zinge the quest log showed only the line \"Bring the Field Sampling Kit to Apothecary Zinge in the Undercity.\", a line that is not counted, and the quest was handed in to Apothecary Zinge (5204) 27 seconds to 3 minutes after the accept"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3: quest 238 has no objectives"
+			}
+		],
+		"note": "Errand for Apothecary Zinge (238) is a delivery: you carry the Field Sampling Kit from Alessandro Luca to Apothecary Zinge and hand it in, with nothing to do on the way. One recording's quest log line had become an event objective in the data, which no step can work."
+	},
 	"273": {
 		"set": {
 			"objectives": [
@@ -549,6 +565,29 @@
 			}
 		],
 		"note": "Serpentbloom (Wailing Caverns) rewards 3,300 XP on Forever; the merged data had 1,350, the Classic value. Forever about doubled dungeon quest XP, and the value here is the one players' game caches give after the 1 October 2026 change that halved the extra (build 70170). Issue #394."
+	},
+	"974": {
+		"set": {
+			"objectives": [
+				{
+					"type": "object",
+					"id": 148503,
+					"count": 1,
+					"text": "Find the hottest area of Fire Plume Ridge"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): 15 people's quest logs list one objective, \"Find the hottest area of Fire Plume Ridge\" (count 1); it ticked for 11 players at the top of Fire Plume Ridge (49.6,45.8), for 10 of them the moment they cast Temperature Reading (spell 16378)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3: quest 974's one objective is object 148503 (Fire Plume Ridge Hot Spot)"
+			}
+		],
+		"note": "Finding the Source (974) has one objective: use Krakle's Thermometer at the Fire Plume Ridge Hot Spot. The quest log's line names no creature, but the merged data read it as a second objective, a kill of Living Blaze, ahead of the hot spot, so the step's objective number pointed at the wrong line."
 	},
 	"976": {
 		"set": {
@@ -2505,6 +2544,22 @@
 		],
 		"note": "Defenders of Darrowshire: each Darrowshire Spirit is freed by talking to it, not killed."
 	},
+	"5244": {
+		"set": {
+			"preAll": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20): Wynd Nightchaser offered The Ruins of Kel'Theril after To Winterspring! (5249) alone to 2 people and after Starfall (5250) alone to 2 people; 16 people took it, none with both done"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3: quest 5244 has no all-of prerequisite list"
+			}
+		],
+		"note": "The Ruins of Kel'Theril (5244) is offered after either To Winterspring! (5249) or Starfall (5250), which lead to it and exclude each other. The merged data also asked for both at once, a need no player could meet; it goes, and the two stay the quest's lead-ins."
+	},
 	"5321": {
 		"set": {
 			"objectives": [
@@ -2850,6 +2905,23 @@
 		],
 		"note": "The Ashenvale Hunt has no prerequisite on Forever: Senani Thunderheart at Splintertree Post offers it to any Horde player from level 20. The merged data listed Thork's breadcrumb (6382) as a prerequisite beside the two breadcrumbs it already marked, so a player who never took the breadcrumb was told to fetch it first, and Ursangous, Sharptalon and Shadumbra drop their trophies only once 6383 is handed in (#1531)."
 	},
+	"6564": {
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20): 29 characters took Allegiance to the Old Gods from the Damp Note without ever handing in Trouble in the Deeps (6562), 11 of them recorded from level 15 or lower"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3: quest 6564 has no prerequisite"
+			}
+		],
+		"note": "Allegiance to the Old Gods (6564) starts from the Damp Note and needs no earlier quest: anyone holding the note can take it. The merged data made it wait for Trouble in the Deeps (6562)."
+	},
 	"6641": {
 		"set": {
 			"escort": true
@@ -3107,6 +3179,22 @@
 			"ref": "creature_queststarter/gameobject_queststarter"
 		},
 		"note": "Mor'zul Bloodbringer: starts with Spackle Thornberry (npc 5520), Martha Strain (npc 5753), Kurgul (npc 5815) and Jubahl Corpseseeker (npc 6382); as its giver the merged data also listed Greshka (npc 12807)."
+	},
+	"7790": {
+		"set": {
+			"objectives": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): 8 people took River Ends from the Fallen Skyborne in Western Plaguelands (npc 270191) and handed it in at the Argent Wayfinder in Eastern Plaguelands (object 668183); none was shown an objective line at accept or on the way"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3: quest 7790 has no objectives"
+			}
+		],
+		"note": "River Ends (7790) is a Forever quest that reuses an old unused id: look into the fallen Skyborne by the river and take what you learn to the Argent Wayfinder, with nothing to kill or collect. The merged data still carried the old id's battleground credit marker as its objective, a placeholder name a player would read."
 	},
 	"8105": {
 		"set": {
@@ -4080,6 +4168,16 @@
 			}
 		],
 		"note": "The Horn of Xelthos (C's first job, from the Dead Drop near Pyrewood Village) is a Rogue quest on Forever: Forever limits it to Rogues (class mask 8), as the Rogue class quest list does. The merged data had no class, so the class-quest card knew it only from the Rogue guide that takes it. Its objective is the Horn of Xelthos (210183) x1; the public data kept it only from players' caches, so this correction holds it when the quest database moves to a version without it (#1361 review)."
+	},
+	"78270": {
+		"set": {
+			"direct": true
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings to 2026-11-20: 10 people (5 established) handed Goblin Lockpicks in to Veenix (4086), none of them with an accept or the quest in the log first"
+		},
+		"note": "Goblin Lockpicks (78270, Veenix in the Windshear Crag) is handed in at one talk while carrying the Venture Co. Work Order, and never enters the log: The Horn of Xelthos guide asked players to accept it before the Pick Pocket (#3161, #3213)."
 	},
 	"78307": {
 		"set": {
@@ -5844,18 +5942,14 @@
 	},
 	"94465": {
 		"set": {
-			"pre": [
-				94449
-			],
-			"preAny": [
-				94449
-			]
+			"pre": [],
+			"preAny": []
 		},
 		"source": {
-			"kind": "tdb",
-			"ref": "quest_template_addon PrevQuestID 94449, BreadcrumbForQuestId 0 (a required step, not an optional breadcrumb)"
+			"kind": "recording",
+			"ref": "players' in-game recordings (data/recorded/quests.json, to 2026-11-20): Bruegs Kindleborn offered Call of Fire (94465) to 15 people (14 counted) who had not handed in Ingrid Dunwald's Call of Fire (94449); trusted"
 		},
-		"note": "Bruegs Kindleborn's Call of Fire (Dwarf Shaman) follows Ingrid Dunwald's Call of Fire 94449 from Kharanos, as the seed guide plays it (turn in 94449 at Bruegs, then take 94465). The merged data had no prerequisite, so the c14 Dwarf Shaman reached Bruegs (01-dun-morogh.guide:529-532) without 94449 and was sent back to Kharanos for it after the hearth (:584-585, with its turn-in in the Kharanos step)."
+		"note": "Bruegs Kindleborn's Call of Fire (Dwarf Shaman) needs no earlier quest: Ingrid Dunwald's Call of Fire (94449) from Kharanos only leads to him. This record used to set 94449 as its prerequisite from the server's previous-quest link, which is only the story order. The Dun Morogh guide still turns 94449 in at Bruegs before taking 94465."
 	},
 	"94466": {
 		"set": {
@@ -9681,6 +9775,28 @@
 			"ref": "players' in-game recordings (20261105T173728Z-2a82cac44db7bb61, 20261107T053108Z-0d2765f9112b8dda): the log lists Western, Northern and Southern vial placed at the accept; each line ticked where the player stood: Southern at Hillsbrad 73.68,72.86 and 73.87,72.59, Northern at 72.6,32.08 and 72.0,30.24, Western in Alterac 38.37,87.21. Both players were offered it right after handing in Scout Support (98094) and took it then (the prerequisite as PR #1161 proposed)"
 		},
 		"note": "Valuable Vantages (Deathstalker Masoj, Hillsbrad) follows Scout Support (98094), handed in to him: place an Apothecary Vial on three peaks, then return to him. The merged data had no objectives and no prerequisite, so the Horde Hillsbrad guide handed the quest in right after taking it (#1150, #1051)."
+	},
+	"98096": {
+		"set": {
+			"pre": [
+				98067
+			],
+			"preAny": [
+				98067
+			],
+			"minLevel": 45
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20): Sentinel Dalia Sunblade offered Sisters In Duty in 3 windows (3 people), each time with Eyes of the Sentinels (98067) done and at level 45 or higher; 3 people took it at 48 and handed it in to Commander Truesong at Talrendis Point"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB 1.1.3: quest 98096 follows 98067"
+			}
+		],
+		"note": "Sisters In Duty (98096, Darnassus) follows Eyes of the Sentinels (98067) and opens at level 45. The merged data had neither, so it could be offered right after the level 11 quest."
 	},
 	"98189": {
 		"set": {
@@ -17436,6 +17552,26 @@
 		],
 		"note": "Step Two: More Rock (96026), a Forever quest of the Riverglades: its ender, Hamur (263440), where players handed it in (the quest's own text names it)."
 	},
+	"96076": {
+		"set": {
+			"minLevel": 60
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "players' caches (EG Link), server quest data on builds 1.60.1.70888, 70938 and 70959: minLevel 60"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: Pix Xizzix (227853) offered it only to a level 60 character; 22 people at levels 29-49 opened his window without it"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3072: a level 59 Night Elf Hunter at Pix Xizzix in Booty Bay was not offered it"
+			}
+		],
+		"note": "In Demand - Ancient Elven Curiosities (96076) is offered from level 60 on Forever; the data had no level, so the Dire Maul pick-up guide sent a level 59 player to Pix Xizzix for it."
+	},
 	"96082": {
 		"set": {
 			"end": {
@@ -20153,12 +20289,18 @@
 		"note": "Players can take Facing the Truth (93041) only from level 35 on Forever; the data had 30."
 	},
 	"93058": {
-		"set": { "minLevel": 35 },
+		"set": {
+			"minLevel": 35,
+			"objectives": [
+				{ "type": "event", "id": null, "count": 5, "text": "Gelkis Captive rescued" }
+			]
+		},
 		"source": [
 			{ "kind": "eg", "ref": "players' caches (EG Link), server quest data on build 1.60.1.70959: minLevel 35" },
-			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 93058 requiredLevel 35" }
+			{ "kind": "questie", "ref": "QuestieDB 2026-11-20 build: quest 93058 requiredLevel 35" },
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20): 2 people's quest logs list 'Gelkis Captive rescued' x5 (and the Gelkis reputation line) at the accept" }
 		],
-		"note": "Players can take Saving Our Own (93058) only from level 35 on Forever; the data had 30."
+		"note": "Players can take Saving Our Own (93058) only from level 35 on Forever; the data had 30. Its counted line is five Gelkis Captives rescued: one recording had credited the line to a Decrepit Pylon Protector killed nearby, so it stays an event in the quest log's words."
 	},
 	"93062": {
 		"set": { "minLevel": 35 },
@@ -20420,5 +20562,139 @@
 			"ref": "players' in-game recordings (to 2026-11-16, excluded contributors left out): 41 people's objective lists at the accept, each the two lines 'Elune's Light cast' and 'Shadowmeld cast'; 48 completions around Shanda in Aldrassil"
 		},
 		"note": "The Goddess Provides counts two casts, Elune's Light and Shadowmeld; the merged data had no objective, so the guide's accept and hand-in at Shanda stood with nothing between them. The game credits the casts by script, so they are event lines."
+	},
+	"91697": {
+		"set": {
+			"objectives": [
+				{ "type": "talk", "id": 256650, "count": 1, "text": "Elder Pinespeaker met" },
+				{ "type": "talk", "id": 256627, "count": 1, "text": "Elder Mistpaw met" }
+			]
+		},
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, excluded contributors left out): 17 people's quest logs list 'Elder Pinespeaker met' and 'Elder Mistpaw met' at the accept; the lines ticked beside Elder Pinespeaker (21.7,79.35, 15 people) and Elder Mistpaw (21.7,79.02, 14 people)" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.3: quest 91697's objective text asks you to find and speak with both elders" }
+		],
+		"note": "Meet the Elders (Barkskin Burrow, Mount Hyjal) is two talks, to Elder Pinespeaker and Elder Mistpaw. The data build had read the first line as a kill of a Hyjal Owl a player killed at the same moment."
+	},
+	"93615": {
+		"set": {
+			"objectives": [
+				{ "type": "talk", "id": 255685, "count": 1, "text": "Solstice found" },
+				{ "type": "talk", "id": 255771, "count": 1, "text": "Whisperfur found" },
+				{ "type": "talk", "id": 255773, "count": 1, "text": "Brie found" }
+			]
+		},
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, excluded contributors left out): 16 people's quest logs list 'Solstice found', 'Whisperfur found' and 'Brie found'; each line ticked where that kitten plays (38.52,47.26; 27.08,61.97; 41.76,36.73; 13-16 people each)" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.3: quest 93615's objective text asks you to find Shalla'kal's kittens" }
+		],
+		"note": "Kits and Cats (Shalla'kal, Mount Hyjal) is finding her three kittens, Solstice, Whisperfur and Brie: each counts as you walk up to her. The data build had read the lines as kills of a Rustleaf Fox and an Eternal Sentry killed nearby."
+	},
+	"95006": {
+		"set": {
+			"objectives": [
+				{ "type": "talk", "id": 216289, "count": 1, "text": "Events Observed" }
+			]
+		},
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, excluded contributors left out): 16 people's quest logs list 'Events Observed'; it ticked beside Orokai in Moonglade (41.08,43.44, 15 people)" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.3: quest 95006's objective text asks you to speak with Orokai" }
+		],
+		"note": "Stolen Power: talk to Orokai again and watch what he shows you; the line 'Events Observed' ticks when it ends. The data build had read it as a kill of a Deer killed nearby."
+	},
+	"92015": {
+		"set": {
+			"objectives": [
+				{ "type": "event", "id": null, "count": 6, "text": "Skunks repelled", "map": 2482, "f": "l", "x": 43.56, "y": 36.68 }
+			]
+		},
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, excluded contributors left out): 8 people's quest logs list 'Skunks repelled' x6; the line ticked around 43.56,36.68 (8 people)" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.3: quest 92015's objective text asks you to make the skunks leave without killing them" }
+		],
+		"note": "Area Denial Skunks (Mount Hyjal): six skunks repelled. The data build had read the line as kills of a Rustleaf Fox killed nearby."
+	},
+	"92169": {
+		"set": {
+			"objectives": [
+				{ "type": "event", "id": null, "count": 10, "text": "Slay Blackthorne Pact Members", "map": 2482, "f": "l", "x": 73.44, "y": 41.03 },
+				{ "type": "event", "id": null, "count": 10, "text": "Test the Staff of the Mountain", "map": 2482, "f": "l", "x": 72.74, "y": 39.43 }
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-20, excluded contributors left out): 9 people's quest logs list 'Slay Blackthorne Pact Members' x10 and 'Test the Staff of the Mountain' x10; the lines ticked around 73.44,41.03 and 72.74,39.43"
+		},
+		"note": "Paying Back the Pact (Mount Hyjal) has two lines: ten Blackthorne Pact members slain, and the Staff of the Mountain tested ten times. The data build had kept only the first, as kills of a Wildbreath Chimaerok."
+	},
+	"93567": {
+		"set": {
+			"objectives": [
+				{ "type": "event", "id": null, "count": 1, "text": "Veteran's story told", "map": 2482, "f": "l", "x": 27.51, "y": 50.99 }
+			]
+		},
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, excluded contributors left out): 4 people's quest logs list 'Veteran's story told'; it ticked at 27.51,50.99 (4 people)" },
+			{ "kind": "questie", "ref": "QuestieDB 1.1.3: quest 93567's objective text asks you to let the veteran tell his story" }
+		],
+		"note": "Ends Meet (Mount Hyjal): hear a veteran's story. The data build had read the line as a kill of an Eternal Sentry killed nearby."
+	},
+	"96558": {
+		"set": {
+			"objectives": [
+				{ "type": "event", "id": null, "count": 1, "text": "Spirits put to rest", "map": 2482, "f": "l", "x": 29.18, "y": 52.6 }
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-20, excluded contributors left out): 4 people's quest logs list 'Spirits put to rest'; it ticked at 29.18,52.6 (3 people)"
+		},
+		"note": "Soldier's Solace (Mount Hyjal): the spirits put to rest. The data build had read the line as a kill of a Scourge Reanimator killed nearby."
+	},
+	"95534": {
+		"set": {
+			"objectives": [
+				{ "type": "event", "id": null, "count": 1, "text": "Discover the fiery mystery of Strahnbrad", "map": 1416, "f": "l", "x": 60.03, "y": 45.65 }
+			]
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-20, excluded contributors left out): 35 people's quest logs list 'Discover the fiery mystery of Strahnbrad'; it ticked at 60.03,45.65 in Alterac (13 people)"
+		},
+		"note": "Strahnbrad Mystery: a discovery in Strahnbrad. The data build had read the line as a kill of a Syndicate Spy killed nearby."
+	},
+	"95350": {
+		"set": {
+			"pre": [],
+			"preAny": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (data/recorded/quests.json, to 2026-11-20): offered Welcome to Azeroth without The Earthen Ring (95349), 19 people (15 counted), trusted; e.g. a level-11 Skyborne Druid took it from npc 259119 with 95349 neither in the log nor handed in"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2781: a level-12 Skyborne Druid had Welcome to Azeroth in the log while The Broken Construct (93737) was still open, and the game reported A Firm Response (93746) not handed in"
+			}
+		],
+		"note": "Welcome to Azeroth (95350, the airship's quest off Zephras Isle) has no prerequisite on Forever: the server's previous-quest link to The Earthen Ring (95349) is only the story order. The data build re-added that link after the recorded layer had removed it, so a character carrying 95350 counted the whole Zephras Isle story before it as handed in: the guide ticked A Firm Response and waited on Blood for Blood, which Ayessa Dawnsinger offers only after it (#2781)."
+	},
+	"3861": {
+		"set": {
+			"end": {
+				"npc": [
+					620
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): 4 people took CLUCK! from a Chicken (620) after feeding it Special Chicken Feed, 3 handed it in to a Chicken (rec.py quest 3861)"
+			}
+		],
+		"note": "CLUCK! (3861) is given and taken by any Chicken (620) the player feeds, so its hand-in is wherever chickens are. The 0.4.2 data build's chicken points moved that hand-in more than 200 yards, which is no move of the quest. Reviewed for 0.4.2 (data-diff gate, ender-moved)."
 	}
 }

@@ -188,9 +188,9 @@ return {
 	-- Step 29: Teldrassil: kill these as you meet them
 	-- {quest:940} Teldrassil
 	["{quest:940}: kill these as you meet them"] = "{quest:940}：遇到就殺",
-	-- {area:186} Dolanaar · {area:260} Starbreeze Village
-	-- plural, as words: Strigid Owls = {npc:1995} Strigid Owl · Webwood Lurkers = {npc:1998} Webwood Lurker
-	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of {area:260}."] = "夜刃豹、巨翼梟和樹林潛伏者在{area:186}四周和往東的道路沿線遊蕩；潛伏者也會掉落配方要的蜘蛛腿。月井在{area:260}的西緣。",
+	-- {area:186} Dolanaar · {area:260} Starbreeze Village · {npc:3567} Tallonkai Swiftroot
+	-- plural, as words: Strigid Owls = {npc:1995} Strigid Owl · Webwood Lurkers = {npc:1998} Webwood Lurker · Befouled Webwoods = {npc:272096} Befouled Webwood
+	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of {area:260}.\nCareful: the Befouled Webwoods (10-11) in the woods north-west of {area:186}, around 47-52,34-56, are over you now: take the silk from the Webwood Lurkers and leave the webwoods for {npc:3567}'s quest later. Duskstalker (9, a rare nightsaber) and Oakenscowl (9, elite) roam the woods south of {area:186}, around 54-62,73-77: leave them be."] = "",
 	["Nightsabers"] = "夜刃豹",
 	-- plural, as words: Webwood Lurkers = {npc:1998} Webwood Lurker
 	["Webwood Lurkers"] = "樹林潛伏者",
@@ -536,6 +536,9 @@ return {
 	["Tide Crawlers scuttle along the shore below the village; {quest:983} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {object:175207} lies on the shore just south of the village."] = "潮行蟹在村子下方的海岸爬行；{quest:983}站在碼頭南邊不遠的海灘上。黑海岸蛇頸龍在淺水中游動。{object:175207}在村子南邊不遠的岸上。",
 	-- plural, as words: Crawler Legs = {item:5385} Crawler Leg · Tide Crawlers = {npc:2232} Tide Crawler
 	["Crawler Legs: the Tide Crawlers"] = "爬行者的腿：潮汐爬行者",
+	-- {quest:983} Buzzbox 827 · {zone:1439} Darkshore
+	-- plural, as words: Thresher Eyes = {item:5412} Thresher Eye
+	["{quest:983}: Thresher Eyes, on the {zone:1439} guide's first beach stop"] = "",
 
 	-- Step 91: Auberdine
 	-- {npc:3649} Thundris Windweaver
@@ -597,6 +600,7 @@ return {
 	-- ["Into {zone:1457}"] = "進入{zone:1457}",
 	-- ["Learn the {area:442} flight path on the hill south of the inn, then cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Learn the {area:493} flight path in {area:2361} and fly to {area:702} (by way of {area:442})."] = "在旅店南邊的山丘上學習{area:442}的飛行路線，然後施放{spell:18960}。{npc:11802}在{area:2361}；{quest:5929}在西北方的樹林裡。在{area:2361}學習{area:493}的飛行路線，然後飛往{area:702}（途經{area:442}）。",
 	-- ["Nightsabers, Strigid Owls and Webwood Lurkers live along the road east. The moonwell is at the west edge of {area:260}."] = "夜刃豹、巨翼梟和樹林潛伏者分布在往東的道路沿線。月井在{area:260}的西緣。",
+	-- ["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of {area:260}."] = "夜刃豹、巨翼梟和樹林潛伏者在{area:186}四周和往東的道路沿線遊蕩；潛伏者也會掉落配方要的蜘蛛腿。月井在{area:260}的西緣。",
 	-- ["North-east from Ursal's den, back to {area:186}."] = "從大槌烏薩爾的巢穴向東北走，回到{area:186}。",
 	-- ["South from the glade toward Ursal: Shayla walks the road west of {area:186}, from where the path down from the glade meets it south-west to the bend at about 38,54 and back."] = "從林地向南朝大槌烏薩爾前進：夏伊拉在{area:186}西邊的道路上來回巡邏，從林地下來的小路與道路交會處往西南走到約38,54的彎道再折返。",
 	-- ["South of the pools. The {object:6751} grows by the Hold; the furbolgs around it drop the rest of the fangs."] = "在池塘南邊。{object:6751}生長在脊骨堡旁；周圍的熊怪會掉落其餘的牙。",

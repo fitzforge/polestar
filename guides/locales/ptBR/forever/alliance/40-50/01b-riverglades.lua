@@ -188,8 +188,7 @@ return {
 	-- Step 38: WANTED: Blademaster Kaijo
 	-- {npc:263071} Blademaster Kaijo · {area:16743} Rog'mar
 	["{npc:263071} is an elite (level 42) at the Horde's training grounds north of {area:16743}, where this guide goes later: grouping up is advised."] = "{npc:263071} é um elite (nível 42) no campo de treinamento da Horda ao norte de {area:16743}, aonde este guia vai mais tarde: recomenda-se formar um grupo.",
-	-- {object:707245} Wanted (no name in this language: may be words)
-	["the {object:707245} poster"] = "o cartaz {object:707245}",
+	["the Wanted poster"] = "",
 
 	-- Step 39: Ghostmaw
 	-- {npc:263380} Ghostmaw · {area:16725} Wheeler's Grange · {area:16729} Terral's Watch
@@ -197,7 +196,9 @@ return {
 
 	-- Step 40: Sunnyglade
 	-- {area:16724} Farholde Keep · {area:16729} Terral's Watch · {area:16723} Sunnyglade · {area:16743} Rog'mar · {npc:259158} Fuzzle · {npc:256831} Apprentice Claire · {npc:258697} Farmer Elbrim
-	["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold hides in the middle of the town, {npc:256831} at its eastern edge, and {npc:258697} waits at his farm on the north-eastern edge."] = "Vá para o norte a partir de {area:16724}, passando por {area:16729} e atravessando o rio, até {area:16723}, a vila agrícola dominada pelo culto do Crepúsculo; fique longe de {area:16743}, o forte da Horda a leste da vila. {npc:259158}, o kobold, se esconde no meio da vila, {npc:256831} fica na borda leste, e {npc:258697} espera na fazenda dele, na borda nordeste.",
+	["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold waits in a cage at the arrow, {npc:256831} below ground in a cave at the town's eastern edge (the entrance is at 50.0,46.0), and {npc:258697} waits at his farm on the north-eastern edge."] = "",
+	-- {npc:259158} Fuzzle · {quest:94961} Biting the Hand
+	["{npc:259158}: {quest:94961}, in his cage"] = "",
 
 	-- Step 41: The Twilight cult
 	["The Twilight cult"] = "O culto do Crepúsculo",
@@ -211,6 +212,10 @@ return {
 	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "",
 	-- {quest:94885} Field Marshal's Log
 	["{quest:94885}: only if a cultist dropped the log"] = "{quest:94885}: só se um cultista deixou cair o diário",
+
+	-- Step 42: Apprentice Claire
+	-- {area:16723} Sunnyglade
+	["Claire is in the cave under the eastern edge of {area:16723}: its entrance is at 50.0,46.0."] = "",
 
 	-- Step 43: Cut Off the Heads
 	-- {npc:256899} Chogg'Zac · {area:16723} Sunnyglade · {npc:257591} Ashe Amberhall · {area:16724} Farholde Keep
@@ -349,10 +354,11 @@ return {
 	-- {zone:2548} Riverglades · {item:268632} Beast Entrails · {npc:260231} Argo Brinewhistle · {npc:257001} Old Rot-Chum · {npc:263380} Ghostmaw
 	["Most beasts in the {zone:2548} drop {item:268632} for {npc:260231}: the shore crawlers on this coast and the boars on the ridge west of the pirates.\nCareful: {npc:257001} (elite, 42), Komuk (a Horde elite, 45) and {npc:263380} (elite, 42) range over the zone's wilds: take your beasts away from them."] = "A maioria das feras em {zone:2548} deixa cair {item:268632} para {npc:260231}: os rastejadores da praia nesta costa e os javalis na serra a oeste dos piratas.\nCuidado: {npc:257001} (elite, 42), Komuk (elite da Horda, 45) e {npc:263380} (elite, 42) percorrem as áreas selvagens da zona: afaste suas feras deles.",
 
-	-- Step 68: Level 44.4 on the Eastsea pirates
-	["Level 44.4 on the Eastsea pirates"] = "Nível 44.4 nos piratas do Mar Leste",
-	-- {npc:259758} Gul'gash · {area:1517} Uldaman
-	["Before the second wave: its raiders and bombardiers (43-45) and the pirates' ships after them are a level over you below 44.4. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "Antes da segunda onda: os saqueadores e bombardeiros dela (43-45) e os navios dos piratas depois deles ficam um nível acima de você abaixo de 44.4. Ganhe o restante da experiência nos bucaneiros e mosqueteiros do primeiro acampamento (41-43), na ponta sudoeste, longe do porto. {npc:259758}, um elite raro de nível 49, vaga por estes penhascos: se o vir, fique bem longe. Ou, com um grupo, faça a masmorra {area:1517}.",
+	-- Step 68: Level 44 on the Eastsea pirates
+	["Level 44 on the Eastsea pirates"] = "",
+	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash · {area:1517} Uldaman
+	-- was: ["Before the second wave: its raiders and bombardiers (43-45) and the pirates' ships after them are a level over you below 44.4. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "Antes da segunda onda: os saqueadores e bombardeiros dela (43-45) e os navios dos piratas depois deles ficam um nível acima de você abaixo de 44.4. Ganhe o restante da experiência nos bucaneiros e mosqueteiros do primeiro acampamento (41-43), na ponta sudoeste, longe do porto. {npc:259758}, um elite raro de nível 49, vaga por estes penhascos: se o vir, fique bem longe. Ou, com um grupo, faça a masmorra {area:1517}."
+	["Before the second wave: its raiders (44-45), bombardiers (43-44) and {quest:95124}'s ships after them (45) are more than a level over you below 44. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "",
 	-- {npc:257901} Eastsea Buccaneer
 	["grind on {npc:257901}"] = "mate {npc:257901}",
 
@@ -371,7 +377,7 @@ return {
 	-- Step 72: The pirates' ships
 	["The pirates' ships"] = "Os navios dos piratas",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
-	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way."] = "Mais uma vez aos penhascos dos piratas. Plante as cargas de Whizzbuzz nos três navios ancorados abaixo do acampamento, de sul para norte; {quest:95124} (nível 45) fica junto ao do meio, com o baú de saque ao lado dela. Fique de olho em {npc:259758} no caminho.",
+	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} (level 45) walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way."] = "",
 	-- {item:268505} Remote Explosive Charge
 	["{item:268505}, the southern ship"] = "{item:268505}, o navio do sul",
 	["the middle ship"] = "o navio do meio",
@@ -556,6 +562,11 @@ return {
 	["The next guide starts in the {zone:1418}, south of {zone:1432}: fly to {area:144}."] = "O próximo guia começa em {zone:1418}, ao sul de {zone:1432}: voe para {area:144}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Before the second wave: its raiders and bombardiers (43-45) and the pirates' ships after them are a level over you below 44.4. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "Antes da segunda onda: os saqueadores e bombardeiros dela (43-45) e os navios dos piratas depois deles ficam um nível acima de você abaixo de 44.4. Ganhe o restante da experiência nos bucaneiros e mosqueteiros do primeiro acampamento (41-43), na ponta sudoeste, longe do porto. {npc:259758}, um elite raro de nível 49, vaga por estes penhascos: se o vir, fique bem longe. Ou, com um grupo, faça a masmorra {area:1517}.",
+	-- ["Level 44.4 on the Eastsea pirates"] = "Nível 44.4 nos piratas do Mar Leste",
+	-- ["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold hides in the middle of the town, {npc:256831} at its eastern edge, and {npc:258697} waits at his farm on the north-eastern edge."] = "Vá para o norte a partir de {area:16724}, passando por {area:16729} e atravessando o rio, até {area:16723}, a vila agrícola dominada pelo culto do Crepúsculo; fique longe de {area:16743}, o forte da Horda a leste da vila. {npc:259158}, o kobold, se esconde no meio da vila, {npc:256831} fica na borda leste, e {npc:258697} espera na fazenda dele, na borda nordeste.",
+	-- ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way."] = "Mais uma vez aos penhascos dos piratas. Plante as cargas de Whizzbuzz nos três navios ancorados abaixo do acampamento, de sul para norte; {quest:95124} (nível 45) fica junto ao do meio, com o baú de saque ao lado dela. Fique de olho em {npc:259758} no caminho.",
+	-- ["the {object:707245} poster"] = "o cartaz {object:707245}",
 	-- ["{item:17028}, from {npc:272437}"] = "{item:17028}, com {npc:272437}",
 	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026} espera ao lado da estrada, a leste do desfiladeiro.",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031} cuida da velha catedral no canto sudoeste de {area:16724}. Os morcegos se empoleiram no andar superior; {npc:272437} distribui as velas sagradas ao lado dela; os túmulos ficam no cemitério da capela.\n{npc:271742}, um elite de nível 53, fica na catedral: ele não ataca você, então nunca o ataque e puxe os morcegos para longe dele.",

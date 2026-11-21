@@ -10,3 +10,7 @@ section: players
   keeps the style you picked. In the transparent style the tabs go clear
   with the window, their accent mark kept. The three new styles come in
   their own folder, Polestar_TabStyles, loaded the first time you pick one.
+- Guide window tab styles in the game looks (WoW Forever, Blizzard,
+  Classic): Down the left side and On the top edge leave the look's own
+  frame open where the tabs meet the window, so they join it and no longer
+  stand beside it as a box of their own.

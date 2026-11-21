@@ -584,6 +584,68 @@ local function rim(f, host)
 	for i = 1, 8 do p[i]:Show() end
 end
 
+-- A frame's kit frame left open on one side ("LEFT", "RIGHT", "TOP",
+-- "BOTTOM"; nil closes it again): a tab or a tab strip standing on the
+-- guide window's edge (Polestar_TabStyles) runs into the window, so the
+-- pieces on that side go and the edge pieces beside them reach to the
+-- frame's own edge there, where the window's frame takes over. Covers the
+-- guide window's kit frames: Classic's chat rim and the sliced ones
+-- (Blizzard's meter, WoW Forever's bronze line). Called after every paint
+-- (psAfterPaint): the sliced pieces are placed again on each.
+local OPEN_GRID = {
+	RIGHT = { hide = { 3, 6, 9 }, grow = { { 2, 3 }, { 5, 6 }, { 8, 9 } }, point = "BOTTOMRIGHT" },
+	LEFT = { hide = { 1, 4, 7 }, grow = { { 2, 1 }, { 5, 4 }, { 8, 7 } }, point = "TOPLEFT" },
+	TOP = { hide = { 1, 2, 3 }, grow = { { 4, 1 }, { 5, 2 }, { 6, 3 } }, point = "TOPLEFT" },
+	BOTTOM = { hide = { 7, 8, 9 }, grow = { { 4, 7 }, { 5, 8 }, { 6, 9 } }, point = "BOTTOMRIGHT" },
+}
+local OPEN_RIM = { RIGHT = { 2, 4, 8 }, LEFT = { 1, 3, 7 }, TOP = { 1, 2, 5 }, BOTTOM = { 3, 4, 6 } }
+local function pointOf(t, name)
+	for i = 1, t:GetNumPoints() do
+		local p, rel, rp, x, y = t:GetPoint(i)
+		if p == name then return rel, rp, x, y end
+	end
+end
+function Theme.KitOpen(f, side)
+	local k = rawget(f, "psSkin") and f.psSkin.kit
+	if not k then return end
+	local p = k.rim
+	if p then
+		-- Its edges between their corners, then stretched over the open
+		-- side's corners.
+		p[5]:SetPoint("TOPLEFT", p[1], "TOPRIGHT"); p[5]:SetPoint("BOTTOMRIGHT", p[2], "BOTTOMLEFT")
+		p[6]:SetPoint("TOPLEFT", p[3], "TOPRIGHT"); p[6]:SetPoint("BOTTOMRIGHT", p[4], "BOTTOMLEFT")
+		p[7]:SetPoint("TOPLEFT", p[1], "BOTTOMLEFT"); p[7]:SetPoint("BOTTOMRIGHT", p[3], "TOPRIGHT")
+		p[8]:SetPoint("TOPLEFT", p[2], "BOTTOMLEFT"); p[8]:SetPoint("BOTTOMRIGHT", p[4], "TOPRIGHT")
+		if p[1]:IsShown() or p[5]:IsShown() then
+			for i = 1, 8 do p[i]:SetAlpha(1) end
+			if side == "RIGHT" then
+				p[5]:SetPoint("BOTTOMRIGHT", p[2], "BOTTOMRIGHT"); p[6]:SetPoint("BOTTOMRIGHT", p[4], "BOTTOMRIGHT")
+			elseif side == "LEFT" then
+				p[5]:SetPoint("TOPLEFT", p[1], "TOPLEFT"); p[6]:SetPoint("TOPLEFT", p[3], "TOPLEFT")
+			elseif side == "TOP" then
+				p[7]:SetPoint("TOPLEFT", p[1], "TOPLEFT"); p[8]:SetPoint("TOPLEFT", p[2], "TOPLEFT")
+			elseif side == "BOTTOM" then
+				p[7]:SetPoint("BOTTOMRIGHT", p[3], "BOTTOMRIGHT"); p[8]:SetPoint("BOTTOMRIGHT", p[4], "BOTTOMRIGHT")
+			end
+			for _, i in ipairs(OPEN_RIM[side] or {}) do p[i]:SetAlpha(0) end
+		end
+	end
+	local g = OPEN_GRID[side]
+	for _, key in ipairs({ "meterArt", "slim" }) do
+		local q = k[key]
+		if q and g then
+			for _, pair in ipairs(g.grow) do
+				local into, from = q[pair[1]], q[pair[2]]
+				if into:GetNumPoints() > 0 and from:GetNumPoints() > 0 then
+					local rel, rp, x, y = pointOf(from, g.point)
+					if rel then into:SetPoint(g.point, rel, rp, x, y) end
+				end
+			end
+			for _, i in ipairs(g.hide) do q[i]:Hide() end
+		end
+	end
+end
+
 -- A close button in the kit's art (UIPanelCloseButton): normal, pushed and
 -- the additive highlight.
 local function closeArt(b, kit, size)

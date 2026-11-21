@@ -2034,6 +2034,46 @@
 		],
 		"note": "Farmer Elbrim placed where players met it in the Riverglades."
 	},
+	"258878": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-20: Auctioneer Quickcoin met at the Crossroads (1413 49.9,29.4) and on Redridge's west side (1433 9.9,75.2), and Uninspected Shipment (258880) met at the same two places in other sessions (1413 49.9,29.4; 1433 7.4-11.6,71.3-72.1)"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB Forever: Auctioneer Quickcoin (258878), Steamwheedle Courier (258879) and Uninspected Shipment (258880) share the same two spawn points, 1413 49.95,29.45 and 1433 9.54,71.96"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3112 (king_iix): the Barrens stall changes from day to day between bank, auctioneer and mailbox"
+			}
+		],
+		"note": "Auctioneer Quickcoin is one of the three faces of a travelling goblin stall (auctioneer, banker or mailbox, one a day) at the Crossroads and on Redridge's west side. On the other days he isn't there, so an Auction House goal that led to him stalled (#3112). No roles: auction goals and Nearby services go to an Auction House that is always open."
+	},
+	"258880": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-20: Uninspected Shipment met at the Crossroads (1413 49.9,29.4) and on Redridge's west side (1433 7.4-11.6,71.3-72.1), the places Auctioneer Quickcoin (258878) stands on other days"
+			},
+			{
+				"kind": "questie",
+				"ref": "QuestieDB Forever: 258878, 258879 and 258880 share the same two spawn points, 1413 49.95,29.45 and 1433 9.54,71.96"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3112 (king_iix): the Barrens stall changes from day to day between bank, auctioneer and mailbox"
+			}
+		],
+		"note": "Uninspected Shipment is the banker face of the same travelling goblin stall as Auctioneer Quickcoin: there one day in three. No roles, so bank goals and Nearby services go to a bank that is always open (#3112)."
+	},
 	"259254": {
 		"addSpawns": {
 			"2548": {
@@ -2405,6 +2445,26 @@
 			}
 		],
 		"note": "Guchie Jinglepocket is a Feast of Winter Veil vendor: Classic spawns them only during the event, and Forever's world has no spawn of them. The data listed them as everyday vendors, so Nearby services sent players to an empty spot (#1735). No roles, and off the lists of the items they sell; a merchant window players record brings the vendor role back."
+	},
+	"14450": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-20: 36 people opened Orphan Matron Nightingale's window in Cathedral Square (quest windows for 92415 and 95161, 46 in all), none a merchant or gossip window"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3032 (Shuurajou, Gnome Priest 30): the nearest-vendor search sent them to her and she sold nothing"
+			},
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB: creature_template 14450 npcflag 131 and two npc_vendor items, Friendship Bread (23160) and Freshly-Squeezed Lemonade (23161), the Children's Week foods"
+			}
+		],
+		"note": "Orphan Matron Nightingale gives Stormwind's orphan quests. Her vendor flag only carries the Children's Week foods, and no player has had a merchant window from her, so Nearby services sent players looking for a vendor to a quest giver who sells nothing (#3032). No roles; a merchant window players record brings the vendor role back."
 	},
 	"14480": {
 		"set": {
@@ -3598,5 +3658,775 @@
 			}
 		],
 		"note": "Witherbark Goliath (npc 218032), an elite, is where players kill it: 69.3,81.7 (Arathi Highlands, map 1417). The merged data listed 17 points around it, up to 10.2 away, so the arrow and the map could lead off from it (#2882's sweep: elites whose kill spots cluster while the data's points spread; camps of several spawns and elites that walk a path were left as they are)."
+	},
+	"216463": {
+		"set": {
+			"spawns": {
+				"1441": {
+					"f": "e",
+					"pts": [
+						[
+							34.46,
+							42.15
+						],
+						[
+							34.64,
+							43.34
+						],
+						[
+							35.82,
+							43.47
+						],
+						[
+							35.87,
+							42.34
+						],
+						[
+							35.94,
+							41.57
+						],
+						[
+							36.02,
+							37.31
+						],
+						[
+							36.44,
+							38.28
+						],
+						[
+							36.49,
+							44.35
+						],
+						[
+							36.71,
+							39.17
+						],
+						[
+							36.72,
+							39.96
+						],
+						[
+							36.93,
+							37.66
+						],
+						[
+							37,
+							36.64
+						],
+						[
+							37.1,
+							42.18
+						],
+						[
+							37.33,
+							44.78
+						],
+						[
+							37.41,
+							41.16
+						],
+						[
+							37.66,
+							38.79
+						],
+						[
+							37.67,
+							40.15
+						],
+						[
+							37.77,
+							37.57
+						],
+						[
+							38.61,
+							38.38
+						],
+						[
+							38.65,
+							45.06
+						],
+						[
+							40.76,
+							37.32
+						]
+					],
+					"more": [
+						[
+							34.85,
+							42.63
+						],
+						[
+							35.41,
+							42.83
+						],
+						[
+							36.2,
+							43.88
+						],
+						[
+							36.5,
+							36.22
+						],
+						[
+							36.5,
+							41.56
+						],
+						[
+							36.54,
+							42.62
+						],
+						[
+							36.66,
+							40.6
+						],
+						[
+							37.33,
+							39.72
+						],
+						[
+							37.9,
+							38.21
+						],
+						[
+							38.45,
+							37.76
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "rec.py npc 216463 (2026-11-20): 22 people saw Ailgrha Splittusk hostile, only at Thousand Needles 36-37,37-43"
+			}
+		],
+		"note": "Ailgrha Splittusk (npc 216463, level 38, elite) walks the Grimtotem ground south and east of 36,36 in Thousand Needles, where players recorded it; the merged data also listed three points (34.8,34.4 to 36.5,34.4) north-west of it, among the Incendia Agave plants Sacred Fire (5062) sends Horde players to at about 29, so the danger gate read an elite there. Those points are dropped; the rest of the path stays (Horde route fix pass, PR #3284)."
+	},
+	"216474": {
+		"set": {
+			"spawns": {
+				"1441": {
+					"f": "e",
+					"pts": [
+						[
+							32.68,
+							43.19
+						],
+						[
+							33.66,
+							42.33
+						],
+						[
+							34.83,
+							42.56
+						],
+						[
+							34.83,
+							43.83
+						],
+						[
+							35.59,
+							43.26
+						],
+						[
+							35.81,
+							41.87
+						],
+						[
+							36.25,
+							37.39
+						],
+						[
+							36.67,
+							43.95
+						],
+						[
+							36.76,
+							39.75
+						],
+						[
+							36.97,
+							42.2
+						],
+						[
+							36.99,
+							40.68
+						],
+						[
+							37.11,
+							36.62
+						],
+						[
+							37.22,
+							38.85
+						],
+						[
+							37.73,
+							44.01
+						],
+						[
+							37.92,
+							37.6
+						],
+						[
+							38.53,
+							44.53
+						],
+						[
+							39.34,
+							38.36
+						],
+						[
+							39.64,
+							37.03
+						],
+						[
+							40.17,
+							45.46
+						],
+						[
+							40.6,
+							40.72
+						],
+						[
+							40.74,
+							37.18
+						],
+						[
+							41.85,
+							37.57
+						]
+					],
+					"more": [
+						[
+							33.66,
+							43.11
+						],
+						[
+							34.63,
+							42.88
+						],
+						[
+							35.38,
+							42.63
+						],
+						[
+							36.04,
+							43.8
+						],
+						[
+							36.27,
+							42.32
+						],
+						[
+							36.34,
+							41.13
+						],
+						[
+							36.34,
+							42.86
+						],
+						[
+							36.54,
+							40.49
+						],
+						[
+							36.55,
+							41.58
+						],
+						[
+							36.56,
+							36.56
+						],
+						[
+							36.58,
+							38.22
+						],
+						[
+							36.7,
+							39.12
+						],
+						[
+							36.92,
+							37.5
+						],
+						[
+							37.06,
+							42.77
+						],
+						[
+							37.1,
+							43.72
+						],
+						[
+							37.15,
+							38.26
+						],
+						[
+							37.19,
+							37.08
+						],
+						[
+							37.23,
+							44.24
+						],
+						[
+							37.39,
+							41.26
+						],
+						[
+							37.41,
+							39.55
+						],
+						[
+							37.56,
+							40.38
+						],
+						[
+							37.86,
+							38.22
+						],
+						[
+							37.91,
+							39.03
+						],
+						[
+							38.61,
+							37.21
+						],
+						[
+							38.63,
+							37.99
+						],
+						[
+							38.84,
+							38.53
+						],
+						[
+							39.03,
+							44.92
+						],
+						[
+							40.5,
+							39.84
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "rec.py npc 216474 (2026-11-20): 26 people saw Ravaging Tempest hostile, only at Thousand Needles 36-41,37-43"
+			}
+		],
+		"note": "Ravaging Tempest (npc 216474, level 38-40, elite) walks the Grimtotem ground south and east of 36,36 in Thousand Needles, where players recorded it; the merged data also listed five points (34.5,33.3 to 36.3,36.1) north-west of it, among the Incendia Agave plants Sacred Fire (5062) sends Horde players to at about 29, so the danger gate read an elite there. Those points are dropped; the rest of the path stays (Horde route fix pass, PR #3284)."
+	},
+	"252695": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 64 people (61 established), killed 0 times (rec.py npc 252695)"
+		},
+		"note": "Pylon Protector (level 61 elite), the temple guards around the Mana Sieve's altar in Shen'dralas, never attacks: with no side in the merged data, the addon counted them as hostile elites at the altar, and Lookup's step for Powering the Pylons (96018) said \"Elite: group advised\" (#3241)."
+	},
+	"11102": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 8 people (7 established), friendly by 3, killed 0 times (rec.py npc 11102)"
+			},
+			{
+				"kind": "tdb",
+				"ref": "creature_template 11102 faction 1625"
+			}
+		],
+		"note": "Argent Rider (level 60 elite) rides around Light's Hope Chapel and never attacks: with no side in the merged data, the addon counted it as a hostile elite at nearby quest objects (#3241's sweep of elites with no side that mark an objective)."
+	},
+	"266878": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 8 people (7 established), killed 0 times (rec.py npc 266878)"
+		},
+		"note": "Valiant Watcher (level 63 elite, Winterspring) never attacks: with no side in the merged data, the addon counted it as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
+	},
+	"266880": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 4 people (3 established), killed 0 times (rec.py npc 266880)"
+		},
+		"note": "Warden (level 63 elite, Winterspring) stands with the Valiant Watchers and never attacks: with no side in the merged data, the addon counted it as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
+	},
+	"271742": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 15 people (13 established), killed 0 times (rec.py npc 271742)"
+		},
+		"note": "Abbot Schuncke (level 53 elite, Riverglades) never attacks: with no side in the merged data, the addon counted him as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
+	},
+	"270571": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 6 people (5 established), friendly by 1, killed 0 times (rec.py npc 270571)"
+		},
+		"note": "Donald Armstrong (level 53 elite, Riverglades) stands with Abbot Schuncke and never attacks: with no side in the merged data, the addon counted him as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
+	},
+	"269699": {
+		"set": {
+			"faction": "AH"
+		},
+		"source": {
+			"kind": "recording",
+			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 28 people (23 established), friendly by 21, killed 0 times (rec.py npc 269699)"
+		},
+		"note": "Thaddeus Brillyard (level 53 elite) never attacks: with no side in the merged data, the addon counted him as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
+	},
+	"4554": {
+		"set": {
+			"spawns": {
+				"1458": {
+					"f": "l",
+					"pts": [
+						[
+							62.2,
+							44.26
+						],
+						[
+							62.25,
+							42.8
+						],
+						[
+							62.33,
+							46.23
+						],
+						[
+							62.52,
+							40.96
+						],
+						[
+							62.71,
+							46.89
+						],
+						[
+							63.04,
+							48.14
+						],
+						[
+							63.33,
+							40.18
+						],
+						[
+							63.89,
+							49.1
+						],
+						[
+							64.9,
+							38.57
+						],
+						[
+							64.91,
+							50.01
+						],
+						[
+							65.57,
+							49.79
+						],
+						[
+							66.04,
+							38.37
+						],
+						[
+							66.08,
+							49.31
+						],
+						[
+							67.1,
+							38.5
+						],
+						[
+							67.42,
+							49.38
+						],
+						[
+							68.12,
+							39.43
+						],
+						[
+							68.21,
+							48.69
+						],
+						[
+							68.5,
+							40.1
+						],
+						[
+							68.76,
+							47.91
+						],
+						[
+							69.23,
+							40.72
+						],
+						[
+							69.36,
+							46.74
+						],
+						[
+							69.62,
+							45.23
+						],
+						[
+							69.69,
+							42.52
+						],
+						[
+							69.74,
+							44.16
+						]
+					],
+					"more": [
+						[
+							62.19,
+							45.9
+						],
+						[
+							63.08,
+							40.62
+						],
+						[
+							63.41,
+							48.37
+						],
+						[
+							63.77,
+							48.79
+						],
+						[
+							64.43,
+							49.41
+						],
+						[
+							64.82,
+							49.7
+						],
+						[
+							65.17,
+							49.69
+						],
+						[
+							65.34,
+							38.4
+						],
+						[
+							65.51,
+							49.46
+						],
+						[
+							65.62,
+							38.55
+						],
+						[
+							65.87,
+							49.55
+						],
+						[
+							66.14,
+							49.78
+						],
+						[
+							66.25,
+							38.67
+						],
+						[
+							66.52,
+							49.79
+						],
+						[
+							66.75,
+							49.47
+						],
+						[
+							67.19,
+							49.58
+						],
+						[
+							67.39,
+							38.67
+						],
+						[
+							67.65,
+							38.89
+						],
+						[
+							67.84,
+							49.1
+						],
+						[
+							68.24,
+							39.81
+						],
+						[
+							68.32,
+							48.31
+						],
+						[
+							68.78,
+							40.36
+						],
+						[
+							69.23,
+							41.15
+						],
+						[
+							69.74,
+							44.62
+						],
+						[
+							69.94,
+							45.41
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): seen friendly by 173 people and neutral by 57, all along the Undercity's ring at 62-69,38-54 (rec.py npc 4554)"
+			}
+		],
+		"note": "Tawny Grisette walks the Undercity's ring (map 1458, about 62-70,38-50), where players' recordings meet her all along it. The 0.4.2 data build keeps her 24 points; one moved about 0.2 map units, which the data-diff gate counts as a sixth place (capital-spawns, at most 5). Reviewed for 0.4.2: the points are where she walks, no move."
+	},
+	"253096": {
+		"set": {
+			"spawns": {
+				"1443": {
+					"f": "l",
+					"pts": [
+						[
+							35.46,
+							92.21
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): Halea met by 6 people, all at Desolace 35-36,91-92 (friendly by 5, neutral by 1), and Mysterious Mysticism (92755) taken from her there; nobody met her at 69.8,78.0 (rec.py npc 253096, rec.py quest 92755)"
+			},
+			{
+				"kind": "questie",
+				"ref": "npcs.json 253096: Desolace 69.83,77.96, where no recording meets her"
+			}
+		],
+		"note": "Halea, who gives and takes Mysterious Mysticism (92755), stands at Desolace 35.5,92.2, where players' recordings meet her. The 0.4.2 data build moved her there from 69.8,78.0, so the quest's hand-in moved about 1,600 yards. Reviewed for 0.4.2 (data-diff gate, ender-moved): the new spot is right."
+	},
+	"267121": {
+		"set": {
+			"spawns": {
+				"2482": {
+					"f": "l",
+					"pts": [
+						[
+							49.19,
+							32.67
+						],
+						[
+							61.34,
+							31.41
+						],
+						[
+							62.1,
+							30.69
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): Yashiro seen friendly by 14 people; Blademaster's Bonfires (96959): every recorded accept and hand-in (14) at 49,32-33; Yashiro's Windwalk (96983): accepts at 49-50,32-33, hand-ins at 61-62,31-32 (6) and back at 49,33 (4) (rec.py npc 267121, rec.py quest 96959 and 96983)"
+			}
+		],
+		"note": "Yashiro (Mount Hyjal) stands at 49.2,32.7, where he gives both his quests and takes Blademaster's Bonfires (96959). He goes east with the player for Yashiro's Windwalk (96983) and takes it at Dae'gun (61.3,31.4 and 62.1,30.7) as well as back at his camp; the 0.4.2 data build added those two points (the hand-in moved about 450 yards). Bonfires is never handed in at Dae'gun: its hand-in belongs at the camp spot only. Reviewed for 0.4.2 (data-diff gate, ender-moved)."
+	},
+	"5955": {
+		"set": {
+			"spawns": {
+				"1446": {
+					"f": "l",
+					"pts": [
+						[
+							28.59,
+							67.38
+						],
+						[
+							29.47,
+							60.44
+						],
+						[
+							29.7,
+							74.06
+						],
+						[
+							29.87,
+							73.72
+						],
+						[
+							30.23,
+							70.7
+						],
+						[
+							30.31,
+							64.56
+						],
+						[
+							66.38,
+							25.79
+						],
+						[
+							66.73,
+							25.55
+						],
+						[
+							67.26,
+							25.24
+						],
+						[
+							67.65,
+							24.85
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): Tooga seen friendly by 47 people; Tooga's Quest (1560) taken in the Thistleshrub Valley at 28-32,61-74 (about 30 accepts) and handed in to Torta at 66-67,26 (27); Oasis (97540) taken and handed in beside Torta at 66-68,25-26 (19 hand-ins, none elsewhere); his sightings between them (41-49,52-62) are the escort under way (rec.py npc 5955, rec.py quest 1560 and 97540)"
+			}
+		],
+		"note": "Tooga waits at the Thistleshrub Valley's west edge for his escort (Tooga's Quest, 1560) and, after it, stands beside Torta east of Steamwheedle Port, where he gives and takes Oasis (97540). The 0.4.2 data build added a point on the escort's way (41.03,54.55), which put an Oasis hand-in out in the desert, about 840 yards from every earlier one. His points are the valley's and Torta's, without it (data-diff gate, ender-moved, 0.4.2)."
 	}
 }

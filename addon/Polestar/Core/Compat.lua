@@ -71,13 +71,29 @@ function Compat.GetPlayerLevel()
 	if type(level) == "number" and level >= 1 and level < math.huge and level == math.floor(level) then return level end
 end
 
+-- The realm's name, or nil when the client does not give it. Forever's
+-- client stopped telling addons the realm in 1.60.1 (a hotfix in November
+-- 2026): GetRealmName and GetNormalizedRealmName read "", GetRealmID 0.
+-- Compat's one reader of them. Saved data filed by realm (the Characters
+-- page, Materials' prices, Instances, Transit, Rares) then falls back to a
+-- realm-less key and takes over the entry filed under the old realm once
+-- (docs/ARCHITECTURE.md, "Unknown realm").
+local function realmText(fn)
+	local v = fn and readable(fn())
+	if type(v) == "string" and v ~= "" then return v end
+	return nil
+end
+
+function Compat.RealmName() return realmText(GetRealmName) end
+function Compat.NormalizedRealmName() return realmText(GetNormalizedRealmName) end
+
 function Compat.GetPlayerInfo()
 	local _, race = UnitRace("player")
 	local _, class = UnitClass("player")
 	local faction = Compat.GetPlayerFaction() or "Neutral"
 	return {
 		name = readable(UnitName("player")),
-		realm = GetRealmName and GetRealmName() or nil,
+		realm = Compat.RealmName(),
 		guid = readable(UnitGUID and UnitGUID("player")),
 		level = Compat.GetPlayerLevel() or 1,
 		xp = readable(UnitXP and UnitXP("player")) or 0,
@@ -492,6 +508,19 @@ end
 -- for the same quest once per goal on its line. The lines are read-only for
 -- every caller (one table per quest per moment, no longer one per call).
 local objMemo, objAt, objMoment = {}, nil, nil
+-- Whether an objective line's text names a placeholder (ObjectiveLabel, then
+-- Placeholder: some 15 string operations), kept per text: a line's text
+-- changes only with its count. Started over past PLACEHOLDER_KEEP texts.
+local placeholderOf, placeholderN, PLACEHOLDER_KEEP = {}, 0, 512
+local function placeholderText(text)
+	local hit = placeholderOf[text]
+	if hit == nil then
+		hit = Compat.Placeholder(Compat.ObjectiveLabel(text))
+		if placeholderN >= PLACEHOLDER_KEEP then placeholderOf, placeholderN = {}, 0 end
+		placeholderOf[text], placeholderN = hit, placeholderN + 1
+	end
+	return hit
+end
 function Compat.GetQuestObjectives(questID)
 	if not (C_QuestLog and C_QuestLog.GetQuestObjectives) then return nil end
 	local now, moment = GetTime and GetTime(), ns.Moment and ns.Moment()
@@ -522,7 +551,7 @@ function Compat.GetQuestObjectives(questID)
 			cur = req - 1
 		end
 		local text = o.text or ""
-		if Compat.Placeholder(Compat.ObjectiveLabel(text)) then text = "" end
+		if placeholderText(text) then text = "" end
 		out[i] = { text = text, type = o.type or "", finished = finished, numFulfilled = cur, numRequired = req }
 	end
 	if memo then objMemo[questID] = out end

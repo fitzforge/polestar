@@ -1,8 +1,15 @@
 -- Enemy settlements and guarded hubs veto an on-foot segment. Zone levels affect cost, not access.
+-- The towns and guard posts are map positions (DangerAreas/DangerHubs: ownership cells kept where builds
+-- 70532 and 70959 share the terrain, guard disks from 70532), so they are checked on every client build.
+-- A newer client keeps its walks checked rather than refused; the debug log (a report) says the data is older.
 local _,ns=...
 local D=ns.Nav.danger
 local floor,ceil,abs,min,max,byte=math.floor,math.ceil,math.abs,math.min,math.max,string.byte
-local _,build=GetBuildInfo();build=tonumber(build)
+local REVIEWED=70959 -- the newest build the ground data was paired against (the data files' first line)
+local _,build=GetBuildInfo()
+if not (tonumber(build) and tonumber(build)<=REVIEWED) then
+ ns.Log('ground: client build '..tostring(build)..' is newer than the enemy-town data (70532, 70959); walks are still checked')
+end
 local pad=.55+1e-7 -- include a shoulder exactly on either edge despite world-to-cell rounding
 local function finite(x) return type(x)=='number' and x==x and abs(x)<17066.67 end
 local function intersects(disks,radii,x,y,dx,dy,dd,half)
@@ -39,7 +46,7 @@ local function touches(cells,bins,radii,enemy,x,y,dx,dy,dd,lo,hi,le,ri,half)
 end
 function D.Blocked(map,x,y,X,Y,profile)
  if profile~='Alliance' and profile~='Horde' then return 'unknown-profile' end
- if (build~=70532 and build~=70959) or not (finite(x) and finite(y) and finite(X) and finite(Y)) then return 'unknown-ground' end
+ if not (finite(x) and finite(y) and finite(X) and finite(Y)) then return 'unknown-ground' end
  local cells=D.areaCells and D.areaCells[map];local bins=D.hubBins and D.hubBins[map] and D.hubBins[map][profile]
  local radii=D.hubRadii;if not cells or not bins or not radii then return 'unknown-ground' end
  local enemy=profile=='Alliance' and 2 or 1;local n=max(1,ceil(max(abs(X-x),abs(Y-y))*.03));local dx,dy=(X-x)/n,(Y-y)/n;local dd=dx*dx+dy*dy

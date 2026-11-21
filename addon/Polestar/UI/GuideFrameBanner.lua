@@ -355,10 +355,12 @@ ns.UI.GuideFrame.Part(function(GF)
 
 	-- One link-style action in the banner (label, chevron), `x` right of the
 	-- text's left edge. It never runs past the text's column: a label too long
-	-- for it (a guide's whole title) is cut short with "…". With
-	-- guideWindow.bannerLinks "right", a notice's one action sits on the
+	-- for it (a guide's whole title) is cut short with "…". A second action
+	-- that would be cut short beside the first takes its own line under it.
+	-- With guideWindow.bannerLinks "right", a notice's one action sits on the
 	-- text's first line by the × instead (GF.LayoutBanner narrows the text
 	-- for it); a second action (Later) puts both back under.
+	local secondRow = false -- a second action on its own line
 	local onRight = 0 -- the width the action on the right takes, else 0
 	local closeRoom = 24 -- the ×'s room at the right; 0 for a notice shown without it
 	local function placeLink(link, text, x, y)
@@ -367,6 +369,11 @@ ns.UI.GuideFrame.Part(function(GF)
 		link.Label:SetText(text)
 		local right = link == banner.Jump and ns.Get("guideWindow.bannerLinks") == "right"
 		local room = right and floor(banner.Text:GetWidth() * 0.45) or floor(banner.Text:GetWidth() - x - 16)
+		if not right and x > 0 and link.Label:GetStringWidth() > room then
+			x, y = 0, y - 18 - 4
+			room = floor(banner.Text:GetWidth() - 16)
+			secondRow = true
+		end
 		-- The link as wide as the label it draws: cut at room, the whole text's
 		-- width (all some clients report once it is cut) would put the label
 		-- far left of a link set by its right edge.
@@ -405,6 +412,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		banner.Jump.psDefault = (kind == "group" or kind == "lost" or kind == "dungeon" or kind == "dungeonRun") or nil -- the gamepad's first focus (UI/GamepadGuide.lua)
 		banner.Text:SetWidth(width - PAD * 2 - 21 - closeRoom)
 		banner.Later:Hide()
+		secondRow = false
 		onRight = 0
 		local oneLine = false -- no link row under the text
 		if kind == "skipped" then
@@ -718,7 +726,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			oneLine = true
 		end
 		if noClose then banner.Close:Hide() end
-		local h = floor(9 + banner.Text:GetStringHeight() + (oneLine and 0 or 4 + 18) + 9 + 0.5)
+		local h = floor(9 + banner.Text:GetStringHeight() + (oneLine and 0 or 4 + 18) + (secondRow and banner.Later:IsShown() and 4 + 18 or 0) + 9 + 0.5)
 		banner:SetHeight(h)
 		return h
 	end
