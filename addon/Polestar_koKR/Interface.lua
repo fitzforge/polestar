@@ -2617,6 +2617,8 @@ L["Reminds you to repair when a piece of your gear is below this share of its du
 L["play Freedoom Arcade by petllama"] = "petllama의 Freedoom Arcade 플레이"
 L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom by the Freedoom project (BSD License), from the Polestar_Arcade folder."] = "petllama의 Freedoom Arcade(GPL-2.0 이상)가 Freedoom 프로젝트의 Freedoom 3개 레벨(BSD 라이선스)을 Polestar_Arcade 폴더에서 실행합니다."
 -- L["While paused, quests are not accepted or turned in for you, no reward is picked, and flight masters do not open the flight map or fly you off, until Polestar resumes."] = ""
+-- L["Danger lines"] = ""
+-- L["On the world map and the minimap, draw the straight way through the other faction's town that a walk goes round as a red dashed line, and on the world map name it: \"Danger: Southshore\". It only shows it: the route and the arrow stay as they are. Needs route lines."] = ""
 
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"
@@ -3706,6 +3708,7 @@ L["New in Forever"] = "Forever 신규"
 -- Maps/RouteLines.lua
 L["Line"] = "선"
 L["Sparkles"] = "반짝임"
+-- L["Danger: %s"] = ""
 
 -- Quests/Timed.lua
 L["%d h"] = "%d시간"
