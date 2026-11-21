@@ -252,7 +252,14 @@ changed step's goals come from `ns.LegacySteps` (Core/LegacySteps.lua,
 written by `tools/legacy-steps.js` from earlier releases' guides), so a
 check-off goes to the goal with the same verb and quest (or item, landing),
 a skip and the saved view to the step sharing most of its quest goals
-(`Own.remap`, `Own.legacyMaps`). `shapeVersions` holds the pack version a
+(`Own.remap`, `Own.legacyMaps`). The save's keys are those of the steps as
+planned for the character (the feeder plan's left-out quests taken out of
+them), the list's and the guide's those of the steps as released: a saved
+step neither has is read as a released step (the guide's own, or a listed
+one) with every goal of some of its quests taken out, quests no step the
+save shares with them has (`Own.plannedSteps`, hashing each released step's
+versions; #3440: read as unknown, they held 0.4.1.1 players up to 88 steps
+back). `shapeVersions` holds the pack version a
 guide's shape was saved with, `ownShapes` the shape of the guide as
 registered (never as planned for the character) then.
 An update never moves a player back (#1353 upgrade): when a guide's shape
@@ -303,11 +310,18 @@ passed in the new steps of the stretch it became (`Own.carryGone`). A save
 from before `ownShapes` existed counts a version change as an update of each
 of its guides once, as before, and keeps its passes.
 A saved tab of a leveling guide that kept fewer than half of those steps
-(`Own.reworked`: an update reused the id for another part of the route, as
+(`Own.reworked`, a step planned from one the guide still has counting as
+kept: an update reused the id for another part of the route, as
 0.3.5 did for Horde 04-06, #1328) moves, at the first `QUEST_LOG_UPDATE`
 after it comes back, to the pack's leveling guide with the most quests of
 the log to work on (`Guides.FollowLog`; never one open already), and chat
-says so.
+says so, naming the guide by its title in the save's release
+(`titles` in LegacySteps.lua, by `shapeVersions`). Moved or not, such a tab
+notes no update (`Own.noteAdded`: nearly all of it would pass) and opens
+where the log puts the player (`Own.logPlaced`, `Own.noteMovedBehind`): the
+last step with progress on a quest of the log (a quest an earlier release
+offered in another guide counting), else the first with work of one; its
+steps before pass as an update's new steps do.
 
 ### Profiles
 
@@ -3574,9 +3588,11 @@ route choice, the catch-up takes the option with the most quest work done
 no tab open at login (`behavior.autoSelectGuide`), a character who did quests
 in their race's first guide (`Guides.FirstGuide()`: the suggestion at level
 1) starts there and goes through the guides to where they are; one with
-nothing done there gets `Guides.Suggest()`, as before. `GUIDE_PLACED(guideId,
-step, passed)` fires for the active tab once placement of a guide just
-opened ends, with the guides passed whole.
+nothing done there gets `Guides.Suggest()`, as before; a character at the
+level cap (`Levels.MAX_LEVEL`) gets no tab, and Start guide opens one when
+they want it (#3395). `GUIDE_PLACED(guideId, step, passed)` fires for the
+active tab once placement of a guide just opened ends, with the guides
+passed whole.
 
 **Every step** (`Own.everyStep`): any guide but a leveling one (category
 `Leveling` or none) does every step: no grey quest is left out and nothing
@@ -5339,9 +5355,14 @@ in flight and drops the path; more than 25 yd off the path asks again, unless
 the aim is in sight as above (at
 most every 2 s, every 10 s while more than 2,000 yd of the walk are left:
 each ask searches the whole walk; the old path kept meanwhile); a failed search (`nodata`,
-`outside`, `offmesh`, `unreachable`, `error`, `Path.Available(map)` false,
-or `Find` raising) is asked again only after 15 s and 25 yd. Nothing is
-asked for in combat (the engine's own queue waits out combat as well).
+`outside`, `offmesh`, `unreachable`, `no safe walking route`, `error`, `Path.Available(map)` false,
+or `Find` raising) is asked again after 15 s once the player stands 5 yd (the router's arrival distance) from
+where it was asked. Meanwhile, as before 0.4.2 (#3409, Fitz's ruling), the arrow points straight at the goal
+(`Nav.noWalk`: a refusal on policy, a start off the walking map, no maps there, a capital's floor out of reach, a
+corpse run's checked detour without its walk) and says why under its label ("No safe walking route", "The last
+steps here aren't mapped"); its line is drawn straight where the danger policy lets it
+(`Nav.CanDrawGroundApproach`). 0.4.2 drew nothing and asked again only 25 yd away. While its answer is still to
+come it gives neither. Nothing is asked for in combat (the engine's own queue waits out combat as well).
 The walk to the target's own point carries the target's height: the Engine
 waypoint's `z` (a guide goal at an NPC or object, Guide data), which
 `Nav.GetTargetWorld()` returns fourth (a target set with `Nav.SetTarget` has
@@ -5695,7 +5716,13 @@ leg to its paired landing ("Ride the elevator up" boarded at the bottom,
 "Ride the elevator down" at the top), timed and captioned by
 `Transit.NextDeparture`/`Caption("lift", ...)` (30 s without); within 30 yd
 of the landing the walk's label already reads as the ride; other steps
-carry no wait (K3). The names in the captions are the client's, in its
+carry no wait (K3). With the client's height, the ride is shown only on the
+boarding deck and is over once that height is seen off the receiving deck
+30 yd from it; with none (Forever's `UnitPosition` gives 0, read as none:
+every 0.4.2 report says "height zero"), the deck can't be observed, so the
+ride is shown within 30 yd of the boarding landing on the map and is over 30
+yd from it, as in 0.4.1.1 (Main, 2026-11-21). The names in the captions are
+the client's, in its
 language: each chokepoint carries the AreaTable ids of its name, zone and
 sides (`area`, `zoneArea`, read with `Names.Area`) and a lift its
 GameObject (`liftObject`, the names pack's object name, else the Transit

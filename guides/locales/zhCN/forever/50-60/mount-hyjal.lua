@@ -69,22 +69,22 @@ return {
 	-- plural, as words: Hyjal Stags = {npc:248041} Hyjal Stag
 	["The untainted soil lies in the fields south and east of the outpost; Hyjal Stags graze there too, and their venison is for {npc:256222}'s stew.\nCareful: {npc:248709} (56), an elite treant, walks the fields to the south-east around 60,78: give him room."] = "",
 
-	-- Step 11: The ruined catapult and flying machine
-	["The ruined catapult and flying machine"] = "",
+	-- Step 11: The three wrecks
+	["The three wrecks"] = "",
 	-- {npc:256222} Ketharas · {item:269944} Bag of Enchanted Seeds
-	["Two of the wrecks {npc:256222} named lie at the east end of the fields: use the {item:269944} beside each."] = "",
+	["The three wrecks {npc:256222} named lie at the east end of the fields: use the {item:269944} beside each, the catapult and the flying machine first, then the ballista a little north of them."] = "",
 	-- {item:269944} Bag of Enchanted Seeds · {npc:266887} Ruined Catapult
 	["{item:269944}: the {npc:266887}"] = "",
 	-- {item:269944} Bag of Enchanted Seeds · {npc:266886} Ruined Flying Machine
 	["{item:269944}: the {npc:266886}"] = "",
+	-- {item:269944} Bag of Enchanted Seeds · {npc:262036} Ruined Ballista
+	["{item:269944}: the {npc:262036}"] = "",
 
 	-- Step 12: The shrub field
 	["The shrub field"] = "",
-	-- {npc:248395} Tainted Shrubbery · {item:269944} Bag of Enchanted Seeds · {quest:91923} Celastrus the Bitter · {npc:248709} Sunderbark
+	-- {npc:248395} Tainted Shrubbery · {quest:91923} Celastrus the Bitter · {npc:248709} Sunderbark
 	-- plural, as words: Scarlet Dart Tubers = {item:267289} Scarlet Dart Tuber
-	["North into the shrub field: the {npc:248395} drop the leaves, and the Scarlet Dart Tubers grow in the open ground, most of them in the field's western half. The ruined ballista stands at the field's north-eastern edge: use the {item:269944} to plant the last seed there. Keep clear of {quest:91923} and {npc:248709}, the field's elites."] = "",
-	-- {item:269944} Bag of Enchanted Seeds · {npc:262036} Ruined Ballista
-	["{item:269944}: the {npc:262036}"] = "",
+	["North into the shrub field: the {npc:248395} drop the leaves, and the Scarlet Dart Tubers grow in the open ground, most of them in the field's western half. Keep clear of {quest:91923} and {npc:248709}, the field's elites."] = "",
 
 	-- Step 13: Celastrus the Bitter
 	-- {quest:91923} Celastrus the Bitter

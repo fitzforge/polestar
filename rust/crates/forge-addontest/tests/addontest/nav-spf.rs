@@ -1194,7 +1194,7 @@ fn a_guide_goal_after_a_reached_guide_goto_keeps_the_straight_arrow_from_the_mou
 }
 
 #[test]
-fn unavailable_and_failed_walks_do_not_offer_a_compass_bearing() {
+fn unavailable_and_failed_walks_point_straight_and_are_asked_again_later() {
 	let none = run_with(
 		r#"
 		nav.place(0, 0)
@@ -1203,7 +1203,8 @@ fn unavailable_and_failed_walks_do_not_offer_a_compass_bearing() {
 		false,
 		false,
 	);
-	assert_eq!(none, json!([["unmapped"], true]));
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	assert_eq!(none, json!([["travel", 600, 0, -600], true]));
 
 	let out = run(r#"
 		local r = {}
@@ -1227,11 +1228,40 @@ fn unavailable_and_failed_walks_do_not_offer_a_compass_bearing() {
 		target(0, 400)
 		r.error = aim()
 		emit(r)"#);
-	assert_eq!(out["nodata"], json!([["unmapped"], 0]));
-	assert_eq!(out["unreachable"], json!(["unmapped"]));
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	assert_eq!(out["nodata"], json!([["travel", 600, 0, -600], 0]));
+	assert_eq!(out["unreachable"], json!(["travel", 500, 0, -500]));
 	assert_eq!(out["soon"], 1, "a failed search is not repeated at once");
-	assert_eq!(out["retry"], 2, "but again after 15 s and 25 yards");
-	assert_eq!(out["error"], json!(["unmapped"]));
+	assert_eq!(out["retry"], 2, "but again after 15 s and 5 yards");
+	assert_eq!(out["error"], json!(["travel", 440, 0, 400]));
+}
+
+// #3409, Fitz's ruling: wherever no walk is found the arrow points straight, as before 0.4.2, and says why under
+// its label; the line is drawn where the danger policy lets it. Here a walk refused on policy (Safe's
+// blockedReason: the other faction's town).
+#[test]
+fn a_walk_refused_on_policy_points_straight_says_why_and_draws_its_line() {
+	let out = run(r#"
+		local r = {}
+		nav.place(0, 0)
+		target(0, -500)
+		aim()
+		local job = fake.last()
+		job.blockedReason = "hostile town"
+		job.callback(nil, "no safe walking route", job)
+		r.aim = aim()
+		local a = N.arrow
+		a:Refresh()
+		r.label = a.labelText:GetText()
+		r.line = N.CanDrawGroundApproach()
+		local g = N.GetRouteGeometry()
+		local leg = g and g.legs and g.legs[1]
+		r.drawn = { leg and leg.straight or false, leg and #leg.pts or 0 }
+		emit(r)"#);
+	assert_eq!(out["aim"], json!(["travel", 500, 0, -500]), "straight at the target");
+	assert!(out["label"].as_str().unwrap_or("").contains("No safe walking route"), "and why: {}", out["label"]);
+	assert_eq!(out["line"], true);
+	assert_eq!(out["drawn"], json!([true, 2]), "its line straight from the player");
 }
 
 #[test]
@@ -1797,7 +1827,7 @@ fn z2_a_search_with_the_height_that_fails_is_asked_once_more_without_it_and_that
 }
 
 #[test]
-fn z2_a_failure_without_the_height_too_has_no_bearing_or_third_search() {
+fn z2_a_failure_without_the_height_too_points_straight_with_no_third_search() {
 	let out = run(&[
 		Z_WAYPOINT,
 		r#"
@@ -1809,7 +1839,8 @@ fn z2_a_failure_without_the_height_too_has_no_bearing_or_third_search() {
 		emit({ aim(), calls() })"#,
 	]
 	.concat());
-	assert_eq!(out, json!([["unmapped"], 2]));
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	assert_eq!(out, json!([["travel", 600, 0, -600], 2]));
 }
 
 // WorldFloor (2026-11-18): a walk searched with the goal's height (and the router's reach) that ends more than 30 yd
@@ -3053,7 +3084,7 @@ fn test_gap_handed_off_to_shortest_path_forever_refresh_cancels_the_measure_and_
 // hostile towns a walk enters are said; a later rule scales walk costs.
 
 #[test]
-fn searches_carry_the_player_faction_and_an_unknown_faction_gets_no_ground_bearing() {
+fn searches_carry_the_player_faction_and_an_unknown_faction_gets_the_straight_bearing() {
 	let out = run_priced(
 		&[
 			TERRAIN,
@@ -3093,7 +3124,8 @@ fn searches_carry_the_player_faction_and_an_unknown_faction_gets_no_ground_beari
 	assert_eq!(out["hordeAim"], "travel");
 	assert_eq!(out["pending"], json!(["routing", false, "routing", false, "Finding a walking route"]));
 	assert_eq!(out["reason"], "unknown faction");
-	assert_eq!(out["settled"], json!(["unsafe", false, "unsafe", false, "No safe walking route"]));
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	assert_eq!(out["settled"], json!(["travel", true, "travel", true, "200 yd"]));
 	assert_eq!(out["batch"], "Alliance", "the planner's measure too");
 }
 
@@ -5196,7 +5228,8 @@ fn city_a2_a_capital_s_goal_keeps_its_height_with_the_reach_and_says_the_last_st
 	assert_eq!(out["asked"], json!([66, 10]), "at his height, with the router's reach");
 	assert_eq!(out["startRetry"], json!([1, "none", 40, 66, 10]), "the tracked start's retry: from the surfaces near its floor, his height kept");
 	assert_eq!(out["flatRetry"], json!([2, "none", false, 66]), "then from no start height, his height kept");
-	assert_eq!(out["failed"], json!([0, "unmapped", true, true, false]), "no bearing or heightless search; the missing walk is explained");
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	assert_eq!(out["failed"], json!([0, "travel", true, true, false]), "no heightless search; the straight bearing, the missing walk explained");
 	assert_eq!(out["reached"], json!([0, "travel", true, true]), "the walk to the nearest reachable surface on his level, said");
 	assert_eq!(out["onFloor"], json!([false, false]));
 	assert_eq!(out["offFloor"], json!([0, true]), "kept, said");

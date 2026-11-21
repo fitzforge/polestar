@@ -344,13 +344,16 @@ fn the_settings_scroll_glides_on_whole_pixels_and_the_sidebar_nudges_to_its_bott
 	assert_eq!(out["gone"], false, "at the bottom it goes");
 }
 
-// A list longer than twelve rows (a profile menu, a long dropdown) scrolls under a filter box that takes the keys:
-// a list of choices (opts.current) opens with its current choice in view, typing narrows the rows (nothing left says
-// so), Enter picks the first left, Escape empties the box and then closes the list. A short list stays as it was: no
-// box, no scroll.
+// A list longer than twelve rows (a profile menu, a long dropdown) scrolls under a filter box: a list of choices
+// (opts.current) opens with its current choice in view, typing narrows the rows (nothing left says so), Enter picks
+// the first left, Escape empties the box and then closes the list. A short list stays as it was: no box, no scroll.
+// #3371 (Soggy: opening a menu on the run typed "wwww" into its filter): the box shows as the list opens but leaves
+// the keyboard where it was; a click on it gives it the keys.
 #[test]
 fn a_long_list_scrolls_under_a_filter_that_narrows_it_and_enter_picks_the_first_left() {
 	let out = run(r#"
+		local other = CreateFrame("EditBox", nil, UIParent)
+		other:SetFocus()
 		local anchor = CreateFrame("Frame", nil, UIParent)
 		anchor:SetSize(100, 20)
 		anchor:SetPoint("CENTER")
@@ -364,8 +367,14 @@ fn a_long_list_scrolls_under_a_filter_that_narrows_it_and_enter_picks_the_first_
 			for _, r in ipairs(m.rows) do if r:IsShown() then n = n + 1 end end
 			return n
 		end
-		local long = { scroll = m.Scroll:IsShown(), filter = m.Filter:IsShown(), focus = m.Filter:HasFocus(), rows = shown(),
-			view = m.Scroll.psView, content = m.Scroll.psContent, choiceInView = m.Scroll:GetVerticalScroll() > 0 }
+		local long = { scroll = m.Scroll:IsShown(), filter = m.Filter:IsShown(), focus = m.Filter:HasFocus(), keysStay = other:HasFocus(),
+			rows = shown(), view = m.Scroll.psView, content = m.Scroll.psContent, choiceInView = m.Scroll:GetVerticalScroll() > 0 }
+		other:ClearFocus()
+		W.HideMenu()
+		W.ShowMenu(anchor, items, { current = true })
+		local unclicked = m.Filter:HasFocus()
+		stub.RunScript(m.Filter, "OnMouseDown", "LeftButton")
+		local clicked = m.Filter:HasFocus()
 		local h = m:GetHeight()
 		m.Filter:SetText("1")
 		stub.RunScript(m.Filter, "OnTextChanged", true)
@@ -389,8 +398,13 @@ fn a_long_list_scrolls_under_a_filter_that_narrows_it_and_enter_picks_the_first_
 		W.ShowMenu(anchor, few)
 		local short = { filter = m.Filter:IsShown(), scroll = m.Scroll:IsShown(), rows = shown(), parent = m.rows[1]:GetParent() == m }
 		W.HideMenu()
-		emit({ long = long, narrowed = narrowed, none = none, enter = enter, esc1 = esc1, esc2 = esc2, short = short })"#);
-	assert_eq!(out["long"], json!({ "scroll": true, "filter": true, "focus": true, "rows": 20, "view": 312, "content": 520, "choiceInView": true }));
+		emit({ long = long, unclicked = unclicked, clicked = clicked, narrowed = narrowed, none = none, enter = enter, esc1 = esc1, esc2 = esc2, short = short })"#);
+	assert_eq!(
+		out["long"],
+		json!({ "scroll": true, "filter": true, "focus": false, "keysStay": true, "rows": 20, "view": 312, "content": 520, "choiceInView": true }),
+		"the filter shows, the keyboard stays where it was"
+	);
+	assert_eq!(json!([out["unclicked"].clone(), out["clicked"].clone()]), json!([false, true]), "nothing focused before: still none until the box is clicked");
 	assert_eq!(out["narrowed"], json!([11, true]), "\"1\": Choice 1 and 10 to 19; the list keeps its size");
 	assert_eq!(out["none"], json!([0, true]), "nothing left: it says so");
 	assert_eq!(out["enter"], json!([7, false]), "Enter picks the first left");

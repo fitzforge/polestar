@@ -262,7 +262,7 @@ return {
 
 	-- Step 58: Jom-jom's Escape
 	-- {npc:258048} Jom-jom · {npc:256728} Na'zok · {area:16726} Bolder'ok
-	["{npc:258048} waits by the Twilight ogres' camp north-east of {npc:256728}: take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "{npc:258048} attend près du camp des ogres du Crépuscule, au nord-est de {npc:256728} : ramenez-le chez lui à {area:16726} en le protégeant des cultistes. S'il meurt, reprenez la quête auprès de lui.",
+	["{npc:258048} waits at the back of the cave by the Twilight ogres' camp north-east of {npc:256728}: go all the way in to find him, then take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "",
 	-- {npc:258048} Jom-jom
 	["{npc:258048}, in the cave"] = "",
 	-- {npc:258048} Jom-jom · {area:16726} Bolder'ok
@@ -492,5 +492,6 @@ return {
 	-- ["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, hides in the middle of the town."] = "À l'ouest de Rog'mar, le culte du Crépuscule tient le village fermier de {area:16723}. {npc:259158}, un kobold qui veut s'en sortir, se cache au milieu du village.",
 	-- ["the {object:707249} poster"] = "l'affiche {object:707249}",
 	-- ["{npc:257062} offers the last two once Gobam's errands are done (players' recordings), which this guide leaves out. They are level 44 and 45: leave them for later if {npc:258626} was a close fight."] = "{npc:257062} propose les deux derniers une fois les courses de Gobam terminées (d'après des enregistrements de joueurs), que ce guide laisse de côté. Ils sont de niveau 44 et 45 : gardez-les pour plus tard si le combat contre {npc:258626} a été serré.",
+	-- ["{npc:258048} waits by the Twilight ogres' camp north-east of {npc:256728}: take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "{npc:258048} attend près du camp des ogres du Crépuscule, au nord-est de {npc:256728} : ramenez-le chez lui à {area:16726} en le protégeant des cultistes. S'il meurt, reprenez la quête auprès de lui.",
 	-- ["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "Les lances de {npc:263190}, sur les Crocilisques d'eau douce",
 }

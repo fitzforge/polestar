@@ -1018,6 +1018,8 @@ fn the_last_page_says_where_to_change_it_all_later_and_points_to_the_recorder_ea
 	assert_eq!(out["rec"], json!({ "closed": true, "page": "recorder", "enabled": true }), "its page in Settings, nothing switched on");
 }
 
+// 0.4.2.1: players have played the routes, so the Install no longer calls them beta; the note comes back only
+// while ns.routesBeta is set again.
 #[test]
 fn the_beta_callout_on_the_last_page_follows_ns_routesbeta() {
 	let out = run(r#"
@@ -1025,13 +1027,13 @@ fn the_beta_callout_on_the_last_page_follows_ns_routesbeta() {
 		local F = PolestarWelcome
 		local n = F.pages.finish.Body.Beta
 		local function note() return { chip = n.Chip:IsShown(), head = n.Head:IsShown(), text = n.Text:IsShown() and (n.Text:GetText() or "") ~= "" } end
-		local beta = note()
+		local proven = note()
 		F:Hide()
-		Polestar.routesBeta = false
+		Polestar.routesBeta = true
 		Wel.Show("finish")
-		emit({ beta = beta, proven = note() })"#);
+		emit({ proven = proven, beta = note() })"#);
+	assert_eq!(out["proven"], json!({ "chip": false, "head": false, "text": false }), "no beta note by default");
 	assert_eq!(out["beta"], json!({ "chip": true, "head": true, "text": true }), "the note and its Beta chip while the routes are in beta");
-	assert_eq!(out["proven"], json!({ "chip": false, "head": false, "text": false }));
 }
 
 #[test]

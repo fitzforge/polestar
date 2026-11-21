@@ -2824,6 +2824,8 @@ end
 
 -- The walk the arrow is on ends at a lift's landing and the player stands
 -- within LIFT_LEAVE of it on its floor: the lift ride (the next leg), shown in its place.
+-- Without a height from the client (Forever's UnitPosition gives 0, Compat reads it as none: every 0.4.2 report
+-- says "height zero"), the deck can't be told, so within LIFT_LEAVE on the map is enough, as before 0.4.2.
 local function boardingRide(leg, pc, px, py)
 	local ride = legs and legs[ci + 1]
 	local f, t = ride and ride.from, leg and leg.to
@@ -2837,8 +2839,7 @@ local function boardingRide(leg, pc, px, py)
 	if d > LIFT_LEAVE then return nil end
 	if f.z then
 		local z = Travel.ObservedFloor(pc)
-		if not z then return nil, d <= FLAT_ARRIVE end
-		if math.abs(z - f.z) > DECK_DZ then return nil end
+		if z and math.abs(z - f.z) > DECK_DZ then return nil end
 	end
 	return ride
 end
@@ -3548,13 +3549,12 @@ function Travel.Aim(pc, px, py)
 			local passed = P ~= nil and W ~= nil and W.Passed(P.c, P.wx, P.wy, leg.seg)
 			-- At the landing of the lift it ends at, the label shows the ride (Travel.CurrentLabel).
 			local ride = legs[ci + 1]
-			local boarding, unknownDeck = boardingRide(leg, pc, px, py)
+			local boarding = boardingRide(leg, pc, px, py)
 			local near = boarding ~= nil
 			if near ~= atLift then
 				atLift = near
 				Travel.version = Travel.version + 1
 			end
-			if unknownDeck then return "unmapped" end
 			-- On a crossing's walk from an end with a floor height, near that end but found on another floor
 			-- (the floor became known after the plan took the player for there): plan again.
 			local from = leg.from
@@ -3574,7 +3574,9 @@ function Travel.Aim(pc, px, py)
 					if P then gc, gx, gy, gz = P.c, P.wx, P.wy, P.leg.to.z end
 					-- A piece aims no further than its chokepoint's spot on the path (leg.stop, Walk.Stops).
 					local wc, wx, wy, left, unmapped = W.Aim(pc, px, py, gc, gx, gy, leg.handmade, gz, P and leg.stop, checked)
-					if unmapped then return unmapped == true and "unmapped" or unmapped end
+					if unmapped == "routing" then return "routing" end
+					-- No walk found: straight to the leg's end, and the arrow says why (Nav.noWalk, #3409).
+					if unmapped then Nav.noWalk = unmapped == "unsafe" and "unsafe" or "unmapped" end
 					if wc then
 						left = left - (leg.tail or 0)
 						if left < 0 then left = 0 end
@@ -3582,7 +3584,7 @@ function Travel.Aim(pc, px, py)
 						return "walk", wc, wx, wy, left
 					end
 				end
-				if checked then return "unmapped" end
+				if checked then Nav.noWalk = Nav.noWalk or "unmapped" end
 				progressYards = yards(pc, px, py, to.c, to.wx, to.wy) * WALK_DETOUR
 				return "walk", to.c, to.wx, to.wy
 			end
@@ -3601,16 +3603,22 @@ function Travel.Aim(pc, px, py)
 		elseif kind == "lift" then
 			-- Walking away on the boarding deck is not a completed ride. Observe
 			-- this car's directed destination before resuming its onward walk.
+			-- Without a height from the client (Forever's: Compat reads its 0 as none), or a lift without deck heights,
+			-- no deck can be observed: the ride is over once the player is LIFT_LEAVE from its boarding landing on the
+			-- map, as before 0.4.2.
 			local from, to, C = leg.from, leg.to, ns.Compat
+			local x, y, z, map
+			if C and C.GetPlayerUnitPosition then x, y, z, map = C.GetPlayerUnitPosition() end
 			local departed
-			if from.z and to.z and C and C.GetPlayerUnitPosition then
-				local x, y, z, map = C.GetPlayerUnitPosition()
+			if not (z and from.z and to.z) then
+				departed = yards(pc, px, py, from.c, from.wx, from.wy) > LIFT_LEAVE
+			else
 				local falling
 				if IsFalling then
 					local ok, value = pcall(IsFalling)
 					falling = not ok or C.Readable(value) ~= false
 				end
-				if map == pc and map == to.c and z and not falling
+				if map == pc and map == to.c and not falling
 					and not (C.IsOnTaxi and C.IsOnTaxi()) and not (C.IsSwimming and C.IsSwimming())
 					and math.abs(z - to.z) < math.abs(z - from.z) then
 					local d = yards(map, x, y, to.c, to.wx, to.wy)
