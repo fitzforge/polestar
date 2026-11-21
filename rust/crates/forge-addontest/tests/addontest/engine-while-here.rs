@@ -2347,7 +2347,7 @@ assert(Polestar.RegisterGuide({
 	},
 }))
 "#;
-	let out = run_guide_with(guide, "test/shared-camps", "", r#"
+	let script = r#"
 local function quests()
 	local out = {}
 	for _, row in ipairs(E.GetWhileHereList()) do out[#out + 1] = row.quest end
@@ -2362,7 +2362,8 @@ emit(quests())
 w.accept(106, { 5 })
 flush(); stub.advance(0.6)
 emit({ E.GetLiveStep(), E.GoalDone(2, 1), E.GoalDone(2, 2) })
-"#);
+"#;
+	let out = run_guide_with(guide, "test/shared-camps", "", script);
 	assert_eq!(out[0], json!([50]), "only unrelated work is offered at the shared camp before the pickup");
 	assert!(list(&out[1]).iter().any(|q| q == 60), "the other source still gives a line: {out:?}");
 	assert_eq!(out[2], json!([50]), "the line leaves when crossing back into the shared camp");
