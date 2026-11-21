@@ -8,13 +8,13 @@
 return {
 	-- Guide
 	-- {zone:1454} Orgrimmar · {area:1099} Camp Mojache · {area:511} Wyrmbog · {area:496} Brackenwall Village
-	["{zone:1454}'s hand-ins, {area:1099}'s Muisek vessel, then Dustwallow's {area:511} and {area:496}."] = "",
+	["{zone:1454}'s hand-ins, {area:1099}'s Muisek vessel, then Dustwallow's {area:511} and {area:496}."] = "Las entregas de {zone:1454}, la vasija Muisek de {area:1099}, y luego {area:511} y {area:496} de Marjal Revolcafango.",
 	["Takes you to level 47"] = "Te lleva al nivel 47",
 	-- {zone:1446} Tanaris
 	["Then on to {zone:1446}"] = "Luego hacia {zone:1446}",
 	["Stays on the main route"] = "Se mantiene en la ruta principal",
 	-- {zone:2652} Shen'dralas · {zone:1446} Tanaris
-	["Skips {zone:2652}: about a dozen fewer quests, a third of a level lower into {zone:1446}"] = "",
+	["Skips {zone:2652}: about a dozen fewer quests, a third of a level lower into {zone:1446}"] = "Omite {zone:2652}: una docena de misiones menos, y llegas a {zone:1446} con un tercio de nivel menos",
 
 	-- Step 1: Orgrimmar
 	-- {object:172960} Cleft of Shadow · {object:172958} Valley of Honor
@@ -25,13 +25,13 @@ return {
 	["{npc:6986}, the Drag"] = "{npc:6986}, calle comercial de Orgrimmar",
 	-- {zone:1425} Hinterlands
 	-- was: ["for the {zone:1425}, around level 50"] = "para {zone:1425}, alrededor del nivel 50"
-	["for the {zone:1425}, around level 49"] = "",
+	["for the {zone:1425}, around level 49"] = "para {zone:1425}, alrededor del nivel 49",
 
 	-- Step 3: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "Vuela a {area:1638}",
 	-- {area:1638} Thunder Bluff · {area:1099} Camp Mojache
-	["Your trainer is in {area:1638}, on the way to {area:1099}."] = "",
+	["Your trainer is in {area:1638}, on the way to {area:1099}."] = "Tu instructor está en {area:1638}, de camino a {area:1099}.",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "Maestro de vuelo de {zone:1454}",
 
@@ -43,18 +43,18 @@ return {
 
 	-- Step 6: Fly to Camp Mojache
 	-- {area:1099} Camp Mojache · {zone:1444} Feralas · {zone:1446} Tanaris
-	["Fly to {area:1099} (or hearth there, if your hearthstone is ready: it is still bound there from the {zone:1444} & {zone:1446} guide)."] = "",
+	["Fly to {area:1099} (or hearth there, if your hearthstone is ready: it is still bound there from the {zone:1444} & {zone:1446} guide)."] = "Vuela a {area:1099} (o usa la piedra de hogar, si está lista: sigue vinculada allí desde la guía de {zone:1444} y {zone:1446}).",
 
 	-- Step 7: Camp Mojache
 	-- {zone:1425} Hinterlands
 	-- was: ["for the {zone:1425} owlbeasts, around level 48"] = "para los lechúcicos de {zone:1425}, alrededor del nivel 48"
-	["for the {zone:1425} owlbeasts, around level 49"] = "",
+	["for the {zone:1425} owlbeasts, around level 49"] = "para las lechubestias de {zone:1425}, alrededor del nivel 49",
 
 	-- Step 8: Fly to Brackenwall Village
 	-- {area:496} Brackenwall Village
 	["Fly to {area:496}"] = "Vuela a {area:496}",
 	-- {zone:1444} Feralas · {zone:1446} Tanaris · {area:496} Brackenwall Village
-	["No Muisek vessel to bring Uzer'i (you didn't take the {zone:1444} & {zone:1446} guide's chain): fly from here straight to {area:496}."] = "",
+	["No Muisek vessel to bring Uzer'i (you didn't take the {zone:1444} & {zone:1446} guide's chain): fly from here straight to {area:496}."] = "¿No tienes la vasija Muisek para llevarle a Uzer'i (no hiciste la cadena de la guía de {zone:1444} y {zone:1446})? Vuela desde aquí directo a {area:496}.",
 
 	-- Step 9: Fly to Brackenwall Village
 	-- {area:1099} Camp Mojache
@@ -96,9 +96,9 @@ return {
 	["The Eggs of Onyxia lie in the dragon caves in the {area:511}'s south-east, guarded by the scalebanes; smash five."] = "Los Huevos de Onyxia están en las cuevas de dragones del sureste de {area:511}, custodiados por los horrocrustos; destruye cinco.",
 
 	-- Step 16: Muckshell crabs
-	["Muckshell crabs"] = "",
+	["Muckshell crabs"] = "Cangrejos Valvafango",
 	-- plural, as words: Muckshell Razorclaws = {npc:4405} Muckshell Razorclaw
-	["On the way back north from the dragon caves, the Muckshell Razorclaws and Pincers (41-44) crowd the shallows just north of the caves; about one in twenty carries the Jeweled Pendant Marg Speaks asks for."] = "",
+	["On the way back north from the dragon caves, the Muckshell Razorclaws and Pincers (41-44) crowd the shallows just north of the caves; about one in twenty carries the Jeweled Pendant Marg Speaks asks for."] = "De vuelta al norte desde las cuevas de los dragones, los zarpadores y tenazarios Valvafango (41-44) llenan los bajíos justo al norte de las cuevas; más o menos uno de cada veinte lleva el colgante enjoyado que pide Las declaraciones de Marg.",
 
 	-- Step 17: Level 45.37
 	["Level 45.37"] = "Nivel 45.37",
@@ -109,11 +109,11 @@ return {
 
 	-- Step 18: Brackenwall Village
 	-- {npc:4791} Nazeer Bloodpike · {item:5942} Jeweled Pendant
-	["{npc:4791}: the {item:5942}"] = "",
+	["{npc:4791}: the {item:5942}"] = "{npc:4791}: el {item:5942}",
 	-- {npc:4047} Zor Lonetree · {zone:1454} Orgrimmar · {zone:1447} Azshara
-	["for {npc:4047} in {zone:1454}, on the {zone:1447} guide's {zone:1454} stop"] = "",
+	["for {npc:4047} in {zone:1454}, on the {zone:1447} guide's {zone:1454} stop"] = "para {npc:4047} en {zone:1454}, en la parada de {zone:1454} de la guía de {zone:1447}",
 	-- {quest:3128} Natural Materials · {zone:1444} Feralas
-	["Keep {quest:3128} and Improved Quality: {zone:1444}' sprites, hippogryphs, Zorbin's coast and the Rage Scar yetis come on your {zone:1444} loop at about 51, with the Muisek chain."] = "",
+	["Keep {quest:3128} and Improved Quality: {zone:1444}' sprites, hippogryphs, Zorbin's coast and the Rage Scar yetis come on your {zone:1444} loop at about 51, with the Muisek chain."] = "Guarda {quest:3128} y Calidad mejorada: los duendes, los hipogrifos, la costa de Zorbin y los yetis Cicatriz de Rabia de {zone:1444} vienen en tu recorrido por {zone:1444} hacia el nivel 51, con la cadena Muisek.",
 
 	-- Step 19: Challenge Overlord Mok'Morokk
 	-- {quest:1173} Challenge Overlord Mok'Morokk · {npc:4500} Overlord Mok'Morokk · {npc:4501} Draz'Zilb

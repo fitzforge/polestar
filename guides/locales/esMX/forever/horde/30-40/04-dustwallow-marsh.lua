@@ -95,7 +95,7 @@ return {
 	-- {npc:4503} Mudcrush Durtfeet · {npc:4791} Nazeer Bloodpike · {npc:4926} Krog
 	["Head back west to Brackenwall with the head: {npc:4503} stands at the south edge of the village where the road comes in, {npc:4791} and {npc:4926} in the village."] = "Regresa al oeste a Poblado Murohelecho con la cabeza: {npc:4503} está en el borde sur del poblado, donde entra el camino, y {npc:4791} y {npc:4926} en el poblado.",
 	-- {npc:2519} Kin'weelay · {object:3202} Grom'gol (no name in this language: may be words) · {zone:1434} Stranglethorn Vale · {zone:1435} Swamp of Sorrows
-	["For {npc:2519} at {object:3202}, in the {zone:1434} & {zone:1435} guide"] = "",
+	["For {npc:2519} at {object:3202}, in the {zone:1434} & {zone:1435} guide"] = "Para {npc:2519} en Grom'gol, en la guía de {zone:1434} y {zone:1435}",
 
 	-- Step 20: Level 36
 	["Level 36"] = "Nivel 36",
@@ -143,7 +143,7 @@ return {
 
 	-- Step 27: Aka'rai
 	-- {npc:268705} Aka'rai · {area:2408} Shadowprey Village · {area:603} Sargeron · {area:599} Thunder Axe Fortress
-	["{npc:268705} stands by the path out of {area:2408}, on your way east: her Hatefury satyrs are at {area:603}, past {area:599} later on this visit."] = "",
+	["{npc:268705} stands by the path out of {area:2408}, on your way east: her Hatefury satyrs are at {area:603}, past {area:599} later on this visit."] = "{npc:268705} está junto al sendero que sale de {area:2408}, de camino al este: sus sátiros Odio Feroz están en {area:603}, pasando {area:599}, más adelante en esta visita.",
 
 	-- Step 28: Ghost Walker Post
 	-- {area:597} Ghost Walker Post · {npc:5412} Gurda Wildmane · {npc:5395} Felgur Twocuts
@@ -174,18 +174,18 @@ return {
 
 	-- Step 34: Sargeron
 	-- {area:603} Sargeron
-	["East from the fortress to {area:603}, the Hatefury satyrs' ruins in the north-east (32-33, well under you now): two of each kind."] = "",
+	["East from the fortress to {area:603}, the Hatefury satyrs' ruins in the north-east (32-33, well under you now): two of each kind."] = "Al este de la fortaleza hasta {area:603}, las ruinas de los sátiros Odio Feroz en el noreste (32-33, muy por debajo de ti ahora): dos de cada tipo.",
 
 	-- Step 35: Sar'theris Strand
 	-- {area:598} Sar'theris Strand
 	-- plural, as words: Slitherblade Myrmidons = {npc:4714} Slitherblade Myrmidon
 	-- was: ["West from the fortress to the coast at {area:598}: the Slitherblade Myrmidons, Naga and Sorceresses hold the beach. Pull them one at a time; the Sea Witches and Oracles (34-36) cast from range."] = "Al oeste de la fortaleza, hasta la costa en {area:598}: los mirmidones Filozante, las nagas y las hechiceras ocupan la playa. Atráelos de uno en uno; las brujas del mar y los oráculos (34-36) lanzan hechizos a distancia."
-	["West past the fortress to the coast at {area:598}: the Slitherblade Myrmidons, Naga and Sorceresses hold the beach. Pull them one at a time; the Sea Witches and Oracles (34-36) cast from range."] = "",
+	["West past the fortress to the coast at {area:598}: the Slitherblade Myrmidons, Naga and Sorceresses hold the beach. Pull them one at a time; the Sea Witches and Oracles (34-36) cast from range."] = "Al oeste de la fortaleza, hasta la costa en {area:598}: los mirmidones Filozante, las nagas y las hechiceras ocupan la playa. Atráelos de uno en uno; las brujas del mar y los oráculos (34-36) lanzan hechizos a distancia.",
 
 	-- Step 36: Shadowprey Village
 	-- {npc:268705} Aka'rai · {npc:11624} Taiga Wisemane · {area:602} Mannoroc Coven · {npc:12340} Drulzegar Skraghook
 	-- was: ["South down the coast to Shadowprey: {npc:11624} takes the box and sends you to {area:602} with it; {npc:12340} takes the naga."] = "Al sur por la costa hasta Shadowprey: {npc:11624} toma la caja y te envía con ella a {area:602}; {npc:12340} recibe lo de las nagas."
-	["South down the coast to Shadowprey: {npc:268705} first, on the path into the village; {npc:11624} takes the box and sends you to {area:602} with it; {npc:12340} takes the naga."] = "",
+	["South down the coast to Shadowprey: {npc:268705} first, on the path into the village; {npc:11624} takes the box and sends you to {area:602} with it; {npc:12340} takes the naga."] = "Al sur por la costa hasta Cazasombras: primero {npc:268705}, en el sendero que entra a la aldea; {npc:11624} toma la caja y te envía con ella a {area:602}; {npc:12340} recibe lo de las nagas.",
 
 	-- Step 37: Portals of the Legion
 	-- {area:602} Mannoroc Coven · {quest:5381} Hand of Iruxos · {npc:11624} Taiga Wisemane · {npc:11937} Demon Portal Guardian
