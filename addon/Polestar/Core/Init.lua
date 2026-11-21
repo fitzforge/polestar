@@ -18,8 +18,8 @@ ns.stage = "Beta"
 -- The leveling routes are planned and played in the simulator but not yet
 -- followed through the live game: the welcome (UI/Welcome.lua) says so on
 -- its own page while this is true. The owner turns it off once they have
--- been.
-ns.routesBeta = true
+-- been: off since 0.4.2.1, players have played them.
+ns.routesBeta = false
 -- Dungeons in the leveling routes (`when dungeon` steps, the
 -- behavior.dungeons setting "Dungeons in my route", the per-character answers
 -- in CharState().dungeons): built, held back for a later release. While
