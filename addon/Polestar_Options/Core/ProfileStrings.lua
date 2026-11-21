@@ -157,6 +157,8 @@ local PAGES = {
 	-- A section per addon Polestar works with.
 	integrations = { "quests", sections = { EllesmereUI = "skin", TomTom = "arrow", ["Shortest Path Forever"] = "routes" } },
 	gamepad = "window",
+	-- The update notices' switch (under Install), the guide window's.
+	about = "window",
 }
 
 -- Settings that go with another part than the section they sit in.
@@ -224,7 +226,10 @@ local function index()
 			if type(spec) == "table" and type(spec.page) == "string" and type(spec.controls) == "table" then
 				local page = keyOf[spec.page] or gsub(lower(spec.page), "[^%w]+", "")
 				if spec.toggle then add(spec.toggle, page, spec.tab, spec.section) end
-				for _, c in ipairs(spec.controls) do add(c, page, spec.tab, spec.section) end
+				for _, c in ipairs(spec.controls) do
+					add(c, page, spec.tab, spec.section)
+					for _, k in ipairs(type(c.children) == "table" and c.children or {}) do add(k, page, spec.tab, spec.section) end
+				end
 			end
 		end
 	end

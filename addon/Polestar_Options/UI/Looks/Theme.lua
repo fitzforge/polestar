@@ -720,7 +720,8 @@ if O and O.Ref then
 	local ESSENTIALS = L["Essentials"]
 	local list = {
 		{ page = PAGE, tab = ESSENTIALS, lead = true, section = L["Skin"], preview = buildPreview,
-			controls = { R(skinCards and "cards" or "dropdown", "ui.skin") } },
+			jump = { tab = L["Colour"], section = L["Skin & accent"] },
+			controls = { R(skinCards and "cards" or "dropdown", "ui.skin", skinCards and { limit = 6 } or nil) } },
 		{ page = PAGE, tab = ESSENTIALS, section = L["Colour & frames"], jump = { tab = L["Colour"], section = L["Skin & accent"] },
 			controls = { R("color", "ui.accent"), R("dropdown", "ui.scheme", { wide = false }), R("slider", "ui.bgOpacity"), R("slider", "ui.brightness"),
 				R("slider", "ui.borderSize"), R("toggle", "ui.reduceMotion") } },
