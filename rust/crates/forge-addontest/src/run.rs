@@ -24,8 +24,9 @@ pub fn stubs_dir() -> PathBuf {
 
 /// Polestar's own load-on-demand addons besides the walking maps' parts, which [`run_addon`] loads from their
 /// TOC when the addon asks (C_AddOns.LoadAddOn): the settings window, the Skin API's checks (with the first
-/// skin or scheme another addon registers) and the game looks and Hearth (the first time one is painted).
-pub const LOAD_ON_DEMAND: &[&str] = &["Polestar_Options", "Polestar_SkinAPI", "Polestar_Looks", "Polestar_Arcade"];
+/// skin or scheme another addon registers), the game looks and Hearth (the first time one is painted), Freedoom Arcade
+/// (the first Play) and the guide window's other tab styles (the first time one is drawn).
+pub const LOAD_ON_DEMAND: &[&str] = &["Polestar_Options", "Polestar_SkinAPI", "Polestar_Looks", "Polestar_Arcade", "Polestar_TabStyles"];
 
 /// An addon to load, as the client loads it.
 #[derive(Clone, Debug)]
@@ -196,8 +197,9 @@ end"
 	// asks for one the first time it searches its continent), the settings window (Polestar_Options:
 	// UI/OptionsLoader.lua asks for it the first time the settings open), the Skin API's checks
 	// (Polestar_SkinAPI: Theme/SkinApi.lua asks for them with the first skin or scheme another addon registers),
-	// the game looks with Hearth (Polestar_Looks: Theme.LoadLooks, the first time one is painted) and Freedoom
-	// Arcade (Polestar_Arcade: Maps/Arcade.lua, the first Play).
+	// the game looks with Hearth (Polestar_Looks: Theme.LoadLooks, the first time one is painted), Freedoom
+	// Arcade (Polestar_Arcade: Maps/Arcade.lua, the first Play) and the guide window's other tab styles
+	// (Polestar_TabStyles: UI/GuideFrameTabStyles.lua, the first time one is drawn).
 	static PART_FILES: LazyLock<Result<Vec<(String, String)>, String>> = LazyLock::new(|| {
 		let regions = forge_guide::project::nav_region_addons(&addons_dir())?;
 		let names = forge_nav::pack::PARTS.iter().map(|(_, p)| *p).chain(LOAD_ON_DEMAND.iter().copied()).chain(regions.iter().map(String::as_str));

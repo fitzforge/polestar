@@ -115,6 +115,82 @@ art.
 - **Versions and capabilities**: `api`, `API_VERSION`, `HasCapability`, so
   a skin can use a newer feature where it exists and do without elsewhere.
 
+## Layouts: the guide window's structure, apart from its look
+
+A layout is the guide window's structure alone: where its parts sit, which
+of them show, how tall the step's header is. It carries no tokens, colours,
+fonts or painters, so a skin sits on top of any layout and keeps its look.
+
+```lua
+Polestar.Theme.RegisterLayout("ledger", {
+	api = 2, name = "Ledger", addon = "Polestar_Layout_Ledger",
+	hooks = {
+		guideInset = function(name) return name == "upnext" and 12 or 0 end,
+		guideShows = function(name, default) if name == "tip" then return false end return default end,
+	},
+})
+```
+
+- **Hooks**: only the structure hooks (`guideLayout`, `guideRender`,
+  `guidePlace`, `guideAnchor`, `guideTakes`, `guidePerson`, `guideInset`,
+  `guideUpRow`, `guideShows`, `guideSpace`, `guideTitle`, `guideRow`, `guideProgress`),
+  with the same arguments a skin's get. Their colours are the skin's
+  tokens.
+  Any other field or hook is refused.
+- **Who answers**: the layout's hook where it has one, else the skin's,
+  else Polestar's own. A skin that hooks the same surface keeps it under
+  Polestar's own layout.
+- **Layout, then skin**: for `guideTitle`, `guideRow`, `guideRender`,
+  `guidePlace` and `guideProgress` the skin's hook also runs, after the
+  layout's and with the same parts, so the layout lays out and the skin
+  styles. The layout's answer wins when it is not nil; the skin's counts
+  when the layout's is nil. For `guidePlace` the layout alone decides
+  where a part goes.
+- **Settings defaults**: the player sets the guide window's parts in its
+  settings (`guideWindow.*`: the tabs, the step count, the buttons, the
+  target bar, the progress line...), so a layout never hides those parts
+  through a hook. It gives its own defaults instead:
+  `defaults = { ["guideWindow.tabs"] = false, ["guideWindow.targetBar"] = false }`.
+  A setting reads the player's value, else the layout's default, else
+  Polestar's. Switching layout changes only the settings the player never
+  set, the settings window shows the value in use, and a reset goes back
+  to the layout's default.
+- **A preset card**: `preset = { label = "Ledger", help = "...", set = {
+  ["ui.skin"] = "ledger" } }` puts a card for the layout in the guide
+  window's Presets, after Polestar's own (Standard, Compact, Transparent,
+  Large text). Picking it chooses the layout, loading its addon, then
+  writes `set`: look settings as a skin's preset takes, and the skin the
+  layout is drawn for (`ui.skin`), never `ui.layout`. Picking one of
+  Polestar's own cards goes back to Polestar's own layout. The card is
+  checked while the layout is in use, and its picture is the guide window
+  drawn through the layout's hooks; Polestar's own cards draw with
+  Polestar's own layout whatever the layout in use. Keep `defaults` out of
+  `set`: they stay the layout's soft defaults. A layout that loads on
+  demand names its card in its TOC so it shows before the addon loads
+  (`## X-Polestar-Layout-Preset: ledger = Ledger`); its picture is then the
+  label alone. Capability `layouts.preset`.
+- **Leaving**: `onLeave(id, parts, live)` runs once for each guide window
+  the layout dressed: the live window (`live` true), then each copy drawing
+  with the layout in use, such as the settings preview (`live` false). It
+  gives that window's parts their look back and hides the pieces the layout
+  made in it; the live window's call also hides pieces outside any guide
+  window. A guide window's frame carries `psGuideWindow = true`, so a layout
+  can tell which window a piece sits in.
+- **The choice**: the setting `ui.layout`, unset for Polestar's own layout.
+  `Polestar.Theme.SetLayout("ledger")` picks one (in chat: `/run
+  Polestar.Theme.SetLayout("ledger")`), `Polestar.Theme.SetLayout()` goes
+  back.
+- **Load on demand**: a folder `Polestar_Layout_<Name>` whose TOC says
+  `## X-Polestar-Layout: ledger` and `## LoadOnDemand: 1` loads at login
+  when the saved layout is its own, and when the player picks it.
+- **Errors**: a layout's hook, `onApply` or `onLeave` runs under `pcall`;
+  the first error is noted and the layout is off for the session. A
+  failing layout leaves the skin in use, and a failing skin leaves the
+  layout in use.
+
+The functions and messages are in the
+[reference](skins/reference.md#layouts).
+
 ## More to read: the skins in the download
 
 Beside Moonlit, the release carries complete skins, each an addon of its

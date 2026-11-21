@@ -111,7 +111,8 @@ fn the_guide_window_band_crops_a_window_taller_than_its_room_and_fades_it_out_at
 // Every band is as tall as its element and its parts: 20 + [the dropdown 28 + 14] + the element at its fit + [Play
 // under it, 8 + 22, on a band too narrow to hang it beside] + [its labels 10 + 15] + [the hint line 10 + 15] + 20,
 // never over 55% of the body, and the slot is the band's height. Every element is at its real size where it fits
-// (Theme's three, side by side, are the one too wide for the default window).
+// (Theme's three, side by side, are the one too wide for the default window; the guide window, taller than the room,
+// is scaled down to fit, to 60%).
 #[test]
 fn every_band_is_as_tall_as_its_element_and_its_parts_and_never_over_55_percent() {
 	let out = run(r#"
@@ -135,7 +136,10 @@ fn every_band_is_as_tall_as_its_element_and_its_parts_and_never_over_55_percent(
 		assert!((h - want).abs() <= 1.0, "{at}: {h} tall, its parts make {want}: {b}");
 		assert!((b["slot"].as_f64().unwrap() - h).abs() <= 0.5, "{at}: the slot is the band's height: {b}");
 		assert!(h <= b["cap"].as_f64().unwrap() + 0.5, "{at}: within 55% of the body: {b}");
-		if !at.starts_with("theme/") || at == "theme/Names" {
+		if at.starts_with("guidewindow/") {
+			// The window, taller than the band's room, is scaled down to fit, to 60% at the least (UI/Looks/GuideWindow.lua).
+			assert!(b["fit"].as_f64().unwrap() >= 0.6, "{at}: the window fits at 60% or more: {b}");
+		} else if !at.starts_with("theme/") || at == "theme/Names" {
 			assert_eq!(b["fit"], 1, "{at}: at its real size where it fits: {b}");
 		}
 	}

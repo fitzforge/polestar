@@ -50,13 +50,14 @@ local PREVIEW_H = 250 -- the drawing's height until its band lays it out
 -- part as the window names it (GF.Placed).
 local PART_OF = {}
 for part, keys in pairs({
-	bars = { "tabs", "tabHeight", "navHeight", "barTextSize", "stepCount", "guideTitle", "skipButton", "reportButton" },
-	person = { "titleSize", "glyphSize" },
+	bars = { "tabs", "tabStyle", "tabHeight", "navHeight", "barTextSize", "stepCount", "guideTitle", "skipButton", "reportButton", "allStepsButton" },
+	person = { "titleSize", "glyphSize", "lastSteps" },
 	goals = { "goalSize", "detailSize", "rowSpacing", "lineSpacing", "checkSize", "targetBar", "targetBarWidth", "targetBarColor" },
 	tip = { "noteSize" },
 	upnext = { "upSize" },
 	foot = { "progress", "progressHeight", "progressColor", "progressPct" },
 	xp = { "pace" },
+	journey = { "journeyStyle" },
 }) do
 	for _, k in ipairs(keys) do PART_OF["guideWindow." .. k] = part end
 end
@@ -68,7 +69,8 @@ PART_OF["ui.showNotes"], PART_OF["ui.upcoming"], PART_OF["ui.upcomingOpen"] = "t
 -- the work at Goldshire (a kill done, folded into "1 done"; the kill the arrow
 -- points at, the current goal; a collect, its mobs and their levels under
 -- it), then Marshal Dughan's turn-in, the step's other person ("Then:"); the
--- author's tip; six steps after it for Up next; the XP line (on pace, and the
+-- author's tip; the steps before it for Steps before (Brother Paxton skipped,
+-- then the walk into Goldshire); six steps after it for Up next; the XP line (on pace, and the
 -- XP tracker's rate and time to level while it is on). Its places are the
 -- zone's; the numbers are a sample's.
 local SAMPLE
@@ -100,6 +102,13 @@ do
 				{ kind = "npc", name = L["Marshal Dughan"], goals = { 4 }, done = false, map = MAP, x = 42, y = 66 },
 			} },
 	}
+	-- Steps before: the five before it, the oldest first; the fourth skipped.
+	for i, title in ipairs({ L["Northshire Abbey"], L["Echo Ridge Mine"], L["Northshire Vineyards"], L["Brother Paxton"], L["Goldshire"] }) do
+		local s, skipped = 2 + i, i == 4
+		STEPS[s] = { index = s, title = title, status = skipped and "skipped" or "done", skipped = skipped, focus = 1,
+			goals = { goal(1, 1, "goto", nil, title, "place", skipped and "skipped" or "done") },
+			groups = { { kind = "here", goals = { 1 }, done = true } } }
+	end
 	-- Up next: the steps after it, by their titles.
 	for i, title in ipairs({ L["Fargodeep Mine"], L["Lion's Pride Inn"], L["Stonefield Farm"], L["Jasperlode Mine"],
 		ns.Names.Or("area", 86, "Eastvale Logging Camp"), ns.Names.Or("area", 40, "Westfall") }) do
@@ -202,10 +211,13 @@ function UI.GuideWindowScene(band)
 		self.psW, self.psHeight = width, height or PREVIEW_H
 		if not self.psDrawn then return end
 		local F = G.frame
-		local w, y = F:GetWidth(), F:GetHeight()
+		-- What a layout hangs under the window (G.Below) is in the box too.
+		local w, y = F:GetWidth(), F:GetHeight() + (G.Below and G.Below() or 0)
+		-- Tabs drawn outside the window (guideWindow.tabStyle "edge", "strip") keep their room in the box.
+		local ol, ot = G.TabsOutside()
 		local s = (tonumber(ns.Get("ui.scale")) or 1) * band:TrueScale()
-		local k = s * min(1, (width - 32) / (w * s))
-		local room = (self.psHeight - 8) / k
+		local k = s * min(1, (width - 32) / ((w + ol) * s))
+		local room = (self.psHeight - 8) / k - ot
 		local placed = G.Placed()
 		local at, rowsFoot = {}, 0
 		for _, p in ipairs(placed) do
@@ -223,7 +235,7 @@ function UI.GuideWindowScene(band)
 		local snap = ns.UI.Preview.Snap
 		F:SetScale(k)
 		F:ClearAllPoints()
-		F:SetPoint("TOPLEFT", self, "TOPLEFT", snap(F, (width / k - w) / 2), snap(F, scroll - drop))
+		F:SetPoint("TOPLEFT", self, "TOPLEFT", snap(F, (width / k - w - ol) / 2 + ol), snap(F, scroll - drop - ot))
 		self.psScale, self.psScroll = k, scroll
 		local seen = scroll + self.psHeight / k
 		for _, p in ipairs(placed) do
@@ -269,6 +281,11 @@ function UI.GuideWindowScene(band)
 		local P, F = G.parts, G.frame
 		local nav, person, foot, up = P.nav, P.person, P.foot, P.upnext
 		hot(P.strip, "guideWindow.tabHeight")
+		-- The tab styles' own tabs (made on each style's first use), and the
+		-- steps before and the XP line where the window shows them.
+		for _, k in ipairs({ "tabSwitch", "tabEdge", "tabSide" }) do hot(P[k], "guideWindow.tabStyle") end
+		hot(P.last, "guideWindow.lastSteps")
+		hot(G.xp, "qol.xpTracker")
 		hot(nav, "guideWindow.navHeight")
 		hot(person, "guideWindow.titleSize")
 		for _, r in ipairs(G.rows) do hot(r, "guideWindow.goalSize") end
@@ -296,6 +313,9 @@ function UI.GuideWindowScene(band)
 		local spacing = { P.tip.Text }
 		for _, t in ipairs(texts) do spacing[#spacing + 1] = t end
 		for _, s in ipairs(subs) do spacing[#spacing + 1] = s end
+		-- The tab styles' frames the copy has made so far (each on its style's first use).
+		local styled = { P.strip }
+		for _, k in ipairs({ "tabSwitch", "tabEdge", "tabSide" }) do styled[#styled + 1] = P[k] end
 		for key, parts in pairs({
 			["ui.style"] = window, ["ui.backing"] = window, ["guideWindow.veil"] = window, ["guideWindow.shade"] = window,
 			["guideWindow.outline"] = window, ["ui.barShown"] = { P.strip, nav }, ["ui.scale"] = window, ["ui.guideTextSize"] = window, ["ui.width"] = window,
@@ -306,16 +326,19 @@ function UI.GuideWindowScene(band)
 			["ui.barsBottom"] = { P.strip, nav }, ["guideWindow.stepAnim"] = moving, ["guideWindow.animSpeed"] = moving,
 			-- A goal done shuts into the done line.
 			["guideWindow.foldAnim"] = { G.lines[1] or person }, ["guideWindow.leftOut"] = { G.lines[1] or person },
-			["guideWindow.tabs"] = { P.strip }, ["guideWindow.tabHeight"] = { P.strip }, ["guideWindow.navHeight"] = { nav },
+			["guideWindow.tabs"] = { P.strip }, ["guideWindow.tabStyle"] = styled,
+			["guideWindow.tabHeight"] = { P.strip }, ["guideWindow.navHeight"] = { nav },
 			["guideWindow.barTextSize"] = bars, ["guideWindow.stepCount"] = { nav.Steps }, ["guideWindow.guideTitle"] = { nav.Title },
-			["guideWindow.skipButton"] = { nav.Skip }, ["guideWindow.reportButton"] = { nav.Report },
-			["guideWindow.titleSize"] = { person.Name }, ["guideWindow.goalSize"] = texts, ["guideWindow.detailSize"] = details,
+			["guideWindow.skipButton"] = { nav.Skip }, ["guideWindow.reportButton"] = { nav.Report }, ["guideWindow.allStepsButton"] = { nav.AllSteps },
+			["guideWindow.titleSize"] = { person.Name }, ["guideWindow.lastSteps"] = { person, P.last }, ["guideWindow.goalSize"] = texts, ["guideWindow.detailSize"] = details,
 			["guideWindow.glyphSize"] = icons, ["guideWindow.rowSpacing"] = rows, ["guideWindow.lineSpacing"] = spacing,
 			["guideWindow.checkSize"] = checks, ["guideWindow.targetBar"] = marks, ["guideWindow.targetBarWidth"] = marks,
 			["guideWindow.targetBarColor"] = marks, ["guideWindow.noteSize"] = { P.tip }, ["ui.showNotes"] = { P.tip },
 			["ui.upcoming"] = { up }, ["guideWindow.upSize"] = { up }, ["guideWindow.progress"] = { foot },
 			["guideWindow.progressHeight"] = { foot }, ["guideWindow.progressColor"] = { foot.Line }, ["guideWindow.progressPct"] = { foot.Pct },
 			["guideWindow.pace"] = { G.xp },
+			-- The sample Journey (made with the first layout that shows it).
+			["guideWindow.journeyStyle"] = { G.journeySample and G.journeySample.frame },
 		}) do
 			light(key, parts)
 		end
@@ -373,10 +396,14 @@ local function buildPreview(view)
 		local s = (tonumber(ns.Get("ui.scale")) or 1) * self:TrueScale()
 		-- Drawn first: its natural size at its own scale.
 		G:Draw()
-		local winW, winH = G.Window:GetWidth() * s, G.Window:GetHeight() * s
+		local ol, ot = G.Copy.TabsOutside()
+		local below = G.Copy.Below and G.Copy.Below() or 0
+		local winW, winH = (G.Window:GetWidth() + ol) * s, (G.Window:GetHeight() + ot + below) * s
 		local room = self.psRoom and max(60, self.psRoom - 2 * P.BAND_PAD - P.LINE_GAP - P.LINE_H) or winH + 8
-		-- Whole: its height and the 8 its crop keeps under it; else the room, cut.
-		local h = min(winH + 8, room)
+		-- Whole: its height and the 8 its crop keeps under it, smaller to fit
+		-- the room (the band scales it, down to 60%); taller still, the room, cut.
+		local h = winH + 8
+		if h > room and room / h < 0.6 then h = room end
 		return winW, h, function(left, top, k)
 			G:ClearAllPoints()
 			G:SetPoint("TOPLEFT", self, "TOPLEFT", P.Snap(self, left - SIDE), -P.Snap(self, top))
@@ -529,6 +556,33 @@ local SPECS = {
 					help = L["The tabs of the open guides above the step bar. Off: the step bar names the guide, and the guide menu switches guides."],
 					search = "tabs, tab bar, header, strip, hide tabs, guides" },
 			} },
+		{ kind = "dropdown", key = "guideWindow.tabStyle", label = L["Tab style"], new = "0.4.0", disabled = offKey("tabs"),
+			help = L["How the tabs of the open guides show: a strip above the step bar, a menu on the guide's title, small tabs on the window's top edge, or a column down its left side. Default follows the layout."],
+			search = "tab style, tabs, switcher, dropdown, edge tabs, side strip, vertical tabs, title menu, default",
+			-- Default: nothing saved, so the layout's style shows (Atlas: down the
+			-- left side) and follows the layout when it changes.
+			get = function()
+				local s = ns.GetStored("guideWindow.tabStyle")
+				return s == nil and "default" or s
+			end,
+			set = function(v)
+				ns.Set("guideWindow.tabStyle", v ~= "default" and v or nil)
+			end,
+			choices = function()
+				local names = {
+					underline = L["Above the step bar"], switcher = L["Title menu"],
+					edge = L["On the top edge"], strip = L["Down the left side"],
+				}
+				local def = ns.GetDefault("guideWindow.tabStyle")
+				local d = names[def]
+				-- The default's own style is Default: picked by name it would save
+				-- nothing (ns.Set keeps no default) and read back as Default.
+				local list = { { value = "default", label = d and string.format(L["Default (%s)"], d) or L["Default"] } }
+				for _, v in ipairs({ "underline", "switcher", "edge", "strip" }) do
+					if v ~= def then list[#list + 1] = { value = v, label = names[v] } end
+				end
+				return list
+			end },
 		{ kind = "slider", key = "guideWindow.navHeight", label = L["Step bar height"], min = 0.7, max = 1.6, step = 0.05, format = percent, new = NEW,
 			help = L["How tall the bar with the step number, Skip and the menu is."], search = "bar height, header, navigator, taller, shorter, size, step bar height" },
 		textSize("barTextSize", L["Bar text"], L["The tabs, the step number, the guide's title, Skip and the percent."],
@@ -543,8 +597,14 @@ local SPECS = {
 			help = L["Skip in the step bar. The guide menu still skips a step."], search = "skip, button, hide skip, skip button" },
 		{ kind = "toggle", key = "guideWindow.reportButton", label = L["Report"], new = NEW,
 			help = L["The bug button that reports a problem with the step. The guide menu still has it."], search = "bug, report, problem, button, report button" },
+		{ kind = "toggle", key = "guideWindow.allStepsButton", label = L["All steps"], new = NEW,
+			help = L["A button in the step bar that opens every step of the guide in one list. The step number and the guide menu open it too."],
+			search = "all steps, browse, step list, list, every step, button" },
 	} },
 	{ page = PAGE, tab = L["Parts"], section = L["Step card"], controls = {
+		{ kind = "slider", key = "guideWindow.lastSteps", label = L["Steps before"], min = 0, max = 5, step = 1, format = "%d", new = NEW,
+			help = L["How many of the steps before this one show over it, one dimmed line each, done or skipped; 0 turns them off. Click one to go back to it."],
+			search = "steps before, last step, previous steps, step before, done steps, history, back" },
 		textSize("titleSize", L["Name size"], L["The name of the person to talk to now, or the step's place, at the top of the card."],
 			"title, step title, name, header, npc name, person"),
 		textSize("goalSize", L["Goal size"], L["The goal lines of the step and of While you're here."], "goal, goals, objectives, step text, lines, text size"),
@@ -591,6 +651,24 @@ local SPECS = {
 			help = L["How many steps the Up next list holds; 0 turns it off."], search = "up next, upcoming, later steps, list, preview, upcoming steps" },
 		textSize("upSize", L["Up next size"], L["Up next and Along the way: their rows and their headers; the rows grow with the text."],
 			"up next, upcoming, along the way, later steps, list, rows"),
+		{ kind = "dropdown", key = "guideWindow.journeyStyle", label = L["Journey style"], new = "0.4.0",
+			-- Only a layout that draws the others (its defaults name one) offers them.
+			disabled = function()
+				local T = ns.Theme
+				local id = T and T.LayoutId and T.LayoutId()
+				local info = id and T.LayoutInfo and T.LayoutInfo(id)
+				return not (info and info.defaults and info.defaults["guideWindow.journeyStyle"])
+			end,
+			offWhy = L["Polestar's layout draws the Journey under the step. Pick a layout with more Journey styles, such as Atlas, in Presets."],
+			help = L["Where the travel route shows while you travel: under the step, in a card under the window, folded to the leg you are on, as nodes on the timeline, or as chips in the window's foot."],
+			search = "journey, travel, route, legs, flight, boat, folded, chips, timeline, under the window",
+			choices = {
+				{ value = "inside", label = L["Under the step"] },
+				{ value = "joined", label = L["Under the window"] },
+				{ value = "folded", label = L["Under the window, folded"] },
+				{ value = "rail", label = L["On the timeline"] },
+				{ value = "foot", label = L["In the foot"] },
+			} },
 		{ kind = "slider", key = "guideWindow.progressHeight", label = L["Progress bar"], min = 1, max = 12, step = 1, format = px, new = NEW,
 			disabled = offKey("progress"),
 			help = L["The guide's progress at the bottom of the window: its thickness. The game's looks keep their own bar."],
@@ -613,9 +691,9 @@ local SPECS = {
 }
 
 ---------------------------------------------------------------------------
--- Essentials (the page's lead tab): four looks as picture cards, then the
--- ten settings players change most, each a reference to its row on Window
--- or Parts.
+-- Essentials (the page's lead tab): four looks as picture cards (and a card
+-- for each installed layout with a preset), then the ten settings players
+-- change most, each a reference to its row on Window or Parts.
 ---------------------------------------------------------------------------
 
 local O = UI.Options
@@ -707,6 +785,54 @@ if O and O.PresetCards and O.Ref then
 		end)
 		if G and G.Metrics then G.Metrics() end
 	end
+	-- A layout's card (Theme.LayoutPresets, the layout's own spec.preset):
+	-- the guide window itself, a copy drawn with that layout's hooks whatever
+	-- the layout in use (GF.Copy's opts.layout) and fed SAMPLE, with the
+	-- card's values and, where the player keeps the default in use, the
+	-- layout's own defaults; its width fills the card, its foot cut there.
+	-- A layout whose addon is not loaded yet shows its name alone: drawing
+	-- the card never loads it (picking it does, and the card draws again).
+	local function drawLayoutCard(art, p, values)
+		local cw, ch = art:GetWidth(), art:GetHeight()
+		if not (cw and cw > 0) then cw = W.CARD_W - 2 end
+		if not (ch and ch > 0) then ch = W.CARD_ART end
+		if not art.psSky then
+			art.psSky = Theme.Band(art, "BACKGROUND", -6)
+			art.psSky:SetAllPoints(art)
+		end
+		local info = Theme.LayoutInfo and Theme.LayoutInfo(p.layout)
+		if not info then
+			if not art.psLabel then
+				art.psLabel = W.Text(art, "title", "textDim")
+				art.psLabel:SetPoint("CENTER", art, "CENTER", 0, 0)
+			end
+			art.psLabel:SetText(p.label)
+			art.psLabel:Show()
+			if art.psCopy then art.psCopy.frame:Hide() end
+			return
+		end
+		if art.psLabel then art.psLabel:Hide() end
+		local G = art.psCopy
+		if not G then
+			G = UI.GuideFrame.Copy(art, SAMPLE, { layout = p.layout })
+			art.psCopy = G
+		end
+		local with = {}
+		for k, v in pairs(values or {}) do with[k] = v end
+		for k, v in pairs(info.defaults or {}) do
+			if O.Same(ns.Get(k), ns.GetDefault(k)) then with[k] = v end
+		end
+		for k, v in pairs(info.preset and info.preset.set or {}) do with[k] = v end
+		O.WithSettings(with, G.Draw)
+		local F = G.frame
+		local w = F:GetWidth()
+		if not (w and w > 0) then w = 340 end
+		local k = max(0.05, (cw - 12) / w)
+		F:SetScale(k)
+		F:ClearAllPoints()
+		F:SetPoint("TOPLEFT", art, "TOPLEFT", (cw / k - w) / 2, -8 / k)
+		F:Show()
+	end
 	local LARGE = 1.2
 	local PRESETS = {
 		{ value = "standard", label = L["Standard"], set = {}, draw = drawWindowCard },
@@ -725,7 +851,7 @@ if O and O.PresetCards and O.Ref then
 	local ESSENTIALS = L["Essentials"]
 	local list = {
 		{ page = PAGE, tab = ESSENTIALS, lead = true, section = L["Presets"], preview = buildPreview,
-			controls = { O.PresetCards({ presets = PRESETS }) } },
+			controls = { O.PresetCards({ presets = PRESETS, layouts = { draw = drawLayoutCard } }) } },
 		{ page = PAGE, tab = ESSENTIALS, section = L["Window"], jump = { tab = L["Window"], section = L["Window"] },
 			controls = { R("slider", "ui.scale"), R("slider", "ui.width"), R("slider", "guideWindow.bgOpacity"), R("slider", "guideWindow.idleAlpha"),
 				R("dropdown", "ui.combat"), R("dropdown", "ui.instance") } },

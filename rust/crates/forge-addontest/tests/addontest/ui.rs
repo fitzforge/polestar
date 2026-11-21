@@ -1223,6 +1223,8 @@ fn compact_mode_with_six_tabs_truncates_the_titles_before_the_close_and_new_tab(
 #[test]
 fn outside_compact_mode_the_strip_is_unchanged_full_height_with_ranges_close_and_new_tab() {
 	let out = run(r#"
+		-- Wide enough for the range beside a few letters of the title (a narrower tab drops the range first).
+		Polestar.Set("ui.width", 450)
 		uistub.openTabs(TABS, 1)
 		local strip, b = GF.parts.strip, shownTabs()[2]
 		emit({ h = strip:GetHeight(), full = GF.Metrics().tabH, range = b.Range:IsShown(), add = strip.Add:IsShown(), rest = b.Close:GetAlpha() })"#)
@@ -1310,7 +1312,8 @@ fn a_tab_s_close_button_shows_faintly_at_rest_and_in_full_under_the_pointer() {
 #[test]
 fn a_narrow_tab_truncates_its_title_and_keeps_its_level_range_whole_also_with_the_close_button_shown() {
 	let out = run(r#"
-		Polestar.Set("ui.width", 300)
+		-- Wide enough for the range beside a few letters of the title in every look (a narrower tab drops the range first).
+		Polestar.Set("ui.width", 360)
 		uistub.openTabs(TABS, 1)
 		local b = shownTabs()[1]
 		local function measure()
@@ -1342,7 +1345,7 @@ fn a_narrow_tab_truncates_its_title_and_keeps_its_level_range_whole_also_with_th
 #[test]
 fn in_the_game_looks_a_narrow_tab_s_text_ends_6_clear_of_its_close_and_classic_s_close_rests_whole() {
 	let out = run(r#"
-		Polestar.Set("ui.width", 300)
+		Polestar.Set("ui.width", 360)
 		uistub.openTabs(TABS, 1)
 		local out = {}
 		for _, look in ipairs({ "forever", "blizzard", "classic" }) do

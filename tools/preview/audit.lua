@@ -89,6 +89,7 @@ local function lookInfo()
 	local kit = T.Kit and T.Kit()
 	return {
 		skin = T.SkinId and T.SkinId() or T.SkinKey(),
+		layout = T.LayoutId and T.LayoutId() or nil,
 		base = T.SkinKey(),
 		kit = kit and { ink = kit.closeInk or 1, bare = kit.bareIcons and true or false } or false,
 		iconBtn = T.Metric("guideIconBtnW", 24),

@@ -273,7 +273,9 @@ local HOUSE_PAINT = {
 		else
 			hideBorder(f)
 		end
-		local shadow = get("ui.shadow") ~= false
+		-- f.psNoShadow: a frame painted as a window that stands by another
+		-- (Atlas's cards over the guide window) casts none of its own.
+		local shadow = get("ui.shadow") ~= false and not f.psNoShadow
 		edges(f, alpha, Theme.House("edgeLight") ~= nil, shadow, n)
 		if not shadow then
 			if f.psShadow then f.psShadow:Hide() end

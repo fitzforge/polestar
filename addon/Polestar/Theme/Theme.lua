@@ -2830,7 +2830,13 @@ local function paint(frame, kind)
 	-- A skin, and the look it is drawn from (a variant may change it).
 	local look = id == base and id or (id .. "/" .. base)
 	if frame.psSkin.skin ~= look then
-		if frame.psSkin.skin then clearSkin(frame) end
+		if frame.psSkin.skin then
+			clearSkin(frame)
+			-- A frame painted but not skinned (a picker card's miniature,
+			-- Polestar_Options/Theme/SkinPicker.lua) keeps its kit pieces in
+			-- hookKits: the look drawn before takes them off too.
+			if hookKits[frame] then hideAll(hookKits[frame]) end
+		end
 		frame.psSkin.skin = look
 	end
 	if not SKIN_PAINT[base] then loadLooks(base) end
