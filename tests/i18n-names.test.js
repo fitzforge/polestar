@@ -37,3 +37,13 @@ test('the release zip and install take every language folder that is built, afte
 	const shipped = releaseAddons(ADDONS).names.filter((n) => languages.includes(n));
 	assert.deepEqual(shipped, languages);
 });
+
+test('the release addon list includes Tetris after Freedoom Arcade when both are present', () => {
+	const { releaseAddons } = require('../tools/lib/dsl/project');
+	const { fakeAddons } = require('./helpers/cli');
+	const dir = fakeAddons(tmpdir(), ['Polestar', 'Polestar_Guides', 'Polestar_Nav', 'Polestar_Options', 'Polestar_SkinAPI', 'Polestar_Looks', 'Polestar_Arcade']);
+	assert.ok(!releaseAddons(dir).names.includes('Polestar_Tetris'));
+	fakeAddons(dir, ['Polestar_Tetris']);
+	const names = releaseAddons(dir).names;
+	assert.equal(names.indexOf('Polestar_Tetris'), names.indexOf('Polestar_Arcade') + 1);
+});

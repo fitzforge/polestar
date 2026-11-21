@@ -22,7 +22,8 @@ const LOCAL_DATA_ADDONS = ['Polestar_Travel'];
 
 const usage = `usage: node tools/polestar.js install [<dir>] [options]
 
-Installs addon/Polestar, addon/Polestar_Guides and addon/Polestar_Nav, plus
+Installs addon/Polestar, addon/Polestar_Guides and addon/Polestar_Nav,
+the optional flight games Polestar_Arcade and Polestar_Tetris when present, plus
 the data addons Polestar_QuestDB, Polestar_ItemDB, Polestar_Codex and the
 language folders Polestar_<locale> when they have been built (and with
 --recorder, addon/Polestar_Recorder) into World of Warcraft: Forever's AddOns

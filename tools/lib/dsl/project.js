@@ -543,8 +543,9 @@ function textsDirRefusal(dir, packId) {
 // folders last (our guides' texts and the game's names, `forge guide
 // compile` and `forge data names`, committed; the client loads only its own).
 const RELEASE_ADDONS = ['Polestar', 'Polestar_Guides', 'Polestar_Nav', 'Polestar_Options', 'Polestar_SkinAPI', 'Polestar_Looks'];
-// forge-release addons.rs ARCADE.
+// forge-release addons.rs ARCADE and TETRIS.
 const ARCADE = 'Polestar_Arcade';
+const TETRIS = 'Polestar_Tetris';
 const RELEASE_DATA_ADDONS = [
 	'Polestar_QuestDB', 'Polestar_ItemDB', 'Polestar_Codex',
 	...LOCALE_CODES.map(languageAddon),
@@ -557,7 +558,7 @@ function releaseAddons(addonsDir) {
 	// guide compile, format 8), each once built (as forge-release's release_addons).
 	const walking = navParts(path.join(addonsDir, 'Polestar_Nav'));
 	const guides = ['Alliance', 'Horde', ...RACE_FILES].map((r) => partAddon(OWN_FOLDER, r));
-	const parts = [ARCADE, ...walking, ...guides].filter((n) => fs.existsSync(path.join(addonsDir, n, `${n}.toc`)));
+	const parts = [ARCADE, TETRIS, ...walking, ...guides].filter((n) => fs.existsSync(path.join(addonsDir, n, `${n}.toc`)));
 	return { names: [...RELEASE_ADDONS, ...parts, ...RELEASE_DATA_ADDONS.filter((n) => !skipped.includes(n))], skipped };
 }
 

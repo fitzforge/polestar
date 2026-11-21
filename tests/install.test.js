@@ -63,6 +63,18 @@ test('--dry-run reports the plan and changes nothing', async () => {
 	assert.deepEqual(snapshot(dest), before);
 });
 
+test('the Tetris flight game installs when its addon folder is present', async () => {
+	const src = compiledAddons();
+	fakeAddons(src, ['Polestar_Tetris']);
+	const dest = liveAddOns();
+	const dry = await quiet(() => install.run(['--dest', dest, '--addons', src, '--dry-run'], {}));
+	assert.equal(dry.result, 0, dry.out);
+	assert.match(dry.out, /would add Polestar_Tetris/);
+	const real = await quiet(() => install.run(['--dest', dest, '--addons', src], {}));
+	assert.equal(real.result, 0, real.out);
+	assert.ok(fs.existsSync(path.join(dest, 'Polestar_Tetris', 'Polestar_Tetris.toc')));
+});
+
 test('the built data addons (Polestar_QuestDB, Polestar_ItemDB, Polestar_Codex) install by default; a missing one is skipped', async () => {
 	const src = compiledAddons();
 	fakeAddons(src, ['Polestar_QuestDB']);
