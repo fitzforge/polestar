@@ -2310,12 +2310,12 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   guide's `levels` start at most `HERE_ABOVE` (2) over the character
   (`Guides.Levels` for their faction; `NEXT_MAX` (8) guides at most).
   Auto-accept takes the first such guide's accept at the NPC
-  (`Own.laterWants`) and says so in chat ("Took <quest> now: <guide> does it
-  later, so this saves a trip back.", Automation through
+  (`Own.laterWants`) and says so in chat ("Took <quest> now for <guide>,
+  later on your route: this saves a trip back.", Automation through
   `Engine.LaterAcceptGuide`; the loaded guide's accepts stay silent), and the
   line shows it at its giver (`Own.hereNext`, step `Own.NEXT_STEP`, after the
-  loaded guide's lines, its sub-line "Saves a trip back: <guide> does it
-  later."), under the same guards read in that guide
+  loaded guide's lines, its sub-line "For <guide>, later on your route."),
+  under the same guards read in that guide
   (`Own.laterOk` through `Own.inGuide`, which runs a check with that guide
   as the loaded one: its steps for the character, skips, `when`), never a
   timed quest, and not one an `abandon` drops on the way there (the loaded

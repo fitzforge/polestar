@@ -890,7 +890,7 @@ local function setMode(m)
 		distText:SetTextColor(Nav.RGB("text"))
 	elseif m == "submerged" then
 		distText:SetTextColor(Nav.RGB("text"))
-		distText:SetText(L["Underwater target — no verified walk"])
+		distText:SetText(L["Under water nearby: swim down to it"])
 	elseif m == "unsafe" then
 		distText:SetTextColor(Nav.RGB("text"))
 		distText:SetText(L["No safe walking route"])
@@ -1084,7 +1084,7 @@ local function sample(elapsed)
 		local yards = floor(dist + .5)
 		if lastYards ~= yards then
 			lastYards = yards
-			distText:SetFormattedText(L["Waypoint %d yd below — navigate manually"], yards)
+			distText:SetFormattedText(L["%d yd below you: swim down"], yards)
 		end
 		return true
 	end
