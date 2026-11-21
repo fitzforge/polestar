@@ -1512,8 +1512,12 @@ end
 -- The current step's baked leg (Nav/Baked.lua) as the path to the goal just
 -- taken, from the player's place on it: the nearest point of the leg, then
 -- its points after that. Taken when the leg is on the player's continent,
--- ends within its tail plus BAKED_END of the goal on its known floor, and
--- the player is within STRAY yards of a segment on their floor; else false.
+-- ends within its tail plus BAKED_END of the goal, and the player is within
+-- STRAY yards of a segment of it. With a height from the client the leg must
+-- end on the goal's floor and the player's segment lie on theirs. With none
+-- (Forever gives none) the leg is taken as 0.4.1.1 took it, without either
+-- floor check: the tracked or a capital's trail floor is a guess, and a guess
+-- that missed the leg sent that step's walk to a live search (Fitz, 0.4.2.1).
 -- At a ship's boarding spot (Nav.GetTargetWorld's fifth value: a guide's boat
 -- step walked to on the deck) a leg ending more than RISE under the deck was
 -- baked to the guide's point without a height and ends in the sea below it
@@ -1527,9 +1531,9 @@ local function takeBaked(pc, px, py)
 	if not (leg and leg.c == pc and leg.n >= 2) then return false end
 	local n, xs, ys, zs = leg.n, leg.xs, leg.ys, leg.zs
 	local ex, ey, reach = xs[n] - gx, ys[n] - gy, leg.left[n] + BAKED_END
-	if ex * ex + ey * ey > reach * reach or (gz and abs(zs[n] - gz) > ZTOL) then return false end
+	local sz = playerZ(pc)
+	if ex * ex + ey * ey > reach * reach or (sz and gz and abs(zs[n] - gz) > ZTOL) then return false end
 	if gz and zs[n] < gz - RISE and select(5, Nav.GetTargetWorld()) then return false end
-	local sz = startZ(pc, px, py)
 	local best, bk, bt = huge, 1, 0
 	for k = 1, n - 1 do
 		local ax, ay = xs[k], ys[k]
