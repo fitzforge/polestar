@@ -495,9 +495,12 @@ local function reachBack(S, reach, xs, ys, left, a, n, px, py, z, along, lo, hi,
 			if reach(px, py, x, y, z) then at, lo = mid, mid else hi = mid end
 		end
 		at = along + at
-		-- Never back along the path past a point aimed at before while it is in reach, or was shut for fewer than
-		-- SHUT_LOOKS looks running (the grid's line closes for a few yards at a post or a fence; a wall stays shut).
-		if held and held > at and held <= far then
+		-- Never back along the path past a point aimed at before (no further than the corridor's aim now: walking off
+		-- a hairpin's point, the player's place on the path falls back a little) while it is in reach, or was shut for
+		-- fewer than SHUT_LOOKS looks running (the grid's line closes for a few yards at a post or a fence; a wall stays
+		-- shut).
+		if held and held > far then held = far end
+		if held and held > at then
 			local x, y = pointAlong(xs, ys, left, a, n, held)
 			if reach(px, py, x, y, z) then
 				at, S.reachShut = held, 0
@@ -746,6 +749,7 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill, re
 	-- point once aimed at unless a wall has stood in front of it for SHUT_LOOKS
 	-- looks (reachBack). Beside the path the point in sight, below, is the aim:
 	-- checked already.
+	local takeX, takeY -- (reach) the next point, the player on it: the piece after it takes over (S.aimSeg)
 	if reach and qSeg and qSeg > a and not (sat and bestD > BODY) then
 		local nx, ny = xs[idx] - p0x, ys[idx] - p0y
 		local next = S.along + sqrt(nx * nx + ny * ny)
@@ -758,7 +762,9 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill, re
 		if want then wx, wy = pointAlong(xs, ys, left, a, n, want) end
 		-- Within REACH of the player that is no aim (on a steep way down the grid's
 		-- line fails at each step, and the arrow stood on the player's feet): the
-		-- corridor's stands.
+		-- corridor's stands, and the player on the next point, the piece after it
+		-- takes over (in Ban'ethil Barrow Den's hairpin the arrow swung between the
+		-- two, the player walking back and forth past the point).
 		if want and (wx - px) ^ 2 + (wy - py) ^ 2 > REACH * REACH then
 			S.reachHeld = want
 			qx, qy = wx, wy
@@ -771,6 +777,7 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill, re
 			end
 		else
 			S.reachHeld = far
+			if want then takeX, takeY = xs[idx], ys[idx] end
 		end
 	else
 		S.reachHeld = nil
@@ -782,7 +789,8 @@ function Follow.Step(xs, ys, zs, left, n, S, px, py, stop, join, sight, hill, re
 		return pointAlong(xs, ys, left, a, n, sat)
 	end
 	if qx then
-		if qSeg and qSeg > a then S.aimSeg, S.aimQX, S.aimQY = qSeg, qx, qy end
+		if takeX then S.aimSeg, S.aimQX, S.aimQY = a + 1, takeX, takeY
+		elseif qSeg and qSeg > a then S.aimSeg, S.aimQX, S.aimQY = qSeg, qx, qy end
 		-- The body: walking beside the path within BODY yards, the arrow points
 		-- along it from where the player is (the aim carried sideways by the
 		-- player's offset) instead of pulling back to the line. At a corner, a
