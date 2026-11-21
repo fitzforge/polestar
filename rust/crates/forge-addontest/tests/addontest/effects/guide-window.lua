@@ -33,7 +33,7 @@ return {
 			return { moving = moving, grip = grip ~= nil and grip:IsShown() or false }
 		end,
 		-- The window moved, then Reset: back in its corner.
-		["Guide:Reset position"] = { press = true, prepare = function() Polestar.Set("ui.pos", { 100, 900 }) end, probe = pos },
+		["Guide window:Reset position"] = { press = true, prepare = function() Polestar.Set("ui.pos", { 100, 900 }) end, probe = pos },
 		-- Polestar Client knows the next release (one newer than this build: ui-update.rs's ClientInfo): the update
 		-- line in the guide window.
 		["update.card"] = { prepare = function()
@@ -50,8 +50,8 @@ return {
 			local B = P.banner
 			return B:IsShown() and B.psKind == "update" and B.Text:GetText() or false
 		end },
-		-- About's Install (UI/Welcome.lua): the button opens Install on its first page.
-		["About:Set Polestar up again"] = { press = true, prepare = function() if PolestarWelcome then PolestarWelcome:Hide() end end,
+		-- Install (UI/Welcome.lua), on Setup > Profiles' Install & updates card: the button opens Install on its first page.
+		["Profiles:Set Polestar up again"] = { press = true, prepare = function() if PolestarWelcome then PolestarWelcome:Hide() end end,
 			cleanup = function() if PolestarWelcome then PolestarWelcome:Hide() end end, probe = function()
 			return PolestarWelcome ~= nil and PolestarWelcome:IsShown() and (Polestar.UI.Welcome.Page()) or false
 		end },

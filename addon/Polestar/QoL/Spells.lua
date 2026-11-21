@@ -1,7 +1,7 @@
 -- Class spells: what the class trainer has for the character at a new level
 -- (qol.levelUpSpells) and the spells on the action bars that are an old rank
 -- (qol.oldRanks). Both on by default, under Options > Quality of Life >
--- Vendors > Trainers; UI/SpellCards.lua shows them on the heads-up card.
+-- Leveling > Trainers; UI/SpellCards.lua shows them on the heads-up card.
 --
 -- New at a level (Spells.NewAt): the spells QoL/ClassSpells.lua (generated
 -- by `forge data classspells` from the class trainers' sniffed lists) lists
