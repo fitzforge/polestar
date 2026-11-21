@@ -305,11 +305,7 @@ fn a_client_build_the_ground_data_was_not_paired_on_still_plans_walks_and_keeps_
 				.into(),
 			..Default::default()
 		});
-		assert_eq!(
-			out,
-			vec![json!({ "alterac": true, "hordeIntoCity": false, "clear": "clear", "city": "opposing-settlement" })],
-			"client build {build}"
-		);
+		assert_eq!(out, vec![json!({ "alterac": true, "hordeIntoCity": false, "clear": "clear", "city": "opposing-settlement" })], "client build {build}");
 	}
 }
 
