@@ -2111,13 +2111,15 @@ local function paintMenuRow(row, lit)
 	local face = rawget(row, "Face")
 	if face then W.Color(face, item.color or (on and "text" or "textDim"), off) end
 	if item.icon then W.Color(row.Icon, item.color or (on and "text" or "textDim"), off) end
+	if W.MenuRows then W.MenuRows.paint(row, item, lit) end
 end
+W.PaintMenuRow = paintMenuRow
 
 -- Items with confirm = true need a second click: the first relabels the row
 -- and keeps the menu open.
 local function menuRowClick(self)
 	local item = self.psItem
-	if not item or item.disabled then return end
+	if not item or item.disabled or item.heading then return end
 	if item.confirm and not self.psArmed then
 		self.psArmed = true
 		self.Text:SetText(L["Click again to confirm"])
@@ -2201,7 +2203,7 @@ local function buildMenu()
 			rows = function()
 				local out = {}
 				for _, r in ipairs(menu.rows) do
-					if r:IsShown() and not (r.psItem and r.psItem.disabled) then out[#out + 1] = r end
+					if r:IsShown() and not (r.psItem and (r.psItem.disabled or r.psItem.heading)) then out[#out + 1] = r end
 				end
 				return out
 			end,
@@ -2358,6 +2360,8 @@ function layoutMenu()
 			else
 				row.Icon:Hide()
 			end
+			local textX, extra = anyIcon and 32 or 12, 0
+			if W.MenuRows then textX, extra = W.MenuRows.place(row, item, textX) end
 			paintMenuRow(row, false)
 			row.Check:SetShown(item.checked and true or false)
 			W.Color(row.Check, "accent")
@@ -2374,7 +2378,7 @@ function layoutMenu()
 			row.Check:ClearAllPoints()
 			row.Check:SetPoint("RIGHT", row, "RIGHT", item.preview and -32 or -10, 0)
 			local shownText = (item.font and face) or row.Text
-			width = max(width, shownText:GetStringWidth() + (anyIcon and 32 or 12) + 36 + (anyPreview and 26 or 0) + (long and 10 or 0))
+			width = max(width, shownText:GetStringWidth() + textX + 36 + extra + (anyPreview and 26 or 0) + (long and 10 or 0))
 			if holds(item, needle) then
 				row:ClearAllPoints()
 				row:SetHeight(rowH)
@@ -2420,6 +2424,8 @@ function layoutMenu()
 end
 
 -- items: { { text, icon, checked, disabled, onClick, tip, color, confirm, preview }, { separator = true }, ... }
+-- (W.MenuRows, when an addon sets it, places and paints rows of its own kinds:
+-- { place = fn(row, item, textX) -> textX, extra width; paint = fn(row, item, lit) })
 -- opts: { point = "TOPRIGHT", relPoint = "BOTTOMRIGHT", x = 0, y = -4, minWidth = 168, current = true }
 -- opts.current: a list of choices whose checked row is the current one; a
 -- long one opens scrolled to it. Any other menu (actions, toggles) opens at
@@ -2625,7 +2631,7 @@ function W.Dropdown(parent, label, path, choices, desc, depends, opts)
 		if button == "RightButton" then
 			if not W.Enabled(row) then return end
 			W.HideMenu()
-			if row.psSet then
+			if row.psSet and (row.psReset or not path) then
 				if row.psReset then
 					W.ResetSetting(nil, function() return valueOf(row) end, row.psSet)
 					row:Refresh()
