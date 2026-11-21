@@ -20,8 +20,9 @@
 -- goals are ticked and muted, done and skipped steps muted whole, the step on
 -- screen on a lifted ground. A click looks at that step (GuideFrame.LookAt)
 -- and returns to the card. It opens at the step on screen and keeps the
--- window's current height, scrolling inside it; the compact window, too
--- short to browse in, grows to fit the cards up to its height cap. Steps that keep their number but
+-- window's current height (or the one its grip last dragged it to),
+-- scrolling inside it; the compact window, too short to browse in, grows to
+-- fit the cards up to its height cap. Steps that keep their number but
 -- do not apply to the character now (a `when` that does not hold, such as a
 -- catch-up for quests already handed in) share one muted card per run that
 -- says which numbers they are and why (Engine.GetStepView `why`), so the
@@ -64,7 +65,11 @@ function SL.On() return SL.open end
 function SL.Toggle(on)
 	if on == nil then on = not SL.open end
 	local G = GF()
-	if on and not SL.open then SL.height = G and G.frame and G.frame:GetHeight() end
+	-- Its own height once dragged (the window's grip, ui.stepListHeight), else the window's.
+	if on and not SL.open then
+		local h = ns.Get("ui.stepListHeight")
+		SL.height = type(h) == "number" and h > 0 and h or (G and G.frame and G.frame:GetHeight())
+	end
 	if not on then SL.height = nil end
 	SL.open = on and true or false
 	SL.sig, SL.opened = nil, SL.open
