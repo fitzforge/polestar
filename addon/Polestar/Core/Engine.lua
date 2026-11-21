@@ -1077,14 +1077,17 @@ function Own.groupAskedLater(step, q)
 end
 
 -- Whether group quest q is worth asking about at step: not handed in nor
--- skipped by the player (Own.questSkipped), and in the log or, when the step
--- takes it, with an accept the character can take now. Not one the catch-up
--- left out (grey), one closed for good, or one not open yet (level,
--- prerequisite): the route would pass that accept anyway.
+-- skipped by the player (Own.questSkipped), and in the log with work left or,
+-- when the step takes it, with an accept the character can take now. Not one
+-- the catch-up left out (grey), one closed for good, or one not open yet
+-- (level, prerequisite): the route would pass that accept anyway. Nor one
+-- ready to hand in: its group work is behind the player, and the hand-in is
+-- all that is left (#3402, #3412: Mount Hyjal's Sunderbark and Awakened Fel
+-- Ash Slime, killed before the route asked, held the guide at the question).
 function Own.groupOpen(step, q)
 	local C = Compat()
 	if questDone(q) or Own.questSkipped(q) then return false end
-	if C.IsOnQuest(q) then return true end
+	if C.IsOnQuest(q) then return not C.IsQuestReadyForTurnIn(q) end
 	local takes = false
 	for _, goal in ipairs(step.goals) do
 		if goal.t == "accept" and goal.quest == q then
