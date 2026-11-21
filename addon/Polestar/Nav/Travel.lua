@@ -3636,7 +3636,12 @@ function Travel.Aim(pc, px, py)
 					if P then gc, gx, gy, gz = P.c, P.wx, P.wy, P.leg.to.z end
 					-- A piece aims no further than its chokepoint's spot on the path (leg.stop, Walk.Stops).
 					local wc, wx, wy, left, unmapped = W.Aim(pc, px, py, gc, gx, gy, leg.handmade, gz, P and leg.stop, checked)
-					if unmapped == "routing" then return "routing" end
+					-- The walk still to come: straight to the leg's end meanwhile, but for a checked detour (a corpse on
+					-- enemy ground, a priced crossing), whose straight way is the one it goes round.
+					if unmapped == "routing" then
+						if checked then return "routing" end
+						return "routing", gc, gx, gy
+					end
 					-- No walk found: straight to the leg's end, and the arrow says why (Nav.noWalk, #3409).
 					if unmapped then Nav.noWalk = unmapped == "unsafe" and "unsafe" or "unmapped" end
 					if wc then
