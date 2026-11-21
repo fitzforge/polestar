@@ -254,6 +254,61 @@ fn a_level_gap_alone_does_not_forbid_moonglade_ground_on_build_70532() {
 	assert_eq!(out, vec![json!(true)]);
 }
 
+// Routing/Path.lua departs from TravelData's own places without terrain evidence (the walking maps lack Booty Bay's
+// flight master platform, the Gnomeregan depot Scooty's Transpolyporter lands in, the tram's Stormwind platform):
+// each of those is one, and a point a yard away is not.
+#[test]
+fn traveldatas_own_places_are_known_departures_a_yard_off_is_not() {
+	let out = run_real(
+		r#"
+		local N, T = Polestar.Nav, Polestar.Nav.travel
+		local data = N.GetTravelData()
+		local function find(list, id) for _, t in ipairs(list) do if t.id == id then return t end end end
+		local fm = N.GetTaxiNode(19) -- Booty Bay
+		local portal = find(data.portals, "portal-gnomeregan").b
+		local tram = find(data.transports, "tram-stormwind-ironforge").a
+		local deck = find(data.transports, "boat-menethil-theramore").a.board
+		local r = {}
+		for name, p in pairs({ fm = fm, portal = portal, tram = tram, deck = deck }) do
+			r[name] = { T.CuratedEnd(p.c, p.wx, p.wy), T.CuratedEnd(p.c, p.wx + 1, p.wy), T.CuratedEnd(1 - p.c, p.wx, p.wy) }
+		end
+		emit(r)"#,
+	);
+	let want = json!([true, false, false]);
+	assert_eq!(out, json!({ "fm": want, "portal": want, "tram": want, "deck": want }));
+}
+
+// The enemy-town data was paired on builds 70532 and 70959; any other client build (an older one, the next
+// Forever patch) still has its walks checked against it: an ordinary walk is planned and a walk into an enemy
+// capital is refused, as on 70532. Before, every walk there was refused as unknown ground.
+#[test]
+fn a_client_build_the_ground_data_was_not_paired_on_still_plans_walks_and_keeps_enemy_towns_out() {
+	for build in ["70338", "70959", "71000"] {
+		let out = emitted(&RunAddon {
+			stubs: vec!["stub_nav.lua"],
+			before: format!("stub.clientBuild = \"{build}\""),
+			addons: vec![nav()],
+			login: true,
+			script: r#"
+				stub.nav.useGameGround()
+				local N = Polestar.Nav
+				N.RegisterTravelData({}, true)
+				local function walk(map, x, y, X, Y, side)
+					local legs = N.PlanRoute({ c = 0, map = map, wx = x, wy = y, faction = side, level = 23, walkOnly = true,
+						target = { c = 0, map = map, wx = X, wy = Y, label = "Destination" } })
+					return legs and #legs == 1 and legs[1].kind == "walk" or false
+				end
+				emit({ alterac = walk(1416, 204.7, 262.5, 244.1, 221.9, 1),
+					hordeIntoCity = walk(1453, -8613.9, 1241.5, -8422.4, 551.8, 2),
+					clear = N.danger.Blocked(0, 204.7, 262.5, 244.1, 221.9, "Alliance") or "clear",
+					city = N.danger.Blocked(0, -8613.9, 1241.5, -8422.4, 551.8, "Horde") or "clear" })"#
+				.into(),
+			..Default::default()
+		});
+		assert_eq!(out, vec![json!({ "alterac": true, "hordeIntoCity": false, "clear": "clear", "city": "opposing-settlement" })], "client build {build}");
+	}
+}
+
 #[test]
 fn every_leg_caption_is_in_the_client_language_flight_boat_and_tram() {
 	let out = run_with(
@@ -985,6 +1040,59 @@ fn estimatetravel_stays_cheap_for_a_burst_of_candidates_on_the_real_network() {
 	let ms = out["ms"].as_f64().unwrap();
 	assert!(first > 0.0 && first < 600.0, "Sentinel Hill -> Redridge by air: {first} s");
 	forge_addontest::assert_timing!(ms < 200.0, "10 estimates took {ms:.1} ms");
+}
+
+// A step change prices up to 8 candidates from where the player stands, and later step changes price them again:
+// each walk's enemy-town check (Nav.danger.Blocked, every 33 yards of it) is asked once, its answer remembered, and
+// asked afresh once the data is replaced. The prices stay the ones the check gives.
+#[test]
+fn estimates_ask_the_enemy_town_check_once_per_walk_until_its_data_is_replaced() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_nav.lua"],
+		addons: vec![nav()],
+		login: true,
+		script: r#"
+			local N, nav = Polestar.Nav, stub.nav
+			nav.useGameGround()
+			nav.faction, nav.level = "Alliance", 25
+			Polestar.RegisterMapFrames({ era = { [1436] = { c = 0, left = 3016.667, right = -483.333, top = -9400, bottom = -11733.333 },
+				[1433] = { c = 0, left = -1570.833, right = -3741.667, top = -8575, bottom = -10022.916 } } })
+			nav.place(-10500, 1046, 0)
+			Polestar.CharState().flags.taxi = { [2] = true, [4] = true, [5] = true }
+			local D, check = N.danger, N.danger.Blocked
+			local asked, twice = {}, 0
+			D.Blocked = function(c, x, y, X, Y, side)
+				local k = string.format("%s:%.17g:%.17g:%.17g:%.17g:%s", tostring(c), x, y, X, Y, tostring(side))
+				if asked[k] then twice = twice + 1 end
+				asked[k] = true
+				return check(c, x, y, X, Y, side)
+			end
+			local function prices()
+				local out = {}
+				for i = 1, 8 do out[i] = N.EstimateTravel(nil, { map = 1433, x = 20 + i, y = 44, f = "e" }) end
+				return out
+			end
+			local r = { first = prices() }
+			r.walks, r.twice = 0, twice
+			for _ in pairs(asked) do r.walks = r.walks + 1 end
+			stub.advance(6) -- past the estimates' own 5 s: the same trips are planned again
+			r.again, r.twiceAgain = prices(), twice
+			D.areaCells = setmetatable({}, { __index = D.areaCells }) -- the same ground in a new table
+			asked = {}
+			stub.advance(6)
+			r.replaced, r.askedAfresh = prices(), next(asked) ~= nil
+			emit(r)"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert!(out["walks"].as_u64().unwrap() > 0, "the estimates checked their walks");
+	assert!(out["first"][0].as_f64().unwrap() > 0.0, "Sentinel Hill -> Redridge: {}", out["first"]);
+	assert_eq!(out["twice"], 0, "no walk checked twice within the step change's estimates");
+	assert_eq!(out["twiceAgain"], 0, "nor when the same trips are priced again");
+	assert_eq!(out["again"], out["first"]);
+	assert_eq!(out["askedAfresh"], true, "replaced data is asked again");
+	assert_eq!(out["replaced"], out["first"]);
 }
 
 #[test]

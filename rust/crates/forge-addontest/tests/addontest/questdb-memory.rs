@@ -14,6 +14,13 @@
 //! records the cache had piled up between its cycles (its emptied hash keeps that size), and that pace
 //! follows the whole addon's heap: a few lines more in Nav/Travel.lua moved `read` from 1,555 to 1,811 KiB
 //! with the quest database unchanged.
+//!
+//! The id list is built and its garbage collected before the collector stops (the list stays: Polestar.QuestDB
+//! keeps it). Lua 5.1's string table doubles its slots (8 bytes each) once it holds as many strings as slots,
+//! dead ones counted, and halves them only when fewer than a quarter are live; the addon's strings sit 2,000 to
+//! 3,000 below a doubling. Built with the collector stopped, the id list's throwaway strings crossed it and
+//! `read` kept 32,768 slots more, 256 KiB exactly (2026-11-20: 1,779 KiB, and 1,770 with 0.4.1.1's own QuestDB;
+//! 1,523 and 1,514 with the list built first). The 1,555 -> 1,811 above was the same 256 KiB.
 
 use forge_addontest::questdb::build_db;
 use forge_addontest::run::root;
@@ -50,9 +57,11 @@ for _, f in ipairs(files) do assert(loadfile(f))("Polestar_QuestDB", {{}}) end
 local peak = collectgarbage("count") - base
 collectgarbage("restart")
 local resident = full() - base
+local ids = Q.QuestIds()
+full()
 local n = 0
 collectgarbage("stop")
-for i, q in ipairs(Q.QuestIds()) do
+for i, q in ipairs(ids) do
 	if Q.QuestRecord(q) then n = n + 1 end
 	if i % {batch} == 0 then collectgarbage("collect") end
 end

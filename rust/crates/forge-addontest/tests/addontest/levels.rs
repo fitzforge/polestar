@@ -322,6 +322,41 @@ fn a_stray_drop_chance_beside_a_dropper_with_none_known_is_not_estimated_1697() 
 	assert_eq!(s["kills"], 50 + 50 + 50 + 10);
 }
 
+// Badlands' Lotwil takes a Frost Oil only from a player who carries one: the step shows only while the bags hold it
+// (`when has`), and nothing is farmed for it. Its one dropper at 0.02% made it "5,000 kills" and the 38-39 guide
+// "ends at 50". A step's `when has` covers that many of a loot goal's items; the rest still count, and a `!has`
+// covers none.
+#[test]
+fn a_loot_goal_for_items_the_step_s_when_has_needs_in_the_bags_asks_no_kills_for_them() {
+	let s = lua(&[
+		r#"
+local guide = { id = "carry", minLevel = 38, steps = {
+	{ when = { { k = "has", n = 1, item = 700 } }, goals = { { t = "collect", quest = 40, oi = 1, item = 700, count = 1 } } },
+	{ when = { { k = "has", n = 3, item = 701 } }, goals = { { t = "collect", quest = 41, oi = 1, item = 701, count = 5 } } },
+	{ when = { { k = "has", n = 1, item = 702, neg = true } }, goals = { { t = "collect", quest = 42, oi = 1, item = 702, count = 1 } } },
+	{ when = { { k = "has", n = 1, item = 700 } }, goals = { { t = "collect", quest = 43, oi = 1, item = 703, count = 2 } } },
+} }
+Polestar.Guides.Get = function(id) return id == "carry" and guide or nil end
+local NPCS = { [200] = { level = 38 } }
+local ITEMS = {
+	[700] = { sources = { { type = "drop", npc = 200, chance = 0.02 } } },
+	[701] = { sources = { { type = "drop", npc = 200, chance = 50 } } },
+	[702] = { sources = { { type = "drop", npc = 200, chance = 50 } } },
+	[703] = { sources = { { type = "drop", npc = 200, chance = 20 } } },
+}
+Polestar.Codex = { IsLoaded = function() return true end, Quest = function() return nil end,
+	Npc = function(id) return NPCS[id] end, Item = function(id) return ITEMS[id] end }
+"#,
+		r#"emit(Lv.ForGuide("carry", { level = 38, xp = 0, class = "WARRIOR", race = "Orc", faction = "Horde" }))"#,
+	]
+	.join("\n"))
+	.remove(0);
+	// 700: carried, none (not 5,000). 701: 3 of 5 carried, 2 / 50% = 4. 702: `!has`, 1 / 50% = 2. 703: another
+	// item than the one carried, 2 / 20% = 10.
+	assert_eq!(s["killsUnknown"], 0);
+	assert_eq!(s["kills"], 4 + 2 + 10);
+}
+
 // A step change moves every span's start (the pace line, its hard-quest look, While-here's planned levels): the
 // steps' Codex records are read once per guide and character, and a span from any start sums the same as one
 // worked out afresh. A quest done since still counts when the span is asked again.

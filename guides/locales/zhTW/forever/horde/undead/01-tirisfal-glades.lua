@@ -340,9 +340,10 @@ return {
 	-- Step 60: Tirisfal Glades: kill these as you meet them
 	-- {zone:1420} Tirisfal Glades
 	["{zone:1420}: kill these as you meet them"] = "{zone:1420}：沿途遇到就擊殺",
-	-- {area:159} Brill · {npc:3549} Shelene Rhobart · {quest:5482} Doom Weed · {area:164} Garren's Haunt · {npc:1753} Maggot Eye
+	-- {area:159} Brill · {npc:3549} Shelene Rhobart · {quest:5482} Doom Weed · {area:164} Garren's Haunt · {npc:1753} Maggot Eye · {area:157} Agamand Mills
 	-- plural, as words: Greater Duskbats = {npc:1553} Greater Duskbat · Vampiric Duskbats = {npc:1554} Vampiric Duskbat · Rot Hide Graverobbers = {npc:1941} Rot Hide Graverobber · Rot Hide Mongrels = {npc:1675} Rot Hide Mongrel
-	["Greater Duskbats (6-7) fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings. The Vampiric Duskbats (8-9) farther out drop them too, but hit harder.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north, around {area:164}. Leave {npc:1753} (level 11) in his hut for now: the guide comes back for him at the end.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}. Straight north of {area:159} the shore holds Puddlejumpers and Minor Oracles (7-9) with no Muckdwellers (9-10) close by."] = "巨型夜行蝙蝠（6-7）在{area:159}周圍的田野和往北的道路上飛行：格瑞琴要牠們的毛皮，{npc:3549}要牠們的翅膀。更遠處的吸血夜行蝙蝠（8-9）也會掉落，但打得更痛。\n{quest:5482}長在{area:159}北邊的墓地田野，腐皮盜墓賊在那裡挖墓；所有腐皮豺狼人都會掉落膿液。\n混血腐皮豺狼人佔據更北邊{area:164}周圍的山丘。{npc:1753}（等級11）先留在他的小屋裡：指南最後會回來找他。\n污鰭魚人分布在北岸：都會掉落鱗片，小神諭者和泥居者會掉落{npc:3549}要的皮。{area:159}正北方的海岸有跳淵者和小神諭者（7-9），附近沒有泥居者（9-10）。",
+	-- was: ["Greater Duskbats (6-7) fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings. The Vampiric Duskbats (8-9) farther out drop them too, but hit harder.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north, around {area:164}. Leave {npc:1753} (level 11) in his hut for now: the guide comes back for him at the end.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}. Straight north of {area:159} the shore holds Puddlejumpers and Minor Oracles (7-9) with no Muckdwellers (9-10) close by."] = "巨型夜行蝙蝠（6-7）在{area:159}周圍的田野和往北的道路上飛行：格瑞琴要牠們的毛皮，{npc:3549}要牠們的翅膀。更遠處的吸血夜行蝙蝠（8-9）也會掉落，但打得更痛。\n{quest:5482}長在{area:159}北邊的墓地田野，腐皮盜墓賊在那裡挖墓；所有腐皮豺狼人都會掉落膿液。\n混血腐皮豺狼人佔據更北邊{area:164}周圍的山丘。{npc:1753}（等級11）先留在他的小屋裡：指南最後會回來找他。\n污鰭魚人分布在北岸：都會掉落鱗片，小神諭者和泥居者會掉落{npc:3549}要的皮。{area:159}正北方的海岸有跳淵者和小神諭者（7-9），附近沒有泥居者（9-10）。"
+	["Greater Duskbats (6-7) fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings. The Vampiric Duskbats (8-9) farther out drop them too, but hit harder.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north, around {area:164}. Leave {npc:1753} (level 11) in his hut for now: the guide comes back for him after {area:157}.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}. Straight north of {area:159} the shore holds Puddlejumpers and Minor Oracles (7-9) with no Muckdwellers (9-10) close by."] = "",
 	-- {npc:1675} Rot Hide Mongrel · {area:164} Garren's Haunt
 	["{npc:1675} walks around {area:164}: look inside the circle on the map"] = "{npc:1675}在{area:164}一帶走動：看地圖圓圈內",
 
@@ -369,8 +370,9 @@ return {
 	["{npc:267009} stands at the camp beside Linnea."] = "{npc:267009}站在琳妮婭旁邊的營地裡。",
 
 	-- Step 65: Magistrate Sevren
-	-- {area:159} Brill · {area:157} Agamand Mills
-	["Back up the road to {area:159}, on the way north-west to {area:157}."] = "沿路返回{area:159}，接著往西北去{area:157}。",
+	-- {area:159} Brill · {area:157} Agamand Mills · {npc:1753} Maggot Eye · {npc:1515} Executor Zygand
+	["Back up the road to {area:159}, on the way north-west to {area:157}. The Wanted poster for {npc:1753} stands beside {npc:1515}, in front of the inn."] = "",
+	["The Wanted poster beside Zygand"] = "齊甘德旁的通緝告示",
 
 	-- Step 66: Agamand Mills
 	-- {area:157} Agamand Mills · {npc:1657} Devlin Agamand · {npc:1656} Thurman Agamand · {item:2839} A Letter to Yvette
@@ -382,7 +384,13 @@ return {
 	["{item:2839}, a rare drop"] = "{item:2839}，稀有掉落",
 	["Only if the letter dropped"] = "僅限信件有掉落時",
 
-	-- Step 67: Brill
+	-- Step 67: Maggot Eye
+	-- {area:159} Brill · {area:164} Garren's Haunt · {npc:1753} Maggot Eye
+	["On the way back to {area:159}, {area:164} is the Rot Hide camp on the hill east of the mills, south of the shore. {npc:1753} stands in the hut.\nCareful: {npc:1753} is level 11 and gnoll guards stand outside the hut and can join the fight: clear them one at a time first. If you slip past them and fight him inside, he fights alone."] = "",
+	-- {item:3635} Maggot Eye's Paw
+	["{item:3635}; inside"] = "{item:3635}；在裡面",
+
+	-- Step 68: Brill
 	-- {npc:1560} Yvette Farthing
 	["{npc:1560}, in the inn"] = "{npc:1560}，在旅店裡",
 	-- {npc:2128} Cain Firesong · {npc:4568} Anastasia Hartwell · {zone:1458} Undercity
@@ -392,11 +400,11 @@ return {
 	-- {npc:1738} Deathguard Terrence · {area:159} Brill
 	["{npc:1738}, if you were below 10 on the last {area:159} visit"] = "{npc:1738}（上次來{area:159}時若還沒到10級）",
 
-	-- Step 68: Ulag the Cleaver
+	-- Step 69: Ulag the Cleaver
 	-- {npc:6390} Ulag the Cleaver
 	["{npc:6390} waits in the mausoleum on the hill just north of town: open the gate and fight him."] = "{npc:6390}在城鎮北邊山丘上的陵墓裡等候：打開大門和他戰鬥。",
 
-	-- Step 69: Carendin Halgar
+	-- Step 70: Carendin Halgar
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {area:1497} Undercity · {npc:5675} Carendin Halgar · {object:36082} Magic Quarter
 	["Walk south from {area:159} to the {area:153} and down into the {area:1497}. {npc:5675} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "從{area:159}向南走到{area:153}，再往下進入{area:1497}。{npc:5675}站在{object:36082}。血色十字軍營地就在廢墟西邊。",
 	-- {npc:4551} Michael Garrett
@@ -404,30 +412,30 @@ return {
 	-- {npc:5675} Carendin Halgar · {quest:1473} Creature of the Void
 	["{npc:5675}: he offers {quest:1473} only once this is handed in"] = "{npc:5675}：要先繳交這個任務，他才會提供{quest:1473}",
 
-	-- Step 70: Anastasia Hartwell
+	-- Step 71: Anastasia Hartwell
 	-- {area:159} Brill · {area:153} Ruins of Lordaeron · {area:1497} Undercity · {npc:4568} Anastasia Hartwell · {object:36082} Magic Quarter
 	["Walk south from {area:159} to the {area:153} and down into the {area:1497}. {npc:4568} stands in the {object:36082}. The Scarlet camp is just west of the ruins."] = "從{area:159}向南走到{area:153}，再往下進入{area:1497}。{npc:4568}站在{object:36082}。血色十字軍營地就在廢墟西邊。",
 
-	-- Step 71: Back to Tirisfal Glades
+	-- Step 72: Back to Tirisfal Glades
 	-- {zone:1420} Tirisfal Glades
 	["Back to {zone:1420}"] = "返回{zone:1420}",
 	["The Scarlet camp"] = "血色十字軍營地",
 
-	-- Step 72: Tirisfal Glades: kill these as you meet them
+	-- Step 73: Tirisfal Glades: kill these as you meet them
 	-- {area:159} Brill · {npc:1662} Captain Perrine
 	["Follow the road south-west from {area:159} to the Scarlet Crusade camp. {npc:1662} stands at its south end; every Scarlet there can drop a ring."] = "沿著道路從{area:159}向西南前往血色十字軍營地。{npc:1662}站在營地南端；那裡的每個血色十字軍都可能掉落戒指。",
 	-- {npc:1537} Scarlet Zealot
 	["{npc:1537} walks around here: look inside the circle on the map"] = "{npc:1537}在這一帶走動：看地圖圓圈內",
 
-	-- Step 73: Perrine's Chest
+	-- Step 74: Perrine's Chest
 	-- {object:37098} Perrine's Chest · {npc:1662} Captain Perrine
 	["{object:37098} stands beside {npc:1662} at the camp's south end."] = "{object:37098}在營地南端的{npc:1662}旁邊。",
 
-	-- Step 75: Hadric Harlson
+	-- Step 76: Hadric Harlson
 	-- {npc:267009} Hadric Harlson · {npc:1495} Deathguard Linnea
 	["{npc:267009} stands at {npc:1495}'s camp, on the road to the cult's farm."] = "{npc:267009}站在{npc:1495}的營地裡，就在前往教派農場的路上。",
 
-	-- Step 76: Balnir Farmstead: kill these as you meet them
+	-- Step 77: Balnir Farmstead: kill these as you meet them
 	-- {area:165} Balnir Farmstead
 	["{area:165}: kill these as you meet them"] = "{area:165}：遇到就殺",
 	-- {quest:99142} Tomb Weed · {npc:1664} Captain Vachon
@@ -436,29 +444,23 @@ return {
 	-- {item:7227} Balnir Snapdragons
 	["{item:7227}, in the farmstead's garden"] = "{item:7227}，在農場的花園裡",
 
-	-- Step 77: Tirisfal Glades: kill these as you meet them
+	-- Step 78: Tirisfal Glades: kill these as you meet them
 	-- {npc:1495} Deathguard Linnea
 	-- plural, as words: Necrotic Crystal Fragments = {item:275851} Necrotic Crystal Fragment
 	["On the way back west, the Cult of the Damned holds the farm just south-east of {npc:1495}'s camp. The Necrotic Crystal Fragments lie on the ground among the cultists, and the cultists carry some too.\nCareful: the cultists (10-12) stand close together and the Neophytes cast: pull one at a time from the edge of the farm."] = "往西回去的路上，詛咒教派佔據{npc:1495}營地東南邊的農場。死靈水晶碎片散落在教徒之間的地上，教徒身上也帶有一些。\n小心：教徒（10-12）站得很近，新信徒會施法：從農場邊緣一次拉一隻。",
 
-	-- Step 79: Brill
+	-- Step 80: Brill
 	-- {area:159} Brill · {npc:2128} Cain Firesong · {npc:2129} Dark Cleric Beryl · {npc:2127} Rupert Boch · {npc:2130} Marion Call
 	["Back up the road to {area:159}. {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) stand upstairs in the inn: take the stairs inside, the arrow cannot tell the floors apart."] = "沿路回到{area:159}。{npc:2128}（法師）、{npc:2129}（牧師）、{npc:2127}（術士）和{npc:2130}（盜賊）在旅店樓上：從裡面走樓梯，箭頭分不清樓層。",
 	-- {npc:1518} Apothecary Johaan · {area:228} Sepulcher
 	["{npc:1518}: for Renferrel at the {area:228}"] = "{npc:1518}：替倫弗雷爾跑一趟{area:228}",
-	["The Wanted poster beside Zygand"] = "齊甘德旁的通緝告示",
 	-- {npc:2211} Captured Mountaineer
 	["The {npc:2211}, in the inn's cellar"] = "{npc:2211}，在旅店的地下室裡",
 
-	-- Step 80: Maggot Eye
-	-- {area:164} Garren's Haunt · {npc:1753} Maggot Eye
-	["North to {area:164}, the Rot Hide camp on the hill south of the shore. {npc:1753} (level 11) stands in the hut: clear the gnolls around him first.\nCareful: Gnoll guards stand outside the hut and can join the fight. If you slip past them and fight him inside, he fights alone."] = "往北前往{area:164}，海岸南邊山丘上的腐皮營地。{npc:1753}（等級11）站在小屋裡：先清掉他周圍的豺狼人。\n小心：豺狼人守衛站在小屋外，可能會加入戰鬥。如果你溜過他們在屋內打他，他會單獨作戰。",
-	-- {item:3635} Maggot Eye's Paw
-	["{item:3635}; inside"] = "{item:3635}；在裡面",
-
 	-- Step 81: Leonid Barthalomew the Revered
-	-- {area:164} Garren's Haunt · {area:157} Agamand Mills · {area:16616} Whispering Forest · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro · {quest:96896} A Righteous Cause · {area:16881} Shadowvale
-	["West from {area:164} past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "從{area:164}向西經過{area:157}前往{area:16616}。李奧尼德站在{npc:246389}營地的北邊。\n{npc:246389}和{npc:259190}在李奧尼德南邊的森林邊緣紮營。繳交{quest:96896}（等級10）後，所有職業都能接受這兩個任務。他們會派你進入{area:16881}底下的地窖，也就是下一站。",
+	-- {area:159} Brill · {area:157} Agamand Mills · {area:16616} Whispering Forest · {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro · {quest:96896} A Righteous Cause · {area:16881} Shadowvale
+	-- was: ["West from {area:164} past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "從{area:164}向西經過{area:157}前往{area:16616}。李奧尼德站在{npc:246389}營地的北邊。\n{npc:246389}和{npc:259190}在李奧尼德南邊的森林邊緣紮營。繳交{quest:96896}（等級10）後，所有職業都能接受這兩個任務。他們會派你進入{area:16881}底下的地窖，也就是下一站。"
+	["North-west from {area:159} past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "",
 	-- {npc:246378} Danitha Morr
 	["Listen to Leonid and {npc:246378}, then talk to him again"] = "聽萊尼德和{npc:246378}交談，然後再和他說話",
 
@@ -512,6 +514,7 @@ return {
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back to {area:159}."] = "回到{area:159}。",
+	-- ["Back up the road to {area:159}, on the way north-west to {area:157}."] = "沿路返回{area:159}，接著往西北去{area:157}。",
 	-- ["Balnir graves"] = "巴尼爾墓地",
 	-- ["Duskbats and Darkhounds roam all along the road back west; finish the wings and hides on the way."] = "夜行蝙蝠和黑暗犬在往西的回程道路沿線遊蕩；順路把翅膀和外皮收集完。",
 	-- ["Eleanor camps just south-west of town."] = "她在城鎮西南方紮營。",
@@ -524,11 +527,13 @@ return {
 	-- ["Follow the road west past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp."] = "沿著道路向西經過{area:157}前往{area:16616}。萊尼德站在{npc:246389}營地北邊。",
 	-- ["Free six Webbed Victims inside the cave for {npc:244808}"] = "為{npc:244808}解救洞內六名被蛛網纏住的受害者",
 	-- ["Greater Duskbats"] = "巨型夜行蝙蝠",
+	-- ["Greater Duskbats (6-7) fly over the fields around {area:159} and along the road north: Gretchen wants their pelts, {npc:3549} their wings. The Vampiric Duskbats (8-9) farther out drop them too, but hit harder.\nThe {quest:5482} grows in the graveyard fields just north of {area:159}, where the Rot Hide Graverobbers dig; all the Rot Hides drop the ichor.\nThe Rot Hide Mongrels hold the hills further north, around {area:164}. Leave {npc:1753} (level 11) in his hut for now: the guide comes back for him at the end.\nThe Vile Fin murlocs line the north shore: they all drop the scales, and the Minor Oracles and Muckdwellers the skins for {npc:3549}. Straight north of {area:159} the shore holds Puddlejumpers and Minor Oracles (7-9) with no Muckdwellers (9-10) close by."] = "巨型夜行蝙蝠（6-7）在{area:159}周圍的田野和往北的道路上飛行：格瑞琴要牠們的毛皮，{npc:3549}要牠們的翅膀。更遠處的吸血夜行蝙蝠（8-9）也會掉落，但打得更痛。\n{quest:5482}長在{area:159}北邊的墓地田野，腐皮盜墓賊在那裡挖墓；所有腐皮豺狼人都會掉落膿液。\n混血腐皮豺狼人佔據更北邊{area:164}周圍的山丘。{npc:1753}（等級11）先留在他的小屋裡：指南最後會回來找他。\n污鰭魚人分布在北岸：都會掉落鱗片，小神諭者和泥居者會掉落{npc:3549}要的皮。{area:159}正北方的海岸有跳淵者和小神諭者（7-9），附近沒有泥居者（9-10）。",
 	-- ["Greater Duskbats fly over the fields around {area:159} and along the road north."] = "巨型夜行蝙蝠在{area:159}周圍的田野上空以及北邊的道路沿線飛行。",
 	-- ["Head west into the {area:16616}; {npc:246389} and {npc:259190} camp at its edge."] = "向西進入{area:16616}；{npc:246389}和{npc:259190}在森林邊緣紮營。",
 	-- ["Head west to the cave. The Young Night Web Spiders sit outside; the Night Web Spiders and the Webbed Victims are inside."] = "向西前往洞穴。小夜行蜘蛛在洞外；夜行蜘蛛和被蛛網纏住的受害者在洞內。",
 	-- ["Hearth to {area:159}"] = "用爐石回{area:159}",
 	-- ["More Vile Fin murlocs walk the shore just north of the outpost."] = "更多的邪鰭魚人在前哨北邊的海岸走動。",
+	-- ["North to {area:164}, the Rot Hide camp on the hill south of the shore. {npc:1753} (level 11) stands in the hut: clear the gnolls around him first.\nCareful: Gnoll guards stand outside the hut and can join the fight. If you slip past them and fight him inside, he fights alone."] = "往北前往{area:164}，海岸南邊山丘上的腐皮營地。{npc:1753}（等級11）站在小屋裡：先清掉他周圍的豺狼人。\n小心：豺狼人守衛站在小屋外，可能會加入戰鬥。如果你溜過他們在屋內打他，他會單獨作戰。",
 	-- ["Paladin: {area:16616}"] = "聖騎士：{area:16616}",
 	-- ["Rattlecage skulls"] = "斷骨骷髏的頭骨",
 	-- ["Rattlecages, scavengers and duskbats"] = "斷骨骷髏、食腐狼和夜行蝙蝠",
@@ -557,6 +562,7 @@ return {
 	-- ["Walk south-west from the mills: the pumpkins grow in the Scarlet-held fields north-west of Solliden."] = "從磨坊向西南走：南瓜生長在索利丹西北方、血色十字軍佔據的田地裡。",
 	-- ["Walk south-west to the {area:156}; Simmer stands at the farm."] = "向西南走到{area:156}；希米爾站在農場裡。",
 	-- ["Webbed Victims"] = "被蛛網纏住的受害者",
+	-- ["West from {area:164} past {area:157} to the {area:16616}. Leonid stands just north of {npc:246389}'s camp.\n{npc:246389} and {npc:259190} camp at the forest's edge just south of Leonid. Every class can take both quests once {quest:96896} is handed in (level 10). They send you into the cellar under {area:16881}, the next stop."] = "從{area:164}向西經過{area:157}前往{area:16616}。李奧尼德站在{npc:246389}營地的北邊。\n{npc:246389}和{npc:259190}在李奧尼德南邊的森林邊緣紮營。繳交{quest:96896}（等級10）後，所有職業都能接受這兩個任務。他們會派你進入{area:16881}底下的地窖，也就是下一站。",
 	-- ["With {skill:129} learned, Eleanor also offers its Camping 101: {npc:5759} in the {area:159} inn takes it."] = "學會{skill:129}後，艾莉諾也會提供對應的「露營入門」任務：交給{area:159}旅店裡的{npc:5759}。",
 	-- ["With {skill:164} learned, Eleanor also offers its Camping 101: {npc:4605} in the {zone:1458} (next guide) takes it."] = "學會{skill:164}後，艾莉諾也會提供對應的「露營入門」任務：交給{zone:1458}的{npc:4605}（下一份指南）。",
 	-- ["With {skill:165} learned, Eleanor also offers its Camping 101: {npc:3549} at {npc:1495}'s camp takes it."] = "學會{skill:165}後，艾莉諾也會提供對應的「露營入門」任務：交給{npc:1495}營地的{npc:3549}。",

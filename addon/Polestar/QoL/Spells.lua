@@ -10,8 +10,10 @@
 -- known or trainable by then (a talent's higher ranks need the talent).
 -- PLAYER_LEVEL_UP fires LEVELUP_SPELLS(notice) when there is any: { level,
 -- spells = { { id, rank, cost } }, cost (total), money } (where to train is
--- the card's: Engine.TrainingAdvice). Nothing in an instance; in combat it
--- waits for the fight to end.
+-- the card's: Engine.TrainingAdvice). In an instance it waits until you come
+-- out (PLAYER_ENTERING_WORLD outside one), then tells the spells of every
+-- level reached since, in one notice (#2930); in combat it waits for the
+-- fight to end.
 --
 -- Old ranks (Spells.OldRanks): in this client a bar keeps the exact rank put
 -- on it, so a slot holding a spell whose higher rank is in the spellbook
@@ -209,18 +211,31 @@ function Spells.NewAt(level, class)
 	return out
 end
 
-local waiting -- a level-up told once combat ends
+local waiting -- { from, level }: a level-up told once combat ends
+local held -- the first level reached inside an instance, told on the way out (#2930)
 
-function Spells.CheckLevel(level)
+-- The new spells of every level from `from` to `level` (a ding inside an
+-- instance and another after it are told together on the way out).
+function Spells.CheckLevel(level, from)
 	if not QoL.On("levelUpSpells") or not level then return false end
+	from = math.min(from or level, level)
 	local C = ns.Compat
-	if C.IsInInstance() then return false end
+	if C.IsInInstance() then
+		held = math.min(held or from, from)
+		return false
+	end
+	if held then
+		from, held = math.min(from, held), nil
+	end
 	if C.InCombat() then
-		waiting = level
+		waiting = { from = from, level = level }
 		return false
 	end
 	waiting = nil
-	local list = Spells.NewAt(level)
+	local list = {}
+	for l = from, level do
+		for _, s in ipairs(Spells.NewAt(l)) do list[#list + 1] = s end
+	end
 	if #list == 0 then return false end
 	local total = 0
 	for _, s in ipairs(list) do total = total + (s.cost or 0) end
@@ -424,8 +439,18 @@ end)
 ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
 	if waiting then
 		local n = waiting
-		ns.After(1, function() if waiting == n then ns.SafeCall(Spells.CheckLevel, n) end end)
+		ns.After(1, function() if waiting == n then ns.SafeCall(Spells.CheckLevel, n.level, n.from) end end)
 	end
+end)
+
+-- Out of the instance a ding happened in: its spells are told now (#2930: a
+-- Warrior who reached 32 in the Excavation Site heard nothing).
+ns.RegisterEvent("PLAYER_ENTERING_WORLD", function()
+	if not held then return end
+	ns.After(2, function()
+		local level = tonumber(player().level)
+		if held and level and not ns.Compat.IsInInstance() then ns.SafeCall(Spells.CheckLevel, level, held) end
+	end)
 end)
 
 -- Spellbook changes come in bursts at a trainer: one check a second after the last.

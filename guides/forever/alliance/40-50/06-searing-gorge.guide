@@ -90,6 +90,13 @@ step Prayer to Elune
 step Zamael Lunthistle
   when group 3377
   turnin 3377
+  accept 3378
+
+step Prayer to Elune: the page
+  when group 3377
+  when onquest 3378
+  tip The Twilight elites of Zamael's camp drop the Prayer to Elune page, about one in five: keep the group together here until one drops.
+  collect 10458 quest 3378.1 @29.6,26.3 map 1427 group 4
 
 step Searing Lava Spiders
   tip The spiders roam the plateaus and lava pools south of Zamael, on the way to Velarok.
@@ -184,7 +191,8 @@ step Lookout Captain Lolo Longstriker
 step Level 48.66
   when !group 7701
   when level<48.66
-  tip If you skipped Culling the Competition or WANTED: Overseer Maltorius, top up here if you are still below level 48.66.
+  tip Still under level 48.66 after the Slag Pit (a solo player usually is; a group's Culling the Competition or WANTED: Overseer Maltorius covers it)? Top up on the Incendosaurs (47) in the Slag Pit's lava pools, pulled to the edge.
+  tip Careful: Overseer Maltorius (50, elite) and his elite guards hold the Slag Pit's depths: keep to the pools near the entrance and don't follow the tunnels in.
   goto 46.0,22.0 map 1427 "Incendosaur"
   level 48.66 grind 9318               -- grind on Incendosaur
 
@@ -228,9 +236,10 @@ step Sentry Braziers
 step Level 48.98
   when !group 3452
   when level<48.98
-  tip If you skipped The Flame's Casing, grind here to level 48.98 to stay on the route's plan.
-  goto 39.2,38.9 map 1427 "Dark Iron Slaver"
-  level 48.98 grind 5844               -- grind on Dark Iron Slaver
+  tip Still under level 48.98 (a solo player usually is; a group's The Flame's Casing covers it)? Top up on the Searing Lava Spiders (47-48) of the western plateaus, away from the Dark Iron camps.
+  tip Careful: Magma Elementals (46-48) drift among the spiders: pull one at a time. Keep south of the Twilight camp at Firewatch Ridge, whose cultists are elites.
+  goto 28.5,51.0 map 1427 "Searing Lava Spider"
+  level 48.98 grind 5858               -- grind on Searing Lava Spider
 
 step Margol's Horn
   when group 3181

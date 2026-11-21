@@ -502,6 +502,32 @@ fn the_route_s_unneeded_quests_are_the_ones_it_never_hands_in_and_none_while_a_c
 	assert_eq!(out, json!({ "open": [["One", "Stray"], "missed", "unplanned"], "undecided": true }));
 }
 
+// #3132: a quest an accept still ahead on the route needs first (its `pre` or `preAny`) is never offered for
+// abandoning, though the route passed (One) or never makes (Stray) its hand-in: abandoning it closes that accept
+// and sends the player back to take it again. An accept the route has passed needs nothing any more.
+#[test]
+fn a_quest_an_accept_ahead_needs_first_is_not_unneeded_3132() {
+	let out = run(
+		&format!(
+			"{ROOM}{}",
+			r#"
+    local before = titles(R.Unneeded())
+    table.insert(guideA.steps[3].goals, { t="accept", quest=12, pre={1} })
+    table.insert(guideB.steps[1].goals, { t="accept", quest=13, preAny={77, 99} })
+    table.insert(guideA.steps[1].goals, { t="accept", quest=14, pre={5} })
+    P.Fire("GUIDES_REGISTERED")
+    local ahead = titles(R.Unneeded())
+    live = 4; P.Fire("GUIDES_REGISTERED")
+    emit({ before = before, ahead = ahead, past = titles(R.Unneeded()) })
+  "#
+		),
+		false,
+	);
+	assert_eq!(out["before"], json!(["One", "Stray"]));
+	assert_eq!(out["ahead"], json!({}), "Starter's step 3 needs One, Westfall needs Stray (an empty Lua list)");
+	assert_eq!(out["past"], json!(["One", "Three"]), "past Starter's step 3: One is needed no more (Three's hand-in passed too); Westfall still needs Stray");
+}
+
 #[test]
 fn an_accept_step_past_the_log_s_cap_names_what_to_drop_unneeded_first_then_the_latest_hand_in() {
 	let out = run(

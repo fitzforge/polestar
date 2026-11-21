@@ -49,6 +49,36 @@ test('opposing settlements block the whole walking segment; mobs and high-level 
 	assert.ok(rows.preference[0] > rows.preference[1] && rows.preference[1] === 1);
 });
 
+test('every client build checks walks against the enemy towns; a newer one than the data says so once in the log', () => {
+	// The data files name the builds they were paired on; the log line names the same pair.
+	for (const file of ['DangerAreas.lua', 'DangerHubs.lua']) {
+		const banner = require('node:fs').readFileSync(path.join(ADDONS, 'Polestar', 'Nav', file), 'utf8').split('\n')[0];
+		assert.match(banner, /paired ground policy for builds 70532 and 70959\.$/, file);
+	}
+	const rows = {};
+	for (const build of ['70338', '70532', '70959', '70960', '71000']) {
+		const { emitted: [row] } = runAddon({
+			stubs: ['stub_world.lua'], before: `stub.clientBuild = '${build}'`, addons: ['Polestar'],
+			script: `
+				local d = Polestar.Nav.danger
+				local function walk(map, x, y, X, Y) return d.Blocked(map,x,y,X,Y,'Horde') or 'clear' end
+				local log = {}
+				for _, line in ipairs(Polestar.DebugLog()) do
+					if line:find('ground: ', 1, true) then log[#log + 1] = line:gsub('^%S+ ', '') end
+				end
+				emit({ goldshire = walk(0,-9644.062,77.667,-9244.062,77.667), stormwind = walk(0,-8833.38,628.62,-8831.38,628.62),
+					orgrimmar = walk(1,1681,-4099.99,1683,-4099.99), log = table.concat(log, '\\n') })`,
+		});
+		rows[build] = row;
+	}
+	const checked = { goldshire: 'opposing-settlement', stormwind: 'opposing-settlement', orgrimmar: 'clear' };
+	const newer = b => `ground: client build ${b} is newer than the enemy-town data (70532, 70959); walks are still checked`;
+	assert.deepEqual(rows, {
+		70338: { ...checked, log: '' }, 70532: { ...checked, log: '' }, 70959: { ...checked, log: '' },
+		70960: { ...checked, log: newer('70960') }, 71000: { ...checked, log: newer('71000') },
+	});
+});
+
 test('a displaced start cannot sell the unwalkable chord out of the Stonefire Tavern as a transfer', () => {
 	const parts = navParts(path.join(ADDONS, 'Polestar_Nav'));
 	const before = parts.map(n => `stub.packs[${JSON.stringify(n)}] = {${tocFiles(n).map(p => JSON.stringify(p)).join(',')}}`);

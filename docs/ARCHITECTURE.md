@@ -525,10 +525,10 @@ out when empty) and the Settings section.
 
 The perf probe (`Core/Perf.lua`, `/polestar perf`, off at every login) finds
 which of Polestar's handlers make a player's game stutter. Off, none of it
-runs: the event frame, `Fire`, `Safe`'s callbacks and `SafeCall` are the
-plain ones (only each `QoL.Coalesce` notes where it was made as it loads,
-`NoteMadeAt`, so the report can tell the refreshes apart). On,
-`Polestar.SetProbe` swaps in copies that hand each handler to the probe,
+runs: game events' handlers on every bus, `Fire`, `Safe`'s callbacks and
+`SafeCall` are the plain ones (only each `QoL.Coalesce` notes where it was
+made as it loads, `NoteMadeAt`, so the report can tell the refreshes
+apart). On, `Polestar.SetProbe` swaps in timed ones for each handler,
 and the probe wraps Polestar_Nav's `Path.after` (the walking router's
 search slices); it times each with `debugprofilestop` (its own cost,
 measured when it starts, is about a microsecond a call) and keeps, per
@@ -1274,6 +1274,9 @@ Compat.Readable(v)              -> v | nil (a secret value reads as unknown)
 Compat.Now()                    -> seconds since the epoch, server clock
 Compat.GetPlayerInfo()          -> { name, realm, guid, level, xp, xpMax, race, class, faction }
                                    -- race = raceFile ("Human","Scourge",...), class = classFile ("WARRIOR"), faction = "Alliance"|"Horde"|"Neutral"
+                                   -- realm = Compat.RealmName()
+Compat.RealmName()              -> string | nil  (GetRealmName; nil for "", a secret or none: "Unknown realm" below)
+Compat.NormalizedRealmName()    -> string | nil  (GetNormalizedRealmName, the same way)
 Compat.GetPlayerFaction()       -> "Alliance" | "Horde" | nil  (UnitFactionGroup; nil when neutral, unread or secret;
                                    -- the walking router's profile, Nav/Walk.lua)
 Compat.GetPlayerMapPosition()   -> uiMapID, x, y | nil      (nil in instances / unknown)
@@ -1328,6 +1331,50 @@ Compat.GetFactionStanding(factionID)   -> standingID (1 Hated .. 8 Exalted), val
 Compat.IsAreaExploredAt(uiMapID, x, y) -> bool | nil   (C_MapExplorationInfo)
 Compat.GetAchievement(id)              -> { completed, name, criteria = { { text, completed, cur, max }, ... } } | nil
 ```
+
+#### Unknown realm
+
+Forever's client stopped telling addons the realm in 1.60.1 (a hotfix in
+November 2026): GetRealmName and GetNormalizedRealmName read `""`,
+GetRealmID `0`. `Compat.RealmName()` and `Compat.NormalizedRealmName()` read
+those as nil, and nothing else in the addon calls them. Every key filed by
+realm falls back, and takes over its old entry once, at login (or the first
+read), while the realm is unknown:
+
+| Data | Key with the realm | Key without | Taken over |
+|---|---|---|---|
+| Characters page (`PolestarDB.alts.chars`) | `"Name-Realm"` | `"Name"` | the character's one `"Name-<realm>"` entry, its saved `realm` kept; with several (one name on more than one realm) none, and the page says so under the list (`Alts.Unclaimed`) |
+| Instance entries (`PolestarDB.instances.entries[].char`) | `"Name-Realm"` | `"Name"` | entries naming one realm for this name; several: kept |
+| Prices (`PolestarDB.materials.prices`) | `"Realm-Faction"` | `"Faction"` | the faction's one realm; several: kept until they age out (14 days) |
+| Boat and zeppelin timings (`PolestarDB.transit`) | `realm` | `"?"` | the one realm's sightings, the newer per route; several: kept until they age out (6 hours) |
+| Rares met (`PolestarDB.rares.history`) | `realm` | `"?"` | the one realm's history (a rare in both keeps the newer entry, both counts); several: kept, and the Characters page says so (`Rares.UnclaimedRealms`) |
+
+Keys written while the client already read `""` and before this was handled
+(`"Name-"`, `"-Faction"`) always move to the key without the realm: they are
+this character's. Matching realms: Materials counts an alt's materials when its
+saved realm matches the character's, the client's realm or else the one
+saved on the character's own entry, and when either is unknown; a transit
+sighting from a sender named with a realm counts only when that is this
+realm's name, so never while it is unknown. The Characters page's subtitle
+names the realm only while the client gives it ("3 characters", "1
+character"). Two characters with one full name on different realms share
+the realm-less key; Forever's names carry a surname, so this is rare.
+
+#### Creature and object GUIDs
+
+`Creature-0-<realm>-<instanceMap>-<server>-<id>-<spawn>` (also `Vehicle`,
+`Pet`, `GameObject`). Forever obfuscates the server and spawn parts, and
+(announced for a later hotfix) the realm part too, so every reader takes the
+kind and the id by their place (`strsplit` or `[^-]*` per part) and never
+reads or keeps the other parts across sessions. A GUID used as a key (a
+rare's sighting debounce and held card, the Recorder's units seen) lives in
+memory for the session only; the Recorder's `spawn`/`unitx` records carry the
+spawn part as a tag within one recording, and nothing reads it across
+recordings. The one reader of another part is Instances'
+copy check (the fifth part): it trusts the part only once two creatures of one
+visit agree on it, compares it only with a value read in this session, and
+stops for the session when two creatures of one visit disagree
+(`Maps/Instances.lua`'s header).
 
 #### Map frames
 
@@ -1893,7 +1940,8 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   "Fresh starts") says how much of its quest XP hinges on earlier guides'
   quests. `Engine.FreshFor(g)` scales that share by the part of `needs` the
   character has neither done, nor in the log, nor taken on the way (a feeder
-  step of the guide's plan), and from `FRESH_NOTE` (30) percent, below the
+  step of the guide's plan), and from `FRESH_NOTE` (30) percent in whole
+  percent (the share the note states), below the
   guide's top level and with `from` a guide for this character, returns
   `{ guideId, from, fromTitle, share, minutes }` (minutes: that XP as
   same-level kills, `FRESH_KPM` (1.5) a minute, in fives). `Engine.FreshStart()`
@@ -4169,7 +4217,8 @@ Polestar.Engine.RefreshMaterials()                               -- the ways cha
   makes for a tracked material (`COMMODITY_SEARCH_RESULTS_UPDATED`,
   `ITEM_SEARCH_RESULTS_UPDATED` into `Materials.NoteSearch`): the cheapest
   listings, up to 40, so a count is priced for that many ("only N listed" past
-  them), kept per auction house (realm and faction) for 14 days and dropped at
+  them), kept per auction house (realm and faction; the faction alone while
+  the client does not give the realm, "Unknown realm") for 14 days and dropped at
   login after; else Auctionator's (`Auctionator.API.v1.GetAuctionPriceByItemID`
   and `GetAuctionAgeByItemID`, caller "Polestar") when it is installed. Shown
   with their age, never a gate.
@@ -6008,7 +6057,8 @@ loops sharing a lane both fit). It fits every 10 samples and when 30 s pass
 without one or the player leaves the world; a new sighting prints "Timed the
 <route> from your ride" unless one of yours is under 10 minutes old.
 Sightings are kept per realm in `PolestarDB.transit[realm][route] = { epoch,
-seen, source }` and dropped after 6 hours (a restart resets the loops).
+seen, source }` (realm `"?"` while the client does not give it, "Unknown
+realm") and dropped after 6 hours (a restart resets the loops).
 Sharing is opt-in: with `nav.shareTransit` (off by default; Options, Arrow &
 routes, "Share boat times") a new sighting of yours goes to the guild and
 group as an addon message (`PolestarT1`: `S<route>:<seen s>:<phase ms at
@@ -6344,6 +6394,33 @@ what is shown and timed.
   `Compat.GetAreaName(areaId)` (`C_Map.GetAreaInfo`; the hub record's
   AreaTable id), else the packed English name, as goto labels and
   `Compat.MapName` do; the "each name once" rule works on the shown name.
+- Enemy ground (`Nav/GroundSafety.lua`, `Nav.danger.Blocked(c, x, y, X, Y,
+  profile)`): a veto on an on-foot segment, never a permission. It answers
+  `"opposing-settlement"` when the straight segment (with the player's
+  shoulders, 0.55 yd) touches a cell the other faction owns
+  (`Nav/DangerAreas.lua`) or a guard post's disk (`Nav/DangerHubs.lua`), nil
+  when it doesn't, `"unknown-profile"` without a faction and `"unknown-ground"`
+  for a map without that data or an end that isn't a world position. The planner
+  (`Travel.lua`'s walks), the walking engine's answers (`Walk.lua`), the
+  arrow's displayed bearing (`Nav.lua`, "unsafe") and the map line's gaps
+  (`Layers.lua`) all refuse a segment it answers for. Both data files were
+  imported by `forge nav layers ground` (`ground_policy.rs`): ownership cells
+  kept only where builds 70532 and 70959 have the same terrain and area
+  hierarchy, guard disks from 70532. Towns and guard posts are positions on
+  the map, so the check runs on every client build (an older one, the next
+  Forever patch); a build newer than 70959 adds one line to the debug log at
+  load ("ground: client build … is newer than the enemy-town data"). Until
+  0.4.2 any other build answered `"unknown-ground"` for every segment, so a
+  client patch refused every walk. The planner asks `p.blocked` when the plan
+  carries one (else `Nav.danger.Blocked`); `Nav.EstimateTravel` passes
+  `Travel.EstimateBlocked`, which remembers each answer by its exact arguments: a
+  step change's candidate prices (up to 8 from one spot, with a second pass
+  for a discounted walk or the hearth) and later step changes ask about the
+  same walks between flight masters, docks and crossings, and checking a walk
+  every 33 yards was two thirds of a plan (0.4.2's step change: 40 ms on the
+  perf test, 17 ms remembered). The data never changes in the game; the
+  answers are forgotten when the check or its data tables are replaced (test
+  worlds) and after 2048. Live routes (`Travel.Replan`) ask the check itself.
 
 **Our own maps, always.** The engine reads only `PolestarPathData`, never an
 installed Shortest Path Forever's `ShortestPathForeverPathData`, even when it
@@ -9385,8 +9462,9 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   level for the character's race (`UnitRace`'s id against the mask), not
   known, and for a higher rank only when the rank below is known or trainable
   by then (a talent's higher ranks need the talent); any left fire
-  `LEVELUP_SPELLS` { level, spells, cost, money }. Nothing in an instance; in combat it
-  waits for `PLAYER_REGEN_ENABLED`. The card: "LEVEL 12 · PRIEST", "3 new
+  `LEVELUP_SPELLS` { level, spells, cost, money }. In an instance it waits for
+  `PLAYER_ENTERING_WORLD` outside one, then tells every level reached since in one
+  notice (#2930); in combat it waits for `PLAYER_REGEN_ENABLED`. The card: "LEVEL 12 · PRIEST", "3 new
   spells to train", a row of up to 8 icons ("+N more") with the game's spell
   tooltip (`W.SpellTip` with `CT.PlaceTip`: beside the card, on its side
   facing the screen's middle, never over its lines) and the training cost, the
@@ -10438,7 +10516,8 @@ Polestar.Rares.FounderSighting(unit, source, guid)  -- a player unit from Detect
   earlier sighting, else alerts as "Unknown rare" marked `unnamed`. A later
   sighting that alerts nothing (cooldown, combat hold) and carries the name
   sends `RARE_NAMED(key, name)`, and the card showing that rare unnamed takes it.
-- **History**: account-wide per realm, `PolestarDB.rares.history[realm][key]`
+- **History**: account-wide per realm (`"?"` while the client does not give
+  it, "Unknown realm"), `PolestarDB.rares.history[realm][key]`
   (`"rare:<npc>"`, `"treasure:<object>"`, `"name:<name>"` without an id), at
   most 400 entries; the cooldown reads `alerted` (epoch seconds), so it
   survives a reload. Losing it only resets cooldowns and the Seen list.
@@ -10577,7 +10656,8 @@ them, the `alts` command), `Options.lua` (Discovery → Lookup),
 `View.lua` (the hub section, order 60).
 
 ```
-Polestar.Alts.Key() -> "Name-Realm"                         -- as Maps/Instances.lua files its entries
+Polestar.Alts.Key() -> "Name-Realm" | "Name"                -- as Maps/Instances.lua files its entries; "Name" with the realm unknown
+Polestar.Alts.Unclaimed() -> entries                        -- this name's "Name-<realm>" entries left apart with the realm unknown
 Polestar.Alts.List(sortBy) -> entries                       -- the playing character first, then "seen" (default) | "rested" | "level"
 Polestar.Alts.Forget(key) -> boolean                        -- never the playing character
 Polestar.Alts.Write(silent, touch) -> boolean               -- the playing character's entry (touch: only `seen`); false with alts.enabled off
@@ -10593,7 +10673,10 @@ Polestar.Alts.IsCurrent(entry), Polestar.Alts.MaxLevel(), Polestar.Alts.Enabled(
   mats (item to count: the profession guides' materials in its bags, bank and
   mail, `Materials.OwnCounts`), `seen`
   (server time), `key`. Values that equal nothing are left out. An alt's
-  entry is as of its last write, normally its logout.
+  entry is as of its last write, normally its logout. While the client does
+  not give the realm the key is the name alone and the character's one
+  "Name-<realm>" entry moves there at login; with several, none moves and the
+  page says so under the list ("Unknown realm").
 - **Writes.** All in the world: at login (after five seconds, once the tabs
   exist), on resting changes at once, on level-ups, XP, zone, money, skill and
   tab changes and new bank and mail counts (`MATERIALS_COUNTS`) coalesced into
@@ -10659,7 +10742,7 @@ What `compile` writes into a pack's folder: Core, "Guide data (compiled Lua)".
 | `export <file.guide>` | lints the file's pack (the nearest `pack.json` above it) and prints its one guide as an import string (`tools/lib/pack/importstring.js`; PACK_FORMAT.md, "Import strings"); refuses a file with errors, of several guides, of Polestar's own, over 60 steps or 50,000 characters. `play` and `dev --play` give the same string (`POST /api/import`, the page's Copy import string) |
 | `doctor` | Node, Lua, reference data, AddOns folder, `pack.json` |
 | `find` | quests, NPCs, objects, items, inns, flight points and our guides as guide lines (`--json`); `--kind inn\|flight` without a text lists every inn or flight point (from `travel.json`) |
-| `playtest` | every guide to the end per class (`tools/lib/playtest.js`, also behind `tests/guides.test.js`); a guide starts with the prerequisites of its accepts that the guides chaining into it turn in already done, and those they leave for it only to hand in in the log, as for a player arriving on the route. Plays run on a pool of long-lived lua5.1 processes (`tools/lib/luapool.js`, `tests/lua/pool.lua`; `POLESTAR_PLAY_WORKERS`, default 8): each play in a fresh environment, the addon's and the pack's files parsed once per process. `--honest` (`tools/lib/playtest-honest.js`, no Lua) plays each `next` chain (the main route; a catch-up alone; each side's own option out of a guide both sides play) from the compiled lines and the data only, carrying the log, bags, flight paths and hearth, with nothing free: R1 travel (continent and zone changes, flight paths, hearth), R2 accept (giver at the place, item starts), R3 items (a source near the goal, quest-only drops), R4 NPCs (giver or ender, step titles, several givers), R5 turn-in (objectives credited, the required steps of `data/local/kb/forever-kb.sqlite` when present); `--format json` for agents; exit 1 on any fail |
+| `playtest` | every guide to the end per class (`tools/lib/playtest.js`, also behind `tests/guides.test.js`); a guide starts with the prerequisites of its accepts that the guides chaining into it turn in already done, and those they leave for it only to hand in in the log, as for a player arriving on the route. Plays run with the arrow's journey off (`nav.travel`): the simulated player is set down at each goal, never riding the journey's boats or portals, in a world without walking maps or floors, so a live route would still be on its first leg at a goto with a height (`Nav.AllowGuideArrival`); journey prices (`Nav.EstimateTravel`, which route choices weigh) still work. Plays run on a pool of long-lived lua5.1 processes (`tools/lib/luapool.js`, `tests/lua/pool.lua`; `POLESTAR_PLAY_WORKERS`, default 8): each play in a fresh environment, the addon's and the pack's files parsed once per process. `--honest` (`tools/lib/playtest-honest.js`, no Lua) plays each `next` chain (the main route; a catch-up alone; each side's own option out of a guide both sides play) from the compiled lines and the data only, carrying the log, bags, flight paths and hearth, with nothing free: R1 travel (continent and zone changes, flight paths, hearth), R2 accept (giver at the place, item starts), R3 items (a source near the goal, quest-only drops), R4 NPCs (giver or ender, step titles, several givers), R5 turn-in (objectives credited, the required steps of `data/local/kb/forever-kb.sqlite` when present); `--format json` for agents; exit 1 on any fail |
 | `forge guide check <dir>` (was `guidecheck`) | every chain of `.guide` files under `<dir>` (one folder, in file-name order; catch-ups left out) read as the player does, line by line, against the reference data (`rust/crates/forge-guide/src/guidecheck.rs`). It reads the parsed and resolved lines and the data they touch into facts, derives the failures from them by the rules once written as answer set programming (they are stratified, so plain Rust), and gives each failure the cheapest of the repairs it may take (equally cheap ones: a fixed choice). Rules: `itemStart` (an item-started accept before anything gives its item), `useBefore`, `unsourced` (no source in the data or the guide), `bagBefore` (a quest-only drop bagged before its quest is held), `giver`/`ender` (an NPC who does not give or take the quest, or none named when several do), `objective` (a turn-in with a part never worked since the accept), `noAccept`, `travel` (a new zone with no line that moves the player; a capital and its zone are one place), `continent` (no boat, zeppelin, portal or hearth). `--fix` runs the repairs (`guidecheck_repair.rs`; `travel` and `continent` are left to the writer's travel pass in `forge build`): names the NPC, adds the item's source (its best dropper's or object's spawn nearest the route's point, or a vendor), gates a rare start on `when has`, adds a missing goal or accept, copies a later collect before a use, and an order pass (a stable topological sort: every line after the nearest line that gives what it needs, moving no more than 150 lines; a step caught in a cycle is split per goal; a step whose sticky `zone` changed says it again). `--json` |
 | `play`, `dev` | the playground with the pack built into a temp folder; `dev` watches and builds into AddOns |
 | `install`, `pack` | builds and installs the pack; writes `<pack>/dist/<folder>-<version>.zip` |
