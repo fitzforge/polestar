@@ -12378,7 +12378,7 @@ do
 				},
 				{
 					title = "{quest:94556}",
-					note = "{npc:258048} waits by the Twilight ogres' camp north-east of {npc:256728}: take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again.",
+					note = "{npc:258048} waits at the back of the cave by the Twilight ogres' camp north-east of {npc:256728}: go all the way in to find him, then take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again.",
 					goals = {
 						{ t = "accept", quest = 94556, title = "Jom-jom's Escape", npc = 258048, npcName = "Jom-jom", minLevel = 36, qlvl = 42, map = 2548, x = 73.4, y = 24.7, z = 64.6, spotsPacked = "73.4,24.7,64.6,129,3;76.8,28,,62,3,1;75.4,30.8,,46,1,1;72.2,32.4,,70,4,1;67.6,27.8,,46,2,1;68.9,31.3,,50,3,1;66.2,22.6,,53,4,1;65.3,17.1,,71,4,1", note = "{npc:258048}, in the cave", escort = true },
 						{ t = "complete", quest = 94556, title = "Jom-jom's Escape", map = 2548, x = 64.4, y = 15.6, note = "help {npc:258048} reach {area:16726}", escort = true, objs = { { text = "Help Jom-jom reach Bolder'ok", count = 1 } } },
