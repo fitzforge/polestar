@@ -179,7 +179,7 @@ return {
 	["Savannah lions"] = "los leones de la sabana",
 	-- {npc:3682} Vrang Wildgore
 	-- plural, as words: Savannah Patriarchs = {npc:3241} Savannah Patriarch · Sprung Traps = {object:640104} Sprung Trap
-	["Savannah Patriarchs roam the plains east of {npc:3682}'s camp, and the Sprung Traps lie among them."] = "Los Patriarcas de la sabana rondan las llanuras al este del campamento de {npc:3682}, y las Trampas de resorte están entre ellos.",
+	["Savannah Patriarchs roam the plains east of {npc:3682}'s camp, and the Sprung Traps lie among them."] = "Los Patriarcas de la sabana rondan las llanuras al este del campamento de {npc:3682}, y las Trampas activadas están entre ellos.",
 
 	-- Step 39: Vrang Wildgore
 	-- {npc:261366} Walton · {npc:3682} Vrang Wildgore · {area:383} Dry Hills · {npc:3452} Serena Bloodfeather
@@ -305,11 +305,11 @@ return {
 
 	-- Step 64: The Barrens: kill these as you meet them
 	-- {area:383} Dry Hills · {quest:876} Serena Bloodfeather
-	["North to the {area:383}: {quest:876} leads the Witchwing harpies in the hills to the west.\nCareful: The route in passes stealthed Harpy Ambushers and an elite harpy that patrols."] = "Al norte, a {area:383}: {quest:876} guía a las arpías Witchwing en las colinas del oeste.\nCuidado: el camino de entrada pasa junto a Emboscadas de arpías sigilosas y a un arpía de élite que patrulla.",
+	["North to the {area:383}: {quest:876} leads the Witchwing harpies in the hills to the west.\nCareful: The route in passes stealthed Harpy Ambushers and an elite harpy that patrols."] = "Al norte, a {area:383}: {quest:876} guía a las Arpías Alabruja en las colinas del oeste.\nCuidado: el camino de entrada pasa junto a Emboscadas de arpías sigilosas y a un arpía de élite que patrulla.",
 	-- {quest:865} Raptor Horns · {npc:3682} Vrang Wildgore
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
 	-- was: ["{quest:865}, if still open: Sunscale Scytheclaws prowl among the lions"] = "{quest:865}, si sigue abierta: los segadores Solescama merodean entre los leones"
-	["{quest:865}, if still open: Sunscale Scytheclaws prowl among the lions below {npc:3682}'s camp"] = "{quest:865}, si aún está abierta: los Sunscale Scytheclaws rondan entre los leones bajo el campamento de {npc:3682}",
+	["{quest:865}, if still open: Sunscale Scytheclaws prowl among the lions below {npc:3682}'s camp"] = "{quest:865}, si aún está abierta: los segadores Solescama rondan entre los leones bajo el campamento de {npc:3682}",
 
 	-- Step 65: Walton
 	-- {npc:261366} Walton · {npc:3682} Vrang Wildgore

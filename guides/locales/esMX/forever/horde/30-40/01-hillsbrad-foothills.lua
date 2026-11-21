@@ -124,7 +124,7 @@ return {
 
 	-- Step 26: Durnholde Keep
 	-- {npc:2238} Tog'thar · {npc:2427} Jailor Eston · {item:3467} Dull Iron Key · {npc:2428} Jailor Marlgen · {item:3499} Burnished Gold Key
-	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings, and each lock needs its key: {npc:2427} carries the {item:3467} for Drull's, {npc:2428} the {item:3499} for {npc:2238}'s, both in the keep. Kill them first, then open both locks."] = "Al sureste de la Molina Tarren. Drull y {npc:2238} están encadenados en los edificios de la corte del castillo, y cada cerradura necesita su llave: {npc:2427} lleva el {item:3467} para la de Drull, {npc:2428} el {item:3499} para la de {npc:2238}, ambos en el castillo. Mátalos primero y luego abre las dos cerraduras.",
+	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings, and each lock needs its key: {npc:2427} carries the {item:3467} for Drull's, {npc:2428} the {item:3499} for {npc:2238}'s, both in the keep. Kill them first, then open both locks."] = "Al sureste del Molino Tarren. Drull y {npc:2238} están encadenados en los edificios de la corte del castillo, y cada cerradura necesita su llave: {npc:2427} lleva el {item:3467} para la de Drull, {npc:2428} el {item:3499} para la de {npc:2238}, ambos en el castillo. Mátalos primero y luego abre las dos cerraduras.",
 	-- {item:3467} Dull Iron Key · {npc:2427} Jailor Eston
 	["{item:3467}, from {npc:2427}"] = "{item:3467}, de {npc:2427}",
 	-- {item:3499} Burnished Gold Key · {npc:2428} Jailor Marlgen

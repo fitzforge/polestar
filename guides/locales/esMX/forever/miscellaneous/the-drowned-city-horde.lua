@@ -24,7 +24,7 @@ return {
 	["The Lost City's entrance"] = "La entrada de la Ciudad Perdida",
 	-- {area:104} Vile Reef · {area:17853} Sunken Hollow · {object:3202} Grom'gol (no name in this language: may be words)
 	-- plural, as words: Brinescale Skirmishers = {npc:262397} Brinescale Skirmisher
-	["Brinescale Skirmishers around the {area:104} drop the tridents. The cavern entrance the quest asks for is under the reef, in {area:17853}: due west of {object:3202} and south-west of the reef's tablet."] = "Los Brinescale Skirmishers alrededor de {area:104} sueltan los tridentes. La entrada de la caverna que pide la misión está bajo el arrecife, en {area:17853}: justo al oeste de {object:3202} y al suroeste de la tabla del arrecife.",
+	["Brinescale Skirmishers around the {area:104} drop the tridents. The cavern entrance the quest asks for is under the reef, in {area:17853}: due west of {object:3202} and south-west of the reef's tablet."] = "Los escaramuzadores Brinescale alrededor de {area:104} sueltan los tridentes. La entrada de la caverna que pide la misión está bajo el arrecife, en {area:17853}: justo al oeste de {object:3202} y al suroeste de la tabla del arrecife.",
 
 	-- Step 8: Krazek
 	-- {area:35} Booty Bay
@@ -52,7 +52,7 @@ return {
 	["Brinescale Explorers and Sorceresses guard the way to {npc:258924}, the second boss. The second tablet is close to him. Once he is dead, disrupt the barrier close to where he fell; you do it once more after {npc:260042}."] = "Los Exploradores y Hechiceras Brinescale custodian el camino hacia {npc:258924}, el segundo jefe. La segunda tabla está cerca de él. Una vez muerto, altera la barrera cerca de donde cayó; lo haces una vez más después de {npc:260042}.",
 
 	-- Step 13: Captain Dreadrise
-	["The Saltseer pirates hold his ground: Murderers, Manhunters, Cultists and Coroners, and any of them can drop an artifact. The third tablet is among them, before you reach the captain. After he dies, disrupt the barrier a second time."] = "Los piratas Saltseer custodian su terreno: Asesinos, Cazahombres, Cultistas y Coroners, y cualquiera de ellos puede soltar un artefacto. La tercera tabla está entre ellos, antes de llegar al capitán. Después de que muera, altera la barrera una segunda vez.",
+	["The Saltseer pirates hold his ground: Murderers, Manhunters, Cultists and Coroners, and any of them can drop an artifact. The third tablet is among them, before you reach the captain. After he dies, disrupt the barrier a second time."] = "Los piratas Saltseer custodian su terreno: Asesinos, Cazahombres, Cultistas y Médicos forenses, y cualquiera de ellos puede soltar un artefacto. La tercera tabla está entre ellos, antes de llegar al capitán. Después de que muera, altera la barrera una segunda vez.",
 	-- {npc:773} Krazek
 	["One pass through the pirates may give fewer than ten: {npc:773} takes the quest whenever you have them."] = "Una pasada por los piratas puede dar menos de diez: {npc:773} acepta la misión cuando las tengas.",
 
