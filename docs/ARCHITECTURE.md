@@ -6412,7 +6412,7 @@ what is shown and timed.
   0.4.2 any other build answered `"unknown-ground"` for every segment, so a
   client patch refused every walk. The planner asks `p.blocked` when the plan
   carries one (else `Nav.danger.Blocked`); `Nav.EstimateTravel` passes
-  `estimateBlocked`, which remembers each answer by its exact arguments: a
+  `Travel.EstimateBlocked`, which remembers each answer by its exact arguments: a
   step change's candidate prices (up to 8 from one spot, with a second pass
   for a discounted walk or the hearth) and later step changes ask about the
   same walks between flight masters, docks and crossings, and checking a walk
