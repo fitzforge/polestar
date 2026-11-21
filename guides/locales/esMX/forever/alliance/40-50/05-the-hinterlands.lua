@@ -17,7 +17,7 @@ return {
 	-- {area:355} Altar of Zul · {npc:7996} Qiaga the Keeper · {npc:8636} Morta'gya the Keeper
 	-- plural, as words: Vilebranch Soothsayers = {npc:4467} Vilebranch Soothsayer · Vilebranch Totems = {item:279225} Vilebranch Totem
 	-- was: ["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "Los Veritas Vilrama (46-47) recorren el terreno al pie de {area:355}: sus tótems son para Maret Firetend. Cuidado: {npc:7996} y {npc:8636} (50, élites) están en el lado sureste del altar: ataca a los Veritas del lado oeste, lejos de ellos, y no subas al altar."
-	["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend, and more Vilebranch Totems lie on the ground among them: pick those up too. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "",
+	["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend, and more Vilebranch Totems lie on the ground among them: pick those up too. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "Los veritas Vilrama (46-47) recorren el terreno al pie de {area:355}: sus tótems son para Maret Firetend, y en el suelo, entre ellos, hay más tótems vilrama: recógelos también. Cuidado: {npc:7996} y {npc:8636} (50, élites) están en el lado sureste del altar: ataca a los veritas del lado oeste, lejos de ellos, y no subas al altar.",
 
 	-- Step 3: Skulk Rock
 	-- {area:351} Skulk Rock · {zone:1425} The Hinterlands
@@ -26,12 +26,12 @@ return {
 
 	-- Step 4: OOX-09/HL Distress Beacon
 	-- {zone:1425} The Hinterlands
-	["Only with the distress beacon, a rare drop in the {zone:1425}: it starts a quest to find the robot it calls for."] = "",
+	["Only with the distress beacon, a rare drop in the {zone:1425}: it starts a quest to find the robot it calls for."] = "Solo con la baliza de socorro, un botín raro de {zone:1425}: inicia una misión para encontrar al robot que llama.",
 
 	-- Step 5: OOX-09/HL
 	["OOX-09/HL"] = "OOX-09/HL",
 	-- {area:351} Skulk Rock · {area:307} Overlook Cliffs · {area:348} Aerie Peak · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay
-	["The robot sits at the head of the river west of {area:351}. Escort it east to the shore beyond the {area:307}, then ride back west for {area:348}; its reward waits with {npc:7406} in {area:35}, later in this guide.\nCareful: Two ambushes spawn during the escort: first three wildkin owlbeasts, then three trolls. Before each, the robot halts and announces it senses danger. Oozes, stealthed wolves and a large turtle along the path can join fights, and they respawn even if cleared beforehand."] = "",
+	["The robot sits at the head of the river west of {area:351}. Escort it east to the shore beyond the {area:307}, then ride back west for {area:348}; its reward waits with {npc:7406} in {area:35}, later in this guide.\nCareful: Two ambushes spawn during the escort: first three wildkin owlbeasts, then three trolls. Before each, the robot halts and announces it senses danger. Oozes, stealthed wolves and a large turtle along the path can join fights, and they respawn even if cleared beforehand."] = "El robot está en la cabecera del río al oeste de {area:351}. Escóltalo al este hasta la orilla más allá de {area:307} y luego cabalga de vuelta al oeste hacia {area:348}; su recompensa espera con {npc:7406} en {area:35}, más adelante en esta guía.\nCuidado: durante la escolta aparecen dos emboscadas: primero tres lechubestias salvajes y luego tres trols. Antes de cada una, el robot se detiene y avisa que siente peligro. Los mocos, los lobos en sigilo y una tortuga grande del camino pueden sumarse a las peleas, y reaparecen aunque los hayas limpiado antes.",
 
 	-- Step 6: Wildkin feathers
 	["Wildkin feathers"] = "Plumas de lechúcico salvaje",
@@ -50,7 +50,7 @@ return {
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, inside"] = "{npc:5636}, adentro",
 	-- {quest:2990} Thadius Grimshade · {area:1438} Nethergarde Keep · {zone:1428} Burning Steppes
-	["for {quest:2990} at {area:1438}: the {zone:1428} guide hands it in"] = "",
+	["for {quest:2990} at {area:1438}: the {zone:1428} guide hands it in"] = "para {quest:2990} en {area:1438}: la guía de {zone:1428} la entrega",
 	-- {npc:270263} Farseer Maret Firetend
 	["{npc:270263}, just east of the aviary"] = "{npc:270263}, justo al este del aviario",
 
@@ -88,11 +88,11 @@ return {
 
 	-- Step 16: Oglethorpe Obnoticus
 	-- {zone:1444} Feralas · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay
-	["Only if you escorted the {zone:1444} robot: its reward waits with {npc:7406} here in {area:35}."] = "",
+	["Only if you escorted the {zone:1444} robot: its reward waits with {npc:7406} here in {area:35}."] = "Solo si escoltaste al robot de {zone:1444}: su recompensa espera con {npc:7406} aquí, en {area:35}.",
 
 	-- Step 17: Oglethorpe Obnoticus
 	-- {zone:1425} The Hinterlands · {npc:7406} Oglethorpe Obnoticus
-	["Only if you escorted the {zone:1425} robot: {npc:7406} has its reward too."] = "",
+	["Only if you escorted the {zone:1425} robot: {npc:7406} has its reward too."] = "Solo si escoltaste al robot de {zone:1425}: {npc:7406} también tiene su recompensa.",
 
 	-- Step 18: Wild Shore: kill these as you meet them
 	-- {area:43} Wild Shore
@@ -118,11 +118,11 @@ return {
 	-- Step 24: Maury "Club Foot" Wilkins and Jon-Jon
 	-- {npc:2535} Maury "Club Foot" Wilkins
 	-- was: ["{npc:2535} and {npc:2536}"] = "{npc:2535} y {npc:2536}"
-	["{npc:2535} and Jon-Jon"] = "",
+	["{npc:2535} and Jon-Jon"] = "{npc:2535} y Jon-Jon",
 	-- {npc:2535} Maury "Club Foot" Wilkins · {npc:2536} Jon-Jon the Crow
 	["{npc:2535} and {npc:2536} stand together in the hills just north of Zanzil's village."] = "{npc:2535} y {npc:2536} están juntos en las colinas justo al norte de la aldea de Zanzil.",
 	-- {item:3925} Jon-Jon's Golden Spyglass · {npc:2536} Jon-Jon the Crow
-	["{item:3925}, from {npc:2536}"] = "",
+	["{item:3925}, from {npc:2536}"] = "{item:3925}, de {npc:2536}",
 
 	-- Step 25: Gorilla hills
 	["Gorilla hills"] = "Colinas de los gorilas",
@@ -151,14 +151,14 @@ return {
 
 	-- Step 33: Negolash's bait
 	-- {npc:1494} Negolash
-	["{npc:1494}'s bait"] = "",
+	["{npc:1494}'s bait"] = "El cebo de {npc:1494}",
 	-- {npc:1494} Negolash · {quest:619} Enticing Negolash · {area:35} Booty Bay · {item:4595} Junglevine Wine · {npc:2832} Nixxrax Fillamug
 	-- plural, as words: Barbecued Buzzard Wings = {item:4457} Barbecued Buzzard Wing
-	["{npc:1494} comes only for his food: hand in {quest:619} at Captain Smotts' ruined lifeboat on the shore south-east of {area:35}, with 10 Barbecued Buzzard Wings and 5 {item:4595}, and he comes to the boat. {npc:2832}, the food and drink vendor at the inn, sells the wine. The wings are a cook's dish: if you don't cook, bring them from the Auction House."] = "",
+	["{npc:1494} comes only for his food: hand in {quest:619} at Captain Smotts' ruined lifeboat on the shore south-east of {area:35}, with 10 Barbecued Buzzard Wings and 5 {item:4595}, and he comes to the boat. {npc:2832}, the food and drink vendor at the inn, sells the wine. The wings are a cook's dish: if you don't cook, bring them from the Auction House."] = "{npc:1494} solo viene por su comida: entrega {quest:619} en el bote salvavidas en ruinas del capitán Smotts, en la orilla al sureste de {area:35}, con 10 alas de águila ratonera a la parrilla y 5 {item:4595}, y él viene al bote. {npc:2832}, el mercader de comida y bebida de la posada, vende el vino. Las alas son un plato de cocinero: si no cocinas, cómpralas en la casa de subastas.",
 	-- {item:4457} Barbecued Buzzard Wing
-	["{item:4457}: in your bags already if you cook"] = "",
+	["{item:4457}: in your bags already if you cook"] = "{item:4457}: ya en tus bolsas si cocinas",
 	-- {object:2289} Ruined Lifeboat · {npc:1494} Negolash
-	["{object:2289}: the food goes in, {npc:1494} comes"] = "",
+	["{object:2289}: the food goes in, {npc:1494} comes"] = "{object:2289}: la comida va adentro y {npc:1494} viene",
 
 	-- Step 34: Facing Negolash
 	-- {npc:1494} Negolash

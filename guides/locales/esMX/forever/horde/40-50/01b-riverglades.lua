@@ -228,7 +228,7 @@ return {
 	-- Step 51: WANTED: Scoutmaster Vargas
 	-- {npc:260211} Scoutmaster Vargas · {npc:256728} Na'zok · {npc:258031} Neza Bloodsnout
 	["{npc:260211} is an elite (level 42) at the Alliance scouts' camp in the hills south-east of {npc:256728}, where you go next: grouping up is advised. The poster hangs in the middle of the fort; {npc:258031} takes the eye, later in this guide."] = "{npc:260211} es élite (nivel 42) en el campamento de exploradores de la Alianza, en las colinas al sureste de {npc:256728}, adonde vas después: se recomienda ir en grupo. El cartel cuelga en medio del fuerte; {npc:258031} recibe el ojo, más adelante en esta guía.",
-	["the Wanted poster"] = "",
+	["the Wanted poster"] = "el cartel de Se busca",
 
 	-- Step 52: Na'zok's camp
 	-- {npc:256728} Na'zok
