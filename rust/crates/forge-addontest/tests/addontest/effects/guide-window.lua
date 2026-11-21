@@ -33,7 +33,7 @@ return {
 			return { moving = moving, grip = grip ~= nil and grip:IsShown() or false }
 		end,
 		-- The window moved, then Reset: back in its corner.
-		["Guide:Reset position"] = { press = true, prepare = function() Polestar.Set("ui.pos", { 100, 900 }) end, probe = pos },
+		["Guide window:Reset position"] = { press = true, prepare = function() Polestar.Set("ui.pos", { 100, 900 }) end, probe = pos },
 		-- Polestar Client knows the next release (one newer than this build: ui-update.rs's ClientInfo): the update
 		-- line in the guide window.
 		["update.card"] = { prepare = function()
