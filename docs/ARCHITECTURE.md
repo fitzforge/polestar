@@ -6462,6 +6462,30 @@ what is shown and timed.
   perf test, 17 ms remembered). The data never changes in the game; the
   answers are forgotten when the check or its data tables are replaced (test
   worlds) and after 2048. Live routes (`Travel.Replan`) ask the check itself.
+- The guide's goal on enemy ground (0.4.2.1, #3447). `Travel.Replan` calls
+  `Nav.danger.Exempt(goal, player, profile)` before each plan: the piece of
+  enemy ground the guide's goal lies in (its ownership cells and guard disks,
+  as far as they touch one another: Hillsbrad Fields for the Horde, apart from
+  Southshore) is left out of the check, and so is the piece the player stands
+  in while one of the last four goals lay in it (the walk back out). A point
+  picked by hand or held (a corpse) is no goal; a town the player walked into
+  on their own is not walked out of through its streets; every other town
+  still refuses a walk, one on the way in or out too. `Nav.danger.Blocked` is
+  a new function whenever that ground changes, so the router's per-cluster
+  answers and `Travel.EstimateBlocked`'s, kept by the check itself, are asked
+  again; the same ground keeps the same function. The walk in carries the
+  router's "Hostile town: <name>" caption, as before 0.4.2. In 0.4.2 a goal in
+  the Fields was a straight bearing with "No safe walking route" all the way
+  from Tarren Mill.
+- A target within 400 yd of the player (`Walk.lua`'s `MEASURE_NEAR`: not
+  measured) whose straight line from the player crosses enemy ground, both
+  ends clear of it, is the arrow's own walk, which searches round the enemy
+  ground with the same check: `Travel.Replan`'s plan keeps no route then but
+  one of walks (0.4.2.1, #3450). The planner itself still refuses the line
+  (a walk leg never cuts an enemy capital's corner). In 0.4.2 the line from
+  Rathiril Sunlance to Coriella Calmbreeze crossed the corner of Shen'dar
+  Village's guard posts, so the plan sent the player 1,600 yd to a portal,
+  and straight back to her wherever the line came clear: never arriving.
 
 **Our own maps, always.** The engine reads only `PolestarPathData`, never an
 installed Shortest Path Forever's `ShortestPathForeverPathData`, even when it
