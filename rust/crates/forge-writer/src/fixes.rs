@@ -1651,6 +1651,27 @@ mod tests {
 	}
 
 	#[test]
+	fn krazek_duskwood_pickup_tip_keeps_stranglethorn_order() {
+		let guide = include_str!("../../../../forge/seed/guides/forever/alliance/30-40/04-stranglethorn-vale.guide");
+		let all: Value = serde_json::from_str(include_str!("../../../../data/guide-fixes.json")).unwrap();
+		let record = all["fixes"].as_array().unwrap().iter().find(|r| r["id"] == "alliance-stv-krazek-duskwood-pickup").unwrap();
+		let fixes = json!({ "fixes": [record] });
+		let file = "forever/alliance/30-40/04-stranglethorn-vale.guide".to_string();
+		let mut tree = BTreeMap::from([(file.clone(), guide.to_string())]);
+		let records = Records { guide_fixes: Some(&fixes), ..Records::default() };
+		let rows = apply(&mut tree, std::slice::from_ref(&file), &HashSet::from([201]), Some("Alliance"), records, None);
+		let out = &tree[&file];
+		assert_eq!(rows[0].state, "applied");
+
+		let old_tip = "The hunters' tents stand just west of the road. Krazek's Investigate the Camp only asks you to look around it.";
+		let new_tip = record["tip"].as_str().unwrap();
+		assert!(new_tip.starts_with(old_tip));
+		assert!(new_tip.contains("Duskwood") && new_tip.contains("level 32") && new_tip.contains("after the hunts"));
+		assert!(out.contains(&format!("  tip {new_tip}\n  complete 201 ")));
+		assert_eq!(out.replacen(new_tip, old_tip, 1), guide, "the tip is the only change to the route");
+	}
+
+	#[test]
 	fn xabraxxis_collection_note_survives_rebuilds_without_changing_the_use() {
 		let seed = "step Camp\n  use 12347 quest 4763.1 @52.5,33.4\n  collect 12355 quest 4763 -- old note\n  collect 12355 quest 999\n";
 		let records: Value = serde_json::from_str(include_str!("../../../../data/guide-fixes.json")).unwrap();
