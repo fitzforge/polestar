@@ -812,7 +812,7 @@
 		] },
 		"1333": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "${ASHENVALE_HORDE}: Maazias's report: The Tear of the Moons is not sent at players two levels under it (#1333)" },
-			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/levels.rs", "test": "a_delivery_s_level_gives_no_hint_a_quest_with_work_elsewhere_still_does_1333" }
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/levels.rs", "test": "no_step_says_a_quest_s_level_and_the_pace_line_names_no_hard_quest_3438" }
 		] },
 		"1334": { "tests": [
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/engine-zone-walk.rs", "test": "a_walk_named_by_its_zone_reads_on_through_it_to_the_next_step_while_the_player_is_in_that_zone" }
@@ -1655,6 +1655,10 @@
 		] },
 		"3288": { "tests": [
 			{ "node": "tests/guides-reported.test.js", "test": "forever/horde/07-ashenvale.guide: the Thousand Needles set rides the stops 07 makes, and no grind to 29" }
+		] },
+		"3438": { "tests": [
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/levels.rs", "test": "no_step_says_a_quest_s_level_and_the_pace_line_names_no_hard_quest_3438" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/ui.rs", "test": "a_step_with_a_quest_well_over_your_level_shows_no_quest_level_3438" }
 		] }
 	},
 	"seedDrift": {
