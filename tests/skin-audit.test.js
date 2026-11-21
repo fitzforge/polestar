@@ -14,7 +14,7 @@
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { audit, line, LOOKS } = require('../tools/preview/audit');
+const { audit, line, LOOKS, SURFACES, TAB_STYLES } = require('../tools/preview/audit');
 
 // Breakages known on the current looks: { look ('*': every look), surface
 // ('*': every surface), check, match (a piece of the finding's where and
@@ -62,6 +62,33 @@ test('every bundled look on every surface with the Atlas layout picked, at every
 		`${unexpected.length} finding(s) with Atlas picked not in EXPECTED_ATLAS (fix them, or name each there with its owner); ${stale.length} EXPECTED_ATLAS entr(ies) no longer found (take them out)`,
 	);
 });
+
+// The same bar with each of Polestar_TabStyles' styles picked: every look on
+// the guide window's surfaces (the only ones the tab style draws on), the
+// style saved before login as a player's is. EXPECTED_TAB_STYLES as EXPECTED:
+// a finding named with its owner, never a check loosened.
+const EXPECTED_TAB_STYLES = { switcher: [], edge: [], strip: [] };
+const GUIDE_SURFACES = SURFACES.filter((s) => s.family === 'guide');
+
+for (const style of TAB_STYLES.filter((s) => s !== 'underline')) {
+	test(`every bundled look on the guide window's surfaces with the ${style} tab style, at every UI scale`, { timeout: 15 * 60 * 1000 }, async () => {
+		const expected = EXPECTED_TAB_STYLES[style];
+		const { findings } = await audit({ surfaces: GUIDE_SURFACES, tabStyle: style });
+		const used = new Set();
+		const unexpected = findings.filter((f) => {
+			const i = expected.findIndex((e) => matches(e, f));
+			if (i < 0) return true;
+			used.add(i);
+			return false;
+		});
+		const stale = expected.filter((_, i) => !used.has(i)).map((e) => `${e.look} · ${e.surface} · ${e.check} · ${e.match} (${e.owner})`);
+		assert.deepEqual(
+			{ unexpected: unexpected.map(line), stale },
+			{ unexpected: [], stale: [] },
+			`${unexpected.length} finding(s) with the ${style} tab style not in EXPECTED_TAB_STYLES.${style}; ${stale.length} entr(ies) there no longer found`,
+		);
+	});
+}
 
 // Probes on the guide window, each breaking one thing the audit checks.
 const TABS = 'uistub.openTabs({ { uistub.elwynn, 3 }, { uistub.tailoring, 2 }, { uistub.stormwindRep, 2 } }, 1)';
