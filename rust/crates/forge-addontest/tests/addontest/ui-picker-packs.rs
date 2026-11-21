@@ -318,7 +318,7 @@ fn our_own_guides_switched_off_every_pack_off_the_empty_states_say_so_not_the_co
 		local GF = PolestarGuideFrame
 		local r = { picker = PolestarPicker.Empty:GetText(), title = uistub.findText(GF, "No guides shown") ~= nil,
 			text = uistub.findText(GF, "Polestar's own guides are switched off on the Community guides page (/polestar packs).") ~= nil,
-			community = uistub.findText(GF, "The community addons are switched off. Turn one on under Options, Community guides (/polestar packs).") ~= nil,
+			community = uistub.findText(GF, "The community addons are switched off. Turn one on under Settings, Community guides (/polestar packs).") ~= nil,
 			options = emptyButton("Community guides") ~= nil }
 		local show = emptyButton("Show Polestar's guides")
 		r.show = show ~= nil
@@ -328,7 +328,7 @@ fn our_own_guides_switched_off_every_pack_off_the_empty_states_say_so_not_the_co
 		r.westfall = rowFor("Westfall") ~= nil
 		emit(r)"#
 	));
-	assert_eq!(out["picker"], "No guides shown: Polestar's own guides are switched off. Turn them on under Options, Community guides (/polestar packs).");
+	assert_eq!(out["picker"], "No guides shown: Polestar's own guides are switched off. Turn them on under Settings, Community guides (/polestar packs).");
 	assert_eq!(
 		json!({ "title": out["title"], "text": out["text"], "community": out["community"], "options": out["options"], "show": out["show"] }),
 		json!({ "title": true, "text": true, "community": false, "options": true, "show": true })
@@ -356,14 +356,14 @@ fn every_community_addon_switched_off_ours_not_installed_the_empty_states_point_
 		local GF = PolestarGuideFrame
 		local button = emptyButton("Community guides")
 		local r = { picker = PolestarPicker.Empty:GetText(), title = uistub.findText(GF, "No guides shown") ~= nil,
-			text = uistub.findText(GF, "The community addons are switched off. Turn one on under Options, Community guides (/polestar packs).") ~= nil,
+			text = uistub.findText(GF, "The community addons are switched off. Turn one on under Settings, Community guides (/polestar packs).") ~= nil,
 			installed = uistub.findText(GF, "No guides installed") ~= nil, button = button ~= nil }
 		if button then button.psAction() end
 		r.options = PolestarOptions ~= nil and PolestarOptions:IsShown() and PolestarOptions.Title:GetText() or false
 		emit(r)"#
 	);
 	let out = emitted(&RunAddon { stubs: vec!["stub_ui.lua"], addons: vec![Addon::files("Polestar", FILES)], script, ..Default::default() }).remove(0);
-	assert_eq!(out["picker"], "No guides shown: the community addons are switched off. Turn one on under Options, Community guides (/polestar packs).");
+	assert_eq!(out["picker"], "No guides shown: the community addons are switched off. Turn one on under Settings, Community guides (/polestar packs).");
 	assert_eq!(
 		json!({ "title": out["title"], "text": out["text"], "installed": out["installed"], "button": out["button"] }),
 		json!({ "title": true, "text": true, "installed": false, "button": true })

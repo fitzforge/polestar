@@ -50,7 +50,8 @@ ns.RegisterDefaults("ui", {
 	matchAccent = true, -- with EllesmereUI: follow its accent
 	classAccent = false, -- the accent follows the player's class colour
 	matchFont = false, -- with EllesmereUI: follow its font
-	menuScale = 1, -- options and picker windows
+	menuScale = 1, -- the settings window (drawn at this x W.SETTINGS_SCALE_BASE)
+	pickerScale = 1, -- the guides window (a profile from before keeps its menuScale: migration "pickerScale", Theme.lua)
 	-- Every window's frame (Theme.WindowBorder, the "windowBorder" token):
 	border = true, -- the window border
 	borderColor = false, -- false: the scheme's hairline (or the accent); { r, g, b }: your own

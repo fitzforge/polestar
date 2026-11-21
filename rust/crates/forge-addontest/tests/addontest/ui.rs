@@ -1762,7 +1762,7 @@ fn the_header_menu_picker_new_tab_compact_transparent_lock_destructive_items_ask
 		reset:Click()
 		menuPick("Choose guide")
 		local picker = PolestarPicker:IsShown()
-		menuPick("Options")
+		menuPick("Settings")
 		emit({ items = items, locked = Polestar.Get("ui.locked"), style = style, armed = armed, reset = lastCall("ResetProgress"),
 			picker = picker, options = PolestarOptions:IsShown(), pickerAfter = PolestarPicker:IsShown() })"#)
 	.remove(0);
@@ -1778,7 +1778,7 @@ fn the_header_menu_picker_new_tab_compact_transparent_lock_destructive_items_ask
 			"Lock window",
 			"Reset guide progress",
 			"Quick settings",
-			"Options",
+			"Settings",
 			"Pause",
 			"Hide window"
 		])
@@ -2346,7 +2346,7 @@ fn in_dungeons_and_battlegrounds_what_goes_with_the_guide_goes_while_it_waits_an
 // hide (Keep visible, or the window off anyway). Showing the window takes the notice down.
 #[test]
 fn in_dungeons_and_battlegrounds_the_first_hide_on_the_account_shows_once_how_to_show_it() {
-	let line = "The guide window hides in dungeons and battlegrounds. Type /polestar to show it. Change it in Options > Guide > Window.";
+	let line = "The guide window hides in dungeons and battlegrounds. Type /polestar to show it. Change it in Settings > Guide window.";
 	let out = run(&[
 		ENTER,
 		r#"
