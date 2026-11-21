@@ -45,8 +45,8 @@
 -- API it draws a step from (GetGuide, GetTabs, GetStepIndex, GetLiveStep,
 -- GetStepCount, GetStepView, StepNumber, StepTotal, GetProgress, GetAlong,
 -- GetWhileHereList, LeftOutHere; a gate, notice or action it lacks is nothing to show or
--- do) and the lines other modules work out from it: StepHint(i) and Pace()
--- (Core/Levels.lua), XPStats() and RestParts() (QoL), Target() (where the
+-- do) and the lines other modules work out from it: Pace() (Core/Levels.lua),
+-- XPStats() and RestParts() (QoL), Target() (where the
 -- arrow points: Nav, else the Engine's waypoint). The live window reads the
 -- Engine and those modules straight (GF.Engine(), GF.Derived()); a copy, its
 -- host's provider of the whole interface (copy.content).
@@ -203,7 +203,7 @@ GF.Part(function(GF)
 
 	-- The window's content (the top of this file). The live window asks the
 	-- Engine as it is when asked (a test may stand another in its place) and,
-	-- for the five lines worked out from it, their modules (DERIVED), straight:
+	-- for the four lines worked out from it, their modules (DERIVED), straight:
 	-- its step change pays nothing for the interface. A copy reads its host's
 	-- provider for both (copy.content). A host may hand the live window a
 	-- provider too (GF.UseContent(content); nil: the Engine again).
@@ -213,12 +213,8 @@ GF.Part(function(GF)
 	-- then; it comes back when more are (this session).
 	GF.offRouteClosed = nil
 	GF.CONTENT = { "GetGuide", "GetTabs", "GetStepIndex", "GetLiveStep", "GetStepCount", "GetStepView", "StepNumber", "StepTotal",
-		"GetProgress", "GetAlong", "GetWhileHereList", "LeftOutHere", "StepHint", "Pace", "XPStats", "RestParts", "Target" }
+		"GetProgress", "GetAlong", "GetWhileHereList", "LeftOutHere", "Pace", "XPStats", "RestParts", "Target" }
 	local DERIVED = GF.live and {
-		StepHint = function(i)
-			local Lv = ns.Levels
-			return Lv and Lv.StepHint and Lv.StepHint(i) or nil
-		end,
 		Pace = function()
 			local Lv = ns.Levels
 			return Lv and Lv.Pace and Lv.Pace() or nil
@@ -1141,8 +1137,10 @@ GF.Part(function(GF)
 		end
 
 		-- Keep the current goal in sight: from the top for a new focus, else
-		-- scrolled just far enough to show its row whole.
-		function followCurrent(top)
+		-- scrolled just far enough to show its row whole. opened: the key of a
+		-- summary line just opened ("Then: …"); its line and the goals under it
+		-- come into sight instead, the line kept at the top when they do not fit.
+		function followCurrent(top, opened)
 			if not goals.psOver then
 				if goals:GetVerticalScroll() ~= 0 then W.ScrollTo(goals, 0) end
 				return
@@ -1152,6 +1150,20 @@ GF.Part(function(GF)
 				W.ScrollTo(goals, 0)
 			end
 			local to = goals:GetVerticalScroll()
+			for i = 1, opened and area.n or 0 do
+				local o = area.items[i]
+				if not o.psGoal and o.psKey == opened then
+					local y, h, viewH = itemTop(o), area.h[i], goals.psViewH
+					for j = i + 1, area.n do
+						if not area.items[j].psGoal then break end
+						h = h + area.h[j]
+					end
+					if y + h > to + viewH then to = y + h - viewH end
+					if y < to then to = y end
+					scrollTo(to, false)
+					return
+				end
+			end
 			for i = 1, area.n do
 				local o = area.items[i]
 				if o.psGoal and view and o.psGoal.index == view.current and not o.psFold then
@@ -1216,7 +1228,7 @@ GF.Part(function(GF)
 			else
 				model.open[key] = (not model.open[key]) or nil
 			end
-			GF.Refill()
+			GF.Refill(key ~= "done" and model.open[key] and key or nil)
 		end
 
 		local function lineEnter(self)
@@ -2317,17 +2329,7 @@ GF.Part(function(GF)
 		local why = view.why
 		person.Why:SetText(why or "")
 		person.Why:SetShown(why ~= nil)
-		-- Work on the step for a quest 3 or more levels above the character
-		-- (the window's StepHint line, Levels.StepHint; never an accept): "Level
-		-- 25 quest: you're 19.7", in a calm colour (Fitz, 0.3.6: players read red
-		-- as being behind).
-		local E, d = Engine(), Derived()
-		local hint = d.StepHint and d.StepHint(view.index)
-		if hint then
-			person.Level:SetText(string.format(L["Level %d quest: you're %s"], hint.level, GF.LevelText(hint.you)))
-			W.Color(person.Level, "textDim")
-		end
-		person.Level:SetShown(hint ~= nil)
+		local E = Engine()
 		-- A profession guide's section: its skill range as the heading over the
 		-- step ("First Aid 1-40"), in the accent colour while the player's skill
 		-- is in it (Engine.GetSection).
@@ -2852,7 +2854,8 @@ GF.Part(function(GF)
 	end
 
 	-- The card again from the view it shows: a summary line opened or closed,
-	-- a fold that landed.
+	-- a fold that landed. opened: the key of the line just opened, brought
+	-- into sight with its goals.
 	-- The off-route line's ×: closes it until more quests are off the route.
 	function GF.DismissOffRoute()
 		local off = model and model.offRoute
@@ -2860,11 +2863,11 @@ GF.Part(function(GF)
 		GF.Refill()
 	end
 
-	function GF.Refill()
+	function GF.Refill(opened)
 		if not F or state ~= "steps" or not view then return end
 		fillCard(true)
 		GF.Layout()
-		followCurrent(false)
+		followCurrent(false, opened)
 	end
 
 	-- QUEST_TIMER (Quests/Timed.lua, each second a quest's timer runs): the
@@ -3166,11 +3169,6 @@ GF.Part(function(GF)
 		person.Why:SetJustifyH("LEFT")
 		person.Why:SetWordWrap(true)
 		person.Why:Hide()
-		-- A quest on the step well above the character's level (fillCard).
-		person.Level = GF.SizeAs(T(person, "small", "warning"), "detail", 0)
-		person.Level:SetJustifyH("LEFT")
-		person.Level:SetWordWrap(true)
-		person.Level:Hide()
 		-- A profession guide's skill-range heading over the person (fillCard).
 		card.Section = T(card, "label", "accent")
 		card.Section:SetJustifyH("LEFT")

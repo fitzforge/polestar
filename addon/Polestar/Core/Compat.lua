@@ -65,15 +65,37 @@ function Compat.GetPlayerFaction()
 	return nil
 end
 
+-- Unlike the display fallback in GetPlayerInfo, nil is not a level-one player.
+function Compat.GetPlayerLevel()
+	local level = readable(UnitLevel and UnitLevel("player"))
+	if type(level) == "number" and level >= 1 and level < math.huge and level == math.floor(level) then return level end
+end
+
+-- The realm's name, or nil when the client does not give it. Forever's
+-- client stopped telling addons the realm in 1.60.1 (a hotfix in November
+-- 2026): GetRealmName and GetNormalizedRealmName read "", GetRealmID 0.
+-- Compat's one reader of them. Saved data filed by realm (the Characters
+-- page, Materials' prices, Instances, Transit, Rares) then falls back to a
+-- realm-less key and takes over the entry filed under the old realm once
+-- (docs/ARCHITECTURE.md, "Unknown realm").
+local function realmText(fn)
+	local v = fn and readable(fn())
+	if type(v) == "string" and v ~= "" then return v end
+	return nil
+end
+
+function Compat.RealmName() return realmText(GetRealmName) end
+function Compat.NormalizedRealmName() return realmText(GetNormalizedRealmName) end
+
 function Compat.GetPlayerInfo()
 	local _, race = UnitRace("player")
 	local _, class = UnitClass("player")
 	local faction = Compat.GetPlayerFaction() or "Neutral"
 	return {
 		name = readable(UnitName("player")),
-		realm = GetRealmName and GetRealmName() or nil,
+		realm = Compat.RealmName(),
 		guid = readable(UnitGUID and UnitGUID("player")),
-		level = readable(UnitLevel("player")) or 1,
+		level = Compat.GetPlayerLevel() or 1,
 		xp = readable(UnitXP and UnitXP("player")) or 0,
 		xpMax = readable(UnitXPMax and UnitXPMax("player")) or 0,
 		race = readable(race),
@@ -192,18 +214,69 @@ function Compat.IsOnTaxi()
 	return readable(UnitOnTaxi and UnitOnTaxi("player")) and true or false
 end
 
+-- How the client gives the player's height this session (Compat.PlayerHeight):
+-- "real", or why there is none to use: "none" (no height, or a secret one),
+-- "zero" (exactly 0: Forever's client has given a height of 0 where the ground
+-- is at 12 yd, Ratchet; a real height is never exactly 0) or "fixed" (the same
+-- height to the last digit at FIXED_COUNT readings in a row, each FIXED_STEP
+-- yards or more from the one before it and taken on foot, 200 yd in all: a
+-- placeholder, not where the player stands; a different height ends it. A
+-- level floor may keep one height to the last digit along a street or a hall,
+-- hence the long run).
+-- Swimming at the water's level or carried on a deck, the height stays
+-- put for real: such readings neither count nor end it. nil before the first
+-- reading.
+local FIXED_STEP, FIXED_COUNT = 5, 40
+local heightMode
+local hInstance, hX, hY, hZ, hSame = nil, nil, nil, nil, 0
+
+-- Whether the player moves by their own speed and is not swimming. Unknown counts as on foot.
+local function onFoot()
+	if IsSwimming then
+		local ok, swimming = pcall(IsSwimming)
+		if not ok or isSecret(swimming) or swimming then return false end
+	end
+	if GetUnitSpeed then
+		local ok, speed = pcall(GetUnitSpeed, "player")
+		if not ok or isSecret(speed) or (type(speed) == "number" and speed <= 0) then return false end
+	end
+	return true
+end
+
+-- z as a height to use (nil when it is none of use), noting what the client gives.
+local function usableHeight(x, y, z, instance)
+	if type(z) ~= "number" then heightMode = "none"; return nil end
+	if z == 0 then heightMode = "zero"; return nil end
+	if hInstance ~= instance or hX == nil then
+		hInstance, hX, hY, hZ, hSame = instance, x, y, z, 0
+	elseif z ~= hZ then
+		hX, hY, hZ, hSame = x, y, z, 0
+	elseif (x - hX) * (x - hX) + (y - hY) * (y - hY) >= FIXED_STEP * FIXED_STEP then
+		hX, hY = x, y
+		if onFoot() then hSame = hSame + 1 end
+	end
+	if hSame >= FIXED_COUNT then heightMode = "fixed"; return nil end
+	heightMode = "real"
+	return z
+end
+
 -- The player's world position from UnitPosition: wx (north), wy (west), z
--- (nil when unread) and the instance map id, or nil while the client keeps it
--- secret or hides it. The one place UnitPosition is read. Forever's client
--- has given a height of exactly 0 where the ground is at 12 yd (Ratchet); a
--- real height is never exactly 0, so that one is unread too.
+-- (nil when there is no height to use: see heightMode above) and the instance
+-- map id, or nil while the client keeps it secret or hides it. The one place
+-- UnitPosition is read.
 function Compat.GetPlayerUnitPosition()
 	if not UnitPosition then return nil end
 	local ok, x, y, z, instance = pcall(UnitPosition, "player")
 	if not ok then return nil end
 	x, y, z, instance = readable(x), readable(y), readable(z), readable(instance)
 	if type(x) ~= "number" or type(y) ~= "number" or instance == nil then return nil end
-	return x, y, type(z) == "number" and z ~= 0 and z or nil, instance
+	return x, y, usableHeight(x, y, z, instance), instance
+end
+
+-- What the last UnitPosition reading gave for the height: "real", "none",
+-- "zero" or "fixed" (above); nil before any reading.
+function Compat.PlayerHeight()
+	return heightMode
 end
 
 -- The player's run speed in yd/s (GetUnitSpeed's second value), or nil while
@@ -295,6 +368,15 @@ function Compat.IsIndoors()
 	local ok, inside = pcall(IsIndoors)
 	if not ok or (inside ~= nil and readable(inside) == nil) then return nil end
 	return inside and true or false
+end
+
+-- The client's swimming state: true swimming, false not, nil when the client lacks IsSwimming, it errors, or keeps it
+-- secret. Nav/Walk.lua's floor follow takes a water surface for the floor only while swimming.
+function Compat.IsSwimming()
+	if not IsSwimming then return nil end
+	local ok, swimming = pcall(IsSwimming)
+	if not ok or (swimming ~= nil and readable(swimming) == nil) then return nil end
+	return swimming and true or false
 end
 
 function Compat.IsShiftKeyDown()
@@ -432,6 +514,19 @@ end
 -- for the same quest once per goal on its line. The lines are read-only for
 -- every caller (one table per quest per moment, no longer one per call).
 local objMemo, objAt, objMoment = {}, nil, nil
+-- Whether an objective line's text names a placeholder (ObjectiveLabel, then
+-- Placeholder: some 15 string operations), kept per text: a line's text
+-- changes only with its count. Started over past PLACEHOLDER_KEEP texts.
+local placeholderOf, placeholderN, PLACEHOLDER_KEEP = {}, 0, 512
+local function placeholderText(text)
+	local hit = placeholderOf[text]
+	if hit == nil then
+		hit = Compat.Placeholder(Compat.ObjectiveLabel(text))
+		if placeholderN >= PLACEHOLDER_KEEP then placeholderOf, placeholderN = {}, 0 end
+		placeholderOf[text], placeholderN = hit, placeholderN + 1
+	end
+	return hit
+end
 function Compat.GetQuestObjectives(questID)
 	if not (C_QuestLog and C_QuestLog.GetQuestObjectives) then return nil end
 	local now, moment = GetTime and GetTime(), ns.Moment and ns.Moment()
@@ -462,7 +557,7 @@ function Compat.GetQuestObjectives(questID)
 			cur = req - 1
 		end
 		local text = o.text or ""
-		if Compat.Placeholder(Compat.ObjectiveLabel(text)) then text = "" end
+		if placeholderText(text) then text = "" end
 		out[i] = { text = text, type = o.type or "", finished = finished, numFulfilled = cur, numRequired = req }
 	end
 	if memo then objMemo[questID] = out end

@@ -621,10 +621,24 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 	// recordings give no spawns to those no source places.
 	let summoned = fwago.as_ref().and_then(|f| f.get("SpellEffect")).map(|effects| extras::summoned_creatures(effects));
 	let unplaced_summoned = summoned.as_ref().map(|s| extras::unplaced_summoned(s, &norm.npcs)).unwrap_or_default();
+	// Forever's gathering spells (its SpellEffect): a loot window right after one is a herb or an ore node's.
+	let gather_spells = fwago.as_ref().and_then(|f| f.get("SpellEffect")).map(|effects| extras::gathering_spells(effects)).unwrap_or_default();
+	// Its quest items (Item's Quest class): a loot window of these only is no chest's.
+	let quest_items = fwago.as_ref().and_then(|f| f.get("Item")).map(|items| extras::quest_items(items)).unwrap_or_default();
 	let mut revision = crate::recordings::Revision::default();
 	let mut unread: Option<String> = None;
 	let rec = apply_recordings(
-		&crate::recordings::Db { quests: &norm.quests, npcs: &norm.npcs, objects: &norm.objects, items: &norm.items, zones: &zones, factions: &factions, instances: &instances },
+		&crate::recordings::Db {
+			quests: &norm.quests,
+			npcs: &norm.npcs,
+			objects: &norm.objects,
+			items: &norm.items,
+			zones: &zones,
+			factions: &factions,
+			instances: &instances,
+			gather_spells: &gather_spells,
+			quest_items: &quest_items,
+		},
 		recordings.sessions().map_while(|r| match r {
 			Ok(r) => {
 				revision.add(&r);
@@ -728,6 +742,14 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 		tdb_heights = crate::cmangos::add_tdb_heights(h, t);
 		log(&format!("spawn heights: {tdb_heights} NPCs and objects classic-db lacks, from the Forever TDB's sniffed spawns"));
 	}
+	// Players' floors at NPCs the spawn data gives no height where they are talked to (<root>/data/npc-floors.json).
+	if let Some(h) = heights.as_mut() {
+		match crate::extras::read_json(&o.root.join("data").join("npc-floors.json")) {
+			Ok(Some(doc)) => log(&format!("spawn heights: {} NPC floors from players' recordings (data/npc-floors.json)", crate::cmangos::add_recorded_heights(h, &doc))),
+			Ok(None) => {}
+			Err(e) => warnings.push(format!("data/npc-floors.json unreadable ({e}); NPCs without a spawn height keep none")),
+		}
+	}
 	let moves = match crate::cmangos::load_moves(&o.sources) {
 		Ok(m) => Some(m),
 		Err(e) => {
@@ -808,6 +830,12 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<Output, String> {
 			corrections: corrections.clone(),
 			correction_origins: correction_origins.clone(),
 			npc_hand_ins: rec.npc_hand_ins.clone(),
+			not_pre: learned
+				.entries()
+				.into_iter()
+				.filter_map(|(id, r)| Some((id.parse::<i64>().ok()?, crate::learn::not_prereqs(&r).into_iter().collect::<FxHashSet<i64>>())))
+				.filter(|(_, n)| !n.is_empty())
+				.collect(),
 			// The fact check's local database is a local-only source.
 			facts_file: if cfg!(feature = "local-sources") { Some(local.join("factcheck").join("facts.sqlite")) } else { None },
 			tdb: tdb.as_ref().filter(|t| t.get("schema").num() >= 2.0).cloned(),

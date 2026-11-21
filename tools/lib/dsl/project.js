@@ -14,6 +14,7 @@ const { tokeniseGuides } = require('./tokens');
 const { emitGuides, emitPack, emitToc, emitTextsToc, emitPartToc, emitLegs, emitRetired, emitTexts, emitMapFrames, emitLicense } = require('./emit');
 const { ownsGuideId, GENERATED_MARKER, isGenerated, formatFor, LEGS_FORMAT } = require('../pack/format');
 const { readPackFile, jsonErrorAt } = require('../pack/manifest');
+const { navParts } = require('../nav/parts');
 const { heightCounts } = require('./heights');
 const { checkImages, imageFiles } = require('./images');
 const { HEIGHTS_SOURCE } = require('../travel/cmangos');
@@ -554,8 +555,9 @@ function releaseAddons(addonsDir) {
 	const skipped = RELEASE_DATA_ADDONS.filter((n) => !fs.existsSync(path.join(addonsDir, n, `${n}.toc`)));
 	// The walking maps' part addons (forge nav pack --leffe), then our pack's faction parts and race parts (forge
 	// guide compile, format 8), each once built (as forge-release's release_addons).
-	const navParts = ['Polestar_Nav_EK', 'Polestar_Nav_Kalimdor'];
-	const parts = [...GAMES, ...navParts, ...['Alliance', 'Horde', ...RACE_FILES].map((r) => partAddon(OWN_FOLDER, r))].filter((n) => fs.existsSync(path.join(addonsDir, n, `${n}.toc`)));
+	const walking = navParts(path.join(addonsDir, 'Polestar_Nav'));
+	const guides = ['Alliance', 'Horde', ...RACE_FILES].map((r) => partAddon(OWN_FOLDER, r));
+	const parts = [...GAMES, ...walking, ...guides].filter((n) => fs.existsSync(path.join(addonsDir, n, `${n}.toc`)));
 	return { names: [...RELEASE_ADDONS, ...parts, ...RELEASE_DATA_ADDONS.filter((n) => !skipped.includes(n))], skipped };
 }
 

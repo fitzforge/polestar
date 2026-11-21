@@ -24,6 +24,7 @@ L["Another addon is hiding the guide window or the arrow. The chat says how to g
 -- Core/Data.lua
 L["%s not installed"] = "%s 미설치"
 L["Polestar no longer uses the old folders Polestar_Guides_<language> and Polestar_Names_<language> (%s): Polestar_<language> holds both now. Close the game and delete them from Interface/AddOns."] = "Polestar는 더 이상 이전 폴더인 Polestar_Guides_<language> 및 Polestar_Names_<language>(%s)를 사용하지 않습니다. 이제 Polestar_<language>에 두 폴더의 내용이 모두 들어 있습니다. 게임을 종료하고 Interface/AddOns에서 해당 폴더를 삭제하세요."
+L["Polestar no longer uses its %d walking map folders named Polestar_Nav_R (Polestar_Nav_R0_6_6 and the like): Polestar_Nav_EK and Polestar_Nav_Kalimdor hold those maps now. Close the game and delete the Polestar_Nav_R folders from Interface/AddOns."] = "Polestar는 더 이상 Polestar_Nav_R로 시작하는 도보 지도 폴더 %d개(Polestar_Nav_R0_6_6 등)를 사용하지 않습니다. 이제 Polestar_Nav_EK와 Polestar_Nav_Kalimdor에 해당 지도가 들어 있습니다. 게임을 종료하고 Interface/AddOns에서 Polestar_Nav_R 폴더를 삭제하세요."
 L["Your install is mixed or incomplete (%s). Close the game, delete every Polestar folder in Interface/AddOns and install Polestar again: with the Polestar Client, the CurseForge app, or the latest zip from GitHub Releases (not \"Source code\")."] = "설치가 섞여 있거나 불완전합니다(%s). 게임을 종료하고 Interface/AddOns의 Polestar 폴더를 모두 삭제한 뒤 Polestar를 다시 설치하십시오: Polestar Client, CurseForge 앱, 또는 GitHub Releases의 최신 zip(\"Source code\" 아님)."
 
 -- Core/Guides.lua
@@ -225,10 +226,15 @@ L["Artisan %s"] = "대가 %s"
 -- L["Hearthstone ready in %s: ride to the inn, or wait for it"] = ""
 -- L["Ride to %s"] = ""
 -- L["Ride to the flight master"] = ""
+-- L["Requires level %d: the guide comes back for it then"] = ""
+-- L["Requires level %d: kept for a later guide"] = ""
+-- L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = ""
+-- L["For %s, later on your route."] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "보상을 선택해 제출을 마치십시오."
 -- L["%s is an escort: it starts as soon as it is taken. Accept it yourself when your group is ready."] = ""
+-- L["Took %s now for %s, later on your route: this saves a trip back."] = ""
 
 -- Core/Commands.lua
 L["Toggle guide window"] = "가이드 창 켜기/끄기"
@@ -355,6 +361,7 @@ L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the 
 L["Polestar is paused: the arrow follows the guide again once you leave the dungeon alive, or after /polestar resume."] = "Polestar가 일시 정지되었습니다: 던전에서 살아서 나오거나 /polestar resume을 입력하면 화살표가 다시 가이드를 따릅니다."
 
 -- Nav/Arrow.lua
+L["The last steps here aren't mapped"] = "이곳의 마지막 몇 걸음은 지도에 없습니다"
 L["Search here"] = "여기서 찾기"
 L["Arrived"] = "도착"
 L["Click the arrow for the next spot"] = "화살표를 클릭하면 다음 지점"
@@ -367,6 +374,9 @@ L["Drag to move."] = "끌어서 이동."
 L["Click for the next spot."] = "클릭하면 다음 지점."
 L["Shift-drag to move."] = "Shift-드래그로 이동합니다."
 L["No waypoint"] = "경유지 없음"
+-- L["Arrived underwater"] = ""
+-- L["Under water nearby: swim down to it"] = ""
+-- L["%d yd below you: swim down"] = ""
 
 -- Nav/Layers.lua
 L["Spot %d of %d"] = "지점 %d/%d"
@@ -441,7 +451,8 @@ L["Walk to the entrance"] = "입구까지 걸어가기"
 L["Walk to the lift"] = "승강기까지 걸어가기"
 L["%s, Top"] = "%s, 위"
 L["%s, Bottom"] = "%s, 아래"
-L["No route: walk straight to the target."] = "경로 없음: 목표까지 곧장 걸어가십시오."
+L["No safe walking route"] = "안전한 도보 경로 없음"
+L["Finding a walking route"] = "도보 경로를 찾는 중"
 L["Show the travel route to the current target"] = "현재 목표까지의 이동 경로 표시"
 L["Hostile town: %s"] = "적대 마을: %s"
 L["Ride the elevator up"] = "승강기를 타고 올라가기"
@@ -1405,7 +1416,6 @@ L["%s in your bank"] = "은행에 %s개"
 L["%s in your mail"] = "우편함에 %s개"
 L["%s has %s"] = "%s: %s개"
 L["%s to buy"] = "%s개 구매 필요"
-L["≈ %s"] = "≈ %s"
 L["(only %s listed)"] = "(%s개만 등록됨)"
 L["(old price)"] = "(오래된 가격)"
 
@@ -1604,9 +1614,6 @@ L["The step stops waiting for the party and moves on as usual."] = "단계가 �
 L["Click to show or hide the party panel."] = "클릭하여 파티 창을 표시하거나 숨깁니다."
 L["Then out here"] = "그다음 이곳 밖에서"
 L["Out here"] = "이곳 밖에서"
-L["Level %d quest: you're %s"] = "레벨 %d 퀘스트: 내 레벨 %s"
-L["Behind: %s (%d) at step %d, you're %s; grind %s first"] = "뒤처짐: %s (%d) %d단계, 내 레벨 %s. 먼저 %s 사냥"
-L["Behind: %s (%d) at step %d, you're %s; reach %d first"] = "뒤처짐: %s (%d) %d단계, 내 레벨 %s. 먼저 %d 도달"
 L["%s levels"] = "%s레벨"
 L["Behind by %s: step %d grinds to level %s (%s)"] = "%s 뒤처짐: %d단계에서 레벨 %s까지 사냥 (%s)"
 L["Behind by %s: step %d grinds to level %s"] = "%s 뒤처짐: %d단계에서 레벨 %s까지 사냥"
@@ -1618,8 +1625,6 @@ L["Step %d does this later; done now, that step is shorter or skipped when you g
 L["Left out because you skipped %s"] = "%s을(를) 건너뛰어 제외됨"
 L["Ticked by you, but the game still counts its objectives open: finish them first."] = "직접 체크했지만 게임에서는 아직 목표가 남아 있습니다: 먼저 완료하십시오."
 L["Right-click: not now, around here (twice: for the rest of this zone)."] = "오른쪽 클릭: 이 근처에서는 나중에 (두 번: 이 지역 동안)."
-L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"] = "진행은 순조롭지만 %s (%d) %d단계가 어렵습니다: 내 레벨 %s. 먼저 %s 사냥"
-L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "진행은 순조롭지만 %s (%d) %d단계가 어렵습니다: 내 레벨 %s. 먼저 %d 도달"
 L["The rest of this guide follows from a skipped step"] = "이 가이드의 나머지는 건너뛴 단계에서 이어집니다"
 L["You skipped %s, and the steps after it need its quests. Undo the skip to carry on, or do that step yourself: the guide picks up from there."] = "%s을(를) 건너뛰었는데 이후 단계에 그 퀘스트가 필요합니다. 계속하려면 건너뛰기를 되돌리거나, 그 단계를 직접 하십시오: 가이드가 거기서 이어집니다."
 L["Undo the skip"] = "건너뛰기 되돌리기"
@@ -3433,8 +3438,14 @@ L["%d characters on %d realms · each as of their last logout"] = "%d개 캐릭�
 L["1 character on %s"] = "%s의 캐릭터 1개"
 L["1 character on %s · each as of their last logout"] = "%s의 캐릭터 1개 · 마지막 로그아웃 기준"
 L["%d characters on %s · each as of their last logout"] = "%d개 캐릭터, %s · 각자 마지막 로그아웃 기준"
+L["1 character"] = "캐릭터 1개"
+L["1 character · each as of their last logout"] = "캐릭터 1개 · 마지막 로그아웃 기준"
+L["%d characters · each as of their last logout"] = "%d개 캐릭터 · 각자 마지막 로그아웃 기준"
 L["Forget %s"] = "%s 삭제"
 L["Characters is turned off. Turn it on under Options > Discovery > Lookup."] = "캐릭터가 꺼져 있습니다. 설정 > 발견 > 찾아보기에서 켜십시오."
+-- L["Another character named %s was saved before Forever's client stopped giving addons the realm name. Polestar can't tell whether it is this one, so it stays listed as it was; forget it if it is."] = ""
+-- L["%d characters named %s were saved on different realms before Forever's client stopped giving addons the realm name. Polestar can't tell which one you are playing, so they stay listed as they were and this character has a new entry; forget the old one that was this character."] = ""
+-- L["Rares met on %d realms are kept apart: Forever's client no longer gives addons the realm name, so Polestar can't tell which of them this is. Rares lists what you meet from now on."] = ""
 
 -- QoL/Keep.lua
 L["Don't sell: the guide needs it at step %d"] = "팔지 마십시오: 가이드의 %d단계에 필요합니다"
@@ -3549,6 +3560,7 @@ L["Carried to later guides"] = "이후 가이드로 이어지는 퀘스트"
 L["Not part of your route"] = "경로에 포함되지 않음"
 L["Keep or abandon them"] = "보관 또는 포기"
 L["Each with its Abandon button, which asks in the game's own window first."] = "각 퀘스트에 포기 버튼이 있으며, 먼저 게임 자체 창에서 확인합니다."
+-- L["%s · at level %d"] = ""
 
 -- UI/NameTargets.lua
 L["Click to target and mark %s (out of combat)."] = "클릭: %s 대상 지정 및 징표 표시 (전투 중이 아닐 때)."
@@ -4615,6 +4627,9 @@ L["Open any flight master's map once on this continent so Polestar knows your fl
 L["This guide is for %s characters. Polestar won't guide you through it."] = "이 가이드는 %s 캐릭터용입니다. Polestar가 이 가이드를 안내하지 않습니다."
 -- L["Equip it"] = ""
 -- L["Report to Danitha (Garen Largo, the Undercity), then A Paladin's Steed (Danitha Morr, Bandarion Keep): it teaches you to summon your Warhorse."] = ""
+-- L["%s (level %d)"] = ""
+-- L["%s takes these once you reach their level: %s"] = ""
+-- L["Waiting for your level, taken where a later guide passes the giver: %s"] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "%s 키를 눌러 다시 시작하거나 가이드 창을 여십시오."
@@ -4991,3 +5006,9 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "착륙
 -- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "창 크기와 별도로 Polestar 글자의 크기입니다. 바로 바뀝니다. 오른쪽 클릭하면 초기화."
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "공간을 만들 잡동사니가 없습니다. 아이템을 Ctrl+Alt-클릭하여 잡동사니로 표시하십시오."
 -- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "일시 정지 중에는 Polestar가 다시 시작할 때까지 퀘스트를 대신 수락하거나 제출하지 않고, 보상도 고르지 않습니다."
+-- L["≈ %s"] = "≈ %s"
+-- L["Level %d quest: you're %s"] = "레벨 %d 퀘스트: 내 레벨 %s"
+-- L["Behind: %s (%d) at step %d, you're %s; grind %s first"] = "뒤처짐: %s (%d) %d단계, 내 레벨 %s. 먼저 %s 사냥"
+-- L["Behind: %s (%d) at step %d, you're %s; reach %d first"] = "뒤처짐: %s (%d) %d단계, 내 레벨 %s. 먼저 %d 도달"
+-- L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"] = "진행은 순조롭지만 %s (%d) %d단계가 어렵습니다: 내 레벨 %s. 먼저 %s 사냥"
+-- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "진행은 순조롭지만 %s (%d) %d단계가 어렵습니다: 내 레벨 %s. 먼저 %d 도달"

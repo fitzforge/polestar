@@ -813,6 +813,7 @@ function Compat.IsOnTaxi() return false end
 function Compat.IsShiftKeyDown() return stub.keys.shift and true or false end
 function Compat.IsInInstance() return uistub.instance ~= nil, uistub.instance end
 function Compat.GetPlayerInfo() return uistub.player end
+function Compat.RealmName() return uistub.player.realm end
 function Compat.GetMapName(id) return MAPS[id] end
 function Compat.GetQuestTitle() return nil end
 function Compat.InCombat() return stub.inCombat end

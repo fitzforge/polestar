@@ -127,6 +127,11 @@ fn program(name: &str, root: &Path, first: &str, race: &str, faction: &str, clas
 }
 
 /// Run the program in rilua -> (the result { trace, level }, load + play ms).
+///
+/// rilua 0.1.27's collector can free a string that is still in use: with the navigation safety files loaded,
+/// a build without incremental compilation (CI's) failed in QoL/Buttons.lua with "attempt to concatenate local
+/// 'mark' (a string value)", a string whose arena slot was already gone. The play is a few seconds, so the
+/// collector is stopped for it; the trace compared is the program's, not the collector's.
 fn run_rilua(dir: &Path) -> (Value, u128) {
 	let program = std::fs::read(dir.join("program.lua")).unwrap();
 	let t0 = Instant::now();
@@ -135,6 +140,7 @@ fn run_rilua(dir: &Path) -> (Value, u128) {
 	lua.register_function("__scoped_source", f).unwrap();
 	lua.exec(
 		r#"
+		collectgarbage("stop")
 		function loadfile(path)
 			local src, err = __scoped_source(path)
 			if not src then return nil, err end

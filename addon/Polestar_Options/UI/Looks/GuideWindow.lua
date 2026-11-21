@@ -123,7 +123,6 @@ do
 		GetAlong = function() return {} end,
 		GetWhileHereList = function() return {} end,
 		LeftOutHere = function() return {} end,
-		StepHint = function() return nil end,
 		Pace = function() return PACE end,
 		-- The XP tracker's numbers while it is on, as the live window gets them.
 		XPStats = function()

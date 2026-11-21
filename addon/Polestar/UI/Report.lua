@@ -268,7 +268,8 @@ end
 -- Where the player is, and the height of the floor Polestar takes them to stand on (Nav/Walk.lua Walk.Floor: the
 -- client gives no height on Forever; the floor Walk follows while the arrow walks), "z 16": a walk searched from
 -- another floor than the player's goes round (#2215: beside an NPC on his upper floor, the route out of the building
--- and back up).
+-- and back up). Then what the client gives for the player's height (Compat.PlayerHeight), "height none": without a
+-- real one a point with a height is reached by map distance (Nav.lua, heightless).
 local function playerLine()
 	local C = ns.Compat
 	local zone, sub
@@ -282,6 +283,9 @@ local function playerLine()
 	if W and W.Floor and C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
 	local z = pc and W.Floor(pc, px, py)
 	if type(z) == "number" then line = line .. SEP .. ("z %d"):format(floor(z + 0.5)) end
+	if C and C.GetPlayerUnitPosition then C.GetPlayerUnitPosition() end -- a reading now, for PlayerHeight
+	local height = C and C.PlayerHeight and C.PlayerHeight()
+	if height then line = line .. SEP .. "height " .. height end
 	return cut(line)
 end
 
@@ -706,7 +710,7 @@ local function profileName(P)
 	if name == P.DEFAULT then return "Default" end
 	local low, names = name:lower(), {}
 	if UnitName then names[#names + 1] = UnitName("player") end
-	if GetRealmName then names[#names + 1] = GetRealmName() end
+	names[#names + 1] = ns.Compat.RealmName()
 	local db = ns.DB()
 	local alts = type(db.alts) == "table" and type(db.alts.chars) == "table" and db.alts.chars or {}
 	for key, e in pairs(alts) do

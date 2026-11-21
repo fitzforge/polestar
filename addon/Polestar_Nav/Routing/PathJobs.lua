@@ -97,7 +97,16 @@ if CreateFrame then
 		calmUntil = (GetTime and GetTime() or 0) + Path.calmSeconds
 	end)
 end
-
+-- A new goal the arrow has no path for yet (Path.Rush(true), Polestar's Nav/Walk.lua: a new target or route leg)
+-- takes Path.rushBudget a frame for up to Path.rushSeconds, until its first path is in (Path.Rush(false)): the
+-- "Finding a walking route" wait after a step change is that much shorter, and a moment of slower frames then is
+-- what the player is waiting through anyway. The calm after a fight still comes first.
+Path.rushBudget = 8
+Path.rushSeconds = 2
+local rushUntil = 0
+function Path.Rush(on)
+	rushUntil = on and GetTime and GetTime() + Path.rushSeconds or 0
+end
 -- With the queue empty the router rests: Search.Rest empties the endpoint trees' pool, Grid.Rest trims the decoded
 -- graph to Path.graphRestKB and keeps Path.restTrees endpoint trees (the newest start's in the pool, for the next
 -- search's first connection to fill), and decoded clusters, the decoder's scratch and the kept endpoint trees stay
@@ -146,7 +155,8 @@ pump = function()
 		return
 	end
 	local now = clock()
-	local budget = GetTime and GetTime() < calmUntil and Path.calmBudget or Path.budget
+	local t = GetTime and GetTime() or 0
+	local budget = t < calmUntil and Path.calmBudget or t < rushUntil and Path.rushBudget or Path.budget
 	local finish = now + budget
 	repeat
 		if #queue == 0 then
@@ -235,7 +245,13 @@ end
 -- { { id, name, areaId }, ... } (Path.lua's header). reason is "nodata", "outside", "offmesh", "unreachable" or
 -- "error". opts is the waterWalking flag (a boolean, as every caller before profiles passes it) or { waterWalking =
 -- boolean, profile = "Alliance" | "Horde" | nil, style = "fastest" | "balanced" | "roads" | nil (anything else is
--- Balanced), danger = { [uiMapID] = multiplier >= 1 } | nil (none) }.
+-- Balanced), danger = { [uiMapID] = multiplier >= 1 } | nil (none) }. to.reach (yards, with to.z): when no walk reaches
+-- the goal's own floor, the walk to the nearest surface within reach on its level that one reaches (job.reached = { x,
+-- y, z }, Routing/Path.lua `nearby`); FindMany takes from.reach alike for its source.
+-- opts.walkLevel ~= nil selects player routing. Ground segments, including the approaches
+-- to transport, must avoid opposing settlements. Zone level affects cost, not access.
+-- Find, FindCoarse and FindCost all materialize before publishing; failure is
+-- "no safe walking route". A strict batch publishes a target only after that same check.
 -- Returns a Cancel handle.
 ---@param map number
 ---@param from SPFPoint
@@ -244,7 +260,7 @@ end
 ---@param opts? boolean|{ waterWalking: boolean?, profile: string?, style: string?, danger: table<number, number>? }
 ---@return SPFPathJob
 function Path.Find(map, from, to, callback, opts)
-	local waterWalking, profile, style, danger, report = options(opts)
+	local waterWalking, profile, style, danger, report, walkLevel = options(opts)
 	return enqueue({
 		map = map,
 		from = from,
@@ -254,6 +270,7 @@ function Path.Find(map, from, to, callback, opts)
 		style = style,
 		danger = danger,
 		report = report,
+		walkLevel = walkLevel,
 		callback = callback,
 	})
 end
@@ -273,7 +290,7 @@ end
 ---@param whole? boolean
 ---@return SPFPathJob
 function Path.FindCoarse(map, from, to, callback, opts, whole)
-	local waterWalking, profile, style, danger, report = options(opts)
+	local waterWalking, profile, style, danger, report, walkLevel = options(opts)
 	return enqueue({
 		map = map,
 		from = from,
@@ -283,6 +300,7 @@ function Path.FindCoarse(map, from, to, callback, opts, whole)
 		style = style,
 		danger = danger,
 		report = report,
+		walkLevel = walkLevel,
 		callback = callback,
 		coarseOnly = true,
 		whole = whole and true or nil,
@@ -354,7 +372,7 @@ end
 ---@param progress? fun(costs: (number|false)[], reason: nil, job: SPFPathJob)
 ---@return SPFPathJob
 function Path.FindMany(map, from, targets, callback, opts, reverse, progress)
-	local waterWalking, profile, style, danger = options(opts)
+	local waterWalking, profile, style, danger, report, walkLevel = options(opts)
 	return enqueue({
 		map = map,
 		from = from,
@@ -363,6 +381,8 @@ function Path.FindMany(map, from, targets, callback, opts, reverse, progress)
 		profile = profile,
 		style = style,
 		danger = danger,
+		report = report,
+		walkLevel = walkLevel,
 		reverse = reverse,
 		progress = progress,
 		costs = {},

@@ -5,8 +5,9 @@
 -- suppresses both; only `accept`/`turnin` goals of the live step qualify
 -- (never one the player only looks at), a hand-in the While-you're-here
 -- panel shows (Engine.WantsQuest, #1408) and an accept of the route's next
--- steps at the NPC the player talks to (Engine.WantsQuest: Own.aheadWants,
--- with its guards: gates, level, timers, the log's room); a reward with
+-- steps, or of the guides after the loaded one, at the NPC the player talks
+-- to (Engine.WantsQuest: Own.aheadWants, with its guards: gates, level,
+-- timers, the log's room); a reward with
 -- several choices is always
 -- left to the player, as are quests that cost money or flag for PvP, and
 -- (behavior.warnClosing) quests that close another one for good.
@@ -232,10 +233,19 @@ local function onDetail()
 	end
 	if groupEscort(q) then return false end
 	noteActed()
+	-- Taken for a guide later on the route: say why as it is taken (the
+	-- loaded guide's own accepts stay silent).
+	local later, named
+	if ns.Engine.LaterAcceptGuide then later, named = ns.Engine.LaterAcceptGuide(q) end
 	if QuestGetAutoAccept and QuestGetAutoAccept() then
 		if AcknowledgeAutoAcceptQuest then AcknowledgeAutoAcceptQuest() end
 	elseif AcceptQuest then
 		AcceptQuest()
+	end
+	if later then
+		local title = GetTitleText and GetTitleText()
+		if not title or title == "" then title = named or tostring(q) end
+		ns.Print(L["Took %s now for %s, later on your route: this saves a trip back."]:format(ns.Quoted(title), later.title or later.id))
 	end
 	return true
 end

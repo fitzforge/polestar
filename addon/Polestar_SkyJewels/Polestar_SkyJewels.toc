@@ -20,7 +20,7 @@
 ## Title-zhTW: Polestar Sky Jewels
 ## Notes-zhTW: Polestar 的一部分：一款有 60 個關卡的三消遊戲。開啟 Sky Jewels 時載入。
 ## Author: Polestar
-## Version: 0.4.1.1
+## Version: 0.4.2
 ## Category: Polestar
 ## Group: Polestar
 ## LoadOnDemand: 1

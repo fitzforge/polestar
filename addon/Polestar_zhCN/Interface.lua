@@ -24,6 +24,7 @@ L["Another addon is hiding the guide window or the arrow. The chat says how to g
 -- Core/Data.lua
 L["%s not installed"] = "%s 未安装"
 L["Polestar no longer uses the old folders Polestar_Guides_<language> and Polestar_Names_<language> (%s): Polestar_<language> holds both now. Close the game and delete them from Interface/AddOns."] = "Polestar 不再使用旧文件夹 Polestar_Guides_<语言> 和 Polestar_Names_<语言>（%s）：现在两者都包含在 Polestar_<语言> 中。请关闭游戏，并从 Interface/AddOns 中删除这些旧文件夹。"
+L["Polestar no longer uses its %d walking map folders named Polestar_Nav_R (Polestar_Nav_R0_6_6 and the like): Polestar_Nav_EK and Polestar_Nav_Kalimdor hold those maps now. Close the game and delete the Polestar_Nav_R folders from Interface/AddOns."] = "Polestar 不再使用名为 Polestar_Nav_R 的 %d 个步行地图文件夹（例如 Polestar_Nav_R0_6_6）：这些地图现在包含在 Polestar_Nav_EK 和 Polestar_Nav_Kalimdor 中。请关闭游戏，并从 Interface/AddOns 中删除这些 Polestar_Nav_R 文件夹。"
 L["Your install is mixed or incomplete (%s). Close the game, delete every Polestar folder in Interface/AddOns and install Polestar again: with the Polestar Client, the CurseForge app, or the latest zip from GitHub Releases (not \"Source code\")."] = "你的安装混杂了不同版本或不完整（%s）。请关闭游戏，删除 Interface/AddOns 中所有 Polestar 文件夹，然后重新安装 Polestar：使用 Polestar Client、CurseForge 应用，或 GitHub Releases 上最新的压缩包（不要用“Source code”）。"
 
 -- Core/Guides.lua
@@ -210,9 +211,9 @@ L["Sell before heading out: %s"] = "出发前出售：%s"
 L["The guide heads out of town next and your bags are nearly full: sell what you don't need here."] = "指南接下来将离开城镇，而你的背包快满了：在这里卖掉不需要的物品。"
 L["Pays %d%% XP at your level and is out of the way (Skip grey quests)"] = "在你的等级只给 %d%% 经验，且不顺路（跳过灰色任务）"
 L["Grey for you: pays %d%% XP (Skip grey quests)"] = "对你是灰色：只给 %d%% 经验（跳过灰色任务）"
--- L["Put in the bank"] = ""
--- L["Take off"] = ""
--- L["Equip"] = ""
+L["Put in the bank"] = "存入银行"
+L["Take off"] = "卸下"
+L["Equip"] = "装备"
 -- L["Reach %d points into %s with"] = ""
 -- L["Lose"] = ""
 -- L["Gain"] = ""
@@ -225,10 +226,15 @@ L["Artisan %s"] = "专家级%s"
 -- L["Hearthstone ready in %s: ride to the inn, or wait for it"] = ""
 -- L["Ride to %s"] = ""
 -- L["Ride to the flight master"] = ""
+-- L["Requires level %d: the guide comes back for it then"] = ""
+-- L["Requires level %d: kept for a later guide"] = ""
+-- L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = ""
+-- L["For %s, later on your route."] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "选择一个奖励以完成交还。"
 -- L["%s is an escort: it starts as soon as it is taken. Accept it yourself when your group is ready."] = ""
+-- L["Took %s now for %s, later on your route: this saves a trip back."] = ""
 
 -- Core/Commands.lua
 L["Toggle guide window"] = "开关指南窗口"
@@ -355,6 +361,7 @@ L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the 
 L["Polestar is paused: the arrow follows the guide again once you leave the dungeon alive, or after /polestar resume."] = "Polestar 已暂停：当你活着离开地下城，或输入 /polestar resume 后，箭头会重新跟随指南。"
 
 -- Nav/Arrow.lua
+L["The last steps here aren't mapped"] = "这里最后几步没有地图"
 L["Search here"] = "在此搜索"
 L["Arrived"] = "已到达"
 L["Click the arrow for the next spot"] = "点击箭头前往下一地点"
@@ -367,6 +374,9 @@ L["Drag to move."] = "拖动以移动。"
 L["Click for the next spot."] = "点击前往下一地点。"
 L["Shift-drag to move."] = "按住 Shift 拖动可移动。"
 L["No waypoint"] = "没有路径点"
+-- L["Arrived underwater"] = ""
+-- L["Under water nearby: swim down to it"] = ""
+-- L["%d yd below you: swim down"] = ""
 
 -- Nav/Layers.lua
 L["Spot %d of %d"] = "地点 %d/%d"
@@ -441,7 +451,8 @@ L["Walk to the entrance"] = "走到入口"
 L["Walk to the lift"] = "走到升降梯"
 L["%s, Top"] = "%s，顶部"
 L["%s, Bottom"] = "%s，底部"
-L["No route: walk straight to the target."] = "无路线：直接走向目标。"
+L["No safe walking route"] = "没有安全的步行路线"
+L["Finding a walking route"] = "正在查找步行路线"
 L["Show the travel route to the current target"] = "显示前往当前目标的旅行路线"
 L["Hostile town: %s"] = "敌对城镇：%s"
 L["Ride the elevator up"] = "乘坐升降梯上去"
@@ -788,7 +799,7 @@ L["Best pick"] = "最佳选择"
 L["Item"] = "物品"
 L["Reward pick"] = "奖励选择"
 L["weapon skill not trained"] = "未学习武器技能"
--- L["Your ranged damage uses this weapon's stats, not its damage"] = ""
+L["Your ranged damage uses this weapon's stats, not its damage"] = "远程攻击会应用这把武器的属性加成，武器伤害不计入。"
 
 -- Gear/Options.lua
 L["Automatic (talents)"] = "自动（天赋）"
@@ -949,8 +960,8 @@ L["Right-click for its settings. Shift-drag to move."] = "右键点击打开设�
 L["Right-click for its settings. Drag to move."] = "右键点击打开设置。拖动以移动。"
 L["Targets the first name in the list that is close. Click a name to target that one."] = "选中列表中附近的第一个名字。点击名字即可选中该目标。"
 -- L["Dragging the Polestar mark in combat places the buttons after the fight."] = ""
--- L["Press to equip"] = ""
--- L["Press to equip it."] = ""
+L["Press to equip"] = "按键装备"
+L["Press to equip it."] = "点击装备"
 
 -- QoL/XP.lua
 L["Level %d"] = "等级 %d"
@@ -1188,7 +1199,7 @@ L["2D portraits"] = "2D 头像"
 L["Name the one that's close"] = "显示附近目标的名称"
 -- L["With portraits, the name of the one close enough to target shows beside its face in a column, under it in a row (above it when the list goes up over the buttons)."] = ""
 L["Equip a spare bag first"] = "先装备备用背包"
--- L["When your bags are nearly full and a bag sits in them while a bag slot is empty, the bag button and the guide window offer to put it on before any junk. Nothing happens until you press."] = ""
+L["When your bags are nearly full and a bag sits in them while a bag slot is empty, the bag button and the guide window offer to put it on before any junk. Nothing happens until you press."] = "背包快满时，如果还有空的背包栏位，且背包里有备用背包，背包按钮和指南窗口会优先提示装备备用背包。按下按钮才会装备。"
 
 -- Lookup/Sources.lua
 L["Alliance only"] = "仅限联盟"
@@ -1405,7 +1416,6 @@ L["%s in your bank"] = "银行中 %s 个"
 L["%s in your mail"] = "邮件中 %s 个"
 L["%s has %s"] = "%s 有 %s 个"
 L["%s to buy"] = "需购买 %s 个"
-L["≈ %s"] = "≈ %s"
 L["(only %s listed)"] = "（仅有 %s 个在售）"
 L["(old price)"] = "（旧价格）"
 
@@ -1604,9 +1614,6 @@ L["The step stops waiting for the party and moves on as usual."] = "步骤不再
 L["Click to show or hide the party panel."] = "点击显示或隐藏小队面板。"
 L["Then out here"] = "然后在外面"
 L["Out here"] = "在外面"
-L["Level %d quest: you're %s"] = "%d级任务：你是%s"
-L["Behind: %s (%d) at step %d, you're %s; grind %s first"] = "落后：%s（%d）在步骤 %d，你是%s；请先刷怪%s"
-L["Behind: %s (%d) at step %d, you're %s; reach %d first"] = "落后：%s（%d）在步骤 %d，你是%s；请先升到 %d 级"
 L["%s levels"] = "%s 级"
 L["Behind by %s: step %d grinds to level %s (%s)"] = "落后 %s：步骤 %d 刷怪升到 %s 级（%s）"
 L["Behind by %s: step %d grinds to level %s"] = "落后 %s：步骤 %d 刷怪升到 %s 级"
@@ -1618,8 +1625,6 @@ L["While you're here:"] = "顺便完成："
 L["Not now (right-click)"] = "暂不（右键）"
 L["Step %d does this later; done now, that step is shorter or skipped when you get there."] = "步骤 %d 稍后会做这件事；现在完成，到那个步骤时它会更短或直接跳过。"
 L["Right-click: not now, around here (twice: for the rest of this zone)."] = "右键：在这附近忽略（忽略两次后，本地区内不再提示）。"
-L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"] = "进度正常，但步骤 %3$d 的%1$s（%2$d）较难：你当前为%4$s；请先练级%5$s"
-L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "进度正常，但步骤 %3$d 的%1$s（%2$d）较难：你当前为%4$s；请先升到 %5$d 级"
 L["The rest of this guide follows from a skipped step"] = "此指南的后续内容依赖一个已跳过的步骤"
 L["You skipped %s, and the steps after it need its quests. Undo the skip to carry on, or do that step yourself: the guide picks up from there."] = "你跳过了%s，而之后的步骤需要其中的任务。撤销跳过以继续，或自行完成该步骤：指南会从那里接着进行。"
 L["Undo the skip"] = "撤销跳过"
@@ -3433,8 +3438,14 @@ L["%d characters on %d realms · each as of their last logout"] = "%d个角色�
 L["1 character on %s"] = "%s 上有1个角色"
 L["1 character on %s · each as of their last logout"] = "%s 上有1个角色 · 均为各自上次登出时的数据"
 L["%d characters on %s · each as of their last logout"] = "%d个角色，位于 %s · 均为各自上次登出时的数据"
+L["1 character"] = "1个角色"
+L["1 character · each as of their last logout"] = "1个角色 · 为其上次登出时的数据"
+L["%d characters · each as of their last logout"] = "%d个角色 · 均为各自上次登出时的数据"
 L["Forget %s"] = "忘记 %s"
 L["Characters is turned off. Turn it on under Options > Discovery > Lookup."] = "“角色”功能已关闭。请在“选项 > 发现 > 查询”中开启。"
+-- L["Another character named %s was saved before Forever's client stopped giving addons the realm name. Polestar can't tell whether it is this one, so it stays listed as it was; forget it if it is."] = ""
+-- L["%d characters named %s were saved on different realms before Forever's client stopped giving addons the realm name. Polestar can't tell which one you are playing, so they stay listed as they were and this character has a new entry; forget the old one that was this character."] = ""
+-- L["Rares met on %d realms are kept apart: Forever's client no longer gives addons the realm name, so Polestar can't tell which of them this is. Rares lists what you meet from now on."] = ""
 
 -- QoL/Keep.lua
 L["Don't sell: the guide needs it at step %d"] = "请勿出售：指南的步骤 %d 需要它"
@@ -3460,8 +3471,8 @@ L["Deleted %s."] = "已摧毁%s。"
 L["Free slots: %d of %d"] = "空余栏位：%d/%d"
 L["Cheapest junk: %s (%s)"] = "最便宜的垃圾：%s（%s）"
 L["Free bag slots and the cheapest junk"] = "背包空余栏位和最便宜的垃圾"
--- L["Equipped %s."] = ""
--- L["Spare bag: %s"] = ""
+L["Equipped %s."] = "已装备 %s。"
+L["Spare bag: %s"] = "备用背包：%s"
 
 -- QoL/Restock.lua
 L["Restock"] = "补货"
@@ -3549,6 +3560,7 @@ L["Carried to later guides"] = "留待之后指南的任务"
 L["Not part of your route"] = "不在你的路线中"
 L["Keep or abandon them"] = "保留或放弃"
 L["Each with its Abandon button, which asks in the game's own window first."] = "每个任务都有“放弃”按钮，会先在游戏自身的窗口中确认。"
+-- L["%s · at level %d"] = ""
 
 -- UI/NameTargets.lua
 L["Click to target and mark %s (out of combat)."] = "点击选中并标记 %s（战斗外）。"
@@ -3557,8 +3569,8 @@ L["%s not found nearby."] = "附近未找到 %s。"
 
 -- Quests/BagMarks.lua
 L["Polestar quest items"] = "Polestar 任务物品"
--- L["Polestar quest leftovers"] = ""
--- L["Related quests completed (likely safe to delete)"] = ""
+L["Polestar quest leftovers"] = "Polestar 任务遗留物品"
+L["Related quests completed (likely safe to delete)"] = "相关任务已完成（通常可以删除）"
 
 -- Quests/DeleteWarning.lua
 L["Needed for:"] = "所需任务："
@@ -4613,8 +4625,11 @@ L["Jump anyway? They stay in your log, and the guide lists who takes each in."] 
 L["Jump anyway"] = "仍要跳转"
 L["Open any flight master's map once on this continent so Polestar knows your flight paths."] = "在这片大陆上打开任意一位飞行管理员的地图一次，Polestar 就能知道你的飞行路线。"
 L["This guide is for %s characters. Polestar won't guide you through it."] = "此指南适用于%s角色。Polestar 不会引导你完成它。"
--- L["Equip it"] = ""
+L["Equip it"] = "装备"
 -- L["Report to Danitha (Garen Largo, the Undercity), then A Paladin's Steed (Danitha Morr, Bandarion Keep): it teaches you to summon your Warhorse."] = ""
+-- L["%s (level %d)"] = ""
+-- L["%s takes these once you reach their level: %s"] = ""
+-- L["Waiting for your level, taken where a later guide passes the giver: %s"] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "按 %s 恢复，或打开指南窗口。"
@@ -4781,14 +4796,14 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "已降
 -- L["XP remaining after turn-ins"] = ""
 
 -- Core/Perf.lua
--- L["Perf probe on: Polestar now times its own work. Play as usual, then type /polestar report and paste it."] = ""
--- L["The perf probe needs debugprofilestop, which this client does not have."] = ""
--- L["Perf probe off. What it measured stays in /polestar report until you reload."] = ""
--- L["Polestar perf report"] = ""
--- L["The perf probe has not run yet: type /polestar perf to start it."] = ""
--- L["Perf probe: measurements cleared."] = ""
--- L["/polestar perf: on, off, report or reset"] = ""
--- L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = ""
+L["Perf probe on: Polestar now times its own work. Play as usual, then type /polestar report and paste it."] = "性能诊断已开启。Polestar 现在会记录自身的运行耗时。请照常游玩，然后输入 /polestar report 并粘贴报告。"
+L["The perf probe needs debugprofilestop, which this client does not have."] = "当前客户端没有 debugprofilestop 函数，无法启动性能诊断。"
+L["Perf probe off. What it measured stays in /polestar report until you reload."] = "性能诊断已关闭。重载界面前，仍可通过 /polestar report 查看已记录的数据。"
+L["Polestar perf report"] = "Polestar 性能诊断报告"
+L["The perf probe has not run yet: type /polestar perf to start it."] = "尚未运行性能诊断。输入 /polestar perf 开始。"
+L["Perf probe: measurements cleared."] = "性能诊断数据已清空。"
+L["/polestar perf: on, off, report or reset"] = "/polestar perf：on 开启、off 关闭、report 查看报告、reset 清空数据"
+L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = "排查游戏卡顿，记录 Polestar 自身的运行耗时（on、off、report、reset）"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在导航。要使用 Polestar 的箭头，请关闭“安装 Shortest Path Forever 时由其导航”（选项 > 箭头与路线）。"
@@ -5000,3 +5015,9 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "已降
 -- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "Polestar 文字的大小，独立于窗口缩放。立即生效。右键点击重置。"
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "没有可清理的垃圾物品。Ctrl+Alt+点击物品可将其标记为垃圾。"
 -- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "暂停期间，不会替你接受或交还任务，也不会选择奖励，直到 Polestar 恢复。"
+-- L["≈ %s"] = "≈ %s"
+-- L["Level %d quest: you're %s"] = "%d级任务：你是%s"
+-- L["Behind: %s (%d) at step %d, you're %s; grind %s first"] = "落后：%s（%d）在步骤 %d，你是%s；请先刷怪%s"
+-- L["Behind: %s (%d) at step %d, you're %s; reach %d first"] = "落后：%s（%d）在步骤 %d，你是%s；请先升到 %d 级"
+-- L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"] = "进度正常，但步骤 %3$d 的%1$s（%2$d）较难：你当前为%4$s；请先练级%5$s"
+-- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "进度正常，但步骤 %3$d 的%1$s（%2$d）较难：你当前为%4$s；请先升到 %5$d 级"

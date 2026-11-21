@@ -115,6 +115,9 @@ The data builders, one at a time (forge build's data stage runs the ones it need
                 [--build --sources --offline --lua]
   newquests     Quests/NewQuestIds.lua: the quests Forever added (the \"New in Forever\" mark)
                 [--root --data --sources --offline --check --lua]
+  diff          a data build against the live release's: per-NPC/object/quest changes and the
+                release invariants (friendly rares, leaders' spawns, spawn jumps, moved hand-ins)
+                [--old --new --root --corrections --out]
   check-corrections  check an edit of forever-db/corrections, mechanics-public.json or route-fixes.json
                 [--root --data --corrections --mechanics --route-fixes --json]
   trainers      trainers.json and Core/ClassTrainers.lua  [--data --guides --recordings --out --lua]

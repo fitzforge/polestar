@@ -771,6 +771,13 @@ local function facing()
 	local C = ns.Compat
 	return C and C.GetPlayerFacing and C.GetPlayerFacing() or nil
 end
+
+local function besideSolidFace()
+	local path = Nav.Path
+	if not (path and path.NearSolidFace) then return false end
+	local x, y, z, map = ns.Compat.GetPlayerUnitPosition()
+	return z and path.NearSolidFace(map, x, y, z)
+end
 local lastYards, lastEta
 local floorShown -- the floor glyph's hint ("up" | "down") or nil
 local lastDist, closeSpeed = nil, 0
@@ -781,13 +788,26 @@ local loneSeen = -1   -- Travel.version a lone walk's warning was last asked for
 local WARN_SECONDS = 8 -- a walk's "Hostile town" warning stays under its step this long
 local warning, warnUntil -- the warning being said (Travel.TakeWarning) and until when (GetTime)
 local style = "3d"    -- nav.arrowStyle (D.style)
+local noteSeen = 0    -- Walk.Unmapped's version the label shows
+local stoppedUnmapped = false -- the unmapped warning is the status, not a second line under the target
+local noWalkShown -- Nav.noWalk under the label while the arrow points straight for want of a walk (#3409)
 
 -- A target's own warning (Nav.SetTarget's `warning`: a dungeon whose way in
 -- lies in the other faction's land) stays under the label while it is the
--- target; the walk's hostile-town warning (`warning`) comes after it.
+-- target, and so does "The last steps here aren't mapped" while the current walk
+-- ends short of its goal's floor, or a capital walk found none (Walk.Unmapped).
+-- The walk's hostile-town warning (`warning`) comes after them. While no walk
+-- was found (Nav.noWalk) and the arrow points straight, why: "No safe walking
+-- route" or "The last steps here aren't mapped" (#3409).
 local function withTargetWarning(text)
 	local t = Nav.GetTarget()
 	local tw = t and t.warning
+	local W = Nav.walk
+	local note = noWalkShown == "unsafe" and L["No safe walking route"] or nil
+	if noWalkShown == "unmapped" or (not stoppedUnmapped and W and W.Unmapped and W.Unmapped()) then
+		note = note and (note .. "\n" .. L["The last steps here aren't mapped"]) or L["The last steps here aren't mapped"]
+	end
+	if note then tw = tw and (tw .. "\n" .. note) or note end
 	if not tw then return text end
 	return text ~= "" and (text .. "\n" .. tw) or tw
 end
@@ -828,8 +848,11 @@ end
 local function setMode(m)
 	if m == mode then return end
 	mode = m
+	if m == "travel" then D.near = nil end -- repaint after a mode or theme change
 	turnVel = 0 -- a speed from before an arrival or an instruction does not carry into the next walk
-	local travel, done, act, idle = m == "travel", m == "arrived" or m == "search", m == "instruction", m == "idle"
+	local travel, done, act, idle = m == "travel", m == "arrived" or m == "arrived-underwater" or m == "search", m == "instruction", m == "idle"
+	-- Resume on the new walk's bearing, not a heading from before guidance stopped.
+	if not travel then hasAngle = false end
 	dial:SetShown(travel or done or act or idle)
 	grabArea(travel or done or act or idle)
 	showArrow(travel)
@@ -840,12 +863,17 @@ local function setMode(m)
 	lastYards, lastEta = nil, nil
 	lastDist, closeSpeed = nil, 0
 	etaText:Hide()
+	if m == "submerged" or m == "arrived-underwater" or m == "water-depth" then
+		local t = Nav.GetTarget()
+		labelText:SetText(t and t.label or "")
+		routeSeen = -2
+	end
 	if done then
 		pulse = 0
 		distText:SetTextColor(Nav.RGB("arrowNearText"))
 		-- An area objective is never done by standing somewhere: look around,
 		-- then move on (a click on the arrow, or the next spot comes up by itself).
-		distText:SetText(m == "search" and L["Search here"] or L["Arrived"])
+		distText:SetText(m == "search" and L["Search here"] or m == "arrived-underwater" and L["Arrived underwater"] or L["Arrived"])
 		if m == "search" then
 			etaColor()
 			etaText:SetText(L["Click the arrow for the next spot"])
@@ -858,6 +886,20 @@ local function setMode(m)
 		etaColor()
 		etaText:SetText(L["On another continent"])
 		etaText:Show()
+	elseif m == "water-depth" then
+		distText:SetTextColor(Nav.RGB("text"))
+	elseif m == "submerged" then
+		distText:SetTextColor(Nav.RGB("text"))
+		distText:SetText(L["Under water nearby: swim down to it"])
+	elseif m == "unsafe" then
+		distText:SetTextColor(Nav.RGB("text"))
+		distText:SetText(L["No safe walking route"])
+	elseif m == "routing" then
+		distText:SetTextColor(Nav.RGB("textDim"))
+		distText:SetText(L["Finding a walking route"])
+	elseif m == "unmapped" then
+		distText:SetTextColor(Nav.RGB("textDim"))
+		distText:SetText(L["The last steps here aren't mapped"])
 	elseif m == "nopos" then
 		-- Nothing to point at or measure; the label (target or route leg) stays.
 		distText:SetTextColor(Nav.RGB("textDim"))
@@ -903,6 +945,7 @@ end
 -- The far colour away, the near colour up close (blend).
 local function applyColor(dist, radius)
 	local r, g, b, near = blend(style, dist, radius, look)
+	if near == D.near and r == tintR and g == tintG and b == tintB then return end
 	D.near = near
 	tint(r, g, b)
 end
@@ -930,7 +973,7 @@ local function applyLook()
 		showArrow(true)
 		tint(tintR, tintG, tintB)
 		travelDistColor()
-	elseif mode == "arrived" or mode == "search" or mode == "instruction" or mode == "idle" then
+	elseif mode == "arrived" or mode == "arrived-underwater" or mode == "submerged" or mode == "water-depth" or mode == "search" or mode == "instruction" or mode == "idle" then
 		local m = mode
 		mode = nil
 		setMode(m)
@@ -977,6 +1020,15 @@ local function syncLabel(T, routed)
 		warning = nil
 		routeSeen = -2
 	end
+	-- The walk's "last steps aren't mapped" came or went (Walk.Unmapped): the label is set again.
+	local W = Nav.walk
+	if W and W.Unmapped then
+		local _, nv = W.Unmapped()
+		if nv ~= noteSeen then
+			noteSeen = nv
+			routeSeen = -2
+		end
+	end
 	if routed then
 		if T.version ~= routeSeen then
 			routeSeen = T.version
@@ -1011,12 +1063,12 @@ local function sample(elapsed)
 		frame:Hide()
 		return false
 	end
-	local state, dist, angle, _, _, measured = Nav.Sample()
+	local state, dist, angle, _, _, measured, nearEnemy = Nav.Sample()
 	if Nav.IsHiddenState(state) then
 		frame:Hide()
 		return false
 	end
-	local hint = state == "travel" and Nav.FloorHint and Nav.FloorHint() or nil
+	local hint = (state == "travel" or state == "unmapped") and Nav.FloorHint and Nav.FloorHint() or nil
 	if hint ~= floorShown then
 		floorShown = hint
 		if hint then
@@ -1027,8 +1079,30 @@ local function sample(elapsed)
 	end
 	local T = Nav.travel
 	local routed = T ~= nil and T.Active() or false
+	if state == "water-depth" then
+		setMode(state)
+		local yards = floor(dist + .5)
+		if lastYards ~= yards then
+			lastYards = yards
+			distText:SetFormattedText(L["%d yd below you: swim down"], yards)
+		end
+		return true
+	end
+	if state == "submerged" or state == "arrived-underwater" then
+		setMode(state)
+		return true
+	end
+	if stoppedUnmapped ~= (state == "unmapped") then
+		stoppedUnmapped = state == "unmapped"
+		routeSeen = -2
+	end
+	local nw = state == "travel" and Nav.noWalk or nil
+	if nw ~= noWalkShown then
+		noWalkShown = nw
+		routeSeen = -2
+	end
 	syncLabel(T, routed)
-	if state == "far" or state == "arrived" or state == "search" or state == "nopos" then
+	if state == "far" or state == "arrived" or state == "search" or state == "nopos" or state == "unmapped" or state == "unsafe" or state == "routing" then
 		setMode(state)
 		return true
 	end
@@ -1043,7 +1117,10 @@ local function sample(elapsed)
 	if angle then
 		local f = facing()
 		local bearing = f and wrap(angle + f) or angle
-		if not hasAngle or byBearing ~= (f ~= nil) then
+		-- Do not ease a right-angle walking turn through a nearby wall. Keep
+		-- ordinary open-road turns and changes in the player's facing smooth.
+		local wallTurn = measured and hasAngle and f and abs(wrap(goalAngle-bearing)) > pi/3 and besideSolidFace()
+		if not hasAngle or byBearing ~= (f ~= nil) or wallTurn or (nearEnemy and curBearing ~= bearing) then
 			byBearing = f ~= nil
 			curBearing, hasAngle, turnVel = bearing, true, 0
 			curAngle = angle
@@ -1110,7 +1187,7 @@ frame:SetScript("OnUpdate", ns.Safe(function(_, elapsed)
 			curAngle = shown
 			setRotation(curAngle)
 		end
-	elseif (mode == "arrived" or mode == "search") and look.pulse then
+	elseif (mode == "arrived" or mode == "arrived-underwater" or mode == "search") and look.pulse then
 		pulse = pulse + elapsed
 		dialPulse(D, pulse)
 	end
