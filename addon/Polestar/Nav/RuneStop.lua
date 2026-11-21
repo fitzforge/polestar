@@ -1,37 +1,31 @@
 -- The rune stop (#3547): a Mage with no Rune of Teleportation, on a route that
--- flies, standing near a vendor who sells the rune, is offered that stop when
--- walking there, buying one and teleporting clearly beats the route.
+-- flies, near a vendor who sells the rune, sees that stop in While you're here
+-- when walking there, buying one and teleporting clearly beats the route.
 --
--- It only offers. Accepting points the arrow at the vendor as a trip
--- (Nav.StartTrip), which hands the arrow back to the guide on arrival; nothing
--- is bought for the player. Once a rune is in the bags Transit.Teleports lists
--- the teleport again and the planner weighs it as it always does.
+-- It only suggests (Engine.SetRuneStop makes the line; a click points the arrow
+-- at the vendor, as a sell or repair line's does) and buys nothing. Once a rune
+-- is in the bags the line goes, Transit.Teleports lists the teleport again and
+-- the planner weighs it as it always does.
 --
 --   RuneStop.Find() -> offer | nil
---     offer = { key, seller = place, yards, teleport, seconds, saves }
---   RuneStop.Check()  shows the offer, once per target
+--     offer = { seller = place, places = { place }, yards, teleport, seconds, saves }
+--   RuneStop.Refresh()  hands the Engine the offer there is now
 
 local ADDON, ns = ...
-local L = ns.L
 local Nav = ns.Nav
 
 local RuneStop = {}
 Nav.runeStop = RuneStop
 
-local ipairs, format, sqrt = ipairs, string.format, math.sqrt
+local ipairs, sqrt = ipairs, math.sqrt
 
-local NEAR = 150      -- yards, straight: a seller this close counts as nearby
+local NEAR = 150       -- yards, straight: a seller this close counts as nearby
 local BUY_SECONDS = 10 -- opening the vendor and buying one
 local RUN_SPEED = 7
-local CHECK_DELAY = 1 -- seconds after a route change: routes change in bursts
-local POPUP = "POLESTAR_RUNE_STOP"
+local CHECK_DELAY = 1  -- seconds after a route or bag change: they come in bursts
+local TICK = 3         -- seconds: walking up to a seller changes no route
 
-local asked = {} -- target key -> true: offered once, whatever the answer
-local pending = false
-
-local function targetKey(t)
-	return format("%s:%.1f:%.1f", tostring(t.map), t.x or 0, t.y or 0)
-end
+local pending, showing = false, false
 
 -- The route still ahead flies and casts no teleport.
 local function fliesAhead(legs, ci)
@@ -56,11 +50,10 @@ end
 function RuneStop.Find()
 	local T, X, near, C = Nav.travel, ns.Transit, Nav.nearby, ns.Compat
 	if not (T and X and X.MissingRunes and near and near.Sellers) then return nil end
+	if ns.Get("behavior.whileHere") == false or ns.Get("behavior.whileHereVendors") == false then return nil end
 	if T.teleportsBarred or Nav.Trip() or (InCombatLockdown and InCombatLockdown()) then return nil end
 	local target = Nav.GetTarget()
 	if not target then return nil end
-	local key = targetKey(target)
-	if asked[key] then return nil end
 	local legs, ci = Nav.GetRoute()
 	if not fliesAhead(legs, ci) then return nil end
 	local missing = X.MissingRunes()
@@ -81,7 +74,7 @@ function RuneStop.Find()
 				local seconds = walk + BUY_SECONDS + t.cast + after
 				local saves = base - seconds
 				if saves >= need and (not best or saves > best.saves) then
-					best = { key = key, seller = seller, yards = yards, teleport = t, seconds = seconds, saves = saves }
+					best = { seller = seller, places = { seller }, yards = yards, teleport = t, seconds = seconds, saves = saves }
 				end
 			end
 		end
@@ -89,49 +82,31 @@ function RuneStop.Find()
 	return best
 end
 
--- Points the arrow at the seller, as a trip that ends on arrival.
-function RuneStop.Accept(offer)
-	local p = offer.seller
-	local t = Nav.SetTarget(p.map, p.x, p.y, p.name, p.f, nil, p.z)
-	if t then Nav.StartTrip(t, p.name, L["Rune of Teleportation"]) end
-	return t and true or false
-end
-
-local function show(offer)
-	if ns.GamepadUI() or not (StaticPopupDialogs and StaticPopup_Show) then return false end
-	StaticPopupDialogs[POPUP] = StaticPopupDialogs[POPUP] or {
-		text = "%s",
-		button1 = L["Go to vendor"],
-		button2 = L["Keep my route"],
-		OnAccept = function(_, data) RuneStop.Accept(data) end,
-		timeout = 0,
-		whileDead = false,
-		hideOnEscape = true,
-		preferredIndex = 3,
-	}
-	local Q = ns.QoL
-	local saves = Q and Q.Duration and Q.Duration(offer.saves) or format("%d", offer.saves)
-	local text = format(L["Buy a Rune of Teleportation from %s (%d yd), then cast %s? Saves about %s."],
-		offer.seller.name, offer.yards + 0.5, offer.teleport.name, saves)
-	StaticPopup_Show(POPUP, text, nil, offer)
-	return true
-end
-
-function RuneStop.Check()
+-- While the player's click leads the arrow to the seller the route no longer
+-- flies, so the line holds until a rune is in the bags. A fight changes nothing.
+function RuneStop.Refresh()
+	local E, X = ns.Engine, ns.Transit
+	if not (E and E.SetRuneStop and X and X.MissingRunes) then return end
+	if InCombatLockdown and InCombatLockdown() then return end
+	if showing and E.RuneStopAimed and E.RuneStopAimed() and #X.MissingRunes() > 0 then return end
 	local offer = RuneStop.Find()
-	if not offer then return false end
-	asked[offer.key] = true
-	return show(offer)
+	if offer or showing then E.SetRuneStop(offer) end
+	showing = offer ~= nil
 end
 
 local function queue()
-	if pending then return end
-	if not (C_Timer and C_Timer.After) then return end
+	if pending or not (C_Timer and C_Timer.After) then return end
 	pending = true
 	C_Timer.After(CHECK_DELAY, function()
 		pending = false
-		ns.SafeCall(RuneStop.Check)
+		ns.SafeCall(RuneStop.Refresh)
 	end)
 end
 
 ns.On("ROUTE_CHANGED", queue)
+ns.RegisterEvent("BAG_UPDATE_DELAYED", queue)
+ns.OnLogin(function()
+	if C_Timer and C_Timer.NewTicker then
+		C_Timer.NewTicker(TICK, function() ns.SafeCall(RuneStop.Refresh) end)
+	end
+end)

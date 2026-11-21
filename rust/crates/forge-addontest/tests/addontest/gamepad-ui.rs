@@ -142,7 +142,6 @@ const ALLOWED: &[(&str, usize, &str)] = &[
 	("Polestar/Dungeons/Dungeons.lua", 1, "through Compat.OpenWorldMap"),
 	("Polestar/Nav/Journey.lua", 8, "the map's canvas click handler and /way, neither with the gamepad interface, and the same handler on the maps MapCanvas.Add hands over; wayTaken only reads"),
 	("Polestar/Nav/Nearby.lua", 3, "the tracking menus, not with the gamepad interface"),
-	("Polestar/Nav/RuneStop.lua", 3, "the rune stop's offer, never with the gamepad interface (its focus owns the dialogs)"),
 	("Polestar/Maps/Services.lua", 3, "the service tracking menus, not with the gamepad interface"),
 	("Polestar/UI/QuestLinks.lua", 3, "the quest menus, not with the gamepad interface"),
 	("Polestar/UI/GuideFrameMenu.lua", 2, "the quest log menu's pin entry, not with the gamepad interface"),

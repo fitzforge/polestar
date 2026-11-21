@@ -1,6 +1,6 @@
 ---
 section: players
 ---
-- A Mage out of Runes of Teleportation, on a route that flies, is offered a
-  nearby rune vendor when buying one and teleporting clearly saves time.
-  Polestar only points the arrow there; you do the buying.
+- While you're here: a Mage out of Runes of Teleportation, on a route that
+  flies, sees a nearby rune vendor when buying one and teleporting clearly
+  saves time. A click points the arrow there; you do the buying.

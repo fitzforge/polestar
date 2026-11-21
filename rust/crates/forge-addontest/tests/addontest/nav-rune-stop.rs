@@ -42,34 +42,42 @@ fn run(script: &str) -> Value {
 }
 
 #[test]
-fn a_near_seller_is_offered_when_the_teleport_clearly_beats_the_flight_once_per_target_and_accepting_is_a_trip() {
+fn a_near_seller_is_handed_to_the_engine_when_the_teleport_clearly_beats_the_flight_and_held_while_the_arrow_leads_there() {
 	let out = run(r#"
 		local r = {}
 		known(1, 2)
 		local missing = { mage(0, -780) }
+		local sold = { seller(20, 600) }
+		local got, sets, aimed = nil, 0, false
+		Polestar.Engine.SetRuneStop = function(o) got, sets = o, sets + 1 end
+		Polestar.Engine.RuneStopAimed = function() return aimed end
 		Polestar.Transit.MissingRunes = function() return missing end
-		N.nearby.Sellers = function() return { seller(20, 600) } end
+		N.nearby.Sellers = function() return sold end
 		nav.place(0, 600)
 		target(0, -780, "Kobolds")
 		local o = R.Find()
-		r.offered = o ~= nil
 		r.seller = o and o.seller.name
 		r.saves = o and o.saves >= 60
-		r.shown = R.Check()
-		r.again = R.Find() == nil
-		r.accepted = o and R.Accept(o)
-		local trip = N.Trip()
-		r.trip = trip and trip.name
-		r.ends = trip and trip.ends
+		R.Refresh()
+		r.handed = got and got.seller.name
+		aimed = true
+		target(20, 600, "Rune Seller")
+		sets = 0
+		R.Refresh()
+		r.heldWhileAimed = sets == 0 and got ~= nil
+		missing = {}
+		R.Refresh()
+		r.goneOnceBought = got == nil
+		sets = 0
+		R.Refresh()
+		r.quietWithNoOffer = sets == 0
 		emit(r)"#);
-	assert_eq!(out["offered"], true);
 	assert_eq!(out["seller"], "Rune Seller");
 	assert_eq!(out["saves"], true);
-	assert_eq!(out["shown"], true);
-	assert_eq!(out["again"], true, "asked once for this target, whatever the answer");
-	assert_eq!(out["accepted"], true);
-	assert_eq!(out["trip"], "Rune Seller");
-	assert_eq!(out["ends"], "arrive", "the arrow goes back to the guide at the vendor");
+	assert_eq!(out["handed"], "Rune Seller");
+	assert_eq!(out["heldWhileAimed"], true, "the arrow on the vendor: the route no longer flies, the line stays");
+	assert_eq!(out["goneOnceBought"], true);
+	assert_eq!(out["quietWithNoOffer"], true);
 }
 
 #[test]

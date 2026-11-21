@@ -282,3 +282,46 @@ fn the_reminder_poll_allocates_nothing_per_tick() {
 	assert!(shown < 0.5, "2000 polls with the line shown allocated {shown:.2} KiB");
 	assert!(idle < 0.5, "2000 polls with the kind spent allocated {idle:.2} KiB");
 }
+
+// #3547: Nav/RuneStop.lua's offer is a line of the same kind: the vendor, what it saves, a click points the arrow
+// there, and the line goes when the offer does (a rune in the bags), the arrow back on the guide.
+#[test]
+fn a_rune_stop_is_a_while_you_re_here_line_a_click_leads_to_the_vendor_and_it_goes_with_the_offer() {
+	let out = run(r#"
+		bags(16)
+		local c, wx, wy = Polestar.Compat.MapToWorld(1429, 43, 65)
+		local place = { id = 102, name = "Brog Hamfist", sub = "General Supplies", map = 1429, x = 43, y = 65, c = c, wx = wx, wy = wy }
+		local function offer(saves) return { seller = place, places = { place }, teleport = { spell = 3561, name = "Teleport: Stormwind" }, saves = saves } end
+		local function line()
+			for _, v in ipairs(E.GetWhileHereList()) do
+				if v.here == "rune" then return { v.hereText, v.hereSub or false, v.yards or false, Polestar.Theme.VerbIcon(v.t):match("[^\\]+$") } end
+			end
+			return false
+		end
+		r.none = line()
+		E.SetRuneStop(offer(185))
+		flush()
+		at(42, 65)
+		r.shown = line()
+		E.SetRuneStop(offer(250))
+		flush()
+		r.moved = line()
+		r.aim = E.AimWhileHere(1)
+		r.aimed = E.RuneStopAimed()
+		local wp = E.GetWaypoint()
+		r.wp = wp and { wp.map, wp.x, wp.y, wp.label, wp.stepIndex, wp.goalIndex } or false
+		E.SetRuneStop(nil)
+		flush()
+		r.gone = line()
+		local back = E.GetWaypoint()
+		r.backOnGuide = back and back.stepIndex == E.GetLiveStep() or false
+		"#);
+	assert_eq!(out["none"], false);
+	assert_eq!(out["shown"], json!(["Buy a rune and cast Teleport: Stormwind to save about 3m", "Brog Hamfist (General Supplies)", 30, "icon-sell"]));
+	assert_eq!(out["moved"][0], "Buy a rune and cast Teleport: Stormwind to save about 4m", "the same stop takes the new saving");
+	assert_eq!(out["aim"], true);
+	assert_eq!(out["aimed"], true);
+	assert_eq!(out["wp"], json!([1429, 43, 65, "Buy a rune at Brog Hamfist", -4, 3]));
+	assert_eq!(out["gone"], false);
+	assert_eq!(out["backOnGuide"], true);
+}
