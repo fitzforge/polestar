@@ -505,6 +505,87 @@ fn bag_banner_only_while_the_live_step_collects_and_dismissed_until_the_bags_hav
 	assert_eq!(out[4], true, "back once the bags filled up again");
 }
 
+// A level 1 character on a guide that sets a home before any hearth is offered its Hearthstone to delete, for one
+// more bag slot (the innkeeper gives a new one with the bind), whatever the free slots and the live step. Not at level
+// 2, not while the guide hearths first (or has no live step), not with qol.bagSpace off, not while it is marked to keep
+// or a later step uses it, not while it is locked, and never again once kept.
+const HEARTH: &str = r#"
+	q.items[6948] = { name = "Hearthstone", quality = 1, price = 0 }
+	q.bags[0].slots = {}
+	q.addItem(0, 1, 3, 1)
+	q.addItem(0, 5, 6948, 1)
+	q.level = 1
+	q.engine.hearthFirst = false
+	q.step({ { t = "kill", target = "Kobold Vermin" } })
+	local function offer() local h = QoL.Space.HearthOffer(); return h and (h.bag .. "/" .. h.slot) or false end
+	local function again() bagsChanged(); return offer() end
+"#;
+
+#[test]
+fn level_1_hearthstone_offer_only_while_the_guide_sets_a_home_before_any_hearth() {
+	let out = run(&[
+		HEARTH,
+		r#"
+		bagsChanged()
+		emit({ offer = offer(), low = QoL.Space.Low(), banner = QoL.Space.HearthBanner() ~= nil })
+		q.engine.hearthFirst = true;  emit(again())
+		q.engine.hearthFirst = nil;   emit(again())
+		q.engine.hearthFirst = false; q.level = 2; emit(again())
+		q.level = 1; set("bagSpace", false); emit(again())
+		set("bagSpace", true)
+		QoL.Marks.Set(6948, "keep");  emit(again())
+		QoL.Marks.Set(6948, nil);     emit(again())
+		q.engine.kept = { [6948] = 3 }; emit(again())
+		q.engine.kept = nil
+		q.bags[0].slots[5].locked = true; emit(again())
+		q.bags[0].slots[5].locked = nil;  emit(again())
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "offer": "0/5", "low": false, "banner": true }), "with room in the bags and no collect goal too");
+	assert_eq!(out[1], false, "the guide hearths before it sets a home");
+	assert_eq!(out[2], false, "no guide or no live step");
+	assert_eq!(out[3], false, "level 2");
+	assert_eq!(out[4], false, "qol.bagSpace off");
+	assert_eq!(out[5], false, "marked to keep");
+	assert_eq!(out[6], "0/5");
+	assert_eq!(out[7], false, "a later step uses it");
+	assert_eq!(out[8], false, "locked (on the cursor or being moved)");
+	assert_eq!(out[9], "0/5");
+}
+
+#[test]
+fn level_1_hearthstone_deletes_on_a_second_press_and_keep_it_holds_for_good() {
+	let out = run(&[
+		HEARTH,
+		r#"
+		local S = QoL.Space
+		bagsChanged()
+		local fired = 0
+		Polestar.On("BAG_SPACE", function() fired = fired + 1 end)
+		emit({ press = S.PressHearth(), deleted = #calls("DeleteCursorItem"), armed = S.HearthBanner().armed, fired = fired })
+		stub.advance(6)                            -- too late: armed afresh
+		emit({ press = S.PressHearth(), armed = S.HearthBanner().armed })
+		emit({ press = S.PressHearth(), deleted = q.deleted, said = printed("Deleted |Hitem:6948|h%[Hearthstone%]|h%.") })
+		q.engine.hearthAsked = 0
+		bagsChanged()
+		emit({ offer = offer(), press = S.PressHearth(), asked = q.engine.hearthAsked })
+
+		q.addItem(0, 5, 6948, 1)
+		emit(again())
+		S.KeepHearth()
+		emit({ offer = again(), kept = QoL.State().hearthKept, press = S.PressHearth() })
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "press": "armed", "deleted": 0, "armed": true, "fired": 1 }), "the first press only arms");
+	assert_eq!(out[1], json!({ "press": "armed", "armed": true }));
+	assert_eq!(out[2], json!({ "press": "deleted", "deleted": [6948], "said": true }));
+	assert_eq!(out[3], json!({ "offer": false, "press": "none", "asked": 0 }), "gone: no offer, and the guide is not read");
+	assert_eq!(out[4], "0/5", "a new Hearthstone (an innkeeper's) is offered again until kept");
+	assert_eq!(out[5], json!({ "offer": false, "kept": true, "press": "none" }));
+}
+
 const WEAR: &str = r#"
 	q.items[11] = { name = "Sturdy Boots", quality = 2, equipLoc = "INVTYPE_FEET" }
 	q.items[12] = { name = "Frayed Gloves", quality = 1, equipLoc = "INVTYPE_HAND" }
@@ -704,7 +785,7 @@ local GF = Polestar.UI.GuideFrame
 local B = GF.parts.banner
 uistub.openTabs({ { uistub.elwynn, 3 } }, 1)
 local log = {}
-local bags, offer
+local bags, offer, hearth
 Polestar.QoL = {
 	Money = function(c) return c .. "c" end,
 	Space = {
@@ -712,6 +793,9 @@ Polestar.QoL = {
 		ItemText = function(j) return j.link .. " x" .. j.count end,
 		Press = function() log[#log + 1] = "press"; if bags then bags.armed = true end end,
 		Dismiss = function() log[#log + 1] = "dismiss"; bags = nil end,
+		HearthBanner = function() return hearth end,
+		PressHearth = function() log[#log + 1] = "press hearth"; if hearth then hearth.armed = true end end,
+		KeepHearth = function() log[#log + 1] = "keep hearth"; hearth = nil end,
 	},
 	Wear = {
 		Offer = function() return offer end,
@@ -789,4 +873,31 @@ fn banner_gear_offer_wear_it_or_not_this_one() {
 	);
 	assert_eq!(out[0], json!({ "text": "Upgrade: [Ridge Helm]  \u{b7}  +10%  \u{b7}  Head", "jump": "Wear it", "later": "Not this one" }));
 	assert_eq!(out[1], json!({ "shown": false, "log": ["take", "decline"] }));
+}
+
+#[test]
+fn banner_level_1_hearthstone_offer_comes_before_the_bags_deletes_on_two_clicks_and_keep_it_dismisses() {
+	let out = run_ui(
+		r#"
+		hearth = { id = 6948, link = "[Hearthstone]", armed = false }
+		bags = { free = 0, armed = false }
+		Polestar.Fire("BAG_SPACE")
+		emit({ shown = B:IsShown(), text = B.Text:GetText(), jump = B.Jump.Label:GetText(), later = B.Later.Label:GetText(), close = B.Close:IsShown() })
+		B.Jump:Click()
+		emit(B.Jump.Label:GetText())
+		B.Later:Click()
+		emit({ text = B.Text:GetText(), log = log })
+		hearth = { id = 6948, link = "[Hearthstone]", armed = false }
+		Polestar.Fire("BAG_SPACE")
+		B.Close:Click()
+		emit(log)
+	"#,
+	);
+	assert_eq!(
+		out[0],
+		json!({ "shown": true, "text": "Level 1: delete [Hearthstone] for a free bag slot?\nThe innkeeper gives you a new one when the guide sets your home at an inn.", "jump": "Delete it", "later": "Keep it", "close": true })
+	);
+	assert_eq!(out[1], "Click again to delete it");
+	assert_eq!(out[2], json!({ "text": "Your bags are full.", "log": ["press hearth", "keep hearth"] }), "kept: the bags' notice comes through");
+	assert_eq!(out[3], json!(["press hearth", "keep hearth", "keep hearth"]), "closing it keeps it too");
 }

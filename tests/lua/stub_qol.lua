@@ -29,6 +29,7 @@
 --   q.engine.levelTarget = N                    -- what Engine.LevelTarget answers above the player's level
 --   q.engine.levelFrac = f                      -- with it, a point inside the level (also at the player's level)
 --   q.engine.kept = { [itemID] = step }         -- what Engine.KeptItems answers
+--   q.engine.hearthFirst = false                -- what Engine.HearthBeforeHome answers
 --   q.calls                                     -- { { "UseContainerItem", bag, slot }, { "GetQuestReward", i }, ... }
 --   q.log[questID], q.done[questID], q.watches  -- the quest log, handed-in quests and the game's watch list
 --   q.enterInstance(map[, kind]), q.leaveInstance() -- IsInInstance / GetInstanceInfo, PLAYER_ENTERING_WORLD
@@ -893,6 +894,12 @@ end
 
 -- q.engine.kept: { [itemID] = step } the guide keeps for later steps.
 function Engine.KeptItems() return q.engine.kept or {} end
+-- q.engine.hearthFirst: what Engine.HearthBeforeHome answers (true: the guide hearths before its first
+-- sethome; false: a sethome first, or neither; nil: no guide or no live step). q.engine.hearthAsked counts the calls.
+function Engine.HearthBeforeHome()
+	q.engine.hearthAsked = (q.engine.hearthAsked or 0) + 1
+	return q.engine.hearthFirst
+end
 
 -- q.engine.wants: { ["accept:<id>"] = true, ["direct:<id>"] = true, ... } the quests the guide takes (Engine.WantsQuest).
 function Engine.WantsQuest(verb, questID) return (q.engine.wants or {})[verb .. ":" .. tostring(questID)] == true end

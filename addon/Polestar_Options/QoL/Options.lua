@@ -331,8 +331,9 @@ end
 
 register(QOL, L["Vendors"], L["Bags"], {
 	{ kind = "toggle", key = "qol.bagSpace", label = L["Bag space"],
-		help = L["When your bags are nearly full, a button shows the free slots and the cheapest junk in them, and while the step collects something the guide window says so too. Press twice to delete that junk: grey items, or common ones you marked as junk. Bindable."],
-		search = "bags, full bags, free slots, inventory, delete junk, destroy" },
+		help = L["When your bags are nearly full, a button shows the free slots and the cheapest junk in them, and while the step collects something the guide window says so too. Press twice to delete that junk: grey items, or common ones you marked as junk. Bindable."]
+			.. " " .. L["At level 1 the guide window also offers to delete your Hearthstone, unless the guide has you hearth before it sets your home at an inn."],
+		search = "bags, full bags, free slots, inventory, delete junk, destroy, hearthstone" },
 	{ kind = "slider", key = "qol.bagsLow", label = L["Nearly full at"], min = 0, max = 10, step = 1, disabled = function() return not QoL.On("bagSpace") end,
 		format = function(v) return string.format(v == 1 and L["%d slot"] or L["%d slots"], math.floor(v + 0.5)) end,
 		help = L["How many free slots or fewer count as nearly full."] },
