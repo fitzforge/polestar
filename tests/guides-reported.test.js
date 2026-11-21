@@ -18484,3 +18484,24 @@ test('forever/professions/first-aid.guide: the manual bandages say to read the m
 		assert.ok((step.note || '').includes(`Read the ${manual} you bought with Expert First Aid`), `${spell}: ${step.note}`);
 	}
 });
+
+// #3383 (SumnDaiy, 0.4.2, Alliance Badlands): the guide said to sell at Prospector Ryedol, who sells nothing. 50
+// people opened his window (126 quest windows), none a merchant window, and the game's data has no goods for him:
+// the correction drops the vendor role the merged data gave him.
+test('#3383: Prospector Ryedol (2910) is no vendor', { skip }, () => {
+	assert.deepEqual(((loadCorrections().npcs[2910] || {}).set || {}).roles, [], 'the correction clears his roles');
+	assert.ok(!(loadData(DATA).npcs[2910].roles || []).includes('vendor'), 'the built data has no vendor role for him');
+});
+
+// #3394 (0.4.2, Riverglades): the Cubic Draconia for Proof of Profit lies at the back of the Cinderscale hollow;
+// without a height the walk to 30,73.3 ended on the hill above it. The hollow's three goal points have its floor
+// (data/goal-heights.json, from players' recordings: done indoors, the grid's floor walkable from the camp).
+test('#3394: Riverglades: the Cinderscale hollow\'s goals are on the hollow\'s floor, not the hill above', { skip }, () => {
+	for (const faction of ['horde', 'alliance']) {
+		const list = goals(`forever/${faction}/40-50/01b-riverglades.guide`);
+		const draconia = list[at(list, 'collect 271611', (g) => g.t === 'collect' && g.item === 271611)];
+		const hollow = list.filter(({ s }) => s === draconia.s);
+		assert.ok(hollow.length >= 3, `${faction}: the step has the kills and the Draconia`);
+		for (const { goal } of hollow) assert.ok(goal.z != null && goal.z > 180 && goal.z < 195, `${faction} ${goal.t} ${goal.x},${goal.y}: the hollow's floor (185-190), not the hill (275-310): ${goal.z}`);
+	}
+});
