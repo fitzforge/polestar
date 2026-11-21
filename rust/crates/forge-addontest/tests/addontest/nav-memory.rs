@@ -56,8 +56,8 @@ use forge_addontest::{emitted, Addon, RunAddon};
 /// against 0.4.2's region addons: loadResident 11,529 -> 30,121 / 13,625 -> 38,830; loadPeak 14,113 -> 32,774 /
 /// 16,340 -> 41,625; live 40,694 -> 54,573 / 19,923 -> 43,986; allocated 59,184 -> 58,641 / 7,401 -> 7,166; rest
 /// 34,356 -> 48,235 / 18,624 -> 42,687; idle 17,963 -> 31,842 / 14,921 -> 38,984. Budgets raised to the new figures
-/// + ~1%: loadResident 22,500 -> 39,300, loadPeak 25,400 -> 42,100, live 44,500 -> 55,200, rest 38,000 -> 48,800,
-/// idle 22,500 -> 39,400; allocated unchanged.
+/// and about 1%: loadResident 22,500 -> 39,300, loadPeak 25,400 -> 42,100, live 44,500 -> 55,200, rest 38,000 ->
+/// 48,800, idle 22,500 -> 39,400; allocated unchanged.
 const BUDGET: [(&str, f64); 6] = [("loadResident", 39300.0), ("loadPeak", 42100.0), ("live", 55200.0), ("allocated", 61600.0), ("rest", 48800.0), ("idle", 39400.0)];
 /// Milliseconds the searches' clock (Path.clock) moves at each read. The searches slice under Path.budget (3 ms) as
 /// in the client, but on this clock rather than the machine's CPU time, which made about 600 KiB of "allocated" (each

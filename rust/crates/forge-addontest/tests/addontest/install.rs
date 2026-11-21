@@ -138,7 +138,11 @@ emit({ missing = table.concat(missing, ","), stale = table.concat(stale, ","), r
 	assert_eq!((out["missing"].as_str(), out["stale"].as_str(), out["regions"].as_f64()), (Some(""), Some(""), Some(3.0)));
 	let said = said(&out);
 	assert_eq!(said.len(), 1, "one line: {said:?}");
-	assert!(is_match(&said[0], r"no longer uses its 3 walking map folders named Polestar_Nav_R .*Polestar_Nav_EK and Polestar_Nav_Kalimdor.*delete the Polestar_Nav_R folders from Interface/AddOns"), "{}", said[0]);
+	assert!(
+		is_match(&said[0], r"no longer uses its 3 walking map folders named Polestar_Nav_R .*Polestar_Nav_EK and Polestar_Nav_Kalimdor.*delete the Polestar_Nav_R folders from Interface/AddOns"),
+		"{}",
+		said[0]
+	);
 }
 
 // The game's looks and Hearth (Polestar_Looks) load on demand but ship in every release, as the settings window
