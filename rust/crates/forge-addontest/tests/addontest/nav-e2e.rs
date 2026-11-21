@@ -3673,11 +3673,7 @@ fn near_target_3450_coriella_is_a_walk_not_a_portal() {
 	);
 	let kinds = out["kinds"].as_str().unwrap_or("");
 	assert!(kinds.is_empty() || kinds.split(',').all(|k| k == "walk"), "no portal, only the walk: {out}");
-	assert_eq!(
-		(&out["state"], &out["measured"], &out["caption"]),
-		(&serde_json::json!("travel"), &serde_json::json!(true), &serde_json::json!(false)),
-		"her walk: {out}"
-	);
+	assert_eq!((&out["state"], &out["measured"], &out["caption"]), (&serde_json::json!("travel"), &serde_json::json!(true), &serde_json::json!(false)), "her walk: {out}");
 	assert!(f(&out["yards"]) < 400.0, "a walk of a few hundred yards, not a portal's 3 km: {out}");
 }
 
