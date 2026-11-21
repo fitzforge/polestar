@@ -9426,9 +9426,9 @@ do
 					title = "The Cinderscale hollow",
 					note = "The whelps nest all over the hollow; the warriors (level 41-42) guard its back, by the {item:271611}. Scaldaron, a rare elite drake, can be up here too: leave him be unless you have a group.",
 					goals = {
-						{ t = "kill", quest = 95792, title = "Clear 'em Out", target = "Cinderscale Whelp", npc = 262473, count = 8, oi = 1, map = 2548, x = 30, y = 72.2, spotsPacked = "29.82,72.33,,78,15;29.8,75.6,,26,4,1;31.2,68,,17,2,1", lvl = 40 },
-						{ t = "kill", quest = 95792, title = "Clear 'em Out", target = "Cinderscale Warrior", npc = 262477, count = 4, oi = 2, map = 2548, x = 29.6, y = 73.1, spotsPacked = "29.72,72.93,,67,13;29.1,67.8,,15,1,1;31.8,66.7,,15,1,1", lvl = 42 },
-						{ t = "collect", quest = 95934, title = "Proof of Profit", item = 271611, itemName = "Cubic Draconia", count = 1, oi = 1, map = 2548, x = 30, y = 73.3, from = "Cubic Draconia", fromKind = "object", fromId = 648590 },
+						{ t = "kill", quest = 95792, title = "Clear 'em Out", target = "Cinderscale Whelp", npc = 262473, count = 8, oi = 1, map = 2548, x = 30, y = 72.2, z = 185, spotsPacked = "29.82,72.33,,78,15;29.8,75.6,,26,4,1;31.2,68,,17,2,1", lvl = 40 },
+						{ t = "kill", quest = 95792, title = "Clear 'em Out", target = "Cinderscale Warrior", npc = 262477, count = 4, oi = 2, map = 2548, x = 29.6, y = 73.1, z = 189, spotsPacked = "29.72,72.93,,67,13;29.1,67.8,,15,1,1;31.8,66.7,,15,1,1", lvl = 42 },
+						{ t = "collect", quest = 95934, title = "Proof of Profit", item = 271611, itemName = "Cubic Draconia", count = 1, oi = 1, map = 2548, x = 30, y = 73.3, z = 190, from = "Cubic Draconia", fromKind = "object", fromId = 648590 },
 					},
 				},
 				{

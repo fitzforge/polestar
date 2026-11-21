@@ -147,19 +147,27 @@ return {
 	-- {npc:3823} Ghostpaw Runner · {npc:3809} Ashenvale Bear · {npc:3817} Shadowhorn Stag · {skill:393} Skinning
 	["Kill and skin {npc:3823} (19), {npc:3809} (21, needs 105), {npc:3817} (21, needs 105) along the loop until {skill:393} 125; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 18-30. Expect about 30 beasts for these 25 points."] = "Mate e esfole {npc:3823} (19), {npc:3809} (21, exige 105) e {npc:3817} (21, exige 105) ao longo do circuito até {skill:393} 125; saqueie cada cadáver e depois esfole, e esfole as feras de nível mais alto que a sua perícia permitir. Uma fera de nível L exige perícia (L-10)x10 até o nível 20 e Lx5 acima disso. Nível da zona 18-30. Espere cerca de 30 feras para esses 25 pontos.",
 
-	-- Step 18: Beasts 21-23: Hillsbrad Foothills (100-125)
-	-- {zone:1424} Hillsbrad Foothills
-	["Beasts 21-23: {zone:1424} (100-125)"] = "Feras 21-23: {zone:1424} (100-125)",
-	-- {npc:2351} Gray Bear · {npc:2354} Vicious Gray Bear · {npc:2384} Starving Mountain Lion · {skill:393} Skinning
-	["Kill and skin {npc:2351} (21, needs 105), {npc:2354} (22, needs 110), {npc:2384} (23, needs 115) along the loop until {skill:393} 125; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 20-30. Expect about 40 beasts for these 25 points."] = "Mate e esfole {npc:2351} (21, exige 105), {npc:2354} (22, exige 110) e {npc:2384} (23, exige 115) ao longo do circuito até {skill:393} 125; saqueie cada cadáver e depois esfole, e esfole as feras de nível mais alto que a sua perícia permitir. Uma fera de nível L exige perícia (L-10)x10 até o nível 20 e Lx5 acima disso. Nível da zona 20-30. Espere cerca de 40 feras para esses 25 pontos.",
+	-- Step 18: Beasts 10-16: Silverpine Forest (100-105)
+	-- {zone:1421} Silverpine Forest
+	["Beasts 10-16: {zone:1421} (100-105)"] = "",
+	-- {npc:1778} Ferocious Grizzled Bear · {npc:1766} Mottled Worg · {npc:1797} Giant Grizzled Bear · {npc:1923} Bloodsnout Worg · {skill:393} Skinning
+	-- was: ["Kill and skin Worg (10), {npc:1778} (11), {npc:1766} (11), {npc:1797} (12), {npc:1923} (16, needs 60) along the loop until {skill:393} 100; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20."] = "Mate e esfole Worg (10), {npc:1778} (11), {npc:1766} (11), {npc:1797} (12), {npc:1923} (16, requer 60) ao longo do circuito até {skill:393} 100; esfole as feras de nível mais alto que sua perícia permitir. Uma fera de nível N requer perícia (N-10)x10 até o nível 20 e Nx5 acima disso. Nível da zona 10-20."
+	["Kill and skin Worg (10), {npc:1778} (11), {npc:1766} (11), {npc:1797} (12), {npc:1923} (16) along the loop until {skill:393} 105; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 30 beasts for these 5 points."] = "",
 
-	-- Step 19: Expert Skinning
+	-- Step 19: Beasts 21-23: Hillsbrad Foothills (105-125)
+	-- {zone:1424} Hillsbrad Foothills
+	["Beasts 21-23: {zone:1424} (105-125)"] = "",
+	-- {npc:2351} Gray Bear · {npc:2354} Vicious Gray Bear · {npc:2384} Starving Mountain Lion · {skill:393} Skinning
+	-- was: ["Kill and skin {npc:2351} (21, needs 105), {npc:2354} (22, needs 110), {npc:2384} (23, needs 115) along the loop until {skill:393} 125; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 20-30. Expect about 40 beasts for these 25 points."] = "Mate e esfole {npc:2351} (21, exige 105), {npc:2354} (22, exige 110) e {npc:2384} (23, exige 115) ao longo do circuito até {skill:393} 125; saqueie cada cadáver e depois esfole, e esfole as feras de nível mais alto que a sua perícia permitir. Uma fera de nível L exige perícia (L-10)x10 até o nível 20 e Lx5 acima disso. Nível da zona 20-30. Espere cerca de 40 feras para esses 25 pontos."
+	["Kill and skin {npc:2351} (21), {npc:2354} (22, needs 110), {npc:2384} (23, needs 115) along the loop until {skill:393} 125; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 20-30. Expect about 30 beasts for these 20 points."] = "",
+
+	-- Step 20: Expert Skinning
 	-- {skill:393} Skinning
 	["Expert {skill:393}"] = "{skill:393} (Perito)",
 	-- {skill:393} Skinning
 	["Expert {skill:393} raises the cap to 225; it needs skill 125 and no character level, and costs 50s: train it as soon as you reach 125. The arrow picks the nearest {skill:393} trainer of your faction."] = "{skill:393} (Perito) eleva o limite para 225; exige perícia 125 e nenhum nível de personagem, e custa 50s: aprenda assim que chegar a 125. A seta indica o instrutor de {skill:393} mais próximo da sua facção.",
 
-	-- Step 20: Beasts 21-29: Hillsbrad Foothills (125-150)
+	-- Step 21: Beasts 21-29: Hillsbrad Foothills (125-150)
 	-- {zone:1424} Hillsbrad Foothills
 	["Beasts 21-29: {zone:1424} (125-150)"] = "Feras 21-29: {zone:1424} (125-150)",
 	-- {npc:2351} Gray Bear · {npc:2354} Vicious Gray Bear · {npc:2384} Starving Mountain Lion · {npc:2356} Elder Gray Bear · {npc:2385} Feral Mountain Lion · {skill:393} Skinning
@@ -167,13 +175,13 @@ return {
 	-- {npc:2351} Gray Bear
 	["{npc:2351}, Snapjaw"] = "{npc:2351}, Mordelisca",
 
-	-- Step 21: Beasts 19-29: Ashenvale (125-150)
+	-- Step 22: Beasts 19-29: Ashenvale (125-150)
 	-- {zone:1440} Ashenvale
 	["Beasts 19-29: {zone:1440} (125-150)"] = "Feras 19-29: {zone:1440} (125-150)",
 	-- {npc:3823} Ghostpaw Runner · {npc:3809} Ashenvale Bear · {npc:3817} Shadowhorn Stag · {npc:3810} Elder Ashenvale Bear · {npc:3818} Elder Shadowhorn Stag · {npc:3811} Giant Ashenvale Bear · {skill:393} Skinning
 	["Kill and skin {npc:3823} (19), {npc:3809} (21), {npc:3817} (21), {npc:3810} (25), {npc:3818} (26, needs 130), {npc:3811} (29, needs 145) along the loop until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 18-30. Expect about 40 beasts for these 25 points."] = "Mate e esfole {npc:3823} (19), {npc:3809} (21), {npc:3817} (21), {npc:3810} (25), {npc:3818} (26, exige 130) e {npc:3811} (29, exige 145) ao longo do circuito até {skill:393} 150; saqueie cada cadáver e depois esfole, e esfole as feras de nível mais alto que a sua perícia permitir. Uma fera de nível L exige perícia (L-10)x10 até o nível 20 e Lx5 acima disso. Nível da zona 18-30. Espere cerca de 40 feras para esses 25 pontos.",
 
-	-- Step 24: Beasts 21-33: Alterac Mountains (150-175)
+	-- Step 25: Beasts 21-33: Alterac Mountains (150-175)
 	-- {zone:1416} Alterac Mountains
 	["Beasts 21-33: {zone:1416} (150-175)"] = "Feras 21-33: {zone:1416} (150-175)",
 	-- {npc:2351} Gray Bear · {npc:2356} Elder Gray Bear · {npc:2248} Cave Yeti · {npc:2249} Ferocious Yeti · {npc:2406} Mountain Lion · {npc:2250} Mountain Yeti · {npc:2251} Giant Yeti · {npc:2407} Hulking Mountain Lion · {skill:393} Skinning
@@ -186,7 +194,7 @@ return {
 	-- {npc:2406} Mountain Lion
 	["Snapjaw, {npc:2406}"] = "Mordelisca, {npc:2406}",
 
-	-- Step 25: Beasts 30-39: Stranglethorn Vale (175-200)
+	-- Step 26: Beasts 30-39: Stranglethorn Vale (175-200)
 	-- {zone:1434} Stranglethorn Vale
 	["Beasts 30-39: {zone:1434} (175-200)"] = "Feras 30-39: {zone:1434} (175-200)",
 	-- {npc:1150} River Crocolisk · {npc:683} Young Panther · {npc:855} Young Stranglethorn Raptor · {npc:681} Young Stranglethorn Tiger · {npc:688} Stone Maw Basilisk · {npc:1108} Mistvale Gorilla · {npc:682} Stranglethorn Tiger · {npc:685} Stranglethorn Raptor · {npc:689} Crystal Spine Basilisk · {npc:1085} Elder Stranglethorn Tiger · {npc:686} Lashtail Raptor · {npc:1151} Saltwater Crocolisk · {npc:1152} Snapjaw Crocolisk · {npc:854} Young Jungle Stalker · {npc:684} Shadowmaw Panther · {npc:690} Cold Eye Basilisk · {skill:393} Skinning
@@ -198,25 +206,25 @@ return {
 	-- {npc:682} Stranglethorn Tiger
 	["{npc:682}, Panther"] = "{npc:682}, Pantera",
 
-	-- Step 26: Artisan Skinning
+	-- Step 27: Artisan Skinning
 	-- {skill:393} Skinning
 	["Artisan {skill:393}"] = "{skill:393} (Artífice)",
 	-- {skill:393} Skinning
 	["Artisan {skill:393} raises the cap to 300; it needs skill 200 and no character level, and costs 5g: train it as soon as you reach 200. The arrow picks the nearest {skill:393} trainer of your faction."] = "{skill:393} (Artífice) eleva o limite para 300; exige perícia 200 e nenhum nível de personagem, e custa 5g: aprenda assim que chegar a 200. A seta indica o instrutor de {skill:393} mais próximo da sua facção.",
 
-	-- Step 27: Beasts 35-41: Swamp of Sorrows (200-225)
+	-- Step 28: Beasts 35-41: Swamp of Sorrows (200-225)
 	-- {zone:1435} Swamp of Sorrows
 	["Beasts 35-41: {zone:1435} (200-225)"] = "Feras 35-41: {zone:1435} (200-225)",
 	-- {npc:1084} Young Sawtooth Crocolisk · {npc:1082} Sawtooth Crocolisk · {npc:768} Shadow Panther · {npc:1087} Sawtooth Snapper · {skill:393} Skinning
 	["Kill and skin {npc:1084} (35), {npc:1082} (38), {npc:768} (39), {npc:1087} (41, needs 205) along the loop until {skill:393} 225; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 35-45. Expect about 30 beasts for these 25 points."] = "Mate e esfole {npc:1084} (35), {npc:1082} (38), {npc:768} (39) e {npc:1087} (41, exige 205) ao longo do circuito até {skill:393} 225; saqueie cada cadáver e depois esfole, e esfole as feras de nível mais alto que a sua perícia permitir. Uma fera de nível L exige perícia (L-10)x10 até o nível 20 e Lx5 acima disso. Nível da zona 35-45. Espere cerca de 30 feras para esses 25 pontos.",
 
-	-- Step 28: Beasts 45-48: Azshara (225-250)
+	-- Step 29: Beasts 45-48: Azshara (225-250)
 	-- {zone:1447} Azshara
 	["Beasts 45-48: {zone:1447} (225-250)"] = "Feras 45-48: {zone:1447} (225-250)",
 	-- {npc:8759} Mosshoof Runner · {npc:6375} Thunderhead Hippogryph · {npc:6377} Thunderhead Stagwing · {skill:393} Skinning
 	["Kill and skin {npc:8759} (45), {npc:6375} (46, needs 230), {npc:6377} (48, needs 240) along the loop until {skill:393} 250; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 45-55. Expect about 30 beasts for these 25 points."] = "Mate e esfole {npc:8759} (45), {npc:6375} (46, exige 230) e {npc:6377} (48, exige 240) ao longo do circuito até {skill:393} 250; saqueie cada cadáver e depois esfole, e esfole as feras de nível mais alto que a sua perícia permitir. Uma fera de nível L exige perícia (L-10)x10 até o nível 20 e Lx5 acima disso. Nível da zona 45-55. Espere cerca de 30 feras para esses 25 pontos.",
 
-	-- Step 29: Beasts 48-54: Un'Goro Crater (250-275)
+	-- Step 30: Beasts 48-54: Un'Goro Crater (250-275)
 	-- {zone:1449} Un'Goro Crater
 	["Beasts 48-54: {zone:1449} (250-275)"] = "Feras 48-54: {zone:1449} (250-275)",
 	-- {npc:9165} Fledgling Pterrordax · {npc:6507} Ravasaur Hunter · {npc:6506} Ravasaur Runner · {npc:9162} Young Diemetradon · {npc:6514} Un'Goro Gorilla · {npc:6508} Venomhide Ravasaur · {npc:9167} Frenzied Pterrordax · {npc:6513} Un'Goro Stomper · {npc:6516} Un'Goro Thunderer · {npc:9164} Elder Diemetradon · {npc:11735} Stonelash Scorpid · {skill:393} Skinning
@@ -228,7 +236,7 @@ return {
 	["Ravasaur, {npc:6506}"] = "Ravassauro, {npc:6506}",
 	["Diemetradon"] = "Dimetrodonte",
 
-	-- Step 30: Beasts 51-55: Western Plaguelands (275-300)
+	-- Step 31: Beasts 51-55: Western Plaguelands (275-300)
 	-- {zone:1422} Western Plaguelands
 	["Beasts 51-55: {zone:1422} (275-300)"] = "Feras 51-55: {zone:1422} (275-300)",
 	-- {npc:1815} Diseased Black Bear · {npc:1817} Diseased Wolf · {npc:1816} Diseased Grizzly · {skill:393} Skinning
@@ -241,6 +249,7 @@ return {
 	-- ["Beasts 10-16: {zone:1436} (50-100)"] = "Feras 10-16: {zone:1436} (50-100)",
 	-- ["Beasts 11-19: {zone:1439} (50-100)"] = "Feras 11-19: {zone:1439} (50-100)",
 	-- ["Beasts 19-22: {zone:1440} (100-125)"] = "Feras 19-22: {zone:1440} (100-125)",
+	-- ["Beasts 21-23: {zone:1424} (100-125)"] = "Feras 21-23: {zone:1424} (100-125)",
 	-- ["Beasts 21-23: {zone:1442} (100-125)"] = "Feras 21-23: {zone:1442} (100-125)",
 	-- ["Beasts 21-27: {zone:1442} (125-150)"] = "Feras 21-27: {zone:1442} (125-150)",
 	-- ["Beasts 21-29: {zone:1437} (125-150)"] = "Feras 21-29: {zone:1437} (125-150)",
@@ -272,6 +281,7 @@ return {
 	-- ["Kill and skin {npc:2163} (11), {npc:2164} (13), Moonstalker (14), {npc:2165} (16, needs 60), {npc:2070} (16, needs 60), {npc:2237} (17, needs 70), {npc:3823} (19, needs 90), {npc:2071} (19, needs 90) along the loop until {skill:393} 100; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20. Expect about 100 beasts for these 50 points."] = "Mate e esfole {npc:2163} (11), {npc:2164} (13), Espreitaluna (14), {npc:2165} (16, exige 60), {npc:2070} (16, exige 60), {npc:2237} (17, exige 70), {npc:3823} (19, exige 90) e {npc:2071} (19, exige 90) ao longo do circuito até {skill:393} 100; saqueie cada cadáver e depois esfole, e esfole as feras de nível mais alto que a sua perícia permitir. Uma fera de nível L exige perícia (L-10)x10 até o nível 20 e Lx5 acima disso. Nível da zona 10-20. Espere cerca de 100 feras para esses 50 pontos.",
 	-- ["Kill and skin {npc:2163} (11), {npc:2164} (13), Moonstalker (14), {npc:2165} (16, needs 60), {npc:2070} (16, needs 60), {npc:2237} (17, needs 70), {npc:3823} (19, needs 90), {npc:2071} (19, needs 90) along the loop until {skill:393} 100; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 10-20."] = "Mate e esfole {npc:2163} (11), {npc:2164} (13), Espreitaluna (14), {npc:2165} (16, requer 60), {npc:2070} (16, requer 60), {npc:2237} (17, requer 70), {npc:3823} (19, requer 90), {npc:2071} (19, requer 90) ao longo do circuito até {skill:393} 100; esfole as feras de nível mais alto que sua perícia permitir. Uma fera de nível N requer perícia (N-10)x10 até o nível 20 e Nx5 acima disso. Nível da zona 10-20.",
 	-- ["Kill and skin {npc:2351} (21), {npc:2354} (22), {npc:2384} (23), {npc:2356} (25), {npc:2385} (27, needs 135) along the loop until {skill:393} 150; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 20-30."] = "Mate e esfole {npc:2351} (21), {npc:2354} (22), {npc:2384} (23), {npc:2356} (25), {npc:2385} (27, requer 135) ao longo do circuito até {skill:393} 150; esfole as feras de nível mais alto que sua perícia permitir. Uma fera de nível N requer perícia (N-10)x10 até o nível 20 e Nx5 acima disso. Nível da zona 20-30.",
+	-- ["Kill and skin {npc:2351} (21, needs 105), {npc:2354} (22, needs 110), {npc:2384} (23, needs 115) along the loop until {skill:393} 125; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 20-30. Expect about 40 beasts for these 25 points."] = "Mate e esfole {npc:2351} (21, exige 105), {npc:2354} (22, exige 110) e {npc:2384} (23, exige 115) ao longo do circuito até {skill:393} 125; saqueie cada cadáver e depois esfole, e esfole as feras de nível mais alto que a sua perícia permitir. Uma fera de nível L exige perícia (L-10)x10 até o nível 20 e Lx5 acima disso. Nível da zona 20-30. Espere cerca de 40 feras para esses 25 pontos.",
 	-- ["Kill and skin {npc:2351} (21, needs 105), {npc:2354} (22, needs 110), {npc:2384} (23, needs 115) along the loop until {skill:393} 125; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 20-30."] = "Mate e esfole {npc:2351} (21, requer 105), {npc:2354} (22, requer 110), {npc:2384} (23, requer 115) ao longo do circuito até {skill:393} 125; esfole as feras de nível mais alto que sua perícia permitir. Uma fera de nível N requer perícia (N-10)x10 até o nível 20 e Nx5 acima disso. Nível da zona 20-30.",
 	-- ["Kill and skin {npc:2727} (35), {npc:2731} (36), {npc:2728} (37), {npc:2729} (38), {npc:2732} (38), {npc:2734} (40), {npc:2730} (42, needs 210) along the loop until {skill:393} 225; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 35-45."] = "Mate e esfole {npc:2727} (35), {npc:2731} (36), {npc:2728} (37), {npc:2729} (38), {npc:2732} (38), {npc:2734} (40), {npc:2730} (42, requer 210) ao longo do circuito até {skill:393} 225; esfole as feras de nível mais alto que sua perícia permitir. Uma fera de nível N requer perícia (N-10)x10 até o nível 20 e Nx5 acima disso. Nível da zona 35-45.",
 	-- ["Kill and skin {npc:2927} (42), {npc:2924} (43), {npc:2928} (44), {npc:2929} (46, needs 230), {npc:2926} (47, needs 235), {npc:2505} (49, needs 245) along the loop until {skill:393} 250; skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 40-50."] = "Mate e esfole {npc:2927} (42), {npc:2924} (43), {npc:2928} (44), {npc:2929} (46, requer 230), {npc:2926} (47, requer 235), {npc:2505} (49, requer 245) ao longo do circuito até {skill:393} 250; esfole as feras de nível mais alto que sua perícia permitir. Uma fera de nível N requer perícia (N-10)x10 até o nível 20 e Nx5 acima disso. Nível da zona 40-50.",

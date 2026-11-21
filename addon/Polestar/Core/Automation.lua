@@ -245,7 +245,7 @@ local function onDetail()
 	if later then
 		local title = GetTitleText and GetTitleText()
 		if not title or title == "" then title = named or tostring(q) end
-		ns.Print(L["Took %s now: %s does it later, so this saves a trip back."]:format(ns.Quoted(title), later.title or later.id))
+		ns.Print(L["Took %s now for %s, later on your route: this saves a trip back."]:format(ns.Quoted(title), later.title or later.id))
 	end
 	return true
 end

@@ -7,6 +7,8 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
 const { runAddon } = require('./helpers/lua');
+const { localeLua } = require('../tools/preview/fit');
+const { LOCALE_CODES } = require('../tools/lib/i18n/locales');
 
 const NO_REALM = `
 function GetRealmName() return "" end
@@ -27,11 +29,12 @@ IsResting = function() return true end
 const ALTS = ['Core/Core.xml', 'Theme/Theme.xml', 'Alts/Alts.xml'];
 const ALTS_UI = ['Core/Core.xml', 'Theme/Theme.xml', 'UI/UI.xml', 'Alts/Alts.xml'];
 
-function run({ files = ALTS, ui = false, saved = '', script, realm = false, stubs = [] }) {
+// locale: the client's language, with that language's shipped interface strings (tools/preview/fit.js localeLua).
+function run({ files = ALTS, ui = false, saved = '', script, realm = false, stubs = [], locale = null }) {
 	const all = ['stub_world.lua', ...(ui ? ['stub_ui.lua'] : []), ...stubs];
 	return runAddon({
 		stubs: all,
-		before: (realm ? '' : NO_REALM) + WORLD,
+		before: (realm ? '' : NO_REALM) + WORLD + (locale ? `\n${localeLua(locale)}\n` : ''),
 		addons: [{ name: 'Polestar', files }],
 		saved: saved ? { Polestar: saved } : undefined,
 		login: true,
@@ -132,6 +135,27 @@ emit({ subtitle = Polestar.UI.AltsSection.Shown().subtitle })`,
 	assert.equal(alone.apart, false);
 	assert.match(two.subtitle, /^2 characters \u00b7 each as of their last logout/);
 	assert.doesNotMatch(two.subtitle, / on /);
+});
+
+// Every Forever player reads this count now: in each shipped language it is that language's, as the realm's was.
+test('the realm-less count on the Characters page reads in every shipped language', () => {
+	for (const locale of LOCALE_CODES) {
+		const [alone, two] = run({
+			files: ALTS_UI,
+			ui: true,
+			locale,
+			script: `
+Polestar.Fire("SHOW_ALTS")
+emit({ subtitle = Polestar.UI.AltsSection.Shown().subtitle })
+PolestarDB.alts.chars["Alt"] = { key = "Alt", name = "Alt", class = "WARRIOR", race = "Orc", level = 30, xp = 1, xpMax = 5000, seen = 5 }
+Polestar.UI.AltsSection.Render()
+emit({ subtitle = Polestar.UI.AltsSection.Shown().subtitle })`,
+		});
+		const first = (s) => s.split('\n')[0];
+		assert.notEqual(first(alone.subtitle), '1 character', `${locale}: ${alone.subtitle}`);
+		assert.notEqual(first(two.subtitle), '2 characters \u00b7 each as of their last logout', `${locale}: ${two.subtitle}`);
+		assert.match(first(two.subtitle), /2/, `${locale}: the count in it: ${two.subtitle}`);
+	}
 });
 
 test('with the realm known the page and the key are as before', () => {

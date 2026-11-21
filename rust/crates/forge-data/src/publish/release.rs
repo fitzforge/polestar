@@ -21,6 +21,9 @@ pub struct Meta {
 	pub date: String,
 	pub producer_commit: String,
 	pub pfquest_notice: Option<String>,
+	/// A maintainer's paragraph for this version's changelog section (`--release-note`), placed under
+	/// its heading before the generated lists.
+	pub note: Option<String>,
 }
 
 fn io<E: std::fmt::Display>(p: &Path) -> impl Fn(E) -> String + '_ {
@@ -84,11 +87,15 @@ fn pct(n: usize, of: usize) -> f64 {
 	}
 }
 
-/// The changelog: this version's section (a diff against `previous`, else the row counts) before the
-/// existing file's sections of other versions.
+/// The changelog: this version's section (the release note, then a diff against `previous`, else the
+/// row counts) before the existing file's sections of other versions.
 fn changelog(out: &Path, t: &Tables, m: &Meta, previous: Option<&Path>, existing: &str) -> Result<(String, BTreeMap<String, (usize, usize, BTreeMap<String, usize>)>), String> {
 	let mut s = String::from("# Changelog\n\nAll notable changes to this data set. The format follows Keep a Changelog\n(https://keepachangelog.com/en/1.1.0/); versions are CalVer (YYYY.MM.N).\n\n");
 	s.push_str(&format!("## [{}] - {}\n\n", m.version, m.date));
+	if let Some(note) = m.note.as_deref().map(str::trim).filter(|n| !n.is_empty()) {
+		s.push_str(note);
+		s.push_str("\n\n");
+	}
 	let mut diff: BTreeMap<String, (usize, usize, BTreeMap<String, usize>)> = BTreeMap::new();
 	match previous {
 		Some(prev) => {

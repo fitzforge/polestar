@@ -159,11 +159,56 @@ local function EnsurePart(map, D)
 	return true
 end
 
--- The directory is resident; only the compressed pages a walk actually needs enter the Lua heap.
--- A promised page unavailable in combat is not absent terrain. A later request retries it.
+-- The directory is resident; a region's pages wait as one string in the map's part (Polestar_Nav itself for map
+-- 2991; tools/lib/nav/import-regions.js writes it: the fields' names, "packed.floor,localWalk.ground:", then each
+-- page as its field (1 byte, from 1), key (3), block count (1; 0 for a lone string) and each block's length (3)
+-- before its bytes). The first page a walk needs from a region unpacks all of it into the map's page tables, the
+-- same strings and block lists 0.4.2's region addons assigned, and drops the string (#3396).
+local function unpackRegion(D, blob)
+	local colon = string.find(blob, ":", 1, true)
+	if not colon then return end
+	local tables = {}
+	for name in string.gmatch(string.sub(blob, 1, colon - 1), "[^,]+") do
+		local t = D
+		for part in string.gmatch(name, "[^.]+") do
+			t = type(t) == "table" and t[part] or nil
+		end
+		if type(t) ~= "table" then return end
+		tables[#tables + 1] = t
+	end
+	local sub, pos, size = string.sub, colon + 1, #blob
+	while pos <= size do
+		local f, k1, k2, k3, n = byte(blob, pos, pos + 4)
+		pos = pos + 5
+		local value
+		if n == 0 then
+			local a, b, c = byte(blob, pos, pos + 2)
+			local len = (a * 256 + b) * 256 + c
+			value = sub(blob, pos + 3, pos + 2 + len)
+			pos = pos + 3 + len
+		else
+			value = {}
+			for i = 1, n do
+				local a, b, c = byte(blob, pos, pos + 2)
+				local len = (a * 256 + b) * 256 + c
+				value[i] = sub(blob, pos + 3, pos + 2 + len)
+				pos = pos + 3 + len
+			end
+		end
+		tables[f][(k1 * 256 + k2) * 256 + k3] = value
+	end
+end
+
+-- A promised page unavailable in combat is not absent terrain: a later request retries it. Regions unpack only out
+-- of combat, as each region's addon loaded in 0.4.2, so every answer stays what it was.
 local function loadRegion(map, id)
-	if map == nil or (InCombatLockdown and InCombatLockdown()) or not (C_AddOns and C_AddOns.LoadAddOn) then return end
-	pcall(C_AddOns.LoadAddOn, "Polestar_Nav_R" .. map .. "_" .. floor(id / 16) .. "_" .. (id % 16))
+	if map == nil or (InCombatLockdown and InCombatLockdown()) then return end
+	local D = Data(map)
+	local regions = D and D.regions
+	local blob = regions and regions[id]
+	if type(blob) ~= "string" then return end
+	regions[id] = nil
+	unpackRegion(D, blob)
 end
 local unavailablePages = 0
 local function regionPage(t, key)
