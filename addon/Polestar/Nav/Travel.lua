@@ -3601,6 +3601,14 @@ function Travel.Aim(pc, px, py)
 			local W = Nav.walk
 			local P = leg.parent -- a piece of a split walk: the path is to the whole walk's end
 			local passed = P ~= nil and W ~= nil and W.Passed(P.c, P.wx, P.wy, leg.seg)
+			-- Standing at the whole walk's end, on its floor, by another way than its path (a login or a teleport there,
+			-- a jump down): every piece of it is behind the player. The follower never moved along the path, so its
+			-- door's piece stayed current 65 yd away and the goto in Brill's inn cellar never completed (the quick
+			-- re-ask of #3448 found that walk where the refusal had left a straight line).
+			if P ~= nil and not passed then
+				local de = yards(pc, px, py, P.c, P.wx, P.wy)
+				if de <= FLAT_ARRIVE and not offFloor(P.leg.to, pc, px, py, de, false, FLAT_ARRIVE) then passed = true end
+			end
 			-- At the landing of the lift it ends at, the label shows the ride (Travel.CurrentLabel).
 			local ride = legs[ci + 1]
 			local boarding = boardingRide(leg, pc, px, py)
