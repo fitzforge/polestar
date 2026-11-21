@@ -344,6 +344,8 @@ mod nav_route_look;
 mod nav_route_sparkle;
 #[path = "nav-router.rs"]
 mod nav_router;
+#[path = "nav-rune-stop.rs"]
+mod nav_rune_stop;
 #[path = "nav-spf.rs"]
 mod nav_spf;
 #[path = "nav-trail.rs"]

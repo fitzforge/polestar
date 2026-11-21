@@ -93,6 +93,7 @@ Nav.HEARTH_SECONDS, Nav.HEARTH_MARGIN, Nav.HEARTH_MIN_TRIP = HEARTH_SECONDS, HEA
 -- weights; planRoute's fifth) (#1823: Teleport: Stormwind won by a few seconds
 -- over a flight to Darkshire).
 local TELEPORT_MARGIN, TELEPORT_SHARE = 60, 0.2
+Travel.TELEPORT_MARGIN, Travel.TELEPORT_SHARE = TELEPORT_MARGIN, TELEPORT_SHARE -- Nav/RuneStop.lua weighs its stop the same way
 local GCD = 1.5
 local REACH = 12             -- yards: a walk leg's end is reached
 local SKIP_WALK = 15         -- yards: a leading walk this short is dropped
@@ -2383,6 +2384,7 @@ local function plan(target, held)
 	local ghost = isGhost()
 	local field = Travel.AtField(target, pc, px, py)
 	local teleports = not ghost and not questTimed and not field and teleportList() or nil
+	Travel.teleportsBarred = (ghost or questTimed or field) and true or false -- Nav/RuneStop.lua offers no teleport then either
 	-- The bind point: for the Hearthstone, or a teleport there (Astral Recall) without one in the bags.
 	local recall = false
 	if teleports then

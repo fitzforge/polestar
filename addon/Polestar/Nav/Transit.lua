@@ -924,6 +924,20 @@ function Transit.Teleports(now)
 	return usable
 end
 
+-- Teleports this character knows and lacks a reagent for (Nav/RuneStop.lua):
+-- { { spell, name, cast, to, rune = the reagent's item id }, ... }.
+function Transit.MissingRunes()
+	local list = {}
+	if not ns.Get("nav.teleports") then return list end
+	for _, t in ipairs(teleportData) do
+		if t.reagents and t.to and known(t) and not stocked(t) then
+			local N = ns.Names
+			list[#list + 1] = { spell = t.spell, name = (N and N.Spell(t.spell)) or t.name, cast = t.cast, to = t.to, rune = t.reagents[1] }
+		end
+	end
+	return list
+end
+
 -- The usable set (and readiness) as a key, to notice a change.
 local function teleportState()
 	if not ns.Get("nav.teleports") then return "" end
