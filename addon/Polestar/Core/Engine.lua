@@ -10066,12 +10066,31 @@ function Engine.CarriedQuests(id)
 	return out
 end
 
+-- The titles guide `id` gives the quests of `want` (quest id -> true), into
+-- `into` (quest id -> title): the guide that passed a waiting accept, read
+-- when the next guide is the loaded one, whose titles don't have it. Steps
+-- read only for this are let go again.
+function Own.titlesIn(id, want, into)
+	local def = Guides.Get(id)
+	if not def then return end
+	local had = rawget(def, "steps") ~= nil
+	for _, step in ipairs(def.steps or NONE) do
+		for _, goal in ipairs(step.goals) do
+			local q = goal.quest
+			if q and want[q] and goal.title and not into[q] then into[q] = goal.title end
+		end
+	end
+	if not had and not Engine.TabIds()[id] then Guides.Release(id) end
+end
+
 -- The accepts leveling guide `id` passed for the character's level, still
 -- waiting (Own.waitList), by quest id: { quest, title, level, next } each,
 -- `next` true when guide `toId` (loaded, planned) takes it (a step put in by
 -- Own.carryChains; passed there already, it is listed all the same). The
 -- guide-end window lists them under the carried quests; "Continue
--- automatically" says them in chat (GUIDE_CONTINUED).
+-- automatically" says them in chat (GUIDE_CONTINUED), once the next guide is
+-- loaded: each title comes from the guide that passed the quest, the client's
+-- language first (titleOfQuest).
 function Engine.WaitingQuests(id, toId)
 	local out = {}
 	local t = id and Own.pruneWaits()
@@ -10083,13 +10102,21 @@ function Engine.WaitingQuests(id, toId)
 			if goal.t == "accept" and goal.quest and t[goal.quest] then taken[goal.quest] = true end
 		end
 	end
-	local qs = {}
+	local qs, byGuide = {}, {}
 	for q, w in pairs(t) do
-		if w.guide == id or taken[q] then qs[#qs + 1] = q end
+		if w.guide == id or taken[q] then
+			qs[#qs + 1] = q
+			if type(w.guide) == "string" then
+				byGuide[w.guide] = byGuide[w.guide] or {}
+				byGuide[w.guide][q] = true
+			end
+		end
 	end
 	table.sort(qs)
+	local named = {}
+	for gid, want in pairs(byGuide) do Own.titlesIn(gid, want, named) end
 	for i, q in ipairs(qs) do
-		out[i] = { quest = q, title = titleOfQuest(q), level = tonumber(t[q].level) or 0, next = taken[q] or false }
+		out[i] = { quest = q, title = titleOfQuest(q, named), level = tonumber(t[q].level) or 0, next = taken[q] or false }
 	end
 	return out
 end
