@@ -13768,7 +13768,7 @@ function Own.hereNext(list, n)
 					list[n] = { s = Own.NEXT_STEP, g = q, goal = goal, kind = "take", left = 0, places = 1,
 						npcs = false, seen = false, spot = false, d = false, pick = 0,
 						budget = Own.hereSeconds, xp = false, soon = false, visit = false, detour = 0, town = false, near = false, key = "a" .. q,
-						sub = L["Saves a trip back: %s does it later."]:format(g.title or g.id), later = g,
+						sub = L["For %s, later on your route."]:format(g.title or g.id), later = g,
 						tip = L["A guide later on your route takes this quest here: taken now, its step is done when you get there."],
 						on = false, since = 0, yards = 0, serial = 0, view = false }
 				end
