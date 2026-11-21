@@ -6,7 +6,7 @@
 
 use std::collections::HashSet;
 
-use forge_addontest::{emitted, is_match, text, Addon, RunAddon};
+use forge_addontest::{emitted, is_match, lua_string, run::addons_dir, text, Addon, RunAddon};
 use serde_json::{json, Value};
 
 // Map 9100 "Testland" (continent type) holds 9000 "Testshire" at x, y 25..75; 9002 "The Barrens" lies west of
@@ -921,7 +921,7 @@ fn nearby_the_tracking_menus_carry_a_nearby_services_submenu_with_every_kind_pic
 		for _, k in ipairs(sub.kids) do texts[#texts + 1] = k.text end
 		local trainers = {}
 		for _, k in ipairs(sub.kids[1].kids) do trainers[#trainers + 1] = k.text end
-		sub.kids[4].fn() -- Repair
+		sub.kids[5].fn() -- Repair
 		local world = stub.menus.MENU_WORLD_MAP_TRACKING ~= nil
 		Polestar.Set("nav.nearbyMenu", false)
 		local empty = node("root")
@@ -938,6 +938,7 @@ fn nearby_the_tracking_menus_carry_a_nearby_services_submenu_with_every_kind_pic
 			"Profession trainer",
 			"Class trainer",
 			"Weapon master",
+			"Riding trainer",
 			"Repair",
 			"Reagents",
 			"Vendor",
@@ -950,10 +951,42 @@ fn nearby_the_tracking_menus_carry_a_nearby_services_submenu_with_every_kind_pic
 			"Transmogrifier"
 		])
 	);
-	assert_eq!(out["trainers"], json!(["Nearest", "Alchemy", "Mining"]), "no riding trainer");
+	assert_eq!(out["trainers"], json!(["Nearest", "Alchemy", "Mining"]));
 	assert_eq!(out["label"], "Far Smith");
 	assert_eq!(out["world"], true);
 	assert_eq!(out["off"], 0);
+}
+
+#[test]
+fn nearby_riding_routes_to_the_characters_racial_trainer_without_the_codex() {
+	let qol_dir = addons_dir().join("Polestar/QoL");
+	let qol = lua_string(&qol_dir.join("QoL.lua").to_string_lossy());
+	let riding = lua_string(&qol_dir.join("Riding.lua").to_string_lossy());
+	let out = run(&format!(
+		"assert(loadfile({qol}))(\"Polestar\", Polestar)\nassert(loadfile({riding}))(\"Polestar\", Polestar)\n{}",
+		r#"
+		local Near, C = N.nearby, Polestar.Compat
+		nav.maps[1429], nav.maps[1454], nav.maps[2521] = nav.maps[9000], nav.maps[9000], nav.maps[9002]
+		local race, faction = "Human", "Alliance"
+		C.GetPlayerInfo = function() return { race = race, faction = faction, class = "WARLOCK", level = 10 } end
+		Polestar.Set("qol.ridingReminder", false)
+		Near.Command("riding")
+		local t = N.GetTarget()
+		assert(t and t.label == "Randal Hunter" and t.map == 1429 and t.stop == "trainer")
+		assert(N.Trip().label == "Riding trainer")
+		race, faction = "Orc", "Horde"
+		assert(Near.Find("riding").id == 4752)
+		race = "Skyborne"
+		assert(Near.Find("riding").id == 265756)
+		faction = "Alliance"
+		assert(Near.Find("riding").id == 265756)
+		faction = "Neutral"
+		local place, why = Near.Find("riding")
+		assert(not place and why == "none")
+		emit(true)
+		"#
+	));
+	assert_eq!(out[0], true);
 }
 
 #[test]
@@ -1257,12 +1290,42 @@ fn nearby_the_guide_window_s_list_puts_the_everyday_services_first_then_a_traine
 	let (mining, none) = (&out[0], &out[1]);
 	assert_eq!(
 		mining["texts"],
-		json!(["Vendor", "Repair", "Innkeeper", "Flight master", "Class trainer", "Mining trainer", "-", "Reagents", "Bank", "Mailbox", "Auction house", "Stable master", "Transmogrifier"])
+		json!([
+			"Vendor",
+			"Repair",
+			"Innkeeper",
+			"Flight master",
+			"Class trainer",
+			"Mining trainer",
+			"Riding trainer",
+			"-",
+			"Reagents",
+			"Bank",
+			"Mailbox",
+			"Auction house",
+			"Stable master",
+			"Transmogrifier"
+		])
 	);
 	assert_eq!(mining["key"], "trainer");
 	assert_eq!(
 		*none,
-		json!(["Vendor", "Repair", "Innkeeper", "Flight master", "Class trainer", "Profession trainer", "-", "Reagents", "Bank", "Mailbox", "Auction house", "Stable master", "Transmogrifier"]),
+		json!([
+			"Vendor",
+			"Repair",
+			"Innkeeper",
+			"Flight master",
+			"Class trainer",
+			"Profession trainer",
+			"Riding trainer",
+			"-",
+			"Reagents",
+			"Bank",
+			"Mailbox",
+			"Auction house",
+			"Stable master",
+			"Transmogrifier"
+		]),
 		"no profession yet: the nearest trainer of any"
 	);
 }
