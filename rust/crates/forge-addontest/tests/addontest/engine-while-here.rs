@@ -2292,8 +2292,8 @@ Polestar.RegisterGuide({
 #[test]
 fn t_3101_a_shared_drop_waits_for_the_imminent_partner_pickup() {
 	let guide = r#"
-		local function drop(q, item, npc, oi)
-			return { t = "collect", quest = q, item = item, itemName = tostring(item), fromKind = "npc", fromId = npc, oi = oi, map = 1429, x = 48, y = 45 }
+		local function drop(q, item, npc, oi, x)
+			return { t = "collect", quest = q, item = item, itemName = tostring(item), fromKind = "npc", fromId = npc, oi = oi, map = 1429, x = x or 48, y = 45 }
 		end
 		assert(Polestar.RegisterGuide({ id = "test/cougars", pack = "test", title = "Cougars", minLevel = 1, maxLevel = 10, steps = {
 			{ goals = { { t = "kill", quest = 33, target = "Wolf", oi = 1, npc = 299, map = 1429, x = 60, y = 60 } } },
@@ -2301,7 +2301,7 @@ fn t_3101_a_shared_drop_waits_for_the_imminent_partner_pickup() {
 				{ t = "turnin", quest = 754, title = "Winterhoof Cleansing", npc = 2948, map = 1429, x = 50, y = 50 },
 				{ t = "accept", quest = 756, title = "Thunderhorn Totem", npc = 2948, pre = { 754 }, map = 1429, x = 50, y = 50 },
 			} },
-			{ goals = { drop(756, 4802, 3035, 1), drop(766, 4805, 3035, 2), drop(766, 4806, 2956, 3) } },
+			{ goals = { drop(756, 4802, 3035, 1, 48.1), drop(766, 4805, 3035, 2), drop(766, 4806, 2956, 3) } },
 		} }))
 	"#;
 	let rows = |state: &str| {
@@ -2318,7 +2318,7 @@ fn t_3101_a_shared_drop_waits_for_the_imminent_partner_pickup() {
 		);
 		run_guide(guide, "test/cougars", &script).remove(0)
 	};
-	assert_eq!(rows("w.complete({754})"), json!([4806]), "only the cougar invitation waits");
+	assert_eq!(rows("w.complete({754})"), json!([4806]), "the cougar invitation waits even when the guide points differ");
 	assert_eq!(rows("w.accept(754, {1})"), json!([4806]), "the upcoming visit hands in the held prerequisite first");
 	assert_eq!(rows(""), json!([4805, 4806]), "the partner pickup is unavailable");
 	assert_eq!(rows("w.complete({754}); E.SkipQuest(756)"), json!([4805, 4806]));
@@ -2337,7 +2337,7 @@ assert(Polestar.RegisterGuide({
 			{ t = "accept", quest = 106, title = "Young Lovers", npc = 251, npcName = "Maybell Maclure", map = 1429, x = 50, y = 45.1 },
 		} },
 		{ title = "The camp", goals = {
-			{ t = "collect", quest = 106, item = 1000, itemName = "Kobold Token", count = 5, oi = 1, map = 1429, x = 47.6, y = 45.1,
+			{ t = "collect", quest = 106, item = 1000, itemName = "Kobold Token", count = 5, oi = 1, map = 1429, x = 45.6, y = 45.1,
 				fromNpcs = { { npc = 476, npcName = "Kobold Geomancer" }, { npc = 6, npcName = "Kobold Vermin" } } },
 			{ t = "collect", quest = 60, item = 772, itemName = "Large Candle", count = 3, oi = 1, map = 1429, x = 47.6, y = 45.1,
 				spots = { { x = 47.6, y = 45.1, r = 15 }, { x = 42.6, y = 45.1, r = 15 } },
@@ -2364,14 +2364,14 @@ flush(); stub.advance(0.6)
 emit({ E.GetLiveStep(), E.GoalDone(2, 1), E.GoalDone(2, 2) })
 "#;
 	let out = run_guide_with(guide, "test/shared-camps", "", script);
-	assert_eq!(out[0], json!([50]), "only unrelated work is offered at the shared camp before the pickup");
+	assert_eq!(out[0], json!([50]), "the camp's recorded source shares the work even when the partner's guide point is elsewhere");
 	assert!(list(&out[1]).iter().any(|q| q == 60), "the other source still gives a line: {out:?}");
 	assert_eq!(out[2], json!([50]), "the line leaves when crossing back into the shared camp");
 	assert_eq!(out[3], json!([2, false, false]), "both quests are open at the shared camp after taking the quest");
 }
 
 #[test]
-fn shared_hunts_wait_only_where_the_upcoming_quest_shares_the_work() {
+fn shared_hunts_use_creature_ids_and_locate_mixed_sources() {
 	// Like the Riverglades heads, the mixed drop lists its sources but has no per-spot source IDs.
 	let guide = r#"
 local function kill(q, x, spots)
@@ -2379,9 +2379,10 @@ local function kill(q, x, spots)
 		count = 3, oi = 1, map = 1429, x = x, y = 45.1, spots = spots }
 end
 local function drop(q, x, spots)
+	local second = q == 60 and { npc = 40, npcName = "Kobold Miner" } or { npc = 6, npcName = "Kobold Vermin" }
 	return { t = "collect", quest = q, item = 772, itemName = "Large Candle",
 		count = 3, oi = 1, map = 1429, x = x, y = 45.1, spots = spots,
-		fromNpcs = { { npc = 476, npcName = "Kobold Geomancer" }, { npc = 40, npcName = "Kobold Miner" } } }
+		fromNpcs = { { npc = 476, npcName = "Kobold Geomancer" }, second } }
 end
 local shared = { x = 47.6, y = 45.1, r = 15 }
 local other = { x = 42.6, y = 45.1, r = 15 }
@@ -2417,12 +2418,15 @@ w.accept(106, { { required = 3, fulfilled = 0 } })
 flush(); stub.advance(0.6)
 emit({ E.GetLiveStep(), E.GoalDone(2, 1), E.GoalDone(2, 2) })
 "#;
-	for (held, partner) in [("drop", "kill"), ("kill", "drop"), ("kill", "kill")] {
+	// With both drop sources unmapped, overlap alone cannot place the common mob.
+	for (held, partner, shared_rows, other_rows) in
+		[("drop", "kill", json!([50]), json!([60])), ("kill", "drop", json!([50]), json!({})), ("kill", "kill", json!([50]), json!({})), ("drop", "drop", json!([50, 60]), json!([60]))]
+	{
 		let guide = guide.replace("HELD", held).replace("PARTNER", partner);
 		let out = run_guide(&guide, "test/shared-hunt", script);
-		assert_eq!(out[0], json!([[50], "1:1"]), "{held}/{partner}: the arrow still leads to the pickup");
-		assert_eq!(out[1], json!([60]), "{held}/{partner}: the separate camp is still offered");
-		assert_eq!(out[2], json!([50]), "{held}/{partner}: sharing only affects the overlapping camp");
+		assert_eq!(out[0], json!([shared_rows, "1:1"]), "{held}/{partner}: the arrow still leads to the pickup");
+		assert_eq!(out[1], other_rows, "{held}/{partner}: the other camp waits only if its sources also share the work");
+		assert_eq!(out[2], shared_rows, "{held}/{partner}: returning to the first camp restores its invitations");
 		assert_eq!(out[3], json!([2, false, false]), "{held}/{partner}: after taking the quest, both goals are open");
 	}
 }

@@ -2188,8 +2188,14 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   the nearest copy (`Own.hereNearest` hands the line over, its serial kept),
   its row naming the earliest step (the view's `firstStep`, `later` from it);
   a dismiss or an expiry is for the whole group. If two quests in a later
-  step share a drop source and the next few steps offer the other quest,
-  `Own.waitForHuntPartner` defers the hunt invitation until that pickup.
+  step share a creature for kills or drops and the next few steps offer the
+  other quest, `Own.waitForHuntPartner` defers the hunt invitation until
+  that pickup. A single shared source defers the whole goal by creature ID.
+  For a goal with multiple sources, a camp with explicit source IDs waits
+  when every source shares work. Where those IDs are missing, a camp can
+  wait if the other objective places a shared creature in an overlapping
+  area on the same map. The candidate's `wait` field records those camps.
+  `Own.hereDistance` suppresses the line when its selected camp is waiting.
   It does not defer a live goal, discard incidental loot, or wait for a
   quest already held, paid, declined or unavailable.
   A hand-in or a pick-up keeps only its first step. With `behavior.whileHereTurnins`, a later
