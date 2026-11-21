@@ -30,7 +30,7 @@ return {
 
 	-- Step 5: The Stone Circle
 	-- {quest:3444} The Stone Circle
-	["{quest:3444} stands on the hill just south-west of the flight master."] = "",
+	["{quest:3444} stands on the hill just south-west of the flight master."] = "{quest:3444} está en la colina justo al suroeste del maestro de vuelo.",
 
 	-- Step 6: Fly to Gadgetzan
 	-- {area:976} Gadgetzan
@@ -73,7 +73,7 @@ return {
 	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {item:10556} Stone Circle
 	["On the ride south, {npc:7771}'s dig camp stands at the {area:1938}: hand him the {item:10556}."] = "",
 	-- {npc:7771} Marvon Rivetseeker · {area:1417} Sunken Temple
-	["{npc:7771}'s next task, Into the Depths, is inside the {area:1417}: skip it."] = "",
+	["{npc:7771}'s next task, Into the Depths, is inside the {area:1417}: skip it."] = "La siguiente tarea de {npc:7771}, En las profundidades, está dentro de {area:1417}: omítela.",
 
 	-- Step 16: The Gaping Chasm
 	-- {area:1938} Broken Pillar · {area:981} The Gaping Chasm
