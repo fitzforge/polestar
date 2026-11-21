@@ -1237,10 +1237,11 @@ fn unavailable_and_failed_walks_point_straight_and_are_asked_again_later() {
 }
 
 // #3409, Fitz's ruling: wherever no walk is found the arrow points straight, as before 0.4.2, and says why under
-// its label; the line is drawn where the danger policy lets it. Here a walk refused on policy (Safe's
-// blockedReason: the other faction's town).
+// its label; the line is drawn straight. Here a walk refused with a reason (Safe's blockedReason). Main, 2026-11-21,
+// Fitz: "go back to our original danger pathing": no reason is the other faction's ground any more, and the arrow
+// says what it says for any walk it did not find (0.4.2: "No safe walking route").
 #[test]
-fn a_walk_refused_on_policy_points_straight_says_why_and_draws_its_line() {
+fn a_walk_refused_with_a_reason_points_straight_says_why_and_draws_its_line() {
 	let out = run(r#"
 		local r = {}
 		nav.place(0, 0)
@@ -1259,7 +1260,7 @@ fn a_walk_refused_on_policy_points_straight_says_why_and_draws_its_line() {
 		r.drawn = { leg and leg.straight or false, leg and #leg.pts or 0 }
 		emit(r)"#);
 	assert_eq!(out["aim"], json!(["travel", 500, 0, -500]), "straight at the target");
-	assert!(out["label"].as_str().unwrap_or("").contains("No safe walking route"), "and why: {}", out["label"]);
+	assert!(out["label"].as_str().unwrap_or("").contains("The last steps here aren't mapped"), "and why: {}", out["label"]);
 	assert_eq!(out["line"], true);
 	assert_eq!(out["drawn"], json!([true, 2]), "its line straight from the player");
 }
