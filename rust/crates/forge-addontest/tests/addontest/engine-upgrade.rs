@@ -507,10 +507,7 @@ fn a_saved_step_planned_without_a_quest_is_read_from_its_released_step_and_never
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
 		saved: vec![("Polestar".to_string(), saved(""))],
 		login: false,
-		script: format!(
-			"{TEST_PACK}\n{TEST_SOURCE}\n{GUIDE}\n{}",
-			SCRIPT.replace(r#"{ [h("accept:102")] = "accept:102" }"#, r#"{ [h("accept:102,accept:111")] = "accept:102,accept:111" }"#)
-		),
+		script: format!("{TEST_PACK}\n{TEST_SOURCE}\n{GUIDE}\n{}", SCRIPT.replace(r#"{ [h("accept:102")] = "accept:102" }"#, r#"{ [h("accept:102,accept:111")] = "accept:102,accept:111" }"#)),
 	})
 	.remove(0);
 	assert_eq!(out["live"], 8, "at 103's hand-in, where the player was: {out}");
@@ -538,10 +535,12 @@ Polestar.RegisterGuide({ id = "test/up", pack = "test", title = "Upgraded", fact
 
 #[test]
 fn a_saved_step_planned_without_a_quest_from_a_step_the_update_kept_never_holds_the_player_back() {
-	let saved = saved("").replace(
-		r#"local OLD = { "accept:100", "turnin:100", "accept:102", "goto:1429", "turnin:102", "accept:103", "turnin:103" }"#,
-		r#"local OLD = { "accept:100", "turnin:100", "accept:102", "turnin:102", "accept:103", "turnin:103" }"#,
-	).replace(r#""7-1""#, r#""6-1""#);
+	let saved = saved("")
+		.replace(
+			r#"local OLD = { "accept:100", "turnin:100", "accept:102", "goto:1429", "turnin:102", "accept:103", "turnin:103" }"#,
+			r#"local OLD = { "accept:100", "turnin:100", "accept:102", "turnin:102", "accept:103", "turnin:103" }"#,
+		)
+		.replace(r#""7-1""#, r#""6-1""#);
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: WORLD.to_string(),
@@ -576,10 +575,7 @@ fn a_saved_step_with_a_class_goal_and_two_quests_left_out_is_read_from_its_relea
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
 		saved: vec![("Polestar".to_string(), saved("").replace(r#""accept:102", "goto:1429""#, r#""accept:102,accept:116", "goto:1429""#))],
 		login: false,
-		script: format!(
-			"{TEST_PACK}\n{TEST_SOURCE}\n{GUIDE}\n{}",
-			SCRIPT.replace(r#"{ [h("accept:102")] = "accept:102" }"#, &format!(r#"{{ [h("{released}")] = "{released}" }}"#))
-		),
+		script: format!("{TEST_PACK}\n{TEST_SOURCE}\n{GUIDE}\n{}", SCRIPT.replace(r#"{ [h("accept:102")] = "accept:102" }"#, &format!(r#"{{ [h("{released}")] = "{released}" }}"#))),
 	})
 	.remove(0);
 	assert_eq!(out["live"], 8, "at 103's hand-in, where the player was: {out}");
