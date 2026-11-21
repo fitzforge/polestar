@@ -346,7 +346,7 @@ fn the_look_pages_list_their_tabs_and_the_settings_they_hold() {
 // Layout v2: each section is one element; its on/off sits in its header; a colour rides on its slider's row and
 // secondary knobs behind the cog; row labels are short; every control, extra and cog row keeps its tooltip
 // (help), its search words and its "New" mark; and nothing a player could set before is gone from the pages
-// (0.3.8: the While you're here toast's look went; its switches are on Guide > Window's Dynamic Questing).
+// (0.3.8: the While you're here toast's look went; its switches are on Guide > While you play's Dynamic Questing).
 #[test]
 fn the_look_pages_put_switches_in_section_headers_colours_beside_their_sliders_and_keep_every_setting() {
 	let out = run(r#"
