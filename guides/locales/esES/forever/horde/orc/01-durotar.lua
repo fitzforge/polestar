@@ -283,7 +283,7 @@ return {
 	-- Step 62: Drygulch Ravine
 	-- {area:370} Drygulch Ravine · {npc:3293} Rezlak · {item:277661} Dull Storm Orb · {area:371} Dustwind Cave · {item:6652} Reagent Pouch
 	-- plural, as words: Burning Blade Cultists = {npc:3199} Burning Blade Cultist
-	["Savages and Storm Witches nest in {area:370}, east of {npc:3293}. A Storm Witch drops the {item:277661}. Shamans: the Burning Blade Cultists by {area:371}, at the ravine's south end, drop the {item:6652}."] = "Los salvajes y las brujas de la tormenta anidan en {area:370}, al este de {npc:3293}. Una bruja de la tormenta suelta {item:277661}. Chamanes: los sectarios del Filo Ardiente junto a {area:371}, en el extremo sur del barranco, sueltan {item:6652}.",
+	["Savages and Storm Witches nest in {area:370}, east of {npc:3293}. A Storm Witch drops the {item:277661}. Shamans: the Burning Blade Cultists by {area:371}, at the ravine's south end, drop the {item:6652}."] = "Los salvajes y las brujas de la tormenta anidan en {area:370}, al este de {npc:3293}. Una bruja de la tormenta suelta {item:277661}. Chamanes: los fieles Filo Ardiente junto a {area:371}, en el extremo sur del barranco, sueltan {item:6652}.",
 
 	-- Step 63: Deathskip to Northern Durotar
 	["Deathskip to Northern Durotar"] = "Muere para volver rápido al norte de Durotar",

@@ -87,7 +87,7 @@ return {
 
 	-- Step 19: Goretusk Snouts
 	-- plural, as words: Goretusk Snouts = {item:731} Goretusk Snout
-	["Goretusk Snouts"] = "Hocicos de Dentosangre",
+	["Goretusk Snouts"] = "Morros de dentrosangre",
 	-- {area:108} Sentinel Hill
 	-- plural, as words: Young Goretusks = {npc:454} Young Goretusk
 	["Young Goretusks root in the fields along the road south from Saldean's to {area:108}: take their snouts on the way."] = "Los Dentosangre jóvenes hozan en los campos a lo largo del camino al sur desde lo de Saldean hasta {area:108}: consigue sus hocicos por el camino.",
@@ -246,7 +246,7 @@ return {
 	["The {area:113}"] = "{area:113}",
 	-- {area:918} Molsen Farm
 	-- plural, as words: Riverpaw Miners = {npc:1426} Riverpaw Miner
-	["South-west to the coast, west of {area:918}. Riverpaw Miners work the quarry.\nCareful: pull the Riverpaw Miners away from the quarry mouth. The Defias stand close together inside the cave."] = "Al suroeste hasta la costa, al oeste de {area:918}. Los mineros Brazo de Río trabajan la cantera.\nCuidado: aparta a los mineros Brazo de Río de la entrada de la cantera. Los Defias están muy juntos dentro de la cueva.",
+	["South-west to the coast, west of {area:918}. Riverpaw Miners work the quarry.\nCareful: pull the Riverpaw Miners away from the quarry mouth. The Defias stand close together inside the cave."] = "Al suroeste hasta la costa, al oeste de {area:918}. Los mineros Zarparrío trabajan la cantera.\nCuidado: aparta a los mineros Zarparrío de la entrada de la cantera. Los Defias están muy juntos dentro de la cueva.",
 	-- plural, as words: Riverpaw Miners = {npc:1426} Riverpaw Miner
 	["Riverpaw Miners"] = "Mineros Zarparrío",
 

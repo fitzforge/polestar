@@ -186,7 +186,7 @@ return {
 	-- plural, as words: Scaber Stalks = {item:5271} Scaber Stalk
 	["The cave lies south of the falls: Scaber Stalks grow all through it, the {item:5270} at the very back. The {npc:6788} lairs in the hills south of the falls."] = "La cueva está al sur de la cascada: los níscalos ({item:5271}) crecen por toda ella y el {item:5270}, al fondo del todo. La {npc:6788} tiene su guarida en las colinas al sur de la cascada.",
 	-- plural, as words: Scaber Stalks = {item:5271} Scaber Stalk
-	["Scaber Stalks; below ground"] = "Tallos de escaber; bajo tierra",
+	["Scaber Stalks; below ground"] = "Níscalos; bajo tierra",
 	-- {item:5270} Death Cap
 	["{item:5270}; below ground"] = "{item:5270}; bajo tierra",
 

@@ -99,7 +99,7 @@ return {
 	["{item:5795}, from the Sparkleshell Tortoises"] = "{item:5795}, de las Tortugas brillavalva",
 	-- {npc:4078} Collin Mauren · {zone:1453} Stormwind
 	-- plural, as words: Saltstone Basilisks = {npc:4147} Saltstone Basilisk
-	["Crystalized Scale, from the Saltstone Basilisks: eight for {npc:4078} in {zone:1453}"] = "Escama cristalizada, de los basiliscos Piedra de sal: ocho para {npc:4078} en {zone:1453}",
+	["Crystalized Scale, from the Saltstone Basilisks: eight for {npc:4078} in {zone:1453}"] = "Escama cristalizada, de los basiliscos Gapo Salino: ocho para {npc:4078} en {zone:1453}",
 
 	-- Step 18: Mirage Raceway
 	-- {npc:4454} Fizzle Brassbolts · {zone:1418} Badlands

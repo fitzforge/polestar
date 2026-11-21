@@ -146,20 +146,20 @@ return {
 	["The {object:2691}"] = "{object:2691}",
 	-- {object:180105} Circle of Binding · {area:321} Hammerfall
 	-- plural, as words: Burning Exiles = {npc:2760} Burning Exile · Thundering Exiles = {npc:2762} Thundering Exile · Cresting Exiles = {npc:2761} Cresting Exile
-	["Each {object:180105} is a ring of standing stones; the key sits on the stone at its heart. The eastern circle is on the hills north-west of {area:321}.\nCareful: Each center stone is guarded by around three elementals near level 39 that attack together if you click the stone without clearing them: Burning Exiles at West, Thundering Exiles at Outer, Cresting Exiles at East."] = "Cada {object:180105} es un anillo de piedras erguidas; la llave está en la piedra del centro. El círculo del este está en las colinas al noroeste de {area:321}.\nCuidado: Cada piedra central está vigilada por unos tres elementales de nivel 39 más o menos que atacan juntos si haces clic en la piedra sin despejarlos: exiliados ardientes en el Oeste, exiliados tronadores en el Exterior, exiliados acuosos en el Este.",
+	["Each {object:180105} is a ring of standing stones; the key sits on the stone at its heart. The eastern circle is on the hills north-west of {area:321}.\nCareful: Each center stone is guarded by around three elementals near level 39 that attack together if you click the stone without clearing them: Burning Exiles at West, Thundering Exiles at Outer, Cresting Exiles at East."] = "Cada {object:180105} es un anillo de piedras erguidas; la llave está en la piedra del centro. El círculo del este está en las colinas al noroeste de {area:321}.\nCuidado: Cada piedra central está vigilada por unos tres elementales de nivel 39 más o menos que atacan juntos si haces clic en la piedra sin despejarlos: éxilus coronadores en el Oeste, éxilus coronadores en el Exterior, éxilus coronadores en el Este.",
 
 	-- Step 25: Witherbark Village
 	["South of Hammerfall, the Witherbark trolls hold the village in the hills. Axe Throwers guard the outer huts; the Witch Doctors and Headhunters hold the heart of the village. Careful: All three troll types flee for help at 15% health, which can pull more trolls from the nearby camps."] = "Al sur de Sentencia, los trols Secacorteza ocupan la aldea en las colinas. Los lanzahachas vigilan las chozas exteriores; los médicos brujos y los cazacabezas ocupan el centro de la aldea. Cuidado: Los tres tipos de trol huyen a pedir ayuda al 15 % de salud, lo que puede atraer más trols de los campamentos cercanos.",
 
 	-- Step 26: Highland raptors and Plains Creepers
 	-- plural, as words: Plains Creepers = {npc:2563} Plains Creeper
-	["Highland raptors and Plains Creepers"] = "Raptores de las tierras altas y reptadores de llanura",
+	["Highland raptors and Plains Creepers"] = "Raptores de las tierras altas y trepadores de las llanuras",
 	-- {area:321} Hammerfall
 	-- plural, as words: Highland Striders = {npc:2559} Highland Strider · Plains Creepers = {npc:2563} Plains Creeper
-	["On the way back north, Highland Striders roam the hills all around {area:321} and drop the eyes, and south of it the Plains Creepers (32-33) spin their webs in the grass; they carry the spidersilk."] = "De regreso al norte, los zancudos de las Tierras Altas recorren las colinas alrededor de {area:321} y sueltan los ojos, y al sur los reptadores de llanura (32-33) tejen sus telarañas en la hierba; ellos llevan la seda de araña.",
+	["On the way back north, Highland Striders roam the hills all around {area:321} and drop the eyes, and south of it the Plains Creepers (32-33) spin their webs in the grass; they carry the spidersilk."] = "De regreso al norte, los zancudos de las Tierras Altas recorren las colinas alrededor de {area:321} y sueltan los ojos, y al sur los trepadores de las llanuras (32-33) tejen sus telarañas en la hierba; ellos llevan la seda de araña.",
 	-- {item:278225} Surgical Spidersilk
 	-- plural, as words: Plains Creepers = {npc:2563} Plains Creeper
-	["{item:278225}, from Plains Creepers"] = "{item:278225}, de los reptadores de llanura",
+	["{item:278225}, from Plains Creepers"] = "{item:278225}, de los trepadores de las llanuras",
 
 	-- Step 27: Hammerfall
 	-- {area:321} Hammerfall

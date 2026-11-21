@@ -139,7 +139,7 @@ return {
 	["{area:16624}: kill these as you meet them"] = "{area:16624}: mátalos según te los encuentres",
 	-- {area:16624} Shen'dar Village · {item:5469} Strider Meat · {npc:251905} Zerril Softbreeze
 	-- plural, as words: Prideclaws = {npc:251245} Prideclaw · Small Eggs = {item:6889} Small Egg
-	["Prideclaws and Galestriders share the meadows around {area:16624}; the Galestriders graze thickest just west of it. They drop both the Small Eggs and the {item:5469} for {npc:251905}."] = "Los garraorgullo y los Galestrid comparten los prados alrededor de {area:16624}; los Galestrid pastan más justo al oeste. Sueltan tanto los Huevos pequeños como {item:5469} para {npc:251905}.",
+	["Prideclaws and Galestriders share the meadows around {area:16624}; the Galestriders graze thickest just west of it. They drop both the Small Eggs and the {item:5469} for {npc:251905}."] = "Las garramanadas y los Galestrid comparten los prados alrededor de {area:16624}; los Galestrid pastan más justo al oeste. Sueltan tanto los Huevos pequeños como {item:5469} para {npc:251905}.",
 
 	-- Step 31: Shen'dar Village hand-ins
 	-- {area:16624} Shen'dar Village
@@ -251,7 +251,7 @@ return {
 	-- plural, as words: Hungry Bandits = {npc:252802} Hungry Bandit
 	["Stormapples and flutterfly dust lie all over the orchard; Hungry Bandits raid it. Galestriders graze in the fields east of it. The broken construct floats at the orchard's north edge."] = "Hay Manzanas tempestuosas y Polvo de alabatiente por todo el huerto; los Bandidos hambrientos lo saquean. Los Zancavendavales pastan en los campos al este. El autómata roto flota en el borde norte del huerto.",
 	-- plural, as words: Ripe Stormapples = {item:253591} Ripe Stormapple
-	["Ripe Stormapples"] = "Manzanas tormenta maduras",
+	["Ripe Stormapples"] = "Manzanas tempestuosas maduras",
 	-- plural, as words: Hungry Bandits = {npc:252802} Hungry Bandit
 	["Hungry Bandits"] = "Bandidos hambrientos",
 	-- {npc:268592} Olariaan Swiftburn
@@ -297,7 +297,7 @@ return {
 	-- Step 62: Taming the Beast
 	-- {npc:252389} Quel'ana Quickgale · {item:15908} Taming Rod · {npc:254411} Quel'dora Quickgale · {spell:5149} Beast Training
 	-- plural, as words: Ornery Galestriders = {npc:251707} Ornery Galestrider · Vuldren Alphas = {npc:250874} Vuldren Alpha
-	["{npc:252389} takes back the first {item:15908} and hands you two more, one at a time: Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Tame each with its rod and bring the rod back to her. {npc:254411}, beside her, teaches {spell:5149}."] = "{npc:252389} recupera la primera {item:15908} y te da dos más, de a una: los Galestrid malhumorados y los alfas Vuldren recorren los campos justo al norte de ella. Doma a cada uno con su vara y devuélvele la vara. {npc:254411}, a su lado, enseña {spell:5149}.",
+	["{npc:252389} takes back the first {item:15908} and hands you two more, one at a time: Ornery Galestriders and Vuldren Alphas roam the fields just north of her. Tame each with its rod and bring the rod back to her. {npc:254411}, beside her, teaches {spell:5149}."] = "{npc:252389} recupera la primera {item:15908} y te da dos más, de a una: los Zancavendavales malhumorados y los alfas Vuldren recorren los campos justo al norte de ella. Doma a cada uno con su vara y devuélvele la vara. {npc:254411}, a su lado, enseña {spell:5149}.",
 	-- {npc:251707} Ornery Galestrider
 	["Tame {npc:251707}"] = "Domestica un {npc:251707}",
 	-- {npc:250874} Vuldren Alpha
@@ -337,7 +337,7 @@ return {
 	-- Step 71: Olariaan Swiftburn
 	-- {item:277267} Faladiel's Heart · {npc:268592} Olariaan Swiftburn · {area:16638} Valanaar · {area:16623} Shen'dar Highlands · {npc:268605} Kuramaa
 	-- plural, as words: Windsong Crawlers = {npc:254588} Windsong Crawler
-	["Take {item:277267} to {npc:268592} at the Shrine of Flames, south-west of {area:16638}, then head west into the {area:16623}: {npc:268605}'s home is in the hills south of the Windsong Crawlers' lakes."] = "Lleva {item:277267} a {npc:268592} en el Santuario de las Llamas, al suroeste de {area:16638}, y luego ve al oeste hacia {area:16623}: el hogar de {npc:268605} está en las colinas al sur de los lagos de los reptadores Cantoviento.",
+	["Take {item:277267} to {npc:268592} at the Shrine of Flames, south-west of {area:16638}, then head west into the {area:16623}: {npc:268605}'s home is in the hills south of the Windsong Crawlers' lakes."] = "Lleva {item:277267} a {npc:268592} en el Santuario de las Llamas, al suroeste de {area:16638}, y luego ve al oeste hacia {area:16623}: el hogar de {npc:268605} está en las colinas al sur de los lagos de los reptadores Canzalvaje.",
 
 	-- Step 72: Zephras Isle
 	-- {object:148418} Eternal Flame
@@ -404,7 +404,7 @@ return {
 	-- Step 86: Windsong Lake
 	-- {item:257128} Zephyrseed · {npc:254344} Endaria Mistgaze · {quest:93736} Unwelcome Spirits · {area:16625} Windsong Lake · {npc:259013} Resaan Nimbuswalker
 	-- plural, as words: Wind Hollows = {npc:251676} Wind Hollow · Wind Hollow Essences = {item:262357} Wind Hollow Essence
-	["{item:257128} cones grow south of the hermit; the Wind Hollows drift east of the lake and also drop the Wind Hollow Essences for {npc:254344}'s {quest:93736}. The refugees' belongings lie along the north shore of {area:16625}; {npc:259013} is at its north-west end."] = "Las piñas de {item:257128} crecen al sur del ermitaño; los huecos de viento flotan al este del lago y también sueltan las Esencias de hueco de viento para {quest:93736} de {npc:254344}. Las pertenencias de los refugiados están a lo largo de la orilla norte de {area:16625}; {npc:259013} está en su extremo noroeste.",
+	["{item:257128} cones grow south of the hermit; the Wind Hollows drift east of the lake and also drop the Wind Hollow Essences for {npc:254344}'s {quest:93736}. The refugees' belongings lie along the north shore of {area:16625}; {npc:259013} is at its north-west end."] = "Las piñas de {item:257128} crecen al sur del ermitaño; los huecos ventosos flotan al este del lago y también sueltan las Esencias de hueco ventoso para {quest:93736} de {npc:254344}. Las pertenencias de los refugiados están a lo largo de la orilla norte de {area:16625}; {npc:259013} está en su extremo noroeste.",
 
 	-- Step 88: The Shrine of Akir
 	-- {area:16629} Shrine of Akir

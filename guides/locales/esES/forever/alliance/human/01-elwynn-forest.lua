@@ -462,7 +462,7 @@ return {
 	-- Step 89: The Stonefield Farm
 	-- {npc:894} Homer Stonefield · {quest:91736} Applejack Still
 	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
-	["{npc:894} sells the Shiny Red Apples for the {quest:91736}. Apples looted from kobolds and crates count too: the purchase ticks itself once you have four."] = "{npc:894} vende las manzanas rojas brillantes para {quest:91736}. Las manzanas saqueadas de kóbolds y cajas también cuentan: la compra se marca sola cuando tienes cuatro.",
+	["{npc:894} sells the Shiny Red Apples for the {quest:91736}. Apples looted from kobolds and crates count too: the purchase ticks itself once you have four."] = "{npc:894} vende las manzanas rojas lustrosas para {quest:91736}. Las manzanas saqueadas de kóbolds y cajas también cuentan: la compra se marca sola cuando tienes cuatro.",
 	-- {npc:894} Homer Stonefield · {quest:91736} Applejack Still
 	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
 	["Shiny Red Apples, from {npc:894}, for the {quest:91736}"] = "Manzanas rojas lustrosas, de {npc:894}, para {quest:91736}",
@@ -472,7 +472,7 @@ return {
 	["The {quest:91736}"] = "{quest:91736}",
 	-- {quest:91736} Applejack Still · {area:120} Westbrook Garrison · {item:247824} Thunder Applejack · {npc:955} Sergeant De Vries
 	-- plural, as words: Shiny Red Apples = {item:4536} Shiny Red Apple
-	["The {quest:91736} stands north of the {area:120}. Click it with four Shiny Red Apples in your bags: it takes them and gives you a {item:247824} on the spot (the quest never shows in your quest log). Keep the Applejack for {npc:955}: don't drink it."] = "{quest:91736} está al norte de {area:120}. Haz clic en él con cuatro manzanas rojas brillantes en tus bolsas: se las queda y te da un {item:247824} en el acto (la misión nunca aparece en tu registro). Guarda el licor de manzana para {npc:955}: no te lo bebas.",
+	["The {quest:91736} stands north of the {area:120}. Click it with four Shiny Red Apples in your bags: it takes them and gives you a {item:247824} on the spot (the quest never shows in your quest log). Keep the Applejack for {npc:955}: don't drink it."] = "{quest:91736} está al norte de {area:120}. Haz clic en él con cuatro manzanas rojas lustrosas en tus bolsas: se las queda y te da un {item:247824} en el acto (la misión nunca aparece en tu registro). Guarda el licor de manzana para {npc:955}: no te lo bebas.",
 	-- {item:247824} Thunder Applejack
 	["{item:247824}, from the still"] = "{item:247824}, del alambique",
 

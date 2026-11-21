@@ -84,7 +84,7 @@ return {
 	["{area:1039}: kill these as you meet them"] = "{area:1039}: mátalos según te los encuentres",
 	-- {npc:1159} First Mate Snellig
 	-- plural, as words: Cursed Sailors = {npc:1157} Cursed Sailor · Cursed Marines = {npc:1158} Cursed Marine · Giant Wetlands Crocolisks = {npc:2089} Giant Wetlands Crocolisk · Fen Creepers = {npc:1040} Fen Creeper
-	["Follow the coast north to the wrecked ship. Cursed Sailors walk the beach, Cursed Marines the deck; {npc:1159} stands on the beach by the bow. Giant Wetlands Crocolisks lurk on the coast just north of it.\nCareful: Fen Creepers hide in stealth where the river splits close to the ghost ship, and they can join a fight."] = "Sigue la costa al norte hasta el barco naufragado. Los marineros malditos recorren la playa, los marinos malditos la cubierta; {npc:1159} está en la playa junto a la proa. Los crocoliscos gigantes de los Humedales acechan en la costa justo al norte.\nCuidado: los trepadores del pantano se esconden en sigilo donde se divide el río, cerca del barco fantasma, y pueden sumarse a la pelea.",
+	["Follow the coast north to the wrecked ship. Cursed Sailors walk the beach, Cursed Marines the deck; {npc:1159} stands on the beach by the bow. Giant Wetlands Crocolisks lurk on the coast just north of it.\nCareful: Fen Creepers hide in stealth where the river splits close to the ghost ship, and they can join a fight."] = "Sigue la costa al norte hasta el barco naufragado. Los marineros malditos recorren la playa, los marinos malditos la cubierta; {npc:1159} está en la playa junto a la proa. Los crocoliscos gigantes de los Humedales acechan en la costa justo al norte.\nCuidado: los trepadores del cubil se esconden en sigilo donde se divide el río, cerca del barco fantasma, y pueden sumarse a la pelea.",
 	-- {npc:1158} Cursed Marine · {npc:270589} Nightveiled Rotheap
 	["{npc:1158}; careful: {npc:270589}, a level 31 elite, roams this coast"] = "{npc:1158}; cuidado: {npc:270589}, un élite de nivel 31, ronda por esta costa",
 
@@ -125,14 +125,14 @@ return {
 	["{npc:1078} and Whelgar"] = "{npc:1078} y Whelgar",
 	-- {npc:1077} Prospector Whelgar · {item:279993} Titanic Keystone
 	-- plural, as words: Goaz Warders = {npc:270892} Goaz Warder
-	["{npc:1077}, below ground: the {item:279993}, from the elite Goaz Warders"] = "{npc:1077}, bajo tierra: {item:279993}, de los celadores de Goaz élite",
+	["{npc:1077}, below ground: the {item:279993}, from the elite Goaz Warders"] = "{npc:1077}, bajo tierra: {item:279993}, de los guardianes de Goaz élite",
 
 	-- Step 24: Goaz Warders
 	-- plural, as words: Goaz Warders = {npc:270892} Goaz Warder
-	["Goaz Warders"] = "Celadores de Goaz",
+	["Goaz Warders"] = "Guardianes de Goaz",
 	-- {item:279996} Goaz Stone · {npc:270892} Goaz Warder
 	-- plural, as words: Goaz Warders = {npc:270892} Goaz Warder
-	["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one.\n{npc:270892} is elite: grouping up is advised."] = "Los celadores de Goaz están justo al oeste del campamento de Whelgar: usa {item:279996} que te dio junto a uno.\n{npc:270892} es élite: se recomienda agruparse.",
+	["The Goaz Warders stand just west of Whelgar's camp: use the {item:279996} he gave you beside one.\n{npc:270892} is elite: grouping up is advised."] = "Los guardianes de Goaz están justo al oeste del campamento de Whelgar: usa {item:279996} que te dio junto a uno.\n{npc:270892} es élite: se recomienda agruparse.",
 
 	-- Step 25: Prospector Whelgar
 	["Below ground"] = "Bajo tierra",
@@ -174,10 +174,10 @@ return {
 
 	-- Step 32: Fen Creepers along the river
 	-- plural, as words: Fen Creepers = {npc:1040} Fen Creeper
-	["Fen Creepers along the river"] = "Trepadores del pantano a lo largo del río",
+	["Fen Creepers along the river"] = "Trepadores del cubil a lo largo del río",
 	-- {npc:2093} Einar Stonegrip · {area:1024} Sundown Marsh · {npc:1244} Rethiel the Greenwarden
 	-- plural, as words: Fen Creepers = {npc:1040} Fen Creeper
-	["North-west from {npc:2093} to the river: Fen Creepers hide in its pools and along its banks all the way west to {area:1024}. Work west along it until you have twelve, then back east to {npc:1244}.\nCareful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see."] = "Al noroeste desde {npc:2093} hasta el río: los trepadores del pantano se esconden en sus pozas y a lo largo de sus orillas, todo el camino al oeste hasta {area:1024}. Avanza al oeste por él hasta tener doce, luego vuelve al este con {npc:1244}.\nCuidado: fuera de combate, los trepadores del pantano usan Sigilo de vez en cuando, así que están ocultos y cuesta verlos.",
+	["North-west from {npc:2093} to the river: Fen Creepers hide in its pools and along its banks all the way west to {area:1024}. Work west along it until you have twelve, then back east to {npc:1244}.\nCareful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see."] = "Al noroeste desde {npc:2093} hasta el río: los trepadores del cubil se esconden en sus pozas y a lo largo de sus orillas, todo el camino al oeste hasta {area:1024}. Avanza al oeste por él hasta tener doce, luego vuelve al este con {npc:1244}.\nCuidado: fuera de combate, los trepadores del cubil usan Sigilo de vez en cuando, así que están ocultos y cuesta verlos.",
 
 	-- Step 33: Rethiel the Greenwarden
 	-- {quest:98283} Carnage · {zone:1437} Wetlands

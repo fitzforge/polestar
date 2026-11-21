@@ -13,7 +13,7 @@ return {
 	-- Step 1: Niby the Almighty
 	-- {npc:14469} Niby the Almighty · {npc:14470} Impsy · {zone:1448} Felwood · {area:1997} Bloodvenom Post · {area:1765} Bloodvenom Falls
 	-- plural, as words: Flawless Fel Essences = {quest:7602} Flawless Fel Essence
-	["At 50 {npc:14469} and his imp {npc:14470} wait on a rise in central {zone:1448} just north-east of {area:1997}: coming north over the {area:1765} bridge, they stand off the road to the east, past a few oozes. {npc:14469} sends you to {npc:14470}, beside him, who wants three Flawless Fel Essences from three places."] = "A nivel 50 {npc:14469} y su diablillo {npc:14470} esperan en una elevación del centro de {zone:1448}, al noreste del {area:1997}: viniendo hacia el norte por el puente del {area:1765}, están apartados de la carretera al este, tras unos deslizados. {npc:14469} te envía con {npc:14470}, junto a él, que quiere tres esencias infernales perfectas de tres sitios.",
+	["At 50 {npc:14469} and his imp {npc:14470} wait on a rise in central {zone:1448} just north-east of {area:1997}: coming north over the {area:1765} bridge, they stand off the road to the east, past a few oozes. {npc:14469} sends you to {npc:14470}, beside him, who wants three Flawless Fel Essences from three places."] = "A nivel 50 {npc:14469} y su diablillo {npc:14470} esperan en una elevación del centro de {zone:1448}, al noreste del {area:1997}: viniendo hacia el norte por el puente del {area:1765}, están apartados de la carretera al este, tras unos deslizados. {npc:14469} te envía con {npc:14470}, junto a él, que quiere tres esencias de energía vil puras de tres sitios.",
 
 	-- Step 2: Azshara
 	-- {zone:1447} Azshara

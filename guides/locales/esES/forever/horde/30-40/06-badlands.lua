@@ -47,7 +47,7 @@ return {
 	["Rock Elementals"] = "Elementales de piedra",
 	-- {area:345} Agmond's End · {npc:6868} Jarkal Mossmeld
 	-- plural, as words: Rock Elementals = {npc:92} Rock Elemental · Rock Elemental Shards = {item:7848} Rock Elemental Shard · Malevolent Mirages = {npc:269756} Malevolent Mirage
-	["South-east across the basin, the bigger Rock Elementals (39) stand on the slopes west of {area:345}; each one drops a slab. Every rock elemental can drop {npc:6868}'s Rock Elemental Shards. Careful: Malevolent Mirages (42, elite) drift across these slopes too."] = "Al sureste cruzando la cuenca, los elementales de roca más grandes (39) están en las laderas al oeste de {area:345}; cada uno suelta una losa. Cualquier elemental de roca puede soltar los Fragmentos de elemental de roca de {npc:6868}. Cuidado: los espejismos malévolos (42, élite) también flotan por estas laderas.",
+	["South-east across the basin, the bigger Rock Elementals (39) stand on the slopes west of {area:345}; each one drops a slab. Every rock elemental can drop {npc:6868}'s Rock Elemental Shards. Careful: Malevolent Mirages (42, elite) drift across these slopes too."] = "Al sureste cruzando la cuenca, los elementales de piedra más grandes (39) están en las laderas al oeste de {area:345}; cada uno suelta una losa. Cualquier elemental de roca puede soltar los Fragmentos de elemental de roca de {npc:6868}. Cuidado: los espejismos malévolos (42, élite) también flotan por estas laderas.",
 
 	-- Step 9: Agmond's End
 	-- {area:345} Agmond's End · {area:1517} Uldaman
@@ -77,10 +77,10 @@ return {
 	-- Step 14: The Dustbowl
 	-- {npc:2921} Lotwil Veriatus
 	-- plural, as words: Lesser Rock Elementals = {npc:2735} Lesser Rock Elemental
-	["North-west across the basin to {npc:2921}'s camp. Short of Jarkal's shards? The Lesser Rock Elementals (37) on the flats west of the camp drop them about one kill in five."] = "Al noroeste cruzando la cuenca hasta el campamento de {npc:2921}. ¿Te faltan fragmentos de Jarkal? Los elementales de roca inferiores (37) de la llanura al oeste del campamento los sueltan más o menos una de cada cinco veces.",
+	["North-west across the basin to {npc:2921}'s camp. Short of Jarkal's shards? The Lesser Rock Elementals (37) on the flats west of the camp drop them about one kill in five."] = "Al noroeste cruzando la cuenca hasta el campamento de {npc:2921}. ¿Te faltan fragmentos de Jarkal? Los elementales de piedra inferiores (37) de la llanura al oeste del campamento los sueltan más o menos una de cada cinco veces.",
 	-- {npc:2921} Lotwil Veriatus
 	-- plural, as words: Greater Rock Elementals = {npc:2736} Greater Rock Elemental
-	["{npc:2921}'s next study wants bracers from the Greater Rock Elementals (42-44) in the south-western gulches, well above you: leave it."] = "El siguiente estudio de {npc:2921} pide brazales de los elementales de roca superiores (42-44) de los barrancos del suroeste, que te superan bastante en nivel: déjalo.",
+	["{npc:2921}'s next study wants bracers from the Greater Rock Elementals (42-44) in the south-western gulches, well above you: leave it."] = "El siguiente estudio de {npc:2921} pide brazales de los elementales de piedra mayores (42-44) de los barrancos del suroeste, que te superan bastante en nivel: déjalo.",
 
 	-- Step 15: Kargath
 	-- {area:340} Kargath · {npc:5394} Neeka Bloodscar

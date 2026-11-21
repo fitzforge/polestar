@@ -92,7 +92,7 @@ return {
 	["The Lashtail raptors"] = "Los raptores colazote",
 	-- {quest:187} Tiger Mastery · {npc:729} Sin'Dall
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
-	["East from the ruins, hunt Lashtail Raptors around the hill south-west of Nesingwary's camp. If you have {quest:187}, are at least 36 and see {npc:729} (37) alone, you can take her paw here or leave the hunt for your next visit."] = "Al este de las ruinas, caza raptoras Cola de Lagarto alrededor de la colina al suroeste del campamento de Nesingwary. Si llevas {quest:187}, tienes al menos 36 y ves a {npc:729} (37) sola, puedes llevarte su garra aquí o dejar la caza para tu próxima visita.",
+	["East from the ruins, hunt Lashtail Raptors around the hill south-west of Nesingwary's camp. If you have {quest:187}, are at least 36 and see {npc:729} (37) alone, you can take her paw here or leave the hunt for your next visit."] = "Al este de las ruinas, caza raptores colazote alrededor de la colina al suroeste del campamento de Nesingwary. Si llevas {quest:187}, tienes al menos 36 y ves a {npc:729} (37) sola, puedes llevarte su garra aquí o dejar la caza para tu próxima visita.",
 
 	-- Step 13: Ajeck Rouack
 	-- {npc:717} Ajeck Rouack

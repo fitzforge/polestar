@@ -87,7 +87,7 @@ return {
 	-- Step 14: Field to Clear
 	-- {npc:3341} Gann Stonespire · {npc:3238} Stormhide
 	-- plural, as words: Hecklefang Stalkers = {npc:4128} Hecklefang Stalker · Qiraji Lieutenants = {npc:15806} Qiraji Lieutenant
-	["On the way back east to {npc:3341}: Hecklefang Stalkers and {npc:3238} lizards roam the plain between the ridge and his camp. Careful: Qiraji Lieutenants (28, elite) sometimes stand on that plain: give them a wide berth."] = "De regreso al este hacia {npc:3341}: los acechadores Dientemofa y los lagartos {npc:3238} recorren la llanura entre la cresta y su campamento. Cuidado: a veces hay tenientes qiraji (28, élite) en esa llanura: mantente bien lejos de ellos.",
+	["On the way back east to {npc:3341}: Hecklefang Stalkers and {npc:3238} lizards roam the plain between the ridge and his camp. Careful: Qiraji Lieutenants (28, elite) sometimes stand on that plain: give them a wide berth."] = "De regreso al este hacia {npc:3341}: los acechadores Dentecenado y los lagartos {npc:3238} recorren la llanura entre la cresta y su campamento. Cuidado: a veces hay tenientes qiraji (28, élite) en esa llanura: mantente bien lejos de ellos.",
 	-- {npc:4128} Hecklefang Stalker · {area:1156} Southern Barrens
 	["{npc:4128} walks around {area:1156}: look inside the circle on the map"] = "{npc:4128} da vueltas por {area:1156}: búscalo dentro del círculo del mapa",
 

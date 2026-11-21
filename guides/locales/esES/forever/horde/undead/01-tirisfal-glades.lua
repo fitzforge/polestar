@@ -81,7 +81,7 @@ return {
 	-- Step 11: Night Web's Hollow
 	-- {npc:271961} Webbed Forsaken
 	-- plural, as words: Young Night Web Spiders = {npc:1504} Young Night Web Spider · Night Web Spiders = {npc:1505} Night Web Spider
-	["Head west to the cave. The Young Night Web Spiders sit outside; the Night Web Spiders and the cocooned {npc:271961} are inside.\nCareful: A low-level character can die quickly if it pulls several Night Web Spiders in the cave at the same time."] = "Ve al oeste hasta la cueva. Las arañas Red Nocturna jóvenes están fuera; las arañas Red Nocturna y los {npc:271961} envueltos en capullos están dentro.\nCuidado: un personaje de nivel bajo puede morir rápido si atrae a varias arañas Red Nocturna de la cueva al mismo tiempo.",
+	["Head west to the cave. The Young Night Web Spiders sit outside; the Night Web Spiders and the cocooned {npc:271961} are inside.\nCareful: A low-level character can die quickly if it pulls several Night Web Spiders in the cave at the same time."] = "Ve al oeste hasta la cueva. Las nocturácnidas jóvenes están fuera; las arañas nocturácnidas y los {npc:271961} envueltos en capullos están dentro.\nCuidado: un personaje de nivel bajo puede morir rápido si atrae a varias arañas nocturácnidas de la cueva al mismo tiempo.",
 	["Below ground"] = "Bajo tierra",
 	["attack the cocoons inside the cave to free them; below ground"] = "ataca los capullos dentro de la cueva para liberarlos; bajo tierra",
 	-- {npc:271961} Webbed Forsaken
@@ -295,7 +295,7 @@ return {
 	["{area:166}: kill these as you meet them"] = "{area:166}: mátalos según te los encuentres",
 	-- {npc:1525} Rotting Dead · {area:159} Brill · {npc:10666} Gordo · {npc:3549} Shelene Rhobart
 	-- plural, as words: Ravaged Corpses = {npc:1526} Ravaged Corpse · Decrepit Darkhounds = {npc:1547} Decrepit Darkhound
-	["{npc:1525} and Ravaged Corpses shamble through the fields just west of {area:159}; Decrepit Darkhounds roam there and on west along the road toward {npc:10666}. Johaan wants their blood, {npc:3549} their hides."] = "{npc:1525} y los cadáveres destrozados se arrastran por los campos justo al oeste de {area:159}; los canes oscuros decrépitos rondan ahí y más al oeste por el camino hacia {npc:10666}. Johaan quiere su sangre, {npc:3549} sus pieles.",
+	["{npc:1525} and Ravaged Corpses shamble through the fields just west of {area:159}; Decrepit Darkhounds roam there and on west along the road toward {npc:10666}. Johaan wants their blood, {npc:3549} their hides."] = "{npc:1525} y los cuerpos estragados se arrastran por los campos justo al oeste de {area:159}; los canes oscuros decrépitos rondan ahí y más al oeste por el camino hacia {npc:10666}. Johaan quiere su sangre, {npc:3549} sus pieles.",
 
 	-- Step 54: Bowen Brisboise
 	-- {npc:3523} Bowen Brisboise · {area:159} Brill · {quest:97961} Camping 101: Tailoring
@@ -481,12 +481,12 @@ return {
 	-- Step 84: Shadowvale
 	-- {area:16881} Shadowvale · {area:16616} Whispering Forest
 	-- plural, as words: Shadowvale Lurchers = {npc:260428} Shadowvale Lurcher
-	["{area:16881} is the hollow at the west edge of the glades, south-west of the {area:16616}. Go down into the big basement under the ruined house (only a floor and a few pillars left, not the two-storey house): the bottles lie on its floor among the Shadowvale Lurchers and Mystics."] = "{area:16881} es la hondonada en el borde oeste de los claros, al suroeste de {area:16616}. Baja al gran sótano debajo de la casa en ruinas (solo queda un piso y unos pilares, no la casa de dos plantas): las botellas están en el suelo entre los tambaleantes y los místicos de Valle Umbrío.",
+	["{area:16881} is the hollow at the west edge of the glades, south-west of the {area:16616}. Go down into the big basement under the ruined house (only a floor and a few pillars left, not the two-storey house): the bottles lie on its floor among the Shadowvale Lurchers and Mystics."] = "{area:16881} es la hondonada en el borde oeste de los claros, al suroeste de {area:16616}. Baja al gran sótano debajo de la casa en ruinas (solo queda un piso y unos pilares, no la casa de dos plantas): las botellas están en el suelo entre los rondadores y los místicos de Valle Umbrío.",
 	["the basement under the ruined house"] = "el sótano debajo de la casa en ruinas",
 	-- {item:286269} Glowing Crystal Fragment
 	["the {item:286269}, at the basement's south end"] = "{item:286269}, en el extremo sur del sótano",
 	-- plural, as words: Shadowvale Lurchers = {npc:260428} Shadowvale Lurcher
-	["the Shadowvale Lurchers and Mystics drop the bones; below ground"] = "los tambaleantes y los místicos de Valle Umbrío sueltan los huesos; bajo tierra",
+	["the Shadowvale Lurchers and Mystics drop the bones; below ground"] = "los rondadores y los místicos de Valle Umbrío sueltan los huesos; bajo tierra",
 
 	-- Step 85: Hilda the Breaker and Ephram Barbaro
 	-- {npc:246389} Hilda the Breaker · {npc:259190} Ephram Barbaro

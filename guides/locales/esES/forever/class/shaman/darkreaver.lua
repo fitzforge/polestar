@@ -19,7 +19,7 @@ return {
 	["Two diamonds"] = "Dos diamantes",
 	-- {item:12800} Azerothian Diamond · {area:2418} Morgan's Vigil · {zone:1428} Burning Steppes · {item:18335} Pristine Black Diamond
 	-- plural, as words: Small Thorium Veins = {object:324} Small Thorium Vein
-	["Both diamonds are rare: the auction house is the quick way. Miners find the {item:12800} in about one Thorium vein in a hundred (the Small Thorium Veins north of {area:2418} in the {zone:1428} respawn every five minutes). The {item:18335} drops from high-level elites at about one in a hundred, best from the rare elite Revanchion (about one in nine)."] = "Ambos diamantes son raros: la casa de subastas es la vía rápida. Los mineros hallan el {item:12800} en una vena de torio de cada cien (las venas pequeñas de torio al norte del {area:2418} en el {zone:1428} reaparecen cada cinco minutos). El {item:18335} cae de élites de nivel alto en una de cada cien, mejor del élite raro Revanchion (uno de cada nueve).",
+	["Both diamonds are rare: the auction house is the quick way. Miners find the {item:12800} in about one Thorium vein in a hundred (the Small Thorium Veins north of {area:2418} in the {zone:1428} respawn every five minutes). The {item:18335} drops from high-level elites at about one in a hundred, best from the rare elite Revanchion (about one in nine)."] = "Ambos diamantes son raros: la casa de subastas es la vía rápida. Los mineros hallan el {item:12800} en una vena de torio de cada cien (las filones pequeños de torio al norte del {area:2418} en el {zone:1428} reaparecen cada cinco minutos). El {item:18335} cae de élites de nivel alto en una de cada cien, mejor del élite raro Revanchion (uno de cada nueve).",
 
 	-- Step 3: Sagorne Creststrider
 	-- {quest:8258} The Darkreaver Menace

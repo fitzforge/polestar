@@ -85,10 +85,10 @@ return {
 
 	-- Step 17: Mountain Buzzards
 	-- plural, as words: Mountain Buzzards = {npc:1194} Mountain Buzzard
-	["Mountain Buzzards"] = "Zopilotes montañeses",
+	["Mountain Buzzards"] = "Águilas ratoneras monteses",
 	-- {quest:257} A Hunter's Boast
 	-- plural, as words: Mountain Buzzards = {npc:1194} Mountain Buzzard
-	["Mountain Buzzards circle the hills west and south of the lodge, back toward the dig. {quest:257} runs for 15 minutes."] = "Los zopilotes montañeses sobrevuelan las colinas al oeste y al sur del refugio, de vuelta hacia la excavación. {quest:257} dura 15 minutos.",
+	["Mountain Buzzards circle the hills west and south of the lodge, back toward the dig. {quest:257} runs for 15 minutes."] = "Las águilas ratoneras monteses sobrevuelan las colinas al oeste y al sur del refugio, de vuelta hacia la excavación. {quest:257} dura 15 minutos.",
 
 	-- Step 18: Daryl the Youngling
 	["12 minutes"] = "12 minutos",
@@ -168,7 +168,7 @@ return {
 	-- Step 33: Henze Faulk
 	-- {area:86} Stone Cairn Lake · {npc:6172} Henze Faulk · {item:6866} Symbol of Life · {item:6846} Defias Script
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["From the bridge, head north to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "Desde el puente, ve al norte hasta {area:86}. {npc:6172} yace al sur del lago: usa {item:6866} sobre él. Los magos renegados Defias de alrededor llevan {item:6846}.",
+	["From the bridge, head north to {area:86}. {npc:6172} lies south of the lake: use the {item:6866} on him. The Defias Rogue Wizards around him carry the {item:6846}."] = "Desde el puente, ve al norte hasta {area:86}. {npc:6172} yace al sur del lago: usa {item:6866} sobre él. Los zahoríes bribones Defias de alrededor llevan {item:6846}.",
 	-- {item:6866} Symbol of Life · {npc:6172} Henze Faulk
 	["Use the {item:6866} on {npc:6172}"] = "Usa el {item:6866} en {npc:6172}",
 	-- {item:6846} Defias Script
@@ -318,7 +318,7 @@ return {
 	-- Step 56: Captain Grayson
 	-- {zone:1436} Westfall · {npc:392} Captain Grayson
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
-	["Kept five Flasks of Oil from {zone:1436}'s Harvest Watchers? {npc:392} takes them for his lighthouse fire."] = "¿Guardaste cinco frascos de aceite de los vigías de la cosecha de {zone:1436}? {npc:392} los recibe para el fuego de su faro.",
+	["Kept five Flasks of Oil from {zone:1436}'s Harvest Watchers? {npc:392} takes them for his lighthouse fire."] = "¿Guardaste cinco frascos de aceite de los vigilantes de la cosecha de {zone:1436}? {npc:392} los recibe para el fuego de su faro.",
 
 	-- Step 57: Sentinel Hill
 	-- {area:108} Sentinel Hill · {npc:467} The Defias Traitor
@@ -367,7 +367,7 @@ return {
 	-- Step 66: Redridge Canyons
 	-- {spell:133} Fireball
 	-- plural, as words: Redridge Brutes = {npc:426} Redridge Brute · Iron Pikes = {item:2856} Iron Pike · Black Dragon Whelps = {npc:441} Black Dragon Whelp
-	["Redridge Brutes and Mystics hold the hills north and north-west of town; both carry the Iron Pikes and Rivets. Black Dragon Whelps nest in the same hills.\nCareful: The whelps cast {spell:133} from range, and the gnolls run for help at low health."] = "Los brutos y místicos de Crestagrana ocupan las colinas al norte y noroeste del pueblo; ambos llevan las picas de hierro y los remaches. Las crías de dragón negro anidan en las mismas colinas.\nCuidado: las crías lanzan {spell:133} a distancia, y los gnolls huyen a pedir ayuda con poca salud.",
+	["Redridge Brutes and Mystics hold the hills north and north-west of town; both carry the Iron Pikes and Rivets. Black Dragon Whelps nest in the same hills.\nCareful: The whelps cast {spell:133} from range, and the gnolls run for help at low health."] = "Los toscos y místicos de Crestagrana ocupan las colinas al norte y noroeste del pueblo; ambos llevan los picos de hierro y los remaches. Las crías de dragón negro anidan en las mismas colinas.\nCuidado: las crías lanzan {spell:133} a distancia, y los gnolls huyen a pedir ayuda con poca salud.",
 	-- {item:1221} Underbelly Whelp Scale
 	-- plural, as words: Black Dragon Whelps = {npc:441} Black Dragon Whelp
 	["{item:1221}: Black Dragon Whelps"] = "{item:1221}: crías de dragón negro",

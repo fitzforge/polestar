@@ -25,13 +25,13 @@ return {
 	["Golems and Dark Iron dwarves"] = "Gólems y enanos Hierro Negro",
 	-- {area:1446} Thorium Point · {item:18959} Smithing Tuyere · {item:18960} Lookout's Spyglass
 	-- plural, as words: Heavy War Golems = {npc:5854} Heavy War Golem · Dark Iron Taskmasters = {npc:5846} Dark Iron Taskmaster · Dark Iron Steamsmiths = {npc:5840} Dark Iron Steamsmith · Dark Iron Lookouts = {npc:8566} Dark Iron Lookout
-	["Heavy War Golems and the Dark Iron Taskmasters and Slavers work all over the floor of the Cauldron below {area:1446}. The {item:18959} drops from Dark Iron Steamsmiths at the furnaces in the middle, the {item:18960} from Dark Iron Lookouts on the southern ridges: about one in ten of each."] = "Los gólems de guerra pesados y los capataces y esclavistas Hierro Negro trabajan por todo el fondo de La Caldera, debajo de {area:1446}. La {item:18959} la sueltan los vapoherreros Hierro Negro de los hornos del centro, el {item:18960} los oteadores Hierro Negro de las crestas del sur: más o menos uno de cada diez de cada uno.",
+	["Heavy War Golems and the Dark Iron Taskmasters and Slavers work all over the floor of the Cauldron below {area:1446}. The {item:18959} drops from Dark Iron Steamsmiths at the furnaces in the middle, the {item:18960} from Dark Iron Lookouts on the southern ridges: about one in ten of each."] = "Los gólems de guerra pesados y los capataces y esclavistas Hierro Negro trabajan por todo el fondo de La Caldera, debajo de {area:1446}. La {item:18959} la sueltan los vapoherreros Hierro Negro de los hornos del centro, el {item:18960} los vigías Hierro Negro de las crestas del sur: más o menos uno de cada diez de cada uno.",
 	-- {item:18959} Smithing Tuyere
 	-- plural, as words: Dark Iron Steamsmiths = {npc:5840} Dark Iron Steamsmith
 	["{item:18959}, Dark Iron Steamsmiths"] = "{item:18959}, vapoherreros Hierro Negro",
 	-- {item:18960} Lookout's Spyglass
 	-- plural, as words: Dark Iron Lookouts = {npc:8566} Dark Iron Lookout
-	["{item:18960}, Dark Iron Lookouts"] = "{item:18960}, oteadores Hierro Negro",
+	["{item:18960}, Dark Iron Lookouts"] = "{item:18960}, vigías Hierro Negro",
 
 	-- Step 3: Searing Lava Spiders
 	-- plural, as words: Searing Lava Spiders = {npc:5858} Searing Lava Spider
@@ -55,21 +55,21 @@ return {
 	["Imperial Plate, for Blacksmiths"] = "Placas imperiales, para herreros",
 	-- {npc:14567} Derotain Mudsipper · {area:976} Gadgetzan · {quest:7652} A Blue Light Bargain
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
-	["Blacksmiths with 265 skill can buy their way up with Thorium Bars: {npc:14567} in {area:976} trades the Imperial Plate plans for bars, and each pays Brotherhood reputation. {quest:7652} opens them (100). Belt 20 bars (100), Bracer 20 (100), Shoulders 20 (100), Boots 40 (150), Helm 50 (200), Chest 60 (200), Leggings 60 (200): 1,150 reputation for 270 Thorium Bars. They count at any standing, so do them before Burninate's turn-ins."] = "Los herreros con 265 de habilidad pueden comprar su subida con barras de torio: {npc:14567}, en {area:976}, canjea los planos de placas imperiales por barras, y cada uno paga reputación con la Hermandad. {quest:7652} los abre (100). Cinturón 20 barras (100), brazal 20 (100), hombreras 20 (100), botas 40 (150), yelmo 50 (200), pechera 60 (200), quijotes 60 (200): 1.150 de reputación por 270 barras de torio. Cuentan con cualquier reputación, así que hazlas antes de las entregas de Burninate.",
+	["Blacksmiths with 265 skill can buy their way up with Thorium Bars: {npc:14567} in {area:976} trades the Imperial Plate plans for bars, and each pays Brotherhood reputation. {quest:7652} opens them (100). Belt 20 bars (100), Bracer 20 (100), Shoulders 20 (100), Boots 40 (150), Helm 50 (200), Chest 60 (200), Leggings 60 (200): 1,150 reputation for 270 Thorium Bars. They count at any standing, so do them before Burninate's turn-ins."] = "Los herreros con 265 de habilidad pueden comprar su subida con lingotes de torio: {npc:14567}, en {area:976}, canjea los planos de placas imperiales por barras, y cada uno paga reputación con la Hermandad. {quest:7652} los abre (100). Cinturón 20 barras (100), brazal 20 (100), hombreras 20 (100), botas 40 (150), yelmo 50 (200), pechera 60 (200), quijotes 60 (200): 1.150 de reputación por 270 lingotes de torio. Cuentan con cualquier reputación, así que hazlas antes de las entregas de Burninate.",
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
-	["Belt, 20 Thorium Bars"] = "Cinturón, 20 barras de torio",
+	["Belt, 20 Thorium Bars"] = "Cinturón, 20 lingotes de torio",
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
-	["Bracer, 20 Thorium Bars"] = "Brazal, 20 barras de torio",
+	["Bracer, 20 Thorium Bars"] = "Brazal, 20 lingotes de torio",
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
-	["Shoulders, 20 Thorium Bars"] = "Hombreras, 20 barras de torio",
+	["Shoulders, 20 Thorium Bars"] = "Hombreras, 20 lingotes de torio",
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
-	["Boots, 40 Thorium Bars"] = "Botas, 40 barras de torio",
+	["Boots, 40 Thorium Bars"] = "Botas, 40 lingotes de torio",
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
-	["Helm, 50 Thorium Bars"] = "Yelmo, 50 barras de torio",
+	["Helm, 50 Thorium Bars"] = "Yelmo, 50 lingotes de torio",
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
-	["Chest, 60 Thorium Bars"] = "Pechera, 60 barras de torio",
+	["Chest, 60 Thorium Bars"] = "Pechera, 60 lingotes de torio",
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
-	["Leggings, 60 Thorium Bars"] = "Quijotes, 60 barras de torio",
+	["Leggings, 60 Thorium Bars"] = "Quijotes, 60 lingotes de torio",
 
 	-- Step 7: Heavy Leather, if you skin (Alliance)
 	-- {item:4234} Heavy Leather
@@ -88,12 +88,12 @@ return {
 	["{item:18942} to Friendly"] = "{item:18942} hasta Amistoso",
 	-- {item:3356} Kingsblood · {item:4234} Heavy Leather · {area:1446} Thorium Point · {item:2772} Iron Ore
 	-- plural, as words: Incendosaur Scales = {item:18944} Incendosaur Scale · Iron Bars = {item:3575} Iron Bar · Incendosaurs = {npc:9318} Incendosaur
-	["Neutral to Friendly is 3,000 reputation. Burninate takes Restoring Fiery Flux Supplies only while you are Neutral: 25 reputation for 2 Incendosaur Scales, 1 Coal and either 4 Iron Bars, 4 {item:3356} or 10 {item:4234}. These are level 60 quests, so they always pay in full. After the 700 from the {area:1446} quests that is 92 turn-ins: 184 scales (about 60 Incendosaurs), 92 Coal (Burninate sells it at 5 silver: 4g 60s) and 368 Iron Bars, 368 {item:3356} or 920 {item:4234}. If those quests paid you only 140 at 60, it is 115 turn-ins: 230 scales, 115 Coal (5g 75s) and 460 bars or {item:3356} or 1,150 {item:4234}. Miners smelt the bars from {item:2772}, herbalists pick {item:3356}, skinners get {item:4234} from beasts of level 28 to 40; all three sell on the Auction House. Pick whichever is cheapest for you, or mix them. Blacksmiths who did the Imperial Plate quests need 46 fewer turn-ins."] = "De Neutral a Amistoso son 3.000 de reputación. Burninate acepta Reponer suministros de flujo ígneo solo mientras estés en Neutral: 25 de reputación por 2 escamas de incendosaurio, 1 carbón y 4 barras de hierro, 4 {item:3356} o 10 {item:4234}. Son misiones de nivel 60, así que siempre pagan completo. Después de los 700 de las misiones de {area:1446} son 92 entregas: 184 escamas (unos 60 incendosaurios), 92 de carbón (Burninate lo vende a 5 de plata: 4g 60s) y 368 barras de hierro, 368 {item:3356} o 920 {item:4234}. Si esas misiones te pagaron solo 140 a nivel 60, son 115 entregas: 230 escamas, 115 de carbón (5g 75s) y 460 barras o {item:3356} o 1.150 {item:4234}. Los mineros funden las barras con {item:2772}, los herboristas recolectan {item:3356}, los desolladores sacan {item:4234} de bestias de nivel 28 a 40; los tres se venden en la casa de subastas. Elige lo que te salga más barato, o combínalos. Los herreros que hicieron las misiones de placas imperiales necesitan 46 entregas menos.",
+	["Neutral to Friendly is 3,000 reputation. Burninate takes Restoring Fiery Flux Supplies only while you are Neutral: 25 reputation for 2 Incendosaur Scales, 1 Coal and either 4 Iron Bars, 4 {item:3356} or 10 {item:4234}. These are level 60 quests, so they always pay in full. After the 700 from the {area:1446} quests that is 92 turn-ins: 184 scales (about 60 Incendosaurs), 92 Coal (Burninate sells it at 5 silver: 4g 60s) and 368 Iron Bars, 368 {item:3356} or 920 {item:4234}. If those quests paid you only 140 at 60, it is 115 turn-ins: 230 scales, 115 Coal (5g 75s) and 460 bars or {item:3356} or 1,150 {item:4234}. Miners smelt the bars from {item:2772}, herbalists pick {item:3356}, skinners get {item:4234} from beasts of level 28 to 40; all three sell on the Auction House. Pick whichever is cheapest for you, or mix them. Blacksmiths who did the Imperial Plate quests need 46 fewer turn-ins."] = "De Neutral a Amistoso son 3.000 de reputación. Burninate acepta Reponer suministros de flujo ígneo solo mientras estés en Neutral: 25 de reputación por 2 escamas de incendosaurio, 1 carbón y 4 lingotes de hierro, 4 {item:3356} o 10 {item:4234}. Son misiones de nivel 60, así que siempre pagan completo. Después de los 700 de las misiones de {area:1446} son 92 entregas: 184 escamas (unos 60 incendosaurios), 92 de carbón (Burninate lo vende a 5 de plata: 4g 60s) y 368 lingotes de hierro, 368 {item:3356} o 920 {item:4234}. Si esas misiones te pagaron solo 140 a nivel 60, son 115 entregas: 230 escamas, 115 de carbón (5g 75s) y 460 barras o {item:3356} o 1.150 {item:4234}. Los mineros funden las barras con {item:2772}, los herboristas recolectan {item:3356}, los desolladores sacan {item:4234} de bestias de nivel 28 a 40; los tres se venden en la casa de subastas. Elige lo que te salga más barato, o combínalos. Los herreros que hicieron las misiones de placas imperiales necesitan 46 entregas menos.",
 	-- {item:18944} Incendosaur Scale
 	["{item:18944}, 2 per turn-in"] = "{item:18944}, 2 por entrega",
 	["Coal, 1 per turn-in"] = "Carbón, 1 por entrega",
 	-- plural, as words: Iron Bars = {item:3575} Iron Bar
-	["via Iron: 4 Iron Bars"] = "con hierro: 4 barras de hierro",
+	["via Iron: 4 Iron Bars"] = "con hierro: 4 lingotes de hierro",
 	-- {item:3356} Kingsblood
 	["{item:3356}, 4 per turn-in"] = "{item:3356}, 4 por entrega",
 	-- {item:3356} Kingsblood
@@ -131,13 +131,13 @@ return {
 	["{item:17010}: Firewalkers, Flameguards and Firelords in the {area:2717}"] = "{item:17010}: caminantes del fuego, guardallamas y señores del fuego en {area:2717}",
 	-- {item:17011} Lava Core
 	-- plural, as words: Lava Elementals = {npc:12076} Lava Elemental · Lava Reavers = {npc:12100} Lava Reaver · Molten Destroyers = {npc:11659} Molten Destroyer
-	["{item:17011}: Lava Elementals, Lava Reavers and Molten Destroyers"] = "{item:17011}: elementales de lava, atracadores de lava y destructores fundidos",
+	["{item:17011}: Lava Elementals, Lava Reavers and Molten Destroyers"] = "{item:17011}: elementales de lava, atracadores de lava y destructores de magma",
 	-- {item:17012} Core Leather
 	-- plural, as words: Ancient Core Hounds = {npc:11673} Ancient Core Hound
-	["{item:17012}: skin Ancient Core Hounds and Magmadar"] = "{item:17012}: despelleja a los canes del Núcleo ancestrales y a Magmadar",
+	["{item:17012}: skin Ancient Core Hounds and Magmadar"] = "{item:17012}: despelleja a los canes del Núcleo ancianos y a Magmadar",
 	-- {item:11382} Blood of the Mountain · {object:165658} Dark Iron Deposit
 	-- plural, as words: Molten Destroyers = {npc:11659} Molten Destroyer
-	["{item:11382}: Molten Destroyers, sometimes a {object:165658}"] = "{item:11382}: destructores fundidos, a veces un {object:165658}",
+	["{item:11382}: Molten Destroyers, sometimes a {object:165658}"] = "{item:11382}: destructores de magma, a veces un {object:165658}",
 	-- {item:11370} Dark Iron Ore · {skill:186} Mining
 	-- plural, as words: Dark Iron Deposits = {object:165658} Dark Iron Deposit
 	["{item:11370}: Dark Iron Deposits, {skill:186} 230"] = "{item:11370}: depósitos de hierro negro, {skill:186} 230",

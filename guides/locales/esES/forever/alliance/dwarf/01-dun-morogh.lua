@@ -275,7 +275,7 @@ return {
 	-- Step 44: Shimmerweed
 	-- {item:2676} Shimmerweed · {area:802} Shimmer Ridge · {area:131} Kharanos
 	-- plural, as words: Frostmane Seers = {npc:1397} Frostmane Seer
-	["The {item:2676} grows in baskets up on {area:802}, the snowy slope north of the road between {area:131} and Brewnall: climb from the road west of {area:131}. The Frostmane Seers camped on the ridge drop it too."] = "{item:2676} crece en cestas arriba en {area:802}, la ladera nevada al norte del camino entre {area:131} y Aldea Cervecera: sube desde el camino al oeste de {area:131}. Los videntes Peloescarcha acampados en la cresta también la sueltan.",
+	["The {item:2676} grows in baskets up on {area:802}, the snowy slope north of the road between {area:131} and Brewnall: climb from the road west of {area:131}. The Frostmane Seers camped on the ridge drop it too."] = "{item:2676} crece en cestas arriba en {area:802}, la ladera nevada al norte del camino entre {area:131} y Aldea Cervecera: sube desde el camino al oeste de {area:131}. Los profetas Peloescarcha acampados en la cresta también la sueltan.",
 
 	-- Step 46: The Gnomeregan road
 	-- {area:133} Gnomeregan
@@ -382,7 +382,7 @@ return {
 	-- Step 70: Helm's Bed Lake
 	-- {area:212} Helm's Bed Lake · {quest:95214} Stolen Blasting Powder · {item:274268} Dark Iron Map
 	-- plural, as words: Rockjaw Ambushers = {npc:1116} Rockjaw Ambusher · Rockjaw Backbreakers = {npc:1118} Rockjaw Backbreaker
-	["Rockjaw Ambushers by {area:212}, north of the quarry, and Rockjaw Backbreakers further east drop the {quest:95214}. Dark Iron Spies sneak around the lake shore east of the quarry; one of them drops the {item:274268}."] = "Los emboscadores Mentueso junto a {area:212}, al norte de la cantera, y los rompespaldas Mentueso más al este sueltan {quest:95214}. Los espías Hierro Negro merodean por la orilla del lago al este de la cantera; uno de ellos suelta {item:274268}.",
+	["Rockjaw Ambushers by {area:212}, north of the quarry, and Rockjaw Backbreakers further east drop the {quest:95214}. Dark Iron Spies sneak around the lake shore east of the quarry; one of them drops the {item:274268}."] = "Los emboscadores Mentueso junto a {area:212}, al norte de la cantera, y los partedorsales Mentueso más al este sueltan {quest:95214}. Los espías Hierro Negro merodean por la orilla del lago al este de la cantera; uno de ellos suelta {item:274268}.",
 
 	-- Step 71: Dun Morogh: kill these as you meet them
 	-- {item:2770} Copper Ore
@@ -423,7 +423,7 @@ return {
 	-- Step 84: Stonesplinter troggs
 	["Stonesplinter troggs"] = "Troggs Rompecantos",
 	-- plural, as words: Stonesplinter Scouts = {npc:1162} Stonesplinter Scout
-	["North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth.\nCareful: pull the Stonesplinter Scouts and Troggs one at a time. Stay at the north edge of the valley; Headsplitter patrols the deeper camps."] = "Al norte del puesto, al oeste del camino: los troggs y los exploradores Piedrahuesa acampan en las colinas. Ambos sueltan los dientes de trogg de piedra.\nCuidado: saca a los exploradores y troggs Piedrahuesa de uno en uno. Quédate en el borde norte del valle; el Partecraneos patrulla los campamentos más profundos.",
+	["North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth.\nCareful: pull the Stonesplinter Scouts and Troggs one at a time. Stay at the north edge of the valley; Headsplitter patrols the deeper camps."] = "Al norte del puesto, al oeste del camino: los troggs y los exploradores Rompecantos acampan en las colinas. Ambos sueltan los dientes de trogg de piedra.\nCuidado: saca a los exploradores y troggs Piedrahuesa de uno en uno. Quédate en el borde norte del valle; el Partecraneos patrulla los campamentos más profundos.",
 
 	-- Step 85: Linen for John Turner
 	-- {npc:6175} John Turner
@@ -448,7 +448,7 @@ return {
 	["The west hills and the {area:925}"] = "Las colinas del oeste y {area:925}",
 	-- {npc:1343} Mountaineer Stormpike · {area:925} Algaz Station
 	-- plural, as words: Elder Black Bears = {npc:1186} Elder Black Bear · Mountain Boars = {npc:1190} Mountain Boar · Forest Lurkers = {npc:1195} Forest Lurker
-	["North through the hills west of the road to {npc:1343} at the {area:925}. The Tunnel Rat kobolds dig in the hills on the way; Elder Black Bears, Mountain Boars and Forest Lurkers roam the same ground."] = "Al norte por las colinas al oeste del camino hasta {npc:1343}, en {area:925}. Los kóbolds Rata del Túnel cavan en las colinas por el camino; los osos negros ancianos, los jabalíes monteses y los acechadores del bosque recorren el mismo terreno.",
+	["North through the hills west of the road to {npc:1343} at the {area:925}. The Tunnel Rat kobolds dig in the hills on the way; Elder Black Bears, Mountain Boars and Forest Lurkers roam the same ground."] = "Al norte por las colinas al oeste del camino hasta {npc:1343}, en {area:925}. Los kóbolds Rata del Túnel cavan en las colinas por el camino; los osos negros viejos, los jabalíes monteses y los rondadores del bosque recorren el mismo terreno.",
 	-- {item:3110} Tunnel Rat Ear
 	["{item:3110}: Tunnel Rat kobolds"] = "{item:3110}: kóbolds Rata del Túnel",
 	-- {item:3172} Boar Intestines
@@ -456,10 +456,10 @@ return {
 	["{item:3172}: Mountain Boars"] = "{item:3172}: jabalíes monteses",
 	-- {item:3173} Bear Meat
 	-- plural, as words: Elder Black Bears = {npc:1186} Elder Black Bear
-	["{item:3173}: Elder Black Bears"] = "{item:3173}: osos negros ancianos",
+	["{item:3173}: Elder Black Bears"] = "{item:3173}: osos negros viejos",
 	-- {item:3174} Spider Ichor
 	-- plural, as words: Forest Lurkers = {npc:1195} Forest Lurker
-	["{item:3174}: Forest Lurkers"] = "{item:3174}: acechadores del bosque",
+	["{item:3174}: Forest Lurkers"] = "{item:3174}: rondadores del bosque",
 	-- {npc:5413} Furen Longbeard · {zone:1453} Stormwind
 	["{npc:5413} in {zone:1453} takes it"] = "La recoge {npc:5413} en {zone:1453}",
 
@@ -604,7 +604,7 @@ return {
 	["Tram to {zone:1453}"] = "Tranvía a {zone:1453}",
 	-- {zone:1455} Ironforge · {area:2257} Deeprun Tram · {npc:12997} Monty · {item:17117} Rat Catcher's Flute · {npc:13018} Nipsy · {zone:1453} Stormwind
 	-- plural, as words: Deeprun Rats = {npc:13016} Deeprun Rat
-	["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end. The tram has no map inside. The city markers show the entrances, not the two brothers."] = "En la plataforma de {zone:1455} de {area:2257}, {npc:12997} pide ayuda con las ratas: usa su {item:17117} sobre las ratas de Túnel Profundo alrededor de la plataforma, entrégalas, y luego lleva su carta a su hermano {npc:13018} en el extremo de {zone:1453}. El tranvía no tiene mapa dentro. Los marcadores de la ciudad muestran las entradas, no a los dos hermanos.",
+	["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end. The tram has no map inside. The city markers show the entrances, not the two brothers."] = "En la plataforma de {zone:1455} de {area:2257}, {npc:12997} pide ayuda con las ratas: usa su {item:17117} sobre las ratas del subterráneo alrededor de la plataforma, entrégalas, y luego lleva su carta a su hermano {npc:13018} en el extremo de {zone:1453}. El tranvía no tiene mapa dentro. Los marcadores de la ciudad muestran las entradas, no a los dos hermanos.",
 	-- {npc:12997} Monty · {zone:1455} Ironforge
 	["{npc:12997}, on the {zone:1455} platform"] = "{npc:12997}, en el andén de {zone:1455}",
 	-- {npc:13016} Deeprun Rat · {item:17117} Rat Catcher's Flute

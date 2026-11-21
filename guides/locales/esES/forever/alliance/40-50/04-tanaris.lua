@@ -142,7 +142,7 @@ return {
 	-- Step 26: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
-	["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "Cabalga al sureste hasta {area:985}. {npc:7847} está en medio del campamento Vagabundo del sur: limpia a su alrededor primero.\nCuidado: dos bastardos Vagabundo sigilosos viajan con él adondequiera que vaya. En su campamento de aparición, dos brujos de las sombras y sus esbirros están lo bastante cerca para unirse a una pelea con él. Fuera, junto a las torres, puedes luchar contra él sin ellos.",
+	["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "Cabalga al sureste hasta {area:985}. {npc:7847} está en medio del campamento Vagabundo del sur: limpia a su alrededor primero.\nCuidado: dos pícaros Deambulador sigilosos viajan con él adondequiera que vaya. En su campamento de aparición, dos brujos de las sombras y sus esbirros están lo bastante cerca para unirse a una pelea con él. Fuera, junto a las torres, puedes luchar contra él sin ellos.",
 
 	-- Step 28: Fly to Auberdine
 	-- {area:442} Auberdine

@@ -43,7 +43,7 @@ return {
 	-- Step 6: Shadowgale Forest
 	-- {npc:257944} Elegael Thornpaw · {item:265105} Lady's Tear Moss
 	-- plural, as words: Al'Aketh Footsoldiers = {npc:252665} Al'Aketh Footsoldier · Bloody Heirlooms = {item:265141} Bloody Heirloom · Shadowgale Shrieklings = {npc:256092} Shadowgale Shriekling
-	["The Al'Aketh Footsoldiers and Stormchasers camp just north of {npc:257944} and drop the Bloody Heirlooms (and ears, about one kill in four). The Shadowgale Shrieklings flying west of her drop the feathers; the {item:265105} grows on the trees along the stream west of her."] = "Los soldados de infantería y los cazatormentas Al'Aketh acampan justo al norte de {npc:257944} y sueltan las reliquias ensangrentadas (y orejas, más o menos una de cada cuatro muertes). Los chillones de Vendaval Sombrío que vuelan al oeste de ella sueltan las plumas; el {item:265105} crece en los árboles a lo largo del arroyo al oeste de ella.",
+	["The Al'Aketh Footsoldiers and Stormchasers camp just north of {npc:257944} and drop the Bloody Heirlooms (and ears, about one kill in four). The Shadowgale Shrieklings flying west of her drop the feathers; the {item:265105} grows on the trees along the stream west of her."] = "Los soldados de infantería y los cazatormentas Al'Aketh acampan justo al norte de {npc:257944} y sueltan las reliquias sangrientas (y orejas, más o menos una de cada cuatro muertes). Las chilladoras ventosombra que vuelan al oeste de ella sueltan las plumas; el {item:265105} crece en los árboles a lo largo del arroyo al oeste de ella.",
 	-- {npc:254151} Vayn Moongaze
 	["ears for {npc:254151}: keep every one"] = "orejas para {npc:254151}: guárdalas todas",
 

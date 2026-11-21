@@ -49,7 +49,7 @@ return {
 
 	-- Step 10: Bloodscalp Tusks
 	-- plural, as words: Bloodscalp Tusks = {item:3901} Bloodscalp Tusk
-	["Bloodscalp Tusks"] = "Colmillos de Bloodscalp",
+	["Bloodscalp Tusks"] = "Colmillos Sangrapellejo",
 	-- {area:117} Grom'gol Base Camp · {area:123} Bal'lal Ruins
 	["You need 30 tusks. Every Bloodscalp troll (level 33-37) of north-west Stranglethorn drops one about one kill in three, so plan on some 80 kills: the camps and ruins north and north-west of {area:117} and around the {area:123} on the coast. They enrage below 30% health and the Warriors disarm; back in 5 minutes."] = "Necesitas 30 colmillos. Cada trol Bloodscalp (nivel 33-37) del noroeste de Tuercespina suelta uno unas una de cada tres muertes, así que calcula unas 80 muertes: los campamentos y ruinas al norte y noroeste de {area:117} y alrededor de {area:123}, en la costa. Entran en furia por debajo del 30% de vida y los guerreros desarman; vuelven en 5 minutos.",
 

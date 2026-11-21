@@ -62,11 +62,11 @@ return {
 	-- plural, as words: Raptor Heads = {item:5062} Raptor Head
 	["Raptor Heads as you go"] = "Cabezas de raptor sobre la marcha",
 	-- plural, as words: Sunscale Screechers = {npc:3255} Sunscale Screecher
-	["Sunscale raptors roam the plains north and east of the Crossroads, and about three in four drop a head: kill the ones you pass on the way. Careful: Sunscale Screechers call nearby allies within 30 yd once below 30% health."] = "Los raptores Solescama recorren las llanuras al norte y al este del Cruce, y unos tres de cada cuatro sueltan una cabeza: mata a los que encuentres en el camino. Cuidado: los chilladores Solescama llaman a los aliados cercanos en 30 m cuando bajan del 30 % de salud.",
+	["Sunscale raptors roam the plains north and east of the Crossroads, and about three in four drop a head: kill the ones you pass on the way. Careful: Sunscale Screechers call nearby allies within 30 yd once below 30% health."] = "Los raptores Solescama recorren las llanuras al norte y al este del Cruce, y unos tres de cada cuatro sueltan una cabeza: mata a los que encuentres en el camino. Cuidado: los estridadores solescama llaman a los aliados cercanos en 30 m cuando bajan del 30 % de salud.",
 
 	-- Step 15: Plainstrider Beaks as you go
 	-- plural, as words: Plainstrider Beaks = {item:5087} Plainstrider Beak
-	["Plainstrider Beaks as you go"] = "Picos de zancudo sobre la marcha",
+	["Plainstrider Beaks as you go"] = "Picos de zancudo de llanura sobre la marcha",
 	-- {zone:1413} The Barrens
 	["Plainstriders roam the plains all over the {zone:1413}, and about one in four drops a beak: kill the ones you pass on the way."] = "Los zancudos recorren las llanuras de todo {zone:1413}, y uno de cada cuatro suelta un pico: mata a los que encuentres en el camino.",
 
@@ -76,13 +76,13 @@ return {
 
 	-- Step 17: Finish the Plainstrider Beaks
 	-- plural, as words: Plainstrider Beaks = {item:5087} Plainstrider Beak
-	["Finish the Plainstrider Beaks"] = "Termina los picos de zancudo",
+	["Finish the Plainstrider Beaks"] = "Termina los picos de zancudo de llanura",
 	["Still short of seven? Plainstriders are thickest on the plains north of the Crossroads, along the road north."] = "¿Aún te faltan para siete? Los zancudos abundan más en las llanuras al norte del Cruce, a lo largo del camino hacia el norte.",
 
 	-- Step 19: The Zhevra
 	-- {area:392} Ratchet
 	-- plural, as words: Zhevra Runners = {npc:3242} Zhevra Runner
-	["Zhevra Runners graze along the road east toward {area:392}: take their hooves on the way out."] = "Los galopadores zhebra pastan junto al camino al este, hacia {area:392}: consigue sus pezuñas a la salida.",
+	["Zhevra Runners graze along the road east toward {area:392}: take their hooves on the way out."] = "Los galopadores astacebra pastan junto al camino al este, hacia {area:392}: consigue sus pezuñas a la salida.",
 
 	-- Step 20: Ratchet
 	-- {area:392} Ratchet · {npc:3391} Gazlowe · {npc:7161} Wrenix the Wretched · {npc:3442} Sputtervalve · {npc:16227} Bragok · {npc:3446} Mebok Mizzyrix · {object:3972} WANTED · {quest:1492} Wharfmaster Dizzywig
@@ -169,7 +169,7 @@ return {
 	-- Step 35: Harpy Lieutenants
 	-- {area:383} Dry Hills
 	-- plural, as words: Witchwing Slayers = {npc:3278} Witchwing Slayer
-	["North-west to the {area:383}: the Witchwing Slayers hold their western end; they wear the rings.\nCareful: Some stealthed harpy ambushers wait in the area and stay hidden until you get close. A level 19 elite harpy also patrols there."] = "Al noroeste, hasta {area:383}: las destripadoras Alabruja ocupan su extremo oeste; ellas llevan los anillos.\nCuidado: algunas emboscadoras arpías esperan sigilosas en la zona y no se ven hasta que te acercas. Una arpía élite de nivel 19 también patrulla por ahí.",
+	["North-west to the {area:383}: the Witchwing Slayers hold their western end; they wear the rings.\nCareful: Some stealthed harpy ambushers wait in the area and stay hidden until you get close. A level 19 elite harpy also patrols there."] = "Al noroeste, hasta {area:383}: los destripadores Alabruja ocupan su extremo oeste; ellas llevan los anillos.\nCuidado: algunas emboscadoras arpías esperan sigilosas en la zona y no se ven hasta que te acercas. Una arpía élite de nivel 19 también patrulla por ahí.",
 
 	-- Step 37: Vrang Wildgore
 	-- {quest:881} Echeyakee · {npc:3682} Vrang Wildgore
@@ -179,7 +179,7 @@ return {
 	["Savannah lions"] = "Leones de la sabana",
 	-- {npc:3682} Vrang Wildgore
 	-- plural, as words: Savannah Patriarchs = {npc:3241} Savannah Patriarch · Sprung Traps = {object:640104} Sprung Trap
-	["Savannah Patriarchs roam the plains east of {npc:3682}'s camp, and the Sprung Traps lie among them."] = "Los patriarcas de la sabana recorren las llanuras al este del campamento de {npc:3682}, y las trampas dispuestas están entre ellos.",
+	["Savannah Patriarchs roam the plains east of {npc:3682}'s camp, and the Sprung Traps lie among them."] = "Los patriarcas de la sabana recorren las llanuras al este del campamento de {npc:3682}, y las trampas activadas están entre ellos.",
 
 	-- Step 39: Vrang Wildgore
 	-- {npc:261366} Walton · {npc:3682} Vrang Wildgore · {area:383} Dry Hills · {npc:3452} Serena Bloodfeather
@@ -308,7 +308,7 @@ return {
 	["North to the {area:383}: {quest:876} leads the Witchwing harpies in the hills to the west.\nCareful: The route in passes stealthed Harpy Ambushers and an elite harpy that patrols."] = "Al norte, hasta {area:383}: {quest:876} dirige a las arpías Alabruja de las colinas del oeste.\nCuidado: el camino de entrada pasa por emboscadoras arpías sigilosas y por una arpía élite que patrulla.",
 	-- {quest:865} Raptor Horns · {npc:3682} Vrang Wildgore
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
-	["{quest:865}, if still open: Sunscale Scytheclaws prowl among the lions below {npc:3682}'s camp"] = "{quest:865}, si sigue abierta: las garras Solescama merodean entre los leones bajo el campamento de {npc:3682}",
+	["{quest:865}, if still open: Sunscale Scytheclaws prowl among the lions below {npc:3682}'s camp"] = "{quest:865}, si sigue abierta: las segadores Solescama merodean entre los leones bajo el campamento de {npc:3682}",
 
 	-- Step 65: Walton
 	-- {npc:261366} Walton · {npc:3682} Vrang Wildgore
@@ -508,7 +508,7 @@ return {
 	["{quest:882}, a big Sunscale raptor, only comes to a fresh kill: loot a {item:10338} from a zhevra, then use it at the {object:147538} north-west of {area:392}, north of the road to the Crossroads, and be ready when he arrives."] = "{quest:882}, un gran raptor Solescama, solo acude a una presa fresca: saquea {item:10338} de una zhebra y úsalo en {object:147538}, al noroeste de {area:392} y al norte del camino al Cruce, y prepárate para cuando llegue.",
 	-- {item:10338} Fresh Zhevra Carcass
 	-- plural, as words: Zhevra Chargers = {npc:3426} Zhevra Charger
-	["{item:10338}, from any zhevra; Zhevra Chargers graze around the tree"] = "{item:10338}, de cualquier zhebra; los embestidores zhebra pastan alrededor del árbol",
+	["{item:10338}, from any zhevra; Zhevra Chargers graze around the tree"] = "{item:10338}, de cualquier zhebra; los destreros zhebra pastan alrededor del árbol",
 	-- {object:147538} Dead Tree (no name in this language: may be words) · {quest:882} Ishamuhale
 	["At the {object:147538}: summons {quest:882}"] = "En {object:147538}: invoca a {quest:882}",
 
@@ -651,7 +651,7 @@ return {
 	["{area:1076}: kill these as you meet them"] = "{area:1076}: mátalos según te los encuentres",
 	-- {area:2539} Malaka'jin · {npc:11858} Grundig Darkcloud
 	-- plural, as words: Grimtotem Brutes = {npc:11912} Grimtotem Brute · Deepmoss Creepers = {npc:4005} Deepmoss Creeper
-	["North up the road from {area:2539}: {npc:11858} and his Grimtotem Brutes hold the bend in the road, and the Deepmoss Creepers and Venomspitters lurk in the webs on both sides of the path all the way up."] = "Al norte por el camino desde {area:2539}: {npc:11858} y sus brutos Tótem Siniestro ocupan la curva del camino, y los reptadores y escupevenenos Musgondo acechan en las telarañas a ambos lados del sendero hasta arriba.",
+	["North up the road from {area:2539}: {npc:11858} and his Grimtotem Brutes hold the bend in the road, and the Deepmoss Creepers and Venomspitters lurk in the webs on both sides of the path all the way up."] = "Al norte por el camino desde {area:2539}: {npc:11858} y sus toscos Tótem Siniestro ocupan la curva del camino, y los trepadores y escupevenenos Musgondo acechan en las telarañas a ambos lados del sendero hasta arriba.",
 
 	-- Step 145: Ziz Fizziks
 	-- {area:1076} Webwinder Path · {quest:1483} Ziz Fizziks · {area:461} Windshear Crag

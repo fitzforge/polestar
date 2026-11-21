@@ -63,7 +63,7 @@ return {
 	["{spell:3918} to 35"] = "{spell:3918} hasta 35",
 	-- {spell:3918} Rough Blasting Powder · {item:2835} Rough Stone · {item:2770} Copper Ore
 	-- plural, as words: Copper Veins = {object:1731} Copper Vein
-	["{spell:3918} is orange at 1 (yellow 20, green 30, grey 40): about 46 crafts to 35. Each takes 1 {item:2835}. One {item:2835} a craft; {item:2835} comes with the {item:2770} from Copper Veins."] = "{spell:3918} es naranja a 1 (amarillo 20, verde 30, gris 40): unas 46 fabricaciones hasta 35. Cada una lleva 1 {item:2835}. Una {item:2835} por fabricación; {item:2835} sale con el {item:2770} de las vetas de cobre.",
+	["{spell:3918} is orange at 1 (yellow 20, green 30, grey 40): about 46 crafts to 35. Each takes 1 {item:2835}. One {item:2835} a craft; {item:2835} comes with the {item:2770} from Copper Veins."] = "{spell:3918} es naranja a 1 (amarillo 20, verde 30, gris 40): unas 46 fabricaciones hasta 35. Cada una lleva 1 {item:2835}. Una {item:2835} por fabricación; {item:2835} sale con el {item:2770} de las filones de cobre.",
 
 	-- Step 13: Engineering recipes at 35
 	-- {skill:202} Engineering
@@ -89,7 +89,7 @@ return {
 	["{spell:3924} to 75"] = "{spell:3924} hasta 75",
 	-- {spell:3924} Copper Tube · {item:2840} Copper Bar · {item:2880} Weak Flux · {item:6219} Arclight Spanner
 	-- plural, as words: Copper Bars = {item:2840} Copper Bar
-	["{spell:3924} is orange at 57 (yellow 80, green 95, grey 110): about 18 crafts to 75, a point every craft. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. Make the {item:6219} now, while it still gives a point: a later recipe needs it in your bags, so keep it there."] = "{spell:3924} es naranja a 57 (amarillo 80, verde 95, gris 110): unas 18 fabricaciones hasta 75, un punto por fabricación. Cada una lleva 2 {item:2840} y 1 {item:2880}. Dos barras de cobre y un {item:2880} por fabricación (proveedores de herrería e ingeniería). Requiere un yunque cerca. Haz ahora {item:6219}, mientras todavía da un punto: una receta posterior lo necesita en tus bolsas, así que guárdalo ahí.",
+	["{spell:3924} is orange at 57 (yellow 80, green 95, grey 110): about 18 crafts to 75, a point every craft. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby. Make the {item:6219} now, while it still gives a point: a later recipe needs it in your bags, so keep it there."] = "{spell:3924} es naranja a 57 (amarillo 80, verde 95, gris 110): unas 18 fabricaciones hasta 75, un punto por fabricación. Cada una lleva 2 {item:2840} y 1 {item:2880}. Dos lingotes de cobre y un {item:2880} por fabricación (proveedores de herrería e ingeniería). Requiere un yunque cerca. Haz ahora {item:6219}, mientras todavía da un punto: una receta posterior lo necesita en tus bolsas, así que guárdalo ahí.",
 	["a tool: keep it in your bags"] = "es una herramienta: guárdala en tus bolsas",
 
 	-- Step 17: Journeyman Engineering
@@ -165,7 +165,7 @@ return {
 	["{spell:3924} to 100"] = "{spell:3924} hasta 100",
 	-- {spell:3924} Copper Tube · {item:2840} Copper Bar · {item:2880} Weak Flux
 	-- plural, as words: Copper Bars = {item:2840} Copper Bar
-	["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby."] = "{spell:3924} es amarillo a 94 (amarillo 80, verde 95, gris 110): unas 14 fabricaciones hasta 100. Cada una lleva 2 {item:2840} y 1 {item:2880}. Dos barras de cobre y un {item:2880} por fabricación (proveedores de herrería e ingeniería). Requiere un yunque cerca.",
+	["{spell:3924} is yellow at 94 (yellow 80, green 95, grey 110): about 14 crafts to 100. Each takes 2 {item:2840} and 1 {item:2880}. Two Copper Bars and a {item:2880} a craft (blacksmithing and engineering suppliers). Needs an anvil nearby."] = "{spell:3924} es amarillo a 94 (amarillo 80, verde 95, gris 110): unas 14 fabricaciones hasta 100. Cada una lleva 2 {item:2840} y 1 {item:2880}. Dos lingotes de cobre y un {item:2880} por fabricación (proveedores de herrería e ingeniería). Requiere un yunque cerca.",
 
 	-- Step 34: Engineering recipes at 100
 	-- {skill:202} Engineering
@@ -399,14 +399,14 @@ return {
 	["{item:10513} to 265"] = "{item:10513} hasta 265",
 	-- {item:10513} Mithril Gyro-Shot · {item:3860} Mithril Bar · {item:10505} Solid Blasting Powder
 	-- plural, as words: Mithril Bars = {item:3860} Mithril Bar
-	["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby."] = "{item:10513} es amarillo a 245 (amarillo 245, verde 265, gris 285): unas 28 fabricaciones hasta 265. Cada una lleva 2 {item:3860} y 2 {item:10505} y da 200. Haz primero los 56 {item:10505}. Dos barras de mitril y dos {item:10505} por fabricación. Requiere un yunque cerca.",
+	["{item:10513} is yellow at 245 (yellow 245, green 265, grey 285): about 28 crafts to 265. Each takes 2 {item:3860} and 2 {item:10505} and makes 200. Make the 56 {item:10505} first. Two Mithril Bars and two {item:10505} a craft. Needs an anvil nearby."] = "{item:10513} es amarillo a 245 (amarillo 245, verde 265, gris 285): unas 28 fabricaciones hasta 265. Cada una lleva 2 {item:3860} y 2 {item:10505} y da 200. Haz primero los 56 {item:10505}. Dos lingotes de mitril y dos {item:10505} por fabricación. Requiere un yunque cerca.",
 
 	-- Step 76: Thorium Widget to 287
 	-- {item:15994} Thorium Widget
 	["{item:15994} to 287"] = "{item:15994} hasta 287",
 	-- {item:15994} Thorium Widget · {item:12359} Thorium Bar · {item:14047} Runecloth
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
-	["{item:15994} is orange at 265 (yellow 280, green 290, grey 300): about 24 crafts to 287. Each takes 3 {item:12359} and 1 {item:14047}. Three Thorium Bars and a {item:14047} a craft; the widgets are parts for the later Thorium gadgets. Needs an anvil nearby."] = "{item:15994} es naranja a 265 (amarillo 280, verde 290, gris 300): unas 24 fabricaciones hasta 287. Cada una lleva 3 {item:12359} y 1 {item:14047}. Tres barras de torio y un {item:14047} por fabricación; los artefactos son piezas para los artilugios de torio posteriores. Requiere un yunque cerca.",
+	["{item:15994} is orange at 265 (yellow 280, green 290, grey 300): about 24 crafts to 287. Each takes 3 {item:12359} and 1 {item:14047}. Three Thorium Bars and a {item:14047} a craft; the widgets are parts for the later Thorium gadgets. Needs an anvil nearby."] = "{item:15994} es naranja a 265 (amarillo 280, verde 290, gris 300): unas 24 fabricaciones hasta 287. Cada una lleva 3 {item:12359} y 1 {item:14047}. Tres lingotes de torio y un {item:14047} por fabricación; los artefactos son piezas para los artilugios de torio posteriores. Requiere un yunque cerca.",
 	["from the recipe in your bags"] = "con la receta de tus bolsas",
 
 	-- Step 77: Thorium Tube to 300
@@ -414,7 +414,7 @@ return {
 	["{item:16000} to 300"] = "{item:16000} hasta 300",
 	-- {item:16000} Thorium Tube · {item:12359} Thorium Bar · {skill:202} Engineering
 	-- plural, as words: Thorium Bars = {item:12359} Thorium Bar
-	["{item:16000} is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300. Each takes 6 {item:12359}. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. {skill:202} 300 is a Legacy System milestone."] = "{item:16000} es naranja a 287 (amarillo 295, verde 305, gris 315): unas 14 fabricaciones hasta 300. Cada una lleva 6 {item:12359}. El esquema se liga al recogerlo; seis barras de torio por fabricación. Requiere un yunque cerca. {skill:202} 300 es un hito del Sistema de Legado.",
+	["{item:16000} is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300. Each takes 6 {item:12359}. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. {skill:202} 300 is a Legacy System milestone."] = "{item:16000} es naranja a 287 (amarillo 295, verde 305, gris 315): unas 14 fabricaciones hasta 300. Cada una lleva 6 {item:12359}. El esquema se liga al recogerlo; seis lingotes de torio por fabricación. Requiere un yunque cerca. {skill:202} 300 es un hito del Sistema de Legado.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Apprentice {skill:202}"] = "{skill:202} de aprendiz",

@@ -60,7 +60,7 @@ return {
 	["Northshire: Echo Ridge, {npc:103} and the vineyard"] = "Villanorte: Cresta del Eco, {npc:103} y el viñedo",
 	-- {area:34} Echo Ridge Mine · {npc:103} Garrick Padfoot · {quest:3904} Milly's Harvest · {object:83763} Stolen Books
 	-- plural, as words: Kobold Workers = {npc:257} Kobold Worker
-	["The Kobold Workers are in {area:34} north of the abbey; {npc:103} stands in the Defias camp east of the vineyard; {quest:3904} crates lie in the vineyard; the rats carrying the {object:83763} run about the abbey grounds."] = "Los obreros kóbold están en {area:34}, al norte de la abadía; {npc:103} está en el campamento Defias al este del viñedo; las cajas de {quest:3904} están en el viñedo; las ratas que llevan los {object:83763} corren por los terrenos de la abadía.",
+	["The Kobold Workers are in {area:34} north of the abbey; {npc:103} stands in the Defias camp east of the vineyard; {quest:3904} crates lie in the vineyard; the rats carrying the {object:83763} run about the abbey grounds."] = "Los trabajadores kóbold están en {area:34}, al norte de la abadía; {npc:103} está en el campamento Defias al este del viñedo; las cajas de {quest:3904} están en el viñedo; las ratas que llevan los {object:83763} corren por los terrenos de la abadía.",
 
 	-- Step 9: Northshire: second hand-in
 	["Northshire: second hand-in"] = "Villanorte: segunda entrega",
@@ -152,7 +152,7 @@ return {
 
 	-- Step 25: Eastvale: Defias Rogue Wizards
 	-- plural, as words: Defias Rogue Wizards = {npc:474} Defias Rogue Wizard
-	["Eastvale: Defias Rogue Wizards"] = "Vallefresno del Este: magos renegados Defias",
+	["Eastvale: Defias Rogue Wizards"] = "Vallefresno del Este: zahoríes bribones Defias",
 	["opens with Thomas' report"] = "se abre con el informe de Thomas",
 	-- {item:780} Torn Murloc Fin
 	["{item:780}, from the murlocs south of the bridge"] = "{item:780}, de los múrlocs al sur del puente",
@@ -168,7 +168,7 @@ return {
 	["Inside the {area:717}"] = "Dentro de {area:717}",
 	-- {npc:1716} Bazil Thredd
 	-- plural, as words: Red Wool Bandanas = {item:2909} Red Wool Bandana
-	["Kill the prisoners, convicts and insurgents in the cells; the Red Wool Bandanas drop from the Defias inside. {npc:1716} waits in the far end."] = "Mata a los prisioneros, convictos e insurgentes de las celdas; los pañuelos de lana rojos los sueltan los Defias de dentro. {npc:1716} espera al fondo.",
+	["Kill the prisoners, convicts and insurgents in the cells; the Red Wool Bandanas drop from the Defias inside. {npc:1716} waits in the far end."] = "Mata a los prisioneros, convictos e insurgentes de las celdas; los pañuelos de lana roja los sueltan los Defias de dentro. {npc:1716} espera al fondo.",
 
 	-- Step 28: Stockade: hand in
 	-- {area:717} Stockade
@@ -189,7 +189,7 @@ return {
 	-- Step 32: Chillwind Camp: Clear the Way
 	-- {npc:10838} Commander Ashlam Valorfist · {npc:11053} High Priestess MacDonnell · {area:3197} Chillwind Camp · {zone:1422} Western Plaguelands · {faction:72} Stormwind · {object:92525} Argent Dawn
 	-- plural, as words: Skeletal Flayers = {npc:1783} Skeletal Flayer · Slavering Ghouls = {npc:1791} Slavering Ghoul
-	["These quests are level 52 to 58, so they pay in full at 60. {npc:10838} and {npc:11053} at {area:3197}, in the south of the {zone:1422}, send you against the four Scourge cauldrons: 820 {faction:72} reputation in all and 600 {object:92525} on the side. The Skeletal Flayers and Slavering Ghouls roam the fields north of the camp."] = "Estas misiones son de nivel 52 a 58, así que pagan completo a 60. {npc:10838} y {npc:11053}, en {area:3197}, en el sur de {zone:1422}, te envían contra los cuatro calderos de la Plaga: 820 de reputación con {faction:72} en total y 600 con {object:92525} de paso. Los desolladores esqueléticos y los necrófagos babosos recorren los campos al norte del campamento.",
+	["These quests are level 52 to 58, so they pay in full at 60. {npc:10838} and {npc:11053} at {area:3197}, in the south of the {zone:1422}, send you against the four Scourge cauldrons: 820 {faction:72} reputation in all and 600 {object:92525} on the side. The Skeletal Flayers and Slavering Ghouls roam the fields north of the camp."] = "Estas misiones son de nivel 52 a 58, así que pagan completo a 60. {npc:10838} y {npc:11053}, en {area:3197}, en el sur de {zone:1422}, te envían contra los cuatro calderos de la Plaga: 820 de reputación con {faction:72} en total y 600 con {object:92525} de paso. Los despellejadores esqueléticos y los necrófagos esclavizantes recorren los campos al norte del campamento.",
 
 	-- Step 33: Andorhal and Felstone Field
 	-- {area:199} Felstone Field
@@ -248,7 +248,7 @@ return {
 	-- Step 42: Morgan's Vigil: Dragonkin Menace
 	-- {npc:9562} Helendis Riverhorn · {area:2418} Morgan's Vigil · {zone:1428} Burning Steppes · {quest:4183} The True Masters · {area:69} Lakeshire · {object:2117} Stormwind Keep · {faction:72} Stormwind · {zone:1457} Darnassus · {npc:7044} Black Drake · {npc:7040} Black Dragonspawn · {npc:7041} Black Wyrmkin
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
-	["{npc:9562} at {area:2418}, in the south-east of the {zone:1428}, starts {quest:4183}: a chain to {area:69} and {object:2117}, 175 {faction:72} and 175 {zone:1457} reputation (level 54). The Black Broodlings and the {npc:7044} live on the slopes north of the Vigil; the {npc:7040} and {npc:7041} west of it, in the middle of the zone."] = "{npc:9562}, en {area:2418}, en el sureste de {zone:1428}, inicia {quest:4183}: una cadena que va a {area:69} y {object:2117}, 175 de reputación con {faction:72} y 175 con {zone:1457} (nivel 54). Las crías negras y los {npc:7044} viven en las laderas al norte del Vigía; los {npc:7040} y {npc:7041}, al oeste, en el centro de la zona.",
+	["{npc:9562} at {area:2418}, in the south-east of the {zone:1428}, starts {quest:4183}: a chain to {area:69} and {object:2117}, 175 {faction:72} and 175 {zone:1457} reputation (level 54). The Black Broodlings and the {npc:7044} live on the slopes north of the Vigil; the {npc:7040} and {npc:7041} west of it, in the middle of the zone."] = "{npc:9562}, en {area:2418}, en el sureste de {zone:1428}, inicia {quest:4183}: una cadena que va a {area:69} y {object:2117}, 175 de reputación con {faction:72} y 175 con {zone:1457} (nivel 54). Las estirpes negras y los {npc:7044} viven en las laderas al norte del Vigía; los {npc:7040} y {npc:7041}, al oeste, en el centro de la zona.",
 
 	-- Step 43: Lakeshire: Magistrate Solomon
 	-- {npc:344} Magistrate Solomon · {area:69} Lakeshire

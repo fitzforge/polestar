@@ -44,7 +44,7 @@ return {
 
 	-- Step 6: Darkmist Cavern
 	-- plural, as words: Darkmist Lurkers = {npc:4377} Darkmist Lurker
-	["The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes.\nCareful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them."] = "Las arañas Niebla Negra anidan alrededor de la cueva del noroeste del pantano; todas las arañas sueltan ojos.\nCuidado: Los acechadores Niebla Negra se mueven en sigilo y usan veneno en combate. Las arañas están muy juntas, así que es común atraer de más; atraer objetivos sueltos desde el borde exterior lo reduce.",
+	["The Darkmist spiders nest around the cavern in the north-west of the marsh; every spider drops eyes.\nCareful: Darkmist Lurkers move about stealthed and use poison once in combat. The spiders stand close together, so adds are common; pulling single targets from the outer edge cuts down on them."] = "Las arañas Niebla Negra anidan alrededor de la cueva del noroeste del pantano; todas las arañas sueltan ojos.\nCuidado: Las rondadoras Niebla Negra se mueven en sigilo y usan veneno en combate. Las arañas están muy juntas, así que es común atraer de más; atraer objetivos sueltos desde el borde exterior lo reduce.",
 
 	-- Step 7: Mudcrush Durtfeet
 	["Head south to the giant's hut in the middle of the marsh."] = "Ve al sur hasta la cabaña del gigante, en mitad del pantano.",

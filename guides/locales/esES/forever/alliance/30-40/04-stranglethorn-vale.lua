@@ -53,7 +53,7 @@ return {
 	["River crocolisks"] = "Crocoliscos fluviales",
 	-- {area:99} Rebel Camp
 	-- plural, as words: River Crocolisks = {npc:1150} River Crocolisk
-	["River Crocolisks (30-31) swim the river right beside Nesingwary's camp and up toward the {area:99}."] = "Los crocoliscos de río (30-31) nadan por el río justo al lado del campamento de Nesingwary y hacia {area:99}.",
+	["River Crocolisks (30-31) swim the river right beside Nesingwary's camp and up toward the {area:99}."] = "Los crocoliscos fluviales (30-31) nadan por el río justo al lado del campamento de Nesingwary y hacia {area:99}.",
 
 	-- Step 10: Stranglethorn Tigers
 	-- plural, as words: Stranglethorn Tigers = {npc:682} Stranglethorn Tiger
@@ -133,7 +133,7 @@ return {
 	-- {area:310} Crystalvein Mine
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk · Lesser Water Elementals = {npc:691} Lesser Water Elemental
 	-- was: ["From {area:108} the way leads south out of {zone:1436} into Stranglethorn's north-west, to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach its edge. Careful: its Lesser Water Elementals are 36-37: don't stay. The Bloodscalp ruins of Zul'Kunda to the north wait for the second Stranglethorn loop."] = "Desde {area:108} el camino lleva al sur, fuera de {zone:1436}, hasta el noroeste de la Vega de Tuercespina, a la {area:310}, cerca de la costa; los Basiliscos Espina de Cristal de alrededor sueltan los fragmentos.\nLa isla encantada está junto a la costa, al suroeste de la mina: basta con llegar a su orilla. Cuidado: sus Elementales de agua inferiores son de nivel 36-37: no te quedes. Las ruinas Cabellesangre de Zul'Kunda, al norte, esperan a la segunda vuelta por la Vega de Tuercespina."
-	["From Nesingwary's camp head west to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach its edge. Careful: its Lesser Water Elementals are 36-37: don't stay. The Bloodscalp ruins of Zul'Kunda to the north wait for the second Stranglethorn loop."] = "Desde el campamento de Nesingwary ve al oeste hasta {area:310}, cerca de la costa; los basiliscos Columna de Cristal de alrededor sueltan los fragmentos.\nLa isla encantada está justo frente a la costa, al suroeste de la mina: basta con llegar a su borde. Cuidado: sus elementales de agua menores son de nivel 36-37: no te quedes. Las ruinas Bloodscalp de Zul'Kunda, al norte, esperan el segundo circuito por Tuercespina.",
+	["From Nesingwary's camp head west to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach its edge. Careful: its Lesser Water Elementals are 36-37: don't stay. The Bloodscalp ruins of Zul'Kunda to the north wait for the second Stranglethorn loop."] = "Desde el campamento de Nesingwary ve al oeste hasta {area:310}, cerca de la costa; los basiliscos Columna de Cristal de alrededor sueltan los fragmentos.\nLa isla encantada está justo frente a la costa, al suroeste de la mina: basta con llegar a su borde. Cuidado: sus elementales de agua inferiores son de nivel 36-37: no te quedes. Las ruinas Bloodscalp de Zul'Kunda, al norte, esperan el segundo circuito por Tuercespina.",
 	["The haunted island"] = "La isla fantasma",
 
 	-- Step 21: Booty Bay

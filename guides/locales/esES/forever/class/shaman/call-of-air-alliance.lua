@@ -44,7 +44,7 @@ return {
 	["Twisted Earth Totems"] = "Tótems de tierra retorcida",
 	-- {area:75} Stonard · {zone:1435} Swamp of Sorrows
 	-- plural, as words: Twisted Earth Totems = {item:274045} Twisted Earth Totem · The Lost Ones = {npc:256028} The Lost One
-	["Five Twisted Earth Totems. The Lost Ones (murlocs, level 34-39) north and north-east of {area:75} in the {zone:1435} carry them; most run for help when hurt."] = "Cinco tótems de tierra retorcidos. Los Desposeídos (murlocs, nivel 34-39) al norte y noreste de {area:75} en {zone:1435} los llevan; la mayoría piden ayuda cuando están heridos.",
+	["Five Twisted Earth Totems. The Lost Ones (murlocs, level 34-39) north and north-east of {area:75} in the {zone:1435} carry them; most run for help when hurt."] = "Cinco tótems de tierra retorcidos. Los Perdidos (murlocs, nivel 34-39) al norte y noreste de {area:75} en {zone:1435} los llevan; la mayoría piden ayuda cuando están heridos.",
 
 	-- Step 8: Twisted Water Totems
 	-- plural, as words: Twisted Water Totems = {item:274046} Twisted Water Totem

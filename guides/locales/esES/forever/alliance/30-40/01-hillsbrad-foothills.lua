@@ -45,7 +45,7 @@ return {
 	-- Step 10: The Green Belt
 	-- {area:1025} The Green Belt · {npc:1244} Rethiel the Greenwarden · {quest:98283} Carnage
 	-- plural, as words: Maddened Rotclaws = {npc:271334} Maddened Rotclaw
-	["Maddened Rotclaws roam the {area:1025} around {npc:1244}; one of them drops the flesh. {npc:1244} takes the quest only with {quest:98283}'s head too."] = "Los garrapodridas enloquecidos recorren {area:1025} alrededor de {npc:1244}; uno de ellos suelta la carne. {npc:1244} solo acepta la misión si también tienes la cabeza de {quest:98283}.",
+	["Maddened Rotclaws roam the {area:1025} around {npc:1244}; one of them drops the flesh. {npc:1244} takes the quest only with {quest:98283}'s head too."] = "Las garrapútreas enajenados recorren {area:1025} alrededor de {npc:1244}; uno de ellos suelta la carne. {npc:1244} solo acepta la misión si también tienes la cabeza de {quest:98283}.",
 
 	-- Step 11: Rethiel the Greenwarden
 	-- {quest:98283} Carnage
@@ -135,7 +135,7 @@ return {
 	-- Step 30: Dragonmaw Retreat
 	-- {npc:270637} Howin Kindfeather
 	-- plural, as words: Dragonmaw Reclaimers = {npc:271351} Dragonmaw Reclaimer
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. The Dragonmaw Reclaimers, Soulbinders and Infiltrators (29-30, elite) camp just east of {npc:270637}."] = "Son enemigos élite: se recomienda agruparse, busca gente con quien hacerlo. Los recuperadores, vinculadores de almas e infiltrados Faucedraco (29-30, élite) acampan justo al este de {npc:270637}.",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. The Dragonmaw Reclaimers, Soulbinders and Infiltrators (29-30, elite) camp just east of {npc:270637}."] = "Son enemigos élite: se recomienda agruparse, busca gente con quien hacerlo. Los reivindicadores, vinculadores de almas e infiltrados Faucedraco (29-30, élite) acampan justo al este de {npc:270637}.",
 
 	-- Step 31: Howin Kindfeather
 	-- {npc:270637} Howin Kindfeather
