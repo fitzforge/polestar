@@ -187,7 +187,8 @@ const GROUP_SCRIPT: &str = r#"
 				Polestar.UI.Picker.SetCategory("All")
 				local chips = {}
 				for _, f in ipairs(stub.frames) do
-					if f.psGuide and rawget(f, "Range") and f:IsShown() then
+					-- The list's rows, not the Play next card above them.
+					if f.psGuide and rawget(f, "Range") and not rawget(f, "psPlayNext") and f:IsShown() then
 						chips[f.psGuide.id] = f.Group:IsShown() and f.Group.Text:GetText() or false
 					end
 				end

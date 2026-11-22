@@ -3806,9 +3806,12 @@ local function navButton(f, i)
 	b.Changed:Hide()
 	b:SetScript("OnClick", function(self) if f.psOnNav and not self.psHeading then f.psOnNav(self.psKey) end end)
 	-- A row with a mark (item.markTip) says what the mark means; the settings
-	-- window's rail and long names add to that (W.NavRowEnter).
+	-- window's rail and long names add to that (W.NavRowEnter). A one-line row
+	-- cut short (item.oneLine) reads whole in its tooltip.
 	b:SetScript("OnEnter", function(self)
-		if not (W.NavRowEnter and W.NavRowEnter(self, f)) then simpleTip(self) end
+		if W.NavRowEnter and W.NavRowEnter(self, f) then return end
+		if self.psItem and self.psItem.oneLine and self.Label:IsTruncated() then W.Tooltip(self, "ANCHOR_RIGHT", self.psItem.label)
+		else simpleTip(self) end
 	end)
 	b:SetScript("OnLeave", hideTip)
 	b.psShell = f
@@ -3893,6 +3896,7 @@ local function navRow(b, item, on)
 	-- The label ends short of the count (or dot), as wide as that is, and
 	-- takes a second line rather than run under it or off the sidebar.
 	b.Label:ClearAllPoints()
+	if not item.oneLine then b.Label:SetWidth(0) end
 	if item.heading or item.group then
 		b.Label:SetPoint("LEFT", b, "LEFT", SHELL.side, 0)
 		b.Label:SetPoint("RIGHT", b, "RIGHT", -(pad + (item.group and 20 or 0)), 0)
@@ -3908,10 +3912,19 @@ local function navRow(b, item, on)
 		local reserve = edge > 0 and edge + 8 or 0
 		if b.Changed:IsShown() then reserve = reserve + 6 + 8 end
 		b.Label:SetPoint("LEFT", b.Icon, "RIGHT", 12, 0)
-		b.Label:SetPoint("RIGHT", b, "RIGHT", -(pad + reserve), 0)
+		if item.oneLine then
+			-- Its width set, not anchored, so it measures where it is cut.
+			local room = (b.psShell.psSidebar or SHELL.sidebar) - 1 - (b.psShell.psNavRoom or 0)
+				- (SHELL.side + (item.indent and NAV_INDENT or 0)) - 16 - 12 - pad - reserve
+			b.Label:SetWidth(max(1, room))
+		else
+			b.Label:SetPoint("RIGHT", b, "RIGHT", -(pad + reserve), 0)
+		end
 		b.psRight = pad + reserve
 		b:Enable()
 	end
+	b.Label:SetWordWrap(not item.oneLine)
+	b.Label:SetMaxLines(item.oneLine and 0 or 2)
 	if W.NavRowAfter then W.NavRowAfter(b, item, on, pad) end
 end
 

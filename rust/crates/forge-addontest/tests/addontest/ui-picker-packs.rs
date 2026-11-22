@@ -160,6 +160,7 @@ fn pack_guides_carry_their_pack_s_title_in_rows_and_search_results() {
 fn details_the_credits_line_for_every_guide_with_the_pack_s_source_the_guide_s_own_author_wins() {
 	let out = run(r#"
 		UI.ShowPicker()
+		P.SetCategory("All") -- Browse: Home's details follow its own list
 		local function credits(id)
 			P.Select(id)
 			local d = P.details
@@ -241,14 +242,11 @@ fn a_64_character_pack_title_is_cut_in_the_sidebar_the_header_and_a_row_s_note()
 		P.SetCategory("pack:joe")
 		local entry
 		for _, b in ipairs(PolestarPicker.navButtons) do if b:IsShown() and b.psKey == "pack:joe" then entry = b end end
-		local p2, rel, rp, x = entry.Label:GetPoint(2)
 		local t2, trel, trp, tx = PolestarPicker.Title:GetPoint(2)
-		-- The width its anchors give it in the 240px sidebar (the stub does
-		-- not resolve anchors): 64 characters wrap to many lines there, and
-		-- the label keeps two.
-		entry.Label:SetWidth(239 - 24 - 16 - 12 - 24)
-		local fits = { lines = entry.Label:GetStringHeight() / entry.Label:GetLineHeight(), h = entry.Label:GetStringHeight(), row = entry:GetHeight() }
-		emit({ note = note, fits = fits, count = entry.Count:IsShown() and math.ceil(entry.Count:GetStringWidth()) or 0, label = { n = entry.Label:GetNumPoints(), point = p2, own = rel == entry, rp = rp, x = x },
+		-- A pack's label keeps one line, cut short: its width set, not anchored, so it measures where it is cut.
+		local fits = { lines = entry.Label:GetStringHeight() / entry.Label:GetLineHeight(), h = entry.Label:GetStringHeight(), row = entry:GetHeight(),
+			w = entry.Label:GetWidth(), wrap = entry.Label:GetWordWrap() }
+		emit({ note = note, fits = fits, count = entry.Count:IsShown() and math.ceil(entry.Count:GetStringWidth()) or 0, label = { n = entry.Label:GetNumPoints() },
 			title = { text = PolestarPicker.Title:GetText(), n = PolestarPicker.Title:GetNumPoints(), point = t2, own = trel == PolestarPicker.Header, x = tx } })"#,
 		&format!("JOE_TITLE = \"{long}\""),
 	);
@@ -257,12 +255,13 @@ fn a_64_character_pack_title_is_cut_in_the_sidebar_the_header_and_a_row_s_note()
 	let row = out["note"]["row"].as_f64().unwrap();
 	assert!(w <= (row * 0.45).floor(), "note {w} within 45% of {row}");
 	assert!(out["note"]["title"].as_f64().unwrap() >= 40.0);
-	let count = out["count"].as_i64().unwrap();
-	let x = -(24 + if count != 0 { count + 8 } else { 0 });
-	assert_eq!(out["label"], json!({ "n": 2, "point": "RIGHT", "own": true, "rp": "RIGHT", "x": x }), "the label ends short of the count, as wide as it is");
-	assert_eq!(out["fits"]["lines"], 2, "a long label takes two lines at most");
-	let (h, fits_row) = (out["fits"]["h"].as_f64().unwrap(), out["fits"]["row"].as_f64().unwrap());
-	assert!(h <= fits_row, "the label ({h}) stays within its row ({fits_row})");
+	let count = out["count"].as_f64().unwrap();
+	assert_eq!(out["label"], json!({ "n": 1 }), "the label's width is set, not anchored to the count");
+	// One line, cut short, its whole name in the tooltip (tests/ui-hub-home.test.js); the stub measures a string's
+	// height without word wrap, so the setting itself is checked.
+	assert_eq!(out["fits"]["wrap"], false, "a pack's long label keeps one line");
+	let lw = out["fits"]["w"].as_f64().unwrap();
+	assert!(lw > 0.0 && lw + count < 240.0, "the label ({lw}) ends short of the count ({count}) in the 240px sidebar");
 	assert_eq!(out["title"]["text"], long.as_str());
 	assert_eq!(json!({ "n": out["title"]["n"], "point": out["title"]["point"], "own": out["title"]["own"] }), json!({ "n": 2, "point": "TOPRIGHT", "own": true }));
 	assert!(out["title"]["x"].as_f64().unwrap() < 0.0);
