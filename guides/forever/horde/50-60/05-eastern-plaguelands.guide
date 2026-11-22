@@ -348,8 +348,11 @@ step Eastern Plaguelands: kill these as you meet them
 step Corin's Crossing
   tip Ride south to Corin's Crossing, on the road. Living Rot spoils within ten minutes: kill the town's Scourge quickly and grind the seven pieces with the Mortar and Pestle at once.
   tip Careful: Unseen Servants call for help within 25 yd once they drop to 40% health. Out of combat they also turn invisible with Greater Invisibility. If a call for help happens inside the town, a large number of mobs can join the fight. Fighting near the outskirts lowers this risk.
-  tip With Defenders of Darrowshire in your log (from Carlin at the start of this guide), the Scourge around the town leave Darrowshire Spirits: talk to each one to free it. Free them before you start on the Living Rot.
+  tip With Defenders of Darrowshire in your log (from Carlin at the start of this guide), the Cannibal Ghouls, Gibbering Ghouls and Diseased Flayers around the town leave Darrowshire Spirits where they die: talk to each one to free it. The spirits don't stand in the town on their own, so the target button names the Scourge. Free them before you start on the Living Rot.
   goto 52.3,58.2 "Corin's Crossing" live
+  kill 8530 quest 5211.1 optional       -- Cannibal Ghoul: a Darrowshire Spirit rises where one dies
+  kill 8531 quest 5211.1 optional       -- Gibbering Ghoul
+  kill 8532 quest 5211.1 optional       -- Diseased Flayer
   talk 11064 quest 5211.1 "Free Darrowshire Spirits: talk to them"
   collect 15447 x7
   complete 6022

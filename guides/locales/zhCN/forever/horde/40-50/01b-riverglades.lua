@@ -408,7 +408,9 @@ return {
 
 	-- Step 85: The Monster Surfaces
 	-- {npc:260244} Monstrous Threshadon · {npc:257001} Old Rot-Chum
-	["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244}在港口西南、鱼人海滩下方的浅水中游荡。精英{npc:257001}在附近岸边走动：离他远一点。",
+	["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "",
+	-- {item:268633} Sea Monster's Head
+	["{item:268633}: the Threshadon surfaces where you call him"] = "",
 
 	-- Step 87: The river: Riverweed
 	-- {item:265806} Riverweed
@@ -487,6 +489,7 @@ return {
 	-- ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way.\nCareful: {quest:95124} is level 45, a level or two over you here: clear the deck around her first and come in with full health."] = "再次前往海盗的悬崖。从南到北在营地下方停泊的三艘船上安放威兹巴兹的炸药；{quest:95124}站在中间那艘船旁，身边有她的战利品箱。路上留意{npc:259758}。\n小心：{quest:95124}为45级，比你高一两级：先清理她周围的甲板，满血再上。",
 	-- ["The cult's camps fill the valley south and west of {npc:258570}. Free the captive Rog'mar Scouts as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. {npc:256881} and {npc:256891} (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. {npc:258023}'s Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it."] = "暮光教派的营地遍布{npc:258570}南边和西边的山谷。沿途遇到被俘的洛格玛斥候就把他们救出来。暮光执行者（精英，45级）在营地间巡逻：每次拉怪前先看清它们的路线。{npc:256881}和{npc:256891}（精英，46级）据守山谷尽头的堡垒：把教徒从他们身边拉开。{npc:258023}的联盟营地位于山谷南端，那里的法霍德瞭望者（46级）会攻击部落：待在营地北边。",
 	-- ["The next guide flies from {area:340} in the {area:3}: north out of {npc:258570}'s valley and up through {area:16685}, the way through to the {area:3}."] = "下一份指南从{area:3}的{area:340}起飞：向北离开{npc:258570}的山谷，穿过{area:16685}，那里是通往{area:3}的路。",
+	-- ["The {npc:260244} prowls the shallows south-west of the port, below the murlocs' beaches. {npc:257001}, an elite, walks the shore close by: give him room."] = "{npc:260244}在港口西南、鱼人海滩下方的浅水中游荡。精英{npc:257001}在附近岸边走动：离他远一点。",
 	-- ["The {quest:94964}: Snufflesnout and {npc:257059}"] = "{quest:94964}：嗅嗅鼻和{npc:257059}",
 	-- ["The {zone:2548} lie south of the {area:3}. Ride east from the {area:657} to {area:75} and fly to {area:340}: the way down into the zone starts there."] = "{zone:2548}位于{area:3}以南。从{area:657}向东骑到{area:75}，再飞往{area:340}：进入该地区的下山路就从那里开始。",
 	-- ["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, hides in the middle of the town."] = "罗格玛西边，暮光教派占据着农镇{area:16723}。想要脱身的狗头人{npc:259158}躲在镇子中央。",

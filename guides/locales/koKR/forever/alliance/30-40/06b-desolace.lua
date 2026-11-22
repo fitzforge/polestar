@@ -48,8 +48,10 @@ return {
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:6134}'s magnets draw the Magrami Spectres a few yards from the Magram Necrokhans and Corpsefeeders (45, elite) in the {area:2657}. Skip it if you are alone."] = "정예 몹입니다. 파티를 권장하니 함께할 사람을 찾으십시오. {quest:6134}의 자석은 {area:2657}에서 마그람일족 강령왕과 시체먹이(45, 정예)로부터 몇 미터 떨어진 곳으로 마그라미 유령을 끌어냅니다. 혼자라면 건너뛰십시오.",
 
 	-- Step 8: Flesh Picker
-	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
-	["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s {item:213565}."] = "{npc:217590}이(가) {area:596}을(를) 기어다닙니다. {npc:217412}의 {item:213565}에 든 도구로 한 마리를 잡으십시오.",
+	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
+	["A {npc:217590} crawls about the {area:596}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "",
+	-- {item:213562} Bug Catching Net · {npc:217590} Flesh Picker · {item:213567} Flesh Picker Specimen
+	["{item:213562}, on a {npc:217590}: the {item:213567}"] = "",
 
 	-- Step 9: Maraudine centaurs
 	["Maraudine centaurs"] = "마라우돈일족 켄타우로스",
@@ -58,7 +60,7 @@ return {
 
 	-- Step 10: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277}은(는) 묘지 서쪽 켄타우로스 야영지에 갇혀 있습니다. 풀어 주고 나가는 동안 살려 두십시오. 그녀는 묘지 옆에서 멈춥니다.\n주의: 스크립트로 등장하는 무리는 서로 연결되어 있고 호위 중에만 나타나므로, 미리 처치하거나 하나씩 끌어올 수 없습니다. 시작하기 전에 길의 일반 켄타우로스를 처치해 두면 도움이 됩니다.",
+	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "",
 	-- {npc:12277} Melizza Brimbuzzle
 	["escort {npc:12277} back toward the graveyard"] = "{npc:12277}을(를) 묘지 쪽으로 호위",
 
@@ -138,9 +140,11 @@ return {
 	["The next guide starts in Theramore."] = "다음 가이드는 테라모어 섬에서 시작합니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s {item:213565}."] = "{npc:217590}이(가) {area:596}을(를) 기어다닙니다. {npc:217412}의 {item:213565}에 든 도구로 한 마리를 잡으십시오.",
 	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "칼날비늘 나가가 {npc:11863}의 탑 북쪽, 북서쪽 해안을 차지하고 있습니다. 카니톨의 가방은 그 앞바다 해저에 있으며, 어느 나가든 랙모어의 황금 열쇠를 떨어뜨릴 수 있습니다. 맨 북쪽 끝 앞바다의 {area:2406}까지 헤엄쳐 가서 {object:177673}에 {item:15766}을(를) 사용하십시오. {npc:12369}(38)이(가) 솟아오르니 처치해서 {quest:6027}을(를) 얻으십시오.",
 	-- ["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "악마들은 {zone:1443} 남부의 {area:602}에 모여 있습니다. 지옥사냥개(마나 포식자, 마법사 사냥개, 지맥 사냥개), 황천의 처녀와 황천의 자매, 그리고 구덩이 주변의 파멸의 수호대장입니다.\n주의: 이곳 몹 대부분은 순찰 경로를 걸으므로 몹을 더 끌어오기 쉽습니다.",
 	-- ["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them."] = "언데드 약탈자가 마그람일족 마을 남쪽, 마녀단 동쪽의 뼈 들판을 돌아다닙니다. 화살표는 들판 서쪽 가장자리로 안내합니다. 그런 다음 들판 동쪽의 화살표 위치에서 {item:15848}을(를) 사용해 마그람 유령을 끌어내십시오. 주의: 마그람일족 강령왕과 시체먹이(45, 정예)가 마그람일족 강령술사(42)와 함께 두 화살표 사이 뼈 들판을 돌아다닙니다. 약탈자와 유령을 그들에게서 멀리 끌어내십시오.",
+	-- ["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277}은(는) 묘지 서쪽 켄타우로스 야영지에 갇혀 있습니다. 풀어 주고 나가는 동안 살려 두십시오. 그녀는 묘지 옆에서 멈춥니다.\n주의: 스크립트로 등장하는 무리는 서로 연결되어 있고 호위 중에만 나타나므로, 미리 처치하거나 하나씩 끌어올 수 없습니다. 시작하기 전에 길의 일반 켄타우로스를 처치해 두면 도움이 됩니다.",
 	-- ["{npc:5396}, if 30-40/02 didn't give it"] = "{npc:5396}, 30-40/02에서 받지 않았다면",
 	-- ["{npc:5638}, if 30-40/02 didn't take it: the wreck lies below {npc:11863}'s tower"] = "{npc:5638}: 30-40/02에서 받지 않았다면. 난파선은 {npc:11863}의 탑 아래에 있습니다",
 	-- ["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "{npc:6019}은(는) {area:2407} 남서쪽, {area:596} 가장자리에 서 있습니다. {object:176751}은(는) 해골들 사이에 있습니다.",

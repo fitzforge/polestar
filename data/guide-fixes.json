@@ -2,6 +2,194 @@
 	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at?: { map, x, y, frame? }, label?, title?, when? } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge) and, with when (a condition or a list of them), holds every step of that walk for the players it names, after those. levels: { top } on at: { goal: \"levels\", guide } raises the guide's header top level to where players leave it. at: { quest, goal: accept | turnin | complete | objective | quest | collect, objective?, item?, guide? } (guide: that guide only). A collect anchor names quest and item and carries a goalNote. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
+			"id": "3192-stinky-from-36",
+			"faction": "Horde",
+			"at": {
+				"quest": 1270,
+				"goal": "accept",
+				"guide": "forever/horde/30-40/04-dustwallow-marsh"
+			},
+			"when": "level>=36",
+			"note": "#3192: Stinky Ignatz offered nothing to a level 35 player (PierreAnken: offered from 36); in players' recordings nobody took Stinky's Escape below 36. The step shows from 36; a lower character's accept waits for the level.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3192"
+				}
+			],
+			"issue": 3192
+		},
+		{
+			"id": "3347-melizza-escort-careful-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 6132,
+				"goal": "accept",
+				"guide": "forever/horde/30-40/04-dustwallow-marsh"
+			},
+			"tip": "Careful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help.",
+			"note": "#3347, #2755: Get Me Out of Here! sends six attackers during the escort; players at 38-39 found it too hard alone, and in the recordings 14 of 30 people who took it failed at least once (7 never finished). The step says so up front until the group choice (#3439, #3580) comes.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 6132: 30 people accepted, 14 failed at least once, 7 never completed"
+				}
+			],
+			"issue": 3347
+		},
+		{
+			"id": "3347-melizza-escort-careful-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6132,
+				"goal": "accept",
+				"guide": "forever/alliance/30-40/06b-desolace"
+			},
+			"tip": "Careful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help.",
+			"note": "#3347, #2755: as the Horde record; the Alliance's Desolace visit takes the same escort.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 6132: 30 people accepted, 14 failed at least once, 7 never completed"
+				}
+			],
+			"issue": 3347
+		},
+		{
+			"id": "3347-hornizz-hand-in-when-complete-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 6132,
+				"goal": "turnin",
+				"guide": "forever/horde/30-40/04-dustwallow-marsh"
+			},
+			"when": "complete 6132",
+			"note": "#3347: a player who skips the escort alone is not sent to Hornizz for its hand-in; the ghost-o-plasm accept after it needs the escort handed in anyway.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3347"
+				}
+			],
+			"issue": 3347
+		},
+		{
+			"id": "3347-hornizz-hand-in-when-complete-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6132,
+				"goal": "turnin",
+				"guide": "forever/alliance/30-40/06b-desolace"
+			},
+			"when": "complete 6132",
+			"note": "#3347: a player who skips the escort alone is not sent to Hornizz for its hand-in.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3347"
+				}
+			],
+			"issue": 3347
+		},
+		{
+			"id": "3036-threshadon-summon-tip-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 95267,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/40-50/01b-riverglades"
+			},
+			"tip": "The Monstrous Threshadon comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. Old Rot-Chum, an elite, walks the shore close by: give him room.",
+			"note": "#3036: the step never said that the Threshadon is called up from what floats in the water (place: 3036-riverglades-threshadon-summon).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3036"
+				}
+			],
+			"issue": 3036
+		},
+		{
+			"id": "3036-threshadon-summon-tip-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 95267,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/40-50/01b-riverglades"
+			},
+			"tip": "The Monstrous Threshadon comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. Old Rot-Chum, an elite, walks the shore close by: give him room.",
+			"note": "#3036: as the Alliance record.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3036"
+				}
+			],
+			"issue": 3036
+		},
+		{
+			"id": "3550-loose-soil-own-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 94829,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/40-50/01b-riverglades"
+			},
+			"split": {
+				"title": "Loose Soil"
+			},
+			"note": "#3550: each Loose Soil grave takes one of the Farmers' Mementos the Twilight Raiders drop, but While you're here offered the soil before the player had any. The graves are a step of their own after the cult (its `when has 266148`: the next record); the cult step collects the five Mementos.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3550"
+				}
+			],
+			"issue": 3550
+		},
+		{
+			"id": "3550-loose-soil-own-step-gate",
+			"faction": "Alliance",
+			"at": {
+				"quest": 94829,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/40-50/01b-riverglades"
+			},
+			"tip": "Back north-east to the loose soil west of Elbrim's farm: bury the Farmers' Mementos there, one in each grave.",
+			"when": "has 266148",
+			"note": "#3550: the Loose Soil step only with a Farmers' Memento in the bags, and its tip.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3550"
+				}
+			],
+			"issue": 3550
+		},
+		{
+			"id": "3346-figurine-torch-on-the-cart",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1738,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/30-40/04-stranglethorn-vale"
+			},
+			"tip": "From Astranaar head north-west into the hills: the Heartswood is a glowing tree north of the road to Maestra's Post. If you took What Is Love?, the Wooden Figurine lies in a house among the trees north of Maestra's Post (26.6,22.0): light the Unlit Torch from the table outside at a campfire and throw it onto the archaeologist's cart outside the house, which draws the figure in the house away so you can take the figurine upstairs. Then take the road west to Stonetalon.",
+			"note": "#3346: the figurine is taken by throwing the lit torch onto the archaeologist's cart outside the house, which draws the figure inside away; the step said only where the figurine lies.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3346 (Bussincider)"
+				}
+			],
+			"issue": 3346
+		},
+		{
 			"id": "a40-riverglades-second-wave-level-44",
 			"faction": "Alliance",
 			"at": {

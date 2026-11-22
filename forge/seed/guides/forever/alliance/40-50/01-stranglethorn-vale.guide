@@ -387,8 +387,8 @@ step Sir S. J. Erlgadin
 
 step Arbor Tarantula
   when onquest 93176
-  tip An Arbor Tarantula crawls in the jungle south-east of Nesingwary's camp, on the way to the Rebel Camp: catch one with the tool from Amaryllis Webb's Entomology Starter Kit.
-  collect 213566 "Arbor Tarantula Specimen" @43.1,16.7
+  tip An Arbor Tarantula crawls in the jungle south-east of Nesingwary's camp, on the way to the Rebel Camp: open Amaryllis Webb's Entomology Starter Kit and use its Bug Catching Net on one. Don't kill it.
+  use 213562 quest 93176.1 @43.1,16.7   -- Bug Catching Net, on an Arbor Tarantula: the Arbor Tarantula Specimen
 
 step Rebel Camp
   tip Head north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale.

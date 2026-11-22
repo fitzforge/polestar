@@ -590,8 +590,8 @@ step Powderfuse Port
 
 step The Monster Surfaces
   when onquest 95267
-  tip The Monstrous Threshadon prowls the shallows south-west of the port, below the murlocs' beaches. Old Rot-Chum, an elite, walks the shore close by: give him room.
-  collect 268633 quest 95267.1          -- Sea Monster's Head
+  tip The Monstrous Threshadon comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. Old Rot-Chum, an elite, walks the shore close by: give him room.
+  collect 268633 quest 95267.1 @74.4,72.4 live -- Sea Monster's Head: the Threshadon surfaces where you call him
 
 step Argo Brinewhistle
   when onquest 95267

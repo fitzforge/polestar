@@ -18677,3 +18677,114 @@ test('forever/alliance/50-60/01-burning-steppes.guide: Kum\'isha\'s fragment ste
 	const kum = steps.find((st) => st.goals.some(is('accept', 3501)));
 	assert.ok((kum.when || []).some((p) => p.k === 'has' && !p.neg && p.item === 10593), 'when has 10593');
 });
+
+// #3299 (fekz): the Bulwark step named the Box of Incendiaries in a note and never asked for the Flame in a Bottle
+// that torches the Scarlet tent; taken from the crate next to Derrington, it is a goal now on both guides that take
+// Scarlet Diversions there.
+test('Scarlet Diversions: the Flame in a Bottle from the crate next to Derrington is a goal (#3299)', { skip }, () => {
+	for (const file of ['forever/horde/50-60/01-un-goro-crater.guide', 'forever/horde/50-60/02-felwood.guide']) {
+		const list = goals(file);
+		const take = at(list, 'accept 5096', is('accept', 5096));
+		const flame = list.findIndex(({ goal }) => goal.t === 'collect' && goal.item === 12814);
+		assert.ok(flame > take, `${file}: the flame after the accept`);
+		const { goal } = list[flame];
+		assert.deepEqual([goal.map, Math.round(goal.x), Math.round(goal.y)], [1420, 83, 69], `${file}: at the Box of Incendiaries`);
+		assert.ok(flame < at(list, 'complete 5096', is('complete', 5096)), `${file}: before the tent`);
+	}
+});
+
+// #3346 (Bussincider): What Is Love?'s figurine is taken by throwing the lit torch onto the archaeologist's cart
+// outside the house; the steps said only where the figurine lies.
+test('What Is Love?: the figurine steps say to throw the lit torch onto the cart (#3346)', { skip }, () => {
+	for (const file of ['forever/class/warlock/incubus-alliance.guide', 'forever/alliance/30-40/04-stranglethorn-vale.guide']) {
+		const st = compiled(file).steps.find((s) => s.goals.some((g) => g.t === 'collect' && g.item === 190309));
+		assert.match([st.note, st.tip].flat().filter(Boolean).join(' '), /throw (the lit torch|it) onto the archaeologist's cart/, file);
+	}
+});
+
+// #3036 (Joogz): the Monstrous Threshadon is called up from what floats in the water at 74.4,72.4; the step followed
+// his other possible spots instead. Both factions' Riverglades guides lead there and say how.
+test('The Monster Surfaces: the head is taken where the Threshadon is called up (#3036)', { skip }, () => {
+	for (const file of ['forever/alliance/40-50/01b-riverglades.guide', 'forever/horde/40-50/01b-riverglades.guide']) {
+		const list = goals(file);
+		const { goal, step } = list[at(list, 'the head', (g) => g.t === 'collect' && g.quest === 95267)];
+		assert.deepEqual([goal.map, goal.x, goal.y], [2548, 74.4, 72.4], file);
+		assert.match([step.note, step.tip].flat().filter(Boolean).join(' '), /right-click the thing floating in the water/, file);
+	}
+});
+
+// #3550 (imp): While you're here offered Loose Soil before the player had a Farmers' Memento, which each grave takes.
+// The graves are a step of their own, shown with a Memento in the bags, after the cult step that gathers five.
+test('forever/alliance/40-50/01b-riverglades.guide: the Loose Soil only with a Farmers\' Memento (#3550)', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01b-riverglades.guide');
+	const soil = list[at(list, 'Loose Soil', (g) => g.t === 'interact' && g.quest === 94829)].step;
+	assert.ok((soil.when || []).some((p) => p.k === 'has' && !p.neg && Number(p.item) === 266148), 'when has 266148');
+	assert.ok(soil.goals.every((g) => g.t === 'interact' || g.t === 'note'), 'the step holds only the graves');
+	assert.ok(at(list, 'Mementos', (g) => g.t === 'collect' && g.item === 266148) < list.findIndex((e) => e.step === soil), 'the Mementos first');
+});
+
+// #3537 (Stö): Drawing Down the Malevolent was a group choice, but Elaena's eye makes both bosses non-elite and
+// players killed both once drained: a normal step for everyone, with the "drain first" tip kept.
+test('forever/50-60/mount-hyjal.guide: Drawing Down the Malevolent is a normal step with the drain-first tip (#3537)', { skip }, () => {
+	const { steps } = compiled('forever/50-60/mount-hyjal.guide');
+	const its = steps.filter((st) => st.goals.some((g) => g.quest === 96003));
+	assert.ok(its.length >= 3);
+	for (const st of its) assert.ok(!(st.when || []).some((p) => p.k === 'group'), `"${st.title}": no group choice`);
+	const accept = its.find((st) => st.goals.some(is('accept', 96003)));
+	assert.match([accept.note, accept.tip].flat().filter(Boolean).join(' '), /drain each one first/);
+});
+
+// #3545 (Rockout): My Little Friends' specimens are caught with the kit's Bug Catching Net, not killed for; the
+// goal lines said "Kill". Each is a `use` of the net now, counted by its objective.
+test('My Little Friends: each specimen is a use of the Bug Catching Net (#3545)', { skip }, () => {
+	for (const [file, oi] of [['forever/alliance/30-40/05-arathi-highlands.guide', 2], ['forever/alliance/30-40/06b-desolace.guide', 3], ['forever/alliance/40-50/01-stranglethorn-vale.guide', 1]]) {
+		const list = goals(file);
+		assert.ok(!list.some(({ goal }) => goal.t === 'collect' && [213566, 213567, 213568].includes(goal.item)), `${file}: no specimen collect`);
+		const { goal } = list[at(list, `93176.${oi}`, (g) => g.t === 'use' && g.quest === 93176 && g.oi === oi)];
+		assert.equal(goal.item, 213562, `${file}: the Bug Catching Net`);
+	}
+});
+
+// #3531 (Stö): Blademaster's Bonfires had no objectives in our data, so the Dae'gun step only led past the two
+// bonfires and moved on with them unlit. The bonfires are goals of the step now, by the quest's two objectives.
+test('forever/50-60/mount-hyjal.guide: Blademaster\'s Bonfires are lit before the hand-in (#3531)', { skip }, () => {
+	const list = goals('forever/50-60/mount-hyjal.guide');
+	const south = at(list, 'South Bonfire', (g) => g.t === 'interact' && g.object === 656668);
+	const east = at(list, 'Southeast Bonfire', (g) => g.t === 'interact' && g.object === 656669);
+	const turnin = at(list, 'turnin 96959', is('turnin', 96959));
+	assert.ok(south < turnin && east < turnin);
+	assert.deepEqual([list[south].goal.quest, list[east].goal.quest], [96959, 96959]);
+});
+
+// #3192 (PierreAnken): Stinky Ignatz offered nothing at 35; nobody took Stinky's Escape below 36 in the recordings.
+// #3347 (Cobra), #2755 (Gindry): Get Me Out of Here!'s six attackers are said up front, and a player who skips the
+// escort is not sent to Hornizz for its hand-in.
+test('Dustwallow & Desolace: Stinky from 36, the escort\'s heads-up and Hornizz only with the escort done (#3192, #3347, #2755)', { skip }, () => {
+	const stinky = compiled('forever/horde/30-40/04-dustwallow-marsh.guide').steps.find((st) => st.goals.some(is('accept', 1270)));
+	assert.equal(levelFrom(stinky), 36);
+	for (const file of ['forever/horde/30-40/04-dustwallow-marsh.guide', 'forever/alliance/30-40/06b-desolace.guide']) {
+		const { steps } = compiled(file);
+		const escort = steps.find((st) => st.goals.some(is('accept', 6132)));
+		assert.match([escort.note, escort.tip].flat().filter(Boolean).join(' '), /six centaurs attack during the escort/, file);
+		const hornizz = steps.find((st) => st.goals.some(is('turnin', 6132)));
+		assert.ok((hornizz.when || []).some((p) => p.k === 'complete' && [].concat(p.q).includes(6132)), `${file}: Hornizz only with the escort done`);
+	}
+});
+
+// #3309 (Zack): Defenders of Darrowshire's spirits rise only where the Scourge of Corin's Crossing die, but the step's
+// only mob was the spirit, so the target button looked for spirits that aren't there. The step names the three
+// Scourge that leave them (optional kills on the same objective), so the button targets those.
+test('forever/horde/50-60/05-eastern-plaguelands.guide: the target button names the Scourge that leave Darrowshire Spirits (#3309)', { skip }, () => {
+	const list = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
+	const talk = list[at(list, 'free the spirits', (g) => g.t === 'talk' && g.quest === 5211)];
+	const kills = list.filter(({ step, goal }) => step === talk.step && goal.t === 'kill').map(({ goal }) => goal.npc);
+	assert.deepEqual(kills.sort(), [8530, 8531, 8532]);
+});
+
+// #3546 (Gindry): Oasis (97540) is offered by Tooga only after her escort, Tooga's Quest (1560), is handed in; While
+// you're here offered it before, from data with no prerequisite (the data side adds `pre: [1560]`). The guide takes
+// it right after 1560's hand-in at Torta, and must keep that order.
+test('forever/alliance/40-50/04-tanaris.guide: Oasis only after Tooga\'s Quest is handed in (#3546)', { skip }, () => {
+	const list = goals('forever/alliance/40-50/04-tanaris.guide');
+	assert.ok(at(list, 'turnin 1560', is('turnin', 1560)) < at(list, 'accept 97540', is('accept', 97540)));
+});
