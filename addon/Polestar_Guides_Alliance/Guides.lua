@@ -11624,11 +11624,17 @@ do
 					goals = {
 						{ t = "turnin", quest = 617, title = "Akiris by the Bundle", npc = 2494, npcName = "Privateer Bloads", map = 1434, x = 27.37, y = 76.96, z = 15.4, spotsPacked = "27,76.7,,27,3" },
 						{ t = "accept", quest = 623, title = "Akiris by the Bundle", npc = 2494, npcName = "Privateer Bloads", minLevel = 38, qlvl = 43, pre = { 617 }, preTitles = { [617] = "Akiris by the Bundle" }, map = 1434, x = 27.37, y = 76.96, z = 15.4, spotsPacked = "27,76.7,,27,3", note = "for {npc:2616} in Theramore: keep it, the Un'Goro guide lands there" },
-						{ t = "turnin", quest = 348, title = "Stranglethorn Fever", npc = 2486, npcName = "Fin Fizracket", map = 1434, x = 27.62, y = 76.71, z = 15.5 },
 						{ t = "note", text = "{npc:2498}'s next Zanzil errand starts in {zone:1441}: skip it." },
 						{ t = "turnin", quest = 621, title = "Zanzil's Secret", npc = 2498, npcName = "Crank Fizzlebub", map = 1434, x = 27.05, y = 77.15, z = 15.2, note = "{npc:2498}, inside" },
 						{ t = "note", text = "MacKinley's next task sends you after elite ogres: skip it." },
 						{ t = "turnin", quest = 609, title = "Voodoo Dues", npc = 2501, npcName = "\"Sea Wolf\" MacKinley", map = 1434, x = 27.71, y = 77.1, z = 15.8, note = "\"Sea Wolf\" MacKinley, on the top floor" },
+					},
+				},
+				{
+					title = "{npc:2486}",
+					when = { { k = "complete", q = 348 } },
+					goals = {
+						{ t = "turnin", quest = 348, title = "Stranglethorn Fever", npc = 2486, npcName = "Fin Fizracket", map = 1434, x = 27.62, y = 76.71, z = 15.5, note = "{npc:2486}, by the inn" },
 					},
 				},
 				{

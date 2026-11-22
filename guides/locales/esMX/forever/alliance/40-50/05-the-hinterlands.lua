@@ -151,11 +151,15 @@ return {
 	["{npc:2498}'s next Zanzil errand starts in {zone:1441}: skip it."] = "El siguiente encargo de {npc:2498} sobre Zanzil empieza en {zone:1441}: omítelo.",
 	["MacKinley's next task sends you after elite ogres: skip it."] = "La siguiente tarea de MacKinley te envía tras ogros élite: omítela.",
 
-	-- Step 30: Monogrammed Sash
+	-- Step 30: Fin Fizracket
+	-- {npc:2486} Fin Fizracket
+	["{npc:2486}, by the inn"] = "",
+
+	-- Step 31: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "Son enemigos élite: se recomienda agruparse, busca gente para hacerlo. {quest:8552} necesita un grupo de 2. Omítela si estás solo: la ruta te hace recuperar esa experiencia matando enemigos.",
 
-	-- Step 34: Negolash's bait
+	-- Step 35: Negolash's bait
 	-- {npc:1494} Negolash
 	["{npc:1494}'s bait"] = "",
 	-- {npc:1494} Negolash · {quest:619} Enticing Negolash · {area:35} Booty Bay · {item:4595} Junglevine Wine · {npc:2832} Nixxrax Fillamug
@@ -166,7 +170,7 @@ return {
 	-- {object:2289} Ruined Lifeboat · {npc:1494} Negolash
 	["{object:2289}: the food goes in, {npc:1494} comes"] = "",
 
-	-- Step 35: Facing Negolash
+	-- Step 36: Facing Negolash
 	-- {npc:1494} Negolash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1494} (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "Son enemigos élite: se recomienda agruparse, busca gente con quien hacerlo. {npc:1494} (élite de nivel 52) requiere un grupo de 2. Sáltalo si vas solo: la ruta te hace recuperar la experiencia matando enemigos.",
 

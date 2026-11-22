@@ -18607,9 +18607,10 @@ test('Stranglethorn Fever (348) is a group choice on both routes, with the heads
 			assert.ok(grouped(st), `${file}: "${st.title}" (the waves) only for a group`);
 		}
 	}
-	const fer = compiled('forever/horde/40-50/02-feralas.guide').steps;
-	for (const st of fer.filter((s) => s.goals.some(is('turnin', 348)))) {
-		assert.ok((st.when || []).some((p) => p.k === 'complete' && [].concat(p.q).includes(348)), `"${st.title}": Fin's hand-in only with the quest ready`);
+	for (const file of ['forever/horde/40-50/02-feralas.guide', 'forever/alliance/40-50/05-the-hinterlands.guide']) {
+		for (const st of compiled(file).steps.filter((s) => s.goals.some(is('turnin', 348)))) {
+			assert.ok((st.when || []).some((p) => p.k === 'complete' && [].concat(p.q).includes(348)), `${file} "${st.title}": Fin's hand-in only with the quest ready`);
+		}
 	}
 });
 

@@ -151,11 +151,15 @@ return {
 	["{npc:2498}'s next Zanzil errand starts in {zone:1441}: skip it."] = "{npc:2498}的下一个赞吉尔差事从{zone:1441}开始：跳过。",
 	["MacKinley's next task sends you after elite ogres: skip it."] = "马克基雷的下一个任务要你对付精英食人魔：跳过。",
 
-	-- Step 30: Monogrammed Sash
+	-- Step 30: Fin Fizracket
+	-- {npc:2486} Fin Fizracket
+	["{npc:2486}, by the inn"] = "",
+
+	-- Step 31: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英敌人，建议寻找其他玩家组队完成。{quest:8552}需要 2 人小队。独自一人时可跳过，路线会安排刷怪补回经验。",
 
-	-- Step 34: Negolash's bait
+	-- Step 35: Negolash's bait
 	-- {npc:1494} Negolash
 	["{npc:1494}'s bait"] = "",
 	-- {npc:1494} Negolash · {quest:619} Enticing Negolash · {area:35} Booty Bay · {item:4595} Junglevine Wine · {npc:2832} Nixxrax Fillamug
@@ -166,7 +170,7 @@ return {
 	-- {object:2289} Ruined Lifeboat · {npc:1494} Negolash
 	["{object:2289}: the food goes in, {npc:1494} comes"] = "",
 
-	-- Step 35: Facing Negolash
+	-- Step 36: Facing Negolash
 	-- {npc:1494} Negolash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1494} (level 52 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:1494}（52 级精英）需要 2 人小队。独自一人时可跳过，路线会安排刷怪补回经验。",
 

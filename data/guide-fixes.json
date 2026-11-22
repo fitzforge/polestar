@@ -14817,6 +14817,27 @@
 			"issue": 3574
 		},
 		{
+			"id": "3574-stv-fever-hand-in-when-complete-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 348,
+				"goal": "turnin",
+				"guide": "forever/alliance/40-50/05-the-hinterlands"
+			},
+			"split": {
+				"title": "Fin Fizracket"
+			},
+			"when": "complete 348",
+			"note": "#3574's sweep: the last Booty Bay stop's hand-in to Fin is a step of its own after the others, shown only with Stranglethorn Fever ready, so a player who skipped the group quest (or carries it unfinished) is not held at Booty Bay.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "as 3574-stv-fever-group-horde-first-visit"
+				}
+			],
+			"issue": 3574
+		},
+		{
 			"id": "3576-kumisha-with-a-fragment",
 			"faction": "Alliance",
 			"at": {
