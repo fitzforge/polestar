@@ -114,7 +114,10 @@ const LOGIN: f64 = LOGIN_BASE + 3332.0;
 /// client's language, the stems, the label and search-term cover and /polestar ask.
 /// 0.4.0's round 5 merged together: 2,045 on 2026-11-14, 3 under the budget, which CI's runner (a few KiB higher than
 /// a local run) would pass over; the budget is that and about 5 %: 2,148.
-const LOADED: f64 = 2148.0;
+/// Then the settings window's new page (UI/Grouped.lua and the settings-only widgets of UI/Kit.lua, loaded with the
+/// window, off until the player turns it on): 2,248 on 2026-11-19 (2,121 without it, +127); the budget is that and
+/// about 5 %: 2,360.
+const LOADED: f64 = 2360.0;
 /// Opened on its first page, 4,124 KiB (1,890 on 2026-11-10; 3,485 with the Look pages' previews; 3,888 with
 /// the rest moved in, then the pages' +155, then the hero previews' +67, then the Buttons and single-alert
 /// scenes and the Accent lights' +26, to 4,151; then the search's dropdown's code, +41, 4,280 to 4,322 on
@@ -140,7 +143,9 @@ const OPENED: f64 = 5205.0;
 /// 2026-11-13; the budget is that and about 5 %. Then the search answering questions (#2178: +34, the same: 4,228 to
 /// 4,262 on 2026-11-13, on its own base).
 /// 0.4.0's round 5 merged together: 4,594 on 2026-11-14, 1 under the budget; the budget is that and about 5 %: 4,824.
-const PEAK: f64 = 4824.0;
+/// Then the settings window's new page (UI/Grouped.lua and UI/Kit.lua compile with the collector stopped): 5,098 on
+/// 2026-11-19 (4,761 without it, +337); the budget is that and about 5 %: 5,353.
+const PEAK: f64 = 5353.0;
 
 /// What the base itself puts in the opened window, not the overhaul's cost: 0.3.7's three rows on the first
 /// page (Guide: Tell me when a newer Polestar is out, Flight paths you pass, Keep the arrow when hidden),

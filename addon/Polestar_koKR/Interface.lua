@@ -5014,5 +5014,22 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "착륙
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"] = "진행은 순조롭지만 %s (%d) %d단계가 어렵습니다: 내 레벨 %s. 먼저 %s 사냥"
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "진행은 순조롭지만 %s (%d) %d단계가 어렵습니다: 내 레벨 %s. 먼저 %d 도달"
 -- L["No safe walking route"] = "안전한 도보 경로 없음"
+
+-- UI/Grouped.lua: the new settings page's switch
+L["New settings page"] = "새 설정 페이지"
+L["A preview of the settings in groups, with tabs, a filter and a preview beside the rows. The same settings; switch it off for the current page."] = "설정을 그룹으로 나누고 탭, 필터, 행 옆의 미리 보기를 갖춘 미리 보기입니다. 설정은 같습니다. 끄면 현재 페이지로 돌아갑니다."
+
+-- The new settings page (UI/Grouped.lua, UI/Options.lua, UI/Kit.lua)
+L["Drag the guide window, the arrow, the cards and the alerts where you want them. This window steps aside until you press Save and exit. Also /polestar unlock."] = "가이드 창, 화살표, 카드, 알림을 원하는 곳으로 끌어 옮기세요. 저장 후 나가기를 누를 때까지 이 창은 비켜 있습니다. /polestar unlock으로도 열 수 있습니다."
+L["Every setting on %s goes back to its default. Other pages keep theirs."] = "%s의 모든 설정이 기본값으로 돌아갑니다. 다른 페이지의 설정은 그대로입니다."
+L["Nothing to reset"] = "초기화할 항목 없음"
+L["Profiles, other addons, community guides and gamepad."] = "프로필, 다른 애드온, 커뮤니티 가이드, 게임패드."
+L["Reload to finish?"] = "다시 불러와 마칠까요?"
+L["Reset all settings\226\128\166"] = "모든 설정 초기화…"
+L["Reset this page\226\128\166"] = "이 페이지 초기화…"
+L["Some guide window and look changes only show in full after a reload. Recommended."] = "가이드 창과 외형의 일부 변경 사항은 UI를 다시 불러와야 완전히 보입니다. 권장합니다."
+L["The arrow, its routes, and what Polestar draws on the world map and the minimap."] = "화살표와 경로, 그리고 Polestar가 세계 지도와 미니맵에 그리는 것."
+L["The theme every Polestar window wears, the action buttons, the alert cards and the trackers."] = "모든 Polestar 창의 테마, 행동 버튼, 알림 카드, 추적기."
+L["What Polestar does for you while you level: suggestions, quests, rewards, buttons, rares."] = "레벨업하는 동안 Polestar가 해 주는 일: 제안, 퀘스트, 보상, 버튼, 희귀 몬스터."
 -- L["Target bar colour"] = "목표 막대 색"
 -- L["Progress colour"] = "진행 막대 색"

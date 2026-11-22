@@ -5014,5 +5014,22 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "已降
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"] = "進度正常，但第 %3$d 步的 %1$s（%2$d）很難：你是 %4$s；請先練等%5$s"
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "進度正常，但第 %3$d 步的 %1$s（%2$d）很難：你是 %4$s；請先達到 %5$d 級"
 -- L["No safe walking route"] = "沒有安全的步行路線"
+
+-- UI/Grouped.lua: the new settings page's switch
+L["New settings page"] = "新設定頁面"
+L["A preview of the settings in groups, with tabs, a filter and a preview beside the rows. The same settings; switch it off for the current page."] = "設定的預覽版面：分組顯示，附有分頁、篩選和列旁的預覽。設定相同；關閉即回到目前頁面。"
+
+-- The new settings page (UI/Grouped.lua, UI/Options.lua, UI/Kit.lua)
+L["Drag the guide window, the arrow, the cards and the alerts where you want them. This window steps aside until you press Save and exit. Also /polestar unlock."] = "將指南視窗、箭頭、卡片和警示拖到你想要的位置。在你按下「儲存並退出」之前，此視窗會暫時讓開。也可使用 /polestar unlock。"
+L["Every setting on %s goes back to its default. Other pages keep theirs."] = "%s上的所有設定將恢復預設值。其他頁面保持不變。"
+L["Nothing to reset"] = "沒有可重置的內容"
+L["Profiles, other addons, community guides and gamepad."] = "設定檔、其他插件、社群指南和手把。"
+L["Reload to finish?"] = "重新載入以完成？"
+L["Reset all settings\226\128\166"] = "重置所有設定…"
+L["Reset this page\226\128\166"] = "重置此頁…"
+L["Some guide window and look changes only show in full after a reload. Recommended."] = "部分指南視窗和外觀的變更需要重新載入介面後才會完全生效。建議重新載入。"
+L["The arrow, its routes, and what Polestar draws on the world map and the minimap."] = "箭頭、它的路線，以及 Polestar 在世界地圖和小地圖上繪製的內容。"
+L["The theme every Polestar window wears, the action buttons, the alert cards and the trackers."] = "每個 Polestar 視窗使用的主題、動作按鈕、提醒卡片和追蹤器。"
+L["What Polestar does for you while you level: suggestions, quests, rewards, buttons, rares."] = "升級時 Polestar 為你做的事：建議、任務、獎勵、按鈕、稀有怪。"
 -- L["Target bar colour"] = "目標標示條顏色"
 -- L["Progress colour"] = "進度顏色"

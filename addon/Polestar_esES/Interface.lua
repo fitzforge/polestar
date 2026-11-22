@@ -5009,5 +5009,22 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Has at
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"] = "Al ritmo, pero %s (%d) en el paso %d es difícil: eres %s; farmea %s antes"
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "Al ritmo, pero %s (%d) en el paso %d es difícil: eres %s; llega a %d antes"
 -- L["No safe walking route"] = "No hay una ruta segura a pie"
+
+-- UI/Grouped.lua: the new settings page's switch
+L["New settings page"] = "Nueva página de ajustes"
+L["A preview of the settings in groups, with tabs, a filter and a preview beside the rows. The same settings; switch it off for the current page."] = "Una vista previa de los ajustes en grupos, con pestañas, un filtro y una vista previa junto a las filas. Los mismos ajustes; desactívala para volver a la página actual."
+
+-- The new settings page (UI/Grouped.lua, UI/Options.lua, UI/Kit.lua)
+L["Drag the guide window, the arrow, the cards and the alerts where you want them. This window steps aside until you press Save and exit. Also /polestar unlock."] = "Arrastra la ventana de la guía, la flecha, las tarjetas y las alertas adonde las quieras. Esta ventana se aparta hasta que pulses Guardar y salir. También /polestar unlock."
+L["Every setting on %s goes back to its default. Other pages keep theirs."] = "Todos los ajustes de %s vuelven a su valor predeterminado. Las demás páginas conservan los suyos."
+L["Nothing to reset"] = "Nada que restablecer"
+L["Profiles, other addons, community guides and gamepad."] = "Perfiles, otros addons, guías de la comunidad y mando."
+L["Reload to finish?"] = "¿Recargar para terminar?"
+L["Reset all settings\226\128\166"] = "Restablecer toda la configuración…"
+L["Reset this page\226\128\166"] = "Restablecer esta página…"
+L["Some guide window and look changes only show in full after a reload. Recommended."] = "Algunos cambios de la ventana de guía y del aspecto solo se ven del todo tras recargar. Recomendado."
+L["The arrow, its routes, and what Polestar draws on the world map and the minimap."] = "La flecha, sus rutas y lo que Polestar dibuja en el mapa del mundo y el minimapa."
+L["The theme every Polestar window wears, the action buttons, the alert cards and the trackers."] = "El tema que lleva cada ventana de Polestar, los botones de acción, las tarjetas de aviso y los rastreadores."
+L["What Polestar does for you while you level: suggestions, quests, rewards, buttons, rares."] = "Lo que Polestar hace por ti mientras subes de nivel: sugerencias, misiones, recompensas, botones, raros."
 -- L["Target bar colour"] = "Color de la barra de objetivo"
 -- L["Progress colour"] = "Color del progreso"

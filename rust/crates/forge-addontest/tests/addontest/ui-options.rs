@@ -2908,17 +2908,17 @@ fn slash_ps_options_opens_the_settings_window() {
 	assert_eq!(out, json!({ "before": false, "alias": "/ps", "shown": true }));
 }
 
-// Move frames works with the settings window open: the window stays (the frames' boxes over it, the window dragged
-// aside if one sits under it), and Lock leaves it as it was.
+// Move frames from the settings window (its header button, left of Peek): the window steps aside while the frames
+// are moved, and Lock brings it back.
 #[test]
-fn move_frames_leaves_the_settings_window_open() {
+fn move_frames_steps_the_settings_window_aside_and_lock_brings_it_back() {
 	let out = run(r#"
 		UI.ShowOptions("guide")
-		footerButton("Move frames"):Click()
+		PolestarOptions.MoveButton:Click()
 		local during = { unlocked = Polestar.Movers.IsUnlocked(), settings = PolestarOptions:IsShown() }
 		Polestar.Movers.Lock()
 		emit({ during = during, after = { unlocked = Polestar.Movers.IsUnlocked(), settings = PolestarOptions:IsShown() } })"#);
-	assert_eq!(out["during"], json!({ "unlocked": true, "settings": true }));
+	assert_eq!(out["during"], json!({ "unlocked": true, "settings": false }));
 	assert_eq!(out["after"], json!({ "unlocked": false, "settings": true }));
 }
 

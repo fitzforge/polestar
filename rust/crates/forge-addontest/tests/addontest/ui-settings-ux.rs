@@ -203,7 +203,7 @@ fn peek_fades_the_window_fold_leaves_its_header_and_shift_wheel_scales_it() {
 		local F = PolestarOptions
 		local peek, fold = F.PeekButton, F.FoldButton
 		local order = { select(2, fold:GetPoint(1)) == F.HeaderTools, select(2, peek:GetPoint(1)) == fold,
-			select(2, F.Search:GetPoint(1)) == peek }
+			select(2, F.MoveButton:GetPoint(1)) == peek, select(2, F.Search:GetPoint(1)) == F.MoveButton }
 		stub.RunScript(peek, "OnMouseDown", "LeftButton")
 		stub.advance(0.3)
 		local peeking = F:GetAlpha()
@@ -242,7 +242,7 @@ fn peek_fades_the_window_fold_leaves_its_header_and_shift_wheel_scales_it() {
 		local stepped = Polestar.Get("ui.scale") > guideScale
 		emit({ order = order, peeking = peeking, whole = whole, folded = folded, unfolded = unfolded, another = another,
 			scale = scale, shifted = shifted, lit = lit, scrolled = scrolled, overSlider = overSlider, stepped = stepped })"#);
-	assert_eq!(out["order"], json!([true, true, true]), "Fold and Peek between the search and the scale");
+	assert_eq!(out["order"], json!([true, true, true, true]), "Fold, Peek and Move frames between the search and the scale");
 	assert!(out["peeking"].as_f64().unwrap() < 0.2, "held down, the window fades: {}", out["peeking"]);
 	assert_eq!(out["whole"], 1.0, "let go, whole again");
 	assert_eq!(out["folded"], json!({ "h": 114, "header": true, "body": false, "footer": false, "nav": false, "shown": true, "tip": "Unfold" }));
@@ -624,11 +624,14 @@ fn a_profile_key_switches_to_its_profile_and_follows_it() {
 }
 
 // A page title too long for the header's room takes it from the search first (down to the search's least width,
-// 130 px) before it is cut short; a shorter title gives the search its width back. Peek and Fold sit as a pair.
+// 104 px), then the scale's label, before it is cut short; a shorter title gives the search its width back. Peek
+// and Fold sit as a pair.
+// The window is 960 wide: at its least (860) the header's "New settings page" switch after Menu scale leaves a
+// short title no room beside the search's own width.
 #[test]
 fn a_long_title_takes_room_from_the_header_search_before_it_is_cut() {
 	let out = run(r#"
-		Polestar.Set("ui.optionsSize", { 1, 700 })
+		Polestar.Set("ui.optionsSize", { 960, 700 })
 		UI.ShowOptions("guide")
 		local F = PolestarOptions
 		local function header()
@@ -646,10 +649,13 @@ fn a_long_title_takes_room_from_the_header_search_before_it_is_cut() {
 		local back = header()
 		local _, rel, _, gap = F.PeekButton:GetPoint(1)
 		emit({ short = short, long = long, back = back, pair = { rel == F.FoldButton, gap } })"#);
-	assert_eq!(out["short"]["search"], 185, "a short title leaves the search its own width");
+	assert_eq!(out["short"]["search"], 215, "a short title leaves the search its own width (30% of the 718 main column)");
 	assert!(out["short"]["room"].as_i64() >= out["short"]["need"].as_i64(), "{}", out["short"]);
-	assert_eq!(out["long"]["search"], 130, "a long one takes room from the search, down to its least");
-	assert_eq!(out["long"]["room"].as_i64().unwrap(), out["short"]["room"].as_i64().unwrap() + 55, "{}", out["long"]);
+	assert_eq!(out["long"]["search"], 104, "a long one takes room from the search, down to its least");
+	// The search gives 111 (215 to 104); Move frames in the header leaves that short of this title, so the scale's
+	// label goes too, and the title fits uncut.
+	assert!(out["long"]["room"].as_i64().unwrap() >= out["short"]["room"].as_i64().unwrap() + 111, "{}", out["long"]);
+	assert!(out["long"]["room"].as_i64() >= out["long"]["need"].as_i64(), "{}", out["long"]);
 	assert_eq!(out["back"], out["short"], "the search's width back for a shorter title");
 	assert_eq!(out["pair"], json!([true, -4]), "Peek sits close by Fold");
 }

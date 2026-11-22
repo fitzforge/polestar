@@ -5021,5 +5021,22 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Пос
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"] = "Темп в норме, но %s (%d) на шаге %d будет трудным: у вас %s; сначала набейте %s"
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "Темп в норме, но %s (%d) на шаге %d будет трудным: у вас %s; сначала достигните %d"
 -- L["No safe walking route"] = "Нет безопасного пешего пути"
+
+-- UI/Grouped.lua: the new settings page's switch
+L["New settings page"] = "Новая страница настроек"
+L["A preview of the settings in groups, with tabs, a filter and a preview beside the rows. The same settings; switch it off for the current page."] = "Предпросмотр настроек по группам: с вкладками, фильтром и предпросмотром рядом со строками. Настройки те же; выключите, чтобы вернуть текущую страницу."
+
+-- The new settings page (UI/Grouped.lua, UI/Options.lua, UI/Kit.lua)
+L["Drag the guide window, the arrow, the cards and the alerts where you want them. This window steps aside until you press Save and exit. Also /polestar unlock."] = "Перетащите окно гида, стрелку, карточки и оповещения куда нужно. Это окно отойдёт в сторону, пока вы не нажмёте «Сохранить и выйти». Также /polestar unlock."
+L["Every setting on %s goes back to its default. Other pages keep theirs."] = "Все настройки страницы «%s» вернутся к значениям по умолчанию. Другие страницы сохранят свои."
+L["Nothing to reset"] = "Нечего сбрасывать"
+L["Profiles, other addons, community guides and gamepad."] = "Профили, другие аддоны, гайды сообщества и геймпад."
+L["Reload to finish?"] = "Перезагрузить, чтобы закончить?"
+L["Reset all settings\226\128\166"] = "Сбросить все настройки…"
+L["Reset this page\226\128\166"] = "Сбросить эту страницу…"
+L["Some guide window and look changes only show in full after a reload. Recommended."] = "Некоторые изменения окна гида и внешнего вида видны полностью только после перезагрузки. Рекомендуется."
+L["The arrow, its routes, and what Polestar draws on the world map and the minimap."] = "Стрелка, её маршруты и то, что Polestar рисует на карте мира и миникарте."
+L["The theme every Polestar window wears, the action buttons, the alert cards and the trackers."] = "Тема всех окон Polestar, кнопки действий, карточки оповещений и трекеры."
+L["What Polestar does for you while you level: suggestions, quests, rewards, buttons, rares."] = "Что Polestar делает для вас, пока вы качаетесь: подсказки, задания, награды, кнопки, редкие противники."
 -- L["Target bar colour"] = "Цвет полосы цели"
 -- L["Progress colour"] = "Цвет прогресса"
