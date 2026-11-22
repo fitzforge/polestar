@@ -7192,7 +7192,6 @@ t.guides["forever/horde/40-50/03-feralas"] = (function() return {
 } end)()
 t.guides["forever/horde/40-50/04-tanaris"] = (function() return {
 		["Back east to Fizzledowser on the west side of {area:976}; {npc:7771} is south from there."] = "向東回到{area:976}西側的菲茲爾多瑟；{npc:7771}再往南。",
-		["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each."] = "回到北邊，就在{area:976}南方，現在使用{item:8524}：兩小時的計時開始。水泡土狼、玻璃皮蜥蜴和蠍子獵手共同分布在這裡的沙丘上。每種都可能掉落未測試的樣本：使用它，它要麼通過成為合格的樣本，要麼就會損失。持續擊殺直到每種各有八個。",
 		["Below ground"] = "地下",
 		["Below ground: the plans, on the {area:1443}'s upper ledge"] = "地下：設計圖，在{area:1443}的上層岩架",
 		["Boat to {area:16727}"] = "坐船去{area:16727}",

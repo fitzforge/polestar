@@ -4474,7 +4474,6 @@ t.guides["forever/horde/40-50/03-feralas"] = (function() return {
 		["{zone:1454} flight master"] = "Maestro de vuelo de {zone:1454}",
 } end)()
 t.guides["forever/horde/40-50/04-tanaris"] = (function() return {
-		["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each."] = "De vuelta al norte, justo al sur de {area:976}, usa ahora la {item:8524}: empieza el temporizador de dos horas. Las Hienas Zarpampolla, los Basiliscos Pielvidrio y los Cazadores escórpidos comparten aquí las dunas. Cada uno puede soltar una muestra sin analizar: úsala y, o bien resulta aceptable, o bien se pierde. Sigue matando hasta tener ocho de cada.",
 		["Below ground"] = "Bajo tierra",
 		["Below ground: the plans, on the {area:1443}'s upper ledge"] = "Bajo tierra: los planos, en la cornisa superior de {area:1443}",
 		["Dark Iron Lookouts"] = "Vigías Hierro Negro",

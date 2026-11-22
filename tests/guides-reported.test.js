@@ -17614,6 +17614,17 @@ test('#2563: Wetlands (Alliance): Fall of Dun Modr is taken on its own step, onl
 	assert.ok(at(hills, 'turnin 472', is('turnin', 472)) >= 0, 'Longbraid still takes it on the Dun Modr stop');
 });
 
+// #3597 (Tilman, 0.4.2.1): Harlo Barnaby doesn't offer Fall of Dun Modr while A Grim Task (304) is in the log either
+// (abandoning A Grim Task brings the offer back), so the step waited on an accept nobody could take for a player who
+// had picked A Grim Task up at Dun Modr first. Harlo's step is shown only while 304 is neither in the log nor handed in.
+test('#3597: Wetlands (Alliance): Fall of Dun Modr is not asked for while A Grim Task is in the log', { skip }, () => {
+	const wet = goals('forever/alliance/06-wetlands.guide');
+	const harlo = wet[at(wet, 'accept 472', is('accept', 472))];
+	const when = harlo.step.when || [];
+	assert.ok(when.some((p) => p.k === 'onquest' && p.neg && [p.q].flat().includes(304)), 'not while A Grim Task is in the log');
+	assert.ok(when.some((p) => p.k === 'turnedin' && p.neg && [p.q].flat().includes(304)), 'nor once it is handed in (#2563)');
+});
+
 // --- Bare `complete`s away from the giver (#703): with no place of its own, a
 // `complete` leads the arrow to the quest's giver (#303). For these quests the
 // work is somewhere else: Coriella Calmbreeze north-west of Shen'dar Village,
@@ -18606,6 +18617,19 @@ test('forever/alliance/02-westfall.guide: one step at the Harvest Watchers for a
 	const text = [kill.step.note, kill.step.tip].flat().filter(Boolean).join(' ');
 	assert.match(text, /only[^.]*count for The Killing Fields|only[^.]*count for \{quest:9\}/, 'the tip says only Watchers count');
 	assert.match(text, /Golems[^.]*don't count/, 'and that the Golems don\'t');
+});
+
+// #3619 (Yeeshak, Discord, Tauren Druid 51): Tanaris Field Sampling (654) starts from the Model 4711-FTZ Power Source
+// (8524), Slake That Thirst's (379) reward. Another Power Source? (841, Chief Engineer Bilgewhizzle, repeatable) is
+// not a prerequisite but the way to a new source when the first is gone or its two hours ran out, and the step said
+// nothing of it. Its tip names the quest and who gives it.
+test('forever/horde/40-50/04-tanaris.guide: Tanaris Field Sampling\'s step says how to get another power source (#3619)', { skip }, () => {
+	const list = goals('forever/horde/40-50/04-tanaris.guide');
+	const { step } = list[at(list, 'accept 654', is('accept', 654))];
+	const text = [step.note, step.tip].flat().filter(Boolean).join(' ');
+	assert.match(text, /Another Power Source\?|\{quest:841\}/, 'the tip names Another Power Source?');
+	assert.match(text, /Bilgewhizzle|\{npc:7407\}/, 'and who gives it');
+	assert.match(text, /Wastewander Water Pouches|\{item:8483\}/, 'and what it takes');
 });
 
 // #3557 (Gindry, deDE): on Tooga's escort the Alliance arrow pointed back at the valley, 3,379 yd behind, while Tooga

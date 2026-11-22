@@ -14735,6 +14735,24 @@
 			"issue": 3588
 		},
 		{
+			"id": "3619-tanaris-field-sampling-another-power-source",
+			"faction": "Horde",
+			"at": {
+				"quest": 654,
+				"goal": "accept",
+				"guide": "forever/horde/40-50/04-tanaris"
+			},
+			"tip": "Back north, just south of Gadgetzan, use the Model 4711-FTZ Power Source now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each. No power source in your bags, or its two hours ran out? Abandon Tanaris Field Sampling if it is in your log, then take Another Power Source? from Chief Engineer Bilgewhizzle: he gives a new one for ten more Wastewander Water Pouches, from the Wastewander camps east of Gadgetzan.",
+			"note": "#3619: Tanaris Field Sampling (654) starts from the Model 4711-FTZ Power Source (8524), Slake That Thirst's (379) reward; Another Power Source? (841, repeatable, same giver) is only the replacement for a lost or spent source, not a prerequisite. A player without the source was told to use it and nothing said how to get another. The step's tip says so; 841 stays out of the route.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings, as in the 0.4.2.1 data (quests.json sources recorder:rewards, recorder:start): 379 rewards 8524; 841 starts and ends at Chief Engineer Bilgewhizzle (7407), pre 379, repeatable, rewards 8524; 654 starts from item 8524, limit 7200 s"
+				}
+			],
+			"issue": 3619
+		},
+		{
 			"id": "3574-stv-fever-group-horde-first-visit",
 			"faction": "Horde",
 			"at": {
