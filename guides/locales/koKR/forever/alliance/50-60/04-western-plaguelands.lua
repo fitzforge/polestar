@@ -151,7 +151,7 @@ return {
 
 	-- Step 38: Eastern Plaguelands: kill these as you meet them
 	-- {zone:1423} Eastern Plaguelands
-	["{zone:1423}: kill these as you meet them"] = "",
+	["{zone:1423}: kill these as you meet them"] = "{zone:1423}: 만나는 대로 처치하세요",
 	-- {area:2627} Terrordale · {item:15042} Empty Termite Jar
 	-- plural, as words: Plaguehound Runts = {npc:8596} Plaguehound Runt · Plaguebats = {npc:8600} Plaguebat · Carrion Grubs = {npc:8603} Carrion Grub · Frenzied Plaguehounds = {npc:8598} Frenzied Plaguehound
 	["Ride west to {area:2627}. Plaguehound Runts, Plaguebats and Carrion Grubs roam its woods; fill the {item:15042} at the big termite mounds and kill the Frenzied Plaguehounds further north."] = "서쪽으로 {area:2627}까지 가세요. 숲에는 {npc:8596}, {npc:8600}, {npc:8603}이(가) 돌아다닙니다. 큰 흰개미 둔덕에서 {item:15042}을(를) 채우고, 더 북쪽에서 {npc:8598}을(를) 처치하세요.",

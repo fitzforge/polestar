@@ -89,7 +89,7 @@ return {
 
 	-- Step 19: Eastern Plaguelands: kill these as you meet them
 	-- {zone:1423} Eastern Plaguelands
-	["{zone:1423}: kill these as you meet them"] = "",
+	["{zone:1423}: kill these as you meet them"] = "{zone:1423}: 만나는 대로 처치하세요",
 	-- plural, as words: Plaguehounds = {npc:8597} Plaguehound · Plaguebats = {npc:8600} Plaguebat · Carrion Grubs = {npc:8603} Carrion Grub
 	["Plaguehounds and their runts roam the shores of the lake south-west of the chapel; Plaguebats and Carrion Grubs share the ground. Careful: the biggest Plaguehounds are 56, pull them one at a time.\nThe shattered sword lies on the ground north-west of the lake."] = "역병사냥개와 그 새끼들은 예배당 남서쪽 호숫가를 돌아다니며, 역병박쥐와 청소부구더기도 같은 곳에 있습니다. 주의: 가장 높은 역병사냥개는 56레벨이니 한 번에 한 마리씩 끌어오세요.\n부러진 검은 호수 북서쪽 땅에 있습니다.",
 
@@ -176,7 +176,7 @@ return {
 
 	-- Step 34: Thunder Bluff
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
-	["{npc:3033} (Druids) trains on {area:1639}, {npc:246344} (Paladins) in the city too."] = "",
+	["{npc:3033} (Druids) trains on {area:1639}, {npc:246344} (Paladins) in the city too."] = "{npc:3033}(드루이드)은(는) {area:1639}에서 배우고, {npc:246344}(성전사)도 도시에 있습니다.",
 	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {npc:246344} Alodan the Hopeful
 	["{npc:3033} on {area:1639}; {npc:246344}"] = "{area:1639}의 {npc:3033}, {npc:246344}",
 
@@ -192,7 +192,7 @@ return {
 	-- {quest:8471} Winterfall Ritual Totem · {npc:11558} Kernda · {zone:1448} Felwood · {area:1769} Timbermaw Hold
 	["Only if a {quest:8471} dropped for you: {npc:11558} waits at the {zone:1448} entrance of {area:1769}, and speaks to you only at Neutral with the Timbermaw."] = "{quest:8471}을(를) 얻었을 때만: {npc:11558}은(는) {area:1769}의 {zone:1448} 쪽 입구에서 기다리며, 나무구렁 평판이 중립일 때만 말을 겁니다.",
 	-- {npc:11558} Kernda
-	["{npc:11558} walks around here: look inside the circle on the map"] = "",
+	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558}이(가) 이 주변을 배회합니다. 지도 원 안을 살펴보세요.",
 
 	-- Step 40: Rabine Saturna
 	-- {area:1769} Timbermaw Hold · {zone:1450} Moonglade · {npc:11801} Rabine Saturna · {area:2361} Nighthaven
@@ -261,9 +261,9 @@ return {
 
 	-- Step 55: Marshal's Refuge
 	-- {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock · {npc:8737} Linken
-	["The flight lands at {area:541}: {npc:9997} stands beside the flight master, and {npc:8737} by the cave a few steps away. {npc:9997}'s work is in Un'Goro on the next guide's way back north."] = "",
+	["The flight lands at {area:541}: {npc:9997} stands beside the flight master, and {npc:8737} by the cave a few steps away. {npc:9997}'s work is in Un'Goro on the next guide's way back north."] = "비행기는 {area:541}에 착륙합니다. {npc:9997}은(는) 비행 조련사 옆에, {npc:8737}은(는) 몇 걸음 떨어진 동굴 곁에 있습니다. {npc:9997}의 일은 다음 가이드 북쪽 복귀 길의 운고로에 있습니다.",
 	-- {quest:3941} A Gnome's Assistance · {npc:9117} J.D. Collie · {area:541} Marshal's Refuge
-	["{quest:3941} goes to {npc:9117} in the cave here, on the next guide's return to {area:541}: keep it."] = "",
+	["{quest:3941} goes to {npc:9117} in the cave here, on the next guide's return to {area:541}: keep it."] = "{quest:3941}은(는) 이 동굴의 {npc:9117}에게로, 다음 가이드가 {area:541}로 돌아올 때 제출하세요. 보관하세요.",
 
 	-- Step 56: Layo Starstrike
 	-- {area:3077} Valor's Rest · {zone:1451} Silithus · {npc:13220} Layo Starstrike
@@ -271,7 +271,7 @@ return {
 
 	-- Step 57: The Spirits of Southwind
 	-- {area:2738} Southwind Village · {object:179565} Dusty Reliquary · {quest:1123} Rabine Saturna
-	["Ride south-west to the ruins of {area:2738}. The {object:179565} for {quest:1123} sits inside one of the ruined houses."] = "",
+	["Ride south-west to the ruins of {area:2738}. The {object:179565} for {quest:1123} sits inside one of the ruined houses."] = "남서쪽 {area:2738} 폐허로 말을 타고 가세요. {quest:1123}용 {object:179565}은(는) 폐허가 된 집 안에 있습니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["A torn scroll lies at the entrance of the {area:2261}, the crypt south of the {area:2260}."] = "찢어진 두루마리는 {area:2260} 남쪽의 납골당인 {area:2261} 입구에 있습니다.",

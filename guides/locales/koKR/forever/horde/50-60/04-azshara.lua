@@ -154,11 +154,11 @@ return {
 	-- Step 29: Paladin trainer
 	["Paladin trainer"] = "성기사 상급자",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
-	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
+	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344}은(는) {zone:1456}에 있습니다. {zone:1454}에는 성전사 교관이 없습니다.",
 
 	-- Step 30: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["Fly to {zone:1454} and train."] = "",
+	["Fly to {zone:1454} and train."] = "{zone:1454}로 날아가 배우세요.",
 
 	-- Step 31: Belgrom Rockmaul
 	-- {zone:1454} Orgrimmar · {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {npc:3326} Zevrost · {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
@@ -176,7 +176,7 @@ return {
 
 	-- Step 34: Chemist Cuely
 	-- {npc:8390} Chemist Cuely · {npc:8393} Thersa Windsong
-	["{npc:8390} and {npc:8393} work in the Apothecarium."] = "",
+	["{npc:8390} and {npc:8393} work in the Apothecarium."] = "{npc:8390}과(와) {npc:8393}은(는) 연금술사 구역에서 일합니다.",
 	-- {npc:8393} Thersa Windsong
 	["{npc:8393}, beside him"] = "그 옆의 {npc:8393}",
 
@@ -199,18 +199,18 @@ return {
 	-- Step 41: Royal Quarter
 	-- {quest:79095} The Apothecary's Metaphysical Primer · {area:159} Brill
 	-- plural, as words: Library Books = {object:386691} Library Book
-	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "",
+	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "{area:159}의 연금술 상점에서 {quest:79095}을(를) 가방에 든 경우에만 (도서관 책 가이드)",
 
 	-- Step 43: The Bulwark
 	-- {zone:1458} Undercity · {area:152} The Bulwark · {zone:1422} Western Plaguelands
-	["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "",
+	["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "{zone:1458}에서 동쪽 도로를 따라 말을 타고 나가세요. {area:152}이(가) {zone:1422}으로 들어가는 길을 지킵니다.",
 	-- {npc:11615} Mickey Levine · {area:2627} Terrordale
 	["{npc:11615}: the termites are in {area:2627}, on the next guide"] = "{npc:11615}: 흰개미는 다음 가이드의 {area:2627}에 있습니다",
 
 	-- Step 45: Felstone Field
 	-- {npc:10778} Janice Felstone · {area:152} The Bulwark · {npc:11075} Cauldron Lord Bilemaw
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
-	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "",
+	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "{npc:10778}의 농장은 {area:152} 동쪽 첫 번째 농장입니다. 농장의 수다떨는 구울이 부적의 나머지 절반을 지니고 있고, {npc:11075}이(가) 들판의 가마솥을 지킵니다.\n주의: 보통 언데드 한두 마리가 그와 함께 싸우며, 가마솥을 사용한 뒤 다른 가마솥 군주가 나타날 수 있습니다.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Both {item:14047} donations are handed in later in the route: start saving {item:14047}."] = "{item:14047} 기부 두 개는 나중에 경로 중 완료합니다. {item:14047}을(를) 모으기 시작하세요.",

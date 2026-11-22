@@ -115,7 +115,7 @@ return {
 	-- {area:1762} Felpaw Village · {npc:11558} Kernda · {area:1769} Timbermaw Hold · {zone:1448} Felwood
 	["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then: she waits at the tunnel mouth of {area:1769} and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of {zone:1448} brought you to."] = "",
 	-- {npc:11558} Kernda
-	["{npc:11558} walks around here: look inside the circle on the map"] = "",
+	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558}이(가) 이 주변을 배회합니다. 지도 원 안을 살펴보세요.",
 
 	-- Step 31: Darkwhisper Gorge
 	-- {area:2249} Frostwhisper Gorge · {area:2256} Darkwhisper Gorge

@@ -106,7 +106,7 @@ return {
 	-- Step 30: Paladin trainer
 	["Paladin trainer"] = "성기사 상급자",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
-	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
+	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344}은(는) {zone:1456}에 있습니다. {zone:1454}에는 성전사 교관이 없습니다.",
 
 	-- Step 31: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
