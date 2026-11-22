@@ -1822,14 +1822,14 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop, checke
 	-- On a long walk (ASK_FAR yards left) a stray asks again at most every ASK_FAR_EVERY seconds: each ask searches the
 	-- whole walk again, and a mounted player cutting corners strayed every few seconds (a search every 4-5 s, ~1 MB of
 	-- garbage a second). A stray that long after the last ask still asks at once.
-	-- A wall between the player and the aim (the maps' line of sight, city.Walls) while more than walked.WALL yards
-	-- off the path is off the path too, however near (#3641: a farmhouse narrower than STRAY kept Fitz "on" a line
+	-- Outdoors, a wall between the player and the aim (the maps' line of sight, city.Walls) while more than walked.WALL
+	-- yards off the path is off the path too, however near (indoors walls are everywhere and the corridor follows them) (#3641: a farmhouse narrower than STRAY kept Fitz "on" a line
 	-- the other side of it). Either way the walk is asked again from where the player stands, his own steps open
 	-- (walked.Use), and the wall rule asks again only after he has moved walked.MOVED yards since its last ask.
 	local every = lastLeft > ASK_FAR and ASK_FAR_EVERY or ASK_EVERY
 	if token == nil and not wanted and not fstate.sighted and GetTime() - askedAt >= every then
 		local off = fstate.off or 0
-		local walled = off > walked.WALL and reach and (not walked.wx or (px - walked.wx) ^ 2 + (py - walked.wy) ^ 2 > walked.MOVED ^ 2)
+		local walled = outdoors and off > walked.WALL and reach and (not walked.wx or (px - walked.wx) ^ 2 + (py - walked.wy) ^ 2 > walked.MOVED ^ 2)
 			and not reach(px, py, ax, ay)
 		if off > STRAY or walled then
 			if walled then walked.wx, walked.wy = px, py end
