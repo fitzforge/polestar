@@ -71,7 +71,12 @@ test('every choice runs before the dialog closes; a choice that opens another di
 		W.Modal(spec({ onAccept = function() error("boom") end }))
 		stub.mouseClick(m.Box.Action, {})
 		geterrorhandler = oldHandler
-		emit({ seen = seen, afterAccept = afterAccept, afterCancel = afterCancel, afterAlt = afterAlt, next = next,
+		-- With the stub's own handler (it raises) the failing choice fails the
+		-- click, as on next, so no other test passes over a broken choice.
+		W.Modal(spec({ onAccept = function() error("loud") end }))
+		local okClick, clickErr = pcall(stub.mouseClick, m.Box.Action, {})
+		local loud = not okClick and tostring(clickErr):find("loud") ~= nil
+		emit({ loud = loud, afterLoud = m:IsShown(), seen = seen, afterAccept = afterAccept, afterCancel = afterCancel, afterAlt = afterAlt, next = next,
 			askedAgain = askedAgain, afterFail = m:IsShown(), caught = caught })`);
 	assert.deepEqual(out.seen, [['accept', true], ['cancel', true], ['alt', true]], 'each choice runs with the dialog up');
 	assert.equal(out.afterAccept, false, 'the action closes it');
@@ -81,4 +86,6 @@ test('every choice runs before the dialog closes; a choice that opens another di
 	assert.equal(out.askedAgain, true, 'a choice that asks again with the same spec keeps the new dialog up');
 	assert.equal(out.afterFail, false, 'a failing choice still closes the dialog');
 	assert.match(out.caught || '', /boom/, "the failing choice's error goes to the error handler");
+	assert.equal(out.loud, true, "with a handler that raises, the failing choice's error leaves the click");
+	assert.equal(out.afterLoud, false, 'and the dialog is closed first');
 });

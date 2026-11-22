@@ -3372,17 +3372,20 @@ end
 -- The choice runs while the dialog and the clicked button are still up, then
 -- the dialog closes (unless the choice opened another), as the game's own
 -- popups do (StaticPopup_OnClick): a call that needs the player's hardware
--- event (ReloadUI, the settings window's "Reload UI") runs inside the click
--- with its button shown. Closed first, that reload did nothing in the client.
--- A failing choice still closes it; its error goes to the game's handler with
--- the choice's own stack. W.Modal counts each dialog it opens, so a choice that
--- asks again (even with the same spec table) keeps the new one up.
+-- event (ReloadUI) runs inside the click with its button shown. Closed first,
+-- that reload did nothing in the client. A failing choice still closes it;
+-- its error then goes to the game's handler (pcall, then geterrorhandler, as
+-- Theme.lua does), so a handler that raises (the tests') still fails loudly.
+-- W.Modal counts each dialog it opens, so a choice that asks again (even with
+-- the same spec table) keeps the new one up.
 local modalSerial = 0
 local function closeModal(accept)
 	local spec, serial = modal.psSpec, modalSerial
 	local fn = spec and (accept == "alt" and spec.onAlt or accept == true and spec.onAccept or (not accept and spec.onCancel))
-	if fn then xpcall(fn, geterrorhandler()) end
+	local ok, err = true, nil
+	if fn then ok, err = pcall(fn) end
 	if modalSerial == serial then modal:Hide() end
+	if not ok then geterrorhandler()(err) end
 end
 
 local function buildModal()
