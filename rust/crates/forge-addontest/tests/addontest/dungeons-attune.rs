@@ -311,11 +311,7 @@ fn with_the_local_codex_the_onyxia_blackwing_lair_naxxramas_and_dalaran_chains_f
 		assert!(!truthy(&rec["instance"]) || rec["instance"] == e["instance"], "{}: the Codex places it in {}, not {}", text(&e["name"]), rec["instance"], e["instance"]);
 	}
 	assert_eq!(get("molten-core", "core")["inside"], json!([{ "kind": "object", "id": 179553, "instance": "blackrock-depths" }]), "the Core Fragment, by the Molten Core portal in Blackrock Depths");
-	assert_eq!(
-		get("onyxias-lair", "drakefire-h")["inside"],
-		json!([{ "kind": "object", "id": 175785, "instance": "blackrock-spire" }]),
-		"Warlord's Command's Inconspicuous Documents, in Blackrock Spire, where the Codex has them"
-	);
+	assert_eq!(get("onyxias-lair", "drakefire-h")["inside"], Value::Null, "the Codex places Warlord's Command's Inconspicuous Documents in Blackrock Spire itself");
 	assert_eq!(real["objects"]["175785"]["instance"], "blackrock-spire", "the data places the documents in Blackrock Spire");
 }
 

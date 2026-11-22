@@ -11004,16 +11004,21 @@ was already built without it.
   oldest first, each with `after`/`afterAny`; a quest only an item starts
   gets that item's drops before it (Blackhand's Command from the Scarshield
   Quartermaster); an item goal adds the item's own sources (a dropped key's
-  drops and chests, best chance first, three at most; Aqual Quintessence's
-  standing and the NPC handing it out). `links` add a prerequisite our quest
-  data lacks, with its source (Forever's City of Dalaran: Blood in the
-  Streets after Dalaran Patrols and Key to the City, Heart of Disruption
-  after it). `inside` places an NPC or object of a chain that has no
+  drops and chests, best chance first, three at most, each with the
+  instance it is in; Aqual Quintessence's standing and the NPC handing it
+  out). `via` adds the drops and chests of the item a goal item is made
+  from, and `useAt` (the NPC or object standing where it is used) a use step
+  there: `{ kind: 'use', from, item, at }` (the Black Tome, from Shadowfang
+  Keep, used at the Ambermill Leyline Focus beside Archmage Ataeric, becomes
+  the Tome of Dalaran). `onAccept` marks the goal steps `accept`: the quest
+  hands the item over as it is taken and takes it back if it is dropped
+  (Heart of Disruption's Dalaran Sewer Key, Forever's provided item), so the
+  chain ends at that accept. `links` add a prerequisite our quest
+  data lacks, with its source. `inside` places an NPC or object of a chain that has no
   open-world spawn and no Codex instance in the instance it is in, each with
-  its Forever quest data entry (Marshal Windsor, the Monument of Franclorn
-  Forgewright and the Core Fragment in Blackrock Depths; the Inconspicuous
-  Documents and Drakkisath's Brand in Blackrock Spire; Doan's Strongbox in
-  Scarlet Monastery); each attunement carries the entries its steps meet as
+  its Forever quest data entry (the Core Fragment in Blackrock Depths; the
+  Codex places Marshal Windsor, Franclorn's monument, the Inconspicuous
+  Documents, Drakkisath's Brand and Doan's Strongbox itself); each attunement carries the entries its steps meet as
   `inside: [{ kind, id, instance }]`. `removed` lists what Forever took out,
   with its evidence (the Seal of Ascension: 4743 no longer rewards it, no
   Forever `ItemSparse` row), read only by the local comparison. Covered: Molten Core (Attunement
@@ -11023,7 +11028,11 @@ was already built without it.
   side), Blackrock Depths (the Shadowforge and Prison Cell keys), Stratholme
   (Key to the City), Dire Maul (Crescent Key), Gnomeregan (Workshop Key),
   Scarlet Monastery (The Scarlet Key), the City of Dalaran (the Horde's
-  Dalaran Sewer Key). A goal the Codex lacks drops its entry with a warning
+  Dalaran Sewer Key; the Tome of Dalaran, which calls up Lyn the Ignored),
+  Maraudon (the Scepter of Celebras), Krol'dok Stronghold (the Krol'dok
+  Compound Key, each side) and Zul'Farrak (the Mallet of Zul'Farrak). The
+  addontest `dungeons-attune` pins every chain the local Codex builds to the
+  reviewed list in `tests/fixtures/codex/attunements-golden.json`. A goal the Codex lacks drops its entry with a warning
   (`codex build` prints it); an instance the build lacks has none. The
   journal puts each list on its page as `attunement` and counts them
   (`meta.counts.attunements`, the summary's `attune = { A, H }`).
