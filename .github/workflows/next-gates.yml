@@ -1,7 +1,7 @@
 name: Post-merge gates
 
 # The gates that only make sense on the merged tree (docs/CI.md, "After a merge"), on every push to next, on the
-# release data, on the maintainers' self-hosted runner (labels self-hosted, polestar-data; docs/CI.md "Reference
+# release data, on the maintainers' self-hosted runner for the gates (labels self-hosted, polestar-gates; docs/CI.md "Reference
 # data"): the whole Node suite, guide lint, the addon's Lua tests in full, playtest, the route-speed gate, the arrow's
 # corner cadence and the arrow through guide stretches. Two pull requests that each passed alone are tested here as one
 # tree. A failing gate fails the run (the badge in docs/CI.md turns red) and files an issue labelled `next-gates`, or
@@ -25,7 +25,7 @@ concurrency:
 jobs:
   gates:
     name: Gates on the merged tree
-    runs-on: [self-hosted, polestar-data]
+    runs-on: [self-hosted, polestar-gates]
     timeout-minutes: 180
     env:
       POLESTAR_TIMING_BUDGETS: warn
