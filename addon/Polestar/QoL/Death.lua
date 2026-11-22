@@ -3,7 +3,8 @@
 -- the arrow at the faster choice and say why in one line. The arrow is held
 -- there (Nav.Hold) until you are alive: a step change, the guide's next
 -- waypoint, a point picked by hand or another addon's never takes it away
--- (#1382). A point picked before dying (a map click, /way, another addon's)
+-- (#1382); a nearer Spirit Healer the advice names takes it over (#3610).
+-- A point picked before dying (a map click, /way, another addon's)
 -- comes back once alive, if the guide is still on the same step. The arrow's
 -- route to either is planned like any target (Nav/Travel.lua walks a ghost
 -- there on foot), the corpse on the floor the character died on (a basement
@@ -216,6 +217,7 @@ end
 local advice = {}
 local current          -- "corpse" | "healer" | nil
 local mine             -- the Nav target we hold
+local heldX, heldY     -- the Spirit Healer it holds (world yards): a nearer one the advice names moves it (#3610)
 local ticker
 local noted = false
 
@@ -263,7 +265,7 @@ end
 local function point(a)
 	local Nav = ns.Nav
 	if not (Nav and Nav.Hold) then return end
-	if mine and a.choice == current then return end
+	if mine and a.choice == current and (a.choice ~= "healer" or (heldX == a.healerWX and heldY == a.healerWY)) then return end
 	local C = ns.Compat
 	if a.choice == "corpse" then
 		mine = Nav.Hold(a.corpseMap, a.corpseX, a.corpseY, a.via and format(L["%s (your corpse is inside)"], a.via) or L["Your corpse"], nil, a.corpseZ)
@@ -276,6 +278,7 @@ local function point(a)
 			mine = Nav.Hold(a.healerMap, a.healerEX, a.healerEY, L["Spirit Healer"], "e")
 		end
 	end
+	heldX, heldY = a.choice == "healer" and a.healerWX or nil, a.choice == "healer" and a.healerWY or nil
 	current = a.choice
 end
 
@@ -386,7 +389,7 @@ local function release()
 	-- What the arrow guided to underneath (the guide's step, or a point picked
 	-- before dying on the same step) shows again.
 	if mine and Nav and Nav.Unhold then Nav.Unhold() end
-	mine, current, noted = nil, nil, false
+	mine, current, noted, heldX, heldY = nil, nil, false, nil, nil
 	if ns.Pins and ns.Pins.ClearLayer then ns.Pins.ClearLayer(LAYER) end
 	pinned.choice, pinned.hx, pinned.cx = nil, nil, nil
 end
