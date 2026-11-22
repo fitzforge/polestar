@@ -263,7 +263,7 @@ end
 function Levels.LootKills(item, count)
 	local Cx = ns.Codex
 	if not (Cx and Cx.Item and item) then return nil end
-	return (lootKills(Cx, { item = item, count = count }))
+	return (lootKills(Cx, { item = item, count = count }, count or 1))
 end
 
 -- A span's entries depend on the guide (its table: an updated import is a new one), the span, who the character is (level, class, race, faction:
