@@ -1352,6 +1352,8 @@ L["Rings the gong by the sacred pool in Zul'Farrak to call Gahz'rilla; one malle
 -- L["Opens a portal from the first khan's spot in Maraudon's outer caves to Earth Song Falls in inner Maraudon; the group walks through it. Celebras the Redeemed makes it once Celebras the Cursed is dead inside."] = ""
 -- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Alphonse Dumas in Farholde Keep forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
 -- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Kreza Darkthorn in Rog'mar forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
+-- L["Use %s beside %s: it becomes %s."] = ""
+-- L["Keep %s in your quest log until you are inside: taking it gives you %s, and dropping the quest takes it back."] = ""
 
 -- UI/UI.lua
 L["Map %d"] = "Mapa %d"
@@ -2033,6 +2035,7 @@ L["The Dungeons section is turned off. Turn it on under Options > Discovery > Lo
 L["%d-%d players"] = "%d-%d jogadores"
 L["No boss drops known"] = "Nenhum saque de chefe conhecido"
 L["Drops (%d)"] = "Saques (%d)"
+-- L["Use %s beside %s"] = ""
 
 -- UI/RouteChoice.lua
 L["Right here"] = "Bem aqui"

@@ -1671,6 +1671,7 @@ L["The Dungeons section is turned off. Turn it on under Options > Discovery > Lo
 L["%d-%d players"] = "%d-%d Spieler"
 -- L["No boss drops known"] = ""
 -- L["Drops (%d)"] = ""
+-- L["Use %s beside %s"] = ""
 
 -- UI/Lookup.lua
 L["Mount"] = "Reittier"
@@ -3006,6 +3007,8 @@ L["Opens the doors of the Armory and the Cathedral."] = "Öffnet die Türen der 
 -- L["Opens a portal from the first khan's spot in Maraudon's outer caves to Earth Song Falls in inner Maraudon; the group walks through it. Celebras the Redeemed makes it once Celebras the Cursed is dead inside."] = ""
 -- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Alphonse Dumas in Farholde Keep forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
 -- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Kreza Darkthorn in Rog'mar forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
+-- L["Use %s beside %s: it becomes %s."] = ""
+-- L["Keep %s in your quest log until you are inside: taking it gives you %s, and dropping the quest takes it back."] = ""
 
 -- Nav/Handoff.lua
 L["Hand guiding to Shortest Path Forever"] = "Führung an Shortest Path Forever abgeben"
