@@ -38526,27 +38526,6 @@
 				],
 				"english": "Kobold Vermin"
 			},
-			"npc:246600": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Mana Echo"
-			},
-			"npc:247001": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Saturated Remnant"
-			},
-			"npc:247003": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Seeking Remnant"
-			},
 			"npc:247032": {
 				"reason": "no-source",
 				"scenes": [
@@ -39374,13 +39353,6 @@
 					"guides"
 				],
 				"english": "Leonid Barthalomew the Revered"
-			},
-			"npc:268423": {
-				"reason": "no-source",
-				"scenes": [
-					"dungeons"
-				],
-				"english": "Zalfan Moonshadow"
 			},
 			"npc:268425": {
 				"reason": "no-source",

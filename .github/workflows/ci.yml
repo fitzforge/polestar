@@ -193,6 +193,20 @@ jobs:
         if: steps.lane.outputs.lane == 'full' || contains(steps.lane.outputs.areas, 'guides')
         run: $FORGE guide check-generated --checkout .
 
+      # The guide texts (docs/CI.md, "Guide texts"): the languages whose texts
+      # the change can break, on the public data, failing only on errors the
+      # base's own texts do not have on the same data.
+      - name: Guide texts
+        if: steps.lane.outputs.lane != 'docs' && steps.lane.outputs.locales != ''
+        env:
+          LOCALES: ${{ steps.lane.outputs.locales }}
+        run: |
+          if [ -z "${BASELINE:-}" ] || [ ! -d "$RUNNER_TEMP/base" ]; then
+            echo "::notice::No reference data or base checkout in this run: the Release data job and the post-merge gates check the guide texts."
+            exit 0
+          fi
+          tools/ci-guide-texts.sh "$RUNNER_TEMP/base" "$LOCALES"
+
       # The textures build in textures.yml, only when their inputs change.
 
       # The UI renders are generated from the addon's Lua and frozen fixtures
@@ -290,3 +304,9 @@ jobs:
           if [ -z "$files" ]; then echo "No test the change can break reads the data."; exit 0; fi
           echo "$(wc -w <<< "$files") test file(s) read the data"
           tools/ci-tests.sh "" $files
+
+      - name: Guide texts
+        if: steps.lane.outputs.lane != 'docs' && steps.lane.outputs.locales != ''
+        env:
+          LOCALES: ${{ steps.lane.outputs.locales }}
+        run: tools/ci-guide-texts.sh "" "$LOCALES"

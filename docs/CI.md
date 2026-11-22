@@ -52,8 +52,9 @@ or none.
   the cache has none for this code.
 - **skip** for anything else: `Format, lints, tests` passes in seconds.
 
-The addon's Lua tests run in four shards at once (`Addon tests 1/4` to
-`4/4`, addontest's tests dealt out in turn) from one build (`Addon tests
+The addon's Lua tests run in four shards at once (`Addon tests 1/4`: the
+crate's unit tests and the scenes; `2/4` to `4/4`: addontest's tests dealt
+out in turn) from one build (`Addon tests
 build`); `Format, lints, tests` waits for every job its lane runs and fails
 when one did not pass. Pushes to `main` and `next` run everything on
 `FORGE_PATHS` and save the caches the pull requests after them read.
@@ -221,6 +222,61 @@ like any other.
 
 The on-demand suites run with `data=none` (the default) as before: the tests
 that read `data/forever` skip with a reason.
+
+## Guide texts
+
+The guide translations (`guides/locales/`, docs/TRANSLATING.md "Guide
+texts") are checked with `forge i18n guides check`: a translation that drops
+or adds a line break (`\n`) or a `{kind:id}` name token, a stale translation
+(its English changed: the guide was edited without `forge i18n guides
+sync`), or a texts file no guide has. The check reads the reference data, so
+it runs where the data is:
+
+| Where | Languages | Fails on |
+|---|---|---|
+| `Tests` (public data) | those whose texts the pull request changes; every language when it changes a guide | an error the base's own texts do not have on the same data (`tools/ci-guide-texts.sh`) |
+| `Release data` | the same | any error |
+| Post-merge gates | every language | any error |
+
+The public-text rule (CONTRIBUTING.md, "Commits and pull requests") holds
+for the words players read as well: the `prose` rules of
+`tools/lib/public-text.json` (no wording that says a route follows or was
+checked against another guide, no claim about an update's size) cover the
+guides, the fix records' words, the changelog fragments
+(`changes/`), the Client's release notes and the CurseForge description, in
+every lane (`tests/wording.test.js`), and pull request titles, descriptions
+and commit messages (`Public text`).
+
+## After a merge
+
+![Post-merge gates](https://github.com/fitzforge/polestar/actions/workflows/next-gates.yml/badge.svg?branch=next)
+
+Every push to `next` runs `next-gates.yml` on the merged tree, on the
+release data, on the self-hosted runner ([Reference data](#reference-data)):
+the checks that only make sense on the tree two pull requests make
+together.
+
+| Gate | What fails it |
+|---|---|
+| Node suite on the release data | any failing test among those that read the data: the guide suites, danger, levels, guide ends, while-here (`tools/ci-data-tests.js`; `ci.yml`'s push run has the rest) |
+| Guide lint | a lint error, leveling or experimental guides |
+| Addon tests | any of forge-addontest's tests, all of them (the cached test binaries) |
+| Playtest | a guide stuck or failing, leveling or experimental |
+| Route speed | a time to the arrow's first walking route over 5 s in its 7 cases, or a settled route that differs from 0.4.2's |
+| Arrow corner cadence | a case whose corner lag is worse than 0.4.1.1's (mean over 3 degrees worse and 6 or more, max over 45 and 10 worse), 24 cases |
+| Arrow stretches | a guide stretch the arrow does not walk to its end; the table compares with 0.4.2's runs |
+
+The route-speed, cadence and stretch gates' harnesses and baselines come
+from the release gates and live with the runner (`$POLESTAR_GATES`), not in
+the repository. A gate that cannot run (no data, no harness) fails like one
+that finds something: nothing is skipped quietly.
+
+Each gate runs whatever the others did; the run's summary has a row per
+gate. A failing run turns the badge above red and files an issue labelled
+`next-gates` with that table (or comments on the open one); the next run
+that passes every gate closes it. Runs go one at a time, to the end: a newer
+push waits, and the newest waiting push replaces an older one, so on a busy
+day one run covers several merges.
 
 ## What stays local
 
