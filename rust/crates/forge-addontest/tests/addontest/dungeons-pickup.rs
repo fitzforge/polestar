@@ -2699,6 +2699,7 @@ emit({ steps = describe(def), notes = notes, accepts = accepts, groups = groups,
 		let s = v.as_str().unwrap_or_default().to_string();
 		let rest = s.strip_prefix("3 of this guide's 6 steps are prerequisite quests (about ").unwrap_or_else(|| panic!("the count first: {s}"));
 		let (time, tail) = rest.split_once("). ").unwrap_or_else(|| panic!("then the time: {s}"));
+		assert!(time.ends_with(" min") && time.split(' ').next().unwrap().parse::<u32>().is_ok_and(|m| m >= 5 && m % 5 == 0), "about whole 5 minutes: {s}");
 		tail.to_string()
 	};
 	assert_eq!(head(&plain["accepts"][0]), "Needed for “Arugal Must Die”.", "the guide's first goal: the count and time, then why");
