@@ -3,7 +3,7 @@
 -- uses each key.
 
 local ns = Polestar
-if not (ns and GetLocale and GetLocale() == "deDE") then return end
+if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "deDE") then return end
 local L = ns.L
 
 -- Core/Automation.lua
@@ -415,6 +415,11 @@ L["Learn the flight path at %s, then fly to %s"] = "Flugroute in %s lernen, dann
 -- L["Ride to the entrance in %s"] = ""
 -- L["Ride to the cave mouth"] = ""
 -- L["Ride to the entrance"] = ""
+-- L["Known flight paths forgotten: open a flight map on each continent to settle them again."] = ""
+-- L["No flight paths known yet: open a flight map to record them."] = ""
+-- L["Known flight paths (%d): %s"] = ""
+-- L["List the flight paths Polestar knows you have (reset: forget them)"] = ""
+-- L["Faster if you have the flight path at %s"] = ""
 
 -- QoL/Options.lua
 L["Experience"] = "Erfahrung"
@@ -1666,6 +1671,7 @@ L["The Dungeons section is turned off. Turn it on under Options > Discovery > Lo
 L["%d-%d players"] = "%d-%d Spieler"
 -- L["No boss drops known"] = ""
 -- L["Drops (%d)"] = ""
+-- L["Use %s beside %s"] = ""
 
 -- UI/Lookup.lua
 L["Mount"] = "Reittier"
@@ -3001,6 +3007,8 @@ L["Opens the doors of the Armory and the Cathedral."] = "Öffnet die Türen der 
 -- L["Opens a portal from the first khan's spot in Maraudon's outer caves to Earth Song Falls in inner Maraudon; the group walks through it. Celebras the Redeemed makes it once Celebras the Cursed is dead inside."] = ""
 -- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Alphonse Dumas in Farholde Keep forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
 -- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Kreza Darkthorn in Rog'mar forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
+-- L["Use %s beside %s: it becomes %s."] = ""
+-- L["Keep %s in your quest log until you are inside: taking it gives you %s, and dropping the quest takes it back."] = ""
 
 -- Nav/Handoff.lua
 L["Hand guiding to Shortest Path Forever"] = "Führung an Shortest Path Forever abgeben"
@@ -4801,6 +4809,12 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Geland
 
 -- Rares/Rares.lua
 L["Boss emote"] = "Boss-Emote"
+
+-- Core/Locale.lua
+-- L["Language: %s. Change it with /polestar language <name>, one of: %s."] = ""
+-- L["No language '%s'. Choose one of: %s."] = ""
+-- L["Language: %s, from the next /reload."] = ""
+-- L["Choose Polestar's language (game, enUS, deDE...), from the next /reload"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target and the areas it spawns in."] = "Das Ziel des Pfeils und die Gebiete, in denen es spawnt."

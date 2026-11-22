@@ -3,7 +3,7 @@
 -- the esMX client's own wording. Grouped by the file that first uses each key.
 
 local ns = Polestar
-if not (ns and GetLocale and GetLocale() == "esMX") then return end
+if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "esMX") then return end
 local L = ns.L
 
 -- Core/Automation.lua
@@ -330,6 +330,8 @@ L["Opens the doors of the Armory and the Cathedral."] = "Abre las puertas de la 
 -- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Alphonse Dumas in Farholde Keep forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
 -- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Kreza Darkthorn in Rog'mar forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
 L["Rings the gong by the sacred pool in Zul'Farrak to call Gahz'rilla; one mallet does it for the group. Qiaga the Keeper (elite) on top of the Altar of Zul in the Hinterlands drops the Sacred Mallet: use it at the altar at the very top of Jintha'Alor and it becomes the Mallet of Zul'Farrak. Both places are full of elites."] = "Toca el gong junto al estanque sagrado de Zul'Farrak para llamar a Gahz'rilla; con una marra basta para todo el grupo. Qiaga la Vigilante (élite), en lo alto del Altar de Zul en las Tierras del Interior, suelta la Marra sacra: úsala en el altar de la cima de Jintha'Alor y se convierte en la Marra de Zul'Farrak. Los dos lugares están llenos de élites."
+-- L["Use %s beside %s: it becomes %s."] = ""
+-- L["Keep %s in your quest log until you are inside: taking it gives you %s, and dropping the quest takes it back."] = ""
 
 -- Dungeons/Dungeons.lua
 L["Dungeon quests, bosses and entrances"] = "Misiones, jefes y entradas de calabozos"
@@ -769,6 +771,11 @@ L["Detour around %s"] = "Rodeo para evitar %s"
 L["Walk to the airship dock"] = "Camina hasta el muelle de la aeronave"
 L["Take the airship to %s"] = "Toma la aeronave a %s"
 L["Learn the flight path at %s, then fly to %s"] = "Aprende la ruta de vuelo de %s y luego vuela a %s"
+-- L["Known flight paths forgotten: open a flight map on each continent to settle them again."] = ""
+-- L["No flight paths known yet: open a flight map to record them."] = ""
+-- L["Known flight paths (%d): %s"] = ""
+-- L["List the flight paths Polestar knows you have (reset: forget them)"] = ""
+-- L["Faster if you have the flight path at %s"] = ""
 L["Ride to the boat"] = "Cabalga hasta el barco"
 L["Ride to the zeppelin tower"] = "Cabalga hasta la torre del zepelín"
 L["Ride to the airship dock"] = "Cabalga hasta el muelle de la aeronave"
@@ -1444,6 +1451,7 @@ L["The Dungeons section is turned off. Turn it on under Options > Discovery > Lo
 L["%d-%d players"] = "%d-%d jugadores"
 L["No boss drops known"] = "No se conoce botín de jefes"
 L["Drops (%d)"] = "Botín (%d)"
+-- L["Use %s beside %s"] = ""
 
 -- UI/GearPick.lua
 L["new"] = "nuevo"
@@ -4807,6 +4815,12 @@ L["The perf probe has not run yet: type /polestar perf to start it."] = "La sond
 L["Perf probe: measurements cleared."] = "Sonda de rendimiento: mediciones borradas."
 L["/polestar perf: on, off, report or reset"] = "/polestar perf: on, off, report o reset"
 L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = "Encuentra qué hace que tu juego dé tirones: mide el trabajo propio de Polestar (on, off, report, reset)"
+
+-- Core/Locale.lua
+-- L["Language: %s. Change it with /polestar language <name>, one of: %s."] = ""
+-- L["No language '%s'. Choose one of: %s."] = ""
+-- L["Language: %s, from the next /reload."] = ""
+-- L["Choose Polestar's language (game, enUS, deDE...), from the next /reload"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target, the stops of its travel route, the step's other goals and the areas their mobs and objects spawn in."] = "El objetivo de la flecha, las paradas de su ruta de viaje, los demás objetivos del paso y las zonas donde aparecen sus monstruos y objetos."

@@ -5,7 +5,7 @@
 -- From Yendi's (@moust4ki) French translation for Ding!, GPL-3.0, used with his permission (THIRD_PARTY.md).
 
 local ns = Polestar
-if not (ns and GetLocale and GetLocale() == "frFR") then return end
+if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "frFR") then return end
 local L = ns.L
 
 -- Core/Init.lua
@@ -475,6 +475,11 @@ L["Learn the flight path at %s, then fly to %s"] = "Apprendre le trajet aérien 
 -- L["Ride to the entrance in %s"] = ""
 -- L["Ride to the cave mouth"] = ""
 -- L["Ride to the entrance"] = ""
+-- L["Known flight paths forgotten: open a flight map on each continent to settle them again."] = ""
+-- L["No flight paths known yet: open a flight map to record them."] = ""
+-- L["Known flight paths (%d): %s"] = ""
+-- L["List the flight paths Polestar knows you have (reset: forget them)"] = ""
+-- L["Faster if you have the flight path at %s"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"
@@ -1348,6 +1353,8 @@ L["Opens the doors of the Armory and the Cathedral."] = "Ouvre les portes de l'A
 -- L["Opens a portal from the first khan's spot in Maraudon's outer caves to Earth Song Falls in inner Maraudon; the group walks through it. Celebras the Redeemed makes it once Celebras the Cursed is dead inside."] = ""
 -- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Alphonse Dumas in Farholde Keep forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
 -- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Kreza Darkthorn in Rog'mar forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
+-- L["Use %s beside %s: it becomes %s."] = ""
+-- L["Keep %s in your quest log until you are inside: taking it gives you %s, and dropping the quest takes it back."] = ""
 
 -- UI/UI.lua
 L["Map %d"] = "Carte %d"
@@ -2029,6 +2036,7 @@ L["The Dungeons section is turned off. Turn it on under Options > Discovery > Lo
 L["%d-%d players"] = "%d-%d joueurs"
 -- L["No boss drops known"] = ""
 -- L["Drops (%d)"] = ""
+-- L["Use %s beside %s"] = ""
 
 -- UI/RouteChoice.lua
 L["Right here"] = "Ici même"
@@ -4809,6 +4817,12 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Atterr
 -- L["Perf probe: measurements cleared."] = ""
 -- L["/polestar perf: on, off, report or reset"] = ""
 -- L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = ""
+
+-- Core/Locale.lua
+-- L["Language: %s. Change it with /polestar language <name>, one of: %s."] = ""
+-- L["No language '%s'. Choose one of: %s."] = ""
+-- L["Language: %s, from the next /reload."] = ""
+-- L["Choose Polestar's language (game, enUS, deDE...), from the next /reload"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Alliance"] = "Alliance"
