@@ -14708,6 +14708,25 @@
 				}
 			],
 			"issue": 3587
+		},
+		{
+			"id": "3588-westfall-watchers-count-and-drop-everything",
+			"faction": "Alliance",
+			"at": {
+				"quest": 9,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/02-westfall"
+			},
+			"tip": "On the way south from the Jansen Stead to Saldean's Farm: Harvest Watchers (level 14-15) work the fields west of the road. Stick to them: they are the only mechanicals that count for The Killing Fields, and they drop everything else here too: the isosprings, gyrostabilizers, Okra and sometimes a Precessive Autocognition Assembly. Harvest Golems drop some of the parts but don't count, and the Harvest Reapers (17) are too high. Foe Reaper 4000, a level 20 rare, walks these fields: leave it alone.",
+			"note": "#3588: the step already works The Killing Fields (9), Harvesting the Harvesters (92909) and Westfall Stew's Okra (38) together, but its tip named Harvest Watchers and Golems side by side, as if either did the job. Only Watchers count for 9, and they drop every item of the step; Golems drop some parts and don't count; Harvest Reapers (17) are above a player here. The tip says to stay on the Watchers.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-22): The Killing Fields ticked at a Harvest Watcher (114) kill for 111 people, at a lone Golem kill for 1; with a lone Watcher kill 96 people got Golem Isosprings, 100 Harvester Gyrostabilizers and 66 Okra, with a lone Harvest Golem (36) kill 72, 38 and 37; 1 person's Okra came from a Harvest Reaper (115)"
+				}
+			],
+			"issue": 3588
 		}
 	]
 }

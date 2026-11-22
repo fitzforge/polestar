@@ -18588,3 +18588,21 @@ test('forever/alliance/nightelf/01-teldrassil.guide: The Goddess Provides\' step
 	assert.match(text, /\{spell:1259799\}|Elune's Light/, 'it names Elune\'s Light');
 	assert.match(text, /Shadowmeld/, 'it names Shadowmeld');
 });
+
+// #3588 (Muvias, Discord, Alliance Westfall): only Harvest Watchers (114) count for The Killing Fields (9), and they
+// drop every item of the step (players' recordings: kill ticks for 111 people, all at a Watcher; isosprings,
+// gyrostabilizers and Okra from lone Watcher kills for 96, 100 and 66 people). The Watchers' step works the three
+// quests together, and its tip says to stay on the Watchers rather than the Golems, which don't count.
+test('forever/alliance/02-westfall.guide: one step at the Harvest Watchers for all three quests, its tip says only they count (#3588)', { skip }, () => {
+	const list = goals('forever/alliance/02-westfall.guide');
+	const kill = list[at(list, 'kill 114 for 9', (g) => g.t === 'kill' && g.quest === 9)];
+	assert.equal(kill.goal.npc, 114, 'the kills are Harvest Watchers');
+	for (const [what, pred] of [
+		['Golem Isosprings', (g) => g.t === 'collect' && g.quest === 92909 && g.oi === 1],
+		['Harvester Gyrostabilizers', (g) => g.t === 'collect' && g.quest === 92909 && g.oi === 2],
+		['Okra', (g) => g.t === 'collect' && g.quest === 38 && g.item === 732],
+	]) assert.equal(list[at(list, what, pred)].s, kill.s, `${what} are in the Watchers' step`);
+	const text = [kill.step.note, kill.step.tip].flat().filter(Boolean).join(' ');
+	assert.match(text, /only[^.]*count for The Killing Fields|only[^.]*count for \{quest:9\}/, 'the tip says only Watchers count');
+	assert.match(text, /Golems[^.]*don't count/, 'and that the Golems don\'t');
+});
