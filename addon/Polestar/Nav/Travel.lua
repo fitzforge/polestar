@@ -2574,12 +2574,22 @@ end
 -- The route for the target is held while the walk from its landing into the target is checked (plan's
 -- waitForWalk): the arrow's own walk straight to the target waits too (Nav.lua's sample), so that measure gets the
 -- frames and the route comes first, as before 0.4.2 (#3369). Not once the measure is done: the planner then has
--- its answer, a route or none (a walk: the arrow's own search).
+-- its answer, a route or none (a walk: the arrow's own search). Nor for more than 2 s of one measure (Walk.HeldFor,
+-- counted per measure from the first frame it holds the route): the places it has not priced yet then keep their
+-- estimates (Walk.GiveUp) and the route is offered; a price that lands later plans once more (Travel.Remeasured).
+-- A measure that finds no walk into the target only when its search has run dry held the route for minutes, and
+-- then offered none (#3553). The frame that offers the route still reads as held, so the sample asks no walk
+-- straight to the target before the route's own walk on the next one.
 function Travel.Waiting()
 	local t = Travel.held
 	if not t or legs or t ~= Nav.GetTarget() then return false end
 	local W = Nav.walk
-	return W and W.MeasureBusy and W.MeasureBusy() or false
+	if not (W and W.MeasureBusy and W.MeasureBusy()) then return false end
+	if not (W.HeldFor and W.HeldFor() >= 2) then return true end
+	Travel.held = nil
+	W.GiveUp()
+	Travel.Remeasured()
+	return legs ~= nil
 end
 
 ---------------------------------------------------------------------------
