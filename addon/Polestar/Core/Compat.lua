@@ -71,13 +71,29 @@ function Compat.GetPlayerLevel()
 	if type(level) == "number" and level >= 1 and level < math.huge and level == math.floor(level) then return level end
 end
 
+-- The realm's name, or nil when the client does not give it. Forever's
+-- client stopped telling addons the realm in 1.60.1 (a hotfix in November
+-- 2026): GetRealmName and GetNormalizedRealmName read "", GetRealmID 0.
+-- Compat's one reader of them. Saved data filed by realm (the Characters
+-- page, Materials' prices, Instances, Transit, Rares) then falls back to a
+-- realm-less key and takes over the entry filed under the old realm once
+-- (docs/ARCHITECTURE.md, "Unknown realm").
+local function realmText(fn)
+	local v = fn and readable(fn())
+	if type(v) == "string" and v ~= "" then return v end
+	return nil
+end
+
+function Compat.RealmName() return realmText(GetRealmName) end
+function Compat.NormalizedRealmName() return realmText(GetNormalizedRealmName) end
+
 function Compat.GetPlayerInfo()
 	local _, race = UnitRace("player")
 	local _, class = UnitClass("player")
 	local faction = Compat.GetPlayerFaction() or "Neutral"
 	return {
 		name = readable(UnitName("player")),
-		realm = GetRealmName and GetRealmName() or nil,
+		realm = Compat.RealmName(),
 		guid = readable(UnitGUID and UnitGUID("player")),
 		level = Compat.GetPlayerLevel() or 1,
 		xp = readable(UnitXP and UnitXP("player")) or 0,

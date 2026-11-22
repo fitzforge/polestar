@@ -179,6 +179,28 @@ fn sources_required_item_level_quest_minlevel_and_mob_level_gate_a_source() {
 	assert!(truthy(&ok[0]["available"]));
 }
 
+// #3370 (Zack: a level 57 went to Pix Xizzix for In Demand, which the game offers from level 60): a quest's Lookup
+// line (its row, its page's header) says from which level it is offered while the character is below it, after its
+// quest level when that is higher ("Level 32 · From level 30"), alone when the two are one ("From level 10"); at or
+// above that level the line is as before.
+#[test]
+fn a_quest_s_lookup_line_says_from_which_level_it_is_offered_while_the_character_is_below_it_3370() {
+	let line = |level: i32| {
+		run_with(
+			r#"
+		Polestar.Codex.Load()
+		local S = Polestar.Lookup.Subtitle
+		emit({ peril = S("quest", 7005), taming = S("quest", 7009) })
+	"#,
+			&Opts { level, ..Default::default() },
+		)
+		.remove(0)
+	};
+	assert_eq!(line(9), json!({ "peril": "Level 32 \u{b7} From level 30 \u{b7} Amber Vale", "taming": "From level 10 \u{b7} Amber Vale" }));
+	assert_eq!(line(15), json!({ "peril": "Level 32 \u{b7} From level 30 \u{b7} Amber Vale", "taming": "Level 10 \u{b7} Amber Vale" }));
+	assert_eq!(line(30), json!({ "peril": "Level 32 \u{b7} Amber Vale", "taming": "Level 10 \u{b7} Amber Vale" }));
+}
+
 // #1745: the level gate is for creatures you fight. A level 30 vendor of the character's side and a level 55
 // factionless banker (a goblin town's) stay open to a level 20 character; a level 40 beast and a vendor of the
 // other side are still out of reach.

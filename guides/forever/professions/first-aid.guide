@@ -167,7 +167,7 @@ step Heavy Silk Bandage: cloth
   collect 4306 x84 anywhere gather levels 25-45
 
 step Heavy Silk Bandage (180-210)
-  tip Heavy Silk Bandage is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere.
+  tip Heavy Silk Bandage is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere. Read the Manual: Heavy Silk Bandage you bought with Expert First Aid to learn it; without one, the vendor who sold you the book sells it too.
   learn 7929
   craft 7929 until 210
 
@@ -182,7 +182,7 @@ step Mageweave Bandage: cloth
   collect 4338 x18 anywhere gather levels 35-50
 
 step Mageweave Bandage (210-225)
-  tip Mageweave Bandage is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere.
+  tip Mageweave Bandage is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere. Read the Manual: Mageweave Bandage you bought with Expert First Aid to learn it; without one, the vendor who sold you the book sells it too.
   learn 10840
   craft 10840 until 225
 

@@ -159,11 +159,56 @@ local function EnsurePart(map, D)
 	return true
 end
 
--- The directory is resident; only the compressed pages a walk actually needs enter the Lua heap.
--- A promised page unavailable in combat is not absent terrain. A later request retries it.
+-- The directory is resident; a region's pages wait as one string in the map's part (Polestar_Nav itself for map
+-- 2991; tools/lib/nav/import-regions.js writes it: the fields' names, "packed.floor,localWalk.ground:", then each
+-- page as its field (1 byte, from 1), key (3), block count (1; 0 for a lone string) and each block's length (3)
+-- before its bytes). The first page a walk needs from a region unpacks all of it into the map's page tables, the
+-- same strings and block lists 0.4.2's region addons assigned, and drops the string (#3396).
+local function unpackRegion(D, blob)
+	local colon = string.find(blob, ":", 1, true)
+	if not colon then return end
+	local tables = {}
+	for name in string.gmatch(string.sub(blob, 1, colon - 1), "[^,]+") do
+		local t = D
+		for part in string.gmatch(name, "[^.]+") do
+			t = type(t) == "table" and t[part] or nil
+		end
+		if type(t) ~= "table" then return end
+		tables[#tables + 1] = t
+	end
+	local sub, pos, size = string.sub, colon + 1, #blob
+	while pos <= size do
+		local f, k1, k2, k3, n = byte(blob, pos, pos + 4)
+		pos = pos + 5
+		local value
+		if n == 0 then
+			local a, b, c = byte(blob, pos, pos + 2)
+			local len = (a * 256 + b) * 256 + c
+			value = sub(blob, pos + 3, pos + 2 + len)
+			pos = pos + 3 + len
+		else
+			value = {}
+			for i = 1, n do
+				local a, b, c = byte(blob, pos, pos + 2)
+				local len = (a * 256 + b) * 256 + c
+				value[i] = sub(blob, pos + 3, pos + 2 + len)
+				pos = pos + 3 + len
+			end
+		end
+		tables[f][(k1 * 256 + k2) * 256 + k3] = value
+	end
+end
+
+-- A promised page unavailable in combat is not absent terrain: a later request retries it. Regions unpack only out
+-- of combat, as each region's addon loaded in 0.4.2, so every answer stays what it was.
 local function loadRegion(map, id)
-	if map == nil or (InCombatLockdown and InCombatLockdown()) or not (C_AddOns and C_AddOns.LoadAddOn) then return end
-	pcall(C_AddOns.LoadAddOn, "Polestar_Nav_R" .. map .. "_" .. floor(id / 16) .. "_" .. (id % 16))
+	if map == nil or (InCombatLockdown and InCombatLockdown()) then return end
+	local D = Data(map)
+	local regions = D and D.regions
+	local blob = regions and regions[id]
+	if type(blob) ~= "string" then return end
+	regions[id] = nil
+	unpackRegion(D, blob)
 end
 local unavailablePages = 0
 local function regionPage(t, key)
@@ -1563,29 +1608,6 @@ local function solidChord(st, x, y, z, X, Y, Z)
 	return bins and z and Z and solidSweep(bins,st.x0,st.y0,st.ny,x,y,z,X,Y,Z) or false
 end
 
--- Sharp measured turns beside masonry cannot wait for the dial to swing around.
--- Use only resident fixed-face samples on the player's storey; this is a display
--- hint, not a line-of-sight answer, a search or permission to cross anything.
-function Path.NearSolidFace(map, x, y, z)
-	local data = Data(map)
-	local bins = data and data.solidSamples
-	if not bins or not z then return false end
-	local reach = 5
-	local r0, c0 = data.cx0, data.cy0
-	for r = max(0, floor((x-reach)/TILE)-r0), min(data.nx-1, floor((x+reach)/TILE)-r0) do
-		for c = max(0, floor((y-reach)/TILE)-c0), min(data.ny-1, floor((y+reach)/TILE)-c0) do
-			local points = bins[r*data.ny+c]
-			if points then
-				for i = 1, #points, 3 do
-					local dx, dy, h = points[i]-x, points[i+1]-y, points[i+2]-z
-					if h > -.5 and h < 2.5 and dx*dx+dy*dy < reach*reach then return true end
-				end
-			end
-		end
-	end
-	return false
-end
-
 -- Line of sight between two path entries, walking every cell the segment between their cell centres crosses and
 -- following the surface from node to node, so it cannot jump between floors. With limit (a map with classes), every
 -- node crossed must also cost no more than limit (Costs.Mult for profile in style, times dangerAt(k, node) when
@@ -1751,7 +1773,9 @@ local INDOOR_CLASS, CITY_CLASS = Costs.CLASS.INDOOR, Costs.CLASS.CITY
 -- z2, the connected floor suffices. A blocked step or an unusable start returns false. Reads decoded clusters only:
 -- nil when the line (or a diagonal step's corner) touches one that is not, touches more than SIGHT_CLUSTERS, or
 -- leaves the map's data. It decodes nothing, puts back every use stamp it moved (the cache's order and the
--- reader's slot stay as they were), never yields and allocates nothing.
+-- reader's slot stay as they were), never yields and allocates nothing. With walls, indoor and indoor city ground
+-- pass: only walls, cliffs, floor changes, water and hostile towns block (the arrow's aim kept in reach,
+-- Nav/Follow.lua `reach`).
 ---@param map number
 ---@param x1 number
 ---@param y1 number
@@ -1760,8 +1784,9 @@ local INDOOR_CLASS, CITY_CLASS = Costs.CLASS.INDOOR, Costs.CLASS.CITY
 ---@param y2 number
 ---@param z2? number
 ---@param profile? string
+---@param walls? boolean
 ---@return boolean?
-function Path.Sight(map, x1, y1, z1, x2, y2, z2, profile)
+function Path.Sight(map, x1, y1, z1, x2, y2, z2, profile, walls)
 	local st = states[map]
 	if not (st and x1 and y1 and z1 and x2 and y2) then
 		return nil
@@ -1813,7 +1838,7 @@ function Path.Sight(map, x1, y1, z1, x2, y2, z2, profile)
 			elseif classed then
 				local cb = CLS[byte(st.cl[k].kind, node + 1)]
 				local base = cb % 8
-				if base == INDOOR_CLASS or base == CITY_CLASS or (hb and cb % (hb + hb) >= hb) then
+				if (not walls and (base == INDOOR_CLASS or base == CITY_CLASS)) or (hb and cb % (hb + hb) >= hb) then
 					clear = false
 				end
 			end
