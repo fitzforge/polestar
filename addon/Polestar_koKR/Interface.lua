@@ -2620,7 +2620,6 @@ L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"
 L["Ready check"] = "준비 확인"
-L["Boss whisper"] = "우두머리 귓속말"
 L["Rare Elite"] = "희귀 정예"
 L["just now"] = "방금"
 L["%d min ago"] = "%d분 전"
@@ -2630,6 +2629,7 @@ L["%d days ago"] = "%d일 전"
 L["Unknown rare"] = "알 수 없는 희귀"
 L["A rare"] = "희귀 몹"
 L["rares [test]: open Rares, or show a sample alert"] = "rares [test]: 희귀 열기 또는 알림 미리보기"
+L["Boss emote"] = "우두머리 감정 표현"
 
 -- Rares/Pins.lua
 L["Level %s"] = "레벨 %s"
@@ -5012,3 +5012,4 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "착륙
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"] = "진행은 순조롭지만 %s (%d) %d단계가 어렵습니다: 내 레벨 %s. 먼저 %s 사냥"
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "진행은 순조롭지만 %s (%d) %d단계가 어렵습니다: 내 레벨 %s. 먼저 %d 도달"
 -- L["No safe walking route"] = "안전한 도보 경로 없음"
+-- L["Boss whisper"] = "우두머리 귓속말"
