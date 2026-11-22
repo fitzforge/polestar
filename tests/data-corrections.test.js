@@ -865,3 +865,8 @@ test('Seeking the Kor Gem counts as done by An Underrated Talent; Zorbin sells a
 	for (const q of [96075, 96076, 96087, 96088]) assert.equal(corrections.quests[q].set.rotation, 'pix-weekly', `quest ${q}`);
 	assert.equal(corrections.npcs[8888].set.ghostOnly, true);
 });
+
+// Everlast (#3301): Melizza offers her escort in the Maraudine camp, not along its path.
+test('Melizza Brimbuzzle stands only in the Maraudine camp (#3301)', () => {
+	for (const [x, y] of corrections.npcs[12277].set.spawns[1443].pts) assert.ok(x < 34.5 && y < 55, `${x},${y}`);
+});
