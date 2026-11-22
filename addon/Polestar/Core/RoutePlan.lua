@@ -337,9 +337,10 @@ function Plan.OpensAhead(q)
 	return false
 end
 
--- The live step's open accepts would not fit in the log: { take = accepts
--- open, free = room left, drop = { { quest, title }, ... } }, else nil. drop
--- names enough quests to make room: the ones no open route needs
+-- The live step's open accepts would not fit in the log: { take, free,
+-- drop = { { quest, title }, ... } }, else nil. take and free compare the
+-- accepts and slots available through the worst shortfall. drop names
+-- enough quests to make room: the ones no open route needs
 -- (Unneeded), then the ones this route hands in last, never one the live
 -- step needs nor one only another tab's route or a dungeon hands in.
 function Plan.LogOverflow()
@@ -347,16 +348,32 @@ function Plan.LogOverflow()
 	local live = E and E.GetLiveStep and E.GetLiveStep()
 	local view = live and E.GetStepView(live, true)
 	if not view then return nil end
-	local take, here = 0, {}
-	for _, g in ipairs(view.goals or {}) do
-		if g.quest then here[g.quest] = true end
-		if g.t == "accept" and g.quest and (g.status == "active" or g.status == "pending") and not C.IsOnQuest(g.quest) then take = take + 1 end
-	end
-	if take == 0 then return nil end
 	local log = C.GetLogQuests() or {}
 	local free = (C.GetLogCap() or 40) - #log
-	if take <= free then return nil end
-	local drop, want = {}, take - math.max(free, 0)
+	local here, inLog = {}, {}
+	for _, q in ipairs(log) do inLog[q] = true end
+	local take, want = 0, 0
+	local blockingTake, blockingFree
+	-- A ready hand-in frees its slot once, for pickups after it in goal order.
+	-- Keep the largest shortfall: a later hand-in cannot unblock an earlier pickup.
+	for _, g in ipairs(view.goals or {}) do
+		local q = g.quest
+		if q then here[q] = true end
+		if q and (g.status == "active" or g.status == "pending") then
+			if g.t == "turnin" and inLog[q] and C.IsQuestReadyForTurnIn(q) then
+				inLog[q] = nil
+				free = free + 1
+			elseif g.t == "accept" and not C.IsOnQuest(q) then
+				take = take + 1
+				local shortfall = take - free
+				if shortfall > want then
+					want, blockingTake, blockingFree = shortfall, take, math.max(free, 0)
+				end
+			end
+		end
+	end
+	if want == 0 then return nil end
+	local drop = {}
 	-- here: the live step's quests, then each one named, so a grey quest
 	-- handed in later (Unneeded lists it) is not named twice.
 	for _, u in ipairs(Plan.Unneeded() or {}) do
@@ -383,7 +400,7 @@ function Plan.LogOverflow()
 			drop[#drop + 1] = { quest = later[i].quest, title = later[i].title }
 		end
 	end
-	return { take = take, free = math.max(free, 0), drop = drop }
+	return { take = blockingTake, free = blockingFree, drop = drop }
 end
 
 ---------------------------------------------------------------------------

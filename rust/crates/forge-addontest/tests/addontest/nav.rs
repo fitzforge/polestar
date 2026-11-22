@@ -2800,3 +2800,39 @@ fn the_numbered_pins_draw_over_the_guide_pins_of_the_same_place_3197() {
 	let p = out["priority"].as_f64().unwrap();
 	assert!(p > 40.0 && p < 50.0, "over the goal, spot and While you're here pins, under the route's stops: {p}");
 }
+
+// #3631 (imp): While you're here handed in step 90's quest while the guide was at step 86, and step 90's numbered
+// pin stayed on the map: the layer was redrawn only when the guide's own step changed. A quest-log event redraws it
+// (debounced); with the pins off nothing is asked.
+#[test]
+fn a_later_step_done_out_of_turn_loses_its_numbered_pin_on_the_quest_log_event_3631() {
+	let out = run(r#"
+		local views = {
+			[1] = { status = "current", goals = { { map = 1429, x = 40, y = 40, status = "active" } } },
+			[2] = { title = "Goldshire", status = "upcoming", goals = { { map = 1429, x = 42, y = 65, status = "pending" } } },
+			[3] = { title = "Mine", status = "upcoming", goals = { { map = 1429, x = 38, y = 80, status = "pending" } } },
+		}
+		local builds = 0
+		Polestar.Engine = { GetLiveStep = function() return 1 end, GetStepCount = function() return 3 end,
+			GetStepView = function(i) builds = builds + 1; return views[i] end }
+		local shown
+		Polestar.Pins = { SetLayer = function(_, pins) shown = {} for i, p in ipairs(pins) do shown[i] = p.text end end,
+			ClearLayer = function() shown = {} end }
+		Polestar.Set("nav.upcomingPins", true)
+		stub.advance(0.1)
+		local before = shown
+		views[2].status = "done"
+		stub.fire("QUEST_TURNED_IN", 90, 0, 0)
+		stub.fire("QUEST_LOG_UPDATE")
+		stub.advance(0.6)
+		local after = shown
+		Polestar.Set("nav.upcomingPins", false)
+		stub.advance(0.1)
+		builds = 0
+		stub.fire("QUEST_LOG_UPDATE")
+		stub.advance(0.6)
+		emit({ before = before, after = after, offBuilds = builds })"#);
+	assert_eq!(out["before"], json!(["2", "3"]));
+	assert_eq!(out["after"], json!(["3"]), "the done step's pin goes without a step change");
+	assert_eq!(out["offBuilds"], 0, "pins off: the quest log's events build nothing");
+}

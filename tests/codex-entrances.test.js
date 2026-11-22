@@ -45,6 +45,27 @@ test("chooseEntrance: a table entry's door floor rides along within 30 yd; the g
 	assert.deepEqual([d.c, Math.round(d.wx), Math.round(d.wy), d.z], [0, -3832, -2486, 140]);
 });
 
+// #3562, #2447: inside a capital the most-seen recorded point can be far from the door (Orgrimmar's south gate,
+// 86 entries, against 57 + 14 in the Cleft of Shadow; Ironforge 15.1,86.0, 166, against 80 below the city). There
+// the most-seen point within 60 yd of the table's door wins; outside the capitals the most-seen point anywhere does.
+test("chooseEntrance: inside a capital the recorded point at the table's door beats a bigger one elsewhere in the city (#3562, #2447)", () => {
+	const ORGRIMMAR = { c: 1, left: -3680.601, right: -5083.206, top: 2273.877, bottom: 1338.461 };
+	const IRONFORGE = { c: 0, left: -713.591, right: -1504.216, top: -4569.241, bottom: -5096.846 };
+	const rfc = { key: 'ragefire-chasm', map: 1454, x: 52.6, y: 49, source: 'https://example.org' };
+	const rfcRec = [{ map: 1454, x: 49.35, y: 95.11, n: 86 }, { map: 1454, x: 52.01, y: 49.46, n: 57 }, { map: 1454, x: 52.13, y: 49.42, n: 14 }];
+	const at = { name: 'Ragefire Chasm', zones: {}, frames: { 1454: ORGRIMMAR }, prefer: [1454] };
+	assert.deepEqual(chooseEntrance({ ...at, recorded: rfcRec, table: rfc }), { map: 1454, x: 52, y: 49.5, f: null });
+	assert.deepEqual(chooseEntrance({ ...at, recorded: rfcRec }), { map: 1454, x: 49.4, y: 95.1, f: null }, 'no table entry: the most-seen point');
+	const thanes = { key: 'the-hall-of-thanes', map: 1455, x: 28.3, y: 47.6, z: 399, source: 'https://example.org' };
+	const thanesRec = [{ map: 1455, x: 15.1, y: 86.01, n: 166 }, { map: 1455, x: 28.37, y: 47.7, n: 80 }, { map: 1455, x: 32.69, y: 44.94, n: 9 }];
+	const e = chooseEntrance({ name: 'The Hall of Thanes', zones: {}, frames: { 1455: IRONFORGE }, prefer: [1455], recorded: thanesRec, table: thanes });
+	assert.deepEqual(e, { map: 1455, x: 28.4, y: 47.7, f: null, z: 399 }, "the door below the city, with the table's floor");
+	const WETLANDS = { c: 0, left: -389.583, right: -4525, top: -2147.917, bottom: -4904.167 };
+	const field = { key: 'excavation-site-wetlands', map: 1437, x: 50.7, y: 61.1, source: 'https://example.org' };
+	const fieldRec = [{ map: 1437, x: 40, y: 40, n: 9 }, { map: 1437, x: 50.72, y: 61.12, n: 3 }];
+	assert.deepEqual(chooseEntrance({ name: 'x', zones: {}, frames: { 1437: WETLANDS }, prefer: [1437], recorded: fieldRec, table: field }), { map: 1437, x: 40, y: 40, f: null }, 'outside the capitals: the most-seen point');
+});
+
 test('a continent recording must land at the dungeon’s known zone', () => {
 	const frames = {
 		1415: { c: 0, left: 16000, right: -19199.9, top: 7466.6, bottom: -16000 },

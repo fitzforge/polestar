@@ -2620,7 +2620,6 @@ L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom
 -- Rares/Rares.lua
 L["Raid warning"] = "Aviso de la banda"
 L["Ready check"] = "Comprobación de preparados"
-L["Boss whisper"] = "Susurro de jefe"
 L["Rare Elite"] = "Raro de élite"
 L["just now"] = "justo ahora"
 L["%d min ago"] = "hace %d min"
@@ -2630,6 +2629,7 @@ L["%d days ago"] = "hace %d días"
 L["Unknown rare"] = "Raro desconocido"
 L["A rare"] = "Un raro"
 L["rares [test]: open Rares, or show a sample alert"] = "rares [test]: abrir Raros o mostrar una alerta de ejemplo"
+L["Boss emote"] = "Emoción de jefe"
 
 -- Rares/Pins.lua
 L["Level %s"] = "Nivel %s"
@@ -5007,3 +5007,4 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Has at
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"] = "Al ritmo, pero %s (%d) en el paso %d es difícil: eres %s; farmea %s antes"
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "Al ritmo, pero %s (%d) en el paso %d es difícil: eres %s; llega a %d antes"
 -- L["No safe walking route"] = "No hay una ruta segura a pie"
+-- L["Boss whisper"] = "Susurro de jefe"

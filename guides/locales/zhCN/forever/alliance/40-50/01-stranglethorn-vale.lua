@@ -93,7 +93,7 @@ return {
 	-- Step 16: Fly to Ratchet
 	-- {area:392} Ratchet
 	["Fly to {area:392}"] = "飞往{area:392}",
-	["Theramore flight master"] = "",
+	["Theramore flight master"] = "塞拉摩飞行管理员",
 
 	-- Step 18: Fly to Ratchet
 	-- {npc:6236} Klannoc Macleod · {area:720} Fray Island · {area:392} Ratchet · {area:150} Menethil Harbor
