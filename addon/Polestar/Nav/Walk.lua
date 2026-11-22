@@ -1353,9 +1353,12 @@ local function ask(P, pc, px, py, flat, terminal)
 		end
 		-- A goal's floor no walk reaches though no policy said no (Foggy MacKreel on a broken section of the Thandol
 		-- Span, #3553): asked once more without its height, as before strict searches, and the arrow says the last
-		-- steps aren't mapped (city.dropped). A policy refusal stays final; so does a capital's goal at its height.
-		if not got and reason == "no safe walking route" and z and not inCity and not terminal and not Walk.checkedOnly
-			and not (type(answer) == "table" and answer.blockedReason) then
+		-- steps aren't mapped (city.dropped). A policy refusal stays final; so does a capital's goal at its height
+		-- (city.goal, or a target set on a capital's own map: a floor of Ironforge or the Undercity is never walked to
+		-- without its height, which goes round by the gate and over the mountain).
+		local tgt = Nav.GetTarget()
+		if not got and reason == "no safe walking route" and z and not inCity and not city.CAPITAL[tgt and tgt.map or 0]
+			and not terminal and not Walk.checkedOnly and not (type(answer) == "table" and answer.blockedReason) then
 			gz, city.dropped = nil, true
 			ask(P, pc, px, py, flat)
 			return
