@@ -551,10 +551,10 @@ emit({ none = none == nil, why = why })"#,
 		json!([
 			{ "title": "Rite of the Serpent", "goals": "accept:90001 turnin:90001" },
 			{ "title": "The Serpent's Trial", "goals": "accept:90002 collect:90002 turnin:90002" },
-			{ "title": "Fang of the Serpent", "goals": "accept:90003 turnin:90003" },
+			{ "title": "Fang of the Serpent", "goals": "rep accept:90003 turnin:90003" },
 			{ "title": "Wailing Caverns", "goals": "note goto" },
 		]),
-		"the Alliance goal is not in a Horde guide"
+		"the Alliance goal is not in a Horde guide; the standing the last quest needs comes first, in words"
 	);
 	assert_eq!(later["title"], "Wailing Caverns: Fang of the Serpent");
 	let titles: Vec<Value> = list(&later["steps"]).iter().map(|s| s["title"].clone()).collect();
