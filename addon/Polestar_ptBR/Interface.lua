@@ -1322,6 +1322,7 @@ L["Leads to %s."] = "Leva a %s."
 L["Needed for %s."] = "Necessária para %s."
 L["Prerequisite quests: %d of %d steps, about %s."] = "Missões de pré-requisito: %d de %d etapas, cerca de %s."
 L["%s offers one of these a week: take it if it is this week's."] = "%s oferece uma destas por semana: aceite se for a desta semana."
+L["%d of this guide's %d steps are prerequisite quests (about %s)."] = "%d das %d etapas deste guia são missões de pré-requisito (cerca de %s)."
 
 -- Dungeons/Handin.lua
 L["Not finished yet: %s"] = "Ainda não concluída: %s"
@@ -5049,3 +5050,4 @@ L["XP remaining after turn-ins"] = "EXP restante após as entregas"
 -- L["No safe walking route"] = "Nenhuma rota segura a pé"
 -- L["Boss whisper"] = "Sussurro de chefe"
 -- L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = "Abre o portão do caminho da Horda para a Cidade de Dalaran; uma chave o abre para o grupo. A Aliança entra pelo cano de esgoto em Cantrips & Crows."
+-- L["Prerequisite quests: %d of %d steps, about %s."] = "Missões de pré-requisito: %d de %d etapas, cerca de %s."

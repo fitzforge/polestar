@@ -1322,6 +1322,7 @@ L["Leads to %s."] = "通往%s。"
 L["Needed for %s."] = "是%s的前置任务。"
 L["Prerequisite quests: %d of %d steps, about %s."] = "前置任务：%d/%d 个步骤，约 %s。"
 L["%s offers one of these a week: take it if it is this week's."] = "%s每周提供其中一个任务：如果是本周的就接取。"
+L["%d of this guide's %d steps are prerequisite quests (about %s)."] = "本指南有 %d 个步骤是前置任务（共 %d 个步骤，约 %s）。"
 
 -- Dungeons/Handin.lua
 L["Not finished yet: %s"] = "尚未完成：%s"
@@ -5044,3 +5045,4 @@ L["Find what makes your game stutter: times Polestar's own work (on, off, report
 -- L["No safe walking route"] = "没有安全的步行路线"
 -- L["Boss whisper"] = "首领密语"
 -- L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = "打开部落进入达拉然城之路上的大门；一把钥匙即可为整个队伍开门。联盟从“戏法与乌鸦”中的下水管道走进去。"
+-- L["Prerequisite quests: %d of %d steps, about %s."] = "前置任务：%d/%d 个步骤，约 %s。"

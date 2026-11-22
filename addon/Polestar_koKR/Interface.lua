@@ -1322,6 +1322,7 @@ L["Leads to %s."] = "%s(으)로 이어집니다."
 L["Needed for %s."] = "%s의 선행 퀘스트입니다."
 L["Prerequisite quests: %d of %d steps, about %s."] = "선행 퀘스트: %d/%d단계, 약 %s."
 L["%s offers one of these a week: take it if it is this week's."] = "%s: 매주 이 중 하나를 줍니다. 이번 주 퀘스트라면 받으세요."
+L["%d of this guide's %d steps are prerequisite quests (about %s)."] = "이 가이드의 단계 중 %d개(전체 %d개)가 선행 퀘스트입니다(약 %s)."
 
 -- Dungeons/Handin.lua
 L["Not finished yet: %s"] = "아직 미완료: %s"
@@ -5035,3 +5036,4 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "착륙
 -- L["No safe walking route"] = "안전한 도보 경로 없음"
 -- L["Boss whisper"] = "우두머리 귓속말"
 -- L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = "달라란 시로 가는 호드 쪽 길의 문을 엽니다. 열쇠 하나로 파티 전체에게 열립니다. 얼라이언스는 주문과 까마귀의 하수관을 통해 들어갑니다."
+-- L["Prerequisite quests: %d of %d steps, about %s."] = "선행 퀘스트: %d/%d단계, 약 %s."

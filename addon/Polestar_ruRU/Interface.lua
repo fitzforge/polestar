@@ -1322,6 +1322,7 @@ L["Leads to %s."] = "Ведет к %s."
 L["Needed for %s."] = "Нужно для %s."
 L["Prerequisite quests: %d of %d steps, about %s."] = "Предварительные задания: %d из %d шагов, примерно %s."
 L["%s offers one of these a week: take it if it is this week's."] = "%s выдаёт одно из этих заданий в неделю: возьмите его, если оно на этой неделе."
+L["%d of this guide's %d steps are prerequisite quests (about %s)."] = "%d из %d шагов этого руководства — предварительные задания (примерно %s)."
 
 -- Dungeons/Handin.lua
 L["Not finished yet: %s"] = "Еще не выполнено: %s"
@@ -5042,3 +5043,4 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Пос
 -- L["No safe walking route"] = "Нет безопасного пешего пути"
 -- L["Boss whisper"] = "Шепот босса"
 -- L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = "Открывает ворота на пути Орды в город Даларан; одного ключа достаточно для всей группы. Альянс проходит внутрь через канализационную трубу в «Фокусах и воронах»."
+-- L["Prerequisite quests: %d of %d steps, about %s."] = "Предварительные задания: %d из %d шагов, примерно %s."

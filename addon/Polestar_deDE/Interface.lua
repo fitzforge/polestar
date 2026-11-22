@@ -3704,6 +3704,7 @@ L["Leads to %s."] = "Führt zu %s."
 L["Needed for %s."] = "Benötigt für %s."
 L["Prerequisite quests: %d of %d steps, about %s."] = "Vorquests: %d von %d Schritten, etwa %s."
 L["%s offers one of these a week: take it if it is this week's."] = "%s bietet jede Woche eine davon an: Nimm sie an, wenn es die dieser Woche ist."
+L["%d of this guide's %d steps are prerequisite quests (about %s)."] = "%d der %d Schritte dieses Guides sind Vorquests (etwa %s)."
 
 -- Quests/Timed.lua
 L["%d h"] = "%d Std."
@@ -5074,3 +5075,4 @@ L["Boss emote"] = "Boss-Emote"
 -- L["No safe walking route"] = "Kein sicherer Fußweg"
 -- L["Boss whisper"] = "Boss-Flüstern"
 -- L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = "Öffnet das Tor des Weges der Horde in die Stadt Dalaran; ein Schlüssel öffnet es für die Gruppe. Die Allianz geht durch das Abwasserrohr in Cantrips & Crows hinein."
+-- L["Prerequisite quests: %d of %d steps, about %s."] = "Vorquests: %d von %d Schritten, etwa %s."

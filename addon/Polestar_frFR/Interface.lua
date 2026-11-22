@@ -1323,6 +1323,7 @@ L["Leads to %s."] = "Mène à %s."
 L["Needed for %s."] = "Requise pour %s."
 L["Prerequisite quests: %d of %d steps, about %s."] = "Quêtes prérequises : %d étapes sur %d, environ %s."
 L["%s offers one of these a week: take it if it is this week's."] = "%s propose une de ces quêtes par semaine : prenez-la si c'est celle de cette semaine."
+L["%d of this guide's %d steps are prerequisite quests (about %s)."] = "%d des %d étapes de ce guide sont des quêtes prérequises (environ %s)."
 
 -- Dungeons/Handin.lua
 L["Not finished yet: %s"] = "Pas encore terminée : %s"
@@ -5083,3 +5084,4 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Atterr
 -- L["No safe walking route"] = "Aucun itinéraire sûr à pied"
 -- L["Boss whisper"] = "Murmure de boss"
 -- L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = "Ouvre la porte de l'accès de la Horde à la cité de Dalaran ; une seule clé l'ouvre pour tout le groupe. L'Alliance entre par la canalisation des égouts de Cantrips & Crows."
+-- L["Prerequisite quests: %d of %d steps, about %s."] = "Quêtes prérequises : %d étapes sur %d, environ %s."
