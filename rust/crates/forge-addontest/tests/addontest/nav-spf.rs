@@ -1374,6 +1374,41 @@ fn a_refusal_no_policy_gave_is_asked_again_once_after_2_s_standing_still_a_polic
 	assert_eq!(out["policy"], 0, "a refusal on policy is not asked again standing still");
 }
 
+// #3553: a goal whose floor no walk reaches though no policy says no (Foggy MacKreel on a broken section of the
+// Thandol Span: the maps hold the deck above him and the water below, not his ledge) is asked once more without its
+// height, as before strict searches, and the arrow says the last steps aren't mapped. A policy refusal stays final.
+#[test]
+fn a_goal_floor_no_walk_reaches_is_walked_to_without_its_height_a_policy_refusal_is_not() {
+	let out = run(r#"
+		local r = {}
+		nav.place(0, 0)
+		local m, x, y = nav.mapPoint(0, -500)
+		N.SetTarget(m, x, y, "Ledge", nil, nil, 75)
+		aim()
+		local job = fake.last()
+		r.asked = job.to.z
+		job.callback(nil, "no safe walking route", job)
+		local again = fake.last()
+		r.again = { calls(), again ~= job and tostring(again.to.z) or "none" }
+		fake.resolve(0, 0, 0, -500)
+		r.aim = aim()
+		N.arrow:Refresh()
+		r.label = N.arrow.labelText:GetText()
+		m, x, y = nav.mapPoint(0, 400)
+		N.SetTarget(m, x, y, "Ledge", nil, nil, 75)
+		aim()
+		job = fake.last()
+		job.blockedReason = "hostile town"
+		job.callback(nil, "no safe walking route", job)
+		r.policy = fake.last() == job
+		emit(r)"#);
+	assert_eq!(out["asked"], 75, "first at the goal's height");
+	assert_eq!(out["again"], json!([2, "nil"]), "asked again without it");
+	assert_eq!(out["aim"], json!(["travel", 500, 0, -500]), "and walked");
+	assert!(out["label"].as_str().unwrap_or("").contains("The last steps here aren't mapped"), "saying so: {}", out["label"]);
+	assert_eq!(out["policy"], true, "a policy refusal is not asked again without the height");
+}
+
 #[test]
 fn nav_navrouting_off_the_straight_arrow_the_search_in_flight_cancelled() {
 	let out = run(r#"
@@ -3086,6 +3121,75 @@ fn a_held_flight_route_is_offered_once_its_landing_is_priced_and_the_arrow_never
 	assert_eq!(out["arrow"], json!([900, 900]), "the arrow walks to the flight master");
 	assert_eq!(out["walking"], "travel");
 	assert_eq!(out["after"], "walk fly walk", "the finished batch keeps the route");
+}
+
+// #3553: the planner holds a flight route for its landing's walk into the target for at most 2 s. Past that, the
+// landing keeps its estimate and the route is offered while the measure goes on (in the game a goal whose floor
+// joins no walk held it for four minutes, and then offered none).
+#[test]
+fn a_held_flight_route_is_offered_after_2_s_while_its_landing_is_still_being_measured() {
+	let out = run_priced(
+		r#"
+		N.RegisterTravelData({ build = "test",
+			taxi = {
+				{ 1, 0, 900, 900, 9000, 5, 5, 3, "Home Roost, Testshire" },
+				{ 2, 0, -700, 0, 9000, 50, 85, 3, "Dock Roost, Testshire" },
+			},
+			taxiZ = { [2] = 5.9 },
+			flights = { 1, 2, 1700, 2, 1, 1700 },
+		}, true)
+		Polestar.CharState().flags.taxi = { [1] = true, [2] = true }
+		local function kinds()
+			local legs, ci = N.GetRoute()
+			if not legs then return false end
+			local out = {}
+			for i = ci, #legs do out[#out + 1] = legs[i].kind end
+			return table.concat(out, " ")
+		end
+		local r = {}
+		nav.place(900, 800)
+		local m, x, y = nav.mapPoint(-890, 10)
+		N.SetTarget(m, x, y, "Pier")
+		r.held = { (N.Sample()), kinds() }
+		local batch = assert(fake.of(true)[1], "the walks into the target are measured")
+		stub.advance(1.5)
+		r.at15 = { (N.Sample()), kinds() }
+		stub.advance(0.6)
+		N.Sample()
+		r.at21 = kinds()
+		N.Sample()
+		local walk = fake.of(false)[1]
+		r.arrow = walk and { walk.to.x, walk.to.y } or false
+		assert(finish(batch).job.walkChecked)
+		r.after = kinds()
+		emit(r)"#,
+	);
+	assert_eq!(out["held"], json!(["routing", false]), "held for the landing's walk");
+	assert_eq!(out["at15"], json!(["routing", false]), "still held at 1.5 s");
+	assert_eq!(out["at21"], "walk fly walk", "offered at 2 s, the landing's walk still being measured");
+	assert_eq!(out["arrow"], json!([900, 900]), "the arrow walks to the flight master");
+	assert_eq!(out["after"], "walk fly walk", "the finished batch keeps the route");
+}
+
+// #3553: a strict batch from a source at a height its places' walks can't reach though no policy says no leaves
+// those places unpriced (nil: the planner keeps its estimates), never refused (in the game every one of those
+// searches ran dry: 16 places, four minutes of slices). On the source's own floor, priced.
+#[test]
+fn a_strict_batch_from_a_floor_no_walk_joins_leaves_its_places_unpriced_not_refused() {
+	let out = run_priced(
+		r#"
+		local o = { profile = Polestar.Compat.GetPlayerFaction(), walkLevel = N.danger.Level() or 1 }
+		local pts = { { x = -700, y = 0 }, { x = -800, y = 60 }, { x = -760, y = -40 } }
+		local function many(z)
+			local costs, reason = solver.FindManySync(0, { x = -890, y = 10, z = z, reach = z and 10 or nil }, pts, o, true)
+			local c = {}
+			for i = 1, #pts do c[i] = type(costs[i]) == "number" and "priced" or tostring(costs[i]) end
+			return { c, tostring(reason) }
+		end
+		emit({ floor = many(5.9), off = many(40) })"#,
+	);
+	assert_eq!(out["floor"], json!([["priced", "priced", "priced"], "nil"]), "on the source's floor: priced");
+	assert_eq!(out["off"], json!([["nil", "nil", "nil"], "nil"]), "off it: unpriced, not refused");
 }
 
 #[test]
