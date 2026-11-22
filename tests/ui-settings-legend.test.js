@@ -1,6 +1,6 @@
 'use strict';
 // The new settings page's card titles, "Legend" (W.LegendHeader and
-// W.PillSwitch in addon/Polestar_Options/UI/Kit.lua, laid out by
+// W.PillSwitch in addon/Polestar/Theme/Widgets.lua, laid out by
 // addon/Polestar_Options/UI/Options.lua's layoutSections with
 // { legend = true } from UI/Grouped.lua): the section title in the card's
 // top border, "N changed" and Reset at its right only while the section has

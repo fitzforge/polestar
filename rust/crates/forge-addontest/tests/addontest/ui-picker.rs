@@ -781,9 +781,9 @@ fn home_continue_cards_for_the_open_tabs_and_the_suggested_guides_a_card_selects
 	// The guide for the player's level is always suggested, open or not (its row says "Tab 1"); level 11 is one
 	// level below its follow-up (12).
 	assert_eq!(out["suggested"], json!(["Elwynn Forest (1\u{2013}13) | Tab 1", "Westfall (12\u{2013}17)"]));
-	// One row of cards: three tabs leave the third behind "Show all (3)".
-	assert_eq!(out["shown"], 2);
-	assert_eq!(out["info"], json!([["Elwynn Forest", "Step 3 of 8", "29%", "Tab 1"], ["Tailoring 1-300", "Step 2 of 4", "25%", "Tab 2"],]));
+	// One row of cards: the 16:9 window's row holds all three tabs.
+	assert_eq!(out["shown"], 3);
+	assert_eq!(out["info"], json!([["Elwynn Forest", "Step 3 of 8", "29%", "Tab 1"], ["Tailoring 1-300", "Step 2 of 4", "25%", "Tab 2"], ["Stormwind Reputation", "Step 2 of 2", "50%", "Tab 3"]]));
 	assert_eq!(out["selected"], json!(["forever/professions/tailoring", "Tailoring 1-300", true]));
 	assert_eq!(out["continued"], json!([["SetGuide", "forever/professions/tailoring"], 2, false]));
 }
@@ -861,7 +861,7 @@ fn a_continue_card_closes_its_tab_from_its_close_button_or_its_right_click_menu_
 		r.menuClosed = { lastCall("CloseTab"), cardTitles() }
 		emit(r)"#
 	));
-	assert_eq!(out["before"], json!(["Elwynn Forest | Tab 1", "Tailoring 1-300 | Tab 2"]));
+	assert_eq!(out["before"], json!(["Elwynn Forest | Tab 1", "Tailoring 1-300 | Tab 2", "Stormwind Reputation | Tab 3"]), "the 16:9 window's row holds all three");
 	assert_eq!(out["rest"], 0.0, "the card's close button waits for the pointer");
 	assert_eq!(out["hover"], 1.0);
 	assert!(out["tip"].to_string().contains("Right-click for tab options"), "{}", out["tip"]);
@@ -873,8 +873,8 @@ fn a_continue_card_closes_its_tab_from_its_close_button_or_its_right_click_menu_
 	assert_eq!(out["menuClosed"], json!([["CloseTab", 2], ["Stormwind Reputation | Tab 1"]]));
 }
 
-// With six tabs open Home shows one row of cards (two at the default width): the active tab, then the most recently
-// used; "Show all (6)" lays out every tab and stays so for the session.
+// With six tabs open Home shows one row of cards (four at the 16:9 default width): the active tab, then the most
+// recently used; "Show all (6)" lays out every tab and stays so for the session.
 #[test]
 fn continue_shows_one_row_active_tab_then_most_recent_show_all_expands_and_is_remembered_for_the_session() {
 	let out = run(&format!(
@@ -898,19 +898,21 @@ fn continue_shows_one_row_active_tab_then_most_recent_show_all_expands_and_is_re
 	));
 	assert_eq!(out["folder"], "Continue 6");
 	let titles: Vec<String> = out["row"].as_array().unwrap().iter().map(|t| text(t).to_string()).collect();
-	assert_eq!(titles.len(), 2, "{titles:?}");
+	assert_eq!(titles.len(), 4, "{titles:?}");
 	assert!(titles[0].ends_with("| Tab 1"), "the active tab first: {titles:?}");
 	assert!(titles[1].ends_with("| Tab 3"), "then the one used last: {titles:?}");
+	assert!(titles[2].ends_with("| Tab 5") && titles[3].ends_with("| Tab 2"), "then the next most recent: {titles:?}");
 	assert_eq!(out["more"], "Show all (6)");
 	let all: Vec<String> = out["all"].as_array().unwrap().iter().map(|t| text(t).to_string()).collect();
 	let tabs: Vec<&str> = all.iter().map(|t| t.rsplit("| ").next().unwrap()).collect();
 	assert_eq!(tabs, ["Tab 1", "Tab 3", "Tab 5", "Tab 2", "Tab 4", "Tab 6"]);
 	assert_eq!(out["less"], "Show fewer");
 	assert_eq!(out["again"], 6, "the choice holds for the session");
-	assert_eq!(out["back"], json!([2, "Show all (6)"]));
+	assert_eq!(out["back"], json!([4, "Show all (6)"]));
 }
 
-// A wider guide menu (a skin's pickerW) fits more cards in its one row.
+// A wider guide menu fits more cards in its one row. The window takes the shared default size (W.ShellDefaultSize),
+// not a skin's pickerW: here as wide as the stub's 1920 screen allows (1920 - 32), past the default's 2 to 4 cards.
 #[test]
 fn a_wider_guide_menu_fits_more_cards_in_the_continue_row() {
 	let out = run(&format!(
@@ -925,7 +927,7 @@ fn a_wider_guide_menu_fits_more_cards_in_the_continue_row() {
 		UI.ShowPicker()
 		emit({ n = #cards(), more = more() })"#
 	));
-	assert_eq!(out, json!({ "n": 3, "more": "Show all (6)" }));
+	assert_eq!(out, json!({ "n": 5, "more": "Show all (6)" }));
 }
 
 // "Suggested for you" always names the guide for the player's level, even when it is open; a follow-up only joins
@@ -1118,7 +1120,8 @@ fn rail_labels(before: &str) -> Value {
 		end
 		local out = {}
 		for _, scale in ipairs({ 0.8, 0.9, 1 }) do
-			Polestar.Set("ui.menuScale", scale)
+			-- The hub's own scale (the settings window has ui.menuScale).
+			Polestar.Set("ui.pickerScale", scale)
 			if PolestarPicker then PolestarPicker:Hide() end
 			if PolestarOptions then PolestarOptions:Hide() end
 			UI.ShowPicker()

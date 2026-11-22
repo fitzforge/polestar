@@ -1,5 +1,5 @@
 -- Polestar's settings window, in the Polestar shell (Polestar.Widgets.Shell):
--- big (1300 x 946 screen pixels at the default scale), resizable by its
+-- big (1680 x 946 screen pixels at the default scale), resizable by its
 -- corner grip (ui.optionsSize) and scaled by the Menu scale in its header.
 -- The sidebar is a tree of groups (Guiding, Look, Setup, About), each
 -- folding away (PolestarDB.optionsNav), with its pages; tabs under the
@@ -3686,8 +3686,10 @@ local function navItems()
 	return items
 end
 
--- A sidebar click: a group's header folds or opens it, a page opens.
+-- A sidebar click: a group's header folds or opens it, a page opens. The
+-- grouped layout's tree takes its own keys (a tab, a pin, the profile).
 local function navSelect(key)
+	if O.Grouped and O.Grouped.NavSelect(key) then return end
 	if type(key) == "string" and key:sub(1, #GROUP_PREFIX) == GROUP_PREFIX then
 		local folded = navState().folded
 		local g = key:sub(#GROUP_PREFIX + 1)
@@ -4689,23 +4691,18 @@ function O.Go(d)
 end
 
 ---------------------------------------------------------------------------
--- The window's size: 1300 x 946 screen pixels (and more on a screen taller
+-- The window's size: 1680 x 946 screen pixels (and more on a screen taller
 -- than 1440 pixels, in 5 % steps) at the default Menu scale, whatever the UI
 -- scale, until the player drags the grip (ui.optionsSize: { w, h } in the
 -- window's own units; false: the default).
 -- Never past the screen, never under SIZE.MIN_W x SIZE.MIN_H (the screen allowing).
 ---------------------------------------------------------------------------
 
-SIZE.BASE_W, SIZE.BASE_H, SIZE.MIN_W, SIZE.MIN_H, SIZE.EDGE = 1300, 946, 860, 560, 16
+SIZE.MIN_W, SIZE.MIN_H, SIZE.EDGE = W.SHELL_MIN_W, W.SHELL_MIN_H, 16
 
--- -> the default size, in UIParent units
+-- -> the default size, in UIParent units (W.ShellDefaultSize)
 function O.DefaultSize()
-	local _, ph = 0, 0
-	if GetPhysicalScreenSize then _, ph = GetPhysicalScreenSize() end
-	local uh = UIParent:GetHeight()
-	local perUnit = (ph and ph > 0 and uh and uh > 0) and ph / uh or 1
-	local k = max(1, floor((ph or 0) / 1440 * 20 + 0.5) / 20)
-	return floor(SIZE.BASE_W * k / perUnit + 0.5), floor(SIZE.BASE_H * k / perUnit + 0.5)
+	return W.ShellDefaultSize()
 end
 
 -- -> minW, minH, maxW, maxH in the window's units (its Menu scale applied)
@@ -4796,7 +4793,8 @@ end
 local function build()
 	win = W.Shell("PolestarOptions", {
 		-- The box takes a question as well as a word: the longest wording that fits shows.
-		title = GUIDE, tagline = L["Settings"], scalePath = "ui.menuScale",
+		title = GUIDE, tagline = L["Settings"], scalePath = "ui.menuScale", scaleBase = W.SETTINGS_SCALE_BASE,
+		scaleLabel = L["Settings scale"], scaleTip = L["The settings window only; applies when you let go. Right-click to reset."],
 		searchPlaceholder = { L["Ask or search: how do I hide the arrow?"], L["Ask or search settings"], L["Search settings"] },
 		headerSearch = true,
 		-- Typing opens the dropdown under the box; the page stays until a row
@@ -5030,7 +5028,7 @@ W.OnOptionsRegistered(function(spec) add(spec, false) end)
 -- other places, never copies.
 O.Kit = {
 	pages = pageList, pageList = pageList, groups = GROUPS, shownTabs = shownTabs, available = available, labelOf = labelOf, visible = visible, sectionSettings = sectionSettings,
-	sectionShown = sectionShown, shownSig = shownSig, whyOff = whyOff, rowIsNew = rowIsNew, newer = newer,
+	sectionShown = sectionShown, shownSig = shownSig, whyOff = whyOff, disabledOf = disabledOf, choicesOf = choicesOf, rowIsNew = rowIsNew, newer = newer,
 	seenTable = seenTable, homeSettings = homeSettings, groupOf = groupOf, viewTables = viewTables,
 	layoutSections = layoutSections, rowOf = rowOf, introRoom = introRoom, buildView = buildView, hideViews = hideViews,
 	renderFooter = renderFooter, pageByKey = function(key) return pageByKey(key) end,
@@ -5044,6 +5042,7 @@ O.Kit = {
 		end
 	end,
 	current = function() return current, currentTab end,
+	profileNames = profileNames, profileLabel = profileLabel, profileMenu = profileMenu,
 	setCurrent = function(p, t) current, currentTab = p, t end,
 }
 

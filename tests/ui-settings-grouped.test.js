@@ -50,8 +50,8 @@ test('the new page lists groups, each open on its pages, and a page shows its ow
 		lookHas = has.guidewindow == true and has.alerts == true
 		emit({ groups = groups, open = open, guidingPages = tree.guiding, crumb = O.frame.Title:GetText(), page = p.key,
 			tab = t.name, tabs = tabs, lookHas = lookHas, navKey = G.NavKey() })`);
-	assert.deepEqual(out.groups, ['b:guiding', 'b:look', 'b:setup', 'b:about']);
-	assert.ok(out.guidingPages.includes('questing') && out.guidingPages.includes('qualityoflife'));
+	assert.deepEqual(out.groups, ['b:guiding', 'b:qol', 'b:look', 'b:setup'], 'About and Guiding Stars stand at the foot, not as a group');
+	assert.deepEqual(out.guidingPages, ['guide', 'questing', 'map', 'discovery']);
 	assert.deepEqual(out.open, out.guidingPages, 'the group shown, Guiding, lists its pages');
 	assert.equal(out.crumb, 'Guiding › Questing');
 	assert.equal(out.page, 'questing');
@@ -66,14 +66,16 @@ test('groups come from G.TREE: a fifth group and a moved page need only a table 
 	const [out] = run(`
 		local G = O.Grouped
 		PolestarDB.optionsLayout = "grouped"
-		for _, g in ipairs(G.TREE) do
-			if g.key == "guiding" then
-				for i = #g.pages, 1, -1 do
-					if g.pages[i] == "qualityoflife" or g.pages[i] == "discovery" then table.remove(g.pages, i) end
+		for i = #G.TREE, 1, -1 do
+			local g = G.TREE[i]
+			if g.key == "qol" then table.remove(G.TREE, i)
+			elseif g.key == "guiding" then
+				for j = #g.pages, 1, -1 do
+					if g.pages[j] == "discovery" then table.remove(g.pages, j) end
 				end
 			end
 		end
-		G.TREE[#G.TREE + 1] = { key = "qol", pages = { "qualityoflife" } }
+		G.TREE[#G.TREE + 1] = { key = "extra", pages = { "qualityoflife" } }
 		G.Invalidate()
 		Polestar.UI.ShowOptions()
 		O.Select("qualityoflife")
@@ -89,9 +91,10 @@ test('groups come from G.TREE: a fifth group and a moved page need only a table 
 		for _, it in ipairs(G.NavItems()) do if it.key == "discovery" then orphan = true end end
 		emit({ groups = groups, guidingPages = guiding, crumbQol = crumbQol, orphanShown = orphan and guiding[#guiding] == "discovery",
 			crumbOrphan = O.frame.Title:GetText() })`);
-	assert.deepEqual(out.groups, ['b:guiding', 'b:look', 'b:setup', 'b:about', 'b:qol']);
+	assert.deepEqual(out.groups, ['b:guiding', 'b:look', 'b:setup', 'b:extra']);
 	assert.equal(out.guidingPages.includes('qualityoflife'), false);
-	assert.equal(out.crumbQol, 'Quality of Life', 'the label falls back to the page name, said once');
+	assert.ok(out.crumbQol.startsWith('Quality of Life \u203a ') && !out.crumbQol.includes('Quality of Life \u203a Quality of Life'),
+		`the label falls back to the page name, said once, then the tab (${out.crumbQol})`);
 	assert.equal(out.orphanShown, true, 'a page left out of G.TREE still appears, last in its classic group');
 	assert.equal(out.crumbOrphan, 'Guiding › Discovery');
 });
@@ -138,8 +141,8 @@ test('the switch lays the open window out in groups and back, with the same rows
 		emit({ nav = nav, on = on, look = look, changed = changed, titles = titles, back = back,
 			stepped = stepped, steppedTab = steppedTab.name, jumped = jumped,
 			off = { layout = PolestarDB.optionsLayout or false, title = O.frame.Title:GetText() } })`);
-	assert.deepEqual(out.nav, ['b:guiding', 'guide', 'questing', 'map', 'qualityoflife', 'discovery', 'b:look', 'b:setup', 'b:about'],
-		'four groups, Guiding open on its pages');
+	assert.deepEqual(out.nav, ['b:guiding', 'guide', 'questing', 'map', 'discovery', 'b:qol', 'b:look', 'b:setup', 'about', 'thanks', 'profile'],
+		'four groups, Guiding open on its pages, then About, Guiding Stars and the profile at the foot');
 	assert.equal(out.on.layout, 'grouped', 'the choice is saved for the account');
 	assert.equal(out.on.title, 'Guiding › Guide', 'the Guide page stays on screen');
 	assert.ok(out.on.rows > 0 && out.look.rows > 0, 'the pages show their rows');
@@ -296,7 +299,7 @@ test('the sidebar opens the group shown on its pages, and a page picked there is
 			local out, open, pages = {}, {}, {}
 			for _, it in ipairs(G.NavItems()) do
 				if it.key then out[#out + 1] = it.key end
-				if it.group and not it.folded then open[#open + 1] = it.key end
+				if it.open then open[#open + 1] = it.key end
 				if it.indent then pages[#pages + 1] = it.key end
 			end
 			return out, open, pages
@@ -323,6 +326,102 @@ test('the sidebar opens the group shown on its pages, and a page picked there is
 	assert.equal(out.shown, out.second, 'and shown');
 	assert.deepEqual(out.guidingOpen, ['b:guiding'], 'another group opens in its place');
 	assert.ok(!out.guidingPages.includes('theme'), "Look's pages fold away");
+});
+
+// Under the tree: the pinned settings, each a live control ({ pin = key }),
+// and the profile card at the sidebar's foot ({ profile = name }). A row's
+// flag pins it; the pin is saved for the account and its sidebar label goes
+// to the setting.
+test('pinned settings sit under the tree, with the profile last', () => {
+	const [out] = run(`
+		local G = O.Grouped
+		PolestarDB.optionsLayout = "grouped"
+		Polestar.UI.ShowOptions()
+		O.Select("arrow")
+		local function order()
+			local out = {}
+			for _, it in ipairs(G.NavItems()) do
+				if it.heading then out[#out + 1] = "h:" .. it.label
+				elseif it.fill then out[#out + 1] = "fill"
+				elseif it.pin then out[#out + 1] = "pin:" .. it.pin
+				elseif it.profile then out[#out + 1] = "profile:" .. it.profile
+				elseif it.key and not it.indent then out[#out + 1] = it.key end
+			end
+			return out
+		end
+		local empty = order()
+		-- The flag on a row, as its hover shows it, clicked.
+		local row = O.JumpTo("nav.arrowScale")
+		G._placePin(row, row.psControl)
+		local flag
+		for _, k in ipairs({ row:GetChildren() }) do if rawget(k, "psKey") == "nav.arrowScale" then flag = k end end
+		flag:Click()
+		local pinned = order()
+		local saved = PolestarDB.optionsPins and PolestarDB.optionsPins[1]
+		O.Select("b:guiding")
+		G.NavSelect("p:nav.arrowScale")
+		local went = O.frame.Title:GetText()
+		G.Pin("nav.arrowScale", false)
+		emit({ empty = empty, pinned = pinned, saved = saved or false, went = went, after = PolestarDB.optionsPins[1] or false })`);
+	const L = { pinned: 'h:Pinned', hint: 'h:Pin a setting with the flag on its row.' };
+	assert.deepEqual(out.empty, ['b:guiding', 'b:qol', 'b:look', 'b:setup', L.pinned, L.hint, 'fill', 'about', 'thanks', 'profile:Default'], 'with none pinned the heading says how');
+	assert.deepEqual(out.pinned.slice(4), [L.pinned, 'pin:nav.arrowScale', 'fill', 'about', 'thanks', 'profile:Default'], 'a pinned setting under its heading');
+	assert.equal(out.saved, 'nav.arrowScale', 'saved for the account');
+	assert.equal(out.went, 'Look › Arrow', "its sidebar row goes to the setting's page");
+	assert.equal(out.after, false, 'and unpins');
+});
+
+// The flag stays while the pointer goes from the row to it: across the row's
+// reset (the row hears OnLeave on entering its own parts) and onto the flag,
+// and goes once the pointer is on neither (POL-54).
+test("a row's pin stays while the pointer moves onto it and goes once it leaves both", () => {
+	const [out] = run(`
+		PolestarDB.optionsLayout = "grouped"
+		Polestar.UI.ShowOptions()
+		O.Select("arrow")
+		Polestar.Set("nav.arrowScale", 1.4)
+		local row = O.JumpTo("nav.arrowScale")
+		local onRow, onFlag = false, false
+		row.IsMouseOver = function() return onRow end
+		local function hover() onRow = true stub.RunScript(row, "OnEnter") end
+		hover()
+		local flag
+		for _, k in ipairs({ row:GetChildren() }) do if rawget(k, "psKey") == "nav.arrowScale" then flag = k end end
+		flag.IsMouseOver = function() return onFlag end
+		local seen = {}
+		local reset = rawget(row, "ResetB")
+		seen.reset = reset ~= nil and reset:IsShown() or false
+		-- On the reset, inside the row: the row hears OnLeave.
+		stub.RunScript(row, "OnLeave")
+		stub.advance(0.1)
+		seen.onReset = flag:IsShown()
+		-- On the flag.
+		onRow, onFlag = false, true
+		stub.advance(0.1)
+		seen.onFlag = flag:IsShown()
+		-- Off both, from the flag.
+		onFlag = false
+		stub.RunScript(flag, "OnLeave")
+		seen.offFlag = flag:IsShown()
+		-- Off both, from the reset (only the reset hears OnLeave).
+		hover()
+		stub.RunScript(row, "OnLeave")
+		onRow = false
+		stub.advance(0.1)
+		seen.offReset = flag:IsShown()
+		-- Off both, from the row itself.
+		hover()
+		onRow = false
+		stub.RunScript(row, "OnLeave")
+		seen.offRow = flag:IsShown()
+		Polestar.Set("nav.arrowScale", nil)
+		emit(seen)`);
+	assert.equal(out.reset, true, 'the changed row shows its reset next to the flag');
+	assert.equal(out.onReset, true, 'the flag stays while the pointer crosses the reset');
+	assert.equal(out.onFlag, true, 'and while it is on the flag');
+	assert.equal(out.offFlag, false, 'it goes when the pointer leaves the flag for elsewhere');
+	assert.equal(out.offReset, false, 'it goes when the pointer leaves the row by its reset');
+	assert.equal(out.offRow, false, 'it goes when the pointer leaves the row');
 });
 
 // The Preview panel: only a page with a live preview has one (and its
@@ -424,7 +523,7 @@ test('the new page says Settings, never Options', () => {
 		PolestarDB.optionsLayout = "grouped"
 		Polestar.UI.ShowOptions()
 		local texts = {}
-		for _, key in ipairs({ "b:guiding", "b:look", "b:setup" }) do O.Select(key); for _, t in ipairs(O.Grouped.NewPageText(O.frame)) do texts[#texts + 1] = t end end
+		for _, key in ipairs({ "b:guiding", "b:qol", "b:look", "b:setup" }) do O.Select(key); for _, t in ipairs(O.Grouped.NewPageText(O.frame)) do texts[#texts + 1] = t end end
 		emit({ texts = texts })`);
 	assert.deepEqual(out.texts.filter((t) => /\bOptions\b/.test(t)), []);
 });
