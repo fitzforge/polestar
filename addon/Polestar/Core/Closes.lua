@@ -1,6 +1,7 @@
 -- Quests that taking another one closes for good: a breadcrumb once the quest
 -- it leads to is taken, the rest of an exclusive group once one is taken.
 -- Contract: docs/ARCHITECTURE.md, "Engine" (Missable quests).
+-- (CI timing check, not for merging.)
 --
 -- Setting behavior.warnClosing (off by default): when a quest giver offers
 -- such a quest, a chat line names what it closes, with each one's giver, how
