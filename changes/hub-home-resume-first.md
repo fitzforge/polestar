@@ -9,6 +9,6 @@ section: players
   "After Westfall"). The details beside Home show the top suggestion. A new
   character gets a "Start here" card with Load guide, the other guides for
   their level and buttons for Leveling, Class, Professions and Import. The
-  header reads "Guides" with your level and faction, Special thanks moves
-  to the foot of Home, and a name cut short (on Home, a community pack in
-  the sidebar, the Zones fact) shows whole when you point at it.
+  header reads "Guides" with your level and faction, and a name cut short
+  (on Home, a community pack in the sidebar, the Zones fact) shows whole
+  when you point at it.

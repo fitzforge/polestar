@@ -2451,21 +2451,6 @@ local function renderHome(tabs, active, byId, openIndex, counts, width, sugg, wh
 		y = layoutActs(counts, y)
 	end
 	if nc == 0 and hero then hero:Hide() end
-	-- Special thanks at Home's foot, on the bottom edge's 24 when the list
-	-- leaves room.
-	local thanks = rawget(win, "ThanksLink")
-	local name = thanks and thanks.Name:GetText()
-	if name and name ~= "" then
-		local h = thanks:GetHeight()
-		local fy = max(y + SECTION_GAP, (rawget(win, "psViewH") or 0) - SECTION_GAP - h)
-		win.psThanksY = fy
-		thanks:ClearAllPoints()
-		thanks:SetPoint("TOPLEFT", win.Body, "TOPLEFT", SH.pad, -fy)
-		thanks:Show()
-		y = fy + h
-	elseif thanks then
-		thanks:Hide()
-	end
 	return y, nf, ng, nc
 end
 
@@ -2700,7 +2685,6 @@ local function render()
 		if hero then hero:Hide() end
 		for _, b in ipairs(actPool) do b:Hide() end
 		win.CardsMore:Hide()
-		if rawget(win, "ThanksLink") then win.ThanksLink:Hide() end
 	end
 	if playCard and not playDrawn then playCard:Hide() end
 	for i = ng + 1, #rowPool do rowPool[i]:Hide() end
