@@ -12,7 +12,7 @@ return {
 
 	-- Step 2: Horn of the Frostwolf Howler
 	-- {skill:762} Riding
-	["The Forever client lists it at 200g and level 60. It runs at full speed, so riding it needs Journeyman {skill:762}; any Horde race can ride it."] = "",
+	["The Forever client lists it at 200g and level 60. It runs at full speed, so riding it needs Journeyman {skill:762}; any Horde race can ride it."] = "Forever 클라이언트에는 200골드, 60레벨로 나옵니다. 전속도로 달리므로 탑승에는 수습 {skill:762}이(가) 필요하고 모든 호드 종족이 탈 수 있습니다.",
 	-- {npc:13219} Jekyll Flandring
 	["{npc:13219}, 200g"] = "{npc:13219}, 200골드",
 
