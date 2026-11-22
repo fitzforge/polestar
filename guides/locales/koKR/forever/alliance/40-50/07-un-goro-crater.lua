@@ -27,7 +27,7 @@ return {
 
 	-- Step 5: Gadgetzan
 	-- {area:976} Gadgetzan
-	["The flight from Theramore lands in {area:976}."] = "",
+	["The flight from Theramore lands in {area:976}."] = "테라모어에서 출발한 비행기는 {area:976}에 착륙합니다.",
 
 	-- Step 6: Marin Noggenfogger
 	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "경로의 이전 방문 때 이것을 놓쳤습니다. 지금 이것부터 합니다. 금방 끝나며 뒤에 이어지는 퀘스트를 열어 줍니다.",
@@ -45,7 +45,7 @@ return {
 
 	-- Step 10: Thistleshrub Valley: kill these as you meet them
 	-- {quest:3362} Thistleshrub Valley
-	["{quest:3362}: kill these as you meet them"] = "",
+	["{quest:3362}: kill these as you meet them"] = "{quest:3362}: 만나는 대로 처치하세요",
 	-- {quest:3362} Thistleshrub Valley
 	-- plural, as words: Gnarled Thistleshrubs = {npc:5490} Gnarled Thistleshrub
 	["Ride west into {quest:3362}. The Dew Collectors drop the glands; only some are full, so keep the Laden one. Gnarled Thistleshrubs and Rootshapers share the valley.\nCareful: the thistleshrubs wander a lot, so you can easily pull extra mobs."] = "서쪽 {quest:3362}(으)로 가세요. 이슬 수집가가 분비샘을 떨어뜨리는데, 가득 찬 것은 일부뿐이니 가득 찬 것을 챙기세요. 옹이진 덤불나무괴물과 뿌리조각가도 골짜기에 있습니다.\n주의: 덤불나무괴물은 많이 돌아다니므로 몹을 더 끌기 쉽습니다.",
@@ -60,7 +60,7 @@ return {
 	-- {area:1938} Broken Pillar · {area:981} The Gaping Chasm
 	["Ride south past the {area:1938} to the {area:981}, the Hazzali tunnels; Scrimshank's gear lies deep inside.\nCareful: One bug guards the gear. Many bugs patrol the tunnels, some of them level 50, so fights often pull extra adds."] = "남쪽으로 {area:1938}을(를) 지나 하잘리 굴인 {area:981}으로 가십시오. 슈섕크의 측량 장비는 깊숙한 곳에 있습니다.\n주의: 벌레 하나가 장비를 지킵니다. 많은 벌레가 굴을 순찰하며 일부는 50레벨이라, 싸우면 몹이 추가로 끌려오는 경우가 많습니다.",
 	-- {item:8593} Scrimshank's Surveying Gear
-	["{item:8593}; below ground"] = "",
+	["{item:8593}; below ground"] = "{item:8593}; 지하",
 
 	-- Step 13: Gadgetzan
 	-- {npc:7740} Gracina Spiritmight · {zone:1457} Darnassus · {zone:1428} Burning Steppes
@@ -88,7 +88,7 @@ return {
 	-- plural, as words: Lar'korwi Mates = {npc:9683} Lar'korwi Mate
 	["The Lar'korwi Mates prowl the jungle west of {npc:9619}. The wrecked raft lies on the shore of the lake there; the small pack sits in the water beside it. Keep the compass, map and key for {npc:8737}. Any beast in the crater may drop {item:11116}: right-click it."] = "{npc:9683}은(는) {npc:9619} 서쪽 밀림을 어슬렁거립니다. 부서진 뗏목은 그곳 호숫가에 있고, 작은 꾸러미는 그 옆 물속에 있습니다. 나침반, 지도, 열쇠는 {npc:8737}에게 주도록 보관하세요. 분화구의 어떤 야수든 {item:11116}을(를) 떨어뜨릴 수 있습니다. 오른쪽 클릭하세요.",
 	-- {object:161504} A Small Pack
-	["{object:161504}, underwater"] = "",
+	["{object:161504}, underwater"] = "{object:161504}, 물속",
 
 	-- Step 19: Torwa Pathfinder
 	-- {npc:9619} Torwa Pathfinder
@@ -130,7 +130,7 @@ return {
 	["For {npc:7775} in {zone:1444}: keep it"] = "{zone:1444}의 {npc:7775}에게 줄 것: 보관하세요",
 
 	-- Step 24: Level 49.79
-	["Level 49.79"] = "",
+	["Level 49.79"] = "49.79레벨",
 	-- plural, as words: Bloodpetal Lashers = {npc:6509} Bloodpetal Lasher
 	["Still short of level 49.79 after the refuge's hand-ins? Top up on the Bloodpetal Lashers and Threshers (48-50) of the eastern jungle, where you took the petals, before you leave the crater."] = "야영지 퀘스트를 제출한 뒤에도 49.79레벨이 안 됩니까? 분화구를 떠나기 전에 꽃잎을 모았던 동쪽 밀림의 채찍줄기 붉은꽃잎덩굴손과 타작 붉은꽃잎덩굴손(48-50)을 잡아 경험치를 채우세요.",
 	-- {npc:6511} Bloodpetal Thresher
@@ -152,7 +152,7 @@ return {
 	-- {npc:11406} High Priest Rohan · {zone:1447} Azshara
 	["{npc:11406}: for Ogtinc in {zone:1447}, keep it"] = "{npc:11406}: {zone:1447}의 오그틴크에게 줄 것, 보관하세요",
 	-- {npc:7312} Dink · {npc:8395} Sanath Lim-yo · {zone:1447} Azshara
-	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "",
+	["{npc:7312}, the mage trainer: for {npc:8395} in {zone:1447}, keep it"] = "{npc:7312}, 마법사 교관: {zone:1447}의 {npc:8395}에게: 보관하세요",
 
 	-- Step 30: Fly to Astranaar
 	-- {area:442} Auberdine
