@@ -5054,6 +5054,9 @@ L["The theme every Polestar window wears, the action buttons, the alert cards an
 L["They come off the list on every character. The pins you see here stay."] = "它們將從所有角色的清單中移除。此處可見的釘選保留。"
 L["Unpin from the sidebar"] = "從側邊欄取消釘選"
 L["What Polestar does for you while you level: suggestions, quests, rewards, buttons, rares."] = "升級時 Polestar 為你做的事：建議、任務、獎勵、按鈕、稀有怪。"
+
+-- UI/Essentials.lua: the new page's Essentials tabs
+L["Most used"] = "常用設定"
 -- L["Target bar colour"] = "目標標示條顏色"
 -- L["Progress colour"] = "進度顏色"
 -- L["The guides window only; applies when you let go. Right-click to reset."] = "僅指南視窗；放開時套用。右鍵點擊重置。"

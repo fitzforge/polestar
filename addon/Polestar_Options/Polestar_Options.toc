@@ -58,3 +58,4 @@ UI\Looks\Toasts.lua
 UI\Looks\Trackers.lua
 UI\Movers.lua
 UI\Grouped.lua
+UI\Essentials.lua

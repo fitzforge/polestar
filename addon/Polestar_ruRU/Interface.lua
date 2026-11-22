@@ -5061,6 +5061,9 @@ L["The theme every Polestar window wears, the action buttons, the alert cards an
 L["They come off the list on every character. The pins you see here stay."] = "Они уйдут из списка на всех персонажах. Закреплённые, которые видны здесь, останутся."
 L["Unpin from the sidebar"] = "Открепить от боковой панели"
 L["What Polestar does for you while you level: suggestions, quests, rewards, buttons, rares."] = "Что Polestar делает для вас, пока вы качаетесь: подсказки, задания, награды, кнопки, редкие противники."
+
+-- UI/Essentials.lua: the new page's Essentials tabs
+L["Most used"] = "Самое нужное"
 -- L["Target bar colour"] = "Цвет полосы цели"
 -- L["Progress colour"] = "Цвет прогресса"
 -- L["The guides window only; applies when you let go. Right-click to reset."] = "Только окно гайдов; применяется, когда отпустите. ПКМ — сброс."
