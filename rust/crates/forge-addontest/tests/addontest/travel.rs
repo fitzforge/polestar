@@ -774,16 +774,14 @@ fn the_known_flight_paths_survive_a_lost_character_save_from_the_account_wide_co
 		.remove(0)
 	};
 	assert_eq!(
-		run_saved(r#"PolestarCharDB = { schema = 1 }
-PolestarFlightsDB = { ["Testchar-Test Realm"] = { known = { [2] = true }, seen = { [0] = true } } }"#),
+		run_saved(
+			r#"PolestarCharDB = { schema = 1 }
+PolestarFlightsDB = { ["Testchar-Test Realm"] = { known = { [2] = true }, seen = { [0] = true } } }"#
+		),
 		json!({ "east": true, "seen": true, "mirrored": true }),
 		"the character's save lost: the account-wide copy fills it"
 	);
-	assert_eq!(
-		run_saved("PolestarCharDB = { schema = 1, flags = { taxi = { [2] = true } } }"),
-		json!({ "east": true, "seen": false, "mirrored": true }),
-		"no copy yet: made from the character's"
-	);
+	assert_eq!(run_saved("PolestarCharDB = { schema = 1, flags = { taxi = { [2] = true } } }"), json!({ "east": true, "seen": false, "mirrored": true }), "no copy yet: made from the character's");
 }
 
 // A flight map forgets a known flight path only where it proves it missing: a node one flight from one it lists, on its
@@ -862,11 +860,7 @@ fn an_unseen_continent_walks_to_the_near_flight_master_learns_it_and_flies_to_th
 		target(0, -1000, "Kobolds")
 		r.startKnown = route()
 		emit(r)"#);
-	assert_eq!(
-		out["fresh"],
-		json!(["walk|Walk to the flight master", "fly|Learn the flight path at West Hold, then fly to East Hold", "walk|Kobolds"]),
-		"{out}"
-	);
+	assert_eq!(out["fresh"], json!(["walk|Walk to the flight master", "fly|Learn the flight path at West Hold, then fly to East Hold", "walk|Kobolds"]), "{out}");
 	assert_eq!(out["startKnown"], json!(["walk|Walk to the flight master", "fly|Fly to East Hold", "walk|Kobolds"]), "{out}");
 }
 
