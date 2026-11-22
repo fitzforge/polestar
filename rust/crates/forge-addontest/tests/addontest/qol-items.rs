@@ -582,6 +582,36 @@ fn wear_offers_new_gear_from_loot_puts_it_on_only_when_taken_and_remembers_a_no(
 	assert_eq!(out[6], true, "Gear advice off: no offers");
 }
 
+#[test]
+fn wear_uses_the_clients_required_level_when_itemdb_is_out_of_date() {
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_qol.lua"],
+		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Gear/Gear.xml", "QoL/QoL.xml"])],
+		before: r#"UnitClass = function() return "Warrior", "WARRIOR", 1 end"#.into(),
+		login: true,
+		script: format!(
+			"{PRELUDE}{}",
+			r#"
+		Polestar.ItemDB.Register({ schema = 1, build = "test" }, { [14] = "1 15 0 2 4 3 str10" })
+		q.items[14] = { name = "Ridge Helm", equipLoc = "INVTYPE_HEAD", minLevel = 11 }
+		q.addItem(0, 1, 14, 1); bagsChanged()
+		local link = C_Container.GetContainerItemInfo(0, 1).hyperlink
+		emit({ Polestar.Gear.CompareToEquipped(link).minLevel, QoL.Wear.Offer() ~= nil })
+
+		q.bags[0].slots[1] = nil; bagsChanged()
+		q.gainXP(q.xpMax)
+		stub.fire("PLAYER_LEVEL_UP", q.level)
+		q.addItem(0, 1, 14, 1); bagsChanged()
+		local offer = QoL.Wear.Offer()
+		emit(offer and offer.id or false)
+	"#
+		),
+		..Default::default()
+	});
+	assert_eq!(out[0], json!([11, false]), "the client requires level 11 and the player is level 10");
+	assert_eq!(out[1], 14, "a fresh copy is offered at the required level");
+}
+
 // A level 20 character with a gun: water at three levels, bread, shot, arrows and a reagent for sale.
 const GOODS: &str = r#"
 	q.level = 20
