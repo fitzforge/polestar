@@ -131,11 +131,11 @@ test('at 860 wide the tabs that do not fit show icons only, the label in the too
 		O.Select("alerts")
 		local f = O.frame.FolderTabs
 		local wideCompact = f.compact
-		-- Wide: the last tab ends inside the band.
+		-- Wide: the last tab ends short of what stands at the band's right end.
 		local last
 		for _, b in ipairs(f.buttons) do if b:IsShown() then last = b end end
 		local _, _, _, lx = last:GetPoint(1)
-		local fits = lx + last:GetWidth() <= O.frame.psMainW
+		local fits = lx + last:GetWidth() + f.psOpts.rightWidth <= O.frame.psMainW
 		O.frame:SetWidth(860)
 		O.Select("alerts")
 		local b = f.buttons[1]
@@ -145,15 +145,40 @@ test('at 860 wide the tabs that do not fit show icons only, the label in the too
 		b:GetScript("OnEnter")(b)
 		b:GetScript("OnLeave")(b)
 		Polestar.Widgets.Tooltip = real
-		emit({ wide = wideCompact, fits = fits, compact = f.compact, labelShown = b.Label:IsShown(),
+		emit({ wide = wideCompact, fits = fits, rightW = f.psOpts.rightWidth, compact = f.compact, labelShown = b.Label:IsShown(),
 			iconShown = b.Icon:IsShown(), tip = tip, psTip = b.psTip, label = b.Label:GetText() })`);
 	assert.equal(out.wide, false, 'the default window has room for the labels');
-	assert.equal(out.fits, true, 'the last tab ends inside the band');
+	assert.equal(out.fits, true, 'the last tab ends short of the right end');
+	assert.ok(out.rightW > 0, 'the filter stands at the right end');
 	assert.equal(out.compact, true);
 	assert.equal(out.labelShown, false);
 	assert.equal(out.iconShown, true);
 	assert.equal(out.psTip, out.label);
 	assert.equal(out.tip, out.label, 'the tooltip names the tab while compact');
+});
+
+test('the filter at the right end takes its room: the tabs give way to icons for it', () => {
+	const [out] = run(`
+		Polestar.UI.ShowOptions()
+		O.frame:SetWidth(1000)
+		O.Select("alerts")
+		local f = O.frame.FolderTabs
+		local rightW = f.psOpts.rightWidth
+		-- The labelled tabs' width, from a band wide enough for them.
+		f:Set(f.psList, nil, { active = f.psOpts.active, width = 4000, rightWidth = 0, onSelect = f.psOpts.onSelect })
+		local total = 0
+		for _, b in ipairs(f.buttons) do if b:IsShown() then total = total + b:GetWidth() + 6 end end
+		-- A window where the tabs fit the band, but not beside the filter.
+		O.frame:SetWidth(1000 + (total + 32 + 8 + rightW / 2) - O.frame.psMainW)
+		O.Select("alerts")
+		local withFilter = f.compact
+		local opts = f.psOpts
+		local nowRight = opts.rightWidth
+		local without = f:Set(f.psList, nil, { active = opts.active, width = opts.width, rightWidth = 0, onSelect = opts.onSelect }).compact
+		emit({ rightW = nowRight, withFilter = withFilter, without = without, filterW = rightW })`);
+	assert.ok(out.rightW > 0, 'the filter stands at the right end');
+	assert.equal(out.without, false, 'the tabs fit the band alone');
+	assert.equal(out.withFilter, true, 'beside the filter they give way to icons');
 });
 
 test('under a game look a folder tab takes no kit tab art: the box is the layout\'s', () => {

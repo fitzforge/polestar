@@ -113,8 +113,13 @@ test('the switch lays the open window out in groups and back, with the same rows
 		local on = { layout = PolestarDB.optionsLayout, title = O.frame.Title:GetText(), rows = rows() }
 		O.Select("b:look")
 		local look = { title = O.frame.Title:GetText(), rows = rows() }
-		-- The window's search keeps the groups.
+		-- A setting off its default shows under Changed; the window's search keeps the groups.
+		Polestar.Set("nav.arrowScale", 1.3)
 		O.Select("arrow")
+		G.Filter("changed")
+		local changed = {}
+		for c, w in pairs(O.view.cache) do if w:IsShown() and c.key then changed[#changed + 1] = c.key end end
+		G.Filter("all")
 		O.SetQuery("sclae")
 		local titles = {}
 		for _, g in ipairs(O.results.groups) do titles[#titles + 1] = g.title end
@@ -130,7 +135,7 @@ test('the switch lays the open window out in groups and back, with the same rows
 		local _, jumpTab = G.Current()
 		local jumped = { title = O.frame.Title:GetText(), tab = jumpTab.name, shown = w ~= nil and w:IsShown() }
 		G.SetOn(false)
-		emit({ nav = nav, on = on, look = look, titles = titles, back = back,
+		emit({ nav = nav, on = on, look = look, changed = changed, titles = titles, back = back,
 			stepped = stepped, steppedTab = steppedTab.name, jumped = jumped,
 			off = { layout = PolestarDB.optionsLayout or false, title = O.frame.Title:GetText() } })`);
 	assert.deepEqual(out.nav, ['b:guiding', 'guide', 'questing', 'map', 'qualityoflife', 'discovery', 'b:look', 'b:setup', 'b:about'],
@@ -139,6 +144,7 @@ test('the switch lays the open window out in groups and back, with the same rows
 	assert.equal(out.on.title, 'Guiding › Guide', 'the Guide page stays on screen');
 	assert.ok(out.on.rows > 0 && out.look.rows > 0, 'the pages show their rows');
 	assert.equal(out.look.title, 'Look › Guide window', "a group opens on its first page");
+	assert.ok(out.changed.includes('nav.arrowScale'), 'Changed lists the row off its default');
 	assert.ok(out.titles.length > 0 && out.titles.every((t) => t.split(' › ').length >= 2), 'search results say where each lives here');
 	assert.ok(out.titles.some((t) => t.startsWith('Alerts & toasts › ')), `by page and tab: ${out.titles.join(' | ')}`);
 	assert.equal(out.back, 'Look › Arrow', 'closing the search comes back to the page it left');
@@ -317,6 +323,47 @@ test('the sidebar opens the group shown on its pages, and a page picked there is
 	assert.equal(out.shown, out.second, 'and shown');
 	assert.deepEqual(out.guidingOpen, ['b:guiding'], 'another group opens in its place');
 	assert.ok(!out.guidingPages.includes('theme'), "Look's pages fold away");
+});
+
+// The Preview panel: only a page with a live preview has one (and its
+// Preview button); Guiding's pages and Setup's have neither, and their rows
+// take the width. The button hides the panel for the account.
+test('the Preview panel stands only beside a page with a live preview, and its button hides it for the account', () => {
+	const [out] = run(`
+		local G = O.Grouped
+		PolestarDB.optionsLayout = "grouped"
+		Polestar.Set("ui.optionsSize", { 1500, 900 })
+		Polestar.UI.ShowOptions()
+		local names = {}
+		for _, key in ipairs({ "guide", "guidewindow", "arrow", "theme", "profiles" }) do
+			O.Select(key)
+			local b = G.PreviewButton()
+			names[key] = (b and b:IsShown()) and b.Label:GetText() or false
+		end
+		O.Select("guidewindow")
+		local narrowed = O.frame.BodyWidth
+		local b = G.PreviewButton()
+		local shownTip = b.psTip
+		stub.RunScript(b, "OnClick")
+		emit({ names = names, hidden = PolestarDB.optionsPreviewHidden or false, shownTip = shownTip, hiddenTip = b.psTip,
+			still = b:IsShown(), grew = O.frame.BodyWidth > narrowed })`);
+	assert.deepEqual(out.names, { guide: false, guidewindow: 'Preview', arrow: 'Preview', theme: 'Preview', profiles: false });
+	assert.equal(out.shownTip, 'Hide preview');
+	assert.equal(out.hidden, true, 'hidden, saved for the account');
+	assert.equal(out.hiddenTip, 'Show preview', 'the button stays, to show it again');
+	assert.equal(out.still, true);
+	assert.equal(out.grew, true, 'the rows take the width');
+	// Not chosen yet, a narrow window keeps the panel off its rows; the button shows it.
+	const [narrow] = run(`
+		local G = O.Grouped
+		Polestar.Set("ui.optionsSize", { 860, 800 })
+		Polestar.UI.ShowOptions()
+		O.Select("guidewindow")
+		local b = G.PreviewButton()
+		local tip = b.psTip
+		stub.RunScript(b, "OnClick")
+		emit({ tip = tip, after = b.psTip, saved = PolestarDB.optionsPreviewHidden })`, 'PolestarDB = { settings = {}, optionsLayout = "grouped" }');
+	assert.deepEqual(narrow, { tip: 'Show preview', after: 'Hide preview', saved: false }, 'narrow: hidden until the button shows it, then saved shown');
 });
 
 // Move frames is the second item of the header's ··· menu (unlock mode, the
