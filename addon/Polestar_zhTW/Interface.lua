@@ -2620,7 +2620,6 @@ L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom
 -- Rares/Rares.lua
 L["Raid warning"] = "團隊警告"
 L["Ready check"] = "準備確認"
-L["Boss whisper"] = "首領悄悄話"
 L["Rare Elite"] = "稀有精英"
 L["just now"] = "剛剛"
 L["%d min ago"] = "%d 分鐘前"
@@ -2630,6 +2629,7 @@ L["%d days ago"] = "%d 天前"
 L["Unknown rare"] = "未知的稀有生物"
 L["A rare"] = "一個稀有生物"
 L["rares [test]: open Rares, or show a sample alert"] = "rares [test]：開啟稀有，或顯示範例提醒"
+L["Boss emote"] = "首領表情"
 
 -- Rares/Pins.lua
 L["Level %s"] = "等級 %s"
@@ -5012,3 +5012,4 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "已降
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"] = "進度正常，但第 %3$d 步的 %1$s（%2$d）很難：你是 %4$s；請先練等%5$s"
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "進度正常，但第 %3$d 步的 %1$s（%2$d）很難：你是 %4$s；請先達到 %5$d 級"
 -- L["No safe walking route"] = "沒有安全的步行路線"
+-- L["Boss whisper"] = "首領悄悄話"

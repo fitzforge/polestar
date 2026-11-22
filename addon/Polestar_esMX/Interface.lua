@@ -1186,7 +1186,7 @@ L["A rare"] = "Un raro"
 L["rares [test]: open Rares, or show a sample alert"] = "rares [test]: abrir Raros o mostrar una alerta de ejemplo"
 L["Raid warning"] = "Aviso de la banda"
 L["Ready check"] = "Comprobación de estado"
-L["Boss whisper"] = "Susurro de jefe"
+L["Boss emote"] = "Emoción de jefe"
 
 -- Rares/Toast.lua
 L["in sight"] = "a la vista"
@@ -5046,3 +5046,4 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Aterri
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"] = "Vas al ritmo, pero %s (%d) en el paso %d es difícil: eres nivel %s; farmea %s antes"
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "Vas al ritmo, pero %s (%d) en el paso %d es difícil: eres nivel %s; llega al %d antes"
 -- L["No safe walking route"] = "No hay una ruta segura a pie"
+-- L["Boss whisper"] = "Susurro de jefe"
