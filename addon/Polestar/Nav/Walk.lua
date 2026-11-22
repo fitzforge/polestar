@@ -1993,9 +1993,12 @@ function Walk.HeldFor()
 end
 
 -- The planner stops holding its route for the measure being taken (Travel.Waiting, after 2 s of it): the places
--- it has not priced yet keep their estimates until it lands (UnpricedTransfer).
-function Walk.GiveUp()
-	if measuring then measuring.gaveUp = true end
+-- it has not priced yet keep their estimates until it lands (UnpricedTransfer), and the measure never holds the
+-- route again (Travel.lua plan). With `ask`, only whether it has: -> true once the measure being taken gave up.
+function Walk.GiveUp(ask)
+	if not measuring then return false end
+	if not ask then measuring.gaveUp = true end
+	return measuring.gaveUp == true
 end
 
 -- The walk from (c, wx, wy) to the measure's target (the player's walk when

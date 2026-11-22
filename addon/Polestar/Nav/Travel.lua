@@ -2504,10 +2504,13 @@ local function plan(target, held)
 	local pending = places and W.Measure(tc, twx, twy, ghost, places, tz) or false
 	-- A completed batch for another floor (or without a checked price) is no
 	-- better than a pending batch. Replanning must not resurrect that ticket.
-	-- While the batch runs, the route is held for it (Travel.Waiting).
+	-- While the batch runs, the route is held for it (Travel.Waiting), but never again once that measure gave up
+	-- (Walk.GiveUp): a landing it has refused meanwhile reads unpriced to this plan until the batch lands, and
+	-- holding it again planned anew on every sample with no route offered (#3553 review). It plans again when the
+	-- batch lands (Travel.Remeasured).
 	if waitForWalk and landing and W.UnpricedTransfer(tc, twx, twy, ghost, tz, landing) then
 		route = nil
-		Travel.held = pending and target or nil
+		Travel.held = pending and not W.GiveUp(true) and target or nil
 	end
 	-- The near walk the planner would offer: the engine asked for it (Travel.NearWalk with its answer).
 	if probe and probe.yards and W.Probe then
