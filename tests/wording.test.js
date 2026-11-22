@@ -99,11 +99,14 @@ test('no tracked file invites importing guides or says a route was compared with
 	assert.deepEqual(treeHits(files), [], 'reword each line named: drop the clause, never swap in another word');
 });
 
-// Prose: the guides (with Forge's seed and the experimental pack) and the fix
-// records' own words, where the `prose` rules hold as well (public-text.json
-// `_about`). A record file is read as JSON; its words are the strings under
-// RECORD_WORDS keys, never a game name or title, and a hit names the record.
-const PROSE_GUIDES = /^(guides|forge\/seed\/guides|experimental\/guides)\/.+\.guide$/;
+// Prose: the guides (with Forge's seed and the experimental pack), the player
+// notes (changelog fragments, the Client's release notes, the CurseForge
+// description) and the fix records' own words, where the `prose` rules hold
+// as well (public-text.json `_about`). A record file is read as JSON; its
+// words are the strings under RECORD_WORDS keys, never a game name or title,
+// and a hit names the record. CHANGELOG.md is the released fragments: it is
+// never rewritten, so only the fragments are read.
+const PROSE_GUIDES = /^((guides|forge\/seed\/guides|experimental\/guides)\/.+\.guide|changes\/[^/]+\.md|apps\/client\/release\/notes\/[^/]+\.md|docs\/curseforge\/[^/]+\.(md|html))$/;
 const RECORD_FILES = /^(data\/(route-fixes|guide-fixes|mechanics-public|places)\.json|forever-db\/corrections\/[^/]+\.json)$/;
 const RECORD_WORDS = new Set(['why', 'reason', 'note', 'tip', 'text', 'fact', 'ref']);
 
@@ -121,8 +124,8 @@ function recordWords(v, at = '', out = []) {
 	return out;
 }
 
-// Each hit of the `prose` rules in the guides and the records' words (the
-// `tree` ones: the test above) -> "path:line: rule" | "path record: rule".
+// Each hit of the `prose` rules in the guides, the notes and the records'
+// words (the `tree` ones: the test above) -> "path:line: rule" | "path record: rule".
 function proseHits(files) {
 	const out = [];
 	for (const { file, text } of files) {
@@ -136,12 +139,14 @@ function proseHits(files) {
 	return out;
 }
 
-test('the guides and the fix records\' own words hold to the prose rules too', () => {
+test('the guides, the player notes and the fix records\' own words hold to the prose rules too', () => {
 	const files = trackedFiles().filter((f) => PROSE_GUIDES.test(rel(f.file)) || RECORD_FILES.test(rel(f.file)));
 	const read = (re) => files.some((f) => re.test(rel(f.file)));
 	assert.ok(files.filter((f) => /^guides\//.test(rel(f.file))).length > 200, 'expected the guides');
 	// The experimental pack's guides are read when it has any (none since Mount Hyjal joined the route in 0.4.3).
 	assert.ok(read(/^forge\/seed\/guides\//), 'expected the seed');
+	// The changelog fragments are read when there are any (a release takes them all).
+	assert.ok(read(/^apps\/client\/release\/notes\//) && read(/^docs\/curseforge\//), 'expected the release notes and the CurseForge description');
 	for (const name of ['data/route-fixes.json', 'data/guide-fixes.json', 'forever-db/corrections/quests.json']) assert.ok(files.some((f) => rel(f.file) === name), `${name} is read`);
 	assert.deepEqual(proseHits(files), [], 'reword each place named: drop the clause, never swap in another word');
 });
@@ -153,8 +158,9 @@ test('the prose rules catch a guide line and a record\'s words, never its game n
 		const said = r.match[0];
 		const guide = { file: path.join(ROOT, 'guides', 'forever', 'sample.guide'), text: `step Sample\n  tip Plain words.\n# ${said}\n` };
 		const record = { file: path.join(ROOT, 'data', 'route-fixes.json'), text: JSON.stringify({ overrides: { skip: [{ q: 1, name: said, why: `Plain words; ${said}.` }] } }) };
+		const fragment = { file: path.join(ROOT, 'changes', 'sample.md'), text: `---\nsection: players\n---\n- Plain words;\n  ${said}.\n` };
 		const code = { file: path.join(ROOT, 'tools', 'sample.js'), text: `// ${said}\n` };
-		assert.deepEqual(proseHits([guide, record, code]), [`guides/forever/sample.guide:3: ${r.id}`, `data/route-fixes.json overrides.skip[0].why: ${r.id}`], r.id);
+		assert.deepEqual(proseHits([guide, record, fragment, code]), [`guides/forever/sample.guide:3: ${r.id}`, `data/route-fixes.json overrides.skip[0].why: ${r.id}`, `changes/sample.md:5: ${r.id}`], r.id);
 	}
 	// A use the tree rules pass (one of their own plain-use examples) is caught in a guide.
 	const plain = RULES.rules.filter((r) => r.scope === 'tree').flatMap((r) => r.pass).find((s) => hits(s, RULES, ['prose']).length);

@@ -230,6 +230,7 @@ L["Ride to the flight master"] = "Vá montado até o mestre de voo"
 -- L["Requires level %d: kept for a later guide"] = ""
 -- L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = ""
 -- L["For %s, later on your route."] = ""
+-- L["kill %s as you meet them"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Escolha uma recompensa para concluir a entrega."
@@ -1345,8 +1346,12 @@ L["Opens the Eastwall Gate into Stratholme's Scourge-held districts."] = "Abre o
 L["Opens the inner doors of Dire Maul's North and West wings."] = "Abre as portas internas das alas Norte e Oeste de Gládio Cruel."
 L["Opens Gnomeregan's back door, the Workshop entrance."] = "Abre a porta dos fundos de Gnomeregan, a entrada da Oficina."
 L["Opens the doors of the Armory and the Cathedral."] = "Abre as portas do Arsenal e da Catedral."
-L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = "Abre o portão do caminho da Horda para a Cidade de Dalaran; uma chave o abre para o grupo. A Aliança entra pelo cano de esgoto em Cantrips & Crows."
 L["Rings the gong by the sacred pool in Zul'Farrak to call Gahz'rilla; one mallet does it for the group. Qiaga the Keeper (elite) on top of the Altar of Zul in the Hinterlands drops the Sacred Mallet: use it at the altar at the very top of Jintha'Alor and it becomes the Mallet of Zul'Farrak. Both places are full of elites."] = "Toca o gongo junto ao lago sagrado em Zul'Farrak para chamar Gahz'rilla; uma marreta basta para o grupo. Qiaga, a Guardiã (elite), no topo do Altar de Zul, nas Terras Agrestes, solta a Marreta Sagrada: use-a no altar bem no topo de Jintha'Alor e ela vira a Marreta de Zul'Farrak. Os dois lugares estão cheios de elites."
+-- L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Image of Archmage Modera gives it with Heart of Disruption: keep that quest in your log until you are inside. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = ""
+-- L["Calls up Lyn the Ignored, a hidden boss, at the summoning circle in the City of Dalaran's Underbelly, in the small room past Atrexis the Grave Knight. The Black Tome lies on a table up the stairs behind Archmage Arugal in Shadowfang Keep; use it at the Ambermill Leyline Focus, the blue crystal beside Archmage Ataeric in Ambermill's town hall, and it becomes the Tome of Dalaran."] = ""
+-- L["Opens a portal from the first khan's spot in Maraudon's outer caves to Earth Song Falls in inner Maraudon; the group walks through it. Celebras the Redeemed makes it once Celebras the Cursed is dead inside."] = ""
+-- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Alphonse Dumas in Farholde Keep forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
+-- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Kreza Darkthorn in Rog'mar forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
 
 -- UI/UI.lua
 L["Map %d"] = "Mapa %d"
@@ -2625,7 +2630,6 @@ L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom
 -- Rares/Rares.lua
 L["Raid warning"] = "Aviso do raide"
 L["Ready check"] = "Verificação de prontidão"
-L["Boss whisper"] = "Sussurro de chefe"
 L["Rare Elite"] = "Elite Raro"
 L["just now"] = "agora mesmo"
 L["%d min ago"] = "há %d min"
@@ -2635,6 +2639,7 @@ L["%d days ago"] = "há %d dias"
 L["Unknown rare"] = "Raro desconhecido"
 L["A rare"] = "Um raro"
 L["rares [test]: open Rares, or show a sample alert"] = "rares [test]: abre Raros ou mostra um alerta de exemplo"
+L["Boss emote"] = "Emote de chefe"
 
 -- Rares/Pins.lua
 L["Level %s"] = "Nível %s"
@@ -5031,3 +5036,5 @@ L["XP remaining after turn-ins"] = "EXP restante após as entregas"
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"] = "No ritmo, mas %s (%d) na etapa %d é difícil: você está no nível %s; mate monstros por %s antes"
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "No ritmo, mas %s (%d) na etapa %d é difícil: você está no nível %s; chegue ao nível %d antes"
 -- L["No safe walking route"] = "Nenhuma rota segura a pé"
+-- L["Boss whisper"] = "Sussurro de chefe"
+-- L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = "Abre o portão do caminho da Horda para a Cidade de Dalaran; uma chave o abre para o grupo. A Aliança entra pelo cano de esgoto em Cantrips & Crows."

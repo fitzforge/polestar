@@ -230,6 +230,7 @@ L["Artisan %s"] = "대가 %s"
 -- L["Requires level %d: kept for a later guide"] = ""
 -- L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = ""
 -- L["For %s, later on your route."] = ""
+-- L["kill %s as you meet them"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "보상을 선택해 제출을 마치십시오."
@@ -1345,8 +1346,12 @@ L["Opens the Eastwall Gate into Stratholme's Scourge-held districts."] = "스트
 L["Opens the inner doors of Dire Maul's North and West wings."] = "혈투의 전장 북부 및 서부 구역의 안쪽 문을 엽니다."
 L["Opens Gnomeregan's back door, the Workshop entrance."] = "놈리건의 뒷문인 작업장 입구를 엽니다."
 L["Opens the doors of the Armory and the Cathedral."] = "무기고와 대성당의 문을 엽니다."
-L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = "달라란 시로 가는 호드 쪽 길의 문을 엽니다. 열쇠 하나로 파티 전체에게 열립니다. 얼라이언스는 주문과 까마귀의 하수관을 통해 들어갑니다."
 -- L["Rings the gong by the sacred pool in Zul'Farrak to call Gahz'rilla; one mallet does it for the group. Qiaga the Keeper (elite) on top of the Altar of Zul in the Hinterlands drops the Sacred Mallet: use it at the altar at the very top of Jintha'Alor and it becomes the Mallet of Zul'Farrak. Both places are full of elites."] = ""
+-- L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Image of Archmage Modera gives it with Heart of Disruption: keep that quest in your log until you are inside. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = ""
+-- L["Calls up Lyn the Ignored, a hidden boss, at the summoning circle in the City of Dalaran's Underbelly, in the small room past Atrexis the Grave Knight. The Black Tome lies on a table up the stairs behind Archmage Arugal in Shadowfang Keep; use it at the Ambermill Leyline Focus, the blue crystal beside Archmage Ataeric in Ambermill's town hall, and it becomes the Tome of Dalaran."] = ""
+-- L["Opens a portal from the first khan's spot in Maraudon's outer caves to Earth Song Falls in inner Maraudon; the group walks through it. Celebras the Redeemed makes it once Celebras the Cursed is dead inside."] = ""
+-- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Alphonse Dumas in Farholde Keep forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
+-- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Kreza Darkthorn in Rog'mar forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
 
 -- UI/UI.lua
 L["Map %d"] = "지도 %d"
@@ -2625,7 +2630,6 @@ L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"
 L["Ready check"] = "준비 확인"
-L["Boss whisper"] = "우두머리 귓속말"
 L["Rare Elite"] = "희귀 정예"
 L["just now"] = "방금"
 L["%d min ago"] = "%d분 전"
@@ -2635,6 +2639,7 @@ L["%d days ago"] = "%d일 전"
 L["Unknown rare"] = "알 수 없는 희귀"
 L["A rare"] = "희귀 몹"
 L["rares [test]: open Rares, or show a sample alert"] = "rares [test]: 희귀 열기 또는 알림 미리보기"
+L["Boss emote"] = "우두머리 감정 표현"
 
 -- Rares/Pins.lua
 L["Level %s"] = "레벨 %s"
@@ -5017,3 +5022,5 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "착륙
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"] = "진행은 순조롭지만 %s (%d) %d단계가 어렵습니다: 내 레벨 %s. 먼저 %s 사냥"
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "진행은 순조롭지만 %s (%d) %d단계가 어렵습니다: 내 레벨 %s. 먼저 %d 도달"
 -- L["No safe walking route"] = "안전한 도보 경로 없음"
+-- L["Boss whisper"] = "우두머리 귓속말"
+-- L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = "달라란 시로 가는 호드 쪽 길의 문을 엽니다. 열쇠 하나로 파티 전체에게 열립니다. 얼라이언스는 주문과 까마귀의 하수관을 통해 들어갑니다."

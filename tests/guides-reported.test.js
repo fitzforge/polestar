@@ -8145,14 +8145,16 @@ test('A Meal Served Cold (30-minute limit) is in no leveling guide', { skip }, (
 });
 
 // Flow re-order (2026-11-07): Alliance Desolace made the Scorpashi venom a stop of its own at Kormek's Hut
-// after the Kodo Graveyard, then walked back to the graveyard for the last hides.
+// after the Kodo Graveyard, then walked back to the graveyard for the last hides. Since #3385 the hides and venom are
+// the step right after the taming (a skip touches one quest only), still at the graveyard on the same visit.
 test('forever/alliance/30-40/02-desolace.guide: flow re-order: the Scorpashi venom with the kodos at the Kodo Graveyard, not a Kormek\'s Hut stop of its own', { skip }, () => {
 	const list = goals('forever/alliance/30-40/02-desolace.guide');
-	const kodos = list.find(({ goal }) => goal.quest === 5561 && ['kill', 'talk', 'use'].includes(goal.t)); // #1458: a talk at Smeed's camp, not a kill
+	const kodos = list.filter(({ goal }) => goal.quest === 5561 && ['kill', 'talk', 'use'].includes(goal.t)).pop(); // #1458: a talk at Smeed's camp, not a kill
 	const venom = list.filter(({ goal }) => goal.t === 'collect' && goal.item === 6248);
 	const hides = list.filter(({ goal }) => goal.t === 'collect' && goal.item === 6249);
-	assert.ok(kodos && venom.length === 1 && venom[0].s === kodos.s, 'the venom on the Kodo Graveyard step');
-	assert.ok(hides.length === 1 && hides[0].s === kodos.s, 'the hides there, once');
+	assert.ok(kodos && venom.length === 1 && venom[0].s === kodos.s + 1, 'the venom on the Kodo Graveyard step right after the taming');
+	assert.match(venom[0].step.title, /^Kodo Graveyard/, 'at the graveyard');
+	assert.ok(hides.length === 1 && hides[0].s === venom[0].s, 'the hides there, once');
 });
 
 // Route audit (2026-11-20): Highway Robbery's campfire lies about 200 yards north of the Kodo Bones, its hand-in is
@@ -18644,6 +18646,18 @@ test('forever/horde/40-50/04-tanaris.guide: Tanaris Field Sampling\'s step says 
 	assert.match(text, /Wastewander Water Pouches|\{item:8483\}/, 'and what it takes');
 });
 
+// #3279 (beardedoak): the Horde Un'Goro guide hands Lines of Communication (2995) in at Oran Snakewrithe, but its three
+// Highvale objectives are only in the Hinterlands guide's Highvale step, which the player had already left; the arrow
+// went to the Undercity for a quest he could not finish there. The hand-in says where the work is (bumblei3, #3305).
+test('forever/horde/50-60/01-un-goro-crater.guide: the Lines of Communication hand-in says where its work is (#3279)', { skip }, () => {
+	const list = goals('forever/horde/50-60/01-un-goro-crater.guide');
+	const { goal } = list[at(list, 'turnin 2995', is('turnin', 2995))];
+	assert.match(goal.note || '', /Hinterlands/, 'the note names the guide with the work');
+	assert.match(goal.note || '', /Highvale/, 'and its step');
+	const hin = goals('forever/horde/40-50/05-the-hinterlands.guide');
+	assert.ok(hin.some(({ goal }) => goal.t === 'interact' && goal.quest === 2995), 'the Hinterlands guide holds the Highvale objectives');
+});
+
 // #3557 (Gindry, deDE): on Tooga's escort the Alliance arrow pointed back at the valley, 3,379 yd behind, while Tooga
 // walked to Torta: the escort's bare `complete` took its giver's place. It ends at Torta, as the Horde route's does.
 test('forever/alliance/40-50/04-tanaris.guide: Tooga\'s escort points at Torta in the port (#3557)', { skip }, () => {
@@ -18688,4 +18702,28 @@ test('forever/alliance/50-60/01-burning-steppes.guide: Kum\'isha\'s fragment ste
 	const { steps } = compiled('forever/alliance/50-60/01-burning-steppes.guide');
 	const kum = steps.find((st) => st.goals.some(is('accept', 3501)));
 	assert.ok((kum.when || []).some((p) => p.k === 'has' && !p.neg && p.item === 10593), 'when has 10593');
+});
+
+// #3385 (Tilman): skipping the kodo-taming step at the Kodo Graveyard skipped Reagents for Reclaimers Inc.'s venom
+// too, since both were in one step. A skip only touches its own quest (Fitz, 22 Nov): an escort or a taming, the
+// work a player may skip on its own, has a step of its own, with no other quest's work beside it.
+test('an escort or taming has a step of its own, so skipping it skips no other quest (#3385)', { skip }, () => {
+	const WORK = new Set(['complete', 'kill', 'collect', 'use', 'interact', 'talk', 'explore', 'cast']);
+	for (const [file, quest] of [
+		['forever/alliance/30-40/02-desolace.guide', 5561], // Kodo Roundup
+		['forever/alliance/03-darkshore-return.guide', 945], // Therylune's Escape
+		['forever/alliance/03-darkshore-return.guide', 994], // Escape Through Force (Volcor)
+		['forever/alliance/30-40/04b-stranglethorn-vale.guide', 97331], // Zimmix's Great Escape
+		['forever/horde/30-40/03-stranglethorn-vale.guide', 97331],
+		['forever/horde/07-ashenvale.guide', 6482], // Freedom to Ruul
+		['forever/horde/07-ashenvale.guide', 4904], // Free at Last
+		['forever/horde/07-ashenvale.guide', 4770], // Homeward Bound
+	]) {
+		const steps = compiled(file).steps.filter((st) => st.goals.some((g) => g.quest === quest && WORK.has(g.t)));
+		assert.ok(steps.length > 0, `${file}: ${quest} is worked`);
+		for (const st of steps) {
+			const others = st.goals.filter((g) => WORK.has(g.t) && g.quest != null && g.quest !== quest && !g.optional);
+			assert.deepEqual(others.map((g) => `${g.t} ${g.quest}`), [], `${file} "${st.title}": only ${quest}'s work`);
+		}
+	}
 });

@@ -76,15 +76,22 @@ return {
 	["The {area:102}"] = "{area:102}",
 	-- {npc:268992} Zimmix Sputterspark · {item:277957} Primitive Key
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment · Bloodscalp Berserkers = {npc:597} Bloodscalp Berserker
-	["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}, then lead him out of the ruins. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "Para o norte pela costa até as ruínas na colina: as duas últimas tabuletas ficam lá. {npc:268992}, um goblin, está engaiolado ao lado da terceira tabuleta: qualquer Sanguescalpo pode deixar cair a {item:277957}; depois, guie-o para fora das ruínas. Os Carregamentos Roubados ficam na borda leste das ruínas. Pegue as páginas de Grande Espinhaço: Veredas conforme caírem.\nCuidado: os Berserkers, Caçadores de Cabeças e Mandingueiros Sanguescalpo (36-37) dominam o centro das ruínas: puxe-os um de cada vez.",
+	-- was: ["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}, then lead him out of the ruins. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "Para o norte pela costa até as ruínas na colina: as duas últimas tabuletas ficam lá. {npc:268992}, um goblin, está engaiolado ao lado da terceira tabuleta: qualquer Sanguescalpo pode deixar cair a {item:277957}; depois, guie-o para fora das ruínas. Os Carregamentos Roubados ficam na borda leste das ruínas. Pegue as páginas de Grande Espinhaço: Veredas conforme caírem.\nCuidado: os Berserkers, Caçadores de Cabeças e Mandingueiros Sanguescalpo (36-37) dominam o centro das ruínas: puxe-os um de cada vez."
+	["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "",
 	-- {npc:268992} Zimmix Sputterspark
 	["{npc:268992}, in his cage beside the third tablet"] = "{npc:268992}, na gaiola ao lado da terceira tabuleta",
 	-- {item:277957} Primitive Key
 	["{item:277957}, from the Bloodscalp trolls"] = "{item:277957}, dos trolls Sanguescalpo",
+
+	-- Step 12: Escort Zimmix Sputterspark
+	-- {npc:268992} Zimmix Sputterspark
+	["Escort {npc:268992}"] = "",
+	-- {npc:268992} Zimmix Sputterspark · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
+	["Lead {npc:268992} out of the ruins and keep him alive: {npc:4631} in {area:35} takes the news at the end of this loop."] = "",
 	-- {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
 	["For {npc:4631} in {area:35}, at the end of this loop"] = "Para o {npc:4631}, em {area:35}, no fim deste circuito",
 
-	-- Step 12: Sin'Dall on the raptor hill
+	-- Step 13: Sin'Dall on the raptor hill
 	-- {npc:729} Sin'Dall
 	["{npc:729} on the raptor hill"] = "",
 	-- {npc:729} Sin'Dall · {npc:717} Ajeck Rouack
@@ -94,22 +101,22 @@ return {
 	-- {npc:729} Sin'Dall
 	["{npc:729} (37) prowls the hilltop."] = "",
 
-	-- Step 13: The Lashtail raptors
+	-- Step 14: The Lashtail raptors
 	["The Lashtail raptors"] = "Os raptores Batecauda",
 	-- {quest:187} Tiger Mastery · {npc:729} Sin'Dall
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["East from the ruins, hunt Lashtail Raptors around the hill south-west of Nesingwary's camp. If you have {quest:187}, are at least 36 and see {npc:729} (37) alone, you can take her paw here or leave the hunt for your next visit."] = "",
 
-	-- Step 14: Ajeck Rouack
+	-- Step 15: Ajeck Rouack
 	-- {npc:717} Ajeck Rouack
 	["Hand the paw to {npc:717} beside Hemet."] = "",
 
-	-- Step 15: Nesingwary's Expedition
+	-- Step 16: Nesingwary's Expedition
 	-- {npc:715} Hemet Nesingwary
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
 	["{npc:715}: the Jungle Stalkers come in 40-50"] = "{npc:715}: os Espreitadores da Selva ficam para o 40-50",
 
-	-- Step 16: Rebel Camp
+	-- Step 17: Rebel Camp
 	-- {area:99} Rebel Camp
 	["North-east up the road to the {area:99}, then back south through the jungle."] = "Siga a estrada para o nordeste até {area:99} e depois volte para o sul pela selva.",
 	-- {npc:733} Sergeant Yohwa
@@ -117,20 +124,20 @@ return {
 	-- plural, as words: Skullsplitter Witch Doctors = {npc:670} Skullsplitter Witch Doctor
 	["keep it: the Skullsplitter Witch Doctors (41-42) wait for the 40-50 Stranglethorn guide"] = "guarde-a: os Mandingueiros Rachacrânio (41-42) ficam para o Guia de Selva do Espinhaço 40-50",
 
-	-- Step 17: Snapjaw Crocolisks
+	-- Step 18: Snapjaw Crocolisks
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks"] = "Crocoliscos Arapuca",
 	-- {area:35} Booty Bay
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to {area:35}."] = "Crocoliscos Arapuca tomam sol ao longo do rio no meio da selva, no caminho para o sul até {area:35}.",
 
-	-- Step 18: Tokal
+	-- Step 19: Tokal
 	-- {npc:215643} Tokal · {object:56910} Salty Sailor Tavern (no name in this language: may be words) · {item:4600} Cherry Grog · {npc:2832} Nixxrax Fillamug
 	["{npc:215643}, whom Bibbly sent you to find, waits by the {object:56910}. He asks for a {item:4600}: {npc:2832} sells it in the tavern, a few steps away."] = "",
 	-- {item:4600} Cherry Grog · {npc:2832} Nixxrax Fillamug
 	["{item:4600}, from {npc:2832}"] = "",
 
-	-- Step 19: Booty Bay
+	-- Step 20: Booty Bay
 	-- {npc:2495} Drizzlik
 	["{npc:2495}, inside"] = "{npc:2495}, lá dentro",
 	-- {npc:2496} Baron Revilgaz
@@ -161,6 +168,7 @@ return {
 	-- ["Loop through the troll ruins of the north and centre: each holds one stone tablet of the troll legends. Shadowmaw Panthers prowl stealthed in the jungle around them; the Venture Co. camp on {area:37} carries the Tumbled Crystals."] = "Percorra as ruínas trolls do norte e do centro: cada uma guarda uma tabuleta de pedra das lendas trolls. Panteras Umbragorja rondam furtivas na selva ao redor; o acampamento da Empreendimentos S.A. em {area:37} carrega os Cristais Rolados.",
 	-- ["Mauren, from Stonetalon"] = "Mauren, da Cordilheira das Torres de Pedra",
 	-- ["North along the coast to the ruins on the hill: the last two tablets lie there. Pick up Green Hills pages as they drop."] = "Para o norte pela costa até as ruínas na colina: as duas últimas tabuletas ficam lá. Pegue as páginas de Grande Espinhaço: Veredas conforme caírem.",
+	-- ["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}, then lead him out of the ruins. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "Para o norte pela costa até as ruínas na colina: as duas últimas tabuletas ficam lá. {npc:268992}, um goblin, está engaiolado ao lado da terceira tabuleta: qualquer Sanguescalpo pode deixar cair a {item:277957}; depois, guie-o para fora das ruínas. Os Carregamentos Roubados ficam na borda leste das ruínas. Pegue as páginas de Grande Espinhaço: Veredas conforme caírem.\nCuidado: os Berserkers, Caçadores de Cabeças e Mandingueiros Sanguescalpo (36-37) dominam o centro das ruínas: puxe-os um de cada vez.",
 	-- ["Skullsplitter trolls"] = "Trolls Rachacrânio",
 	-- ["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to the Skullsplitter ruins."] = "Crocolíscos Arapuca tomam sol ao longo do rio no meio da selva, no caminho para o sul até as ruínas Rachacrânio.",
 	-- ["South along the road: the hunters' tents stand just west of it."] = "Para o sul pela estrada: as barracas dos caçadores ficam logo a oeste dela.",

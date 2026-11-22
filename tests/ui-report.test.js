@@ -134,6 +134,31 @@ test('the report lists the travel plan from the current leg: each caption and ti
 	assert.equal(out.plan, 'Travel: Walk to the flight master 1:23 · Fly to Astranaar 3:05 (assumed) · Delgren the Purifier 0:40');
 });
 
+test('the report names the flight paths Polestar takes the character to know on this continent, and whether a flight map opened here (#3290)', () => {
+	const [out] = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		local function flights()
+			UI.ShowReport()
+			for line in PolestarReport.Box:GetText():gmatch("[^\\n]+") do
+				if line:find("^Flight paths: ") then return line end
+			end
+		end
+		local r = { none = flights() }
+		local nodes = { [1] = { name = "Ratchet", c = 1 }, [2] = { name = "Auberdine", c = 1 }, [3] = { name = "Stormwind", c = 0 } }
+		local known, seen = { [1] = true, [2] = true, [3] = true }, {}
+		Polestar.Nav.GetKnownTaxiNodes = function() return known end
+		Polestar.Nav.GetTaxiNode = function(id) return nodes[id] end
+		Polestar.Nav.GetTaxiSeen = function() return seen end
+		Polestar.Compat.GetPlayerWorldPosition = function() return 1, 100, 200 end
+		r.unseen = flights()
+		seen[1] = true
+		r.seen = flights()
+		emit(r)`);
+	assert.equal(out.none, undefined, 'no travel data: no line');
+	assert.equal(out.unseen, 'Flight paths: 2 known here · no flight map opened here yet · Auberdine, Ratchet', 'this continent\'s, by name; not Stormwind');
+	assert.equal(out.seen, 'Flight paths: 2 known here · flight map opened here · Auberdine, Ratchet');
+});
+
 test('the Where line gives the height of the floor Polestar takes the player to stand on, when it knows one (#2215)', () => {
 	const [out] = run(`
 		uistub.setGuide(uistub.elwynn, 3)

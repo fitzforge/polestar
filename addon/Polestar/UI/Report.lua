@@ -332,6 +332,29 @@ local function travelLine()
 	return cut((L["Travel: %s"]):format(table.concat(parts, SEP)), 300)
 end
 
+-- The flight paths Polestar takes this character to know on the continent
+-- they stand on (Nav.GetKnownTaxiNodes: from the flight maps opened, plus
+-- flight masters met by name), by name, and whether a flight map has been
+-- opened there yet (Nav.GetTaxiSeen: until then a path learnt before
+-- Polestar ran may be missing). A report of a "Fly to" the character can't
+-- take (#3290: Theramore and Ratchet not on the map, the route flying there)
+-- then says what Polestar thought. The words stay English like Routes; after
+-- Travel. Nothing without the travel data or a position.
+local function flightsLine()
+	local N, C = ns.Nav, ns.Compat
+	if not (N and N.GetKnownTaxiNodes and N.GetTaxiNode and C and C.GetPlayerWorldPosition) then return nil end
+	local c = C.GetPlayerWorldPosition()
+	if c == nil then return nil end
+	local names = {}
+	for id in pairs(N.GetKnownTaxiNodes() or {}) do
+		local node = N.GetTaxiNode(id)
+		if node and node.c == c then names[#names + 1] = plain(node.name or tostring(id)) end
+	end
+	table.sort(names)
+	local seen = N.GetTaxiSeen and (N.GetTaxiSeen() or {})[c] and "flight map opened here" or "no flight map opened here yet"
+	return cut(("Flight paths: %d known here%s%s"):format(#names, SEP, seen) .. (#names > 0 and (SEP .. table.concat(names, ", ")) or ""), 400)
+end
+
 -- The "While you're here" line (Engine.WhileHereState): the lines shown
 -- (each: what, quest, step, distance; "; " between them) or "none", the
 -- radius, a hand-in's seconds out of the way and how many candidates there
@@ -882,6 +905,7 @@ function R.Details()
 	add(d, "where", playerLine())
 	add(d, "routes", routesLine())
 	add(d, "travel", travelLine())
+	add(d, "flights", flightsLine())
 	add(d, "whilehere", whileHereLine())
 	add(d, "packs", packsLine())
 	add(d, "install", installLine())
@@ -985,6 +1009,7 @@ local function cutOrder(details)
 	all("perf", -1, 1, -1)
 	all("planned", -1, 1, -1)
 	all("leftout", -1, 1, -1)
+	all("flights")
 	all("whilehere")
 	all("travel")
 	all("install")
