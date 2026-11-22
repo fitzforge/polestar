@@ -85,6 +85,15 @@ function GE.Model(info)
 	if not g then return nil end
 	local m = { id = g.id, label = UI.GuideLabel(g), undone = info.undone or 0, live = info.live }
 	if info.left then
+		-- The guide's tab, and its live step now (a fight may have held the
+		-- window back while the player went on); closed, nothing to say.
+		local tab
+		for i, t in ipairs(E and E.GetTabs and E.GetTabs() or {}) do
+			if t.guideId == g.id then tab = i end
+		end
+		if not tab then return nil end
+		local cur = E.GetGuide and E.GetGuide()
+		if cur and cur.id == g.id and E.GetLiveStep then m.live = E.GetLiveStep() or m.live end
 		m.left = info.left
 		return m
 	end
@@ -117,16 +126,21 @@ local function paintTitle(fs)
 	local m = shown
 	if not m then return end
 	local name = "|c" .. Theme.Hex("accent") .. m.label .. "|r"
-	local pattern
+	local pattern, count
 	if m.left then
-		-- The count put in first, wherever a translation has it.
-		pattern = m.left == 1 and L["1 step left in %s"] or (L["%d steps left in %s"]:gsub("%%d", m.left))
+		count = m.left ~= 1 and m.left or nil
+		pattern = count and L["%d steps left in %s"] or L["1 step left in %s"]
 	else
 		pattern = m.complete and L["You've completed %s"] or L["You've reached the end of %s"]
 	end
-	fs:SetText(format(pattern, name))
+	-- The count, then the guide (a translation may number them: %2$s, %1$d).
+	local function fill(p)
+		if count then return format(p, count, name) end
+		return format(p, name)
+	end
+	fs:SetText(fill(pattern))
 	if fs.GetNumLines and fs:GetNumLines() > 1 and pattern:find(" %%s$") then
-		fs:SetText(format((pattern:gsub(" %%s$", "\n%%s")), name))
+		fs:SetText(fill((pattern:gsub(" %%s$", "\n%%s"))))
 	end
 end
 
@@ -414,16 +428,22 @@ end
 -- opened (or will, after combat).
 function GE.Show(info)
 	local m = GE.Model(info)
-	if not m then return false end
+	if not m then
+		-- One held back that has nothing to say any more (its tab closed).
+		if waiting == info then waiting = nil end
+		return false
+	end
 	if inCombat() or not ns.IsLoggedIn() then
 		waiting = info
 		return true
 	end
 	waiting = nil
 	if not F then build() end
+	-- The chime for an end, also when it follows the steps-left window.
+	local chime = not m.left and not (F:IsShown() and shown and not shown.left)
 	shown = m
 	layout(m)
-	if not F:IsShown() and not m.left then
+	if chime then
 		local C = UI.ClassCard
 		if C and C.GameSoundOn and C.GameSoundOn() then
 			pcall(ns.PlaySound, (SOUNDKIT and SOUNDKIT.IG_QUEST_LIST_COMPLETE) or 878, "SFX")
@@ -466,6 +486,18 @@ end
 function GE.Later()
 	local m, E = shown, Engine()
 	GE.Hide()
+	-- Steps left: that guide's tab, at its live step.
+	if m and m.left and E then
+		for i, t in ipairs(E.GetTabs and E.GetTabs() or {}) do
+			if t.guideId == m.id then
+				if E.SelectTab then E.SelectTab(i) end
+				local live = E.GetLiveStep and E.GetLiveStep()
+				if live and E.GetStepIndex and E.GetStepIndex() ~= live and E.Goto then E.Goto(live) end
+				return
+			end
+		end
+		return
+	end
 	if not (m and m.live and E) then return end
 	local g = E.GetGuide and E.GetGuide()
 	if g and g.id == m.id and E.GetStepIndex and E.GetStepIndex() ~= m.live and E.Goto then E.Goto(m.live) end

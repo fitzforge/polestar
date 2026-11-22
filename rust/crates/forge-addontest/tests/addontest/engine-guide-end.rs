@@ -156,6 +156,18 @@ fn the_last_step_done_with_steps_left_open_tells_them_and_ends_the_guide_once_th
 	assert_eq!(updated["ended"], false);
 	assert_eq!(updated["live"], 2);
 	assert_eq!(updated["rest"], json!(["GUIDE_COMPLETED test/durotar", "GUIDE_END test/durotar undone=0 live=nil next=test/barrens choose=nil"]));
+
+	// The same with "Continue automatically": that end is forgotten too, so the guide window's banner does not
+	// offer the next guide.
+	let continuing = run(Run {
+		next: NEXT,
+		saved: Some(&format!(
+			"{}\nPolestarDB = {{ schema = 1, settings = {{ behavior = {{ guideEnd = \"continue\" }} }} }}\nstub.world.onQuest(13)",
+			saved_end(None, r#"skipped = { ["test/durotar"] = { [1] = true } },"#)
+		)),
+		script: r#"flush(); emit({ log = takeLog(), ended = E.GuideEnded("test/durotar") })"#,
+	});
+	assert_eq!(continuing, json!({ "log": {}, "ended": false }));
 }
 
 /// Durotar's steps before Far Watch Post skipped, as a save has them.
@@ -539,7 +551,8 @@ fn a_class_quest_done_elsewhere_never_ends_a_leveling_guide_the_last_step_for_ev
 }
 
 // The same for a race's own last step (Stranglethorn's trips home for Dwarves and Gnomes at 40): being there
-// ahead of the live step is no end; the last step for everyone done ahead tells the steps left.
+// ahead of the live step is no end; the last step for everyone done ahead tells the steps left, the trip home
+// among them.
 #[test]
 fn a_race_s_own_last_step_reached_ahead_is_no_end_either() {
 	let out = run(Run {
@@ -555,7 +568,7 @@ fn a_race_s_own_last_step_reached_ahead_is_no_end_either() {
 			emit(r)"#,
 	});
 	assert_eq!(out["home"], json!({}));
-	assert_eq!(out["lastForEveryone"], json!(["GUIDE_STEPS_LEFT test/home left=2 live=1"]));
+	assert_eq!(out["lastForEveryone"], json!(["GUIDE_STEPS_LEFT test/home left=3 live=1"]));
 }
 
 // #2715 (Horde Riverglades, 0.4.0.1): the guide starts from Kargath and its last step walks back there, `enter
@@ -707,6 +720,52 @@ fn work_carried_to_a_later_guide_does_not_hold_the_end() {
 	});
 	assert_eq!(out["live"], 2);
 	assert_eq!(out["log"], json!(["GUIDE_END test/carry undone=1 live=2 next=test/barrens choose=nil"]));
+
+	// Carried work as the guide's very last step is no last step: the hand-in before it is, and the end comes once
+	// the rest is done.
+	let carried_last = run(Run {
+		next: NEXT,
+		saved: None,
+		script: r#"
+			Polestar.RegisterGuide({ id = "test/carrylast", pack = "test", title = "Carry last", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1411, next = "test/barrens",
+				steps = { { goals = { { t = "accept", quest = 340, title = "Carried", map = 1411, x = 50, y = 50 } } },
+					{ goals = { { t = "accept", quest = 342, title = "Open", map = 1411, x = 55, y = 55 } } },
+					{ goals = { { t = "accept", quest = 341, title = "Last", map = 1411, x = 50, y = 50 } } },
+					{ goals = { { t = "turnin", quest = 341, title = "Last", map = 1411, x = 50, y = 50 } } },
+					{ goals = { { t = "complete", quest = 340, title = "Carried", carriedTo = "test/barrens", map = 1411, x = 60, y = 60 } } } } })
+			E.SetGuide("test/carrylast"); flush(); takeLog()
+			w.accept(340, { 1 }); flush()
+			w.accept(341, {}); flush(); w.turnIn(341); flush()
+			local r = { ahead = takeLog() }
+			w.accept(342, {}); flush()
+			r.rest = takeLog()
+			emit(r)"#,
+	});
+	assert_eq!(carried_last["ahead"], json!(["GUIDE_STEPS_LEFT test/carrylast left=1 live=2"]));
+	assert_eq!(carried_last["rest"], json!(["GUIDE_END test/carrylast undone=1 live=5 next=test/barrens choose=nil"]));
+
+	// With the live step at carried work, a class's own step after the last one for everyone is still a step left:
+	// no end until it is done.
+	let class_after = run(Run {
+		next: NEXT,
+		saved: None,
+		script: r#"
+			Polestar.RegisterGuide({ id = "test/carryclass", pack = "test", title = "Carry class", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1411, next = "test/barrens",
+				steps = { { goals = { { t = "accept", quest = 350, title = "Carried", map = 1411, x = 50, y = 50 } } },
+					{ goals = { { t = "complete", quest = 350, title = "Carried", carriedTo = "test/barrens", map = 1411, x = 60, y = 60 } } },
+					{ goals = { { t = "accept", quest = 351, title = "Last", map = 1411, x = 50, y = 50 } } },
+					{ goals = { { t = "turnin", quest = 351, title = "Last", map = 1411, x = 50, y = 50 } } },
+					{ title = "Warriors", only = { classes = { "WARRIOR" } }, goals = { { t = "accept", quest = 352, title = "Class", map = 1411, x = 70, y = 70 } } } } })
+			E.SetGuide("test/carryclass"); flush(); takeLog()
+			w.accept(350, { 1 }); flush()
+			w.accept(351, {}); flush(); w.turnIn(351); flush()
+			local r = { ahead = takeLog() }
+			w.accept(352, {}); flush()
+			r.rest = takeLog()
+			emit(r)"#,
+	});
+	assert_eq!(class_after["ahead"], json!(["GUIDE_STEPS_LEFT test/carryclass left=1 live=2"]));
+	assert_eq!(class_after["rest"], json!(["GUIDE_END test/carryclass undone=1 live=2 next=test/barrens choose=nil"]));
 }
 
 // The last step for everyone done early, then a class's own step after it: the route goes on to that step past a
@@ -731,7 +790,7 @@ fn a_class_s_own_trailing_step_tells_the_steps_left_once_and_the_end_comes_with_
 			way = ON_THE_WAY.replace("x = 52, y = 43 } } } } })", &format!("x = 52, y = 43 }} }} }}, {trailing}"))
 		),
 	});
-	assert_eq!(out["handedIn"], json!(["GUIDE_STEPS_LEFT test/onway left=3 live=3"]));
+	assert_eq!(out["handedIn"], json!(["GUIDE_STEPS_LEFT test/onway left=4 live=3"]), "the class's own step among them");
 	assert_eq!(out["trailing"], json!({ "log": {}, "live": 7 }));
 	assert_eq!(out["back"], json!({ "log": {}, "live": 5 }), "no end when the route goes back");
 	assert_eq!(out["rest"], json!(["GUIDE_COMPLETED test/onway", "GUIDE_END test/onway undone=0 live=nil next=test/barrens choose=nil"]));
@@ -767,4 +826,57 @@ fn the_last_step_done_during_a_level_wait_tells_the_steps_left_at_once() {
 	assert_eq!(out["live"], 3, "waiting on the level");
 	assert_eq!(out["handedIn"], json!(["GUIDE_STEPS_LEFT test/wait left=3 live=3"]));
 	assert_eq!(out["level"]["log"], json!({}), "nothing more when the level comes");
+}
+
+// A step waiting for the player's answer (a group quest) is a step left, its quest taken already: no end while it
+// asks.
+#[test]
+fn a_group_quest_waiting_for_its_answer_is_a_step_left() {
+	let out = run(Run {
+		next: NEXT,
+		saved: None,
+		script: r#"
+			Polestar.RegisterGuide({ id = "test/askgroup", pack = "test", title = "Ask group", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1411, next = "test/barrens",
+				steps = { { goals = { { t = "accept", quest = 300, title = "Errand 300", map = 1411, x = 50, y = 50 } } },
+					{ title = "Group quest", when = { { k = "group", q = 400 } }, goals = { { t = "accept", quest = 400, title = "Group 400", map = 1411, x = 55, y = 55 } } },
+					{ along = true, goals = { { t = "complete", quest = 400, title = "Group 400", map = 1411, x = 56, y = 56 } } },
+					{ goals = { { t = "turnin", quest = 300, title = "Errand 300", map = 1411, x = 50, y = 50 } } } } })
+			E.SetGuide("test/askgroup"); flush(); takeLog()
+			w.accept(300, {}); flush(); w.accept(400, { 1 }); flush()
+			local r = { live = E.GetLiveStep(), asks = E.GroupQuestion() or false }
+			w.turnIn(300); flush()
+			r.log = takeLog()
+			emit(r)"#,
+	});
+	assert_eq!(out["live"], 2);
+	assert_eq!(out["asks"], 400);
+	assert_eq!(out["log"], json!(["GUIDE_STEPS_LEFT test/askgroup left=1 live=2"]));
+}
+
+// The last step done in turn, the live step on a class's own step after it: a step the player brings back then
+// (Unskip) is their own going back, no steps-left window.
+#[test]
+fn bringing_a_skipped_step_back_after_the_last_step_done_in_turn_tells_nothing() {
+	let out = run(Run {
+		next: NEXT,
+		saved: None,
+		script: r#"
+			Polestar.RegisterGuide({ id = "test/unskip", pack = "test", title = "Unskip", faction = "Horde", minLevel = 1, maxLevel = 12, zone = 1411, next = "test/barrens",
+				steps = { { goals = { { t = "accept", quest = 300, title = "Errand 300", map = 1411, x = 50, y = 50 } } },
+					{ goals = { { t = "accept", quest = 301, title = "Errand 301", map = 1411, x = 55, y = 55 } } },
+					{ goals = { { t = "turnin", quest = 300, title = "Errand 300", map = 1411, x = 50, y = 50 } } },
+					{ title = "Warriors", only = { classes = { "WARRIOR" } }, goals = { { t = "accept", quest = 320, title = "Errand 320", map = 1411, x = 80, y = 80 } } } } })
+			E.SetGuide("test/unskip"); flush(); takeLog()
+			w.accept(300, {}); flush(); E.Skip(); flush(); w.turnIn(300); flush()
+			local r = { inTurn = takeLog(), live = E.GetLiveStep() }
+			E.Unskip(2); flush()
+			r.back = { log = takeLog(), live = E.GetLiveStep() }
+			w.accept(301, {}); flush(); w.accept(320, {}); flush()
+			r.rest = takeLog()
+			emit(r)"#,
+	});
+	assert_eq!(out["inTurn"], json!({}));
+	assert_eq!(out["live"], 4);
+	assert_eq!(out["back"], json!({ "log": {}, "live": 2 }));
+	assert_eq!(out["rest"], json!(["GUIDE_COMPLETED test/unskip", "GUIDE_END test/unskip undone=0 live=nil next=test/barrens choose=nil"]));
 }

@@ -3277,11 +3277,16 @@ and both of its values start on `"ask"`.
   comes back, so it is no end; out for good (closed, skipped by the player)
   passes, but a step of nothing else is void.
 - **Steps left** (`Own.stepsLeft`, #3517): the last step done ahead while
-  steps before it still hold required work (from the live step on: applying,
-  not skipped, not done, with a goal that holds the route, `Own.holds`, is
-  not carried to a later guide, its compiled `carriedTo`, and is not
-  unavailable for now; a live step waiting on a level, `Own.levelHold`,
-  counts as one) is no end. It does not matter how the step got done: a
+  other steps still hold required work (from the live step on, a class's or
+  race's own steps after it too: applying, not skipped, not done, with a
+  goal that holds the route, `Own.holds`, is not carried to a later guide,
+  its compiled `carriedTo`, and is not unavailable for now; a step waiting
+  for the player's answer, a group quest or a dungeon, counts, and so does a
+  live step done but held, on a level, `Own.levelHold`, or on the group,
+  `Own.partyHold`) is no end. The last step itself held for the group is no
+  end yet either. Carried
+  work is no work for the end at all: a guide's last steps of only such
+  work are not its last step (`Own.lastWork`'s `uncarried`). It does not matter how the step got done: a
   hand-in a "While you're here" line offered (#3501) and a player who went
   ahead to the last NPC on purpose are the same case. `GUIDE_STEPS_LEFT`
   says how many, once per guide per session (`Own.leftTold`), and only when
@@ -3294,9 +3299,11 @@ and both of its values start on `"ask"`.
 - **The record** (`CharState().guideEnds`) is not the end itself: with a live
   step it stands only while the end still holds (`Own.endHolds`, judged as
   above at every evaluation); one that no longer does (a quest of the last
-  step abandoned) is forgotten, and reached again it asks again. Reset guide
-  progress (`Engine.ResetProgress`) forgets it, so does a pack update that
-  changes the guide's steps (checkShape), and every record saved before
+  step abandoned) is forgotten, and reached again it asks again. So is an
+  end an older version saved with steps left (#3517), with either
+  `behavior.guideEnd`, so the banner below does not offer the next guide
+  early. Reset guide progress (`Engine.ResetProgress`) forgets it, so does
+  a pack update that changes the guide's steps (checkShape), and every record saved before
   0.3.6 is dropped once on load (`guideEndsV`): 0.3.5 reused guide ids and
   ended guides by where the player stood.
 - **Ahead of the live step** (`Own.endDoneAhead`), by what the game keeps:

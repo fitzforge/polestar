@@ -98,14 +98,26 @@ fn the_end_with_steps_left_open_names_the_guide_the_steps_and_the_next_guide_bac
 #[test]
 fn the_last_step_done_early_says_how_many_steps_are_left_with_back_to_the_live_step_as_its_one_button() {
 	let out = run(r#"
-		uistub.setGuide(uistub.elwynn, 5)
+		uistub.setGuide(uistub.elwynn, 5); uistub.live = 3
 		Polestar.Fire("GUIDE_STEPS_LEFT", uistub.elwynn, info({ left = 2, live = 3 }))
 		local r = view()
 		r.laterShown = PolestarGuideEnd.Later:IsShown()
 		PolestarGuideEnd.Go:Click()
 		r.goto, r.after, r.start = lastCall("Goto"), PolestarGuideEnd:IsShown(), lastCall("StartNext")
+		-- The live step moved on while the window waited (a fight): it says the step it is at now.
+		uistub.live = 4
 		Polestar.Fire("GUIDE_STEPS_LEFT", uistub.elwynn, info({ left = 1, live = 3 }))
 		r.one = view()
+		-- A translation that numbers its arguments.
+		Polestar.L["%d steps left in %s"] = "%2$s: noch %1$d Schritte"
+		Polestar.Fire("GUIDE_STEPS_LEFT", uistub.elwynn, info({ left = 3, live = 4 }))
+		r.numbered = view()
+		-- Its tab closed meanwhile: nothing to say.
+		Polestar.UI.GuideEnd.Hide()
+		local tabs = E.GetTabs
+		E.GetTabs = function() return {} end
+		r.closed = Polestar.UI.GuideEnd.Show(info({ left = 2, live = 4 }))
+		E.GetTabs = tabs
 		Polestar.Fire("GUIDE_END", uistub.elwynn, info({ undone = 0, next = NEXT }))
 		r.theEnd = view()
 		r.theEnd.laterShown = PolestarGuideEnd.Later:IsShown()
@@ -122,6 +134,9 @@ fn the_last_step_done_early_says_how_many_steps_are_left_with_back_to_the_live_s
 	assert_eq!(out["start"], false, "no guide started");
 	assert_eq!(plain(&out["one"]["title"]), "1 step left in\nElwynn Forest (1–13)");
 	assert_eq!(out["one"]["text"], "Do it or skip it, and the next guide follows.");
+	assert_eq!(out["one"]["go"], "Back to step 4", "the live step now");
+	assert_eq!(plain(&out["numbered"]["title"]), "Elwynn Forest (1–13): noch 3 Schritte");
+	assert_eq!(out["closed"], false);
 	assert_eq!(plain(&out["theEnd"]["title"]), "You've completed\nElwynn Forest (1–13)");
 	assert_eq!(out["theEnd"]["go"], "Start Westfall");
 	assert_eq!(out["theEnd"]["laterShown"], true);
@@ -229,4 +244,35 @@ fn the_end_lists_the_quests_a_later_guide_hands_in_with_that_guide() {
 	assert_eq!(out["none"]["head"], false);
 	assert_eq!(out["none"]["list"], false);
 	assert!(out["tall"].as_f64().unwrap() > out["none"]["tall"].as_f64().unwrap(), "the list makes the window taller");
+}
+
+// Held back by a fight, a steps-left window whose tab is closed meanwhile is dropped, not kept for the next fight;
+// an end that follows an open steps-left window plays its chime.
+#[test]
+fn a_steps_left_window_held_back_by_a_fight_is_dropped_with_its_tab_and_the_end_after_one_chimes() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 5); uistub.live = 3
+		stub.inCombat = true
+		Polestar.Fire("GUIDE_STEPS_LEFT", uistub.elwynn, info({ left = 2, live = 3 }))
+		local tabs = E.GetTabs
+		E.GetTabs = function() return {} end
+		stub.inCombat = false; stub.fire("PLAYER_REGEN_ENABLED"); stub.advance(1)
+		local r = { afterFight = PolestarGuideEnd and PolestarGuideEnd:IsShown() or false }
+		E.GetTabs = tabs
+		stub.inCombat = true; stub.inCombat = false; stub.fire("PLAYER_REGEN_ENABLED"); stub.advance(1)
+		r.nextFight = PolestarGuideEnd and PolestarGuideEnd:IsShown() or false
+		local played = 0
+		Polestar.UI.ClassCard.GameSoundOn = function() return true end
+		local play = Polestar.PlaySound
+		Polestar.PlaySound = function(...) played = played + 1 end
+		Polestar.Fire("GUIDE_STEPS_LEFT", uistub.elwynn, info({ left = 1, live = 3 }))
+		r.leftChimes = played
+		Polestar.Fire("GUIDE_END", uistub.elwynn, info({ undone = 0, next = NEXT }))
+		r.endChimes = played
+		Polestar.PlaySound = play
+		emit(r)"#);
+	assert_eq!(out["afterFight"], false);
+	assert_eq!(out["nextFight"], false, "not kept for the next fight");
+	assert_eq!(out["leftChimes"], 0);
+	assert_eq!(out["endChimes"], 1);
 }
