@@ -13554,7 +13554,7 @@ do
 					},
 				},
 				{
-					title = "{npc:7916}",
+					title = "{area:702}",
 					when = { { k = "complete", q = 3661 } },
 					goals = {
 						{ t = "turnin", quest = 3661, title = "Favored of Elune?", npc = 7916, npcName = "Erelas Ambersky", map = 1438, x = 55.45, y = 92.03, z = 14.2, spotsPacked = "55.4,92,14.2,15,2", note = "{npc:7916}: {quest:3661}, the feathers from the {zone:1425}" },

@@ -200,7 +200,7 @@ step Fly to Rut'theran Village
 
 # ---------------------------------------------------------------- Teldrassil and Darnassus
 
-step Erelas Ambersky
+step Rut'theran Village
   zone Teldrassil
   when complete 3661
   turnin 3661                         -- Erelas Ambersky: Favored of Elune?, the feathers from the Hinterlands

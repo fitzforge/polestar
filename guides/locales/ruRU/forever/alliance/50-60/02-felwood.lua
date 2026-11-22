@@ -143,7 +143,7 @@ return {
 	-- {npc:11138} Maethrya
 	["{npc:11138}, the Alliance flight master"] = "",
 
-	-- Step 28: Erelas Ambersky
+	-- Step 28: Rut'theran Village
 	-- {npc:7916} Erelas Ambersky · {quest:3661} Favored of Elune? · {zone:1425} Hinterlands
 	["{npc:7916}: {quest:3661}, the feathers from the {zone:1425}"] = "",
 
