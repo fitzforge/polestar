@@ -874,6 +874,48 @@ emit(got)"#,
 	assert!(got["street"]["yards"].as_f64().unwrap() < 1200.0, "through the city ({})", got["street"]);
 }
 
+// #3605 (TheLombaxLegend): Telf Joolam's shrine above the Durotar bank (z 168) is a pocket of the walking maps: its
+// cluster joins it to no entrance and holds no lift landing, so no walk enters it. Kalimdor has lifts (Thunder Bluff,
+// Freewind Post, the Great Lift), and with lifts on the map the router skipped its component test, so every walk to
+// the shrine ran the abstract search to its detour bound: 220,000 to 340,000 expansions, half a minute of slices in
+// the game, for each one the arrow asked ("Finding a walking route"). The rides now decide: a pocket nothing joins is
+// unreachable at once, and two components only a ride chain could join are tried only when one does. The walks up the
+// lifts still route.
+#[test]
+fn a_goal_no_walk_reaches_on_a_map_with_lifts_is_unreachable_at_once_and_the_lifts_still_route() {
+	let got = run(
+		r#"
+local Path = Polestar_NavEngine
+local TELF = { x = -267.9, y = -3998.7 }
+local out = {}
+for name, from in pairs({ kranal = { x = 264.0, y = -3039.6 }, river = { x = -13.7, y = -3735.8 }, orgrimmar = { x = 1600, y = -4400 } }) do
+	for _, z in ipairs({ 168.2, false }) do
+		local pts, why, exp = Path.FindSync(1, from, { x = TELF.x, y = TELF.y, z = z or nil }, { profile = "Horde" })
+		out[name .. (z and "_z" or "")] = { found = pts ~= nil, why = pts == nil and why or nil, exp = exp }
+	end
+end
+local function cost(a, b)
+	local pts, c = Path.FindSync(1, a, b, { profile = "Horde" })
+	return pts and c or false
+end
+out.thunderBluff = cost({ x = -900, y = -100 }, { x = -1250, y = 50, z = 131 })
+out.down = cost({ x = -1250, y = 50, z = 131 }, { x = -900, y = -100 })
+out.freewind = cost({ x = -5300, y = -2600 }, { x = -5440, y = -2420, z = 92 })
+emit(out)"#,
+		"",
+		vec![Addon::name("Polestar_Nav")],
+	);
+	for name in ["kranal", "kranal_z", "river", "river_z", "orgrimmar", "orgrimmar_z"] {
+		assert_eq!(got[name]["found"], false, "{name}: no walk into the shrine ({})", got[name]);
+		assert_eq!(got[name]["why"], "unreachable", "{name}: {}", got[name]);
+		assert!(got[name]["exp"].as_f64().unwrap() < 50000.0, "{name}: said at once, not at the detour bound ({})", got[name]);
+	}
+	// Thunder Bluff's mesa and Freewind Post stand above the plain; only their lifts join them to it.
+	assert!(got["thunderBluff"].as_f64().is_some_and(|c| c > 0.0 && c < 700.0), "up to Thunder Bluff by its lift ({})", got["thunderBluff"]);
+	assert!(got["down"].as_f64().is_some_and(|c| c > 0.0 && c < 700.0), "and down ({})", got["down"]);
+	assert!(got["freewind"].as_f64().is_some_and(|c| c > 0.0 && c < 500.0), "up to Freewind Post ({})", got["freewind"]);
+}
+
 // #1890: in Stormwind's Dwarven District the cell's base surface (its largest piece) is a roof (z 112) over the street
 // (96, 102, indoor city), and 2 yd under the street lies the ground the city was built over (94, steep, not indoor),
 // joined to the world only far away. A point without a height starts from each surface at a distinct height: the roof
