@@ -5530,8 +5530,9 @@ fn city_a1_a_goal_without_a_height_in_a_capital_ends_on_the_trail_floor_with_the
 // Phase A2, #2860 (Ironforge, the cooking trainer): his platform in the Great Forge is reached by no walk on the maps;
 // the search at his height failed, and the one asked again without it went out of the gate and over the mountain
 // (3,515 yd for a 356 yd walk). In a capital the goal's height stays: the router's reach (10 yd) ends the walk at the
-// nearest surface on its level it reaches. With none, the arrow says the last steps aren't mapped
-// and the walk is not marked unreachable (the plan would go round it).
+// nearest surface on its level it reaches. With none, the walk without his height is asked once (#2143) and kept only
+// when it is no detour (city.FLAT times the straight way plus city.SLACK): over the mountain it is not, so the arrow
+// says the last steps aren't mapped and the walk is not marked unreachable (the plan would go round it).
 #[test]
 fn city_a2_a_capital_s_goal_keeps_its_height_with_the_reach_and_says_the_last_steps_are_not_mapped_2860() {
 	let out = run(&[
@@ -5559,9 +5560,12 @@ fn city_a2_a_capital_s_goal_keeps_its_height_with_the_reach_and_says_the_last_st
 		r.flatRetry = { calls() - n, fake.last().from.z or "none", fake.last().from.floors and fake.last().from.floors[1] or false, fake.last().to.z }
 		n = calls()
 		fake.fail("unreachable")
+		r.flatAsk = { calls() - n, fake.last().to.z or "none" }
+		-- Over the mountain: 4,170 yd for 559 straight.
+		fake.resolve(0, 50, 2000, 50, -100, -500)
 		N.Sample()
 		stub.advance(0.3)
-		r.failed = { calls() - n, aim()[1], (N.walk.Unmapped()), said(), r.unreachable or false }
+		r.failed = { aim()[1], (N.walk.Unmapped()), said(), r.unreachable or false }
 		-- Found through the reach (job.reached): its walk is the arrow's, said.
 		N.SetTarget(m, x, y, "Daryl Riknussun", nil, "trainer", 65)
 		N.Sample()
@@ -5594,10 +5598,79 @@ fn city_a2_a_capital_s_goal_keeps_its_height_with_the_reach_and_says_the_last_st
 	assert_eq!(out["startRetry"], json!([1, "none", 40, 66, 10]), "the tracked start's retry: from the surfaces near its floor, his height kept");
 	assert_eq!(out["flatRetry"], json!([2, "none", false, 66]), "then from no start height, his height kept");
 	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
-	assert_eq!(out["failed"], json!([0, "travel", true, true, false]), "no heightless search; the straight bearing, the missing walk explained");
+	assert_eq!(out["flatAsk"], json!([1, "none"]), "once more without his height (#2143)");
+	assert_eq!(out["failed"], json!(["travel", true, true, false]), "a detour over the mountain is not kept: the straight bearing, the missing walk explained");
 	assert_eq!(out["reached"], json!([0, "travel", true, true]), "the walk to the nearest reachable surface on his level, said");
 	assert_eq!(out["onFloor"], json!([false, false]));
 	assert_eq!(out["offFloor"], json!([0, true]), "kept, said");
+}
+
+// #2143 (Rilli Greasygob in the Valley of Honor): the floor players walk at her spot is one the maps don't join, so
+// 0.4.2 drew 617 yd straight across Orgrimmar where 0.4.1.1 walked 766 yd. The walk without her height, no detour
+// (at most city.FLAT times the straight way plus city.SLACK), is the arrow's, the last steps said.
+#[test]
+fn city_a_capital_goal_no_walk_reaches_is_walked_without_its_height_when_that_is_no_detour_2143() {
+	let out = run(&[
+		FLOORS,
+		CITY,
+		r#"
+		local r = {}
+		fake.surfaces = function() return { 40 } end
+		nav.place(0, 50)
+		startZ()
+		local m, x, y = nav.mapPoint(-100, -500)
+		N.travel.WalkUnreachable = function() r.unreachable = true end
+		N.SetTarget(m, x, y, "Rilli Greasygob", nil, "npc", 29)
+		N.Sample()
+		r.asked = fake.last().to.z
+		local n = calls()
+		fake.fail("no safe walking route")
+		r.flat = { calls() - n, fake.last().to.z or "none" }
+		-- 700 yd round the valley for 559 straight.
+		fake.resolve(0, 50, -300, 0, -100, -500)
+		N.Sample()
+		stub.advance(0.3)
+		r.aim = aim()
+		r.unmapped = (N.walk.Unmapped())
+		emit(r)"#,
+	]
+	.concat());
+	assert_eq!(out["asked"], 29, "first at her height");
+	assert_eq!(out["flat"], json!([1, "none"]), "then without it");
+	assert_eq!(out["aim"][0], "travel", "{out}");
+	assert_eq!(out["aim"][2], -300, "along the walk, not straight at her: {out}");
+	assert_eq!(out["unmapped"], true, "the last steps said");
+	assert_eq!(out["unreachable"], json!(null), "{out}");
+}
+
+// #2270 / #3018 (the Damaged Chest on the Splithoof Crag cave's floor, 49 yd down): the planner's near walk (Walk.Probe)
+// asked at the chest's height found nothing and was never offered, so the plan went 111 yd from the chest up the Great
+// Lift and round through the Barrens (4:39; 0.4.1.1: 24 s). Like the arrow's own walk, it is asked once more without
+// the height when no policy said no; a policy refusal stays final, and so does a capital's goal (city).
+#[test]
+fn the_planners_near_walk_to_a_floor_no_walk_reaches_is_asked_without_its_height_2270() {
+	let out = run(r#"
+		local r = {}
+		nav.place(0, 0)
+		local got = {}
+		N.walk.Probe(0, 0, 0, 0, -100, -49, function(along) got[#got + 1] = along end, true)
+		local job = fake.last()
+		r.asked = job.to.z
+		job.callback(nil, "no safe walking route", job)
+		r.again = fake.last() ~= job and (fake.last().to.z or "none") or false
+		fake.resolve(0, 0, 0, -100)
+		r.along = got[1]
+		got = {}
+		N.walk.Probe(0, 0, 0, 0, -100, -49, function(along) got[#got + 1] = along end, true)
+		job = fake.last()
+		job.blockedReason = "hostile town"
+		job.callback(nil, "no safe walking route", job)
+		r.policy = { fake.last() == job, got[1] }
+		emit(r)"#);
+	assert_eq!(out["asked"], -49, "first at the chest's height");
+	assert_eq!(out["again"], "none", "then without it");
+	assert_eq!(out["along"], 100, "and that walk offered: {out}");
+	assert_eq!(out["policy"], json!([true, false]), "a policy refusal is final");
 }
 
 // Outside the capitals (WorldFloor): the goal's height takes the router's reach too; one that finds no walk at all is
