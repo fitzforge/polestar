@@ -156,6 +156,27 @@ fn knows_spell_named_reads_the_spellbook_names_and_again_after_a_change_3020() {
 	assert_eq!(out, json!([true, false, false, true, false]), "read once; again after SPELLS_CHANGED");
 }
 
+// The Witch Doctor's Head: the game said it was ready to hand in with Zum'rah's Head still at 0/1, and the guide
+// counted it among the finished quests to hand in elsewhere (#3639). Ready needs the flag and every line it lists
+// finished; a quest with no lines has only the flag.
+#[test]
+fn issue_3639_ready_to_hand_in_needs_every_listed_objective_finished() {
+	let out = run(r#"
+		local lines = {
+			[1] = { { text = "Zum'rah's Head: 0/1", type = "item", finished = false, numFulfilled = 0, numRequired = 1 } },
+			[2] = { { text = "Zum'rah's Head: 1/1", type = "item", finished = true, numFulfilled = 1, numRequired = 1 } },
+			[3] = {},
+			[4] = { { text = "Zum'rah's Head: 1/1", type = "item", finished = true, numFulfilled = 1, numRequired = 1 } },
+		}
+		C_QuestLog.GetQuestObjectives = function(q) return lines[q] end
+		C_QuestLog.IsOnQuest = function(q) return lines[q] ~= nil end
+		C_QuestLog.ReadyForTurnIn = function(q) return q ~= 4 end
+		C_QuestLog.IsComplete = function() return false end
+		emit({ C.IsQuestReadyForTurnIn(1), C.IsQuestReadyForTurnIn(2), C.IsQuestReadyForTurnIn(3), C.IsQuestReadyForTurnIn(4), C.IsQuestReadyForTurnIn(5) })
+	"#);
+	assert_eq!(out, json!([false, true, true, false, false]), "flag + 0/1: not ready; flag + 1/1: ready; flag, no lines: ready; no flag: not ready; not in the log: not ready");
+}
+
 // Camping 101: Alchemy's one objective, "Raise your alchemy skill to 20", came back from Forever's client counted
 // full while unfinished (alchemy 2 of 20): the guide window read "1/1" on a quest still to do (#1952).
 #[test]
