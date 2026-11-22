@@ -2,7 +2,6 @@
 // The default guide window's audit fixes, in
 // addon/Polestar/UI/GuideFrame*.lua. Against the real Core, Theme and UI and
 // the fakes of tests/lua/stub_ui.lua.
-// The default guide window's audit fixes, in addon/Polestar/UI/GuideFrame*.lua.
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
@@ -62,6 +61,8 @@ test("a banner's second action that would be cut takes its own line, and the ban
 	assert.ok(narrow.y < narrow.jy, `under the first: ${narrow.y} below ${narrow.jy}`);
 	assert.equal(narrow.cut, false, 'its label is whole');
 	assert.equal(narrow.h - wide.h >= 22, true, `the banner grows by its line: ${narrow.h} vs ${wide.h}`);
+});
+
 test('the divider lines show in the opaque window only', () => {
 	const [opaque, clear] = run(`
 		uistub.setGuide(uistub.elwynn, 3)
@@ -75,6 +76,8 @@ test('the divider lines show in the opaque window only', () => {
 		emit(rules("transparent"))`);
 	assert.deepEqual(opaque, { nav: true, xp: true, banner: true });
 	assert.deepEqual(clear, { nav: false, xp: false, banner: false });
+});
+
 test('the foot line names a later step as "Next step:", this step\'s next person as "Then:"', () => {
 	const [later, here] = run(`
 		local function after(step, whole)
@@ -87,6 +90,8 @@ test('the foot line names a later step as "Next step:", this step\'s next person
 		emit(after(4, true))`);
 	assert.match(later, /^Next step: .*Marshal McBride/);
 	assert.match(here, /^Then: .*Eagan Peltskinner/);
+});
+
 test("a finished guide's window offers the next guide as the guide-end window names it", () => {
 	const [out] = runAddon({
 		stubs: ['stub_world.lua'],
@@ -107,11 +112,6 @@ E.SetGuide("test/a")
 E.Skip()
 GF.Render(); GF.Layout(); stub.advance(1)
 local empty = GF.parts.empty
-emit({ shown = empty:IsShown(), text = empty.Text:GetText(), go = empty.Primary:IsShown() and empty.Primary.Label:GetText() })`,
-	}).emitted;
-	assert.equal(out.shown, true, 'the complete page');
-	assert.match(out.text, /^Next: \|c[0-9a-f]{8}Westfall \(10–17\)\|r$/);
-	assert.equal(out.go, 'Continue', 'the window holds the button');
 local pn = Polestar.UI.GuideFrame.PlayNext
 local card, other = pn.card(), pn.other()
 local snap = { shown = empty:IsShown(), text = empty.Text:GetText(), go = empty.Primary:IsShown() and empty.Primary.Label:GetText(),
