@@ -190,6 +190,301 @@
 			"issue": 3346
 		},
 		{
+			"id": "3385-kodo-hides-and-venom-own-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1459,
+				"goal": "objective",
+				"objective": 2,
+				"guide": "forever/alliance/30-40/02-desolace"
+			},
+			"split": {
+				"title": "Kodo Graveyard: hides and venom",
+				"tip": "The Aged Kodos in the graveyard drop the hides, and the Scorpashi Lashers that hunt around it carry the venom. Careful: the Ancient Kodos (36-37) hit hard: fight only the Aged Kodos."
+			},
+			"note": "#3385 (Tilman): the Kodo Graveyard step held Kodo Roundup's taming with Reagents for Reclaimers Inc.'s hides and venom; skipping the taming skipped the venom too. The hides and venom are a step of their own after the taming.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-kodo-taming-tip",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5561,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/30-40/02-desolace"
+			},
+			"tip": "Use Smeed's Kodo Kombobulator on an Aged, Dying or Ancient Kodo: it becomes a tamed kodo that follows you. Walk it back to Smeed's camp; there, talk to the kodo: that counts it and lets you tame the next. Five kodos, one at a time. Careful: the Ancient Kodos (36-37) hit hard: tame them, don't fight them.",
+			"note": "#3385's sweep: a skip only touches its own quest, so the taming step's tip says only the taming; the hides and venom have their own step (3385-kodo-hides-and-venom-own-step).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-therylune-escort-after-the-tome",
+			"faction": "Alliance",
+			"at": {
+				"quest": 945,
+				"goal": "accept",
+				"guide": "forever/alliance/03-darkshore-return"
+			},
+			"follows": {
+				"quest": 98042,
+				"goal": "objective",
+				"objective": 1
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so Therylune's escort (945) comes last at the Master's Glaive, after the pelts, the bowl and the tome, and is a step of its own (3385-therylune-escort-own-step).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-therylune-escort-complete-after-accept",
+			"faction": "Alliance",
+			"at": {
+				"quest": 945,
+				"goal": "complete",
+				"guide": "forever/alliance/03-darkshore-return"
+			},
+			"follows": {
+				"quest": 945,
+				"goal": "accept"
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so the escort's complete goes with its accept.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-therylune-escort-own-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 945,
+				"goal": "accept",
+				"guide": "forever/alliance/03-darkshore-return"
+			},
+			"split": {
+				"title": "Therylune",
+				"tip": "Therylune stands on the north side of the crater: escort her out of the glaive. Therysil takes the turn-in in Ashenvale."
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so skipping Therylune's escort no longer skips the Master's Glaive's pelts, bowl and tome.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-volcor-deer-before-escort",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6124,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/03-darkshore-return"
+			},
+			"follows": {
+				"quest": 993,
+				"goal": "turnin"
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so the Sickly Deer stay with Volcor's hand-in, before his escort.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-volcor-escort-own-step",
+			"faction": "Alliance",
+			"at": {
+				"quest": 994,
+				"goal": "accept",
+				"guide": "forever/alliance/03-darkshore-return"
+			},
+			"split": {
+				"title": "Escort Volcor",
+				"tip": "Help Volcor back to the road; he fights on his way out. Terenthis takes the escort in Auberdine on the next visit there."
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so Volcor's escort (994) is a step of its own; skipping it no longer skips Curing the Sick's deer.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-zimmix-escort-last-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97331,
+				"goal": "accept",
+				"guide": "forever/alliance/30-40/04b-stranglethorn-vale"
+			},
+			"follows": {
+				"quest": 342,
+				"goal": "complete"
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so Zimmix's escort comes after the Zul'Kunda work (tablets, ears, shipments, pages), a step of its own (3385-zimmix-escort-own-step-alliance).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-zimmix-escort-complete-after-accept-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97331,
+				"goal": "complete",
+				"guide": "forever/alliance/30-40/04b-stranglethorn-vale"
+			},
+			"follows": {
+				"quest": 97331,
+				"goal": "accept"
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so the escort's complete goes with its accept.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-zimmix-escort-own-step-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97331,
+				"goal": "accept",
+				"guide": "forever/alliance/30-40/04b-stranglethorn-vale"
+			},
+			"split": {
+				"title": "Escort Zimmix",
+				"tip": "Lead Zimmix out of the ruins and keep him alive: Wharfmaster Lozgil in Booty Bay takes the news at the end of this loop."
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so skipping Zimmix's escort no longer skips the Zul'Kunda tablets, ears and shipments.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-zimmix-escort-own-step-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 97331,
+				"goal": "accept",
+				"guide": "forever/horde/30-40/03-stranglethorn-vale"
+			},
+			"split": {
+				"title": "Escort Zimmix",
+				"tip": "Lead Zimmix out of the ruins and keep him alive: Lozgil takes the news once he is safe."
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so skipping Zimmix's escort no longer skips the Stolen Shipments and his key.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-ruul-escort-own-step",
+			"faction": "Horde",
+			"at": {
+				"quest": 6482,
+				"goal": "accept",
+				"guide": "forever/horde/07-ashenvale"
+			},
+			"split": {
+				"title": "Ruul Snowhoof",
+				"tip": "Ruul Snowhoof is held deep inside Thistlefur Hold: free him and protect him all the way out, then he runs home to Night Run."
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so Ruul Snowhoof's escort (6482) is a step of its own; skipping it no longer skips the Troll Charms.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-lakota-escort-own-step",
+			"faction": "Horde",
+			"at": {
+				"quest": 4904,
+				"goal": "accept",
+				"guide": "forever/horde/07-ashenvale"
+			},
+			"split": {
+				"title": "Escort Lakota Windsong",
+				"tip": "Lakota Windsong is held captive beside where Arnak stood: free her and protect her on the walk down; Grimtotem ambushers come at you on the way."
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so Lakota Windsong's escort (4904) is a step of its own; skipping it no longer skips Arnak Grimtotem's hoof.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
+			"id": "3385-paoka-escort-own-step",
+			"faction": "Horde",
+			"at": {
+				"quest": 4770,
+				"goal": "accept",
+				"guide": "forever/horde/07-ashenvale"
+			},
+			"split": {
+				"title": "Escort Pao'ka Swiftmountain",
+				"tip": "Pao'ka Swiftmountain waits on the east side of the nesting grounds: free him and keep him alive on the walk back to Whitereach Post."
+			},
+			"note": "#3385's sweep: a skip only touches its own quest, so Pao'ka's escort (4770) is a step of its own; skipping it no longer skips the wyvern eggs.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3385 (Tilman): skipping the kodo-taming step skipped another quest's venom with it"
+				}
+			],
+			"issue": 3385
+		},
+		{
 			"id": "a40-riverglades-second-wave-level-44",
 			"faction": "Alliance",
 			"at": {

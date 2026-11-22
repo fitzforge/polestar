@@ -44,75 +44,78 @@ return {
 
 	-- Step 8: Thistlefur Hold
 	["Thistlefur Hold"] = "薊皮熊怪的巢穴",
-	-- {npc:12818} Ruul Snowhoof · {area:428} Night Run · {npc:3987} Dal Bloodclaw
 	-- plural, as words: Troll Chests = {object:178144} Troll Chest
-	["Inside the hold, Troll Chests lie along the tunnels. {npc:12818} is held deep inside: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "",
+	["Inside the hold, Troll Chests lie along the tunnels."] = "",
 	["Below ground"] = "地下",
+
+	-- Step 9: Ruul Snowhoof
+	-- {npc:12818} Ruul Snowhoof · {area:428} Night Run · {npc:3987} Dal Bloodclaw
+	["{npc:12818} is held deep inside Thistlefur Hold: free him and protect him all the way out, then he runs home to {area:428}.\nCareful: Two scripted ambushes occur, each made up of three Thistlefurs (a Shaman, a Pathfinder and an Avenger, Ursa or Den Watcher): the first when you come back to the tunnel's fork inside the cave, the second just beyond the gate where {npc:3987} roams."] = "",
 	-- {npc:12818} Ruul Snowhoof
 	["{npc:12818}, below ground"] = "",
 
-	-- Step 9: Zoram'gar Outpost
+	-- Step 10: Zoram'gar Outpost
 	["Back west to Zoram'gar from Thistlefur before heading east for good."] = "最後一次往東出發之前，先從薊皮營地往西回到左拉姆加。",
 	-- {npc:12736} Je'neu Sancrea · {area:2797} Blackfathom Deeps
 	["{npc:12736} offers a {area:2797} quest next; leave it unless you have a group."] = "{npc:12736}接著會提供一個{area:2797}任務；除非你有小隊，否則先不要做。",
 	-- {npc:12757} Karang Amakkar · {area:421} Mystral Lake · {npc:12918} Chief Murgut
 	["{npc:12757}: a banner defence in the Foulweald, east of {area:421}: furbolg waves, then {npc:12918}"] = "{npc:12757}：在{area:421}東邊的穢木林守衛旗幟：先是一波波熊怪，然後是{npc:12918}",
 
-	-- Step 12: Je'neu Sancrea
+	-- Step 13: Je'neu Sancrea
 	-- {npc:12736} Je'neu Sancrea · {quest:6564} Allegiance to the Old Gods
 	["{npc:12736} then offers the next part, {quest:6564}: it is for a second run, so leave it."] = "{npc:12736}接著會提供下一部分{quest:6564}：那是第二趟用的，先別接。",
 
-	-- Step 13: Ruins of Stardust fountain
+	-- Step 14: Ruins of Stardust fountain
 	-- {area:418} Ruins of Stardust
 	["{area:418} fountain"] = "{area:418}的噴泉",
 	-- {area:418} Ruins of Stardust · {npc:12678} Ursangous · {item:7767} Empty Blue Waterskin
 	["The fountain stands in the middle of the {area:418}, where {npc:12678} roams: use the {item:7767} there."] = "噴泉位於{area:418}中央，{npc:12678}在那裡遊蕩：在那裡使用{item:7767}。",
 
-	-- Step 14: Ursangous
+	-- Step 15: Ursangous
 	-- {area:415} Astranaar · {npc:12678} Ursangous · {area:418} Ruins of Stardust · {area:421} Mystral Lake
 	["Follow the main road east past {area:415} (Alliance: keep to the road). {npc:12678}, a big grizzly, roams the {area:418} south of the road, west of {area:421}. His paw starts the next hunt quest."] = "沿著主要道路向東經過{area:415}（聯盟據點：沿著道路走）。{npc:12678}是一頭大灰熊，在道路南邊、{area:421}西邊的{area:418}遊蕩。牠的爪子會開始下一個狩獵任務。",
 
-	-- Step 15: King of the Foulweald
+	-- Step 16: King of the Foulweald
 	-- {area:421} Mystral Lake · {item:16972} Karang's Banner · {object:178206} Foulweald Totem Mound (no name in this language: may be words) · {npc:12918} Chief Murgut
 	["The Foulweald furbolgs hold the woods east of {area:421}, south of the road. Place {item:16972} on the {object:178206} and guard it: the furbolgs come to tear it down. {npc:12918} comes last; his totem drops in the basket."] = "汙林熊怪佔據{area:421}東邊、道路南邊的樹林。把{item:16972}放在{object:178206}上並守住它：熊怪會來把它拆掉。{npc:12918}最後出現；他的圖騰會掉在籃子裡。",
 
-	-- Step 16: Torek's Assault
+	-- Step 17: Torek's Assault
 	-- {npc:12858} Torek · {area:2360} Silverwing Outpost · {npc:12860} Duriel Moonfire
 	["Keep east on the road. {npc:12858} waits south-west of the Warsong lumber camp. He and his grunts storm the {area:2360}: let them take aggro and stay with {npc:12858} until {npc:12860} is dead."] = "沿著道路繼續向東。{npc:12858}在戰歌伐木營地西南方等候。他和他的步兵會猛攻{area:2360}：讓他們吸引仇恨，跟著{npc:12858}直到{npc:12860}死亡。",
 
-	-- Step 17: Warsong lumber camp
+	-- Step 18: Warsong lumber camp
 	["Warsong lumber camp"] = "戰歌伐木營地",
 	-- {area:2360} Silverwing Outpost · {npc:12867} Kuray'bin
 	["From the {area:2360} head north-east to the Warsong lumber camp on the road: {npc:12867} stands there."] = "從{area:2360}往東北前往路邊的戰歌伐木營地：{npc:12867}站在那裡。",
 
-	-- Step 18: Ashenvale Outrunners
+	-- Step 19: Ashenvale Outrunners
 	-- {quest:6503} Ashenvale Outrunners
 	["The night elf {quest:6503} (23-24) stalk the woods south and south-east of the lumber camp; they stealth, so watch for them."] = "夜精靈的{quest:6503}（23-24級）在伐木營地南方和東南方的樹林中潛行；他們會隱形，要留意。",
 
-	-- Step 19: Warsong lumber camp
+	-- Step 20: Warsong lumber camp
 	-- {npc:12867} Kuray'bin
 	["Back to {npc:12867} at the lumber camp, on the road north to Splintertree."] = "回到伐木營地的{npc:12867}那裡，就在往北通往碎木崗哨的路上。",
 
-	-- Step 21: Senani Thunderheart
+	-- Step 22: Senani Thunderheart
 	-- {npc:12696} Senani Thunderheart · {area:428} Night Run · {quest:6383} The Ashenvale Hunt · {npc:12678} Ursangous · {npc:12676} Sharptalon · {npc:12677} Shadumbra
 	["{npc:12696} keeps the hunt board at {area:428}, by the flight master: take {quest:6383} and hand it straight back. {npc:12678}, {npc:12676} and {npc:12677} drop their trophies only after it."] = "{npc:12696}在{area:428}的飛行管理員旁管理狩獵告示板：接下{quest:6383}並立刻交回。之後{npc:12678}、{npc:12676}和{npc:12677}才會掉落牠們的戰利品。",
 
-	-- Step 23: Splintertree Post
+	-- Step 24: Splintertree Post
 	-- {npc:12837} Yama Snowhoof
 	["{npc:12837}, inside the inn"] = "",
 	-- {npc:12718} Gurda Ragescar
 	["{npc:12718}: only if you carry the manual pages"] = "{npc:12718}：只有在你帶著手冊書頁時",
 
-	-- Step 24: Felmusk satyrs
+	-- Step 25: Felmusk satyrs
 	["Felmusk satyrs"] = "魔草薩特",
 	-- plural, as words: Felmusk Rogues = {npc:3759} Felmusk Rogue
 	["North-west of Splintertree, the Felmusk satyrs camp in the woods. Every satyr can drop horns. Careful: Felmusk Rogues and Shadowstalkers move in stealth and join fights without warning."] = "在碎木崗哨西北方，魔草薩特在樹林中紮營。每個薩特都可能掉落角。小心：魔草盜賊和魔草捕獵者會潛行移動，毫無預警地加入戰鬥。",
 
-	-- Step 25: Shadumbra
+	-- Step 26: Shadumbra
 	-- {npc:12677} Shadumbra · {area:426} Raynewood Retreat
 	["{npc:12677}, a shadow panther, stalks the woods around {area:426}, west of the Felmusk camp. Her head starts the next hunt quest."] = "{npc:12677}是一隻暗影豹，在魔草營地西邊的{area:426}周圍的樹林中潛行。她的頭顱會開始下一個狩獵任務。",
 
-	-- Step 26: Laughing Sisters
+	-- Step 27: Laughing Sisters
 	-- plural, as words: Laughing Sisters = {npc:4054} Laughing Sister
 	["Laughing Sisters"] = "歡笑姐妹",
 	-- {area:426} Raynewood Retreat · {npc:12677} Shadumbra · {npc:4721} Zangen Stonehoof · {item:5867} Etched Phial
@@ -121,35 +124,35 @@ return {
 	-- {item:5867} Etched Phial · {npc:4054} Laughing Sister
 	["{item:5867}, from a {npc:4054}"] = "{item:5867}，來自{npc:4054}",
 
-	-- Step 27: Ashenvale Moonwell
+	-- Step 28: Ashenvale Moonwell
 	-- {area:421} Mystral Lake · {item:5867} Etched Phial
 	["South from Raynewood, the moonwell sits in a hollow west of the river, hard to see from the road; {area:421} is west of it. Use the {item:5867} at the moonwell to fill it."] = "從雷恩林地往南，月井位於河流西邊的一處窪地中，從道路上很難看見；{area:421}在它西邊。在月井使用{item:5867}將它裝滿。",
 	-- {item:5867} Etched Phial · {object:20806} Ashenvale Moonwell
 	["{item:5867}, at the {object:20806}"] = "{item:5867}，在{object:20806}",
 
-	-- Step 28: Tideress
+	-- Step 29: Tideress
 	-- {area:421} Mystral Lake · {npc:12759} Tideress · {item:16408} Befouled Water Globe · {quest:25} Stonetalon Standstill · {npc:12737} Mastok Wrilehiss
 	["Back south-west to {area:421}. {npc:12759}, a corrupted water elemental, drifts around the lake's island and under the water. She drops the {item:16408} only once you have {quest:25} from {npc:12737}; it starts a quest for Splintertree."] = "向西南回到{area:421}。腐化的水元素{npc:12759}繞著湖中的島和水下飄蕩。只有你從{npc:12737}那裡接了{quest:25}，她才會掉{item:16408}；它能開啟碎木崗哨的一個任務。",
 
-	-- Step 29: Mystral Lake
+	-- Step 30: Mystral Lake
 	-- plural, as words: Befouled Water Elementals = {npc:3917} Befouled Water Elemental
 	["Befouled Water Elementals drift around the lake's shores; the gazebo stands on the island, overlooking the Alliance outpost."] = "污濁的水元素在湖岸周圍漂浮；涼亭在島上，俯瞰著聯盟前哨。",
 	["Underwater"] = "在水下",
 	["Gazebo"] = "涼亭",
 
-	-- Step 30: Ursangous
+	-- Step 31: Ursangous
 	-- {npc:12678} Ursangous · {area:418} Ruins of Stardust
 	["West of Mystral Lake, {npc:12678}, a big grizzly, roams the {area:418}: his paw now drops for you."] = "在密斯特拉湖西邊，大灰熊{npc:12678}在{area:418}遊蕩：現在牠的爪子會為你掉落了。",
 
-	-- Step 31: Sharptalon
+	-- Step 32: Sharptalon
 	-- {npc:12676} Sharptalon
 	["On the way back north-east to Splintertree: {npc:12676} prowls the woods south-east of the Warsong lumber camp. Her claw starts the next hunt quest. Careful: {npc:12676} is a level 31 nightsaber and hits hard: pull her alone, away from the Outrunners."] = "往東北返回碎木崗哨的路上：{npc:12676}在戰歌伐木營地東南邊的樹林裡徘徊。她的爪子會開始下一個狩獵任務。小心：{npc:12676}是一隻31級的夜刃豹，攻擊很痛：把她單獨拉出來，遠離梣谷先驅者。",
 
-	-- Step 34: Splintertree Post
+	-- Step 35: Splintertree Post
 	-- {npc:12696} Senani Thunderheart · {quest:247} The Hunt Completed · {quest:2} Sharptalon's Claw
 	["{npc:12696}: {quest:247}, once {quest:2} is in"] = "{npc:12696}：{quest:247}，在繳交{quest:2}之後",
 
-	-- Step 40: Fly to Thunder Bluff
+	-- Step 41: Fly to Thunder Bluff
 	-- {area:1638} Thunder Bluff
 	["Fly to {area:1638}"] = "飛往{area:1638}",
 	-- {area:1638} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore
@@ -157,19 +160,19 @@ return {
 	-- {area:2897} Zoram'gar Outpost
 	["{area:2897} flight master"] = "{area:2897}飛行管理員",
 
-	-- Step 41: Skywatcher Plateau
+	-- Step 42: Skywatcher Plateau
 	-- {area:17045} Skywatcher Plateau · {zone:1456} Thunder Bluff · {area:378} Camp Taurajo · {zone:1412} Mulgore
 	["The Earthen Ring camp and its three quests stand up on {area:17045}, north of {zone:1456}. Fly to {zone:1456} if you know its flight path and take a lift down, else fly to {area:378} and walk north through {zone:1412}; the arrow then leads round to the plateau's north end and up onto it."] = "大地之環的營地和它的三個任務在{zone:1456}以北的{area:17045}上。知道{zone:1456}的飛行點就先飛過去，再坐升降機下去；否則飛到{area:378}，向北穿過{zone:1412}步行；箭頭隨後帶你繞到高原北端並爬上去。",
 	["North of Thunder Bluff"] = "雷霆崖以北",
 
-	-- Step 43: The Earthen Ring
+	-- Step 44: The Earthen Ring
 	["The Earthen Ring"] = "陶土議會",
 	-- {npc:264074} Mazu'kon · {npc:264072} Yorn Grimtotem · {npc:259118} Muln Earthfury · {zone:1456} Thunder Bluff · {area:378} Camp Taurajo
 	["The Earthen Ring camp stands north of the bluffs: {npc:264074}, {npc:264072} and {npc:259118}. From {zone:1456}, take a lift down; coming on foot from {area:378}, keep north past the bluffs."] = "大地之環營地在峭壁以北：{npc:264074}、{npc:264072}和{npc:259118}。從{zone:1456}乘升降梯下去；若從{area:378}步行過來，就一直向北穿過峭壁。",
 	-- {npc:259118} Muln Earthfury · {quest:96261} The Broodmother
 	["{npc:259118}: {quest:96261} comes once this is handed in"] = "{npc:259118}：交還這個任務後會提供{quest:96261}",
 
-	-- Step 44: Gloomrise: kill these as you meet them
+	-- Step 45: Gloomrise: kill these as you meet them
 	-- {area:17044} Gloomrise
 	["{area:17044}: kill these as you meet them"] = "{area:17044}：遇到就殺",
 	-- {area:17044} Gloomrise · {npc:264074} Mazu'kon · {item:273015} Toxin Extractor · {item:273181} Crystalline Silk · {npc:264082} Broodmother Valraxx · {quest:96261} The Broodmother · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
@@ -181,32 +184,32 @@ return {
 	-- plural, as words: Gloomrise Toxin Samples = {item:273001} Gloomrise Toxin Sample · Gnawed Corpses = {npc:264096} Gnawed Corpse
 	["Gloomrise Toxin Samples, from the Gnawed Corpses"] = "鬱湧毒素樣本，來自{npc:264096}",
 
-	-- Step 45: The Earthen Ring
+	-- Step 46: The Earthen Ring
 	-- {npc:259118} Muln Earthfury · {quest:96261} The Broodmother · {quest:96259} Defending the Dead
 	["{npc:259118} offers {quest:96261} only once {quest:96259} is handed in."] = "{npc:259118}只有在{quest:96259}交還後才會提供{quest:96261}。",
 
-	-- Step 47: Broodmother Valraxx
+	-- Step 48: Broodmother Valraxx
 	-- {npc:264082} Broodmother Valraxx · {area:17044} Gloomrise · {item:273658} Bloody Parchment · {quest:96294} A Darker Truth
 	["{npc:264082} sits at the north end of {area:17044}; her {item:273658} starts {quest:96294}. {npc:264082} is elite: grouping up is advised."] = "{npc:264082}坐在{area:17044}的北端；她的{item:273658}可以開啟{quest:96294}。{npc:264082}是精英：建議組隊。",
 	-- {item:273658} Bloody Parchment · {npc:264082} Broodmother Valraxx
 	["{item:273658}, from {npc:264082}: it does not drop for everyone"] = "{item:273658}，來自{npc:264082}：不是每個人都會掉落",
 
-	-- Step 48: The Earthen Ring
+	-- Step 49: The Earthen Ring
 	-- {zone:1456} Thunder Bluff · {area:378} Camp Taurajo
 	["Back south to the camp, then up into {zone:1456} for the flight to {area:378}."] = "向南回到營地，然後上到{zone:1456}搭乘飛往{area:378}的飛行路線。",
 
-	-- Step 49: Class trainer
+	-- Step 50: Class trainer
 	["Class trainer"] = "職業訓練師",
 
-	-- Step 50: Apothecary Zamah
+	-- Step 51: Apothecary Zamah
 	-- {npc:3419} Apothecary Zamah · {area:2197} Pools of Vision · {area:1640} Spirit Rise · {npc:2995} Tal
 	["{npc:3419} stands in the {area:2197}, the caves under {area:1640}, west of {npc:2995}."] = "{npc:3419}站在{area:1640}下方洞穴的{area:2197}，在{npc:2995}西邊。",
 
-	-- Step 51: Thunder Bluff
+	-- Step 52: Thunder Bluff
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456}'s central rise"] = "{zone:1456}的中央高台",
 
-	-- Step 52: Thunder Bluff
+	-- Step 53: Thunder Bluff
 	-- {area:1638} Thunder Bluff · {npc:2995} Tal
 	["Into {area:1638} by a lift: {npc:2995}, the wind rider master, stands on the central rise. Take his flight path if you don't know it yet."] = "坐升降機進入{area:1638}：馭風者管理員{npc:2995}站在中央的高地上。還沒學會他的飛行點就先跟他飛一次。",
 	-- {npc:3057} Cairne Bloodhoof · {area:1638} Thunder Bluff · {quest:93739} Exploring the Horde
@@ -214,51 +217,51 @@ return {
 	-- {npc:3057} Cairne Bloodhoof
 	["Talk to {npc:3057}"] = "與{npc:3057}交談",
 
-	-- Step 53: Zangen Stonehoof
+	-- Step 54: Zangen Stonehoof
 	-- {npc:4721} Zangen Stonehoof · {npc:2995} Tal
 	["{npc:4721} stands a short walk east of {npc:2995}."] = "{npc:4721}站在{npc:2995}東邊不遠處。",
 	-- {npc:4721} Zangen Stonehoof · {npc:4722} Rau Cliffrunner · {area:484} Freewind Post
 	["{npc:4721}: {npc:4722} at {area:484}, later in this guide"] = "{npc:4721}：{area:484}的{npc:4722}，在本指南稍後",
 
-	-- Step 54: Tah Winterhoof
+	-- Step 55: Tah Winterhoof
 	-- {npc:3024} Tah Winterhoof · {npc:4721} Zangen Stonehoof · {npc:2995} Tal
 	["{npc:3024} stands beside {npc:4721}, east of {npc:2995}."] = "{npc:3024}站在{npc:4721}旁邊，位於{npc:2995}東邊。",
 
-	-- Step 55: Ansekhwa
+	-- Step 56: Ansekhwa
 	-- {spell:199} Two-Handed Maces · {npc:11869} Ansekhwa
 	["While you're here: learn {spell:199} from {npc:11869} (10 silver); two-handers level a Warrior fastest."] = "在這裡時：找{npc:11869}學習{spell:199}（10銀）；戰士用雙手武器升級最快。",
 
-	-- Step 56: Melor Stonehoof
+	-- Step 57: Melor Stonehoof
 	-- {npc:3441} Melor Stonehoof · {area:1641} Hunter Rise · {quest:1131} Steelsnap · {zone:1441} Thousand Needles · {area:2237} Whitereach Post
 	["{npc:3441} stands on {area:1641}, the southern rise, beside the hunter trainers: {quest:1131} prowls the far north-west of {zone:1441}, beyond {area:2237}, later in this guide."] = "",
 
-	-- Step 57: Fly to Camp Taurajo
+	-- Step 58: Fly to Camp Taurajo
 	-- {area:378} Camp Taurajo
 	["Fly to {area:378}"] = "飛往{area:378}",
 	-- {zone:1456} Thunder Bluff
 	["{zone:1456} flight master"] = "{zone:1456}飛行管理員",
 
-	-- Step 58: Tatternack Steelforge
+	-- Step 59: Tatternack Steelforge
 	-- {npc:3433} Tatternack Steelforge · {area:2237} Whitereach Post
 	["{npc:3433} works at his forge a few steps from the flight master: his ore sample comes from the Gravelsnout kobolds west of {area:2237}, later in this guide."] = "",
 
-	-- Step 59: Brine
+	-- Step 60: Brine
 	-- {npc:5899} Brine · {area:378} Camp Taurajo · {area:485} Great Lift
 	["{npc:5899}'s hut stands on the ridge above the quilboar watering hole south of {area:378}, on the road to the {area:485}."] = "{npc:5899}的小屋在{area:378}南邊野豬人飲水處上方的山脊上，位於前往{area:485}的路上。",
 	-- {npc:5901} Islen Waterseer · {area:392} Ratchet
 	["for {npc:5901}, south of {area:392}: next guide"] = "給{area:392}南邊的{npc:5901}：下一份指南",
 
-	-- Step 60: Great Lift
+	-- Step 61: Great Lift
 	-- {npc:12576} Grish Longrunner · {npc:10079} Brave Moonhorn · {area:485} Great Lift · {area:484} Freewind Post
 	["{npc:12576} and {npc:10079} wait at the top of the {area:485}: Maggran's letter is for {npc:12576}, and Moonhorn's message goes down to {area:484} with you."] = "{npc:12576}和{npc:10079}在{area:485}頂端等著：瑪格蘭的信是給{npc:12576}的，月角的口信則跟著你下到{area:484}。",
 	-- {npc:10079} Brave Moonhorn · {npc:10537} Cliffwatcher Longhorn · {area:484} Freewind Post
 	["{npc:10079}, at the top of the lift: {npc:10537} at {area:484}"] = "{npc:10079}，在升降梯頂端：{npc:10537}在{area:484}",
 
-	-- Step 61: Freewind Post's lift
+	-- Step 62: Freewind Post's lift
 	-- {area:484} Freewind Post
 	["{area:484}'s lift"] = "{area:484}的升降機",
 
-	-- Step 62: Freewind Post
+	-- Step 63: Freewind Post
 	-- {area:484} Freewind Post
 	["Ride the lift down, then follow the road east through the canyons to {area:484}, a Tauren village on top of the mesas. Its lift is on the north side."] = "搭升降梯下去，然後沿著道路向東穿過峽谷前往{area:484}，這是一座位於台地頂端的牛頭人村莊。它的升降梯在北側。",
 	-- {npc:10377} Elu
@@ -268,16 +271,16 @@ return {
 	-- {npc:4877} Jandia · {area:2237} Whitereach Post
 	["{npc:4877}'s two harpy quests come on the next Freewind stop; their den is on the way back from {area:2237}."] = "",
 
-	-- Step 63: Rau Cliffrunner
+	-- Step 64: Rau Cliffrunner
 	-- {npc:4722} Rau Cliffrunner · {area:484} Freewind Post · {npc:4721} Zangen Stonehoof
 	["{npc:4722} stands in {area:484}: {npc:4721}'s filled phial is for him."] = "{npc:4722}站在{area:484}：{npc:4721}裝滿的藥瓶是要給他的。",
 	-- {npc:4722} Rau Cliffrunner · {object:20807} Ancient Brazier · {area:1557} Splithoof Hold
 	["{npc:4722}: the {object:20807} in {area:1557}, among the Galak camps"] = "{npc:4722}：{area:1557}裡的{object:20807}，在加拉克營地之間",
 
-	-- Step 64: Alien Egg
+	-- Step 65: Alien Egg
 	["Take the lift down. The egg lies in a nest on the canyon floor in one of three spots: south-east of the mesas (52.3,55.2), east (56.4,50.4) or south-west (37.6,56.1)."] = "搭升降梯下去。蛋在峽谷底部的巢裡，位於三處之一：台地東南方（52.3,55.2）、東方（56.4,50.4）或西南方（37.6,56.1）。",
 
-	-- Step 65: Galak centaurs
+	-- Step 66: Galak centaurs
 	["Galak centaurs"] = "加拉克半人馬",
 	-- {npc:10617} Galak Messenger · {area:2237} Whitereach Post · {npc:216463} Ailgrha Splittusk
 	-- plural, as words: Ravaging Tempests = {npc:216474} Ravaging Tempest
@@ -285,7 +288,7 @@ return {
 	-- {npc:10617} Galak Messenger · {quest:4881} Assassination Plot
 	["{npc:10617}'s {quest:4881}, if you meet him"] = "{npc:10617}的{quest:4881}，如果你遇到他",
 
-	-- Step 66: Splithoof Hold
+	-- Step 67: Splithoof Hold
 	-- {area:1557} Splithoof Hold · {object:20807} Ancient Brazier · {item:5868} Filled Etched Phial · {item:5869} Cloven Hoof · {npc:2986} Dorn Plainstalker
 	-- plural, as words: Galak Flame Guards = {npc:7404} Galak Flame Guard
 	["A short walk north of the Galak camps, the cave of {area:1557} leads down to its deepest chamber, where the {object:20807} burns. Use the {item:5868} on it, then loot the {item:5869} at once: the flame only stays out briefly, and if it relights the phial is gone. Then east to {npc:2986}'s mesa.\nCareful: Two Galak Flame Guards (30) stand by the brazier and a centaur guard walks the cave: pull them away one at a time before you douse the flame."] = "在加拉克營地北邊不遠處，{area:1557}的洞穴通往最深處的洞室，{object:20807}就在那裡燃燒。對它使用{item:5868}，然後立刻拾取{item:5869}：火焰只會熄滅一小段時間，如果重新燃起，藥瓶就沒了。接著向東前往{npc:2986}的台地。\n小心：火盆旁站著兩個加拉克火焰守衛（30級），還有一個半人馬守衛在洞穴中巡邏：在熄滅火焰之前，先把他們一次一個拉開。",
@@ -294,7 +297,7 @@ return {
 	-- {item:5869} Cloven Hoof · {object:20807} Ancient Brazier
 	["{item:5869}, from the {object:20807}"] = "{item:5869}，來自{object:20807}",
 
-	-- Step 67: Dorn Plainstalker
+	-- Step 68: Dorn Plainstalker
 	-- {npc:2986} Dorn Plainstalker · {quest:1149} Test of Faith
 	["{npc:2986} stands on a mesa top east of the Galak camps. Taking his {quest:1149} puts you on a high cliff far to the west: follow the stone path to the end of the wooden planks and step off there, and you land safely. Jump from anywhere else and you fall to your death."] = "",
 	-- {npc:2986} Dorn Plainstalker
@@ -305,13 +308,13 @@ return {
 	-- {quest:1150} Test of Endurance · {npc:4490} Grenka Bloodscreech
 	["{quest:1150} ({npc:4490}, 31) waits for the next Freewind visit, at about 30: keep it."] = "{quest:1150}（{npc:4490}，31級）留到下次來亂風崗時（約30級）再做：先留著。",
 
-	-- Step 68: Freewind Post
+	-- Step 69: Freewind Post
 	-- {npc:11116} Innkeeper Abeqwa · {npc:4877} Jandia
 	["{npc:11116}, beside {npc:4877}"] = "{npc:11116}，在{npc:4877}旁邊",
 	-- {npc:4877} Jandia · {area:487} Roguefeather Den
 	["{npc:4877}, inside the inn: {area:487}, south-west of the post, on the way back from Whitereach"] = "",
 
-	-- Step 70: Darkcloud Pinnacle
+	-- Step 71: Darkcloud Pinnacle
 	-- {area:2097} Darkcloud Pinnacle
 	-- plural, as words: Document Chests = {object:176344} Document Chest
 	["West of Freewind, the Grimtotem camps below {area:2097}. The Secret Notes are in Document Chests at the south-east, south-west and north-west camps."] = "在亂風崗西邊，恐怖圖騰在{area:2097}下方紮營。密信放在東南、西南和西北營地的{object:176344}裡。",
@@ -322,7 +325,7 @@ return {
 	-- {object:176344} Document Chest
 	["{object:176344}, north-west camp"] = "{object:176344}，西北營地",
 
-	-- Step 71: Level 28
+	-- Step 72: Level 28
 	["Level 28"] = "28級",
 	-- {npc:10646} Lakota Windsong · {area:2797} Blackfathom Deeps
 	["Short of 28? The Grimtotem around these camps (25-28) are the right level: kill a few more before the climb to {npc:10646}. Past it, this step skips itself. Or, with a group, run the {area:2797} dungeon instead."] = "還不到28級？這些營地周圍的恐怖圖騰（25-28級）等級剛好：在爬上去找{npc:10646}之前多殺一些。超過後，此步驟會自動跳過。或者，有小隊的話改打{area:2797}地城。",
@@ -331,32 +334,45 @@ return {
 	-- {npc:10759} Grimtotem Stomper
 	["grind on {npc:10759}"] = "刷{npc:10759}",
 
-	-- Step 72: Lakota Windsong
-	-- {area:485} Great Lift · {area:2097} Darkcloud Pinnacle · {npc:10646} Lakota Windsong · {npc:10896} Arnak Grimtotem
-	["{area:485} detour warning: the arrow may miss the path up {area:2097}. If you are on the canyon floor, follow the path and rope bridges up {area:2097}. {npc:10646} is held captive beside {npc:10896} (29): clear the guards and {npc:10896} first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "{area:485}繞路提醒：箭頭可能找不到上{area:2097}的小路。如果你在峽谷底部，沿著小路和繩橋爬上{area:2097}。{npc:10646}被囚禁在{npc:10896}（29級）旁邊：先清掉守衛和{npc:10896}，再救出她，並在下山途中保護她；路上會有恐怖圖騰伏擊者來攻擊你。",
+	-- Step 73: Lakota Windsong
+	-- {area:485} Great Lift · {area:2097} Darkcloud Pinnacle · {npc:10896} Arnak Grimtotem
+	["{area:485} detour warning: the arrow may miss the path up {area:2097}. If you are on the canyon floor, follow the path and rope bridges up {area:2097}. {npc:10896} (29) stands among his guards there: clear the guards, then {npc:10896}."] = "",
 
-	-- Step 73: Highperch
-	-- {area:482} Highperch · {npc:10427} Pao'ka Swiftmountain · {area:2237} Whitereach Post
+	-- Step 74: Escort Lakota Windsong
+	-- {npc:10646} Lakota Windsong
+	["Escort {npc:10646}"] = "",
+	-- {npc:10646} Lakota Windsong · {npc:10896} Arnak Grimtotem
+	["{npc:10646} is held captive beside where {npc:10896} stood: free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "",
+
+	-- Step 75: Highperch
+	-- {area:482} Highperch
 	-- plural, as words: Highperch Patriarchs = {npc:4110} Highperch Patriarch
-	["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests. {npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "在白沙崗哨西邊，雙足飛龍在{area:482}的懸崖上築巢；蛋就在巢裡。{npc:10427}在築巢區東側等候：救出他，並在走回{area:2237}的路上保護他存活。\n小心：28-29級的雙足飛龍在頭頂飛行，可能在你沒注意時被拉到。經過底部的第一根石柱後，可能會有三隻雙足飛龍一起伏擊你。風巢飛龍族王（30-31級）和稀有的心刃（32級）也在這裡築巢：繞開牠們拉怪。",
+	-- was: ["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests. {npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "在白沙崗哨西邊，雙足飛龍在{area:482}的懸崖上築巢；蛋就在巢裡。{npc:10427}在築巢區東側等候：救出他，並在走回{area:2237}的路上保護他存活。\n小心：28-29級的雙足飛龍在頭頂飛行，可能在你沒注意時被拉到。經過底部的第一根石柱後，可能會有三隻雙足飛龍一起伏擊你。風巢飛龍族王（30-31級）和稀有的心刃（32級）也在這裡築巢：繞開牠們拉怪。"
+	["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "",
 
-	-- Step 74: Whitereach Post
+	-- Step 76: Escort Pao'ka Swiftmountain
+	-- {npc:10427} Pao'ka Swiftmountain
+	["Escort {npc:10427}"] = "",
+	-- {npc:10427} Pao'ka Swiftmountain · {area:2237} Whitereach Post
+	["{npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}."] = "",
+
+	-- Step 77: Whitereach Post
 	-- {npc:10428} Motega Firemane · {item:12732} Incendia Agave · {area:2097} Darkcloud Pinnacle
 	["{npc:10428}: the {item:12732} grows among the Grimtotem camps below {area:2097}, on the way back east"] = "",
 
-	-- Step 75: Kanati Greycloud
+	-- Step 78: Kanati Greycloud
 	-- {npc:10617} Galak Messenger · {npc:10638} Kanati Greycloud · {area:2237} Whitereach Post
 	["Only if the {npc:10617} dropped his plot for you: {npc:10638} stands at {area:2237}."] = "只有在{npc:10617}掉落他的陰謀給你時才做：{npc:10638}站在{area:2237}。",
 
-	-- Step 77: Hypercapacitor Gizmo
+	-- Step 80: Hypercapacitor Gizmo
 	-- {npc:10992} Enraged Panther
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:10992} is a level 30 elite: most classes solo it at level 32, but you may need help. Skip it if you are alone."] = "這些是精英怪：建議組隊，找人一起打。{npc:10992}是30級精英：大多數職業在32級能單刷，但你可能需要幫手。如果你獨自一人就跳過。",
 
-	-- Step 78: Whitereach Post
+	-- Step 81: Whitereach Post
 	-- {npc:10720} Galak Assassin · {npc:10638} Kanati Greycloud
 	["Kill the {npc:10720} that comes for {npc:10638}"] = "擊殺前來對付{npc:10638}的{npc:10720}",
 
-	-- Step 81: Gravelsnout kobolds and Steelsnap
+	-- Step 84: Gravelsnout kobolds and Steelsnap
 	-- {quest:1131} Steelsnap
 	["Gravelsnout kobolds and {quest:1131}"] = "",
 	-- {quest:1131} Steelsnap · {npc:3441} Melor Stonehoof
@@ -365,17 +381,17 @@ return {
 	-- plural, as words: Gravelsnout Diggers = {npc:4113} Gravelsnout Digger
 	["Ore Sample, from the Gravelsnout Diggers and Surveyors"] = "",
 
-	-- Step 82: Incendia Agave
+	-- Step 85: Incendia Agave
 	-- {area:2237} Whitereach Post · {item:12732} Incendia Agave · {area:2097} Darkcloud Pinnacle · {npc:216463} Ailgrha Splittusk
 	["Back east past {area:2237}: the {item:12732} grows on the ground among the Grimtotem camps below {area:2097}. Start with the three plants close together at the camps' north-western edge, where the arrow points, and stay on that side; the agave comes back while you work.\nCareful: the Ravaging elementals (38-40) and {npc:216463} (38, elite) hold the ground south and east of the camps, from about 36,35: don't follow the agave past them."] = "",
 
-	-- Step 83: Roguefeather Den
+	-- Step 86: Roguefeather Den
 	-- {area:487} Roguefeather Den · {npc:4877} Jandia · {npc:4490} Grenka Bloodscreech · {npc:2986} Dorn Plainstalker · {quest:1150} Test of Endurance
 	["South of Darkcloud Pinnacle the Screeching harpies hold {area:487}; {npc:4877}'s stolen supplies lie on the ground around it.\nCareful: the harpies (28-29) stand in packs and the Windcallers cast from range: pull at the edge. {npc:4490} (31) waits deeper in the den: leave her for {npc:2986}'s {quest:1150} at about 30, in the next guide."] = "",
 	-- {quest:98069} Stolen Freewind Supplies
 	["{quest:98069}, on the ground around the den"] = "",
 
-	-- Step 84: Freewind Post
+	-- Step 87: Freewind Post
 	-- {area:484} Freewind Post
 	["Back east to {area:484}."] = "往東回到{area:484}。",
 	-- {npc:10645} Thalia Amberhide
@@ -385,19 +401,19 @@ return {
 	-- {npc:2986} Dorn Plainstalker · {quest:1150} Test of Endurance
 	["Keep {npc:2986}'s {quest:1150}: Grenka comes with the next Freewind visit, at about 30."] = "",
 
-	-- Step 85: Fly to Thunder Bluff
+	-- Step 88: Fly to Thunder Bluff
 	-- {area:484} Freewind Post
 	["{area:484} flight master"] = "{area:484}飛行管理員",
 
-	-- Step 86: Melor Stonehoof
+	-- Step 89: Melor Stonehoof
 	-- {npc:3441} Melor Stonehoof · {area:1641} Hunter Rise · {quest:1131} Steelsnap
 	["{npc:3441} on {area:1641} takes {quest:1131}'s rib."] = "",
 
-	-- Step 87: Magatha Grimtotem
+	-- Step 90: Magatha Grimtotem
 	-- {npc:4046} Magatha Grimtotem · {area:1639} Elder Rise · {area:2097} Darkcloud Pinnacle
 	["{npc:4046} stands on the {area:1639}, east across the bridges. Her next quest, Arikara, goes back to {area:2097} and Whitereach: leave it, the route does not go back there."] = "",
 
-	-- Step 89: Tatternack Steelforge
+	-- Step 92: Tatternack Steelforge
 	-- {npc:3433} Tatternack Steelforge
 	["{npc:3433} takes the ore sample beside the flight master. The next guide flies on from here."] = "",
 
@@ -436,7 +452,9 @@ return {
 	-- ["Tideress"] = "泰德雷斯",
 	-- ["Ursangous"] = "烏薩苟斯",
 	-- ["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests. {npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom."] = "在白沙崗哨西邊，雙足飛龍在{area:482}的懸崖上築巢；蛋就在巢裡。{npc:10427}在築巢區東側等候：救出他，並在走回{area:2237}的路上保護他存活。\n小心：28-29級的雙足飛龍在頭頂飛行，可能在你沒注意時被拉到。經過底部的第一根石柱後，可能會有三隻雙足飛龍一起伏擊你。",
+	-- ["West of Whitereach the wyverns nest on the {area:482} cliffs; the eggs lie in the nests. {npc:10427} waits on the east side of the nesting grounds: free him and keep him alive on the walk back to {area:2237}.\nCareful: Wyverns at level 28-29 fly overhead and can be pulled without warning. A group of three wyverns can ambush you once you pass the first pillar at the bottom. Highperch Patriarchs (30-31) and the rare Heartrazor (32) nest here too: pull around them."] = "在白沙崗哨西邊，雙足飛龍在{area:482}的懸崖上築巢；蛋就在巢裡。{npc:10427}在築巢區東側等候：救出他，並在走回{area:2237}的路上保護他存活。\n小心：28-29級的雙足飛龍在頭頂飛行，可能在你沒注意時被拉到。經過底部的第一根石柱後，可能會有三隻雙足飛龍一起伏擊你。風巢飛龍族王（30-31級）和稀有的心刃（32級）也在這裡築巢：繞開牠們拉怪。",
 	-- ["grind on {npc:4249}"] = "擊殺{npc:4249}練等",
+	-- ["{area:485} detour warning: the arrow may miss the path up {area:2097}. If you are on the canyon floor, follow the path and rope bridges up {area:2097}. {npc:10646} is held captive beside {npc:10896} (29): clear the guards and {npc:10896} first, then free her and protect her on the walk down; Grimtotem ambushers come at you on the way."] = "{area:485}繞路提醒：箭頭可能找不到上{area:2097}的小路。如果你在峽谷底部，沿著小路和繩橋爬上{area:2097}。{npc:10646}被囚禁在{npc:10896}（29級）旁邊：先清掉守衛和{npc:10896}，再救出她，並在下山途中保護她；路上會有恐怖圖騰伏擊者來攻擊你。",
 	-- ["{npc:10079}, at the top of the lift"] = "{npc:10079}，在升降梯頂端",
 	-- ["{npc:10428}'s next quest, Sacred Fire, ends in {zone:1456}, off this route. Skip it."] = "{npc:10428}的下一個任務「聖火」在{zone:1456}完成，不在這條路線上。跳過。",
 	-- ["{npc:12676}, a big nightsaber, prowls the woods south-east of the Warsong lumber camp. Her claw starts the next hunt quest."] = "{npc:12676}是一隻大型夜刃豹，在戰歌伐木營地東南方的樹林中徘徊。她的爪子會開始下一個狩獵任務。",

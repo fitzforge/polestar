@@ -145,9 +145,12 @@ end
 -- this character can take it (faction, race, class) and it needs q itself:
 -- q among its `preAll`, or its one-of `pre` naming no other quest this
 -- character can take (a follow-up open after either side's lead-in proves
--- neither for a character who could take both). Static per character and
--- database: kept per quest, rebuilt when more quest chunks arrive. Without
--- the database loaded, none.
+-- neither for a character who could take both). First, the quests the data
+-- names in q's `doneBy` and theirs in turn: a quest the game never flags
+-- completed though the chain after it goes on (Seeking the Kor Gem, done once
+-- An Underrated Talent is taken, #2465), which no prerequisite links. Static
+-- per character and database: kept per quest, rebuilt when more quest chunks
+-- arrive. Without the database loaded, none.
 Own.NO_LATER = {}
 Own.LATER_MAX = 100 -- the most quests followed after one (the longest chain in the data has 65)
 Own.laterCache = { ids = nil, lists = {} }
@@ -184,6 +187,14 @@ function Own.laterOf(q)
 		return named
 	end
 	local seen, queue, head = { [q] = true }, { q }, 1
+	local own = F.DONE_BY and Q.QuestRecord(q)
+	for _, s in Q.Each(own and own[F.DONE_BY] or nil) do
+		if not seen[s] then
+			seen[s] = true
+			list[#list + 1] = s
+			queue[#queue + 1] = s
+		end
+	end
 	while queue[head] and #list < Own.LATER_MAX do
 		local p = queue[head]
 		head = head + 1
@@ -6704,8 +6715,9 @@ function Own.currentGoal(s, groups, focus)
 	end
 	if first and step.goals[first].t == "goto" then first = Own.grindAfter(s, grp, first) or first end
 	if first then
+		Own.meetKills[step] = nil
 		if fields and #fields >= 2 and fields[1] == first then
-			first = Own.nearestField(s, fields)
+			first = Own.nearestField(s, Own.pointFields(s, fields) or fields)
 		else
 			Own.nearPick[step] = nil
 		end
@@ -6875,7 +6887,19 @@ local function findWaypoint()
 		if wp then return wp end
 	end
 	local wp = cg and waypointOf(cg, goals[cg])
-	if wp then return wp end
+	if wp then
+		-- A place objective leading a step of kills done on the way (Own.pointFields): which ones, under the arrow.
+		local kills = Own.meetKills[guide.steps[current]]
+		if kills then
+			local names = {}
+			for _, g in ipairs(kills) do
+				local _, subject = describe(goals[g], current)
+				if subject and subject ~= "" then names[#names + 1] = subject end
+			end
+			if #names > 0 then wp.label = wp.label .. " · " .. L["kill %s as you meet them"]:format(table.concat(names, ", ")) end
+		end
+		return wp
+	end
 	wp = header and waypointOf(header, goals[header])
 	if wp then return wp end
 	for rank = 1, 3 do
@@ -6946,6 +6970,43 @@ Own.FIELD = { kill = true, collect = true, interact = true }
 Own.NEAR_SHARE, Own.NEAR_YARDS = 0.75, 40
 Own.DETOUR = 80 -- yards walked before a tour asks whether the player still heads for its stop
 Own.DELAY_YARDS, Own.DELAY_LEVELS = 40, 10 -- Own.fieldDelay
+-- A "kill these as you meet them" step (Own.MEET in its title) that mixes kill goals with objectives at places (a
+-- collect or interact not spread over mobs: Felix's three parts among the Frostmane whelps in Coldridge Valley,
+-- #3598): the kills are done as the player meets their mobs, so the arrow tours the place objectives, nearest first,
+-- and a kill goal leads only once none of them is left on this continent. ->
+-- the place objectives of step s's open field goals `fields` and Own.meetKills[step] the kills, while both are
+-- there; nil (and no note) otherwise. Own.meetKills says under the arrow what to kill on the way.
+Own.meetKills = setmetatable({}, { __mode = "k" })
+Own.MEET = "kill these as you meet them" -- the step title's words that mark such a step (the guides' English titles)
+function Own.pointFields(s, fields)
+	local step = guide.steps[s]
+	if type(step.title) ~= "string" or not step.title:find(Own.MEET, 1, true) then return nil end
+	local c, px, py = Compat().GetPlayerWorldPosition()
+	if not c then return nil end
+	local points, kills
+	for _, g in ipairs(fields) do
+		local goal = step.goals[g]
+		if goal.t == "kill" then
+			kills = kills or {}
+			kills[#kills + 1] = g
+		elseif not goal.spread and Own.fieldDistance(goal, c, px, py) then
+			points = points or {}
+			points[#points + 1] = g
+		end
+	end
+	if not (points and kills) then return nil end
+	Own.meetKills[step] = kills
+	return points
+end
+-- Whether every goal of step s in `list` is a kill: the field picks then measure to each spawn area's middle, not its
+-- edge, so one wide area of a step's mobs (a valley of whelps) does not read 0 yd from everywhere in it.
+function Own.allKills(s, list)
+	local step = guide.steps[s]
+	for _, g in ipairs(list) do
+		if step.goals[g].t ~= "kill" then return false end
+	end
+	return true
+end
 Own.nearPick = setmetatable({}, { __mode = "k" }) -- step -> goal index the arrow is on
 Own.fieldTours = setmetatable({}, { __mode = "k" }) -- step -> remaining independent work
 -- Scratch, by place in Own.nearestField's list: whether the goal has a place
@@ -6988,13 +7049,13 @@ function Own.grindAfter(s, grp, g)
 end
 
 -- Yards from the player (c, px, py) to a field goal's nearest spawn area
--- (its edge; alternatives left out, as the spot picks leave them), else to
+-- (its edge, or with `centre` its middle; alternatives left out, as the spot picks leave them), else to
 -- its point; nil on another continent. Second: the same to its nearest area
 -- whose mobs are at most `top` levels (its `lvl`, else the goal's; one with
 -- neither counts; nil without one, or with top nil). Places left after a
 -- dwell (Spots.isLeft) do not count: a goal with every place left measures
 -- nil, so another field goal of the step takes over.
-function Own.fieldDistance(goal, c, px, py, top)
+function Own.fieldDistance(goal, c, px, py, top, centre)
 	local best, low
 	local lvl = goal.lvl
 	local now, places = GetTime(), false
@@ -7002,7 +7063,7 @@ function Own.fieldDistance(goal, c, px, py, top)
 		if not s.alt then
 			places = true
 			if not Spots.isLeft(goal, s, now) then
-				local d = Spots.edge(goal, s, c, px, py)
+				local d = (centre and Spots.dist or Spots.edge)(goal, s, c, px, py)
 				if d then
 					if not best or d < best then best = d end
 					local l = s.lvl or lvl
@@ -7333,8 +7394,9 @@ function Own.nearestField(s, list)
 	if c and not (cur and (fighting or Spots.busy())) then
 		local top = player and player.level and player.level + Spots.ABOVE
 		local best, bestD, curD, low, lowD, curLow
+		local centre = Own.allKills(s, list)
 		for i, g in ipairs(list) do
-			local d, dl = Own.fieldDistance(step.goals[g], c, px, py, top)
+			local d, dl = Own.fieldDistance(step.goals[g], c, px, py, top, centre)
 			Own.fieldAny[i], Own.fieldLow[i] = d ~= nil, dl ~= nil
 			if g == cur then curD, curLow = d, dl end
 			if d and (not bestD or d < bestD) then best, bestD = g, d end
@@ -13968,6 +14030,26 @@ function Own.handedInAhead(q, live)
 	return false
 end
 
+-- Whether goal (work: kill, collect, interact, use) of step s, behind the live
+-- step, stays a While you're here row though the player skipped its step: a
+-- skip moves the route past the step, and only the quest the player skipped
+-- (Engine.SkipQuest) goes with it (Fitz, #3385: skipping the kodo taming in
+-- Desolace also dropped another quest's Scorpashi Venom in the same step,
+-- and the guide later sent the player to hand that quest in).
+-- So for a step that holds more than one quest's work: the goal's quest in
+-- the log, not skipped, and still handed in ahead by this guide.
+function Own.skipLeftWork(s, goal, live)
+	local q = goal.quest
+	if not (q and Own.HERE_VERBS[goal.t] and isSkipped(s)) then return false end
+	local step = guide.steps[s]
+	local other = false
+	for _, x in ipairs(step.goals) do
+		if x.quest and x.quest ~= q then other = true break end
+	end
+	if not other or not Guides.Matches(step.only, player) then return false end
+	return Compat().IsOnQuest(q) and not Own.questSkipped(q) and Own.handedInAhead(q, live)
+end
+
 -- Quest q's built hand-in goal at its ender on map `map`, or nil (no Codex
 -- record yet, no ender known, none of the character's side, or not on it).
 function Own.strandGoal(q, map)
@@ -14325,7 +14407,10 @@ function Own.hereCollect(list, live, pc)
 			-- A carried accept the route passed waiting for the level (Own.carryPassed):
 			-- a pick-up line behind the live step too, its giver's next pass.
 			local carried = s < live and Own.carryPassed(s, goal)
-			if (back and Own.behindApplies(steps[s], goal)) or (not back and (s > live or carried)) then
+			-- Work of a skipped step behind the player for a quest still handed in ahead (Own.skipLeftWork): a
+			-- skip moves the route past the step, not past the other quests' items in it (#3385).
+			local leftWork = s < live and not back and not carried and Own.skipLeftWork(s, goal, live)
+			if (back and Own.behindApplies(steps[s], goal)) or (not back and (s > live or carried or leftWork)) then
 				local g = idx[i + 1]
 				local on = C.IsOnQuest(q)
 				local take = not on and takes and goal.t == "accept" and (s > live or carried) and not goal.limit and not goal.optional and not goal.either
@@ -14337,7 +14422,7 @@ function Own.hereCollect(list, live, pc)
 				if (on and not C.IsQuestFailed(q)) or take then
 					if s ~= at then at, ok = s, stepApplies(steps[s]) and not isSkipped(s) end
 					local kind, left, soon, wait = nil, nil, false, false
-					if ok or back then kind, left, soon, wait = Own.hereFits(s, g, goal, live, shown, nearTo) end
+					if ok or back or leftWork then kind, left, soon, wait = Own.hereFits(s, g, goal, live, shown, nearTo) end
 					if kind then
 						n = n + 1
 						-- places: where the target spawns on the map (Own.hereTick

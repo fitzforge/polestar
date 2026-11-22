@@ -124,6 +124,7 @@ fn call(x: &Q) -> String {
 		}
 		"cost" => format!("Path.FindCost({MAP}, A, B, function(cost, reason, job) out[{id}] = {{ cost = str(cost or reason), yards = job and str(job.yards) }} end, {o})"),
 		"many" => format!("Path.FindMany({MAP}, A, {{ B }}, function(costs, reason, job) out[{id}] = {{ cost = str(costs[1] or reason), yards = job and job.yards and str(job.yards[1]) }} end, {o})"),
+		"lua" => o.clone(),
 		k => panic!("{k}"),
 	}
 }
@@ -291,6 +292,37 @@ fn format_2_a_horde_player_goes_round_an_alliance_hub_the_alliance_player_and_no
 	// Crossing a hostile hub is still a route when it is the only way: x 20, never closed.
 	let only = route(&map_files(&strip_only(layout(4, cls(8), Cls::default())), true, Opts::default()), &[q("horde", "find", r#"{ profile = "Horde" }"#)]);
 	close(&only["horde"], (20.0 * (S as f64 - 1.0) + 1.0) * CS, "Horde through the only way");
+}
+
+// #3641 (Hillsbrad Fields, Horde, 0.4.2.2): a player's walk (walkLevel set, the strict policy on) that starts or ends
+// inside a town hostile to the player (opts.homeHub, Nav/Walk.lua: Path.HubAt at either end) is priced as for no
+// profile, as 0.4.1.1 priced it: a quest goal in the town is walked to as the town's own people walk, not round its
+// buildings at twenty times the cost (2x the expansions and 164 yd for 126 there). The town is still named in
+// job.hubs, and the walk is still checked under the player's own policy. 0.4.2 dropped homeHub for player walks.
+#[test]
+fn a_player_walk_into_a_hostile_hub_s_ground_is_priced_as_the_town_s_own_people_walk_and_still_names_it() {
+	let mid = at(X0 as f64 + S as f64 / 2.0, Y0 as f64);
+	let hubs = format!("{{\n\t\t{{ id = 11, side = \"Alliance\", name = \"Hillsbrad Fields\", disks = {{ {{ {}, {}, 12 }} }} }},\n\t}}", js(mid.x), js(mid.y));
+	let policy = q("policy", "lua", r#"Polestar = { Nav = { danger = { Blocked = function(map, x, y, X, Y, profile) checked = profile return nil end } } }"#);
+	let got = route_with(
+		ours(),
+		&map_files(&layout(4, cls(8), Cls::default()), true, Opts { hubs: Some(hubs), ..Default::default() }),
+		&[
+			policy,
+			q("horde", "find", r#"{ profile = "Horde", walkLevel = 0 }"#),
+			q("home", "find", r#"{ profile = "Horde", walkLevel = 0, homeHub = true }"#),
+			q("homeMany", "many", r#"{ profile = "Horde", walkLevel = 0, homeHub = true }"#),
+		],
+		from(),
+		to(),
+		"out.checked = checked",
+	);
+	assert!(round(&got["horde"]), "a walk with no end in the town still goes round it: {got}");
+	assert!(straight(&got["home"]), "into the town: through it, as its own people walk: {got}");
+	close(&got["home"], STRAIGHT, "home");
+	close(&got["homeMany"], STRAIGHT, "home, FindMany");
+	assert_eq!(got["home"]["hubs"], json!([{ "id": 11, "name": "Hillsbrad Fields" }]), "the town is still named for the player");
+	assert_eq!(got["checked"], "Horde", "the walk is checked under the player's own policy");
 }
 
 // Two searches queued together, the second marked urgent (Routing/PathJobs.lua: the walk the arrow is on,
