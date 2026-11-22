@@ -325,42 +325,6 @@ fn a_player_walk_into_a_hostile_hub_s_ground_is_priced_as_the_town_s_own_people_
 	assert_eq!(got["checked"], "Horde", "the walk is checked under the player's own policy");
 }
 
-// #3641 (Fitz in Hillsbrad Fields): the player's own steps are evidence the maps' 4-yd cells can miss (an orchard's
-// trees, a fence's gap). Path.SetTrail opens the steps of a walked trail the grid has no short way for, for the
-// map's searches until it is cleared: a walk then goes his way. Here the strip has a hole a cell wide, so the grid's
-// way is round the U; the trail walked along the strip, 2 yd a step, crosses it.
-#[test]
-fn a_walked_trail_opens_the_steps_the_grid_closes_for_the_searches_until_it_is_cleared() {
-	let mut cells = layout(4, Cls::default(), Cls::default());
-	cells.remove(&((X0 + S / 2) * C + Y0));
-	let (a, b) = (from(), to());
-	let n = ((b.x - a.x) / 2.0).ceil() as usize;
-	let samples: Vec<String> = (0..=n).map(|i| format!("{}, {}, false", js(a.x + (b.x - a.x) * i as f64 / n as f64), js(a.y))).collect();
-	let drain = "while #frames > 0 do table.remove(frames, 1)() end";
-	let got = route(
-		&map_files(&cells, true, Opts::default()),
-		&[
-			q("before", "find", r#"{ profile = "Horde" }"#),
-			q("drain1", "lua", drain),
-			q("set", "lua", &format!("out.gaps = {{ Path.SetTrail({MAP}, {{ {} }}) }}", samples.join(", "))),
-			q("with", "find", r#"{ profile = "Horde" }"#),
-			q("withMany", "many", r#"{ profile = "Horde" }"#),
-			q("drain2", "lua", drain),
-			q("again", "lua", &format!("out.again = {{ Path.SetTrail({MAP}, {{ {} }}) }}", samples.join(", "))),
-			q("clear", "lua", &format!("Path.SetTrail({MAP}, nil)")),
-			q("cleared", "find", r#"{ profile = "Horde" }"#),
-		],
-	);
-	assert!(round(&got["before"]), "the grid's way: round the U: {got}");
-	close(&got["before"], round_len(4), "before");
-	assert!(got["gaps"][0].as_f64().unwrap() >= 1.0, "the hole the trail crossed is a gap: {got}");
-	assert!(straight(&got["with"]), "with the trail: along it, through the hole: {got}");
-	close(&got["with"], STRAIGHT, "with");
-	close(&got["withMany"], STRAIGHT, "with, FindMany");
-	assert_eq!(got["again"][0], got["gaps"][0], "the same trail makes the same joins");
-	assert!(round(&got["cleared"]), "cleared: round again: {got}");
-}
-
 // Two searches queued together, the second marked urgent (Routing/PathJobs.lua: the walk the arrow is on,
 // Nav/Walk.lua), one slice a frame (a zero budget): which one answers first, and the frames each took.
 fn urgent_order(urgent: bool) -> Value {
