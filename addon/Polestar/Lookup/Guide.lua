@@ -634,7 +634,7 @@ local function questStep(q, from, isTarget, opts)
 		finish = insideEnd(q["end"], inside)
 		if finish then mark(finish.spawn, finish.name) end
 	end
-	if inside then
+	if inside and not (opts and opts.entrances) then
 		giver = giver or (not startItem and bareEnd(q.start)) or nil
 		finish = finish or bareEnd(q["end"])
 	end
@@ -812,14 +812,21 @@ local function startItemGoal(q, from)
 end
 
 -- Steps for a quest and its unfinished prerequisites; a quest started from an
--- item gets that item first (startItemGoal). -> steps | nil, reason
+-- item gets that item first (startItemGoal). A giver, target or turn-in the
+-- Codex puts inside an instance is at its entrance, the step's note saying
+-- what is inside (Dungeons.InsideEntrance, as the attunement guides do:
+-- What Comes Around...'s Head of Targorr left the arrow beside Guard Berton,
+-- who takes it, #3613); a giver or turn-in with no place at all keeps the
+-- "First do the quest" note (opts.entrances). -> steps | nil, reason
 local function questSteps(questId, player, from)
 	local C = Codex()
 	if not C.Quest(questId) then return nil, "unknown" end
 	local chain = questChain(questId, player)
+	local D = ns.Dungeons
+	local opts = D and D.InsideEntrance and { inside = D.InsideEntrance, entrances = true } or nil
 	local steps = {}
 	for i, q in ipairs(chain) do
-		local step, err = questStep(q, from, q.id == questId)
+		local step, err = questStep(q, from, q.id == questId, opts)
 		if not step then return nil, err end
 		local first = step.goals[1]
 		local get = first and first.t == "accept" and first.item and startItemGoal(q, from)

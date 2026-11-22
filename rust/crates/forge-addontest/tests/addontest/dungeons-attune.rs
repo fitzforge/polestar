@@ -721,6 +721,36 @@ emit(walk)"#,
 	assert_eq!(walk[0]["entrance"], json!(false), "level 18: the arrow is not on the entrance");
 }
 
+// What Comes Around...: Lookup's guide for the quest said "Collect Head of Targorr" with the arrow left beside
+// Guard Berton, who takes it; Targorr is a boss inside the Stockade and the data has no place for him outside
+// (#3613). A quest guide sends an inside source's item to its instance's entrance, as the attunement guides do,
+// and says what is inside.
+#[test]
+fn issue_3613_a_lookup_quest_guide_sends_a_drop_from_inside_an_instance_to_its_entrance() {
+	let f = Fx::new();
+	let mut c = f.codex.clone();
+	c["items"]["90061"] =
+		json!({ "id": 90061, "name": "Head of Kresh", "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [{ "type": "drop", "npc": 3653, "chance": 100 }] });
+	c["quests"]["90062"] = json!({ "id": 90062, "title": "What Comes Around", "level": 18, "minLevel": 10, "faction": null, "races": null, "classes": null,
+		"start": { "npc": [3448], "object": [], "item": [] }, "end": { "npc": [3448], "object": [] },
+		"objectives": [{ "type": "item", "id": 90061, "count": 1, "text": "Head of Kresh" }], "pre": [], "preAny": [], "rewards": [], "choices": [] });
+	let pk = pack_of(&c, &f.inputs);
+	let out = f.run(
+		&pk,
+		r#"
+Polestar.Set("lookup.enabled", true)
+local def, why = Polestar.Lookup.BuildGuide("quest", 90062)
+local goals = {}
+for i, goal in ipairs(def and def.steps[1].goals or {}) do goals[i] = goal.t .. " " .. (goal.map and table.concat({ goal.map, goal.x, goal.y }, " ") or "nowhere") end
+emit({ why = why or false, goals = goals, note = def and def.steps[1].note or false })"#,
+		"Horde",
+		"Tauren",
+	);
+	assert_eq!(out[0]["why"], json!(false));
+	assert_eq!(out[0]["goals"], json!(["accept 1413 52.2 31.9", "collect 1413 46 36.4", "turnin 1413 52.2 31.9"]), "the head at the caverns' entrance");
+	assert_eq!(out[0]["note"], json!("Head of Kresh: inside Wailing Caverns."), "the step says what is inside where");
+}
+
 #[test]
 fn the_other_side_s_attunement_builds_no_guide() {
 	let f = Fx::new();
