@@ -243,14 +243,15 @@ jobs:
           fi
 
       # The runner's copy of the release data ($POLESTAR_DATA: forever/ and
-      # the client tables it was built with, sources/wago/), read-only there.
+      # the sources it was built from, sources/), read-only there: forever/
+      # copied (some tools write beside it), each source folder linked.
       - name: Release data
         if: steps.lane.outputs.lane != 'docs'
         run: |
           test -f "$POLESTAR_DATA/forever/meta.json"
           rm -rf data/forever && cp -r "$POLESTAR_DATA/forever" data/forever
-          mkdir -p data/sources/wago
-          for b in "$POLESTAR_DATA"/sources/wago/*/; do ln -sfn "${b%/}" "data/sources/wago/$(basename "$b")"; done
+          mkdir -p data/sources
+          for s in "$POLESTAR_DATA"/sources/*; do ln -sfn "$s" "data/sources/$(basename "$s")"; done
           printf '## Release data\n\n%s\n' "$(jq -r '"built \(.builtAt // "?")"' data/forever/meta.json)" >> "$GITHUB_STEP_SUMMARY"
 
       - name: Forge cache key
@@ -275,12 +276,17 @@ jobs:
         if: steps.lane.outputs.lane != 'docs'
         run: echo "FORGE=$GITHUB_WORKSPACE/rust/target/quick/forge" >> "$GITHUB_ENV"
 
-      - name: Test
-        if: steps.lane.outputs.lane == 'full'
-        run: tools/ci-tests.sh "" "tests/**/*.test.js"
-
-      - name: Test (the files the changes can break)
-        if: steps.lane.outputs.lane == 'part'
+      # Only the tests that read the data (tools/ci-data-tests.js): the others
+      # run the same without it, and Tests runs them.
+      - name: Test (the ones that read the data)
+        if: steps.lane.outputs.lane != 'docs'
         env:
+          LANE: ${{ steps.lane.outputs.lane }}
           TESTS: ${{ steps.lane.outputs.tests }}
-        run: tools/ci-tests.sh "" $TESTS
+        run: |
+          set -f # the glob is node's to expand
+          if [ "$LANE" = full ]; then TESTS="tests/**/*.test.js"; fi
+          files=$(node tools/ci-data-tests.js $TESTS)
+          if [ -z "$files" ]; then echo "No test the change can break reads the data."; exit 0; fi
+          echo "$(wc -w <<< "$files") test file(s) read the data"
+          tools/ci-tests.sh "" $files
