@@ -4816,6 +4816,12 @@ L["Perf probe: measurements cleared."] = "Sonda de rendimiento: mediciones borra
 L["/polestar perf: on, off, report or reset"] = "/polestar perf: on, off, report o reset"
 L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = "Encuentra qué hace que tu juego dé tirones: mide el trabajo propio de Polestar (on, off, report, reset)"
 
+-- Core/Locale.lua
+-- L["Language: %s. Change it with /polestar language <name>, one of: %s."] = ""
+-- L["No language '%s'. Choose one of: %s."] = ""
+-- L["Language: %s, from the next /reload."] = ""
+-- L["Choose Polestar's language (game, enUS, deDE...), from the next /reload"] = ""
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target, the stops of its travel route, the step's other goals and the areas their mobs and objects spawn in."] = "El objetivo de la flecha, las paradas de su ruta de viaje, los demás objetivos del paso y las zonas donde aparecen sus monstruos y objetos."
 -- L["The arrow's target and the areas it spawns in."] = "El objetivo de la flecha y las zonas donde aparece."
