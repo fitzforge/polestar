@@ -1,6 +1,12 @@
 {
 	"about": "The reported-problems gate (npm run test:reported, tools/reported-gate.js): every player-reported problem that was fixed (closed, or labelled fix-merged, with the confirmed label) and the tests that fail if it comes back. The gate runs these tests with the whole of tests/guides-reported.test.js, the judge's player-report seeds (forge judge seed-tests) and the danger-at-the-spot gate (#1575). A fix for a report adds its issue here with the test that pins it; a report with nothing left to check says why (uncheckable). tests/reported-gate.test.js checks that every test named here exists. seedDrift: the judge's seeds that still assert an earlier form of a guides-reported case that has changed since and passes; the gate lists them and fails only on other seeds, until each is brought up to its case.",
 	"issues": {
+		"3514": { "tests": [
+			{ "node": "tests/data-corrections.test.js", "test": "Veyric Thunderhame stands only in Arathi Highlands, not at Eldrun Stormbreaker's spot (#2851)" }
+		] },
+		"3415": { "tests": [
+			{ "node": "tests/guides-reported.test.js", "test": "Dustwallow Marsh (Alliance 40): The Missing Diplomat handed in at Sentry Point and North Point Tower" }
+		] },
 		"3378": { "tests": [
 			{ "node": "tests/data-corrections.test.js", "test": "pick-up steps say what the objectives leave out: the Twilight Key (#3266), Maraudon (#3243), Franclorn the ghost (#3009), the slimes' chests (#3002)" }
 		] },
@@ -134,8 +140,8 @@
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "t_234_floor_fastest_at_the_dens_camp_walked_in_from_the_valley_floor_the_walk_to_hanazua_never_starts_on_the_rock_top" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "t_234_floor_balanced_at_the_dens_camp_walked_in_from_the_valley_floor_the_walk_to_hanazua_never_starts_on_the_rock_top" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "t_234_floor_off_the_undercitys_south_lift_indoors_the_walk_to_the_plundering_start_keeps_the_lower_level_and_the_search_from_there_starts_on_it" },
-			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "ironforge_gate_after_reload_uses_the_road_below_the_mountain_only_for_the_friendly_faction" },
-			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "horde_gets_no_walking_bearing_from_stormwinds_trade_district_through_the_city_gate" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "ironforge_gate_after_reload_uses_the_road_below_the_mountain_and_horde_walks_out_too" },
+			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "horde_walks_out_of_stormwinds_trade_district_as_before_0_4_2" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-e2e.rs", "test": "t_234_floor_alliance_in_stormwinds_trade_district_outdoors_the_walk_out_starts_on_the_street_and_goes_through_the_gate" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "t_234_floor_seeded_where_the_cell_has_one_surface_it_stays_on_the_ground_under_a_rock_top_a_first_cell_with_two_stays_unknown_today_s_search" },
 			{ "cargo": "forge-addontest", "target": "addontest", "file": "rust/crates/forge-addontest/tests/addontest/nav-spf.rs", "test": "t_234_floor_climbs_a_ramp_onto_a_bridge_falls_off_its_side_to_the_ground_and_stays_there_under_the_bridge" },

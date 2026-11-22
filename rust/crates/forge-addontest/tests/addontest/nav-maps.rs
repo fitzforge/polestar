@@ -707,6 +707,69 @@ emit({ waited = waited, calm = calm, after = after, askedCalm = askedCalm, done 
 	assert_eq!(got["calmSeconds"], 1, "{got}");
 }
 
+// 0.4.2.1: the largest slice a walk takes a frame, at a frame rate, with a new goal's rush (Path.Rush) and/or a fight
+// just over; the clock moves 0.2 ms at each read.
+fn slice_budget(fps: u32, rush: bool, fight: bool) -> Value {
+	run(
+		&format!(
+			r#"local Path = Polestar_NavEngine
+GetFramerate = function() return {fps} end
+local frames = {{}}
+Path.after = function(fn) frames[#frames + 1] = fn end
+local now = 0
+Path.clock = function() now = now + 0.2 return now end
+local function frame() local fn = table.remove(frames, 1) if fn then fn() end end
+{fight}
+{rush}
+local job = Path.Find(0, {{ x = -651.7, y = 1270.2 }}, {{ x = 2246.1, y = 239.8, z = 34.3 }}, function() end, {{ profile = "Horde" }})
+local most = 0
+for _ = 1, 30 do local cpu = job.cpu frame() most = math.max(most, job.cpu - cpu) end
+local done = job.done == true
+Path.Cancel(job)
+emit({{ most = most, done = done, budget = Path.budget, rushBudget = Path.rushBudget, slowScale = Path.slowScale, sliceMax = Path.sliceMax }})"#,
+			fight = if fight { "stub.fire(\"PLAYER_REGEN_ENABLED\")" } else { "" },
+			rush = if rush { "Path.Rush(true)" } else { "" },
+		),
+		"",
+		vec![Addon::name("Polestar_Nav")],
+	)
+}
+
+// Fitz, 0.4.2.1 ("it takes forever for the arrow to find a path"): the client runs at 30 fps in the background, and a
+// frame's budget was the same 3 ms at any rate, so a walk took twice the time there. Below 60 fps a frame takes the
+// same share of its time (6 ms at 30 fps, at most Path.slowScale times the budget); at 60 fps and up, Path.budget.
+#[test]
+fn below_60_fps_a_frame_searches_the_same_share_of_its_time_so_a_walk_takes_as_long_at_30_fps() {
+	let at60 = slice_budget(60, false, false);
+	let at30 = slice_budget(30, false, false);
+	let at10 = slice_budget(10, false, false);
+	let at144 = slice_budget(144, false, false);
+	let ms = |v: &Value| v["most"].as_f64().unwrap();
+	assert_eq!(at60["done"], false, "the walk outlasts the frames measured: {at60}");
+	assert!(ms(&at60) >= 2.5 && ms(&at60) <= 3.5, "60 fps: Path.budget a frame: {at60}");
+	assert!(ms(&at144) >= 2.5 && ms(&at144) <= 3.5, "144 fps: Path.budget a frame, never less: {at144}");
+	assert!(ms(&at30) >= 5.5 && ms(&at30) <= 6.5, "30 fps: twice the budget, the same path work a second: {at30}");
+	assert!(ms(&at10) <= 6.5, "10 fps: at most Path.slowScale times the budget: {at10}");
+	assert_eq!(at30["slowScale"], 2, "{at30}");
+}
+
+// The kill that completes a step is the step change the player waits on: a new goal's rush (Path.Rush, Nav/Walk.lua
+// on any new target, spot or leg) comes before the calm after the fight (0.4.2: 1 ms a frame for that second).
+#[test]
+fn a_new_goals_rush_comes_before_the_calm_after_a_fight() {
+	let ms = |v: &Value| v["most"].as_f64().unwrap();
+	let calm = slice_budget(60, false, true);
+	let rush = slice_budget(60, true, false);
+	let both = slice_budget(60, true, true);
+	let both30 = slice_budget(30, true, true);
+	assert!(ms(&calm) <= 1.5, "a fight just over, no new goal: Path.calmBudget: {calm}");
+	assert!(ms(&rush) >= 5.5 && ms(&rush) <= 6.5, "a new goal: Path.rushBudget: {rush}");
+	assert!(ms(&both) >= 5.5 && ms(&both) <= 6.5, "a new goal just after a fight: still Path.rushBudget: {both}");
+	assert!(ms(&both30) >= 5.5 && ms(&both30) <= 6.5, "the same at 30 fps, never past Path.sliceMax: {both30}");
+	assert_eq!(rush["rushBudget"], 6, "{rush}");
+	assert_eq!(both30["sliceMax"], 6, "{both30}");
+}
+
 #[test]
 fn polestar_nav_ships_in_the_release_credits_shortest_path_forever_and_carries_the_gpl() {
 	assert!(forge_release::addons::release_addons(&addons_dir()).unwrap().names.iter().any(|n| n == "Polestar_Nav"));
@@ -809,6 +872,48 @@ emit(got)"#,
 	assert_eq!(got["buried"]["found"], false, "from the buried terrain: no 20 km walk ({})", got["buried"]);
 	assert_eq!(got["street"]["found"], true, "with no height: the walk to the harbour ({})", got["street"]);
 	assert!(got["street"]["yards"].as_f64().unwrap() < 1200.0, "through the city ({})", got["street"]);
+}
+
+// #3605 (TheLombaxLegend): Telf Joolam's shrine above the Durotar bank (z 168) is a pocket of the walking maps: its
+// cluster joins it to no entrance and holds no lift landing, so no walk enters it. Kalimdor has lifts (Thunder Bluff,
+// Freewind Post, the Great Lift), and with lifts on the map the router skipped its component test, so every walk to
+// the shrine ran the abstract search to its detour bound: 220,000 to 340,000 expansions, half a minute of slices in
+// the game, for each one the arrow asked ("Finding a walking route"). The rides now decide: a pocket nothing joins is
+// unreachable at once, and two components only a ride chain could join are tried only when one does. The walks up the
+// lifts still route.
+#[test]
+fn a_goal_no_walk_reaches_on_a_map_with_lifts_is_unreachable_at_once_and_the_lifts_still_route() {
+	let got = run(
+		r#"
+local Path = Polestar_NavEngine
+local TELF = { x = -267.9, y = -3998.7 }
+local out = {}
+for name, from in pairs({ kranal = { x = 264.0, y = -3039.6 }, river = { x = -13.7, y = -3735.8 }, orgrimmar = { x = 1600, y = -4400 } }) do
+	for _, z in ipairs({ 168.2, false }) do
+		local pts, why, exp = Path.FindSync(1, from, { x = TELF.x, y = TELF.y, z = z or nil }, { profile = "Horde" })
+		out[name .. (z and "_z" or "")] = { found = pts ~= nil, why = pts == nil and why or nil, exp = exp }
+	end
+end
+local function cost(a, b)
+	local pts, c = Path.FindSync(1, a, b, { profile = "Horde" })
+	return pts and c or false
+end
+out.thunderBluff = cost({ x = -900, y = -100 }, { x = -1250, y = 50, z = 131 })
+out.down = cost({ x = -1250, y = 50, z = 131 }, { x = -900, y = -100 })
+out.freewind = cost({ x = -5300, y = -2600 }, { x = -5440, y = -2420, z = 92 })
+emit(out)"#,
+		"",
+		vec![Addon::name("Polestar_Nav")],
+	);
+	for name in ["kranal", "kranal_z", "river", "river_z", "orgrimmar", "orgrimmar_z"] {
+		assert_eq!(got[name]["found"], false, "{name}: no walk into the shrine ({})", got[name]);
+		assert_eq!(got[name]["why"], "unreachable", "{name}: {}", got[name]);
+		assert!(got[name]["exp"].as_f64().unwrap() < 50000.0, "{name}: said at once, not at the detour bound ({})", got[name]);
+	}
+	// Thunder Bluff's mesa and Freewind Post stand above the plain; only their lifts join them to it.
+	assert!(got["thunderBluff"].as_f64().is_some_and(|c| c > 0.0 && c < 700.0), "up to Thunder Bluff by its lift ({})", got["thunderBluff"]);
+	assert!(got["down"].as_f64().is_some_and(|c| c > 0.0 && c < 700.0), "and down ({})", got["down"]);
+	assert!(got["freewind"].as_f64().is_some_and(|c| c > 0.0 && c < 500.0), "up to Freewind Post ({})", got["freewind"]);
 }
 
 // #1890: in Stormwind's Dwarven District the cell's base surface (its largest piece) is a roof (z 112) over the street

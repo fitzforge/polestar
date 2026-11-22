@@ -321,7 +321,7 @@ step The Jansen Stead
   turnin 151                                  -- Verna Furlbrow
 
 step Harvest Watchers north of Saldean's Farm
-  tip On the way south from the Jansen Stead to Saldean's Farm: Harvest Watchers (level 14-15) and Golems work the fields west of the road; they drop the isosprings, gyrostabilizers, Okra and sometimes a Precessive Autocognition Assembly. Foe Reaper 4000, a level 20 rare, walks these fields: leave it alone.
+  tip On the way south from the Jansen Stead to Saldean's Farm: Harvest Watchers (level 14-15) work the fields west of the road. Stick to them: they are the only mechanicals that count for The Killing Fields, and they drop everything else here too: the isosprings, gyrostabilizers, Okra and sometimes a Precessive Autocognition Assembly. Harvest Golems drop some of the parts but don't count, and the Harvest Reapers (17) are too high. Foe Reaper 4000, a level 20 rare, walks these fields: leave it alone.
   kill 114 quest 9                            -- Harvest Watchers
   collect 255007 quest 92909.1
   collect 255010 quest 92909.2
