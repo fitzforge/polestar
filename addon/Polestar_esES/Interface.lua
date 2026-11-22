@@ -2254,6 +2254,7 @@ L["Polestar Guides is turned off in the AddOns list, so Polestar has no guides t
 -- L["Part of Polestar is turned off in the AddOns list (%s), so its settings cannot open. Turn it on for all your characters and reload?"] = ""
 
 -- UI/Options.lua
+L["A setting under it is changed: turn it on to see it."] = "Hay un ajuste cambiado debajo: actívalo para verlo."
 L["Recorder"] = "Recorder"
 L["About"] = "Acerca de"
 L["%d px"] = "%d px"
@@ -4264,10 +4265,8 @@ L["Skip in the step bar. The guide menu still skips a step."] = "Saltar en la ba
 L["The bug button that reports a problem with the step. The guide menu still has it."] = "El botón del bicho que informa de un problema con el paso. El menú de guías también lo tiene."
 L["Target bar"] = "Barra de objetivo"
 L["The bar at the left edge of the goal or person the arrow points to."] = "La barra en el borde izquierdo del objetivo o la persona a la que apunta la flecha."
-L["Target bar colour"] = "Color de la barra de objetivo"
 L["Progress bar"] = "Barra de progreso"
 L["The guide's progress at the bottom of the window."] = "El progreso de la guía en la parte inferior de la ventana."
-L["Progress colour"] = "Color del progreso"
 L["Percent"] = "Porcentaje"
 L["The percent beside the progress bar."] = "El porcentaje junto a la barra de progreso."
 L["Pace line"] = "Línea de ritmo"
@@ -5011,3 +5010,5 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Has at
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"] = "Al ritmo, pero %s (%d) en el paso %d es difícil: eres %s; farmea %s antes"
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "Al ritmo, pero %s (%d) en el paso %d es difícil: eres %s; llega a %d antes"
 -- L["No safe walking route"] = "No hay una ruta segura a pie"
+-- L["Target bar colour"] = "Color de la barra de objetivo"
+-- L["Progress colour"] = "Color del progreso"

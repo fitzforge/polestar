@@ -2254,6 +2254,7 @@ L["Polestar Guides is turned off in the AddOns list, so Polestar has no guides t
 -- L["Part of Polestar is turned off in the AddOns list (%s), so its settings cannot open. Turn it on for all your characters and reload?"] = ""
 
 -- UI/Options.lua
+L["A setting under it is changed: turn it on to see it."] = "其下有设置已更改：开启后即可看到。"
 L["Recorder"] = "记录器"
 L["About"] = "关于"
 L["%d px"] = "%d 像素"
@@ -4264,10 +4265,8 @@ L["Skip in the step bar. The guide menu still skips a step."] = "步骤栏中的
 L["The bug button that reports a problem with the step. The guide menu still has it."] = "报告该步骤问题的错误按钮。指南菜单中仍有此功能。"
 L["Target bar"] = "目标指示条"
 L["The bar at the left edge of the goal or person the arrow points to."] = "箭头所指目标或人物左边缘的指示条。"
-L["Target bar colour"] = "目标指示条颜色"
 L["Progress bar"] = "进度条"
 L["The guide's progress at the bottom of the window."] = "窗口底部的指南进度。"
-L["Progress colour"] = "进度颜色"
 L["Percent"] = "百分比"
 L["The percent beside the progress bar."] = "进度条旁的百分比。"
 L["Pace line"] = "进度预估行"
@@ -5025,3 +5024,5 @@ L["Find what makes your game stutter: times Polestar's own work (on, off, report
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"] = "进度正常，但步骤 %3$d 的%1$s（%2$d）较难：你当前为%4$s；请先练级%5$s"
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "进度正常，但步骤 %3$d 的%1$s（%2$d）较难：你当前为%4$s；请先升到 %5$d 级"
 -- L["No safe walking route"] = "没有安全的步行路线"
+-- L["Target bar colour"] = "目标指示条颜色"
+-- L["Progress colour"] = "进度颜色"

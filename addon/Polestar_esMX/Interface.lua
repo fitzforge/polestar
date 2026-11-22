@@ -1811,6 +1811,7 @@ L["Builds a guide to %s, the quickest of these to reach, and opens it in a new t
 -- L["Then any of: %s"] = ""
 
 -- UI/Options.lua
+L["A setting under it is changed: turn it on to see it."] = "Hay un ajuste cambiado debajo: actívalo para verlo."
 L["Recorder"] = "Recorder"
 L["About"] = "Acerca de"
 L["%d px"] = "%d px"
@@ -4263,10 +4264,8 @@ L["Skip in the step bar. The guide menu still skips a step."] = "Omitir en la ba
 L["The bug button that reports a problem with the step. The guide menu still has it."] = "El botón de error que informa un problema con el paso. El menú de guías aún lo tiene."
 L["Target bar"] = "Barra del objetivo"
 L["The bar at the left edge of the goal or person the arrow points to."] = "La barra en el borde izquierdo del objetivo o la persona a la que apunta la flecha."
-L["Target bar colour"] = "Color de la barra del objetivo"
 L["Progress bar"] = "Barra de progreso"
 L["The guide's progress at the bottom of the window."] = "El progreso de la guía en la parte inferior de la ventana."
-L["Progress colour"] = "Color del progreso"
 L["Percent"] = "Porcentaje"
 L["The percent beside the progress bar."] = "El porcentaje junto a la barra de progreso."
 L["Pace line"] = "Línea de ritmo"
@@ -5050,3 +5049,5 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Aterri
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"] = "Vas al ritmo, pero %s (%d) en el paso %d es difícil: eres nivel %s; farmea %s antes"
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "Vas al ritmo, pero %s (%d) en el paso %d es difícil: eres nivel %s; llega al %d antes"
 -- L["No safe walking route"] = "No hay una ruta segura a pie"
+-- L["Target bar colour"] = "Color de la barra del objetivo"
+-- L["Progress colour"] = "Color del progreso"

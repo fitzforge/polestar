@@ -31,9 +31,9 @@ local floor, max, min, ipairs, pairs, type = math.floor, math.max, math.min, ipa
 
 local SH = W.SHELL
 -- Sizes (one table, so the main chunk stays within the locals budget): GAP between the two columns of the
--- Recorder's and About's tiles, HERO_H the About hero's height; the window's own (BASE_W ... EDGE) with its
--- size below.
-local SIZE = { GAP = 24, HERO_H = 96 }
+-- Recorder's and About's tiles, HERO_H the About hero's height, KIDS_X how far a parent's open children
+-- (c.children) stand in from its rows; the window's own (BASE_W ... EDGE) with its size below.
+local SIZE = { GAP = 24, HERO_H = 96, KIDS_X = 24 }
 
 local O = {}
 UI.Options = O
@@ -192,6 +192,18 @@ local function add(spec, builtin)
 		-- A child depends on the setting before it that is none.
 		if c.child then c.psParent = s.psLastParent else s.psLastParent = c end
 		s.controls[#s.controls + 1] = c
+		-- Its children (c.children): rows of the section right after it, each
+		-- a setting of its own (search, Reset, the changed marks and the
+		-- grouped layout see them as any row), shown under it while it is on
+		-- (layoutRows).
+		if c.children then
+			c.psKids = c.children
+			for _, k in ipairs(c.children) do
+				place(k)
+				k.psChildOf, k.psParent = c, c
+				s.controls[#s.controls + 1] = k
+			end
+		end
 	end
 	-- A page or tab already on screen picks up late registrations.
 	if win and win:IsShown() then
@@ -291,12 +303,14 @@ local BUILTIN = {
 			disabled = function() return not ns.Get("behavior.whileHere") end },
 		{ kind = "toggle", key = "behavior.whileHereTurnins", label = L["Include nearby hand-ins"],
 			help = L["Also a quest ready to hand in whose NPC is a little out of your way, when the guide hands it in later."],
-			disabled = function() return not ns.Get("behavior.whileHere") end },
-		{ kind = "slider", key = "behavior.whileHereTurninSeconds", label = L["Hand-ins: how far out of your way"], min = 0, max = 60, step = 5,
-			format = function(v) return L["%d s"]:format(v) end,
-			help = L["The seconds of extra walking a hand-in may cost, to its NPC and back on your way. One in the town you are in always shows; 0 keeps to those."],
-			search = "hand in, turn in, detour, out of the way, seconds, nearby hand-ins",
-			child = true, disabled = function() return not (ns.Get("behavior.whileHere") and ns.Get("behavior.whileHereTurnins")) end },
+			disabled = function() return not ns.Get("behavior.whileHere") end,
+			children = {
+				{ kind = "slider", key = "behavior.whileHereTurninSeconds", label = L["Hand-ins: how far out of your way"], min = 0, max = 60, step = 5,
+					format = function(v) return L["%d s"]:format(v) end,
+					help = L["The seconds of extra walking a hand-in may cost, to its NPC and back on your way. One in the town you are in always shows; 0 keeps to those."],
+					search = "hand in, turn in, detour, out of the way, seconds, nearby hand-ins",
+					disabled = function() return not (ns.Get("behavior.whileHere") and ns.Get("behavior.whileHereTurnins")) end },
+			} },
 		-- 0.3.7's flight paths you pass (Engine Own.hereBuild).
 		{ kind = "toggle", key = "behavior.whileHereFlights", label = L["Flight paths you pass"],
 			help = L["Also a friendly flight master near you whose flight path you haven't learned yet. Learning it ticks the guide's later step for it too."],
@@ -311,17 +325,19 @@ local BUILTIN = {
 		{ kind = "toggle", key = "behavior.whileHereVendors", label = L["Sell and repair reminders"], new = "0.4.0",
 			help = L["When the guide is about to head out of town with your bags nearly full or your gear worn, a merchant or repairer on the way, once per visit. Click it to point the arrow there."],
 			search = "sell, repair, vendor, merchant, repairer, durability, broken gear, bags full, bag space, free slots, junk, before heading out",
-			disabled = function() return not ns.Get("behavior.whileHere") end },
-		{ kind = "slider", key = "behavior.whileHereSellSlots", label = L["Sell: fewer free bag slots than"], min = 0, max = 16, step = 1, new = "0.4.0",
-			format = function(v) return string.format(v == 1 and L["%d slot"] or L["%d slots"], math.floor(v + 0.5)) end,
-			help = L["Reminds you to sell when fewer bag slots are free than this, or than the items the next steps collect. 0 counts those items alone."],
-			search = "sell, free slots, bag space, bags full, threshold",
-			child = true, disabled = function() return not (ns.Get("behavior.whileHere") and ns.Get("behavior.whileHereVendors")) end },
-		{ kind = "slider", key = "behavior.whileHereRepairPercent", label = L["Repair: gear worn below"], min = 0, max = 90, step = 5, new = "0.4.0",
-			format = function(v) return v < 1 and L["Off"] or ("%d%%"):format(v) end,
-			help = L["Reminds you to repair when a piece of your gear is below this share of its durability. 0: never."],
-			search = "repair, durability, broken, worn, gear, threshold",
-			child = true, disabled = function() return not (ns.Get("behavior.whileHere") and ns.Get("behavior.whileHereVendors")) end },
+			disabled = function() return not ns.Get("behavior.whileHere") end,
+			children = {
+				{ kind = "slider", key = "behavior.whileHereSellSlots", label = L["Sell: fewer free bag slots than"], min = 0, max = 16, step = 1, new = "0.4.0",
+					format = function(v) return string.format(v == 1 and L["%d slot"] or L["%d slots"], math.floor(v + 0.5)) end,
+					help = L["Reminds you to sell when fewer bag slots are free than this, or than the items the next steps collect. 0 counts those items alone."],
+					search = "sell, free slots, bag space, bags full, threshold",
+					disabled = function() return not (ns.Get("behavior.whileHere") and ns.Get("behavior.whileHereVendors")) end },
+				{ kind = "slider", key = "behavior.whileHereRepairPercent", label = L["Repair: gear worn below"], min = 0, max = 90, step = 5, new = "0.4.0",
+					format = function(v) return v < 1 and L["Off"] or ("%d%%"):format(v) end,
+					help = L["Reminds you to repair when a piece of your gear is below this share of its durability. 0: never."],
+					search = "repair, durability, broken, worn, gear, threshold",
+					disabled = function() return not (ns.Get("behavior.whileHere") and ns.Get("behavior.whileHereVendors")) end },
+			} },
 		{ kind = "toggle", key = "behavior.whileHereSound", label = L["Sound for a new suggestion"],
 			help = L["A soft chime for each new suggestion (once when several come together), at the game's sound effects volume."],
 			search = "chime, sound, audio, ding, alert",
@@ -379,9 +395,10 @@ local BUILTIN = {
 	{ page = GUIDE, tab = WHILE_YOU_PLAY, section = L["Position"], controls = {} },
 	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Arrow"], controls = {
 		H({ kind = "toggle", key = "nav.arrow", label = L["Show arrow"], move = "arrow", help = L["Points to the current goal. Its look and colours are on the Arrow page."],
-			search = "arrow, waypoint, pointer, direction, compass, navigation, hud" }),
-		H({ kind = "toggle", key = "nav.hideArrowWithGuide", label = L["Hide the arrow with the guide"], help = L["When the guide window is hidden, hide the arrow too."],
-			child = true, disabled = function() return not ns.Get("nav.arrow") end }),
+			search = "arrow, waypoint, pointer, direction, compass, navigation, hud",
+			children = {
+				H({ kind = "toggle", key = "nav.hideArrowWithGuide", label = L["Hide the arrow with the guide"], help = L["When the guide window is hidden, hide the arrow too."] }),
+			} }),
 		H({ kind = "toggle", key = "nav.arrowEta", label = L["Arrival time"], help = L["Estimated time under the distance."], search = "eta, time left, travel time" }),
 		{ kind = "dropdown", key = "nav.distanceUnit", label = L["Distances"], help = L["How the arrow, map tooltips, rares and the death helper show distances."], search = "units, yards, metres, metric, distance",
 			choices = { { value = "yards", label = L["Yards (the game's unit)"] }, { value = "metres", label = L["Metres"] } } },
@@ -394,25 +411,26 @@ local BUILTIN = {
 	-- UI/GuideOptions.lua).
 	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Routes"], controls = {
 		H({ kind = "toggle", key = "nav.travel", label = L["Plan travel routes"], help = L["Flights, boats and your hearthstone when they are faster. Off: the arrow points straight at the goal."],
-			search = "flight, taxi, flight path, boat, zeppelin, hearth, hearthstone, route planning, fastest way, fps, frame rate, performance, lag, stutter, cpu, slow" }),
-		H({ kind = "toggle", key = "nav.teleports", label = L["Class teleports"], help = L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."],
-			search = "teleport, portal, mage, druid, moonglade, shaman, astral recall",
-			child = true, disabled = function() return not ns.Get("nav.travel") end }),
+			search = "flight, taxi, flight path, boat, zeppelin, hearth, hearthstone, route planning, fastest way, fps, frame rate, performance, lag, stutter, cpu, slow",
+			children = {
+				H({ kind = "toggle", key = "nav.teleports", label = L["Class teleports"], help = L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."],
+					search = "teleport, portal, mage, druid, moonglade, shaman, astral recall" }),
+				-- 0.3.7's detour captions in the journey (Nav/Journey.lua).
+				H({ kind = "toggle", key = "nav.detourCaption", label = L["Detour captions"], help = L["Under a walk in the journey, say when it goes round a town of the other faction: \"Detour around Southshore\". It only says so: the route and the arrow stay as they are."],
+					search = "detour, enemy town, hostile town, avoid, go round, journey" }),
+			} }),
 		H({ kind = "toggle", key = "nav.routeLines", label = L["Route lines"], help = L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."],
 			search = "path line, route on map, sparkles, dots",
-			gear = { tip = L["Line style"], onClick = function() UI.ShowOptions("routelines") end } }),
-		H({ kind = "dropdown", key = "nav.lineStyle", label = L["Line style"],
-			help = L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."],
-			search = "route style, solid line, path line, dots, sparkles, breadcrumbs",
-			choices = ns.RouteLines and ns.RouteLines.STYLE_CHOICES or {},
-			needs = function() return ns.RouteLines end,
-			child = true, disabled = function() return not ns.Get("nav.routeLines") end }),
+			gear = { tip = L["Line style"], onClick = function() UI.ShowOptions("routelines") end },
+			children = {
+				H({ kind = "dropdown", key = "nav.lineStyle", label = L["Line style"],
+					help = L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."],
+					search = "route style, solid line, path line, dots, sparkles, breadcrumbs",
+					choices = ns.RouteLines and ns.RouteLines.STYLE_CHOICES or {},
+					needs = function() return ns.RouteLines end }),
+			} }),
 		H({ kind = "toggle", key = "nav.navRouting", label = L["Walk real paths"], help = L["The arrow follows paths on the ground around cliffs, water and walls, on Polestar's walking maps, with Shortest Path Forever's router by Cillian Berragan. Off: it points straight at each stop."],
 			search = "pathfinding, pathing, router, walking, avoid cliffs, mountains, fps, frame rate, performance, lag, stutter, cpu, slow" }),
-		-- 0.3.7's detour captions in the journey (Nav/Journey.lua).
-		H({ kind = "toggle", key = "nav.detourCaption", label = L["Detour captions"], help = L["Under a walk in the journey, say when it goes round a town of the other faction: \"Detour around Southshore\". It only says so: the route and the arrow stay as they are."],
-			search = "detour, enemy town, hostile town, avoid, go round, journey",
-			disabled = function() return not ns.Get("nav.travel") end }),
 	} },
 	-- Filled by Nav's travel button and transport alerts (Nav/Options.lua).
 	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Along the route"], controls = {} },
@@ -424,9 +442,10 @@ local BUILTIN = {
 	} },
 	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Other waypoints"], controls = {
 		H({ kind = "toggle", key = "nav.blizzardWaypoint", label = L["Blizzard waypoint"], help = L["Also set the game's own map pin and tracking."], search = "map pin, waypoint, user waypoint, supertrack" }),
-		H({ kind = "toggle", key = "nav.tomtom", label = L["Mirror to TomTom"], help = L["Adds the target as a TomTom waypoint when TomTom is loaded."], search = "waypoints, tomtom" }),
-		H({ kind = "toggle", key = "nav.useTomTomArrow", label = L["Use TomTom's arrow"], help = L["Hides Polestar's arrow in favour of TomTom's, except on the way to another continent, where TomTom's arrow cannot point."],
-			child = true, disabled = function() return not ns.Get("nav.tomtom") end }),
+		H({ kind = "toggle", key = "nav.tomtom", label = L["Mirror to TomTom"], help = L["Adds the target as a TomTom waypoint when TomTom is loaded."], search = "waypoints, tomtom",
+			children = {
+				H({ kind = "toggle", key = "nav.useTomTomArrow", label = L["Use TomTom's arrow"], help = L["Hides Polestar's arrow in favour of TomTom's, except on the way to another continent, where TomTom's arrow cannot point."] }),
+			} }),
 		H({ kind = "toggle", key = "nav.arrowToFollower", label = L["Let a following addon show the way"], help = L["Hides Polestar's arrow while another addon shows Polestar's target itself, as Naowh Forever's Waypoint Pin does with Follow Polestar on. That addon also sets the game's map pin then."],
 			search = "naowh, waypoint pin, navigator bar, hide arrow, follow polestar" }),
 	} },
@@ -1374,6 +1393,29 @@ local function sectionOff(s)
 	return t ~= nil and t.key ~= nil and available(t) and not ns.Get(t.key)
 end
 
+-- Whether a parent's children (c.children) are open: its open() says, else
+-- its switch (get(), else its setting) is on.
+local function kidsOpen(c)
+	local fn = c.open or c.get
+	if fn then
+		local ok, v = pcall(fn)
+		return ok and v and true or false
+	end
+	return c.key ~= nil and ns.Get(c.key) and true or false
+end
+O.KidsOpen = kidsOpen
+
+-- Whether a parent's children, while closed, hold a setting off its default
+-- (its row's hollow ring says so).
+function Index.kidsHidden(c)
+	local kids = rawget(c, "psKids")
+	if not kids or kidsOpen(c) then return false end
+	for _, k in ipairs(kids) do
+		if offDefault(k) and available(k) then return true end
+	end
+	return false
+end
+
 -- Is a section on screen? Its spec's shown() says (none: always).
 local function sectionShown(s)
 	if not s.shown then return true end
@@ -1381,11 +1423,16 @@ local function sectionShown(s)
 	return not ok or v ~= false and v ~= nil
 end
 
--- Which of a tab's sections with a shown() are on screen, as a string.
+-- Which of a tab's sections with a shown() are on screen, and which of its
+-- parents have their children open, as a string: when it moves, the tab lays
+-- out again.
 local function shownSig(t)
 	local sig = ""
 	for _, s in ipairs(t and t.sections or {}) do
 		if s.shown then sig = sig .. (sectionShown(s) and "1" or "0") end
+		for _, c in ipairs(s.controls or {}) do
+			if rawget(c, "psKids") then sig = sig .. (kidsOpen(c) and "+" or "-") end
+		end
 	end
 	return sig
 end
@@ -1395,6 +1442,9 @@ local function disabledOf(c)
 	return function()
 		local s = c.psSection
 		if s and s.toggle ~= c and sectionOff(s) then return true end
+		-- A child, while its parent is off (search results show it so).
+		local parent = rawget(c, "psChildOf")
+		if parent and not kidsOpen(parent) then return true end
 		if c.disabled then
 			local ok, off = pcall(c.disabled)
 			if ok and off then return true end
@@ -1408,6 +1458,8 @@ end
 local function whyOff(c)
 	local s = c.psSection
 	if s and s.toggle ~= c and sectionOff(s) then return string.format(L["Turn on %s first."], labelOf(s.toggle) or "") end
+	local kidOf = rawget(c, "psChildOf")
+	if kidOf and not kidsOpen(kidOf) then return string.format(L["Turn on %s first."], labelOf(kidOf) or "") end
 	local parent = c.psParent or c.psOwner
 	if parent and parent.kind == "toggle" and parent.key and not ns.Get(parent.key) then
 		return string.format(L["Turn on %s first."], labelOf(parent) or "")
@@ -1444,6 +1496,7 @@ local function tipOf(c, withPath)
 		if rowIsNew(c) and not (c.key and W.Modified(c.key)) then
 			lines[#lines + 1] = { string.format(L["New in %s"], c.new), Theme.Color("accent") }
 		end
+		if Index.kidsHidden(c) then lines[#lines + 1] = { L["A setting under it is changed: turn it on to see it."], Theme.Color("textMuted") } end
 		local home = homeOf(c)
 		if withPath or home then lines[#lines + 1] = { pathOf(home or c), Theme.Color("textMuted") } end
 		return lines
@@ -1608,55 +1661,174 @@ local function midRule(view, n)
 	return t
 end
 
--- A list of controls as rows of halves from y, across `width` at x (all
--- across with `whole`). The view keeps its rows (view.cache). -> height
-local function layoutRows(view, controls, top, x, width, whole)
-	local two = not whole and width >= HALVES_MIN
-	local half = floor(width / 2)
-	local y, left, leftH = top, nil, 0
-	local lineRows = {}
-	local function place(w, px, pw)
+-- A parent's open children stand under its line on a 2px accent rule at
+-- their left (pooled per view, like the halves' hairlines).
+function Index.kidRule(view, n)
+	local pool = rawget(view, "psKidRules")
+	if not pool then
+		pool = {}
+		view.psKidRules = pool
+	end
+	local t = pool[n]
+	if not t then
+		local layer = rawget(view, "MidLayer")
+		if not layer then
+			layer = CreateFrame("Frame", nil, view)
+			layer:SetAllPoints(view)
+			layer:SetFrameLevel(view:GetFrameLevel() + 2)
+			view.MidLayer = layer
+		end
+		t = W.Tex(layer, "ARTWORK", nil, "accent")
+		W.Color(t, "accent", 0.5)
+		pool[n] = t
+	end
+	return t
+end
+
+-- layoutRows' working state, one table per view kept from call to call, and
+-- its steps as functions of it: no closure or table per call (the search
+-- lays out every result's section on each keystroke). S: the view, the grid
+-- (two, x, width), the pen (y), the open line's left half and its height
+-- (bl, blH), the last line's rows (lineRows), the rows placed so far
+-- (placed, only where children nest) and the children waiting for their
+-- parent's line (waiting).
+local layoutRows
+do
+	local Lay = {}
+
+	-- A new line: the last line's rows are no longer the last.
+	function Lay.newLine(S)
+		local rows = S.lineRows
+		for i = #rows, 1, -1 do rows[i] = nil end
+	end
+
+	function Lay.place(S, w, px, pw)
+		local view = S.view
 		w.psColumns = view.psColumns
 		w:ClearAllPoints()
-		w:SetPoint("TOPLEFT", view, "TOPLEFT", px, -y)
+		w:SetPoint("TOPLEFT", view, "TOPLEFT", px, -S.y)
 		w:Show()
 		if w.Refresh then w:Refresh() end
-		w.psTop = y
+		w.psTop = S.y
 		if w.Rule then w.Rule:Show() end
-		lineRows[#lineRows + 1] = w
+		S.lineRows[#S.lineRows + 1] = w
 		return W.LayoutRow(w, pw)
 	end
-	for _, c in ipairs(controls) do
-		local w = rowOf(view, c)
-		if not two or c.wide or c.kind == "cards" then
-			if left then y, left = y + leftH, nil end
-			lineRows = {}
-			y = y + place(w, x, width)
-		elseif left then
-			local h = place(w, x + half, width - half)
+
+	-- Rows in halves across [bx, bx + bw], from y. -> true when it closed a line
+	function Lay.pair(S, w, bx, bw)
+		local bhalf = floor(bw / 2)
+		if not S.two then
+			Lay.newLine(S)
+			S.y = S.y + Lay.place(S, w, bx, bw)
+		elseif S.bl then
+			local bl, view = S.bl, S.view
+			local h = Lay.place(S, w, bx + bhalf, bw - bhalf)
 			-- The two halves stand as tall as the taller one (a label on two
 			-- lines), so their hairlines meet.
-			local lineH = max(leftH, h)
-			left:SetHeight(lineH)
+			local lineH = max(S.blH, h)
+			bl:SetHeight(lineH)
 			w:SetHeight(lineH)
 			view.psMid = (view.psMid or 0) + 1
 			local m = midRule(view, view.psMid)
 			m:ClearAllPoints()
-			m:SetPoint("TOPLEFT", view, "TOPLEFT", x + half, -y)
+			m:SetPoint("TOPLEFT", view, "TOPLEFT", bx + bhalf, -S.y)
 			m:SetSize(1, lineH)
 			m:Show()
-			left.psPair, w.psPair = w, left
-			y, left = y + lineH, nil
+			bl.psPair, w.psPair = w, bl
+			S.y, S.bl = S.y + lineH, nil
+			return true
 		else
-			lineRows = {}
-			left = w
-			leftH = place(w, x, half)
+			Lay.newLine(S)
+			S.bl = w
+			S.blH = Lay.place(S, w, bx, bhalf)
 		end
 	end
-	if left then y = y + leftH end
-	-- The last line's hairline would double the card's edge.
-	for _, w in ipairs(lineRows) do if w.Rule then w.Rule:Hide() end end
-	return y - top
+
+	function Lay.close(S)
+		if S.bl then S.y, S.bl = S.y + S.blH, nil end
+	end
+
+	-- The children waiting for their parent's line to close: a block per
+	-- parent (both halves of a line may be parents), in their order.
+	function Lay.openKids(S)
+		local blocks = S.waiting
+		if not blocks then return end
+		S.waiting = nil
+		Lay.close(S)
+		local view, x, width = S.view, S.x, S.width
+		for _, kids in ipairs(blocks) do
+			local from = S.y
+			for _, k in ipairs(kids) do Lay.pair(S, rowOf(view, k), x + SIZE.KIDS_X, width - SIZE.KIDS_X) end
+			Lay.close(S)
+			view.psKidRule = (view.psKidRule or 0) + 1
+			local t = Index.kidRule(view, view.psKidRule)
+			t:ClearAllPoints()
+			t:SetPoint("TOPLEFT", view, "TOPLEFT", x + SIZE.KIDS_X - 10, -(from + 6))
+			t:SetSize(2, max(1, S.y - from - 12))
+			t:Show()
+		end
+	end
+
+	-- A list of controls as rows of halves from y, across `width` at x (all
+	-- across with `whole`). The view keeps its rows (view.cache). A parent's
+	-- children (c.children) follow it: while it is on, they wait for the
+	-- parent's line to close (its half beside it stays), then stand across the
+	-- width under it, SIZE.KIDS_X in, in halves of their own; while it is off,
+	-- they are made but hidden. Search results and filtered lists (view.psSearch,
+	-- view.psFlat) show them as any row, dimmed while their parent is off. -> height
+	function layoutRows(view, controls, top, x, width, whole)
+		local S = rawget(view, "psLay")
+		-- Busy (a row's layout laying out this view again): a state of its own.
+		if not S or S.view then
+			S = { lineRows = {}, placed = {} }
+			if not rawget(view, "psLay") then view.psLay = S end
+		end
+		S.view, S.x, S.width = view, x, width
+		S.two = not whole and width >= HALVES_MIN
+		S.y, S.bl, S.blH, S.waiting = top, nil, 0, nil
+		Lay.newLine(S)
+		local nest = not (rawget(view, "psSearch") or rawget(view, "psFlat"))
+		local placed = S.placed
+		if nest then for c in pairs(placed) do placed[c] = nil end end
+		for _, c in ipairs(controls) do
+			local parent = nest and rawget(c, "psChildOf")
+			if parent and placed[parent] then
+				if kidsOpen(parent) then
+					local waiting = S.waiting or {}
+					S.waiting = waiting
+					local last = waiting[#waiting]
+					if not (last and last.psFor == parent) then
+						last = { psFor = parent }
+						waiting[#waiting + 1] = last
+					end
+					last[#last + 1] = c
+				else
+					-- Made, not placed: hidden until its parent opens.
+					rowOf(view, c):Hide()
+				end
+			else
+				if nest then placed[c] = true end
+				local w = rowOf(view, c)
+				if not S.two or c.wide or c.kind == "cards" then
+					Lay.close(S)
+					Lay.openKids(S)
+					Lay.newLine(S)
+					S.y = S.y + Lay.place(S, w, x, width)
+				else
+					-- A row starting a line: the children before it open first.
+					if not S.bl then Lay.openKids(S) end
+					if Lay.pair(S, w, x, width) then Lay.openKids(S) end
+				end
+			end
+		end
+		Lay.close(S)
+		Lay.openKids(S)
+		-- The last line's hairline would double the card's edge.
+		for _, w in ipairs(S.lineRows) do if w.Rule then w.Rule:Hide() end end
+		S.view = nil
+		return S.y - top
+	end
 end
 
 -- Header widgets, right to left from the 16 edge: the toggle, Move, More,
@@ -1788,9 +1960,18 @@ end
 -- Show each card's Reset, each cog's dot and each row's new ring (none on a
 -- row off its default: its reset stands there), as the settings stand.
 local function markSections(view)
-	for _, w in pairs(view.cache or {}) do
+	for c, w in pairs(view.cache or {}) do
 		local ring = rawget(w, "NewRing")
 		if ring then ring:SetShown(not rawget(w, "psModified")) end
+		-- A parent whose closed children hold a change: a hollow ring in its
+		-- changed dot's place.
+		local hidden = rawget(c, "psKids") and not rawget(w, "psModified") and Index.kidsHidden(c)
+		if hidden and not rawget(w, "KidsRing") and rawget(w, "ModDot") then
+			w.KidsRing = W.Tex(w, "ARTWORK", "ring", "accent")
+			w.KidsRing:SetSize(7, 7)
+			w.KidsRing:SetPoint("CENTER", w.ModDot, "CENTER", 0, 0)
+		end
+		if rawget(w, "KidsRing") then w.KidsRing:SetShown(hidden and true or false) end
 	end
 	for _, card in ipairs(view.cards or {}) do
 		if card:IsShown() and card.psSettings then
@@ -1853,7 +2034,8 @@ local function layoutSections(view, groups, y, opts)
 	for _, w in pairs(view.cache) do w:Hide() end
 	for _, sw in pairs(view.extras) do if rawget(sw, "psHeaderSwitch") then sw:Hide() end end
 	for _, m in ipairs(view.mids) do m:Hide() end
-	view.psMid = 0
+	for _, t in ipairs(rawget(view, "psKidRules") or {}) do t:Hide() end
+	view.psMid, view.psKidRule = 0, 0
 	view.psColumns = extrasColumns(groups)
 	local width = win.BodyWidth
 	local n = 0
@@ -3924,6 +4106,9 @@ function O.Jump(c)
 	local row = c
 	while row.psOwner do row = row.psOwner end
 	local w, top = view.cache[row], nil
+	-- A child while its parent is off: the parent's row.
+	local kidOf = rawget(row, "psChildOf")
+	if kidOf and not (w and w:IsShown()) and view.cache[kidOf] then w = view.cache[kidOf] end
 	if w then
 		top = w.psTop
 	elseif view.extras[c] then

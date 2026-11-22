@@ -2254,6 +2254,7 @@ L["Polestar Guides is turned off in the AddOns list, so Polestar has no guides t
 -- L["Part of Polestar is turned off in the AddOns list (%s), so its settings cannot open. Turn it on for all your characters and reload?"] = ""
 
 -- UI/Options.lua
+L["A setting under it is changed: turn it on to see it."] = "其下有設定已變更：開啟後即可看到。"
 L["Recorder"] = "記錄器"
 L["About"] = "關於"
 L["%d px"] = "%d 像素"
@@ -4264,10 +4265,8 @@ L["Skip in the step bar. The guide menu still skips a step."] = "步驟列中的
 L["The bug button that reports a problem with the step. The guide menu still has it."] = "回報步驟問題的蟲子按鈕。指南選單中仍有此功能。"
 L["Target bar"] = "目標標示條"
 L["The bar at the left edge of the goal or person the arrow points to."] = "箭頭所指的目標或人物左側邊緣的標示條。"
-L["Target bar colour"] = "目標標示條顏色"
 L["Progress bar"] = "進度條"
 L["The guide's progress at the bottom of the window."] = "視窗底部的指南進度。"
-L["Progress colour"] = "進度顏色"
 L["Percent"] = "百分比"
 L["The percent beside the progress bar."] = "進度條旁的百分比。"
 L["Pace line"] = "進度預估行"
@@ -5016,3 +5015,5 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "已降
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"] = "進度正常，但第 %3$d 步的 %1$s（%2$d）很難：你是 %4$s；請先練等%5$s"
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "進度正常，但第 %3$d 步的 %1$s（%2$d）很難：你是 %4$s；請先達到 %5$d 級"
 -- L["No safe walking route"] = "沒有安全的步行路線"
+-- L["Target bar colour"] = "目標標示條顏色"
+-- L["Progress colour"] = "進度顏色"

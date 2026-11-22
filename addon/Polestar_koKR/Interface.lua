@@ -2254,6 +2254,7 @@ L["Polestar Guides is turned off in the AddOns list, so Polestar has no guides t
 -- L["Part of Polestar is turned off in the AddOns list (%s), so its settings cannot open. Turn it on for all your characters and reload?"] = ""
 
 -- UI/Options.lua
+L["A setting under it is changed: turn it on to see it."] = "아래 설정 중 바뀐 것이 있습니다. 켜면 볼 수 있습니다."
 L["Recorder"] = "기록기"
 L["About"] = "정보"
 L["%d px"] = "%dpx"
@@ -4264,10 +4265,8 @@ L["Skip in the step bar. The guide menu still skips a step."] = "단계 막대�
 L["The bug button that reports a problem with the step. The guide menu still has it."] = "단계의 문제를 신고하는 벌레 버튼. 가이드 메뉴에도 있습니다."
 L["Target bar"] = "목표 막대"
 L["The bar at the left edge of the goal or person the arrow points to."] = "화살표가 가리키는 목표나 사람의 왼쪽 가장자리에 있는 막대."
-L["Target bar colour"] = "목표 막대 색"
 L["Progress bar"] = "진행 막대"
 L["The guide's progress at the bottom of the window."] = "창 아래쪽의 가이드 진행도."
-L["Progress colour"] = "진행 막대 색"
 L["Percent"] = "진행률"
 L["The percent beside the progress bar."] = "진행 막대 옆의 백분율."
 L["Pace line"] = "진행 속도 줄"
@@ -5016,3 +5015,5 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "착륙
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"] = "진행은 순조롭지만 %s (%d) %d단계가 어렵습니다: 내 레벨 %s. 먼저 %s 사냥"
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "진행은 순조롭지만 %s (%d) %d단계가 어렵습니다: 내 레벨 %s. 먼저 %d 도달"
 -- L["No safe walking route"] = "안전한 도보 경로 없음"
+-- L["Target bar colour"] = "목표 막대 색"
+-- L["Progress colour"] = "진행 막대 색"

@@ -4832,7 +4832,9 @@ local CONTROL_KINDS = { toggle = true, slider = true, dropdown = true, color = t
 -- toggle: the section's on/off in its header ({ kind = "toggle", key, label,
 -- help }); a control's extras: inline colours and on/offs before it
 -- ({ kind = "color" | "toggle", key, label, help, ... }); its more: the
--- settings in its cog's popup (controls as any).
+-- settings in its cog's popup (controls as any); its children: the settings
+-- that matter only while it is on, rows of its section that open under it
+-- while it is (controls as any, a toggle's, or any control's with open()).
 -- -> true | false, err
 local function checkControl(page, i, c, what)
 	if type(c) ~= "table" or not CONTROL_KINDS[c.kind] then
@@ -4861,6 +4863,19 @@ local function checkControl(page, i, c, what)
 		if type(c.more) ~= "table" then return ("RegisterOptions(%s): %s %d: more must be a list"):format(page, what, i) end
 		for j, m in ipairs(c.more) do
 			local err = checkControl(page, j, m, "more control")
+			if err then return err end
+		end
+	end
+	if c.children ~= nil then
+		if type(c.children) ~= "table" then return ("RegisterOptions(%s): %s %d: children must be a list"):format(page, what, i) end
+		if c.kind ~= "toggle" and type(c.open) ~= "function" then
+			return ("RegisterOptions(%s): %s %d: children need a toggle, or open()"):format(page, what, i)
+		end
+		for j, k in ipairs(c.children) do
+			if type(k) == "table" and k.children ~= nil then
+				return ("RegisterOptions(%s): %s %d: child %d has children of its own"):format(page, what, i, j)
+			end
+			local err = checkControl(page, j, k, "child")
 			if err then return err end
 		end
 	end

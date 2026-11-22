@@ -2254,6 +2254,7 @@ L["Polestar Guides is turned off in the AddOns list, so Polestar has no guides t
 -- L["Part of Polestar is turned off in the AddOns list (%s), so its settings cannot open. Turn it on for all your characters and reload?"] = ""
 
 -- UI/Options.lua
+L["A setting under it is changed: turn it on to see it."] = "Одна из настроек под ним изменена: включите его, чтобы её увидеть."
 L["Recorder"] = "Запись"
 L["About"] = "О Polestar"
 L["%d px"] = "%d пикс."
@@ -4264,10 +4265,8 @@ L["Skip in the step bar. The guide menu still skips a step."] = "«Пропус�
 L["The bug button that reports a problem with the step. The guide menu still has it."] = "Кнопка с жуком, чтобы сообщить о проблеме с шагом. В меню гайда она тоже есть."
 L["Target bar"] = "Полоса цели"
 L["The bar at the left edge of the goal or person the arrow points to."] = "Полоса у левого края цели или персонажа, на которых указывает стрелка."
-L["Target bar colour"] = "Цвет полосы цели"
 L["Progress bar"] = "Полоса прогресса"
 L["The guide's progress at the bottom of the window."] = "Прогресс гайда внизу окна."
-L["Progress colour"] = "Цвет прогресса"
 L["Percent"] = "Процент"
 L["The percent beside the progress bar."] = "Процент рядом с полосой прогресса."
 L["Pace line"] = "Строка темпа"
@@ -5023,3 +5022,5 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Пос
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"] = "Темп в норме, но %s (%d) на шаге %d будет трудным: у вас %s; сначала набейте %s"
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "Темп в норме, но %s (%d) на шаге %d будет трудным: у вас %s; сначала достигните %d"
 -- L["No safe walking route"] = "Нет безопасного пешего пути"
+-- L["Target bar colour"] = "Цвет полосы цели"
+-- L["Progress colour"] = "Цвет прогресса"
