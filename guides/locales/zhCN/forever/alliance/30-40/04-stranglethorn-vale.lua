@@ -137,7 +137,7 @@ return {
 	-- {npc:716} Barnil Stonepot · {item:2755} Green Hills of Stranglethorn
 	["{npc:716} collects the {item:2755}: the pages drop from almost every humanoid in the jungle. Turn the pages into chapters as you go."] = "{npc:716}收集{item:2755}：丛林中几乎所有人型怪都会掉落书页。边走边把书页合成章节。",
 	-- {npc:729} Sin'Dall
-	["Keep it for another visit: {npc:729} (37) prowls the Lashtail hill."] = "",
+	["Keep it for another visit: {npc:729} (37) prowls the Lashtail hill."] = "这个任务留到下次再做。{npc:729}（37级）在鞭尾迅猛龙出没的山丘上游荡。",
 	-- {npc:729} Sin'Dall
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["keep it: the Lashtail Raptors come on the second loop (04b), around {npc:729}'s hill"] = "保留任务：鞭尾迅猛龙在第二轮路线（04b）中处理，位于{npc:729}所在的山丘周围",

@@ -285,10 +285,10 @@ return {
 	-- Step 52: Ironbeard's Tomb
 	-- {npc:1244} Rethiel the Greenwarden · {area:309} Ironbeard's Tomb · {area:205} Dun Modr · {item:3349} Sida's Bag · {area:1025} The Green Belt
 	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner · Monstrous Oozes = {npc:1033} Monstrous Ooze · Crimson Oozes = {npc:1031} Crimson Ooze · Maddened Rotclaws = {npc:271334} Maddened Rotclaw · Mosshide Brutes = {npc:1012} Mosshide Brute
-	["North-west from {npc:1244}: the Mosshide Fenrunners and Trappers (22-24) along the river south-west of {area:309} drop flint, almost every one. Black, Crimson and Monstrous Oozes fill {area:309}, just west of the road to {area:205} and north of Einar's camp. Careful: Black and Crimson Oozes also drop {item:3349}. Pull those instead of fighting the larger Monstrous Oozes (25–26).\nCareful: Maddened Rotclaws (25-26) roam the {area:1025} around {npc:1244} and north of him: cross it to the river and don't hunt the flint there. Mosshide Brutes, Mystics and Alphas (24-27) hold the hills north-west of the Fenrunners' camp."] = "",
+	["North-west from {npc:1244}: the Mosshide Fenrunners and Trappers (22-24) along the river south-west of {area:309} drop flint, almost every one. Black, Crimson and Monstrous Oozes fill {area:309}, just west of the road to {area:205} and north of Einar's camp. Careful: Black and Crimson Oozes also drop {item:3349}. Pull those instead of fighting the larger Monstrous Oozes (25–26).\nCareful: Maddened Rotclaws (25-26) roam the {area:1025} around {npc:1244} and north of him: cross it to the river and don't hunt the flint there. Mosshide Brutes, Mystics and Alphas (24-27) hold the hills north-west of the Fenrunners' camp."] = "从{npc:1244}往西北走。{area:309}西南方的河边有藓皮沼泽行者和藓皮捕兽者（22–24级），几乎每只都掉打火石。{area:309}遍布黑色软泥怪、红色软泥怪和残忍的软泥怪，就在通往{area:205}的路西侧、埃纳尔·石钳营地北面。小心，黑色软泥怪和红色软泥怪也会掉落{item:3349}，引这两种来打，避开体型更大的残忍的软泥怪（25–26级）。\n小心，疯狂的腐爪（25–26级）在{npc:1244}附近及其北面的{area:1025}游荡。穿过这片区域到河边，别在这里刷打火石。藓皮蛮兵、藓皮秘法师和藓皮突击队员（24–27级）占据了藓皮沼泽行者营地西北方的山丘。",
 	-- {item:2611} Crude Flint
 	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner
-	["{item:2611}: the Mosshide Fenrunners and Trappers by the river"] = "",
+	["{item:2611}: the Mosshide Fenrunners and Trappers by the river"] = "击杀河边的藓皮沼泽行者和藓皮捕兽者，获取{item:2611}",
 
 	-- Step 53: Menethil
 	["Menethil"] = "米奈希尔港",

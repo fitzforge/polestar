@@ -166,22 +166,22 @@ return {
 	-- {npc:770} Corporal Kaleb · {area:99} Rebel Camp
 	["for {npc:770} at the {area:99}, on the northern loop"] = "交给{area:99}的{npc:770}，在北部环线上",
 	-- {npc:2494} Privateer Bloads · {area:35} Booty Bay
-	["{npc:2494}' Akiris by the Bundle waits for the level-48 {area:35} stop (its naga are 43-44): leave it for now."] = "",
+	["{npc:2494}' Akiris by the Bundle waits for the level-48 {area:35} stop (its naga are 43-44): leave it for now."] = "{npc:2494}的「一捆海蛇草」暂缓，等48级回{area:35}时再做（任务要打的纳迦是43–44级）。",
 	-- {npc:2487} Fleet Master Seahorn · {quest:669} Sunken Treasure · {area:327} Faldir's Cove
 	["{npc:2487}, top floor: {quest:669}, if you did {area:327} with a group"] = "{npc:2487}，顶层：{quest:669}，如果你和小队完成了{area:327}",
 	-- {npc:737} Kebok
 	["{npc:737}, upstairs: the Skullsplitter trolls, on the northern loop"] = "楼上的{npc:737}：劈颅巨魔，在北部环线再做",
 	-- {npc:737} Kebok · {area:37} Lake Nazferiti
 	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
-	["{npc:737}: the Tumbled Crystals, at {area:37} on the northern loop"] = "",
+	["{npc:737}: the Tumbled Crystals, at {area:37} on the northern loop"] = "{npc:737}。走北线时到{area:37}收集打磨过的水晶。",
 	-- {npc:2498} Crank Fizzlebub
-	["{npc:2498}'s Zanzil's Secret waits for the same stop (Zanzil's village is 43-44): leave it for now."] = "",
+	["{npc:2498}'s Zanzil's Secret waits for the same stop (Zanzil's village is 43-44): leave it for now."] = "{npc:2498}的「赞吉尔的秘密」也留到那次再做。赞吉尔的村子里是43–44级的怪。",
 	["Seahorn's next errand goes back to Arathi: skip it."] = "海角的下一个差事要回阿拉希：跳过。",
 
 	-- Step 32: Kebok
 	-- {npc:737} Kebok
 	-- plural, as words: Tumbled Crystals = {item:4106} Tumbled Crystal
-	["Already have all eight Tumbled Crystals? Hand them to {npc:737} now."] = "",
+	["Already have all eight Tumbled Crystals? Hand them to {npc:737} now."] = "已经集齐8块打磨过的水晶？现在就交给{npc:737}。",
 
 	-- Step 33: Booty Bay
 	-- {npc:2542} Catelyn the Blade
@@ -195,7 +195,7 @@ return {
 
 	-- Step 35: Booty Bay
 	-- {quest:597} The Bloodsail Buccaneers · {area:35} Booty Bay · {area:43} Wild Shore
-	["Seahorn's next task, {quest:597}, waits for the level-48 {area:35} stop with the {area:43} camp (41-43): leave it for now."] = "",
+	["Seahorn's next task, {quest:597}, waits for the level-48 {area:35} stop with the {area:43} camp (41-43): leave it for now."] = "舰队指挥官卡拉·海角的后续任务{quest:597}暂缓，等48级回{area:35}并前往{area:43}营地时再做（营地的怪是41–43级）。",
 	-- {npc:2488} Deeg
 	["{npc:2488}, on the top floor"] = "{npc:2488}，位于最顶层",
 	-- {npc:2624} Gazban
@@ -222,7 +222,7 @@ return {
 	-- {npc:2486} Fin Fizracket · {npc:1514} Mokk the Savage · {area:35} Booty Bay
 	["{npc:2486}'s Stranglethorn Fever ({npc:1514}) waits for the level-48 {area:35} stop: leave it for now."] = "{npc:2486}的荆棘谷热病（{npc:1514}）留到48级回{area:35}时再做：暂时先放着。",
 	-- {area:35} Booty Bay
-	["MacKinley's Voodoo Dues waits for the level-48 {area:35} stop, with Zanzil's village: leave it for now."] = "",
+	["MacKinley's Voodoo Dues waits for the level-48 {area:35} stop, with Zanzil's village: leave it for now."] = "「海狼」马克基雷的「讨债行动」暂缓，等48级回{area:35}、去赞吉尔的村子时再做。",
 
 	-- Step 40: Stoley's Debt
 	-- {quest:2872} Stoley's Debt · {area:35} Booty Bay
@@ -264,7 +264,7 @@ return {
 
 	-- Step 46: Ajeck Rouack
 	-- {npc:717} Ajeck Rouack
-	["{npc:717}, beside the other hunters"] = "",
+	["{npc:717}, beside the other hunters"] = "{npc:717}，在其他猎人旁边",
 
 	-- Step 49: Arbor Tarantula
 	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
@@ -297,7 +297,7 @@ return {
 	-- Step 53: Lake Nazferiti
 	-- {area:37} Lake Nazferiti
 	-- plural, as words: Venture Co. Geologists = {npc:1096} Venture Co. Geologist · Tumbled Crystals = {item:4106} Tumbled Crystal · Venture Co. Agents = {npc:260429} Venture Co. Agent · Shadowmaw Panthers = {npc:684} Shadowmaw Panther
-	["Head south from the compound to {area:37}. The Venture Co. Geologists in the shore camps carry the Tumbled Crystals; Venture Co. Agents (39) walk among them. Stay on the shore: stealthed Shadowmaw Panthers prowl the jungle south and east of the lake."] = "",
+	["Head south from the compound to {area:37}. The Venture Co. Geologists in the shore camps carry the Tumbled Crystals; Venture Co. Agents (39) walk among them. Stay on the shore: stealthed Shadowmaw Panthers prowl the jungle south and east of the lake."] = "从营地向南前往{area:37}。湖岸营地的风险投资公司地质学家会掉落打磨过的水晶，风险投资公司密探（39级）在他们之间走动。沿湖岸走，湖以南和以东的丛林里有深喉猎豹潜行游荡。",
 
 	-- Step 54: Panther Mastery
 	-- {npc:728} Bhag'thera
@@ -328,7 +328,7 @@ return {
 
 	-- Step 63: Kebok
 	-- {area:37} Lake Nazferiti
-	["The crystals gathered at {area:37}"] = "",
+	["The crystals gathered at {area:37}"] = "在{area:37}收集的水晶",
 
 	-- Step 64: Booty Bay
 	-- {npc:773} Krazek · {quest:2864} Tran'rek · {zone:1446} Tanaris

@@ -278,7 +278,7 @@ return {
 	-- Step 52: Shadowprey Village
 	-- {area:606} Gelkis Village
 	-- was: ["Head west to the troll village on the coast, keeping clear of the {area:606} on the way. {npc:268705} stands on the path just north of the village."] = "向西前往海岸上的巨魔村庄，途中避开{area:606}。{npc:268705}站在村子北边不远的小路上。"
-	["Head west to the troll village on the coast, keeping clear of the {area:606} on the way."] = "",
+	["Head west to the troll village on the coast, keeping clear of the {area:606} on the way."] = "向西前往海岸上的巨魔村庄，途中避开{area:606}。",
 	-- {npc:11877} Roon Wildmane · {quest:5762} Hemet Nesingwary
 	["{npc:11877}: for {quest:5762} in Stranglethorn, next guide"] = "{npc:11877}：交给荆棘谷的{quest:5762}，下篇指南会去",
 	-- {npc:6726} Thalon
