@@ -96,9 +96,12 @@ return {
 
 	-- Step 16: Mistvale gorillas
 	["Mistvale gorillas"] = "迷雾谷猩猩",
+	-- {quest:348} Stranglethorn Fever
 	-- plural, as words: Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
-	["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "猩猩在乌巴瓦周围的山谷中游荡。老迈的猩猩掉落内脏；所有猩猩都可能掉落尖牙：留十个给乌巴瓦，他的莫克（44级）等你在45级左右再来荆棘谷时再做。\n小心：老迈的迷雾谷猩猩（40-41级）在山谷中站得很密：一次引一只。",
-	["Keep fangs from these same elders for Unbagwa."] = "",
+	-- was: ["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "猩猩在乌巴瓦周围的山谷中游荡。老迈的猩猩掉落内脏；所有猩猩都可能掉落尖牙：留十个给乌巴瓦，他的莫克（44级）等你在45级左右再来荆棘谷时再做。\n小心：老迈的迷雾谷猩猩（40-41级）在山谷中站得很密：一次引一只。"
+	["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: if you will take {quest:348} with a group, keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "",
+	-- {quest:348} Stranglethorn Fever
+	["Keep fangs from these same elders for Unbagwa ({quest:348}, with a group)."] = "",
 
 	-- Step 17: Mistvale giblets
 	["Mistvale giblets"] = "",
@@ -256,70 +259,73 @@ return {
 	-- Step 46: Whiskey Slim and Fin Fizracket
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
 	["{npc:2491} and {npc:2486}"] = "",
-	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket · {zone:1444} Feralas · {zone:1446} Tanaris · {area:35} Booty Bay
-	["{npc:2491}, in the inn, {npc:2486}, beside it, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "",
+	-- {npc:2491} Whiskey Slim · {zone:1444} Feralas · {zone:1446} Tanaris · {area:35} Booty Bay
+	["{npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "{npc:2491}在旅店里：他的酒瓶被冲到了{zone:1425}海岸，约48级时再去",
-	-- {npc:2486} Fin Fizracket · {quest:348} Stranglethorn Fever · {zone:1444} Feralas · {object:3202} Grom'gol
-	-- was: ["{npc:2486}: {quest:348} (offered from 40), Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "{npc:2486}：{quest:348}（40级起可接），温巴格瓦的部分在{zone:1444}指南的{object:3202}一站完成"
-	["{npc:2486}: {quest:348}, Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "",
 	-- {quest:2872} Stoley's Debt · {zone:1446} Tanaris
 	["MacKinley, on the top floor: {quest:2872}, for Stoley in {zone:1446}"] = "",
 
-	-- Step 47: The Bloodsail ships
+	-- Step 47: Fin Fizracket
+	-- {quest:348} Stranglethorn Fever · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
+	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "",
+	-- {npc:2486} Fin Fizracket · {zone:1444} Feralas · {object:3202} Grom'gol
+	["{npc:2486}, beside the inn: Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "",
+
+	-- Step 48: The Bloodsail ships
 	["The Bloodsail ships"] = "血帆海盗船",
 	-- {quest:624} Cortello's Riddle · {area:43} Wild Shore · {zone:1435} Swamp of Sorrows · {zone:1445} Dustwallow Marsh · {zone:1425} Hinterlands
 	["The scroll, {quest:624}, lies on the decks of the three ships off the {area:43}, crewed by pirates of 42-45 who come in pairs, with captains of 45-48: take it with a group. Its chain runs on through the {zone:1435}, {zone:1445} and the {zone:1425}."] = "卷轴{quest:624}位于{area:43}外海三艘船的甲板上，船上的海盗为42-45级，常成对行动，船长为45-48级：请组队去取。后续任务会经过{zone:1435}、{zone:1445}和{zone:1425}。",
 	-- {zone:1435} Swamp of Sorrows
 	["for a later stop in the {zone:1435}"] = "留到之后在{zone:1435}停留时",
 
-	-- Step 48: Fly to Grom'gol
+	-- Step 49: Fly to Grom'gol
 	-- {object:3202} Grom'gol
 	["Fly back to {object:3202}: Zul'Mamwe's Skullsplitters are just east of it."] = "飞回{object:3202}：祖玛维的碎颅巨魔就在它东边。",
 	-- {area:35} Booty Bay
 	["{area:35} flight master"] = "{area:35}的飞行管理员",
 
-	-- Step 49: Zul'Mamwe
+	-- Step 50: Zul'Mamwe
 	["Zul'Mamwe"] = "祖玛维废墟",
 	["The warriors in the northern ruins (39-40) drop both tusks and necklaces. Pull from the edge; leave the chief and his two guards to the south alone."] = "",
 
-	-- Step 50: Zul'Mamwe and Balia'mah trophy skulls
+	-- Step 51: Zul'Mamwe and Balia'mah trophy skulls
 	["Zul'Mamwe and Balia'mah trophy skulls"] = "",
 	-- {object:3202} Grom'gol
 	["Look for the trophy skulls in the small ruins north of Zul'Mamwe's warriors.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "",
 
-	-- Step 51: Kin'weelay
+	-- Step 52: Kin'weelay
 	-- {object:3202} Grom'gol
 	["Head west to {object:3202}."] = "向西前往 {object:3202}。",
 
-	-- Step 54: Grom'gol Base Camp
+	-- Step 55: Grom'gol Base Camp
 	-- {npc:2464} Commander Aggro'gosh · {npc:256418} Krom'rosh · {area:16743} Rog'mar · {zone:2548} Riverglades
 	["{npc:2464}: for {npc:256418} in {area:16743}, the {zone:2548}' Horde fort, in the next guide"] = "{npc:2464}：交给下一份指南中{zone:2548}部落要塞{area:16743}的{npc:256418}",
 	-- {quest:571} Mok'thardin's Enchantment · {quest:621} Zanzil's Secret · {npc:737} Kebok · {area:35} Booty Bay · {zone:2548} Riverglades
 	["Keep {quest:571}, {quest:621} and {npc:737}'s tusks: the Skullsplitter chief, Zanzil's camps, the naga coast and {area:35} come on your Stranglethorn stop at about 45, after the {zone:2548}."] = "保留{quest:571}、{quest:621}和{npc:737}的獠牙任务：碎颅首领、赞吉尔的营地、纳迦海岸和{area:35}都留到{zone:2548}之后、约45级再来荆棘谷时完成。",
 
-	-- Step 56: Nesingwary's Expedition
+	-- Step 57: Nesingwary's Expedition
 	["Head north up the road to the hunters' camp."] = "沿路向北前往猎人营地。",
 
-	-- Step 58: Raptor Mastery
+	-- Step 59: Raptor Mastery
 	-- {npc:730} Tethis
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:730} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:730}是43级精英，多数职业到45级可以单独击败，但可能仍需帮助。独自一人时请跳过。",
 
-	-- Step 59: Panther Mastery
+	-- Step 60: Panther Mastery
 	-- {npc:728} Bhag'thera
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:728} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:728}是40级精英，多数职业到42级可以单独击败，但可能仍需帮助。独自一人时请跳过。",
 
-	-- Step 63: Big Game Hunter
+	-- Step 64: Big Game Hunter
 	-- {npc:731} King Bangalash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:731} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone.\nCareful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, {npc:731} calls for help from creatures within 20 yd."] = "这些是精英敌人，建议寻找其他玩家组队完成。{npc:731}是43级精英，多数职业到45级可以单独击败，但可能仍需帮助。独自一人时请跳过。\n小心：附近有老虎和潜行的深喉猎豹，先清理再拉它。拉到{npc:731}时，它会召集20码内的生物支援。",
 
-	-- Step 68: Into the Swamp of Sorrows
+	-- Step 69: Into the Swamp of Sorrows
 	-- {zone:1435} Swamp of Sorrows
 	["Into the {zone:1435}"] = "进入{zone:1435}",
 	-- {zone:1431} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
 	["Follow the road east from {zone:1431} through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp just off the road where it comes in from {zone:1430}."] = "从{zone:1431}沿路向东，经过{zone:1430}进入沼泽。{npc:1776}在{area:657}等候；那是靠近{zone:1430}入口、道路旁的德莱尼营地。",
 
-	-- Step 69: Stonard
+	-- Step 70: Stonard
 	-- {area:75} Stonard
 	["Head east to {area:75}, in the reeds south of the road."] = "向东前往{area:75}，就在路南的芦苇丛中。",
 	-- {npc:5591} Dar
@@ -329,52 +335,52 @@ return {
 	-- {npc:1443} Fel'zerul
 	["{npc:1443}, on the top floor"] = "{npc:1443}，位于最顶层",
 
-	-- Step 70: Sawtooth crocolisks
+	-- Step 71: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "盐齿鳄鱼",
 	-- {npc:5391} Galen Goodward · {area:75} Stonard
 	["The crocolisks wallow in the pools around {npc:5391}'s camp and south towards {area:75}; about one in four drops a flank."] = "鳄鱼在{npc:5391}营地周围的水塘里打滚，一直到南边的{area:75}；大约四分之一会掉落鳄鱼肉。",
 
-	-- Step 71: Noboru the Cudgel
+	-- Step 72: Noboru the Cudgel
 	-- {area:76} Fallow Sanctuary
 	["Noboru wanders the clearing south-west of the {area:76}; his cudgel starts a quest."] = "木棒诺博鲁在{area:76}西南的空地上游荡；他的木棒可以开始一个任务。",
 
-	-- Step 72: Draenethyst crystals
+	-- Step 73: Draenethyst crystals
 	["Draenethyst crystals"] = "德莱尼水晶",
 	-- {area:76} Fallow Sanctuary · {npc:5391} Galen Goodward
 	["Head north-east to the {area:76}. The crystals stand along the way up to {npc:5391}'s cage."] = "向东北前往{area:76}。水晶分布在通往{npc:5391}笼子的路上。",
 
-	-- Step 73: Galen's Escape
+	-- Step 74: Galen's Escape
 	-- {npc:5391} Galen Goodward · {area:76} Fallow Sanctuary
 	["{npc:5391} is held in the {area:76} in the swamp's north-east. Free him and follow him out, fighting off the swamp creatures that chase him."] = "{npc:5391}被关在沼泽东北的{area:76}。救出他并跟着他出去，击退追赶他的沼泽生物。",
 
-	-- Step 74: Galen's Strongbox
+	-- Step 75: Galen's Strongbox
 	-- {area:75} Stonard
 	["His strongbox waits at his old camp north of {area:75}, on the way back west."] = "他的保险箱在{area:75}北边的旧营地里，向西返程时会经过。",
 
-	-- Step 75: Harborage
+	-- Step 76: Harborage
 	-- {area:657} Harborage · {zone:1430} Deadwind Pass
 	-- was: ["Ride west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}."] = "沿道路向西骑往{area:657}的德莱尼营地，靠近{zone:1430}的入口。"
 	["Head west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}."] = "",
 
-	-- Step 76: Pool of Tears
+	-- Step 77: Pool of Tears
 	-- {area:75} Stonard · {quest:1424} Pool of Tears
 	["Back east along the road, past {area:75}: the Atal'ai artifacts lie in the water and on the banks of the {quest:1424}. Only Sawfin Frenzies (38-40) swim there."] = "",
 
-	-- Step 77: Misty Reed Post
+	-- Step 78: Misty Reed Post
 	-- {npc:5592} Tok'Kar · {npc:5593} Katar
 	["Follow the road south-east to the small Horde post on the shore: {npc:5592} takes the crocolisk flanks, and {npc:5593} stands beside him."] = "",
 
-	-- Step 78: Sawtooth snappers
+	-- Step 79: Sawtooth snappers
 	["Sawtooth snappers"] = "盐齿钳嘴鳄",
 	-- {npc:272377} Methuselah Crab
 	-- plural, as words: Sawtooth Snappers = {npc:1087} Sawtooth Snapper
 	["The Sawtooth Snappers (41-42) line the strand south of the post; nearly every one drops a claw. Leave the murlocs further along the shore for your next swamp visit.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "",
 
-	-- Step 79: Misty Reed Post
+	-- Step 80: Misty Reed Post
 	-- {npc:5593} Katar
 	["{npc:5593}: the murlocs (41-44) wait for your next swamp visit"] = "",
 
-	-- Step 80: Stonard
+	-- Step 81: Stonard
 	-- {area:75} Stonard · {npc:1443} Fel'zerul · {quest:1430} Fresh Meat · {npc:5593} Katar
 	["Back north-west along the road to {area:75}: {npc:1443}, on the top floor, takes the artifacts. {quest:1430}'s crawlers and {npc:5593}'s murlocs wait for your next swamp visit."] = "",
 
@@ -426,6 +432,7 @@ return {
 	-- ["The boat lands in {area:35}'s harbour. The quest givers stand on the boardwalks around the harbour and in the inn."] = "船停靠在{area:35}的港口。任务给予者站在港口周围的木栈道上和旅店里。",
 	-- ["The boat to {area:35} docks at the end of {area:392}'s pier."] = "前往{area:35}的船停靠在{area:392}码头的尽头。",
 	-- ["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang."] = "猩猩在安巴格瓦周围的山谷里游荡。老迈的猩猩掉落内脏；任何猩猩都可能掉落猩猩牙。",
+	-- ["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "猩猩在乌巴瓦周围的山谷中游荡。老迈的猩猩掉落内脏；所有猩猩都可能掉落尖牙：留十个给乌巴瓦，他的莫克（44级）等你在45级左右再来荆棘谷时再做。\n小心：老迈的迷雾谷猩猩（40-41级）在山谷中站得很密：一次引一只。",
 	-- ["The last skulls are in the ruins a short ride west, on the way back to {object:3202}."] = "最后的颅骨堆在西边不远的废墟里，就在回{object:3202}的路上。",
 	-- ["The next guide starts here and takes you to {zone:1446}."] = "下一个指南从这里开始，带你前往{zone:1446}。",
 	-- ["The next trophy skulls stand in the small ruins just north of the warriors' camp."] = "下一堆颅骨堆在战士营地正北的小废墟里。",

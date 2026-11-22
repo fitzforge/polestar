@@ -3250,6 +3250,14 @@ function Safe.find(job)
 	return nil, Safe.refusal
 end
 
+-- A batch's source at a height its places' walks can't reach though no policy says no (Foggy MacKreel on a broken
+-- section of the Thandol Span, #3553: the maps hold the deck above and the water below, not the ledge he stands on)
+-- would fail place after place, each search running dry: 16 places, about 250,000 expansions each, four minutes
+-- of slices. While no place is priced yet, a place whose walk fails so is asked once more to the source without
+-- its height: when that walk exists, the source's floor is what no walk joins (job.unjoined), and that place and
+-- every place not searched yet are left unpriced (costs[i] nil: the caller keeps its estimate, as for a place
+-- beyond its reach), never false. Once a place is priced, a walk does reach that floor, so a later failure is that
+-- place's own and stays false, as does a walk with no way at all (none without the height either).
 function Safe.many(job)
 	local why = Safe.setup(job)
 	local from = job.from
@@ -3268,27 +3276,37 @@ function Safe.many(job)
 	for i, p in ipairs(job.targets) do
 		order[i], dist[i], lead[i] = i, (p.x-from.x)^2 + (p.y-from.y)^2, p.first and 0 or 1
 	end
+	for i = 1, #job.targets do
+		if job.costs[i] then any = true end
+	end
 	table.sort(order, function(a,b)
 		if lead[a] ~= lead[b] then return lead[a] < lead[b] end
 		return dist[a] < dist[b] or (dist[a] == dist[b] and a < b)
 	end)
+	local function search(target, source)
+		local child = { map = job.map, from = job.reverse and target or source, to = job.reverse and source or target,
+			profile = job.profile, walkLevel = job.walkLevel, style = job.style, danger = job.danger,
+			waterWalking = job.waterWalking, costOnly = true, check = job.check, policy = job.policy }
+		return Safe.find(child), child
+	end
 	for _, i in ipairs(order) do
 		local target = job.targets[i]
-		if job.costs[i] == nil then
-			local child = { map = job.map, from = job.reverse and target or job.from, to = job.reverse and job.from or target,
-				profile = job.profile, walkLevel = job.walkLevel, style = job.style, danger = job.danger,
-				waterWalking = job.waterWalking, costOnly = true, check = job.check, policy = job.policy }
-			local cost = Safe.find(child)
-			if child.walkChecked then job.walkChecked = true end
-			job.costs[i], job.yards[i] = cost or false, cost and child.yards or false
+		if job.costs[i] == nil and not job.unjoined then
+			local cost, child = search(target, from)
+			if not cost and from.z and not any and not child.blockedReason and search(target, { x = from.x, y = from.y }) then
+				job.unjoined = true
+			else
+				if child.walkChecked then job.walkChecked = true end
+				job.costs[i], job.yards[i] = cost or false, cost and child.yards or false
+				if not cost then job.blockedReason = child.blockedReason or job.blockedReason end
+			end
 			job.revision = job.revision + 1
-			if not cost then job.blockedReason = child.blockedReason or job.blockedReason end
 		end
 		if job.costs[i] then any, job.valid = true, true end
 		tick()
 	end
 	job.radius = huge
-	if not any then return job.costs, Safe.refusal, job.yards end
+	if not any and not job.unjoined then return job.costs, Safe.refusal, job.yards end
 	return job.costs, nil, job.yards
 end
 
