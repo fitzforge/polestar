@@ -1162,14 +1162,17 @@ local DETOUR, DETOUR_YD = 8, 2000
 -- objective, where the win is; a far walk's cost is usually well over the first bound, so it takes the full tree.
 local BOUNDED_YARDS = 400
 
+local liftJoined -- (below, with landingEnds: whether the rides join a start's components to a goal's)
+
 -- The map's lift landings, read once a map state: { [i] = { x, y, z, k, partners = { j, ... }, ride = { [j] = cost } },
--- byCluster = { [k] = { i, ... } } }: ride[j] the ride's cost to partner j (its seconds at run speed, else LIFT_COST).
+-- byCluster = { [k] = { i, ... } }, joined = liftJoined }: ride[j] the ride's cost to partner j (its seconds at run
+-- speed, else LIFT_COST). (`joined` rides on the table: run holds Lua 5.1's 60 upvalues.)
 local function liftsOf(st, map)
 	local L = st.lifts
 	if L then
 		return L
 	end
-	L = { byCluster = {} }
+	L = { byCluster = {}, joined = liftJoined }
 	local list = type(PolestarNavChokepoints) == "table" and PolestarNavChokepoints[map]
 	if type(list) == "table" then
 		local index = {}
@@ -1241,6 +1244,53 @@ local function landingEnds(st, swim, mult, lifts, i)
 		st.liftEnds[key], st.liftEnds.n = entry, st.liftEnds.n + 1
 	end
 	return entry
+end
+
+-- Whether the lifts can join a start whose entrances lie in components `comps` ({ [component] = true }) to a goal
+-- with entrances `target` ({ [entrance id] = cost }), for a search in clusters sk and gk. Components join only
+-- through the grid but for a ride: a landing's own entrances (landingEnds, this search's water mode and weights)
+-- give its components, and a ride joins its two landings'. True when a ride chain leads from comps to a goal
+-- component, and whenever a landing stands in the start's or the goal's own cluster (a start or goal may reach it
+-- inside the cluster, through no entrance). Without this, any map with a lift searched a goal no walk reaches (Telf
+-- Joolam's shrine above the Durotar bank, #3605) until the search's detour bound: 250,000 to 500,000 expansions,
+-- half a minute of slices, for every walk asked there.
+function liftJoined(st, swim, mult, lifts, comps, target, sk, gk)
+	if lifts.byCluster[sk] or lifts.byCluster[gk] then return true end
+	local of, reached = {}, {}
+	for c in pairs(comps) do reached[c] = true end
+	for i = 1, #lifts do
+		local set = {}
+		local land = landingEnds(st, swim, mult, lifts, i)
+		for id in pairs(land and land.edges or {}) do
+			nodesOf(st, floor(id / 4096))
+			local _, _, component = metadata(st, id)
+			set[component] = true
+		end
+		of[i] = set
+	end
+	local grew = true
+	while grew do
+		grew = false
+		for i = 1, #lifts do
+			local on = false
+			for c in pairs(of[i]) do
+				if reached[c] then on = true break end
+			end
+			if on then
+				for _, j in ipairs(lifts[i].partners) do
+					for c in pairs(of[j]) do
+						if not reached[c] then reached[c], grew = true, true end
+					end
+				end
+			end
+		end
+	end
+	for id in pairs(target) do
+		nodesOf(st, floor(id / 4096))
+		local _, _, component = metadata(st, id)
+		if reached[component] then return true end
+	end
+	return false
 end
 
 -- The grid cost (and yards) between an endpoint (its connection: node, tree) and node `to` in cluster k: the
@@ -1694,9 +1744,13 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 				local _, _, component = metadata(st, id)
 				shared = shared or comps[component]
 			end
-			-- Components join only through the grid: a lift may join two (a mesa top and the plain below).
-			if not direct and not shared and (#lifts == 0 or (job.filtered and
-				((not next(source) and not lifts.byCluster[sk]) or (not next(target) and not lifts.byCluster[gk])))) then
+			-- Components join only through the grid: a lift may join two (a mesa top and the plain below), so with lifts
+			-- on the map the rides decide (liftJoined). An end whose cluster joins it to no entrance and holds no
+			-- landing is a pocket nothing leaves or enters (Telf Joolam's shrine, #3605): the abstract search could
+			-- only run to its detour bound.
+			if not direct and not shared and (#lifts == 0
+				or (not next(source) and not lifts.byCluster[sk]) or (not next(target) and not lifts.byCluster[gk])
+				or (next(source) and next(target) and not lifts.joined(st, swim, mult, lifts, comps, target, sk, gk))) then
 				if R and not complete then
 					retry, R, full = true, nil, true
 				else
@@ -3250,6 +3304,20 @@ function Safe.find(job)
 	return nil, Safe.refusal
 end
 
+-- A batch's source at a height its places' walks can't reach though no policy says no (Foggy MacKreel on a broken
+-- section of the Thandol Span, #3553: the maps hold the deck above and the water below, not the ledge he stands on)
+-- would fail place after place, each search running dry: 16 places, about 250,000 expansions each, four minutes
+-- of slices. While no place is priced yet, a place whose walk fails so is asked once more to the source without
+-- its height: when that walk exists, the source's floor is what no walk joins (job.unjoined), and that place and
+-- every place not searched yet are left unpriced (costs[i] nil: the caller keeps its estimate, as for a place
+-- beyond its reach), never false. Once a place is priced, a walk does reach that floor, so a later failure is that
+-- place's own and stays false, as does a walk with no way at all (none without the height either).
+-- A batch that has spent Path.manyCap expansions stops before its next place: the places not priced yet are left
+-- unpriced (job.capped; costs[i] nil, the caller's estimates), never false. Whatever the maps hold that no rule above
+-- foresaw, a batch's search ends (#3605: before the pocket rule in run, 16 places ran to the detour bound, minutes of
+-- slices). The cap sits well over the batches ordinary routes take (430,000 to 600,000 expansions measured on the
+-- route-speed scenes, whose settled routes it leaves as they were).
+Path.manyCap = 1000000
 function Safe.many(job)
 	local why = Safe.setup(job)
 	local from = job.from
@@ -3268,27 +3336,38 @@ function Safe.many(job)
 	for i, p in ipairs(job.targets) do
 		order[i], dist[i], lead[i] = i, (p.x-from.x)^2 + (p.y-from.y)^2, p.first and 0 or 1
 	end
+	for i = 1, #job.targets do
+		if job.costs[i] then any = true end
+	end
 	table.sort(order, function(a,b)
 		if lead[a] ~= lead[b] then return lead[a] < lead[b] end
 		return dist[a] < dist[b] or (dist[a] == dist[b] and a < b)
 	end)
+	local function search(target, source)
+		local child = { map = job.map, from = job.reverse and target or source, to = job.reverse and source or target,
+			profile = job.profile, walkLevel = job.walkLevel, style = job.style, danger = job.danger,
+			waterWalking = job.waterWalking, costOnly = true, check = job.check, policy = job.policy }
+		return Safe.find(child), child
+	end
 	for _, i in ipairs(order) do
 		local target = job.targets[i]
-		if job.costs[i] == nil then
-			local child = { map = job.map, from = job.reverse and target or job.from, to = job.reverse and job.from or target,
-				profile = job.profile, walkLevel = job.walkLevel, style = job.style, danger = job.danger,
-				waterWalking = job.waterWalking, costOnly = true, check = job.check, policy = job.policy }
-			local cost = Safe.find(child)
-			if child.walkChecked then job.walkChecked = true end
-			job.costs[i], job.yards[i] = cost or false, cost and child.yards or false
+		if job.costs[i] == nil and not job.unjoined and not job.capped and Expansions() >= Path.manyCap then job.capped = true end
+		if job.costs[i] == nil and not job.unjoined and not job.capped then
+			local cost, child = search(target, from)
+			if not cost and from.z and not any and not child.blockedReason and search(target, { x = from.x, y = from.y }) then
+				job.unjoined = true
+			else
+				if child.walkChecked then job.walkChecked = true end
+				job.costs[i], job.yards[i] = cost or false, cost and child.yards or false
+				if not cost then job.blockedReason = child.blockedReason or job.blockedReason end
+			end
 			job.revision = job.revision + 1
-			if not cost then job.blockedReason = child.blockedReason or job.blockedReason end
 		end
 		if job.costs[i] then any, job.valid = true, true end
 		tick()
 	end
 	job.radius = huge
-	if not any then return job.costs, Safe.refusal, job.yards end
+	if not any and not job.unjoined and not job.capped then return job.costs, Safe.refusal, job.yards end
 	return job.costs, nil, job.yards
 end
 

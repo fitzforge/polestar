@@ -1351,6 +1351,18 @@ local function ask(P, pc, px, py, flat, terminal)
 			-- partial or a walk found on a substitute floor as its live path.
 			got, reason = false, "no safe walking route"
 		end
+		-- A goal's floor no walk reaches though no policy said no (Foggy MacKreel on a broken section of the Thandol
+		-- Span, #3553): asked once more without its height, as before strict searches, and the arrow says the last
+		-- steps aren't mapped (city.dropped). A policy refusal stays final; so does a capital's goal at its height
+		-- (city.goal, or a target set on a capital's own map: a floor of Ironforge or the Undercity is never walked to
+		-- without its height, which goes round by the gate and over the mountain).
+		local tgt = Nav.GetTarget()
+		if not got and reason == "no safe walking route" and z and not inCity and not city.CAPITAL[tgt and tgt.map or 0]
+			and not terminal and not Walk.checkedOnly and not (type(answer) == "table" and answer.blockedReason) then
+			gz, city.dropped = nil, true
+			ask(P, pc, px, py, flat)
+			return
+		end
 		if not got and reason == "no safe walking route" then
 			if terminal and count > 0 then return end
 			Walk.blockedReason = type(answer) == "table" and answer.blockedReason or "unmapped"
@@ -1951,7 +1963,12 @@ end
 -- Once an onward walk has been requested, finishing the batch without a
 -- checked price for that floor is not permission to fall back to a fare. While
 -- the batch runs, a place it has already priced is: a strict batch publishes a
--- place's cost only once that walk is checked (Routing/Path.lua Safe.many).
+-- place's cost only once that walk is checked (Routing/Path.lua Safe.many). A
+-- place the batch left unpriced because the target's floor joins no walk
+-- (e.unjoined) or because the batch spent its expansions (e.capped,
+-- Path.manyCap, #3605), or one still unpriced when the planner stopped holding
+-- its route for it (e.gaveUp, Walk.GiveUp), keeps its estimate, as a place
+-- beyond the measure's reach does (#3553).
 function Walk.UnpricedTransfer(c, x, y, water, goalZ, from)
 	water = water or false
 	local e = measuring
@@ -1959,12 +1976,30 @@ function Walk.UnpricedTransfer(c, x, y, water, goalZ, from)
 	local i = e and placeIndex(e, from.wx, from.wy, from.z)
 	if i == nil then return false end
 	local costs = e.costs or e.partial
+	if (e.unjoined or e.capped or (e.gaveUp and not e.costs)) and e.z == goalZ and (not costs or costs[i] == nil) then return false end
 	return not (e.checked or (not e.costs and e.partial)) or (goalZ and e.z ~= goalZ) or not costs or type(costs[i]) ~= "number"
 end
 
 -- A measure is being taken (Nav/Travel.lua Travel.Waiting: a route held for its landing's walk).
 function Walk.MeasureBusy()
 	return measuring ~= nil
+end
+
+-- Seconds the planner has held its route for the measure being taken, counted from the first time it asks
+-- (Travel.Waiting): each measure has its own count, so a new measure of the same target holds afresh. 0 without one.
+function Walk.HeldFor()
+	if not measuring then return 0 end
+	measuring.heldAt = measuring.heldAt or GetTime()
+	return GetTime() - measuring.heldAt
+end
+
+-- The planner stops holding its route for the measure being taken (Travel.Waiting, after 2 s of it): the places
+-- it has not priced yet keep their estimates until it lands (UnpricedTransfer), and the measure never holds the
+-- route again (Travel.lua plan). With `ask`, only whether it has: -> true once the measure being taken gave up.
+function Walk.GiveUp(ask)
+	if not measuring then return false end
+	if not ask then measuring.gaveUp = true end
+	return measuring.gaveUp == true
 end
 
 -- The walk from (c, wx, wy) to the measure's target (the player's walk when
@@ -2016,22 +2051,26 @@ end
 -- with the router's reach) to its places, reversed. A batch with the height
 -- that finds nothing is asked once more without it, but for a target in a
 -- capital (mine.city): finding nothing, the straight estimates stand (the walk
--- without it went round Ironforge's gate, #2860).
+-- without it went round Ironforge's gate, #2860). A batch whose target's floor
+-- joins no walk (answer.unjoined, Routing/Path.lua Safe.many: Foggy MacKreel on
+-- the broken Thandol Span), or that spent its expansions (answer.capped), leaves
+-- its places their estimates and is not asked again (#3553, #3605).
 local function batch(P, mine, z)
 	local pts, water = mine.pts, mine.water
 	mine.z, mine.o = z, mine.o or opts(water, mine.c, nil, nil, mine.x, mine.y)
-	mine.partial, mine.firstPriced = nil, false
+	mine.partial, mine.firstPriced, mine.unjoined, mine.capped = nil, false, nil, nil
 	local inCity = z ~= nil and mine.city
 	local first
 	for i = 1, #pts do
 		if pts[i].first then first = i break end
 	end
-	-- The landing a planned route waits on (Travel.Waiting) is searched first; once it is priced the route is
-	-- offered (Travel.Remeasured) while the batch goes on with the other places.
-	local function progress(costs)
+	-- The landing a planned route waits on (Travel.Waiting) is searched first; once it is priced (or its estimate
+	-- stands: the target's floor joins no walk) the route is offered (Travel.Remeasured) while the batch goes on.
+	local function progress(costs, _, job)
 		if measuring ~= mine or type(costs) ~= "table" then return end
 		mine.partial = costs
-		if first and not mine.firstPriced and costs[first] ~= nil then
+		mine.unjoined, mine.capped = type(job) == "table" and job.unjoined or nil, type(job) == "table" and job.capped or nil
+		if first and not mine.firstPriced and (costs[first] ~= nil or mine.unjoined or mine.capped) then
 			mine.firstPriced = true
 			local T = Nav.travel
 			if T and T.Waiting and T.Waiting() then T.Remeasured() end
@@ -2043,14 +2082,17 @@ local function batch(P, mine, z)
 		costs = type(costs) == "table" and costs or {}
 		mine.yards = type(answer) == "table" and type(answer.yards) == "table" and answer.yards or nil
 		mine.checked = type(answer) == "table" and answer.walkChecked == true
+		mine.unjoined, mine.capped = type(answer) == "table" and answer.unjoined or nil, type(answer) == "table" and answer.capped or nil
 		local found, refused = false, false
 		for i = 1, #pts do
 			if type(costs[i]) == "number" then found = true
 			elseif costs[i] == false then refused = true end
 		end
-		if not found and z and not inCity and not (mine.goalZ and refused) and reason ~= "no safe walking route" then return batch(P, mine, nil) end
+		if not found and z and not inCity and not (mine.goalZ and refused) and not mine.unjoined and not mine.capped and reason ~= "no safe walking route" then return batch(P, mine, nil) end
 		mine.costs = costs
-		measured(mine, refused or (found and mine.checked))
+		-- A batch that left its places their estimates (unjoined, capped) has decided too: the planner held its route
+		-- for it, and plans once more with the estimates.
+		measured(mine, refused or (found and mine.checked) or mine.unjoined or mine.capped)
 	end, mine.o, true, progress)
 	if not ok then
 		if z and not inCity then return batch(P, mine, nil) end
