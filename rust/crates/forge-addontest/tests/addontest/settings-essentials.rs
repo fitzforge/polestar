@@ -90,7 +90,10 @@ fn every_look_page_opens_on_essentials_cards_first_then_at_most_ten_references_t
 		assert_eq!(e["cardsFirst"], true, "{key}: picture cards first");
 		let rows = e["rows"].as_f64().unwrap();
 		assert!((4.0..=10.0).contains(&rows), "{key}: {rows} rows under the cards (at most ten)");
-		assert_eq!(e["notRef"], json!({}), "{key}: every row a reference to its home");
+		// Alerts & toasts' "All alerts" (Line up alerts, toasts.stack) is homed on its Essentials since #3185: the line
+		// lines up the rare alert, the transport banner and While you're here alike, so no one alert's tab holds it.
+		let own = if key == "alerts" { json!(["toasts.stack"]) } else { json!({}) };
+		assert_eq!(e["notRef"], own, "{key}: every row a reference to its home");
 		assert_eq!(e["homeless"], json!({}), "{key}: every reference's home on its page (or on Guide)");
 		// Theme's cards show the first six skins, and their More link opens the full list on the Colour tab.
 		let cards_more = if key == "theme" { 0.0 } else { 1.0 };
