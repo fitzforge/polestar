@@ -47,8 +47,8 @@ or none.
   tests.
 - **addon** for the rest of what the suites read (`FORGE_PATHS`: the addon,
   the guides, the data): the addon's Lua tests alone. Their test binaries
-  are cached like forge (keyed by `rust/`, the stub's `simulate.lua` and
-  `data/guide-fixes.json`, which they embed), so no Rust is built unless
+  are cached like forge (keyed by `rust/` and the stub's `simulate.lua`,
+  which they embed), so no Rust is built unless
   the cache has none for this code.
 - **skip** for anything else: `Format, lints, tests` passes in seconds.
 
@@ -136,7 +136,60 @@ The maintainer (or the integrator of a batch) starts a run on a pushed
 branch; [RELEASING.md](RELEASING.md#on-demand-runs-on-github) has the
 commands and the security rules these workflows keep.
 
-## Reference data on GitHub
+## Reference data
+
+The tests that read `data/forever` used to skip in CI, so two pull requests
+that each passed alone could break the data-dependent suites together. Now
+every pull request's tests run with reference data, in two places:
+
+| Where | Data | Who | Fails on |
+|---|---|---|---|
+| `Tests` (`ci.yml`, GitHub's runners) | the public data `ci-data.yml` built on `next` | every pull request, forks too | a failure next's run on the same data does not have |
+| `Release data` (`ci.yml`, the maintainers' self-hosted runner) | the release data | pull requests from this repository's own branches | any failure |
+
+**Public data.** On every push to `next`, `ci-data.yml` builds the public
+data (below), runs the whole Node suite on it and saves both in the Actions
+cache (`public-data-<sha>`): the data, the client tables beside it and the
+suite's failures (`.ci/baseline.jsonl`). A pull request's `Tests` restores
+the entry of the commit it merges into (else the newest), runs its lane's
+tests with it, and `tools/ci-failures.js` fails the job only on failures the
+baseline lacks: a test that fails on the public data on `next` too is the
+data's, not the change's. The data is built from `next`'s corrections, so
+a pull request's own corrections show in it after the merge. Pushes run
+without it (`ci-data.yml` is their data run).
+
+**Release data.** The release data is built from recordings and private
+sources and is never published: it stays on the maintainers' machine, where
+a self-hosted runner (labels `self-hosted`, `polestar-data`) holds a
+read-only copy. Only code from this repository's own branches runs there:
+the `Release data` job runs for a pull request whose head branch is in this
+repository, and gates on the merged tree can run on pushes to `next`. The
+runner checks every job before it
+starts and refuses anything else (a fork's pull request, a push to a branch
+other than `next`, `main`, `release/*` or `hotfix/*`, any other event), each
+job runs in a fresh sandbox (the data and toolchains
+read-only, no credentials of the machine, the job's own folder its only
+writable one) and the runner is registered for one job at a time
+(ephemeral). What a fork's pull request can and cannot read:
+
+- it runs on GitHub's runners only, with the public data and a read-only
+  token, never on the self-hosted runner;
+- it can read what the Actions cache holds for `next`: forge, the addon's
+  test binaries and the public data, all built from public sources;
+- it cannot read the release data, the recordings or anything on the
+  maintainers' machine: none of it is in the repository, an artifact or the
+  cache.
+
+Anyone with write access can push a branch whose pull request runs on the
+self-hosted runner, so its code can read the release data; write access is
+given with that in mind. A fork's change gets the release data's tests after
+a maintainer merges it (the post-merge gates) or pushes it to a branch here.
+
+`Release data` is not a required check: the runner is one machine that may
+be off. When it is off the job waits in the queue and the pull request can
+still merge on `Tests`.
+
+### How the public data is built
 
 `data/forever` is not in the repository. The guide, gate and (with
 `data=public`) suite runs build it on the runner from public sources
@@ -166,7 +219,7 @@ A guide folder or playtest group that does not compile on this data (on
 finding only when the base does play it; its compile errors are compared
 like any other.
 
-The suites run with `data=none` (the default) exactly as CI does: the tests
+The on-demand suites run with `data=none` (the default) as before: the tests
 that read `data/forever` skip with a reason.
 
 ## What stays local
