@@ -1265,6 +1265,7 @@ L["Use %s to learn it."] = "使用%s来学习。"
 L["Chain: finished, %d skipped"] = "任务链：已完成，跳过 %d 个"
 L["Chain: all %d done"] = "任务链：%d 个全部完成"
 L["Chain: %d of %d"] = "任务链：%d/%d"
+L["Only visible while dead: die nearby and talk to them as a ghost, or skip this quest."] = "只有死亡后才能看见：在附近死亡，以灵魂状态与其对话，或跳过此任务。"
 
 -- Lookup/Spotter.lua
 L["From"] = "来源"

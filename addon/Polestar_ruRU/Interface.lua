@@ -1265,6 +1265,7 @@ L["Use %s to learn it."] = "Используйте %s, чтобы выучить
 L["Chain: finished, %d skipped"] = "Цепочка: завершена, пропущено: %d"
 L["Chain: all %d done"] = "Цепочка: выполнены все %d"
 L["Chain: %d of %d"] = "Цепочка: %d из %d"
+L["Only visible while dead: die nearby and talk to them as a ghost, or skip this quest."] = "Виден только мёртвым: умрите рядом и поговорите с ним в облике духа или пропустите это задание."
 
 -- Lookup/Spotter.lua
 L["From"] = "Источник:"

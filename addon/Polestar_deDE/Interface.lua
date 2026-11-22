@@ -311,6 +311,7 @@ L["%s: click through what they say until the quest's line is done."] = "%s: Klic
 -- L["Chain: finished, %d skipped"] = ""
 -- L["Chain: all %d done"] = ""
 -- L["Chain: %d of %d"] = ""
+L["Only visible while dead: die nearby and talk to them as a ghost, or skip this quest."] = "Nur als Toter sichtbar: Stirb in der Nähe und sprich als Geist mit ihm, oder überspringe diese Quest."
 
 -- Lookup/Sources.lua
 L["Reputation"] = "Ruf"

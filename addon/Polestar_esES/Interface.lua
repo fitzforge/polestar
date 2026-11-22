@@ -1265,6 +1265,7 @@ L["Use %s to learn it."] = "Usa %s para aprenderlo."
 -- L["Chain: finished, %d skipped"] = ""
 -- L["Chain: all %d done"] = ""
 -- L["Chain: %d of %d"] = ""
+L["Only visible while dead: die nearby and talk to them as a ghost, or skip this quest."] = "Solo visible estando muerto: muere cerca y háblale como espíritu, o sáltate esta misión."
 
 -- Lookup/Spotter.lua
 L["From"] = "De"

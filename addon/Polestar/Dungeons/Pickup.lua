@@ -1029,7 +1029,8 @@ local function acceptGoal(pq, rec, g)
 		goal.candidates = rec and LK().GiverCandidates(rec.start, g) or nil
 	end
 	goal.z = LK().SpawnZ(g.kind == "object" and "object" or "npc", g.id, g)
-	return goal
+	-- A giver only the dead see: optional, and its goal says so (Lookup.GhostOnly, #558).
+	return LK().GhostOnly(goal)
 end
 
 -- Collect the item that starts a quest at drop point d (Dungeons.DropPoint):

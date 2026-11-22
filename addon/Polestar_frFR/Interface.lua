@@ -1266,6 +1266,7 @@ L["%s: click through what they say until the quest's line is done."] = "%s : cli
 -- L["Chain: finished, %d skipped"] = ""
 -- L["Chain: all %d done"] = ""
 -- L["Chain: %d of %d"] = ""
+L["Only visible while dead: die nearby and talk to them as a ghost, or skip this quest."] = "Visible seulement une fois mort : mourez à proximité et parlez-lui en fantôme, ou passez cette quête."
 
 -- Lookup/Spotter.lua
 L["From"] = "Provenance"

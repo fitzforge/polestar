@@ -3522,3 +3522,44 @@ emit(lines())"#);
 	assert_eq!(out[0]["lines"], json!(["Summoning Mallet: Use the Plain Mallet at the altar.", "After the run: choose Hand in the quests at the end of this guide or on the dungeon's page."]));
 	assert_eq!(out[1], json!(["After the run: choose Hand in the quests at the end of this guide or on the dungeon's page."]), "carried: no line");
 }
+
+// #558 (Blackrock Depths' pick-up guide): Franclorn Forgewright gives Dark Iron Legacy and takes it back, and only a
+// dead character sees him; compact mode folds the step's tip away, so a living player found nobody there. A giver
+// or ender the Codex marks ghostOnly is optional in the pick-up and hand-in guides, its goal saying so itself.
+#[test]
+fn a_ghost_only_giver_is_optional_with_a_note_on_the_goal_itself_558() {
+	let (codex, inputs) = fixture_parts();
+	let mut c = codex.clone();
+	let mut i = inputs.clone();
+	c["npcs"]["9080"] = sideless_npc(9080, "Franclorn Forgewright", 1421, 60, 40);
+	c["npcs"]["9080"]["ghostOnly"] = json!(true);
+	c["quests"]["90800"] = page_quest(90800, "Dark Iron Legacy", Value::Null, 9080, 9080);
+	c["quests"]["90800"]["xp"] = json!(2000);
+	i["forever"]["quests"]["90800"] = json!({ "area": 209, "xp": 2000 });
+	let own = pack_of(&c, &i);
+	let out = run(
+		&own,
+		&k(r#"
+local accept
+for _, s in ipairs((D.PickupGuide("{KEY}") or { steps = {} }).steps) do
+	for _, g in ipairs(s.goals) do
+		if g.t == "accept" and g.quest == 90800 then accept = g end
+	end
+end
+local other
+for _, s in ipairs((D.PickupGuide("{KEY}") or { steps = {} }).steps) do
+	for _, g in ipairs(s.goals) do
+		if g.t == "accept" and g.quest == 1010 then other = g end
+	end
+end
+emit({ found = accept ~= nil, optional = accept and accept.optional or false, note = accept and accept.note or false,
+	ghost = Polestar.Codex.Npc(9080).ghostOnly or false, other = other and (other.optional or other.note or false) or "none" })"#),
+		Opts::default(),
+	)
+	.remove(0);
+	assert_eq!(out["found"], true, "{out}");
+	assert_eq!(out["ghost"], true, "the Codex carries the flag");
+	assert_eq!(out["optional"], true, "the player can leave it");
+	assert_eq!(out["note"], "Only visible while dead: die nearby and talk to them as a ghost, or skip this quest.", "on the goal, which compact mode shows");
+	assert_eq!(out["other"], false, "a living giver's accept stays as it was");
+}
