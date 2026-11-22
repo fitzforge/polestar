@@ -1,7 +1,8 @@
 //! The guide window's tab styles (addon/Polestar/UI/GuideFrameTabStyles.lua and the load-on-demand
 //! addon/Polestar_TabStyles, guideWindow.tabStyle): each of
 //! underline, switcher, edge and strip draws its own tabs and hides the others, a change of style reaches the
-//! live window at once and back, six tabs is the limit in every style, and none has a × to hide the window ("…" has Hide window).
+//! live window at once and back, six tabs is the limit in every style, and none has a × to hide the window (nor has
+//! "…" since #3073: `/polestar show` was the only way back from a window hidden from its own menu).
 //! Against the real Core + Theme + UI manifests and the fake Engine (tests/lua/stub_ui.lua).
 
 use forge_addontest::{emitted, Addon, RunAddon};
@@ -102,7 +103,7 @@ fn each_style_draws_its_own_tabs_and_hides_the_others() {
 	assert_eq!(out["edge"]["edgeClose"], false, "the edge row has no × tab");
 	assert_eq!(out["strip"]["sideTabs"], 3, "one side tab per open guide");
 	for s in ["underline", "switcher", "edge", "strip"] {
-		assert_eq!(out[s]["close"], false, "{s}: no × to hide the window (\"…\" has Hide window)");
+		assert_eq!(out[s]["close"], false, "{s}: no × to hide the window");
 	}
 }
 
@@ -203,8 +204,9 @@ fn six_tabs_is_the_limit_in_every_style() {
 	assert_eq!(six["switcher"], json!(["Six tabs is the limit", false, "6"]), "switcher: off at six, with the limit's tip");
 }
 
-// No style has a × to hide the window: "…" has Hide window in every style. "…" sits at the bar's right inset with
-// no gap where a × was, the switcher stops short of it, and the switcher's own list keeps each tab's "Close tab".
+// No style has a × to hide the window, and "…" has no Hide window in any style (#3073: a window hidden from its own
+// menu had no way back but `/polestar show`). "…" sits at the bar's right inset with no gap where a × was, the
+// switcher stops short of it, and the switcher's own list keeps each tab's "Close tab".
 #[test]
 fn no_style_has_a_window_close_and_the_menu_sits_at_the_bar_s_right() {
 	let out = run(r#"
@@ -242,7 +244,7 @@ fn no_style_has_a_window_close_and_the_menu_sits_at_the_bar_s_right() {
 	for row in out.as_array().unwrap() {
 		let name = &row["name"];
 		assert_eq!(json!([row["close"], row["part"], row["edgeClose"]]), json!([false, false, false]), "{name}: no × to hide the window: {row}");
-		assert_eq!(row["hide"], true, "{name}: \"…\" has Hide window");
+		assert_eq!(row["hide"], false, "{name}: \"…\" has no Hide window");
 		assert_eq!(row["gap"].as_f64(), Some(8.0), "{name}: \"…\" at the bar's right inset, no gap: {row}");
 		if name.as_str().unwrap().starts_with("switcher") {
 			assert_eq!(row["clear"], true, "{name}: the switcher stops short of \"…\": {row}");

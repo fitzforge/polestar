@@ -88,7 +88,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- The style's frames, made on its first use, and how far they reach past
 	-- the window's edges (GF.Layout): before the layout's hooks run, so a
 	-- skin's guideLayout dresses them and sees the reach from the first time.
-	-- The window has no × of its own: "…" has Hide window.
+	-- The window has no × of its own (nor a Hide window row in "…": #3073).
 	function GF.PlaceTabStyle()
 		if not own then return end
 		local style = GF.TabStyle()

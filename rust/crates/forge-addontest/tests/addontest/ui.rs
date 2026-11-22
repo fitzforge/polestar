@@ -1779,13 +1779,13 @@ fn the_header_menu_picker_new_tab_compact_transparent_lock_destructive_items_ask
 		reset:Click()
 		menuPick("Choose guide")
 		local picker = PolestarPicker:IsShown()
-		menuPick("Options")
+		menuPick("Settings")
 		emit({ items = items, bar = bar, locked = Polestar.Get("ui.locked"), style = style, armed = armed, reset = lastCall("ResetProgress"),
 			picker = picker, options = PolestarOptions:IsShown(), pickerAfter = PolestarPicker:IsShown() })"#)
 	.remove(0);
 	assert_eq!(
 		out["items"],
-		json!(["Choose guide", "Open in new tab", "None to hand in", "Quest log is clean", "Quick settings", "Options", "Reset guide progress"]),
+		json!(["Choose guide", "Open in new tab", "None to hand in", "Quest log is clean", "Quick settings", "Settings", "Reset guide progress"]),
 		"Skip, the bug and Lookup are in the header, so not in the menu; the quest log rows are always there, off when they have nothing to do"
 	);
 	assert_eq!(out["bar"], json!(["Compact mode", "Transparent", "Lock window", "Pause"]), "the window's toggles are the bar on top");
