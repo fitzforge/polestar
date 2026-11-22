@@ -29,7 +29,8 @@ jobs:
     timeout-minutes: 180
     env:
       POLESTAR_TIMING_BUDGETS: warn
-      CI_TEST_CONCURRENCY: "2"
+      # One test file at a time, as ci-release-data.yml: the runner's 6 GB.
+      CI_TEST_CONCURRENCY: "1"
       GATE_JOBS: "3"
     defaults:
       run:
@@ -118,9 +119,14 @@ jobs:
       - name: Playtest
         id: playtest
         continue-on-error: true
+        # The experimental pack is played when it has guides (none since Mount Hyjal joined the route in 0.4.3).
         run: |
           node tools/polestar.js playtest 2>&1 | tee "$RUNNER_TEMP/gates/playtest.log"
-          node tools/polestar.js playtest experimental 2>&1 | tee -a "$RUNNER_TEMP/gates/playtest.log"
+          if find experimental -name '*.guide' -print -quit | grep -q .; then
+            node tools/polestar.js playtest experimental 2>&1 | tee -a "$RUNNER_TEMP/gates/playtest.log"
+          else
+            echo "experimental: no guides, nothing to play" | tee -a "$RUNNER_TEMP/gates/playtest.log"
+          fi
 
       # The release gates whose harness and baselines are not in the repository, from the runner's gate kit
       # ($POLESTAR_GATES/run.sh <gate> <tree> <out>: exit 0 = pass, <out>/<gate>.md its table).
