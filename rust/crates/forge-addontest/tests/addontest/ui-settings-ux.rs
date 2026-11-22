@@ -228,6 +228,10 @@ fn peek_fades_the_window_fold_leaves_its_header_and_shift_wheel_scales_it() {
 		stub.keys.shift = false
 		local shifted = Polestar.Get("ui.menuScale")
 		local lit = rawget(F.HeaderTools, "psFlash") ~= nil and F.HeaderTools.psFlash:IsShown()
+		-- Guide fits its view since the Settings Overhaul gave the guide window's settings a page of their own:
+		-- the plain wheel is tried on Theme, taller than its view.
+		O.Select("theme")
+		stub.advance(0.1)
 		local top = F.Scroll:GetVerticalScroll()
 		stub.RunScript(F.Scroll, "OnMouseWheel", -1)
 		stub.advance(0.5)
@@ -626,8 +630,9 @@ fn a_profile_key_switches_to_its_profile_and_follows_it() {
 // A page title too long for the header's room takes it from the search first (down to the search's least width,
 // 104 px), then the scale's label, before it is cut short; a shorter title gives the search its width back. Peek
 // and Fold sit as a pair.
-// The window is 960 wide: at its least (860) the header's "New settings page" switch after Menu scale leaves a
-// short title no room beside the search's own width.
+// The window is 960 wide, near its least (860): there the header's Settings scale, Fold, Peek and Move frames leave
+// even a short title ("Guide", 65 px) 19 px short beside the search's own width (215, 30% of the 718 main column),
+// so the search gives those 19; at a wider window a short title leaves it all.
 #[test]
 fn a_long_title_takes_room_from_the_header_search_before_it_is_cut() {
 	let out = run(r#"
@@ -649,7 +654,7 @@ fn a_long_title_takes_room_from_the_header_search_before_it_is_cut() {
 		local back = header()
 		local _, rel, _, gap = F.PeekButton:GetPoint(1)
 		emit({ short = short, long = long, back = back, pair = { rel == F.FoldButton, gap } })"#);
-	assert_eq!(out["short"]["search"], 215, "a short title leaves the search its own width (30% of the 718 main column)");
+	assert_eq!(out["short"]["search"], 196, "a short title takes only what it lacks from the search (215 less 19)");
 	assert!(out["short"]["room"].as_i64() >= out["short"]["need"].as_i64(), "{}", out["short"]);
 	assert_eq!(out["long"]["search"], 104, "a long one takes room from the search, down to its least");
 	// The search gives 111 (215 to 104); Move frames in the header leaves that short of this title, so the scale's
