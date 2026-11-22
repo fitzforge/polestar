@@ -14690,6 +14690,149 @@
 				}
 			],
 			"issue": 2900
+		},
+		{
+			"id": "3574-stv-fever-group-horde-first-visit",
+			"faction": "Horde",
+			"at": {
+				"quest": 348,
+				"goal": "accept",
+				"guide": "forever/horde/40-50/01-stranglethorn-vale"
+			},
+			"split": {
+				"title": "Fin Fizracket"
+			},
+			"when": "group 348",
+			"tip": "Group quest: Stranglethorn Fever ends at Witch Doctor Unbagwa in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then Mokk the Savage (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along.",
+			"note": "#3574 (Koobi, 0.4.2.1): Mokk the Savage was no solo fight. Stranglethorn Fever (348) is a group choice (`when group 348`): its accept is a step of its own after the level 40 pick-ups (the seed's step keeps their `when level>=40`), and a player who skips it never takes it, so Unbagwa's steps and Fin's hand-in on 02-feralas go with it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings: 32 starts of Unbagwa's waves (349 handed in) by 27 people at levels 40-50 (median 44); 19 deaths by 12 people within 3 map % of Unbagwa before Mokk's heart, 12 to Enraged Silverbacks (1511, 41-42) and 3 to Mokk the Savage (1514, 44)"
+				}
+			],
+			"issue": 3574
+		},
+		{
+			"id": "3574-stv-fever-group-horde-catch-up",
+			"faction": "Horde",
+			"at": {
+				"quest": 348,
+				"goal": "accept",
+				"guide": "forever/horde/40-50/02-feralas"
+			},
+			"split": {
+				"title": "Fin Fizracket"
+			},
+			"when": "group 348",
+			"tip": "Group quest: Stranglethorn Fever ends at Witch Doctor Unbagwa in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then Mokk the Savage (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along.",
+			"note": "#3574: the Booty Bay catch-up's Stranglethorn Fever is the same group choice as 01-stranglethorn-vale's (the seed's step keeps the catch-up's `when !onquest 348` and `when !turnedin 348`).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "as 3574-stv-fever-group-horde-first-visit"
+				}
+			],
+			"issue": 3574
+		},
+		{
+			"id": "3574-stv-unbagwa-group-horde",
+			"faction": "Horde",
+			"at": {
+				"quest": 348,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/40-50/02-feralas"
+			},
+			"when": "group 348",
+			"note": "#3574: both Witch Doctor Unbagwa steps (the Grom'gol stop's and the Booty Bay catch-up's) are for a player who chose the group quest; one who carries 348 from before and skips it is not sent to the waves.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "as 3574-stv-fever-group-horde-first-visit"
+				}
+			],
+			"issue": 3574
+		},
+		{
+			"id": "3574-stv-fever-hand-in-when-complete",
+			"faction": "Horde",
+			"at": {
+				"quest": 348,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/02-feralas"
+			},
+			"split": {
+				"title": "Fin Fizracket"
+			},
+			"when": "complete 348",
+			"note": "#3574: the first Booty Bay stop's hand-in to Fin is a step of its own, shown only with Stranglethorn Fever ready (`when complete 348`, as the later Fin Fizracket step), so a player carrying the quest who skipped the group waves is not held at Booty Bay.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "as 3574-stv-fever-group-horde-first-visit"
+				}
+			],
+			"issue": 3574
+		},
+		{
+			"id": "3574-stv-fever-group-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 348,
+				"goal": "accept",
+				"guide": "forever/alliance/40-50/05-the-hinterlands"
+			},
+			"split": {
+				"title": "Fin Fizracket"
+			},
+			"when": "group 348",
+			"tip": "Group quest: Stranglethorn Fever ends at Witch Doctor Unbagwa in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then Mokk the Savage (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along.",
+			"note": "#3574's sweep: the Alliance route fights Mokk on the level 48 Booty Bay stop, the same waves. The accept is a group choice; the Gorilla hills step (its fangs have no quest of their own to anchor on: `when group 348` in the seed) and both Unbagwa's ritual steps follow the answer, and Fin's hand-in goes with a skipped accept.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "as 3574-stv-fever-group-horde-first-visit"
+				}
+			],
+			"issue": 3574
+		},
+		{
+			"id": "3574-stv-unbagwa-group-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 348,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/40-50/05-the-hinterlands"
+			},
+			"when": "group 348",
+			"note": "#3574's sweep: Mokk's heart step (Unbagwa's ritual) for a player who chose the group quest; the hand-in step before it carries the same `when group 348` in the seed.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "as 3574-stv-fever-group-horde-first-visit"
+				}
+			],
+			"issue": 3574
+		},
+		{
+			"id": "3576-kumisha-with-a-fragment",
+			"faction": "Alliance",
+			"at": {
+				"quest": 3501,
+				"goal": "accept",
+				"guide": "forever/alliance/50-60/01-burning-steppes"
+			},
+			"when": "has 10593",
+			"note": "#3576 (Peanut, 0.4.2.1): Kum'isha's Everything Counts In Large Amounts (3501) wants one Imperfect Draenethyst Fragment, a random drop from the Blasted Lands mobs that level 60 players farm, and the step held the route until one dropped. The step now shows only with a fragment in the bags (`when has 10593`), as her Flawless Draenethyst Sphere step does (`when has 8244`); the walk to her hill passes when neither applies.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings, quest 3501: 20 people; 16 accepts, 7 hand-ins, 9 abandons"
+				}
+			],
+			"issue": 3576
 		}
 	]
 }
