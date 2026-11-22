@@ -857,7 +857,11 @@ fn a_new_goals_rush_on_a_loaded_machine_takes_one_bigger_slice_in_four_for_two_s
 	for i in 1..slices.len() {
 		t += lengths[i - 1];
 		if lengths[i] > 1000.0 / 60.0 {
-			if t <= 2000.0 + 20.0 { bursts += 1 } else { late += 1 }
+			if t <= 2000.0 + 20.0 {
+				bursts += 1
+			} else {
+				late += 1
+			}
 			assert!(slices[i] <= 4.5 + 0.3, "a burst stays within Path.burstBudget: frame {i} {} ms", slices[i]);
 		}
 	}
