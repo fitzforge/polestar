@@ -118,8 +118,7 @@ fn a_reset_offers_one_undo_in_the_footer_for_a_while() {
 		local w = ctl("ui.launcher")
 		w:Click("RightButton")
 		local chip = PolestarOptions.UndoChip
-		local row = { value = Polestar.Get("ui.launcher"), shown = chip:IsShown(), text = chip.Text:GetText(),
-			thanks = PolestarOptions.ThanksLink:IsShown() }
+		local row = { value = Polestar.Get("ui.launcher"), shown = chip:IsShown(), text = chip.Text:GetText() }
 		chip.Undo:Click()
 		local undone = { Polestar.Get("ui.launcher"), chip:IsShown() }
 		-- Already at its default: nothing to undo.
@@ -141,7 +140,7 @@ fn a_reset_offers_one_undo_in_the_footer_for_a_while() {
 		local page = { Polestar.Get("ui.combat"), chip:IsShown() }
 		O.Undo()
 		emit({ row = row, undone = undone, idle = idle, section = section, gone = gone, page = page, back = Polestar.Get("ui.combat") })"#);
-	assert_eq!(out["row"], json!({ "value": false, "shown": true, "text": "Floating button reset.", "thanks": false }));
+	assert_eq!(out["row"], json!({ "value": false, "shown": true, "text": "Floating button reset." }));
 	assert_eq!(out["undone"], json!([true, false]), "Undo puts it back and the chip goes");
 	assert_eq!(out["idle"], false, "a row at its default: no Undo");
 	assert_eq!(out["section"], json!(["show", "hide", "2 settings reset."]), "both back to their defaults");

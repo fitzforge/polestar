@@ -31,9 +31,9 @@ local floor, max, min, ipairs, pairs, type = math.floor, math.max, math.min, ipa
 
 local SH = W.SHELL
 -- Sizes (one table, so the main chunk stays within the locals budget): GAP between the two columns of the
--- Recorder's and About's tiles, HERO_H the About hero's height, INSTALL_ROOM the main column's width the
--- header's Install button needs beside the page's title; the window's own (BASE_W ... EDGE) with its size below.
-local SIZE = { GAP = 24, HERO_H = 96, INSTALL_ROOM = 780 }
+-- Recorder's and About's tiles, HERO_H the About hero's height; the window's own (BASE_W ... EDGE) with its
+-- size below.
+local SIZE = { GAP = 24, HERO_H = 96 }
 
 local O = {}
 UI.Options = O
@@ -834,6 +834,13 @@ local function buildAbout(view)
 		.. L["Discord and its logo are trademarks of Discord Inc.; the logo marks the link to the Polestar Discord."] .. "\n"
 		.. L["With EllesmereUI installed, Polestar can follow its accent, font and panel colour through its public skinning API."] .. "\n"
 		.. L["Gear scores from Forever Leveling BiS by Timearc when it is installed, through its public API."])
+	-- Special thanks (UI/Thanks.lua), under the credits: one supporter or
+	-- contributor a time the page opens, a link to Guiding Stars.
+	local thanksLead = W.Text(view, "note", "textDim")
+	thanksLead:SetText(L["Special thanks to:"])
+	local thanks = W.Link(view, "", function() O.Select("thanks") end, { role = "note" })
+	thanks.psTip, thanks.psTipLines = L["Guiding Stars"], { L["Everyone who supports Polestar and helps build it."] }
+	view.ThanksLead, view.Thanks = thanksLead, thanks
 	local maintH = W.SectionHeader(view)
 	W.SetSection(maintH, L["Maintenance"])
 	-- The profile in use is what goes back: the dialog says whose it is, and
@@ -910,6 +917,17 @@ local function buildAbout(view)
 			pair[2]:ClearAllPoints()
 			pair[2]:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
 			y = y + pair[2]:GetStringHeight() + 8
+		end
+		local name = UI.Thanks.PickName()
+		thanksLead:SetShown(name ~= nil)
+		thanks:SetShown(name ~= nil)
+		if name then
+			W.SetLinkText(thanks, ns.EscapeText and ns.EscapeText(name) or name)
+			thanksLead:ClearAllPoints()
+			thanksLead:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -(y + 2))
+			thanks:ClearAllPoints()
+			thanks:SetPoint("LEFT", thanksLead, "RIGHT", 4, 0)
+			y = y + 20 + 8
 		end
 		maintH:ClearAllPoints()
 		maintH:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
@@ -3424,8 +3442,7 @@ function Undo.same(a, b)
 	return a == b
 end
 
--- The chip, left of the footer's right-hand buttons in place of the thanks
--- line while it shows.
+-- The chip, left of the footer's right-hand buttons while it shows.
 function Undo.place()
 	local chip = rawget(win, "UndoChip")
 	if not (chip and chip:IsShown()) then return end
@@ -3434,15 +3451,12 @@ function Undo.place()
 	chip:ClearAllPoints()
 	if anchor then chip:SetPoint("RIGHT", anchor, "LEFT", -16, 0) else chip:SetPoint("RIGHT", win.Footer, "RIGHT", -SH.pad, 0) end
 	chip:SetWidth(12 + 6 + math.ceil(chip.Text:GetStringWidth()) + 4 + chip.Undo:GetWidth())
-	local thanks = rawget(win, "ThanksLink")
-	if thanks then thanks:Hide() end
 end
 
 function Undo.hide()
 	local chip = rawget(win, "UndoChip")
 	if not (chip and chip:IsShown()) then return end
 	chip:Hide()
-	if rawget(win, "PlaceThanks") then win.PlaceThanks() end
 end
 
 function Undo.chip()
@@ -3555,7 +3569,6 @@ local function renderFooter(p)
 		right[#right + 1] = { label = string.format(L["Profile: %s"], profileLabel(active)), opts = { icon = "layers", ghost = true }, onClick = profileMenu }
 	end
 	W.ShellFooter(win, left, right)
-	if rawget(win, "PlaceThanks") then win.PlaceThanks() end
 	Undo.place()
 	if Fold.state then win.Footer:Hide() end
 end
@@ -3754,7 +3767,6 @@ function O.Fold(on)
 		for _, c in ipairs({ win.Sidebar:GetChildren() }) do away(c) end
 		away(win.Status)
 		away(rawget(win, "Grip"))
-		away(rawget(win, "ThanksLink"))
 		O.HideMore()
 		W.HideMenu()
 		win:SetHeight(SH.header + 2)
@@ -3763,7 +3775,6 @@ function O.Fold(on)
 		Fold.state = nil
 		win:SetHeight(f.h)
 		for _, c in ipairs(f.hidden) do c:Show() end
-		if rawget(win, "PlaceThanks") then win.PlaceThanks() end
 	end
 	Fold.paint()
 	return Fold.state ~= nil
@@ -4191,10 +4202,6 @@ local function applySize()
 	if win:GetWidth() == w and win:GetHeight() == h then return false end
 	win:SetSize(w, h)
 	W.ShellLayout(win)
-	-- The footer's thanks and the header's Install for the main column's new
-	-- width (a size change's own hook may run before the shell has measured it).
-	if rawget(win, "PlaceThanks") then win.PlaceThanks() end
-	if rawget(win, "PlaceInstall") then win.PlaceInstall() end
 	return true
 end
 
@@ -4273,34 +4280,8 @@ local function build()
 	O.Dropdown.Attach(win)
 	applySize()
 	UI.Report.SidebarLink(win)
-	-- "Special thanks to" sits in the footer, left of its right-hand buttons
-	-- (the header holds the search), while it fits between them and the
-	-- left-hand ones with room to spare; a window too narrow for it (its
-	-- least width, a long translation) leaves it out rather than let it run
-	-- over them. Placed again as the window's size or the buttons change.
-	win.psPlaceThanks = function(b)
-		local anchor, used = nil, 2 * SH.pad
-		for _, side in ipairs({ "left", "right" }) do
-			for _, fb in ipairs(win.footerButtons[side]) do
-				if fb:IsShown() then
-					used = used + fb:GetWidth() + 8
-					if side == "right" then anchor = fb end
-				end
-			end
-		end
-		if anchor then
-			b:SetPoint("RIGHT", anchor, "LEFT", -16, 0)
-		else
-			b:SetPoint("RIGHT", win.Footer, "RIGHT", -SH.pad, 0)
-		end
-		-- The footer runs the main column's width (the shell's own number: the
-		-- footer's anchored rect may not be laid out yet as the window opens).
-		local room = tonumber(rawget(win, "psMainW")) or win.Footer:GetWidth()
-		-- The reset's Undo stands there while it shows.
-		local chip = rawget(win, "UndoChip")
-		b:SetShown((b.Name:GetText() or "") ~= "" and used + 16 + b:GetWidth() <= room and not (chip and chip:IsShown()))
-	end
-	UI.Thanks.HeaderLink(win)
+	-- Special thanks is on About (under the credits), not in the footer, where
+	-- it pulled the eye from the page.
 	-- A row's right-click reset (W.ResetSetting) offers its Undo too.
 	W.OnReset(Undo.offer)
 	-- Peek (held down) and Fold in the header, between the search and the
@@ -4342,27 +4323,8 @@ local function build()
 	nudge:Hide()
 	win.NavMore = nudge
 	win.NavScroll.psOnScroll = function(_, cur, range) nudge:SetShown(range > 0 and cur < range - 1) end
-	-- Install from the header, left of the search: the first run's setup,
-	-- again whenever the player wants it (UI/Welcome.lua over this window).
-	-- A window too narrow for it beside the page's title (under SIZE.INSTALL_ROOM
-	-- of main column) leaves it out: About and the search still have it.
-	win.Install = W.Button(win.Header, L["Install"], function() ns.Fire("SHOW_WELCOME") end, { ghost = true, icon = "palette" })
-	win.Install.psTip = L["Install"]
-	win.Install.psTipLines = { L["Set Polestar up again, a page at a time. Each choice works at once."] }
-	local function placeInstall()
-		local room = tonumber(rawget(win, "psMainW")) or 0
-		win.Install:SetShown(room >= SIZE.INSTALL_ROOM)
-		if rawget(win, "HeaderTools") then win.HeaderTools.Place() end
-	end
-	if rawget(win, "psHeadTools") then
-		win.psHeadTools[#win.psHeadTools + 1] = win.Install
-		win.PlaceInstall = placeInstall
-		placeInstall()
-	end
-	win:HookScript("OnSizeChanged", function()
-		if rawget(win, "psHeadTools") then placeInstall() end
-		win.PlaceThanks()
-	end)
+	-- Install (UI/Welcome.lua) is on About ("Set Polestar up again") and in the
+	-- search, not in the header, where it read as installing the addon.
 	-- After the shell's own scale handler: the size follows the scale's room.
 	ns.On("SETTING_CHANGED", function(path)
 		-- A live change (a slider dragged) settles with a plain one: the marks, the

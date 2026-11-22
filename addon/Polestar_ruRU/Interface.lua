@@ -2556,7 +2556,6 @@ L["Install's pages: questing, groups and dungeons, your route and your look, a p
 L["set Polestar up again, a page at a time"] = "заново настроить Polestar, страница за страницей"
 L["Set Polestar up again, a page at a time: questing, groups and dungeons, your route, your look. Each choice works at once."] = "Заново настроить Polestar, страница за страницей: задания, группы и подземелья, ваш маршрут, ваш вид. Каждый выбор действует сразу."
 L["What this version of Polestar changed for you."] = "Что эта версия Polestar изменила для вас."
-L["Set Polestar up again, a page at a time. Each choice works at once."] = "Заново настроить Polestar, страница за страницей. Каждый выбор действует сразу."
 L["Leveling guides can take you through the dungeons on your way, for a group of five: they pick up the quests on stops they make anyway, send you to the door at the right level and hand the quests in after. Skip them: the solo route. Ask me: the guide asks at each dungeon. Discovery, Dungeons changes one."] = "Гайды по прокачке могут проводить вас через подземелья на вашем пути, для группы из пяти: они берут задания на остановках, которые все равно делают, отправляют вас ко входу на нужном уровне и потом сдают задания. «Пропускать»: одиночный маршрут. «Спросить»: гайд спрашивает у каждого подземелья. Отдельное подземелье меняется в разделе «Открытия», «Подземелья»."
 L["Every setting of the profile %s goes back to its default, for every character on the account that uses it. Your guides and progress are kept."] = "Все настройки профиля %s вернутся к значениям по умолчанию для всех персонажей учетной записи, которые его используют. Ваши гайды и прогресс сохранятся."
 L["Every setting of the profile %s goes back to its default, for every character of the classes that use it. Your guides and progress are kept."] = "Все настройки профиля %s вернутся к значениям по умолчанию для всех персонажей классов, которые его используют. Ваши гайды и прогресс сохранятся."
@@ -4802,6 +4801,7 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Пос
 -- L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
+-- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Заново настроить Polestar, страница за страницей. Каждый выбор действует сразу."
 -- L["New"] = "Новое"
 -- L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = "Окно гайда скрывается в подземельях и на полях боя. %s Изменить это можно в меню Настройки > Гайд > Окно."
 -- L["In dungeons"] = "В подземельях"

@@ -2556,7 +2556,6 @@ L["Install's pages: questing, groups and dungeons, your route and your look, a p
 L["set Polestar up again, a page at a time"] = "Polestar를 한 페이지씩 다시 설정"
 L["Set Polestar up again, a page at a time: questing, groups and dungeons, your route, your look. Each choice works at once."] = "Polestar를 한 페이지씩 다시 설정합니다: 퀘스트 진행, 파티와 던전, 내 경로, 내 모양. 선택은 바로 적용됩니다."
 L["What this version of Polestar changed for you."] = "이번 Polestar 버전에서 바뀐 점."
-L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar를 한 페이지씩 다시 설정합니다. 선택은 바로 적용됩니다."
 L["Leveling guides can take you through the dungeons on your way, for a group of five: they pick up the quests on stops they make anyway, send you to the door at the right level and hand the quests in after. Skip them: the solo route. Ask me: the guide asks at each dungeon. Discovery, Dungeons changes one."] = "레벨업 가이드는 5인 파티용으로 가는 길의 던전을 안내할 수 있습니다. 어차피 들르는 곳에서 퀘스트를 받고, 알맞은 레벨에 입구로 안내하며, 나중에 퀘스트를 제출합니다. 건너뛰기: 솔로 경로. 묻기: 던전마다 가이드가 묻습니다. 개별 던전은 발견, 던전에서 바꿀 수 있습니다."
 L["Every setting of the profile %s goes back to its default, for every character on the account that uses it. Your guides and progress are kept."] = "프로필 %s의 모든 설정이 기본값으로 돌아갑니다. 이 프로필을 쓰는 계정의 모든 캐릭터에 적용됩니다. 가이드와 진행 상황은 유지됩니다."
 L["Every setting of the profile %s goes back to its default, for every character of the classes that use it. Your guides and progress are kept."] = "프로필 %s의 모든 설정이 기본값으로 돌아갑니다. 이 프로필을 쓰는 직업의 모든 캐릭터에 적용됩니다. 가이드와 진행 상황은 유지됩니다."
@@ -4802,6 +4801,7 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "착륙
 -- L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
+-- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar를 한 페이지씩 다시 설정합니다. 선택은 바로 적용됩니다."
 -- L["New"] = "새 기능"
 -- L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = "가이드 창은 던전과 전장에서 숨겨집니다. %s 설정 > 가이드 > 창에서 바꿀 수 있습니다."
 -- L["In dungeons"] = "던전 안에서"

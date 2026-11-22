@@ -2556,7 +2556,6 @@ L["Install's pages: questing, groups and dungeons, your route and your look, a p
 L["set Polestar up again, a page at a time"] = "volver a configurar Polestar, página a página"
 L["Set Polestar up again, a page at a time: questing, groups and dungeons, your route, your look. Each choice works at once."] = "Volver a configurar Polestar, página a página: misiones, grupos y mazmorras, tu ruta, tu aspecto. Cada opción se aplica al momento."
 L["What this version of Polestar changed for you."] = "Lo que esta versión de Polestar ha cambiado para ti."
-L["Set Polestar up again, a page at a time. Each choice works at once."] = "Volver a configurar Polestar, página a página. Cada opción se aplica al momento."
 L["Leveling guides can take you through the dungeons on your way, for a group of five: they pick up the quests on stops they make anyway, send you to the door at the right level and hand the quests in after. Skip them: the solo route. Ask me: the guide asks at each dungeon. Discovery, Dungeons changes one."] = "Las guías de leveo pueden llevarte por las mazmorras de tu camino, para un grupo de cinco: recogen las misiones en paradas que hacen de todos modos, te envían a la entrada con el nivel adecuado y entregan las misiones después. Saltarlas: la ruta en solitario. Preguntarme: la guía pregunta en cada mazmorra. Descubrimiento, Mazmorras cambia una."
 L["Every setting of the profile %s goes back to its default, for every character on the account that uses it. Your guides and progress are kept."] = "Todos los ajustes del perfil %s vuelven a su valor predeterminado, para cada personaje de la cuenta que lo usa. Se conservan tus guías y tu progreso."
 L["Every setting of the profile %s goes back to its default, for every character of the classes that use it. Your guides and progress are kept."] = "Todos los ajustes del perfil %s vuelven a su valor predeterminado, para cada personaje de las clases que lo usan. Se conservan tus guías y tu progreso."
@@ -4802,6 +4801,7 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Has at
 -- L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
+-- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Volver a configurar Polestar, página a página. Cada opción se aplica al momento."
 -- L["New"] = "Nuevo"
 -- L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = "La ventana de la guía se oculta en mazmorras y campos de batalla. %s Cámbialo en Opciones > Guía > Ventana."
 -- L["In dungeons"] = "En mazmorras"
