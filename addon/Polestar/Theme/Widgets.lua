@@ -4104,16 +4104,18 @@ function W.ShellFooter(f, left, right)
 			local b = footerButton(f, side, i, ghost)
 			b.psPrimary = spec.opts and spec.opts.primary
 			b.psArmed = nil
+			-- A button with no icon keeps its texture aside (psIconSpare) for the
+			-- next spec that has one: a page change makes no texture.
 			if spec.opts and spec.opts.icon then
 				if not rawget(b, "Icon") then
-					b.Icon = b:CreateTexture(nil, "ARTWORK")
+					b.Icon = rawget(b, "psIconSpare") or b:CreateTexture(nil, "ARTWORK")
 					b.Icon:SetSize(13, 13)
 				end
 				b.Icon:SetTexture(Theme.Media(spec.opts.icon))
 				b.Icon:Show()
 			elseif rawget(b, "Icon") then
 				b.Icon:Hide()
-				b.Icon = nil
+				b.psIconSpare, b.Icon = b.Icon, nil
 			end
 			W.SetButtonText(b, spec.label)
 			if spec.opts and spec.opts.confirm then

@@ -33,7 +33,7 @@ local Theme, W, L = ns.Theme, ns.Widgets, ns.L
 local floor, max, min = math.floor, math.max, math.min
 
 local NEW = "0.3.8"
-local PAGE, KEY, ORDER, ICON = L["Route lines"], "routelines", 24, "icon-goto"
+local PAGE, KEY, ORDER, ICON = L["Route lines"], "routelines", 24, "icon-bridge"
 
 local function percent(v) return floor(v * 100 + 0.5) .. "%" end
 local function px(v) return string.format(L["%d px"], floor(v + 0.5)) end

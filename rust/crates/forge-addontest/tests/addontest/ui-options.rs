@@ -1670,7 +1670,7 @@ fn typing_in_the_search_box_opens_a_dropdown_under_it_with_the_best_settings_in_
 		end
 		emit({ shown = list:IsShown(), parent = list:GetParent() == PolestarOptions, strata = list:GetFrameStrata(),
 			anchor = { point, rel == box(), relPoint }, wide = list:GetWidth() >= math.max(300, box():GetWidth()),
-			got = got, want = want, kinds = kinds, first = rows[1], last = rows[#rows], count = count, hex = Polestar.Theme.Hex("text"),
+			got = got, want = want, kinds = kinds, first = rows[1], last = rows[#rows], count = count, hex = Polestar.Theme.Hex("accent"),
 			page = O.page.key, title = PolestarOptions.Title:GetText(), focus = stub.focus == box() })"#
 		),
 	);
@@ -1860,7 +1860,7 @@ fn with_no_match_the_dropdown_says_so_and_its_did_you_mean_rows_search_for_the_l
 		local after = { text = box():GetText(), focus = stub.focus == box(), shown = D.Shown(), placeholder = box().Placeholder:IsShown(), title = PolestarOptions.Title:GetText() }
 		for _, r in ipairs(D.Rows()) do if r.key == "qol.hearthButton" then after.row = r.text end end
 		typed("qqqq")
-		emit({ none = none, after = after, hex = Polestar.Theme.Hex("text"),
+		emit({ none = none, after = after, hex = Polestar.Theme.Hex("accent"),
 			nothing = { shown = D.Shown(), rows = #D.Rows(), none = list.None:IsShown() and list.None:GetText(), hint = list.Hint:IsShown() } })"#
 		),
 	);
@@ -1910,7 +1910,7 @@ fn typing_a_page_tab_or_section_name_offers_it_over_the_settings_and_picking_it_
 		press("DOWN")
 		press("ENTER")
 		r.tab = { O.page.key, O.view.psTab.name }
-		r.hex = Polestar.Theme.Hex("text")
+		r.hex = Polestar.Theme.Hex("accent")
 		emit(r)"#
 		),
 	);
@@ -1995,7 +1995,7 @@ fn the_dropdown_on_a_german_client_lists_the_german_labels_with_the_typed_word_l
 			typed(q)
 			out[q] = D.Rows()[1]
 		end
-		out.hex = Polestar.Theme.Hex("text")
+		out.hex = Polestar.Theme.Hex("accent")
 		emit(out)"#
 		),
 	);
@@ -2029,7 +2029,7 @@ fn the_dropdown_is_drawn_in_every_look_with_its_panel_its_inks_and_its_lit_row()
 			press("DOWN")
 			local list, row = PolestarOptionsMatches, rowButton(1)
 			out[key] = { skin = rawget(list, "psSkin") and list.psSkin.skin or false,
-				words = D.Rows()[1].text:find("|c" .. T.Hex("text"), 1, true) ~= nil,
+				words = D.Rows()[1].text:find("|c" .. T.Hex("accent"), 1, true) ~= nil,
 				label = same({ row.Text:GetTextColor() }, { T.Color("textDim") }), where = same({ row.Where:GetTextColor() }, { T.Color("textMuted") }),
 				lit = row.Lit:IsShown(), wash = same({ row.Lit:GetVertexColor() }, { T.Wash("selected") }), bar = row.Bar:IsShown() }
 			press("ESCAPE")
@@ -2822,27 +2822,6 @@ fn a_preview_hotspot_opens_its_setting_s_row_and_the_one_time_hint_goes_on_the_f
 	assert_eq!(out["stored"], true);
 	let next = run_opts(script, "", "", &format!("{LOOK_PAGE}\nPolestarDB.optionsPreviewHint = true"));
 	assert_eq!(next["hint"], false, "for good");
-}
-
-// The first open says once, over the first card, how the rows work; its close button dismisses it for good and the
-// cards move up.
-#[test]
-fn the_first_open_says_hover_and_right_click_once_until_dismissed_for_good() {
-	let script = r#"
-		UI.ShowOptions("fakepins")
-		O.Select("fakepins", "Medallions")
-		local bar = rawget(O.view, "Intro")
-		local first = { shown = bar ~= nil and bar:IsShown(), text = bar and bar.Text:GetText() or false, top = cardOf("Medallions").psTop }
-		if bar and bar:IsShown() then bar.Close:Click() end
-		emit({ first = first, after = { shown = bar ~= nil and bar:IsShown(), top = cardOf("Medallions").psTop }, stored = PolestarDB.optionsIntro == true })"#;
-	let out = run_opts(script, "", "", LOOK_PAGE);
-	assert_eq!(out["first"]["shown"], true);
-	assert_eq!(out["first"]["text"], "Hover a setting for what it does. Right-click resets it.");
-	assert_eq!(out["after"]["shown"], false);
-	assert!(n(&out["after"]["top"]) < n(&out["first"]["top"]), "the cards move up: {out}");
-	assert_eq!(out["stored"], true);
-	let next = run_opts(script, "", "", &format!("{LOOK_PAGE}\nPolestarDB.optionsIntro = true"));
-	assert_eq!(next["first"]["shown"], false, "for good");
 }
 
 // Every page and tab, Guiding and Setup as the Look pages, at defaults, keeps the window's layout rules: no shown

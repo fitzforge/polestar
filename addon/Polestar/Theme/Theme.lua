@@ -90,7 +90,7 @@ local SKIN_PALETTES = {
 		bg = hex("080604", 0.84), panel = hex("120E0A", 0.97), panelAlt = hex("FFFFFF", 0.06),
 		sidebar = hex("080604", 0), footer = hex("080604", 0), sky = hex("080604", 0),
 		text = hex("F4EFE6"), textDim = hex("C2B9A9"), textMuted = hex("8F8778"), textOff = hex("6E675C"),
-		title = hex("F4EFE6"), ink = hex("FFFFFF"), star = hex("FFFFFF", 0), shade = hex("000000"),
+		cardTitle = hex("FFFFFF"), title = hex("F4EFE6"), ink = hex("FFFFFF"), star = hex("FFFFFF", 0), shade = hex("000000"),
 		scrim = hex("080604"), onAccent = hex("17130E"), shadow = hex("080604", 0.72),
 		accent = hex("FFD100"),
 		veil = hex("080604", 0.6), veilWindow = hex("080604", 0.84), menuBg = hex("120E0A"),
@@ -118,7 +118,7 @@ local SKIN_PALETTES = {
 		-- Parchment: the text ladder is cream, not white; headings, the
 		-- person's name and the active tab take the firelit gold.
 		text = hex("F5E9D3"), textDim = hex("D2BE9C"), textMuted = hex("B39D79"), textOff = hex("85705A"),
-		title = hex("FFD9A0"), ink = hex("FFF4E0"), star = hex("FFFFFF", 0), shade = hex("140A04"),
+		title = hex("FFD9A0"), cardTitle = hex("FFD9A0"), ink = hex("FFF4E0"), star = hex("FFFFFF", 0), shade = hex("140A04"),
 		scrim = hex("1A0F08"), onAccent = hex("1F120A"), shadow = hex("0D0704", 0.7),
 		-- Ember: the accent (controls, the lit goal, the progress bar) and the
 		-- light that falls on every window's top edge (SKIN_PAINT.hearth).
@@ -151,7 +151,7 @@ do
 		bg = hex("1E170D", 0.95), bgBottom = hex("090704", 0.95), panel = hex("000000", 0.92), panelAlt = hex("000000"),
 		sidebar = hex("000000", 0.3), footer = hex("000000", 0), sky = hex("2C200C"), skyBottom = hex("150F06"),
 		text = hex("FFFFFF"), textDim = hex("CCCCCC"), textMuted = hex("9D9D9D"), textOff = hex("808080"),
-		title = hex("FFD100"), ink = hex("FFFFFF"), star = hex("FFFFFF", 0), shade = hex("000000"),
+		cardTitle = hex("FFFFFF"), title = hex("FFD100"), ink = hex("FFFFFF"), star = hex("FFFFFF", 0), shade = hex("000000"),
 		scrim = hex("000000"), onAccent = hex("17130E"), shadow = hex("000000", 0.7),
 		accent = hex("FFD100"),
 		veil = hex("000000", 0), veilWindow = hex("000000", 0), menuBg = hex("000000"),
@@ -182,7 +182,7 @@ SKIN_PALETTES.forever = gamePalette({
 	bg = hex("000000", 0.96), bgBottom = hex("000000", 0.96), sidebar = hex("000000", 0.25),
 	textDim = hex("AE9D81"), tabRest = hex("FFD100"), icon = hex("CEB282"), iconHover = hex("F2D199"),
 	-- The Settings panel's labels and its list's rows: GameFontNormal, gold.
-	rowLabel = hex("FFD100"), navRest = hex("FFD100"),
+	rowLabel = hex("FFD100"), navRest = hex("FFD100"), cardTitle = hex("FFD100"),
 	separator = hex("AE9D81", 0.35), divider = hex("AE9D81", 0.35), accentLine = hex("AE9D81", 0.5),
 	border = hex("5C4A30"), windowEdge = hex("5C4A30"), hover = hex("FFD100", 0.1), selected = hex("FFD100", 0.14),
 	-- A mechanic's violet (an escort's line) a step lighter, to read on the
@@ -201,6 +201,7 @@ SKIN_PALETTES.blizzard = gamePalette({
 	accent = hex("D9D9D9"), accentLine = hex("D9D9D9", 0.45), padSelect = hex("FFFFFF", 0.1), chipAccent = hex("FFFFFF", 0.12),
 	mover = hex("FFFFFF", 0.08),
 	icon = hex("E8E8E8"), iconHover = hex("FFFFFF"), tabRest = hex("A8A8A8"), rowLabel = hex("FFD100"), navRest = hex("FFD100"),
+	cardTitle = hex("FFD100"),
 	separator = hex("3A3A3A"), divider = hex("3A3A3A"),
 	border = hex("404040"), windowEdge = hex("404040"), hover = hex("FFFFFF", 0.08), selected = hex("FFFFFF", 0.1),
 })
@@ -212,6 +213,7 @@ SKIN_PALETTES.blizzard = gamePalette({
 SKIN_PALETTES.classic = gamePalette({
 	bg = hex("0D0D1C", 0.92), bgBottom = hex("0D0D1C", 0.92), panel = hex("171730", 0.95), menuBg = hex("171730"), sidebar = hex("000000", 0),
 	icon = hex("FFD100"), iconHover = hex("FFFFFF"), tabRest = hex("B8A14F"), rowLabel = hex("FFD100"), navRest = hex("FFD100"),
+	cardTitle = hex("FFD100"),
 	separator = hex("969696", 0.35), divider = hex("969696", 0.25), accentLine = hex("969696", 0.6),
 	border = hex("696969"), windowEdge = hex("696969"), hover = hex("FFD100", 0.1), selected = hex("FFD100", 0.14),
 	control = hex("000000", 0.4), inputBg = hex("000000", 0.6), chip = hex("000000", 0.5),
@@ -326,6 +328,13 @@ end
 -- `c` with its OKLab lightness moved by dL, for the modules' own skin
 -- paints (Hearth's lit tab in UI/GuideFrame.lua). -> { r, g, b, a }
 Theme.Shifted = shifted
+
+-- A text colour taken all the way to the light end (white on a dark look,
+-- black on a light one): a skin's cardTitle unless it names its own.
+local function brightText(c)
+	local to = (c[1] + c[2] + c[3]) / 3 > 0.5 and 1 or 0
+	return { to, to, to, c[4] or 1 }
+end
 
 -- Grounds around one colour (a custom ground, EllesmereUI's panel colour):
 -- the same lightness steps Dusk takes around its window ground.
@@ -923,6 +932,7 @@ local function resolveSkin(skin)
 	for _, name in ipairs(SKIN_EXTRA) do
 		if not out[name] then out[name] = copy(out[HOUSE_EXTRA[name]] or out.text) end
 	end
+	if not out.cardTitle then out.cardTitle = brightText(out.text) end
 	solidMenu(out, true)
 	-- The second accent (a duotone skin's; else the accent) and the arrival
 	-- glow (its glow token; else the arrival colour).
@@ -1041,6 +1051,7 @@ local function resolve(id, schemeKey)
 	for name, from in pairs(HOUSE_EXTRA) do
 		if not out[name] then out[name] = copy(out[from]) end
 	end
+	if not (stoks and stoks.cardTitle) then out.cardTitle = brightText(out.text) end
 	solidMenu(out, stoks ~= nil and stoks.menuBg ~= nil)
 	-- Derived from the accent and the shade unless a skin gives its own.
 	local function derived(name, c) if not (stoks and stoks[name]) then out[name] = c end end
@@ -1587,7 +1598,7 @@ end
 
 -- The roles each size nudge moves (ui.headingSize, ui.smallSize, on top of
 -- ui.textSize), and the roles drawn in the heading face (ui.headingFont).
-local HEADING_ROLES = { hero = true, display = true, title = true, heading = true }
+local HEADING_ROLES = { hero = true, display = true, title = true, heading = true, cardTitle = true }
 local SMALL_ROLES = { small = true, caption = true, number = true }
 
 local function nudge(key)
@@ -1597,9 +1608,11 @@ end
 
 -- The outline every Polestar string is drawn with (ui.fontOutline: "none",
 -- "outline", "thick") as font flags: "" | "OUTLINE" | "THICKOUTLINE".
-local OUTLINE_FLAGS = { outline = "OUTLINE", thick = "THICKOUTLINE" }
-function Theme.OutlineFlags()
-	return OUTLINE_FLAGS[get("ui.fontOutline")] or ""
+do
+	local OUTLINE_FLAGS = { outline = "OUTLINE", thick = "THICKOUTLINE" }
+	function Theme.OutlineFlags()
+		return OUTLINE_FLAGS[get("ui.fontOutline")] or ""
+	end
 end
 
 -- A face key as a setting holds it ("skin" or unknown: the skin's own).
@@ -1638,10 +1651,13 @@ end
 -- `scale` (optional): the text size to use instead of ui.textSize's.
 function Theme.FontSpec(role, scale)
 	local own, base = SKIN_ROLES[Theme.SkinId()], SKIN_ROLES[Theme.SkinKey()]
-	local spec = (own and own[role]) or (base and base[role]) or ROLES[role] or ROLES.body
+	-- A settings card's title: its skin's heading, 1px larger (no face has a bold to set it apart).
+	local r = role == "cardTitle" and "heading" or role
+	local spec = (own and own[r]) or (base and base[r]) or ROLES[r] or ROLES.body
+	local bump = r ~= role and 1 or 0
 	local k = scale or Theme.TextScale()
 	if HEADING_ROLES[role] then k = k * nudge("ui.headingSize") elseif SMALL_ROLES[role] then k = k * nudge("ui.smallSize") end
-	local size = math.floor(spec[2] * k * 2 + 0.5) / 2
+	local size = math.floor((spec[2] + bump) * k * 2 + 0.5) / 2
 	local outline = Theme.OutlineFlags()
 	-- Headings may take a face of their own; "body" (the default) is the
 	-- body's, EllesmereUI's included.
