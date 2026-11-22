@@ -157,7 +157,11 @@ tests with it, and `tools/ci-failures.js` fails the job only on failures the
 baseline lacks: a test that fails on the public data on `next` too is the
 data's, not the change's. The data is built from `next`'s corrections, so
 a pull request's own corrections show in it after the merge. Pushes run
-without it (`ci-data.yml` is their data run).
+without it (`ci-data.yml` is their data run). A failing test `next` has
+never run (one the pull request adds or renames) has nothing to be held
+to: for this repository's own branches it is a warning, since their
+`Release data` job runs it on the release data; for a fork it fails. The
+baseline lists the tests that pass on `next` as well, to tell them apart.
 
 **Release data.** The release data is built from recordings and private
 sources and is never published: it stays on the maintainers' machine, where
