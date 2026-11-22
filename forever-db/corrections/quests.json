@@ -449,6 +449,22 @@
 		},
 		"note": "Daily Delivery (Einar Stonegrip, Wetlands) is the optional breadcrumb to Young Crocolisk Skins 484: it ends at James Halloran, who starts 484, and Einar stops offering it once 484 is taken (#615, 2026-10-20: Einar offered nothing after 484 was picked up; the knowledge base's own gotcha for 469 says the same). QuestieDB and pfQuest have no breadcrumb link, only `next` 484."
 	},
+	"472": {
+		"set": {
+			"breadcrumbFor": 304
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#3597 (Tilman, 0.4.2.1): with A Grim Task in the log Harlo Barnaby does not offer Fall of Dun Modr; abandoning A Grim Task brings the offer back"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2563 (Kiber_Mazai, 0.4.0): Harlo Barnaby no longer offers Fall of Dun Modr once A Grim Task is handed in"
+			}
+		],
+		"note": "Fall of Dun Modr (Harlo Barnaby, Menethil Harbor) is the breadcrumb to A Grim Task 304: it ends at Longbraid the Grim, who starts 304, and Harlo stops offering it while 304 is in the log or once it is handed in, as a breadcrumb does. The quest data links the two in no way (no prerequisite, exclusive group or breadcrumb)."
+	},
 	"489": {
 		"set": {
 			"start": {
