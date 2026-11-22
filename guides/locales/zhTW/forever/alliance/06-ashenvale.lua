@@ -207,7 +207,7 @@ return {
 	-- Step 43: Rethiel the Greenwarden
 	-- {area:309} Ironbeard's Tomb · {npc:1244} Rethiel the Greenwarden · {zone:1437} Wetlands
 	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner
-	["Its flint comes from the Mosshide Fenrunners on the way to {area:309}; {npc:1244} takes it on your next {zone:1437} visit"] = "它的燧石出自前往{area:309}途中的苔皮沼奔者；下次{zone:1437}之行時交給{npc:1244}",
+	["Its flint comes from the Mosshide Fenrunners on the way to {area:309}; {npc:1244} takes it on your next {zone:1437} visit"] = "它的燧石出自前往{area:309}途中的蘚皮沼地行者；下次{zone:1437}之行時交給{npc:1244}",
 
 	-- Step 44: Ironbeard's Tomb
 	-- {npc:1244} Rethiel the Greenwarden · {area:309} Ironbeard's Tomb · {area:205} Dun Modr · {item:3349} Sida's Bag · {area:1025} The Green Belt
@@ -327,7 +327,7 @@ return {
 	-- ["Mosshide Fenrunners and Mistweavers roam the riverbanks just west and south of {npc:1244}; almost every one drops flint."] = "蘚皮沼澤行者和蘚皮織霧者在{npc:1244}西邊和南邊不遠的河岸遊蕩；幾乎每一隻都會掉落燧石。",
 	-- ["Mottled Raptors and Screechers roam the hills west of the excavation site."] = "雜斑迅猛龍和雜斑尖嘯龍在挖掘場西邊的丘陵遊蕩。",
 	-- ["Next: fly to {area:42}."] = "下一步：飛往{area:42}。",
-	-- ["North-west from {npc:1244}: Mosshide Fenrunners and Mistweavers roam the riverbanks on the way, and almost every one drops flint. Black, Crimson and Monstrous Oozes fill {area:309}, just west of the road to {area:205} and north of Einar's camp. Any ooze there may hold {npc:2111}'s bag."] = "從{npc:1244}向西北：沿途河岸上有苔皮沼奔者和苔皮織霧者遊蕩，幾乎每隻都掉燧石。黑色、猩紅和巨型軟泥怪遍佈{area:309}，就在通往{area:205}的道路以西、埃納爾營地以北。那裡的任意一隻軟泥怪都可能帶著{npc:2111}的包。",
+	-- ["North-west from {npc:1244}: Mosshide Fenrunners and Mistweavers roam the riverbanks on the way, and almost every one drops flint. Black, Crimson and Monstrous Oozes fill {area:309}, just west of the road to {area:205} and north of Einar's camp. Any ooze there may hold {npc:2111}'s bag."] = "從{npc:1244}向西北：沿途河岸上有蘚皮沼地行者和苔皮織霧者遊蕩，幾乎每隻都掉燧石。黑色、猩紅和巨型軟泥怪遍佈{area:309}，就在通往{area:205}的道路以西、埃納爾營地以北。那裡的任意一隻軟泥怪都可能帶著{npc:2111}的包。",
 	-- ["Only if you looted {quest:337} in {zone:1431}"] = "只有在{zone:1431}拾取了{quest:337}時",
 	-- ["Raptor valley"] = "迅猛龍山谷",
 	-- ["Ride east along the {zone:1437} road, south through {area:836} into {zone:1432} and west through the tunnel into {zone:1426} to {area:1537}."] = "沿{zone:1437}的道路向東騎，向南穿過{area:836}進入{zone:1432}，再向西穿過隧道進入{zone:1426}，前往{area:1537}。",
@@ -349,7 +349,7 @@ return {
 	-- ["Venture Co. loggers"] = "風險投資公司樵夫",
 	-- ["grind on Dragonmaw Raiders and Swamprunners at the Dragonmaw camp, {zone:1437}"] = "在{zone:1437}的龍喉營地刷龍喉襲擊者和龍喉沼澤行者",
 	-- ["{item:15885}: join the two halves"] = "{item:15885}：合成兩半",
-	-- ["{item:2611}: Mosshide Fenrunners and Mistweavers"] = "{item:2611}：苔皮沼奔者和苔皮織霧者",
+	-- ["{item:2611}: Mosshide Fenrunners and Mistweavers"] = "{item:2611}：蘚皮沼地行者和苔皮織霧者",
 	-- ["{npc:11406} and {npc:258785} are in the {object:32386}, in the {object:32362}."] = "{npc:11406}和{npc:258785}在{object:32362}的{object:32386}。",
 	-- ["{npc:1242}: for {npc:2104} in the keep"] = "{npc:1242}：給城堡裡的{npc:2104}",
 	-- ["{npc:1440}, in the Royal Library"] = "{npc:1440}，在皇家圖書館",

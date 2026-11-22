@@ -314,7 +314,7 @@ return {
 	["{item:10505} to 191"] = "{item:10505} 到191",
 	-- {item:10505} Solid Blasting Powder · {item:7912} Solid Stone
 	-- plural, as words: Mithril Deposits = {object:2040} Mithril Deposit
-	["{item:10505} is yellow at 175 (yellow 175, green 185, grey 195): about 31 crafts to 191. Each takes 2 {item:7912}. Two {item:7912} a craft (Mithril Deposits). Make plenty: the triggers, slugs and Gyro-Shot all use it."] = "{item:10505}在175時為黃色（175黃、185綠、195灰）：大約31次製作可到191。每次需要2個{item:7912}。每次兩個{item:7912}（秘銀礦脈）。多做些：觸發器、彈丸和陀螺彈都要用它。",
+	["{item:10505} is yellow at 175 (yellow 175, green 185, grey 195): about 31 crafts to 191. Each takes 2 {item:7912}. Two {item:7912} a craft (Mithril Deposits). Make plenty: the triggers, slugs and Gyro-Shot all use it."] = "{item:10505}在175時為黃色（175黃、185綠、195灰）：大約31次製作可到191。每次需要2個{item:7912}。每次兩個{item:7912}（秘銀礦床）。多做些：觸發器、彈丸和陀螺彈都要用它。",
 
 	-- Step 60: Engineering recipes at 191
 	-- {skill:202} Engineering

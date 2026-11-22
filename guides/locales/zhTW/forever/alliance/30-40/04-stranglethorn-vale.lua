@@ -72,7 +72,7 @@ return {
 	["Gluggle (37, rare) on the coast west of camp drops the {item:4614}: four levels over you, leave him unless you are grouped"] = "戈魯格爾（37，稀有）在營地西邊海岸上，會掉落{item:4614}：比你高四級，除非組了小隊否則別打",
 	-- {object:661516} Thoroughly Scavenged Supplies (no name in this language: may be words)
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment
-	["{object:661516}, a looted crate west of Nesingwary's camp: the Stolen Shipments lie in the Bloodscalp ruins on the coast, for the second Stranglethorn loop"] = "{object:661516}，奈辛瓦里營地西邊一個被搜刮過的箱子：遭竊的貨物在海岸邊的血頂廢墟裡，留到荊棘谷第二趟路線",
+	["{object:661516}, a looted crate west of Nesingwary's camp: the Stolen Shipments lie in the Bloodscalp ruins on the coast, for the second Stranglethorn loop"] = "{object:661516}，奈辛瓦裏營地西邊一個被搜刮過的箱子：遭竊的貨物在海岸邊的血頂廢墟裡，留到荊棘谷第二趟路線",
 
 	-- Step 13: Sir S. J. Erlgadin
 	-- {area:99} Rebel Camp
@@ -203,8 +203,8 @@ return {
 	-- ["Fly to {area:42}"] = "飛往{area:42}",
 	-- ["Fly to {area:42}: {npc:1573} in {area:1537}'s {object:32372}, or {npc:352} in {zone:1453}'s {object:2096}."] = "飛往{area:42}：{area:1537}{object:32372}的{npc:1573}，或{zone:1453}{object:2096}的{npc:352}。",
 	-- ["Follow the main road south the length of the jungle, past the {object:3202} turn-off, to {area:35} on the southern cape."] = "沿主要道路向南穿過整片叢林，經過{object:3202}岔路，到達南端海角的{area:35}。",
-	-- ["Follow the main road south the length of the jungle, past the {object:3202} turn-off, to {area:35} on the southern cape. Bind your hearthstone at the inn: it is your way back here from Nesingwary's camp at the end of the jungle loop."] = "沿主要道路向南穿過整片叢林，經過{object:3202}岔路，到達南端海角的{area:35}。在旅店綁定爐石：叢林路線結束時，靠它從奈辛瓦里營地回到這裡。",
-	-- ["Follow the west coast north; the haunted island lies off the shore west of Nesingwary's camp. Just reach it."] = "沿西海岸向北；鬧鬼的島在奈辛瓦里營地西邊的外海。只要到達那裡即可。",
+	-- ["Follow the main road south the length of the jungle, past the {object:3202} turn-off, to {area:35} on the southern cape. Bind your hearthstone at the inn: it is your way back here from Nesingwary's camp at the end of the jungle loop."] = "沿主要道路向南穿過整片叢林，經過{object:3202}岔路，到達南端海角的{area:35}。在旅店綁定爐石：叢林路線結束時，靠它從奈辛瓦裏營地回到這裡。",
+	-- ["Follow the west coast north; the haunted island lies off the shore west of Nesingwary's camp. Just reach it."] = "沿西海岸向北；鬧鬼的島在奈辛瓦裏營地西邊的外海。只要到達那裡即可。",
 	-- ["For Archmage Ansirem in {zone:1416}"] = "給{zone:1416}的大法師安斯雷姆·魯因維沃爾",
 	-- ["From {area:108} the way leads south out of {zone:1436} into Stranglethorn's north-west, to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach its edge. Careful: its Lesser Water Elementals are 36-37: don't stay. The Bloodscalp ruins of Zul'Kunda to the north wait for the second Stranglethorn loop."] = "從{area:108}向南離開{zone:1436}，進入荊棘谷西北部，前往海岸附近的{area:310}；周圍的晶背蜥蜴會掉落碎片。\n鬧鬼的小島就在礦坑西南方的海岸外：只要到達島的邊緣即可。注意：島上的次級水元素是36-37級：別久留。北邊祖昆達的血頂廢墟留到荊棘谷第二趟路線。",
 	-- ["From {zone:1431} take the road south into Stranglethorn; the hunters' tents stand just west of the road past the {area:99} turn-off."] = "從{zone:1431}沿道路向南進入荊棘谷；獵人的帳篷就在過了{area:99}岔路後的道路西邊。",
@@ -219,7 +219,7 @@ return {
 	-- ["Take the road north; the camp sits in the hills to the west.\n{npc:738} offers {quest:215} only while he is out of the camp: about every half hour he walks down the path to the road, where two Kurzen's Agents ambush him. Help him kill them and take the quest at once, before he walks back up. He isn't there? Leave it: the guide passes {quest:200}, which follows from it, as well."] = "沿道路向北；營地在西邊的丘陵中。\n{npc:738}只有在營地外時才會提供{quest:215}：他大約每半小時沿小徑走到大路上，兩名庫爾森的密探會在那裡伏擊他。幫他殺掉他們，並在他走回去之前立刻接下任務。他不在？那就算了：指南也會略過由此引出的{quest:200}。",
 	-- ["Take the road north; {npc:738} patrols it, the camp sits in the hills to the west."] = "沿道路向北；{npc:738}在路上巡邏，營地在西邊的丘陵中。",
 	-- ["Take the road north; {npc:738} stands on it, the camp sits in the hills to the west."] = "沿道路向北；{npc:738}站在路上，營地在西邊的丘陵中。",
-	-- ["The Bloodscalp trolls hold the ruins on the coast west of Nesingwary's camp."] = "血頂食人妖佔據奈辛瓦里營地西邊海岸上的廢墟。",
+	-- ["The Bloodscalp trolls hold the ruins on the coast west of Nesingwary's camp."] = "血頂食人妖佔據奈辛瓦裏營地西邊海岸上的廢墟。",
 	-- ["The Skullsplitter trolls hold the ruins east of the road between Nesingwary and {object:3202}."] = "劈顱食人妖佔據奈辛瓦里與{object:3202}之間道路東邊的廢墟。",
 	-- ["The jungle ruins"] = "叢林廢墟",
 	-- ["The ore drops from Drywhisker kobolds in {zone:1417}"] = "礦石由{zone:1417}的枯鬚狗頭人掉落",

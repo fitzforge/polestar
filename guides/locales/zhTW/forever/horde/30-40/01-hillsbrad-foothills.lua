@@ -240,7 +240,7 @@ return {
 	-- {npc:2437} Keeper Bel'varil · {quest:556} Stone Tokens
 	["{npc:2437}, inside: {quest:556}, with the crater on the 38-39 visit"] = "{npc:2437}，在裡面：{quest:556}，38-39級再來時與巨坑一起做",
 	-- {npc:2770} Tallow
-	["{npc:2770}, outside the inn: the Boulderfist ogres (32-34) on the 38-39 Arathi visit"] = "旅店外的{npc:2770}：石拳食人魔（32-34級），留到38-39級去阿拉希時做",
+	["{npc:2770}, outside the inn: the Boulderfist ogres (32-34) on the 38-39 Arathi visit"] = "旅店外的{npc:2770}：石拳巨魔（32-34級），留到38-39級去阿拉希時做",
 	-- {area:272} Tarren Mill · {area:321} Hammerfall
 	["Keep these in your log: their camps are two to four levels over you now, and the 38-39 guide works them on its first {area:272} loop and in {area:321}."] = "把這些留在任務日誌裡：它們的營地現在比你高二到四級，38-39級指南第一次繞回{area:272}時以及在{area:321}會完成它們。",
 

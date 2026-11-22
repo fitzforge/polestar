@@ -113,12 +113,12 @@ return {
 	-- Step 17: Nesingwary's camp
 	["Back north to the camp."] = "向北回到營地。",
 	-- {npc:717} Ajeck Rouack · {npc:729} Sin'Dall
-	["{npc:717}: {npc:729} (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale"] = "{npc:717}：{npc:729}（37級）留到下次造訪奈辛瓦里營地時再處理，大約40級，在forever/horde/40-50/01-stranglethorn-vale",
+	["{npc:717}: {npc:729} (37) waits for your next Nesingwary stop, at about 40 in forever/horde/40-50/01-stranglethorn-vale"] = "{npc:717}：{npc:729}（37級）留到下次造訪奈辛瓦裏營地時再處理，大約40級，在forever/horde/40-50/01-stranglethorn-vale",
 
 	-- Step 18: Thoroughly Scavenged Supplies
 	-- {object:661516} Thoroughly Scavenged Supplies (no name in this language: may be words) · {quest:97328} Anything of Value · {area:102} Ruins of Zul'Kunda
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment
-	["On the walk west from Nesingwary's camp, a pile of {object:661516} lies by the path: it starts {quest:97328}, whose Stolen Shipments lie in the {area:102} on the coast ahead."] = "從奈辛瓦里營地往西走時，路邊有一堆{object:661516}：它會開啟{quest:97328}，遭竊的貨物就在前方海岸的{area:102}。",
+	["On the walk west from Nesingwary's camp, a pile of {object:661516} lies by the path: it starts {quest:97328}, whose Stolen Shipments lie in the {area:102} on the coast ahead."] = "從奈辛瓦裏營地往西走時，路邊有一堆{object:661516}：它會開啟{quest:97328}，遭竊的貨物就在前方海岸的{area:102}。",
 
 	-- Step 19: The Savage Coast: kill these as you meet them
 	-- {area:301} The Savage Coast
@@ -179,7 +179,7 @@ return {
 	["Level 35"] = "35級",
 	-- {quest:629} The Vile Reef · {area:35} Booty Bay · {object:3202} Grom'gol
 	-- plural, as words: Bloodscalp Headhunters = {npc:671} Bloodscalp Headhunter · Elder Stranglethorn Tigers = {npc:1085} Elder Stranglethorn Tiger · Lashtail Raptors = {npc:686} Lashtail Raptor
-	["{quest:629}'s and Zul'Kunda's quests are next, with Bloodscalp Headhunters of 36-37. Still below 35 after {area:35}'s hand-ins? The Elder Stranglethorn Tigers (34-35) roam the hills north of {object:3202}, below Nesingwary's camp: kill them until level 35. The Lashtail Raptors (35-36) beside them are a level higher."] = "接下來是{quest:629}和祖昆達的任務，血頂獵頭者是36-37級。繳交完{area:35}的任務後還不到35級？老年荊棘谷猛虎（34-35級）在{object:3202}北邊、奈辛瓦里營地下方的山丘上遊蕩：擊殺牠們直到35級。旁邊的鞭尾迅猛龍（35-36級）高一級。",
+	["{quest:629}'s and Zul'Kunda's quests are next, with Bloodscalp Headhunters of 36-37. Still below 35 after {area:35}'s hand-ins? The Elder Stranglethorn Tigers (34-35) roam the hills north of {object:3202}, below Nesingwary's camp: kill them until level 35. The Lashtail Raptors (35-36) beside them are a level higher."] = "接下來是{quest:629}和祖昆達的任務，血頂獵頭者是36-37級。繳交完{area:35}的任務後還不到35級？老年荊棘谷猛虎（34-35級）在{object:3202}北邊、奈辛瓦裏營地下方的山丘上遊蕩：擊殺牠們直到35級。旁邊的鞭尾迅猛龍（35-36級）高一級。",
 	-- {npc:1085} Elder Stranglethorn Tiger
 	["grind on {npc:1085}"] = "刷{npc:1085}",
 

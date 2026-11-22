@@ -57,7 +57,7 @@ return {
 
 	-- Step 8: The jungle ruins
 	["The jungle ruins"] = "叢林廢墟",
-	["West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west.\nCareful: the Saltscale murlocs on the shore near the second tablet are elite (35-37): swim to the tablet from the water and keep clear of them."] = "向西穿過叢林前往食人妖廢墟：每處都有一塊記載食人妖傳說的石板，前兩塊在奈辛瓦里營地西南方的廢墟中，後兩塊在西北方的山丘上。\n小心：第二塊石板附近岸邊的鹽鱗魚人是精英（35-37級）：從水中游向石板，避開牠們。",
+	["West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west.\nCareful: the Saltscale murlocs on the shore near the second tablet are elite (35-37): swim to the tablet from the water and keep clear of them."] = "向西穿過叢林前往食人妖廢墟：每處都有一塊記載食人妖傳說的石板，前兩塊在奈辛瓦裏營地西南方的廢墟中，後兩塊在西北方的山丘上。\n小心：第二塊石板附近岸邊的鹽鱗魚人是精英（35-37級）：從水中游向石板，避開牠們。",
 	-- {item:2006} The Second Troll Legend · {object:58} Gri'lek the Wanderer
 	["{item:2006}: {object:58}; underwater"] = "{item:2006}：{object:58}；水下",
 
@@ -139,8 +139,8 @@ return {
 	["{npc:4631}, on the docks"] = "{npc:4631}，在碼頭上",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
-	-- ["East from the ruins to the hilltop south-west of Nesingwary's camp: the Lashtail Raptors run in the jungle around it. Leave {npc:729}, the great tiger (37) on the hilltop, to the 40-50 Stranglethorn guide: you're about 35 here. Then on to the hunters' tents."] = "從廢墟向東前往奈辛瓦里營地西南方的山頂：鞭尾迅猛龍在周圍的叢林中奔跑。山頂上的巨虎{npc:729}（37級）留給40-50荊棘谷指南：你這時大約35級。然後前往獵人的帳篷。",
-	-- ["East to the {area:99}, on the way back to Nesingwary's camp."] = "向東前往{area:99}，順路返回奈辛瓦里營地。",
+	-- ["East from the ruins to the hilltop south-west of Nesingwary's camp: the Lashtail Raptors run in the jungle around it. Leave {npc:729}, the great tiger (37) on the hilltop, to the 40-50 Stranglethorn guide: you're about 35 here. Then on to the hunters' tents."] = "從廢墟向東前往奈辛瓦裏營地西南方的山頂：鞭尾迅猛龍在周圍的叢林中奔跑。山頂上的巨虎{npc:729}（37級）留給40-50荊棘谷指南：你這時大約35級。然後前往獵人的帳篷。",
+	-- ["East to the {area:99}, on the way back to Nesingwary's camp."] = "向東前往{area:99}，順路返回奈辛瓦裏營地。",
 	-- ["For characters of 35 to 36, but several quests here are level 37-41: on purpose, for their experience. {quest:205}'s Skullsplitter trolls are 39-42, so pull them one at a time."] = "適合35到36級的角色，但這裡有幾個任務是37-41級：這是刻意安排的，為了它們的經驗值。{quest:205}的劈顱食人妖為39-42級，所以一次拉一隻。",
 	-- ["Loop through the troll ruins of the north and centre: each holds one stone tablet of the troll legends. Shadowmaw Panthers prowl stealthed in the jungle around them; the Venture Co. camp on {area:37} carries the Tumbled Crystals."] = "繞行北部和中部的食人妖廢墟：每處都有一塊記載食人妖傳說的石板。深喉獵豹潛行在周圍的叢林中；{area:37}的風險投資公司營地身上帶著打磨過的水晶。",
 	-- ["North along the coast to the ruins on the hill: the last two tablets lie there. Pick up Green Hills pages as they drop."] = "沿著海岸向北前往山丘上的廢墟：最後兩塊石板就在那裡。綠色山丘的書頁掉落時記得撿起來。",
@@ -148,7 +148,7 @@ return {
 	-- ["South from the compound to {area:37}: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals, and the Shadowmaw Panthers prowl stealthed in the jungle south and east of it."] = "從營地向南前往{area:37}：湖岸營地中的風險投資公司地質學家身上帶著打磨過的水晶，深喉獵豹則潛行在湖泊南邊和東邊的叢林中。",
 	-- ["South from the compound to {area:37}: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals. Careful: Venture Co. Agents (39) walk among them: take the Geologists on the camps' edges, one at a time. Shadowmaw Panthers (37-38) prowl stealthed in the jungle south and east of the lake: keep to the shore camps."] = "從營地向南前往{area:37}：湖岸營地中的風險投資公司地質學家身上帶著打磨過的水晶。小心：風險投資公司特務（39級）在他們之間走動：從營地邊緣一次拉一個地質學家。深喉獵豹（37-38級）潛行在湖泊南邊和東邊的叢林中：待在湖岸營地就好。",
 	-- ["The Skullsplitter trolls hold the ruins east of the road between Nesingwary and {object:3202}."] = "劈顱食人妖佔據奈辛瓦里與{object:3202}之間道路東邊的廢墟。",
-	-- ["West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west."] = "向西穿過叢林前往食人妖廢墟：每處都有一塊記載食人妖傳說的石板，前兩塊在奈辛瓦里營地西南方的廢墟中，後兩塊在西北方的山丘上。",
+	-- ["West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west."] = "向西穿過叢林前往食人妖廢墟：每處都有一塊記載食人妖傳說的石板，前兩塊在奈辛瓦裏營地西南方的廢墟中，後兩塊在西北方的山丘上。",
 	-- ["{npc:717}, if 30-40/04 didn't give it: {npc:729}, in the 40-50 Stranglethorn guide"] = "{npc:717}，如果30-40/04沒有接到：{npc:729}在40-50荊棘谷指南中",
 	-- ["{npc:718}: the Shadowmaw Panthers prowl around {area:37}, after {area:101}"] = "{npc:718}：深喉獵豹在{area:37}周圍徘徊，先去{area:101}之後再來",
 	-- ["{npc:770}: for {npc:773} in {area:35}"] = "{npc:770}：給{area:35}的{npc:773}",

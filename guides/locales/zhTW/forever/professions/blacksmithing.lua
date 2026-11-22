@@ -235,7 +235,7 @@ return {
 	["{item:7964} to 185"] = "{item:7964}練到185",
 	-- {item:7964} Solid Sharpening Stone · {item:7912} Solid Stone
 	-- plural, as words: Mithril Deposits = {object:2040} Mithril Deposit
-	["{item:7964} is yellow at 175 (yellow 175, green 180, grey 185): about 30 crafts to 185. Each takes 1 {item:7912}. One {item:7912} a craft (Mithril Deposits): cheap points between the iron and the steel bracers. Use the stones on your weapons or sell them."] = "{item:7964}在175時為黃色（175黃、180綠、185灰）：大約30次製作可到185。每次需要1個{item:7912}。每次一個{item:7912}（秘銀礦脈）：在鐵護腕和鋼護腕之間便宜的漲點選擇。把磨石用在武器上，或者賣掉。",
+	["{item:7964} is yellow at 175 (yellow 175, green 180, grey 185): about 30 crafts to 185. Each takes 1 {item:7912}. One {item:7912} a craft (Mithril Deposits): cheap points between the iron and the steel bracers. Use the stones on your weapons or sell them."] = "{item:7964}在175時為黃色（175黃、180綠、185灰）：大約30次製作可到185。每次需要1個{item:7912}。每次一個{item:7912}（秘銀礦床）：在鐵護腕和鋼護腕之間便宜的漲點選擇。把磨石用在武器上，或者賣掉。",
 
 	-- Step 46: Blacksmithing recipes at 185
 	-- {skill:164} Blacksmithing
