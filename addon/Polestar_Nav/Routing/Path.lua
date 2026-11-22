@@ -1861,6 +1861,9 @@ local function run(map, from, to, waterWalking, costOnly, profile, job, style, d
 				if aclosed[u] ~= gen then
 					aclosed[u] = gen
 					tick()
+					-- An abstract expansion (an entrance's edges, the clusters they reach decoded, a landing's grid
+					-- searches) can take far longer than a grid one: read the clock after each (#3640).
+					Path.Checkpoint()
 					if u == GOAL then
 						found = true
 						break
@@ -2553,6 +2556,7 @@ local function runMany(map, from, targets, waterWalking, reverse, job, profile, 
 			job.radius = hn > 0 and hk[1] or huge
 		end
 		tick()
+		Path.Checkpoint() -- after each abstract expansion, as run's (#3640)
 	end
 	for i = 1, #targets do
 		if costs[i] == nil then

@@ -143,7 +143,7 @@ return {
 	["For {npc:9116} in {zone:1448}, later in this guide: keep it"] = "",
 
 	-- Step 24: Northern Pylon
-	["Northern Pylon"] = "",
+	["Northern Pylon"] = "Pylône nord",
 	-- {npc:9166} Pterrordax · {npc:9997} Spraggle Frock · {npc:6584} King Mosh
 	["The pylon stands on the slope east of the refuge. {npc:9166} circle the slopes around it: they count for {npc:9997}.\nCareful: {npc:6584} (60), a rare devilsaur, roams the crater's west around 27,46: if you meet him, ride away."] = "",
 
@@ -229,7 +229,7 @@ return {
 	["West across the south of the crater: Dinosaur Bones lie on the ground in the south-west, among the stegodons: those are elite, pick the bones up around them and take the rest from the Diemetradons. The expedition's {item:11112} lies in the south-west jungle.\nCareful: Gruff (57), a rare devilsaur, prowls the south around 38,75: if you meet him, ride away."] = "",
 
 	-- Step 43: Western Pylon
-	["Western Pylon"] = "",
+	["Western Pylon"] = "Pylône ouest",
 	["The pylon stands on the western cliffs."] = "Le pylône se dresse sur les falaises ouest.",
 
 	-- Step 44: Krakle
@@ -252,9 +252,9 @@ return {
 
 	-- Step 48: Escort Ringo
 	-- {npc:9999} Ringo
-	["Escort {npc:9999}"] = "",
+	["Escort {npc:9999}"] = "Escortez {npc:9999}",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
-	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "",
+	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Menez {npc:9999} vers le nord jusqu'au {area:541}. Quand il s'évanouit, utilisez {item:11804} sur lui pour le réveiller.",
 
 	-- Step 50: Fly to Gadgetzan
 	-- {area:541} Marshal's Refuge

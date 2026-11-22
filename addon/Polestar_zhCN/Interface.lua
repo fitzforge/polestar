@@ -230,6 +230,7 @@ L["Artisan %s"] = "专家级%s"
 -- L["Requires level %d: kept for a later guide"] = ""
 -- L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = ""
 -- L["For %s, later on your route."] = ""
+-- L["kill %s as you meet them"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "选择一个奖励以完成交还。"
@@ -2620,7 +2621,6 @@ L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"
 L["Ready check"] = "就位确认"
-L["Boss whisper"] = "首领密语"
 L["Rare Elite"] = "稀有精英"
 L["just now"] = "刚刚"
 L["%d min ago"] = "%d分钟前"
@@ -2630,6 +2630,7 @@ L["%d days ago"] = "%d天前"
 L["Unknown rare"] = "未知稀有"
 L["A rare"] = "一个稀有"
 L["rares [test]: open Rares, or show a sample alert"] = "rares [test]：打开稀有，或显示示例提醒"
+L["Boss emote"] = "首领表情"
 
 -- Rares/Pins.lua
 L["Level %s"] = "等级 %s"
@@ -5021,3 +5022,4 @@ L["Find what makes your game stutter: times Polestar's own work (on, off, report
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"] = "进度正常，但步骤 %3$d 的%1$s（%2$d）较难：你当前为%4$s；请先练级%5$s"
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "进度正常，但步骤 %3$d 的%1$s（%2$d）较难：你当前为%4$s；请先升到 %5$d 级"
 -- L["No safe walking route"] = "没有安全的步行路线"
+-- L["Boss whisper"] = "首领密语"

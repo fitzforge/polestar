@@ -231,6 +231,7 @@ L["Grey for you: pays %d%% XP (Skip grey quests)"] = "Grise pour vous : rapporte
 -- L["Requires level %d: kept for a later guide"] = ""
 -- L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = ""
 -- L["For %s, later on your route."] = ""
+-- L["kill %s as you meet them"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Choisissez une récompense pour rendre la quête."
@@ -2621,7 +2622,6 @@ L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom
 -- Rares/Rares.lua
 L["Raid warning"] = "Avertissement de raid"
 L["Ready check"] = "Appel"
-L["Boss whisper"] = "Murmure de boss"
 L["Rare Elite"] = "Élite rare"
 L["just now"] = "à l'instant"
 L["%d min ago"] = "il y a %d min"
@@ -2631,6 +2631,7 @@ L["%d days ago"] = "il y a %d jours"
 L["Unknown rare"] = "Rare inconnu"
 L["A rare"] = "Un rare"
 L["rares [test]: open Rares, or show a sample alert"] = "rares [test] : ouvrir Rares, ou afficher une alerte d'exemple"
+L["Boss emote"] = "Emote de boss"
 
 -- Rares/Pins.lua
 L["Level %s"] = "Niveau %s"
@@ -5060,3 +5061,4 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Atterr
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"] = "En bonne voie, mais %s (%d) à l'étape %d est difficile : vous êtes %s ; farmez %s avant"
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "En bonne voie, mais %s (%d) à l'étape %d est difficile : vous êtes %s ; atteignez %d avant"
 -- L["No safe walking route"] = "Aucun itinéraire sûr à pied"
+-- L["Boss whisper"] = "Murmure de boss"
