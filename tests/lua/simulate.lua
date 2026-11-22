@@ -81,7 +81,7 @@ local function act(i, g, r)
 	elseif (t == "collect" or t == "buy" or t == "auction") and g.item then
 		w.addItem(g.item, (g.progress and g.progress.max) or 1)
 	elseif t == "goto" then
-		w.moveTo(g.map, g.x, g.y)
+		w.moveTo(g.map, g.x, g.y, g.z)
 	elseif t == "talk" then
 		w.gossip(g.npc); w.close()
 	elseif t == "train" then
@@ -104,7 +104,7 @@ local function act(i, g, r)
 		w.setZone(g.subject, g.subject)
 	elseif t == "die" then
 		-- A deathskip: back alive beside the graveyard's Spirit Healer.
-		w.moveTo(g.map, g.x, g.y)
+		w.moveTo(g.map, g.x, g.y, g.z)
 		stub.fire("PLAYER_UNGHOST")
 	elseif t == "level" then
 		w.setLevel(math.max(w.level, tonumber((g.subject or ""):match("%d+")) or (w.level + 1)))
@@ -140,7 +140,7 @@ local function act(i, g, r)
 	elseif t == "explore" then
 		local id = 900000 + i * 100 + g.index
 		w.addArea(r.map, r.x - 1, r.y - 1, r.x + 1, r.y + 1, id)
-		w.moveTo(r.map, r.x, r.y)
+		w.moveTo(r.map, r.x, r.y, r.z)
 		w.explore(id)
 	elseif t == "achieve" then
 		local a = w.achievements[r.achievement]

@@ -2,6 +2,37 @@
 	"about": "Step content that is neither data nor route, anchored on a quest's goal: a step's tip (tip), a goal's inline note (goalNote), a goal that never holds the route (optional: true), a level gate before the goal (level), the goal's step shown only from a level (when: \"level>=N\"), a take on the way (early: { after: { quest, goal }, title, when?, tip? }, an along step right after the step of `after` listing the accept and its objectives until the quest's own step), a slow, zone-wide collection worked over the stay (background: { title, tip?, mobs, mention?, finish: { title, tip?, map, x, y } }, on an objective: an `along until … background` step from the accept to the hand-in, a finish step before the hand-in, the mention in the steps between that pass the mobs), or who a goal is for by race (races: \"all\" or a race list, the race part of the anchored lines' own `only`; at.goal \"quest\" anchors it on every goal line of the quest). Three kinds move what a step holds, after the others: follows: { quest, goal, objective? } (the goal line right after that goal's line), split: { title, tip? } (the goal and the lines after it in its step become a step of their own) and step: { after: { quest, goal, objective? }, guide?, copy?: true, way?: true, tip? } (the goal's whole step, or a copy, right after after's step in the guide `guide` names; way: its walk goes with it). way: { at?: { map, x, y, frame? }, label?, title?, when? } sets where the walk right before the goal's step ends (off a town of the other faction, at a camp's edge) and, with when (a condition or a list of them), holds every step of that walk for the players it names, after those. levels: { top } on at: { goal: \"levels\", guide } raises the guide's header top level to where players leave it. at: { quest, goal: accept | turnin | complete | objective | quest | collect, objective?, item?, guide? } (guide: that guide only). A collect anchor names quest and item and carries a goalNote. forge-writer applies each record to the guides it writes, every build; forge data check-corrections checks this file. A record with faction (Alliance or Horde) holds for that side's routes only. Each record has a note, its source ({ kind, ref }) and its issue or pr.",
 	"fixes": [
 		{
+			"id": "a40-riverglades-second-wave-level-44",
+			"faction": "Alliance",
+			"at": {
+				"guide": "forever/alliance/40-50/01b-riverglades",
+				"quest": 95122,
+				"goal": "objective",
+				"objective": 1
+			},
+			"level": 44,
+			"note": "Fix round 2026-11-20 (Riverglades placement study, both 30-50 Alliance bands): the top-up before the port's second wave goes to 44, not 44.4. Its Eastsea Raiders are 44-45, Bombardiers 43-44 and Admiral Lamora 45, so at 44 nothing is more than one over the player. Level model (28 runs): the Riverglades top-up falls from 527 to 359 minutes; Searing Gorge's existing top-ups take back 109 and Un'Goro's 8, so the band's grinding falls by 50 minutes and comes as short top-ups rather than one 1.4-level block. A split Riverglades (part 1 at 38-40, part 2 after the Badlands & Hinterlands) was measured and not adopted: 73 minutes less grinding, but worse flow (8 more walked-past givers) and quest chains split across guides.",
+			"source": {
+				"kind": "recording",
+				"ref": "Guide followers at the second wave (archive to 2026-11-19): 25th percentile 44.17 (7 people); the model arrives at 42.98 before the top-up."
+			}
+		},
+		{
+			"id": "a40-sunken-temple-level-46",
+			"faction": "Alliance",
+			"at": {
+				"guide": "forever/alliance/40-50/03-feralas",
+				"quest": 3445,
+				"goal": "accept"
+			},
+			"when": "level>=46",
+			"note": "Fix round 2026-11-20: The Sunken Temple needs level 46 (quest data minLevel); the level model reaches Feathermoon's last stop at about 46.6, and the step shows only from 46 so a lower character is never sent to a refusal.",
+			"source": {
+				"kind": "recording",
+				"ref": "Alliance players took it at 46 and handed it in at 48 (25th percentile; 28 and 25 people)."
+			}
+		},
+		{
 			"id": "043-alliance-sindall-carried-hunt",
 			"faction": "Alliance",
 			"at": {
@@ -161,13 +192,49 @@
 			"id": "1575-elwynn-echo-ridge-narf",
 			"faction": "Alliance",
 			"at": { "quest": 21, "goal": "objective", "objective": 1 },
-			"tip": "Careful: Shinyfinder Narf (3) is elite: leave him unless you have a friend.",
-			"note": "Danger-at-the-spot sweep (#1575): the Kobold Laborers' tunnels lead past Shinyfinder Narf, a level 3 elite (his own quest is a group step of its own). Players' recordings: 4 people died within 60 yd of the step's goal at about level 4, with Narf (elite) among what they fought.",
+			"tip": "Careful: Shinyfinder Narf (3) is elite: below level 5, leave him be.",
+			"note": "Danger-at-the-spot sweep (#1575): the Kobold Laborers' tunnels lead past Shinyfinder Narf, a level 3 elite. Players' recordings: 4 people died within 60 yd of the step's goal at about level 4, with Narf (elite) among what they fought. Alliance starts fix round (2026-11-20): his own quest (The Big Picture, 91752) is the next step, from level 5 (a-fix-elwynn-narf-from-5), so this tip says to leave him below 5.",
 			"source": [
 				{ "kind": "pfquest", "ref": "npcs.json 248362 Shinyfinder Narf 3 rank elite, Elwynn 49.2,28.0" },
 				{ "kind": "recording", "ref": "rec index 2026-11-11: 4 people died within 60 yd of Echo Ridge Mine's goal (21.1) at about level 4; foe 248362 recorded as elite" }
 			],
 			"issue": 1575
+		},
+		{
+			"id": "a-fix-elwynn-narf-from-5",
+			"faction": "Alliance",
+			"at": { "quest": 91752, "goal": "objective", "objective": 1, "guide": "forever/alliance/human/01-elwynn-forest" },
+			"when": "level>=5",
+			"tip": "From level 5 Shinyfinder Narf, a level 3 elite, is two levels under you: he waits down the second turn on the right inside the mine. Careful: clear the Laborers around him first and fight him at full health.",
+			"note": "Alliance starts fix round (2026-11-20), low elites (Fitz: an elite two or more levels under the player is solo content): The Big Picture's Shinyfinder Narf (3, elite) is on the solo route on a step of his own from level 5, two levels over him; the level model reaches it at about 5.3, so the route player always takes him, and a fresh starter below 5 passes him (his hand-in step is `when complete 91752`). The 5.48 and 5.77 top-ups that stood in for the chain are gone. Players' recordings: 56 people took 91752 (accept 25th percentile 5), 46 handed it in.",
+			"source": [
+				{ "kind": "pfquest", "ref": "npcs.json 248362 Shinyfinder Narf 3 rank elite, Elwynn 49.2,28.0" },
+				{ "kind": "recording", "ref": "rec quest 91752 (2026-11-20 archive): 56 people accepted, P25 level 5; 46 handed in" }
+			]
+		},
+		{
+			"id": "a-fix-duskwood-proving-your-worth-from-28",
+			"faction": "Alliance",
+			"at": { "quest": 323, "goal": "objective", "objective": 1, "guide": "forever/alliance/05-duskwood" },
+			"when": "level>=28",
+			"tip": "From level 28: the Skeletal Raiders, Healers and Warders stand in the west part of the Raven Hill Cemetery, just east of Sven's camp. Careful: The Warders are 28-29 and the skeletons stand close together: pull one at a time.",
+			"note": "Fix round 2026-11-20 (Duskwood): Proving Your Worth (323) is accepted at Sven's camp, 05-duskwood's last stop, and worked on the spot from level 28 (Raiders 27-28, Healers 26-27, Warders 28-29, about 200 yd east of Sven), then handed back with Seeking Wisdom (269) taken for Bishop Farthing on the Stormwind walk. Below 28 it waits for 07-thousand-needles' cemetery loop, which keeps its steps. Players' recordings: 76 people took it (accept 25th percentile 26.8), 14 died at it, 5 of them two or more levels under the Warders: hence the gate, not a plain first-visit step.",
+			"source": [
+				{ "kind": "pfquest", "ref": "npcs.json 1110 Skeletal Raider 27-28 (16.3,36.2), 787 Skeletal Healer 26-27, 785 Skeletal Warder 28-29 (16.1,34.1); 311 Sven Yorgen 7.6,34.2" },
+				{ "kind": "recording", "ref": "rec quest 323 (2026-11-20 archive): 76 people, P25 26.8; 14 died, 5 while 2+ under" }
+			]
+		},
+		{
+			"id": "a-fix-wetlands-halyndor-from-29",
+			"faction": "Alliance",
+			"at": { "quest": 290, "goal": "objective", "objective": 1, "guide": "forever/alliance/06-wetlands" },
+			"when": "level>=29",
+			"tip": "From level 29: north along the coast from Menethil to the wreck of the Intrepid. Captain Halyndor (30) is aboard, and the locked strongbox sits in the wreck. Careful: Cursed Marines (27-28) crowd the deck around him: clear them first. Nightveiled Rotheap, a level 31-32 elite, roams the Wetlands: give it a wide berth.",
+			"note": "Fix round 2026-11-20 (Wetlands finished on the second visit): Lifting the Curse is worked at the end of 06-wetlands' Wetlands loop, from level 29 (Halyndor 30, at most one over; the 0.4.0 level tidy found him two over players at 28 then). Below 29 the quest is carried to 30-40/01's Menethil stop, which keeps the steps.",
+			"source": [
+				{ "kind": "pfquest", "ref": "npcs.json 1160 Captain Halyndor 30 at Wetlands 15.4,23.6; 1158 Cursed Marine 27-28 (19 spawns around 14.4,25.8)" },
+				{ "kind": "recording", "ref": "rec quest 290 (2026-11-20 archive): 66 people, accept 25th percentile 28.2" }
+			]
 		},
 		{
 			"id": "1575-durotar-halikor-fizzle",
@@ -1020,13 +1087,15 @@
 				"goal": "turnin"
 			},
 			"tip": "Careful: three waves of gorillas come one after another with little rest between, then Mokk the Savage. Start at full health and mana, and stay near Unbagwa. Some classes find it hard alone: a friend makes it easy.",
-			"note": "Stranglethorn Fever (349): handing Witch Doctor Unbagwa the ten fangs starts the event that Stranglethorn Fever's heart (348) needs: three waves of Mistvale gorillas and then Mokk the Savage attack, with little time between them. A player (Ice, on Polestar's Discord) found it hard alone; the step now says so before the hand-in.",
+			"note": "Stranglethorn Fever (349): handing Witch Doctor Unbagwa the ten fangs starts the event that Stranglethorn Fever's heart (348) needs: three waves of Mistvale gorillas and then Mokk the Savage attack, with little time between them. A player (Ice, on Polestar's Discord) found it hard alone; the step now says so before the hand-in. #3574: both Witch Doctor Unbagwa steps (the Grom'gol stop's and the Booty Bay catch-up's) are for a player who chose the group quest (`when group 348`), so one who carries 348 from before and skips it is not sent to the waves.",
 			"source": [
 				{
 					"kind": "in-game-check",
 					"ref": "player report on Polestar's Discord (Ice): the gorilla waves come back to back and were hard to survive alone"
 				}
-			]
+			],
+			"when": "group 348",
+			"issue": 3574
 		},
 		{
 			"id": "2479-barrens-verog-from-the-kolkar",
@@ -3417,7 +3486,7 @@
 				"objective": 2
 			},
 			"along": false,
-			"note": "The Night Watch (57): the Skeletal Horrors are killed in the Rot Blossoms step, from the same Horrors south-east of Darkshire (route-fixes together 156 -> 57.1); an along list from Commander Althea's accept would list them before Blind Mary's visit and split them from the blossoms.",
+			"note": "The Night Watch (57): the Skeletal Horrors are killed with the Fiends in the Raven Hill Cemetery step of 05-duskwood's first west trip (route-fixes together 57.0 -> 57.1; fix round 2026-11-20, before it the Rot Blossoms step); an along list from Commander Althea's accept would list them across the whole zone.",
 			"source": [
 				{
 					"kind": "tdb",
@@ -3435,7 +3504,7 @@
 				"objective": 1
 			},
 			"along": false,
-			"note": "The Night Watch (57): the Skeletal Fiends walk only the Raven Hill Cemetery, killed in a cemetery step on the walk from Abercrombie to Jitters (route-fixes pair turnin 133 -> task 57.0), not 'on the way' from Darkshire across the whole zone (flow audit, 2026-11-07: along lists become steps).",
+			"note": "The Night Watch (57): the Skeletal Fiends walk only the Raven Hill Cemetery, killed in a cemetery step on 05-duskwood's first west trip from Abercrombie to Sven (route-fixes pair turnin 157 -> task 57.0; fix round 2026-11-20), not 'on the way' from Darkshire across the whole zone (flow audit, 2026-11-07: along lists become steps).",
 			"source": [
 				{
 					"kind": "cmangos",
@@ -4560,23 +4629,6 @@
 			]
 		},
 		{
-			"id": "a4060-bs-accept-broodling-essence-52",
-			"faction": "Alliance",
-			"at": {
-				"quest": 3823,
-				"goal": "objective",
-				"objective": 1
-			},
-			"level": 52,
-			"note": "Burning Steppes, final route review before 0.3.5: the route topped up to 51.39 on the Firegut ogres of Dreadmaul Rock (78.7,44.7) on the way from Morgan's Vigil to Flame Crest, then, after the Flame Crest accepts (65.2,24.0), rode back to the same ogres for a top-up to 52. Nothing between the two gives experience, so the one top-up to 52 is on the way, before Flame Crest. Level tidy 0.4.0 (Alliance 50-60, minimum fixes): the same top-up comes before Extinguish the Firegut's kills instead, on the Firegut Ogres (50-51) of the rock's near side: the Brutes on its east side are 52-53, two over the 51 player there in the calibrated level model with rested experience.",
-			"source": [
-				{
-					"kind": "recording",
-					"ref": "final route review 2026-11-08 (Alliance 40-60): 50-60/01-burning-steppes steps 'Level 51.39' and 'Level 52', both 'grind on Firegut Ogre Mage' at 78.7,44.7; Tinkee Steamboil and Maxwort Uberglint spawns from npcs.json"
-				}
-			]
-		},
-		{
 			"id": "1234-kodo-roundup-talk-to-the-kodo-horde",
 			"faction": "Horde",
 			"at": {
@@ -4842,23 +4894,6 @@
 			"issue": 1314
 		},
 		{
-			"id": "1314-desolace-hate-the-hatefury-optional",
-			"at": {
-				"quest": 97265,
-				"goal": "accept"
-			},
-			"faction": "Horde",
-			"tip": "Aka'rai may not be here on Forever: if Aka'rai doesn't offer Hate the Hatefury, skip it.",
-			"note": "Hate the Hatefury (97265, Aka'rai 268705, Desolace 25.4,67.2) is taken optional, with its kills at Sargeron and its hand-in at Shadowprey, so nothing waits on it: nobody has been recorded taking it or being offered it, and Aka'rai was never seen, though players passed her spot (#1314's pattern: Hearts of the Lost). The seed guide carries the optional goals.",
-			"source": [
-				{
-					"kind": "recording",
-					"ref": "players' in-game recordings to 2026-11-08: 0 people accepted, progressed, handed in or were offered 97265; Aka'rai (268705) never seen by anyone, though 2 Horde people (1 established) passed within about 50 yd of her spawn at levels 33-34, in 2 sessions"
-				}
-			],
-			"issue": 1314
-		},
-		{
 			"id": "0306-talk-of-the-town-may-be-missing",
 			"at": {
 				"quest": 98463,
@@ -5080,6 +5115,23 @@
 			"after": true,
 			"only": "Priest,Mage",
 			"note": "Level sweep (2026-11-08): Cenarion Aid (8254, High Priest Rohan in Ironforge, Priests only) needs level 50; the calibrated level model reaches Ironforge at 49.71. Priests reach 50 after J.D. Collie's hand-ins in Un'Goro (Making Sense of It, 4321), before the flight north, where a gate costs about 5 minutes and Azshara's level 50.4 top-up would take them there anyway. #1485 class-chain sweep (2026-11-09): Magecraft (8250, Dink in the same Mystic Ward stop, Mages only) needs level 50 too (recordings: 3 Mages could not take it below 50) and the model reaches it at 49.79 for Human, Gnome and Skyborne Mages; the gate covers Mages as well. Without it a Mage is passed with Requires level 50 and the level-up in Azshara sends the guide back to Ironforge.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest minimum levels in Forever's quest data"
+				}
+			]
+		},
+		{
+			"id": "2026-11-20-ungoro-top-up-to-50",
+			"at": {
+				"quest": 4503,
+				"goal": "turnin"
+			},
+			"faction": "Alliance",
+			"level": 50,
+			"after": true,
+			"note": "Fix round 2026-11-20 (Alliance 40-60 seam): the Burning Steppes guide (50-60/01) now opens with the hearth to Ironforge, where Call to Arms (5090, Courier Hammerfall), The Smoldering Ruins of Thaurissan's first part (3702, Archesonus) and, through 5090, Chillwind Camp's Plaguelands work (5092) all need level 50. The level model (28 race and class runs, rested) leaves Un'Goro at 49.93 for the 21 runs that aren't Priests or Mages, and refused those three accepts in all 21. Un'Goro's written top-up after Marshal's Refuge's hand-ins goes to 50 instead of 49.79, on the same Bloodpetal Lashers and Threshers (48-50); Priests and Mages already went to 50 there (0306-level-sweep-cenarion-aid-priest-50). Players' levels run above the model, so most never see the step.",
 			"source": [
 				{
 					"kind": "client",
@@ -5492,6 +5544,25 @@
 			]
 		},
 		{
+			"id": "h3040-stv-sindall-from-36",
+			"faction": "Horde",
+			"at": {
+				"quest": 188,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/30-40/03-stranglethorn-vale"
+			},
+			"when": "level>=36",
+			"tip": "North from Grom'gol to the hilltop just south-west of Nesingwary's camp: Sin'Dall prowls there alone. Careful: Sin'Dall (37) is a level over you: pull him at full health, clear of the Elder Stranglethorn Tigers (34-35) on the hill's slopes.",
+			"note": "Sin'Dall (729) is level 37: the end of 30-40/03, after the level 36 top-up at Grom'gol, is the first point of the guide where he is no more than one over the player. The hunt and Ajeck's hand-in come there instead of on the 40-50 visit.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 729 Sin'Dall, level 37, map 1434 31.8,16.4; quests.json 188 ender 717"
+				}
+			]
+		},
+		{
 			"id": "horde-3040-stv-elder-tigers",
 			"faction": "Horde",
 			"at": {
@@ -5621,6 +5692,24 @@
 			]
 		},
 		{
+			"id": "h3040-desolace-magram-ears-and-totems",
+			"faction": "Horde",
+			"at": {
+				"quest": 1366,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/30-40/02-thousand-needles"
+			},
+			"tip": "South-east of Smeed's camp, the Magram centaurs camp in the hills. The Scouts and Outrunners (32-33) and the Wranglers (33-34) hold the camp's north-western edge; any centaur can drop an ear for Felgur and a Carved Centaur Totem for Gurda. Careful on the way: Scorpashi Venomlashes (38-39) and Dread Rippers (39-40) roam the ground just west of the camp's edge: give them room. Careful: the Stormers and Pack Runners (34-35), Marauders and Maulers (35-36) and the Bonepaws (37-38) hold the middle and south of the camp: stay on its north-western edge and pull one at a time.",
+			"note": "Desolace's first visit (2026-11-20) takes Centaur Bounty and Carved Centaur Totems at Ghost Walker Post after Khan Dez'hepah's head and works both at the Magram camp's north-western edge (Scouts 4638 and Outrunners 4639 32-33, Wranglers 4640 33-34, about 65.6-67.1,69-75), the lowest centaurs near the post; the camp's middle and south are 34-38.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 4638-4645, 4662 spawns on map 1443; items.json 6067 and 254432 drops (254432 per its #1602 correction)"
+				}
+			]
+		},
+		{
 			"id": "horde-3040-boulderfist-hall-southwest",
 			"faction": "Horde",
 			"at": {
@@ -5653,6 +5742,24 @@
 				{
 					"kind": "pfquest",
 					"ref": "npcs.json 2561 spawns on map 1417"
+				}
+			]
+		},
+		{
+			"id": "h3040-hillsbrad-souvenirs-on-the-miners",
+			"faction": "Horde",
+			"at": {
+				"quest": 546,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/30-40/01-hillsbrad-foothills"
+			},
+			"tip": "Keep killing Miners until Samsa's thirty skulls are in your bags: most Hillsbrad humans drop one.",
+			"note": "Hillsbrad Human Skulls (3692) drop at 80% from every Hillsbrad human; 30-40/01 takes Souvenirs of Death after the smithy and kills the town hall's and the Azurelode Mine's humans (Miners 2269, 26-27, 24 spawns) anyway, and the mine is the last of them before the Tarren Mill hand-in.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "items.json 3692 drops; npcs.json 2269 spawns on map 1424"
 				}
 			]
 		},
@@ -5817,23 +5924,6 @@
 				"kind": "pfquest",
 				"ref": "npcs.json 2735 on map 1418; items.json 7848"
 			}
-		},
-		{
-			"id": "a4060-winterspring-54-on-frostfire",
-			"faction": "Alliance",
-			"at": {
-				"quest": 5082,
-				"goal": "objective",
-				"objective": 1
-			},
-			"level": 55,
-			"note": "Winterspring (Alliance 53-56): the top-up to 55.05 was one block after Donova; its first part (to 54) is ground on the Frostfire Winterfall camp while Donova's and Salfa's kills still count (grind policy: no single block, grind on quest mobs). Level tidy 0.4.0 (Alliance 50-60, minimum fixes): the top-up goes to 55 on the camp's Pathfinders (53-54) before the kills, since its Den Watchers are 55-56, two over the 54 player there; the later top-up to 55.05 is then nearly done.",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "quest minimum and quest levels in Forever's quest data; mob levels from npcs.json"
-				}
-			]
 		},
 		{
 			"id": "h130-sepulcher-yuriv-tombstone",
@@ -6632,48 +6722,6 @@
 			]
 		},
 		{
-			"id": "astranaar-pass-hand-ins-split",
-			"faction": "Alliance",
-			"at": {
-				"quest": 1034,
-				"goal": "turnin",
-				"guide": "forever/alliance/06-ashenvale"
-			},
-			"split": {
-				"title": "Astranaar",
-				"tip": "Back west along the road from Shael'dryn, Astranaar is on the way to Ilkrud: Pelturas Whitemoon is inside the building beyond the inn."
-			},
-			"note": "06-ashenvale: after Shael'dryn, the route walks back west through Astranaar to Ilkrud Magthrull with Pelturas Whitemoon's hand-in (1034) ready. It is cut off the last Astranaar stop (with the vendor) and handed in on that pass (astranaar-pass-hand-ins-step), before Ilkrud's camp; the last stop, needed for the flight to Auberdine, is Shindrell Swiftfire's (1008) alone: about 260 yd of town walking saved. 0.3.6 hand edit; since the 0.4.0 level tidy Raene's Foulweald and Dal Bloodclaw quests (1025, 1054) are on 06-wetlands' Ashenvale trip, so the pass follows Shael'dryn's step.",
-			"source": [
-				{
-					"kind": "questie",
-					"ref": "quests 1025, 1054 ender Raene Wolfrunner (3691); 1034 Pelturas Whitemoon (3894); 1008 Shindrell Swiftfire (3845)"
-				}
-			]
-		},
-		{
-			"id": "astranaar-pass-hand-ins-step",
-			"faction": "Alliance",
-			"at": {
-				"quest": 1034,
-				"goal": "turnin",
-				"guide": "forever/alliance/06-ashenvale"
-			},
-			"step": {
-				"after": {
-					"quest": 1024,
-					"goal": "turnin"
-				}
-			},
-			"note": "06-ashenvale: the Astranaar hand-in cut off the last stop (astranaar-pass-hand-ins-split) goes right after Shael'dryn's step, on the walk back west through Astranaar to Ilkrud Magthrull. 0.3.6 hand edit, re-anchored in the 0.4.0 level tidy.",
-			"source": [
-				{
-					"kind": "questie",
-					"ref": "quest 1024 ender Shael'dryn; 1034 ender Pelturas Whitemoon (3894)"
-				}
-			]
-		},
-		{
 			"id": "astranaar-last-stop-shindrell-tip",
 			"faction": "Alliance",
 			"at": {
@@ -6681,8 +6729,8 @@
 				"goal": "turnin",
 				"guide": "forever/alliance/06-ashenvale"
 			},
-			"tip": "Follow the road south-east from Maestra's Post back to Astranaar: Shindrell Swiftfire stands by the flight master.",
-			"note": "06-ashenvale: the last Astranaar stop is Shindrell Swiftfire's hand-in by the flight master alone; Raene's and Pelturas's hand-ins went in on the pass after Dal Bloodclaw (astranaar-pass-hand-ins-split). 0.3.6 hand edit.",
+			"tip": "Hearth to Astranaar, where your hearthstone is bound, or follow the road east from the Zoram Strand: Shindrell Swiftfire stands by the flight master, Raene Wolfrunner in the inn, Pelturas Whitemoon inside the building beyond it.",
+			"note": "06-ashenvale (Ashenvale fix round 2026-11-20): after the west sweep the hearthstone bound at Astranaar takes the player from Talen to one Astranaar stop: Shindrell's Zoram Strand (1008, and her Pridewings of Stonetalon, 1134), Raene's gem (1023, and An Aggressive Defense, 1025) and Pelturas's stardust (1034). The pass through Astranaar between Shael'dryn and Ilkrud (0.3.6) went with the Shael'dryn trip.",
 			"source": [
 				{
 					"kind": "questie",
@@ -6699,8 +6747,8 @@
 				"objective": 1,
 				"guide": "forever/alliance/06-ashenvale"
 			},
-			"tip": "From Astranaar head south-west to the Fire Scar Shrine and go in from the east side: Ilkrud and his guards hold a hill inside it. Pull his guards first.",
-			"note": "06-ashenvale: Ilkrud Magthrull's step now follows the Astranaar hand-ins on the pass (astranaar-pass-hand-ins-split), so its tip leads on from Astranaar instead of telling players to leave the hand-ins for later. 0.3.6 hand edit. #2837: he stands in the Fire Scar Shrine, not the Ruins of Ordil'Aran.",
+			"tip": "From the Ruins of Stardust head north-west to the Fire Scar Shrine and go in from the east side: Ilkrud and his guards hold a hill inside it. Pull his guards first.",
+			"note": "06-ashenvale (Ashenvale fix round 2026-11-20): Ilkrud Magthrull opens the west sweep straight from the Ruins of Stardust (then Therysil, Teronis, Delgren and the Zoram Strand). #2837: he stands in the Fire Scar Shrine, not the Ruins of Ordil'Aran.",
 			"source": [
 				{
 					"kind": "questie",
@@ -7181,10 +7229,10 @@
 				"guide": "forever/alliance/50-60/06-silithus"
 			},
 			"follows": {
-				"quest": 8281,
+				"quest": 8280,
 				"goal": "accept"
 			},
-			"note": "Secret Communication (8318) needs level 57. Fix round 1 (0.4.0): Bor Wildmane gives it on the Silithus guide's first Cenarion Hold stop (06, about 58), with Beetix's and Windcaller Proudhorn's quests, so the route doesn't walk past him; its texts drop at the Twilight dig after the next stop there, where he takes it back. On the Western Plaguelands guide's second Cenarion Hold stop the level model reached it at 56.95 and ground 33 minutes to take it.",
+			"note": "Secret Communication (8318) needs level 57. Fix round 1 (0.4.0): Bor Wildmane gives it on the Silithus guide's first Cenarion Hold stop (06, about 58), with Beetix's and Windcaller Proudhorn's quests, so the route doesn't walk past him; its texts drop at the Twilight dig after the next stop there, where he takes it back. On the Western Plaguelands guide's second Cenarion Hold stop the level model reached it at 56.95 and ground 33 minutes to take it. 0.4.3 fix round: Silithus is one visit, after Mount Hyjal; the first stop takes Windcaller Proudhorn's Securing the Supply Lines (8280), which Bor follows.",
 			"source": [
 				{
 					"kind": "questie",
@@ -10801,7 +10849,8 @@
 			"faction": "Alliance",
 			"at": {
 				"quest": 1016,
-				"goal": "accept"
+				"goal": "accept",
+				"guide": "forever/alliance/06-wetlands"
 			},
 			"tip": "Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake, just north of the road to Krolg. Befouled Water Elementals wade in the lake; Tideress, a level 27 water elemental, walks among them and drops the bracers too.",
 			"note": "Alliance 20-30 audit (0.4.0, #2025): Elemental Bracers (1016, quest level 24) is worked at about 23-24 on 06-ashenvale's Mystral Lake stop. Tideress (npc 12759, level 27) walks the lake among the Befouled Water Elementals (npc 3917, level 23) and drops the Intact Elemental Bracer as they do (items.json 12220: npcs 3917 and 12759), so players attack her. Players' recordings (addon 0.3.5 and later): Tideress killed 4 people (5 deaths) there and the Befouled Water Elementals 5 (6 deaths), at about 23.3. The step's tip named neither; the tip keeps the step's old tip, the sentence added.",
@@ -10923,12 +10972,11 @@
 			"id": "2025-great-lift-wait",
 			"faction": "Alliance",
 			"at": {
-				"quest": 1135,
-				"goal": "objective",
-				"objective": 1
+				"quest": 1100,
+				"goal": "accept"
 			},
-			"tip": "Down the Great Lift into Thousand Needles, then west to the wyverns' cliffs at Highperch. Every wyvern there can drop a venom sac. Careful: wait on the platform until the lift is level with it before you step on, and stay on it until it stops; the drop beside it kills.",
-			"note": "0.4.0 route audit (Refs #2025): the step sent players down the Great Lift with no word on it. The step's earlier tip (the lift, the cliffs, the venom sacs) is kept in this one.",
+			"tip": "Down the Great Lift into Thousand Needles. Careful: wait on the platform until the lift is level with it before you step on, and stay on it until it stops; the drop beside it kills. Henrig Lonebrow's Journal lies a couple of hundred yards north-east of the lift's foot, in Darkcloud Pinnacle, where the Grimtotems (25-27) camp.",
+			"note": "0.4.0 route audit (Refs #2025): the step sent players down the Great Lift with no word on it. Since the 2026-11-20 fix round the first Thousand Needles step is Lonebrow's Journal by the lift's foot, so the lift's warning is on it, the step active on the way down.",
 			"source": [
 				{
 					"kind": "recording",
@@ -11159,12 +11207,16 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Careful: a Malfunctioning Reaver (level 56, rare) walks the slopes by the broodlings, and the Black Dragonspawn and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull.",
-			"note": "Danger-at-the-spot sweep (#1575, 0.4.0 audit): the Broodling Essence point moved to the Black Broodling spawn at 81.0,28.2 (places record 1575-burning-steppes-broodling-essence). A Malfunctioning Reaver (56, rare) spawns about 65 yd from it (79.2,29.7), and elite Black Dragonspawn (52) and Wyrmkin (53) stand around both broodling spawns nearest Flame Crest (81.0,28.2 and 81.4,26.5); the spawns clear of both lie about 370 yd further east, so the point stays and the step warns.",
+			"tip": "Careful: a Malfunctioning Reaver (level 56, rare) walks the slopes by the broodlings, Volchan (60, a rare fire elemental) roams the hills east of Flame Crest, and the Black Dragonspawn and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull.",
+			"note": "Danger-at-the-spot sweep (#1575, 0.4.0 audit): the Broodling Essence point moved to the Black Broodling spawn at 81.0,28.2 (places record 1575-burning-steppes-broodling-essence). A Malfunctioning Reaver (56, rare) spawns about 65 yd from it (79.2,29.7), and elite Black Dragonspawn (52) and Wyrmkin (53) stand around both broodling spawns nearest Flame Crest (81.0,28.2 and 81.4,26.5); the spawns clear of both lie about 370 yd further east, so the point stays and the step warns. 0.4.2 danger gate: Volchan (60, rare) spawns at 81-82,26-29 too, beside the point; the tip names him (players' recordings: 21 people handed the quest in at 51.5-55.9, none killed by him).",
 			"source": [
 				{
 					"kind": "pfquest",
 					"ref": "npcs.json 8981 Malfunctioning Reaver 56 rare at Burning Steppes 79.2,29.7 / 88.1,31.8 / 90.0,46.0 / 85.8,57.1 / 88.6,57.4; 7047 Black Broodling spawns 81.0-91.9,26.5-62.1; Black Dragonspawn (52) and Black Wyrmkin (53), rank elite, among them"
+				},
+				{
+					"kind": "recording",
+					"ref": "danger gate 0.4.2 (use 4726.1 over, Volchan 60 x2 at route level 50.2); rec index 2026-11-20: 4726 handed in by 21 people at 51.5-55.9; Volchan (10119) met hostile by 8 Alliance people, killed nobody"
 				}
 			],
 			"issue": 1575
@@ -11358,13 +11410,15 @@
 				"guide": "forever/alliance/40-50/05-the-hinterlands"
 			},
 			"tip": "Careful: three waves of gorillas come one after another with little rest between, then Mokk the Savage. Start at full health and mana, and stay near Unbagwa. Some classes find it hard alone: a friend makes it easy.",
-			"note": "Ice's report (Discord): Witch Doctor Unbagwa's ritual (Stranglethorn Fever, 349 handed in, then Mokk the Savage for 348) sends three waves of Mistvale gorillas back to back before Mokk; alone it was hard for the reporter's class. The step now says so up front.",
+			"note": "Ice's report (Discord): Witch Doctor Unbagwa's ritual (Stranglethorn Fever, 349 handed in, then Mokk the Savage for 348) sends three waves of Mistvale gorillas back to back before Mokk; alone it was hard for the reporter's class. The step now says so up front. #3574's sweep: the ritual's hand-in step is for a player who chose the group quest (`when group 348`); Mokk's heart step after it stays `when turnedin 349` (2561-sweep-unbagwa-heart-of-mokk), which only that player reaches; the Gorilla hills step's fangs have no quest to anchor on (`when group 348` in the seed).",
 			"source": [
 				{
 					"kind": "in-game-check",
 					"ref": "player report (Ice, Discord, 2026-11-16): three gorilla waves with little rest, then Mokk; hard alone for some classes"
 				}
-			]
+			],
+			"when": "group 348",
+			"issue": 3574
 		},
 		{
 			"id": "2448-tanaris-rhapsody-ride-onquest",
@@ -11453,22 +11507,6 @@
 			]
 		},
 		{
-			"id": "a4060-azshara-52-before-kimjael",
-			"faction": "Alliance",
-			"at": {
-				"quest": 3601,
-				"goal": "accept"
-			},
-			"level": 51,
-			"note": "Level tidy 0.4.0, fix round 1 (Alliance 50-60): Kim'jael's camp and the Thalassian Base Camp are blood elves of 51-53 (Surveyors 51-52, Reclaimers 52-53, Magister Hawkhelm 53). A top-up to 51 (the guide writes 51.3) on the Spitelash Myrmidons (50-51) on the way north comes first, after the Ruins of Eldarath's runes on the same naga; with a Careful tip the camp's range top is one over the low end. With the first Un'Goro visit lighter (fix round 1) a top-up to 52 grew to about 12 model hours.",
-			"source": [
-				{
-					"kind": "client",
-					"ref": "npcs 6196 Spitelash Myrmidon 50-51, 6198 Blood Elf Surveyor 51-52, Blood Elf Reclaimer 52-53 in Forever's data"
-				}
-			]
-		},
-		{
 			"id": "a4060-ice-thistle-careful",
 			"faction": "Alliance",
 			"at": {
@@ -11476,12 +11514,12 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Careful: the Ice Thistle Yetis are 55-56 and the Chimaeras 55-57: take the Rogue Ice Thistles (53-55) and the Fledgling Chillwinds (53-55) at the edge of the hills, and leave the Chillwind Ravagers (57-59) alone.",
-			"note": "Level tidy 0.4.0 (Alliance 50-60, minimum fixes): the hills' yetis and chimaeras run 53-57 around a 54 player; both quests can be done on the 53-55 ones.",
+			"tip": "Careful: both are 53-55: pull the lower ones and take them one at a time.",
+			"note": "Level tidy 0.4.0 (Alliance 50-60, minimum fixes): the hills' yetis and chimaeras run 53-57 around a 54 player; both quests can be done on the 53-55 ones. Fix pass 2026-11-20: those 53-55 ones (Rogue Ice Thistles, Fledgling Chillwinds) don't live in the hills east of Everlook at all: their spawns run along the road from Everlook west to Donova (x29-54, y33-48), which 50-60/03 rides at about 52.7 right after Umi gives 3783, with 4809 in the log since 02. The furs (33% from the Rogue Ice Thistles) and horns (20% from the Fledgling Chillwinds) are worked there; the later step east of Everlook is a catch-up that points back to the road.",
 			"source": [
 				{
 					"kind": "client",
-					"ref": "npcs 7457 Rogue Ice Thistle 53-55, 7458 Ice Thistle Yeti 55-56 in Forever's data"
+					"ref": "npcs 7457 Rogue Ice Thistle 53-55 and 7447 Fledgling Chillwind 53-55 (spawns x29-54, y33-48), 7458 Ice Thistle Yeti 55-56 in Forever's data; items 12366 (33% from 7457) and 12444"
 				}
 			]
 		},
@@ -12855,13 +12893,15 @@
 				"goal": "accept"
 			},
 			"tip": "Kum'isha waits at the Rise of the Defiler, the hill south-west of the keep. The Blasted Lands mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have. Come at her hill straight from the keep, along the road, and leave by the same way.",
-			"note": "50-60/01 (fix round 1, 0.4.0): only Kum'isha's hand-in is on her hill among the Shadowsworn and Dreadmaul camps (53-55); the tip keeps the player on the road from the keep.",
+			"note": "50-60/01 (fix round 1, 0.4.0): only Kum'isha's hand-in is on her hill among the Shadowsworn and Dreadmaul camps (53-55); the tip keeps the player on the road from the keep. #3576 (Peanut, 0.4.2.1): the step shows only with an Imperfect Draenethyst Fragment in the bags (`when has 10593`), as her Sphere step does (`when has 8244`): it is a random drop level 60 players farm, and the step held the route until one dropped (players' recordings, quest 3501: 20 people, 16 accepts, 7 hand-ins, 9 abandons).",
 			"source": [
 				{
 					"kind": "client",
 					"ref": "Blasted Lands camps around Rise of the Defiler 53-55"
 				}
-			]
+			],
+			"when": "has 10593",
+			"issue": 3576
 		},
 		{
 			"id": "silithus-twilight-keepers-careful",
@@ -13498,12 +13538,13 @@
 			"faction": "Alliance",
 			"at": {
 				"quest": 963,
-				"goal": "accept",
+				"goal": "objective",
+				"objective": 1,
 				"guide": "forever/alliance/nightelf/02-darkshore"
 			},
-			"when": "level>=15",
-			"tip": "From level 15: Cerellean Whiteclaw waits where the pier meets the shore. Anaya Dawnrunner (16), whose pendant he wants, walks Ameth'Aran on the loop ahead.",
-			"note": "Night Elf Darkshore: For Love Eternal (963) is taken on the second Auberdine stop only from level 15 and done on the second loop's pass through Ameth'Aran, so a Night Elf at 15 no longer walks 03-darkshore's first loop for it alone (Anaya Dawnrunner 16 is one over at 15). Below 15 it stays with 03-darkshore at about 17, as the 0.4.0 level tidy set it (Night Elves reached Ameth'Aran at a recorded 25th percentile of 13.5). The pendant step has its own level check for a player already carrying the quest. On the way to the boat Cerellean takes it only when the pendant is ready.",
+			"when": "level>=14.5",
+			"tip": "Careful: Anaya Dawnrunner (16) is over you: pull her on her own at full health. Lady Moongazer, a rare (17), also walks the ruins: leave her be.",
+			"note": "Night Elf Darkshore: For Love Eternal (963) is done on the second loop's pass through Ameth'Aran, so a Night Elf no longer walks 03-darkshore's first loop for it alone. Fix pass 2026-11-20: the accept on the second Auberdine stop (a talk on the pier, minimum 11) is for everyone and the quest is carried; the pendant work waits for level 14.5 (Anaya Dawnrunner 16 is one and a half over there, with a Careful line), one level less strict than the 15 gate on the accept before (the level model reaches that Auberdine stop at about 14.2 and the second loop at 14.5-15.2). Below 14.5 the work stays with 03-darkshore at about 17, as the 0.4.0 level tidy set it (Night Elves reached Ameth'Aran at a recorded 25th percentile of 13.5). On the way to the boat Cerellean takes it only when the pendant is ready.",
 			"source": [
 				{
 					"kind": "recording",
@@ -13582,7 +13623,7 @@
 				"objective": 1,
 				"guide": "forever/alliance/06-ashenvale"
 			},
-			"tip": "Back north through the Talondeep Path: west of Mystral Lake, the stardust bushes grow among the ruins. Careful: Shadethicket Raincallers and Wood Shapers (22–24) stand among the bushes. Clear one bush at a time; don’t run through the camp.",
+			"tip": "South-west from Astranaar: west of Mystral Lake, the stardust bushes grow among the ruins. Careful: Shadethicket Raincallers and Wood Shapers (22–24) stand among the bushes. Clear one bush at a time; don’t run through the camp.",
 			"note": "Careful: Shadethicket Raincallers and Wood Shapers (22–24) stand among the bushes. Clear one bush at a time; don’t run through the camp.",
 			"source": [
 				{
@@ -13591,6 +13632,77 @@
 				}
 			],
 			"pr": 3144
+		},
+		{
+			"id": "a-fix-ashenvale-mystral-first-visit",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1016,
+				"goal": "accept",
+				"guide": "forever/alliance/06-ashenvale"
+			},
+			"tip": "Sentinel Velene Starstrike stands at the Silverwind Refuge on the east shore of Mystral Lake. Befouled Water Elementals (23-25) wade in the lake. Careful: Tideress, a level 27 water elemental, walks the lake's west shore among them: leave it be.",
+			"note": "Ashenvale fix round (2026-11-20): Elemental Bracers is back on 06-ashenvale's first visit, on the south-east loop after Stonetalon (about 24-25). The Befouled Water Elementals (23-25) are at most one over the player; Tideress (27), who killed 4 recorded players at about 23 when the quest was done at 23-24 (a2130-mystral-lake-tideress), walks the west shore (46.0,70.0) and is named as the one to leave alone.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 3917 Befouled Water Elemental 23-25, 24 spawns around 48.9,70.4; 12759 Tideress 27 at 46.0,70.0"
+				}
+			]
+		},
+		{
+			"id": "a-fix-ashenvale-foulweald-den",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1025,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/06-ashenvale"
+			},
+			"tip": "South-east from Astranaar, south of the road: the Foulweald furbolgs live in the woods. The Den Watcher and the Ursas guard the den at its north-west corner. Careful: The Den Watcher and the Ursas (24-25) stand together at the den: pull them one at a time.",
+			"note": "Ashenvale fix round (2026-11-20): An Aggressive Defense on 06-ashenvale's south-east loop at about 24-25. Its Totemics and Warriors are 23-24, the Den Watcher and the Ursas 24-25 at the den (52.3,60.9): at most one over the player, so a Careful tip there.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 3746 Foulweald Den Watcher 24-25, 3749 Foulweald Ursa 24-25 (4 spawns each around 52.3,60.9), 3750 Totemic and 3743 Warrior 23-24"
+				}
+			]
+		},
+		{
+			"id": "a-fix-ashenvale-dal-bloodclaw",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1054,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/06-ashenvale"
+			},
+			"tip": "North from Mystral Lake, past Astranaar's east side, to the Thistlefur camp: Dal Bloodclaw leads the furbolgs there. Then south to Astranaar. Careful: Dal is level 25, and the furbolgs near him usually join in when he is pulled. Kill the ones along his path first so you fight him alone.",
+			"note": "Ashenvale fix round (2026-11-20): Culling the Threat is the last fight of 06-ashenvale's first visit, at about 25. Dal Bloodclaw (25, one spawn at 39.6,36.3) is at most one over the player; the adds are the camp's own furbolgs, as in 06-wetlands' tip.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 3987 Dal Bloodclaw 25 at 39.6,36.3"
+				}
+			]
+		},
+		{
+			"id": "a-fix-ne-darkshore-cliffspring-falls",
+			"faction": "Alliance",
+			"at": {
+				"quest": 4762,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/nightelf/02-darkshore"
+			},
+			"tip": "North-east up the Cliffspring River to the falls: fill the sampler at the water there. Moonstalkers (14-15) roam the hills around the river. Careful: Encrusted Tide Crawlers (17-20) line the shore below the falls and the Den Mother's bears (18-19) lair in the hills south of them: keep to the river.",
+			"note": "Alliance starts fix round (2026-11-20): The Cliffspring River is done at the north-east end of Night Elf Darkshore's second loop at about 14.5. The falls' Moonstalkers are 14-15; the Encrusted Tide Crawlers (17-20, 51-54,17-23) on the shore and the Den Mother (18-19, 51.5,38.3) are 3+ over and named so the player keeps clear.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 2069 Moonstalker 14-15 (spawns 44-55,20-32), 2233 Encrusted Tide Crawler 17-20 (51-54,17-23), 6788 Den Mother 18-19 at 51.5,38.3"
+				}
+			]
 		},
 		{
 			"id": "a043-ooze-camp",
@@ -13610,6 +13722,1237 @@
 				}
 			],
 			"pr": 3144
+		},
+		{
+			"id": "a50-stormwind-hop-from-56",
+			"faction": "Alliance",
+			"at": {
+				"quest": 6182,
+				"goal": "accept",
+				"guide": "forever/alliance/50-60/04-western-plaguelands"
+			},
+			"when": "level>=56",
+			"note": "Alliance 50-60 fix pass (2026-11-20): the Western & Eastern Plaguelands guide's mid-sweep flight from Chillwind Camp to Stormwind and back (two long flights) is for Highlord Bolvar's The First and the Last (6182, minimum level 56) and Flint Shadowmore's chain after it (6182-6186, 21,150 XP). The level model reaches Bolvar at about 55.9, under the quest's minimum, so the hop and Flint's hand-in show only from 56; a player under 56 rides on, and Janice's parcel and Emma's errand (5022, 5048) go in on the guide's last Stormwind stop instead.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 6182 minLevel 56 in Forever's quest data"
+				}
+			],
+			"pr": 3285
+		},
+		{
+			"id": "a40-searing-gorge-slag-pit-top-up-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 7727,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/40-50/06-searing-gorge"
+			},
+			"tip": "Careful: Overseer Maltorius (50, elite) and his elite guards hold the Slag Pit's depths: keep to the pools near the entrance and don't follow the tunnels in.",
+			"note": "Alliance 40-50 fix pass (2026-11-20): the Searing Gorge guide's top-up to 48.66 grinds Incendosaurs inside the Slag Pit, where the guide's own Slag Pit step warns of Overseer Maltorius and his elite guards; since the Riverglades gate moved to 44.0 the level model's solo player reaches this top-up in every run (about 37 model minutes), so the step says so and carries the Careful line.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json 9318 Incendosaur (47) spawns 43-52,20-39 in the Slag Pit; Overseer Maltorius (7701's target) level 50 elite"
+				}
+			],
+			"pr": 3285
+		},
+		{
+			"id": "a40-searing-gorge-top-up-spiders-not-slavers",
+			"faction": "Alliance",
+			"at": {
+				"quest": 7724,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/40-50/06-searing-gorge"
+			},
+			"tip": "Careful: Magma Elementals (46-48) drift among the spiders: pull one at a time.",
+			"note": "Alliance 40-50 fix pass (2026-11-20): the Searing Gorge guide's top-up to 48.98 ground Dark Iron Slavers among the Cauldron's linked dwarf packs, which net you and call allies within 15 yards (the guide's own Culling step warns of it, and the flow gate's 06 reason records nine followers dying eleven times among them). It now grinds the Searing Lava Spiders (47-49) on the western plateaus around 28.5,51.0, away from the Dark Iron camps, with the Magma Elementals (46-48) among them named.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json 5858 Searing Lava Spider 47-49 (spawns 26-31,43-62), 5855 Magma Elemental 46-48, 5844 Dark Iron Slaver spawns 35-58,24-58"
+				}
+			],
+			"pr": 3285
+		},
+		{
+			"id": "a40-stoleys-debt-from-40",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2872,
+				"goal": "accept",
+				"guide": "forever/alliance/40-50/01-stranglethorn-vale"
+			},
+			"when": "level>=40",
+			"note": "Alliance 40-50 fix pass (2026-11-20): Stoley's Debt (minimum 40) sat on the Booty Bay stop after the gorilla hills, which the corrected level model (it now plays step conditions as the engine does) reached at 39.95-39.99 in 11 of 28 runs: refused there. It has a `when level>=40` step of its own right after that stop, and the guide's last Booty Bay stop (MacKinley on the same top floor) offers it again, the same fix as the Horde guide's.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 2872 minLevel 40 in Forever's quest data"
+				}
+			],
+			"pr": 3285
+		},
+		{
+			"id": "a1-dun-modr-modr-and-cache-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 633,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/06-wetlands"
+			},
+			"tip": "Careful: Dark Iron Shadowcasters (31-32) and Bombardiers (30-31), who fight from range, and a Supplier (31-32) stand within 15-25 yards of the cache: pull them one at a time to the bridge before you touch it.",
+			"note": "Alliance 1-30 fix pass (2026-11-20): Dun Modr and the Thandol Span moved to 06-wetlands at about 30, where the danger gate does not look at talk goals. Modr (npc 271460, elite 32) walks the ruins about 55 yards west of Rhag Garmason (players' recordings: 206 people met it hostile from the camp and the road), so the Longbraid, Rhag and return steps name it; the cache of explosives (633.1) has Shadowcasters, Bombardiers and a Supplier (30-32) around it at about +1 for the player, so its step carries a Careful line. The corpse step's elite Saboteurs (28-29) keep their tip, now saying to loot and walk out and to fight them only from 31; a `when level>=30` gate was not added: the level model reaches the corpse at about 29.7, so it would push the chain's 9,950 XP to 30-40/01's catch-up for most players.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json 271460 Modr 32 elite (spawns 48.5,18.4 / 48.0,16.8), 2577 Dark Iron Shadowcaster 31-32, 4062 Dark Iron Bombardier 30-31, 2575 Dark Iron Supplier 31-32, 1052 Dark Iron Saboteur 28-29 elite"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec.py npc 271460: seen hostile by 206 people, spots 48-50,14-20"
+				}
+			],
+			"pr": 3285
+		},
+		{
+			"id": "a1-third-fleet-catch-up-only",
+			"faction": "Alliance",
+			"at": {
+				"quest": 288,
+				"goal": "accept",
+				"guide": "forever/alliance/06-wetlands"
+			},
+			"when": "!turnedin 288",
+			"note": "Alliance 1-30 fix pass (2026-11-20): The Third Fleet (288) is done on 06-ashenvale's Menethil stop since the 2026-11-20 round. 06-wetlands kept accept / buy the Honeymead / turnin on its arrival step; the accept and hand-in read done, but a `buy` goal has no quest tie, so the step waited for a flagon nobody needs. The three lines are a step of their own, shown only while 288 isn't handed in.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quest 288 objective item 2594 (Flagon of Dwarven Honeymead), sold by Innkeeper Helbrek (1464)"
+				}
+			],
+			"pr": 3285
+		},
+		{
+			"id": "a1-elwynn-big-picture-accept-from-5",
+			"faction": "Alliance",
+			"at": {
+				"quest": 91752,
+				"goal": "accept",
+				"guide": "forever/alliance/human/01-elwynn-forest"
+			},
+			"when": "level>=5",
+			"tip": "From level 5: Kelsey's The Big Picture. Shinyfinder Narf (3, elite) is two levels under you then.",
+			"note": "Alliance 1-30 fix pass (2026-11-20): The Big Picture's Narf step and hand-in show from level 5 (the low-elite rule), but the accept at Kelsey was ungated, and the route reaches her at about 4.9-5.0 (level model: Milly's hand-in at 4.93 just before): a player at 4.9 took it, skipped the Narf step and carried it to the guide's end with nothing saying why. The accept now has the same level-5 step, so the quest is taken when the guide can also do it. Players' recordings: 46 of 56 finished it, accepted at a 25th percentile of 5.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "quest 91752: 56 people took it, 46 handed it in; accept level P25 5"
+				}
+			],
+			"pr": 3285
+		},
+		{
+			"id": "a1-pridewings-by-the-courier",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1134,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/06-ashenvale"
+			},
+			"tip": "Careful: Sorrow Wing, a rare elite wyvern (27), flies over the Pridewing slopes and the road north: leave it alone.",
+			"note": "Alliance 1-30 fix pass (2026-11-20): the Pridewing collect pointed at 50.8,44.4, about 250 yards south-east of the Night Elf Courier (48.6,39.9), whose supplies drop only once his quest is taken: the arrow went up to the courier, back south-east and then north to the Peak. It now points at the Consorts beside the courier (49.0,40.3; a Consort spawn at 49.02,40.22, a Soarer at 48.59,40.79). Sorrow Wing (5928, rank 2, 27) flies the slopes and the road north (spawns 46-51,30-38; 14 recorded players saw it hostile) and is named.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json 4014 Pridewing Consort spawns incl. 49.02,40.22 and 48.29,41.45; 5928 Sorrow Wing 27 rank 2, spawns x46-51, y30-38"
+				}
+			],
+			"pr": 3285
+		},
+		{
+			"id": "h3040-arathi-dabyrie-farm",
+			"faction": "Horde",
+			"at": {
+				"quest": 1164,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/30-40/05-arathi-highlands"
+			},
+			"tip": "On along the road east: the Dabyrie farm lies just north of it. Marcel (34) and Fardel (33) Dabyrie walk the farm's western yard among their Laborers and Militia (30-32); Kenata (35) stands at the farm's north-eastern edge.",
+			"note": "Kenata (4480, 35, 56.4,36.1), Marcel (4481, 34, 54.2,38.1) and Fardel Dabyrie (4479, 33, 54.8,38.2) each drop their head (100%); the farm lies just north of the road from the Boulderfist camp to the Shards of Myzrael, at 37.5-38 for the route.",
+			"source": [
+				{
+					"kind": "pfquest",
+					"ref": "npcs.json 4479-4481 and 2581-2582 on map 1417; items.json 5830-5832"
+				}
+			]
+		},
+		{
+			"id": "3004-mistvale-fang-work",
+			"issue": 3004,
+			"faction": "Horde",
+			"at": {
+				"quest": 571,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/40-50/01-stranglethorn-vale"
+			},
+			"tip": "At 40 or higher, gather Unbagwa’s ten fangs from the same camp while hunting for the aged sinew; there is no need to hunt Thunderers farther north.",
+			"note": "Keep the fang sites in the active sinew camp; do not add a separate hunt for characters whose sinew is ready. They are advance stock, not a quest log objective.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#3004: reported northern fang spot; Forever elder 1557 drops 2799 and 3862."
+			}
+		},
+		{
+			"id": "3071-ready-only-tusks",
+			"issue": 3071,
+			"faction": "Horde",
+			"at": {
+				"quest": 209,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/02-feralas"
+			},
+			"when": "complete 209",
+			"note": "Turn to Kebok only with all 18 tusks. A carrier can gather missing tusks during the earlier Skullsplitter hunt.",
+			"source": {
+				"kind": "in-game-check",
+				"ref": "#3071: level 45 at Booty Bay with 209 still incomplete."
+			}
+		},
+		{
+			"id": "horde-cape-wild-shore-level",
+			"faction": "Horde",
+			"at": {
+				"quest": 604,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/40-50/02-feralas"
+			},
+			"when": "level>=42",
+			"note": "The normal swashbucklers at the Wild Shore tents reach 43. Check the player's level on the approach and again after the town rewards.",
+			"source": {
+				"kind": "client",
+				"ref": "Bloodsail Swashbuckler (1563); quests 604, 576 and 587."
+			}
+		},
+		{
+			"id": "horde-needles-agave-northwest",
+			"faction": "Horde",
+			"at": {
+				"quest": 5062,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/07-ashenvale"
+			},
+			"tip": "Pick the Incendia Agave on the camps' north-western side; the Ravaging elementals (38-40) and Ailgrha Splittusk (38, elite) hold the ground south and east of the camps, from about 36,35.",
+			"note": "Incendia Agave (object 175928) has 23 spawns at Thousand Needles 33.3-37.8, 32.9-38.8; the goal moved from 35.9,35.5 to 34.2,33.8, the middle of the nine plants north-west of 35.5,34.9. The route is at about 28.7 here. Players' recordings place Ravaging Quake Elementals (278383, 26 people saw them hostile), Ailgrha Splittusk (216463, 22 people) and Ravaging Tempests (216474, 26 people) at 36-41,35-43, none north-west of 36,35.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py npc 278383, 216463, 216474 (2026-11-20)"
+				},
+				{
+					"kind": "pfquest",
+					"ref": "objects.json 175928 spawns on map 1441"
+				}
+			]
+		},
+		{
+			"id": "horde-swamp-snappers-methuselah",
+			"faction": "Horde",
+			"at": {
+				"quest": 699,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/40-50/01-stranglethorn-vale"
+			},
+			"tip": "Careful: a Methuselah Crab (level 60) walks the south-east strand: give it a wide berth.",
+			"note": "The snapper strand of the Swamp of Sorrows moved to 40-50/01 (about 41.4): the same warning as the strand step of 40-50/02.",
+			"source": {
+				"kind": "recording",
+				"ref": "danger-baseline: 13 sightings of the Methuselah Crab (hostile, level 60) at 79-80,90-94, never fought"
+			}
+		},
+		{
+			"id": "horde-andorhal-warlords-towers",
+			"faction": "Horde",
+			"at": {
+				"quest": 5098,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"tip": "Careful: Skeletal Warlords, level 56-57 elites, stand by the first and second towers: mark those towers from the far side of the doorway once the Warlord has turned away, and never pull one.",
+			"note": "Skeletal Warlord (1788, elite 56-57) spawns at Western Plaguelands 40.44,71.85 (Tower One at 40.05,71.6) and 42.67,65.75 (Tower Two at 42.33,66.24). The route reaches Andorhal at about 54.8 since the Plaguelands sweep moved into 05: marking a tower needs no kill, so the step routes the player around the elites.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 1788 spawns on map 1422; quest 5098 objectives"
+			}
+		},
+		{
+			"id": "horde-andorhal-flesh-golem-boxes",
+			"faction": "Horde",
+			"at": {
+				"quest": 4972,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"tip": "A Flesh Golem, a level 56-57 elite, stands among the houses just east of the inn: take the boxes on the west side first and keep clear of it.",
+			"note": "Flesh Golem (1805, elite 56-57) spawns at Western Plaguelands 41.78,68.47, about 1.5 map units east of the lockbox goal (40.3,68.2); the route is at about 54.9 here.",
+			"source": {
+				"kind": "pfquest",
+				"ref": "npcs.json 1805 spawns on map 1422; objects.json 175802"
+			}
+		},
+		{
+			"id": "horde-felpaw-deadwood-totem-optional",
+			"faction": "Horde",
+			"at": {
+				"quest": 8470,
+				"goal": "accept",
+				"guide": "forever/horde/50-60/02-felwood"
+			},
+			"optional": true,
+			"note": "The Deadwood Ritual Totem (item 20741) that starts Deadwood Ritual Totem (8470) drops from about one Deadwood furbolg in thirty (3.2-3.3%), and its hand-in, Kernda in Timbermaw Hold, needs Neutral with the Timbermaw, which almost no character on the route has at 53. The totem and its accept are optional goals on the Felpaw Village step, as Winterspring handles the Winterfall Ritual Totem (8471): Felpaw no longer holds the player until one drops (8461 needs 18 kills; about one player in five still had none after 50).",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "items.json 20741: drops from the Deadwood Den Watcher, Avenger and Shaman (7156-7158) at 3.2-3.3%; quests.json 8470 reputation Timbermaw Hold 0 (Neutral)"
+				},
+				{
+					"kind": "recording",
+					"ref": "players recordings to 2026-11-20: of 39 characters with Timbermaw reputation, none was Neutral by 53, one by 55"
+				}
+			],
+			"pr": 3284
+		},
+		{
+			"id": "horde-searing-gorge-flames-casing-level-52",
+			"faction": "Horde",
+			"at": {
+				"quest": 3452,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/50-60/01-un-goro-crater"
+			},
+			"when": "level>=52",
+			"tip": "The Symbol of Ragnaros drops from the Dark Shamans (47-48), Fire Guards (48-49) and Geomancers (49-50): elites two to five levels under you from 52. The Idolaters (49-51) at the altar further north drop it too, more rarely: leave them alone.",
+			"note": "The Flame's Casing (3452): its Symbol of Ragnaros drops only from elite Twilight cultists. The step, the ride from Kargath to Velarok and his accept are shown from level 52, two over the Geomancers (50), so every cultist the step sends the player at is 2+ levels under (low-elite rule). The Idolaters (49-51) are the rarest droppers (5.4%) and stand apart at the altar; the tip keeps the player off them. The route reaches the gorge at 52.45 by the level model; a gate at 53 (Idolaters + 2) would take Velarok's whole chain (23,860 XP with 4022) out of the solo route.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json levelMax: Twilight Dark Shaman 48, Fire Guard 49, Geomancer 50, Idolater 51 (rank 1); items.json 10552 drop chances 15.6/13.2/8.9/5.4%"
+				}
+			],
+			"pr": 3284
+		},
+		{
+			"id": "horde-booty-bay-stoleys-debt-level-40",
+			"faction": "Horde",
+			"at": {
+				"quest": 2872,
+				"goal": "accept",
+				"guide": "forever/horde/40-50/01-stranglethorn-vale"
+			},
+			"when": "level>=40",
+			"note": "Stoley's Debt (2872, minimum level 40) from MacKinley joins the level 40 pick-ups on the second Booty Bay stop of 40-50/01 (Whiskey Slim's 580 and Fin Fizracket's 348), and 40-50/02's Booty Bay catch-up offers it to anyone still under 40 there. On the hand-in step it was refused under 40 and its chain (2873, 2874; 8,190 XP with 2872) went with it.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quests.json 2872 minLevel 40, pre 607"
+				}
+			],
+			"pr": 3284
+		},
+		{
+			"id": "horde-dustwallow-mojache-only-with-muisek",
+			"faction": "Horde",
+			"at": {
+				"quest": 3122,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/03-feralas"
+			},
+			"when": "onquest 3122",
+			"note": "40-50/03 flies from Orgrimmar (or Thunder Bluff for Druids and Paladins) to Camp Mojache only for Witch Doctor Uzer'i's Muisek vessel (3122, from Neeru on the Orgrimmar stop). A player who loads the guide without the Feralas chain has no 3122: the Mojache flights and stop are hidden for them, and a step flies them from where they are straight to Brackenwall Village. The Camp Mojache bind is dropped: the route's hearth is already bound there from 40-50/02, and 40-50/04 binds Gadgetzan before any hearth.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quests.json 3122 pre 3121 (40-50/02, Uzer'i's chain)"
+				}
+			],
+			"pr": 3284
+		},
+		{
+			"id": "horde-frostfire-den-watchers-take-55s",
+			"faction": "Horde",
+			"at": {
+				"quest": 5082,
+				"goal": "objective",
+				"objective": 2,
+				"guide": "forever/horde/50-60/03-winterspring"
+			},
+			"tip": "Careful: the Den Watchers are 55-56: pull the 55s, one at a time, and keep clear of the camps' totems.",
+			"note": "Threat of the Winterfall's Den Watchers (7440) are 55-56; after Everlook's errands the route reaches the Frostfire camps at about 53.9-54.1 by the level model (the version that skips steps behind their conditions), so the 56s stay two over the player: the tip sends them at the 55s, as the yeti and chimaera steps do.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json 7440 Winterfall Den Watcher levelMax 56 (tooltip range 55-56)"
+				}
+			],
+			"pr": 3284
+		},
+		{
+			"id": "horde-desolace-khan-dezhepah-careful",
+			"faction": "Horde",
+			"at": {
+				"quest": 1365,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/30-40/02-thousand-needles"
+			},
+			"tip": "Careful: Khan Dez'hepah is level 35, about two levels over you here, and Kolkar Battle Lords call nearby allies within 30 yd once they fall to 20% health.",
+			"note": "Khan Dez'hepah (5600, level 35, normal) is met at about 32.6 by the level model; players' recorded accept levels for Khan Dez'hepah's quest put the 25th percentile at 33 (70 people). The Careful tip names the gap; Centaur Bounty (1366) needs his head handed in first, so the step can't move later on this visit.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json 5600 Khan Dez'hepah level 35"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 1365 (2026-11-20): accept levels of 70 people, 25th percentile 33"
+				}
+			],
+			"pr": 3284
+		},
+		{
+			"id": "horde-gahrron-soulwrath-two-levels",
+			"faction": "Horde",
+			"at": {
+				"quest": 5235,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"tip": "Careful: Soulwrath is about two levels over you here: clear the ghouls around the cauldron first, start at full health and use your cooldowns on him.",
+			"note": "Cauldron Lord Soulwrath (58) carries the cauldron key for Gahrron's Withering (5235); the route reaches him at about 56 by the level model, and only two recorded players (too few for their levels to count), so the tip says two levels, not one.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json Cauldron Lord Soulwrath level 58"
+				}
+			],
+			"pr": 3284
+		},
+		{
+			"id": "sanath-teleport-xylem-3561",
+			"faction": "Horde",
+			"at": {
+				"quest": 3561,
+				"goal": "turnin",
+				"guide": "forever/horde/50-60/02-felwood"
+			},
+			"tip": "The apprentice at the top of the tower sends you back down.",
+			"note": "#3275: Archmage Xylem's tower stands on the cliff; Sanath Lim-yo, who teleports you up, stands at its foot (28.02,50.13), not in Valormok as the tip said. A step at Sanath (goto 28.1,50.1) comes right before the hand-in, as on the Alliance's Burning Steppes guide.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py npc 8395: seen friendly by 29 people at 28.0,50.1 (2026-11-20)"
+				}
+			],
+			"issue": 3275
+		},
+		{
+			"id": "berens-peril-handin-when-complete-3212",
+			"faction": "Horde",
+			"at": {
+				"quest": 516,
+				"goal": "turnin",
+				"guide": "forever/horde/06-hillsbrad-foothills"
+			},
+			"when": "complete 516",
+			"note": "#3212: Beren's Peril's Ravenclaw kills are in the Stonetalon guide, far from the Sepulcher; its hand-in there showed whether or not they were done. It has its own step now, shown only once the quest is complete.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3212 (0.4.1): the hand-in step with the kills not done"
+				}
+			],
+			"issue": 3212
+		},
+		{
+			"id": "a1-darkshore-onu-with-cave-mushrooms",
+			"faction": "Alliance",
+			"at": {
+				"quest": 948,
+				"goal": "accept",
+				"guide": "forever/alliance/03-darkshore"
+			},
+			"follows": {
+				"quest": 947,
+				"goal": "turnin"
+			},
+			"note": "03-darkshore's last Auberdine stop (0.4.2): Barithras Moonshade offers Onu (948) once Cave Mushrooms (947) is handed in to him. The stop took it after Gwennyth's turtle (4727) and Gubber's crab chunks (1138) on the pier, 99 yd off, so the player walked back to Barithras; it is now taken at the hand-in, before the pier.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quests.json 948 pre 947, both from Barithras Moonshade (3583)"
+				}
+			]
+		},
+		{
+			"id": "horde-epl-villains-of-darrowshire-with-brother-carlin",
+			"faction": "Horde",
+			"at": {
+				"quest": 5181,
+				"goal": "accept",
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"follows": {
+				"quest": 5210,
+				"goal": "turnin"
+			},
+			"note": "50-60/05's third Light's Hope Chapel stop (0.4.2): Carlin Redpath offers Villains of Darrowshire (5181) once Brother Carlin (5210) is handed in to him. The stop took it after The Restless Souls from Caretaker Alen (5281), 125 yd off, so the player walked back to Carlin; it is now taken at the hand-in, then Alen.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quests.json 5181 pre 5210, given and taken by Carlin Redpath (11063)"
+				}
+			]
+		},
+		{
+			"id": "hyjal-violence-into-verdure-seeds-3170",
+			"at": {
+				"quest": 93747,
+				"goal": "objective",
+				"objective": 2,
+				"guide": "forever/50-60/mount-hyjal"
+			},
+			"tip": "The three wrecks Ketharas named lie at the east end of the fields: use the Bag of Enchanted Seeds beside each, the catapult and the flying machine first, then the ballista a little north of them.",
+			"note": "#3170: the wreck step had only gotos, which tick on arrival, and the ballista was one `complete` for the whole quest, so a player who rode past without planting was sent to Ketharas with nothing done. Each wreck is now a `use 269944` line on its own objective (93747.1 Ballista, .2 Catapult, .3 Flying Machine, as the corrections set them), held until the seed is planted there, and both steps' tips name the Bag of Enchanted Seeds. Players' recordings to 2026-11-20: 19 players, each wreck ticked by a cast of the bag (spell 1287099) beside it. ESp3cter's fix (#3257). #3400 (Stö, 0.4.2): the ballista stands with the other two wrecks at 66.3,79.2 (data/places.json 3400-hyjal-ruined-ballista-seed), not at the shrub field's north-eastern edge, so all three are planted in this step and the shrub field step has none.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 93747 (2026-11-20): 22 runs, 19 people; every objective tick follows cast 1287099"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#3170 (0.4.1): turned in with no wreck planted"
+				}
+			],
+			"issue": 3170,
+			"pr": 3257
+		},
+		{
+			"id": "hyjal-maerion-misery-before-daegun-3302",
+			"at": {
+				"quest": 97009,
+				"goal": "accept",
+				"guide": "forever/50-60/mount-hyjal"
+			},
+			"tip": "North-east to Maerion Thaelemaches at the northern ruins of Dae'gun: take Maerion's Misery so the Defiling Hounds drop their spikes while you work the other errands here.",
+			"note": "#3302: Maerion's Misery was taken only after the Dae'gun sweep, so its twelve Felhound Spikes, which drop from the same Defiling Hounds as Siphoned Ephemeral Essence, meant a second round of hound kills. It is taken now at Maerion (63.2,25.8) right after Elaena's, Witherbeard's and Yashiro's quests, and the spikes are an optional line of the Dae'gun step. Players' recordings to 2026-11-20: 13 players took it, 12 from Maerion at 63.2-63.3,25.7-26.0 with no earlier quest (4 while the essence was still open); 10 handed it in, most after 15 to 32 hound kills. ESp3cter's fix (#3257).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 97009 (2026-11-20): 14 runs, 13 people, spikes looted from npc 249230"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#3302 (0.4.1.1): asked to take it with the essence quest"
+				}
+			],
+			"issue": 3302,
+			"pr": 3257
+		},
+		{
+			"id": "hyjal-maerion-misery-handin-when-onquest-3302",
+			"at": {
+				"quest": 97009,
+				"goal": "turnin",
+				"guide": "forever/50-60/mount-hyjal"
+			},
+			"when": "onquest 97009",
+			"note": "#3302: with the accept moved before the Dae'gun sweep, the later Maerion step (by Bethra'zel's corner) is the hand-in: shown only while the quest is in the log, it holds for the spikes still missing (the hounds around him drop them) and the hand-in, so a player who took it is led back to Maerion and one who didn't never sees it. ESp3cter's fix (#3257).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 97009 (2026-11-20): 10 of 13 players handed it in at npc 267097"
+				}
+			],
+			"issue": 3302,
+			"pr": 3257
+		},
+		{
+			"id": "3266-rogmar-scouts-twilight-key",
+			"faction": "Horde",
+			"at": {
+				"quest": 94748,
+				"goal": "complete",
+				"guide": "forever/horde/40-50/01b-riverglades"
+			},
+			"tip": "Twilight Champions drop the Twilight Key that frees a captive Rog'mar Scout: free them as you find them.",
+			"note": "#3266: each captive Rog'mar Scout's cage opens only with a Twilight Key (265821), which the Twilight Champions (256799) drop; the step's tip only said to free the scouts. It names the key and who carries it.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "items.json 265821 Twilight Key: dropped by npc 256799 Twilight Champion"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 94748: 25 people, every objective tick right after a cast of Unlocking (1277271)"
+				}
+			],
+			"issue": 3266
+		},
+		{
+			"id": "3411-riverglades-jomjom-in-the-cave",
+			"faction": "Horde",
+			"at": {
+				"quest": 94556,
+				"goal": "accept",
+				"guide": "forever/horde/40-50/01b-riverglades"
+			},
+			"tip": "Jom-jom waits at the back of the cave by the Twilight ogres' camp north-east of Na'zok: go all the way in to find him, then take him home to Bolder'ok and keep the cultists off him. If he falls, take the quest from him again.",
+			"note": "#3411, #3388: Jom-jom waits deep in a cave (data/places.json 2825-riverglades-jomjom-giver, 73.4,24.7), but the step's tip said only that he waits by the ogres' camp, so players looked for him outside. The tip says he is at the back of the cave.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-17: 22 accepts of 94556 by 19 people, every one at 73.32-74.03,24.57-24.88, the position samples around each indoors"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#3388 (Yeq, 0.4.1.1): the quest is taken at the back of the cave, about 73.4,24.7; #3411: the escort starts in a cave"
+				}
+			],
+			"issue": 3411
+		},
+		{
+			"id": "3002-iron-pommel-rotting-slimes",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1027,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/06-wetlands"
+			},
+			"tip": "Rotting Slimes in and around the Barrow Den leave a Rusty Chest when they die: open the chests until one holds the pommel.",
+			"note": "#3002: the Iron Pommel (5519) for Raene's Cleansing comes only from Rusty Chests (19021), which the Rotting Slimes (3928) of the Dor'Danil Barrow Den leave when they die; the tip sent players to the Shadethicket furbolg camps for chests standing there. The tip names the slimes, as the quest's note in data/mechanics-public.json does.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3002 (0.4.1): the chests are inside and dropped by the Rotting Slimes"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-20: pommel ticks right after a Rotting Slime was seen or killed"
+				}
+			],
+			"issue": 3002
+		},
+		{
+			"id": "2358-drowned-reef-breath",
+			"at": {
+				"quest": 662,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy.",
+			"note": "#2358: Deep Sea Salvage's charts and logs (Faldir's Cove, both sides' Arathi Highlands guides) lie deep inside the two sunken wrecks, a long dive with no water breathing; the reef step gave no heads-up. The tip says to watch the breath bar and names the potion.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2358: long dives in the wrecks with no water breathing (two players)"
+				}
+			],
+			"issue": 2358
+		},
+		{
+			"id": "3104-reliquary-of-purity-optional",
+			"faction": "Horde",
+			"at": {
+				"quest": 5527,
+				"goal": "accept",
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"optional": true,
+			"note": "#3104, #3270: Rabine Saturna offers A Reliquary of Purity (5527) only to a character who has been inside Dire Maul and spoken with him about it, so the Moonglade step held players he offered nothing to. The accept is optional; the quest's fact is in data/mechanics-public.json.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3104 (0.4.1.1): not offered until a visit to Dire Maul; #3270: offered after zoning into Dire Maul East"
+				}
+			],
+			"issue": 3104
+		},
+		{
+			"id": "3104-reliquary-of-purity-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 5527,
+				"goal": "accept",
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"tip": "Rabine offers A Reliquary of Purity only after you have been inside Dire Maul once: if he doesn't offer it, carry on without it.",
+			"note": "#3104, #3270: the step says why Rabine may not offer the quest (a Dire Maul visit first).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3104 (0.4.1.1): not offered until a visit to Dire Maul; #3270: offered after zoning into Dire Maul East"
+				}
+			],
+			"issue": 3104
+		},
+		{
+			"id": "3188-caught-silk-from-gadgetzan",
+			"faction": "Horde",
+			"at": {
+				"quest": 4449,
+				"goal": "objective",
+				"objective": 2,
+				"guide": "forever/horde/40-50/04-tanaris"
+			},
+			"tip": "Bring the 15 Silk Cloth from Gadgetzan's Auction House: the Geologists drop it only now and then.",
+			"note": "#3188: Caught! (4449) asks for 15 Silk Cloth, and its tip said the Auction House sells it only once the player stood at the Grimesilt Dig Site, far from any. The Dark Iron Geologists drop it at about 10% (players' recordings). The last Gadgetzan stop before the boat to Powderfuse Port has an optional bag count of 15 at Auctioneer Beardo (npc 8661; the seed carries the line), and the dig site's tip points back to it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "Dark Iron Geologist (5839) loot windows: Silk Cloth in about 10% of 154 (seven people)"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#3188 (0.4.1.1): asked for the cloth only at the dig site"
+				}
+			],
+			"issue": 3188
+		},
+		{
+			"id": "3205-terrorweb-tunnel-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5543,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/04-western-plaguelands"
+			},
+			"tip": "Careful: the short way from Terrordale to Tirion is the Terrorweb Tunnel, whose south mouth opens by his hut: Crypt Fiends, Walkers, Horrors and Slayers (53-58) stand close together inside. Pull them one at a time, or ride round by the road outside it.",
+			"note": "#3205: from Terrordale, Tirion's step walks through the Terrorweb Tunnel, whose south mouth by the Thondroril River (EPL 5.22,32.67) the travel line names as the cave mouth; the tunnel holds crypt fiends of 53-58 close together, a lot for one player at 56. The step warns before the walk. The Horde route reaches Tirion from the Marris Stead, not through the tunnel.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns between Terrordale and Tirion (EPL 5-12,25-34): Crypt Horror 8557 (57) x8, Crypt Walker 8556 (55) x6, Crypt Fiend 8555 (53) x5, Crypt Slayer 8558 (58) x3"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#3205 (0.4.1.1): the tunnel is full of mobs for a level 56 Paladin"
+				}
+			],
+			"issue": 3205
+		},
+		{
+			"id": "3070-redridge-walk-in-only-from-outside",
+			"faction": "Alliance",
+			"at": {
+				"quest": 128,
+				"goal": "accept",
+				"guide": "forever/alliance/04-redridge-mountains"
+			},
+			"way": {
+				"when": "!zone \"Redridge Mountains\""
+			},
+			"note": "#3070: the walk-in point at Three Corners (15.3,71.5) before Guard Howe's step is for players coming up the road from Darkshire; it had no condition, so a player who flew in to Lakeshire was sent about 300 yd back west to the zone's entrance first. The walk is held only for players not yet in Redridge.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3070 (0.4.0.1): sent back to Redridge's entrance after flying in"
+				}
+			],
+			"issue": 3070
+		},
+		{
+			"id": "3044-frostmane-hold-far-end",
+			"faction": "Alliance",
+			"at": {
+				"quest": 287,
+				"goal": "complete"
+			},
+			"tip": "Frostmane Hold is the troll cave in the hills south-west of Brewnall Village. Kill Headhunters at its mouth, then walk through the cave to its far end: Fully explore Frostmane Hold ticks only in there, not on the hill above it.",
+			"note": "#3044: Frostmane Hold's exploration line ticks only at the cave's far end; the goal's point has no height, so a player on the hill above it stood at the arrow with nothing ticking. The tip says the spot is inside, at the far end (the dwarf and gnome Dun Morogh guides).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 287: line 2 ticked for 68 people at map 1426 21.09-21.53, 53.90-54.71"
+				}
+			],
+			"issue": 3044
+		},
+		{
+			"id": "3026-gordunni-cobalt-mound-to-mound",
+			"faction": "Horde",
+			"at": {
+				"quest": 2987,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/40-50/02-feralas"
+			},
+			"tip": "Use Orwin's Shovel on each Gordunni Dirt Mound around the outpost: the arrow goes from mound to mound.",
+			"note": "#3026: the step's `use 9466` (Orwin's Shovel, at one fixed point) came before the cobalt's collect, so the arrow stayed on that one mound until all 12 Gordunni Cobalt were in and never went round the other Gordunni Dirt Mounds (objects 144064 and 177681, about 20 spawns at 74-81,25-35). The collect, whose spots are the mounds, comes first now; the shovel's line follows it for its button.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3026 (0.4.1.1): the arrow stayed on one mound"
+				},
+				{
+					"kind": "client",
+					"ref": "objects.json 144064 and 177681 Gordunni Dirt Mound spawns on map 1444"
+				}
+			],
+			"issue": 3026
+		},
+		{
+			"id": "3220-marcus-jonathan-rides-the-valley",
+			"faction": "Alliance",
+			"at": {
+				"quest": 120,
+				"goal": "turnin",
+				"guide": "forever/alliance/03-loch-modan"
+			},
+			"tip": "If General Marcus Jonathan isn't at the arrow, he is walking his horse along the Valley of Heroes nearby: look along the avenue or wait a moment.",
+			"note": "#3220: General Marcus Jonathan (466) rides a path along Stormwind's Valley of Heroes, so a player at the arrow often found him gone and didn't know he would be back. Both Stormwind steps that hand in Messenger to Stormwind say so.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py npc 466: seen by 186 people at 65-68,75-84 of Stormwind"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#3220 (0.4.1.1): not at the arrow while riding around"
+				}
+			],
+			"issue": 3220
+		},
+		{
+			"id": "3067-pearl-diving-handin-when-complete",
+			"faction": "Alliance",
+			"at": {
+				"quest": 705,
+				"goal": "turnin",
+				"guide": "forever/alliance/40-50/02-badlands"
+			},
+			"when": "complete 705",
+			"note": "#3067: Pearl Diving's Blue Pearls come from the clams of Stranglethorn's north-west coast, in the guide before; a player who carried the quest without them was still sent to Rigglefuzz in the Valley of Fangs. The hand-in's step shows only once the quest is complete, as Beren's Peril's does (#3212).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3067 (0.4.1.1): sent to hand in Pearl Diving without the Blue Pearl"
+				}
+			],
+			"issue": 3067
+		},
+		{
+			"id": "3235-gammerita-camera-no-kill",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2944,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/50-60/01-burning-steppes"
+			},
+			"tip": "Gammerita need not die: target her and use the Super Snapper FX. She is a level 48 elite, so keep your distance.",
+			"note": "#3235: The Super Snapper FX's Snapshot of Gammerita (9330) comes from using the camera (9328) on her, not from her corpse (the fact is in forever-db/corrections/items.json); the step had a collect from her with a group of 2 and said to skip it alone. It has the camera's use goal only, and the tip says she need not die.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 2944: the snapshot line ticked on the camera's cast (spell 11610) for 8 people, never on a kill of Gammerita (7977)"
+				}
+			],
+			"issue": 3235
+		},
+		{
+			"id": "3012-nibbled-on-book-from-echo-ridge",
+			"faction": "Alliance",
+			"at": {
+				"quest": 91741,
+				"goal": "accept",
+				"guide": "forever/alliance/human/01-elwynn-forest"
+			},
+			"tip": "Now and then a kobold here drops a Nibbled-On Book: right-click it and hand it to Brother Paxton on your next Abbey stop.",
+			"note": "#3012: the Nibbled-On Book (247834), which starts Brother Paxton's quest (91741), drops from the Kobold Vermin, Laborers and Workers of Northshire (items.json: npcs 6, 80, 257), but the guide took and handed it in only on the Vermin stop and the Abbey stop after it. A book from the Echo Ridge Mine's Workers or Laborers was never mentioned. Both mine steps take it (optional) and the Abbey stop after each hands it in (optional); the seed carries the goals.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "items.json 247834 Nibbled-On Book: dropped by npcs 6, 80, 257; quests.json 91741 starts from it, ends at Brother Paxton (951)"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#3012 (0.4.1): the book from Northshire's kobolds, and no step to take or hand it in"
+				}
+			],
+			"issue": 3012
+		},
+		{
+			"id": "3193-hillsbrad-22-rescue-keys",
+			"faction": "Horde",
+			"at": {
+				"quest": 498,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/06-hillsbrad-foothills"
+			},
+			"tip": "Drull and Tog'thar are chained inside Durnholde Keep's courtyard buildings. Their locks need keys: Jailor Eston carries the Dull Iron Key and Jailor Marlgen the Burnished Gold Key, both in the keep. Kill them, then open both locks.",
+			"note": "#3193, #3274: The Rescue's two locks each need a jailor's key, and the 06 Hillsbrad step went straight to the balls and chains (the 30-40 copy got the keys for #2512). The keys are goals of their own before the locks, on the same step; the seed carries the lines.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (as #2512): Jailor Eston's loot held the Dull Iron Key for 37 people, Jailor Marlgen's the Burnished Gold Key for 40"
+				}
+			],
+			"issue": 3193
+		},
+		{
+			"id": "3211-cuely-vials-at-the-tide-pools",
+			"faction": "Horde",
+			"at": {
+				"quest": 3568,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/50-60/02-felwood"
+			},
+			"tip": "Fill Cuely's four vials at the tide pools on the shore, from Southridge Beach north up the coast; Spitelash naga patrol between them.",
+			"note": "#3211: Seeping Corruption's step pointed at the Ruins of Eldarath (35.0,55.0) with a bare complete, so the arrow never led to the four tide pools on the shore east of them. Each vial is a goal at its own pool (the First to Fourth Tide Pool objects, 152598, 152604, 152605, 152606), south to north: 48.0,60.6 on Southridge Beach, then 48.0,51.2, 48.7,48.4 and 47.4,46.3; the seed's copy of the step (50-60/04) carries the same lines.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 3568: the vials fill on casts 12802-12808 at the pools; #3211's report at 48.19,60.63"
+				}
+			],
+			"issue": 3211
+		},
+		{
+			"id": "3172-lamora-loot-below-deck",
+			"at": {
+				"quest": 95124,
+				"goal": "objective",
+				"objective": 2
+			},
+			"tip": "Admiral Lamora walks the middle ship's top deck; her loot chest is below deck.",
+			"note": "#3172: Admiral Lamora (257861) walks the middle pirate ship's top deck, and Lamora's Loot is in a chest below deck; both sides' Riverglades steps said she stands by the ship with the chest beside her.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings: 40 of 40 Lamora's Loot ticks indoors (below deck)"
+				}
+			],
+			"issue": 3172
+		},
+		{
+			"id": "3024-ylva-banner-before-headsplitter",
+			"faction": "Alliance",
+			"at": {
+				"quest": 86585,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/03-loch-modan"
+			},
+			"goalNote": "Banner of Ironforge: raise it beside Ylva, then hold the spot until Headsplitter comes",
+			"note": "#3024: Banner of the Fallen asks you to raise the standard of Ironforge to call Headsplitter out (the quest's text), but the step went from the accept straight to the kill, so players waited at the cave for a trogg that never came. The Banner of Ironforge's use (253247) comes before the kill, on the objective, at Ylva (31.7,86.3); the seed carries the line.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings: the banner's cast (spell 1303317) by 36 of 48 people between the accept and the Headsplitter kill, median 99.5 s before it"
+				},
+				{
+					"kind": "client",
+					"ref": "quests.json 86585 objectiveText: Raise the standard of Ironforge, call out the trogg Headsplitter and kill it"
+				}
+			],
+			"issue": 3024
+		},
+		{
+			"id": "2900-apprentice-claire-in-the-cave",
+			"faction": "Alliance",
+			"at": {
+				"quest": 95642,
+				"goal": "turnin",
+				"guide": "forever/alliance/40-50/01b-riverglades"
+			},
+			"tip": "Claire is in the cave under the eastern edge of Sunnyglade: its entrance is at 50.0,46.0.",
+			"note": "#2900: Apprentice Claire (256831) stands in a cave below Sunnyglade's eastern edge (data/npc-floors.json: z -45.8, 30 of 33 people, against 32.1 for Fuzzle on the same step), about 78 yd lower than the town; the steps said only that she is at its eastern edge, so players stood above her with no way in. Both her steps name the cave and its entrance (50.0,46.0, the report's spot).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2900 (0.4.1.1): the NPC is in a cave whose entrance is at 50.00,45.99"
+				},
+				{
+					"kind": "recording",
+					"ref": "data/npc-floors.json 256831: z -45.8 (30 of 33 people)"
+				}
+			],
+			"issue": 2900
+		},
+		{
+			"id": "3587-goddess-provides-racial-spells",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97979,
+				"goal": "accept",
+				"guide": "forever/alliance/nightelf/01-teldrassil"
+			},
+			"tip": "Shanda's quest, The Goddess Provides, asks for your two night elf racial spells: open your spellbook (P), cast Elune's Light and Shadowmeld once each, then hand it back to her.",
+			"note": "#3587: The Goddess Provides (97979) counts one cast each of Elune's Light and Shadowmeld, the night elf racial spells. The step listed the two cast lines and a short note in a step of about fifteen lines, but never said they are racial spells or where to find them, and a player reported that the guide doesn't say. The step's tip says it. The Skyborne racial-spell quests at their start already name the spell in a tip.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-22): 51 people took 97979 with the lines 'Elune's Light cast' and 'Shadowmeld cast' at the accept and handed it back to Shanda (3595)"
+				}
+			],
+			"issue": 3587
+		},
+		{
+			"id": "3588-westfall-watchers-count-and-drop-everything",
+			"faction": "Alliance",
+			"at": {
+				"quest": 9,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/02-westfall"
+			},
+			"tip": "On the way south from the Jansen Stead to Saldean's Farm: Harvest Watchers (level 14-15) work the fields west of the road. Stick to them: they are the only mechanicals that count for The Killing Fields, and they drop everything else here too: the isosprings, gyrostabilizers, Okra and sometimes a Precessive Autocognition Assembly. Harvest Golems drop some of the parts but don't count, and the Harvest Reapers (17) are too high. Foe Reaper 4000, a level 20 rare, walks these fields: leave it alone.",
+			"note": "#3588: the step already works The Killing Fields (9), Harvesting the Harvesters (92909) and Westfall Stew's Okra (38) together, but its tip named Harvest Watchers and Golems side by side, as if either did the job. Only Watchers count for 9, and they drop every item of the step; Golems drop some parts and don't count; Harvest Reapers (17) are above a player here. The tip says to stay on the Watchers.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-22): The Killing Fields ticked at a Harvest Watcher (114) kill for 111 people, at a lone Golem kill for 1; with a lone Watcher kill 96 people got Golem Isosprings, 100 Harvester Gyrostabilizers and 66 Okra, with a lone Harvest Golem (36) kill 72, 38 and 37; 1 person's Okra came from a Harvest Reaper (115)"
+				}
+			],
+			"issue": 3588
+		},
+		{
+			"id": "3619-tanaris-field-sampling-another-power-source",
+			"faction": "Horde",
+			"at": {
+				"quest": 654,
+				"goal": "accept",
+				"guide": "forever/horde/40-50/04-tanaris"
+			},
+			"tip": "Back north, just south of Gadgetzan, use the Model 4711-FTZ Power Source now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each. No power source in your bags, or its two hours ran out? Abandon Tanaris Field Sampling if it is in your log, then take Another Power Source? from Chief Engineer Bilgewhizzle: he gives a new one for ten more Wastewander Water Pouches, from the Wastewander camps east of Gadgetzan.",
+			"note": "#3619: Tanaris Field Sampling (654) starts from the Model 4711-FTZ Power Source (8524), Slake That Thirst's (379) reward; Another Power Source? (841, repeatable, same giver) is only the replacement for a lost or spent source, not a prerequisite. A player without the source was told to use it and nothing said how to get another. The step's tip says so; 841 stays out of the route.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings, as in the 0.4.2.1 data (quests.json sources recorder:rewards, recorder:start): 379 rewards 8524; 841 starts and ends at Chief Engineer Bilgewhizzle (7407), pre 379, repeatable, rewards 8524; 654 starts from item 8524, limit 7200 s"
+				}
+			],
+			"issue": 3619
+		},
+		{
+			"id": "3574-stv-fever-group-horde-first-visit",
+			"faction": "Horde",
+			"at": {
+				"quest": 348,
+				"goal": "accept",
+				"guide": "forever/horde/40-50/01-stranglethorn-vale"
+			},
+			"split": {
+				"title": "Fin Fizracket"
+			},
+			"note": "#3574 (Koobi, 0.4.2.1): Mokk the Savage was no solo fight. Stranglethorn Fever (348) is a group choice (`when group 348`): its accept is a step of its own after the level 40 pick-ups (the seed's step keeps their `when level>=40`), and a player who skips it never takes it, so Unbagwa's steps and Fin's hand-in on 02-feralas go with it. (The step of its own: this record; its group choice and heads-up: the next record.)",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings: 32 starts of Unbagwa's waves (349 handed in) by 27 people at levels 40-50 (median 44); 19 deaths by 12 people within 3 map % of Unbagwa before Mokk's heart, 12 to Enraged Silverbacks (1511, 41-42) and 3 to Mokk the Savage (1514, 44)"
+				}
+			],
+			"issue": 3574
+		},
+		{
+			"id": "3574-stv-fever-group-horde-first-visit-choice",
+			"faction": "Horde",
+			"at": {
+				"quest": 348,
+				"goal": "accept",
+				"guide": "forever/horde/40-50/01-stranglethorn-vale"
+			},
+			"tip": "Group quest: Stranglethorn Fever ends at Witch Doctor Unbagwa in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then Mokk the Savage (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along.",
+			"when": "group 348",
+			"note": "#3574: the accept's own step asks first (`when group 348`) and gives the heads-up.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "as 3574-stv-fever-group-horde-first-visit"
+				}
+			],
+			"issue": 3574
+		},
+		{
+			"id": "3574-stv-fever-group-horde-catch-up",
+			"faction": "Horde",
+			"at": {
+				"quest": 348,
+				"goal": "accept",
+				"guide": "forever/horde/40-50/02-feralas"
+			},
+			"split": {
+				"title": "Fin Fizracket"
+			},
+			"note": "#3574: the Booty Bay catch-up's Stranglethorn Fever is the same group choice as 01-stranglethorn-vale's (the seed's step keeps the catch-up's `when !onquest 348` and `when !turnedin 348`). (The step of its own: this record; its group choice and heads-up: the next record.)",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "as 3574-stv-fever-group-horde-first-visit"
+				}
+			],
+			"issue": 3574
+		},
+		{
+			"id": "3574-stv-fever-group-horde-catch-up-choice",
+			"faction": "Horde",
+			"at": {
+				"quest": 348,
+				"goal": "accept",
+				"guide": "forever/horde/40-50/02-feralas"
+			},
+			"tip": "Group quest: Stranglethorn Fever ends at Witch Doctor Unbagwa in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then Mokk the Savage (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along.",
+			"when": "group 348",
+			"note": "#3574: the accept's own step asks first (`when group 348`) and gives the heads-up.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "as 3574-stv-fever-group-horde-first-visit"
+				}
+			],
+			"issue": 3574
+		},
+		{
+			"id": "3574-stv-fever-hand-in-when-complete",
+			"faction": "Horde",
+			"at": {
+				"quest": 348,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/02-feralas"
+			},
+			"split": {
+				"title": "Fin Fizracket"
+			},
+			"note": "#3574: the first Booty Bay stop's hand-in to Fin is a step of its own, shown only with Stranglethorn Fever ready (`when complete 348`, as the later Fin Fizracket step), so a player carrying the quest who skipped the group waves is not held at Booty Bay. (The step of its own: this record; its `when complete 348`: the next record.)",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "as 3574-stv-fever-group-horde-first-visit"
+				}
+			],
+			"issue": 3574
+		},
+		{
+			"id": "3574-stv-fever-hand-in-when-complete-gate",
+			"faction": "Horde",
+			"at": {
+				"quest": 348,
+				"goal": "turnin",
+				"guide": "forever/horde/40-50/02-feralas"
+			},
+			"when": "complete 348",
+			"note": "#3574: Fin's hand-in step only with Stranglethorn Fever ready.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "as 3574-stv-fever-group-horde-first-visit"
+				}
+			],
+			"issue": 3574
+		},
+		{
+			"id": "3574-stv-fever-group-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 348,
+				"goal": "accept",
+				"guide": "forever/alliance/40-50/05-the-hinterlands"
+			},
+			"split": {
+				"title": "Fin Fizracket"
+			},
+			"note": "#3574's sweep: the Alliance route fights Mokk on the level 48 Booty Bay stop, the same waves. The accept is a group choice; the Gorilla hills step (its fangs have no quest of their own to anchor on: `when group 348` in the seed) and both Unbagwa's ritual steps follow the answer, and Fin's hand-in goes with a skipped accept. (The step of its own: this record; its group choice and heads-up: the next record.)",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "as 3574-stv-fever-group-horde-first-visit"
+				}
+			],
+			"issue": 3574
+		},
+		{
+			"id": "3574-stv-fever-group-alliance-choice",
+			"faction": "Alliance",
+			"at": {
+				"quest": 348,
+				"goal": "accept",
+				"guide": "forever/alliance/40-50/05-the-hinterlands"
+			},
+			"tip": "Group quest: Stranglethorn Fever ends at Witch Doctor Unbagwa in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then Mokk the Savage (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along.",
+			"when": "group 348",
+			"note": "#3574: the accept's own step asks first (`when group 348`) and gives the heads-up.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "as 3574-stv-fever-group-horde-first-visit"
+				}
+			],
+			"issue": 3574
+		},
+		{
+			"id": "3574-stv-fever-hand-in-when-complete-alliance",
+			"faction": "Alliance",
+			"at": {
+				"quest": 348,
+				"goal": "turnin",
+				"guide": "forever/alliance/40-50/05-the-hinterlands"
+			},
+			"split": {
+				"title": "Fin Fizracket"
+			},
+			"note": "#3574's sweep: the last Booty Bay stop's hand-in to Fin is a step of its own after the others, shown only with Stranglethorn Fever ready, so a player who skipped the group quest (or carries it unfinished) is not held at Booty Bay. (The step of its own: this record; its `when complete 348`: the next record.)",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "as 3574-stv-fever-group-horde-first-visit"
+				}
+			],
+			"issue": 3574
+		},
+		{
+			"id": "3574-stv-fever-hand-in-when-complete-alliance-gate",
+			"faction": "Alliance",
+			"at": {
+				"quest": 348,
+				"goal": "turnin",
+				"guide": "forever/alliance/40-50/05-the-hinterlands"
+			},
+			"when": "complete 348",
+			"note": "#3574: Fin's hand-in step only with Stranglethorn Fever ready.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "as 3574-stv-fever-group-horde-first-visit"
+				}
+			],
+			"issue": 3574
+		},
+		{
+			"id": "3279-lines-of-communication-work-in-the-hinterlands",
+			"faction": "Horde",
+			"at": { "quest": 2995, "goal": "turnin" },
+			"goalNote": "Lines of Communication's work is not in this guide: burn the Highvale Report, Notes and Records in the elves' camps around Quel'Danil Lodge, in The Hinterlands & Blasted Lands (its Highvale step). Load that guide for the arrows.",
+			"note": "#3279: the Un'Goro guide hands Lines of Communication in, but its three Highvale objectives are in the Hinterlands guide (forever/horde/40-50/05-the-hinterlands, step Highvale), which a player who ran the earlier guides has already left. The hand-in alone left beardedoak with an arrow to the Undercity for a quest he could not finish. The next route update brings an unfinished quest's objectives back before its hand-in only when they are close to the route; the Hinterlands are too far from Un'Goro, so the hand-in says where the work is.",
+			"source": { "kind": "in-game-check", "ref": "#3279: beardedoak's report; fitzforge's confirmation naming the Highvale step and its three interact goals" },
+			"issue": 3279
 		}
 	]
 }

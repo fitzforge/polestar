@@ -43,7 +43,7 @@ const { readManifest } = require('./pack/manifest');
 const { loadData } = require('./dsl/data');
 const { Diagnostics } = require('./dsl/diag');
 const { honestPlay, guideFits, loadKb } = require('./playtest-honest');
-const { personaVariants, personaTables, updatePoints, SNAPSHOT_LUA } = require('./playtest-personas');
+const { personaVariants, personaTables, updatePoints, snapshotLines, SNAPSHOT_LUA } = require('./playtest-personas');
 const { levelOffsetLua } = require('./playtest-level');
 
 const CLASSES = ['WARRIOR', 'PALADIN', 'HUNTER', 'ROGUE', 'PRIEST', 'SHAMAN', 'MAGE', 'WARLOCK', 'DRUID'];
@@ -173,7 +173,7 @@ function playOptions(pack, g, { race, faction, cls, stubs = [], before = '', scr
 			w.class, w.className = ${JSON.stringify(cls)}, ${JSON.stringify(cls)}
 			w.faction = ${JSON.stringify(faction)}
 			w.level = ${g.minLevel || 1}
-			${start ? `w.moveTo(${start.map}, ${start.x}, ${start.y})` : ''}
+			${start ? `w.moveTo(${start.map}, ${start.x}, ${start.y}${start.z != null ? `, ${start.z}` : ''})` : ''}
 			${before}`,
 		addons: ['Polestar'],
 		...(saved ? { saved: { Polestar: saved } } : {}),
@@ -184,6 +184,11 @@ function playOptions(pack, g, { race, faction, cls, stubs = [], before = '', scr
 			Polestar.Set("behavior.guideEnd", ${handOver ? '"continue"' : '"ask"'})
 			Polestar.Set("behavior.groupQuests", ${luaValue(groups)})
 			Polestar.Set("behavior.dungeons", "skip") -- the solo route, whatever "Dungeons in my route" defaults to; --dungeon chooses below
+			-- The arrow's journey off (a player's "travel planner off"): the simulated player is set down at each
+			-- goal, never riding the journey's boats or portals, in a world without walking maps or floors, so a
+			-- live route would still be on its first leg at the goal. Journey prices (Nav.EstimateTravel, which
+			-- ns.TravelCost and route choices weigh) do not need it.
+			Polestar.Set("nav.travel", false)
 			${dungeonMaps.map((m) => `Polestar.Engine.ChooseDungeon(${Number(m)}, true)`).join('\n')}
 			${handOver ? 'Polestar.Set("behavior.routeChoice", "recommended")' : ''}
 			Polestar.Engine.SetGuide(${luaValue(g.id)})
@@ -728,7 +733,11 @@ async function personaPlaytest({ dir = OFFICIAL_DIR, manifest, personas, filter 
 	}
 	const pool = new LuaPool({ size: workers ?? (process.env.POLESTAR_PLAY_WORKERS === undefined ? undefined : Number(process.env.POLESTAR_PLAY_WORKERS)) });
 	const sim = simPacks([{ guides, manifest }], data);
-	const oldSim = old ? simPacks([{ guides: old, manifest: { ...manifest, version: from.version } }], data) : null;
+	// The Engine maps a save onto changed guides only when its pack version differs from the save's (Own.updated);
+	// a tree not yet bumped for its release (next before the release commit) still carries the last release's, so
+	// its old pack is told apart, as every real update is.
+	const oldVersion = from && from.version === manifest.version ? `${from.version}-before` : from && from.version;
+	const oldSim = old ? simPacks([{ guides: old, manifest: { ...manifest, version: oldVersion } }], data) : null;
 	const oldById = new Map((old || []).map((g) => [g.id, g]));
 	const results = [];
 	const arriving = new Map();
@@ -793,10 +802,11 @@ async function personaPlaytest({ dir = OFFICIAL_DIR, manifest, personas, filter 
 					if (personas.includes('update') && was && (g.category == null || g.category === 'Leveling') && shapeOf(was) !== shapeOf(g)) {
 						const oldPre = chainDone(old, was, who);
 						const oldBefore = [oldPre.done.length ? `w.complete(${luaValue(oldPre.done)})` : '', ...oldPre.carried.map(carriedLua), ...oldPre.open.map((q) => `w.onQuest(${q}, ${luaValue(objectivesIn(was, q))})`)].join('\n');
+						const snapLines = snapshotLines(data, [was, g]);
 						for (const k of updatePoints(was, points)) {
 							const variant = `updated from ${from.version} at its step ${k} "${was.steps[k - 1].title || ''}"`;
 							plays.push(
-								playSession(oldSim, was, 'update', `before update: ${variant}`, { before: oldBefore, script: `${SNAPSHOT_LUA}\n${lua({ snapshots: [k] })}` }).then(async (emitted) => {
+								playSession(oldSim, was, 'update', `before update: ${variant}`, { before: oldBefore, script: `${snapLines}\n${SNAPSHOT_LUA}\n${lua({ snapshots: [k] })}` }).then(async (emitted) => {
 									const snap = emitted.find((e) => e && e.snapshot);
 									if (!snap) return;
 									// Where the save opened the updated guide: emitted first, the play's result after it.
@@ -1108,7 +1118,7 @@ local function act(i, g, r)
 		changeStack(g.item, math.max(0, ((g.progress and g.progress.max) or r.count or 1) - (w.items[g.item] or 0)))
 		if P and P.lose == g.item then armed = i end
 	elseif t == "goto" then
-		w.moveTo(g.map, g.x, g.y)
+		w.moveTo(g.map, g.x, g.y, g.z)
 	elseif t == "talk" then
 		w.gossip(g.npc); w.close()
 	elseif t == "train" then
@@ -1131,7 +1141,7 @@ local function act(i, g, r)
 		w.setZone(g.subject, g.subject)
 	elseif t == "die" then
 		-- A deathskip: back alive beside the graveyard's Spirit Healer.
-		w.moveTo(g.map, g.x, g.y)
+		w.moveTo(g.map, g.x, g.y, g.z)
 		stub.fire("PLAYER_UNGHOST")
 	elseif t == "level" then
 		w.setLevel(math.max(w.level, tonumber((g.subject or ""):match("%d+")) or (w.level + 1)))
@@ -1167,7 +1177,7 @@ local function act(i, g, r)
 	elseif t == "explore" then
 		local id = 900000 + i * 100 + g.index
 		w.addArea(r.map, r.x - 1, r.y - 1, r.x + 1, r.y + 1, id)
-		w.moveTo(r.map, r.x, r.y)
+		w.moveTo(r.map, r.x, r.y, r.z)
 		w.explore(id)
 		-- An explore tied to a quest is its find (an event line).
 		if q and w.log[q] then

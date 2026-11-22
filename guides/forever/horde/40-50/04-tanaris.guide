@@ -2,20 +2,26 @@
 guide forever/horde/40-50/04-tanaris
 title Tanaris & Searing Gorge
 faction Horde
-levels 48-49
+levels 47-49
 zone Tanaris
 next forever/horde/40-50/05-the-hinterlands
-pitch Gadgetzan and the Searing Gorge at 46-48: the Wastewander camps, Tooga's escort and Thorium Point.
+pitch Gadgetzan and the Searing Gorge at 47-49: the Wastewander camps, Tooga's escort and Thorium Point.
 
 # Forge's route search orders the quests of this guide and its guide writer writes the steps.
 # Fixes go into data/route-fixes.json, data/guide-fixes.json or forever-db/corrections, never
 # into this file.
 
-step Feralas
-  zone Feralas
-  goto 75.4,44.3 "Camp Mojache"
+step Fly to Gadgetzan
+  when zone "Dustwallow Marsh"
+  zone Dustwallow Marsh
+  tip Coming from Dustwallow Marsh: Brackenwall Village's flight master flies you to Gadgetzan.
+  goto 35.6,31.8 "Brackenwall Village flight master"
+  fly "Gadgetzan"
+  zone Tanaris
 
 step Fly to Gadgetzan
+  when !zone "Dustwallow Marsh"
+  when !zone "Tanaris"
   zone Feralas
   goto 75.4,44.3 "Camp Mojache flight master"
   fly "Gadgetzan"
@@ -25,7 +31,7 @@ step Gadgetzan
   zone Tanaris
   tip The flight lands beside Tran'rek. Take the town's quests before riding west to Sandsorrow Watch.
   accept 3362                           -- Tran'rek, beside the wind rider master
-  accept 5863                           -- Andi Lynn: keep it, the Dunemaul ogres and Gor'marok (49) wait for the Broken Pillar at about 52, at the end of 40-50/06
+  accept 5863                           -- Andi Lynn: the Dunemaul Compound is on this guide's western loop
   turnin 243
   accept 379
   sethome "Gadgetzan" npc 7733          -- Innkeeper Fizzgrimble
@@ -95,7 +101,7 @@ step Trenton Lighthammer
 # visits 44-48, levels 45.9-47.6. Checked by lint, not play-tested on
 # Forever yet. Era + known Forever quests only.
 #
-# Flow: Camp Mojache (where the previous guide ends) -> fly Gadgetzan
+# Flow: Brackenwall Village (where the previous guide ends; Camp Mojache for a start there) -> fly Gadgetzan
 # (bind) -> Sandsorrow Watch -> Gadgetzan -> Caliph Scorpidsting -> Marvon
 # Rivetseeker -> the Noxious Lair -> Dunemaul Compound -> Thistleshrub
 # Valley (Marin's dew glands) -> Tooga's escort to Steamwheedle Port -> Gadgetzan -> Marvon ->
@@ -147,9 +153,9 @@ step Trenton Lighthammer
 #
 # Class training: none in this guide or the next. Every class trains next in
 # Orgrimmar at about 50 (40-50/06; Druids and Paladins in Thunder Bluff); the
-# Undercity's classes trained there at about 40 and 45 (40-50/01, 40-50/03).
+# Undercity's classes trained there at about 40 and 45 (40-50/01, 40-50/02).
 #
-# Left out: Into the Field (243: no longer accepted on this route), Ledger
+# Into the Field (243) is taken on 40-50/02 and handed in there; this guide's lines for it are fallbacks. Left out: Ledger
 # from Tanaris (4450: the export never hands it in), Broken Alliances (782),
 # see above.
 
@@ -159,7 +165,7 @@ step Marvon Rivetseeker
 
 step Gahz'ridian ornaments
   zone Tanaris
-  tip Dig up the Gahz'ridian ornaments around the Broken Pillar and north of the Dunemaul Compound. Leave the ogres for now: Gor'marok the Ravager is 49 and the Brutes 46-48; the Dunemaul Compound comes at the end of 40-50/06, at about 52.
+  tip Dig up the Gahz'ridian ornaments around the Broken Pillar and north of the Dunemaul Compound.
   collect 8443 quest 3161.1 @52.3,45.3 map 1446
 
 step The Noxious Lair
@@ -167,10 +173,18 @@ step The Noxious Lair
   tip Careful: Centipaar Swarmers cast Silithid Swarm both in and out of combat, which brings small adds that interrupt you. The Sandreavers are 49-50: take the Workers and Tunnelers.
   collect 8587 quest 82.1
 
+step The Dunemaul Compound
+  zone Tanaris
+  tip South of the Noxious Lair, on the way west to Thistleshrub Valley, the Dunemaul ogres hold their compound: the Brutes (46-48) and Enforcers (45-47) fill it, Gor'marok the Ravager (49) stands at its eastern end.
+  tip Careful: Gor'marok is one to two levels above you here, and the Ogre Mages and Warlocks (46-48) cast from range: pull from the compound's edge, one at a time, and leave Gor'marok for last with full health.
+  kill 5474 quest 5863.1
+  kill 5472 quest 5863.2
+  kill 12046 quest 5863.3 @41.5,57.8  -- Below ground
+
 step Thistleshrub Valley: kill these as you meet them
   zone Tanaris
   tip West of the compound the cactus creatures fill the valley; only the Dew Collectors (47-48) carry a dew gland. Most mobs in Tanaris can drop OOX-17/TN's distress beacon, rarely: keep it if you see one.
-  tip Careful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: take the Dew Collectors at the valley's edge, and leave Tran'rek's Gnarled Thistleshrubs and Rootshapers for the Broken Pillar ride into Un'Goro at about 51.
+  tip Careful: The other thistleshrub mobs in the area are level 48-50 and wander a lot, so you can easily pull extra mobs: take the Dew Collectors at the valley's edge, and leave Tran'rek's Gnarled Thistleshrubs and Rootshapers (49-50) for the Broken Pillar ride into Un'Goro at about 51.
   collect 8623 optional                 -- OOX-17/TN Distress Beacon, a rare drop
   collect 8428 quest 2605.1 @29.2,66.1
 
@@ -191,15 +205,19 @@ step Gadgetzan
   turnin 379
   note Keep the Model 4711-FTZ Power Source Bilgewhizzle gave you: it starts Tanaris Field Sampling, a two-hour timer, so use it on the way back north from Scrimshank's hive.
 
+step Andi Lynn
+  when complete 5863
+  tip Andi Lynn stands a few steps from Bilgewhizzle: the Dunemaul Compound.
+  turnin 5863                           -- Andi Lynn
+
 step Gadgetzan
   turnin 2605                           -- Marin Noggenfogger
   accept 2606
-  note Keep Tran'rek's Thistleshrub Valley: its Rootshapers (49-50) come with the Dunemaul Compound at the Broken Pillar, on the way into Un'Goro at about 51.
+  note Keep Tran'rek's Thistleshrub Valley: its Rootshapers (49-50) come at the Broken Pillar, on the way into Un'Goro at about 51.
   turnin 2606                           -- Sprinkle
   accept 2641                           -- the Violet Tragan grows in the Hinterlands, around level 48
   turnin 82                             -- Alchemist Pestlezugg, inside
   accept 10                             -- Senior Surveyor Fizzledowser
-  note Andi Lynn's Dunemaul Compound stays in your log for the Broken Pillar at about 52.
 
 step Marvon Rivetseeker
   turnin 3161
@@ -218,7 +236,7 @@ step OOX-17/TN
   complete 648 optional
 
 step Tanaris Field Sampling
-  tip Back north, just south of Gadgetzan, use the Model 4711-FTZ Power Source now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each.
+  tip Back north, just south of Gadgetzan, use the Model 4711-FTZ Power Source now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each. No power source in your bags, or its two hours ran out? Abandon Tanaris Field Sampling if it is in your log, then take Another Power Source? from Chief Engineer Bilgewhizzle: he gives a new one for ten more Wastewander Water Pouches, from the Wastewander camps east of Gadgetzan.
   accept 654                            -- Use the Model 4711-FTZ Power Source
   collect 9441 quest 654.2 @50.2,31.6 map 1446
   collect 9440 quest 654.1 @49.4,31.0 map 1446
@@ -233,6 +251,7 @@ step Gadgetzan
   accept 113
   turnin 113                            -- Senior Surveyor Fizzledowser
   accept 32                             -- for Zilzibin Drumlore in Orgrimmar, around level 50
+  collect 4306 x15 npc 8661 optional    -- Silk Cloth: Auctioneer Beardo, for Caught! at the Grimesilt Dig Site in the Searing Gorge
 
 step Boat to Powderfuse Port
   zone Tanaris
@@ -250,7 +269,7 @@ step Searing Gorge
 
 step The Grimesilt Dig Site
   zone Searing Gorge
-  tip From Powderfuse Port, ride into the Searing Gorge by its eastern pass, then west to the dig site. The Wooden Outhouse stands at its southern end; the Dark Iron Geologists dig just north of it. Bring 15 Silk Cloth (the Auction House sells it).
+  tip From Powderfuse Port, ride into the Searing Gorge by its eastern pass, then west to the dig site. The Wooden Outhouse stands at its southern end; the Dark Iron Geologists dig just north of it. Bring the 15 Silk Cloth from Gadgetzan's Auction House: the Geologists drop it only now and then.
   accept 4449 object 173265             -- the Wooden Outhouse
   kill 5839 quest 4449.1
   collect 4306 quest 4449.2
@@ -323,6 +342,7 @@ step The Steamsmiths' furnaces
 
 step Velarok Windblade
   turnin 3443
+  accept 3452                           -- Velarok: The Flame's Casing, for the next guide's crossing of the gorge at about 52 (its Twilight cultists, elites 47-50, are at your level now)
   note His next request needs the Symbol of Ragnaros from elite cultists: leave it.
 
 step Dark Iron Lookouts

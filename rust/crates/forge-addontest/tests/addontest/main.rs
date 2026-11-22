@@ -72,6 +72,8 @@ mod e2e;
 mod engine;
 #[path = "engine-abandon-destroy.rs"]
 mod engine_abandon_destroy;
+#[path = "engine-ahead-later.rs"]
+mod engine_ahead_later;
 #[path = "engine-aim-accept-first.rs"]
 mod engine_aim_accept_first;
 #[path = "engine-along.rs"]
@@ -80,6 +82,8 @@ mod engine_along;
 mod engine_already_across;
 #[path = "engine-alt-start.rs"]
 mod engine_alt_start;
+#[path = "engine-arrival-height.rs"]
+mod engine_arrival_height;
 #[path = "engine-carried.rs"]
 mod engine_carried;
 #[path = "engine-carried-work.rs"]
@@ -136,6 +140,10 @@ mod engine_l10n;
 mod engine_left_out;
 #[path = "engine-level.rs"]
 mod engine_level;
+#[path = "engine-level-carry.rs"]
+mod engine_level_carry;
+#[path = "engine-level-gate.rs"]
+mod engine_level_gate;
 #[path = "engine-level-hold.rs"]
 mod engine_level_hold;
 #[path = "engine-level-pick.rs"]
@@ -148,12 +156,16 @@ mod engine_lost_quest;
 mod engine_manual;
 #[path = "engine-materials.rs"]
 mod engine_materials;
+#[path = "engine-meet-kills.rs"]
+mod engine_meet_kills;
 #[path = "engine-money-task.rs"]
 mod engine_money_task;
 #[path = "engine-next-when.rs"]
 mod engine_next_when;
 #[path = "engine-notyet.rs"]
 mod engine_notyet;
+#[path = "engine-npc-arrival.rs"]
+mod engine_npc_arrival;
 #[path = "engine-packs.rs"]
 mod engine_packs;
 #[path = "engine-pin.rs"]
@@ -180,6 +192,8 @@ mod engine_skipquest;
 mod engine_skipto;
 #[path = "engine-smart.rs"]
 mod engine_smart;
+#[path = "engine-stutter.rs"]
+mod engine_stutter;
 #[path = "engine-tab-restore.rs"]
 mod engine_tab_restore;
 #[path = "engine-tabs.rs"]

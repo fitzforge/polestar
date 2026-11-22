@@ -179,6 +179,28 @@ fn sources_required_item_level_quest_minlevel_and_mob_level_gate_a_source() {
 	assert!(truthy(&ok[0]["available"]));
 }
 
+// #3370 (Zack: a level 57 went to Pix Xizzix for In Demand, which the game offers from level 60): a quest's Lookup
+// line (its row, its page's header) says from which level it is offered while the character is below it, after its
+// quest level when that is higher ("Level 32 · From level 30"), alone when the two are one ("From level 10"); at or
+// above that level the line is as before.
+#[test]
+fn a_quest_s_lookup_line_says_from_which_level_it_is_offered_while_the_character_is_below_it_3370() {
+	let line = |level: i32| {
+		run_with(
+			r#"
+		Polestar.Codex.Load()
+		local S = Polestar.Lookup.Subtitle
+		emit({ peril = S("quest", 7005), taming = S("quest", 7009) })
+	"#,
+			&Opts { level, ..Default::default() },
+		)
+		.remove(0)
+	};
+	assert_eq!(line(9), json!({ "peril": "Level 32 \u{b7} From level 30 \u{b7} Amber Vale", "taming": "From level 10 \u{b7} Amber Vale" }));
+	assert_eq!(line(15), json!({ "peril": "Level 32 \u{b7} From level 30 \u{b7} Amber Vale", "taming": "Level 10 \u{b7} Amber Vale" }));
+	assert_eq!(line(30), json!({ "peril": "Level 32 \u{b7} Amber Vale", "taming": "Level 10 \u{b7} Amber Vale" }));
+}
+
 // #1745: the level gate is for creatures you fight. A level 30 vendor of the character's side and a level 55
 // factionless banker (a goblin town's) stay open to a level 20 character; a level 40 beast and a vendor of the
 // other side are still out of reach.
@@ -882,6 +904,41 @@ fn translated_search_keeps_only_the_extra_names_and_ranks_them_with_english() {
 	));
 	assert!(num(&kept) < 0.5, "one translated name should not retain a second whole English catalogue: {kept} copies");
 	assert_eq!(matches, json!([1, "Silver Blade", 199, true]), "exact translation before English word matches, one id once, one shared read limit");
+}
+
+#[test]
+fn building_a_translated_catalogue_does_not_rescan_the_name_chunk_for_each_missing_id() {
+	let [ratio, edge] = first::<2>(run_with(
+		r#"
+		local store, lines = Polestar.LuaChunks.New(), {}
+		for i = 1, 500 do lines[i] = "\n" .. (2 * i) .. "\t" .. string.rep("name ", 8) .. i end
+		store:Add("npc", 1, 1000, table.concat(lines) .. "\n")
+		local function run(bulk)
+			local times = {}
+			for i = 1, 5 do
+				local start = os.clock()
+				for pass = 1, 3 do
+					local cursor = bulk and { dense = true } or nil
+					for id = 1, 1000 do
+						local s = store:Raw("npc", id, cursor)
+						assert((s ~= nil) == (id % 2 == 0))
+					end
+				end
+				times[i] = os.clock() - start
+			end
+			table.sort(times)
+			return times[3]
+		end
+		emit(run(true) / run(false))
+		store:Add("npc", 1001, 1009, "\n1009\tLast\n1001\tFirst\n1003\t\n")
+		local c = { dense = true }
+		local function read(id) return store:Raw("npc", id, c) end
+		emit({ read(1009), read(1003), read(1001), read(1002) or false, read(998), read(1009) })
+	"#,
+		&Opts { with_pack: false, ..Default::default() },
+	));
+	assert!(num(&ratio) < 0.5, "bulk reads in a partly translated chunk cost {ratio} times separate lookups");
+	assert_eq!(edge, json!(["Last", "", "First", false, "name ".repeat(8) + "499", "Last"]));
 }
 
 // Search speed without pinning one machine's: a keystroke is timed against the same run's cost of scanning every

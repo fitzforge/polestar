@@ -15,7 +15,9 @@
 -- where it starts, as the guide menu's details) with "Next: The Barrens
 -- (12–16)" on it, then "Carried to later guides": the quests still in the
 -- log that a later guide of the chain hands in (Engine.CarriedQuests), each
--- with that guide ("Sceptre of Light · Badlands"), so the player keeps them.
+-- with that guide ("Sceptre of Light · Badlands"), so the player keeps them,
+-- and the accepts the guide passed for the character's level, kept for a
+-- later guide (Engine.WaitingQuests: "Moontouched Wildkin · at level 52").
 -- Then "Not part of your route": the quests in the log no guide of the route
 -- takes, works or hands in (RoutePlan.OffRoute, read when the window opens),
 -- six at most, and "Keep or abandon them", which opens their list with an
@@ -88,6 +90,7 @@ function GE.Model(info)
 		end
 	end
 	m.carried = E and E.CarriedQuests and E.CarriedQuests(g.id) or {}
+	m.waiting = E and E.WaitingQuests and E.WaitingQuests(g.id) or {}
 	local P = ns.RoutePlan
 	m.offRoute = P and P.OffRoute and P.OffRoute(g.id) or {}
 	return m
@@ -300,8 +303,11 @@ local function layout(m)
 		y = y + F.Text:GetStringHeight()
 	end
 
-	-- The quests a later guide hands in: keep them.
-	local list = m.carried or {}
+	-- The quests a later guide hands in: keep them. Then the accepts waiting
+	-- for the character's level.
+	local list = {}
+	for _, c in ipairs(m.carried or {}) do list[#list + 1] = c end
+	for _, w in ipairs(m.waiting or {}) do list[#list + 1] = { title = format(L["%s · at level %d"], w.title, w.level) } end
 	if #list > 0 then
 		local G, lines = ns.Guides, {}
 		for i, c in ipairs(list) do
@@ -309,7 +315,7 @@ local function layout(m)
 				lines[#lines + 1] = format(L["+%d more"], #list - CARRIED_SHOWN)
 				break
 			end
-			local later = G and G.Get(c.guideId)
+			local later = c.guideId and G and G.Get(c.guideId)
 			lines[i] = later and format(L["%s · %s"], c.title, UI.GuideLabel(later)) or c.title
 		end
 		F.CarriedHead:SetText(L["Carried to later guides"])

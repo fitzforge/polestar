@@ -74,7 +74,7 @@ TrinityCore and the advocaite/TrinityCore `forever` branch; CMaNGOS (https://git
 
 Polestar recordings
 -------------------
-Revision: 737cdd4a253f21d6
+Revision: 6d7e0731b046937b
 License: Polestar original work
 
 Quest XP for quests QuestieDB lacks: two Forever web quest databases (one from the beta client's quest cache)

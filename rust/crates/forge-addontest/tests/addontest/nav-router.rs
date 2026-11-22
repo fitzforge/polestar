@@ -124,6 +124,7 @@ fn call(x: &Q) -> String {
 		}
 		"cost" => format!("Path.FindCost({MAP}, A, B, function(cost, reason, job) out[{id}] = {{ cost = str(cost or reason), yards = job and str(job.yards) }} end, {o})"),
 		"many" => format!("Path.FindMany({MAP}, A, {{ B }}, function(costs, reason, job) out[{id}] = {{ cost = str(costs[1] or reason), yards = job and job.yards and str(job.yards[1]) }} end, {o})"),
+		"lua" => o.clone(),
 		k => panic!("{k}"),
 	}
 }
@@ -293,6 +294,37 @@ fn format_2_a_horde_player_goes_round_an_alliance_hub_the_alliance_player_and_no
 	close(&only["horde"], (20.0 * (S as f64 - 1.0) + 1.0) * CS, "Horde through the only way");
 }
 
+// #3641 (Hillsbrad Fields, Horde, 0.4.2.2): a player's walk (walkLevel set, the strict policy on) that starts or ends
+// inside a town hostile to the player (opts.homeHub, Nav/Walk.lua: Path.HubAt at either end) is priced as for no
+// profile, as 0.4.1.1 priced it: a quest goal in the town is walked to as the town's own people walk, not round its
+// buildings at twenty times the cost (2x the expansions and 164 yd for 126 there). The town is still named in
+// job.hubs, and the walk is still checked under the player's own policy. 0.4.2 dropped homeHub for player walks.
+#[test]
+fn a_player_walk_into_a_hostile_hub_s_ground_is_priced_as_the_town_s_own_people_walk_and_still_names_it() {
+	let mid = at(X0 as f64 + S as f64 / 2.0, Y0 as f64);
+	let hubs = format!("{{\n\t\t{{ id = 11, side = \"Alliance\", name = \"Hillsbrad Fields\", disks = {{ {{ {}, {}, 12 }} }} }},\n\t}}", js(mid.x), js(mid.y));
+	let policy = q("policy", "lua", r#"Polestar = { Nav = { danger = { Blocked = function(map, x, y, X, Y, profile) checked = profile return nil end } } }"#);
+	let got = route_with(
+		ours(),
+		&map_files(&layout(4, cls(8), Cls::default()), true, Opts { hubs: Some(hubs), ..Default::default() }),
+		&[
+			policy,
+			q("horde", "find", r#"{ profile = "Horde", walkLevel = 0 }"#),
+			q("home", "find", r#"{ profile = "Horde", walkLevel = 0, homeHub = true }"#),
+			q("homeMany", "many", r#"{ profile = "Horde", walkLevel = 0, homeHub = true }"#),
+		],
+		from(),
+		to(),
+		"out.checked = checked",
+	);
+	assert!(round(&got["horde"]), "a walk with no end in the town still goes round it: {got}");
+	assert!(straight(&got["home"]), "into the town: through it, as its own people walk: {got}");
+	close(&got["home"], STRAIGHT, "home");
+	close(&got["homeMany"], STRAIGHT, "home, FindMany");
+	assert_eq!(got["home"]["hubs"], json!([{ "id": 11, "name": "Hillsbrad Fields" }]), "the town is still named for the player");
+	assert_eq!(got["checked"], "Horde", "the walk is checked under the player's own policy");
+}
+
 // Two searches queued together, the second marked urgent (Routing/PathJobs.lua: the walk the arrow is on,
 // Nav/Walk.lua), one slice a frame (a zero budget): which one answers first, and the frames each took.
 fn urgent_order(urgent: bool) -> Value {
@@ -323,6 +355,39 @@ fn an_urgent_search_the_arrow_s_own_walk_is_sliced_before_one_queued_ahead_of_it
 	// behind a player walking on.
 	assert_eq!(urgent_order(true)["order"], json!(["arrow", "leg"]), "the urgent search answers first");
 	assert_eq!(urgent_order(false)["order"], json!(["leg", "arrow"]), "without it, the order they were queued in");
+}
+
+// The arrow's walk and its sketch (Nav/Walk.lua: Path.FindCoarse, the shape drawn until the path is in), both urgent,
+// asked in that order, one slice a frame: the sketch answers first, so the shape is drawn a frame after the ask and
+// the path replaces it (0.4.2: the sketch waited behind the walk and was dropped when the walk came in).
+#[test]
+fn the_arrows_urgent_sketch_is_sliced_before_its_urgent_walk() {
+	let map = map_files(&layout(3, Cls::default(), Cls::default()), true, Opts::default());
+	let script = format!(
+		r#"
+local Path = Polestar_NavEngine
+local frames = {{}}
+Path.after = function(fn) frames[#frames + 1] = fn end
+Path.budget = 0
+local A, B = {a}, {b}
+local order = {{}}
+local walk = Path.Find({MAP}, A, B, function(points) order[#order + 1] = points and "walk" or "walk failed" end, nil)
+walk.urgent = true
+local sketch = Path.FindCoarse({MAP}, A, B, function(points, reason) order[#order + 1] = "sketch" end, nil)
+sketch.urgent = true
+local n, sketchFrame = 0, nil
+while #frames > 0 and n < 10000 do
+	n = n + 1
+	table.remove(frames, 1)()
+	if not sketchFrame and order[1] == "sketch" then sketchFrame = n end
+end
+emit({{ order = order, sketchFrame = sketchFrame }})"#,
+		a = lua(from()),
+		b = lua(to()),
+	);
+	let got = emitted(&RunAddon { stubs: vec!["stub_encoding.lua"], before: map.dofiles(), addons: vec![ours()], script, ..Default::default() }).remove(0);
+	assert_eq!(got["order"], json!(["sketch", "walk"]), "{got}");
+	assert!(got["sketchFrame"].as_i64().unwrap() <= 2, "the sketch's answer within a frame of its slice: {got}");
 }
 
 #[test]
@@ -1191,7 +1256,7 @@ out.outside = held(function() return Path.SurfacesAt({MAP}, -50, 5, t) end)"#
 // them: nothing joins them), and the pack's lift chokepoints (PolestarNavChokepoints[map]) naming a bottom landing
 // at the near strip's end and its top at the far strip's start.
 const LIFT_GAP: usize = 8;
-fn lift_files(with_lift: bool) -> MapDir {
+fn lift_files(with_lift: bool, ride: Option<f64>) -> MapDir {
 	let cells: Cells = (X0..=X1).filter(|&x| x <= X0 + LIFT_GAP || x >= X1 - LIFT_GAP).map(|x| (x * C + Y0, FixtureCell { val: 1, cls: 0 })).collect();
 	let mut map = map_files(&cells, true, Opts::default());
 	if with_lift {
@@ -1201,13 +1266,14 @@ fn lift_files(with_lift: bool) -> MapDir {
 		std::fs::write(
 			&choke,
 			format!(
-				"PolestarNavChokepoints = {{ [{MAP}] = {{\n\t{{ wx = {}, wy = {}, z = 0, r = 6, kind = \"lift\", liftEnd = \"bottom\", pair = 2 }},\n\t{{ wx = {}, wy = {}, z = 0, r = 6, kind = \"lift\", liftEnd = \"top\", pair = 1 }},\n\t{{ wx = {}, wy = {}, z = 0, r = 10, kind = \"gate\" }},\n}} }}\n",
+				"PolestarNavChokepoints = {{ [{MAP}] = {{\n\t{{ wx = {}, wy = {}, z = 0, r = 6, kind = \"lift\", liftEnd = \"bottom\"{ride}, pair = 2 }},\n\t{{ wx = {}, wy = {}, z = 0, r = 6, kind = \"lift\", liftEnd = \"top\"{ride}, pair = 1 }},\n\t{{ wx = {}, wy = {}, z = 0, r = 10, kind = \"gate\" }},\n}} }}\n",
 				js(bottom.x),
 				js(bottom.y),
 				js(top.x),
 				js(top.y),
 				js(top.x),
-				js(top.y + 3.0 * CS)
+				js(top.y + 3.0 * CS),
+				ride = ride.map(|s| format!(", ride = {}", js(s))).unwrap_or_default()
 			),
 		)
 		.unwrap();
@@ -1219,14 +1285,14 @@ fn lift_files(with_lift: bool) -> MapDir {
 #[test]
 fn lifts_a_lift_chokepoint_joins_ground_the_grid_leaves_apart_find_rides_it_findcost_and_findmany_price_the_ride_without_it_no_way() {
 	let queries = || [q("find", "find", "nil"), q("cost", "cost", "nil"), q("many", "many", "nil"), q("back", "many", "nil")];
-	let none = route(&lift_files(false), &queries()[..3]);
+	let none = route(&lift_files(false, None), &queries()[..3]);
 	for id in ["find", "cost"] {
 		assert_eq!(none[id]["cost"], "unreachable", "{id}: no lift, no way");
 	}
 	assert!(none["many"].get("cost").is_none_or(Value::is_null), "FindMany: no cost");
 	let r = route_with(
 		ours(),
-		&lift_files(true),
+		&lift_files(true, None),
 		&queries(),
 		from(),
 		to(),
@@ -1243,12 +1309,23 @@ fn lifts_a_lift_chokepoint_joins_ground_the_grid_leaves_apart_find_rides_it_find
 	yards_near(yards(&r["many"]), S as f64 * CS, "FindMany's yards: the walks and the yards between the landings", 0.5);
 }
 
+// A lift landing with its `ride` (the pack's: the ride and the average wait for the car, from the client's lift
+// animation) is priced at those seconds at run speed, not the 25 s of a landing without one: the Undercity's 7.6 s.
+#[test]
+fn lifts_a_ride_is_priced_at_its_landings_seconds() {
+	let r = route(&lift_files(true, Some(7.6)), &[q("find", "find", "nil"), q("cost", "cost", "nil")]);
+	let want = 2.0 * LIFT_GAP as f64 * CS + 7.6 * 7.0; // the two walks at run speed, and the ride (7.6 s at 7 yd/s)
+	for id in ["find", "cost"] {
+		close(&r[id], want, id);
+	}
+}
+
 // Arcs (maps format 5, Leffe's jumps and drops): the two strips of the lift test with no lift, and one arc from the
 // near strip's end to the far strip's start in the cluster's arc field (its columns: n | from gaps | to-nodes against
 // the from node | yards * 4): a one-way move the grid's steps lack.
 const ARC_YD: f64 = 12.0;
 fn arc_files() -> MapDir {
-	let mut map = lift_files(false);
+	let mut map = lift_files(false, None);
 	let (a, b) = ((X0 + LIFT_GAP) * C + Y0, (X1 - LIFT_GAP) * C + Y0);
 	let mut field = String::new();
 	for v in [1, a as u64, zigzag(b as i64 - a as i64), (ARC_YD * 4.0) as u64] {

@@ -24,6 +24,7 @@ L["Another addon is hiding the guide window or the arrow. The chat says how to g
 -- Core/Data.lua
 L["%s not installed"] = "%s 未安裝"
 L["Polestar no longer uses the old folders Polestar_Guides_<language> and Polestar_Names_<language> (%s): Polestar_<language> holds both now. Close the game and delete them from Interface/AddOns."] = "Polestar 已不再使用舊的資料夾 Polestar_Guides_<language> 和 Polestar_Names_<language>（%s）：現在兩者都已整合至 Polestar_<language>。請關閉遊戲，並將它們從 Interface/AddOns 中刪除。"
+L["Polestar no longer uses its %d walking map folders named Polestar_Nav_R (Polestar_Nav_R0_6_6 and the like): Polestar_Nav_EK and Polestar_Nav_Kalimdor hold those maps now. Close the game and delete the Polestar_Nav_R folders from Interface/AddOns."] = "Polestar 已不再使用名為 Polestar_Nav_R 的 %d 個步行地圖資料夾（例如 Polestar_Nav_R0_6_6）：這些地圖現在已整合至 Polestar_Nav_EK 和 Polestar_Nav_Kalimdor。請關閉遊戲，並將這些 Polestar_Nav_R 資料夾從 Interface/AddOns 中刪除。"
 L["Your install is mixed or incomplete (%s). Close the game, delete every Polestar folder in Interface/AddOns and install Polestar again: with the Polestar Client, the CurseForge app, or the latest zip from GitHub Releases (not \"Source code\")."] = "你的安裝混雜了不同版本或不完整（%s）。請關閉遊戲，刪除 Interface/AddOns 中所有 Polestar 資料夾，然後重新安裝 Polestar：使用 Polestar Client、CurseForge 應用程式，或 GitHub Releases 上最新的壓縮檔（不是「Source code」）。"
 
 -- Core/Guides.lua
@@ -225,10 +226,16 @@ L["Artisan %s"] = "專家級%s"
 -- L["Hearthstone ready in %s: ride to the inn, or wait for it"] = ""
 -- L["Ride to %s"] = ""
 -- L["Ride to the flight master"] = ""
+-- L["Requires level %d: the guide comes back for it then"] = ""
+-- L["Requires level %d: kept for a later guide"] = ""
+-- L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = ""
+-- L["For %s, later on your route."] = ""
+-- L["kill %s as you meet them"] = ""
 
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "選擇一項獎勵以完成繳交。"
 -- L["%s is an escort: it starts as soon as it is taken. Accept it yourself when your group is ready."] = ""
+-- L["Took %s now for %s, later on your route: this saves a trip back."] = ""
 
 -- Core/Commands.lua
 L["Toggle guide window"] = "切換指南視窗"
@@ -355,6 +362,7 @@ L["Polestar is hidden, the arrow with it: \"Keep the arrow when hidden\" in the 
 L["Polestar is paused: the arrow follows the guide again once you leave the dungeon alive, or after /polestar resume."] = "Polestar 已暫停：當你活著離開地城，或輸入 /polestar resume 後，箭頭會重新跟隨指南。"
 
 -- Nav/Arrow.lua
+L["The last steps here aren't mapped"] = "這裡最後幾步沒有地圖"
 L["Search here"] = "在此搜尋"
 L["Arrived"] = "已抵達"
 L["Click the arrow for the next spot"] = "點擊箭頭前往下一處"
@@ -367,6 +375,9 @@ L["Drag to move."] = "拖曳以移動。"
 L["Click for the next spot."] = "點擊前往下一處。"
 L["Shift-drag to move."] = "Shift-拖曳以移動。"
 L["No waypoint"] = "沒有路徑點"
+-- L["Arrived underwater"] = ""
+-- L["Under water nearby: swim down to it"] = ""
+-- L["%d yd below you: swim down"] = ""
 
 -- Nav/Layers.lua
 L["Spot %d of %d"] = "第 %d/%d 處"
@@ -441,7 +452,7 @@ L["Walk to the entrance"] = "走到入口"
 L["Walk to the lift"] = "走到升降梯"
 L["%s, Top"] = "%s，上層"
 L["%s, Bottom"] = "%s，下層"
-L["No route: walk straight to the target."] = "無路線：直接走向目標。"
+L["Finding a walking route"] = "正在尋找步行路線"
 L["Show the travel route to the current target"] = "顯示前往目前目標的旅行路線"
 L["Hostile town: %s"] = "敵對城鎮：%s"
 L["Ride the elevator up"] = "搭乘升降梯上去"
@@ -1405,7 +1416,6 @@ L["%s in your bank"] = "銀行中 %s 個"
 L["%s in your mail"] = "郵件中 %s 個"
 L["%s has %s"] = "%s 有 %s 個"
 L["%s to buy"] = "需購買 %s 個"
-L["≈ %s"] = "≈ %s"
 L["(only %s listed)"] = "（僅有 %s 個在售）"
 L["(old price)"] = "（舊價格）"
 
@@ -1604,9 +1614,6 @@ L["The step stops waiting for the party and moves on as usual."] = "步驟不再
 L["Click to show or hide the party panel."] = "點擊顯示或隱藏隊伍面板。"
 L["Then out here"] = "然後在外面"
 L["Out here"] = "在外面"
-L["Level %d quest: you're %s"] = "%d 級任務：你是 %s"
-L["Behind: %s (%d) at step %d, you're %s; grind %s first"] = "落後：%s（%d）於第 %d 步，你是 %s；請先練等%s"
-L["Behind: %s (%d) at step %d, you're %s; reach %d first"] = "落後：%s（%d）於第 %d 步，你是 %s；請先達到 %d 級"
 L["%s levels"] = "%s 級"
 L["Behind by %s: step %d grinds to level %s (%s)"] = "落後 %s：第 %d 步會練等到 %s 級（%s）"
 L["Behind by %s: step %d grinds to level %s"] = "落後 %s：第 %d 步會練等到 %s 級"
@@ -1618,8 +1625,6 @@ L["Step %d does this later; done now, that step is shorter or skipped when you g
 L["Left out because you skipped %s"] = "因你跳過了 %s 而省略"
 L["Ticked by you, but the game still counts its objectives open: finish them first."] = "你已勾選，但遊戲仍認為其目標未完成：請先完成它們。"
 L["Right-click: not now, around here (twice: for the rest of this zone)."] = "右鍵點擊：在這附近暫時不要（兩次：此地區內都不要）。"
-L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"] = "進度正常，但第 %3$d 步的 %1$s（%2$d）很難：你是 %4$s；請先練等%5$s"
-L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "進度正常，但第 %3$d 步的 %1$s（%2$d）很難：你是 %4$s；請先達到 %5$d 級"
 L["The rest of this guide follows from a skipped step"] = "此指南的其餘部分取決於一個被跳過的步驟"
 L["You skipped %s, and the steps after it need its quests. Undo the skip to carry on, or do that step yourself: the guide picks up from there."] = "你跳過了 %s，而之後的步驟需要它的任務。復原跳過以繼續，或自行完成該步驟：指南會從那裡接手。"
 L["Undo the skip"] = "復原跳過"
@@ -2616,7 +2621,6 @@ L["Freedoom Arcade by petllama (GPL-2.0 or later) plays three levels of Freedoom
 -- Rares/Rares.lua
 L["Raid warning"] = "團隊警告"
 L["Ready check"] = "準備確認"
-L["Boss whisper"] = "首領悄悄話"
 L["Rare Elite"] = "稀有精英"
 L["just now"] = "剛剛"
 L["%d min ago"] = "%d 分鐘前"
@@ -2626,6 +2630,7 @@ L["%d days ago"] = "%d 天前"
 L["Unknown rare"] = "未知的稀有生物"
 L["A rare"] = "一個稀有生物"
 L["rares [test]: open Rares, or show a sample alert"] = "rares [test]：開啟稀有，或顯示範例提醒"
+L["Boss emote"] = "首領表情"
 
 -- Rares/Pins.lua
 L["Level %s"] = "等級 %s"
@@ -3433,8 +3438,14 @@ L["%d characters on %d realms · each as of their last logout"] = "%d 個角色�
 L["1 character on %s"] = "%s 上的 1 個角色"
 L["1 character on %s · each as of their last logout"] = "%s 上的 1 個角色 · 以最後登出時為準"
 L["%d characters on %s · each as of their last logout"] = "%2$s 上的 %1$d 個角色 · 各自以最後登出時為準"
+L["1 character"] = "1 個角色"
+L["1 character · each as of their last logout"] = "1 個角色 · 以最後登出時為準"
+L["%d characters · each as of their last logout"] = "%d 個角色 · 各自以最後登出時為準"
 L["Forget %s"] = "忘記 %s"
 L["Characters is turned off. Turn it on under Options > Discovery > Lookup."] = "「角色」已關閉。可在「選項」>「探索」>「查詢」中開啟。"
+-- L["Another character named %s was saved before Forever's client stopped giving addons the realm name. Polestar can't tell whether it is this one, so it stays listed as it was; forget it if it is."] = ""
+-- L["%d characters named %s were saved on different realms before Forever's client stopped giving addons the realm name. Polestar can't tell which one you are playing, so they stay listed as they were and this character has a new entry; forget the old one that was this character."] = ""
+-- L["Rares met on %d realms are kept apart: Forever's client no longer gives addons the realm name, so Polestar can't tell which of them this is. Rares lists what you meet from now on."] = ""
 
 -- QoL/Keep.lua
 L["Don't sell: the guide needs it at step %d"] = "請勿販賣：指南在第 %d 步需要它"
@@ -3549,6 +3560,7 @@ L["Carried to later guides"] = "留待之後指南的任務"
 L["Not part of your route"] = "不在你的路線中"
 L["Keep or abandon them"] = "保留或放棄"
 L["Each with its Abandon button, which asks in the game's own window first."] = "每個任務都有「放棄」按鈕，會先在遊戲本身的視窗中確認。"
+-- L["%s · at level %d"] = ""
 
 -- UI/NameTargets.lua
 L["Click to target and mark %s (out of combat)."] = "點擊選取並標記 %s（戰鬥外）。"
@@ -4615,6 +4627,9 @@ L["Open any flight master's map once on this continent so Polestar knows your fl
 L["This guide is for %s characters. Polestar won't guide you through it."] = "此指南適用於%s角色。Polestar 不會引導你完成它。"
 -- L["Equip it"] = ""
 -- L["Report to Danitha (Garen Largo, the Undercity), then A Paladin's Steed (Danitha Morr, Bandarion Keep): it teaches you to summon your Warhorse."] = ""
+-- L["%s (level %d)"] = ""
+-- L["%s takes these once you reach their level: %s"] = ""
+-- L["Waiting for your level, taken where a later guide passes the giver: %s"] = ""
 
 -- Core/Pause.lua
 L["Press %s to resume, or open the guide window."] = "按 %s 恢復，或打開指南視窗。"
@@ -4991,3 +5006,11 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "已降
 -- L["The size of Polestar's text, apart from the window scale. Changes at once. Right-click to reset."] = "Polestar 文字的大小，與視窗縮放分開。立即生效。右鍵點擊重置。"
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "沒有可騰出空間的垃圾。Ctrl+Alt 點擊物品可將其標記為垃圾。"
 -- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "暫停期間，不會替你接受或繳交任務，也不會選擇獎勵，直到 Polestar 恢復。"
+-- L["≈ %s"] = "≈ %s"
+-- L["Level %d quest: you're %s"] = "%d 級任務：你是 %s"
+-- L["Behind: %s (%d) at step %d, you're %s; grind %s first"] = "落後：%s（%d）於第 %d 步，你是 %s；請先練等%s"
+-- L["Behind: %s (%d) at step %d, you're %s; reach %d first"] = "落後：%s（%d）於第 %d 步，你是 %s；請先達到 %d 級"
+-- L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"] = "進度正常，但第 %3$d 步的 %1$s（%2$d）很難：你是 %4$s；請先練等%5$s"
+-- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "進度正常，但第 %3$d 步的 %1$s（%2$d）很難：你是 %4$s；請先達到 %5$d 級"
+-- L["No safe walking route"] = "沒有安全的步行路線"
+-- L["Boss whisper"] = "首領悄悄話"

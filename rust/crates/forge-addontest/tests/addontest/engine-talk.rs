@@ -328,5 +328,10 @@ fn a_quest_passed_over_while_the_player_looks_at_another_step_is_announced_once_
 	assert_eq!(out["live"], 3);
 	assert_eq!(out["whileLooking"], 0, "the notice waits while the player looks elsewhere");
 	assert_eq!(out["back"], 3);
-	assert_eq!(out["events"], json!([{ "from": 2, "to": 3, "quests": ["86784:Requires level 10"], "shown": 1 }]), "said once, with the live step coming up (STEP_SKIPPED before STEP_CHANGED)");
+	// The level wait says what happens to it (Own.waitText): the guide's steps after it bring the route back.
+	assert_eq!(
+		out["events"],
+		json!([{ "from": 2, "to": 3, "quests": ["86784:Requires level 10: the guide comes back for it then"], "shown": 1 }]),
+		"said once, with the live step coming up (STEP_SKIPPED before STEP_CHANGED)"
+	);
 }

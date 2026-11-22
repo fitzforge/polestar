@@ -74,7 +74,6 @@ ns.UI.GuideFrame.Part(function(GF)
 			person.Name:SetWidth(nameW)
 			person.Where:SetWidth(nameW)
 			person.Why:SetWidth(nameW)
-			person.Level:SetWidth(nameW)
 			local h = 10 + person.Name:GetStringHeight()
 			local above = person.Where:IsShown() and person.Where or person.Name
 			if person.Where:IsShown() then h = h + 3 + person.Where:GetStringHeight() end
@@ -82,12 +81,6 @@ ns.UI.GuideFrame.Part(function(GF)
 				person.Why:ClearAllPoints()
 				person.Why:SetPoint("TOPLEFT", above, "BOTTOMLEFT", 0, -3)
 				h = h + 3 + person.Why:GetStringHeight()
-				above = person.Why
-			end
-			if person.Level:IsShown() then
-				person.Level:ClearAllPoints()
-				person.Level:SetPoint("TOPLEFT", above, "BOTTOMLEFT", 0, -3)
-				h = h + 3 + person.Level:GetStringHeight()
 			end
 			h = floor(h + 8 + 0.5)
 			person:SetHeight(h)

@@ -305,6 +305,29 @@ fn cached_web_lists_and_tooltips_bracketed_names_are_none_objectives_read() {
 	assert!(none.names.iter().all(|m| m.is_empty()) && none.objective.is_empty() && none.fetched.is_none());
 }
 
+#[test]
+fn quest_tooltip_title_level_is_excluded_from_the_objective() {
+	use serde_json::json;
+	let s = scratch("names-web-level");
+	let summaries = [
+		(92753, r#"<th><b class="q0">Level 18</b></th>"#, "Place the explosives."),
+		(92401, r#"<th align="right"><b class="q0">Niveau 22</b></th>"#, "Investigate the ruins."),
+		(94748, "", "Rescue five scouts."),
+		(94888, "", "Level 18 is the signal to proceed."),
+	];
+	for (id, level_cell, objective) in summaries {
+		let tooltip = format!(
+			r#"<table><tr><td><table width="100%"><tr><td><b class="q">Quest</b></td>{level_cell}</tr></table></td></tr></table><table><tr><td><br />{objective}<br /><br /><span class="q">Requirements:</span><br /> - Trigger</td></tr></table>"#
+		);
+		write_json(&s.join(format!("web/names/frFR/quest/{id}.json")), json!({ "id": id, "name": "Quête", "tooltip": tooltip }));
+	}
+	let web = src::load_web_names(&s, "frFR").unwrap();
+	assert_eq!(web.objective.len(), summaries.len());
+	for (id, _, objective) in summaries {
+		assert_eq!(web.objective.get(&id).map(String::as_str), Some(objective), "quest {id}");
+	}
+}
+
 fn m(pairs: &[(i64, &str)]) -> Names {
 	pairs.iter().map(|(k, v)| (*k, v.to_string())).collect()
 }
@@ -471,7 +494,7 @@ fn the_shipped_names_the_client_showed_load_and_each_language_file_is_its_own() 
 		src::load_observed_names(&dir, l).unwrap_or_else(|e| panic!("{e}"));
 	}
 	let zh = src::load_observed_names(&dir, "zhCN").unwrap();
-	assert_eq!(zh.refs.iter().copied().collect::<Vec<_>>(), [1448, 3237]);
+	assert_eq!(zh.refs.iter().copied().collect::<Vec<_>>(), [1448, 3005, 3162, 3237]);
 	// The client's own names where the web's differ (#1448): Forever renamed both quests "Chastise".
 	assert_eq!(zh.names[0].get(&5641).map(String::as_str), Some("惩击"));
 	assert_eq!(zh.names[0].get(&5645).map(String::as_str), Some("惩击"));

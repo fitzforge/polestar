@@ -314,7 +314,16 @@ except a `complete <quest>`: a hand-in can't be done before its quest is, so
 an unskipped step whose `when` fails only on `complete` comes back once the
 quest is ready. One failure is never stored: a `complete <quest>` that fails while the
 player carries the quest (a Wanted hand-in passed before the elite is dead)
-is checked again, and the step comes back once the quest is done.
+is checked again, and the step comes back once the quest is done. Nor, while
+the guide lasts, is a failure that can still turn as the player plays it: a
+`level>=N` or `level>N` not reached yet, or `onquest`, `complete` or
+`turnedin` of a quest the guide still takes (or one waiting for the
+character's level). Such a step comes back if the route reaches it again (the
+level-up brings the route back to a quest's accept, and its `when onquest`
+step follows it); once it holds behind the live step, it stays passed and its
+quest's work is listed under "Still to do" instead of pulling the arrow back;
+at the guide's end it is stored as skipped. A step with `group` or `dungeon`
+in its `when` is stored as it passes, as the player's answer decides it.
 Resetting the guide's progress forgets the stored outcomes.
 
 While its `when` fails, a step counts as one that does not apply: like a step
@@ -507,7 +516,9 @@ elite, an escort): the player decides whether to do it. When the route
 reaches a step with `when group <quest>` or `when !group <quest>` and the
 player has not answered for that quest yet, the route waits there and the
 guide window asks: "Skip it" (the default, the solo route) or "Do it with a
-group". Quest automation leaves the quest alone until then. The answer is
+group". Quest automation leaves the quest alone until then. A quest already
+in the log and ready to hand in is not asked about: its group work is done,
+and the route goes on to the hand-in (#3402). The answer is
 kept per character, once per quest, for every guide; Options, Discovery,
 Group quests lists them and changes an answer until the route has passed
 the step. Options, Guide, Automation, "Group quests" answers every quest the
@@ -1189,10 +1200,14 @@ NPC or object gets that entity's height, `z` (world yards), from
 `data/forever/spawnz.json`, which `data build` writes from CMaNGOS
 classic-db's spawn positions and, for an NPC or object classic-db lacks (one
 only Forever has), the Forever TrinityCore world database's sniffed spawn
-positions: the z of the entity's nearest spawn on the goal's instance map
-(its world point's, in the goal's frame), when that spawn is within 15 yards
-of the point. Nothing is guessed: an NPC neither source places, or one
-Forever moved more than 15 yards, gets none, and without `spawnz.json` no
+positions; an NPC whose spawns give no height within 15 yards of where
+players talk to it (a Forever NPC neither source places, one Forever moved)
+gets the floor players stand on there, from their recordings
+(`data/npc-floors.json`, `nav city npc-floors`: 3+ people, 70% of them on one
+level). A goal gets the z of the entity's nearest spawn on the goal's
+instance map (its world point's, in the goal's frame), when that spawn is
+within 15 yards of the point. Nothing is guessed: an NPC no source places
+there gets none, and without `spawnz.json` no
 goal gets one. These goals can get one, their point being the NPC's or
 object's (its spawn, or your `@x,y` at it):
 
@@ -1376,7 +1391,8 @@ Written only from 10%; there is nothing to write in the guide.
 
 In the game the share left to a character is `share` scaled by the part of
 `needs` they have neither done, nor in the log, nor taken on the way (a
-lead-in step Polestar put in). From 30%, below the guide's top level and
+lead-in step Polestar put in). From 30% (in whole percent, as the note says
+it), below the guide's top level and
 with `from` a guide for them, the guide window says while the guide's live
 step is in its first third: "Fresh start: about N% of this guide's quest XP
 follows on from <guide>. Expect about M minutes of extra grinding, or start
@@ -1450,7 +1466,11 @@ Errors:
   to a side the goal applies to (a friendly one is a talk credit), or `collect` of
   an item whose every located dropper is such an npc; `lint` also errors on a
   non-`optional` quest goal of a quest the cached simulator world (below) excludes
-  as `elite`, unless the goal was already reported as elite
+  as `elite`, unless the goal was already reported as elite. A low elite is solo
+  content (2026-11-20: an elite two or more levels under the player): elite work
+  passes on a step gated at least two levels over the elite, by `when level>=N` or a
+  `level N` line on the step with N at least the elite's top level (`levelMax`) + 2;
+  keep a Careful tip on the step
 - one of the game's placeholder names ("[DNT] Kill Credit", "Credit", "PvP Tower Credit
   Marker", "Trigger Ichman", "<UNUSED>", anything tagged `[PH]` or `(DND)`) in a name or text a
   compiled goal shows (its target, NPC, object, item, source, objective lines, note):

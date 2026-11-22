@@ -140,6 +140,67 @@ fn t_1353_local_feeders_go_in_beside_the_guide_s_nearest_step_in_its_own_zone() 
 }
 
 #[test]
+fn an_unpriced_remote_feeder_does_not_land_at_the_start_of_a_guide() {
+	let out = run(
+		"",
+		NEAR,
+		r#"
+local function goal(t, q, map, pre)
+	return { t = t, quest = q, title = "An errand", map = map, x = 50, y = 50, pre = pre }
+end
+local function register(id, steps, after)
+	Polestar.RegisterGuide({ id = id, pack = "test", title = id, faction = "Horde", minLevel = 26, maxLevel = 30, steps = steps, next = after })
+end
+-- The client cannot resolve the later zone's world frame. Its appearance
+-- near the end of the guide is not a trip there at the beginning.
+register("test/source", { { goals = { goal("accept", 901, 1452), goal("turnin", 901, 1452) } } }, "test/trip")
+register("test/trip", {
+	{ goals = { goal("accept", 902, 1440) } },
+	{ goals = { { t = "goto", map = 1452, x = 49, y = 50 } } },
+	{ goals = { goal("accept", 903, 1452, {901}) } },
+})
+E.SetGuide("test/trip"); flush()
+local g = E.GetGuide()
+emit({ first = g.steps[1].goals[1].quest, hidden = (g.hidden or {})[903] ~= nil })
+"#,
+	);
+	assert_eq!(out, json!({"first": 902, "hidden": true}));
+}
+
+#[test]
+fn feeder_work_must_fit_the_visits_in_route_order() {
+	for (work_map, imported) in [(1440, false), (1429, true)] {
+		let out = run(
+			"",
+			NEAR,
+			&format!(
+				r#"
+local function at(t, q, map, pre)
+	return {{ t = t, quest = q, title = "An errand", map = map, x = 50, y = 50, pre = pre }}
+end
+Polestar.RegisterGuide({{ id = "test/earlier", pack = "test", title = "Earlier", faction = "Horde", minLevel = 26, maxLevel = 30, next = "test/later", steps = {{
+	{{ goals = {{ at("accept", 910, 1429) }} }},
+	{{ goals = {{ {{ t = "kill", target = "Wolf", quest = 910, oi = 1, map = {work_map}, x = 50, y = 50 }} }} }},
+	{{ goals = {{ at("turnin", 910, 1429) }} }},
+}} }})
+Polestar.RegisterGuide({{ id = "test/later", pack = "test", title = "Later", faction = "Horde", minLevel = 26, maxLevel = 30, steps = {{
+	{{ goals = {{ at("accept", 911, 1440) }} }},
+	{{ goals = {{ at("accept", 912, 1429) }} }},
+	{{ goals = {{ at("accept", 913, 1429, {{910}}) }} }},
+}} }})
+E.SetGuide("test/later"); flush()
+local g = E.GetGuide()
+emit({{ first = g.steps[1].goals[1].quest, hidden = (g.hidden or {{}})[913] ~= nil, feeder = g.steps[3] and g.steps[3].feeder or false }})
+"#
+			),
+		);
+		assert_eq!(out["first"], 911);
+		assert_eq!(out["hidden"], !imported, "work map {work_map}: {out}");
+		assert_eq!(out["feeder"], if imported { json!("test/earlier") } else { json!(false) });
+	}
+}
+
+#[test]
 fn far_or_other_zone_feeders_stay_out_and_their_quests_and_empty_steps_go() {
 	// The furbolgs far across the zone: over five minutes, so King of the Foulweald goes, and Karang's step
 	// with it (only its walk was left).
@@ -159,6 +220,28 @@ fn far_or_other_zone_feeders_stay_out_and_their_quests_and_empty_steps_go() {
 	// In another zone: the same.
 	let other = run("", ELSEWHERE, &format!("{OPEN}\nemit(r)"));
 	assert_eq!(other["hidden"], json!([6621]));
+}
+
+// The guide window's "Left out" line for a quest left out names the quest it needs in the game's language, as the
+// quest's own line does (#3015's group quest question had the same slip): on a German client King of the
+// Foulweald reads "Requires “Zwischen Fels und Distelfell” first", not the guide's English title.
+#[test]
+fn a_left_out_quest_names_the_quest_it_needs_in_the_game_s_language() {
+	let out = run(
+		"function GetLocale() return \"deDE\" end\nw.titles[216] = \"Zwischen Fels und Distelfell\"\n",
+		FAR,
+		&format!(
+			r#"{OPEN}
+local why = {{}}
+for i = 1, E.GetStepCount() do
+	for _, o in ipairs(E.LeftOutHere(i, true)) do
+		if o.quest == 6621 then why[#why + 1] = o.text end
+	end
+end
+emit({{ hidden = r.hidden, why = why }})"#
+		),
+	);
+	assert_eq!(out, json!({ "hidden": [6621], "why": ["Requires “Zwischen Fels und Distelfell” first"] }));
 }
 
 #[test]
@@ -402,6 +485,68 @@ fn t_1353_joe_fresh_at_24_in_the_barrens_and_stonetalon_mountains_gets_a_clean_g
 	assert_eq!(out["outside"], 0);
 	assert_eq!(out["after"]["empty"], 0);
 	assert!(out["cost"].as_f64().unwrap() <= 300.0 * lines(&out["feeders"]).len().max(1) as f64);
+}
+
+// A routed flight (Menethil to Chillwind Camp, f3a8ce54cf): the feeder's work lies on the arrival side, in the zone of
+// the camp the next step stands at, far from the flight master the travel step points at. Either end of that routed
+// leg serves the feeder, so it goes in at the camp instead of the accept being left out. The geometry: the flight
+// master (FM) stands on the border of the travel zone (1437), the camp (CAMP) just over it in the arrival zone
+// (1422), the feeder's kills (KILLS) 1,500 yd on, beside a place the guide went earlier (EARLIER): a cheap feeder
+// (Own.feedCost), its kills ~1,640 yd from the flight master (more than FEED_LOCAL there and back).
+#[test]
+fn a_routed_flight_keeps_the_feeder_at_its_arrival_end() {
+	let out = run(
+		r#"
+stub.world.addMap(1437, { name = "Wetlands", c = 0, left = 0, right = -2000, top = 0, bottom = -2000 })
+stub.world.addMap(1422, { name = "Western Plaguelands", c = 0, left = 0, right = -2000, top = 2000, bottom = 0 })
+"#,
+		NEAR,
+		r#"
+local EARLIER, ELSEWHERE, FM, CAMP, KILLS = { 1422, 50, 25 }, { 1437, 50, 50 }, { 1437, 50, 2 }, { 1422, 50, 95 }, { 1422, 50, 20 }
+local function at(goal, p) goal.map, goal.x, goal.y = p[1], p[2], p[3]; return goal end
+local function register(id, steps, after)
+	Polestar.RegisterGuide({ id = id, pack = "test", title = id, faction = "Horde", minLevel = 24, maxLevel = 30, steps = steps, next = after })
+end
+register("test/source", {
+	{ title = "Camp", goals = { at({ t = "accept", quest = 901, title = "Clear the Way" }, CAMP) } },
+	{ title = "Fields", goals = { at({ t = "kill", target = "Skeletal Flayer", count = 10, quest = 901, oi = 1 }, KILLS) } },
+	{ title = "Camp", goals = { at({ t = "turnin", quest = 901, title = "Clear the Way" }, CAMP) } },
+}, "test/trip")
+register("test/trip", {
+	{ title = "Earlier", goals = { at({ t = "accept", quest = 902, title = "An errand" }, EARLIER) } },
+	{ title = "Elsewhere", goals = { at({ t = "turnin", quest = 902, title = "An errand" }, ELSEWHERE) } },
+	{ title = "Fly to the camp", goals = { at({ t = "goto" }, FM), { t = "fly", location = "Camp" } } },
+	{ title = "Camp", goals = { at({ t = "accept", quest = 903, title = "The watchtowers", pre = { 901 } }, CAMP) } },
+})
+E.SetGuide("test/trip"); flush()
+local g = E.GetGuide()
+emit({ guide = g.id, shape = shape(), hidden = (g.hidden or {})[903] ~= nil })
+"#,
+	);
+	assert_eq!(out["guide"], "test/trip", "{out}");
+	assert_eq!(out["hidden"], false, "the camp's accept stays: {out}");
+	assert_eq!(
+		out["shape"],
+		json!([
+			"Earlier accept:902",
+			"Elsewhere turnin:902",
+			"Fly to the camp goto fly",
+			"Camp <test/source 1> accept:901",
+			"Fields <test/source 2> kill:901",
+			"Camp <test/source 3> turnin:901",
+			"Camp accept:903",
+		]),
+		"the feeder goes in at the arrival camp: {out}"
+	);
+}
+
+// The shipped route since 0.4.2: the Plaguelands guide writes Chillwind Camp's first quest (Clear the Way, 5092) for a
+// character without the Burning Steppes guide's stop there, so the cauldron pickup (5097) stays for a fresh start.
+#[test]
+fn a_fresh_start_on_the_plaguelands_guide_keeps_the_chillwind_chain() {
+	let out = shipped("Alliance", "Human", "WARRIOR", 55, "", "", "forever/alliance/50-60/04-western-plaguelands");
+	assert!(!ids(&out["hidden"]).contains(&5097), "the cauldron pickup at Chillwind Camp stays in the guide: {out}");
+	assert!(!ids(&out["hidden"]).contains(&5092), "Clear the Way is the guide's own step: {out}");
 }
 
 #[test]

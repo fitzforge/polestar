@@ -111,10 +111,19 @@ fn objectives_of(objectives: &V, names: &Names) -> V {
 	let mut out = Vec::new();
 	for o in objectives.items() {
 		let ty = o.get("type");
-		let k = ty.as_str().unwrap_or("event");
+		let mut k = ty.as_str().unwrap_or("event");
+		// A talk the page writes as "Speak with <name>": one whose text is not its NPC's name is the quest log's own
+		// line ("Speak with someone in Ratchet about the Glowing Shard" for Sputtervalve, "Find Shaw's Agent in
+		// Theramore"), kept as one line as an event's is, never "Speak with Speak with …" (#3426).
+		if k == "talk" {
+			let (npc, text) = (names.npc(&nn(o.get("id"))), o.get("text"));
+			if npc.truthy() && text.truthy() && !text.strict_eq(&npc) {
+				k = "event";
+			}
+		}
 		let id = if k == "event" { V::Null } else { nn(o.get("id")) };
 		let mut name = match k {
-			"kill" => names.npc(&id),
+			"kill" | "talk" => names.npc(&id),
 			"item" => names.item(&id),
 			"object" => names.object(&id),
 			_ => V::Null,
@@ -996,6 +1005,10 @@ fn build_pages(inp: &JournalInputs, codex: &Codex, warnings: &mut Vec<String>) -
 			if ie.get("A").truthy() {
 				o.set("A", ie.get("A"));
 			}
+			// (the door's floor, Polestar/Dungeons' arrow to the entrance: instances.rs choose_entrance)
+			if ie.get("z").is_num() {
+				o.set("z", ie.get("z"));
+			}
 			V::Obj(o)
 		} else {
 			V::Null
@@ -1746,9 +1759,10 @@ mod tests {
 
 	/// The named exceptions Fitz approved, and nothing else: The Hall of Thanes' top of 18 (his in-game check)
 	/// is the only top override, Krol'dok Stronghold's floor of 43 (its only slot in the guides sits at players'
-	/// 25th percentile) the only floor under the rule. A third needs a row here and a reason. The one
-	/// check-only row, Ruins of Lordaeron's overleveledRuns (0.4.1: players' recorded runs above level 25 are
-	/// full clears in a party of five), changes no range or floor.
+	/// 25th percentile) the only floor under the rule. A third needs a row here and a reason. The check-only
+	/// rows, overleveledRuns, change no range or floor: Ruins of Lordaeron (0.4.1: players' recorded runs above
+	/// level 25 are full clears in a party of five) and Wailing Caverns (0.4.2: 16 characters at 30-60, 126 boss
+	/// kills, every one in a party of five).
 	#[test]
 	fn levels_json_holds_exactly_the_two_named_exceptions() {
 		let text = std::fs::read_to_string(concat!(env!("CARGO_MANIFEST_DIR"), "/../../../data/codex/levels.json")).unwrap();
@@ -1760,9 +1774,39 @@ mod tests {
 		assert_eq!((hot.get("max").num(), hot.get("floor").is_undef()), (18.0, true), "the only top override");
 		let krol = t.get("kroldok-stronghold");
 		assert_eq!((krol.get("floor").num(), krol.get("max").is_undef()), (43.0, true), "the only floor exception");
-		let checks: Vec<String> = t.keys().iter().map(|k| k.to_string()).filter(|k| t.get(k).get("overleveledRuns") == V::Bool(true)).collect();
-		assert_eq!(checks, ["ruins-of-lordaeron"], "the one check-only row");
-		let ruins = t.get("ruins-of-lordaeron");
-		assert!(ruins.get("max").is_undef() && ruins.get("floor").is_undef(), "check-only: no range or floor");
+		let mut checks: Vec<String> = t.keys().iter().map(|k| k.to_string()).filter(|k| t.get(k).get("overleveledRuns") == V::Bool(true)).collect();
+		checks.sort();
+		assert_eq!(checks, ["ruins-of-lordaeron", "wailing-caverns"], "the check-only rows");
+		for k in &checks {
+			let row = t.get(k);
+			assert!(row.get("max").is_undef() && row.get("floor").is_undef(), "{k}: check-only, no range or floor");
+		}
+	}
+
+	/// #3426: a talk objective named by its NPC stays a talk ("Speak with Falla"); one whose text is the quest log's
+	/// sentence (The Glowing Shard's "Speak with someone in Ratchet about the Glowing Shard" for Sputtervalve) is
+	/// kept as one line, an event's, so the page never reads "Speak with Speak with …"; an NPC the Codex does not
+	/// know keeps its text as the name.
+	#[test]
+	fn a_talk_whose_text_is_the_quest_log_s_sentence_reads_as_one_line_3426() {
+		let npcs = parse_json(r#"{ "3442": { "name": "Sputtervalve" }, "8418": { "name": "Falla Sagewind" } }"#).unwrap();
+		let none = V::obj();
+		let names = Names { npcs: &npcs, items: &none, objects: &none };
+		let objectives = parse_json(
+			r#"[
+			{ "type": "talk", "id": 3442, "count": 1, "text": "Speak with someone in Ratchet about the Glowing Shard" },
+			{ "type": "talk", "id": 8418, "count": 1, "text": "Falla Sagewind" },
+			{ "type": "talk", "id": 8418, "count": 1 },
+			{ "type": "talk", "id": 9999, "count": 1, "text": "Clubtoe" }
+		]"#,
+		)
+		.unwrap();
+		let out: Vec<(String, f64, String)> =
+			objectives_of(&objectives, &names).items().iter().map(|o| (o.get("k").to_js_string(), if o.get("id").truthy() { o.get("id").num() } else { 0.0 }, o.get("name").to_js_string())).collect();
+		let row = |k: &str, id: f64, name: &str| (k.to_string(), id, name.to_string());
+		assert_eq!(
+			out,
+			[row("event", 0.0, "Speak with someone in Ratchet about the Glowing Shard"), row("talk", 8418.0, "Falla Sagewind"), row("talk", 8418.0, "Falla Sagewind"), row("talk", 9999.0, "Clubtoe"),]
+		);
 	}
 }

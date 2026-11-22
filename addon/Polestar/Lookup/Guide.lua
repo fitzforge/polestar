@@ -571,6 +571,31 @@ local function endGoal(t, q, e)
 	return at(g, e.spawn)
 end
 
+-- Every NPC of `ends` the character may talk to (Lookup.SideOK), each at its
+-- spawn nearest `from` -> { { npc, npcName, map, x, y, f, z }, ... } | nil:
+-- an accept's `candidates` (the Engine picks the nearest again on step start,
+-- zone change and landing), so a quest several NPCs give goes to the one by
+-- the player wherever the guide was built. Camp Mojache has a herald in each
+-- Horde capital; the pick-up guide kept Warcaller Gorlach, nearest where it
+-- was built, and sent a Tauren standing beside Bluff Runner Windstrider in
+-- Thunder Bluff to Orgrimmar (#3368, Zack). nil when fewer than two such NPCs
+-- have a place, or an object gives it too (an object is no candidate).
+function Lookup.GiverCandidates(ends, from, direct)
+	if type(ends) ~= "table" or #(ends.object or {}) > 0 then return nil end
+	local C, p = Codex(), Lookup.PlayerInfo()
+	local list = {}
+	for _, id in ipairs(ends.npc or {}) do
+		local npc = C.Npc(id)
+		if npc and Lookup.SideOK(npc.faction, p) then
+			local s = Lookup.Nearest(npc.spawns, from, direct)
+			if s and s.map and s.x and s.y then
+				list[#list + 1] = { npc = npc.id, npcName = npc.name, map = s.map, x = s.x, y = s.y, f = frame(s.f), z = s.z }
+			end
+		end
+	end
+	return #list >= 2 and list or nil
+end
+
 -- The first NPC or object of `ends` that inside(kind, id) places (see
 -- questStep) -> { npc|object, name, spawn } | nil.
 local function insideEnd(ends, inside)
@@ -634,7 +659,7 @@ local function questStep(q, from, isTarget, opts)
 		finish = insideEnd(q["end"], inside)
 		if finish then mark(finish.spawn, finish.name) end
 	end
-	if inside then
+	if inside and not (opts and opts.entrances) then
 		giver = giver or (not startItem and bareEnd(q.start)) or nil
 		finish = finish or bareEnd(q["end"])
 	end
@@ -646,6 +671,7 @@ local function questStep(q, from, isTarget, opts)
 	local accept
 	if giver then
 		accept = endGoal("accept", q, giver)
+		if giver.npc then accept.candidates = Lookup.GiverCandidates(q.start, from, direct) end
 	else
 		accept = { t = "accept", quest = q.id, title = q.title, item = startItem, itemName = itemName(startItem) }
 	end
@@ -653,9 +679,12 @@ local function questStep(q, from, isTarget, opts)
 	Lookup.AcceptPre(accept, q)
 	goals[1] = accept
 	local here = giver and giver.spawn or from
-	local event = nil
+	local event, eventAt = nil, nil
 	-- Objectives with no target the data names (events) share one `complete`
-	-- at the first one's place. When two or more have a place of their own
+	-- at the first one's place, in the first one's order among the quest's
+	-- objectives (#3054: Brewer's Trade delivers the bottles to Dun Garok
+	-- before the hops sack is had, and the page listed the sack first). When
+	-- two or more have a place of their own
 	-- (#2833: Powering the Pylons' western and eastern pylons), each is a
 	-- goal at its place, read by its quest-log line as a placeholder's kill is
 	-- (`logLine`): the arrow moves on as each line ticks, where the shared
@@ -765,11 +794,11 @@ local function questStep(q, from, isTarget, opts)
 		elseif placedEvents >= 2 and o.map and o.x and o.y then
 			goals[#goals + 1] = at({ t = "kill", logLine = true, target = o.text or q.title, quest = q.id, oi = oi, count = count, title = q.title }, o)
 		else
-			event = event or o
+			if not event then event, eventAt = o, #goals + 1 end
 		end
 	end
 	if event then
-		goals[#goals + 1] = at({ t = "complete", quest = q.id, title = q.title, text = event.text }, event)
+		table.insert(goals, eventAt, at({ t = "complete", quest = q.id, title = q.title, text = event.text }, event))
 	end
 	goals[#goals + 1] = endGoal("turnin", q, finish)
 	local step = { title = q.title, goals = goals }
@@ -809,14 +838,21 @@ local function startItemGoal(q, from)
 end
 
 -- Steps for a quest and its unfinished prerequisites; a quest started from an
--- item gets that item first (startItemGoal). -> steps | nil, reason
+-- item gets that item first (startItemGoal). A giver, target or turn-in the
+-- Codex puts inside an instance is at its entrance, the step's note saying
+-- what is inside (Dungeons.InsideEntrance, as the attunement guides do:
+-- What Comes Around...'s Head of Targorr left the arrow beside Guard Berton,
+-- who takes it, #3613); a giver or turn-in with no place at all keeps the
+-- "First do the quest" note (opts.entrances). -> steps | nil, reason
 local function questSteps(questId, player, from)
 	local C = Codex()
 	if not C.Quest(questId) then return nil, "unknown" end
 	local chain = questChain(questId, player)
+	local D = ns.Dungeons
+	local opts = D and D.InsideEntrance and { inside = D.InsideEntrance, entrances = true } or nil
 	local steps = {}
 	for i, q in ipairs(chain) do
-		local step, err = questStep(q, from, q.id == questId)
+		local step, err = questStep(q, from, q.id == questId, opts)
 		if not step then return nil, err end
 		local first = step.goals[1]
 		local get = first and first.t == "accept" and first.item and startItemGoal(q, from)

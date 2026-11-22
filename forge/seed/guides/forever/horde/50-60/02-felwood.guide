@@ -1,7 +1,7 @@
 guide forever/horde/50-60/02-felwood
-title Felwood & Western Plaguelands
+title Western Plaguelands, Azshara & Felwood
 faction Horde
-levels 52-55
+levels 53-54
 zone Felwood
 next forever/horde/50-60/03-winterspring
 # Built from the playthrough simulator's consensus route (Horde, visits
@@ -244,6 +244,7 @@ step Emerald Sanctuary
 
 step Southern Jaedenar
   tip Follow the road north-west. The south of Jaedenar, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds.
+  tip Careful: the Spirit of Trey Lightforge (53, elite) haunts the west end of Jaedenar, around 35,60: pull the cultists and hounds away from him.
   kill 7125 quest 5155.1
   kill 7115 quest 5155.3
   kill 7112 quest 5155.4

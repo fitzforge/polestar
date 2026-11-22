@@ -1,9 +1,13 @@
 -- The Characters page's data: one small snapshot per character on the
 -- account, written as each one plays and read back by the others. Stored in
 -- PolestarDB.alts.chars["Name-Realm"], the same key Maps/Instances.lua files
--- its instance entries under.
+-- its instance entries under; the name alone while the client does not give
+-- the realm (Forever since 1.60.1), when the character's "Name-Realm" entry
+-- moves to that key once (see claim below).
 --
---   Alts.Key() -> "Name-Realm" of the current character
+--   Alts.Key() -> "Name-Realm" (or "Name") of the current character
+--   Alts.Unclaimed() -> entries under this character's name and another
+--     realm that were not moved to the realm-less key (several of them)
 --   Alts.List(sortBy) -> entries, the current character first, then by
 --     "seen" (newest first, the default), "rested" or "level"
 --   Alts.Forget(key) -> true | false (the current character is never forgotten)
@@ -65,17 +69,75 @@ end
 
 -- "Name-Realm", the name as Compat.UnitFullName gives it ("Ana Smith" on
 -- Forever, whose names carry a surname, so two characters with one first
--- name keep their own entries). Formed exactly as Maps/Instances.lua's
--- charName() forms it.
+-- name keep their own entries); the name alone with the realm unknown
+-- (Compat.RealmName). Formed exactly as Maps/Instances.lua's charName()
+-- forms it.
 local function playerKey()
 	local name = Compat.UnitFullName("player")
 	if not name then return nil end
-	local realm = GetRealmName and GetRealmName()
+	local realm = Compat.RealmName()
 	return realm and (name .. "-" .. realm) or name, name
+end
+
+-- The entries filed under `name` with a realm, but `key`: "Name-" (written
+-- while the client read "" for the realm, before Compat.RealmName) and the
+-- "Name-Realm" ones, sorted.
+local function filedWithRealm(store, name, key)
+	local prefix = name .. "-"
+	local blank, realmed = nil, {}
+	for k, e in pairs(store) do
+		if k ~= key and type(k) == "string" and type(e) == "table" and k:sub(1, #prefix) == prefix and (e.name == nil or e.name == name) then
+			if k == prefix then blank = k else realmed[#realmed + 1] = k end
+		end
+	end
+	table.sort(realmed)
+	return blank, realmed
+end
+
+-- With the realm unknown, the character's entry moves from "Name-Realm" to
+-- the name alone, once: when exactly one "Name-Realm" entry exists it is
+-- taken (its saved realm kept); with several (one name on more than one
+-- realm) none is, they all stay listed and the page says so
+-- (Alts.Unclaimed). A "Name-" entry is always this character's: its values
+-- go over the taken one's (they are newer). -> the entry now under `key`, or
+-- nil when there was none to take.
+local function claim(store, key, name)
+	local blank, realmed = filedWithRealm(store, name, key)
+	local e
+	if #realmed == 1 then
+		e = store[realmed[1]]
+		store[realmed[1]] = nil
+	end
+	if blank then
+		local b = store[blank]
+		store[blank] = nil
+		if e then
+			for k, v in pairs(b) do
+				if k ~= "realm" then e[k] = v end
+			end
+		else
+			e = b
+		end
+	end
+	if not e then return nil end
+	if e.realm == "" then e.realm = nil end
+	e.key = key
+	store[key] = e
+	return e
 end
 
 function Alts.Key()
 	return (playerKey())
+end
+
+function Alts.Unclaimed()
+	if Compat.RealmName() then return {} end
+	local key, name = playerKey()
+	if not key then return {} end
+	local store, out = chars(), {}
+	local _, realmed = filedWithRealm(store, name, key)
+	for i, k in ipairs(realmed) do out[i] = store[k] end
+	return out
 end
 
 -- The key up to 0.3.3, the first name alone: what a Forever character's
@@ -183,6 +245,9 @@ function Alts.Write(silent, touch)
 		return true
 	end
 	local info = Compat.GetPlayerInfo()
+	if type(e) ~= "table" then
+		e = not Compat.RealmName() and claim(store, key, name) or nil
+	end
 	if type(e) ~= "table" then
 		-- Filed under the first name alone before (0.3.3): moved to this key.
 		local old = oldKey(key, info)
@@ -386,6 +451,10 @@ local loggedIn = false
 ns.OnLogin(function()
 	loggedIn = true
 	if not Alts.Enabled() then return end
+	-- The move to the realm-less key, at once: until then the old entry would
+	-- read as another character (Materials' alts counts).
+	local key, name = playerKey()
+	if key and not Compat.RealmName() and type(chars()[key]) ~= "table" then claim(chars(), key, name) end
 	if C_Timer and C_Timer.After then schedule(LOGIN_DELAY) else now() end
 	start()
 end)

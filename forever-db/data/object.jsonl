@@ -6555,6 +6555,7 @@
 {"id":175752,"name":"The New Horde","type":9}
 {"id":175753,"name":"War of the Spider","type":9}
 {"id":175754,"name":"Kel'Thuzad and the Forming of the Scourge","type":9}
+{"id":175755,"name":"The Alliance Splinters"}
 {"id":175756,"name":"The Scourge of Lordaeron","type":9}
 {"id":175757,"name":"Sunwell - The Fall of Quel'Thalas","type":9}
 {"id":175758,"name":"Archimonde's Return and the Flight to Kalimdor","type":9}
@@ -10105,7 +10106,15 @@
 {"id":300601,"name":"Door"}
 {"id":375544,"name":"Wooden Figurine"}
 {"id":375548,"name":"Unlit Torch"}
+{"id":375878,"name":"Sandpile"}
+{"id":386675,"name":"Buried Treasure"}
 {"id":386691,"name":"Library Book","type":3}
+{"id":386759,"name":"Library Book"}
+{"id":386777,"name":"Dusty Chest"}
+{"id":387466,"name":"Rusty Lockbox"}
+{"id":387477,"name":"Defias Stashbox"}
+{"id":392029,"name":"Swordsman's Reward"}
+{"id":397987,"name":"Kobold Stashbox"}
 {"id":400001,"name":"Unlit Torch"}
 {"id":400002,"name":"Archaeologist's Cart"}
 {"id":400006,"name":"Feralas Ahi Fishing Location"}
@@ -10113,40 +10122,256 @@
 {"id":400008,"name":"Sar'theris Striker Fishing Location"}
 {"id":400009,"name":"Savage Coast Blue Sailfin Fishing Location"}
 {"id":400010,"name":"Moonwell"}
+{"id":403041,"name":"Blasting Supplies","type":10}
+{"id":403102,"name":"Bristleback Loot Cache"}
+{"id":403105,"name":"Windfury Cone","type":10}
+{"id":404352,"name":"Artifact Storage"}
+{"id":404402,"name":"Blooming Satyrweed"}
+{"id":404433,"name":"Lunar Chest"}
+{"id":404695,"name":"Waterlogged Stashbox"}
+{"id":404830,"name":"Dusty Chest"}
+{"id":404911,"name":"Hidden Cache"}
 {"id":404941,"name":"Relic Coffer"}
+{"id":405149,"name":"Mural of Ta'zo","type":10}
 {"id":405201,"name":"Shipwreck Cache"}
+{"id":405628,"name":"Frostmane Loot Cache"}
+{"id":405633,"name":"Rockjaw Footlocker"}
 {"id":405879,"name":"Apothecary Society Primer","type":3}
+{"id":405946,"name":"Dusty Chest"}
+{"id":406006,"name":"Idol"}
+{"id":406736,"name":"Lost Stash"}
 {"id":406918,"name":"Messenger Bag"}
+{"id":407347,"name":"Altar of Thorns"}
+{"id":407352,"name":"Gnarlpine Stash"}
+{"id":407505,"name":"Etched Carving"}
+{"id":407510,"name":"Etched Carving"}
+{"id":407566,"name":"Goblin Tome","type":3}
+{"id":407731,"name":"Stonemason's Toolbox"}
+{"id":407734,"name":"Gnarlpine Cache"}
+{"id":407844,"name":"Libram of Blessings"}
+{"id":407850,"name":"Sunken Reliquary"}
+{"id":407918,"name":"Empty Trophy Display"}
+{"id":407983,"name":"Pile of Stolen Books"}
+{"id":408004,"name":"Tangled Blight Pile"}
+{"id":408014,"name":"Gnomish Tome"}
+{"id":408802,"name":"Gnarled Harpoon"}
+{"id":409131,"name":"Rusty Chest"}
+{"id":409289,"name":"Strange Orb"}
 {"id":409311,"name":"Spear of Mannoroth"}
 {"id":409315,"name":"Shattered Orb"}
+{"id":409496,"name":"Scrolls","type":3}
+{"id":409501,"name":"Dalaran Digest"}
+{"id":409562,"name":"Spellbook"}
+{"id":409692,"name":"Scrolls","type":3}
+{"id":409700,"name":"Manual","type":3}
+{"id":409711,"name":"Scrolls","type":3}
+{"id":409717,"name":"Scrolls"}
+{"id":409731,"name":"Scrolls"}
+{"id":409735,"name":"Spellbook"}
+{"id":409754,"name":"Wall-Mounted Shield"}
+{"id":409758,"name":"Discarded Helm"}
+{"id":410034,"name":"Carved Stone"}
+{"id":410082,"name":"Carved Stone"}
+{"id":410158,"name":"Altar of Reverence"}
+{"id":410168,"name":"Voodoo Pile"}
+{"id":410220,"name":"Gift of the Wisp"}
+{"id":410299,"name":"Arcane Secrets","type":3}
 {"id":410369,"name":"Dead Drop","type":2}
+{"id":410528,"name":"Ornamented Chest"}
+{"id":410779,"name":"Offering Box"}
 {"id":410847,"name":"Rusty Safe"}
+{"id":411348,"name":"Dusty Coffer"}
+{"id":411674,"name":"Prophecy of a King's Demise"}
+{"id":411710,"name":"Demonic Reliquary"}
+{"id":411715,"name":"Bough of Altek"}
+{"id":412147,"name":"Supply Locker"}
+{"id":412198,"name":"Stone Coffer"}
+{"id":412224,"name":"Dark Ritual Stone"}
+{"id":412261,"name":"Padlocked Reliquary"}
 {"id":414197,"name":"Bough of Shadows"}
+{"id":414532,"name":"Clliffspring Chest"}
+{"id":414624,"name":"Lighthouse Stash"}
+{"id":414646,"name":"Remnant"}
+{"id":414663,"name":"Shatterspear Idol"}
+{"id":414713,"name":"Storage Locker"}
 {"id":415106,"name":"Burned-Out Remains"}
 {"id":415107,"name":"Burned-Out Remains"}
+{"id":415614,"name":"Mysterious Formulae"}
 {"id":417072,"name":"Nailed Plank"}
+{"id":417353,"name":"Extinguished Campfire"}
+{"id":418855,"name":"Illari's Loot Cache"}
+{"id":420054,"name":"Rowboat"}
 {"id":421526,"name":"Research Notes"}
+{"id":421568,"name":"Weathered Cache"}
+{"id":422483,"name":"The Salvagematic 9000"}
+{"id":422896,"name":"Tear of Theradras"}
+{"id":422902,"name":"Crystal Waters of Lake Elune'ara"}
 {"id":422911,"name":"Sealed Barrel"}
+{"id":422919,"name":"Tapped Shadowforge Keg"}
+{"id":423569,"name":"Dropped Pouch"}
+{"id":423695,"name":"Libram of Deliverance"}
+{"id":423703,"name":"Broken Warhammer"}
+{"id":423841,"name":"Frozen Remains"}
+{"id":423895,"name":"Scrolls"}
+{"id":423896,"name":"Manual"}
+{"id":423897,"name":"Scrolls"}
+{"id":423898,"name":"Mysterious Book"}
+{"id":423899,"name":"Scrolls"}
+{"id":423900,"name":"Waterlogged Book"}
 {"id":423901,"name":"Book"}
+{"id":423920,"name":"Warrior's Bounty"}
+{"id":423926,"name":"Conspicuous Cache"}
+{"id":423930,"name":"Sizable Stolen Strongbox"}
+{"id":424002,"name":"Kurzen Supply Crate"}
 {"id":424005,"name":"Pocket Litter"}
 {"id":424006,"name":"Hastily Rolled-Up Satchel"}
 {"id":424007,"name":"Carved Figurine"}
 {"id":424010,"name":"Nailed Plank"}
 {"id":424012,"name":"Mound of Dirt"}
+{"id":424073,"name":"Wondergear Worldporter"}
 {"id":424082,"name":"Firepit"}
+{"id":424110,"name":"Swordsman's Reward"}
+{"id":424264,"name":"Grave"}
+{"id":424265,"name":"Grave"}
+{"id":424266,"name":"Grave"}
+{"id":424267,"name":"Grave"}
+{"id":424373,"name":"Remnant"}
+{"id":425896,"name":"Archivists of the Monastery"}
+{"id":425897,"name":"Archivists of the Monastery"}
+{"id":425898,"name":"Archivists of the Monastery"}
+{"id":425899,"name":"Archivists of the Monastery"}
+{"id":428144,"name":"Fount"}
+{"id":428228,"name":"Conspicuous Cache"}
+{"id":433066,"name":"Sandfury Cache"}
+{"id":433067,"name":"Clay Vessel"}
+{"id":433591,"name":"Shallow Grave"}
+{"id":433593,"name":"Zum'Rah's Satchel"}
+{"id":433594,"name":"Antu'Sul's Satchel"}
+{"id":433596,"name":"Spellbound War Chest"}
+{"id":439557,"name":"Nightmare Moss"}
+{"id":439558,"name":"Cold Iron Deposit"}
+{"id":439627,"name":"Dreamroot"}
 {"id":439628,"name":"Fool's Gold Vein"}
 {"id":439762,"name":"Star Lotus"}
 {"id":439778,"name":"Starsilver Vein"}
 {"id":439810,"name":"Moonroot"}
 {"id":439815,"name":"Greater Moonstone Formation"}
+{"id":441061,"name":"Weathered Etching"}
+{"id":441113,"name":"Ogre Magi Text"}
+{"id":441114,"name":"Mysterious Box"}
+{"id":441119,"name":"Unhatched Green Dragon Egg"}
+{"id":441124,"name":"Dream-Touched Dragon Egg"}
+{"id":441128,"name":"Vibrating Crate"}
+{"id":441129,"name":"Azsharan Prophecy"}
+{"id":441133,"name":"Star-Touched Dragon Egg"}
+{"id":441140,"name":"Humming Box"}
+{"id":441141,"name":"Dreampearl"}
+{"id":441222,"name":"Grave Mound"}
+{"id":441247,"name":"Book"}
 {"id":441248,"name":"Book"}
+{"id":441249,"name":"Book"}
+{"id":441250,"name":"Book"}
+{"id":441251,"name":"Book"}
+{"id":441252,"name":"Book"}
+{"id":441253,"name":"Book"}
+{"id":441254,"name":"Book"}
+{"id":441310,"name":"Moonglow Dragon Egg"}
+{"id":441312,"name":"Mad Keeper's Notes"}
+{"id":441314,"name":"Harpy Screed"}
+{"id":441865,"name":"Traveller's Knapsack"}
+{"id":441870,"name":"Satyrweed Bramble"}
+{"id":441909,"name":"Head of the Obliterator"}
+{"id":441912,"name":"Giant Golem Foot"}
+{"id":441913,"name":"Giant Golem Foot"}
+{"id":441914,"name":"Giant Golem Arm"}
+{"id":441915,"name":"Giant Golem Arm"}
+{"id":441946,"name":"Shrine of the Moon"}
+{"id":441947,"name":"Shrine of the Beast"}
+{"id":441948,"name":"Shrine of the Warden"}
+{"id":442397,"name":"Treasure of the Bat"}
+{"id":442398,"name":"Treasure of the Bat"}
+{"id":442404,"name":"Stormcrow Egg"}
+{"id":442688,"name":"Old Crate"}
+{"id":442728,"name":"Chest"}
+{"id":442742,"name":"Box of Scarlet Dye"}
+{"id":443727,"name":"Grimtotem Chest"}
+{"id":443728,"name":"Woodpaw Bag"}
+{"id":445036,"name":"Extraplanar Eye"}
+{"id":445037,"name":"Extraplanar Eye"}
+{"id":445039,"name":"Extraplanar Eye"}
+{"id":445040,"name":"Extraplanar Eye"}
+{"id":445041,"name":"Extraplanar Eye"}
+{"id":445042,"name":"Extraplanar Eye"}
+{"id":445044,"name":"Extraplanar Eye"}
+{"id":446468,"name":"Wondergear Worldporter"}
+{"id":447821,"name":"Torn Scroll"}
+{"id":448042,"name":"Idol of Hakkar"}
+{"id":454487,"name":"Monument to Grom Hellscream"}
+{"id":455023,"name":"Regurgitated Skeleton"}
+{"id":455812,"name":"Squire Cuthbert's Sword"}
+{"id":456674,"name":"Altar of Reverence"}
+{"id":456682,"name":"Half-Buried Mech"}
+{"id":456685,"name":"Access Hatch"}
+{"id":456775,"name":"Remnant"}
+{"id":456814,"name":"Vertically Composited Patch Hampler"}
+{"id":456815,"name":"Brass-fitted Flam-Tamp Flange"}
+{"id":456883,"name":"Adon's Trunk"}
+{"id":457088,"name":"Advanced Swordplay"}
+{"id":457089,"name":"The Shadow Connection"}
+{"id":457090,"name":"Famous (and Infamous) Rangers of Azeroth"}
+{"id":457091,"name":"Chen's Training Manual"}
+{"id":457092,"name":"The Fury of Stormrage"}
+{"id":457093,"name":"Blunt Justice: A Dwarf's Tale"}
+{"id":457094,"name":"The True Nature of the Light"}
+{"id":457095,"name":"Elements for Dummies Volume I: Frost"}
+{"id":457096,"name":"Be First: A Brawler's Guide to Boxing"}
+{"id":457097,"name":"Elements for Dummies Volume II: Fire"}
+{"id":457098,"name":"Finding Your Inner Feline: A Guide to Modern Druidism"}
+{"id":457100,"name":"Renzik's Thoughts on \"Fair\" Fighting"}
+{"id":457101,"name":"The Rites of Mak'Gora"}
+{"id":457102,"name":"Elements for Dummies Volume III: Arcane"}
 {"id":457387,"name":"Dwarven Heirloom","type":3}
+{"id":457389,"name":"Family Records"}
+{"id":457390,"name":"Survivor Journal"}
+{"id":457443,"name":"Scarlet Ledger"}
+{"id":459259,"name":"Mech Arm"}
+{"id":459388,"name":"Artifact Cache"}
 {"id":460001,"name":"Elemental Convergence"}
 {"id":460002,"name":"Ley Line"}
 {"id":460003,"name":"Basic Campfire"}
-{"id":460004,"name":"Mountaineer Cornelius"}
+{"id":460004,"name":"Gatehouse Door"}
+{"id":460005,"name":"Jansen Stead Water Well"}
+{"id":460006,"name":"Molsen Farm Water Well"}
+{"id":460007,"name":"Othmar's Head"}
+{"id":461632,"name":"Marked Crate"}
+{"id":461633,"name":"Belavus' Safe Box"}
+{"id":461639,"name":"Orthas' Hammer"}
+{"id":462233,"name":"Shimmering Molten Crag"}
+{"id":462236,"name":"Mysterious Chest"}
+{"id":463206,"name":"Book"}
+{"id":463207,"name":"Book"}
+{"id":463208,"name":"Book"}
+{"id":463209,"name":"Book"}
+{"id":463211,"name":"Book"}
+{"id":463212,"name":"Book"}
+{"id":463213,"name":"Book"}
+{"id":463214,"name":"Book"}
+{"id":463540,"name":"Scarlet Toolbox"}
+{"id":464128,"name":"Gift of the Wisp"}
+{"id":467315,"name":"Old Campsite"}
+{"id":469796,"name":"Campsite"}
+{"id":489943,"name":"Shallow Grave"}
+{"id":495500,"name":"Shadowflame Cache"}
+{"id":495503,"name":"Chromatic Hoard"}
+{"id":495505,"name":"Favored Riches"}
+{"id":495577,"name":"Chromatic Stash"}
+{"id":499987,"name":"Spellbook"}
+{"id":499988,"name":"Spellbook"}
+{"id":506307,"name":"Legashi Cauldron"}
+{"id":527828,"name":"Saria's Knapsack"}
 {"id":554626,"name":"Lumber Pile","type":3}
 {"id":556626,"name":"Corpse Laden Boat"}
+{"id":556628,"name":"Syndicate Documents"}
 {"id":556641,"name":"Dusty Shelf"}
 {"id":556646,"name":"Mailbox","type":19}
 {"id":556650,"name":"Decorated Headstone"}
@@ -10179,6 +10404,8 @@
 {"id":570207,"name":"Archmage Khadgar","type":9}
 {"id":573811,"name":"Gravestone"}
 {"id":576179,"name":"Supply Cache","type":3}
+{"id":577959,"name":"Shen'dralar Pylon"}
+{"id":577960,"name":"Shen'dralar Pylon"}
 {"id":578266,"name":"Wind Bridge","type":10}
 {"id":578937,"name":"Ripe Stormapple","type":3}
 {"id":578959,"name":"Flutterfly Dust","type":3}
@@ -10186,20 +10413,29 @@
 {"id":581792,"name":"Detonator"}
 {"id":581820,"name":"Dusty Bedroll","type":10}
 {"id":581822,"name":"Bloodstained Satchel","type":2}
+{"id":581918,"name":"WANTED!"}
 {"id":586726,"name":"Portal To Rohashi Spires","type":22}
+{"id":587338,"name":"Uthek's Staff"}
+{"id":602101,"name":"Centaur Supplies"}
 {"id":602722,"name":"Mailbox"}
+{"id":602735,"name":"Leyline","type":8}
 {"id":610954,"name":"Bounty Available: Vulgara the Insatiable!","type":2}
+{"id":611086,"name":"Connery's Trunk"}
 {"id":612073,"name":"Cookie's Feast"}
 {"id":612088,"name":"Field Guide"}
 {"id":612090,"name":"Fishing Rack"}
 {"id":612091,"name":"Toxin Study"}
 {"id":613238,"name":"Zephyrseed Cone","type":3}
 {"id":613286,"name":"Raw Windstone","type":3}
+{"id":613713,"name":"Evenshade's Journal"}
+{"id":613848,"name":"Battle Cache"}
+{"id":614679,"name":"Crest of Lordaeron","type":3}
 {"id":616466,"name":"Construct Parts","type":3}
 {"id":616467,"name":"Construct Parts","type":3}
 {"id":616468,"name":"Construct Parts","type":3}
 {"id":616860,"name":"Wind-Infused Bough"}
 {"id":616907,"name":"Windstone","type":3}
+{"id":616992,"name":"Elemental Convergence","type":8}
 {"id":617084,"name":"Portal to Valanaar","type":22}
 {"id":617085,"name":"Portal to Valanaar","type":22}
 {"id":617674,"name":"Arvensus Shadowsong","type":3}
@@ -10207,23 +10443,35 @@
 {"id":617704,"name":"Bloody Note","type":10}
 {"id":617839,"name":"Hippogryph Down","type":3}
 {"id":618329,"name":"Construct Parts","type":3}
+{"id":618822,"name":"Ancient Sword"}
 {"id":619450,"name":"Lady's Tear Moss","type":3}
 {"id":619896,"name":"Forgotten Shrine"}
+{"id":621813,"name":"Loose Soil"}
 {"id":623295,"name":"Abandoned Belongings","type":3}
+{"id":625582,"name":"Fuzzle's Treasure"}
 {"id":626718,"name":"Dented Chest","type":3}
 {"id":626752,"name":"Dented Chest","type":3}
+{"id":628948,"name":"WANTED!"}
 {"id":629596,"name":"Snowdrift","type":3}
+{"id":629761,"name":"Painted Hide"}
 {"id":630696,"name":"Dragonmaw Catapult"}
+{"id":630860,"name":"Guild Vault","type":34}
+{"id":630861,"name":"Guild Vault","type":34}
 {"id":630863,"name":"Guild Vault","type":34}
 {"id":630865,"name":"Guild Vault","type":34}
+{"id":630866,"name":"Guild Vault"}
 {"id":630867,"name":"Guild Vault"}
+{"id":630868,"name":"Guild Vault","type":34}
 {"id":630871,"name":"Bottle","type":3}
 {"id":630885,"name":"Bottle","type":3}
+{"id":630887,"name":"Venture Co. Ledger"}
 {"id":631197,"name":"Well"}
 {"id":631299,"name":"Skyborne Portal to Stormwind","type":22}
 {"id":640104,"name":"Sprung Trap"}
 {"id":642320,"name":"Battered Trunk"}
+{"id":642451,"name":"Old Chest"}
 {"id":642744,"name":"Mailbox"}
+{"id":642745,"name":"Mailbox"}
 {"id":644436,"name":"Mailbox","type":19}
 {"id":644437,"name":"Mailbox","type":19}
 {"id":644438,"name":"Mailbox","type":19}
@@ -10234,8 +10482,12 @@
 {"id":644469,"name":"Worm","type":10}
 {"id":644488,"name":"Mailbox","type":19}
 {"id":645153,"name":"Offering Stone","type":2}
+{"id":645164,"name":"WANTED!"}
+{"id":645166,"name":"WANTED!"}
 {"id":649051,"name":"Wanted: Incinerator Gar'im"}
+{"id":649094,"name":"Rock Pile"}
 {"id":649125,"name":"Grave Marker"}
+{"id":650234,"name":"Loose Cog"}
 {"id":650428,"name":"Mailbox","type":19}
 {"id":650518,"name":"The Skull of Tyrannistrasz","type":9}
 {"id":650519,"name":"Fossilized Egg","type":9}
@@ -10252,11 +10504,18 @@
 {"id":650577,"name":"Mailbox","type":19}
 {"id":650593,"name":"Mailbox","type":19}
 {"id":650666,"name":"Mailbox","type":19}
+{"id":651262,"name":"Unmarked Grave"}
+{"id":651409,"name":"Corrupted Growth"}
 {"id":651604,"name":"Mailbox","type":19}
 {"id":652227,"name":"Dwarven Heirloom","type":3}
 {"id":652228,"name":"Dwarven Heirloom","type":3}
 {"id":652323,"name":"Mailbox","type":19}
 {"id":652324,"name":"Mailbox","type":19}
+{"id":652438,"name":"Carving"}
+{"id":652449,"name":"Bone Pile"}
+{"id":654121,"name":"Embroidered Scabbard"}
+{"id":654126,"name":"Weathered Anchor"}
+{"id":654150,"name":"Broken Fishing Basket"}
 {"id":654168,"name":"Skyborne Portal to Dalaran","type":22}
 {"id":654846,"name":"Lost Journal","type":2}
 {"id":654925,"name":"Lost Journal","type":2}
@@ -10271,14 +10530,19 @@
 {"id":656332,"name":"Chunk of Amber"}
 {"id":656333,"name":"Large Chunk of Amber"}
 {"id":656366,"name":"Naxxramas Crystal Fragment","type":3}
+{"id":656399,"name":"Guild Vault","type":34}
 {"id":656700,"name":"Mailbox"}
 {"id":656748,"name":"Mailbox"}
+{"id":656786,"name":"Troll Remains"}
+{"id":656789,"name":"Lost Shipping Crate"}
+{"id":656815,"name":"Old Wardrobe"}
 {"id":657380,"name":"Silverleaf"}
 {"id":657382,"name":"Peacebloom","type":3}
 {"id":657383,"name":"Earthroot"}
 {"id":657385,"name":"Briarthorn"}
 {"id":657386,"name":"Bruiseweed"}
 {"id":657387,"name":"Wild Steelbloom"}
+{"id":657389,"name":"Grave Moss"}
 {"id":657390,"name":"Liferoot"}
 {"id":657394,"name":"Stranglekelp"}
 {"id":657454,"name":"Wilted Peacebloom","type":3}
@@ -10289,6 +10553,11 @@
 {"id":657459,"name":"Mageroyal"}
 {"id":657460,"name":"Briarthorn"}
 {"id":657461,"name":"Bruiseweed"}
+{"id":657726,"name":"Arellas Fireleaf"}
+{"id":657732,"name":"Holia Sunshield"}
+{"id":658115,"name":"Lost Shipping Crate"}
+{"id":658116,"name":"Lost Shipping Crate"}
+{"id":658117,"name":"Lost Shipping Crate"}
 {"id":658827,"name":"Mailbox","type":19}
 {"id":658836,"name":"On the Shal'nan","type":10}
 {"id":658837,"name":"The Shal'nan's Abdication","type":10}
@@ -10328,6 +10597,7 @@
 {"id":660848,"name":"Kuramaa's Stump","type":10}
 {"id":660930,"name":"Pile of Complicated Parts"}
 {"id":660964,"name":"Misplaced Packages","type":2}
+{"id":660984,"name":"Fel-Tainted Journal"}
 {"id":660999,"name":"Mysterious Letter"}
 {"id":661092,"name":"Speargrass","type":3}
 {"id":661093,"name":"Cattail","type":3}
@@ -10335,6 +10605,7 @@
 {"id":661448,"name":"Smooth Boulder","type":3}
 {"id":661449,"name":"Smooth Boulder","type":3}
 {"id":661516,"name":"Thoroughly Scavenged Supplies"}
+{"id":661778,"name":"Statue of Malorne"}
 {"id":664122,"name":"Gozwin's Mechanic's Log","type":3}
 {"id":665270,"name":"Purple Berry Bush"}
 {"id":665282,"name":"Excavation Tools"}
@@ -10344,6 +10615,7 @@
 {"id":667364,"name":"Dried Mirkweed Pile","type":3}
 {"id":667573,"name":"Knights of the Brotherhood"}
 {"id":667574,"name":"Fern Crimsonleaf"}
+{"id":668183,"name":"Argent Wayfinder"}
 {"id":668482,"name":"Gnarlpine Totem","type":3}
 {"id":668493,"name":"Gnarlpine Totem","type":3}
 {"id":668544,"name":"A Wartorn Land and The Brotherhood"}
@@ -10358,6 +10630,7 @@
 {"id":672330,"name":"Dragonmaw Armaments"}
 {"id":672508,"name":"Flintfire's Shipment","type":3}
 {"id":672518,"name":"Damaged Blue Crystal"}
+{"id":672525,"name":"Guild Vault","type":34}
 {"id":672821,"name":"Relic of the Fang"}
 {"id":673085,"name":"Tarantula Egg"}
 {"id":673093,"name":"Relic of the Claw"}
@@ -10370,6 +10643,7 @@
 {"id":673390,"name":"Weapon Rack"}
 {"id":673394,"name":"Great Cat Spirit Statue"}
 {"id":673399,"name":"Stolen Weapon"}
+{"id":673431,"name":"Kurothel's Knapsack"}
 {"id":673474,"name":"Treaty of Understanding","type":2}
 {"id":673476,"name":"Abandoned Training Weapon","type":3}
 {"id":673494,"name":"Shredder Operation Instructions"}
@@ -10380,6 +10654,10 @@
 {"id":674068,"name":"Burnt Page"}
 {"id":674124,"name":"Traveler's Cache"}
 {"id":674126,"name":"Hidden Stash"}
+{"id":676051,"name":"Ancient Heirloom"}
+{"id":676059,"name":"Ancient Hilt"}
+{"id":676349,"name":"Narassin's Strongbox"}
+{"id":677339,"name":"Letter from Dragha"}
 {"id":678414,"name":"Torn Page","type":9}
 {"id":678602,"name":"Book","type":9}
 {"id":688047,"name":"Lady Isolde Brightlance"}
@@ -10407,6 +10685,7 @@
 {"id":696271,"name":"Mailbox","type":19}
 {"id":696272,"name":"Mailbox","type":19}
 {"id":696273,"name":"Mailbox","type":19}
+{"id":696274,"name":"Mailbox"}
 {"id":696275,"name":"Mailbox","type":19}
 {"id":696276,"name":"Mailbox","type":19}
 {"id":696277,"name":"Mailbox","type":19}
@@ -10432,6 +10711,23 @@
 {"id":701788,"name":"Knife","type":3}
 {"id":702301,"name":"A Small Pack"}
 {"id":703257,"name":"Mailbox","type":19}
+{"id":703896,"name":"Mailbox"}
 {"id":706178,"name":"Mausoleum Trigger","type":10}
+{"id":706187,"name":"Tear of Tilloa"}
+{"id":707245,"name":"Wanted"}
+{"id":707249,"name":"Wanted"}
+{"id":708078,"name":"Fragmented Sentry"}
+{"id":710894,"name":"Bookshelf"}
+{"id":716301,"name":"Portal To Dalaran"}
+{"id":716302,"name":"Portal to Thunder Bluff"}
+{"id":716304,"name":"Portal to Valanaar"}
+{"id":716522,"name":"Portal To Auberdine"}
+{"id":716523,"name":"Portal To Stormwind"}
+{"id":716524,"name":"Portal To Southshore"}
+{"id":716525,"name":"Portal To Theramore"}
+{"id":716526,"name":"Portal To Menethil"}
+{"id":716527,"name":"Portal To Undercity"}
+{"id":716528,"name":"Portal To Orgrimmar"}
+{"id":716529,"name":"Portal To Grom'gol"}
 {"id":987658,"name":"Equipment Crates"}
 {"id":3000491,"name":"Kroshius' Remains"}

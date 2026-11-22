@@ -523,11 +523,13 @@ W.SimpleTip, W.HideTip = simpleTip, hideTip
 
 -- The game's own item and spell tooltips on Polestar's buttons (reward
 -- tiles, loot tiles, gear picks, rare drops), and their modified clicks.
---   W.ItemTip(owner, itemID, extra?, place?)   -- extra(tooltip): lines after the game's
+--   W.ItemTip(owner, item, extra?, place?)     -- extra(tooltip): lines after the game's
 --   W.SpellTip(owner, spellID, extra?, place?) -- place(tooltip): anchors it (default: right of owner)
---   W.ItemClick(itemID) -> handled     -- Shift links, Ctrl tries on, Alt guides
+--   W.ItemClick(item) -> handled       -- Shift links, Ctrl tries on, Alt guides
 --   W.SpellClick(spellID) -> handled   -- Shift links
 --   W.PrefetchItem(itemID), W.PrefetchSpell(spellID)
+-- item: an itemID, or the link of a copy in the bags (its random suffix and
+-- enchant are that copy's).
 -- An item or spell the client has not cached yet shows "Retrieving item
 -- information" and the client's own refresh does not reliably redraw it, so
 -- the tooltip is set again when GET_ITEM_INFO_RECEIVED / SPELL_DATA_LOAD_RESULT
@@ -536,10 +538,11 @@ local gameTip -- { owner, kind, id, extra, place } of the tooltip last set here
 
 local function setGameTip(owner, kind, id, extra, place)
 	local tip = GameTooltip
-	if not (tip and owner and type(id) == "number") then return end
+	local link = kind == "item" and type(id) == "string" and id or nil
+	if not (tip and owner and (link or type(id) == "number")) then return end
 	local C = ns.Compat
 	if kind == "item" then
-		if C.RequestItem then C.RequestItem(id) end
+		if not link and C.RequestItem then C.RequestItem(id) end
 	elseif not tip.SetSpellByID then
 		return
 	elseif C.RequestSpell then
@@ -550,7 +553,7 @@ local function setGameTip(owner, kind, id, extra, place)
 		tip:ClearAllPoints()
 		place(tip)
 	end
-	if kind == "item" then tip:SetHyperlink("item:" .. id) else tip:SetSpellByID(id) end
+	if kind == "item" then tip:SetHyperlink(link or ("item:" .. id)) else tip:SetSpellByID(id) end
 	if extra then extra(tip) end
 	tip:Show()
 	gameTip = { owner = owner, kind = kind, id = id, extra = extra, place = place }
@@ -586,15 +589,15 @@ function W.PrefetchSpell(spellID) if ns.Compat.RequestSpell then ns.Compat.Reque
 -- HandleModifiedItemClick (Shift: chat link, Ctrl: dressing room), whose
 -- post-hook (Core/Hooks.lua) runs Polestar's Alt-click guide. An item not
 -- cached yet has no link: it is requested, and the Alt-click still guides.
-function W.ItemClick(itemID)
-	if type(itemID) ~= "number" or not (IsModifiedClick and IsModifiedClick()) then return false end
+function W.ItemClick(item)
+	if not (type(item) == "number" or type(item) == "string") or not (IsModifiedClick and IsModifiedClick()) then return false end
 	local C = ns.Compat
-	local link = C.ItemLink and C.ItemLink(itemID)
+	local link = type(item) == "string" and item or (C.ItemLink and C.ItemLink(item))
 	if link and HandleModifiedItemClick then
 		HandleModifiedItemClick(link)
-	else
-		if C.RequestItem then C.RequestItem(itemID) end
-		if ns.Hooks and ns.Hooks.OnItemClick then ns.Hooks.OnItemClick("item:" .. itemID) end
+	elseif type(item) == "number" then
+		if C.RequestItem then C.RequestItem(item) end
+		if ns.Hooks and ns.Hooks.OnItemClick then ns.Hooks.OnItemClick("item:" .. item) end
 	end
 	return true
 end
@@ -2236,9 +2239,10 @@ local function menuRow(i)
 end
 
 -- A list longer than MENU_MAX rows scrolls in an area under a filter box
--- that narrows the rows to those holding what is typed (the box takes the
--- keys as the list opens): Enter picks the first one left, Escape empties
--- the box, then closes the list.
+-- that narrows the rows to those holding what is typed. The box takes the
+-- keys only once clicked, never as the list opens (#3371: a player who
+-- opened a menu on the run typed "wwww" into it): Enter picks the first one
+-- left, Escape empties the box, then closes the list.
 local MENU_MAX, MENU_FILTER = 12, 26
 local layoutMenu -- (): the open list's rows laid out anew (below)
 
@@ -2272,6 +2276,7 @@ local function menuLong()
 			if r:IsShown() and r.psItem and not r.psItem.disabled then return menuRowClick(r) end
 		end
 	end)
+	f:SetScript("OnMouseDown", function(self) self:SetFocus() end)
 	f:SetScript("OnEditFocusGained", function(self) Theme.SetFocused(self, true) end)
 	f:SetScript("OnEditFocusLost", function(self) Theme.SetFocused(self, false) end)
 	menu.Filter = f
@@ -2445,9 +2450,6 @@ function W.ShowMenu(anchor, items, opts)
 	Anim.Anchor(menu, point, anchor, relPoint, opts.x or 0, opts.y or -4)
 	catcher:Show()
 	menu:Show()
-	-- A long list's filter takes the keys at once (not while a gamepad
-	-- drives: its buttons would go to the box).
-	if long and not (ns.Gamepad and ns.Gamepad.IsActive and ns.Gamepad.IsActive()) then menu.Filter:SetFocus() end
 	-- Popovers grow out of their trigger: a short fade with a 4px drop.
 	Anim.To(menu, "alpha", 0, 1, Anim.FAST, "out")
 	Anim.To(menu, "offset", 4, 0, Anim.FAST, "out")
