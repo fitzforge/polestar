@@ -606,7 +606,8 @@ fn elite_split(data: &Data, cands: &[V], sides: &V, rares: bool) -> Option<(Vec<
 	}
 }
 
-/// Droppers near a quest's level crowded out by ones far above it. -> (near, above) | None
+/// Droppers near a quest's level crowded out by ones far above it, or named beside ones far above it (resolve.js
+/// levelSplit, #2744). -> (near, above) | None
 fn level_split(data: &Data, cands: &[V], qlvl: f64) -> Option<(Vec<V>, Vec<V>)> {
 	if !(qlvl > 0.0) || !cands.iter().any(|c| c.get("chance").is_num()) {
 		return None;
@@ -632,7 +633,7 @@ fn level_split(data: &Data, cands: &[V], qlvl: f64) -> Option<(Vec<V>, Vec<V>)> 
 	}
 	let all = likely(cands);
 	let near = likely(&rest);
-	if near.iter().any(|c| !includes(&all, c)) {
+	if near.iter().any(|c| !includes(&all, c)) || above.iter().any(|c| includes(&all, c)) {
 		Some((near, above))
 	} else {
 		None
