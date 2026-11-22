@@ -244,6 +244,12 @@ const GLYPHS = {
 	),
 	search: union(ring(10.5, 10.5, 6, 2.4), line(15, 15, 20.2, 20.2, 2.8)),
 	lock: union(box(12, 15.4, 7.2, 5.6, 1.4), arc(12, 9, 4.2, -180, 0, 2.3), line(7.8, 9, 7.8, 10.4, 2.3), line(16.2, 9, 16.2, 10.4, 2.3)),
+	// A link to another page (the settings' cross-link rows): two chain
+	// links, overlapping, on the diagonal.
+	link: rotate(union(
+		subtract(box(8, 12, 5.6, 3.6, 3.6), box(8, 12, 3.6, 1.6, 1.6)),
+		subtract(box(16, 12, 5.6, 3.6, 3.6), box(16, 12, 3.6, 1.6, 1.6)),
+	), -45),
 	menu: union(dot(5.5, 12, 2), dot(12, 12, 2), dot(18.5, 12, 2)),
 	skip: union(poly([[4.5, 5.5], [15, 12], [4.5, 18.5]]), line(18.5, 6, 18.5, 18, 2.6)),
 	// Report a problem: a beetle from above, its shell split down the back,

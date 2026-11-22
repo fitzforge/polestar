@@ -2345,7 +2345,7 @@ fn in_dungeons_and_battlegrounds_what_goes_with_the_guide_goes_while_it_waits_an
 // hide (Keep visible, or the window off anyway). Showing the window takes the notice down.
 #[test]
 fn in_dungeons_and_battlegrounds_the_first_hide_on_the_account_shows_once_how_to_show_it() {
-	let line = "The guide window hides in dungeons and battlegrounds. Type /polestar to show it. Change it in Options > Guide > Window.";
+	let line = "The guide window hides in dungeons and battlegrounds. Type /polestar to show it. Change it in Options > Guide window.";
 	let out = run(&[
 		ENTER,
 		r#"

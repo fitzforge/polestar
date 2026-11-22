@@ -124,12 +124,12 @@ fn a_reset_offers_one_undo_in_the_footer_for_a_while() {
 		-- Already at its default: nothing to undo.
 		ctl("ui.combat"):Click("RightButton")
 		local idle = chip:IsShown()
-		-- A section's Reset (three settings or fewer: at once).
+		-- A section's Reset (three settings or fewer: at once), the guide window's Behaviour.
 		Polestar.Set("ui.launcher", false)
 		Polestar.Set("ui.combat", "hide")
 		Polestar.Set("ui.instance", "show")
 		ctl("ui.combat")
-		cardOf("Show and hide").Reset:Click()
+		cardOf("Behaviour").Reset:Click()
 		local section = { Polestar.Get("ui.combat"), Polestar.Get("ui.instance"), chip.Text:GetText() }
 		stub.advance(11)
 		local gone = { chip:IsShown(), O.Undo(), Polestar.Get("ui.combat") }
@@ -299,11 +299,18 @@ fn a_dragged_slider_lands_on_its_default_zero_or_100_percent_when_near_it() {
 #[test]
 fn the_settings_scroll_glides_on_whole_pixels_and_the_sidebar_nudges_to_its_bottom() {
 	let out = run(r#"
-		Polestar.RegisterDefaults("many", { on = true })
+		-- A page long enough to glide through: forty lines of switches.
+		local rows, defaults = {}, { on = true }
+		for i = 1, 80 do
+			defaults["row" .. i] = true
+			rows[i] = { kind = "toggle", key = "many.row" .. i, label = "Row " .. i }
+		end
+		Polestar.RegisterDefaults("many", defaults)
+		Polestar.RegisterOptions({ page = "Long page", key = "longpage", order = 60, controls = rows })
 		for i = 1, 20 do
 			Polestar.RegisterOptions({ page = "Module " .. i, order = 60 + i, controls = { { kind = "toggle", key = "many.on", label = "On" } } })
 		end
-		UI.ShowOptions("guide")
+		UI.ShowOptions("longpage")
 		stub.advance(1)
 		local F = PolestarOptions
 		local sf = F.Scroll
