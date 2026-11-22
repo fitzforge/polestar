@@ -316,8 +316,8 @@ fn every_shipped_translation_with_positional_arguments_renders_with_its_english_
 local locales, files, count, bad = {{ {locales} }}, {{ {files} }}, 0, {{}}
 for i, loc in ipairs(locales) do
 	local L = {{}}
-	Polestar = {{ L = L }}
 	function GetLocale() return loc end
+	Polestar = {{ L = L, Names = {{ Language = GetLocale }} }}
 	dofile(files[i])
 	for key, text in pairs(L) do
 		if type(text) == "string" and text:find("%%%d+%$") then
