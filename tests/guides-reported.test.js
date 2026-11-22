@@ -8145,14 +8145,16 @@ test('A Meal Served Cold (30-minute limit) is in no leveling guide', { skip }, (
 });
 
 // Flow re-order (2026-11-07): Alliance Desolace made the Scorpashi venom a stop of its own at Kormek's Hut
-// after the Kodo Graveyard, then walked back to the graveyard for the last hides.
+// after the Kodo Graveyard, then walked back to the graveyard for the last hides. Since #3385 the hides and venom are
+// the step right after the taming (a skip touches one quest only), still at the graveyard on the same visit.
 test('forever/alliance/30-40/02-desolace.guide: flow re-order: the Scorpashi venom with the kodos at the Kodo Graveyard, not a Kormek\'s Hut stop of its own', { skip }, () => {
 	const list = goals('forever/alliance/30-40/02-desolace.guide');
-	const kodos = list.find(({ goal }) => goal.quest === 5561 && ['kill', 'talk', 'use'].includes(goal.t)); // #1458: a talk at Smeed's camp, not a kill
+	const kodos = list.filter(({ goal }) => goal.quest === 5561 && ['kill', 'talk', 'use'].includes(goal.t)).pop(); // #1458: a talk at Smeed's camp, not a kill
 	const venom = list.filter(({ goal }) => goal.t === 'collect' && goal.item === 6248);
 	const hides = list.filter(({ goal }) => goal.t === 'collect' && goal.item === 6249);
-	assert.ok(kodos && venom.length === 1 && venom[0].s === kodos.s, 'the venom on the Kodo Graveyard step');
-	assert.ok(hides.length === 1 && hides[0].s === kodos.s, 'the hides there, once');
+	assert.ok(kodos && venom.length === 1 && venom[0].s === kodos.s + 1, 'the venom on the Kodo Graveyard step right after the taming');
+	assert.match(venom[0].step.title, /^Kodo Graveyard/, 'at the graveyard');
+	assert.ok(hides.length === 1 && hides[0].s === venom[0].s, 'the hides there, once');
 });
 
 // Route audit (2026-11-20): Highway Robbery's campfire lies about 200 yards north of the Kodo Bones, its hand-in is
