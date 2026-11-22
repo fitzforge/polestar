@@ -1,7 +1,7 @@
 'use strict';
 // The window is called "Settings" in every language: no English string the
 // addon shows names it "Options". The game's own Options menu keeps its name
-// (the gamepad switch, the key bindings, the gamepad's Options button).
+// (the gamepad switch, the key bindings, the gamepad's Options button; #2762).
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');

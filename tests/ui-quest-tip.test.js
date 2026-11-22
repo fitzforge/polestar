@@ -93,7 +93,8 @@ emit({ lines = GameTooltip.lines, owned = GameTooltip:GetOwner() == r })`);
 });
 
 // What a quest is worth (RoutePlan.Worth), from what the route's sums read: the
-// Codex's XP against the level's, a loot's drop chance, grey for the level.
+// Codex's XP against the level's, a loot's drop chance, grey for the level
+// (#2637).
 function worth(codex, script) {
 	return run(`local C = Polestar.Compat
 C.GetPlayerInfo = function() return { level = 20 } end

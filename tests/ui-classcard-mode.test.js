@@ -2,7 +2,8 @@
 // The class quest card's Show setting (toasts.classcard.mode,
 // addon/Polestar/UI/ClassCard.lua): "full" is the whole card (compact with
 // the window), "compact" a smaller one with no trip or note, "off" no card:
-// the accept is then no longer folded into it and reads as a row of its own.
+// the accept is then no longer folded into it and reads as a row of its own
+// (#2483).
 
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
