@@ -101,7 +101,7 @@ return {
 
 	-- Step 16: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["The middle of {zone:1454}"] = "",
+	["The middle of {zone:1454}"] = "{zone:1454} 중앙",
 
 	-- Step 18: Riding at 40
 	["Riding at 40"] = "40레벨 탈것 타기",

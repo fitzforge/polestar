@@ -42,7 +42,7 @@ return {
 	-- Step 10: Paladin trainer
 	["Paladin trainer"] = "성기사 상급자",
 	-- {npc:246152} Shari Stilwell · {zone:1420} Tirisfal Glades · {zone:1454} Orgrimmar
-	["{npc:246152} in {zone:1420}; {zone:1454} has no paladin trainer"] = "",
+	["{npc:246152} in {zone:1420}; {zone:1454} has no paladin trainer"] = "{npc:246152}은(는) {zone:1420}에 있습니다. {zone:1454}에는 성전사 교관이 없습니다.",
 
 	-- Step 11: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar
@@ -50,7 +50,7 @@ return {
 
 	-- Step 12: Orgrimmar
 	-- {zone:1454} Orgrimmar
-	["The middle of {zone:1454}"] = "",
+	["The middle of {zone:1454}"] = "{zone:1454} 중앙",
 
 	-- Step 13: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
@@ -64,7 +64,7 @@ return {
 	-- Step 15: Druid trainer
 	["Druid trainer"] = "드루이드 상급자",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
-	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "",
+	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "{npc:3034}은(는) {zone:1412}에 있습니다. {zone:1454}에는 드루이드 교관이 없습니다.",
 
 	-- Step 16: Fly to Splintertree Post
 	-- {area:431} Splintertree Post
@@ -83,7 +83,7 @@ return {
 
 	-- Step 19: Deadwood Village
 	-- {area:1769} Timbermaw Hold
-	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "",
+	["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers."] = "죽은나무 퍼볼그 마을은 성지 바로 남쪽에 있습니다. 죽은나무를 처치할 때마다 {area:1769} 평판도 오르니 머리깃을 보관하세요.",
 
 	-- Step 20: Southern Jaedenar
 	-- {area:1763} Jaedenar

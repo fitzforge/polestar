@@ -108,7 +108,7 @@ return {
 	-- Step 19: Druid trainer
 	["Druid trainer"] = "드루이드 상급자",
 	-- {npc:3034} Sheal Runetotem · {zone:1412} Mulgore · {zone:1454} Orgrimmar
-	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "",
+	["{npc:3034} in {zone:1412}; {zone:1454} has no druid trainer"] = "{npc:3034}은(는) {zone:1412}에 있습니다. {zone:1454}에는 드루이드 교관이 없습니다.",
 
 	-- Step 21: The Binding
 	-- {npc:5875} Gan'rul Bloodeye · {object:172960} Cleft of Shadow · {item:6626} Dogran's Pendant

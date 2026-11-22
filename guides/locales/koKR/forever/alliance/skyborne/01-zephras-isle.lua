@@ -206,7 +206,7 @@ return {
 	["Lariia in {zone:1438}; {area:16624} has no priest trainer"] = "",
 
 	-- Step 45: Shaman trainer
-	["Shaman trainer"] = "",
+	["Shaman trainer"] = "주술사 교관",
 	-- {npc:258098} Eldrun Stormbreaker · {zone:1455} Ironforge · {area:16624} Shen'dar Village
 	["{npc:258098} in {zone:1455}; {area:16624} has no shaman trainer"] = "",
 
