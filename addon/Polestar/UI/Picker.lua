@@ -1394,7 +1394,6 @@ end
 
 local function setPrimary(b, on)
 	b.psPrimary = on
-	Theme.Repaint(b)
 	W.RepaintButton(b)
 end
 

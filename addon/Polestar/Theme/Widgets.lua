@@ -3509,11 +3509,23 @@ local function paintAction()
 end
 
 -- accept: true (the action), false (Cancel) or "alt" (the third choice).
+-- The choice runs while the dialog and the clicked button are still up, then
+-- the dialog closes (unless the choice opened another), as the game's own
+-- popups do (StaticPopup_OnClick): a call that needs the player's hardware
+-- event (ReloadUI) runs inside the click with its button shown. Closed first,
+-- that reload did nothing in the client. A failing choice still closes it;
+-- its error then goes to the game's handler (pcall, then geterrorhandler, as
+-- Theme.lua does), so a handler that raises (the tests') still fails loudly.
+-- W.Modal counts each dialog it opens, so a choice that asks again (even with
+-- the same spec table) keeps the new one up.
+local modalSerial = 0
 local function closeModal(accept)
-	local spec = modal.psSpec
-	modal:Hide()
+	local spec, serial = modal.psSpec, modalSerial
 	local fn = spec and (accept == "alt" and spec.onAlt or accept == true and spec.onAccept or (not accept and spec.onCancel))
-	if fn then fn() end
+	local ok, err = true, nil
+	if fn then ok, err = pcall(fn) end
+	if modalSerial == serial then modal:Hide() end
+	if not ok then geterrorhandler()(err) end
 end
 
 local function buildModal()
@@ -3602,6 +3614,7 @@ function W.Modal(spec)
 	if not modal then buildModal() end
 	W.HideMenu()
 	local box = modal.Box
+	modalSerial = modalSerial + 1
 	modal.psSpec = spec
 	local x = MODAL_PAD
 	box.Icon:SetShown(spec.icon ~= nil)
@@ -4170,7 +4183,6 @@ function W.ShellFooter(f, left, right)
 			else
 				b:SetScript("OnClick", spec.onClick)
 			end
-			Theme.Repaint(b)
 			W.RepaintButton(b)
 			b:ClearAllPoints()
 			if side == "left" then
