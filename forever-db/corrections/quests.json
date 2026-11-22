@@ -21142,5 +21142,34 @@
 			}
 		],
 		"note": "Seeking the Kor Gem (95042, the Forsaken Paladins' Moonsilver Blade chain) is never flagged completed by the game, even once the rest of the chain is done, so the class guide waited at Ulric Frostveil for an accept that could not come. It counts as done once An Underrated Talent (95111), the next quest of the chain, is in the log or handed in (#2465)."
+	},
+	"96959": {
+		"set": {
+			"objectives": [
+				{
+					"type": "object",
+					"id": 656668,
+					"count": 1,
+					"text": "South Bonfire lit"
+				},
+				{
+					"type": "object",
+					"id": 656669,
+					"count": 1,
+					"text": "Southeast Bonfire lit"
+				}
+			]
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest records 96959, builds 1.60.1.70959 and 71037: two game-object objectives, 656668 \"South Bonfire lit\" and 656669 \"Southeast Bonfire lit\""
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: 14 people; the quest log lists South Bonfire lit first, and each line ticks on a cast of spell 1236393 at its bonfire"
+			}
+		],
+		"note": "Blademaster's Bonfires (Mount Hyjal, Dae'gun) is done by lighting two bonfires; our data had no objectives, so the guide could not see them lit and moved on to the hand-in with them still dark (#3531)."
 	}
 }

@@ -870,3 +870,10 @@ test('Seeking the Kor Gem counts as done by An Underrated Talent; Zorbin sells a
 test('Melizza Brimbuzzle stands only in the Maraudine camp (#3301)', () => {
 	for (const [x, y] of corrections.npcs[12277].set.spawns[1443].pts) assert.ok(x < 34.5 && y < 55, `${x},${y}`);
 });
+
+// Stö (#3531): Blademaster's Bonfires is two bonfires lit, with their objects and spots.
+test('Blademaster\'s Bonfires: the south and southeast bonfires are its objectives, placed where players light them (#3531)', () => {
+	assert.deepEqual(corrections.quests[96959].set.objectives.map((o) => [o.type, o.id]), [['object', 656668], ['object', 656669]]);
+	assert.deepEqual(corrections.objects[656668].addSpawns[2482].pts, [[49.1, 36.02]]);
+	assert.deepEqual(corrections.objects[656669].addSpawns[2482].pts, [[54.84, 40.0]]);
+});
