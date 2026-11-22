@@ -76,15 +76,22 @@ return {
 	["The {area:102}"] = "{area:102}",
 	-- {npc:268992} Zimmix Sputterspark · {item:277957} Primitive Key
 	-- plural, as words: Stolen Shipments = {item:277953} Stolen Shipment · Bloodscalp Berserkers = {npc:597} Bloodscalp Berserker
-	["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}, then lead him out of the ruins. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "沿海岸向北前往山丘上的廢墟：最後兩塊石板就在那裡。哥布林{npc:268992}被關在第三塊石板旁的籠子裡：任何血頂食人妖都可能掉落他的{item:277957}，之後帶他走出廢墟。遭竊的貨物在廢墟東緣。綠丘書頁掉落時順手撿起。\n小心：血頂狂戰士、獵頭者和巫醫（36-37級）盤踞廢墟中心：一次拉一隻。",
+	-- was: ["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}, then lead him out of the ruins. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "沿海岸向北前往山丘上的廢墟：最後兩塊石板就在那裡。哥布林{npc:268992}被關在第三塊石板旁的籠子裡：任何血頂食人妖都可能掉落他的{item:277957}，之後帶他走出廢墟。遭竊的貨物在廢墟東緣。綠丘書頁掉落時順手撿起。\n小心：血頂狂戰士、獵頭者和巫醫（36-37級）盤踞廢墟中心：一次拉一隻。"
+	["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "",
 	-- {npc:268992} Zimmix Sputterspark
 	["{npc:268992}, in his cage beside the third tablet"] = "{npc:268992}，在第三塊石板旁的籠子裡",
 	-- {item:277957} Primitive Key
 	["{item:277957}, from the Bloodscalp trolls"] = "{item:277957}，血頂食人妖掉落",
+
+	-- Step 12: Escort Zimmix Sputterspark
+	-- {npc:268992} Zimmix Sputterspark
+	["Escort {npc:268992}"] = "",
+	-- {npc:268992} Zimmix Sputterspark · {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
+	["Lead {npc:268992} out of the ruins and keep him alive: {npc:4631} in {area:35} takes the news at the end of this loop."] = "",
 	-- {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
 	["For {npc:4631} in {area:35}, at the end of this loop"] = "給{area:35}的{npc:4631}，在這趟路線的終點",
 
-	-- Step 12: Sin'Dall on the raptor hill
+	-- Step 13: Sin'Dall on the raptor hill
 	-- {npc:729} Sin'Dall
 	["{npc:729} on the raptor hill"] = "",
 	-- {npc:729} Sin'Dall · {npc:717} Ajeck Rouack
@@ -94,22 +101,22 @@ return {
 	-- {npc:729} Sin'Dall
 	["{npc:729} (37) prowls the hilltop."] = "",
 
-	-- Step 13: The Lashtail raptors
+	-- Step 14: The Lashtail raptors
 	["The Lashtail raptors"] = "鞭尾迅猛龍",
 	-- {quest:187} Tiger Mastery · {npc:729} Sin'Dall
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["East from the ruins, hunt Lashtail Raptors around the hill south-west of Nesingwary's camp. If you have {quest:187}, are at least 36 and see {npc:729} (37) alone, you can take her paw here or leave the hunt for your next visit."] = "",
 
-	-- Step 14: Ajeck Rouack
+	-- Step 15: Ajeck Rouack
 	-- {npc:717} Ajeck Rouack
 	["Hand the paw to {npc:717} beside Hemet."] = "",
 
-	-- Step 15: Nesingwary's Expedition
+	-- Step 16: Nesingwary's Expedition
 	-- {npc:715} Hemet Nesingwary
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
 	["{npc:715}: the Jungle Stalkers come in 40-50"] = "{npc:715}：叢林捕獵者在40-50再處理",
 
-	-- Step 16: Rebel Camp
+	-- Step 17: Rebel Camp
 	-- {area:99} Rebel Camp
 	["North-east up the road to the {area:99}, then back south through the jungle."] = "沿道路向東北前往{area:99}，然後穿過叢林往南回來。",
 	-- {npc:733} Sergeant Yohwa
@@ -117,20 +124,20 @@ return {
 	-- plural, as words: Skullsplitter Witch Doctors = {npc:670} Skullsplitter Witch Doctor
 	["keep it: the Skullsplitter Witch Doctors (41-42) wait for the 40-50 Stranglethorn guide"] = "保留著：劈顱巫醫（41-42級）留給40-50荊棘谷指南",
 
-	-- Step 17: Snapjaw Crocolisks
+	-- Step 18: Snapjaw Crocolisks
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks"] = "鉗嘴鱷魚",
 	-- {area:35} Booty Bay
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to {area:35}."] = "鉗嘴鱷魚在叢林中央的河邊曬太陽，就在往南前往{area:35}的路上。",
 
-	-- Step 18: Tokal
+	-- Step 19: Tokal
 	-- {npc:215643} Tokal · {object:56910} Salty Sailor Tavern · {item:4600} Cherry Grog · {npc:2832} Nixxrax Fillamug
 	["{npc:215643}, whom Bibbly sent you to find, waits by the {object:56910}. He asks for a {item:4600}: {npc:2832} sells it in the tavern, a few steps away."] = "",
 	-- {item:4600} Cherry Grog · {npc:2832} Nixxrax Fillamug
 	["{item:4600}, from {npc:2832}"] = "",
 
-	-- Step 19: Booty Bay
+	-- Step 20: Booty Bay
 	-- {npc:2495} Drizzlik
 	["{npc:2495}, inside"] = "{npc:2495}，室內",
 	-- {npc:2496} Baron Revilgaz
@@ -156,6 +163,7 @@ return {
 	-- ["For characters of 35 to 36, but several quests here are level 37-41: on purpose, for their experience. {quest:205}'s Skullsplitter trolls are 39-42, so pull them one at a time."] = "適合35到36級的角色，但這裡有幾個任務是37-41級：這是刻意安排的，為了它們的經驗值。{quest:205}的劈顱食人妖為39-42級，所以一次拉一隻。",
 	-- ["Loop through the troll ruins of the north and centre: each holds one stone tablet of the troll legends. Shadowmaw Panthers prowl stealthed in the jungle around them; the Venture Co. camp on {area:37} carries the Tumbled Crystals."] = "繞行北部和中部的食人妖廢墟：每處都有一塊記載食人妖傳說的石板。深喉獵豹潛行在周圍的叢林中；{area:37}的風險投資公司營地身上帶著打磨過的水晶。",
 	-- ["North along the coast to the ruins on the hill: the last two tablets lie there. Pick up Green Hills pages as they drop."] = "沿著海岸向北前往山丘上的廢墟：最後兩塊石板就在那裡。綠色山丘的書頁掉落時記得撿起來。",
+	-- ["North along the coast to the ruins on the hill: the last two tablets lie there. {npc:268992}, a goblin, is caged beside the third tablet: any Bloodscalp can drop his {item:277957}, then lead him out of the ruins. The Stolen Shipments lie at the ruins' east edge. Pick up Green Hills pages as they drop.\nCareful: the Bloodscalp Berserkers, Headhunters and Witch Doctors (36-37) hold the ruins' core: pull them one at a time."] = "沿海岸向北前往山丘上的廢墟：最後兩塊石板就在那裡。哥布林{npc:268992}被關在第三塊石板旁的籠子裡：任何血頂食人妖都可能掉落他的{item:277957}，之後帶他走出廢墟。遭竊的貨物在廢墟東緣。綠丘書頁掉落時順手撿起。\n小心：血頂狂戰士、獵頭者和巫醫（36-37級）盤踞廢墟中心：一次拉一隻。",
 	-- ["Skullsplitter trolls"] = "劈顱食人妖",
 	-- ["South from the compound to {area:37}: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals, and the Shadowmaw Panthers prowl stealthed in the jungle south and east of it."] = "從營地向南前往{area:37}：湖岸營地中的風險投資公司地質學家身上帶著打磨過的水晶，深喉獵豹則潛行在湖泊南邊和東邊的叢林中。",
 	-- ["South from the compound to {area:37}: the Venture Co. Geologists in the camps on its shore carry the Tumbled Crystals. Careful: Venture Co. Agents (39) walk among them: take the Geologists on the camps' edges, one at a time. Shadowmaw Panthers (37-38) prowl stealthed in the jungle south and east of the lake: keep to the shore camps."] = "從營地向南前往{area:37}：湖岸營地中的風險投資公司地質學家身上帶著打磨過的水晶。小心：風險投資公司特務（39級）在他們之間走動：從營地邊緣一次拉一個地質學家。深喉獵豹（37-38級）潛行在湖泊南邊和東邊的叢林中：待在湖岸營地就好。",
