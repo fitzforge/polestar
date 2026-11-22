@@ -856,13 +856,15 @@ do
 	local fitLines, SUBTITLE_H, SUBTITLE_LINES, SEARCH_LEAST = P.fitLines, P.SUBTITLE_H, P.SUBTITLE_LINES, P.SEARCH_LEAST
 	-- The new settings page's header, "Search first" (f.psSearchFirst): line one
 	-- the breadcrumb (f.Title, small and grey; the Undo chip beside it while it
-	-- shows) with the description (f.Subtitle, one line) after it; line two the
-	-- search across what the tools leave, then the tools right to left from the
-	-- close button (f.psHeadTools, the search last). The scale is in the page's
-	-- ··· menu. CRUMB: line one's top. ROW: line two's middle, a share of the
-	-- header. GAP: between any two tools, one rhythm along the line (the current
-	-- page's psHeadGap pairs are not kept here). SEARCH: the search's gap to the
-	-- first tool. DESC: the description's gap.
+	-- shows) with the description (f.Subtitle, one line) after it, short of the
+	-- close button, which keeps the top-right corner as in every Polestar
+	-- window; line two the search across what the tools leave, then the tools
+	-- right to left from the main column's pad (f.psHeadTools, the search
+	-- last). The scale is in the page's ··· menu. CRUMB: line one's top. ROW:
+	-- line two's middle, a share of the header. GAP: between any two tools, one
+	-- rhythm along the line (the current page's psHeadGap pairs are not kept
+	-- here). SEARCH: the search's gap to the first tool. DESC: the
+	-- description's gap.
 	local SF = { CRUMB = 16, ROW = 0.6, GAP = 8, SEARCH = 16, DESC = 18, LINE = 16 }
 
 	function SF.place(f, t)
@@ -882,10 +884,10 @@ do
 		local inHeader = f.Close:GetParent() == head
 		if inHeader then
 			f.Close:ClearAllPoints()
-			f.Close:SetPoint("RIGHT", head, "TOPRIGHT", -12, mid)
+			f.Close:SetPoint("TOPRIGHT", head, "TOPRIGHT", -12, -12)
 		end
-		local prev = (inHeader and f.Close:IsShown()) and f.Close or nil
-		local edge = prev and (12 + f.Close:GetWidth()) or SHELL.pad
+		local prev = nil
+		local edge = SHELL.pad
 		local search = rawget(f, "Search")
 		for _, w in ipairs(rawget(f, "psHeadTools") or {}) do
 			if w ~= search and w:IsShown() then
@@ -912,7 +914,7 @@ do
 			search:SetWidth(max(SEARCH_LEAST, floor(mainW - SHELL.pad - edge)))
 		end
 		-- Line one: the crumb its own width, then the chip, then the description.
-		local room = mainW - SHELL.pad * 2
+		local room = mainW - SHELL.pad - ((inHeader and f.Close:IsShown()) and (12 + f.Close:GetWidth() + 12) or SHELL.pad)
 		f.Title:ClearAllPoints()
 		f.Title:SetPoint("TOPLEFT", head, "TOPLEFT", SHELL.pad, -SF.CRUMB)
 		local tw = min(room, math.ceil(textWidth(f.Title)))

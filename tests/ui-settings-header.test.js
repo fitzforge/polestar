@@ -1,7 +1,8 @@
 'use strict';
 // The new settings page's header, "Search first" (addon/Polestar_Options/UI/
 // Grouped.lua, addon/Polestar/Theme/Widgets.lua): a breadcrumb line, then a
-// wide search with the switch, Peek, Fold, Reload UI, the ··· menu and close;
+// wide search with the switch, Peek, Fold, Reload UI and the ··· menu; close
+// in the window's top-right corner, as in every Polestar window;
 // the resets in ··· (each naming its scope), Undo inline beside the title and
 // on the reset rows, and no footer. The current page keeps its own header and
 // footer. Against the real addon's modules and the fakes of
@@ -40,8 +41,8 @@ test('the new page has a breadcrumb line and a search row, and no footer', () =>
 		Polestar.UI.ShowOptions()
 		O.Select("qualityoflife")
 		local f = O.frame
-		-- Line two, right to left from close: each tool anchored RIGHT to the one on its right.
-		local names = { [G.Switch()] = "switch", [f.Close] = "close", [rawget(f, "HeaderMenu") or f] = "···" }
+		-- Line two, right to left from the main column's pad: each tool anchored RIGHT to the one on its right.
+		local names = { [G.Switch()] = "switch", [rawget(f, "HeaderMenu") or f] = "···" }
 		local byRight = {}
 		for _, w in ipairs(f.psHeadTools) do
 			if w:IsShown() then
@@ -49,20 +50,23 @@ test('the new page has a breadcrumb line and a search row, and no footer', () =>
 				byRight[rel] = w
 			end
 		end
-		local tools, at = { "close" }, f.Close
+		local tools, at = {}, f.Header
 		while byRight[at] and byRight[at] ~= f.Search do
 			at = byRight[at]
 			table.insert(tools, 1, names[at] or at.psTip)
 		end
+		local cp, crel, crp, cx, cy = f.Close:GetPoint(1)
+		local close = { cp, crel == f.Header, crp, cx, cy }
 		emit({ crumb = f.Title:GetText(), footer = f.Footer:IsShown(), searchW = f.Search:GetWidth(), mainW = f.psMainW,
 			tools = tools, searchLeftOfSwitch = byRight[G.Switch()] == f.Search or byRight[G.Switch()] == f.Install, scale = f.HeaderTools:IsShown(),
-			crumbG = { G.Crumb() } })`);
+			crumbG = { G.Crumb() }, close = close })`);
 	assert.equal(out.crumb, 'Quality of Life › Essentials');
 	assert.deepEqual(out.crumbG, ['Quality of Life', 'Essentials']);
 	assert.equal(out.footer, false);
 	assert.ok(out.searchW > out.mainW * 0.5, `the wide search (${out.searchW} of ${out.mainW})`);
 	// The header's Install button, where this window is wide enough for it, stands between the switch and the search.
-	assert.deepEqual(out.tools.filter((t) => t !== 'Install'), ['switch', 'Peek', 'Fold', 'Reload UI', '···', 'close']);
+	assert.deepEqual(out.tools.filter((t) => t !== 'Install'), ['switch', 'Peek', 'Fold', 'Reload UI', '···']);
+	assert.deepEqual(out.close, ['TOPRIGHT', true, 'TOPRIGHT', -12, -12], 'close in the top-right corner');
 	assert.equal(out.searchLeftOfSwitch, true, 'the search first, left of the switch');
 	assert.equal(out.scale, false, 'Menu scale is in ···, not the header');
 });
@@ -101,14 +105,14 @@ test('··· holds Settings scale, Move frames and the two resets, each naming i
 	assert.equal(out.opened, 3, 'three rows; Menu scale is the menu\'s slider');
 });
 
-test('the header\'s icon tools are one box and one glyph, on the close button\'s line at one gap', () => {
+test('the header\'s icon tools are one box and one glyph, on one line at one gap from the pad', () => {
 	const [out] = run(`
 		Polestar.UI.ShowOptions()
 		O.Select("b:guiding")
 		local f = O.frame
 		local chain = {}
-		-- Right to left from close: each tool's RIGHT on the LEFT of the one before.
-		local prev = f.Close
+		-- Right to left from the main column's pad: each tool's RIGHT on the LEFT of the one before.
+		local prev = f.Header
 		for _, b in ipairs({ f.HeaderMenu, f.ReloadButton, f.FoldButton, f.PeekButton, G.Switch() }) do
 			local p, rel, rp, x, y = b:GetPoint(1)
 			chain[#chain + 1] = { after = rel == prev, p = p, rp = rp, gap = -x, y = y, w = b:GetWidth(), h = b:GetHeight(),
@@ -116,8 +120,11 @@ test('the header\'s icon tools are one box and one glyph, on the close button\'s
 			prev = b
 		end
 		emit(chain)`);
-	for (const t of out) {
-		assert.equal(t.after, true, 'chained right to left from close');
+	const [first, ...rest] = out;
+	assert.equal(first.after, true, 'the first on the header');
+	assert.deepEqual([first.p, first.rp, first.gap], ['RIGHT', 'TOPRIGHT', 32], 'on the main column\'s pad');
+	for (const t of rest) {
+		assert.equal(t.after, true, 'chained right to left');
 		assert.deepEqual([t.p, t.rp, t.y], ['RIGHT', 'LEFT', 0], 'on one line');
 		assert.equal(t.gap, 8, 'one gap');
 	}
