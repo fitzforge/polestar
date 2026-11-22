@@ -16,10 +16,11 @@ on:
 permissions:
   contents: read
 
-# Only the newest commit's entry matters: a newer push replaces an older run.
+# One run at a time, to the end: a run takes longer than the time between merges on a busy day, so cancelling
+# would never save an entry. A newer push waits, and replaces an older waiting one.
 concurrency:
   group: ci-data-${{ github.ref }}
-  cancel-in-progress: true
+  cancel-in-progress: false
 
 defaults:
   run:
