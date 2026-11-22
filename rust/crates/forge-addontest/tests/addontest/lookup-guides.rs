@@ -683,8 +683,61 @@ emit({ quests = quests, step = ch.step, total = ch.total, done = ch.done, branch
 	assert_eq!(out["cold"], json!({ "tip": false, "loaded": false }), "a tooltip never loads the Codex");
 	assert_eq!(out["tip"], "Chain: 3 of 4");
 	assert_eq!(out["offTip"], false, "no chain line with Lookup turned off");
-	assert_eq!(out["allDone"], "Chain: all 4 done", "turned in: the line follows");
+	assert_eq!(out["allDone"], "Chain: this part finished", "the finished line still has follow-ups");
 	assert_eq!(out["aloneTip"], false);
+}
+
+// Follow-ups have live states too. They stay outside the current part's
+// progress count, and opening that part again reflects log, level and turn-ins.
+#[test]
+fn follow_up_quests_show_their_live_states_without_calling_a_finished_part_the_whole_chain() {
+	let mut c = ctx();
+	for (id, title, faction, min, pre) in [
+		(9521, "First Part", "A", 15, vec![]),
+		(9522, "Follow East", "A", 15, vec![9521]),
+		(9523, "Follow West", "A", 25, vec![9521]),
+		(9524, "Other Side", "H", 15, vec![9521]),
+	] {
+		c.codex["quests"][id.to_string()] = json!({
+			"id": id, "title": title, "level": min + 2, "minLevel": min, "faction": faction,
+			"start": { "npc": [5008] }, "end": { "npc": [5008] }, "objectives": [],
+			"pre": pre, "preAny": [], "zone": c.home, "rewards": [], "choices": []
+		});
+	}
+	c.pack = write_codex_pack(&c.codex, &CodexOpts::default());
+	let out = emitted(&RunAddon {
+		stubs: vec!["stub_world.lua"],
+		before: world(&c, &format!("w.level = 20\nw.moveTo({}, 50, 50)\nw.complete({{ 9521 }})", c.home)),
+		addons: vec!["Polestar".into()],
+		script: r#"
+stub.login()
+local LK = Polestar.Lookup
+local function state()
+	local ch = LK.ChainProgress(9521)
+	local branches = {}
+	for i, b in ipairs(ch.branches or {}) do branches[i] = { b.id, b.state, b.why or false } end
+	table.sort(branches, function(a, b) return a[1] < b[1] end)
+	return { total = ch.total, done = ch.done, branches = branches, tip = LK.ChainTooltipText(9521) }
+end
+local before = state()
+w.onQuest(9522, {}, "Follow East")
+local held = state()
+stub.world.turnIn(9522)
+w.level = 30
+local after = state()
+emit({ before = before, held = held, after = after })"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!(out["before"]["branches"], json!([[9522, "open", false], [9523, "later", "Requires level 25"]]));
+	assert_eq!(out["held"]["branches"][0], json!([9522, "log", false]));
+	assert_eq!(out["after"]["branches"], json!([[9522, "done", false], [9523, "open", false]]));
+	for key in ["before", "held", "after"] {
+		assert_eq!(out[key]["total"], 1, "only the current part is counted");
+		assert_eq!(out[key]["done"], true, "that part is done");
+		assert_eq!(out[key]["tip"], "Chain: this part finished");
+	}
 }
 
 // A quest that needs two (`pre` 9511 and 9512): with 9512 done and 9511 not, 9511 is still needed, so it is not

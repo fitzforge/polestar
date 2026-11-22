@@ -656,7 +656,7 @@ fn a_quest_in_a_chain_shows_its_step_each_quest_s_state_and_its_branches_and_a_r
 				{ id = 4970, title = "Frostsaber Provisions", state = "later", why = "After an earlier quest" },
 			},
 			step = 3, total = 4, skippedCount = 1,
-			branches = { { id = 40, title = "A Fishy Peril" }, { id = 41, title = "Furlbrow's Deed" } },
+			branches = { { id = 40, title = "A Fishy Peril", state = "open" }, { id = 41, title = "Furlbrow's Deed", state = "later", why = "Requires level 25" } },
 		}
 		Polestar.Lookup.Show(nil, "quest", 38)
 		local d = LK.detail
@@ -680,11 +680,48 @@ fn a_quest_in_a_chain_shows_its_step_each_quest_s_state_and_its_branches_and_a_r
 		cols(&f["chain"]["quests"], &["id", "state", "here"]),
 		json!([[36, "Skipped  \u{b7}  Needs level 14", null], [37, "Done", null], [38, "You can take it now", true], [4970, "After an earlier quest", null],])
 	);
-	assert_eq!(f["chain"]["branches"], json!(["A Fishy Peril", "Furlbrow's Deed"]));
-	assert_eq!(f["branches"], "Then any of: A Fishy Peril, Furlbrow's Deed");
+	assert_eq!(cols(&f["chain"]["branches"], &["id", "state"]), json!([[40, "You can take it now"], [41, "Requires level 25"]]));
+	assert_eq!(f["branches"], "Follow-up quests");
 	assert_eq!(f["clickHere"], false, "the quest's own row opens nothing");
 	assert_eq!(out["sel"], json!({ "kind": "quest", "id": 4970 }), "a row opens that quest's page");
 	assert_eq!(out["after"], false, "a quest standing alone has no chain");
+}
+
+#[test]
+fn follow_up_rows_show_progress_open_the_quest_and_disappear_when_the_selection_changes() {
+	let out = run(r#"
+		lookupstub.chains[38] = {
+			quests = { { id = 38, title = "Westfall Stew", state = "done" } },
+			step = 1, total = 1, done = true, skippedCount = 0,
+			branches = {
+				{ id = 40, title = "A Fishy Peril", state = "open" },
+				{ id = 41, title = "Furlbrow's Deed", state = "later", why = "Requires level 25" },
+				{ id = 42, title = "Already Held", state = "log" },
+				{ id = 43, title = "Already Finished", state = "done" },
+			},
+		}
+		Polestar.Lookup.Show(nil, "quest", 38)
+		local rows = LK.details.ChainRows
+		local first = { head = LK.details.ChainHead.Count:GetText(), chain = LK.detail.chain,
+			heading = LK.details.ChainBranches:GetText(), target = rows[2].psQuest,
+			skipped = LK.ChainStepText({ done = true, total = 2, skippedCount = 1, branches = { { id = 40 } } }) }
+		stub.RunScript(rows[2], "OnEnter")
+		first.tip = GameTooltip.lines
+		stub.RunScript(rows[2], "OnLeave")
+		rows[2]:Click()
+		local hidden = true
+		for _, r in ipairs(rows) do if r:IsShown() then hidden = false end end
+		emit({ first = first, selected = LK.Selected(), hidden = hidden, headingHidden = not LK.details.ChainBranches:IsShown() })"#);
+	let f = &out["first"];
+	assert_eq!(f["head"], "This part finished");
+	assert_eq!(f["skipped"], "This part finished, 1 skipped");
+	assert_eq!(f["heading"], "Follow-up quests");
+	assert_eq!(cols(&f["chain"]["branches"], &["id", "state"]), json!([[40, "You can take it now"], [41, "Requires level 25"], [42, "In your quest log"], [43, "Done"]]));
+	assert_eq!(f["target"], 40);
+	assert!(f["tip"].as_array().unwrap().iter().any(|l| text(l) == "Click to open its page."));
+	assert_eq!(out["selected"], json!({ "kind": "quest", "id": 40 }));
+	assert_eq!(out["hidden"], true, "pooled rows do not leak into another quest's page");
+	assert_eq!(out["headingHidden"], true);
 }
 
 // #3370 (Zack: a level 57 went to Pix Xizzix for In Demand, which the game offers from level 60): a quest's page says
