@@ -1859,29 +1859,31 @@ function Path.Sight(map, x1, y1, z1, x2, y2, z2, profile, walls)
 	return clear
 end
 
--- Pull the string over a node path: from each anchor, the furthest node of the path in sight becomes the next
--- anchor. Every node is a candidate, not only the path's turns, so a segment may end partway along a straight run,
--- which is where a line round a fence corner or between two buildings has to turn. The candidates are galloped: probe
--- 2, 4, 8, ... nodes on while in sight; at the first blocked probe, take the furthest turn of the path in sight up to
--- SMOOTH_MISSES nodes past it (the far side of the wall the path went round) and gallop on from there, else end at the
--- furthest node in sight before it. A segment spans at most SMOOTH_SPAN path nodes and never a ride. Water may only be
--- crossed where the path itself swam.
--- On a map with classes a straight segment replaces the path between two entries only over ground no costlier for
--- profile in style (times the zone danger of danger, Path.lua's weights, when given) than the costliest node of that
--- path stretch (than its cost per yard, once the line reaches past a wall), and into a hub hostile to profile only
--- where that stretch already entered one: the drawn line (and the hubs it reports) never cuts a road's bend, a hostile
--- hub's rim or a dangerous zone's edge the cost-best path kept to. (#3641: 0.4.2's scan took only the turns as ends and
--- stopped at the first one out of sight, so the line kept the grid's axis-aligned runs round every fence and house wall.)
-local SMOOTH_MISSES, SMOOTH_SPAN = 24, 400
+-- Collapse a node path to its turns, then pull the string: from each anchor, jump to the furthest point in sight.
+-- Water may only be crossed where the path itself swam. On a map with classes a straight segment replaces the path
+-- between two entries only over ground no costlier for profile in style (times the zone danger of danger, Path.lua's
+-- weights, when given) than the costliest node of that path stretch, and into a hub hostile to profile only where
+-- that stretch already entered one: the drawn line (and the hubs it reports) never cuts a road's bend, a hostile
+-- hub's rim or a dangerous zone's edge the cost-best path kept to.
 local function smooth(st, P, profile, style, danger)
 	local PX, PY, PW, PK, PN = P.x, P.y, P.w, P.k, P.n
 	local n = #PX
+	local keep = { 1 }
 	local rides = P.rides
 	local function blocked(p, q)
 		local a = p == 1 and P.from
 		local b = q == n and P.to
 		return P.check(a and a.x or st.x0 + (PX[p]+.5)*st.cs, a and a.y or st.y0 + (PY[p]+.5)*st.cs,
 			b and b.x or st.x0 + (PX[q]+.5)*st.cs, b and b.y or st.y0 + (PY[q]+.5)*st.cs)
+	end
+	for i = 2, n - 1 do
+		if (rides and (rides[i] or rides[i+1] or i == 2 or i == n-1))
+			or PX[i + 1] - PX[i] ~= PX[i] - PX[i - 1] or PY[i + 1] - PY[i] ~= PY[i] - PY[i - 1] or PW[i + 1] ~= PW[i] then
+			keep[#keep + 1] = i
+		end
+	end
+	if n > 1 then
+		keep[#keep + 1] = n
 	end
 	local classed = st.classed
 	profile = Costs.Profile(profile)
@@ -1899,97 +1901,40 @@ local function smooth(st, P, profile, style, danger)
 			return z and z[chunkOf(C, cellOf(st, k, node)) + 1] or 1
 		end
 	end
-	local out, a = { 1 }, 1
-	local worstAt, meanAt, hostileAt = {}, {}, {}
-	while a < n do
-		-- For the path after a up to q, filled as far as the probes reach: worstAt[q] its costliest node, meanAt[q] its
-		-- cost per yard (each step's multiplier times its length, over the length), hostileAt[q] whether it entered a
-		-- hostile hub. The anchor's own node is never stepped into, by the path or by the straight segment (sight).
-		-- While every probe from a is in sight, a segment may cross ground up to the stretch's costliest node (0.4.2's
-		-- rule). Once a probe was blocked and the line reaches past that wall, it may cross ground only up to the
-		-- stretch's cost per yard, so it never costs more than the way round the wall it replaces.
-		local cost, length, worst, hostile, filled, past = 0, 0, 0, false, a, false
-		local stop = n
-		if rides then
-			for q = a + 2, n do
-				if rides[q - 1] or rides[q] then
-					stop = q - 1
-					break
-				end
-			end
+	local out, a = { keep[1] }, 1
+	while a < #keep do
+		local b = a + 1
+		-- The costliest node of the path after keep[a] up to keep[j], and whether it entered a hostile hub, grown with
+		-- j: the anchor's own node is never stepped into, by the path or by the straight segment (sight).
+		local limit, hostile, last
+		if classed then
+			limit, hostile, last = 0, false, keep[a]
 		end
-		if stop > a + SMOOTH_SPAN then
-			stop = a + SMOOTH_SPAN
-		end
-		local function visible(q)
+		for j = a + 2, #keep do
+			local p, q = keep[a], keep[j]
+			if rides and (rides[keep[j-1]] or rides[q] or blocked(p, q)) then break end
 			if classed then
-				while filled < q do
-					filled = filled + 1
-					local c = classOf(st, PK[filled], PN[filled])
+				for i = last + 1, q do
+					local c = classOf(st, PK[i], PN[i])
 					local m = Mult(c, profile, style)
 					if dangerAt then
-						m = m * dangerAt(PK[filled], PN[filled])
+						m = m * dangerAt(PK[i], PN[i])
 					end
-					local step = sqrt((PX[filled] - PX[filled - 1]) ^ 2 + (PY[filled] - PY[filled - 1]) ^ 2)
-					cost, length = cost + m * step, length + step
-					if m > worst then
-						worst = m
+					if m > limit then
+						limit = m
 					end
 					if hb and c % (hb + hb) >= hb then
 						hostile = true
 					end
-					worstAt[filled], meanAt[filled], hostileAt[filled] = worst, length > 0 and cost / length + 1e-9 or m, hostile
 				end
+				last = q
 			end
-			if rides and blocked(a, q) then
-				return false
+			if not sight(st, P, p, q, PW[q] - PW[p] > 0, limit, profile, hb, hostile, style, dangerAt) then
+				break
 			end
-			local limit = classed and (past and meanAt[q] or worstAt[q]) or nil
-			return sight(st, P, a, q, PW[q] - PW[a] > 0, limit, profile, hb, classed and hostileAt[q], style, dangerAt)
+			b = j
 		end
-		-- Gallop while in sight. At a blocked probe q: the furthest turn of the path in sight up to SMOOTH_MISSES nodes
-		-- past q, read from the far end down (sight is not monotone along a path that bends round a wall), and gallop
-		-- on from it; with none, the furthest node in sight before q (bisected: along the run b..q the line only
-		-- leaves sight once) ends the segment.
-		local b, step, q = a + 1, 2, a + 2
-		while q <= stop do
-			if visible(q) then
-				b, step = q, step * 2
-				q = (b < stop and b + step > stop) and stop or b + step
-			else
-				local top = q + SMOOTH_MISSES
-				if top > stop then
-					top = stop
-				end
-				local found
-				local before = past
-				past = true
-				for j = top, q + 1, -1 do
-					if (j == stop or PX[j + 1] - PX[j] ~= PX[j] - PX[j - 1] or PY[j + 1] - PY[j] ~= PY[j] - PY[j - 1] or PW[j + 1] ~= PW[j])
-						and visible(j) then
-						found = j
-						break
-					end
-				end
-				if not found then
-					past = before
-					local lo, hi = b, q
-					while hi - lo > 1 do
-						local mid = floor((lo + hi) / 2)
-						if visible(mid) then
-							lo = mid
-						else
-							hi = mid
-						end
-					end
-					b = lo
-					break
-				end
-				b, step = found, 2
-				q = (b < stop and b + step > stop) and stop or b + step
-			end
-		end
-		out[#out + 1] = b
+		out[#out + 1] = keep[b]
 		a = b
 	end
 	return out
