@@ -130,7 +130,7 @@ local L = ns.L
 local type, ipairs, tostring, tonumber = type, ipairs, tostring, tonumber
 local find, sub, gsub, lower, byte, match, gmatch = string.find, string.sub, string.gsub, string.lower, string.byte, string.match, string.gmatch
 local char = string.char
-local min, max, floor = math.min, math.max, math.floor
+local min, max, floor, huge = math.min, math.max, math.floor, math.huge
 
 local STATUS = { r = "retired", n = "nosource" }
 
@@ -1094,6 +1094,11 @@ local function scanNames(blob, kind, terms, ranked, hit)
 	local nameOnly = short or (kind ~= "instance" and #needle > 1 and not find(needle, "%d"))
 	local at, last = find(blob, needle, 1, true)
 	local n = 0
+	-- Several words: each word's first place in the blob past the last line
+	-- checked. Lines come in blob order, so each word is searched for about
+	-- once across the blob, and a line missing a word is passed over without
+	-- copying its name (tier would find no match in it).
+	local nextAt = words and {}
 	while at do
 		local e = find(blob, "\1", last + 1, true)
 		if not e then break end
@@ -1105,7 +1110,17 @@ local function scanNames(blob, kind, terms, ranked, hit)
 			if words then
 				local start = at - 1
 				while byte(blob, start) ~= 2 do start = start - 1 end
-				t = tier(" " .. sub(blob, start + 1, e - 1), terms.q, terms.body, false, words)
+				t = nil
+				local all = true
+				for i = 1, #words do
+					local p = nextAt[i]
+					if not p or p <= start then
+						p = find(blob, words[i], start + 1, true) or huge
+						nextAt[i] = p
+					end
+					if p >= e then all = false; break end
+				end
+				if all then t = tier(" " .. sub(blob, start + 1, e - 1), terms.q, terms.body, false, words) end
 			elseif ranked then
 				local b = byte(blob, at - 1)
 				if short or b == 2 then
@@ -1115,7 +1130,10 @@ local function scanNames(blob, kind, terms, ranked, hit)
 				end
 			end
 			if t then
-				if hit then hit(e + 1, t) else n = n + 1 end
+				-- The name runs at least from the match to its end (past a
+				-- short needle's marker): fold never lengthens a name, so
+				-- this never exceeds the title length the score uses.
+				if hit then hit(e + 1, t, nil, nil, short and e - at - 1 or e - at) else n = n + 1 end
 			end
 			at, last = find(blob, needle, (nl or e) + 1, true)
 		end
@@ -1230,6 +1248,13 @@ local function searchCodex(kind, blob, extra, list, terms, opts, show, az, full,
 	if not (show or extra or hideRetired or hideNoSource or idAt or textItems or checkItems) then
 		return nil, scanNames(blob, kind, terms, false)
 	end
+	-- Most kinds hold no line with the query (scanNames looks for this same
+	-- needle): their result needs none of the lists and closures below, which
+	-- a keystroke would otherwise build for every kind.
+	if not (idAt or textItems) and not find(blob, terms.needle, 1, true)
+		and not (extra and find(extra, terms.needle, 1, true)) then
+		return {}, 0, checkItems and 0, totals
+	end
 	if filters and filters.stat then filters.statItems = statItems(filters.stat, statMaps) end
 
 	local offsets, translated
@@ -1250,16 +1275,17 @@ local function searchCodex(kind, blob, extra, list, terms, opts, show, az, full,
 	-- rankScore without the length for each standing and tier, worked out
 	-- once rather than for every hit (a call there costs a filtered keystroke
 	-- about 5%). A hit scores this minus min(len, 9999), rankScore's length
-	-- term. ceiling[1] is the best an uncurated line can reach at a tier.
+	-- term. tierCeiling is the best any line can reach at a tier: ceiling[2]
+	-- while a guide collects items, else ceiling[1] (uncurated).
 	local ceiling = {}
 	for standing = 0, 2 do
 		ceiling[standing] = {}
 		for t = WORDS, EXACT do ceiling[standing][t] = rankScore(standing, t, kindWeight, 0) end
 	end
-	local tierCeiling = ceiling[1]
+	local tierCeiling = ceiling[usesCurated and 2 or 1]
 	local floorScore
 	local baseScores
-	if ranked and not (seen or filter or full or checkItems) then
+	if ranked and not (seen or filter or checkItems) then
 		local cached = scoreIndexes[kind]
 		if not cached or cached.blob ~= blob or cached.guides ~= list then
 			cached = { blob = blob, guides = list, scores = {} }
@@ -1317,12 +1343,21 @@ local function searchCodex(kind, blob, extra, list, terms, opts, show, az, full,
 		hits[pos] = entry
 		if #hits == cap then floorScore = hits[cap].score end
 	end
+	-- Hits that only add to the count when they cannot make the list (no
+	-- duplicate, visibility or filter check needs their metadata).
+	local prunable = not (seen or filter or checkItems)
 	local function scan(source, translation, statsOnly)
-		local function hit(at, t, row, rawId)
-			if floorScore and not (seen or filter or usesCurated or checkItems)
-				and floorScore > tierCeiling[t] then
-				n = n + 1
-				return
+		local function hit(at, t, row, rawId, minLen)
+			-- Below the kept list's floor even at its tier's best score for
+			-- a name this long: only counted, its metadata never read. This
+			-- runs for nearly every hit of a broad query, so no calls.
+			if floorScore and prunable then
+				local len = minLen or 0
+				if len > 9999 then len = 9999 end
+				if floorScore > tierCeiling[t] - len then
+					n = n + 1
+					return
+				end
 			end
 			if baseScores then
 				n = n + 1
@@ -1336,7 +1371,8 @@ local function searchCodex(kind, blob, extra, list, terms, opts, show, az, full,
 					baseScores[at] = base
 				end
 				local s = base + t * TIER_W
-				if not floorScore or s >= floorScore then keep(at, match(source, RAW_ID, at), s) end
+				-- A bucket keeps only the offset (a paged kind names its rows later).
+				if not floorScore or s >= floorScore then keep(at, not buckets and match(source, RAW_ID, at), s) end
 				return
 			end
 			local st, len
