@@ -301,9 +301,14 @@ GF.Part(function(GF)
 	GF.spaced = setmetatable({}, { __mode = "k" })
 	GF.sizedAt = setmetatable({}, { __mode = "k" })
 
+	-- GF.numFit: fontString -> its own factor on top of its group's (a number
+	-- too wide for its column even at its widest, GF.FitNumColumn). Not GF.fit:
+	-- that is the window's height-fit state (GuideFrameLayout.lua).
+	GF.numFit = setmetatable({}, { __mode = "k" })
+
 	function GF.SizeOne(fs)
 		local group = GF.sized[fs]
-		local k = group and GF.Num(GF.SIZE_KEYS[group]) or 1
+		local k = (group and GF.Num(GF.SIZE_KEYS[group]) or 1) * (GF.numFit[fs] or 1)
 		local gap = GF.Num("lineSpacing")
 		local at = GF.sizedAt[fs]
 		if (at and (at[1] ~= k or at[2] ~= gap)) or (not at and (k ~= 1 or gap ~= 0)) then
@@ -1539,6 +1544,58 @@ GF.Part(function(GF)
 	-- Upcoming steps (off by default; collapsed when on)
 	---------------------------------------------------------------------------
 
+	-- The Up next numbers' column: 22 px, wider when the widest number shown
+	-- needs it (step 100 and on, or a raised Up next size), so a number keeps
+	-- its size and never reads "1...". It grows to the right, up to 2 px short
+	-- of the verb glyph (TEXT_X - 2); every row takes the same width, so the
+	-- numbers stay right-aligned with each other. Only a number still wider
+	-- than that room (three digits at the largest Up next sizes) is drawn
+	-- smaller, through its size factor (GF.numFit), never below 11 px. Its
+	-- width and size at the group's own size are measured once per text and
+	-- Up next size (numNatural), and the smaller size is worked out from them
+	-- and rounded down to the half pixel Theme sets, so it is the same on
+	-- every render and never half a pixel too wide. -> the width
+	local NUM_FLOOR = 11
+	local numNatural = setmetatable({}, { __mode = "k" })
+	local function naturalOf(n)
+		local text, k = n:GetText(), GF.Num(GF.SIZE_KEYS.up)
+		local c = numNatural[n]
+		-- Kept while the string still has the size it was last given (a look
+		-- or text size change repaints it to another).
+		if c and c.text == text and c.k == k and select(2, n:GetFont()) == c.drawn then return c.width, c.size end
+		if GF.numFit[n] then
+			GF.numFit[n] = nil
+			GF.SizeOne(n)
+		end
+		local measure = n.GetUnboundedStringWidth or n.GetStringWidth
+		local _, size = n:GetFont()
+		c = { text = text, k = k, width = measure(n) or 0, size = size or NUM_FLOOR, drawn = size }
+		numNatural[n] = c
+		return c.width, c.size
+	end
+	function GF.FitNumColumn(rows, count)
+		local room = max(22, (TEXT_X - 2) - (PAD - 10) - 2)
+		local widest = 0
+		for i = 1, count do
+			local n = rows[i].Num
+			local natural, full = naturalOf(n)
+			local want = 1
+			if natural > room and full > 0 then
+				local size = math.floor(full * room / natural * 2) / 2
+				want = max(size, math.min(full, NUM_FLOOR)) / full
+			end
+			if want ~= (GF.numFit[n] or 1) then
+				GF.numFit[n] = want ~= 1 and want or nil
+				GF.SizeOne(n)
+			end
+			numNatural[n].drawn = select(2, n:GetFont())
+			widest = max(widest, natural * want)
+		end
+		local col = min(max(22, math.ceil(widest) + 1), room)
+		for i = 1, count do rows[i].Num:SetWidth(col) end
+		return col
+	end
+
 	local function upRow(i)
 		local r = upRows[i]
 		if r then return r end
@@ -2006,6 +2063,7 @@ GF.Part(function(GF)
 			i = i + 1
 		end
 		upnext.psCount = n
+		GF.FitNumColumn(upRows, n)
 		local open = upcomingOpen()
 		upnext.Toggle.Label:SetText(n == 1 and L["Up next \194\183 1 step"] or string.format(L["Up next \194\183 %d steps"], n))
 		upnext.Toggle.Icon:SetTexture(Theme.Media(open and "chevron-up" or "chevron-down"))
