@@ -400,7 +400,9 @@ emit(out)
 
 #[test]
 fn the_filled_cleansing_bowl_advances_to_xabraxxis_before_the_talisman_is_collected() {
-	let fixes: Value = serde_json::from_str(include_str!("../../../../../data/guide-fixes.json")).unwrap();
+	// Read at run time, not embedded: CI reuses the built test binary while only data changes (docs/CI.md).
+	let path = std::path::Path::new(env!("CARGO_MANIFEST_DIR")).join("../../../data/guide-fixes.json");
+	let fixes: Value = serde_json::from_str(&std::fs::read_to_string(path).unwrap()).unwrap();
 	let note = fixes["fixes"].as_array().unwrap().iter().find(|r| r["id"] == "2107-xabraxxis-demon-bag").unwrap()["goalNote"].as_str().unwrap();
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],

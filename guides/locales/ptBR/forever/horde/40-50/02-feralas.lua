@@ -195,7 +195,7 @@ return {
 
 	-- Step 48: Fly to the Undercity
 	-- {area:1497} Undercity
-	["Fly to the {area:1497}"] = "",
+	["Fly to the {area:1497}"] = "Voe para a {area:1497}",
 	-- {area:75} Stonard · {area:1497} Undercity · {area:340} Kargath · {npc:5204} Apothecary Zinge · {zone:1454} Orgrimmar
 	["From {area:75}'s flight master, fly to the {area:1497} (by way of {area:340}): {npc:5204}'s errands and your {area:1497} training, then the zeppelin from the towers outside the city to {zone:1454}."] = "",
 
@@ -217,8 +217,7 @@ return {
 	-- was: ["{npc:4773}, riding trainer"] = "{npc:4773}, instrutora de montaria"
 	["{npc:4773}, riding trainer"] = "",
 	-- {npc:4731} Zachariah Post · {npc:4773} Velma Warnam · {area:159} Brill
-	-- was: ["Skeletal horses: {npc:4731}, beside {npc:4773} in {area:159}."] = "Cavalos esqueléticos: {npc:4731}, ao lado de {npc:4773} em {area:159}."
-	["Skeletal horses: {npc:4731}, beside {npc:4773} in {area:159}."] = "",
+	["Skeletal horses: {npc:4731}, beside {npc:4773} in {area:159}."] = "Cavalos esqueléticos: {npc:4731}, ao lado de {npc:4773}, em {area:159}.",
 
 	-- Step 52: Zeppelin to Orgrimmar
 	-- {zone:1454} Orgrimmar

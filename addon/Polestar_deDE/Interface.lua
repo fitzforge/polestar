@@ -1024,7 +1024,6 @@ L["After the steps before it"] = "Nach den vorherigen Schritten"
 L["Attunement"] = "Einstimmung"
 L["Available from level %d"] = "Verfügbar ab Stufe %d"
 L["Boat to %s"] = "Boot nach %s"
-L["Boss whisper"] = "Boss-Flüstern"
 L["Boss: group advised"] = "Boss: Gruppe empfohlen"
 L["Bought %d %s for %s."] = "%d %s für %s gekauft."
 L["Buy for the guide"] = "Für den Guide kaufen"
@@ -4795,6 +4794,9 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Geland
 -- L["/polestar perf: on, off, report or reset"] = ""
 -- L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = ""
 
+-- Rares/Rares.lua
+L["Boss emote"] = "Boss-Emote"
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target and the areas it spawns in."] = "Das Ziel des Pfeils und die Gebiete, in denen es spawnt."
 -- L["The arrow's target, the stops of its travel route, the step's other goals and the areas their mobs and objects spawn in."] = "Das Ziel des Pfeils, die Stationen seiner Reiseroute, die anderen Ziele des Schritts und die Gebiete, in denen ihre Mobs und Objekte spawnen."
@@ -5049,3 +5051,4 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Geland
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"] = "Im Plan, aber %s (%d) bei Schritt %d ist schwer: du bist auf Stufe %s; erst %s grinden"
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "Im Plan, aber %s (%d) bei Schritt %d ist schwer: du bist auf Stufe %s; erst Stufe %d erreichen"
 -- L["No safe walking route"] = "Kein sicherer Fußweg"
+-- L["Boss whisper"] = "Boss-Flüstern"
