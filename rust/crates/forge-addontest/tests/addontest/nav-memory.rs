@@ -58,7 +58,11 @@ use forge_addontest::{emitted, Addon, RunAddon};
 /// 34,356 -> 48,235 / 18,624 -> 42,687; idle 17,963 -> 31,842 / 14,921 -> 38,984. Budgets raised to the new figures
 /// and about 1%: loadResident 22,500 -> 39,300, loadPeak 25,400 -> 42,100, live 44,500 -> 55,200, rest 38,000 ->
 /// 48,800, idle 22,500 -> 39,400; allocated unchanged.
-const BUDGET: [(&str, f64); 6] = [("loadResident", 39300.0), ("loadPeak", 42100.0), ("live", 55200.0), ("allocated", 61600.0), ("rest", 48800.0), ("idle", 39400.0)];
+/// 0.4.3 (#3641, the straightener: every path node may end a stretch, probed ahead while in sight): Eastern Kingdoms
+/// rest 48,800 -> 48,816 (the probes' sight cells kept with the decoded clusters); rest raised to 48,900, a rounding
+/// level (Fitz informed). Allocated reads 61,693 on CI runners (about 0.15% above a local run; the sight probes
+/// allocate during the search): raised 61,600 -> 61,800. The other figures unchanged.
+const BUDGET: [(&str, f64); 6] = [("loadResident", 39300.0), ("loadPeak", 42100.0), ("live", 55200.0), ("allocated", 61800.0), ("rest", 48900.0), ("idle", 39400.0)];
 /// Milliseconds the searches' clock (Path.clock) moves at each read. The searches slice under Path.budget (3 ms) as
 /// in the client, but on this clock rather than the machine's CPU time, which made about 600 KiB of "allocated" (each
 /// slice's garbage) depend on the machine: a slower CI runner read 66,091 KiB where the same searches give 65,654 on
