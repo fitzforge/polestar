@@ -38,8 +38,6 @@ return {
 	-- Step 8: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
 	["Ride on west to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Езжайте дальше на запад: {area:3425}. {npc:15189} стоит наверху в своем здании: поднимитесь внутри, стрелка не различает этажи.",
-	-- {npc:17082} Rifleman Torrig · {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora
-	["{npc:17082}, at the Alliance tents: for {npc:17080} at {area:2743}"] = "{npc:17082} – у палаток Альянса: для персонажа {npc:17080} ({area:2743})",
 	-- {npc:15183} Geologist Larksbane
 	["{npc:15183}: the tablet fragments come from the Twilight dig"] = "{npc:15183}: фрагменты табличек добываются на раскопках Сумеречного Молота",
 	-- {npc:15306} Bor Wildmane
@@ -85,65 +83,60 @@ return {
 	-- {quest:8323} True Believers
 	["Ten more for {quest:8323}"] = "Еще десять для задания «{quest:8323}»",
 
-	-- Step 14: Hive'Zora
-	-- {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora · {spell:642} Divine Shield · {spell:5384} Feign Death · {spell:17} Power Word: Shield
-	["{npc:17080} camps outside {area:2743}, the western hive. Pick up a Silithyst at one of the red geysers nearby and carry it to the Alliance extractor at his camp.\nCareful: You lose the Silithyst if you mount, stealth, use {spell:642}, {spell:5384} or Vanish. Blink and {spell:17} do not drop it."] = "{npc:17080} стоит лагерем у западного улья ({area:2743}). Возьмите силитист у одного из красных гейзеров поблизости и отнесите его в экстрактор Альянса в его лагере.\nОсторожно: вы теряете силитист, если садитесь на транспорт, входите в незаметность, используете {spell:642}, {spell:5384} или «Исчезновение». «Скачок» и {spell:17} его не сбрасывают.",
-	["Bring a Silithyst to the Alliance extractor"] = "",
-
-	-- Step 16: Southwind Village
+	-- Step 15: Southwind Village
 	["The tortured druids and sentinels haunt the ruined village east of the hold."] = "",
 
-	-- Step 17: Layo Starstrike
+	-- Step 16: Layo Starstrike
 	-- {npc:13220} Layo Starstrike · {area:3077} Valor's Rest
 	["Ride north-east to {npc:13220} at {area:3077}."] = "",
 
-	-- Step 18: The Hive'Ashi tower
+	-- Step 17: The Hive'Ashi tower
 	-- {area:2742} Hive'Ashi
 	["The {area:2742} tower"] = "Башня: {area:2742}",
 	-- {area:2742} Hive'Ashi · {area:2738} Southwind Village
 	["Ride back south-west to the {area:2742} tower in {area:2738}; climb it and kill the ambushers that rise for the encrusted object."] = "Езжайте обратно на юго-запад к башне ({area:2742}, {area:2738}); поднимитесь на нее и убейте засаду, которая появляется ради покрытого коркой предмета.",
 
-	-- Step 19: Layo Starstrike
+	-- Step 18: Layo Starstrike
 	-- {npc:13220} Layo Starstrike · {zone:1450} Moonglade
 	["{npc:13220}'s next task goes to {zone:1450}: skip it."] = "",
 
-	-- Step 20: Hermit Ortell
+	-- Step 19: Hermit Ortell
 	-- {area:2738} Southwind Village
 	["The hermit hides among the rocks south-east of {area:2738}."] = "Отшельник прячется среди скал к юго-востоку (ориентир: {area:2738}).",
 	["Below ground"] = "Под землей",
 
-	-- Step 21: Bronzebeard's Encampment
+	-- Step 20: Bronzebeard's Encampment
 	["Bronzebeard's Encampment"] = "Лагерь Бронзоборода",
 	-- {npc:15171} Frankal Stonebridge · {npc:15170} Rutgar Glyphshaper · {npc:15190} Noggle Ficklespragg
 	["Ride south-west to the dwarves' camp near the southern mountains and question {npc:15171} and {npc:15170}. {npc:15190}'s satchel lies in the sand south-east of the camp, where Deathclasp, an elite scorpid, patrols: grab it while he is away."] = "Езжайте на юго-запад к лагерю дворфов у южных гор и расспросите: {npc:15171} и {npc:15170}. Сумка {npc:15190} лежит в песке к юго-востоку от лагеря, где патрулирует Deathclasp, элитный скорпид: заберите ее, пока его нет рядом.",
 
-	-- Step 22: Brann Bronzebeard's Lost Letter
+	-- Step 21: Brann Bronzebeard's Lost Letter
 	-- {area:2742} Hive'Ashi · {npc:15170} Rutgar Glyphshaper
 	["From a {area:2742} silithid: for {npc:15170} at Bronzebeard's Encampment"] = "",
 
-	-- Step 24: The Twilight Post
+	-- Step 23: The Twilight Post
 	-- {area:3098} Twilight Post
 	["The {area:3098}"] = "{area:3098}",
 	-- {npc:11803} Twilight Keeper Exeter
 	-- was: ["Careful: the Twilight Keepers are level 60, a level or two over you: clear the cultists around each one first and fight the keeper at full health.\n{npc:11803} holds the cultists' camp in the far south-west."] = "Осторожно: Сумеречные хранители 60 уровня, на уровень-два выше вас: сначала перебейте культистов вокруг каждого и сражайтесь с хранителем при полном здоровье.\n{npc:11803} занимает лагерь культистов на дальнем юго-западе."
 	["Careful: the Twilight Keepers are level 60: clear the cultists around each one first and fight the keeper at full health.\n{npc:11803} holds the cultists' camp in the far south-west."] = "",
 
-	-- Step 25: Twilight Keeper Mayna
+	-- Step 24: Twilight Keeper Mayna
 	["Ride north along the west side to Mayna's small camp.\nCareful: Mayna is level 60: clear her camp first and fight her at full health."] = "Езжайте на север вдоль западного края к небольшому лагерю Майны.\nОсторожно: Майна 60 уровня: сначала зачистите ее лагерь и сражайтесь с ней при полном здоровье.",
 
-	-- Step 26: Twilight Keeper Havunth
+	-- Step 25: Twilight Keeper Havunth
 	-- {area:3425} Cenarion Hold
 	["Havunth's camp sits just west of {area:3425}.\nCareful: Havunth is level 60: clear his camp first and fight him at full health."] = "Лагерь Хавунта находится чуть западнее (ориентир: {area:3425}).\nОсторожно: Хавунт 60 уровня: сначала зачистите его лагерь и сражайтесь с ним при полном здоровье.",
 
-	-- Step 27: Hermit Ortell
+	-- Step 26: Hermit Ortell
 	["Ride back south-east to the hermit."] = "Езжайте назад на юго-восток к отшельнику.",
 	["Hand him the ten texts you kept"] = "Отдайте ему десять сохраненных текстов",
 
-	-- Step 28: Cenarion Hold
+	-- Step 27: Cenarion Hold
 	-- {npc:15190} Noggle Ficklespragg
 	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15190} стоит наверху в своем здании: поднимитесь внутри, стрелка не различает этажи.",
 
-	-- Step 29: Level 60
+	-- Step 28: Level 60
 	["Level 60"] = "60-й уровень",
 	-- {area:3425} Cenarion Hold · {area:2057} Scholomance · {area:2279} Stratholme · {area:3197} Chillwind Camp · {area:2268} Light's Hope Chapel · {zone:1451} Silithus
 	-- plural, as words: Twilight Avengers = {npc:11880} Twilight Avenger · Stonelash Flayers = {npc:11737} Stonelash Flayer · Rock Stalkers = {npc:11739} Rock Stalker
@@ -292,7 +285,9 @@ return {
 	-- ["{npc:15174}, the innkeeper"] = "{npc:15174}, хозяйка таверны",
 	-- ["{npc:15181}: Bronzebeard's Encampment comes later, on the way south"] = "{npc:15181}: Лагерь Бронзоборода – позже, по пути на юг",
 	-- ["{npc:15306}: his Twilight texts come from the dig after the next stop here"] = "{npc:15306}: его Сумеречные тексты добываются на раскопках после следующей остановки",
+	-- ["{npc:17080} camps outside {area:2743}, the western hive. Pick up a Silithyst at one of the red geysers nearby and carry it to the Alliance extractor at his camp.\nCareful: You lose the Silithyst if you mount, stealth, use {spell:642}, {spell:5384} or Vanish. Blink and {spell:17} do not drop it."] = "{npc:17080} стоит лагерем у западного улья ({area:2743}). Возьмите силитист у одного из красных гейзеров поблизости и отнесите его в экстрактор Альянса в его лагере.\nОсторожно: вы теряете силитист, если садитесь на транспорт, входите в незаметность, используете {spell:642}, {spell:5384} или «Исчезновение». «Скачок» и {spell:17} его не сбрасывают.",
 	-- ["{npc:17082}, at the Alliance tents"] = "{npc:17082} – у палаток Альянса",
+	-- ["{npc:17082}, at the Alliance tents: for {npc:17080} at {area:2743}"] = "{npc:17082} – у палаток Альянса: для персонажа {npc:17080} ({area:2743})",
 	-- ["{npc:1852} is a level 61 elite"] = "{npc:1852} – элитный противник 61-го уровня",
 	-- ["{npc:1855} (optional)"] = "{npc:1855} (по желанию)",
 	-- ["{npc:1855} lives in a small hut on the border river, north-east of the lumber camp. Hand in {quest:5781} if you finished it."] = "{npc:1855} живет в маленькой хижине у пограничной реки, к северо-востоку от лесопилки. Сдайте задание «{quest:5781}», если выполнили его.",

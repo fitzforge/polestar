@@ -190,13 +190,12 @@ test("Tyr's Watch: Tanis Alderwood's goals carry his Undercity floor's height, f
 	}
 });
 
-test('Horde objective follow-ups: camp discovery, Silithyst delivery and cooking point at their actual objective', { skip }, () => {
+test('Horde objective follow-ups: camp discovery and cooking point at their actual objective', { skip }, () => {
 	// Betrayed (3505): the camp, where the Kaldorei Tome of Summoning takes the hand-in. The game counts only
 	// the two kill lines (players' recordings, #2585), so the data may have no event line for it.
 	const camp = { f: 'e', x: 59.53, y: 31.47 };
 	for (const [file, quest, map, npc] of [
 		['forever/horde/50-60/02-felwood.guide', 3505, 1447, null], // Azshara moved into the Felwood guide (2026-11-20)
-		['forever/horde/50-60/06-silithus.guide', 9422, 1451, 18199],
 		['forever/horde/tauren/01-mulgore.guide', 96661, 1412, 3067],
 	]) {
 		const { goal } = goals(file).find(({ goal }) => goal.t === 'complete' && goal.quest === quest);
@@ -12771,16 +12770,16 @@ test('forever/alliance 40-60: givers and hand-ins taken when the route passes th
 	assert.ok(!wpl.some(({ goal }) => goal.quest === 5211), 'and on the Plaguelands sweep');
 	const sp = (what, pred) => wpl[at(wpl, what, pred)].s;
 	assert.ok(sp('turnin 978', is('turnin', 978)) < sp('accept 1047', is('accept', 1047)), 'Erelas before the portal up to Darnassus');
-	// Fix round 2 (0.4.0): Torrig and Larksbane are taken on the Silithus guide's first Cenarion Hold stop, a stop the
-	// route makes anyway where their work and hand-ins are: carried from earlier they rode through Mount Hyjal.
-	for (const q of [9415, 8284, 8318]) assert.ok(!wpl.some(({ goal }) => is('accept', q)(goal)), `${q} not carried from here`);
+	// Fix round 2 (0.4.0): Larksbane and Bor Wildmane are taken on the Silithus guide's first Cenarion Hold stop, a stop
+	// the route makes anyway where their work and hand-ins are: carried from earlier they rode through Mount Hyjal.
+	for (const q of [8284, 8318]) assert.ok(!wpl.some(({ goal }) => is('accept', q)(goal)), `${q} not carried from here`);
 	const si = goals('forever/alliance/50-60/06-silithus.guide');
 	const ss = (what, pred) => si[at(si, what, pred)].s;
 	assert.ok(ss('turnin 1124', is('turnin', 1124)) < ss('accept 8277', is('accept', 8277)), 'Layo where the pass comes out, before Cenarion Hold');
-	// Since the 0.4.3 fix round Silithus is one visit, over Secret Communication's (57) minimum: Bor Wildmane, Torrig and
+	// Since the 0.4.3 fix round Silithus is one visit, over Secret Communication's (57) minimum: Bor Wildmane and
 	// Larksbane are on the first Cenarion Hold stop. Dearest Natalia (8304) needs 58, which the corrected level model
 	// reaches only after the first stop (57.94 there): Mar'alith gives it on the third, still before Bronzebeard's Encampment.
-	for (const q of [8318, 9415, 8284]) assert.equal(ss(`accept ${q}`, is('accept', q)), ss('accept 8277', is('accept', 8277)), `${q} on the first Cenarion Hold stop of the Silithus guide`);
+	for (const q of [8318, 8284]) assert.equal(ss(`accept ${q}`, is('accept', q)), ss('accept 8277', is('accept', 8277)), `${q} on the first Cenarion Hold stop of the Silithus guide`);
 	assert.equal(ss('accept 8304', is('accept', 8304)), ss('accept 8282', is('accept', 8282)), 'Dearest Natalia on the third Cenarion Hold stop');
 	assert.ok(ss('accept 8304', is('accept', 8304)) < ss('talk 15171', (g) => g.t === 'talk' && g.npc === 15171), 'before Bronzebeard\'s Encampment');
 });
@@ -15070,14 +15069,13 @@ test("jaff's report, hand-written guides: a quest held finished is handed in by 
 		['forever/class/mage/staff-or-orb-alliance.guide', [93791]],
 		['forever/legacy/legacy-challenges.guide', [8997, 8998]],
 		[R('brood-of-nozdormu'), [8575, 8577, 8597, 8598, 8599, 8584, 8587, 8733, 8734, 8741, 8801]],
-		[R('cenarion-circle'), [8275, 8276, 8307, 8313, 8308, 1000, 1047, 6761, 1123, 6762, 1124, 6844, 6845, 8800, 9415, 9416, 8331, 8349, 8343, 8351, 8791]],
+		[R('cenarion-circle'), [8275, 8276, 8307, 8313, 8308, 1000, 1047, 6761, 1123, 6762, 1124, 6844, 6845, 8800, 8331, 8349, 8343, 8351, 8791]],
 		[R('darkspear-trolls'), [97281]],
 		[R('orgrimmar'), [97281, 4882]],
 		[R('darnassus'), [2159]],
 		[R('stormwind'), [35]],
 		[R('gnomeregan-exiles'), [96408]],
 		[R('ironforge'), [96408]],
-		[R('hydraxian-waterlords'), [7486]],
 		[R('thorium-brotherhood'), [7704, 3801]],
 		[R('thunder-bluff'), [781, 98424]],
 		[R('zandalar-tribe'), [8183]],
@@ -18808,6 +18806,32 @@ test('Dustwallow & Desolace: Stinky from 36, the escort\'s heads-up and Hornizz 
 test('forever/alliance/40-50/04-tanaris.guide: Oasis only after Tooga\'s Quest is handed in (#3546)', { skip }, () => {
 	const list = goals('forever/alliance/40-50/04-tanaris.guide');
 	assert.ok(at(list, 'turnin 1560', is('turnin', 1560)) < at(list, 'accept 97540', is('accept', 97540)));
+});
+
+// #3522 (Fitz's decision, 22 Nov): Duke Hydraxis's chain is not offered on Forever (live quest scans of builds
+// 70959 and 71037, no recorded quest window). The Waterlords guide drops its quest steps and keeps the reputation
+// kills to Honored, with one line saying the chain comes back when the Molten Core opens.
+test('forever/reputation/hydraxian-waterlords.guide: no Duke Hydraxis quest, the reputation kills stay (#3522)', { skip }, () => {
+	const file = 'forever/reputation/hydraxian-waterlords.guide';
+	const list = goals(file);
+	const chain = [6804, 6805, 6821, 6822, 6823, 6824, 7486, 7848];
+	assert.deepEqual(list.filter(({ goal }) => chain.includes(goal.quest)).map(({ goal }) => `${goal.t} ${goal.quest}`), []);
+	const kills = list.filter(({ goal }) => goal.t === 'kill').map(({ goal }) => goal.npc);
+	for (const npc of [11744, 11746, 14478, 9017, 9816]) assert.ok(kills.includes(npc), `the reputation kill of ${npc} stays`);
+	assert.ok(list.some(({ goal }) => goal.t === 'rep'), 'the reputation goals stay');
+	const tips = compiled(file).steps.flatMap((st) => [st.tip, st.note]).flat().filter(Boolean).join(' ');
+	assert.match(tips, /come back when the Molten Core opens/);
+});
+
+// #3338 (Zack): nobody was offered Report to General Kirika (9416) or Report to Marshal Bluewall (9415), nor the
+// Silithyst quests after them (9419, 9422): Scout Bloodfist and Rifleman Torrig were never seen, 0 runs in players'
+// recordings while the other Cenarion Hold quests are recorded many times, and the reporter checked a second layer.
+// The two Silithus guides and the Cenarion Circle guide leave all four out.
+test('Silithus and Cenarion Circle: the scouts\' reports and Scouring the Desert are left out (#3338)', { skip }, () => {
+	for (const file of ['forever/horde/50-60/06-silithus.guide', 'forever/alliance/50-60/06-silithus.guide', 'forever/reputation/cenarion-circle.guide']) {
+		const left = goals(file).filter(({ goal }) => [9415, 9416, 9419, 9422].includes(goal.quest)).map(({ goal }) => `${goal.t} ${goal.quest}`);
+		assert.deepEqual(left, [], file);
+	}
 });
 
 // #3385 (Tilman): skipping the kodo-taming step at the Kodo Graveyard skipped Reagents for Reclaimers Inc.'s venom

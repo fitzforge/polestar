@@ -1831,8 +1831,6 @@ t.guides["forever/alliance/50-60/06-silithus"] = (function() return {
 		["{npc:15189}, upstairs"] = "{npc:15189} – наверху",
 		["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15190} стоит наверху в своем здании: поднимитесь внутри, стрелка не различает этажи.",
 		["{npc:15190}, upstairs beside {npc:15189}"] = "{npc:15190} – наверху, рядом с {npc:15189}",
-		["{npc:17080} camps outside {area:2743}, the western hive. Pick up a Silithyst at one of the red geysers nearby and carry it to the Alliance extractor at his camp.\nCareful: You lose the Silithyst if you mount, stealth, use {spell:642}, {spell:5384} or Vanish. Blink and {spell:17} do not drop it."] = "{npc:17080} стоит лагерем у западного улья ({area:2743}). Возьмите силитист у одного из красных гейзеров поблизости и отнесите его в экстрактор Альянса в его лагере.\nОсторожно: вы теряете силитист, если садитесь на транспорт, входите в незаметность, используете {spell:642}, {spell:5384} или «Исчезновение». «Скачок» и {spell:17} его не сбрасывают.",
-		["{npc:17082}, at the Alliance tents: for {npc:17080} at {area:2743}"] = "{npc:17082} – у палаток Альянса: для персонажа {npc:17080} ({area:2743})",
 		["{zone:1451}: kill these as you meet them"] = "{zone:1451}: убивайте их по пути",
 } end)()
 t.guides["forever/alliance/dwarf/01-dun-morogh"] = (function() return {
@@ -5875,10 +5873,7 @@ t.guides["forever/horde/50-60/06-silithus"] = (function() return {
 		["Ride north-east to {area:3447}."] = "Езжайте на северо-восток сюда: {area:3447}.",
 		["Ride south-east to {area:3447} under the Un'Goro cliffs."] = "Езжайте на юго-восток сюда: {area:3447}, под скалами Ун'Горо.",
 		["Ride south-west to the ruins of {area:2738}. The {object:179565} for {npc:11801} sits inside one of the ruined houses."] = "Езжайте на юго-запад к руинам ({area:2738}). {object:179565} для персонажа {npc:11801} – в одном из разрушенных домов.",
-		["Ride west to the Horde camp north of {area:2744}."] = "Езжайте на запад к лагерю Орды к северу от места {area:2744}.",
 		["Scare {npc:7583} with {item:12928}"] = "Напугайте {npc:7583} с помощью предмета {item:12928}",
-		["Silithyst geysers erupt across the southern desert. Walk into the Silithyst one leaves behind and carry it to the Horde's Silithyst Extractor at Kirika's camp; fighting or mounting drops it."] = "Гейзеры силитиста извергаются по всей южной пустыне. Войдите в оставленный гейзером силитист и отнесите его к экстрактору Орды в лагере Кирики; в бою или верхом вы его теряете.",
-		["Stonelash Flayers and Rock Stalkers roam the dunes south-west of Kirika's camp."] = "Камнехвостые живодеры и скальные пауки-скакуны бродят по дюнам к юго-западу от лагеря Кирики.",
 		["The pass from Un'Goro comes out at {area:3077}, the graveyard in north-east {zone:1451}. {npc:13220} stands among the graves."] = "Перевал из Ун'Горо выходит сюда: {area:3077} – кладбище на северо-востоке края {zone:1451}. {npc:13220} стоит среди могил.",
 		["The spare texts from the cultists"] = "Лишние тексты с культистов",
 		["Twilight Vanguard"] = "Авангард Сумеречного Молота",
@@ -7482,11 +7477,8 @@ t.guides["forever/reputation/gnomeregan-exiles"] = (function() return {
 		["{quest:7812} to Revered"] = "{quest:7812} до уровня «Почтение»",
 } end)()
 t.guides["forever/reputation/hydraxian-waterlords"] = (function() return {
-		["Back to {npc:13278}"] = "Вернитесь к NPC {npc:13278}",
 		["Hydraxian Waterlords Reputation"] = "Репутация: Гидраксианские Повелители Вод",
 		["The {item:22754}"] = "{item:22754}",
-		["{item:17333} to douse the {area:2717}'s runes, the reusable {item:22754} at Revered and a fire resistance ring."] = "{item:17333} – чтобы гасить руны ({area:2717}), многоразовая {item:22754} на уровне «Почтение» и кольцо сопротивления огню.",
-		["{npc:12118}, {npc:12259}, {npc:12264} and {npc:12098} are {area:2717} bosses: each drops his hand for the quest."] = "{npc:12118}, {npc:12259}, {npc:12264} и {npc:12098} – боссы рейда {area:2717}: с каждого падает его рука для задания.",
 } end)()
 t.guides["forever/reputation/ironforge"] = (function() return {
 		["About 2,900 {faction:47} reputation from low-level quests in {zone:1426}, most of it paid to {area:133} too"] = "Около 2900 репутации у фракции {faction:47} за задания низкого уровня в зоне {zone:1426}, большая часть которой идет и фракции {area:133}",
