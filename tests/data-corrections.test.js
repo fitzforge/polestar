@@ -857,3 +857,11 @@ test('Pix Xizzix\'s four In Demand quests are in the data (#3601)', () => {
 		assert.deepEqual([s.start.npc, s.end.npc, s.minLevel, s.objectives.length], [[227853], [227853], 60, 3], `quest ${q}`);
 	}
 });
+
+// #2465, #3138, #3601, #558: what the game hides behind a condition, for the engine (#3658).
+test('Seeking the Kor Gem counts as done by An Underrated Talent; Zorbin sells after Zapped Giants; Pix\'s In Demand quests rotate; Franclorn is a ghost (#2465, #3138, #3601, #558)', () => {
+	assert.deepEqual(corrections.quests[95042].set.doneBy, [95111]);
+	assert.equal(corrections.npcs[14637].set.vendorAfter, 7003);
+	for (const q of [96075, 96076, 96087, 96088]) assert.equal(corrections.quests[q].set.rotation, 'pix-weekly', `quest ${q}`);
+	assert.equal(corrections.npcs[8888].set.ghostOnly, true);
+});

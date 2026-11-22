@@ -17570,7 +17570,8 @@
 	},
 	"96076": {
 		"set": {
-			"minLevel": 60
+			"minLevel": 60,
+			"rotation": "pix-weekly"
 		},
 		"source": [
 			{
@@ -20976,6 +20977,7 @@
 			"title": "In Demand - Blackrock Legal Records",
 			"level": 60,
 			"minLevel": 60,
+			"rotation": "pix-weekly",
 			"zone": 1434,
 			"objectives": [
 				{
@@ -21026,6 +21028,7 @@
 			"title": "In Demand - Plague Records",
 			"level": 60,
 			"minLevel": 60,
+			"rotation": "pix-weekly",
 			"zone": 1434,
 			"objectives": [
 				{
@@ -21076,6 +21079,7 @@
 			"title": "In Demand - Titan Relics",
 			"level": 60,
 			"minLevel": 60,
+			"rotation": "pix-weekly",
 			"zone": 1434,
 			"objectives": [
 				{
@@ -21120,5 +21124,23 @@
 			}
 		],
 		"note": "In Demand - Titan Relics, one of the In Demand quests Pix Xizzix (Booty Bay) offers, a different one each week, was missing from the merged data: created from the game's quest record. With it the data holds all four of his rotation (96075, 96076, 96087, 96088), so a pick-up guide can show whichever he offers this week (#3601)."
+	},
+	"95042": {
+		"set": {
+			"doneBy": [
+				95111
+			]
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#2465 (Juamillas, Forsaken Paladin 25, 0.4.1.1): C_QuestLog.IsQuestFlaggedCompleted gave false for Seeking the Kor Gem (95042) and true for An Underrated Talent (95111), Ott's Masterwork (95125) and The Moonsilver Blade (95126); #2366 and #3296 report the same"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: 11 people handed Seeking the Kor Gem in and took An Underrated Talent after it; nobody took An Underrated Talent without that hand-in"
+			}
+		],
+		"note": "Seeking the Kor Gem (95042, the Forsaken Paladins' Moonsilver Blade chain) is never flagged completed by the game, even once the rest of the chain is done, so the class guide waited at Ulric Frostveil for an accept that could not come. It counts as done once An Underrated Talent (95111), the next quest of the chain, is in the log or handed in (#2465)."
 	}
 }
