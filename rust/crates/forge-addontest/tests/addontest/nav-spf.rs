@@ -3172,6 +3172,51 @@ fn a_held_flight_route_is_offered_after_2_s_while_its_landing_is_still_being_mea
 	assert_eq!(out["after"], "walk fly walk", "the finished batch keeps the route");
 }
 
+// #3553 follow-up (Review3582): a landing the running batch has already refused (its first place `false` in the
+// partial costs, which the landing choice can't see before the batch lands) passed the 2 s give-up and was held
+// again by the very plan the give-up asked for, so every sample planned anew for the rest of the batch and no route
+// was offered. A measure that gave up holds no route again: the planner plans once, and plans again when it lands.
+#[test]
+fn a_measure_that_gave_up_on_a_refused_landing_holds_no_route_again_and_plans_once() {
+	let out = run_priced(
+		r#"
+		N.RegisterTravelData({ build = "test",
+			taxi = {
+				{ 1, 0, 900, 900, 9000, 5, 5, 3, "Home Roost, Testshire" },
+				{ 2, 0, -700, 0, 9000, 50, 85, 3, "Dock Roost, Testshire" },
+			},
+			taxiZ = { [2] = 5.9 },
+			flights = { 1, 2, 1700, 2, 1, 1700 },
+		}, true)
+		Polestar.CharState().flags.taxi = { [1] = true, [2] = true }
+		local plans, plan = 0, N.PlanRoute
+		N.PlanRoute = function(...) plans = plans + 1; return plan(...) end
+		local r = {}
+		nav.place(900, 800)
+		local m, x, y = nav.mapPoint(-890, 10)
+		N.SetTarget(m, x, y, "Pier")
+		N.Sample()
+		local batch = assert(fake.of(true)[1], "the walks into the target are measured")
+		local li
+		for i, p in ipairs(batch.targets) do if p.first then li = i end end
+		local partial = {}
+		partial[li] = false
+		batch.progress(partial, nil, batch)
+		N.Sample()
+		stub.advance(2.1)
+		N.Sample()
+		local after = plans
+		for i = 1, 20 do N.Sample(); stub.advance(0.05) end
+		r.replans = plans - after
+		r.held = N.travel.Waiting()
+		r.walks = #fake.of(false)
+		emit(r)"#,
+	);
+	assert!(out["replans"].as_i64().unwrap_or(99) <= 1, "the give-up plans once, not on every sample: {}", out["replans"]);
+	assert_eq!(out["held"], false, "and the route is no longer held for the batch");
+	assert!(out["walks"].as_i64().unwrap_or(0) >= 1, "the arrow searches its own walk meanwhile: {}", out["walks"]);
+}
+
 // #3553: a strict batch from a source at a height its places' walks can't reach though no policy says no leaves
 // those places unpriced (nil: the planner keeps its estimates), never refused (in the game every one of those
 // searches ran dry: 16 places, four minutes of slices). On the source's own floor, priced.
