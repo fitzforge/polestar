@@ -65,8 +65,8 @@ test('the guide menu: the window bar on top, then groups, the reset alone and in
 	const where = (t) => groups.findIndex((g) => g.includes(t));
 	assert.equal(where('Choose guide'), 0);
 	assert.equal(where('Open in new tab'), 0);
-	assert.ok(where('Options') > 0);
-	if (where('Quick settings') !== -1) assert.equal(where('Quick settings'), where('Options'));
+	assert.ok(where('Settings') > 0);
+	if (where('Quick settings') !== -1) assert.equal(where('Quick settings'), where('Settings'));
 	assert.deepEqual(groups[groups.length - 1], ['Reset guide progress', '(danger,confirm)'], 'the reset stands alone, last, in the danger colour, asking twice');
 });
 
@@ -85,7 +85,7 @@ test('rows the header shows as buttons stay out of the menu, and come back when 
 	const where = (t) => groups.findIndex((g) => g.includes(t));
 	assert.equal(where('Lookup'), 0, 'Lookup sits with Choose guide');
 	assert.equal(where('Skip this step'), 1, 'the step on its own');
-	assert.equal(where('Report a problem'), where('Options'));
+	assert.equal(where('Report a problem'), where('Settings'));
 });
 
 test('paused, the bar lights Pause and its caption says Polestar is paused, in the warning colour', () => {
