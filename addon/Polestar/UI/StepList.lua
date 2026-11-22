@@ -345,7 +345,8 @@ local function fillRow(r, v, i, live, at)
 	r.Unskip:SetShown(false)
 	r.Unskip.psTip = L["Bring it back"]
 	local n, more, key = 0, 0, { mine and "unskip" or "" }
-	-- A first goal that says the title draws no line, as on the step card.
+	-- A first goal that says the title draws no line, as on the step card,
+	-- unless it is the player's skip: that line carries its Unskip.
 	local said = false
 	if mine then
 		n = 1
@@ -373,8 +374,8 @@ local function fillRow(r, v, i, live, at)
 			g.Text:SetText(text)
 			W.Color(g.Text, (gone or goal.psDone) and "textMuted" or "text")
 			key[n] = text
-		elseif n == 0 and not said and not only and not mine and not UI.GoalProgress(goal) and not UI.GoalBar(goal)
-			and UI.PlainGoalText(UI.ReadingGoal(v, goal)) == title then
+		elseif n == 0 and not said and not only and not mine and not mySkip(goal) and not UI.GoalProgress(goal)
+			and not UI.GoalBar(goal) and UI.PlainGoalText(UI.ReadingGoal(v, goal)) == title then
 			said = true
 		else
 			n = n + 1
@@ -502,12 +503,25 @@ local function fillSkipped(r, run)
 	return table.concat(key, "\n")
 end
 
+-- The quests the character skipped (Engine.SkipQuest), as one key: a skip or
+-- an unskip made anywhere (the quest log, a slash command) redraws the list.
+local function skippedKey()
+	local st = ns.CharState and ns.CharState()
+	local q = st and st.skippedQuests
+	if type(q) ~= "table" then return "" end
+	local ids = {}
+	for id in pairs(q) do ids[#ids + 1] = id end
+	table.sort(ids)
+	return table.concat(ids, ",")
+end
+
 -- The cards, in step order. Every step is read again only when the guide,
 -- the step on screen, the live step, the progress, a step's gate (Engine.
 -- StepGate: a later step's `when` turning, which a run card shows) or the
--- names (Names.revision: a run card's reasons name quests) moved;
--- between those (a kill, a loot) only the live and the viewed step's cards
--- are, and the cards are measured again only when what one says changed.
+-- names (Names.revision: a run card's reasons name quests) or the skipped
+-- quests moved; between those (a kill, a loot) only the live and the viewed
+-- step's cards are, and the cards are measured again only when what one says
+-- changed.
 function SL.Fill()
 	local E = ns.Engine
 	local guide = E and E.GetGuide and E.GetGuide()
@@ -521,7 +535,7 @@ function SL.Fill()
 	-- Skip grey quests and the level change what a card says is left out (Engine.LeftOutHere).
 	local level = (ns.Compat.GetPlayerInfo() or {}).level or 0
 	local sig = table.concat({ guide.id or "", count, at or 0, live or 0, done or 0, total or 0, names, table.concat(gates, ","),
-		ns.Get("behavior.skipGrey") and 1 or 0, level }, "|")
+		ns.Get("behavior.skipGrey") and 1 or 0, level, skippedKey() }, "|")
 	if sig == SL.sig then
 		for k = 1, 2 do
 			local i = k == 1 and live or (at ~= live and at)
