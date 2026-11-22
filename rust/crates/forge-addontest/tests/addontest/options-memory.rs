@@ -86,7 +86,10 @@ const LOGIN_BASE: f64 = 11003.0;
 /// 0.4.1's release tree (release/0.4.1 with the 0.4.1 data's gathering spots and legacy steps, and Freedoom Arcade's
 /// hooks in the core, Maps/Arcade.lua, #2228): 12,979 KiB at login on 2026-11-17, 12,948 without Maps/Arcade.lua
 /// (+31). The budget is that and about 5 % (the same rule): 13,628.
-const LOGIN: f64 = LOGIN_BASE + 2625.0;
+/// The 0.4.2 Horde route round with LegacySteps regenerated for it (2026-11-20: the quests the round moved into a
+/// guide, Souvenirs of Death into Hillsbrad 30-40 among them, so old-route progress places no one; next with #3291
+/// merged): 13,652 KiB at login. The budget is that and about 5 % (the same rule): 14,335.
+const LOGIN: f64 = LOGIN_BASE + 3332.0;
 /// Loaded, 1,790 KiB on 2026-11-11 (760 on 2026-11-10): the Look pages' previews and the toasts and trackers
 /// pages moved in (1,110), then the settings-only widgets, every module's rows, Unlock mode, the profile
 /// strings, the preview stage and the skin picker's cards and presets (+400), all out of the login (1,513).

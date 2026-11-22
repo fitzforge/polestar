@@ -319,6 +319,26 @@ fn party_work(step: &V, goal: &V, chosen: &FxHashSet<Key>) -> bool {
 	group_step(step) || (!quest.is_undef() && (chosen.contains(&key(&quest)) || carried_step(step, &quest)))
 }
 
+/// Low elites (Fitz, 2026-11-20): an elite two or more levels under the player is solo content. The check sees the
+/// player's level only through the step's own gate, a `when level>=N` predicate or a `level N` line on the step, so
+/// elite work there is solo when N is at least the elite's top level (its `levelMax`) + 2; a fresh starter below the
+/// gate never gets the step.
+fn low_elite_step(step: &V, goal: &V, sides: &V, data: &Data) -> bool {
+	let elite = crate::group::elite_work(goal, sides, data);
+	let lvl = if elite.truthy() { elite.get("lvl").num() } else { 0.0 };
+	if !(lvl > 0.0) {
+		return false;
+	}
+	let mut gate = lowest_level(step);
+	for g in step.get("goals").items() {
+		if t_of(&g) == "level" {
+			let frac = g.get("frac");
+			gate = gate.max(g.get("level").num() + if frac.is_num() { frac.num() } else { 0.0 });
+		}
+	}
+	gate >= lvl + 2.0
+}
+
 /// Our house rules: errors in our pack, warnings in every other.
 fn house_rule(diag: &mut Diagnostics, g: &V, file: &str, ln: f64, msg: String) {
 	if g.get("pack").as_str() == Some("guides") {
@@ -1344,8 +1364,9 @@ pub fn validate_guides(guides: &[V], data: &Data, diag: &mut Diagnostics) {
 				in_log.remove(&qk);
 			}
 			let layers = [gl.clone(), step.hidden("_only"), goal.hidden("_only")];
-			if leveling && !goal.get("optional").truthy() && !party_work(&step, &goal, &chosen) {
-				if let Some(elite) = elite_goal(&goal, &applicable(&layers).get("factions"), data) {
+			let sides = applicable(&layers).get("factions");
+			if leveling && !goal.get("optional").truthy() && !party_work(&step, &goal, &chosen) && !low_elite_step(&step, &goal, &sides, data) {
+				if let Some(elite) = elite_goal(&goal, &sides, data) {
 					house_rule(diag, g, &file, ln, elite);
 					elite_mark(&goal);
 				}

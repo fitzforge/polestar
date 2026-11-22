@@ -80,6 +80,8 @@ Polestar.RegisterEvent("QUEST_LOG_UPDATE", seven)
 Polestar.On("TEST_MSG", slow(3))
 -- A handler that fires a message inside it: its own time leaves out the message's.
 Polestar.RegisterEvent("PLAYER_TARGET_CHANGED", function() fake = fake + 1; Polestar.Fire("TEST_MSG") end)
+-- A unit event asked for the player alone (its own bus).
+Polestar.RegisterEvent("UNIT_AURA", slow(2.5), "player")
 SlashCmdList.POLESTAR("perf")
 -- Made while the probe is on: named by where it was made.
 debugstack = function() return '[string "@Interface/AddOns/Polestar/Core/Perf.lua"]:1: in function\n[string "@Interface/AddOns/Polestar/Core/Init.lua"]:2: in function\n[string "@Interface/AddOns/Polestar/Quests/Fake.lua"]:42: in function <x>\n' end
@@ -89,6 +91,7 @@ stub.inCombat = true
 stub.fire("QUEST_LOG_UPDATE")
 stub.inCombat = false
 stub.fire("PLAYER_TARGET_CHANGED")
+stub.fire("UNIT_AURA", "player")
 stub.advance(0.1)
 local spikes = {}
 for _, e in ipairs(P.Spikes()) do
@@ -114,6 +117,7 @@ emit({ spikes = spikes, stats = stats, report = P.ReportText(), lines = P.Report
 	assert_eq!(outer["where"], "PLAYER_TARGET_CHANGED");
 	assert!((outer["own"].as_f64().unwrap() - 1.0).abs() < 1e-6, "its own time leaves the message out: {outer}");
 	assert!(find(3, 4.0).is_some(), "the timer is a spike: {spikes:?}");
+	assert!(spikes.iter().any(|e| e["kind"] == 1 && e["where"] == "UNIT_AURA"), "a unit event on its own bus is timed too: {spikes:?}");
 	let report = out[0]["report"].as_str().unwrap();
 	assert!(report.contains("timer Quests/Fake.lua:42 4.0 ms"), "a timer made while on is named by where it was made: {report}");
 	let place = out[0]["place"].as_str().unwrap();

@@ -34,9 +34,11 @@ local Nav = ns.Nav
 local Bridges = {}
 Nav.bridges = Bridges
 
-local tomtomUid      -- TomTom waypoint we own
+local tomtomUid, tomtomOwner -- only the waypoint this bridge added
+local tomtomGuides = false
 local blizzardSet = false
 local blizzardAt      -- the game's pin we set: { uiMapID, x, y } (0-1)
+local blizzardTracked
 local wuiSet = false   -- a Waypoint UI pin of ours
 local wuiLast         -- the pin last set: label, map, x, y (an unchanged target is not sent again)
 local questSet         -- the quest we super-tracked
@@ -78,48 +80,34 @@ function Nav.UsingTomTomArrow()
 	return ns.Get("nav.tomtom") and ns.Get("nav.useTomTomArrow") and tomtom() ~= nil or false
 end
 
--- TomTom's arrow measures nothing to a waypoint on another continent and
--- hides itself there (#1325: Durotar to Loch Modan showed no arrow at all).
--- So it guides only while the player stands on the target's continent;
--- elsewhere Polestar's own arrow and its route (a zeppelin, a boat) do. An
--- unknown position or target stays TomTom's. Allocation-free (the arrow asks
--- every sample).
+-- The arrow asks every sample. Publish the handoff only after its waypoint is set.
 function Nav.TomTomArrowGuides()
-	if not Nav.UsingTomTomArrow() then return false end
-	local tc = Nav.GetTargetWorld()
-	local C = ns.Compat
-	local pc = C and C.GetPlayerWorldPosition and C.GetPlayerWorldPosition()
-	return tc == nil or pc == nil or tc == pc
+	return tomtomGuides
 end
 
-local routeStop -- (below)
-local tomtomAt -- the waypoint ours holds: "label|map|x|y" (an unchanged stop is not sent again)
-
-local function syncTomTom(target, onRoute)
-	local T = tomtom()
-	-- While TomTom's arrow guides a route, its waypoint is the current leg's stop, else the target.
-	local label, map, x, y, r
-	if T and target and Nav.TomTomArrowGuides() then label, map, x, y = routeStop(target) end
-	if label then
+local function syncTomTom(T, target, wantsArrow, guide, stop, map, x, y)
+	local label, r
+	if guide and stop then
+		label = stop
 		if label == "" then label = target.label end
 		r = Nav.DEFAULT_RADIUS
-	elseif target then
+	elseif target and (not wantsArrow or guide) then
 		label, r = target.label, (target.r or Nav.DEFAULT_RADIUS) + (tonumber(target.area) or 0)
-		map, x, y = Nav.LiveCoords(target)
+		if not guide then map, x, y = Nav.LiveCoords(target) end
 	end
-	local at = map and string.format("%s|%d|%.2f|%.2f", tostring(label), map, x, y)
-	if onRoute and tomtomUid and at == tomtomAt then return end
-	if tomtomUid then
-		if T then T:RemoveWaypoint(tomtomUid) end
-		tomtomUid, tomtomAt = nil, nil
-	end
-	-- A mirror is the arrow's: none while hiding Polestar takes the arrow (ns.ArrowHidden).
-	if not (T and target and ns.Get("nav.tomtom")) or Nav.HandedOff() or ns.ArrowHidden() then return end
-	-- A waypoint followed from TomTom's arrow (Nav/Journey.lua) is in TomTom already.
 	local J = Nav.journey
-	if J and J.IsTomTomTarget(target) then return end
-	if not map then return end
-	tomtomAt = at
+	local followed = T and target and J and J.IsTomTomTarget(target)
+	if tomtomUid then
+		tomtomOwner:RemoveWaypoint(tomtomUid)
+		tomtomUid, tomtomOwner = nil, nil
+	end
+	-- A waypoint followed from another arrow belongs to its owner. Leave it alone;
+	-- it can replace ours only when the goal itself is the verified bearing.
+	if followed then return guide and not stop end
+	-- With auto-selection enabled, even a passive replacement could become
+	-- the closest arrow after our old waypoint is removed. In arrow mode
+	-- publish nothing until there is a checked bearing.
+	if not (T and target and map and (not wantsArrow or guide)) then return false end
 	tomtomUid = T:AddWaypoint(map, x / 100, y / 100, {
 		title = label,
 		from = "Polestar",
@@ -128,10 +116,14 @@ local function syncTomTom(target, onRoute)
 		-- TomTom draws its own pins only where Polestar's are switched off.
 		minimap = not ns.Get("nav.minimapPins"),
 		world = not ns.Get("nav.worldPins"),
-		crazy = ns.Get("nav.useTomTomArrow") and true or false,
+		crazy = guide,
 		cleardistance = 0,
 		arrivaldistance = r,
 	})
+	-- AddWaypoint can return someone else's existing waypoint with the same key.
+	if type(tomtomUid) == "table" and tomtomUid.from and tomtomUid.from ~= "Polestar" then tomtomUid = nil end
+	tomtomOwner = tomtomUid and T
+	return guide and tomtomUid ~= nil
 end
 
 local function makePoint(map, x, y)
@@ -179,13 +171,19 @@ end
 -- Where the arrow's current leg leads while a route is followed (a flight
 -- master, a dock, a portal, a crossing: Travel.Stop), with the leg's label,
 -- in live-frame map percent: on the point's own map, else the zone the
--- walking maps put it in, else the target's map. nil on the route's last
--- walk, with no route, or for a point on none of them.
-function routeStop(target)
+-- walking maps put it in, else the target's map. No ground waypoint for an
+-- interaction here, or if a stop cannot be placed on a map.
+local function steeringPoint(target, taxi)
 	local T = Nav.travel
+	local leg = T and T.CurrentLeg and T.CurrentLeg()
+	if not taxi and leg and (leg.taxiOffer or leg.kind == "hearth" or leg.kind == "teleport") then return end
 	local p, label
-	if T and T.Stop then p, label = T.Stop() end
-	if not (p and p.c and p.wx and p.wy) then return nil end
+	if T and T.Stop and not taxi then p, label = T.Stop() end
+	if not p then
+		if not taxi and leg and leg.kind ~= "walk" then return end
+		return nil, Nav.LiveCoords(target)
+	end
+	if not (p.c and p.wx and p.wy) then return end
 	local x, y = onMap(p.map, p.c, p.wx, p.wy)
 	if x then return label or "", p.map, x, y end
 	local zone = T.ZoneOf and T.ZoneOf(p.map, p.c, p.wx, p.wy)
@@ -196,14 +194,34 @@ function routeStop(target)
 	return nil
 end
 
+-- Check the direct bearing the receiving addon will draw, not the plan that
+-- led to its endpoint. This 2D policy needs neither an open map nor a floor.
+local function clearBearing(pc, px, py, map, x, y, taxi)
+	local C = ns.Compat
+	if not (pc and px and py and C and C.MapToWorld) then return false end
+	local c, wx, wy = C.MapToWorld(map, x, y)
+	return c ~= nil and c == pc and wx ~= nil and wy ~= nil and (taxi or Nav.CanDrawGroundApproach(c, px, py, wx, wy))
+end
+
+-- The game may supertrack a different point for a quest. Without a readable
+-- waypoint for this spot, send our checked point as a named pin instead.
+local function trackedQuest(target, pc, px, py, map, x, y, taxi)
+	local q = questTrackable(target)
+	if not (q and C_QuestLog and C_QuestLog.GetNextWaypoint) then return end
+	local ok, m, a, b = pcall(C_QuestLog.GetNextWaypoint, q)
+	if not ok or (issecretvalue and (issecretvalue(m) or issecretvalue(a) or issecretvalue(b)))
+		or m ~= map or type(a) ~= "number" or type(b) ~= "number" then return end
+	a, b = a * 100, b * 100
+	if math.abs(a - x) <= 0.05 and math.abs(b - y) <= 0.05
+		and ((a == x and b == y) or clearBearing(pc, px, py, m, a, b, taxi)) then return q end
+end
+
 -- With Waypoint UI: "quest" or "pin" when the target is shown through it.
 -- On a route, the pin is the current leg's stop, so its beacon leads the way
 -- the arrow does (the portal first, then the bank: #1741); the target itself
 -- (its quest tracked, or its pin) once the last walk to it begins.
-local function syncWaypointUI(W, target)
+local function syncWaypointUI(W, label, map, x, y, q)
 	local ST = C_SuperTrack
-	local label, map, x, y = routeStop(target)
-	local q = not label and questTrackable(target)
 	if q and ST and ST.SetSuperTrackedQuestID then
 		if wuiSet then
 			wuiSet, wuiLast = false, nil
@@ -216,17 +234,13 @@ local function syncWaypointUI(W, target)
 		questSet = q
 		return "quest"
 	end
-	if not label then
-		label = target.label
-		map, x, y = Nav.LiveCoords(target)
-	end
 	if not map or (C_Map and C_Map.CanSetUserWaypointOnMap and not C_Map.CanSetUserWaypointOnMap(map)) then return false end
 	if questSet then clearWaypointUI(nil) end
 	-- The same pin again (the target re-announced, an area's spot unchanged,
 	-- the route planned again the same way): Waypoint UI is not asked to
 	-- redraw it while it still holds ours.
 	local L = wuiLast
-	if wuiSet and L and L.label == label and L.map == map and math.abs(L.x - x) < 0.05 and math.abs(L.y - y) < 0.05
+	if wuiSet and L and L.label == label and L.map == map and L.x == x and L.y == y
 		and W.IsUserNavigationFlagged(FLAG) then
 		return "pin"
 	end
@@ -234,8 +248,6 @@ local function syncWaypointUI(W, target)
 	wuiSet, wuiLast = true, { label = label, map = map, x = x, y = y }
 	return "pin"
 end
-
-local retrying = false
 
 -- Is the game's pin still the one we set (the same map and point)? Without
 -- C_Map.GetUserWaypoint to ask, it is taken to be.
@@ -249,25 +261,19 @@ local function ourPin()
 	return x ~= nil and y ~= nil and math.abs(x - at[2]) < 1e-4 and math.abs(y - at[3]) < 1e-4
 end
 
-local function syncBlizzard(target)
-	-- An addon following Polestar that sets the game's pin itself (Nav.API.Follow
-	-- with `pin`, as Naowh Forever's Waypoint Pin does) has it: ours steps aside.
-	local on = ns.Get("nav.blizzardWaypoint") and target and not Nav.HandedOff() and not ns.ArrowHidden()
-		and not (Nav.FollowerPins and Nav.FollowerPins())
-	local W = waypointUI()
-	-- Waypoint UI loads after Polestar and fills its API late: look again once
-	-- (the first target after login is set before it is ready).
-	local C = ns.Compat
-	local present = type(WaypointUIAPI) == "table" or (C and C.AddOnPresent and C.AddOnPresent("WaypointUI"))
-	if on and not W and not retrying and present then
-		retrying = true
-		ns.After(2, function()
-			retrying = false
-			if waypointUI() then syncBlizzard(Nav.GetTarget()) end
-		end)
+local function trackOurPin(track)
+	local ST = C_SuperTrack
+	if ST and ST.SetSuperTrackedUserWaypoint then
+		if track or not ST.IsSuperTrackingUserWaypoint or ST.IsSuperTrackingUserWaypoint() then
+			ST.SetSuperTrackedUserWaypoint(track)
+		end
+		blizzardTracked = track
 	end
+end
+
+local function syncBlizzard(target, W, on, stop, map, x, y, q, refresh)
 	-- Waypoint UI loaded: the tracked quest or a named pin, through it.
-	local shown = on and W and syncWaypointUI(W, target)
+	local shown = on and W and map and syncWaypointUI(W, stop or target.label, map, x, y, q)
 	if shown then
 		-- A named pin replaces a plain one of ours (Waypoint UI sets the game's
 		-- pin itself); a tracked quest does not, so ours is cleared (a target
@@ -279,15 +285,22 @@ local function syncBlizzard(target)
 	if wuiSet or questSet then clearWaypointUI(W) end
 	-- Without Waypoint UI: the game's own pin, unnamed.
 	if on and not W and C_Map and C_Map.SetUserWaypoint then
+		local track = map ~= nil and not stop
 		local map, x, y = Nav.LiveCoords(target)
 		if map and (not C_Map.CanSetUserWaypointOnMap or C_Map.CanSetUserWaypointOnMap(map)) then
+			local at = blizzardSet and blizzardAt
+			if at and at[1] == map and at[2] == x / 100 and at[3] == y / 100 then
+				-- A refresh must not take back a pin someone else set over ours.
+				if ourPin() then
+					if track ~= blizzardTracked then trackOurPin(track) end
+					return
+				elseif refresh then return end
+			end
 			local point = makePoint(map, x / 100, y / 100)
 			if point then
 				C_Map.SetUserWaypoint(point)
 				blizzardSet, blizzardAt = true, { map, x / 100, y / 100 }
-				if C_SuperTrack and C_SuperTrack.SetSuperTrackedUserWaypoint then
-					C_SuperTrack.SetSuperTrackedUserWaypoint(true)
-				end
+				trackOurPin(track)
 				return
 			end
 		end
@@ -303,9 +316,49 @@ local function syncBlizzard(target)
 	end
 end
 
+local lastTarget, lastW, lastStop, lastMap, lastX, lastY, lastQuest, lastGuide
+local function sync(target, refresh)
+	local enabled = target and not Nav.HandedOff() and not ns.ArrowHidden()
+	local T = enabled and ns.Get("nav.tomtom") and tomtom()
+	local wantsArrow = T and ns.Get("nav.useTomTomArrow")
+	local pin = enabled and ns.Get("nav.blizzardWaypoint") and not (Nav.FollowerPins and Nav.FollowerPins())
+	local W = waypointUI()
+	local stop, map, x, y, q
+	local guide = false
+	if wantsArrow or (pin and (W or (C_SuperTrack and C_SuperTrack.SetSuperTrackedUserWaypoint))) then
+		local C = ns.Compat
+		local taxi = C and C.IsOnTaxi and C.IsOnTaxi()
+		local pc, px, py
+		if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
+		stop, map, x, y = steeringPoint(target, taxi)
+		if map and clearBearing(pc, px, py, map, x, y, taxi) then
+			guide = wantsArrow and pc == Nav.GetTargetWorld() or false
+			if pin and W and not stop then q = trackedQuest(target, pc, px, py, map, x, y, taxi) end
+		else
+			stop, map, x, y = nil, nil, nil, nil
+		end
+	end
+	-- Refresh runs on movement/situation ticks, not in the arrow's frame loop.
+	-- Don't reassert a marker (especially one the player replaced) just because
+	-- the player moved if the handoff hasn't changed.
+	if refresh and target == lastTarget and W == lastW and stop == lastStop and map == lastMap
+		and x == lastX and y == lastY and q == lastQuest and guide == lastGuide then return end
+	local changed = target ~= lastTarget or guide ~= lastGuide or (guide and (stop ~= lastStop or map ~= lastMap or x ~= lastX or y ~= lastY))
+	lastTarget, lastW, lastStop, lastMap, lastX, lastY, lastQuest, lastGuide = target, W, stop, map, x, y, q, guide
+	local before = tomtomGuides
+	if not refresh or (changed and (wantsArrow or tomtomGuides)) then
+		tomtomGuides = syncTomTom(T, target, wantsArrow, guide, stop, map, x, y) or false
+	end
+	syncBlizzard(target, W, pin, stop, map, x, y, q, refresh)
+	if before ~= tomtomGuides then Nav.arrow:Refresh() end
+end
+
 function Bridges:OnTarget(target)
-	syncTomTom(target)
-	syncBlizzard(target)
+	sync(target, false)
+end
+
+function Bridges:Refresh()
+	sync(Nav.GetTarget(), true)
 end
 
 -- Only the settings these bridges read trigger a resync, so dragging the
@@ -331,10 +384,13 @@ ns.On("POLESTAR_HIDDEN", function() Bridges:OnTarget(Nav.GetTarget()) end)
 -- A new plan or the next leg: Waypoint UI's pin moves to the new stop (#1741),
 -- and so does TomTom's waypoint while TomTom's arrow guides (#1834). The
 -- game's plain pin, and TomTom's as a mere mirror, stay on the target.
-local function onRoute()
-	local target = Nav.GetTarget()
-	if Nav.TomTomArrowGuides() then syncTomTom(target, true) end
-	if waypointUI() then syncBlizzard(target) end
-end
+local function onRoute() Bridges:Refresh() end
 ns.On("ROUTE_CHANGED", onRoute)
 ns.On("ROUTE_ADVANCED", onRoute)
+
+-- A walking search can refuse the current leg between situation ticks. Take
+-- back a bearing that was guiding there; never run the sampler to query it.
+ns.On("NAV_ROUTE_GEOMETRY", function()
+	if (tomtomGuides or wuiSet or questSet or (blizzardSet and blizzardTracked))
+		and not Nav.CanDrawGroundApproach() then Bridges:Refresh() end
+end)

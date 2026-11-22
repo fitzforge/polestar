@@ -141,29 +141,25 @@ return {
 	-- {npc:4794} Morgan Stern
 	["{npc:4794}, inside"] = "{npc:4794}, à l'intérieur",
 
-	-- Step 31: Cortello's Riddle
-	-- {area:498} Bloodfen Burrow
-	["Inside {area:498}"] = "À l'intérieur de {area:498}",
-
-	-- Step 32: Mudsprocket
+	-- Step 31: Mudsprocket
 	["Mudsprocket"] = "Gouffrefange",
 	-- {area:511} Wyrmbog · {npc:270723} Drazzit Dripvalve · {npc:270727} Gizzix Grimegurgle
 	["Take the road south-west out of Theramore to Mudsprocket, the goblin camp at the edge of the {area:511}. {npc:270723} and {npc:270727} stand together in the camp."] = "Prenez la route au sud-ouest de Theramore jusqu'à Gouffrefange, le camp gobelin en bordure de la {area:511}. {npc:270723} et {npc:270727} se tiennent ensemble dans le camp.",
 
-	-- Step 33: The Wyrmbog
+	-- Step 32: The Wyrmbog
 	-- {area:511} Wyrmbog
 	["The {area:511}"] = "{area:511}",
 	-- {item:280092} Wyrmtail
 	-- plural, as words: Searing Hatchlings = {npc:4323} Searing Hatchling · Firemane Scalebanes = {npc:4328} Firemane Scalebane
 	["The {item:280092} grows in the bog east of the camp: gather it first. Then the Searing Hatchlings and Whelps (41-43) and the Firemane dragonkin nest in the bog north and west of Mudsprocket, on the way back; all of them drop the shed scales.\nCareful: the Firemane Scalebanes and Flamecallers are 43-44 and cast fire: pull them one at a time."] = "La {item:280092} pousse dans le marais à l'est du camp : récoltez-la d'abord. Ensuite, les Jeunes incendiaires et les dragonnets (41-43) ainsi que les draconiens Crins-de-feu nichent dans le marais au nord et à l'ouest de Gouffrefange, sur le chemin du retour ; tous lâchent les écailles tombées.\nAttention : les Plaiedécailles Crins-de-feu et les Implorateurs des flammes sont de niveau 43-44 et lancent des sorts de feu : attirez-les un par un.",
 
-	-- Step 34: Mudsprocket
+	-- Step 33: Mudsprocket
 	["Then ride back north-east to Theramore's flight master."] = "Puis retournez au nord-est jusqu'au maître de vol de Theramore.",
 
-	-- Step 35: Theramore flight master
+	-- Step 34: Theramore flight master
 	["Theramore flight master"] = "Maître de vol de Theramore",
 
-	-- Step 37: Warlock: Summon Felsteed
+	-- Step 36: Warlock: Summon Felsteed
 	-- {quest:3631} Summon Felsteed
 	["Warlock: {quest:3631}"] = "Démoniste : {quest:3631}",
 	-- {zone:1413} Barrens · {area:392} Ratchet · {npc:6251} Strahad Farsan
@@ -173,6 +169,7 @@ return {
 	-- ["Fly to {area:144}"] = "Prendre un vol pour {area:144}",
 	-- ["Fly to {area:392}; {npc:6251} teaches in the house by the bank. Fly back to Theramore afterwards."] = "Volez jusqu'à {area:392} ; {npc:6251} enseigne dans la maison près de la banque. Revenez ensuite à Theramore en vol.",
 	-- ["Fly to {area:608}, ride south through {zone:1443} into {zone:1444} and follow the road to the dock on the {area:1108}; the boat crosses to {area:1116}, where the next guide starts."] = "Volez jusqu'à {area:608}, descendez vers le sud à travers {zone:1443} jusqu'en {zone:1444} et suivez la route jusqu'au quai de {area:1108} ; le bateau rejoint {area:1116}, où commence le guide suivant.",
+	-- ["Inside {area:498}"] = "À l'intérieur de {area:498}",
 	-- ["Into {area:38}"] = "Vers le {area:38}",
 	-- ["On to Feathermoon"] = "En route pour le Bastion de Pennelune",
 	-- ["Ride north to {area:144} and fly to {area:271}. {npc:3980} preaches by the inn."] = "Partez au nord jusqu'à {area:144} et volez jusqu'à {area:271}. {npc:3980} prêche près de l'auberge.",
