@@ -1,0 +1,121 @@
+name: Release data
+
+# The tests that read the reference data, on the release data, on the maintainers' self-hosted runner for pull
+# requests (labels self-hosted, polestar-data; docs/CI.md "Reference data"). The data never leaves that machine, so
+# only this repository's own branches run here: a fork's pull request skips this job (the runner refuses one too)
+# and has the public data in ci.yml's Tests only. A draft skips it too, until it is marked ready. Its tests fail on
+# any failure: the release data is the one the release gates read. Not a required check: the runner is one machine
+# that may be off.
+on:
+  pull_request:
+    types: [opened, synchronize, reopened, ready_for_review]
+
+permissions:
+  contents: read
+
+# A newer push replaces the pull request's older run, waiting or running.
+concurrency:
+  group: release-data-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  release-data:
+    name: Release data
+    if: github.event.pull_request.head.repo.full_name == github.repository && !github.event.pull_request.draft
+    runs-on: [self-hosted, polestar-data]
+    timeout-minutes: 60
+    env:
+      POLESTAR_TIMING_BUDGETS: warn
+      # Two test files at once: the guide suites on the data take a few GB each.
+      CI_TEST_CONCURRENCY: "2"
+    defaults:
+      run:
+        shell: bash
+    steps:
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+        with:
+          persist-credentials: false
+          fetch-depth: 2
+
+      # As ci.yml's Tests job: the lane from the base's own copy of the script. Then what there is to run on the
+      # data: the tests that read it (tools/ci-data-tests.js; the others run the same without it, and Tests runs
+      # them) and the guide texts of the languages touched. Nothing to run: the job ends here.
+      - name: Lane
+        id: lane
+        run: |
+          changed="$RUNNER_TEMP/changed.txt" base="$RUNNER_TEMP/base" from=$(git rev-parse HEAD^1) || from=
+          if [ -n "$from" ] && git diff --no-renames --name-only "$from" HEAD > "$changed" \
+            && git worktree add --detach --quiet "$base" "$from" && [ -f "$base/tools/ci-lane.js" ]; then
+            node "$base/tools/ci-lane.js" --github --files "$changed"
+          else
+            echo "lane=full" >> "$GITHUB_OUTPUT"
+            echo "locales=all" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: What to run
+        id: plan
+        env:
+          LANE: ${{ steps.lane.outputs.lane }}
+          TESTS: ${{ steps.lane.outputs.tests }}
+          LOCALES: ${{ steps.lane.outputs.locales }}
+        run: |
+          set -f # the glob is node's to expand
+          files=
+          case "$LANE" in
+            docs) ;;
+            full) files=$(node tools/ci-data-tests.js "tests/**/*.test.js") ;;
+            *) files=$(node tools/ci-data-tests.js $TESTS) ;;
+          esac
+          echo "files=$files" >> "$GITHUB_OUTPUT"
+          if [ -z "$files" ] && [ -z "$LOCALES" ]; then
+            echo "run=no" >> "$GITHUB_OUTPUT"
+            printf '## Release data\n\nNothing the change can break reads the data.\n' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "run=yes" >> "$GITHUB_OUTPUT"
+            echo "$(wc -w <<< "$files") test file(s) read the data; guide texts: ${LOCALES:-none}"
+          fi
+
+      # The runner's copy of the release data ($POLESTAR_DATA: forever/ and the sources it was built from,
+      # sources/), read-only there: forever/ copied (some tools write beside it), each source folder linked.
+      - name: Release data
+        if: steps.plan.outputs.run == 'yes'
+        run: |
+          test -f "$POLESTAR_DATA/forever/meta.json"
+          rm -rf data/forever && cp -r "$POLESTAR_DATA/forever" data/forever
+          mkdir -p data/sources
+          for s in "$POLESTAR_DATA"/sources/*; do ln -sfn "$s" "data/sources/$(basename "$s")"; done
+          printf '## Release data\n\n%s\n' "$(jq -r '"built \(.builtAt // "?")"' data/forever/meta.json)" >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Forge cache key
+        id: forgekey
+        if: steps.plan.outputs.run == 'yes'
+        run: echo "key=forge-quick-Linux-${{ hashFiles('rust/**', 'tests/lua/simulate.lua') }}" >> "$GITHUB_OUTPUT"
+
+      - name: Forge (cache)
+        id: forgecache
+        if: steps.plan.outputs.run == 'yes'
+        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: rust/target/quick/forge
+          key: ${{ steps.forgekey.outputs.key }}
+
+      - name: Build forge
+        if: steps.plan.outputs.run == 'yes' && steps.forgecache.outputs.cache-hit != 'true'
+        working-directory: rust
+        run: cargo build --profile quick --locked -j 6 -p forge
+
+      - name: Forge path
+        if: steps.plan.outputs.run == 'yes'
+        run: echo "FORGE=$GITHUB_WORKSPACE/rust/target/quick/forge" >> "$GITHUB_ENV"
+
+      - name: Test (the ones that read the data)
+        if: steps.plan.outputs.files != ''
+        env:
+          FILES: ${{ steps.plan.outputs.files }}
+        run: tools/ci-tests.sh "" $FILES
+
+      - name: Guide texts
+        if: steps.plan.outputs.run == 'yes' && steps.lane.outputs.locales != ''
+        env:
+          LOCALES: ${{ steps.lane.outputs.locales }}
+        run: tools/ci-guide-texts.sh "" "$LOCALES"

@@ -146,7 +146,7 @@ every pull request's tests run with reference data, in two places:
 | Where | Data | Who | Fails on |
 |---|---|---|---|
 | `Tests` (`ci.yml`, GitHub's runners) | the public data `ci-data.yml` built on `next` | every pull request, forks too | a failure next's run on the same data does not have |
-| `Release data` (`ci.yml`, the maintainers' self-hosted runner) | the release data | pull requests from this repository's own branches | any failure |
+| `Release data` (`ci-release-data.yml`, the maintainers' self-hosted runner) | the release data | pull requests from this repository's own branches, not drafts | any failure |
 
 **Public data.** On every push to `next`, `ci-data.yml` builds the public
 data (below), runs the whole Node suite on it and saves both in the Actions
@@ -161,16 +161,19 @@ without it (`ci-data.yml` is their data run).
 
 **Release data.** The release data is built from recordings and private
 sources and is never published: it stays on the maintainers' machine, where
-a self-hosted runner (labels `self-hosted`, `polestar-data`) holds a
-read-only copy. Only code from this repository's own branches runs there:
-the `Release data` job runs for a pull request whose head branch is in this
-repository, and gates on the merged tree can run on pushes to `next`. The
-runner checks every job before it
-starts and refuses anything else (a fork's pull request, a push to a branch
+two self-hosted runners hold a read-only copy: one for pull requests
+(labels `self-hosted`, `polestar-data`) and one for the gates on the merged
+tree (`polestar-gates`: [After a merge](#after-a-merge) and the weekly
+route run), so the gates never queue behind pull requests. Only code from
+this repository's own branches runs there: the `Release data` job runs for
+a pull request whose head branch is in this repository once it is not a
+draft (marking a draft ready starts it; a newer push cancels the older
+run), and the gates on pushes to `next`. Each runner checks every job
+before it starts and refuses anything else (a fork's pull request, a push to a branch
 other than `next`, `main`, `release/*` or `hotfix/*`, any other event), each
 job runs in a fresh sandbox (the data and toolchains
 read-only, no credentials of the machine, the job's own folder its only
-writable one) and the runner is registered for one job at a time
+writable one) and a runner is registered for one job at a time
 (ephemeral). What a fork's pull request can and cannot read:
 
 - it runs on GitHub's runners only, with the public data and a read-only
@@ -186,9 +189,9 @@ self-hosted runner, so its code can read the release data; write access is
 given with that in mind. A fork's change gets the release data's tests after
 a maintainer merges it (the post-merge gates) or pushes it to a branch here.
 
-`Release data` is not a required check: the runner is one machine that may
-be off. When it is off the job waits in the queue and the pull request can
-still merge on `Tests`.
+`Release data` is not a required check: the runners are on one machine that
+may be off. When it is off the job waits in the queue and the pull request
+can still merge on `Tests`.
 
 ### How the public data is built
 
