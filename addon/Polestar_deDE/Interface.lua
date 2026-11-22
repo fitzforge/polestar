@@ -9,7 +9,7 @@ local L = ns.L
 -- Core/Automation.lua
 L["Choose a reward to finish the turn-in."] = "Wähle eine Belohnung, um die Abgabe abzuschließen."
 -- L["%s is an escort: it starts as soon as it is taken. Accept it yourself when your group is ready."] = ""
--- L["Took %s now: %s does it later, so this saves a trip back."] = ""
+-- L["Took %s now for %s, later on your route: this saves a trip back."] = ""
 
 -- Core/Commands.lua
 L["Toggle guide window"] = "Guide-Fenster ein-/ausblenden"
@@ -240,8 +240,8 @@ L["Grey for you: pays %d%% XP (Skip grey quests)"] = "Für dich grau: bringt %d%
 -- L["Ride to the flight master"] = ""
 -- L["Requires level %d: the guide comes back for it then"] = ""
 -- L["Requires level %d: kept for a later guide"] = ""
--- L["Saves a trip back: %s does it later."] = ""
 -- L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = ""
+-- L["For %s, later on your route."] = ""
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Benötigt Polestar %s oder neuer."
@@ -334,8 +334,8 @@ L["Click for the next spot."] = "Klicken für den nächsten Punkt."
 L["Shift-drag to move."] = "Halte Umschalt gedrückt und zieh, um es zu verschieben."
 L["No waypoint"] = "Kein Wegpunkt"
 -- L["Arrived underwater"] = ""
--- L["Underwater target — no verified walk"] = ""
--- L["Waypoint %d yd below — navigate manually"] = ""
+-- L["Under water nearby: swim down to it"] = ""
+-- L["%d yd below you: swim down"] = ""
 
 -- Nav/Layers.lua
 L["Spot %d of %d"] = "Punkt %d von %d"
@@ -366,7 +366,6 @@ L["Walk to the flight master"] = "Lauf zum Flugmeister"
 L["Fly to %s"] = "Flieg nach %s"
 L["Hearth to %s"] = "Ruhestein nach %s"
 L["%s: saves %d min"] = "%s: spart %d Min."
-L["No safe walking route"] = "Kein sicherer Fußweg"
 L["Finding a walking route"] = "Fußweg wird gesucht"
 L["Show the travel route to the current target"] = "Reiseroute zum aktuellen Ziel anzeigen"
 L["Walk to the portal"] = "Lauf zum Portal"
@@ -658,9 +657,6 @@ L["The step stops waiting for the party and moves on as usual."] = "Der Schritt 
 L["Click to show or hide the party panel."] = "Klicken, um das Gruppenfenster ein- oder auszublenden."
 L["Then out here"] = "Dann hier draußen"
 L["Out here"] = "Hier draußen"
-L["Level %d quest: you're %s"] = "Quest für Stufe %d: du bist auf Stufe %s"
-L["Behind: %s (%d) at step %d, you're %s; grind %s first"] = "Rückstand: %s (%d) bei Schritt %d, du bist auf Stufe %s; erst %s grinden"
-L["Behind: %s (%d) at step %d, you're %s; reach %d first"] = "Rückstand: %s (%d) bei Schritt %d, du bist auf Stufe %s; erst Stufe %d erreichen"
 L["%s levels"] = "%s Stufen"
 L["Behind by %s: step %d grinds to level %s (%s)"] = "Rückstand von %s: In Schritt %d wird bis Stufe %s gegrindet (%s)"
 L["Behind by %s: step %d grinds to level %s"] = "Rückstand von %s: In Schritt %d wird bis Stufe %s gegrindet"
@@ -672,8 +668,6 @@ L["Step %d does this later; done now, that step is shorter or skipped when you g
 L["Left out because you skipped %s"] = "Ausgelassen, weil du %s übersprungen hast"
 L["Ticked by you, but the game still counts its objectives open: finish them first."] = "Von dir abgehakt, aber das Spiel zählt die Ziele noch als offen: Schließe sie zuerst ab."
 L["Right-click: not now, around here (twice: for the rest of this zone)."] = "Rechtsklick: nicht jetzt, hier in der Gegend (zweimal: für den Rest dieses Gebiets)."
-L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"] = "Im Plan, aber %s (%d) bei Schritt %d ist schwer: du bist auf Stufe %s; erst %s grinden"
-L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "Im Plan, aber %s (%d) bei Schritt %d ist schwer: du bist auf Stufe %s; erst Stufe %d erreichen"
 L["The rest of this guide follows from a skipped step"] = "Der Rest dieses Guides baut auf einem übersprungenen Schritt auf"
 L["You skipped %s, and the steps after it need its quests. Undo the skip to carry on, or do that step yourself: the guide picks up from there."] = "Du hast %s übersprungen, und die Schritte danach brauchen dessen Quests. Mach das Überspringen rückgängig, um weiterzumachen, oder erledige diesen Schritt selbst: Von dort an macht der Guide weiter."
 L["Undo the skip"] = "Überspringen rückgängig machen"
@@ -1030,7 +1024,6 @@ L["After the steps before it"] = "Nach den vorherigen Schritten"
 L["Attunement"] = "Einstimmung"
 L["Available from level %d"] = "Verfügbar ab Stufe %d"
 L["Boat to %s"] = "Boot nach %s"
-L["Boss whisper"] = "Boss-Flüstern"
 L["Boss: group advised"] = "Boss: Gruppe empfohlen"
 L["Bought %d %s for %s."] = "%d %s für %s gekauft."
 L["Buy for the guide"] = "Für den Guide kaufen"
@@ -4801,6 +4794,9 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Geland
 -- L["/polestar perf: on, off, report or reset"] = ""
 -- L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = ""
 
+-- Rares/Rares.lua
+L["Boss emote"] = "Boss-Emote"
+
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["The arrow's target and the areas it spawns in."] = "Das Ziel des Pfeils und die Gebiete, in denen es spawnt."
 -- L["The arrow's target, the stops of its travel route, the step's other goals and the areas their mobs and objects spawn in."] = "Das Ziel des Pfeils, die Stationen seiner Reiseroute, die anderen Ziele des Schritts und die Gebiete, in denen ihre Mobs und Objekte spawnen."
@@ -5049,3 +5045,10 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Geland
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "Kein Plunder, um Platz zu schaffen. Strg+Alt-Klick auf einen Gegenstand markiert ihn als Plunder."
 -- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "Während der Pause werden keine Quests für dich angenommen oder abgegeben und keine Belohnung gewählt, bis Polestar weiterläuft."
 -- L["≈ %s"] = "≈ %s"
+-- L["Level %d quest: you're %s"] = "Quest für Stufe %d: du bist auf Stufe %s"
+-- L["Behind: %s (%d) at step %d, you're %s; grind %s first"] = "Rückstand: %s (%d) bei Schritt %d, du bist auf Stufe %s; erst %s grinden"
+-- L["Behind: %s (%d) at step %d, you're %s; reach %d first"] = "Rückstand: %s (%d) bei Schritt %d, du bist auf Stufe %s; erst Stufe %d erreichen"
+-- L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"] = "Im Plan, aber %s (%d) bei Schritt %d ist schwer: du bist auf Stufe %s; erst %s grinden"
+-- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "Im Plan, aber %s (%d) bei Schritt %d ist schwer: du bist auf Stufe %s; erst Stufe %d erreichen"
+-- L["No safe walking route"] = "Kein sicherer Fußweg"
+-- L["Boss whisper"] = "Boss-Flüstern"

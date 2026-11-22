@@ -201,9 +201,9 @@ return {
 	-- {area:107} Saldean's Farm
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
 	["Harvest Watchers north of {area:107}"] = "{area:107}北邊的看守傀儡",
-	-- {area:916} The Jansen Stead · {area:107} Saldean's Farm · {item:732} Okra · {item:255155} Precessive Autocognition Assembly · {npc:573} Foe Reaper 4000
-	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
-	["On the way south from the {area:916} to {area:107}: Harvest Watchers (level 14-15) and Golems work the fields west of the road; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks these fields: leave it alone."] = "從{area:916}往南前往{area:107}的路上：看守傀儡（14-15級）和麥田傀儡在道路西邊的田裡工作；牠們掉落等軸彈簧、陀螺穩定器、{item:732}，有時掉落{item:255155}。{npc:573}是20級稀有怪，在這些田裡遊走：別惹它。",
+	-- {area:916} The Jansen Stead · {area:107} Saldean's Farm · {quest:9} The Killing Fields · {item:732} Okra · {item:255155} Precessive Autocognition Assembly · {npc:573} Foe Reaper 4000
+	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher · Harvest Golems = {npc:36} Harvest Golem · Harvest Reapers = {npc:115} Harvest Reaper
+	["On the way south from the {area:916} to {area:107}: Harvest Watchers (level 14-15) work the fields west of the road. Stick to them: they are the only mechanicals that count for {quest:9}, and they drop everything else here too: the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. Harvest Golems drop some of the parts but don't count, and the Harvest Reapers (17) are too high. {npc:573}, a level 20 rare, walks these fields: leave it alone."] = "",
 	-- plural, as words: Harvest Watchers = {npc:114} Harvest Watcher
 	["Harvest Watchers"] = "看守傀儡",
 	-- {item:814} Flask of Oil · {npc:392} Captain Grayson · {area:115} Westfall Lighthouse
@@ -389,6 +389,7 @@ return {
 	-- ["Hearthstone on cooldown? Follow the road north-east."] = "爐石在冷卻中？沿道路往東北走。",
 	-- ["North of Molsen Farm. Defias Trappers and Smugglers camp outside the mine, Kobold Diggers work inside. {object:290} stands by the ruined house east of the mine."] = "在摩爾森農場北邊。迪菲亞捕獸者和迪菲亞走私者在礦坑外紮營，狗頭人掘地工在礦坑內工作。{object:290}在礦坑東邊的廢墟旁。",
 	-- ["North of Molsen Farm. Defias Trappers and Smugglers camp outside the mine. {object:290} stands by the ruined house east of the mine."] = "在摩爾森農場北邊。迪菲亞捕獸者和迪菲亞走私者在礦坑外紮營。{object:290}在礦坑東邊的廢墟旁。",
+	-- ["On the way south from the {area:916} to {area:107}: Harvest Watchers (level 14-15) and Golems work the fields west of the road; they drop the isosprings, gyrostabilizers, {item:732} and sometimes a {item:255155}. {npc:573}, a level 20 rare, walks these fields: leave it alone."] = "從{area:916}往南前往{area:107}的路上：看守傀儡（14-15級）和麥田傀儡在道路西邊的田裡工作；牠們掉落等軸彈簧、陀螺穩定器、{item:732}，有時掉落{item:255155}。{npc:573}是20級稀有怪，在這些田裡遊走：別惹它。",
 	-- ["Only if he takes the isosprings alone"] = "只有在他只收等軸彈簧時",
 	-- ["Ride to {zone:1453}. It has no shaman trainer: take the {area:2257} from the {object:28027} to {zone:1455}, train with {npc:258098}, then ride the tram back for the boat."] = "騎往{zone:1453}。那裡沒有薩滿訓練師：從{object:28027}搭乘{area:2257}前往{zone:1455}，向{npc:258098}學習，然後搭地鐵回來搭船。",
 	-- ["Riverpaw Gnolls and Scouts (level 11-13) roam the hills south of the coast, from above {area:111} east to the {area:916}. The gnolls further south and west are 13-19: stay in the north hills."] = "{npc:117}和河爪斥候（11-13級）在海岸南邊的山丘上遊蕩，從{area:111}上方一直到東邊的{area:916}。更南邊和西邊的狗頭人是13-19級：待在北邊的山丘。",

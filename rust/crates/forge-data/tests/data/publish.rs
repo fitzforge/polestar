@@ -174,6 +174,23 @@ fn publish_is_deterministic_and_keeps_the_hand_written_files() {
 }
 
 #[test]
+fn publish_puts_the_release_note_under_this_version_s_heading() {
+	// --release-note: the maintainer's paragraph opens this version's section, before the generated
+	// lists, trimmed, and the same bytes on every run.
+	let input = scratch("release-note-input");
+	let note = input.join("note.md");
+	std::fs::write(&note, "\nStarting items are no longer objectives.\n\n").unwrap();
+	let (_, out, _) = publish_opts("release-note", "", |o| o.release_note = Some(note.clone()));
+	let text = std::fs::read_to_string(out.join("CHANGELOG.md")).unwrap();
+	assert!(text.contains("## [2026.10.1] - 2026-10-23\n\nStarting items are no longer objectives.\n\nFirst release.\n"), "{text}");
+	let first = snapshot(&out);
+	let (base, out, _) = publish_opts("release-note", "", |o| o.release_note = Some(note.clone()));
+	assert_eq!(first, snapshot(&out), "the same inputs give the same bytes");
+	let _ = std::fs::remove_dir_all(&base);
+	let _ = std::fs::remove_dir_all(&input);
+}
+
+#[test]
 fn publish_quest_notes_and_note_fixes() {
 	// --notes: steps and notes from the rewritten quest notes, each with its stable id; a note fix
 	// record applies, the ledger lists it, and --check fails on a conflicting one.

@@ -162,6 +162,8 @@ mod engine_money_task;
 mod engine_next_when;
 #[path = "engine-notyet.rs"]
 mod engine_notyet;
+#[path = "engine-npc-arrival.rs"]
+mod engine_npc_arrival;
 #[path = "engine-packs.rs"]
 mod engine_packs;
 #[path = "engine-pin.rs"]

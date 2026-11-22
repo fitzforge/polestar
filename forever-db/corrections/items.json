@@ -884,5 +884,23 @@
 			{ "kind": "tdb", "ref": "npc_vendor: Burbik Gearspanner (5163) sells 20 items, no 6256; Tansy Puddlefizz (5162), the Ironforge fishing supplier, sells it" }
 		],
 		"note": "Burbik Gearspanner, Ironforge's trade supplier, sells no Fishing Pole on Forever. The merged vendor list (from pfQuest and QuestieDB) has him, so `buy 6256 nearest` sent Ironforge players to him instead of Tansy Puddlefizz."
+	},
+	"258323": {
+		"removeDrops": {
+			"npc": [
+				7457
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "rec.py quest 93406, players' recordings to 2026-11-20: the Missing Mail line ticked on loots of Ice Thistle Yetis (7458, 5 people) and an Ice Thistle Patriarch (7460, 1 person), never on a Rogue Ice Thistle (7457)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3612 (Stö, 0.4.2.1): over 20 Rogue Ice Thistles killed without a Missing Mail; all four came from Ice Thistle Yetis"
+			}
+		],
+		"note": "Missing Mail (Unfrozen Deliveries, 93406) drops from the Ice Thistle yetis in the hills east of Everlook, not from the Rogue Ice Thistles along the road west of them. The merged data lists the Rogue Ice Thistle too, so the quest's collect spots led west to them first."
 	}
 }

@@ -96,9 +96,12 @@ return {
 
 	-- Step 16: Mistvale gorillas
 	["Mistvale gorillas"] = "안개계곡고릴라",
+	-- {quest:348} Stranglethorn Fever
 	-- plural, as words: Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
-	["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "고릴라는 운바그와 주변 골짜기를 돌아다닙니다. 덩치큰 고릴라는 내장을 떨어뜨리고, 모든 고릴라가 송곳니를 떨어뜨릴 수 있습니다. 운바그와를 위해 10개를 챙기세요. 운바그와의 모크(44)는 약 45레벨에 들르는 가시덤불 골짜기에서 기다립니다.\n주의: 덩치큰 안개계곡고릴라(40-41)는 골짜기에 서로 가까이 서 있으니 한 마리씩 끌어오세요.",
-	["Keep fangs from these same elders for Unbagwa."] = "",
+	-- was: ["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "고릴라는 운바그와 주변 골짜기를 돌아다닙니다. 덩치큰 고릴라는 내장을 떨어뜨리고, 모든 고릴라가 송곳니를 떨어뜨릴 수 있습니다. 운바그와를 위해 10개를 챙기세요. 운바그와의 모크(44)는 약 45레벨에 들르는 가시덤불 골짜기에서 기다립니다.\n주의: 덩치큰 안개계곡고릴라(40-41)는 골짜기에 서로 가까이 서 있으니 한 마리씩 끌어오세요."
+	["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: if you will take {quest:348} with a group, keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "",
+	-- {quest:348} Stranglethorn Fever
+	["Keep fangs from these same elders for Unbagwa ({quest:348}, with a group)."] = "",
 
 	-- Step 17: Mistvale giblets
 	["Mistvale giblets"] = "",
@@ -256,70 +259,73 @@ return {
 	-- Step 46: Whiskey Slim and Fin Fizracket
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
 	["{npc:2491} and {npc:2486}"] = "",
-	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket · {zone:1444} Feralas · {zone:1446} Tanaris · {area:35} Booty Bay
-	["{npc:2491}, in the inn, {npc:2486}, beside it, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "",
+	-- {npc:2491} Whiskey Slim · {zone:1444} Feralas · {zone:1446} Tanaris · {area:35} Booty Bay
+	["{npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "",
-	-- {npc:2486} Fin Fizracket · {quest:348} Stranglethorn Fever · {zone:1444} Feralas · {object:3202} Grom'gol
-	-- was: ["{npc:2486}: {quest:348} (offered from 40), Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "{npc:2486}: {quest:348}(40레벨부터 수락 가능), 운바과 부분은 {zone:1444} 가이드의 {object:3202} 방문 때"
-	["{npc:2486}: {quest:348}, Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "",
 	-- {quest:2872} Stoley's Debt · {zone:1446} Tanaris
 	["MacKinley, on the top floor: {quest:2872}, for Stoley in {zone:1446}"] = "",
 
-	-- Step 47: The Bloodsail ships
+	-- Step 47: Fin Fizracket
+	-- {quest:348} Stranglethorn Fever · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
+	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "",
+	-- {npc:2486} Fin Fizracket · {zone:1444} Feralas · {object:3202} Grom'gol
+	["{npc:2486}, beside the inn: Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "",
+
+	-- Step 48: The Bloodsail ships
 	["The Bloodsail ships"] = "붉은해적단 배",
 	-- {quest:624} Cortello's Riddle · {area:43} Wild Shore · {zone:1435} Swamp of Sorrows · {zone:1445} Dustwallow Marsh · {zone:1425} Hinterlands
 	["The scroll, {quest:624}, lies on the decks of the three ships off the {area:43}, crewed by pirates of 42-45 who come in pairs, with captains of 45-48: take it with a group. Its chain runs on through the {zone:1435}, {zone:1445} and the {zone:1425}."] = "두루마리 {quest:624}은(는) {area:43} 앞바다 배 세 척의 갑판에 있습니다. 42-45 해적이 둘씩 다니고 선장은 45-48이니 파티와 함께 가세요. 이어지는 퀘스트는 {zone:1435}, {zone:1445}, {zone:1425}(으)로 이어집니다.",
 	-- {zone:1435} Swamp of Sorrows
 	["for a later stop in the {zone:1435}"] = "나중에 {zone:1435}에 들를 때",
 
-	-- Step 48: Fly to Grom'gol
+	-- Step 49: Fly to Grom'gol
 	-- {object:3202} Grom'gol
 	["Fly back to {object:3202}: Zul'Mamwe's Skullsplitters are just east of it."] = "{object:3202}(으)로 다시 비행하세요. 줄맘웨의 해골망치부족은 바로 동쪽에 있습니다.",
 	-- {area:35} Booty Bay
 	["{area:35} flight master"] = "",
 
-	-- Step 49: Zul'Mamwe
+	-- Step 50: Zul'Mamwe
 	["Zul'Mamwe"] = "줄맘웨",
 	["The warriors in the northern ruins (39-40) drop both tusks and necklaces. Pull from the edge; leave the chief and his two guards to the south alone."] = "",
 
-	-- Step 50: Zul'Mamwe and Balia'mah trophy skulls
+	-- Step 51: Zul'Mamwe and Balia'mah trophy skulls
 	["Zul'Mamwe and Balia'mah trophy skulls"] = "",
 	-- {object:3202} Grom'gol
 	["Look for the trophy skulls in the small ruins north of Zul'Mamwe's warriors.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "",
 
-	-- Step 51: Kin'weelay
+	-- Step 52: Kin'weelay
 	-- {object:3202} Grom'gol
 	["Head west to {object:3202}."] = "서쪽의 {object:3202}(으)로 가세요.",
 
-	-- Step 54: Grom'gol Base Camp
+	-- Step 55: Grom'gol Base Camp
 	-- {npc:2464} Commander Aggro'gosh · {npc:256418} Krom'rosh · {area:16743} Rog'mar · {zone:2548} Riverglades
 	["{npc:2464}: for {npc:256418} in {area:16743}, the {zone:2548}' Horde fort, in the next guide"] = "{npc:2464}: 다음 가이드에서 {zone:2548}의 호드 요새 {area:16743}의 {npc:256418}에게",
 	-- {quest:571} Mok'thardin's Enchantment · {quest:621} Zanzil's Secret · {npc:737} Kebok · {area:35} Booty Bay · {zone:2548} Riverglades
 	["Keep {quest:571}, {quest:621} and {npc:737}'s tusks: the Skullsplitter chief, Zanzil's camps, the naga coast and {area:35} come on your Stranglethorn stop at about 45, after the {zone:2548}."] = "{quest:571}, {quest:621}, {npc:737}의 엄니는 가지고 있으세요. 해골망치 족장, 잔질의 야영지, 나가 해안, {area:35}은(는) {zone:2548} 이후 45레벨쯤 가시덤불 방문 때 갑니다.",
 
-	-- Step 56: Nesingwary's Expedition
+	-- Step 57: Nesingwary's Expedition
 	["Head north up the road to the hunters' camp."] = "길을 따라 북쪽의 사냥꾼 야영지로 가세요.",
 
-	-- Step 58: Raptor Mastery
+	-- Step 59: Raptor Mastery
 	-- {npc:730} Tethis
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:730} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone."] = "정예 몹입니다. 파티를 권장하니 함께할 사람을 찾으세요. {npc:730}은(는) 43레벨 정예입니다. 대부분의 직업은 45레벨에 혼자 잡지만 도움이 필요할 수 있습니다. 혼자라면 건너뛰세요.",
 
-	-- Step 59: Panther Mastery
+	-- Step 60: Panther Mastery
 	-- {npc:728} Bhag'thera
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:728} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone."] = "정예 몹입니다. 파티를 권장하니 함께할 사람을 찾으세요. {npc:728}은(는) 40레벨 정예입니다. 대부분의 직업은 42레벨에 혼자 잡지만 도움이 필요할 수 있습니다. 혼자라면 건너뛰세요.",
 
-	-- Step 63: Big Game Hunter
+	-- Step 64: Big Game Hunter
 	-- {npc:731} King Bangalash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:731} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone.\nCareful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, {npc:731} calls for help from creatures within 20 yd."] = "정예 몹입니다. 파티를 권장하니 함께할 사람을 찾으세요. {npc:731}은(는) 43레벨 정예입니다. 대부분의 직업은 45레벨에 혼자 잡지만 도움이 필요할 수 있습니다. 혼자라면 건너뛰세요.\n주의: 호랑이와 은신한 그림자아귀 표범이 그 근처를 돌아다닙니다. 끌기 전에 정리하세요. {npc:731}은(는) 전투가 시작되면 20미터 안의 생물을 불러 도움을 청합니다.",
 
-	-- Step 68: Into the Swamp of Sorrows
+	-- Step 69: Into the Swamp of Sorrows
 	-- {zone:1435} Swamp of Sorrows
 	["Into the {zone:1435}"] = "{zone:1435}(으)로",
 	-- {zone:1431} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
 	["Follow the road east from {zone:1431} through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp just off the road where it comes in from {zone:1430}."] = "길을 따라 {zone:1431}에서 동쪽으로 {zone:1430}을(를) 지나 늪으로 가세요. {npc:1776}은(는) {zone:1430}에서 들어오는 길 바로 옆의 드레나이 야영지인 {area:657}에서 기다립니다.",
 
-	-- Step 69: Stonard
+	-- Step 70: Stonard
 	-- {area:75} Stonard
 	["Head east to {area:75}, in the reeds south of the road."] = "동쪽으로 길 남쪽 갈대밭의 {area:75}(으)로 가세요.",
 	-- {npc:5591} Dar
@@ -329,51 +335,51 @@ return {
 	-- {npc:1443} Fel'zerul
 	["{npc:1443}, on the top floor"] = "",
 
-	-- Step 70: Sawtooth crocolisks
+	-- Step 71: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "톱니악어",
 	-- {npc:5391} Galen Goodward · {area:75} Stonard
 	["The crocolisks wallow in the pools around {npc:5391}'s camp and south towards {area:75}; about one in four drops a flank."] = "악어는 {npc:5391}의 야영지 주변 웅덩이와 남쪽 {area:75} 쪽에서 뒹굴고 있습니다. 네 마리 중 한 마리 정도가 옆구리살을 떨어뜨립니다.",
 
-	-- Step 71: Noboru the Cudgel
+	-- Step 72: Noboru the Cudgel
 	-- {area:76} Fallow Sanctuary
 	["Noboru wanders the clearing south-west of the {area:76}; his cudgel starts a quest."] = "노보루는 {area:76} 남서쪽 빈터를 돌아다닙니다. 그의 곤봉이 퀘스트를 시작합니다.",
 
-	-- Step 72: Draenethyst crystals
+	-- Step 73: Draenethyst crystals
 	["Draenethyst crystals"] = "드레니시스트 수정",
 	-- {area:76} Fallow Sanctuary · {npc:5391} Galen Goodward
 	["Head north-east to the {area:76}. The crystals stand along the way up to {npc:5391}'s cage."] = "북동쪽의 {area:76}(으)로 가세요. 수정은 {npc:5391}의 우리로 올라가는 길을 따라 있습니다.",
 
-	-- Step 73: Galen's Escape
+	-- Step 74: Galen's Escape
 	-- {npc:5391} Galen Goodward · {area:76} Fallow Sanctuary
 	["{npc:5391} is held in the {area:76} in the swamp's north-east. Free him and follow him out, fighting off the swamp creatures that chase him."] = "{npc:5391}은(는) 늪 북동쪽 {area:76}에 붙잡혀 있습니다. 풀어 주고 따라가며 그를 쫓는 늪 생물을 물리치세요.",
 
-	-- Step 74: Galen's Strongbox
+	-- Step 75: Galen's Strongbox
 	-- {area:75} Stonard
 	["His strongbox waits at his old camp north of {area:75}, on the way back west."] = "그의 금고는 서쪽으로 돌아가는 길, {area:75} 북쪽의 옛 야영지에 있습니다.",
 
-	-- Step 75: Harborage
+	-- Step 76: Harborage
 	-- {area:657} Harborage · {zone:1430} Deadwind Pass
 	["Head west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}."] = "",
 
-	-- Step 76: Pool of Tears
+	-- Step 77: Pool of Tears
 	-- {area:75} Stonard · {quest:1424} Pool of Tears
 	["Back east along the road, past {area:75}: the Atal'ai artifacts lie in the water and on the banks of the {quest:1424}. Only Sawfin Frenzies (38-40) swim there."] = "",
 
-	-- Step 77: Misty Reed Post
+	-- Step 78: Misty Reed Post
 	-- {npc:5592} Tok'Kar · {npc:5593} Katar
 	["Follow the road south-east to the small Horde post on the shore: {npc:5592} takes the crocolisk flanks, and {npc:5593} stands beside him."] = "",
 
-	-- Step 78: Sawtooth snappers
+	-- Step 79: Sawtooth snappers
 	["Sawtooth snappers"] = "무쇠턱 톱니악어",
 	-- {npc:272377} Methuselah Crab
 	-- plural, as words: Sawtooth Snappers = {npc:1087} Sawtooth Snapper
 	["The Sawtooth Snappers (41-42) line the strand south of the post; nearly every one drops a claw. Leave the murlocs further along the shore for your next swamp visit.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "",
 
-	-- Step 79: Misty Reed Post
+	-- Step 80: Misty Reed Post
 	-- {npc:5593} Katar
 	["{npc:5593}: the murlocs (41-44) wait for your next swamp visit"] = "",
 
-	-- Step 80: Stonard
+	-- Step 81: Stonard
 	-- {area:75} Stonard · {npc:1443} Fel'zerul · {quest:1430} Fresh Meat · {npc:5593} Katar
 	["Back north-west along the road to {area:75}: {npc:1443}, on the top floor, takes the artifacts. {quest:1430}'s crawlers and {npc:5593}'s murlocs wait for your next swamp visit."] = "",
 
@@ -405,6 +411,7 @@ return {
 	-- ["The Jungle Stalkers (40-41) hunt the coast south of {object:3202}. They are well above you: pull one at a time and rest between fights."] = "줄무늬정글랩터(40-41)는 {object:3202} 남쪽 해안에서 사냥합니다. 레벨이 훨씬 높으니 한 마리씩 끌어오고 전투 사이에 쉬세요.",
 	-- ["The boat to {area:35} docks at the end of {area:392}'s pier."] = "{area:35}행 배는 {area:392} 부두 끝에 정박합니다.",
 	-- ["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang."] = "고릴라는 운바그와 주변 골짜기를 돌아다닙니다. 덩치큰 고릴라가 내장을 떨어뜨리고, 모든 고릴라가 송곳니를 떨어뜨릴 수 있습니다.",
+	-- ["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "고릴라는 운바그와 주변 골짜기를 돌아다닙니다. 덩치큰 고릴라는 내장을 떨어뜨리고, 모든 고릴라가 송곳니를 떨어뜨릴 수 있습니다. 운바그와를 위해 10개를 챙기세요. 운바그와의 모크(44)는 약 45레벨에 들르는 가시덤불 골짜기에서 기다립니다.\n주의: 덩치큰 안개계곡고릴라(40-41)는 골짜기에 서로 가까이 서 있으니 한 마리씩 끌어오세요.",
 	-- ["The last skulls are in the ruins a short ride west, on the way back to {object:3202}."] = "마지막 해골은 {object:3202}(으)로 돌아가는 길에, 조금 서쪽의 폐허에 있습니다.",
 	-- ["The next guide starts here and takes you to {zone:1446}."] = "다음 가이드는 여기서 시작해 {zone:1446}(으)로 안내합니다.",
 	-- ["The next trophy skulls stand in the small ruins just north of the warriors' camp.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "다음 전리품 해골은 전사 야영지 바로 북쪽의 작은 폐허에 있습니다.\n마지막 해골은 {object:3202}(으)로 돌아가는 길, 서쪽으로 조금 걸어가면 있는 폐허에 있습니다.",
