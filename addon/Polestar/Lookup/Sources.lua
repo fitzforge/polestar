@@ -503,6 +503,7 @@ builders.drop = function(src, p, from, direct)
 		if inst.entrance then
 			local t = travel(from, inst.entrance, direct)
 			place(r, inst.entrance, t)
+			r.z = inst.entrance.z
 		end
 		r.instance = inst.key
 		r.detail = detail(L["Drop"], inst.name)
@@ -985,6 +986,7 @@ function Lookup.Sources(kind, id, direct)
 			local r = newRow(nil, "entrance")
 			r.label = entity.name
 			place(r, entity.entrance, travel(from, entity.entrance, direct))
+			r.z = entity.entrance.z
 			r.detail = detail(L["Entrance"], r.zone)
 			local need = entity.levels and entity.levels[1]
 			if need and need > p.level then block(r, "level", levelText(need)) end

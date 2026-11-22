@@ -28,6 +28,9 @@
 		"note": "The game's data names this invisible object \"Corrupted Moonwell Spell Focus (DND)\", an internal name, and the guides showed it as the source of the Filled Flasket for Well of Corruption (4505): \"Collect Filled Flasket from Corrupted Moonwell Spell Focus (DND)\". It is the spell focus of the moonwell players see at the same points (177276, \"Moonwell\"), so it shows as that (#2614)."
 	},
 	"665289": {
+		"set": {
+			"name": "Discarded Fishing Toolbox"
+		},
 		"addSpawns": {
 			"1432": {
 				"f": "e",

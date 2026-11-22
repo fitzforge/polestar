@@ -2,7 +2,9 @@
 -- quest's reward choices to take, from Polestar.Gear.
 --
 --   ^ Thornroot Club  +12%        an upgrade: the chevron and gain in success
---   Take Thornroot Club           no choice is an upgrade: the best of them, muted
+--   Take Doomcaller's Pants · best vendor value
+--                                 no choice is an upgrade: the one that sells for the most, muted
+--   Take Thornroot Club           no upgrade and nothing sells: the best of them, muted
 --   Reward: Thornroot Club +12% · at turn-in
 --                                 on an accept goal, when the pick is an upgrade: muted
 --
@@ -16,7 +18,7 @@
 --   UI.GearPick.Paint(row, goal)                -- after the row's subline is set
 --   UI.GearPick.Measure(row, width, h, above)   -- -> h, above (unchanged when hidden)
 -- Shown for open turn-in goals whose quest has gear choices this character
--- can use (Gear.QuestPick), and for open accept goals whose pick is an
+-- can use or sell (Gear.QuestPick), and for open accept goals whose pick is an
 -- upgrade; hidden otherwise or with gear advice off (then nothing is looked up).
 
 local ADDON, ns = ...
@@ -149,7 +151,7 @@ function GP.Paint(row, goal)
 	else
 		f.Chevron:Hide()
 		f.Text:SetPoint("LEFT", f, "LEFT", 0, 0)
-		f.Text:SetText(L["Take"] .. " " .. name)
+		f.Text:SetText(L["Take"] .. " " .. name .. (pick.value and (" · " .. L["best vendor value"]) or ""))
 		f.Gain:Hide()
 	end
 	f:Show()

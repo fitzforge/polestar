@@ -105,10 +105,15 @@ Rares.NOT_RARE = NOT_RARE
 
 -- Sounds the alert may play: SOUNDKIT names in Blizzard_SharedXML/Mainline/
 -- SoundKitConstants.lua (Forever 1.60.1), with their ids as the fallback.
+-- The third was the boss whisper (UI_RAID_BOSS_WHISPER_WARNING, 37666), which
+-- Forever's SoundKit table plays at 1% volume, so it was never heard (#3158);
+-- the boss emote warning (12197) is the client's own raid-warning sound for
+-- boss emotes, at 40%. Its value stays "whisper" so a saved choice keeps
+-- working.
 Rares.SOUNDS = {
 	{ value = "raid", label = L["Raid warning"], kit = "RAID_WARNING", id = 8959 },
 	{ value = "ready", label = L["Ready check"], kit = "READY_CHECK", id = 8960 },
-	{ value = "whisper", label = L["Boss whisper"], kit = "UI_RAID_BOSS_WHISPER_WARNING", id = 37666 },
+	{ value = "whisper", label = L["Boss emote"], kit = "RAID_BOSS_EMOTE_WARNING", id = 12197 },
 }
 
 local function get(key) return ns.Get("rares." .. key) end

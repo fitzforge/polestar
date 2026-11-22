@@ -18,37 +18,63 @@ to it).
 
 `Tests` picks its lane from the files the pull request changes
 (`tools/ci-lane.js`, run from the base branch's copy so a pull request cannot
-pick its own): **documentation** alone (anything under `docs/` or
-`.github/ISSUE_TEMPLATE/`, a `.md` at the root or under `.github/`) that no
-Node test and no check of `ci.yml` reads runs only the checks every tracked
-file gets (wording, names, SVGs: about a minute and a half). Anything else,
-anything unsure, and every push to `main` or `next` runs the **full** lane:
-forge built, the Node suite, the changelog, translation and preview checks.
-Markdown in the code folders (`changes/`, `tools/`, `tests/`, `skills/`,
-`addon/`, `guides/`, ...) is a fragment, template, fixture or shipped file,
-so it runs the full lane.
+pick its own). Each changed file falls in an area: documentation, a guide
+(with its compile output: the guide packs, each language's `Texts.lua`),
+the addon's Lua, data (`data/`, `forever-db/`), Rust, a changelog fragment,
+or none.
 
-`forge.yml` runs the Rust and Lua suites (format, Clippy, the Rust tests with
-the addon's Lua tests, the documented commands; the minimum Rust version and
-the wasm32 build) when the pull request changes a path they read
-(`FORGE_PATHS` in `tools/ci-lane.js`, from the base branch's copy too: the
-Rust code, the addon, the data, the guides, the Lua stub and compiler
-fixtures, and the documents the Rust tests read). Otherwise its `Forge lane`
-job says skip, `Format, lints, tests` passes in seconds and MSRV and wasm32
-are skipped. Pushes to `main` and `next` run them on the same paths.
+- **docs**: documentation alone (anything under `docs/` or
+  `.github/ISSUE_TEMPLATE/`, a `.md` at the root or under `.github/`) that
+  no Node test and no check of `ci.yml` reads runs only the checks every
+  tracked file gets (wording, names, SVGs: about a minute and a half).
+- **part**: guides, Lua, data, fragments, Node test files and documentation
+  only. forge comes
+  from the Actions cache (keyed by `rust/` and the Lua it embeds; next's
+  runs fill it), and the job runs the Node test files those changes can
+  break (`tools/testsel.js`'s selection, from the base's copy), the
+  changelog and translation checks, `forge guide check-generated` for a
+  guide and the preview renders for Lua.
+- **full**: Rust (the Node tests check what forge's commands answer), the
+  Node tools and tests, workflows, anything unsure, and every push to
+  `main` or `next`: forge built on a cache miss, the whole Node suite and
+  every check.
 
-| Change | `Tests` | `forge.yml` (Format, lints, tests incl. the addon's Lua tests; MSRV; wasm32) | Other |
+`forge.yml`'s `Forge lane` job says one of three:
+
+- **run** for Rust, the compiler's fixtures and the documents the Rust tests
+  read (`RUST_PATHS`): format, Clippy, the Rust tests, the documented
+  commands, the minimum Rust version, the wasm32 build, and the addon's Lua
+  tests.
+- **addon** for the rest of what the suites read (`FORGE_PATHS`: the addon,
+  the guides, the data): the addon's Lua tests alone. Their test binaries
+  are cached like forge (keyed by `rust/`, the stub's `simulate.lua` and
+  `data/guide-fixes.json`, which they embed), so no Rust is built unless
+  the cache has none for this code.
+- **skip** for anything else: `Format, lints, tests` passes in seconds.
+
+The addon's Lua tests run in four shards at once (`Addon tests 1/4` to
+`4/4`, addontest's tests dealt out in turn) from one build (`Addon tests
+build`); `Format, lints, tests` waits for every job its lane runs and fails
+when one did not pass. Pushes to `main` and `next` run everything on
+`FORGE_PATHS` and save the caches the pull requests after them read.
+
+| Change | `Tests` | `forge.yml` | Other |
 |---|---|---|---|
-| Documentation only (`docs/CI.md`, `CONTRIBUTING.md`, an issue form) | docs lane | skipped (the check passes) | `Base branch`, `Public text`, `Generated guides` |
-| A document a Rust test reads (`docs/FORGE.md`, `docs/forge/`, `docs/API.md`, `docs/GUIDE_FORMAT.md`, `docs/PACK_FORMAT.md`, `docs/PACKS.md`, `README.md`, `THIRD_PARTY.md`) | docs lane | yes | as above |
-| Addon Lua (`addon/`) | full | yes | `Textures` for `addon/Polestar/Theme/` |
-| Rust (`rust/`) | full | yes | `Client` for `rust/crates/polestar-recording/` |
-| A guide (`guides/`) | full | yes | |
-| Corrections (`forever-db/`) | full | yes | `Data corrections` |
-| Node tools and tests (`tools/`, `tests/`) | full | for `tests/lua/`, `tests/fixtures/dsl/` | `Textures` for `tools/media/` |
+| Documentation only (`docs/CI.md`, `CONTRIBUTING.md`, an issue form) | docs | skip | `Base branch`, `Public text`, `Generated guides` |
+| A document a Node test reads (`docs/GUIDE_CHEATSHEET.md`) | part | skip | as above |
+| A document a Rust test reads (`docs/FORGE.md`, `docs/forge/`, `docs/API.md`, `docs/GUIDE_FORMAT.md`, `docs/PACK_FORMAT.md`, `docs/PACKS.md`, `README.md`, `THIRD_PARTY.md`) | docs | run | as above |
+| Addon Lua (`addon/`, `tests/lua/`) | part | addon | `Textures` for `addon/Polestar/Theme/` |
+| A guide with its compile (`guides/`, `addon/Polestar_Guides*/`, `Texts.lua`) | part | addon | |
+| Data (`data/`, `forever-db/`) | part | addon | `Data corrections` |
+| A changelog fragment (`changes/`) | part | skip | |
+| Rust (`rust/`) | full | run | `Client` for `rust/crates/polestar-recording/` |
+| A Node test file (`tests/*.test.js`) | part (the file itself) | skip | |
+| Node tools, the tests' helpers and fixtures (`tools/`, `tests/helpers/`, `tests/fixtures/`) | full | addon for `tests/lua/`, run for `tests/fixtures/dsl/` | `Textures` for `tools/media/` |
 
-`tests/ci-lane.test.js` checks that `FORGE_PATHS` covers every document a
-Rust test reads and that `forge.yml`'s push trigger lists the same paths.
+A guide or data change can break a Rust test that reads the guides or the
+data; the push run on `next` after the merge runs those.
+`tests/ci-lane.test.js` checks that `RUST_PATHS` covers every document a
+Rust test reads and that `forge.yml`'s push trigger lists `FORGE_PATHS`.
 
 ## Merge queue
 
