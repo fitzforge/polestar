@@ -6,4 +6,5 @@ section: players
   Expand all to open every group at once. Fold it to a rail of icons and
   hover one to open that group's pages. Pin a setting with the flag on its
   row to keep a live control for it under the groups, and switch profiles from
-  the card at the foot, over which stand About and Guiding Stars.
+  the card at the foot, over which stand About and Guiding Stars (thanks
+  TTik3r, #3183).

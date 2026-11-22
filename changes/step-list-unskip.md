@@ -7,4 +7,4 @@ section: players
   apart from the steps the guide skips for you. A finished step still shows
   the lines you skipped, and an untitled step is named by its first goal.
   The skipped-step notice keeps Back to step N, and a finished guide opens
-  the step list.
+  the step list (thanks TTik3r, #3583).

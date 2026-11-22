@@ -13,4 +13,4 @@ section: players
 - Guide window tab styles in the game looks (WoW Forever, Blizzard,
   Classic): Down the left side and On the top edge leave the look's own
   frame open where the tabs meet the window, so they join it and no longer
-  stand beside it as a box of their own.
+  stand beside it as a box of their own (thanks TTik3r, #2796).

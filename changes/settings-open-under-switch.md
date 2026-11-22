@@ -10,4 +10,4 @@ section: players
   repair reminders, Show arrow, Plan travel routes, Route lines and Mirror
   to TomTom open their settings under them. Detour captions moves under
   Plan travel routes, next to Class teleports. Keys and saved values are
-  unchanged.
+  unchanged (thanks TTik3r, #3178).

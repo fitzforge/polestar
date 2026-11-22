@@ -6,4 +6,5 @@ section: players
   guide picker. Collectibles tabs wear the picker's flask instead of a star,
   and a Dungeons tab the arch instead of the kill mark. Other tabs keep their
   icon. The guide picker's cards for open tabs wear the same icon as the tab,
-  so a Lookup guide's card shows the chevrons rather than the magnifier.
+  so a Lookup guide's card shows the chevrons rather than the magnifier
+  (thanks TTik3r, #3377).

@@ -14,4 +14,4 @@ section: players
   their buttons, and come back when those are off. The pin rows have their
   pin icon. In the quest log group, "Hand in finished quests" and "Clean up
   quest log" are always there: greyed out as "None to hand in" and "Quest
-  log is clean" when there is nothing to do.
+  log is clean" when there is nothing to do (thanks TTik3r, #3073).

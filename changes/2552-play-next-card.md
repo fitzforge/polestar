@@ -8,4 +8,5 @@ section: players
   suggestion. Browse shows the same card above the list, marks the suggested
   guide's row with "Suggested", and marks its band too while the band is
   folded. The details lead with "Suggested for you" and the reason. Nothing
-  shows when the suggestion is already open or nothing fits your level (#2552).
+  shows when the suggestion is already open or nothing fits your level (#2552)
+  (thanks TTik3r, #3151).

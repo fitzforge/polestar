@@ -11,4 +11,4 @@ section: players
   their level and buttons for Leveling, Class, Professions and Import. The
   header reads "Guides" with your level and faction, and a name cut short
   (on Home, a community pack in the sidebar, the Zones fact) shows whole
-  when you point at it.
+  when you point at it (thanks TTik3r, #3150).

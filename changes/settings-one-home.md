@@ -6,4 +6,4 @@ section: players
   dungeons, growing upward, the lock and Reset position. Guiding > Guide
   opens on While you play (Dynamic Questing, showing and hiding Polestar,
   pause and Move frames), and a line at the top of each page leads to the
-  other.
+  other (thanks TTik3r, #3175).

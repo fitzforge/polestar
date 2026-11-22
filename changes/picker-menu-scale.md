@@ -11,4 +11,4 @@ section: players
   scale is kept as it is, so a window at 100 % draws 20 % smaller.
 - The Settings window opens wider (16:9 instead of about 4:3). Both windows
   stay inside the screen, and a scale from an imported profile is held to
-  70 % to 140 %.
+  70 % to 140 % (thanks TTik3r, #3183).
