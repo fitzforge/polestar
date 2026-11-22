@@ -97,7 +97,7 @@ return {
 	-- {skill:171} Alchemy
 	["{skill:171} 75-150: vendor goods"] = "{skill:171} 75-150: 상인 재료",
 	-- {item:3371} Empty Vial · {item:3372} Leaded Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 77 {item:3371} (3s 8c) and 15 {item:3372} (6s); about 9s 8c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:3371} 77개(3실버 8코퍼) and {item:3372} 15개(6실버). 모두 약 9실버 8코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1286}, {npc:5503}, {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348}, {npc:3334}).",
+	["Buy the whole bracket's share in one go: 77 {item:3371} (3s 8c) and 15 {item:3372} (6s); about 9s 8c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:3371} 77개(3실버 8코퍼)와(과) {item:3372} 15개(6실버). 모두 약 9실버 8코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1286}, {npc:5503}, {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348}, {npc:3334}).",
 
 	-- Step 21: Alchemy 75-150: Auction House
 	-- {skill:171} Alchemy
@@ -215,49 +215,49 @@ return {
 	-- {object:1623} Wild Steelbloom
 	["{object:1623} (Alliance)"] = "{object:1623} (얼라이언스)",
 	-- {object:1623} Wild Steelbloom · {item:8951} Elixir of Defense · {skill:182} Herbalism · {zone:1442} Stonetalon Mountains · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
-	["40 {object:1623} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45). The densest patch of {object:1623} in {zone:1434} is marked."] = "{item:8951}에 필요한 {object:1623} 40개(225-300에 8개: 지금 모두 채집하세요): {skill:182}: {object:1623}(숙련도 115) {zone:1442}, {zone:1417}, {zone:1434}. {zone:1434}에서 가장 많이 나는 {object:1623} 지역이 표시됩니다.",
+	["40 {object:1623} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45). The densest patch of {object:1623} in {zone:1434} is marked."] = "{item:8951}에 필요한 {object:1623} 40개(225-300에 8개: 지금 모두 채집하세요): {skill:182}: {object:1623}(숙련도 115) {zone:1442}(15-27), {zone:1417}(30-40), {zone:1434}(30-45). {zone:1434}(30-45)에서 가장 많이 나는 {object:1623} 지역이 표시됩니다.",
 
 	-- Step 46: Wild Steelbloom (Horde)
 	-- {object:1623} Wild Steelbloom
 	["{object:1623} (Horde)"] = "{object:1623} (호드)",
 	-- {object:1623} Wild Steelbloom · {item:8951} Elixir of Defense · {skill:182} Herbalism · {zone:1442} Stonetalon Mountains · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
-	["40 {object:1623} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45). The densest patch of {object:1623} in {zone:1442} is marked."] = "{item:8951}에 필요한 {object:1623} 40개(225-300에 8개: 지금 모두 채집하세요): {skill:182}: {object:1623}(숙련도 115) {zone:1442}, {zone:1417}, {zone:1434}. {zone:1442}에서 가장 많이 나는 {object:1623} 지역이 표시됩니다.",
+	["40 {object:1623} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:1623} (skill 115) in {zone:1442} (15-27), {zone:1417} (30-40) and {zone:1434} (30-45). The densest patch of {object:1623} in {zone:1442} is marked."] = "{item:8951}에 필요한 {object:1623} 40개(225-300에 8개: 지금 모두 채집하세요): {skill:182}: {object:1623}(숙련도 115) {zone:1442}(15-27), {zone:1417}(30-40), {zone:1434}(30-45). {zone:1442}(15-27)에서 가장 많이 나는 {object:1623} 지역이 표시됩니다.",
 
 	-- Step 47: Kingsblood (Alliance)
 	-- {item:3356} Kingsblood
 	["{item:3356} (Alliance)"] = "{item:3356} (얼라이언스)",
 	-- {item:3356} Kingsblood · {spell:3452} Mana Potion · {skill:182} Herbalism · {zone:1440} Ashenvale · {zone:1437} Wetlands · {zone:1434} Stranglethorn Vale
-	["39 {item:3356} for {spell:3452}: {skill:182}: {item:3356} (skill 125) in {zone:1440} (18-30), {zone:1437} (20-30) and {zone:1434} (30-45). The densest patch of {item:3356} in {zone:1434} is marked."] = "{spell:3452}에 필요한 {item:3356} 39개: {skill:182}: {item:3356}(숙련도 125) {zone:1440}, {zone:1437}, {zone:1434}. {zone:1434}에서 가장 많이 나는 {item:3356} 지역이 표시됩니다.",
+	["39 {item:3356} for {spell:3452}: {skill:182}: {item:3356} (skill 125) in {zone:1440} (18-30), {zone:1437} (20-30) and {zone:1434} (30-45). The densest patch of {item:3356} in {zone:1434} is marked."] = "{spell:3452}에 필요한 {item:3356} 39개: {skill:182}: {item:3356}(숙련도 125) {zone:1440}(18-30), {zone:1437}(20-30), {zone:1434}(30-45). {zone:1434}(30-45)에서 가장 많이 나는 {item:3356} 지역이 표시됩니다.",
 
 	-- Step 48: Kingsblood (Horde)
 	-- {item:3356} Kingsblood
 	["{item:3356} (Horde)"] = "{item:3356} (호드)",
 	-- {item:3356} Kingsblood · {spell:3452} Mana Potion · {skill:182} Herbalism · {zone:1413} The Barrens · {zone:1440} Ashenvale · {zone:1434} Stranglethorn Vale
-	["39 {item:3356} for {spell:3452}: {skill:182}: {item:3356} (skill 125) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1434} (30-45). The densest patch of {item:3356} in {zone:1413} is marked."] = "{spell:3452}에 필요한 {item:3356} 39개: {skill:182}: {item:3356}(숙련도 125) {zone:1413}, {zone:1440}, {zone:1434}. {zone:1413}에서 가장 많이 나는 {item:3356} 지역이 표시됩니다.",
+	["39 {item:3356} for {spell:3452}: {skill:182}: {item:3356} (skill 125) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1434} (30-45). The densest patch of {item:3356} in {zone:1413} is marked."] = "{spell:3452}에 필요한 {item:3356} 39개: {skill:182}: {item:3356}(숙련도 125) {zone:1413}(10-25), {zone:1440}(18-30), {zone:1434}(30-45). {zone:1413}(10-25)에서 가장 많이 나는 {item:3356} 지역이 표시됩니다.",
 
 	-- Step 49: Stranglekelp (Alliance)
 	-- {object:2045} Stranglekelp
 	["{object:2045} (Alliance)"] = "{object:2045} (얼라이언스)",
 	-- {object:2045} Stranglekelp · {spell:3452} Mana Potion · {skill:182} Herbalism · {zone:1437} Wetlands · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands
-	["39 {object:2045} for {spell:3452}: {skill:182}: {object:2045} (skill 85) in {zone:1437} (20-30), {zone:1434} (30-45) and {zone:1425} (40-50). The densest patch of {object:2045} in {zone:1434} is marked."] = "{spell:3452}에 필요한 {object:2045} 39개: {skill:182}: {object:2045}(숙련도 85) {zone:1437}, {zone:1434}, {zone:1425}. {zone:1434}에서 가장 많이 나는 {object:2045} 지역이 표시됩니다.",
+	["39 {object:2045} for {spell:3452}: {skill:182}: {object:2045} (skill 85) in {zone:1437} (20-30), {zone:1434} (30-45) and {zone:1425} (40-50). The densest patch of {object:2045} in {zone:1434} is marked."] = "{spell:3452}에 필요한 {object:2045} 39개: {skill:182}: {object:2045}(숙련도 85) {zone:1437}(20-30), {zone:1434}(30-45), {zone:1425}(40-50). {zone:1434}(30-45)에서 가장 많이 나는 {object:2045} 지역이 표시됩니다.",
 
 	-- Step 50: Stranglekelp (Horde)
 	-- {object:2045} Stranglekelp
 	["{object:2045} (Horde)"] = "{object:2045} (호드)",
 	-- {object:2045} Stranglekelp · {spell:3452} Mana Potion · {skill:182} Herbalism · {zone:1413} The Barrens · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands
-	["39 {object:2045} for {spell:3452}: {skill:182}: {object:2045} (skill 85) in {zone:1413} (10-25), {zone:1434} (30-45) and {zone:1425} (40-50). The densest patch of {object:2045} in {zone:1413} is marked."] = "{spell:3452}에 필요한 {object:2045} 39개: {skill:182}: {object:2045}(숙련도 85) {zone:1413}, {zone:1434}, {zone:1425}. {zone:1413}에서 가장 많이 나는 {object:2045} 지역이 표시됩니다.",
+	["39 {object:2045} for {spell:3452}: {skill:182}: {object:2045} (skill 85) in {zone:1413} (10-25), {zone:1434} (30-45) and {zone:1425} (40-50). The densest patch of {object:2045} in {zone:1413} is marked."] = "{spell:3452}에 필요한 {object:2045} 39개: {skill:182}: {object:2045}(숙련도 85) {zone:1413}(10-25), {zone:1434}(30-45), {zone:1425}(40-50). {zone:1413}(10-25)에서 가장 많이 나는 {object:2045} 지역이 표시됩니다.",
 
 	-- Step 51: Goldthorn (Alliance)
 	-- {object:2046} Goldthorn
 	["{object:2046} (Alliance)"] = "{object:2046} (얼라이언스)",
 	-- {object:2046} Goldthorn · {item:8951} Elixir of Defense · {skill:182} Herbalism · {zone:1417} Arathi Highlands · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["40 {object:2046} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:2046} (skill 170) in {zone:1417} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest patch of {object:2046} in {zone:1417} is marked."] = "{item:8951}에 필요한 {object:2046} 40개(225-300에 8개: 지금 모두 채집하세요): {skill:182}: {object:2046}(숙련도 170) {zone:1417}, {zone:1425}, {zone:1444}. {zone:1417}에서 가장 많이 나는 {object:2046} 지역이 표시됩니다.",
+	["40 {object:2046} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:2046} (skill 170) in {zone:1417} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest patch of {object:2046} in {zone:1417} is marked."] = "{item:8951}에 필요한 {object:2046} 40개(225-300에 8개: 지금 모두 채집하세요): {skill:182}: {object:2046}(숙련도 170) {zone:1417}(30-40), {zone:1425}(40-50), {zone:1444}(40-50). {zone:1417}(30-40)에서 가장 많이 나는 {object:2046} 지역이 표시됩니다.",
 
 	-- Step 52: Goldthorn (Horde)
 	-- {object:2046} Goldthorn
 	["{object:2046} (Horde)"] = "{object:2046} (호드)",
 	-- {object:2046} Goldthorn · {item:8951} Elixir of Defense · {skill:182} Herbalism · {zone:1417} Arathi Highlands · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["40 {object:2046} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:2046} (skill 170) in {zone:1417} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest patch of {object:2046} in {zone:1444} is marked."] = "{item:8951}에 필요한 {object:2046} 40개(225-300에 8개: 지금 모두 채집하세요): {skill:182}: {object:2046}(숙련도 170) {zone:1417}, {zone:1425}, {zone:1444}. {zone:1444}에서 가장 많이 나는 {object:2046} 지역이 표시됩니다.",
+	["40 {object:2046} for {item:8951} (8 of them for 225-300: pick them all now): {skill:182}: {object:2046} (skill 170) in {zone:1417} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest patch of {object:2046} in {zone:1444} is marked."] = "{item:8951}에 필요한 {object:2046} 40개(225-300에 8개: 지금 모두 채집하세요): {skill:182}: {object:2046}(숙련도 170) {zone:1417}(30-40), {zone:1425}(40-50), {zone:1444}(40-50). {zone:1444}(40-50)에서 가장 많이 나는 {object:2046} 지역이 표시됩니다.",
 
 	-- Step 53: Expert Alchemy
 	-- {skill:171} Alchemy
@@ -299,7 +299,7 @@ return {
 	-- {skill:171} Alchemy
 	["{skill:171} 225-300: vendor goods"] = "{skill:171} 225-300: 상인 재료",
 	-- {item:3372} Leaded Vial · {item:8925} Crystal Vial · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:5503} Eldraeith · {npc:1325} Jasper Fel · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3348} Kor'geld · {npc:3334} Rekkul
-	["Buy the whole bracket's share in one go: 51 {item:3372} (20s 40c) and 86 {item:8925} (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:3372} 51개(20실버 40코퍼) and {item:8925} 86개(4골드 30실버). 모두 약 4골드 50실버 40코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1286}, {npc:5503}, {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348}, {npc:3334}).",
+	["Buy the whole bracket's share in one go: 51 {item:3372} (20s 40c) and 86 {item:8925} (4g 30s); about 4g 50s 40c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286}, {npc:5503} and {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348} and {npc:3334})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:3372} 51개(20실버 40코퍼)와(과) {item:8925} 86개(4골드 30실버). 모두 약 4골드 50실버 40코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1286}, {npc:5503}, {npc:1325}; {zone:1454}: {npc:3367}, {npc:3348}, {npc:3334}).",
 
 	-- Step 60: Recipe: Elixir of Superior Defense
 	-- {item:13478} Recipe: Elixir of Superior Defense · {item:13445} Elixir of Greater Defense · {skill:171} Alchemy · {npc:5178} Soolie Berryfizz · {zone:1455} Ironforge · {npc:3348} Kor'geld · {zone:1454} Orgrimmar
@@ -315,25 +315,25 @@ return {
 	-- {item:8836} Arthas' Tears
 	["{item:8836} (Alliance)"] = "{item:8836} (얼라이언스)",
 	-- {item:8836} Arthas' Tears · {item:9154} Draught of Detect Undead · {skill:182} Herbalism · {zone:1448} Felwood · {zone:1422} Western Plaguelands · {zone:1423} Eastern Plaguelands
-	["43 {item:8836} for {item:9154}: {skill:182}: {item:8836} (skill 220) in {zone:1448} (48-55), {zone:1422} (51-58) and {zone:1423} (53-60). The densest patch of {item:8836} in {zone:1422} is marked."] = "{item:9154}에 필요한 {item:8836} 43개: {skill:182}: {item:8836}(숙련도 220) {zone:1448}, {zone:1422}, {zone:1423}. {zone:1422}에서 가장 많이 나는 {item:8836} 지역이 표시됩니다.",
+	["43 {item:8836} for {item:9154}: {skill:182}: {item:8836} (skill 220) in {zone:1448} (48-55), {zone:1422} (51-58) and {zone:1423} (53-60). The densest patch of {item:8836} in {zone:1422} is marked."] = "{item:9154}에 필요한 {item:8836} 43개: {skill:182}: {item:8836}(숙련도 220) {zone:1448}(48-55), {zone:1422}(51-58), {zone:1423}(53-60). {zone:1422}(51-58)에서 가장 많이 나는 {item:8836} 지역이 표시됩니다.",
 
 	-- Step 63: Arthas' Tears (Horde)
 	-- {item:8836} Arthas' Tears
 	["{item:8836} (Horde)"] = "{item:8836} (호드)",
 	-- {item:8836} Arthas' Tears · {item:9154} Draught of Detect Undead · {skill:182} Herbalism · {zone:1448} Felwood · {zone:1422} Western Plaguelands · {zone:1423} Eastern Plaguelands
-	["43 {item:8836} for {item:9154}: {skill:182}: {item:8836} (skill 220) in {zone:1448} (48-55), {zone:1422} (51-58) and {zone:1423} (53-60). The densest patch of {item:8836} in {zone:1448} is marked."] = "{item:9154}에 필요한 {item:8836} 43개: {skill:182}: {item:8836}(숙련도 220) {zone:1448}, {zone:1422}, {zone:1423}. {zone:1448}에서 가장 많이 나는 {item:8836} 지역이 표시됩니다.",
+	["43 {item:8836} for {item:9154}: {skill:182}: {item:8836} (skill 220) in {zone:1448} (48-55), {zone:1422} (51-58) and {zone:1423} (53-60). The densest patch of {item:8836} in {zone:1448} is marked."] = "{item:9154}에 필요한 {item:8836} 43개: {skill:182}: {item:8836}(숙련도 220) {zone:1448}(48-55), {zone:1422}(51-58), {zone:1423}(53-60). {zone:1448}(48-55)에서 가장 많이 나는 {item:8836} 지역이 표시됩니다.",
 
 	-- Step 64: Sungrass (Alliance)
 	-- {item:8838} Sungrass
 	["{item:8838} (Alliance)"] = "{item:8838} (얼라이언스)",
 	-- {item:8838} Sungrass · {item:13445} Elixir of Greater Defense · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["43 {item:8838} for {item:13445}: {skill:182}: {item:8838} (skill 230) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8838} in {zone:1425} is marked."] = "{item:13445}에 필요한 {item:8838} 43개: {skill:182}: {item:8838}(숙련도 230) {zone:1425}, {zone:1444}, {zone:1447}. {zone:1425}에서 가장 많이 나는 {item:8838} 지역이 표시됩니다.",
+	["43 {item:8838} for {item:13445}: {skill:182}: {item:8838} (skill 230) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8838} in {zone:1425} is marked."] = "{item:13445}에 필요한 {item:8838} 43개: {skill:182}: {item:8838}(숙련도 230) {zone:1425}(40-50), {zone:1444}(40-50), {zone:1447}(45-55). {zone:1425}(40-50)에서 가장 많이 나는 {item:8838} 지역이 표시됩니다.",
 
 	-- Step 65: Sungrass (Horde)
 	-- {item:8838} Sungrass
 	["{item:8838} (Horde)"] = "{item:8838} (호드)",
 	-- {item:8838} Sungrass · {item:13445} Elixir of Greater Defense · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["43 {item:8838} for {item:13445}: {skill:182}: {item:8838} (skill 230) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8838} in {zone:1444} is marked."] = "{item:13445}에 필요한 {item:8838} 43개: {skill:182}: {item:8838}(숙련도 230) {zone:1425}, {zone:1444}, {zone:1447}. {zone:1444}에서 가장 많이 나는 {item:8838} 지역이 표시됩니다.",
+	["43 {item:8838} for {item:13445}: {skill:182}: {item:8838} (skill 230) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8838} in {zone:1444} is marked."] = "{item:13445}에 필요한 {item:8838} 43개: {skill:182}: {item:8838}(숙련도 230) {zone:1425}(40-50), {zone:1444}(40-50), {zone:1447}(45-55). {zone:1444}(40-50)에서 가장 많이 나는 {item:8838} 지역이 표시됩니다.",
 
 	-- Step 66: Stonescale Eel (Alliance)
 	-- {item:13422} Stonescale Eel

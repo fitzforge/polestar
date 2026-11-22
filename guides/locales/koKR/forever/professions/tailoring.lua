@@ -195,7 +195,7 @@ return {
 	-- {item:8170} Rugged Leather
 	["{item:8170} (Horde)"] = "{item:8170} (호드)",
 	-- {item:8170} Rugged Leather · {item:13863} Runecloth Gloves · {item:13867} Runecloth Shoulders · {skill:393} Skinning · {npc:6369} Coralshell Tortoise · {npc:8760} Mosshoof Stag · {npc:6380} Thunderhead Consort · {npc:6379} Thunderhead Patriarch · {npc:6378} Thunderhead Skystormer · {npc:6377} Thunderhead Stagwing
-	["420 {item:8170} for {item:13863} and {item:13867}: {skill:393}: beasts of level 48-60. Skin {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377} here (level 48-60); the {skill:393} guide routes this."] = "{item:13863} 및 {item:13867}에 필요한 {item:8170} 420개: {skill:393}: 48-60레벨 야수. 여기서 {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377}을(를) 무두질하세요(레벨 48-60). {skill:393} 가이드가 이 루트를 안내합니다.",
+	["420 {item:8170} for {item:13863} and {item:13867}: {skill:393}: beasts of level 48-60. Skin {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378} and {npc:6377} here (level 48-60); the {skill:393} guide routes this."] = "{item:13863} 및 {item:13867}에 필요한 {item:8170} 420개: {skill:393}: 48-60레벨 야수. 여기서 {npc:6369}, {npc:8760}, {npc:6380}, {npc:6379}, {npc:6378}와(과) {npc:6377}을(를) 무두질하세요(레벨 48-60). {skill:393} 가이드가 이 루트를 안내합니다.",
 
 	-- Step 35: Runecloth
 	-- {item:14047} Runecloth · {item:13856} Runecloth Belt · {item:13863} Runecloth Gloves · {item:13867} Runecloth Shoulders

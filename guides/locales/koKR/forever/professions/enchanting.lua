@@ -16,7 +16,7 @@ return {
 	-- {skill:333} Enchanting
 	["{skill:333} 1-75: vendor goods"] = "{skill:333} 1-75: 상인 재료",
 	-- {item:6217} Copper Rod · {item:247786} Mote of Magic · {zone:1453} Stormwind City · {npc:1286} Edna Mullby · {npc:1318} Jessara Cordell · {zone:1454} Orgrimmar · {npc:3367} Felika · {npc:3346} Kithas · {npc:5817} Shimra
-	["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:6217} 1개(1실버 24코퍼) and {item:247786} 32개(3실버 20코퍼). 모두 약 4실버 44코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1286}, {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346}, {npc:5817}).",
+	["Buy the whole bracket's share in one go: 1 {item:6217} (1s 24c) and 32 {item:247786} (3s 20c); about 4s 44c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:1286} and {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346} and {npc:5817})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:6217} 1개(1실버 24코퍼)와(과) {item:247786} 32개(3실버 20코퍼). 모두 약 4실버 44코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:1286}, {npc:1318}; {zone:1454}: {npc:3367}, {npc:3346}, {npc:5817}).",
 
 	-- Step 3: Enchanting 1-75: Auction House
 	-- {skill:333} Enchanting
@@ -212,13 +212,13 @@ return {
 	-- {item:8831} Purple Lotus
 	["{item:8831} (Alliance)"] = "{item:8831} (얼라이언스)",
 	-- {item:8831} Purple Lotus · {item:20747} Lesser Mana Oil · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1425} is marked."] = "{item:20747}에 필요한 {item:8831} 34개: {skill:182}: {item:8831}(숙련도 210) {zone:1425}, {zone:1444}, {zone:1447}. {zone:1425}에서 가장 많이 나는 {item:8831} 지역이 표시됩니다.",
+	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1425} is marked."] = "{item:20747}에 필요한 {item:8831} 34개: {skill:182}: {item:8831}(숙련도 210) {zone:1425}(40-50), {zone:1444}(40-50), {zone:1447}(45-55). {zone:1425}(40-50)에서 가장 많이 나는 {item:8831} 지역이 표시됩니다.",
 
 	-- Step 40: Purple Lotus (Horde)
 	-- {item:8831} Purple Lotus
 	["{item:8831} (Horde)"] = "{item:8831} (호드)",
 	-- {item:8831} Purple Lotus · {item:20747} Lesser Mana Oil · {skill:182} Herbalism · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1444} is marked."] = "{item:20747}에 필요한 {item:8831} 34개: {skill:182}: {item:8831}(숙련도 210) {zone:1425}, {zone:1444}, {zone:1447}. {zone:1444}에서 가장 많이 나는 {item:8831} 지역이 표시됩니다.",
+	["34 {item:8831} for {item:20747}: {skill:182}: {item:8831} (skill 210) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest patch of {item:8831} in {zone:1444} is marked."] = "{item:20747}에 필요한 {item:8831} 34개: {skill:182}: {item:8831}(숙련도 210) {zone:1425}(40-50), {zone:1444}(40-50), {zone:1447}(45-55). {zone:1444}(40-50)에서 가장 많이 나는 {item:8831} 지역이 표시됩니다.",
 
 	-- Step 41: Vision Dust
 	-- {item:11137} Vision Dust · {spell:13815} Enchant Gloves - Agility · {skill:333} Enchanting

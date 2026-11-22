@@ -16,7 +16,7 @@ return {
 	-- {skill:202} Engineering
 	["{skill:202} 1-75: vendor goods"] = "{skill:202} 1-75: 상인 재료",
 	-- {item:2880} Weak Flux · {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:5514} Brooke Stonebraid · {npc:1286} Edna Mullby
-	["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:2880} 18개(18실버) and {item:5956}(도구: 하나를 사서 가방에 두세요, 18코퍼). 모두 약 18실버 18코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:5519}, {npc:5514}, {npc:1286}).",
+	["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "이 구간에 필요한 몫을 한 번에 사세요: {item:2880} 18개(18실버)와(과) {item:5956}(도구: 하나를 사서 가방에 두세요, 18코퍼). 모두 약 18실버 18코퍼. 화살표가 진영의 가장 가까운 판매자를 가리킵니다({zone:1453}: {npc:5519}, {npc:5514}, {npc:1286}).",
 	-- was: ["{item:5956}: a tool, keep it in your bags"] = "{item:5956}: 도구이니 가방에 넣어 두세요"
 	["a tool, keep it in your bags"] = "도구이니 가방에 두세요",
 
@@ -69,7 +69,7 @@ return {
 	-- {skill:202} Engineering
 	["{skill:202} recipes at 35"] = "35에서 {skill:202} 제조법",
 	-- {skill:202} Engineering · {spell:3922} Handful of Copper Bolts · {spell:1230656} Reagent Bot · {spell:3924} Copper Tube
-	["Back to an {skill:202} trainer: {spell:3922} (from 30, 1s 15c). Also learn {spell:1230656} (1s): Forever's {skill:202} camp item, placed at a campsite beside a campfire. It takes a {spell:3922} and a {spell:3924}, which you learn at 30 and 50, so it gives no points. The Camping 101: {skill:202} quest from your starting area's camping guide (after The Great Outdoors) sends you to an engineering trainer who teaches it free."] = "{skill:202} 상급자에게 돌아가세요: {spell:3922}(30부터, 1s 15c). {spell:1230656}(1s)도 배우세요. Forever의 {skill:202} 야영 아이템으로, placed at a campsite beside a campfire. It takes a {spell:3922} and a {spell:3924}, which you learn at 30 and 50, so it gives no points. The Camping 101: {skill:202} quest from your starting area's camping guide (after The Great Outdoors) sends you to an engineering trainer who teaches it free.",
+	["Back to an {skill:202} trainer: {spell:3922} (from 30, 1s 15c). Also learn {spell:1230656} (1s): Forever's {skill:202} camp item, placed at a campsite beside a campfire. It takes a {spell:3922} and a {spell:3924}, which you learn at 30 and 50, so it gives no points. The Camping 101: {skill:202} quest from your starting area's camping guide (after The Great Outdoors) sends you to an engineering trainer who teaches it free."] = "{skill:202} 상급자에게 돌아가세요: {spell:3922}(30부터, 1s 15c). {spell:1230656}(1s)도 배우세요. Forever의 {skill:202} 야영 아이템으로, 들고 모닥불 옆 야영지에 설치하면 됩니다. {spell:3922}와 {spell:3924}가 필요하며 각각 30과 50에 배우므로 숙련도를 주지 않습니다. 시작 지역의 야영 가이드에 있는 야영 기초 101: {skill:202} 퀘스트(위대한 야외 다음)가 상급자에게 보내며, 거기서 무료로 가르칩니다.",
 
 	-- Step 14: Handful of Copper Bolts to 57
 	-- {spell:3922} Handful of Copper Bolts
@@ -227,13 +227,13 @@ return {
 	-- {item:2319} Medium Leather
 	["{item:2319} (Alliance)"] = "{item:2319} (얼라이언스)",
 	-- {item:2319} Medium Leather · {spell:3953} Bronze Framework · {skill:393} Skinning · {npc:2248} Cave Yeti · {npc:2356} Elder Gray Bear · {npc:2385} Feral Mountain Lion · {npc:2351} Gray Bear · {npc:2384} Starving Mountain Lion · {npc:2354} Vicious Gray Bear
-	["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this."] = "{spell:3953}에 필요한 {item:2319} 19개: {skill:393}: 18-30레벨 야수. 여기서 {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354}을(를) 무두질하세요(레벨 18-30). {skill:393} 가이드가 이 루트를 안내합니다.",
+	["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384} and {npc:2354} here (level 18-30); the {skill:393} guide routes this."] = "{spell:3953}에 필요한 {item:2319} 19개: {skill:393}: 18-30레벨 야수. 여기서 {npc:2248}, {npc:2356}, {npc:2385}, {npc:2351}, Snapjaw, {npc:2384}와(과) {npc:2354}을(를) 무두질하세요(레벨 18-30). {skill:393} 가이드가 이 루트를 안내합니다.",
 
 	-- Step 44: Medium Leather (Horde)
 	-- {item:2319} Medium Leather
 	["{item:2319} (Horde)"] = "{item:2319} (호드)",
 	-- {item:2319} Medium Leather · {spell:3953} Bronze Framework · {skill:393} Skinning · {npc:3809} Ashenvale Bear · {npc:3810} Elder Ashenvale Bear · {npc:3818} Elder Shadowhorn Stag · {npc:3823} Ghostpaw Runner · {npc:3811} Giant Ashenvale Bear · {npc:3817} Shadowhorn Stag
-	["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} and {npc:3817} here (level 18-30); the {skill:393} guide routes this."] = "{spell:3953}에 필요한 {item:2319} 19개: {skill:393}: 18-30레벨 야수. 여기서 {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} and {npc:3817}을(를) 무두질하세요(레벨 18-30). {skill:393} 가이드가 이 루트를 안내합니다.",
+	["19 {item:2319} for {spell:3953}: {skill:393}: beasts of level 18-30. Skin {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811} and {npc:3817} here (level 18-30); the {skill:393} guide routes this."] = "{spell:3953}에 필요한 {item:2319} 19개: {skill:393}: 18-30레벨 야수. 여기서 {npc:3809}, {npc:3810}, {npc:3818}, {npc:3823}, {npc:3811}와(과) {npc:3817}을(를) 무두질하세요(레벨 18-30). {skill:393} 가이드가 이 루트를 안내합니다.",
 
 	-- Step 45: Wool Cloth
 	-- {item:2592} Wool Cloth · {spell:3953} Bronze Framework
@@ -243,25 +243,25 @@ return {
 	-- {item:2836} Coarse Stone
 	["{item:2836} (Alliance)"] = "{item:2836} (얼라이언스)",
 	-- {item:2836} Coarse Stone · {item:6533} Aquadynamic Fish Attractor · {skill:186} Mining · {object:1732} Tin Vein · {zone:1432} Loch Modan · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills
-	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1432} (10-20), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1432} is marked."] = "{item:6533}에 필요한 {item:2836} 31개: {skill:186}: {object:1732}(숙련도 65) {zone:1432}, {zone:1440} and {zone:1424}. {zone:1432}에서 가장 많이 나는 {object:1732} 지점이 표시됩니다.",
+	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1432} (10-20), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1432} is marked."] = "{item:6533}에 필요한 {item:2836} 31개: {skill:186}: {object:1732}(숙련도 65) {zone:1432}(10-20), {zone:1440}(18-30)와(과) {zone:1424}(20-30). {zone:1432}(10-20)에서 가장 많이 나는 {object:1732} 지점이 표시됩니다.",
 
 	-- Step 47: Coarse Stone (Horde)
 	-- {item:2836} Coarse Stone
 	["{item:2836} (Horde)"] = "{item:2836} (호드)",
 	-- {item:2836} Coarse Stone · {item:6533} Aquadynamic Fish Attractor · {skill:186} Mining · {object:1732} Tin Vein · {zone:1413} The Barrens · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills
-	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "{item:6533}에 필요한 {item:2836} 31개: {skill:186}: {object:1732}(숙련도 65) {zone:1413}, {zone:1440} and {zone:1424}. {zone:1440}에서 가장 많이 나는 {object:1732} 지점이 표시됩니다.",
+	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "{item:6533}에 필요한 {item:2836} 31개: {skill:186}: {object:1732}(숙련도 65) {zone:1413}(10-25), {zone:1440}(18-30)와(과) {zone:1424}(20-30). {zone:1440}(18-30)에서 가장 많이 나는 {object:1732} 지점이 표시됩니다.",
 
 	-- Step 48: Heavy Stone (Alliance)
 	-- {item:2838} Heavy Stone
 	["{item:2838} (Alliance)"] = "{item:2838} (얼라이언스)",
 	-- {item:2838} Heavy Stone · {spell:3967} Big Iron Bomb · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale · {zone:1443} Desolace
-	["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:1443} (30-40). The densest cluster of {object:1735} in {zone:1417} is marked."] = "{spell:3967}에 필요한 {item:2838} 74개: {skill:186}: {object:1735}(숙련도 125) {zone:1417}, {zone:1434} and {zone:1443}. {zone:1417}에서 가장 많이 나는 {object:1735} 지점이 표시됩니다.",
+	["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1417} (30-40), {zone:1434} (30-45) and {zone:1443} (30-40). The densest cluster of {object:1735} in {zone:1417} is marked."] = "{spell:3967}에 필요한 {item:2838} 74개: {skill:186}: {object:1735}(숙련도 125) {zone:1417}(30-40), {zone:1434}(30-45)와(과) {zone:1443}(30-40). {zone:1417}(30-40)에서 가장 많이 나는 {object:1735} 지점이 표시됩니다.",
 
 	-- Step 49: Heavy Stone (Horde)
 	-- {item:2838} Heavy Stone
 	["{item:2838} (Horde)"] = "{item:2838} (호드)",
 	-- {item:2838} Heavy Stone · {spell:3967} Big Iron Bomb · {skill:186} Mining · {object:1735} Iron Deposit · {zone:1441} Thousand Needles · {zone:1417} Arathi Highlands · {zone:1434} Stranglethorn Vale
-	["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1441} (25-35), {zone:1417} (30-40) and {zone:1434} (30-45). The densest cluster of {object:1735} in {zone:1441} is marked."] = "{spell:3967}에 필요한 {item:2838} 74개: {skill:186}: {object:1735}(숙련도 125) {zone:1441}, {zone:1417} and {zone:1434}. {zone:1441}에서 가장 많이 나는 {object:1735} 지점이 표시됩니다.",
+	["74 {item:2838} for {spell:3967}: {skill:186}: {object:1735} (skill 125) in {zone:1441} (25-35), {zone:1417} (30-40) and {zone:1434} (30-45). The densest cluster of {object:1735} in {zone:1441} is marked."] = "{spell:3967}에 필요한 {item:2838} 74개: {skill:186}: {object:1735}(숙련도 125) {zone:1441}(25-35), {zone:1417}(30-40)와(과) {zone:1434}(30-45). {zone:1441}(25-35)에서 가장 많이 나는 {object:1735} 지점이 표시됩니다.",
 
 	-- Step 50: Bronze Bar
 	-- {item:2841} Bronze Bar · {item:6533} Aquadynamic Fish Attractor · {spell:3953} Bronze Framework · {skill:186} Mining · {item:2840} Copper Bar · {item:3576} Tin Bar
@@ -283,13 +283,13 @@ return {
 	-- {item:7912} Solid Stone
 	["{item:7912} (Alliance)"] = "{item:7912} (얼라이언스)",
 	-- {item:7912} Solid Stone · {item:10505} Solid Blasting Powder · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1434} Stranglethorn Vale · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1434} (30-45), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1434} is marked."] = "{item:10505}에 필요한 {item:7912} 62개: {skill:186}: {object:2040}(숙련도 175) {zone:1434}, {zone:1425} and {zone:1444}. {zone:1434}에서 가장 많이 나는 {object:2040} 지점이 표시됩니다.",
+	["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1434} (30-45), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1434} is marked."] = "{item:10505}에 필요한 {item:7912} 62개: {skill:186}: {object:2040}(숙련도 175) {zone:1434}(30-45), {zone:1425}(40-50)와(과) {zone:1444}(40-50). {zone:1434}(30-45)에서 가장 많이 나는 {object:2040} 지점이 표시됩니다.",
 
 	-- Step 55: Solid Stone (Horde)
 	-- {item:7912} Solid Stone
 	["{item:7912} (Horde)"] = "{item:7912} (호드)",
 	-- {item:7912} Solid Stone · {item:10505} Solid Blasting Powder · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1443} Desolace · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "{item:10505}에 필요한 {item:7912} 62개: {skill:186}: {object:2040}(숙련도 175) {zone:1443}, {zone:1425} and {zone:1444}. {zone:1443}에서 가장 많이 나는 {object:2040} 지점이 표시됩니다.",
+	["62 {item:7912} for {item:10505}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "{item:10505}에 필요한 {item:7912} 62개: {skill:186}: {object:2040}(숙련도 175) {zone:1443}(30-40), {zone:1425}(40-50)와(과) {zone:1444}(40-50). {zone:1443}(30-40)에서 가장 많이 나는 {object:2040} 지점이 표시됩니다.",
 
 	-- Step 56: Aquadynamic Fish Attractor to 166
 	-- {item:6533} Aquadynamic Fish Attractor
@@ -368,11 +368,11 @@ return {
 
 	-- Step 69: Solid Stone (Alliance)
 	-- {item:7912} Solid Stone · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1425} The Hinterlands · {zone:1444} Feralas · {zone:1447} Azshara
-	["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest cluster of {object:2040} in {zone:1425} is marked."] = "{item:10512} 및 {item:10513}에 필요한 {item:7912} 212개: {skill:186}: {object:2040}(숙련도 175) {zone:1425}, {zone:1444} and {zone:1447}. {zone:1425}에서 가장 많이 나는 {object:2040} 지점이 표시됩니다.",
+	["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1425} (40-50), {zone:1444} (40-50) and {zone:1447} (45-55). The densest cluster of {object:2040} in {zone:1425} is marked."] = "{item:10512} 및 {item:10513}에 필요한 {item:7912} 212개: {skill:186}: {object:2040}(숙련도 175) {zone:1425}(40-50), {zone:1444}(40-50)와(과) {zone:1447}(45-55). {zone:1425}(40-50)에서 가장 많이 나는 {object:2040} 지점이 표시됩니다.",
 
 	-- Step 70: Solid Stone (Horde)
 	-- {item:7912} Solid Stone · {item:10512} Hi-Impact Mithril Slugs · {item:10513} Mithril Gyro-Shot · {skill:186} Mining · {object:2040} Mithril Deposit · {zone:1443} Desolace · {zone:1425} The Hinterlands · {zone:1444} Feralas
-	["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "{item:10512} 및 {item:10513}에 필요한 {item:7912} 212개: {skill:186}: {object:2040}(숙련도 175) {zone:1443}, {zone:1425} and {zone:1444}. {zone:1443}에서 가장 많이 나는 {object:2040} 지점이 표시됩니다.",
+	["212 {item:7912} for {item:10512} and {item:10513}: {skill:186}: {object:2040} (skill 175) in {zone:1443} (30-40), {zone:1425} (40-50) and {zone:1444} (40-50). The densest cluster of {object:2040} in {zone:1443} is marked."] = "{item:10512} 및 {item:10513}에 필요한 {item:7912} 212개: {skill:186}: {object:2040}(숙련도 175) {zone:1443}(30-40), {zone:1425}(40-50)와(과) {zone:1444}(40-50). {zone:1443}(30-40)에서 가장 많이 나는 {object:2040} 지점이 표시됩니다.",
 
 	-- Step 71: Thorium Bar
 	-- {item:12359} Thorium Bar · {item:15994} Thorium Widget · {item:16000} Thorium Tube · {skill:186} Mining · {item:10620} Thorium Ore
