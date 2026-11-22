@@ -1341,8 +1341,12 @@ L["Opens the Eastwall Gate into Stratholme's Scourge-held districts."] = "Отк
 L["Opens the inner doors of Dire Maul's North and West wings."] = "Открывает внутренние двери северного и западного крыльев Забытого Города."
 L["Opens Gnomeregan's back door, the Workshop entrance."] = "Открывает черный ход Гномрегана — вход через Мастерскую."
 L["Opens the doors of the Armory and the Cathedral."] = "Открывает двери Оружейной и Собора."
-L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = "Открывает ворота на пути Орды в город Даларан; одного ключа достаточно для всей группы. Альянс проходит внутрь через канализационную трубу в «Фокусах и воронах»."
 L["Rings the gong by the sacred pool in Zul'Farrak to call Gahz'rilla; one mallet does it for the group. Qiaga the Keeper (elite) on top of the Altar of Zul in the Hinterlands drops the Sacred Mallet: use it at the altar at the very top of Jintha'Alor and it becomes the Mallet of Zul'Farrak. Both places are full of elites."] = "Бьёт в гонг у священного пруда в Зул'Фарраке, чтобы призвать Газ'риллу; одного молота хватает на всю группу. Киага Хранительница (элитная) на вершине Алтаря Зула во Внутренних землях роняет Священный молот: используйте его у алтаря на самой вершине Джинта'Алора, и он станет Молотом Зул'Фаррака. В обоих местах полно элитных противников."
+-- L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Image of Archmage Modera gives it with Heart of Disruption: keep that quest in your log until you are inside. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = ""
+-- L["Calls up Lyn the Ignored, a hidden boss, at the summoning circle in the City of Dalaran's Underbelly, in the small room past Atrexis the Grave Knight. The Black Tome lies on a table up the stairs behind Archmage Arugal in Shadowfang Keep; use it at the Ambermill Leyline Focus, the blue crystal beside Archmage Ataeric in Ambermill's town hall, and it becomes the Tome of Dalaran."] = ""
+-- L["Opens a portal from the first khan's spot in Maraudon's outer caves to Earth Song Falls in inner Maraudon; the group walks through it. Celebras the Redeemed makes it once Celebras the Cursed is dead inside."] = ""
+-- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Alphonse Dumas in Farholde Keep forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
+-- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Kreza Darkthorn in Rog'mar forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
 
 -- UI/UI.lua
 L["Map %d"] = "Карта %d"
@@ -5021,3 +5025,4 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Пос
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "Темп в норме, но %s (%d) на шаге %d будет трудным: у вас %s; сначала достигните %d"
 -- L["No safe walking route"] = "Нет безопасного пешего пути"
 -- L["Boss whisper"] = "Шепот босса"
+-- L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = "Открывает ворота на пути Орды в город Даларан; одного ключа достаточно для всей группы. Альянс проходит внутрь через канализационную трубу в «Фокусах и воронах»."
