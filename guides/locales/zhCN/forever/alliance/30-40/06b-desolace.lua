@@ -27,18 +27,20 @@ return {
 	["Off the boat, walk up the pier to Baldruc, the flight master by the gate of {area:514}."] = "下船后沿码头走到{area:514}大门旁的飞行管理员巴德拉克处。",
 
 	-- Step 4: Nijel's Point
-	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort
-	["{npc:5638}, if 30-40/02 didn't take it: the wreck lies below {npc:11863}'s tower"] = "{npc:5638}，如果30-40/02没有交还：沉船就在{npc:11863}的塔下方",
-	-- {npc:5396} Captain Pentigast
-	["{npc:5396}, if 30-40/02 didn't give it"] = "{npc:5396}，如果30-40/02没有接到",
+	-- {npc:5638} Kreldig Ungor · {zone:1443} Desolace · {npc:11863} Azore Aldamort
+	["{npc:5638}, if the first {zone:1443} visit didn't take it: the wreck lies below {npc:11863}'s tower"] = "",
+	-- {npc:5396} Captain Pentigast · {zone:1443} Desolace
+	["{npc:5396}, if the first {zone:1443} visit didn't give it"] = "",
 
 	-- Step 5: Bibbly F'utzbuckle
 	-- {area:2407} Kormek's Hut
 	["Follow the road south to {area:2407}."] = "沿道路向南前往{area:2407}。",
+	-- {npc:11438} Bibbly F'utzbuckle · {zone:1443} Desolace
+	["{npc:11438}, if the first {zone:1443} visit didn't give it"] = "",
 
 	-- Step 6: Kodo Graveyard
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard · {area:2407} Kormek's Hut · {object:176751} Kodo Bones
-	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "{npc:6019}站在{area:596}边缘，{area:2407}西南方；{object:176751}散落在骨架之间。",
+	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons.\nCareful: Rexxar (62, elite), the Horde's champion, walks the road past the graveyard with his bear Misha and attacks Alliance players: when he comes by, step well away from the road and let him pass."] = "",
 
 	-- Step 7: Hornizz Brimbuzzle
 	-- {quest:6134} Ghost-o-plasm Round Up · {area:2657} Valley of Bones
@@ -91,8 +93,12 @@ return {
 	-- Step 17: Azore Aldamort
 	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
 	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "沿道路向西穿过{zone:1443}北部，前往{area:2405}的废墟。{npc:11863}的塔就在那里的山丘上，在前往沉船的路上。",
+	-- {npc:11863} Azore Aldamort · {zone:1443} Desolace
+	["{npc:11863}, if the first {zone:1443} visit didn't take the sceptre back to him"] = "",
 	-- {npc:11863} Azore Aldamort · {quest:93464} The Visiting Mage · {zone:1435} Swamp of Sorrows
 	["{npc:11863}: {quest:93464}, from Magtoor in the {zone:1435}"] = "{npc:11863}：{quest:93464}，来自{zone:1435}的玛格图尔",
+	-- {npc:11863} Azore Aldamort · {zone:1443} Desolace
+	["{npc:11863}, if the first {zone:1443} visit didn't give it"] = "",
 
 	-- Step 18: Karnitol's Chest
 	-- {npc:11863} Azore Aldamort
@@ -101,8 +107,8 @@ return {
 	-- Step 19: Claim Rackmore's Treasure!
 	-- {object:177787} Rackmore's Log · {object:35251} Karnitol's Chest · {zone:1443} Desolace
 	["{object:177787} lies beside {object:35251}, if you didn't take it on your first {zone:1443} visit. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "如果第一次来{zone:1443}时没有拿，{object:177787}在{object:35251}旁边。他的银钥匙由沉船周围的干钳蟹掉落；金钥匙则来自西北海岸的滑刃纳迦，下一步就去。",
-	-- {object:177787} Rackmore's Log
-	["{object:177787}, if 30-40/02 didn't take it"] = "{object:177787}，如果30-40/02没有拿",
+	-- {object:177787} Rackmore's Log · {zone:1443} Desolace
+	["{object:177787}, if the first {zone:1443} visit didn't take it"] = "",
 	["Underwater"] = "在水下",
 
 	-- Step 20: Sar'theris Strand: kill these as you meet them
@@ -135,5 +141,9 @@ return {
 	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "滑刃纳迦占据着{npc:11863}的塔北边的西北海岸；卡尼托的挎包就在近海的海底，任何纳迦都可能掉落拉克摩尔的金钥匙。游到最北端外的{area:2406}，对{object:177673}使用{item:15766}：{npc:12369}（38级）会出现；杀死他获得{quest:6027}。",
 	-- ["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "恶魔聚集在{zone:1443}南部的{area:602}：坑边有地狱犬（噬法魔犬、法师猎手和灵能猎犬）、虚空少女和虚空姐妹，以及末日守卫队长。\n小心：这里的大多数怪物都会沿路线巡逻，很容易引来额外的怪。",
 	-- ["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them."] = "亡灵劫掠者在玛格拉姆村庄南边、集会所东边的白骨荒地游荡：箭头会指向它们的西缘。然后在荒地东侧的另一个箭头处使用{item:15848}，引来玛格拉姆鬼魂。小心：玛格拉姆死灵可汗和玛格拉姆食尸者（45级，精英）在两个箭头之间的白骨荒地上走动，还有玛格拉姆死灵法师（42级）：把劫掠者和鬼魂引到你身边，远离它们。",
+	-- ["{npc:5396}, if 30-40/02 didn't give it"] = "{npc:5396}，如果30-40/02没有接到",
+	-- ["{npc:5638}, if 30-40/02 didn't take it: the wreck lies below {npc:11863}'s tower"] = "{npc:5638}，如果30-40/02没有交还：沉船就在{npc:11863}的塔下方",
+	-- ["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "{npc:6019}站在{area:596}边缘，{area:2407}西南方；{object:176751}散落在骨架之间。",
 	-- ["{object:177787} lies beside {object:35251}. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "{object:177787}在{object:35251}旁边。他的银钥匙由沉船周围的干钳蟹掉落；金钥匙则来自西北海岸的滑刃纳迦，下一步就去。",
+	-- ["{object:177787}, if 30-40/02 didn't take it"] = "{object:177787}，如果30-40/02没有拿",
 }

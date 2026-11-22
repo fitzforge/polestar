@@ -192,6 +192,52 @@ shift; `--accept` makes them the last good ones, `--all` lists every field.
 forge data check --help
 ```
 
+### The data-diff gate: `forge data diff`
+
+The statistics gate counts fields; it can't see one NPC change. 0.4.1's data refresh passed it and
+listed 12 faction leaders as rares (Thrall with 127 points over Orgrimmar), so the rare alert went
+off in every capital and Thrall's hand-in point left his throne room. `forge data diff` compares a
+build with the live release's, NPC by NPC, object by object and quest by quest, and fails on the
+invariants a release holds:
+
+```sh
+forge data diff --old <the live release's data/forever> --new data/forever --out <dir>
+```
+
+It writes `data-diff.md` (the verdict and violations first, then every change, big ones first) and
+`data-diff.json`; the last line printed is `data diff: PASS ...` or `data diff: FAIL <n>
+violation(s) ...`, and it exits 1 on a violation.
+
+- Changes it lists: spawn points per NPC and object (a big jump: x3 and +10, or every point lost), a
+  new point more than 200 yd from every old one, roles gained or lost (rare, vendor, trainer...) with
+  the Codex's rare, elite and boss flags and the rank, faction; per quest, givers and enders gained or
+  lost, a hand-in that moved, level and minimum level, `pre` and `preAny`; spawn heights and travel in
+  counts.
+- Invariants that fail it:
+  - `friendly-rare`: no NPC of faction A, H or AH is a rare in the Codex (the Codex build drops the
+    flag and the role for them; the source data's rare role is listed in the report);
+  - `leader-spawns`: a faction leader (rank 3, a player faction's, in a capital) keeps at most 5
+    places (or its old count; points within 30 yd of each other, players' recorded spots round an NPC
+    that stands still, are one place), each point within 60 yd of one it had;
+  - `capital-spawns`: an NPC of a player faction in 1 to 5 places, all in a capital, keeps at most 5,
+    no point more than 200 yd from where it stood;
+  - `spawn-jump`: no NPC goes from 3 points or fewer to more than 20 unless it is a known roamer
+    (`KNOWN_ROAMERS` in `crates/forge-data/src/diff.rs`, added with the evidence that it patrols);
+  - `ender-moved`: no quest's hand-in moves more than 200 yd (an ender that is a known roamer
+    excepted).
+
+  A correction record naming the NPC (or, for `ender-moved`, the quest or its ender) in
+  `forever-db/corrections` lets a leader, capital or hand-in move through: the move is then a
+  reviewed fact, not a side effect.
+
+Every data refresh pull request carries the report against the live release's data, and every big
+row is explained in it or fixed; the release runs it on its own build (RELEASING.md, step 2).
+
+<!-- ci -->
+```sh
+forge data diff --help
+```
+
 ### What it reads
 
 | Input | Where | Notes |
@@ -261,6 +307,12 @@ points is added (#2816). Only a true rare's sightings count (classed rare or rar
 with no class of an NPC the data ranks rare): older Recorders also logged world bosses this way, and a
 faction leader got the spots where players stood when they saw him (#2894).
 
+Prerequisites: the learned layer (`data/recorded/quests.json`) adds the prerequisites players' recorded offers
+confirm and removes the ones they disprove, before the knowledge base runs. The knowledge base then fills an empty
+prerequisite list with the Forever world database's previous quest, but never with one a correction's
+prerequisites leave out or the recordings disprove: the previous quest is often only the story order (Welcome to
+Azeroth after The Earthen Ring, #2781).
+
 Talk objectives: QuestieDB lists a quest done by talking to an NPC (a story to hear, advice to ask, an item to
 show) as a creature objective, like a kill, and the Classic server's database gives it no count. Once every
 source has given its counts (after the knowledge base with `--kb`), a kill objective whose count no source
@@ -300,6 +352,24 @@ Without `--kb`, `data/forever/` gets:
 
 `--built-at ISO` (or `SOURCE_DATE_EPOCH`) fixes the timestamp in `meta.json`, so two builds of the same
 inputs give the same bytes. `POLESTAR_DATA_TIMES=1` prints how long each phase took.
+
+#### Treasures
+
+An object's roles in `objects.json` say what a player does with it: `herb`, `mine` and `fishing` for gathering
+nodes, `chest` for a container worth opening, `mailbox`, `meetingstone`. They come from the sources' lists and
+from players' recordings, where a loot window from an object gives:
+
+- `herb`, `mine` or `fishing` when it was a gather: the Recorder's own `gather` (Classic's Herb Gathering and
+  Mining casts, a fishing catch), or a cast of one of the client's gathering spells (SpellEffect's OPEN_LOCK on
+  a Herbalism or Mining lock, such as Forever's Cultivation, 1312650, on its herb nodes) at most 3 seconds
+  before it;
+- `chest` only when it was no gather and held something a player keeps outside a quest: an item no open
+  objective wanted and not of the client's Quest class (its Item table). A quest's plant or crate (Mudsnout
+  Blossom, Fel Cone, Tirisfal Pumpkin) gives only its quest's item, so it is no chest.
+
+The Codex's treasures (the Rares window's list and the world map's treasure pins) are the objects with the
+`chest` role and none of `herb`, `mine` or `fishing`: a herb, an ore vein or a fishing pool is never a
+treasure, whatever gave it the chest role and whatever the player's professions.
 
 ### `--kb`: the knowledge base build
 
@@ -932,6 +1002,10 @@ forge data publish --check forever-db                           # the guard
 - `index.json` and `CHANGELOG.md` give coverage. A field most entities lack is counted over the
   entities the full data knows one for: prerequisites over the known chain links, spawns over the
   NPCs and objects with a known spawn, drop sources over the items with a known dropper.
+- `CHANGELOG.md` is never edited by hand. What its counts can't say (why a table lost rows, a
+  release that replaces one never tagged) goes in a Markdown file passed as `--release-note FILE`:
+  publish puts it under this version's heading, before the lists. Pass it on every run of that
+  version, since a run without it writes the section without it.
 - `--zip` writes `forever-db-<version>.zip` beside the folder (the folder under `forever-db/`),
   `--sqlite FILE` the tables as one sqlite file, `--lua DIR` the library; `--from DIR` writes these
   from an existing release without rebuilding it.

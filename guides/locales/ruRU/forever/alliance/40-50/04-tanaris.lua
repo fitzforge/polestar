@@ -7,8 +7,8 @@
 -- The comments are rewritten by sync.
 return {
 	-- Step 2: Mirage Raceway
-	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {zone:1441} Thousand Needles · {npc:4454} Fizzle Brassbolts
-	["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, Zamek by the goblin camp."] = "{area:2240} находится здесь: {area:439}, на юго-востоке зоны {zone:1441}. {npc:4454} – в лагере гномов у трассы, Замек – у лагеря гоблинов.",
+	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {zone:1441} Thousand Needles · {npc:4454} Fizzle Brassbolts · {npc:4630} Pozzik · {npc:4709} Zamek · {quest:1137} News for Fizzle
+	["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, {npc:4630} and {npc:4709} by the goblins' camp. With {quest:1137} handed in, {npc:4630} has work: {npc:4630} first, then {npc:4709}, who runs off to keep Rizzle busy; then take Rizzle's plans from the gnomes' camp and bring them back to {npc:4630}."] = "",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
 	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "",
 
@@ -72,10 +72,14 @@ return {
 	-- {area:35} Booty Bay · {zone:1425} Hinterlands
 	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {zone:1425} guide, keep it"] = "",
 
-	-- Step 12: Noonshade Ruins
+	-- Step 12: Ship Schedules
+	-- {item:9250} Ship Schedule · {npc:7882} Security Chief Bilgewhizzle
+	["Only if a Southsea pirate gave you a {item:9250}: it starts a quest for {npc:7882}, inside, where you stand."] = "",
+
+	-- Step 14: Noonshade Ruins
 	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "",
 
-	-- Step 15: The pool by Sandsorrow Watch
+	-- Step 17: The pool by Sandsorrow Watch
 	-- {area:979} Sandsorrow Watch
 	["The pool by {area:979}"] = "Пруд у места {area:979}",
 	-- {area:979} Sandsorrow Watch · {item:8584} Untapped Dowsing Widget
@@ -85,7 +89,7 @@ return {
 	-- {area:979} Sandsorrow Watch
 	["Pool by {area:979}"] = "Пруд у места {area:979}",
 
-	-- Step 16: Zul'Farrak
+	-- Step 18: Zul'Farrak
 	-- {area:978} Zul'Farrak · {quest:3042} Troll Temper · {npc:7604} Sergeant Bly · {quest:2768} Divino-matic Rod
 	["{area:978} is a dungeon for a group of five; its quests here are level 45 to 47. Its gate lies about 400 yards north of the pool.\nInside: the Scarabs drop the shells, every Sandfury troll can drop {quest:3042}, and {npc:7604} carries the {quest:2768}."] = "{area:978} – подземелье для группы из пяти игроков; его задания здесь – 45-47-го уровня. Ворота – примерно в 400 ярдах к северу от пруда.\nВнутри: со скарабеев падают панцири, с любого тролля из племени Песчаной Бури может упасть {quest:3042}, а {quest:2768} – у NPC {npc:7604}.",
 	-- {quest:2865} Scarab Shells
@@ -95,29 +99,33 @@ return {
 	-- {quest:2768} Divino-matic Rod · {npc:7604} Sergeant Bly
 	["{quest:2768}: {npc:7604}, inside"] = "{quest:2768}: {npc:7604}, внутри",
 
-	-- Step 17: Gadgetzan
+	-- Step 19: Gadgetzan
 	-- {area:982} Noxious Lair · {area:976} Gadgetzan
 	["keep it: the {area:982}'s Centipaar (48-50) wait for the Un'Goro guide's {area:976} landing at about 49.5"] = "оставьте его: центипаары (48-50) из места {area:982} подождут прибытия в {area:976} по гайду по Ун'Горо, примерно на 49,5 уровне",
 
-	-- Step 18: Tran'rek
+	-- Step 20: Tran'rek
 	-- {area:978} Zul'Farrak · {npc:7876} Tran'rek
 	["Your {area:978} scarab shells: {npc:7876}, on the north side of town."] = "Панцири скарабеев из подземелья {area:978}: {npc:7876}, в северной части города.",
 
-	-- Step 19: Chief Engineer Bilgewhizzle
+	-- Step 21: Chief Engineer Bilgewhizzle
 	-- {quest:2768} Divino-matic Rod · {npc:7407} Chief Engineer Bilgewhizzle
 	["The {quest:2768}: {npc:7407}, by the water tower."] = "{quest:2768}: {npc:7407}, у водонапорной башни.",
 
-	-- Step 20: Trenton Lighthammer
+	-- Step 22: Trenton Lighthammer
 	-- {quest:3042} Troll Temper · {npc:7804} Trenton Lighthammer
 	["The {quest:3042}: {npc:7804}, in town."] = "{quest:3042}: {npc:7804}, в городе.",
 
-	-- Step 21: The Broken Pillar
+	-- Step 23: The Broken Pillar
 	-- {area:1938} Broken Pillar
 	["The {area:1938}"] = "Место: {area:1938}",
 	-- {area:1938} Broken Pillar · {npc:7771} Marvon Rivetseeker · {quest:3161} Gahz'ridian
 	["Ride south to the dig camp at the {area:1938}. {npc:7771} hands you a detector helm: wear it to see the {quest:3161} mounds, which lie thick in the sand around the camp and south-west toward the ogres."] = "Езжайте на юг к лагерю раскопок: {area:1938}. {npc:7771} дает вам шлем-детектор: наденьте его, чтобы видеть холмики ({quest:3161}); их много в песке вокруг лагеря и к юго-западу, в сторону огров.",
+	-- {npc:7771} Marvon Rivetseeker · {quest:3380} The Sunken Temple
+	["{npc:7771}: {quest:3380}, from Angelas in Feathermoon"] = "",
+	-- {npc:7771} Marvon Rivetseeker · {item:10556} Stone Circle · {area:392} Ratchet · {area:976} Gadgetzan
+	["{npc:7771}: the {item:10556} is in {area:392}, on the Un'Goro guide's flight to {area:976}, which hands it in here: keep it"] = "",
 
-	-- Step 23: Dunemaul Compound
+	-- Step 25: Dunemaul Compound
 	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley
 	-- plural, as words: Dunemaul Ogres = {npc:5471} Dunemaul Ogre
 	["Ride south-west to the ogre compound and keep to its south end; the compound's quest waits for the Un'Goro guide.\nWhy the grind to 47: {npc:5955} waits at the edge of the {quest:3362} (mobs of 48-50). Grind it on the Dunemaul Ogres (45-46) at the compound's south end, the safer camp, not on the Brutes and Enforcers (46-48) inside."] = "Езжайте на юго-запад к лагерю огров и держитесь его южного края; задание по лагерю подождет гайда по Ун'Горо.\nЗачем качаться до 47: {npc:5955} ждет на краю места «{quest:3362}» (противники 48-50). Качайтесь на ограх из клана Песчаного Молота (45-46) у южного края лагеря, там безопаснее, а не на громилах и вышибалах (46-48) внутри.",
@@ -126,7 +134,7 @@ return {
 	-- {npc:5471} Dunemaul Ogre
 	["grind on {npc:5471}, at the compound's south end"] = "убивайте цель {npc:5471} в южной части укрепления",
 
-	-- Step 24: Tooga's escort
+	-- Step 26: Tooga's escort
 	-- {npc:5955} Tooga
 	["{npc:5955}'s escort"] = "Сопровождение: {npc:5955}",
 	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley · {npc:6015} Torta · {area:977} Steamwheedle Port
@@ -135,16 +143,16 @@ return {
 	-- {npc:5955} Tooga
 	["{npc:5955}, beside her: Oasis"] = "{npc:5955}, рядом с ней: Оазис",
 
-	-- Step 25: Steamwheedle Port
+	-- Step 27: Steamwheedle Port
 	-- {npc:6015} Torta · {area:977} Steamwheedle Port
 	["From {npc:6015}, {area:977} is just west along the shore."] = "От NPC {npc:6015} до места {area:977} рукой подать на запад вдоль берега.",
 
-	-- Step 26: Caliph Scorpidsting
+	-- Step 28: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
 	["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "",
 
-	-- Step 28: Fly to Auberdine
+	-- Step 30: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "Летите сюда: {area:442}",
 	-- {zone:1457} Darnassus · {npc:7763} Curgle Cranklehop · {area:442} Auberdine · {area:150} Menethil Harbor · {area:348} Aerie Peak
@@ -152,13 +160,13 @@ return {
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "Распорядитель полетов: {area:976}",
 
-	-- Step 29: Teldrassil
+	-- Step 31: Teldrassil
 	-- {area:442} Auberdine · {area:702} Rut'theran Village · {npc:3838} Vesprystus
 	["Take the boat from {area:442}'s dock to {area:702}; {npc:3838}, the hippogryph master, stands on the rise just east of the landing: learn the flight path on the way up to the village."] = "Плывите на корабле от причала ({area:442}) сюда: {area:702}; {npc:3838}, распорядитель гиппогрифов, стоит на возвышении чуть восточнее пристани: откройте маршрут полета по пути наверх в деревню.",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "Распорядитель полетов: {area:702}",
 
-	-- Step 30: Rut'theran Village
+	-- Step 32: Rut'theran Village
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
 	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907} стоит этажом выше, над NPC {npc:7916}: поднимитесь внутри, стрелка не различает этажи.",
 	-- {npc:7907} Daryn Lightwind · {zone:1446} Tanaris
@@ -167,45 +175,45 @@ return {
 	["{npc:7916}: the feathers lie in the {zone:1425}, next"] = "{npc:7916}: перья лежат в зоне {zone:1425}, далее",
 	["the book on her table"] = "книга на ее столе",
 
-	-- Step 32: Temple of the Moon
+	-- Step 34: Temple of the Moon
 	["Temple of the Moon"] = "Храм Луны",
 	-- {zone:1457} Darnassus
 	["Step through the portal into {zone:1457}. The Temple of the Moon is in the south of the city."] = "Пройдите через портал в {zone:1457}. Храм Луны – на юге города.",
 
-	-- Step 36: Cenarion Enclave
+	-- Step 38: Cenarion Enclave
 	-- {npc:3516} Arch Druid Fandral Staghelm
 	["{npc:3516}, at the top of the tree"] = "{npc:3516}, на вершине дерева",
 
-	-- Step 37: Class trainer
+	-- Step 39: Class trainer
 	["Class trainer"] = "Учитель классовых навыков",
 
-	-- Step 38: Cenarion Enclave
+	-- Step 40: Cenarion Enclave
 	-- {zone:1449} Un'Goro Crater
 	["the soil comes from {zone:1449}, later"] = "земля – из зоны {zone:1449}, позже",
 
-	-- Step 39: Portal to Teldrassil
+	-- Step 41: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
 	["Portal to {zone:1438}"] = "Портал: {zone:1438}",
 
-	-- Step 41: Boat to Menethil Harbor
+	-- Step 43: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Boat to {area:150}"] = "Корабль: {area:150}",
 
-	-- Step 42: Fly to Aerie Peak
+	-- Step 44: Fly to Aerie Peak
 	-- {area:348} Aerie Peak
 	["Fly to {area:348}"] = "Летите сюда: {area:348}",
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "Распорядитель полетов: {area:150}",
 
-	-- Step 43: Fly to Southshore
+	-- Step 45: Fly to Southshore
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "Лететь сюда: {area:271}",
 
-	-- Step 44: Hinterlands
+	-- Step 46: Hinterlands
 	-- {area:348} Aerie Peak · {area:271} Southshore · {zone:1425} Hinterlands
 	["No flight path to {area:348} yet: ride north-east out of {area:271} on the road into the {zone:1425}; {area:348} sits just past the border."] = "Маршрута полета сюда ({area:348}) еще нет: езжайте на северо-восток из места {area:271} по дороге в зону {zone:1425}; {area:348} – сразу за границей.",
 
-	-- Step 45: Aerie Peak
+	-- Step 47: Aerie Peak
 	-- {npc:5636} Gryphon Master Talonaxe
 	["{npc:5636}, beside the flight master"] = "",
 	-- {npc:7884} Fraggar Thundermantle
@@ -233,6 +241,7 @@ return {
 	-- ["The Wanted poster by {npc:7882}"] = "Плакат «Розыск!» у NPC {npc:7882}",
 	-- ["The little turtle {npc:5955} hides at the north end of the valley. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "Маленький черепах {npc:5955} прячется в северной части долины. Отведите его домой к жене ({npc:6015}), у воды чуть восточнее места {area:977}: он идет медленно, и звери пустыни нападают на него, так что берегите его.",
 	-- ["The little turtle {npc:5955} hides at the north end of the {quest:3362}: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "Маленький черепах {npc:5955} прячется в северной части долины ({quest:3362}): забирайте его с края и не трогайте кактусовых чудищ (48-50). Отведите его домой к жене ({npc:6015}), у воды чуть восточнее места {area:977}: он идет медленно, и звери пустыни нападают на него, так что берегите его.",
+	-- ["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, Zamek by the goblin camp."] = "{area:2240} находится здесь: {area:439}, на юго-востоке зоны {zone:1441}. {npc:4454} – в лагере гномов у трассы, Замек – у лагеря гоблинов.",
 	-- ["Underwater"] = "Под водой",
 	-- ["Wastewander bandits"] = "Бандиты из шайки Скитальцев Пустыни",
 	-- ["While {npc:4709} keeps Rizzle talking, his plans lie unguarded in the gnome camp across the track."] = "Пока {npc:4709} заговаривает Риззлу зубы, его чертежи лежат без охраны в лагере гномов по ту сторону трассы.",

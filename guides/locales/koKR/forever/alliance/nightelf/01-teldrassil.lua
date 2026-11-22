@@ -30,6 +30,8 @@ return {
 	-- Step 4: Back at Aldrassil
 	-- {area:256} Aldrassil
 	["Back at {area:256}"] = "{area:256}(으)로 돌아가기",
+	-- {npc:3595} Shanda · {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light
+	["{npc:3595}'s quest, {quest:97979}, asks for your two night elf racial spells: open your spellbook (P), cast {spell:1259799} and Shadowmeld once each, then hand it back to her."] = "",
 	-- {npc:2079} Conservator Ilthalaine · {npc:3596} Ayanna Everstride
 	["{npc:2079}: a sigil for {npc:3596}"] = "{npc:2079}: {npc:3596}에게 줄 문장",
 	-- {npc:2082} Gilshalan Windwalker
@@ -188,9 +190,9 @@ return {
 	-- Step 29: Teldrassil: kill these as you meet them
 	-- {quest:940} Teldrassil
 	["{quest:940}: kill these as you meet them"] = "",
-	-- {area:186} Dolanaar · {area:260} Starbreeze Village
-	-- plural, as words: Strigid Owls = {npc:1995} Strigid Owl · Webwood Lurkers = {npc:1998} Webwood Lurker
-	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of {area:260}."] = "흑호, 스트리기드 올빼미, 나무그물 늑대거미가 {area:186} 주변과 동쪽 길을 따라 돌아다니며, 늑대거미는 제조법에 쓸 거미 다리도 떨어뜨립니다. 달샘은 {area:260} 서쪽 끝에 있습니다.",
+	-- {area:186} Dolanaar · {area:260} Starbreeze Village · {npc:3567} Tallonkai Swiftroot
+	-- plural, as words: Strigid Owls = {npc:1995} Strigid Owl · Webwood Lurkers = {npc:1998} Webwood Lurker · Befouled Webwoods = {npc:272096} Befouled Webwood
+	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of {area:260}.\nCareful: the Befouled Webwoods (10-11) in the woods north-west of {area:186}, around 47-52,34-56, are over you now: take the silk from the Webwood Lurkers and leave the webwoods for {npc:3567}'s quest later. Duskstalker (9, a rare nightsaber) and Oakenscowl (9, elite) roam the woods south of {area:186}, around 54-62,73-77: leave them be."] = "",
 	["Nightsabers"] = "흑호",
 	-- plural, as words: Webwood Lurkers = {npc:1998} Webwood Lurker
 	["Webwood Lurkers"] = "나무그물 늑대거미",
@@ -438,8 +440,8 @@ return {
 	["Take the road north-west from {area:186} again; she still lies beside it, on the way to {zone:1457}."] = "다시 {area:186}에서 북서쪽 길로 가세요. 그녀는 아직 {zone:1457}(으)로 가는 길가에 누워 있습니다.",
 
 	-- Step 70: Into Darnassus
-	-- {zone:1457} Darnassus
-	["Into {zone:1457}"] = "",
+	-- {area:1657} Darnassus
+	["Into {area:1657}"] = "",
 	-- {npc:4241} Mydrannul · {area:1659} Craftsmen's Terrace
 	["{npc:4241}, on the {area:1659} just inside the city"] = "",
 
@@ -450,10 +452,13 @@ return {
 	-- Step 73: Vorlus Vilehoof
 	-- {quest:1683} Vorlus Vilehoof · {area:736} Ban'ethil Hollow · {quest:1684} Elanaria
 	["Back out of the city gate and east along the road: {quest:1683} stands south of it, by {area:736}. Bring his horn back to {quest:1684}."] = "",
+	-- {area:736} Ban'ethil Hollow
+	["East from the city gate to {area:736}"] = "",
 
 	-- Step 75: Darnassus
-	-- {zone:1457} Darnassus · {item:279378} Lunar Pendant · {area:1659} Craftsmen's Terrace · {area:3425} Cenarion Hold · {npc:4241} Mydrannul · {npc:3516} Arch Druid Fandral Staghelm · {area:1658} Cenarion Enclave · {quest:922} Rellian Greenspyre · {npc:4092} Lariia · {npc:7999} Tyrande Whisperwind · {npc:7313} Priestess A'moora · {npc:8396} Sentinel Dalia Sunblade
-	["Follow the road west into {zone:1457} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "길을 따라 서쪽 {zone:1457}(으)로 가서, 마지막 올빼미 둘을 위해 {area:1659}의 여관과 {area:3425} 아래 굴 입구에서 {item:279378}을(를) 사용하세요. {npc:4241}은(는) 도시 입구 바로 안쪽 {area:1659}에 있습니다. {npc:3516}은(는) 도시 북쪽 끝 {area:1658}에, {quest:922}은(는) 그 바로 남쪽에 있으며, {npc:4092}, {npc:7999}, {npc:7313}, {npc:8396}은(는) 남쪽 끝 달의 신전에 있습니다.",
+	-- {area:1657} Darnassus · {item:279378} Lunar Pendant · {area:1659} Craftsmen's Terrace · {area:3425} Cenarion Hold · {npc:4241} Mydrannul · {npc:3516} Arch Druid Fandral Staghelm · {area:1658} Cenarion Enclave · {quest:922} Rellian Greenspyre · {npc:4092} Lariia · {npc:7999} Tyrande Whisperwind · {npc:7313} Priestess A'moora · {npc:8396} Sentinel Dalia Sunblade
+	-- was: ["Follow the road west into {zone:1457} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "길을 따라 서쪽 {zone:1457}(으)로 가서, 마지막 올빼미 둘을 위해 {area:1659}의 여관과 {area:3425} 아래 굴 입구에서 {item:279378}을(를) 사용하세요. {npc:4241}은(는) 도시 입구 바로 안쪽 {area:1659}에 있습니다. {npc:3516}은(는) 도시 북쪽 끝 {area:1658}에, {quest:922}은(는) 그 바로 남쪽에 있으며, {npc:4092}, {npc:7999}, {npc:7313}, {npc:8396}은(는) 남쪽 끝 달의 신전에 있습니다."
+	["Follow the road west into {area:1657} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "",
 	-- {npc:4088} Elanaria · {area:1660} Warrior's Terrace · {spell:71} Defensive Stance
 	["{npc:4088}, on the {area:1660}: {spell:71}"] = "",
 	-- {item:279378} Lunar Pendant · {area:1659} Craftsmen's Terrace
@@ -532,6 +537,9 @@ return {
 	["Tide Crawlers scuttle along the shore below the village; {quest:983} stands on the beach just south of the docks. Darkshore Threshers swim in the shallows. The {object:175207} lies on the shore just south of the village."] = "왕바닷게는 마을 아래 해안을 따라 기어다니고, {quest:983}은(는) 부두 바로 남쪽 해변에 서 있습니다. 어둠의해안 트레샤돈은 얕은 물에서 헤엄칩니다. {object:175207}은(는) 마을 바로 남쪽 해안에 놓여 있습니다.",
 	-- plural, as words: Crawler Legs = {item:5385} Crawler Leg · Tide Crawlers = {npc:2232} Tide Crawler
 	["Crawler Legs: the Tide Crawlers"] = "게 다리: 왕바닷게",
+	-- {quest:983} Buzzbox 827 · {zone:1439} Darkshore
+	-- plural, as words: Thresher Eyes = {item:5412} Thresher Eye
+	["{quest:983}: Thresher Eyes, on the {zone:1439} guide's first beach stop"] = "",
 
 	-- Step 91: Auberdine
 	-- {npc:3649} Thundris Windweaver
@@ -546,6 +554,8 @@ return {
 	-- Step 93: Moonglade
 	-- {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {quest:5929} Great Bear Spirit · {area:493} Moonglade · {npc:10897} Sindrayl · {npc:11800} Silva Fil'naveth · {area:702} Rut'theran Village
 	["Cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Learn {area:493}'s flight path from {npc:10897}, south of the lake, for later trips. Then {npc:11800} in {area:2361} flies Druids straight to {area:702} from her gossip: hers is no flight path to learn. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{spell:18960}을(를) 시전하세요. {npc:11802}은(는) {area:2361}에 있고, {quest:5929}은(는) 북서쪽 숲에 있습니다. 나중을 위해 호수 남쪽의 {npc:10897}에게서 {area:493} 비행 경로를 배우세요. 그다음 {area:2361}의 {npc:11800}이(가) 대화로 드루이드를 {area:702}까지 곧장 태워 줍니다. 배울 비행 경로는 아닙니다. {npc:11802}은(는) 건물 위층에 있습니다. 안에서 올라가세요. 화살표는 층을 구분하지 못합니다.",
+	-- {spell:18960} Teleport: Moonglade
+	["Cast {spell:18960}"] = "",
 	-- {quest:5929} Great Bear Spirit
 	["Speak with the {quest:5929}"] = "{quest:5929}와(과) 대화하세요",
 
@@ -553,26 +563,44 @@ return {
 	-- {npc:10118} Nessa Shadowsong · {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
 	["{npc:10118} stands on the Rut'theran dock where you land. Then take the portal up to {npc:4217} in the {area:1658}."] = "",
 
-	-- Step 97: The Moonkin Stone
+	-- Step 97: Rut'theran Village flight master
+	-- {area:702} Rut'theran Village
+	["{area:702} flight master"] = "{area:702} 비행 조련사",
+	-- {zone:1457} Darnassus
+	["Take the portal down from {zone:1457} to the hippogryphs."] = "",
+
+	-- Step 98: The Moonkin Stone
 	-- {object:177525} Moonkin Stone
 	["The {object:177525}"] = "{object:177525}",
 	-- {area:702} Rut'theran Village · {area:442} Auberdine · {object:177525} Moonkin Stone · {item:15208} Cenarion Moondust · {npc:12144} Lunaclaw Spirit
 	["Go back down to {area:702} and fly to {area:442}. The {object:177525} stands in the hills just east of the village: use the {item:15208} there, defeat Lunaclaw and speak to the {npc:12144}."] = "{area:702}(으)로 다시 내려가 {area:442}(으)로 날아가세요. {object:177525}은(는) 마을 바로 동쪽 언덕에 있습니다. 그곳에서 {item:15208}을(를) 사용하고, 초승달발톱을 물리친 뒤 {npc:12144}와(과) 대화하세요.",
 
-	-- Step 98: Body and Heart
+	-- Step 99: Auberdine flight master
+	-- {area:442} Auberdine
+	["{area:442} flight master"] = "",
+
+	-- Step 100: Body and Heart
 	-- {area:702} Rut'theran Village · {npc:4217} Mathrengyl Bearwalker · {area:442} Auberdine
 	["Fly to {area:702} once more and take the portal up to {npc:4217}, then fly back to {area:442}."] = "한 번 더 {area:702}(으)로 날아가 차원문을 타고 {npc:4217}에게 간 뒤, {area:442}(으)로 날아가세요.",
+
+	-- Step 101: Back to Auberdine
+	-- {area:442} Auberdine
+	["Back to {area:442}"] = "",
+	-- {area:702} Rut'theran Village
+	["Take the portal down to the hippogryphs at {area:702}."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Boat to {zone:1453}"] = "배를 타고 {zone:1453}(으)로 가십시오",
 	-- ["Each of {npc:3601}'s quests hands you a {item:15908}: use it on the beast he names, then bring the rod back to him in {area:186}. Webwood Lurkers creep around the village, Nightsaber Stalkers and Strigid Screechers roam the woods south of it."] = "{npc:3601}의 퀘스트마다 {item:15908}을(를) 줍니다. 그가 말한 야수에게 사용한 뒤 {area:186}의 그에게 막대를 가져가세요. 나무그물 늑대거미는 마을 주변을 기어 다니고, 긴발톱 흑호와 {npc:1996}은(는) 마을 남쪽 숲을 돌아다닙니다.",
 	-- ["East to {area:260}"] = "동쪽 {area:260}(으)로",
 	-- ["Follow the road south-west out of {area:188} to {area:186}."] = "{area:188}에서 남서쪽 길을 따라 {area:186}(으)로 가세요.",
+	-- ["Follow the road west into {zone:1457} and use the {item:279378} at the inn on the {area:1659} and at the tunnel mouth below {area:3425} for the last two owls. {npc:4241} stands on the {area:1659} just inside the city. {npc:3516} is in the {area:1658} at the north end of the city, {quest:922} just south of it; {npc:4092}, {npc:7999}, {npc:7313} and {npc:8396} are in the Temple of the Moon at the south end."] = "길을 따라 서쪽 {zone:1457}(으)로 가서, 마지막 올빼미 둘을 위해 {area:1659}의 여관과 {area:3425} 아래 굴 입구에서 {item:279378}을(를) 사용하세요. {npc:4241}은(는) 도시 입구 바로 안쪽 {area:1659}에 있습니다. {npc:3516}은(는) 도시 북쪽 끝 {area:1658}에, {quest:922}은(는) 그 바로 남쪽에 있으며, {npc:4092}, {npc:7999}, {npc:7313}, {npc:8396}은(는) 남쪽 끝 달의 신전에 있습니다.",
 	-- ["From the harbour walk into {object:2100}. {npc:5480} trains warriors there; {npc:6089} and {npc:6090} stand together by the {object:2152}. {npc:6090} fights you for his mug."] = "항구에서 {object:2100}(으)로 걸어가세요. {npc:5480}이(가) 그곳에서 전사를 가르칩니다. {npc:6089}와(과) {npc:6090}은(는) {object:2152} 옆에 함께 서 있습니다. {npc:6090}은(는) 자기 머그잔을 걸고 당신과 싸웁니다.",
 	-- ["From {area:17203}, ride through the city gates into {zone:1429} and follow the road west to {zone:1436}."] = "{area:17203}에서 도시 성문을 지나 {zone:1429}(으)로 간 뒤 서쪽 길을 따라 {zone:1436}(으)로 가세요.",
 	-- ["Hearth to {area:186}"] = "귀환석으로 {area:186}에 가기",
 	-- ["Learn the {area:442} flight path on the hill south of the inn, then cast {spell:18960}. {npc:11802} is in {area:2361}; the {quest:5929} sits in the woods to the north-west. Learn the {area:493} flight path in {area:2361} and fly to {area:702} (by way of {area:442})."] = "여관 남쪽 언덕에서 {area:442} 비행 경로를 배운 뒤 {spell:18960}을(를) 시전하세요. {npc:11802}은(는) {area:2361}에 있고, {quest:5929}은(는) 북서쪽 숲에 있습니다. {area:2361}에서 {area:493} 비행 경로를 배우고 ({area:442}을(를) 거쳐) {area:702}(으)로 날아가세요.",
 	-- ["Nightsabers, Strigid Owls and Webwood Lurkers live along the road east. The moonwell is at the west edge of {area:260}."] = "흑호, 스트리기드 올빼미, 나무그물 늑대거미가 동쪽 길을 따라 삽니다. 달샘은 {area:260} 서쪽 끝에 있습니다.",
+	-- ["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of {area:260}."] = "흑호, 스트리기드 올빼미, 나무그물 늑대거미가 {area:186} 주변과 동쪽 길을 따라 돌아다니며, 늑대거미는 제조법에 쓸 거미 다리도 떨어뜨립니다. 달샘은 {area:260} 서쪽 끝에 있습니다.",
 	-- ["North-east from Ursal's den, back to {area:186}."] = "우르살의 굴에서 북동쪽으로 {area:186}에 돌아가세요.",
 	-- ["South from the glade toward Ursal: Shayla walks the road west of {area:186}, from where the path down from the glade meets it south-west to the bend at about 38,54 and back."] = "숲에서 남쪽으로 우르살 쪽으로 가세요. 샤일라는 {area:186} 서쪽 길을 오갑니다. 숲에서 내려오는 길이 만나는 곳에서 남서쪽으로 약 38,54의 굽은 길까지 오갑니다.",
 	-- ["South of the pools. The {object:6751} grows by the Hold; the furbolgs around it drop the rest of the fangs."] = "웅덩이 남쪽입니다. {object:6751}은(는) 나무옹이 요새 옆에 자랍니다. 그 주변의 펄볼그가 나머지 송곳니를 떨어뜨립니다.",

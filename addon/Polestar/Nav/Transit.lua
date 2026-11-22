@@ -188,17 +188,46 @@ end
 
 ---------------------------------------------------------------------------
 -- Sightings: PolestarDB.transit[realm][route] = { epoch = server ms at
--- phase 0, seen = server s, source = "you"|"player" }
+-- phase 0, seen = server s, source = "you"|"player" }; realm "?" while the
+-- client does not give it (Compat.RealmName), when the one realm's
+-- sightings held then move there once (with several, none moves: they age
+-- out in MAX_AGE).
 ---------------------------------------------------------------------------
 
-local realmName
+local realmName, claimed -- claimed: the PolestarDB.transit the move ran on
+
+-- With the realm unknown: the only realm's sightings move to "?", the newer
+-- per route kept.
+local function claim(all)
+	local only
+	for k, v in pairs(all) do
+		if k ~= "?" and type(v) == "table" then
+			if only then return end
+			only = k
+		end
+	end
+	if not only then return end
+	local into = type(all["?"]) == "table" and all["?"] or {}
+	all["?"] = into
+	for route, a in pairs(all[only]) do
+		local held = into[route]
+		if type(a) == "table" and type(a.seen) == "number" and (type(held) ~= "table" or type(held.seen) ~= "number" or a.seen > held.seen) then
+			into[route] = a
+		end
+	end
+	all[only] = nil
+end
+
 local function store()
 	local db = ns.DB()
 	if type(db.transit) ~= "table" then db.transit = {} end
 	if not realmName then
 		local C = ns.Compat
-		local ok, info = pcall(C and C.GetPlayerInfo or function() end)
-		realmName = ok and type(info) == "table" and type(info.realm) == "string" and info.realm ~= "" and info.realm or nil
+		realmName = C and C.RealmName and C.RealmName() or nil
+	end
+	if not realmName and claimed ~= db.transit then
+		claimed = db.transit
+		claim(db.transit)
 	end
 	local realm = realmName or "?"
 	local s = db.transit[realm]
@@ -695,15 +724,17 @@ local function inPvp()
 end
 
 -- Whether a sender is someone else on this realm (the player's own echo is
--- not: Compat.SenderIsMe, Forever's "First Last" senders included).
+-- not: Compat.SenderIsMe, Forever's "First Last" senders included). A sender
+-- named with a realm is from another one unless it is this realm's name; with
+-- this realm unknown (Compat.NormalizedRealmName) it counts as another.
 local function fromThisRealm(sender)
 	if type(sender) ~= "string" or sender == "" then return false end
 	if ns.Compat.SenderIsMe(sender) then return false end
 	local name = Ambiguate and Ambiguate(sender, "none") or sender
 	local realm = name:match("%-(.+)$")
 	if not realm then return true end
-	local mine = GetNormalizedRealmName and GetNormalizedRealmName()
-	return type(mine) == "string" and realm == mine
+	local mine = ns.Compat.NormalizedRealmName()
+	return mine ~= nil and realm == mine
 end
 Transit.fromThisRealm = fromThisRealm -- tests
 

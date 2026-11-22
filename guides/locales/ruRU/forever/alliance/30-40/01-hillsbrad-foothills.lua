@@ -117,8 +117,12 @@ return {
 	["{npc:1075} again"] = "Снова {npc:1075}",
 	-- {area:205} Dun Modr
 	["Back over the span and down the road through {area:205} on the way south."] = "",
-	-- {npc:2700} Captain Nials · {area:320} Refuge Pointe
-	["for {npc:2700} at {area:320}, in 05-arathi-highlands"] = "",
+	-- {npc:2700} Captain Nials · {area:320} Refuge Pointe · {zone:1417} Arathi Highlands
+	["for {npc:2700} at {area:320}, in the {zone:1417} guide"] = "",
+
+	-- Step 26: The Green Belt
+	-- {npc:270637} Howin Kindfeather · {npc:2094} James Halloran · {area:150} Menethil Harbor
+	["{npc:270637}: {npc:2094}'s crate, from {area:150}"] = "",
 
 	-- Step 27: Rethiel the Greenwarden
 	-- {area:17732} Excavation Site: Wetlands · {npc:1244} Rethiel the Greenwarden · {npc:270637} Howin Kindfeather
@@ -207,16 +211,17 @@ return {
 	["{npc:2711}: his trail leads to Arathi"] = "{npc:2711}: его след ведет в Арати",
 	-- {npc:2228} Lieutenant Farren Orinelle
 	["{npc:2228}, inside"] = "{npc:2228}, внутри",
-	-- {npc:2366} Barkeep Kelly · {area:35} Booty Bay
-	["{npc:2366}, in the inn: for {area:35} (04-stranglethorn-vale)"] = "{npc:2366}, в таверне: для {area:35} (04-stranglethorn-vale)",
+	-- {npc:2366} Barkeep Kelly · {area:35} Booty Bay · {zone:1434} Stranglethorn Vale
+	["{npc:2366}, in the inn: for {area:35} (the {zone:1434} guide)"] = "",
 	-- {npc:2430} Chef Jessen
 	["{npc:2430}, upstairs"] = "{npc:2430}, наверху",
 	-- {npc:2382} Darren Malvew
 	["{npc:2382}: the lions come later"] = "{npc:2382}: львы будут позже",
 	-- {item:3713} Soothing Spices · {npc:2381} Micha Yance
 	["{item:3713}, from {npc:2381}"] = "{item:3713}: продает {npc:2381}",
-	-- {npc:2276} Magistrate Henry Maleb
-	["{npc:2276}, inside: keep it, the Syndicate camp waits for the road north to Arathi (05-arathi-highlands)"] = "{npc:2276}, внутри: оставьте его, лагерь Синдиката – по пути на север в Арати (05-arathi-highlands)",
+	-- {npc:2276} Magistrate Henry Maleb · {zone:1417} Arathi Highlands
+	-- was: ["{npc:2276}, inside: keep it, the Syndicate camp waits for the road north to Arathi (05-arathi-highlands)"] = "{npc:2276}, внутри: оставьте его, лагерь Синдиката – по пути на север в Арати (05-arathi-highlands)"
+	["{npc:2276}, inside: keep it, the Syndicate camp waits for the road north to Arathi (the {zone:1417} guide)"] = "",
 
 	-- Step 44: Bartolo Ginsetti
 	-- {npc:2438} Bartolo Ginsetti · {item:3719} Hillman's Cloak · {skill:165} Leatherworking · {item:2997} Bolt of Woolen Cloth · {skill:197} Tailoring
@@ -303,8 +308,9 @@ return {
 	["Beat {npc:4961} and his thugs: they give up"] = "",
 
 	-- Step 67: The Islander
-	-- {npc:5479} Wu Shen · {object:2100} Old Town · {npc:6236} Klannoc Macleod · {area:720} Fray Island · {zone:1413} Barrens · {area:392} Ratchet
-	["{npc:5479} trains warriors in {object:2100}, beside the Pig and Whistle. {npc:6236} waits on {area:720} in the {zone:1413}, on the way to {area:392} much later (40-50/01)."] = "{npc:5479} обучает воинов ({object:2100}), рядом с таверной «Свинья и свисток». {npc:6236} ждет здесь: {area:720} ({zone:1413}), по пути в {area:392} гораздо позже (40-50/01).",
+	-- {npc:5479} Wu Shen · {object:2100} Old Town · {npc:6236} Klannoc Macleod · {area:720} Fray Island · {zone:1413} Barrens · {area:392} Ratchet · {zone:1434} Stranglethorn Vale
+	-- was: ["{npc:5479} trains warriors in {object:2100}, beside the Pig and Whistle. {npc:6236} waits on {area:720} in the {zone:1413}, on the way to {area:392} much later (40-50/01)."] = "{npc:5479} обучает воинов ({object:2100}), рядом с таверной «Свинья и свисток». {npc:6236} ждет здесь: {area:720} ({zone:1413}), по пути в {area:392} гораздо позже (40-50/01)."
+	["{npc:5479} trains warriors in {object:2100}, beside the Pig and Whistle. {npc:6236} waits on {area:720} in the {zone:1413}, on the way to {area:392} much later (the 40-50 {zone:1434} guide)."] = "",
 
 	-- Step 69: Cathedral of Light
 	["Cathedral of Light"] = "Собор Света",
@@ -355,10 +361,13 @@ return {
 	-- ["{npc:1244}: {quest:98283}, an elite raptor"] = "{npc:1244}: {quest:98283}, элитный ящер",
 	-- ["{npc:2104} stands in {area:2103}; {npc:2094} and {npc:270844} stand together by the north gate."] = "{npc:2104} – здесь: {area:2103}; {npc:2094} и {npc:270844} стоят вместе у северных ворот.",
 	-- ["{npc:2104} stands in {area:2103}; {npc:2094} stands by the north gate."] = "{npc:2104} – здесь: {area:2103}; {npc:2094} стоит у северных ворот.",
+	-- ["{npc:2276}, inside: keep it, the Syndicate camp waits for the road north to Arathi (05-arathi-highlands)"] = "{npc:2276}, внутри: оставьте его, лагерь Синдиката – по пути на север в Арати (05-arathi-highlands)",
+	-- ["{npc:2366}, in the inn: for {area:35} (04-stranglethorn-vale)"] = "{npc:2366}, в таверне: для {area:35} (04-stranglethorn-vale)",
 	-- ["{npc:2438} also wants a {item:3719}, a {item:2997} and {item:2321}: crafted or bought; the cloak is turned in when you are back in {area:271} later."] = "{npc:2438} также нужны {item:3719}, {item:2997} и {item:2321}: изготовьте или купите; плащ сдается позже, когда вернетесь сюда: {area:271}.",
 	-- ["{npc:251493} stands north-west of the flight master, on the way north to the yeti cave."] = "{npc:251493} стоит к северо-западу от распорядителя полетов, по пути на север к пещере йети.",
 	-- ["{npc:270844}: for {npc:3649} in {area:442} (02-desolace)"] = "{npc:270844}: для NPC {npc:3649} ({area:442}, 02-desolace)",
 	-- ["{npc:2784}, the {object:171709}"] = "{npc:2784}, {object:171709}",
+	-- ["{npc:5479} trains warriors in {object:2100}, beside the Pig and Whistle. {npc:6236} waits on {area:720} in the {zone:1413}, on the way to {area:392} much later (40-50/01)."] = "{npc:5479} обучает воинов ({object:2100}), рядом с таверной «Свинья и свисток». {npc:6236} ждет здесь: {area:720} ({zone:1413}), по пути в {area:392} гораздо позже (40-50/01).",
 	-- ["{npc:5683} waits north of {area:205} by the {area:881}; {npc:271322} a short walk further north-east."] = "{npc:5683} ждет к северу (ориентир: {area:205}), у места {area:881}; {npc:271322} – чуть дальше на северо-восток.",
 	-- ["{npc:5683} waits on the road north of {area:205}, towards the {area:880}; {npc:271322} a short walk further north-east."] = "{npc:5683} ждет на дороге к северу (ориентир: {area:205}), в сторону места {area:880}; {npc:271322} – чуть дальше на северо-восток.",
 }

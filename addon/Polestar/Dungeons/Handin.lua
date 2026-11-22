@@ -10,13 +10,15 @@
 --       plan = { dungeon, hand = { { quest, rec, ender, talks, direct } }, unfinished = { quest, ... },
 --         inside = { quest, ... }, unplaced = { quest, ... }, errands = { { quest, rec } } }
 --       the page's quests in the log: hand (objectives done, or only talks
---       left, turned in outside at `ender`, a point { kind, id, name, map,
---       x, y, f }: Dungeons.Ender, the page's own place when it is the
---       character's side's, else the Codex's ender of that side nearest the
---       player; talks: nil, or the open quest-log lines when each is a talk
---       objective at an NPC outside this character may speak to, each a
---       point with its line `oi`: The Glowing Shard's Sputtervalve in
---       Ratchet before Falla Sagewind, #1326), unfinished (other objectives
+--       or placed events left, turned in outside at `ender`, a point { kind,
+--       id, name, map, x, y, f }: Dungeons.Ender, the page's own place when
+--       it is the character's side's, else the Codex's ender of that side
+--       nearest the player; talks: nil, or the open quest-log lines when each
+--       is a talk objective at an NPC outside this character may speak to
+--       (The Glowing Shard's Sputtervalve in Ratchet before Falla Sagewind,
+--       #1326) or an event the Codex places on the continent of the quest's
+--       turn-in (Rot and Regret's Woodwyrd extinguished, #3084: kind "event"),
+--       each a point with its line `oi`), unfinished (other objectives
 --       still open), inside (done, turned in inside the dungeon), unplaced
 --       (done, nowhere known). A page quest handed in at one talk and never
 --       in the log (`direct`: Pozzik's Indurium Ore, #2241) is in `hand`
@@ -131,25 +133,39 @@ end
 
 -- The talks left before quest `id` can be handed in: its open quest-log
 -- lines when each is a talk objective of the Codex quest at an NPC with a
--- place this character may speak to (Lookup.QuestEnd), as points with the
--- line's `oi`; nil when a line is anything else (a kill, an item, an event,
--- one the Codex does not know) or none is open. The client's lines decide
--- which are open; without them, every line of the Codex quest is.
+-- place this character may speak to (Lookup.QuestEnd), or an event the Codex
+-- places on the continent of the quest's turn-in (#3084: Rot and Regret's
+-- "Woodwyrd extinguished" in Shen'dralas, after Maraudon gave the vial), as
+-- points with the line's `oi` (an event's: kind "event", its text as the
+-- name); nil when a line is anything else (a kill, an item, an unplaced
+-- event, one the Codex does not know) or none is open. The client's lines
+-- decide which are open; without them, every line of the Codex quest is.
 local function talksLeft(id, rec, from, p)
 	local objs = rec and rec.objectives
 	if type(objs) ~= "table" or #objs == 0 then return nil end
 	local lines = ns.Compat.GetQuestObjectives(id)
 	local Lk, out = LK(), {}
+	local endC
 	for oi = 1, math.max(#objs, lines and #lines or 0) do
 		local line = lines and lines[oi]
 		if not (line and line.finished) then
 			local o = objs[oi]
-			if not (o and o.type == "talk" and o.id) then return nil end
-			local e = Lk.QuestEnd({ npc = { o.id } }, from, p)
-			local at = e and not e.hostile and endPoint(e)
-			if not at then return nil end
-			at.oi = oi
-			out[#out + 1] = at
+			if o and o.type == "talk" and o.id then
+				local e = Lk.QuestEnd({ npc = { o.id } }, from, p)
+				local at = e and not e.hostile and endPoint(e)
+				if not at then return nil end
+				at.oi = oi
+				out[#out + 1] = at
+			elseif o and not o.id and o.map and o.x and o.y then
+				if endC == nil then
+					local e = rec["end"] and Lk.QuestEnd(rec["end"], from, p)
+					endC = continentOf(endPoint(e)) or false
+				end
+				if not endC or continentOf(o) ~= endC then return nil end
+				out[#out + 1] = { kind = "event", id = id * 100 + oi, name = o.text or rec.title, map = o.map, x = o.x, y = o.y, f = o.f, oi = oi, event = true }
+			else
+				return nil
+			end
 		end
 	end
 	return #out > 0 and out or nil
@@ -536,8 +552,15 @@ function Dungeons.HandinGuide(key)
 			steps[#steps + 1] = step
 		end
 		-- A talk line: the engine ticks it by the quest's objective line (Lookup.QuestStep's talk goal).
+		-- An event line: a goal at its place read by that line, as Lookup.QuestStep's placed events (#2833, #3084).
 		for _, t in ipairs(s.talks) do
-			local goal = questGoal("talk", t.quest.id, titleOf(t.quest, t.rec), t.at)
+			local goal
+			if t.at.event then
+				goal = { t = "kill", logLine = true, target = t.at.name, quest = t.quest.id, title = titleOf(t.quest, t.rec), count = 1,
+					map = t.at.map, x = t.at.x, y = t.at.y, f = t.at.f == "e" and "e" or nil }
+			else
+				goal = questGoal("talk", t.quest.id, titleOf(t.quest, t.rec), t.at)
+			end
 			goal.oi = t.at.oi
 			step.goals[#step.goals + 1] = goal
 		end

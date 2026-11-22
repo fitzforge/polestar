@@ -587,6 +587,14 @@ impl OSet {
 	}
 }
 
+/// An object a gathering skill opens: a herb, an ore vein or a fishing pool (data/forever's `herb`, `mine`,
+/// `fishing` roles: the sources' node lists, and players' loot windows after a gathering cast). The Codex's
+/// treasures are the objects with the `chest` role that are none of these: a node is never a treasure, whatever
+/// gave it the chest role and whatever the player's professions (docs/forge/data.md, "Treasures").
+fn gathering_node(o: &V) -> bool {
+	o.get("roles").items().iter().any(|r| matches!(r.as_str(), Some("herb" | "mine" | "fishing")))
+}
+
 pub fn merge_codex(inputs: &Inputs) -> Merged {
 	let fv = &inputs.forever;
 	let al = inputs.atlasloot.as_ref();
@@ -1161,6 +1169,17 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 		if n.truthy() && n.get("rare").truthy() && k.truthy() && !rare_loot.iter().any(|x| *x.0 == *npc) && n.get("spawns").items().is_empty() {
 			n.set("rare", false);
 			if let Some(&i) = role_ix.get(&*npc) {
+				npc_roles[i].1.delete("rare");
+			}
+		}
+	}
+	// An NPC on a player faction's side is never a rare (the data-diff gate's `friendly-rare`): a rank,
+	// a source's rare list or a sighting can name one (faction leaders in 0.4.1, #2929 #2942), and the
+	// rare alert, pins and list read this flag.
+	for (id, n) in npcs.entries() {
+		if n.get("rare").truthy() && matches!(n.get("faction").as_str(), Some("A" | "H" | "AH")) {
+			n.set("rare", false);
+			if let Some(&i) = role_ix.get(&*id) {
 				npc_roles[i].1.delete("rare");
 			}
 		}
@@ -2060,7 +2079,7 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 	}
 	for (id, o) in oentries(&fv.objects) {
 		let roles = o.get("roles").items();
-		let treasure = roles.iter().any(|r| r.as_str() == Some("chest"));
+		let treasure = roles.iter().any(|r| r.as_str() == Some("chest")) && !gathering_node(&o);
 		let mailbox = roles.iter().any(|r| r.as_str() == Some("mailbox"));
 		if !treasure && !mailbox && !want_objects.contains(&str_to_num(&id).to_bits()) {
 			continue;
@@ -2088,7 +2107,7 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 	let mut treasure_loot: Vec<(String, Vec<f64>)> = Vec::new();
 	for t in rs.map(|r| r.get("treasures").items()).unwrap_or_default() {
 		let obj = t.get("object");
-		if !obj.truthy() || !zones_in.get(&t.get("map").to_js_string()).truthy() {
+		if !obj.truthy() || !zones_in.get(&t.get("map").to_js_string()).truthy() || gathering_node(&fv.objects.get(&kstr(&obj))) {
 			continue;
 		}
 		let id = kstr(&obj);
@@ -2672,6 +2691,29 @@ mod tests {
 		assert!(obj("88004").get("useItem").is_nullish(), "the kind names no item");
 	}
 
+	// #2929 #2942: an NPC on a player faction's side is never a rare in the Codex, whatever made it one (a
+	// rare rank, the source's rare role); a hostile rare stays one.
+	#[test]
+	fn an_npc_on_a_player_faction_s_side_is_no_rare_2929_2942() {
+		let mut inp = inputs("{}", "{}");
+		inp.forever.npcs = parse_json(
+			r#"{
+			"4949": { "id": 4949, "name": "Thrall", "faction": "H", "rank": 3, "roles": ["rare"], "spawns": {} },
+			"5797": { "id": 5797, "name": "Aean Swiftriver", "faction": "A", "rank": 4, "spawns": {} },
+			"266901": { "id": 266901, "name": "Pexmit", "faction": "AH", "rank": 2, "roles": ["rare", "vendor"], "spawns": {} },
+			"61": { "id": 61, "name": "Thuros Lightfingers", "rank": 4, "roles": ["rare"], "spawns": {} }
+		}"#,
+		)
+		.unwrap();
+		let codex = merge_codex(&inp);
+		let rare = |id: &str| (codex.npcs.get(id).get("rare").truthy(), codex.npcs.get(id).get("roles").items().iter().any(|r| r.as_str() == Some("rare")));
+		assert_eq!(rare("4949"), (false, false), "a faction leader");
+		assert_eq!(rare("5797"), (false, false), "a rare-ranked NPC of the Alliance");
+		assert_eq!(rare("266901"), (false, false), "an NPC both sides deal with");
+		assert!(codex.npcs.get("266901").get("roles").items().iter().any(|r| r.as_str() == Some("vendor")), "its other roles stay");
+		assert_eq!(rare("61"), (true, true), "a hostile rare stays a rare");
+	}
+
 	// #2326: Screecher Spirits' target rises only from Yeh'kinya's Bramble (a summon-by-item the mechanics drive,
 	// with its params' item and NPC): the kill objective keeps summonItem, and summonOn the creatures the params
 	// say the item is used on (#2578: the Vale Screechers); a kind that does not drive, or params for another NPC,
@@ -2754,6 +2796,27 @@ mod tests {
 		let q = codex.quests.get("96082");
 		assert_eq!(q.get("objectives").at(0).get("useItem").num(), 272126.0, "the Makeshift Bandages, on the soldiers");
 		assert!(q.get("how").as_str().is_some_and(|h| h.contains("Makeshift Bandages")), "{:?}", q.get("how"));
+	}
+
+	// A herb, an ore vein or a fishing pool is never a treasure, whatever else gave it the chest role: Copper Vein
+	// (1731) and Forever's Briarthorn (657385) got it from players' loot windows the Recorder did not see as a
+	// gather, and the Rares window and the world map listed them as treasures.
+	#[test]
+	fn a_gathering_node_is_never_a_treasure() {
+		let mut inp = inputs("{}", "{}");
+		inp.forever.objects = parse_json(
+			r#"{
+			"1731": { "id": 1731, "name": "Copper Vein", "roles": ["chest", "mine"], "spawns": {} },
+			"657385": { "id": 657385, "name": "Briarthorn", "roles": ["chest", "herb"], "spawns": {} },
+			"180582": { "id": 180582, "name": "Oily Blackmouth School", "roles": ["chest", "fishing"], "spawns": {} },
+			"2843": { "id": 2843, "name": "Battered Chest", "roles": ["chest"], "spawns": {} }
+		}"#,
+		)
+		.unwrap();
+		let codex = merge_codex(&inp);
+		let treasure = |id: &str| codex.objects.get(id).get("treasure").truthy();
+		assert_eq!((treasure("1731"), treasure("657385"), treasure("180582")), (false, false, false));
+		assert!(treasure("2843"), "a chest stays a treasure");
 	}
 
 	#[test]

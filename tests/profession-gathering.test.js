@@ -124,6 +124,47 @@ test('a zone whose nodes all turn grey inside a band is never picked for it: Tel
 	assert.equal(coversTop([{ name: 'Iron Deposit', req: 125 }], { from: 65, to: 125 }), false, 'nor a zone of nodes the band cannot reach yet');
 });
 
+test('a band\'s zone is workable from its first point: Hillsbrad Foothills\' beasts (105 and up) split Skinning 100-125 at 105 (#3355)', () => {
+	const { coversStart, pickZones } = require('../tools/lib/professions/gathering/build');
+	// Gray Bear (21) needs 105, Vicious Gray Bear (22) 110, Starving Mountain Lion (23) 115.
+	const reqs = { 1: [105, 105, 105, 105, 110, 110, 115, 115], 2: [60, 60, 60, 60, 60, 60, 20, 20] };
+	const zonePoints = (id) => reqs[id].map((req, i) => ({ name: `beast ${req}`, req, pt: { c: 0, wx: id * 5000 + i * 30, wy: 0 } }));
+	assert.equal(coversStart(zonePoints(1), { from: 100, to: 125 }, 4), false, 'nothing in Hillsbrad at 100-104');
+	assert.equal(coversStart(zonePoints(1), { from: 105, to: 125 }, 4), true, 'four Gray Bears at 105');
+	assert.equal(coversStart(zonePoints(2), { from: 100, to: 125 }, 4), true);
+	assert.equal(coversStart([{ req: 1 }, { req: 1 }, { req: 1 }, { req: 1 }], { from: 101, to: 125 }, 4), false, 'grey nodes do not count');
+	const prof = {
+		skill: 'Skinning',
+		minPoints: 4,
+		points: (ctx, id, from, to) => zonePoints(id).map((p) => ({ ...p, w: T.bandWeight(p.req, from, to) })).filter((p) => p.w > 0),
+	};
+	const band = { from: 100, to: 125, zones: { Horde: [1, 2] } };
+	// Hillsbrad (1) scores best over the band; Silverpine (2) is the zone workable at 100.
+	const parts = pickZones({}, prof, band, 'Horde', { key: 'undead' }).map((p) => [p.zone, p.from, p.to]);
+	assert.deepEqual(parts, [
+		[2, 100, 105],
+		[1, 105, 125],
+	]);
+	assert.deepEqual(pickZones({}, prof, { ...band, from: 105 }, 'Horde', { key: 'undead' }).map((p) => [p.zone, p.from, p.to]), [[1, 105, 125]]);
+	assert.throws(() => pickZones({}, prof, { ...band, zones: { Horde: [1] } }, 'Horde', { key: 'undead' }), /no zone workable from 100/);
+});
+
+test('every generated gathering band lists something the band\'s starting skill can gather (#3355)', () => {
+	const dir = path.join(ROOT, 'guides', 'forever', 'professions');
+	// Skinning names a beast the start can skin as "Gray Bear (21)", one it cannot yet as "(22, needs 110)";
+	// Mining and Herbalism name a node as "Copper (1, orange)", one for later as "(from 65)".
+	const workable = { 'skinning.guide': /\(\d+\)/, 'mining.guide': /\(\d+, (orange|yellow|green)/, 'herbalism.guide': /\(\d+, (orange|yellow|green)/ };
+	const bad = [];
+	for (const [file, re] of Object.entries(workable)) {
+		let step = null;
+		for (const line of fs.readFileSync(path.join(dir, file), 'utf8').split('\n')) {
+			if (line.startsWith('step ')) step = /\(\d+-\d+\)( cont\.)?$/.test(line) ? line : null;
+			else if (step && line.startsWith('  tip ') && !re.test(line)) bad.push(`${file}: ${step}`);
+		}
+	}
+	assert.deepEqual(bad, []);
+});
+
 test('live-frame spawns come out in the Era frame, so loops on redrawn maps match `coords era`', () => {
 	// A map Forever redrew: its live frame is offset from the Era frame and
 	// covers 800 yards instead of 1000.

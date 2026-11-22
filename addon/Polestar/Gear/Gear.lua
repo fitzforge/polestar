@@ -176,6 +176,15 @@ function Client.ItemInfo(link)
 	return nil
 end
 
+-- An item's vendor sell price in copper (0: it doesn't sell), nil while the
+-- client hasn't cached it.
+function Client.SellPrice(link)
+	if not (C_Item and C_Item.GetItemInfo) then return nil end
+	local ok, name, _, _, _, _, _, _, _, _, _, price = pcall(C_Item.GetItemInfo, link)
+	if not (ok and name) then return nil end
+	return tonumber(readable(price)) or 0
+end
+
 function Client.BagSlots(bag)
 	local f = C_Container and C_Container.GetContainerNumSlots
 	return f and f(bag) or 0
@@ -641,6 +650,18 @@ local function itemInfo(link)
 	return info
 end
 Gear.GetItemInfo = itemInfo
+
+-- Gear.SellPrice(link) -> copper, or nil while the item isn't cached: the
+-- client fetches it, and its arrival redoes gear advice (asked).
+function Gear.SellPrice(link)
+	local id = itemID(link)
+	if not id then return nil end
+	if not asked[id] then
+		asked[id] = true
+		askedCount = askedCount + 1
+	end
+	return Client.SellPrice(type(link) == "number" and ("item:" .. link) or link)
+end
 
 ---------------------------------------------------------------------------
 -- The character: class, level, spec, weights

@@ -4778,6 +4778,32 @@ fn bind_nothing_at_another_innkeeper_with_shift_with_quests_waiting_without_an_o
 	);
 }
 
+// #3088: Gadgetzan's innkeeper offers Overseas Delivery (95144), a quest no guide of the route takes, to every
+// level. Counted as quest business, it kept the bind from ever happening there. Only a quest the guide takes (to
+// accept, or to hand in at one talk) goes first; one the client names no id for still does.
+#[test]
+fn issue_3088_an_off_route_quest_on_offer_does_not_hold_the_bind_back() {
+	let out = run(&[
+		INN,
+		r#"
+		set("autoBind", true)
+		q.step({ { t = "sethome", location = "Gadgetzan", npc = 7733 } })
+		local function both(opts) local picked = visit(7733, opts); return { picked = picked, binder = confirm().binder } end
+		local r = {}
+		r.offRoute = both({ options = { SHOP, BIND }, availableQuests = { { questID = 95144 } } })
+		q.engine.wants = { ["accept:95144"] = true }
+		r.taken = visit(7733, { options = { SHOP, BIND }, availableQuests = { { questID = 95144 } } })
+		q.engine.wants = { ["direct:95144"] = true }
+		r.direct = visit(7733, { options = { SHOP, BIND }, availableQuests = { { questID = 95144 } } })
+		q.engine.wants = nil
+		r.noId = visit(7733, { options = { SHOP, BIND }, availableQuests = { { questID = 0 } } })
+		emit(r)
+	"#,
+	]
+	.concat());
+	assert_eq!(out[0], json!({ "offRoute": { "picked": 90, "binder": 20 }, "taken": 0, "direct": 0, "noId": 0 }));
+}
+
 // ---------------------------------------------------------------------------
 // Death helper
 // ---------------------------------------------------------------------------
@@ -4875,6 +4901,48 @@ fn death_as_a_ghost_the_arrow_is_held_on_the_faster_choice_resurrection_lets_go(
 	assert_eq!(out[2], true, "held: no target set again while the choice stands");
 	assert_eq!(out[3], json!({ "unholds": 1, "target": "The guide's step", "pins": true, "advice": true }), "alive: the guide's target again");
 	assert_eq!(out[4], true, "no more targets after resurrection");
+}
+
+// #3610 (Yendi, Dun Morogh at level 9): released by the Spirit Healer near Kharanos, the arrow led 1.2 km to the one in
+// Coldridge Valley while the map's Spirit Healer mark stood beside the ghost. The advice had already moved on to the
+// nearer Spirit Healer (its mark did), but the arrow held the first one it was given for as long as the Spirit Healer
+// stayed the choice. The arrow is on the Spirit Healer the advice names, whichever that is now.
+#[test]
+fn death_the_arrow_follows_the_advice_to_a_nearer_spirit_healer_3610() {
+	let out = run(r#"
+		-- Two Spirit Healers on one line: A 250 yd west, B 300 yd east of the place the character died.
+		local am, ax, ay = q.mapPoint(0, -250)
+		local bm, bx, by = q.mapPoint(0, 300)
+		QoL.SetData({ spiritHealers = { { 0, 0, -250, am, ax, ay }, { 0, 0, 300, bm, bx, by } }, flightMasters = {} })
+		q.level = 9
+		q.nav.target = { map = 9000, x = 10, y = 10, label = "The guide's step" }
+		-- The first look: where the character died, its corpse not answered yet: the nearest Spirit Healer is A.
+		q.player = { c = 0, wx = 0, wy = 0 }
+		q.ghost = true
+		stub.fire("PLAYER_ALIVE")
+		local t = q.nav.target
+		emit({ label = t.label, x = t.x, choice = QoL.GetDeathAdvice().choice, healer = QoL.GetDeathAdvice().healerWY })
+		-- The ghost beside B, the corpse where it died (290 yd away): B, no sickness at 9.
+		q.player = { c = 0, wx = 0, wy = 290 }
+		local _, cx, cy = q.mapPoint(0, 0)
+		q.corpse = { cx, cy }
+		stub.advance(1.1)
+		t = q.nav.target
+		emit({ label = t.label, x = t.x, y = t.y, held = q.nav.held == t, choice = QoL.GetDeathAdvice().choice, healer = QoL.GetDeathAdvice().healerWY })
+		-- Still B a second later: the arrow is not set again.
+		local sets = #q.nav.sets
+		stub.advance(1.1)
+		emit(#q.nav.sets == sets)
+		emit({ bx = bx, ax = ax })
+	"#);
+	assert_eq!(out[0]["label"], "Spirit Healer");
+	assert_eq!(out[0]["healer"], -250.0, "first look: A, the nearest one then");
+	assert_eq!(out[1]["choice"], "healer");
+	assert_eq!(out[1]["healer"], 300.0, "the advice names B");
+	assert_eq!(out[1]["label"], "Spirit Healer");
+	assert!((out[1]["x"].as_f64().unwrap() - out[3]["bx"].as_f64().unwrap()).abs() < 1e-9, "the arrow on B, not A: {} (A at {})", out[1], out[3]["ax"]);
+	assert_eq!(out[1]["held"], true);
+	assert_eq!(out[2], true, "held on B: no target set again while B stands");
 }
 
 #[test]

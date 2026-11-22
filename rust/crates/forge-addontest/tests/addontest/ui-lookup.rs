@@ -594,7 +594,9 @@ fn lookup_mouse_picks_leave_tab_to_the_game_and_order_escape_closes_the_hub() {
 		assert(gameKey("TAB") and not keyboardFrame() and not focusMark(item.Rarity), "mouse menu leaves Tab to the game")
 
 		item.Slot:Click()
-		assert(PolestarMenu.Filter:HasFocus(), "a mouse-opened long menu can still filter")
+		assert(not PolestarMenu.Filter:HasFocus(), "a long menu's filter leaves the keys to the game until clicked")
+		stub.RunScript(PolestarMenu.Filter, "OnMouseDown", "LeftButton")
+		assert(PolestarMenu.Filter:HasFocus(), "a clicked filter takes the keys")
 		edit(PolestarMenu.Filter, "shield")
 		stub.RunScript(PolestarMenu.Filter, "OnEnterPressed")
 		assert(LK.ItemFilters().slot == 14 and not PolestarMenu.Filter:HasFocus())
@@ -977,17 +979,19 @@ fn lookup_filter_drawer_fits_both_hub_widths_and_keyboard_uses_the_shorter_view(
 			key("TAB"); key("TAB")
 			assert(focusMark(item.Slot))
 			key("SPACE")
-			assert(PolestarMenu.Filter:HasFocus())
-			stub.RunScript(PolestarMenu.Filter, "OnEscapePressed")
+			assert(PolestarMenu:IsShown() and not PolestarMenu.Filter:HasFocus())
+			key("ESCAPE")
 			assert(not PolestarMenu:IsShown() and focusMark(item.Slot))
 			key("SPACE")
+			stub.RunScript(PolestarMenu.Filter, "OnMouseDown", "LeftButton")
 			edit(PolestarMenu.Filter, "shield")
 			stub.RunScript(PolestarMenu.Filter, "OnEnterPressed")
 			assert(LK.ItemFilters().slot == 14 and focusMark(item.Slot) and #LK.Recent() == historyCount)
 			key("TAB")
 			assert(focusMark(item.Stat))
 			key("ENTER")
-			assert(PolestarMenu.Filter:HasFocus())
+			assert(PolestarMenu:IsShown() and not PolestarMenu.Filter:HasFocus())
+			stub.RunScript(PolestarMenu.Filter, "OnMouseDown", "LeftButton")
 			edit(PolestarMenu.Filter, "strength")
 			stub.RunScript(PolestarMenu.Filter, "OnEnterPressed")
 			assert(LK.ItemFilters().stat == 4 and focusMark(item.Stat) and #LK.Recent() == historyCount)
@@ -2086,6 +2090,7 @@ fn lookup_stat_picker_filters_aliases_and_routes_enter_to_the_picker() {
 		LK.Activate = function() activated = activated + 1 end
 		local function filter(text)
 			local box = PolestarMenu.Filter
+			if not box:HasFocus() then stub.RunScript(box, "OnMouseDown", "LeftButton") end
 			assert(box:HasFocus())
 			box:SetText(text)
 			stub.RunScript(box, "OnTextChanged", true)
@@ -2093,6 +2098,7 @@ fn lookup_stat_picker_filters_aliases_and_routes_enter_to_the_picker() {
 		end
 		stat:Click()
 		local menu = PolestarMenu
+		assert(not menu.Filter:HasFocus(), "the filter takes the keys only once clicked")
 		assert(menu:GetWidth() == 300 and #menu.rows == 56)
 		assert(menu.rows[1].Text:GetText() == "Any stat" and menu.rows[2].Text:GetText() == "Agility")
 		local box = filter("unmatched")
@@ -2847,6 +2853,28 @@ fn a_quest_in_a_chain_shows_its_step_each_quest_s_state_and_its_branches_and_a_r
 	assert_eq!(f["clickHere"], false, "the quest's own row opens nothing");
 	assert_eq!(out["sel"], json!({ "kind": "quest", "id": 4970 }), "a row opens that quest's page");
 	assert_eq!(out["after"], false, "a quest standing alone has no chain");
+}
+
+// #3370 (Zack: a level 57 went to Pix Xizzix for In Demand, which the game offers from level 60): a quest's page says
+// which level it requires, in the warning colour, while the character is below it; its level alone read as a quest
+// to take. At that level the line goes.
+#[test]
+fn a_quest_s_page_says_the_level_it_requires_in_the_warning_colour_while_the_character_is_below_it_3370() {
+	let out = run(r#"
+		lookupstub.entity["quest:4970"] = { id = 4970, title = "Frostsaber Provisions", level = 60, minLevel = 60, faction = "A" }
+		uistub.player.level = 57
+		Polestar.Lookup.Show(nil, "quest", 4970)
+		local below = LK.detail.facts
+		local r, g, b = LK.details.Facts[2].Value:GetTextColor()
+		local wr, wg, wb = Polestar.Theme.Color("warning")
+		local warning = r == wr and g == wg and b == wb
+		LK.Select(nil)
+		uistub.player.level = 60
+		Polestar.Lookup.Show(nil, "quest", 4970)
+		emit({ below = below, warning = warning, at = LK.detail.facts })"#);
+	assert_eq!(out["below"], json!([["Level", "60"], ["Requires", "Level 60"], ["Faction", "Alliance"], ["Places", "None known"]]));
+	assert_eq!(out["warning"], true, "the requirement in the warning colour");
+	assert_eq!(out["at"], json!([["Level", "60"], ["Faction", "Alliance"], ["Places", "None known"]]), "at level 60: no line");
 }
 
 #[test]

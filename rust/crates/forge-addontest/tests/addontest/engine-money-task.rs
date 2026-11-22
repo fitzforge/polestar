@@ -132,6 +132,43 @@ fn a_task_holds_its_step_until_the_player_ticks_it_an_optional_task_never_holds_
 }
 
 #[test]
+fn placement_never_answers_a_labelled_task_for_the_player() {
+	for stored in ["nil", "true", r#""tick""#] {
+		let out = emitted(&RunAddon {
+			stubs: vec!["stub_world.lua"],
+			before: format!("{WORLD}w.onQuest(783, {{ {{ required = 3, fulfilled = 1 }} }})"),
+			addons: vec![core()],
+			saved: vec![("Polestar".into(), format!(r#"PolestarCharDB = {{ schema = 1, guide = "test/choice", manual = {{ ["test/choice"] = {{ ["1:1"] = {stored} }} }} }}"#))],
+			script: [
+				TEST_PACK,
+				TEST_SOURCE,
+				r#"
+Polestar.RegisterGuide({ id = "test/choice", pack = "test", title = "Choice", minLevel = 1, maxLevel = 10, steps = {
+	{ label = "field", goals = { { t = "task", text = "I am at the field" } } },
+	{ goals = { { t = "accept", quest = 783, title = "A Threat Within" } } },
+	{ when = { { k = "done", label = "field" } }, goals = { { t = "kill", quest = 783, oi = 1, target = "Wolf", map = 1429, x = 50, y = 50 } } },
+} })
+stub.login(); stub.fire("QUEST_LOG_UPDATE"); stub.advance(.7)
+local E = Polestar.Engine
+local function state() return { live = E.GetLiveStep(), task = E.GoalDone(1, 1), arrow = E.GetWaypoint() ~= nil } end
+emit(state()); E.ToggleGoal(1, 1); stub.advance(.3); emit(state())
+"#,
+			]
+			.join("\n"),
+			..Default::default()
+		});
+		let unanswered = json!({"live": 1, "task": false, "arrow": false});
+		let answered = json!({"live": 3, "task": true, "arrow": true});
+		if stored == r#""tick""# {
+			assert_eq!(out[0], answered, "a saved player tick survives login");
+		} else {
+			assert_eq!(out[0], unanswered, "stored {stored}");
+			assert_eq!(out[1], answered, "one click answers even an old placement mark");
+		}
+	}
+}
+
+#[test]
 fn a_guide_whose_money_or_task_goal_lacks_its_field_is_refused() {
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],

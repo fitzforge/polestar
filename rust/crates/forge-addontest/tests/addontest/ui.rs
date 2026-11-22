@@ -2099,9 +2099,10 @@ fn an_xp_update_that_changes_nothing_in_the_row_does_not_lay_the_window_out_agai
 // Where the player stands (GF.PaceText over Levels.Pace, whose sums levels.rs checks): always one line, calm
 // when on pace (up to a level short: Fitz, 0.3.6, a few bars short is no warning) or when a `level` goal ahead
 // grinds the gap, in the warning colour when more than a level short with nothing in the guide making it up;
-// grinding time from the tracker's XP an hour when there is one. A hard quest is named only on its own step.
+// grinding time from the tracker's XP an hour when there is one. It names no quest and no quest level (#3438), even
+// with a hard quest on the live step.
 #[test]
-fn the_pace_line_says_on_pace_behind_with_a_grind_coming_behind_with_none_and_names_a_quest_too_hard() {
+fn the_pace_line_says_on_pace_behind_with_a_grind_coming_or_behind_with_none_and_names_no_quest() {
 	let out = run(r#"
 		local stats = { rate = 3400, maxed = false }
 		Polestar.QoL = {
@@ -2156,37 +2157,35 @@ fn the_pace_line_says_on_pace_behind_with_a_grind_coming_behind_with_none_and_na
 	// Behind with no grind step: the guide's end level, and how long to grind on the way.
 	assert_eq!(out["none"], warn("Behind by 2.4 levels for level 24 by step 21: grind ≈2h 00m before then").as_str());
 	assert_eq!(out["noneNoRate"], warn("Behind by 2.4 levels for level 24 by step 21, and no grind step ahead").as_str());
-	// A quest 3+ levels over you is named only on its own step; before it, the plain line.
+	// A quest well over you on the live step changes nothing (#3438): the plain lines.
 	assert_eq!(out["hard"], warn("Behind by 3.6 levels for level 24 by step 21: grind ≈2h 38m before then").as_str());
 	assert_eq!(out["hardNoRate"], warn("Behind by 3.6 levels for level 24 by step 21, and no grind step ahead").as_str());
-	assert_eq!(out["hardNow"], warn("Behind: “Missing In Action” (25) at step 20, you're 20.0; grind ≈1h 00m first").as_str());
-	// The same quest with the character on pace for the target: "On pace", calm, the quest only on its step.
+	assert_eq!(out["hardNow"], warn("Behind by 3.6 levels for level 24 by step 21: grind ≈2h 38m before then").as_str());
 	assert_eq!(out["hardOnPace"], "On pace for level 22.5 by step 29");
 	assert_eq!(out["hardOnPaceNoRate"], "On pace for level 22.5 by step 29");
-	assert_eq!(out["hardOnPaceNow"], "On pace, but “Ashenvale Outrunners” (24) at step 4 is hard: you're 21.3; reach 22 first");
+	assert_eq!(out["hardOnPaceNow"], "On pace for level 22.5 by step 29");
 	assert_eq!(out["row"], "3.4k XP/h  \u{b7}  Behind by 1.2 levels: step 32 grinds to level 20 (≈0h 30m)", "one line in the XP row");
 	assert_eq!(out["nothing"], false, "no target and no Codex: no line");
 }
 
-// A step with work on a quest 3 or more levels above the character says so under its header (Levels.StepHint),
-// in a calm colour (Fitz, 0.3.6: never red; players read it as being behind).
+// #3438 (Foomix, 0.4.2): "Level 38 quest: you're 35.7" under a normal Stranglethorn step read as a warning. Polestar
+// doesn't tell players what level a quest is: a step with work on a quest five levels over the character shows no
+// level line under its header.
 #[test]
-fn a_step_with_a_quest_well_over_your_level_says_so_under_its_header() {
+fn a_step_with_a_quest_well_over_your_level_shows_no_quest_level_3438() {
 	let out = run(r#"
 		uistub.player.xp, uistub.player.xpMax = 450, 2800
 		local kill = uistub.guides[uistub.elwynn].steps[3].goals[3]
 		kill.qlvl = 9
 		uistub.setGuide(uistub.elwynn, 3)
-		local hint = GF.parts.person.Level
-		local red = { shown = hint:IsShown(), text = hint:GetText(), color = { hint:GetTextColor() } }
-		uistub.setStep(7)
-		local none = hint:IsShown()
-		emit({ red = red, none = none, calm = { Polestar.Theme.Color("textDim") } })"#)
+		local person, said = GF.parts.person, 0
+		for _, v in pairs(person) do
+			if type(v) == "table" and v.GetText and v.IsShown and v:IsShown() and (v:GetText() or ""):find("quest:") then said = said + 1 end
+		end
+		emit({ said = said, header = person.Name:GetText() or false })"#)
 	.remove(0);
-	assert_eq!(out["red"]["shown"], true);
-	assert_eq!(out["red"]["text"], "Level 9 quest: you're 4.1", "level 4, 16% in: cut to one place");
-	assert_eq!(rgb(&out["red"]["color"]), rgb(&out["calm"]), "5 levels over: calm, never red");
-	assert_eq!(out["none"], false, "Echo Ridge's quest has no level known over yours: no line");
+	assert_eq!(out["said"], 0, "no shown line on the step's person names a quest level: {out}");
+	assert_ne!(out["header"], false, "the step's header is drawn: {out}");
 }
 
 #[test]
@@ -3066,6 +3065,26 @@ fn looking_at_another_step_than_the_live_one_offers_the_way_back_a_skipped_step_
 	assert_eq!(out["back"], json!(["Goto", 3]));
 	assert_eq!(out["skipped"], json!(["You skipped this step.", "Unskip it", false]));
 	assert_eq!(out["unskip"], json!(["Unskip", 3]));
+}
+
+// #2847: a skipped step that holds nothing for the character (the view's `why`, its quest not in the log) offers the
+// way back to the live step, not an unskip that would bring back nothing.
+#[test]
+fn a_skipped_step_that_holds_nothing_offers_the_way_back_not_an_unskip_2847() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 3)
+		local B = GF.parts.banner
+		uistub.live = 4
+		uistub.skipped[3] = true
+		uistub.guides[uistub.elwynn].steps[3].why = "Only with \226\128\156Kobold Camp Cleanup\226\128\157 in your quest log"
+		uistub.setStep(3)
+		local shown = { B.Text:GetText(), B.Jump.Label:GetText() }
+		B.Jump:Click()
+		emit({ shown = shown, back = lastCall("Goto"), unskip = lastCall("Unskip") or false })"#)
+	.remove(0);
+	assert_eq!(out["shown"], json!(["Looking back. The guide is at step 4.", "Back to step 4"]));
+	assert_eq!(out["back"], json!(["Goto", 4]));
+	assert_eq!(out["unskip"], false);
 }
 
 // Fitz, testing 0.3.3: the "Looking ahead" banner's Dismiss button did nothing (GF.DismissBanner took the banner for

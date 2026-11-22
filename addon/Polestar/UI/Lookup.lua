@@ -968,6 +968,10 @@ local function factsFor(s, entity, list, chain)
 		end
 	elseif k == "quest" then
 		if e.level then add(L["Level"], (e.minLevel and e.minLevel ~= e.level) and format(L["%d (from %d)"], e.level, e.minLevel) or tostring(e.level)) end
+		-- Offered only from a level above the character's: said in the warning
+		-- colour (#3370: In Demand reads "Level 60", and a level 57 went for it).
+		local own = ns.Compat.GetPlayerInfo().level
+		if e.minLevel and own and own < e.minLevel then add(L["Requires"], format(L["Level %d"], e.minLevel), "warning") end
 		add(L["Faction"], e.faction and (FACTION[e.faction] or L[e.faction]) or L["Both factions"])
 		if e.zone then
 			local z = UI.MapName(e.zone) or (codexRecord("zone", e.zone) or {}).name

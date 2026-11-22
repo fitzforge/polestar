@@ -465,8 +465,9 @@ return {
 	["{item:278083}, from {npc:3027}"] = "{npc:3027}에게서 {item:278083}",
 
 	-- Step 100: Turak Runetotem
-	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form
-	["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "{npc:3033}은(는) {area:1639}에서 드루이드를 가르칩니다. 그에게서 {spell:18960}을(를) 배우세요. {npc:11802}의 환영 인사는 21레벨쯤 {spell:499} 여정 때 받습니다(forever/horde/02-the-barrens).",
+	-- {npc:3033} Turak Runetotem · {area:1639} Elder Rise · {spell:18960} Teleport: Moonglade · {npc:11802} Dendrite Starblaze · {spell:499} Cat Form · {zone:1413} Barrens
+	-- was: ["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "{npc:3033}은(는) {area:1639}에서 드루이드를 가르칩니다. 그에게서 {spell:18960}을(를) 배우세요. {npc:11802}의 환영 인사는 21레벨쯤 {spell:499} 여정 때 받습니다(forever/horde/02-the-barrens)."
+	["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21, in the {zone:1413} guide."] = "",
 
 	-- Step 101: Hunter Rise
 	-- {item:278078} Prepared Incense · {area:1641} Hunter Rise
@@ -500,11 +501,23 @@ return {
 	-- {npc:3615} Devrak · {area:380} The Crossroads · {zone:1421} Silverpine Forest · {zone:1413} Barrens
 	["Learn the flight path from {npc:3615} on the tower platform. {area:380}' own quests come after {zone:1421}, in the {zone:1413} guide."] = "",
 
-	-- Step 110: To Orgrimmar
+	-- Step 110: Rezlak
+	-- {npc:3293} Rezlak · {zone:1454} Orgrimmar · {area:370} Drygulch Ravine
+	["{npc:3293} camps beside the road north to {zone:1454}, below {area:370}. The stolen sacks lie along the road just east of him."] = "",
+
+	-- Step 111: Drygulch Ravine
+	-- {area:370} Drygulch Ravine · {npc:3293} Rezlak · {item:277661} Dull Storm Orb · {quest:97281} A Simmering Storm
+	["Savages and Storm Witches nest in {area:370}, east of {npc:3293}. A Storm Witch drops the {item:277661}, which starts {quest:97281}."] = "",
+
+	-- Step 112: Rezlak
+	-- {npc:3293} Rezlak
+	["Back to {npc:3293} by the road."] = "",
+
+	-- Step 113: To Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["To {zone:1454}"] = "{zone:1454}(으)로",
-	-- {area:379} Far Watch Post · {area:815} Southfury River · {zone:1411} Durotar · {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
-	["From the Crossroads follow the road north-east to {area:379}, cross the {area:815} into {zone:1411} and keep north to {zone:1454}'s main gate. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "",
+	-- {npc:3293} Rezlak · {zone:1454} Orgrimmar · {quest:95350} Welcome to Azeroth · {zone:1420} Tirisfal Glades · {zone:1421} Silverpine Forest
+	["From {npc:3293}'s camp, go on to {zone:1454}'s main gate, a few hundred yards away. The next guide starts in {zone:1454}: Thrall takes {quest:95350}, and the zeppelin leaves for {zone:1420} and {zone:1421}."] = "",
 	-- {zone:1454} Orgrimmar · {object:172982} Valley of Strength
 	["{zone:1454}'s {object:172982}"] = "",
 
@@ -567,5 +580,6 @@ return {
 	-- ["{npc:255853} waits by the falls just north of the watchtower."] = "{npc:255853}은(는) 감시탑 바로 북쪽 폭포 옆에서 기다립니다.",
 	-- ["{npc:258443} roams the slopes just south of the turncoat's house."] = "{npc:258443}은(는) 배신자의 집 바로 남쪽 비탈을 배회합니다.",
 	-- ["{npc:263664}'s campfire"] = "{npc:263664}의 모닥불",
+	-- ["{npc:3033} trains druids on {area:1639}. He teaches you {spell:18960}; {npc:11802}'s welcome waits for your {spell:499} trip at about 21 (forever/horde/02-the-barrens)."] = "{npc:3033}은(는) {area:1639}에서 드루이드를 가르칩니다. 그에게서 {spell:18960}을(를) 배우세요. {npc:11802}의 환영 인사는 21레벨쯤 {spell:499} 여정 때 받습니다(forever/horde/02-the-barrens).",
 	-- ["{npc:3615}, the wind rider master"] = "와이번 조련사 {npc:3615}",
 }
