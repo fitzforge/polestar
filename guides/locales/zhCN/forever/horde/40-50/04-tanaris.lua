@@ -135,9 +135,9 @@ return {
 	["Only with the distress beacon: OOX-17/TN sits south-east of Scrimshank's hive. Escort it north to {area:977}; its reward waits with Oglethorpe in {area:35}.\nCareful: The escort has two ambushes. Three level 47 scorpids attack near the start. Near the end, by the beach, three Wastewander humans attack: one mage and two assassins, around level 44."] = "仅在持有求救信标时进行：OOX-17/TN 位于斯克林谢尔的虫巢东南方。护送它向北前往 {area:977}；奖励要到 {area:35} 找奥格索普领取。\n小心：护送途中有两次伏击。刚开始不久会有三只 47 级蝎子袭来。快到终点、靠近海滩时，会有三名废土人类袭击：一名法师和两名刺客，约 44 级。",
 
 	-- Step 27: Tanaris Field Sampling
-	-- {area:976} Gadgetzan · {item:8524} Model 4711-FTZ Power Source
+	-- {area:976} Gadgetzan · {item:8524} Model 4711-FTZ Power Source · {quest:654} Tanaris Field Sampling · {npc:7407} Chief Engineer Bilgewhizzle
 	-- plural, as words: Blisterpaw Hyenas = {npc:5426} Blisterpaw Hyena · Glasshide Basilisks = {npc:5419} Glasshide Basilisk · Scorpid Hunters = {npc:5422} Scorpid Hunter
-	["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each."] = "向北返回，在{area:976}南边不远处，现在使用{item:8524}：两小时计时开始。疱爪土狼、玻璃皮蜥蜴和巨钳蝎猎手共同栖息在这片沙丘上。它们都可能掉落未检测的样本：使用它，样本要么通过检测成为合格样本，要么就此损失。持续击杀，直到每种各有八份。",
+	["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each. No power source in your bags, or its two hours ran out? Abandon {quest:654} if it is in your log, then take Another Power Source? from {npc:7407}: he gives a new one for ten more Wastewander Water Pouches, from the Wastewander camps east of {area:976}."] = "",
 	-- {item:8524} Model 4711-FTZ Power Source
 	["Use the {item:8524}"] = "使用{item:8524}",
 
@@ -225,6 +225,7 @@ return {
 	["Only with the {item:11818}: back east to the {object:173265} at the dig site."] = "仅当你有{item:11818}时：向东回到挖掘场的{object:173265}。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each."] = "向北返回，在{area:976}南边不远处，现在使用{item:8524}：两小时计时开始。疱爪土狼、玻璃皮蜥蜴和巨钳蝎猎手共同栖息在这片沙丘上。它们都可能掉落未检测的样本：使用它，样本要么通过检测成为合格样本，要么就此损失。持续击杀，直到每种各有八份。",
 	-- ["Boat to {area:35}"] = "乘船前往{area:35}",
 	-- ["Dark Iron Lookouts"] = "黑铁哨兵",
 	-- ["Dig up the {quest:3161} ornaments around the {area:1938} and north of the {area:983}. Leave the ogres for now: {npc:12046} is 49 and the Brutes 46-48; the {area:983} comes at the end of 40-50/06, at about 52."] = "在{area:1938}周围和{area:983}北边挖出{quest:3161}饰物。先别管食人魔：{npc:12046}49级，蛮兵46-48级；{area:983}放在40-50/06末尾，约52级时再做。",

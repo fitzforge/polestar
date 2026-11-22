@@ -1,5 +1,178 @@
 # Changelog
 
+## 0.4.2.1 (2026-11-21)
+
+### For players
+
+- Badlands: the guide no longer says to sell at Prospector Ryedol at
+  Hammertoe's Digsite; he gives quests and sells nothing (#3383, thanks
+  SumnDaiy).
+- Riverglades: the arrow to the Cubic Draconia for Proof of Profit and to the
+  Cinderscale whelps and warriors now leads into the dragonkin's hollow
+  instead of over the hill above it (#3394, thanks Roflsauce).
+- The walking arrow points along the walk again, past its next turn, instead
+  of at the very next point, so it no longer swings round at every corner,
+  outdoors, in cities and indoors alike. Where a wall stands in the way, as
+  beside the Ironforge gryphon roost, it points only as far round the turn as
+  you can walk straight. This was broken in 0.4.2 (#3509, thanks Fitz).
+- The arrow eases every turn again, as in 0.4.1.1. In 0.4.2 it jumped to its
+  new direction in one frame after any pause in guidance (an arrival, a ride,
+  the wait for a walking route), beside the other faction's towns, and at
+  sharp turns beside a wall (thanks Fitz).
+- After a step change, a spot change or a new waypoint, the arrow points
+  straight at the place at once until the walking route arrives (as in
+  0.4.1.1). The walk's rough line is drawn on the map within a frame.
+- The walking route arrives sooner after a step change or a spot change:
+  a step completed by the kill that ends a fight is searched at full speed
+  once the fight is over, and when the game runs below 60 fps (30 fps in
+  the background) the search keeps the same speed per second instead of
+  slowing down with the frame rate.
+- Ban'ethil Barrow Den (Teldrassil): the arrow leads you through the den to
+  the Chest of the Raven Claw and the other chests, and back out past the
+  entrance. It no longer swings back and forth with "Follow the path out" at
+  the den's mouth.
+- The Characters page's count ("1 character", "3 characters · each as of
+  their last logout") reads in your language again on German, Spanish,
+  French, Korean, Portuguese, Russian and Chinese clients. Since Forever's
+  client stopped giving addons the realm name it showed in English.
+- Polestar Client clears the 127 `Polestar_Nav_R…` walking-map folders
+  Polestar 0.4.2 installed once Polestar no longer ships them, so they leave
+  your AddOns folder and the in-game AddOns list when Polestar is updated or
+  repaired. A folder of that name you made yourself, with another title in
+  its .toc, is never touched (#3396).
+- The Dungeons page no longer reads "Speak with Speak with …" for a quest
+  whose objective is a sentence of its own, such as The Glowing Shard's
+  "Speak with someone in Ratchet about the Glowing Shard" (#3426).
+- The other faction's towns are walked round again, not refused: as before
+  0.4.2, the arrow keeps you out of them where there is another way, walks
+  you in when your goal is there (Hillsbrad Fields on Battle of Hillsbrad, the
+  Alliance Skyborne's turn-ins in Shen'dar Village, a pin you set in Dalaran)
+  or there is no other way, and says "Hostile town" under the step. "No safe
+  walking route" is gone.
+- Coriella Calmbreeze in Shen'dar Village is a short walk again: the route no
+  longer swaps between a portal and the walk to her every few seconds.
+- Feralas & Tanaris (Horde): the pirate ghosts in Stranglethorn Vale are only
+  asked for while you carry Voodoo Dues, and their lines tick from the quest
+  log; before, they showed as kills of their own that never ticked (thanks
+  siu_sang).
+- First Aid: the Heavy Silk and Mageweave Bandage steps say to read the manual
+  you bought with Expert First Aid, and where to buy it if you have none
+  (thanks Cip1337, #3405).
+- After a hand-in, training or a fight indoors (Llane Beshere in Northshire
+  Abbey, for one), the arrow finds the walk to your next goal at once. Before,
+  it pointed straight for 10 to 30 seconds, and if you stood still the walk
+  didn't come.
+- A "go to" step in a cellar or on an upper floor (the cellar of Brill's inn,
+  for one) completes when you stand there, even if you got there another way
+  than the arrow's walk. Before, the arrow could keep pointing back to the
+  door.
+- A group quest you already finished is no longer asked about: when its
+  objectives are done before the guide reaches its step (an elite you killed
+  on the way), the guide goes on to the hand-in instead of waiting for "Skip
+  it" or "Do it with a group" (thanks Stö, #3402, #3412).
+- With no height from the game (Forever gives none), the arrow follows a
+  guide step's saved walk as 0.4.1.1 did, without first checking it against
+  a floor it can only guess. In 0.4.2 a guessed floor that missed the walk,
+  or a goal standing above or below the walk's end, sent the step's walk to a
+  live search (thanks Fitz).
+- The Horn of Xelthos (Rogue): the guide no longer sends you to Veenix once
+  you have the horn or have handed it in; he only deals while the horn job is
+  open, so the step could never finish (thanks kevqon, #3362).
+- Mount Hyjal: the Ruined Ballista's seed for Violence Into Verdure is planted
+  with the other two wrecks at the east end of the fields, where the ballista
+  stands; the arrow used to point to the shrub field's far edge, where there
+  is nothing to plant on (thanks Stö, #3400).
+- Mount Hyjal: Crate Expectations' arrow leads to Kaylaena's workshop when you
+  fly back with Nami's crate, instead of nothing (thanks Stö).
+- Mount Hyjal: talking to Shalla'kal's kittens, the two elders in Barkskin
+  Burrow, the peasant at the Alliance outpost and Ortak's two wounded now
+  ticks the guide's step: those lines count as soon as you meet them, and the
+  guide now reads them from your quest log. The Forsaken Paladin's tour of
+  Bandarion Keep in Tirisfal Glades ticks the same way (thanks Stö).
+- Install no longer calls the leveling routes a beta: players have played
+  them through.
+- On a game client that isn't in English, the guide window's "Left out" list
+  names the quest a left-out quest needs in your game's language ("Requires X
+  first"), as the quest's own line does. The arrow's two underwater texts say
+  plainly what to do: "Under water nearby: swim down to it" and "12 yd below
+  you: swim down".
+- Lifts work again on the way: at the Thunder Bluff elevators, the Undercity's
+  lifts and the Great Lift the arrow says "Ride the elevator up" (or down) at
+  the landing instead of "The last steps here aren't mapped", and once you
+  step off at the top and walk on it moves to the next part of the route. The
+  game doesn't tell addons your height, so the arrow goes by where you stand
+  on the map, as it did before 0.4.2.
+- Lookup says from which level a quest is offered while you are below it:
+  its row and its page's header read "From level 60", and its page lists
+  "Requires: Level 60" in the warning colour (thanks Zack, #3370).
+- A long menu's filter box no longer takes the keyboard as the menu opens,
+  so the keys you move with keep moving you; click the box to type in it
+  (thanks Soggy, #3371).
+- The AddOns list is back to a handful of Polestar entries: the 127 "Polestar
+  Nav [..]" walking map folders 0.4.2 added are inside Polestar Nav (Eastern
+  Kingdoms) and Polestar Nav (Kalimdor) again, and the arrow walks exactly the
+  same routes as in 0.4.2. If you install by hand, delete the old
+  Polestar_Nav_R folders from Interface/AddOns; Polestar says so at login
+  while any are left (#3396).
+- At level 60 Polestar no longer opens a leveling guide by itself at login
+  when you have none open; Start guide still opens one when you want it
+  (thanks Fyurie, #3395).
+- The guide window no longer labels steps with a quest level ("Level 38
+  quest: you're 35.7"), and its pace line no longer calls a quest on the step
+  hard; it keeps saying whether you're on pace or behind (thanks Foomix,
+  #3438).
+- The arrow says Arrived at a quest giver, trainer or other NPC when you are
+  within talking distance of them again, as in 0.4.0. Since 0.4.1, an NPC the
+  game data lists at a few nearby spots (Marshal McBride in Northshire Abbey)
+  counted as reached anywhere in that spread, up to 27 yards away, and the
+  arrow pointed at the middle of the spots rather than at the NPC (thanks
+  Fitz).
+- Riverglades (Horde): Jom-jom's Escape says that Jom-jom waits at the back of
+  the cave (thanks Tendertail and Yeq, #3411, #3388).
+- The route line on the map and minimap shows the walk's sketch as soon as
+  it is in, as in 0.4.1.1, and the checked walk replaces it when it lands. In
+  0.4.2 the map showed no line at all until the walk had been checked (thanks
+  Fitz).
+- Cozy Sleeping Bag: Scramble's hand-in first leads to the edge of the camp
+  where you drop down to the Mound of Dirt, instead of a walk that never gets
+  there (thanks Hnrq, #3386).
+- Skinning: an Undead at 100 now skins in Silverpine Forest up to 105 before
+  Hillsbrad Foothills, whose beasts all need 105 or more. Every gathering
+  guide now picks only zones with something to gather from the first point of
+  each range (thanks Svenssonraze, #3355).
+- Updating Polestar in the middle of a guide opens it on the step you were
+  on again, not up to 88 steps back at a quest the update added behind you:
+  steps the guide had trimmed for your character (quests you could not take
+  yet) are recognised after the update too. A guide the update reworked no
+  longer moves its tab when it still has your steps, and a tab that does move
+  says the name of the guide you had and opens where your quests are, not at
+  the new guide's first step (#3440).
+- With "Continue automatically", the chat line about quests waiting for your
+  level ("Waiting for your level, taken where a later guide passes the
+  giver: ...") names every quest by its title. A quest the next guide
+  doesn't take could show as "Quest 4023".
+- The arrow no longer goes blank when it can't find a walk: it points
+  straight at the goal again, as before 0.4.2, says "The last steps here
+  aren't mapped" under its label and draws a straight line. After a fight off
+  the road it looks for the walk again once you're 5 yards on instead of 25
+  (thanks PG5K).
+- The rough lines of the walks on your route are drawn on the map again as
+  soon as the route is planned, instead of each waiting for a full checked
+  walk first. The checked walk still replaces each one when it is ready.
+- "Finding a walking route" is quick again when the way has a flight: the
+  arrow no longer works out the whole walk straight to the goal first, which
+  could take 10 to 40 seconds and showed a long walk on foot until the
+  flight came up. The flight's onward walk is checked first and the route
+  shows as soon as it is, and a new goal's first walk takes a little more
+  of each frame for up to two seconds. The routes are the same as before.
+  (thanks Cip1337)
+
+### Forge
+
+- `forge data publish --release-note FILE` puts a written paragraph under the
+  version's heading in forever-db's CHANGELOG.md, for what the generated
+  counts can't say, such as why a table lost rows.
+
 ## 0.4.2 (2026-11-21)
 
 ### For players

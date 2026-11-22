@@ -4448,5 +4448,21 @@
 			}
 		],
 		"note": "Tooga waits at the Thistleshrub Valley's west edge for his escort (Tooga's Quest, 1560) and, after it, stands beside Torta east of Steamwheedle Port, where he gives and takes Oasis (97540). The 0.4.2 data build added a point on the escort's way (41.03,54.55), which put an Oasis hand-in out in the desert, about 840 yards from every earlier one. His points are the valley's and Torta's, without it (data-diff gate, ender-moved, 0.4.2)."
+	},
+	"4453": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-20 (excluded contributors left out): 165 contributors opened Wizzle Brassbolts's window at the Mirage Raceway (quest windows for Hardened Shells and the raceway's other quests), none a merchant window"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3470 (Shuurajou, Gnome Priest 32): the nearest-vendor arrow led to Wizzle Brassbolts, who is no vendor"
+			}
+		],
+		"note": "Wizzle Brassbolts gives and takes the Mirage Raceway's quests and sells nothing. The merged data listed him as a vendor, so the nearest-vendor arrow and the sell reminder could send players to him (#3470). No roles; a merchant window players record brings the vendor role back."
 	}
 }
