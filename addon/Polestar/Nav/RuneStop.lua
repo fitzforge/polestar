@@ -25,7 +25,7 @@ local RUN_SPEED = 7
 local CHECK_DELAY = 1  -- seconds after a route or bag change: they come in bursts
 local TICK = 3         -- seconds: walking up to a seller changes no route
 
-local pending, showing = false, false
+local pending, showing, ticker = false, false, nil
 
 -- The route still ahead flies and casts no teleport.
 local function fliesAhead(legs, ci)
@@ -95,18 +95,27 @@ function RuneStop.Refresh()
 end
 
 local function queue()
-	if pending or not (C_Timer and C_Timer.After) then return end
+	if pending or ns.Hidden() or not (C_Timer and C_Timer.After) then return end
 	pending = true
-	C_Timer.After(CHECK_DELAY, function()
+	ns.After(CHECK_DELAY, function()
 		pending = false
-		ns.SafeCall(RuneStop.Refresh)
+		if not ns.Hidden() then RuneStop.Refresh() end
 	end)
+end
+
+-- The poll runs only while Polestar shows: hidden, it has no line to show.
+local function syncTicker()
+	if ns.Hidden() then
+		if ticker then
+			ticker:Cancel()
+			ticker = nil
+		end
+	elseif not ticker and C_Timer and C_Timer.NewTicker then
+		ticker = ns.NewTicker(TICK, RuneStop.Refresh)
+	end
 end
 
 ns.On("ROUTE_CHANGED", queue)
 ns.RegisterEvent("BAG_UPDATE_DELAYED", queue)
-ns.OnLogin(function()
-	if C_Timer and C_Timer.NewTicker then
-		C_Timer.NewTicker(TICK, function() ns.SafeCall(RuneStop.Refresh) end)
-	end
-end)
+ns.On("POLESTAR_HIDDEN", syncTicker)
+ns.OnLogin(syncTicker)
