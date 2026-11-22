@@ -96,9 +96,12 @@ return {
 
 	-- Step 16: Mistvale gorillas
 	["Mistvale gorillas"] = "Gorilas do Vale da Névoa",
+	-- {quest:348} Stranglethorn Fever
 	-- plural, as words: Elder Mistvale Gorillas = {npc:1557} Elder Mistvale Gorilla
-	["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "Os gorilas andam pelo vale em volta de Unbagwa. Os anciões deixam cair os miúdos; qualquer um deles pode deixar cair uma presa: guarde dez para Unbagwa, cujo Mokk (44) espera sua parada em Selva do Espinhaço por volta do 45.\nCuidado: os Gorilas Anciões do Vale da Névoa (40-41) ficam bem juntos no vale: puxe um de cada vez.",
-	["Keep fangs from these same elders for Unbagwa."] = "",
+	-- was: ["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "Os gorilas andam pelo vale em volta de Unbagwa. Os anciões deixam cair os miúdos; qualquer um deles pode deixar cair uma presa: guarde dez para Unbagwa, cujo Mokk (44) espera sua parada em Selva do Espinhaço por volta do 45.\nCuidado: os Gorilas Anciões do Vale da Névoa (40-41) ficam bem juntos no vale: puxe um de cada vez."
+	["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: if you will take {quest:348} with a group, keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "",
+	-- {quest:348} Stranglethorn Fever
+	["Keep fangs from these same elders for Unbagwa ({quest:348}, with a group)."] = "",
 
 	-- Step 17: Mistvale giblets
 	["Mistvale giblets"] = "",
@@ -256,70 +259,73 @@ return {
 	-- Step 46: Whiskey Slim and Fin Fizracket
 	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket
 	["{npc:2491} and {npc:2486}"] = "",
-	-- {npc:2491} Whiskey Slim · {npc:2486} Fin Fizracket · {zone:1444} Feralas · {zone:1446} Tanaris · {area:35} Booty Bay
-	["{npc:2491}, in the inn, {npc:2486}, beside it, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "",
+	-- {npc:2491} Whiskey Slim · {zone:1444} Feralas · {zone:1446} Tanaris · {area:35} Booty Bay
+	["{npc:2491}, in the inn, and \"Sea Wolf\" MacKinley, on the top floor, offer these quests from level 40: pick them up now. Under 40, the {zone:1444} & {zone:1446} guide's {area:35} stop offers them again."] = "",
 	-- {npc:2491} Whiskey Slim · {zone:1425} Hinterlands
 	["{npc:2491}, in the inn: his bottles wash up on the {zone:1425} coast, around level 48"] = "{npc:2491}, na estalagem: as garrafas dele dão na costa de {zone:1425}, por volta do nível 48",
-	-- {npc:2486} Fin Fizracket · {quest:348} Stranglethorn Fever · {zone:1444} Feralas · {object:3202} Grom'gol (no name in this language: may be words)
-	-- was: ["{npc:2486}: {quest:348} (offered from 40), Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "{npc:2486}: {quest:348} (disponível a partir do 40), a parte de Unbagwa fica na parada em {object:3202} do guia de {zone:1444}"
-	["{npc:2486}: {quest:348}, Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "",
 	-- {quest:2872} Stoley's Debt · {zone:1446} Tanaris
 	["MacKinley, on the top floor: {quest:2872}, for Stoley in {zone:1446}"] = "",
 
-	-- Step 47: The Bloodsail ships
+	-- Step 47: Fin Fizracket
+	-- {quest:348} Stranglethorn Fever · {npc:1449} Witch Doctor Unbagwa · {npc:1514} Mokk the Savage
+	["Group quest: {quest:348} ends at {npc:1449} in Mistvale. Hand him ten gorilla fangs and he calls three waves of gorillas (41-42), one after another, then {npc:1514} (44). In players' recordings, 12 of the 27 people who started it died there. Take it if you have a friend or two along."] = "",
+	-- {npc:2486} Fin Fizracket · {zone:1444} Feralas · {object:3202} Grom'gol (no name in this language: may be words)
+	["{npc:2486}, beside the inn: Unbagwa's part on the {zone:1444} guide's {object:3202} stop"] = "",
+
+	-- Step 48: The Bloodsail ships
 	["The Bloodsail ships"] = "Os navios da Vela Sangrenta",
 	-- {quest:624} Cortello's Riddle · {area:43} Wild Shore · {zone:1435} Swamp of Sorrows · {zone:1445} Dustwallow Marsh · {zone:1425} Hinterlands
 	["The scroll, {quest:624}, lies on the decks of the three ships off the {area:43}, crewed by pirates of 42-45 who come in pairs, with captains of 45-48: take it with a group. Its chain runs on through the {zone:1435}, {zone:1445} and the {zone:1425}."] = "O pergaminho, {quest:624}, fica nos conveses dos três navios ao largo de {area:43}, tripulados por piratas de nível 42-45 que vêm em pares, com capitães de 45-48: vá em grupo. A cadeia dele segue por {zone:1435}, {zone:1445} e {zone:1425}.",
 	-- {zone:1435} Swamp of Sorrows
 	["for a later stop in the {zone:1435}"] = "para uma parada posterior em {zone:1435}",
 
-	-- Step 48: Fly to Grom'gol
+	-- Step 49: Fly to Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Fly back to {object:3202}: Zul'Mamwe's Skullsplitters are just east of it."] = "Voe de volta para {object:3202}: os Racha-crânios de Zul'Mamwe ficam logo a leste.",
 	-- {area:35} Booty Bay
 	["{area:35} flight master"] = "Mestre de voo de {area:35}",
 
-	-- Step 49: Zul'Mamwe
+	-- Step 50: Zul'Mamwe
 	["Zul'Mamwe"] = "Ruínas de Zul'Mamwe",
 	["The warriors in the northern ruins (39-40) drop both tusks and necklaces. Pull from the edge; leave the chief and his two guards to the south alone."] = "",
 
-	-- Step 50: Zul'Mamwe and Balia'mah trophy skulls
+	-- Step 51: Zul'Mamwe and Balia'mah trophy skulls
 	["Zul'Mamwe and Balia'mah trophy skulls"] = "",
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Look for the trophy skulls in the small ruins north of Zul'Mamwe's warriors.\nThe last skulls are in the ruins a short walk west, on the way back to {object:3202}."] = "",
 
-	-- Step 51: Kin'weelay
+	-- Step 52: Kin'weelay
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Head west to {object:3202}."] = "Siga para oeste até {object:3202}.",
 
-	-- Step 54: Grom'gol Base Camp
+	-- Step 55: Grom'gol Base Camp
 	-- {npc:2464} Commander Aggro'gosh · {npc:256418} Krom'rosh · {area:16743} Rog'mar · {zone:2548} Riverglades
 	["{npc:2464}: for {npc:256418} in {area:16743}, the {zone:2548}' Horde fort, in the next guide"] = "{npc:2464}: para {npc:256418} em {area:16743}, o forte da Horda em {zone:2548}, no próximo guia",
 	-- {quest:571} Mok'thardin's Enchantment · {quest:621} Zanzil's Secret · {npc:737} Kebok · {area:35} Booty Bay · {zone:2548} Riverglades
 	["Keep {quest:571}, {quest:621} and {npc:737}'s tusks: the Skullsplitter chief, Zanzil's camps, the naga coast and {area:35} come on your Stranglethorn stop at about 45, after the {zone:2548}."] = "Guarde {quest:571}, {quest:621} e as presas de {npc:737}: o chefe Racha-crânio, os acampamentos de Zanzil, a costa dos nagas e {area:35} ficam para sua parada em Selva do Espinhaço, por volta do nível 45, depois de {zone:2548}.",
 
-	-- Step 56: Nesingwary's Expedition
+	-- Step 57: Nesingwary's Expedition
 	["Head north up the road to the hunters' camp."] = "Siga a estrada para o norte até o acampamento dos caçadores.",
 
-	-- Step 58: Raptor Mastery
+	-- Step 59: Raptor Mastery
 	-- {npc:730} Tethis
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:730} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {npc:730} é elite de nível 43: a maioria das classes encara sozinha no nível 45, mas talvez você precise de ajuda. Se estiver sozinho, pule.",
 
-	-- Step 59: Panther Mastery
+	-- Step 60: Panther Mastery
 	-- {npc:728} Bhag'thera
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:728} is a level 40 elite: most classes solo it at level 42, but you may need help. Skip it if you are alone."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {npc:728} é elite de nível 40: a maioria das classes encara sozinha no nível 42, mas talvez você precise de ajuda. Se estiver sozinho, pule.",
 
-	-- Step 63: Big Game Hunter
+	-- Step 64: Big Game Hunter
 	-- {npc:731} King Bangalash
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:731} is a level 43 elite: most classes solo it at level 45, but you may need help. Skip it if you are alone.\nCareful: Tigers and stealthed shadowmaw panthers roam close to him. Clear them before you pull him. When he is pulled, {npc:731} calls for help from creatures within 20 yd."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {npc:731} é elite de nível 43: a maioria das classes encara sozinha no nível 45, mas talvez você precise de ajuda. Se estiver sozinho, pule.\nCuidado: tigres e panteras umbragorja furtivas andam perto dele. Limpe tudo antes de puxá-lo. Quando é puxado, {npc:731} chama ajuda de qualquer bicho num raio de 20 metros.",
 
-	-- Step 68: Into the Swamp of Sorrows
+	-- Step 69: Into the Swamp of Sorrows
 	-- {zone:1435} Swamp of Sorrows
 	["Into the {zone:1435}"] = "Rumo a {zone:1435}",
 	-- {zone:1431} Duskwood · {zone:1430} Deadwind Pass · {npc:1776} Magtoor · {area:657} Harborage
 	["Follow the road east from {zone:1431} through {zone:1430} into the swamp. {npc:1776} waits at the {area:657}, the draenei camp just off the road where it comes in from {zone:1430}."] = "Siga a estrada para leste a partir de {zone:1431}, por {zone:1430}, até o pântano. {npc:1776} espera em {area:657}, o acampamento dos draeneis logo fora da estrada, onde ela chega de {zone:1430}.",
 
-	-- Step 69: Stonard
+	-- Step 70: Stonard
 	-- {area:75} Stonard
 	["Head east to {area:75}, in the reeds south of the road."] = "Siga para o leste até {area:75}, nos juncos ao sul da estrada.",
 	-- {npc:5591} Dar
@@ -329,52 +335,52 @@ return {
 	-- {npc:1443} Fel'zerul
 	["{npc:1443}, on the top floor"] = "{npc:1443}, no último andar",
 
-	-- Step 70: Sawtooth crocolisks
+	-- Step 71: Sawtooth crocolisks
 	["Sawtooth crocolisks"] = "Crocoliscos Dentesserra",
 	-- {npc:5391} Galen Goodward · {area:75} Stonard
 	["The crocolisks wallow in the pools around {npc:5391}'s camp and south towards {area:75}; about one in four drops a flank."] = "Os crocoliscos chafurdam nas poças em volta do acampamento de {npc:5391} e ao sul rumo a {area:75}; cerca de um em quatro deixa cair uma anca.",
 
-	-- Step 71: Noboru the Cudgel
+	-- Step 72: Noboru the Cudgel
 	-- {area:76} Fallow Sanctuary
 	["Noboru wanders the clearing south-west of the {area:76}; his cudgel starts a quest."] = "Noboru vaga pela clareira a sudoeste de {area:76}; a clava dele inicia uma missão.",
 
-	-- Step 72: Draenethyst crystals
+	-- Step 73: Draenethyst crystals
 	["Draenethyst crystals"] = "Cristais de draenetista",
 	-- {area:76} Fallow Sanctuary · {npc:5391} Galen Goodward
 	["Head north-east to the {area:76}. The crystals stand along the way up to {npc:5391}'s cage."] = "Siga para nordeste até {area:76}. Os cristais ficam ao longo da subida até a jaula de {npc:5391}.",
 
-	-- Step 73: Galen's Escape
+	-- Step 74: Galen's Escape
 	-- {npc:5391} Galen Goodward · {area:76} Fallow Sanctuary
 	["{npc:5391} is held in the {area:76} in the swamp's north-east. Free him and follow him out, fighting off the swamp creatures that chase him."] = "{npc:5391} está preso em {area:76}, no nordeste do pântano. Liberte-o e siga-o para fora, enfrentando as criaturas do pântano que o perseguem.",
 
-	-- Step 74: Galen's Strongbox
+	-- Step 75: Galen's Strongbox
 	-- {area:75} Stonard
 	["His strongbox waits at his old camp north of {area:75}, on the way back west."] = "O cofre dele espera no antigo acampamento dele, ao norte de {area:75}, no caminho de volta a oeste.",
 
-	-- Step 75: Harborage
+	-- Step 76: Harborage
 	-- {area:657} Harborage · {zone:1430} Deadwind Pass
 	-- was: ["Ride west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}."] = "Cavalgue para o oeste pela estrada até o acampamento draenei em {area:657}, perto da entrada vinda de {zone:1430}."
 	["Head west along the road to the draenei camp at the {area:657}, near the way in from {zone:1430}."] = "",
 
-	-- Step 76: Pool of Tears
+	-- Step 77: Pool of Tears
 	-- {area:75} Stonard · {quest:1424} Pool of Tears
 	["Back east along the road, past {area:75}: the Atal'ai artifacts lie in the water and on the banks of the {quest:1424}. Only Sawfin Frenzies (38-40) swim there."] = "",
 
-	-- Step 77: Misty Reed Post
+	-- Step 78: Misty Reed Post
 	-- {npc:5592} Tok'Kar · {npc:5593} Katar
 	["Follow the road south-east to the small Horde post on the shore: {npc:5592} takes the crocolisk flanks, and {npc:5593} stands beside him."] = "",
 
-	-- Step 78: Sawtooth snappers
+	-- Step 79: Sawtooth snappers
 	["Sawtooth snappers"] = "Tartaliscas Dentesserra",
 	-- {npc:272377} Methuselah Crab
 	-- plural, as words: Sawtooth Snappers = {npc:1087} Sawtooth Snapper
 	["The Sawtooth Snappers (41-42) line the strand south of the post; nearly every one drops a claw. Leave the murlocs further along the shore for your next swamp visit.\nCareful: a {npc:272377} (level 60) walks the south-east strand: give it a wide berth."] = "",
 
-	-- Step 79: Misty Reed Post
+	-- Step 80: Misty Reed Post
 	-- {npc:5593} Katar
 	["{npc:5593}: the murlocs (41-44) wait for your next swamp visit"] = "",
 
-	-- Step 80: Stonard
+	-- Step 81: Stonard
 	-- {area:75} Stonard · {npc:1443} Fel'zerul · {quest:1430} Fresh Meat · {npc:5593} Katar
 	["Back north-west along the road to {area:75}: {npc:1443}, on the top floor, takes the artifacts. {quest:1430}'s crawlers and {npc:5593}'s murlocs wait for your next swamp visit."] = "",
 
@@ -425,6 +431,7 @@ return {
 	-- ["The boat lands in {area:35}'s harbour. The quest givers stand on the boardwalks around the harbour and in the inn."] = "O barco chega ao porto de {area:35}. Os recrutadores de missões ficam nos passadiços em volta do porto e na estalagem.",
 	-- ["The boat to {area:35} docks at the end of {area:392}'s pier."] = "O barco para {area:35} atraca no fim do píer de {area:392}.",
 	-- ["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang."] = "Os gorilas vagam pelo vale em volta de Unbagwa. Os anciões deixam cair os miúdos; qualquer um deles pode deixar cair uma presa.",
+	-- ["The gorillas roam the valley around Unbagwa. The elders drop the giblets; any of them can drop a fang: keep ten for Unbagwa, whose Mokk (44) waits for your Stranglethorn stop at about 45.\nCareful: the Elder Mistvale Gorillas (40-41) stand close together in the valley: pull one at a time."] = "Os gorilas andam pelo vale em volta de Unbagwa. Os anciões deixam cair os miúdos; qualquer um deles pode deixar cair uma presa: guarde dez para Unbagwa, cujo Mokk (44) espera sua parada em Selva do Espinhaço por volta do 45.\nCuidado: os Gorilas Anciões do Vale da Névoa (40-41) ficam bem juntos no vale: puxe um de cada vez.",
 	-- ["The last skulls are in the ruins a short ride west, on the way back to {object:3202}."] = "Os últimos crânios ficam nas ruínas um pouco a oeste, no caminho de volta para {object:3202}.",
 	-- ["The next guide starts here and takes you to {zone:1446}."] = "O próximo guia começa aqui e leva você até {zone:1446}.",
 	-- ["The next trophy skulls stand in the small ruins just north of the warriors' camp."] = "Os próximos crânios-troféu ficam nas pequenas ruínas logo ao norte do acampamento dos guerreiros.",

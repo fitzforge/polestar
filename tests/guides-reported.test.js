@@ -8488,7 +8488,8 @@ test('forever/horde/40-50/01-stranglethorn-vale.guide: flow re-order: Scaring Sh
 	assert.equal(stoley.s, list[at(list, 'turnin 607', is('turnin', 607))].s + 1, 'Stoley\'s Debt on the Booty Bay stop that hands MacKinley Return to MacKinley, in its level 40 step');
 	assert.ok(stoley.step.when.some((p) => p.k === 'level' && p.n === 40), 'Stoley\'s Debt from level 40');
 	const fer2 = goals('forever/horde/40-50/02-feralas.guide');
-	assert.equal(fer2[at(fer2, 'accept 2872', is('accept', 2872))].s, fer2[at(fer2, 'accept 348', is('accept', 348))].s, 'the catch-up offers it with Stranglethorn Fever');
+	// #3574: Stranglethorn Fever is a group choice, its accept the catch-up's next step, right after Stoley's Debt.
+	assert.equal(fer2[at(fer2, 'accept 2872', is('accept', 2872))].s + 1, fer2[at(fer2, 'accept 348', is('accept', 348))].s, 'the catch-up offers it right before Stranglethorn Fever');
 });
 
 // Flow review, Horde 40-60 (#1166): the last loop out of Camp Mojache is one sweep west: the Writhing Deep, the Ruins
@@ -11845,7 +11846,7 @@ test('Level sweep: accepts below their minimum level are moved or gated', { skip
 	// Level tidy (0.4.0): Stranglethorn Fever (minimum 40) is taken on the level-48 Booty Bay stop of 40-50/05, where Mokk is fought.
 	const hin = goals('forever/alliance/40-50/05-the-hinterlands.guide');
 	assert.ok(!stv.some(({ goal }) => is('accept', 348)(goal)), 'Stranglethorn Fever is not taken at 41');
-	assert.equal(step(hin, 'accept', 348), step(hin, 'turnin', 2874), 'Stranglethorn Fever on the level-48 Booty Bay stop');
+	assert.equal(step(hin, 'accept', 348), step(hin, 'turnin', 2874) + 1, 'Stranglethorn Fever on the level-48 Booty Bay stop, its group choice the step after (#3574)');
 	// Fix pass 2026-11-20: the corrected level model reached that stop at 39.95-39.99 in 11 of 28 runs (refused), so
 	// Stoley's Debt has a `when level>=40` step of its own right after it, and the last Booty Bay stop offers it again.
 	const stoleys = stv.filter(({ goal }) => is('accept', 2872)(goal));
@@ -17613,6 +17614,17 @@ test('#2563: Wetlands (Alliance): Fall of Dun Modr is taken on its own step, onl
 	assert.ok(at(hills, 'turnin 472', is('turnin', 472)) >= 0, 'Longbraid still takes it on the Dun Modr stop');
 });
 
+// #3597 (Tilman, 0.4.2.1): Harlo Barnaby doesn't offer Fall of Dun Modr while A Grim Task (304) is in the log either
+// (abandoning A Grim Task brings the offer back), so the step waited on an accept nobody could take for a player who
+// had picked A Grim Task up at Dun Modr first. Harlo's step is shown only while 304 is neither in the log nor handed in.
+test('#3597: Wetlands (Alliance): Fall of Dun Modr is not asked for while A Grim Task is in the log', { skip }, () => {
+	const wet = goals('forever/alliance/06-wetlands.guide');
+	const harlo = wet[at(wet, 'accept 472', is('accept', 472))];
+	const when = harlo.step.when || [];
+	assert.ok(when.some((p) => p.k === 'onquest' && p.neg && [p.q].flat().includes(304)), 'not while A Grim Task is in the log');
+	assert.ok(when.some((p) => p.k === 'turnedin' && p.neg && [p.q].flat().includes(304)), 'nor once it is handed in (#2563)');
+});
+
 // --- Bare `complete`s away from the giver (#703): with no place of its own, a
 // `complete` leads the arrow to the quest's giver (#303). For these quests the
 // work is somewhere else: Coriella Calmbreeze north-west of Shen'dar Village,
@@ -18522,14 +18534,16 @@ test('#3512: a talk to an NPC who is a line of a quest in the log reads that lin
 });
 
 // #3436 (Stö, 0.4.2, Mount Hyjal): flying back from Everlook with Nami's crate, "Complete Crate Expectations" had no
-// place, so there was no arrow. Its one line, "Shipment delivered to Mount Hyjal before it expires", ticks at
-// Kaylaena's workshop (the data's event spot 60.41,62, from players' recordings): the goal leads to Kaylaena there.
+// place, so there was no arrow. Its one line, "Shipment delivered to Mount Hyjal before it expires", ticks as
+// Kaylaena's window opens (players' recordings: 18 people; every tick recorded beside an NPC came at her window), so the
+// delivery is a talk to her: the arrow leads to Kaylaena, the hand-in's NPC, and no work goal sits among Ghansurok's patrol.
 test('forever/50-60/mount-hyjal.guide: Crate Expectations leads to Kaylaena\'s workshop (#3436)', { skip }, () => {
 	const list = goals('forever/50-60/mount-hyjal.guide');
-	const { goal } = list[at(list, 'complete 92009', is('complete', 92009))];
-	assert.deepEqual([goal.map, goal.x, goal.y], [2482, 60.1, 61.7]);
-	const hand = list[at(list, 'turnin 92009', is('turnin', 92009))].goal;
-	assert.ok(hand.z, 'the hand-in keeps the height of Kaylaena\'s spot');
+	assert.ok(!list.some(({ goal }) => goal.t === 'complete' && goal.quest === 92009), 'no complete goal for 92009');
+	const talk = list[at(list, 'talk 249235 for 92009', (g) => g.t === 'talk' && g.npc === 249235 && g.quest === 92009)];
+	const hand = list[at(list, 'turnin 92009', is('turnin', 92009))];
+	assert.equal(talk.s, hand.s, 'the delivery and the hand-in in one step');
+	assert.ok(talk.goal.x && talk.goal.y, 'the delivery has a place');
 });
 
 // #3457 (siu_sang, 0.4.1.1, zhTW, Horde Feralas & Tanaris step 3): the pirate ghosts' step asked a character without
@@ -18571,4 +18585,95 @@ test('#3394: Riverglades: the Cinderscale hollow\'s goals are on the hollow\'s f
 		assert.ok(hollow.length >= 3, `${faction}: the step has the kills and the Draconia`);
 		for (const { goal } of hollow) assert.ok(goal.z != null && goal.z > 180 && goal.z < 195, `${faction} ${goal.t} ${goal.x},${goal.y}: the hollow's floor (185-190), not the hill (275-310): ${goal.z}`);
 	}
+});
+
+// #3587 (Muvias, Discord, Night Elf start): Shanda's The Goddess Provides (97979) counts one cast each of Elune's
+// Light and Shadowmeld, the night elf racial spells (players' recordings: 51 people), and the step only listed the
+// cast lines and a short note in a step of about fifteen lines. The step's tip says they are racial spells in the
+// spellbook.
+test('forever/alliance/nightelf/01-teldrassil.guide: The Goddess Provides\' step says to cast the two racial spells (#3587)', { skip }, () => {
+	const list = goals('forever/alliance/nightelf/01-teldrassil.guide');
+	const { step } = list[at(list, 'accept 97979', is('accept', 97979))];
+	const text = [step.note, step.tip].flat().filter(Boolean).join(' ');
+	assert.match(text, /racial/, 'the tip says they are racial spells');
+	assert.match(text, /spellbook/, 'and where to find them');
+	assert.match(text, /\{spell:1259799\}|Elune's Light/, 'it names Elune\'s Light');
+	assert.match(text, /Shadowmeld/, 'it names Shadowmeld');
+});
+
+// #3588 (Muvias, Discord, Alliance Westfall): only Harvest Watchers (114) count for The Killing Fields (9), and they
+// drop every item of the step (players' recordings: kill ticks for 111 people, all at a Watcher; isosprings,
+// gyrostabilizers and Okra from lone Watcher kills for 96, 100 and 66 people). The Watchers' step works the three
+// quests together, and its tip says to stay on the Watchers rather than the Golems, which don't count.
+test('forever/alliance/02-westfall.guide: one step at the Harvest Watchers for all three quests, its tip says only they count (#3588)', { skip }, () => {
+	const list = goals('forever/alliance/02-westfall.guide');
+	const kill = list[at(list, 'kill 114 for 9', (g) => g.t === 'kill' && g.quest === 9)];
+	assert.equal(kill.goal.npc, 114, 'the kills are Harvest Watchers');
+	for (const [what, pred] of [
+		['Golem Isosprings', (g) => g.t === 'collect' && g.quest === 92909 && g.oi === 1],
+		['Harvester Gyrostabilizers', (g) => g.t === 'collect' && g.quest === 92909 && g.oi === 2],
+		['Okra', (g) => g.t === 'collect' && g.quest === 38 && g.item === 732],
+	]) assert.equal(list[at(list, what, pred)].s, kill.s, `${what} are in the Watchers' step`);
+	const text = [kill.step.note, kill.step.tip].flat().filter(Boolean).join(' ');
+	assert.match(text, /only[^.]*count for The Killing Fields|only[^.]*count for \{quest:9\}/, 'the tip says only Watchers count');
+	assert.match(text, /Golems[^.]*don't count/, 'and that the Golems don\'t');
+});
+
+// #3619 (Yeeshak, Discord, Tauren Druid 51): Tanaris Field Sampling (654) starts from the Model 4711-FTZ Power Source
+// (8524), Slake That Thirst's (379) reward. Another Power Source? (841, Chief Engineer Bilgewhizzle, repeatable) is
+// not a prerequisite but the way to a new source when the first is gone or its two hours ran out, and the step said
+// nothing of it. Its tip names the quest and who gives it.
+test('forever/horde/40-50/04-tanaris.guide: Tanaris Field Sampling\'s step says how to get another power source (#3619)', { skip }, () => {
+	const list = goals('forever/horde/40-50/04-tanaris.guide');
+	const { step } = list[at(list, 'accept 654', is('accept', 654))];
+	const text = [step.note, step.tip].flat().filter(Boolean).join(' ');
+	assert.match(text, /Another Power Source\?|\{quest:841\}/, 'the tip names Another Power Source?');
+	assert.match(text, /Bilgewhizzle|\{npc:7407\}/, 'and who gives it');
+	assert.match(text, /Wastewander Water Pouches|\{item:8483\}/, 'and what it takes');
+});
+
+// #3557 (Gindry, deDE): on Tooga's escort the Alliance arrow pointed back at the valley, 3,379 yd behind, while Tooga
+// walked to Torta: the escort's bare `complete` took its giver's place. It ends at Torta, as the Horde route's does.
+test('forever/alliance/40-50/04-tanaris.guide: Tooga\'s escort points at Torta in the port (#3557)', { skip }, () => {
+	for (const file of ['forever/alliance/40-50/04-tanaris.guide', 'forever/horde/40-50/04-tanaris.guide']) {
+		const list = goals(file);
+		const done = list[at(list, 'complete 1560', is('complete', 1560))].goal;
+		assert.deepEqual([done.map, Math.round(done.x), Math.round(done.y)], [1446, 67, 26], `${file}: the escort ends at Torta`);
+	}
+	const places = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8')).places;
+	const rec = places.find((p) => p.id === 'final-tanaris-tooga-torta');
+	assert.ok(rec && !rec.faction, 'its place record holds for both factions');
+});
+
+// #3574 (Koobi, deDE): Mokk the Savage was no solo fight. Players' recordings: 27 people started Unbagwa's waves, 12 of
+// them died there (19 deaths). Stranglethorn Fever is a group choice on both routes: its accept's step and every step
+// of the waves ask, and a player who skips it is never sent to Unbagwa or held at Fin's hand-in.
+test('Stranglethorn Fever (348) is a group choice on both routes, with the heads-up (#3574)', { skip }, () => {
+	const grouped = (st) => (st.when || []).some((p) => p.k === 'group' && !p.neg && [].concat(p.q).includes(348));
+	for (const file of ['forever/horde/40-50/01-stranglethorn-vale.guide', 'forever/horde/40-50/02-feralas.guide', 'forever/alliance/40-50/05-the-hinterlands.guide']) {
+		const { steps } = compiled(file);
+		const accepts = steps.filter((st) => st.goals.some(is('accept', 348)));
+		assert.ok(accepts.length > 0, `${file}: takes it`);
+		for (const st of accepts) {
+			assert.ok(grouped(st), `${file}: "${st.title}" asks first`);
+			assert.equal(st.goals.length, 1, `${file}: "${st.title}" holds only the accept`);
+			assert.match([st.note, st.tip].flat().filter(Boolean).join(' '), /Group quest: .*three waves of gorillas/, `${file}: with the heads-up`);
+		}
+		for (const st of steps.filter((s) => s.goals.some((g) => is('turnin', 349)(g) || (g.t === 'collect' && [2797, 2799].includes(g.item) && !g.optional)))) {
+			assert.ok(grouped(st), `${file}: "${st.title}" (the waves) only for a group`);
+		}
+	}
+	for (const file of ['forever/horde/40-50/02-feralas.guide', 'forever/alliance/40-50/05-the-hinterlands.guide']) {
+		for (const st of compiled(file).steps.filter((s) => s.goals.some(is('turnin', 348)))) {
+			assert.ok((st.when || []).some((p) => p.k === 'complete' && [].concat(p.q).includes(348)), `${file} "${st.title}": Fin's hand-in only with the quest ready`);
+		}
+	}
+});
+
+// #3576 (Peanut): Kum'isha's step (3501) waited for an Imperfect Draenethyst Fragment, a random drop level 60 players
+// farm (recordings: 20 people, 16 accepts, 9 abandons). It shows only with a fragment, as her Sphere step does.
+test('forever/alliance/50-60/01-burning-steppes.guide: Kum\'isha\'s fragment step only with a fragment (#3576)', { skip }, () => {
+	const { steps } = compiled('forever/alliance/50-60/01-burning-steppes.guide');
+	const kum = steps.find((st) => st.goals.some(is('accept', 3501)));
+	assert.ok((kum.when || []).some((p) => p.k === 'has' && !p.neg && p.item === 10593), 'when has 10593');
 });
