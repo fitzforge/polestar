@@ -159,9 +159,11 @@ return {
 	["The Syndicate hold the farm north-west of {area:320}.\nCareful: Syndicate Highwaymen are level 30-31 and can cast Sneak while out of combat, so they are often stealthed and hard to spot."] = "辛迪加占据{area:320}西北侧的农场。\n注意：辛迪加路霸为30-31级，非战斗状态下会使用潜行，因此经常隐身，很难发现。",
 
 	-- Step 32: Hay Weevil
-	-- {quest:681} Northfold Manor · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
+	-- {quest:681} Northfold Manor · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
 	-- plural, as words: Hay Weevils = {npc:217589} Hay Weevil
-	["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s {item:213565}."] = "干草象鼻虫在{quest:681}农场的北端爬行：用{npc:217412}的{item:213565}中的工具捕捉一只。",
+	["Hay Weevils crawl about the north end of {quest:681}'s farm: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "",
+	-- {item:213562} Bug Catching Net · {npc:217589} Hay Weevil · {item:213568} Hay Weevil Specimen
+	["{item:213562}, on a {npc:217589}: the {item:213568}"] = "",
 
 	-- Step 33: Shards of Myzrael
 	-- {quest:681} Northfold Manor · {area:333} Circle of East Binding · {area:314} Go'Shek Farm
@@ -391,6 +393,7 @@ return {
 	-- ["From {area:42} follow the road east through {zone:1430} into the {zone:1435}; Biggs guards the road junction just inside it. {npc:217412} stands a short way north of him."] = "从{area:42}沿道路向东穿过{zone:1430}进入{zone:1435}；卫兵比格斯守在刚进入的岔路口。{npc:217412}站在他北边不远处。",
 	-- ["From {zone:1455} take the tunnel east through {zone:1426} into {area:38} and follow the road to {area:144}."] = "从{zone:1455}出发，穿过{zone:1426}向东的隧道进入{area:38}，沿道路前往{area:144}。",
 	-- ["Gyll, {area:35}"] = "盖尔，{area:35}",
+	-- ["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s {item:213565}."] = "干草象鼻虫在{quest:681}农场的北端爬行：用{npc:217412}的{item:213565}中的工具捕捉一只。",
 	-- ["Head back north-east past {area:320}; {npc:2712} and {npc:2713} camp in the hills north of {area:314}."] = "向东北返回，经过{area:320}；{npc:2712}和{npc:2713}在{area:314}北侧山丘扎营。",
 	-- ["Head back south from the eastern circle; {npc:2712} and {npc:2713} camp in the hills just north of {area:314}."] = "从东边的石环向南返回；{npc:2712}和{npc:2713}在{area:314}北侧不远的山丘扎营。",
 	-- ["Head north past {area:314}; the shards glitter on the hill by the {area:333}."] = "向北经过{area:314}；碎片在{area:333}旁的山丘上闪闪发光。",

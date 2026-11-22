@@ -159,9 +159,11 @@ return {
 	["The Syndicate hold the farm north-west of {area:320}.\nCareful: Syndicate Highwaymen are level 30-31 and can cast Sneak while out of combat, so they are often stealthed and hard to spot."] = "A Camarilha ocupa a fazenda a noroeste de {area:320}.\nCuidado: os Bandoleiros da Camarilha são de nível 30-31 e ficam furtivos fora de combate, então costumam estar escondidos e difíceis de ver.",
 
 	-- Step 32: Hay Weevil
-	-- {quest:681} Northfold Manor · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
+	-- {quest:681} Northfold Manor · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
 	-- plural, as words: Hay Weevils = {npc:217589} Hay Weevil
-	["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s {item:213565}."] = "Gorgulhos do Feno rastejam pela ponta norte da fazenda de {quest:681}: pegue um com a ferramenta do {item:213565} de {npc:217412}.",
+	["Hay Weevils crawl about the north end of {quest:681}'s farm: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "",
+	-- {item:213562} Bug Catching Net · {npc:217589} Hay Weevil · {item:213568} Hay Weevil Specimen
+	["{item:213562}, on a {npc:217589}: the {item:213568}"] = "",
 
 	-- Step 33: Shards of Myzrael
 	-- {quest:681} Northfold Manor · {area:333} Circle of East Binding · {area:314} Go'Shek Farm
@@ -391,6 +393,7 @@ return {
 	-- ["From {area:42} follow the road east through {zone:1430} into the {zone:1435}; Biggs guards the road junction just inside it. {npc:217412} stands a short way north of him."] = "De {area:42}, siga a estrada para leste por {zone:1430} até o {zone:1435}; Biggs vigia o cruzamento logo na entrada. {npc:217412} fica um pouco ao norte dele.",
 	-- ["From {zone:1455} take the tunnel east through {zone:1426} into {area:38} and follow the road to {area:144}."] = "De {zone:1455}, pegue o túnel para leste por {zone:1426} até {area:38} e siga a estrada até {area:144}.",
 	-- ["Gyll, {area:35}"] = "Gyll, {area:35}",
+	-- ["Hay Weevils crawl about the north end of {quest:681}'s farm: catch one with the tool from {npc:217412}'s {item:213565}."] = "Gorgulhos do Feno rastejam pela ponta norte da fazenda de {quest:681}: pegue um com a ferramenta do {item:213565} de {npc:217412}.",
 	-- ["Head back north-east past {area:320}; {npc:2712} and {npc:2713} camp in the hills north of {area:314}."] = "Volte para nordeste, passando por {area:320}; {npc:2712} e {npc:2713} acampam nas colinas ao norte de {area:314}.",
 	-- ["Head back south from the eastern circle; {npc:2712} and {npc:2713} camp in the hills just north of {area:314}."] = "Volte para o sul a partir do círculo leste; {npc:2712} e {npc:2713} acampam nas colinas logo ao norte de {area:314}.",
 	-- ["Head north past {area:314}; the shards glitter on the hill by the {area:333}."] = "Siga para o norte, passando a {area:314}; os estilhaços brilham na colina junto ao {area:333}.",
