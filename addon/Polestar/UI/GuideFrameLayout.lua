@@ -261,6 +261,12 @@ ns.UI.GuideFrame.Part(function(GF)
 			empty.Secondary:SetPoint("TOP", empty, "TOP", 0, y)
 			y = y - empty.Secondary:GetHeight()
 		end
+		local skips = pn and pn.skips()
+		if skips and skips:IsShown() then
+			skips:ClearAllPoints()
+			skips:SetPoint("TOP", empty, "TOP", 0, y)
+			y = y - 20
+		end
 		local other = pn and pn.other()
 		if other and other:IsShown() then
 			other:ClearAllPoints()

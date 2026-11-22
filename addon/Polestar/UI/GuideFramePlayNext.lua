@@ -15,7 +15,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	GF.PlayNext = PN
 
 	local empty
-	local card, other
+	local card, other, skips
 	GF.Bind(function(p)
 		empty = p.empty
 		if card or not empty then return end
@@ -46,6 +46,11 @@ ns.UI.GuideFrame.Part(function(GF)
 		other.psTip = L["Open the guide menu"]
 		other.psAction = function() UI.ShowPicker() end
 		other:Hide()
+		-- Over it, while the guide holds the player's skips: the step list,
+		-- where each one has its Unskip (UI/StepList.lua).
+		skips = W.Link(empty, "", function() if UI.StepList then UI.StepList.Toggle(true) end end, { role = "note" })
+		skips.psTip = L["Bring it back"]
+		skips:Hide()
 	end)
 
 	-- The window's style: transparent drops the panel for a light scrim (the
@@ -61,15 +66,26 @@ ns.UI.GuideFrame.Part(function(GF)
 			local r, g, b = Theme.Color("scrim")
 			card.Scrim:SetVertexColor(r, g, b, Theme.House("clearShade") or 0.35)
 		end
-		if other and other.Label then Theme.SetOutline(other.Label, clear and GF.Outline and GF.Outline() or nil) end
+		for _, l in ipairs({ other, skips }) do
+			if l and l.Label then Theme.SetOutline(l.Label, clear and GF.Outline and GF.Outline() or nil) end
+		end
 	end
 
 	function PN.card() return card end
 	function PN.other() return other end
+	function PN.skips() return skips end
 
 	function PN.Hide()
 		if card then card:Hide() end
 		if other then other:Hide() end
+		if skips then skips:Hide() end
+	end
+
+	-- The skips link: "Review N skipped", hidden with none.
+	local function paintSkips()
+		local n = UI.StepList and UI.StepList.Skips and UI.StepList.Skips() or 0
+		if n > 0 then W.SetLinkText(skips, string.format(L["Review %d skipped"], n)) end
+		skips:SetShown(n > 0)
 	end
 
 	-- nextGuide: the guide to offer (nil: only the link); fromId: the guide
@@ -77,6 +93,7 @@ ns.UI.GuideFrame.Part(function(GF)
 	function PN.Paint(nextGuide, fromId)
 		if not card then return end
 		other:Show()
+		paintSkips()
 		PN.Style()
 		if not nextGuide then card:Hide() return end
 		if not rawget(card, "Art") then
