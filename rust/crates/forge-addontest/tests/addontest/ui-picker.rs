@@ -308,11 +308,11 @@ fn left_pane_the_rail_holds_the_sections_and_options_the_sidebar_holds_the_categ
 		for i, s in ipairs(P.Sections()) do sections[i] = s.label or s.key end
 		emit({ cats = P.categories, labels = labels, rail = rail, sections = sections, icon = icon, r = r, options = PolestarOptions:IsShown(), picker = PolestarPicker:IsShown() })"#);
 	assert_eq!(out["cats"], json!(["All", "Leveling", "Professions", "Reputation", "Exploration", "Legacy", "Collectibles", "Favorites"]), "dungeons have their own section, not a category");
-	// Sections (Guides built in, then the registered ones by order) are on the rail, Options at its foot.
+	// Sections (Guides built in, then the registered ones by order) are on the rail, Settings at its foot.
 	assert_eq!(out["sections"][0], "Guides");
 	assert_eq!(out["sections"][1], "Lookup");
-	// Import is a foot section: above Options, not among the sections at the top.
-	let mut rail = vec![json!("Options"), json!("Import"), json!("Guides*")];
+	// Import is a foot section: above Settings, not among the sections at the top.
+	let mut rail = vec![json!("Settings"), json!("Import"), json!("Guides*")];
 	rail.extend(out["sections"].as_array().unwrap()[1..].iter().filter(|s| s.as_str() != Some("Import")).cloned());
 	assert_eq!(out["rail"], Value::Array(rail));
 	// Leveling counts the other races' starting zones (Dun Morogh, Teldrassil, Zephras Isle) too.
