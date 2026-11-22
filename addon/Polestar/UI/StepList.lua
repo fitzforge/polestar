@@ -267,7 +267,8 @@ local function line(r, j)
 	-- A skipped quest's way back, at the line's right end (Engine.SkipQuest).
 	g.Unskip = unskipLink(r, function(self)
 		local E = ns.Engine
-		if self.psQuest and E and E.SkipQuest then E.SkipQuest(self.psQuest, false) end
+		if self.psQuest and E and E.SkipQuest then E.SkipQuest(self.psQuest, false)
+		elseif self.psStep and E and E.Unskip then E.Unskip(self.psStep) end
 		SL.Refresh()
 	end)
 	g.Unskip.psTip = L["Bring it back"]
@@ -322,23 +323,36 @@ local function fillRow(r, v, i, live, at)
 	for _, goal in ipairs(list) do
 		if mySkip(goal) then held = true break end
 	end
-	local only = gone and i ~= at and held
-	local one = gone and i ~= at and not held
+	-- A step the player skipped is never folded: its title, then one line
+	-- that says so with its Unskip (as a run of steps skipped for you reads).
+	local mine = v.skipped == true and i ~= live
+	local only = gone and i ~= at and held and not mine
+	local one = gone and i ~= at and not held and not mine
 	r.psOne = one
 	local no = UI.StepNo(i)
 	local title = (v.title and v.title ~= "") and v.title or string.format(L["Step %d"], no)
 	r.Tab:SetText(no .. " \194\183 " .. title)
 	W.Color(r.Tab, gone and "textMuted" or (i == live and "accent" or "textMuted"))
 	r.Live:SetShown(i == live and not one)
-	local mine = v.skipped == true and i ~= live
 	local why = {}
 	r.psWhy = why
-	r.Unskip:SetShown(mine)
+	r.Unskip:SetShown(false)
 	r.Unskip.psTip = L["Bring it back"]
 	local n, more, key = 0, 0, { mine and "unskip" or "" }
 	-- A first goal that says the title draws no line, as on the step card.
 	local said = false
-	for _, goal in ipairs(list) do
+	if mine then
+		n = 1
+		local g = line(r, 1)
+		g.psUnskip = true
+		g.Unskip.psQuest, g.Unskip.psStep = nil, i
+		g.Icon:SetTexture(Theme.Media("skip"))
+		W.Color(g.Icon, "accent")
+		g.Text:SetText(L["You skipped this step."])
+		W.Color(g.Text, "textMuted")
+		key[1] = "unskip"
+	end
+	for _, goal in ipairs(mine and {} or list) do
 		if only and not mySkip(goal) then
 			-- Folded: only the player's skips show.
 		elseif n >= MAX_LINES then
@@ -375,7 +389,7 @@ local function fillRow(r, v, i, live, at)
 			end
 			g.Icon:SetTexture(done and Theme.Media("check") or (skip and Theme.Media("skip")) or Theme.VerbIcon(goal.t))
 			W.Color(g.Icon, done and "success" or (skip and "accent" or (off and "textMuted" or "textDim")), (done and gone) and 0.6 or 1)
-			g.Unskip.psQuest = qskip and goal.quest or nil
+			g.Unskip.psQuest, g.Unskip.psStep = qskip and goal.quest or nil, nil
 			g.psUnskip = qskip and true or nil
 			local text = (gone and not done) and UI.PlainGoalText(goal) or UI.GoalLine(goal)
 			g.Text:SetText(text)
@@ -397,7 +411,7 @@ local function fillRow(r, v, i, live, at)
 	end
 	-- What the route leaves out of this step (#2634, Engine.LeftOutHere with
 	-- `alone`): one muted line, the quests and why in the card's tooltip.
-	local out = not one and not only and E.LeftOutHere and E.LeftOutHere(i, true) or nil
+	local out = not one and not only and not mine and E.LeftOutHere and E.LeftOutHere(i, true) or nil
 	r.psOut = out and #out > 0 and out or nil
 	if r.psOut then
 		n = n + 1
