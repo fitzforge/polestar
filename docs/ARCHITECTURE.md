@@ -941,15 +941,33 @@ is not kept, so Names and Guide texts still try the folder later) right after
 `Polestar.Names` and `GuideTexts` as it loads, and every file after it may
 read `L` at load. The files before it, Init.lua included, read `L` only when
 they print (the commands register in Core/Commands.lua). An English client
-loads nothing; a missing or disabled folder leaves the interface in English,
-and when the folder of a language Polestar ships is still not loaded at
-login, one English chat line says so ("the German language files
-(Polestar_deDE) are missing or turned off in the AddOns list…").
+loads nothing; a missing or disabled folder leaves the interface in English.
 If the early load fails and Names' or Guide texts' later one succeeds, `L`
 fills then: what was read at load (key binding names, the options' labels)
 stays English, the rest is translated. To try this load on an English
 client, `tools/dev/!PolestarLocaleTest` makes Polestar's own files see
 another `GetLocale()` (its .lua says how).
+
+The Language setting (#3643) picks the language Polestar shows: Follow the
+game (the default), English, or any shipped language. It is account-wide and
+lives in a saved variable of its own, `PolestarLanguage` (nil: follow; else
+`enUS` or the locale), on Polestar's TOC, which the game hands over only at
+ADDON_LOADED. `Core/Locale.lua` reads it there (`Polestar.Language.Get`):
+another language than the client's empties `L`, `Names.SetLanguage` and
+`GuideTexts.SetLanguage` drop what the client's folder brought, and the
+chosen folder loads (none for English), its `Interface.lua` checking
+`Polestar.Names.Language()` rather than `GetLocale()`. A change takes effect
+at the next /reload, which the setting says, and what is read while the files
+load (key binding names, the options' labels) is read before the setting is,
+so it stays in the client's language. With another language shown, Names gives the pack's names only:
+the client's own (quest titles, learned NPC names, spells, areas) are in its
+language. `Polestar.Language.Set(name)` (one of `Language.CHOICES`: `game`,
+`enUS`, the shipped locales) and `/polestar language <name>` change it until
+the setting has its row in Options. When Language follows the game and the
+client's folder is still not loaded at login because it is not in the
+AddOns folder at all, one English chat line says so ("the German language
+files (Polestar_deDE) are missing…"); a folder turned off in the AddOns list
+was turned off on purpose and gets none.
 docs/TRANSLATING.md describes the files and `forge i18n`.
 
 A word with more than one meaning gets a key per meaning:

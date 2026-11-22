@@ -5,7 +5,7 @@
 -- From Yendi's (@moust4ki) French translation for Ding!, GPL-3.0, used with his permission (THIRD_PARTY.md).
 
 local ns = Polestar
-if not (ns and GetLocale and GetLocale() == "frFR") then return end
+if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "frFR") then return end
 local L = ns.L
 
 -- Core/Init.lua
