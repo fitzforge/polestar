@@ -18677,3 +18677,81 @@ test('forever/alliance/50-60/01-burning-steppes.guide: Kum\'isha\'s fragment ste
 	const kum = steps.find((st) => st.goals.some(is('accept', 3501)));
 	assert.ok((kum.when || []).some((p) => p.k === 'has' && !p.neg && p.item === 10593), 'when has 10593');
 });
+
+// #3529 (FeelTheGurn): Arathi's Calder Gray step asked for Thundering Hearts' hand-in with Stormheart not killed.
+// #3339 (Darian): Stranglethorn 40-50 sent a player to Kebok with Hostile Takeover's crystals not gathered.
+// A hand-in of a quest the guide neither takes nor works on (carried from an earlier guide) waits for the quest
+// to be ready (`when complete`, or the item in the bags): the sweep found 47 more such hand-ins, all gated the
+// same way. Hand-ins a guide can't miss (the giver's object takes the items directly, a starter item, an
+// optional line, an objective that is the ender itself) are left alone.
+test('a carried hand-in waits for its quest to be ready, on every guide (#3529, #3339)', { skip }, () => {
+	const qOf = (id) => data.quest(id);
+	const WORK = new Set(['complete', 'kill', 'collect', 'use', 'interact', 'talk', 'explore', 'cast']);
+	const worksFor = (goal, q) => WORK.has(goal.t) && (goal.quest === q.id || (goal.quest == null && (q.objectives || []).some((o) => o.id != null && (
+		(o.type === 'item' && goal.item === o.id) || ((o.type === 'kill' || o.type === 'talk') && goal.npc === o.id) || (o.type === 'object' && goal.object === o.id)))));
+	const ready = (step, q) => (step.when || []).some((p) => !p.neg && ((p.k === 'complete' && [].concat(p.q).includes(q.id))
+		|| (p.k === 'has' && (q.objectives || []).some((o) => o.type === 'item' && o.id === Number(p.item)))))
+		|| [].concat(step.skipto || []).some((sk) => sk.when && sk.when.neg && sk.when.k === 'complete' && [].concat(sk.when.q).includes(q.id));
+	const atEnder = (q, open) => open.every((o) => o.id != null && ((['kill', 'talk'].includes(o.type) && (q.end?.npc || []).includes(o.id)) || (o.type === 'object' && (q.end?.object || []).includes(o.id))));
+	const bare = [];
+	for (const file of allGuides().filter((f) => !f.includes('/legacy/'))) {
+		const list = goals(file);
+		list.forEach(({ step, goal, s }, t) => {
+			if (goal.t !== 'turnin' || goal.direct || goal.optional) return;
+			const q = qOf(goal.quest);
+			const open = (q?.objectives || []).filter((o) => !(o.type === 'item' && q.sourceItem && o.id === q.sourceItem));
+			if (!q || !open.length || (q.start?.item || []).length || atEnder(q, open)) return;
+			const before = list.slice(0, t);
+			if (before.some((e) => (e.goal.t === 'accept' && e.goal.quest === q.id) || worksFor(e.goal, q))) return;
+			if (!ready(step, q)) bare.push(`${file} step ${s} "${step.title}": turnin ${q.id} ${q.title}`);
+		});
+	}
+	assert.deepEqual(bare, []);
+	const arathi = compiled('forever/horde/30-40/05-arathi-highlands.guide').steps.find((st) => st.goals.some(is('turnin', 97985)));
+	assert.ok(holdsQuest(arathi, 97985) && arathi.when.some((p) => p.k === 'complete'), 'Calder Gray: when complete 97985');
+	const stv = compiled('forever/horde/40-50/01-stranglethorn-vale.guide').steps;
+	const excelsior = stv.find((st) => st.goals.some(is('accept', 628)));
+	assert.ok(!holdsQuest(excelsior, 577), 'Excelsior is offered to a player who handed Some Assembly Required in elsewhere');
+});
+
+// #3623 (ODAHZ): Moktar Krin's step showed only while The Swarm Grows' second part was in the log; handed in
+// before the guide got there, the third part (its carapace drops only with it) was never offered. A step shown
+// only while a quest from an earlier guide is in the log, that hands it in and takes its follow-up, has a step
+// after it for a player who handed it in already (`when available <follow-up>`): 28 more found and given one.
+test('a follow-up is offered when its carried prerequisite was handed in before the guide (#3623)', { skip }, () => {
+	const missing = [];
+	for (const file of allGuides().filter((f) => !f.includes('/legacy/'))) {
+		const list = goals(file);
+		list.forEach(({ step, goal, s }, t) => {
+			if (goal.t !== 'turnin') return;
+			const x = goal.quest;
+			if (!holdsQuest(step, x) || list.slice(0, t).some((e) => is('accept', x)(e.goal))) return;
+			for (const y of step.goals.filter((g) => g.t === 'accept')) {
+				if (!(data.quest(y.quest)?.pre || []).includes(x)) continue;
+				if (!list.some((e) => e.step !== step && is('accept', y.quest)(e.goal))) missing.push(`${file} step ${s} "${step.title}": ${x} -> ${y.quest}`);
+			}
+		});
+	}
+	assert.deepEqual(missing, []);
+	const steps = compiled('forever/horde/30-40/02-thousand-needles.guide').steps;
+	const moktar = steps.findIndex((st) => st.goals.some(is('turnin', 1146)));
+	const again = steps.findIndex((st, i) => i > moktar && st.goals.some(is('accept', 1147)));
+	assert.ok(again > moktar, 'a second Moktar Krin step takes the third part');
+	assert.ok(steps[again].when.some((p) => p.k === 'available' && p.q === 1147), 'when available 1147');
+});
+
+// #3337 (Dahai.Li): the Burning Steppes guide flew to Aerie Peak and Gammerita for The Super Snapper FX whenever the
+// group answer was "do it", quest in the log or not. Those steps need the quest too; without it the guide flies
+// from Ironforge straight to Southshore. The Horn of the Beast's flight back from Thelsamar needs its next part.
+test('forever/alliance/50-60/01-burning-steppes.guide: the Hinterlands trip only with The Super Snapper FX in the log (#3337)', { skip }, () => {
+	const { steps } = compiled('forever/alliance/50-60/01-burning-steppes.guide');
+	const flies = (st, where) => st.goals.some((g) => g.t === 'fly' && String(g.name || g.to || g.label || '').includes(where)) || st.title === `Fly to ${where}`;
+	const has = (st, k, q, neg = false) => (st.when || []).some((p) => p.k === k && !!p.neg === neg && [].concat(p.q).includes(q));
+	const hinterlands = steps.filter((st) => has(st, 'group', 2944) && (flies(st, 'Aerie Peak') || st.goals.some(is('use', 2944)) || st.goals.some((g) => g.t === 'use' && g.item === 9328)));
+	assert.ok(hinterlands.length >= 2, 'the Aerie Peak flight and Gammerita');
+	for (const st of hinterlands) assert.ok(has(st, 'onquest', 2944), `"${st.title}": when onquest 2944`);
+	const back = steps.filter((st) => st.title === 'Fly to Southshore' && has(st, 'group', 2944));
+	assert.ok(back.some((st) => has(st, 'onquest', 2944, true)), 'a straight flight to Southshore for a "do it" answer without the quest');
+	const thelsamar = steps.find((st) => st.title === 'Fly to Ironforge' && has(st, 'group', 3181));
+	assert.ok(has(thelsamar, 'onquest', 3182), 'the flight back from Thelsamar only after Pebblebitty');
+});

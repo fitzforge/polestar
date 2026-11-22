@@ -136,11 +136,22 @@ step Razor Hill
   zone Durotar
   tip Leave Orgrimmar by the main gate and follow the road south through Durotar. Before it turns west to the Southfury River bridge, step east into Razor Hill: Takrin Pathseeker stands on the west side of town, Orgnil Soulscar in the middle.
   accept 840 only Tauren,Undead,Skyborne -- Takrin Pathseeker: Kargal Battlescar at Far Watch Post, on the way
+
+step Orgnil Soulscar
+  zone Durotar
+  when complete 99051
+  tip Orgnil Soulscar stands in the middle of Razor Hill.
   turnin 99051 only Orc,Troll         -- Orgnil Soulscar: Threat from Below, from Durotar's naga beach
 
 step The Barrens
   zone The Barrens
   goto 62.3,19.4 "Far Watch Post"
+
+step Uzzek
+  zone The Barrens
+  when complete 1498
+  tip Uzzek stands at Far Watch Post with Kargal Battlescar and Ak'Zeloth.
+  turnin 1498 only Orc,Troll,Warrior  -- Uzzek
 
 step Far Watch Post
   zone The Barrens
@@ -148,15 +159,20 @@ step Far Watch Post
   turnin 840                          -- Kargal Battlescar
   accept 842
   turnin 809 only Orc,Troll           -- Ak'Zeloth, beside Kargal: from Neeru Fireblade in Orgrimmar
-  turnin 1498 only Orc,Troll,Warrior  -- Uzzek
   accept 1502 only Orc,Troll,Warrior
 
 step Far Watch Post
   only Tauren,Warrior
-  when onquest 1498
+  when complete 1498
   zone The Barrens
   tip Leave Orgrimmar by the main gate and follow the road south through Durotar, then west over the Southfury River bridge: Uzzek stands at Far Watch Post just above it, on the road to the Crossroads.
   turnin 1498                         -- Uzzek
+
+step Far Watch Post
+  only Tauren,Warrior
+  when available 1502
+  zone The Barrens
+  tip Uzzek stands at Far Watch Post, just above the Southfury River bridge.
   accept 1502
 
 # ---------------------------------------------------------------- The Crossroads

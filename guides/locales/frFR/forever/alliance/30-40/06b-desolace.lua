@@ -91,27 +91,31 @@ return {
 	["Back at the coven on the way west: the Mana Eaters (37-38) on its north edge and the Mage Hunters (38-39) further in drop the brains. {npc:5760} (40, elite) walks among the Mage Hunters: pull them out to you."] = "De retour au convent en allant vers l'ouest : les Mange-mana (37-38) au bord nord et les Chasseurs de mages (38-39) plus à l'intérieur lâchent les cerveaux. Le {npc:5760} (40, élite) circule parmi les Chasseurs de mages : attirez-les vers vous.",
 
 	-- Step 17: Azore Aldamort
-	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
-	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "Suivez la route vers l'ouest à travers le nord de {zone:1443} jusqu'aux ruines d'{area:2405}. La tour d'{npc:11863} se dresse sur la colline, sur le chemin de l'épave.",
+	-- {npc:11863} Azore Aldamort · {area:2405} Ethel Rethor · {zone:1443} Desolace
+	["{npc:11863}'s tower stands on the hill at the ruins of {area:2405}, west across the north of {zone:1443}."] = "",
 	-- {npc:11863} Azore Aldamort · {zone:1443} Desolace
 	["{npc:11863}, if the first {zone:1443} visit didn't take the sceptre back to him"] = "",
+
+	-- Step 18: Azore Aldamort
+	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
+	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "Suivez la route vers l'ouest à travers le nord de {zone:1443} jusqu'aux ruines d'{area:2405}. La tour d'{npc:11863} se dresse sur la colline, sur le chemin de l'épave.",
 	-- {npc:11863} Azore Aldamort · {quest:93464} The Visiting Mage · {zone:1435} Swamp of Sorrows
 	["{npc:11863}: {quest:93464}, from Magtoor in the {zone:1435}"] = "{npc:11863} : {quest:93464}, de Magtoor dans le {zone:1435}",
 	-- {npc:11863} Azore Aldamort · {zone:1443} Desolace
 	["{npc:11863}, if the first {zone:1443} visit didn't give it"] = "",
 
-	-- Step 18: Karnitol's Chest
+	-- Step 19: Karnitol's Chest
 	-- {npc:11863} Azore Aldamort
 	["The wrecked ship's chest lies just south-west of {npc:11863}'s tower."] = "Le coffre du navire échoué se trouve juste au sud-ouest de la tour d'{npc:11863}.",
 
-	-- Step 19: Claim Rackmore's Treasure!
+	-- Step 20: Claim Rackmore's Treasure!
 	-- {object:177787} Rackmore's Log · {object:35251} Karnitol's Chest · {zone:1443} Desolace
 	["{object:177787} lies beside {object:35251}, if you didn't take it on your first {zone:1443} visit. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "Le {object:177787} se trouve à côté du {object:35251}, si vous ne l'avez pas pris lors de votre première visite à {zone:1443}. Sa clé en argent est lâchée par les crabes Claquesec autour de l'épave ; la clé en or provient des nagas Ondulame de la côte nord-ouest, ensuite.",
 	-- {object:177787} Rackmore's Log · {zone:1443} Desolace
 	["{object:177787}, if the first {zone:1443} visit didn't take it"] = "",
 	["Underwater"] = "Sous l'eau",
 
-	-- Step 20: Sar'theris Strand: kill these as you meet them
+	-- Step 21: Sar'theris Strand: kill these as you meet them
 	-- {area:598} Sar'theris Strand
 	["{area:598}: kill these as you meet them"] = "{area:598} : tuez-les au passage",
 	-- {npc:11863} Azore Aldamort · {spell:131} Water Breathing · {area:2406} Ranazjar Isle · {item:15766} Gem of the Serpent · {object:177673} Serpent Statue · {npc:12369} Lord Kragaru · {quest:6027} Book of the Ancients
@@ -121,11 +125,11 @@ return {
 	-- {item:15766} Gem of the Serpent · {object:177673} Serpent Statue
 	["{item:15766}, on the {object:177673}"] = "{item:15766}, sur la {object:177673}",
 
-	-- Step 21: Rackmore's Chest
+	-- Step 22: Rackmore's Chest
 	-- {object:177673} Serpent Statue
 	["Rackmore's chest lies just south-east of the {object:177673}."] = "Le coffre de Rackmore se trouve juste au sud-est de la {object:177673}.",
 
-	-- Step 24: Nijel's Point
+	-- Step 25: Nijel's Point
 	-- {area:608} Nijel's Point · {npc:5396} Captain Pentigast · {npc:5638} Kreldig Ungor · {npc:1182} Brother Anton
 	["Follow the road north to {area:608}: {npc:5396} stands at its south end, {npc:5638} in the middle, {npc:1182} to the north."] = "Suivez la route vers le nord jusqu'à {area:608} : {npc:5396} se tient à l'extrémité sud, {npc:5638} au milieu, {npc:1182} au nord.",
 	-- {npc:5637} Roetten Stonehammer · {zone:1455} Ironforge
@@ -133,7 +137,7 @@ return {
 	-- {npc:3980} Raleigh the Devout · {area:271} Southshore
 	["for {npc:3980} in {area:271}: keep it"] = "pour {npc:3980} à {area:271} : gardez-la",
 
-	-- Step 25: Fly to Theramore
+	-- Step 26: Fly to Theramore
 	["Fly to Theramore"] = "Volez jusqu'à Theramore",
 	["The next guide starts in Theramore."] = "Le guide suivant commence à Theramore.",
 

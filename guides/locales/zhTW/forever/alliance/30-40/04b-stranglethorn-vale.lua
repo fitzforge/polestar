@@ -25,17 +25,21 @@ return {
 	-- {npc:661} Jonathan Carevin · {area:121} Tranquil Gardens Cemetery · {zone:1435} Swamp of Sorrows
 	["{npc:661}: the evidence lies in the {area:121}, on the next guide's way to the {zone:1435}: keep it"] = "",
 
-	-- Step 4: Stranglethorn Vale
+	-- Step 4: Clerk Daltry
+	-- {npc:267} Clerk Daltry · {area:42} Darkshire · {npc:661} Jonathan Carevin
+	["{npc:267} works in {area:42}'s town hall; {npc:661} stands just east of it."] = "",
+
+	-- Step 5: Stranglethorn Vale
 	-- {zone:1434} Stranglethorn Vale
 	["Into {zone:1434}"] = "進入{zone:1434}",
 
-	-- Step 5: Rebel Camp
+	-- Step 6: Rebel Camp
 	-- {zone:1431} Duskwood
 	["From {zone:1431} take the road south; the camp sits in the hills west of the road."] = "從{zone:1431}沿路向南；營地在道路西邊的山丘裡。",
 	-- {npc:770} Corporal Kaleb · {npc:773} Krazek · {area:35} Booty Bay
 	["{npc:770}, if the first Stranglethorn loop didn't give it: for {npc:773} in {area:35}"] = "",
 
-	-- Step 6: Nesingwary's Expedition
+	-- Step 7: Nesingwary's Expedition
 	-- {npc:717} Ajeck Rouack
 	["South along the road: the hunters' tents stand just west of it. {npc:717} and Hemet gave you these on the first loop: take them now only if you didn't."] = "沿道路向南：獵人的帳篷就在道路西邊。{npc:717}和赫米特在第一趟路線已給過你這些任務：只有當時沒接才現在接。",
 	-- {npc:717} Ajeck Rouack · {npc:729} Sin'Dall
@@ -44,13 +48,17 @@ return {
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["{npc:715}, if the first Stranglethorn loop didn't give it: the Lashtail Raptors, after the jungle ruins"] = "",
 
-	-- Step 7: Bookie Herod
+	-- Step 8: Bookie Herod
 	-- {area:101} Kurzen's Compound
 	["East to {area:101}: Herod's records lie in a hut on its west side."] = "向東前往{area:101}：赫洛德的帳本放在營地西側的一間小屋裡。",
 	-- {object:287} Bookie Herod's Records
 	["{object:287}, upstairs"] = "{object:287}，樓上",
 
-	-- Step 8: Kurzen's Compound
+	-- Step 9: Bookie Herod
+	-- {area:101} Kurzen's Compound · {quest:328} The Hidden Key
+	["Herod's records lie in a hut on the west side of {area:101}: take {quest:328} there."] = "",
+
+	-- Step 10: Kurzen's Compound
 	-- {npc:218230} Wendel Mathers · {spell:7964} Smoke Bomb · {npc:813} Colonel Kurzen
 	-- plural, as words: Kurzen Commandos = {npc:938} Kurzen Commando
 	["{npc:218230}, a cook, is caged at the compound's western edge: take his quest now and keep it, his cage key and the fighter's uniform come on the 40-50 Stranglethorn guide, when the Subchiefs and Elites are your level. Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave, and Herod's strongbox sits by the cave mouth. Pick up Green Hills pages as they drop.\nCareful: Kurzen Commandos are level 34-35, not elite, and often spawn stealthed; near death they use {spell:7964}. {npc:813}, an elite of 39-40, stands at the compound's north end: leave him be."] = "{npc:218230}是個廚師，被關在營地西緣的籠子裡：現在就接他的任務並保留著，他的籠子鑰匙和鬥士制服要等到40-50荊棘谷指南、副酋長和精英與你等級相當時再處理。縮頭術士站在營地深處；特種兵潛行在營地周圍和洞穴裡，赫洛德的保險箱就在洞口旁。綠丘書頁掉落時順手撿起。\n小心：庫爾森特種兵是34-35級，不是精英，常以潛行狀態出現；瀕死時會使用{spell:7964}。{npc:813}是39-40級精英，站在營地北端：別去惹他。",
@@ -61,17 +69,17 @@ return {
 	-- {object:288} Bookie Herod's Strongbox
 	["{object:288}, below ground"] = "{object:288}，地下",
 
-	-- Step 9: The jungle ruins
+	-- Step 11: The jungle ruins
 	["The jungle ruins"] = "叢林廢墟",
 	["West across the jungle to the troll ruins: each holds one stone tablet of the troll legends, the first two in the ruins south-west of Nesingwary's camp, the last two on the hill in the north-west.\nCareful: the Saltscale murlocs on the shore near the second tablet are elite (35-37): swim to the tablet from the water and keep clear of them."] = "向西穿過叢林前往食人妖廢墟：每處都有一塊記載食人妖傳說的石板，前兩塊在奈辛瓦里營地西南方的廢墟中，後兩塊在西北方的山丘上。\n小心：第二塊石板附近岸邊的鹽鱗魚人是精英（35-37級）：從水中游向石板，避開牠們。",
 	-- {item:2006} The Second Troll Legend · {object:58} Gri'lek the Wanderer
 	["{item:2006}: {object:58}; underwater"] = "{item:2006}：{object:58}；水下",
 
-	-- Step 10: Water Elementals
+	-- Step 12: Water Elementals
 	-- plural, as words: Lesser Water Elementals = {npc:691} Lesser Water Elemental
 	["The haunted island lies just off the shore west of the second tablet: the Lesser Water Elementals rise from the water around it."] = "鬧鬼的小島就在第二塊石板西邊的岸外不遠處：次級水元素從小島周圍的水中冒出。",
 
-	-- Step 11: The Ruins of Zul'Kunda
+	-- Step 13: The Ruins of Zul'Kunda
 	-- {area:102} Ruins of Zul'Kunda
 	["The {area:102}"] = "{area:102}",
 	-- {npc:268992} Zimmix Sputterspark · {item:277957} Primitive Key
@@ -84,7 +92,7 @@ return {
 	-- {npc:4631} Wharfmaster Lozgil · {area:35} Booty Bay
 	["For {npc:4631} in {area:35}, at the end of this loop"] = "給{area:35}的{npc:4631}，在這趟路線的終點",
 
-	-- Step 12: Sin'Dall on the raptor hill
+	-- Step 14: Sin'Dall on the raptor hill
 	-- {npc:729} Sin'Dall
 	["{npc:729} on the raptor hill"] = "",
 	-- {npc:729} Sin'Dall · {npc:717} Ajeck Rouack
@@ -94,22 +102,22 @@ return {
 	-- {npc:729} Sin'Dall
 	["{npc:729} (37) prowls the hilltop."] = "",
 
-	-- Step 13: The Lashtail raptors
+	-- Step 15: The Lashtail raptors
 	["The Lashtail raptors"] = "鞭尾迅猛龍",
 	-- {quest:187} Tiger Mastery · {npc:729} Sin'Dall
 	-- plural, as words: Lashtail Raptors = {npc:686} Lashtail Raptor
 	["East from the ruins, hunt Lashtail Raptors around the hill south-west of Nesingwary's camp. If you have {quest:187}, are at least 36 and see {npc:729} (37) alone, you can take her paw here or leave the hunt for your next visit."] = "",
 
-	-- Step 14: Ajeck Rouack
+	-- Step 16: Ajeck Rouack
 	-- {npc:717} Ajeck Rouack
 	["Hand the paw to {npc:717} beside Hemet."] = "",
 
-	-- Step 15: Nesingwary's Expedition
+	-- Step 17: Nesingwary's Expedition
 	-- {npc:715} Hemet Nesingwary
 	-- plural, as words: Jungle Stalkers = {npc:687} Jungle Stalker
 	["{npc:715}: the Jungle Stalkers come in 40-50"] = "{npc:715}：叢林捕獵者在40-50再處理",
 
-	-- Step 16: Rebel Camp
+	-- Step 18: Rebel Camp
 	-- {area:99} Rebel Camp
 	["North-east up the road to the {area:99}, then back south through the jungle."] = "沿道路向東北前往{area:99}，然後穿過叢林往南回來。",
 	-- {npc:733} Sergeant Yohwa
@@ -117,20 +125,20 @@ return {
 	-- plural, as words: Skullsplitter Witch Doctors = {npc:670} Skullsplitter Witch Doctor
 	["keep it: the Skullsplitter Witch Doctors (41-42) wait for the 40-50 Stranglethorn guide"] = "保留著：劈顱巫醫（41-42級）留給40-50荊棘谷指南",
 
-	-- Step 17: Snapjaw Crocolisks
+	-- Step 19: Snapjaw Crocolisks
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks"] = "鉗嘴鱷魚",
 	-- {area:35} Booty Bay
 	-- plural, as words: Snapjaw Crocolisks = {npc:1152} Snapjaw Crocolisk
 	["Snapjaw Crocolisks bask along the river in the middle of the jungle, on the way south to {area:35}."] = "鉗嘴鱷魚在叢林中央的河邊曬太陽，就在往南前往{area:35}的路上。",
 
-	-- Step 18: Tokal
+	-- Step 20: Tokal
 	-- {npc:215643} Tokal · {object:56910} Salty Sailor Tavern · {item:4600} Cherry Grog · {npc:2832} Nixxrax Fillamug
 	["{npc:215643}, whom Bibbly sent you to find, waits by the {object:56910}. He asks for a {item:4600}: {npc:2832} sells it in the tavern, a few steps away."] = "",
 	-- {item:4600} Cherry Grog · {npc:2832} Nixxrax Fillamug
 	["{item:4600}, from {npc:2832}"] = "",
 
-	-- Step 19: Booty Bay
+	-- Step 21: Booty Bay
 	-- {npc:2495} Drizzlik
 	["{npc:2495}, inside"] = "{npc:2495}，室內",
 	-- {npc:2496} Baron Revilgaz

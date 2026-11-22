@@ -7413,7 +7413,6 @@ t.guides["forever/horde/50-60/01-un-goro-crater"] = (function() return {
 		["The expedition's crate sits at an abandoned camp in the eastern jungle."] = "探險隊的箱子在東部叢林中一處廢棄的營地裡。",
 		["The expedition's lost equipment lies in the south-west jungle."] = "探險隊遺失的設備在西南方的叢林裡。",
 		["The gorillas live on the north-east plateau: {npc:9619} wants two pelts of each kind, and the Thunderers (52-53) are the biggest. Stay out of the deepest cave: {npc:9622} lives there."] = "猩猩住在東北方的高地上：{npc:9619}每種要兩張毛皮，雷霆猩猩（52-53）最大隻。不要進入最深的洞穴：{npc:9622}住在那裡。",
-		["The hearth lands in {area:976}: {npc:11758} takes the {area:983} and Tran'rek Thistleshrub Valley, both done on the way into the crater."] = "爐石會回到{area:976}：{npc:11758}接受{area:983}和特蘭雷克薊叢谷的任務，兩者都在進入環形山的路上完成。",
 		["The mountain lets you out beside {area:252}, full of 55-57 orcs. Follow the road east along the northern cliffs to the Horde camp at {area:251}."] = "出了山就在{area:252}旁邊，那裡滿是55-57級的獸人。沿著道路向東，沿北側懸崖前往{area:251}的部落營地。",
 		["The pylon stands on the slope east of the refuge."] = "水晶塔位於避難營東邊的山坡上。",
 		["The raft lies on the shore of the south-eastern lake; the small pack sits in the water beside it."] = "木筏在東南方湖泊的岸邊；小包就在旁邊的水裡。",

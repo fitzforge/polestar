@@ -184,81 +184,85 @@ return {
 	-- {area:976} Gadgetzan
 	["To {area:976}"] = "Para {area:976}",
 
-	-- Step 38: Gadgetzan
+	-- Step 38: Andi Lynn
 	-- {area:976} Gadgetzan · {npc:11758} Andi Lynn · {area:983} Dunemaul Compound
-	["The hearth lands in {area:976}: {npc:11758} takes the {area:983} and Tran'rek Thistleshrub Valley, both done on the way into the crater."] = "A Pedra de Regresso leva você a {area:976}: {npc:11758} aceita {area:983} e o Vale Tran'rek Cardoarbusto, ambos feitos a caminho da cratera.",
+	["The hearth lands in {area:976}: {npc:11758} takes the {area:983}."] = "",
 
-	-- Step 39: Gadgetzan
+	-- Step 39: Tran'rek
+	-- {npc:7876} Tran'rek
+	["{npc:7876} stands beside the wind rider master."] = "",
+
+	-- Step 41: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
 	["{npc:5594}, inside"] = "{npc:5594}, lá dentro",
 
-	-- Step 40: Orgrimmar
+	-- Step 42: Orgrimmar
 	-- {area:1637} Orgrimmar · {area:16727} Powderfuse Port · {zone:1458} Undercity
 	["Fly to {area:1637} and train before the boat to {area:16727}: the {zone:1458} stop later in this guide has no Hunter or Shaman trainer."] = "Voe para {area:1637} e treine antes do barco para {area:16727}: a parada em {zone:1458} mais adiante neste guia não tem instrutor de Caçador nem de Xamã.",
 
-	-- Step 41: Back to Gadgetzan
+	-- Step 43: Back to Gadgetzan
 	-- {area:976} Gadgetzan
 	["Back to {area:976}"] = "De volta a {area:976}",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "Mestre de voo de {zone:1454}",
 
-	-- Step 42: Boat to Powderfuse Port
+	-- Step 44: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
 	["Boat to {area:16727}"] = "Barco para {area:16727}",
 	-- {npc:9706} Yorba Screwspigot · {quest:4324} Yuka Screwspigot · {area:251} Flame Crest
 	["{npc:9706}, by the dock: for {quest:4324} at {area:251}, later in this guide"] = "{npc:9706}, junto ao cais: para {quest:4324} em {area:251}, mais adiante neste guia",
 
-	-- Step 43: Badlands
+	-- Step 45: Badlands
 	-- {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {zone:1418} Badlands
 	["Leave {zone:2548} on foot to the north-west, north of {area:16685}, into the {zone:1418}."] = "Saia de {zone:2548} a pé para noroeste, ao norte de {area:16685}, rumo a {zone:1418}.",
 
-	-- Step 44: Kargath
+	-- Step 46: Kargath
 	-- {area:340} Kargath · {zone:1418} Badlands
 	["{area:340} is built into the cliffs on the {zone:1418}' west edge."] = "{area:340} é construída nos penhascos, na borda oeste de {zone:1418}.",
 
-	-- Step 45: Kargath's poster
+	-- Step 47: Kargath's poster
 	-- {area:340} Kargath
 	["{area:340}'s poster"] = "",
 	-- {area:1584} Blackrock Depths · {area:254} Blackrock Mountain · {area:340} Kargath
 	-- was: ["For your {area:1584} run, next, on the way through {area:254}: the {object:164867} poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "Para a masmorra {area:1584}, em seguida, no caminho por {area:254}: o cartaz {object:164867} em {area:340} quer que você reduza os anões Anvilrage lá de dentro."
 	["For your {area:1584} run, next, on the way through {area:254}: the WANTED poster in {area:340} wants the Anvilrage dwarves inside thinned out."] = "",
 
-	-- Step 46: Thunderheart
+	-- Step 48: Thunderheart
 	-- {npc:9084} Thunderheart · {area:340} Kargath · {quest:3906} Disharmony of Flame · {npc:9026} Overmaster Pyron · {area:1584} Blackrock Depths · {area:254} Blackrock Mountain
 	["{npc:9084} stands in {area:340} beside the Hierophant. His {quest:3906} is {npc:9026} (52, elite), at the {area:1584} portal inside {area:254}, on the way through the mountain: a fight for a group."] = "",
 
-	-- Step 47: Into the Searing Gorge
+	-- Step 49: Into the Searing Gorge
 	-- {zone:1427} Searing Gorge
 	["Into the {zone:1427}"] = "Para {zone:1427}",
 	-- {area:340} Kargath · {zone:1427} Searing Gorge · {npc:8479} Velarok Windblade · {area:1446} Thorium Point
 	["Take the pass out of {area:340}'s west side into the {zone:1427} and ride west to {npc:8479}, on the rim of the Cauldron south of {area:1446}."] = "",
 
-	-- Step 49: The Flame's Casing
+	-- Step 51: The Flame's Casing
 	-- {npc:8479} Velarok Windblade · {item:10552} Symbol of Ragnaros
 	["The Twilight's Hammer cultists camp in the hills west of {npc:8479}. The {item:10552} drops from their Dark Shamans (47-48), Fire Guards (48-49) and Geomancers (49-50): elites, but two to five levels under you now, so one at a time is fine. The Idolaters (49-51) at the altar further north drop it too, more rarely: leave them alone."] = "",
 
-	-- Step 51: The Torch of Retribution
+	-- Step 53: The Torch of Retribution
 	-- {npc:8479} Velarok Windblade
 	["Listen to {npc:8479}'s story once more."] = "Ouça a história de {npc:8479} mais uma vez.",
 
-	-- Step 52: Velarok Windblade
+	-- Step 54: Velarok Windblade
 	-- {quest:3453} The Torch of Retribution · {npc:8479} Velarok Windblade · {quest:3462} Squire Maltrake
 	["{quest:3453} lies on the ground at {npc:8479}'s feet; {quest:3462} stands beside him."] = "{quest:3453} está no chão aos pés de {npc:8479}; {quest:3462} está ao lado dele.",
 
-	-- Step 53: Sentry Braziers
+	-- Step 55: Sentry Braziers
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
 	["Sentry Braziers"] = "Braseiros Sentinela",
 	-- {object:149047} Torch of Retribution
 	-- plural, as words: Sentry Braziers = {object:149025} Sentry Brazier
 	["Carry the {object:149047} south along the rim of the Cauldron and light the four Sentry Braziers, from the south-west round to the east."] = "",
 
-	-- Step 54: Squire Maltrake
+	-- Step 56: Squire Maltrake
 	-- {npc:8509} Squire Maltrake · {npc:8479} Velarok Windblade
 	["Back north to {npc:8509} beside {npc:8479}."] = "",
 	-- {object:149502} Hoard of the Black Dragonflight · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous · {zone:1428} Burning Steppes
 	["The {object:149502} holds a {item:10575}: keep it for {npc:9459} in the {zone:1428}"] = "",
 
-	-- Step 55: Into Blackrock Mountain
+	-- Step 57: Into Blackrock Mountain
 	-- {area:254} Blackrock Mountain
 	["Into {area:254}"] = "",
 	-- {area:254} Blackrock Mountain
@@ -267,33 +271,33 @@ return {
 	-- {area:254} Blackrock Mountain
 	["Bridge into {area:254}"] = "Ponte para {area:254}",
 
-	-- Step 56: Overmaster Pyron
+	-- Step 58: Overmaster Pyron
 	-- {npc:9026} Overmaster Pyron · {area:1584} Blackrock Depths
 	["With your group: {npc:9026} (52, elite) guards the way to the {area:1584} portal, down the walkways inside the mountain."] = "",
 
-	-- Step 57: Blackrock Depths
+	-- Step 59: Blackrock Depths
 	-- {area:1584} Blackrock Depths · {zone:1428} Burning Steppes
 	["{area:1584} is a dungeon for a group of five from about level 48, the biggest in the mountain: its Anvilrage dwarves are this quest's, and you need not go further in than they are. Its portal is deep inside the mountain, down the chain walkways from the bridge.\nInside: the Anvilrage Guardsmen, Wardens and Footmen. Then back out of the portal and on through the mountain's southern exit to the {zone:1428}."] = "{area:1584} é uma masmorra para um grupo de cinco a partir do nível 48, a maior da montanha: os anões Anvilrage dela são os desta missão, e você não precisa ir além de onde eles estão. O portal fica no fundo da montanha, descendo pelas passarelas de correntes a partir da ponte.\nLá dentro: os Anvilrage Guardsmen, Wardens e Footmen. Depois saia de volta pelo portal e siga pela saída sul da montanha até {zone:1428}.",
 	-- {quest:4081} KILL ON SIGHT: Dark Iron Dwarves
 	["{quest:4081}: the Anvilrage dwarves, inside"] = "{quest:4081}: os anões Anvilrage, lá dentro",
 
-	-- Step 58: Flame Crest
+	-- Step 60: Flame Crest
 	-- {area:252} Blackrock Stronghold · {area:251} Flame Crest
 	["The mountain lets you out beside {area:252}, full of 55-57 orcs. Follow the road east along the northern cliffs to the Horde camp at {area:251}."] = "A montanha sai ao lado de {area:252}, cheia de orcs de nível 55-57. Siga a estrada para o leste pelos penhascos ao norte até o acampamento da Horda em {area:251}.",
 
-	-- Step 59: Sha'ni Proudtusk
+	-- Step 61: Sha'ni Proudtusk
 	-- {quest:3821} Dreadmaul Rock · {npc:9136} Sha'ni Proudtusk
 	["Follow the cliffs south to {quest:3821}, the Firegut ogres' hill. {npc:9136}'s remains lie at its foot."] = "Siga os penhascos para o sul até {quest:3821}, a colina dos ogros Pirobucho. Os restos de {npc:9136} estão no sopé.",
 
-	-- Step 60: Sha'ni Proudtusk
+	-- Step 62: Sha'ni Proudtusk
 	-- {quest:3822} Krom'Grul · {quest:3821} Dreadmaul Rock
 	["Only from level 53: her next errand is {quest:3822} (54), who walks the caves of {quest:3821} among ogres of 50-53."] = "Só a partir do nível 53: a próxima tarefa dela é {quest:3822} (54), que anda pelas cavernas de {quest:3821} entre ogros de nível 50-53.",
 
-	-- Step 61: Krom'Grul
+	-- Step 63: Krom'Grul
 	-- {quest:3822} Krom'Grul · {quest:3821} Dreadmaul Rock
 	["{quest:3822} walks the caves and mine tunnels of {quest:3821}; if he isn't home, clear the ogres around the entrances until he comes back."] = "{quest:3822} anda pelas cavernas e túneis de mina de {quest:3821}; se ele não estiver lá, limpe os ogros em volta das entradas até ele voltar.",
 
-	-- Step 62: Cyrus Therepentous
+	-- Step 64: Cyrus Therepentous
 	-- {quest:3821} Dreadmaul Rock · {zone:1428} Burning Steppes · {object:149502} Hoard of the Black Dragonflight · {zone:1427} Searing Gorge · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous
 	["Ride north-east from {quest:3821} to the small cave in the far east of the {zone:1428}. Open the {object:149502} from the {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight.\nCareful: Volchan (60, a rare fire elemental) roams the hills around {npc:9459}'s cave: if he is about, wait for him to pass."] = "",
 	-- {item:10575} Black Dragonflight Molt
@@ -301,7 +305,7 @@ return {
 	-- {npc:9459} Cyrus Therepentous · {area:1584} Blackrock Depths
 	["{npc:9459}' next errand is in {area:1584}: leave it."] = "",
 
-	-- Step 63: Ruins of Thaurissan: kill these as you meet them
+	-- Step 65: Ruins of Thaurissan: kill these as you meet them
 	-- {area:250} Ruins of Thaurissan
 	["{area:250}: kill these as you meet them"] = "{area:250}: vá matando estes pelo caminho",
 	-- {quest:4296} Tablet of the Seven · {area:251} Flame Crest · {npc:10267} Tinkee Steamboil · {item:12284} Draco-Incarcinatrix 900 · {npc:7040} Black Dragonspawn · {npc:7044} Black Drake
@@ -309,48 +313,48 @@ return {
 	-- was: ["Ride west to the dig site. The {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence.\nCareful: a {npc:7040} and a {npc:7044}, elites of 50-53, wander the same hills: pull the broodlings away from them, or bring a group."] = "Cavalgue para oeste até a escavação. As {quest:4296} ficam no meio dela, entre os anões de Thaurissan. Copie-as.\nOs Filhotes Negros fazem ninho nas colinas logo a leste de {area:251}. Use o {item:12284} de {npc:10267} num filhote quando ele estiver quase morto para capturar a essência.\nCuidado: um {npc:7040} e um {npc:7044}, elites de nível 50-53, vagam pelas mesmas colinas: afaste os filhotes deles ou leve um grupo."
 	["Ride west to the dig site. The {quest:4296} stands in its middle among the Thaurissan dwarves. Copy it.\nBlack Broodlings nest in the hills just east of {area:251}. Use {npc:10267}'s {item:12284} on a broodling when it is almost dead to capture its essence.\nCareful: a {npc:7040} and a {npc:7044}, elites of 50-53, wander the same hills, and Volchan (60, a rare fire elemental) roams them too: pull the broodlings away from them, or bring a group."] = "",
 
-	-- Step 64: Flame Crest
+	-- Step 66: Flame Crest
 	-- {area:251} Flame Crest
 	["Back north-east to {area:251}."] = "Volte para o nordeste até {area:251}.",
 	-- {npc:10267} Tinkee Steamboil · {quest:4808} Felnok Steelspring · {area:2255} Everlook · {zone:1452} Winterspring
 	["Keep {npc:10267}'s letter: {quest:4808} is in {area:2255}, {zone:1452}."] = "Guarde a carta de {npc:10267}: {quest:4808} fica em {area:2255}, {zone:1452}.",
 
-	-- Step 68: Warlord Goretooth
+	-- Step 70: Warlord Goretooth
 	-- {area:1584} Blackrock Depths · {npc:9077} Warlord Goretooth · {area:340} Kargath
 	["The Anvilrage dwarves of your {area:1584} run: {npc:9077}, in {area:340}."] = "Os anões Anvilrage da sua ida à masmorra {area:1584}: {npc:9077}, em {area:340}.",
 
-	-- Step 69: Fly to Undercity
+	-- Step 71: Fly to Undercity
 	-- {area:1497} Undercity
 	["Fly to {area:1497}"] = "Voe para {area:1497}",
 	-- {area:340} Kargath
 	["{area:340} flight master"] = "Mestre de voo de {area:340}",
 
-	-- Step 70: Harbinger Balthazad
+	-- Step 72: Harbinger Balthazad
 	-- {npc:10879} Harbinger Balthazad · {object:36078} Trade Quarter (no name in this language: may be words)
 	["{npc:10879}, the {object:36078}, beside the bat master"] = "{npc:10879}, {object:36078}, ao lado do mestre de voo",
 
-	-- Step 71: Oran Snakewrithe
+	-- Step 73: Oran Snakewrithe
 	-- {npc:7825} Oran Snakewrithe · {object:36082} Magic Quarter (no name in this language: may be words)
 	["{npc:7825} stands in the {object:36082}."] = "{npc:7825} fica no {object:36082}.",
 
-	-- Step 72: Undercity
+	-- Step 75: Undercity
 	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
 	["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "{npc:8390}, no Apothecarium: os frascos são enchidos em {zone:1447} depois",
 	-- {npc:5204} Apothecary Zinge
 	["{npc:5204}, near Cuely in the Apothecarium"] = "{npc:5204}, perto de Arnaldo no Apothecarium",
 
-	-- Step 74: The Bulwark
+	-- Step 77: The Bulwark
 	-- {zone:1458} Undercity · {zone:1420} Tirisfal Glades · {area:152} The Bulwark
 	["Leave the {zone:1458} and ride east along the road through {zone:1420} to the {area:152}, the Forsaken fort on the border."] = "Saia de {zone:1458} e siga para o leste pela estrada através de {zone:1420} até o {area:152}, o forte dos Renegados na fronteira.",
 	-- {object:176092} Box of Incendiaries · {quest:5096} Scarlet Diversions · {quest:5405} Argent Dawn Commission
 	["Take a {object:176092} from the crate next to Derrington for {quest:5096}, done on the way back. Equip the {quest:5405}: Scourgestones only drop while you wear it."] = "Pegue {object:176092} no caixote ao lado de Arcabuz para {quest:5096}, feita na volta. Equipe {quest:5405}: Pedras do Flagelo só caem enquanto você a usa.",
 
-	-- Step 75: Scarlet forward camp
+	-- Step 78: Scarlet forward camp
 	["Scarlet forward camp"] = "Acampamento avançado Escarlate",
 	-- {area:152} The Bulwark · {zone:1422} Western Plaguelands · {area:199} Felstone Field · {area:200} Dalson's Tears · {object:176092} Box of Incendiaries
 	["From the {area:152}, follow the road east into the {zone:1422}. The Scarlet Crusade's tents stand just past Felstone Farm, between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner. Careful: the Scarlets around the tents reach 54 and the Invokers cast: come in from the side nearest the command tent and leave the others be."] = "De {area:152}, siga a estrada para leste até {zone:1422}. As barracas da Cruzada Escarlate ficam logo depois da Fazenda Pedravil, entre {area:199} e {area:200}. Incendeie a barraca de comando com a {object:176092} e finque o estandarte do Flagelo. Cuidado: os Escarlates em volta das barracas chegam ao nível 54 e os Invocadores lançam feitiços: chegue pelo lado mais próximo da barraca de comando e deixe os outros em paz.",
 
-	-- Step 76: Janice Felstone
+	-- Step 79: Janice Felstone
 	-- {npc:10778} Janice Felstone
 	["Back a few steps west to Felstone Farm, the first farm along the road; {npc:10778} waits in the house."] = "Volte alguns passos para o oeste até a Fazenda Pedravil, a primeira fazenda ao longo da estrada; {npc:10778} espera na casa.",
 	["Upstairs"] = "No andar de cima",
@@ -425,6 +429,7 @@ return {
 	-- ["The doll's head and its two sides lie in the houses around {npc:10926}; join them from your bags."] = "A cabeça da boneca e suas duas metades estão nas casas em volta de {npc:10926}; junte-as pelas bolsas.",
 	-- ["The expedition's crate sits at an abandoned camp in the eastern jungle."] = "O caixote da expedição está num acampamento abandonado na selva a leste.",
 	-- ["The gorillas live on the north-east plateau. Stay out of the deepest cave: {npc:9622} lives there."] = "Os gorilas vivem no platô a nordeste. Fique fora da caverna mais funda: {npc:9622} mora lá.",
+	-- ["The hearth lands in {area:976}: {npc:11758} takes the {area:983} and Tran'rek Thistleshrub Valley, both done on the way into the crater."] = "A Pedra de Regresso leva você a {area:976}: {npc:11758} aceita {area:983} e o Vale Tran'rek Cardoarbusto, ambos feitos a caminho da cratera.",
 	-- ["The next guide starts here, at the chapel's flight master."] = "O próximo guia começa aqui, no mestre de voo da capela.",
 	-- ["The silithid hive fills the south of the crater. Gorishi wasps and workers drop the scent gland; use the Scraping Vial on the egg mass inside the first chamber. The Hive Queen at the bottom is an elite boss: stay out of her chamber. {npc:9166} nest on the cliffs above the hive; their scales are for {npc:9998}."] = "A colmeia silitídea ocupa o sul da cratera. Vespas Gorishi e Gorishi Trabalhadoras deixam cair a glândula odorífera; use o Frasco para Amostra Vazio na massa de ovos dentro da primeira câmara. A Rainha da Colmeia Gorishi, no fundo, é um chefe elite: fique fora da câmara dela. {npc:9166} fazem ninho nos penhascos acima da colmeia; as escamas são para {npc:9998}.",
 	-- ["The tar pits lie just south of the refuge. Tar Beasts, Lurkers and Creepers drop the {item:11834}."] = "Os poços de piche ficam logo ao sul do refúgio. Monstros, Tocaieiros e Rastejantes de Piche deixam cair {item:11834}.",

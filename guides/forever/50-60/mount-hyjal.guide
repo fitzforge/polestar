@@ -344,6 +344,13 @@ step Rabine Saturna
   turnin 6762                           -- Rabine Saturna
   accept 1124                           -- For Layo Starstrike in Silithus, on the next guide: keep it
 
+step Rabine Saturna
+  only Alliance
+  when available 1124
+  zone Moonglade
+  tip The letter from Darnassus is already with Rabine Saturna: take Wasteland from her, in her house in Nighthaven.
+  accept 1124                           -- For Layo Starstrike in Silithus, on the next guide: keep it
+
 step Fly to Everlook
   tip South to Moonglade's flight master (the Alliance's at the southern end of the valley, the Horde's at its south-western end) and fly to Everlook for Kaylaena's parts order.
   getfp "Moonglade" npc 10897 only Alliance  -- Sindrayl

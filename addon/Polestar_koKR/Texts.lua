@@ -4638,7 +4638,6 @@ t.guides["forever/horde/50-60/01-un-goro-crater"] = (function() return {
 		["The expedition's crate sits at an abandoned camp in the eastern jungle."] = "원정대의 상자는 동쪽 정글의 버려진 야영지에 있습니다.",
 		["The expedition's lost equipment lies in the south-west jungle."] = "원정대의 잃어버린 장비는 남서쪽 정글에 있습니다.",
 		["The gorillas live on the north-east plateau: {npc:9619} wants two pelts of each kind, and the Thunderers (52-53) are the biggest. Stay out of the deepest cave: {npc:9622} lives there."] = "고릴라는 북동쪽 고원에 삽니다. {npc:9619}은(는) 종류별로 가죽 2개씩을 원하며, 천둥고릴라(52-53)가 가장 셉니다. 가장 깊은 동굴에는 들어가지 마세요. {npc:9622}이(가) 삽니다.",
-		["The hearth lands in {area:976}: {npc:11758} takes the {area:983} and Tran'rek Thistleshrub Valley, both done on the way into the crater."] = "귀환석을 쓰면 {area:976}에 도착합니다. {npc:11758}에게 {area:983}와(과) 트랜렉 엉겅퀴덤불 골짜기 퀘스트를 받으세요. 둘 다 분화구로 가는 길에 완료합니다.",
 		["The mountain lets you out beside {area:252}, full of 55-57 orcs. Follow the road east along the northern cliffs to the Horde camp at {area:251}."] = "산을 나오면 55-57 오크로 가득한 {area:252} 옆입니다. 북쪽 절벽을 따라 동쪽 길로 {area:251}의 호드 야영지로 가세요.",
 		["The pylon stands on the slope east of the refuge."] = "수정탑은 야영지 동쪽 비탈에 있습니다.",
 		["The raft lies on the shore of the south-eastern lake; the small pack sits in the water beside it."] = "뗏목은 남동쪽 호숫가에 있고, 작은 배낭은 그 옆 물속에 있습니다.",

@@ -333,11 +333,20 @@ step To Gadgetzan
 
 # ---------------------------------------------------------------- Gadgetzan
 
+step Andi Lynn
+  zone Tanaris
+  when complete 5863
+  tip The hearth lands in Gadgetzan: Andi Lynn takes the Dunemaul Compound.
+  turnin 5863                         -- Andi Lynn
+
+step Tran'rek
+  zone Tanaris
+  when complete 3362
+  tip Tran'rek stands beside the wind rider master.
+  turnin 3362                         -- Tran'rek
+
 step Gadgetzan
   zone Tanaris
-  tip The hearth lands in Gadgetzan: Andi Lynn takes the Dunemaul Compound and Tran'rek Thistleshrub Valley, both done on the way into the crater.
-  turnin 5863                         -- Andi Lynn
-  turnin 3362                         -- Tran'rek
   turnin 4504                         -- Tran'rek
 
 step Gadgetzan
@@ -542,8 +551,12 @@ step Harbinger Balthazad
 step Oran Snakewrithe
   tip Oran stands in the Magic Quarter.
   turnin 2782
-  turnin 2995
   turnin 8273 direct
+
+step Oran Snakewrithe
+  when complete 2995
+  tip Oran stands in the Magic Quarter.
+  turnin 2995
 
 # ---------------------------------------------------------------- The Undercity and the Bulwark
 

@@ -314,6 +314,11 @@ step A Soggy Scroll
   turnin 624
   accept 625 optional                   -- for the Musty Scroll in Dustwallow Marsh, on the Dustwallow guide
 
+step A Soggy Scroll
+  when available 625
+  tip The scroll lies at the water's edge in the swamp's far west.
+  accept 625 optional                   -- for the Musty Scroll in Dustwallow Marsh, on the Dustwallow guide
+
 step Sawtooth crocolisks
   tip The crocolisks wallow in the pools around Galen's old camp, just north of Stonard, on the way back east; about one in four drops a flank.
   collect 6169 quest 698.1

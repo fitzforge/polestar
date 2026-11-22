@@ -49,6 +49,14 @@ step Clerk Daltry
   turnin 1042                         -- Jonathan Carevin
   accept 1043                         -- Jonathan Carevin: the evidence lies in the Tranquil Gardens Cemetery, on the next guide's way to the Swamp of Sorrows: keep it
 
+step Clerk Daltry
+  when available 1042
+  zone Duskwood
+  tip Clerk Daltry works in Darkshire's town hall; Jonathan Carevin stands just east of it.
+  accept 1042
+  turnin 1042                         -- Jonathan Carevin
+  accept 1043                         -- Jonathan Carevin: the evidence lies in the Tranquil Gardens Cemetery, on the next guide's way to the Swamp of Sorrows: keep it
+
 step Stranglethorn Vale
   zone Stranglethorn Vale
   goto 40.8,4.2 "Into Stranglethorn Vale"
@@ -71,6 +79,11 @@ step Bookie Herod
   when onquest 200
   tip East to Kurzen's Compound: Herod's records lie in a hut on its west side.
   turnin 200                          -- Bookie Herod's Records, upstairs
+  accept 328
+
+step Bookie Herod
+  when available 328
+  tip Herod's records lie in a hut on the west side of Kurzen's Compound: take The Hidden Key there.
   accept 328
 
 step Kurzen's Compound

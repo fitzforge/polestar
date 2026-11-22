@@ -93,6 +93,12 @@ step Apothecary Zamah
   turnin 1067                         -- Apothecary Zamah
   accept 1086                         -- Apothecary Zamah: the Toxic Fogger goes on the Venture Co. Copter Pad at Windshear Crag, on this guide's Windshear trip
 
+step Apothecary Zamah
+  zone Thunder Bluff
+  when available 1086
+  tip The toxin is already with Apothecary Zamah: take The Flying Machine Airport from her in the Pools of Vision, under Spirit Rise.
+  accept 1086                         -- Apothecary Zamah: the Toxic Fogger goes on the Venture Co. Copter Pad at Windshear Crag, on this guide's Windshear trip
+
 step Thunder Bluff
   zone Thunder Bluff
   when !onquest 97538
@@ -136,8 +142,13 @@ step The Barrens
 step Brine
   zone The Barrens
   only Shaman
+  when complete 1536
   tip Brine's hut stands on the ridge above the quilboar watering hole, south of Camp Taurajo, on the way to Bael Modan.
   turnin 1536                         -- Brine: the red waterskin from Tarren Mill
+
+step Brine
+  zone The Barrens
+  only Shaman
   accept 1534                         -- Brine: the blue waterskin is filled in Ashenvale, next guide
 
 step Gann Stonespire
@@ -236,6 +247,11 @@ step Sputtervalve
   when onquest 1094
   tip Sputtervalve stands beside the flight master you land at. His new orders go back to Ziz Fizziks on the Webwinder Path, later in this guide.
   turnin 1094                         -- Sputtervalve: Further Instructions, from Ziz Fizziks
+  accept 1095                         -- Sputtervalve: for Ziz Fizziks, on the way up the Webwinder Path
+
+step Sputtervalve
+  when available 1095
+  tip Sputtervalve stands beside the flight master. His new orders go back to Ziz Fizziks on the Webwinder Path, later in this guide.
   accept 1095                         -- Sputtervalve: for Ziz Fizziks, on the way up the Webwinder Path
 
 step Mebok Mizzyrix

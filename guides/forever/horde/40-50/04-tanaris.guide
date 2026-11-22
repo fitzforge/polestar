@@ -195,7 +195,10 @@ step Tooga's escort
 
 step Steamwheedle Port
   turnin 1560                           -- Torta, Steamwheedle Port
-  turnin 3520                           -- Yeh'kinya
+
+step Yeh'kinya
+  when complete 3520
+  turnin 3520                           -- Yeh'kinya, Steamwheedle Port
 
 step Slake That Thirst
   tip Careful: Shadow Mages (level 42-43) call a Voidwalker while out of combat and attack with Immolate and Shadow Bolt. Thieves can Disarm you, Rogues move around in Sneak, and Assassins use Execute once you are at 20% health or less.

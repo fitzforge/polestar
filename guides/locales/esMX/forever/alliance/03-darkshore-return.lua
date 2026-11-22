@@ -165,13 +165,17 @@ return {
 	-- {npc:11802} Dendrite Starblaze · {quest:5061} Aquatic Form · {npc:4217} Mathrengyl Bearwalker
 	["{npc:11802}: {quest:5061}, for {npc:4217}"] = "{npc:11802}: {quest:5061}, para {npc:4217}",
 
-	-- Step 32: Back to Dendrite Starblaze
+	-- Step 32: Dendrite Starblaze
+	-- {item:15885} Pendant of the Sea Lion · {npc:11802} Dendrite Starblaze · {quest:5061} Aquatic Form
+	["The {item:15885} is already with {npc:11802}: take {quest:5061} from him, upstairs in his building."] = "",
+
+	-- Step 33: Back to Dendrite Starblaze
 	-- {npc:11802} Dendrite Starblaze
 	["Back to {npc:11802}"] = "Regresa con {npc:11802}",
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {npc:11800} Silva Fil'naveth · {area:702} Rut'theran Village
 	["Back to {npc:11802} in {area:2361}, then {npc:11800} there flies Druids straight to {area:702}. {npc:11802} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "De vuelta con {npc:11802} en {area:2361}; luego {npc:11800}, allí mismo, lleva a los druidas directo a {area:702}. {npc:11802} está en el piso de arriba de su edificio: sube por adentro, la flecha no distingue los pisos.",
 
-	-- Step 35: To Darnassus
+	-- Step 36: To Darnassus
 	-- {npc:4217} Mathrengyl Bearwalker · {area:442} Auberdine · {zone:1440} Ashenvale
 	["Take the portal up to {npc:4217}, then fly back to {area:442} for the road south to {zone:1440}. {npc:4217} is a Druid trainer: learn your new spells from him."] = "Toma el portal de subida hasta {npc:4217}, luego vuela de vuelta a {area:442} para el camino al sur hacia {zone:1440}. {npc:4217} es instructor de druidas: aprende con él tus nuevos hechizos.",
 

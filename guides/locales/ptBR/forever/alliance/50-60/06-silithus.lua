@@ -35,7 +35,7 @@ return {
 	-- {npc:13220} Layo Starstrike · {area:3077} Valor's Rest
 	["{npc:13220} stands at {area:3077}, where the pass comes out."] = "",
 
-	-- Step 8: Cenarion Hold
+	-- Step 9: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
 	["Ride on west to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Siga adiante para oeste até {area:3425}. {npc:15189} fica no andar de cima do prédio dele: suba por dentro, a seta não diferencia os andares.",
 	-- {npc:17082} Rifleman Torrig · {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora
@@ -45,26 +45,26 @@ return {
 	-- {npc:15306} Bor Wildmane
 	["{npc:15306}: his Twilight texts come from the dig"] = "",
 
-	-- Step 9: Silithus: kill these as you meet them
+	-- Step 10: Silithus: kill these as you meet them
 	-- {zone:1451} Silithus
 	["{zone:1451}: kill these as you meet them"] = "{zone:1451}: vá matando estes pelo caminho",
 	-- {npc:15185} Brood of Nozdormu
 	-- plural, as words: Dredge Strikers = {npc:11740} Dredge Striker · Stonelash Scorpids = {npc:11735} Stonelash Scorpid · Sand Skitterers = {npc:11738} Sand Skitterer
 	["Dredge Strikers dig in the dunes north-west of the hold; Stonelash Scorpids and Sand Skitterers roam all around.\nCareful: {npc:15185} (62, elite) guard the Caverns of Time's mouth in the south-west, around 21,82: stay out of there."] = "",
 
-	-- Step 10: Cenarion Hold
+	-- Step 11: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
 	["Back to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:15189} Beetix Ficklespragg
 	["{npc:15189}, upstairs"] = "{npc:15189}, no andar de cima",
 
-	-- Step 11: Silithus: kill these as you meet them
+	-- Step 12: Silithus: kill these as you meet them
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher · Stonelash Pincers = {npc:11736} Stonelash Pincer · Rock Stalkers = {npc:11739} Rock Stalker
 	["From the hold, west into the sands: Dredge Crushers dig there; Stonelash Pincers, Flayers and Rock Stalkers hunt the same sands."] = "Do forte, siga para o oeste pelas areias: os Dragasmagas cavam ali; Tenazes Petraçoites, Esfoladores e Espreitadoras de Rocha caçam nas mesmas areias.",
 	-- {npc:11741} Dredge Crusher
 	["{npc:11741} walks around here: look inside the circle on the map"] = "{npc:11741} anda por aqui: procure dentro do círculo no mapa",
 
-	-- Step 12: Cenarion Hold
+	-- Step 13: Cenarion Hold
 	-- {npc:15189} Beetix Ficklespragg
 	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189} fica no andar de cima do prédio dele: suba por dentro, a seta não diferencia os andares.",
 	-- {npc:15190} Noggle Ficklespragg · {npc:15189} Beetix Ficklespragg
@@ -72,7 +72,7 @@ return {
 	-- {npc:15181} Commander Mar'alith
 	["{npc:15181} (from level 58): Bronzebeard's Encampment comes later, on the way south"] = "",
 
-	-- Step 13: Hive'Ashi: kill these as you meet them
+	-- Step 14: Hive'Ashi: kill these as you meet them
 	-- {area:2742} Hive'Ashi
 	["{area:2742}: kill these as you meet them"] = "{area:2742}: vá matando estes pelo caminho",
 	-- {item:20404} Encrypted Twilight Text · {npc:15306} Bor Wildmane · {npc:15194} Hermit Ortell · {area:2742} Hive'Ashi · {quest:8308} Brann Bronzebeard's Lost Letter
@@ -85,65 +85,65 @@ return {
 	-- {quest:8323} True Believers
 	["Ten more for {quest:8323}"] = "Mais dez para {quest:8323}",
 
-	-- Step 14: Hive'Zora
+	-- Step 15: Hive'Zora
 	-- {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora · {spell:642} Divine Shield · {spell:5384} Feign Death · {spell:17} Power Word: Shield
 	["{npc:17080} camps outside {area:2743}, the western hive. Pick up a Silithyst at one of the red geysers nearby and carry it to the Alliance extractor at his camp.\nCareful: You lose the Silithyst if you mount, stealth, use {spell:642}, {spell:5384} or Vanish. Blink and {spell:17} do not drop it."] = "{npc:17080} acampa do lado de fora de {area:2743}, a colmeia do oeste. Pegue um Silitista num dos gêiseres vermelhos ali perto e leve até o extrator da Aliança no acampamento dele.\nCuidado: você perde o Silitista se montar, ficar furtivo, usar {spell:642}, {spell:5384} ou Sumir. Lampejo e {spell:17} não derrubam.",
 	["Bring a Silithyst to the Alliance extractor"] = "",
 
-	-- Step 16: Southwind Village
+	-- Step 17: Southwind Village
 	["The tortured druids and sentinels haunt the ruined village east of the hold."] = "",
 
-	-- Step 17: Layo Starstrike
+	-- Step 18: Layo Starstrike
 	-- {npc:13220} Layo Starstrike · {area:3077} Valor's Rest
 	["Ride north-east to {npc:13220} at {area:3077}."] = "",
 
-	-- Step 18: The Hive'Ashi tower
+	-- Step 19: The Hive'Ashi tower
 	-- {area:2742} Hive'Ashi
 	["The {area:2742} tower"] = "A torre de {area:2742}",
 	-- {area:2742} Hive'Ashi · {area:2738} Southwind Village
 	["Ride back south-west to the {area:2742} tower in {area:2738}; climb it and kill the ambushers that rise for the encrusted object."] = "Volte para o sudoeste até a torre de {area:2742} em {area:2738}; suba nela e mate os emboscadores que surgem pelo objeto incrustado.",
 
-	-- Step 19: Layo Starstrike
+	-- Step 20: Layo Starstrike
 	-- {npc:13220} Layo Starstrike · {zone:1450} Moonglade
 	["{npc:13220}'s next task goes to {zone:1450}: skip it."] = "",
 
-	-- Step 20: Hermit Ortell
+	-- Step 21: Hermit Ortell
 	-- {area:2738} Southwind Village
 	["The hermit hides among the rocks south-east of {area:2738}."] = "O eremita se esconde entre as rochas a sudeste de {area:2738}.",
 	["Below ground"] = "No subterrâneo",
 
-	-- Step 21: Bronzebeard's Encampment
+	-- Step 22: Bronzebeard's Encampment
 	["Bronzebeard's Encampment"] = "Acampamento Barbabronze",
 	-- {npc:15171} Frankal Stonebridge · {npc:15170} Rutgar Glyphshaper · {npc:15190} Noggle Ficklespragg
 	["Ride south-west to the dwarves' camp near the southern mountains and question {npc:15171} and {npc:15170}. {npc:15190}'s satchel lies in the sand south-east of the camp, where Deathclasp, an elite scorpid, patrols: grab it while he is away."] = "Siga para o sudoeste até o acampamento dos anões perto das montanhas do sul e interrogue {npc:15171} e {npc:15170}. A Algibeira do {npc:15190} está na areia a sudeste do acampamento, onde Agarramata, um escorpídeo de elite, patrulha: pegue-a enquanto ele estiver longe.",
 
-	-- Step 22: Brann Bronzebeard's Lost Letter
+	-- Step 23: Brann Bronzebeard's Lost Letter
 	-- {area:2742} Hive'Ashi · {npc:15170} Rutgar Glyphshaper
 	["From a {area:2742} silithid: for {npc:15170} at Bronzebeard's Encampment"] = "",
 
-	-- Step 24: The Twilight Post
+	-- Step 25: The Twilight Post
 	-- {area:3098} Twilight Post
 	["The {area:3098}"] = "{area:3098}",
 	-- {npc:11803} Twilight Keeper Exeter
 	-- was: ["Careful: the Twilight Keepers are level 60, a level or two over you: clear the cultists around each one first and fight the keeper at full health.\n{npc:11803} holds the cultists' camp in the far south-west."] = "Cuidado: os Guardiões do Crepúsculo são nível 60, um ou dois níveis acima de você: limpe os sectários em volta de cada um primeiro e enfrente o guardião com a vida cheia.\n{npc:11803} ocupa o acampamento dos sectários no extremo sudoeste."
 	["Careful: the Twilight Keepers are level 60: clear the cultists around each one first and fight the keeper at full health.\n{npc:11803} holds the cultists' camp in the far south-west."] = "",
 
-	-- Step 25: Twilight Keeper Mayna
+	-- Step 26: Twilight Keeper Mayna
 	["Ride north along the west side to Mayna's small camp.\nCareful: Mayna is level 60: clear her camp first and fight her at full health."] = "Siga para o norte pelo lado oeste até o pequeno acampamento de Mayna.\nCuidado: Mayna é nível 60: limpe o acampamento dela primeiro e enfrente-a com a vida cheia.",
 
-	-- Step 26: Twilight Keeper Havunth
+	-- Step 27: Twilight Keeper Havunth
 	-- {area:3425} Cenarion Hold
 	["Havunth's camp sits just west of {area:3425}.\nCareful: Havunth is level 60: clear his camp first and fight him at full health."] = "O acampamento de Havunth fica logo a oeste de {area:3425}.\nCuidado: Havunth é nível 60: limpe o acampamento dele primeiro e enfrente-o com a vida cheia.",
 
-	-- Step 27: Hermit Ortell
+	-- Step 28: Hermit Ortell
 	["Ride back south-east to the hermit."] = "Volte para o sudeste até o eremita.",
 	["Hand him the ten texts you kept"] = "Entregue a ele os dez textos que você guardou",
 
-	-- Step 28: Cenarion Hold
+	-- Step 29: Cenarion Hold
 	-- {npc:15190} Noggle Ficklespragg
 	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15190} fica no andar de cima do prédio dele: suba por dentro, a seta não diferencia os andares.",
 
-	-- Step 29: Level 60
+	-- Step 30: Level 60
 	["Level 60"] = "Nível 60",
 	-- {area:3425} Cenarion Hold · {area:2057} Scholomance · {area:2279} Stratholme · {area:3197} Chillwind Camp · {area:2268} Light's Hope Chapel · {zone:1451} Silithus
 	-- plural, as words: Twilight Avengers = {npc:11880} Twilight Avenger · Stonelash Flayers = {npc:11737} Stonelash Flayer · Rock Stalkers = {npc:11739} Rock Stalker

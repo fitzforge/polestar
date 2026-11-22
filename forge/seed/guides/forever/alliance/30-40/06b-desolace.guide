@@ -112,7 +112,11 @@ step Hornizz Brimbuzzle
   turnin 6134                         -- Hornizz Brimbuzzle
 
 step Azore Aldamort
+  when complete 5741
+  tip Azore's tower stands on the hill at the ruins of Ethel Rethor, west across the north of Desolace.
   turnin 5741                         -- Azore Aldamort, if the first Desolace visit didn't take the sceptre back to him
+
+step Azore Aldamort
   turnin 93464                        -- Azore Aldamort: The Visiting Mage, from Magtoor in the Swamp of Sorrows
   tip Follow the road west across the north of Desolace to the ruins of Ethel Rethor. Azore's tower stands on the hill there, on the way to the wreck.
   accept 6027                         -- Azore Aldamort, if the first Desolace visit didn't give it

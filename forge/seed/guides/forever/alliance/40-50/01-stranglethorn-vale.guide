@@ -497,6 +497,7 @@ step Stormwind
 
 step Count Remington Ridgewell
   when group 543
+  when complete 543
   turnin 543
 
 step Paladin: The Tome of Nobility

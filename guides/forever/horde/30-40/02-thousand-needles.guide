@@ -248,6 +248,12 @@ step Moktar Krin
   turnin 1146                         -- Moktar Krin
   accept 1147
 
+step Moktar Krin
+  when available 1147
+  zone Thousand Needles
+  tip The Swarm Grows' second part is already handed in: take the third part from Moktar Krin, on the north-western edge of the salt flats.
+  accept 1147
+
 step Mirage Raceway
   zone Thousand Needles
   tip The goblins and gnomes of the Mirage Raceway are neutral and give quests to both factions.

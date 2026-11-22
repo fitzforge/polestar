@@ -58,6 +58,12 @@ step Layo Starstrike
   turnin 1124
   accept 1125
 
+step Layo Starstrike
+  zone Silithus
+  when available 1125
+  tip Layo Starstrike stands at Valor's Rest, where the pass comes out.
+  accept 1125
+
 step Silithus
   zone Silithus
   goto 51.6,38.6 "Cenarion Hold"

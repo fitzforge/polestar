@@ -44,6 +44,11 @@ step Gaeriyan
   turnin 3912
   accept 3913
 
+step Gaeriyan
+  when available 3913
+  tip Gaeriyan has already met you: drink the Videre Elixir at the graveyard just east of Gadgetzan and find him, as a ghost, in the rocky crevice due north of it.
+  accept 3913
+
 step Sprinkle
   tip Use Umi's Mechanical Yeti on Sprinkle, the goblin girl in Gadgetzan. Quixxil and Legacki are scared later in the route.
   kill 7583 quest 5163.2 "Scare Sprinkle with Umi's Mechanical Yeti"
@@ -54,6 +59,11 @@ step Alchemist Pestlezugg
   zone Tanaris
   turnin 4494                         -- Inside: March of the Silithid, if you took it in Orgrimmar on the Azshara guide
   accept 4496
+
+step Alchemist Pestlezugg
+  when available 4496
+  zone Tanaris
+  accept 4496                         -- Inside
 
 step Alchemist Pestlezugg
   when available 4507
@@ -68,6 +78,7 @@ step Gaeriyan
   note Linken's Sword goes back to Linken in Un'Goro: keep it.
 
 step Marvon Rivetseeker
+  when complete 3444
   tip Marvon camps by the Lost Rigger Cove road, south of Gadgetzan.
   turnin 3444
 

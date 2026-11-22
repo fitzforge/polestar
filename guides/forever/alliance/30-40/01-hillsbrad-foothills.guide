@@ -205,6 +205,12 @@ step Prospector Whelgar
   turnin 95810                        -- Prospector Whelgar, below ground
   accept 98824                        -- Prospector Whelgar: for High Explorer Magellas in Ironforge, at the end of this guide
 
+step Prospector Whelgar
+  when dungeon "Excavation Site: Wetlands"
+  when available 98824
+  tip The Titan Relic is already with Prospector Whelgar: take Prehistoric Prism from him, below ground in his dig, south of the road west.
+  accept 98824                        -- Prospector Whelgar: for High Explorer Magellas in Ironforge, at the end of this guide
+
 step Menethil Harbor
   when onquest 98223
   tip West along the road to Menethil.
