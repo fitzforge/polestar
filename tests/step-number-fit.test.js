@@ -67,3 +67,28 @@ test('at the largest Up next size the column grows to the glyph, and only what s
 	assert.equal(out.back.size, out.two.size, 'two digits again: the full size');
 	assert.equal(out.back.w, out.two.w, 'two digits again: the same column');
 });
+
+test('at the large Up next sizes the smaller size is the same on every render, and the fit never shares the window\'s height-fit table', () => {
+	for (const size of [1.75, 1.8]) {
+		const out = runAddon({
+			stubs: ['stub_world.lua'],
+			addons: ['Polestar'],
+			script: `${GUIDE}
+Polestar.Set("guideWindow.upSize", ${size})
+local r = goto(119)
+local sizes, fits = {}, true
+for i = 1, 6 do
+	GF.Render(); GF.Layout(); stub.advance(0.2)
+	local _, s = r.Num:GetFont()
+	sizes[i] = s
+	if r.Num:GetUnboundedStringWidth() > r.Num:GetWidth() then fits = false end
+end
+local stray = false
+for k in pairs(GF.fit or {}) do if type(k) == "table" then stray = true end end
+emit({ sizes = sizes, fits = fits, stray = stray })`,
+		}).emitted[0];
+		assert.equal(new Set(out.sizes).size, 1, `${size}: one size on every render: ${JSON.stringify(out.sizes)}`);
+		assert.equal(out.fits, true, `${size}: the number fits its column on every render`);
+		assert.equal(out.stray, false, `${size}: no font string keys in GF.fit`);
+	}
+});
