@@ -53,8 +53,9 @@ return {
 
 	-- Step 8: A hundred paces north
 	["A hundred paces north"] = "Hundert Schritte nach Norden",
-	-- {object:424012} Mound of Dirt
-	["Walk north through the camp and drop carefully down the steep slope to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up."] = "Geh durch das Lager nach Norden und lass dich vorsichtig den steilen Hang hinab zum {object:424012} auf dem Vorsprung darunter. Ein verfehlter Sprung lässt dich nur hinunterrutschen: Halte dich an der Klippe und geh wieder hinauf.",
+	-- {object:424005} Pocket Litter · {object:424012} Mound of Dirt
+	["From the {object:424005} walk to the camp's western edge, where the arrow points first, and drop carefully down the steep slope north to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up."] = "",
+	["The drop to the ledge"] = "",
 
 	-- Step 9: Tarren Mill on the way
 	-- {area:272} Tarren Mill
@@ -90,4 +91,5 @@ return {
 	-- ["Round {area:1702}"] = "Um {area:1702} herum",
 	-- ["The next hideout is a small camp in the hills of eastern Stonetalon. Leave the road where a path climbs into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "Das nächste Versteck ist ein kleines Lager in den Hügeln im Osten des Steinkrallengebirges. Verlasse die Straße dort, wo ein Pfad in die Hügel steigt, und folge ihm zum Lager; {object:424005} liegt auf einer Kiste neben dem Zelt.",
 	-- ["The road west runs through {area:1702}, a Horde post; this way goes round it."] = "Die Straße nach Westen führt durch {area:1702}, einen Posten der Horde; dieser Weg führt darum herum.",
+	-- ["Walk north through the camp and drop carefully down the steep slope to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up."] = "Geh durch das Lager nach Norden und lass dich vorsichtig den steilen Hang hinab zum {object:424012} auf dem Vorsprung darunter. Ein verfehlter Sprung lässt dich nur hinunterrutschen: Halte dich an der Klippe und geh wieder hinauf.",
 }

@@ -262,7 +262,7 @@ return {
 
 	-- Step 58: Jom-jom's Escape
 	-- {npc:258048} Jom-jom · {npc:256728} Na'zok · {area:16726} Bolder'ok
-	["{npc:258048} waits by the Twilight ogres' camp north-east of {npc:256728}: take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "{npc:258048}이(가) {npc:256728} 북동쪽 황혼의 오우거 야영지 옆에서 기다리고 있습니다. 그를 {area:16726}까지 데려가며 사교도들로부터 지켜 주세요. 그가 쓰러지면 다시 퀘스트를 받으세요.",
+	["{npc:258048} waits at the back of the cave by the Twilight ogres' camp north-east of {npc:256728}: go all the way in to find him, then take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "",
 	-- {npc:258048} Jom-jom
 	["{npc:258048}, in the cave"] = "",
 	-- {npc:258048} Jom-jom · {area:16726} Bolder'ok
@@ -492,5 +492,6 @@ return {
 	-- ["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, hides in the middle of the town."] = "로그마르 서쪽에서 황혼의 망치단이 농장 마을 {area:16723}을(를) 장악하고 있습니다. 빠져나가고 싶어 하는 코볼트 {npc:259158}이(가) 마을 한가운데 숨어 있습니다.",
 	-- ["the {object:707249} poster"] = "{object:707249} 벽보",
 	-- ["{npc:257062} offers the last two once Gobam's errands are done (players' recordings), which this guide leaves out. They are level 44 and 45: leave them for later if {npc:258626} was a close fight."] = "고밤의 심부름을 마치면 {npc:257062}이(가) 마지막 두 퀘스트를 주지만(플레이어 기록 기준), 이 가이드에서는 다루지 않습니다. 44레벨과 45레벨이니 {npc:258626}와의 싸움이 아슬아슬했다면 나중으로 미루세요.",
+	-- ["{npc:258048} waits by the Twilight ogres' camp north-east of {npc:256728}: take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "{npc:258048}이(가) {npc:256728} 북동쪽 황혼의 오우거 야영지 옆에서 기다리고 있습니다. 그를 {area:16726}까지 데려가며 사교도들로부터 지켜 주세요. 그가 쓰러지면 다시 퀘스트를 받으세요.",
 	-- ["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "민물 악어에게 {npc:263190}의 창 사용",
 }

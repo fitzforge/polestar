@@ -252,7 +252,14 @@ changed step's goals come from `ns.LegacySteps` (Core/LegacySteps.lua,
 written by `tools/legacy-steps.js` from earlier releases' guides), so a
 check-off goes to the goal with the same verb and quest (or item, landing),
 a skip and the saved view to the step sharing most of its quest goals
-(`Own.remap`, `Own.legacyMaps`). `shapeVersions` holds the pack version a
+(`Own.remap`, `Own.legacyMaps`). The save's keys are those of the steps as
+planned for the character (the feeder plan's left-out quests taken out of
+them), the list's and the guide's those of the steps as released: a saved
+step neither has is read as a released step (the guide's own, or a listed
+one) with every goal of some of its quests taken out, quests no step the
+save shares with them has (`Own.plannedSteps`, hashing each released step's
+versions; #3440: read as unknown, they held 0.4.1.1 players up to 88 steps
+back). `shapeVersions` holds the pack version a
 guide's shape was saved with, `ownShapes` the shape of the guide as
 registered (never as planned for the character) then.
 An update never moves a player back (#1353 upgrade): when a guide's shape
@@ -303,11 +310,18 @@ passed in the new steps of the stretch it became (`Own.carryGone`). A save
 from before `ownShapes` existed counts a version change as an update of each
 of its guides once, as before, and keeps its passes.
 A saved tab of a leveling guide that kept fewer than half of those steps
-(`Own.reworked`: an update reused the id for another part of the route, as
+(`Own.reworked`, a step planned from one the guide still has counting as
+kept: an update reused the id for another part of the route, as
 0.3.5 did for Horde 04-06, #1328) moves, at the first `QUEST_LOG_UPDATE`
 after it comes back, to the pack's leveling guide with the most quests of
 the log to work on (`Guides.FollowLog`; never one open already), and chat
-says so.
+says so, naming the guide by its title in the save's release
+(`titles` in LegacySteps.lua, by `shapeVersions`). Moved or not, such a tab
+notes no update (`Own.noteAdded`: nearly all of it would pass) and opens
+where the log puts the player (`Own.logPlaced`, `Own.noteMovedBehind`): the
+last step with progress on a quest of the log (a quest an earlier release
+offered in another guide counting), else the first with work of one; its
+steps before pass as an update's new steps do.
 
 ### Profiles
 
@@ -2304,12 +2318,12 @@ Polestar.Engine.StepHiddenFor(step, who?) -> bool  -- no step of its own for who
   guide's `levels` start at most `HERE_ABOVE` (2) over the character
   (`Guides.Levels` for their faction; `NEXT_MAX` (8) guides at most).
   Auto-accept takes the first such guide's accept at the NPC
-  (`Own.laterWants`) and says so in chat ("Took <quest> now: <guide> does it
-  later, so this saves a trip back.", Automation through
+  (`Own.laterWants`) and says so in chat ("Took <quest> now for <guide>,
+  later on your route: this saves a trip back.", Automation through
   `Engine.LaterAcceptGuide`; the loaded guide's accepts stay silent), and the
   line shows it at its giver (`Own.hereNext`, step `Own.NEXT_STEP`, after the
-  loaded guide's lines, its sub-line "Saves a trip back: <guide> does it
-  later."), under the same guards read in that guide
+  loaded guide's lines, its sub-line "For <guide>, later on your route."),
+  under the same guards read in that guide
   (`Own.laterOk` through `Own.inGuide`, which runs a check with that guide
   as the loaded one: its steps for the character, skips, `when`), never a
   timed quest, and not one an `abandon` drops on the way there (the loaded
@@ -3582,9 +3596,11 @@ route choice, the catch-up takes the option with the most quest work done
 no tab open at login (`behavior.autoSelectGuide`), a character who did quests
 in their race's first guide (`Guides.FirstGuide()`: the suggestion at level
 1) starts there and goes through the guides to where they are; one with
-nothing done there gets `Guides.Suggest()`, as before. `GUIDE_PLACED(guideId,
-step, passed)` fires for the active tab once placement of a guide just
-opened ends, with the guides passed whole.
+nothing done there gets `Guides.Suggest()`, as before; a character at the
+level cap (`Levels.MAX_LEVEL`) gets no tab, and Start guide opens one when
+they want it (#3395). `GUIDE_PLACED(guideId, step, passed)` fires for the
+active tab once placement of a guide just opened ends, with the guides
+passed whole.
 
 **Every step** (`Own.everyStep`): any guide but a leveling one (category
 `Leveling` or none) does every step: no grey quest is left out and nothing
@@ -5347,9 +5363,14 @@ in flight and drops the path; more than 25 yd off the path asks again, unless
 the aim is in sight as above (at
 most every 2 s, every 10 s while more than 2,000 yd of the walk are left:
 each ask searches the whole walk; the old path kept meanwhile); a failed search (`nodata`,
-`outside`, `offmesh`, `unreachable`, `error`, `Path.Available(map)` false,
-or `Find` raising) is asked again only after 15 s and 25 yd. Nothing is
-asked for in combat (the engine's own queue waits out combat as well).
+`outside`, `offmesh`, `unreachable`, `no safe walking route`, `error`, `Path.Available(map)` false,
+or `Find` raising) is asked again after 15 s once the player stands 5 yd (the router's arrival distance) from
+where it was asked; a `no safe walking route` that no policy gave (no `blockedReason`: the router's departure
+rule, a line it could not check) is asked again once 2 s later, moved or not (#3448). Meanwhile, as before 0.4.2 (#3409, Fitz's ruling), the arrow points straight at the goal
+(`Nav.noWalk`: a start off the walking map, no maps there, a capital's floor out of reach, a corpse run's checked
+detour without its walk) and says why under its label ("The last steps here aren't mapped"); its line is drawn
+straight (`Nav.CanDrawGroundApproach`). 0.4.2 drew nothing and asked again only 25 yd away. While its answer is still to
+come it gives neither. Nothing is asked for in combat (the engine's own queue waits out combat as well).
 The walk to the target's own point carries the target's height: the Engine
 waypoint's `z` (a guide goal at an NPC or object, Guide data), which
 `Nav.GetTargetWorld()` returns fourth (a target set with `Nav.SetTarget` has
@@ -5703,7 +5724,13 @@ leg to its paired landing ("Ride the elevator up" boarded at the bottom,
 "Ride the elevator down" at the top), timed and captioned by
 `Transit.NextDeparture`/`Caption("lift", ...)` (30 s without); within 30 yd
 of the landing the walk's label already reads as the ride; other steps
-carry no wait (K3). The names in the captions are the client's, in its
+carry no wait (K3). With the client's height, the ride is shown only on the
+boarding deck and is over once that height is seen off the receiving deck
+30 yd from it; with none (Forever's `UnitPosition` gives 0, read as none:
+every 0.4.2 report says "height zero"), the deck can't be observed, so the
+ride is shown within 30 yd of the boarding landing on the map and is over 30
+yd from it, as in 0.4.1.1 (Main, 2026-11-21). The names in the captions are
+the client's, in its
 language: each chokepoint carries the AreaTable ids of its name, zone and
 sides (`area`, `zoneArea`, read with `Names.Area`) and a lift its
 GameObject (`liftObject`, the names pack's object name, else the Transit
@@ -5712,7 +5739,10 @@ The pieces' seconds are whole seconds of the path at run
 speed that add up exactly to the walk (K6), and every piece keeps `parent`
 (the whole walk), `seg` (the path segment its end lies on) and `tail` (path
 yards after it): the arrow keeps following the one path to the whole walk's
-end and moves to the next piece within its radius or once past its segment.
+end and moves to the next piece within its radius or once past its segment;
+standing within 5 yd of the whole walk's end on its floor (arrived another
+way: a login or a teleport there), every piece is passed, so the goto there
+completes (Brill's inn cellar).
 The split runs once per path (`Travel.SplitWalk`, `ROUTE_CHANGED`) and again
 after a fresh plan of the same walk from the path already in, so the steps
 stay the same as the player walks (K2). A walk with no stops on its path
@@ -5747,7 +5777,9 @@ walk stays inside one zone; between zones it goes only through
   dungeon approach). Only the mouth (and with `open = "both"` the last node)
   links to its zone; the other nodes link only to their chain neighbours. A
   start or target within max(2 x radius, 30) yd of such a node is inside the
-  chain and attaches only to the nearest node and its neighbours, so routes
+  chain and attaches only to the nearest node and its neighbours (and to the
+  same node of each chain sharing it: branches that share their way in, so a
+  walk to a sibling branch goes on down, never out and in again, #3449), so routes
   enter at the mouth and leave the way they came ("Follow the path out", or the
   node's `back` caption). A node may carry its floor's height (`z`): a start
   (with the player's floor, `Walk.Floor`, known and within 20 yd of it) or a
@@ -5773,7 +5805,19 @@ walk stays inside one zone; between zones it goes only through
   (`banethil-barrow-den`, `-east`, `-lower`, #1341), one chain per branch
   sharing the way in, each node with its floor's height, so a player at a
   relic or at Oben Rageclaw is routed back to the mouth, never through the
-  rock, and one on the hill above is not held by them;
+  rock, and one on the hill above is not held by them. A start inside a
+  chain on the arrow's live walk to the target (`Walk.LiveLeft`) walks on by
+  it alone; otherwise it is also measured by the walking engine (keeping the
+  player's last measure until the next) and that walk to the target (where
+  the walking maps do join the inside, as Ban'ethil's do now) is offered
+  beside the chain's way: a chest off every chain is walked to through the
+  den, not out by the chain and back in by the walk (#3449). With no height
+  from the client (Forever's `UnitPosition` gives 0, read as none) a chain
+  node is reached within 5 yd on the map, whatever floor is followed, and
+  its floor becomes the followed one (`Walk.AtNode`): the chains lie where
+  the walking maps fail, and at Ban'ethil's mouth the followed floor fell to
+  the hall 26 yd under it, so the mouth never counted and the arrow circled
+  it (#3449);
 - an area: a box of a zone's map no walk joins to the rest of the zone. It is
   a zone of its own, reached by no crossing, only by portals, ships and
   flights. Rut'theran Village, `rutheran-village`, lies on Teldrassil's map at
@@ -6330,11 +6374,18 @@ of the map's `hubs` metadata (`{ id, side, name, areaId, disks = { { x, y, r }, 
 } }`) hostile to `profile` that the drawn line enters, each once, in path
 order (`{}` without a profile or hubs). Reasons: `nodata`, `outside`, `offmesh`,
 `unreachable`, `error`. Searches run as coroutines in `C_Timer.After(0)`
-slices of `Path.budget` ms (3 ms at any frame rate; 0.3.1 grew it to 8 ms at
-100 fps, halving the frame rate while a search ran) and wait out combat; for
-`Path.calmSeconds` (1) after a fight they take `Path.calmBudget` (1 ms) a
-frame, as the kill that ends it updates the game, the guide and the quest log
-at once. A decode yields at its slice points to its very end. Once the queue
+slices of `Path.budget` ms (3 ms at 60 fps and up; 0.3.1 grew it to 8 ms at
+100 fps, halving the frame rate while a search ran; below 60 fps the same share
+of each frame, at most `Path.slowScale` (2) times it and never past
+`Path.sliceMax` (6 ms), so a 30 fps client searches as fast a second) and wait
+out combat; for `Path.calmSeconds` (1) after a fight they take
+`Path.calmBudget` (1 ms) a frame, as the kill that ends it updates the game,
+the guide and the quest log at once. A new goal the arrow has no walk for
+(`Path.Rush`) takes `Path.rushBudget` (6 ms) a frame, before the calm, for
+`Path.rushSeconds` (2) from the first frame a search can run (after the fight
+for a goal set in one) or until its walk is in. An urgent sketch (the arrow's
+`FindCoarse`) is sliced before the urgent walk, so its shape is drawn a frame
+after the ask. A decode yields at its slice points to its very end. Once the queue
 is empty the router rests: `Rest` trims the decoded graph to
 `Path.graphRestKB` and keeps `Path.restTrees` (2) endpoint trees (up to four
 while a search runs): the newest start's goes to the spare pool (emptied first;
@@ -6401,33 +6452,22 @@ what is shown and timed.
   `Compat.GetAreaName(areaId)` (`C_Map.GetAreaInfo`; the hub record's
   AreaTable id), else the packed English name, as goto labels and
   `Compat.MapName` do; the "each name once" rule works on the shown name.
-- Enemy ground (`Nav/GroundSafety.lua`, `Nav.danger.Blocked(c, x, y, X, Y,
-  profile)`): a veto on an on-foot segment, never a permission. It answers
-  `"opposing-settlement"` when the straight segment (with the player's
-  shoulders, 0.55 yd) touches a cell the other faction owns
-  (`Nav/DangerAreas.lua`) or a guard post's disk (`Nav/DangerHubs.lua`), nil
-  when it doesn't, `"unknown-profile"` without a faction and `"unknown-ground"`
-  for a map without that data or an end that isn't a world position. The planner
-  (`Travel.lua`'s walks), the walking engine's answers (`Walk.lua`), the
-  arrow's displayed bearing (`Nav.lua`, "unsafe") and the map line's gaps
-  (`Layers.lua`) all refuse a segment it answers for. Both data files were
-  imported by `forge nav layers ground` (`ground_policy.rs`): ownership cells
-  kept only where builds 70532 and 70959 have the same terrain and area
-  hierarchy, guard disks from 70532. Towns and guard posts are positions on
-  the map, so the check runs on every client build (an older one, the next
-  Forever patch); a build newer than 70959 adds one line to the debug log at
-  load ("ground: client build … is newer than the enemy-town data"). Until
-  0.4.2 any other build answered `"unknown-ground"` for every segment, so a
-  client patch refused every walk. The planner asks `p.blocked` when the plan
-  carries one (else `Nav.danger.Blocked`); `Nav.EstimateTravel` passes
-  `Travel.EstimateBlocked`, which remembers each answer by its exact arguments: a
-  step change's candidate prices (up to 8 from one spot, with a second pass
-  for a discounted walk or the hearth) and later step changes ask about the
-  same walks between flight masters, docks and crossings, and checking a walk
-  every 33 yards was two thirds of a plan (0.4.2's step change: 40 ms on the
-  perf test, 17 ms remembered). The data never changes in the game; the
-  answers are forgotten when the check or its data tables are replaced (test
-  worlds) and after 2048. Live routes (`Travel.Replan`) ask the check itself.
+- Enemy ground walks and warns, as before 0.4.2 (0.4.2.1; Main, 2026-11-21,
+  Fitz: "go back to our original danger pathing"). Nothing refuses a walk for
+  the ground it crosses: the router prices the other faction's towns
+  (`Costs.Mult`, hostile hubs) so a way round one is taken where there is one,
+  walks into one where the goal is there or there is no other way, and the
+  arrow says so ("Hostile town: <names>", above). `Nav.danger.Blocked`
+  (`Nav/GroundSafety.lua`) answers nil for every segment: the router's strict
+  searches (`Path.lua`'s `Safe`) still ask it of each one. The ownership cells
+  (`Nav/DangerAreas.lua`) and guard disks (`Nav/DangerHubs.lua`), imported by
+  `forge nav layers ground` (`ground_policy.rs`), keep the arrow's bearing from
+  easing across a town's edge (`Nav.danger.NearEnemyGround`); a build newer
+  than 70959 adds one line to the debug log at load. 0.4.2 vetoed every
+  segment touching them: quest goals in Hillsbrad Fields and Shen'dar Village
+  and a pin in Dalaran got a straight bearing with "No safe walking route",
+  and 150 yd from Coriella Calmbreeze the plan went round by a portal
+  1,600 yd away; that state and caption are gone.
 
 **Our own maps, always.** The engine reads only `PolestarPathData`, never an
 installed Shortest Path Forever's `ShortestPathForeverPathData`, even when it
@@ -7928,32 +7968,22 @@ Polestar.QoL.XPMark.frame                                -- the mark, once made
   kills' and loot's mobs, from the Codex) are kept per guide and class, race
   and faction until a guide, pack or Codex change, for the last 8 of them: a
   step change moves every span's start, and a new span only sums those rows
-  (whether a quest is done is asked then). It also looks for the first open
-  quest before the target (not a turn-in or a talk) that will be 3 or more
-  levels above the character when the route gets there (`hard`; its level
-  from the guide's `qlvl`, else the Codex, else the client). The guide
+  (whether a quest is done is asked then). The guide
   window's XP row (`GF.PaceText(stats)`) always says one of: "On pace for
   level 14 by step 32" (on pace, ahead, or up to `GF.PACE_SLACK`, one
   level, short: Fitz, 0.3.6, players read a few bars short as being behind);
   "Behind by 1.2 levels: step 32 grinds to level 14 (~12m)" (a `level` goal
   ahead makes up the gap, said plainly); in the warning colour, "Behind by
   2.4 levels for level 24 by step 21: grind ~1h 10m before then" ("and no
-  grind step ahead" without a rate). The hard quest is named only on its own
-  step: calmly, "On pace, but Ashenvale Outrunners (24) at step 4 is hard:
-  you're 21.3; reach 22 first", or past the slack, in the warning colour,
-  "Behind: Missing In Action (25) at step 20, you're 21.0; grind ~1h 10m
-  first" ("reach 23 first" without an XP rate). Grinding time is the XP
-  short over the QoL tracker's XP an hour. Nothing without the Codex
-  (Lookup), at 60, or with no target (a guide that is not a leveling one
-  with no `level` goal ahead), or with the Pace line switch off
+  grind step ahead" without a rate). It never names a quest or a quest's
+  level, and no step says what level its quest is (Fitz, #3438: players read
+  "Level 38 quest: you're 35.7" as a warning on normal steps). Grinding time
+  is the XP short over the QoL tracker's XP an hour. Nothing without the
+  Codex (Lookup), at 60, or with no target (a guide that is not a leveling
+  one with no `level` goal ahead), or with the Pace line switch off
   (`guideWindow.pace`, Guide window > Parts > Below the goals; #2371,
   #2379: the row keeps the XP an hour). Re-read with the XP row, on that
   switch and on `STEP_CHANGED`.
-- **A quest well over your level, on its step** (`Levels.StepHint(i)`): a
-  step with work (not an accept, a hand-in or a talk: taking a quest early
-  is normal) on an open quest 3 or more levels above the character says so
-  under its header, "Level 25 quest: you're 19.7" (your level and share of
-  it, cut to one place), in a calm colour, never red.
 
 ### Boosted Rest status — QoL/Rest
 
@@ -9141,7 +9171,7 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   read API (GetGuide, GetTabs, GetStepIndex, GetLiveStep, GetStepCount,
   GetStepView, StepNumber, StepTotal, GetProgress, GetAlong,
   GetWhileHereList; a gate, notice or action it lacks is nothing to show or
-  do) and five lines worked out from it: StepHint and Pace
+  do) and four lines worked out from it: Pace
   (`Core/Levels.lua`), XPStats and RestParts (QoL), Target (Nav, else the
   Engine's waypoint). The live window reads the Engine and those modules
   straight (`GF.Engine()`, `GF.Derived()`), so its step change pays nothing
@@ -12109,6 +12139,19 @@ fileDataID from wago.tools into `data/sources/casc` (local, never shipped):
   (`Nav/Walk.lua` canSearch, `Path.Resident`), so a journey to the other continent keeps the planner's straight
   estimate for the walks there (their danger unweighed, `Nav/Danger.lua`) until the player arrives and that part loads
   with the first search there.
+  The 70532 maps are imported in regions (`tools/lib/nav/import-regions.js`; `addon/Polestar_Nav/CREDITS.md`,
+  "Reproducing the regional 70532 import"): the continent keeps its routing graph and a directory of pages, and
+  each eight-by-four-tile sector's coarse floors and fine local geometry are regions of their own. A region is one
+  string in its continent's part (`Region<map>_<row>_<col>.lua` in `Polestar_Nav_EK`/`_Kalimdor`, Zephras Isle's
+  in `Polestar_Nav/Nav`), loaded with the part and not decoded: `d.regions[id] = "<fields>:<pages>"`. The first
+  page a walk needs from a region unpacks all of it into the map's page tables and drops the string (`PathGrid.lua`
+  loadRegion/unpackRegion: the same page strings and block lists, byte for byte; never in combat; 0.2 ms a region
+  at the median, 3 ms the largest, in Lua 5.1). 0.4.2 shipped each region as an addon of its own (127
+  `Polestar_Nav_R*` folders, loaded on demand one by one); 0.4.2.1 put them back in the three folders (#3396). The
+  cost is every region's compressed string held from the part's load: Polestar_Nav and the part read 29,583 KiB
+  (Eastern Kingdoms) and 38,285 KiB (Kalimdor) in Lua 5.1 after loading, against 10,983 and 13,078 with the regions
+  in their own addons, and the part's one load takes about 0.1 s more. A walk over the whole continent holds what
+  0.4.2 held (about 30 and 39 MB): each region's string goes once its pages are out.
   Where our grid joins two places players walk between and his maps do not (`pack/joins.rs`, the pairs of
   `pack/joins.json`: caves and mines his maps cut off from their mouths, Felwood's road, the top of Brill's zeppelin
   tower, Darkcloud Pinnacle's rope bridges), our grid's way goes in: his surface where he has one near the way's

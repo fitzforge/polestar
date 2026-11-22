@@ -558,10 +558,16 @@ fn class_counts(cg: &cells::CellGrid) -> Value {
 	Value::Object(out)
 }
 
-/// Files of ours in an addon's Nav/: our maps' files and the chokepoints.
+/// Files of ours in an addon's Nav/: our maps' files, an imported map's regions (`Region<map>_<row>_<col>.lua`,
+/// tools/lib/nav/import-regions.js) and the chokepoints.
 pub fn own_file(name: &str) -> bool {
 	if name == "Chokepoints.lua" {
 		return true;
+	}
+	if let Some(rest) = name.strip_prefix("Region").and_then(|r| r.strip_suffix(".lua")) {
+		let tile = |s: &str| matches!(s.as_bytes(), [b'0'..=b'9'] | [b'1', b'0'..=b'5']);
+		let mut it = rest.split('_');
+		return matches!((it.next(), it.next(), it.next(), it.next()), (Some(m), Some(r), Some(c), None) if MAPS.iter().any(|x| x.to_string() == m) && tile(r) && tile(c));
 	}
 	let Some(rest) = name.strip_prefix("Nav").and_then(|r| r.strip_suffix(".lua")) else { return false };
 	let (m, part) = rest.split_once('_').map_or((rest, None), |(a, b)| (a, Some(b)));
@@ -650,7 +656,7 @@ fn toc_files(text: &str) -> Vec<String> {
 /// are removed (a part addon the pack no longer has loses its files and TOC). -> (written, removed)
 pub fn ship_pack(pack: &Pack, addon_dir: &Path) -> Result<(Vec<String>, Vec<String>), String> {
 	// A plain grid pack does not contain regional evidence. Never silently replace that layer in a shipped pack.
-	if std::fs::read(addon_dir.join(PACK_JSON)).ok().and_then(|b| serde_json::from_slice::<Value>(&b).ok()).is_some_and(|m| m.get("regions").is_some()) {
+	if std::fs::read(addon_dir.join(PACK_JSON)).ok().and_then(|b| serde_json::from_slice::<Value>(&b).ok()).is_some_and(|m| m.get("import").is_some()) {
 		return Err("regional walking pack: bake the base grid to a separate --out folder; import derived maps with tools/lib/nav/import-regions.js".into());
 	}
 	let nav_dir = addon_dir.join("Nav");
@@ -731,16 +737,10 @@ pub fn check_pack(addon_dir: &Path) -> Vec<String> {
 	let Some(listed) = manifest["files"].as_object() else { return vec![format!("{} lacks files", file.display())] };
 	let mut problems = Vec::new();
 	let parent = addon_dir.parent().unwrap_or(Path::new("."));
-	let regions = regions::check(addon_dir, &manifest, listed, &mut problems);
+	regions::check(addon_dir, &manifest, listed, &mut problems);
 	for (rel, want) in listed {
 		let (dir, name) = rel.split_once('/').unwrap_or(("", ""));
-		let ours = if dir == "Nav" {
-			own_file(name)
-		} else if regions.contains(dir) {
-			name == "Pages.lua"
-		} else {
-			PARTS.iter().any(|p| p.1 == dir) && own_part_file(name)
-		};
+		let ours = if dir == "Nav" { own_file(name) } else { PARTS.iter().any(|p| p.1 == dir) && own_part_file(name) };
 		if !ours {
 			problems.push(format!("{rel} in PACK.json is not a packed file"));
 			continue;
