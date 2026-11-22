@@ -5428,7 +5428,6 @@ t.guides["forever/horde/40-50/03-feralas"] = (function() return {
 		["{zone:1456} flight master"] = "Распорядитель полетов: {zone:1456}",
 } end)()
 t.guides["forever/horde/40-50/04-tanaris"] = (function() return {
-		["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each."] = "Вернувшись на север, чуть южнее места {area:976}, используйте предмет {item:8524}: запустится двухчасовой таймер. Гиены Ядовитой Лапы, стеклошкурые василиски и скорпиды-охотники обитают здесь в дюнах. С каждого может упасть непроверенный образец: используйте его – он либо окажется пригодным, либо пропадет. Убивайте, пока не соберете по восемь образцов каждого вида.",
 		["Below ground"] = "Под землей",
 		["Below ground: the plans, on the {area:1443}'s upper ledge"] = "Под землей: чертежи, на верхнем уступе ({area:1443})",
 		["Boat to {area:16727}"] = "Корабль: {area:16727}",

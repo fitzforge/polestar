@@ -135,9 +135,9 @@ return {
 	["Only with the distress beacon: OOX-17/TN sits south-east of Scrimshank's hive. Escort it north to {area:977}; its reward waits with Oglethorpe in {area:35}.\nCareful: The escort has two ambushes. Three level 47 scorpids attack near the start. Near the end, by the beach, three Wastewander humans attack: one mage and two assassins, around level 44."] = "조난 탐지기가 있을 때만: OOX-17/TN은 스크림섕크의 벌집 남동쪽에 있습니다. 북쪽 {area:977}까지 호위하세요. 보상은 {area:35}의 오글소프에게서 받습니다.\n주의: 호위 중 두 번 매복이 있습니다. 시작 근처에서 47레벨 전갈 셋이 공격합니다. 끝 무렵 해변 근처에서는 사막유랑단 인간 셋(마법사 하나와 암살자 둘, 44레벨 정도)이 공격합니다.",
 
 	-- Step 27: Tanaris Field Sampling
-	-- {area:976} Gadgetzan · {item:8524} Model 4711-FTZ Power Source
+	-- {area:976} Gadgetzan · {item:8524} Model 4711-FTZ Power Source · {quest:654} Tanaris Field Sampling · {npc:7407} Chief Engineer Bilgewhizzle
 	-- plural, as words: Blisterpaw Hyenas = {npc:5426} Blisterpaw Hyena · Glasshide Basilisks = {npc:5419} Glasshide Basilisk · Scorpid Hunters = {npc:5422} Scorpid Hunter
-	["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each."] = "북쪽으로 돌아가 {area:976} 바로 남쪽에서 지금 {item:8524}을(를) 사용하세요. 2시간 타이머가 시작됩니다. 이곳 모래언덕에는 물집발 하이에나, 유리가죽 바실리스크, 전갈 사냥꾼이 함께 있습니다. 각각 검사하지 않은 표본을 떨어뜨릴 수 있습니다. 표본을 사용하면 쓸 만한 표본으로 통과하거나 사라집니다. 종류별로 8개씩 모을 때까지 계속 처치하세요.",
+	["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each. No power source in your bags, or its two hours ran out? Abandon {quest:654} if it is in your log, then take Another Power Source? from {npc:7407}: he gives a new one for ten more Wastewander Water Pouches, from the Wastewander camps east of {area:976}."] = "",
 	-- {item:8524} Model 4711-FTZ Power Source
 	["Use the {item:8524}"] = "{item:8524} 사용하기",
 
@@ -225,6 +225,7 @@ return {
 	["Only with the {item:11818}: back east to the {object:173265} at the dig site."] = "{item:11818}이(가) 있을 때만: 동쪽 발굴지의 {object:173265}(으)로 돌아가세요.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each."] = "북쪽으로 돌아가 {area:976} 바로 남쪽에서 지금 {item:8524}을(를) 사용하세요. 2시간 타이머가 시작됩니다. 이곳 모래언덕에는 물집발 하이에나, 유리가죽 바실리스크, 전갈 사냥꾼이 함께 있습니다. 각각 검사하지 않은 표본을 떨어뜨릴 수 있습니다. 표본을 사용하면 쓸 만한 표본으로 통과하거나 사라집니다. 종류별로 8개씩 모을 때까지 계속 처치하세요.",
 	-- ["Boat to {area:35}"] = "{area:35}행 배",
 	-- ["Dark Iron Lookouts"] = "검은무쇠단 망꾼",
 	-- ["Dig up the {quest:3161} ornaments around the {area:1938} and north of the {area:983}. Leave the ogres for now: {npc:12046} is 49 and the Brutes 46-48; the {area:983} comes at the end of 40-50/06, at about 52."] = "{area:1938} 주변과 {area:983} 북쪽에서 {quest:3161} 장신구를 파내세요. 오우거는 지금은 두세요. {npc:12046}은(는) 49레벨, 모래망치 투사는 46-48레벨입니다. {area:983}은(는) 40-50/06 끝, 52레벨쯤에 합니다.",

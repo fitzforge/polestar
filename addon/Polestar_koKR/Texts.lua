@@ -4465,7 +4465,6 @@ t.guides["forever/horde/40-50/03-feralas"] = (function() return {
 		["{zone:1454} flight master"] = "{zone:1454} 비행 조련사",
 } end)()
 t.guides["forever/horde/40-50/04-tanaris"] = (function() return {
-		["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each."] = "북쪽으로 돌아가 {area:976} 바로 남쪽에서 지금 {item:8524}을(를) 사용하세요. 2시간 타이머가 시작됩니다. 이곳 모래언덕에는 물집발 하이에나, 유리가죽 바실리스크, 전갈 사냥꾼이 함께 있습니다. 각각 검사하지 않은 표본을 떨어뜨릴 수 있습니다. 표본을 사용하면 쓸 만한 표본으로 통과하거나 사라집니다. 종류별로 8개씩 모을 때까지 계속 처치하세요.",
 		["Below ground"] = "지하",
 		["Below ground: the plans, on the {area:1443}'s upper ledge"] = "지하: {area:1443} 위쪽 바위턱의 설계도",
 		["Dark Iron Lookouts"] = "검은무쇠단 망꾼",
