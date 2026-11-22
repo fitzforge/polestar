@@ -1555,7 +1555,7 @@ Polestar.Set("ui.upcoming", 3)
 Polestar.Set("ui.upcomingOpen", true)
 Polestar.Set("guideWindow.lastSteps", 3)
 local parts = T.GuideParts()
-local rows = {}
+local rows, twos = {}, {}
 -- Wide digits, 0.7 of the size each (the stub's 0.5 leaves room anywhere):
 -- patched on the strings once the rows exist.
 local function wide()
@@ -1571,6 +1571,9 @@ local function sweep(kind, pool, n)
 	for i = 1, n do
 		local r = pool[i]
 		local num = r.Num:GetText()
+		if #num == 2 and r.Num:IsShown() then
+			twos[#twos + 1] = { kind = kind, num = num, w = r.Num:GetWidth(), need = r.Num:GetUnboundedStringWidth() }
+		end
 		if #num >= 3 and r.Num:IsShown() then
 			local _, _, _, x = r.Num:GetPoint(1)
 			local disc
@@ -1589,7 +1592,7 @@ Polestar.Engine.Goto(100)
 stub.advance(1)
 GF.Render(); GF.Layout(); stub.advance(1)
 wide()
-for _, at in ipairs({ 104, 108, 117, 121 }) do
+for _, at in ipairs({ 30, 104, 108, 117, 121 }) do
 	Polestar.Engine.Goto(at)
 	stub.advance(1)
 	GF.Render(); GF.Layout(); stub.advance(1)
@@ -1601,11 +1604,16 @@ for _, at in ipairs({ 104, 108, 117, 121 }) do
 	sweep("before", parts.last.Rows, parts.last.psCount or 0)
 	sweep("up", up, #up)
 end
-emit({ rows = rows })`,
+emit({ rows = rows, twos = twos })`,
 	}).emitted;
 	if (out.noFit) return; // GuideFrame.FitNum comes with the steps-before-number-width PR
 	const seen = new Set(out.rows.map((r) => `${r.kind}:${r.num}`));
 	for (const k of ['before:107', 'before:120', 'up:107', 'up:120']) assert.ok(seen.has(k), `${k} was drawn: ${[...seen]}`);
+	// Two digits never shrink: their column holds them whole, not "2...".
+	assert.ok(out.twos.some((r) => r.kind === 'before') && out.twos.some((r) => r.kind === 'up'), `two-digit rows drawn: ${JSON.stringify(out.twos)}`);
+	// The stub's digits are narrower than the game's, so the column itself is
+	// held to the 22 px it has off the rail: 18 cut "28" in game.
+	for (const r of out.twos) assert.ok(r.need <= r.w && r.w >= 22, `${r.kind} ${r.num}: ${r.need} px of digits in a ${r.w} px column`);
 	for (const r of out.rows) {
 		assert.ok(r.disc !== false, `${r.kind} ${r.num}: has a node`);
 		assert.ok(r.left >= r.disc + 2, `${r.kind} ${r.num}: left edge ${r.left} clears the node's right edge ${r.disc} by 2`);

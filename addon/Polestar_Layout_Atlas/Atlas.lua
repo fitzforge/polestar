@@ -2795,7 +2795,9 @@ local function numColumn(r, on)
 	if not (num and G and G.FitNum) then return end
 	-- The number is anchored by its left edge (Polestar's: PAD - 10 in, a
 	-- 22 px column): on the rail that edge moves clear of the disc and the
-	-- column narrows by as much, so its right edge stays where it was.
+	-- column keeps its 22 px, its right edge moving into the gap before the
+	-- row's glyph (kept 3 px clear of it). A narrower column cut two digits
+	-- to "...".
 	local p, rel, rp, x, y = num:GetPoint(1)
 	if not p then return end
 	local clear = RAIL - UP_X + 4 + 2
@@ -2806,7 +2808,10 @@ local function numColumn(r, on)
 			num:SetPoint(p, rel, rp, clear, y)
 			x = clear
 		end
-		col = (num.psRailX or x) + 22 - x
+		col = 22
+		local icon = rawget(r, "Icon")
+		local ip, irel, _, ix = icon and icon:GetPoint(1)
+		if ip == "LEFT" and irel == rel and ix then col = math.max(14, math.min(22, ix - 3 - x)) end
 	elseif num.psRailX then
 		num:SetPoint(p, rel, rp, num.psRailX, y)
 		num.psRailX = nil
