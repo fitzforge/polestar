@@ -403,7 +403,7 @@ return {
 
 	-- Step 101: Un'Goro Crater: kill these as you meet them
 	-- {zone:1449} Un'Goro Crater
-	["{zone:1449}: kill these as you meet them"] = "",
+	["{zone:1449}: kill these as you meet them"] = "{zone:1449}: 만나는 대로 처치하세요",
 
 	-- Step 102: Krakle's Thermometer
 	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer

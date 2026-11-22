@@ -392,7 +392,7 @@ return {
 	-- Step 75: Protecting the Herd
 	-- {npc:1388} Vagash · {area:38} Loch Modan
 	-- was: ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {zone:1432} quests ahead make up the experience."] = "정예 몹들입니다. 파티를 권장하니 함께할 사람을 찾으세요. {npc:1388}은(는) 12레벨 정예입니다. 파티로 상대하세요. 혼자라면 건너뛰세요. 앞으로의 {zone:1432} 퀘스트로 경험치를 메울 수 있습니다."
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {area:38} quests ahead make up the experience."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {area:38} quests ahead make up the experience."] = "정예 몹입니다. 파티를 권장하니 사람을 구해 함께 하세요. {npc:1388}은(는) 12레벨 정예이니 파티로 상대하세요. 혼자라면 건너뛰세요. 다음 {area:38} 퀘스트들이 경험치를 채워 줍니다.",
 	["Below ground"] = "지하",
 
 	-- Step 76: Amberstill Ranch
@@ -401,7 +401,7 @@ return {
 
 	-- Step 78: South Gate Outpost
 	-- {area:806} South Gate Outpost · {area:38} Loch Modan
-	["Follow the road all the way east to the {area:806} at the {area:38} tunnel."] = "",
+	["Follow the road all the way east to the {area:806} at the {area:38} tunnel."] = "도로를 따라 끝까지 동쪽으로 가 {area:38} 터널의 {area:806}까지 가세요.",
 
 	-- Step 79: Bruegs Kindleborn
 	-- {npc:257597} Bruegs Kindleborn · {area:806} South Gate Outpost
@@ -409,7 +409,7 @@ return {
 
 	-- Step 81: Braldir Ashmantle
 	-- {area:38} Loch Modan · {npc:257808} Braldir Ashmantle
-	["Go through the tunnel into {area:38}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "",
+	["Go through the tunnel into {area:38}. Just past it, a path marked by stones climbs the hills on the right of the road north to {npc:257808}'s camp."] = "터널을 지나 {area:38}으로 들어가세요. 지나자마자 돌로 표시된 길이 도로 오른쪽 언덕을 올라 {npc:257808}의 야영지로 이어집니다.",
 
 	-- Step 82: North Gate Outpost
 	-- {npc:1960} Pilot Hammerfoot · {area:808} North Gate Outpost
@@ -418,12 +418,12 @@ return {
 	-- Step 83: The tunnel post
 	["The tunnel post"] = "터널 초소",
 	-- {area:38} Loch Modan · {npc:1089} Mountaineer Cobbleflint · {npc:1092} Captain Rugelfuss
-	["East through the South Gate tunnel into {area:38}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "",
+	["East through the South Gate tunnel into {area:38}. {npc:1089} and {npc:1092} stand at the dwarven post just past it."] = "남문 터널을 지나 동쪽으로 {area:38}에 들어가세요. {npc:1089}과(와) {npc:1092}은(는) 터널 바로 너머 드워프 초소에 있습니다.",
 
 	-- Step 84: Stonesplinter troggs
 	["Stonesplinter troggs"] = "가루바위일족 트로그",
 	-- plural, as words: Stonesplinter Scouts = {npc:1162} Stonesplinter Scout
-	["North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth.\nCareful: pull the Stonesplinter Scouts and Troggs one at a time. Stay at the north edge of the valley; Headsplitter patrols the deeper camps."] = "",
+	["North of the post, west of the road: the Stonesplinter troggs and scouts camp in the hills. Both drop the Trogg Stone Teeth.\nCareful: pull the Stonesplinter Scouts and Troggs one at a time. Stay at the north edge of the valley; Headsplitter patrols the deeper camps."] = "초소 북쪽, 도로 서쪽: 돌조각 트로그와 정찰병이 언덕에 야영합니다. 둘 다 트로그 이빨을 떨어뜨립니다.\n주의: 돌조각 정찰병과 트로그를 하나씩 끌어오세요. 계곡 북쪽 가장자리에 머무르세요. 머리갈라치기는 더 안쪽 야영지를 순찰합니다.",
 
 	-- Step 85: Linen for John Turner
 	-- {npc:6175} John Turner
@@ -604,7 +604,7 @@ return {
 	["Tram to {zone:1453}"] = "지하철을 타고 {zone:1453}(으)로",
 	-- {zone:1455} Ironforge · {area:2257} Deeprun Tram · {npc:12997} Monty · {item:17117} Rat Catcher's Flute · {npc:13018} Nipsy · {zone:1453} Stormwind
 	-- plural, as words: Deeprun Rats = {npc:13016} Deeprun Rat
-	["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end. The tram has no map inside. The city markers show the entrances, not the two brothers."] = "",
+	["On the {zone:1455} platform of the {area:2257}, {npc:12997} asks for help with the rats: use his {item:17117} on the Deeprun Rats around the platform, hand them in, then take his letter to his brother {npc:13018} at the {zone:1453} end. The tram has no map inside. The city markers show the entrances, not the two brothers."] = "{zone:1455}의 {area:2257} 승강장에서 {npc:12997}이(가) 쥐 문제를 도와달라고 합니다. 승강장 주변 깊은굴 쥐에게 {item:17117}을(를) 쓰고 제출한 뒤 그의 편지를 {zone:1453} 쪽 끝의 형제 {npc:13018}에게 전하세요. 전차 안에는 지도가 없습니다. 도시 표시는 출입구를 가리킬 뿐 두 형제를 가리키지 않습니다.",
 	-- {npc:12997} Monty · {zone:1455} Ironforge
 	["{npc:12997}, on the {zone:1455} platform"] = "{npc:12997}, {zone:1455} 승강장",
 	-- {npc:13016} Deeprun Rat · {item:17117} Rat Catcher's Flute
@@ -620,7 +620,7 @@ return {
 
 	-- Step 115: From the tram to Stormwind
 	-- {area:1519} Stormwind
-	["From the tram to {area:1519}"] = "",
+	["From the tram to {area:1519}"] = "전차에서 {area:1519}(으)로",
 
 	-- Step 116: Baros Alexston
 	-- {object:28027} Dwarven District · {object:2098} Cathedral Square · {npc:1646} Baros Alexston · {zone:1436} Westfall · {object:2096} Trade District

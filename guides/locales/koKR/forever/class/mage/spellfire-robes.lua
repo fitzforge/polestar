@@ -28,9 +28,9 @@ return {
 	-- plural, as words: Rift Spawns = {npc:6492} Rift Spawn
 	["Algernon's alchemist shop is in the Apothecarium. Stand on the steps or the bridge outside the shop and read the {item:7308}: up to four invisible Rift Spawns (level 16-17) appear and attack at once, and the city guards do not help. Hit one with a single-target spell and back off over the bridge: the others give up and fade, the one you hit follows. Beat it down on the shop's half of the bridge (past halfway the coffer will not work on it) until it stops fighting and sits stunned under a spiral, use the {item:7247} on it, then click the {item:7292} once it appears on the floor (clicking too early wastes a charge). Three are needed."] = "",
 	-- {npc:6492} Rift Spawn
-	["{npc:6492}, down to the stun"] = "",
+	["{npc:6492}, down to the stun"] = "{npc:6492}, 기절할 때까지",
 	-- {item:7247} Chest of Containment Coffers · {npc:6492} Rift Spawn
-	["{item:7247}, on the stunned {npc:6492}"] = "",
+	["{item:7247}, on the stunned {npc:6492}"] = "{item:7247}, 기절한 {npc:6492}에게",
 
 	-- Step 5: Back to Anastasia Hartwell
 	-- {npc:4568} Anastasia Hartwell

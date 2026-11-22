@@ -22,16 +22,16 @@ return {
 	-- {zone:1446} Tanaris
 	["\"Sea Wolf\" MacKinley, on the top floor: Stoley's shipment from {zone:1446}"] = "꼭대기 층의 \"바다늑대\" 매킨리: {zone:1446}에서 온 스톨리의 화물",
 	-- {npc:2487} Fleet Master Seahorn
-	["{npc:2487}, on the balcony of the same building"] = "",
+	["{npc:2487}, on the balcony of the same building"] = "{npc:2487}, 같은 건물 발코니에 있습니다.",
 
 	-- Step 4: The Bloodsail ships
 	["The Bloodsail ships"] = "붉은해적단 배",
 	-- {area:43} Wild Shore · {npc:2550} Captain Stillwater · {npc:2548} Captain Keelhaul · {npc:2546} Fleet Master Firallon
-	["South of Booty Bay, three Bloodsail ships lie off the {area:43}: {npc:2550}, {npc:2548} and {npc:2546} each stand on a deck with their crews. Swim out and work from ship to ship."] = "",
+	["South of Booty Bay, three Bloodsail ships lie off the {area:43}: {npc:2550}, {npc:2548} and {npc:2546} each stand on a deck with their crews. Swim out and work from ship to ship."] = "무법항 남쪽, {area:43} 앞바다에 블러드세일 선박 세 척이 있습니다. {npc:2550}, {npc:2548}, {npc:2546}이(가) 각각 선원들과 함께 갑판에 서 있습니다. 헤엄쳐 나가 배에서 배로 옮겨 다니세요.",
 
 	-- Step 6: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "정예 몹입니다. 파티를 권장하니 사람을 구하세요. {quest:8552}은(는) 2인 파티가 필요합니다. 혼자라면 건너뛰세요. 경로에서 경험치를 다시 채워 줍니다.",
 
 	-- Step 11: Fly to Grom'gol
 	-- {object:3202} Grom'gol
@@ -41,7 +41,7 @@ return {
 
 	-- Step 12: Grom'gol Base Camp
 	-- {area:117} Grom'gol Base Camp · {npc:2497} Nimboya · {object:2076} Bubbling Cauldron
-	["The flight lands at {area:117}; {npc:2497} stands by the {object:2076}."] = "",
+	["The flight lands at {area:117}; {npc:2497} stands by the {object:2076}."] = "비행기는 {area:117}에 착륙합니다. {npc:2497}은(는) {object:2076} 곁에 서 있습니다.",
 
 	-- Step 13: Back to Grom'gol
 	-- {object:3202} Grom'gol
@@ -49,7 +49,7 @@ return {
 
 	-- Step 14: The Mind's Eye
 	-- {npc:818} Mai'Zoth
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:818} (level 47 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\nCareful: Two elite caster guards, around level 45, stand with {npc:818} and join the fight together with him."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:818} (level 47 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\nCareful: Two elite caster guards, around level 45, stand with {npc:818} and join the fight together with him."] = "정예 몹입니다. 파티를 권장하니 사람을 구하세요. {npc:818}(47레벨 정예)은 2인 파티가 필요합니다. 혼자라면 건너뛰세요. 경로에서 경험치를 다시 채워 줍니다.\n주의: 45레벨쯤의 정예 마법사 경호원 두 명이 {npc:818}과(와) 함께 서 있으며 그와 같이 전투에 참여합니다.",
 	["Below ground"] = "지하",
 
 	-- Step 18: Zeppelin to Orgrimmar
@@ -79,7 +79,7 @@ return {
 	["{area:1236}: kill these as you meet them"] = "{area:1236}: 만나는 대로 처치하세요",
 	["The Highborne ghosts haunt the ruins just north of the shrine; the Haldarr satyrs camp a little further north."] = "명가 유령은 제단 바로 북쪽의 폐허를 떠돌고, 할다르 사티로스는 조금 더 북쪽에 진을 치고 있습니다.",
 	-- {npc:6117} Highborne Lichling · {area:1235} Shadowsong Shrine
-	["{npc:6117} walks around {area:1235}: look inside the circle on the map"] = "",
+	["{npc:6117} walks around {area:1235}: look inside the circle on the map"] = "{npc:6117}은(는) {area:1235}을(를) 배회합니다. 지도 원 안을 살펴보세요.",
 
 	-- Step 24: Loh'atu
 	-- {npc:11548} Loh'atu · {area:3137} Talrendis Point

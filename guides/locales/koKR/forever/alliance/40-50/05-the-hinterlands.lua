@@ -153,7 +153,7 @@ return {
 
 	-- Step 30: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "정예 몹입니다. 파티를 권장하니 사람을 구하세요. {quest:8552}은(는) 2인 파티가 필요합니다. 혼자라면 건너뛰세요. 경로에서 경험치를 다시 채워 줍니다.",
 
 	-- Step 34: Negolash's bait
 	-- {npc:1494} Negolash

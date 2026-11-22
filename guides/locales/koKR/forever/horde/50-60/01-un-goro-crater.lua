@@ -106,7 +106,7 @@ return {
 
 	-- Step 21: Un'Goro Crater: kill these as you meet them
 	-- {zone:1449} Un'Goro Crater
-	["{zone:1449}: kill these as you meet them"] = "",
+	["{zone:1449}: kill these as you meet them"] = "{zone:1449}: 만나는 대로 처치하세요",
 	["The expedition's crate sits at an abandoned camp in the eastern jungle."] = "원정대의 상자는 동쪽 정글의 버려진 야영지에 있습니다.",
 
 	-- Step 22: Marshal's Refuge
@@ -133,7 +133,7 @@ return {
 	-- Step 25: Un'Goro Crater: kill these as you meet them
 	-- {spell:8137} Silithid Pox · {spell:14120} Tunneler Acid
 	-- plural, as words: Gorishi Workers = {npc:6552} Gorishi Worker
-	["Careful: Gorishi Workers may call for help within 25 yd when below 45% health; silithids cast {spell:8137} and Tunnelers and the Hive Guard use {spell:14120}."] = "",
+	["Careful: Gorishi Workers may call for help within 25 yd when below 45% health; silithids cast {spell:8137} and Tunnelers and the Hive Guard use {spell:14120}."] = "주의: 고리시 일꾼은 체력이 45% 아래로 떨어지면 25야드 내에서 도움을 부를 수 있습니다. 실리시드는 {spell:8137}을(를) 시전하고 굴파는 놈과 벌집 경비병은 {spell:14120}을(를) 사용합니다.",
 
 	-- Step 26: Eastern Pylon
 	["Eastern Pylon"] = "동쪽 수정탑",
@@ -160,7 +160,7 @@ return {
 	-- {area:541} Marshal's Refuge · {npc:9117} J.D. Collie · {npc:9997} Spraggle Frock
 	["Ride north back to {area:541}: {npc:9117} below ground, {npc:9997} beside the flight master."] = "북쪽 {area:541}(으)로 돌아가세요. {npc:9117}은(는) 지하에, {npc:9997}은(는) 비행 조련사 옆에 있습니다.",
 	-- {npc:9997} Spraggle Frock
-	["{npc:9997}, beside the flight master"] = "",
+	["{npc:9997}, beside the flight master"] = "{npc:9997}, 비행 조련사 옆",
 	["Below ground"] = "지하",
 
 	-- Step 33: To Gadgetzan
@@ -189,11 +189,11 @@ return {
 	-- {area:16727} Powderfuse Port
 	["Boat to {area:16727}"] = "배를 타고 {area:16727}(으)로",
 	-- {npc:9706} Yorba Screwspigot · {quest:4324} Yuka Screwspigot · {area:251} Flame Crest
-	["{npc:9706}, by the dock: for {quest:4324} at {area:251}, later in this guide"] = "",
+	["{npc:9706}, by the dock: for {quest:4324} at {area:251}, later in this guide"] = "{npc:9706}, 부두 곁: 이 가이드 뒷부분 {area:251}의 {quest:4324}용",
 
 	-- Step 39: Badlands
 	-- {zone:2548} Riverglades · {area:16685} Twilight's Shroud · {zone:1418} Badlands
-	["Leave {zone:2548} on foot to the north-west, north of {area:16685}, into the {zone:1418}."] = "",
+	["Leave {zone:2548} on foot to the north-west, north of {area:16685}, into the {zone:1418}."] = "{zone:2548}에서 북서쪽, {area:16685} 북쪽으로 도보 이동해 {zone:1418}으로 들어가세요.",
 
 	-- Step 40: Kargath
 	-- {area:340} Kargath · {zone:1418} Badlands
@@ -270,7 +270,7 @@ return {
 	-- {npc:8390} Chemist Cuely · {zone:1447} Azshara
 	["{npc:8390}, the Apothecarium: the vials fill in {zone:1447} later"] = "연금술 실험실의 {npc:8390}: 약병은 나중에 {zone:1447}에서 채웁니다",
 	-- {npc:5204} Apothecary Zinge
-	["{npc:5204}, near Cuely in the Apothecarium"] = "",
+	["{npc:5204}, near Cuely in the Apothecarium"] = "{npc:5204}, 연금술사 구역의 큘리 곁",
 
 	-- Step 58: The Bulwark
 	-- {zone:1458} Undercity · {zone:1420} Tirisfal Glades · {area:152} The Bulwark
@@ -288,7 +288,7 @@ return {
 	["Back a few steps west to Felstone Farm, the first farm along the road; {npc:10778} waits in the house."] = "서쪽으로 몇 걸음 돌아가 길가의 첫 번째 농장인 펠스톤 농장으로 가세요. {npc:10778}은(는) 집 안에서 기다립니다.",
 	["Upstairs"] = "위층",
 	-- {object:175894} Janice's Parcel
-	["{object:175894}, beside the house; inside"] = "",
+	["{object:175894}, beside the house; inside"] = "{object:175894}, 집 옆; 안쪽",
 	-- {npc:10781} Royal Overseer Bauhaus · {zone:1458} Undercity · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt
 	["Keep the parcel: {npc:10781} is in the {zone:1458}. The next guide starts with {npc:10739} by the {area:202}, south-east of here."] = "꾸러미는 보관하세요. {npc:10781}은(는) {zone:1458}에 있습니다. 다음 가이드는 이곳 남동쪽 {area:202} 옆의 {npc:10739}에게서 시작합니다.",
 

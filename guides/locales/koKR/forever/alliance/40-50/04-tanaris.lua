@@ -10,7 +10,7 @@ return {
 	-- {area:2240} Mirage Raceway · {area:439} Shimmering Flats · {zone:1441} Thousand Needles · {npc:4454} Fizzle Brassbolts
 	["The {area:2240} lies on the {area:439} in south-east {zone:1441}: {npc:4454} is in the gnomes' camp beside the track, Zamek by the goblin camp."] = "{area:2240}은(는) {zone:1441} 남동쪽의 {area:439}에 있습니다. {npc:4454}은(는) 경주로 옆 노움 야영지에, 자멕은 고블린 야영지 옆에 있습니다.",
 	-- {npc:4454} Fizzle Brassbolts · {quest:1137} News for Fizzle · {zone:1418} Badlands
-	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "",
+	["{npc:4454}: {quest:1137}, from Martek in the {zone:1418}"] = "{npc:4454}: {quest:1137}, {zone:1418}의 마르텍에게서",
 
 	-- Step 4: Gadgetzan
 	-- {area:439} Shimmering Flats · {zone:1446} Tanaris · {area:976} Gadgetzan
@@ -64,16 +64,16 @@ return {
 	-- {npc:7883} Andre Firebeard · {npc:7881} Stoley
 	["Follow the coast south to the pirate cove. Southsea pirates crowd the beach and the boats: work along the edge and pull one at a time. {npc:7883} stands on the far side; {npc:7881}'s stolen cargo lies in the camp.\nCareful: Two or three pirates stand with {npc:7883}, and many more pirates from the town join the fight once it starts."] = "해안을 따라 남쪽 해적단 소굴로 가십시오. 남쪽바다해적단이 해변과 배에 우글거립니다: 가장자리부터 하나씩 끌어내십시오. {npc:7883}은(는) 반대편에 서 있고, {npc:7881}의 도둑맞은 화물은 야영지에 있습니다.\n주의: {npc:7883} 곁에는 해적 두세 명이 서 있고, 싸움이 시작되면 마을의 해적이 훨씬 더 많이 합류합니다.",
 	-- {quest:2873} Stoley's Shipment
-	["{quest:2873}; upstairs"] = "",
+	["{quest:2873}; upstairs"] = "{quest:2873}; 위층",
 
 	-- Step 11: Steamwheedle Port
 	-- {npc:7881} Stoley
 	["{npc:7881}, inside"] = "{npc:7881}, 내부",
 	-- {area:35} Booty Bay · {zone:1425} Hinterlands
-	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {zone:1425} guide, keep it"] = "",
+	["\"Sea Wolf\" MacKinley in {area:35}: the route takes you there at the end of the {zone:1425} guide, keep it"] = "\"바다늑대\" 매킨리, {area:35}: {zone:1425} 가이드 끝에서 그곳으로 안내하니 보관하세요",
 
 	-- Step 12: Noonshade Ruins
-	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "",
+	["Careful: Thieves cast Disarm. Rogues stay hidden with Sneak. Assassins use Execute when your health is at 20% or lower."] = "주의: 도둑은 무장해제를 시전합니다. 도적은 은신으로 숨습니다. 암살자는 체력이 20% 이하일 때 사형선고를 사용합니다.",
 
 	-- Step 15: The pool by Sandsorrow Watch
 	-- {area:979} Sandsorrow Watch
@@ -131,7 +131,7 @@ return {
 	["{npc:5955}'s escort"] = "{npc:5955} 호위",
 	-- {npc:5955} Tooga · {quest:3362} Thistleshrub Valley · {npc:6015} Torta · {area:977} Steamwheedle Port
 	-- was: ["The little turtle {npc:5955} hides at the north end of the {quest:3362}: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "작은 거북 {npc:5955}은(는) {quest:3362} 북쪽 끝에 숨어 있습니다. 가장자리에서 데려가고 덤불나무(48-50레벨)는 건드리지 마십시오. {area:977} 바로 동쪽 물가에 있는 아내 {npc:6015}에게 데려다주십시오: 느리게 걷고 사막의 야수들이 노리니 살려 두십시오."
-	["The little turtle {npc:5955} wanders the west edge of the {quest:3362}, most often where the arrow leads: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "",
+	["The little turtle {npc:5955} wanders the west edge of the {quest:3362}, most often where the arrow leads: take him from the edge and leave the Thistleshrubs (48-50) alone. Lead him home to his wife {npc:6015}, by the water just east of {area:977}: he walks slowly and the desert's beasts go for him, so keep him alive."] = "작은 거북 {npc:5955}은(는) {quest:3362} 서쪽 가장자리를 배회하며 대체로 화살표가 가리키는 곳에 있습니다. 가장자리에서 데려가고 가시덤불(48-50레벨)은 건드리지 마세요. {area:977} 바로 동쪽 물가의 아내 {npc:6015}에게 데려다주세요. 천천히 걷고 사막 짐승들이 노리니 살려 두세요.",
 	-- {npc:5955} Tooga
 	["{npc:5955}, beside her: Oasis"] = "{npc:5955}, 토르타 옆: 오아시스",
 
@@ -142,7 +142,7 @@ return {
 	-- Step 26: Caliph Scorpidsting
 	-- {area:985} Waterspring Field · {npc:7847} Caliph Scorpidsting
 	-- plural, as words: Wastewander Rogues = {npc:5615} Wastewander Rogue
-	["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "",
+	["Ride south-east to {area:985}. {npc:7847} stands in the middle of the southern Wastewander camp: clear around him first.\nCareful: Two stealthed Wastewander Rogues travel with him wherever he goes. At his spawn camp, two shadowmages and their minions are close enough to join a fight with him. Out by the towers you can fight him without them."] = "남동쪽 {area:985}로 말을 타고 가세요. {npc:7847}은(는) 남부 방랑자 야영지 중앙에 서 있으니 먼저 주변을 정리하세요.\n주의: 은신한 방랑자 도적 두 명이 어디에 가든 함께 다닙니다. 처음 야영지에서는 그림자술사 두 명과 부하들이 가까이 있어 전투에 끼어들 수 있습니다. 탑 밖에서는 그 들 없이 싸울 수 있습니다.",
 
 	-- Step 28: Fly to Auberdine
 	-- {area:442} Auberdine
@@ -207,7 +207,7 @@ return {
 
 	-- Step 45: Aerie Peak
 	-- {npc:5636} Gryphon Master Talonaxe
-	["{npc:5636}, beside the flight master"] = "",
+	["{npc:5636}, beside the flight master"] = "{npc:5636}, 비행 조련사 옆",
 	-- {npc:7884} Fraggar Thundermantle
 	["{npc:7884}, inside"] = "{npc:7884}, 내부",
 	-- {npc:5636} Gryphon Master Talonaxe · {quest:86620} Fledgling Rescue · {area:348} Aerie Peak
