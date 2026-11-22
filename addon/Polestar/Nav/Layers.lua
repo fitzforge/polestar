@@ -475,10 +475,25 @@ local function updateTrail(world, minimap)
 	local runs = { run }
 	local legs, ci
 	if Nav.GetRoute then legs, ci = Nav.GetRoute() end
+	local C = ns.Compat
+	local pc, px, py
+	if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
 	if legs and ci and legs[ci] then
 		for i = ci, #legs do
 			local leg = legs[i]
-			if leg.kind == "hearth" then
+			local gap = leg.kind == "hearth"
+			if leg.kind == "walk" then
+				local b = leg.to
+				if i == ci then
+					gap = pc ~= b.c or not Nav.CanDrawGroundApproach(pc, px, py, b.wx, b.wy)
+				else
+					local a = run[#run]
+					gap = not a or a.c ~= b.c
+				end
+			end
+			if gap then
+				-- Keep the later itinerary; never join its first point to the
+				-- player across a refused walk or an instantaneous transfer.
 				run = { leg.to }
 				runs[#runs + 1] = run
 			else
@@ -488,7 +503,7 @@ local function updateTrail(world, minimap)
 		end
 	else
 		local c, wx, wy = Nav.GetTargetWorld()
-		if not c then
+		if not c or pc ~= c or not Nav.CanDrawGroundApproach(pc, px, py, wx, wy) then
 			Pins.ClearTrail()
 			return
 		end

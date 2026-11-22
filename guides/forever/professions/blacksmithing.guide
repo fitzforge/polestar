@@ -359,11 +359,15 @@ step Artisan Blacksmithing
   tip Artisan raises the cap from 225 to 300 for 5g (Classic's price; Forever's is not in the data); it needs Blacksmithing 200 and character level 35, so you can take it on any visit from 200. Only a few trainers teach it: Alliance Brikk Keencraft (Stranglethorn Vale); Horde Brikk Keencraft (Stranglethorn Vale). The arrow picks the nearest of your faction. Learn now: Dense Weightstone (from 225), Heavy Mithril Boots (from 210), Solid Grinding Stone (from 175), Big Black Mace (from 205) and Dense Grinding Stone (from 225). 225-300 takes about 3g 60s of recipes, plus 44 Shadowgem, 596 Mithril Bar, 142 Thick Leather, 19 Aquamarine, 19 Star Ruby, 44 Solid Stone, 11 Black Pearl, 206 Rugged Leather, 2026 Thorium Bar, 801 Dense Stone and 10 Large Opal to gather or buy.
   level 35
   train Blacksmithing Artisan
-  learn 16640
-  learn 9968
+  learn 16640 npc 2836 only Alliance
+  learn 16640 npc 2836 only Horde
+  learn 9968 npc 2836 only Alliance
+  learn 9968 npc 2836 only Horde
   learn 9920
-  learn 10001
-  learn 16639
+  learn 10001 npc 2836 only Alliance
+  learn 10001 npc 2836 only Horde
+  learn 16639 npc 2836 only Alliance
+  learn 16639 npc 2836 only Horde
 
 step Plans: Ornate Thorium Handaxe
   tip Plans: Ornate Thorium Handaxe teaches Ornate Thorium Handaxe (Blacksmithing 250) for 1g 60s. Sold by Magnus Frostwake (Western Plaguelands).

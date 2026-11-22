@@ -325,6 +325,39 @@ fn an_urgent_search_the_arrow_s_own_walk_is_sliced_before_one_queued_ahead_of_it
 	assert_eq!(urgent_order(false)["order"], json!(["leg", "arrow"]), "without it, the order they were queued in");
 }
 
+// The arrow's walk and its sketch (Nav/Walk.lua: Path.FindCoarse, the shape drawn until the path is in), both urgent,
+// asked in that order, one slice a frame: the sketch answers first, so the shape is drawn a frame after the ask and
+// the path replaces it (0.4.2: the sketch waited behind the walk and was dropped when the walk came in).
+#[test]
+fn the_arrows_urgent_sketch_is_sliced_before_its_urgent_walk() {
+	let map = map_files(&layout(3, Cls::default(), Cls::default()), true, Opts::default());
+	let script = format!(
+		r#"
+local Path = Polestar_NavEngine
+local frames = {{}}
+Path.after = function(fn) frames[#frames + 1] = fn end
+Path.budget = 0
+local A, B = {a}, {b}
+local order = {{}}
+local walk = Path.Find({MAP}, A, B, function(points) order[#order + 1] = points and "walk" or "walk failed" end, nil)
+walk.urgent = true
+local sketch = Path.FindCoarse({MAP}, A, B, function(points, reason) order[#order + 1] = "sketch" end, nil)
+sketch.urgent = true
+local n, sketchFrame = 0, nil
+while #frames > 0 and n < 10000 do
+	n = n + 1
+	table.remove(frames, 1)()
+	if not sketchFrame and order[1] == "sketch" then sketchFrame = n end
+end
+emit({{ order = order, sketchFrame = sketchFrame }})"#,
+		a = lua(from()),
+		b = lua(to()),
+	);
+	let got = emitted(&RunAddon { stubs: vec!["stub_encoding.lua"], before: map.dofiles(), addons: vec![ours()], script, ..Default::default() }).remove(0);
+	assert_eq!(got["order"], json!(["sketch", "walk"]), "{got}");
+	assert!(got["sketchFrame"].as_i64().unwrap() <= 2, "the sketch's answer within a frame of its slice: {got}");
+}
+
 #[test]
 fn the_fifth_argument_a_boolean_is_waterwalking_a_table_is_opts() {
 	let map = map_files(&layout(4, val(2), Cls::default()), true, Opts::default());
@@ -1191,7 +1224,7 @@ out.outside = held(function() return Path.SurfacesAt({MAP}, -50, 5, t) end)"#
 // them: nothing joins them), and the pack's lift chokepoints (PolestarNavChokepoints[map]) naming a bottom landing
 // at the near strip's end and its top at the far strip's start.
 const LIFT_GAP: usize = 8;
-fn lift_files(with_lift: bool) -> MapDir {
+fn lift_files(with_lift: bool, ride: Option<f64>) -> MapDir {
 	let cells: Cells = (X0..=X1).filter(|&x| x <= X0 + LIFT_GAP || x >= X1 - LIFT_GAP).map(|x| (x * C + Y0, FixtureCell { val: 1, cls: 0 })).collect();
 	let mut map = map_files(&cells, true, Opts::default());
 	if with_lift {
@@ -1201,13 +1234,14 @@ fn lift_files(with_lift: bool) -> MapDir {
 		std::fs::write(
 			&choke,
 			format!(
-				"PolestarNavChokepoints = {{ [{MAP}] = {{\n\t{{ wx = {}, wy = {}, z = 0, r = 6, kind = \"lift\", liftEnd = \"bottom\", pair = 2 }},\n\t{{ wx = {}, wy = {}, z = 0, r = 6, kind = \"lift\", liftEnd = \"top\", pair = 1 }},\n\t{{ wx = {}, wy = {}, z = 0, r = 10, kind = \"gate\" }},\n}} }}\n",
+				"PolestarNavChokepoints = {{ [{MAP}] = {{\n\t{{ wx = {}, wy = {}, z = 0, r = 6, kind = \"lift\", liftEnd = \"bottom\"{ride}, pair = 2 }},\n\t{{ wx = {}, wy = {}, z = 0, r = 6, kind = \"lift\", liftEnd = \"top\"{ride}, pair = 1 }},\n\t{{ wx = {}, wy = {}, z = 0, r = 10, kind = \"gate\" }},\n}} }}\n",
 				js(bottom.x),
 				js(bottom.y),
 				js(top.x),
 				js(top.y),
 				js(top.x),
-				js(top.y + 3.0 * CS)
+				js(top.y + 3.0 * CS),
+				ride = ride.map(|s| format!(", ride = {}", js(s))).unwrap_or_default()
 			),
 		)
 		.unwrap();
@@ -1219,14 +1253,14 @@ fn lift_files(with_lift: bool) -> MapDir {
 #[test]
 fn lifts_a_lift_chokepoint_joins_ground_the_grid_leaves_apart_find_rides_it_findcost_and_findmany_price_the_ride_without_it_no_way() {
 	let queries = || [q("find", "find", "nil"), q("cost", "cost", "nil"), q("many", "many", "nil"), q("back", "many", "nil")];
-	let none = route(&lift_files(false), &queries()[..3]);
+	let none = route(&lift_files(false, None), &queries()[..3]);
 	for id in ["find", "cost"] {
 		assert_eq!(none[id]["cost"], "unreachable", "{id}: no lift, no way");
 	}
 	assert!(none["many"].get("cost").is_none_or(Value::is_null), "FindMany: no cost");
 	let r = route_with(
 		ours(),
-		&lift_files(true),
+		&lift_files(true, None),
 		&queries(),
 		from(),
 		to(),
@@ -1243,12 +1277,23 @@ fn lifts_a_lift_chokepoint_joins_ground_the_grid_leaves_apart_find_rides_it_find
 	yards_near(yards(&r["many"]), S as f64 * CS, "FindMany's yards: the walks and the yards between the landings", 0.5);
 }
 
+// A lift landing with its `ride` (the pack's: the ride and the average wait for the car, from the client's lift
+// animation) is priced at those seconds at run speed, not the 25 s of a landing without one: the Undercity's 7.6 s.
+#[test]
+fn lifts_a_ride_is_priced_at_its_landings_seconds() {
+	let r = route(&lift_files(true, Some(7.6)), &[q("find", "find", "nil"), q("cost", "cost", "nil")]);
+	let want = 2.0 * LIFT_GAP as f64 * CS + 7.6 * 7.0; // the two walks at run speed, and the ride (7.6 s at 7 yd/s)
+	for id in ["find", "cost"] {
+		close(&r[id], want, id);
+	}
+}
+
 // Arcs (maps format 5, Leffe's jumps and drops): the two strips of the lift test with no lift, and one arc from the
 // near strip's end to the far strip's start in the cluster's arc field (its columns: n | from gaps | to-nodes against
 // the from node | yards * 4): a one-way move the grid's steps lack.
 const ARC_YD: f64 = 12.0;
 fn arc_files() -> MapDir {
-	let mut map = lift_files(false);
+	let mut map = lift_files(false, None);
 	let (a, b) = ((X0 + LIFT_GAP) * C + Y0, (X1 - LIFT_GAP) * C + Y0);
 	let mut field = String::new();
 	for v in [1, a as u64, zigzag(b as i64 - a as i64), (ARC_YD * 4.0) as u64] {

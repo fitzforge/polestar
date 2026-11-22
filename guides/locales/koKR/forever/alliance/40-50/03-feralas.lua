@@ -132,21 +132,33 @@ return {
 	-- plural, as words: Ironfur Bears = {npc:5268} Ironfur Bear · Ironfur Patriarchs = {npc:5274} Ironfur Patriarch
 	["Ride north out of {area:1105}: the Ironfur Bears (41-42) at the foot of the {area:1136} drop Rhapsody's last liver.\nCareful: Ironfur Patriarchs (48-49) and the Rage Scar yetis (46-49) roam the hills further north: stay at their edge."] = "{area:1105}에서 북쪽으로 나가십시오. {area:1136} 기슭의 무쇠가죽곰(41-42레벨)이 랩소디의 마지막 간을 떨어뜨립니다.\n주의: 더 북쪽 언덕에는 우두머리 무쇠가죽곰(48-49레벨)과 성난상처 설인(46-49레벨)이 돌아다닙니다. 가장자리에 머무르십시오.",
 
-	-- Step 25: Feathermoon Stronghold
+	-- Step 25: OOX-22/FE Distress Beacon
+	-- {zone:1444} Feralas
+	["Only with the distress beacon, a rare drop in {zone:1444}: it starts a quest to find the robot it calls for."] = "",
+
+	-- Step 26: Homing Robot OOX-22/FE
+	-- {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay · {zone:1425} Hinterlands
+	["The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}, where the boat to Feathermoon leaves; its reward waits with {npc:7406} in {area:35}, on the {zone:1425} guide's {area:35} stop.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "",
+
+	-- Step 27: Feathermoon Stronghold
 	-- {npc:7880} Ginro Hearthkindle
 	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
+	-- {npc:3936} Shandris Feathermoon · {quest:4267} Rise of the Silithid · {npc:7740} Gracina Spiritmight · {zone:1446} Tanaris · {zone:1457} Darnassus
+	["{npc:3936}: {quest:4267}, for {npc:7740} on the {zone:1446} guide's {zone:1457} stop: keep it"] = "",
 
-	-- Step 26: Feathermoon Stronghold
-	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
-	["{npc:3936} then asks you to carry news to {zone:1457}: skip it, {area:976} sends you there instead."] = "이어서 {npc:3936}이(가) {zone:1457}에 소식을 전해 달라고 합니다: 건너뛰십시오. 대신 {area:976}에서 그곳으로 보내 줍니다.",
+	-- Step 28: Angelas Moonbreeze
+	-- {npc:7900} Angelas Moonbreeze · {area:1116} Feathermoon Stronghold · {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {zone:1446} Tanaris
+	["{npc:7900} in {area:1116} sends you to {npc:7771} at the {area:1938} in {zone:1446}, where the {zone:1446} guide stops for his dig."] = "",
+	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {zone:1446} Tanaris
+	["for {npc:7771} at the {area:1938} in {zone:1446}: keep it"] = "",
 
-	-- Step 28: Ride to Thalanaar
+	-- Step 30: Ride to Thalanaar
 	-- {area:489} Thalanaar
 	["Ride to {area:489}"] = "{area:489}까지 이동",
 	-- {area:489} Thalanaar · {zone:1441} Thousand Needles
 	["No flight path to {area:489} yet: take the boat back to the coast and ride east along the road to {area:489}, on the {zone:1441} border."] = "아직 {area:489} 비행 경로가 없습니다. 배를 타고 해안으로 돌아가 길을 따라 동쪽으로, {zone:1441} 경계의 {area:489}까지 가십시오.",
 
-	-- Step 29: Thalanaar
+	-- Step 31: Thalanaar
 	-- {zone:1441} Thousand Needles
 	["Ride north-east to the night elf outpost on the {zone:1441} border."] = "북동쪽으로 {zone:1441} 경계의 나이트 엘프 전초기지까지 가십시오.",
 	-- {npc:4048} Falfindel Waywarder · {area:489} Thalanaar
@@ -171,6 +183,7 @@ return {
 	-- ["if you carry {quest:1100} from {zone:1441}"] = "{zone:1441}에서 {quest:1100}을(를) 가져왔다면",
 	-- ["{area:978} instead of grinding"] = "사냥 대신 {area:978}",
 	-- ["{npc:14637}'s refills are level 55: skip them."] = "{npc:14637}의 재충전 퀘스트는 55레벨입니다: 건너뛰십시오.",
+	-- ["{npc:3936} then asks you to carry news to {zone:1457}: skip it, {area:976} sends you there instead."] = "이어서 {npc:3936}이(가) {zone:1457}에 소식을 전해 달라고 합니다: 건너뛰십시오. 대신 {area:976}에서 그곳으로 보내 줍니다.",
 	-- ["{npc:7774} wanders the hills north of {npc:7765}, among the Northspring harpies; her bell is in the chest beside her."] = "{npc:7774}은(는) {npc:7765} 북쪽 언덕의 바람계곡일족 하피 사이를 떠돕니다. 샤이의 종은 그녀 옆 상자에 있습니다.",
 	-- ["{npc:7774}'s escort"] = "{npc:7774} 호위",
 }

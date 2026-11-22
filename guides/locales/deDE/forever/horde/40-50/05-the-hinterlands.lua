@@ -129,6 +129,8 @@ return {
 	-- Step 27: Grim Message
 	-- {item:15002} Nimboya's Pike
 	["South of the lodge the Witherbark trolls hold their villages. Every one of them carries a skull: with twenty, use {item:15002} to make the Laden Pike, then plant it inside the village."] = "Südlich der Jagdhütte halten die Trolle der Witherbark ihre Dörfer. Jeder von ihnen trägt einen Schädel: Mit zwanzig benutzt du {item:15002}, um Nimboyas geladene Pike zu machen, und pflanzt sie dann im Dorf auf.",
+	-- {area:1885} Hiri'watha
+	["inside {area:1885}: it can't be planted outside a village"] = "",
 
 	-- Step 28: Aerie Peak
 	-- {area:348} Aerie Peak

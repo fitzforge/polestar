@@ -355,12 +355,19 @@ ns.UI.GuideFrame.Part(function(GF)
 
 	-- One link-style action in the banner (label, chevron), `x` right of the
 	-- text's left edge. It never runs past the text's column: a label too long
-	-- for it (a guide's whole title) is cut short with "…".
+	-- for it (a guide's whole title) is cut short with "…". A second action
+	-- that would be cut short beside the first takes its own line under it.
+	local secondRow = false -- a second action on its own line
 	local function placeLink(link, text, x, y)
 		link.Label:SetWordWrap(false)
 		link.Label:SetWidth(0)
 		link.Label:SetText(text)
 		local room = floor(banner.Text:GetWidth() - x - 16)
+		if x > 0 and link.Label:GetStringWidth() > room then
+			x, y = 0, y - 18 - 4
+			room = floor(banner.Text:GetWidth() - 16)
+			secondRow = true
+		end
 		if room > 0 and link.Label:GetStringWidth() > room then link.Label:SetWidth(room) end
 		link:SetWidth(floor(link.Label:GetStringWidth() + 16 + 0.5))
 		link:ClearAllPoints()
@@ -377,6 +384,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		banner.Jump.psDefault = (kind == "group" or kind == "lost" or kind == "dungeon" or kind == "dungeonRun") or nil -- the gamepad's first focus (UI/GamepadGuide.lua)
 		banner.Text:SetWidth(width - PAD * 2 - 21 - 24)
 		banner.Later:Hide()
+		secondRow = false
 		local oneLine = false -- no link row under the text
 		if kind == "skipped" then
 			banner.Icon:SetTexture(Theme.Media("skip"))
@@ -677,7 +685,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			placeLink(banner.Jump, n.kind == "old" and L["How to update"] or L["Update"], 0, -4)
 			banner.Close:SetShown(n.closable)
 		end
-		local h = floor(9 + banner.Text:GetStringHeight() + (oneLine and 0 or 4 + 18) + 9 + 0.5)
+		local h = floor(9 + banner.Text:GetStringHeight() + (oneLine and 0 or 4 + 18) + (secondRow and banner.Later:IsShown() and 4 + 18 or 0) + 9 + 0.5)
 		banner:SetHeight(h)
 		return h
 	end
@@ -884,7 +892,9 @@ ns.UI.GuideFrame.Part(function(GF)
 		-- GUIDE_CONTINUED(fromId, toId, carried): with "Continue automatically" a
 		-- finished leveling guide handed off by itself. Said in the banner for
 		-- SKIPPED_SECONDS, in chat while the window is hidden; the quests a later
-		-- guide hands in (Engine.CarriedQuests) are said in chat, so they are kept.
+		-- guide hands in (Engine.CarriedQuests) are said in chat, so they are kept,
+		-- and so are the accepts still waiting for the character's level
+		-- (Engine.WaitingQuests): the next guide's to take, or a later one's.
 		ns.On("GUIDE_CONTINUED", function(fromId, toId, carried)
 			local G = ns.Guides
 			local from, to = G and G.Get and G.Get(fromId), G and G.Get and G.Get(toId)
@@ -898,6 +908,15 @@ ns.UI.GuideFrame.Part(function(GF)
 				for i, c in ipairs(carried) do titles[i] = ns.Quoted(c.title) end
 				ns.Print(string.format(L["Keep these, a later guide hands them in: %s"], table.concat(titles, ", ")))
 			end
+			local E = Engine()
+			local waiting = E and E.WaitingQuests and E.WaitingQuests(fromId, toId) or {}
+			local here, later = {}, {}
+			for _, w in ipairs(waiting) do
+				local line = string.format(L["%s (level %d)"], ns.Quoted(w.title), w.level)
+				if w.next then here[#here + 1] = line else later[#later + 1] = line end
+			end
+			if #here > 0 then ns.Print(string.format(L["%s takes these once you reach their level: %s"], n.toTitle, table.concat(here, ", "))) end
+			if #later > 0 then ns.Print(string.format(L["Waiting for your level, taken where a later guide passes the giver: %s"], table.concat(later, ", "))) end
 			if not F then return end
 			notices.continued = n
 			if ns.IsLoggedIn() then GF.Layout() end

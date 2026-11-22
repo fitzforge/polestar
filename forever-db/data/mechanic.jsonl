@@ -129,7 +129,6 @@
 {"kind":"group/elite","params":{"drives_route":true},"quest":591}
 {"kind":"use-item-on-mob","params":{"drives_route":true},"quest":592}
 {"kind":"item-from-other-quest","params":{"drives_route":true},"quest":593}
-{"kind":"delayed-offer","params":{"drives_route":true},"quest":603}
 {"kind":"object-click","params":{"drives_route":true},"quest":604}
 {"kind":"group/elite","params":{"drives_route":true},"quest":611}
 {"kind":"use-item-at-place","params":{"drives_route":true},"quest":611}
@@ -225,7 +224,7 @@
 {"kind":"object-click","params":{"drives_route":true},"quest":848}
 {"kind":"object-click","params":{"drives_route":true},"quest":849}
 {"kind":"use-item-at-place","params":{"drives_route":true},"quest":849}
-{"kind":"other","params":{"drives_route":false},"quest":851}
+{"kind":"other","params":{"drives_route":true},"quest":851}
 {"kind":"timed","params":{"drives_route":true},"quest":853}
 {"kind":"object-click","params":{"drives_route":true},"quest":857}
 {"kind":"escort","params":{"drives_route":true},"quest":863}
@@ -316,7 +315,6 @@
 {"kind":"object-click","params":{"drives_route":true},"quest":1050}
 {"kind":"group/elite","params":{"drives_route":true},"quest":1051}
 {"kind":"group/elite","params":{"drives_route":true},"quest":1053}
-{"kind":"delayed-offer","params":{"drives_route":true},"quest":1064}
 {"kind":"object-click","params":{"drives_route":true},"quest":1069}
 {"kind":"crafted","params":{"drives_route":true},"quest":1073}
 {"kind":"object-click","params":{"drives_route":true},"quest":1079}
@@ -3104,13 +3102,12 @@
 {"kind":"timed","params":{"drives_route":true},"quest":65602}
 {"kind":"object-click","params":{"drives_route":true},"quest":78261}
 {"kind":"object-click","params":{"drives_route":true},"quest":79092}
+{"kind":"other","params":{"drives_route":false},"quest":79236}
 {"kind":"group/elite","params":{"drives_route":true},"quest":79360}
 {"kind":"object-click","params":{"drives_route":true},"quest":86613}
 {"kind":"object-click","params":{"drives_route":true},"quest":86784}
 {"kind":"group/elite","params":{"drives_route":true},"quest":88756}
 {"kind":"object-click","params":{"drives_route":true},"quest":88756}
-{"kind":"group/elite","params":{"drives_route":true},"quest":88757}
-{"kind":"object-click","params":{"drives_route":true},"quest":88757}
 {"kind":"object-click","params":{"drives_route":true},"quest":91316}
 {"kind":"object-click","params":{"drives_route":true},"quest":91725}
 {"kind":"object-click","params":{"drives_route":true},"quest":91732}
@@ -3341,6 +3338,7 @@
 {"kind":"object-click","params":{"drives_route":true},"quest":97242}
 {"kind":"group/elite","params":{"drives_route":true},"quest":97250}
 {"kind":"object-click","params":{"drives_route":true},"quest":97253}
+{"kind":"delayed-offer","params":{"drives_route":true},"quest":97275}
 {"kind":"object-click","params":{"drives_route":true},"quest":97277}
 {"kind":"object-click","params":{"drives_route":true},"quest":97279}
 {"kind":"object-click","params":{"drives_route":true},"quest":97291}

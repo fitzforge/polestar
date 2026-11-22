@@ -438,11 +438,15 @@ fn a_different_instance_copy_seen_in_a_creature_guid_splits_a_resumed_run_and_co
 		m.enter("The Stockade", 34)
 		w.units.target = "Creature-0-4372-34-100-1706-0000AAAA"
 		stub.fire("PLAYER_TARGET_CHANGED")
+		w.units.target = "Creature-0-4372-34-100-1707-0000AAAB"
+		stub.fire("PLAYER_TARGET_CHANGED")      -- two creatures agree on the copy
 		m.jump(600)
 		m.leave()
 		m.jump(60)
 		m.enter("The Stockade", 34)              -- looks like the same run...
 		w.units.target = "Creature-0-4372-34-200-1706-0000BBBB"
+		stub.fire("PLAYER_TARGET_CHANGED")
+		w.units.target = "Creature-0-4372-34-200-1707-0000BBBC"
 		stub.fire("PLAYER_TARGET_CHANGED")      -- ...but it is another copy
 		local s = M.GetInstanceStatus()
 		local runs = Polestar.CharState().instanceRuns
