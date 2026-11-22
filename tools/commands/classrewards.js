@@ -8,6 +8,8 @@
 //   data/forever/quests.json        which quests a class may take (classes),
 //                                   their links (next, pre, preAll, preAny) and
 //                                   item rewards (the web quest data's items and choices)
+//   data/codex/recorded.json        the items players were handed at each turn-in
+//                                   (their recordings' `rewards`; a trusted row wins)
 //   data/sources/forever-tdb        quest RewardSpell (else RewardDisplaySpell1)
 //   the client tables               SpellEffect (a "teach" spell's learned
 //                                   spell), SpellName, SpellMisc and Item (names,
@@ -135,7 +137,9 @@ function classGuides(dir) {
 	return out;
 }
 
-function buildClassRewards({ quests, tdb, table, guides, npcs = {}, objects = {}, races = {} }) {
+// recorded: data/codex/recorded.json `rewards` ({ quest: { items, choices, voters, trusted } }): what players were
+// handed at the turn-in, in their recordings; a trusted row wins over the quest data's `web` items.
+function buildClassRewards({ quests, tdb, table, guides, npcs = {}, objects = {}, races = {}, recorded = {} }) {
 	// Spells: what a "teach" spell teaches, names, icons, kinds.
 	const effects = new Map();
 	for (const r of table('SpellEffect')) {
@@ -214,7 +218,8 @@ function buildClassRewards({ quests, tdb, table, guides, npcs = {}, objects = {}
 			r.teach = s;
 			r.spell = resolve(s);
 		}
-		const w = webOf(quests[q]);
+		const seen = recorded[q];
+		const w = seen && seen.trusted && ((seen.items || []).length || (seen.choices || []).length) ? seen : webOf(quests[q]);
 		const fixed = ((w && w.items) || []).map((e) => Number(Array.isArray(e) ? e[0] : e)).filter(kept);
 		const choices = ((w && w.choices) || []).map((e) => Number(Array.isArray(e) ? e[0] : e)).filter(kept);
 		if (fixed.length) r.items = [fixed.find(isTotem) || fixed[0]];
@@ -244,10 +249,16 @@ function buildClassRewards({ quests, tdb, table, guides, npcs = {}, objects = {}
 		guideGiver.set(g, q);
 	}
 
-	// Links between class quests of the same class.
+	// Links between class quests of the same class and side: a quest both factions' chains lead to (The Tempest's
+	// Weapons, 79442, lists the Horde's Heed My Call and the Alliance's as `pre`) joins neither to the other.
 	const succ = new Map(), pred = new Map();
+	const raceBits = (q) => BigInt(Number((quests[q] || {}).races) || 0);
+	const sameSide = (a, b) => {
+		const x = raceBits(a), y = raceBits(b);
+		return x === 0n || y === 0n || (x & y) !== 0n;
+	};
 	const link = (a, b) => {
-		if (!a || !b || a === b || !mask.has(a) || !mask.has(b) || !(mask.get(a) & mask.get(b))) return;
+		if (!a || !b || a === b || !mask.has(a) || !mask.has(b) || !(mask.get(a) & mask.get(b)) || !sameSide(a, b)) return;
 		if (!succ.has(a)) succ.set(a, new Set());
 		if (!pred.has(b)) pred.set(b, new Set());
 		succ.get(a).add(b);
@@ -513,10 +524,12 @@ module.exports = {
 		const npcs = JSON.parse(fs.readFileSync(path.join(dataDir, 'npcs.json'), 'utf8'));
 		const objects = JSON.parse(fs.readFileSync(path.join(dataDir, 'objects.json'), 'utf8'));
 		const races = JSON.parse(fs.readFileSync(path.join(dataDir, 'races.json'), 'utf8'));
+		const recordedFile = path.join(ROOT, 'data', 'codex', 'recorded.json');
+		const recorded = fs.existsSync(recordedFile) ? JSON.parse(fs.readFileSync(recordedFile, 'utf8')).rewards || {} : {};
 		const tdbFile = path.join(sources, 'forever-tdb', 'extract.json');
 		const tdb = fs.existsSync(tdbFile) ? JSON.parse(fs.readFileSync(tdbFile, 'utf8')) : null;
 		const guides = classGuides(path.resolve(values.guides || path.join(ROOT, 'guides')));
-		const data = { ...buildClassRewards({ quests, tdb, table: tableFinder(sources), guides, npcs, objects, races }) };
+		const data = { ...buildClassRewards({ quests, tdb, table: tableFinder(sources), guides, npcs, objects, races, recorded }) };
 		const out = path.resolve(values.lua || path.join(ROOT, 'addon', 'Polestar', 'UI', 'ClassRewards.lua'));
 		fs.mkdirSync(path.dirname(out), { recursive: true });
 		fs.writeFileSync(out, toLua(data));
