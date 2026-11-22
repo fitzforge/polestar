@@ -136,11 +136,11 @@ fn the_end_card_counts_both_kinds_and_each_line_opens_its_list() {
 		local r = { shown = empty:IsShown(), title = plain(empty.Title:GetText()), text = plain(empty.Text:GetText()),
 			carried = empty.Carried:IsShown() and plain(empty.Carried.Label:GetText()) or false,
 			stray = empty.Stray:IsShown() and plain(empty.Stray.Label:GetText()) or false }
-		-- Laid out between the text and the buttons.
+		-- Laid out between the text and the Play next card.
 		local _, _, _, _, ty = empty.Text:GetPoint(1)
 		local _, _, _, _, cy = empty.Carried:GetPoint(1)
 		local _, _, _, _, sy = empty.Stray:GetPoint(1)
-		local _, _, _, _, py = empty.Primary:GetPoint(1)
+		local _, _, _, _, py = GF.PlayNext.card():GetPoint(1)
 		r.order = ty > cy and cy > sy and sy > py
 		empty.Stray:Click(); flush()
 		r.offroute = room()
@@ -155,7 +155,7 @@ fn the_end_card_counts_both_kinds_and_each_line_opens_its_list() {
 	"#);
 	assert_eq!(out["shown"], true, "{out}");
 	assert_eq!(out["title"], "Guide complete", "{out}");
-	assert_eq!(out["text"], "Next: B (8–11)", "{out}");
+	assert_eq!(out["text"], "A (1–10) is done.", "{out}");
 	assert_eq!(out["carried"], "1 quest in your log carries on to a later guide", "{out}");
 	assert_eq!(out["stray"], "4 quests aren't part of your route", "{out}");
 	assert_eq!(out["order"], true, "{out}");
