@@ -1441,7 +1441,11 @@ local function ask(P, pc, px, py, flat, terminal)
 		-- that walk kept only when it is no detour, at most city.FLAT times the straight way plus city.SLACK yards.
 		-- Ironforge's walk to a Great Forge floor without its height went out of the gate and over the mountain,
 		-- 3,515 yd for 356: that stays the straight arrow, saying the last steps aren't mapped.
+		-- Only for the target itself: a walk to a route's leg end (a lift's landing, a portal) keeps its floor, the
+		-- leg's way being on it (the Undercity's lower lift landing, nav-e2e).
+		local tc, tx, ty = Nav.GetTargetWorld()
 		if not got and z and inCity and not city.flat and not terminal and not Walk.checkedOnly
+			and tc == gc and tx and (tx - gx) ^ 2 + (ty - gy) ^ 2 <= GOAL_MOVED * GOAL_MOVED
 			and (reason == "no safe walking route" or not tracked) and not (type(answer) == "table" and answer.blockedReason) then
 			city.flat = sqrt((gx - px) * (gx - px) + (gy - py) * (gy - py))
 			gz, city.dropped = nil, true
