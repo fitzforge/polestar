@@ -163,7 +163,7 @@ return {
 	-- {object:147516} Dark Iron · {zone:1427} Searing Gorge
 	["Mithril & {object:147516}: {zone:1427} (230-245)"] = "秘银与{object:147516}：{zone:1427}（230-245）",
 	-- {object:147516} Dark Iron · {skill:186} Mining · {item:11099} Dark Iron Ore · {object:174824} Black Forge (no name in this language: may be words) · {area:1584} Blackrock Depths
-	["Mine every Gold (155, green), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). Zone level 43-50. Expect about 40 nodes for these 15 points."] = "开采沿途每个金矿（155，绿色）、秘银矿（175，绿色）、{object:147516}（230，橙色）和真银矿（230，橙色）矿点，沿路径点循环采矿，直到 {skill:186} 245。从这里起，熔炼不再涨点（更高级的熔炼配方学会时就已经是灰色）：熔炼后用于制作或出售，或直接卖矿石。{item:11099} 只能在 {area:1584} 的 {object:174824} 熔炼（8块矿石熔一锭）。地区等级43—50。提升这15点预计需要开采约40个矿点。",
+	["Mine every Gold (155, green), Mithril (175, green), {object:147516} (230, orange), Truesilver (230, orange) node you pass and circle the waypoints until {skill:186} 245. Smelting gives no points from here (the higher smelts are grey once learned): smelt to craft or sell, or sell the ore. {item:11099} smelts only at the {object:174824} in {area:1584} (8 ore a bar). Zone level 43-50. Expect about 40 nodes for these 15 points."] = "开采沿途每个金矿（155，绿色）、秘银矿（175，绿色）、{object:147516}（230，橙色）和真银矿（230，橙色）矿点，沿路径点循环采矿，直到 {skill:186} 245。从这里起，熔炼不再涨点（更高级的熔炼配方学会时就已经是灰色）：熔炼后用于制作或出售，或直接卖矿石。{item:11099} 只能在 {area:1584} 的黑熔炉熔炼（8块矿石熔一锭）。地区等级43—50。提升这15点预计需要开采约40个矿点。",
 	-- {object:147516} Dark Iron
 	["Mithril, {object:147516}"] = "秘银矿、{object:147516}",
 
