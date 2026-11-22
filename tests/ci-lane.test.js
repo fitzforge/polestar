@@ -9,7 +9,7 @@ const assert = require('node:assert/strict');
 const fs = require('node:fs');
 const path = require('node:path');
 const { spawnSync } = require('node:child_process');
-const { lane, forgeLane, areaOf, isDocPath, globRe, DOCS_TESTS, FORGE_PATHS, RUST_PATHS } = require('../tools/ci-lane');
+const { lane, forgeLane, guideTextLocales, areaOf, isDocPath, globRe, DOCS_TESTS, FORGE_PATHS, RUST_PATHS } = require('../tools/ci-lane');
 
 const ROOT = path.join(__dirname, '..');
 const WORKFLOWS = path.join(ROOT, '.github', 'workflows');
@@ -147,6 +147,13 @@ test("forge.yml's suites run on every document a Rust test reads, and its pushes
 	assert.ok(read.has('docs/API.md') && read.has('docs/forge/*.md'), `the reader finds the known reads: ${[...read.keys()]}`);
 	const missing = [...read].filter(([p]) => !RUST_PATHS.some((g) => globRe(g).test(p) || globRe(g).test(p.replace(/\*/g, 'x')))).map(([p, w]) => `${p} (${w.join(', ')})`);
 	assert.deepEqual(missing, [], "add these to RUST_DOCS in tools/ci-lane.js");
+});
+
+test('the guide texts check: a guide change checks every language, a language\'s texts that language, anything else none', () => {
+	assert.equal(guideTextLocales(['guides/forever/horde/40-50/04-tanaris.guide', 'guides/locales/deDE/forever/horde/40-50/04-tanaris.lua']), 'all');
+	assert.equal(guideTextLocales(['experimental/guides/x.guide']), 'all');
+	assert.deepEqual(guideTextLocales(['guides/locales/frFR/forever/a.lua', 'addon/Polestar_deDE/Texts.lua', 'guides/locales/frFR/forever/b.lua']), ['deDE', 'frFR']);
+	assert.deepEqual(guideTextLocales(['addon/Polestar_deDE/Interface.lua', 'docs/CI.md', 'data/guide-fixes.json']), []);
 });
 
 test("forge.yml's lane: Rust runs everything, the rest of its paths the Lua tests, anything else skips, no list runs", () => {
