@@ -1417,7 +1417,7 @@ emit(out)`,
 	}).emitted;
 	assert.equal(out.oneLine, true, 'one line, no "Click to view" under it');
 	assert.deepEqual(out.label, [14, -9], "the heading where Optional's stands");
-	assert.equal(out.under, 3, "the first row 3 under the heading, as Optional's");
+	assert.equal(out.under, 0, "the first row right under the heading, as Optional's");
 	assert.equal(out.rowH, 23, "a row as tall as Optional's");
 	assert.equal(out.rest.view, false, 'View hidden off the card');
 	assert.match(out.rest.xp, /6,150 XP/);
@@ -1427,7 +1427,7 @@ emit(out)`,
 });
 
 // Every card above the window wears one card's measures (Optional's): its
-// heading 14 in and 9 down, its first row 3 under the heading, a one-line row
+// heading 14 in and 9 down, its first row right under the heading, a one-line row
 // 23 tall with its icon and right column on the line's middle, its foot 6
 // under the last row. While you're here's second line stays unseen (Polestar
 // shows it again at each distance refresh).
@@ -1466,7 +1466,7 @@ local stack = PolestarGuideFrameCards
 local function y(f) local _, _, _, _, v = f:GetPoint(1) return v end
 local function head(label)
 	local _, _, _, x, v = label:GetPoint(1)
-	return { x, v, v - math.ceil(label:GetStringHeight()) - 3 }
+	return { x, v, v - math.ceil(label:GetStringHeight()) }
 end
 local out = {}
 local function firstRow(rows)
@@ -1494,7 +1494,7 @@ emit(out)`,
 		// Optional's notes (a tip line) stand over its heading.
 		if (name !== 'opt') assert.deepEqual(c.head.slice(0, 2), [14, -9], `${name}: the heading 14 in, 9 down`);
 		else assert.equal(c.head[0], 14, 'opt: the heading 14 in');
-		assert.equal(c.row, c.head[2], `${name}: the first row 3 under the heading`);
+		assert.equal(c.row, c.head[2], `${name}: the first row right under the heading`);
 		assert.ok(c.h >= 23 && (c.h - 23) % 1 === 0, `${name}: a row at least 23 tall (${c.h})`);
 	}
 	assert.equal(out.opt.h, 23);

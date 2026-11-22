@@ -522,7 +522,7 @@ local function gapOf(window) return GAP - 2 * seamOf(window) end
 local OPT_ROW, OPT_PAD = 23, 14
 -- Optional's heading this far under its card's top; the card's foot this far under its last row.
 local OPT_TOP, OPT_FOOT = 9, 6
-local CARD_UNDER = 3 -- a card's first row this far under its heading
+local CARD_UNDER = 0 -- a card's first row this far under its heading (the row's own air above its text is the gap)
 
 -- Every card Atlas stacks above the window wears Optional's measures: these
 -- three place its heading, its rows' first line and its foot.
