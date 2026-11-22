@@ -9,8 +9,13 @@
 --                    classic pages, another addon's among them); a page with
 --                    settings new to the player has a ring, else a dot while
 --                    one is off its default
---   a page           its own tabs, the classic page's, in the tab row, and
---                    each tab's rows as the classic page lays them out
+--   a page           its own tabs, the classic page's, as folder tabs in the
+--                    tab band (an icon before each label, a dot after it for
+--                    a row off its default), and each tab's rows as the
+--                    classic page lays them out
+--   a card           its title in its top border (Legend), at the border's
+--                    right the module's pill, "N changed" and Reset; a card
+--                    whose module is off folds to that header and one line
 --   the header       "Search first": a "Group › Page" crumb and the
 --                    description, then the wide search, the switch, Peek,
 --                    Fold, Reload UI and ··· (Menu scale, Move frames, the
@@ -387,8 +392,62 @@ function G.NavKey()
 end
 
 ---------------------------------------------------------------------------
--- The chrome: the header's crumb, the index
+-- The chrome: the folder tabs, the index
 ---------------------------------------------------------------------------
+
+-- A folder tab's icon: the tab's own, else its page's, else the page of
+-- its first section's first row (a reference's home); one taken by a tab
+-- before it in the bar gives way to the first free one of TAB_ICONS. All of
+-- them glyphs of Media/UI.
+G.TAB_ICONS = { "sliders", "window", "menu", "gear", "layers", "star", "flag", "info", "eye", "palette", "bolt", "plug", "check" }
+
+local function sectionPageIcon(t)
+	local sec = t.sections and t.sections[1]
+	local c = sec and sec.controls[1]
+	if not c then return nil end
+	local home = rawget(c, "ref") and O.HomeOf(c) or c
+	local hp = home and rawget(home, "page")
+	return hp and hp.icon
+end
+
+-- -> the icon of tab t in page p's bar (unique in it)
+function G.TabIcon(p, t)
+	local used = {}
+	for _, x in ipairs(pageTabs(p)) do
+		local pick
+		for _, cand in ipairs({ rawget(x, "icon") or false, p.icon or false, sectionPageIcon(x) or false }) do
+			if cand and not used[cand] then pick = cand break end
+		end
+		if not pick then
+			for _, cand in ipairs(G.TAB_ICONS) do
+				if not used[cand] then pick = cand break end
+			end
+		end
+		pick = pick or "gear"
+		if x == t then return pick end
+		used[pick] = true
+	end
+	return rawget(t, "icon") or p.icon or "gear"
+end
+
+-- A folder tab's dot: "filled" while a row on the tab is off its default,
+-- "hollow" while the only change is under a parent whose children are
+-- closed, else nil.
+function G.TabDot(t)
+	local hidden = false
+	for _, sec in ipairs(t and t.sections or {}) do
+		if K.sectionShown(sec) then
+			if toggleChanged(sec) then return "filled" end
+			for _, c in ipairs(homeRows(sec)) do
+				if rowChanged(c) then
+					local parent = rawget(c, "psChildOf")
+					if parent and not O.KidsOpen(parent) then hidden = true else return "filled" end
+				end
+			end
+		end
+	end
+	return hidden and "hollow" or nil
+end
 
 -- The header's line one: the breadcrumb, "Group › Page", then the
 -- description (the header lays them out, W.HeaderScale's "Search first").
@@ -614,7 +673,7 @@ local function depRow(sec)
 end
 
 -- A page's tab, as the classic page builds it (K.buildView) with the
--- dependency lines first in their sections; its own
+-- dependency lines first in their sections and Legend card headers; its own
 -- view, not the classic page's. v.psGroups / v.psRows: its sections on
 -- screen and their rows (the index reads them). A module's switch lays the
 -- tab out again (its card folds or opens); the rows a jump asked for
@@ -633,7 +692,7 @@ local function tabView(p, t)
 	local v = B.views[id]
 	if v and v.psTab == t then return v end
 	if v then v:Hide() end
-	v = K.buildView(p, t, { lead = depRow })
+	v = K.buildView(p, t, { lead = depRow, legend = true })
 	local refresh = v.Refresh
 	v.Refresh = function()
 		v.psReveal = B.reveal
@@ -666,8 +725,10 @@ end
 local function hideChrome()
 	local w = win()
 	if not w then return end
+	if rawget(w, "FolderTabs") then w.FolderTabs:Hide() end
 	for _, v in pairs(B.views) do v:Hide() end
 	if B.Strip then B.Strip:Hide() end
+	w.psKeepTabRow, w.psTabRoom = nil, nil
 	W.ShellTabs(w, nil)
 	B.entries = nil
 	W.ShellLayout(w)
@@ -790,18 +851,29 @@ function render(opts)
 	B.depKeys = {}
 	headerMode(true)
 	W.ShellLayout(w)
-	-- The page's tabs in the tab row (none for a page of one unnamed tab).
-	local list
-	if #tabs > 1 or tabs[1].name ~= "" then
-		list = {}
-		for i, t in ipairs(tabs) do list[i] = { key = t.name, label = t.name } end
-	end
-	W.ShellTabs(w, list, tab.name, function(key) render({ page = p, tab = key }) end)
+	-- The title, the band: the page's folder tabs.
+	w.psKeepTabRow = true
+	W.ShellTabs(w, nil)
+	local list, active
 	local view = tabView(p, tab)
 	drawCrumb(g.label, p.name, p.subtitle or SUBTITLES[p.key])
 	local h = view.Refresh()
 	view:SetHeight(h)
 	view:Show()
+	if #tabs > 1 or tabs[1].name ~= "" then
+		list, active = {}, tab.name
+		for i, t in ipairs(tabs) do
+			list[i] = { key = t.name, label = t.name, icon = G.TabIcon(p, t), dot = G.TabDot(t) }
+		end
+	end
+	local folder = { active = active, width = w.psMainW,
+		onSelect = function(key) render({ page = p, tab = key }) end }
+	if rawget(w, "FolderTabs") then
+		w.FolderTabs:Set(list, active, folder)
+	else
+		w.FolderTabs = W.FolderTabs(w.TabRow, list, folder)
+	end
+	w.FolderTabs:Show()
 	-- The index under the tabs, for a long tab.
 	local entries
 	if not p.custom and (view.psRows or 0) > LONG then
@@ -927,7 +999,7 @@ function G.ShowSection(at)
 	for _, card in ipairs(view and view.cards or {}) do
 		if card:IsShown() and card.psSection == at.section then
 			W.ScrollTo(win().Scroll, max(0, (card.psTop or 0) - 16))
-			O.Flash(card.Header)
+			O.Flash(card.psLegend and card or card.Header)
 			return card
 		end
 	end
@@ -945,17 +1017,22 @@ function G.Jump(c)
 	local view = O.view
 	if not (view and view.cache) then return nil end
 	local w, top = view.cache[root], nil
+	local pill = rawget(view, "psPills") and view.psPills[c]
 	-- A child while its parent is off: the parent's row.
 	local kidOf = rawget(root, "psChildOf")
 	if kidOf and not (w and w:IsShown()) and view.cache[kidOf] then w = view.cache[kidOf] end
 	if w then
+		top = w.psTop
+	elseif pill then
+		-- A module's switch: its card.
+		w = pill:GetParent():GetParent()
 		top = w.psTop
 	elseif view.extras[c] then
 		w = view.extras[c]:GetParent()
 		top = w:GetParent().psTop
 	else
 		for _, card in ipairs(view.cards or {}) do
-			if card:IsShown() and card.psSection == at.section then w, top = card.Header, card.psTop end
+			if card:IsShown() and card.psSection == at.section then w, top = card.psLegend and card or card.Header, card.psTop end
 		end
 	end
 	if not (w and w:IsShown()) then return nil end
@@ -1017,10 +1094,18 @@ local function offerReload()
 end
 G._offerReload = offerReload
 
--- A dependency's switch changed: the tab lays out again.
+-- A dependency's switch changed: the tab lays out again. A module's pill in
+-- the search results: the results again (its hits dim or brighten).
 ns.On("SETTING_CHANGED", function(path)
 	if not (G.On() and type(path) == "string" and win() and win():IsShown()) then return end
-	if K.query() == "" and shown and B.depKeys[path] then G.Relayout() end
+	if K.query() == "" then
+		if shown and B.depKeys[path] then G.Relayout() end
+		return
+	end
+	local sv = K.searchView()
+	for t, p in pairs(sv and rawget(sv, "psPills") or {}) do
+		if t.key == path and p:IsVisible() then return O.SetQuery(K.query()) end
+	end
 end)
 
 ---------------------------------------------------------------------------

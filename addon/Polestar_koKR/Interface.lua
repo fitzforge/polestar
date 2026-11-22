@@ -5020,9 +5020,13 @@ L["New settings page"] = "새 설정 페이지"
 L["A preview of the settings in groups, with tabs, a filter and a preview beside the rows. The same settings; switch it off for the current page."] = "설정을 그룹으로 나누고 탭, 필터, 행 옆의 미리 보기를 갖춘 미리 보기입니다. 설정은 같습니다. 끄면 현재 페이지로 돌아갑니다."
 
 -- The new settings page (UI/Grouped.lua, UI/Options.lua, UI/Kit.lua)
+L["%d changed"] = "%d개 변경됨"
+L["%s is off. Turn it on to change its settings."] = "%s 기능이 꺼져 있습니다. 설정을 바꾸려면 켜십시오."
 L["Drag the guide window, the arrow, the cards and the alerts where you want them. This window steps aside until you press Save and exit. Also /polestar unlock."] = "가이드 창, 화살표, 카드, 알림을 원하는 곳으로 끌어 옮기세요. 저장 후 나가기를 누를 때까지 이 창은 비켜 있습니다. /polestar unlock으로도 열 수 있습니다."
 L["Every setting on %s goes back to its default. Other pages keep theirs."] = "%s의 모든 설정이 기본값으로 돌아갑니다. 다른 페이지의 설정은 그대로입니다."
 L["Nothing to reset"] = "초기화할 항목 없음"
+L["OFF"] = "끔"
+L["ON"] = "켬"
 L["Profiles, other addons, community guides and gamepad."] = "프로필, 다른 애드온, 커뮤니티 가이드, 게임패드."
 L["Reload to finish?"] = "다시 불러와 마칠까요?"
 L["Reset all settings\226\128\166"] = "모든 설정 초기화…"

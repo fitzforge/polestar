@@ -1875,8 +1875,15 @@ do
 end
 
 -- Header widgets, right to left from the 16 edge: the toggle, Move, More,
--- Reset.
+-- Reset, New. A Legend card (the new page's, card.psLegend): its title, the
+-- module's pill, "N changed" and Reset in the card's top border.
 local function placeHeader(card)
+	if card.psLegend then
+		local count = card.psSettings and modifiedCount(card.psSettings) or 0
+		card.Legend:Set({ title = card.psName, count = count, onReset = card.psOnReset,
+			toggle = card.psToggle, extras = { card.Move, card.More } })
+		return
+	end
 	local x = 16
 	local function put(f)
 		f:ClearAllPoints()
@@ -1961,6 +1968,8 @@ local function cardOf(view, n)
 	-- A gamepad moves row to row: Y resets a row, the footer's Reset page the page.
 	card.Reset.psPadSkip = true
 	card.Reset:Hide()
+	-- The Legend header's Reset (the new page) asks as this one does.
+	card.psOnReset = function() sectionReset(card) end
 	card.More = moreLink(card)
 	-- The section's Move (its `move`): the frame the section sets.
 	card.Move = W.Button(card.Header, L["Move"], function()
@@ -2018,7 +2027,7 @@ local function markSections(view)
 	end
 	for _, card in ipairs(view.cards or {}) do
 		if card:IsShown() and card.psSettings then
-			card.Reset:SetShown(card.psHeader and modifiedCount(card.psSettings) > 0)
+			card.Reset:SetShown(card.psHeader and not card.psLegend and modifiedCount(card.psSettings) > 0)
 			placeHeader(card)
 		end
 	end
@@ -2037,8 +2046,38 @@ local function markSections(view)
 	end
 end
 
--- The header switch of a section's toggle, made once per view.
-local function toggleOf(view, t, card)
+-- A Legend card's module switch (the new page): the pill, made once per view
+-- (view.psPills), in the card's Legend header. Right-click its default.
+local function pillOf(view, t, card)
+	local pills = rawget(view, "psPills")
+	if not pills then
+		pills = {}
+		view.psPills = pills
+	end
+	local p = pills[t]
+	if not p then
+		p = W.PillSwitch(card.Legend, function() return ns.Get(t.key) end, function(v) ns.Set(t.key, v) end, labelOf(t))
+		p.psControl, p.psHeaderSwitch = t, true
+		if type(t.help) == "string" and t.help ~= "" then p.psTipLines = { t.help } end
+		p:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+		local flip = p:GetScript("OnClick")
+		p:SetScript("OnClick", function(self, button)
+			if button ~= "RightButton" then return flip(self, button) end
+			if W.Enabled(self) then W.ResetSetting(t.key) end
+		end)
+		if t.disabled then W.SetDisabledWhen(p, t.disabled) end
+		W.Bind(p, t.key)
+		pills[t] = p
+	end
+	if p:GetParent() ~= card.Legend then p:SetParent(card.Legend) end
+	p:Show()
+	return p
+end
+
+-- The header switch of a section's toggle, made once per view (a Legend
+-- card's: its pill).
+local function toggleOf(view, t, card, legend)
+	if legend then return pillOf(view, t, card) end
 	local sw = view.extras[t]
 	if not sw then
 		sw = W.HeaderSwitch(card.Header, t.key, labelOf(t), tipOf(t, view.psSearch))
@@ -2071,11 +2110,41 @@ end
 -- controls, section, settings }, ... } (`settings`: what its Reset resets);
 -- opts.whole: every row across (search results); opts.gutter: room left of
 -- the rows inside the card (the search results' chevrons). Rows not placed
--- are hidden.
+-- are hidden. opts.legend (the new page): each titled card has the Legend
+-- header (W.LegendHeader), and a card whose module switch is off folds to
+-- that header and one grey line; the rows of it a jump asked for
+-- (view.psReveal: control -> true), or every one in the search results,
+-- stand dimmed under the line.
 -- -> new y
+-- OFF_NOTE_H: the folded card's line's least room (its text's height and 8
+-- either side, when that is more); OFF_ALPHA: a row shown in it, at most.
+local OFF_NOTE_H, OFF_NOTE_PAD, OFF_ALPHA = 32, 8, 0.5
+
+-- A folded Legend card's line: "<Module> is off. Turn it on to change its
+-- settings." Made once per card.
+local function offNoteOf(card)
+	local note = rawget(card, "OffNote")
+	if not note then
+		note = W.Text(card, "note", "textMuted")
+		note:SetWordWrap(true)
+		card.OffNote = note
+	end
+	return note
+end
+
 local function layoutSections(view, groups, y, opts)
 	for _, w in pairs(view.cache) do w:Hide() end
 	for _, sw in pairs(view.extras) do if rawget(sw, "psHeaderSwitch") then sw:Hide() end end
+	for _, p in pairs(rawget(view, "psPills") or {}) do p:Hide() end
+	local dimmed = rawget(view, "psDimmed")
+	if dimmed then
+		-- Its own refresh then puts back a disabled row's alpha.
+		for w in pairs(dimmed) do
+			w:SetAlpha(1)
+			if w.Refresh then w:Refresh() end
+		end
+		view.psDimmed = nil
+	end
 	for _, m in ipairs(view.mids) do m:Hide() end
 	for _, t in ipairs(rawget(view, "psKidRules") or {}) do t:Hide() end
 	view.psMid, view.psKidRule = 0, 0
@@ -2088,12 +2157,57 @@ local function layoutSections(view, groups, y, opts)
 		local s = g.section
 		local t = s and s.toggle and available(s.toggle) and s.toggle or nil
 		local header = g.name ~= "" or t ~= nil
+		local legend = header and opts and opts.legend or false
 		card.psHeader, card.psName, card.psSettings, card.psSection = header, g.name, g.settings, g.section
+		card.psLegend = legend or nil
 		card:SetTitle(g.name)
-		card.Header:SetShown(header)
-		card.Rule:SetShown(header)
+		card.Header:SetShown(header and not legend)
+		card.Rule:SetShown(header and not legend)
 		card.RowsTop = header and W.CARD_HEADER + 1 or 0
-		card.psToggle = t and toggleOf(view, t, card) or nil
+		local lg = rawget(card, "Legend")
+		if legend then
+			if not lg then
+				lg = W.LegendHeader(card, {})
+				card.Legend = lg
+			end
+			lg:Show()
+			-- The rows start under the border's half of the header.
+			card.RowsTop = W.LEGEND.H / 2 + 6
+			-- The title stands above the card's top edge: room for it.
+			y = y + W.LEGEND.H / 2
+		elseif lg then
+			lg:Hide()
+		end
+		-- More and Move stand in whichever header the card has.
+		local hp = legend and lg or card.Header
+		if card.More:GetParent() ~= hp then card.More:SetParent(hp) end
+		if card.Move:GetParent() ~= hp then card.Move:SetParent(hp) end
+		card.psToggle = t and toggleOf(view, t, card, legend) or nil
+		-- A module that is off: the card folds to its header and one line.
+		local folded = legend and t ~= nil and sectionOff(s)
+		local controls = g.controls
+		local noteH = 0
+		if folded then
+			local reveal = view.psSearch or rawget(view, "psReveal")
+			controls = {}
+			if reveal then
+				for _, c in ipairs(g.controls) do
+					if reveal == true or reveal[c] then controls[#controls + 1] = c end
+				end
+			end
+			local note = offNoteOf(card)
+			note:SetText(string.format(L["%s is off. Turn it on to change its settings."], labelOf(t) or ""))
+			note:ClearAllPoints()
+			note:SetWidth(max(1, width - (opts.gutter or 0) - 32))
+			-- A wrapped line (a longer translation) takes the room it needs.
+			local textH = math.ceil(note:GetStringHeight() or 0)
+			noteH = max(OFF_NOTE_H, textH + 2 * OFF_NOTE_PAD)
+			note:SetPoint("TOPLEFT", card, "TOPLEFT", (opts.gutter or 0) + 16, -(card.RowsTop + (noteH - textH) / 2))
+			note:SetHeight(max(1, textH))
+			note:Show()
+		elseif rawget(card, "OffNote") then
+			card.OffNote:Hide()
+		end
 		card.More:SetShown(header and not view.psSearch and s ~= nil and s.jump ~= nil)
 		card.Move:SetShown(header and not view.psSearch and s ~= nil and s.move ~= nil and ns.Movers ~= nil and ns.Movers.Unlock ~= nil)
 		if card.Move:IsShown() then card.Move:Refresh() end
@@ -2102,7 +2216,7 @@ local function layoutSections(view, groups, y, opts)
 		-- A caption over each half (s.columns), while the rows stand in halves.
 		local capH = 0
 		local cols = s and s.columns
-		if cols and not whole and width - gutter >= HALVES_MIN then
+		if cols and not whole and not folded and width - gutter >= HALVES_MIN then
 			capH = COLUMNS_H
 			local c = columnsOf(card)
 			local half = floor((width - gutter) / 2)
@@ -2117,9 +2231,24 @@ local function layoutSections(view, groups, y, opts)
 		elseif rawget(card, "Columns") then
 			card.Columns:Hide()
 		end
-		local rowsH = layoutRows(view, g.controls, y + card.RowsTop + capH, SH.pad + gutter, width - gutter, whole)
+		local before
+		if folded and #controls > 0 then
+			before = {}
+			for _, w in pairs(view.cache) do if w:IsShown() then before[w] = true end end
+		end
+		local rowsH = layoutRows(view, controls, y + card.RowsTop + capH + noteH, SH.pad + gutter, width - gutter, whole)
+		-- The rows of a folded card a jump or the search shows: dimmed.
+		if before then
+			view.psDimmed = rawget(view, "psDimmed") or {}
+			for _, w in pairs(view.cache) do
+				if w:IsShown() and not before[w] then
+					w:SetAlpha(math.min(w:GetAlpha() or 1, OFF_ALPHA))
+					view.psDimmed[w] = true
+				end
+			end
+		end
 		card.psTop = y
-		y = y + card:Place(SH.pad, y, width, rowsH + capH) + SECTION_GAP
+		y = y + card:Place(SH.pad, y, width, rowsH + capH + noteH) + SECTION_GAP
 	end
 	for i = n + 1, #view.cards do view.cards[i]:Hide() end
 	markSections(view)
@@ -2356,7 +2485,7 @@ end
 
 -- A view = one page tab rendered into its own frame (built once).
 -- opts (the new page's views): { lead(s) -> a row to put first in section
--- s, or nil }.
+-- s, or nil; legend: the Legend card headers }.
 local function buildView(p, t, opts)
 	local view = CreateFrame("Frame", nil, win.Body)
 	view:SetPoint("TOPLEFT", win.Body, "TOPLEFT", 0, 0)
@@ -2399,7 +2528,7 @@ local function buildView(p, t, opts)
 			end
 			view.empty = false
 			if rawget(view, "Empty") then view.Empty:Hide() end
-			y = layoutSections(view, groups, y)
+			y = layoutSections(view, groups, y, opts and opts.legend and { legend = true } or nil)
 			return y + 24
 		end
 	end
@@ -3291,9 +3420,11 @@ local function renderSearch()
 		end
 		sections[i] = { name = g.title, controls = g.controls, section = s, settings = sectionSettings(nil, g.controls) }
 	end
-	-- The new page: the typed words lit in each result's label, in the accent.
+	-- The new page: Legend card headers (a module that is off shows its hits
+	-- dimmed under its line), and the typed words lit in each result's label,
+	-- in the accent.
 	local newPage = O.Grouped and O.Grouped.On() or false
-	local y = layoutSections(searchView, sections, 16, { whole = true, gutter = SEARCH_GUTTER })
+	local y = layoutSections(searchView, sections, 16, { whole = true, gutter = SEARCH_GUTTER, legend = newPage or nil })
 	for c, w in pairs(searchView.cache) do
 		local label = rawget(w, "Label")
 		if label and type(c) == "table" and (newPage or rawget(w, "psLit")) then
@@ -4889,7 +5020,7 @@ O.Kit = {
 	pages = pageList, pageList = pageList, groups = GROUPS, shownTabs = shownTabs, available = available, labelOf = labelOf, visible = visible, sectionSettings = sectionSettings,
 	sectionShown = sectionShown, shownSig = shownSig, whyOff = whyOff, rowIsNew = rowIsNew, newer = newer,
 	seenTable = seenTable, homeSettings = homeSettings, groupOf = groupOf, viewTables = viewTables,
-	layoutSections = layoutSections, rowOf = rowOf, buildView = buildView, hideViews = hideViews,
+	layoutSections = layoutSections, rowOf = rowOf, introRoom = introRoom, buildView = buildView, hideViews = hideViews,
 	renderFooter = renderFooter, pageByKey = function(key) return pageByKey(key) end,
 	window = function() return win end, query = function() return query end,
 	searchView = function() return searchView end,

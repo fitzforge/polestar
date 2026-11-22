@@ -5029,9 +5029,13 @@ L["New settings page"] = "新设置页面"
 L["A preview of the settings in groups, with tabs, a filter and a preview beside the rows. The same settings; switch it off for the current page."] = "设置的预览布局：分组显示，带标签页、筛选和行旁的预览。设置相同；关闭即回到当前页面。"
 
 -- The new settings page (UI/Grouped.lua, UI/Options.lua, UI/Kit.lua)
+L["%d changed"] = "%d 项已更改"
+L["%s is off. Turn it on to change its settings."] = "%s已关闭。开启后才能更改其设置。"
 L["Drag the guide window, the arrow, the cards and the alerts where you want them. This window steps aside until you press Save and exit. Also /polestar unlock."] = "将指南窗口、箭头、卡片和提醒拖到你想要的位置。在你点击“保存并退出”之前，此窗口会暂时让开。也可使用 /polestar unlock。"
 L["Every setting on %s goes back to its default. Other pages keep theirs."] = "%s上的所有设置将恢复默认。其他页面保持不变。"
 L["Nothing to reset"] = "没有可重置的内容"
+L["OFF"] = "关"
+L["ON"] = "开"
 L["Profiles, other addons, community guides and gamepad."] = "配置文件、其他插件、社区指南和手柄。"
 L["Reload to finish?"] = "重新加载以完成？"
 L["Reset all settings\226\128\166"] = "重置所有设置…"

@@ -5057,9 +5057,13 @@ L["New settings page"] = "Neue Einstellungsseite"
 L["A preview of the settings in groups, with tabs, a filter and a preview beside the rows. The same settings; switch it off for the current page."] = "Eine Vorschau der Einstellungen in Gruppen, mit Tabs, einem Filter und einer Vorschau neben den Zeilen. Dieselben Einstellungen; schalte es aus für die aktuelle Seite."
 
 -- The new settings page (UI/Grouped.lua, UI/Options.lua, UI/Kit.lua)
+L["%d changed"] = "%d geändert"
+L["%s is off. Turn it on to change its settings."] = "%s ist aus. Schalte es ein, um seine Einstellungen zu ändern."
 L["Drag the guide window, the arrow, the cards and the alerts where you want them. This window steps aside until you press Save and exit. Also /polestar unlock."] = "Zieh das Guide-Fenster, den Pfeil, die Karten und die Alarme dorthin, wo du sie haben willst. Dieses Fenster tritt beiseite, bis du „Speichern und beenden“ drückst. Auch /polestar unlock."
 L["Every setting on %s goes back to its default. Other pages keep theirs."] = "Jede Einstellung auf %s kehrt zu ihrem Standard zurück. Andere Seiten behalten ihre."
 L["Nothing to reset"] = "Nichts zurückzusetzen"
+L["OFF"] = "AUS"
+L["ON"] = "AN"
 L["Profiles, other addons, community guides and gamepad."] = "Profile, andere Addons, Community-Guides und Gamepad."
 L["Reload to finish?"] = "Neu laden zum Abschließen?"
 L["Reset all settings\226\128\166"] = "Alle Einstellungen zurücksetzen…"
