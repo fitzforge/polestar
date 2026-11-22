@@ -35,7 +35,8 @@
 --   Dungeons.Quests(key, faction) -> { quest, ... }   -- faction "A" | "H" | nil (all); level order
 --   Dungeons.Quest(key, id) -> quest | nil           -- page and chain quests
 --       quest = { id, title, level, minLevel, faction, classes, inside, shareable,
---         objectives = { { k = "kill"|"item"|"object"|"event", id, n (count over one), name (English) } },
+--         objectives = { { k = "kill"|"item"|"object"|"talk"|"event", id, n (count over one), name (English) } }
+--           (a talk named by its NPC; one whose text is the quest log's sentence comes as an event, #3426),
 --         start, finish (= { kind, id, name, map, x, y, f, inside }), startItem = { id, name },
 --         chain = { ids }, closedBy = { ids } | nil (taken or done, these close it for good:
 --         the quest a breadcrumb leads to, its exclusive group),
@@ -480,7 +481,8 @@ function Dungeons.ObjectiveText(q)
 				summaryDone = true
 				lines[#lines + 1] = fill(text)
 			elseif o.name then
-				lines[#lines + 1] = o.name
+				local count = o.k == "event" and o.n
+				lines[#lines + 1] = type(count) == "number" and count > 1 and format("%s ×%d", o.name, count) or o.name
 			end
 		end
 	end

@@ -29,6 +29,7 @@ step Auberdine
   accept 729                                  -- Archaeologist Hollee
   vendor nearest optional
   accept 4740                                 -- The WANTED poster
+  turnin 3765                                 -- Gershala Nightwhisper, a short walk west of Terenthis: Argos's message from Stormwind
   accept 986                                  -- Terenthis
   accept 990 optional                         -- Sentinel Selarin, beside Terenthis if she is there: for Raene Wolfrunner in Astranaar, in the next guide
 

@@ -138,7 +138,7 @@ Rest.Refresh = refresh
 
 QoL.WhileOn("boostedRest", "UNIT_AURA", function(_, unit)
 	if unit == "player" then refresh(false) end
-end)
+end, "player")
 QoL.WhileOn("boostedRest", "BAG_UPDATE_COOLDOWN", function() refresh(false) end)
 QoL.WhileOn("boostedRest", "BAG_UPDATE_DELAYED", function() refresh(false) end)
 ns.OnLogin(function() refresh(true) end)

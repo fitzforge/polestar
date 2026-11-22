@@ -72,8 +72,10 @@ fn run_real(script: &str) -> Value {
 	emitted(&RunAddon { stubs: vec!["stub_nav.lua"], addons: vec![nav()], login: true, script: format!("stub.nav.useGameGround()\n{script}"), ..Default::default() }).remove(0)
 }
 
+// Main, 2026-11-21, Fitz: "go back to our original danger pathing": every walk is planned, into Hillsbrad Fields and
+// Stormwind too, as before 0.4.2 (0.4.2 refused both).
 #[test]
-fn unclassified_ground_allows_an_alterac_walk_but_not_a_walk_into_enemy_fields() {
+fn every_walk_is_planned_alterac_hillsbrad_fields_and_into_stormwind_too() {
 	let out = run_real(
 		r#"
 		local N = Polestar.Nav
@@ -88,33 +90,13 @@ fn unclassified_ground_allows_an_alterac_walk_but_not_a_walk_into_enemy_fields()
 			hordeIntoCity = walk(1453, -8613.9, 1241.5, -8422.4, 551.8, 2),
 			allianceFields = walk(1424, -318, 7, -373.3, 7.1, 1) })"#,
 	);
-	assert_eq!(out, json!({ "alterac": true, "hordeFields": false, "hordeIntoCity": false, "allianceFields": true }));
+	assert_eq!(out, json!({ "alterac": true, "hordeFields": true, "hordeIntoCity": true, "allianceFields": true }));
 }
 
+// Main, 2026-11-21, Fitz: "go back to our original danger pathing": the flight from Nethergarde crosses Stonard, and
+// on foot the walks go through it too, as before 0.4.2 (0.4.2 refused every walk through the town).
 #[test]
-fn a_diagonal_walk_beside_an_enemy_capital_does_not_cut_its_corner() {
-	let out = run_real(
-		r#"
-		local N = Polestar.Nav
-		N.RegisterTravelData({}, true)
-		local function walk(ax, ay, bx, by, faction)
-			local legs = N.PlanRoute({ c = 1, map = 1454, wx = ax, wy = ay, faction = faction, level = 23, walkOnly = true,
-				target = { c = 1, map = 1454, wx = bx, wy = by, label = "Destination" } })
-			return legs and #legs == 1 and legs[1].kind == "walk" or false
-		end
-		-- Outside the northern ownership corner. The last pair crosses it with both endpoints outside.
-		-- Walk parallel to the southern edge of another owned cell, exactly one shoulder outside it.
-		local edge = 1600 - .55
-		local function touches(x) return N.danger.Blocked(1, x, -3989, x, -3978, "Alliance") ~= nil end
-		emit({ walk(2281.6667, -4506, 2260.6667, -4485, 1), walk(2260.6667, -4485, 2281.6667, -4506, 1),
-			walk(2272.6667, -4506, 2260.6667, -4494, 1), walk(2260.6667, -4494, 2272.6667, -4506, 1),
-			walk(2272.6667, -4506, 2260.6667, -4494, 2), touches(edge), touches(edge - .001) })"#,
-	);
-	assert_eq!(out, json!([true, true, false, false, true, true, false]));
-}
-
-#[test]
-fn the_nethergarde_flight_can_cross_stonard_but_its_ground_legs_cannot() {
+fn the_nethergarde_flight_and_its_walks_cross_stonard() {
 	let out = run_real(
 		r#"
 		local N = Polestar.Nav
@@ -124,29 +106,32 @@ fn the_nethergarde_flight_can_cross_stonard_but_its_ground_legs_cannot() {
 				faction = faction, level = level, known = { [45] = true, [71] = true }, walkOnly = foot })
 			local kinds = {}
 			for _, leg in ipairs(legs or {}) do
-				if foot then
-					assert(leg.kind == "walk" and not N.danger.Blocked(0, leg.from.wx, leg.from.wy, leg.to.wx, leg.to.wy, "Alliance"),
-						"a detour must keep every on-foot segment out of Stonard")
-				elseif leg.kind == "fly" then
+				if leg.kind == "fly" then
 					assert(leg.from.id == 45 and leg.to.id == 71 and leg.seconds == 210, "6251-yard flight")
 				end
 				kinds[#kinds + 1] = leg.kind
 			end
 			return table.concat(kinds, ",")
 		end
-		assert(N.danger.Blocked(0, a.wx, a.wy, b.wx, b.wy, "Alliance") == "opposing-settlement")
-		trip(a, b, 1, 20, true) -- the full road network may offer a detour
 		local out = { fly = trip(a, b, 1, 20), enemy = trip(a, b, 2, 60),
 			boarding = trip(town, b, 1, 20), landing = trip(a, town, 1, 20), unknown = trip(a, b, 1, nil) }
 		N.RegisterTravelData({}, true) -- leave only the straight walk; no alternate road or flight
 		out.foot = trip(a, b, 1, 20, true)
 		emit(out)"#,
 	);
-	assert_eq!(out, json!({ "fly": "fly,walk", "foot": "", "enemy": "", "boarding": "", "landing": "", "unknown": "fly,walk" }));
+	assert_eq!(out["fly"], "fly,walk", "the flight crosses Stonard: {out}");
+	assert_eq!(out["unknown"], "fly,walk", "with no level read too: {out}");
+	assert_eq!(out["foot"], "walk", "on foot, the straight walk through the town: {out}");
+	for k in ["enemy", "boarding", "landing"] {
+		let kinds = out[k].as_str().unwrap_or("");
+		assert!(!kinds.is_empty() && kinds.split(',').all(|l| l == "walk" || l == "fly"), "{k}: a route: {out}");
+	}
 }
 
+// Main, 2026-11-21, Fitz: "go back to our original danger pathing": from Stonard, an Alliance player on a flight from
+// Nethergarde is pointed at the flight master on foot, through the town, as before 0.4.2 (0.4.2: "unsafe").
 #[test]
-fn a_flight_instruction_never_points_back_through_an_enemy_town_on_foot() {
+fn a_flight_instruction_points_at_its_flight_master_from_an_enemy_town_too() {
 	let out = run_real(
 		r#"
 		local N, nav = Polestar.Nav, stub.nav
@@ -167,26 +152,7 @@ fn a_flight_instruction_never_points_back_through_an_enemy_town_on_foot() {
 		nav.taxi = true
 		emit({ foot, (N.Sample()) })"#,
 	);
-	assert_eq!(out, json!(["unsafe", "taxi"]));
-}
-
-#[test]
-fn an_unqualified_measurement_cannot_clear_a_blocked_ground_walk() {
-	let out = run_real(
-		r#"
-		local N = Polestar.Nav
-		local a, b, town = N.GetTaxiNode(45), N.GetTaxiNode(71), N.GetTaxiNode(56)
-		N.RegisterTravelData({}, true) -- measure only the specified walk, not another way to the destination
-		local function plan(from, to, level, checked)
-			return N.PlanRoute({ c = from.c, wx = from.wx, wy = from.wy, map = from.map, walkOnly = true, target = to,
-				level = level, faction = 1, walkCost = function() return 20, 20, checked end }) ~= nil
-		end
-		local own = { walkLevel = 10, profile = "Alliance" }
-		emit({ plan(a, b, nil, { profile = "Alliance" }), plan(a, b, 10, { walkLevel = 10, profile = "Horde" }),
-			plan(a, b, 10, { walkLevel = 60, profile = "Alliance" }), plan(a, b, 10, nil),
-			plan(town, b, 10, own), plan(a, town, 10, own) })"#,
-	);
-	assert_eq!(out, json!([false, false, false, false, false, false]));
+	assert_eq!(out, json!(["instruction", "taxi"]));
 }
 
 #[test]
@@ -252,6 +218,59 @@ fn a_level_gap_alone_does_not_forbid_moonglade_ground_on_build_70532() {
 		..Default::default()
 	});
 	assert_eq!(out, vec![json!(true)]);
+}
+
+// Routing/Path.lua departs from TravelData's own places without terrain evidence (the walking maps lack Booty Bay's
+// flight master platform, the Gnomeregan depot Scooty's Transpolyporter lands in, the tram's Stormwind platform):
+// each of those is one, and a point a yard away is not.
+#[test]
+fn traveldatas_own_places_are_known_departures_a_yard_off_is_not() {
+	let out = run_real(
+		r#"
+		local N, T = Polestar.Nav, Polestar.Nav.travel
+		local data = N.GetTravelData()
+		local function find(list, id) for _, t in ipairs(list) do if t.id == id then return t end end end
+		local fm = N.GetTaxiNode(19) -- Booty Bay
+		local portal = find(data.portals, "portal-gnomeregan").b
+		local tram = find(data.transports, "tram-stormwind-ironforge").a
+		local deck = find(data.transports, "boat-menethil-theramore").a.board
+		local r = {}
+		for name, p in pairs({ fm = fm, portal = portal, tram = tram, deck = deck }) do
+			r[name] = { T.CuratedEnd(p.c, p.wx, p.wy), T.CuratedEnd(p.c, p.wx + 1, p.wy), T.CuratedEnd(1 - p.c, p.wx, p.wy) }
+		end
+		emit(r)"#,
+	);
+	let want = json!([true, false, false]);
+	assert_eq!(out, json!({ "fm": want, "portal": want, "tram": want, "deck": want }));
+}
+
+// The enemy-town data was paired on builds 70532 and 70959; on any other client build (an older one, the next
+// Forever patch) walks are planned as on 70532 (early 0.4.2 refused every walk there as unknown ground).
+// Main, 2026-11-21, Fitz: "go back to our original danger pathing": a walk into an enemy capital is planned too.
+#[test]
+fn a_client_build_the_ground_data_was_not_paired_on_still_plans_walks() {
+	for build in ["70338", "70959", "71000"] {
+		let out = emitted(&RunAddon {
+			stubs: vec!["stub_nav.lua"],
+			before: format!("stub.clientBuild = \"{build}\""),
+			addons: vec![nav()],
+			login: true,
+			script: r#"
+				stub.nav.useGameGround()
+				local N = Polestar.Nav
+				N.RegisterTravelData({}, true)
+				local function walk(map, x, y, X, Y, side)
+					local legs = N.PlanRoute({ c = 0, map = map, wx = x, wy = y, faction = side, level = 23, walkOnly = true,
+						target = { c = 0, map = map, wx = X, wy = Y, label = "Destination" } })
+					return legs and #legs == 1 and legs[1].kind == "walk" or false
+				end
+				emit({ alterac = walk(1416, 204.7, 262.5, 244.1, 221.9, 1),
+					hordeIntoCity = walk(1453, -8613.9, 1241.5, -8422.4, 551.8, 2) })"#
+				.into(),
+			..Default::default()
+		});
+		assert_eq!(out, vec![json!({ "alterac": true, "hordeIntoCity": true })], "client build {build}");
+	}
 }
 
 #[test]
@@ -891,7 +910,7 @@ fn changing_the_target_replans_and_turning_travel_off_preserves_the_players_walk
 		Polestar.Set("nav.travel", false)
 		stub.advance(0.2)
 		r.off = { N.GetRoute() == nil, A.GetMode(), A.labelText:GetText() }
-		r.unmapped = { N.Sample() }
+		r.unmapped = { (N.Sample()) }
 		Polestar.Set("nav.navRouting", false)
 		stub.advance(0.2)
 		local mode, _, _, north, west = N.Sample()
@@ -901,8 +920,9 @@ fn changing_the_target_replans_and_turning_travel_off_preserves_the_players_walk
 		emit(r)"#);
 	assert_eq!(out["first"], 3);
 	assert_eq!(out["second"], json!(["walk|Target"]));
-	assert_eq!(out["off"], json!([true, "unmapped", "Target"]));
-	assert_eq!(out["unmapped"], json!(["unmapped"]), "turning off travel alone must not invent a walking bearing");
+	// #3409, Fitz's ruling: wherever no walk is found the arrow points straight and says why, as before 0.4.2.
+	assert_eq!(out["off"], json!([true, "travel", "Target\nThe last steps here aren't mapped"]));
+	assert_eq!(out["unmapped"], json!(["travel"]), "turning off travel alone points straight, saying why");
 	assert_eq!(out["compass"], json!([true, "travel", 0, -1380]), "the direct bearing is available when the player turns walking maps off too");
 	assert_eq!(out["on"], 3);
 }

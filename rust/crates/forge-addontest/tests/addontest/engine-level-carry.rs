@@ -80,12 +80,16 @@ stub.fire("QUEST_LOG_UPDATE"); flush()
 "#;
 
 fn run(giver: &str, saved: Option<&str>, script: &str) -> Value {
+	run_guides(GUIDES, giver, saved, script)
+}
+
+fn run_guides(guides: &str, giver: &str, saved: Option<&str>, script: &str) -> Value {
 	emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
 		before: WORLD.to_string(),
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml"])],
 		saved: saved.map(|s| ("Polestar".to_string(), s.to_string())).into_iter().collect(),
-		script: format!("{TEST_PACK}\n{TEST_SOURCE}\nGIVER = {{ {giver} }}\n{GUIDES}\n{HELPERS}\n{script}"),
+		script: format!("{TEST_PACK}\n{TEST_SOURCE}\nGIVER = {{ {giver} }}\n{guides}\n{HELPERS}\n{script}"),
 		..Default::default()
 	})
 	.remove(0)
@@ -174,6 +178,30 @@ fn a_waiting_accept_whose_giver_the_next_guide_never_passes_leaves_it_as_written
 	assert_eq!(out["waits"], json!(["20@12 test/one"]), "{out}");
 }
 
+// Handed off to a guide that names the waiting quest nowhere (its work is in a later guide), "Continue
+// automatically" says it in chat with the quest's title, taken from the guide that passed it, not "Quest 20": the
+// client knows no title for a quest the player never took, and the loaded guide's titles don't have it.
+#[test]
+fn a_waiting_accept_the_next_guide_never_names_keeps_its_title_after_the_hand_off() {
+	let guides = GUIDES.replace("\t{ title = \"Wildkin\", goals = { kill(20, 25, 25) } },\n", "").replace(r#", hand(20, "Moontouched Wildkin", 20, 21)"#, "");
+	assert!(!guides.contains("kill(20,") && !guides.contains("hand(20,"), "Second Zone still names quest 20");
+	let out = run_guides(
+		&guides,
+		ELSEWHERE,
+		None,
+		&format!(
+			r#"{TO_THE_END}
+local titles = {{}}
+for _, q in ipairs(E.WaitingQuests("test/one", "test/two")) do titles[#titles + 1] = q.quest .. " " .. q.title end
+r.titles = titles
+emit(r)"#
+		),
+	);
+	assert_eq!(out["guide"], "test/two", "{out}");
+	assert_eq!(out["waits"], json!(["20@12 test/one"]), "{out}");
+	assert_eq!(out["titles"], json!(["20 Moontouched Wildkin"]), "{out}");
+}
+
 // The audit's `when onquest` case: Krom'Grul (level 12) is passed at 11, and his den with it (`when onquest`). At 12
 // the route comes back for him; once he is taken, the den is the next step, not skipped for good.
 #[test]
@@ -225,15 +253,15 @@ emit(r)"#,
 	assert_eq!(out["skipped"], true, "{out}");
 }
 
-// The shipped route, a Human Paladin one level behind it (51, 60% in, where the route has players at about 52.6):
-// Burning Steppes' Rut'theran stop hands in Favored of Elune? and offers Moontouched Wildkin (978, level 52), the
-// start of a chain into Winterspring, the Western Plaguelands and Silithus. Before: passed, gone with the guide's
-// end, and its chain left out of the later guides. Now Felwood, which starts at Rut'theran's flight master, takes
-// it there for a character at 52 on arrival; at 51 it is passed again, and level 52 in Felwood proper (at the
-// Emerald Sanctuary) never sends the route back to Teldrassil: it stays waiting for the next pass of Erelas.
+// The shipped route, a Human Paladin behind it (51): since the 0.4.2 route round Felwood's flight from Everlook to
+// Rut'theran Village hands in Favored of Elune? and offers Moontouched Wildkin (978, level 52), the start of a chain
+// into Winterspring, the Western Plaguelands and Silithus. At 51 it is passed and waits for 52, listed on Felwood's
+// guide-end window. The Winterspring guide after it never passes Erelas, so it takes nothing there, and level 52 in
+// Winterspring never sends the route back to Teldrassil: the quest stays waiting for the next pass of Erelas, the
+// Plaguelands guide's Rut'theran stop.
 #[test]
-fn a_paladin_at_51_passes_moontouched_wildkin_at_the_end_of_burning_steppes_and_52_in_felwood_never_pulls_him_back() {
-	const BS: &str = "forever/alliance/50-60/01-burning-steppes";
+fn a_paladin_at_51_passes_moontouched_wildkin_at_rut_theran_and_52_in_winterspring_never_pulls_him_back() {
+	const FW: &str = "forever/alliance/50-60/02-felwood";
 	let dir = forge_addontest::run::addons_dir();
 	let out = emitted(&RunAddon {
 		stubs: vec!["stub_world.lua"],
@@ -256,47 +284,44 @@ for id, b in pairs(Polestar.MapFrames.era) do w.addMap(id, b) end
 w.moveTo(1438, 55.5, 92.0)
 stub.login(); stub.advance(0.25)
 Polestar.Set("behavior.autoAccept", false)
-E.SetGuide("{BS}"); stub.advance(0.25)
+E.SetGuide("{FW}"); stub.advance(0.25)
 stub.fire("QUEST_LOG_UPDATE"); stub.advance(11)
 local g = E.GetGuide()
 local at
-for i, step in ipairs(g.steps) do if step.title == "Rut'theran Village" and E.Applies(i) then at = i end end
+for i, step in ipairs(g.steps) do
+	if step.title == "Rut'theran Village" and E.Applies(i) and not at then at = i end
+end
 local sk = {{}}
 for i = 1, at - 1 do sk[i] = true end
-Polestar.CharState().skipped["{BS}"] = sk
+Polestar.CharState().skipped["{FW}"] = sk
 stub.fire("QUEST_LOG_UPDATE"); stub.advance(1)
 local r = {{ at = E.GetLiveStep() == at }}
 w.turnIn(3661); stub.advance(1)
 r.moved = E.GetLiveStep() ~= at
 local wt = (PolestarCharDB.levelWaits or {{}})[978]
 r.waits = wt and (wt.level .. " " .. wt.guide) or false
--- The guide-end window's Start.
-r.started = E.StartNext("{BS}"); stub.advance(1)
+local ends = {{}}
+for _, q in ipairs(E.WaitingQuests(g.id)) do ends[#ends + 1] = q.quest end
+r.ends = ends
+-- The rest of Felwood done; the guide-end window's Start.
+for i = at + 1, #g.steps do sk[i] = true end
+stub.fire("QUEST_LOG_UPDATE"); stub.advance(1)
+r.started = E.StartNext("{FW}"); stub.advance(1)
 g = E.GetGuide()
 r.guide = g.id
 local carry
 for i, step in ipairs(g.steps) do
 	for _, goal in ipairs(step.goals) do
-		if step.feeder == "{BS}" and goal.t == "accept" and goal.quest == 978 then carry = i end
+		if goal.t == "accept" and goal.quest == 978 then carry = i end
 	end
 end
-r.carry, r.first = carry or false, g.steps[1].title
+r.carry = carry or false
+w.moveTo(1452, 31.3, 45.2); stub.fire("QUEST_LOG_UPDATE"); stub.advance(1)
 r.live = E.GetLiveStep()
--- On into Felwood proper: the steps before the Emerald Sanctuary done.
-local sanct
-for i, step in ipairs(g.steps) do if step.title == "The Emerald Sanctuary" and not sanct then sanct = i end end
-local fk = Polestar.CharState().skipped[g.id] or {{}}
-for i = 2, sanct - 1 do fk[i] = true end
-Polestar.CharState().skipped[g.id] = fk
-w.moveTo(1448, 54.2, 86.8); stub.fire("QUEST_LOG_UPDATE"); stub.advance(1)
-r.sanct, r.inFelwood = sanct, E.GetLiveStep()
 w.setLevel(52); stub.advance(1)
 r.back = E.GetLiveStep()
 wt = (PolestarCharDB.levelWaits or {{}})[978]
-r.still = wt and (wt.level .. " " .. wt.guide) or false
-local ends = {{}}
-for _, q in ipairs(E.WaitingQuests(g.id)) do ends[#ends + 1] = q.quest end
-r.ends = ends
+r.still = wt and wt.level or false
 emit(r)"#
 		),
 		..Default::default()
@@ -304,13 +329,11 @@ emit(r)"#
 	.remove(0);
 	assert_eq!(out["at"], true, "at Erelas with Favored of Elune? to hand in: {out}");
 	assert_eq!(out["moved"], true, "51: Moontouched Wildkin passed: {out}");
-	assert_eq!(out["waits"], format!("52 {BS}"), "{out}");
-	assert_eq!(out["started"], true);
-	assert_eq!(out["guide"], "forever/alliance/50-60/02-felwood");
-	assert_eq!(out["carry"], 1, "Felwood takes it first, at Rut'theran: {out}");
-	assert!(out["live"].as_u64().unwrap() > 1, "still 51: passed again for now: {out}");
-	assert_eq!(out["inFelwood"], out["sanct"], "at the Emerald Sanctuary: {out}");
-	assert_eq!(out["back"], out["sanct"], "52 in Felwood proper: no jump back to Erelas: {out}");
-	assert_eq!(out["still"], "52 forever/alliance/50-60/02-felwood", "still waiting: {out}");
+	assert_eq!(out["waits"], format!("52 {FW}"), "{out}");
 	assert_eq!(out["ends"], json!([978]), "listed for Felwood's guide-end window: {out}");
+	assert_eq!(out["started"], true);
+	assert_eq!(out["guide"], "forever/alliance/50-60/03-winterspring");
+	assert_eq!(out["carry"], false, "Winterspring never passes Erelas: {out}");
+	assert_eq!(out["back"], out["live"], "52 in Winterspring: no jump back to Erelas: {out}");
+	assert_eq!(out["still"], 52, "still waiting: {out}");
 }

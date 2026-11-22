@@ -166,7 +166,7 @@ step Morin Cloudstalker
 
 step The Venture Co. Mine: the Clearcutter
   when done bloodhoof
-  tip The elite shredder Venture Co. Clearcutter works deep inside the mine, beyond where Fizsprocket stood: its key is for Ceasing Operations.
+  tip The elite shredder Venture Co. Clearclutter works deep inside the mine, beyond where Fizsprocket stood: its key is for Ceasing Operations.
   collect 281048 quest 98427.1        -- Clearcutter Key
   turnin 98427                        -- Morin Cloudstalker
 

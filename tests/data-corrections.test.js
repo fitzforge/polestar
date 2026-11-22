@@ -53,6 +53,23 @@ test('Gnomish Garbage counts five discards, not five Wastewander Rogue kills (#3
 	assert.deepEqual([step.action, step.item, step.count], ['use-item', 278194, goal.count]);
 });
 
+test('A Reliquary of Purity opens at Rabine Saturna only after a Dire Maul visit (#3104, #3270)', () => {
+	const [step] = require('../data/mechanics-public.json').quests[5527].steps;
+	assert.deepEqual([step.action, step.target.type, step.target.id], ['accept', 'npc', 11801]);
+	assert.match(step.fact, /inside Dire Maul once/);
+});
+
+test('Goblin Lockpicks is a one-talk hand-in at Veenix, only while The Horn of Xelthos is in the log (#3161, #3213)', () => {
+	assert.equal(corrections.quests[78270].set.direct, true);
+	const [step] = require('../data/mechanics-public.json').quests[78270].steps;
+	assert.deepEqual([step.action, step.target.type, step.target.id], ['turnin', 'npc', 4086]);
+	assert.match(step.fact, /only while The Horn of Xelthos is in your quest log/);
+});
+
+test('Burbik Gearspanner sells no Fishing Pole: off its vendor list (#3037)', () => {
+	assert.deepEqual(corrections.items[6256].removeVendors, [5163]);
+});
+
 test('Damp Note requires The Essence of Aku\'Mai on the recorded Priestess drop, not on its follow-up quest (#1923)', () => {
 	assert.deepEqual(corrections.items[16790].dropRequires, { npc: { 4802: [6563] } });
 	assert.match(corrections.items[16790].source.ref, /#1923.*6820003090/);
@@ -235,6 +252,13 @@ test('Benedict\'s Chest opens with Benedict\'s Key (#467)', () => {
 // 2026-11-10 lies there); the Razorfen Kraul pick-up guide's collect step pointed at the old one.
 test("Henrig Lonebrow's Journal lies where players loot it now, its old spot gone (#2014)", () => {
 	assert.deepEqual(corrections.objects[19861].set.spawns, { 1441: { f: 'e', pts: [[31.29, 28.05]] } });
+});
+
+// #2466: the Ancient Egg's world point is inside both The Hinterlands' and Arathi Highlands' map frames, and it was
+// read in Arathi's (81.3,26.2), so the Sunken Temple pick-up guide's collect step led to Hammerfall. Players loot it
+// in The Hinterlands.
+test('The Ancient Egg lies in The Hinterlands, where players loot it, not on Arathi Highlands\' map (#2466)', () => {
+	assert.deepEqual(corrections.objects[175889].set.spawns, { 1425: { f: 'e', pts: [[57.48, 86.69]] } });
 });
 
 // #1992, #2007: Archmage Tervosh and Lady Jaina Proudmoore show at Sentry Point and North Point Tower only to players on
@@ -574,6 +598,52 @@ test("Champion's Hall quartermasters sell and repair gear, but offer no inn or a
 	for (const npc of [12777, 12782]) assert.deepEqual(corrections.npcs[npc].set.roles, ['repair', 'vendor']);
 });
 
+// #3112: the Crossroads stall is an auctioneer, a banker or a mailbox by the day (Auctioneer Quickcoin 258878,
+// Steamwheedle Courier 258879 and Uninspected Shipment 258880 share their two spawn points; recordings meet both
+// the auctioneer and the banker there), so the cooking guide's Auction House goal stalled on the other days.
+// Sweep of NPCs sharing every spawn point with another: this stall is the only one that takes turns.
+test('The Crossroads stall that changes by the day gives no Auction House or bank goal (#3112)', () => {
+	for (const npc of [258878, 258880]) assert.deepEqual(corrections.npcs[npc].set.roles, [], `npc ${npc}`);
+});
+
+// #3032: Nearby services' nearest vendor led to Orphan Matron Nightingale, whose vendor flag carries only the
+// Children's Week foods; 36 people's recorded windows with her had no merchant window.
+test('Orphan Matron Nightingale is no everyday vendor (#3032)', () => {
+	assert.deepEqual(corrections.npcs[14450].set.roles, []);
+});
+
+// #3241: Lookup's step for Powering the Pylons (96018) said "Elite: group advised" at the Mana Sieve's altar. The
+// Codex marks an object's objective when hostile elites stand within 40 yards of it, and an elite with no side counts
+// as hostile: the altar's Pylon Protectors (level 61) have none in the merged data, yet players' recordings show them
+// neutral to all 64 people who met them, never fought. Sweep: every elite with no side that marks a Codex objective,
+// checked against the recordings; these six more were seen only neutral or friendly and never killed.
+test('elites players only ever saw neutral are neutral to both sides, so no objective beside them reads "group advised" (#3241)', () => {
+	for (const npc of [252695, 11102, 266878, 266880, 271742, 270571, 269699]) {
+		assert.equal(corrections.npcs[npc]?.set?.faction, 'AH', `npc ${npc}: neutral to both sides`);
+	}
+});
+
+// #3028: Test of Lore's only line is to answer Braug Dimspirit's question, and a wrong answer teleports you to Camp
+// Taurajo; the Scarlet Monastery pick-up guide never said the answer. The mechanics record is the Codex's `how`, the
+// note Lookup shows on the step.
+test('Test of Lore says to answer Braug Dimspirit with Neltharion (#3028)', () => {
+	const [step] = require('../data/mechanics-public.json').quests[6627].steps;
+	assert.deepEqual([step.action, step.target], ['talk', { type: 'npc', id: 4489 }]);
+	assert.match(step.fact, /Neltharion/);
+	assert.match(step.fact, /Camp Taurajo/);
+});
+
+// #3069 (gidi, the Scarlet Monastery pick-up guide): the step for the first Test of Lore (1154) pointed at its book,
+// the Legacy of the Aspects, and never said the book lies underground, at the bottom of the Dor'Danil Barrow Den. The
+// mechanics record is the Codex's `how`, the note Lookup shows on the step.
+test("Test of Lore says its book lies at the bottom of the Dor'Danil Barrow Den (#3069)", () => {
+	const [step] = require('../data/mechanics-public.json').quests[1154].steps;
+	assert.equal(step.action, 'explore');
+	assert.match(step.fact, /Dor'Danil Barrow Den/);
+	assert.match(step.fact, /descend to the bottom/);
+	assert.match(step.fact, /Legacy of the Aspects/);
+});
+
 // #1820: Nearby services' "Bows & guns" at Grom'gol led to Innkeeper Thulbek (5814), who sells food, drink and
 // fish only (the Forever TDB's vendor list, 4 people's recorded merchant windows). pfQuest alone listed him as a
 // vendor of Hunter's Boomstick (2511) and a repairer. Sweep over every Codex `sells:ranged` and `repair` NPC
@@ -710,4 +780,29 @@ test('the release data: Death to the Dragonmaw (#2256) and Open the Maw (#2437) 
 	assert.ok(pre(98291).includes(98246), 'Death to the Dragonmaw after Trying Times');
 	assert.ok(pre(95682).includes(95663), 'Open the Maw after Dragonmaw Rumors');
 	assert.equal(quests[6562].breadcrumbFor, 6563);
+});
+
+// bsolca (#3102): Bloodpetal Poison's goal named the Workers, Reavers and Hive Guards for the Gorishi Sting; players'
+// recordings tick the line only on Wasps and Stingers.
+test('Gorishi Sting is not dropped by the Gorishi Workers, Reavers or Hive Guards (#3102)', () => {
+	assert.deepEqual(corrections.items[22435].removeDrops, { npc: [6552, 6553, 10040] });
+});
+
+// Soggy (#3235): The Super Snapper FX read "Kill Gammerita (elite)"; the snapshot comes from using the camera on her.
+test('Snapshot of Gammerita is no drop of Gammerita: the Super Snapper FX takes it (#3235)', () => {
+	assert.deepEqual(corrections.items[9330].removeDrops, { npc: [7977] });
+});
+
+test('In Demand - Ancient Elven Curiosities is offered from level 60, as the live server says (#3072)', () => {
+	assert.equal(corrections.quests[96076].set.minLevel, 60);
+});
+
+// The Codex's `how` (the public mechanics' facts) is what a Lookup pick-up step says beyond the objectives (#2714).
+test('pick-up steps say what the objectives leave out: the Twilight Key (#3266), Maraudon (#3243), Franclorn the ghost (#3009), the slimes\' chests (#3002)', () => {
+	const { quests } = require('../data/mechanics-public.json');
+	const how = (q) => (quests[q]?.steps ?? []).map((s) => s.fact).join(' ');
+	assert.match(how(94748), /Twilight Champions .* drop the Twilight Key/);
+	assert.match(how(93404), /inside Maraudon/);
+	assert.match(how(3801), /ghost only a dead character can see/);
+	assert.match(how(1027), /Rotting Slimes .* leave a Rusty Chest/);
 });

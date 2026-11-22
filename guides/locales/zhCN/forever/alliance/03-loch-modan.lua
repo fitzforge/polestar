@@ -120,6 +120,8 @@ return {
 	-- {npc:269185} Headsplitter · {zone:1418} Badlands
 	-- plural, as words: Stonevault Cave Hunters = {npc:4856} Stonevault Cave Hunter
 	["South of Thelsamar, Ylva lies dead in the mouth of a trogg cave. Take her banner, raise it beside her and hold the spot: troggs come in waves from both sides, then {npc:269185}.\nCareful: Stonevault Cave Hunters (36, elite) hold the pass just south of Ylva, toward the {zone:1418}: stay by the banner and don't chase troggs south."] = "塞尔萨玛南边，伊尔瓦的遗体躺在一个穴居人洞口。右键点击背包里的旗帜，将它竖在遗体旁并守住：穴居人会从两侧分波来袭，最后出现{npc:269185}。\n小心：石窟猎手（36级，精英）守在伊尔瓦南边、通往{zone:1418}的山口：待在旗帜旁，别向南追穴居人。",
+	-- {item:253247} Banner of Ironforge · {npc:269185} Headsplitter
+	["{item:253247}: raise it beside Ylva, then hold the spot until {npc:269185} comes"] = "",
 
 	-- Step 25: The tunnel post
 	["The tunnel post"] = "隧道哨所",
@@ -255,8 +257,9 @@ return {
 	-- Step 46: Stormwind's gate
 	-- {zone:1453} Stormwind
 	["{zone:1453}'s gate"] = "{zone:1453}的城门",
-	-- {npc:234} Gryan Stoutmantle · {zone:1436} Westfall · {area:87} Goldshire · {zone:1453} Stormwind · {npc:466} General Marcus Jonathan · {object:2096} Trade District · {area:69} Lakeshire
-	["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}."] = "不要从威利那里接「迪菲亚兄弟会」（它由{zone:1436}里{npc:234}的信开启）：跳过{zone:1436}。从{area:87}沿大路向北到{zone:1453}：{npc:466}骑着马守在城门里大桥的尽头。然后去{object:2096}的狮鹫处，飞回{area:69}。",
+	-- {npc:234} Gryan Stoutmantle · {zone:1436} Westfall · {area:87} Goldshire · {zone:1453} Stormwind · {npc:466} General Marcus Jonathan · {object:2096} Trade District · {area:69} Lakeshire · {area:1617} Valley of Heroes
+	-- was: ["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}."] = "不要从威利那里接「迪菲亚兄弟会」（它由{zone:1436}里{npc:234}的信开启）：跳过{zone:1436}。从{area:87}沿大路向北到{zone:1453}：{npc:466}骑着马守在城门里大桥的尽头。然后去{object:2096}的狮鹫处，飞回{area:69}。"
+	["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}.\nIf {npc:466} isn't at the arrow, he is walking his horse along the {area:1617} nearby: look along the avenue or wait a moment."] = "",
 	-- {npc:466} General Marcus Jonathan
 	["{npc:466}, outside the main gate"] = "{npc:466}，在城门里",
 
@@ -277,8 +280,9 @@ return {
 	["{area:108} flight master"] = "{area:108}的飞行管理员",
 
 	-- Step 50: Stormwind
-	-- {npc:332} Master Mathias Shaw · {object:2100} Old Town · {npc:466} General Marcus Jonathan · {object:2096} Trade District
-	["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}."] = "{npc:332}在{object:2100}的军情七处（SI:7）大楼楼上：楼梯起初不太显眼。{npc:466}骑着马守在城门里大桥的尽头；之后返回{object:2096}的狮鹫处。",
+	-- {npc:332} Master Mathias Shaw · {object:2100} Old Town · {npc:466} General Marcus Jonathan · {object:2096} Trade District · {area:1617} Valley of Heroes
+	-- was: ["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}."] = "{npc:332}在{object:2100}的军情七处（SI:7）大楼楼上：楼梯起初不太显眼。{npc:466}骑着马守在城门里大桥的尽头；之后返回{object:2096}的狮鹫处。"
+	["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}.\nIf {npc:466} isn't at the arrow, he is walking his horse along the {area:1617} nearby: look along the avenue or wait a moment."] = "",
 	-- {npc:332} Master Mathias Shaw
 	["{npc:332}, SI:7; upstairs"] = "{npc:332}，军情七处（SI:7）；楼上",
 
@@ -414,13 +418,19 @@ return {
 	-- {npc:1646} Baros Alexston · {npc:1719} Warden Thelwater · {area:717} Stockade
 	["{npc:1646}: for {npc:1719}, at the {area:717}'s gate"] = "{npc:1646}：交给{area:717}大门处的{npc:1719}",
 
+	-- Step 75: Argos Nightwhisper
+	-- {npc:4984} Argos Nightwhisper · {npc:8997} Gershala Nightwhisper · {area:442} Auberdine
+	["On the way to the harbour: {npc:4984}'s message goes to {npc:8997} in {area:442}, beside Terenthis, where the boat lands."] = "",
+
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back toward town, swim east from the bridge into {area:68}; the chest lies on the lake bed beside a sunken boat. Murloc Flesheaters and Tidecallers line the south shore around it: any of them can carry a {item:1467}."] = "往镇子方向回走，从桥边向东游进{area:68}：箱子就在湖床上、沉船旁。{npc:422}和鱼人潮行者在南岸一带出没，每个都可能带着{item:1467}。",
 	-- ["Elder Mountain Boars and {npc:270693}"] = "老山猪和{npc:270693}",
+	-- ["No Defias Brotherhood from Wiley (it starts with {npc:234}'s letter in {zone:1436}): skip {zone:1436}. North along the road from {area:87} to {zone:1453}: {npc:466} sits on his horse at the far end of the bridge outside the main gate. Then the gryphons in the {object:2096}, back to {area:69}."] = "不要从威利那里接「迪菲亚兄弟会」（它由{zone:1436}里{npc:234}的信开启）：跳过{zone:1436}。从{area:87}沿大路向北到{zone:1453}：{npc:466}骑着马守在城门里大桥的尽头。然后去{object:2096}的狮鹫处，飞回{area:69}。",
 	-- ["South along the west shore. A {object:665289} lies on the loch bed east of {area:144} (it moves between several spots): open it for the {item:278051}, which starts the quest."] = "沿西岸向南走。{area:144}东面的湖底有一个{object:665289}（会在几处位置间变换）：打开可获得{item:278051}，用它接任务。",
 	-- ["The Elder Mountain Boars roam the hills north-west of the lodge, along the east shore. {npc:270693}, a crocolisk, patrols the shore below them. {quest:258} runs for 12 minutes."] = "老山猪出没于小屋西北、东岸沿线的山丘。鳄鱼{npc:270693}在山丘下方的岸边巡逻。{quest:258}限时12分钟。",
 	-- ["Through the South Gate tunnel and west along the road to {zone:1455}."] = "穿过南门隧道，沿路向西前往{zone:1455}。",
 	-- ["{npc:261} guards the bridge on this road east, past the {area:91}: {npc:240}'s {quest:35}, from your walk through {area:87}, goes to him."] = "{npc:261}守在向东大路的桥上、{area:91}以东：你在{area:87}从{npc:240}那里接的{quest:35}就交给他。",
+	-- ["{npc:332} is upstairs in the SI:7 building in {object:2100}: the stairs are hard to see at first. {npc:466} sits on his horse at the far end of the bridge outside the main gate, then back to the gryphons in the {object:2096}."] = "{npc:332}在{object:2100}的军情七处（SI:7）大楼楼上：楼梯起初不太显眼。{npc:466}骑着马守在城门里大桥的尽头；之后返回{object:2096}的狮鹫处。",
 	-- ["{npc:341}: {quest:98386}, for your next Redridge visit"] = "{npc:341}：{quest:98386}，留到下次来赤脊山时再做",
 	-- ["{npc:382}: the Blackrock camps are for your next Redridge visit, at about 24"] = "{npc:382}：黑石营地留到下次约24级来赤脊山时再做",
 }

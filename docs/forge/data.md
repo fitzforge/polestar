@@ -307,6 +307,12 @@ points is added (#2816). Only a true rare's sightings count (classed rare or rar
 with no class of an NPC the data ranks rare): older Recorders also logged world bosses this way, and a
 faction leader got the spots where players stood when they saw him (#2894).
 
+Prerequisites: the learned layer (`data/recorded/quests.json`) adds the prerequisites players' recorded offers
+confirm and removes the ones they disprove, before the knowledge base runs. The knowledge base then fills an empty
+prerequisite list with the Forever world database's previous quest, but never with one a correction's
+prerequisites leave out or the recordings disprove: the previous quest is often only the story order (Welcome to
+Azeroth after The Earthen Ring, #2781).
+
 Talk objectives: QuestieDB lists a quest done by talking to an NPC (a story to hear, advice to ask, an item to
 show) as a creature objective, like a kill, and the Classic server's database gives it no count. Once every
 source has given its counts (after the knowledge base with `--kb`), a kill objective whose count no source
@@ -346,6 +352,24 @@ Without `--kb`, `data/forever/` gets:
 
 `--built-at ISO` (or `SOURCE_DATE_EPOCH`) fixes the timestamp in `meta.json`, so two builds of the same
 inputs give the same bytes. `POLESTAR_DATA_TIMES=1` prints how long each phase took.
+
+#### Treasures
+
+An object's roles in `objects.json` say what a player does with it: `herb`, `mine` and `fishing` for gathering
+nodes, `chest` for a container worth opening, `mailbox`, `meetingstone`. They come from the sources' lists and
+from players' recordings, where a loot window from an object gives:
+
+- `herb`, `mine` or `fishing` when it was a gather: the Recorder's own `gather` (Classic's Herb Gathering and
+  Mining casts, a fishing catch), or a cast of one of the client's gathering spells (SpellEffect's OPEN_LOCK on
+  a Herbalism or Mining lock, such as Forever's Cultivation, 1312650, on its herb nodes) at most 3 seconds
+  before it;
+- `chest` only when it was no gather and held something a player keeps outside a quest: an item no open
+  objective wanted and not of the client's Quest class (its Item table). A quest's plant or crate (Mudsnout
+  Blossom, Fel Cone, Tirisfal Pumpkin) gives only its quest's item, so it is no chest.
+
+The Codex's treasures (the Rares window's list and the world map's treasure pins) are the objects with the
+`chest` role and none of `herb`, `mine` or `fishing`: a herb, an ore vein or a fishing pool is never a
+treasure, whatever gave it the chest role and whatever the player's professions.
 
 ### `--kb`: the knowledge base build
 
@@ -978,6 +1002,10 @@ forge data publish --check forever-db                           # the guard
 - `index.json` and `CHANGELOG.md` give coverage. A field most entities lack is counted over the
   entities the full data knows one for: prerequisites over the known chain links, spawns over the
   NPCs and objects with a known spawn, drop sources over the items with a known dropper.
+- `CHANGELOG.md` is never edited by hand. What its counts can't say (why a table lost rows, a
+  release that replaces one never tagged) goes in a Markdown file passed as `--release-note FILE`:
+  publish puts it under this version's heading, before the lists. Pass it on every run of that
+  version, since a run without it writes the section without it.
 - `--zip` writes `forever-db-<version>.zip` beside the folder (the folder under `forever-db/`),
   `--sqlite FILE` the tables as one sqlite file, `--lua DIR` the library; `--from DIR` writes these
   from an existing release without rebuilding it.

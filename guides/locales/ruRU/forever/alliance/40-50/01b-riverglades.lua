@@ -188,8 +188,7 @@ return {
 	-- Step 38: WANTED: Blademaster Kaijo
 	-- {npc:263071} Blademaster Kaijo · {area:16743} Rog'mar
 	["{npc:263071} is an elite (level 42) at the Horde's training grounds north of {area:16743}, where this guide goes later: grouping up is advised."] = "{npc:263071} – элита (42-й уровень) на тренировочной площадке Орды к северу от места {area:16743}, куда гайд ведет позже: лучше собрать группу.",
-	-- {object:707245} Wanted (no name in this language: may be words)
-	["the {object:707245} poster"] = "объявление «{object:707245}»",
+	["the Wanted poster"] = "",
 
 	-- Step 39: Ghostmaw
 	-- {npc:263380} Ghostmaw · {area:16725} Wheeler's Grange · {area:16729} Terral's Watch
@@ -197,7 +196,9 @@ return {
 
 	-- Step 40: Sunnyglade
 	-- {area:16724} Farholde Keep · {area:16729} Terral's Watch · {area:16723} Sunnyglade · {area:16743} Rog'mar · {npc:259158} Fuzzle · {npc:256831} Apprentice Claire · {npc:258697} Farmer Elbrim
-	["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold hides in the middle of the town, {npc:256831} at its eastern edge, and {npc:258697} waits at his farm on the north-eastern edge."] = "На север от места {area:16724}, мимо {area:16729} и через реку, в {area:16723} – фермерский городок, захваченный Сумеречным культом; держитесь подальше от {area:16743}, ордынской крепости к востоку от городка. Кобольд {npc:259158} прячется в центре городка, {npc:256831} – на его восточной окраине, а {npc:258697} ждет на своей ферме на северо-восточной окраине.",
+	["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold waits in a cage at the arrow, {npc:256831} below ground in a cave at the town's eastern edge (the entrance is at 50.0,46.0), and {npc:258697} waits at his farm on the north-eastern edge."] = "",
+	-- {npc:259158} Fuzzle · {quest:94961} Biting the Hand
+	["{npc:259158}: {quest:94961}, in his cage"] = "",
 
 	-- Step 41: The Twilight cult
 	["The Twilight cult"] = "Сумеречный культ",
@@ -211,6 +212,10 @@ return {
 	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "",
 	-- {quest:94885} Field Marshal's Log
 	["{quest:94885}: only if a cultist dropped the log"] = "{quest:94885}: только если из культиста выпал журнал",
+
+	-- Step 42: Apprentice Claire
+	-- {area:16723} Sunnyglade
+	["Claire is in the cave under the eastern edge of {area:16723}: its entrance is at 50.0,46.0."] = "",
 
 	-- Step 43: Cut Off the Heads
 	-- {npc:256899} Chogg'Zac · {area:16723} Sunnyglade · {npc:257591} Ashe Amberhall · {area:16724} Farholde Keep
@@ -349,10 +354,11 @@ return {
 	-- {zone:2548} Riverglades · {item:268632} Beast Entrails · {npc:260231} Argo Brinewhistle · {npc:257001} Old Rot-Chum · {npc:263380} Ghostmaw
 	["Most beasts in the {zone:2548} drop {item:268632} for {npc:260231}: the shore crawlers on this coast and the boars on the ridge west of the pirates.\nCareful: {npc:257001} (elite, 42), Komuk (a Horde elite, 45) and {npc:263380} (elite, 42) range over the zone's wilds: take your beasts away from them."] = "Почти со всех зверей в зоне {zone:2548} падают {item:268632} для NPC {npc:260231}: с береговых ползунов на этом побережье и с кабанов на гребне к западу от пиратов.\nОсторожно: {npc:257001} (элита, 42), Комук (элита Орды, 45) и {npc:263380} (элита, 42) бродят по диким землям зоны: уводите зверей подальше от них.",
 
-	-- Step 68: Level 44.4 on the Eastsea pirates
-	["Level 44.4 on the Eastsea pirates"] = "Уровень 44.4 на пиратах Восточного моря",
-	-- {npc:259758} Gul'gash · {area:1517} Uldaman
-	["Before the second wave: its raiders and bombardiers (43-45) and the pirates' ships after them are a level over you below 44.4. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "Перед второй волной: ее налетчики и бомбардиры (43-45), а за ними и корабли пиратов, на уровень выше вас, пока у вас меньше 44.4. Добейте уровень на флибустьерах и мушкетерах (41-43) первого лагеря у его юго-западного края, подальше от порта. По этим утесам бродит {npc:259758}, редкая элита 49 уровня: увидев его, держитесь подальше. Или, если есть группа, пройдите вместо этого подземелье {area:1517}.",
+	-- Step 68: Level 44 on the Eastsea pirates
+	["Level 44 on the Eastsea pirates"] = "",
+	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash · {area:1517} Uldaman
+	-- was: ["Before the second wave: its raiders and bombardiers (43-45) and the pirates' ships after them are a level over you below 44.4. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "Перед второй волной: ее налетчики и бомбардиры (43-45), а за ними и корабли пиратов, на уровень выше вас, пока у вас меньше 44.4. Добейте уровень на флибустьерах и мушкетерах (41-43) первого лагеря у его юго-западного края, подальше от порта. По этим утесам бродит {npc:259758}, редкая элита 49 уровня: увидев его, держитесь подальше. Или, если есть группа, пройдите вместо этого подземелье {area:1517}."
+	["Before the second wave: its raiders (44-45), bombardiers (43-44) and {quest:95124}'s ships after them (45) are more than a level over you below 44. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "",
 	-- {npc:257901} Eastsea Buccaneer
 	["grind on {npc:257901}"] = "убивайте: {npc:257901}",
 
@@ -371,7 +377,7 @@ return {
 	-- Step 72: The pirates' ships
 	["The pirates' ships"] = "Корабли пиратов",
 	-- {quest:95124} Admiral Lamora · {npc:259758} Gul'gash
-	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way."] = "Снова к утесам пиратов. Заложите заряды Виззбазза на три корабля, стоящих под лагерем, с юга на север; {quest:95124} (45 уровень) стоит у среднего, рядом с ней – ее сундук с добычей. По пути следите за NPC {npc:259758}.",
+	["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. {quest:95124} (level 45) walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for {npc:259758} on the way."] = "",
 	-- {item:268505} Remote Explosive Charge
 	["{item:268505}, the southern ship"] = "{item:268505}, южный корабль",
 	["the middle ship"] = "средний корабль",
@@ -556,6 +562,11 @@ return {
 	["The next guide starts in the {zone:1418}, south of {zone:1432}: fly to {area:144}."] = "Следующий гайд начинается в зоне {zone:1418}, к югу от зоны {zone:1432}: летите в {area:144}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Before the second wave: its raiders and bombardiers (43-45) and the pirates' ships after them are a level over you below 44.4. Top up on the first camp's buccaneers and musketeers (41-43) at its south-west end, away from the port. {npc:259758}, a rare elite of level 49, roams these cliffs: if you see him, keep well away. Or, with a group, run the {area:1517} dungeon instead."] = "Перед второй волной: ее налетчики и бомбардиры (43-45), а за ними и корабли пиратов, на уровень выше вас, пока у вас меньше 44.4. Добейте уровень на флибустьерах и мушкетерах (41-43) первого лагеря у его юго-западного края, подальше от порта. По этим утесам бродит {npc:259758}, редкая элита 49 уровня: увидев его, держитесь подальше. Или, если есть группа, пройдите вместо этого подземелье {area:1517}.",
+	-- ["Level 44.4 on the Eastsea pirates"] = "Уровень 44.4 на пиратах Восточного моря",
+	-- ["North from {area:16724}, past {area:16729} and across the river, to {area:16723}, the farm town the Twilight cult holds; keep clear of {area:16743}, the Horde's fort east of the town. {npc:259158} the kobold hides in the middle of the town, {npc:256831} at its eastern edge, and {npc:258697} waits at his farm on the north-eastern edge."] = "На север от места {area:16724}, мимо {area:16729} и через реку, в {area:16723} – фермерский городок, захваченный Сумеречным культом; держитесь подальше от {area:16743}, ордынской крепости к востоку от городка. Кобольд {npc:259158} прячется в центре городка, {npc:256831} – на его восточной окраине, а {npc:258697} ждет на своей ферме на северо-восточной окраине.",
+	-- ["Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; {quest:95124} (level 45) stands by the middle one, with her loot chest beside her. Keep an eye out for {npc:259758} on the way."] = "Снова к утесам пиратов. Заложите заряды Виззбазза на три корабля, стоящих под лагерем, с юга на север; {quest:95124} (45 уровень) стоит у среднего, рядом с ней – ее сундук с добычей. По пути следите за NPC {npc:259758}.",
+	-- ["the {object:707245} poster"] = "объявление «{object:707245}»",
 	-- ["{item:17028}, from {npc:272437}"] = "{item:17028} – у NPC {npc:272437}",
 	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026} ждет у дороги к востоку от перевала.",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031} присматривает за старым собором в юго-западном углу локации {area:16724}. Летучие мыши гнездятся на его верхнем этаже; {npc:272437} раздает святые свечи рядом с ним; могилы – на кладбище у часовни.\n{npc:271742}, элита 53-го уровня, стоит в соборе: он вас не тронет, поэтому никогда не атакуйте его и уводите летучих мышей подальше от него.",

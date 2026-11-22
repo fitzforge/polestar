@@ -142,6 +142,8 @@ mod engine_left_out;
 mod engine_level;
 #[path = "engine-level-carry.rs"]
 mod engine_level_carry;
+#[path = "engine-level-gate.rs"]
+mod engine_level_gate;
 #[path = "engine-level-hold.rs"]
 mod engine_level_hold;
 #[path = "engine-level-pick.rs"]
@@ -160,6 +162,8 @@ mod engine_money_task;
 mod engine_next_when;
 #[path = "engine-notyet.rs"]
 mod engine_notyet;
+#[path = "engine-npc-arrival.rs"]
+mod engine_npc_arrival;
 #[path = "engine-packs.rs"]
 mod engine_packs;
 #[path = "engine-pin.rs"]
@@ -186,6 +190,8 @@ mod engine_skipquest;
 mod engine_skipto;
 #[path = "engine-smart.rs"]
 mod engine_smart;
+#[path = "engine-stutter.rs"]
+mod engine_stutter;
 #[path = "engine-tab-restore.rs"]
 mod engine_tab_restore;
 #[path = "engine-tabs.rs"]

@@ -266,9 +266,9 @@ end
 -- While on, handlers made are noted where they are made.
 local function wrapMaking()
 	plain.RegisterEvent, plain.On, plain.Safe = ns.RegisterEvent, ns.On, ns.Safe
-	ns.RegisterEvent = function(event, fn)
+	ns.RegisterEvent = function(event, fn, unit)
 		noteSite(fn)
-		return plain.RegisterEvent(event, fn)
+		return plain.RegisterEvent(event, fn, unit)
 	end
 	ns.On = function(msg, fn)
 		noteSite(fn)

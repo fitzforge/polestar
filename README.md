@@ -291,11 +291,11 @@ one guide for both factions.
 | 17 | Desolace | 38 to 39 |
 | 18 | Stranglethorn Vale, Dustwallow Marsh & Swamp of Sorrows | 39 to 41 |
 | 19 | **Riverglades** | 41 to 45 |
-| 20 | Badlands & The Hinterlands | 45 to 46 |
+| 20 | Badlands & The Hinterlands | 44 to 45 |
 | 21 | **Shen'dralas** | 45 to 46 |
-| 22 | Feralas | 45 to 47 |
+| 22 | Feralas | 45 to 46 |
 | 23 | Tanaris | 46 to 48 |
-| 24 | The Hinterlands & Blasted Lands | 47 to 48 |
+| 24 | The Hinterlands & Stranglethorn Vale | 47 to 48 |
 | 25 | Searing Gorge | 48 to 49 |
 | 26 | Un'Goro Crater | 49 to 50 |
 | 27 | Azshara, Western Plaguelands & Burning Steppes | 50 to 53 |
@@ -529,7 +529,7 @@ site walks through every step.
 ## Polestar Client
 
 The [Polestar Client](https://polestar.guide/client) is a small desktop app for
-Windows, macOS and Linux (beta, 0.1.7). It finds WoW: Forever on your
+Windows, macOS and Linux (beta, 0.1.8). It finds WoW: Forever on your
 computer and:
 
 - **installs and updates Polestar's addons**: Polestar, the Recorder and
@@ -550,7 +550,7 @@ computer and:
   info").
 
 Download it from [polestar.guide/client](https://polestar.guide/client) or the
-[Client's GitHub release](https://github.com/fitzforge/polestar/releases/tag/client-v0.1.7);
+[Client's GitHub release](https://github.com/fitzforge/polestar/releases/tag/client-v0.1.8);
 its source is in [apps/client](apps/client).
 
 <p align="center">
@@ -1101,6 +1101,9 @@ runs solo or in a raid.
   nearby and targets it by name (Options, Questing, Buttons, Rare button).
 - **Characters** (`/polestar alts`): every character on the account with its
   level, zone, guide, gold and an estimate of its rested XP.
+  Forever's client no longer tells addons the realm name: each character
+  keeps its entry, materials, boat timings and rares met, and if two saved
+  characters share your name the page says so and keeps both.
 
 Lookup, Dungeons and Rares read the Codex, a data pack that ships in the
 release as `Polestar_Codex`. Without it Lookup still searches the guides, and

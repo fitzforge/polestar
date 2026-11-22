@@ -1877,7 +1877,10 @@ local function buildMore()
 	catcher:SetScript("OnClick", function() more:Hide() end)
 	catcher:Hide()
 	more.Catcher = catcher
-	more:SetScript("OnHide", function() catcher:Hide() end)
+	more:SetScript("OnHide", function()
+		catcher:Hide()
+		if W.ClosePicker then W.ClosePicker() end
+	end)
 	more:Hide()
 	ns.CloseOnEscape("PolestarOptionsMore")
 	if ns.Gamepad and ns.Gamepad.Register then

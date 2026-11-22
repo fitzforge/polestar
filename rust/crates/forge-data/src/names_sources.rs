@@ -568,7 +568,9 @@ fn real_name(v: &serde_json::Value) -> Option<String> {
 fn quest_objective(tooltip: &serde_json::Value) -> Option<String> {
 	static TITLE: LazyLock<Regex> = LazyLock::new(|| Regex::new(r#"(?s)^.*?<b class="q">.*?</b>"#).unwrap());
 	static PARA: LazyLock<Regex> = LazyLock::new(|| Regex::new(r"\n[\t\n\x0B\x0C\r \u{a0}\u{1680}\u{2000}-\u{200a}\u{2028}\u{2029}\u{202f}\u{205f}\u{3000}\u{feff}]*\n").unwrap());
+	static LEVEL_CELL: LazyLock<Regex> = LazyLock::new(|| Regex::new(r#"^\s*</td>\s*<th(?:\s+[^>]*)?>\s*<b class="q0">[^<]*</b>\s*</th>"#).unwrap());
 	let body = TITLE.replace(tooltip.as_str()?, "");
+	let body = LEVEL_CELL.replace(&body, "");
 	let text = unhtml(body.split("<span class=\"q\">").next().unwrap_or(""));
 	PARA.split(&text).map(clean).find(|s| !s.is_empty())
 }
