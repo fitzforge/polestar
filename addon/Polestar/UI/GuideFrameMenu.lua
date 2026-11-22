@@ -132,7 +132,7 @@ ns.UI.GuideFrame.Part(function(GF)
 			onClick = function() if E and E.ResetProgress then E.ResetProgress() end end })
 		-- A skin's own entries (Skin API 2, hooks.guideMenu(items, button)): it
 		-- may add, remove or reorder them; the list is made anew at each opening.
-		ns.Theme.SkinHook("guideMenu", items, button)
+		GF.Hook("guideMenu", items, button)
 		-- No separator left last (a skin may take the rows after it).
 		if items[#items] and items[#items].separator then items[#items] = nil end
 		-- Every entry in view, its groups apart: not a list to filter.

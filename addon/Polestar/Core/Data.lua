@@ -174,15 +174,16 @@ local function retiredLocales()
 end
 
 -- Not ours to compare: the Recorder ships in a zip of its own and is updated
--- on its own, and so does a skin addon (Polestar_Skin_*, docs/SKINS-API.md:
--- the repository's example and any skin named after it).
+-- on its own, and so does a skin or layout addon (Polestar_Skin_*,
+-- Polestar_Layout_*, docs/SKINS-API.md: the repository's example and any
+-- skin or layout named after it).
 local SEPARATE = { Polestar_Recorder = true }
 
 -- Every other Polestar_* folder in the AddOns list, loaded or not: the parts
 -- for the other races and faction, the other languages, the walking maps'
 -- continents, the experimental guides (Polestar_Experimental, loaded at
 -- login unless switched off). Community addons are never named Polestar_* (pack.json
--- refuses the prefix) but a skin may be; the old language folders and 0.4.2's
+-- refuses the prefix) but a skin or a layout may be; the old language folders and 0.4.2's
 -- walking-map regions (Polestar_Nav_R<map>_<row>_<col>, inside the continent
 -- folders since 0.4.2.1) have a line of their own. -> the names, the number of
 -- region folders.
@@ -204,7 +205,7 @@ local function listed()
 		if type(name) ~= "string" then
 		elseif name:find("^Polestar_Nav_R%d+_%d+_%d+$") then
 			regions = regions + 1
-		elseif name:find("^Polestar_") and not name:find("^Polestar_Skin_") and not SEPARATE[name] and not retired[name] then
+		elseif name:find("^Polestar_") and not name:find("^Polestar_Skin_") and not name:find("^Polestar_Layout_") and not SEPARATE[name] and not retired[name] then
 			out[#out + 1] = name
 		end
 	end
