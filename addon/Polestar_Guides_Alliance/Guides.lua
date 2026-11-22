@@ -9699,7 +9699,7 @@ do
 					note = "Back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} there, one in each grave.",
 					when = { { k = "has", n = 1, item = 266148 } },
 					goals = {
-						{ t = "interact", quest = 94829, title = "What We Lost", object = 621813, objName = "Loose Soil", oi = 1, map = 2548, x = 48.2, y = 44.6, spotsPacked = "48.16,44.55,,29", note = "{object:621813}, west of Elbrim's farm" },
+						{ t = "interact", quest = 94829, title = "What We Lost", object = 621813, objName = "Loose Soil", oi = 1, map = 2548, x = 48.2, y = 44.6, spotsPacked = "48.16,44.55,,29", note = "{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop" },
 					},
 				},
 				{
@@ -10052,7 +10052,7 @@ do
 					note = "The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room.",
 					when = { { k = "onquest", q = { 95267 } } },
 					goals = {
-						{ t = "collect", quest = 95267, title = "The Monster Surfaces", item = 268633, itemName = "Sea Monster's Head", count = 1, oi = 1, map = 2548, x = 74.4, y = 72.4, spotsPacked = "74.33,72.41,,17,1;75.6,71.1,,41,7,1;73.4,69.9,,39,4,1;75.8,69,,57,6,1;71.6,73.2,,38,4,1;77.2,70.6,,17,2,1;72.6,76.6,,15,1,1", lvl = 42, note = "{item:268633}: the Threshadon surfaces where you call him", from = "Monstrous Threshadon", fromKind = "npc", fromId = 260244, fromNpcs = { { npc = 260244, npcName = "Monstrous Threshadon" } } },
+						{ t = "collect", quest = 95267, title = "The Monster Surfaces", item = 268633, itemName = "Sea Monster's Head", count = 1, oi = 1, map = 2548, x = 74.4, y = 72.4, spotsPacked = "74.33,72.41,,17,1;75.6,71.1,,41,7,1;73.4,69.9,,39,4,1;75.8,69,,57,6,1;71.6,73.2,,38,4,1;77.2,70.6,,17,2,1;72.6,76.6,,15,1,1", lvl = 42, note = "{item:268633}, where the Threshadon surfaces when you call him", from = "Monstrous Threshadon", fromKind = "npc", fromId = 260244, fromNpcs = { { npc = 260244, npcName = "Monstrous Threshadon" } } },
 					},
 				},
 				{

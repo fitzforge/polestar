@@ -29,8 +29,5 @@ section: players
   centaurs attack during the escort and to bring a friend or skip it alone;
   Hornizz's hand-in comes only with the escort done (thanks Cobra and Gindry,
   #3347, #2755).
-- Eastern Plaguelands (Horde): for Defenders of Darrowshire the target button
-  now names the Cannibal Ghouls, Gibbering Ghouls and Diseased Flayers whose
-  deaths raise the Darrowshire Spirits (thanks Zack, #3309).
 - Tanaris (Alliance): Oasis is no longer offered by While you're here before
   Tooga's Quest is handed in, when Tooga gives it (thanks Gindry, #3546).

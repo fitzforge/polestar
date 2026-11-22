@@ -410,7 +410,7 @@ return {
 	-- {npc:260244} Monstrous Threshadon · {npc:257001} Old Rot-Chum
 	["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "",
 	-- {item:268633} Sea Monster's Head
-	["{item:268633}: the Threshadon surfaces where you call him"] = "",
+	["{item:268633}, where the Threshadon surfaces when you call him"] = "",
 
 	-- Step 87: The river: Riverweed
 	-- {item:265806} Riverweed

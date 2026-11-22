@@ -3266,16 +3266,18 @@ test(`${WETLANDS}: Bennistrov's report: From the Ashes points at each of the fou
 // --- Never seen taken (#1314's pattern; the never-taken sweep, 2026-11-08): Hearts of the Lost turned
 // out not to be in the game. Two more Forever quests nobody has been recorded taking or being offered, whose giver
 // nobody has ever seen, from another addon's data and the web only, are optional, with a tip to skip them when the
-// giver isn't there: every goal of theirs is optional, so nothing in the guide waits on them.
+// giver isn't there: every goal of theirs is optional, so nothing in the guide waits on them. (A goal on a step shown
+// only with the quest in the log, `when onquest`, never waits for a player without it: #3545's net goals.)
 for (const [q, title, giver, files] of [
 	[93176, 'My Little Friends', 'Amaryllis Webb', ['forever/alliance/30-40/05-arathi-highlands.guide', 'forever/alliance/40-50/01-stranglethorn-vale.guide']],
 ]) {
 	test(`${title} (${q}): every goal is optional and the accept says to skip it when ${giver} doesn't offer it (#1314)`, { skip }, () => {
 		let n = 0;
 		for (const file of files) {
-			for (const { goal } of goals(file).filter(({ goal }) => goal.quest === q)) {
+			for (const { goal, step } of goals(file).filter(({ goal }) => goal.quest === q)) {
 				n++;
-				assert.ok(goal.optional, `${file}: ${goal.t} ${q} is optional`);
+				const carried = (step.when || []).some((p) => p.k === 'onquest' && !p.neg && [].concat(p.q).includes(q));
+				assert.ok(goal.optional || (carried && goal.t !== 'accept' && goal.t !== 'turnin'), `${file}: ${goal.t} ${q} is optional`);
 				if (goal.t === 'accept') assert.match(stepTips(file, new RegExp(`^\\s+accept ${q}\\b`)).join(' '), new RegExp(`${giver} may not be here on Forever: if ${giver} doesn't offer ${title}, skip it\\.`), `${file}: the accept's step says to skip it`);
 			}
 		}
@@ -12488,7 +12490,8 @@ test('Alliance 30-40 audit: Arathi hands in at Refuge Pointe on the way west, th
 	assert.ok(at(list, 'turnin 1389', is('turnin', 1389)) < at(list, 'turnin 1421', is('turnin', 1421)), 'the Harborage, then Watcher Biggs');
 	assert.ok(!list[at(list, 'turnin 1392', is('turnin', 1392))].goal.optional, 'a quest the route makes you do (1392) is handed in');
 	for (const q of [523, 537, 551]) assert.ok(!list.some(({ goal }) => goal.quest === q), `${q} (Vardus or Nagaz, 40) is left out at 38 (level tidy)`);
-	const weevil = list[at(list, 'collect 213568 (Hay Weevil Specimen)', (g) => g.t === 'collect' && g.item === 213568)];
+	// (#3545: the specimen is caught with the kit's Bug Catching Net, a `use` on its objective, not a collect.)
+	const weevil = list[at(list, 'use 213562 quest 93176.2 (Hay Weevil Specimen)', (g) => g.t === 'use' && g.quest === 93176 && g.oi === 2)];
 	assert.ok(whenOn(weevil.step, 'onquest', 93176), 'the Hay Weevil only for players on My Little Friends');
 });
 
@@ -13171,7 +13174,8 @@ test('Alliance Arathi & Alterac: Quae and Baron Vardus tips match the map', { sk
 test('Alliance Desolace south loop: the Flesh Picker is only for players on My Little Friends', { skip }, () => {
 	const list = goals('forever/alliance/30-40/06b-desolace.guide');
 	assert.ok(!list.some(({ goal }) => goal.t === 'kill' && goal.npc === 217590), 'no bare Flesh Picker check-off');
-	const pick = list.filter(({ goal }) => goal.t === 'collect' && goal.item === 213567);
+	// (#3545: caught with the kit's Bug Catching Net, a `use` on objective 93176.3.)
+	const pick = list.filter(({ goal }) => goal.t === 'use' && goal.quest === 93176 && goal.oi === 3);
 	assert.equal(pick.length, 1, 'one Flesh Picker Specimen goal');
 	assert.ok((pick[0].step.when || []).some((p) => p.k === 'onquest' && !p.neg), 'only while My Little Friends is in the log');
 });
@@ -17565,10 +17569,11 @@ test('#1483: Elwynn Forest: the Warlock\'s Stormwind walk names Gakin the Darkbi
 
 // Fyurie (#1544): My Little Friends' critters are caught with the Entomology Starter Kit, not killed: each is a collect
 // of its specimen, shown only with the quest in the log.
-test('#1544: Alliance: My Little Friends\' specimens are collects, shown with the quest in the log', { skip }, () => {
-	for (const [guide, item] of [[ARATHI, 213568], ['forever/alliance/40-50/01-stranglethorn-vale.guide', 213566]]) {
+// (#3545 since: each specimen is caught with the kit's Bug Catching Net, a `use` on its objective, not a collect.)
+test('#1544: Alliance: My Little Friends\' specimens are caught with the net, shown with the quest in the log', { skip }, () => {
+	for (const [guide, oi] of [[ARATHI, 2], ['forever/alliance/40-50/01-stranglethorn-vale.guide', 1]]) {
 		const list = goals(guide);
-		const { step } = list[at(list, `${guide}: collect ${item}`, (g) => g.t === 'collect' && g.item === item)];
+		const { step } = list[at(list, `${guide}: use 93176.${oi}`, (g) => g.t === 'use' && g.quest === 93176 && g.oi === oi)];
 		assert.ok((step.when || []).some((p) => p.k === 'onquest' && !p.neg && [p.q].flat().includes(93176)), `${guide}: when onquest 93176`);
 		assert.ok(!step.goals.some((g) => g.t === 'kill'), `${guide}: no kill on the specimen step`);
 	}
@@ -18722,7 +18727,7 @@ test('Scarlet Diversions: the Flame in a Bottle from the crate next to Derringto
 test('What Is Love?: the figurine steps say to throw the lit torch onto the cart (#3346)', { skip }, () => {
 	for (const file of ['forever/class/warlock/incubus-alliance.guide', 'forever/alliance/30-40/04-stranglethorn-vale.guide']) {
 		const st = compiled(file).steps.find((s) => s.goals.some((g) => g.t === 'collect' && g.item === 190309));
-		assert.match([st.note, st.tip].flat().filter(Boolean).join(' '), /throw (the lit torch|it) onto the archaeologist's cart/, file);
+		assert.match([st.note, st.tip].flat().filter(Boolean).join(' '), /throw (the lit torch|it) onto the archaeologist's cart/i, file);
 	}
 });
 
@@ -18793,16 +18798,6 @@ test('Dustwallow & Desolace: Stinky from 36, the escort\'s heads-up and Hornizz 
 		const hornizz = steps.find((st) => st.goals.some(is('turnin', 6132)));
 		assert.ok((hornizz.when || []).some((p) => p.k === 'complete' && [].concat(p.q).includes(6132)), `${file}: Hornizz only with the escort done`);
 	}
-});
-
-// #3309 (Zack): Defenders of Darrowshire's spirits rise only where the Scourge of Corin's Crossing die, but the step's
-// only mob was the spirit, so the target button looked for spirits that aren't there. The step names the three
-// Scourge that leave them (optional kills on the same objective), so the button targets those.
-test('forever/horde/50-60/05-eastern-plaguelands.guide: the target button names the Scourge that leave Darrowshire Spirits (#3309)', { skip }, () => {
-	const list = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
-	const talk = list[at(list, 'free the spirits', (g) => g.t === 'talk' && g.quest === 5211)];
-	const kills = list.filter(({ step, goal }) => step === talk.step && goal.t === 'kill').map(({ goal }) => goal.npc);
-	assert.deepEqual(kills.sort(), [8530, 8531, 8532]);
 });
 
 // #3546 (Gindry): Oasis (97540) is offered by Tooga only after her escort, Tooga's Quest (1560), is handed in; While

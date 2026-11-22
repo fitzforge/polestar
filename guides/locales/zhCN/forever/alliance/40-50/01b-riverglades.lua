@@ -217,8 +217,9 @@ return {
 	-- Step 42: Loose Soil
 	-- {item:266148} Farmers' Mementos
 	["Back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} there, one in each grave."] = "",
-	-- {object:621813} Loose Soil (no name in this language: may be words)
-	["{object:621813}, west of Elbrim's farm"] = "",
+	-- {object:621813} Loose Soil (no name in this language: may be words) · {item:266148} Farmers' Mementos
+	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
+	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop"] = "",
 
 	-- Step 43: Apprentice Claire
 	-- {area:16723} Sunnyglade
@@ -425,7 +426,7 @@ return {
 	-- {npc:260244} Monstrous Threshadon · {npc:257001} Old Rot-Chum
 	["The {npc:260244} comes up when you call him: right-click the thing floating in the water at the arrow, in the shallows south-west of the port, and he surfaces there. {npc:257001}, an elite, walks the shore close by: give him room."] = "",
 	-- {item:268633} Sea Monster's Head
-	["{item:268633}: the Threshadon surfaces where you call him"] = "",
+	["{item:268633}, where the Threshadon surfaces when you call him"] = "",
 
 	-- Step 82: The meadows
 	["The meadows"] = "草地",
