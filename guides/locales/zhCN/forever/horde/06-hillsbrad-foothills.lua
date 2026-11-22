@@ -71,6 +71,10 @@ return {
 	["Drull and {npc:2238} are chained inside {area:275}'s courtyard buildings. Their locks need keys: {npc:2427} carries the {item:3467} and {npc:2428} the {item:3499}, both in the keep. Kill them, then open both locks.\nFrom {area:272} go south-east into the hills on the way to {area:275}. Rogues, Watchmen and Shadow Mages hold the camps along the way; the Shadow Mages carry Lydon's Vials of Innocent Blood."] = "德鲁尔和{npc:2238}被锁在{area:275}庭院的建筑内。开锁需要钥匙：{npc:2427}携带{item:3467}，{npc:2428}携带{item:3499}，两人都在城堡里。击杀他们，然后打开两处锁。\n从{area:272}向东南进入山丘，朝{area:275}走。沿途营地由潜行者、卫兵和暗影法师占据；暗影法师身上带着林度恩要的无辜者之血。",
 	-- {npc:2261} Syndicate Watchman
 	["{npc:2261} walks around here: look inside the circle on the map"] = "{npc:2261}在附近巡逻，请在地图标示的圆圈内寻找",
+	-- {item:3467} Dull Iron Key · {npc:2427} Jailor Eston
+	["{item:3467}, from {npc:2427}"] = "",
+	-- {item:3499} Burnished Gold Key · {npc:2428} Jailor Marlgen
+	["{item:3499}, from {npc:2428}"] = "",
 	["Drull's ball and chain"] = "德鲁尔的镣铐",
 	-- {npc:2238} Tog'thar
 	["{npc:2238}'s ball and chain"] = "{npc:2238}的镣铐",

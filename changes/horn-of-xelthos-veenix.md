@@ -1,7 +1,6 @@
 ---
 section: players
 ---
-- The Horn of Xelthos: pick the Venture Co. Work Order first, then hand Goblin
-  Lockpicks to Veenix at one talk: it never goes into the quest log, and he
-  takes it only while The Horn of Xelthos is in your quest log (thanks ys and
-  Traesheur).
+- The Horn of Xelthos (Rogue): the guide no longer sends you to Veenix once
+  you have the horn or have handed it in; he only deals while the horn job is
+  open, so the step could never finish (thanks kevqon, #3362).

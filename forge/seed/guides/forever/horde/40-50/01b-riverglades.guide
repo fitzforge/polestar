@@ -293,8 +293,8 @@ step Tran'gul
   accept 94680                          -- Twilight Missives
 
 step Fuzzle
-  tip West of Rog'mar the Twilight cult holds the farm town of Sunnyglade. Fuzzle, a kobold who wants out, hides in the middle of the town.
-  accept 94961                          -- Biting the Hand
+  tip West of Rog'mar the Twilight cult holds the farm town of Sunnyglade. Fuzzle, a kobold who wants out, waits in a cage at the arrow.
+  accept 94961 @47.2,51.2               -- Biting the Hand, Fuzzle in his cage
 
 step Sunnyglade
   tip The cultists fill the streets and fields; the Shadowmancers on the town's northern side carry the missives. The finger bones drop from all of them.
@@ -398,7 +398,7 @@ step Na'zok
   turnin 95162
 
 step Jom-jom's Escape
-  tip Jom-jom waits by the Twilight ogres' camp north-east of Na'zok: take him home to Bolder'ok and keep the cultists off him. If he falls, take the quest from him again.
+  tip Jom-jom waits at the back of the cave by the Twilight ogres' camp north-east of Na'zok: go all the way in to find him, then take him home to Bolder'ok and keep the cultists off him. If he falls, take the quest from him again.
   accept 94556 @73.4,24.7               -- Jom-jom, in the cave
   complete 94556 @64.4,15.6             -- help Jom-jom reach Bolder'ok
 
@@ -563,7 +563,7 @@ step Powderfuse Port
   accept 95296                          -- Friz: Shipping and Handling, for Wharfmaster Steamfizzle at Steamwheedle Port in the Feralas & Tanaris guide
 
 step The pirates' ships
-  tip Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north; Admiral Lamora stands by the middle one, with her loot chest beside her. Keep an eye out for Gul'gash on the way.
+  tip Out to the pirates' cliffs once more. Plant Whizzbuzz's charges on the three ships moored below the camp, south to north. Admiral Lamora walks the middle ship's top deck; her loot chest is below deck. Keep an eye out for Gul'gash on the way.
   tip Careful: Admiral Lamora is level 45, a level or two over you here: clear the deck around her first and come in with full health.
   use 268505 quest 95165.3 @90.9,39.5   -- Remote Explosive Charge, the southern ship
   kill 257861 quest 95124.1             -- Admiral Lamora
@@ -681,7 +681,7 @@ step Crag'rog
 
 step The Twilight camps
   when onquest 94745,94748
-  tip The cult's camps fill the valley south and west of Da'grosh. Free the captive Rog'mar Scouts as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. Overlord Kilgar and Executioner Morg (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. Sergeant Riftan's Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it.
+  tip The cult's camps fill the valley south and west of Da'grosh. Twilight Champions drop the Twilight Key that frees a captive Rog'mar Scout: free them as you find them. Twilight Enforcers (elites, level 45) patrol through the camps: watch where they walk before each pull. Overlord Kilgar and Executioner Morg (elites, 46) hold the fortress at the valley's head: pull the cultists away from them. Sergeant Riftan's Alliance camp sits at the valley's south end, and its Farholde Lookouts (level 46) attack the Horde: stay north of it.
   kill 256795 x8 quest 94745.1          -- Twilight Fanatic
   kill 256797 x8 quest 94745.2          -- Twilight Corrupter
   kill 256799 x8 quest 94745.3          -- Twilight Champion

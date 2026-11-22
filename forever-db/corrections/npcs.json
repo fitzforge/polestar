@@ -244,6 +244,26 @@
 		],
 		"note": "Archmage Ansirem Runeweaver (npc 2543), who takes Magical Analysis (602) and gives Ansirem's Key (603), stands at the Kirin Tor camp by Dalaran, Alterac Mountains 14.16,59.73 (map 1416). Our merged data had the old Dalaran point 18.84,78.49, about 370 yd south-east, where nobody met him; the Arathi Highlands guide's hand-in of 602 used it."
 	},
+	"2910": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-20: 50 people opened Prospector Ryedol's window at the Badlands dig (126 quest windows for 719, 720 and 721), none a merchant window"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3383 (SumnDaiy, Night Elf Druid 38): the guide said to sell at Prospector Ryedol, who is no vendor"
+			},
+			{
+				"kind": "tdb",
+				"ref": "Forever's world DB: creature_template 2910 npcflag 2 (quest giver only), no npc_vendor rows"
+			}
+		],
+		"note": "Prospector Ryedol gives the Badlands dig's quests and sells nothing. The merged data listed him as a vendor, so the guide's sell-before-you-go reminder sent players to him (#3383). No roles; a merchant window players record brings the vendor role back."
+	},
 	"2956": {
 		"addSpawns": {
 			"1412": {
@@ -4098,5 +4118,351 @@
 			"ref": "players' in-game recordings (to 2026-11-20): seen neutral by 28 people (23 established), friendly by 21, killed 0 times (rec.py npc 269699)"
 		},
 		"note": "Thaddeus Brillyard (level 53 elite) never attacks: with no side in the merged data, the addon counted him as a hostile elite at a nearby quest object (#3241's sweep of elites with no side that mark an objective)."
+	},
+	"4554": {
+		"set": {
+			"spawns": {
+				"1458": {
+					"f": "l",
+					"pts": [
+						[
+							62.2,
+							44.26
+						],
+						[
+							62.25,
+							42.8
+						],
+						[
+							62.33,
+							46.23
+						],
+						[
+							62.52,
+							40.96
+						],
+						[
+							62.71,
+							46.89
+						],
+						[
+							63.04,
+							48.14
+						],
+						[
+							63.33,
+							40.18
+						],
+						[
+							63.89,
+							49.1
+						],
+						[
+							64.9,
+							38.57
+						],
+						[
+							64.91,
+							50.01
+						],
+						[
+							65.57,
+							49.79
+						],
+						[
+							66.04,
+							38.37
+						],
+						[
+							66.08,
+							49.31
+						],
+						[
+							67.1,
+							38.5
+						],
+						[
+							67.42,
+							49.38
+						],
+						[
+							68.12,
+							39.43
+						],
+						[
+							68.21,
+							48.69
+						],
+						[
+							68.5,
+							40.1
+						],
+						[
+							68.76,
+							47.91
+						],
+						[
+							69.23,
+							40.72
+						],
+						[
+							69.36,
+							46.74
+						],
+						[
+							69.62,
+							45.23
+						],
+						[
+							69.69,
+							42.52
+						],
+						[
+							69.74,
+							44.16
+						]
+					],
+					"more": [
+						[
+							62.19,
+							45.9
+						],
+						[
+							63.08,
+							40.62
+						],
+						[
+							63.41,
+							48.37
+						],
+						[
+							63.77,
+							48.79
+						],
+						[
+							64.43,
+							49.41
+						],
+						[
+							64.82,
+							49.7
+						],
+						[
+							65.17,
+							49.69
+						],
+						[
+							65.34,
+							38.4
+						],
+						[
+							65.51,
+							49.46
+						],
+						[
+							65.62,
+							38.55
+						],
+						[
+							65.87,
+							49.55
+						],
+						[
+							66.14,
+							49.78
+						],
+						[
+							66.25,
+							38.67
+						],
+						[
+							66.52,
+							49.79
+						],
+						[
+							66.75,
+							49.47
+						],
+						[
+							67.19,
+							49.58
+						],
+						[
+							67.39,
+							38.67
+						],
+						[
+							67.65,
+							38.89
+						],
+						[
+							67.84,
+							49.1
+						],
+						[
+							68.24,
+							39.81
+						],
+						[
+							68.32,
+							48.31
+						],
+						[
+							68.78,
+							40.36
+						],
+						[
+							69.23,
+							41.15
+						],
+						[
+							69.74,
+							44.62
+						],
+						[
+							69.94,
+							45.41
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): seen friendly by 173 people and neutral by 57, all along the Undercity's ring at 62-69,38-54 (rec.py npc 4554)"
+			}
+		],
+		"note": "Tawny Grisette walks the Undercity's ring (map 1458, about 62-70,38-50), where players' recordings meet her all along it. The 0.4.2 data build keeps her 24 points; one moved about 0.2 map units, which the data-diff gate counts as a sixth place (capital-spawns, at most 5). Reviewed for 0.4.2: the points are where she walks, no move."
+	},
+	"253096": {
+		"set": {
+			"spawns": {
+				"1443": {
+					"f": "l",
+					"pts": [
+						[
+							35.46,
+							92.21
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): Halea met by 6 people, all at Desolace 35-36,91-92 (friendly by 5, neutral by 1), and Mysterious Mysticism (92755) taken from her there; nobody met her at 69.8,78.0 (rec.py npc 253096, rec.py quest 92755)"
+			},
+			{
+				"kind": "questie",
+				"ref": "npcs.json 253096: Desolace 69.83,77.96, where no recording meets her"
+			}
+		],
+		"note": "Halea, who gives and takes Mysterious Mysticism (92755), stands at Desolace 35.5,92.2, where players' recordings meet her. The 0.4.2 data build moved her there from 69.8,78.0, so the quest's hand-in moved about 1,600 yards. Reviewed for 0.4.2 (data-diff gate, ender-moved): the new spot is right."
+	},
+	"267121": {
+		"set": {
+			"spawns": {
+				"2482": {
+					"f": "l",
+					"pts": [
+						[
+							49.19,
+							32.67
+						],
+						[
+							61.34,
+							31.41
+						],
+						[
+							62.1,
+							30.69
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): Yashiro seen friendly by 14 people; Blademaster's Bonfires (96959): every recorded accept and hand-in (14) at 49,32-33; Yashiro's Windwalk (96983): accepts at 49-50,32-33, hand-ins at 61-62,31-32 (6) and back at 49,33 (4) (rec.py npc 267121, rec.py quest 96959 and 96983)"
+			}
+		],
+		"note": "Yashiro (Mount Hyjal) stands at 49.2,32.7, where he gives both his quests and takes Blademaster's Bonfires (96959). He goes east with the player for Yashiro's Windwalk (96983) and takes it at Dae'gun (61.3,31.4 and 62.1,30.7) as well as back at his camp; the 0.4.2 data build added those two points (the hand-in moved about 450 yards). Bonfires is never handed in at Dae'gun: its hand-in belongs at the camp spot only. Reviewed for 0.4.2 (data-diff gate, ender-moved)."
+	},
+	"5955": {
+		"set": {
+			"spawns": {
+				"1446": {
+					"f": "l",
+					"pts": [
+						[
+							28.59,
+							67.38
+						],
+						[
+							29.47,
+							60.44
+						],
+						[
+							29.7,
+							74.06
+						],
+						[
+							29.87,
+							73.72
+						],
+						[
+							30.23,
+							70.7
+						],
+						[
+							30.31,
+							64.56
+						],
+						[
+							66.38,
+							25.79
+						],
+						[
+							66.73,
+							25.55
+						],
+						[
+							67.26,
+							25.24
+						],
+						[
+							67.65,
+							24.85
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): Tooga seen friendly by 47 people; Tooga's Quest (1560) taken in the Thistleshrub Valley at 28-32,61-74 (about 30 accepts) and handed in to Torta at 66-67,26 (27); Oasis (97540) taken and handed in beside Torta at 66-68,25-26 (19 hand-ins, none elsewhere); his sightings between them (41-49,52-62) are the escort under way (rec.py npc 5955, rec.py quest 1560 and 97540)"
+			}
+		],
+		"note": "Tooga waits at the Thistleshrub Valley's west edge for his escort (Tooga's Quest, 1560) and, after it, stands beside Torta east of Steamwheedle Port, where he gives and takes Oasis (97540). The 0.4.2 data build added a point on the escort's way (41.03,54.55), which put an Oasis hand-in out in the desert, about 840 yards from every earlier one. His points are the valley's and Torta's, without it (data-diff gate, ender-moved, 0.4.2)."
+	},
+	"4453": {
+		"set": {
+			"roles": []
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-20 (excluded contributors left out): 165 contributors opened Wizzle Brassbolts's window at the Mirage Raceway (quest windows for Hardened Shells and the raceway's other quests), none a merchant window"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3470 (Shuurajou, Gnome Priest 32): the nearest-vendor arrow led to Wizzle Brassbolts, who is no vendor"
+			}
+		],
+		"note": "Wizzle Brassbolts gives and takes the Mirage Raceway's quests and sells nothing. The merged data listed him as a vendor, so the nearest-vendor arrow and the sell reminder could send players to him (#3470). No roles; a merchant window players record brings the vendor role back."
 	}
 }

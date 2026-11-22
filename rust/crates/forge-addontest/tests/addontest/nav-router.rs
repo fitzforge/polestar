@@ -325,6 +325,39 @@ fn an_urgent_search_the_arrow_s_own_walk_is_sliced_before_one_queued_ahead_of_it
 	assert_eq!(urgent_order(false)["order"], json!(["leg", "arrow"]), "without it, the order they were queued in");
 }
 
+// The arrow's walk and its sketch (Nav/Walk.lua: Path.FindCoarse, the shape drawn until the path is in), both urgent,
+// asked in that order, one slice a frame: the sketch answers first, so the shape is drawn a frame after the ask and
+// the path replaces it (0.4.2: the sketch waited behind the walk and was dropped when the walk came in).
+#[test]
+fn the_arrows_urgent_sketch_is_sliced_before_its_urgent_walk() {
+	let map = map_files(&layout(3, Cls::default(), Cls::default()), true, Opts::default());
+	let script = format!(
+		r#"
+local Path = Polestar_NavEngine
+local frames = {{}}
+Path.after = function(fn) frames[#frames + 1] = fn end
+Path.budget = 0
+local A, B = {a}, {b}
+local order = {{}}
+local walk = Path.Find({MAP}, A, B, function(points) order[#order + 1] = points and "walk" or "walk failed" end, nil)
+walk.urgent = true
+local sketch = Path.FindCoarse({MAP}, A, B, function(points, reason) order[#order + 1] = "sketch" end, nil)
+sketch.urgent = true
+local n, sketchFrame = 0, nil
+while #frames > 0 and n < 10000 do
+	n = n + 1
+	table.remove(frames, 1)()
+	if not sketchFrame and order[1] == "sketch" then sketchFrame = n end
+end
+emit({{ order = order, sketchFrame = sketchFrame }})"#,
+		a = lua(from()),
+		b = lua(to()),
+	);
+	let got = emitted(&RunAddon { stubs: vec!["stub_encoding.lua"], before: map.dofiles(), addons: vec![ours()], script, ..Default::default() }).remove(0);
+	assert_eq!(got["order"], json!(["sketch", "walk"]), "{got}");
+	assert!(got["sketchFrame"].as_i64().unwrap() <= 2, "the sketch's answer within a frame of its slice: {got}");
+}
+
 #[test]
 fn the_fifth_argument_a_boolean_is_waterwalking_a_table_is_opts() {
 	let map = map_files(&layout(4, val(2), Cls::default()), true, Opts::default());

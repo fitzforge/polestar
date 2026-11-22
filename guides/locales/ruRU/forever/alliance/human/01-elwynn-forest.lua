@@ -37,9 +37,9 @@ return {
 	-- Step 6: Echo Ridge Mine: kill these as you meet them
 	-- {area:34} Echo Ridge Mine
 	["{area:34}: kill these as you meet them"] = "{area:34}: убивайте их по пути",
-	-- {object:83763} Stolen Books
+	-- {object:83763} Stolen Books · {quest:91741} Nibbled-On Book · {npc:951} Brother Paxton
 	-- plural, as words: Kobold Workers = {npc:257} Kobold Worker
-	["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}."] = "Идите по тропе на север к руднику. Снаружи кишат кобольды-рабочие; {object:83763} может упасть с любого кобольда в долине.",
+	["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}.\nNow and then a kobold here drops a {quest:91741}: right-click it and hand it to {npc:951} on your next Abbey stop."] = "",
 
 	-- Step 7: Northshire Abbey
 	-- {npc:248415} Tordrin Sternblade · {npc:198} Khelden Bremen
@@ -88,10 +88,9 @@ return {
 	-- Step 14: Inside Echo Ridge Mine
 	-- {area:34} Echo Ridge Mine
 	["Inside {area:34}"] = "Внутри: {area:34}",
-	-- {npc:248362} Shinyfinder Narf
+	-- {npc:248362} Shinyfinder Narf · {quest:91741} Nibbled-On Book · {npc:951} Brother Paxton
 	-- plural, as words: Kobold Laborers = {npc:80} Kobold Laborer
-	-- was: ["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nCareful: {npc:248362} (3) is elite: leave him unless you have a friend."] = "В туннелях рудника работают кобольды-работники. {npc:248362} ждет за вторым поворотом направо.\nОсторожно: {npc:248362} (3) – элитный противник: не трогайте его, если вы не с другом."
-	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nCareful: {npc:248362} (3) is elite: below level 5, leave him be."] = "",
+	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nNow and then a Laborer drops a {quest:91741}: right-click it and hand it to {npc:951} at the Abbey after the mine.\nCareful: {npc:248362} (3) is elite: below level 5, leave him be."] = "",
 	-- {npc:80} Kobold Laborer · {area:34} Echo Ridge Mine
 	["{npc:80} walks around {area:34}: look inside the circle on the map"] = "{npc:80} ходит по месту {area:34}: ищите внутри круга на карте",
 
@@ -493,6 +492,7 @@ return {
 	-- ["Bait ingredients"] = "Ингредиенты для приманки",
 	-- ["Boar meat"] = "Кабанина",
 	-- ["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "Волшебники-плуты из Братства Справедливости стоят лагерем на берегах ({area:86}); с них падают и красные льняные банданы. {object:56} лежит в деревне мурлоков на северо-восточном берегу.",
+	-- ["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}."] = "Идите по тропе на север к руднику. Снаружи кишат кобольды-рабочие; {object:83763} может упасть с любого кобольда в долине.",
 	-- ["Follow the road east past the {area:91} to the bridge."] = "Идите по дороге на восток мимо места {area:91} к мосту.",
 	-- ["Follow the road north from {area:87} into {zone:1453}. {npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in {object:2100} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "Идите по дороге на север от места {area:87} в город {zone:1453}. {npc:6171} и {npc:6173} – в Соборе Света; {npc:6174} стоит здесь: {object:2100} – и просит десять штук: {item:2589} (падает с гуманоидов; продается на аукционе).",
 	-- ["Follow the road south out of the valley to {area:87}. {npc:295} is in the Lion's Pride Inn; {npc:240} stands outside the smithy across the road, {npc:253} at the inn's front and {npc:241} by the road south of it."] = "Идите по дороге на юг из долины. Цель: {area:87}. {npc:295} – в таверне «Гордость льва»; {npc:240} стоит у кузницы через дорогу, {npc:253} – перед таверной, {npc:241} – у дороги к югу от нее.",

@@ -380,8 +380,8 @@ return {
 	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558} anda por aqui: procure dentro do círculo no mapa",
 
 	-- Step 87: Rabine Saturna
-	-- {area:1769} Timbermaw Hold · {zone:1450} Moonglade · {npc:11801} Rabine Saturna · {area:2361} Nighthaven
-	["Go through {area:1769} and take the {zone:1450} branch of the tunnel. {npc:11801} is in {area:2361}."] = "Atravesse {area:1769} e pegue o ramo do túnel para {zone:1450}. {npc:11801} está em {area:2361}.",
+	-- {area:1769} Timbermaw Hold · {zone:1450} Moonglade · {npc:11801} Rabine Saturna · {area:2361} Nighthaven · {quest:5527} A Reliquary of Purity · {area:2577} Dire Maul
+	["Go through {area:1769} and take the {zone:1450} branch of the tunnel. {npc:11801} is in {area:2361}.\n{npc:11801} offers {quest:5527} only after you have been inside {area:2577} once: if he doesn't offer it, carry on without it."] = "",
 
 	-- Step 88: Rabine Saturna
 	-- {zone:1451} Silithus
@@ -427,6 +427,7 @@ return {
 	-- ["Frenzied Plaguehounds and Monstrous Plaguebats share the fields around {area:2272} and {area:2271}, south of {area:2273}."] = "Cães Pestilentos Frenéticos e Quirópragos Monstruosos dividem os campos em volta do {area:2272} e da {area:2271}, ao sul de {area:2273}.",
 	-- ["Frenzied Plaguehounds share the fields around {area:2272} and {area:2271}, south of {area:2273}; Noxious Plaguebats fly over the fields of the north, and Monstrous Plaguebats around {area:2272} and {area:2271}. Careful: the hounds are 57-58 and the biggest Monstrous Plaguebats 58: pull them one at a time."] = "Cães Pestilentos Frenéticos dividem os campos em volta de {area:2272} e {area:2271}, ao sul de {area:2273}; Quirópragos Nóxios voam sobre os campos do norte, e Quirópragos Monstruosos em volta de {area:2272} e {area:2271}. Cuidado: os cães são de nível 57-58 e os maiores Quirópragos Monstruosos, 58: puxe um de cada vez.",
 	-- ["Go through {area:1769} and take the {area:493} branch of the tunnel. {npc:11801} is in {area:2361}."] = "Atravesse {area:1769} e pegue o ramo do túnel para {area:493}. {npc:11801} está em {area:2361}.",
+	-- ["Go through {area:1769} and take the {zone:1450} branch of the tunnel. {npc:11801} is in {area:2361}."] = "Atravesse {area:1769} e pegue o ramo do túnel para {zone:1450}. {npc:11801} está em {area:2361}.",
 	-- ["Hameya hides among the Mossflayer trolls of {area:2273}, in the north-east corner."] = "Hameya se esconde entre os trolls Esfolamusgo de {area:2273}, no canto nordeste.",
 	-- ["Hameya's mound"] = "O monte de Hameya",
 	-- ["Hameya's scroll"] = "O pergaminho de Hameya",

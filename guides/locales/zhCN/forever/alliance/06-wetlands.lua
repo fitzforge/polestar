@@ -440,8 +440,9 @@ return {
 	-- Step 79: The Dor'Danil Barrow Den: kill these as you meet them
 	-- {area:432} The Dor'Danil Barrow Den
 	["{area:432}: kill these as you meet them"] = "{area:432}：沿途击杀以下目标",
-	-- {area:2358} Forest Song
-	["The Forsaken's camp lies in the woods south of {area:2358}.\nRusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "被遗忘者的营地位于{area:2358}南侧树林中。\n被遗忘者营地西侧的林荫熊怪营地周围有生锈的箱子，不断打开，直到找到剑柄。\n注意：营地由约 28–30 级的非精英被遗忘者守卫，部分敌人处于潜行状态，桌子周围的敌人通常会一同参战。",
+	-- {area:2358} Forest Song · {object:19021} Rusty Chest
+	-- plural, as words: Rotting Slimes = {npc:3928} Rotting Slime
+	["The Forsaken's camp lies in the woods south of {area:2358}.\nRotting Slimes in and around the Barrow Den leave a {object:19021} when they die: open the chests until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "",
 
 	-- Step 80: Fallen Sky Lake
 	-- {npc:3931} Shadethicket Oracle · {quest:1035} Fallen Sky Lake · {object:669176} Gleaming Crescent Pendant
@@ -704,6 +705,7 @@ return {
 	-- ["South-east along the road to {area:415}: {npc:3691} in the inn, the flight master at the west end."] = "沿路向东南前往{area:415}：{npc:3691}在旅店里，飞行管理员在西端。",
 	-- ["South-east along the road to {area:415}: {npc:3691} in the inn, {npc:3961} and {npc:3894} inside, the flight master at the west end."] = "沿路向东南前往{area:415}：{npc:3691}在旅店内，{npc:3961}和{npc:3894}在里面，飞行管理员在西端。",
 	-- ["South-east from the dig to the Dragonmaw camp. The four sets of Attack Plans lie in the {area:1036}; {npc:2091}, an elite, stands in the camp too."] = "从挖掘场向东南前往龙喉营地。四份Attack Plans分布在{area:1036}；精英{npc:2091}也在营地中。",
+	-- ["The Forsaken's camp lies in the woods south of {area:2358}.\nRusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "被遗忘者的营地位于{area:2358}南侧树林中。\n被遗忘者营地西侧的林荫熊怪营地周围有生锈的箱子，不断打开，直到找到剑柄。\n注意：营地由约 28–30 级的非精英被遗忘者守卫，部分敌人处于潜行状态，桌子周围的敌人通常会一同参战。",
 	-- ["The captain walks the deck of the wrecked ship; his strongbox sits in the hold."] = "船长在沉船甲板上走动；他的保险箱在货舱里。",
 	-- ["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it."] = "圣物就在挖掘场里。{npc:1353}是一只大型刺喉龙，在挖掘场西边不远的迅猛龙山谷中徘徊。",
 	-- ["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it.\nGoaz Warders (elite, 32) stand among the relics and the {object:331}: pull them away one at a time, or work around them."] = "圣物就在挖掘场里。{npc:1353}是一只大型刺喉龙，在挖掘场西边不远的迅猛龙山谷中徘徊。\n戈阿兹守卫者（32级精英）站在圣物和{object:331}之间：逐个引开，或绕开它们。",

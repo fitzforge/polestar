@@ -49,9 +49,10 @@ return {
 	["Fly to {area:271}"] = "飛往{area:271}",
 
 	-- Step 9: The Super Snapper FX
-	-- {zone:1425} Hinterlands · {area:307} Overlook Cliffs
-	-- was: ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} (level 48 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\n{npc:7977} walks the {zone:1425} shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "這些是精英怪物：建議組隊，找人一起完成。{npc:7977}（48級精英）需要2人隊伍。如果你是單獨一人就跳過：路線會讓你練級把經驗值補回來。\n{npc:7977}在{area:307}下方的{zone:1425}海岸上走動，從箭頭處往南到約75,66，往北到約82,52：如果她不在箭頭處，就沿著海岸找。"
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. Gammerita (level 48 elite) needs a group of 2. Skip it if you are alone.\nGammerita walks the {zone:1425} shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "",
+	-- {item:9328} Super Snapper FX · {zone:1425} Hinterlands · {area:307} Overlook Cliffs
+	["Gammerita need not die: target her and use the {item:9328}. She is a level 48 elite, so keep your distance.\nGammerita walks the {zone:1425} shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "",
+	-- {item:9328} Super Snapper FX
+	["the {item:9328} on Gammerita: no kill"] = "",
 
 	-- Step 10: Fly to Southshore
 	-- {area:348} Aerie Peak
@@ -122,7 +123,8 @@ return {
 	-- {area:250} Ruins of Thaurissan
 	["{area:250}: kill these as you meet them"] = "{area:250}：遇到就殺",
 	-- {item:12284} Draco-Incarcinatrix 900 · {npc:7047} Black Broodling · {area:251} Flame Crest · {npc:8981} Malfunctioning Reaver · {npc:7040} Black Dragonspawn
-	["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "在{area:251}東邊山坡上的{npc:7047}快死時對它使用{item:12284}，然後拾取它留下的精華。\n小心：一隻{npc:8981}（56級，稀有）在小龍附近的山坡上走動，周圍的{npc:7040}和龍人都是精英：對邊緣的小龍使用採集器，每次拉怪前先看看四周。",
+	-- was: ["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "在{area:251}東邊山坡上的{npc:7047}快死時對它使用{item:12284}，然後拾取它留下的精華。\n小心：一隻{npc:8981}（56級，稀有）在小龍附近的山坡上走動，周圍的{npc:7040}和龍人都是精英：對邊緣的小龍使用採集器，每次拉怪前先看看四周。"
+	["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, Volchan (60, a rare fire elemental) roams the hills east of {area:251}, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "",
 
 	-- Step 24: Ruins of Thaurissan
 	-- {area:250} Ruins of Thaurissan · {area:251} Flame Crest · {npc:8978} Thauris Balgarr · {object:147516} Dark Iron
@@ -135,7 +137,7 @@ return {
 
 	-- Step 26: Cyrus Therepentous
 	-- {item:10569} Hoard of the Black Dragonflight · {zone:1427} Searing Gorge · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous
-	["Open the {item:10569} from {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight."] = "打開來自{zone:1427}的{item:10569}取得{item:10575}，然後告訴{npc:9459}你帶來了功績的證明：不必與飛龍戰鬥。",
+	["Open the {item:10569} from {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight.\nCareful: Volchan (60, a rare fire elemental) roams the hills around {npc:9459}'s cave: if he is about, wait for him to pass."] = "",
 	["Below ground"] = "地下",
 	-- {item:10575} Black Dragonflight Molt
 	["{item:10575}, from the hoard"] = "{item:10575}，從寶藏中取得",
@@ -385,6 +387,7 @@ return {
 	-- ["Level 51.3 on the way north"] = "往北途中升到51.3級",
 	-- ["Level 52 at {area:249}"] = "在{area:249}升到52級",
 	-- ["Level 52.08"] = "52.08級",
+	-- ["Open the {item:10569} from {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight."] = "打開來自{zone:1427}的{item:10569}取得{item:10575}，然後告訴{npc:9459}你帶來了功績的證明：不必與飛龍戰鬥。",
 	-- ["Optional: {npc:8395} wants two Undamaged Hippogryph Feathers from the hippogryphs around his camp. The data lists no experience for it."] = "可選：{npc:8395}要兩根完整的角鷹獸羽毛，從他營地周圍的角鷹獸身上取得。資料沒有列出這個任務的經驗值。",
 	-- ["Optional: {npc:8888}'s ghost stands on his tomb on the great chain inside {area:254}, and only the dead can see him. If you die near the mountain anyway, run your spirit to him before resurrecting."] = "可選：{npc:8888}的鬼魂站在{area:254}內巨大鎖鏈上的墳墓上，只有死者能看見他。如果你反正在山附近死了，在復活前讓你的靈魂跑去找他。",
 	-- ["Portal to {zone:1438}"] = "傳送門前往{zone:1438}",
@@ -418,6 +421,7 @@ return {
 	-- ["Top up to level 51.3 on the Spitelash Myrmidons (50-51) of the ruins between {npc:8395}'s camp and the north: the blood elves at {npc:8420}'s camp are 51-53. Or, with a group, run the {area:1417} dungeon instead."] = "在{npc:8395}營地與北邊之間的遺跡中擊殺惡鞭侍從（50-51級），補到51.3級：{npc:8420}營地的血精靈是51-53級。或者，有小隊的話，改打{area:1417}地城。",
 	-- ["Upstairs"] = "樓上",
 	-- ["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves."] = "在{area:251}東邊山坡上的{npc:7047}快死時對牠使用{item:12284}，然後拾取牠留下的精華。",
+	-- ["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "在{area:251}東邊山坡上的{npc:7047}快死時對它使用{item:12284}，然後拾取它留下的精華。\n小心：一隻{npc:8981}（56級，稀有）在小龍附近的山坡上走動，周圍的{npc:7040}和龍人都是精英：對邊緣的小龍使用採集器，每次拉怪前先看看四周。",
 	-- ["Wildkin feathers"] = "梟獸羽毛",
 	-- ["Your Hearthstone is set at {zone:1455} (the {zone:1425} guide binds it there): hearth back to the inn."] = "你的爐石設定在{zone:1455}（{zone:1425}指南會綁定在那裡）：用爐石回到旅店。",
 	-- ["grind on {npc:6196}"] = "刷{npc:6196}",

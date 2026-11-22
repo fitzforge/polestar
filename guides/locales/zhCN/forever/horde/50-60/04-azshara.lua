@@ -23,100 +23,94 @@ return {
 	-- {area:2479} Emerald Sanctuary · {zone:1448} Felwood
 	["Cleansed Water goes to the {area:2479} in {zone:1448}: keep it for later."] = "净化后的水要送到{zone:1448}的{area:2479}：留到之后。",
 
-	-- Step 4: Dokimi's crates
-	-- {npc:256386} Dokimi
-	["{npc:256386}'s crates"] = "{npc:256386}的箱子",
-	-- {npc:256386} Dokimi · {zone:1454} Orgrimmar
-	-- was: ["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {area:1237} from the Crossroads."] = "沿路骑马向北前往十字路口；{npc:256386}就在那里。逐个打开她给你的箱子，将里面的东西交回。从十字路口继续飞往{area:1237}。"
-	["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {zone:1454} from the Crossroads."] = "",
-
-	-- Step 5: Fly to Orgrimmar
+	-- Step 4: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "飞往{area:1637}",
-	["Crossroads flight master"] = "十字路口飞行管理员",
+	-- {area:392} Ratchet
+	["{area:392} flight master"] = "{area:392}的飞行管理员",
 
-	-- Step 6: Jes'rimon
+	-- Step 5: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
 	["{npc:8659}, the {object:172960}"] = "{npc:8659}，在{object:172960}",
 
-	-- Step 7: Orgrimmar
+	-- Step 6: Orgrimmar
 	-- {npc:15188} Cenarion Emissary Blackhoof · {object:172957} Valley of Wisdom · {zone:1451} Silithus
 	["{npc:15188}, {object:172957}: keep it for {zone:1451}"] = "{npc:15188}，在{object:172957}：留着它去{zone:1451}",
 
-	-- Step 8: Zilzibin Drumlore
+	-- Step 7: Zilzibin Drumlore
 	-- {npc:7010} Zilzibin Drumlore
 	["{npc:7010} works in the Drag."] = "{npc:7010}在暗巷工作。",
 
-	-- Step 9: Zilzibin Drumlore
+	-- Step 8: Zilzibin Drumlore
 	-- {quest:4494} March of the Silithid · {npc:7010} Zilzibin Drumlore · {area:976} Gadgetzan · {zone:1451} Silithus · {zone:2482} Mount Hyjal
 	["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1451} guide's first stop, after {zone:2482}."] = "",
 
-	-- Step 10: Vehena
+	-- Step 9: Vehena
 	-- {object:172961} Valley of Spirits
 	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "在 {object:172961} 内。每次捐赠会收取背包中的六十块毛料、丝绸或魔纹布：交还随身带的，其余跳过。",
 
-	-- Step 11: Rashona Straglash
+	-- Step 10: Rashona Straglash
 	-- {object:172958} Valley of Honor
 	["In the {object:172958}."] = "在{object:172958}。",
 	-- {item:14047} Runecloth
 	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "两项 {item:14047} 捐献都安排在路线后面交还：如果打算完成，每项各留六十块 {item:14047}。",
 
-	-- Step 12: Paladin trainer
+	-- Step 11: Paladin trainer
 	["Paladin trainer"] = "圣骑士训练师",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
 	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{zone:1456}的{npc:246344}；{zone:1454}没有圣骑士训练师",
 
-	-- Step 13: Orgrimmar
+	-- Step 12: Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Fly to {zone:1454} and train."] = "飞往 {zone:1454} 学习技能。",
 
-	-- Step 14: Into Durotar
+	-- Step 13: Into Durotar
 	-- {zone:1411} Durotar
 	["Into {zone:1411}"] = "进入{zone:1411}",
 
-	-- Step 15: Zeppelin to Undercity
+	-- Step 14: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "乘飞艇前往{zone:1458}",
 
-	-- Step 16: Chemist Cuely
+	-- Step 15: Chemist Cuely
 	-- {npc:8390} Chemist Cuely · {npc:8393} Thersa Windsong
 	["{npc:8390} and {npc:8393} work in the Apothecarium."] = "{npc:8390}和{npc:8393}在炼金房工作。",
 	-- {npc:8393} Thersa Windsong
 	["{npc:8393}, beside him"] = "{npc:8393}，在他旁边",
 
-	-- Step 17: Andron Gant
+	-- Step 16: Andron Gant
 	-- {npc:6522} Andron Gant · {object:36073} Rogues' Quarter
 	["{npc:6522} stands in the {object:36073}."] = "{npc:6522}站在{object:36073}。",
 
-	-- Step 18: The Undercity
+	-- Step 17: The Undercity
 	-- {object:36126} Royal Quarter
 	["Lady Sylvanas holds the {object:36126}."] = "希尔瓦娜斯女士在{object:36126}。",
 
-	-- Step 21: Jeremiah Payson
+	-- Step 20: Jeremiah Payson
 	-- {npc:8403} Jeremiah Payson
 	["{npc:8403}, nearby"] = "{npc:8403}，在附近",
 
-	-- Step 22: Jeremiah Payson
+	-- Step 21: Jeremiah Payson
 	-- {quest:5050} Good Luck Charm · {npc:10778} Janice Felstone · {zone:1422} Western Plaguelands
 	["{quest:5050} goes back to {npc:10778} in the {zone:1422}: keep it."] = "{quest:5050}要交还给{zone:1422}的{npc:10778}：留着它。",
 
-	-- Step 23: Royal Quarter
+	-- Step 22: Royal Quarter
 	-- {quest:79095} The Apothecary's Metaphysical Primer · {area:159} Brill
 	-- plural, as words: Library Books = {object:386691} Library Book
 	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "仅在背包中带有从{area:159}炼金店取得的书籍《{quest:79095}》时进行，详见《图书馆藏书》指南",
 
-	-- Step 25: The Bulwark
+	-- Step 24: The Bulwark
 	-- {zone:1458} Undercity · {area:152} The Bulwark · {zone:1422} Western Plaguelands
 	["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "沿道路向东骑出{zone:1458}；{area:152}扼守着进入{zone:1422}的道路。",
 	-- {npc:11615} Mickey Levine · {area:2627} Terrordale
 	["{npc:11615}: the termites are in {area:2627}, on the next guide"] = "{npc:11615}：白蚁在{area:2627}，属于下一个指南",
 
-	-- Step 27: Felstone Field
+	-- Step 26: Felstone Field
 	-- {npc:10778} Janice Felstone · {area:152} The Bulwark · {npc:11075} Cauldron Lord Bilemaw
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
 	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "{npc:10778}的农场是{area:152}以东第一座农场。农场里的喋喋不休的食尸鬼携带她护符的另一半；{npc:11075}守着田里的大锅。\n小心：通常有一两只亡灵与他并肩战斗，使用大锅后还可能有更多护锅者来袭。",
 
-	-- Step 28: Janice Felstone
+	-- Step 27: Janice Felstone
 	["Upstairs"] = "在楼上",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
@@ -124,6 +118,7 @@ return {
 	-- ["Back north-west to {npc:8420}."] = "向西北回到{npc:8420}处。",
 	-- ["Back to the Sin'dorei Tome: hand in the seals, then use it to call {npc:8578}.\nCareful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead."] = "回到辛多雷宝典：交上印记，然后用它召唤{npc:8578}。\n小心：哪块水晶与雷姆托里相连是随机的。另外两块各会召唤出一只敌对的地狱火。",
 	-- ["Both {item:14047} donations are handed in later in the route: start saving {item:14047}."] = "两次{item:14047}捐献都在路线后面交还：开始攒{item:14047}。",
+	-- ["Crossroads flight master"] = "十字路口飞行管理员",
 	-- ["Each of the camp's three officers (53) carries a seal: {npc:247006} in the middle of the camp, {npc:247013} at its eastern end, and {npc:246991}, who walks its western half: take him on the east side of his walk, where the arrow points.\nCareful: the {npc:250023}, a level 55-57 elite, stands at the camp's western edge, close to the far end of Hawkhelm's walk: wait for Hawkhelm to come back east."] = "营地的三名军官（53级）各带一枚印记：{npc:247006}在营地中央，{npc:247013}在营地东端，{npc:246991}在营地西半边巡逻：在他巡逻路线的东侧、箭头所指处对付他。\n小心：{npc:250023}（55-57级精英）站在营地西缘，靠近鹰盔巡逻路线的尽头：等鹰盔走回东边再动手。",
 	-- ["Fly to the {area:380}"] = "飞往{area:380}",
 	-- ["Fly to {area:1237}"] = "飞往{area:1237}",
@@ -166,6 +161,7 @@ return {
 	-- ["{npc:235903}: {quest:86746}, the satyrs north of the blood elves' camp"] = "{npc:235903}：{quest:86746}，血精灵营地北边的萨特",
 	-- ["{npc:247473}: {quest:91569}, a wand from the blood elves' arcanists"] = "{npc:247473}：{quest:91569}，从血精灵奥术师身上获取一根魔杖",
 	-- ["{npc:256386} stands in the {area:380}. Open each crate she hands you and bring back what is inside."] = "{npc:256386}站在{area:380}。打开她交给你的每一个箱子，把里面的东西带回来。",
+	-- ["{npc:256386}'s crates"] = "{npc:256386}的箱子",
 	-- ["{npc:3326}, the {object:172960}"] = "{npc:3326}，在{object:172960}",
 	-- ["{npc:4485}, {object:172958}: carried from the first {zone:1447} visit, else take it here for {npc:8576} in {area:1237}"] = "{npc:4485}在{object:172958}：首次去{zone:1447}时应已接取并保留；否则在这里接取，带给{area:1237}的{npc:8576}",
 	-- ["{npc:8576}: {quest:91531}, for {npc:4485} in {zone:1454}"] = "{npc:8576}：{quest:91531}，交给{zone:1454}的{npc:4485}",

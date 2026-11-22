@@ -129,17 +129,17 @@ step Soil and venison
   collect 247889 x6 quest 91754.1       -- Untainted Soil
   collect 251641 x2 quest 93759.1       -- Hyjal Venison Cut
 
-step The ruined catapult and flying machine
-  tip Two of the wrecks Ketharas named lie at the east end of the fields: plant one of his seeds beside each.
-  goto 62.9,82.9 "Ruined Catapult"
-  goto 66.1,83.5 "Ruined Flying Machine"
+step The three wrecks
+  tip The three wrecks Ketharas named lie at the east end of the fields: use the Bag of Enchanted Seeds beside each, the catapult and the flying machine first, then the ballista a little north of them.
+  use 269944 quest 93747.2 @62.9,82.9   -- Bag of Enchanted Seeds: the Ruined Catapult
+  use 269944 quest 93747.3 @66.1,83.5   -- Bag of Enchanted Seeds: the Ruined Flying Machine
+  use 269944 quest 93747.1 @66.3,79.2   -- Bag of Enchanted Seeds: the Ruined Ballista
 
 step The shrub field
-  tip North into the shrub field: the Tainted Shrubbery drop the leaves, and the Scarlet Dart Tubers grow in the open ground, most of them in the field's western half. The ruined ballista stands at the field's north-eastern edge: plant the last seed there. Keep clear of Celastrus the Bitter and Sunderbark, the field's elites.
+  tip North into the shrub field: the Tainted Shrubbery drop the leaves, and the Scarlet Dart Tubers grow in the open ground, most of them in the field's western half. Keep clear of Celastrus the Bitter and Sunderbark, the field's elites.
   kill 248395 x15 quest 92594.1         -- Tainted Shrubbery
   collect 247892 x12 quest 91755.1      -- Verdant Leaves
   collect 267289 x6 quest 93759.2 @59.5,73.5  -- Scarlet Dart Tuber
-  complete 93747 @70.4,70.7             -- the Ruined Ballista
 
 step Celastrus
   when group 91923
@@ -362,7 +362,7 @@ step Fly to the Tainted Foothills
 
 step Kaylaena's workshop
   tip North from Bluebell to the workshop, crate first. Watch for Ghansurok, the elite chimaera (level 61) that prowls around the workshop.
-  complete 92009                        -- deliver the crate before it fizzles
+  talk 249235 quest 92009               -- deliver the crate before it fizzles
   turnin 92009                          -- Kaylaena Springwhisper
   turnin 92594
   accept 92011                          -- Rubble Rummage: in Dae'gun, later in this guide; keep it
@@ -487,8 +487,8 @@ step Barkskin Burrow
   tip Back to Osi, then the two elders at the back of the burrow. Suma Mossmane stands beside Osi, Thobon Sapclaw a little north-west of them, where the recording met him. Suma's moss grows around Elderwild, later in this guide; Thobon's amulets come from the harpies at the Shrine of Aviana, also later in this guide, and you bring both back here then.
   turnin 93831                          -- Osi Mistpaw
   accept 91697                          -- Meet the Elders
-  talk 256650                           -- Elder Pinespeaker
-  talk 256627                           -- Elder Mistpaw
+  talk 256650 quest 91697.1             -- Elder Pinespeaker
+  talk 256627 quest 91697.2             -- Elder Mistpaw
   turnin 91697                          -- Elder Mistpaw
   accept 93826                          -- Deal Dread to Deadwood: on your way back here later; keep it
   accept 93825                          -- Suma Mossmane: Barkbound Blessings
@@ -560,7 +560,7 @@ step Eluneth
 step Owl feathers
   tip The Hyjal Owls roost on the slopes between Eluneth and Barkskin Burrow: their feathers are for Elderwild.
   tip Careful: Death Wailers (61, rare elites) drift over the western slopes: give them a wide berth.
-  tip Careful: Grimroot, the elite treant (level 60), walks the western slopes here: pull the owls away from his path.
+  tip Careful: Grimroot, an elite treant (level 60), walks the slopes beside Eluneth. He leaves you alone unless you hit him: don't, and pull the owls away from his path.
   collect 253341 x9 quest 95027.1 only Alliance  -- Hyjal Owl Feather
   collect 253341 x9 quest 92609.1 only Horde
 
@@ -572,7 +572,7 @@ step Unmarked Grave
 step Mourning's Rest
   tip The Scourge hold the ruins of Mourning's Rest, east of Elderwild: Fleshflay Raveners and Forgotten Soldiers everywhere, Eternal Sentries among them.
   tip Careful: Death Wailers (61, rare elites) drift over Mourning's Rest: keep out of their way.
-  tip Careful: Grimroot, the elite treant (level 60), walks the slopes on the way in: give him room.
+  tip Careful: Grimroot, the elite treant (level 60), walks the slopes on the way in. He leaves you alone unless you hit him: give him room.
   kill 249247 x3 quest 92449.1 only Alliance  -- Forgotten Soldier
   kill 249228 x12 quest 92449.2 only Alliance  -- Fleshflay Ravener
   kill 249247 x3 quest 95026.1 only Horde
@@ -616,9 +616,9 @@ step Hyjal Silphium
 step Elderwild
   only Alliance
   tip West to the Alliance outpost.
+  turnin 95027                          -- Hnaz Blunderflame
   turnin 92449
   turnin 90702
-  turnin 95027                          -- Hnaz Blunderflame
   accept 90750                          -- Sefira Everbright: More Work?
 
 step Final Death
@@ -634,7 +634,7 @@ step To the Summit of Eternity
 step Daythor Brellan and Sefira
   only Alliance
   tip The worker Sefira means is a peasant just north of her; Daythor Brellan stands between them.
-  talk 251320 @15.1,51.5                -- Peasant
+  talk 251320 quest 90750 @15.1,51.5    -- Peasant
   turnin 90750                          -- Daythor Brellan
   accept 95218                          -- More of the Same
   turnin 95218                          -- Sefira Everbright
@@ -655,8 +655,8 @@ step Maruke and Enho
   only Horde
   when onquest 96622
   tip Ortak's poultice is for two of the outpost's wounded: Maruke lies at the north end of Elderwild, Enho Runehoof just south of Ortak.
-  talk 265895 @11.9,48.6                -- Maruke
-  talk 265862 @12.9,53.7                -- Enho Runehoof
+  talk 265895 quest 96622 @11.9,48.6    -- Maruke
+  talk 265862 quest 96622 @12.9,53.7    -- Enho Runehoof
   turnin 96622 @12.9,52.9               -- Ortak Lomgok
 
 step Head Scratcher
@@ -691,7 +691,7 @@ step Jereman
 step The falls and the first kitten
   tip Fill Galvinquam's gourd at the falls beside the bridge. Solstice, one of Shalla'kal's kittens, plays just west of the falls: walk up to her.
   complete 96979 @41.6,44.6             -- fill the gourd
-  talk 255685 @38.5,47.3                -- Solstice
+  talk 255685 quest 93615.1 @38.5,47.3  -- Solstice
 
 step Johun's camp
   only Alliance
@@ -703,12 +703,12 @@ step Johun's camp
 
 step Brie
   tip Brie, the second kitten, plays just west of Johun's camp.
-  talk 255773 @41.4,36.4                -- Brie
+  talk 255773 quest 93615.3 @41.4,36.4  -- Brie
 
 step Foxes
   only Alliance
   tip The Rustleaf Foxes are thick in the woods around Johun's camp.
-  tip Careful: Jezerelle the Swaying (61, rare) walks the woods north of the camp: leave her be.
+  tip Careful: Jezerelle the Swaying (61, rare) walks the woods north of the camp, and a Bannerwing Survivor (60, rare) can turn up there too: leave them be.
   collect 274586 x9 quest 92014.1 @42.5,35.0  -- Rustleaf Fox Tail
 
 step Johun "Punchy" Dillas
@@ -782,7 +782,7 @@ step Marrosis
 
 step Whisperfur
   tip The last kitten, Whisperfur, plays at the southern end of Mourning's Rest.
-  talk 255771 @27.0,61.9                -- Whisperfur
+  talk 255771 quest 93615.2 @27.0,61.9  -- Whisperfur
 
 step Shalla'kal and Galvinquam
   tip North to Shalla'kal, then Galvinquam in the ruins south of her.
@@ -797,7 +797,7 @@ step Shalla'kal and Galvinquam
 # for the order, the spots and the chain links the data lacks.
 # Order: the Shrine of Aviana and its harpies, back south-west past the Deadwood camps to Barkskin Burrow for its
 # three hand-ins, north-east through the Cradle (Galvinquam's and Jereman's breadcrumbs taken on the way) to Johun
-# (Alliance) and Dae'gun (Renalard first, then the demon camps west to east and back), the Summit of Eternity
+# (Alliance) and Dae'gun (Maerion and Renalard first, then the demon camps west to east and back), the Summit of Eternity
 # (flight path, inn), a flight down for Kaylaena and Ketharas, then the Summit's Blackthorne camps in one sweep, and
 # out by Everlook.
 # Quest log: since the 2026-11-20 route rounds a character arrives with only a few quests carried from the 50-60 guides
@@ -812,9 +812,11 @@ step Shalla'kal and Galvinquam
 # Stolen Life, Ashes of the Legion Ascent and A Bit of the Sky; Paying Back the Pact after The Staff of the
 # Mountain.
 # Not checked to the end in the recording (taken, not finished, or not taken): the Summit's Blackthorne quests
-# (Cult Closure, Twisted Tools, A Thorn in the Paw, Paying Back the Pact), Cleansing Winds and Maerion's Misery.
-# Maerion's Felhound Spikes: one in about ten Defiling Hounds dropped one after the recorded player took the
-# quest (1 spike from 11 kills), so its collection and hand-in are optional. The Shrine's Spear of the Skylord,
+# (Cult Closure, Twisted Tools, A Thorn in the Paw, Paying Back the Pact) and Cleansing Winds.
+# Maerion's Misery: 13 players' recordings (2026-11) took it from Maerion at 63.2,25.8 with no earlier quest, 4 of
+# them while Siphoned Ephemeral Essence was still open; 10 handed it in, most after 15-32 Defiling Hound kills. So
+# it is taken before the Dae'gun sweep, its spikes come with the essence, and the last ones by Maerion at the
+# hand-in. The Shrine's Spear of the Skylord,
 # Highfeather Helper and Tarnished Treasures were offered before Taking to New Heights and Past Wing and Claw were
 # handed in (the windows in the recording): the breadcrumbs do not gate them.
 # Left out on purpose:
@@ -902,6 +904,11 @@ step Elaena, Witherbeard and Yashiro
   accept 95793                          -- Witherbeard: Stemming the Demon Tide
   accept 96959                          -- Yashiro: Blademaster's Bonfires
 
+step Maerion Thaelemaches
+  tip North-east to Maerion Thaelemaches at the northern ruins of Dae'gun: take Maerion's Misery so the Defiling Hounds drop their spikes while you work the other errands here.
+  tip Careful: Legion Hulks (60, rare elites) stomp through Dae'gun's camps, and Doomguard Xarkul, an elite (level 61), walks this corner: give them room.
+  accept 97009 @63.2,25.8               -- Maerion Thaelemaches: Maerion's Misery
+
 step Renalard
   when onquest 96964
   tip South-east across Dae'gun to Renalard, the wild god, indoors at its south-eastern edge.
@@ -916,6 +923,7 @@ step Dae'gun
   tip Careful: Doomguards (elites, 58-59) stand among the demons, and Doomguard Xarkul (elite, 61) walks the camp: pull the hounds and sentinels to you, away from them.
   kill 249229 x12 quest 95793.1         -- Felguard Sentinel
   collect 271220 x6 quest 92960.1       -- Ephemeral Essence
+  collect 276100 x12 quest 97009.1 optional  -- Felhound Spike
   collect 250775 x5 quest 92011.1 @51.5,37.0  -- Frayed Wire
   collect 269244 x5 quest 92011.2 @62.5,41.5  -- Calcified Excrement
   collect 269246 x5 quest 92011.3 @56.0,41.2  -- Warped Metal Scrap
@@ -931,7 +939,7 @@ step Dae'gun
 step Elaena, Witherbeard and Yashiro
   turnin 92960                          -- Elaena Moonwhisper
   turnin 95793                          -- Witherbeard
-  turnin 96959                          -- Yashiro
+  turnin 96959 @49.2,32.7               -- Yashiro
 
 step Drawing Down the Malevolent
   when group 96003
@@ -950,11 +958,11 @@ step Bethra'zel
   kill 263394 quest 96003.1             -- Bethra'zel
 
 step Maerion Thaelemaches
-  tip North-east to Maerion Thaelemaches, in the corner of Dae'gun where Bethra'zel stands. His Felhound Spikes come from the Defiling Hounds, and in the first recording about one hound in ten had one: kill the hounds around him while you are here, and leave his quest if the twelve spikes are slow to come.
+  when onquest 97009
+  tip North-east back to Maerion Thaelemaches, in the corner of Dae'gun where Bethra'zel stands: the Defiling Hounds around him drop any spikes you still need.
   tip Careful: Legion Hulks (60, rare elites) stomp through Dae'gun's camps, and Doomguard Xarkul, an elite (level 61), walks this corner: give them room.
-  accept 97009                          -- Maerion Thaelemaches: Maerion's Misery
-  collect 276100 x12 quest 97009.1 optional  -- Felhound Spike
-  turnin 97009 optional
+  collect 276100 x12 quest 97009.1      -- Felhound Spike
+  turnin 97009
 
 step Mazzogore
   when group 96003

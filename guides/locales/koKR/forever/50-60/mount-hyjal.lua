@@ -69,18 +69,22 @@ return {
 	-- plural, as words: Hyjal Stags = {npc:248041} Hyjal Stag
 	["The untainted soil lies in the fields south and east of the outpost; Hyjal Stags graze there too, and their venison is for {npc:256222}'s stew.\nCareful: {npc:248709} (56), an elite treant, walks the fields to the south-east around 60,78: give him room."] = "",
 
-	-- Step 11: The ruined catapult and flying machine
-	["The ruined catapult and flying machine"] = "",
-	-- {npc:256222} Ketharas
-	["Two of the wrecks {npc:256222} named lie at the east end of the fields: plant one of his seeds beside each."] = "",
+	-- Step 11: The three wrecks
+	["The three wrecks"] = "",
+	-- {npc:256222} Ketharas · {item:269944} Bag of Enchanted Seeds
+	["The three wrecks {npc:256222} named lie at the east end of the fields: use the {item:269944} beside each, the catapult and the flying machine first, then the ballista a little north of them."] = "",
+	-- {item:269944} Bag of Enchanted Seeds · {npc:266887} Ruined Catapult
+	["{item:269944}: the {npc:266887}"] = "",
+	-- {item:269944} Bag of Enchanted Seeds · {npc:266886} Ruined Flying Machine
+	["{item:269944}: the {npc:266886}"] = "",
+	-- {item:269944} Bag of Enchanted Seeds · {npc:262036} Ruined Ballista
+	["{item:269944}: the {npc:262036}"] = "",
 
 	-- Step 12: The shrub field
 	["The shrub field"] = "",
 	-- {npc:248395} Tainted Shrubbery · {quest:91923} Celastrus the Bitter · {npc:248709} Sunderbark
 	-- plural, as words: Scarlet Dart Tubers = {item:267289} Scarlet Dart Tuber
-	["North into the shrub field: the {npc:248395} drop the leaves, and the Scarlet Dart Tubers grow in the open ground, most of them in the field's western half. The ruined ballista stands at the field's north-eastern edge: plant the last seed there. Keep clear of {quest:91923} and {npc:248709}, the field's elites."] = "",
-	-- {npc:262036} Ruined Ballista
-	["the {npc:262036}"] = "",
+	["North into the shrub field: the {npc:248395} drop the leaves, and the Scarlet Dart Tubers grow in the open ground, most of them in the field's western half. Keep clear of {quest:91923} and {npc:248709}, the field's elites."] = "",
 
 	-- Step 13: Celastrus the Bitter
 	-- {quest:91923} Celastrus the Bitter
@@ -330,7 +334,7 @@ return {
 	["Owl feathers"] = "",
 	-- {npc:264089} Eluneth · {area:16848} Elderwild
 	-- plural, as words: Hyjal Owls = {npc:249053} Hyjal Owl · Death Wailers = {npc:249226} Death Wailer
-	["The Hyjal Owls roost on the slopes between {npc:264089} and Barkskin Burrow: their feathers are for {area:16848}.\nCareful: Death Wailers (61, rare elites) drift over the western slopes: give them a wide berth.\nCareful: Grimroot, the elite treant (level 60), walks the western slopes here: pull the owls away from his path."] = "",
+	["The Hyjal Owls roost on the slopes between {npc:264089} and Barkskin Burrow: their feathers are for {area:16848}.\nCareful: Death Wailers (61, rare elites) drift over the western slopes: give them a wide berth.\nCareful: Grimroot, an elite treant (level 60), walks the slopes beside {npc:264089}. He leaves you alone unless you hit him: don't, and pull the owls away from his path."] = "",
 
 	-- Step 75: Unmarked Grave
 	-- {area:16868} Mourning's Rest
@@ -340,7 +344,7 @@ return {
 	-- Step 76: Mourning's Rest
 	-- {area:16868} Mourning's Rest · {area:16848} Elderwild
 	-- plural, as words: Fleshflay Raveners = {npc:249228} Fleshflay Ravener · Forgotten Soldiers = {npc:249247} Forgotten Soldier · Death Wailers = {npc:249226} Death Wailer
-	["The Scourge hold the ruins of {area:16868}, east of {area:16848}: Fleshflay Raveners and Forgotten Soldiers everywhere, Eternal Sentries among them.\nCareful: Death Wailers (61, rare elites) drift over {area:16868}: keep out of their way.\nCareful: Grimroot, the elite treant (level 60), walks the slopes on the way in: give him room."] = "",
+	["The Scourge hold the ruins of {area:16868}, east of {area:16848}: Fleshflay Raveners and Forgotten Soldiers everywhere, Eternal Sentries among them.\nCareful: Death Wailers (61, rare elites) drift over {area:16868}: keep out of their way.\nCareful: Grimroot, the elite treant (level 60), walks the slopes on the way in. He leaves you alone unless you hit him: give him room."] = "",
 
 	-- Step 77: Final Death
 	-- {area:16868} Mourning's Rest · {item:274411} Survivor's Torch · {npc:260148} Scourge Reanimator
@@ -430,8 +434,8 @@ return {
 
 	-- Step 95: Foxes
 	["Foxes"] = "",
-	-- {npc:249234} Johun "Punchy" Dillas · {npc:255183} Jezerelle the Swaying
-	["The Rustleaf Foxes are thick in the woods around {npc:249234}'s camp.\nCareful: {npc:255183} (61, rare) walks the woods north of the camp: leave her be."] = "",
+	-- {npc:249234} Johun "Punchy" Dillas · {npc:255183} Jezerelle the Swaying · {npc:256830} Bannerwing Survivor
+	["The Rustleaf Foxes are thick in the woods around {npc:249234}'s camp.\nCareful: {npc:255183} (61, rare) walks the woods north of the camp, and a {npc:256830} (60, rare) can turn up there too: leave them be."] = "",
 
 	-- Step 97: Kala'th
 	-- {npc:255693} Kala'th
@@ -535,13 +539,18 @@ return {
 	-- {area:16866} Dae'gun · {npc:263406} Elaena Moonwhisper · {npc:249052} Witherbeard · {npc:267121} Yashiro
 	["Into {area:16866}, north of the Cradle: the ruins of a Horde base, now held by demons. {npc:263406} and {npc:249052} camp at its western edge; {npc:267121}, a blademaster, waits a little east of them. Doomguards (elites, levels 58-59) walk among the demons: pull carefully."] = "",
 
-	-- Step 122: Renalard
+	-- Step 122: Maerion Thaelemaches
+	-- {npc:267097} Maerion Thaelemaches · {area:16866} Dae'gun · {quest:97009} Maerion's Misery · {npc:267439} Doomguard Xarkul
+	-- plural, as words: Defiling Hounds = {npc:249230} Defiling Hound · Legion Hulks = {npc:249238} Legion Hulk
+	["North-east to {npc:267097} at the northern ruins of {area:16866}: take {quest:97009} so the Defiling Hounds drop their spikes while you work the other errands here.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps, and {npc:267439}, an elite (level 61), walks this corner: give them room."] = "",
+
+	-- Step 123: Renalard
 	-- {area:16866} Dae'gun · {npc:259695} Renalard
 	["South-east across {area:16866} to {npc:259695}, the wild god, indoors at its south-eastern edge."] = "",
 	-- {quest:92335} Ashes of the Legion Ascent · {npc:256222} Ketharas
 	["{quest:92335}: for {npc:256222}, later in this guide"] = "",
 
-	-- Step 123: Dae'gun
+	-- Step 124: Dae'gun
 	-- {area:16866} Dae'gun · {npc:259695} Renalard · {npc:265788} Kal'tinzan · {item:253249} Horde Flag · {object:656786} Troll Remains (no name in this language: may be words) · {quest:96998} Tribal Colors · {npc:255183} Jezerelle the Swaying · {npc:267439} Doomguard Xarkul
 	-- plural, as words: Felguard Sentinels = {npc:249229} Felguard Sentinel · Defiling Hounds = {npc:249230} Defiling Hound · Legion Hulks = {npc:249238} Legion Hulk
 	["Work west back through {area:16866}: the Felguard Sentinels and Defiling Hounds are everywhere, the hounds carry the essence, and the Horde base's rubble (wire, scrap and dung) lies all over it. Light the two bonfires on your way, scout the Horde tower in the middle, take Azgalor's ashes west of the tower, and pick up the abandoned supplies, a few just north-west of {npc:259695} and the rest in the western half: {npc:259695}'s tuft of fur, used on a demon, distracts it while you take them.\nHorde: the demons here also drop the Scraps of Horde Heraldry for {npc:265788}, the old {item:253249} stands in the camp north of the south bonfire, and the {object:656786} at the camp's eastern edge start {quest:96998}.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps: give them room. {npc:255183} (61, rare) walks the camp north of the south bonfire: keep away from her.\nCareful: Doomguards (elites, 58-59) stand among the demons, and {npc:267439} (elite, 61) walks the camp: pull the hounds and sentinels to you, away from them."] = "",
@@ -551,33 +560,33 @@ return {
 	-- {object:656786} Troll Remains (no name in this language: may be words) · {quest:96998} Tribal Colors · {npc:244511} Zet'gan · {area:16848} Elderwild
 	["{object:656786}: {quest:96998}, for {npc:244511} in {area:16848}; keep it"] = "",
 
-	-- Step 125: Drawing Down the Malevolent
+	-- Step 126: Drawing Down the Malevolent
 	-- {npc:263394} Bethra'zel the Feeble · {npc:252457} Mazzogore · {npc:263406} Elaena Moonwhisper
 	["A group choice: {npc:263394} and {npc:252457} are level 60 elites until {npc:263406}'s eye drains them. Drain each one first, then fight it; players in our recordings killed both once drained. Grouping up is advised."] = "",
 
-	-- Step 127: Bethra'zel the Feeble
+	-- Step 128: Bethra'zel the Feeble
 	-- {npc:263394} Bethra'zel the Feeble · {npc:263406} Elaena Moonwhisper · {npc:252457} Mazzogore · {npc:267439} Doomguard Xarkul · {area:16866} Dae'gun
 	-- plural, as words: Legion Hulks = {npc:249238} Legion Hulk
 	["North-east to {npc:263394}. Drain him first: use {npc:263406}'s eye on him, and only then fight him. Undrained, he and {npc:252457} are level 60 elites. {npc:267439}, an elite (level 61), walks this corner of {area:16866}: keep out of his way.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps: give them room."] = "",
 
-	-- Step 128: Maerion Thaelemaches
+	-- Step 129: Maerion Thaelemaches
 	-- {npc:267097} Maerion Thaelemaches · {area:16866} Dae'gun · {npc:263394} Bethra'zel the Feeble · {npc:267439} Doomguard Xarkul
-	-- plural, as words: Felhound Spikes = {item:276100} Felhound Spike · Defiling Hounds = {npc:249230} Defiling Hound · Legion Hulks = {npc:249238} Legion Hulk
-	["North-east to {npc:267097}, in the corner of {area:16866} where {npc:263394} stands. His Felhound Spikes come from the Defiling Hounds, and in the first recording about one hound in ten had one: kill the hounds around him while you are here, and leave his quest if the twelve spikes are slow to come.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps, and {npc:267439}, an elite (level 61), walks this corner: give them room."] = "",
+	-- plural, as words: Defiling Hounds = {npc:249230} Defiling Hound · Legion Hulks = {npc:249238} Legion Hulk
+	["North-east back to {npc:267097}, in the corner of {area:16866} where {npc:263394} stands: the Defiling Hounds around him drop any spikes you still need.\nCareful: Legion Hulks (60, rare elites) stomp through {area:16866}'s camps, and {npc:267439}, an elite (level 61), walks this corner: give them room."] = "",
 
-	-- Step 129: Mazzogore
+	-- Step 130: Mazzogore
 	-- {npc:263426} Mazzogore the Weak · {area:16866} Dae'gun · {npc:263394} Bethra'zel the Feeble
 	["South-west to {npc:263426}, in the middle of {area:16866}: drain him with the eye first, as {npc:263394}, then kill him. Undrained, he is a level 60 elite.\nCareful: Doomguards (elites, 58-59) stand around him: pull him out to you."] = "",
 
-	-- Step 130: Elaena Moonwhisper
+	-- Step 131: Elaena Moonwhisper
 	-- {quest:96025} As the Crow Flies · {npc:254915} Thisalee Crow
 	["{quest:96025}: for {npc:254915} at the Summit"] = "",
 
-	-- Step 131: Renalard
+	-- Step 132: Renalard
 	-- {npc:259695} Renalard
 	["South-east to {npc:259695}."] = "",
 
-	-- Step 132: The Summit of Eternity
+	-- Step 133: The Summit of Eternity
 	-- {area:16849} Summit of Eternity
 	["The {area:16849}"] = "",
 	-- {area:16849} Summit of Eternity · {npc:41861} Fayran Elthas · {npc:264795} Marn Euhorn · {npc:243855} Toron Rockhoof · {npc:254915} Thisalee Crow · {npc:40833} Tiala Whitemane · {npc:243815} Sebelia
@@ -587,38 +596,38 @@ return {
 	-- {npc:243815} Sebelia · {quest:93197} Mending Communications · {npc:11118} Innkeeper Vizzie · {area:2255} Everlook
 	["{npc:243815}: {quest:93197}: for {npc:11118} in {area:2255}, at the end"] = "",
 
-	-- Step 134: As the Crow Flies
+	-- Step 135: As the Crow Flies
 	-- {npc:254915} Thisalee Crow · {npc:263406} Elaena Moonwhisper
 	["{npc:254915}, at the Summit, for {npc:263406}'s message."] = "",
 
-	-- Step 135: The Summit's Blackthorne quests
+	-- Step 136: The Summit's Blackthorne quests
 	["The Summit's Blackthorne quests"] = "",
 	-- {npc:260674} Ve'han Talongrasp
 	["A group stop: the Blackthorne camps north-east of the Summit hold elite Outrunners, Priests and a Courier (60) as often as the Cultists and Adepts, with {npc:260674} (60, elite) in the middle and Ghansurok (61, elite) on the ridge. Grouping up is encouraged, look for people to do it with. Skip these if you are alone."] = "",
 
-	-- Step 136: Fly to the Tainted Foothills
+	-- Step 137: Fly to the Tainted Foothills
 	-- {npc:260626} Bluebell · {npc:249235} Kaylaena Springwhisper · {npc:256222} Ketharas
 	["Fly down to {npc:260626} for {npc:249235} and {npc:256222}."] = "",
 
-	-- Step 137: Kaylaena Springwhisper's workshop
+	-- Step 138: Kaylaena Springwhisper's workshop
 	["North to the workshop. Turn the two gears and connect the two battery terminals on both sides of her glaive thrower. Ghansurok, the elite chimaera (level 61), prowls around the workshop: watch for him while you work."] = "",
 
-	-- Step 138: Ketharas
+	-- Step 139: Ketharas
 	["South-east to the Hermit's Abode with what the wild gods and Omnuron gave you."] = "",
 
-	-- Step 142: Final Death, still not done
+	-- Step 143: Final Death, still not done
 	-- {quest:92591} Final Death
 	["{quest:92591}, still not done"] = "",
 	-- {area:16868} Mourning's Rest · {quest:92591} Final Death
 	["Still under 58 after the second pass through {area:16868}? Abandon {quest:92591}: the route doesn't come back for it."] = "",
 
-	-- Step 143: Final Death, still not done
+	-- Step 144: Final Death, still not done
 	-- {quest:92592} Final Death
 	["{quest:92592}, still not done"] = "",
 	-- {area:16868} Mourning's Rest · {quest:92592} Final Death
 	["Still under 58 after the second pass through {area:16868}? Abandon {quest:92592}: the route doesn't come back for it."] = "",
 
-	-- Step 144: Back to Elderwild
+	-- Step 145: Back to Elderwild
 	-- {area:16848} Elderwild
 	["Back to {area:16848}"] = "",
 	-- {area:16848} Elderwild · {npc:265788} Kal'tinzan · {npc:244511} Zet'gan
@@ -626,50 +635,50 @@ return {
 	-- {npc:244511} Zet'gan · {quest:96999} Wrap Return · {npc:3187} Tai'tasi · {area:367} Sen'jin Village · {zone:1411} Durotar
 	["{npc:244511}: {quest:96999}, for {npc:3187} in {area:367}, {zone:1411}; take it only if you'll pass by"] = "",
 
-	-- Step 145: Back to Elderwild
+	-- Step 146: Back to Elderwild
 	-- {npc:244517} Sefira Everbright · {area:16848} Elderwild
 	["Alliance: the amulet from the second pass goes to {npc:244517}: ride west across the foothills and north up the valley to {area:16848}, about four minutes, then back up to the Summit."] = "",
 
-	-- Step 147: To the Summit of Eternity
+	-- Step 148: To the Summit of Eternity
 	-- {npc:244517} Sefira Everbright · {npc:254915} Thisalee Crow
 	["{npc:244517}: for {npc:254915} at the Summit, next"] = "",
 
-	-- Step 148: To the Summit of Eternity
+	-- Step 149: To the Summit of Eternity
 	-- {npc:244511} Zet'gan · {npc:254915} Thisalee Crow
 	["{npc:244511}: for {npc:254915} at the Summit, next"] = "",
 
-	-- Step 149: Zet'gan
+	-- Step 150: Zet'gan
 	-- {quest:92446} Head Scratcher
 	["{quest:92446}'s claws"] = "",
 
-	-- Step 150: Up to the Summit of Eternity
+	-- Step 151: Up to the Summit of Eternity
 	-- {area:16849} Summit of Eternity
 	["Up to the {area:16849}"] = "",
 	-- {area:16849} Summit of Eternity · {npc:260626} Bluebell
 	["Back up to the {area:16849}: {npc:260626}, at the ancients' outpost, flies there, and your Hearthstone is bound there."] = "",
 
-	-- Step 151: Tiala Whitemane
+	-- Step 152: Tiala Whitemane
 	-- {npc:254915} Thisalee Crow
 	["Indoors at the Summit, next to {npc:254915}."] = "",
 
-	-- Step 152: Thisalee Crow
+	-- Step 153: Thisalee Crow
 	-- {npc:254915} Thisalee Crow · {npc:40833} Tiala Whitemane
 	["{npc:254915}, next to {npc:40833} at the Summit."] = "",
 
-	-- Step 154: The Blackthorne camps
+	-- Step 155: The Blackthorne camps
 	["The Blackthorne camps"] = "",
 	-- {npc:260674} Ve'han Talongrasp · {npc:40833} Tiala Whitemane
 	["The Blackthorne cultists camp on the slopes north-east of the Summit (level 60, with elite Outrunners, Priests and a Courier among them: pull carefully). {npc:260674}, an elite (level 60) who leads them, stands among them: leave him be. Ghansurok, an elite chimaera (level 61), also roams the ridge north of the camps.\nUse {npc:40833}'s staff on a Pact member to strip its ward, then kill it, ten times: pick Cultists and Adepts, whom Thisalee wants dead too. The Cultists carry the kris and the Adepts the staff; the thorn seeds lie in the woods there, and the hippogryphs and chimaeras roam the slopes all around. Not finished in our recordings yet: if something here is off, tell us."] = "",
 
-	-- Step 155: The Blackthorne camps
+	-- Step 156: The Blackthorne camps
 	-- {npc:260674} Ve'han Talongrasp
 	["The Blackthorne cultists camp on the slopes north-east of the Summit (level 60, with elite Outrunners, Priests and a Courier among them: pull carefully). {npc:260674}, an elite (level 60) who leads them, stands among them: leave him be. Ghansurok, an elite chimaera (level 61), also roams the ridge north of the camps.\nThe Cultists carry the kris and the Adepts the staff; the thorn seeds lie in the woods there, and the hippogryphs and chimaeras roam the slopes all around. Not finished in our recordings yet: if something here is off, tell us."] = "",
 
-	-- Step 158: Fly to Everlook
+	-- Step 159: Fly to Everlook
 	-- {npc:41861} Fayran Elthas · {area:2255} Everlook
 	["{npc:41861} flies you to {area:2255}."] = "",
 
-	-- Step 159: Innkeeper Vizzie
+	-- Step 160: Innkeeper Vizzie
 	-- {npc:11118} Innkeeper Vizzie · {area:2255} Everlook · {zone:1452} Winterspring
 	["{npc:11118} is in {area:2255}'s inn. She has more mail for you in {zone:1452}, outside this guide."] = "",
 }

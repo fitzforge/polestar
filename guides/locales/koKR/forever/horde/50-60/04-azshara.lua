@@ -23,100 +23,94 @@ return {
 	-- {area:2479} Emerald Sanctuary · {zone:1448} Felwood
 	["Cleansed Water goes to the {area:2479} in {zone:1448}: keep it for later."] = "정화된 물은 {zone:1448}의 {area:2479}(으)로 갑니다. 나중을 위해 보관하세요.",
 
-	-- Step 4: Dokimi's crates
-	-- {npc:256386} Dokimi
-	["{npc:256386}'s crates"] = "{npc:256386}의 상자",
-	-- {npc:256386} Dokimi · {zone:1454} Orgrimmar
-	-- was: ["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {area:1237} from the Crossroads."] = "길을 따라 북쪽 크로스로드로 가세요. {npc:256386}이(가) 그곳에 서 있습니다. 그녀가 건네는 상자를 하나씩 열어 안에 든 것을 가져가세요. 크로스로드에서 {area:1237}(으)로 날아가세요."
-	["Ride north up the road to the Crossroads; {npc:256386} stands there. Open each crate she hands you and bring back what is inside. Fly on to {zone:1454} from the Crossroads."] = "",
-
-	-- Step 5: Fly to Orgrimmar
+	-- Step 4: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "{area:1637}(으)로 날아가기",
-	["Crossroads flight master"] = "크로스로드 비행 조련사",
+	-- {area:392} Ratchet
+	["{area:392} flight master"] = "",
 
-	-- Step 6: Jes'rimon
+	-- Step 5: Jes'rimon
 	-- {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
 	["{npc:8659}, the {object:172960}"] = "{object:172960}의 {npc:8659}",
 
-	-- Step 7: Orgrimmar
+	-- Step 6: Orgrimmar
 	-- {npc:15188} Cenarion Emissary Blackhoof · {object:172957} Valley of Wisdom · {zone:1451} Silithus
 	["{npc:15188}, {object:172957}: keep it for {zone:1451}"] = "{object:172957}의 {npc:15188}: {zone:1451}을(를) 위해 보관하세요",
 
-	-- Step 8: Zilzibin Drumlore
+	-- Step 7: Zilzibin Drumlore
 	-- {npc:7010} Zilzibin Drumlore
 	["{npc:7010} works in the Drag."] = "{npc:7010}은(는) 시장 거리에 있습니다.",
 
-	-- Step 9: Zilzibin Drumlore
+	-- Step 8: Zilzibin Drumlore
 	-- {quest:4494} March of the Silithid · {npc:7010} Zilzibin Drumlore · {area:976} Gadgetzan · {zone:1451} Silithus · {zone:2482} Mount Hyjal
 	["Only if {quest:4494} isn't done yet: {npc:7010} works in the Drag. Pestlezugg takes it in {area:976} on the {zone:1451} guide's first stop, after {zone:2482}."] = "",
 
-	-- Step 10: Vehena
+	-- Step 9: Vehena
 	-- {object:172961} Valley of Spirits
 	["In the {object:172961}. Each donation takes sixty Wool, Silk or Mageweave from your bags: hand in what you carry, skip the rest."] = "",
 
-	-- Step 11: Rashona Straglash
+	-- Step 10: Rashona Straglash
 	-- {object:172958} Valley of Honor
 	["In the {object:172958}."] = "{object:172958}에 있습니다.",
 	-- {item:14047} Runecloth
 	["Both {item:14047} donations are handed in later in the route: save sixty {item:14047} for each if you want them."] = "",
 
-	-- Step 12: Paladin trainer
+	-- Step 11: Paladin trainer
 	["Paladin trainer"] = "",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
 	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "",
 
-	-- Step 13: Orgrimmar
+	-- Step 12: Orgrimmar
 	-- {zone:1454} Orgrimmar
 	["Fly to {zone:1454} and train."] = "",
 
-	-- Step 14: Into Durotar
+	-- Step 13: Into Durotar
 	-- {zone:1411} Durotar
 	["Into {zone:1411}"] = "",
 
-	-- Step 15: Zeppelin to Undercity
+	-- Step 14: Zeppelin to Undercity
 	-- {zone:1458} Undercity
 	["Zeppelin to {zone:1458}"] = "{zone:1458}행 비행선",
 
-	-- Step 16: Chemist Cuely
+	-- Step 15: Chemist Cuely
 	-- {npc:8390} Chemist Cuely · {npc:8393} Thersa Windsong
 	["{npc:8390} and {npc:8393} work in the Apothecarium."] = "",
 	-- {npc:8393} Thersa Windsong
 	["{npc:8393}, beside him"] = "그 옆의 {npc:8393}",
 
-	-- Step 17: Andron Gant
+	-- Step 16: Andron Gant
 	-- {npc:6522} Andron Gant · {object:36073} Rogues' Quarter
 	["{npc:6522} stands in the {object:36073}."] = "{npc:6522}은(는) {object:36073}에 서 있습니다.",
 
-	-- Step 18: The Undercity
+	-- Step 17: The Undercity
 	-- {object:36126} Royal Quarter
 	["Lady Sylvanas holds the {object:36126}."] = "실바나스 여왕은 {object:36126}에 있습니다.",
 
-	-- Step 21: Jeremiah Payson
+	-- Step 20: Jeremiah Payson
 	-- {npc:8403} Jeremiah Payson
 	["{npc:8403}, nearby"] = "근처의 {npc:8403}",
 
-	-- Step 22: Jeremiah Payson
+	-- Step 21: Jeremiah Payson
 	-- {quest:5050} Good Luck Charm · {npc:10778} Janice Felstone · {zone:1422} Western Plaguelands
 	["{quest:5050} goes back to {npc:10778} in the {zone:1422}: keep it."] = "{quest:5050}은(는) {zone:1422}의 {npc:10778}에게 돌아갑니다. 보관하세요.",
 
-	-- Step 23: Royal Quarter
+	-- Step 22: Royal Quarter
 	-- {quest:79095} The Apothecary's Metaphysical Primer · {area:159} Brill
 	-- plural, as words: Library Books = {object:386691} Library Book
 	["Only with {quest:79095} from {area:159}'s alchemy shop in your bags (the Library Books guide)"] = "",
 
-	-- Step 25: The Bulwark
+	-- Step 24: The Bulwark
 	-- {zone:1458} Undercity · {area:152} The Bulwark · {zone:1422} Western Plaguelands
 	["Ride east out of the {zone:1458} along the road; the {area:152} guards the way into the {zone:1422}."] = "",
 	-- {npc:11615} Mickey Levine · {area:2627} Terrordale
 	["{npc:11615}: the termites are in {area:2627}, on the next guide"] = "{npc:11615}: 흰개미는 다음 가이드의 {area:2627}에 있습니다",
 
-	-- Step 27: Felstone Field
+	-- Step 26: Felstone Field
 	-- {npc:10778} Janice Felstone · {area:152} The Bulwark · {npc:11075} Cauldron Lord Bilemaw
 	-- plural, as words: Jabbering Ghouls = {npc:10801} Jabbering Ghoul
 	["{npc:10778}'s farm is the first one east of the {area:152}. Jabbering Ghouls on the farm carry the other half of her charm; {npc:11075} guards the cauldron in the field.\nCareful: One or two undead usually fight alongside him, and more cauldron lords can attack after you use the cauldron."] = "",
 
-	-- Step 28: Janice Felstone
+	-- Step 27: Janice Felstone
 	["Upstairs"] = "위층",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
@@ -124,6 +118,7 @@ return {
 	-- ["Back north-west to {npc:8420}."] = "북서쪽의 {npc:8420}에게 돌아가세요.",
 	-- ["Back to the Sin'dorei Tome: hand in the seals, then use it to call {npc:8578}.\nCareful: Which crystal is linked to Rimtori is random. Each of the other two summons a hostile infernal instead."] = "신도레이 고서로 돌아가 인장을 넣은 뒤, 고서를 사용해 {npc:8578}을(를) 불러내세요.\n주의: 어느 수정이 림토리와 연결되어 있는지는 무작위입니다. 나머지 두 수정은 각각 적대적인 지옥불정령을 소환합니다.",
 	-- ["Both {item:14047} donations are handed in later in the route: start saving {item:14047}."] = "{item:14047} 기부 두 개는 나중에 경로 중 완료합니다. {item:14047}을(를) 모으기 시작하세요.",
+	-- ["Crossroads flight master"] = "크로스로드 비행 조련사",
 	-- ["Each of the camp's three officers (53) carries a seal: {npc:247006} in the middle of the camp, {npc:247013} at its eastern end, and {npc:246991}, who walks its western half: take him on the east side of his walk, where the arrow points.\nCareful: the {npc:250023}, a level 55-57 elite, stands at the camp's western edge, close to the far end of Hawkhelm's walk: wait for Hawkhelm to come back east."] = "야영지의 장교 세 명(53)이 각각 인장을 지니고 있습니다. {npc:247006}은(는) 야영지 중앙에, {npc:247013}은(는) 동쪽 끝에 있으며, {npc:246991}은(는) 서쪽 절반을 돌아다닙니다. 화살표가 가리키는 순찰 경로의 동쪽에서 처치하세요.\n주의: 55-57레벨 정예인 {npc:250023}이(가) 야영지 서쪽 가장자리, 호크헬름 순찰 경로의 반대쪽 끝 근처에 서 있습니다. 호크헬름이 다시 동쪽으로 올 때까지 기다리세요.",
 	-- ["Fly to the {area:380}"] = "{area:380}(으)로 날아가기",
 	-- ["Fly to {area:1237}"] = "{area:1237}(으)로 날아가기",
@@ -159,6 +154,7 @@ return {
 	-- ["{npc:11044}, in the Apothecarium"] = "연금술 실험실의 {npc:11044}",
 	-- ["{npc:235903}: {quest:86746}, the satyrs north of the blood elves' camp"] = "{npc:235903}: {quest:86746}, 블러드 엘프 야영지 북쪽의 사티로스",
 	-- ["{npc:247473}: {quest:91569}, a wand from the blood elves' arcanists"] = "{npc:247473}: {quest:91569}, 블러드 엘프 비전술사의 마법봉",
+	-- ["{npc:256386}'s crates"] = "{npc:256386}의 상자",
 	-- ["{npc:3326}, the {object:172960}"] = "{object:172960}의 {npc:3326}",
 	-- ["{npc:8576}: {quest:91531}, for {npc:4485} in {zone:1454}"] = "{npc:8576}: {quest:91531}, {zone:1454}의 {npc:4485}에게",
 	-- ["{npc:8578}'s camp"] = "{npc:8578}의 야영지",

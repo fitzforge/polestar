@@ -49,9 +49,10 @@ return {
 	["Fly to {area:271}"] = "Voar para {area:271}",
 
 	-- Step 9: The Super Snapper FX
-	-- {zone:1425} Hinterlands · {area:307} Overlook Cliffs
-	-- was: ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:7977} (level 48 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\n{npc:7977} walks the {zone:1425} shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "São monstros elite: vale a pena formar grupo, procure gente para ir junto. {npc:7977} (elite nível 48) pede um grupo de 2. Se estiver sozinho, pule: a rota faz você recuperar a XP matando monstros.\n{npc:7977} anda pela costa de {zone:1425} abaixo de {area:307}, da seta para o sul até cerca de 75,66 e para o norte até cerca de 82,52: se ela não estiver na seta, siga a costa."
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. Gammerita (level 48 elite) needs a group of 2. Skip it if you are alone.\nGammerita walks the {zone:1425} shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "",
+	-- {item:9328} Super Snapper FX · {zone:1425} Hinterlands · {area:307} Overlook Cliffs
+	["Gammerita need not die: target her and use the {item:9328}. She is a level 48 elite, so keep your distance.\nGammerita walks the {zone:1425} shore below the {area:307}, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore."] = "",
+	-- {item:9328} Super Snapper FX
+	["the {item:9328} on Gammerita: no kill"] = "",
 
 	-- Step 10: Fly to Southshore
 	-- {area:348} Aerie Peak
@@ -122,7 +123,8 @@ return {
 	-- {area:250} Ruins of Thaurissan
 	["{area:250}: kill these as you meet them"] = "{area:250}: vá matando estes pelo caminho",
 	-- {item:12284} Draco-Incarcinatrix 900 · {npc:7047} Black Broodling · {area:251} Flame Crest · {npc:8981} Malfunctioning Reaver · {npc:7040} Black Dragonspawn
-	["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "Use {item:12284} em um {npc:7047} nas encostas a leste de {area:251}, logo antes de ele morrer, e depois saqueie a essência que ele deixa.\nCuidado: um {npc:8981} (nível 56, raro) anda pelas encostas perto das crias, e os {npc:7040} e Dracônidas em volta delas são elite: use o Incarcinatrix numa cria da borda e olhe em volta antes de cada puxada.",
+	-- was: ["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "Use {item:12284} em um {npc:7047} nas encostas a leste de {area:251}, logo antes de ele morrer, e depois saqueie a essência que ele deixa.\nCuidado: um {npc:8981} (nível 56, raro) anda pelas encostas perto das crias, e os {npc:7040} e Dracônidas em volta delas são elite: use o Incarcinatrix numa cria da borda e olhe em volta antes de cada puxada."
+	["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, Volchan (60, a rare fire elemental) roams the hills east of {area:251}, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "",
 
 	-- Step 24: Ruins of Thaurissan
 	-- {area:250} Ruins of Thaurissan · {area:251} Flame Crest · {npc:8978} Thauris Balgarr · {object:147516} Dark Iron (no name in this language: may be words)
@@ -135,7 +137,7 @@ return {
 
 	-- Step 26: Cyrus Therepentous
 	-- {item:10569} Hoard of the Black Dragonflight · {zone:1427} Searing Gorge · {item:10575} Black Dragonflight Molt · {npc:9459} Cyrus Therepentous
-	["Open the {item:10569} from {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight."] = "Abra o {item:10569} de {zone:1427} para pegar o {item:10575} e depois diga a {npc:9459} que você traz a prova dos seus feitos: não há draco para enfrentar.",
+	["Open the {item:10569} from {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight.\nCareful: Volchan (60, a rare fire elemental) roams the hills around {npc:9459}'s cave: if he is about, wait for him to pass."] = "",
 	["Below ground"] = "No subterrâneo",
 	-- {item:10575} Black Dragonflight Molt
 	["{item:10575}, from the hoard"] = "{item:10575}, do tesouro",
@@ -390,6 +392,7 @@ return {
 	-- ["Level 52"] = "Nível 52",
 	-- ["Level 52 at {area:249}"] = "Nível 52 em {area:249}",
 	-- ["Level 52.08"] = "Nível 52.08",
+	-- ["Open the {item:10569} from {zone:1427} for its {item:10575}, then tell {npc:9459} you bring proof of your deeds: no drake to fight."] = "Abra o {item:10569} de {zone:1427} para pegar o {item:10575} e depois diga a {npc:9459} que você traz a prova dos seus feitos: não há draco para enfrentar.",
 	-- ["Optional: {npc:8395} wants two Undamaged Hippogryph Feathers from the hippogryphs around his camp. The data lists no experience for it."] = "Opcional: {npc:8395} quer duas Penas Intactas de Hipogrifo dos hipogrifos ao redor do acampamento dele. Os dados não indicam experiência para ela.",
 	-- ["Optional: {npc:8888}'s ghost stands on his tomb on the great chain inside {area:254}, and only the dead can see him. If you die near the mountain anyway, run your spirit to him before resurrecting."] = "Opcional: o fantasma de {npc:8888} fica sobre o túmulo dele, na grande corrente dentro de {area:254}, e só os mortos podem vê-lo. Se você morrer perto da montanha de qualquer forma, corra com seu espírito até ele antes de ressuscitar.",
 	-- ["Portal to {zone:1438}"] = "Portal para {zone:1438}",
@@ -427,6 +430,7 @@ return {
 	-- ["Top up to level 51.3 on the Spitelash Myrmidons (50-51) of the ruins between {npc:8395}'s camp and the north: the blood elves at {npc:8420}'s camp are 51-53. Or, with a group, run the {area:1417} dungeon instead."] = "Complete até o nível 51.3 nos Mirmidões Iralisca (50-51) das ruínas entre o acampamento de {npc:8395} e o norte: os elfos sangrentos no acampamento de {npc:8420} são 51-53. Ou, com um grupo, faça a masmorra {area:1417}.",
 	-- ["Upstairs"] = "No andar de cima",
 	-- ["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves."] = "Use o {item:12284} em um {npc:7047} nas encostas a leste de {area:251} pouco antes de ele morrer e depois saqueie a essência que ele deixa.",
+	-- ["Use the {item:12284} on a {npc:7047} on the slopes east of {area:251} just before it dies, then loot the essence it leaves.\nCareful: a {npc:8981} (level 56, rare) walks the slopes by the broodlings, and the {npc:7040} and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull."] = "Use {item:12284} em um {npc:7047} nas encostas a leste de {area:251}, logo antes de ele morrer, e depois saqueie a essência que ele deixa.\nCuidado: um {npc:8981} (nível 56, raro) anda pelas encostas perto das crias, e os {npc:7040} e Dracônidas em volta delas são elite: use o Incarcinatrix numa cria da borda e olhe em volta antes de cada puxada.",
 	-- ["Wildkin feathers"] = "Penas de Coruscante",
 	-- ["Your Hearthstone is set at {zone:1455} (the {zone:1425} guide binds it there): hearth back to the inn."] = "Sua Pedra de Regresso está vinculada a {zone:1455} (o guia de {zone:1425} a vincula lá): use-a para voltar à estalagem.",
 	-- ["grind on {npc:6196}"] = "mate {npc:6196} até subir",

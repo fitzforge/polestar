@@ -22,11 +22,8 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- 2.4 levels: step 32 grinds to level 14 (≈12m)", said plainly. Behind with
 	-- none, in the warning colour: "Behind by 2.4 levels for level 24 by step 21:
 	-- grind ≈1h 10m before then" (or "and no grind step ahead"). "≈" is "~" in a
-	-- face without it (Theme.Approx, #1906). A quest 3+
-	-- levels over the character (pace.hard) is named only on the step where it is
-	-- fought, calmly: "On pace, but Ashenvale Outrunners (24) at step 4 is hard:
-	-- you're 21.3; reach 22 first", or the "Behind:" form past the slack. nil
-	-- without a target ahead or the Codex.
+	-- face without it (Theme.Approx, #1906). It never names a quest or its level
+	-- (Fitz, #3438). nil without a target ahead or the Codex.
 	GF.PACE_SLACK = 1
 	function GF.PaceText(stats)
 		local d = Derived()
@@ -43,18 +40,6 @@ ns.UI.GuideFrame.Part(function(GF)
 		local level = pace.target % 1 == 0 and string.format("%d", pace.target) or ns.Decimal(pace.target, 1)
 		local stepNo = UI.StepNo(pace.step, E)
 		local behind = (pace.short or 0) > GF.PACE_SLACK
-		local h = pace.hard
-		if h and h.step ~= pace.live then h = nil end
-		if h then
-			local name, at, you, time = ns.Quoted(h.title) or L["Quest"], UI.StepNo(h.step, E), GF.LevelText(h.reach), grind(h.xp)
-			if not behind then
-				return time and string.format(L["On pace, but %s (%d) at step %d is hard: you're %s; grind %s first"], name, h.level, at, you, time)
-					or string.format(L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"], name, h.level, at, you, h.need)
-			end
-			local text = time and string.format(L["Behind: %s (%d) at step %d, you're %s; grind %s first"], name, h.level, at, you, time)
-				or string.format(L["Behind: %s (%d) at step %d, you're %s; reach %d first"], name, h.level, at, you, h.need)
-			return "|c" .. Theme.Hex("warning") .. text .. "|r"
-		end
 		if not behind then
 			-- At a guide's end there is no goal to meet, only the level the route
 			-- gets you to: say that one, which a character already at the guide's

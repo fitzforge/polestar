@@ -40,7 +40,7 @@ return {
 
 	-- Step 6: Kodo Graveyard
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard · {area:2407} Kormek's Hut · {object:176751} Kodo Bones
-	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "{npc:6019}站在{area:596}边缘，{area:2407}西南方；{object:176751}散落在骨架之间。",
+	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons.\nCareful: Rexxar (62, elite), the Horde's champion, walks the road past the graveyard with his bear Misha and attacks Alliance players: when he comes by, step well away from the road and let him pass."] = "",
 
 	-- Step 7: Hornizz Brimbuzzle
 	-- {quest:6134} Ghost-o-plasm Round Up · {area:2657} Valley of Bones
@@ -143,6 +143,7 @@ return {
 	-- ["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them."] = "亡灵劫掠者在玛格拉姆村庄南边、集会所东边的白骨荒地游荡：箭头会指向它们的西缘。然后在荒地东侧的另一个箭头处使用{item:15848}，引来玛格拉姆鬼魂。小心：玛格拉姆死灵可汗和玛格拉姆食尸者（45级，精英）在两个箭头之间的白骨荒地上走动，还有玛格拉姆死灵法师（42级）：把劫掠者和鬼魂引到你身边，远离它们。",
 	-- ["{npc:5396}, if 30-40/02 didn't give it"] = "{npc:5396}，如果30-40/02没有接到",
 	-- ["{npc:5638}, if 30-40/02 didn't take it: the wreck lies below {npc:11863}'s tower"] = "{npc:5638}，如果30-40/02没有交还：沉船就在{npc:11863}的塔下方",
+	-- ["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "{npc:6019}站在{area:596}边缘，{area:2407}西南方；{object:176751}散落在骨架之间。",
 	-- ["{object:177787} lies beside {object:35251}. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "{object:177787}在{object:35251}旁边。他的银钥匙由沉船周围的干钳蟹掉落；金钥匙则来自西北海岸的滑刃纳迦，下一步就去。",
 	-- ["{object:177787}, if 30-40/02 didn't take it"] = "{object:177787}，如果30-40/02没有拿",
 }

@@ -321,6 +321,7 @@ step Booty Bay
 step Bloodsail pirates: kill these as you meet them
   zone Stranglethorn Vale
   tip Every Bloodsail drops Snuff and one of them carries Dizzy's eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the Wild Shore camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit.
+  tip Careful: Rippa (44, a rare crocolisk) swims the shore beside the camp: stay out of the water.
   collect 3910 quest 587 @28.0,70.5 map 1434 -- Snuff
   collect 3897 quest 576 @28.0,70.5 map 1434 -- Dizzy's Eye
 

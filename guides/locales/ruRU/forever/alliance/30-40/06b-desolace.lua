@@ -40,7 +40,7 @@ return {
 
 	-- Step 6: Kodo Graveyard
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard · {area:2407} Kormek's Hut · {object:176751} Kodo Bones
-	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "{npc:6019} стоит на краю места {area:596}, к юго-западу от места {area:2407}; {object:176751} лежат среди скелетов.",
+	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons.\nCareful: Rexxar (62, elite), the Horde's champion, walks the road past the graveyard with his bear Misha and attacks Alliance players: when he comes by, step well away from the road and let him pass."] = "",
 
 	-- Step 7: Hornizz Brimbuzzle
 	-- {quest:6134} Ghost-o-plasm Round Up · {area:2657} Valley of Bones
@@ -143,6 +143,7 @@ return {
 	-- ["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them."] = "Опустошители-отрекшиеся бродят по костяным полям к югу от деревни племени Маграм, к востоку от Ковена: стрелка ведет к их западному краю. Затем используйте {item:15848} у его стрелки, на восточной стороне полей, чтобы приманить призраков из племени Маграм. Осторожно: некроханы Маграм и трупоеды (45, элитные) ходят по костяным полям между двумя стрелками вместе с некромантами Маграм (42): подтягивайте опустошителей и призраков к себе, подальше от них.",
 	-- ["{npc:5396}, if 30-40/02 didn't give it"] = "{npc:5396}, если не получили в 30-40/02",
 	-- ["{npc:5638}, if 30-40/02 didn't take it: the wreck lies below {npc:11863}'s tower"] = "{npc:5638}, если гайд 30-40/02 его не взял: обломки корабля лежат под башней NPC {npc:11863}",
+	-- ["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "{npc:6019} стоит на краю места {area:596}, к юго-западу от места {area:2407}; {object:176751} лежат среди скелетов.",
 	-- ["{object:177787} lies beside {object:35251}. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "{object:177787} лежит рядом с объектом {object:35251}. Его серебряный ключ падает с крабов Сухого Щелчка вокруг обломков корабля; золотой – с наг Скользящего Клинка на северо-западном побережье, далее.",
 	-- ["{object:177787}, if 30-40/02 didn't take it"] = "{object:177787}, если гайд 30-40/02 их не взял",
 }

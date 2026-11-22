@@ -76,7 +76,11 @@ return {
 	["Ride east to the ruins on the coast. The four tablets lie among the ruins, guarded by Spitelash naga (52-55): pull them one at a time."] = "Chevauchez vers l'est jusqu'aux ruines sur la côte. Les quatre tablettes se trouvent parmi les ruines, gardées par des nagas Fouette-bile (52-55) : attirez-les un par un.",
 
 	-- Step 17: Ruins of Eldarath
-	["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "Allez à l'est jusqu'aux ruines sur la côte. Remplissez les quatre fioles du Chimiste Cuely aux bassins le long du rivage ; des nagas Fouette-bile patrouillent entre eux.",
+	-- {area:1231} Southridge Beach
+	["Fill Cuely's four vials at the tide pools on the shore, from {area:1231} north up the coast; Spitelash naga patrol between them."] = "",
+	-- {item:10691} Filled Vial Labeled #1 · {area:1231} Southridge Beach
+	["{item:10691}: the tide pool on {area:1231}"] = "",
+	["#2, north along the shore"] = "",
 
 	-- Step 18: Makrinni Burrowers
 	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower
@@ -126,8 +130,8 @@ return {
 
 	-- Step 25: The Legashi satyrs
 	["The Legashi satyrs"] = "Les satyres legashi",
-	-- {npc:235903} Ekkal
-	["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind."] = "Les satyres legashi (51-52) occupent les collines au nord du camp des elfes de sang : {npc:235903} en veut cinq de chaque type.",
+	-- {npc:235903} Ekkal · {npc:235892} Prince Halanox
+	["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind.\nCareful: {npc:235892} (55, elite) stands among the satyrs at the north-east end of their hills, around 67,19: take the satyrs nearer the camp and leave him be."] = "",
 
 	-- Step 26: Kim'jael
 	-- {npc:8420} Kim'jael
@@ -210,8 +214,8 @@ return {
 	-- Step 44: Southern Jaedenar
 	-- {area:1763} Jaedenar
 	["Southern {area:1763}"] = "Sud de {area:1763}",
-	-- {area:1763} Jaedenar
-	["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds."] = "Suivez la route vers le nord-ouest. Le sud de {area:1763}, autour de son puits de lune corrompu, est tenu par des cultistes, adeptes, gardes du Conseil des ombres et leurs molosses.",
+	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge
+	["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: pull the cultists and hounds away from him."] = "",
 
 	-- Step 46: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
@@ -289,6 +293,7 @@ return {
 	-- ["Fly to {area:272}"] = "Prendre un vol pour {area:272}",
 	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo, and their organs are {npc:10920}'s.\n{area:1762}'s Deadwood Den Watchers (53-54) and Avengers (54-55) are next: below level 54, keep hunting the grizzlies and ravagers (51-52) here until 54. The hand-ins at {area:1769}, the {area:2479} and {area:1997} that follow take you most of the way to 55. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "Suivez la route vers le nord-est jusqu'au {area:1767}. Les Ecorcheurs et Déchireurs Crochebois de l'est des bois portent chacun un {item:11503} ; Grizzlys de la griffe colérique et Ravageurs Gangrepatte parcourent les mêmes bois pour Talo, et leurs organes sont pour {npc:10920}.\nLes Protecteurs Mort-bois (53-54) et les Vengeurs (54-55) du {area:1762} sont les suivants : sous le niveau 54, continuez à chasser les grizzlys et les ravageurs (51-52) ici jusqu'au niveau 54. Les quêtes rendues ensuite à {area:1769}, au {area:2479} et au {area:1997} vous amènent presque au niveau 55. Ou, en groupe, faites plutôt le donjon {area:1417} ou le donjon {area:1584}.",
 	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at {area:1997} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "Suivez la route vers le nord-est jusqu'au {area:1767}. Les Ecorcheurs et Déchireurs Crochebois de l'est des bois portent chacun un {item:11503} ; Grizzlys de la griffe colérique et Ravageurs Gangrepatte parcourent les mêmes bois pour Talo. Sous le niveau 54.21, continuez à chasser les grizzlys et les ravageurs : les rendus au {area:1997} et au {area:2479} vous mènent au niveau 55. Ou, en groupe, faites plutôt le donjon {area:1584} ou le donjon {area:1417}.",
+	-- ["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds."] = "Suivez la route vers le nord-ouest. Le sud de {area:1763}, autour de son puits de lune corrompu, est tenu par des cultistes, adeptes, gardes du Conseil des ombres et leurs molosses.",
 	-- ["From {area:2268}'s flight master, fly to the {area:1497}."] = "Depuis le maître de vol de {area:2268}, volez jusqu'à {area:1497}.",
 	-- ["His next hunt, the Diseased Grizzlies (55-56), waits for the Plaguelands visit at about 58."] = "Sa chasse suivante, les Grizzlys malades (55-56), attend la visite des Maleterres vers le niveau 58.",
 	-- ["Jadefire moonwell"] = "Puits de lune des Jadefeu",
@@ -318,6 +323,7 @@ return {
 	-- ["Ride back south-east to the Sanctuary."] = "Retournez vers le sud-est jusqu'au Sanctuaire.",
 	-- ["Ride back to the {area:1497}, take the zeppelin to {zone:1454} and fly to {area:431}. Follow the road west out of Splintertree and take the fork north into {zone:1448}."] = "Retournez à {area:1497}, prenez le zeppelin pour {zone:1454} et volez jusqu'au {area:431}. Suivez la route vers l'ouest en quittant Bois-brisé et prenez l'embranchement nord vers {zone:1448}.",
 	-- ["Ride back west over the river and on to the {area:192}; {npc:11610} hides on the hill north-east of it."] = "Retraversez la rivière vers l'ouest et continuez jusqu'au {area:192} ; {npc:11610} se cache sur la colline au nord-est.",
+	-- ["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "Allez à l'est jusqu'aux ruines sur la côte. Remplissez les quatre fioles du Chimiste Cuely aux bassins le long du rivage ; des nagas Fouette-bile patrouillent entre eux.",
 	-- ["Ride north along the eastern hills; {npc:1855} lives in a small house by the {area:2619}, at the border with the {zone:1423}."] = "Chevauchez vers le nord le long des collines de l'est ; {npc:1855} vit dans une petite maison au bord de {area:2619}, à la frontière des {zone:1423}.",
 	-- ["Ride north up the road again."] = "Remontez la route vers le nord.",
 	-- ["Ride north-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges."] = "Chevauchez vers le nord-ouest jusqu'à Andorhal. {npc:10667} attend dans l'auberge en ruine à l'ouest de la ville ; les squelettes à l'intérieur sont de niveau 54-57, restez donc sur les bords.",
@@ -336,6 +342,7 @@ return {
 	-- ["The Deadwood furbolg village just west of the tunnel. {npc:9462} (56) stands among them. {npc:11557}, a friendly furbolg, sits at the north end of the village."] = "Le village des furbolgs Mort-bois juste à l'ouest du tunnel. {npc:9462} (56) se tient parmi eux. {npc:11557}, un furbolg amical, est assis à l'extrémité nord du village.",
 	-- ["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and {area:1763} want it. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "Le village des furbolgs Mort-bois se trouve juste au sud du Sanctuaire. Chaque Mort-bois tué augmente aussi votre réputation auprès du {area:1769} ; gardez les plumes de coiffure. Continuez à les tuer jusqu'au niveau 53.92 : les prochains rendus du Sanctuaire et {area:1763} le demandent. Ou, en groupe, faites plutôt le donjon {area:1417} ou le donjon {area:1584}.",
 	-- ["The Jadefire moonwell"] = "Le puits de lune des Jadefeu",
+	-- ["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind."] = "Les satyres legashi (51-52) occupent les collines au nord du camp des elfes de sang : {npc:235903} en veut cinq de chaque type.",
 	-- ["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "Les tentes de la Croisade écarlate se dressent entre {area:199} et {area:200}. Incendiez la tente de commandement avec {object:176092} et plantez la bannière du Fléau.",
 	-- ["The bears roam the hills north and east of the {area:202}."] = "Les ours parcourent les collines au nord et à l'est du {area:202}.",
 	-- ["The book lies in the ruined inn of {area:2627}; the undead in the town are 54-56, so pull them one at a time.\nThe Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass."] = "Le livre se trouve dans l'auberge en ruine de {area:2627} ; les morts-vivants de la ville sont de niveau 54-56, attirez-les donc un par un.\nLes Grandes termitières sont dispersées sur les collines à l'est de {area:2627}. Utilisez le {item:15042} sur chaque termitière que vous croisez.",

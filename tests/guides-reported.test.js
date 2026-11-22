@@ -1150,6 +1150,18 @@ test('forever/class/rogue/the-horn-of-xelthos.guide: the Work Order first, then 
 	assert.ok(at(list, 'accept 78261', is('accept', 78261)) < hand, 'the horn comes first');
 });
 
+// #3362 (kevqon, 0.4.1.1): a Rogue got into Shadowfang Keep without Veenix's Breaching Charge, handed the horn in and
+// took C's ring, and the guide then sent them to Veenix, who offers Goblin Lockpicks only while The Horn of Xelthos
+// (78261) is in the log (players' recordings: the 2 people offered it both had 78261 in the log): a step that could
+// never finish. The Veenix step applies only while the horn is neither in hand nor handed in.
+test('forever/class/rogue/the-horn-of-xelthos.guide: Veenix only while the horn is still to get (#3362)', { skip }, () => {
+	const list = goals('forever/class/rogue/the-horn-of-xelthos.guide');
+	const { step } = list[at(list, 'turnin 78270', is('turnin', 78270))];
+	const holds = (k) => (step.when || []).some((p) => p.k === k && p.neg && [p.q].flat().includes(78261));
+	assert.ok(holds('turnedin'), 'not once 78261 is handed in');
+	assert.ok(holds('complete'), 'not once the horn is in hand');
+});
+
 // --- Bandarion Keep (Mike_, 0.2.3): Hilda the Breaker and Ephram Barbaro offer their quests to Paladins only.
 
 test(`${TIRISFAL}: Mike_'s report: only Paladins are sent to Hilda the Breaker and Ephram Barbaro at Bandarion Keep`, { skip }, () => {
@@ -2811,7 +2823,6 @@ for (const [guide, quest, items, also, keep] of [
 	['forever/alliance/50-60/04-western-plaguelands.guide', 5402, { 12840: 20 }, [], [['turnin', 5220], ['accept', 5222]]],
 	['forever/alliance/50-60/04-western-plaguelands.guide', 5403, { 12841: 10 }, [], [['turnin', 5220], ['accept', 5222]]],
 	['forever/alliance/50-60/02-felwood.guide', 4041, { 11242: 1 }, ['collect 11243'], []],
-	['forever/alliance/50-60/03-winterspring.guide', 8469, { 21383: 5 }, [], []],
 	['forever/horde/40-50/06-azshara.guide', 2741, { 8564: 1 }, [], [['turnin', 2641], ['accept', 4504], ['turnin', 2661], ['accept', 2662], ['turnin', 2662]]],
 	['forever/horde/50-60/03-winterspring.guide', 4041, { 11242: 1 }, ['collect 11243'], []],
 	['forever/horde/50-60/05-eastern-plaguelands.guide', 5887, { 11515: 6 }, [], []], // Greta's chain and the shards moved from 07 to 05's Felwood stop (2026-11-20)
@@ -6090,6 +6101,17 @@ test("forever/miscellaneous/cozy-sleeping-bag.guide: #1813: Alliance come into S
 	assert.match([].concat(talondeep.step.note || []).join(' '), /Stonetalon Peak/, 'the tip names the Stonetalon Peak flight');
 });
 
+// #3386 (Hnrq, 0.4.1.1): Scramble's Mound of Dirt (39.56,49.86) lies on a ledge below the Stonetalon camp; the tip said
+// to drop down the slope, but the arrow walked the long way round. The step leads first to the drop at the camp's
+// western edge (39.9,52.2, the reporter's spot), then to the mound.
+test('forever/miscellaneous/cozy-sleeping-bag.guide: Scramble\'s hand-in leads to the drop at 39.9,52.2 first (#3386)', { skip }, () => {
+	const list = goals('forever/miscellaneous/cozy-sleeping-bag.guide');
+	const hand = at(list, 'turnin 79980', is('turnin', 79980));
+	const drop = list.slice(0, hand).filter(({ s, goal }) => s === list[hand].s && goal.t === 'goto');
+	assert.deepEqual(drop.map(({ goal }) => [goal.x, goal.y]), [[39.9, 52.2]], 'one waypoint, the drop, before the hand-in');
+	assert.match(list[hand].step.note || '', /drop/);
+});
+
 // shatteredeagle (#1496), Alliance: the "North of Honor's Stand" safe spot was the first goal of
 // the Stonetalon step, so a character already in Stonetalon (on foot or off the Stonetalon Peak
 // flight) was sent 3,114 yd back to the Barrens. The way in (since #1813 the Talondeep Path) is its
@@ -8511,7 +8533,7 @@ test('Horde Swamp and Feralas flow re-order (#1166): the Pool of Tears before Mi
 test('forever/horde/40-50/04-tanaris.guide: flow re-order: Caught! on the spot, the tuyere with the daggers', { skip }, () => {
 	const list = goals('forever/horde/40-50/04-tanaris.guide');
 	const caught = list[at(list, 'turnin 4449', is('turnin', 4449))];
-	assert.equal(caught.s, list[at(list, 'collect 4306 quest 4449', (g) => g.t === 'collect' && g.item === 4306)].s, 'handed in on the dig site step');
+	assert.equal(caught.s, list[at(list, 'collect 4306 quest 4449', (g) => g.t === 'collect' && g.item === 4306 && g.quest === 4449)].s, 'handed in on the dig site step');
 	assert.ok(caught.s < list[at(list, 'accept 7728', is('accept', 7728))].s, 'before Thorium Point');
 	const step = (item) => list[at(list, `collect ${item}`, (g) => g.t === 'collect' && g.item === item)].s;
 	assert.equal(step(18959), step(10551), 'the tuyere on the daggers step');
@@ -8530,12 +8552,13 @@ test('forever/horde/50-60/03-winterspring.guide: flow re-order: Salfa where the 
 	assert.equal(fw[at(fw, 'accept 8464', is('accept', 8464))].goal.npc, 11556, 'taken from Salfa in 07');
 });
 
-// Flow review, Horde 40-60 (#1166): the flight lands in Ratchet, so Liv and Islen come first and the ride north ends
-// at Dokimi in the Crossroads; it rode north to the Crossroads and back to Ratchet.
-test('forever/horde/50-60/04-azshara.guide: flow re-order: Ratchet first, then the crates at the Crossroads', { skip }, () => {
+// Flow review, Horde 40-60 (#1166): the flight lands in Ratchet, so Liv and Islen come first; it rode north to the
+// Crossroads and back to Ratchet. Since #3265 the Crossroads crates are out of the route and Orgrimmar is flown to
+// from Ratchet.
+test('forever/horde/50-60/04-azshara.guide: flow re-order: Ratchet first, then Orgrimmar', { skip }, () => {
 	const list = goals('forever/horde/50-60/04-azshara.guide');
-	const crates = at(list, 'turnin 91899', is('turnin', 91899));
-	assert.ok(at(list, 'turnin 4147', is('turnin', 4147)) < crates && at(list, 'turnin 5158', is('turnin', 5158)) < crates, 'Liv and Islen before the crates');
+	const org = list.findIndex(({ goal }) => goal.t === 'fly' && goal.location === 'Orgrimmar');
+	assert.ok(at(list, 'turnin 4147', is('turnin', 4147)) < org && at(list, 'turnin 5158', is('turnin', 5158)) < org, 'Liv and Islen before the flight to Orgrimmar');
 });
 
 // Flow review, Horde 40-60 (#1166): Corin's Crossing on the ride south from Quel'Lithien Lodge, all three hand-ins to
@@ -9278,7 +9301,9 @@ test('forever/alliance/50-60/03-winterspring.guide: final review: Salfa where th
 	const fel = goals('forever/alliance/50-60/02-felwood.guide');
 	const salfa = at(fel, 'turnin 8465', is('turnin', 8465));
 	assert.ok(salfa < at(fel, 'getfp Everlook', (g) => g.t === 'getfp' && g.location === 'Everlook'), 'before Everlook');
-	assert.equal(fel[salfa].s, fel[at(fel, 'accept 8464', is('accept', 8464))].s, 'Winterfall Activity taken there');
+	// (0.4.2 danger gate: Winterfall Activity, 8464, is left out of the Alliance route: Winterfall Village's Ursa are
+	// 57-58 where the route stands at about 54.4.)
+	assert.ok(!fel.some(({ goal }) => goal.quest === 8464), 'no Winterfall Activity taken there');
 	const list = goals('forever/alliance/50-60/03-winterspring.guide');
 	assert.ok(!list.some(({ step }) => step.along) && !fel.some(({ step }) => step.along), 'no along lists');
 	const kills = new Set(list.filter(({ goal }) => goal.t === 'kill' && goal.quest === 5082).map((e) => e.s));
@@ -10860,11 +10885,13 @@ test('Alliance 40-60 order: the first Western Plaguelands stop before the Burnin
 	assert.ok(pos(bs, 'accept', 3702) < pos(bs, 'accept', 3823), 'Archesonus on the Ironforge stop before the Steppes');
 	assert.ok(!goals(A('40-50/07-un-goro-crater')).some(({ goal }) => goal.quest === 3702 || goal.quest === 3701 || goal.quest === 4504), 'no 54s taken at 49 in Un\'Goro\'s guide');
 	// (0.4.3 fix round: the second Gadgetzan stop is on the Tanaris, Un'Goro Crater, Felwood & Winterspring guide, at
-	// about 54; Jaron's chain (Harlo's quest, minimum 53) on its Winterspring loop at about 56, with Harlo's quest taken
-	// at Everlook on that loop; The Restless Souls on the Plaguelands guide's Light's Hope stop.)
+	// about 54; Jaron's chain (Harlo's quest, minimum 53) on its Winterspring loop, with Harlo's quest taken at Everlook
+	// on that loop; The Restless Souls on the Plaguelands guide's Light's Hope stop. 0.4.2 danger gate: the chain ends
+	// at Jaron's wagon, without Jaron's Supplies, 4864, whose amulet drops from owlbeasts of 56-59.)
 	const ws = goals(A('50-60/03-winterspring'));
 	assert.ok(pos(ws, 'turnin', 4493) <= pos(ws, 'accept', 4504), 'Super Sticky from Tran\'rek on the later Gadgetzan stop');
-	assert.ok(pos(ws, 'turnin', 5082) < pos(ws, 'accept', 6604) && pos(ws, 'accept', 6604) < pos(ws, 'turnin', 4864), 'Jaron\'s chain on the Winterspring loop, after the furbolg camp');
+	assert.ok(pos(ws, 'turnin', 5082) < pos(ws, 'accept', 6604) && pos(ws, 'accept', 6604) < pos(ws, 'turnin', 4863), 'Jaron\'s chain on the Winterspring loop, after the furbolg camp');
+	assert.ok(!ws.some(({ goal }) => goal.quest === 4864), 'no Jaron\'s Supplies');
 	assert.ok(!goals(A('50-60/02-felwood')).some(({ goal }) => [6604, 4861, 4863, 4864].includes(goal.quest)), 'not on the first pass through Winterspring at 53');
 	assert.equal(wpl[pos(wpl, 'accept', 5281)].s, wpl[pos(wpl, 'turnin', 5210)].s, 'The Restless Souls from Caretaker Alen on the Light\'s Hope stop');
 	assert.ok(pos(wpl, 'turnin', 5281) > pos(wpl, 'accept', 5281), 'and handed to Egan in Terrordale');
@@ -11663,7 +11690,8 @@ test('Horde 55-56 final review: the Orgrimmar cloth donations are handed in wher
 	assert.ok(!ws.some(({ goal }) => [7833, 7834, 7835, 7836, 7826, 7827, 7831, 7824].includes(goal.quest)), 'no Orgrimmar donation stop in the Winterspring guide');
 	const orgStops = az.filter(({ goal }) => goal.t === 'fly' && goal.location === 'Orgrimmar');
 	assert.equal(orgStops.length, 1, 'one Orgrimmar landing in 04');
-	assert.ok(at(az, 'turnin 91904', is('turnin', 91904)) < az.indexOf(orgStops[0]) && az.indexOf(orgStops[0]) < at(az, 'turnin 7833', is('turnin', 7833)), 'from the Crossroads straight to the donations');
+	// (#3265: the Crossroads crates are out of the route; the flight to Orgrimmar leaves from Ratchet.)
+	assert.ok(at(az, 'turnin 5158', is('turnin', 5158)) < az.indexOf(orgStops[0]) && az.indexOf(orgStops[0]) < at(az, 'turnin 7833', is('turnin', 7833)), 'from Ratchet straight to the donations');
 });
 
 // Silithus: Dearest Natalia comes from Commander Mar'alith (the top-up named Bor Wildmane), its two dwarves are
@@ -18109,4 +18137,440 @@ test('forever/horde/06-hillsbrad-foothills.guide: Beren\'s Peril is handed in on
 	const steps = compiled('forever/horde/06-hillsbrad-foothills.guide').steps;
 	const step = steps.find((s) => s.goals.some((g) => g.t === 'turnin' && g.quest === 516));
 	assert.ok(step && whenQuestOf(step, ['complete'], 516), 'turnin 516 sits in a step with `when complete 516`');
+});
+
+// #3266 (Riverglades, 0.4.1.1): the Twilight camps' tip said to free the captive Rog'mar Scouts but not that each cage
+// opens only with a Twilight Key, which the Twilight Champions drop.
+test('forever/horde/40-50/01b-riverglades.guide: the Rog\'mar Scouts step names the Twilight Key (#3266)', { skip }, () => {
+	const list = goals('forever/horde/40-50/01b-riverglades.guide');
+	const { step } = list[at(list, 'complete 94748', is('complete', 94748))];
+	assert.match(step.note || '', /Twilight Champions drop the Twilight Key/);
+});
+
+// #3023 (Feralas, 0.4.1.1): the first Camp Mojache stop bound the hearth between Jangdor and Hadoken, both on the camp's
+// north side, while the inn is on its south side with Orwin and Rok Orhan: the camp was walked twice. The bind comes
+// right after Orwin, before Rok Orhan.
+test('forever/horde/40-50/02-feralas.guide: Camp Mojache\'s bind comes before Rok Orhan (#3023)', { skip }, () => {
+	const list = goals('forever/horde/40-50/02-feralas.guide');
+	const rok = list[at(list, 'turnin 2981', is('turnin', 2981))];
+	const bind = list.findIndex(({ goal, s }) => goal.t === 'sethome' && s === rok.s);
+	assert.ok(bind >= 0 && bind < list.indexOf(rok), 'the sethome goal comes before turnin 2981 in the same step');
+});
+
+// #3002 (Wetlands, 0.4.1): Raene's Cleansing's Iron Pommel comes from the Rusty Chests the Rotting Slimes leave when
+// they die, in and around the Dor'Danil Barrow Den; the tip sent players to the furbolg camps for chests.
+test('forever/alliance/06-wetlands.guide: the Iron Pommel step names the Rotting Slimes (#3002)', { skip }, () => {
+	const list = goals('forever/alliance/06-wetlands.guide');
+	const { step } = list[at(list, 'the Iron Pommel', (g) => g.t === 'collect' && g.item === 5519)];
+	const tips = step.note || '';
+	assert.match(tips, /Rotting Slime/);
+	assert.doesNotMatch(tips, /Shadethicket furbolg camps/);
+});
+
+// #2358 (kevintoshi0208, Gemini1661): Deep Sea Salvage's charts and logs lie deep inside Faldir's Cove's sunken wrecks, a
+// long dive with no water breathing; neither side's reef step gave a heads-up.
+for (const guide of ['forever/alliance/30-40/05-arathi-highlands.guide', 'forever/horde/30-40/05-arathi-highlands.guide']) {
+	test(`${guide}: the Drowned Reef step warns about breath in the wrecks (#2358)`, { skip }, () => {
+		const list = goals(guide);
+		const { step } = list[at(list, 'the Maiden\'s Folly Charts', (g) => g.quest === 662 && g.oi === 1)];
+		assert.match(step.note || '', /watch your breath/);
+	});
+}
+
+// #3265 (Zack, 0.4.1.1): the Barrens stop sent players to Dokimi in the Crossroads with Sealed Apprentice Crates, which
+// come from the trade camps' Merchant's Favor system: nothing on the route gives one. The crates' hand-ins are out of the
+// Horde route, and the flight to Orgrimmar leaves from Ratchet.
+test('Horde 50-60: no Sealed Crate hand-ins at Dokimi, Orgrimmar flown to from Ratchet (#3265)', { skip }, () => {
+	for (const guide of allGuides().filter((g) => g.startsWith('forever/horde/50-60/'))) {
+		for (const { goal } of goals(guide)) {
+			assert.ok(!(goal.t === 'collect' && [248765, 248770].includes(goal.item)), `${guide}: no Sealed Apprentice Crate`);
+			assert.ok(![91899, 91904].includes(goal.quest), `${guide}: no A Sealed Crate (${goal.t} ${goal.quest})`);
+		}
+	}
+	const list = goals('forever/horde/50-60/04-azshara.guide');
+	const fly = list.findIndex(({ goal }) => goal.t === 'fly' && /Orgrimmar/.test(JSON.stringify(goal)));
+	assert.ok(fly > 0, 'a flight to Orgrimmar');
+	const from = list.slice(0, fly).reverse().find(({ goal }) => goal.t === 'goto');
+	assert.ok(from && Math.abs(from.goal.x - 63.1) < 0.3 && Math.abs(from.goal.y - 37.1) < 0.3, 'it leaves from the Ratchet flight master');
+});
+
+// #3078 (PeptoBismo, 0.4.1.1): Fuzzle offers Biting the Hand from his cage (47.2,51.2), not from the middle of Sunnyglade
+// where the arrow and the tip sent players.
+for (const guide of ['forever/alliance/40-50/01b-riverglades.guide', 'forever/horde/40-50/01b-riverglades.guide']) {
+	test(`${guide}: Biting the Hand is taken at Fuzzle's cage (#3078)`, { skip }, () => {
+		const list = goals(guide);
+		const { goal } = list[at(list, 'accept 94961', is('accept', 94961))];
+		assert.ok(goal.map === 2548 && Math.hypot(goal.x - 47.2, goal.y - 51.2) <= 0.5, `the accept is at the cage (${goal.x},${goal.y})`);
+	});
+}
+
+// #3001 (Edet, 0.4.1): the second Counting Out Time (4973) is repeatable, and the game never flags a repeatable quest as
+// completed, so after a relog the guide went back to it. The repeat is out of the route; the first one (4972) stays.
+test('forever/alliance/50-60/04-western-plaguelands.guide: no repeatable Counting Out Time (#3001)', { skip }, () => {
+	const list = goals('forever/alliance/50-60/04-western-plaguelands.guide');
+	assert.ok(!list.some(({ goal }) => goal.quest === 4973), 'no goal on quest 4973');
+	at(list, 'turnin 4972', is('turnin', 4972));
+});
+
+// #3104 (Sugawolf), #3270 (Dehra), 0.4.1.1: Rabine Saturna offers A Reliquary of Purity only after a visit inside Dire
+// Maul, so the Moonglade step held players he offered nothing to. The accept is optional and the tip says why.
+test('Horde Eastern Plaguelands: Rabine\'s A Reliquary of Purity is optional and says it needs a Dire Maul visit (#3104)', { skip }, () => {
+	const list = goals('forever/horde/50-60/05-eastern-plaguelands.guide');
+	const { step, goal } = list[at(list, 'accept 5527', is('accept', 5527))];
+	assert.equal(goal.optional, true, 'the accept never holds the guide');
+	assert.match(step.note || '', /Dire Maul/);
+});
+
+// #3231 (0.4.1.1): The Twilight Mystery's tablet fragments lie mostly on the ground around the Twilight camp in Silithus'
+// far north-west; the arrow led to the elementals further east. The goal's point is on the ground fragments.
+for (const guide of ['forever/alliance/50-60/06-silithus.guide', 'forever/horde/50-60/06-silithus.guide']) {
+	test(`${guide}: the tablet fragments' point is at the Twilight camp's ground fragments (#3231)`, { skip }, () => {
+		const list = goals(guide);
+		const { goal } = list[at(list, 'the Twilight Tablet Fragments', (g) => g.t === 'collect' && g.item === 20378 && g.quest === 8284)];
+		assert.ok(goal.map === 1451 && Math.hypot(goal.x - 22.0, goal.y - 14.5) <= 0.5, `the point is at 22.0,14.5 (${goal.x},${goal.y})`);
+	});
+}
+
+// #3221 (DexeeXI, 0.4.1.1): Tarren Mill's Southshore Stout, for Henchman Valik's errand on Krusk's Infiltration (533),
+// was bought on the inn stop whether or not the player already had the Syndicate Missive. The buy has its own step, shown
+// only while Infiltration is in the log and not complete, as Valik's own step is.
+test('Tarren Mill\'s Southshore Stout buy shows only while Infiltration is in the log, not complete (#3221)', { skip }, () => {
+	const steps = compiled('forever/horde/30-40/05-arathi-highlands.guide').steps;
+	const buys = steps.filter((s) => s.goals.some((g) => g.t === 'buy' && g.item === 3703));
+	assert.equal(buys.length, 1, 'one Southshore Stout buy');
+	assert.ok(whenQuestOf(buys[0], ['onquest'], 533), '`when onquest 533`');
+	assert.ok((buys[0].when || []).some((p) => p.k === 'complete' && p.neg && [p.q].flat().includes(533)), '`when !complete 533`');
+});
+
+// #2923 (Gripps), #3167 (Petsq), #2714 (Unholy): Powering the Pylons needs four Coalesced Mana Crystals from the Unstable
+// Mana Rifts, gathered with the Mana Sieve, before each pylon repair; the guide only said so in its tips. A step for them
+// comes before each repair, held only while the quest still needs that pylon (the repair uses the crystals up).
+test('Shen\'dralas: a Coalesced Mana Crystal step comes before each pylon repair (#2923, #3167)', { skip }, () => {
+	const list = goals('forever/40-50/shendralas.guide');
+	for (const oi of [2, 3]) {
+		const repair = list[at(list, `pylon ${oi - 1}`, (g) => g.t === 'kill' && g.quest === 96018 && g.oi === oi)];
+		const mana = list.filter(({ goal, s }) => goal.t === 'collect' && goal.item === 255667 && goal.count === 4 && s < repair.s);
+		assert.ok(mana.length >= oi - 1, `four crystals before pylon ${oi - 1}`);
+		const last = mana[mana.length - 1];
+		assert.ok(whenQuestOf(last.step, ['onquest'], 96018), 'only while the quest is in the log');
+	}
+});
+
+// #3188 (devanpy, 0.4.1.1): Caught! asks for 15 Silk Cloth, and the guide said the Auction House sells it only at the
+// Grimesilt Dig Site, far from any. Gadgetzan's last stop before the Searing Gorge has the cloth at its Auction House.
+test('Horde Tanaris: Silk Cloth for Caught! is bought in Gadgetzan before the Searing Gorge (#3188)', { skip }, () => {
+	const list = goals('forever/horde/40-50/04-tanaris.guide');
+	const dig = list[at(list, 'accept 4449', is('accept', 4449))];
+	const buy = list.find(({ goal, s }) => goal.t === 'collect' && goal.item === 4306 && goal.count === 15 && !goal.quest && s < dig.s);
+	assert.ok(buy, 'a bag count of 15 Silk Cloth before the dig site');
+	assert.ok(buy.goal.map === 1446 && buy.goal.npc === 8661, 'at Auctioneer Beardo in Gadgetzan');
+});
+
+// #3205 (Stompsville, 0.4.1.1): from Terrordale, the walk to Tirion Fordring goes through the Terrorweb Tunnel, packed
+// with crypt fiends of 53-58. Tirion's step right after Terrordale warns about it.
+test('Tirion\'s step after Terrordale warns of the Terrorweb Tunnel (#3205)', { skip }, () => {
+	const list = goals('forever/alliance/50-60/04-western-plaguelands.guide');
+	const { step } = list[at(list, 'turnin 5543', is('turnin', 5543))];
+	assert.match(step.note || '', /Terrorweb Tunnel/);
+});
+
+// #3070 (Nesarg, 0.4.0.1): the walk-in point at Three Corners before Guard Howe is for players coming up the road from
+// Darkshire; a player who flew in to Lakeshire was sent back west to the zone's entrance. It holds only outside Redridge.
+test('Redridge\'s walk-in goto is only for players not yet in Redridge (#3070)', { skip }, () => {
+	const list = goals('forever/alliance/04-redridge-mountains.guide');
+	const howe = list[at(list, 'accept 128', is('accept', 128))];
+	const walk = list.filter(({ goal, s }) => goal.t === 'goto' && s === howe.s - 1);
+	assert.equal(walk.length, 1, 'the walk-in step before Guard Howe');
+	assert.ok((walk[0].step.when || []).some((p) => p.k === 'zone' && p.neg && p.name === 'Redridge Mountains'), '`when !zone "Redridge Mountains"`');
+});
+
+// #3044 (shatteredeagle, 0.4.1.1): Fully explore Frostmane Hold ticks only at the troll cave's far end (players'
+// recordings: 68 people, all at the step's point inside); a player on the hill above stood at the arrow with nothing
+// ticking. The tip says the spot is inside, at the far end.
+for (const guide of ['forever/alliance/dwarf/01-dun-morogh.guide', 'forever/alliance/gnome/01-dun-morogh.guide']) {
+	test(`${guide}: Frostmane Hold's tip says the exploration ticks at the cave's far end (#3044)`, { skip }, () => {
+		const list = goals(guide);
+		const { step } = list[at(list, 'complete 287', is('complete', 287))];
+		assert.match(step.note || '', /ticks only in there, not on the hill above it/);
+	});
+}
+
+// #3026 (Petsq, 0.4.1.1): Orwin's Shovel's line, at one fixed mound, came before the Gordunni Cobalt's collect, so the
+// arrow stayed on that mound until all 12 were in. The collect, whose spots are the Gordunni Dirt Mounds, comes first.
+test('forever/horde/40-50/02-feralas.guide: the Gordunni Cobalt goes from mound to mound (#3026)', { skip }, () => {
+	const list = goals('forever/horde/40-50/02-feralas.guide');
+	const cobalt = at(list, 'collect 9463', (g) => g.t === 'collect' && g.item === 9463 && g.quest === 2987);
+	const shovel = at(list, 'use 9466', (g) => g.t === 'use' && g.item === 9466);
+	assert.ok(cobalt < shovel && list[cobalt].s === list[shovel].s, 'the collect precedes the shovel in the same step');
+	assert.ok((list[cobalt].goal.spots || []).length > 1, 'the collect goes round more than one mound');
+});
+
+// #3220 (Collin M., 0.4.1.1): General Marcus Jonathan rides along Stormwind's Valley of Heroes, so a player at the
+// arrow often found him gone. Both steps that hand him Messenger to Stormwind say so.
+test('forever/alliance/03-loch-modan.guide: both Marcus Jonathan steps say he rides along the Valley of Heroes (#3220)', { skip }, () => {
+	const steps = compiled('forever/alliance/03-loch-modan.guide').steps.filter((s) => s.goals.some((g) => g.t === 'turnin' && g.quest === 120));
+	assert.equal(steps.length, 2, 'two Stormwind steps hand in 120');
+	for (const s of steps) assert.match(s.note || '', /Valley of Heroes/, s.title);
+});
+
+// #3067 (Shizo, 0.4.1.1): Pearl Diving's hand-in in the Valley of Fangs showed whether or not the Blue Pearl, from the
+// guide before, was in the bags. Its step shows only once the quest is complete.
+test('forever/alliance/40-50/02-badlands.guide: Pearl Diving is handed in only when complete (#3067)', { skip }, () => {
+	const step = compiled('forever/alliance/40-50/02-badlands.guide').steps.find((s) => s.goals.some((g) => g.t === 'turnin' && g.quest === 705));
+	assert.ok(step && whenQuestOf(step, ['complete'], 705), 'turnin 705 sits in a step with `when complete 705`');
+});
+
+// #3235 (Soggy, 0.4.1.1): the Snapshot of Gammerita comes from using the Super Snapper FX on her, not from her corpse;
+// the step had a collect from her for a group of 2. Only the camera's use goal is left, and the tip says she need not die.
+test('forever/alliance/50-60/01-burning-steppes.guide: Gammerita is photographed, not killed (#3235)', { skip }, () => {
+	const list = goals('forever/alliance/50-60/01-burning-steppes.guide');
+	assert.ok(!list.some(({ goal }) => goal.t === 'collect' && goal.item === 9330), 'no collect of the snapshot');
+	const { step } = list[at(list, 'use 9328', (g) => g.t === 'use' && g.item === 9328 && g.quest === 2944)];
+	assert.match(step.note || '', /need not die/);
+});
+
+// #3012 (Metalcalfe, 0.4.1): the Nibbled-On Book drops from Northshire's Kobold Workers and Laborers too, but the guide took
+// and handed it in only on the Vermin stop. Each Echo Ridge Mine step takes it (optional) and an Abbey stop after it hands
+// it in to Brother Paxton (optional).
+test('forever/alliance/human/01-elwynn-forest.guide: a Nibbled-On Book from the Echo Ridge kobolds is taken and handed in (#3012)', { skip }, () => {
+	const list = goals('forever/alliance/human/01-elwynn-forest.guide');
+	for (const mob of [257, 80]) {
+		const kill = list.find(({ goal }) => goal.t === 'kill' && goal.npc === mob);
+		assert.ok(kill, `the kill of ${mob}`);
+		assert.ok(list.some(({ goal, s }) => s === kill.s && goal.t === 'accept' && goal.quest === 91741 && goal.optional), `the book is taken on ${kill.step.title}`);
+		assert.ok(list.some(({ goal, s }) => s > kill.s && goal.t === 'turnin' && goal.quest === 91741 && goal.optional), `and handed in after ${kill.step.title}`);
+	}
+});
+
+// #3193 (Degen G.), #3274 (Donkeyman), 0.4.1: the 06 Hillsbrad step for The Rescue went straight to the two locked balls
+// and chains with no step for the jailors' keys, as the 30-40 copy did before #2512. The keys come first, on the same step.
+test('forever/horde/06-hillsbrad-foothills.guide: the jailors\' keys before their locks (#3193)', { skip }, () => {
+	const list = goals('forever/horde/06-hillsbrad-foothills.guide');
+	const key = (item, npc) => {
+		const i = at(list, `collect ${item}`, (g) => g.t === 'collect' && g.item === item);
+		assert.equal(list[i].goal.fromId, npc, `collect ${item} leads to its jailor ${npc}`);
+		return i;
+	};
+	const lock = (object) => at(list, `interact ${object}`, (g) => g.t === 'interact' && g.object === object && g.quest === 498);
+	const dull = key(3467, 2427);
+	const gold = key(3499, 2428);
+	const drull = lock(1721);
+	const togthar = lock(1722);
+	assert.ok(dull < drull && gold < togthar, 'each key before its lock');
+	assert.ok([dull, gold, drull, togthar].every((i) => list[i].s === list[drull].s), 'one step');
+});
+
+// #3211 (budzyS, 0.4.1.1): Seeping Corruption's step pointed at the Ruins of Eldarath with a bare complete, so the arrow
+// never led to Cuely's four tide pools on the shore. Each vial is a goal at its pool, south to north.
+test('forever/horde/50-60/02-felwood.guide: Cuely\'s four vials, each at its tide pool (#3211)', { skip }, () => {
+	const list = goals('forever/horde/50-60/02-felwood.guide');
+	const pools = [[10691, 48.0, 60.6], [10692, 48.0, 51.2], [10693, 48.7, 48.4], [10694, 47.4, 46.3]];
+	const idx = pools.map(([item, x, y], n) => {
+		const i = at(list, `vial ${n + 1}`, (g) => g.t === 'collect' && g.item === item && g.quest === 3568);
+		const { goal } = list[i];
+		assert.ok(goal.map === 1447 && Math.hypot(goal.x - x, goal.y - y) <= 1, `vial ${n + 1} at ${x},${y} (${goal.x},${goal.y})`);
+		return i;
+	});
+	assert.deepEqual(idx, [...idx].sort((a, b) => a - b), 'in order, south to north');
+});
+
+// #3172 (Yunra, 0.4.1.1): Admiral Lamora walks the middle ship's top deck and her loot chest is below deck (players'
+// recordings: 40 of 40 Lamora's Loot ticks indoors); both sides' steps said the chest stands beside her.
+for (const guide of ['forever/alliance/40-50/01b-riverglades.guide', 'forever/horde/40-50/01b-riverglades.guide']) {
+	test(`${guide}: Lamora's loot chest is below deck (#3172)`, { skip }, () => {
+		const list = goals(guide);
+		const { step } = list[at(list, 'Lamora\'s Loot', (g) => g.quest === 95124 && g.oi === 2)];
+		assert.match(step.note || '', /below deck/);
+		assert.doesNotMatch(step.note || '', /chest beside her/);
+	});
+}
+
+// #3024 (TAKODACHI, 0.4.1): Banner of the Fallen calls Headsplitter out only once the Banner of Ironforge is raised beside
+// Ylva (players' recordings: the banner's cast by 36 of 48 people between the accept and the kill), but the step went
+// from the accept straight to the kill. The banner's use, on the objective, comes before the kill in the same step.
+test('forever/alliance/03-loch-modan.guide: the Banner of Ironforge is raised before Headsplitter (#3024)', { skip }, () => {
+	const list = goals('forever/alliance/03-loch-modan.guide');
+	const banner = at(list, 'use 253247', (g) => g.t === 'use' && g.item === 253247);
+	const kill = at(list, 'kill 269185', (g) => g.t === 'kill' && g.npc === 269185);
+	assert.ok(banner < kill && list[banner].s === list[kill].s, 'the banner before the kill, same step');
+	assert.equal(list[banner].goal.quest, 86585, 'bound to the quest, so it ticks with the kill');
+});
+
+// #2915 (Soggy, 0.4.1): a group that did the first Prayer to Elune got no step for its follow-up (3378, 5,900 XP), and
+// the guide then suggested dropping it. The follow-up is taken from Zamael under the same group choice, its page comes from
+// the camp's Twilight elites on the same run, and Astarii Starseeker takes it on the Felwood guide's Darnassus stop.
+test('Alliance: Prayer to Elune\'s second part is taken under the group choice and handed in on a later guide (#2915)', { skip }, () => {
+	const sg = goals('forever/alliance/40-50/06-searing-gorge.guide');
+	const first = sg[at(sg, 'turnin 3377', is('turnin', 3377))];
+	const take = sg[at(sg, 'accept 3378', is('accept', 3378))];
+	assert.ok(take.s >= first.s && (take.step.when || []).some((p) => p.k === 'group' && [p.q].flat().includes(3377)), 'accepted after 3377 under the same group choice');
+	const page = sg[at(sg, 'the Prayer to Elune page', (g) => g.t === 'collect' && g.item === 10458 && g.quest === 3378)];
+	assert.ok(page.s > take.s && (page.step.when || []).some((p) => p.k === 'group' && [p.q].flat().includes(3377)), 'the page on the same group run');
+	const fw = goals('forever/alliance/50-60/02-felwood.guide');
+	const hand = fw[at(fw, 'turnin 3378', is('turnin', 3378))];
+	assert.equal(hand.goal.npc, 4090, 'Astarii Starseeker takes it');
+	assert.ok(whenQuestOf(hand.step, ['complete'], 3378), 'only once the page is in the bags');
+});
+
+// #2900 (Gindry, 0.4.1.1): Apprentice Claire stands in a cave below Sunnyglade's eastern edge (npc-floors: z -45.8, about
+// 78 yd under the town); her steps said only "at its eastern edge". Both name the cave and its entrance.
+test('forever/alliance/40-50/01b-riverglades.guide: Apprentice Claire\'s steps name the cave entrance (#2900)', { skip }, () => {
+	const list = goals('forever/alliance/40-50/01b-riverglades.guide');
+	for (const t of ['accept', 'turnin']) {
+		const { step } = list[at(list, `${t} 95642`, is(t, 95642))];
+		assert.match(step.note || '', /cave.*50\.0,46\.0/, `${t} 95642: ${step.title}`);
+	}
+});
+
+// #3411 (Tendertail), #3388 (Yeq): Jom-jom waits at the back of a cave (73.4,24.7: 22 accepts by 19 people, indoors);
+// the step's tip said only that he waits by the ogres' camp. It names the cave.
+test('forever/horde/40-50/01b-riverglades.guide: Jom-jom\'s step says he is at the back of the cave (#3411)', { skip }, () => {
+	const list = goals('forever/horde/40-50/01b-riverglades.guide');
+	const take = list[at(list, 'accept 94556', is('accept', 94556))];
+	assert.deepEqual([take.goal.x, take.goal.y], [73.4, 24.7]);
+	assert.match(take.step.note || '', /back of the cave/);
+});
+
+// #3302 (Maerion's Misery, 0.4.1.1): Maerion's Misery (97009) was taken only after the Dae'gun sweep, so its twelve
+// Felhound Spikes, from the same Defiling Hounds as Elaena's essence (92960), cost a second round of hound kills. It is
+// taken at Maerion before the sweep, the sweep carries the spikes as an optional line, and the later Maerion step is the
+// hand-in, shown only while the quest is in the log (ESp3cter's fix, #3257).
+test('forever/50-60/mount-hyjal.guide: Maerion\'s Misery is taken before the Dae\'gun sweep and its spikes come with the essence (#3302)', { skip }, () => {
+	const list = goals('forever/50-60/mount-hyjal.guide');
+	const accept = at(list, 'accept 97009', is('accept', 97009));
+	const essence = at(list, 'the essence line of 92960', (g) => g.t === 'collect' && g.quest === 92960);
+	assert.ok(accept < essence, 'Maerion\'s Misery is taken before the Dae\'gun sweep');
+	const sweep = list.filter(({ s }) => s === list[essence].s);
+	const spikes = sweep.find(({ goal }) => goal.t === 'collect' && goal.quest === 97009);
+	assert.ok(spikes && spikes.goal.optional, 'the sweep lists the Felhound Spikes as an optional line');
+	const hand = list[at(list, 'turnin 97009', is('turnin', 97009))];
+	assert.ok(hand.s > list[essence].s, 'handed in after the sweep');
+	assert.ok(holdsQuest(hand.step, 97009), 'the hand-in step shows only while 97009 is in the log');
+});
+
+// #3400 (Stö, 0.4.2): the Ruined Ballista's seed (Violence Into Verdure 93747.1) pointed to 70.4,70.7 at the shrub
+// field's north-eastern edge, where nothing can be planted. Players' recordings put the ballista's credit at
+// 66.27,79.2 (16 of 17 voters), a little north of the flying machine, so all three wrecks are planted in one step.
+test('forever/50-60/mount-hyjal.guide: the Ruined Ballista\'s seed is planted with the other two wrecks, at 66.3,79.2 (#3400)', { skip }, () => {
+	const list = goals('forever/50-60/mount-hyjal.guide');
+	const seeds = [1, 2, 3].map((oi) => list[at(list, `the seed of 93747.${oi}`, (g) => g.t === 'use' && g.item === 269944 && g.quest === 93747 && g.oi === oi)]);
+	assert.deepEqual(seeds.map(({ goal }) => [goal.map, goal.x, goal.y]), [[2482, 66.3, 79.2], [2482, 62.9, 82.9], [2482, 66.1, 83.5]]);
+	assert.equal(new Set(seeds.map(({ s }) => s)).size, 1, 'the three wrecks in one step');
+	const field = list[at(list, 'the shrub field\'s Tainted Shrubbery', (g) => g.t === 'kill' && g.quest === 92594)];
+	assert.ok(field.s > seeds[0].s, 'the wrecks before the shrub field');
+	assert.ok(!list.some(({ goal, s }) => s === field.s && goal.quest === 93747), 'no seed left in the shrub field');
+});
+
+// #3277: Nimboya's Laden Pike (item 9319, Grim Message 2932) can only be planted inside a Witherbark village;
+// the earlier point at 29.5,58.5 was in dead ground between Zun'watha and Hiri'watha. Players' recordings: the
+// planting (spell 11547) credited the quest at 31.85,57.91 (Hiri'watha) and 23.65,58.36 (Zun'watha).
+test('#3277: Grim Message plants Nimboya\'s Laden Pike inside Hiri\'watha (31.9, 58.0)', { skip }, () => {
+	const places = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8')).places;
+	const rec = places.find((p) => p.quest === 2932 && p.objective === 1);
+	assert.ok(rec, 'data/places.json places Grim Message objective 1');
+	assert.deepEqual(rec.at, { map: 1425, x: 31.9, y: 58.0, frame: 'era' });
+	const naming = allGuides().filter((g) => /\b9319\b/.test(fs.readFileSync(path.join(OFFICIAL_DIR, g), 'utf8')));
+	const plants = naming.flatMap((g) => goals(g).filter(({ goal }) => goal.t === 'use' && goal.item === 9319).map(({ goal }) => [g, goal.map, goal.x, goal.y]));
+	assert.deepEqual(plants, [['forever/horde/40-50/05-the-hinterlands.guide', 1425, 31.9, 58]], 'the one step that plants it points into Hiri\'watha');
+});
+
+// #3405 (Cip1337, 0.4.2): Heavy Silk Bandage (7929) and Mageweave Bandage (10840) are learned from manuals the Expert
+// First Aid step has the player buy; their steps' learn lines have no place, and nothing said to read the manual.
+// Each such step says so, and where to buy it otherwise.
+test('forever/professions/first-aid.guide: the manual bandages say to read the manual bought with Expert First Aid (#3405)', { skip }, () => {
+	const list = goals('forever/professions/first-aid.guide');
+	for (const [spell, manual] of [[7929, 'Manual: Heavy Silk Bandage'], [10840, 'Manual: Mageweave Bandage']]) {
+		const { step } = list[at(list, `learn ${spell}`, (g) => g.t === 'learn' && g.spell === spell)];
+		assert.ok((step.note || '').includes(`Read the ${manual} you bought with Expert First Aid`), `${spell}: ${step.note}`);
+	}
+});
+
+// #3512 #3492 #3489 #3486 #3481 (Stö, 0.4.2, Mount Hyjal): "talked with Whisperfur / Brie / Solstice / the Peasant /
+// Elder Pinespeaker but the guide didn't mark it". A `talk` with no quest ticks only on something the player does in
+// the NPC's window (a gossip choice, an accept, a hand-in: #741), but players' recordings show these lines tick with
+// no such act: Shalla'kal's kittens (Kits and Cats 93615, 17 people) on sight, the elders (Meet the Elders 91697, 18
+// people), the Peasant (More Work? 90750, 8 people) and Ortak's wounded (A Rest Without Pain 96622, 7 people) as
+// their window opens. Each talk now reads its quest's line.
+test('forever/50-60/mount-hyjal.guide: the kittens, elders, Peasant and wounded are ticked by their quest lines (#3512 #3492 #3489 #3486 #3481)', { skip }, () => {
+	const list = goals('forever/50-60/mount-hyjal.guide');
+	for (const [npc, quest, oi] of [[256650, 91697, 1], [256627, 91697, 2], [255685, 93615, 1], [255771, 93615, 2], [255773, 93615, 3], [251320, 90750], [265895, 96622], [265862, 96622]]) {
+		const { goal } = list[at(list, `talk ${npc}`, (g) => g.t === 'talk' && g.npc === npc)];
+		assert.equal(goal.quest, quest, `talk ${npc} reads quest ${quest}`);
+		if (oi) assert.equal(goal.oi, oi, `talk ${npc} reads line ${quest}.${oi}`);
+	}
+});
+
+// The pattern behind #3512 and the others: no guide has a `talk` with no quest to an NPC who is a line of a quest
+// the guide has taken and not handed in yet; such a talk waits for a gossip choice the line may never need.
+test('#3512: a talk to an NPC who is a line of a quest in the log reads that line', { skip }, () => {
+	data = data || loadData(DATA);
+	const bare = [];
+	for (const guide of allGuides()) {
+		const open = new Set();
+		for (const { goal, s } of goals(guide)) {
+			if (goal.t === 'accept') open.add(goal.quest);
+			else if (goal.t === 'turnin') open.delete(goal.quest);
+			else if (goal.t === 'talk' && !goal.quest && !goal.optional) {
+				for (const q of open) {
+					const objs = (data.quests[q] || {}).objectives || [];
+					if (objs.some((o) => (o.type === 'talk' || o.type === 'kill') && o.id === goal.npc)) bare.push(`${guide} step ${s}: talk ${goal.npc} is a line of ${q}`);
+				}
+			}
+		}
+	}
+	assert.deepEqual(bare, []);
+});
+
+// #3436 (Stö, 0.4.2, Mount Hyjal): flying back from Everlook with Nami's crate, "Complete Crate Expectations" had no
+// place, so there was no arrow. Its one line, "Shipment delivered to Mount Hyjal before it expires", ticks as
+// Kaylaena's window opens (players' recordings: 18 people; every tick recorded beside an NPC came at her window), so the
+// delivery is a talk to her: the arrow leads to Kaylaena, the hand-in's NPC, and no work goal sits among Ghansurok's patrol.
+test('forever/50-60/mount-hyjal.guide: Crate Expectations leads to Kaylaena\'s workshop (#3436)', { skip }, () => {
+	const list = goals('forever/50-60/mount-hyjal.guide');
+	assert.ok(!list.some(({ goal }) => goal.t === 'complete' && goal.quest === 92009), 'no complete goal for 92009');
+	const talk = list[at(list, 'talk 249235 for 92009', (g) => g.t === 'talk' && g.npc === 249235 && g.quest === 92009)];
+	const hand = list[at(list, 'turnin 92009', is('turnin', 92009))];
+	assert.equal(talk.s, hand.s, 'the delivery and the hand-in in one step');
+	assert.ok(talk.goal.x && talk.goal.y, 'the delivery has a place');
+});
+
+// #3457 (siu_sang, 0.4.1.1, zhTW, Horde Feralas & Tanaris step 3): the pirate ghosts' step asked a character without
+// Voodoo Dues (609) to kill Chucky, Maury and Jon-Jon, and those kills never ticked: they were plain `kill` goals,
+// which wait for the player's own tick. Each ghost is now the place of its Voodoo Dues line, so the step is only for
+// a character carrying the quest and ticks from its lines.
+test('forever/horde/40-50/02-feralas.guide: the pirate ghosts are Voodoo Dues lines, not kills of their own (#3457)', { skip }, () => {
+	const list = goals('forever/horde/40-50/02-feralas.guide');
+	for (const [npc, oi] of [[2537, 3], [2535, 1], [2536, 2]]) {
+		assert.ok(!list.some(({ goal }) => goal.t === 'kill' && goal.npc === npc), `no plain kill of ${npc}`);
+		const { goal } = list[at(list, `the line 609.${oi}`, (g) => g.t === 'collect' && g.quest === 609 && g.oi === oi)];
+		assert.ok(goal.x && goal.y, `609.${oi} has a place`);
+	}
+});
+
+// #3383 (SumnDaiy, 0.4.2, Alliance Badlands): the guide said to sell at Prospector Ryedol, who sells nothing. 50
+// people opened his window (126 quest windows), none a merchant window, and the game's data has no goods for him:
+// the correction drops the vendor role the merged data gave him.
+test('#3383: Prospector Ryedol (2910) is no vendor', { skip }, () => {
+	assert.deepEqual(((loadCorrections().npcs[2910] || {}).set || {}).roles, [], 'the correction clears his roles');
+	assert.ok(!(loadData(DATA).npcs[2910].roles || []).includes('vendor'), 'the built data has no vendor role for him');
+});
+
+// #3470 (Shuurajou, 0.4.1.1, Thousand Needles): the nearest-vendor arrow led to Wizzle Brassbolts at the Mirage
+// Raceway, who sells nothing: 165 contributors opened his window, none a merchant window. The correction clears the
+// vendor role; the built data carries it from the next data build on, so only the record is checked here.
+test('#3470: Wizzle Brassbolts (4453) is no vendor', () => {
+	assert.deepEqual(((loadCorrections().npcs[4453] || {}).set || {}).roles, [], 'the correction clears his roles');
+});
+
+// #3394 (0.4.2, Riverglades): the Cubic Draconia for Proof of Profit lies at the back of the Cinderscale hollow;
+// without a height the walk to 30,73.3 ended on the hill above it. The hollow's three goal points have its floor
+// (data/goal-heights.json, from players' recordings: done indoors, the grid's floor walkable from the camp).
+test('#3394: Riverglades: the Cinderscale hollow\'s goals are on the hollow\'s floor, not the hill above', { skip }, () => {
+	for (const faction of ['horde', 'alliance']) {
+		const list = goals(`forever/${faction}/40-50/01b-riverglades.guide`);
+		const draconia = list[at(list, 'collect 271611', (g) => g.t === 'collect' && g.item === 271611)];
+		const hollow = list.filter(({ s }) => s === draconia.s);
+		assert.ok(hollow.length >= 3, `${faction}: the step has the kills and the Draconia`);
+		for (const { goal } of hollow) assert.ok(goal.z != null && goal.z > 180 && goal.z < 195, `${faction} ${goal.t} ${goal.x},${goal.y}: the hollow's floor (185-190), not the hill (275-310): ${goal.z}`);
+	}
 });

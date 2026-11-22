@@ -25,10 +25,12 @@ return {
 	["{npc:10878} stands by the Temple of the Moon."] = "",
 
 	-- Step 6: Arch Druid Fandral Staghelm
-	-- {npc:4217} Mathrengyl Bearwalker · {area:1658} Cenarion Enclave
-	["Fandral and {npc:4217} stand upstairs in the druids' building of the {area:1658}."] = "",
+	-- {area:1658} Cenarion Enclave · {npc:4217} Mathrengyl Bearwalker
+	["Fandral stands at the top of the druids' building of the {area:1658}; {npc:4217}, next, is lower down inside it."] = "",
 	-- {npc:3516} Arch Druid Fandral Staghelm
 	["{npc:3516}, upstairs"] = "",
+
+	-- Step 8: Mathrengyl Bearwalker
 	-- {npc:4217} Mathrengyl Bearwalker
 	["{npc:4217}, upstairs"] = "{npc:4217}, наверху",
 	-- {quest:6762} Rabine Saturna · {zone:1450} Moonglade · {zone:2482} Mount Hyjal
@@ -36,27 +38,27 @@ return {
 	-- {zone:1455} Ironforge
 	["{zone:1455} has no druid trainer"] = "В городе {zone:1455} нет учителя друидов",
 
-	-- Step 7: Portal to Teldrassil
+	-- Step 9: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
 	["Portal to {zone:1438}"] = "Портал: {zone:1438}",
 
-	-- Step 8: Fly to Auberdine
+	-- Step 10: Fly to Auberdine
 	-- {area:442} Auberdine
 	["Fly to {area:442}"] = "Летите сюда: {area:442}",
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "Распорядитель полетов: {area:702}",
 
-	-- Step 9: Boat to Menethil Harbor
+	-- Step 11: Boat to Menethil Harbor
 	-- {area:150} Menethil Harbor
 	["Boat to {area:150}"] = "Корабль: {area:150}",
 
-	-- Step 10: Fly to Ironforge
+	-- Step 12: Fly to Ironforge
 	-- {area:1537} Ironforge
 	["Fly to {area:1537}"] = "",
 	-- {area:150} Menethil Harbor
 	["{area:150} flight master"] = "Распорядитель полетов: {area:150}",
 
-	-- Step 11: Ironforge
+	-- Step 13: Ironforge
 	-- {npc:14724} Bubulo Acerbus · {npc:14723} Mistina Steelshield · {item:14047} Runecloth
 	["{npc:14724} and {npc:14723} each take sixty Wool, sixty Silk and sixty Mageweave, then sixty {item:14047}: hand in what you carry (or buy at the Auction House), skip the rest."] = "",
 	-- {npc:15187} Cenarion Emissary Jademoon · {npc:15191} Windcaller Proudhorn · {zone:1451} Silithus
@@ -74,33 +76,33 @@ return {
 	-- {item:14047} Runecloth
 	["{item:14047}, from your bags"] = "",
 
-	-- Step 12: Courier Hammerfall
+	-- Step 14: Courier Hammerfall
 	-- {zone:1428} Burning Steppes · {area:3197} Chillwind Camp · {npc:10877} Courier Hammerfall · {zone:1455} Ironforge · {npc:10838} Commander Ashlam Valorfist
 	["Without the {zone:1428} guide's {area:3197} quests: {npc:10877} walks the ring of {zone:1455} and sends you to {npc:10838}, whose camp this guide visits next. Chillwind's chain starts with it."] = "",
 
-	-- Step 13: Fly to Southshore
+	-- Step 15: Fly to Southshore
 	-- {area:271} Southshore
 	["Fly to {area:271}"] = "Летите сюда: {area:271}",
 	-- {zone:1455} Ironforge
 	["{zone:1455} flight master"] = "",
 
-	-- Step 14: Orphan Matron Aria
+	-- Step 16: Orphan Matron Aria
 	-- {area:271} Southshore · {area:279} Dalaran · {npc:34365} Orphan Matron Aria
 	["Ride north from {area:271} into Alterac and west to the walls of {area:279}: {npc:34365} stands outside them."] = "",
 
-	-- Step 15: Lieutenant Haggerdin
+	-- Step 17: Lieutenant Haggerdin
 	-- {npc:13841} Lieutenant Haggerdin · {area:3197} Chillwind Camp
 	["{npc:13841} camps beside the road north to {area:3197}."] = "",
 
-	-- Step 16: Chillwind Camp: Clear the Way
+	-- Step 18: Chillwind Camp: Clear the Way
 	-- {zone:1428} Burning Steppes · {area:3197} Chillwind Camp · {npc:10838} Commander Ashlam Valorfist · {quest:5092} Clear the Way
 	["Without the {zone:1428} guide's {area:3197} quests: {npc:10838} stands in the middle of the camp. His {quest:5092} opens the camp's chain."] = "",
 
-	-- Step 17: Sorrow Hill: Clear the Way
+	-- Step 19: Sorrow Hill: Clear the Way
 	-- plural, as words: Skeletal Flayers = {npc:1783} Skeletal Flayer · Slavering Ghouls = {npc:1791} Slavering Ghoul
 	["Skeletal Flayers and Slavering Ghouls (50) roam the fields just north of the camp.\nCareful: These undead notice you from far away, and other undead nearby join the fight when one is pulled."] = "",
 
-	-- Step 18: Chillwind Camp: the cauldrons
+	-- Step 20: Chillwind Camp: the cauldrons
 	-- {area:3197} Chillwind Camp
 	["{area:3197}: the cauldrons"] = "",
 	-- {npc:11053} High Priestess MacDonnell
@@ -108,7 +110,7 @@ return {
 	-- {area:199} Felstone Field
 	["{area:199}'s cauldron, later in this guide"] = "",
 
-	-- Step 19: Chillwind Camp
+	-- Step 21: Chillwind Camp
 	["Pureheart, Dumah, Valorfist and MacDonnell stand around the middle of the camp, by the flight master."] = "Чистое Сердце, Дума, Доблестный Кулак и Макдоннел стоят в центре лагеря, у распорядителя полетов.",
 	-- {npc:11616} Nathaniel Dumah · {area:2277} Plaguewood
 	-- was: ["{npc:11616}: the termites come later, in {area:2627}"] = "{npc:11616}: термиты будут позже, здесь: {area:2627}"
@@ -116,11 +118,11 @@ return {
 	-- {npc:10838} Commander Ashlam Valorfist · {area:199} Felstone Field
 	["{npc:10838}: the watchtowers stand around Andorhal, on the way to {area:199}"] = "",
 
-	-- Step 20: Argent Officer Pureheart
+	-- Step 22: Argent Officer Pureheart
 	-- {quest:5401} Argent Dawn Commission
 	["No {quest:5401} yet? Pureheart gives you one here: the scourgestone quests need it."] = "",
 
-	-- Step 21: The Andorhal watchtowers
+	-- Step 23: The Andorhal watchtowers
 	["The Andorhal watchtowers"] = "Сторожевые башни Андорала",
 	-- {item:12815} Beacon Torch · {area:199} Felstone Field · {npc:7572} Fallen Hero of the Horde
 	-- plural, as words: Skeletal Warlords = {npc:1788} Skeletal Warlord · Flesh Golems = {npc:1805} Flesh Golem
@@ -135,7 +137,7 @@ return {
 	-- {npc:10905} Andorhal Tower Four · {item:12815} Beacon Torch
 	["Mark {npc:10905} with the {item:12815}"] = "Отметьте предметом {item:12815}: {npc:10905}",
 
-	-- Step 22: Felstone Field cauldron
+	-- Step 24: Felstone Field cauldron
 	-- {area:199} Felstone Field
 	["{area:199} cauldron"] = "Котел: {area:199}",
 	-- {area:199} Felstone Field · {npc:11075} Cauldron Lord Bilemaw · {npc:10778} Janice Felstone · {zone:1453} Stormwind
@@ -148,7 +150,7 @@ return {
 	-- {zone:1453} Stormwind
 	["For {zone:1453}: keep it"] = "Для города {zone:1453}: сохраните задание",
 
-	-- Step 23: Chillwind Camp
+	-- Step 25: Chillwind Camp
 	-- {area:3197} Chillwind Camp
 	["Back to {area:3197}."] = "",
 	-- {area:200} Dalson's Tears
@@ -156,30 +158,30 @@ return {
 	-- {npc:1852} Araj the Summoner
 	["{npc:1852} is a level 61 elite"] = "{npc:1852} – элитный противник 61-го уровня",
 
-	-- Step 24: Sorrow Hill: kill these as you meet them
+	-- Step 26: Sorrow Hill: kill these as you meet them
 	-- {area:197} Sorrow Hill
 	["{area:197}: kill these as you meet them"] = "{area:197}: убивайте их по пути",
 	-- {quest:5401} Argent Dawn Commission · {npc:10411} Eye of Naxxramas
 	-- plural, as words: Skeletal Flayers = {npc:1783} Skeletal Flayer · Slavering Ghouls = {npc:1791} Slavering Ghoul · Rockwing Gargoyles = {npc:10408} Rockwing Gargoyle
 	["Skeletal Flayers and Slavering Ghouls roam the fields north of the camp; all the Scourge here drop Scourgestones while you wear the {quest:5401} (equip it as a trinket first).\nCareful: These undead notice you from far away, and other undead nearby join the fight when one is pulled.\nCareful: The {npc:10411} (3 spawns, 15 min respawn) turns invisible when out of combat and calls in Rockwing Gargoyles once a fight starts."] = "Скелеты-живодеры и слюнявые вурдалаки бродят по полям к северу от лагеря; вся Плеть здесь роняет камни Плети, пока на вас {quest:5401} (сначала наденьте его как аксессуар).\nОсторожно: эта нежить замечает вас издалека, а другая нежить рядом вступает в бой, когда вы атакуете одного.\nОсторожно: {npc:10411} (3 места появления, возрождение 15 мин) невидимо вне боя и призывает горгулий Крыла Скалы, как только начинается бой.",
 
-	-- Step 25: Marlene Redpath
+	-- Step 27: Marlene Redpath
 	-- {area:3197} Chillwind Camp · {npc:10927} Marlene Redpath · {area:197} Sorrow Hill · {quest:5142} Little Pamela · {area:2262} Darrowshire
 	["On the road east out of {area:3197}, {npc:10927}'s farmhouse stands on {area:197}: her {quest:5142} goes to the ghost in {area:2262}, the next stop."] = "",
 	-- {npc:10927} Marlene Redpath · {area:2262} Darrowshire
 	["{npc:10927}: keep it for {area:2262}"] = "{npc:10927}: сохраните для места {area:2262}",
 
-	-- Step 26: Into Eastern Plaguelands
+	-- Step 28: Into Eastern Plaguelands
 	-- {zone:1423} Eastern Plaguelands
 	["Into {zone:1423}"] = "В зону {zone:1423}",
 	-- {zone:1422} Western Plaguelands
 	["Follow the southern road east out of the {zone:1422}."] = "",
 
-	-- Step 27: Pamela Redpath
+	-- Step 29: Pamela Redpath
 	-- {area:2262} Darrowshire · {npc:10926} Pamela Redpath
 	["The ruins of {area:2262} lie south of the road. {npc:10926}'s ghost plays by the ruined house at the south end."] = "",
 
-	-- Step 28: Pamela Redpath's doll
+	-- Step 30: Pamela Redpath's doll
 	-- {npc:10926} Pamela Redpath
 	["{npc:10926}'s doll"] = "Кукла {npc:10926}",
 	-- {area:2262} Darrowshire
@@ -189,13 +191,13 @@ return {
 	-- {item:12888} Pamela's Doll's Right Side
 	["{item:12888}; inside"] = "",
 
-	-- Step 29: Pamela Redpath
+	-- Step 31: Pamela Redpath
 	-- {quest:5152} Auntie Marlene · {zone:1422} Western Plaguelands
 	["{quest:5152}, back in the {zone:1422}: keep it"] = "",
 	-- {npc:11063} Carlin Redpath · {area:2268} Light's Hope Chapel
 	["{npc:11063} at {area:2268}, on this guide's second ride east: keep it"] = "",
 
-	-- Step 30: Marlene Redpath
+	-- Step 32: Marlene Redpath
 	-- {npc:10927} Marlene Redpath · {npc:10936} Joseph Redpath
 	["Ride back west along the road to {npc:10927}'s farmhouse; {npc:10936}'s monument is just north of it."] = "",
 	["Upstairs"] = "Наверху",
@@ -204,63 +206,60 @@ return {
 	-- {item:12894} Joseph's Wedding Ring
 	["{item:12894}, at the monument"] = "{item:12894} – у памятника",
 
-	-- Step 31: Mulgris Deepriver
+	-- Step 33: Mulgris Deepriver
 	-- {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {npc:10927} Marlene Redpath
 	["{npc:10739} stands by the farm at the {area:202}, north of {npc:10927}."] = "",
 	["Inside"] = "Внутри",
 
-	-- Step 32: Writhing Haunt: kill these as you meet them
+	-- Step 34: Writhing Haunt: kill these as you meet them
 	-- {area:202} Writhing Haunt
 	["{area:202}: kill these as you meet them"] = "{area:202}: убивайте их по пути",
 	-- {item:12841} Invader's Scourgestone · {quest:5401} Argent Dawn Commission
 	["{item:12841}: wear the {quest:5401} while you kill"] = "{item:12841}: убивайте, надев {quest:5401}",
 
-	-- Step 34: Diseased Grizzlies
+	-- Step 36: Diseased Grizzlies
 	["Diseased Grizzlies"] = "Болезненные гризли",
 	-- {area:202} Writhing Haunt · {npc:10739} Mulgris Deepriver
 	["The Diseased Grizzlies (55-56) roam the woods around the {area:202}, east and north of {npc:10739}."] = "",
 
-	-- Step 35: Mulgris Deepriver
+	-- Step 37: Mulgris Deepriver
 	-- {npc:10739} Mulgris Deepriver · {zone:1457} Darnassus
 	["{npc:10739}' next task goes to the druids of {zone:1457}, behind the route now: skip it."] = "",
 
-	-- Step 36: Dalson's Tears
+	-- Step 38: Dalson's Tears
 	-- {npc:10836} Farmer Dalson · {npc:11152} The Scourge Cauldron
 	["Ride north-west to the Dalson farm. The diary lies in the barn; a wandering skeleton carries the outhouse key, and {npc:10836} waits in the outhouse with the cabinet key. {npc:11152} stands just south-west of the farmhouse, and its Cauldron Lord beside it carries the key."] = "",
 	-- {object:175924} Locked Cabinet
 	["{object:175924}, in the farmhouse; inside"] = "{object:175924} – в доме; внутри",
 
-	-- Step 37: Argent Officer Pureheart
+	-- Step 39: Argent Officer Pureheart
 	-- {area:3197} Chillwind Camp
 	["Ride back south to {area:3197}."] = "",
 
-	-- Step 39: Chillwind Camp
+	-- Step 41: Chillwind Camp
 	-- {area:200} Dalson's Tears
 	["Ride back south from {area:200} to the camp."] = "",
 	-- {npc:10838} Commander Ashlam Valorfist
 	["{npc:10838} (from level 55)"] = "",
 	["The skeletons of Andorhal, next on this guide"] = "",
 
-	-- Step 40: Chromie
+	-- Step 42: Chromie
 	-- {npc:10667} Chromie
 	["North to {npc:10667} in the ruined inn on the west side of Andorhal."] = "",
 
-	-- Step 41: Andorhal
+	-- Step 43: Andorhal
 	["Andorhal"] = "Андорал",
 	-- {item:12627} Temporal Displacer · {quest:5154} The Annals of Darrowshire · {quest:5537} Skeletal Fragments · {npc:1852} Araj the Summoner
 	-- plural, as words: Temporal Parasites = {npc:10717} Temporal Parasite · Skeletal Warlords = {npc:1788} Skeletal Warlord · Flesh Golems = {npc:1805} Flesh Golem
 	-- was: ["Use the {item:12627} by the grain silos to draw out Temporal Parasites. {quest:5154} is one of the musty tomes in the town hall. Every skeleton in town drops {quest:5537}.\nCareful: the Temporal Parasites are 55-57, and Skeletal Warlords and Flesh Golems (57, elites) walk the streets: draw the parasites out by the silos, one at a time, and let the elites pass."] = "Используйте {item:12627} у зернохранилищ, чтобы выманить временных паразитов. {quest:5154} – один из пыльных томов в ратуше. С каждого скелета в городе падает {quest:5537}.\nОсторожно: временные паразиты 55-57-го уровня, а по улицам ходят скелеты-вожди и мясные големы (57, элита): выманивайте паразитов у зернохранилищ по одному и пропускайте элиту."
 	["Use the {item:12627} by the grain silos to draw out Temporal Parasites. {quest:5154} is one of the musty tomes in the town hall. Every skeleton in town drops {quest:5537}.\nCareful: the Temporal Parasites are 55-57, and Skeletal Warlords and Flesh Golems (57, elites) walk the streets: draw the parasites out by the silos, one at a time, and let the elites pass.\n{npc:1852} is elite: grouping up is advised. He guards his phylactery in the middle of Andorhal."] = "",
 
-	-- Step 42: Chromie
+	-- Step 44: Chromie
 	-- {quest:5210} Brother Carlin · {area:2268} Light's Hope Chapel
 	["{quest:5210}, at {area:2268}: keep it"] = "{quest:5210} ({area:2268}): сохраните задание",
 
-	-- Step 43: Sorrow Hill: kill these as you meet them
+	-- Step 45: Sorrow Hill: kill these as you meet them
 	["Small lockboxes lie in the rubble all over Andorhal; each holds a watch.\nCareful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "",
-
-	-- Step 45: More watches
-	["More watches"] = "Еще часы",
 
 	-- Step 47: Writhing Haunt cauldron
 	-- {area:202} Writhing Haunt
@@ -397,8 +396,9 @@ return {
 	["{npc:12384} lives in the ruined hut in {area:2627}, and his receipt book lies in the ruined inn nearby. {npc:11140} stands by {npc:12384}' hut."] = "",
 
 	-- Step 73: Tirion Fordring
-	-- {npc:1855} Tirion Fordring
-	["Cross the river west to {npc:1855}'s hut."] = "Перейдите реку на запад к хижине {npc:1855}.",
+	-- {npc:1855} Tirion Fordring · {area:2627} Terrordale · {area:2626} Terrorweb Tunnel
+	-- plural, as words: Crypt Fiends = {npc:8555} Crypt Fiend
+	["Cross the river west to {npc:1855}'s hut.\nCareful: the short way from {area:2627} to {npc:1855} is the {area:2626}, whose south mouth opens by his hut: Crypt Fiends, Walkers, Horrors and Slayers (53-58) stand close together inside. Pull them one at a time, or ride round by the road outside it."] = "",
 
 	-- Step 75: Tirion Fordring
 	["Listen to his story"] = "Выслушайте его историю",
@@ -488,6 +488,7 @@ return {
 	-- ["Careful: the Frenzied Plaguehounds are 57-58: pull them one at a time."] = "Осторожно: бесноватые чумные псы 57–58-го уровня, выманивайте их по одному.",
 	-- ["Climb the hill west of {area:190} to look down on the town."] = "Поднимитесь на холм к западу (ориентир: {area:190}), чтобы осмотреть город сверху.",
 	-- ["Cross the river east to the {area:2261}, the crypt in the south-west of the zone. The {object:177667} lies inside: its key is on {npc:12248} in the far north-east, done in the next guide.\nCareful: About four non-elite adds come with Mercutio. They walk to the grave instead of appearing on the spot."] = "Перейдите реку на восток к {area:2261} – склепу на юго-западе зоны. {object:177667} лежит внутри: ключ от него у персонажа {npc:12248} на дальнем северо-востоке, это будет в следующем гайде.\nОсторожно: вместе с Меркуцио появляются около четырех неэлитных помощников. Они идут к могиле, а не появляются на месте.",
+	-- ["Cross the river west to {npc:1855}'s hut."] = "Перейдите реку на запад к хижине {npc:1855}.",
 	-- ["Cross the south of the crater to {npc:9619} by the ramp."] = "Пересеките юг кратера и вернитесь к {npc:9619} у спуска.",
 	-- ["Diseased Wolves"] = "Больные волки",
 	-- ["Dredge Crushers dig further west; Stonelash Pincers, Flayers and Rock Stalkers hunt the same sands."] = "Дальше на западе роются земляные сокрушители; в тех же песках охотятся камнехвостые клешневики, камнехвостые живодеры и скальные пауки-скакуны.",
@@ -516,6 +517,7 @@ return {
 	-- ["Horgus' skull lies at {area:2624} and Marduk's sword in the {area:2623}, each where ghosts fight; grown Plaguehounds hunt the plains between."] = "Череп Хоргуса лежит здесь: {area:2624}, а меч Мардука – здесь: {area:2623}; оба там, где сражаются призраки. На равнинах между ними охотятся взрослые чумные псы.",
 	-- ["Into {zone:1451}"] = "В зону {zone:1451}",
 	-- ["MacDonnell's next task, {area:201}'s cauldron, waits for the {zone:1451} guide's Plaguelands leg: take it then."] = "Следующее задание Макдонелл, котел ({area:201}), ждет части гайда {zone:1451} в Чумных землях: возьмите его тогда.",
+	-- ["More watches"] = "Еще часы",
 	-- ["North to the refuge, for the quests the first Un'Goro visit left: {npc:9618} stands just outside and {npc:9117} in the cave at the back; the expedition's other three wait for your next stop here."] = "На север к убежищу – за заданиями, оставшимися с первого визита в Ун'Горо: {npc:9618} стоит прямо у входа, а {npc:9117} – в пещере в глубине; трое других членов экспедиции подождут вашей следующей остановки здесь.",
 	-- ["Northern Pylon"] = "Северный пилон",
 	-- ["On {npc:7583}"] = "У персонажа {npc:7583}",

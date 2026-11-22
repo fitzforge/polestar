@@ -76,7 +76,11 @@ return {
 	["Ride east to the ruins on the coast. The four tablets lie among the ruins, guarded by Spitelash naga (52-55): pull them one at a time."] = "동쪽 해안의 폐허로 가세요. 석판 네 개가 폐허 곳곳에 있으며, 원한의꼬리일족 나가(52-55)가 지키고 있습니다. 한 번에 한 마리씩 끌어오세요.",
 
 	-- Step 17: Ruins of Eldarath
-	["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "동쪽 해안의 폐허로 가세요. 해안을 따라 있는 조수 웅덩이에서 큘리의 약병 네 개를 채우세요. 원한의꼬리일족 나가가 그 사이를 순찰합니다.",
+	-- {area:1231} Southridge Beach
+	["Fill Cuely's four vials at the tide pools on the shore, from {area:1231} north up the coast; Spitelash naga patrol between them."] = "",
+	-- {item:10691} Filled Vial Labeled #1 · {area:1231} Southridge Beach
+	["{item:10691}: the tide pool on {area:1231}"] = "",
+	["#2, north along the shore"] = "",
 
 	-- Step 18: Makrinni Burrowers
 	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower
@@ -126,8 +130,8 @@ return {
 
 	-- Step 25: The Legashi satyrs
 	["The Legashi satyrs"] = "레가시 사티로스",
-	-- {npc:235903} Ekkal
-	["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind."] = "레가시 사티로스(51-52)가 블러드 엘프 야영지 북쪽 언덕을 차지하고 있습니다. {npc:235903}은(는) 종류별로 다섯 마리씩 원합니다.",
+	-- {npc:235903} Ekkal · {npc:235892} Prince Halanox
+	["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind.\nCareful: {npc:235892} (55, elite) stands among the satyrs at the north-east end of their hills, around 67,19: take the satyrs nearer the camp and leave him be."] = "",
 
 	-- Step 26: Kim'jael
 	-- {npc:8420} Kim'jael
@@ -210,8 +214,8 @@ return {
 	-- Step 44: Southern Jaedenar
 	-- {area:1763} Jaedenar
 	["Southern {area:1763}"] = "{area:1763} 남부",
-	-- {area:1763} Jaedenar
-	["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds."] = "길을 따라 북서쪽으로 가세요. {area:1763} 남부, 오염된 달샘 주변은 어둠의 의회 이교도, 숙련사제, 수호병과 사냥개가 차지하고 있습니다.",
+	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge
+	["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: pull the cultists and hounds away from him."] = "",
 
 	-- Step 46: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
@@ -286,6 +290,7 @@ return {
 	-- ["Fly to {area:272}"] = "{area:272}(으)로 날아가기",
 	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo, and their organs are {npc:10920}'s.\n{area:1762}'s Deadwood Den Watchers (53-54) and Avengers (54-55) are next: below level 54, keep hunting the grizzlies and ravagers (51-52) here until 54. The hand-ins at {area:1769}, the {area:2479} and {area:1997} that follow take you most of the way to 55. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "길을 따라 북동쪽의 {area:1767}(으)로 가세요. 숲 동쪽의 굽이나무 이끼늪괴물과 갈퀴늪괴물은 각각 {item:11503}을(를) 지니고 있습니다. 같은 숲에서 탈로를 위해 성난발톱불곰과 갈퀴발톱 악령발늑대를 처치하세요. 이들의 장기는 {npc:10920}에게 필요합니다.\n다음은 {area:1762}의 마른가지일족 보초(53-54)와 복수자(54-55)입니다. 54레벨 미만이라면 54레벨이 될 때까지 이곳에서 불곰과 악령발늑대(51-52)를 계속 사냥하세요. 이어지는 {area:1769}, {area:2479}, {area:1997}에서의 제출로 55레벨 가까이 오릅니다. 또는 파티가 있다면 대신 {area:1417} 던전이나 {area:1584} 던전을 도세요.",
 	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at {area:1997} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "길을 따라 북동쪽의 {area:1767}(으)로 가세요. 숲 동쪽의 굽이나무 이끼늪괴물과 갈퀴늪괴물은 각각 {item:11503}을(를) 지니고 있습니다. 같은 숲에서 탈로를 위해 성난발톱불곰과 갈퀴발톱 악령발늑대를 처치하세요. 54.21레벨 미만이라면 불곰과 악령발늑대를 계속 사냥하세요. {area:1997}와(과) {area:2479}에서 퀘스트를 제출하면 55레벨이 됩니다. 또는 파티가 있다면 대신 {area:1584} 던전이나 {area:1417} 던전을 도세요.",
+	-- ["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds."] = "길을 따라 북서쪽으로 가세요. {area:1763} 남부, 오염된 달샘 주변은 어둠의 의회 이교도, 숙련사제, 수호병과 사냥개가 차지하고 있습니다.",
 	-- ["From {area:2268}'s flight master, fly to the {area:1497}."] = "{area:2268}의 비행 조련사에게서 {area:1497}(으)로 날아가세요.",
 	-- ["His next hunt, the Diseased Grizzlies (55-56), waits for the Plaguelands visit at about 58."] = "그의 다음 사냥감인 병든 회색곰(55-56)은 58레벨쯤 역병지대에 들를 때 처리합니다.",
 	-- ["Jadefire moonwell"] = "비취불꽃 달샘",
@@ -304,6 +309,7 @@ return {
 	-- ["Ride back south-east to the Sanctuary."] = "남동쪽의 성소로 돌아가세요.",
 	-- ["Ride back to the {area:1497}, take the zeppelin to {zone:1454} and fly to {area:431}. Follow the road west out of Splintertree and take the fork north into {zone:1448}."] = "{area:1497}(으)로 돌아가 {zone:1454}행 비행선을 타고 {area:431}(으)로 날아가세요. 길을 따라 토막나무 주둔지에서 서쪽으로 나가, 갈림길에서 북쪽 {zone:1448}(으)로 가세요.",
 	-- ["Ride back west over the river and on to the {area:192}; {npc:11610} hides on the hill north-east of it."] = "다시 서쪽으로 강을 건너 {area:192}(으)로 가세요. {npc:11610}은(는) 그 북동쪽 언덕에 숨어 있습니다.",
+	-- ["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "동쪽 해안의 폐허로 가세요. 해안을 따라 있는 조수 웅덩이에서 큘리의 약병 네 개를 채우세요. 원한의꼬리일족 나가가 그 사이를 순찰합니다.",
 	-- ["Ride north along the eastern hills; {npc:1855} lives in a small house by the {area:2619}, at the border with the {zone:1423}."] = "동쪽 언덕을 따라 북쪽으로 가세요. {npc:1855}은(는) {zone:1423}와(과)의 경계, {area:2619} 옆의 작은 집에 삽니다.",
 	-- ["Ride north up the road again."] = "다시 길을 따라 북쪽으로 가세요.",
 	-- ["Ride north-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges."] = "북서쪽의 안돌할로 가세요. {npc:10667}은(는) 마을 서쪽의 무너진 여관에서 기다립니다. 안쪽의 해골은 54-57레벨이니 가장자리로만 다니세요.",
@@ -321,6 +327,7 @@ return {
 	-- ["The Deadwood furbolg village just west of the tunnel. {npc:9462} (56) stands among them. {npc:11557}, a friendly furbolg, sits at the north end of the village."] = "터널 바로 서쪽의 마른가지일족 털보숭이 마을입니다. {npc:9462}(56)이(가) 그들 사이에 서 있습니다. 우호적인 털보숭이 {npc:11557}은(는) 마을 북쪽 끝에 앉아 있습니다.",
 	-- ["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and {area:1763} want it. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "마른가지일족 털보숭이 마을은 성소 바로 남쪽에 있습니다. 마른가지일족을 처치할 때마다 {area:1769} 평판도 오릅니다. 깃털 머리장식은 보관하세요. 53.92레벨이 될 때까지 계속 처치하세요. 성소의 다음 제출 퀘스트와 {area:1763}에 그 레벨이 필요합니다. 또는 파티가 있다면 대신 {area:1417} 던전이나 {area:1584} 던전을 도세요.",
 	-- ["The Jadefire moonwell"] = "비취불꽃 달샘",
+	-- ["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind."] = "레가시 사티로스(51-52)가 블러드 엘프 야영지 북쪽 언덕을 차지하고 있습니다. {npc:235903}은(는) 종류별로 다섯 마리씩 원합니다.",
 	-- ["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "붉은십자군의 천막은 {area:199}와(과) {area:200} 사이에 있습니다. {object:176092}(으)로 지휘 천막을 불태우고 스컬지 깃발을 꽂으세요.",
 	-- ["The bears roam the hills north and east of the {area:202}."] = "곰은 {area:202} 북쪽과 동쪽 언덕을 돌아다닙니다.",
 	-- ["The book lies in the ruined inn of {area:2627}; the undead in the town are 54-56, so pull them one at a time.\nThe Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass."] = "책은 {area:2627}의 무너진 여관에 있습니다. 마을의 언데드는 54-56레벨이니 한 마리씩 끌어오세요.\n커다란 흰개미 둔덕은 {area:2627} 동쪽 언덕 곳곳에 있습니다. 지나가는 둔덕마다 {item:15042}을(를) 사용하세요.",

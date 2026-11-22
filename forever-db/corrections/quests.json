@@ -20679,5 +20679,46 @@
 			}
 		],
 		"note": "Welcome to Azeroth (95350, the airship's quest off Zephras Isle) has no prerequisite on Forever: the server's previous-quest link to The Earthen Ring (95349) is only the story order. The data build re-added that link after the recorded layer had removed it, so a character carrying 95350 counted the whole Zephras Isle story before it as handed in: the guide ticked A Firm Response and waited on Blood for Blood, which Ayessa Dawnsinger offers only after it (#2781)."
+	},
+	"3861": {
+		"set": {
+			"end": {
+				"npc": [
+					620
+				],
+				"object": []
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings (to 2026-11-20; excluded contributors left out): 4 people took CLUCK! from a Chicken (620) after feeding it Special Chicken Feed, 3 handed it in to a Chicken (rec.py quest 3861)"
+			}
+		],
+		"note": "CLUCK! (3861) is given and taken by any Chicken (620) the player feeds, so its hand-in is wherever chickens are. The 0.4.2 data build's chicken points moved that hand-in more than 200 yards, which is no move of the quest. Reviewed for 0.4.2 (data-diff gate, ender-moved)."
+	},
+	"90750": {
+		"set": {
+			"objectives": [
+				{ "type": "talk", "id": 251320, "count": 1, "text": "Speak with the worker" }
+			]
+		},
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, excluded contributors left out): 8 people (6 established) ran More Work?; every accept listed one line, 'Speak with the worker' x1, and it ticked as the Peasant's (251320) window opened (rec.py quest 90750)" },
+			{ "kind": "in-game-check", "ref": "#3486" }
+		],
+		"note": "More Work? (Mount Hyjal, Alliance): one line, speaking with the peasant north of Sefira Everbright; it ticks as his window opens. The data had no objectives, so the guide's talk to him waited for a gossip choice that never comes (#3486)."
+	},
+	"96622": {
+		"set": {
+			"objectives": [
+				{ "type": "talk", "id": 265862, "count": 1, "text": "Poultice Delivered to Enho" },
+				{ "type": "talk", "id": 265895, "count": 1, "text": "Poultice Delivered to Maruke" }
+			]
+		},
+		"source": [
+			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, excluded contributors left out): 7 people (7 established) ran A Rest Without Pain; every accept listed two lines, 'Poultice Delivered to Enho' and 'Poultice Delivered to Maruke', each ticking as that NPC's window opened (Enho Runehoof 265862, Maruke 265895; rec.py quest 96622)" }
+		],
+		"note": "A Rest Without Pain (Mount Hyjal, Horde): two lines, one per wounded, each done by opening the NPC's window. The data had no objectives, so the guide's talks to them waited for a gossip choice that never comes (the pattern of #3486)."
 	}
 }

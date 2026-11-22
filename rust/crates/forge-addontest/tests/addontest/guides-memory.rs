@@ -83,8 +83,11 @@ fn pack_files(name: &str) -> String {
 /// and read 26,578 against budgets 18,670 / 26,570 (peak 39,937, under its 40,020): about 89 more quests handed in
 /// along the route and their tips. Resident and read: those plus ~1% (a reported raise, for Fitz to confirm in the
 /// pull request); the peak stays.
+/// 0.4.2 triage guide fixes (2026-11-21, #3332 on next: 26 player reports' tips, steps and goals in both routes):
+/// Alliance peak 40,053 against its 40,020. The peak: that plus ~1% (a reported raise, for Fitz to confirm in the pull
+/// request); the rest stays.
 const BUDGET: [(&str, &str, [(&str, f64); 3]); 2] =
-	[("Alliance", "Human", [("resident", 18910.0), ("peak", 40020.0), ("read", 26845.0)]), ("Horde", "Orc", [("resident", 17700.0), ("peak", 37470.0), ("read", 25860.0)])];
+	[("Alliance", "Human", [("resident", 18910.0), ("peak", 40455.0), ("read", 26845.0)]), ("Horde", "Orc", [("resident", 17700.0), ("peak", 37470.0), ("read", 25860.0)])];
 
 #[test]
 fn the_guide_pack_stays_within_its_memory_budget_for_each_faction_693() {

@@ -1,12 +1,13 @@
 //! An update from the live release: the previous release (`$POLESTAR_PREVIOUS_ADDON_DIR`) plays the full-log
 //! scene's character (Goldshire, partway through the Elwynn Forest guide) with three settings changed and every
 //! companion addon enabled, and logs out; the client writes every saved variable the previous release's TOCs
-//! list. The release under test then logs in with them: no Lua error, the same guide at the same step, the
+//! list. The release under test then logs in with them: no Lua error, the same guide at the same step (its title
+//! and goals: an update that drops or merges steps ahead of it renumbers it), the
 //! changed settings kept, no addon of the release left off or turned off (#2594), the settings window loading,
 //! Install not shown again, nothing in chat, no sound, alert or automatic action, and a bounded login.
 
 use crate::common::{install, play, previous, release_or_skip, skip, Play};
-use crate::questlog::{empty, goldshire};
+use crate::questlog::{empty, KNOWN};
 use forge_addontest::lua_string;
 use serde_json::Value;
 use std::path::Path;
@@ -38,48 +39,61 @@ fn saved_variables(dir: &Path) -> Vec<(String, Vec<String>)> {
 /// The settings the player changed before the update: (path, Lua value, the value as emitted).
 const CHANGED: &[(&str, &str, &str)] = &[("nav.routeStyle", "\"roads\"", "\"roads\""), ("qol.sellJunk", "false", "false"), ("behavior.whileHereRadius", "240", "240")];
 
-#[test]
-fn an_update_keeps_the_guide_step_settings_and_addons_2594() {
-	let Some(dir) = release_or_skip() else { return };
-	let Some(prev) = previous() else {
-		skip("POLESTAR_PREVIOUS_ADDON_DIR is unset (the live release's unpacked AddOns folder): the update scene needs it");
-		return;
-	};
-	let vars = saved_variables(&prev);
+/// Lua: `stepAt(i)`, step i of the loaded guide as its title and goals (verbs and ids, as the Engine keys a step for
+/// an update), or false. A release that drops or merges a step ahead of the player's renumbers theirs (0.4.2's
+/// Northshire rework put Goldshire at 50 of Elwynn Forest, 51 in 0.4.1.1), so the place is compared by this.
+const STEP_AT: &str = r#"
+local function stepAt(i)
+	local g = Polestar.Engine.GetGuide()
+	local s = g and i and g.steps[i]
+	if not s then return false end
+	local ids = {}
+	for k, x in ipairs(s.goals) do
+		ids[k] = x.t .. ":" .. tostring(x.quest or x.npc or x.item or x.spell or x.object or x.faction or x.achievement or x.level or x.location or x.map or "")
+	end
+	return (s.title or "") .. " | " .. table.concat(ids, ",")
+end
+"#;
+
+/// One update: on the previous release, `world` (Lua: the character's map, place and level), then `place` (Lua
+/// that sets `at`: the guide played to a step) and `sets` (settings changed), and logout; then the release under
+/// test logs in with what it saved. -> (the previous release's state, the release's emit).
+fn update_scene(dir: &Path, prev: &Path, world: &str, place: &str, sets: &str) -> (Value, Value) {
+	let vars = saved_variables(prev);
 	assert!(vars.iter().any(|(a, _)| a == "Polestar"), "{}: Polestar's TOC lists no saved variables", prev.display());
 
 	// The previous release: mid-guide, settings changed, then logout.
 	let groups: Vec<String> = vars.iter().map(|(a, v)| format!("{{ {}, {{ {} }} }}", lua_string(a), v.iter().map(|n| lua_string(n)).collect::<Vec<_>>().join(", "))).collect();
-	let sets: Vec<String> = CHANGED.iter().map(|(p, v, _)| format!("Polestar.Set({}, {v})", lua_string(p))).collect();
 	let before = play(&Play {
-		dir: Some(prev.clone()),
+		dir: Some(prev.to_path_buf()),
+		stubs: vec!["stub_scenes_quests.lua"],
+		before: format!("{world}\nScene.atLogin = Scene.snap()"),
+		saved: vec![("Polestar".into(), KNOWN.into())],
 		script: format!(
-			r#"
-local at = ScenesQ.place(240)
-if not at then error("the previous release loaded no guide, or none that hands in a quest to Marshal Dughan (240)", 0) end
+			r#"{STEP_AT}
+{place}
 {sets}
 stub.advance(5)
 local E = Polestar.Engine
 local state = {{ guide = E.GetGuide() and E.GetGuide().id or false, step = E.GetStepIndex() or false, live = E.GetLiveStep() or false }}
+state.stepAt, state.liveAt = stepAt(state.step), stepAt(state.live)
 stub.fire("PLAYER_LOGOUT")
 local saved = {{}}
 for _, g in ipairs({{ {groups} }}) do saved[#saved + 1] = {{ g[1], ScenesQ.saved(g[2]) }} end
 emit({{ state = state, saved = saved, world = ScenesQ.world(), lines = Scene.since(Scene.atLogin).lines }})
 "#,
-			sets = sets.join("\n"),
 			groups = groups.join(", ")
 		),
-		..goldshire("")
 	})
 	.into_iter()
 	.next()
 	.expect("the previous release's run emitted nothing");
-	let old = &before["state"];
+	let old = before["state"].clone();
 	assert!(old["guide"].is_string() && old["step"].as_u64().is_some_and(|s| s > 1), "the previous release's character is not partway through a guide: {old}");
 
 	// The release under test, with what the previous one saved: login addons get theirs before their
 	// ADDON_LOADED, the rest (load on demand here) before any addon loads.
-	let login = install(&dir).names;
+	let login = install(dir).names;
 	let mut saved = Vec::new();
 	let mut early = Vec::new();
 	for pair in before["saved"].as_array().cloned().unwrap_or_default() {
@@ -93,15 +107,15 @@ emit({{ state = state, saved = saved, world = ScenesQ.world(), lines = Scene.sin
 			early.push(lua.to_string());
 		}
 	}
-	let world = before["world"].as_str().expect("the previous run's world");
+	let restore = before["world"].as_str().expect("the previous run's world");
 	let checks: Vec<String> = CHANGED.iter().map(|(p, _, _)| format!("[{0}] = Polestar.Get({0})", lua_string(p))).collect();
 	let out = play(&Play {
-		dir: Some(dir.clone()),
+		dir: Some(dir.to_path_buf()),
 		stubs: vec!["stub_scenes_quests.lua"],
-		before: format!("ScenesQ.goldshire()\nScenesQ.restore({world})\n{}\nScene.atLogin = Scene.snap()", early.join("\n")),
+		before: format!("{world}\nScenesQ.restore({restore})\n{}\nScene.atLogin = Scene.snap()", early.join("\n")),
 		saved,
 		script: format!(
-			r#"
+			r#"{STEP_AT}
 local loginMs = ScenesQ.loginMs()
 local settle = Scene.work(function() stub.advance(10) end)
 local E = Polestar.Engine
@@ -115,6 +129,7 @@ SlashCmdList.POLESTAR("options")
 stub.advance(2)
 local d = Scene.since(Scene.atLogin)
 emit({{ guide = E.GetGuide() and E.GetGuide().id or false, step = E.GetStepIndex() or false, live = E.GetLiveStep() or false,
+	stepAt = stepAt(E.GetStepIndex()), liveAt = stepAt(E.GetLiveStep()),
 	settings = settings, welcome = welcome, off = off, disabled = ScenesQ.disabled, needed = needed,
 	options = C_AddOns.IsAddOnLoaded("Polestar_Options"), lines = d.lines, sounds = d.soundIds, alerts = d.alerts, actions = d.actions,
 	loginMs = loginMs, settleMs = settle.ms }})
@@ -125,11 +140,27 @@ emit({{ guide = E.GetGuide() and E.GetGuide().id or false, step = E.GetStepIndex
 	.into_iter()
 	.next()
 	.expect("the release's run emitted nothing");
-	println!("before: {}\nafter: {}", serde_json::to_string_pretty(old).unwrap(), serde_json::to_string_pretty(&out).unwrap());
+	println!("before: {}\nafter: {}", serde_json::to_string_pretty(&old).unwrap(), serde_json::to_string_pretty(&out).unwrap());
+	(old, out)
+}
+
+#[test]
+fn an_update_keeps_the_guide_step_settings_and_addons_2594() {
+	let Some(dir) = release_or_skip() else { return };
+	let Some(prev) = previous() else {
+		skip("POLESTAR_PREVIOUS_ADDON_DIR is unset (the live release's unpacked AddOns folder): the update scene needs it");
+		return;
+	};
+	let sets: Vec<String> = CHANGED.iter().map(|(p, v, _)| format!("Polestar.Set({}, {v})", lua_string(p))).collect();
+	let place = r#"local at = ScenesQ.place(240)
+if not at then error("the previous release loaded no guide, or none that hands in a quest to Marshal Dughan (240)", 0) end"#;
+	let (old, out) = update_scene(&dir, &prev, "ScenesQ.goldshire()", place, &sets.join("\n"));
+	let old = &old;
 
 	assert_eq!(out["guide"], old["guide"], "the update changed the loaded guide: {old} -> {out}");
-	assert_eq!(out["step"], old["step"], "the update moved the guide's step: {old} -> {out}");
-	assert_eq!(out["live"], old["live"], "the update moved the live step: {old} -> {out}");
+	assert!(old["stepAt"].is_string(), "the previous release's step has no title or goals: {old}");
+	assert_eq!(out["stepAt"], old["stepAt"], "the update moved the guide's step: {old} -> {out}");
+	assert_eq!(out["liveAt"], old["liveAt"], "the update moved the live step: {old} -> {out}");
 	for (path, _, want) in CHANGED {
 		let want: Value = serde_json::from_str(want).unwrap();
 		assert_eq!(out["settings"][path], want, "the update lost the setting {path}: {}", out["settings"]);
@@ -147,6 +178,38 @@ emit({{ guide = E.GetGuide() and E.GetGuide().id or false, step = E.GetStepIndex
 	forge_addontest::assert_timing!(login < LOGIN_MS, "the first login after the update took {login:.0} ms from PLAYER_LOGIN (budget {LOGIN_MS} ms)");
 	let settle = out["settleMs"].as_f64().unwrap_or(f64::NAN);
 	forge_addontest::assert_timing!(settle < SETTLE_MS, "the 10 s after the update's login took {settle:.0} ms (budget {SETTLE_MS} ms)");
+}
+
+/// #3440: a character partway through Wetlands (at Whelgar's Excavation Site, handing in to Prospector Whelgar,
+/// 1078), past Menethil Harbor, whose save keeps the steps as planned for it: quests waiting on chains of earlier
+/// guides are left out of them. From 0.4.1.1, 0.4.2 added Lifting the Curse to Menethil Harbor, and those steps'
+/// keys, matching no released step, held the player there (8 to 88 steps back). The update opens the guide at the
+/// same step.
+#[test]
+fn an_update_mid_wetlands_keeps_the_step_whose_saved_steps_left_quests_out_3440() {
+	let Some(dir) = release_or_skip() else { return };
+	let Some(prev) = previous() else {
+		skip("POLESTAR_PREVIOUS_ADDON_DIR is unset (the live release's unpacked AddOns folder): the update scene needs it");
+		return;
+	};
+	let place = r#"Polestar.Engine.SetGuide("forever/alliance/06-wetlands")
+stub.fire("QUEST_LOG_UPDATE")
+stub.advance(3)
+local at = ScenesQ.place(1078)
+if not at then error("the previous release has no Wetlands guide, or none that hands in a quest to Prospector Whelgar (1078)", 0) end
+ScenesQ.walked(at)"#;
+	let (old, out) = update_scene(&dir, &prev, "ScenesQ.wetlands()", place, "");
+	assert_eq!(out["guide"], old["guide"], "the update changed the loaded guide: {old} -> {out}");
+	// The same stop: its title and every goal the player had there (the plan may show a quest it left out before,
+	// now that the update passed what it waited on).
+	let stop = |v: &Value| -> Option<(String, Vec<String>)> {
+		let (title, goals) = v.as_str()?.split_once(" | ")?;
+		Some((title.to_string(), goals.split(',').map(str::to_string).collect()))
+	};
+	for key in ["stepAt", "liveAt"] {
+		let (Some((t0, g0)), Some((t1, g1))) = (stop(&old[key]), stop(&out[key])) else { panic!("no {key}: {old} -> {out}") };
+		assert!(t0 == t1 && g0.iter().all(|g| g1.contains(g)), "the update moved the guide's {key}: {old} -> {out}");
+	}
 }
 
 /// Budgets (CPU ms, quiet machine), about 5x 0.4.1.1's: PLAYER_LOGIN through the login's timers (the guide placed

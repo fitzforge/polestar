@@ -11205,12 +11205,16 @@
 				"goal": "objective",
 				"objective": 1
 			},
-			"tip": "Careful: a Malfunctioning Reaver (level 56, rare) walks the slopes by the broodlings, and the Black Dragonspawn and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull.",
-			"note": "Danger-at-the-spot sweep (#1575, 0.4.0 audit): the Broodling Essence point moved to the Black Broodling spawn at 81.0,28.2 (places record 1575-burning-steppes-broodling-essence). A Malfunctioning Reaver (56, rare) spawns about 65 yd from it (79.2,29.7), and elite Black Dragonspawn (52) and Wyrmkin (53) stand around both broodling spawns nearest Flame Crest (81.0,28.2 and 81.4,26.5); the spawns clear of both lie about 370 yd further east, so the point stays and the step warns.",
+			"tip": "Careful: a Malfunctioning Reaver (level 56, rare) walks the slopes by the broodlings, Volchan (60, a rare fire elemental) roams the hills east of Flame Crest, and the Black Dragonspawn and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull.",
+			"note": "Danger-at-the-spot sweep (#1575, 0.4.0 audit): the Broodling Essence point moved to the Black Broodling spawn at 81.0,28.2 (places record 1575-burning-steppes-broodling-essence). A Malfunctioning Reaver (56, rare) spawns about 65 yd from it (79.2,29.7), and elite Black Dragonspawn (52) and Wyrmkin (53) stand around both broodling spawns nearest Flame Crest (81.0,28.2 and 81.4,26.5); the spawns clear of both lie about 370 yd further east, so the point stays and the step warns. 0.4.2 danger gate: Volchan (60, rare) spawns at 81-82,26-29 too, beside the point; the tip names him (players' recordings: 21 people handed the quest in at 51.5-55.9, none killed by him).",
 			"source": [
 				{
 					"kind": "pfquest",
 					"ref": "npcs.json 8981 Malfunctioning Reaver 56 rare at Burning Steppes 79.2,29.7 / 88.1,31.8 / 90.0,46.0 / 85.8,57.1 / 88.6,57.4; 7047 Black Broodling spawns 81.0-91.9,26.5-62.1; Black Dragonspawn (52) and Black Wyrmkin (53), rank elite, among them"
+				},
+				{
+					"kind": "recording",
+					"ref": "danger gate 0.4.2 (use 4726.1 over, Volchan 60 x2 at route level 50.2); rec index 2026-11-20: 4726 handed in by 21 people at 51.5-55.9; Volchan (10119) met hostile by 8 Alliance people, killed nobody"
 				}
 			],
 			"issue": 1575
@@ -14177,6 +14181,515 @@
 				}
 			],
 			"issue": 3212
+		},
+		{
+			"id": "a1-darkshore-onu-with-cave-mushrooms",
+			"faction": "Alliance",
+			"at": {
+				"quest": 948,
+				"goal": "accept",
+				"guide": "forever/alliance/03-darkshore"
+			},
+			"follows": {
+				"quest": 947,
+				"goal": "turnin"
+			},
+			"note": "03-darkshore's last Auberdine stop (0.4.2): Barithras Moonshade offers Onu (948) once Cave Mushrooms (947) is handed in to him. The stop took it after Gwennyth's turtle (4727) and Gubber's crab chunks (1138) on the pier, 99 yd off, so the player walked back to Barithras; it is now taken at the hand-in, before the pier.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quests.json 948 pre 947, both from Barithras Moonshade (3583)"
+				}
+			]
+		},
+		{
+			"id": "horde-epl-villains-of-darrowshire-with-brother-carlin",
+			"faction": "Horde",
+			"at": {
+				"quest": 5181,
+				"goal": "accept",
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"follows": {
+				"quest": 5210,
+				"goal": "turnin"
+			},
+			"note": "50-60/05's third Light's Hope Chapel stop (0.4.2): Carlin Redpath offers Villains of Darrowshire (5181) once Brother Carlin (5210) is handed in to him. The stop took it after The Restless Souls from Caretaker Alen (5281), 125 yd off, so the player walked back to Carlin; it is now taken at the hand-in, then Alen.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "quests.json 5181 pre 5210, given and taken by Carlin Redpath (11063)"
+				}
+			]
+		},
+		{
+			"id": "hyjal-violence-into-verdure-seeds-3170",
+			"at": {
+				"quest": 93747,
+				"goal": "objective",
+				"objective": 2,
+				"guide": "forever/50-60/mount-hyjal"
+			},
+			"tip": "The three wrecks Ketharas named lie at the east end of the fields: use the Bag of Enchanted Seeds beside each, the catapult and the flying machine first, then the ballista a little north of them.",
+			"note": "#3170: the wreck step had only gotos, which tick on arrival, and the ballista was one `complete` for the whole quest, so a player who rode past without planting was sent to Ketharas with nothing done. Each wreck is now a `use 269944` line on its own objective (93747.1 Ballista, .2 Catapult, .3 Flying Machine, as the corrections set them), held until the seed is planted there, and both steps' tips name the Bag of Enchanted Seeds. Players' recordings to 2026-11-20: 19 players, each wreck ticked by a cast of the bag (spell 1287099) beside it. ESp3cter's fix (#3257). #3400 (Stö, 0.4.2): the ballista stands with the other two wrecks at 66.3,79.2 (data/places.json 3400-hyjal-ruined-ballista-seed), not at the shrub field's north-eastern edge, so all three are planted in this step and the shrub field step has none.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 93747 (2026-11-20): 22 runs, 19 people; every objective tick follows cast 1287099"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#3170 (0.4.1): turned in with no wreck planted"
+				}
+			],
+			"issue": 3170,
+			"pr": 3257
+		},
+		{
+			"id": "hyjal-maerion-misery-before-daegun-3302",
+			"at": {
+				"quest": 97009,
+				"goal": "accept",
+				"guide": "forever/50-60/mount-hyjal"
+			},
+			"tip": "North-east to Maerion Thaelemaches at the northern ruins of Dae'gun: take Maerion's Misery so the Defiling Hounds drop their spikes while you work the other errands here.",
+			"note": "#3302: Maerion's Misery was taken only after the Dae'gun sweep, so its twelve Felhound Spikes, which drop from the same Defiling Hounds as Siphoned Ephemeral Essence, meant a second round of hound kills. It is taken now at Maerion (63.2,25.8) right after Elaena's, Witherbeard's and Yashiro's quests, and the spikes are an optional line of the Dae'gun step. Players' recordings to 2026-11-20: 13 players took it, 12 from Maerion at 63.2-63.3,25.7-26.0 with no earlier quest (4 while the essence was still open); 10 handed it in, most after 15 to 32 hound kills. ESp3cter's fix (#3257).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 97009 (2026-11-20): 14 runs, 13 people, spikes looted from npc 249230"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#3302 (0.4.1.1): asked to take it with the essence quest"
+				}
+			],
+			"issue": 3302,
+			"pr": 3257
+		},
+		{
+			"id": "hyjal-maerion-misery-handin-when-onquest-3302",
+			"at": {
+				"quest": 97009,
+				"goal": "turnin",
+				"guide": "forever/50-60/mount-hyjal"
+			},
+			"when": "onquest 97009",
+			"note": "#3302: with the accept moved before the Dae'gun sweep, the later Maerion step (by Bethra'zel's corner) is the hand-in: shown only while the quest is in the log, it holds for the spikes still missing (the hounds around him drop them) and the hand-in, so a player who took it is led back to Maerion and one who didn't never sees it. ESp3cter's fix (#3257).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 97009 (2026-11-20): 10 of 13 players handed it in at npc 267097"
+				}
+			],
+			"issue": 3302,
+			"pr": 3257
+		},
+		{
+			"id": "3266-rogmar-scouts-twilight-key",
+			"faction": "Horde",
+			"at": {
+				"quest": 94748,
+				"goal": "complete",
+				"guide": "forever/horde/40-50/01b-riverglades"
+			},
+			"tip": "Twilight Champions drop the Twilight Key that frees a captive Rog'mar Scout: free them as you find them.",
+			"note": "#3266: each captive Rog'mar Scout's cage opens only with a Twilight Key (265821), which the Twilight Champions (256799) drop; the step's tip only said to free the scouts. It names the key and who carries it.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "items.json 265821 Twilight Key: dropped by npc 256799 Twilight Champion"
+				},
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 94748: 25 people, every objective tick right after a cast of Unlocking (1277271)"
+				}
+			],
+			"issue": 3266
+		},
+		{
+			"id": "3411-riverglades-jomjom-in-the-cave",
+			"faction": "Horde",
+			"at": {
+				"quest": 94556,
+				"goal": "accept",
+				"guide": "forever/horde/40-50/01b-riverglades"
+			},
+			"tip": "Jom-jom waits at the back of the cave by the Twilight ogres' camp north-east of Na'zok: go all the way in to find him, then take him home to Bolder'ok and keep the cultists off him. If he falls, take the quest from him again.",
+			"note": "#3411, #3388: Jom-jom waits deep in a cave (data/places.json 2825-riverglades-jomjom-giver, 73.4,24.7), but the step's tip said only that he waits by the ogres' camp, so players looked for him outside. The tip says he is at the back of the cave.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-17: 22 accepts of 94556 by 19 people, every one at 73.32-74.03,24.57-24.88, the position samples around each indoors"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#3388 (Yeq, 0.4.1.1): the quest is taken at the back of the cave, about 73.4,24.7; #3411: the escort starts in a cave"
+				}
+			],
+			"issue": 3411
+		},
+		{
+			"id": "3002-iron-pommel-rotting-slimes",
+			"faction": "Alliance",
+			"at": {
+				"quest": 1027,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/06-wetlands"
+			},
+			"tip": "Rotting Slimes in and around the Barrow Den leave a Rusty Chest when they die: open the chests until one holds the pommel.",
+			"note": "#3002: the Iron Pommel (5519) for Raene's Cleansing comes only from Rusty Chests (19021), which the Rotting Slimes (3928) of the Dor'Danil Barrow Den leave when they die; the tip sent players to the Shadethicket furbolg camps for chests standing there. The tip names the slimes, as the quest's note in data/mechanics-public.json does.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3002 (0.4.1): the chests are inside and dropped by the Rotting Slimes"
+				},
+				{
+					"kind": "recording",
+					"ref": "players' recordings to 2026-11-20: pommel ticks right after a Rotting Slime was seen or killed"
+				}
+			],
+			"issue": 3002
+		},
+		{
+			"id": "2358-drowned-reef-breath",
+			"at": {
+				"quest": 662,
+				"goal": "objective",
+				"objective": 1
+			},
+			"tip": "Careful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy.",
+			"note": "#2358: Deep Sea Salvage's charts and logs (Faldir's Cove, both sides' Arathi Highlands guides) lie deep inside the two sunken wrecks, a long dive with no water breathing; the reef step gave no heads-up. The tip says to watch the breath bar and names the potion.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2358: long dives in the wrecks with no water breathing (two players)"
+				}
+			],
+			"issue": 2358
+		},
+		{
+			"id": "3104-reliquary-of-purity-optional",
+			"faction": "Horde",
+			"at": {
+				"quest": 5527,
+				"goal": "accept",
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"optional": true,
+			"note": "#3104, #3270: Rabine Saturna offers A Reliquary of Purity (5527) only to a character who has been inside Dire Maul and spoken with him about it, so the Moonglade step held players he offered nothing to. The accept is optional; the quest's fact is in data/mechanics-public.json.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3104 (0.4.1.1): not offered until a visit to Dire Maul; #3270: offered after zoning into Dire Maul East"
+				}
+			],
+			"issue": 3104
+		},
+		{
+			"id": "3104-reliquary-of-purity-tip",
+			"faction": "Horde",
+			"at": {
+				"quest": 5527,
+				"goal": "accept",
+				"guide": "forever/horde/50-60/05-eastern-plaguelands"
+			},
+			"tip": "Rabine offers A Reliquary of Purity only after you have been inside Dire Maul once: if he doesn't offer it, carry on without it.",
+			"note": "#3104, #3270: the step says why Rabine may not offer the quest (a Dire Maul visit first).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3104 (0.4.1.1): not offered until a visit to Dire Maul; #3270: offered after zoning into Dire Maul East"
+				}
+			],
+			"issue": 3104
+		},
+		{
+			"id": "3188-caught-silk-from-gadgetzan",
+			"faction": "Horde",
+			"at": {
+				"quest": 4449,
+				"goal": "objective",
+				"objective": 2,
+				"guide": "forever/horde/40-50/04-tanaris"
+			},
+			"tip": "Bring the 15 Silk Cloth from Gadgetzan's Auction House: the Geologists drop it only now and then.",
+			"note": "#3188: Caught! (4449) asks for 15 Silk Cloth, and its tip said the Auction House sells it only once the player stood at the Grimesilt Dig Site, far from any. The Dark Iron Geologists drop it at about 10% (players' recordings). The last Gadgetzan stop before the boat to Powderfuse Port has an optional bag count of 15 at Auctioneer Beardo (npc 8661; the seed carries the line), and the dig site's tip points back to it.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "Dark Iron Geologist (5839) loot windows: Silk Cloth in about 10% of 154 (seven people)"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#3188 (0.4.1.1): asked for the cloth only at the dig site"
+				}
+			],
+			"issue": 3188
+		},
+		{
+			"id": "3205-terrorweb-tunnel-careful",
+			"faction": "Alliance",
+			"at": {
+				"quest": 5543,
+				"goal": "turnin",
+				"guide": "forever/alliance/50-60/04-western-plaguelands"
+			},
+			"tip": "Careful: the short way from Terrordale to Tirion is the Terrorweb Tunnel, whose south mouth opens by his hut: Crypt Fiends, Walkers, Horrors and Slayers (53-58) stand close together inside. Pull them one at a time, or ride round by the road outside it.",
+			"note": "#3205: from Terrordale, Tirion's step walks through the Terrorweb Tunnel, whose south mouth by the Thondroril River (EPL 5.22,32.67) the travel line names as the cave mouth; the tunnel holds crypt fiends of 53-58 close together, a lot for one player at 56. The step warns before the walk. The Horde route reaches Tirion from the Marris Stead, not through the tunnel.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "npcs.json spawns between Terrordale and Tirion (EPL 5-12,25-34): Crypt Horror 8557 (57) x8, Crypt Walker 8556 (55) x6, Crypt Fiend 8555 (53) x5, Crypt Slayer 8558 (58) x3"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#3205 (0.4.1.1): the tunnel is full of mobs for a level 56 Paladin"
+				}
+			],
+			"issue": 3205
+		},
+		{
+			"id": "3070-redridge-walk-in-only-from-outside",
+			"faction": "Alliance",
+			"at": {
+				"quest": 128,
+				"goal": "accept",
+				"guide": "forever/alliance/04-redridge-mountains"
+			},
+			"way": {
+				"when": "!zone \"Redridge Mountains\""
+			},
+			"note": "#3070: the walk-in point at Three Corners (15.3,71.5) before Guard Howe's step is for players coming up the road from Darkshire; it had no condition, so a player who flew in to Lakeshire was sent about 300 yd back west to the zone's entrance first. The walk is held only for players not yet in Redridge.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3070 (0.4.0.1): sent back to Redridge's entrance after flying in"
+				}
+			],
+			"issue": 3070
+		},
+		{
+			"id": "3044-frostmane-hold-far-end",
+			"faction": "Alliance",
+			"at": {
+				"quest": 287,
+				"goal": "complete"
+			},
+			"tip": "Frostmane Hold is the troll cave in the hills south-west of Brewnall Village. Kill Headhunters at its mouth, then walk through the cave to its far end: Fully explore Frostmane Hold ticks only in there, not on the hill above it.",
+			"note": "#3044: Frostmane Hold's exploration line ticks only at the cave's far end; the goal's point has no height, so a player on the hill above it stood at the arrow with nothing ticking. The tip says the spot is inside, at the far end (the dwarf and gnome Dun Morogh guides).",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 287: line 2 ticked for 68 people at map 1426 21.09-21.53, 53.90-54.71"
+				}
+			],
+			"issue": 3044
+		},
+		{
+			"id": "3026-gordunni-cobalt-mound-to-mound",
+			"faction": "Horde",
+			"at": {
+				"quest": 2987,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/40-50/02-feralas"
+			},
+			"tip": "Use Orwin's Shovel on each Gordunni Dirt Mound around the outpost: the arrow goes from mound to mound.",
+			"note": "#3026: the step's `use 9466` (Orwin's Shovel, at one fixed point) came before the cobalt's collect, so the arrow stayed on that one mound until all 12 Gordunni Cobalt were in and never went round the other Gordunni Dirt Mounds (objects 144064 and 177681, about 20 spawns at 74-81,25-35). The collect, whose spots are the mounds, comes first now; the shovel's line follows it for its button.",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3026 (0.4.1.1): the arrow stayed on one mound"
+				},
+				{
+					"kind": "client",
+					"ref": "objects.json 144064 and 177681 Gordunni Dirt Mound spawns on map 1444"
+				}
+			],
+			"issue": 3026
+		},
+		{
+			"id": "3220-marcus-jonathan-rides-the-valley",
+			"faction": "Alliance",
+			"at": {
+				"quest": 120,
+				"goal": "turnin",
+				"guide": "forever/alliance/03-loch-modan"
+			},
+			"tip": "If General Marcus Jonathan isn't at the arrow, he is walking his horse along the Valley of Heroes nearby: look along the avenue or wait a moment.",
+			"note": "#3220: General Marcus Jonathan (466) rides a path along Stormwind's Valley of Heroes, so a player at the arrow often found him gone and didn't know he would be back. Both Stormwind steps that hand in Messenger to Stormwind say so.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py npc 466: seen by 186 people at 65-68,75-84 of Stormwind"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#3220 (0.4.1.1): not at the arrow while riding around"
+				}
+			],
+			"issue": 3220
+		},
+		{
+			"id": "3067-pearl-diving-handin-when-complete",
+			"faction": "Alliance",
+			"at": {
+				"quest": 705,
+				"goal": "turnin",
+				"guide": "forever/alliance/40-50/02-badlands"
+			},
+			"when": "complete 705",
+			"note": "#3067: Pearl Diving's Blue Pearls come from the clams of Stranglethorn's north-west coast, in the guide before; a player who carried the quest without them was still sent to Rigglefuzz in the Valley of Fangs. The hand-in's step shows only once the quest is complete, as Beren's Peril's does (#3212).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#3067 (0.4.1.1): sent to hand in Pearl Diving without the Blue Pearl"
+				}
+			],
+			"issue": 3067
+		},
+		{
+			"id": "3235-gammerita-camera-no-kill",
+			"faction": "Alliance",
+			"at": {
+				"quest": 2944,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/50-60/01-burning-steppes"
+			},
+			"tip": "Gammerita need not die: target her and use the Super Snapper FX. She is a level 48 elite, so keep your distance.",
+			"note": "#3235: The Super Snapper FX's Snapshot of Gammerita (9330) comes from using the camera (9328) on her, not from her corpse (the fact is in forever-db/corrections/items.json); the step had a collect from her with a group of 2 and said to skip it alone. It has the camera's use goal only, and the tip says she need not die.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 2944: the snapshot line ticked on the camera's cast (spell 11610) for 8 people, never on a kill of Gammerita (7977)"
+				}
+			],
+			"issue": 3235
+		},
+		{
+			"id": "3012-nibbled-on-book-from-echo-ridge",
+			"faction": "Alliance",
+			"at": {
+				"quest": 91741,
+				"goal": "accept",
+				"guide": "forever/alliance/human/01-elwynn-forest"
+			},
+			"tip": "Now and then a kobold here drops a Nibbled-On Book: right-click it and hand it to Brother Paxton on your next Abbey stop.",
+			"note": "#3012: the Nibbled-On Book (247834), which starts Brother Paxton's quest (91741), drops from the Kobold Vermin, Laborers and Workers of Northshire (items.json: npcs 6, 80, 257), but the guide took and handed it in only on the Vermin stop and the Abbey stop after it. A book from the Echo Ridge Mine's Workers or Laborers was never mentioned. Both mine steps take it (optional) and the Abbey stop after each hands it in (optional); the seed carries the goals.",
+			"source": [
+				{
+					"kind": "client",
+					"ref": "items.json 247834 Nibbled-On Book: dropped by npcs 6, 80, 257; quests.json 91741 starts from it, ends at Brother Paxton (951)"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#3012 (0.4.1): the book from Northshire's kobolds, and no step to take or hand it in"
+				}
+			],
+			"issue": 3012
+		},
+		{
+			"id": "3193-hillsbrad-22-rescue-keys",
+			"faction": "Horde",
+			"at": {
+				"quest": 498,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/06-hillsbrad-foothills"
+			},
+			"tip": "Drull and Tog'thar are chained inside Durnholde Keep's courtyard buildings. Their locks need keys: Jailor Eston carries the Dull Iron Key and Jailor Marlgen the Burnished Gold Key, both in the keep. Kill them, then open both locks.",
+			"note": "#3193, #3274: The Rescue's two locks each need a jailor's key, and the 06 Hillsbrad step went straight to the balls and chains (the 30-40 copy got the keys for #2512). The keys are goals of their own before the locks, on the same step; the seed carries the lines.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings (as #2512): Jailor Eston's loot held the Dull Iron Key for 37 people, Jailor Marlgen's the Burnished Gold Key for 40"
+				}
+			],
+			"issue": 3193
+		},
+		{
+			"id": "3211-cuely-vials-at-the-tide-pools",
+			"faction": "Horde",
+			"at": {
+				"quest": 3568,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/horde/50-60/02-felwood"
+			},
+			"tip": "Fill Cuely's four vials at the tide pools on the shore, from Southridge Beach north up the coast; Spitelash naga patrol between them.",
+			"note": "#3211: Seeping Corruption's step pointed at the Ruins of Eldarath (35.0,55.0) with a bare complete, so the arrow never led to the four tide pools on the shore east of them. Each vial is a goal at its own pool (the First to Fourth Tide Pool objects, 152598, 152604, 152605, 152606), south to north: 48.0,60.6 on Southridge Beach, then 48.0,51.2, 48.7,48.4 and 47.4,46.3; the seed's copy of the step (50-60/04) carries the same lines.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "rec.py quest 3568: the vials fill on casts 12802-12808 at the pools; #3211's report at 48.19,60.63"
+				}
+			],
+			"issue": 3211
+		},
+		{
+			"id": "3172-lamora-loot-below-deck",
+			"at": {
+				"quest": 95124,
+				"goal": "objective",
+				"objective": 2
+			},
+			"tip": "Admiral Lamora walks the middle ship's top deck; her loot chest is below deck.",
+			"note": "#3172: Admiral Lamora (257861) walks the middle pirate ship's top deck, and Lamora's Loot is in a chest below deck; both sides' Riverglades steps said she stands by the ship with the chest beside her.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings: 40 of 40 Lamora's Loot ticks indoors (below deck)"
+				}
+			],
+			"issue": 3172
+		},
+		{
+			"id": "3024-ylva-banner-before-headsplitter",
+			"faction": "Alliance",
+			"at": {
+				"quest": 86585,
+				"goal": "objective",
+				"objective": 1,
+				"guide": "forever/alliance/03-loch-modan"
+			},
+			"goalNote": "Banner of Ironforge: raise it beside Ylva, then hold the spot until Headsplitter comes",
+			"note": "#3024: Banner of the Fallen asks you to raise the standard of Ironforge to call Headsplitter out (the quest's text), but the step went from the accept straight to the kill, so players waited at the cave for a trogg that never came. The Banner of Ironforge's use (253247) comes before the kill, on the objective, at Ylva (31.7,86.3); the seed carries the line.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' recordings: the banner's cast (spell 1303317) by 36 of 48 people between the accept and the Headsplitter kill, median 99.5 s before it"
+				},
+				{
+					"kind": "client",
+					"ref": "quests.json 86585 objectiveText: Raise the standard of Ironforge, call out the trogg Headsplitter and kill it"
+				}
+			],
+			"issue": 3024
+		},
+		{
+			"id": "2900-apprentice-claire-in-the-cave",
+			"faction": "Alliance",
+			"at": {
+				"quest": 95642,
+				"goal": "turnin",
+				"guide": "forever/alliance/40-50/01b-riverglades"
+			},
+			"tip": "Claire is in the cave under the eastern edge of Sunnyglade: its entrance is at 50.0,46.0.",
+			"note": "#2900: Apprentice Claire (256831) stands in a cave below Sunnyglade's eastern edge (data/npc-floors.json: z -45.8, 30 of 33 people, against 32.1 for Fuzzle on the same step), about 78 yd lower than the town; the steps said only that she is at its eastern edge, so players stood above her with no way in. Both her steps name the cave and its entrance (50.0,46.0, the report's spot).",
+			"source": [
+				{
+					"kind": "in-game-check",
+					"ref": "#2900 (0.4.1.1): the NPC is in a cave whose entrance is at 50.00,45.99"
+				},
+				{
+					"kind": "recording",
+					"ref": "data/npc-floors.json 256831: z -45.8 (30 of 33 people)"
+				}
+			],
+			"issue": 2900
 		}
 	]
 }

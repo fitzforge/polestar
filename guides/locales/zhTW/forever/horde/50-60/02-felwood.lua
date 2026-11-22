@@ -76,7 +76,11 @@ return {
 	["Ride east to the ruins on the coast. The four tablets lie among the ruins, guarded by Spitelash naga (52-55): pull them one at a time."] = "向東騎到海岸上的廢墟。四塊石板散落在廢墟中，由惡鞭納迦（52-55級）守衛：一次拉一隻。",
 
 	-- Step 17: Ruins of Eldarath
-	["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "向東騎往海岸上的遺跡。在沿岸的潮池裝滿科雷的四個瓶子；惡鞭納迦在潮池之間巡邏。",
+	-- {area:1231} Southridge Beach
+	["Fill Cuely's four vials at the tide pools on the shore, from {area:1231} north up the coast; Spitelash naga patrol between them."] = "",
+	-- {item:10691} Filled Vial Labeled #1 · {area:1231} Southridge Beach
+	["{item:10691}: the tide pool on {area:1231}"] = "",
+	["#2, north along the shore"] = "",
 
 	-- Step 18: Makrinni Burrowers
 	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower
@@ -126,8 +130,8 @@ return {
 
 	-- Step 25: The Legashi satyrs
 	["The Legashi satyrs"] = "雷加希薩特",
-	-- {npc:235903} Ekkal
-	["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind."] = "雷加希薩特（51-52）佔據血精靈營地北邊的山丘：{npc:235903}要每種各五隻。",
+	-- {npc:235903} Ekkal · {npc:235892} Prince Halanox
+	["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind.\nCareful: {npc:235892} (55, elite) stands among the satyrs at the north-east end of their hills, around 67,19: take the satyrs nearer the camp and leave him be."] = "",
 
 	-- Step 26: Kim'jael
 	-- {npc:8420} Kim'jael
@@ -210,8 +214,8 @@ return {
 	-- Step 44: Southern Jaedenar
 	-- {area:1763} Jaedenar
 	["Southern {area:1763}"] = "{area:1763}南部",
-	-- {area:1763} Jaedenar
-	["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds."] = "沿著道路向西北走。{area:1763}南部的腐化月井周圍，由加德納爾祭司、加德納爾精兵、加德納爾守護者和加德納爾惡犬佔據。",
+	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge
+	["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: pull the cultists and hounds away from him."] = "",
 
 	-- Step 46: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
@@ -286,6 +290,7 @@ return {
 	-- ["Fly to {area:272}"] = "飛往{area:272}",
 	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo, and their organs are {npc:10920}'s.\n{area:1762}'s Deadwood Den Watchers (53-54) and Avengers (54-55) are next: below level 54, keep hunting the grizzlies and ravagers (51-52) here until 54. The hand-ins at {area:1769}, the {area:2479} and {area:1997} that follow take you most of the way to 55. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "沿著道路向東北前往{area:1767}。樹林東側的扭木食苔者和撕裂者各帶有一個{item:11503}；怒爪灰熊和魔爪劫毀者在同一片樹林遊蕩，是塔羅的任務目標，牠們的內臟則交給{npc:10920}。\n接下來是{area:1762}的死木守衛（53-54級）和復仇者（54-55級）：低於54級時，繼續在這裡獵殺灰熊和劫毀者（51-52級）直到54級。之後在{area:1769}、{area:2479}和{area:1997}的繳交會讓你接近55級。或者，有小隊的話，改打{area:1417}地城或{area:1584}地城。",
 	-- ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo. Below level 54.21, keep hunting the grizzlies and ravagers: the hand-ins at {area:1997} and the {area:2479} take you to level 55. Or, with a group, run the {area:1584} dungeon or the {area:1417} dungeon instead."] = "沿著道路向東北前往{area:1767}。樹林東側的曲木食苔者和曲木撕裂者各帶有一個{item:11503}；怒爪灰熊和魔爪掠奪者在同一片樹林遊蕩，是塔羅的任務目標。低於54.21級時，繼續獵殺灰熊和掠奪者：{area:1997}和{area:2479}的繳交會讓你升到55級。或者，有隊伍的話，改打{area:1584}地城或{area:1417}地城。",
+	-- ["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds."] = "沿著道路向西北走。{area:1763}南部的腐化月井周圍，由加德納爾祭司、加德納爾精兵、加德納爾守護者和加德納爾惡犬佔據。",
 	-- ["From {area:2268}'s flight master, fly to the {area:1497}."] = "從{area:2268}的飛行管理員處飛往{area:1497}。",
 	-- ["His next hunt, the Diseased Grizzlies (55-56), waits for the Plaguelands visit at about 58."] = "他的下一個狩獵任務，染病的灰熊（55-56級），留到約58級造訪瘟疫之地時再做。",
 	-- ["Jadefire moonwell"] = "碧火月井",
@@ -304,6 +309,7 @@ return {
 	-- ["Ride back south-east to the Sanctuary."] = "騎回東南方的聖地。",
 	-- ["Ride back to the {area:1497}, take the zeppelin to {zone:1454} and fly to {area:431}. Follow the road west out of Splintertree and take the fork north into {zone:1448}."] = "騎回{area:1497}，搭飛艇前往{zone:1454}，再飛往{area:431}。沿著道路向西離開碎木崗哨，在岔路往北進入{zone:1448}。",
 	-- ["Ride back west over the river and on to the {area:192}; {npc:11610} hides on the hill north-east of it."] = "向西騎回河對岸，繼續前往{area:192}；{npc:11610}躲在它東北方的山丘上。",
+	-- ["Ride east to the ruins on the coast. Fill Cuely's four vials at the tide pools along the shore; Spitelash naga patrol between them."] = "向東騎往海岸上的遺跡。在沿岸的潮池裝滿科雷的四個瓶子；惡鞭納迦在潮池之間巡邏。",
 	-- ["Ride north along the eastern hills; {npc:1855} lives in a small house by the {area:2619}, at the border with the {zone:1423}."] = "沿著東側山丘向北騎；{npc:1855}住在{area:2619}旁的一間小屋，位於與{zone:1423}的邊界。",
 	-- ["Ride north up the road again."] = "再次沿著道路向北騎。",
 	-- ["Ride north-west into Andorhal. {npc:10667} waits in the ruined inn on the west side of town; the skeletons inside are 54-57, so keep to the edges."] = "向西北騎進安多哈爾。{npc:10667}在城鎮西側的廢墟旅店裡等候；裡面的骷髏是54-57級，所以沿著邊緣走。",
@@ -321,6 +327,7 @@ return {
 	-- ["The Deadwood furbolg village just west of the tunnel. {npc:9462} (56) stands among them. {npc:11557}, a friendly furbolg, sits at the north end of the village."] = "就在隧道西邊的死木熊怪村莊。{npc:9462}（56級）站在牠們之中。友善的熊怪{npc:11557}坐在村莊北端。",
 	-- ["The Deadwood furbolg village lies just south of the Sanctuary. Every Deadwood kill also raises your {area:1769} reputation; keep the headdress feathers. Keep killing them until level 53.92: the Sanctuary's next hand-ins and {area:1763} want it. Or, with a group, run the {area:1417} dungeon or the {area:1584} dungeon instead."] = "死木熊怪村莊就在聖地南邊。每擊殺一個死木熊怪也會提升你的{area:1769}聲望；保留頭飾羽毛。持續擊殺到53.92級：聖地接下來的繳交和{area:1763}都需要這個等級。或者，有隊伍的話，改打{area:1417}地城或{area:1584}地城。",
 	-- ["The Jadefire moonwell"] = "碧火月井",
+	-- ["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind."] = "雷加希薩特（51-52）佔據血精靈營地北邊的山丘：{npc:235903}要每種各五隻。",
 	-- ["The Scarlet Crusade's tents stand between {area:199} and {area:200}. Torch the command tent with the {object:176092} and plant the Scourge banner."] = "血色十字軍的帳篷位於{area:199}和{area:200}之間。用{object:176092}燒掉指揮帳篷，並插上天災戰旗。",
 	-- ["The bears roam the hills north and east of the {area:202}."] = "熊在{area:202}北邊和東邊的山丘遊蕩。",
 	-- ["The book lies in the ruined inn of {area:2627}; the undead in the town are 54-56, so pull them one at a time.\nThe Large Termite Mounds stand all over the hills east of {area:2627}. Use the {item:15042} on each mound you pass."] = "書在{area:2627}的廢墟旅店裡；鎮上的不死生物是54-56級，所以一次拉一隻。\n大型白蟻丘遍布{area:2627}東邊的山丘。對經過的每個白蟻丘使用{item:15042}。",

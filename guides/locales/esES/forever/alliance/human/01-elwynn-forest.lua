@@ -37,9 +37,9 @@ return {
 	-- Step 6: Echo Ridge Mine: kill these as you meet them
 	-- {area:34} Echo Ridge Mine
 	["{area:34}: kill these as you meet them"] = "",
-	-- {object:83763} Stolen Books
+	-- {object:83763} Stolen Books · {quest:91741} Nibbled-On Book · {npc:951} Brother Paxton
 	-- plural, as words: Kobold Workers = {npc:257} Kobold Worker
-	["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}."] = "Sigue el sendero hacia el norte hasta la mina. Los Trabajadores kóbold pululan fuera; cualquier kóbold del valle puede soltar {object:83763}.",
+	["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}.\nNow and then a kobold here drops a {quest:91741}: right-click it and hand it to {npc:951} on your next Abbey stop."] = "",
 
 	-- Step 7: Northshire Abbey
 	-- {npc:248415} Tordrin Sternblade · {npc:198} Khelden Bremen
@@ -88,10 +88,9 @@ return {
 	-- Step 14: Inside Echo Ridge Mine
 	-- {area:34} Echo Ridge Mine
 	["Inside {area:34}"] = "Dentro de {area:34}",
-	-- {npc:248362} Shinyfinder Narf
+	-- {npc:248362} Shinyfinder Narf · {quest:91741} Nibbled-On Book · {npc:951} Brother Paxton
 	-- plural, as words: Kobold Laborers = {npc:80} Kobold Laborer
-	-- was: ["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nCareful: {npc:248362} (3) is elite: leave him unless you have a friend."] = "Los Obreros kóbold trabajan en los túneles de la mina. {npc:248362} espera tras el segundo giro a la derecha.\nCuidado: {npc:248362} (3) es élite: déjalo salvo que tengas un amigo."
-	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nCareful: {npc:248362} (3) is elite: below level 5, leave him be."] = "",
+	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nNow and then a Laborer drops a {quest:91741}: right-click it and hand it to {npc:951} at the Abbey after the mine.\nCareful: {npc:248362} (3) is elite: below level 5, leave him be."] = "",
 	-- {npc:80} Kobold Laborer · {area:34} Echo Ridge Mine
 	["{npc:80} walks around {area:34}: look inside the circle on the map"] = "",
 
@@ -493,6 +492,7 @@ return {
 	-- ["Bait ingredients"] = "Ingredientes del cebo",
 	-- ["Boar meat"] = "Carne de jabalí",
 	-- ["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "Los Zahoríes bribones Defias acampan en las orillas de {area:86}; también sueltan los Pañuelos de lino rojo. {object:56} está en el poblado múrloc de la orilla noreste.",
+	-- ["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}."] = "Sigue el sendero hacia el norte hasta la mina. Los Trabajadores kóbold pululan fuera; cualquier kóbold del valle puede soltar {object:83763}.",
 	-- ["Follow the road north from {area:87} into {zone:1453}. {npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in {object:2100} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "Sigue el camino hacia el norte desde {area:87} hasta {zone:1453}. {npc:6171} y {npc:6173} están en la Catedral de la Luz; {npc:6174} está en {object:2100} y pide diez {item:2589} (lo sueltan los humanoides; se vende en la casa de subastas).",
 	-- ["Follow the road south out of the valley to {area:87}. {npc:295} is in the Lion's Pride Inn; {npc:240} stands outside the smithy across the road, {npc:253} at the inn's front and {npc:241} by the road south of it."] = "Sigue el camino hacia el sur, fuera del valle, hasta {area:87}. {npc:295} está en la Posada Orgullo de León; {npc:240}, frente a la herrería al otro lado del camino; {npc:253}, delante de la posada; y {npc:241}, junto al camino al sur de ella.",
 	-- ["Follow the road west back to {area:87}."] = "Sigue el camino hacia el oeste de vuelta a {area:87}.",

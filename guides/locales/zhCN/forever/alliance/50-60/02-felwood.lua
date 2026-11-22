@@ -46,8 +46,8 @@ return {
 	["Careful: {npc:9454} (54) stands at the back of the {area:2481}, at about 32.2,67.1, with Shadowstalkers around him: clear them one at a time, then pull him alone at full health."] = "注意：{npc:9454}（54级）站在{area:2481}后方约32.2,67.1处，周围有暗影猎手：逐个清掉，再在满血时单独拉他。",
 
 	-- Step 8: Jaedenar
-	-- {area:1763} Jaedenar
-	["{area:1763} is the ruined temple north of the glen."] = "{area:1763}是谷地北面的神殿废墟。",
+	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge
+	["{area:1763} is the ruined temple north of the glen.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: work the south-east, where the arrow points, and pull the cultists and hounds away from him."] = "",
 	-- {item:11949} Filled Tainted Ooze Jar · {area:1763} Jaedenar
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
 	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "{item:11949}：被污染的软泥怪在{area:1763}的邪能池中滑行",
@@ -125,8 +125,6 @@ return {
 	-- Step 24: Salfa
 	-- {npc:11556} Salfa · {zone:1452} Winterspring · {area:1769} Timbermaw Hold
 	["{npc:11556} stands right at the {zone:1452} exit of {area:1769}'s tunnel, where you come out."] = "{npc:11556}就站在{area:1769}隧道的{zone:1452}出口处，也就是你出来的地方。",
-	-- {area:2244} Winterfall Village · {area:2255} Everlook · {zone:1452} Winterspring
-	["{area:2244} is east of {area:2255}: the next guide's {zone:1452} loop, keep it"] = "",
 
 	-- Step 25: Donova Snowden
 	-- {npc:9298} Donova Snowden
@@ -160,7 +158,11 @@ return {
 	-- {item:11682} Eridan's Vial
 	["Fill {item:11682} at the moonwell inside the Temple of the Moon."] = "",
 
-	-- Step 32: Gracina Spiritmight
+	-- Step 32: Astarii Starseeker
+	-- {npc:4090} Astarii Starseeker · {quest:3378} Prayer to Elune · {zone:1427} Searing Gorge
+	["{npc:4090}, in the Temple of the Moon: {quest:3378}, from the {zone:1427}"] = "",
+
+	-- Step 33: Gracina Spiritmight
 	-- {npc:7740} Gracina Spiritmight
 	["{npc:7740} stands beside Tyrande in the Temple of the Moon."] = "",
 	-- {npc:7740} Gracina Spiritmight · {quest:162} Rise of the Silithid · {area:976} Gadgetzan
@@ -168,13 +170,19 @@ return {
 	-- {npc:5594} Alchemist Pestlezugg · {area:976} Gadgetzan · {zone:1446} Tanaris · {zone:1452} Winterspring
 	["For {npc:5594} in {area:976}, on the {zone:1446} and {zone:1452} guide: keep it"] = "",
 
-	-- Step 34: Mathrengyl Bearwalker
-	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave · {npc:4217} Mathrengyl Bearwalker
-	["{npc:9047} waits in the {area:1658}; Fandral and {npc:4217} stand upstairs in its druids' building."] = "",
+	-- Step 34: Jenal
+	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave
+	["{npc:9047} waits in the {area:1658}, west of the druids' building."] = "",
 	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave · {quest:3764} Un'Goro Soil
 	["{npc:9047}, in the {area:1658}: {quest:3764}"] = "",
+
+	-- Step 36: Arch Druid Fandral Staghelm
+	-- {npc:4217} Mathrengyl Bearwalker
+	["Fandral stands at the top of the druids' building; {npc:4217}, next, is lower down inside it."] = "",
 	-- {npc:3516} Arch Druid Fandral Staghelm
 	["{npc:3516}, upstairs"] = "",
+
+	-- Step 38: Mathrengyl Bearwalker
 	-- {npc:4217} Mathrengyl Bearwalker
 	["{npc:4217}, upstairs"] = "{npc:4217}：在楼上",
 	-- {npc:4217} Mathrengyl Bearwalker · {item:11040} Morrowgrain
@@ -182,27 +190,27 @@ return {
 	-- {zone:1455} Ironforge
 	["{zone:1455} has no druid trainer"] = "{zone:1455}没有德鲁伊训练师",
 
-	-- Step 35: Portal to Teldrassil
+	-- Step 39: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
 	["Portal to {zone:1438}"] = "",
 
-	-- Step 36: Rut'theran Village flight master
+	-- Step 40: Rut'theran Village flight master
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "{area:702}的飞行管理员",
 
-	-- Step 37: Feathermoon Stronghold
+	-- Step 41: Feathermoon Stronghold
 	-- {area:702} Rut'theran Village · {area:1116} Feathermoon Stronghold
 	["From {area:702}, fly to {area:1116}."] = "从{area:702}飞往{area:1116}。",
 
-	-- Step 39: Boat to The Forgotten Coast
+	-- Step 43: Boat to The Forgotten Coast
 	-- {area:1108} The Forgotten Coast
 	["Boat to {area:1108}"] = "乘船前往{area:1108}",
 
-	-- Step 40: Zorbin Fandazzle
+	-- Step 44: Zorbin Fandazzle
 	-- {npc:14637} Zorbin Fandazzle
 	["Take the boat to the mainland: {npc:14637} waits on the dock where it lands."] = "",
 
-	-- Step 41: The Forgotten Coast: kill these as you meet them
+	-- Step 45: The Forgotten Coast: kill these as you meet them
 	-- {area:1108} The Forgotten Coast
 	["{area:1108}: kill these as you meet them"] = "{area:1108}：沿途击杀以下目标",
 	-- {item:18904} Zorbin's Ultra-Shrinker · {npc:14637} Zorbin Fandazzle
@@ -215,36 +223,36 @@ return {
 	-- plural, as words: Deep Striders = {npc:5360} Deep Strider
 	["{item:18904}, on the Wave and Deep Striders in the water"] = "{item:18904}，对水中的海浪巨人和深海巨人使用",
 
-	-- Step 42: Zorbin Fandazzle
+	-- Step 46: Zorbin Fandazzle
 	-- {npc:14637} Zorbin Fandazzle
 	["Back to {npc:14637} on the dock."] = "回到码头上的{npc:14637}处。",
 
-	-- Step 43: Gregan Brewspewer
+	-- Step 47: Gregan Brewspewer
 	-- {area:1119} Twin Colossals · {npc:7775} Gregan Brewspewer · {item:11243} Videre Elixir · {item:11242} Evoroot
 	["Ride north-east from the dock past the {area:1119} to {npc:7775}'s camp. He brews the {item:11243} from an {item:11242}: take his errand for one."] = "",
 
-	-- Step 44: Rockbiter
+	-- Step 48: Rockbiter
 	-- {npc:7765} Rockbiter · {npc:7775} Gregan Brewspewer
 	["The giant {npc:7765} sits just north-west of {npc:7775}'s camp."] = "巨人{npc:7765}就在{npc:7775}营地的西北侧。",
 
-	-- Step 45: Evoroot
+	-- Step 49: Evoroot
 	-- {item:11242} Evoroot · {npc:7765} Rockbiter
 	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "{item:11242}长在{npc:7765}北边的一座废墟建筑里：从旁边的岩架穿过墙上的缺口爬进去。",
 
-	-- Step 46: Shay Leafrunner
+	-- Step 50: Shay Leafrunner
 	-- {npc:7774} Shay Leafrunner · {item:9189} Shay's Bell
 	["Ride west into the Ravenwind Ruins: {npc:7774} hides in the small round building at the back. Open the chest beside her for {item:9189}: it lasts 15 minutes, like the quest."] = "向西骑行进入鸦风废墟：{npc:7774}躲在后方的小圆形建筑里。打开她身旁的箱子获得{item:9189}：它和任务一样持续15分钟。",
 
-	-- Step 47: Wandering Shay
+	-- Step 51: Wandering Shay
 	-- {npc:7774} Shay Leafrunner · {npc:7765} Rockbiter
 	["Lead {npc:7774} back to {npc:7765} at walking pace: she wanders off, so ring the bell to call her back (not in combat), and clear the harpies on the way before she reaches them."] = "步行带{npc:7774}返回{npc:7765}身边。她会走开，需在非战斗状态下摇铃叫她回来；提前清除沿途鹰身人，别让她靠近它们。",
 
-	-- Step 48: Gregan Brewspewer
+	-- Step 52: Gregan Brewspewer
 	-- {npc:7775} Gregan Brewspewer · {npc:7765} Rockbiter · {item:11242} Evoroot · {npc:9298} Donova Snowden · {area:976} Gadgetzan
 	-- plural, as words: Videre Elixirs = {item:11243} Videre Elixir
 	["Back to {npc:7775}'s camp, just south-east of {npc:7765}: the {item:11242} buys three Videre Elixirs. Keep them: {npc:9298} takes one at the start of the next guide, and Gaeriyan in {area:976} shows himself only to someone who has drunk one."] = "",
 
-	-- Step 49: Feralas
+	-- Step 53: Feralas
 	-- {area:489} Thalanaar · {zone:1441} Thousand Needles
 	["Ride east along the road to {area:489}, on the {zone:1441} border: the next guide flies from there."] = "",
 
@@ -287,6 +295,7 @@ return {
 	-- ["grind on {npc:7153}"] = "反复击杀{npc:7153}补足经验",
 	-- ["grind on {npc:7155}"] = "反复击杀{npc:7155}补足经验",
 	-- ["grind on {npc:9878}"] = "反复击杀{npc:9878}补足经验",
+	-- ["{area:1763} is the ruined temple north of the glen."] = "{area:1763}是谷地北面的神殿废墟。",
 	-- ["{area:1763} is the ruined temple north of the glen. Some of its cultists drop a {item:13140}, about one kill in thirty: it opens {npc:11018}'s cell in {area:1770}, the cave at the back. If it drops, clear the way out before you free her; if not, skip her quests."] = "{area:1763}是山谷北边的废弃神殿。其中一些信徒会掉落{item:13140}，约三十次击杀一次：它能打开后方洞穴{area:1770}中{npc:11018}的牢房。掉落了就先清出退路再放她出来；没掉就跳过她的任务。",
 	-- ["{area:2618} is the satyr valley in the north-west, with {npc:10648} at its far end. He drops the {quest:939}; every Jadefire satyr can drop {item:11674}."] = "{area:2618}是西北部的萨特山谷，{npc:10648}在最深处。他掉落{quest:939}；每个碧火萨特都可能掉落{item:11674}。",
 	-- ["{item:13140}, a rare drop"] = "{item:13140}，稀有掉落",

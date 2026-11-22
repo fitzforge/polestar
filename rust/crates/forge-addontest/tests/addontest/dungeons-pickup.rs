@@ -485,7 +485,9 @@ emit({ plan = ender or false, guide = turnin or false, ender = e and e.name or f
 // hand-in guide found it unfinished and left it out ("Not finished yet"). A quest whose open lines are all talks to
 // an NPC outside is now handed in: a stop at that NPC (the talk goal on its line) before the turn-in, the
 // follow-up taken there after. Here 90600 is that quest on the fixture's page, 90601 one whose open line is a kill
-// outside (still unfinished: a kill is real work, not a hand-in errand).
+// outside (still unfinished: a kill is real work, not a hand-in errand). #3426: the Dungeons page's objective line
+// reads the quest log's sentence once, "Speak with someone in Ratchet about the Glowing Shard", not "Speak with Speak
+// with …" (the data keeps that sentence as the talk objective's text), on a client that has not seen Sputtervalve.
 #[test]
 fn a_dungeon_quest_whose_open_line_is_to_speak_to_an_npc_outside_is_handed_in_after_that_talk_1326_the_glowing_shard_and_sputtervalve() {
 	let (codex, inputs) = fixture_parts();
@@ -524,7 +526,7 @@ for _, s in ipairs((D.HandinGuide("{KEY}") or { steps = {} }).steps) do
 	end
 	if #verbs > 0 then steps[#steps + 1] = s.title .. " " .. table.concat(verbs, " ") end
 end
-emit({ hand = hand, unfinished = unfinished, steps = steps, talk = talk })"#);
+emit({ hand = hand, unfinished = unfinished, steps = steps, talk = talk, line = D.ObjectiveText(D.Quest("{KEY}", 90600)) or false })"#);
 
 	let open = run(&own, &script, Opts { at: Some(BARRENS), log: vec![1013, 90600, 90601], ..Default::default() }).remove(0);
 	assert_eq!(open["hand"], json!([90600]), "the shard is handed in though its talk line is open");
@@ -535,6 +537,7 @@ emit({ hand = hand, unfinished = unfinished, steps = steps, talk = talk })"#);
 		"Sputtervalve first, then Falla Sagewind for the hand-in and the follow-up, a delivery to her handed in on the spot (#1748)"
 	);
 	assert_eq!(open["talk"], json!({ "npc": 9030, "name": "Sputtervalve", "oi": 1, "map": 1413, "x": 62, "y": 37 }), "the talk goal is counted by the quest's first line, the arrow on Sputtervalve");
+	assert_eq!(open["line"], "Speak with someone in Ratchet about the Glowing Shard", "the Dungeons page's objective line reads once (#3426)");
 
 	// Spoken to already: the line is done and the quest ready, so the guide goes straight to Falla Sagewind.
 	let ready = run(&own, &script, Opts { at: Some(BARRENS), ready: vec![90600], ..Default::default() }).remove(0);
@@ -859,6 +862,44 @@ emit(r)"#),
 		json!([true, "skipped:Requires “Orders from the Undercity” first", "skipped:Requires “The Dalaran Inquiry” first"]),
 		"Bethor's step skipped: the accepts after it say why, and the guide goes on to Doan Karhan"
 	);
+}
+
+// #3370: an accept the pick-up guide takes before the character reaches its level (the page's button takes what the
+// dungeon's lowest level opens: The Orb of Soran'ruk, from level 20, for a level 19 at Shadowfang Keep, 22-30) is no
+// task on its step until that level (the goal carries the quest's level, so the guide never sends the player to a
+// giver who does not offer it yet); the level-up brings it back.
+#[test]
+fn an_accept_above_the_character_s_level_waits_on_its_step_until_the_level_up_3370() {
+	let pack = default_pack();
+	let out = run(
+		&pack,
+		&k(r#"
+D.PickUp("{KEY}")
+local E = Polestar.Engine
+Polestar.Set("behavior.autoAccept", false)
+stub.advance(0.25)
+local g = E.GetGuide()
+local at
+for i, s in ipairs(g.steps) do
+	for gi, goal in ipairs(s.goals) do
+		if goal.t == "accept" and goal.quest == 1740 then at = { i, gi } end
+	end
+end
+local function mark()
+	local v = E.GetStepView(at[1]).goals[at[2]]
+	return v.status .. ":" .. tostring(v.unavailableText)
+end
+local r = { minLevel = g.steps[at[1]].goals[at[2]].minLevel, below = mark() }
+stub.world.setLevel(20)
+stub.advance(0.25)
+r.at = mark()
+emit(r)"#),
+		Opts { level: 19, ..Default::default() },
+	)
+	.remove(0);
+	assert_eq!(out["minLevel"], 20, "the accept carries the level its quest is offered from");
+	assert_eq!(out["below"], "na:nil", "below its level it is no task");
+	assert_eq!(out["at"], "pending:nil", "level 20: the accept is open");
 }
 
 #[test]

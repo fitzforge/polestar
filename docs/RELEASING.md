@@ -460,11 +460,15 @@ version throughout.
    it. A red scene is a bug in the release: fix it, never the scene.
 
 6. Then install the zip into the game itself (remove the old `Polestar*`
-   folders first), restart it fully and test what the release changes: play
-   the first steps of a guide, and search, Dungeons and Rares when the Codex
-   changed. This is a gate: nothing is tagged, pushed or uploaded (steps 7 to
-   10) until the maintainer has played the release on their own client and
-   said it is good. If the servers are down, the release waits.
+   folders first, including 0.4.2's 127 `Polestar_Nav_R*` walking-map region
+   folders: since 0.4.2.1 their maps are inside `Polestar_Nav_EK` and
+   `Polestar_Nav_Kalimdor`, and a copy that still has them prints a line at
+   login asking to delete them), restart it fully and test what the release
+   changes: play the first steps of a guide, and search, Dungeons and Rares
+   when the Codex changed. This is a gate: nothing is tagged, pushed or
+   uploaded (steps 7 to 10) until the maintainer has played the release on
+   their own client and said it is good. If the servers are down, the release
+   waits.
 
    When the gamepad support changed (`UI/Gamepad.lua`, `UI/GamepadGuide.lua`,
    `Bindings.xml`), play it with a gamepad too: `/console taintLog 1`, then
