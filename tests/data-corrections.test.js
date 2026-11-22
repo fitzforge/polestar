@@ -843,3 +843,9 @@ test('Duke Hydraxis\'s chain and Attunement to the Core leave the data while the
 test('The Silithus scouts\' quests leave the data: 9415, 9416 and the Scouring the Desert pair (#3338)', () => {
 	for (const q of [9415, 9416, 9419, 9422]) assert.equal(corrections.quests[q].remove, true, `quest ${q}`);
 });
+
+// PierreAnken (#3192): Ignatz offers the Horde's Stinky's Escape from level 36; the Alliance's stays at 30.
+test('Stinky\'s Escape (Horde) is offered from level 36 (#3192)', () => {
+	assert.equal(corrections.quests[1270].set.minLevel, 36);
+	assert.equal(corrections.quests[1222], undefined);
+});

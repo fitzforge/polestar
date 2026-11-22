@@ -20954,5 +20954,21 @@
 			}
 		],
 		"note": "Scouring the Desert (Horde, from General Kirika (17079), after Report to General Kirika) is not offered on Forever: the Silithus scouts who start this pair are not in the world, and no player has done either quest of it. The game still describes the quests, so they may come with later content. The quest leaves the data with its pair, so the Silithus guides and the Cenarion Circle guide stop sending players to it (#3338)."
+	},
+	"1270": {
+		"set": {
+			"minLevel": 36
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#3192 (PierreAnken, Orc Hunter): at level 35 (80%) Ignatz \"Stinky\" offered nothing with nobody escorting him; at 36, back at the same spot, the quest was offered"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: 41 people took Stinky's Escape (Horde), every run at level 36 or above but one: a character given it at 35 without Ignatz's window (a quest shared in a group); Ignatz's windows offered it to Horde characters from level 36 and to none below"
+			}
+		],
+		"note": "Stinky's Escape (Horde, Ignatz \"Stinky\" in Dustwallow Marsh) is offered from level 36 on Forever. The game's quest record and our data said 30, so the guide and \"While you're here\" sent players at 35 to a giver who offered nothing (#3192). The Alliance version (1222) is offered lower (a level 34 character in the recordings) and keeps 30."
 	}
 }
