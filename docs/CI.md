@@ -47,8 +47,8 @@ or none.
   tests.
 - **addon** for the rest of what the suites read (`FORGE_PATHS`: the addon,
   the guides, the data): the addon's Lua tests alone. Their test binaries
-  are cached like forge (keyed by `rust/`, the stub's `simulate.lua` and
-  `data/guide-fixes.json`, which they embed), so no Rust is built unless
+  are cached like forge (keyed by `rust/` and the stub's `simulate.lua`,
+  which they embed), so no Rust is built unless
   the cache has none for this code.
 - **skip** for anything else: `Format, lints, tests` passes in seconds.
 

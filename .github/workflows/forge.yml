@@ -134,9 +134,9 @@ jobs:
           scripts/doc-commands.sh target/quick/forge
 
   # forge-addontest's test binaries (its unit tests, addontest, scenes), cached by the code they are
-  # built from: rust/, the stub's simulate.lua and data/guide-fixes.json, which they embed. A hit (any
-  # pull request that changes none of them, once next's run has built them) builds nothing. A miss
-  # builds them; pushes save them for the pull requests after.
+  # built from: rust/ and the stub's simulate.lua, which they embed (the tests read the data and the
+  # guides when they run). A hit (any pull request that changes neither, once next's run has built
+  # them) builds nothing. A miss builds them; pushes save them for the pull requests after.
   addontest-bin:
     name: Addon tests build
     needs: lane
@@ -154,7 +154,7 @@ jobs:
 
       - name: Cache key
         id: key
-        run: echo "key=addontest-bin-${{ runner.os }}-${{ hashFiles('rust/**', 'tests/lua/simulate.lua', 'data/guide-fixes.json') }}" >> "$GITHUB_OUTPUT"
+        run: echo "key=addontest-bin-${{ runner.os }}-${{ hashFiles('rust/**', 'tests/lua/simulate.lua') }}" >> "$GITHUB_OUTPUT"
 
       - name: Test binaries (cache)
         id: cache
