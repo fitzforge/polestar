@@ -2461,3 +2461,48 @@ emit({ quests, wp() })
 		assert_eq!(out[0], json!([rows, "1:1"]), "partner point x={point}");
 	}
 }
+
+// #3385 (Tilman, Desolace): the kodo-taming step also held another quest's Scorpashi Venom; skipping the step dropped
+// the venom too, and the guide later sent the player to hand that quest in. A skip moves the route past the step:
+// the work of another quest in it, still handed in ahead, stays a While you're here row; the step's own quest's
+// work goes only when that quest is skipped; a step of one quest goes as before.
+#[test]
+fn a_skipped_step_of_two_quests_keeps_the_other_quests_work_for_while_here_3385() {
+	let guide = r#"
+Polestar.RegisterGuide({
+	id = "test/skip-mixed", pack = "test", title = "Skip", minLevel = 1, maxLevel = 10,
+	steps = {
+		{ title = "Graveyard", goals = {
+			{ t = "kill", target = "Kobold Vermin", npc = 6, count = 10, quest = 7, oi = 1, map = 1429, x = 47.6, y = 35.1 },
+			{ t = "collect", item = 772, itemName = "Large Candle", count = 3, quest = 60, oi = 1, npc = 476, map = 1429, x = 47.8, y = 35.1 },
+		} },
+		{ title = "Alone", goals = { { t = "kill", target = "Murloc", npc = 40, count = 1, quest = 50, oi = 1, map = 1429, x = 47.7, y = 35.3 } } },
+		{ title = "Far", goals = { { t = "kill", target = "Spider", npc = 42, count = 1, quest = 52, oi = 1, map = 1429, x = 20.0, y = 60.0 } } },
+		{ title = "Hand in", goals = {
+			{ t = "turnin", quest = 7, title = "Kobold Camp Cleanup", npc = 240, map = 1429, x = 10, y = 10 },
+			{ t = "turnin", quest = 60, title = "Candles", npc = 240, map = 1429, x = 10, y = 10 },
+			{ t = "turnin", quest = 50, title = "Murlocs", npc = 240, map = 1429, x = 10, y = 10 },
+		} },
+	},
+})
+"#;
+	let out = run_guide(
+		guide,
+		"test/skip-mixed",
+		r#"
+		at(47.6, 35.1)
+		E.Skip(); flush()
+		E.Skip(); flush()
+		at(47.7, 35.1)
+		emit({ E.GetLiveStep(), cands() })
+		E.SkipQuest(60, true); flush(); at(47.7, 35.2)
+		emit(cands())"#,
+	);
+	assert_eq!(out[0][0], 3, "both skipped steps behind: the live step is the far spiders");
+	let rows = out[0][1].as_str().unwrap().to_string();
+	assert!(rows.contains("1:1:work") && rows.contains("1:2:work"), "the mixed step's work of both quests stays: {rows}");
+	assert!(!rows.contains("2:1:"), "a skipped step of one quest goes as before: {rows}");
+	let after = out[1].as_str().unwrap().to_string();
+	assert!(!after.contains("1:2:"), "the candles go once their quest is skipped: {after}");
+	assert!(after.contains("1:1:work"), "{after}");
+}

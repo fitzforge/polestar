@@ -151,9 +151,14 @@ jobs:
         env:
           MATCHED: ${{ steps.data.outputs.cache-matched-key }}
           BASE: ${{ steps.lane.outputs.base }}
+          # This repository's own branches: a failure of a test next has not run (new or renamed) only warns here,
+          # since their Release data job runs it on the release data (tools/ci-failures.js --unseen-ok).
+          OWN: ${{ github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository }}
         run: |
           if [ -f .ci/baseline.jsonl ]; then
             echo "BASELINE=.ci/baseline.jsonl" >> "$GITHUB_ENV"
+            echo "CI_BASE=$RUNNER_TEMP/base" >> "$GITHUB_ENV"
+            [ "$OWN" = true ] && echo "CI_UNSEEN_OK=1" >> "$GITHUB_ENV"
             note="the public data of ${MATCHED#public-data-}"
             [ "${MATCHED#public-data-}" = "$BASE" ] || note="$note (next's newest; the base's own is not built yet)"
           else
@@ -193,6 +198,20 @@ jobs:
         if: steps.lane.outputs.lane == 'full' || contains(steps.lane.outputs.areas, 'guides')
         run: $FORGE guide check-generated --checkout .
 
+      # The guide texts (docs/CI.md, "Guide texts"): the languages whose texts
+      # the change can break, on the public data, failing only on errors the
+      # base's own texts do not have on the same data.
+      - name: Guide texts
+        if: steps.lane.outputs.lane != 'docs' && steps.lane.outputs.locales != ''
+        env:
+          LOCALES: ${{ steps.lane.outputs.locales }}
+        run: |
+          if [ -z "${BASELINE:-}" ] || [ ! -d "$RUNNER_TEMP/base" ]; then
+            echo "::notice::No reference data or base checkout in this run: the Release data job and the post-merge gates check the guide texts."
+            exit 0
+          fi
+          tools/ci-guide-texts.sh "$RUNNER_TEMP/base" "$LOCALES"
+
       # The textures build in textures.yml, only when their inputs change.
 
       # The UI renders are generated from the addon's Lua and frozen fixtures
@@ -203,90 +222,3 @@ jobs:
       - name: Previews build clean
         if: steps.lane.outputs.lane == 'full' || contains(steps.lane.outputs.areas, 'lua')
         run: node tools/polestar.js preview
-
-  # The same tests on the release data, on the maintainers' self-hosted runner
-  # (labels self-hosted, polestar-data; docs/CI.md "Reference data"): the data
-  # never leaves that machine, so only this repository's own branches run
-  # here. A fork's pull request skips this job (the runner refuses one too)
-  # and has the public data above only. Its tests fail on any failure: the
-  # release data is the one the release gates read.
-  release-data:
-    name: Release data
-    if: github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name == github.repository
-    runs-on: [self-hosted, polestar-data]
-    timeout-minutes: 60
-    env:
-      POLESTAR_TIMING_BUDGETS: warn
-      # Two test files at once: the guide suites on the data take a few GB each.
-      CI_TEST_CONCURRENCY: "2"
-    defaults:
-      run:
-        shell: bash
-    steps:
-      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
-        with:
-          persist-credentials: false
-          fetch-depth: 2
-
-      # As the Tests job's: the lane from the base's own copy of the script.
-      - name: Lane
-        id: lane
-        env:
-          EVENT: ${{ github.event_name }}
-        run: |
-          changed="$RUNNER_TEMP/changed.txt" base="$RUNNER_TEMP/base" from=$(git rev-parse HEAD^1) || from=
-          if [ -n "$from" ] && git diff --no-renames --name-only "$from" HEAD > "$changed" \
-            && git worktree add --detach --quiet "$base" "$from" && [ -f "$base/tools/ci-lane.js" ]; then
-            node "$base/tools/ci-lane.js" --github --files "$changed"
-          else
-            echo "lane=full" >> "$GITHUB_OUTPUT"
-          fi
-
-      # The runner's copy of the release data ($POLESTAR_DATA: forever/ and
-      # the sources it was built from, sources/), read-only there: forever/
-      # copied (some tools write beside it), each source folder linked.
-      - name: Release data
-        if: steps.lane.outputs.lane != 'docs'
-        run: |
-          test -f "$POLESTAR_DATA/forever/meta.json"
-          rm -rf data/forever && cp -r "$POLESTAR_DATA/forever" data/forever
-          mkdir -p data/sources
-          for s in "$POLESTAR_DATA"/sources/*; do ln -sfn "$s" "data/sources/$(basename "$s")"; done
-          printf '## Release data\n\n%s\n' "$(jq -r '"built \(.builtAt // "?")"' data/forever/meta.json)" >> "$GITHUB_STEP_SUMMARY"
-
-      - name: Forge cache key
-        id: forgekey
-        if: steps.lane.outputs.lane != 'docs'
-        run: echo "key=forge-quick-Linux-${{ hashFiles('rust/**', 'tests/lua/simulate.lua') }}" >> "$GITHUB_OUTPUT"
-
-      - name: Forge (cache)
-        id: forgecache
-        if: steps.lane.outputs.lane != 'docs'
-        uses: actions/cache/restore@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
-        with:
-          path: rust/target/quick/forge
-          key: ${{ steps.forgekey.outputs.key }}
-
-      - name: Build forge
-        if: steps.lane.outputs.lane != 'docs' && steps.forgecache.outputs.cache-hit != 'true'
-        working-directory: rust
-        run: cargo build --profile quick --locked -j 6 -p forge
-
-      - name: Forge path
-        if: steps.lane.outputs.lane != 'docs'
-        run: echo "FORGE=$GITHUB_WORKSPACE/rust/target/quick/forge" >> "$GITHUB_ENV"
-
-      # Only the tests that read the data (tools/ci-data-tests.js): the others
-      # run the same without it, and Tests runs them.
-      - name: Test (the ones that read the data)
-        if: steps.lane.outputs.lane != 'docs'
-        env:
-          LANE: ${{ steps.lane.outputs.lane }}
-          TESTS: ${{ steps.lane.outputs.tests }}
-        run: |
-          set -f # the glob is node's to expand
-          if [ "$LANE" = full ]; then TESTS="tests/**/*.test.js"; fi
-          files=$(node tools/ci-data-tests.js $TESTS)
-          if [ -z "$files" ]; then echo "No test the change can break reads the data."; exit 0; fi
-          echo "$(wc -w <<< "$files") test file(s) read the data"
-          tools/ci-tests.sh "" $files
