@@ -3555,7 +3555,7 @@ end
 -- Another accept keeps whatever note it had (a prerequisite line, #2709): only the ghost's note and optional are checked.
 local function ghostly(g) return g.optional or (type(g.note) == "string" and g.note:find("while dead", 1, true) and g.note) or false end
 emit({ found = accept ~= nil, optional = accept and accept.optional or false, note = accept and accept.note or false,
-	ghost = Polestar.Codex.Npc(9080).ghostOnly or false, other = other and ghostly(other) or "none" })"#),
+	ghost = Polestar.Codex.Npc(9080).ghostOnly or false, other = other == nil and "none" or ghostly(other) })"#),
 		Opts::default(),
 	)
 	.remove(0);
