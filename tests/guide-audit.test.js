@@ -74,4 +74,16 @@ test('the divider lines show in the opaque window only', () => {
 		emit(rules("transparent"))`);
 	assert.deepEqual(opaque, { nav: true, xp: true, banner: true });
 	assert.deepEqual(clear, { nav: false, xp: false, banner: false });
+test('the foot line names a later step as "Next step:", this step\'s next person as "Then:"', () => {
+	const [later, here] = run(`
+		local function after(step, whole)
+			uistub.setGuide(uistub.elwynn, step)
+			Polestar.Set("ui.wholeStep", whole)
+			GF.Render() GF.Layout()
+			return GF.parts.after.Text:GetText()
+		end
+		emit(after(3, false))
+		emit(after(4, true))`);
+	assert.match(later, /^Next step: .*Marshal McBride/);
+	assert.match(here, /^Then: .*Eagan Peltskinner/);
 });

@@ -1488,6 +1488,7 @@ L["Nice work. Pick your next guide to keep going."] = "잘했습니다. 다음 �
 L["Up next · 1 step"] = "다음 · 1단계"
 L["Up next · %d steps"] = "다음 · %d단계"
 L["Then:"] = "그다음:"
+L["Next step:"] = "다음 단계:"
 L["Person %d of %d"] = "%d/%d번째 인물"
 L["Choose guide"] = "가이드 선택"
 L["Open in new tab"] = "새 탭에서 열기"

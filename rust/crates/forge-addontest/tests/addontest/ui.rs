@@ -150,7 +150,7 @@ fn a_field_step_reads_as_one_focus_the_step_title_its_few_objectives_with_counte
 	assert!(is_match(text(&collect["text"]), r"3/8\|r$"));
 	assert_eq!(kill["size"], 14, "goal text is 14px");
 	assert!(is_match(text(&out["tip"]), r"^Kobolds wander"));
-	assert!(is_match(text(&out["after"]), r"^Then: \|c[0-9a-f]{8}Marshal McBride\|r$"), "the next step's first person");
+	assert!(is_match(text(&out["after"]), r"^Next step: \|c[0-9a-f]{8}Marshal McBride\|r$"), "the next step's first person");
 	assert_eq!(out["persons"], "", "a field group is not a person");
 	assert_eq!(out["upnext"], false, "Up next is off by default");
 	assert_eq!(out["footShown"], true);
@@ -213,7 +213,7 @@ fn a_hub_reads_one_person_at_a_time_name_in_npc_colour_the_others_on_a_line_each
 	assert_eq!(second["sliding"], true, "the next person slides in");
 	assert_eq!(third["person"], "Brother Neals");
 	assert_eq!(plain(&third["lines"]), ["Marshal McBride, Eagan Peltskinner"]);
-	assert!(is_match(text(&third["after"]), r"^Then: \|c[0-9a-f]{8}Goldshire\|r$"), "after the last person: the next step");
+	assert!(is_match(text(&third["after"]), r"^Next step: \|c[0-9a-f]{8}Goldshire\|r$"), "after the last person: the next step");
 	assert_eq!(third["persons"], "");
 	assert_eq!(
 		third["target"],
