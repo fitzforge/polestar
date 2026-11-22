@@ -1029,6 +1029,13 @@ local function acceptGoal(pq, rec, g)
 		goal.candidates = rec and LK().GiverCandidates(rec.start, g) or nil
 	end
 	goal.z = LK().SpawnZ(g.kind == "object" and "object" or "npc", g.id, g)
+	-- One of a set its giver offers one at a time (the Codex's rotation, #3601: Pix Xizzix's weekly In Demand
+	-- quests): optional, so the guide never waits on one not offered this week, and its goal says so.
+	if rec and rec.rotation then
+		goal.optional = true
+		local text = format(L["%s offers one of these a week: take it if it is this week's."], g.name or L["Quest giver"])
+		goal.note = goal.note and (text .. " " .. goal.note) or text
+	end
 	-- A giver only the dead see: optional, and its goal says so (Lookup.GhostOnly, #558).
 	return LK().GhostOnly(goal)
 end

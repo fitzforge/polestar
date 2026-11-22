@@ -1321,6 +1321,7 @@ L["Level %d: you can take %s now. Its giver is marked on your map; pick up the q
 L["Leads to %s."] = "通往%s。"
 L["Needed for %s."] = "是%s的前置任务。"
 L["Prerequisite quests: %d of %d steps, about %s."] = "前置任务：%d/%d 个步骤，约 %s。"
+L["%s offers one of these a week: take it if it is this week's."] = "%s每周提供其中一个任务：如果是本周的就接取。"
 
 -- Dungeons/Handin.lua
 L["Not finished yet: %s"] = "尚未完成：%s"

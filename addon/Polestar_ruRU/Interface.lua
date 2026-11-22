@@ -1321,6 +1321,7 @@ L["Level %d: you can take %s now. Its giver is marked on your map; pick up the q
 L["Leads to %s."] = "Ведет к %s."
 L["Needed for %s."] = "Нужно для %s."
 L["Prerequisite quests: %d of %d steps, about %s."] = "Предварительные задания: %d из %d шагов, примерно %s."
+L["%s offers one of these a week: take it if it is this week's."] = "%s выдаёт одно из этих заданий в неделю: возьмите его, если оно на этой неделе."
 
 -- Dungeons/Handin.lua
 L["Not finished yet: %s"] = "Еще не выполнено: %s"

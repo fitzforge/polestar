@@ -3703,6 +3703,7 @@ L["Level %d: you can take %s now. Its giver is marked on your map; pick up the q
 L["Leads to %s."] = "Führt zu %s."
 L["Needed for %s."] = "Benötigt für %s."
 L["Prerequisite quests: %d of %d steps, about %s."] = "Vorquests: %d von %d Schritten, etwa %s."
+L["%s offers one of these a week: take it if it is this week's."] = "%s bietet jede Woche eine davon an: Nimm sie an, wenn es die dieser Woche ist."
 
 -- Quests/Timed.lua
 L["%d h"] = "%d Std."

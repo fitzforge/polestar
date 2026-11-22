@@ -1322,6 +1322,7 @@ L["Level %d: you can take %s now. Its giver is marked on your map; pick up the q
 L["Leads to %s."] = "Mène à %s."
 L["Needed for %s."] = "Requise pour %s."
 L["Prerequisite quests: %d of %d steps, about %s."] = "Quêtes prérequises : %d étapes sur %d, environ %s."
+L["%s offers one of these a week: take it if it is this week's."] = "%s propose une de ces quêtes par semaine : prenez-la si c'est celle de cette semaine."
 
 -- Dungeons/Handin.lua
 L["Not finished yet: %s"] = "Pas encore terminée : %s"

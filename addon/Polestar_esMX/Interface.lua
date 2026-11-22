@@ -379,6 +379,7 @@ L["Level %d: you can take %s now. Its giver is marked on your map; pick up the q
 L["Leads to %s."] = "Lleva a %s."
 L["Needed for %s."] = "Hace falta para %s."
 L["Prerequisite quests: %d of %d steps, about %s."] = "Misiones previas: %d de %d pasos, unos %s."
+L["%s offers one of these a week: take it if it is this week's."] = "%s ofrece una de estas cada semana: acéptala si es la de esta semana."
 
 -- Gear/Gear.lua
 L["big upgrade"] = "gran mejora"

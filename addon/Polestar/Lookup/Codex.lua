@@ -33,7 +33,9 @@
 --       "\2" .. folded .. "\1" .. id .. "," .. quality .. "," .. status .. "," .. #name .. "\n"
 --       (folded = Search.Fold(name) without its leading space; status r|n|'')
 --   Codex.WithRole(role) -> { npcId, ... } sorted (role as in npc.roles: "vendor",
---       "trainer:164" profession trainers by skillLine, "class:MAGE" class trainers)
+--       "trainer:164" profession trainers by skillLine, "class:MAGE" class trainers); "vendor" and
+--       "repair" leave out an NPC whose selling waits on a quest not handed in yet (npc.vendorAfter, #3138:
+--       Zorbin Fandazzle after Zapped Giants), read again after each hand-in
 --   Codex.Loot(kind, id) -> { itemId, ... }   -- kind "rare" | "npc" (npc + rare) | "treasure" |
 --       "object" (object + treasure); what rares and treasures drop, best-known first
 --       (capped); empty table when unknown
@@ -421,6 +423,9 @@ local function decodeQuest(group, id, s)
 		elseif f == "d" then
 			-- Handed in at one talk, never in the log (#2686: Bloodpetal Sprouts).
 			rec.direct = true
+		elseif lead == "v" then
+			-- One of a set its giver offers one at a time (#3601: Pix's weekly In Demand quests): v<set name>.
+			rec.rotation = unesc(sub(f, 2))
 		elseif f == "t" then
 			-- The kill objective before it is a beast to tame (Taming the Beast).
 			local o = rec.objectives[#rec.objectives]
@@ -816,13 +821,43 @@ function Codex.Loot(kind, id)
 	return rec and rec.loot or EMPTY
 end
 
+-- The NPCs of the "vendorAfter" index whose quest (npc.vendorAfter) is not
+-- handed in yet: they don't sell yet, so "vendor" and "repair" leave them out.
+local SELLS = { vendor = true, repair = true }
+local function notSelling()
+	local out
+	for _, id in ipairs(numbers(nameOf("role", "vendorAfter"))) do
+		local npc = Codex.Npc(id)
+		local q = npc and npc.vendorAfter
+		if q and not ns.Compat.IsQuestCompleted(q) then
+			out = out or {}
+			out[id] = true
+		end
+	end
+	return out
+end
+
 function Codex.WithRole(role)
 	if role == nil or not ready() then return {} end
 	local hit = roleCache[role]
 	if hit then return hit end
 	hit = numbers(nameOf("role", role))
+	local skip = SELLS[role] and notSelling()
+	if skip then
+		local kept = {}
+		for _, id in ipairs(hit) do
+			if not skip[id] then kept[#kept + 1] = id end
+		end
+		hit = kept
+	end
 	roleCache[role] = hit
 	return hit
+end
+-- A hand-in may open a shop (vendorAfter): the vendor lists are read again.
+if ns.RegisterEvent then
+	ns.RegisterEvent("QUEST_TURNED_IN", function()
+		roleCache.vendor, roleCache.repair = nil, nil
+	end)
 end
 
 -- flags ("" or quality digit, then status letter) -> quality, status

@@ -1321,6 +1321,7 @@ L["Level %d: you can take %s now. Its giver is marked on your map; pick up the q
 L["Leads to %s."] = "%s(으)로 이어집니다."
 L["Needed for %s."] = "%s의 선행 퀘스트입니다."
 L["Prerequisite quests: %d of %d steps, about %s."] = "선행 퀘스트: %d/%d단계, 약 %s."
+L["%s offers one of these a week: take it if it is this week's."] = "%s: 매주 이 중 하나를 줍니다. 이번 주 퀘스트라면 받으세요."
 
 -- Dungeons/Handin.lua
 L["Not finished yet: %s"] = "아직 미완료: %s"
