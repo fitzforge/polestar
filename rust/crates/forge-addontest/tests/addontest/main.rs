@@ -156,6 +156,8 @@ mod engine_lost_quest;
 mod engine_manual;
 #[path = "engine-materials.rs"]
 mod engine_materials;
+#[path = "engine-meet-kills.rs"]
+mod engine_meet_kills;
 #[path = "engine-money-task.rs"]
 mod engine_money_task;
 #[path = "engine-next-when.rs"]

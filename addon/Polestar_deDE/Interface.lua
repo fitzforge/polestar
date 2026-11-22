@@ -242,6 +242,7 @@ L["Grey for you: pays %d%% XP (Skip grey quests)"] = "Für dich grau: bringt %d%
 -- L["Requires level %d: kept for a later guide"] = ""
 -- L["A guide later on your route takes this quest here: taken now, its step is done when you get there."] = ""
 -- L["For %s, later on your route."] = ""
+-- L["kill %s as you meet them"] = ""
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "Benötigt Polestar %s oder neuer."
