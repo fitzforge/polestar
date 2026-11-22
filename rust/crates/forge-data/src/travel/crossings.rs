@@ -442,7 +442,18 @@ pub fn validate_crossings(doc: &V, frames: &Frames) -> (Vec<String>, Set) {
 		};
 		let Some(map) = map else { continue };
 		let (Some(a), Some(b)) = (frames.to_world(map as i64, x1, y1), frames.to_world(map as i64, x2, y2)) else { continue };
-		out.areas.push(Area { id: e.get("id").to_js_string(), name: name.to_js_string(), map, c: a.c, top: round(a.wx, 1), bottom: round(b.wx, 1), left: round(a.wy, 1), right: round(b.wy, 1), z, subzone });
+		out.areas.push(Area {
+			id: e.get("id").to_js_string(),
+			name: name.to_js_string(),
+			map,
+			c: a.c,
+			top: round(a.wx, 1),
+			bottom: round(b.wx, 1),
+			left: round(a.wy, 1),
+			right: round(b.wy, 1),
+			z,
+			subzone,
+		});
 	}
 	(errors, out)
 }
