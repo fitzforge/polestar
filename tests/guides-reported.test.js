@@ -18644,6 +18644,18 @@ test('forever/horde/40-50/04-tanaris.guide: Tanaris Field Sampling\'s step says 
 	assert.match(text, /Wastewander Water Pouches|\{item:8483\}/, 'and what it takes');
 });
 
+// #3279 (beardedoak): the Horde Un'Goro guide hands Lines of Communication (2995) in at Oran Snakewrithe, but its three
+// Highvale objectives are only in the Hinterlands guide's Highvale step, which the player had already left; the arrow
+// went to the Undercity for a quest he could not finish there. The hand-in says where the work is (bumblei3, #3305).
+test('forever/horde/50-60/01-un-goro-crater.guide: the Lines of Communication hand-in says where its work is (#3279)', { skip }, () => {
+	const list = goals('forever/horde/50-60/01-un-goro-crater.guide');
+	const { goal } = list[at(list, 'turnin 2995', is('turnin', 2995))];
+	assert.match(goal.note || '', /Hinterlands/, 'the note names the guide with the work');
+	assert.match(goal.note || '', /Highvale/, 'and its step');
+	const hin = goals('forever/horde/40-50/05-the-hinterlands.guide');
+	assert.ok(hin.some(({ goal }) => goal.t === 'interact' && goal.quest === 2995), 'the Hinterlands guide holds the Highvale objectives');
+});
+
 // #3557 (Gindry, deDE): on Tooga's escort the Alliance arrow pointed back at the valley, 3,379 yd behind, while Tooga
 // walked to Torta: the escort's bare `complete` took its giver's place. It ends at Torta, as the Horde route's does.
 test('forever/alliance/40-50/04-tanaris.guide: Tooga\'s escort points at Torta in the port (#3557)', { skip }, () => {
