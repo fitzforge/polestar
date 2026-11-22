@@ -14202,7 +14202,7 @@ do
 				},
 				{
 					title = "{quest:654}",
-					note = "Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each.",
+					note = "Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each. No power source in your bags, or its two hours ran out? Abandon {quest:654} if it is in your log, then take Another Power Source? from {npc:7407}: he gives a new one for ten more Wastewander Water Pouches, from the Wastewander camps east of {area:976}.",
 					goals = {
 						{ t = "accept", quest = 654, title = "Tanaris Field Sampling", item = 8524, itemName = "Model 4711-FTZ Power Source", minLevel = 38, qlvl = 46, limit = 7200, pre = { 379 }, preTitles = { [379] = "Slake That Thirst" }, note = "Use the {item:8524}" },
 						{ t = "collect", quest = 654, title = "Tanaris Field Sampling", item = 9441, itemName = "Acceptable Hyena Sample", count = 8, oi = 2, map = 1446, x = 52.6, y = 32.2, f = "e", spotsPacked = "52.6,32.2,,45;57.24,31.93,,15,,1;48.74,44.46,,64,,1" },

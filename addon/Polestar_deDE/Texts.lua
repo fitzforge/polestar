@@ -7373,7 +7373,6 @@ t.guides["forever/horde/40-50/03-feralas"] = (function() return {
 } end)()
 t.guides["forever/horde/40-50/04-tanaris"] = (function() return {
 		["Back east to Fizzledowser on the west side of {area:976}; {npc:7771} is south from there."] = "Zurück nach Osten zu Fizzledowser auf der Westseite von {area:976}; {npc:7771} liegt von dort südlich.",
-		["Back north, just south of {area:976}, use the {item:8524} now: the two-hour timer starts. The Blisterpaw Hyenas, Glasshide Basilisks and Scorpid Hunters share the dunes here. Each can drop an untested sample: use it, and it either passes as an acceptable one or is lost. Keep killing until you have eight of each."] = "Zurück im Norden, gleich südlich von {area:976}, benutze jetzt die {item:8524}: Der Zwei-Stunden-Timer beginnt. Die Blasenpfotenhyänen, Glashautbasilisken und Skorpidjäger teilen sich hier die Dünen. Jeder kann eine ungetestete Probe fallen lassen: Benutze sie, dann wird sie entweder zu einer brauchbaren Probe oder geht verloren. Töte weiter, bis du von jeder Sorte acht hast.",
 		["Below ground"] = "Unter der Erde",
 		["Below ground: the plans, on the {area:1443}'s upper ledge"] = "Unter der Erde: die Pläne, auf dem oberen Sims von {area:1443}",
 		["Boat to {area:16727}"] = "Boot nach {area:16727}",
