@@ -8488,7 +8488,8 @@ test('forever/horde/40-50/01-stranglethorn-vale.guide: flow re-order: Scaring Sh
 	assert.equal(stoley.s, list[at(list, 'turnin 607', is('turnin', 607))].s + 1, 'Stoley\'s Debt on the Booty Bay stop that hands MacKinley Return to MacKinley, in its level 40 step');
 	assert.ok(stoley.step.when.some((p) => p.k === 'level' && p.n === 40), 'Stoley\'s Debt from level 40');
 	const fer2 = goals('forever/horde/40-50/02-feralas.guide');
-	assert.equal(fer2[at(fer2, 'accept 2872', is('accept', 2872))].s, fer2[at(fer2, 'accept 348', is('accept', 348))].s, 'the catch-up offers it with Stranglethorn Fever');
+	// #3574: Stranglethorn Fever is a group choice, its accept the catch-up's next step, right after Stoley's Debt.
+	assert.equal(fer2[at(fer2, 'accept 2872', is('accept', 2872))].s + 1, fer2[at(fer2, 'accept 348', is('accept', 348))].s, 'the catch-up offers it right before Stranglethorn Fever');
 });
 
 // Flow review, Horde 40-60 (#1166): the last loop out of Camp Mojache is one sweep west: the Writhing Deep, the Ruins
@@ -11845,7 +11846,7 @@ test('Level sweep: accepts below their minimum level are moved or gated', { skip
 	// Level tidy (0.4.0): Stranglethorn Fever (minimum 40) is taken on the level-48 Booty Bay stop of 40-50/05, where Mokk is fought.
 	const hin = goals('forever/alliance/40-50/05-the-hinterlands.guide');
 	assert.ok(!stv.some(({ goal }) => is('accept', 348)(goal)), 'Stranglethorn Fever is not taken at 41');
-	assert.equal(step(hin, 'accept', 348), step(hin, 'turnin', 2874), 'Stranglethorn Fever on the level-48 Booty Bay stop');
+	assert.equal(step(hin, 'accept', 348), step(hin, 'turnin', 2874) + 1, 'Stranglethorn Fever on the level-48 Booty Bay stop, its group choice the step after (#3574)');
 	// Fix pass 2026-11-20: the corrected level model reached that stop at 39.95-39.99 in 11 of 28 runs (refused), so
 	// Stoley's Debt has a `when level>=40` step of its own right after it, and the last Booty Bay stop offers it again.
 	const stoleys = stv.filter(({ goal }) => is('accept', 2872)(goal));
@@ -18605,4 +18606,50 @@ test('forever/alliance/02-westfall.guide: one step at the Harvest Watchers for a
 	const text = [kill.step.note, kill.step.tip].flat().filter(Boolean).join(' ');
 	assert.match(text, /only[^.]*count for The Killing Fields|only[^.]*count for \{quest:9\}/, 'the tip says only Watchers count');
 	assert.match(text, /Golems[^.]*don't count/, 'and that the Golems don\'t');
+});
+
+// #3557 (Gindry, deDE): on Tooga's escort the Alliance arrow pointed back at the valley, 3,379 yd behind, while Tooga
+// walked to Torta: the escort's bare `complete` took its giver's place. It ends at Torta, as the Horde route's does.
+test('forever/alliance/40-50/04-tanaris.guide: Tooga\'s escort points at Torta in the port (#3557)', { skip }, () => {
+	for (const file of ['forever/alliance/40-50/04-tanaris.guide', 'forever/horde/40-50/04-tanaris.guide']) {
+		const list = goals(file);
+		const done = list[at(list, 'complete 1560', is('complete', 1560))].goal;
+		assert.deepEqual([done.map, Math.round(done.x), Math.round(done.y)], [1446, 67, 26], `${file}: the escort ends at Torta`);
+	}
+	const places = JSON.parse(fs.readFileSync(path.join(__dirname, '..', 'data', 'places.json'), 'utf8')).places;
+	const rec = places.find((p) => p.id === 'final-tanaris-tooga-torta');
+	assert.ok(rec && !rec.faction, 'its place record holds for both factions');
+});
+
+// #3574 (Koobi, deDE): Mokk the Savage was no solo fight. Players' recordings: 27 people started Unbagwa's waves, 12 of
+// them died there (19 deaths). Stranglethorn Fever is a group choice on both routes: its accept's step and every step
+// of the waves ask, and a player who skips it is never sent to Unbagwa or held at Fin's hand-in.
+test('Stranglethorn Fever (348) is a group choice on both routes, with the heads-up (#3574)', { skip }, () => {
+	const grouped = (st) => (st.when || []).some((p) => p.k === 'group' && !p.neg && [].concat(p.q).includes(348));
+	for (const file of ['forever/horde/40-50/01-stranglethorn-vale.guide', 'forever/horde/40-50/02-feralas.guide', 'forever/alliance/40-50/05-the-hinterlands.guide']) {
+		const { steps } = compiled(file);
+		const accepts = steps.filter((st) => st.goals.some(is('accept', 348)));
+		assert.ok(accepts.length > 0, `${file}: takes it`);
+		for (const st of accepts) {
+			assert.ok(grouped(st), `${file}: "${st.title}" asks first`);
+			assert.equal(st.goals.length, 1, `${file}: "${st.title}" holds only the accept`);
+			assert.match([st.note, st.tip].flat().filter(Boolean).join(' '), /Group quest: .*three waves of gorillas/, `${file}: with the heads-up`);
+		}
+		for (const st of steps.filter((s) => s.goals.some((g) => is('turnin', 349)(g) || (g.t === 'collect' && [2797, 2799].includes(g.item) && !g.optional)))) {
+			assert.ok(grouped(st), `${file}: "${st.title}" (the waves) only for a group`);
+		}
+	}
+	for (const file of ['forever/horde/40-50/02-feralas.guide', 'forever/alliance/40-50/05-the-hinterlands.guide']) {
+		for (const st of compiled(file).steps.filter((s) => s.goals.some(is('turnin', 348)))) {
+			assert.ok((st.when || []).some((p) => p.k === 'complete' && [].concat(p.q).includes(348)), `${file} "${st.title}": Fin's hand-in only with the quest ready`);
+		}
+	}
+});
+
+// #3576 (Peanut): Kum'isha's step (3501) waited for an Imperfect Draenethyst Fragment, a random drop level 60 players
+// farm (recordings: 20 people, 16 accepts, 9 abandons). It shows only with a fragment, as her Sphere step does.
+test('forever/alliance/50-60/01-burning-steppes.guide: Kum\'isha\'s fragment step only with a fragment (#3576)', { skip }, () => {
+	const { steps } = compiled('forever/alliance/50-60/01-burning-steppes.guide');
+	const kum = steps.find((st) => st.goals.some(is('accept', 3501)));
+	assert.ok((kum.when || []).some((p) => p.k === 'has' && !p.neg && p.item === 10593), 'when has 10593');
 });
