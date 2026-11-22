@@ -223,6 +223,30 @@ like any other.
 The on-demand suites run with `data=none` (the default) as before: the tests
 that read `data/forever` skip with a reason.
 
+## Guide texts
+
+The guide translations (`guides/locales/`, docs/TRANSLATING.md "Guide
+texts") are checked with `forge i18n guides check`: a translation that drops
+or adds a line break (`\n`) or a `{kind:id}` name token, a stale translation
+(its English changed: the guide was edited without `forge i18n guides
+sync`), or a texts file no guide has. The check reads the reference data, so
+it runs where the data is:
+
+| Where | Languages | Fails on |
+|---|---|---|
+| `Tests` (public data) | those whose texts the pull request changes; every language when it changes a guide | an error the base's own texts do not have on the same data (`tools/ci-guide-texts.sh`) |
+| `Release data` | the same | any error |
+| Post-merge gates | every language | any error |
+
+The public-text rule (CONTRIBUTING.md, "Commits and pull requests") holds
+for the words players read as well: the `prose` rules of
+`tools/lib/public-text.json` (no wording that says a route follows or was
+checked against another guide, no claim about an update's size) cover the
+guides, the fix records' words, the changelog fragments
+(`changes/`), the Client's release notes and the CurseForge description, in
+every lane (`tests/wording.test.js`), and pull request titles, descriptions
+and commit messages (`Public text`).
+
 ## After a merge
 
 ![Post-merge gates](https://github.com/fitzforge/polestar/actions/workflows/next-gates.yml/badge.svg?branch=next)

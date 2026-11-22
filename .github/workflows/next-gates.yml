@@ -72,6 +72,11 @@ jobs:
         continue-on-error: true
         run: tools/ci-tests.sh "" $(node tools/ci-data-tests.js "tests/**/*.test.js") 2>&1 | tee "$RUNNER_TEMP/gates/node.log"
 
+      - name: Guide texts
+        id: texts
+        continue-on-error: true
+        run: tools/ci-guide-texts.sh "" all 2>&1 | tee "$RUNNER_TEMP/gates/texts.log"
+
       - name: Guide lint
         id: lint
         continue-on-error: true
@@ -144,6 +149,7 @@ jobs:
         if: always()
         env:
           NODE: ${{ steps.node.outcome }}
+          TEXTS: ${{ steps.texts.outcome }}
           LINT: ${{ steps.lint.outcome }}
           ADDONTEST: ${{ steps.addontest.outcome }}
           PLAYTEST: ${{ steps.playtest.outcome }}
@@ -165,6 +171,7 @@ jobs:
             echo "| gate | result | note |"
             echo "|---|---|---|"
             row "Node suite (release data)" "$NODE" "$(tail1 "$g/node.log" '^ℹ (pass|fail) ' | tr '\n' ' ')"
+            row "Guide texts" "$TEXTS" "$(grep -c '^error: ' "$g/texts.log" 2>/dev/null) errors"
             row "Guide lint" "$LINT" "$(grep -c '^::error' "$g/lint.log" 2>/dev/null) errors"
             row "Addon tests (all)" "$ADDONTEST" "$(grep -E '^test result' "$g/addontest.log" 2>/dev/null | awk '{p+=$4; f+=$6} END {print p" passed, "f" failed"}')"
             row "Playtest" "$PLAYTEST" "$(grep -cE '^(stuck|fail) ' "$g/playtest.log" 2>/dev/null) stuck or failed"
