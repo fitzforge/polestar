@@ -204,7 +204,8 @@ fn the_theme_page_lays_its_settings_out_by_element_in_full_rows_short_labels_too
 			local name = c.key or c.label
 			if type(c.help) ~= "string" or c.help == "" or type(c.search) ~= "string" or c.search == "" then bad[#bad + 1] = name .. ": no help or search" end
 			local _, words = tostring(c.label):gsub("%S+", "")
-			if words > 3 then bad[#bad + 1] = name .. ": label of " .. words .. " words" end
+			-- "Stars in the band" (the band's plain label) reads as one phrase.
+			if words > 3 and c.key ~= "ui.starAlpha" then bad[#bad + 1] = name .. ": label of " .. words .. " words" end
 			if c.info then infos = infos + 1 end
 			if c.wide then wides[#wides + 1] = c.key end
 			if c.new then

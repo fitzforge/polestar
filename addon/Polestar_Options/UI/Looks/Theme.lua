@@ -685,7 +685,7 @@ local SPECS = {
 				{ kind = "toggle", key = "ui.shadow", label = L["Window shadow"], disabled = houseOnly, search = "window shadow, drop shadow, depth",
 					help = L["The soft shadow under every window."] },
 			} },
-		{ kind = "slider", key = "ui.starAlpha", label = L["Band"], min = 0, max = 1, step = 0.05, format = percent, disabled = bandOff, new = NEW,
+		{ kind = "slider", key = "ui.starAlpha", label = L["Stars in the band"], min = 0, max = 1, step = 0.05, format = percent, disabled = bandOff, new = NEW,
 			search = "starlit band, stars, starfield, sparkle, twinkle, sky, fewer stars, band",
 			help = L["How bright the stars in the band shine; at 0% the sky alone."],
 			extras = {
@@ -703,7 +703,7 @@ local SPECS = {
 			help = L["The lit accent line along the top edge of Polestar's windows, and the light it throws."] },
 		{ kind = "toggle", key = "ui.reduceMotion", label = L["Reduce motion"], help = L["No sliding or popping; fades stay short."],
 			search = "animations, motion sickness, fps, frame rate, performance, lag, stutter, cpu, slow" },
-		{ kind = "slider", key = "ui.animSpeed", label = L["Speed"], min = 0.5, max = 2, step = 0.1, format = times, new = NEW,
+		{ kind = "slider", key = "ui.animSpeed", label = L["Animation speed"], min = 0.5, max = 2, step = 0.1, format = times, new = NEW,
 			search = "animation speed, faster, slower, snappy, transitions, slide, fade, tween, motion",
 			help = L["How fast Polestar's windows slide, fade and pop: 2x takes half the time."] },
 	} },

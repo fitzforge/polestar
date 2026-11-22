@@ -356,7 +356,8 @@ fn the_look_pages_put_switches_in_section_headers_colours_beside_their_sliders_a
 			if c.key then keys[c.key] = true end
 			-- A reference (W.Ref) takes its help and search words from its home row.
 			if not c.ref and (not (c.help and c.help ~= "") or not (c.search and c.search ~= "")) then missing[#missing + 1] = c.key or c.label end
-			if row and select(2, c.label:gsub("%S+", "")) > 3 then long[#long + 1] = c.label end
+			-- A reference without a label of its own shows its home row's.
+			if row and c.label and select(2, c.label:gsub("%S+", "")) > 3 then long[#long + 1] = c.label end
 		end
 		-- The deep tabs' registrations (Essentials stands for their rows: settings-essentials.rs). The rows homed on
 		-- Essentials (the alerts' line, All alerts) are checked and kept too.
