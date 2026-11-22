@@ -222,6 +222,37 @@ like any other.
 The on-demand suites run with `data=none` (the default) as before: the tests
 that read `data/forever` skip with a reason.
 
+## After a merge
+
+![Post-merge gates](https://github.com/fitzforge/polestar/actions/workflows/next-gates.yml/badge.svg?branch=next)
+
+Every push to `next` runs `next-gates.yml` on the merged tree, on the
+release data, on the self-hosted runner ([Reference data](#reference-data)):
+the checks that only make sense on the tree two pull requests make
+together.
+
+| Gate | What fails it |
+|---|---|
+| Node suite on the release data | any failing test among those that read the data: the guide suites, danger, levels, guide ends, while-here (`tools/ci-data-tests.js`; `ci.yml`'s push run has the rest) |
+| Guide lint | a lint error, leveling or experimental guides |
+| Addon tests | any of forge-addontest's tests, all of them (the cached test binaries) |
+| Playtest | a guide stuck or failing, leveling or experimental |
+| Route speed | a time to the arrow's first walking route over 5 s in its 7 cases, or a settled route that differs from 0.4.2's |
+| Arrow corner cadence | a case whose corner lag is worse than 0.4.1.1's (mean over 3 degrees worse and 6 or more, max over 45 and 10 worse), 24 cases |
+| Arrow stretches | a guide stretch the arrow does not walk to its end; the table compares with 0.4.2's runs |
+
+The route-speed, cadence and stretch gates' harnesses and baselines come
+from the release gates and live with the runner (`$POLESTAR_GATES`), not in
+the repository. A gate that cannot run (no data, no harness) fails like one
+that finds something: nothing is skipped quietly.
+
+Each gate runs whatever the others did; the run's summary has a row per
+gate. A failing run turns the badge above red and files an issue labelled
+`next-gates` with that table (or comments on the open one); the next run
+that passes every gate closes it. Runs go one at a time, to the end: a newer
+push waits, and the newest waiting push replaces an older one, so on a busy
+day one run covers several merges.
+
 ## What stays local
 
 - The release data (`forge data build --kb`: recordings, the private
