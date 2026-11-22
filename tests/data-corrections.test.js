@@ -838,3 +838,8 @@ test('Duke Hydraxis\'s chain and Attunement to the Core leave the data while the
 		assert.ok(corrections.quests[q].source.some((s) => s.kind === 'eg'), `quest ${q}: the live scans`);
 	}
 });
+
+// Zack (#3338): Scout Bloodfist and Rifleman Torrig are not in the world, and nobody has done their quests.
+test('The Silithus scouts\' quests leave the data: 9415, 9416 and the Scouring the Desert pair (#3338)', () => {
+	for (const q of [9415, 9416, 9419, 9422]) assert.equal(corrections.quests[q].remove, true, `quest ${q}`);
+});

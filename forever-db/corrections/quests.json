@@ -20898,5 +20898,61 @@
 			}
 		],
 		"note": "Attunement to the Core (Lothos Riftwaker, Blackrock Mountain) is not in the game on Forever for now: the live server describes neither it nor any quest of Duke Hydraxis's chain, and the Molten Core it opens is not among the raids announced for Forever. The quest leaves the data with the chain (#3171, #3392, #3522). Revisit when the Molten Core opens."
+	},
+	"9415": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20 (excluded contributors left out): nobody ever saw Scout Bloodfist (17081) or Rifleman Torrig (17082), no window of theirs, and 0 runs of 9415, 9416, 9419 or 9422, while Cenarion Hold's other quests are recorded many times"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3338 (Zack): at Cenarion Hold on two layers, Scout Bloodfist was not there and Report to General Kirika could not be taken"
+			}
+		],
+		"note": "Report to Marshal Bluewall (Alliance, from Rifleman Torrig (17082)) is not offered on Forever: the Silithus scouts who start this pair are not in the world, and no player has done either quest of it. The game still describes the quests, so they may come with later content. The quest leaves the data with its pair, so the Silithus guides and the Cenarion Circle guide stop sending players to it (#3338)."
+	},
+	"9416": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20 (excluded contributors left out): nobody ever saw Scout Bloodfist (17081) or Rifleman Torrig (17082), no window of theirs, and 0 runs of 9415, 9416, 9419 or 9422, while Cenarion Hold's other quests are recorded many times"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3338 (Zack): at Cenarion Hold on two layers, Scout Bloodfist was not there and Report to General Kirika could not be taken"
+			}
+		],
+		"note": "Report to General Kirika (Horde, from Scout Bloodfist (17081)) is not offered on Forever: the Silithus scouts who start this pair are not in the world, and no player has done either quest of it. The game still describes the quests, so they may come with later content. The quest leaves the data with its pair, so the Silithus guides and the Cenarion Circle guide stop sending players to it (#3338)."
+	},
+	"9419": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20 (excluded contributors left out): nobody ever saw Scout Bloodfist (17081) or Rifleman Torrig (17082), no window of theirs, and 0 runs of 9415, 9416, 9419 or 9422, while Cenarion Hold's other quests are recorded many times"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3338 (Zack): at Cenarion Hold on two layers, Scout Bloodfist was not there and Report to General Kirika could not be taken"
+			}
+		],
+		"note": "Scouring the Desert (Alliance, from Marshal Bluewall (17080), after Report to Marshal Bluewall) is not offered on Forever: the Silithus scouts who start this pair are not in the world, and no player has done either quest of it. The game still describes the quests, so they may come with later content. The quest leaves the data with its pair, so the Silithus guides and the Cenarion Circle guide stop sending players to it (#3338)."
+	},
+	"9422": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20 (excluded contributors left out): nobody ever saw Scout Bloodfist (17081) or Rifleman Torrig (17082), no window of theirs, and 0 runs of 9415, 9416, 9419 or 9422, while Cenarion Hold's other quests are recorded many times"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3338 (Zack): at Cenarion Hold on two layers, Scout Bloodfist was not there and Report to General Kirika could not be taken"
+			}
+		],
+		"note": "Scouring the Desert (Horde, from General Kirika (17079), after Report to General Kirika) is not offered on Forever: the Silithus scouts who start this pair are not in the world, and no player has done either quest of it. The game still describes the quests, so they may come with later content. The quest leaves the data with its pair, so the Silithus guides and the Cenarion Circle guide stop sending players to it (#3338)."
 	}
 }
