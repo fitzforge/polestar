@@ -24,10 +24,11 @@
 -- Abandon button each (UI.ShowQuestRoom "offroute"); nothing is abandoned
 -- without the game's own confirmation.
 -- The last step done before the rest (GUIDE_STEPS_LEFT, #3517) is no end
--- yet: the same window says "2 steps left in Durotar (1–12)", that the next
--- guide follows once they are done or skipped, and has one button, Back to
--- step 13 (the live step), with no next guide and no quest lists; the end
--- itself comes later as above.
+-- yet: the same window says "2 steps left in Durotar (1–12)", what follows
+-- once they are done or skipped (the next guide, a route choice, or the
+-- guide's end), and has one button, Back to step 13 (the live step), with no
+-- next guide shown and no quest lists; it closes once the live step moves
+-- on. The end itself comes later as above.
 -- The footer holds the buttons, the primary on the right:
 --   next guide     Start The Barrens (Engine.StartNext: in the same tab)
 --                  Not now, or Back to step 13 (the guide stays; the guide
@@ -95,6 +96,10 @@ function GE.Model(info)
 		local cur = E.GetGuide and E.GetGuide()
 		if cur and cur.id == g.id and E.GetLiveStep then m.live = E.GetLiveStep() or m.live end
 		m.left = info.left
+		-- What follows once they are done, as the end says it.
+		local choice = info.choose and E.GetRouteChoice and E.GetRouteChoice(g.id)
+		m.choose = choice and #choice.options >= 2 or nil
+		m.next = not m.choose and info.next and G.Get(info.next) or nil
 		return m
 	end
 	m.complete = m.live == nil or m.undone == 0
@@ -321,7 +326,9 @@ local function layout(m)
 	local y = headH + PAD
 	if m.left then
 		F.Art:Hide()
-		F.Text:SetText(m.left == 1 and L["Do it or skip it, and the next guide follows."] or L["Do them or skip them, and the next guide follows."])
+		F.Text:SetText(m.choose and L["Do or skip what's left, and you choose where to go next."]
+			or m.next and L["Do or skip what's left, and the next guide follows."]
+			or L["Do or skip what's left, and the guide ends."])
 		F.Text:ClearAllPoints()
 		F.Text:SetPoint("TOP", F, "TOP", 0, -y)
 		F.Text:Show()
@@ -505,6 +512,17 @@ end
 
 ns.On("GUIDE_END", function(_, info) GE.Show(info) end)
 ns.On("GUIDE_STEPS_LEFT", function(_, info) GE.Show(info) end)
+
+-- Steps left: the live step moved on (one of them done or skipped), so the
+-- count is stale; the window has said its piece.
+local function liveMoved()
+	local E = Engine()
+	if not (shown and shown.left and F and F:IsShown() and E and E.GetGuide and E.GetLiveStep) then return end
+	local g = E.GetGuide()
+	if g and g.id == shown.id and E.GetLiveStep() ~= shown.live then GE.Hide() end
+end
+ns.On("STEP_CHANGED", liveMoved)
+ns.On("STEP_UPDATED", liveMoved)
 
 -- The next guide was loaded some other way: nothing left to ask.
 ns.On("GUIDE_CHANGED", function()

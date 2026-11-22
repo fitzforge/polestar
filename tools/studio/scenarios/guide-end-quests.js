@@ -47,7 +47,7 @@ stub.advance(0.5)`;
 const POPUP = `Polestar.UI.GuideEnd.Show({ guideId = ${JSON.stringify(GUIDE)}, next = Polestar.Engine.GetGuide().next, undone = 0 })
 stub.advance(1)`;
 
-const LEFT = `Polestar.UI.GuideEnd.Show({ guideId = ${JSON.stringify(GUIDE)}, left = 2, live = 37 })
+const LEFT = `Polestar.UI.GuideEnd.Show({ guideId = ${JSON.stringify(GUIDE)}, left = 2, live = 37, next = Polestar.Engine.GetGuide().next })
 stub.advance(1)`;
 
 const LIST = (mode) => `Polestar.UI.ShowQuestRoom(${JSON.stringify(mode)}, ${JSON.stringify(GUIDE)})

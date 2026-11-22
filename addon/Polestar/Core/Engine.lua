@@ -9872,7 +9872,7 @@ local function resetLoaded(id, auto)
 	Own.skipQueue[id] = nil
 	autoChain, sawIncomplete, placing = auto and true or false, false, GetTime() + PLACE_SECONDS
 	Own.opened[id] = true
-	Own.endOpen[id], Own.lastOpen[id], Own.leftTold[id] = nil, nil, nil -- seen afresh once placed (Own.noteEnd)
+	Own.endOpen[id], Own.lastOpen[id], Own.leftTold[id], Own.endsChecked[id] = nil, nil, nil, nil -- seen afresh once placed (Own.noteEnd)
 	tabsDirty = true
 end
 
@@ -10069,13 +10069,14 @@ end
 -- info = { guideId, undone (open steps left), live (the live step, nil when
 -- all are done), next (the guide the hand-off goes to, nil with none or a
 -- choice to make), choose (true: a route choice the player makes) }.
--- GUIDE_STEPS_LEFT's info = { guideId, left (steps left before the last
--- one), live (the live step) }.
+-- GUIDE_STEPS_LEFT's info = { guideId, left (steps left besides the last
+-- one), live (the live step), next, choose (as GUIDE_END's) }.
 ---------------------------------------------------------------------------
 
 Own.endOpen = {} -- guideId -> true: seen unfinished once placed, this session
 Own.lastOpen = {} -- guideId -> the last step (Own.lastWork) seen open, or done ahead with steps left, once placed, this session
 Own.leftTold = {} -- guideId -> the last step whose steps left were seen (told once: GUIDE_STEPS_LEFT), this session
+Own.endsChecked = {} -- guideId -> true: looked at once placed (a saved end checked for steps left then), this session
 Own.pendingEnds, Own.pendingContinued = {}, {} -- fired at the end of the evaluation
 
 function Own.leveling(g)
@@ -10185,6 +10186,9 @@ function Own.noteEnd()
 	local held = computed and stepDone(computed) and (Own.levelHold() == computed or Own.partyHold(computed))
 	local id, steps = guide.id, guide.steps
 	local ends = ns.CharState().guideEnds
+	-- The first look once placed this session (a saved end is checked then).
+	local firstLook = not Own.endsChecked[id]
+	Own.endsChecked[id] = true
 	-- The end done ahead is judged on the last step for everyone (Own.forSome).
 	-- With the live step past it, a class's or race's own steps after it
 	-- still to come (Own.lastWork from the live step) are no end yet: the end
@@ -10198,11 +10202,12 @@ function Own.noteEnd()
 		-- An end told before stands only while it holds: a quest of the last
 		-- step abandoned, or a record from before 0.3.6 that slipped through
 		-- (Init.lua drops those), and it is forgotten; reached again, it is
-		-- told again. One an older version told with steps left before the
-		-- last (Own.stepsLeft, #3517) is forgotten too, untold: the end comes
-		-- once they are done or skipped.
+		-- told again. One an older version told with steps left (Own.stepsLeft,
+		-- #3517) is forgotten too, untold, when the guide is first placed this
+		-- session: the end comes once they are done or skipped. A step brought
+		-- back later (Unskip) keeps an end told in turn, as before.
 		if ends[id] then
-			local left = holds and Own.stepsLeft(last, held) or 0
+			local left = holds and firstLook and Own.stepsLeft(last, held) or 0
 			if not holds or left > 0 then
 				ends[id] = nil
 				Own.lastOpen[id] = last
@@ -10236,7 +10241,9 @@ function Own.noteEnd()
 		local left = Own.stepsLeft(last, held)
 		if left > 0 then
 			if Own.lastOpen[id] == last and Own.leftTold[id] ~= last then
-				Own.pendingEnds[#Own.pendingEnds + 1] = { guideId = id, left = left, live = computed }
+				local nextId, asks = routeNext(guide)
+				if nextId and not Guides.Get(nextId) then nextId = nil end
+				Own.pendingEnds[#Own.pendingEnds + 1] = { guideId = id, left = left, live = computed, next = nextId, choose = asks or nil }
 			end
 			Own.lastOpen[id], Own.leftTold[id] = last, last
 			return
@@ -10719,7 +10726,7 @@ function Engine.OpenTab(id, activate, auto)
 	-- Finished or passed earlier this session, it may finish and chain again.
 	completedFired[id] = nil
 	Own.opened[id] = true
-	Own.endOpen[id], Own.lastOpen[id], Own.leftTold[id] = nil, nil, nil -- seen afresh once placed (Own.noteEnd)
+	Own.endOpen[id], Own.lastOpen[id], Own.leftTold[id], Own.endsChecked[id] = nil, nil, nil, nil -- seen afresh once placed (Own.noteEnd)
 	tabs[#tabs + 1] = tab
 	local index = #tabs
 	tabsDirty = true

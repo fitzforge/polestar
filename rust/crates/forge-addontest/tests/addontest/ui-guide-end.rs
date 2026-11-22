@@ -99,7 +99,7 @@ fn the_end_with_steps_left_open_names_the_guide_the_steps_and_the_next_guide_bac
 fn the_last_step_done_early_says_how_many_steps_are_left_with_back_to_the_live_step_as_its_one_button() {
 	let out = run(r#"
 		uistub.setGuide(uistub.elwynn, 5); uistub.live = 3
-		Polestar.Fire("GUIDE_STEPS_LEFT", uistub.elwynn, info({ left = 2, live = 3 }))
+		Polestar.Fire("GUIDE_STEPS_LEFT", uistub.elwynn, info({ left = 2, live = 3, next = NEXT }))
 		local r = view()
 		r.laterShown = PolestarGuideEnd.Later:IsShown()
 		PolestarGuideEnd.Go:Click()
@@ -108,6 +108,11 @@ fn the_last_step_done_early_says_how_many_steps_are_left_with_back_to_the_live_s
 		uistub.live = 4
 		Polestar.Fire("GUIDE_STEPS_LEFT", uistub.elwynn, info({ left = 1, live = 3 }))
 		r.one = view()
+		-- A route choice after the guide.
+		CHOICE = true
+		Polestar.Fire("GUIDE_STEPS_LEFT", uistub.elwynn, info({ left = 1, live = 4, choose = true }))
+		r.choice = view()
+		CHOICE = false
 		-- A translation that numbers its arguments.
 		Polestar.L["%d steps left in %s"] = "%2$s: noch %1$d Schritte"
 		Polestar.Fire("GUIDE_STEPS_LEFT", uistub.elwynn, info({ left = 3, live = 4 }))
@@ -125,7 +130,7 @@ fn the_last_step_done_early_says_how_many_steps_are_left_with_back_to_the_live_s
 	assert_eq!(plain(&out["title"]), "2 steps left in\nElwynn Forest (1–13)");
 	assert_eq!(out["undone"], false);
 	assert_eq!(out["next"], false, "no next guide yet");
-	assert_eq!(out["text"], "Do them or skip them, and the next guide follows.");
+	assert_eq!(out["text"], "Do or skip what's left, and the next guide follows.");
 	assert_eq!(out["go"], "Back to step 3");
 	assert_eq!(out["primary"], true);
 	assert_eq!(out["laterShown"], false, "one button");
@@ -133,7 +138,8 @@ fn the_last_step_done_early_says_how_many_steps_are_left_with_back_to_the_live_s
 	assert_eq!(out["after"], false);
 	assert_eq!(out["start"], false, "no guide started");
 	assert_eq!(plain(&out["one"]["title"]), "1 step left in\nElwynn Forest (1–13)");
-	assert_eq!(out["one"]["text"], "Do it or skip it, and the next guide follows.");
+	assert_eq!(out["one"]["text"], "Do or skip what's left, and the guide ends.", "no next guide");
+	assert_eq!(out["choice"]["text"], "Do or skip what's left, and you choose where to go next.");
 	assert_eq!(out["one"]["go"], "Back to step 4", "the live step now");
 	assert_eq!(plain(&out["numbered"]["title"]), "Elwynn Forest (1–13): noch 3 Schritte");
 	assert_eq!(out["closed"], false);
@@ -275,4 +281,21 @@ fn a_steps_left_window_held_back_by_a_fight_is_dropped_with_its_tab_and_the_end_
 	assert_eq!(out["nextFight"], false, "not kept for the next fight");
 	assert_eq!(out["leftChimes"], 0);
 	assert_eq!(out["endChimes"], 1);
+}
+
+// The steps-left window closes once the live step moves on (one of them done or skipped): its count is stale.
+// Looking at another step leaves it up.
+#[test]
+fn the_steps_left_window_closes_once_the_live_step_moves_on() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 3); uistub.live = 3
+		Polestar.Fire("GUIDE_STEPS_LEFT", uistub.elwynn, info({ left = 2, live = 3, next = NEXT }))
+		stub.advance(1)
+		Polestar.Fire("STEP_CHANGED", 5)
+		local r = { browsing = PolestarGuideEnd:IsShown() }
+		uistub.live = 4
+		Polestar.Fire("STEP_UPDATED", 4)
+		r.moved = PolestarGuideEnd:IsShown()
+		emit(r)"#);
+	assert_eq!(out, json!({ "browsing": true, "moved": false }));
 }

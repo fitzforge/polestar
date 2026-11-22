@@ -880,3 +880,26 @@ fn bringing_a_skipped_step_back_after_the_last_step_done_in_turn_tells_nothing()
 	assert_eq!(out["back"], json!({ "log": {}, "live": 2 }));
 	assert_eq!(out["rest"], json!(["GUIDE_COMPLETED test/unskip", "GUIDE_END test/unskip undone=0 live=nil next=test/barrens choose=nil"]));
 }
+
+// A guide finished in turn keeps its end when a skipped step is brought back later (Unskip): the end is not told a
+// second time once that step is done. Only an end found with steps left when the guide is first placed (an older
+// version's) is forgotten.
+#[test]
+fn an_end_told_in_turn_stands_when_a_skipped_step_is_brought_back() {
+	let out = run(Run {
+		next: NEXT,
+		saved: None,
+		script: r#"
+			E.Skip(); flush()
+			for q = 11, 13 do w.accept(q, {}); flush() end
+			local r = { done = takeLog(), ended = E.GuideEnded("test/durotar") }
+			E.Unskip(1); flush()
+			r.back = { log = takeLog(), ended = E.GuideEnded("test/durotar"), live = E.GetLiveStep() or false }
+			w.accept(10, {}); flush()
+			r.again = takeLog()
+			emit(r)"#,
+	});
+	assert_eq!(out["ended"], true);
+	assert_eq!(out["back"], json!({ "log": {}, "ended": true, "live": 1 }));
+	assert_eq!(out["again"], json!({}), "no second end");
+}
