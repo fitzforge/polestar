@@ -26,7 +26,7 @@ return {
 	["His next hunt, the Diseased Grizzlies (55-56), waits for the Plaguelands guide's sweep at about 55."] = "",
 
 	-- Step 6: High Executor Derrington
-	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "",
+	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "Te perdiste esto en la visita anterior de la ruta a esta zona: ahora va primero. Es rápido y abre las misiones que le siguen.",
 	-- {item:12814} Flame in a Bottle · {object:176092} Box of Incendiaries
 	["{item:12814}, from the {object:176092} next to Derrington"] = "",
 
