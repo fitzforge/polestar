@@ -78,7 +78,7 @@ return {
 
 	-- Step 16: King of the Foulweald
 	-- {area:421} Mystral Lake · {item:16972} Karang's Banner · {object:178206} Foulweald Totem Mound (no name in this language: may be words) · {npc:12918} Chief Murgut
-	["The Foulweald furbolgs hold the woods east of {area:421}, south of the road. Place {item:16972} on the {object:178206} and guard it: the furbolgs come to tear it down. {npc:12918} comes last; his totem drops in the basket."] = "污林熊怪占据着{area:421}东边、道路南边的树林。把{item:16972}放在{object:178206}上并守护它：熊怪会来摧毁它。{npc:12918}最后出现；他的图腾会掉进篮子里。",
+	["The Foulweald furbolgs hold the woods east of {area:421}, south of the road. Place {item:16972} on the {object:178206} and guard it: the furbolgs come to tear it down. {npc:12918} comes last; his totem drops in the basket."] = "污林熊怪占据着{area:421}东边、道路南边的树林。把{item:16972}放在污林熊怪的图腾土堆上并守护它：熊怪会来摧毁它。{npc:12918}最后出现；他的图腾会掉进篮子里。",
 
 	-- Step 17: Torek's Assault
 	-- {npc:12858} Torek · {area:2360} Silverwing Outpost · {npc:12860} Duriel Moonfire

@@ -12,12 +12,12 @@ return {
 
 	-- Step 1: The Strange Orb
 	-- {object:409289} Strange Orb (no name in this language: may be words)
-	["The {object:409289}"] = "{object:409289}",
+	["The {object:409289}"] = "奇异宝珠",
 	-- {area:444} Tower of Althalaxx · {zone:1439} Darkshore · {spell:686} Shadow Bolt · {object:409289} Strange Orb (no name in this language: may be words) · {item:209748} Althalaxx Orb · {object:409311} Spear of Mannoroth (no name in this language: may be words)
 	-- plural, as words: Dark Strand Fanatics = {npc:2336} Dark Strand Fanatic · Dark Strand Voidcallers = {npc:2337} Dark Strand Voidcaller
-	["Climb to the top of the {area:444} in northern {zone:1439}. The Dark Strand Fanatics around it are easy (level 16-17), but four Dark Strand Voidcallers (level 28-29) stand in the tower on the way to the orb: each calls a voidwalker and casts {spell:686} from range. At 22-25 bring a friend or two, pull them one at a time and step behind a wall so they have to come to you. Loot the {object:409289} at the top: it gives you the {item:209748}; right-click it to start the quest. Keep the orb in your bags until the {object:409311}: three later quests need it."] = "爬到 {zone:1439} 北部 {area:444} 的塔顶。周围的暗滩狂热者比较容易对付（16-17 级），但通往宝珠的塔内有四名暗滩唤魔师（28-29 级）：每名都会召唤虚空行者，并在远处施放 {spell:686}。22-25 级时，带一两位朋友来，每次只引一名，然后躲到墙后迫使对方靠近。拾取顶层的 {object:409289}，获得 {item:209748}；右键点击它开始任务。在到达 {object:409311} 之前一直把宝珠放在背包里：后面有三个任务要用到它。",
+	["Climb to the top of the {area:444} in northern {zone:1439}. The Dark Strand Fanatics around it are easy (level 16-17), but four Dark Strand Voidcallers (level 28-29) stand in the tower on the way to the orb: each calls a voidwalker and casts {spell:686} from range. At 22-25 bring a friend or two, pull them one at a time and step behind a wall so they have to come to you. Loot the {object:409289} at the top: it gives you the {item:209748}; right-click it to start the quest. Keep the orb in your bags until the {object:409311}: three later quests need it."] = "爬到 {zone:1439} 北部 {area:444} 的塔顶。周围的暗滩狂热者比较容易对付（16-17 级），但通往宝珠的塔内有四名暗滩唤魔师（28-29 级）：每名都会召唤虚空行者，并在远处施放 {spell:686}。22-25 级时，带一两位朋友来，每次只引一名，然后躲到墙后迫使对方靠近。拾取顶层的 奇异宝珠，获得 {item:209748}；右键点击它开始任务。在到达 {object:409311} 之前一直把宝珠放在背包里：后面有三个任务要用到它。",
 	-- {object:409289} Strange Orb (no name in this language: may be words) · {area:444} Tower of Althalaxx · {item:209748} Althalaxx Orb
-	["{object:409289} atop the {area:444}: right-click the {item:209748} it gives"] = "{area:444}顶端的{object:409289}：右键点击它给的{item:209748}",
+	["{object:409289} atop the {area:444}: right-click the {item:209748} it gives"] = "{area:444}顶端的奇异宝珠：右键点击它给的{item:209748}",
 
 	-- Step 2: Delgren the Purifier
 	-- {npc:3663} Delgren the Purifier · {area:413} Maestra's Post · {zone:1440} Ashenvale · {zone:1439} Darkshore · {zone:1453} Stormwind
@@ -50,9 +50,9 @@ return {
 	-- {object:409311} Spear of Mannoroth (no name in this language: may be words)
 	["The {object:409311}"] = "{object:409311}",
 	-- {object:409311} Spear of Mannoroth (no name in this language: may be words) · {area:435} Demon Fall Canyon · {item:209748} Althalaxx Orb · {object:409315} Shattered Orb (no name in this language: may be words)
-	["The {object:409311} stands at the east end of {area:435}. Hand in the motes at the spear with the {item:209748} in your bags: the orb shatters, and the {object:409315} beside it starts the last quest."] = "{object:409311} 位于 {area:435} 的东端。把 {item:209748} 放在背包里，在长矛处交还微粒：宝珠会碎裂，旁边的 {object:409315} 随即提供最后一个任务。",
+	["The {object:409311} stands at the east end of {area:435}. Hand in the motes at the spear with the {item:209748} in your bags: the orb shatters, and the {object:409315} beside it starts the last quest."] = "{object:409311} 位于 {area:435} 的东端。把 {item:209748} 放在背包里，在长矛处交还微粒：宝珠会碎裂，旁边的碎裂的宝珠随即提供最后一个任务。",
 	-- {object:409315} Shattered Orb (no name in this language: may be words)
-	["from the {object:409315}"] = "来自{object:409315}",
+	["from the {object:409315}"] = "来自碎裂的宝珠",
 
 	-- Step 9: Return to Delgren
 	-- {npc:3663} Delgren the Purifier · {area:413} Maestra's Post · {zone:1440} Ashenvale
