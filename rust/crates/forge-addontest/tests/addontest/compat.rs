@@ -133,6 +133,29 @@ fn quest_objectives_normalize_to_text_type_finished_numfulfilled_numrequired() {
 	);
 }
 
+// #3020 / #1935: one ability under several spell ids. KnowsSpellNamed reads the spellbook's names once and again
+// after the spellbook changes.
+#[test]
+fn knows_spell_named_reads_the_spellbook_names_and_again_after_a_change_3020() {
+	let out = run(r#"
+		local book = { 900001 }
+		local names = { [900001] = "Tame Beast", [900002] = "Bear Form" }
+		C_Spell = C_Spell or {}
+		C_Spell.GetSpellName = function(id) return names[id] end
+		C_SpellBook.GetNumSpellBookSkillLines = function() return 1 end
+		C_SpellBook.GetSpellBookSkillLineInfo = function() return { itemIndexOffset = 0, numSpellBookItems = #book } end
+		C_SpellBook.GetSpellBookItemInfo = function(k) return book[k] and { spellID = book[k], itemType = 1 } or nil end
+		local r = { C.KnowsSpellNamed("Tame Beast"), C.KnowsSpellNamed("Bear Form") }
+		book[2] = 900002
+		r[3] = C.KnowsSpellNamed("Bear Form")
+		stub.fire("SPELLS_CHANGED")
+		r[4] = C.KnowsSpellNamed("Bear Form")
+		r[5] = C.KnowsSpellNamed("")
+		emit(r)
+	"#);
+	assert_eq!(out, json!([true, false, false, true, false]), "read once; again after SPELLS_CHANGED");
+}
+
 // Camping 101: Alchemy's one objective, "Raise your alchemy skill to 20", came back from Forever's client counted
 // full while unfinished (alchemy 2 of 20): the guide window read "1/1" on a quest still to do (#1952).
 #[test]

@@ -843,6 +843,25 @@ fn no_heads_up_for_a_reward_already_known_or_owned_or_a_chain_already_taken() {
 	assert_eq!(out[4]["quest"], 98393, "{}", out[4]);
 }
 
+// #3020 (FleshExpress): a Highborne hunter who had Tame Beast for days got the "Taming the Beast" card at 35: the
+// card checked the one spell id the data names, and another race's chain teaches it under another id. #1935: the
+// same for a Skyborne druid's Bear Form. The reward counts as known by its name in the spellbook too.
+#[test]
+fn issue_3020_a_reward_spell_known_under_another_id_counts_by_its_name() {
+	let out = run_toast(
+		r#"
+		local book = {}
+		Polestar.Compat.KnowsSpellNamed = function(name) return book[name] == true end
+		local tame = { kind = "pet", spell = 1515, spellName = "Tame Beast" }
+		local r = { CT.RewardKnown(tame) }
+		book["Tame Beast"] = true
+		r[2] = CT.RewardKnown(tame)
+		r[3] = CT.RewardKnown({ kind = "ability", spell = 5487, spellName = "Bear Form" })
+		emit(r)"#,
+	);
+	assert_eq!(out[0], json!([false, true, false]), "not known; known by name; another name stays unknown");
+}
+
 #[test]
 fn login_tells_only_of_chains_opened_in_the_last_two_levels_and_never_of_level_1_ones() {
 	let out = run_toast(
