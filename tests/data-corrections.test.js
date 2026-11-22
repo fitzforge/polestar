@@ -816,3 +816,11 @@ test('pick-up steps say what the objectives leave out: the Twilight Key (#3266),
 	assert.match(how(3801), /ghost only a dead character can see/);
 	assert.match(how(1027), /Rotting Slimes .* leave a Rusty Chest/);
 });
+
+// Rockout (#3545): My Little Friends' specimens are caught with the Bug Catching Net, not looted, so the goal read
+// "Kill Hay Weevil". The public mechanics name the net and the three insects it works on.
+test('My Little Friends: each specimen is a use of the Bug Catching Net on its insect, not a kill (#3545)', () => {
+	const m = require('../data/mechanics-public.json').quests[93176];
+	assert.deepEqual(m.params, [{ kind: 'use-item-on-mob', item: 213562, npcs: [217588, 217589, 217590] }]);
+	assert.deepEqual(m.steps.map((s) => [s.n, s.action, s.target.id, s.item.id]), [[1, 'use-item', 217588, 213562], [2, 'use-item', 217589, 213562], [3, 'use-item', 217590, 213562]]);
+});
