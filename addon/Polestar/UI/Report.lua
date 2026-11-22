@@ -329,6 +329,24 @@ local function travelLine()
 	return cut((L["Travel: %s"]):format(table.concat(parts, SEP)), 300)
 end
 
+-- Where this session's walks went through what the walking maps close (Nav/Walk.lua Walk.WalkedGaps: the player's
+-- own steps the router took as open, #3641): the places, as the guides write them (map, @x,y), and the steps; the newest
+-- last. English words, as Routes; a free finder of map gaps for the data round. No line without one.
+local function walkedLine()
+	local N, C = ns.Nav, ns.Compat
+	local W, T = N and N.walk, N and N.travel
+	local gaps = W and W.WalkedGaps and W.WalkedGaps()
+	if not (gaps and #gaps > 0) then return nil end
+	local parts = {}
+	for i, g in ipairs(gaps) do
+		local zone = T and T.ZoneOf and T.ZoneOf(nil, g.c, g.x, g.y)
+		local x, y
+		if zone and C and C.WorldToMap then x, y = C.WorldToMap(g.c, g.x, g.y, zone) end
+		parts[i] = (where(zone, x, y) or ("continent %d %.0f,%.0f"):format(g.c, g.x, g.y)) .. (" (%d steps)"):format(g.n)
+	end
+	return cut("Walked where the map says blocked: " .. table.concat(parts, SEP))
+end
+
 -- The "While you're here" line (Engine.WhileHereState): the lines shown
 -- (each: what, quest, step, distance; "; " between them) or "none", the
 -- radius, a hand-in's seconds out of the way and how many candidates there
@@ -879,6 +897,7 @@ function R.Details()
 	add(d, "where", playerLine())
 	add(d, "routes", routesLine())
 	add(d, "travel", travelLine())
+	add(d, "walked", walkedLine())
 	add(d, "whilehere", whileHereLine())
 	add(d, "packs", packsLine())
 	add(d, "install", installLine())

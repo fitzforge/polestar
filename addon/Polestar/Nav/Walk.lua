@@ -417,9 +417,66 @@ local function restore(c, x, y)
 	if c and T and T.RestoreWalk then T.RestoreWalk(c, x, y) end
 end
 
+-- The player's own steps (#3641, Fitz in Hillsbrad Fields: he walked round the left of the farmhouse while the line,
+-- and every walk asked again, went round its right: the maps' 4-yd cells close the gaps he walked through). His places
+-- of the last SECONDS, SPACING yards apart, kept per continent: every walk the arrow asks takes the steps the grid
+-- has no way for as open (Path.SetTrail, before each ask: the router holds only the last SECONDS of them, never
+-- stored), so a walk from where he has been goes his way. Clear drops them from the router. The gaps found are kept
+-- for /polestar report (Walk.WalkedGaps): where players walk that the maps close. (A table, not locals: the main chunk's locals are near Lua 5.1's 200.)
+local walked = { SPACING = 2, SECONDS = 60, MAX = 300, WALL = 6, MOVED = 4, x = {}, y = {}, t = {}, n = 0, gaps = {}, GAPS = 5 }
+function walked.Note(pc, px, py)
+	local n = walked.n
+	if walked.c ~= pc then
+		walked.c, n = pc, 0
+	elseif n > 0 then
+		local dx, dy = px - walked.x[n], py - walked.y[n]
+		if dx * dx + dy * dy < walked.SPACING * walked.SPACING then return end
+	end
+	local now = GetTime()
+	local x, y, t = walked.x, walked.y, walked.t
+	if n >= walked.MAX or (n > 0 and now - t[1] > walked.SECONDS) then
+		local drop = 0
+		while drop < n and (n - drop >= walked.MAX or now - t[drop + 1] > walked.SECONDS) do drop = drop + 1 end
+		for i = 1, n - drop do x[i], y[i], t[i] = x[i + drop], y[i + drop], t[i + drop] end
+		n = n - drop
+	end
+	n = n + 1
+	x[n], y[n], t[n] = px, py, now
+	walked.n = n
+end
+-- Before a walk is asked: his steps (the last SECONDS, whatever goal they were for: where he walked is open either
+-- way) to the router.
+function walked.Use(P, pc)
+	if not (P and P.SetTrail) or walked.c ~= pc then return end
+	local s, x, y = {}, walked.x, walked.y
+	for i = 1, walked.n do
+		s[#s + 1], s[#s + 2], s[#s + 3] = x[i], y[i], false
+	end
+	if #s < 6 then return end
+	local ok, n, gx, gy = pcall(P.SetTrail, pc, s)
+	walked.set = pc
+	if ok and type(n) == "number" and n > 0 then
+		local g = walked.gaps
+		local last = g[#g]
+		if last and last.c == pc and (last.x - gx) ^ 2 + (last.y - gy) ^ 2 < 400 then
+			last.n = math.max(last.n, n)
+		else
+			if #g >= walked.GAPS then table.remove(g, 1) end
+			g[#g + 1] = { c = pc, x = gx, y = gy, n = n }
+		end
+	end
+end
+function walked.Drop(P)
+	if walked.set and P and P.SetTrail then pcall(P.SetTrail, walked.set, nil) end
+	walked.set = nil
+end
+-- Where this session's walks went through what the maps close: { { c, x, y, n }, ... } (n steps), oldest first.
+function Walk.WalkedGaps() return walked.gaps end
+
 function Walk.Clear()
 	local had, c, x, y = gc ~= nil, gc, gx, gy
 	cancel()
+	walked.Drop(engine())
 	gc, gx, gy, gzFor, gz, count, idx, wanted, failed, hubs, shape = nil, nil, nil, nil, nil, 0, 1, false, false, nil, nil
 	Walk.blockedReason = nil
 	Walk.checkedOnly, ptsX.checkedPolicy = nil, nil
@@ -1315,6 +1372,7 @@ local function ask(P, pc, px, py, flat, terminal)
 	wanted = false
 	askedAt, failed = GetTime(), false
 	cancel()
+	walked.Use(P, pc)
 	if P.Available and not P.Available(pc) then
 		-- Routing is on but this continent has no walking map. A clear
 		-- faction/level check alone cannot establish a line across it.
@@ -1614,6 +1672,7 @@ end
 function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop, checkedOnly)
 	local P = engine()
 	if P and P.SurfacesAt and pc then track(P, pc, px, py) end
+	if pc then walked.Note(pc, px, py) end
 	-- With no observed deck, a flat search can start on any floor under the
 	-- shaft. Drop even an old walk; Travel owns the separate ride instruction.
 	if P and pc and pc == goalC and city.Lift(pc, px, py) and playerZ(pc) == nil then
@@ -1633,6 +1692,7 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop, checke
 		or (goalX - gx) * (goalX - gx) + (goalY - gy) * (goalY - gy) > GOAL_MOVED * GOAL_MOVED then
 		local had = count > 0 or shape ~= nil
 		cancel()
+		walked.wx, walked.wy = nil, nil
 		gc, gx, gy, count, idx, failed, hubs, shape = goalC, goalX, goalY, 0, 1, false, nil, nil
 		failAgain = false
 		Walk.blockedReason = nil
@@ -1759,8 +1819,20 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop, checke
 	-- On a long walk (ASK_FAR yards left) a stray asks again at most every ASK_FAR_EVERY seconds: each ask searches the
 	-- whole walk again, and a mounted player cutting corners strayed every few seconds (a search every 4-5 s, ~1 MB of
 	-- garbage a second). A stray that long after the last ask still asks at once.
+	-- A wall between the player and the aim (the maps' line of sight, city.Walls) while more than walked.WALL yards
+	-- off the path is off the path too, however near (#3641: a farmhouse narrower than STRAY kept Fitz "on" a line
+	-- the other side of it). Either way the walk is asked again from where the player stands, his own steps open
+	-- (walked.Use), and the wall rule asks again only after he has moved walked.MOVED yards since its last ask.
 	local every = lastLeft > ASK_FAR and ASK_FAR_EVERY or ASK_EVERY
-	if fstate.off > STRAY and not fstate.sighted and token == nil and not wanted and GetTime() - askedAt >= every then ask(P, pc, px, py) end
+	if token == nil and not wanted and not fstate.sighted and GetTime() - askedAt >= every then
+		local off = fstate.off or 0
+		local walled = off > walked.WALL and reach and (not walked.wx or (px - walked.wx) ^ 2 + (py - walked.wy) ^ 2 > walked.MOVED ^ 2)
+			and not reach(px, py, ax, ay)
+		if off > STRAY or walled then
+			if walled then walked.wx, walked.wy = px, py end
+			ask(P, pc, px, py)
+		end
+	end
 	return pc, ax, ay, lastLeft
 end
 
