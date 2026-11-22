@@ -816,3 +816,64 @@ test('pick-up steps say what the objectives leave out: the Twilight Key (#3266),
 	assert.match(how(3801), /ghost only a dead character can see/);
 	assert.match(how(1027), /Rotting Slimes .* leave a Rusty Chest/);
 });
+
+// Rockout (#3545): My Little Friends' specimens are caught with the Bug Catching Net, not looted, so the goal read
+// "Kill Hay Weevil". The public mechanics name the net and the three insects it works on.
+test('My Little Friends: each specimen is a use of the Bug Catching Net on its insect, not a kill (#3545)', () => {
+	const m = require('../data/mechanics-public.json').quests[93176];
+	assert.deepEqual(m.params, [{ kind: 'use-item-on-mob', item: 213562, npcs: [217588, 217589, 217590] }]);
+	assert.deepEqual(m.steps.map((s) => [s.n, s.action, s.target.id, s.item.id]), [[1, 'use-item', 217588, 213562], [2, 'use-item', 217589, 213562], [3, 'use-item', 217590, 213562]]);
+});
+
+// Gindry (#3546): Tooga gives Oasis only once Tooga's Quest is handed in at Torta.
+test('Oasis comes after Tooga\'s Quest (#3546)', () => {
+	assert.deepEqual(corrections.quests[97540].set.pre, [1560]);
+});
+
+// #3171, #3392, #3522: the live server describes none of Duke Hydraxis's chain, nor Attunement to the Core, and two
+// players at 56 and 60 were offered nothing by him: the quests leave the data until the Molten Core opens.
+test('Duke Hydraxis\'s chain and Attunement to the Core leave the data while the Molten Core is closed (#3171, #3392, #3522)', () => {
+	for (const q of [6804, 6805, 6821, 6822, 6823, 6824, 7486, 7848]) {
+		assert.equal(corrections.quests[q].remove, true, `quest ${q}`);
+		assert.ok(corrections.quests[q].source.some((s) => s.kind === 'eg'), `quest ${q}: the live scans`);
+	}
+});
+
+// Zack (#3338): Scout Bloodfist and Rifleman Torrig are not in the world, and nobody has done their quests.
+test('The Silithus scouts\' quests leave the data: 9415, 9416 and the Scouring the Desert pair (#3338)', () => {
+	for (const q of [9415, 9416, 9419, 9422]) assert.equal(corrections.quests[q].remove, true, `quest ${q}`);
+});
+
+// PierreAnken (#3192): Ignatz offers the Horde's Stinky's Escape from level 36; the Alliance's stays at 30.
+test('Stinky\'s Escape (Horde) is offered from level 36 (#3192)', () => {
+	assert.equal(corrections.quests[1270].set.minLevel, 36);
+	assert.equal(corrections.quests[1222], undefined);
+});
+
+// Sugawolf (#3601): Pix Xizzix offers one In Demand quest a week; the data knew only 96076. All four are known now.
+test('Pix Xizzix\'s four In Demand quests are in the data (#3601)', () => {
+	for (const q of [96075, 96087, 96088]) {
+		const s = corrections.quests[q].set;
+		assert.deepEqual([s.start.npc, s.end.npc, s.minLevel, s.objectives.length], [[227853], [227853], 60, 3], `quest ${q}`);
+	}
+});
+
+// #2465, #3138, #3601, #558: what the game hides behind a condition, for the engine (#3658).
+test('Seeking the Kor Gem counts as done by An Underrated Talent; Zorbin sells after Zapped Giants; Pix\'s In Demand quests rotate; Franclorn is a ghost (#2465, #3138, #3601, #558)', () => {
+	assert.deepEqual(corrections.quests[95042].set.doneBy, [95111]);
+	assert.equal(corrections.npcs[14637].set.vendorAfter, 7003);
+	for (const q of [96075, 96076, 96087, 96088]) assert.equal(corrections.quests[q].set.rotation, 'pix-weekly', `quest ${q}`);
+	assert.equal(corrections.npcs[8888].set.ghostOnly, true);
+});
+
+// Everlast (#3301): Melizza offers her escort in the Maraudine camp, not along its path.
+test('Melizza Brimbuzzle stands only in the Maraudine camp (#3301)', () => {
+	for (const [x, y] of corrections.npcs[12277].set.spawns[1443].pts) assert.ok(x < 34.5 && y < 55, `${x},${y}`);
+});
+
+// Stö (#3531): Blademaster's Bonfires is two bonfires lit, with their objects and spots.
+test('Blademaster\'s Bonfires: the south and southeast bonfires are its objectives, placed where players light them (#3531)', () => {
+	assert.deepEqual(corrections.quests[96959].set.objectives.map((o) => [o.type, o.id]), [['object', 656668], ['object', 656669]]);
+	assert.deepEqual(corrections.objects[656668].addSpawns[2482].pts, [[49.1, 36.02]]);
+	assert.deepEqual(corrections.objects[656669].addSpawns[2482].pts, [[54.84, 40.0]]);
+});
