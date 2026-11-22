@@ -267,6 +267,22 @@ static TEXT: &[(&str, [&str; 9], [&str; 9])] = &[
 			"Polestar 的一部分：petllama 的 Freedoom Arcade，飛行途中可玩的三個 Freedoom 關卡。點擊「開始遊戲」時載入。",
 		],
 	),
+	// The guide window's other tab styles (title menu, top edge, side strip): loaded the first time one is drawn.
+	(
+		"Polestar_TabStyles",
+		["Polestar: Tab-Stile", "Polestar: estilos de pestañas", "Polestar: estilos de pestañas", "Polestar : styles d'onglets", "Polestar 탭 스타일", "Polestar: estilos de abas", "Polestar: стили вкладок", "Polestar 标签样式", "Polestar 分頁樣式"],
+		[
+			"Teil von Polestar: die Tabs des Leitfadenfensters als Titelmenü, an der Oberkante und als Seitenleiste. Wird geladen, wenn du einen auswählst.",
+			"Parte de Polestar: las pestañas de la ventana de la guía como menú del título, en el borde superior y en una tira lateral. Se carga cuando eliges uno.",
+			"Parte de Polestar: las pestañas de la ventana de la guía como menú del título, en el borde superior y en una tira lateral. Se carga cuando eliges uno.",
+			"Fait partie de Polestar : les onglets de la fenêtre du guide en menu du titre, sur le bord supérieur et en bande latérale. Chargé quand vous en choisissez un.",
+			"Polestar의 일부: 가이드 창의 탭을 제목 메뉴, 위쪽 가장자리, 옆 띠로 표시합니다. 하나를 고를 때 불러옵니다.",
+			"Parte do Polestar: as abas da janela do guia como menu do título, na borda superior e numa faixa lateral. Carregado quando você escolhe um.",
+			"Часть Polestar: вкладки окна руководства в меню заголовка, по верхнему краю и на боковой полосе. Загружается, когда вы выбираете один из них.",
+			"Polestar 的组成部分：指南窗口的标签可显示为标题菜单、顶边标签或侧边栏。选择其中一个时加载。",
+			"Polestar 的一部分：指南視窗的分頁可顯示為標題選單、頂邊分頁或側邊欄。選擇其中一個時載入。",
+		],
+	),
 	// The Skin API's example (docs/SKINS-API.md): in the repository only, never in a release.
 	(
 		"Polestar_Skin_Example",
@@ -417,6 +433,37 @@ static TEXT: &[(&str, [&str; 9], [&str; 9])] = &[
 			"Стекло и блеск для Polestar: полупрозрачные панели со скосом, блик на каждой кнопке и вкладке, свет поперёк стекла, цвет вашего класса, переходящий в акцент.",
 			"Polestar 的玻璃与光泽：带斜面的半透明面板，每个按钮和标签上的光泽，横过玻璃的光，职业颜色渐入强调色。",
 			"Polestar 的玻璃與光澤：帶斜面的半透明面板，每個按鈕和標籤上的光澤，橫過玻璃的光，職業顏色漸入強調色。",
+		],
+	),
+	(
+		"Polestar_Skin_Atlas",
+		["Polestar-Design: Atlas", "Polestar, tema: Atlas", "Polestar, tema: Atlas", "Polestar, habillage : Atlas", "Polestar 스킨: Atlas", "Polestar, tema: Atlas", "Polestar, оформление: Atlas", "Polestar 皮肤：Atlas", "Polestar 皮膚：Atlas"],
+		[
+			"Die Farben von Atlas für Polestar: ein warmer Goldakzent und keine Trennlinien. Für das Atlas-Layout gemacht, zu jedem Layout passend.",
+			"Los colores de Atlas para Polestar: un acento dorado cálido y sin líneas de sección. Hecho para el diseño Atlas, válido con cualquier diseño.",
+			"Los colores de Atlas para Polestar: un acento dorado cálido y sin líneas de sección. Hecho para el diseño Atlas, válido con cualquier diseño.",
+			"Les couleurs d'Atlas pour Polestar : un accent doré chaud et aucune ligne de section. Fait pour la disposition Atlas, valable avec toute disposition.",
+			"Polestar용 Atlas 색상: 따뜻한 금색 강조색, 구분선 없음. Atlas 레이아웃용으로 만들었고 어떤 레이아웃에도 어울립니다.",
+			"As cores do Atlas para o Polestar: um destaque dourado quente e sem linhas de seção. Feito para o layout Atlas, combina com qualquer layout.",
+			"Цвета Atlas для Polestar: тёплый золотой акцент и никаких разделительных линий. Сделано для макета Atlas, подходит к любому макету.",
+			"Polestar 的 Atlas 配色：温暖的金色强调色，没有分隔线。为 Atlas 布局而做，也适用于任何布局。",
+			"Polestar 的 Atlas 配色：溫暖的金色強調色，沒有分隔線。為 Atlas 版面而做，也適用於任何版面。",
+		],
+	),
+	// The guide window's layouts (Skin API 2), each an addon of its own, loaded when picked.
+	(
+		"Polestar_Layout_Atlas",
+		["Polestar-Layout: Atlas", "Polestar, diseño: Atlas", "Polestar, diseño: Atlas", "Polestar, disposition : Atlas", "Polestar 레이아웃: Atlas", "Polestar, layout: Atlas", "Polestar, макет: Atlas", "Polestar 布局：Atlas", "Polestar 版面：Atlas"],
+		[
+			"Ein Zeitleisten-Layout für das Guide-Fenster von Polestar: der Schritt auf einer Schiene, die nächsten Schritte verblassen nach vorn, Karten über dem Fenster. Jedes Design gibt ihm die Farben.",
+			"Un diseño de línea de tiempo para la ventana de la guía de Polestar: el paso sobre un riel, los pasos siguientes cada vez más tenues, tarjetas sobre la ventana. Cualquier tema le da los colores.",
+			"Un diseño de línea de tiempo para la ventana de la guía de Polestar: el paso sobre un riel, los pasos siguientes cada vez más tenues, tarjetas sobre la ventana. Cualquier tema le da los colores.",
+			"Une disposition en frise pour la fenêtre du guide de Polestar : l'étape sur un rail, les étapes suivantes de plus en plus pâles, des cartes au-dessus de la fenêtre. Tout habillage lui donne ses couleurs.",
+			"Polestar 가이드 창의 타임라인 레이아웃: 레일 위의 단계, 갈수록 흐려지는 다음 단계, 창 위의 카드. 색은 어떤 스킨이든 입힙니다.",
+			"Um layout de linha do tempo para a janela do guia do Polestar: a etapa sobre um trilho, as próximas etapas cada vez mais claras, cartões acima da janela. Qualquer tema dá as cores.",
+			"Макет-лента для окна гайда Polestar: шаг на линии, следующие шаги всё бледнее, карточки над окном. Цвета даёт любое оформление.",
+			"Polestar 指南窗口的时间线布局：步骤在轨道上，后续步骤逐渐变淡，卡片位于窗口上方。任何皮肤都可为其配色。",
+			"Polestar 指南視窗的時間軸版面：步驟在軌道上，後續步驟逐漸變淡，卡片位於視窗上方。任何皮膚都可為其配色。",
 		],
 	),
 ];
