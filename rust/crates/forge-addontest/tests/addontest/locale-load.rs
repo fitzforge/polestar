@@ -157,7 +157,6 @@ local out = {}
 for _, m in ipairs(stub.messages) do if m:find("language files", 1, true) then out[#out + 1] = m:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "") end end
 emit(table.concat(out, "\n"))"#
 			.into(),
-		..Default::default()
 	})
 	.remove(0)
 }
@@ -191,7 +190,6 @@ local said = 0
 for _, m in ipairs(stub.messages) do if m:find("language files", 1, true) then said = said + 1 end end
 emit({ BINDING_NAME_POLESTAR_NEXT, L["Previous step"], next(L) == nil, T.PackText("guides", "Polestar Guides"), N.Cached("quest", 7) or false, N.Language(), stub.packLoads.Polestar_deDE or 0, said })"#
 			.into(),
-		..Default::default()
 	})
 	.remove(0)
 }
