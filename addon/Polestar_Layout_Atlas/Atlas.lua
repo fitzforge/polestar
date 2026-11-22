@@ -2086,8 +2086,10 @@ local function stepHeader(person, width)
 	person.Where:SetTextColor(Theme.Color("textMuted"))
 	person.Name:SetWordWrap(false)
 	if person.Icon then person.Icon:SetAlpha(0) end
-	-- The level line (gone from next since #3438) only where the window has one.
-	if person.Level then person.Level:Hide() end
+	-- The level line (gone from next since #3438) only where the window has one
+	-- (rawget: the test client answers an unknown capitalised name with a method).
+	local level = rawget(person, "Level")
+	if level then level:Hide() end
 	local pad = has("guideInset") and 11 or 14
 	local full = not compact()
 	local top = full and Core.gap("stepSpace", AIR_TOP) or TITLE_PAD
