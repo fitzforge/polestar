@@ -4908,6 +4908,7 @@ L["A preview of the settings in groups, with tabs, a filter and a preview beside
 
 -- UI/Essentials.lua
 L["Most used"] = "Am häufigsten genutzt"
+
 -- Rares/Rares.lua
 L["Boss emote"] = "Boss-Emote"
 
