@@ -849,3 +849,11 @@ test('Stinky\'s Escape (Horde) is offered from level 36 (#3192)', () => {
 	assert.equal(corrections.quests[1270].set.minLevel, 36);
 	assert.equal(corrections.quests[1222], undefined);
 });
+
+// Sugawolf (#3601): Pix Xizzix offers one In Demand quest a week; the data knew only 96076. All four are known now.
+test('Pix Xizzix\'s four In Demand quests are in the data (#3601)', () => {
+	for (const q of [96075, 96087, 96088]) {
+		const s = corrections.quests[q].set;
+		assert.deepEqual([s.start.npc, s.end.npc, s.minLevel, s.objectives.length], [[227853], [227853], 60, 3], `quest ${q}`);
+	}
+});

@@ -20970,5 +20970,155 @@
 			}
 		],
 		"note": "Stinky's Escape (Horde, Ignatz \"Stinky\" in Dustwallow Marsh) is offered from level 36 on Forever. The game's quest record and our data said 30, so the guide and \"While you're here\" sent players at 35 to a giver who offered nothing (#3192). The Alliance version (1222) is offered lower (a level 34 character in the recordings) and keeps 30."
+	},
+	"96075": {
+		"set": {
+			"title": "In Demand - Blackrock Legal Records",
+			"level": 60,
+			"minLevel": 60,
+			"zone": 1434,
+			"objectives": [
+				{
+					"type": "item",
+					"id": 272017,
+					"count": 1,
+					"text": "Nefarion's Remit"
+				},
+				{
+					"type": "item",
+					"id": 272018,
+					"count": 1,
+					"text": "Overseer's License"
+				},
+				{
+					"type": "item",
+					"id": 272019,
+					"count": 1,
+					"text": "Bronzebeard Wedding Contract"
+				}
+			],
+			"objectiveText": "Acquire Nefarian's Remit from General Drakkisath in Blackrock Spire, Overseer's License from Overlord Wyrmthalak in Blackrock Spire, and Bronzebeard Wedding Contract from Emperor Thaurissan in Blackrock Depths, and bring them to Pix Xizzix in Booty Bay.",
+			"start": {
+				"npc": [
+					227853
+				]
+			},
+			"end": {
+				"npc": [
+					227853
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest record 96075 (client quest cache, builds 1.60.1.70959 and 1.60.1.71037): title, levels, the three objectives and their text; the live quest scans describe it (open)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: Pix Xizzix offered In Demand - Blackrock Legal Records to 4 people at level 60, 3 of them in windows where In Demand - Ancient Elven Curiosities (96076) was refused; he offered 96076 to 1 other, and no window offered both"
+			}
+		],
+		"note": "In Demand - Blackrock Legal Records, one of the In Demand quests Pix Xizzix (Booty Bay) offers, a different one each week, was missing from the merged data: created from the game's quest record. With it the data holds all four of his rotation (96075, 96076, 96087, 96088), so a pick-up guide can show whichever he offers this week (#3601)."
+	},
+	"96087": {
+		"set": {
+			"title": "In Demand - Plague Records",
+			"level": 60,
+			"minLevel": 60,
+			"zone": 1434,
+			"objectives": [
+				{
+					"type": "item",
+					"id": 272023,
+					"count": 1,
+					"text": "Headmaster's Records"
+				},
+				{
+					"type": "item",
+					"id": 272024,
+					"count": 1,
+					"text": "Grain Shipment Records"
+				},
+				{
+					"type": "item",
+					"id": 272025,
+					"count": 1,
+					"text": "Dathrohan's Correspondence"
+				}
+			],
+			"objectiveText": "Acquire Headmaster's Records from Darkmaster Gandling, Grain Shipment Orders from Baron Rivendare, and Dathrohan's Correspondence from Grand Crusader Saidan Dathrohan, and bring them to Pix Xizzix in Booty Bay.",
+			"start": {
+				"npc": [
+					227853
+				]
+			},
+			"end": {
+				"npc": [
+					227853
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest record 96087 (client quest cache, builds 1.60.1.70959 and 1.60.1.71037): title, levels, the three objectives and their text; the live quest scans describe it (open)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no recorded window offered it yet; at level 60 Pix Xizzix offered one In Demand quest at a time (Blackrock Legal Records to 4 people, Ancient Elven Curiosities to 1, never both)"
+			}
+		],
+		"note": "In Demand - Plague Records, one of the In Demand quests Pix Xizzix (Booty Bay) offers, a different one each week, was missing from the merged data: created from the game's quest record. With it the data holds all four of his rotation (96075, 96076, 96087, 96088), so a pick-up guide can show whichever he offers this week (#3601)."
+	},
+	"96088": {
+		"set": {
+			"title": "In Demand - Titan Relics",
+			"level": 60,
+			"minLevel": 60,
+			"zone": 1434,
+			"objectives": [
+				{
+					"type": "item",
+					"id": 272026,
+					"count": 1,
+					"text": "Ysera's Tear"
+				},
+				{
+					"type": "item",
+					"id": 272027,
+					"count": 1,
+					"text": "Mark of Xavius"
+				},
+				{
+					"type": "item",
+					"id": 272028,
+					"count": 1,
+					"text": "Freya's Sigil"
+				}
+			],
+			"objectiveText": "Acquire Ysera's Tear from the Shade of Eranikus in the Sunken Temple, a Mark of Xavius from Varrox Bleakhoof in Blackmaw Hold, and Freya's Sigil from Nanaya in the Shaper's Terrace, and bring them to Pix Xizzix in Booty Bay.",
+			"start": {
+				"npc": [
+					227853
+				]
+			},
+			"end": {
+				"npc": [
+					227853
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest record 96088 (client quest cache, builds 1.60.1.70959 and 1.60.1.71037): title, levels, the three objectives and their text; the live quest scans describe it (open)"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no recorded window offered it yet; at level 60 Pix Xizzix offered one In Demand quest at a time (Blackrock Legal Records to 4 people, Ancient Elven Curiosities to 1, never both)"
+			}
+		],
+		"note": "In Demand - Titan Relics, one of the In Demand quests Pix Xizzix (Booty Bay) offers, a different one each week, was missing from the merged data: created from the game's quest record. With it the data holds all four of his rotation (96075, 96076, 96087, 96088), so a pick-up guide can show whichever he offers this week (#3601)."
 	}
 }
