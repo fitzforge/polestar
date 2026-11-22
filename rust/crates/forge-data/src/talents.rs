@@ -21,9 +21,15 @@ use rustc_hash::FxHashMap;
 
 use crate::jsv::{col_num, col_str, Rows};
 
-/// The Forever client build the trees are read from. Raise it, rebuild, and review the diff when
-/// the client's talents change.
+/// The default Forever client build for plans that still need a refresh.
 pub const BUILD: &str = "1.60.1.70450";
+/// Classes whose plans have been checked against newer client tables.
+pub const CLASS_BUILDS: &[(&str, &str)] = &[("WARRIOR", "1.60.1.70959")];
+
+pub fn class_build(class: &str) -> &'static str {
+	CLASS_BUILDS.iter().find(|&&(name, _)| name == class).map_or(BUILD, |&(_, build)| build)
+}
+
 /// Whether an arrow needs the talent before it at full rank ("full") or one rank ("started").
 pub const PREREQ_RULE: &str = "full";
 pub const COMMAND: &str = "forge data talents build";
@@ -371,6 +377,10 @@ pub struct Output {
 
 /// Several classes' plans -> one Builds.lua, sorted by class (one plan file per class).
 pub fn build_all(sources: &[V], t: &Tables, header: &str, prereq: &str) -> Result<Output, String> {
+	build_with_facts(sources, header, prereq, |class| tree_facts(t, class))
+}
+
+fn build_with_facts(sources: &[V], header: &str, prereq: &str, facts_for: impl Fn(&str) -> Result<Facts, String>) -> Result<Output, String> {
 	let mut sorted: Vec<&V> = sources.iter().collect();
 	sorted.sort_by(|a, b| forge_guide::js::cmp_utf16(&a.get("class").to_js_string(), &b.get("class").to_js_string()));
 	let mut errors = Vec::new();
@@ -384,7 +394,7 @@ pub fn build_all(sources: &[V], t: &Tables, header: &str, prereq: &str) -> Resul
 			continue;
 		}
 		seen.push(class.clone());
-		let facts = tree_facts(t, &class)?;
+		let facts = facts_for(&class)?;
 		let order: Vec<String> = source.get("order").items().iter().map(V::to_js_string).collect();
 		let mut builds = Vec::new();
 		for b in source.get("builds").items() {
@@ -409,19 +419,13 @@ pub struct Options {
 	pub plans: PathBuf,
 	pub out: PathBuf,
 	pub sources: PathBuf,
-	pub build: String,
+	pub build: Option<String>,
 	pub offline: bool,
 }
 
 impl Options {
 	pub fn new(root: &Path) -> Options {
-		Options {
-			plans: root.join("talents").join("forever"),
-			out: root.join("addon").join("Polestar").join("Talents"),
-			sources: root.join("data").join("sources"),
-			build: BUILD.to_string(),
-			offline: false,
-		}
+		Options { plans: root.join("talents").join("forever"), out: root.join("addon").join("Polestar").join("Talents"), sources: root.join("data").join("sources"), build: None, offline: false }
 	}
 }
 
@@ -444,10 +448,31 @@ pub fn run(o: &Options, log: &dyn Fn(&str)) -> Result<(Output, Vec<String>), Str
 	} else {
 		format!("talents/forever/{{{}}}.json", files.iter().map(|f| f.trim_end_matches(".json")).collect::<Vec<_>>().join(","))
 	};
-	let (_, tables, warnings) = crate::sources::client_tables(&o.sources, &crate::tables::ERA, Some(&o.build), &TABLES, o.offline, log)?;
-	let t: Tables = tables.into_iter().collect();
-	let header = forge_guide::emit::header("lua", COMMAND, &format!("{from} and the Forever {} trait tables (wago.tools)", o.build));
-	Ok((build_all(&plans, &t, &header, PREREQ_RULE)?, warnings))
+	let mut build_of = BTreeMap::new();
+	let mut tables_by_build = BTreeMap::<&str, Tables>::new();
+	let mut warnings = Vec::new();
+	for plan in &plans {
+		let class = plan.get("class").to_js_string();
+		let build = o.build.as_deref().unwrap_or_else(|| class_build(&class));
+		build_of.insert(class, build);
+		if let std::collections::btree_map::Entry::Vacant(entry) = tables_by_build.entry(build) {
+			let (_, tables, table_warnings) = crate::sources::client_tables(&o.sources, &crate::tables::ERA, Some(build), &TABLES, o.offline, log)?;
+			entry.insert(tables.into_iter().collect());
+			warnings.extend(table_warnings);
+		}
+	}
+	let table_source = if tables_by_build.len() == 1 {
+		format!("the Forever {} trait tables (wago.tools)", tables_by_build.keys().next().unwrap())
+	} else {
+		let builds = tables_by_build.keys().map(|&build| {
+			let classes = build_of.iter().filter_map(|(class, &b)| (b == build).then_some(class.as_str())).collect::<Vec<_>>().join(", ");
+			format!("{build} for {classes}")
+		});
+		format!("the Forever trait tables from wago.tools ({})", builds.collect::<Vec<_>>().join(" and "))
+	};
+	let header = forge_guide::emit::header("lua", COMMAND, &format!("{from} and {table_source}"));
+	let output = build_with_facts(&plans, &header, PREREQ_RULE, |class| tree_facts(&tables_by_build[build_of[class]], class))?;
+	Ok((output, warnings))
 }
 
 #[cfg(test)]
