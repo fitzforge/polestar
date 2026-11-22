@@ -1,6 +1,6 @@
 ---
-section: players
+section: contributors
 ---
-- Loch Modan: the Discarded Fishing Toolbox that starts Silver of the Waves
-  can be found again, at the four places players took it, not only the one the
-  data knew.
+- Loch Modan: the Discarded Fishing Toolbox correction (665289) now carries
+  its name, so its four places also apply on builds without QuestieDB's
+  record (thanks bumblei3, #3308).
