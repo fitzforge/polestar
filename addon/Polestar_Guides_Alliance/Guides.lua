@@ -235,7 +235,7 @@ do
 					title = "{quest:1689}",
 					note = "{item:6810} is already with {npc:6122}: take {quest:1689} from him in the cellar of the {object:2164}, in the {object:2101}. Use the {item:6928} at the summoning circle there and defeat the voidwalker it calls.",
 					only = { classes = { "WARLOCK" }, races = { "Gnome" } },
-					when = { { k = "available", q = 1689, minLevel = 10, pre = { 1688 } } },
+					when = { { k = "turnedin", q = 1688 }, { k = "available", q = 1689, minLevel = 10, pre = { 1688 } } },
 					goals = {
 						{ t = "accept", quest = 1689, title = "The Binding", npc = 6122, npcName = "Gakin the Darkbinder", minLevel = 10, qlvl = 10, pre = { 1688 }, preTitles = { [1688] = "Surena Caledon" }, map = 1453, x = 39.22, y = 85.06, z = 101.5, spotsPacked = "39.2,85.3,101.5,15,3" },
 						{ t = "kill", quest = 1689, title = "The Binding", target = "Summoned Voidwalker", npc = 5676, count = 1, oi = 1, map = 1453, x = 39.09, y = 84.37, note = "{npc:5676}: use the {item:6928} at the circle" },
@@ -1740,7 +1740,7 @@ do
 					title = "{npc:11802}",
 					note = "The {item:15885} is already with {npc:11802}: take {quest:5061} from him, upstairs in his building.",
 					only = { classes = { "DRUID" }, races = { "NightElf", "Skyborne" } },
-					when = { { k = "available", q = 5061, minLevel = 16, pre = { 272 } } },
+					when = { { k = "turnedin", q = 272 }, { k = "available", q = 5061, minLevel = 16, pre = { 272 } } },
 					goals = {
 						{ t = "accept", quest = 5061, title = "Aquatic Form", npc = 11802, npcName = "Dendrite Starblaze", minLevel = 16, qlvl = 16, pre = { 272 }, preTitles = { [272] = "Trial of the Sea Lion" }, map = 1450, x = 56.07, y = 30.38, z = 524.5, spotsPacked = "56.1,30.5,524.5,15,2", note = "{npc:11802}: {quest:5061}, for {npc:4217}" },
 					},
@@ -2228,7 +2228,7 @@ do
 					title = "{npc:6172}",
 					note = "{npc:6172} is already raised: take the next part of {quest:1786} from him, south of {area:86}. The Defias Rogue Wizards around him carry the {item:6846}.",
 					only = { classes = { "PALADIN" }, races = { "Human" } },
-					when = { { k = "available", q = 1787, minLevel = 12, pre = { 1786 } } },
+					when = { { k = "turnedin", q = 1786 }, { k = "available", q = 1787, minLevel = 12, pre = { 1786 } } },
 					goals = {
 						{ t = "accept", quest = 1787, title = "The Tome of Divinity", npc = 6172, npcName = "Henze Faulk", minLevel = 12, qlvl = 13, pre = { 1786 }, preTitles = { [1786] = "The Tome of Divinity" }, map = 1429, x = 72.54, y = 51.43, z = 76.2, only = { races = { "Human" } } },
 						{ t = "collect", quest = 1787, title = "The Tome of Divinity", item = 6846, itemName = "Defias Script", count = 1, oi = 1, map = 1429, x = 71.74, y = 52.03, z = 70.6, f = "e", spotsPacked = "74.08,51.96,71.4,56,7;76.9,52.5,,40,2;76.4,48,,40,2;73.5,46.7,,40,2;52.7,59,70.5,40,1;50.7,83.2,36,40,1;48.2,87.4,,40,1;29,61.3,53.4,44,5", spread = true, lvl = 10, only = { races = { "Human" } }, note = "{item:6846}: Defias Rogue Wizards", from = "Defias Bodyguard", fromKind = "npc", fromAlso = "Defias Rogue Wizard", fromId = 6866, fromAlsoId = 474, fromNpcs = { { npc = 474, npcName = "Defias Rogue Wizard" }, { npc = 6866, npcName = "Defias Bodyguard" } } },
@@ -2581,7 +2581,7 @@ do
 				{
 					title = "{npc:1646}",
 					note = "Thundris' letter is already with {npc:1646}: his reply waits at the east side of {object:2098}.",
-					when = { { k = "available", q = 97926, minLevel = 13, pre = { 97914 } }, { k = "zone", neg = true, name = "Darkshore", area = 148 } },
+					when = { { k = "turnedin", q = 97914 }, { k = "available", q = 97926, minLevel = 13, pre = { 97914 } }, { k = "zone", neg = true, name = "Darkshore", area = 148 } },
 					goals = {
 						{ t = "accept", quest = 97926, title = "Making Do", npc = 1646, npcName = "Baros Alexston", minLevel = 13, qlvl = 17, pre = { 97914 }, preTitles = { [97914] = "Expanding Horizons" }, map = 1453, x = 57.73, y = 47.71, z = 101.8, spotsPacked = "57.6,47.8,101.8,15,2", optional = true, note = "For {npc:3649}, where the boat lands" },
 					},
@@ -2853,7 +2853,7 @@ do
 					title = "{npc:6172}",
 					note = "{npc:6172} is already raised: take the next part of {quest:1786} from him, south of {area:86}. The Defias Rogue Wizards around him carry the {item:6846}.",
 					only = { classes = { "PALADIN" }, races = { "Human" } },
-					when = { { k = "available", q = 1787, minLevel = 12, pre = { 1786 } } },
+					when = { { k = "turnedin", q = 1786 }, { k = "available", q = 1787, minLevel = 12, pre = { 1786 } } },
 					goals = {
 						{ t = "accept", quest = 1787, title = "The Tome of Divinity", npc = 6172, npcName = "Henze Faulk", minLevel = 12, qlvl = 13, pre = { 1786 }, preTitles = { [1786] = "The Tome of Divinity" }, map = 1429, x = 72.54, y = 51.43, z = 76.2, only = { races = { "Human" } } },
 						{ t = "collect", quest = 1787, title = "The Tome of Divinity", item = 6846, itemName = "Defias Script", count = 1, oi = 1, map = 1429, x = 71.74, y = 52.03, z = 70.6, f = "e", spotsPacked = "74.08,51.96,71.4,56,7;76.9,52.5,,40,2;76.4,48,,40,2;73.5,46.7,,40,2;52.7,59,70.5,40,1;50.7,83.2,36,40,1;48.2,87.4,,40,1;29,61.3,53.4,44,5", spread = true, lvl = 10, only = { races = { "Human" } }, note = "{item:6846}: Defias Rogue Wizards", from = "Defias Bodyguard", fromKind = "npc", fromAlso = "Defias Rogue Wizard", fromId = 6866, fromAlsoId = 474, fromNpcs = { { npc = 474, npcName = "Defias Rogue Wizard" }, { npc = 6866, npcName = "Defias Bodyguard" } }, carriedTo = "forever/alliance/05-duskwood" },
@@ -3297,7 +3297,7 @@ do
 				{
 					title = "{area:20}",
 					note = "{quest:67}: the {object:3643} in {area:20}, among the Defias (15-18), holds the next part. Then hearth back to {area:42}.",
-					when = { { k = "available", q = 68, minLevel = 22, pre = { 67 } } },
+					when = { { k = "turnedin", q = 67 }, { k = "available", q = 68, minLevel = 22, pre = { 67 } } },
 					goals = {
 						{ t = "accept", quest = 68, title = "The Legend of Stalvan", object = 3643, objName = "Old Footlocker", minLevel = 22, qlvl = 28, pre = { 67 }, preTitles = { [67] = "The Legend of Stalvan" }, map = 1436, x = 41.46, y = 66.86, z = 45.6 },
 					},
@@ -3339,7 +3339,7 @@ do
 				{
 					title = "{npc:272}",
 					note = "{npc:272} is in the Scarlet Raven Tavern.",
-					when = { { k = "available", q = 240, minLevel = 17, pre = { 93 } } },
+					when = { { k = "turnedin", q = 93 }, { k = "available", q = 240, minLevel = 17, pre = { 93 } } },
 					goals = {
 						{ t = "accept", quest = 240, title = "Return to Jitters", npc = 272, npcName = "Chef Grual", minLevel = 17, qlvl = 20, pre = { 93 }, preTitles = { [93] = "Dusky Crab Cakes" }, map = 1431, x = 73.74, y = 43.61, z = 28.1, note = "For {npc:288}, at {area:94} on the way west" },
 					},
@@ -3521,7 +3521,7 @@ do
 					title = "{npc:6173}",
 					note = "The {item:6846} is already with {npc:6173}: take the last part of {quest:1787} from him, in the Cathedral of Light.",
 					only = { classes = { "PALADIN" }, races = { "Human" } },
-					when = { { k = "available", q = 1788, minLevel = 12, pre = { 1787 } } },
+					when = { { k = "turnedin", q = 1787 }, { k = "available", q = 1788, minLevel = 12, pre = { 1787 } } },
 					goals = {
 						{ t = "goto", text = "Cathedral of Light", map = 1453, x = 50.5, y = 47.5, z = 106.6 },
 						{ t = "accept", quest = 1788, title = "The Tome of Divinity", npc = 6173, npcName = "Gazin Tenorm", minLevel = 12, qlvl = 13, pre = { 1787 }, preTitles = { [1787] = "The Tome of Divinity" }, map = 1453, x = 49.71, y = 45.28, z = 109.9, spotsPacked = "49.6,45.1,109.9,15,2", only = { races = { "Human" } } },
@@ -4268,7 +4268,7 @@ do
 				{
 					title = "{npc:1646}",
 					note = "Thundris' letter is already with {npc:1646}: his reply waits at the east side of {object:2098}.",
-					when = { { k = "available", q = 97926, minLevel = 13, pre = { 97914 } } },
+					when = { { k = "turnedin", q = 97914 }, { k = "available", q = 97926, minLevel = 13, pre = { 97914 } } },
 					goals = {
 						{ t = "accept", quest = 97926, title = "Making Do", npc = 1646, npcName = "Baros Alexston", minLevel = 13, qlvl = 17, pre = { 97914 }, preTitles = { [97914] = "Expanding Horizons" }, map = 1453, x = 57.73, y = 47.71, z = 101.8, spotsPacked = "57.6,47.8,101.8,15,2", optional = true, note = "For {npc:3649}, back in {area:442} (the {zone:1437} guide)" },
 					},
@@ -4587,7 +4587,7 @@ do
 				{
 					title = "{npc:1217}",
 					note = "{quest:270} is already with {npc:1217}: take {quest:321} from him in the {area:2104}, south of the keep.",
-					when = { { k = "available", q = 321, minLevel = 20, pre = { 270 } } },
+					when = { { k = "turnedin", q = 270 }, { k = "available", q = 321, minLevel = 20, pre = { 270 } } },
 					goals = {
 						{ t = "accept", quest = 321, title = "Lightforge Iron", npc = 1217, npcName = "Glorin Steelbrow", minLevel = 20, qlvl = 29, pre = { 270 }, preTitles = { [270] = "The Doomed Fleet" }, map = 1437, x = 10.5, y = 60.57, z = 9.7 },
 					},
@@ -4887,7 +4887,7 @@ do
 				{
 					title = "{npc:1077}",
 					note = "The {item:287959} is already with {npc:1077}: take {quest:98824} from him, below ground in his dig.",
-					when = { { k = "dungeon", name = "Excavation Site: Wetlands", map = 2998 }, { k = "available", q = 98824, minLevel = 24, pre = { 95810 } } },
+					when = { { k = "dungeon", name = "Excavation Site: Wetlands", map = 2998 }, { k = "turnedin", q = 95810 }, { k = "available", q = 98824, minLevel = 24, pre = { 95810 } } },
 					goals = {
 						{ t = "accept", quest = 98824, title = "Prehistoric Prism", npc = 1077, npcName = "Prospector Whelgar", minLevel = 24, qlvl = 31, pre = { 95810 }, preTitles = { [95810] = "Lost Relic Carry" }, map = 1437, x = 38.7, y = 52.29, z = 117, note = "{npc:1077}: for {npc:5387} in {zone:1455}, at the end of this guide", group = { kind = "dungeon", map = 2998, name = "Excavation Site: Wetlands" } },
 					},
@@ -6087,7 +6087,7 @@ do
 				{
 					title = "{npc:1077}",
 					note = "The {item:287959} is already with {npc:1077}: take {quest:98824} from him, below ground in his dig, south of the road west.",
-					when = { { k = "dungeon", name = "Excavation Site: Wetlands", map = 2998 }, { k = "available", q = 98824, minLevel = 24, pre = { 95810 } } },
+					when = { { k = "dungeon", name = "Excavation Site: Wetlands", map = 2998 }, { k = "turnedin", q = 95810 }, { k = "available", q = 98824, minLevel = 24, pre = { 95810 } } },
 					goals = {
 						{ t = "accept", quest = 98824, title = "Prehistoric Prism", npc = 1077, npcName = "Prospector Whelgar", minLevel = 24, qlvl = 31, pre = { 95810 }, preTitles = { [95810] = "Lost Relic Carry" }, map = 1437, x = 38.7, y = 52.29, z = 117, note = "{npc:1077}: for {npc:5387} in {zone:1455}, at the end of this guide", group = { kind = "dungeon", map = 2998, name = "Excavation Site: Wetlands" } },
 					},
@@ -7273,7 +7273,7 @@ do
 				{
 					title = "{npc:267}",
 					note = "{npc:267} works in {area:42}'s town hall; {npc:661} stands just east of it.",
-					when = { { k = "available", q = 1042, minLevel = 25, pre = { 1041 } } },
+					when = { { k = "turnedin", q = 1041 }, { k = "available", q = 1042, minLevel = 25, pre = { 1041 } } },
 					goals = {
 						{ t = "accept", quest = 1042, title = "The Carevin Family", npc = 267, npcName = "Clerk Daltry", minLevel = 25, qlvl = 30, pre = { 1041 }, preTitles = { [1041] = "The Caravan Road" }, map = 1431, x = 72.46, y = 46.79, z = 30.1 },
 						{ t = "turnin", quest = 1042, title = "The Carevin Family", npc = 661, npcName = "Jonathan Carevin", map = 1431, x = 75.27, y = 48.84, z = 28.5, spotsPacked = "75.3,49,28.5,15,2" },
@@ -7315,7 +7315,7 @@ do
 				{
 					title = "{quest:200}",
 					note = "Herod's records lie in a hut on the west side of {area:101}: take {quest:328} there.",
-					when = { { k = "available", q = 328, minLevel = 30, pre = { 200 } } },
+					when = { { k = "turnedin", q = 200 }, { k = "available", q = 328, minLevel = 30, pre = { 200 } } },
 					goals = {
 						{ t = "accept", quest = 328, title = "The Hidden Key", object = 287, objName = "Bookie Herod's Records", minLevel = 30, qlvl = 37, pre = { 200 }, preTitles = { [200] = "Bookie Herod" }, map = 1434, x = 43.65, y = 9.3, z = 33.8 },
 					},
@@ -15477,7 +15477,7 @@ do
 				{
 					title = "{npc:13220}",
 					note = "{npc:13220} stands at {area:3077}, where the pass comes out.",
-					when = { { k = "available", q = 1125, minLevel = 54, pre = { 1124 } } },
+					when = { { k = "turnedin", q = 1124 }, { k = "available", q = 1125, minLevel = 54, pre = { 1124 } } },
 					goals = {
 						{ t = "accept", quest = 1125, title = "The Spirits of Southwind", npc = 13220, npcName = "Layo Starstrike", minLevel = 54, qlvl = 55, pre = { 1124 }, preTitles = { [1124] = "Wasteland" }, map = 1451, x = 81.76, y = 18.92, z = -1.4 },
 					},

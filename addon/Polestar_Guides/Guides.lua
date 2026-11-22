@@ -743,7 +743,7 @@ do
 					title = "{quest:1123}",
 					note = "The letter from {zone:1457} is already with {quest:1123}: take {quest:1124} from her, in her house in {area:2361}.",
 					only = { factions = { "Alliance" } },
-					when = { { k = "available", q = 1124, minLevel = 54, pre = { 1123, 6762 } } },
+					when = { { k = "turnedin", q = 6762 }, { k = "available", q = 1124, minLevel = 54, pre = { 1123, 6762 } } },
 					goals = {
 						{ t = "accept", quest = 1124, title = "Wasteland", npc = 11801, npcName = "Rabine Saturna", minLevel = 54, qlvl = 55, pre = { 1123, 6762 }, preTitles = { [1123] = "Rabine Saturna", [6762] = "Rabine Saturna" }, map = 1450, x = 51.64, y = 44.99, z = 488.6, note = "For {npc:13220} in {zone:1451}, on the next guide: keep it" },
 					},
