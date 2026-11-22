@@ -2068,7 +2068,7 @@ end
 onLeave(function(parts) headerBack(parts.person) end)
 
 local function stepHeader(person, width)
-	if not (person.Name and person.Where and person.Why and person.Level) then return nil end
+	if not (person.Name and person.Where and person.Why) then return nil end
 	local own = store(person)
 	if not own._header then
 		own._header = {
@@ -2086,7 +2086,8 @@ local function stepHeader(person, width)
 	person.Where:SetTextColor(Theme.Color("textMuted"))
 	person.Name:SetWordWrap(false)
 	if person.Icon then person.Icon:SetAlpha(0) end
-	person.Level:Hide()
+	-- The level line (gone from next since #3438) only where the window has one.
+	if person.Level then person.Level:Hide() end
 	local pad = has("guideInset") and 11 or 14
 	local full = not compact()
 	local top = full and Core.gap("stepSpace", AIR_TOP) or TITLE_PAD
