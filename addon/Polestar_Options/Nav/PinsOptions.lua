@@ -264,7 +264,7 @@ local function buildPinsPreview(view)
 	for key, parts in pairs({
 		["nav.targetPinSize"] = { target, mmTarget }, ["nav.targetGlow"] = { target }, ["nav.targetPulse"] = { target },
 		["nav.pulseSeconds"] = { target }, ["nav.worldPins"] = { h.Map }, ["nav.minimapPins"] = { mmTarget },
-		["nav.areaAlpha"] = { area }, ["nav.areaColor"] = { area }, ["nav.trailDotSize"] = { h.Me, target },
+		["nav.areaAlpha"] = { area }, ["nav.areaColor"] = { area }, ["nav.spawnSpots"] = { area }, ["nav.trailDotSize"] = { h.Me, target },
 		["nav.trailDots"] = { h.Me, target }, ["nav.trailDotAlpha"] = { h.Me, target },
 		["nav.upcomingPins"] = steps, ["nav.stepPinSize"] = steps, ["nav.stepRingColor"] = steps,
 		["nav.stepColorMode"] = steps, ["nav.stepColor"] = steps, ["nav.stepNumberSize"] = steps,
@@ -405,6 +405,9 @@ local SPECS = {
 					help = L["Every area in one colour. Right-click to go back to each in its own pin's colour."],
 					shown = function() return Theme.Color("arrow") end, source = function() return L["The pin's colour"] end },
 			} },
+		{ kind = "toggle", key = "nav.spawnSpots", label = L["Spawn spots"], new = NEW,
+			search = "spawn spots, spots, numbered, marks, places, search here, other spawns, world map, clutter, show, hide",
+			help = L["Small marks on the world map where the target also spawns, each numbered in its tooltip. Click one to search there next."] },
 		-- The trail stands in for route lines: shown while route lines are off.
 		{ kind = "slider", key = "nav.trailDotSize", label = L["Trail dots"], min = 0.5, max = 2.5, step = 0.05, format = percent, new = NEW,
 			needs = function() return not ns.Get("nav.routeLines") end,
