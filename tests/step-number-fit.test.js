@@ -92,3 +92,31 @@ emit({ sizes = sizes, fits = fits, stray = stray })`,
 		assert.equal(out.stray, false, `${size}: no font string keys in GF.fit`);
 	}
 });
+
+test('a new font face or outline measures the number again; a plain redraw does not', () => {
+	const out = runAddon({
+		stubs: ['stub_world.lua'],
+		addons: ['Polestar'],
+		script: `${GUIDE}
+Polestar.Set("guideWindow.upSize", 1.8)
+local r = goto(119)
+local n, count = r.Num, 0
+local measure = n.GetUnboundedStringWidth
+n.GetUnboundedStringWidth = function(self) count = count + 1; return measure(self) end
+-- The measures a change brings (its own repaint, then a redraw).
+local function after(key, value)
+	count = 0
+	if key then Polestar.Set(key, value) end
+	GF.Render(); GF.Layout(); stub.advance(0.2)
+	return count
+end
+local same = after()
+local face = after("ui.font", "inter")
+local outline = after("ui.fontOutline", "thick")
+emit({ same = same, face = face, outline = outline, fits = n:GetUnboundedStringWidth() <= n:GetWidth() })`,
+	}).emitted[0];
+	assert.equal(out.same, 0, 'a plain redraw keeps the measured width: ' + JSON.stringify(out));
+	assert.ok(out.face > 0, 'a new face measures again: ' + JSON.stringify(out));
+	assert.ok(out.outline > 0, 'a new outline measures again: ' + JSON.stringify(out));
+	assert.equal(out.fits, true);
+});

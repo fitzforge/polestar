@@ -1657,8 +1657,8 @@ GF.Part(function(GF)
 	-- numbers stay right-aligned with each other. Only a number still wider
 	-- than that room (three digits at the largest Up next sizes) is drawn
 	-- smaller, through its size factor (GF.numFit), never below 11 px. Its
-	-- width and size at the group's own size are measured once per text and
-	-- Up next size (numNatural), and the smaller size is worked out from them
+	-- width and size at the group's own size are measured once per text, Up
+	-- next size and font (numNatural), and the smaller size is worked out from them
 	-- and rounded down to the half pixel Theme sets, so it is the same on
 	-- every render and never half a pixel too wide. -> the width
 	local NUM_FLOOR = 11
@@ -1666,16 +1666,18 @@ GF.Part(function(GF)
 	local function naturalOf(n)
 		local text, k = n:GetText(), GF.Num(GF.SIZE_KEYS.up)
 		local c = numNatural[n]
-		-- Kept while the string still has the size it was last given (a look
-		-- or text size change repaints it to another).
-		if c and c.text == text and c.k == k and select(2, n:GetFont()) == c.drawn then return c.width, c.size end
+		-- Kept while the string still has the face, size and outline it was
+		-- last given (a look, font or text size change repaints it to another).
+		local face, drawn, flags = n:GetFont()
+		if c and c.text == text and c.k == k and drawn == c.drawn and face == c.face and flags == c.flags then return c.width, c.size end
 		if GF.numFit[n] then
 			GF.numFit[n] = nil
 			GF.SizeOne(n)
 		end
 		local measure = n.GetUnboundedStringWidth or n.GetStringWidth
-		local _, size = n:GetFont()
-		c = { text = text, k = k, width = measure(n) or 0, size = size or NUM_FLOOR, drawn = size }
+		local size
+		face, size, flags = n:GetFont()
+		c = { text = text, k = k, width = measure(n) or 0, size = size or NUM_FLOOR, drawn = size, face = face, flags = flags }
 		numNatural[n] = c
 		return c.width, c.size
 	end
@@ -1694,7 +1696,8 @@ GF.Part(function(GF)
 				GF.numFit[n] = want ~= 1 and want or nil
 				GF.SizeOne(n)
 			end
-			numNatural[n].drawn = select(2, n:GetFont())
+			local c = numNatural[n]
+			c.face, c.drawn, c.flags = n:GetFont()
 			widest = max(widest, natural * want)
 		end
 		local col = min(max(22, math.ceil(widest) + 1), room)
