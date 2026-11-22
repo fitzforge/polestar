@@ -157,7 +157,11 @@ tests with it, and `tools/ci-failures.js` fails the job only on failures the
 baseline lacks: a test that fails on the public data on `next` too is the
 data's, not the change's. The data is built from `next`'s corrections, so
 a pull request's own corrections show in it after the merge. Pushes run
-without it (`ci-data.yml` is their data run).
+without it (`ci-data.yml` is their data run). A failing test `next` has
+never run (one the pull request adds or renames) has nothing to be held
+to: for this repository's own branches it is a warning, since their
+`Release data` job runs it on the release data; for a fork it fails. The
+baseline lists the tests that pass on `next` as well, to tell them apart.
 
 **Release data.** The release data is built from recordings and private
 sources and is never published: it stays on the maintainers' machine, where
@@ -249,6 +253,35 @@ guides, the fix records' words, the changelog fragments
 (`changes/`), the Client's release notes and the CurseForge description, in
 every lane (`tests/wording.test.js`), and pull request titles, descriptions
 and commit messages (`Public text`).
+
+## Route integrity
+
+Triage after triage must not leave a route broken by something a fix took
+out (#3654). A pull request from this repository's own branches that edits
+a leveling guide gets these checks in its `Release data` job, against the
+branch it merges into, on the release data (`tools/ci-route-gate.sh`):
+
+| Check | Fails on |
+|---|---|
+| playtest of the edited guides and the next 3 of each one's chain | a stuck or failing play |
+| `playtest --honest` on both trees | a failing finding the base does not have (step numbers left out when they are matched) |
+| what the edited guides lose: every accept, hand-in, complete, kill and collect, and where each quest is now | a quest that leaves the route and is not named in the pull request's description; say there where its XP and time now come from |
+| the level model, one class, both trees, the chain's factions | a guide end reached more than 0.3 level lower |
+
+The headers against `data/route-levels.json` (`tests/route-levels.test.js`)
+and the prerequisite order (`tests/prereq-order.test.js`) run with the
+tests a guide change selects. The table goes to the run's summary and to
+one comment on the pull request, kept up to date as it is pushed again. A
+fork's guide change gets the playtest and the levels after the merge (the
+post-merge gates and the weekly run below).
+
+Every Monday `route-health.yml` runs the whole route on the release data:
+every leveling guide played, the level model for every race and class on
+`next` and on the last release, and the flow diff against the release
+(`polestar flow-diff`: zone visits, one-quest trips, carried quests, travel,
+moved quests). The table goes to the open issue labelled `route-health`;
+a stuck play or a guide end more than 0.3 level lower than in the release
+also files a `next-gates` issue.
 
 ## After a merge
 

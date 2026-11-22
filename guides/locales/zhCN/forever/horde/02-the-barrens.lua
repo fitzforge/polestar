@@ -529,12 +529,12 @@ return {
 
 	-- Step 115: Ishamuhale
 	-- {quest:882} Ishamuhale · {item:10338} Fresh Zhevra Carcass · {object:147538} Dead Tree (no name in this language: may be words) · {area:392} Ratchet
-	["{quest:882}, a big Sunscale raptor, only comes to a fresh kill: loot a {item:10338} from a zhevra, then use it at the {object:147538} north-west of {area:392}, north of the road to the Crossroads, and be ready when he arrives."] = "大型赤鳞迅猛龙{quest:882}只会被新鲜猎物吸引：先从斑马身上拾取{item:10338}，再到{area:392}西北方、通往十字路口的道路北边，在{object:147538}旁使用，并准备迎战。",
+	["{quest:882}, a big Sunscale raptor, only comes to a fresh kill: loot a {item:10338} from a zhevra, then use it at the {object:147538} north-west of {area:392}, north of the road to the Crossroads, and be ready when he arrives."] = "大型赤鳞迅猛龙{quest:882}只会被新鲜猎物吸引：先从斑马身上拾取{item:10338}，再到{area:392}西北方、通往十字路口的道路北边，在枯树旁使用，并准备迎战。",
 	-- {item:10338} Fresh Zhevra Carcass
 	-- plural, as words: Zhevra Chargers = {npc:3426} Zhevra Charger
 	["{item:10338}, from any zhevra; Zhevra Chargers graze around the tree"] = "{item:10338}，任何斑马都可能掉落；冲锋斑马在树周围吃草",
 	-- {object:147538} Dead Tree (no name in this language: may be words) · {quest:882} Ishamuhale
-	["At the {object:147538}: summons {quest:882}"] = "在 {object:147538} 处：召唤 {quest:882}",
+	["At the {object:147538}: summons {quest:882}"] = "在枯树处：召唤 {quest:882}",
 
 	-- Step 116: Gazrog
 	-- {npc:3464} Gazrog
