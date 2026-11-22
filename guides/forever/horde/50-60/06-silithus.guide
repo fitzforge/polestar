@@ -45,6 +45,7 @@ step Gaeriyan
   accept 3913
 
 step Gaeriyan
+  when turnedin 3912
   when available 3913
   tip Gaeriyan has already met you: drink the Videre Elixir at the graveyard just east of Gadgetzan and find him, as a ghost, in the rocky crevice due north of it.
   accept 3913
@@ -61,6 +62,7 @@ step Alchemist Pestlezugg
   accept 4496
 
 step Alchemist Pestlezugg
+  when turnedin 4494
   when available 4496
   zone Tanaris
   accept 4496                         -- Inside

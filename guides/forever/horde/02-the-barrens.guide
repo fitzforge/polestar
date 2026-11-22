@@ -170,6 +170,7 @@ step Far Watch Post
 
 step Far Watch Post
   only Tauren,Warrior
+  when turnedin 1498
   when available 1502
   zone The Barrens
   tip Uzzek stands at Far Watch Post, just above the Southfury River bridge.

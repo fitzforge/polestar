@@ -315,6 +315,7 @@ step A Soggy Scroll
   accept 625 optional                   -- for the Musty Scroll in Dustwallow Marsh, on the Dustwallow guide
 
 step A Soggy Scroll
+  when turnedin 624
   when available 625
   tip The scroll lies at the water's edge in the swamp's far west.
   accept 625 optional                   -- for the Musty Scroll in Dustwallow Marsh, on the Dustwallow guide

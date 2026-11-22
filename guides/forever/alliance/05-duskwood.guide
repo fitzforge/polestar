@@ -167,6 +167,7 @@ step Moonbrook
 
 step Moonbrook
   zone Westfall
+  when turnedin 67
   when available 68
   tip The Legend of Stalvan: the Old Footlocker in Moonbrook, among the Defias (15-18), holds the next part. Then hearth back to Darkshire.
   accept 68
@@ -197,6 +198,7 @@ step Chef Grual
   accept 240                              -- For Jitters, at Raven Hill on the way west
 
 step Chef Grual
+  when turnedin 93
   when available 240
   tip Chef Grual is in the Scarlet Raven Tavern.
   accept 240                              -- For Jitters, at Raven Hill on the way west
@@ -338,6 +340,7 @@ step Gazin Tenorm
 step Gazin Tenorm
   only Human,Paladin
   zone Stormwind City
+  when turnedin 1787
   when available 1788
   tip The Defias Script is already with Gazin Tenorm: take the last part of The Tome of Divinity from him, in the Cathedral of Light.
   goto 50.5,47.5 "Cathedral of Light" live

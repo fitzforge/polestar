@@ -50,6 +50,7 @@ step Clerk Daltry
   accept 1043                         -- Jonathan Carevin: the evidence lies in the Tranquil Gardens Cemetery, on the next guide's way to the Swamp of Sorrows: keep it
 
 step Clerk Daltry
+  when turnedin 1041
   when available 1042
   zone Duskwood
   tip Clerk Daltry works in Darkshire's town hall; Jonathan Carevin stands just east of it.
@@ -82,6 +83,7 @@ step Bookie Herod
   accept 328
 
 step Bookie Herod
+  when turnedin 200
   when available 328
   tip Herod's records lie in a hut on the west side of Kurzen's Compound: take The Hidden Key there.
   accept 328

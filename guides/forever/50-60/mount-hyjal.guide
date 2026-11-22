@@ -346,6 +346,7 @@ step Rabine Saturna
 
 step Rabine Saturna
   only Alliance
+  when turnedin 6762
   when available 1124
   zone Moonglade
   tip The letter from Darnassus is already with Rabine Saturna: take Wasteland from her, in her house in Nighthaven.

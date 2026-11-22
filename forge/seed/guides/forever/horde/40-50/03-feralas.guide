@@ -115,6 +115,7 @@ step The Musty Scroll
   accept 626 optional                 -- Inside Bloodfen Burrow
 
 step The Musty Scroll
+  when turnedin 625
   when available 626
   tip The Musty Scroll lies to the south-west.
   accept 626 optional                 -- Inside Bloodfen Burrow

@@ -95,6 +95,7 @@ step Apothecary Zamah
 
 step Apothecary Zamah
   zone Thunder Bluff
+  when turnedin 1067
   when available 1086
   tip The toxin is already with Apothecary Zamah: take The Flying Machine Airport from her in the Pools of Vision, under Spirit Rise.
   accept 1086                         -- Apothecary Zamah: the Toxic Fogger goes on the Venture Co. Copter Pad at Windshear Crag, on this guide's Windshear trip
@@ -250,6 +251,7 @@ step Sputtervalve
   accept 1095                         -- Sputtervalve: for Ziz Fizziks, on the way up the Webwinder Path
 
 step Sputtervalve
+  when turnedin 1094
   when available 1095
   tip Sputtervalve stands beside the flight master. His new orders go back to Ziz Fizziks on the Webwinder Path, later in this guide.
   accept 1095                         -- Sputtervalve: for Ziz Fizziks, on the way up the Webwinder Path

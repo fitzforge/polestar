@@ -160,6 +160,7 @@ step Thunder Bluff
 
 step Magatha Grimtotem
   zone Thunder Bluff
+  when turnedin 1063
   when available 1064
   tip The Elder Crone's errand is already with Magatha Grimtotem: take Forsaken Aid from her on Elder Rise, for Apothecary Zamah in the Pools of Vision, under Spirit Rise.
   accept 1064                         -- Magatha Grimtotem, Elder Rise
@@ -168,6 +169,7 @@ step Magatha Grimtotem
 
 step Apothecary Zamah
   zone Thunder Bluff
+  when turnedin 1064
   when available 1065
   tip Forsaken Aid is already with Apothecary Zamah: take her note for Tarren Mill in the Pools of Vision, under Spirit Rise.
   accept 1065                         -- Apothecary Zamah: her note is for Apothecary Lydon in Tarren Mill, next guide

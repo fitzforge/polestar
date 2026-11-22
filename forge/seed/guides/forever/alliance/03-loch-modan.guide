@@ -259,6 +259,7 @@ step Henze Faulk
 step Henze Faulk
   only Human,Paladin
   zone Elwynn Forest
+  when turnedin 1786
   when available 1787
   tip Henze Faulk is already raised: take the next part of The Tome of Divinity from him, south of Stone Cairn Lake. The Defias Rogue Wizards around him carry the Defias Script.
   accept 1787 only Human
@@ -502,6 +503,7 @@ step Baros Alexston
   accept 97926 optional                       -- For Thundris Windweaver, where the boat lands
 
 step Baros Alexston
+  when turnedin 97914
   when available 97926
   when !zone "Darkshore"
   zone Stormwind City

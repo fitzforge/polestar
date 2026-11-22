@@ -459,6 +459,7 @@ step Baros Alexston
 
 step Baros Alexston
   zone Stormwind City
+  when turnedin 97914
   when available 97926
   tip Thundris' letter is already with Baros Alexston: his reply waits at the east side of Cathedral Square.
   accept 97926 optional                   -- For Thundris Windweaver, back in Auberdine (the Wetlands guide)

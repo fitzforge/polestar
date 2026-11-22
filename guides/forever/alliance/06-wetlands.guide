@@ -191,6 +191,7 @@ step Glorin Steelbrow
 
 step Glorin Steelbrow
   zone Wetlands
+  when turnedin 270
   when available 321
   tip The Doomed Fleet is already with Glorin: take Lightforge Iron from him in the Deepwater Tavern, south of the keep.
   accept 321
@@ -428,6 +429,7 @@ step Prospector Whelgar
 
 step Prospector Whelgar
   when dungeon "Excavation Site: Wetlands"
+  when turnedin 95810
   when available 98824
   zone Wetlands
   tip The Titan Relic is already with Prospector Whelgar: take Prehistoric Prism from him, below ground in his dig.
