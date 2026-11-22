@@ -3474,6 +3474,9 @@ L["Abandon it from your quest log."] = "Brich sie in deinem Questlog ab."
 L["The route ahead isn't settled yet (a guide to choose or load), so it can't say which quests it leaves behind."] = "Die Route voraus steht noch nicht fest (ein Guide ist zu wählen oder zu laden), darum kann sie nicht sagen, welche Quests sie zurücklässt."
 L["The route hands in every quest in your log."] = "Die Route gibt jede Quest in deinem Log ab."
 L["Clean up quest log (%d)"] = "Questlog aufräumen (%d)"
+L["Hand in finished quests (%d)"] = "Erledigte Quests abgeben (%d)"
+L["None to hand in"] = "Nichts abzugeben"
+L["Quest log is clean"] = "Questlog ist sauber"
 L["Clean up quest log"] = "Questlog aufräumen"
 L["Grey: no XP any more"] = "Grau: keine EP mehr"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "Die Route braucht diese nicht: Sie gibt sie nie ab, oder sie bringen keine EP mehr. „Abbrechen“ fragt zuerst im eigenen Fenster des Spiels nach."
@@ -4536,7 +4539,6 @@ L["%d frames moved since you unlocked. Discard puts them back where they stood."
 
 -- UI/GuideFrameMenu.lua
 L["Quick settings"] = "Schnelleinstellungen"
-L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "Der Pfeil und das Guide-Fenster treten zur Seite. Polestar läuft von selbst weiter, wenn du einen Dungeon lebend verlässt."
 L["Open tabs (%d)"] = "Offene Tabs (%d)"
 
 -- UI/QuickSettings.lua
@@ -5147,3 +5149,4 @@ L["Most used"] = "Am häufigsten genutzt"
 -- L["Dungeons and characters"] = "Dungeons und Charaktere"
 -- L["Pick up where you left off, or start something new."] = "Mach dort weiter, wo du aufgehört hast, oder beginne etwas Neues."
 -- L["Nothing open yet. Pick a category on the left to find a guide."] = "Noch nichts geöffnet. Wähle links eine Kategorie, um einen Guide zu finden."
+-- L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "Der Pfeil und das Guide-Fenster treten zur Seite. Polestar läuft von selbst weiter, wenn du einen Dungeon lebend verlässt."

@@ -544,7 +544,9 @@ function analyze(dump, surface, fonts) {
 			const h = Math.min(t.y1, ir.y + ir.h) - Math.max(t.y0, ir.y);
 			if (w > 0.5 && h > 0.5) add('close', describe(b), `its mark lies over "${s.plain.trim().slice(0, 30)}"`);
 		}
-		if (!kit || surface.family !== 'guide') continue;
+		// A menu bar's glyph ("Hide window" in the guide window's menu) is drawn
+		// at the bar's size like its neighbours: no window's close to match.
+		if (!kit || surface.family !== 'guide' || b.barIcon) continue;
 		const s = scaleOf(b);
 		const target = b.tabClose ? rects.get(b.id).w / s : ink.art ? look.iconBtn + 2 : look.guideIcon;
 		if (ink.size > target + 0.5) add('close', describe(b), `${ink.size.toFixed(1)} units drawn, the ${b.tabClose ? 'tab close target' : ink.art ? "card's close" : "window's icon glyph"} is ${target}`);

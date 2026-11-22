@@ -3504,6 +3504,9 @@ L["Abandon it from your quest log."] = "퀘스트 목록에서 포기하십시�
 L["The route ahead isn't settled yet (a guide to choose or load), so it can't say which quests it leaves behind."] = "앞으로의 경로가 아직 정해지지 않아(가이드를 고르거나 불러와야 함) 어떤 퀘스트가 남는지 알 수 없습니다."
 L["The route hands in every quest in your log."] = "경로가 퀘스트 목록의 모든 퀘스트를 제출합니다."
 L["Clean up quest log (%d)"] = "퀘스트 목록 정리 (%d)"
+L["Hand in finished quests (%d)"] = "완료한 퀘스트 제출 (%d)"
+L["None to hand in"] = "제출할 퀘스트 없음"
+L["Quest log is clean"] = "퀘스트 목록이 깨끗함"
 L["Clean up quest log"] = "퀘스트 목록 정리"
 L["Grey: no XP any more"] = "회색: 더 이상 경험치 없음"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "경로에 필요 없는 퀘스트입니다: 경로가 완료하지 않거나 더 이상 경험치를 주지 않습니다. 포기는 먼저 게임 자체 창에서 확인합니다."
@@ -4548,7 +4551,6 @@ L["%d frames moved since you unlocked. Discard puts them back where they stood."
 
 -- UI/GuideFrameMenu.lua
 L["Quick settings"] = "빠른 설정"
-L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "화살표와 가이드 창이 물러납니다. 던전에서 살아서 나오면 Polestar가 자동으로 다시 시작합니다."
 L["Open tabs (%d)"] = "열린 탭 (%d)"
 
 -- UI/QuickSettings.lua
@@ -5110,3 +5112,4 @@ L["Most used"] = "자주 쓰는 설정"
 -- L["Dungeons and characters"] = "던전과 캐릭터"
 -- L["Pick up where you left off, or start something new."] = "하던 곳에서 이어가거나 새로 시작하십시오."
 -- L["Nothing open yet. Pick a category on the left to find a guide."] = "아직 열린 것이 없습니다. 왼쪽에서 분류를 골라 가이드를 찾으십시오."
+-- L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "화살표와 가이드 창이 물러납니다. 던전에서 살아서 나오면 Polestar가 자동으로 다시 시작합니다."

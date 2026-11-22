@@ -3506,6 +3506,9 @@ L["Abandon it from your quest log."] = "Abandone-a pelo registro de missões."
 L["The route ahead isn't settled yet (a guide to choose or load), so it can't say which quests it leaves behind."] = "A rota à frente ainda não está definida (falta escolher ou carregar um guia), então não dá para dizer quais missões ela deixa para trás."
 L["The route hands in every quest in your log."] = "A rota entrega todas as missões do seu registro."
 L["Clean up quest log (%d)"] = "Limpar registro de missões (%d)"
+L["Hand in finished quests (%d)"] = "Entregar missões concluídas (%d)"
+L["None to hand in"] = "Nada para entregar"
+L["Quest log is clean"] = "O registro de missões está limpo"
 L["Clean up quest log"] = "Limpar registro de missões"
 L["Grey: no XP any more"] = "Cinza: não dá mais EXP"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "A rota não precisa destas: nunca as entrega, ou não dão mais EXP. Abandonar pergunta antes na janela do próprio jogo."
@@ -4549,7 +4552,6 @@ L["%d frames moved since you unlocked. Discard puts them back where they stood."
 
 -- UI/GuideFrameMenu.lua
 L["Quick settings"] = "Ajustes rápidos"
-L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "A seta e a janela do guia saem de cena. O Polestar volta sozinho quando você sai vivo de uma masmorra."
 L["Open tabs (%d)"] = "Abas abertas (%d)"
 
 -- UI/QuickSettings.lua
@@ -5125,3 +5127,4 @@ L["Most used"] = "Mais usados"
 -- L["Dungeons and characters"] = "Masmorras e personagens"
 -- L["Pick up where you left off, or start something new."] = "Continue de onde parou ou comece algo novo."
 -- L["Nothing open yet. Pick a category on the left to find a guide."] = "Nada aberto ainda. Escolha uma categoria à esquerda para achar um guia."
+-- L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "A seta e a janela do guia saem de cena. O Polestar volta sozinho quando você sai vivo de uma masmorra."

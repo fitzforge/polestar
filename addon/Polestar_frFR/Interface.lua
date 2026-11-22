@@ -3505,6 +3505,9 @@ L["Abandon it from your quest log."] = "Abandonnez-la depuis votre journal des q
 L["The route ahead isn't settled yet (a guide to choose or load), so it can't say which quests it leaves behind."] = "L'itinéraire à venir n'est pas encore fixé (un guide à choisir ou à charger) : impossible de dire quelles quêtes il laisse de côté."
 L["The route hands in every quest in your log."] = "L'itinéraire rend toutes les quêtes de votre journal."
 L["Clean up quest log (%d)"] = "Nettoyer le journal des quêtes (%d)"
+L["Hand in finished quests (%d)"] = "Rendre les quêtes terminées (%d)"
+L["None to hand in"] = "Rien à rendre"
+L["Quest log is clean"] = "Le journal de quêtes est propre"
 L["Clean up quest log"] = "Nettoyer le journal des quêtes"
 L["Grey: no XP any more"] = "Grise : plus d'XP"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "L'itinéraire n'en a pas besoin : il ne les rend jamais, ou elles ne donnent plus d'XP. « Abandonner » demande d'abord confirmation dans la fenêtre du jeu."
@@ -4549,7 +4552,6 @@ L["%d frames moved since you unlocked. Discard puts them back where they stood."
 
 -- UI/GuideFrameMenu.lua
 L["Quick settings"] = "Réglages rapides"
-L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "La flèche et la fenêtre du guide s'effacent. Polestar reprend tout seul quand vous quittez un donjon en vie."
 L["Open tabs (%d)"] = "Onglets ouverts (%d)"
 
 -- UI/QuickSettings.lua
@@ -5158,3 +5160,4 @@ L["Most used"] = "Les plus utilisés"
 -- L["Dungeons and characters"] = "Donjons et personnages"
 -- L["Pick up where you left off, or start something new."] = "Reprenez là où vous en étiez, ou commencez autre chose."
 -- L["Nothing open yet. Pick a category on the left to find a guide."] = "Rien d'ouvert. Choisissez une catégorie à gauche pour trouver un guide."
+-- L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "La flèche et la fenêtre du guide s'effacent. Polestar reprend tout seul quand vous quittez un donjon en vie."

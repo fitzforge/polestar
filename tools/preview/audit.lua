@@ -49,6 +49,7 @@ preview.entryExtra = function(o, e)
 	local icon = rawget(o, "psIconName")
 	if type(icon) == "string" then e.icon = icon end
 	if rawget(o, "psTabClose") then e.tabClose = true end
+	if rawget(o, "psBarIcon") then e.barIcon = true end
 	if rawget(o, "psGuide") then e.guide = true end
 	if rawget(o, "psLight") then e.light = true end
 	-- Names for a control without a label of its own: its tooltip, or what it is.

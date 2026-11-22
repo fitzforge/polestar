@@ -3504,6 +3504,9 @@ L["Abandon it from your quest log."] = "Abandónala desde tu registro de misione
 L["The route ahead isn't settled yet (a guide to choose or load), so it can't say which quests it leaves behind."] = "La ruta por delante aún no está decidida (hay que elegir o cargar una guía), así que no puede decir qué misiones deja atrás."
 L["The route hands in every quest in your log."] = "La ruta entrega todas las misiones de tu registro."
 L["Clean up quest log (%d)"] = "Limpiar el registro de misiones (%d)"
+L["Hand in finished quests (%d)"] = "Entregar misiones completadas (%d)"
+L["None to hand in"] = "Nada que entregar"
+L["Quest log is clean"] = "El registro de misiones está limpio"
 L["Clean up quest log"] = "Limpiar el registro de misiones"
 L["Grey: no XP any more"] = "Gris: ya no da XP"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "La ruta no las necesita: nunca las entrega o ya no dan XP. Abandonar pregunta antes en la propia ventana del juego."
@@ -4548,7 +4551,6 @@ L["%d frames moved since you unlocked. Discard puts them back where they stood."
 
 -- UI/GuideFrameMenu.lua
 L["Quick settings"] = "Ajustes rápidos"
-L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "La flecha y la ventana de la guía se apartan. Polestar se reanuda solo cuando sales vivo de una mazmorra."
 L["Open tabs (%d)"] = "Pestañas abiertas (%d)"
 
 -- UI/QuickSettings.lua
@@ -5105,3 +5107,4 @@ L["Most used"] = "Lo más usado"
 -- L["Dungeons and characters"] = "Mazmorras y personajes"
 -- L["Pick up where you left off, or start something new."] = "Retoma donde lo dejaste, o empieza algo nuevo."
 -- L["Nothing open yet. Pick a category on the left to find a guide."] = "Aún no hay nada abierto. Elige una categoría a la izquierda para encontrar una guía."
+-- L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "La flecha y la ventana de la guía se apartan. Polestar se reanuda solo cuando sales vivo de una mazmorra."

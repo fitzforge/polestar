@@ -3504,6 +3504,9 @@ L["Abandon it from your quest log."] = "從你的任務日誌中放棄它。"
 L["The route ahead isn't settled yet (a guide to choose or load), so it can't say which quests it leaves behind."] = "後續路線尚未確定（需選擇或載入指南），因此無法得知它會留下哪些任務。"
 L["The route hands in every quest in your log."] = "路線會繳交你任務日誌中的所有任務。"
 L["Clean up quest log (%d)"] = "清理任務日誌 (%d)"
+L["Hand in finished quests (%d)"] = "繳交已完成的任務 (%d)"
+L["None to hand in"] = "沒有要繳交的任務"
+L["Quest log is clean"] = "任務日誌已清理"
 L["Clean up quest log"] = "清理任務日誌"
 L["Grey: no XP any more"] = "灰色：不再給予經驗值"
 L["The route doesn't need these: it never hands them in, or they give no XP any more. Abandon asks in the game's own window first."] = "路線不需要這些任務：它從不交付，或已不再給予經驗值。放棄會先在遊戲自己的視窗中確認。"
@@ -4548,7 +4551,6 @@ L["%d frames moved since you unlocked. Discard puts them back where they stood."
 
 -- UI/GuideFrameMenu.lua
 L["Quick settings"] = "快速設定"
-L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "箭頭和指南視窗會讓開。你活著離開地城後，Polestar 會自動恢復。"
 L["Open tabs (%d)"] = "開啟的分頁（%d）"
 
 -- UI/QuickSettings.lua
@@ -5110,3 +5112,4 @@ L["Most used"] = "常用設定"
 -- L["Dungeons and characters"] = "地城與角色"
 -- L["Pick up where you left off, or start something new."] = "從上次中斷處繼續，或開始新的。"
 -- L["Nothing open yet. Pick a category on the left to find a guide."] = "尚未開啟任何東西。在左側選擇分類以尋找指南。"
+-- L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "箭頭和指南視窗會讓開。你活著離開地城後，Polestar 會自動恢復。"
