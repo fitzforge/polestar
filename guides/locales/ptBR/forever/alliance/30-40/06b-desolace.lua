@@ -48,8 +48,10 @@ return {
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:6134}'s magnets draw the Magrami Spectres a few yards from the Magram Necrokhans and Corpsefeeders (45, elite) in the {area:2657}. Skip it if you are alone."] = "São inimigos elite: é recomendado formar grupo, procure gente para fazer junto. Os ímãs de {quest:6134} atraem os Espectros Magrami a poucos metros dos Necrocãs e Come-cadáveres Magram (45, elite) em {area:2657}. Pule-a se estiver sozinho.",
 
 	-- Step 8: Flesh Picker
-	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
-	["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s {item:213565}."] = "Um {npc:217590} rasteja por {area:596}: pegue um com a ferramenta do {item:213565} de {npc:217412}.",
+	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
+	["A {npc:217590} crawls about the {area:596}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "",
+	-- {item:213562} Bug Catching Net · {npc:217590} Flesh Picker · {item:213567} Flesh Picker Specimen
+	["{item:213562}, on a {npc:217590}: the {item:213567}"] = "",
 
 	-- Step 9: Maraudine centaurs
 	["Maraudine centaurs"] = "Centauros Maraudinos",
@@ -58,7 +60,7 @@ return {
 
 	-- Step 10: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} está presa no acampamento dos centauros a oeste do cemitério. Liberte-a e mantenha-a viva na saída; ela para junto ao cemitério.\nCuidado: os grupos da escolta vêm juntos e só aparecem durante ela, então não dá para limpar antes nem puxar um de cada vez. Limpar os centauros comuns do caminho antes de começar ajuda.",
+	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "",
 	-- {npc:12277} Melizza Brimbuzzle
 	["escort {npc:12277} back toward the graveyard"] = "escolte {npc:12277} de volta ao cemitério",
 
@@ -142,9 +144,11 @@ return {
 	["The next guide starts in Theramore."] = "O próximo guia começa na Ilha Theramore.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s {item:213565}."] = "Um {npc:217590} rasteja por {area:596}: pegue um com a ferramenta do {item:213565} de {npc:217412}.",
 	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "Os nagas Lâmina Sinuosa dominam a costa noroeste, ao norte da torre de {npc:11863}; a bolsa de Karnitol está no fundo do mar diante dela, e qualquer naga pode soltar a chave dourada de Rackmore. Nade até {area:2406}, na ponta extrema norte, e use o {item:15766} no {object:177673}: {npc:12369} (38) surge; mate-o para obter {quest:6027}.",
 	-- ["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "Os demônios se juntam em {area:602}, no sul de {zone:1443}: canisvis (Manávoros, Caça-magos e Caçadores do Meridiano), Donzelas e Irmãs do Éter, e Capitães dos Guardiões da Ruína em volta do fosso.\nCuidado: a maioria dos monstros daqui faz patrulha, então é fácil puxar monstro a mais.",
 	-- ["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them."] = "Assoladores Mortos-vivos vagam pelos campos de ossos ao sul da Aldeia Magram, a leste das Ruínas de Mannoroc: a seta leva à borda oeste deles. Depois use o {item:15848} na seta dele, no lado leste dos campos, para atrair os Espectros Magrami. Cuidado: Necrocãs e Come-cadáveres Magram (45, elite) andam pelos campos de ossos entre as duas setas, com Necromantes Magram (42): puxe os Assoladores e os espectros até você, longe deles.",
+	-- ["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277} está presa no acampamento dos centauros a oeste do cemitério. Liberte-a e mantenha-a viva na saída; ela para junto ao cemitério.\nCuidado: os grupos da escolta vêm juntos e só aparecem durante ela, então não dá para limpar antes nem puxar um de cada vez. Limpar os centauros comuns do caminho antes de começar ajuda.",
 	-- ["{npc:5396}, if 30-40/02 didn't give it"] = "{npc:5396}, se o 30-40/02 não a deu",
 	-- ["{npc:5638}, if 30-40/02 didn't take it: the wreck lies below {npc:11863}'s tower"] = "{npc:5638}, se o 30-40/02 não a pegou: o naufrágio fica abaixo da torre de {npc:11863}",
 	-- ["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "{npc:6019} fica na beira de {area:596}, a sudoeste de {area:2407}; {object:176751} estão entre os esqueletos.",

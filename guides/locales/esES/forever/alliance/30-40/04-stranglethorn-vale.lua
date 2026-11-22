@@ -197,8 +197,8 @@ return {
 	["Warlocks fly to {area:415} for the {quest:1738}, on the way west."] = "Los brujos vuelan a {area:415} para {quest:1738}, de camino al oeste.",
 
 	-- Step 30: Heartswood
-	-- {area:415} Astranaar · {quest:1738} Heartswood · {area:413} Maestra's Post · {quest:65602} What Is Love? · {item:190309} Wooden Figurine
-	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then take the road west to Stonetalon."] = "",
+	-- {area:415} Astranaar · {quest:1738} Heartswood · {area:413} Maestra's Post · {quest:65602} What Is Love? · {item:190309} Wooden Figurine · {item:190307} Unlit Torch
+	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0): light the {item:190307} from the table outside at a campfire and throw it onto the archaeologist's cart outside the house, which draws the figure in the house away so you can take the figurine upstairs. Then take the road west to Stonetalon."] = "",
 	-- {item:190309} Wooden Figurine · {area:413} Maestra's Post
 	["{item:190309}, north of {area:413}"] = "{item:190309}, al norte de {area:413}",
 

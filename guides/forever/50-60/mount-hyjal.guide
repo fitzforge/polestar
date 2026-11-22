@@ -935,8 +935,8 @@ step Dae'gun
   collect 250775 x5 quest 92011.1 @51.5,37.0  -- Frayed Wire
   collect 269244 x5 quest 92011.2 @62.5,41.5  -- Calcified Excrement
   collect 269246 x5 quest 92011.3 @56.0,41.2  -- Warped Metal Scrap
-  goto 54.8,40.0 "Southeast Bonfire"
-  goto 49.1,36.1 "South Bonfire"
+  interact 656669 "Southeast Bonfire" quest 96959.2 @54.8,40.0  -- light it
+  interact 656668 "South Bonfire" quest 96959.1 @49.1,36.0  -- light it
   complete 92593 @53.7,33.5 only Alliance  -- scout the Horde tower
   collect 275958 x8 quest 96971.1 @50.2,37.0  -- Abandoned Supplies
   collect 253239 quest 92335.1 @49.5,34.6  -- Azgalor's Ashes
@@ -950,8 +950,7 @@ step Elaena, Witherbeard and Yashiro
   turnin 96959 @49.2,32.7               -- Yashiro
 
 step Drawing Down the Malevolent
-  when group 96003
-  tip A group choice: Bethra'zel and Mazzogore are level 60 elites until Elaena's eye drains them. Drain each one first, then fight it; players in our recordings killed both once drained. Grouping up is advised.
+  tip Bethra'zel and Mazzogore are level 60 elites until Elaena's eye drains them: drain each one first, then fight it. Drained, they are no longer elite and you can take them alone; players in our recordings killed both once drained.
   accept 96003                          -- Elaena Moonwhisper
 
 step Johun "Punchy" Dillas
@@ -959,7 +958,6 @@ step Johun "Punchy" Dillas
   turnin 92593
 
 step Bethra'zel
-  when group 96003
   when onquest 96003
   tip North-east to Bethra'zel. Drain him first: use Elaena's eye on him, and only then fight him. Undrained, he and Mazzogore are level 60 elites. Doomguard Xarkul, an elite (level 61), walks this corner of Dae'gun: keep out of his way.
   tip Careful: Legion Hulks (60, rare elites) stomp through Dae'gun's camps: give them room.
@@ -973,14 +971,12 @@ step Maerion Thaelemaches
   turnin 97009
 
 step Mazzogore
-  when group 96003
   when onquest 96003
   tip South-west to Mazzogore the Weak, in the middle of Dae'gun: drain him with the eye first, as Bethra'zel, then kill him. Undrained, he is a level 60 elite.
   tip Careful: Doomguards (elites, 58-59) stand around him: pull him out to you.
   kill 252457 quest 96003.2             -- Mazzogore the Weak
 
 step Elaena Moonwhisper
-  when group 96003
   when complete 96003
   turnin 96003
   accept 96025                          -- As the Crow Flies: for Thisalee Crow at the Summit

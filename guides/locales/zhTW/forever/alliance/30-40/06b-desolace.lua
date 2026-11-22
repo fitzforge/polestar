@@ -48,8 +48,10 @@ return {
 	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:6134}'s magnets draw the Magrami Spectres a few yards from the Magram Necrokhans and Corpsefeeders (45, elite) in the {area:2657}. Skip it if you are alone."] = "這些是精英怪：建議組隊，找人一起做。{quest:6134}的磁鐵會在{area:2657}把瑪格拉姆幽靈引到離瑪格拉姆死靈可汗和食屍者（45級，精英）只有幾碼的地方。如果你獨自一人就跳過。",
 
 	-- Step 8: Flesh Picker
-	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
-	["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s {item:213565}."] = "一隻{npc:217590}在{area:596}爬來爬去：用{npc:217412}給的{item:213565}裡的工具抓一隻。",
+	-- {npc:217590} Flesh Picker · {area:596} Kodo Graveyard · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
+	["A {npc:217590} crawls about the {area:596}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "",
+	-- {item:213562} Bug Catching Net · {npc:217590} Flesh Picker · {item:213567} Flesh Picker Specimen
+	["{item:213562}, on a {npc:217590}: the {item:213567}"] = "",
 
 	-- Step 9: Maraudine centaurs
 	["Maraudine centaurs"] = "瑪勞登半人馬",
@@ -58,7 +60,7 @@ return {
 
 	-- Step 10: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277}被關在墓地西邊的半人馬營地。救出她，在走出去的路上保護她存活；她會在墓地旁停下。\n小心：劇本中出現的敵人群彼此連動，只會在護送期間出現，所以無法事先清掉，也無法一次拉一隻。不過開始前先清掉路上一般的半人馬會有幫助。",
+	["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "",
 	-- {npc:12277} Melizza Brimbuzzle
 	["escort {npc:12277} back toward the graveyard"] = "護送{npc:12277}回墓地",
 
@@ -142,9 +144,11 @@ return {
 	["The next guide starts in Theramore."] = "下一份指南從塞拉摩開始。",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["A {npc:217590} crawls about the {area:596}: catch one with the tool from {npc:217412}'s {item:213565}."] = "一隻{npc:217590}在{area:596}爬來爬去：用{npc:217412}給的{item:213565}裡的工具抓一隻。",
 	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "滑刃納迦佔據{npc:11863}塔北邊的西北海岸；卡尼托的背包在外海的海底，任何納迦都可能掉落拉克摩的金鑰匙。游到最北端外海的{area:2406}，對{object:177673}使用{item:15766}：{npc:12369}（38級）會出現；擊殺他取得{quest:6027}。",
 	-- ["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "惡魔聚集在{zone:1443}南部的{area:602}：坑洞周圍有地獄犬（法力吞噬者、法師獵手和魔網獵手）、虛空少女和虛空姐妹，以及末日守衛隊長。\n小心：這裡大部分的怪都有巡邏路線，很容易多拉到怪。",
 	-- ["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them."] = "不死掠奪者在瑪格拉姆村莊南邊、巫團東邊的骨原上遊蕩：箭頭會帶你到它們的西緣。然後在骨原東側的箭頭處使用{item:15848}，引來瑪格拉姆幽靈。小心：瑪格拉姆死靈可汗和食屍者（45級，精英）與瑪格拉姆死靈法師（42級）在兩個箭頭之間的骨原上走動：把掠奪者和幽靈拉到你這裡，遠離它們。",
+	-- ["{npc:12277} is held in the centaur camp west of the graveyard. Free her and keep her alive on the walk out; she stops by the graveyard.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277}被關在墓地西邊的半人馬營地。救出她，在走出去的路上保護她存活；她會在墓地旁停下。\n小心：劇本中出現的敵人群彼此連動，只會在護送期間出現，所以無法事先清掉，也無法一次拉一隻。不過開始前先清掉路上一般的半人馬會有幫助。",
 	-- ["{npc:5396}, if 30-40/02 didn't give it"] = "{npc:5396}，如果30-40/02沒有接到",
 	-- ["{npc:5638}, if 30-40/02 didn't take it: the wreck lies below {npc:11863}'s tower"] = "{npc:5638}，如果30-40/02沒接過：沉船在{npc:11863}的塔下方",
 	-- ["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "{npc:6019}站在{area:596}邊緣，{area:2407}西南方；{object:176751}散落在骨架之間。",

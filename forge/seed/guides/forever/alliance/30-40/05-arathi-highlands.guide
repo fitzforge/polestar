@@ -225,8 +225,8 @@ step Northfold Manor
 
 step Hay Weevil
   when onquest 93176
-  tip Hay Weevils crawl about the north end of Northfold Manor's farm: catch one with the tool from Amaryllis Webb's Entomology Starter Kit.
-  collect 213568 "Hay Weevil Specimen" @31.3,27.2
+  tip Hay Weevils crawl about the north end of Northfold Manor's farm: open Amaryllis Webb's Entomology Starter Kit and use its Bug Catching Net on one. Don't kill it.
+  use 213562 quest 93176.2 @31.3,27.2   -- Bug Catching Net, on a Hay Weevil: the Hay Weevil Specimen
 
 # ---------------------------------------------------------------- The Myzrael story
 

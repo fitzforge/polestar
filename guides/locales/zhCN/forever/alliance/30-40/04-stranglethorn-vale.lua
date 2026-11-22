@@ -197,8 +197,8 @@ return {
 	["Warlocks fly to {area:415} for the {quest:1738}, on the way west."] = "术士在西行途中飞往{area:415}完成{quest:1738}。",
 
 	-- Step 30: Heartswood
-	-- {area:415} Astranaar · {quest:1738} Heartswood · {area:413} Maestra's Post · {quest:65602} What Is Love? · {item:190309} Wooden Figurine
-	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then take the road west to Stonetalon."] = "从{area:415}向西北进入丘陵：{quest:1738}是一棵发光的树，位于通往{area:413}的道路北边。如果接了{quest:65602}，{item:190309}就在{area:413}北边林间的一间房子里（26.6,22.0）。然后沿路向西前往石爪山。",
+	-- {area:415} Astranaar · {quest:1738} Heartswood · {area:413} Maestra's Post · {quest:65602} What Is Love? · {item:190309} Wooden Figurine · {item:190307} Unlit Torch
+	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0): light the {item:190307} from the table outside at a campfire and throw it onto the archaeologist's cart outside the house, which draws the figure in the house away so you can take the figurine upstairs. Then take the road west to Stonetalon."] = "",
 	-- {item:190309} Wooden Figurine · {area:413} Maestra's Post
 	["{item:190309}, north of {area:413}"] = "{item:190309}，在{area:413}北边",
 
@@ -220,6 +220,7 @@ return {
 	-- ["For Archmage Ansirem in {zone:1416}"] = "交给{zone:1416}的大法师安斯雷姆",
 	-- ["From {area:108} the way leads south out of {zone:1436} into Stranglethorn's north-west, to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach it. The Bloodscalp trolls hold the ruins on the coast to the north."] = "从{area:108}向南离开{zone:1436}，进入荆棘谷西北部，前往海岸附近的{area:310}；周围的晶背蜥蜴会掉落碎片。\n闹鬼的岛屿就在矿洞西南边的近海，只需抵达即可。血顶巨魔占据了北边海岸上的废墟。",
 	-- ["From {area:108} the way leads south out of {zone:1436} into Stranglethorn's north-west, to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach its edge. Careful: its Lesser Water Elementals are 36-37: don't stay. The Bloodscalp ruins of Zul'Kunda to the north wait for the second Stranglethorn loop."] = "从{area:108}向南离开{zone:1436}，进入荆棘谷西北部，前往海岸附近的{area:310}；周围的晶背蜥蜴会掉落碎片。\n闹鬼的岛屿就在矿洞西南边的近海，只需抵达其边缘即可。注意：岛上的次级水元素为36-37级：不要逗留。北边的血顶巨魔废墟祖昆达留到第二轮荆棘谷路线。",
+	-- ["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then take the road west to Stonetalon."] = "从{area:415}向西北进入丘陵：{quest:1738}是一棵发光的树，位于通往{area:413}的道路北边。如果接了{quest:65602}，{item:190309}就在{area:413}北边林间的一间房子里（26.6,22.0）。然后沿路向西前往石爪山。",
 	-- ["From {zone:1431} take the road south into Stranglethorn; the hunters' tents stand just west of the road past the {area:99} turn-off."] = "从{zone:1431}沿道路向南进入荆棘谷；猎人的帐篷就在经过{area:99}岔路后道路的西边。",
 	-- ["Gluggle, a rare murloc on the coast west of camp, drops the {item:4614}: take it if you meet him"] = "戈鲁格尔是营地西边海岸的一只稀有鱼人，掉落{item:4614}：遇到就拿",
 	-- ["Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave. Pick up Green Hills pages as they drop."] = "库尔森精神医师在营地深处；库尔森特种兵潜行在营地周围和洞穴中。掉落的荆棘谷的青山书页顺手拾取。",
