@@ -1965,9 +1965,10 @@ end
 -- the batch runs, a place it has already priced is: a strict batch publishes a
 -- place's cost only once that walk is checked (Routing/Path.lua Safe.many). A
 -- place the batch left unpriced because the target's floor joins no walk
--- (e.unjoined), or one still unpriced when the planner stopped holding its
--- route for it (e.gaveUp, Walk.GiveUp), keeps its estimate, as a place beyond
--- the measure's reach does (#3553).
+-- (e.unjoined) or because the batch spent its expansions (e.capped,
+-- Path.manyCap, #3605), or one still unpriced when the planner stopped holding
+-- its route for it (e.gaveUp, Walk.GiveUp), keeps its estimate, as a place
+-- beyond the measure's reach does (#3553).
 function Walk.UnpricedTransfer(c, x, y, water, goalZ, from)
 	water = water or false
 	local e = measuring
@@ -1975,7 +1976,7 @@ function Walk.UnpricedTransfer(c, x, y, water, goalZ, from)
 	local i = e and placeIndex(e, from.wx, from.wy, from.z)
 	if i == nil then return false end
 	local costs = e.costs or e.partial
-	if (e.unjoined or (e.gaveUp and not e.costs)) and e.z == goalZ and (not costs or costs[i] == nil) then return false end
+	if (e.unjoined or e.capped or (e.gaveUp and not e.costs)) and e.z == goalZ and (not costs or costs[i] == nil) then return false end
 	return not (e.checked or (not e.costs and e.partial)) or (goalZ and e.z ~= goalZ) or not costs or type(costs[i]) ~= "number"
 end
 
@@ -2052,12 +2053,12 @@ end
 -- capital (mine.city): finding nothing, the straight estimates stand (the walk
 -- without it went round Ironforge's gate, #2860). A batch whose target's floor
 -- joins no walk (answer.unjoined, Routing/Path.lua Safe.many: Foggy MacKreel on
--- the broken Thandol Span) leaves its places their estimates and is not asked
--- again (#3553).
+-- the broken Thandol Span), or that spent its expansions (answer.capped), leaves
+-- its places their estimates and is not asked again (#3553, #3605).
 local function batch(P, mine, z)
 	local pts, water = mine.pts, mine.water
 	mine.z, mine.o = z, mine.o or opts(water, mine.c, nil, nil, mine.x, mine.y)
-	mine.partial, mine.firstPriced, mine.unjoined = nil, false, nil
+	mine.partial, mine.firstPriced, mine.unjoined, mine.capped = nil, false, nil, nil
 	local inCity = z ~= nil and mine.city
 	local first
 	for i = 1, #pts do
@@ -2068,8 +2069,8 @@ local function batch(P, mine, z)
 	local function progress(costs, _, job)
 		if measuring ~= mine or type(costs) ~= "table" then return end
 		mine.partial = costs
-		mine.unjoined = type(job) == "table" and job.unjoined or nil
-		if first and not mine.firstPriced and (costs[first] ~= nil or mine.unjoined) then
+		mine.unjoined, mine.capped = type(job) == "table" and job.unjoined or nil, type(job) == "table" and job.capped or nil
+		if first and not mine.firstPriced and (costs[first] ~= nil or mine.unjoined or mine.capped) then
 			mine.firstPriced = true
 			local T = Nav.travel
 			if T and T.Waiting and T.Waiting() then T.Remeasured() end
@@ -2081,15 +2082,17 @@ local function batch(P, mine, z)
 		costs = type(costs) == "table" and costs or {}
 		mine.yards = type(answer) == "table" and type(answer.yards) == "table" and answer.yards or nil
 		mine.checked = type(answer) == "table" and answer.walkChecked == true
-		mine.unjoined = type(answer) == "table" and answer.unjoined or nil
+		mine.unjoined, mine.capped = type(answer) == "table" and answer.unjoined or nil, type(answer) == "table" and answer.capped or nil
 		local found, refused = false, false
 		for i = 1, #pts do
 			if type(costs[i]) == "number" then found = true
 			elseif costs[i] == false then refused = true end
 		end
-		if not found and z and not inCity and not (mine.goalZ and refused) and not mine.unjoined and reason ~= "no safe walking route" then return batch(P, mine, nil) end
+		if not found and z and not inCity and not (mine.goalZ and refused) and not mine.unjoined and not mine.capped and reason ~= "no safe walking route" then return batch(P, mine, nil) end
 		mine.costs = costs
-		measured(mine, refused or (found and mine.checked))
+		-- A batch that left its places their estimates (unjoined, capped) has decided too: the planner held its route
+		-- for it, and plans once more with the estimates.
+		measured(mine, refused or (found and mine.checked) or mine.unjoined or mine.capped)
 	end, mine.o, true, progress)
 	if not ok then
 		if z and not inCity then return batch(P, mine, nil) end
