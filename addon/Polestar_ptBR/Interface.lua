@@ -473,6 +473,11 @@ L["Ride to the cave mouth in %s"] = "Vá montado até a entrada da caverna em %s
 L["Ride to the entrance in %s"] = "Vá montado até a entrada em %s"
 L["Ride to the cave mouth"] = "Vá montado até a entrada da caverna"
 L["Ride to the entrance"] = "Vá montado até a entrada"
+-- L["Known flight paths forgotten: open a flight map on each continent to settle them again."] = ""
+-- L["No flight paths known yet: open a flight map to record them."] = ""
+-- L["Known flight paths (%d): %s"] = ""
+-- L["List the flight paths Polestar knows you have (reset: forget them)"] = ""
+-- L["Faster if you have the flight path at %s"] = ""
 
 -- Nav/Journey.lua
 L["%s %d, %d"] = "%s %d, %d"

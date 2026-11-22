@@ -1458,9 +1458,11 @@ local function planBody(p, S)
 					-- a cost, never a time, so a near tie walks instead of detouring to the flight master.
 					-- Local here: PlanRoute is at Lua 5.1's 60 upvalues.
 					local TAKE_OFF = via[u] == FLY and 0 or 4
-					-- A landing at a flight master the player may not have (maybeV): a cost, never a time.
-					-- If the flight map at take-off doesn't list it, the plan is made again from there.
-					local MAYBE = 60
+					-- A landing at a flight master the player may not have (maybeV): a cost, never a time, of
+					-- seconds, not minutes (60 until 0.4.3: a flight on a continent no flight map had opened on lost
+					-- to walks of a minute more, #3632). If the flight map at take-off doesn't list it, the plan is
+					-- made again from there.
+					local MAYBE = 15
 					for i = 1, #fl - 1, 2 do
 						local v = taxiV[fl[i]]
 						if v then
@@ -1687,7 +1689,9 @@ local function planBody(p, S)
 			end
 		elseif how == FLY then
 			leg.kind = "fly"
-			if learnV[u] then
+			-- A flight master the player may not have (maybeV) is learnt on arrival, as one known to be missing
+			-- (learnV) is: its leg says so; if it was known, they just fly.
+			if learnV[u] or maybeV[u] then
 				leg.label = format(L["Learn the flight path at %s, then fly to %s"], Travel.TaxiName(vref[u], true), Travel.TaxiName(vref[to], true))
 			else
 				leg.label = format(L["Fly to %s"], Travel.TaxiName(vref[to], true))
@@ -1777,21 +1781,15 @@ end
 -- (recordTaxiMap), so on a seen continent a node missing from flags.taxi is one it
 -- lacks. Elsewhere Polestar can't tell: a flight path learnt before Polestar ran, or
 -- before its saved data was lost, shows only on a flight map (on Forever the world
--- map's flight points mark none undiscovered, #1795). Made once from the nodes already
--- known, each from a flight map on its continent, so a character that opened one there
--- keeps what it had; never before the travel data is loaded.
+-- map's flight points mark none undiscovered, #1795). Only a flight map marks a
+-- continent seen: until 0.4.3 the set was also made from the nodes already known, and
+-- one node known some other way (a landing, a flight master's name in the gossip, a
+-- Fly step) made every other flight master on its continent one to walk to (#3632,
+-- #3062: "it keeps forgetting the person has a flight path").
 local function seenSet()
 	local flags = ns.CharState().flags
-	local seen = flags.taxiSeen
-	if type(seen) == "table" then return seen end
-	seen = {}
-	if #taxiList == 0 then return seen end
-	for id in pairs(knownSet()) do
-		local node = taxi[id]
-		if node then seen[node.c] = true end
-	end
-	flags.taxiSeen = seen
-	return seen
+	if type(flags.taxiSeen) ~= "table" then flags.taxiSeen = {} end
+	return flags.taxiSeen
 end
 
 -- A flight master the character may have though Polestar doesn't know it (#1795): on a
@@ -1922,8 +1920,11 @@ function Travel.BoardingAt(pc, px, py, pz, faction)
 end
 
 -- The flight map lists the nodes this character knows on that continent: each
--- is known, and its continent seen (seenSet). -> true when a node was added or
--- the continent newly seen (its maybe nodes, planRoute's maybeV, are settled).
+-- is known, and its continent seen (seenSet). A known node of the player's on that
+-- continent one flight from a listed one but not listed itself is one the map proves
+-- missing (#3290: known nodes were only ever added): it is forgotten. Nothing on
+-- another continent changes. -> true when a node was added or forgotten or the
+-- continent newly seen (its maybe nodes, planRoute's maybeV, are settled).
 local function recordTaxiMap()
 	refreshFaction()
 	local known, seen = knownSet(), seenSet()
@@ -1935,6 +1936,7 @@ local function recordTaxiMap()
 		if ok and type(list) == "table" then
 			local offer, current = { map = mapID, faction = playerFaction, reachable = {} }, 0
 			local states = Enum and Enum.FlightPathState
+			local listed, c = {}, nil
 			for _, info in ipairs(list) do
 				local id = type(info) == "table" and info.nodeID
 				local node = id and taxi[id]
@@ -1944,12 +1946,24 @@ local function recordTaxiMap()
 					offer.reachable[id] = true
 				end
 				if node and discoveredState(info.state) then
+					listed[id], c = true, node.c
 					if not seen[node.c] then
 						seen[node.c] = true
 						added = true
 					end
 					if not known[id] then
 						known[id] = true
+						added = true
+					end
+				end
+			end
+			for id in pairs(listed) do
+				local fl = flights[id] or {}
+				for i = 1, #fl - 1, 2 do
+					local to, node = fl[i], taxi[fl[i]]
+					if known[to] and not listed[to] and node and node.c == c and not node.class
+						and allowed(node.faction, playerFaction, node.class) then
+						known[to] = nil
 						added = true
 					end
 				end
@@ -2476,7 +2490,7 @@ local function plan(target, held)
 			probe = { reach = nearWalk.CROSS }
 		end
 	end
-	local route = Nav.PlanRoute({
+	local plan = {
 		c = pc, wx = px, wy = py, map = playerMap(), z = pz, floors = pfloors, place = Travel.Inside(pc, px, py),
 		target = { c = tc, wx = twx, wy = twy, z = tz, label = target.label, map = target.map, x = target.x, y = target.y, f = target.f, kind = target.kind },
 		liveLeft = W and W.LiveLeft and W.LiveLeft(tc, twx, twy) or nil,
@@ -2510,7 +2524,9 @@ local function plan(target, held)
 		walkHooks = walkHooks,
 		walkDanger = walkDanger(pc, px, py, tc, twx, twy),
 		places = places,
-	})
+	}
+	local route = Nav.PlanRoute(plan)
+	Travel.FlightHint(plan, route)
 	-- The route rides to a landing and walks on from there, the walk still the
 	-- straight estimate while the target's walks are measured (a landing past
 	-- Walk.Measure's reach): that landing is measured too (`chosen`), and the
@@ -3457,10 +3473,12 @@ end
 function Travel.Landed()
 	local node, target = Travel.leaving, Travel.leavingFor
 	Travel.leaving, Travel.leavingFor = nil, nil
-	if not (node and target == Nav.GetTarget()) then return end
 	local C = ns.Compat
 	local pc, px, py
 	if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
+	-- A flight lands at a flight master the character has: known, whatever the saved data said (#3632).
+	Travel.LearnAt(pc, px, py)
+	if not (node and target == Nav.GetTarget()) then return end
 	if pc and yards(pc, px, py, node.c, node.wx, node.wy) <= LEARN_FP then return end
 	Travel.Behind(node)
 end
@@ -3928,23 +3946,30 @@ function Travel:Refresh()
 end
 
 -- "New flight path discovered": the flight master the player stands at is known now.
-local function onInfoMessage(_, _, message)
-	if message == nil or message ~= ERR_NEWTAXIPATH then return end
-	local C = ns.Compat
-	local pc, px, py
-	if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
-	if not pc then return end
+-- The flight master of the player's within LEARN_FP yards of (pc, px, py) is known: a flight path learnt there
+-- (ERR_NEWTAXIPATH) or a flight landed there. -> true when it was not known before.
+function Travel.LearnAt(pc, px, py)
+	if not pc then return false end
 	refreshFaction()
 	local known, best, node = knownSet(), LEARN_FP, nil
 	for _, t in ipairs(taxiList) do
 		local d = yards(pc, px, py, t.c, t.wx, t.wy)
-		if d <= best and allowed(t.faction, playerFaction) then best, node = d, t end
+		if d <= best and allowed(t.faction, playerFaction, t.class) then best, node = d, t end
 	end
 	if node and not known[node.id] then
 		known[node.id] = true
 		dirty = true
 		Travel:Refresh()
+		return true
 	end
+	return false
+end
+local function onInfoMessage(_, _, message)
+	if message == nil or message ~= ERR_NEWTAXIPATH then return end
+	local C = ns.Compat
+	local pc, px, py
+	if C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
+	Travel.LearnAt(pc, px, py)
 end
 
 local function onZone()
@@ -4012,10 +4037,116 @@ end)
 ns.RegisterEvent("PLAYER_LEAVING_WORLD", function() Travel.taxiOffer = nil end)
 ns.RegisterEvent("UI_INFO_MESSAGE", onInfoMessage)
 
+-- The known flight paths and the continents a flight map has shown, kept a second time account-wide by character
+-- (PolestarFlightsDB["Name-Realm"]: its own saved file, which neither a profile reset nor a lost or reset
+-- PolestarCharDB touches): on login each side gains what the other has (a node known in either is known), and from
+-- then on both name the same tables. Players' recordings could rebuild it on the server later; not here.
+function Travel.Mirror()
+	local name = UnitName and UnitName("player")
+	local realm = GetRealmName and GetRealmName()
+	if not (name and realm) then return end
+	if type(PolestarFlightsDB) ~= "table" then PolestarFlightsDB = {} end
+	local key = name .. "-" .. realm
+	local m = PolestarFlightsDB[key]
+	local known, seen = knownSet(), seenSet()
+	if type(m) == "table" then
+		for id, v in pairs(type(m.known) == "table" and m.known or {}) do
+			if v and not known[id] then known[id] = true end
+		end
+		for c, v in pairs(type(m.seen) == "table" and m.seen or {}) do
+			if v and not seen[c] then seen[c] = true end
+		end
+	end
+	PolestarFlightsDB[key] = { known = known, seen = seen }
+end
+
+-- A long walk that a flight would beat if the character had a flight path Polestar doesn't know it has (a flight
+-- map not opened on that continent since its saved data was lost, #3632): the same plan again with every flight
+-- master taken as one it may have (planRoute's maybe nodes). When that one flies and is HINT_GAIN seconds faster,
+-- Nav.FlightHint() names the landing it needs: "Faster if you have the flight path at X" (the travel line,
+-- /polestar route, /polestar report). A walk of HINT_WALK seconds or less is never asked about. -> nothing.
+Travel.HINT_WALK, Travel.HINT_GAIN = 120, 30
+function Travel.FlightHint(p, route)
+	Travel.flightHint = nil
+	if not route or p.walkOnly or p.noFlights then return end
+	local total = 0
+	for _, leg in ipairs(route) do
+		if leg.kind == "fly" then return end
+		total = total + (leg.seconds or 0)
+	end
+	if total <= Travel.HINT_WALK then return end
+	local q = {}
+	for k, v in pairs(p) do q[k] = v end
+	q.seen, q.maybe, q.places, q.nearProbe, q.walkHooks = {}, function() return true end, nil, nil, {}
+	local ok, alt = pcall(Nav.PlanRoute, q)
+	if not ok or type(alt) ~= "table" then return end
+	local altTotal, need = 0, nil
+	for _, leg in ipairs(alt) do
+		altTotal = altTotal + (leg.seconds or 0)
+		if leg.kind == "fly" and not need and type(leg.stops) == "table" then
+			local known = knownNodes()
+			for k = 2, #leg.stops do
+				local stop = leg.stops[k]
+				if not need and stop and stop.id and taxi[stop.id] and not known[stop.id] then need = taxi[stop.id] end
+			end
+		end
+	end
+	if need and altTotal < total - Travel.HINT_GAIN then Travel.flightHint = need end
+end
+-- The flight master whose flight path would make the route a flight, while the route walks (Travel.FlightHint);
+-- else nil. -> its node { id, name, c, ... }
+function Nav.FlightHint()
+	return Travel.flightHint
+end
+
+-- The flight paths this character has, for a list (a settings row, /polestar flights): { { id, name, c }, ... }
+-- sorted by continent then name.
+function Nav.KnownTaxiList()
+	refreshFaction()
+	local out = {}
+	for id in pairs(knownNodes()) do
+		local node = taxi[id]
+		if node then out[#out + 1] = { id = id, name = node.name, c = node.c } end
+	end
+	table.sort(out, function(a, b)
+		if a.c ~= b.c then return a.c < b.c end
+		return a.name < b.name
+	end)
+	return out
+end
+
+-- Forget every flight path and flight map shown (this character, both copies): the planner assumes them again
+-- (planRoute's maybe nodes) until flight maps settle them.
+function Nav.ResetKnownTaxi()
+	local flags = ns.CharState().flags
+	flags.taxi, flags.taxiSeen = {}, {}
+	local name, realm = UnitName and UnitName("player"), GetRealmName and GetRealmName()
+	if type(PolestarFlightsDB) == "table" and name and realm then PolestarFlightsDB[name .. "-" .. realm] = nil end
+	Travel.Mirror()
+	Travel.Replan()
+end
+
 ns.OnLogin(function()
 	refreshFaction()
 	Travel.enabled = ns.Get("nav.travel") and true or false
+	Travel.Mirror()
 end)
+
+ns.RegisterCommand("flights", function(rest)
+	if (rest or ""):lower():match("^%s*reset%s*$") then
+		Nav.ResetKnownTaxi()
+		ns.Print(L["Known flight paths forgotten: open a flight map on each continent to settle them again."])
+		return
+	end
+	local list = Nav.KnownTaxiList()
+	if #list == 0 then
+		ns.Print(L["No flight paths known yet: open a flight map to record them."])
+		return
+	end
+	local names = {}
+	for i, n in ipairs(list) do names[i] = n.name end
+	ns.Print(format(L["Known flight paths (%d): %s"], #list, table.concat(names, ", ")))
+end, L["List the flight paths Polestar knows you have (reset: forget them)"], true)
 
 Nav.RegisterModule(Travel)
 
@@ -4030,4 +4161,6 @@ ns.RegisterCommand("route", function()
 		local leg = list[i]
 		ns.Print(format("%d. %s (%d:%02d)", i, leg.label or leg.kind, floor(leg.seconds / 60), leg.seconds % 60))
 	end
+	local hint = Nav.FlightHint()
+	if hint then ns.Print(format(L["Faster if you have the flight path at %s"], hint.name)) end
 end, L["Show the travel route to the current target"], true)

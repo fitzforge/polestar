@@ -414,6 +414,11 @@ L["Learn the flight path at %s, then fly to %s"] = "Flugroute in %s lernen, dann
 -- L["Ride to the entrance in %s"] = ""
 -- L["Ride to the cave mouth"] = ""
 -- L["Ride to the entrance"] = ""
+-- L["Known flight paths forgotten: open a flight map on each continent to settle them again."] = ""
+-- L["No flight paths known yet: open a flight map to record them."] = ""
+-- L["Known flight paths (%d): %s"] = ""
+-- L["List the flight paths Polestar knows you have (reset: forget them)"] = ""
+-- L["Faster if you have the flight path at %s"] = ""
 
 -- QoL/Options.lua
 L["Experience"] = "Erfahrung"

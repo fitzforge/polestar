@@ -310,7 +310,7 @@ local function routesLine()
 end
 
 -- The travel plan from the current leg on (Nav.GetRoute): each leg's caption
--- and time, "(maybe)" on a flight to a flight master the character may not
+-- and time, "(assumed)" on a flight to a flight master the character may not
 -- have (#1795: the first flight map there settles it); no line without a plan
 -- (the arrow leads straight). The words stay English like Routes; after
 -- Routes, so Arrow, Where and Routes keep their places for the bug bot.
@@ -324,8 +324,11 @@ local function travelLine()
 	for i = ci or 1, #legs do
 		local leg = legs[i]
 		local s = floor((leg.seconds or 0) + 0.5)
-		parts[#parts + 1] = ("%s %d:%02d%s"):format(plain(leg.label or leg.kind or "?"), floor(s / 60), s % 60, leg.maybe and " (maybe)" or "")
+		parts[#parts + 1] = ("%s %d:%02d%s"):format(plain(leg.label or leg.kind or "?"), floor(s / 60), s % 60, leg.maybe and " (assumed)" or "")
 	end
+	-- A walk a flight would beat with a flight path Polestar doesn't know of (Nav.FlightHint).
+	local hint = N.FlightHint and N.FlightHint()
+	if hint then parts[#parts + 1] = ("faster with the flight path at %s"):format(plain(hint.name or "?")) end
 	return cut((L["Travel: %s"]):format(table.concat(parts, SEP)), 300)
 end
 
