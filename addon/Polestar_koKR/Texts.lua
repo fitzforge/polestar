@@ -1488,8 +1488,6 @@ t.guides["forever/alliance/50-60/06-silithus"] = (function() return {
 		["Twilight's Hammer cultists"] = "황혼의 망치단 이교도",
 		["{npc:15183}: the tablet fragments come from the Twilight dig"] = "{npc:15183}: 서판 조각은 황혼의 발굴지에서 얻습니다",
 		["{npc:15189}, upstairs"] = "{npc:15189}, 위층",
-		["{npc:17080} camps outside {area:2743}, the western hive. Pick up a Silithyst at one of the red geysers nearby and carry it to the Alliance extractor at his camp.\nCareful: You lose the Silithyst if you mount, stealth, use {spell:642}, {spell:5384} or Vanish. Blink and {spell:17} do not drop it."] = "{npc:17080}은(는) 서쪽 벌집인 {area:2743} 바깥에 진을 치고 있습니다. 근처 붉은 간헐천에서 실리시스트를 집어 그의 야영지에 있는 얼라이언스 추출기로 가져가세요.\n주의: 탈것을 타거나, 은신하거나, {spell:642}, {spell:5384}, 소멸을 사용하면 실리시스트를 잃습니다. 점멸과 {spell:17}은(는) 떨어뜨리지 않습니다.",
-		["{npc:17082}, at the Alliance tents: for {npc:17080} at {area:2743}"] = "얼라이언스 천막의 {npc:17082}: {area:2743}의 {npc:17080}에게 가져갑니다",
 } end)()
 t.guides["forever/alliance/dwarf/01-dun-morogh"] = (function() return {
 		["Back east through {area:131}: {npc:1252} by Eric's campfire takes the {quest:287} report, and {npc:1269} the cogs and gears. The Shaman quest here waits for level 10: a Shaman still short of it finishes on the Ice Claw Bears (7-8), Snow Leopards and Large Crag Boars in the fields just south of {area:131}."] = "{area:131}을(를) 지나 동쪽으로 돌아가세요. 에릭의 모닥불 옆 {npc:1252}에게 {quest:287} 보고를, {npc:1269}에게 톱니와 기어를 제출합니다. 이곳의 주술사 퀘스트는 10레벨이 필요합니다. 아직 모자라는 주술사는 {area:131} 바로 남쪽 들판의 얼음발톱흰곰(7-8), 눈표범, 큰 멧돼지를 잡아 채우세요.",
@@ -4865,10 +4863,7 @@ t.guides["forever/horde/50-60/06-silithus"] = (function() return {
 		["Ride north-east to {area:3447}."] = "북동쪽의 {area:3447}(으)로 가세요.",
 		["Ride south-east to {area:3447} under the Un'Goro cliffs."] = "남동쪽으로 운고로 절벽 아래의 {area:3447}(으)로 가세요.",
 		["Ride south-west to the ruins of {area:2738}. The {object:179565} for {npc:11801} sits inside one of the ruined houses."] = "남서쪽의 {area:2738} 폐허로 가세요. {npc:11801}을(를) 위한 {object:179565}은(는) 무너진 집 중 한 곳 안에 있습니다.",
-		["Ride west to the Horde camp north of {area:2744}."] = "서쪽으로 {area:2744} 북쪽의 호드 야영지로 가세요.",
 		["Scare {npc:7583} with {item:12928}"] = "{item:12928}(으)로 {npc:7583} 겁주기",
-		["Silithyst geysers erupt across the southern desert. Walk into the Silithyst one leaves behind and carry it to the Horde's Silithyst Extractor at Kirika's camp; fighting or mounting drops it."] = "남부 사막 곳곳에서 실리시스트 모래기둥이 솟아오릅니다. 모래기둥이 남긴 실리시스트 속으로 걸어 들어가, 키리카의 야영지에 있는 호드의 실리시스트 추출기까지 가져가세요. 싸우거나 탈것에 오르면 떨어뜨립니다.",
-		["Stonelash Flayers and Rock Stalkers roam the dunes south-west of Kirika's camp."] = "돌꼬리채찍전갈과 긴다리 바위거미는 키리카의 야영지 남서쪽 모래언덕을 돌아다닙니다.",
 		["The pass from Un'Goro comes out at {area:3077}, the graveyard in north-east {zone:1451}. {npc:13220} stands among the graves."] = "운고로 분화구에서 오는 고갯길은 {zone:1451} 북동쪽의 묘지인 {area:3077}(으)로 이어집니다. {npc:13220}은(는) 무덤 사이에 서 있습니다.",
 		["The spare texts from the cultists"] = "이교도에게서 얻은 남는 문서",
 		["Twilight Vanguard"] = "황혼의 선봉대",
@@ -6199,9 +6194,7 @@ t.guides["forever/reputation/gnomeregan-exiles"] = (function() return {
 		["{quest:7812} to Revered"] = "{quest:7812}: 매우 우호적까지",
 } end)()
 t.guides["forever/reputation/hydraxian-waterlords"] = (function() return {
-		["Back to {npc:13278}"] = "{npc:13278}에게 돌아가기",
 		["Hydraxian Waterlords Reputation"] = "히드락시안 물의 군주 평판",
-		["{npc:12118}, {npc:12259}, {npc:12264} and {npc:12098} are {area:2717} bosses: each drops his hand for the quest."] = "{npc:12118}, {npc:12259}, {npc:12264}, {npc:12098}은(는) {area:2717}의 우두머리이며, 각각 퀘스트에 필요한 자신의 손을 떨어뜨립니다.",
 } end)()
 t.guides["forever/reputation/ironforge"] = (function() return {
 		["Ironforge Reputation"] = "아이언포지 평판",
