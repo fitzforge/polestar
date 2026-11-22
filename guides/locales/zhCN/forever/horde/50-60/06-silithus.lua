@@ -26,34 +26,38 @@ return {
 	-- {item:11243} Videre Elixir · {area:976} Gadgetzan · {npc:9299} Gaeriyan
 	["Drink the {item:11243} at the graveyard just east of {area:976}: it kills you, and only as a ghost can you see {npc:9299}, in a rocky crevice in the hills due north of it. Talk to him there, then run back to your body and resurrect: the Conspicuous Gravestone he sends you to stands in that graveyard."] = "在{area:976}东边不远处的墓地喝下{item:11243}：它会杀死你，只有以鬼魂形态才能看到{npc:9299}，他在墓地正北方山丘中的一道岩缝里。在那里和他交谈，然后跑回尸体处复活：他让你去找的显眼的墓碑就在那片墓地里。",
 
-	-- Step 4: Sprinkle
+	-- Step 4: Gaeriyan
+	-- {npc:9299} Gaeriyan · {item:11243} Videre Elixir · {area:976} Gadgetzan
+	["{npc:9299} has already met you: drink the {item:11243} at the graveyard just east of {area:976} and find him, as a ghost, in the rocky crevice due north of it."] = "",
+
+	-- Step 5: Sprinkle
 	-- {item:12928} Umi's Mechanical Yeti · {npc:7583} Sprinkle · {area:976} Gadgetzan · {npc:10977} Quixxil · {npc:10978} Legacki
 	["Use {item:12928} on {npc:7583}, the goblin girl in {area:976}. {npc:10977} and {npc:10978} are scared later in the route."] = "对{area:976}的地精女孩{npc:7583}使用{item:12928}。{npc:10977}和{npc:10978}在路线后面再吓唬。",
 	-- {npc:7583} Sprinkle · {item:12928} Umi's Mechanical Yeti
 	["Scare {npc:7583} with {item:12928}"] = "用{item:12928}吓唬{npc:7583}",
 
-	-- Step 5: Alchemist Pestlezugg
+	-- Step 6: Alchemist Pestlezugg
 	-- {quest:4493} March of the Silithid · {zone:1454} Orgrimmar · {zone:1447} Azshara
 	["Inside: {quest:4493}, if you took it in {zone:1454} on the {zone:1447} guide"] = "屋内：{quest:4493}，如果你在{zone:1447}指南中于{zone:1454}接了它",
 
-	-- Step 6: Alchemist Pestlezugg
+	-- Step 7: Alchemist Pestlezugg
 	["Inside"] = "在里面",
 
-	-- Step 7: Gaeriyan
+	-- Step 9: Gaeriyan
 	-- {quest:3914} Linken's Sword · {npc:8737} Linken
 	["{quest:3914} goes back to {npc:8737} in Un'Goro: keep it."] = "{quest:3914}要交还给安戈洛的{npc:8737}：留着它。",
 
-	-- Step 8: Marvon Rivetseeker
+	-- Step 10: Marvon Rivetseeker
 	-- {npc:7771} Marvon Rivetseeker · {area:1336} Lost Rigger Cove · {area:976} Gadgetzan
 	["{npc:7771} camps by the {area:1336} road, south of {area:976}."] = "{npc:7771}在{area:976}南边通往{area:1336}的路旁扎营。",
 
-	-- Step 9: Fly to Marshal's Refuge
+	-- Step 11: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
 	["Fly to {area:541}"] = "飞往{area:541}",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "{area:976}的飞行管理员",
 
-	-- Step 10: Marshal's Refuge
+	-- Step 12: Marshal's Refuge
 	-- {area:541} Marshal's Refuge · {npc:8737} Linken · {npc:9117} J.D. Collie
 	["The flight lands at {area:541}: {npc:8737} stands by the cave a few steps from the flight master, {npc:9117} inside it."] = "",
 	-- {npc:9117} J.D. Collie
@@ -66,39 +70,39 @@ return {
 	-- {npc:10977} Quixxil · {item:12928} Umi's Mechanical Yeti
 	["Scare {npc:10977} with {item:12928}"] = "",
 
-	-- Step 11: Layo Starstrike
+	-- Step 13: Layo Starstrike
 	-- {area:3077} Valor's Rest · {zone:1451} Silithus · {npc:13220} Layo Starstrike
 	["The pass from Un'Goro comes out at {area:3077}, the graveyard in north-east {zone:1451}. {npc:13220} stands among the graves."] = "从安戈洛环形山出来的山口通往{area:3077}，那是{zone:1451}东北部的墓地。{npc:13220}站在坟墓之间。",
 
-	-- Step 12: The Spirits of Southwind
+	-- Step 14: The Spirits of Southwind
 	-- {area:2738} Southwind Village · {object:179565} Dusty Reliquary · {npc:11801} Rabine Saturna
 	["Ride south-west to the ruins of {area:2738}. The {object:179565} for {npc:11801} sits inside one of the ruined houses."] = "向西南骑往{area:2738}的废墟。给{npc:11801}的{object:179565}在其中一座毁坏的房子里。",
 
-	-- Step 14: Cenarion Hold
+	-- Step 16: Cenarion Hold
 	-- {area:3077} Valor's Rest · {npc:15189} Beetix Ficklespragg
 	-- was: ["Ride west to the walled hold in the middle of the desert. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "向西骑往沙漠中央有城墙环绕的要塞。{npc:15189}站在他那座建筑的楼上：从里面上楼，箭头分不清楼层。"
 	["Ride west from {area:3077} to the walled hold in the middle of the desert. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 
-	-- Step 15: Calandrath
+	-- Step 17: Calandrath
 	-- {skill:185} Cooking · {npc:15174} Calandrath
 	["Cooks with 285 {skill:185} or more: {npc:15174}, the innkeeper you just bound with, wants word of the Twilight's Hammer's sandworm recipe; the cookbook lies in the outpost west of the Hold, where this guide goes later."] = "",
 
-	-- Step 16: Silithus: kill these as you meet them
+	-- Step 18: Silithus: kill these as you meet them
 	-- {zone:1451} Silithus
 	["{zone:1451}: kill these as you meet them"] = "{zone:1451}：沿途击杀以下目标",
 	-- plural, as words: Dredge Strikers = {npc:11740} Dredge Striker · Stonelash Scorpids = {npc:11735} Stonelash Scorpid · Sand Skitterers = {npc:11738} Sand Skitterer
 	["Dredge Strikers, Stonelash Scorpids and Sand Skitterers share the sands just north of the hold."] = "掘泥打击者、石鞭蝎和掠沙蜘蛛共处于要塞正北的沙地上。",
 
-	-- Step 17: Twilight Base Camp
+	-- Step 19: Twilight Base Camp
 	-- plural, as words: Dust Stormers = {npc:11744} Dust Stormer · Desert Rumblers = {npc:11746} Desert Rumbler · Whirling Invaders = {npc:14455} Whirling Invader
 	-- was: ["The glowing tablet fragments lie around the Twilight camp in the far north-west; the Dust Stormers and Desert Rumblers there drop them too. Careful: the biggest Rumblers and the Whirling Invaders are 58: pull them one at a time."] = "发光的石板碎片散落在遥远西北的暮光营地周围；那里的灰尘风暴和沙漠奔行者也会掉落碎片。小心：最大的沙漠奔行者和旋风入侵者是58级：一次引一只。"
 	["The glowing tablet fragments lie on the ground around the Twilight camp in the far north-west: pick them up. The Dust Stormers and Desert Rumblers there may carry them too. Careful: the biggest Rumblers and the Whirling Invaders are 58: pull them one at a time."] = "",
 
-	-- Step 18: Cenarion Hold
+	-- Step 20: Cenarion Hold
 	-- {npc:15189} Beetix Ficklespragg
 	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189}站在他那座建筑的楼上：从里面上楼，箭头分不清楼层。",
 
-	-- Step 19: Hive in the Tower
+	-- Step 21: Hive in the Tower
 	-- {item:17346} Encrusted Silithid Object
 	-- plural, as words: Hive'Ashi Ambushers = {npc:13301} Hive'Ashi Ambusher
 	["Back to Southwind and climb the tower. Stirring the hive at the top brings out Hive'Ashi Ambushers; one carries the {item:17346}."] = "回到南风村，爬上塔。搅动塔顶的虫巢会引出亚什伏击者；其中一个携带{item:17346}。",
@@ -107,14 +111,14 @@ return {
 	-- {npc:15170} Rutgar Glyphshaper
 	["for {npc:15170} at Bronzebeard's Encampment, later in this guide"] = "",
 
-	-- Step 21: Hermit Ortell
+	-- Step 23: Hermit Ortell
 	-- {area:3447} Ortell's Hideout
 	["Ride south-east to {area:3447} under the Un'Goro cliffs."] = "向东南骑往安戈洛悬崖下的{area:3447}。",
 	["Below ground"] = "在地下",
 	-- {item:20377} Rock Stalker Fang · {npc:11739} Rock Stalker
 	["{item:20377} from {npc:11739}, 130 yd south-west"] = "从{npc:11739}身上获取{item:20377}，在西南130码处",
 
-	-- Step 22: Dredge Crushers and Pincers
+	-- Step 24: Dredge Crushers and Pincers
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher
 	["Dredge Crushers and Pincers"] = "掘泥摧毁者和巨钳蝎",
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher · Stonelash Pincers = {npc:11736} Stonelash Pincer
@@ -122,77 +126,77 @@ return {
 	-- {npc:11741} Dredge Crusher · {area:2738} Southwind Village
 	["{npc:11741} walks around {area:2738}: look inside the circle on the map"] = "{npc:11741}在{area:2738}附近巡逻，请在地图标出的圆圈内寻找",
 
-	-- Step 23: Flayers and Rock Stalkers
+	-- Step 25: Flayers and Rock Stalkers
 	-- plural, as words: Rock Stalkers = {npc:11739} Rock Stalker
 	["Flayers and Rock Stalkers"] = "石鞭掠夺者和石行蜘蛛",
 	-- {area:2744} Hive'Regal · {zone:1451} Silithus
 	-- plural, as words: Stonelash Flayers = {npc:11737} Stonelash Flayer · Rock Stalkers = {npc:11739} Rock Stalker
 	["Stonelash Flayers and Rock Stalkers roam the dunes north of {area:2744}, in the south-east of {zone:1451}."] = "",
 
-	-- Step 24: Twilight Vanguard
+	-- Step 26: Twilight Vanguard
 	["Twilight Vanguard"] = "暮光先锋军营地",
 	-- {npc:11803} Twilight Keeper Exeter · {item:20404} Encrypted Twilight Text · {npc:15306} Bor Wildmane
 	["{npc:11803} walks the Vanguard camp in the far south-west. Keep every {item:20404} the cultists drop: {npc:15306} and Ortell want ten each later."] = "{npc:11803}在西南尽头的先锋营地里走动。保留信徒掉落的所有{item:20404}；稍后{npc:15306}和隐士奥泰尔各需要十份。",
 
-	-- Step 26: Twilight Post
+	-- Step 28: Twilight Post
 	-- {npc:15200} Twilight Keeper Mayna
 	["{npc:15200} holds the camp in the west."] = "{npc:15200}占据着西边的营地。",
 
-	-- Step 27: Twilight Outpost
+	-- Step 29: Twilight Outpost
 	-- {npc:11804} Twilight Keeper Havunth · {area:3425} Cenarion Hold
 	-- plural, as words: Encrypted Twilight Texts = {item:20404} Encrypted Twilight Text
 	["{npc:11804} stands in the outpost west of {area:3425}. Keep any Encrypted Twilight Texts that drop here too."] = "{npc:11804}在{area:3425}西侧的前哨站，这里掉落的暮光密文信也要保留。",
 
-	-- Step 28: Sandy Cookbook
+	-- Step 30: Sandy Cookbook
 	-- {object:180503} Sandy Cookbook · {npc:15174} Calandrath
 	["The {object:180503} lies in the outpost: read it and take its torn page back to {npc:15174}."] = "",
 
-	-- Step 29: Cenarion Hold
+	-- Step 31: Cenarion Hold
 	-- {npc:15189} Beetix Ficklespragg · {npc:15190} Noggle Ficklespragg
 	["{npc:15189} and {npc:15190} stand upstairs in their building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189}和{npc:15190}站在他们那座建筑的楼上：从里面上楼，箭头分不清楼层。",
 	-- {npc:15306} Bor Wildmane
 	["{npc:15306}, on the west side of the Hold"] = "{npc:15306}，在要塞西侧",
 
-	-- Step 30: Calandrath
+	-- Step 32: Calandrath
 	-- {npc:15174} Calandrath · {object:180503} Sandy Cookbook
 	["{npc:15174}, the innkeeper, takes the {object:180503}'s torn page."] = "",
 
-	-- Step 31: Wanted: Deathclasp
+	-- Step 33: Wanted: Deathclasp
 	-- {npc:15196} Deathclasp
 	["Wanted: {npc:15196}"] = "",
 	-- {npc:15196} Deathclasp · {npc:15190} Noggle Ficklespragg · {npc:15182} Vish Kozus
 	["{npc:15196}, Terror of the Sands, is a level 59 elite scorpid patrolling the mountains by {npc:15190}'s satchel, at your level: a group choice. The wanted poster stands in the middle of the Hold; {npc:15182} pays out."] = "",
 
-	-- Step 32: Hermit Ortell
+	-- Step 34: Hermit Ortell
 	-- {area:3447} Ortell's Hideout
 	["Ride north-east to {area:3447}."] = "向东北骑往{area:3447}。",
 
-	-- Step 33: Noggle's Lost Satchel
+	-- Step 35: Noggle's Lost Satchel
 	-- {npc:15196} Deathclasp
 	-- was: ["The satchel lies in the mountains of the far south, past Bronzebeard's Encampment. Deathclasp, an elite scorpid, patrols near it: grab it while he is away."] = "诺格的背包在遥远南方的山里，过了铜须营地。精英蝎子死亡弯钩在附近巡逻：趁它走开时拿走背包。"
 	["The satchel lies in the mountains of the far south, past Bronzebeard's Encampment. {npc:15196}, an elite scorpid, patrols near it: grab it while he is away."] = "",
 
-	-- Step 34: Deathclasp
+	-- Step 36: Deathclasp
 	-- {npc:15196} Deathclasp
 	["With your group: {npc:15196} walks the mountains around the satchel. Pull him away from the other scorpids."] = "",
 
-	-- Step 35: Dearest Natalia
+	-- Step 37: Dearest Natalia
 	-- {npc:15171} Frankal Stonebridge · {npc:15170} Rutgar Glyphshaper
 	["{npc:15171} and {npc:15170} camp at Bronzebeard's Encampment, just north of the satchel's mountains. Question them: go through each one's whole conversation; there is no need to fight them."] = "{npc:15171} 和 {npc:15170} 在铜须营地扎营，就在丢失背包所在山地的北边。询问他们：与两人分别完成全部对话；无需战斗。",
 	-- {npc:15170} Rutgar Glyphshaper
 	["{npc:15170}, if Brann's letter dropped for you"] = "",
 
-	-- Step 36: Twilight Base Camp
+	-- Step 38: Twilight Base Camp
 	-- {npc:15306} Bor Wildmane
 	-- plural, as words: Encrypted Twilight Texts = {item:20404} Encrypted Twilight Text · Twilight Avengers = {npc:11880} Twilight Avenger
 	["Collect twenty Encrypted Twilight Texts from the cultists here, ten for {npc:15306} and ten for Ortell. Take them from the Twilight Avengers and Geolords; leave the Flamereavers and Stonecallers (59-60)."] = "从这里的信徒身上收集二十份暮光密文信，十份交给{npc:15306}，十份交给奥泰尔。从暮光复仇者和暮光地卜师身上获取；别碰烈焰掠夺者和唤石者（59-60级）。",
 	-- {npc:15306} Bor Wildmane
 	["ten for each quest: {npc:15306} takes his ten before Ortell"] = "每个任务各需十份：先给{npc:15306}十份，再给隐士奥泰尔",
 
-	-- Step 37: Twilight Base Camp
+	-- Step 39: Twilight Base Camp
 	["The spare texts from the cultists"] = "信徒身上多出来的密文信",
 
-	-- Step 38: Back to Cenarion Hold
+	-- Step 40: Back to Cenarion Hold
 	-- {area:3425} Cenarion Hold
 	["Back to {area:3425}"] = "返回{area:3425}",
 	-- {npc:15190} Noggle Ficklespragg
@@ -200,80 +204,80 @@ return {
 	-- {area:2744} Hive'Regal
 	["Mar'alith's next errand, Into the Maw of Madness, leads into {area:2744} among elites. Skip it."] = "玛尔利斯接下来的任务“深入疯狂之口”会带你进入精英遍布的 {area:2744}。跳过它。",
 
-	-- Step 39: Vish Kozus
+	-- Step 41: Vish Kozus
 	-- {npc:15182} Vish Kozus · {npc:15196} Deathclasp
 	["{npc:15182}, Captain of the Guard, pays out for {npc:15196}'s pincer."] = "",
 
-	-- Step 41: Layo Starstrike
+	-- Step 43: Layo Starstrike
 	-- {area:3077} Valor's Rest · {zone:1451} Silithus
 	["Ride north-east to {area:3077}; you leave {zone:1451} through the pass beside it."] = "向东北骑往{area:3077}；你从旁边的山口离开{zone:1451}。",
 
-	-- Step 43: Marshal's Refuge
+	-- Step 45: Marshal's Refuge
 	-- {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock
 	-- was: ["Through the pass and east along the northern cliffs to {area:541}. {npc:9997} stands beside the flight master."] = "穿过山口，沿北侧峭壁向东前往{area:541}。{npc:9997}站在飞行管理员旁。"
 	["You missed this on the Un'Goro guide's loop: through the pass and east along the northern cliffs to {area:541}. {npc:9997} stands beside the flight master."] = "",
 
-	-- Step 44: Krakle
+	-- Step 46: Krakle
 	-- {npc:10302} Krakle · {area:543} Golakka Hot Springs
 	["You missed this on the Un'Goro guide's loop: {npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "",
 
-	-- Step 45: Krakle's Thermometer
+	-- Step 47: Krakle's Thermometer
 	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer · {npc:10302} Krakle
 	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}."] = "向东骑往{area:537}，爬上去，在接近山顶的熔岩口使用{npc:10541}，然后向西骑回{npc:10302}那里。",
 
-	-- Step 46: Krakle
+	-- Step 48: Krakle
 	-- {npc:10302} Krakle · {npc:9298} Donova Snowden · {zone:1452} Winterspring
 	["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "{npc:10302}让你去找{zone:1452}的{npc:9298}：留着它。",
 
-	-- Step 47: Bungle in the Jungle
+	-- Step 49: Bungle in the Jungle
 	-- {quest:4496} Bungle in the Jungle · {area:976} Gadgetzan · {area:540} Slithering Scar · {area:537} Fire Plume Ridge · {item:11018} Un'Goro Soil
 	["Only if you took {quest:4496} in {area:976} on the way here: the Gorishi of the {area:540}, south of {area:537}, drop the Scent Gland, and most of the crater's beasts and plants drop {item:11018}."] = "仅当你来时在{area:976}接了{quest:4496}：{area:537}南边{area:540}的高瑟尔虫子掉落气味腺，环形山里大多数野兽和植物都掉落{item:11018}。",
 
-	-- Step 48: Pawn Captures Queen
+	-- Step 50: Pawn Captures Queen
 	-- {item:11833} Gorishi Queen Lure · {area:540} Slithering Scar · {npc:10041} Gorishi Hive Queen
 	["Use the {item:11833} where the arrow points, inside the Gorishi hive of the {area:540}, to call the {npc:10041} (level 56)."] = "在 {area:540} 的格里什虫巢内、箭头所指的位置使用 {item:11833}，召唤 {npc:10041}（56 级）。",
 
-	-- Step 49: Torwa Pathfinder
+	-- Step 51: Torwa Pathfinder
 	-- {quest:4301} The Mighty U'cha · {area:541} Marshal's Refuge
 	["{quest:4301}: his north-east cave is on your way back here from {area:541}"] = "",
 	-- {npc:9684} Lar'korwi
 	["Keep the bait for {npc:9684}'s lair, next (he is level 56)."] = "",
 
-	-- Step 50: Lar'korwi
+	-- Step 52: Lar'korwi
 	-- {npc:9684} Lar'korwi · {npc:9619} Torwa Pathfinder
 	["{npc:9684}'s lair is just south of the pylon. Use {npc:9619}'s bait there; {npc:9684} is level 56 and hits hard, so start at full health."] = "{npc:9684}的巢穴就在水晶塔正南。在那里使用{npc:9619}的诱饵；{npc:9684}是56级，攻击很重，所以满血再开始。",
 
-	-- Step 51: Ringo
+	-- Step 53: Ringo
 	-- {npc:9999} Ringo
 	["{npc:9999} sits on the ridge, lost and exhausted."] = "{npc:9999}坐在山脊上，迷路了，筋疲力尽。",
 
-	-- Step 52: Escort Ringo
+	-- Step 54: Escort Ringo
 	-- {npc:9999} Ringo
 	["Escort {npc:9999}"] = "护送{npc:9999}",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
 	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "向北护送{npc:9999}前往{area:541}。他昏倒时，对他使用{item:11804}唤醒。",
 
-	-- Step 54: The Mighty U'cha
+	-- Step 56: The Mighty U'cha
 	-- {area:541} Marshal's Refuge · {npc:9622} U'cha · {npc:9619} Torwa Pathfinder
 	["From {area:541} ride east to the cave in the crater's north-east corner: {npc:9622} (55) sits at its back among his gorillas, well under you now. Then south down the crater's east side to {npc:9619}."] = "",
 
-	-- Step 56: Tanaris
+	-- Step 58: Tanaris
 	-- {npc:9619} Torwa Pathfinder · {area:541} Marshal's Refuge · {area:976} Gadgetzan
 	["{npc:9619}'s corner has no flight master: ride north to {area:541} and fly to {area:976}."] = "",
 
-	-- Step 57: Gadgetzan
+	-- Step 59: Gadgetzan
 	-- {quest:2741} The Super Egg-O-Matic · {area:976} Gadgetzan
 	-- was: ["Fly to {area:976}. Still carrying {quest:2741}? The machine stands in the middle of town."] = "飞往{area:976}。还带着{quest:2741}吗？机器立在镇中央。"
 	["Still carrying {quest:2741}? The machine stands in the middle of {area:976}."] = "",
 
-	-- Step 60: Fly to Orgrimmar
+	-- Step 62: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "飞往{area:1637}",
 
-	-- Step 61: Class trainer
+	-- Step 63: Class trainer
 	["Class trainer"] = "职业训练师",
 
-	-- Step 62: Paladin trainer
+	-- Step 64: Paladin trainer
 	["Paladin trainer"] = "圣骑士训练师",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
 	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{zone:1456}的{npc:246344}；{zone:1454}没有圣骑士训练师",

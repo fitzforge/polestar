@@ -26,34 +26,38 @@ return {
 	-- {item:11243} Videre Elixir · {area:976} Gadgetzan · {npc:9299} Gaeriyan
 	["Drink the {item:11243} at the graveyard just east of {area:976}: it kills you, and only as a ghost can you see {npc:9299}, in a rocky crevice in the hills due north of it. Talk to him there, then run back to your body and resurrect: the Conspicuous Gravestone he sends you to stands in that graveyard."] = "Buvez l'{item:11243} au cimetière juste à l'est de {area:976} : il vous tue, et ce n'est que sous forme de fantôme que vous pouvez voir {npc:9299}, dans une crevasse rocheuse des collines plein nord. Parlez-lui là-bas, puis retournez à votre corps et ressuscitez : la Pierre tombale remarquable où il vous envoie se trouve dans ce cimetière.",
 
-	-- Step 4: Sprinkle
+	-- Step 4: Gaeriyan
+	-- {npc:9299} Gaeriyan · {item:11243} Videre Elixir · {area:976} Gadgetzan
+	["{npc:9299} has already met you: drink the {item:11243} at the graveyard just east of {area:976} and find him, as a ghost, in the rocky crevice due north of it."] = "",
+
+	-- Step 5: Sprinkle
 	-- {item:12928} Umi's Mechanical Yeti · {npc:7583} Sprinkle · {area:976} Gadgetzan · {npc:10977} Quixxil · {npc:10978} Legacki
 	["Use {item:12928} on {npc:7583}, the goblin girl in {area:976}. {npc:10977} and {npc:10978} are scared later in the route."] = "Utilisez {item:12928} sur {npc:7583}, la petite gobeline de {area:976}. {npc:10977} et {npc:10978} seront effrayés plus loin dans le parcours.",
 	-- {npc:7583} Sprinkle · {item:12928} Umi's Mechanical Yeti
 	["Scare {npc:7583} with {item:12928}"] = "Effrayez {npc:7583} avec {item:12928}",
 
-	-- Step 5: Alchemist Pestlezugg
+	-- Step 6: Alchemist Pestlezugg
 	-- {quest:4493} March of the Silithid · {zone:1454} Orgrimmar · {zone:1447} Azshara
 	["Inside: {quest:4493}, if you took it in {zone:1454} on the {zone:1447} guide"] = "À l'intérieur : {quest:4493}, si vous l'avez prise à {zone:1454} pendant le guide d'{zone:1447}",
 
-	-- Step 6: Alchemist Pestlezugg
+	-- Step 7: Alchemist Pestlezugg
 	["Inside"] = "À l'intérieur",
 
-	-- Step 7: Gaeriyan
+	-- Step 9: Gaeriyan
 	-- {quest:3914} Linken's Sword · {npc:8737} Linken
 	["{quest:3914} goes back to {npc:8737} in Un'Goro: keep it."] = "{quest:3914} se rend à {npc:8737}, dans le Cratère d'Un'Goro : gardez-la.",
 
-	-- Step 8: Marvon Rivetseeker
+	-- Step 10: Marvon Rivetseeker
 	-- {npc:7771} Marvon Rivetseeker · {area:1336} Lost Rigger Cove · {area:976} Gadgetzan
 	["{npc:7771} camps by the {area:1336} road, south of {area:976}."] = "{npc:7771} Rivetseeker campe près de la route de {area:1336}, au sud de {area:976}.",
 
-	-- Step 9: Fly to Marshal's Refuge
+	-- Step 11: Fly to Marshal's Refuge
 	-- {area:541} Marshal's Refuge
 	["Fly to {area:541}"] = "Prendre un vol pour {area:541}",
 	-- {area:976} Gadgetzan
 	["{area:976} flight master"] = "Maître de vol de {area:976}",
 
-	-- Step 10: Marshal's Refuge
+	-- Step 12: Marshal's Refuge
 	-- {area:541} Marshal's Refuge · {npc:8737} Linken · {npc:9117} J.D. Collie
 	["The flight lands at {area:541}: {npc:8737} stands by the cave a few steps from the flight master, {npc:9117} inside it."] = "",
 	-- {npc:9117} J.D. Collie
@@ -66,39 +70,39 @@ return {
 	-- {npc:10977} Quixxil · {item:12928} Umi's Mechanical Yeti
 	["Scare {npc:10977} with {item:12928}"] = "",
 
-	-- Step 11: Layo Starstrike
+	-- Step 13: Layo Starstrike
 	-- {area:3077} Valor's Rest · {zone:1451} Silithus · {npc:13220} Layo Starstrike
 	["The pass from Un'Goro comes out at {area:3077}, the graveyard in north-east {zone:1451}. {npc:13220} stands among the graves."] = "Le col venant d'Un'Goro débouche sur {area:3077}, le cimetière du nord-est de {zone:1451}. {npc:13220} se tient parmi les tombes.",
 
-	-- Step 12: The Spirits of Southwind
+	-- Step 14: The Spirits of Southwind
 	-- {area:2738} Southwind Village · {object:179565} Dusty Reliquary · {npc:11801} Rabine Saturna
 	["Ride south-west to the ruins of {area:2738}. The {object:179565} for {npc:11801} sits inside one of the ruined houses."] = "Allez vers le sud-ouest jusqu'aux ruines du {area:2738}. Le {object:179565} pour {npc:11801} se trouve dans l'une des maisons en ruine.",
 
-	-- Step 14: Cenarion Hold
+	-- Step 16: Cenarion Hold
 	-- {area:3077} Valor's Rest · {npc:15189} Beetix Ficklespragg
 	-- was: ["Ride west to the walled hold in the middle of the desert. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Allez vers l'ouest jusqu'au fort fortifié au milieu du désert. {npc:15189} se tient à l'étage de son bâtiment : montez par l'intérieur, la flèche ne distingue pas les étages."
 	["Ride west from {area:3077} to the walled hold in the middle of the desert. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 
-	-- Step 15: Calandrath
+	-- Step 17: Calandrath
 	-- {skill:185} Cooking · {npc:15174} Calandrath
 	["Cooks with 285 {skill:185} or more: {npc:15174}, the innkeeper you just bound with, wants word of the Twilight's Hammer's sandworm recipe; the cookbook lies in the outpost west of the Hold, where this guide goes later."] = "",
 
-	-- Step 16: Silithus: kill these as you meet them
+	-- Step 18: Silithus: kill these as you meet them
 	-- {zone:1451} Silithus
 	["{zone:1451}: kill these as you meet them"] = "{zone:1451} : tuez-les au passage",
 	-- plural, as words: Dredge Strikers = {npc:11740} Dredge Striker · Stonelash Scorpids = {npc:11735} Stonelash Scorpid · Sand Skitterers = {npc:11738} Sand Skitterer
 	["Dredge Strikers, Stonelash Scorpids and Sand Skitterers share the sands just north of the hold."] = "Frappeurs térébrants, Scorpides Cinglepierre et Glisseuses du sable se partagent les sables juste au nord du fort.",
 
-	-- Step 17: Twilight Base Camp
+	-- Step 19: Twilight Base Camp
 	-- plural, as words: Dust Stormers = {npc:11744} Dust Stormer · Desert Rumblers = {npc:11746} Desert Rumbler · Whirling Invaders = {npc:14455} Whirling Invader
 	-- was: ["The glowing tablet fragments lie around the Twilight camp in the far north-west; the Dust Stormers and Desert Rumblers there drop them too. Careful: the biggest Rumblers and the Whirling Invaders are 58: pull them one at a time."] = "Les fragments de tablette luisants se trouvent autour du camp du Crépuscule, tout au nord-ouest ; les Tempétueux de poussière et Grondeurs du désert du coin en lâchent aussi. Attention : les plus gros Grondeurs et les Envahisseurs tourbillonnants sont de niveau 58 : attirez-les un par un."
 	["The glowing tablet fragments lie on the ground around the Twilight camp in the far north-west: pick them up. The Dust Stormers and Desert Rumblers there may carry them too. Careful: the biggest Rumblers and the Whirling Invaders are 58: pull them one at a time."] = "",
 
-	-- Step 18: Cenarion Hold
+	-- Step 20: Cenarion Hold
 	-- {npc:15189} Beetix Ficklespragg
 	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189} se tient à l'étage de son bâtiment : montez par l'intérieur, la flèche ne distingue pas les étages.",
 
-	-- Step 19: Hive in the Tower
+	-- Step 21: Hive in the Tower
 	-- {item:17346} Encrusted Silithid Object
 	-- plural, as words: Hive'Ashi Ambushers = {npc:13301} Hive'Ashi Ambusher
 	["Back to Southwind and climb the tower. Stirring the hive at the top brings out Hive'Ashi Ambushers; one carries the {item:17346}."] = "Retournez à Sudevent et montez dans la tour. Remuer la ruche au sommet fait sortir des Embusquées de la Ruche'Ashi ({npc:13301}) ; l'une porte {item:17346}.",
@@ -107,14 +111,14 @@ return {
 	-- {npc:15170} Rutgar Glyphshaper
 	["for {npc:15170} at Bronzebeard's Encampment, later in this guide"] = "",
 
-	-- Step 21: Hermit Ortell
+	-- Step 23: Hermit Ortell
 	-- {area:3447} Ortell's Hideout
 	["Ride south-east to {area:3447} under the Un'Goro cliffs."] = "Allez vers le sud-est jusqu'à {area:3447}, au pied des falaises d'Un'Goro.",
 	["Below ground"] = "Sous terre",
 	-- {item:20377} Rock Stalker Fang · {npc:11739} Rock Stalker
 	["{item:20377} from {npc:11739}, 130 yd south-west"] = "{item:20377} sur les {npc:11739}, à 130 m au sud-ouest",
 
-	-- Step 22: Dredge Crushers and Pincers
+	-- Step 24: Dredge Crushers and Pincers
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher
 	["Dredge Crushers and Pincers"] = "Écraseurs térébrants et Pinceurs",
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher · Stonelash Pincers = {npc:11736} Stonelash Pincer
@@ -122,77 +126,77 @@ return {
 	-- {npc:11741} Dredge Crusher · {area:2738} Southwind Village
 	["{npc:11741} walks around {area:2738}: look inside the circle on the map"] = "{npc:11741} se promène autour de {area:2738} : cherchez dans le cercle sur la carte",
 
-	-- Step 23: Flayers and Rock Stalkers
+	-- Step 25: Flayers and Rock Stalkers
 	-- plural, as words: Rock Stalkers = {npc:11739} Rock Stalker
 	["Flayers and Rock Stalkers"] = "Écorcheurs et Traqueuses des rochers",
 	-- {area:2744} Hive'Regal · {zone:1451} Silithus
 	-- plural, as words: Stonelash Flayers = {npc:11737} Stonelash Flayer · Rock Stalkers = {npc:11739} Rock Stalker
 	["Stonelash Flayers and Rock Stalkers roam the dunes north of {area:2744}, in the south-east of {zone:1451}."] = "",
 
-	-- Step 24: Twilight Vanguard
+	-- Step 26: Twilight Vanguard
 	["Twilight Vanguard"] = "Avant-garde du Crépuscule",
 	-- {npc:11803} Twilight Keeper Exeter · {item:20404} Encrypted Twilight Text · {npc:15306} Bor Wildmane
 	["{npc:11803} walks the Vanguard camp in the far south-west. Keep every {item:20404} the cultists drop: {npc:15306} and Ortell want ten each later."] = "{npc:11803} arpente le camp de l'Avant-garde, à l'extrême sud-ouest. Gardez chaque {item:20404} que lâchent les cultistes : {npc:15306} et Ortell en veulent dix chacun plus tard.",
 
-	-- Step 26: Twilight Post
+	-- Step 28: Twilight Post
 	-- {npc:15200} Twilight Keeper Mayna
 	["{npc:15200} holds the camp in the west."] = "{npc:15200} tient le camp de l'ouest.",
 
-	-- Step 27: Twilight Outpost
+	-- Step 29: Twilight Outpost
 	-- {npc:11804} Twilight Keeper Havunth · {area:3425} Cenarion Hold
 	-- plural, as words: Encrypted Twilight Texts = {item:20404} Encrypted Twilight Text
 	["{npc:11804} stands in the outpost west of {area:3425}. Keep any Encrypted Twilight Texts that drop here too."] = "{npc:11804} se tient dans l'avant-poste à l'ouest du {area:3425}. Gardez aussi les Textes du crépuscule cryptés qui tombent ici.",
 
-	-- Step 28: Sandy Cookbook
+	-- Step 30: Sandy Cookbook
 	-- {object:180503} Sandy Cookbook · {npc:15174} Calandrath
 	["The {object:180503} lies in the outpost: read it and take its torn page back to {npc:15174}."] = "",
 
-	-- Step 29: Cenarion Hold
+	-- Step 31: Cenarion Hold
 	-- {npc:15189} Beetix Ficklespragg · {npc:15190} Noggle Ficklespragg
 	["{npc:15189} and {npc:15190} stand upstairs in their building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189} et {npc:15190} se tiennent à l'étage de leur bâtiment : montez par l'intérieur, la flèche ne distingue pas les étages.",
 	-- {npc:15306} Bor Wildmane
 	["{npc:15306}, on the west side of the Hold"] = "{npc:15306}, du côté ouest du fort",
 
-	-- Step 30: Calandrath
+	-- Step 32: Calandrath
 	-- {npc:15174} Calandrath · {object:180503} Sandy Cookbook
 	["{npc:15174}, the innkeeper, takes the {object:180503}'s torn page."] = "",
 
-	-- Step 31: Wanted: Deathclasp
+	-- Step 33: Wanted: Deathclasp
 	-- {npc:15196} Deathclasp
 	["Wanted: {npc:15196}"] = "",
 	-- {npc:15196} Deathclasp · {npc:15190} Noggle Ficklespragg · {npc:15182} Vish Kozus
 	["{npc:15196}, Terror of the Sands, is a level 59 elite scorpid patrolling the mountains by {npc:15190}'s satchel, at your level: a group choice. The wanted poster stands in the middle of the Hold; {npc:15182} pays out."] = "",
 
-	-- Step 32: Hermit Ortell
+	-- Step 34: Hermit Ortell
 	-- {area:3447} Ortell's Hideout
 	["Ride north-east to {area:3447}."] = "Allez vers le nord-est jusqu'à {area:3447}.",
 
-	-- Step 33: Noggle's Lost Satchel
+	-- Step 35: Noggle's Lost Satchel
 	-- {npc:15196} Deathclasp
 	-- was: ["The satchel lies in the mountains of the far south, past Bronzebeard's Encampment. Deathclasp, an elite scorpid, patrols near it: grab it while he is away."] = "La sacoche se trouve dans les montagnes de l'extrême sud, au-delà du Campement de Bronzebeard. Poigne-de-mort, un scorpide élite, patrouille à proximité : prenez-la pendant qu'il s'éloigne."
 	["The satchel lies in the mountains of the far south, past Bronzebeard's Encampment. {npc:15196}, an elite scorpid, patrols near it: grab it while he is away."] = "",
 
-	-- Step 34: Deathclasp
+	-- Step 36: Deathclasp
 	-- {npc:15196} Deathclasp
 	["With your group: {npc:15196} walks the mountains around the satchel. Pull him away from the other scorpids."] = "",
 
-	-- Step 35: Dearest Natalia
+	-- Step 37: Dearest Natalia
 	-- {npc:15171} Frankal Stonebridge · {npc:15170} Rutgar Glyphshaper
 	["{npc:15171} and {npc:15170} camp at Bronzebeard's Encampment, just north of the satchel's mountains. Question them: go through each one's whole conversation; there is no need to fight them."] = "{npc:15171} et {npc:15170} campent au campement de Barbe-de-bronze, juste au nord des montagnes de la sacoche. Interrogez-les : suivez toute la conversation de chacun ; inutile de les combattre.",
 	-- {npc:15170} Rutgar Glyphshaper
 	["{npc:15170}, if Brann's letter dropped for you"] = "",
 
-	-- Step 36: Twilight Base Camp
+	-- Step 38: Twilight Base Camp
 	-- {npc:15306} Bor Wildmane
 	-- plural, as words: Encrypted Twilight Texts = {item:20404} Encrypted Twilight Text · Twilight Avengers = {npc:11880} Twilight Avenger
 	["Collect twenty Encrypted Twilight Texts from the cultists here, ten for {npc:15306} and ten for Ortell. Take them from the Twilight Avengers and Geolords; leave the Flamereavers and Stonecallers (59-60)."] = "Récupérez vingt Textes du crépuscule cryptés sur les cultistes d'ici, dix pour {npc:15306} et dix pour Ortell. Prenez-les sur les Vengeurs du crépuscule et les Géoseigneurs ; laissez les Saccageurs des flammes et les Implorateurs de pierre (59-60).",
 	-- {npc:15306} Bor Wildmane
 	["ten for each quest: {npc:15306} takes his ten before Ortell"] = "dix pour chaque quête : {npc:15306} prend ses dix avant Ortell",
 
-	-- Step 37: Twilight Base Camp
+	-- Step 39: Twilight Base Camp
 	["The spare texts from the cultists"] = "Les textes en trop des cultistes",
 
-	-- Step 38: Back to Cenarion Hold
+	-- Step 40: Back to Cenarion Hold
 	-- {area:3425} Cenarion Hold
 	["Back to {area:3425}"] = "Retour au {area:3425}",
 	-- {npc:15190} Noggle Ficklespragg
@@ -200,80 +204,80 @@ return {
 	-- {area:2744} Hive'Regal
 	["Mar'alith's next errand, Into the Maw of Madness, leads into {area:2744} among elites. Skip it."] = "La mission suivante de Mar'alith, L'antre de la folie, mène dans la {area:2744}, parmi des élites. Passez-la.",
 
-	-- Step 39: Vish Kozus
+	-- Step 41: Vish Kozus
 	-- {npc:15182} Vish Kozus · {npc:15196} Deathclasp
 	["{npc:15182}, Captain of the Guard, pays out for {npc:15196}'s pincer."] = "",
 
-	-- Step 41: Layo Starstrike
+	-- Step 43: Layo Starstrike
 	-- {area:3077} Valor's Rest · {zone:1451} Silithus
 	["Ride north-east to {area:3077}; you leave {zone:1451} through the pass beside it."] = "Allez vers le nord-est jusqu'au cimetière ({area:3077}) ; vous quittez {zone:1451} par le col tout proche.",
 
-	-- Step 43: Marshal's Refuge
+	-- Step 45: Marshal's Refuge
 	-- {area:541} Marshal's Refuge · {npc:9997} Spraggle Frock
 	-- was: ["Through the pass and east along the northern cliffs to {area:541}. {npc:9997} stands beside the flight master."] = "Passez le col puis allez vers l'est le long des falaises du nord jusqu'au {area:541}. {npc:9997} se tient à côté du maître de vol."
 	["You missed this on the Un'Goro guide's loop: through the pass and east along the northern cliffs to {area:541}. {npc:9997} stands beside the flight master."] = "",
 
-	-- Step 44: Krakle
+	-- Step 46: Krakle
 	-- {npc:10302} Krakle · {area:543} Golakka Hot Springs
 	["You missed this on the Un'Goro guide's loop: {npc:10302} the goblin sits at {area:543}, just east of the pylon."] = "",
 
-	-- Step 45: Krakle's Thermometer
+	-- Step 47: Krakle's Thermometer
 	-- {area:537} Fire Plume Ridge · {npc:10541} Krakle's Thermometer · {npc:10302} Krakle
 	["Ride east to {area:537}, climb it and use {npc:10541} at the lava vent near the top, then ride back west to {npc:10302}."] = "Chevauchez vers l'est jusqu'à {area:537}, grimpez-y et utilisez {npc:10541} sur la cheminée de lave près du sommet, puis revenez vers l'ouest jusqu'à {npc:10302}.",
 
-	-- Step 46: Krakle
+	-- Step 48: Krakle
 	-- {npc:10302} Krakle · {npc:9298} Donova Snowden · {zone:1452} Winterspring
 	["{npc:10302} sends you to {npc:9298} in {zone:1452}: keep it."] = "{npc:10302} vous envoie voir {npc:9298} au {zone:1452} : gardez-la.",
 
-	-- Step 47: Bungle in the Jungle
+	-- Step 49: Bungle in the Jungle
 	-- {quest:4496} Bungle in the Jungle · {area:976} Gadgetzan · {area:540} Slithering Scar · {area:537} Fire Plume Ridge · {item:11018} Un'Goro Soil
 	["Only if you took {quest:4496} in {area:976} on the way here: the Gorishi of the {area:540}, south of {area:537}, drop the Scent Gland, and most of the crater's beasts and plants drop {item:11018}."] = "Seulement si vous avez pris {quest:4496} à {area:976} en venant : les Gorishi de {area:540}, au sud de {area:537}, lâchent la Glande à phéromones, et la plupart des bêtes et plantes du cratère lâchent de l'{item:11018}.",
 
-	-- Step 48: Pawn Captures Queen
+	-- Step 50: Pawn Captures Queen
 	-- {item:11833} Gorishi Queen Lure · {area:540} Slithering Scar · {npc:10041} Gorishi Hive Queen
 	["Use the {item:11833} where the arrow points, inside the Gorishi hive of the {area:540}, to call the {npc:10041} (level 56)."] = "Utilisez le {item:11833} là où pointe la flèche, dans la ruche Gorishi de la {area:540}, pour appeler la {npc:10041} (niveau 56).",
 
-	-- Step 49: Torwa Pathfinder
+	-- Step 51: Torwa Pathfinder
 	-- {quest:4301} The Mighty U'cha · {area:541} Marshal's Refuge
 	["{quest:4301}: his north-east cave is on your way back here from {area:541}"] = "",
 	-- {npc:9684} Lar'korwi
 	["Keep the bait for {npc:9684}'s lair, next (he is level 56)."] = "",
 
-	-- Step 50: Lar'korwi
+	-- Step 52: Lar'korwi
 	-- {npc:9684} Lar'korwi · {npc:9619} Torwa Pathfinder
 	["{npc:9684}'s lair is just south of the pylon. Use {npc:9619}'s bait there; {npc:9684} is level 56 and hits hard, so start at full health."] = "Le repaire de {npc:9684} est juste au sud du pylône. Utilisez-y l'appât de {npc:9619} ; {npc:9684} est de niveau 56 et frappe fort, commencez donc avec toute votre vie.",
 
-	-- Step 51: Ringo
+	-- Step 53: Ringo
 	-- {npc:9999} Ringo
 	["{npc:9999} sits on the ridge, lost and exhausted."] = "{npc:9999} est assis sur la crête, perdu et épuisé.",
 
-	-- Step 52: Escort Ringo
+	-- Step 54: Escort Ringo
 	-- {npc:9999} Ringo
 	["Escort {npc:9999}"] = "Escortez {npc:9999}",
 	-- {npc:9999} Ringo · {area:541} Marshal's Refuge · {item:11804} Spraggle's Canteen
 	["Lead {npc:9999} north to {area:541}. When he faints, use {item:11804} on him to wake him."] = "Menez {npc:9999} vers le nord jusqu'au {area:541}. Quand il s'évanouit, utilisez {item:11804} sur lui pour le réveiller.",
 
-	-- Step 54: The Mighty U'cha
+	-- Step 56: The Mighty U'cha
 	-- {area:541} Marshal's Refuge · {npc:9622} U'cha · {npc:9619} Torwa Pathfinder
 	["From {area:541} ride east to the cave in the crater's north-east corner: {npc:9622} (55) sits at its back among his gorillas, well under you now. Then south down the crater's east side to {npc:9619}."] = "",
 
-	-- Step 56: Tanaris
+	-- Step 58: Tanaris
 	-- {npc:9619} Torwa Pathfinder · {area:541} Marshal's Refuge · {area:976} Gadgetzan
 	["{npc:9619}'s corner has no flight master: ride north to {area:541} and fly to {area:976}."] = "",
 
-	-- Step 57: Gadgetzan
+	-- Step 59: Gadgetzan
 	-- {quest:2741} The Super Egg-O-Matic · {area:976} Gadgetzan
 	-- was: ["Fly to {area:976}. Still carrying {quest:2741}? The machine stands in the middle of town."] = "Volez jusqu'à {area:976}. Vous avez toujours {quest:2741} ? La machine se dresse au milieu de la ville."
 	["Still carrying {quest:2741}? The machine stands in the middle of {area:976}."] = "",
 
-	-- Step 60: Fly to Orgrimmar
+	-- Step 62: Fly to Orgrimmar
 	-- {area:1637} Orgrimmar
 	["Fly to {area:1637}"] = "Prendre un vol pour {area:1637}",
 
-	-- Step 61: Class trainer
+	-- Step 63: Class trainer
 	["Class trainer"] = "Maître de classe",
 
-	-- Step 62: Paladin trainer
+	-- Step 64: Paladin trainer
 	["Paladin trainer"] = "Maître des paladins",
 	-- {npc:246344} Alodan the Hopeful · {zone:1456} Thunder Bluff · {zone:1454} Orgrimmar
 	["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} ({zone:1456}) ; {zone:1454} n'a pas de maître des paladins",
