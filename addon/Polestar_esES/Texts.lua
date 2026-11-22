@@ -1489,8 +1489,6 @@ t.guides["forever/alliance/50-60/06-silithus"] = (function() return {
 		["Twilight's Hammer cultists"] = "Cultores del Martillo Crepuscular",
 		["{npc:15183}: the tablet fragments come from the Twilight dig"] = "{npc:15183}: los fragmentos de tablilla salen de la excavación Crepuscular",
 		["{npc:15189}, upstairs"] = "{npc:15189}, en el piso de arriba",
-		["{npc:17080} camps outside {area:2743}, the western hive. Pick up a Silithyst at one of the red geysers nearby and carry it to the Alliance extractor at his camp.\nCareful: You lose the Silithyst if you mount, stealth, use {spell:642}, {spell:5384} or Vanish. Blink and {spell:17} do not drop it."] = "{npc:17080} acampa fuera de {area:2743}, la colmena del oeste. Recoge una silitista en uno de los géiseres rojos cercanos y llévala al extractor de la Alianza de su campamento.\nCuidado: pierdes la silitista si montas, entras en sigilo o usas {spell:642}, {spell:5384} o Esfumarse. Traslación y {spell:17} no hacen que la sueltes.",
-		["{npc:17082}, at the Alliance tents: for {npc:17080} at {area:2743}"] = "{npc:17082}, en las tiendas de la Alianza: para {npc:17080} en {area:2743}",
 } end)()
 t.guides["forever/alliance/dwarf/01-dun-morogh"] = (function() return {
 		["Back east through {area:131}: {npc:1252} by Eric's campfire takes the {quest:287} report, and {npc:1269} the cogs and gears. The Shaman quest here waits for level 10: a Shaman still short of it finishes on the Ice Claw Bears (7-8), Snow Leopards and Large Crag Boars in the fields just south of {area:131}."] = "Vuelve al este por {area:131}: {npc:1252}, junto a la hoguera de Eric, recoge el informe de {quest:287}, y {npc:1269}, los engranajes. La misión de chamán de aquí requiere nivel 10: si a un chamán aún le falta, que termine con los Osos zarpahelada (7-8), Leopardos de la nieve y Grandes jabalíes del risco en los campos justo al sur de {area:131}.",
@@ -4861,10 +4859,7 @@ t.guides["forever/horde/50-60/06-silithus"] = (function() return {
 		["Ride north-east to {area:3447}."] = "Cabalga al noreste hasta {area:3447}.",
 		["Ride south-east to {area:3447} under the Un'Goro cliffs."] = "Cabalga al sureste hasta {area:3447}, bajo los acantilados de Un'Goro.",
 		["Ride south-west to the ruins of {area:2738}. The {object:179565} for {npc:11801} sits inside one of the ruined houses."] = "Cabalga al suroeste hasta las ruinas de {area:2738}. El {object:179565} para {npc:11801} está dentro de una de las casas en ruinas.",
-		["Ride west to the Horde camp north of {area:2744}."] = "Cabalga al oeste hasta el campamento de la Horda al norte de {area:2744}.",
 		["Scare {npc:7583} with {item:12928}"] = "Asusta a {npc:7583} con {item:12928}",
-		["Silithyst geysers erupt across the southern desert. Walk into the Silithyst one leaves behind and carry it to the Horde's Silithyst Extractor at Kirika's camp; fighting or mounting drops it."] = "Los Géiseres de silitista brotan por todo el desierto del sur. Pisa el silitista que deja uno y llévalo al extractor de silitista de la Horda, en el campamento de la General Kirika; si luchas o montas, lo sueltas.",
-		["Stonelash Flayers and Rock Stalkers roam the dunes south-west of Kirika's camp."] = "Los Cazadores Latigosólido y los Acechadores de piedra recorren las dunas al suroeste del campamento de Kirika.",
 		["The pass from Un'Goro comes out at {area:3077}, the graveyard in north-east {zone:1451}. {npc:13220} stands among the graves."] = "El paso desde Un'Goro sale en {area:3077}, el cementerio del noreste de {zone:1451}. {npc:13220} está entre las tumbas.",
 		["The spare texts from the cultists"] = "Los textos sobrantes de los fieles",
 		["Twilight Vanguard"] = "Vanguardia Crepuscular",
@@ -6192,9 +6187,7 @@ t.guides["forever/reputation/gnomeregan-exiles"] = (function() return {
 		["{quest:7812} to Revered"] = "{quest:7812} a Venerado",
 } end)()
 t.guides["forever/reputation/hydraxian-waterlords"] = (function() return {
-		["Back to {npc:13278}"] = "Vuelve con {npc:13278}",
 		["Hydraxian Waterlords Reputation"] = "Reputación: Señores del Agua de Hydraxis",
-		["{npc:12118}, {npc:12259}, {npc:12264} and {npc:12098} are {area:2717} bosses: each drops his hand for the quest."] = "{npc:12118}, {npc:12259}, {npc:12264} y {npc:12098} son jefes de {area:2717}: cada uno suelta su mano para la misión.",
 } end)()
 t.guides["forever/reputation/ironforge"] = (function() return {
 		["Ironforge Reputation"] = "Reputación: Forjaz",

@@ -30,16 +30,18 @@ Spain's and Latin America's clients use different words for game terms
 ## The file
 
 Each language has one file, `Interface.lua` in its language folder
-`addon/Polestar_<locale>` (only a client in that language loads the folder),
-and one for the optional Recorder's few chat lines,
+`addon/Polestar_<locale>` (Polestar loads the folder of the language it shows:
+the client's, or the one chosen with `/polestar language`), and one for the
+optional Recorder's few chat lines,
 `addon/Polestar_Recorder/Locales/<locale>.lua`, written the same way (the
-Recorder's starts with `local _, ns = ...` and the plain locale check):
+Recorder's starts with `local _, ns = ...` and checks the client's locale,
+`GetLocale()`):
 
 ```lua
 -- German (deDE). ...
 
 local ns = Polestar
-if not (ns and GetLocale and GetLocale() == "deDE") then return end
+if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "deDE") then return end
 local L = ns.L
 
 -- Core/Commands.lua
