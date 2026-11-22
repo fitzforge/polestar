@@ -281,7 +281,7 @@ return {
 
 	-- Step 52: Drulzegar Skraghook
 	-- {npc:12340} Drulzegar Skraghook · {npc:12031} Mai'Lahii · {quest:6143} Other Fish to Fry · {area:598} Sar'theris Strand
-	["{npc:12340} stands at the village's south end, near {npc:12031}. At your level his {quest:6143} fits the walk north along the coast: the southern half of {area:598}, from level 34."] = "",
+	["{npc:12340} stands at the village's south end, near {npc:12031}. At your level his {quest:6143} fits the walk north along the coast: the southern half of {area:598}, from level 34."] = "{npc:12340} está en el extremo sur de la aldea, cerca de {npc:12031}. A tu nivel, su {quest:6143} encaja en el recorrido hacia el norte por la costa: la mitad sur de {area:598}, a partir del nivel 34.",
 
 	-- Step 53: Ethel Rethor
 	-- {npc:11863} Azore Aldamort · {area:2406} Ranazjar Isle
@@ -314,9 +314,9 @@ return {
 	["{item:15881}, from the Slitherblade naga"] = "{item:15881}, de los naga Filozante",
 
 	-- Step 57: Sar'theris Strand: Other Fish to Fry
-	["Stay in the southern half of the strand, where Rackmore's key drops: eight Myrmidons (34-35) walk there among the Naga, Sorceresses and Warriors (32-34).\nCareful: the northern half belongs to the Sea Witches (35-36, casters) and, at its tip, the Tidehunters (36-37): keep south of the middle of the beach."] = "",
+	["Stay in the southern half of the strand, where Rackmore's key drops: eight Myrmidons (34-35) walk there among the Naga, Sorceresses and Warriors (32-34).\nCareful: the northern half belongs to the Sea Witches (35-36, casters) and, at its tip, the Tidehunters (36-37): keep south of the middle of the beach."] = "Quédate en la mitad sur de la playa, donde cae la llave de Rackmore: ocho mirmidones (34-35) caminan allí entre los naga, las hechiceras y los guerreros (32-34).\nCuidado: la mitad norte pertenece a las brujas del mar (35-36, lanzadoras de hechizos) y, en su punta, a los Cazamareas (36-37): quédate al sur del centro de la playa.",
 	-- {npc:4714} Slitherblade Myrmidon
-	["{npc:4714}, in the strand's southern half"] = "",
+	["{npc:4714}, in the strand's southern half"] = "{npc:4714}, en la mitad sur de la playa",
 
 	-- Step 58: Rackmore's Chest
 	-- {area:2406} Ranazjar Isle · {object:177786} Rackmore's Chest · {object:177673} Serpent Statue
@@ -329,7 +329,7 @@ return {
 
 	-- Step 60: Drulzegar Skraghook
 	-- {npc:12340} Drulzegar Skraghook · {npc:12031} Mai'Lahii
-	["{npc:12340}, near {npc:12031}"] = "",
+	["{npc:12340}, near {npc:12031}"] = "{npc:12340}, cerca de {npc:12031}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south to {npc:11863}'s tower."] = "Regresa al sur, a la torre de {npc:11863}.",

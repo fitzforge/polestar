@@ -13,8 +13,8 @@ const path = require('node:path');
 const { buildTravel, writeTravel } = require('../tools/lib/travel/build');
 const { validateCrossings, readCrossingsFile, crossingsLua } = require('../tools/lib/travel/crossings');
 const { Frames } = require('../tools/lib/travel/geo');
-const { planRoute } = require('../tools/lib/travel/route');
-const { ROOT } = require('./helpers/lua');
+const { planRoute, plannerLua } = require('../tools/lib/travel/route');
+const { ROOT, runAddon } = require('./helpers/lua');
 const { tmpdir } = require('./helpers/tmp');
 const { quiet, fakeAddons } = require('./helpers/cli');
 const install = require('../tools/commands/install');
@@ -141,6 +141,74 @@ test('an area may give a height range (z): a place only the portals that land in
 	const lua = crossingsLua({ crossings: [], open: [], chains: [], areas: set.areas }, frames, { complete: true, live: {} }).join('\n');
 	assert.match(lua, /\{ id = "chamber", name = "Chamber", map = 1453, c = 0, top = -8975, bottom = -9030, left = 900, right = 840, zmin = 10, zmax = 50 \},/);
 	assert.match(lua, /\{ id = "flat", name = "Flat", map = 1453, c = 0, top = -8368.5, bottom = -8458.1, left = 1246.5, right = 1112.1 \},/);
+});
+
+test('Zephras Isle routes between Valanaar and the Rohashi Spires via portals (#1766)', () => {
+	const live = { 2521: { c: 2991, top: 4956.25, bottom: 1247.917, left: 4231.25, right: -1331.25 } };
+	const spires = JSON.parse(fs.readFileSync(path.join(ROOT, 'data', 'crossings.json'), 'utf8')).areas.find((a) => a.id === 'rohashi-spires');
+	const base = { schema: 1, areas: [spires] };
+	const crossingFrames = frames.withForever(live);
+	const set = validateCrossings(base, crossingFrames);
+	assert.deepEqual(set.errors, []);
+	assert.deepEqual(
+		validateCrossings({ ...base, areas: [{ ...spires, z: undefined }] }, crossingFrames).errors,
+		['areas[0] (rohashi-spires): subzone must be a positive AreaTable id and requires z'],
+	);
+	const generated = crossingsLua(set, crossingFrames, { complete: true, live }).find((line) => line.includes('id = "rohashi-spires"'));
+	assert.ok(fs.readFileSync(path.join(ROOT, 'addon', 'Polestar', 'Nav', 'TravelData.lua'), 'utf8').includes(generated));
+
+	const { emitted: [routes] } = runAddon({ script: plannerLua() + `
+		local N = ns.Nav
+		local liveSubzone
+		ns.Compat = {
+			GetAreaName = function(id) return id == 16630 and "Localized Rohashi Spires" end,
+			GetZoneText = function() return "Zephras Isle", liveSubzone end,
+		}
+		local function point(wx, wy, z)
+			return { c = 2991, map = 2521, wx = wx, wy = wy, z = z, label = "Target" }
+		end
+		local function route(from, to, subzone)
+			local p = point(from.wx, from.wy, from.z)
+			liveSubzone = subzone
+			p.target, p.faction, p.place = to, 1, N.travel.Inside(p.c, p.wx, p.wy)
+			local steps = {}
+			for _, leg in ipairs(N.PlanRoute(p) or {}) do
+				steps[#steps + 1] = leg.transport and leg.transport.id or leg.kind
+			end
+			return steps
+		end
+		local inn = point(2263.6, 771.9)
+		local shrine = point(3089.5, 584.5, 844.3)
+		local landing = point(3079.8, 426.5)
+		local terrace = point(2981.6, 54.9)
+		local underSpires = point(3083.5, 393.1, 695)
+		local down = route(terrace, inn, "Localized Rohashi Spires")
+		local onSpires = N.travel.place
+		local ground = route(underSpires, shrine, "Shrine of Akir")
+		local leftSpires = N.travel.place == nil
+		N.travel.Placed(shrine.c, shrine.wx, shrine.wy)
+		liveSubzone = "Localized Rohashi Spires"
+		local arrived = N.travel.Placed(landing.c, landing.wx + 4, landing.wy)
+		liveSubzone = "Valanaar"
+		local returned = N.travel.Placed(2991, 2000.7, 543.3)
+		emit({
+			up = route(inn, terrace),
+			landing = route(inn, landing),
+			down = down, onSpires = onSpires, leftSpires = leftSpires,
+			ground = ground,
+			groundGoal = route(shrine, underSpires),
+			arrived = arrived, returned = returned,
+		})
+	` });
+	assert.deepEqual(routes.up, ['walk', 'portal-rohashi-spires', 'walk']);
+	assert.deepEqual(routes.landing, ['walk', 'portal-rohashi-spires', 'walk']);
+	assert.deepEqual(routes.down, ['portal-valanaar', 'walk']);
+	assert.equal(routes.onSpires, 'rohashi-spires');
+	assert.equal(routes.leftSpires, true);
+	assert.deepEqual(routes.ground, ['walk']);
+	assert.deepEqual(routes.groundGoal, ['walk']);
+	assert.equal(routes.arrived, true);
+	assert.equal(routes.returned, true);
 });
 
 test('the crossings file is optional; a broken one stops the build with its errors', async () => {

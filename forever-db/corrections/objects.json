@@ -28,6 +28,9 @@
 		"note": "The game's data names this invisible object \"Corrupted Moonwell Spell Focus (DND)\", an internal name, and the guides showed it as the source of the Filled Flasket for Well of Corruption (4505): \"Collect Filled Flasket from Corrupted Moonwell Spell Focus (DND)\". It is the spell focus of the moonwell players see at the same points (177276, \"Moonwell\"), so it shows as that (#2614)."
 	},
 	"665289": {
+		"set": {
+			"name": "Discarded Fishing Toolbox"
+		},
 		"addSpawns": {
 			"1432": {
 				"f": "e",
@@ -1003,5 +1006,59 @@
 			}
 		],
 		"note": "The Stolen Shipments (object 661518) that Anything of Value (97328) asks for lie in the Ruins of Zul'Kunda; the merged data had the item's object with no entry, so no step or While-here line could point at it. The two places are where players pick them."
+	},
+	"656668": {
+		"set": {
+			"name": "South Bonfire"
+		},
+		"addSpawns": {
+			"2482": {
+				"f": "l",
+				"pts": [
+					[
+						49.1,
+						36.02
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings of Blademaster's Bonfires (96959) to 2026-11-20: 14 people lit it, objective 1 ticking at a median of 49.10,36.02 (48.86-49.98, 33.43-36.29)"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest record 96959: objective 1 is game object 656668, \"South Bonfire lit\""
+			}
+		],
+		"note": "The south bonfire of Blademaster's Bonfires in Dae'gun, Mount Hyjal: the merged data had neither its name nor a spawn (#3531). Named after its objective line."
+	},
+	"656669": {
+		"set": {
+			"name": "Southeast Bonfire"
+		},
+		"addSpawns": {
+			"2482": {
+				"f": "l",
+				"pts": [
+					[
+						54.84,
+						40
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings of Blademaster's Bonfires (96959) to 2026-11-20: 14 people lit it, objective 2 ticking at a median of 54.84,40.00 (54.21-55.03, 39.84-41.22)"
+			},
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest record 96959: objective 2 is game object 656669, \"Southeast Bonfire lit\""
+			}
+		],
+		"note": "The southeast bonfire of Blademaster's Bonfires in Dae'gun, Mount Hyjal: the merged data had neither its name nor a spawn (#3531). Named after its objective line."
 	}
 }

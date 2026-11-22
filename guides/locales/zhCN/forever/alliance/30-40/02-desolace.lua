@@ -53,7 +53,7 @@ return {
 	-- {area:598} Sar'theris Strand · {item:15881} Rackmore's Golden Key
 	["Keep north to {area:598} for {item:15881}: any Slitherblade can drop it. Work the Naga, Sorceresses and Warriors (32-34) of the strand's southern half until it drops.\nCareful: the Myrmidons (34-35) hold the beach's northern half with the Sea Witches and Oracles (34-36, casters), and Tidehunters (36-37) swim off the northern tip: on the way to the chest, keep to the beach and swim straight across."] = "",
 	-- {item:15881} Rackmore's Golden Key
-	["{item:15881}, from the Slitherblade naga"] = "",
+	["{item:15881}, from the Slitherblade naga"] = "{item:15881}，击杀滑刃纳迦获取",
 
 	-- Step 10: Rackmore's Chest
 	-- {area:2406} Ranazjar Isle · {object:177786} Rackmore's Chest · {object:177673} Serpent Statue
