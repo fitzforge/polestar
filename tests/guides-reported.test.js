@@ -18574,3 +18574,17 @@ test('#3394: Riverglades: the Cinderscale hollow\'s goals are on the hollow\'s f
 		for (const { goal } of hollow) assert.ok(goal.z != null && goal.z > 180 && goal.z < 195, `${faction} ${goal.t} ${goal.x},${goal.y}: the hollow's floor (185-190), not the hill (275-310): ${goal.z}`);
 	}
 });
+
+// #3587 (Muvias, Discord, Night Elf start): Shanda's The Goddess Provides (97979) counts one cast each of Elune's
+// Light and Shadowmeld, the night elf racial spells (players' recordings: 51 people), and the step only listed the
+// cast lines and a short note in a step of about fifteen lines. The step's tip says they are racial spells in the
+// spellbook.
+test('forever/alliance/nightelf/01-teldrassil.guide: The Goddess Provides\' step says to cast the two racial spells (#3587)', { skip }, () => {
+	const list = goals('forever/alliance/nightelf/01-teldrassil.guide');
+	const { step } = list[at(list, 'accept 97979', is('accept', 97979))];
+	const text = [step.note, step.tip].flat().filter(Boolean).join(' ');
+	assert.match(text, /racial/, 'the tip says they are racial spells');
+	assert.match(text, /spellbook/, 'and where to find them');
+	assert.match(text, /\{spell:1259799\}|Elune's Light/, 'it names Elune\'s Light');
+	assert.match(text, /Shadowmeld/, 'it names Shadowmeld');
+});

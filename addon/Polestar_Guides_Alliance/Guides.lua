@@ -18962,6 +18962,7 @@ do
 				},
 				{
 					title = "Back at {area:256}",
+					note = "{npc:3595}'s quest, {quest:97979}, asks for your two night elf racial spells: open your spellbook (P), cast {spell:1259799} and Shadowmeld once each, then hand it back to her.",
 					goals = {
 						{ t = "turnin", quest = 459, title = "The Woodland Protector", npc = 1992, npcName = "Tarindrella", map = 1438, x = 57.63, y = 44.99, z = 1335.9 },
 						{ t = "turnin", quest = 97977, title = "Nature's Call", npc = 1992, npcName = "Tarindrella", map = 1438, x = 57.63, y = 44.99, z = 1335.9 },

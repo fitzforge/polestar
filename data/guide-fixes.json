@@ -14690,6 +14690,24 @@
 				}
 			],
 			"issue": 2900
+		},
+		{
+			"id": "3587-goddess-provides-racial-spells",
+			"faction": "Alliance",
+			"at": {
+				"quest": 97979,
+				"goal": "accept",
+				"guide": "forever/alliance/nightelf/01-teldrassil"
+			},
+			"tip": "Shanda's quest, The Goddess Provides, asks for your two night elf racial spells: open your spellbook (P), cast Elune's Light and Shadowmeld once each, then hand it back to her.",
+			"note": "#3587: The Goddess Provides (97979) counts one cast each of Elune's Light and Shadowmeld, the night elf racial spells. The step listed the two cast lines and a short note in a step of about fifteen lines, but never said they are racial spells or where to find them, and a player reported that the guide doesn't say. The step's tip says it. The Skyborne racial-spell quests at their start already name the spell in a tip.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "players' in-game recordings (to 2026-11-22): 51 people took 97979 with the lines 'Elune's Light cast' and 'Shadowmeld cast' at the accept and handed it back to Shanda (3595)"
+				}
+			],
+			"issue": 3587
 		}
 	]
 }
