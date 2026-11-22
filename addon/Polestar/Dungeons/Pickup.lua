@@ -1025,6 +1025,8 @@ local function acceptGoal(pq, rec, g)
 		goal.object, goal.objName = g.id, g.name
 	else
 		goal.npc, goal.npcName = g.id, g.name
+		-- A quest several NPCs give: each of the character's side, the nearest picked live (#3368).
+		goal.candidates = rec and LK().GiverCandidates(rec.start, g) or nil
 	end
 	goal.z = LK().SpawnZ(g.kind == "object" and "object" or "npc", g.id, g)
 	return goal
@@ -1781,8 +1783,12 @@ local function route(key, plan)
 			local u = { npcKey = s.giverKey, lone = true, title = s.giver.name or L["Quest giver"], goals = {} }
 			if s.giver.kind == "drop" then u.goals[#u.goals + 1] = collectGoal(s.giver) end
 			for _, t in ipairs(s.accepts) do
-				u.goals[#u.goals + 1] = acceptGoal(t.quest, t.rec, s.giver)
+				local a = acceptGoal(t.quest, t.rec, s.giver)
+				u.goals[#u.goals + 1] = a
 				for _, g in ipairs(atGiver(t.rec, s.giver)) do u.goals[#u.goals + 1] = g end
+				-- One quest several NPCs give: the step is named after it, not after
+				-- the giver the Engine may pick another over (#3368).
+				if a.candidates and #s.accepts == 1 then u.title = t.quest.title or (t.rec and t.rec.title) or u.title end
 			end
 			units[#units + 1] = u
 			last = nil
@@ -1834,7 +1840,8 @@ local function route(key, plan)
 		local name
 		if u.lone and u.quest then
 			local g = u.goals[#u.goals]
-			name = g and (g.npcName or g.objName)
+			-- An accept the Engine may take from another of its givers (#3368) keeps the quest's title.
+			name = g and not g.candidates and (g.npcName or g.objName) or nil
 		end
 		if u.lone and prev and prev.lone and prev.npcKey and prev.npcKey == u.npcKey then
 			for _, g in ipairs(u.goals) do prev.step.goals[#prev.step.goals + 1] = g end

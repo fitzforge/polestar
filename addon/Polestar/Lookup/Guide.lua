@@ -571,6 +571,31 @@ local function endGoal(t, q, e)
 	return at(g, e.spawn)
 end
 
+-- Every NPC of `ends` the character may talk to (Lookup.SideOK), each at its
+-- spawn nearest `from` -> { { npc, npcName, map, x, y, f, z }, ... } | nil:
+-- an accept's `candidates` (the Engine picks the nearest again on step start,
+-- zone change and landing), so a quest several NPCs give goes to the one by
+-- the player wherever the guide was built. Camp Mojache has a herald in each
+-- Horde capital; the pick-up guide kept Warcaller Gorlach, nearest where it
+-- was built, and sent a Tauren standing beside Bluff Runner Windstrider in
+-- Thunder Bluff to Orgrimmar (#3368, Zack). nil when fewer than two such NPCs
+-- have a place, or an object gives it too (an object is no candidate).
+function Lookup.GiverCandidates(ends, from, direct)
+	if type(ends) ~= "table" or #(ends.object or {}) > 0 then return nil end
+	local C, p = Codex(), Lookup.PlayerInfo()
+	local list = {}
+	for _, id in ipairs(ends.npc or {}) do
+		local npc = C.Npc(id)
+		if npc and Lookup.SideOK(npc.faction, p) then
+			local s = Lookup.Nearest(npc.spawns, from, direct)
+			if s and s.map and s.x and s.y then
+				list[#list + 1] = { npc = npc.id, npcName = npc.name, map = s.map, x = s.x, y = s.y, f = frame(s.f), z = s.z }
+			end
+		end
+	end
+	return #list >= 2 and list or nil
+end
+
 -- The first NPC or object of `ends` that inside(kind, id) places (see
 -- questStep) -> { npc|object, name, spawn } | nil.
 local function insideEnd(ends, inside)
@@ -646,6 +671,7 @@ local function questStep(q, from, isTarget, opts)
 	local accept
 	if giver then
 		accept = endGoal("accept", q, giver)
+		if giver.npc then accept.candidates = Lookup.GiverCandidates(q.start, from, direct) end
 	else
 		accept = { t = "accept", quest = q.id, title = q.title, item = startItem, itemName = itemName(startItem) }
 	end
