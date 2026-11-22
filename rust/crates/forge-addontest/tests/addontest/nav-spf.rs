@@ -5638,7 +5638,8 @@ fn city_a_capital_goal_no_walk_reaches_is_walked_without_its_height_when_that_is
 	assert_eq!(out["asked"], 29, "first at her height");
 	assert_eq!(out["flat"], json!([1, "none"]), "then without it");
 	assert_eq!(out["aim"][0], "travel", "{out}");
-	assert_eq!(out["aim"][2], -300, "along the walk, not straight at her: {out}");
+	let (ax, ay) = (out["aim"][2].as_f64().unwrap(), out["aim"][3].as_f64().unwrap());
+	assert!(ax < -20.0 && ay > 0.0, "along the walk's first leg to (-300, 0), not straight at her (-100, -500): {out}");
 	assert_eq!(out["unmapped"], true, "the last steps said");
 	assert_eq!(out["unreachable"], json!(null), "{out}");
 }

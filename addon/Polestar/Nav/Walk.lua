@@ -1380,6 +1380,7 @@ local function ask(P, pc, px, py, flat, terminal)
 		if got and city.flat and z == nil and type(answer) == "table" and type(answer.yards) == "number"
 			and answer.yards > city.FLAT * city.flat + city.SLACK then
 			got, reason = false, "no safe walking route"
+			city.Note(true)
 		end
 		if not got and reason == "no safe walking route" then
 			if terminal and count > 0 then return end
