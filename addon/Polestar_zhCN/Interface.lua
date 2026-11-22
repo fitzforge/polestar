@@ -2540,7 +2540,6 @@ L["Manual check-offs and skips, current guide, from your last quest progress on.
 L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "从你最近一次任务进度起，%s中你手动勾选的目标和跳过的步骤将被清除。已完成的任务仍保持完成，指南也会停留在这些任务所对应的位置。"
 L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "从你最近一次任务进度起，当前指南中你手动勾选的目标和跳过的步骤将被清除。已完成的任务仍保持完成，指南也会停留在这些任务所对应的位置。"
 L["Points to the current goal. Its look and colours are on the Arrow page."] = "指向当前目标。外观和颜色在“箭头”页面中设置。"
-L["New"] = "新"
 L["Reset this section?"] = "重置此部分？"
 L["Reset section"] = "重置此部分"
 L["%d settings in %s go back to their defaults."] = "%d 项设置（%s）将恢复默认。"
@@ -4805,6 +4804,13 @@ L["/polestar perf: on, off, report or reset"] = "/polestar perf：on 开启、of
 L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = "排查游戏卡顿，记录 Polestar 自身的运行耗时（on、off、report、reset）"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
+-- L["New"] = "新"
+-- L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = "指南窗口在地下城和战场中隐藏。%s 可在选项 > 指南 > 窗口中更改。"
+-- L["In dungeons"] = "在地下城中"
+-- L["Upcoming steps"] = "后续步骤"
+-- L["Bar at the bottom"] = "底部显示栏"
+-- L["Maximum height"] = "最大高度"
+-- L["What it shows"] = "显示内容"
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Shortest Path Forever 正在导航。要使用 Polestar 的箭头，请关闭“安装 Shortest Path Forever 时由其导航”（选项 > 箭头与路线）。"
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Shortest Path Forever 正在导航。要使用 Polestar 的箭头，请关闭\"安装 Shortest Path Forever 时由其导航\"（选项，整合）。"
 -- L["Guide with Shortest Path Forever when it's installed"] = "安装 Shortest Path Forever 时由其导航"

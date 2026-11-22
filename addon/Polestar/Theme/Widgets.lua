@@ -3632,8 +3632,8 @@ local function navButton(f, i)
 	b.Label:SetWordWrap(true)
 	b.Label:SetMaxLines(2)
 	b.Label:SetPoint("LEFT", b.Icon, "RIGHT", 12, 0)
-	-- The parts at the right edge (count, warning dot, chevron, New chip) are
-	-- placed by navRow.
+	-- The parts at the right edge (count, warning dot, chevron) are placed by
+	-- navRow.
 	b.Count = W.Text(b, "number", "textMuted")
 	b.Count:SetJustifyH("RIGHT")
 	-- A warning dot: something on that page needs the player's attention.
@@ -3646,14 +3646,14 @@ local function navButton(f, i)
 	b.Chevron = b:CreateTexture(nil, "ARTWORK")
 	b.Chevron:SetSize(12, 12)
 	b.Chevron:Hide()
-	-- New settings not seen yet: their count in an accent chip.
-	b.New = W.Chip(b)
-	b.New:Hide()
 	-- Settings off their default on that page: a small accent dot.
 	b.Changed = W.Tex(b, "ARTWORK", "circle", "accent")
 	b.Changed:SetSize(6, 6)
 	b.Changed:Hide()
 	b:SetScript("OnClick", function(self) if f.psOnNav and not self.psHeading then f.psOnNav(self.psKey) end end)
+	-- A row with a mark (item.markTip) says what the mark means.
+	b:SetScript("OnEnter", simpleTip)
+	b:SetScript("OnLeave", hideTip)
 	b.psShell = f
 	f.navButtons[i] = b
 	return b
@@ -3669,8 +3669,9 @@ end
 -- muted label on the text edge, a chevron at the right: down open, right
 -- folded), a choice that folds or opens it (onSelect(key)); rows with
 -- `indent` sit under it, their glyph 12px further in. A row's `new` (a
--- number) is an accent chip at its right edge, `changed` a 6px accent dot
--- (settings off their default there) before that.
+-- `changed` is a 6px accent dot at its right edge (settings off their
+-- default there); `new = true` (new settings) a 6px accent ring in its place
+-- instead. `markTip` is the row's tooltip, saying what that mark means.
 --
 -- The rows live in their own scroll area, from 12px under the search down
 -- to the line of the main column's footer bar (SHELL.footer from the
@@ -3696,26 +3697,20 @@ local function navRow(b, item, on)
 	b.Count:SetShown(item.count ~= nil and not empty)
 	b.Dot:SetShown(item.dot and true or false)
 	if item.dot then b.Count:Hide() end
-	local new = not item.dot and not item.group and type(item.new) == "number" and item.new > 0
-	if new then
-		W.SetChip(b.New, tostring(item.new), "accent")
-		b.Count:Hide()
-	else
-		b.New:Hide()
-	end
+	b.psTip, b.psTipAnchor = item.markTip, "ANCHOR_RIGHT"
 	b.Count:ClearAllPoints()
 	b.Count:SetPoint("RIGHT", b, "RIGHT", -pad, 0)
 	b.Dot:ClearAllPoints()
 	b.Dot:SetPoint("RIGHT", b, "RIGHT", -pad, 0)
 	b.Chevron:ClearAllPoints()
 	b.Chevron:SetPoint("RIGHT", b, "RIGHT", -pad, 0)
-	b.New:ClearAllPoints()
-	b.New:SetPoint("RIGHT", b, "RIGHT", -pad + 4, 0)
 	-- The changed dot, left of whatever stands at the right edge.
-	local edge = b.Dot:IsShown() and 6 or new and b.New:GetWidth() - 4 or b.Count:IsShown() and math.ceil(textWidth(b.Count)) or 0
+	local edge = b.Dot:IsShown() and 6 or b.Count:IsShown() and math.ceil(textWidth(b.Count)) or 0
 	b.Changed:ClearAllPoints()
 	b.Changed:SetPoint("RIGHT", b, "RIGHT", -(pad + (edge > 0 and edge + 8 or 0)), 0)
-	b.Changed:SetShown(item.changed and not item.group and true or false)
+	local ring = item.new == true
+	b.Changed:SetTexture(Theme.Media(ring and "ring" or "circle"))
+	b.Changed:SetShown((ring or item.changed) and not item.group and true or false)
 	b.Chevron:SetShown(item.group and true or false)
 	b.Selected:SetShown(on)
 	b.Bar:SetShown(on)

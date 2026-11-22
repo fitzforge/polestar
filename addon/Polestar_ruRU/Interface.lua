@@ -2540,7 +2540,6 @@ L["Manual check-offs and skips, current guide, from your last quest progress on.
 L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "Ваши ручные отметки и пропущенные шаги в гайде %s будут удалены начиная с последнего продвижения по заданиям. Выполненные задания останутся выполненными, а гайд останется там, куда они вас привели."
 L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "Ваши ручные отметки и пропущенные шаги в текущем гайде будут удалены начиная с последнего продвижения по заданиям. Выполненные задания останутся выполненными, а гайд останется там, куда они вас привели."
 L["Points to the current goal. Its look and colours are on the Arrow page."] = "Указывает на текущую цель. Вид и цвета настраиваются на странице «Стрелка»."
-L["New"] = "Новое"
 L["Reset this section?"] = "Сбросить этот раздел?"
 L["Reset section"] = "Сбросить раздел"
 L["%d settings in %s go back to their defaults."] = "Настройки раздела «%2$s» (%1$d) вернутся к значениям по умолчанию."
@@ -4805,6 +4804,13 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Пос
 -- L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
+-- L["New"] = "Новое"
+-- L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = "Окно гайда скрывается в подземельях и на полях боя. %s Изменить это можно в меню Настройки > Гайд > Окно."
+-- L["In dungeons"] = "В подземельях"
+-- L["Upcoming steps"] = "Следующие шаги"
+-- L["Bar at the bottom"] = "Панели внизу"
+-- L["Maximum height"] = "Максимальная высота"
+-- L["What it shows"] = "Что показывать"
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Arrow & routes) to use Polestar's arrow."] = "Ведет Shortest Path Forever. Отключите «Вести через Shortest Path Forever, если он установлен» (Настройки, Стрелка и маршруты), чтобы использовать стрелку Polestar."
 -- L["Shortest Path Forever is guiding. Turn off \"Guide with Shortest Path Forever when it's installed\" (Options, Integrations) to use Polestar's arrow."] = "Сейчас ведет Shortest Path Forever. Чтобы использовать стрелку Polestar, отключите \"Вести через Shortest Path Forever, если он установлен\" (Настройки, Интеграции)."
 -- L["Guide with Shortest Path Forever when it's installed"] = "Вести через Shortest Path Forever, если он установлен"

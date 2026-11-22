@@ -2541,7 +2541,6 @@ L["Manual check-offs and skips, current guide, from your last quest progress on.
 L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "Vos cases cochées et étapes passées dans %s sont effacées à partir de votre dernière progression de quête. Les quêtes faites restent faites, et le guide reste là où elles vous ont mené."
 L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "Vos cases cochées et étapes passées dans le guide actuel sont effacées à partir de votre dernière progression de quête. Les quêtes faites restent faites, et le guide reste là où elles vous ont mené."
 L["Points to the current goal. Its look and colours are on the Arrow page."] = "Indique l'objectif en cours. Son apparence et ses couleurs sont sur la page Flèche."
-L["New"] = "Nouveau"
 L["Reset this section?"] = "Réinitialiser cette section ?"
 L["Reset section"] = "Réinitialiser la section"
 L["%d settings in %s go back to their defaults."] = "%d réglages de %s reviennent à leur valeur par défaut."
@@ -4806,6 +4805,13 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Atterr
 -- L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
+-- L["New"] = "Nouveau"
+-- L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = "La fenêtre du guide se masque dans les donjons et les champs de bataille. %s Modifiez-le dans Options > Guide > Fenêtre."
+-- L["In dungeons"] = "En donjon"
+-- L["Upcoming steps"] = "Étapes à venir"
+-- L["Bar at the bottom"] = "Barre en bas"
+-- L["Maximum height"] = "Hauteur maximale"
+-- L["What it shows"] = "Contenu"
 -- L["Alliance"] = "Alliance"
 -- L["Blood Elf"] = "Elfe de sang"
 -- L["Draenei"] = "Draeneï"

@@ -2100,7 +2100,6 @@ L["Manual check-offs and skips, current guide, from your last quest progress on.
 L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "Se borran tus marcas manuales y los pasos omitidos en %s a partir de tu último progreso en misiones. Las misiones que ya hiciste siguen hechas, y la guía se queda donde te ubican."
 L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."] = "Se borran tus marcas manuales y los pasos omitidos de la guía actual a partir de tu último progreso en misiones. Las misiones que ya hiciste siguen hechas, y la guía se queda donde te ubican."
 L["Points to the current goal. Its look and colours are on the Arrow page."] = "Apunta al objetivo actual. Su aspecto y sus colores están en la página Flecha."
-L["New"] = "Nuevo"
 L["Reset this section?"] = "¿Restablecer esta sección?"
 L["Reset section"] = "Restablecer sección"
 L["%d settings in %s go back to their defaults."] = "%d ajustes de %s vuelven a su valor predeterminado."
@@ -4804,6 +4803,13 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Aterri
 -- L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
+-- L["New"] = "Nuevo"
+-- L["The guide window hides in dungeons and battlegrounds. %s Change it in Options > Guide > Window."] = "La ventana de la guía se oculta en calabozos y campos de batalla. %s Cámbialo en Opciones > Guía > Ventana."
+-- L["In dungeons"] = "En calabozos"
+-- L["Upcoming steps"] = "Pasos siguientes"
+-- L["Bar at the bottom"] = "Barra abajo"
+-- L["Maximum height"] = "Altura máxima"
+-- L["What it shows"] = "Qué muestra"
 -- L["The arrow's target, the stops of its travel route, the step's other goals and the areas their mobs and objects spawn in."] = "El objetivo de la flecha, las paradas de su ruta de viaje, los demás objetivos del paso y las zonas donde aparecen sus monstruos y objetos."
 -- L["The arrow's target and the areas it spawns in."] = "El objetivo de la flecha y las zonas donde aparece."
 -- L["Moving dots from you to the target on the world map and the minimap, along the travel route."] = "Puntos en movimiento desde ti hasta el objetivo en el mapa del mundo y el minimapa, siguiendo la ruta de viaje."
