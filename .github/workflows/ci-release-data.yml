@@ -31,8 +31,9 @@ jobs:
       pull-requests: write
     env:
       POLESTAR_TIMING_BUDGETS: warn
-      # Two test files at once: the guide suites on the data take a few GB each.
-      CI_TEST_CONCURRENCY: "2"
+      # One test file at a time: each guide suite on the data starts up to 8 Lua workers of its own (the pool sizes
+      # by the machine's cores, not the runner's share), and two at once went over the runner's 6 GB.
+      CI_TEST_CONCURRENCY: "1"
     defaults:
       run:
         shell: bash

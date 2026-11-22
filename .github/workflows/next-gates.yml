@@ -29,7 +29,8 @@ jobs:
     timeout-minutes: 180
     env:
       POLESTAR_TIMING_BUDGETS: warn
-      CI_TEST_CONCURRENCY: "2"
+      # One test file at a time, as ci-release-data.yml: the runner's 6 GB.
+      CI_TEST_CONCURRENCY: "1"
       GATE_JOBS: "3"
     defaults:
       run:
