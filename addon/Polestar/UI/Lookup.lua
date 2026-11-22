@@ -2920,8 +2920,8 @@ local function installFilterChrome()
 			drawer:SetWidth(root.FilterBar:GetWidth())
 			drawer:SetPoint("TOPLEFT", root.FilterBar, "BOTTOMLEFT")
 			drawer.Status = makeAvailability(drawer)
-			drawer.Clear = W.Button(drawer.Status.Header, L["Clear all"], clearAll, { width = 80, height = 24, ghost = true })
-			drawer.Clear:SetPoint("RIGHT", drawer.Status.Header, "RIGHT")
+			drawer.Clear = W.Button(drawer, L["Clear all"], clearAll, { width = 80, height = 24, ghost = true })
+			drawer.Clear:SetPoint("TOPRIGHT", drawer.Status, "BOTTOMRIGHT", 0, -4)
 			fixedButtonText(drawer.Clear, L["Clear all"])
 			root.FilterDrawer = drawer
 		end
@@ -2952,7 +2952,7 @@ local function installFilterChrome()
 		end
 		if note then note:SetShown(needsUpdate and true or false) end
 		if needsUpdate then height = height + 36 end
-		height = layoutGroup(drawer.Status, height) + 8
+		height = layoutGroup(drawer.Status, height) + drawer.Clear:GetHeight() + 8
 		drawer:SetHeight(height)
 		drawer:Show()
 		return height

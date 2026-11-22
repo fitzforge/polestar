@@ -412,7 +412,7 @@ fn older_codex_pack_has_the_unchanged_flat_lookup_sidebar() {
 		local view = LK.results.psView
 		LK.root.Visibility:Click()
 		local drawer = LK.root.FilterDrawer
-		assert(drawer:IsVisible() and drawer:GetHeight() == drawer.Status:GetHeight() + 36 + 8 and not rawget(drawer, "Item"))
+		assert(drawer:IsVisible() and drawer:GetHeight() == drawer.Status:GetHeight() + 36 + drawer.Clear:GetHeight() + 8 and not rawget(drawer, "Item"))
 		assert(drawer.Compatibility:IsShown() and drawer.Compatibility:GetText() == "Update the Codex to filter items.")
 		assert(#drawer.Availability == 2 and LK.results.psView == view - drawer:GetHeight())
 		for _, b in ipairs(win.navButtons) do
@@ -838,7 +838,8 @@ fn lookup_filter_scope_empty_precedence_history_and_character_storage() {
 		assert(LK.shown.empty == "Nothing to list here.")
 		LK.SetKind("treasure")
 		assert(LK.shown.empty == "Nothing to list here.")
-		assert(drawer:GetHeight() == drawer.Status:GetHeight() + 8 and not item:IsShown() and drawer.Clear:IsVisible())
+		assert(not item:IsShown() and drawer.Clear:IsVisible())
+		assert(drawer:GetHeight() == drawer.Status:GetHeight() + drawer.Clear:GetHeight() + 8)
 		drawer.Availability[1]:Click()
 		assert(drawer.Availability[1].psOn)
 		drawer.Clear:Click()
@@ -886,6 +887,9 @@ fn lookup_filter_drawer_clears_every_displayed_group_in_one_update() {
 		assert(LK.root.Visibility.Label:GetText() == "Filters (9)", LK.root.Visibility.Label:GetText())
 		local drawer = openDrawer()
 		assert(drawer.Clear:IsVisible() and drawer.Clear.Label:GetText() == "Clear all")
+		local point, anchor, edge, _, y = drawer.Clear:GetPoint(1)
+		assert(drawer.Clear:GetParent() == drawer and point == "TOPRIGHT" and anchor == drawer.Status and edge == "BOTTOMRIGHT" and y < 0,
+			"Clear all sits below the availability switches")
 		local query, calls = Polestar.Search.Query, 0
 		Polestar.Search.Query = function(...) calls = calls + 1; return query(...) end
 		type_("trial tunic")
@@ -936,7 +940,8 @@ fn lookup_filter_drawer_fits_both_hub_widths_and_keyboard_uses_the_shorter_view(
 			for _, toggle in ipairs(drawer.Availability) do
 				assert(toggle:GetParent() == drawer.Status.Panel and rawget(toggle, "Track") and rawget(toggle, "Knob"))
 			end
-			assert(LK.shown == before and sf.psView == baseline - drawer:GetHeight() and sf.psView > 80)
+			assert(LK.shown == before and sf.psView == baseline - drawer:GetHeight())
+			assert(sf.psView >= 2 * shownRows(sf.Child)[1]:GetHeight(), "Lookup leaves room for two result rows")
 			local listTop = -4 - bar:GetHeight() - drawer:GetHeight()
 			assert(select(5, sf:GetPoint(1)) == listTop)
 			assert(choose(item.Slot, "One-hand") and select(5, sf:GetPoint(1)) == listTop)
@@ -2432,7 +2437,7 @@ fn lookup_pack_compatibility_keeps_legacy_details_and_drops_most_without_support
 			assert(LK.detail.facts[1][1] == "Type" and LK.detail.facts[2][1] == "Requires" and LK.detail.facts[2][2] == "Level 52")
 			LK.root.Visibility:Click()
 			local drawer, order = LK.root.FilterDrawer, LK.root.SearchOrder
-			assert(drawer:GetHeight() == drawer.Status:GetHeight() + 8 + ({version} == 0 and 36 or 0) and not rawget(drawer, "Item") and #drawer.Availability == 2)
+			assert(drawer:GetHeight() == drawer.Status:GetHeight() + drawer.Clear:GetHeight() + 8 + ({version} == 0 and 36 or 0) and not rawget(drawer, "Item") and #drawer.Availability == 2)
 			local note = rawget(drawer, "Compatibility")
 			assert((note and note:IsShown() or false) == ({version} == 0))
 			order:Click()
