@@ -1631,9 +1631,5 @@ for _, s in ipairs(R.SOUNDS) do
 	kits[#kits + 1] = { value = s.value, played = stub.sounds[1] or false }
 end
 emit(kits)"#);
-	assert_eq!(
-		out[0],
-		json!([{ "value": "raid", "played": 8959 }, { "value": "ready", "played": 8960 }, { "value": "whisper", "played": 12197 }]),
-		"never the silent 37666"
-	);
+	assert_eq!(out[0], json!([{ "value": "raid", "played": 8959 }, { "value": "ready", "played": 8960 }, { "value": "whisper", "played": 12197 }]), "never the silent 37666");
 }
