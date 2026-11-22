@@ -7662,7 +7662,7 @@ do
 					note = "Hay Weevils crawl about the north end of {quest:681}'s farm: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it.",
 					when = { { k = "onquest", q = { 93176 } } },
 					goals = {
-						{ t = "use", quest = 93176, title = "My Little Friends", item = 213562, itemName = "Bug Catching Net", oi = 2, map = 1417, x = 31.3, y = 27.2, f = "e", note = "{item:213562}, on a {npc:217589}: the {item:213568}", carriedTo = "forever/alliance/40-50/01-stranglethorn-vale" },
+						{ t = "use", quest = 93176, title = "My Little Friends", item = 213562, itemName = "Bug Catching Net", oi = 2, map = 1417, x = 31.3, y = 27.2, f = "e", note = "{item:213562}, on a {npc:217589}: the {item:213568}", fromNpcs = { { npc = 217588, npcName = "Arbor Tarantula" }, { npc = 217589, npcName = "Hay Weevil" }, { npc = 217590, npcName = "Flesh Picker" } }, carriedTo = "forever/alliance/40-50/01-stranglethorn-vale" },
 					},
 				},
 				{
@@ -8325,7 +8325,7 @@ do
 					note = "A {npc:217590} crawls about the {area:596}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it.",
 					when = { { k = "onquest", q = { 93176 } } },
 					goals = {
-						{ t = "use", quest = 93176, title = "My Little Friends", item = 213562, itemName = "Bug Catching Net", oi = 3, map = 1443, x = 48.1, y = 57.1, f = "e", note = "{item:213562}, on a {npc:217590}: the {item:213567}", carriedTo = "forever/alliance/40-50/01-stranglethorn-vale" },
+						{ t = "use", quest = 93176, title = "My Little Friends", item = 213562, itemName = "Bug Catching Net", oi = 3, map = 1443, x = 48.1, y = 57.1, f = "e", note = "{item:213562}, on a {npc:217590}: the {item:213567}", fromNpcs = { { npc = 217588, npcName = "Arbor Tarantula" }, { npc = 217589, npcName = "Hay Weevil" }, { npc = 217590, npcName = "Flesh Picker" } }, carriedTo = "forever/alliance/40-50/01-stranglethorn-vale" },
 					},
 				},
 				{
@@ -8925,7 +8925,7 @@ do
 					note = "An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it.",
 					when = { { k = "onquest", q = { 93176 } } },
 					goals = {
-						{ t = "use", quest = 93176, title = "My Little Friends", item = 213562, itemName = "Bug Catching Net", oi = 1, map = 1434, x = 43.1, y = 16.7, f = "e", note = "{item:213562}, on an {npc:217588}: the {item:213566}" },
+						{ t = "use", quest = 93176, title = "My Little Friends", item = 213562, itemName = "Bug Catching Net", oi = 1, map = 1434, x = 43.1, y = 16.7, f = "e", note = "{item:213562}, on an {npc:217588}: the {item:213566}", fromNpcs = { { npc = 217588, npcName = "Arbor Tarantula" }, { npc = 217589, npcName = "Hay Weevil" }, { npc = 217590, npcName = "Flesh Picker" } } },
 					},
 				},
 				{
