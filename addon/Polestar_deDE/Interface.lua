@@ -335,7 +335,7 @@ L["Shift-drag to move."] = "Halte Umschalt gedrückt und zieh, um es zu verschie
 L["No waypoint"] = "Kein Wegpunkt"
 L["Arrived underwater"] = "Unter Wasser angekommen"
 L["Under water nearby: swim down to it"] = "In der Nähe unter Wasser: Tauch hinunter"
-L["%d yd below you: swim down"] = "%d m unter dir: Tauch hinunter"
+L["%d yd below you: swim down"] = "%d yd unter dir: Tauch hinunter"
 
 -- Nav/Layers.lua
 L["Spot %d of %d"] = "Punkt %d von %d"
