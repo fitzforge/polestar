@@ -315,6 +315,18 @@ fn a_rune_stop_is_a_while_you_re_here_line_a_click_leads_to_the_vendor_and_it_go
 		r.gone = line()
 		local back = E.GetWaypoint()
 		r.backOnGuide = back and back.stepIndex == E.GetLiveStep() or false
+		-- Out of runes again, in the same town: a new trip's offer shows, not held back as once per visit.
+		E.SetRuneStop(offer(185))
+		flush()
+		at(42, 65)
+		r.again = line() ~= false
+		-- Dismissed, it stays gone though the offer holds.
+		E.DismissWhileHere(1)
+		flush()
+		E.SetRuneStop(offer(190))
+		flush()
+		at(42, 65)
+		r.dismissed = line()
 		"#);
 	assert_eq!(out["none"], false);
 	assert_eq!(out["shown"], json!(["Buy a rune and cast Teleport: Stormwind to save about 3m", "Brog Hamfist (General Supplies)", 30, "icon-sell"]));
@@ -324,4 +336,6 @@ fn a_rune_stop_is_a_while_you_re_here_line_a_click_leads_to_the_vendor_and_it_go
 	assert_eq!(out["wp"], json!([1429, 43, 65, "Buy a rune at Brog Hamfist", -4, 3]));
 	assert_eq!(out["gone"], false);
 	assert_eq!(out["backOnGuide"], true);
+	assert_eq!(out["again"], true, "a later trip in the same town gets the line again");
+	assert_eq!(out["dismissed"], false, "a dismiss holds");
 }

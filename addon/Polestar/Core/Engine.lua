@@ -15710,7 +15710,9 @@ function Own.hereVendorShow(e, d)
 	local goal = e.goal
 	goal.text = (e.kind == "rune" and L["Buy a rune at %s"] or e.kind == "repair" and L["Repair at %s"] or L["Sell at %s"]):format(goal.npcName or "")
 	Own.hereExpiredAt[goal], Own.hereMutes[goal] = nil, nil
-	Own.hereVendorSpend(e.kind)
+	-- (A rune stop is not once per visit: it is for this trip, and goes and comes with Nav/RuneStop.lua's offer. Its
+	-- dismiss still holds, as any line's does.)
+	if e.kind ~= "rune" then Own.hereVendorSpend(e.kind) end
 	Own.here = on[1]
 	ns.Fire("WHILE_HERE_CHANGED")
 end
