@@ -423,7 +423,7 @@ function Walk.Clear()
 	gc, gx, gy, gzFor, gz, count, idx, wanted, failed, hubs, shape = nil, nil, nil, nil, nil, 0, 1, false, false, nil, nil
 	Walk.blockedReason = nil
 	Walk.checkedOnly, ptsX.checkedPolicy = nil, nil
-	city.goal, city.dropped = nil, nil
+	city.goal, city.dropped, city.flat = nil, nil, nil
 	city.Note(false)
 	landX, landY = nil, nil
 	for k in pairs(Walk.dropped) do Walk.dropped[k] = nil end
@@ -539,7 +539,7 @@ local REASK = 5           -- seconds after a flat ask within which a floor found
 --     target (Walk.Measure) takes the same reach and, finding nothing, keeps the straight estimates. Elsewhere none
 --     is asked once more without the height (city.dropped: said too), as are the measure and the later legs.
 city = { CAPITAL = { [1453] = true, [1454] = true, [1455] = true, [1456] = true, [1457] = true, [1458] = true },
-	TRAIL = 4, GOAL = 10, MOVE = 20, MOVE_HINT = 1, noteVersion = 0 }
+	TRAIL = 4, GOAL = 10, MOVE = 20, MOVE_HINT = 1, FLAT = 2, SLACK = 40, noteVersion = 0 }
 
 -- (The Undercity lies under Tirisfal Glades: the zone a point there reads is Tirisfal's, 1420, so a point in the
 -- Undercity's own map frame, Compat.WorldToMap on 1458, counts too. CityLifts2, 2026-11-18: none of the rules ran
@@ -1373,6 +1373,25 @@ local function ask(P, pc, px, py, flat, terminal)
 			ask(P, pc, px, py, flat)
 			return
 		end
+		-- A capital's goal whose floor no walk reaches (#2143, Rilli Greasygob in the Valley of Honor: the floor
+		-- players walk there, 29 yd up, is one the maps don't join; 0.4.1.1 walked it, 766 yd, and 0.4.2 drew 617 yd
+		-- straight across Orgrimmar): after the start's own retries, asked once more without its height (city.flat:
+		-- the straight yards then), and
+		-- that walk kept only when it is no detour, at most city.FLAT times the straight way plus city.SLACK yards.
+		-- Ironforge's walk to a Great Forge floor without its height went out of the gate and over the mountain,
+		-- 3,515 yd for 356: that stays the straight arrow, saying the last steps aren't mapped.
+		if not got and z and inCity and not city.flat and not terminal and not Walk.checkedOnly
+			and (reason == "no safe walking route" or not tracked) and not (type(answer) == "table" and answer.blockedReason) then
+			city.flat = sqrt((gx - px) * (gx - px) + (gy - py) * (gy - py))
+			gz, city.dropped = nil, true
+			ask(P, pc, px, py, flat)
+			return
+		end
+		if got and city.flat and z == nil and type(answer) == "table" and type(answer.yards) == "number"
+			and answer.yards > city.FLAT * city.flat + city.SLACK then
+			got, reason = false, "no safe walking route"
+			city.Note(true)
+		end
 		if not got and reason == "no safe walking route" then
 			if terminal and count > 0 then return end
 			Walk.blockedReason = type(answer) == "table" and answer.blockedReason or "unmapped"
@@ -1486,7 +1505,18 @@ function Walk.Probe(pc, px, py, gx, gy, gz, callback, place, originZ)
 		local ok, handle = pcall(P.Find, pc, from, to, function(points, reason, answer)
 			if job.cancelled then return end
 			job.handle = nil
-			if reason == "no safe walking route" or (type(answer) == "table" and answer.reached) then return callback(false) end
+			if reason == "no safe walking route" or (type(answer) == "table" and answer.reached) then
+				-- A goal's floor no walk reaches though no policy said no (#2270, #3018: the Damaged Chest on the
+				-- Splithoof Crag cave's floor, 49 yd down): asked once more without its height, as the arrow's own
+				-- walk is (not in a capital: city). Without it the near walk was never offered, and the planner sent
+				-- the player 111 yd from the chest up the Great Lift and round through the Barrens (0.4.1.1: 24 s).
+				if to.z ~= nil and reason == "no safe walking route" and not (type(answer) == "table" and answer.blockedReason)
+					and not city.At(pc, gx, gy) then
+					to = { x = gx, y = gy }
+					return find(from, again)
+				end
+				return callback(false)
+			end
 			local water = Nav.travel and Nav.travel.IsGhost and Nav.travel.IsGhost() or false
 			if water ~= ghost or o.style ~= ns.Get("nav.routeStyle") or o.profile ~= ns.Compat.GetPlayerFaction()
 				or o.walkLevel ~= (Nav.danger.Level() or 0) then return callback(false) end
@@ -1497,7 +1527,7 @@ function Walk.Probe(pc, px, py, gx, gy, gz, callback, place, originZ)
 			-- measure prices this walk; only a live XYZ reading can mark a visit.
 			if type(first) ~= "table" or type(last) ~= "table"
 				or (sz and (type(first.z) ~= "number" or not (abs(first.z - sz) <= 1)))
-				or (gz and (type(last.z) ~= "number" or not (abs(last.z - gz) <= 1))) then return callback(false) end
+				or (to.z and (type(last.z) ~= "number" or not (abs(last.z - to.z) <= 1))) then return callback(false) end
 			if floors then
 				local matches = false
 				for i = 1, #floors do
@@ -1643,7 +1673,7 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop, checke
 		Nav.follow.Reset(fstate)
 		-- In a capital a goal without a height ends on the trail floor at it (city.GoalZ) and is never asked again
 		-- without its height (city.goal); a goal with a height keeps it.
-		city.goal, city.dropped = city.At(goalC, goalX, goalY), nil
+		city.goal, city.dropped, city.flat = city.At(goalC, goalX, goalY), nil, nil
 		gzFor, gz = tz, tz or (city.goal and city.GoalZ(P, goalC, goalX, goalY)) or nil
 		city.Note(false)
 		askedAt = -huge
