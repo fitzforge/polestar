@@ -8,7 +8,7 @@
 // suggestion), while Browse keeps the last guide selected; a new character
 // gets "Start here", the other guides for the level and buttons into the
 // categories and Import; a name cut short reads whole in its tooltip; and
-// Special thanks sits at Home's foot. Against the real Core, Theme and UI
+// Special thanks keeps the header's top right on every page. Against the real Core, Theme and UI
 // and the fakes of tests/lua/stub_ui.lua.
 
 const { test } = require('node:test');
@@ -43,14 +43,6 @@ function run(script, before = '') {
 		addons: [{ name: 'Polestar', files: FILES }],
 		script: `uistub.install()
 stub.login()
--- Pin the window size to the skin's pickerW, so the geometry is the same where the
--- Guides window follows W.ShellDefaultSize (read live: a test may override pickerW).
-do
-	local W = Polestar.Widgets
-	if W.ShellDefaultSize then
-		W.ShellDefaultSize = function() return Polestar.Theme.Metric("pickerW", 1120) + W.SHELL.rail, 640 end
-	end
-end
 ${before}
 local UI = Polestar.UI
 local P = UI.Picker
@@ -327,22 +319,32 @@ test('a name cut short reads whole in its tooltip: the tab card, a row, the Zone
 	assert.ok(!out.pack.shortTip.length, 'a name that fits has no tooltip');
 });
 
-test('Special thanks sits at Home\'s foot and on no other page; the hub is built on first open, not at login', () => {
+test('Special thanks is in the header on Home and every page, a new name each time the window opens; the hub is built on first open, not at login', () => {
 	const [out] = run(`
 		local before = PolestarPicker ~= nil
+		Polestar.Credits = { supporters = { "Ann", "Bo", "Cy" }, contributors = {}, bugReporters = {}, translators = {}, ideas = {} }
 		${BUSY}
 		open()
 		local t = F.ThanksLink
-		local _, rel, _, x, y = t:GetPoint(1)
-		local home = { shown = t:IsShown(), body = rel == F.Body, x = x, y = -y }
+		local function at()
+			local p, rel, rp, x, y = t:GetPoint(1)
+			return { shown = t:IsShown(), header = rel == F.Header, p = p, rp = rp, x = x, y = y, name = t.Name:GetText() }
+		end
+		local home = at()
 		P.SetView("browse")
-		emit({ before = before, home = home, browse = t:IsShown() })`);
+		local browse = at()
+		local names = { home.name }
+		for i = 1, 4 do
+			F:Hide()
+			open()
+			names[#names + 1] = t.Name:GetText()
+		end
+		emit({ before = before, home = home, browse = browse, names = names })`);
 	assert.equal(out.before, false, 'no hub frame at login');
-	assert.equal(out.home.shown, true);
-	assert.ok(out.home.body);
-	assert.equal(out.home.x, 32);
-	assert.ok(out.home.y > 16 + 114, 'under the list');
-	assert.equal(out.browse, false);
+	for (const v of [out.home, out.browse]) {
+		assert.deepEqual([v.shown, v.header, v.p, v.rp, v.x, v.y], [true, true, 'RIGHT', 'TOPRIGHT', -32, -26], JSON.stringify(v));
+	}
+	for (let i = 1; i < out.names.length; i++) assert.notEqual(out.names[i], out.names[i - 1], `a new name each open: ${out.names}`);
 });
 
 test('Home reads right in the game looks, Hearth and Halo too', () => {
