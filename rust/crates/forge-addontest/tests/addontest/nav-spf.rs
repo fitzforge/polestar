@@ -3238,6 +3238,75 @@ fn a_strict_batch_from_a_floor_no_walk_joins_leaves_its_places_unpriced_not_refu
 	assert_eq!(out["off"], json!([["nil", "nil", "nil"], "nil"]), "off it: unpriced, not refused");
 }
 
+// #3605: a strict batch that has spent Path.manyCap expansions stops before its next place; the places it has not
+// priced keep their estimates (nil), never refused, and the batch is not a refusal. Whatever the maps hold that the
+// other rules miss, a batch never keeps the planner's places waiting for half a minute of slices.
+#[test]
+fn a_strict_batch_past_its_expansion_cap_leaves_the_rest_of_its_places_unpriced_not_refused() {
+	let out = run_priced(
+		r#"
+		local o = { profile = Polestar.Compat.GetPlayerFaction(), walkLevel = N.danger.Level() or 1 }
+		local pts = { { x = -700, y = 0 }, { x = -800, y = 60 }, { x = -760, y = -40 } }
+		local function many()
+			local costs, reason = solver.FindManySync(0, { x = -890, y = 10, z = 5.9, reach = 10 }, pts, o, true)
+			local c = {}
+			for i = 1, #pts do c[i] = type(costs[i]) == "number" and "priced" or tostring(costs[i]) end
+			return { c, tostring(reason) }
+		end
+		local cap = solver.manyCap
+		local r = { cap = type(cap) == "number" and cap >= 600000 and cap <= 2000000, whole = many() }
+		solver.manyCap = 1
+		r.capped = many()
+		solver.manyCap = cap
+		emit(r)"#,
+	);
+	assert_eq!(out["cap"], true, "a cap in expansions, over the batches ordinary routes take");
+	assert_eq!(out["whole"], json!([["priced", "priced", "priced"], "nil"]), "under the cap: every place priced");
+	assert_eq!(out["capped"], json!([["nil", "priced", "nil"], "nil"]), "past it: the nearest (the second) priced, the rest unpriced, no refusal");
+}
+
+// #3553 and #3605: a batch that leaves its places their estimates (the target's floor joins no walk) and lands before
+// the planner's 2 s hold is up has decided: the held route is offered at once, by the estimates. Before, nothing
+// planned again when such a batch landed, so the arrow went for its own walk and no flight was offered (Foggy
+// MacKreel: 9 s of "routing", then a 13 km walk).
+#[test]
+fn a_held_flight_route_is_offered_as_soon_as_its_batch_lands_with_estimates_only() {
+	let out = run_priced(
+		r#"
+		N.RegisterTravelData({ build = "test",
+			taxi = {
+				{ 1, 0, 900, 900, 9000, 5, 5, 3, "Home Roost, Testshire" },
+				{ 2, 0, -700, 0, 9000, 50, 85, 3, "Dock Roost, Testshire" },
+			},
+			taxiZ = { [2] = 5.9 },
+			flights = { 1, 2, 1700, 2, 1, 1700 },
+		}, true)
+		Polestar.CharState().flags.taxi = { [1] = true, [2] = true }
+		local function kinds()
+			local legs, ci = N.GetRoute()
+			if not legs then return false end
+			local out = {}
+			for i = ci, #legs do out[#out + 1] = legs[i].kind end
+			return table.concat(out, " ")
+		end
+		local r = {}
+		nav.place(900, 800)
+		local m, x, y = nav.mapPoint(-890, 10)
+		N.SetTarget(m, x, y, "Ledge", nil, nil, 40)
+		r.held = { (N.Sample()), kinds() }
+		local batch = assert(fake.of(true)[1], "the walks into the target are measured")
+		stub.advance(0.5)
+		local done = finish(batch)
+		r.unjoined = done.job.unjoined == true
+		N.Sample()
+		r.landed = kinds()
+		emit(r)"#,
+	);
+	assert_eq!(out["held"], json!(["routing", false]), "held for the landing's walk");
+	assert_eq!(out["unjoined"], true, "the batch leaves its places their estimates");
+	assert_eq!(out["landed"], "walk fly walk", "offered as the batch lands, at 0.5 s");
+}
+
 #[test]
 fn test_gap_a_measure_that_lands_on_a_boat_is_weighed_once_ashore() {
 	let out = run_many(
