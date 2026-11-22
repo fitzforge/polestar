@@ -67,16 +67,15 @@ local SIDE_W = SH.sidebar -- the sidebar, left of the list
 -- a 230 sidebar, a 380 details pane), read as the window is built.
 local WIN_H = 640
 
--- The window is as big as the settings window (W.ShellDefaultSize) where the
--- skin's size is smaller, never past the screen at the Guides scale; the extra
--- room goes to the list pane and the rows' count.
+-- The window is the skin's size in the game's UI units (pickerW beside the
+-- rail, pickerH: 1208 x 680 by default), so it follows the game's UI scale as
+-- the game's own windows do; never past the screen at the Guides scale.
 local function readSizes()
-	local sw, sh = W.ShellDefaultSize()
-	local scale = max(0.01, tonumber(ns.Get("ui.pickerScale")) or 1)
+	local scale = W.ScaleSetting("ui.pickerScale")
 	local maxW = floor(UIParent:GetWidth() / scale - 32)
 	local maxH = floor(UIParent:GetHeight() / scale - 32)
-	WIN_W = min(maxW, max(W.SHELL_MIN_W, sw))
-	WIN_H = min(maxH, max(W.SHELL_MIN_H, sh))
+	WIN_W = min(maxW, max(W.SHELL_MIN_W, Theme.Metric("pickerW", 1120) + SH.rail))
+	WIN_H = min(maxH, max(W.SHELL_MIN_H, Theme.Metric("pickerH", SH.height)))
 	DETAIL_W = Theme.Metric("pickerDetail", 372)
 	SIDE_W = Theme.Metric("pickerSidebar", SH.sidebar)
 	MID_W = WIN_W - SH.rail - SIDE_W - 2 - DETAIL_W
@@ -1308,15 +1307,20 @@ local function buildDetails()
 	-- On a bright painting the glyphs need a dark ground of their own: 4 past
 	-- them at either end, 2 above and below. In the game's looks the close is
 	-- the frame's own, on its corner (W.FrameClose), and the ground holds the
-	-- star alone, still clear of that corner.
+	-- star alone, still clear of that corner. The Guides scale's button, while
+	-- it stands left of the star (win.psPlaceScale), shares it.
 	d.Scrim = W.Pill(d.Art.Over, 68, 32)
+	function d.FitScrim()
+		local p = d.Scrim
+		local alone = Theme.Kit() ~= nil
+		p:SetWidth((alone and 36 or 68) + (rawget(d, "psScaleHere") and 32 or 0))
+		p:ClearAllPoints()
+		p:SetPoint("TOPRIGHT", alone and d.Star or win.Close, "TOPRIGHT", 4, 2)
+	end
 	W.Painter(d.Scrim, function(p)
 		local r, g, b = Theme.Color("scrim")
 		p:SetColor(r, g, b, 0.6)
-		local alone = Theme.Kit() ~= nil
-		p:SetWidth(alone and 36 or 68)
-		p:ClearAllPoints()
-		p:SetPoint("TOPRIGHT", alone and d.Star or win.Close, "TOPRIGHT", 4, 2)
+		d.FitScrim()
 	end)
 	d.Scrim:SetFrameLevel(d.Art.Over:GetFrameLevel())
 	win.Close:SetFrameLevel(d.Scrim:GetFrameLevel() + 2)
@@ -2245,13 +2249,31 @@ local function build()
 	readSizes()
 	win = W.Shell("PolestarPicker", {
 		width = WIN_W, height = WIN_H, sidebar = SIDE_W,
-		rail = true, title = L["Guides"], scalePath = "ui.pickerScale", scaleLabel = L["Guides scale"],
-		scaleTip = L["The guides window only; applies when you let go. Right-click to reset."], searchPlaceholder = HUB_SEARCH,
+		rail = true, title = L["Guides"], scalePath = "ui.pickerScale", scaleButton = true, scaleLabel = L["Guides scale"],
+		scaleTip = L["The guides window only. Click to pick a size; right-click to reset."], searchPlaceholder = HUB_SEARCH,
 		onSearch = onSearch,
 	})
 	P.frame = win
 	UI.Report.SidebarLink(win)
+	-- Special thanks to: a name drawn anew each time the window opens, at the
+	-- top right of the header on every page (UI/Thanks.lua).
 	UI.Thanks.HeaderLink(win)
+	-- On Guides the details pane holds the close button: the Guides scale's
+	-- button stands with it on the pane's art, left of the star, on the same dark
+	-- ground (Theme/Widgets.lua's W.HeaderScaleButton puts it back in the header
+	-- beside the close button on the other pages).
+	win.psPlaceScale = function(t, away)
+		if not details then return end
+		details.psScaleHere = away
+		if away then
+			local over = details.Art.Over
+			if t:GetParent() ~= over then t:SetParent(over) end
+			t:ClearAllPoints()
+			t:SetPoint("RIGHT", details.Star, "LEFT", -4, 0)
+			t:SetFrameLevel(details.Scrim:GetFrameLevel() + 2)
+		end
+		details.FitScrim()
+	end
 	P.search = win.Search
 	P.scroll = win.Scroll
 	local main = win.Main

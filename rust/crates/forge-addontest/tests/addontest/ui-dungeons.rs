@@ -237,12 +237,6 @@ fn for_your_level_starts_at_the_recommended_level_and_leaves_out_dungeons_inside
 #[test]
 fn for_your_level_sorts_by_closeness_to_best_at_and_marks_dungeons_4_levels_under_it_tough_uldaman_at_35_vs_42() {
 	let out = run(r#"
-		-- A guide menu 1200 wide, narrower than its default size (W.ShellDefaultSize): the facts run short of room.
-		local size = Polestar.Widgets.ShellDefaultSize
-		Polestar.Widgets.ShellDefaultSize = function()
-			local _, h = size()
-			return 1200, h
-		end
 		Polestar.Dungeons.Load()
 		local function bosses(list)
 			local t = {}
@@ -423,12 +417,6 @@ fn home_a_names_pack_landing_late_renames_the_cards() {
 #[test]
 fn a_page_the_painting_header_with_the_name_facts_and_actions_tabs_with_counts_guide_me_and_show_on_map_act() {
 	let out = run(r#"
-		-- A guide menu 1200 wide, narrower than its default size (W.ShellDefaultSize): the facts run short of room.
-		local size = Polestar.Widgets.ShellDefaultSize
-		Polestar.Widgets.ShellDefaultSize = function()
-			local _, h = size()
-			return 1200, h
-		end
 		-- Nothing in the log: the hand-in stays away, so "Show on map" keeps its place among three actions.
 		log[914] = nil
 		Polestar.Dungeons.Open("wailing-caverns")

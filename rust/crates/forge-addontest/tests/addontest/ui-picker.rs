@@ -918,11 +918,10 @@ fn a_wider_guide_menu_fits_more_cards_in_the_continue_row() {
 	let out = run(&format!(
 		"{CARDS}{}",
 		r#"
-		local W = Polestar.Widgets
-		local size = W.ShellDefaultSize
-		W.ShellDefaultSize = function()
-			local _, h = size()
-			return 1920 - 32, h
+		local metric = Polestar.Theme.Metric
+		Polestar.Theme.Metric = function(key, default, ...)
+			if key == "pickerW" then return 1500 end
+			return metric(key, default, ...)
 		end
 		uistub.openTabs(SIX, 1)
 		UI.ShowPicker()

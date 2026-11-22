@@ -4700,7 +4700,7 @@ end
 
 SIZE.MIN_W, SIZE.MIN_H, SIZE.EDGE = W.SHELL_MIN_W, W.SHELL_MIN_H, 16
 
--- -> the default size, in UIParent units (W.ShellDefaultSize, the picker's too)
+-- -> the default size, in UIParent units (W.ShellDefaultSize)
 function O.DefaultSize()
 	return W.ShellDefaultSize()
 end

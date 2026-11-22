@@ -4220,6 +4220,15 @@ local SEARCH_LEAST, TITLE_LEAST = 104, 15 / 26
 W.RowParts.SEARCH_LEAST = SEARCH_LEAST
 local function scaleText(v) return floor(v * 100 + 0.5) .. "%" end
 
+-- A window's scale setting as the window draws it: inside the slider's range,
+-- whatever the setting holds (an imported profile's 0.1 or 9 stays readable
+-- and on the screen), 1 where it holds no number.
+function W.ScaleSetting(path)
+	local v = tonumber(ns.Get(path))
+	if not v then return 1 end
+	return min(SCALE_HI, max(SCALE_LO, v))
+end
+
 function W.HeaderScale(f, path, label, tip)
 	local head = f.Header
 	local t = CreateFrame("Frame", nil, head)
@@ -4238,10 +4247,8 @@ function W.HeaderScale(f, path, label, tip)
 		t.Value:SetText(scaleText(v))
 	end
 	function t.Refresh()
-		local v = ns.Get(path)
-		if type(v) ~= "number" then v = 1 end
 		t.psRefreshing = true
-		s:SetValue(min(SCALE_HI, max(SCALE_LO, v)))
+		s:SetValue(W.ScaleSetting(path))
 		t.psRefreshing = false
 		paint()
 	end
@@ -4365,7 +4372,7 @@ function W.HeaderScale(f, path, label, tip)
 		end
 	end)
 	s:SetScript("OnMouseWheel", function(_, delta)
-		local v = roundTo((ns.Get(path) or 1) + delta * SCALE_STEP, SCALE_STEP)
+		local v = roundTo(W.ScaleSetting(path) + delta * SCALE_STEP, SCALE_STEP)
 		ns.Set(path, min(SCALE_HI, max(SCALE_LO, v)))
 	end)
 	s.psTip = label or L["Settings scale"]
@@ -4380,17 +4387,72 @@ function W.HeaderScale(f, path, label, tip)
 	return t
 end
 
+-- The window's scale as a small button beside its close button (opts.scaleButton,
+-- the guides window): a window glyph whose click opens the sizes, 70 % to 140 %
+-- in steps of 10 (a saved size between them listed too), the current one ticked.
+-- Right-click resets it, the wheel steps it. Beside the close button in the
+-- header, or where the shell holds that button out of the header, in the shell's
+-- own place for it (f.psPlaceScale(t, true); f.psPlaceScale(t, false) when the
+-- close button comes back). -> the button (control:Place() after the close
+-- button comes or goes)
+local SCALE_SIZES = { 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4 }
+function W.HeaderScaleButton(f, path, label, tip)
+	local head = f.Header
+	local function set(v) ns.Set(path, math.abs(v - 1) < 0.001 and nil or v) end
+	local t = W.IconButton(head, "window", 28, label, nil, 14)
+	t:RegisterForClicks("LeftButtonUp", "RightButtonUp")
+	t.psTipLines = { tip }
+	t:SetScript("OnClick", function(self, button)
+		if button == "RightButton" then return ns.Set(path, nil) end
+		local cur = W.ScaleSetting(path)
+		local list, items = {}, {}
+		for _, v in ipairs(SCALE_SIZES) do list[#list + 1] = v end
+		local listed = false
+		for _, v in ipairs(list) do if math.abs(v - cur) < 0.001 then listed = true end end
+		if not listed then
+			list[#list + 1] = cur
+			table.sort(list)
+		end
+		for _, v in ipairs(list) do
+			items[#items + 1] = { text = scaleText(v), checked = math.abs(v - cur) < 0.001, onClick = function() set(v) end }
+		end
+		W.ShowMenu(self, items, { point = "TOPRIGHT", relPoint = "BOTTOMRIGHT", y = -4, minWidth = 96, current = true })
+	end)
+	t:EnableMouseWheel(true)
+	t:SetScript("OnMouseWheel", function(_, delta)
+		set(min(SCALE_HI, max(SCALE_LO, roundTo(W.ScaleSetting(path) + delta * SCALE_STEP, SCALE_STEP))))
+	end)
+	function t.Place()
+		local inHeader = f.Close:GetParent() == head
+		local hold = rawget(f, "psPlaceScale")
+		local away = hold ~= nil and not inHeader
+		if hold then hold(t, away) end
+		t:Show()
+		if away then return f.Title:SetPoint("TOPRIGHT", head, "TOPRIGHT", -(12 + 28 + 12), -32) end
+		if t:GetParent() ~= head then t:SetParent(head) end
+		t:ClearAllPoints()
+		-- Paired with the close button (the star's gap); in the game's looks the
+		-- frame's own close stands where the hidden one would, so the same place.
+		if inHeader then
+			t:SetPoint("RIGHT", f.Close, "LEFT", -4, 0)
+		else
+			t:SetPoint("TOPRIGHT", head, "TOPRIGHT", -12, -12)
+		end
+		f.Title:SetPoint("TOPRIGHT", head, "TOPRIGHT", -(12 + 28 + 4 + 28 + 16), -32)
+	end
+	return t
+end
+
 -- The header search's width: 30 % of the main column, 180 to 320.
 local function headerSearchW(f)
 	f.psSearchW = floor(min(320, max(180, (f.psMainW or 600) * 0.3)))
 	return f.psSearchW
 end
 
--- The default size of a big window (the settings window, the guide picker): 1680 x 946
--- screen pixels (and more on a screen taller than 1440 pixels, in 5 % steps) at the
--- default Menu scale, whatever the UI scale, as UIParent units. The Menu scale
--- (opts.scalePath) then scales the window once, so both windows keep the same size
--- to each other at every scale.
+-- The settings window's default size: 1680 x 946 screen pixels (and more on a screen
+-- taller than 1440 pixels, in 5 % steps) at the default Settings scale, whatever the
+-- UI scale, as UIParent units. Its scale (opts.scalePath) then scales the window once.
+-- The guides window keeps the skin's size in UI units (UI/Picker.lua).
 W.SHELL_BASE_W, W.SHELL_BASE_H = 1680, 946
 W.SHELL_MIN_W, W.SHELL_MIN_H = 860, 560 -- the least either window is, the screen allowing
 -- The settings window draws at this share of its scale setting (ui.menuScale), so 100 % is
@@ -4407,7 +4469,9 @@ end
 -- opts: { width, height, title, subtitle, searchPlaceholder, onSearch,
 --         scalePath = "ui.menuScale" (the window's scale setting),
 --         scaleBase = 1 (the window draws at setting x scaleBase),
---         scaleLabel, scaleTip (the header slider's label and tooltip line) }
+--         scaleLabel, scaleTip (the header slider's label and tooltip line),
+--         scaleButton = true (the scale as a button of sizes beside the close
+--         button, W.HeaderScaleButton, instead of the slider) }
 --
 -- The grid every shell shares, top down: the header band (0-112: brand in
 -- the sidebar, page title in the main column), the tab band (112-152: the
@@ -4589,7 +4653,10 @@ function W.Shell(name, opts)
 		navWidth(f)
 		if rawget(f, "HeaderTools") then f.HeaderTools:Place() end
 	end)
-	if opts.scalePath then
+	if opts.scalePath and opts.scaleButton then
+		f.HeaderTools = W.HeaderScaleButton(f, opts.scalePath, opts.scaleLabel, opts.scaleTip)
+		f.HeaderTools.Place()
+	elseif opts.scalePath then
 		f.HeaderTools = W.HeaderScale(f, opts.scalePath, opts.scaleLabel, opts.scaleTip)
 		f.Title:SetPoint("TOPRIGHT", f.HeaderTools, "TOPLEFT", -16, -16)
 	end
@@ -4680,7 +4747,7 @@ function W.Shell(name, opts)
 
 	if opts.scalePath then
 		local function applyScale()
-			f:SetScale((ns.Get(opts.scalePath) or 1) * (opts.scaleBase or 1))
+			f:SetScale(W.ScaleSetting(opts.scalePath) * (opts.scaleBase or 1))
 			if f:IsShown() then Theme.RetextLater(f) end
 		end
 		applyScale()
