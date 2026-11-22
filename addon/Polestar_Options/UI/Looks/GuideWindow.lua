@@ -526,6 +526,9 @@ local SPECS = {
 			get = function() return ns.HideKeepsArrow() end, set = function(on) ns.SetHideKeepsArrow(on) end },
 		{ kind = "toggle", key = "ui.lockHud", label = L["Lock arrow and buttons"],
 			help = L["Stops stray drags on the arrow, the action buttons and the flight and instance timers. Shift-drag still moves them."] },
+		{ kind = "toggle", key = "ui.chatMessages", label = L["Chat messages"],
+			help = L["Lines in chat about what Polestar did for you, such as \"Choose a reward to finish the turn-in\" or upgraded action buttons. Errors and command replies always show."],
+			search = "chat, messages, quiet, silence, spam, print, chat lines, notices" },
 	} },
 	-- The window's lock and place; UI/Movers.lua adds Move frames, its grid and the reset of every frame's place.
 	{ page = PAGE, tab = L["Window"], section = L["Position"], controls = {
