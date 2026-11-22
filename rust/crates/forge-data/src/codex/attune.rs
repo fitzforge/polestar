@@ -101,10 +101,24 @@ fn source_steps(item_id: &V, codex: &V, drops: bool, grants: bool) -> Vec<V> {
 					},
 				);
 			} else {
+				// A chest's instance too (the Black Tome in Shadowfang Keep, Doan's Strongbox), so the guide sends the player
+				// to its entrance.
 				o.set("kind", "object");
 				o.set("item", item.clone());
 				o.set("object", place_of("object", &s.get("object"), codex));
 				o.set("chance", nn(s.get("chance")));
+				let inst = s.get("instance");
+				let oi = codex.get("objects").get(&kstr(&s.get("object")));
+				o.set(
+					"instance",
+					if inst.truthy() {
+						inst
+					} else if oi.truthy() && oi.get("instance").truthy() {
+						oi.get("instance")
+					} else {
+						V::Null
+					},
+				);
 			}
 			out.push(V::Obj(o));
 		}
@@ -324,17 +338,40 @@ fn build_one(entry: &V, codex: &V, warn: &mut Vec<String>, inside: &[V]) -> V {
 	for s in &steps {
 		if s.get("kind").as_str() == Some("quest") && has_v(&goal, &s.get("id")) {
 			s.set("goal", true);
+			// `onAccept`: the quest hands over the item as it is taken and takes it back if it is dropped
+			// (Heart of Disruption's Dalaran Sewer Key): the chain ends at the accept.
+			if entry.get("onAccept").truthy() {
+				s.set("accept", true);
+			}
 		}
 	}
 	// `via`: the item the goal item is made from, by a use the steps can't show (#2338: the Sacred Mallet, used at
 	// Jintha'Alor's altar, becomes the Mallet of Zul'Farrak). Its drops and chests come first; the note says how it
-	// turns into the goal item.
+	// turns into the goal item. `useAt` names the NPC standing where it is used (Archmage Ataeric by the Ambermill
+	// Leyline Focus, where the Black Tome becomes the Tome of Dalaran): a use step there follows the drops.
 	let via = entry.get("via");
+	let use_at = entry.get("useAt");
 	if via.truthy() {
 		if !codex.get("items").get(&kstr(&via)).truthy() {
 			warn.push(format!("{eid}: via item {} is not in the Codex", kstr(&via)));
 		}
 		steps.extend(source_steps(&via, codex, true, false));
+		if use_at.truthy() {
+			let kind = if use_at.get("kind").as_str() == Some("object") { "object" } else { "npc" };
+			let at = place_of(kind, &use_at.get("id"), codex);
+			if at.truthy() && !at.get("map").is_nullish() {
+				let o = Obj::new();
+				o.set("kind", "use");
+				o.set("from", item_ref(&via, codex));
+				o.set("item", item_ref(&entry.get("item"), codex));
+				o.set("at", at);
+				steps.push(V::Obj(o));
+			} else {
+				warn.push(format!("{eid}: useAt {} {} has no spawn in the Codex", use_at.get("kind").to_js_string(), kstr(&use_at.get("id"))));
+			}
+		}
+	} else if use_at.truthy() {
+		warn.push(format!("{eid}: useAt without via"));
 	}
 	let item = entry.get("item");
 	if item.truthy() {
@@ -454,5 +491,64 @@ mod tests {
 		assert_eq!(steps[0].get("item").get("id").num(), 9241.0);
 		assert_eq!(steps[0].get("npc").get("id").num(), 7996.0);
 		assert_eq!(steps[0].get("npc").get("map").num(), 1425.0);
+	}
+
+	// The Tome of Dalaran drops nowhere: the Black Tome from Shadowfang Keep, used at the Ambermill Leyline Focus
+	// by Archmage Ataeric, becomes it. `useAt` adds that use, at Ataeric's spawn, after the Black Tome's chest.
+	#[test]
+	fn use_at_adds_a_use_of_the_via_item_where_the_named_npc_stands() {
+		let codex = parse_json(
+			r#"{ "quests": {}, "instances": { "city-of-dalaran": {} },
+				"items": { "275989": { "name": "Tome of Dalaran", "quality": 2, "sources": [] },
+					"276561": { "name": "Black Tome", "quality": 1, "sources": [{ "type": "object", "object": 659376, "instance": "shadowfang-keep" }] } },
+				"objects": { "659376": { "name": "Black Tome", "spawns": [] } },
+				"npcs": { "2120": { "name": "Archmage Ataeric", "spawns": [{ "map": 1421, "x": 63.4, "y": 64.3, "f": "e" }] },
+					"9": { "name": "Nowhere", "spawns": [] } } }"#,
+		)
+		.unwrap();
+		let table = |use_at: &str| {
+			parse_json(&format!(
+				r#"{{ "attunements": [{{ "key": "city-of-dalaran", "id": "tome", "name": "Tome of Dalaran", "kind": "item", "need": "one", "item": 275989, "via": 276561{use_at}, "note": "n" }}] }}"#
+			))
+			.unwrap()
+		};
+		let (by_key, warnings) = attunements_of(&codex, &table(r#", "useAt": { "kind": "npc", "id": 2120 }"#));
+		assert!(warnings.is_empty(), "{warnings:?}");
+		let steps = by_key[0].1[0].get("steps").items();
+		assert_eq!(steps.iter().map(|s| s.get("kind").to_js_string()).collect::<Vec<_>>(), vec!["object", "use"]);
+		assert_eq!(steps[0].get("instance").as_str(), Some("shadowfang-keep"), "the chest's instance, for its entrance");
+		let use_step = &steps[1];
+		assert_eq!((use_step.get("from").get("id").num(), use_step.get("item").get("id").num()), (276561.0, 275989.0));
+		assert_eq!(use_step.get("at").get("name").as_str(), Some("Archmage Ataeric"));
+		assert_eq!((use_step.get("at").get("map").num(), use_step.get("at").get("x").num()), (1421.0, 63.4));
+
+		let (by_key, warnings) = attunements_of(&codex, &table(r#", "useAt": { "kind": "npc", "id": 9 }"#));
+		assert_eq!(warnings, vec!["tome: useAt npc 9 has no spawn in the Codex".to_string()]);
+		assert_eq!(by_key[0].1[0].get("steps").items().len(), 1, "the chest stays, no use without a place");
+	}
+
+	// Heart of Disruption hands over the Dalaran Sewer Key as it is taken and takes it back if it is dropped:
+	// with `onAccept` its goal step says `accept`, the steps before it do not.
+	#[test]
+	fn on_accept_marks_the_goal_steps_as_ending_at_their_accept() {
+		let codex = parse_json(
+			r#"{ "instances": { "city-of-dalaran": {} },
+				"quests": { "1": { "id": 1, "title": "Blood in the Streets", "pre": [], "preAny": [], "start": { "npc": [], "object": [], "item": [] }, "end": { "npc": [], "object": [] } },
+					"2": { "id": 2, "title": "Heart of Disruption", "pre": [], "preAny": [1], "start": { "npc": [], "object": [], "item": [] }, "end": { "npc": [], "object": [] } } },
+				"items": { "277507": { "name": "Dalaran Sewer Key", "quality": 2, "sources": [] } }, "npcs": {} }"#,
+		)
+		.unwrap();
+		let table = |on: &str| {
+			parse_json(&format!(
+				r#"{{ "attunements": [{{ "key": "city-of-dalaran", "id": "sewer-key", "name": "Dalaran Sewer Key", "kind": "key", "need": "one", "item": 277507, "goal": [2]{on}, "note": "n" }}] }}"#
+			))
+			.unwrap()
+		};
+		let (by_key, warnings) = attunements_of(&codex, &table(r#", "onAccept": true"#));
+		assert!(warnings.is_empty(), "{warnings:?}");
+		let steps = by_key[0].1[0].get("steps").items();
+		assert_eq!(steps.iter().map(|s| (s.get("id").num(), s.get("accept").truthy())).collect::<Vec<_>>(), vec![(1.0, false), (2.0, true)]);
+		let (by_key, _) = attunements_of(&codex, &table(""));
+		assert!(!by_key[0].1[0].get("steps").items()[1].get("accept").truthy(), "without onAccept the goal is the whole quest");
 	}
 }
