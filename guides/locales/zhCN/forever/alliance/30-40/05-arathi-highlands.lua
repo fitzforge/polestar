@@ -193,7 +193,7 @@ return {
 	-- Step 38: Witherbark Village
 	-- {area:318} Drywhisker Gorge · {area:314} Go'Shek Farm · {area:317} Witherbark Village · {npc:2712} Quae
 	-- plural, as words: Witherbark Goliaths = {npc:218032} Witherbark Goliath
-	["South from {area:318}, past {area:314}, through {area:317} to the far end of the valley: the Shadow Hunters there drop the knife, and the trolls packed around them give most of the tusks. Then the Witch Doctors among the huts for the pouches, on the way back out towards {npc:2712}. Careful: Witherbark Goliaths (35, elite) walk the far end with the Shadow Hunters: pull the Hunters out to you one at a time, away from the Goliaths."] = "从{area:318}向南，经过{area:314}，穿过{area:317}来到山谷尽头。这里的枯木暗影猎手会掉落短刀，附近扎堆的巨魔是獠牙的主要来源。然后往{npc:2712}的方向折返，顺路击杀小屋之间的枯木巫医收集药包。小心，Witherbark Goliath（35级精英）和枯木暗影猎手都在山谷尽头活动。每次只拉一名暗影猎手，拉到远离巨怪的地方再打。",
+	["South from {area:318}, past {area:314}, through {area:317} to the far end of the valley: the Shadow Hunters there drop the knife, and the trolls packed around them give most of the tusks. Then the Witch Doctors among the huts for the pouches, on the way back out towards {npc:2712}. Careful: Witherbark Goliaths (35, elite) walk the far end with the Shadow Hunters: pull the Hunters out to you one at a time, away from the Goliaths."] = "从{area:318}向南，经过{area:314}，穿过{area:317}来到山谷尽头。这里的枯木暗影猎手会掉落短刀，附近扎堆的巨魔是獠牙的主要来源。然后往{npc:2712}的方向折返，顺路击杀小屋之间的枯木巫医收集药包。小心，枯木巨怪（35级精英）和枯木暗影猎手都在山谷尽头活动。每次只拉一名暗影猎手，拉到远离巨怪的地方再打。",
 	-- {item:5040} Shadow Hunter Knife
 	["{item:5040}; below ground"] = "{item:5040}：在地下",
 
