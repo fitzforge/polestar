@@ -75,7 +75,7 @@ return {
 	-- Step 10: Honored Amongst the Guard
 	-- {npc:13217} Thanthaldis Snowgleam · {npc:13841} Lieutenant Haggerdin
 	-- plural, as words: Sage's Cloaks = {item:6614} Sage's Cloak
-	["Honored: insignia rank 3, 100 reputation. Honored to Revered is 12000 reputation. {npc:13217} beside {npc:13841} sells the Stormpike Soldier's and Sage's Cloaks and Pendants (about 7g each), the Stormpike belts (4g74s to 7g12s) and the Major Healing and Mana Draughts (10s)."] = "우호적: 휘장 등급 3, 평판 100. 우호적에서 매우 우호적은 12,000 평판. {npc:13841} 옆의 {npc:13217}이(가) 스톰파이크 병사 및 현자의 망토와 펜던트(각 약 7골), 스톰파이크 허리띠(4골 74실~7골 12실), 일급 치유 및 마나 물약(10실)을 팝니다.",
+	["Honored: insignia rank 3, 100 reputation. Honored to Revered is 12000 reputation. {npc:13217} beside {npc:13841} sells the Stormpike Soldier's and Sage's Cloaks and Pendants (about 7g each), the Stormpike belts (4g74s to 7g12s) and the Major Healing and Mana Draughts (10s)."] = "우호적: 휘장 등급 3, 평판 100. 우호적에서 매우 우호적은 12,000 평판. {npc:13841} 옆의 {npc:13217}이(가) 스톰파이크 병사 및 현인 망토와 펜던트(각 약 7골), 스톰파이크 허리띠(4골 74실~7골 12실), 일급 치유 및 마나 물약(10실)을 팝니다.",
 	-- {npc:15351} Alliance Brigadier General
 	["{npc:15351}: 100 for 3 marks"] = "{npc:15351}: 훈장 3개에 100",
 

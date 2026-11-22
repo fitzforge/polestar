@@ -433,7 +433,7 @@ return {
 	["{area:1898} cultists"] = "{area:1898} 이교도",
 	-- {area:1898} Dustwind Gulch · {zone:1454} Orgrimmar · {item:6652} Reagent Pouch · {item:5026} Fire Tar
 	-- plural, as words: Burning Blade Cultists = {npc:3199} Burning Blade Cultist
-	["Burning Blade Cultists hold {area:1898}, east of the road north to {zone:1454}; they drop the {item:6652}. The {item:5026} comes from the Razormane on the next guide's first visit to their camp."] = "불타는 칼날단 이교도가 {zone:1454}(으)로 가는 북쪽 길 동쪽의 {area:1898}을(를) 차지하고 있으며, {item:6652}을(를) 떨어뜨립니다. {item:5026}은(는) 다음 가이드에서 서슬갈기일족 야영지에 처음 갈 때 그들에게서 얻습니다.",
+	["Burning Blade Cultists hold {area:1898}, east of the road north to {zone:1454}; they drop the {item:6652}. The {item:5026} comes from the Razormane on the next guide's first visit to their camp."] = "불타는칼날단 이교도가 {zone:1454}(으)로 가는 북쪽 길 동쪽의 {area:1898}을(를) 차지하고 있으며, {item:6652}을(를) 떨어뜨립니다. {item:5026}은(는) 다음 가이드에서 서슬갈기일족 야영지에 처음 갈 때 그들에게서 얻습니다.",
 
 	-- Step 97: To Orgrimmar
 	-- {zone:1454} Orgrimmar

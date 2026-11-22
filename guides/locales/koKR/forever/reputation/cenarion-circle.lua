@@ -36,7 +36,7 @@ return {
 	["The cultist camp west of {area:3425}"] = "{area:3425} 서쪽의 신도 야영지",
 	-- {item:20404} Encrypted Twilight Text · {npc:11804} Twilight Keeper Havunth
 	-- plural, as words: Wind Stones = {object:180461} Wind Stone
-	["The nearest Twilight's Hammer camp lies just south-west of the Hold. Avengers, Geolords and Stonecallers (level 57 to 59) each drop an {item:20404} about a third of the time, and every cultist kill is 1 reputation. {npc:11804} walks the edge of the camp. Keep every cultist robe, cowl and mantle you loot: they are the Twilight Trappings for the Wind Stones later."] = "가장 가까운 황혼의망치단 야영지는 전초기지 바로 남서쪽에 있습니다. 응징자, 지질군주, 바위소환사(57~59레벨)가 각각 약 3분의 1 확률로 {item:20404}을(를) 떨어뜨리고, 신도 처치 하나에 평판 1입니다. {npc:11804}은(는) 야영지 가장자리를 거닐니다. 전리한 신도의 로브, 두건, 어깨걸이를 모두 간수하세요: 나중의 풍경석에 쓰는 황혼 의복입니다.",
+	["The nearest Twilight's Hammer camp lies just south-west of the Hold. Avengers, Geolords and Stonecallers (level 57 to 59) each drop an {item:20404} about a third of the time, and every cultist kill is 1 reputation. {npc:11804} walks the edge of the camp. Keep every cultist robe, cowl and mantle you loot: they are the Twilight Trappings for the Wind Stones later."] = "가장 가까운 황혼의망치단 야영지는 전초기지 바로 남서쪽에 있습니다. 응징자, 지질군주, 바위소환사(57~59레벨)가 각각 약 3분의 1 확률로 {item:20404}을(를) 떨어뜨리고, 신도 처치 하나에 평판 1입니다. {npc:11804}은(는) 야영지 가장자리를 거닐니다. 전리한 신도의 로브, 두건, 어깨걸이를 모두 간수하세요: 나중의 바람의 돌에 쓰는 황혼 의복입니다.",
 
 	-- Step 5: Back to Cenarion Hold
 	-- {area:3425} Cenarion Hold
@@ -59,7 +59,7 @@ return {
 	-- Step 7: Vyral the Vile
 	-- {quest:8321} Vyral the Vile · {area:3446} Twilight's Run · {zone:1451} Silithus
 	-- plural, as words: Twilight Masters = {npc:11883} Twilight Master
-	["{quest:8321} (level 61, not elite) waits at the back of {area:3446}, the cave in the north-east of {zone:1451}. Flamereavers and Twilight Masters guard the way: the Flamereavers count until the top of Honored, the Masters stop at the top of Friendly like the other cultists."] = "{quest:8321}(61레벨, 비정예)은(는) {zone:1451} 북동쪽 동굴 {area:3446} 안쪽에서 기다립니다. 길을 불타는 약탈자와 황혼의 대가가 지킵니다: 불타는 약탈자는 우호적 정점까지 반영되고, 대가는 다른 신도처럼 약간 우호적 정점에서 멈춥니다.",
+	["{quest:8321} (level 61, not elite) waits at the back of {area:3446}, the cave in the north-east of {zone:1451}. Flamereavers and Twilight Masters guard the way: the Flamereavers count until the top of Honored, the Masters stop at the top of Friendly like the other cultists."] = "{quest:8321}(61레벨, 비정예)은(는) {zone:1451} 북동쪽 동굴 {area:3446} 안쪽에서 기다립니다. 길을 불타는 약탈자와 황혼의 장로가 지킵니다: 불타는 약탈자는 우호적 정점까지 반영되고, 장로는 다른 신도처럼 약간 우호적 정점에서 멈춥니다.",
 
 	-- Step 8: Silithus quests at Cenarion Hold
 	-- {zone:1451} Silithus · {area:3425} Cenarion Hold
@@ -78,7 +78,7 @@ return {
 	["Around {area:3425}"] = "{area:3425} 주변",
 	-- {object:180503} Sandy Cookbook
 	-- plural, as words: Stonelash Scorpids = {npc:11735} Stonelash Scorpid · Sand Skitterers = {npc:11738} Sand Skitterer · Dredge Strikers = {npc:11740} Dredge Striker
-	["Stonelash Scorpids and Sand Skitterers roam the sands around the Hold; Dredge Strikers dig north-east of it. The {object:180503} lies in the cultist camp south-west of the Hold."] = "스톤래시 전갈과 모래 스커터가 전초기지 주변 모래를 돌아다니고, 드레드 스트라이커는 그 북동쪽을 파헤칩니다. {object:180503}은(는) 전초기지 남서쪽 신도 야영지에 있습니다.",
+	["Stonelash Scorpids and Sand Skitterers roam the sands around the Hold; Dredge Strikers dig north-east of it. The {object:180503} lies in the cultist camp south-west of the Hold."] = "돌꼬리전갈과 모래그물 바위거미가 전초기지 주변 모래를 돌아다니고, 작살미늘벌레는 그 북동쪽을 파헤칩니다. {object:180503}은(는) 전초기지 남서쪽 신도 야영지에 있습니다.",
 
 	-- Step 10: Back at the Hold
 	["Back at the Hold"] = "전초기지로 돌아가기",
@@ -87,9 +87,9 @@ return {
 
 	-- Step 11: Stonelash and Dredge Crushers
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher
-	["Stonelash and Dredge Crushers"] = "스톤래시와 드레드 크러셔",
+	["Stonelash and Dredge Crushers"] = "스톤래시와 망치미늘벌레",
 	-- plural, as words: Stonelash Flayers = {npc:11737} Stonelash Flayer · Rock Stalkers = {npc:11739} Rock Stalker · Dredge Crushers = {npc:11741} Dredge Crusher
-	["Stonelash Flayers, Pincers and Rock Stalkers live south and south-west of the Hold; their stingers and fangs drop about one time in ten. Dredge Crushers dig south and west of the Hold."] = "스톤래시 플레이어, 핀서, 바위 추적자는 전초기지 남쪽과 남서쪽에 삽니다. 그들의 독침과 송곳니는 열 번에 한 번 꼴로 떨어집니다. 드레드 크러셔는 전초기지 남쪽과 서쪽을 파헤칩니다.",
+	["Stonelash Flayers, Pincers and Rock Stalkers live south and south-west of the Hold; their stingers and fangs drop about one time in ten. Dredge Crushers dig south and west of the Hold."] = "돌꼬리채찍전갈, 핀서, 긴다리 바위거미는 전초기지 남쪽과 남서쪽에 삽니다. 그들의 독침과 송곳니는 열 번에 한 번 꼴로 떨어집니다. 망치미늘벌레는 전초기지 남쪽과 서쪽을 파헤칩니다.",
 	-- {item:20452} Smoked Desert Dumplings · {object:180503} Sandy Cookbook
 	["{item:20452}, from the {object:180503}"] = "{item:20452}: {object:180503}에서",
 	-- {item:20452} Smoked Desert Dumplings · {item:20424} Sandworm Meat · {item:3713} Soothing Spices
@@ -106,7 +106,7 @@ return {
 	["The {area:3100}"] = "{area:3100}",
 	-- {zone:1451} Silithus
 	-- plural, as words: Twilight Tablet Fragments = {item:20378} Twilight Tablet Fragment
-	["The broken camp in the far north-west of {zone:1451}: the Twilight Tablet Fragments lie on the ground among the ruins."] = "{zone:1451} 먼 북서쪽의 부서진 야영지: 황혼의 서판 파편이 폐허 사이 땅 위에 있습니다.",
+	["The broken camp in the far north-west of {zone:1451}: the Twilight Tablet Fragments lie on the ground among the ruins."] = "{zone:1451} 먼 북서쪽의 부서진 야영지: 황혼의 서판 조각이 폐허 사이 땅 위에 있습니다.",
 
 	-- Step 14: Larksbane
 	["Larksbane"] = "라크스베인",
@@ -175,7 +175,7 @@ return {
 	-- Step 26: Southwind Village
 	-- {area:2738} Southwind Village · {area:3425} Cenarion Hold · {object:178553} Hive'Ashi Pod
 	-- plural, as words: Tortured Druids = {npc:12178} Tortured Druid
-	["The Tortured Druids and Sentinels roam the ruins of {area:2738}, south-east of {area:3425}; the {object:178553} sits on the top floor of its wasp-circled tower."] = "고통받은 드루이드와 감시병이 {area:3425} 남동쪽 {area:2738}의 폐허를 떠돌고, {object:178553}은(는) 말벌이 에워싼 탑 꼭대기 층에 있습니다.",
+	["The Tortured Druids and Sentinels roam the ruins of {area:2738}, south-east of {area:3425}; the {object:178553} sits on the top floor of its wasp-circled tower."] = "고통받는 드루이드와 감시병이 {area:3425} 남동쪽 {area:2738}의 폐허를 떠돌고, {object:178553}은(는) 말벌이 에워싼 탑 꼭대기 층에 있습니다.",
 
 	-- Step 27: Umber in Nighthaven
 	-- {npc:11939} Umber · {area:2361} Nighthaven
@@ -201,7 +201,7 @@ return {
 	["{quest:8507}, level 60"] = "{quest:8507}, 60레벨",
 	-- {npc:15540} Windcaller Kaldon · {area:3425} Cenarion Hold · {quest:8507} Field Duty · {npc:15440} Captain Blackanvil · {area:2743} Hive'Zora · {npc:15612} Krug Skullsplit · {area:2744} Hive'Regal · {item:20809} Tactical Assignment · {item:7936} Ornate Mithril Boots · {npc:15542} Twilight Marauder · {quest:9338} Allegiance to Cenarion Circle
 	-- plural, as words: Heavy Runecloth Bandages = {item:14530} Heavy Runecloth Bandage
-	["{npc:15540} stands by the moonwell of {area:3425}. {quest:8507} (25 reputation, repeatable) sends you with unsigned papers to your side's captain: {npc:15440}'s Ironforge Brigade outside {area:2743} (Alliance) or {npc:15612}'s Orgrimmar Legion outside {area:2744} (Horde). Use the papers first, then talk to the captain: a level 60 elite silithid attacks; keep the captain alive and he signs. Kaldon then lets you pick a Combat, Logistics or {item:20809}, each holding a random briefing worth 50 reputation and a badge: 30 hive silithid kills (elites), goods such as 30 Heavy Runecloth Bandages or 3 {item:7936}, or one Templar, {npc:15542} or scout report. One badge of each kind buys {quest:9338} at Kaldon: 200 reputation, repeatable. A full round is about 375 reputation."] = "{npc:15540}은(는) {area:3425}의 달샘 옆에 서 있습니다. {quest:8507}(평판 25, 반복 가능)이(가) 서명되지 않은 서류를 들고 진영의 대장에게 보냅니다: {area:2743} 밖 {npc:15440}의 스톰윈드 여단(얼라이언스) 또는 {area:2744} 밖 {npc:15612}의 오그리마 군단(호드). 먼저 서류를 사용한 뒤 대장에게 말을 거세요: 60레벨 정예 실리시드가 공격하고, 대장을 살려 두면 서명합니다. 이어서 칼던이 전투, 보급, 또는 {item:20809} 중 하나를 고르게 하고, 각각 무작위 브리핑 50 평판과 배지가 들어 있습니다: 우리 실리시드 30 처치(정예), 두꺼운 룬천 붕대 30개나 {item:7936} 3개 같은 물자, 또는 기사, {npc:15542}, 정찰 보고서 하나. 각 종류 배지 하나씩이 칼던에게 {quest:9338}을(를) 사 줍니다: 평판 200, 반복 가능. 한 바퀴면 약 375 평판입니다.",
+	["{npc:15540} stands by the moonwell of {area:3425}. {quest:8507} (25 reputation, repeatable) sends you with unsigned papers to your side's captain: {npc:15440}'s Ironforge Brigade outside {area:2743} (Alliance) or {npc:15612}'s Orgrimmar Legion outside {area:2744} (Horde). Use the papers first, then talk to the captain: a level 60 elite silithid attacks; keep the captain alive and he signs. Kaldon then lets you pick a Combat, Logistics or {item:20809}, each holding a random briefing worth 50 reputation and a badge: 30 hive silithid kills (elites), goods such as 30 Heavy Runecloth Bandages or 3 {item:7936}, or one Templar, {npc:15542} or scout report. One badge of each kind buys {quest:9338} at Kaldon: 200 reputation, repeatable. A full round is about 375 reputation."] = "{npc:15540}은(는) {area:3425}의 달샘 옆에 서 있습니다. {quest:8507}(평판 25, 반복 가능)이(가) 서명되지 않은 서류를 들고 진영의 대장에게 보냅니다: {area:2743} 밖 {npc:15440}의 스톰윈드 여단(얼라이언스) 또는 {area:2744} 밖 {npc:15612}의 오그리마 군단(호드). 먼저 서류를 사용한 뒤 대장에게 말을 거세요: 60레벨 정예 실리시드가 공격하고, 대장을 살려 두면 서명합니다. 이어서 칼던이 전투, 보급, 또는 {item:20809} 중 하나를 고르게 하고, 각각 무작위 브리핑 50 평판과 배지가 들어 있습니다: 우리 실리시드 30 처치(정예), 두꺼운 룬매듭 붕대 30개나 {item:7936} 3개 같은 물자, 또는 기사, {npc:15542}, 정찰 보고서 하나. 각 종류 배지 하나씩이 칼던에게 {quest:9338}을(를) 사 줍니다: 평판 200, 반복 가능. 한 바퀴면 약 375 평판입니다.",
 	["Allegiance: one Combat, Logistics and Tactical badge, 200"] = "충성: 전투, 보급, 전술 배지 하나씩, 200",
 	-- {quest:8800} Cenarion Battlegear · {npc:15176} Vargus
 	["{quest:8800}: {npc:15176}'s badge gear"] = "{quest:8800}: {npc:15176}의 배지 장비",
@@ -229,7 +229,7 @@ return {
 	["Signets and scepters to Exalted"] = "인장과 왕홀로 확고한 동맹까지",
 	-- {quest:8363} Abyssal Signets · {npc:15282} Aurel Goldleaf · {item:20515} Abyssal Scepter · {quest:9248} A Humble Offering · {quest:8343} Goldleaf's Discovery · {quest:8341} Lords of the Council · {object:180466} Greater Wind Stone · {item:22252} Satchel of Cenarius · {item:22660} Gaea's Embrace · {item:22756} Sylvan Vest · {npc:15176} Vargus
 	-- plural, as words: Large Brilliant Shards = {item:14344} Large Brilliant Shard
-	["Revered to Exalted is 21,000 reputation: 210 text turn-ins (2,100 texts), or less with the rest. From Honored, Bor takes 3 {quest:8363} for 100 (each Duke also gives 25, to Exalted), and {npc:15282} takes one {item:20515} for {quest:9248} (200, once). From Revered, {quest:8343} leads to {quest:8341}: 3 signets and 5 Large Brilliant Shards buy the Ring of Lordship, and set, medallion and ring open the {object:180466} for an Abyssal Lord: a level 63 boss for a raid of about 20, 50 reputation, and an {item:20515}. Bor pays 200 for the first scepter and 150 for each 3 after. Revered opens Mishta's {item:22252} (5g), {item:22660} (9g) and {item:22756} (5g); Exalted is the standing for Champion's Battlegear at {npc:15176}."] = "매우 우호적에서 확고한 동맹은 평판 21,000입니다: 서류 210번(2,100개), 나머지를 쓰면 더 적게. 우호적부터 보르가 {quest:8363} 3개를 100에 받고(각 공작도 확고한 동맹까지 25를 주며), {npc:15282}이(가) {item:20515} 하나를 {quest:9248}에 받습니다(200, 한 번). 매우 우호적부터 {quest:8343}이(가) {quest:8341}(으)로 이어집니다: 인장 3개와 큰 빛나는 파편 5개가 지배의 인장을 사 주고, 세트, 메달, 반지가 심연의 군주(약 20인 레이드용 63레벨 우두머리, 평판 50, {item:20515})를 위해 {object:180466}을(를) 엽니다. 보르는 첫 왕홀에 200, 이후 3개마다 150을 줍니다. 매우 우호적은 미슈타의 {item:22252}(5골), {item:22660}(9골), {item:22756}(5골)을 열고, 확고한 동맹은 {npc:15176}의 챔피언 전투복 등급입니다.",
+	["Revered to Exalted is 21,000 reputation: 210 text turn-ins (2,100 texts), or less with the rest. From Honored, Bor takes 3 {quest:8363} for 100 (each Duke also gives 25, to Exalted), and {npc:15282} takes one {item:20515} for {quest:9248} (200, once). From Revered, {quest:8343} leads to {quest:8341}: 3 signets and 5 Large Brilliant Shards buy the Ring of Lordship, and set, medallion and ring open the {object:180466} for an Abyssal Lord: a level 63 boss for a raid of about 20, 50 reputation, and an {item:20515}. Bor pays 200 for the first scepter and 150 for each 3 after. Revered opens Mishta's {item:22252} (5g), {item:22660} (9g) and {item:22756} (5g); Exalted is the standing for Champion's Battlegear at {npc:15176}."] = "매우 우호적에서 확고한 동맹은 평판 21,000입니다: 서류 210번(2,100개), 나머지를 쓰면 더 적게. 우호적부터 보르가 {quest:8363} 3개를 100에 받고(각 공작도 확고한 동맹까지 25를 주며), {npc:15282}이(가) {item:20515} 하나를 {quest:9248}에 받습니다(200, 한 번). 매우 우호적부터 {quest:8343}이(가) {quest:8341}(으)로 이어집니다: 인장 3개와 눈부신 큰 결정 5개가 지배의 인장을 사 주고, 세트, 메달, 반지가 심연의 군주(약 20인 레이드용 63레벨 우두머리, 평판 50, {item:20515})를 위해 {object:180466}을(를) 엽니다. 보르는 첫 왕홀에 200, 이후 3개마다 150을 줍니다. 매우 우호적은 미슈타의 {item:22252}(5골), {item:22660}(9골), {item:22756}(5골)을 열고, 확고한 동맹은 {npc:15176}의 챔피언 전투복 등급입니다.",
 	["10 texts: 100"] = "서류 10개: 100",
 	-- {quest:8363} Abyssal Signets
 	["3 {quest:8363}: 100, Honored"] = "{quest:8363} 3개: 100, 우호적",
@@ -238,7 +238,7 @@ return {
 	-- {npc:15270} Huum Wildmane
 	["{npc:15270}, Revered"] = "{npc:15270}, 매우 우호적",
 	-- plural, as words: Large Brilliant Shards = {item:14344} Large Brilliant Shard
-	["3 signets and 5 Large Brilliant Shards: the Ring of Lordship"] = "인장 3개와 큰 빛나는 파편 5개: 지배의 인장",
+	["3 signets and 5 Large Brilliant Shards: the Ring of Lordship"] = "인장 3개와 눈부신 큰 결정 5개: 지배의 인장",
 	-- {quest:8364} Abyssal Scepters
 	["3 {quest:8364}: 150, Revered"] = "{quest:8364} 3개: 150, 매우 우호적",
 

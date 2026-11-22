@@ -81,7 +81,7 @@ return {
 	-- Step 11: Night Web's Hollow
 	-- {npc:271961} Webbed Forsaken
 	-- plural, as words: Young Night Web Spiders = {npc:1504} Young Night Web Spider · Night Web Spiders = {npc:1505} Night Web Spider
-	["Head west to the cave. The Young Night Web Spiders sit outside; the Night Web Spiders and the cocooned {npc:271961} are inside.\nCareful: A low-level character can die quickly if it pulls several Night Web Spiders in the cave at the same time."] = "서쪽으로 가 동굴로 들어가세요. 어린 밤그물 거미는 바깥에 앉아 있고, 밤그물 거미와 명에 싸인 {npc:271961}은(는) 안에 있습니다.\n주의: 저레벨 캐릭터가 동굴에서 밤그물 거미 여러 마리를 동시에 끌어당기면 빨리 죽을 수 있습니다.",
+	["Head west to the cave. The Young Night Web Spiders sit outside; the Night Web Spiders and the cocooned {npc:271961} are inside.\nCareful: A low-level character can die quickly if it pulls several Night Web Spiders in the cave at the same time."] = "서쪽으로 가 동굴로 들어가세요. 새끼 검은그물거미는 바깥에 앉아 있고, 검은그물거미와 명에 싸인 {npc:271961}은(는) 안에 있습니다.\n주의: 저레벨 캐릭터가 동굴에서 검은그물거미 여러 마리를 동시에 끌어당기면 빨리 죽을 수 있습니다.",
 	["Below ground"] = "지하",
 	["attack the cocoons inside the cave to free them; below ground"] = "동굴 안의 고치를 공격해 그들을 풀어 주세요; 지하",
 	-- {npc:271961} Webbed Forsaken
@@ -295,7 +295,7 @@ return {
 	["{area:166}: kill these as you meet them"] = "{area:166}: 만나는 대로 처치하세요",
 	-- {npc:1525} Rotting Dead · {area:159} Brill · {npc:10666} Gordo · {npc:3549} Shelene Rhobart
 	-- plural, as words: Ravaged Corpses = {npc:1526} Ravaged Corpse · Decrepit Darkhounds = {npc:1547} Decrepit Darkhound
-	["{npc:1525} and Ravaged Corpses shamble through the fields just west of {area:159}; Decrepit Darkhounds roam there and on west along the road toward {npc:10666}. Johaan wants their blood, {npc:3549} their hides."] = "{npc:1525}과(와) 파괴된 시체가 {area:159} 바로 서쪽 들판을 비틀거리며 돌아다니고, 너덜너덜한 어둠개가 그곳과 도로를 따라 서쪽 {npc:10666} 쪽까지 떠돕니다. 조안은 그 피를, {npc:3549}는 가죽을 원합니다.",
+	["{npc:1525} and Ravaged Corpses shamble through the fields just west of {area:159}; Decrepit Darkhounds roam there and on west along the road toward {npc:10666}. Johaan wants their blood, {npc:3549} their hides."] = "{npc:1525}과(와) 심하게 훼손된 시체가 {area:159} 바로 서쪽 들판을 비틀거리며 돌아다니고, 광포한 암흑사냥개가 그곳과 도로를 따라 서쪽 {npc:10666} 쪽까지 떠돕니다. 조안은 그 피를, {npc:3549}는 가죽을 원합니다.",
 
 	-- Step 54: Bowen Brisboise
 	-- {npc:3523} Bowen Brisboise · {area:159} Brill · {quest:97961} Camping 101: Tailoring

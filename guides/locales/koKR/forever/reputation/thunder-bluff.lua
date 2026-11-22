@@ -41,7 +41,7 @@ return {
 	["{npc:2982} and the cougars"] = "{npc:2982}와(과) 쿠거",
 	-- {npc:2982} Seer Graytongue
 	-- plural, as words: Mountain Cougars = {npc:2961} Mountain Cougar
-	["{npc:2982} sits on the hill south of the camp; the Mountain Cougars live in those hills."] = "{npc:2982}은(는) 야영지 남쪽 언덕에 앉아 있고, 산악 쿠거는 그 언덕에 삽니다.",
+	["{npc:2982} sits on the hill south of the camp; the Mountain Cougars live in those hills."] = "{npc:2982}은(는) 야영지 남쪽 언덕에 앉아 있고, 산지퓨마는 그 언덕에 삽니다.",
 
 	-- Step 6: Camp Narache: the Battleboars
 	-- {area:221} Camp Narache

@@ -62,11 +62,11 @@ return {
 	-- plural, as words: Raptor Heads = {item:5062} Raptor Head
 	["Raptor Heads as you go"] = "랩터 머리: 가는 길에",
 	-- plural, as words: Sunscale Screechers = {npc:3255} Sunscale Screecher
-	["Sunscale raptors roam the plains north and east of the Crossroads, and about three in four drop a head: kill the ones you pass on the way. Careful: Sunscale Screechers call nearby allies within 30 yd once below 30% health."] = "태양비늘 랩터는 크로스로드 북쪽과 동쪽 평원을 돌아다니며, 4마리 중 약 3마리가 머리를 떨어뜨립니다: 가는 길에 지나치는 것들을 처치하세요. 주의: 태양비늘 비명지음이는 체력이 30% 아래로 내려가면 30미터 내의 아군을 부릅니다.",
+	["Sunscale raptors roam the plains north and east of the Crossroads, and about three in four drop a head: kill the ones you pass on the way. Careful: Sunscale Screechers call nearby allies within 30 yd once below 30% health."] = "태양비늘 랩터는 크로스로드 북쪽과 동쪽 평원을 돌아다니며, 4마리 중 약 3마리가 머리를 떨어뜨립니다: 가는 길에 지나치는 것들을 처치하세요. 주의: 긴송곳니 열대초원랩터는 체력이 30% 아래로 내려가면 30미터 내의 아군을 부릅니다.",
 
 	-- Step 15: Plainstrider Beaks as you go
 	-- plural, as words: Plainstrider Beaks = {item:5087} Plainstrider Beak
-	["Plainstrider Beaks as you go"] = "평원타조 부리: 가는 길에",
+	["Plainstrider Beaks as you go"] = "초원타조 부리: 가는 길에",
 	-- {zone:1413} The Barrens
 	["Plainstriders roam the plains all over the {zone:1413}, and about one in four drops a beak: kill the ones you pass on the way."] = "평원타조는 {zone:1413} 전역의 평원을 돌아다니며, 4마리 중 약 1마리가 부리를 떨어뜨립니다: 가는 길에 지나치는 것들을 처치하세요.",
 
@@ -76,7 +76,7 @@ return {
 
 	-- Step 17: Finish the Plainstrider Beaks
 	-- plural, as words: Plainstrider Beaks = {item:5087} Plainstrider Beak
-	["Finish the Plainstrider Beaks"] = "평원타조 부리 마저 모으기",
+	["Finish the Plainstrider Beaks"] = "초원타조 부리 마저 모으기",
 	["Still short of seven? Plainstriders are thickest on the plains north of the Crossroads, along the road north."] = "아직 7개가 부족하다면 크로스로드 북쪽 평원, 북쪽 도로변에 가장 많습니다.",
 
 	-- Step 19: The Zhevra
@@ -169,7 +169,7 @@ return {
 	-- Step 35: Harpy Lieutenants
 	-- {area:383} Dry Hills
 	-- plural, as words: Witchwing Slayers = {npc:3278} Witchwing Slayer
-	["North-west to the {area:383}: the Witchwing Slayers hold their western end; they wear the rings.\nCareful: Some stealthed harpy ambushers wait in the area and stay hidden until you get close. A level 19 elite harpy also patrols there."] = "북서쪽 {area:383}으로: 칼날바람일족 학살자가 서쪽 끝을 지키고 있으며 반지를 끼고 있습니다.\n주의: 일부 은신한 하피 매복자가 지역에 숨어 있다가 가까이 가야 드러납니다. 19레벨 정예 하피도 순찰합니다.",
+	["North-west to the {area:383}: the Witchwing Slayers hold their western end; they wear the rings.\nCareful: Some stealthed harpy ambushers wait in the area and stay hidden until you get close. A level 19 elite harpy also patrols there."] = "북서쪽 {area:383}으로: 칼날바람일족 암살자가 서쪽 끝을 지키고 있으며 반지를 끼고 있습니다.\n주의: 일부 은신한 하피 매복자가 지역에 숨어 있다가 가까이 가야 드러납니다. 19레벨 정예 하피도 순찰합니다.",
 
 	-- Step 37: Vrang Wildgore
 	-- {quest:881} Echeyakee · {npc:3682} Vrang Wildgore
@@ -179,7 +179,7 @@ return {
 	["Savannah lions"] = "사바나 사자",
 	-- {npc:3682} Vrang Wildgore
 	-- plural, as words: Savannah Patriarchs = {npc:3241} Savannah Patriarch · Sprung Traps = {object:640104} Sprung Trap
-	["Savannah Patriarchs roam the plains east of {npc:3682}'s camp, and the Sprung Traps lie among them."] = "사바나 우두머리는 {npc:3682} 야영지 동쪽 평원을 돌아다니고, 발동 덫은 그들 사이에 있습니다.",
+	["Savannah Patriarchs roam the plains east of {npc:3682}'s camp, and the Sprung Traps lie among them."] = "우두머리 사바나 사자는 {npc:3682} 야영지 동쪽 평원을 돌아다니고, 용수철 덫은 그들 사이에 있습니다.",
 
 	-- Step 39: Vrang Wildgore
 	-- {npc:261366} Walton · {npc:3682} Vrang Wildgore · {area:383} Dry Hills · {npc:3452} Serena Bloodfeather
@@ -194,7 +194,7 @@ return {
 	["Finish the Raptor Heads"] = "랩터 머리 마저 모으기",
 	-- {quest:881} Echeyakee
 	-- plural, as words: Sunscale Lashtails = {npc:3254} Sunscale Lashtail
-	["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "아직 12개가 부족하다면 태양비늘 꼬리채찍이와 비명지음이가 크로스로드 북동쪽 평원, {quest:881} 둥지에서 남쪽으로 돌아오는 길에 있습니다.",
+	["Still short of twelve? Sunscale Lashtails and Screechers roam the plains north-east of the Crossroads, on the way back south from {quest:881}'s lair."] = "아직 12개가 부족하다면 채찍꼬리 열대초원랩터와 긴송곳니 열대초원랩터가 크로스로드 북동쪽 평원, {quest:881} 둥지에서 남쪽으로 돌아오는 길에 있습니다.",
 
 	-- Step 42: The Crossroads
 	-- {npc:3464} Gazrog · {npc:3338} Sergra Darkthorn · {npc:3449} Darsok Swiftdagger · {npc:3429} Thork
@@ -223,7 +223,7 @@ return {
 	-- Step 45: Trial of the Lake
 	-- {npc:11802} Dendrite Starblaze · {area:2361} Nighthaven · {area:656} Lake Elune'ara · {area:2362} Shrine of Remulos · {npc:11799} Tajarri · {quest:28} Trial of the Lake
 	-- plural, as words: Shrine Baubles = {item:15877} Shrine Bauble
-	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. The Shrine Baubles lie on the bed of {area:656} and fade within minutes: swim one straight to the {area:2362} on the north-west shore, use it there and speak to {npc:11799}. {quest:28} runs on a timer: no teleport or Hearthstone until {npc:11799} has it."] = "{npc:11802}은(는) {area:2361}에 있는 자기 건물 위층에 서 있습니다. 건물 안에서 올라가세요. 화살표는 층을 구분하지 못합니다. 성소 장신구는 {area:656} 바닥에 있고 몇 분 안에 사라집니다: 수영해서 북서쪽 기슭의 {area:2362}로 곧장 가 거기서 사용하고 {npc:11799}에게 말을 거세요. {quest:28}은(는) 제한 시간이 있습니다: {npc:11799}이(가) 받기 전에는 순간이동이나 귀환석을 쓰지 마세요.",
+	["{npc:11802} stands upstairs in his building in {area:2361}: go up inside, the arrow cannot tell the floors apart. The Shrine Baubles lie on the bed of {area:656} and fade within minutes: swim one straight to the {area:2362} on the north-west shore, use it there and speak to {npc:11799}. {quest:28} runs on a timer: no teleport or Hearthstone until {npc:11799} has it."] = "{npc:11802}은(는) {area:2361}에 있는 자기 건물 위층에 서 있습니다. 건물 안에서 올라가세요. 화살표는 층을 구분하지 못합니다. 제단 구슬는 {area:656} 바닥에 있고 몇 분 안에 사라집니다: 수영해서 북서쪽 기슭의 {area:2362}로 곧장 가 거기서 사용하고 {npc:11799}에게 말을 거세요. {quest:28}은(는) 제한 시간이 있습니다: {npc:11799}이(가) 받기 전에는 순간이동이나 귀환석을 쓰지 마세요.",
 	-- {quest:6127} The Principal Source · {area:384} Dreadmist Peak
 	["{quest:6127}: {area:384}, next guide"] = "{quest:6127}: {area:384}, 다음 가이드",
 	-- {item:15877} Shrine Bauble · {object:177785} Bauble Container
@@ -301,14 +301,14 @@ return {
 	["Kolkar camp"] = "콜카르일족 야영지",
 	-- {npc:3389} Regthar Deathgate · {item:2449} Earthroot
 	-- plural, as words: Lost Barrens Kodos = {npc:3234} Lost Barrens Kodo
-	["Lost Barrens Kodos roam the plains around the Kolkar camp north-west of {npc:3389}; herbalists pick {item:2449} there too."] = "잃어버린 바렌 코도는 {npc:3389} 북서쪽 콜카르 야영지 주변 평원을 돌아다니고, 약초채집가도 그곳에서 {item:2449}을(를) 채집합니다.",
+	["Lost Barrens Kodos roam the plains around the Kolkar camp north-west of {npc:3389}; herbalists pick {item:2449} there too."] = "길잃은 황무지 코도는 {npc:3389} 북서쪽 콜카르 야영지 주변 평원을 돌아다니고, 약초채집가도 그곳에서 {item:2449}을(를) 채집합니다.",
 
 	-- Step 64: The Barrens: kill these as you meet them
 	-- {area:383} Dry Hills · {quest:876} Serena Bloodfeather
 	["North to the {area:383}: {quest:876} leads the Witchwing harpies in the hills to the west.\nCareful: The route in passes stealthed Harpy Ambushers and an elite harpy that patrols."] = "북쪽 {area:383}으로: {quest:876}이(가) 서쪽 언덕의 칼날바람일족 하피를 이끕니다.\n주의: 오는 길에 은신한 하피 매복자와 순찰하는 정예 하피가 있습니다.",
 	-- {quest:865} Raptor Horns · {npc:3682} Vrang Wildgore
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
-	["{quest:865}, if still open: Sunscale Scytheclaws prowl among the lions below {npc:3682}'s camp"] = "{quest:865}, 아직 열려 있다면: 태양비늘 낫부리는 {npc:3682} 야영지 아래 사자들 사이를 배회합니다",
+	["{quest:865}, if still open: Sunscale Scytheclaws prowl among the lions below {npc:3682}'s camp"] = "{quest:865}, 아직 열려 있다면: 갈퀴발톱 열대초원랩터는 {npc:3682} 야영지 아래 사자들 사이를 배회합니다",
 
 	-- Step 65: Walton
 	-- {npc:261366} Walton · {npc:3682} Vrang Wildgore
@@ -508,7 +508,7 @@ return {
 	["{quest:882}, a big Sunscale raptor, only comes to a fresh kill: loot a {item:10338} from a zhevra, then use it at the {object:147538} north-west of {area:392}, north of the road to the Crossroads, and be ready when he arrives."] = "{quest:882}, 커다란 태양비늘 랩터는 신선한 사체에만 나타납니다: 제브라에게 {item:10338}을(를) 루팅한 뒤 {area:392} 북서쪽, 크로스로드로 가는 도로 북쪽의 {object:147538}에서 사용하고, 그가 올 때 대비하세요.",
 	-- {item:10338} Fresh Zhevra Carcass
 	-- plural, as words: Zhevra Chargers = {npc:3426} Zhevra Charger
-	["{item:10338}, from any zhevra; Zhevra Chargers graze around the tree"] = "{item:10338}, 제브라 누구에게서나; 제브라 돌격이는 그 나무 주변에서 풀을 뜯습니다",
+	["{item:10338}, from any zhevra; Zhevra Chargers graze around the tree"] = "{item:10338}, 제브라 누구에게서나; 사나운 얼룩말는 그 나무 주변에서 풀을 뜯습니다",
 	-- {object:147538} Dead Tree (no name in this language: may be words) · {quest:882} Ishamuhale
 	["At the {object:147538}: summons {quest:882}"] = "{object:147538}에서: {quest:882}을(를) 소환",
 
@@ -547,7 +547,7 @@ return {
 	-- Step 123: Olgra's Adornments
 	-- {area:458} Gold Road · {area:378} Camp Taurajo · {item:277277} Olgra's Adornments · {npc:3432} Mankrik
 	-- plural, as words: Razormane Raiders = {npc:268624} Razormane Raider
-	["On the way back down the {area:458} to {area:378}: the Razormane Raiders among the Bristleback camps, either side of the road north of the camp, carry {item:277277}. Hand them to {npc:3432} on your last Crossroads stop."] = "{area:458}을(를) 따라 {area:378}로 남하하는 길에: 야영지 북쪽 도로 양쪽의 가시덤불 야영지에 있는 서슬갈기일족 약탈자가 {item:277277}을(를) 지니고 있습니다. 마지막 크로스로드 정류에서 {npc:3432}에게 전하세요.",
+	["On the way back down the {area:458} to {area:378}: the Razormane Raiders among the Bristleback camps, either side of the road north of the camp, carry {item:277277}. Hand them to {npc:3432} on your last Crossroads stop."] = "{area:458}을(를) 따라 {area:378}로 남하하는 길에: 야영지 북쪽 도로 양쪽의 가시덤불 야영지에 있는 서슬갈기 침략자가 {item:277277}을(를) 지니고 있습니다. 마지막 크로스로드 정류에서 {npc:3432}에게 전하세요.",
 
 	-- Step 124: Camp Taurajo
 	-- {area:458} Gold Road · {area:378} Camp Taurajo
@@ -651,7 +651,7 @@ return {
 	["{area:1076}: kill these as you meet them"] = "{area:1076}: 만나는 대로 처치하세요",
 	-- {area:2539} Malaka'jin · {npc:11858} Grundig Darkcloud
 	-- plural, as words: Grimtotem Brutes = {npc:11912} Grimtotem Brute · Deepmoss Creepers = {npc:4005} Deepmoss Creeper
-	["North up the road from {area:2539}: {npc:11858} and his Grimtotem Brutes hold the bend in the road, and the Deepmoss Creepers and Venomspitters lurk in the webs on both sides of the path all the way up."] = "{area:2539}에서 도로를 따라 북쪽으로: {npc:11858}과(와) 그의 그림토템부족 광신자가 도로의 굴곡을 지키고, 심해이끼 기어다니개와 독침거미가 길 양쪽 거미줄에 계속 숨어 있습니다.",
+	["North up the road from {area:2539}: {npc:11858} and his Grimtotem Brutes hold the bend in the road, and the Deepmoss Creepers and Venomspitters lurk in the webs on both sides of the path all the way up."] = "{area:2539}에서 도로를 따라 북쪽으로: {npc:11858}과(와) 그의 그림토템부족 투사가 도로의 굴곡을 지키고, 동굴이끼 땅거미와 독침거미가 길 양쪽 거미줄에 계속 숨어 있습니다.",
 
 	-- Step 145: Ziz Fizziks
 	-- {area:1076} Webwinder Path · {quest:1483} Ziz Fizziks · {area:461} Windshear Crag

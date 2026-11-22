@@ -80,7 +80,7 @@ return {
 	["{area:157} again"] = "다시 {area:157}",
 	-- {area:157} Agamand Mills
 	-- plural, as words: Darkeye Bonecasters = {npc:1522} Darkeye Bonecaster
-	["The skeletons of {area:157} drop the ribs; the Darkeye Bonecasters the skulls."] = "{area:157}의 해골이 갈비뼈를 떨어뜨리고, 어둠눈 뼈마법사가 두개골을 떨어뜨립니다.",
+	["The skeletons of {area:157} drop the ribs; the Darkeye Bonecasters the skulls."] = "{area:157}의 해골이 갈비뼈를 떨어뜨리고, 검은눈 해골마법사가 두개골을 떨어뜨립니다.",
 
 	-- Step 13: Ralston Farnsley: A Donation of Wool
 	-- {npc:14729} Ralston Farnsley · {item:14047} Runecloth · {quest:7819} Additional Runecloth
@@ -179,7 +179,7 @@ return {
 	["Plaguebats, {area:2276} and {area:2264}"] = "역병박쥐, {area:2276}, {area:2264}",
 	-- {area:2276} Quel'Lithien Lodge · {area:2268} Light's Hope Chapel · {item:15847} Quel'Thalas Registry · {area:2264} Corin's Crossing · {item:15447} Living Rot · {item:15454} Mortar and Pestle · {item:15448} Coagulated Rot
 	-- plural, as words: Noxious Plaguebats = {npc:8601} Noxious Plaguebat · Monstrous Plaguebats = {npc:8602} Monstrous Plaguebat
-	["The Noxious Plaguebats fly in the south of the zone, the Monstrous Plaguebats further north-west. {area:2276} is north-west of {area:2268}; the {item:15847} lies inside. Do {area:2264} last: its Scourge drop {item:15447}, which lasts only 10 minutes. With 7 in your bags, use the {item:15454} at once for the {item:15448}."] = "맹독 역병박쥐는 지역 남부를 날고, 괴물 역병박쥐는 더 북서쪽을 돕니다. {area:2276}은(는) {area:2268} 북서쪽에 있고 {item:15847}이(가) 안에 있습니다. {area:2264}는 마지막에 하세요. 그곳의 스컬지가 {item:15447}을(를) 떨어뜨리는데 10분만 지속됩니다. 가방에 7개를 넣고 {item:15454}를 즉시 사용해 {item:15448}을(를) 만드세요.",
+	["The Noxious Plaguebats fly in the south of the zone, the Monstrous Plaguebats further north-west. {area:2276} is north-west of {area:2268}; the {item:15847} lies inside. Do {area:2264} last: its Scourge drop {item:15447}, which lasts only 10 minutes. With 7 in your bags, use the {item:15454} at once for the {item:15448}."] = "맹독 역병박쥐는 지역 남부를 날고, 기괴한 역병박쥐는 더 북서쪽을 돕니다. {area:2276}은(는) {area:2268} 북서쪽에 있고 {item:15847}이(가) 안에 있습니다. {area:2264}는 마지막에 하세요. 그곳의 스컬지가 {item:15447}을(를) 떨어뜨리는데 10분만 지속됩니다. 가방에 7개를 넣고 {item:15454}를 즉시 사용해 {item:15448}을(를) 만드세요.",
 	-- {item:15448} Coagulated Rot · {item:15447} Living Rot · {item:15454} Mortar and Pestle
 	["{item:15448}: 7 {item:15447} and the {item:15454}"] = "{item:15448}: {item:15447} 7개와 {item:15454}",
 
@@ -206,10 +206,10 @@ return {
 	["{area:353}: an {quest:2934}"] = "{area:353}: {quest:2934}",
 	-- {area:353} Shadra'Alor · {zone:1425} Hinterlands
 	-- plural, as words: Witherbark Broodguards = {npc:2686} Witherbark Broodguard
-	["The Witherbark Broodguards crawl around {area:353} in the south-west of the {zone:1425}; about one in ten carries an undamaged sac."] = "마른나무껍질 혈투사가 {zone:1425} 남서쪽 {area:353} 주변을 기어다니는데, 열 마리 중 한 마리가 무사한 독주머니를 지니고 있습니다.",
+	["The Witherbark Broodguards crawl around {area:353} in the south-west of the {zone:1425}; about one in ten carries an undamaged sac."] = "마른나무껍질부족 혈거미가 {zone:1425} 남서쪽 {area:353} 주변을 기어다니는데, 열 마리 중 한 마리가 무사한 독주머니를 지니고 있습니다.",
 	-- {quest:2934} Undamaged Venom Sac
 	-- plural, as words: Witherbark Broodguards = {npc:2686} Witherbark Broodguard
-	["{quest:2934}, from Witherbark Broodguards"] = "{quest:2934}, 마른나무껍질 혈투사에게서",
+	["{quest:2934}, from Witherbark Broodguards"] = "{quest:2934}, 마른나무껍질부족 혈거미에게서",
 
 	-- Step 35: Tarren Mill, then Sen'jin Village
 	-- {area:272} Tarren Mill · {area:367} Sen'jin Village

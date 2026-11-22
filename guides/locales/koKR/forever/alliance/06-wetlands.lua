@@ -84,7 +84,7 @@ return {
 	["{area:1039}: kill these as you meet them"] = "{area:1039}: 만나는 대로 처치하세요",
 	-- {npc:1159} First Mate Snellig
 	-- plural, as words: Cursed Sailors = {npc:1157} Cursed Sailor · Cursed Marines = {npc:1158} Cursed Marine · Giant Wetlands Crocolisks = {npc:2089} Giant Wetlands Crocolisk · Fen Creepers = {npc:1040} Fen Creeper
-	["Follow the coast north to the wrecked ship. Cursed Sailors walk the beach, Cursed Marines the deck; {npc:1159} stands on the beach by the bow. Giant Wetlands Crocolisks lurk on the coast just north of it.\nCareful: Fen Creepers hide in stealth where the river splits close to the ghost ship, and they can join a fight."] = "해안을 따라 북쪽으로 가서 난파선으로 가세요. 저주받은 선원은 해변을, 저주받은 해병은 갑판을 걷고, {npc:1159}은(는) 선수쪽 해변에 서 있습니다. 거대한 습지 악어는 그 바로 북쪽 해안에 숨어 있습니다.\n주의: 수렁 덩굴은 유령선 근처 강이 갈라지는 곳에 은신해 있고, 전투에 가담할 수 있습니다.",
+	["Follow the coast north to the wrecked ship. Cursed Sailors walk the beach, Cursed Marines the deck; {npc:1159} stands on the beach by the bow. Giant Wetlands Crocolisks lurk on the coast just north of it.\nCareful: Fen Creepers hide in stealth where the river splits close to the ghost ship, and they can join a fight."] = "해안을 따라 북쪽으로 가서 난파선으로 가세요. 저주받은 선원은 해변을, 저주받은 해병은 갑판을 걷고, {npc:1159}은(는) 선수쪽 해변에 서 있습니다. 거대한 습지 악어는 그 바로 북쪽 해안에 숨어 있습니다.\n주의: 수렁이끼괴물은 유령선 근처 강이 갈라지는 곳에 은신해 있고, 전투에 가담할 수 있습니다.",
 	-- {npc:1158} Cursed Marine · {npc:270589} Nightveiled Rotheap
 	["{npc:1158}; careful: {npc:270589}, a level 31 elite, roams this coast"] = "{npc:1158}; 주의: 31레벨 정예 {npc:270589}이(가) 이 해안을 돌아다닙니다",
 
@@ -151,7 +151,7 @@ return {
 	["Mosshide gnolls"] = "이끼가죽 놀",
 	-- {quest:277} Fire Taboo · {item:2611} Crude Flint · {area:309} Ironbeard's Tomb · {area:1025} Green Belt · {npc:1244} Rethiel the Greenwarden
 	-- plural, as words: Mosshide Fenrunners = {npc:1010} Mosshide Fenrunner · Maddened Rotclaws = {npc:271334} Maddened Rotclaw · Mosshide Brutes = {npc:1012} Mosshide Brute
-	["{quest:277} is still short of its nine {item:2611}: the Mosshide Fenrunners and Trappers (22-24) along the river north-west of the Angerfang camp, south-west of {area:309}, drop them. Almost every one carries some.\nCareful: Maddened Rotclaws (25-26) roam the {area:1025} around {npc:1244}; Mosshide Brutes, Mystics and Alphas (24-27) hold the hills north-west of the Fenrunners' camp."] = "{quest:277}에 {item:2611} 아홉 개가 모자랍니다: 이끼가죽 수렁달리기와 덫사냥꾼(22-24)이 분노송곳니 야영지 북서쪽, {area:309} 남서쪽 강가에 있으며 그것을 떨어뜨립니다. 거의 모두가 지니고 있습니다.\n주의: 광포한 부패발톱(25-26)이 {npc:1244} 주변 {area:1025}를 배회하고, 이끼가죽 덩치, 비술사, 우두머리(24-27)가 수렁달리기 야영지 북서쪽 언덕을 지킵니다.",
+	["{quest:277} is still short of its nine {item:2611}: the Mosshide Fenrunners and Trappers (22-24) along the river north-west of the Angerfang camp, south-west of {area:309}, drop them. Almost every one carries some.\nCareful: Maddened Rotclaws (25-26) roam the {area:1025} around {npc:1244}; Mosshide Brutes, Mystics and Alphas (24-27) hold the hills north-west of the Fenrunners' camp."] = "{quest:277}에 {item:2611} 아홉 개가 모자랍니다: 이끼가죽일족 길잡이와 덫사냥꾼(22-24)이 분노송곳니 야영지 북서쪽, {area:309} 남서쪽 강가에 있으며 그것을 떨어뜨립니다. 거의 모두가 지니고 있습니다.\n주의: 광기에 물든 썩은발톱(25-26)이 {npc:1244} 주변 {area:1025}를 배회하고, 이끼가죽일족 투사, 비술사, 우두머리(24-27)가 이끼가죽일족 길잡이 야영지 북서쪽 언덕을 지킵니다.",
 
 	-- Step 29: Rethiel the Greenwarden
 	-- {area:1025} Green Belt · {npc:1244} Rethiel the Greenwarden · {quest:277} Fire Taboo · {zone:1437} Wetlands
@@ -162,7 +162,7 @@ return {
 	["{npc:270637} camps among the Fenrunners, just west of {npc:1244}."] = "{npc:270637}은(는) 수렁달리기 사이, {npc:1244} 바로 서쪽에 야영합니다.",
 	-- {area:1038} Dragonmaw Gates · {zone:1437} Wetlands
 	-- plural, as words: Razormaw Incisors = {item:280103} Razormaw Incisor
-	["Razormaw Incisors: from the raptors by the {area:1038}, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "레이저메인 앞니: {area:1038} 옆 랩터에게서, 30-40/01-hillsbrad-foothills의 {zone:1437} 순환에",
+	["Razormaw Incisors: from the raptors by the {area:1038}, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "칼날아귀 앞니: {area:1038} 옆 랩터에게서, 30-40/01-hillsbrad-foothills의 {zone:1437} 순환에",
 	-- {quest:98246} Trying Times
 	["{quest:98246}: the Razormaw eggs, on the same loop"] = "{quest:98246}: 레이저메인 알, 같은 순환에",
 
@@ -174,10 +174,10 @@ return {
 
 	-- Step 32: Fen Creepers along the river
 	-- plural, as words: Fen Creepers = {npc:1040} Fen Creeper
-	["Fen Creepers along the river"] = "강가의 수렁 덩굴",
+	["Fen Creepers along the river"] = "강가의 수렁이끼괴물",
 	-- {npc:2093} Einar Stonegrip · {area:1024} Sundown Marsh · {npc:1244} Rethiel the Greenwarden
 	-- plural, as words: Fen Creepers = {npc:1040} Fen Creeper
-	["North-west from {npc:2093} to the river: Fen Creepers hide in its pools and along its banks all the way west to {area:1024}. Work west along it until you have twelve, then back east to {npc:1244}.\nCareful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see."] = "{npc:2093}에서 북서쪽으로 강까지: 수렁 덩굴은 연못과 기슭에 서쪽으로 {area:1024}까지 숨어 있습니다. 따라 서쪽으로 가서 열두 마리를 잡은 뒤 {npc:1244}에게 돌아가세요.\n주의: 전투에서 벗어나면 수렁 덩굴은 때때로 은신을 시전해 보이기 어렵습니다.",
+	["North-west from {npc:2093} to the river: Fen Creepers hide in its pools and along its banks all the way west to {area:1024}. Work west along it until you have twelve, then back east to {npc:1244}.\nCareful: When out of combat, Fen Creepers cast Sneak from time to time, so they are stealthed and hard to see."] = "{npc:2093}에서 북서쪽으로 강까지: 수렁이끼괴물은 연못과 기슭에 서쪽으로 {area:1024}까지 숨어 있습니다. 따라 서쪽으로 가서 열두 마리를 잡은 뒤 {npc:1244}에게 돌아가세요.\n주의: 전투에서 벗어나면 수렁이끼괴물은 때때로 은신을 시전해 보이기 어렵습니다.",
 
 	-- Step 33: Rethiel the Greenwarden
 	-- {quest:98283} Carnage · {zone:1437} Wetlands

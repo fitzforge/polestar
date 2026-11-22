@@ -191,7 +191,7 @@ return {
 	["{spell:3945} to 140"] = "{spell:3945}: 140까지",
 	-- {spell:3945} Heavy Blasting Powder · {item:2838} Heavy Stone
 	-- plural, as words: Iron Deposits = {object:1735} Iron Deposit · Iron Grenades = {item:4390} Iron Grenade
-	["{spell:3945} is yellow at 125 (yellow 125, green 135, grey 145): about 27 crafts to 140. Each takes 1 {item:2838}. One {item:2838} a craft (Iron Deposits). Keep some: Iron Grenades take one each."] = "{spell:3945}은(는) 125에서 노란색입니다(노란색 125, 초록색 135, 회색 145). 140까지 약 27번 만드세요. 한 번에 {item:2838} 1개. 제작당 {item:2838} 한 개(철 광맥). 일부는 간직하세요. 철 수류탄이 하나씩 씁니다.",
+	["{spell:3945} is yellow at 125 (yellow 125, green 135, grey 145): about 27 crafts to 140. Each takes 1 {item:2838}. One {item:2838} a craft (Iron Deposits). Keep some: Iron Grenades take one each."] = "{spell:3945}은(는) 125에서 노란색입니다(노란색 125, 초록색 135, 회색 145). 140까지 약 27번 만드세요. 한 번에 {item:2838} 1개. 제작당 {item:2838} 한 개(철 광맥). 일부는 간직하세요. 철제 수류탄이 하나씩 씁니다.",
 
 	-- Step 38: Engineering recipes at 140
 	-- {skill:202} Engineering

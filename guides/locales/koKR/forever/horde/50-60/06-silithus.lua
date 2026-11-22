@@ -86,7 +86,7 @@ return {
 
 	-- Step 14: Flayers and Rock Stalkers
 	-- plural, as words: Rock Stalkers = {npc:11739} Rock Stalker
-	["Flayers and Rock Stalkers"] = "채찍전갈과 바위거미",
+	["Flayers and Rock Stalkers"] = "채찍전갈과 긴다리 긴다리 바위거미",
 	-- plural, as words: Stonelash Flayers = {npc:11737} Stonelash Flayer · Rock Stalkers = {npc:11739} Rock Stalker
 	["Stonelash Flayers and Rock Stalkers roam the dunes south-west of Kirika's camp."] = "돌꼬리채찍전갈과 긴다리 바위거미는 키리카의 야영지 남서쪽 모래언덕을 돌아다닙니다.",
 

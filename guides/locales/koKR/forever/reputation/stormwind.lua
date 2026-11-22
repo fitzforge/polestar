@@ -60,7 +60,7 @@ return {
 	["Northshire: Echo Ridge, {npc:103} and the vineyard"] = "노스셔: 메아리 마루, {npc:103}, 포도밭",
 	-- {area:34} Echo Ridge Mine · {npc:103} Garrick Padfoot · {quest:3904} Milly's Harvest · {object:83763} Stolen Books
 	-- plural, as words: Kobold Workers = {npc:257} Kobold Worker
-	["The Kobold Workers are in {area:34} north of the abbey; {npc:103} stands in the Defias camp east of the vineyard; {quest:3904} crates lie in the vineyard; the rats carrying the {object:83763} run about the abbey grounds."] = "코볼트 일꾼은 수도원 북쪽 {area:34}에 있고, {npc:103}은(는) 포도밭 동쪽 데피아즈단 야영지에 서 있으며, {quest:3904} 상자는 포도밭에 놓여 있고, {object:83763}을(를) 가지고 다니는 쥐들이 수도원 터를 돌아다닙니다.",
+	["The Kobold Workers are in {area:34} north of the abbey; {npc:103} stands in the Defias camp east of the vineyard; {quest:3904} crates lie in the vineyard; the rats carrying the {object:83763} run about the abbey grounds."] = "코볼트 잡역부은 수도원 북쪽 {area:34}에 있고, {npc:103}은(는) 포도밭 동쪽 데피아즈단 야영지에 서 있으며, {quest:3904} 상자는 포도밭에 놓여 있고, {object:83763}을(를) 가지고 다니는 쥐들이 수도원 터를 돌아다닙니다.",
 
 	-- Step 9: Northshire: second hand-in
 	["Northshire: second hand-in"] = "노스셔: 두 번째 반납",
@@ -145,7 +145,7 @@ return {
 	["Eastvale: the work"] = "이스트베일: 일",
 	-- {area:91} Tower of Azora · {area:54} Jasperlode Mine
 	-- plural, as words: Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear · Kobold Geomancers = {npc:476} Kobold Geomancer
-	["The murlocs along the river south of the bridge drop the fins; Prowlers and Young Forest Bears roam the woods; the Defias around the Brackwell farm and the {area:91} carry the bandanas; the enchanting supplies lie in their camps north of the tower; the Kobold Geomancers dig at {area:54}; the tools and the river finds lie along the river north of the logging camp."] = "다리 남쪽 강변의 멀록이 지느러미를 떨어뜨리고, 배회늑대와 어린 숲곰이 숲을 떠돌며, 브렉웰 농장과 {area:91} 주변의 데피아즈단이 복면을 지니고, 마법부여 재료는 탑 북쪽 그들의 야영지에 있고, 코볼트 비술사가 {area:54}에서 땅을 파고, 도구와 강변 전리품은 벌목소 북쪽 강변을 따라 있습니다.",
+	["The murlocs along the river south of the bridge drop the fins; Prowlers and Young Forest Bears roam the woods; the Defias around the Brackwell farm and the {area:91} carry the bandanas; the enchanting supplies lie in their camps north of the tower; the Kobold Geomancers dig at {area:54}; the tools and the river finds lie along the river north of the logging camp."] = "다리 남쪽 강변의 멀록이 지느러미를 떨어뜨리고, 굶주린 늑대와 새끼곰이 숲을 떠돌며, 브렉웰 농장과 {area:91} 주변의 데피아즈단이 복면을 지니고, 마법부여 재료는 탑 북쪽 그들의 야영지에 있고, 코볼트 흙점쟁이가 {area:54}에서 땅을 파고, 도구와 강변 전리품은 벌목소 북쪽 강변을 따라 있습니다.",
 
 	-- Step 24: Eastvale: hand in
 	["Eastvale: hand in"] = "이스트베일: 반납",
@@ -189,7 +189,7 @@ return {
 	-- Step 32: Chillwind Camp: Clear the Way
 	-- {npc:10838} Commander Ashlam Valorfist · {npc:11053} High Priestess MacDonnell · {area:3197} Chillwind Camp · {zone:1422} Western Plaguelands · {faction:72} Stormwind · {object:92525} Argent Dawn
 	-- plural, as words: Skeletal Flayers = {npc:1783} Skeletal Flayer · Slavering Ghouls = {npc:1791} Slavering Ghoul
-	["These quests are level 52 to 58, so they pay in full at 60. {npc:10838} and {npc:11053} at {area:3197}, in the south of the {zone:1422}, send you against the four Scourge cauldrons: 820 {faction:72} reputation in all and 600 {object:92525} on the side. The Skeletal Flayers and Slavering Ghouls roam the fields north of the camp."] = "이 퀘스트는 52~58레벨이니 60에서 정액을 받습니다. {zone:1422} 남부 {area:3197}의 {npc:10838}과(와) {npc:11053}이(가) 스컬지 가마솥 넷에 대적하라고 보냅니다: 모두 {faction:72} 평판 820, 덤으로 {object:92525} 600입니다. 해골 가죽벗기개와 침 흘리는 구울이 야영지 북쪽 들을 떠돕니다.",
+	["These quests are level 52 to 58, so they pay in full at 60. {npc:10838} and {npc:11053} at {area:3197}, in the south of the {zone:1422}, send you against the four Scourge cauldrons: 820 {faction:72} reputation in all and 600 {object:92525} on the side. The Skeletal Flayers and Slavering Ghouls roam the fields north of the camp."] = "이 퀘스트는 52~58레벨이니 60에서 정액을 받습니다. {zone:1422} 남부 {area:3197}의 {npc:10838}과(와) {npc:11053}이(가) 스컬지 가마솥 넷에 대적하라고 보냅니다: 모두 {faction:72} 평판 820, 덤으로 {object:92525} 600입니다. 해골 타작꾼와 걸신들린 구울이 야영지 북쪽 들을 떠돕니다.",
 
 	-- Step 33: Andorhal and Felstone Field
 	-- {area:199} Felstone Field
@@ -248,7 +248,7 @@ return {
 	-- Step 42: Morgan's Vigil: Dragonkin Menace
 	-- {npc:9562} Helendis Riverhorn · {area:2418} Morgan's Vigil · {zone:1428} Burning Steppes · {quest:4183} The True Masters · {area:69} Lakeshire · {object:2117} Stormwind Keep · {faction:72} Stormwind · {zone:1457} Darnassus · {npc:7044} Black Drake · {npc:7040} Black Dragonspawn · {npc:7041} Black Wyrmkin
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
-	["{npc:9562} at {area:2418}, in the south-east of the {zone:1428}, starts {quest:4183}: a chain to {area:69} and {object:2117}, 175 {faction:72} and 175 {zone:1457} reputation (level 54). The Black Broodlings and the {npc:7044} live on the slopes north of the Vigil; the {npc:7040} and {npc:7041} west of it, in the middle of the zone."] = "{zone:1428} 남동부 {area:2418}의 {npc:9562}이(가) {quest:4183}을(를) 시작합니다: {area:69}과(와) {object:2117}로 이어지는 사슬로, {faction:72} 평판 175와 {zone:1457} 175(54레벨)입니다. 검은 무리새끼와 {npc:7044}는 망루 북쪽 비탈에 살고, {npc:7040}과(와) {npc:7041}은(는) 그 서쪽, 지역 한가운데에 있습니다.",
+	["{npc:9562} at {area:2418}, in the south-east of the {zone:1428}, starts {quest:4183}: a chain to {area:69} and {object:2117}, 175 {faction:72} and 175 {zone:1457} reputation (level 54). The Black Broodlings and the {npc:7044} live on the slopes north of the Vigil; the {npc:7040} and {npc:7041} west of it, in the middle of the zone."] = "{zone:1428} 남동부 {area:2418}의 {npc:9562}이(가) {quest:4183}을(를) 시작합니다: {area:69}과(와) {object:2117}로 이어지는 사슬로, {faction:72} 평판 175와 {zone:1457} 175(54레벨)입니다. 검은 새끼용와 {npc:7044}는 망루 북쪽 비탈에 살고, {npc:7040}과(와) {npc:7041}은(는) 그 서쪽, 지역 한가운데에 있습니다.",
 
 	-- Step 43: Lakeshire: Magistrate Solomon
 	-- {npc:344} Magistrate Solomon · {area:69} Lakeshire

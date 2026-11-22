@@ -116,7 +116,7 @@ return {
 	["{item:5500} (Alliance)"] = "{item:5500} (얼라이언스)",
 	-- {item:5500} Iridescent Pearl · {item:11130} Runed Golden Rod
 	-- plural, as words: Giant Clams = {object:2744} Giant Clam
-	["1 {item:5500} for {item:11130}: open the Giant Clams at the marked spot."] = "{item:11130}에 필요한 {item:5500} 1개: 표시된 곳의 거대 조개를 여세요.",
+	["1 {item:5500} for {item:11130}: open the Giant Clams at the marked spot."] = "{item:11130}에 필요한 {item:5500} 1개: 표시된 곳의 대합를 여세요.",
 
 	-- Step 21: Iridescent Pearl (Horde)
 	-- {item:5500} Iridescent Pearl

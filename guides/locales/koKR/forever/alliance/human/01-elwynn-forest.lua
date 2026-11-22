@@ -379,7 +379,7 @@ return {
 	-- Step 73: Guard Thomas
 	-- {area:91} Tower of Azora
 	-- plural, as words: Prowlers = {npc:118} Prowler · Young Forest Bears = {npc:822} Young Forest Bear
-	["Follow the road east past the {area:91} to the bridge. Finish the Prowlers and Young Forest Bears around the river south of it."] = "길을 따라 동쪽으로 {area:91}을(를) 지나 다리로 가십시오. 다리 남쪽 강 주변의 굶주린 늑대와 새끼 숲곰을 마저 처치하십시오.",
+	["Follow the road east past the {area:91} to the bridge. Finish the Prowlers and Young Forest Bears around the river south of it."] = "길을 따라 동쪽으로 {area:91}을(를) 지나 다리로 가십시오. 다리 남쪽 강 주변의 굶주린 늑대와 새끼곰을 마저 처치하십시오.",
 
 	-- Step 75: Stone Cairn Lake
 	-- {npc:6866} Defias Bodyguard

@@ -32,13 +32,13 @@ return {
 
 	-- Step 3: Sea Elementals and Sea Sprays
 	-- plural, as words: Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray
-	["Sea Elementals and Sea Sprays"] = "바다 정령과 바다 포말",
+	["Sea Elementals and Sea Sprays"] = "바다 정령과 바다 물보라 정령",
 	-- {area:1108} Forgotten Coast · {item:18958} Water Elemental Core
 	-- plural, as words: Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray
-	["The Sea Elementals and Sea Sprays (level 47-49) drift along the {area:1108} and in the shallows below the giants: about half drop a {item:18958}."] = "바다 정령과 바다 포말(47~49레벨)이 {area:1108}을(를) 따라 떠다니고 거인 아래 여울에 있습니다. 약 절반이 {item:18958}을(를) 떨어뜨립니다.",
+	["The Sea Elementals and Sea Sprays (level 47-49) drift along the {area:1108} and in the shallows below the giants: about half drop a {item:18958}."] = "바다 정령과 바다 물보라 정령(47~49레벨)이 {area:1108}을(를) 따라 떠다니고 거인 아래 여울에 있습니다. 약 절반이 {item:18958}을(를) 떨어뜨립니다.",
 	-- {item:18958} Water Elemental Core
 	-- plural, as words: Sea Elementals = {npc:5461} Sea Elemental · Sea Sprays = {npc:5462} Sea Spray
-	["{item:18958}: Sea Elementals and Sea Sprays"] = "{item:18958}: 바다 정령과 바다 포말",
+	["{item:18958}: Sea Elementals and Sea Sprays"] = "{item:18958}: 바다 정령과 바다 물보라 정령",
 
 	-- Step 4: Back to Zorbin Fandazzle
 	-- {npc:14637} Zorbin Fandazzle
@@ -56,13 +56,13 @@ return {
 	-- Step 6: Tinkee Steamboil
 	-- {npc:10267} Tinkee Steamboil · {area:251} Flame Crest · {zone:1428} Burning Steppes · {faction:577} Everlook · {item:12284} Draco-Incarcinatrix 900 · {quest:4726} Broodling Essence
 	-- plural, as words: Scalding Broodlings = {npc:7048} Scalding Broodling · Flamescale Broodlings = {npc:7049} Flamescale Broodling · Black Broodlings = {npc:7047} Black Broodling
-	["{npc:10267}, a goblin at {area:251} in the north of the {zone:1428}, has a chain that pays every town 150 and {faction:577} 150 more. Use her {item:12284} on a broodling, kill it while the device holds it, and pick up the {quest:4726} it leaves. The device takes only Black and Scalding Broodlings, not the Flamescale Broodlings of the west: Scalding Broodlings (level 53-54) roam just west and east of {area:251}, Black Broodlings (51-52) the north-east corner of the zone, the thickest group. They are few and spread out: the path passes both and ends among the Black Broodlings."] = "{zone:1428} 북부 {area:251}의 고블린 {npc:10267}에게 모든 마을에 150, {faction:577}에 150을 더 주는 사슬이 있습니다. 새끼용에게 그녀의 {item:12284}을(를) 사용하고 장치가 붙잡는 동안 죽인 뒤 남기는 {quest:4726}을(를) 주우세요. 장치는 서쪽의 불비늘 새끼용이 아니라 검은 새끼용과 끓는 새끼용만 붙잡습니다. 끓는 새끼용(53~54레벨)은 {area:251} 바로 서쪽과 동쪽을 떠돌고, 검은 새끼용(51~52)은 지역 북동쪽 귀퉁이에서 가장 많이 무리 지어 있습니다. 수가 적고 퍼져 있으니 길이 둘 모두를 지나 검은 새끼용 사이에서 끝납니다.",
+	["{npc:10267}, a goblin at {area:251} in the north of the {zone:1428}, has a chain that pays every town 150 and {faction:577} 150 more. Use her {item:12284} on a broodling, kill it while the device holds it, and pick up the {quest:4726} it leaves. The device takes only Black and Scalding Broodlings, not the Flamescale Broodlings of the west: Scalding Broodlings (level 53-54) roam just west and east of {area:251}, Black Broodlings (51-52) the north-east corner of the zone, the thickest group. They are few and spread out: the path passes both and ends among the Black Broodlings."] = "{zone:1428} 북부 {area:251}의 고블린 {npc:10267}에게 모든 마을에 150, {faction:577}에 150을 더 주는 사슬이 있습니다. 새끼용에게 그녀의 {item:12284}을(를) 사용하고 장치가 붙잡는 동안 죽인 뒤 남기는 {quest:4726}을(를) 주우세요. 장치는 서쪽의 화염비늘 새끼용이 아니라 검은 새끼용과 어린 화염비늘 새끼용만 붙잡습니다. 어린 화염비늘 새끼용(53~54레벨)은 {area:251} 바로 서쪽과 동쪽을 떠돌고, 검은 새끼용(51~52)은 지역 북동쪽 귀퉁이에서 가장 많이 무리 지어 있습니다. 수가 적고 퍼져 있으니 길이 둘 모두를 지나 검은 새끼용 사이에서 끝납니다.",
 	-- {area:251} Flame Crest
 	-- plural, as words: Scalding Broodlings = {npc:7048} Scalding Broodling
-	["Scalding Broodlings west of {area:251}"] = "{area:251} 서쪽의 끓는 새끼용",
+	["Scalding Broodlings west of {area:251}"] = "{area:251} 서쪽의 어린 화염비늘 새끼용",
 	-- {area:251} Flame Crest
 	-- plural, as words: Scalding Broodlings = {npc:7048} Scalding Broodling
-	["Scalding Broodlings east of {area:251}"] = "{area:251} 동쪽의 끓는 새끼용",
+	["Scalding Broodlings east of {area:251}"] = "{area:251} 동쪽의 어린 화염비늘 새끼용",
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
 	["Black Broodlings in the north-east"] = "북동쪽의 검은 새끼용",
 	-- {item:12284} Draco-Incarcinatrix 900 · {npc:7048} Scalding Broodling

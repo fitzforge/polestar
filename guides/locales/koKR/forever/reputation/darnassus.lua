@@ -44,7 +44,7 @@ return {
 	["{area:188}: the egg and the antidote"] = "{area:188}: 알과 해독제",
 	-- {quest:917} Webwood Egg · {item:10640} Webwood Ichor
 	-- plural, as words: Webwood Lurkers = {npc:1998} Webwood Lurker
-	["The {quest:917} lies at the back of the spider cave; the mushrooms grow by the trees, the lilies by the pools, and the {item:10640} drops from the Webwood Lurkers."] = "{quest:917}은(는) 거미 동굴 안쪽에 있습니다. 버섯은 나무 곁에, 백합은 웅덩이 곁에 자라고, {item:10640}은(는) 웹우드 잠복자에게서 떨어집니다.",
+	["The {quest:917} lies at the back of the spider cave; the mushrooms grow by the trees, the lilies by the pools, and the {item:10640} drops from the Webwood Lurkers."] = "{quest:917}은(는) 거미 동굴 안쪽에 있습니다. 버섯은 나무 곁에, 백합은 웅덩이 곁에 자라고, {item:10640}은(는) 나무그물 늑대거미에게서 떨어집니다.",
 
 	-- Step 6: Shadowglen: last hand-in
 	-- {area:188} Shadowglen
@@ -67,7 +67,7 @@ return {
 	["{area:186}: the woods around the village"] = "{area:186}: 마을 주변 숲",
 	-- {faction:69} Darnassus · {npc:2038} Lord Melenas · {area:258} Fel Rock · {npc:2107} Gaerolas Talvethren
 	-- plural, as words: Gnarlpine Ambushers = {npc:2152} Gnarlpine Ambusher
-	["The timberlings by the lake drop seeds and sprouts; the Gnarlpine Ambushers lurk on the road west to {faction:69}; {npc:2038} waits deep in {area:258}, north-west of the village; the dreamcatcher lies in the furbolg camp east of the village, by {npc:2107}; the Nightsabers west of the village carry the pelts."] = "호숫가의 나무정령이 씨앗과 새싹을 떨어뜨리고, 그나르파인 매복자가 {faction:69} 서쪽 도로에 숨어들고, {npc:2038}이(가) 마을 북서쪽 {area:258} 깊은 곳에서 기다리고, 꿈그물은 마을 동쪽 펄볼그 야영지의 {npc:2107} 곁에 있고, 마을 서쪽 밤호랑이가 가죽을 지니고 있습니다.",
+	["The timberlings by the lake drop seeds and sprouts; the Gnarlpine Ambushers lurk on the road west to {faction:69}; {npc:2038} waits deep in {area:258}, north-west of the village; the dreamcatcher lies in the furbolg camp east of the village, by {npc:2107}; the Nightsabers west of the village carry the pelts."] = "호숫가의 나무정령이 씨앗과 새싹을 떨어뜨리고, 나무옹이일족 복병가 {faction:69} 서쪽 도로에 숨어들고, {npc:2038}이(가) 마을 북서쪽 {area:258} 깊은 곳에서 기다리고, 꿈그물은 마을 동쪽 펄볼그 야영지의 {npc:2107} 곁에 있고, 마을 서쪽 밤호랑이가 가죽을 지니고 있습니다.",
 
 	-- Step 10: Dolanaar: first hand-in
 	-- {area:186} Dolanaar
@@ -84,7 +84,7 @@ return {
 	["{area:186}: the relics and Ferocitas"] = "{area:186}: 유물과 페로시타스",
 	-- {area:262} Ban'ethil Barrow Den · {area:186} Dolanaar
 	-- plural, as words: Gnarlpine Mystics = {npc:7235} Gnarlpine Mystic
-	["The four relics of Wakening lie in the {area:262}, south-west of {area:186}; Ferocitas and the Gnarlpine Mystics camp east of the village."] = "깨어남의 유물 넷이 {area:186} 남서쪽 {area:262}에 있습니다. 페로시타스와 그나르파인 신비술사가 마을 동쪽에 야영합니다.",
+	["The four relics of Wakening lie in the {area:262}, south-west of {area:186}; Ferocitas and the Gnarlpine Mystics camp east of the village."] = "깨어남의 유물 넷이 {area:186} 남서쪽 {area:262}에 있습니다. 페로시타스와 나무옹이일족 비술사가 마을 동쪽에 야영합니다.",
 	-- {item:8050} Tallonkai's Jewel · {quest:2459} Ferocitas the Dream Eater
 	["{item:8050}, from {quest:2459}"] = "{item:8050}, {quest:2459}에게서",
 
@@ -101,7 +101,7 @@ return {
 	["{area:442}: the coast and the woods"] = "{area:442}: 해안과 숲",
 	-- {area:445} Cliffspring Falls
 	-- plural, as words: Rabid Thistle Bears = {npc:2164} Rabid Thistle Bear
-	["The furbolg camp south of town counts for How Big a Threat; the Rabid Thistle Bears roam the woods south of town; the Highborne ghosts of the Ruins of Ameth'Aran, south-east of town, carry the relics, and Anaya's ghost walks there too; the bones lie on the beach south of town; the mushrooms grow in the {area:445} cave to the north-east."] = "마을 남쪽 펄볼그 야영지가 '위협이 얼마나 되나'를 셉니다. 미친 엉겅퀴 곰이 마을 남쪽 숲을 떠돌고, 마을 남동쪽 아메스아란 폐허의 고귀뼈 망령이 유물을 지니고 있으며 아나야의 망령도 그곳을 거니고, 뼛가지는 마을 남쪽 해변에 있고, 버섯은 북동쪽 {area:445} 동굴에 자랍니다.",
+	["The furbolg camp south of town counts for How Big a Threat; the Rabid Thistle Bears roam the woods south of town; the Highborne ghosts of the Ruins of Ameth'Aran, south-east of town, carry the relics, and Anaya's ghost walks there too; the bones lie on the beach south of town; the mushrooms grow in the {area:445} cave to the north-east."] = "마을 남쪽 펄볼그 야영지가 '위협이 얼마나 되나'를 셉니다. 광포한 엉겅퀴곰이 마을 남쪽 숲을 떠돌고, 마을 남동쪽 아메스아란 폐허의 고귀뼈 망령이 유물을 지니고 있으며 아나야의 망령도 그곳을 거니고, 뼛가지는 마을 남쪽 해변에 있고, 버섯은 북동쪽 {area:445} 동굴에 자랍니다.",
 	["the corrupt furbolg camp south of town"] = "마을 남쪽의 타락한 펄볼그 야영지",
 	-- {npc:2164} Rabid Thistle Bear · {quest:2139} Tharnariun's Hope · {npc:3701} Tharnariun Treetender
 	["{npc:2164}: use {quest:2139} on it and lead it back to {npc:3701}"] = "{npc:2164}: 그것에게 {quest:2139}를 사용하고 {npc:3701}에게 이끌고 돌아가세요",
@@ -129,7 +129,7 @@ return {
 	["{area:442}: the seal, the {npc:6788} and the pelts"] = "{area:442}: 인장, {npc:6788}과(와) 가죽",
 	-- {item:5338} Ancient Moonstone Seal · {quest:956} Bashal'Aran · {npc:6788} Den Mother · {zone:1439} Darkshore
 	-- plural, as words: Moonstalker Sires = {npc:2237} Moonstalker Sire
-	["The {item:5338} drops from the satyrs of {quest:956}; destroy the seal at the flame there. The {npc:6788} lairs north-east of {quest:956}; the Moonstalker Sires and Matriarchs roam the south of {zone:1439}."] = "{item:5338}은(는) {quest:956}의 사티로스에게서 떨어집니다. 그곳의 불꽃에서 인장을 부수세요. {npc:6788}이(가) {quest:956} 북동쪽에 둥지를 틀고, 달추적자 수컷과 암컷이 {zone:1439} 남부를 떠돕니다.",
+	["The {item:5338} drops from the satyrs of {quest:956}; destroy the seal at the flame there. The {npc:6788} lairs north-east of {quest:956}; the Moonstalker Sires and Matriarchs roam the south of {zone:1439}."] = "{item:5338}은(는) {quest:956}의 사티로스에게서 떨어집니다. 그곳의 불꽃에서 인장을 부수세요. {npc:6788}이(가) {quest:956} 북동쪽에 둥지를 틀고, 덩치큰 달표범과 암컷이 {zone:1439} 남부를 떠돕니다.",
 	["the seal at the ancient flame"] = "고대 불꽃의 인장",
 
 	-- Step 20: A Donation of Silk
@@ -147,7 +147,7 @@ return {
 	-- Step 23: Morgan's Vigil: Dragonkin Menace
 	-- {npc:9562} Helendis Riverhorn · {area:2418} Morgan's Vigil · {zone:1428} Burning Steppes · {quest:4183} The True Masters · {faction:69} Darnassus · {object:2117} Stormwind Keep · {zone:1453} Stormwind · {npc:7044} Black Drake · {npc:7040} Black Dragonspawn · {npc:7041} Black Wyrmkin
 	-- plural, as words: Black Broodlings = {npc:7047} Black Broodling
-	["{npc:9562} at {area:2418}, in the south-east of the {zone:1428}, starts {quest:4183}: 175 {faction:69} reputation for two quests (level 54: in Classic 140 at 60), and the chain goes on to {object:2117} for 175 {zone:1453}. The Black Broodlings and the {npc:7044} live on the slopes north of the Vigil; the {npc:7040} and {npc:7041} west of it, in the middle of the zone."] = "{npc:9562}, {zone:1428} 남동부 {area:2418}에 서서 {quest:4183}을(를) 시작합니다: 퀘스트 둘에 {faction:69} 평판 175(54레벨, 고전에서는 60에서 140), 사슬은 {object:2117}까지 이어져 {zone:1453} 175을 줍니다. 검은 무리새끼와 {npc:7044}는 망루 북쪽 비탈에 살고, {npc:7040}과(와) {npc:7041}은(는) 그 서쪽, 지역 한가운데에 있습니다.",
+	["{npc:9562} at {area:2418}, in the south-east of the {zone:1428}, starts {quest:4183}: 175 {faction:69} reputation for two quests (level 54: in Classic 140 at 60), and the chain goes on to {object:2117} for 175 {zone:1453}. The Black Broodlings and the {npc:7044} live on the slopes north of the Vigil; the {npc:7040} and {npc:7041} west of it, in the middle of the zone."] = "{npc:9562}, {zone:1428} 남동부 {area:2418}에 서서 {quest:4183}을(를) 시작합니다: 퀘스트 둘에 {faction:69} 평판 175(54레벨, 고전에서는 60에서 140), 사슬은 {object:2117}까지 이어져 {zone:1453} 175을 줍니다. 검은 새끼용와 {npc:7044}는 망루 북쪽 비탈에 살고, {npc:7040}과(와) {npc:7041}은(는) 그 서쪽, 지역 한가운데에 있습니다.",
 
 	-- Step 24: Lakeshire: Magistrate Solomon
 	-- {npc:344} Magistrate Solomon · {area:69} Lakeshire · {object:2117} Stormwind Keep · {zone:1453} Stormwind · {faction:69} Darnassus · {npc:7916} Erelas Ambersky · {area:702} Rut'theran Village · {zone:1452} Winterspring · {zone:1448} Felwood · {area:2479} Emerald Sanctuary · {npc:10739} Mulgris Deepriver · {area:202} Writhing Haunt · {zone:1422} Western Plaguelands · {item:12663} Glyphed Oaken Branch

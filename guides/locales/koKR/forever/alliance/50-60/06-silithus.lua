@@ -98,7 +98,7 @@ return {
 	["{area:1770} braziers"] = "{area:1770} 화로",
 	-- {area:1770} Shadow Hold · {area:1763} Jaedenar · {item:12906} Purified Moonwell Water · {item:11172} Silvery Claws · {item:13140} Blood Red Key · {npc:11018} Arko'narin
 	-- plural, as words: Jaedenar Darkweavers = {npc:7118} Jaedenar Darkweaver
-	["{area:1770} is the cave at the back of {area:1763}, west of the road. Use the {item:12906} on the four braziers inside. Kill the Angerclaw bears and Felpaw wolves you pass for the {item:11172}.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended.\nThe Jaedenar Darkweavers, Warlocks and Enforcers in here drop a {item:13140}, about one kill in thirty: keep killing them until it drops. It opens the cell of {npc:11018}, the night elf held in the cave."] = "{area:1770}은(는) 길 서쪽, {area:1763} 뒤쪽의 동굴입니다. 안의 감시용 화로 네 개에 {item:12906}을(를) 사용하세요. 지나가는 분노발톱 곰과 지옥발톱 늑대를 잡아 {item:11172}을(를) 모으세요.\n주의: 53-55레벨 그림자 의회 몹이 동굴을 채우고 종종 큰 연결 무리로 나오며 여러 마리가 기절을 씁니다. 2-3인 파티를 권장합니다.\n안에 있는 제데나르 어둠옷술사, 흑마법사, 집행자가 {item:13140}을(를) 떨어뜨립니다. 대략 서른 마리당 하나니 떨어질 때까지 계속 잡으세요. 그것은 동굴에 갇힌 나이트엘프 {npc:11018}의 감방을 엽니다.",
+	["{area:1770} is the cave at the back of {area:1763}, west of the road. Use the {item:12906} on the four braziers inside. Kill the Angerclaw bears and Felpaw wolves you pass for the {item:11172}.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended.\nThe Jaedenar Darkweavers, Warlocks and Enforcers in here drop a {item:13140}, about one kill in thirty: keep killing them until it drops. It opens the cell of {npc:11018}, the night elf held in the cave."] = "{area:1770}은(는) 길 서쪽, {area:1763} 뒤쪽의 동굴입니다. 안의 감시용 화로 네 개에 {item:12906}을(를) 사용하세요. 지나가는 분노발톱 곰과 지옥발톱 늑대를 잡아 {item:11172}을(를) 모으세요.\n주의: 53-55레벨 그림자 의회 몹이 동굴을 채우고 종종 큰 연결 무리로 나오며 여러 마리가 기절을 씁니다. 2-3인 파티를 권장합니다.\n안에 있는 자에데나르 흑마술사, 흑마법사, 집행자가 {item:13140}을(를) 떨어뜨립니다. 대략 서른 마리당 하나니 떨어질 때까지 계속 잡으세요. 그것은 동굴에 갇힌 나이트엘프 {npc:11018}의 감방을 엽니다.",
 	["Angerclaw bears and Felpaw wolves"] = "성난발톱곰과 악령발늑대",
 	-- {object:176159} Brazier of Malice
 	["{object:176159}, below ground"] = "{object:176159}, 지하",
@@ -327,7 +327,7 @@ return {
 	-- Step 68: Darkwhisper Gorge
 	-- {npc:9298} Donova Snowden · {area:2256} Darkwhisper Gorge
 	-- plural, as words: Frostmaul Giants = {npc:7428} Frostmaul Giant · Hederine Slayers = {npc:7463} Hederine Slayer · Rabid Shardtooths = {npc:7446} Rabid Shardtooth
-	["Follow {npc:9298}'s directions south to the mouth of {area:2256}. Careful: Frostmaul Giants and Preservers (59-60, elite) stand on both sides of the road just north of it: keep to the road on the east side (about 62,67) and don't stop. The point is at the gorge's mouth: touch it and turn back north. Don't ride into the gorge: Hederine Slayers, Initiates and Manastalkers (57-60, elite) stand from just past the mouth to its far end, and Rabid Shardtooths (59) roam the way in."] = "{npc:9298}의 지시대로 남쪽으로 가 {area:2256} 입구까지 가세요. 주의: 서리망치 거인과 보존자(59-60, 정예)가 그 바로 북쪽 길 양쪽에 서 있습니다. 동쪽 길을 따르세요(약 62,67) 그리고 멈추지 마세요. 지점은 협곡 입구에 있습니다. 만지고 북쪽으로 돌아가세요. 협곡으로 말을 몰아 들어가지 마세요. 헤데린 죽음의 사제, 입회자, 마나추적자(57-60, 정예)가 입구 바로 너머부터 먼 끝까지 서 있고, 광포한 파편송곳니(59)가 들어가는 길을 배회합니다.",
+	["Follow {npc:9298}'s directions south to the mouth of {area:2256}. Careful: Frostmaul Giants and Preservers (59-60, elite) stand on both sides of the road just north of it: keep to the road on the east side (about 62,67) and don't stop. The point is at the gorge's mouth: touch it and turn back north. Don't ride into the gorge: Hederine Slayers, Initiates and Manastalkers (57-60, elite) stand from just past the mouth to its far end, and Rabid Shardtooths (59) roam the way in."] = "{npc:9298}의 지시대로 남쪽으로 가 {area:2256} 입구까지 가세요. 주의: 서리망치 거인과 보존자(59-60, 정예)가 그 바로 북쪽 길 양쪽에 서 있습니다. 동쪽 길을 따르세요(약 62,67) 그리고 멈추지 마세요. 지점은 협곡 입구에 있습니다. 만지고 북쪽으로 돌아가세요. 협곡으로 말을 몰아 들어가지 마세요. 헤더린의 척살자, 입회자, 마나추적자(57-60, 정예)가 입구 바로 너머부터 먼 끝까지 서 있고, 광포한 톱니이빨곰(59)가 들어가는 길을 배회합니다.",
 	["The road past the Frostmaul giants"] = "서리망치 거인을 지나는 길",
 	-- {area:2256} Darkwhisper Gorge
 	["The road to {area:2256}"] = "{area:2256}(으)로 가는 길",
@@ -532,7 +532,7 @@ return {
 	-- Step 124: Carlin Redpath: the Scourge Champions
 	-- {npc:11063} Carlin Redpath
 	-- plural, as words: Scourge Champions = {npc:8529} Scourge Champion
-	["{npc:11063}: the Scourge Champions"] = "{npc:11063}: 스컬지 챔피언",
+	["{npc:11063}: the Scourge Champions"] = "{npc:11063}: 스컬지 용사",
 
 	-- Step 125: Caretaker Alen
 	-- {npc:11038} Caretaker Alen · {npc:11140} Egan · {area:2627} Terrordale

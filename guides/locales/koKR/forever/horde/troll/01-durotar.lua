@@ -287,7 +287,7 @@ return {
 	-- Step 63: Drygulch Ravine
 	-- {area:370} Drygulch Ravine · {npc:3293} Rezlak · {item:277661} Dull Storm Orb · {area:371} Dustwind Cave · {item:6652} Reagent Pouch
 	-- plural, as words: Burning Blade Cultists = {npc:3199} Burning Blade Cultist
-	["Savages and Storm Witches nest in {area:370}, east of {npc:3293}. A Storm Witch drops the {item:277661}. Shamans: the Burning Blade Cultists by {area:371}, at the ravine's south end, drop the {item:6652}."] = "{area:370}에 야만인과 폭풍마녀가 둥지를 틀고 있으며, {npc:3293}의 동쪽입니다. 폭풍마녀가 {item:277661}을(를) 떨어뜨립니다. 주술사: 협곡 남쪽 끝, {area:371}에 있는 불타는칼날단 신도가 {item:6652}을(를) 떨어뜨립니다.",
+	["Savages and Storm Witches nest in {area:370}, east of {npc:3293}. A Storm Witch drops the {item:277661}. Shamans: the Burning Blade Cultists by {area:371}, at the ravine's south end, drop the {item:6652}."] = "{area:370}에 야만인과 폭풍마녀가 둥지를 틀고 있으며, {npc:3293}의 동쪽입니다. 폭풍마녀가 {item:277661}을(를) 떨어뜨립니다. 주술사: 협곡 남쪽 끝, {area:371}에 있는 불타는칼날단 이교도가 {item:6652}을(를) 떨어뜨립니다.",
 
 	-- Step 64: Deathskip to Northern Durotar
 	["Deathskip to Northern Durotar"] = "죽음이동으로 북부 듀로타",

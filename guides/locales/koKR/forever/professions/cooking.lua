@@ -331,7 +331,7 @@ return {
 	["Giant Eggs"] = "거대한 알",
 	-- {quest:6610} Clamlette Surprise · {item:7974} Zesty Clam Meat · {item:8932} Alterac Swiss · {zone:1446} Tanaris · {zone:1425} The Hinterlands · {npc:2929} Savage Owlbeast · {item:12218} Monster Omelet
 	-- plural, as words: Giant Eggs = {item:12207} Giant Egg
-	["{quest:6610} asks for 12 Giant Eggs, 10 {item:7974} and 20 {item:8932}: bring all three before you go to {zone:1446}, so you make the trip once. Giant Eggs drop from the owlbeasts of {zone:1425}: {npc:2929} (54%). {item:12218} takes about 120 more after Artisan: farm them now too if you like."] = "{quest:6610}은(는) 거대 알 12개, {item:7974} 10개, {item:8932} 20개를 요구합니다. {zone:1446}에 가기 전에 세 가지를 모두 가져오세요. 한 번의 여행으로 끝내기 위해서입니다. 거대 알은 {zone:1425}의 올빼미야수에게서 떨어집니다: {npc:2929}(54%). 전문 단계 이후 {item:12218}은(는) 약 120개가 더 필요합니다. 원한다면 지금도 모으세요.",
+	["{quest:6610} asks for 12 Giant Eggs, 10 {item:7974} and 20 {item:8932}: bring all three before you go to {zone:1446}, so you make the trip once. Giant Eggs drop from the owlbeasts of {zone:1425}: {npc:2929} (54%). {item:12218} takes about 120 more after Artisan: farm them now too if you like."] = "{quest:6610}은(는) 거대한 알 12개, {item:7974} 10개, {item:8932} 20개를 요구합니다. {zone:1446}에 가기 전에 세 가지를 모두 가져오세요. 한 번의 여행으로 끝내기 위해서입니다. 거대한 알은 {zone:1425}의 올빼미야수에게서 떨어집니다: {npc:2929}(54%). 전문 단계 이후 {item:12218}은(는) 약 120개가 더 필요합니다. 원한다면 지금도 모으세요.",
 
 	-- Step 71: Alterac Swiss
 	-- {item:8932} Alterac Swiss
@@ -340,7 +340,7 @@ return {
 	-- Step 72: Zesty Clam Meat
 	-- {item:7974} Zesty Clam Meat · {zone:1445} Dustwallow Marsh · {zone:1446} Tanaris
 	-- plural, as words: Big-mouth Clams = {item:7973} Big-mouth Clam · Steeljaw Snappers = {npc:14123} Steeljaw Snapper
-	["{item:7974} comes from Big-mouth Clams: open each one, every clam holds one. The Muckshell crabs on the {zone:1445} coast south-west of Theramore drop a clam about seven kills in ten, so ten clams take about fifteen kills, on your way to {zone:1446}. The Steeljaw Snappers on {zone:1446}'s east coast drop them about one kill in three."] = "{item:7974}은(는) 큰입조개에게서 나옵니다. 하나씩 열으세요. 모든 조개가 하나씩 담고 있습니다. 테라모어 남서쪽 {zone:1445} 해안의 먹물집게는 열 마리 중 일곱 마리에서 조개를 떨어뜨리니 열 개는 약 열다섯 마리를 잡는 것으로, {zone:1446}에 가는 길에 하세요. {zone:1446} 동쪽 해안의 강철턱 거북은 세 마리 중 한 마리에서 떨어뜨립니다.",
+	["{item:7974} comes from Big-mouth Clams: open each one, every clam holds one. The Muckshell crabs on the {zone:1445} coast south-west of Theramore drop a clam about seven kills in ten, so ten clams take about fifteen kills, on your way to {zone:1446}. The Steeljaw Snappers on {zone:1446}'s east coast drop them about one kill in three."] = "{item:7974}은(는) 큰입조개에게서 나옵니다. 하나씩 열으세요. 모든 조개가 하나씩 담고 있습니다. 테라모어 남서쪽 {zone:1445} 해안의 먹물집게는 열 마리 중 일곱 마리에서 조개를 떨어뜨리니 열 개는 약 열다섯 마리를 잡는 것으로, {zone:1446}에 가는 길에 하세요. {zone:1446} 동쪽 해안의 강철 무쇠턱거북은 세 마리 중 한 마리에서 떨어뜨립니다.",
 
 	-- Step 73: Clamlette Surprise
 	-- {skill:185} Cooking
