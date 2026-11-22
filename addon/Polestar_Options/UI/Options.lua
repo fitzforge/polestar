@@ -80,11 +80,11 @@ local function keyOf(name) return (name:lower():gsub("[^%w]+", "")) end
 -- The page model: page -> tabs -> sections -> controls
 ---------------------------------------------------------------------------
 
--- Pages that close the list whatever registers after them: the author's
--- Recorder, then About.
+-- Pages that close the list whatever registers after them: About, Guiding
+-- Stars, then the author's Recorder.
 local pageOf
 do
-	local TAIL = { [L["Recorder"]] = 1, [L["About"]] = 2 }
+	local TAIL = { [L["About"]] = 1, [L["Guiding Stars"]] = 2, [L["Recorder"]] = 3 }
 
 	-- key: the page's stable key (`/polestar options <key>`, O.Select), the
 	-- spec's own or else made from the name. Built-in pages give theirs, so a
@@ -96,7 +96,7 @@ do
 			p = { name = name, key = keyOf(key or name), icon = icon or "gear", order = order or 100, builtin = builtin, seq = seq, tabs = {} }
 			pages[name] = p
 			pageList[#pageList + 1] = p
-			-- By order (built-in pages first on a tie), Recorder and About last.
+			-- By order (built-in pages first on a tie), About, Guiding Stars and Recorder last.
 			table.sort(pageList, function(a, b)
 				local ta, tb = TAIL[a.name] or 0, TAIL[b.name] or 0
 				if ta ~= tb then return ta < tb end
@@ -198,9 +198,13 @@ local function add(spec, builtin)
 		-- (layoutRows).
 		if c.children then
 			c.psKids = c.children
+			local lastKid
 			for _, k in ipairs(c.children) do
 				place(k)
-				k.psChildOf, k.psParent = c, c
+				-- A child with child = true also waits on the child before it
+				-- that is none (Play a sound over its Sound): nested.
+				k.psChildOf, k.psParent = c, k.child and lastKid or c
+				if not k.child then lastKid = k end
 				s.controls[#s.controls + 1] = k
 			end
 		end
@@ -219,12 +223,13 @@ end
 ---------------------------------------------------------------------------
 -- Built-in pages
 --
--- The pages follow what the player came to do, not which module owns a
--- setting: follow the guide (Guide), choose what the maps show (Map), quest
--- (Questing), find things (Discovery: Lookup, the dungeon journal, rares,
--- your characters), small conveniences (Quality of Life), other addons
--- Polestar works with (Integrations); the author's Recorder and About close
--- the list. How everything looks has a page per surface in the Look group
+-- The pages follow what the player came to do, in the order a player meets
+-- it, not which module owns a setting: follow the guide (Guide), quest
+-- (Questing), choose what the maps show (Map), small conveniences (Quality
+-- of Life), find things now and then (Discovery: Lookup, the dungeon
+-- journal, rares, your characters), other addons Polestar works with
+-- (Integrations); About, Guiding Stars and the author's Recorder close the
+-- list. How everything looks has a page per surface in the Look group
 -- (Theme, Guide window, Arrow, Map pins, ...), registered by the modules
 -- that draw them. Modules still register their own controls; the pages they
 -- fill are declared here with their tabs and sections in order, and the
@@ -234,7 +239,7 @@ end
 
 local GUIDE, MAP, QUESTING, DISCOVERY, QOL, REC, ABOUT =
 	L["Guide"], L["Map"], L["Questing"], L["Discovery"], L["Quality of Life"], L["Recorder"], L["About"]
--- Guide's first tab: what Polestar does while you play (Dynamic Questing, showing and hiding, pause).
+-- Guide's first tab: what Polestar does while you play (Dynamic Questing, pause).
 local WHILE_YOU_PLAY = L["While you play"]
 
 -- Every movable frame back in its place: the Movers' reset of all they hold
@@ -274,9 +279,8 @@ local function declare(page, key, icon, order, subtitle, tabs)
 	return out
 end
 
--- Guide > Automation's trainer reminders, also on Quality of Life > Vendors >
--- Trainers: one setting, a fresh control per page (the registry keeps
--- per-control state).
+-- The trainer reminders: their home is Quality of Life > Leveling > Trainers;
+-- Guide > Automation shows a reference.
 local function trainReminder()
 	return { kind = "dropdown", key = "behavior.trainReminder", label = L["Trainer reminders"], help = L["A note in the guide window, with the nearest trainer of your class, when new skills are waiting."],
 		search = "train, trainer, new spells, skills, abilities, level up, class trainer",
@@ -287,8 +291,8 @@ local BUILTIN = {
 	-- Core/Engine.lua, Dynamic Questing (Own.hereBuild): quick objectives of later steps close by, in the guide
 	-- window's "While you're here" panel. The setting keys keep their behavior.whileHere* names.
 	-- Its switch in the section's header. While you play opens the page (following the guide: what Polestar does
-	-- while you play, the arrow and routes, automation); everything about the guide window itself is on Look >
-	-- Guide window, which its first row links to.
+	-- while you play, automation, the arrow and routes); everything about the guide window itself, showing and
+	-- hiding Polestar and where its frames sit among it, is on Look > Guide window, which its first row links to.
 	{ page = GUIDE, key = "guide", icon = "icon-note", order = 10, tab = WHILE_YOU_PLAY, section = L["Dynamic Questing"],
 		subtitle = L["The guide window, the arrow and its routes, and what Polestar does for you."],
 		link = { text = L["What the window shows, when it hides and where it sits:"], page = "guidewindow", tab = L["Window"],
@@ -354,26 +358,6 @@ local BUILTIN = {
 			search = "step key, target, targetexact, keybind, binding",
 			disabled = function() return not ns.Get("behavior.whileHere") end },
 	} },
-	-- The ways to show and hide Polestar without typing: UI/Launcher.lua's
-	-- floating button and the minimap button (Maps/MinimapButton.lua; also on
-	-- Map and Quality of Life), which hides everything Polestar shows (0.3.7:
-	-- the arrow may stay), and the lock on the arrow and buttons. When the
-	-- window itself shows (in combat, in dungeons) is on Look > Guide window.
-	{ page = GUIDE, tab = WHILE_YOU_PLAY, section = L["Show and hide"], controls = {
-		{ kind = "toggle", key = "ui.launcher", label = L["Floating button"], move = "launcher",
-			help = L["A small Polestar button you can put anywhere on the screen. Click to hide or show Polestar, right-click for a menu, drag to move it. It hides with the window in combat and in dungeons when those are set to Hide."],
-			search = "launcher, floating icon, floating button, show, hide, toggle, open polestar, quick" },
-		{ kind = "toggle", key = "maps.minimapButton", label = L["Minimap button"],
-			help = L["A Polestar button on the edge of the minimap. Click to hide or show Polestar, right-click for a menu, drag to move it."],
-			search = "minimap icon, minimap button, hide button, launcher" },
-		{ kind = "toggle", label = L["Keep the arrow when hidden"],
-			help = L["Hiding Polestar leaves the arrow, its travel button and its arrival sound. This character only."],
-			search = "hide polestar, hidden, arrow only, keep arrow, minimap button, hide all",
-			needs = function() return ns.SetHideKeepsArrow ~= nil end,
-			get = function() return ns.HideKeepsArrow() end, set = function(on) ns.SetHideKeepsArrow(on) end },
-		{ kind = "toggle", key = "ui.lockHud", label = L["Lock arrow and buttons"],
-			help = L["Stops stray drags on the arrow, the action buttons and the flight and instance timers. Shift-drag still moves them."] },
-	} },
 	-- Pause (Core/Init.lua, Core/Pause.lua): per character, like hiding; its two extras are
 	-- account settings. A section of its own, so its rows stay together.
 	{ page = GUIDE, tab = WHILE_YOU_PLAY, section = L["Pause"], controls = {
@@ -390,64 +374,35 @@ local BUILTIN = {
 		{ kind = "binding", action = "POLESTAR_PAUSE", label = L["Pause the guide"],
 			help = L["A key or gamepad button that pauses Polestar or resumes it. It also resumes by itself when you leave a dungeon alive."] },
 	} },
-	-- Move frames, its grid and the reset of every frame's place (UI/Movers.lua fills it). The guide window's own
-	-- lock and reset are on Look > Guide window.
-	{ page = GUIDE, tab = WHILE_YOU_PLAY, section = L["Position"], controls = {} },
-	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Arrow"], controls = {
-		H({ kind = "toggle", key = "nav.arrow", label = L["Show arrow"], move = "arrow", help = L["Points to the current goal. Its look and colours are on the Arrow page."],
-			search = "arrow, waypoint, pointer, direction, compass, navigation, hud",
-			children = {
-				H({ kind = "toggle", key = "nav.hideArrowWithGuide", label = L["Hide the arrow with the guide"], help = L["When the guide window is hidden, hide the arrow too."] }),
-			} }),
-		H({ kind = "toggle", key = "nav.arrowEta", label = L["Arrival time"], help = L["Estimated time under the distance."], search = "eta, time left, travel time" }),
-		{ kind = "dropdown", key = "nav.distanceUnit", label = L["Distances"], help = L["How the arrow, map tooltips, rares and the death helper show distances."], search = "units, yards, metres, metric, distance",
-			choices = { { value = "yards", label = L["Yards (the game's unit)"] }, { value = "metres", label = L["Metres"] } } },
-		H({ kind = "toggle", key = "nav.arrivalSound", label = L["Arrival sound"], help = L["A soft chime when you reach a waypoint."], search = "sound, chime, audio, ding" }),
-		H({ kind = "button", button = L["Reset"], label = L["Reset arrow position"], help = L["Back to the top of the screen. Drag the arrow to move it."],
-			onClick = function() if ns.Nav and ns.Nav.ResetArrowPosition then ns.Nav.ResetArrowPosition() end end,
-			needs = function() return ns.Nav and ns.Nav.ResetArrowPosition end }),
-	} },
-	-- The route: how it is planned and drawn. Nav adds its style and the journey's steps (Nav/Options.lua,
-	-- UI/GuideOptions.lua).
-	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Routes"], controls = {
-		H({ kind = "toggle", key = "nav.travel", label = L["Plan travel routes"], help = L["Flights, boats and your hearthstone when they are faster. Off: the arrow points straight at the goal."],
-			search = "flight, taxi, flight path, boat, zeppelin, hearth, hearthstone, route planning, fastest way, fps, frame rate, performance, lag, stutter, cpu, slow",
-			children = {
-				H({ kind = "toggle", key = "nav.teleports", label = L["Class teleports"], help = L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."],
-					search = "teleport, portal, mage, druid, moonglade, shaman, astral recall" }),
-				-- 0.3.7's detour captions in the journey (Nav/Journey.lua).
-				H({ kind = "toggle", key = "nav.detourCaption", label = L["Detour captions"], help = L["Under a walk in the journey, say when it goes round a town of the other faction: \"Detour around Southshore\". It only says so: the route and the arrow stay as they are."],
-					search = "detour, enemy town, hostile town, avoid, go round, journey" }),
-			} }),
-		H({ kind = "toggle", key = "nav.routeLines", label = L["Route lines"], help = L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."],
-			search = "path line, route on map, sparkles, dots",
-			gear = { tip = L["Line style"], onClick = function() UI.ShowOptions("routelines") end },
-			children = {
-				H({ kind = "dropdown", key = "nav.lineStyle", label = L["Line style"],
-					help = L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."],
-					search = "route style, solid line, path line, dots, sparkles, breadcrumbs",
-					choices = ns.RouteLines and ns.RouteLines.STYLE_CHOICES or {},
-					needs = function() return ns.RouteLines end }),
-			} }),
-		H({ kind = "toggle", key = "nav.navRouting", label = L["Walk real paths"], help = L["The arrow follows paths on the ground around cliffs, water and walls, on Polestar's walking maps, with Shortest Path Forever's router by Cillian Berragan. Off: it points straight at each stop."],
-			search = "pathfinding, pathing, router, walking, avoid cliffs, mountains, fps, frame rate, performance, lag, stutter, cpu, slow" }),
-	} },
-	-- Filled by Nav's travel button and transport alerts (Nav/Options.lua).
-	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Along the route"], controls = {} },
-	-- Ways round the world beside the arrow: boat times shared, a map click to go
-	-- somewhere, the nearest services (Nav adds those, Nav/Options.lua).
-	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Getting around"], controls = {
-		{ kind = "toggle", key = "nav.shareTransit", label = L["Share boat times"], help = L["Riding a boat, zeppelin, tram or lift times it; your guild and group get those times and you get theirs, so the arrow can say when the next one leaves."],
-			search = "boat, zeppelin, tram, ship, transport, schedule" },
-	} },
-	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Other waypoints"], controls = {
-		H({ kind = "toggle", key = "nav.blizzardWaypoint", label = L["Blizzard waypoint"], help = L["Also set the game's own map pin and tracking."], search = "map pin, waypoint, user waypoint, supertrack" }),
-		H({ kind = "toggle", key = "nav.tomtom", label = L["Mirror to TomTom"], help = L["Adds the target as a TomTom waypoint when TomTom is loaded."], search = "waypoints, tomtom",
-			children = {
-				H({ kind = "toggle", key = "nav.useTomTomArrow", label = L["Use TomTom's arrow"], help = L["Hides Polestar's arrow in favour of TomTom's, except on the way to another continent, where TomTom's arrow cannot point."] }),
-			} }),
-		H({ kind = "toggle", key = "nav.arrowToFollower", label = L["Let a following addon show the way"], help = L["Hides Polestar's arrow while another addon shows Polestar's target itself, as Naowh Forever's Waypoint Pin does with Follow Polestar on. That addon also sets the game's map pin then."],
-			search = "naowh, waypoint pin, navigator bar, hide arrow, follow polestar" }),
+	{ page = GUIDE, tab = L["Automation"], section = L["Guides"], controls = {
+		{ kind = "toggle", key = "behavior.autoSelectGuide", label = L["Pick a guide for me"], help = L["Opens the suggested guide when no tab is open."], search = "auto guide, choose guide, suggested guide" },
+		{ kind = "dropdown", key = "behavior.guideEnd", label = L["When a leveling guide ends"], help = L["Ask me: a window says the guide is done and offers the next one. Continue automatically: the next guide loads in the same tab."],
+			choices = { { value = "ask", label = L["Ask me"] }, { value = "continue", label = L["Continue automatically"] } } },
+		{ kind = "dropdown", key = "behavior.routeChoice", label = L["Where to level next"], help = L["Where a guide offers more than one zone to continue in (/polestar path)."],
+			choices = { { value = "ask", label = L["Let me choose"] }, { value = "recommended", label = L["Take the recommended zone"] } } },
+		-- Polestar's experimental guides (Polestar_Experimental; Core/Guides.lua, Guides.OWN_EXTRA): on until switched off.
+		-- Mount Hyjal is the one left there: the Riverglades and Shen'dralas are in the leveling route since 0.4.0.
+		{ kind = "toggle", key = "behavior.experimentalGuides", label = L["Show experimental guides"], new = "0.4.0",
+			help = L["Polestar's guides for Forever's new zones, still being tested: listed in the guide menu under Leveling with an Experimental chip. They are never picked for you; a route choice offers their zone where it fits either way."],
+			search = "experimental, alpha, new zones, mount hyjal, polestar experimental" },
+		-- `die` steps (Core/Engine.lua, Own.deathskips): the player's choice, never in Hardcore.
+		{ kind = "toggle", key = "behavior.deathskips", label = L["Use deathskips"], search = "death skip, die on purpose, corpse run, spirit healer",
+			help = L["Where dying on purpose and taking the Spirit Healer's resurrection gets you there sooner, the guide shows a step for it. It costs durability and, from level 11, resurrection sickness. Always off on Hardcore characters."],
+			get = function() return ns.Get("behavior.deathskips") and not O.Hardcore() end,
+			disabled = function() return O.Hardcore() end },
+		W.Ref("dropdown", "behavior.trainReminder"),
+		{ kind = "toggle", key = "behavior.offerClassQuests", label = L["Offer class quests"],
+			help = L["When one of your class's Class guides opens (your level, its first quest), the guide window offers to open it in a tab."] },
+		{ kind = "button", icon = "reset", button = L["Reset"], danger = true, label = L["Reset guide progress"], help = L["Manual check-offs and skips, current guide, from your last quest progress on."], confirm = true,
+			confirmTitle = L["Reset guide progress?"], confirmAction = L["Reset progress"],
+			confirmText = function()
+				local g = ns.Engine and ns.Engine.GetGuide and ns.Engine.GetGuide()
+				local name = g and (g.title or g.id)
+				if name then return string.format(L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."], name) end
+				return L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."]
+			end,
+			onClick = function() if ns.Engine and ns.Engine.ResetProgress then ns.Engine.ResetProgress() end end,
+			needs = function() return ns.Engine and ns.Engine.ResetProgress end },
 	} },
 	{ page = GUIDE, tab = L["Automation"], section = L["Quests"], controls = {
 		{ kind = "toggle", key = "behavior.closeSkipped", label = L["Close offers the guide skips"], help = L["After Polestar accepts or turns in a quest, closes the quest window the NPC opens next when the guide skips its quests. Hold Shift to keep it open."],
@@ -477,40 +432,11 @@ local BUILTIN = {
 			search = "dungeon, dungeons, instance, group, run, deadmines, wailing caverns, zul'farrak, blackrock depths",
 			needs = function() local E = ns.Engine; return ns.dungeonRoute and E and E.GuideDungeons and next(E.GuideDungeons()) ~= nil end },
 	} },
-	{ page = GUIDE, tab = L["Automation"], section = L["Guides"], controls = {
-		{ kind = "toggle", key = "behavior.autoSelectGuide", label = L["Pick a guide for me"], help = L["Opens the suggested guide when no tab is open."], search = "auto guide, choose guide, suggested guide" },
-		{ kind = "dropdown", key = "behavior.guideEnd", label = L["When a leveling guide ends"], help = L["Ask me: a window says the guide is done and offers the next one. Continue automatically: the next guide loads in the same tab."],
-			choices = { { value = "ask", label = L["Ask me"] }, { value = "continue", label = L["Continue automatically"] } } },
-		{ kind = "dropdown", key = "behavior.routeChoice", label = L["Where to level next"], help = L["Where a guide offers more than one zone to continue in (/polestar path)."],
-			choices = { { value = "ask", label = L["Let me choose"] }, { value = "recommended", label = L["Take the recommended zone"] } } },
-		-- Polestar's experimental guides (Polestar_Experimental; Core/Guides.lua, Guides.OWN_EXTRA): on until switched off.
-		-- Mount Hyjal is the one left there: the Riverglades and Shen'dralas are in the leveling route since 0.4.0.
-		{ kind = "toggle", key = "behavior.experimentalGuides", label = L["Show experimental guides"], new = "0.4.0",
-			help = L["Polestar's guides for Forever's new zones, still being tested: listed in the guide menu under Leveling with an Experimental chip. They are never picked for you; a route choice offers their zone where it fits either way."],
-			search = "experimental, alpha, new zones, mount hyjal, polestar experimental" },
-		-- `die` steps (Core/Engine.lua, Own.deathskips): the player's choice, never in Hardcore.
-		{ kind = "toggle", key = "behavior.deathskips", label = L["Use deathskips"], search = "death skip, die on purpose, corpse run, spirit healer",
-			help = L["Where dying on purpose and taking the Spirit Healer's resurrection gets you there sooner, the guide shows a step for it. It costs durability and, from level 11, resurrection sickness. Always off on Hardcore characters."],
-			get = function() return ns.Get("behavior.deathskips") and not O.Hardcore() end,
-			disabled = function() return O.Hardcore() end },
-		trainReminder(),
-		{ kind = "toggle", key = "behavior.offerClassQuests", label = L["Offer class quests"],
-			help = L["When one of your class's Class guides opens (your level, its first quest), the guide window offers to open it in a tab."] },
-		{ kind = "button", button = L["Reset"], danger = true, label = L["Reset guide progress"], help = L["Manual check-offs and skips, current guide, from your last quest progress on."], confirm = true,
-			confirmTitle = L["Reset guide progress?"], confirmAction = L["Reset progress"],
-			confirmText = function()
-				local g = ns.Engine and ns.Engine.GetGuide and ns.Engine.GetGuide()
-				local name = g and (g.title or g.id)
-				if name then return string.format(L["Your manual check-offs and skipped steps in %s are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."], name) end
-				return L["Your manual check-offs and skipped steps in the current guide are cleared from your last quest progress on. Quests you have done stay done, and the guide stays where they put you."]
-			end,
-			onClick = function() if ns.Engine and ns.Engine.ResetProgress then ns.Engine.ResetProgress() end end,
-			needs = function() return ns.Engine and ns.Engine.ResetProgress end },
-	} },
 	-- Gather, buy or mix (Core/Materials.lua, UI/Materials.lua): a profession guide's materials. Each guide's own
 	-- answer is the player's, per character (its card, the guide window's menu, the Materials window, which the
 	-- last row opens); this is the way of a guide never answered.
-	{ page = GUIDE, tab = L["Professions"], section = L["Materials"], controls = {
+	-- In Automation, after the leveling guides' own choices (a tab of its own held two keys).
+	{ page = GUIDE, tab = L["Automation"], section = L["Profession guides"], controls = {
 		{ kind = "dropdown", key = "professions.materials", label = L["Materials in profession guides"], new = "0.4.0",
 			help = L["How a profession guide gets a material it can gather or buy, until you answer for that guide. Ask me: a card asks when the guide opens and Mix applies meanwhile. Mix gathers what your level and professions allow and buys the rest at the Auction House. Vendor goods stay vendor steps."],
 			search = "materials, reagents, gather, farm, buy, auction house, mix, crafting, professions, tailoring, shopping",
@@ -524,24 +450,79 @@ local BUILTIN = {
 			onClick = function() ns.UI.Materials.Show() end,
 			needs = function() return ns.UI and ns.UI.Materials end },
 	} },
+	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Arrow"], controls = {
+		H({ kind = "toggle", key = "nav.arrow", label = L["Show arrow"], move = "arrow", help = L["Points to the current goal. Its look and colours are on the Arrow page."],
+			search = "arrow, waypoint, pointer, direction, compass, navigation, hud, show arrow, hide arrow",
+			children = {
+				H({ kind = "toggle", key = "nav.hideArrowWithGuide", label = L["Hide the arrow with the guide"], help = L["When the guide window is hidden, hide the arrow too."],
+					search = "hide with guide, guide hidden, window closed" }),
+			} }),
+		H({ kind = "toggle", key = "nav.arrowEta", label = L["Arrival time"], help = L["Estimated time under the distance."], search = "eta, time left, travel time, minutes, show arrival time" }),
+		{ kind = "dropdown", key = "nav.distanceUnit", label = L["Distances"], help = L["How the arrow, map tooltips, rares and the death helper show distances."], search = "units, yards, metres, meters, metric, distance, distances",
+			choices = { { value = "yards", label = L["Yards (the game's unit)"] }, { value = "metres", label = L["Metres"] } } },
+		H({ kind = "toggle", key = "nav.arrivalSound", label = L["Arrival sound"], help = L["A soft chime when you reach a waypoint."], search = "sound, chime, audio, ding, arrival sound" }),
+		H({ kind = "button", button = L["Reset"], label = L["Reset arrow position"], help = L["Back to the top of the screen. Drag the arrow to move it."],
+			onClick = function() if ns.Nav and ns.Nav.ResetArrowPosition then ns.Nav.ResetArrowPosition() end end,
+			needs = function() return ns.Nav and ns.Nav.ResetArrowPosition end }),
+	} },
+	-- The route: how it is planned and drawn. Nav adds its style and the journey's steps (Nav/Options.lua,
+	-- UI/GuideOptions.lua).
+	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Routes"], controls = {
+		H({ kind = "toggle", key = "nav.travel", label = L["Plan travel routes"], help = L["Flights, boats and your hearthstone when they are faster. Off: the arrow points straight at the goal."],
+			search = "flight, taxi, flight path, boat, zeppelin, hearth, hearthstone, route planning, fastest way, fps, frame rate, performance, lag, stutter, cpu, slow",
+			children = {
+				H({ kind = "toggle", key = "nav.teleports", label = L["Class teleports"], help = L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."],
+					search = "teleport, portal, mage, druid, moonglade, shaman, astral recall" }),
+				-- 0.3.7's detour captions in the journey (Nav/Journey.lua).
+				H({ kind = "toggle", key = "nav.detourCaption", label = L["Detour captions"], help = L["Under a walk in the journey, say when it goes round a town of the other faction: \"Detour around Southshore\". It only says so: the route and the arrow stay as they are."],
+					search = "detour, enemy town, hostile town, avoid, go round, journey" }),
+			} }),
+		H({ kind = "toggle", key = "nav.routeLines", label = L["Route lines"], help = L["The way to the goal on the world map and the minimap: a line or dots where you walk, lines where you fly, sail or ride, the legs after this one fainter. Drawn as Shortest Path Forever by Cillian Berragan draws them."],
+			search = "path line, route on map, show route, hide route, sparkles, dots, trail",
+			gear = { tip = L["Line style"], onClick = function() UI.ShowOptions("routelines") end },
+			children = {
+				H({ kind = "dropdown", key = "nav.lineStyle", label = L["Line style"],
+					help = L["How the route lines are drawn: one solid line, Polestar's dots, or sparkles that drift along the way to the goal (dots while Reduce motion is on)."],
+					search = "route style, line style, solid line, path line, dots, sparkles, breadcrumbs, look",
+					choices = ns.RouteLines and ns.RouteLines.STYLE_CHOICES or {},
+					needs = function() return ns.RouteLines end }),
+			} }),
+		H({ kind = "toggle", key = "nav.navRouting", label = L["Walk real paths"], help = L["The arrow follows paths on the ground around cliffs, water and walls, on Polestar's walking maps, with Shortest Path Forever's router by Cillian Berragan. Off: it points straight at each stop."],
+			search = "pathfinding, pathing, router, walking, avoid cliffs, mountains, fps, frame rate, performance, lag, stutter, cpu, slow" }),
+	} },
+	-- Filled by Nav's travel button and transport alerts (Nav/Options.lua).
+	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Along the route"], controls = {} },
+	-- Ways round the world beside the arrow: boat times shared, a map click to go
+	-- somewhere, the nearest services (Nav adds those, Nav/Options.lua).
+	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Getting around"], controls = {
+		{ kind = "toggle", key = "nav.shareTransit", label = L["Share boat times"], help = L["Riding a boat, zeppelin, tram or lift times it; your guild and group get those times and you get theirs, so the arrow can say when the next one leaves."],
+			search = "boat, zeppelin, tram, ship, transport, schedule" },
+	} },
+	{ page = GUIDE, tab = L["Arrow & routes"], section = L["Other waypoints"], controls = {
+		H({ kind = "toggle", key = "nav.blizzardWaypoint", label = L["Blizzard waypoint"], help = L["Also set the game's own map pin and tracking."], search = "map pin, waypoint, user waypoint, supertrack" }),
+		H({ kind = "toggle", key = "nav.arrowToFollower", label = L["Let a following addon show the way"], help = L["Hides Polestar's arrow while another addon shows Polestar's target itself, as Naowh Forever's Waypoint Pin does with Follow Polestar on. That addon also sets the game's map pin then."],
+			search = "naowh, waypoint pin, navigator bar, hide arrow, follow polestar" }),
+	} },
 
 	-- Everything Polestar draws on the world map and the minimap, in one
 	-- place. The sections are declared here, in this order; the Quests,
 	-- Rares and Maps modules register their controls into them by name. The
 	-- second tab holds the rest of the map: rares, travel, services and zones.
-	{ page = MAP, key = "map", icon = "icon-explore", order = 30, tab = L["Guide & quests"], section = L["Guide"],
+	{ page = MAP, key = "map", icon = "icon-explore", order = 40, tab = L["Guide & quests"], section = L["Guide"],
 		subtitle = L["What Polestar draws on the world map and the minimap. Quest, rare and travel icons start off."], controls = {
-		{ kind = "toggle", key = "nav.worldPins", label = L["Guide pins on the world map"], search = "map pins, icons, markers, waypoint, world map",
+		{ kind = "toggle", key = "nav.worldPins", label = L["Guide pins on the world map"], search = "map pins, icons, markers, waypoint, world map, guide pins, target, on the world map",
 			help = L["The arrow's target, the stops of its travel route, the step's other goals, the areas their mobs and objects spawn in, and the route lines."] },
-		{ kind = "toggle", key = "nav.minimapPins", label = L["Guide pin on the minimap"], help = L["The arrow's target, the areas it spawns in, and the route line."], search = "map pins, icons, markers, waypoint, minimap" },
+		{ kind = "toggle", key = "nav.minimapPins", label = L["Guide pin on the minimap"], help = L["The arrow's target, the areas it spawns in, and the route line."], search = "map pins, icons, markers, waypoint, minimap, guide pins, target, on the minimap" },
 		H({ kind = "toggle", key = "nav.minimapRoute", label = L["Route line on the minimap"],
 			help = L["The way to the goal on the minimap. Off keeps the guide pin there and the line on the world map. Its colour, opacity and size: the gear beside Guide > Arrow & routes > Route lines."],
-			search = "route line, path, dots, minimap, herbs, gathering, mining, clutter",
+			search = "route line, path, dots, minimap, herbs, gathering, mining, clutter, route on the minimap, radar",
 			disabled = function() return not ns.Get("nav.minimapPins") end }),
 		{ kind = "toggle", key = "nav.upcomingPins", label = L["Numbered pins for the steps ahead"],
+			search = "upcoming, next steps, numbers, numbered pins, step pins, ahead, preview, plan",
 			help = L["A small pin with its step number where each of the next steps takes you, fainter the further ahead. As many as Up next shows, else five."] },
 		-- The trail stands in for route lines: shown while they are off, as on Map pins.
 		H({ kind = "toggle", key = "nav.trailDots", label = L["Trail dots along the travel route"],
+			search = "trail dots, path, route, breadcrumbs",
 			help = L["Moving dots from you to the target on the world map and the minimap, along the travel route, while route lines are off."],
 			needs = function() return not ns.Get("nav.routeLines") end }),
 	} },
@@ -554,25 +535,33 @@ local BUILTIN = {
 
 -- Pages filled by modules alone: Quests, QoL, Gear and Talents on Questing; Lookup,
 -- Alts, Dungeons and Rares on Discovery; QoL, Nav and Maps on Quality of Life.
+-- Each in the order a player meets its settings (docs/superpowers/specs/
+-- 2026-11-17-settings-ia-review.md, section 4).
 for _, list in ipairs({
-	declare(QUESTING, "questing", "icon-accept", 40, L["Quest information, rewards and gear advice, and the quest buttons."], {
-		{ L["Quests"], { L["Faster questing"], L["Quest log and tooltips"], L["Group"], L["Party chat"] } },
+	declare(QUESTING, "questing", "icon-accept", 30, L["Quest information, rewards and gear advice, and the quest buttons."], {
+		-- Quest data: the quest database's switch (Quests/Options.lua), its card folding with it; what it gives tooltips
+		-- and nameplates under it. Quest items: what bags and buying do with quest items.
+		{ L["Quests"], { L["Faster questing"], L["Quest log"], L["Quest data"], L["Quest items"] } },
 		{ L["Rewards & gear"], { L["Quest rewards"], L["Gear advice"] } },
 		-- Talents: { L["Talents"], { L["Talent plan"] } } here once the plans are back (Talents.lua, T.SOON).
 		{ L["Buttons"], { L["Action buttons"], L["Targeting"] } },
+		{ L["Group"], { L["Group"], L["Party chat"] } },
 	}),
-	declare(DISCOVERY, "discovery", "search", 50, L["Lookup, the dungeon journal and rares: finding things in the world."], {
-		{ L["Lookup"], { L["How to get anything"], L["Dungeons and characters"] } },
+	declare(DISCOVERY, "discovery", "search", 60, L["Lookup, the dungeon journal and rares: finding things in the world."], {
+		-- The dungeon journal and the characters, each its module's switch in its card's header.
+		{ L["Lookup"], { L["How to get anything"], ENCOUNTER_JOURNAL or L["Dungeons"], L["Characters"] } },
 		{ L["Dungeons"], { L["Dungeons in leveling guides"] } },
 		{ L["Rares"], { L["When a rare shows up"], L["How rares are noticed"] } },
 	}),
-	declare(QOL, "qualityoflife", "qol-toggles", 60, L["Small conveniences: questing, travel, invitations, merchants, bags, trackers and the map."], {
-		-- Conveniences that also live on their home pages (Questing, Guide, Map): players look for them here (Fitz, 2026-11-05).
+	declare(QOL, "qualityoflife", "qol-toggles", 50, L["Small conveniences: questing, travel, invitations, merchants, bags, trackers and the map."], {
+		-- References to conveniences whose home is Questing: players look for them here (Fitz, 2026-11-05).
 		{ L["Quests"], { L["Faster questing"], L["Rewards, buttons and tracker"] } },
-		{ L["Travel"], { L["Flights"], L["Hearth and travel"], L["Death"] } },
+		{ L["Vendors"], { L["Merchants"], L["Restock"], L["Bags"] } },
+		{ L["Travel"], { L["Flights"], L["Death"], L["Hearth and travel"] } },
+		-- What changes as you level: the XP bar's marks, the XP tracker (its switch in its card's header), the
+		-- trainers and the instance cap.
+		{ L["Leveling"], { L["Experience"], L["XP tracker"], L["Trainers"], L["Instances"] } },
 		{ L["Social"], { L["Requests"], L["Blocking"] } },
-		{ L["Vendors"], { L["Merchants"], L["Restock"], L["Bags"], L["Trainers"] } },
-		{ L["Trackers & map"], { L["Experience"], L["Instances"], L["Minimap and coordinates"] } },
 		-- The game's own options (QoL/Options.lua): image quality, no Polestar setting behind it, and second homes.
 		{ L["Game"], { L["Game options"] } },
 	}),
@@ -582,13 +571,13 @@ end
 
 for _, spec in ipairs(BUILTIN) do add(spec, true) end
 -- The quests Forever added (Quests/NewQuests.lua): their mark shows in the guide, the Codex and quest tooltips alike,
--- so it sits with the quest log and tooltips.
-add({ page = QUESTING, tab = L["Quests"], section = L["Quest log and tooltips"], controls = {
+-- so it sits with the quest log.
+add({ page = QUESTING, tab = L["Quests"], section = L["Quest log"], controls = {
 	{ kind = "toggle", key = "ui.newInForever", label = L["Mark quests new in Forever"],
 		help = L["A small infinity mark beside the name of a quest Forever added, in the guide, While you're here, the Codex and quest tooltips."],
 		search = "new in forever, infinity, new quest, forever quest, mark, badge" },
 } }, true)
-add({ page = QOL, tab = L["Vendors"], section = L["Trainers"], controls = { trainReminder() } }, true)
+add({ page = QOL, tab = L["Leveling"], section = L["Trainers"], controls = { trainReminder() } }, true)
 
 -- Integrations: a section per supported addon, each registered by its
 -- module with needs = the addon is present (Compat.AddOnPresent), so only
@@ -730,8 +719,8 @@ end
 end
 
 -- Install (UI/Welcome.lua) as a control, so the search finds it ("install",
--- "setup", "wizard", "first run"): at home on About, whose Install tile is its
--- widget there (view.cache), the one a search result's jump lights.
+-- "setup", "wizard", "first run"): at home on Setup > Profiles, in the Install
+-- & updates card (UI/Profiles.lua draws it). About keeps its Install tile.
 -- Held back (ns.dungeonRoute), Install's groups page has no dungeon question, so neither text names dungeons.
 local INSTALL = { kind = "button", icon = "palette", button = L["Install"], label = L["Set Polestar up again"],
 	help = ns.dungeonRoute and L["Install's pages: questing, groups and dungeons, your route and your look, a page at a time. Each choice works at once."]
@@ -739,7 +728,7 @@ local INSTALL = { kind = "button", icon = "palette", button = L["Install"], labe
 	search = "install, setup, set up, wizard, first run, first time, welcome, getting started, start again, onboarding",
 	onClick = function() ns.Fire("SHOW_WELCOME") end }
 
--- Core/Update.lua's notices (0.3.7), at home on About under Install and What's new: shown once the setting is
+-- Core/Update.lua's notices (0.3.7), at home on Setup > Profiles beside Install: shown once the setting is
 -- registered.
 local UPDATE = { kind = "toggle", key = "update.card", label = L["Tell me when a newer Polestar is out"],
 	help = L["At login, a card on the guide window says a newer Polestar is out and how to update; Got it keeps it away for a day. A line in the guide window stays until you update. Two or more updates behind, both show even with this off (the card at most once a day)."],
@@ -834,18 +823,9 @@ local function buildAbout(view)
 			or L["Set Polestar up again, a page at a time: questing, groups, your route, your look. Each choice works at once."],
 		function() ns.Fire("SHOW_WELCOME") end)
 	view.Install = install
-	view.cache = { [INSTALL] = install }
 	local whatsNew = W.ActionTile(view, "star", L["What's new"], L["What this version of Polestar changed for you."],
 		function() ns.Fire("SHOW_WHATSNEW") end)
 	view.WhatsNew = whatsNew
-	-- Core/Update.lua's switch, a row under the two tiles (its widget for a search result's jump).
-	local update
-	if ns.GetDefault and ns.GetDefault(UPDATE.key) ~= nil then
-		update = O.Control(view, UPDATE)
-		W.CompactRow(update)
-		view.cache[UPDATE] = update
-		view.Update = update
-	end
 	local credH, credText = block(L["Credits"], L["Inter typeface by The Inter Project Authors, SIL Open Font License 1.1."] .. "\n"
 		.. L["Wordmark set in Cinzel by The Cinzel Project Authors, SIL Open Font License 1.1."] .. "\n"
 		.. L["Quest and map data includes pfQuest by shagu (MIT License)."] .. "\n"
@@ -910,12 +890,6 @@ local function buildAbout(view)
 			y = y + aiLink:GetHeight() + 12
 		end
 		y = y + placePair(view, { install, whatsNew }, y, cw, W.LayoutTile) + 12
-		if update then
-			update:ClearAllPoints()
-			update:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
-			update.psTop = y
-			y = y + W.LayoutRow(update, width) + 12
-		end
 		whyH:ClearAllPoints()
 		whyH:SetPoint("TOPLEFT", view, "TOPLEFT", SH.pad, -y)
 		whyH:SetWidth(width)
@@ -962,7 +936,10 @@ add({ page = L["Guiding Stars"], key = "thanks", icon = "star", order = 80, subt
 	custom = UI.Thanks.Build }, true)
 add({ page = REC, key = "recorder", icon = "record", order = 90, subtitle = L["The data recorder for guide authors."], custom = buildRecorder }, true)
 add({ page = ABOUT, key = "about", icon = "info", order = 100, subtitle = L["Why Polestar exists, its commands and its credits."], custom = buildAbout }, true)
-add({ page = ABOUT, section = L["Install"], controls = { INSTALL, UPDATE } }, true)
+-- Install and the update notices: Setup > Profiles' Install & updates card, where a first install and
+-- troubleshooting look (UI/Profiles.lua draws the card; the page's own registration there).
+add({ page = L["Profiles"], key = "profiles", icon = "layers", order = 64, group = "setup", tab = L["Profiles"],
+	section = L["Install & updates"], controls = { INSTALL, UPDATE } }, true)
 
 -- Page keys from before the pages were regrouped (and older section names)
 -- reach the page, and the tab, that holds those settings now. A page's own
@@ -1036,12 +1013,9 @@ end
 O.HomeOf = homeOf
 
 -- A reference for a page's spec: kind and key (what RegisterOptions checks),
--- `ref`, and any fields given (a shorter label, other extras).
-function O.Ref(kind, key, fields)
-	local c = { kind = kind, key = key, ref = true }
-	for k, v in pairs(fields or {}) do c[k] = v end
-	return c
-end
+-- `ref`, and any fields given (a shorter label, other extras): W.Ref
+-- (Polestar/Theme/Widgets.lua).
+O.Ref = W.Ref
 
 local function available(c)
 	if rawget(c, "ref") and not homeOf(c) then return false end

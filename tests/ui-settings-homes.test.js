@@ -34,15 +34,15 @@ function run(script) {
 	}).emitted[0];
 }
 
-test('the quests-new-in-Forever mark sits with the quest log and tooltips, the update notices on About', () => {
-	const out = run(`UI.ShowOptions("about")
-		local about = O.Controls("about")["update.card"]
+test('the quests-new-in-Forever mark sits with the quest log, the update notices on Profiles with Install', () => {
+	const out = run(`UI.ShowOptions("profiles")
+		local row = O.Controls("profiles")["update.card"]
 		emit({ mark = homes("ui.newInForever"), update = homes("update.card"),
-			aboutRow = about ~= nil and about:IsShown(), aboutOn = about ~= nil and about.checked })`);
-	assert.deepEqual(out.mark, ['questing > Quests > Quest log and tooltips'], 'the mark: Questing > Quests, not the guide window\'s page');
-	assert.deepEqual(out.update, ['about >  > Install'], 'the update notices: About, with Install');
-	assert.equal(out.aboutRow, true, 'About shows the switch as a row');
-	assert.equal(out.aboutOn, true, 'on by default');
+			row = row ~= nil and row:IsShown(), on = row ~= nil and row.checked })`);
+	assert.deepEqual(out.mark, ['questing > Quests > Quest log'], 'the mark: Questing > Quests, not the guide window\'s page');
+	assert.deepEqual(out.update, ['profiles > Profiles > Install & updates'], 'the update notices: Setup > Profiles, with Install');
+	assert.equal(out.row, true, 'Profiles shows the switch as a row of its Install & updates card');
+	assert.equal(out.on, true, 'on by default');
 });
 
 // The guide window's own settings: what it shows, when it hides and where it sits.
@@ -75,9 +75,9 @@ test('Guide opens on While you play, and each page links to the other', () => {
 		back.Link:Click()
 		emit({ guide = guide, landed = landed, look = look, back = { page = O.page.key, tab = O.view.psTab.name } })`);
 	assert.equal(out.guide.tab, 'While you play', 'Guide\'s first tab is While you play');
-	assert.deepEqual(out.guide.cards, ['Dynamic Questing', 'Show and hide', 'Pause', 'Position']);
+	assert.deepEqual(out.guide.cards, ['Dynamic Questing', 'Pause', 'Level pace']);
 	assert.deepEqual(out.guide.link, { shown: true, text: 'What the window shows, when it hides and where it sits:', to: 'Look › Guide window' });
 	assert.deepEqual(out.landed, { page: 'guidewindow', tab: 'Window' }, 'the link opens Look > Guide window');
-	assert.deepEqual(out.look, { shown: true, text: 'Dynamic Questing, pause and the floating button:', to: 'Guiding › Guide' });
+	assert.deepEqual(out.look, { shown: true, text: 'Dynamic Questing and pause:', to: 'Guiding › Guide' });
 	assert.deepEqual(out.back, { page: 'guide', tab: 'While you play' }, 'and its own link leads back');
 });

@@ -177,12 +177,14 @@ fn pages_by_order_in_the_tree_s_groups_a_page_with_nothing_to_set_left_out_recor
 	let tree = tree(&out["tree"]);
 	let groups: Vec<&str> = tree.iter().map(|(g, _)| g.as_str()).collect();
 	assert_eq!(groups, ["Guiding", "Look", "Setup", "About"]);
-	assert_eq!(tree[0].1, ["Guide", "Map", "Quests", "Quality of Life"]);
+	// The pages in the player's journey: Quests before Map; About opens its group.
+	assert_eq!(tree[0].1, ["Guide", "Quests", "Map", "Quality of Life"]);
 	assert!(!tree[1].1.is_empty() && !tree[1].1.iter().any(|p| ["Guide", "Map", "Integrations", "About"].contains(&p.as_str())), "Look: {:?}", tree[1].1);
 	assert!(in_order(&tree[2].1, &["Integrations", "Community guides", "Gamepad"]), "Setup: {:?}", tree[2].1);
-	assert_eq!(tree[3].1, ["Guiding Stars", "Recorder", "About"]);
+	assert_eq!(tree[3].1, ["About", "Guiding Stars", "Recorder"]);
 	assert_eq!(out["title"], "Guide");
-	assert_eq!(out["tabs"], json!(["While you play", "Arrow & routes", "Automation", "Professions"]));
+	// Profession guides are a section of Automation.
+	assert_eq!(out["tabs"], json!(["While you play", "Automation", "Arrow & routes"]));
 	let quests = out["pages"].as_array().unwrap().iter().find(|p| p["name"] == "Quests").cloned();
 	assert_eq!(quests, Some(json!({ "name": "Quests", "key": "quests", "builtin": false, "tabs": ["Map"], "group": "guiding" })));
 	let footer: Vec<String> = out["footer"].as_array().unwrap().iter().map(|v| v.as_str().unwrap().to_string()).collect();
@@ -378,7 +380,8 @@ fn page_keys_stay_english_on_a_translated_client_polestar_options_quests_gear_lo
 	})
 	.remove(0);
 	let keys: Vec<String> = out["keys"].as_array().unwrap().iter().map(|v| v.as_str().unwrap().to_string()).collect();
-	assert!(in_order(&keys, &["guide", "map", "questing", "discovery", "qualityoflife", "integrations", "guidepacks", "gamepad", "thanks", "recorder", "about"]), "keys: {keys:?}");
+	// The pages in the player's journey: Questing before Map, About opens its group.
+	assert!(in_order(&keys, &["guide", "questing", "map", "qualityoflife", "discovery", "integrations", "guidepacks", "gamepad", "about", "thanks", "recorder"]), "keys: {keys:?}");
 	assert!(keys.contains(&"theme".to_string()) && !keys.contains(&"appearance".to_string()), "keys: {keys:?}");
 	assert!(is_match(text(&out["options appearance"]), r"^theme: Thema > "), "{}", out["options appearance"]);
 	let mut rest = out.clone();
@@ -476,9 +479,8 @@ fn built_in_controls_write_settings_and_follow_changes_made_elsewhere() {
 		local maxHeight = ctl("ui.maxHeight")
 		O.Select("guide", "Automation")
 		O.Controls("guide", "Automation")["behavior.skipGrey"]:Click()
-		O.Select("guide", "Arrow & routes")
-		local nav = O.Controls("guide", "Arrow & routes")
-		Polestar.Set("nav.tomtom", false)
+		-- The TomTom rows are Nav's own (Integrations > TomTom, not loaded here): their switch and its child are
+		-- checked with the rest (settings-roundtrip.rs).
 		stub.RunScript(maxHeight.Slider, "OnValueChanged", 0.79, true)
 		-- The accent lives on the Theme page now (UI/Looks/Theme.lua); its colour row is the window's.
 		local accent = ctl("ui.accent")
@@ -489,8 +491,7 @@ fn built_in_controls_write_settings_and_follow_changes_made_elsewhere() {
 		local picked = Polestar.Get("ui.accent")
 		info.cancelFunc()
 		emit({ compact = compact, followed = followed, notesOpen = notesOpen, height = Polestar.Get("ui.maxHeight"),
-			picked = picked, cancelled = Polestar.Get("ui.accent"), skipGrey = Polestar.Get("behavior.skipGrey"),
-			tomtomArrow = nav["nav.useTomTomArrow"]:IsEnabled() })"#);
+			picked = picked, cancelled = Polestar.Get("ui.accent"), skipGrey = Polestar.Get("behavior.skipGrey") })"#);
 	assert_eq!(out["compact"], true);
 	assert_eq!(out["followed"], false);
 	assert_eq!(out["notesOpen"], false, "Expand step tips greys out with the tips off");
@@ -498,18 +499,18 @@ fn built_in_controls_write_settings_and_follow_changes_made_elsewhere() {
 	assert_eq!(out["picked"], json!([0.9, 0.3, 0.1]));
 	assert_eq!(out["cancelled"], false, "cancel restores the previous value: no custom accent");
 	assert_eq!(out["skipGrey"], true);
-	assert_eq!(out["tomtomArrow"], false);
 }
 
 #[test]
 fn the_lock_for_the_arrow_buttons_and_timers_sits_with_showing_and_hiding_off_by_default_and_says_shift_drag_still_moves_them() {
 	let out = run(r#"
-		UI.ShowOptions("guide")
-		local w = O.Controls("guide", "While you play")["ui.lockHud"]
+		UI.ShowOptions("guidewindow")
+		O.Select("guidewindow", "Window")
+		local w = O.Controls("guidewindow", "Window")["ui.lockHud"]
 		local groups = O.Search("lock")
 		local labels, help = {}, nil
 		for _, g in ipairs(groups) do
-			if g.title:find("Guide  \194\183  While you play", 1, true) == 1 then
+			if g.title:find("Guide window  \194\183  Window  \194\183  Show and hide", 1, true) == 1 then
 				for _, c in ipairs(g.controls) do
 					labels[#labels + 1] = c.label
 					if c.key == "ui.lockHud" then help = c.help end
@@ -519,7 +520,8 @@ fn the_lock_for_the_arrow_buttons_and_timers_sits_with_showing_and_hiding_off_by
 		local default = Polestar.Get("ui.lockHud")
 		w:Click()
 		emit({ labels = labels, help = help, default = default, clicked = Polestar.Get("ui.lockHud"), label = w.Label:GetText() })"#);
-	// The guide window's own lock is on Look > Guide window; this one locks the arrow, the buttons and the timers.
+	// Both locks are on Look > Guide window > Window: the window's own with its position; this one, with showing and
+	// hiding, locks the arrow, the buttons and the timers.
 	assert_eq!(out["labels"].as_array().unwrap()[0], json!("Lock arrow and buttons"));
 	assert_eq!(out["help"], "Stops stray drags on the arrow, the action buttons and the flight and instance timers. Shift-drag still moves them.");
 	assert_eq!(out["default"], false);
@@ -545,7 +547,8 @@ fn search_finds_settings_by_label_and_help_across_pages_registered_ones_included
 		local help = { n = n, label = groups[1] and groups[1].controls[1].label }
 		local _, none = O.Search("zzzz")
 		local found = {}
-		for _, q in ipairs({ "compact", "tomtom", "trainer", "minimap button" }) do found[q] = select(2, O.Search(q)) end
+		-- TomTom's rows are Nav's own (Integrations > TomTom, not loaded here); the game's waypoint stays on Guide.
+		for _, q in ipairs({ "compact", "blizzard waypoint", "trainer", "minimap button" }) do found[q] = select(2, O.Search(q)) end
 		box:SetText("")
 		stub.RunScript(box, "OnTextChanged", true)
 		emit({ arrow = arrow, help = help, none = none, found = found, back = PolestarOptions.Title:GetText() })"#,
@@ -556,8 +559,9 @@ fn search_finds_settings_by_label_and_help_across_pages_registered_ones_included
 	// Page and tab (a result card's title adds its section).
 	let mut titles: Vec<String> = out["arrow"]["titles"].as_array().unwrap().iter().map(|v| tab_of(v.as_str().unwrap())).collect();
 	titles.dedup();
-	// Show arrow, every word of its label asked for, first; then the arrow's other rows by page.
-	assert!(in_order(&titles[..2], &["Guide  \u{b7}  Arrow & routes", "Guide  \u{b7}  While you play"]), "the best groups first: {titles:?}");
+	// Show arrow, every word of its label asked for, first; then the arrow's other rows by page (Keep the arrow when
+	// hidden on Look > Guide window).
+	assert!(in_order(&titles[..2], &["Guide  \u{b7}  Arrow & routes", "Guide window  \u{b7}  Window"]), "the best groups first: {titles:?}");
 	assert!(titles.contains(&"Map  \u{b7}  Guide & quests".to_string()) && titles.contains(&"Gamepad  \u{b7}  Key bindings".to_string()), "{titles:?}");
 	assert!(!titles.iter().any(|t| t.starts_with("Appearance")), "{titles:?}");
 	assert_eq!(out["arrow"]["title"], "Search");
@@ -578,7 +582,8 @@ fn reset_page_asks_in_the_confirm_dialog_cancel_keeps_the_page_accept_resets_onl
 	let out = run(r#"
 		Polestar.Set("ui.lockHud", true)
 		Polestar.Set("nav.arrowScale", 1.5)
-		UI.ShowOptions("guide")
+		-- The lock for the arrow and buttons sits on Look > Guide window, with showing and hiding.
+		UI.ShowOptions("guidewindow")
 		local b = footerButton("Reset page")
 		b:Click()
 		local asked = { Polestar.Widgets.ModalShown(), Polestar.Get("ui.lockHud") }
@@ -592,7 +597,7 @@ fn reset_page_asks_in_the_confirm_dialog_cancel_keeps_the_page_accept_resets_onl
 	assert_eq!(out["cancelled"], json!([false, true]), "cancel closes the dialog and resets nothing");
 	assert_eq!(out["closed"], true);
 	assert_eq!(out["lock"], false);
-	assert_eq!(out["arrow"], 1.5, "the arrow's look is on its own page, not reset with Guide");
+	assert_eq!(out["arrow"], 1.5, "the arrow's look is on its own page, not reset with Guide window");
 }
 
 #[test]
@@ -610,7 +615,7 @@ fn a_tab_whose_module_is_not_loaded_is_left_out_a_page_with_nothing_at_all_says_
 		"",
 	);
 	assert_eq!(out["landed"], "Guide");
-	assert_eq!(out["tabs"], json!(["While you play", "Automation", "Professions"]), "no dead Arrow & routes tab without Nav");
+	assert_eq!(out["tabs"], json!(["While you play", "Automation"]), "no dead Arrow & routes tab without Nav");
 	assert_eq!(out["empty"], true);
 	assert_eq!(out["controls"], 0);
 }
@@ -1296,6 +1301,9 @@ end
 // (Fitz, 2026-11-05): each stays on its home page too, one setting in both places.
 #[test]
 fn quality_of_life_shows_the_conveniences_from_their_home_pages_as_the_same_settings() {
+	// Quality of Life is cut into Quests, Vendors, Travel, Leveling, Social and Game: its Quests and Travel tabs show
+	// references to the rows homed on Questing and Guide, and Questing and Guide show references to the ones homed
+	// here (Game's, the trainer reminder on Leveling).
 	let out = run_mods(
 		"",
 		r#"
@@ -1307,28 +1315,27 @@ fn quality_of_life_shows_the_conveniences_from_their_home_pages_as_the_same_sett
 			return out
 		end
 		local r = { missing = {
-			quests = missing("qualityoflife", "Quests", { "behavior.autoAccept", "qol.instantQuestText", "qol.skipGossip", "qol.fastLoot", "qol.hideErrors",
-				"qol.rewardAutoPick", "qol.rewardEquip", "qol.itemButton", "qol.stepInteract", "qol.hideQuestTracker" }),
-			travel = missing("qualityoflife", "Travel", { "qol.hearthButton", "nav.castPrompt", "nav.alerts", "nav.nearbyButton", "nav.nearbyMenu" }),
-			vendors = missing("qualityoflife", "Vendors", { "behavior.trainReminder" }),
-			map = missing("qualityoflife", "Trackers & map", { "maps.minimapButton", "maps.coords", "maps.minimapCoords" }),
+			quests = missing("qualityoflife", "Quests", { "behavior.autoAccept", "qol.skipGossip", "qol.rewardAutoPick", "qol.rewardEquip", "qol.itemButton",
+				"qol.stepInteract" }),
+			game = missing("qualityoflife", "Game", { "qol.instantQuestText", "qol.fastLoot", "qol.hideErrors", "qol.hideQuestTracker" }),
+			travel = missing("qualityoflife", "Travel", { "qol.hearthButton", "nav.castPrompt", "nav.nearbyButton", "nav.nearbyMenu" }),
+			leveling = missing("qualityoflife", "Leveling", { "behavior.trainReminder" }),
 			questing = missing("questing", "Quests", { "qol.fastLoot", "qol.hideQuestTracker" }),
 			buttons = missing("questing", "Buttons", { "qol.itemButton", "qol.stepInteract", "qol.hearthButton" }),
 			guide = missing("guide", "Automation", { "behavior.trainReminder" }),
-			mapPage = missing("map", "Guide & quests", { "maps.minimapButton" }),
 		} }
 		Polestar.Set("qol.fastLoot", false)
-		O.Select("qualityoflife", "Quests")
-		O.Controls("qualityoflife", "Quests")["qol.fastLoot"]:Click()
+		O.Select("qualityoflife", "Game")
+		O.Controls("qualityoflife", "Game")["qol.fastLoot"]:Click()
 		r.fastLoot = Polestar.Get("qol.fastLoot")
 		O.Select("questing", "Quests")
 		r.questingShows = O.Controls("questing", "Quests")["qol.fastLoot"].checked
-		local before = Polestar.Get("maps.minimapButton")
-		O.Select("qualityoflife", "Trackers & map")
-		O.Controls("qualityoflife", "Trackers & map")["maps.minimapButton"]:Click()
-		r.minimapFlipped = Polestar.Get("maps.minimapButton") ~= before
-		O.Select("map", "Guide & quests")
-		r.mapShows = O.Controls("map", "Guide & quests")["maps.minimapButton"].checked == Polestar.Get("maps.minimapButton")
+		local before = Polestar.Get("qol.itemButton")
+		O.Select("qualityoflife", "Quests")
+		O.Controls("qualityoflife", "Quests")["qol.itemButton"]:Click()
+		r.itemFlipped = Polestar.Get("qol.itemButton") ~= before
+		O.Select("questing", "Buttons")
+		r.buttonsShows = O.Controls("questing", "Buttons")["qol.itemButton"].checked == Polestar.Get("qol.itemButton")
 		emit(r)"#,
 	);
 	for (tab, v) in out["missing"].as_object().unwrap() {
@@ -1336,8 +1343,8 @@ fn quality_of_life_shows_the_conveniences_from_their_home_pages_as_the_same_sett
 	}
 	assert_eq!(out["fastLoot"], true, "the click on Quality of Life turned it on");
 	assert_eq!(out["questingShows"], true, "Questing shows the same setting");
-	assert_eq!(out["minimapFlipped"], true);
-	assert_eq!(out["mapShows"], true, "the Map page shows the same minimap button setting");
+	assert_eq!(out["itemFlipped"], true);
+	assert_eq!(out["buttonsShows"], true, "Questing > Buttons shows the same quest item button setting");
 }
 
 // Search finds a setting from a loose hint: words run together or hyphenated, a typo, the start of words,
@@ -1976,7 +1983,8 @@ fn a_page_name_and_more_words_look_on_that_page_alone_and_everywhere_when_it_has
 	assert_eq!(out["joined"]["pages"], json!(["Map pins"]));
 	assert_eq!(out["qol"], json!({ "page": "qualityoflife", "pages": ["Quality of Life"], "first": "qol.fastLoot" }));
 	assert_eq!(out["lock"]["page"], "guidewindow", "the Guide window page holds its lock");
-	assert_eq!(out["lock"]["first"], "ui.locked");
+	// Both locks sit on the page: the arrow and buttons' with showing and hiding, before the window's with its position.
+	assert_eq!(out["lock"]["first"], "ui.lockHud");
 	assert_eq!(out["alone"]["page"], false, "a page's name alone is a search, not a scope");
 	assert_eq!(out["wheres"], json!({ "Arrow  \u{b7}  Look": true, "Arrow  \u{b7}  Text": true }), "the dropdown's rows are the page's");
 	assert!(out["results"].as_array().unwrap().iter().all(|p| p == "Arrow"), "and so is the results page: {}", out["results"]);
@@ -2002,11 +2010,12 @@ fn the_dropdown_on_a_german_client_lists_the_german_labels_with_the_typed_word_l
 		),
 	);
 	let hex = out["hex"].as_str().unwrap();
+	// Faster auto loot's home is Quality of Life > Game.
 	for q in ["Plündern", "plundern"] {
 		assert_eq!(
 			out[q],
 			json!({ "kind": "setting", "key": "qol.fastLoot", "label": "Schnelleres Automatisch-Plündern", "lit": false,
-				"text": format!("Schnelleres Automatisch-|c{hex}Plündern|r"), "where": "Questen  \u{b7}  Quests" }),
+				"text": format!("Schnelleres Automatisch-|c{hex}Plündern|r"), "where": "Komfort  \u{b7}  Spiel" }),
 			"{q}"
 		);
 	}
@@ -2259,7 +2268,10 @@ fn the_window_opens_at_1680_by_946_its_grip_s_size_is_kept_and_clamped_to_the_sc
 		stub.RunScript(f.Grip, "OnMouseUp", "LeftButton")
 		local saved = Polestar.Get("ui.optionsSize")
 		local body = { f.BodyWidth, f:GetWidth() - f.psRail - f.psSidebar - 2 - 2 * Polestar.Widgets.SHELL.pad, f.psViewH }
-		local row = O.Controls("guide", "While you play")["ui.launcher"]
+		-- The floating button's row sits on Look > Guide window, with showing and hiding.
+		UI.ShowOptions("guidewindow")
+		O.Select("guidewindow", "Window")
+		local row = O.Controls("guidewindow", "Window")["ui.launcher"]
 		local rowW = row:GetWidth()
 		f:Hide()
 		Polestar.Set("ui.optionsSize", { 5000, 5000 })
@@ -2828,7 +2840,7 @@ fn a_preview_hotspot_opens_its_setting_s_row_and_the_one_time_hint_goes_on_the_f
 }
 
 // Every page and tab, Guiding and Setup as the Look pages, at defaults, keeps the window's layout rules: no shown
-// section with fewer than two rows, no half with two switches or two swatches inline, no tab whose every row is off,
+// section with fewer than two rows (but those the journey order keeps to one, ONE_ROW), no half with two switches or two swatches inline, no tab whose every row is off,
 // no slider value (at its default, least and most) wider than its box. Integrations is a section
 // per addon Polestar works with, shown while that addon is installed: one row is that addon's. Custom pages
 // (Profiles, Community guides, Guiding Stars, Recorder, About) lay out their own parts.
@@ -2843,6 +2855,11 @@ fn every_page_keeps_the_layout_rules_at_defaults() {
 		stub.login()
 		local UI, O = Polestar.UI, Polestar.UI.Options
 		UI.ShowOptions("guide")
+		-- Sections kept to one row (or a switch-only card) on purpose: one home per setting and the pages ordered by
+		-- the player's journey give these settings a section of their own where the player looks for them.
+		local ONE_ROW = { ["Level pace"] = true, ["Step errands"] = true, ["Along the route"] = true, ["Other waypoints"] = true,
+			["Step spacing"] = true, ["Up next"] = true, ["All alerts"] = true, ["Experience"] = true, ["XP tracker"] = true,
+			["Dungeon Journal"] = true, ["Characters"] = true }
 		local bad, seen = {}, 0
 		for _, p in ipairs(O.Pages()) do
 			do
@@ -2886,7 +2903,7 @@ fn every_page_keeps_the_layout_rules_at_defaults() {
 						local s = card:IsShown() and card.psSection
 						local lines = 0
 						for _ in pairs(s and per[s] or {}) do lines = lines + 1 end
-						if s and lines < 2 and not cardsOnly[s] and p.key ~= "integrations" then bad[#bad + 1] = where .. ": section \"" .. tostring(s.name) .. "\" has " .. lines .. " row" end
+						if s and lines < 2 and not cardsOnly[s] and p.key ~= "integrations" and not ONE_ROW[s.name] then bad[#bad + 1] = where .. ": section \"" .. tostring(s.name) .. "\" has " .. lines .. " row" end
 					end
 					if rows > 0 and on == 0 then bad[#bad + 1] = where .. ": every row is off at defaults" end
 				end

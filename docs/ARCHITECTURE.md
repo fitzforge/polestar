@@ -391,14 +391,14 @@ back and on a control whose category is not its page's.
 
 | Category (`id`) | Its settings |
 |---|---|
-| Skin & colours (`skin`) | Theme: Colour, Names and Frames (the skin, its variant `ui.skinVariants.*`, the accent, backgrounds, names' colours, frames and motion); EllesmereUI's accent |
+| Skin & colours (`skin`) | Theme: Colour, Names and Frames (the skin, its variant `ui.skinVariants.*`, the accent, backgrounds, names' colours, frames and motion); the game menu's button (`ui.gameMenuButton`); EllesmereUI's accent |
 | Fonts & text size (`fonts`) | Theme: Text (fonts, sizes, outline, shadow, text colours); EllesmereUI's font (`ui.matchFont`) |
-| Guide window (`window`) | The Guide window page (what it shows, when it hides, lock and growth); Guide > While you play but Dynamic Questing (show and hide, pause); Buttons > Launcher & minimap; Gamepad; the guide menu's scale and faction |
+| Guide window (`window`) | The Guide window page (what it shows, when it hides, show and hide, lock and growth); Guide > While you play > Pause; Guide > Automation > Profession guides; Setup > Profiles > Install & updates; Buttons > Launcher & minimap; Gamepad; the guide menu's scale and faction |
 | Arrow & map pins (`arrow`) | The Arrow and Map pins pages; Guide > Arrow & routes > Arrow and Other waypoints; the Map page (guide pins, quest markers, rares', dungeons' and travel's pins, NPC services, zones and coordinates); TomTom |
 | Route lines & travel (`routes`) | The Route lines page; Guide > Arrow & routes > Routes, Along the route, Getting around; Quality of Life > Travel; Trackers > Travel (flight timer, journey); Alerts & toasts > Transport alert; Shortest Path Forever |
-| Quests & automation (`quests`) | Guide > Automation (but the two below); Guide > While you play > Dynamic Questing; Questing > Quests (the quests-new-in-Forever mark too); Quality of Life > Quests, Social, Game; guide suggestions; the other integrations |
-| Buttons, alerts & trackers (`hud`) | Buttons > Action buttons; Questing > Buttons; Alerts & toasts (Rare alert, Heads-up card, Class quest card); Trackers > Instances & XP, Party panel; Discovery > Rares; Quality of Life > Trackers & map |
-| Gear & rewards (`gear`) | Questing > Rewards & gear (and Talents); Quality of Life > Vendors (merchants, restock, bags, trainers); `talents.*` |
+| Quests & automation (`quests`) | Guide > Automation (but the two below); Guide > While you play > Dynamic Questing; Questing > Quests and Group (the quests-new-in-Forever mark too); Quality of Life > Quests, Social, Game; guide suggestions; the other integrations |
+| Buttons, alerts & trackers (`hud`) | Buttons > Action buttons; Questing > Buttons; Alerts & toasts (Rare alert, Heads-up card, Class quest card); Trackers > Instances & XP, Party panel; Discovery > Rares; Quality of Life > Leveling (less Trainers) |
+| Gear & rewards (`gear`) | Questing > Rewards & gear (and Talents); Quality of Life > Vendors (merchants, restock, bags) and Leveling > Trainers; `talents.*` |
 | Dungeons & lookup (`dungeons`) | Discovery > Lookup and Dungeons; Dungeons in my route (`behavior.dungeons`) and Group quests (`behavior.groupQuests`); `dungeons.*` |
 | Window positions (`positions`) | Every registered position (the guide window, the arrow, the floating button, the alerts, the trackers, the party panel); Move frames' snap and grid (`movers.*`); the minimap button's angle; the settings window's size |
 
@@ -7974,6 +7974,15 @@ Polestar.QoL.XPMark.frame                                -- the mark, once made
   Codex (Lookup), at 60, or with no target (a guide that is not a leveling
   one with no `level` goal ahead), or with the Pace line switch off
   (`guideWindow.pace`, Guide window > Parts > Below the goals; #2371,
+  grind step ahead" without a rate). The hard quest is named only on its own
+  step: calmly, "On pace, but Ashenvale Outrunners (24) at step 4 is hard:
+  you're 21.3; reach 22 first", or past the slack, in the warning colour,
+  "Behind: Missing In Action (25) at step 20, you're 21.0; grind ~1h 10m
+  first" ("reach 23 first" without an XP rate). Grinding time is the XP
+  short over the QoL tracker's XP an hour. Nothing without the Codex
+  (Lookup), at 60, or with no target (a guide that is not a leveling one
+  with no `level` goal ahead), or with the Pace line switch off
+  (`guideWindow.pace`, Guide window > Parts > Progress & pace; #2371,
   #2379: the row keeps the XP an hour). Re-read with the XP row, on that
   switch and on `STEP_CHANGED`.
 
@@ -9034,7 +9043,7 @@ The built-in pages are grouped by what the player is doing: **Guide** (10:
 Window, Arrow & routes, Automation), **Map** (30: Guide & quests, Rares, travel & zones), **Questing**
 (40: Quests, Rewards & gear, Buttons), **Discovery** (50: Lookup, Dungeons, Rares, Group quests; Dungeons
 and Group quests while this character's guides have dungeon or group steps to choose), **Quality of Life** (60:
-Quests, Travel, Social, Vendors, Trackers & map, Game), **Community guides** (70, a custom page:
+Quests, Vendors, Travel, Leveling, Social, Game), **Community guides** (70, a custom page:
 `UI/Packs.lua`), **Gamepad** (75, registered by `UI/GamepadGuide.lua`:
 Navigation, Key bindings), **Guiding Stars** (80, key `thanks`, a custom page:
 `UI/Thanks.lua`: three columns, the top supporter, the top contributor and the
@@ -9507,7 +9516,7 @@ Reading flow: `docs/DESIGN.md` ("Intent" and "The Guide Window").
   `/polestar dungeontoast [dungeon]` shows it again ("Nothing to pick up" for
   a dungeon with no quest to take now).
 - **Class spells** (`QoL/Spells.lua`, the cards in `UI/SpellCards.lua` on
-  `UI.ClassToast.ShowCard`; Options > Quality of Life > Vendors > Trainers,
+  `UI.ClassToast.ShowCard`; Options > Quality of Life > Leveling > Trainers,
   `qol.levelUpSpells` and `qol.oldRanks`, both on). `QoL/ClassSpells.lua`
   (generated by `forge data classspells` from the TDB extract's sniffed class
   training lists and the Forever client's SpellName, Spell and

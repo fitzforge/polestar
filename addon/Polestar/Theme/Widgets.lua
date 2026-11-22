@@ -5079,6 +5079,16 @@ local function checkControl(page, i, c, what)
 	end
 end
 
+-- A reference row for a spec (UI.Options.Ref, "References" in the settings
+-- window's UI/Options.lua): kind and key (what RegisterOptions checks), `ref`,
+-- and any fields given (its own label, extras, disabled). Here, beside the
+-- registry, so every module's settings rows can make one.
+function W.Ref(kind, key, fields)
+	local c = { kind = kind, key = key, ref = true }
+	for k, v in pairs(fields or {}) do c[k] = v end
+	return c
+end
+
 function ns.RegisterOptions(spec)
 	if type(spec) ~= "table" then return false, "RegisterOptions: spec must be a table" end
 	if type(spec.page) ~= "string" or spec.page == "" then return false, "RegisterOptions: page must be a string" end

@@ -50,8 +50,8 @@ return {
 			local B = P.banner
 			return B:IsShown() and B.psKind == "update" and B.Text:GetText() or false
 		end },
-		-- About's Install (UI/Welcome.lua): the button opens Install on its first page.
-		["About:Set Polestar up again"] = { press = true, prepare = function() if PolestarWelcome then PolestarWelcome:Hide() end end,
+		-- Install (UI/Welcome.lua), on Setup > Profiles' Install & updates card: the button opens Install on its first page.
+		["Profiles:Set Polestar up again"] = { press = true, prepare = function() if PolestarWelcome then PolestarWelcome:Hide() end end,
 			cleanup = function() if PolestarWelcome then PolestarWelcome:Hide() end end, probe = function()
 			return PolestarWelcome ~= nil and PolestarWelcome:IsShown() and (Polestar.UI.Welcome.Page()) or false
 		end },

@@ -1206,7 +1206,8 @@ fn the_settings_windows_header_has_no_install_button_and_its_search_finds_instal
 		end
 		emit({ header = header, found = found, opened = shown() and step() })"#);
 	assert_eq!(out["header"], json!({ "button": false, "inHeader": false }), "no Install in the header");
-	let hit = json!({ "title": "About  \u{b7}  Install", "label": "Set Polestar up again" });
+	// Install sits on Setup > Profiles' Install & updates card, where a first install and troubleshooting look.
+	let hit = json!({ "title": "Profiles  \u{b7}  Profiles  \u{b7}  Install & updates", "label": "Set Polestar up again" });
 	assert_eq!(out["found"], json!({ "install": hit.clone(), "setup": hit.clone(), "wizard": hit.clone(), "first run": hit }));
 	assert_eq!(out["opened"], "1 of 5", "the result opens it, every page");
 }

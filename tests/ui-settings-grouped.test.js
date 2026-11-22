@@ -207,7 +207,7 @@ test("a long tab's index lights its last sections at the end, and folds what doe
 		local G = O.Grouped
 		Polestar.UI.ShowOptions("guide")
 		G.SetOn(true)
-		-- A tab of many sections (a long index).
+		-- A tab of many sections: 36 rows, over the index's 30.
 		for i = 1, 12 do
 			local rows = {}
 			for j = 1, 3 do rows[j] = { kind = "button", button = "Go", label = "Row " .. j, onClick = function() end } end
@@ -550,4 +550,59 @@ test('the halves split on one hairline per run of halves, at the column split, n
 	for (const [i, m] of out.mids.entries()) {
 		if (i) assert.ok(m.top >= out.mids[i - 1].top + out.mids[i - 1].h, 'hairlines do not overlap');
 	}
+});
+
+// A reference whose home section's switch is off says so on its section,
+// with the way to that switch; a section whose own header holds the switch
+// shows no line.
+test('a reference waiting on a switch in another tab shows the dependency line and its way there', () => {
+	const [out] = run(`
+		local G = O.Grouped
+		local L = Polestar.L
+		PolestarDB.optionsLayout = "grouped"
+		Polestar.Set("nav.routeLines", false)
+		Polestar.Set("maps.instances", false)
+		Polestar.UI.ShowOptions()
+		local function lineFor(key)
+			local text = string.format(L["Turn on %s first."], O.Kit.labelOf(O.HomeControl(key)))
+			for c, w in pairs(O.view.cache) do
+				if w:IsShown() and c.kind == "button" and c.label == text then return c end
+			end
+		end
+		O.Select("trackers", L["Instances & XP"])
+		local own = lineFor("maps.instances") ~= nil
+		-- Map pins › Essentials › Numbered pins holds its switch in its header:
+		-- off, the card folds to its pill and line, with no dependency line.
+		Polestar.Set("nav.upcomingPins", false)
+		O.Select("mappins", L["Essentials"])
+		local pinsCard
+		for _, card in ipairs(O.view.cards) do
+			if card:IsShown() and card.psName == L["Numbered pins"] then pinsCard = card end
+		end
+		local pinsLg = pinsCard and rawget(pinsCard, "Legend")
+		local pins = { note = pinsCard and rawget(pinsCard, "OffNote") and pinsCard.OffNote:IsShown() or false,
+			pill = pinsLg and pinsLg.Pill and pinsLg.Pill:IsShown() or false, line = lineFor("nav.upcomingPins") ~= nil }
+		-- A section with no switch of its own (a card whose own header holds
+		-- the switch folds while it is off, the line with it): Trackers ›
+		-- Essentials' time format waits on the flight timer's switch.
+		Polestar.Set("maps.flightTimer", false)
+		O.Select("trackers", L["Essentials"])
+		local line = lineFor("maps.flightTimer")
+		local went, tab
+		if line then
+			line.onClick()
+			went = O.frame.Title:GetText()
+			tab = select(2, G.Current()).name
+		end
+		Polestar.Set("maps.flightTimer", true)
+		O.Select("trackers", L["Essentials"])
+		local still = false
+		for c, w in pairs(O.view.cache) do if w:IsShown() and c == line then still = true end end
+		emit({ own = own, line = line and line.button or false, went = went or false, tab = tab or false, still = still, pins = pins })`);
+	assert.deepEqual(out.pins, { note: true, pill: true, line: false }, 'Numbered pins folds to its pill and line, no dependency line');
+	assert.equal(out.own, false, "no line where the card's own header holds the switch");
+	assert.equal(out.line, 'Look › Trackers', "the line's button names the switch's group and page");
+	assert.equal(out.went, 'Look › Trackers', 'and goes there');
+	assert.equal(out.tab, 'Travel', "on the switch's tab");
+	assert.equal(out.still, false, 'with the switch on, the line is gone');
 });
