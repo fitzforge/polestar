@@ -197,6 +197,28 @@ function UI.Category(guide)
 	return c
 end
 
+-- The glyph (a Media/UI name) each guide category wears: in the picker's
+-- list of categories and on a guide's tab. Dungeons is the dungeon guides'
+-- own mark (the hub's), Favorites and Lookup the picker's two extra entries.
+UI.CATEGORY_ICON = {
+	Leveling = "icon-level", Class = "icon-train", Professions = "icon-craft", Reputation = "icon-rep", Exploration = "icon-explore",
+	Legacy = "icon-achieve", Collectibles = "icon-collect", Miscellaneous = "icon-treasure", Dungeons = "icon-dungeon",
+	Favorites = "star", Lookup = "search",
+}
+
+-- The picker's own entries, not kinds of guide: on a tab a Lookup guide keeps
+-- Leveling's chevrons, since a magnifier there reads as a search control.
+local PICKER_ONLY = { Favorites = true, Lookup = true }
+
+-- The glyph of a category name ("Class"), or of a guide (its category, the
+-- dungeon mark for a dungeon guide, whatever its category); an unknown
+-- category wears Leveling's. `onTab`: for a guide's tab (PICKER_ONLY left out).
+function UI.CategoryIcon(c, onTab)
+	if type(c) == "table" then c = c.dungeon and "Dungeons" or UI.Category(c) end
+	if onTab and PICKER_ONLY[c] then c = nil end
+	return UI.CATEGORY_ICON[c] or UI.CATEGORY_ICON.Leveling
+end
+
 -- Where a guide happens, as the player should read it: a leveling guide's
 -- zone (the client's name of its map, else the guide's English); for other
 -- categories (professions, reputation, ...) the guide's zone is only a
