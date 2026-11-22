@@ -131,8 +131,8 @@ return {
 	["{item:6451}: cloth"] = "{item:6451}: Stoff",
 
 	-- Step 27: Heavy Silk Bandage (180-210)
-	-- {item:6451} Heavy Silk Bandage
-	["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere."] = "{item:6451} ist ab 180 gelb (gelb bei 180, grün bei 210, grau bei 240): etwa 42 Herstellungen bis 210. Verbände brauchen kein Feuer: Stelle sie überall her.",
+	-- {item:6451} Heavy Silk Bandage · {item:16112} Manual: Heavy Silk Bandage · {skill:129} First Aid
+	["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere. Read the {item:16112} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "",
 
 	-- Step 28: Mageweave Bandage: Auction House
 	-- {item:8544} Mageweave Bandage
@@ -147,8 +147,8 @@ return {
 	["{item:4338} drops from humanoids of level 35-50: keep what you loot as you level, or take it from your bank."] = "{item:4338} ist Beute von Humanoiden der Stufen 35-50: Behalte, was du beim Leveln erbeutest oder hol es aus deiner Bank.",
 
 	-- Step 30: Mageweave Bandage (210-225)
-	-- {item:8544} Mageweave Bandage
-	["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere."] = "{item:8544} ist ab 210 gelb (gelb bei 210, grün bei 240, grau bei 270): etwa 18 Herstellungen bis 225. Verbände brauchen kein Feuer: Stelle sie überall her.",
+	-- {item:8544} Mageweave Bandage · {item:16113} Manual: Mageweave Bandage · {skill:129} First Aid
+	["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere. Read the {item:16113} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "",
 
 	-- Step 31: Trauma
 	["Trauma"] = "Trauma",
@@ -235,7 +235,9 @@ return {
 	-- ["{item:14529} is yellow from 260 (yellow at 260, grey at 320): about 65 crafts to 300. Bandages need no fire: craft them anywhere. {item:14529} stays yellow to 320, so it carries you to 300 without a trip for Heavy Runecloth."] = "{item:14529} ist ab 260 gelb (gelb ab 260, grau ab 320): etwa 65 Herstellungen bis 300. Verbände brauchen kein Feuer: Stell sie überall her. {item:14529} bleibt bis 320 gelb und bringt dich so ohne einen Weg für den Schweren Runenstoffverband bis 300.",
 	-- ["{item:2581} is yellow from 50 (yellow at 50, grey at 100): about 46 crafts to 80. Bandages need no fire: craft them anywhere."] = "{item:2581} ist ab 50 gelb (gelb ab 50, grau ab 100): etwa 46 Herstellungen bis 80. Verbände brauchen kein Feuer: Stelle sie überall her.",
 	-- ["{item:6450} is yellow from 150 (yellow at 150, grey at 210): about 42 crafts to 180. Bandages need no fire: craft them anywhere."] = "{item:6450} ist ab 150 gelb (gelb ab 150, grau ab 210): etwa 42 Herstellungen bis 180. Verbände brauchen kein Feuer: Stelle sie überall her.",
+	-- ["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere."] = "{item:6451} ist ab 180 gelb (gelb bei 180, grün bei 210, grau bei 240): etwa 42 Herstellungen bis 210. Verbände brauchen kein Feuer: Stelle sie überall her.",
 	-- ["{item:6451} is yellow from 180 (yellow at 180, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere."] = "{item:6451} ist ab 180 gelb (gelb ab 180, grau ab 240): etwa 42 Herstellungen bis 210. Verbände brauchen kein Feuer: Stelle sie überall her.",
+	-- ["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere."] = "{item:8544} ist ab 210 gelb (gelb bei 210, grün bei 240, grau bei 270): etwa 18 Herstellungen bis 225. Verbände brauchen kein Feuer: Stelle sie überall her.",
 	-- ["{item:8544} is yellow from 210 (yellow at 210, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere."] = "{item:8544} ist ab 210 gelb (gelb ab 210, grau ab 270): etwa 18 Herstellungen bis 225. Verbände brauchen kein Feuer: Stelle sie überall her.",
 	-- ["{item:8544} is yellow from 225 (yellow at 210, grey at 270): about 88 crafts to 260. Bandages need no fire: craft them anywhere. {item:8544} stays yellow to 270; one recipe to 260 saves two trips to the doctor."] = "{item:8544} ist ab 225 gelb (gelb ab 210, grau ab 270): etwa 88 Herstellungen bis 260. Verbände brauchen kein Feuer: Stelle sie überall her. {item:8544} bleibt bis 270 gelb; ein Rezept bis 260 spart zwei Wege zum Arzt.",
 	-- ["{quest:6622}: treat the wounded soldiers in the doctor's tent with the bandages the doctor gives you, the most critical first, before any of them die."] = "{quest:6622}: Versorge die verwundeten Soldaten im Zelt des Arztes mit den Verbänden, die er dir gibt, die kritischsten zuerst, bevor einer von ihnen stirbt.",

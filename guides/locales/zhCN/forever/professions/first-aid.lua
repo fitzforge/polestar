@@ -131,8 +131,8 @@ return {
 	["{item:6451}: cloth"] = "{item:6451}：布料",
 
 	-- Step 27: Heavy Silk Bandage (180-210)
-	-- {item:6451} Heavy Silk Bandage
-	["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere."] = "{item:6451}从180开始为黄色（180变黄，210变绿，240变灰）：约制作42次到210。绷带不需要火：随处都能制作。",
+	-- {item:6451} Heavy Silk Bandage · {item:16112} Manual: Heavy Silk Bandage · {skill:129} First Aid
+	["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere. Read the {item:16112} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "",
 
 	-- Step 28: Mageweave Bandage: Auction House
 	-- {item:8544} Mageweave Bandage
@@ -147,8 +147,8 @@ return {
 	["{item:4338} drops from humanoids of level 35-50: keep what you loot as you level, or take it from your bank."] = "{item:4338}由35-50级的人型生物掉落：升级时把拾取到的留着，或从银行取出。",
 
 	-- Step 30: Mageweave Bandage (210-225)
-	-- {item:8544} Mageweave Bandage
-	["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere."] = "{item:8544}从210开始为黄色（210变黄，240变绿，270变灰）：约制作18次到225。绷带不需要火：随处都能制作。",
+	-- {item:8544} Mageweave Bandage · {item:16113} Manual: Mageweave Bandage · {skill:129} First Aid
+	["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere. Read the {item:16113} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "",
 
 	-- Step 31: Trauma
 	["Trauma"] = "创伤",
@@ -235,7 +235,9 @@ return {
 	-- ["{item:14529} is yellow from 260 (yellow at 260, grey at 320): about 65 crafts to 300. Bandages need no fire: craft them anywhere. {item:14529} stays yellow to 320, so it carries you to 300 without a trip for Heavy Runecloth."] = "{item:14529}从260开始为黄色（260变黄，320变灰）：做到300大约需要65次。绷带不需要火：随处都能制作。{item:14529}到320前都是黄色，所以不必为厚符文布绷带专程跑一趟就能升到300。",
 	-- ["{item:2581} is yellow from 50 (yellow at 50, grey at 100): about 46 crafts to 80. Bandages need no fire: craft them anywhere."] = "{item:2581}从50开始为黄色（50变黄，100变灰）：做到80大约需要46次。绷带不需要火：随处都能制作。",
 	-- ["{item:6450} is yellow from 150 (yellow at 150, grey at 210): about 42 crafts to 180. Bandages need no fire: craft them anywhere."] = "{item:6450}从150开始为黄色（150变黄，210变灰）：做到180大约需要42次。绷带不需要火：随处都能制作。",
+	-- ["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere."] = "{item:6451}从180开始为黄色（180变黄，210变绿，240变灰）：约制作42次到210。绷带不需要火：随处都能制作。",
 	-- ["{item:6451} is yellow from 180 (yellow at 180, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere."] = "{item:6451}从180开始为黄色（180变黄，240变灰）：做到210大约需要42次。绷带不需要火：随处都能制作。",
+	-- ["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere."] = "{item:8544}从210开始为黄色（210变黄，240变绿，270变灰）：约制作18次到225。绷带不需要火：随处都能制作。",
 	-- ["{item:8544} is yellow from 210 (yellow at 210, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere."] = "{item:8544}从210开始为黄色（210变黄，270变灰）：做到225大约需要18次。绷带不需要火：随处都能制作。",
 	-- ["{item:8544} is yellow from 225 (yellow at 210, grey at 270): about 88 crafts to 260. Bandages need no fire: craft them anywhere. {item:8544} stays yellow to 270; one recipe to 260 saves two trips to the doctor."] = "{item:8544}从225开始为黄色（210变黄，270变灰）：做到260大约需要88次。绷带不需要火：随处都能制作。{item:8544}到270前都是黄色；用一个配方做到260可以省掉两趟去医生那里。",
 	-- ["{quest:6622}: treat the wounded soldiers in the doctor's tent with the bandages the doctor gives you, the most critical first, before any of them die."] = "{quest:6622}：用医生给你的绷带治疗医生帐篷里的伤兵，先治最危急的，别让任何人死去。",

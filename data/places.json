@@ -1721,20 +1721,20 @@
 			"id": "final-tanaris-tooga-torta",
 			"quest": 1560,
 			"objective": 1,
-			"faction": "Horde",
 			"at": {
 				"map": 1446,
 				"x": 66.58,
 				"y": 25.67,
 				"frame": "era"
 			},
-			"note": "Tooga's Quest: the escort ends when Tooga reaches his wife Torta in Steamwheedle Port, so the arrow (and the route search) puts its end there, not at Tooga's spawn in Thistleshrub Valley.",
+			"note": "Tooga's Quest: the escort ends when Tooga reaches his wife Torta in Steamwheedle Port, so the arrow (and the route search) puts its end there, not at Tooga's spawn in Thistleshrub Valley. Both factions: the Alliance route's bare complete sent the arrow back to the valley while Tooga walked to the port (#3557).",
 			"source": [
 				{
 					"kind": "questie",
 					"ref": "npcs.json 6015 Torta: map 1446 66.58,25.67; quests.json 1560 objective: Torta (6015)"
 				}
-			]
+			],
+			"issue": 3557
 		},
 		{
 			"id": "1257-duskwood-pygmy-venom-web-spiders",
@@ -3101,6 +3101,29 @@
 			],
 			"issue": 3277,
 			"pr": 3323
+		},
+		{
+			"id": "3400-hyjal-ruined-ballista-seed",
+			"quest": 93747,
+			"objective": 1,
+			"at": {
+				"map": 2482,
+				"x": 66.3,
+				"y": 79.2,
+				"frame": "live"
+			},
+			"note": "Violence Into Verdure: the Ruined Ballista stands at the east end of the Tainted Foothills' fields, a little north of the Ruined Flying Machine, where players planted its seed. The step pointed to 70.4,70.7 at the shrub field's north-eastern edge, where nothing can be planted; the ballista's seed now goes with the other two wrecks.",
+			"source": [
+				{
+					"kind": "recording",
+					"ref": "data/recorded quests.json 93747 line 1 (Ruined Ballista reclaimed): trusted, 16 of 17 voters at 66.27,79.2 (builds 70938, 70959); lines 2 and 3 at 62.88,82.8 and 66.11,83.18, the guide's catapult and flying machine points"
+				},
+				{
+					"kind": "in-game-check",
+					"ref": "#3400 (Stö, 0.4.2): standing at 70.25,70.90 with the seed bag, nothing to plant on"
+				}
+			],
+			"issue": 3400
 		}
 	]
 }

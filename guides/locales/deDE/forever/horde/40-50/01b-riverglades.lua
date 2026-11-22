@@ -262,7 +262,7 @@ return {
 
 	-- Step 58: Jom-jom's Escape
 	-- {npc:258048} Jom-jom · {npc:256728} Na'zok · {area:16726} Bolder'ok
-	["{npc:258048} waits by the Twilight ogres' camp north-east of {npc:256728}: take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "{npc:258048} wartet beim Lager der Schattenhammeroger nordöstlich von {npc:256728}: Bring ihn nach Hause nach {area:16726} und halte die Kultisten von ihm fern. Stirbt er, nimm die Quest erneut bei ihm an.",
+	["{npc:258048} waits at the back of the cave by the Twilight ogres' camp north-east of {npc:256728}: go all the way in to find him, then take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "",
 	-- {npc:258048} Jom-jom
 	["{npc:258048}, in the cave"] = "",
 	-- {npc:258048} Jom-jom · {area:16726} Bolder'ok
@@ -492,5 +492,6 @@ return {
 	-- ["West of Rog'mar the Twilight cult holds the farm town of {area:16723}. {npc:259158}, a kobold who wants out, hides in the middle of the town."] = "Westlich von Rog'mar hält der Schattenhammerkult das Bauerndorf {area:16723}. {npc:259158}, ein Kobold, der aussteigen will, versteckt sich mitten im Dorf.",
 	-- ["the {object:707249} poster"] = "der Steckbrief {object:707249}",
 	-- ["{npc:257062} offers the last two once Gobam's errands are done (players' recordings), which this guide leaves out. They are level 44 and 45: leave them for later if {npc:258626} was a close fight."] = "{npc:257062} bietet die letzten beiden an, sobald Gobams Aufträge erledigt sind (laut Spieleraufzeichnungen); dieser Guide lässt sie aus. Sie sind Stufe 44 und 45: Heb sie dir für später auf, wenn {npc:258626} knapp war.",
+	-- ["{npc:258048} waits by the Twilight ogres' camp north-east of {npc:256728}: take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "{npc:258048} wartet beim Lager der Schattenhammeroger nordöstlich von {npc:256728}: Bring ihn nach Hause nach {area:16726} und halte die Kultisten von ihm fern. Stirbt er, nimm die Quest erneut bei ihm an.",
 	-- ["{npc:263190}'s spears, on the Freshwater Crocolisks"] = "{npc:263190}s Speere, an den Süßwasserkrokilisken",
 }

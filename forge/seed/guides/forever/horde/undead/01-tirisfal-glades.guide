@@ -86,7 +86,7 @@ step Back to Deathknell
 step The Frightened Paladin
   only Paladin
   tip Coming to Terms: the Frightened Paladin fled into the hills west of the church, on the way to Night Web's Hollow.
-  talk 246143                         -- Offer aid to the Frightened Paladin
+  talk 246143 quest 91208.1           -- Offer aid to the Frightened Paladin
 
 # Night Web's Hollow: players report the cave entrance near 26,60 (quest 380).
 step Night Web's Hollow
@@ -643,9 +643,9 @@ step Paladin: Bandarion Keep
   tip Ephram and Hilda at the forest's edge, Breton Samuels at the gate, Jorin Croge and Ander Solliden nearby, Danitha Morr inside.
   turnin 91285 choose 246164 246165   -- Breton Samuels
   accept 91294
-  talk 246389                         -- Hilda the Breaker
-  talk 246393                         -- Jorin Croge
-  talk 246394                         -- Ander Solliden
+  talk 246389 quest 91294.1           -- Hilda the Breaker
+  talk 246393 quest 91294.2           -- Jorin Croge
+  talk 246394 quest 91294.3           -- Ander Solliden
   turnin 91294                        -- Danitha Morr, inside the keep
 
 # The last Undercity stop comes between the hearth and the Brill hand-ins:
