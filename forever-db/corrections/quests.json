@@ -20754,5 +20754,149 @@
 			}
 		],
 		"note": "Oasis (Tanaris) is given by Tooga once Tooga's Quest is handed in: Tooga is led to Torta first, and only then gives it. The merged data had no prerequisite, so \"While you're here\" and the guide could offer it before the escort (#3546)."
+	},
+	"6804": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest scans: build 1.60.1.70959 (10 players' caches, collected 19-22 November 2026) has no data for 6804, nor build 1.60.1.71037 (6 players' caches, 21-22 November); the server describes only open quests, and it describes none of Duke Hydraxis's chain (6804, 6805, 6821, 6822, 6823, 6824, 7486) nor Attunement to the Core (7848)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3171 (level 56 Alliance, build 70959) and #3392 (level 60 Horde, build 71037): standing at Duke Hydraxis (13278), neither Poisoned Water nor Stormers and Rumblers was offered"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no quest window with Duke Hydraxis (13278)"
+			}
+		],
+		"note": "Poisoned Water (Duke Hydraxis, Azshara) is not in the game on Forever for now: the live server describes none of Duke Hydraxis's chain, and two players at level 56 and 60 were offered nothing by him. The chain leads to the Molten Core, which is not among the raids announced for Forever. The quest leaves the data, so the Blackrock Spire pick-up guide stops sending players to him (#3171, #3392, #3522). Revisit when the Molten Core opens."
+	},
+	"6805": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest scans: build 1.60.1.70959 (10 players' caches, collected 19-22 November 2026) has no data for 6805, nor build 1.60.1.71037 (6 players' caches, 21-22 November); the server describes only open quests, and it describes none of Duke Hydraxis's chain (6804, 6805, 6821, 6822, 6823, 6824, 7486) nor Attunement to the Core (7848)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3171 (level 56 Alliance, build 70959) and #3392 (level 60 Horde, build 71037): standing at Duke Hydraxis (13278), neither Poisoned Water nor Stormers and Rumblers was offered"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no quest window with Duke Hydraxis (13278)"
+			}
+		],
+		"note": "Stormers and Rumblers (Duke Hydraxis, Azshara) is not in the game on Forever for now: the live server describes none of Duke Hydraxis's chain, and two players at level 56 and 60 were offered nothing by him. The chain leads to the Molten Core, which is not among the raids announced for Forever. The quest leaves the data, so the Blackrock Spire pick-up guide stops sending players to him (#3171, #3392, #3522). Revisit when the Molten Core opens."
+	},
+	"6821": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest scans: build 1.60.1.70959 (10 players' caches, collected 19-22 November 2026) has no data for 6821, nor build 1.60.1.71037 (6 players' caches, 21-22 November); the server describes only open quests, and it describes none of Duke Hydraxis's chain (6804, 6805, 6821, 6822, 6823, 6824, 7486) nor Attunement to the Core (7848)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3171 (level 56 Alliance, build 70959) and #3392 (level 60 Horde, build 71037): standing at Duke Hydraxis (13278), neither Poisoned Water nor Stormers and Rumblers was offered"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no quest window with Duke Hydraxis (13278)"
+			}
+		],
+		"note": "Eye of the Emberseer (Duke Hydraxis, Azshara) is not in the game on Forever for now: the live server describes none of Duke Hydraxis's chain, and two players at level 56 and 60 were offered nothing by him. The chain leads to the Molten Core, which is not among the raids announced for Forever. The quest leaves the data, so the Blackrock Spire pick-up guide stops sending players to him for it (#3171, #3392, #3522). Revisit when the Molten Core opens."
+	},
+	"6822": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest scans: build 1.60.1.70959 (10 players' caches, collected 19-22 November 2026) has no data for 6822, nor build 1.60.1.71037 (6 players' caches, 21-22 November); the server describes only open quests, and it describes none of Duke Hydraxis's chain (6804, 6805, 6821, 6822, 6823, 6824, 7486) nor Attunement to the Core (7848)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3171 (level 56 Alliance, build 70959) and #3392 (level 60 Horde, build 71037): standing at Duke Hydraxis (13278), neither Poisoned Water nor Stormers and Rumblers was offered"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no quest window with Duke Hydraxis (13278)"
+			}
+		],
+		"note": "The Molten Core (Duke Hydraxis, Azshara) is not in the game on Forever for now: the live server describes none of Duke Hydraxis's chain, and two players at level 56 and 60 were offered nothing by him. The chain leads to the Molten Core, which is not among the raids announced for Forever. The quest leaves the data, so the Blackrock Spire pick-up guide stops sending players to him (#3171, #3392, #3522). Revisit when the Molten Core opens."
+	},
+	"6823": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest scans: build 1.60.1.70959 (10 players' caches, collected 19-22 November 2026) has no data for 6823; the server describes only open quests, and it describes none of Duke Hydraxis's chain (6804, 6805, 6821, 6822, 6823, 6824, 7486) nor Attunement to the Core (7848)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3171 (level 56 Alliance, build 70959) and #3392 (level 60 Horde, build 71037): standing at Duke Hydraxis (13278), neither Poisoned Water nor Stormers and Rumblers was offered"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no quest window with Duke Hydraxis (13278)"
+			}
+		],
+		"note": "Agent of Hydraxis (Duke Hydraxis, Azshara) is not in the game on Forever for now: the live server describes none of Duke Hydraxis's chain, and two players at level 56 and 60 were offered nothing by him. The chain leads to the Molten Core, which is not among the raids announced for Forever. The quest leaves the data, so the Blackrock Spire pick-up guide stops sending players to him (#3171, #3392, #3522). Revisit when the Molten Core opens."
+	},
+	"6824": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest scans: build 1.60.1.70959 (10 players' caches, collected 19-22 November 2026) has no data for 6824, nor build 1.60.1.71037 (6 players' caches, 21-22 November); the server describes only open quests, and it describes none of Duke Hydraxis's chain (6804, 6805, 6821, 6822, 6823, 6824, 7486) nor Attunement to the Core (7848)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3171 (level 56 Alliance, build 70959) and #3392 (level 60 Horde, build 71037): standing at Duke Hydraxis (13278), neither Poisoned Water nor Stormers and Rumblers was offered"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no quest window with Duke Hydraxis (13278)"
+			}
+		],
+		"note": "Hands of the Enemy (Duke Hydraxis, Azshara) is not in the game on Forever for now: the live server describes none of Duke Hydraxis's chain, and two players at level 56 and 60 were offered nothing by him. The chain leads to the Molten Core, which is not among the raids announced for Forever. The quest leaves the data, so the Blackrock Spire pick-up guide stops sending players to him (#3171, #3392, #3522). Revisit when the Molten Core opens."
+	},
+	"7486": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest scans: build 1.60.1.70959 (10 players' caches, collected 19-22 November 2026) has no data for 7486, nor build 1.60.1.71037 (6 players' caches, 21-22 November); the server describes only open quests, and it describes none of Duke Hydraxis's chain (6804, 6805, 6821, 6822, 6823, 6824, 7486) nor Attunement to the Core (7848)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3171 (level 56 Alliance, build 70959) and #3392 (level 60 Horde, build 71037): standing at Duke Hydraxis (13278), neither Poisoned Water nor Stormers and Rumblers was offered"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no quest window with Duke Hydraxis (13278)"
+			}
+		],
+		"note": "A Hero's Reward (Duke Hydraxis, Azshara) is not in the game on Forever for now: the live server describes none of Duke Hydraxis's chain, and two players at level 56 and 60 were offered nothing by him. The chain leads to the Molten Core, which is not among the raids announced for Forever. The quest leaves the data, so the Blackrock Spire pick-up guide stops sending players to him (#3171, #3392, #3522). Revisit when the Molten Core opens."
+	},
+	"7848": {
+		"remove": true,
+		"source": [
+			{
+				"kind": "eg",
+				"ref": "EG Link live quest scans: build 1.60.1.70959 (10 players' caches, collected 19-22 November 2026) has no data for 7848, nor build 1.60.1.71037 (6 players' caches, 21-22 November); the server describes only open quests, and it describes none of Duke Hydraxis's chain (6804, 6805, 6821, 6822, 6823, 6824, 7486) nor Attunement to the Core (7848)"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3171 (level 56 Alliance, build 70959) and #3392 (level 60 Horde, build 71037): standing at Duke Hydraxis (13278), neither Poisoned Water nor Stormers and Rumblers was offered"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: no quest window with Duke Hydraxis (13278) and no one offered Attunement to the Core"
+			}
+		],
+		"note": "Attunement to the Core (Lothos Riftwaker, Blackrock Mountain) is not in the game on Forever for now: the live server describes neither it nor any quest of Duke Hydraxis's chain, and the Molten Core it opens is not among the raids announced for Forever. The quest leaves the data with the chain (#3171, #3392, #3522). Revisit when the Molten Core opens."
 	}
 }

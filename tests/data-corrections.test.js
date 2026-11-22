@@ -829,3 +829,12 @@ test('My Little Friends: each specimen is a use of the Bug Catching Net on its i
 test('Oasis comes after Tooga\'s Quest (#3546)', () => {
 	assert.deepEqual(corrections.quests[97540].set.pre, [1560]);
 });
+
+// #3171, #3392, #3522: the live server describes none of Duke Hydraxis's chain, nor Attunement to the Core, and two
+// players at 56 and 60 were offered nothing by him: the quests leave the data until the Molten Core opens.
+test('Duke Hydraxis\'s chain and Attunement to the Core leave the data while the Molten Core is closed (#3171, #3392, #3522)', () => {
+	for (const q of [6804, 6805, 6821, 6822, 6823, 6824, 7486, 7848]) {
+		assert.equal(corrections.quests[q].remove, true, `quest ${q}`);
+		assert.ok(corrections.quests[q].source.some((s) => s.kind === 'eg'), `quest ${q}: the live scans`);
+	}
+});
