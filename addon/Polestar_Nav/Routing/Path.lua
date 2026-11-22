@@ -115,12 +115,15 @@ end
 -- Balanced), danger = { [uiMapID] = multiplier >= 1 } | nil (a step into a zone the table holds costs that many
 -- times; weights), homeHub = true | nil (the walk starts or ends inside a town hostile to profile: it is priced as
 -- for no profile, so it takes the town's own way in or out instead of the shortest way off the town's ground, over
--- its walls or the mountains; the hostile towns its drawn line enters are still reported for profile) }.
--- -> waterWalking, profile (the one that prices), style, danger, report (the profile job.hubs is read for)
+-- its walls or the mountains, and a quest goal inside the town is walked to as the town's own people walk; the
+-- hostile towns its drawn line enters are still reported for profile, and the walk's policy (Safe) is still
+-- profile's) }.
+-- -> waterWalking, profile (the one that prices), style, danger, report (the profile job.hubs is read for, and the
+-- policy's), walkLevel
 local function options(opts)
 	if type(opts) == "table" then
-		if opts.homeHub and opts.walkLevel == nil then
-			return opts.waterWalking, nil, opts.style, opts.danger, opts.profile
+		if opts.homeHub then
+			return opts.waterWalking, nil, opts.style, opts.danger, opts.profile, opts.walkLevel
 		end
 		return opts.waterWalking, opts.profile, opts.style, opts.danger, opts.profile, opts.walkLevel
 	end
@@ -132,10 +135,11 @@ end
 local Safe = { refusal = "no safe walking route" }
 function Safe.setup(job)
 	local d = Polestar and Polestar.Nav and Polestar.Nav.danger
-	if not Costs.Profile(job.profile) then return "unknown faction" end
+	local profile = job.report or job.profile
+	if not Costs.Profile(profile) then return "unknown faction" end
 	if not d or type(d.Blocked) ~= "function" then return "missing danger policy" end
 	if not State(job.map) then return "missing walking data" end
-	local blocked, map, profile = d.Blocked, job.map, job.profile
+	local blocked, map = d.Blocked, job.map
 	job.policy = blocked
 	job.check = function(x, y, X, Y) return blocked(map, x, y, X, Y, profile) end
 end
@@ -388,8 +392,9 @@ end
 function Safe.weights(st, profile, style, danger, job, from, to)
 	local base, hmin = weights(st, profile, style, danger)
 	if not job.check then return base, hmin end
+	local policy = tostring(job.report or profile)
 	return { min = base and base.min or 1, kinds = kindMults(base), danger = base and base.danger,
-		tag = (base and base.tag or profile) .. ":strict:" .. profile .. ":" .. tostring(job.policy)
+		tag = (base and base.tag or tostring(profile)) .. ":strict:" .. policy .. ":" .. tostring(job.policy)
 			.. (job.filtered and ":checked" or ":candidate"),
 		check = job.filtered and job.check, policy = job.policy, from = from, to = to }, hmin
 end
@@ -3255,7 +3260,7 @@ function Safe.find(job)
 	-- Cost work also needs the actual line. Leave the enqueued job's costOnly
 	-- untouched (the scheduler uses it for priority between coroutine slices).
 	local solve = { map = job.map, from = from, to = to, waterWalking = job.waterWalking,
-		profile = job.profile, report = job.profile, style = job.style, danger = job.danger,
+		profile = job.profile, report = job.report or job.profile, style = job.style, danger = job.danger,
 		walkLevel = job.walkLevel, check = job.check, policy = job.policy, skipReport = job.costOnly }
 	repeat
 		solve.replan = nil
@@ -3345,7 +3350,7 @@ function Safe.many(job)
 	end)
 	local function search(target, source)
 		local child = { map = job.map, from = job.reverse and target or source, to = job.reverse and source or target,
-			profile = job.profile, walkLevel = job.walkLevel, style = job.style, danger = job.danger,
+			profile = job.profile, report = job.report, walkLevel = job.walkLevel, style = job.style, danger = job.danger,
 			waterWalking = job.waterWalking, costOnly = true, check = job.check, policy = job.policy }
 		return Safe.find(child), child
 	end

@@ -304,15 +304,25 @@ end
 -- goal (tx, ty) on map; nil for either leaves no zone out there), so each
 -- step is priced for them: roads cheaper, slopes and indoors dearer, the
 -- other faction's towns twenty times over, a zone far above the player three
--- or twenty times. The separate hard policy applies to the whole walk,
--- including its start, goal and connectors; being inside a hub never waives it.
-local function opts(water, map, sx, sy, tx, ty)
+-- or twenty times. A walk that starts or ends in a town of the other faction
+-- (Path.HubAt at its start, its goal, or (hx, hy): the player's place in a
+-- measure) is priced as for no faction (opts.homeHub, as 0.4.1.1 did): the
+-- player is going in (a quest goal in Hillsbrad Fields, #3641) or coming out,
+-- so it goes by the town's own streets and gate, not round its buildings at
+-- twenty times the cost or over its walls; the towns its line enters are
+-- still named ("Hostile town"), and the walk's policy is still the faction's.
+local function opts(water, map, sx, sy, tx, ty, hx, hy)
 	local C = ns.Compat
 	local profile = C and C.GetPlayerFaction and C.GetPlayerFaction() or nil
 	local D = Nav.danger
 	local level = D and D.Level()
 	local danger = level and D.Table(level, D.ZoneAt(map, sx, sy), D.ZoneAt(map, tx, ty)) or nil
-	return { waterWalking = water and true or false, profile = profile, style = ns.Get("nav.routeStyle"), danger = danger, walkLevel = level or 0 }
+	local P = engine()
+	local home
+	if profile and P and P.HubAt then
+		home = (sx and P.HubAt(map, sx, sy, profile)) or (tx and P.HubAt(map, tx, ty, profile)) or (hx and P.HubAt(map, hx, hy, profile)) or nil
+	end
+	return { waterWalking = water and true or false, profile = profile, style = ns.Get("nav.routeStyle"), danger = danger, walkLevel = level or 0, homeHub = home and true or nil }
 end
 
 ---------------------------------------------------------------------------
@@ -2057,7 +2067,7 @@ end
 -- its places their estimates and is not asked again (#3553, #3605).
 local function batch(P, mine, z)
 	local pts, water = mine.pts, mine.water
-	mine.z, mine.o = z, mine.o or opts(water, mine.c, nil, nil, mine.x, mine.y)
+	mine.z, mine.o = z, mine.o or opts(water, mine.c, nil, nil, mine.x, mine.y, mine.sx, mine.sy)
 	mine.partial, mine.firstPriced, mine.unjoined, mine.capped = nil, false, nil, nil
 	local inCity = z ~= nil and mine.city
 	local first
@@ -2104,7 +2114,7 @@ end
 
 -- Two batches' opts alike (Walk's opts: the danger table compared by its entries).
 local function sameOpts(a, b)
-	if not (a and b) or a.waterWalking ~= b.waterWalking or a.profile ~= b.profile or a.style ~= b.style or a.walkLevel ~= b.walkLevel then return false end
+	if not (a and b) or a.waterWalking ~= b.waterWalking or a.profile ~= b.profile or a.style ~= b.style or a.walkLevel ~= b.walkLevel or a.homeHub ~= b.homeHub then return false end
 	local da, db = a.danger, b.danger
 	if da == db then return true end
 	if type(da) ~= "table" or type(db) ~= "table" then return false end
@@ -2132,7 +2142,7 @@ local function remeasureStart(P, e, c, x, y, water, p)
 		if i ~= e.si and type(e.costs[i]) == "number" then other = true end
 	end
 	if not other then return false end
-	local o = opts(water, c, nil, nil, x, y)
+	local o = opts(water, c, nil, nil, x, y, p.wx, p.wy)
 	if not sameOpts(o, e.o) then return false end
 	local pt = { x = p.wx, y = p.wy, z = p.z, floors = p.z == nil and startFloors(c, p.wx, p.wy) or nil }
 	local pts, costs, yards = {}, {}, e.yards and {} or nil
