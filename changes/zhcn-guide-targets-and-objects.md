@@ -1,5 +1,5 @@
 ---
 section: players
 ---
-- Add Simplified Chinese names for more guide targets and interactable objects,
-  and clarify a few guide notes.
+- Simplified Chinese: names for more guide targets and the objects you click,
+  and a few guide notes made clearer (thanks nepyanbin, #3236).
