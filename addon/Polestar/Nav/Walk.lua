@@ -425,6 +425,9 @@ end
 -- for /polestar report (Walk.WalkedGaps): where players walk that the maps close. (A table, not locals: the main chunk's locals are near Lua 5.1's 200.)
 local walked = { SPACING = 2, SECONDS = 60, MAX = 300, WALL = 6, MOVED = 4, x = {}, y = {}, t = {}, n = 0, gaps = {}, GAPS = 5 }
 function walked.Note(pc, px, py)
+	-- Outdoors only: indoors (a cave, a barrow, a city's halls) floors stack, and a place without its height (Forever's
+	-- client gives none) can't say which one the player stands on.
+	if IsIndoors and IsIndoors() then return end
 	local n = walked.n
 	if walked.c ~= pc then
 		walked.c, n = pc, 0

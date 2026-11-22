@@ -2661,10 +2661,11 @@ end
 -- joined for this map's searches (st.trail: a step each way at its length, read by `search`), until the next
 -- SetTrail; nil clears it. A walk then goes where the player walked. Nothing is stored or shipped, and the profile's
 -- costs and the walk's policy apply to those steps as to any. Each place stands on the surface nearest the last
--- one's height (its own when it has one). The searches of a set trail are their own (weights' tag carries its
+-- one's height (its own when it has one); two whose surfaces lie further apart in height than a walkable slope (1.2 yd a
+-- yard, plus 1) are never joined: another floor, not a gap. The searches of a set trail are their own (weights' tag carries its
 -- version; a trail with the same joins keeps it, so caches stay). -> the joins made (map gaps the player walked
 -- through) and the middle of the first: n, x, y (0 for none).
-local TRAIL_STEP, TRAIL_DETOUR, TRAIL_SLACK = 6, 3, 2
+local TRAIL_STEP, TRAIL_DETOUR, TRAIL_SLACK, TRAIL_RISE = 6, 3, 2, 1.2
 local trailVersion = 0
 function Path.SetTrail(map, samples)
 	local st = State(map)
@@ -2690,7 +2691,9 @@ function Path.SetTrail(map, samples)
 		local c = node and grid(st, k)
 		if node and c then
 			local cell = node < N and node or floorCell(c, node)
-			if pn and pk == k and pn ~= node and (x - px) ^ 2 + (y - py) ^ 2 <= TRAIL_STEP * TRAIL_STEP then
+			local nz = zOf(c, node)
+			if pn and pk == k and pn ~= node and (x - px) ^ 2 + (y - py) ^ 2 <= TRAIL_STEP * TRAIL_STEP
+				and abs(nz - pz) <= TRAIL_RISE * (abs(x - px) + abs(y - py)) + 1 then
 				local dx, dy = floor(cell / C) - floor(pc / C), cell % C - pc % C
 				local d = sqrt(dx * dx + dy * dy)
 				local key = k .. ":" .. (pn < node and pn .. ":" .. node or node .. ":" .. pn)
@@ -2712,7 +2715,7 @@ function Path.SetTrail(map, samples)
 					end
 				end
 			end
-			pk, pn, px, py, pz, pc = k, node, x, y, zOf(c, node), cell
+			pk, pn, px, py, pz, pc = k, node, x, y, nz, cell
 		else
 			pn = nil
 		end
