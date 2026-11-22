@@ -2641,7 +2641,6 @@ L["Drag the guide window, the arrow, the cards and the alerts where you want the
 -- Rares/Rares.lua
 L["Raid warning"] = "Avertissement de raid"
 L["Ready check"] = "Appel"
-L["Boss whisper"] = "Murmure de boss"
 L["Rare Elite"] = "Élite rare"
 L["just now"] = "à l'instant"
 L["%d min ago"] = "il y a %d min"
@@ -2651,6 +2650,7 @@ L["%d days ago"] = "il y a %d jours"
 L["Unknown rare"] = "Rare inconnu"
 L["A rare"] = "Un rare"
 L["rares [test]: open Rares, or show a sample alert"] = "rares [test] : ouvrir Rares, ou afficher une alerte d'exemple"
+L["Boss emote"] = "Emote de boss"
 
 -- Rares/Pins.lua
 L["Level %s"] = "Niveau %s"
@@ -5219,3 +5219,4 @@ L["Most used"] = "Les plus utilisés"
 -- L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "La flèche et la fenêtre du guide s'effacent. Polestar reprend tout seul quand vous quittez un donjon en vie."
 -- L["Options"] = "Options"
 -- L["Characters is turned off. Turn it on under Options > Discovery > Lookup."] = "Personnages est désactivé. Activez-le dans Options > Découverte > Recherche."
+-- L["Boss whisper"] = "Murmure de boss"

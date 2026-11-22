@@ -2641,7 +2641,6 @@ L["Drag the guide window, the arrow, the cards and the alerts where you want the
 -- Rares/Rares.lua
 L["Raid warning"] = "Aviso do raide"
 L["Ready check"] = "Verificação de prontidão"
-L["Boss whisper"] = "Sussurro de chefe"
 L["Rare Elite"] = "Elite Raro"
 L["just now"] = "agora mesmo"
 L["%d min ago"] = "há %d min"
@@ -2651,6 +2650,7 @@ L["%d days ago"] = "há %d dias"
 L["Unknown rare"] = "Raro desconhecido"
 L["A rare"] = "Um raro"
 L["rares [test]: open Rares, or show a sample alert"] = "rares [test]: abre Raros ou mostra um alerta de exemplo"
+L["Boss emote"] = "Emote de chefe"
 
 -- Rares/Pins.lua
 L["Level %s"] = "Nível %s"
@@ -5185,3 +5185,4 @@ L["Most used"] = "Mais usados"
 -- L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "A seta e a janela do guia saem de cena. O Polestar volta sozinho quando você sai vivo de uma masmorra."
 -- L["Options"] = "Opções"
 -- L["Characters is turned off. Turn it on under Options > Discovery > Lookup."] = "Personagens está desativado. Ative em Opções > Descoberta > Consulta."
+-- L["Boss whisper"] = "Sussurro de chefe"

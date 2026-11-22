@@ -1045,7 +1045,6 @@ L["After the steps before it"] = "Nach den vorherigen Schritten"
 L["Attunement"] = "Einstimmung"
 L["Available from level %d"] = "Verfügbar ab Stufe %d"
 L["Boat to %s"] = "Boot nach %s"
-L["Boss whisper"] = "Boss-Flüstern"
 L["Boss: group advised"] = "Boss: Gruppe empfohlen"
 L["Bought %d %s for %s."] = "%d %s für %s gekauft."
 L["Buy for the guide"] = "Für den Guide kaufen"
@@ -4909,6 +4908,8 @@ L["A preview of the settings in groups, with tabs, a filter and a preview beside
 
 -- UI/Essentials.lua
 L["Most used"] = "Am häufigsten genutzt"
+-- Rares/Rares.lua
+L["Boss emote"] = "Boss-Emote"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Polestar neu einrichten, eine Seite nach der anderen. Jede Wahl wirkt sofort."
@@ -5208,3 +5209,4 @@ L["Most used"] = "Am häufigsten genutzt"
 -- L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "Der Pfeil und das Guide-Fenster treten zur Seite. Polestar läuft von selbst weiter, wenn du einen Dungeon lebend verlässt."
 -- L["Options"] = "Optionen"
 -- L["Characters is turned off. Turn it on under Options > Discovery > Lookup."] = "Charaktere ist ausgeschaltet. Schalte es unter Optionen > Entdecken > Nachschlagen ein."
+-- L["Boss whisper"] = "Boss-Flüstern"

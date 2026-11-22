@@ -2641,7 +2641,6 @@ L["Drag the guide window, the arrow, the cards and the alerts where you want the
 -- Rares/Rares.lua
 L["Raid warning"] = "Предупреждение рейда"
 L["Ready check"] = "Проверка готовности"
-L["Boss whisper"] = "Шепот босса"
 L["Rare Elite"] = "Редкая элита"
 L["just now"] = "только что"
 L["%d min ago"] = "%d мин назад"
@@ -2651,6 +2650,7 @@ L["%d days ago"] = "%d дн. назад"
 L["Unknown rare"] = "Неизвестный редкий"
 L["A rare"] = "Редкий NPC"
 L["rares [test]: open Rares, or show a sample alert"] = "rares [test]: открыть «Редкие» или показать пример оповещения"
+L["Boss emote"] = "Эмоция босса"
 
 -- Rares/Pins.lua
 L["Level %s"] = "Уровень %s"
@@ -5178,3 +5178,4 @@ L["Most used"] = "Самое нужное"
 -- L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "Стрелка и окно гайда отключаются. Polestar сам продолжит работу, когда вы живым выйдете из подземелья."
 -- L["Options"] = "Настройки"
 -- L["Characters is turned off. Turn it on under Options > Discovery > Lookup."] = "Раздел «Персонажи» отключен. Включите его в меню «Настройки > Открытия > Поиск»."
+-- L["Boss whisper"] = "Шепот босса"

@@ -2641,7 +2641,6 @@ L["Drag the guide window, the arrow, the cards and the alerts where you want the
 -- Rares/Rares.lua
 L["Raid warning"] = "团队通知"
 L["Ready check"] = "就位确认"
-L["Boss whisper"] = "首领密语"
 L["Rare Elite"] = "稀有精英"
 L["just now"] = "刚刚"
 L["%d min ago"] = "%d分钟前"
@@ -2651,6 +2650,7 @@ L["%d days ago"] = "%d天前"
 L["Unknown rare"] = "未知稀有"
 L["A rare"] = "一个稀有"
 L["rares [test]: open Rares, or show a sample alert"] = "rares [test]：打开稀有，或显示示例提醒"
+L["Boss emote"] = "首领表情"
 
 -- Rares/Pins.lua
 L["Level %s"] = "等级 %s"
@@ -5180,3 +5180,4 @@ L["Most used"] = "常用设置"
 -- L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "箭头和指南窗口会让位。你活着离开地下城后，Polestar 会自动恢复。"
 -- L["Options"] = "选项"
 -- L["Characters is turned off. Turn it on under Options > Discovery > Lookup."] = "“角色”功能已关闭。请在“选项 > 发现 > 查询”中开启。"
+-- L["Boss whisper"] = "首领密语"

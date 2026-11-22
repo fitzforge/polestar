@@ -4464,5 +4464,315 @@
 			}
 		],
 		"note": "Wizzle Brassbolts gives and takes the Mirage Raceway's quests and sells nothing. The merged data listed him as a vendor, so the nearest-vendor arrow and the sell reminder could send players to him (#3470). No roles; a merchant window players record brings the vendor role back."
+	},
+	"2358": {
+		"addSpawns": {
+			"1416": {
+				"f": "e",
+				"pts": [
+					[
+						20.1,
+						51.9
+					],
+					[
+						20.1,
+						53.0
+					],
+					[
+						20.4,
+						54.8
+					],
+					[
+						20.8,
+						50.6
+					],
+					[
+						21.7,
+						54.4
+					],
+					[
+						21.8,
+						53.3
+					],
+					[
+						21.8,
+						56.1
+					],
+					[
+						21.9,
+						50.6
+					],
+					[
+						22.0,
+						51.4
+					],
+					[
+						22.9,
+						51.9
+					],
+					[
+						23.3,
+						54.6
+					],
+					[
+						23.4,
+						57.5
+					],
+					[
+						23.6,
+						56.5
+					],
+					[
+						23.7,
+						53.7
+					],
+					[
+						23.7,
+						59.1
+					],
+					[
+						24.5,
+						56.2
+					],
+					[
+						24.6,
+						54.8
+					],
+					[
+						24.7,
+						61.0
+					],
+					[
+						24.8,
+						57.7
+					],
+					[
+						25.1,
+						59.2
+					],
+					[
+						25.1,
+						62.2
+					],
+					[
+						25.7,
+						54.9
+					],
+					[
+						26.0,
+						59.3
+					],
+					[
+						26.4,
+						60.7
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 67 people killed Dalaran Summoners in Alterac Mountains, every kill at 16.2-27.7,49.4-66.4, around the ruins outside the Dalaran dome, none south of 68 (the data's other points, 10-20,73-81); the points are the kill spots where 12 or more people killed them"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2861 (Merkanex, Horde): the City of Dalaran pick-up guide led up the stairs, where elite guards attacked; the summoners and slaves were outside the walls at 23.2,56.3 and 24.0,58.7"
+			}
+		],
+		"note": "Dalaran Summoners, for Dalaran Patrols (545), are met around the ruins outside the Dalaran dome in Alterac Mountains. The merged data also had them at 10-20,73-81, where no player meets them, and the pick-up guide's spots led there or up the stairs to the guards (#2861). Replaces the map's points; Silverpine and Hillsbrad keep theirs."
+	},
+	"2359": {
+		"addSpawns": {
+			"1416": {
+				"f": "e",
+				"pts": [
+					[
+						20.2,
+						52.9
+					],
+					[
+						20.5,
+						52.0
+					],
+					[
+						20.5,
+						54.7
+					],
+					[
+						21.6,
+						54.6
+					],
+					[
+						21.7,
+						53.1
+					],
+					[
+						21.7,
+						56.2
+					],
+					[
+						22.0,
+						51.6
+					],
+					[
+						22.2,
+						57.8
+					],
+					[
+						23.0,
+						53.1
+					],
+					[
+						23.0,
+						54.8
+					],
+					[
+						23.3,
+						51.8
+					],
+					[
+						23.3,
+						57.4
+					],
+					[
+						23.4,
+						56.3
+					],
+					[
+						23.4,
+						59.0
+					],
+					[
+						23.5,
+						50.6
+					],
+					[
+						24.6,
+						51.9
+					],
+					[
+						24.6,
+						56.2
+					],
+					[
+						24.7,
+						57.8
+					],
+					[
+						25.0,
+						59.2
+					],
+					[
+						25.0,
+						60.8
+					],
+					[
+						25.1,
+						53.1
+					],
+					[
+						25.2,
+						62.4
+					],
+					[
+						25.8,
+						54.8
+					],
+					[
+						25.9,
+						62.3
+					],
+					[
+						26.0,
+						59.2
+					],
+					[
+						26.1,
+						57.9
+					],
+					[
+						26.1,
+						60.8
+					]
+				]
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' recordings to 2026-11-17: 66 people killed Elemental Slaves in Alterac Mountains, every kill at 17.8-28.0,49.4-66.6, around the ruins outside the Dalaran dome, none south of 68 (the data's other points, 10-20,73-81); the points are the kill spots where 12 or more people killed them"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#2861 (Merkanex, Horde): the City of Dalaran pick-up guide led up the stairs, where elite guards attacked; the summoners and slaves were outside the walls at 23.2,56.3 and 24.0,58.7"
+			}
+		],
+		"note": "Elemental Slaves, for Dalaran Patrols (545), are met around the ruins outside the Dalaran dome in Alterac Mountains. The merged data also had them at 10-20,73-81, where no player meets them, and the pick-up guide's spots led there or up the stairs to the guards (#2861). Replaces the map's points; Silverpine and Hillsbrad keep theirs."
+	},
+	"8888": {
+		"set": {
+			"ghostOnly": true
+		},
+		"source": [
+			{
+				"kind": "in-game-check",
+				"ref": "#3009 (Nostaroi: \"you have to be dead to get this quest\"); #558"
+			},
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: 14 people met Franclorn Forgewright at Forgewright's Tomb in Blackrock Mountain"
+			}
+		],
+		"note": "Franclorn Forgewright (Blackrock Mountain), giver and ender of Dark Iron Legacy, is a ghost only a dead character can see (#558, #3009)."
+	},
+	"14637": {
+		"set": {
+			"vendorAfter": 7003
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: 14 merchant windows of Zorbin Fandazzle, every one opened by a character who had handed in Zapped Giants (7003); 41 people opened his windows"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3138 (Meta, Forsaken Paladin 47): Zorbin sold nothing before Zapped Giants; \"the vendor unlocks after doing the Zapped giants quest\""
+			}
+		],
+		"note": "Zorbin Fandazzle (Feralas) opens his shop only once Zapped Giants is handed in. The merged data listed him as a plain vendor, so the bags-full stop could send a player to him before that (#3138)."
+	},
+	"12277": {
+		"set": {
+			"spawns": {
+				"1443": {
+					"f": "l",
+					"pts": [
+						[
+							33.79,
+							54.04
+						],
+						[
+							33.83,
+							53.53
+						],
+						[
+							33.93,
+							54.73
+						]
+					]
+				}
+			}
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20: 54 of Melizza Brimbuzzle's quest windows, from 22 people, opened at the Maraudine camp (median 33.90,53.58); 16 windows and accepts, from 10 people, along her escort path down to Hornizz's camp, while an escort was under way"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3301 (Everlast): the map pointed along the escort path while she offered the quest in the camp"
+			}
+		],
+		"note": "Melizza Brimbuzzle stands in the Maraudine camp in Desolace, where she offers Get Me Out of Here!. The merged data also had points along her escort path, down to Hornizz's camp where an escort ends, so the arrow and the map could point there (#3301). Her points are the camp's only."
 	}
 }

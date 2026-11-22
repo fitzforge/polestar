@@ -196,23 +196,35 @@ local function endPoint(e)
 	return { kind = e.npc and "npc" or "object", id = e.npc or e.object, name = e.name, map = s.map, x = s.x, y = s.y, f = s.f }
 end
 
+-- The entrance of the instance instance key `key` names, as a point
+-- { map, x, y, f, name = instance name } | nil.
+local function entranceOf(key)
+	local inst = key and Dungeons.Get(key)
+	local e = inst and inst.entrance
+	if not located(e) then return nil end
+	return { map = e.map, x = e.x, y = e.y, f = e.f, name = inst.name }
+end
+
+-- Dungeons.InsideEntrance(kind, id) -> point | nil: where an NPC or object
+-- the Codex puts inside an instance is reached from outside, its instance's
+-- entrance (Lookup's quest guides: the Head of Targorr's collect goes to the
+-- Stockade's door, not beside Guard Berton who takes it, #3613).
+function Dungeons.InsideEntrance(kind, id)
+	local C = ns.Codex
+	local rec = C and (kind == "npc" and C.Npc and C.Npc(id) or kind == "object" and C.Object and C.Object(id)) or nil
+	return entranceOf(rec and rec.instance)
+end
+
 -- inside(kind, id) for Lookup.QuestStep: where an NPC or object without a
--- spawn is, the entrance of its instance (the Codex's NPC instance, else the
--- attunement's `inside`) -> { map, x, y, f, name = instance name } | nil.
+-- spawn is, the entrance of its instance (the attunement's `inside`, else
+-- Dungeons.InsideEntrance) -> { map, x, y, f, name = instance name } | nil.
 local function insideOf(a)
 	local listed = {}
 	for _, e in ipairs(a.inside or {}) do listed[e.kind .. ":" .. tostring(e.id)] = e.instance end
-	local C = ns.Codex
 	return function(kind, id)
 		local key = listed[kind .. ":" .. tostring(id)]
-		if not key and kind == "npc" and C and C.Npc then
-			local npc = C.Npc(id)
-			key = npc and npc.instance
-		end
-		local inst = key and Dungeons.Get(key)
-		local e = inst and inst.entrance
-		if not located(e) then return nil end
-		return { map = e.map, x = e.x, y = e.y, f = e.f, name = inst.name }
+		if key then return entranceOf(key) end
+		return Dungeons.InsideEntrance(kind, id)
 	end
 end
 

@@ -2640,7 +2640,6 @@ L["Drag the guide window, the arrow, the cards and the alerts where you want the
 -- Rares/Rares.lua
 L["Raid warning"] = "공격대 경보"
 L["Ready check"] = "준비 확인"
-L["Boss whisper"] = "우두머리 귓속말"
 L["Rare Elite"] = "희귀 정예"
 L["just now"] = "방금"
 L["%d min ago"] = "%d분 전"
@@ -2650,6 +2649,7 @@ L["%d days ago"] = "%d일 전"
 L["Unknown rare"] = "알 수 없는 희귀"
 L["A rare"] = "희귀 몹"
 L["rares [test]: open Rares, or show a sample alert"] = "rares [test]: 희귀 열기 또는 알림 미리보기"
+L["Boss emote"] = "우두머리 감정 표현"
 
 -- Rares/Pins.lua
 L["Level %s"] = "레벨 %s"
@@ -5171,3 +5171,4 @@ L["Most used"] = "자주 쓰는 설정"
 -- L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "화살표와 가이드 창이 물러납니다. 던전에서 살아서 나오면 Polestar가 자동으로 다시 시작합니다."
 -- L["Options"] = "설정"
 -- L["Characters is turned off. Turn it on under Options > Discovery > Lookup."] = "캐릭터가 꺼져 있습니다. 설정 > 발견 > 찾아보기에서 켜십시오."
+-- L["Boss whisper"] = "우두머리 귓속말"

@@ -326,6 +326,8 @@ end
 --     only by portals, ships and flights (#1761). One with a height range (zmin, zmax) holds only the points with a
 --     height in it: a place the walking maps have no floor in, under or over others on the map, reached only by the
 --     portals that land in it (the Wizard's Sanctum's chamber under its tower, #1970; Travel.places)
+--     subzone: AreaTable id for a place whose heightless goals are on its floor. With no known floor, the
+--     player's live subzone identifies it (Rohashi Spires, #1766).
 -- Calls merge; an id seen before is skipped.
 function Nav.RegisterCrossings(d)
 	if type(d) ~= "table" then return end
@@ -376,12 +378,12 @@ function Nav.RegisterCrossings(d)
 	for _, a in ipairs(d.areas or {}) do
 		if type(a) == "table" and type(a.id) == "string" and a.map and a.c and a.top and a.bottom and a.left and a.right
 			and not crossIds[a.id] then
-			crossIds[a.id] = true
+			crossIds[a.id], touched[a.c] = true, true
 			local list = areasIn[a.map] or {}
 			areasIn[a.map] = list
 			local e = { id = a.id, c = a.c, top = a.top, bottom = a.bottom, left = a.left, right = a.right }
 			if type(a.zmin) == "number" and type(a.zmax) == "number" then
-				e.zmin, e.zmax = a.zmin, a.zmax
+				e.zmin, e.zmax, e.subzone = a.zmin, a.zmax, a.subzone
 				Travel.places[a.id] = e
 			end
 			list[#list + 1] = e
@@ -651,12 +653,15 @@ function Travel.InBox(a, wx, wy)
 	if l > r then l, r = r, l end
 	return wx >= t and wx <= b and wy >= l and wy <= r
 end
-function Travel.ZoneOf(map, c, wx, wy, target, z)
+function Travel.ZoneOf(map, c, wx, wy, target, z, area)
 	local zone = mapZoneOf(map, c, wx, wy, target)
 	local list = zone and areasIn[zone]
 	if list then
 		for _, a in ipairs(list) do
-			if a.c == c and Travel.InBox(a, wx, wy) and (not a.zmin or (z and z >= a.zmin and z <= a.zmax)) then return a.id end
+			if a.c == c and Travel.InBox(a, wx, wy) then
+				if not a.zmin or (z and z >= a.zmin and z <= a.zmax) then return a.id end
+				if not z and a.subzone and (target or area == a.subzone) then return a.id end
+			end
 		end
 	end
 	return zone
@@ -821,7 +826,7 @@ local function planBody(p, S)
 			if zone == nil then
 				zone = key and zoneMemo[key]
 				if zone == nil then
-					zone = Travel.ZoneOf(map, c, wx, wy, nil, key and key.z) or false
+					zone = Travel.ZoneOf(map, c, wx, wy, nil, key and key.z, key and key.area) or false
 					local info = key and map and zoneInfo[map]
 					if info and info.c == c then zoneMemo[key] = zone end
 				end
@@ -831,7 +836,8 @@ local function planBody(p, S)
 		return n
 	end
 	-- A start in a place only portals reach (p.place: Travel.Placed saw the player go in) is there, whatever its floor.
-	add(START, p.c, p.wx, p.wy, nil, p.map, nil, covered[p.c] and p.place or nil)
+	local startZone = covered[p.c] and (p.place or Travel.ZoneOf(p.map, p.c, p.wx, p.wy, nil, p.z) or false)
+	add(START, p.c, p.wx, p.wy, nil, p.map, nil, startZone)
 	-- The target's zone is where the walking maps put its point (zoneOf's `target`, #1694), or with its height the
 	-- place only portals reach that holds it (the mage trainers under the Wizard's Sanctum, #1970).
 	add(TARGET, tg.c, tg.wx, tg.wy, tg, tg.map, nil, covered[tg.c] and (Travel.ZoneOf(tg.map, tg.c, tg.wx, tg.wy, true, tg.z) or false) or nil)
@@ -3088,7 +3094,10 @@ local function stopLabel(s, c)
 			if C and C.GetZoneText then sub = select(2, C.GetZoneText()) end
 			if sub == place then return ride and ride.bare[kind] or CHOKE_BARE[kind] end
 		end
-		return format(ride and ride.to[kind] or CHOKE_TO[kind], place)
+		local caption = ride and ride.to[kind] or CHOKE_TO[kind]
+		-- "Walk to the %s cave mouth" for The Screeching Canyon: one article, not "the The".
+		if caption:find("the %s", 1, true) then place = place:gsub("^The ", "") end
+		return format(caption, place)
 	end
 	local zone = stopZone(s, c)
 	if zone then return format(ride and ride.zone[kind] or CHOKE_IN[kind], zone) end
@@ -3469,17 +3478,28 @@ end
 --   "instruction", c, wx, wy     do the leg's action here (fly, ride, portal, hearth, teleport)
 local RIDES = { boat = true, zeppelin = true, airship = true, tram = true }
 
--- The place only portals reach (Travel.places) the player is in, while they stand in its box. -> its id, or nil
+-- The place the player is in. A named subzone also works after login or reload, without a portal step to observe.
 function Travel.Inside(pc, px, py)
 	local a = Travel.place and Travel.places[Travel.place]
-	if a and a.c == pc and Travel.InBox(a, px, py) then return Travel.place end
+	if a and not a.subzone and a.c == pc and Travel.InBox(a, px, py) then return Travel.place end
+	for id, area in pairs(Travel.places) do
+		if area.subzone and area.c == pc and Travel.InBox(area, px, py) then
+			local C = ns.Compat
+			local subzone = C and C.GetZoneText and select(2, C.GetZoneText())
+			local name = C and C.GetAreaName and C.GetAreaName(area.subzone)
+			if (subzone and subzone == name) or (not subzone and a == area) then
+				Travel.place = id
+				return id
+			end
+		end
+	end
 	Travel.place = nil
 	return nil
 end
 
--- Which place only portals reach the player is in: the walking maps have no floor there and Forever's client gives no
--- height, so only the portal's step tells. A portal moves the player JUMP yards or more between two of the arrow's
--- samples (20 a second), faster than any mount (FAST), onto its landing (within LAND yards: the game puts them on
+-- Observe portals to identify places the client cannot identify by subzone. A portal moves the player JUMP yards
+-- or more between two of the arrow's samples (20 a second), faster than any mount (FAST), onto its landing
+-- (within LAND yards: the game puts them on
 -- the spot): the landing of a portal into a place puts them in it, the landing of one out of it takes them out. Any
 -- other step (a Mage's Blink in the chamber, the top room's floor round the portal) changes nothing; walking out of
 -- the place's box takes them out (a hearth, a death). A sample after a GAP (the arrow hidden) only starts again.
@@ -3494,10 +3514,10 @@ function Travel.Placed(pc, px, py)
 			for _, t in ipairs(portals) do
 				local a, b = t.a, t.b
 				if b.c == pc and yards(pc, px, py, b.c, b.wx, b.wy) <= LAND then
-					local into = Travel.ZoneOf(b.map, b.c, b.wx, b.wy, nil, b.z)
+					local into = Travel.ZoneOf(b.map, b.c, b.wx, b.wy, nil, b.z, b.area)
 					if Travel.places[into] then
 						Travel.place = into
-					elseif Travel.places[Travel.ZoneOf(a.map, a.c, a.wx, a.wy, nil, a.z)] then
+					elseif Travel.places[Travel.ZoneOf(a.map, a.c, a.wx, a.wy, nil, a.z, a.area)] then
 						Travel.place = nil
 					end
 				end

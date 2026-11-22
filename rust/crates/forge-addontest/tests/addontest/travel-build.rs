@@ -415,7 +415,9 @@ fn from_the_valanaar_skydocks_the_skyborne_ride_the_airships_to_dalaran_and_to_n
 // #1674 (Megabite): on the Rohashi Spires after Lorthuna, the next step's turn-in at Elaadrin Evengale in
 // Valanaar said to hearth: the planner knew no way down but walking. The Portal to Valanaar beside her
 // sets the player down beside Elaadrin in five seconds. Zephras Isle (uiMap 2521, continent 2991) on its
-// live frame (data/forever/map-frames.json), the Hearthstone bound to Valanaar and ready.
+// live frame (data/forever/map-frames.json), the Hearthstone bound to Valanaar and ready. The client names
+// the player's subzone there "Rohashi Spires" (AreaTable 16630): with no height, that is how the planner
+// knows the player is up on the spires (#1766).
 #[test]
 fn from_lorthunas_terrace_to_elaadrin_in_valanaar_the_route_takes_the_portal_down_never_the_hearthstone() {
 	let out = emitted(&RunAddon {
@@ -429,6 +431,8 @@ fn from_lorthunas_terrace_to_elaadrin_in_valanaar_the_route_takes_the_portal_dow
 			nav.faction = "Alliance"
 			nav.items[6948] = 1
 			nav.bind = "Valanaar"
+			nav.Compat.GetZoneText = function() return "Zephras Isle", "Rohashi Spires" end
+			nav.Compat.GetAreaName = function(id) return id == 16630 and "Rohashi Spires" or nil end
 			local _, wx, wy = stub.nav.Compat.MapToWorld(2521, 74.87, 53.02, "l")
 			nav.place(wx, wy, 2991)
 			Polestar.Nav.SetTarget(2521, 66.63, 79.94, "Elaadrin Evengale", "l")

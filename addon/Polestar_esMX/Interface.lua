@@ -1183,7 +1183,7 @@ L["A rare"] = "Un raro"
 L["rares [test]: open Rares, or show a sample alert"] = "rares [test]: abrir Raros o mostrar una alerta de ejemplo"
 L["Raid warning"] = "Aviso de la banda"
 L["Ready check"] = "Comprobación de estado"
-L["Boss whisper"] = "Susurro de jefe"
+L["Boss emote"] = "Emoción de jefe"
 
 -- Rares/Toast.lua
 L["in sight"] = "a la vista"
@@ -5205,3 +5205,4 @@ L["Most used"] = "Lo más usado"
 -- L["The arrow and the guide window step aside. Polestar resumes by itself when you leave a dungeon alive."] = "La flecha y la ventana de la guía se apartan. Polestar se reanuda solo cuando sales vivo de un calabozo."
 -- L["Options"] = "Opciones"
 -- L["Characters is turned off. Turn it on under Options > Discovery > Lookup."] = "Personajes está desactivado. Actívalo en Opciones > Descubrimiento > Buscador."
+-- L["Boss whisper"] = "Susurro de jefe"

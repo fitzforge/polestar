@@ -1284,6 +1284,7 @@ N.RegisterCrossings({
 		[1456] = { name = "Thunder Bluff", c = 1, top = -850, bottom = -1545.833, left = 516.667, right = -527.083 },
 		[1457] = { name = "Darnassus", c = 1, top = 10238.316, bottom = 9532.587, left = 2938.363, right = 1880.03 },
 		[1458] = { name = "Undercity", c = 0, top = 1877.945, bottom = 1237.841, left = 873.193, right = -86.182 },
+		[2521] = { name = "Zephras Isle", c = 2991, top = 4956.25, bottom = 1247.917, left = 4231.25, right = -1331.25 },
 		[2548] = { name = "Riverglades", c = 0, top = -6466.666, bottom = -9700, left = -1891.666, right = -6741.666 },
 	},
 	-- other zones on these continents (no crossing data: walked as before)
@@ -1499,5 +1500,6 @@ N.RegisterCrossings({
 	areas = {
 		{ id = "rutheran-village", name = "Rut'theran Village", map = 1438, c = 1, top = 9065.3, bottom = 8437.5, left = 1523.3, right = 352.3 },
 		{ id = "wizards-sanctum-chamber", name = "Wizard's Sanctum", map = 1453, c = 0, top = -8975, bottom = -9030, left = 900, right = 840, zmin = 10, zmax = 50 },
+		{ id = "rohashi-spires", name = "Rohashi Spires", map = 2521, c = 2991, top = 3157.7, bottom = 2935.2, left = 448.7, right = -24.1, zmin = 1100, zmax = 1300, subzone = 16630 },
 	},
 })
