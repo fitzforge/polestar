@@ -82,6 +82,16 @@ added to Polestar's own `guides/`. A pull request adding a new `.guide` file
 there needs the maintainer's request in an issue first; without it, suggest
 the community guide instead. Fixes to existing guides are unaffected.
 
+**A feature waits for the fit answer.** Something Polestar doesn't do yet
+starts as an issue (the "Feature request" form) or a post in #suggestions on
+the Discord, not as code: idea first, pull request after the maintainer's
+yes. A feature pull request gets his yes, no or later within three days,
+before any review; until the yes, don't add more work to it. Polestar is a
+leveling guide and its arrow: new windows, games, data sets and
+integrations are later by default. Never decline, close or mark "not
+planned" anyone's work or idea; only the maintainer does. CONTRIBUTING.md,
+"Before you build a feature", is the long form.
+
 ## Which branch
 
 Every pull request goes to **`next`**, the repository's default branch.
