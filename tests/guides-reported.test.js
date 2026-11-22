@@ -18677,3 +18677,27 @@ test('forever/alliance/50-60/01-burning-steppes.guide: Kum\'isha\'s fragment ste
 	const kum = steps.find((st) => st.goals.some(is('accept', 3501)));
 	assert.ok((kum.when || []).some((p) => p.k === 'has' && !p.neg && p.item === 10593), 'when has 10593');
 });
+
+// #3385 (Tilman): skipping the kodo-taming step at the Kodo Graveyard skipped Reagents for Reclaimers Inc.'s venom
+// too, since both were in one step. A skip only touches its own quest (Fitz, 22 Nov): an escort or a taming, the
+// work a player may skip on its own, has a step of its own, with no other quest's work beside it.
+test('an escort or taming has a step of its own, so skipping it skips no other quest (#3385)', { skip }, () => {
+	const WORK = new Set(['complete', 'kill', 'collect', 'use', 'interact', 'talk', 'explore', 'cast']);
+	for (const [file, quest] of [
+		['forever/alliance/30-40/02-desolace.guide', 5561], // Kodo Roundup
+		['forever/alliance/03-darkshore-return.guide', 945], // Therylune's Escape
+		['forever/alliance/03-darkshore-return.guide', 994], // Escape Through Force (Volcor)
+		['forever/alliance/30-40/04b-stranglethorn-vale.guide', 97331], // Zimmix's Great Escape
+		['forever/horde/30-40/03-stranglethorn-vale.guide', 97331],
+		['forever/horde/07-ashenvale.guide', 6482], // Freedom to Ruul
+		['forever/horde/07-ashenvale.guide', 4904], // Free at Last
+		['forever/horde/07-ashenvale.guide', 4770], // Homeward Bound
+	]) {
+		const steps = compiled(file).steps.filter((st) => st.goals.some((g) => g.quest === quest && WORK.has(g.t)));
+		assert.ok(steps.length > 0, `${file}: ${quest} is worked`);
+		for (const st of steps) {
+			const others = st.goals.filter((g) => WORK.has(g.t) && g.quest != null && g.quest !== quest && !g.optional);
+			assert.deepEqual(others.map((g) => `${g.t} ${g.quest}`), [], `${file} "${st.title}": only ${quest}'s work`);
+		}
+	}
+});
