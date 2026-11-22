@@ -418,7 +418,7 @@ local function fillRow(r, v, i, live, at)
 	r.psN = n
 	r.More:SetText(more > 0 and string.format(L["+%d more"], more) or "")
 	r.More:SetShown(more > 0)
-	r.Tick:SetShown(v.status == "done" and not held)
+	r.Tick:SetShown(v.status == "done" and not held and not mine)
 	r.Mark:SetShown(i == live)
 	r.View:SetShown(i == at)
 	r:Show()
