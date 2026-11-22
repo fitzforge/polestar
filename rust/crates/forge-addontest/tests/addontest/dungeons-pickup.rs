@@ -3552,8 +3552,10 @@ for _, s in ipairs((D.PickupGuide("{KEY}") or { steps = {} }).steps) do
 		if g.t == "accept" and g.quest == 1010 then other = g end
 	end
 end
+-- Another accept keeps whatever note it had (a prerequisite line, #2709): only the ghost's note and optional are checked.
+local function ghostly(g) return g.optional or (type(g.note) == "string" and g.note:find("while dead", 1, true) and g.note) or false end
 emit({ found = accept ~= nil, optional = accept and accept.optional or false, note = accept and accept.note or false,
-	ghost = Polestar.Codex.Npc(9080).ghostOnly or false, other = other and (other.optional or other.note or false) or "none" })"#),
+	ghost = Polestar.Codex.Npc(9080).ghostOnly or false, other = other and ghostly(other) or "none" })"#),
 		Opts::default(),
 	)
 	.remove(0);
