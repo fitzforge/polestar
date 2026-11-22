@@ -115,6 +115,36 @@ fn a_folder_without_a_version_is_unknown_not_a_mismatch_and_so_is_polestar_witho
 	assert!(said(&out).is_empty(), "{:?}", said(&out));
 }
 
+// 0.4.2 shipped the walking maps' regions as 127 folders of their own (Polestar_Nav_R<map>_<row>_<col>); since
+// 0.4.2.1 they are inside Polestar_Nav_EK and Polestar_Nav_Kalimdor (#3396). An update that leaves them behind gets
+// one line saying to delete them, never 127 names in the mixed-install line.
+#[test]
+fn the_region_folders_left_from_0_4_2_get_one_line_saying_to_delete_them_and_are_not_a_mixed_install() {
+	let addons = with(&["Polestar_Nav_R0_6_6=0.4.2", "Polestar_Nav_R1_5_9=0.4.2", "Polestar_Nav_R2991_7_7=0.4.2"]);
+	let refs: Vec<&str> = addons.iter().map(String::as_str).collect();
+	let out = emitted(&RunAddon {
+		before: addons_lua(&refs),
+		addons: vec![Addon::files("Polestar", CORE)],
+		login: true,
+		script: r#"
+local missing, stale, _, regions = Polestar.Data.CheckInstall()
+local said = {}
+for _, m in ipairs(stub.messages) do if m:find("Polestar_Nav_R", 1, true) or m:find("mixed", 1, true) then said[#said + 1] = m end end
+emit({ missing = table.concat(missing, ","), stale = table.concat(stale, ","), regions = regions, said = said })"#
+			.into(),
+		..Default::default()
+	})
+	.remove(0);
+	assert_eq!((out["missing"].as_str(), out["stale"].as_str(), out["regions"].as_f64()), (Some(""), Some(""), Some(3.0)));
+	let said = said(&out);
+	assert_eq!(said.len(), 1, "one line: {said:?}");
+	assert!(
+		is_match(&said[0], r"no longer uses its 3 walking map folders named Polestar_Nav_R .*Polestar_Nav_EK and Polestar_Nav_Kalimdor.*delete the Polestar_Nav_R folders from Interface/AddOns"),
+		"{}",
+		said[0]
+	);
+}
+
 // The game's looks and Hearth (Polestar_Looks) load on demand but ship in every release, as the settings window
 // does: a copy without the folder is named at login (picking one of those looks would quietly keep Polestar's).
 #[test]

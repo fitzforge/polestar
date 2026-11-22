@@ -14,7 +14,7 @@
 --                                     ("missing", "disabled", "combat", ...), "nodata" (pack built without Dungeons)
 --   Dungeons.IsEnabled() ; Dungeons.Meta()
 --   Dungeons.List() -> { { key, name, kind, forever, minLevel, maxLevel, floor, players, playersMax,
---       map, zone, zoneName, entrance = { map, x, y, f } | nil, quests = { A = n, H = n }, bosses = n,
+--       map, zone, zoneName, entrance = { map, x, y, f, z? } | nil, quests = { A = n, H = n }, bosses = n,
 --       attune = { A = n, H = n } } }   -- level order, no page decoded
 --       (name and zoneName in the client's language when it has them; map: the instance's Map id;
 --       floor: the level its run in the route starts at, the Codex's (its range's bottom or players'
@@ -35,7 +35,8 @@
 --   Dungeons.Quests(key, faction) -> { quest, ... }   -- faction "A" | "H" | nil (all); level order
 --   Dungeons.Quest(key, id) -> quest | nil           -- page and chain quests
 --       quest = { id, title, level, minLevel, faction, classes, inside, shareable,
---         objectives = { { k = "kill"|"item"|"object"|"event", id, n (count over one), name (English) } },
+--         objectives = { { k = "kill"|"item"|"object"|"talk"|"event", id, n (count over one), name (English) } }
+--           (a talk named by its NPC; one whose text is the quest log's sentence comes as an event, #3426),
 --         start, finish (= { kind, id, name, map, x, y, f, inside }), startItem = { id, name },
 --         chain = { ids }, closedBy = { ids } | nil (taken or done, these close it for good:
 --         the quest a breadcrumb leads to, its exclusive group),
@@ -480,7 +481,8 @@ function Dungeons.ObjectiveText(q)
 				summaryDone = true
 				lines[#lines + 1] = fill(text)
 			elseif o.name then
-				lines[#lines + 1] = o.name
+				local count = o.k == "event" and o.n
+				lines[#lines + 1] = type(count) == "number" and count > 1 and format("%s ×%d", o.name, count) or o.name
 			end
 		end
 	end
@@ -527,12 +529,13 @@ end
 -- entrance) makes it a trip (Nav.StartTrip, "Back to the guide" on the way)
 -- that ends through the instance's portal (#1686), labelled `what`
 -- ("Dungeon", "Raid"). `warning`: the line the arrow shows under the label
--- (Dungeons.EnemyEntrance). Any other point (a giver, a turn-in) stays the
+-- (Dungeons.EnemyEntrance). A point's `z` (an entrance's door floor, where floors stack: the Excavation Site's door
+-- over Thelgen Rock) goes to the arrow, so its walk ends at the door. Any other point (a giver, a turn-in) stays the
 -- arrow's until the step changes, as a point set on the map does.
 function Dungeons.GuideToPoint(point, label, stop, warning, what)
 	local Nav = ns.Nav
 	if not (type(point) == "table" and point.map and point.x and point.y and Nav and Nav.SetTarget) then return false end
-	local t = Nav.SetTarget(point.map, point.x, point.y, label or point.name, point.f, stop, nil, warning)
+	local t = Nav.SetTarget(point.map, point.x, point.y, label or point.name, point.f, stop, type(point.z) == "number" and point.z or nil, warning)
 	if not t then return false end
 	if stop == "dungeon" then Nav.StartTrip(t, label or point.name, what or L["Dungeon"], "instance") end
 	return true

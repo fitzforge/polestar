@@ -27,18 +27,20 @@ return {
 	["Off the boat, walk up the pier to Baldruc, the flight master by the gate of {area:514}."] = "Сойдя с корабля, поднимитесь по пирсу к Балдрику, распорядителю полетов у ворот ({area:514}).",
 
 	-- Step 4: Nijel's Point
-	-- {npc:5638} Kreldig Ungor · {npc:11863} Azore Aldamort
-	["{npc:5638}, if 30-40/02 didn't take it: the wreck lies below {npc:11863}'s tower"] = "{npc:5638}, если гайд 30-40/02 его не взял: обломки корабля лежат под башней NPC {npc:11863}",
-	-- {npc:5396} Captain Pentigast
-	["{npc:5396}, if 30-40/02 didn't give it"] = "{npc:5396}, если не получили в 30-40/02",
+	-- {npc:5638} Kreldig Ungor · {zone:1443} Desolace · {npc:11863} Azore Aldamort
+	["{npc:5638}, if the first {zone:1443} visit didn't take it: the wreck lies below {npc:11863}'s tower"] = "",
+	-- {npc:5396} Captain Pentigast · {zone:1443} Desolace
+	["{npc:5396}, if the first {zone:1443} visit didn't give it"] = "",
 
 	-- Step 5: Bibbly F'utzbuckle
 	-- {area:2407} Kormek's Hut
 	["Follow the road south to {area:2407}."] = "Идите по дороге на юг: {area:2407}.",
+	-- {npc:11438} Bibbly F'utzbuckle · {zone:1443} Desolace
+	["{npc:11438}, if the first {zone:1443} visit didn't give it"] = "",
 
 	-- Step 6: Kodo Graveyard
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard · {area:2407} Kormek's Hut · {object:176751} Kodo Bones
-	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "{npc:6019} стоит на краю места {area:596}, к юго-западу от места {area:2407}; {object:176751} лежат среди скелетов.",
+	["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons.\nCareful: Rexxar (62, elite), the Horde's champion, walks the road past the graveyard with his bear Misha and attacks Alliance players: when he comes by, step well away from the road and let him pass."] = "",
 
 	-- Step 7: Hornizz Brimbuzzle
 	-- {quest:6134} Ghost-o-plasm Round Up · {area:2657} Valley of Bones
@@ -91,8 +93,12 @@ return {
 	-- Step 17: Azore Aldamort
 	-- {zone:1443} Desolace · {area:2405} Ethel Rethor · {npc:11863} Azore Aldamort
 	["Follow the road west across the north of {zone:1443} to the ruins of {area:2405}. {npc:11863}'s tower stands on the hill there, on the way to the wreck."] = "Идите по дороге на запад через север зоны {zone:1443} к руинам: {area:2405}. Там на холме стоит башня NPC {npc:11863}, по пути к обломкам корабля.",
+	-- {npc:11863} Azore Aldamort · {zone:1443} Desolace
+	["{npc:11863}, if the first {zone:1443} visit didn't take the sceptre back to him"] = "",
 	-- {npc:11863} Azore Aldamort · {quest:93464} The Visiting Mage · {zone:1435} Swamp of Sorrows
 	["{npc:11863}: {quest:93464}, from Magtoor in the {zone:1435}"] = "{npc:11863}: {quest:93464}, от Магтура ({zone:1435})",
+	-- {npc:11863} Azore Aldamort · {zone:1443} Desolace
+	["{npc:11863}, if the first {zone:1443} visit didn't give it"] = "",
 
 	-- Step 18: Karnitol's Chest
 	-- {npc:11863} Azore Aldamort
@@ -101,8 +107,8 @@ return {
 	-- Step 19: Claim Rackmore's Treasure!
 	-- {object:177787} Rackmore's Log · {object:35251} Karnitol's Chest · {zone:1443} Desolace
 	["{object:177787} lies beside {object:35251}, if you didn't take it on your first {zone:1443} visit. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "{object:177787} лежат рядом с объектом {object:35251}, если вы не взяли их при первом посещении зоны {zone:1443}. Его серебряный ключ падает с крабов Сухого Щелчка вокруг обломков корабля; золотой – с наг Скользящего Клинка на северо-западном побережье, далее.",
-	-- {object:177787} Rackmore's Log
-	["{object:177787}, if 30-40/02 didn't take it"] = "{object:177787}, если гайд 30-40/02 их не взял",
+	-- {object:177787} Rackmore's Log · {zone:1443} Desolace
+	["{object:177787}, if the first {zone:1443} visit didn't take it"] = "",
 	["Underwater"] = "Под водой",
 
 	-- Step 20: Sar'theris Strand: kill these as you meet them
@@ -135,5 +141,9 @@ return {
 	-- ["The Slitherblade naga hold the north-west coast north of {npc:11863}'s tower; Karnitol's satchel lies on the sea floor off it, and any naga can drop Rackmore's golden key. Swim out to {area:2406} off the far northern tip and use the {item:15766} on the {object:177673}: {npc:12369} (38) rises; kill him for the {quest:6027}."] = "Наги Скользящего Клинка занимают северо-западное побережье к северу от башни NPC {npc:11863}; сумка Карнитола лежит на морском дне напротив, а золотой ключ Ракмора может упасть с любой наги. Доплывите до места {area:2406} у дальней северной оконечности и используйте {item:15766} на объекте {object:177673}: появится {npc:12369} (38); убейте его ради предмета {quest:6027}.",
 	-- ["The demons gather at the {area:602} in southern {zone:1443}: felhounds (Mana Eaters, Mage and Ley Hunters), Nether Maidens and Sisters, and Doomwarder Captains around the pit.\nCareful: Most of the mobs here walk patrol routes, so you can easily pull extra mobs."] = "Демоны собираются здесь: {area:602}, юг зоны {zone:1443}: гончие Скверны (пожиратели маны, охотники на магов и охотники за магией), девы и сестры Пустоты, а вокруг ямы – капитаны тюремщиков судеб.\nОсторожно: большинство противников здесь ходят патрулями, так что легко привлечь лишних.",
 	-- ["Undead Ravagers roam the bone fields south of the Magram village, east of the Coven: the arrow leads to their western edge. Then use the {item:15848} at its arrow, on the fields' eastern side, to draw the Magrami Spectres. Careful: Magram Necrokhans and Corpsefeeders (45, elite) walk the bone fields between the two arrows, with Magram Necromancers (42): pull the Ravagers and the spectres to you, away from them."] = "Опустошители-отрекшиеся бродят по костяным полям к югу от деревни племени Маграм, к востоку от Ковена: стрелка ведет к их западному краю. Затем используйте {item:15848} у его стрелки, на восточной стороне полей, чтобы приманить призраков из племени Маграм. Осторожно: некроханы Маграм и трупоеды (45, элитные) ходят по костяным полям между двумя стрелками вместе с некромантами Маграм (42): подтягивайте опустошителей и призраков к себе, подальше от них.",
+	-- ["{npc:5396}, if 30-40/02 didn't give it"] = "{npc:5396}, если не получили в 30-40/02",
+	-- ["{npc:5638}, if 30-40/02 didn't take it: the wreck lies below {npc:11863}'s tower"] = "{npc:5638}, если гайд 30-40/02 его не взял: обломки корабля лежат под башней NPC {npc:11863}",
+	-- ["{npc:6019} stands at the edge of the {area:596}, south-west of {area:2407}; {object:176751} lie among the skeletons."] = "{npc:6019} стоит на краю места {area:596}, к юго-западу от места {area:2407}; {object:176751} лежат среди скелетов.",
 	-- ["{object:177787} lies beside {object:35251}. His silver key drops from the Drysnap crabs around the wreck; the golden one comes from the Slitherblade naga on the north-west coast, next."] = "{object:177787} лежит рядом с объектом {object:35251}. Его серебряный ключ падает с крабов Сухого Щелчка вокруг обломков корабля; золотой – с наг Скользящего Клинка на северо-западном побережье, далее.",
+	-- ["{object:177787}, if 30-40/02 didn't take it"] = "{object:177787}, если гайд 30-40/02 их не взял",
 }

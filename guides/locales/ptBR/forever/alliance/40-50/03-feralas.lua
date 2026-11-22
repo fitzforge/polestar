@@ -132,21 +132,33 @@ return {
 	-- plural, as words: Ironfur Bears = {npc:5268} Ironfur Bear · Ironfur Patriarchs = {npc:5274} Ironfur Patriarch
 	["Ride north out of {area:1105}: the Ironfur Bears (41-42) at the foot of the {area:1136} drop Rhapsody's last liver.\nCareful: Ironfur Patriarchs (48-49) and the Rage Scar yetis (46-49) roam the hills further north: stay at their edge."] = "Cavalgue para o norte saindo de {area:1105}: os Ursos Veloférreos (41-42) ao pé de {area:1136} soltam o último fígado para Rapsódia.\nCuidado: Patriarcas Veloférreos (48-49) e os yetis Cortifúria (46-49) vagam pelas colinas mais ao norte: fique na borda da área deles.",
 
-	-- Step 25: Feathermoon Stronghold
+	-- Step 25: OOX-22/FE Distress Beacon
+	-- {zone:1444} Feralas
+	["Only with the distress beacon, a rare drop in {zone:1444}: it starts a quest to find the robot it calls for."] = "",
+
+	-- Step 26: Homing Robot OOX-22/FE
+	-- {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {npc:7406} Oglethorpe Obnoticus · {area:35} Booty Bay · {zone:1425} Hinterlands
+	["The robot sits in a small cave on the north side of {area:1105}, just north-west of the ruins. Escort it to the dock on the {area:1108}, where the boat to Feathermoon leaves; its reward waits with {npc:7406} in {area:35}, on the {zone:1425} guide's {area:35} stop.\nCareful: Three ambushes spawn during the escort, and the robot warns you before each one. The first is 3 yetis, just after the robot leaves the cave and climbs toward the road. The second is 3 gorillas, on the path that runs along the cliff. The third is about 4 gnolls, one of them a caster, where the route turns off toward the dock."] = "",
+
+	-- Step 27: Feathermoon Stronghold
 	-- {npc:7880} Ginro Hearthkindle
 	["{npc:7880} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:7880} fica no andar de cima do prédio dele: suba por dentro, a seta não diferencia os andares.",
+	-- {npc:3936} Shandris Feathermoon · {quest:4267} Rise of the Silithid · {npc:7740} Gracina Spiritmight · {zone:1446} Tanaris · {zone:1457} Darnassus
+	["{npc:3936}: {quest:4267}, for {npc:7740} on the {zone:1446} guide's {zone:1457} stop: keep it"] = "",
 
-	-- Step 26: Feathermoon Stronghold
-	-- {npc:3936} Shandris Feathermoon · {zone:1457} Darnassus · {area:976} Gadgetzan
-	["{npc:3936} then asks you to carry news to {zone:1457}: skip it, {area:976} sends you there instead."] = "{npc:3936} então pede que você leve notícias a {zone:1457}: pule, {area:976} manda você lá em vez disso.",
+	-- Step 28: Angelas Moonbreeze
+	-- {npc:7900} Angelas Moonbreeze · {area:1116} Feathermoon Stronghold · {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {zone:1446} Tanaris
+	["{npc:7900} in {area:1116} sends you to {npc:7771} at the {area:1938} in {zone:1446}, where the {zone:1446} guide stops for his dig."] = "",
+	-- {npc:7771} Marvon Rivetseeker · {area:1938} Broken Pillar · {zone:1446} Tanaris
+	["for {npc:7771} at the {area:1938} in {zone:1446}: keep it"] = "",
 
-	-- Step 28: Ride to Thalanaar
+	-- Step 30: Ride to Thalanaar
 	-- {area:489} Thalanaar
 	["Ride to {area:489}"] = "Cavalgue até {area:489}",
 	-- {area:489} Thalanaar · {zone:1441} Thousand Needles
 	["No flight path to {area:489} yet: take the boat back to the coast and ride east along the road to {area:489}, on the {zone:1441} border."] = "Ainda sem rota de voo para {area:489}: pegue o barco de volta à costa e cavalgue para leste pela estrada até {area:489}, na divisa com {zone:1441}.",
 
-	-- Step 29: Thalanaar
+	-- Step 31: Thalanaar
 	-- {zone:1441} Thousand Needles
 	["Ride north-east to the night elf outpost on the {zone:1441} border."] = "Cavalgue para nordeste até o posto avançado dos elfos noturnos na fronteira de {zone:1441}.",
 	-- {npc:4048} Falfindel Waywarder · {area:489} Thalanaar
@@ -181,6 +193,7 @@ return {
 	-- ["{area:1136}: kill these as you meet them"] = "{area:1136}: vá matando estes pelo caminho",
 	-- ["{area:978} instead of grinding"] = "{area:978} em vez de farmar",
 	-- ["{npc:14637}'s refills are level 55: skip them."] = "As recargas de {npc:14637} são de nível 55: pule-as.",
+	-- ["{npc:3936} then asks you to carry news to {zone:1457}: skip it, {area:976} sends you there instead."] = "{npc:3936} então pede que você leve notícias a {zone:1457}: pule, {area:976} manda você lá em vez disso.",
 	-- ["{npc:7774} wanders the hills north of {npc:7765}, among the Northspring harpies; her bell is in the chest beside her."] = "{npc:7774} vaga pelas colinas ao norte de {npc:7765}, entre as harpias da Nascente Norte; o sino dela está no baú ao lado.",
 	-- ["{npc:7774}'s escort"] = "A escolta de {npc:7774}",
 }

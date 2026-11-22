@@ -631,7 +631,7 @@ mod tests {
 			"2770":{"id":2770,"name":"Copper","drops":{"npc":{},"object":{"3000":1}},"vendors":[]}
 		}"#);
 		let (zones, factions, instances) = (obj("{}"), obj("{}"), obj("{}"));
-		let db = Db { quests: &quests, npcs: &npcs, objects: &objects, items: &items, zones: &zones, factions: &factions, instances: &instances };
+		let db = Db { quests: &quests, npcs: &npcs, objects: &objects, items: &items, zones: &zones, factions: &factions, instances: &instances, gather_spells: &[], quest_items: &[] };
 		apply_recordings(&db, &recs.list, &V::obj(), recs.min_voters, DEFAULTS, &|_| false, false, true);
 
 		let s = |v: &V| stringify(v, None);
@@ -713,7 +713,7 @@ mod tests {
 			"2673":{"id":2673,"name":"Coyote Meat","drops":{"npc":{"834":54},"object":{}},"vendors":[]}
 		}"#);
 		let (quests, objects, zones, factions, instances) = (obj("{}"), obj("{}"), obj("{}"), obj("{}"), obj("{}"));
-		let db = Db { quests: &quests, npcs: &npcs, objects: &objects, items: &items, zones: &zones, factions: &factions, instances: &instances };
+		let db = Db { quests: &quests, npcs: &npcs, objects: &objects, items: &items, zones: &zones, factions: &factions, instances: &instances, gather_spells: &[], quest_items: &[] };
 		apply_recordings(&db, &recs.list, &V::obj(), recs.min_voters, DEFAULTS, &|_| false, false, true);
 
 		// Coyote Meat: 9 of 20 own windows. Large Candle: 6 of the 10 windows Kobold Candles was open for. Gold

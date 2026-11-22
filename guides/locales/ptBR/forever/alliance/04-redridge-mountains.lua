@@ -67,6 +67,8 @@ return {
 	["{npc:6790}, Scarlet Raven Tavern"] = "{npc:6790}, Taberna Corvo Escarlate",
 	-- {npc:267} Clerk Daltry
 	["{npc:267}, in the town hall"] = "{npc:267}, na prefeitura",
+	-- {npc:267} Clerk Daltry · {quest:66} The Legend of Stalvan · {zone:1436} Westfall · {area:20} Moonbrook · {zone:1431} Duskwood
+	["{npc:267}: {quest:66}, the footlocker in {zone:1436}'s {area:20}, at the west end of your next {zone:1431} loop (the {zone:1431} guide)"] = "",
 	-- {npc:264} Commander Althea Ebonlocke
 	["{npc:264}, in the town hall"] = "{npc:264}, na prefeitura",
 	-- {npc:268} Sirra Von'Indi
@@ -151,7 +153,8 @@ return {
 	-- {npc:272} Chef Grual · {zone:1431} Duskwood
 	-- plural, as words: Gooey Spider Legs = {item:2251} Gooey Spider Leg
 	["{npc:272}: six Gooey Spider Legs, which {zone:1431}'s spiders drop even without the quest"] = "{npc:272}: seis Pernas de Aranha Pegajosas, que as aranhas de {zone:1431} deixam cair mesmo sem a missão",
-	["Already carrying six? Hand them in now"] = "Já tem seis? Entregue agora",
+	-- {npc:272} Chef Grual · {area:1097} The Hushed Bank
+	["{npc:272}: the six legs from the {area:1097}"] = "",
 	-- {npc:288} Jitters · {quest:163} Raven Hill · {zone:1431} Duskwood
 	["For {npc:288}, at {quest:163} on the next {zone:1431} loop"] = "Para {npc:288}, em {quest:163}, na próxima volta por {zone:1431}",
 	-- {npc:663} Calor
@@ -267,9 +270,10 @@ return {
 	-- {npc:903} Guard Howe
 	["{npc:903}, by the gryphons south of the bridge"] = "{npc:903}, junto aos grifos ao sul da ponte",
 	-- {area:42} Darkshire · {zone:1431} Duskwood
-	["Next: the gryphon to {area:42} for {zone:1431}'s second loop (05-duskwood)."] = "Em seguida: o grifo até {area:42} para o segundo circuito de {zone:1431} (05-duskwood).",
+	["Next: the gryphon to {area:42} for {zone:1431}'s second loop (the {zone:1431} guide)."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Already carrying six? Hand them in now"] = "Já tem seis? Entregue agora",
 	-- ["Back to {zone:1429}"] = "De volta a {zone:1429}",
 	-- ["Bellygrub"] = "Ronquifuça",
 	-- ["Cross the long bridge north into town. {npc:341} and {npc:382} stand at the north end of the bridge, {npc:900} in the town hall, {npc:381} and {npc:266} on the docks, {npc:343} at the inn, {npc:342} in her garden at the west end."] = "Atravesse a ponte comprida para o norte até a vila. {npc:341} e {npc:382} ficam na ponta norte da ponte, {npc:900} na prefeitura, {npc:381} e {npc:266} nas docas, {npc:343} na estalagem, {npc:342} na horta dela, no extremo oeste.",
@@ -285,6 +289,7 @@ return {
 	-- ["Lake murlocs"] = "Murlocs do lago",
 	-- ["Level 18 and 20 spells"] = "Feitiços de nível 18 e 20",
 	-- ["Murloc Flesheaters and Tidecallers line the south shore east of the bridge. Any of them can carry a {item:1467} or a fin."] = "Carniceiros Murloc e Chamarés ocupam a margem sul a leste da ponte. Qualquer um deles pode levar um {item:1467} ou uma barbatana.",
+	-- ["Next: the gryphon to {area:42} for {zone:1431}'s second loop (05-duskwood)."] = "Em seguida: o grifo até {area:42} para o segundo circuito de {zone:1431} (05-duskwood).",
 	-- ["Redridge Mongrels and other gnolls hold the hills east of {area:1002}, north of the road; Redridge Thrashers prowl among them, Poachers camp south of the road. Dire Condors and Great Goretusks roam the same hills."] = "Mestiços de Cristarrubra e outros gnolls ocupam as colinas a leste de {area:1002}, ao norte da estrada; Espancadores de Cristarrubra rondam entre eles, Caçadores Ilegais acampam ao sul da estrada. Condores Hediondos e Grandes Goretuscos vagam pelas mesmas colinas.",
 	-- ["Shaman training"] = "Treino de xamã",
 	-- ["Swim east from the bridge into {area:68}; the chest lies on the lake bed."] = "Nade a leste da ponte para dentro do {area:68}; o baú está no fundo do lago.",

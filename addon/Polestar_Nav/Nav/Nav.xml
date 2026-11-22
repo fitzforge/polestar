@@ -5,5 +5,14 @@
 	<Script file="Nav2991.lua"/>
 	<Script file="Nav2991_1.lua"/>
 	<Script file="Nav2991_2.lua"/>
+	<Script file="Region2991_4_6.lua"/>
+	<Script file="Region2991_4_7.lua"/>
+	<Script file="Region2991_5_6.lua"/>
+	<Script file="Region2991_5_7.lua"/>
+	<Script file="Region2991_6_6.lua"/>
+	<Script file="Region2991_6_7.lua"/>
+	<Script file="Region2991_7_6.lua"/>
+	<Script file="Region2991_7_7.lua"/>
+	<Script file="Region2991_7_8.lua"/>
 	<Script file="Chokepoints.lua"/>
 </Ui>

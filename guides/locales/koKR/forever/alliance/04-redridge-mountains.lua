@@ -67,6 +67,8 @@ return {
 	["{npc:6790}, Scarlet Raven Tavern"] = "{npc:6790}, 여관",
 	-- {npc:267} Clerk Daltry
 	["{npc:267}, in the town hall"] = "{npc:267}, 마을 회관",
+	-- {npc:267} Clerk Daltry · {quest:66} The Legend of Stalvan · {zone:1436} Westfall · {area:20} Moonbrook · {zone:1431} Duskwood
+	["{npc:267}: {quest:66}, the footlocker in {zone:1436}'s {area:20}, at the west end of your next {zone:1431} loop (the {zone:1431} guide)"] = "",
 	-- {npc:264} Commander Althea Ebonlocke
 	["{npc:264}, in the town hall"] = "{npc:264}, 마을 회관",
 	-- {npc:268} Sirra Von'Indi
@@ -151,7 +153,8 @@ return {
 	-- {npc:272} Chef Grual · {zone:1431} Duskwood
 	-- plural, as words: Gooey Spider Legs = {item:2251} Gooey Spider Leg
 	["{npc:272}: six Gooey Spider Legs, which {zone:1431}'s spiders drop even without the quest"] = "",
-	["Already carrying six? Hand them in now"] = "",
+	-- {npc:272} Chef Grual · {area:1097} The Hushed Bank
+	["{npc:272}: the six legs from the {area:1097}"] = "",
 	-- {npc:288} Jitters · {quest:163} Raven Hill · {zone:1431} Duskwood
 	["For {npc:288}, at {quest:163} on the next {zone:1431} loop"] = "",
 	-- {npc:663} Calor
@@ -267,7 +270,7 @@ return {
 	-- {npc:903} Guard Howe
 	["{npc:903}, by the gryphons south of the bridge"] = "{npc:903}, 다리 남쪽 그리폰 옆",
 	-- {area:42} Darkshire · {zone:1431} Duskwood
-	["Next: the gryphon to {area:42} for {zone:1431}'s second loop (05-duskwood)."] = "",
+	["Next: the gryphon to {area:42} for {zone:1431}'s second loop (the {zone:1431} guide)."] = "",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Bellygrub"] = "서리먹보",
