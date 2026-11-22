@@ -423,7 +423,7 @@ end
 -- has no way for as open (Path.SetTrail, before each ask: the router holds only the last SECONDS of them, never
 -- stored), so a walk from where he has been goes his way. Clear drops them from the router. The gaps found are kept
 -- for /polestar report (Walk.WalkedGaps): where players walk that the maps close. (A table, not locals: the main chunk's locals are near Lua 5.1's 200.)
-local walked = { SPACING = 2, SECONDS = 60, MAX = 300, WALL = 6, MOVED = 4, x = {}, y = {}, t = {}, n = 0, gaps = {}, GAPS = 5 }
+local walked = { SPACING = 2, SECONDS = 60, MAX = 300, x = {}, y = {}, t = {}, n = 0, gaps = {}, GAPS = 5 }
 function walked.Note(pc, px, py)
 	-- Outdoors only: indoors (a cave, a barrow, a city's halls) floors stack, and a place without its height (Forever's
 	-- client gives none) can't say which one the player stands on.
@@ -1729,7 +1729,6 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop, checke
 		or (goalX - gx) * (goalX - gx) + (goalY - gy) * (goalY - gy) > GOAL_MOVED * GOAL_MOVED then
 		local had = count > 0 or shape ~= nil
 		cancel()
-		walked.wx, walked.wy = nil, nil
 		gc, gx, gy, count, idx, failed, hubs, shape = goalC, goalX, goalY, 0, 1, false, nil, nil
 		failAgain = false
 		Walk.blockedReason = nil
@@ -1856,21 +1855,11 @@ function Walk.Aim(pc, px, py, goalC, goalX, goalY, handmade, goalZ, stop, checke
 	-- On a long walk (ASK_FAR yards left) a stray asks again at most every ASK_FAR_EVERY seconds: each ask searches the
 	-- whole walk again, and a mounted player cutting corners strayed every few seconds (a search every 4-5 s, ~1 MB of
 	-- garbage a second). A stray that long after the last ask still asks at once.
-	-- Outdoors, a wall between the player and the aim (the maps' line of sight, city.Walls) while more than walked.WALL
-	-- yards off the path is off the path too, however near (#3641: a farmhouse narrower than STRAY kept Fitz "on" a
-	-- line the other side of it; indoors walls are everywhere and the corridor follows them). Either way the walk is
-	-- asked again from where the player stands, his own steps open (walked.Use), and the wall rule asks again only
-	-- after he has moved walked.MOVED yards since its last ask.
+	-- Asked again from where the player stands, his own steps open (walked.Use). (0.4.3 asked again too when a wall
+	-- stood between him and the aim within STRAY; that kept Oben Rageclaw's way out of Ban'ethil Barrow Den from
+	-- leading out, #3449, and is left out until it can tell a barrow's levels apart.)
 	local every = lastLeft > ASK_FAR and ASK_FAR_EVERY or ASK_EVERY
-	if token == nil and not wanted and not fstate.sighted and GetTime() - askedAt >= every then
-		local off = fstate.off or 0
-		local walled = outdoors and off > walked.WALL and reach and (not walked.wx or (px - walked.wx) ^ 2 + (py - walked.wy) ^ 2 > walked.MOVED ^ 2)
-			and not reach(px, py, ax, ay)
-		if off > STRAY or walled then
-			if walled then walked.wx, walked.wy = px, py end
-			ask(P, pc, px, py)
-		end
-	end
+	if fstate.off > STRAY and not fstate.sighted and token == nil and not wanted and GetTime() - askedAt >= every then ask(P, pc, px, py) end
 	return pc, ax, ay, lastLeft
 end
 
