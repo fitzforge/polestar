@@ -3293,7 +3293,7 @@ and both of its values start on `"ask"`.
   that step was seen open (`Own.lastOpen`); seen so first (a login, a
   reload, the guide opened again) it says nothing. Nothing is recorded: the
   end comes as above once the steps are done or skipped (a player who left
-  one behind for good skips it). Up to 0.4.2.1 the end fired here, as
+  one behind for good skips it). Up to 0.4.2.2 the end fired here, as
   "You've reached the end" with the next guide, and players read it as a
   bug (#2474, #2785, #3517).
 - **The record** (`CharState().guideEnds`) is not the end itself: with a live
