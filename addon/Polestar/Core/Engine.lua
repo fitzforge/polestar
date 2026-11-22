@@ -14019,6 +14019,26 @@ function Own.handedInAhead(q, live)
 	return false
 end
 
+-- Whether goal (work: kill, collect, interact, use) of step s, behind the live
+-- step, stays a While you're here row though the player skipped its step: a
+-- skip moves the route past the step, and only the quest the player skipped
+-- (Engine.SkipQuest) goes with it (Fitz, #3385: skipping the kodo taming in
+-- Desolace also dropped another quest's Scorpashi Venom in the same step,
+-- and the guide later sent the player to hand that quest in).
+-- So for a step that holds more than one quest's work: the goal's quest in
+-- the log, not skipped, and still handed in ahead by this guide.
+function Own.skipLeftWork(s, goal, live)
+	local q = goal.quest
+	if not (q and Own.HERE_VERBS[goal.t] and isSkipped(s)) then return false end
+	local step = guide.steps[s]
+	local other = false
+	for _, x in ipairs(step.goals) do
+		if x.quest and x.quest ~= q then other = true break end
+	end
+	if not other or not Guides.Matches(step.only, player) then return false end
+	return Compat().IsOnQuest(q) and not Own.questSkipped(q) and Own.handedInAhead(q, live)
+end
+
 -- Quest q's built hand-in goal at its ender on map `map`, or nil (no Codex
 -- record yet, no ender known, none of the character's side, or not on it).
 function Own.strandGoal(q, map)
@@ -14376,7 +14396,10 @@ function Own.hereCollect(list, live, pc)
 			-- A carried accept the route passed waiting for the level (Own.carryPassed):
 			-- a pick-up line behind the live step too, its giver's next pass.
 			local carried = s < live and Own.carryPassed(s, goal)
-			if (back and Own.behindApplies(steps[s], goal)) or (not back and (s > live or carried)) then
+			-- Work of a skipped step behind the player for a quest still handed in ahead (Own.skipLeftWork): a
+			-- skip moves the route past the step, not past the other quests' items in it (#3385).
+			local leftWork = s < live and not back and not carried and Own.skipLeftWork(s, goal, live)
+			if (back and Own.behindApplies(steps[s], goal)) or (not back and (s > live or carried or leftWork)) then
 				local g = idx[i + 1]
 				local on = C.IsOnQuest(q)
 				local take = not on and takes and goal.t == "accept" and (s > live or carried) and not goal.limit and not goal.optional and not goal.either
@@ -14388,7 +14411,7 @@ function Own.hereCollect(list, live, pc)
 				if (on and not C.IsQuestFailed(q)) or take then
 					if s ~= at then at, ok = s, stepApplies(steps[s]) and not isSkipped(s) end
 					local kind, left, soon, wait = nil, nil, false, false
-					if ok or back then kind, left, soon, wait = Own.hereFits(s, g, goal, live, shown, nearTo) end
+					if ok or back or leftWork then kind, left, soon, wait = Own.hereFits(s, g, goal, live, shown, nearTo) end
 					if kind then
 						n = n + 1
 						-- places: where the target spawns on the map (Own.hereTick
