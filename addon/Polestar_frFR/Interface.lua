@@ -2154,7 +2154,6 @@ L["The guide leaves them out."] = "Le guide les laisse de côté."
 L["For a party levelling together: every one is in the route."] = "Pour un groupe qui monte en niveau ensemble : toutes sont sur l'itinéraire."
 L["Point at a look to see it here; click it to wear it."] = "Survolez un habillage pour le voir ici ; cliquez dessus pour l'adopter."
 L["Built in"] = "Intégrés"
-L["Concept looks"] = "Habillages concept"
 L["Leaves out grey quests, and quests behind you that pay less than full XP when going back for them costs more time than they give. A quest still paying full XP stays, and so does one a later quest needs. The guide window says what it left out."] = "Laisse de côté les quêtes grises, et les quêtes derrière vous qui rapportent moins que toute l'XP quand y retourner coûte plus de temps qu'elles ne rapportent. Une quête qui rapporte encore toute l'XP reste, de même qu'une quête dont une suivante a besoin. La fenêtre du guide dit ce qu'il a laissé de côté."
 
 -- UI/Copy.lua
@@ -5080,6 +5079,7 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Atterr
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "Aucune camelote pour faire de la place. Ctrl+Alt-clic sur un objet pour le marquer comme camelote."
 -- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "Pendant la pause, les quêtes ne sont ni acceptées ni rendues pour vous, et aucune récompense n'est choisie, jusqu'à ce que Polestar reprenne."
 -- L["Show all (%d)"] = "Tout afficher (%d)"
+-- L["Concept looks"] = "Habillages concept"
 -- L["≈ %s"] = "≈ %s"
 -- L["Level %d quest: you're %s"] = "Quête de niveau %d : vous êtes %s"
 -- L["Behind: %s (%d) at step %d, you're %s; grind %s first"] = "En retard : %s (%d) à l'étape %d, vous êtes %s ; farmez %s avant"

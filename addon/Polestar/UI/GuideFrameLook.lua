@@ -26,8 +26,9 @@ ns.UI.GuideFrame.Part(function(GF)
 	local hovering = false
 
 	-- ui.barShown keeps a transparent window's tabs and step bar on screen (not the grip).
+	-- A copy (the settings preview) shows them always: its title and tabs are part of what it previews.
 	local function chromeAlpha(c)
-		if not transparent() or hovering then return 1 end
+		if not transparent() or hovering or not GF.live then return 1 end
 		return (ns.Get("ui.barShown") and c ~= grip) and 1 or 0
 	end
 
@@ -219,8 +220,9 @@ ns.UI.GuideFrame.Part(function(GF)
 		GF.PaintRule(nav.Rule)
 		-- Blizzard's damage meter header bar under the tabs.
 		Theme.KitStrip(strip, not clear)
-		-- The quest tracker's header behind the focus (Forever, Blizzard).
-		Theme.KitHeader(person, not clear)
+		-- The quest tracker's header behind the focus (Forever, Blizzard),
+		-- unless the layout leaves it out (GF.Shows "kitHeader").
+		Theme.KitHeader(person, not clear and GF.Shows("kitHeader", true))
 		-- The hairlines between the window's parts (guideWindow.rules): shown or hidden, never SetAlpha (their
 		-- strength is their colour's alpha, which SetAlpha replaces). The house look keeps them round the chrome and
 		-- over the footer (the XP line, the banner) and lets the body's sections ("Then:", Along the way, Up next,
@@ -259,7 +261,7 @@ ns.UI.GuideFrame.Part(function(GF)
 
 	-- A guideWindow.* setting changed (`key` without the section; nil: all of
 	-- them, a reset): only what it touches is redrawn.
-	GF.LOOK_STYLE = { outline = true, bgColor = true, bgOpacity = true, border = true, veil = true, shade = true, rules = true }
+	GF.LOOK_STYLE = { tabStyle = true, outline = true, bgColor = true, bgOpacity = true, border = true, veil = true, shade = true, rules = true }
 	GF.LOOK_PAINT = { targetBar = true, targetBarColor = true, targetBarWidth = true, progressColor = true }
 	GF.LOOK_LATER = { stepAnim = true, animSpeed = true, foldAnim = true } -- read when they play
 	function GF.ApplyLook(key)
@@ -428,7 +430,7 @@ ns.UI.GuideFrame.Part(function(GF)
 		nav.Next:SetPoint("LEFT", nav.Steps.Count, "RIGHT", gap, 0)
 		local iw, ih, ig = Theme.Metric("guideIconBtnW", 24), Theme.Metric("guideIconBtnH", 24), Theme.Metric("guideIcon", 14)
 		-- The icon buttons right of Skip share the skin's sizes.
-		for _, key in ipairs({ "Menu", "Lookup", "Report", "Nearby" }) do
+		for _, key in ipairs({ "Menu", "Lookup", "Report", "Nearby", "AllSteps" }) do
 			local b = rawget(nav, key)
 			if b then
 				b:SetSize(iw, ih)
@@ -444,6 +446,8 @@ ns.UI.GuideFrame.Part(function(GF)
 		banner.Close.Icon:SetSize(kit and ig or 12, kit and ig or 12)
 		Theme.KitIconButton(banner.Close)
 		nav.Skip:SetHeight(nb)
+		-- Skip's plate as its neighbours' (Hearth's plank).
+		W.SetPlated(nav.Skip, "icon")
 		nav.Steps:SetHeight(nb)
 		nav.Steps:SetPoint("LEFT", nav, "LEFT", PAD - 6, 0)
 		-- Rules: Halo's gold one under the navigator; Hearth's title bar line; the

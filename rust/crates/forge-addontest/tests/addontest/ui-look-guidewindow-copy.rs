@@ -125,6 +125,9 @@ local STATES = {{
 }}
 -- The live window draws the preview's sample: the same content, so whatever differs is the copy's.
 GF.UseContent(copy.content)
+-- The copy draws a sample Journey (UI/JourneyPanel.lua JP.Sample) while nav.journeySteps is on, so the Journey
+-- style can be previewed; the live window draws one only for a route, which this world has none of.
+Polestar.Set("nav.journeySteps", false)
 -- Both drawn anew, twice, a second apart: a paint a look makes a frame after a window shows, and the done line's
 -- glow, have landed.
 local function draw()

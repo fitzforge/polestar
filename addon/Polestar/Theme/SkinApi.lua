@@ -653,11 +653,16 @@ end
 --   ## X-Polestar-Layout-Preset: ledger = Ledger; ledger-wide = Ledger wide
 -- (a bare id takes the id as its label), its help the TOC's Notes. A layout
 -- whose addon cannot load, or loaded without registering it, has none.
--- -> { { id, label, help, set (a registered layout's, a copy; {} else), loaded, addon }, ... }
+-- The addon's stage, for a tag on its cards:
+--   ## X-Polestar-Layout-Stage: beta   (alpha or beta)
+-- -> { { id, label, help, set (a registered layout's, a copy; {} else), loaded, addon, stage }, ... }
 function Theme.LayoutPresets()
 	local out = {}
 	for _, rec in ipairs(Theme.InstalledLayouts()) do
 		local named = {}
+		local stage = C_AddOns.GetAddOnMetadata(rec.addon, "X-Polestar-Layout-Stage")
+		stage = type(stage) == "string" and stage:lower():match("^%s*(%a+)%s*$") or nil
+		if stage ~= "alpha" and stage ~= "beta" then stage = nil end
 		local declared = C_AddOns.GetAddOnMetadata(rec.addon, "X-Polestar-Layout-Preset")
 		if type(declared) == "string" then
 			for item in declared:gmatch("[^;]+") do
@@ -671,10 +676,10 @@ function Theme.LayoutPresets()
 			if info then
 				local p = info.preset
 				if p then
-					out[#out + 1] = { id = id, label = p.label or info.name, help = p.help, set = p.set, loaded = true, addon = rec.addon }
+					out[#out + 1] = { id = id, label = p.label or info.name, help = p.help, set = p.set, loaded = true, addon = rec.addon, stage = stage }
 				end
 			elseif named[id] and not rec.loaded and not rec.reason then
-				out[#out + 1] = { id = id, label = named[id], help = rec.notes, set = {}, loaded = false, addon = rec.addon }
+				out[#out + 1] = { id = id, label = named[id], help = rec.notes, set = {}, loaded = false, addon = rec.addon, stage = stage }
 			end
 		end
 	end

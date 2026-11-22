@@ -1048,7 +1048,7 @@ local function choicesOf(c)
 	for i, ch in ipairs(list or {}) do
 		if not limit or i <= limit or ch.value == cur then
 			out[#out + 1] = { value = ch.value, text = ch.text or ch.label or tostring(ch.value), font = ch.font, draw = ch.draw,
-				disabled = ch.disabled, note = ch.note, tip = ch.tip, preview = ch.preview, group = ch.group }
+				disabled = ch.disabled, note = ch.note, tag = ch.tag, tagTip = ch.tagTip, tip = ch.tip, preview = ch.preview, group = ch.group }
 		end
 	end
 	return out

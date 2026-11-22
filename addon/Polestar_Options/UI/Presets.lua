@@ -126,6 +126,11 @@ function O.ApplyPreset(list, value)
 				for k, v in pairs(was) do p[k] = v end
 				p.set = spec.set
 			end
+			-- A layout still in beta or alpha may not take over every part of
+			-- the window until the interface reloads.
+			if p.tag and ns.Print then
+				ns.Print(string.format(L["%s: /reload after picking it."], tostring(p.label)))
+			end
 		else
 			local id = layoutInUse() or ns.Get("ui.layout")
 			for _, x in ipairs(list) do
@@ -253,6 +258,12 @@ end
 ns.On("SETTING_CHANGED", redrawShown)
 if ns.Theme and ns.Theme.OnChanged then ns.Theme.OnChanged(redrawShown) end
 
+-- A layout's stage (Theme.LayoutPresets' stage): the tag on its card.
+local STAGES = {
+	alpha = { tag = L["Alpha"], tip = L["Alpha: /reload after picking it."] },
+	beta = { tag = L["Beta"], tip = L["Beta: /reload after picking it."] },
+}
+
 -- The row's presets: its own, then (opts.layouts) a card per installed
 -- layout with a preset, value "layout:<id>". -> a list (list.layouts set
 -- for a row with layout cards)
@@ -262,8 +273,16 @@ local function presetsOf(opts)
 	local list = { layouts = true }
 	for i, p in ipairs(opts.presets) do list[i] = p end
 	for _, lp in ipairs(T.LayoutPresets()) do
+		local stage = STAGES[lp.stage]
+		-- Who to tell: the layout addon's author (its TOC's Author).
+		local author = stage and C_AddOns and C_AddOns.GetAddOnMetadata and C_AddOns.GetAddOnMetadata(lp.addon, "Author")
+		local tip = stage and stage.tip
+		if tip and type(author) == "string" and author ~= "" then
+			tip = tip .. " " .. string.format(L["Any issues: @%s in a bug report or on Discord."], author:lower())
+		end
 		list[#list + 1] = { value = "layout:" .. lp.id, label = lp.label, help = lp.help, set = lp.set, layout = lp.id,
-			loaded = lp.loaded, addon = lp.addon, draw = opts.layouts.draw, note = not lp.loaded and L["Not loaded"] or nil }
+			loaded = lp.loaded, addon = lp.addon, draw = opts.layouts.draw, note = not lp.loaded and L["Not loaded"] or nil,
+			tag = stage and stage.tag, tagTip = tip }
 	end
 	return list
 end
@@ -292,7 +311,7 @@ function O.PresetCards(opts)
 						go()
 					end
 				end
-				out[i] = { value = p.value, label = p.label, note = p.note, draw = draw, tip = O.PresetSummary(p) }
+				out[i] = { value = p.value, label = p.label, note = p.note, tag = p.tag, tagTip = p.tagTip, draw = draw, tip = O.PresetSummary(p) }
 			end
 			return out
 		end,

@@ -90,7 +90,10 @@ local function lookInfo()
 	local kit = T.Kit and T.Kit()
 	return {
 		skin = T.SkinId and T.SkinId() or T.SkinKey(),
+		layout = T.LayoutId and T.LayoutId() or nil,
 		base = T.SkinKey(),
+		-- The guide window's tab style while it draws tabs (GF.TabStyle), else false.
+		tabStyle = (function() local GF = Polestar.UI and Polestar.UI.GuideFrame; return GF and GF.TabStyle and GF.TabStyle() or false end)(),
 		kit = kit and { ink = kit.closeInk or 1, bare = kit.bareIcons and true or false } or false,
 		iconBtn = T.Metric("guideIconBtnW", 24),
 		guideIcon = T.Metric("guideIcon", 14),

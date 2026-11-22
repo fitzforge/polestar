@@ -259,9 +259,9 @@ check("skin moonlit", Theme.RegisterSkin("moonlit", {
 			return default
 		end,
 		-- A gap or height in the window's layout: "upRow", "lastRow",
-		-- "upnextFoot", "upAbove", "tipPad", "tipGap", "xpRow", "xpRoom"; `px`
-		-- is Polestar's own (the player's sizes on it). Answer a number of 0 or
-		-- more, or nil to keep px. Moonlit keeps them all.
+		-- "upnextFoot", "upAbove", "tipPad", "tipGap", "xpRow", "xpRoom",
+		-- "litInset"; `px` is Polestar's own (the player's sizes on it). Answer
+		-- a number of 0 or more, or nil to keep px. Moonlit keeps them all.
 		guideSpace = function(name, px)
 			return nil
 		end,

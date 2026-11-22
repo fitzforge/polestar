@@ -1008,7 +1008,6 @@ L["The guide leaves them out."] = "Der Guide lässt sie aus."
 L["For a party levelling together: every one is in the route."] = "Für eine Gruppe, die gemeinsam levelt: Jede ist in der Route."
 L["Point at a look to see it here; click it to wear it."] = "Fahr mit der Maus über ein Design, um es hier zu sehen; klick darauf, um es zu übernehmen."
 L["Built in"] = "Eingebaut"
-L["Concept looks"] = "Konzept-Designs"
 L["Leaves out grey quests, and quests behind you that pay less than full XP when going back for them costs more time than they give. A quest still paying full XP stays, and so does one a later quest needs. The guide window says what it left out."] = "Lässt graue Quests aus, und Quests hinter dir, die weniger als volle EP bringen, wenn der Rückweg mehr Zeit kostet, als sie einbringen. Eine Quest mit vollen EP bleibt, ebenso eine, die eine spätere Quest braucht. Das Guide-Fenster sagt, was es ausgelassen hat."
 
 -- New on the next branch
@@ -5069,6 +5068,7 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "Geland
 -- L["No junk to make room with. Ctrl+Alt-click an item to mark it as junk."] = "Kein Plunder, um Platz zu schaffen. Strg+Alt-Klick auf einen Gegenstand markiert ihn als Plunder."
 -- L["While paused, quests are not accepted or turned in for you, and no reward is picked, until Polestar resumes."] = "Während der Pause werden keine Quests für dich angenommen oder abgegeben und keine Belohnung gewählt, bis Polestar weiterläuft."
 -- L["Show all (%d)"] = "Alle anzeigen (%d)"
+-- L["Concept looks"] = "Konzept-Designs"
 -- L["≈ %s"] = "≈ %s"
 -- L["Level %d quest: you're %s"] = "Quest für Stufe %d: du bist auf Stufe %s"
 -- L["Behind: %s (%d) at step %d, you're %s; grind %s first"] = "Rückstand: %s (%d) bei Schritt %d, du bist auf Stufe %s; erst %s grinden"

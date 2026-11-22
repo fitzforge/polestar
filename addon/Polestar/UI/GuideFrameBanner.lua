@@ -357,24 +357,48 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- text's left edge. It never runs past the text's column: a label too long
 	-- for it (a guide's whole title) is cut short with "…". A second action
 	-- that would be cut short beside the first takes its own line under it.
+	-- With guideWindow.bannerLinks "right", a notice's one action sits on the
+	-- text's first line by the × instead (GF.LayoutBanner narrows the text
+	-- for it); a second action (Later) puts both back under.
 	local secondRow = false -- a second action on its own line
 	-- A notice's tint and glyph by its kind (the wash and the icon); any
 	-- other kind is neutral. The accent stays the main action's.
 	GF.BANNER_ROLE = { bags = "warning", away = "npc", train = "npc", riding = "npc", skipped = "textMuted", questSkip = "textMuted" }
+	local onRight = 0 -- the width the action on the right takes, else 0
+	local closeRoom = 24 -- the ×'s room at the right; 0 for a notice shown without it
 	local function placeLink(link, text, x, y)
 		link.Label:SetWordWrap(false)
 		link.Label:SetWidth(0)
 		link.Label:SetText(text)
-		local room = floor(banner.Text:GetWidth() - x - 16)
-		if x > 0 and link.Label:GetStringWidth() > room then
+		local right = link == banner.Jump and ns.Get("guideWindow.bannerLinks") == "right"
+		local room = right and floor(banner.Text:GetWidth() * 0.45) or floor(banner.Text:GetWidth() - x - 16)
+		if not right and x > 0 and link.Label:GetStringWidth() > room then
 			x, y = 0, y - 18 - 4
 			room = floor(banner.Text:GetWidth() - 16)
 			secondRow = true
 		end
-		if room > 0 and link.Label:GetStringWidth() > room then link.Label:SetWidth(room) end
-		link:SetWidth(floor(link.Label:GetStringWidth() + 16 + 0.5))
+		-- The link as wide as the label it draws: cut at room, the whole text's
+		-- width (all some clients report once it is cut) would put the label
+		-- far left of a link set by its right edge.
+		local textW = link.Label:GetStringWidth()
+		if room > 0 and textW > room then
+			link.Label:SetWidth(room)
+			textW = room
+		end
+		link:SetWidth(floor(textW + 16 + 0.5))
 		link:ClearAllPoints()
-		link:SetPoint("TOPLEFT", banner.Text, "BOTTOMLEFT", x, y)
+		if right then
+			link:SetPoint("TOPRIGHT", banner, "TOPRIGHT", -(5 + closeRoom + 4), -7)
+			onRight = link:GetWidth() + 10
+		else
+			if onRight > 0 then
+				-- A second action: the first goes back under the text too.
+				onRight = 0
+				banner.Jump:ClearAllPoints()
+				banner.Jump:SetPoint("TOPLEFT", banner.Text, "BOTTOMLEFT", 0, y)
+			end
+			link:SetPoint("TOPLEFT", banner.Text, "BOTTOMLEFT", x, y)
+		end
 		link:Show()
 		return link:GetWidth()
 	end
@@ -388,13 +412,14 @@ ns.UI.GuideFrame.Part(function(GF)
 		ns.Widgets.Color(banner.Icon, banner.psRole)
 		if banner.Fill.psPaint then banner.Fill.psPaint(banner.Fill) end
 		-- A layout may show a notice without its × (GF.Shows "bannerClose",
-		-- by kind): the text takes its room.
+		-- by kind): the text and the action on the right take its room.
 		local noClose = not GF.Shows("bannerClose", true, kind)
-		local closeRoom = noClose and 0 or 24
+		closeRoom = noClose and 0 or 24
 		banner.Jump.psDefault = (kind == "group" or kind == "lost" or kind == "dungeon" or kind == "dungeonRun") or nil -- the gamepad's first focus (UI/GamepadGuide.lua)
 		banner.Text:SetWidth(width - PAD * 2 - 21 - closeRoom)
 		banner.Later:Hide()
 		secondRow = false
+		onRight = 0
 		local oneLine = false -- no link row under the text
 		if kind == "skipped" then
 			banner.Icon:SetTexture(Theme.Media("skip"))
@@ -528,8 +553,14 @@ ns.UI.GuideFrame.Part(function(GF)
 				end
 			else
 				local live = UI.StepNo(n.live)
-				banner.Text:SetText(string.format(n.index > n.live and L["Looking ahead. The guide is at step %d."]
-					or L["Looking back. The guide is at step %d."], live))
+				-- With its link on the right ("Back to step 2" on the same line), the
+				-- step number is said once: the text keeps to one line.
+				if ns.Get("guideWindow.bannerLinks") == "right" then
+					banner.Text:SetText(n.index > n.live and L["Looking ahead."] or L["Looking back."])
+				else
+					banner.Text:SetText(string.format(n.index > n.live and L["Looking ahead. The guide is at step %d."]
+						or L["Looking back. The guide is at step %d."], live))
+				end
 				placeLink(banner.Jump, string.format(L["Back to step %d"], live), 0, -4)
 			end
 			banner.Close:Show()
@@ -698,6 +729,11 @@ ns.UI.GuideFrame.Part(function(GF)
 			banner.Text:SetText(UI.UpdateCard.BannerText(n))
 			placeLink(banner.Jump, n.kind == "old" and L["How to update"] or L["Update"], 0, -4)
 			banner.Close:SetShown(n.closable)
+		end
+		-- The action on the right: the text stops short of it, no row under.
+		if onRight > 0 and banner.Jump:IsShown() then
+			banner.Text:SetWidth(width - PAD * 2 - 21 - closeRoom - onRight)
+			oneLine = true
 		end
 		if noClose then banner.Close:Hide() end
 		local h = floor(9 + banner.Text:GetStringHeight() + (oneLine and 0 or 4 + 18) + (secondRow and banner.Later:IsShown() and 4 + 18 or 0) + 9 + 0.5)
