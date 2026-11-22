@@ -18319,6 +18319,18 @@ for (const guide of ['forever/alliance/dwarf/01-dun-morogh.guide', 'forever/alli
 	});
 }
 
+// #3333: the Gnomeregan Exiles and Ironforge reputation guides sent Fully explore Frostmane Hold to 22.4,51.8, on
+// the hill short of the cave; players' recordings tick it at the cave's far end (Dun Morogh 21.1-21.5, 53.9-54.7,
+// forever-db/corrections/quests.json 287), where the leveling guides already lead.
+for (const guide of ['forever/reputation/gnomeregan-exiles.guide', 'forever/reputation/ironforge.guide']) {
+	test(`${guide}: Frostmane Hold's exploration leads to the cave's far end (#3333)`, { skip }, () => {
+		const list = goals(guide);
+		const { goal } = list[at(list, 'complete 287', is('complete', 287))];
+		assert.equal(goal.map, 1426, 'in Dun Morogh');
+		assert.ok(goal.x >= 21.1 && goal.x <= 21.5 && goal.y >= 53.9 && goal.y <= 54.7, `at the recorded spot (${goal.x},${goal.y})`);
+	});
+}
+
 // #3026 (Petsq, 0.4.1.1): Orwin's Shovel's line, at one fixed mound, came before the Gordunni Cobalt's collect, so the
 // arrow stayed on that mound until all 12 were in. The collect, whose spots are the Gordunni Dirt Mounds, comes first.
 test('forever/horde/40-50/02-feralas.guide: the Gordunni Cobalt goes from mound to mound (#3026)', { skip }, () => {
@@ -18642,6 +18654,18 @@ test('forever/horde/40-50/04-tanaris.guide: Tanaris Field Sampling\'s step says 
 	assert.match(text, /Another Power Source\?|\{quest:841\}/, 'the tip names Another Power Source?');
 	assert.match(text, /Bilgewhizzle|\{npc:7407\}/, 'and who gives it');
 	assert.match(text, /Wastewander Water Pouches|\{item:8483\}/, 'and what it takes');
+});
+
+// #3279 (beardedoak): the Horde Un'Goro guide hands Lines of Communication (2995) in at Oran Snakewrithe, but its three
+// Highvale objectives are only in the Hinterlands guide's Highvale step, which the player had already left; the arrow
+// went to the Undercity for a quest he could not finish there. The hand-in says where the work is (bumblei3, #3305).
+test('forever/horde/50-60/01-un-goro-crater.guide: the Lines of Communication hand-in says where its work is (#3279)', { skip }, () => {
+	const list = goals('forever/horde/50-60/01-un-goro-crater.guide');
+	const { goal } = list[at(list, 'turnin 2995', is('turnin', 2995))];
+	assert.match(goal.note || '', /Hinterlands/, 'the note names the guide with the work');
+	assert.match(goal.note || '', /Highvale/, 'and its step');
+	const hin = goals('forever/horde/40-50/05-the-hinterlands.guide');
+	assert.ok(hin.some(({ goal }) => goal.t === 'interact' && goal.quest === 2995), 'the Hinterlands guide holds the Highvale objectives');
 });
 
 // #3557 (Gindry, deDE): on Tooga's escort the Alliance arrow pointed back at the valley, 3,379 yd behind, while Tooga

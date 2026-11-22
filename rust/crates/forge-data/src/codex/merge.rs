@@ -670,6 +670,14 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 		o.set("instance", V::Null);
 		o.set("roles", V::arr());
 		o.set("spawns", spawns_v(&spawns_of(&n.get("spawns"), zones_in, frames_in, false)));
+		// Seen only by a dead character (npcs.json `ghostOnly`, a correction's: Franclorn Forgewright, #558).
+		if n.get("ghostOnly").truthy() {
+			o.set("ghostOnly", true);
+		}
+		// Sells only once this quest is handed in (npcs.json `vendorAfter`: Zorbin Fandazzle after Zapped Giants, #3138).
+		if let Some(q) = int(&n.get("vendorAfter")).filter(|q| *q > 0.0) {
+			o.set("vendorAfter", q);
+		}
 		npcs.set(&id, V::Obj(o));
 		let mut set = OSet::default();
 		for r in roles.items() {
@@ -2230,6 +2238,11 @@ pub fn merge_codex(inputs: &Inputs) -> Merged {
 			// the hand-in guides never take it as an accept.
 			if q.get("direct").truthy() {
 				o.set("direct", true);
+			}
+			// One of a set the game offers one at a time (quests.json `rotation`: Pix's weekly In Demand quests, #3601).
+			let rot = q.get("rotation");
+			if rot.as_str().is_some_and(|s| !s.trim().is_empty()) {
+				o.set("rotation", rot);
 			}
 			if int(&q.get("xp")).is_some_and(|x| x > 0.0) {
 				o.set("xp", int(&q.get("xp")).unwrap());

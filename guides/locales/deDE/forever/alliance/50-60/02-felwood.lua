@@ -153,7 +153,7 @@ return {
 
 	-- Step 30: Daryn Lightwind
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
-	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "",
+	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907} steht oben, über {npc:7916}: Geh drinnen hinauf, der Pfeil kann die Stockwerke nicht unterscheiden.",
 
 	-- Step 33: The Temple Gardens
 	-- {item:11682} Eridan's Vial

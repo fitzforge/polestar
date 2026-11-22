@@ -556,7 +556,7 @@ step Oran Snakewrithe
 step Oran Snakewrithe
   when complete 2995
   tip Oran stands in the Magic Quarter.
-  turnin 2995
+  turnin 2995                         -- Lines of Communication's work is not in this guide: burn the Highvale Report, Notes and Records in the elves' camps around Quel'Danil Lodge, in The Hinterlands & Blasted Lands (its Highvale step). Load that guide for the arrows.
 
 # ---------------------------------------------------------------- The Undercity and the Bulwark
 

@@ -703,6 +703,72 @@
 				}
 			],
 			"note": "Raene's Cleansing (1027): the Iron Pommel (5519) comes only from Rusty Chests (19021), and the chests come from Rotting Slimes (3928). Source: Shuurajou's report (#3002: \"they are inside and dropped by rotting slimes\"); the chests' known points are spread over the barrow den's slopes, where the slimes roam, not set like a camp's; players' in-game recordings to 2026-11-20: pommel ticks right after a Rotting Slime was seen or killed."
+		},
+		"93176": {
+			"kinds": [
+				{
+					"kind": "use-item-on-mob",
+					"confidence": "high"
+				}
+			],
+			"params": [
+				{
+					"kind": "use-item-on-mob",
+					"item": 213562,
+					"npcs": [
+						217588,
+						217589,
+						217590
+					]
+				}
+			],
+			"steps": [
+				{
+					"n": 1,
+					"action": "use-item",
+					"target": {
+						"type": "npc",
+						"id": 217588
+					},
+					"item": {
+						"id": 213562
+					},
+					"fact": "Catch an Arbor Tarantula with the Bug Catching Net from Amaryllis Webb's Entomology Starter Kit: use the net on it, don't kill it.",
+					"confidence": "high"
+				},
+				{
+					"n": 2,
+					"action": "use-item",
+					"target": {
+						"type": "npc",
+						"id": 217589
+					},
+					"item": {
+						"id": 213562
+					},
+					"fact": "Catch a Hay Weevil with the Bug Catching Net: use the net on it, don't kill it.",
+					"place": {
+						"map": 1417,
+						"x": 31.3,
+						"y": 27.2
+					},
+					"confidence": "high"
+				},
+				{
+					"n": 3,
+					"action": "use-item",
+					"target": {
+						"type": "npc",
+						"id": 217590
+					},
+					"item": {
+						"id": 213562
+					},
+					"fact": "Catch a Flesh Picker with the Bug Catching Net: use the net on it, don't kill it.",
+					"confidence": "high"
+				}
+			],
+			"note": "My Little Friends (93176): each specimen is caught by using the Bug Catching Net (213562, from the Entomology Starter Kit Amaryllis Webb gives with the quest) on an Arbor Tarantula (217588), a Hay Weevil (217589) or a Flesh Picker (217590). Our data listed the specimens as their drops, so the goal read \"Kill Hay Weevil\" (#3545). Source: players' in-game recordings to 2026-11-22: 22 people, every objective tick right after a cast of Collect Specimen (spell 434957); the client's item tables give that spell as the net's use."
 		}
 	}
 }
