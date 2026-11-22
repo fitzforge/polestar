@@ -61,4 +61,17 @@ test("a banner's second action that would be cut takes its own line, and the ban
 	assert.ok(narrow.y < narrow.jy, `under the first: ${narrow.y} below ${narrow.jy}`);
 	assert.equal(narrow.cut, false, 'its label is whole');
 	assert.equal(narrow.h - wide.h >= 22, true, `the banner grows by its line: ${narrow.h} vs ${wide.h}`);
+test('the divider lines show in the opaque window only', () => {
+	const [opaque, clear] = run(`
+		uistub.setGuide(uistub.elwynn, 3)
+		local p = GF.parts
+		local function rules(style)
+			Polestar.Set("ui.style", style)
+			GF.ApplyStyle()
+			return { nav = p.nav.Rule:IsShown(), xp = GF.xp.Rule:IsShown(), banner = p.banner.Rule:IsShown() }
+		end
+		emit(rules("standard"))
+		emit(rules("transparent"))`);
+	assert.deepEqual(opaque, { nav: true, xp: true, banner: true });
+	assert.deepEqual(clear, { nav: false, xp: false, banner: false });
 });
