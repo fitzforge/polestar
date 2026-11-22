@@ -729,8 +729,7 @@ emit(walk)"#,
 fn issue_3613_a_lookup_quest_guide_sends_a_drop_from_inside_an_instance_to_its_entrance() {
 	let f = Fx::new();
 	let mut c = f.codex.clone();
-	c["items"]["90061"] =
-		json!({ "id": 90061, "name": "Head of Kresh", "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [{ "type": "drop", "npc": 3653, "chance": 100 }] });
+	c["items"]["90061"] = json!({ "id": 90061, "name": "Head of Kresh", "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [{ "type": "drop", "npc": 3653, "chance": 100 }] });
 	c["quests"]["90062"] = json!({ "id": 90062, "title": "What Comes Around", "level": 18, "minLevel": 10, "faction": null, "races": null, "classes": null,
 		"start": { "npc": [3448], "object": [], "item": [] }, "end": { "npc": [3448], "object": [] },
 		"objectives": [{ "type": "item", "id": 90061, "count": 1, "text": "Head of Kresh" }], "pre": [], "preAny": [], "rewards": [], "choices": [] });
