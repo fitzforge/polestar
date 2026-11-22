@@ -52,8 +52,9 @@ or none.
   the cache has none for this code.
 - **skip** for anything else: `Format, lints, tests` passes in seconds.
 
-The addon's Lua tests run in four shards at once (`Addon tests 1/4` to
-`4/4`, addontest's tests dealt out in turn) from one build (`Addon tests
+The addon's Lua tests run in four shards at once (`Addon tests 1/4`: the
+crate's unit tests and the scenes; `2/4` to `4/4`: addontest's tests dealt
+out in turn) from one build (`Addon tests
 build`); `Format, lints, tests` waits for every job its lane runs and fails
 when one did not pass. Pushes to `main` and `next` run everything on
 `FORGE_PATHS` and save the caches the pull requests after them read.
