@@ -1984,14 +1984,16 @@ fn search_kind_keystrokes_and_more_pages_at_25_000_entries_in_both_orders() {
 
 #[test]
 fn browse_orders_folded_names_by_availability_then_name_length_and_id() {
-	let [order, counts, flags] = first::<3>(browse(r#"
+	let [order, counts, flags] = first::<3>(browse(
+		r#"
 		index({ { 4, "Zebra", "n" }, { 10, "AMBERS" }, { 11, "\195\129mber's" }, { 3, "Aardvark", "r" },
 			{ 21, "Amber.Zest" }, { 23, "amber-zest" }, { 22, "amber zest" }, { 2, "ambers" },
 			{ 6, "Zebra" }, { 9, "Bear", "n" } })
 		local rows, count = S.Browse("item", { subtitles = false })
 		emit(ids(rows)); emit({ count, S.BrowseCount("item"), S.BrowseCount("npc") })
 		emit({ rows[1].kind, rows[1].title, rows[1].quality, rows[8].status, rows[9].status, rows[10].status })
-	"#));
+	"#,
+	));
 	assert_eq!(order, json!([21, 22, 23, 2, 10, 11, 6, 3, 9, 4]));
 	assert_eq!(counts, json!([10, 10, 0]));
 	assert_eq!(flags, json!(["item", "Amber.Zest", 2, "retired", "nosource", "nosource"]));
@@ -1999,7 +2001,8 @@ fn browse_orders_folded_names_by_availability_then_name_length_and_id() {
 
 #[test]
 fn browse_order_matches_the_lua_comparator_for_numeric_and_string_ids() {
-	let [items, instances] = first::<2>(browse(r#"
+	let [items, instances] = first::<2>(browse(
+		r#"
 		local translated = "Жар"
 		Polestar.Names.Localised = function() return true end
 		Polestar.Names.Ready = function() return true end
@@ -2025,14 +2028,16 @@ fn browse_order_matches_the_lua_comparator_for_numeric_and_string_ids() {
 			{ 30, "Abacus" }, { 31, "Жар" }, { 32, "Жары" } })
 		check("instance", { { "hall-9", "Hall" }, { "hall-10", "Hall" },
 			{ "hall-100", "Hall" }, { "hall", "Hall" }, { "vault", "Vault" } })
-	"#));
+	"#,
+	));
 	assert_eq!(items[0], items[1]);
 	assert_eq!(instances[0], instances[1]);
 }
 
 #[test]
 fn browse_offsets_page_consecutively_naming_only_the_returned_rows_and_deferring_subtitles() {
-	let [page1, page2, counts, lazy] = first::<4>(browse(r#"
+	let [page1, page2, counts, lazy] = first::<4>(browse(
+		r#"
 		index({ { 70, "Echo" }, { 2, "Alpha" }, { 25, "Charlie" }, { 9, "Bravo" }, { 50, "Delta" } })
 		local named, subtitles = 0, 0
 		local name = C.Name
@@ -2046,7 +2051,8 @@ fn browse_offsets_page_consecutively_naming_only_the_returned_rows_and_deferring
 		local sub = S.Subtitle(tail[1]); S.Subtitle(tail[1])
 		emit(ids(a)); emit(ids(b)); emit({ n, m, last, #tail, tail[1].id, #empty })
 		emit({ named, before, subtitles, sub })
-	"#));
+	"#,
+	));
 	assert_eq!(page1, json!([2, 9]));
 	assert_eq!(page2, json!([25, 50]));
 	assert_eq!(counts, json!([5, 5, 5, 1, 70, 0]));
@@ -2055,7 +2061,8 @@ fn browse_offsets_page_consecutively_naming_only_the_returned_rows_and_deferring
 
 #[test]
 fn browse_reuses_translated_names_for_order_and_refreshes_when_the_names_change() {
-	let [initial, later, english, calls] = first::<4>(browse(r#"
+	let [initial, later, english, calls] = first::<4>(browse(
+		r#"
 		index({ { 1, "Zebra" }, { 2, "Drum" }, { 3, "Yoke" } })
 		local lang, cachedCalls = true, 0
 		local translated = "Aardvark"
@@ -2077,7 +2084,8 @@ fn browse_reuses_translated_names_for_order_and_refreshes_when_the_names_change(
 		lang = false
 		local c = S.Browse("item", opts)
 		emit(ids(c)); emit(prepared)
-	"#));
+	"#,
+	));
 	assert_eq!(initial, json!([1, "Aardvark", 2, 2]), "browsing names only the page when Query has built the translated blob");
 	assert_eq!(later, json!([2, 1, "Xylophone"]));
 	assert_eq!(english, json!([2, 3]));
@@ -2086,19 +2094,22 @@ fn browse_reuses_translated_names_for_order_and_refreshes_when_the_names_change(
 
 #[test]
 fn an_everything_search_in_a_to_z_gives_each_kind_its_first_few_in_browse_order() {
-	let [az, best] = first::<2>(browse(r#"
+	let [az, best] = first::<2>(browse(
+		r#"
 		index({ { 1, "Ring" }, { 2, "A Ring", "r" }, { 3, "B Ring", "n" }, { 4, "Z Ring" }, { 5, "Blade" }, { 6, "M Ring" } })
 		local rows, counts = S.Query("ring", { order = "az", perKind = 2, subtitles = false })
 		emit({ ids(rows), counts.item })
 		emit(ids(S.Query("ring", { perKind = 2, subtitles = false })))
-	"#));
+	"#,
+	));
 	assert_eq!(az, json!([[6, 1], 5]), "the top of the item kind's A to Z list, the count unchanged");
 	assert_eq!(best, json!([1, 6]));
 }
 
 #[test]
 fn a_learned_npc_name_re_sorts_browse_and_is_found_by_search() {
-	let [before, after, found, other] = first::<4>(browse(r#"
+	let [before, after, found, other] = first::<4>(browse(
+		r#"
 		index({ { 1, "Alpha" }, { 2, "Bravo" } }, "npc")
 		local learned = {}
 		Polestar.Names.Localised = function() return true end
@@ -2114,7 +2125,8 @@ fn a_learned_npc_name_re_sorts_browse_and_is_found_by_search() {
 		emit(titles(S.Browse("npc", opts)))
 		emit(ids(S.Query("zulu", { kinds = { npc = true }, subtitles = false })))
 		emit(stale)
-	"#));
+	"#,
+	));
 	assert_eq!(before, json!(["Alpha", "Bravo"]));
 	assert_eq!(after, json!(["Bravo", "Zulu"]), "the learned name sorts where it reads");
 	assert_eq!(found, json!([1]));
@@ -2199,7 +2211,8 @@ fn release_frees_the_score_cache_and_the_next_search_finds_the_same_rows() {
 
 #[test]
 fn browse_rebuilds_for_a_changed_blob_and_shares_one_sort_across_pages() {
-	let [before, next, after, sorts] = first::<4>(browse(r#"
+	let [before, next, after, sorts] = first::<4>(browse(
+		r#"
 		local original = table.sort
 		local sorted = 0
 		table.sort = function(...) sorted = sorted + 1; return original(...) end
@@ -2211,7 +2224,8 @@ fn browse_rebuilds_for_a_changed_blob_and_shares_one_sort_across_pages() {
 		local count = S.BrowseCount("item")
 		local c = S.Browse("item", { limit = 2, subtitles = false })
 		emit(ids(a)); emit(ids(b)); emit(ids(c)); emit({ first, sorted, count })
-	"#));
+	"#,
+	));
 	assert_eq!(before, json!([2]));
 	assert_eq!(next, json!([1]));
 	assert_eq!(after, json!([3, 1]));
@@ -2220,7 +2234,8 @@ fn browse_rebuilds_for_a_changed_blob_and_shares_one_sort_across_pages() {
 
 #[test]
 fn browse_requests_a_codex_load_and_count_waits_without_loading_the_pack() {
-	let [waiting, loaded, off] = first::<3>(browse(r#"
+	let [waiting, loaded, off] = first::<3>(browse(
+		r#"
 		local loads = 0
 		C.IsLoaded = function() return false end
 		C.Load = function() loads = loads + 1 end
@@ -2235,7 +2250,8 @@ fn browse_requests_a_codex_load_and_count_waits_without_loading_the_pack() {
 		C.IsLoaded = function() return false end
 		local unavailable, count = S.Browse("item")
 		emit({ S.BrowseCount("item") == nil, #unavailable, count, loads })
-	"#));
+	"#,
+	));
 	assert_eq!(waiting, json!([true, 0, 0, 0, 1]));
 	assert_eq!(loaded, json!(["Alpha", 1, 1]));
 	assert_eq!(off, json!([true, 0, 0, 1]));
@@ -2243,7 +2259,8 @@ fn browse_requests_a_codex_load_and_count_waits_without_loading_the_pack() {
 
 #[test]
 fn browse_pages_cost_the_same_at_2_500_and_25_000_entries_and_sidebar_counts_do_not_sort() {
-	let [small, large] = first::<2>(browse(r#"
+	let [small, large] = first::<2>(browse(
+		r#"
 		-- Time the previous per-row allocation and Lua sort against the same catalogue.
 		local function comparatorTime(blob)
 			local status = { r = true, n = true }
@@ -2299,7 +2316,8 @@ fn browse_pages_cost_the_same_at_2_500_and_25_000_entries_and_sidebar_counts_do_
 				comparator = n == 25000 and comparatorTime(C.Index("item")) or nil }
 		end
 		emit(measure(2500)); emit(measure(25000))
-	"#));
+	"#,
+	));
 	for (measurement, count) in [(&small, 2500), (&large, 25000)] {
 		assert_eq!(measurement["count"], count);
 		assert_eq!(measurement["countSorts"], 0);
