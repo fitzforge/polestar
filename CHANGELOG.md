@@ -12,6 +12,9 @@
   for any step that collects an item its quest turns into something else, such
   as the Witherbark Skulls for Nimboya's Pike and the halves of the Good Luck
   Charm. (thanks Qabhal-Oğuz, #3565)
+- Dead before level 11, the arrow now goes to the Spirit Healer the death
+  helper names when a nearer one turns up, instead of keeping you on the
+  first one it picked, up to a kilometre away (thanks Yendi, #3610).
 - The arrow no longer gets stuck on "Finding a walking route" for minutes when
   the goal stands somewhere the walking maps don't reach, such as Foggy
   MacKreel on the broken section of the Thandol Span. The route with its
@@ -19,10 +22,21 @@
   spot and says the last steps aren't mapped, as it did before 0.4.2. Before,
   it gave up after about five minutes and pointed straight at the goal with no
   flight. (thanks Cip1337, #3553)
+- The arrow no longer sits on "Finding a walking route" for half a minute or
+  more when the goal stands somewhere the walking maps don't reach, such as
+  Telf Joolam's shrine above the Durotar bank. It points straight at the
+  goal within a second and says the last steps aren't mapped, as before
+  0.4.2. Where a flight route is waiting on such a goal, it now shows as soon
+  as that is known: Foggy MacKreel's flight comes up in about half a second.
+  (thanks TheLombaxLegend, #3605)
 - Stranglethorn Fever is now a group quest on both factions' routes. The guide
   asks before you take it and warns about Witch Doctor Unbagwa's three waves
   of gorillas and Mokk the Savage. If you skip it, the guide no longer sends
   you to the waves or waits at Fin Fizracket's hand-in. (thanks Koobi, #3574)
+- Tanaris (Horde): Tanaris Field Sampling's step now says what to do without
+  the Model 4711-FTZ Power Source, or once its two hours ran out: Chief
+  Engineer Bilgewhizzle's Another Power Source? gives a new one for ten more
+  Wastewander Water Pouches. It is not a prerequisite (#3619, thanks Yeeshak).
 - Tanaris (Alliance): on Tooga's escort the arrow now leads to his wife Torta
   by Steamwheedle Port. It used to point back at the valley where the escort
   started. (thanks Gindry, #3557)
@@ -33,6 +47,9 @@
   are the only mechanicals that count for The Killing Fields and they drop the
   isosprings, gyrostabilizers and Okra too; the Golems don't count and the
   Reapers are too high (#3588, thanks Muvias).
+- Wetlands (Alliance): the guide no longer waits at Harlo Barnaby for Fall of
+  Dun Modr while A Grim Task is in your quest log, when he doesn't offer it
+  (thanks Tilman, #3597).
 
 ## 0.4.2.1 (2026-11-21)
 
