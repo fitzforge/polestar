@@ -180,17 +180,19 @@ local function elsewhere(active)
 			if g and leveling(g) == (pass == 1) then
 				if g.id ~= active.id then routes[#routes + 1] = { plan = planOf(g), live = t.live, leveling = pass == 1 } end
 				local lk = g.lookup
-				if lk and (lk.kind == "pickup" or lk.kind == "handin") and lk.id ~= nil then keys[#keys + 1] = lk.id end
+				if lk and (lk.kind == "pickup" or lk.kind == "handin") and lk.id ~= nil then keys[#keys + 1] = { key = lk.id, handin = lk.kind == "handin" } end
 			end
 		end
 	end
 	if #keys > 0 and D and D.Meta and D.Meta() then
-		for _, key in ipairs(keys) do
-			local d = D.Get(key)
+		for _, k in ipairs(keys) do
+			local d = D.Get(k.key)
 			if d then
 				local title = L["%s: hand in the quests"]:format(d.name)
-				for _, pq in ipairs(D.Quests(key)) do
-					if not quests[pq.id] then quests[pq.id] = { key = key, title = title } end
+				for _, pq in ipairs(D.Quests(k.key)) do
+					local q = quests[pq.id]
+					if not q then quests[pq.id] = { key = k.key, title = title, handin = k.handin }
+					elseif k.handin then q.handin = true end
 				end
 			end
 		end
@@ -227,7 +229,7 @@ function Plan.GetTurnIn(questId)
 		seen[i] = x
 	end
 	local dg = o.dungeons[questId]
-	if dg then return { status = "other", title = dg.title, dungeon = dg.key } end
+	if dg then return { status = "other", title = dg.title, dungeon = dg.key, pickupOnly = not dg.handin or nil } end
 	local order = {}
 	if leveling(active) then order[1] = r end
 	for i, route in ipairs(o.routes) do
@@ -264,6 +266,9 @@ function Plan.Describe(result)
 	-- A numbered step can visit several NPCs. Being on that step does not
 	-- mean this hand-in is the current interaction or that we should navigate.
 	if r.status == "now" then text = L["Turn in at this step · %s"]:format(where)
+	-- A dungeon quest only its pick-up guide covers: no open guide hands it
+	-- in; the dungeon's hand-in guide (r.title) is the one that would.
+	elseif r.pickupOnly then text = L["%s · %s"]:format(L["No turn-in in this route"], where)
 	elseif r.status == "future" or r.status == "later" or r.status == "other" then text = L["Turn in at %s"]:format(where)
 	elseif r.status == "missed" then text = L["Earlier turn-in · %s — check"]:format(where)
 	elseif r.status == "skipped" then text = L["Skipped turn-in · %s — check"]:format(where)
@@ -407,7 +412,8 @@ end
 -- The finished quests in the log (ready to hand in) no open route hands in
 -- (GetTurnIn "missed", "skipped" or "unplanned"; a later guide's `carriedTo`
 -- quest is "later" and another tab's or an open dungeon's is "other", so
--- neither is here): { { quest, title, status, grey, xp }, ... } in log order
+-- neither is here, but for a dungeon's page quest only its pick-up guide has
+-- open: that guide hands nothing in, so a finished one is here): { { quest, title, status, grey, xp }, ... } in log order
 -- (xp nil when unknown); nil while the plan cannot say (no guide, a route
 -- choice to make, a guide not loaded).
 function Plan.Carried()
@@ -417,7 +423,7 @@ function Plan.Carried()
 		if C.IsQuestReadyForTurnIn(q) then
 			local r = Plan.GetTurnIn(q)
 			if r.status == "noGuide" or r.status == "choice" or r.status == "unloaded" then return nil end
-			if NEVER[r.status] then
+			if NEVER[r.status] or r.pickupOnly then
 				out[#out + 1] = { quest = q, title = C.GetQuestTitle(q), status = r.status, grey = grey(C, q, level), xp = xpNow(C, q, level) }
 			end
 		end

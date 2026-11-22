@@ -673,7 +673,7 @@ fn a_dungeon_pick_up_guide_in_the_active_tab_keeps_the_dungeon_s_and_the_levelin
 	assert!(!titles.contains(&"Three"), "the leveling tab's quest is kept: {titles:?}");
 	assert_eq!(out["dungeon"], json!(["other", "wc"]));
 	assert_eq!(out["leveling"], json!(["other", "future", "route/a"]));
-	assert_eq!(out["dungeonText"], "Turn in at Wailing Caverns: hand in the quests");
+	assert_eq!(out["dungeonText"], "No turn-in in this route · Wailing Caverns: hand in the quests");
 	assert!(is_match(text(&out["levelingText"]), r"^Turn in at Starter · step 3$"), "{}", out["levelingText"]);
 }
 
