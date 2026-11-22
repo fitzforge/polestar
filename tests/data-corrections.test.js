@@ -824,3 +824,8 @@ test('My Little Friends: each specimen is a use of the Bug Catching Net on its i
 	assert.deepEqual(m.params, [{ kind: 'use-item-on-mob', item: 213562, npcs: [217588, 217589, 217590] }]);
 	assert.deepEqual(m.steps.map((s) => [s.n, s.action, s.target.id, s.item.id]), [[1, 'use-item', 217588, 213562], [2, 'use-item', 217589, 213562], [3, 'use-item', 217590, 213562]]);
 });
+
+// Gindry (#3546): Tooga gives Oasis only once Tooga's Quest is handed in at Torta.
+test('Oasis comes after Tooga\'s Quest (#3546)', () => {
+	assert.deepEqual(corrections.quests[97540].set.pre, [1560]);
+});

@@ -20736,5 +20736,23 @@
 			{ "kind": "recording", "ref": "players' in-game recordings (to 2026-11-20, excluded contributors left out): 7 people (7 established) ran A Rest Without Pain; every accept listed two lines, 'Poultice Delivered to Enho' and 'Poultice Delivered to Maruke', each ticking as that NPC's window opened (Enho Runehoof 265862, Maruke 265895; rec.py quest 96622)" }
 		],
 		"note": "A Rest Without Pain (Mount Hyjal, Horde): two lines, one per wounded, each done by opening the NPC's window. The data had no objectives, so the guide's talks to them waited for a gossip choice that never comes (the pattern of #3486)."
+	},
+	"97540": {
+		"set": {
+			"pre": [
+				1560
+			]
+		},
+		"source": [
+			{
+				"kind": "recording",
+				"ref": "players' in-game recordings to 2026-11-20 (excluded contributors left out): 19 people took Oasis from Tooga (5955), every one after handing in Tooga's Quest (1560) at Torta; nobody took it without that hand-in"
+			},
+			{
+				"kind": "in-game-check",
+				"ref": "#3546 (Gindry, German client): at the spot Tooga was missing and only Torta stood there; no quest could be taken without the escort first"
+			}
+		],
+		"note": "Oasis (Tanaris) is given by Tooga once Tooga's Quest is handed in: Tooga is led to Torta first, and only then gives it. The merged data had no prerequisite, so \"While you're here\" and the guide could offer it before the escort (#3546)."
 	}
 }
