@@ -23,7 +23,12 @@ jobs:
     name: Release data
     if: github.event.pull_request.head.repo.full_name == github.repository && !github.event.pull_request.draft
     runs-on: [self-hosted, polestar-data]
-    timeout-minutes: 60
+    timeout-minutes: 120
+    # pull-requests: write for the route-integrity table's comment (this repository's own branches only: the job
+    # never runs for a fork's pull request).
+    permissions:
+      contents: read
+      pull-requests: write
     env:
       POLESTAR_TIMING_BUDGETS: warn
       # Two test files at once: the guide suites on the data take a few GB each.
@@ -114,8 +119,41 @@ jobs:
           FILES: ${{ steps.plan.outputs.files }}
         run: tools/ci-tests.sh "" $FILES
 
+      # The checks below run whatever the tests did (each fails the job on its own).
       - name: Guide texts
-        if: steps.plan.outputs.run == 'yes' && steps.lane.outputs.locales != ''
+        if: ${{ !cancelled() && steps.plan.outputs.run == 'yes' && steps.lane.outputs.locales != '' }}
         env:
           LOCALES: ${{ steps.lane.outputs.locales }}
         run: tools/ci-guide-texts.sh "" "$LOCALES"
+
+      # The route-integrity gate (#3654, docs/CI.md "Route integrity"): for an edit to a leveling guide, its chain
+      # played, the honest playtest, what the guides lose and the level model, against the base. The table goes to
+      # the run's summary and to one comment on the pull request, kept up to date.
+      - name: Route integrity
+        id: route
+        if: ${{ !cancelled() && steps.plan.outputs.run == 'yes' && (steps.lane.outputs.lane == 'full' || contains(steps.lane.outputs.areas, 'guides')) }}
+        env:
+          PR_BODY: ${{ github.event.pull_request.body }}
+        run: |
+          if [ ! -d "$RUNNER_TEMP/base" ]; then echo "::error::no base checkout to compare with"; exit 1; fi
+          tools/ci-route-gate.sh "$RUNNER_TEMP/base" "$RUNNER_TEMP/changed.txt" "$RUNNER_TEMP/route"
+
+      - name: Route integrity (comment)
+        if: always() && steps.route.outcome != 'skipped'
+        env:
+          GH_TOKEN: ${{ github.token }}
+          URL: ${{ github.api_url }}/repos/${{ github.repository }}/issues/${{ github.event.pull_request.number }}/comments
+        run: |
+          f=$RUNNER_TEMP/route/route-integrity.md
+          [ -s "$f" ] || exit 0
+          cat "$f" >> "$GITHUB_STEP_SUMMARY"
+          if grep -q 'no leveling guide edited' "$f"; then exit 0; fi
+          body=$(printf '<!-- polestar:route-integrity -->\n%s\n\nRun: %s\n' "$(cat "$f")" "$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID")
+          auth=(-H "Authorization: Bearer $GH_TOKEN" -H "Accept: application/vnd.github+json")
+          id=$(curl -sSf "${auth[@]}" "$URL?per_page=100" | jq -r '[.[] | select(.body | startswith("<!-- polestar:route-integrity -->"))][0].id // empty')
+          payload=$(jq -n --arg b "$body" '{body: $b}')
+          if [ -n "$id" ]; then
+            curl -sSf -X PATCH "${auth[@]}" "${URL%/issues/*}/issues/comments/$id" -d "$payload" > /dev/null
+          else
+            curl -sSf -X POST "${auth[@]}" "$URL" -d "$payload" > /dev/null
+          fi
