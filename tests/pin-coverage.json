@@ -724,6 +724,38 @@
 		"3278": {
 			"title": "Feature: changing distance units",
 			"why": "NOT-A-FIX: already there: Options, Guide, Arrow & routes, Distances: Metres; closed with no change made"
+		},
+		"2052": {
+			"title": "Materials in guides: gather, buy or both; fishing recipes; gathering spots in While you're here",
+			"why": "PINNED (sibling): split into #3648, #3649, #3650 and #3651, which carry the rest of the work and their own pins"
+		},
+		"2143": {
+			"title": "Bug: walking route in Orgrimmar cuts through buildings instead of following the streets",
+			"why": "PINNED (pr-test): fixed by #3689; its tests (nav-spf.rs, nav.rs) still present"
+		},
+		"2270": {
+			"title": "Tome of the cabal",
+			"why": "PINNED (pr-test): fixed by #3689; its tests (nav-spf.rs, nav.rs) still present"
+		},
+		"2866": {
+			"title": "Bug: community guides on polestar.guide don’t show real installs",
+			"why": "PINNED (linked): fixed in the site's repository (fitzforge/polestar-site#4); nothing in this repository to test"
+		},
+		"3203": {
+			"title": "Feature: Freedoom Arcade playable on AZERTY and other keyboard layouts",
+			"why": "PINNED (pr-test): fixed by #3204; its test (maps-arcade.rs) still present"
+		},
+		"3385": {
+			"title": "Skorpashigift für \"Reagenzien für die Wiederholer AG\" wird nicht gesammelt.",
+			"why": "PINNED (pr-test): fixed by #3697 and #3688; their tests (guides-reported.test.js, engine-while-here.rs) still present"
+		},
+		"3598": {
+			"title": "Ineffiziente Route in Coldridge Valley",
+			"why": "PINNED (pr-test): fixed by #3690; its test (engine-meet-kills.rs) still present"
+		},
+		"3640": {
+			"title": "Pathing slice ignores frame headroom: 4.4 ms ticks on a 15.7 ms game frame drop frames under vsync (Fitz's 0.4.2.2 report)",
+			"why": "PINNED (pr-test): fixed by #3684; its tests (perf-probe.rs, nav-maps.rs) still present"
 		}
 	},
 	"records": {
