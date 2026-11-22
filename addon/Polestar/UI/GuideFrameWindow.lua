@@ -251,8 +251,20 @@ ns.UI.GuideFrame.Part(function(GF)
 	local function resizeUpdate(self)
 		local x = GetCursorPosition() / F:GetEffectiveScale()
 		local w = min(UI.MAX_WIDTH, max(UI.MIN_WIDTH, floor(self.psStartW + (x - self.psStartX) + 0.5)))
-		if w ~= floor(F:GetWidth() + 0.5) then
+		-- The step browser open: the grip drags its height too, away from the
+		-- pinned edge (down, or up with Grow upward).
+		local SL = UI.StepList
+		local h = self.psStartH
+		if h and SL and SL.open then
+			local y = select(2, GetCursorPosition()) / F:GetEffectiveScale()
+			local dy = ns.Get("ui.growUp") and y - self.psStartY or self.psStartY - y
+			h = max(120, floor(h + dy + 0.5))
+		else
+			h = nil
+		end
+		if w ~= floor(F:GetWidth() + 0.5) or (h and h ~= SL.height) then
 			F:SetWidth(w)
+			if h then SL.height = h end
 			GF.Layout()
 		end
 	end
@@ -268,6 +280,9 @@ ns.UI.GuideFrame.Part(function(GF)
 		end
 		self.psStartX = GetCursorPosition() / F:GetEffectiveScale()
 		self.psStartW = F:GetWidth()
+		local SL = UI.StepList
+		self.psStartH = SL and SL.open and (SL.height or F:GetHeight()) or nil
+		self.psStartY = select(2, GetCursorPosition()) / F:GetEffectiveScale()
 		self:SetScript("OnUpdate", ns.Safe(resizeUpdate))
 	end
 
@@ -275,6 +290,9 @@ ns.UI.GuideFrame.Part(function(GF)
 		if not self:GetScript("OnUpdate") then return end
 		self:SetScript("OnUpdate", nil)
 		ns.Set("ui.width", floor(F:GetWidth() + 0.5))
+		local SL = UI.StepList
+		if self.psStartH and SL and SL.open and SL.height then ns.Set("ui.stepListHeight", SL.height) end
+		self.psStartH = nil
 		savePosition()
 	end
 
