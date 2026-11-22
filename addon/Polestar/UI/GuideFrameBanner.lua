@@ -358,6 +358,9 @@ ns.UI.GuideFrame.Part(function(GF)
 	-- for it (a guide's whole title) is cut short with "…". A second action
 	-- that would be cut short beside the first takes its own line under it.
 	local secondRow = false -- a second action on its own line
+	-- A notice's tint and glyph by its kind (the wash and the icon); any
+	-- other kind is neutral. The accent stays the main action's.
+	GF.BANNER_ROLE = { bags = "warning", away = "npc", train = "npc", riding = "npc", skipped = "textMuted", questSkip = "textMuted" }
 	local function placeLink(link, text, x, y)
 		link.Label:SetWordWrap(false)
 		link.Label:SetWidth(0)
@@ -381,6 +384,9 @@ ns.UI.GuideFrame.Part(function(GF)
 	function GF.LayoutBanner(width, known, kind, n)
 		if not known then kind, n = bannerNotice() end
 		banner.psKind = kind
+		banner.psRole = GF.BANNER_ROLE[kind] or "textDim"
+		ns.Widgets.Color(banner.Icon, banner.psRole)
+		if banner.Fill.psPaint then banner.Fill.psPaint(banner.Fill) end
 		banner.Jump.psDefault = (kind == "group" or kind == "lost" or kind == "dungeon" or kind == "dungeonRun") or nil -- the gamepad's first focus (UI/GamepadGuide.lua)
 		banner.Text:SetWidth(width - PAD * 2 - 21 - 24)
 		banner.Later:Hide()
