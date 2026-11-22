@@ -53,8 +53,9 @@ return {
 
 	-- Step 8: A hundred paces north
 	["A hundred paces north"] = "向北一百步",
-	-- {object:424012} Mound of Dirt
-	["Walk north through the camp and drop carefully down the steep slope to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up."] = "向北穿过营地，小心沿陡坡下到下方岩台上的{object:424012}。跳偏只会滑到下面：贴着崖壁绕路走回上方即可。",
+	-- {object:424005} Pocket Litter · {object:424012} Mound of Dirt
+	["From the {object:424005} walk to the camp's western edge, where the arrow points first, and drop carefully down the steep slope north to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up."] = "",
+	["The drop to the ledge"] = "",
 
 	-- Step 9: Tarren Mill on the way
 	-- {area:272} Tarren Mill
@@ -90,4 +91,5 @@ return {
 	-- ["Round {area:1702}"] = "绕过{area:1702}",
 	-- ["The next hideout is a small camp in the hills of eastern Stonetalon. Leave the road where a path climbs into the hills and follow it to the camp; the {object:424005} lies on a crate beside its tent."] = "下一处藏物点在石爪山脉东部山丘上的小营地。从道路旁上山的小径攀上山丘，沿小径走到营地；{object:424005}就在帐篷旁的箱子上。",
 	-- ["The road west runs through {area:1702}, a Horde post; this way goes round it."] = "向西的道路会穿过部落哨所{area:1702}；这条路线会绕开它。",
+	-- ["Walk north through the camp and drop carefully down the steep slope to the {object:424012} on the ledge below. A missed jump only slides you down: hug the cliff and walk back up."] = "向北穿过营地，小心沿陡坡下到下方岩台上的{object:424012}。跳偏只会滑到下面：贴着崖壁绕路走回上方即可。",
 }

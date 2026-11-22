@@ -22,11 +22,9 @@ local Client = Maps.Client
 local serverTime = ns.Compat.Now
 local L = ns.L
 
-local type, pairs, ipairs, floor, lower, huge = type, pairs, ipairs, math.floor, string.lower, math.huge
+local type, pairs, ipairs, floor, lower = type, pairs, ipairs, math.floor, string.lower
 local sqrt = math.sqrt
 
-local FLIGHT_SPEED = 30   -- yd/s along the path (Classic gryphon/wyvern; Nav's planner uses the same)
-local FLIGHT_STOP = 2     -- seconds per hop: take-off and landing
 local TICK = 0.2
 local BOARD_WINDOW = 10   -- seconds from picking a node to being on the taxi
 local LAND_RADIUS = 300   -- yards: landed at the destination, so the time is learnable
@@ -78,47 +76,17 @@ end
 
 -- Estimated seconds for one flight leg of `yards`.
 function Maps.LegSeconds(yards)
-	return yards / FLIGHT_SPEED + FLIGHT_STOP
+	return ns.Nav.travel.FlightLegSeconds(yards)
 end
 
 -- Seconds by air from node `from` to node `to`, Dijkstra over the flight legs
 -- through nodes this faction may use and, when known nodes are recorded, only
 -- through known ones (the client routes over discovered nodes). nil: no route.
 function Maps.EstimateFlight(from, to, faction, known)
-	local d = travel()
-	if not (d and from and to) or from == to then return nil end
-	local nodes, flights = d.taxiById, d.flights
-	if not (nodes[from] and nodes[to]) then return nil end
-	faction = faction or 0
-	local useKnown = false
-	if type(known) == "table" then
-		for _ in pairs(known) do
-			useKnown = true
-			break
-		end
-	end
-	local dist, done = { [from] = 0 }, {}
-	while true do
-		local u, best = nil, huge
-		for id, dv in pairs(dist) do
-			if not done[id] and dv < best then u, best = id, dv end
-		end
-		if not u then return nil end
-		if u == to then return floor(best + 0.5) end
-		done[u] = true
-		local legs = flights[u]
-		if legs then
-			for i = 1, #legs - 1, 2 do
-				local v, yards = legs[i], legs[i + 1]
-				local node = nodes[v]
-				if node and not done[v] and Maps.Allowed(node.faction, faction)
-					and (not useKnown or known[v] or v == to) then
-					local alt = best + Maps.LegSeconds(yards)
-					if not dist[v] or alt < dist[v] then dist[v] = alt end
-				end
-			end
-		end
-	end
+	local N = ns.Nav
+	if not (N and from ~= to and N.GetTaxiNode(from) and N.GetTaxiNode(to)) then return nil end
+	local seconds = N.travel.FlightTimes(from, faction or 0, known, to)[to]
+	return seconds and floor(seconds + 0.5) or nil
 end
 
 -- Learned durations are keyed by node IDs when both are known, else by names.

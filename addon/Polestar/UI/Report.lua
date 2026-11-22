@@ -268,7 +268,8 @@ end
 -- Where the player is, and the height of the floor Polestar takes them to stand on (Nav/Walk.lua Walk.Floor: the
 -- client gives no height on Forever; the floor Walk follows while the arrow walks), "z 16": a walk searched from
 -- another floor than the player's goes round (#2215: beside an NPC on his upper floor, the route out of the building
--- and back up).
+-- and back up). Then what the client gives for the player's height (Compat.PlayerHeight), "height none": without a
+-- real one a point with a height is reached by map distance (Nav.lua, heightless).
 local function playerLine()
 	local C = ns.Compat
 	local zone, sub
@@ -282,6 +283,9 @@ local function playerLine()
 	if W and W.Floor and C and C.GetPlayerWorldPosition then pc, px, py = C.GetPlayerWorldPosition() end
 	local z = pc and W.Floor(pc, px, py)
 	if type(z) == "number" then line = line .. SEP .. ("z %d"):format(floor(z + 0.5)) end
+	if C and C.GetPlayerUnitPosition then C.GetPlayerUnitPosition() end -- a reading now, for PlayerHeight
+	local height = C and C.PlayerHeight and C.PlayerHeight()
+	if height then line = line .. SEP .. "height " .. height end
 	return cut(line)
 end
 
@@ -323,6 +327,29 @@ local function travelLine()
 		parts[#parts + 1] = ("%s %d:%02d%s"):format(plain(leg.label or leg.kind or "?"), floor(s / 60), s % 60, leg.maybe and " (maybe)" or "")
 	end
 	return cut((L["Travel: %s"]):format(table.concat(parts, SEP)), 300)
+end
+
+-- The flight paths Polestar takes this character to know on the continent
+-- they stand on (Nav.GetKnownTaxiNodes: from the flight maps opened, plus
+-- flight masters met by name), by name, and whether a flight map has been
+-- opened there yet (Nav.GetTaxiSeen: until then a path learnt before
+-- Polestar ran may be missing). A report of a "Fly to" the character can't
+-- take (#3290: Theramore and Ratchet not on the map, the route flying there)
+-- then says what Polestar thought. The words stay English like Routes; after
+-- Travel. Nothing without the travel data or a position.
+local function flightsLine()
+	local N, C = ns.Nav, ns.Compat
+	if not (N and N.GetKnownTaxiNodes and N.GetTaxiNode and C and C.GetPlayerWorldPosition) then return nil end
+	local c = C.GetPlayerWorldPosition()
+	if c == nil then return nil end
+	local names = {}
+	for id in pairs(N.GetKnownTaxiNodes() or {}) do
+		local node = N.GetTaxiNode(id)
+		if node and node.c == c then names[#names + 1] = plain(node.name or tostring(id)) end
+	end
+	table.sort(names)
+	local seen = N.GetTaxiSeen and (N.GetTaxiSeen() or {})[c] and "flight map opened here" or "no flight map opened here yet"
+	return cut(("Flight paths: %d known here%s%s"):format(#names, SEP, seen) .. (#names > 0 and (SEP .. table.concat(names, ", ")) or ""), 400)
 end
 
 -- The "While you're here" line (Engine.WhileHereState): the lines shown
@@ -706,7 +733,7 @@ local function profileName(P)
 	if name == P.DEFAULT then return "Default" end
 	local low, names = name:lower(), {}
 	if UnitName then names[#names + 1] = UnitName("player") end
-	if GetRealmName then names[#names + 1] = GetRealmName() end
+	names[#names + 1] = ns.Compat.RealmName()
 	local db = ns.DB()
 	local alts = type(db.alts) == "table" and type(db.alts.chars) == "table" and db.alts.chars or {}
 	for key, e in pairs(alts) do
@@ -875,6 +902,7 @@ function R.Details()
 	add(d, "where", playerLine())
 	add(d, "routes", routesLine())
 	add(d, "travel", travelLine())
+	add(d, "flights", flightsLine())
 	add(d, "whilehere", whileHereLine())
 	add(d, "packs", packsLine())
 	add(d, "install", installLine())
@@ -978,6 +1006,7 @@ local function cutOrder(details)
 	all("perf", -1, 1, -1)
 	all("planned", -1, 1, -1)
 	all("leftout", -1, 1, -1)
+	all("flights")
 	all("whilehere")
 	all("travel")
 	all("install")

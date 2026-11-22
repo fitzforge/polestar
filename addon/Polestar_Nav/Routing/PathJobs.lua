@@ -51,9 +51,11 @@ end
 
 -- The queue index of the next job to slice: an answer's callback first (it searches nothing), then an urgent job
 -- (job.urgent, set by the caller on a handle: the walk the arrow is on, Polestar's Nav/Walk.lua) with the whole
--- budget, then the first foreground one, else the first; and whether another job of the same class stays queued (it
--- then gets half the budget, the rest left for the others). An urgent search waits for nobody: while the player
--- walks on, every frame it shares is yards it lands behind them.
+-- budget, an urgent sketch (Path.FindCoarse: the arrow's walk's shape, over the entrance graph alone) before the
+-- urgent search, so the shape is drawn in the first slice and the path replaces it; then the first foreground one,
+-- else the first; and whether another job of the same class stays queued (it then gets half the budget, the rest
+-- left for the others). An urgent search waits for nobody: while the player walks on, every frame it shares is yards
+-- it lands behind them.
 local function nextJob()
 	local first, urgent
 	for i = 1, #queue do
@@ -61,7 +63,7 @@ local function nextJob()
 		if job.notify then
 			return i, false
 		end
-		if job.urgent and not job.cancelled and not urgent then
+		if job.urgent and not job.cancelled and (not urgent or (job.coarseOnly and not queue[urgent].coarseOnly)) then
 			urgent = i
 		end
 	end
@@ -82,11 +84,21 @@ local function nextJob()
 	return 1, #queue > 1
 end
 
--- The frame budget is Path.budget (PathGrid.lua) whatever the frame rate: a search costs a frame at most that much,
--- so a fast frame is never doubled (0.3.1 grew it to 8 ms at 100 fps or more, halving the frame rate while a
--- search ran). Searches wait out combat (pump), and for Path.calmSeconds after any fight ends take Path.calmBudget a
--- frame: the kill that ends a fight is when the game, the guide and the quest log all update at once (a step's
--- objective done, loot, the next step's walk, queued in the fight or asked just after it).
+-- The frame budget is Path.budget (PathGrid.lua) at 60 fps or more: a search costs a fast frame at most that much,
+-- so a fast frame is never doubled (0.3.1 grew it to 8 ms at 100 fps or more, halving the frame rate while a search
+-- ran). Below 60 fps a frame takes the same share of its own time (3 ms of a 60 fps frame: 6 ms at 30 fps, as far as
+-- Path.slowScale times the budget), never more than Path.sliceMax: the path work a second stays what it is at 60
+-- fps, so a window in the background (the client's 30 fps there) or a crowded town finds a walk as soon, and no frame
+-- takes a slice longer than a 60 fps frame's rush. Searches wait out combat (pump), and for Path.calmSeconds after any
+-- fight ends take Path.calmBudget a frame: the kill that ends a fight is when the game, the guide and the quest log
+-- all update at once (loot, the quest log, a walk asked in the fight).
+Path.slowScale = 2
+Path.sliceMax = 6
+local function frameBudget(ms)
+	local fps = GetFramerate and GetFramerate()
+	if type(fps) ~= "number" or fps >= 60 or fps <= 0 then return ms end
+	return math.min(ms * math.min(60 / fps, Path.slowScale), Path.sliceMax)
+end
 Path.calmBudget = 1
 Path.calmSeconds = 1
 local calmUntil = 0
@@ -97,7 +109,25 @@ if CreateFrame then
 		calmUntil = (GetTime and GetTime() or 0) + Path.calmSeconds
 	end)
 end
-
+-- A new goal the arrow has no path for yet (Path.Rush(true), Polestar's Nav/Walk.lua: a new target, spot or route
+-- leg) takes Path.rushBudget a frame for up to Path.rushSeconds, until its first path is in (Path.Rush(false)): the
+-- "Finding a walking route" wait after a step change is that much shorter, and a moment of slower frames then is
+-- what the player is waiting through anyway. The seconds count from the first frame a search runs: a goal set in a
+-- fight (the kill that completes a step) waits out the fight and is rushed after it (0.4.2's rush had run out by
+-- then), within Path.rushHold seconds of the ask. It comes before the calm after a fight: the kill that completes a
+-- step is the step change the player waits on (0.4.2 took 1 ms a frame for that second).
+Path.rushBudget = 6
+Path.rushSeconds = 2
+Path.rushHold = 30
+local rushAsked, rushUntil -- GetTime() of the ask (nil: no rush), of the rush's end (nil: not started)
+function Path.Rush(on)
+	rushAsked, rushUntil = on and GetTime and GetTime() or nil, nil
+end
+local function rushing(t)
+	if not rushAsked or t - rushAsked > Path.rushHold then return false end
+	rushUntil = rushUntil or t + Path.rushSeconds
+	return t < rushUntil
+end
 -- With the queue empty the router rests: Search.Rest empties the endpoint trees' pool, Grid.Rest trims the decoded
 -- graph to Path.graphRestKB and keeps Path.restTrees endpoint trees (the newest start's in the pool, for the next
 -- search's first connection to fill), and decoded clusters, the decoder's scratch and the kept endpoint trees stay
@@ -146,7 +176,8 @@ pump = function()
 		return
 	end
 	local now = clock()
-	local budget = GetTime and GetTime() < calmUntil and Path.calmBudget or Path.budget
+	local t = GetTime and GetTime() or 0
+	local budget = frameBudget(rushing(t) and Path.rushBudget or t < calmUntil and Path.calmBudget or Path.budget)
 	local finish = now + budget
 	repeat
 		if #queue == 0 then
@@ -235,7 +266,13 @@ end
 -- { { id, name, areaId }, ... } (Path.lua's header). reason is "nodata", "outside", "offmesh", "unreachable" or
 -- "error". opts is the waterWalking flag (a boolean, as every caller before profiles passes it) or { waterWalking =
 -- boolean, profile = "Alliance" | "Horde" | nil, style = "fastest" | "balanced" | "roads" | nil (anything else is
--- Balanced), danger = { [uiMapID] = multiplier >= 1 } | nil (none) }.
+-- Balanced), danger = { [uiMapID] = multiplier >= 1 } | nil (none) }. to.reach (yards, with to.z): when no walk reaches
+-- the goal's own floor, the walk to the nearest surface within reach on its level that one reaches (job.reached = { x,
+-- y, z }, Routing/Path.lua `nearby`); FindMany takes from.reach alike for its source.
+-- opts.walkLevel ~= nil selects player routing. Ground segments, including the approaches
+-- to transport, must avoid opposing settlements. Zone level affects cost, not access.
+-- Find, FindCoarse and FindCost all materialize before publishing; failure is
+-- "no safe walking route". A strict batch publishes a target only after that same check.
 -- Returns a Cancel handle.
 ---@param map number
 ---@param from SPFPoint
@@ -244,7 +281,7 @@ end
 ---@param opts? boolean|{ waterWalking: boolean?, profile: string?, style: string?, danger: table<number, number>? }
 ---@return SPFPathJob
 function Path.Find(map, from, to, callback, opts)
-	local waterWalking, profile, style, danger, report = options(opts)
+	local waterWalking, profile, style, danger, report, walkLevel = options(opts)
 	return enqueue({
 		map = map,
 		from = from,
@@ -254,6 +291,7 @@ function Path.Find(map, from, to, callback, opts)
 		style = style,
 		danger = danger,
 		report = report,
+		walkLevel = walkLevel,
 		callback = callback,
 	})
 end
@@ -273,7 +311,7 @@ end
 ---@param whole? boolean
 ---@return SPFPathJob
 function Path.FindCoarse(map, from, to, callback, opts, whole)
-	local waterWalking, profile, style, danger, report = options(opts)
+	local waterWalking, profile, style, danger, report, walkLevel = options(opts)
 	return enqueue({
 		map = map,
 		from = from,
@@ -283,6 +321,7 @@ function Path.FindCoarse(map, from, to, callback, opts, whole)
 		style = style,
 		danger = danger,
 		report = report,
+		walkLevel = walkLevel,
 		callback = callback,
 		coarseOnly = true,
 		whole = whole and true or nil,
@@ -354,7 +393,7 @@ end
 ---@param progress? fun(costs: (number|false)[], reason: nil, job: SPFPathJob)
 ---@return SPFPathJob
 function Path.FindMany(map, from, targets, callback, opts, reverse, progress)
-	local waterWalking, profile, style, danger = options(opts)
+	local waterWalking, profile, style, danger, report, walkLevel = options(opts)
 	return enqueue({
 		map = map,
 		from = from,
@@ -363,6 +402,8 @@ function Path.FindMany(map, from, targets, callback, opts, reverse, progress)
 		profile = profile,
 		style = style,
 		danger = danger,
+		report = report,
+		walkLevel = walkLevel,
 		reverse = reverse,
 		progress = progress,
 		costs = {},

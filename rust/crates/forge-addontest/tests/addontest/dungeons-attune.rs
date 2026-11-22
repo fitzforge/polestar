@@ -293,8 +293,8 @@ fn with_the_local_codex_the_onyxia_blackwing_lair_naxxramas_and_dalaran_chains_f
 	assert_eq!(shape(&get("blackwing-lair", "blackhand")), "drop:18987 > 7761*", "the Quartermaster drops the letter that starts it");
 	assert_eq!(shape(&get("naxxramas", "dread-citadel")), "9121* > 9122* > 9123*");
 	assert!(by["blackrock-spire"].is_null(), "Forever removed the Seal of Ascension");
-	// Every cited `inside` place is one a chain meets, of an NPC or object that still has no spawn and no Codex
-	// instance.
+	// Every cited `inside` place is one a chain meets, of an NPC or object that still has no spawn, in the instance
+	// the Codex has for it once it has one (the 0.4.2 data places the Inconspicuous Documents in Blackrock Spire).
 	let mut used: HashSet<String> = HashSet::new();
 	for l in by.as_object().unwrap().values() {
 		for a in list(l) {
@@ -307,9 +307,16 @@ fn with_the_local_codex_the_onyxia_blackwing_lair_naxxramas_and_dalaran_chains_f
 		assert!(used.contains(&format!("{}:{}:{}", text(&e["kind"]), e["id"], text(&e["instance"]))), "{} is in no chain", text(&e["name"]));
 		let records = if e["kind"] == "npc" { &real["npcs"] } else { &real["objects"] };
 		let rec = &records[e["id"].to_string()];
-		assert!(truthy(rec) && list(&rec["spawns"]).is_empty() && !truthy(&rec["instance"]), "{}: the Codex places it now", text(&e["name"]));
+		assert!(truthy(rec) && list(&rec["spawns"]).is_empty(), "{}: the Codex has it, with no spawn", text(&e["name"]));
+		assert!(!truthy(&rec["instance"]) || rec["instance"] == e["instance"], "{}: the Codex places it in {}, not {}", text(&e["name"]), rec["instance"], e["instance"]);
 	}
 	assert_eq!(get("molten-core", "core")["inside"], json!([{ "kind": "object", "id": 179553, "instance": "blackrock-depths" }]), "the Core Fragment, by the Molten Core portal in Blackrock Depths");
+	assert_eq!(
+		get("onyxias-lair", "drakefire-h")["inside"],
+		json!([{ "kind": "object", "id": 175785, "instance": "blackrock-spire" }]),
+		"Warlord's Command's Inconspicuous Documents, in Blackrock Spire, where the Codex has them"
+	);
+	assert_eq!(real["objects"]["175785"]["instance"], "blackrock-spire", "the data places the documents in Blackrock Spire");
 }
 
 fn quests_of(a: &Value) -> Vec<i64> {
@@ -712,6 +719,35 @@ emit(walk)"#,
 	// #1320's generic pass of an accept above the level never sends a character too low for the attunement into
 	// the dungeon's entrance: the guide holds at Tonga's accept.
 	assert_eq!(walk[0]["entrance"], json!(false), "level 18: the arrow is not on the entrance");
+}
+
+// What Comes Around...: Lookup's guide for the quest said "Collect Head of Targorr" with the arrow left beside
+// Guard Berton, who takes it; Targorr is a boss inside the Stockade and the data has no place for him outside
+// (#3613). A quest guide sends an inside source's item to its instance's entrance, as the attunement guides do,
+// and says what is inside.
+#[test]
+fn issue_3613_a_lookup_quest_guide_sends_a_drop_from_inside_an_instance_to_its_entrance() {
+	let f = Fx::new();
+	let mut c = f.codex.clone();
+	c["items"]["90061"] = json!({ "id": 90061, "name": "Head of Kresh", "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "sources": [{ "type": "drop", "npc": 3653, "chance": 100 }] });
+	c["quests"]["90062"] = json!({ "id": 90062, "title": "What Comes Around", "level": 18, "minLevel": 10, "faction": null, "races": null, "classes": null,
+		"start": { "npc": [3448], "object": [], "item": [] }, "end": { "npc": [3448], "object": [] },
+		"objectives": [{ "type": "item", "id": 90061, "count": 1, "text": "Head of Kresh" }], "pre": [], "preAny": [], "rewards": [], "choices": [] });
+	let pk = pack_of(&c, &f.inputs);
+	let out = f.run(
+		&pk,
+		r#"
+Polestar.Set("lookup.enabled", true)
+local def, why = Polestar.Lookup.BuildGuide("quest", 90062)
+local goals = {}
+for i, goal in ipairs(def and def.steps[1].goals or {}) do goals[i] = goal.t .. " " .. (goal.map and table.concat({ goal.map, goal.x, goal.y }, " ") or "nowhere") end
+emit({ why = why or false, goals = goals, note = def and def.steps[1].note or false })"#,
+		"Horde",
+		"Tauren",
+	);
+	assert_eq!(out[0]["why"], json!(false));
+	assert_eq!(out[0]["goals"], json!(["accept 1413 52.2 31.9", "collect 1413 46 36.4", "turnin 1413 52.2 31.9"]), "the head at the caverns' entrance");
+	assert_eq!(out[0]["note"], json!("Head of Kresh: inside Wailing Caverns."), "the step says what is inside where");
 }
 
 #[test]

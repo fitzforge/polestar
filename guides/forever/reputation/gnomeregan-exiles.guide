@@ -159,7 +159,7 @@ step Kharanos: Brewnall and Frostmane Hold
   kill 1201 x8 quest 319.3            -- Snow Leopard
   collect 2676 x6 quest 315.1         -- Shimmerweed
   kill 1123 x5 quest 287.1            -- Frostmane Headhunter
-  complete 287 @22.4,51.8             -- walk to the back of the cave
+  complete 287 @21.3,54.2             -- walk to the back of the cave
   turnin 319
   accept 320
   turnin 315

@@ -43,7 +43,7 @@ const { readManifest } = require('./pack/manifest');
 const { loadData } = require('./dsl/data');
 const { Diagnostics } = require('./dsl/diag');
 const { honestPlay, guideFits, loadKb } = require('./playtest-honest');
-const { personaVariants, personaTables, updatePoints, SNAPSHOT_LUA } = require('./playtest-personas');
+const { personaVariants, personaTables, updatePoints, snapshotLines, SNAPSHOT_LUA } = require('./playtest-personas');
 const { levelOffsetLua } = require('./playtest-level');
 
 const CLASSES = ['WARRIOR', 'PALADIN', 'HUNTER', 'ROGUE', 'PRIEST', 'SHAMAN', 'MAGE', 'WARLOCK', 'DRUID'];
@@ -158,7 +158,7 @@ async function playGuideIn(pool, pack, g, opts) {
 }
 
 // runAddon's options for a play (playGuide).
-function playOptions(pack, g, { race, faction, cls, stubs = [], before = '', script = null, handOver = null, groups = 'skip', dungeonMaps = [], saved = null }) {
+function playOptions(pack, g, { race, faction, cls, stubs = [], before = '', script = null, handOver = null, groups = 'skip', dungeonMaps = [], saved = null, openStartGates = false }) {
 	const raceName = race === 'Scourge' ? 'Undead' : race;
 	const first = g.steps.flatMap((s) => s.goals).find((x) => x.map && x.x != null);
 	const home = g.category && g.category !== 'Leveling' ? HOME[race] : null;
@@ -173,7 +173,7 @@ function playOptions(pack, g, { race, faction, cls, stubs = [], before = '', scr
 			w.class, w.className = ${JSON.stringify(cls)}, ${JSON.stringify(cls)}
 			w.faction = ${JSON.stringify(faction)}
 			w.level = ${g.minLevel || 1}
-			${start ? `w.moveTo(${start.map}, ${start.x}, ${start.y})` : ''}
+			${start ? `w.moveTo(${start.map}, ${start.x}, ${start.y}${start.z != null ? `, ${start.z}` : ''})` : ''}
 			${before}`,
 		addons: ['Polestar'],
 		...(saved ? { saved: { Polestar: saved } } : {}),
@@ -184,15 +184,51 @@ function playOptions(pack, g, { race, faction, cls, stubs = [], before = '', scr
 			Polestar.Set("behavior.guideEnd", ${handOver ? '"continue"' : '"ask"'})
 			Polestar.Set("behavior.groupQuests", ${luaValue(groups)})
 			Polestar.Set("behavior.dungeons", "skip") -- the solo route, whatever "Dungeons in my route" defaults to; --dungeon chooses below
+			-- The arrow's journey off (a player's "travel planner off"): the simulated player is set down at each
+			-- goal, never riding the journey's boats or portals, in a world without walking maps or floors, so a
+			-- live route would still be on its first leg at the goal. Journey prices (Nav.EstimateTravel, which
+			-- ns.TravelCost and route choices weigh) do not need it.
+			Polestar.Set("nav.travel", false)
 			${dungeonMaps.map((m) => `Polestar.Engine.ChooseDungeon(${Number(m)}, true)`).join('\n')}
 			${handOver ? 'Polestar.Set("behavior.routeChoice", "recommended")' : ''}
 			Polestar.Engine.SetGuide(${luaValue(g.id)})
 			SIM_GUIDE = Polestar.Engine.GetGuide() -- a hand-over may replace it before SIMULATE starts
 			stub.advance(0.6)
+			${openStartGates && g.category === 'Class' ? `local openingGuide = ${luaValue(g.id)}\n${OPEN_START_GATES}` : ''}
 			${script == null ? SIMULATE : script}
 			${handOver ? handOverCheck(handOver, g.id) : ''}`,
 	};
 }
+
+// A class guide can open on a notice instead of its steps. Exercise it as an
+// eligible character, but never supply a quest the guide itself must work.
+const OPEN_START_GATES = `
+local E, w = Polestar.Engine, stub.world
+local openedStartGates = {}
+while SIM_GUIDE and SIM_GUIDE.id == openingGuide and E.GetGuide() == SIM_GUIDE do
+	local gate = E.StartGate(SIM_GUIDE.id)
+	if not gate then break end
+	if gate.level and w.level < gate.level then
+		local before = w.level
+		w.setLevel(gate.level)
+		if w.level <= before then break end
+		openedStartGates[#openedStartGates+1] = "level " .. w.level .. " reached outside the guide"
+	elseif gate.pre and not w.completed[gate.pre] then
+		local inGuide = false
+		for _, step in ipairs(SIM_GUIDE.steps) do
+			for _, goal in ipairs(step.goals) do
+				if goal.quest == gate.pre then inGuide = true; break end
+			end
+			if inGuide then break end
+		end
+		if inGuide then break end
+		w.turnIn(gate.pre)
+		openedStartGates[#openedStartGates+1] = ("quest %d (%s) completed outside the guide"):format(gate.pre, gate.preTitle)
+	else
+		break
+	end
+	stub.advance(0.6)
+end`;
 
 // Where the engine landed after a guide handed over to one of `ids`: which
 // guide is open, whether each of ids is registered and offered when the
@@ -560,7 +596,7 @@ function playData(dir, diag) {
 // optional goal, so it never learns a profession).
 // `levelOffset` (a whole number): the player is that many levels ahead of the
 // guide's level (tools/lib/playtest-level.js).
-async function playtest({ dir, manifest, official = false, filter = null, classes = null, groups = 'skip', dungeons = null, dataDir = DATA, data = null, contextDir = OFFICIAL_DIR, contextDataDir = DATA, onResult = null, workers = null, honest = false, kb = undefined, learn = null, levelOffset = 0 }) {
+async function playtest({ dir, manifest, official = false, filter = null, classes = null, groups = 'skip', dungeons = null, dataDir = DATA, data = null, contextDir = OFFICIAL_DIR, contextDataDir = DATA, onResult = null, workers = null, honest = false, kb = undefined, learn = null, levelOffset = 0, openStartGates = false }) {
 	// Validate before loading data. The pool starts processes only when a play is queued.
 	const pool = honest ? null : new LuaPool({ size: workers ?? (process.env.POLESTAR_PLAY_WORKERS === undefined ? undefined : Number(process.env.POLESTAR_PLAY_WORKERS)) });
 	const dataDiag = new Diagnostics();
@@ -642,9 +678,10 @@ async function playtest({ dir, manifest, official = false, filter = null, classe
 					].join('\n');
 					const k = results.length;
 					results.push(null);
-					pending.push(playGuideIn(pool, sim, g, { race, faction, cls, handOver, before, groups, dungeonMaps }).then(([out, hand]) => {
+					pending.push(playGuideIn(pool, sim, g, { race, faction, cls, handOver, before, groups, dungeonMaps, openStartGates }).then(([out, hand]) => {
 						const { stuck, problems } = outcome(out, handOver, hand, { race, faction, cls });
 						results[k] = { guide: g.id, race, faction, cls, ok: !stuck && !problems.length, stuck, problems, landed: hand ? hand.guide || null : null };
+						if (out.startGates) results[k].startGates = out.startGates;
 						flush();
 					}));
 				}
@@ -672,7 +709,7 @@ const shapeOf = (g) => g.steps.map((s) => s.goals.map((x) => `${x.t}:${x.quest ?
 // update persona (its leveling guides changed since, played to each of
 // `points` steps on that release's pack, then on this one from the save).
 // -> { results: [{ guide, persona, variant, race, faction, cls, stuck }], diag, played }
-async function personaPlaytest({ dir = OFFICIAL_DIR, manifest, personas, filter = null, classes = null, sample = 8, points = 3, from = null, dataDir = DATA, data = null, onResult = null, workers = null }) {
+async function personaPlaytest({ dir = OFFICIAL_DIR, manifest, personas, filter = null, classes = null, sample = 8, points = 3, from = null, dataDir = DATA, data = null, onResult = null, workers = null, openStartGates = false, onStartGate = null }) {
 	const diag = new Diagnostics();
 	data = data || playData(dataDir, diag);
 	if (diag.hasErrors()) return { results: [], diag, played: 0, dataMissing: true };
@@ -696,7 +733,11 @@ async function personaPlaytest({ dir = OFFICIAL_DIR, manifest, personas, filter 
 	}
 	const pool = new LuaPool({ size: workers ?? (process.env.POLESTAR_PLAY_WORKERS === undefined ? undefined : Number(process.env.POLESTAR_PLAY_WORKERS)) });
 	const sim = simPacks([{ guides, manifest }], data);
-	const oldSim = old ? simPacks([{ guides: old, manifest: { ...manifest, version: from.version } }], data) : null;
+	// The Engine maps a save onto changed guides only when its pack version differs from the save's (Own.updated);
+	// a tree not yet bumped for its release (next before the release commit) still carries the last release's, so
+	// its old pack is told apart, as every real update is.
+	const oldVersion = from && from.version === manifest.version ? `${from.version}-before` : from && from.version;
+	const oldSim = old ? simPacks([{ guides: old, manifest: { ...manifest, version: oldVersion } }], data) : null;
 	const oldById = new Map((old || []).map((g) => [g.id, g]));
 	const results = [];
 	const arriving = new Map();
@@ -723,6 +764,15 @@ async function personaPlaytest({ dir = OFFICIAL_DIR, manifest, personas, filter 
 			const before = [pre.done.length ? `w.complete(${luaValue(pre.done)})` : '', ...pre.carried.map(carriedLua), ...pre.open.map((q) => `w.onQuest(${q}, ${luaValue(objectivesIn(g, q))})`)].join('\n');
 			const tables = personaTables(g, data);
 			const base = { needs: tables.needs, gives: tables.gives, rewards: tables.rewards, restock: tables.restock };
+			// All persona sessions use the same opening policy, including the
+			// successful baseline (not a counted variant) and both sides of an update.
+			const playSession = async (pack, guide, persona, variant, options) => {
+				const emitted = await playGuideIn(pool, pack, guide, { ...who, openStartGates, ...options });
+				if (onStartGate) {
+					for (const gate of emitted.at(-1)?.startGates || []) onStartGate({ guide: guide.id, ...who, persona, variant }, gate);
+				}
+				return emitted;
+			};
 			const record = (persona, variant, stuck) => {
 				const r = { guide: g.id, persona, variant, ...who, stuck };
 				results.push(r);
@@ -730,7 +780,7 @@ async function personaPlaytest({ dir = OFFICIAL_DIR, manifest, personas, filter 
 			};
 			jobs.push(
 				(async () => {
-					const [out] = await playGuideIn(pool, sim, g, { ...who, before, script: lua(base) });
+					const [out] = await playSession(sim, g, 'baseline', 'nothing taken away', { before, script: lua(base) });
 					const baseline = stuckOf(out);
 					if (baseline) {
 						record('baseline', 'nothing taken away', baseline);
@@ -739,26 +789,28 @@ async function personaPlaytest({ dir = OFFICIAL_DIR, manifest, personas, filter 
 					const plays = [];
 					for (const persona of personas.filter((p) => p !== 'update' && p !== 'fresh')) {
 						for (const v of personaVariants(persona, g, data, sample)) {
-							plays.push(playGuideIn(pool, sim, g, { ...who, before: `${before}\n${v.before}`, script: lua(v.persona) }).then(([o]) => record(persona, v.variant, stuckOf(o))));
+							plays.push(playSession(sim, g, persona, v.variant, { before: `${before}\n${v.before}`, script: lua(v.persona) }).then(([o]) => record(persona, v.variant, stuckOf(o))));
 						}
 					}
 					// fresh: a character who opens a guide some route leads into with none of the earlier guides' quests
 					// done or carried. (A guide no route leads into keeps what it waits on from elsewhere: chainDone.)
 					if (personas.includes('fresh') && arriving.has(g.id) && before.trim()) {
-						plays.push(playGuideIn(pool, sim, g, { ...who, script: lua(base) }).then(([o]) => record('fresh', 'opened the guide with nothing from the guides before it', stuckOf(o))));
+						const variant = 'opened the guide with nothing from the guides before it';
+						plays.push(playSession(sim, g, 'fresh', variant, { script: lua(base) }).then(([o]) => record('fresh', variant, stuckOf(o))));
 					}
 					const was = oldById.get(g.id);
 					if (personas.includes('update') && was && (g.category == null || g.category === 'Leveling') && shapeOf(was) !== shapeOf(g)) {
 						const oldPre = chainDone(old, was, who);
 						const oldBefore = [oldPre.done.length ? `w.complete(${luaValue(oldPre.done)})` : '', ...oldPre.carried.map(carriedLua), ...oldPre.open.map((q) => `w.onQuest(${q}, ${luaValue(objectivesIn(was, q))})`)].join('\n');
+						const snapLines = snapshotLines(data, [was, g]);
 						for (const k of updatePoints(was, points)) {
+							const variant = `updated from ${from.version} at its step ${k} "${was.steps[k - 1].title || ''}"`;
 							plays.push(
-								playGuideIn(pool, oldSim, was, { ...who, before: oldBefore, script: `${SNAPSHOT_LUA}\n${lua({ snapshots: [k] })}` }).then(async (emitted) => {
+								playSession(oldSim, was, 'update', `before update: ${variant}`, { before: oldBefore, script: `${snapLines}\n${SNAPSHOT_LUA}\n${lua({ snapshots: [k] })}` }).then(async (emitted) => {
 									const snap = emitted.find((e) => e && e.snapshot);
 									if (!snap) return;
-									const variant = `updated from ${from.version} at its step ${k} "${was.steps[k - 1].title || ''}"`;
 									// Where the save opened the updated guide: emitted first, the play's result after it.
-									const [at, o] = await playGuideIn(pool, sim, g, { ...who, before: snap.world, saved: snap.save, script: `stub.advance(11)\nemit({ at = Polestar.Engine.GetStepIndex() or false })\n${lua(base)}` });
+									const [at, o] = await playSession(sim, g, 'update', variant, { before: snap.world, saved: snap.save, script: `stub.advance(11)\nemit({ at = Polestar.Engine.GetStepIndex() or false })\n${lua(base)}` });
 									record('update', `${variant}, reopened at step ${at && at.at ? at.at : 'none'}`, stuckOf(o));
 								}),
 							);
@@ -831,8 +883,8 @@ const raceName = (r) => RACE_NAMES[r] || r;
 // "Kobolds": goal 1 (kill) stays active".
 function resultLines(r) {
 	const who = `${raceName(r.race)} ${titleCase(r.cls)}`;
-	if (r.ok) return [`ok  ${r.guide} (${who})`];
-	const lines = [];
+	const lines = (r.startGates || []).map((gate) => `${r.guide} (${who}): start gate opened: ${gate}`);
+	if (r.ok) return [...lines, `ok  ${r.guide} (${who})`];
 	if (r.stuck && r.stuck.handOver) lines.push(`stuck ${r.guide} (${who}) at hand-over to ${r.stuck.handOver}: ${r.stuck.reason}`);
 	else if (r.stuck) lines.push(`stuck ${r.guide} (${who})${r.stuck.step != null ? ` at step ${r.stuck.step}` : ''}${r.stuck.title != null ? ` "${r.stuck.title}"` : ''}: ${r.stuck.reason}`);
 	for (const p of r.problems) lines.push(`fail ${r.guide} (${who}): ${p}`);
@@ -880,10 +932,9 @@ local function withheld(t, r)
 	end
 	return false
 end
--- Each line gets the type of the first goal pointing at it, as the game gives
--- every line one: the engine reads a quest collect with no item line from the
--- bags, which the simulator does not fill.
-local objs, kinds = {}, {}
+-- Each line gets the type of the first goal pointing at it. Index item
+-- objectives by quest and line: all the open requests see the same bags.
+local objs, kinds, items = {}, {}, {}
 local KIND = { kill = "monster", collect = "item", interact = "object", talk = "monster" }
 for _, s in ipairs(G.steps) do
 	for _, g in ipairs(s.goals) do
@@ -892,6 +943,10 @@ for _, s in ipairs(G.steps) do
 			objs[g.quest][g.oi] = math.max(objs[g.quest][g.oi] or 1, g.count or 1)
 			kinds[g.quest] = kinds[g.quest] or {}
 			kinds[g.quest][g.oi] = kinds[g.quest][g.oi] or KIND[g.t]
+			if g.t == "collect" and g.item and kinds[g.quest][g.oi] == "item" then
+				items[g.quest] = items[g.quest] or {}
+				items[g.quest][g.oi] = g.item
+			end
 		end
 	end
 end
@@ -913,6 +968,19 @@ local function objectivesFor(q)
 		list[i] = { required = math.max(o[i] or 1, l and l.n or 1), type = (kinds[q] and kinds[q][i]) or (l and WORK_KIND[l.t]) or "event" }
 	end
 	return list
+end
+local function syncItems(q, entry, item)
+	for i, id in pairs(items[q] or {}) do
+		local o = entry.objectives[i]
+		if (not item or item == id) and o then
+			local n = math.min(w.items[id] or 0, o.numRequired)
+			if n ~= o.numFulfilled then w.progress(q, i, n) end
+		end
+	end
+end
+local function changeStack(item, delta)
+	if delta ~= 0 then w.addItem(item, delta) end
+	for q, entry in pairs(w.log) do syncItems(q, entry, item) end
 end
 -- Quests taken in this play (carried ones were worked before it), and the
 -- hand-ins the game refused, with the lines left open.
@@ -988,6 +1056,7 @@ local function act(i, g, r)
 	if t == "accept" then
 		if not w.log[q] and not w.completed[q] then
 			w.accept(q, objectivesFor(q), g.subject)
+			syncItems(q, w.log[q])
 			taken[q] = true
 		end
 	elseif t == "turnin" then
@@ -1016,6 +1085,12 @@ local function act(i, g, r)
 		end
 		doneHere[q] = true
 		w.turnIn(q)
+		if entry then
+			for i, item in pairs(items[q] or {}) do
+				local o = entry.objectives[i]
+				if o then changeStack(item, -math.min(w.items[item] or 0, o.numRequired)) end
+			end
+		end
 	elseif t == "complete" then
 		if w.log[q] then w.finish(q) end
 	elseif t == "abandon" then
@@ -1028,6 +1103,9 @@ local function act(i, g, r)
 		w.deposit(r.item)
 	elseif t == "equip" then
 		w.equip(r.item, not r.off)
+	elseif t == "collect" and r.item and q and g.oi and items[q] and items[q][g.oi] == r.item then
+		local target = g.progress and g.progress.max or r.count or 1
+		changeStack(r.item, math.max(0, target - (w.items[r.item] or 0)))
 	elseif q and g.oi and (t == "kill" or t == "collect" or t == "use" or t == "interact" or t == "talk") then
 		if w.log[q] then
 			local o = w.log[q].objectives[g.oi]
@@ -1037,10 +1115,10 @@ local function act(i, g, r)
 		if w.log[q] then w.finish(q) end
 	-- An auction goal: bought at the Auction House, a bag count as a buy is.
 	elseif (t == "collect" or t == "buy" or t == "auction") and g.item then
-		w.addItem(g.item, (g.progress and g.progress.max) or 1)
+		changeStack(g.item, math.max(0, ((g.progress and g.progress.max) or r.count or 1) - (w.items[g.item] or 0)))
 		if P and P.lose == g.item then armed = i end
 	elseif t == "goto" then
-		w.moveTo(g.map, g.x, g.y)
+		w.moveTo(g.map, g.x, g.y, g.z)
 	elseif t == "talk" then
 		w.gossip(g.npc); w.close()
 	elseif t == "train" then
@@ -1063,7 +1141,7 @@ local function act(i, g, r)
 		w.setZone(g.subject, g.subject)
 	elseif t == "die" then
 		-- A deathskip: back alive beside the graveyard's Spirit Healer.
-		w.moveTo(g.map, g.x, g.y)
+		w.moveTo(g.map, g.x, g.y, g.z)
 		stub.fire("PLAYER_UNGHOST")
 	elseif t == "level" then
 		w.setLevel(math.max(w.level, tonumber((g.subject or ""):match("%d+")) or (w.level + 1)))
@@ -1099,7 +1177,7 @@ local function act(i, g, r)
 	elseif t == "explore" then
 		local id = 900000 + i * 100 + g.index
 		w.addArea(r.map, r.x - 1, r.y - 1, r.x + 1, r.y + 1, id)
-		w.moveTo(r.map, r.x, r.y)
+		w.moveTo(r.map, r.x, r.y, r.z)
 		w.explore(id)
 		-- An explore tied to a quest is its find (an event line).
 		if q and w.log[q] then
@@ -1179,25 +1257,12 @@ while guard < 4000 do
 	-- A vendor check-off beside other work (g.side) is left alone, as by a
 	-- player with nothing to sell: it must never hold the step.
 	for _, g in ipairs(view.goals) do
-		-- A persona's goal left "skipped" (its quest's accept passed) is worked
-		-- only when nothing else holds the step (below).
-		if g.status ~= "done" and g.status ~= "na" and not (P and g.status == "skipped") and not g.optional and not g.side and g.t ~= "note" then open = g; break end
+		if g.status ~= "done" and g.status ~= "na" and g.status ~= "skipped" and not g.optional and not g.side and g.t ~= "note" then open = g; break end
 	end
 	-- A chosen profession's train is taken first, while its step is current: a
 	-- step passed with its \`when\` failing keeps that outcome, so a profession
 	-- learnt after the route left the step would not bring its steps back.
 	local learn = chosenTrain(i, view)
-	-- PERSONA: with nothing else open, a step that still holds is worked by its
-	-- first goal left skipped, as the perfect follower works it.
-	if P and not open and not skipNow and not learn and need <= w.level then
-		stub.advance(0.6)
-		if left() then break end
-		if E.GetStepIndex() == i then
-			for _, g in ipairs(view.goals) do
-				if g.status == "skipped" and not g.optional and not g.side and g.t ~= "note" then open = g; break end
-			end
-		end
-	end
 	if skipNow then
 		skippedOnce = true
 		for _, x in ipairs(G.steps[i].goals) do
@@ -1251,7 +1316,7 @@ for si, s in ipairs(G.steps) do
 end
 local count = 0
 for _ in pairs(visited) do count = count + 1 end
-emit({ done = E.GetStepIndex() == nil or E.GetGuide() ~= G, stuck = stuck, visited = count, steps = #G.steps, missing = missing, wrongPick = wrongPick, level = w.level })
+emit({ done = E.GetStepIndex() == nil or E.GetGuide() ~= G, stuck = stuck, visited = count, steps = #G.steps, missing = missing, wrongPick = wrongPick, level = w.level, startGates = openedStartGates and #openedStartGates > 0 and openedStartGates or nil })
 `;
 
 module.exports = { playtest, personaPlaytest, withChain, resultLines, buildSimPack, playGuide, playGuideIn, playOptions, writePackInto, chainDone, dungeonPicker, SIMULATE, HOME, CLASSES, luaValue };

@@ -2,11 +2,11 @@
   "$schema": "https://datapackage.org/profiles/2.0/datapackage.json",
   "name": "polestar-data-forever",
   "title": "Polestar quest data for World of Warcraft: Forever",
-  "version": "2026.11.1",
-  "created": "2026-11-02",
-  "clientBuild": "1.60.1.70532",
+  "version": "2026.11.2",
+  "created": "2026-11-21",
+  "clientBuild": "1.60.1.70888",
   "schemaVersion": 1,
-  "producerCommit": "6d0de256e66674512e453a2990076d84f7e979bb",
+  "producerCommit": "4e1cd841c94d41348635d7c67a7280c8ad9960c5",
   "licenses": [
     {
       "name": "GPL-3.0-only",
@@ -27,8 +27,8 @@
       "format": "jsonl",
       "mediatype": "application/x-ndjson",
       "encoding": "utf-8",
-      "bytes": 732752,
-      "hash": "sha256:9a0ebe97b48efc3c827a46b62f4f30097257a3bda7445cbcc2f2fa55697f8dbe",
+      "bytes": 811930,
+      "hash": "sha256:ed176dd7ddd9097c8265614947ad6e1ca218c22ab65ea6028350c98b1eeed02d",
       "schema": "schema/quest.schema.json",
       "licenses": [
         {
@@ -45,8 +45,8 @@
       "format": "jsonl",
       "mediatype": "application/x-ndjson",
       "encoding": "utf-8",
-      "bytes": 210004,
-      "hash": "sha256:2463e015736854a05f29abba049839c1e7cdb13bf4453163174cd45aa4d110f6",
+      "bytes": 232726,
+      "hash": "sha256:b0c5724605b3a6b7cd7c71af3a7e5f0cd7e0e4a7372c8a12859b39241549d1ed",
       "schema": "schema/quest_start.schema.json",
       "licenses": [
         {
@@ -63,8 +63,8 @@
       "format": "jsonl",
       "mediatype": "application/x-ndjson",
       "encoding": "utf-8",
-      "bytes": 198308,
-      "hash": "sha256:9de85c2c83d96c3f35766704d30815f546d1f4c58192fc47e04c31546f95e21b",
+      "bytes": 225374,
+      "hash": "sha256:4070334a5b1647b27978940530bc248cc4632031f239b46d07f5100d63403c80",
       "schema": "schema/quest_end.schema.json",
       "licenses": [
         {
@@ -81,8 +81,8 @@
       "format": "jsonl",
       "mediatype": "application/x-ndjson",
       "encoding": "utf-8",
-      "bytes": 375815,
-      "hash": "sha256:0432546676c0afdddf02ef008c84888b366f713691ab60818cc3e0afa578d1ed",
+      "bytes": 351992,
+      "hash": "sha256:fba190d72c862e82f2f20fc432e161d8e3cbe4342db94aa4ad83f1247c9d41b8",
       "schema": "schema/quest_objective.schema.json",
       "licenses": [
         {
@@ -99,8 +99,8 @@
       "format": "jsonl",
       "mediatype": "application/x-ndjson",
       "encoding": "utf-8",
-      "bytes": 152593,
-      "hash": "sha256:4f9319d1a30868452edbed0043d69209ec4d58b6986b358e9a8350ec5d684eaa",
+      "bytes": 182813,
+      "hash": "sha256:6757a041877fb50319aac6a4699c508e42d3d5ba32d87f2d47e091b398c631be",
       "schema": "schema/quest_prereq.schema.json",
       "licenses": [
         {
@@ -117,8 +117,8 @@
       "format": "jsonl",
       "mediatype": "application/x-ndjson",
       "encoding": "utf-8",
-      "bytes": 301870,
-      "hash": "sha256:c9b29a552b90559519153f2061e49dd39820abf3de5cdaf91af82ee59d001405",
+      "bytes": 301820,
+      "hash": "sha256:875f2e0a507f6e3d01bb707e242e722c9f311011300e33009ece1ef84a5107cf",
       "schema": "schema/quest_reward.schema.json",
       "licenses": [
         {
@@ -135,8 +135,8 @@
       "format": "jsonl",
       "mediatype": "application/x-ndjson",
       "encoding": "utf-8",
-      "bytes": 1259285,
-      "hash": "sha256:5d4fed605cb3204f48fc7dc305a5c5b297d4396ec48b981d9b305beb7da521b5",
+      "bytes": 1399610,
+      "hash": "sha256:b4bf1b28a43e20a614e2312ab4a71fbaf00deaf990be0219e4c84a11815cc916",
       "schema": "schema/npc.schema.json",
       "licenses": [
         {
@@ -153,8 +153,8 @@
       "format": "jsonl",
       "mediatype": "application/x-ndjson",
       "encoding": "utf-8",
-      "bytes": 474447,
-      "hash": "sha256:09d1bd6e02e581eca0f716ab56e3e29c78c82ccdc23914f21ca608bafa04e307",
+      "bytes": 486198,
+      "hash": "sha256:089942198dd4e3c6f99ba37b9127a2beefbde5ef6733989df87343fd0bf4abc1",
       "schema": "schema/object.schema.json",
       "licenses": [
         {
@@ -171,8 +171,8 @@
       "format": "jsonl",
       "mediatype": "application/x-ndjson",
       "encoding": "utf-8",
-      "bytes": 6130213,
-      "hash": "sha256:2ecaa55108a163145e731e6ea24edf57417522a430bada8c93898274b11e9851",
+      "bytes": 6856910,
+      "hash": "sha256:6257dc2a5ccc33b165ec9f4efcf649c19e0cf5da87c01011a03c51839c6b52b6",
       "schema": "schema/spawn.schema.json",
       "licenses": [
         {
@@ -189,8 +189,8 @@
       "format": "jsonl",
       "mediatype": "application/x-ndjson",
       "encoding": "utf-8",
-      "bytes": 1073720,
-      "hash": "sha256:14d7248d3437e8a9a9df1528c917fddf5383c295a9697da1ead988f71cb76222",
+      "bytes": 1204845,
+      "hash": "sha256:4352493dc11ea459ecbeef352457c8e639e8ada48e91f36cabc2e4669d3e4203",
       "schema": "schema/item.schema.json",
       "licenses": [
         {
@@ -243,8 +243,8 @@
       "format": "jsonl",
       "mediatype": "application/x-ndjson",
       "encoding": "utf-8",
-      "bytes": 226317,
-      "hash": "sha256:9f77bb31ccea800260f1d770bda579ece34fe3b4cc32410bb4de08d09ed65766",
+      "bytes": 226175,
+      "hash": "sha256:16232aab23a9bb04a84976898208ea5c54a5c2f2d7c7d499f854794f5314bfaf",
       "schema": "schema/mechanic.schema.json",
       "licenses": [
         {
@@ -261,8 +261,8 @@
       "format": "jsonl",
       "mediatype": "application/x-ndjson",
       "encoding": "utf-8",
-      "bytes": 428401,
-      "hash": "sha256:9eb9979406415d87cf582b90890036fec44c89be2cf847684657f9ba6eff6fd6",
+      "bytes": 429388,
+      "hash": "sha256:6dad76ad87bf96ace369f399bd877abe91557acd9a7231d8380bffb954508a7e",
       "schema": "schema/step.schema.json",
       "licenses": [
         {

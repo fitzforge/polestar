@@ -28,8 +28,9 @@
 --       kill goal's kills, and each loot goal's from its drop chance
 --       (count / chance, the goal's own mob else the item's likeliest; a
 --       chance under 5% while another dropper's is not known counts as not
---       known), at the mob's level; an objective split over steps once,
---       nothing for quests
+--       known), at the mob's level, less what the step's `when has` already
+--       has in the bags (it shows only then: nothing to farm); an objective
+--       split over steps once, nothing for quests
 --       done. from/to: only steps from..to-1, from where the character is
 --       (no minLevel start). nil: no guide, or no Codex to read (the Codex is
 --       loaded for it only while lookup.enabled, as Lookup owns it)
@@ -41,16 +42,10 @@
 --       the steps up to there give. pace = { target, step, reach (the level
 --       they leave you at, fractional), bars (the XP bar's 20 per level
 --       short; 0: on pace), short (levels short, 0 on pace), xp (XP short),
---       kind, live, hard }. hard: the first open quest before the target that
---       is 3 or more levels above where the route has you when you get there,
---       { quest, title, level, step, reach, need (its level - 2: no longer
---       hard), xp (XP from reach to need) } | nil. nil at 60, without a live
---       step or the Codex, and with no target (no `level` goal ahead in a
---       guide that is not a leveling one)
---   Levels.StepHint(i[, p]) -> { quest, title, level, you } | nil  -- step i
---       of the active guide holds work (not an accept, a hand-in or a talk)
---       on an open quest 3 or more levels above the character (you: their
---       level and share of it, 19.75)
+--       kind, live }. nil at 60, without a live step or the Codex, and with
+--       no target (no `level` goal ahead in a guide that is not a leveling
+--       one). It never names a quest's level (Fitz: we don't tell players
+--       what level a quest is; #3438)
 --   Levels.QuestLevel(qid[, g]) -> level | nil  -- guide g's own (an accept's
 --       qlvl), else the Codex's while loaded, else the client's
 --   Levels.Player() -> p ; Levels.LEVEL_XP[L] -> XP from L to L + 1 ; Levels.MAX_LEVEL
@@ -227,11 +222,12 @@ end
 -- Creepers beside them, no chance known, drop it on almost every kill).
 local STRAY = 5
 
--- The kills a loot goal takes: count over its drop chance from the goal's own
--- mob, else the item's likeliest dropper. -> n, mob level, elite | nil (no
--- drop to estimate from: an object, a vendor, a chance not known, or only a
--- stray one beside a dropper whose chance is not known)
-local function lootKills(Cx, goal)
+-- The kills a loot goal takes for count items: count over its drop chance
+-- from the goal's own mob, else the item's likeliest dropper. -> n, mob
+-- level, elite | nil (no drop to estimate from: an object, a vendor, a
+-- chance not known, or only a stray one beside a dropper whose chance is not
+-- known)
+local function lootKills(Cx, goal, count)
 	local item = goal.item and Cx.Item and Cx.Item(goal.item)
 	if not (item and type(item.sources) == "table") then return nil end
 	local own = goal.fromKind == "npc" and goal.fromId or nil
@@ -255,17 +251,17 @@ local function lootKills(Cx, goal)
 	if not best or (unknown and best.npc ~= own and best.chance < STRAY) then return nil end
 	local mob, elite = mobOf(Cx, best.npc)
 	if not mob then return nil end
-	return ceil((goal.count or 1) / (min(best.chance, 100) / 100)), mob, elite
+	return ceil(count / (min(best.chance, 100) / 100)), mob, elite
 end
 
 -- A span's entries depend on the guide (its table: an updated import is a new one), the span, who the character is (level, class, race, faction:
 -- the steps' `only`) and which quests are turned in; not on the XP inside a level, which moves on every
--- kill. The guide window's pace line asks on every PLAYER_XP_UPDATE (GF.UpdateXP > Levels.Pace, up to
--- five spans through hardQuest), and each scan walked every step left, building a table per goal: a
+-- kill. The guide window's pace line asks on every PLAYER_XP_UPDATE (GF.UpdateXP > Levels.Pace), and each
+-- scan walked every step left, building a table per goal: a
 -- 5-25 ms frame per kill on a long guide, then its garbage. Kept until one of those changes.
 -- Each step's own rows (what its goals give, read from the Codex) are kept per guide and who the
 -- character is (class, race, faction), until the guides or the data change: a step change moves
--- every span's start (the pace line's, hardQuest's, Engine Own.herePlanned's, one per hand-in), and
+-- every span's start (the pace line's, Engine Own.herePlanned's, one per hand-in), and
 -- each read the same steps' Codex records again (a 10-20 ms frame at a step change early in a long
 -- guide). Whether a quest is done is asked when a span is summed, so a hand-in or a level-up drops
 -- the spans only.
@@ -289,11 +285,22 @@ end
 
 -- Step si's rows for a character `applies` fits: { turnin = qid, entry } per hand-in, { quest, key,
 -- entry | false } per kill or loot goal (key: the objective, counted once per span; no entry: loot
--- with no drop behind it, gathered or bought, needs no kills).
+-- with no drop behind it, gathered or bought, or already in the bags, needs no kills).
 local function stepRows(g, si, Cx, applies)
 	local out = {}
 	local step = g.steps[si]
 	if not (step and applies(step.only) and type(step.goals) == "table") then return out end
+	-- A step shown only while the bags hold an item (`when has`) asks no kills for those: the player
+	-- brings them (Badlands' Frost Oil for Lotwil, 1 in 5,000 kills as a drop).
+	local carried
+	if type(step.when) == "table" then
+		for _, p in ipairs(step.when) do
+			if p.k == "has" and not p.neg and p.item then
+				carried = carried or {}
+				carried[p.item] = max(carried[p.item] or 0, p.n or 1)
+			end
+		end
+	end
 	for _, goal in ipairs(step.goals) do
 		if applies(goal.only) then
 			local t, qid = goal.t, goal.quest
@@ -306,8 +313,11 @@ local function stepRows(g, si, Cx, applies)
 					local mob, elite = mobOf(Cx, goal.npc)
 					row.entry = { kind = "kill", n = mob and (goal.count or 1) or nil, mob = mob, elite = elite }
 				else
-					local n, mob, elite = lootKills(Cx, goal)
-					if n or goal.fromKind == "npc" then row.entry = { kind = "kill", n = n, mob = mob, elite = elite } end
+					local count = (goal.count or 1) - (carried and carried[goal.item] or 0)
+					if count > 0 then
+						local n, mob, elite = lootKills(Cx, goal, count)
+						if n or goal.fromKind == "npc" then row.entry = { kind = "kill", n = n, mob = mob, elite = elite } end
+					end
 				end
 				out[#out + 1] = row
 			end
@@ -369,10 +379,6 @@ function Levels.ForGuide(id, p, from, to)
 	return Levels.Run(entries, p, start)
 end
 
--- A quest 3 or more levels above the character: the quest log's orange and
--- red, hard to do alone.
-local HARD = 3
-
 local function at(t) return t.level + (t.need > 0 and t.xp / t.need or 0) end
 
 -- XP from where t stands ({ level, xp, need }, as Levels.Run's `to`) to
@@ -409,107 +415,6 @@ function Levels.QuestLevel(qid, g)
 	if type(rec) == "table" and type(rec.level) == "number" and rec.level > 0 then return rec.level end
 	local C = ns.Compat
 	return C and C.GetQuestLevel and C.GetQuestLevel(qid) or nil
-end
-
--- Whether quest q asks for work in guide g: a goal of its own objectives in
--- the guide (kill, collect, use, interact, complete, or one naming its
--- objective), or objectives in the Codex (work done in another guide). A
--- delivery (Calling in the Reserves: taken at Sun Rock, handed in at the
--- Great Lift) has none: its level asks nothing of the character.
-local worked = setmetatable({}, { __mode = "k" })
-local WORK = { kill = true, collect = true, use = true, interact = true, complete = true }
-local function asksWork(g, q)
-	local map = worked[g]
-	if not map then
-		map = {}
-		for _, step in ipairs(g.steps) do
-			for _, goal in ipairs(type(step.goals) == "table" and step.goals or {}) do
-				local t = goal.t
-				if goal.quest and t ~= "accept" and t ~= "turnin" and t ~= "note" and (WORK[t] or goal.oi ~= nil) then map[goal.quest] = true end
-			end
-		end
-		worked[g] = map
-	end
-	if map[q] then return true end
-	local Cx = ns.Codex
-	local rec = Cx and Cx.IsLoaded and Cx.IsLoaded() and Cx.Quest and Cx.Quest(q)
-	return type(rec) == "table" and type(rec.objectives) == "table" and #rec.objectives > 0
-end
-
--- The highest open quest on step s of guide g for this character: a goal of
--- a quest neither done nor ready to hand in, other than its turn-in or a
--- talk (never hard), of a quest that asks for work (asksWork: never a
--- delivery); with `work`, not its accept either (taking a quest is not
--- doing it: the pace line points at the step that does). The active guide
--- asks the Engine what applies (`when`, quests the route leaves out);
--- another, the steps' and goals' `only`. -> quest, level, title (the
--- client's, Polestar.Names, else the guide's) | nil
-local function stepQuest(g, s, p, work)
-	local step = g.steps[s]
-	if not (step and type(step.goals) == "table") then return nil end
-	local E, G, C = ns.Engine, ns.Guides, ns.Compat
-	local active = E and E.GetGuide and E.GetGuide() == g and E.Applies
-	local fits = G and G.Matches
-	if not active and fits and type(step.only) == "table" and not fits(step.only, p) then return nil end
-	local best, lvl, title
-	for gi, goal in ipairs(step.goals) do
-		local q, t = goal.quest, goal.t
-		local open = q and t ~= "turnin" and t ~= "talk" and not (work and t == "accept") and asksWork(g, q)
-			and not (C and C.IsQuestCompleted and C.IsQuestCompleted(q))
-			and not (C and C.IsQuestReadyForTurnIn and C.IsQuestReadyForTurnIn(q))
-		if open then
-			if active then
-				open = E.Applies(s, gi)
-			else
-				open = not (fits and type(goal.only) == "table") or fits(goal.only, p)
-			end
-		end
-		local l = open and Levels.QuestLevel(q, g)
-		if l and (not lvl or l > lvl) then best, lvl, title = q, l, goal.title end
-	end
-	return best, lvl, best and ns.Names and ns.Names.Quest(best) or title
-end
-
-function Levels.StepHint(i, p)
-	local E = ns.Engine
-	local g = E and E.GetGuide and E.GetGuide()
-	if not (type(g) == "table" and type(g.steps) == "table" and type(i) == "number") then return nil end
-	p = p or Levels.Player()
-	local lvl = p.level or 1
-	if lvl >= MAX_LEVEL then return nil end
-	-- Only work on the step counts (kills, objectives): taking a quest above
-	-- your level early is normal, and an accept-only step says nothing.
-	local q, l, title = stepQuest(g, i, p, true)
-	if not (l and l - lvl >= HARD) then return nil end
-	return { quest = q, title = title, level = l, you = lvl + ((p.xpMax or 0) > 0 and (p.xp or 0) / p.xpMax or 0) }
-end
-
--- The first open quest on steps from..to that is HARD levels above where the
--- route has the character when they get there (Levels.ForGuide up to its
--- step). Only quests HARD above the character now can be; at most four are
--- looked into.
-local function hardQuest(g, p, from, to)
-	local lvl, tries, seen = p.level or 1, 0, {}
-	for s = from, min(to, #g.steps) do
-		local q, l, title = stepQuest(g, s, p, true)
-		if q and l - lvl >= HARD and not seen[q] then
-			seen[q] = true
-			local t
-			if s == from then
-				t = { level = lvl, xp = p.xp or 0, need = (p.xpMax or 0) > 0 and p.xpMax or LEVEL_XP[lvl] or 0 }
-			else
-				local run = Levels.ForGuide(g.id, p, from, s)
-				if not run then return nil end
-				t = run.to
-			end
-			if l - t.level >= HARD then
-				return { quest = q, title = title, level = l, step = s, reach = at(t), need = l - (HARD - 1), xp = xpTo(t, l - (HARD - 1)) }
-			end
-			tries = tries + 1
-			if tries >= 4 then return nil end
-		end
-	end
-	return nil
 end
 
 -- The last step of the active guide g at or after `live` the player gets to
@@ -549,6 +454,5 @@ function Levels.Pace(p)
 	return {
 		target = target, step = step, reach = reach, bars = short > 0 and ceil(short * 20) or 0,
 		short = short, xp = xpTo(s.to, target), kind = kind, live = live,
-		hard = hardQuest(g, p, live, kind == "goal" and step - 1 or step),
 	}
 end
