@@ -323,14 +323,20 @@ local function fillRow(r, v, i, live, at)
 	for _, goal in ipairs(list) do
 		if mySkip(goal) then held = true break end
 	end
-	-- A step the player skipped is never folded: its title, then one line
-	-- that says so with its Unskip (as a run of steps skipped for you reads).
+	-- A step the player skipped is never folded: its title (an untitled
+	-- step's first goal), then one line that says the player skipped it, the
+	-- skip glyph in the accent and its Unskip. Steps skipped for the player
+	-- (fillSkipped: the guide's call) read "Skipped for you", muted, with no
+	-- Unskip: the two are never drawn alike.
 	local mine = v.skipped == true and i ~= live
 	local only = gone and i ~= at and held and not mine
 	local one = gone and i ~= at and not held and not mine
 	r.psOne = one
 	local no = UI.StepNo(i)
-	local title = (v.title and v.title ~= "") and v.title or string.format(L["Step %d"], no)
+	-- An untitled step is named by its first goal (UI.StepSummary), as its
+	-- tooltip is; "Step N" only when it has none.
+	local plain = r.psSummary ~= "" and UI.PlainGoalText({ text = r.psSummary }) or nil
+	local title = (v.title and v.title ~= "") and v.title or plain or string.format(L["Step %d"], no)
 	r.Tab:SetText(no .. " \194\183 " .. title)
 	W.Color(r.Tab, gone and "textMuted" or (i == live and "accent" or "textMuted"))
 	r.Live:SetShown(i == live and not one)
@@ -344,8 +350,6 @@ local function fillRow(r, v, i, live, at)
 	if mine then
 		n = 1
 		local g = line(r, 1)
-		g.psUnskip = true
-		g.Unskip.psQuest, g.Unskip.psStep = nil, i
 		g.Icon:SetTexture(Theme.Media("skip"))
 		W.Color(g.Icon, "accent")
 		g.Text:SetText(L["You skipped this step."])
@@ -369,8 +373,8 @@ local function fillRow(r, v, i, live, at)
 			g.Text:SetText(text)
 			W.Color(g.Text, (gone or goal.psDone) and "textMuted" or "text")
 			key[n] = text
-		elseif n == 0 and not said and not only and v.title and v.title ~= "" and not UI.GoalProgress(goal) and not UI.GoalBar(goal)
-			and UI.PlainGoalText(UI.ReadingGoal(v, goal)) == v.title then
+		elseif n == 0 and not said and not only and not mine and not UI.GoalProgress(goal) and not UI.GoalBar(goal)
+			and UI.PlainGoalText(UI.ReadingGoal(v, goal)) == title then
 			said = true
 		else
 			n = n + 1
@@ -424,6 +428,12 @@ local function fillRow(r, v, i, live, at)
 		key[#key + 1] = "out" .. #out
 	end
 	if one then n, more, key = 0, 0, { "one" } end
+	-- The step's Unskip on its line.
+	if mine and n > 0 then
+		local g = r.G[1]
+		g.psUnskip = true
+		g.Unskip.psQuest, g.Unskip.psStep = nil, i
+	end
 	for j = 1, #r.G do
 		r.G[j].Icon:SetShown(j <= n)
 		r.G[j].Text:SetShown(j <= n)
