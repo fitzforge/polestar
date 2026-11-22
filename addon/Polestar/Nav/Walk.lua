@@ -1981,8 +1981,16 @@ function Walk.MeasureBusy()
 	return measuring ~= nil
 end
 
--- The planner stops holding its route for the measure being taken (Travel.Waiting's HOLD seconds): the places it
--- has not priced yet keep their estimates until it lands (UnpricedTransfer).
+-- Seconds the planner has held its route for the measure being taken, counted from the first time it asks
+-- (Travel.Waiting): each measure has its own count, so a new measure of the same target holds afresh. 0 without one.
+function Walk.HeldFor()
+	if not measuring then return 0 end
+	measuring.heldAt = measuring.heldAt or GetTime()
+	return GetTime() - measuring.heldAt
+end
+
+-- The planner stops holding its route for the measure being taken (Travel.Waiting, after 2 s of it): the places
+-- it has not priced yet keep their estimates until it lands (UnpricedTransfer).
 function Walk.GiveUp()
 	if measuring then measuring.gaveUp = true end
 end

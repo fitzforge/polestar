@@ -1404,7 +1404,8 @@ fn a_goal_floor_no_walk_reaches_is_walked_to_without_its_height_a_policy_refusal
 		emit(r)"#);
 	assert_eq!(out["asked"], 75, "first at the goal's height");
 	assert_eq!(out["again"], json!([2, "nil"]), "asked again without it");
-	assert_eq!(out["aim"], json!(["travel", 500, 0, -500]), "and walked");
+	assert_eq!(head(&out["aim"], 2), json!(["travel", 500]), "and walked: {}", out["aim"]);
+	heads(&out["aim"], (0.0, 0.0), (0.0, -500.0), "along the walk to the goal's spot");
 	assert!(out["label"].as_str().unwrap_or("").contains("The last steps here aren't mapped"), "saying so: {}", out["label"]);
 	assert_eq!(out["policy"], true, "a policy refusal is not asked again without the height");
 }

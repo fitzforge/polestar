@@ -2365,8 +2365,6 @@ function Travel.CorpseGround(route, target, c, x, y, z, tx, ty, tz, W)
 	if not finished and not job then r.x = nil end -- search unavailable, not a refusal
 end
 
-local holdFor, holdSince -- the target the planner first held its route for (Travel.Waiting), and since when (GetTime)
-
 -- A plan from where the player stands to the target, or nil; and where from.
 local function plan(target, held)
 	Travel.held = nil
@@ -2510,7 +2508,6 @@ local function plan(target, held)
 	if waitForWalk and landing and W.UnpricedTransfer(tc, twx, twy, ghost, tz, landing) then
 		route = nil
 		Travel.held = pending and target or nil
-		if Travel.held and holdFor ~= target then holdFor, holdSince = target, GetTime() end
 	end
 	-- The near walk the planner would offer: the engine asked for it (Travel.NearWalk with its answer).
 	if probe and probe.yards and W.Probe then
@@ -2577,21 +2574,22 @@ end
 -- The route for the target is held while the walk from its landing into the target is checked (plan's
 -- waitForWalk): the arrow's own walk straight to the target waits too (Nav.lua's sample), so that measure gets the
 -- frames and the route comes first, as before 0.4.2 (#3369). Not once the measure is done: the planner then has
--- its answer, a route or none (a walk: the arrow's own search). Nor for longer than HOLD seconds: the places the
--- measure has not priced yet then keep their estimates (Walk.GiveUp) and the route is offered; a price that lands
--- later plans once more (Travel.Remeasured). A measure that finds no walk into the target only when its search
--- has run dry held the route for minutes, and then offered none (#3553).
-local HOLD = 2
+-- its answer, a route or none (a walk: the arrow's own search). Nor for more than 2 s of one measure (Walk.HeldFor,
+-- counted per measure from the first frame it holds the route): the places it has not priced yet then keep their
+-- estimates (Walk.GiveUp) and the route is offered; a price that lands later plans once more (Travel.Remeasured).
+-- A measure that finds no walk into the target only when its search has run dry held the route for minutes, and
+-- then offered none (#3553). The frame that offers the route still reads as held, so the sample asks no walk
+-- straight to the target before the route's own walk on the next one.
 function Travel.Waiting()
 	local t = Travel.held
 	if not t or legs or t ~= Nav.GetTarget() then return false end
 	local W = Nav.walk
 	if not (W and W.MeasureBusy and W.MeasureBusy()) then return false end
-	if holdFor ~= t or GetTime() - holdSince < HOLD then return true end
+	if not (W.HeldFor and W.HeldFor() >= 2) then return true end
 	Travel.held = nil
-	if W.GiveUp then W.GiveUp() end
+	W.GiveUp()
 	Travel.Remeasured()
-	return false
+	return legs ~= nil
 end
 
 ---------------------------------------------------------------------------
