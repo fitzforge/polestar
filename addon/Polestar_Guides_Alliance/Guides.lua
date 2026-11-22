@@ -4465,7 +4465,7 @@ do
 				},
 				{
 					title = "{npc:2097}",
-					when = { { k = "turnedin", neg = true, q = 304 } },
+					when = { { k = "turnedin", neg = true, q = 304 }, { k = "onquest", neg = true, q = { 304 } } },
 					goals = {
 						{ t = "accept", quest = 472, title = "Fall of Dun Modr", npc = 2097, npcName = "Harlo Barnaby", minLevel = 25, qlvl = 30, map = 1437, x = 10.77, y = 55.8, z = 11.2, note = "{npc:2097}, by the north gate: {npc:1071} takes it at {area:205}, at the north end of this visit's east loop" },
 					},

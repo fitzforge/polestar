@@ -17614,6 +17614,17 @@ test('#2563: Wetlands (Alliance): Fall of Dun Modr is taken on its own step, onl
 	assert.ok(at(hills, 'turnin 472', is('turnin', 472)) >= 0, 'Longbraid still takes it on the Dun Modr stop');
 });
 
+// #3597 (Tilman, 0.4.2.1): Harlo Barnaby doesn't offer Fall of Dun Modr while A Grim Task (304) is in the log either
+// (abandoning A Grim Task brings the offer back), so the step waited on an accept nobody could take for a player who
+// had picked A Grim Task up at Dun Modr first. Harlo's step is shown only while 304 is neither in the log nor handed in.
+test('#3597: Wetlands (Alliance): Fall of Dun Modr is not asked for while A Grim Task is in the log', { skip }, () => {
+	const wet = goals('forever/alliance/06-wetlands.guide');
+	const harlo = wet[at(wet, 'accept 472', is('accept', 472))];
+	const when = harlo.step.when || [];
+	assert.ok(when.some((p) => p.k === 'onquest' && p.neg && [p.q].flat().includes(304)), 'not while A Grim Task is in the log');
+	assert.ok(when.some((p) => p.k === 'turnedin' && p.neg && [p.q].flat().includes(304)), 'nor once it is handed in (#2563)');
+});
+
 // --- Bare `complete`s away from the giver (#703): with no place of its own, a
 // `complete` leads the arrow to the quest's giver (#303). For these quests the
 // work is somewhere else: Coriella Calmbreeze north-west of Shen'dar Village,
