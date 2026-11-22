@@ -9,6 +9,8 @@ const assert = require('node:assert/strict');
 const { instanceFacts, buildInstances, chooseEntrance, loadEntranceTable } = require('../tools/lib/codex/instances');
 const { emitPack } = require('../tools/lib/codex/pack');
 const { isSourceCitation } = require('../tools/lib/codex/web');
+const { writeCodexPack } = require('./helpers/codex');
+const { runAddon } = require('./helpers/lua');
 
 // Westfall's live frame: world x north / y west -> map percent.
 const WESTFALL = { c: 0, left: 2000, right: -1000, top: -9000, bottom: -12000 };
@@ -136,6 +138,48 @@ test('pack: the Alliance way in follows the entrance', () => {
 	const codex = { meta: { schema: 1 }, items: {}, npcs: {}, objects: {}, quests: {}, instances: { 'city-of-dalaran': inst }, zones: {}, factions: {}, spells: {}, frames: {} };
 	const text = Object.values(emitPack(codex, { version: '0', build: 'test' })).join('\n');
 	assert.match(text, /1416,85,592,,,1416,147,630/);
+});
+
+test('Lookup keeps the underground floor for the Hall of Thanes entrance (#2447)', (t) => {
+	const key = 'the-hall-of-thanes';
+	const map = 1455;
+	const ironforge = { c: 0, left: -713.591, right: -1504.216, top: -4569.241, bottom: -5096.846 };
+	const entrance = chooseEntrance({
+		name: 'The Hall of Thanes', frames: { [map]: ironforge }, table: loadEntranceTable()[key],
+		recorded: [{ map, x: 28.26, y: 47.64, n: 54 }],
+	});
+	const instance = { key, name: 'The Hall of Thanes', kind: 'dungeon', forever: true, map: 3065, entrance, bosses: [] };
+	const npc = { id: 261311, name: 'Plunder', instance: key, spawns: [] };
+	const item = { id: 271098, name: 'Golemguard Chest', kind: 'item', sources: [
+		{ type: 'drop', npc: npc.id, instance: key, from: ['curated'] },
+	] };
+	const pack = writeCodexPack({
+		meta: { schema: 1 }, items: { [item.id]: item }, npcs: { [npc.id]: npc }, objects: {},
+		quests: {}, instances: { [key]: instance }, zones: {}, factions: {}, spells: {}, frames: { [map]: ironforge },
+	});
+	t.after(pack.cleanup);
+	const [result] = runAddon({
+		stubs: ['stub_world.lua'],
+		before: `${pack.stubLua}
+local w = stub.world
+w.addMap(1455, { name = "Ironforge", c = 0, left = -713.591, right = -1504.216, top = -4569.241, bottom = -5096.846 })
+w.level, w.faction = 14, "Alliance"
+w.moveTo(1455, 47.64, 52.51)`,
+		addons: [{ name: 'Polestar', files: ['Core/Core.xml', 'Lookup/Lookup.xml'] }],
+		login: true,
+		script: `
+local key = "the-hall-of-thanes"
+local L, C = Polestar.Lookup, Polestar.Codex
+local item = assert(L.BuildGuide("item", 271098))
+local dungeon = assert(L.BuildGuide("instance", key))
+local function point(p)
+	return { p.map, p.x, p.y, p.z or false }
+end
+emit({ entrance = point(C.Instance(key).entrance), item = point(item.steps[1].goals[1]),
+	dungeon = point(dungeon.steps[1].goals[1]) })`,
+	}).emitted;
+	const door = [1455, 28.3, 47.6, 399];
+	assert.deepEqual(result, { entrance: door, item: door, dungeon: door });
 });
 
 // #1832: The Drowned City's way in is where players' recordings enter it: Sunken Hollow, due west of Grom'gol.

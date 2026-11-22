@@ -536,6 +536,37 @@ local function allowed(mask, faction, class)
 	return mask == 3 or (faction ~= 0 and mask == faction)
 end
 
+function Travel.FlightLegSeconds(yards)
+	return yards / 30 + 2 -- yd/s along the flight path, plus take-off and landing per hop
+end
+
+-- Shortest flight times from a node, optionally stopping at one destination.
+-- A nonempty known set limits the intermediate stops.
+function Travel.FlightTimes(from, faction, known, to)
+	local useKnown = type(known) == "table" and next(known) ~= nil
+	local dist, done = { [from] = 0 }, {}
+	while true do
+		local u, best = nil, huge
+		for id, seconds in pairs(dist) do
+			if not done[id] and seconds < best then u, best = id, seconds end
+		end
+		if not u or u == to then return dist end
+		done[u] = true
+		local legs = flights[u]
+		if legs then
+			for i = 1, #legs - 1, 2 do
+				local v = legs[i]
+				local node = taxi[v]
+				if node and not done[v] and allowed(node.faction, faction)
+					and (not useKnown or known[v] or v == to) then
+					local seconds = best + Travel.FlightLegSeconds(legs[i + 1])
+					if not dist[v] or seconds < dist[v] then dist[v] = seconds end
+				end
+			end
+		end
+	end
+end
+
 local function yards(c1, x1, y1, c2, x2, y2)
 	if c1 ~= c2 then return huge end
 	local dx, dy = x2 - x1, y2 - y1
@@ -745,8 +776,6 @@ local planScratch = { busy = false, n = 0, paths = 0, vc = {}, vx = {}, vy = {},
 
 local function planBody(p, S)
 	-- (planRoute's own constants: the file's main chunk keeps clear of Lua 5.1's 200 locals)
-	local FLIGHT_SPEED = 30      -- yd/s along the flight path (Classic gryphon/wyvern)
-	local FLIGHT_STOP = 2        -- seconds per hop (take-off, landing)
 	local LINK_YARDS, MAX_LINKS = 150, 3
 	local MAX_PATH_VERTICES = 1500
 	local MAX_POPS = 20000
@@ -1425,7 +1454,7 @@ local function planBody(p, S)
 					-- 10 s more to learn a flight master not learnt yet (talking to it, its "New flight path discovered").
 					local learn = learnV[u] and 10 or 0
 					-- The first hop's take-off at the flight master (talking to it, picking the flight: 6 s
-					-- median from reaching it to take-off in players' recordings, FLIGHT_STOP's 2 included):
+					-- median from reaching it to take-off in players' recordings, including the hop's 2 s):
 					-- a cost, never a time, so a near tie walks instead of detouring to the flight master.
 					-- Local here: PlanRoute is at Lua 5.1's 60 upvalues.
 					local TAKE_OFF = via[u] == FLY and 0 or 4
@@ -1435,7 +1464,7 @@ local function planBody(p, S)
 					for i = 1, #fl - 1, 2 do
 						local v = taxiV[fl[i]]
 						if v then
-							local s = fl[i + 1] / FLIGHT_SPEED + FLIGHT_STOP + learn
+							local s = Travel.FlightLegSeconds(fl[i + 1]) + learn
 							relax(v, du + s + TAKE_OFF + (maybeV[v] and MAYBE or 0), tu + s, FLY, u)
 						end
 					end
@@ -1449,15 +1478,28 @@ local function planBody(p, S)
 				end
 				if cost then relax(rideTo[u], du + cost, tu + cost, RIDE, u) end
 			elseif kind == START then
-				-- The live taxi frame already offers this flight. This edge boards in
-				-- place; it never walks to the origin or authorizes walking out of it.
-				-- Only direct offers: never extend this ticket by an unoffered second hop.
-				local fl = boarding and flights[boarding.node.id]
-				if fl then
-					for i = 1, #fl - 1, 2 do
-						local v = taxiV[fl[i]]
-						if v and boarding.reachable[fl[i]] then
-							local s = fl[i + 1] / FLIGHT_SPEED + FLIGHT_STOP
+				-- Each selectable destination is one ticket from the player's spot.
+				-- The graph prices the ticket. Only the open map authorizes boarding.
+				if boarding then
+					local from = boarding.node
+					local direct, knownTimes, allTimes = {}
+					local fl = flights[from.id] or {}
+					for i = 1, #fl - 1, 2 do direct[fl[i]] = fl[i + 1] end
+					for id in pairs(boarding.reachable) do
+						local v = taxiV[id]
+						if v then
+							local s
+							if direct[id] then
+								s = Travel.FlightLegSeconds(direct[id])
+							else
+								knownTimes = knownTimes or Travel.FlightTimes(from.id, faction, known)
+								s = knownTimes[id]
+								if not s then
+									-- A connection can be missing from our known nodes or the shipped graph.
+									allTimes = allTimes or Travel.FlightTimes(from.id, faction)
+									s = allTimes[id] or Travel.FlightLegSeconds(yards(from.c, from.wx, from.wy, vc[v], vx[v], vy[v]))
+								end
+							end
 							relax(v, du + s, tu + s, FLY, u)
 						end
 					end

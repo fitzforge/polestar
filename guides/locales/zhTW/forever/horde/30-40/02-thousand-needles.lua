@@ -281,7 +281,7 @@ return {
 
 	-- Step 52: Drulzegar Skraghook
 	-- {npc:12340} Drulzegar Skraghook · {npc:12031} Mai'Lahii · {quest:6143} Other Fish to Fry · {area:598} Sar'theris Strand
-	["{npc:12340} stands at the village's south end, near {npc:12031}. At your level his {quest:6143} fits the walk north along the coast: the southern half of {area:598}, from level 34."] = "",
+	["{npc:12340} stands at the village's south end, near {npc:12031}. At your level his {quest:6143} fits the walk north along the coast: the southern half of {area:598}, from level 34."] = "{npc:12340}站在村莊南端，靠近{npc:12031}。以你的等級，他的{quest:6143}正好併入沿著海岸往北的行程：{area:598}的南半部，從34級開始。",
 
 	-- Step 53: Ethel Rethor
 	-- {npc:11863} Azore Aldamort · {area:2406} Ranazjar Isle
@@ -314,9 +314,9 @@ return {
 	["{item:15881}, from the Slitherblade naga"] = "{item:15881}，來自滑刃納迦",
 
 	-- Step 57: Sar'theris Strand: Other Fish to Fry
-	["Stay in the southern half of the strand, where Rackmore's key drops: eight Myrmidons (34-35) walk there among the Naga, Sorceresses and Warriors (32-34).\nCareful: the northern half belongs to the Sea Witches (35-36, casters) and, at its tip, the Tidehunters (36-37): keep south of the middle of the beach."] = "",
+	["Stay in the southern half of the strand, where Rackmore's key drops: eight Myrmidons (34-35) walk there among the Naga, Sorceresses and Warriors (32-34).\nCareful: the northern half belongs to the Sea Witches (35-36, casters) and, at its tip, the Tidehunters (36-37): keep south of the middle of the beach."] = "待在海灘南半部，拉克摩的鑰匙就在那裡掉落：八隻滑刃侍衛（34-35級）在納迦、女巫和戰士（32-34級）之間遊盪。\n小心：北半部是海巫（35-36級，施法者）的地盤，其頂端還有潮行者（36-37級）：待在海灘中部以南。",
 	-- {npc:4714} Slitherblade Myrmidon
-	["{npc:4714}, in the strand's southern half"] = "",
+	["{npc:4714}, in the strand's southern half"] = "{npc:4714}，在海灘南半部",
 
 	-- Step 58: Rackmore's Chest
 	-- {area:2406} Ranazjar Isle · {object:177786} Rackmore's Chest · {object:177673} Serpent Statue
@@ -329,7 +329,7 @@ return {
 
 	-- Step 60: Drulzegar Skraghook
 	-- {npc:12340} Drulzegar Skraghook · {npc:12031} Mai'Lahii
-	["{npc:12340}, near {npc:12031}"] = "",
+	["{npc:12340}, near {npc:12031}"] = "{npc:12340}，靠近{npc:12031}",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
 	-- ["Back south to {npc:11863}'s tower."] = "向南返回{npc:11863}的塔樓。",
