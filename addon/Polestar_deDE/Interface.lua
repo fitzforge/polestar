@@ -3405,8 +3405,10 @@ L["Characters is turned off. Turn it on under Options > Discovery > Lookup."] = 
 L["Characters is turned off. Turn it on under Settings > Discovery > Lookup."] = "Charaktere ist ausgeschaltet. Schalte es unter Einstellungen > Entdecken > Nachschlagen ein."
 
 -- QoL/Keep.lua
-L["Don't sell: the guide needs it at step %d"] = "Nicht verkaufen: Der Guide braucht es bei Schritt %d"
-L["Kept for the guide: step %d needs it"] = "Für den Guide behalten: Schritt %d braucht es"
+L["Used in guides:"] = "Gebraucht in Guides:"
+L["Don't sell, used in guides:"] = "Nicht verkaufen, gebraucht in Guides:"
+L["%s: step %d (%s)"] = "%s: Schritt %d (%s)"
+L["%s: step %d"] = "%s: Schritt %d"
 L["Keep %s: a later step of the guide needs it."] = "%s behalten: Ein späterer Schritt des Guides braucht es."
 L["Keep %s: later steps of the guide need them."] = "%s behalten: Spätere Schritte des Guides brauchen sie."
 

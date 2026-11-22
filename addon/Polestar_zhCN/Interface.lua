@@ -3444,8 +3444,10 @@ L["Characters is turned off. Turn it on under Options > Discovery > Lookup."] = 
 L["Characters is turned off. Turn it on under Settings > Discovery > Lookup."] = "“角色”功能已关闭。请在“设置 > 发现 > 查询”中开启。"
 
 -- QoL/Keep.lua
-L["Don't sell: the guide needs it at step %d"] = "请勿出售：指南的步骤 %d 需要它"
-L["Kept for the guide: step %d needs it"] = "为指南保留：步骤 %d 需要它"
+L["Used in guides:"] = "用于指南："
+L["Don't sell, used in guides:"] = "不要出售，用于指南："
+L["%s: step %d (%s)"] = "%s：步骤 %d（%s）"
+L["%s: step %d"] = "%s：步骤 %d"
 L["Keep %s: a later step of the guide needs it."] = "请保留%s：指南后续的步骤需要它。"
 L["Keep %s: later steps of the guide need them."] = "请保留%s：指南后续的步骤需要它们。"
 
