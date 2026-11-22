@@ -92,6 +92,41 @@ fn the_end_with_steps_left_open_names_the_guide_the_steps_and_the_next_guide_bac
 	assert_eq!(out["after"], false);
 }
 
+// The last step done before the rest (GUIDE_STEPS_LEFT, #3517) is no end yet: the window says how many steps are
+// left and that the next guide follows, with one button, back to the live step; no next guide offered. The end
+// itself comes later as usual.
+#[test]
+fn the_last_step_done_early_says_how_many_steps_are_left_with_back_to_the_live_step_as_its_one_button() {
+	let out = run(r#"
+		uistub.setGuide(uistub.elwynn, 5)
+		Polestar.Fire("GUIDE_STEPS_LEFT", uistub.elwynn, info({ left = 2, live = 3 }))
+		local r = view()
+		r.laterShown = PolestarGuideEnd.Later:IsShown()
+		PolestarGuideEnd.Go:Click()
+		r.goto, r.after, r.start = lastCall("Goto"), PolestarGuideEnd:IsShown(), lastCall("StartNext")
+		Polestar.Fire("GUIDE_STEPS_LEFT", uistub.elwynn, info({ left = 1, live = 3 }))
+		r.one = view()
+		Polestar.Fire("GUIDE_END", uistub.elwynn, info({ undone = 0, next = NEXT }))
+		r.theEnd = view()
+		r.theEnd.laterShown = PolestarGuideEnd.Later:IsShown()
+		emit(r)"#);
+	assert_eq!(plain(&out["title"]), "2 steps left in\nElwynn Forest (1–13)");
+	assert_eq!(out["undone"], false);
+	assert_eq!(out["next"], false, "no next guide yet");
+	assert_eq!(out["text"], "Do them or skip them, and the next guide follows.");
+	assert_eq!(out["go"], "Back to step 3");
+	assert_eq!(out["primary"], true);
+	assert_eq!(out["laterShown"], false, "one button");
+	assert_eq!(out["goto"], json!(["Goto", 3]));
+	assert_eq!(out["after"], false);
+	assert_eq!(out["start"], false, "no guide started");
+	assert_eq!(plain(&out["one"]["title"]), "1 step left in\nElwynn Forest (1–13)");
+	assert_eq!(out["one"]["text"], "Do it or skip it, and the next guide follows.");
+	assert_eq!(plain(&out["theEnd"]["title"]), "You've completed\nElwynn Forest (1–13)");
+	assert_eq!(out["theEnd"]["go"], "Start Westfall");
+	assert_eq!(out["theEnd"]["laterShown"], true);
+}
+
 #[test]
 fn a_guide_done_whole_says_completed_start_loads_the_next_guide_not_now_only_closes() {
 	let out = run(r#"

@@ -23,6 +23,11 @@
 -- six at most, and "Keep or abandon them", which opens their list with an
 -- Abandon button each (UI.ShowQuestRoom "offroute"); nothing is abandoned
 -- without the game's own confirmation.
+-- The last step done before the rest (GUIDE_STEPS_LEFT, #3517) is no end
+-- yet: the same window says "2 steps left in Durotar (1–12)", that the next
+-- guide follows once they are done or skipped, and has one button, Back to
+-- step 13 (the live step), with no next guide and no quest lists; the end
+-- itself comes later as above.
 -- The footer holds the buttons, the primary on the right:
 --   next guide     Start The Barrens (Engine.StartNext: in the same tab)
 --                  Not now, or Back to step 13 (the guide stays; the guide
@@ -32,13 +37,14 @@
 --   none           Pick a guide (the guide menu), Close
 -- The header ✕ and Esc close it like the second button. It fades in with a
 -- small rise (Theme/Anim.lua; only the fade under ui.reduceMotion), plays
--- the quest-complete chime when the game's sound is on, can be dragged by
--- its header and waits for a fight to end before it opens.
+-- the quest-complete chime for an end when the game's sound is on, can be
+-- dragged by its header and waits for a fight to end before it opens.
 --
 -- Colours are Theme tokens only (the name's shadow in shade), repainted on a
 -- scheme change. Built on first use; nothing runs while it is hidden.
 --
---   UI.GuideEnd.Show(info) -> shown        info: GUIDE_END's (Engine)
+--   UI.GuideEnd.Show(info) -> shown        info: GUIDE_END's or
+--                                          GUIDE_STEPS_LEFT's (Engine)
 --   UI.GuideEnd.Hide(), .Start(), .Later(), .IsShown(), .frame
 
 local ADDON, ns = ...
@@ -78,6 +84,10 @@ function GE.Model(info)
 	local g = info and info.guideId and G and G.Get(info.guideId)
 	if not g then return nil end
 	local m = { id = g.id, label = UI.GuideLabel(g), undone = info.undone or 0, live = info.live }
+	if info.left then
+		m.left = info.left
+		return m
+	end
 	m.complete = m.live == nil or m.undone == 0
 	local choice = info.choose and E and E.GetRouteChoice and E.GetRouteChoice(g.id)
 	if choice and #choice.options >= 2 then
@@ -107,7 +117,13 @@ local function paintTitle(fs)
 	local m = shown
 	if not m then return end
 	local name = "|c" .. Theme.Hex("accent") .. m.label .. "|r"
-	local pattern = m.complete and L["You've completed %s"] or L["You've reached the end of %s"]
+	local pattern
+	if m.left then
+		-- The count put in first, wherever a translation has it.
+		pattern = m.left == 1 and L["1 step left in %s"] or (L["%d steps left in %s"]:gsub("%%d", m.left))
+	else
+		pattern = m.complete and L["You've completed %s"] or L["You've reached the end of %s"]
+	end
 	fs:SetText(format(pattern, name))
 	if fs.GetNumLines and fs:GetNumLines() > 1 and pattern:find(" %%s$") then
 		fs:SetText(format((pattern:gsub(" %%s$", "\n%%s")), name))
@@ -264,13 +280,19 @@ local function build()
 	GE.frame = F
 end
 
+-- The live step as the player counts that guide's steps (#942).
+local function liveNumber(m)
+	local E, g = ns.Engine, ns.Guides.Get(m.id)
+	return E and E.StepNumberOf and g and (E.StepNumberOf(g, m.live)) or m.live
+end
+
 local function layout(m)
 	local emblem, footH = Theme.House("endEmblem") or EMBLEM, Theme.House("dialogFoot") or FOOT_H
 	F.Emblem:SetSize(emblem, emblem)
 	F.Glow:SetSize(emblem * 3, emblem * 3)
 	F.Footer:SetHeight(footH)
 	paintTitle(F.Title)
-	if m.complete then
+	if m.complete or m.left then
 		F.Undone:Hide()
 	else
 		F.Undone:SetText(m.undone == 1 and L["1 step was left undone."] or format(L["%d steps were left undone."], m.undone))
@@ -283,7 +305,14 @@ local function layout(m)
 	F.Band:SetTexCoord(Theme.BandCoords(WIDTH - 2, headH))
 
 	local y = headH + PAD
-	if m.next then
+	if m.left then
+		F.Art:Hide()
+		F.Text:SetText(m.left == 1 and L["Do it or skip it, and the next guide follows."] or L["Do them or skip them, and the next guide follows."])
+		F.Text:ClearAllPoints()
+		F.Text:SetPoint("TOP", F, "TOP", 0, -y)
+		F.Text:Show()
+		y = y + F.Text:GetStringHeight()
+	elseif m.next then
 		local fx, fy
 		local E = Engine()
 		if E and E.GuideFocus then fx, fy = E.GuideFocus(m.next.id) end
@@ -360,7 +389,10 @@ local function layout(m)
 		F.OffLink:Hide()
 	end
 
-	if m.choose then
+	F.Later:SetShown(not m.left)
+	if m.left then
+		W.SetButtonText(F.Go, format(L["Back to step %d"], liveNumber(m)))
+	elseif m.choose then
 		W.SetButtonText(F.Go, L["Choose where to go next"])
 	elseif m.next then
 		W.SetButtonText(F.Go, format(L["Start %s"], m.next.title or m.next.id))
@@ -372,10 +404,7 @@ local function layout(m)
 	elseif m.complete then
 		W.SetButtonText(F.Later, L["Not now"])
 	else
-		-- As the player counts that guide's steps (#942).
-		local E, g = ns.Engine, ns.Guides.Get(m.id)
-		local no = E and E.StepNumberOf and g and (E.StepNumberOf(g, m.live)) or m.live
-		W.SetButtonText(F.Later, format(L["Back to step %d"], no))
+		W.SetButtonText(F.Later, format(L["Back to step %d"], liveNumber(m)))
 	end
 	F:SetHeight(floor(y + PAD + footH + 0.5))
 	if W.LayoutRim then W.LayoutRim(F) end
@@ -394,7 +423,7 @@ function GE.Show(info)
 	if not F then build() end
 	shown = m
 	layout(m)
-	if not F:IsShown() then
+	if not F:IsShown() and not m.left then
 		local C = UI.ClassCard
 		if C and C.GameSoundOn and C.GameSoundOn() then
 			pcall(ns.PlaySound, (SOUNDKIT and SOUNDKIT.IG_QUEST_LIST_COMPLETE) or 878, "SFX")
@@ -416,10 +445,11 @@ function GE.IsShown()
 end
 
 -- The primary button: start the next guide in the guide's tab, open the
--- route choice, or the guide menu.
+-- route choice, or the guide menu; with steps left, back to the live step.
 function GE.Start()
 	local m, E = shown, Engine()
 	if not m then return end
+	if m.left then return GE.Later() end
 	GE.Hide()
 	if m.choose then
 		UI.ShowRouteChoice(m.id)
@@ -442,6 +472,7 @@ function GE.Later()
 end
 
 ns.On("GUIDE_END", function(_, info) GE.Show(info) end)
+ns.On("GUIDE_STEPS_LEFT", function(_, info) GE.Show(info) end)
 
 -- The next guide was loaded some other way: nothing left to ask.
 ns.On("GUIDE_CHANGED", function()
