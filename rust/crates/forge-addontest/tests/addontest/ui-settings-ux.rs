@@ -52,7 +52,7 @@ fn run(script: &str) -> Value {
 	.remove(0)
 }
 
-// A setting that places a frame carries a Move: on its row (the floating button) or in its section's header (the
+// A setting that places a frame carries a Move: a glyph on its row (the floating button) or in its section's header (the
 // flight timer's, Look > Trackers). A click hides the window, opens Move frames with that frame's box picked and
 // pulsing a few times; Save and exit brings the window back on its page, the row lit. Move is off while the frame
 // has no box (its feature off); an alert in the alerts' line picks the line; in a fight nothing opens.
@@ -64,7 +64,8 @@ fn a_settings_move_opens_move_frames_with_its_frame_picked_and_pulsing_and_bring
 		local w = ctl("ui.launcher")
 		local move = rawget(w, "MoveButton")
 		local row = { has = move ~= nil, shown = move and move:IsShown() or false, on = move and move:IsEnabled() or false,
-			label = move and move.Label:GetText() or false, inCogColumn = rawget(w, "Cog") == move }
+			glyph = move and rawget(move, "psMove") == true or false, inExtras = false }
+		for _, e in ipairs(rawget(w, "psExtras") or {}) do if e == move then row.inExtras = true end end
 		local page = O.page.key
 		move:Click()
 		local box = M.Box("launcher")
@@ -95,7 +96,7 @@ fn a_settings_move_opens_move_frames_with_its_frame_picked_and_pulsing_and_bring
 		local fought = { O.MoveFrame("launcher"), PolestarOptions:IsShown(), M.IsUnlocked() }
 		stub.inCombat = false
 		emit({ row = row, during = during, pulsed = pulsed, after = after, off = off, header = header, section = section, line = line, fought = fought })"#);
-	assert_eq!(out["row"], json!({ "has": true, "shown": true, "on": true, "label": "Move", "inCogColumn": true }), "the row's Move, in the cog's column");
+	assert_eq!(out["row"], json!({ "has": true, "shown": true, "on": true, "glyph": true, "inExtras": true }), "the row's Move, a glyph in its extras' Move column");
 	assert_eq!(out["during"], json!({ "settings": false, "unlocked": true, "selected": "launcher", "pulse": true }));
 	assert_eq!(out["pulsed"], true, "the pulse ends by itself");
 	assert_eq!(out["after"], json!({ "settings": true, "page": true, "lit": true }), "the window back on its page, the row lit");

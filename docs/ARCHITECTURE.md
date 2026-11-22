@@ -8662,9 +8662,9 @@ for what it does. Right-click resets it.") until its close button
 section, the best first, the chevron to the row in a gutter inside the card;
 a result its section's toggle stops comes after an equally good one that
 works, its card carrying that toggle in the header. A setting that places a
-frame on screen carries a ghost Move (`move` = the frame's mover key in
-`UI/Movers.lua`): on the row in the cog's column (left of a cog), or in its
-section's header after the toggle. `O.MoveFrame(key, lit)` hides the window,
+frame on screen carries a Move (`move` = the frame's mover key in
+`UI/Movers.lua`): on the row a move glyph in the extras' Move column (after
+the cog's), or in its section's header after the toggle. `O.MoveFrame(key, lit)` hides the window,
 opens Move frames with that frame's box picked and pulsing
 (`Movers.Unlock(key, { pulse, back })`; an alert in the alerts' line picks the
 line, the spec's `via`), and when the session ends brings the window back on

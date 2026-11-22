@@ -813,8 +813,9 @@ fn window_border_band_and_shadow_repaint_every_window_live_right_click_restores_
 	assert_eq!(out["own"]["accentOff"], false, "picking an own border colour turns the accent border off");
 }
 
-// A new font lays the page out again; a label too long for its half in the new face is cut with an ellipsis (its
-// whole text in the tooltip), never wrapped: its row keeps its 36px and the rows below keep their places.
+// A new font lays the page out again; a label too long for its half in the new face wraps to a second line before it
+// is cut with an ellipsis (its whole text in the tooltip): two lines fit its 36px row, so the rows below keep their
+// places.
 #[test]
 fn switching_the_font_lays_the_page_out_again_a_label_that_no_longer_fits_is_cut_its_row_keeps_its_height() {
 	let out = run(r#"
@@ -833,13 +834,13 @@ fn switching_the_font_lays_the_page_out_again_a_label_that_no_longer_fits_is_cut
 		end
 		Polestar.Set("ui.font", "inter")
 		emit({ before = before, after = { h = row:GetHeight(), below = top(below), wrap = row.Label:GetWordWrap(),
-			cut = row.Label:GetStringWidth() <= row.Label:GetWidth() } })"#);
+			lines = row.Label:GetMaxLines() } })"#);
 	let (before, after) = (&out["before"], &out["after"]);
 	assert_eq!(before["h"], 36);
 	assert_eq!(after["h"], 36, "the row keeps its height");
 	assert_eq!(after["below"], before["below"], "the rows below keep their places");
-	assert_eq!(after["wrap"], false, "one line");
-	assert_eq!(after["cut"], true, "cut at its half");
+	assert_eq!(after["wrap"], true, "it wraps");
+	assert_eq!(after["lines"], 2, "to two lines at most");
 }
 
 #[test]
@@ -2602,7 +2603,7 @@ fn inline_extras_keep_their_own_setting_click_and_right_click_reset_beside_the_r
 		local _, _, _, cx = colour:GetPoint(1)
 		local _, _, _, gx = glow:GetPoint(1)
 		emit({ parent = parent, flipped = flipped, picked = picked, rowDot = rowDot, colour = Polestar.Get("fake.medalColour"),
-			glow = Polestar.Get("fake.medalGlow"), size = Polestar.Get("fake.medalSize"), order = gx < cx })"#,
+			glow = Polestar.Get("fake.medalGlow"), size = Polestar.Get("fake.medalSize"), order = cx < gx })"#,
 		"",
 		"",
 		LOOK_PAGE,
@@ -2614,7 +2615,7 @@ fn inline_extras_keep_their_own_setting_click_and_right_click_reset_beside_the_r
 	assert_eq!(out["colour"], false, "right-click: its default");
 	assert_eq!(out["glow"], true);
 	assert_eq!(out["size"], 1);
-	assert_eq!(out["order"], true, "right to left before the control: the colour, then the glow");
+	assert_eq!(out["order"], true, "left to right after the control: the colour, then the glow");
 }
 
 // A row's `more` sits behind a cog: the cog opens a compact popup by it (the row's label, 300 wide, rows of 30px)
@@ -2704,7 +2705,7 @@ fn a_row_s_help_is_its_tooltip_after_a_moment_with_the_reset_hint_and_a_search_r
 	assert_eq!(out["found"], json!(["How big the discs are.", "Right-click to reset.", "Fake pins  \u{b7}  Medallions  \u{b7}  Medallions"]));
 }
 
-// Fixed columns: left of the control zone (as wide as the widest control) a half has, right to left, a swatch, a
+// Fixed columns: right of the control zone (as wide as the widest control) a half has, left to right, a swatch, a
 // switch and the cog at one x each, an empty one keeping its place, so they line up down the page.
 #[test]
 fn a_half_s_swatch_switch_and_cog_stand_in_fixed_columns_down_the_page() {
@@ -2724,7 +2725,7 @@ fn a_half_s_swatch_switch_and_cog_stand_in_fixed_columns_down_the_page() {
 	assert_eq!(out["halves"][0], out["halves"][1]);
 	assert_eq!(out["switch"][0], out["switch"][1], "the switches in one column, a swatch beside one or not");
 	assert_eq!(out["cog"][0], out["cog"][1], "the cogs in one column");
-	assert!(n(&out["swatch"]) > n(&out["switch"][0]) && n(&out["switch"][0]) > n(&out["cog"][0]), "right to left: swatch, switch, cog: {out}");
+	assert!(n(&out["swatch"]) < n(&out["switch"][0]) && n(&out["switch"][0]) < n(&out["cog"][0]), "left to right: swatch, switch, cog: {out}");
 }
 
 // Search results stand in a card per page, tab and section, the best first; a result its section's on/off stops
