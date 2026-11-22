@@ -4,7 +4,7 @@
 -- first uses each key. docs/TRANSLATING.md explains the rest.
 
 local ns = Polestar
-if not (ns and GetLocale and GetLocale() == "zhCN") then return end
+if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "zhCN") then return end
 local L = ns.L
 
 -- Core/Init.lua

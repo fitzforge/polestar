@@ -38,8 +38,6 @@ return {
 	-- Step 8: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
 	["Ride on west to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "继续向西骑到{area:3425}。{npc:15189}在建筑的楼上：从屋内上楼，箭头无法区分楼层。",
-	-- {npc:17082} Rifleman Torrig · {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora
-	["{npc:17082}, at the Alliance tents: for {npc:17080} at {area:2743}"] = "{npc:17082}，在联盟帐篷处：交给{area:2743}的{npc:17080}",
 	-- {npc:15183} Geologist Larksbane
 	["{npc:15183}: the tablet fragments come from the Twilight dig"] = "{npc:15183}：石板碎片来自暮光挖掘场",
 	-- {npc:15306} Bor Wildmane
@@ -85,65 +83,60 @@ return {
 	-- {quest:8323} True Believers
 	["Ten more for {quest:8323}"] = "再交十个用于{quest:8323}",
 
-	-- Step 14: Hive'Zora
-	-- {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora · {spell:642} Divine Shield · {spell:5384} Feign Death · {spell:17} Power Word: Shield
-	["{npc:17080} camps outside {area:2743}, the western hive. Pick up a Silithyst at one of the red geysers nearby and carry it to the Alliance extractor at his camp.\nCareful: You lose the Silithyst if you mount, stealth, use {spell:642}, {spell:5384} or Vanish. Blink and {spell:17} do not drop it."] = "{npc:17080}在西侧虫巢{area:2743}外扎营。到附近红色喷口拾取一份水晶尘，送到他营地中的联盟萃取器。\n注意：上坐骑、潜行，或使用{spell:642}、{spell:5384}、消失都会使水晶尘掉落；闪现和{spell:17}不会使其掉落。",
-	["Bring a Silithyst to the Alliance extractor"] = "",
-
-	-- Step 16: Southwind Village
+	-- Step 15: Southwind Village
 	["The tortured druids and sentinels haunt the ruined village east of the hold."] = "",
 
-	-- Step 17: Layo Starstrike
+	-- Step 16: Layo Starstrike
 	-- {npc:13220} Layo Starstrike · {area:3077} Valor's Rest
 	["Ride north-east to {npc:13220} at {area:3077}."] = "",
 
-	-- Step 18: The Hive'Ashi tower
+	-- Step 17: The Hive'Ashi tower
 	-- {area:2742} Hive'Ashi
 	["The {area:2742} tower"] = "{area:2742}高塔",
 	-- {area:2742} Hive'Ashi · {area:2738} Southwind Village
 	["Ride back south-west to the {area:2742} tower in {area:2738}; climb it and kill the ambushers that rise for the encrusted object."] = "向西南骑行返回{area:2738}的{area:2742}高塔；爬上去，杀死为硬壳物品涌出的伏击者。",
 
-	-- Step 19: Layo Starstrike
+	-- Step 18: Layo Starstrike
 	-- {npc:13220} Layo Starstrike · {zone:1450} Moonglade
 	["{npc:13220}'s next task goes to {zone:1450}: skip it."] = "",
 
-	-- Step 20: Hermit Ortell
+	-- Step 19: Hermit Ortell
 	-- {area:2738} Southwind Village
 	["The hermit hides among the rocks south-east of {area:2738}."] = "隐士躲在{area:2738}东南方的岩石间。",
 	["Below ground"] = "在地下",
 
-	-- Step 21: Bronzebeard's Encampment
+	-- Step 20: Bronzebeard's Encampment
 	["Bronzebeard's Encampment"] = "铜须营地",
 	-- {npc:15171} Frankal Stonebridge · {npc:15170} Rutgar Glyphshaper · {npc:15190} Noggle Ficklespragg
 	["Ride south-west to the dwarves' camp near the southern mountains and question {npc:15171} and {npc:15170}. {npc:15190}'s satchel lies in the sand south-east of the camp, where Deathclasp, an elite scorpid, patrols: grab it while he is away."] = "向西南骑行到南部山脉附近的矮人营地，询问{npc:15171}和{npc:15170}。{npc:15190}的背包在营地东南方的沙子里，精英蝎子死亡弯钩在那里巡逻：趁它走开时拿走背包。",
 
-	-- Step 22: Brann Bronzebeard's Lost Letter
+	-- Step 21: Brann Bronzebeard's Lost Letter
 	-- {area:2742} Hive'Ashi · {npc:15170} Rutgar Glyphshaper
 	["From a {area:2742} silithid: for {npc:15170} at Bronzebeard's Encampment"] = "",
 
-	-- Step 24: The Twilight Post
+	-- Step 23: The Twilight Post
 	-- {area:3098} Twilight Post
 	["The {area:3098}"] = "{area:3098}",
 	-- {npc:11803} Twilight Keeper Exeter
 	-- was: ["Careful: the Twilight Keepers are level 60, a level or two over you: clear the cultists around each one first and fight the keeper at full health.\n{npc:11803} holds the cultists' camp in the far south-west."] = "注意：暮光守护者是60级，比你高一两级：先清掉每个守护者周围的信徒，满血再打守护者。\n{npc:11803}占据西南角远处的信徒营地。"
 	["Careful: the Twilight Keepers are level 60: clear the cultists around each one first and fight the keeper at full health.\n{npc:11803} holds the cultists' camp in the far south-west."] = "",
 
-	-- Step 25: Twilight Keeper Mayna
+	-- Step 24: Twilight Keeper Mayna
 	["Ride north along the west side to Mayna's small camp.\nCareful: Mayna is level 60: clear her camp first and fight her at full health."] = "沿西侧向北骑行到玛伊娜的小营地。\n注意：玛伊娜是60级：先清理她的营地，满血再打她。",
 
-	-- Step 26: Twilight Keeper Havunth
+	-- Step 25: Twilight Keeper Havunth
 	-- {area:3425} Cenarion Hold
 	["Havunth's camp sits just west of {area:3425}.\nCareful: Havunth is level 60: clear his camp first and fight him at full health."] = "哈维斯的营地就在{area:3425}西边。\n注意：哈维斯是60级：先清理他的营地，满血再打他。",
 
-	-- Step 27: Hermit Ortell
+	-- Step 26: Hermit Ortell
 	["Ride back south-east to the hermit."] = "向东南骑回隐士处。",
 	["Hand him the ten texts you kept"] = "把你留下的十份文本交给他",
 
-	-- Step 28: Cenarion Hold
+	-- Step 27: Cenarion Hold
 	-- {npc:15190} Noggle Ficklespragg
 	["{npc:15190} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15190}站在他所在建筑的楼上：从室内上楼，箭头无法区分楼层。",
 
-	-- Step 29: Level 60
+	-- Step 28: Level 60
 	["Level 60"] = "60级",
 	-- {area:3425} Cenarion Hold · {area:2057} Scholomance · {area:2279} Stratholme · {area:3197} Chillwind Camp · {area:2268} Light's Hope Chapel · {zone:1451} Silithus
 	-- plural, as words: Twilight Avengers = {npc:11880} Twilight Avenger · Stonelash Flayers = {npc:11737} Stonelash Flayer · Rock Stalkers = {npc:11739} Rock Stalker
@@ -331,7 +324,9 @@ return {
 	-- ["{npc:15181}: Bronzebeard's Encampment comes later, on the way south"] = "{npc:15181}：铜须营地稍后再去，在南下途中",
 	-- ["{npc:15306}: his Twilight texts come from the dig after the next stop here"] = "{npc:15306}：他要的暮光密文来自下一站之后的挖掘场",
 	-- ["{npc:17080} camps outside {area:2743}, the western hive. Pick up a Silithyst at one of the red geysers nearby and carry it to the Alliance extractor at his camp."] = "{npc:17080}在西部虫巢{area:2743}外扎营。在附近的红色喷泉拾取一块水晶尘，带到他营地的联盟提取器。",
+	-- ["{npc:17080} camps outside {area:2743}, the western hive. Pick up a Silithyst at one of the red geysers nearby and carry it to the Alliance extractor at his camp.\nCareful: You lose the Silithyst if you mount, stealth, use {spell:642}, {spell:5384} or Vanish. Blink and {spell:17} do not drop it."] = "{npc:17080}在西侧虫巢{area:2743}外扎营。到附近红色喷口拾取一份水晶尘，送到他营地中的联盟萃取器。\n注意：上坐骑、潜行，或使用{spell:642}、{spell:5384}、消失都会使水晶尘掉落；闪现和{spell:17}不会使其掉落。",
 	-- ["{npc:17082}, at the Alliance tents"] = "{npc:17082}，在联盟帐篷处",
+	-- ["{npc:17082}, at the Alliance tents: for {npc:17080} at {area:2743}"] = "{npc:17082}，在联盟帐篷处：交给{area:2743}的{npc:17080}",
 	-- ["{npc:1852} is a level 61 elite"] = "{npc:1852}是61级精英",
 	-- ["{npc:1855} (optional)"] = "{npc:1855}（可选）",
 	-- ["{npc:1855} lives in a small hut on the border river, north-east of the lumber camp. Hand in {quest:5781} if you finished it."] = "{npc:1855}住在伐木场东北方边境河边的小屋里。如果完成了{quest:5781}就交还。",

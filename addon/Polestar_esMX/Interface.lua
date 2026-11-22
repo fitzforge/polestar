@@ -3,7 +3,7 @@
 -- the esMX client's own wording. Grouped by the file that first uses each key.
 
 local ns = Polestar
-if not (ns and GetLocale and GetLocale() == "esMX") then return end
+if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "esMX") then return end
 local L = ns.L
 
 -- Core/Automation.lua

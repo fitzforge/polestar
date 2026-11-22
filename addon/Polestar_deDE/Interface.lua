@@ -3,7 +3,7 @@
 -- uses each key.
 
 local ns = Polestar
-if not (ns and GetLocale and GetLocale() == "deDE") then return end
+if not (ns and ns.Names and ns.Names.Language and ns.Names.Language() == "deDE") then return end
 local L = ns.L
 
 -- Core/Automation.lua

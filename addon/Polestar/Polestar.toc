@@ -29,7 +29,7 @@
 ## AddonCompartmentFuncOnEnter: Polestar_OnAddonCompartmentEnter
 ## AddonCompartmentFuncOnLeave: Polestar_OnAddonCompartmentLeave
 ## OptionalDeps: EllesmereUI, TomTom, OpenMap, ErgoBars, ForeverLevelingBiS
-## SavedVariables: PolestarDB, PolestarFlightsDB
+## SavedVariables: PolestarDB, PolestarLanguage, PolestarFlightsDB
 ## SavedVariablesPerCharacter: PolestarCharDB
 
 ClientInfo.lua
