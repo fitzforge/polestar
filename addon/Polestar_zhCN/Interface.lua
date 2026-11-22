@@ -1341,8 +1341,12 @@ L["Opens the Eastwall Gate into Stratholme's Scourge-held districts."] = "打开
 L["Opens the inner doors of Dire Maul's North and West wings."] = "打开厄运之槌北区和西区的内门。"
 L["Opens Gnomeregan's back door, the Workshop entrance."] = "打开诺莫瑞根的后门，即车间入口。"
 L["Opens the doors of the Armory and the Cathedral."] = "打开军械库和大教堂的门。"
-L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = "打开部落进入达拉然城之路上的大门；一把钥匙即可为整个队伍开门。联盟从“戏法与乌鸦”中的下水管道走进去。"
 L["Rings the gong by the sacred pool in Zul'Farrak to call Gahz'rilla; one mallet does it for the group. Qiaga the Keeper (elite) on top of the Altar of Zul in the Hinterlands drops the Sacred Mallet: use it at the altar at the very top of Jintha'Alor and it becomes the Mallet of Zul'Farrak. Both places are full of elites."] = "敲响祖尔法拉克圣池旁的锣来召唤加兹瑞拉；一把锤子就够整个队伍使用。辛特兰祖尔祭坛顶上的守护者奇亚加（精英）会掉落神圣之锤：在辛萨罗最高处的祭坛使用它，它就会变成祖尔法拉克之锤。两个地方都有大量精英怪。"
+-- L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Image of Archmage Modera gives it with Heart of Disruption: keep that quest in your log until you are inside. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = ""
+-- L["Calls up Lyn the Ignored, a hidden boss, at the summoning circle in the City of Dalaran's Underbelly, in the small room past Atrexis the Grave Knight. The Black Tome lies on a table up the stairs behind Archmage Arugal in Shadowfang Keep; use it at the Ambermill Leyline Focus, the blue crystal beside Archmage Ataeric in Ambermill's town hall, and it becomes the Tome of Dalaran."] = ""
+-- L["Opens a portal from the first khan's spot in Maraudon's outer caves to Earth Song Falls in inner Maraudon; the group walks through it. Celebras the Redeemed makes it once Celebras the Cursed is dead inside."] = ""
+-- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Alphonse Dumas in Farholde Keep forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
+-- L["Opens the way into the upper area of Krol'dok Stronghold. Tunk, by the smithy near War Handler Ashka, drops the Krol'dok Moulding; Kreza Darkthorn in Rog'mar forges the key from it with 4 Thick Leather and 12 Iron Bars."] = ""
 
 -- UI/UI.lua
 L["Map %d"] = "地图 %d"
@@ -5023,3 +5027,4 @@ L["Find what makes your game stutter: times Polestar's own work (on, off, report
 -- L["On pace, but %s (%d) at step %d is hard: you're %s; reach %d first"] = "进度正常，但步骤 %3$d 的%1$s（%2$d）较难：你当前为%4$s；请先升到 %5$d 级"
 -- L["No safe walking route"] = "没有安全的步行路线"
 -- L["Boss whisper"] = "首领密语"
+-- L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = "打开部落进入达拉然城之路上的大门；一把钥匙即可为整个队伍开门。联盟从“戏法与乌鸦”中的下水管道走进去。"
