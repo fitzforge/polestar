@@ -18677,3 +18677,12 @@ test('forever/alliance/50-60/01-burning-steppes.guide: Kum\'isha\'s fragment ste
 	const kum = steps.find((st) => st.goals.some(is('accept', 3501)));
 	assert.ok((kum.when || []).some((p) => p.k === 'has' && !p.neg && p.item === 10593), 'when has 10593');
 });
+
+// #3642 (Degen G): the Azurelode Mine step leads to the mine's mouth before pointing at the miners inside.
+test('forever/horde/30-40/01-hillsbrad-foothills.guide: Azurelode Mine step leads to the mouth first (#3642)', { skip }, () => {
+	const { steps } = compiled('forever/horde/30-40/01-hillsbrad-foothills.guide');
+	const mine = steps.find((st) => st.title === 'Azurelode Mine');
+	assert.ok(mine, 'Azurelode Mine step exists');
+	assert.equal(mine.goals[0].t, 'goto', 'first goal is goto');
+	assert.deepEqual([mine.goals[0].map, mine.goals[0].x, mine.goals[0].y], [1424, 28.5, 55.0], 'goto mouth at 28.5, 55.0');
+});
