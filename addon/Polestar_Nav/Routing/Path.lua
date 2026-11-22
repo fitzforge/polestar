@@ -2679,6 +2679,9 @@ function Path.SetTrail(map, samples)
 		return 0
 	end
 	local arcs, keys, gaps, gx, gy = {}, {}, 0, nil, nil
+	-- The grid's own ways, without the trail set before (its joins would hide the gaps they bridge).
+	local before = st.trail
+	st.trail = nil
 	local tree = Tree()
 	local C, cs = st.C, st.cs
 	local N = C * C
@@ -2729,7 +2732,9 @@ function Path.SetTrail(map, samples)
 	end
 	table.sort(keys)
 	local sig = table.concat(keys, ",")
-	if not (st.trail and st.trail.sig == sig) then
+	if before and before.sig == sig then
+		st.trail = before
+	else
 		trailVersion = trailVersion + 1
 		st.trail = { version = trailVersion, sig = sig, arcs = arcs }
 	end
