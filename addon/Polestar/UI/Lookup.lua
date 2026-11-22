@@ -1178,8 +1178,9 @@ local function renderDetails(loaded, reason)
 	end
 	local Lk = ns.Lookup
 	local chain = s.kind == "quest" and Lk and Lk.ChainProgress and Lk.ChainProgress(s.id) or nil
-	local enhanced = itemDetails.Available(s, loaded)
-	local facts = not enhanced and factsFor(s, entity, list, chain)
+	local item = itemDetails.Read(s, loaded)
+	local facts = not item and factsFor(s, entity, list, chain)
+	local tooltip = itemDetails.Tooltip(d.Well.psItem, item, facts, quality)
 	local shown = {}
 	y = itemDetails.Outside(d, itemDetails.outside, y)
 	y = paintLegacyFacts(d, facts, shown, y)
@@ -1268,15 +1269,15 @@ local function renderDetails(loaded, reason)
 
 	-- Sources.
 	local rowsShown = {}
-	if enhanced or (list and (s.kind ~= "zone" or #list > 0)) then
+	if item or tooltip or (list and (s.kind ~= "zone" or #list > 0)) then
 		list = list or itemDetails.Empty
 		local child = d.Scroll.Child
 		local cw = INNER + 8
 		child:SetWidth(cw)
 		local cy = 0
-		if enhanced then
+		if item or tooltip then
 			d.Head:Hide()
-			cy = itemDetails.Paint(d, s, quality, #list)
+			cy = itemDetails.Paint(d, item, quality, #list, tooltip)
 		else
 			itemDetails.HideFacts(d)
 			d.Head.Text:SetText(headText(s.kind))
@@ -1560,11 +1561,6 @@ do
 	local SEP = " \194\183 "
 	local COL_W, LINE_GAP, STAT_PREVIEW = (INNER - 12) / 2, 4, 8
 
-	function itemDetails.Available(s, loaded)
-		local C = ns.Codex
-		return loaded and KIND[s.kind] and KIND[s.kind].item and C and C.HasFilters and C.HasFilters()
-	end
-
 	local function restrictedClasses(S, f)
 		local names, count = nil, 0
 		for _, token in ipairs(itemDetails.ClassTokens) do
@@ -1593,7 +1589,7 @@ do
 		if req then levels[#levels + 1] = req == 0 and L["No level required"] or format(L["Requires level %d"], req) end
 		local classes = restrictedClasses(S, f)
 		local coverage = f ~= itemDetails.Empty and C.ItemStats(s.id)
-		local stats = {}
+		local stats, statCodes = {}, {}
 		for _, stat in ipairs(coverage or itemDetails.Empty) do
 			local label = S.StatLabel(stat.code)
 			if label then
@@ -1601,16 +1597,80 @@ do
 					text = stat.amount and format(L["%+d %s"], stat.amount, label) or label,
 					dim = stat.amount == nil, key = S.Fold(label), code = stat.code,
 				}
+				statCodes[stat.code] = true
 			end
 		end
 		table.sort(stats, statOrder)
 		return {
 			levels = #levels > 0 and table.concat(levels, SEP) or nil,
+			itemLevel = f.itemLevel,
+			reqLevel = req,
 			slot = f.slot and itemDetails.SlotName(f.slot),
 			subtype = f.itemClass and f.itemSubclass and itemCategories.SubclassLabel(f.itemClass, f.itemSubclass),
 			classes = classes and format(L["Classes: %s"], classes),
 			stats = stats,
+			statCodes = statCodes,
 		}
+	end
+
+	function itemDetails.Read(s, loaded)
+		local C = ns.Codex
+		if not (loaded and KIND[s.kind] and KIND[s.kind].item and C and C.HasFilters and C.HasFilters()) then return end
+		if not detailCache.item then detailCache.item = readItem(s) end
+		return detailCache.item
+	end
+
+	local function tooltipText(text)
+		if type(text) == "string" and not secret(text) and text:find("%S") then return text end
+	end
+
+	local function tooltipColor(color)
+		if type(color) ~= "table" then return end
+		local r, g, b = color.r, color.g, color.b
+		if type(r) == "number" and type(g) == "number" and type(b) == "number" and not (secret(r) or secret(g) or secret(b)) then
+			return { r, g, b }
+		end
+	end
+
+	local function tooltipPattern(template)
+		if not template then return end
+		local pattern = template:gsub("([%^%$%(%)%.%[%]%*%+%-%?%%])", "%%%1")
+			:gsub("%%%%%d+%%%$[ds]", ".+"):gsub("%%%%[ds]", ".+")
+		return "^" .. pattern .. "$"
+	end
+
+	function itemDetails.Tooltip(id, item, facts, quality)
+		local lines = id and ns.Compat.ItemTooltipLines(id)
+		if not lines then return end
+		-- Prefer the compact facts where they already cover a tooltip row.
+		local types = Enum and Enum.TooltipDataLineType or itemDetails.Empty
+		local showsRequiredLevel = item and item.reqLevel
+		for _, fact in ipairs(facts or itemDetails.Empty) do
+			if fact[1] == L["Requires"] then showsRequiredLevel = true end
+		end
+		local classes = item and item.classes and tooltipPattern(ITEM_CLASSES_ALLOWED)
+		local requiredLevel = showsRequiredLevel and tooltipPattern(ITEM_MIN_LEVEL)
+		local itemLevel = item and item.itemLevel and tooltipPattern(ITEM_LEVEL)
+		local rows = {}
+		for i = 2, #lines do -- The item's name is already in the banner.
+			local line = lines[i]
+			local left, right = tooltipText(line.leftText), tooltipText(line.rightText)
+			local kind = line.type
+			local plain = left and left:gsub("|c%x%x%x%x%x%x%x%x", ""):gsub("|r", "")
+			local stat = item and plain and not right and (not kind or kind == types.None)
+				and ns.Search.MatchStat(plain:match("^%s*[+-]%d+%s+(.+)$"))
+			local duplicate = kind ~= nil and (kind == types.ItemName or (quality and kind == types.ItemQuality)
+				or (item and item.itemLevel and kind == types.ItemLevel)
+				or (item and item.slot and kind == types.EquipSlot and (not right or item.subtype)))
+			if plain and not right then
+				duplicate = duplicate or (classes and plain:match(classes)) or (requiredLevel and plain:match(requiredLevel))
+					or (itemLevel and plain:match(itemLevel)) or (stat and item.statCodes[stat])
+			end
+			if (left or right) and not duplicate then
+				rows[#rows + 1] = { left = left, right = right, leftColor = tooltipColor(line.leftColor), rightColor = tooltipColor(line.rightColor) }
+			end
+		end
+		return #rows > 0 and rows or nil
 	end
 
 	local function summaryText(item, quality)
@@ -1671,13 +1731,36 @@ do
 		LK.Render()
 	end
 
-	function itemDetails.Paint(d, s, quality, sourceCount)
+	local function paintTooltip(d, rows, y)
+		for i, row in ipairs(rows) do
+			local pair = d.TooltipRows[i]
+			if not pair then
+				pair = { Left = detailLine(d.ItemFactsPanel, INNER), Right = detailLine(d.ItemFactsPanel, COL_W) }
+				pair.Right:SetJustifyH("RIGHT")
+				d.TooltipRows[i] = pair
+			end
+			pair.Left:SetWidth(row.right and COL_W or INNER)
+			W.Color(pair.Left, row.leftColor or "text")
+			W.Color(pair.Right, row.rightColor or "text")
+			local leftH = paintLine(pair.Left, row.left, 0, y)
+			local rightH = paintLine(pair.Right, row.right, INNER - COL_W, y)
+			y = y + max(leftH, rightH)
+		end
+		for i = #rows + 1, #d.TooltipRows do
+			d.TooltipRows[i].Left:Hide()
+			d.TooltipRows[i].Right:Hide()
+		end
+		return y
+	end
+
+	local blankItem = { stats = itemDetails.Empty }
+	function itemDetails.Paint(d, item, quality, sourceCount, tooltip)
 		local panel = rawget(d, "ItemFactsPanel")
 		if not panel then
 			panel = CreateFrame("Frame", nil, d.Scroll.Child)
 			panel:SetPoint("TOPLEFT", d.Scroll.Child, "TOPLEFT", 8, 0)
 			panel:SetWidth(INNER)
-			d.ItemFactsPanel, d.StatRows = panel, {}
+			d.ItemFactsPanel, d.StatRows, d.TooltipRows = panel, {}, {}
 			d.ItemSummary = detailLine(panel, INNER, "textDim")
 			d.ItemSlot = detailLine(panel, COL_W)
 			d.ItemSubtype = detailLine(panel, COL_W)
@@ -1688,9 +1771,9 @@ do
 			d.ItemHead:SetWidth(INNER + TEXT_X * 2)
 			d.ItemHead.Text:SetText(L["Where to get it"])
 		end
-		if not detailCache.item then detailCache.item = readItem(s) end
-		local item = detailCache.item
-		local y = paintLine(d.ItemSummary, summaryText(item, quality), 0, 0)
+		local summary = item and summaryText(item, quality)
+		item = item or blankItem
+		local y = paintLine(d.ItemSummary, summary, 0, 0)
 		local paired = item.slot and item.subtype
 		d.ItemSlot:SetWidth(paired and COL_W or INNER)
 		d.ItemSubtype:SetWidth(paired and COL_W or INNER)
@@ -1724,6 +1807,7 @@ do
 			d.StatMore:SetPoint("TOPLEFT", panel, "TOPLEFT", 0, -y)
 			y = y + d.StatMore:GetHeight() + LINE_GAP
 		end
+		y = paintTooltip(d, tooltip or itemDetails.Empty, y)
 		d.ItemHead.Count:SetText(sourceCount > 0 and tostring(sourceCount) or "")
 		d.ItemHead:SetPoint("TOPLEFT", panel, "TOPLEFT", -TEXT_X, -y)
 		y = y + FOLDER_H + 6
@@ -3244,6 +3328,11 @@ ns.On("CODEX_LOADED", function()
 	namesChanged()
 end)
 ns.On("NAMES_LOADED", namesChanged)
+ns.RegisterEvent("GET_ITEM_INFO_RECEIVED", function(_, id, success)
+	if not (success and root and root:IsVisible() and sel and sel.id == id and details.Well.psItem == id) then return end
+	local c = current()
+	renderDetails(c.loaded, c.reason)
+end)
 -- The Codex refused to load in combat: a list waiting on it loads it now.
 ns.RegisterEvent("PLAYER_REGEN_ENABLED", function()
 	if not (root and root:IsVisible()) or cache.reason ~= "combat" or lookupOff() then return end

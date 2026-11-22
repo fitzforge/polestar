@@ -894,21 +894,43 @@ function Compat.GetItemQuality(itemID)
 	return nil
 end
 
--- The colour the game's tooltip gives an item's name (r, g, b), or nil where
--- the client has no C_TooltipInfo or the item is not loaded yet: its first
--- line is then the red "Retrieving item information". Kept for the session.
+local function pendingItemTip(text)
+	return type(text) == "string" and not isSecret(text) and (text == RETRIEVING_ITEM_INFO or text == RETRIEVING_DATA)
+end
+
+local function itemTipLines(itemID)
+	if type(itemID) ~= "number" then return nil end
+	local get = C_TooltipInfo and C_TooltipInfo.GetItemByID
+	if not get then return nil end
+	local ok, data = pcall(get, itemID)
+	local lines = ok and type(data) == "table" and data.lines
+	local line = type(lines) == "table" and lines[1]
+	if type(line) ~= "table" then return nil end
+	local text = line.leftText
+	if type(text) ~= "string" or isSecret(text) or text == "" or pendingItemTip(text) then return nil end
+	return lines, data.id
+end
+
+-- The native tooltip's data for a cached item. Reading it leaves GameTooltip alone.
+function Compat.ItemTooltipLines(itemID)
+	if not (C_TooltipInfo and C_TooltipInfo.GetItemByID and Compat.RequestItem(itemID)) then return nil end
+	local lines, id = itemTipLines(itemID)
+	if not lines or isSecret(id) or (id ~= nil and id ~= itemID) then return nil end
+	for _, line in ipairs(lines) do
+		if pendingItemTip(line.leftText) or pendingItemTip(line.rightText) then return nil end
+	end
+	return lines
+end
+
+-- The colour the game's tooltip gives an item's name (r, g, b), or nil until
+-- the item is loaded. Kept for the session.
 local itemTipColors = {}
 function Compat.ItemTipColor(itemID)
 	if type(itemID) ~= "number" then return nil end
 	local known = itemTipColors[itemID]
 	if known then return known[1], known[2], known[3] end
-	local get = C_TooltipInfo and C_TooltipInfo.GetItemByID
-	if not get then return nil end
-	local ok, data = pcall(get, itemID)
-	local line = ok and type(data) == "table" and type(data.lines) == "table" and data.lines[1]
-	if type(line) ~= "table" then return nil end
-	local text, c = line.leftText, line.leftColor
-	if type(text) ~= "string" or isSecret(text) or text == "" or text == RETRIEVING_ITEM_INFO then return nil end
+	local lines = itemTipLines(itemID)
+	local c = lines and lines[1].leftColor
 	if type(c) ~= "table" or type(c.r) ~= "number" or isSecret(c.r) then return nil end
 	itemTipColors[itemID] = { c.r, c.g, c.b }
 	return c.r, c.g, c.b

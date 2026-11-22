@@ -124,6 +124,7 @@ fn run_packed_lookup(codex: &Value, script: &str) -> Value {
 				assert(not stub.inCombat, "protected keyboard propagation in combat")
 				self.propagateKeyboard = on
 			end
+			local realCompat = Polestar.Compat
 			uistub.install()
 			stub.login()
 			local UI, LK = Polestar.UI, Polestar.UI.Lookup
@@ -2304,6 +2305,127 @@ fn item_details_summarize_known_facts_from_mixed_sources() {
 		end
 		assert(matches(5200, { reqMax = 20 }) and not matches(5200, { reqMax = 19 }))
 		assert(matches(932, { quality = { [3] = true } }) and not matches(932, { quality = { [2] = true } }))
+		emit(true)
+		"##,
+	);
+	assert_eq!(out, json!(true));
+}
+
+#[test]
+fn item_details_add_only_the_selected_items_cached_tooltip_lines() {
+	let out = run_packed_lookup(
+		&json!({"items": {
+			"5200": {"name": "Impaling Harpoon", "quality": 3, "reqLevel": 20, "itemLevel": 22,
+				"itemClass": 2, "itemSubclass": 6, "slot": 17, "allowClass": 1,
+				"levelsSource": "forever", "typeSource": "forever", "statAmountSource": "forever", "stats": {"7": 8}},
+			"647": {"name": "Destiny", "reqLevel": 52, "levelsSource": "forever"}
+		}}),
+		r##"
+		Polestar.Compat.ItemTooltipLines = realCompat.ItemTooltipLines
+		local cached, requests, data, reads = {}, {}, {}, 0
+		C_Item = {
+			IsItemDataCachedByID = function(id) return cached[id] == true end,
+			RequestLoadItemDataByID = function(id) requests[id] = true end,
+		}
+		C_TooltipInfo = { GetItemByID = function(id) reads = reads + 1; return data[id] end }
+		Enum.TooltipDataLineType = { None = 0, ItemName = 22, ItemLevel = 31, ItemQuality = 35, EquipSlot = 21, UsageRequirement = 43 }
+		ITEM_CLASSES_ALLOWED, ITEM_MIN_LEVEL = "Classes admises (%s)", "Niveau %d requis"
+		RETRIEVING_ITEM_INFO = "Retrieving item information"
+		local function line(text, kind, right, color)
+			return { leftText = text, type = kind or 0, rightText = right, leftColor = color }
+		end
+		data[5200] = { id = 5200, lines = {
+			line("Impaling Harpoon", 22), line("Rare", 35), line("Item Level 22", 31), line("Two-Hand", 21, "Polearm"),
+			line("Classes admises (Guerrier)", 43), line("Niveau 20 requis", 43), line("+8 Stamina"),
+			line("Binds when picked up", 20), line("Unique"), line("92 Armor"),
+			line("30 - 40 Damage", 0, "Speed 2.00"), line("(17.5 damage per second)"), line("Durability 60 / 60"),
+			line("Use: Summon a companion.", 44), line("Equip: Improves your chance to hit.", 45, nil, { r = 0, g = 1, b = 0 }),
+			line("A test set (0/2)"), line("  A test piece"), line("(2) Set: Improves your chance to hit."),
+			line('"Test flavor text."', 37),
+		} }
+		local function open(id) UI.ShowLookup({ query = "#" .. id, kind = "item", id = id }) end
+		local function shown()
+			local result = {}
+			for _, row in ipairs(rawget(LK.details, "TooltipRows") or {}) do
+				if row.Left:IsVisible() then result[#result + 1] = row.Left:GetText() end
+			end
+			return table.concat(result, "\n")
+		end
+		open(5200)
+		local d = LK.details
+		local compact = d.Scroll.psContent
+		assert(requests[5200], "selected item requested")
+		assert(shown() == "", "no game lines before caching")
+		assert(d.StatRows[1]:GetText() == "+8 Stamina", d.StatRows[1]:GetText())
+		cached[5200] = true
+		local before = reads
+		stub.fire("GET_ITEM_INFO_RECEIVED", 647, true)
+		stub.fire("GET_ITEM_INFO_RECEIVED", 5200, false)
+		assert(reads == before and shown() == "")
+		local hovered = CreateFrame("Frame")
+		GameTooltip:SetOwner(hovered, "ANCHOR_RIGHT")
+		GameTooltip:SetText("Another tooltip")
+		stub.fire("GET_ITEM_INFO_RECEIVED", 5200, true)
+		assert(GameTooltip:GetOwner() == hovered and GameTooltip.lines[1] == "Another tooltip")
+		assert(shown() == table.concat({ "Binds when picked up", "Unique", "92 Armor", "30 - 40 Damage",
+			"(17.5 damage per second)", "Durability 60 / 60", "Use: Summon a companion.", "Equip: Improves your chance to hit.",
+			"A test set (0/2)", "  A test piece", "(2) Set: Improves your chance to hit.", '"Test flavor text."' }, "\n"), shown())
+		local damage, equip = d.TooltipRows[4], d.TooltipRows[8]
+		local function y(region) return select(5, region:GetPoint(1)) end
+		assert(damage.Right:IsVisible() and damage.Right:GetText() == "Speed 2.00" and y(damage.Left) == y(damage.Right))
+		local r, g, b = equip.Left:GetTextColor()
+		assert(r == 0 and g == 1 and b == 0 and equip.Left:GetWidth() > damage.Left:GetWidth())
+		assert(d.Scroll.psContent > compact and y(d.StatRows[1]) > y(d.TooltipRows[1].Left) and y(d.ItemHead) < y(d.TooltipRows[12].Left))
+		open(647)
+		assert(requests[647] and shown() == "" and not damage.Right:IsShown())
+		before = reads
+		stub.fire("GET_ITEM_INFO_RECEIVED", 5200, true)
+		assert(reads == before and shown() == "")
+		cached[647], data[647] = true, data[5200]
+		stub.fire("GET_ITEM_INFO_RECEIVED", 647, true)
+		assert(shown() == "", "tooltip for the wrong item")
+		data[647] = { id = 647, lines = { line("Destiny", 22), line(RETRIEVING_ITEM_INFO), line("Stale tooltip row") } }
+		stub.fire("GET_ITEM_INFO_RECEIVED", 647, true)
+		assert(shown() == "", "retrieving placeholder")
+		data[647] = { id = 647, lines = { line("Destiny", 22), line("Binds when equipped", 20) } }
+		PolestarPicker:Hide()
+		before = reads
+		stub.fire("GET_ITEM_INFO_RECEIVED", 647, true)
+		assert(reads == before)
+		open(647)
+		assert(shown() == "Binds when equipped" and not damage.Right:IsShown())
+		cached[647] = false
+		LK.Render()
+		assert(shown() == "", "previously cached rows are cleared when the cache misses")
+		emit(true)
+		"##,
+	);
+	assert_eq!(out, json!(true));
+}
+
+#[test]
+fn item_details_keep_legacy_facts_when_the_tooltip_arrives() {
+	let out = run_packed_lookup(
+		&json!({"items": { "647": {"name": "Destiny", "quality": 4, "reqLevel": 52, "levelsSource": "client"} }}),
+		r##"
+		Polestar.Compat.ItemTooltipLines = realCompat.ItemTooltipLines
+		Polestar.Codex.HasFilters = function() return false end
+		local cached = false
+		ITEM_MIN_LEVEL = "Requires Level %d"
+		C_Item = { IsItemDataCachedByID = function() return cached end }
+		C_TooltipInfo = { GetItemByID = function(id) return { id = id, lines = {
+			{ leftText = "Destiny" }, { leftText = "Binds when equipped" }, { leftText = "Requires Level 52" },
+		} } end }
+		UI.ShowLookup({ query = "#647", kind = "item", id = 647 })
+		local d = LK.details
+		assert(LK.detail.facts[1][1] == "Type" and LK.detail.facts[2][2] == "Level 52")
+		assert(rawget(d, "TooltipRows") == nil)
+		cached = true
+		stub.fire("GET_ITEM_INFO_RECEIVED", 647, true)
+		assert(LK.detail.facts[1][1] == "Type" and LK.detail.facts[2][2] == "Level 52")
+		assert(d.TooltipRows[1].Left:IsVisible() and d.TooltipRows[1].Left:GetText() == "Binds when equipped")
+		assert(#d.TooltipRows == 1)
+		assert(not d.ItemSummary:IsShown() and d.ItemHead.Text:GetText() == "Where to get it")
 		emit(true)
 		"##,
 	);

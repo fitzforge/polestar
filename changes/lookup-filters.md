@@ -9,5 +9,7 @@ section: players
   entries that are no longer obtainable or have no known source.
   Search by item ID (for example, `#19019`) or by stat name. Compact item
   details show rarity, levels, slot, subtype, class restrictions and stats
-  above acquisition sources. Item filters are saved per character. Use
-  Clear all in the Filters drawer to reset the active filters.
+  above acquisition sources. Once the game loads the item, the details also
+  show tooltip lines such as binding, weapon damage, effects and set bonuses.
+  Item filters are saved per character. Use Clear all in the Filters drawer
+  to reset the active filters.
