@@ -47,7 +47,6 @@ return {
 
 	-- Step 9: Silithus: kill these as you meet them
 	-- {zone:1451} Silithus
-	-- was: ["{zone:1452}: kill these as you meet them"] = "{zone:1452}：沿途擊殺以下目標"
 	["{zone:1451}: kill these as you meet them"] = "{zone:1451}：遇到這些就殺",
 	-- {npc:15185} Brood of Nozdormu
 	-- plural, as words: Dredge Strikers = {npc:11740} Dredge Striker · Stonelash Scorpids = {npc:11735} Stonelash Scorpid · Sand Skitterers = {npc:11738} Sand Skitterer

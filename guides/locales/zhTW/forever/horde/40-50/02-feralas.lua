@@ -153,7 +153,6 @@ return {
 	-- {npc:5591} Dar
 	["{npc:5591}, inside"] = "{npc:5591}，在裡面",
 	-- {npc:1443} Fel'zerul
-	-- was: ["{npc:2488}, on the top floor"] = "{npc:2488}，在頂層"
 	["{npc:1443}, on the top floor"] = "{npc:1443}，在頂層",
 
 	-- Step 37: A Soggy Scroll
@@ -218,7 +217,6 @@ return {
 	-- was: ["{npc:4773}, riding trainer"] = "{npc:4773}，騎術訓練師"
 	["{npc:4773}, riding trainer"] = "",
 	-- {npc:4731} Zachariah Post · {npc:4773} Velma Warnam · {area:159} Brill
-	-- was: ["Skeletal horses: {npc:4731}, beside {npc:4773} in {area:159}."] = "骸骨戰馬：{npc:4731}，在{area:159}的{npc:4773}旁邊。"
 	["Skeletal horses: {npc:4731}, beside {npc:4773} in {area:159}."] = "骷髏馬：{npc:4731}，在{area:159}的{npc:4773}旁邊。",
 
 	-- Step 52: Zeppelin to Orgrimmar

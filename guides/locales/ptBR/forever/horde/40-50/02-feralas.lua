@@ -217,7 +217,6 @@ return {
 	-- was: ["{npc:4773}, riding trainer"] = "{npc:4773}, instrutora de montaria"
 	["{npc:4773}, riding trainer"] = "",
 	-- {npc:4731} Zachariah Post · {npc:4773} Velma Warnam · {area:159} Brill
-	-- was: ["Skeletal horses: {npc:4731}, beside {npc:4773} in {area:159}."] = "Cavalos esqueléticos: {npc:4731}, ao lado de {npc:4773} em {area:159}."
 	["Skeletal horses: {npc:4731}, beside {npc:4773} in {area:159}."] = "Cavalos esqueléticos: {npc:4731}, ao lado de {npc:4773}, em {area:159}.",
 
 	-- Step 52: Zeppelin to Orgrimmar
