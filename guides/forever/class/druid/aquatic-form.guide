@@ -11,6 +11,7 @@ class Druid
 levels 16-22
 zone Moonglade
 
+# (CI timing check, not for merging.)
 # Aquatic Form: in Forever Aquatic Form (5061 Night Elf, 31 Tauren) rewards
 # the form itself and the Idol of Shifting Tides besides the Aquarius Belt
 # (Forever's druid class quest list: "Rewards: adds Aquatic Form, Idol of
