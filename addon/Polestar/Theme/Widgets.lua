@@ -4610,7 +4610,6 @@ end
 -- own place for it (f.psPlaceScale(t, true); f.psPlaceScale(t, false) when the
 -- close button comes back). -> the button (control:Place() after the close
 -- button comes or goes)
-local SCALE_SIZES = { 0.7, 0.8, 0.9, 1, 1.1, 1.2, 1.3, 1.4 }
 function W.HeaderScaleButton(f, path, label, tip)
 	local head = f.Header
 	local function set(v) ns.Set(path, math.abs(v - 1) < 0.001 and nil or v) end
@@ -4621,7 +4620,7 @@ function W.HeaderScaleButton(f, path, label, tip)
 		if button == "RightButton" then return ns.Set(path, nil) end
 		local cur = W.ScaleSetting(path)
 		local list, items = {}, {}
-		for _, v in ipairs(SCALE_SIZES) do list[#list + 1] = v end
+		for v = 7, 14 do list[#list + 1] = v / 10 end
 		local listed = false
 		for _, v in ipairs(list) do if math.abs(v - cur) < 0.001 then listed = true end end
 		if not listed then
