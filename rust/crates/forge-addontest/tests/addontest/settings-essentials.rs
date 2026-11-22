@@ -63,9 +63,12 @@ fn every_look_page_opens_on_essentials_cards_first_then_at_most_ten_references_t
 							e.rows = e.rows + 1
 							if not rawget(c, "ref") then e.notRef[#e.notRef + 1] = tostring(c.key or c.label) end
 						end
+						-- A reference's home is on its own page, or on Guide: since the Settings Overhaul's one home
+						-- per setting (#3185) what the arrow and the route lines do lives there (hide the arrow
+						-- with the guide, distance units, line style), and a Look page's Essentials reference it.
 						if rawget(c, "ref") then
 							local home = O.HomeOf(c)
-							if not home or home.page ~= c.page then e.homeless[#e.homeless + 1] = tostring(c.key) end
+							if not home or (home.page ~= c.page and home.page.key ~= "guide") then e.homeless[#e.homeless + 1] = tostring(c.key) end
 						end
 					end
 				end
@@ -88,10 +91,7 @@ fn every_look_page_opens_on_essentials_cards_first_then_at_most_ten_references_t
 		let rows = e["rows"].as_f64().unwrap();
 		assert!((4.0..=10.0).contains(&rows), "{key}: {rows} rows under the cards (at most ten)");
 		assert_eq!(e["notRef"], json!({}), "{key}: every row a reference to its home");
-		// The arrow's behaviour (hide it with the guide, the distance units) is homed on Guide since the Settings
-		// Overhaul's one home per setting (#3185); the Arrow page's Essentials reference it there.
-		let elsewhere = if key == "arrow" { json!(["nav.hideArrowWithGuide", "nav.distanceUnit"]) } else { json!({}) };
-		assert_eq!(e["homeless"], elsewhere, "{key}: every reference's home on its page");
+		assert_eq!(e["homeless"], json!({}), "{key}: every reference's home on its page (or on Guide)");
 		// Theme's cards show the first six skins, and their More link opens the full list on the Colour tab.
 		let cards_more = if key == "theme" { 0.0 } else { 1.0 };
 		assert_eq!(e["more"].as_f64().unwrap(), e["sections"].as_f64().unwrap() - cards_more, "{key}: a More link on every section but the cards' (Theme's too)");
