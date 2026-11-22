@@ -476,7 +476,9 @@ local function decodeInstance(group, id, s)
 	if t[5] and t[5] ~= "" then
 		local e = split(t[5], ",")
 		-- approx: the client's corpse point (where a ghost returns), not the way in.
-		rec.entrance = { map = tonumber(e[1]), x = tonumber(e[2]) / 10, y = tonumber(e[3]) / 10, f = e[4] ~= "" and e[4] or nil, approx = e[5] == "a" or nil }
+		-- The main door's optional height follows the Alliance triplet when present.
+		local z = tonumber(e[e[8] and 9 or 6])
+		rec.entrance = { map = tonumber(e[1]), x = tonumber(e[2]) / 10, y = tonumber(e[3]) / 10, f = e[4] ~= "" and e[4] or nil, approx = e[5] == "a" or nil, z = z }
 		-- The Alliance's own way in (the City of Dalaran): an Alliance character's entrance.
 		if e[8] and ns.Compat.GetPlayerFaction() == "Alliance" then
 			rec.entrance = { map = tonumber(e[6]), x = tonumber(e[7]) / 10, y = tonumber(e[8]) / 10 }
