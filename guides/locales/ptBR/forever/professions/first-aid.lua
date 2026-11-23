@@ -131,8 +131,8 @@ return {
 	["{item:6451}: cloth"] = "{item:6451}: tecido",
 
 	-- Step 27: Heavy Silk Bandage (180-210)
-	-- {item:6451} Heavy Silk Bandage
-	["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere."] = "{item:6451} é amarela desde 180 (amarelo em 180, verde em 210, cinza em 240): cerca de 42 criações até 210. Bandagens não precisam de fogo: crie em qualquer lugar.",
+	-- {item:6451} Heavy Silk Bandage · {item:16112} Manual: Heavy Silk Bandage · {skill:129} First Aid
+	["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere. Read the {item:16112} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "",
 
 	-- Step 28: Mageweave Bandage: Auction House
 	-- {item:8544} Mageweave Bandage
@@ -147,8 +147,8 @@ return {
 	["{item:4338} drops from humanoids of level 35-50: keep what you loot as you level, or take it from your bank."] = "{item:4338} cai de humanoides de nível 35-50: guarde o que saquear enquanto sobe de nível ou pegue no seu banco.",
 
 	-- Step 30: Mageweave Bandage (210-225)
-	-- {item:8544} Mageweave Bandage
-	["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere."] = "{item:8544} é amarela desde 210 (amarelo em 210, verde em 240, cinza em 270): cerca de 18 criações até 225. Bandagens não precisam de fogo: crie em qualquer lugar.",
+	-- {item:8544} Mageweave Bandage · {item:16113} Manual: Mageweave Bandage · {skill:129} First Aid
+	["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere. Read the {item:16113} you bought with Expert {skill:129} to learn it; without one, the vendor who sold you the book sells it too."] = "",
 
 	-- Step 31: Trauma
 	["Trauma"] = "Trauma",
@@ -235,7 +235,9 @@ return {
 	-- ["{item:14529} is yellow from 260 (yellow at 260, grey at 320): about 65 crafts to 300. Bandages need no fire: craft them anywhere. {item:14529} stays yellow to 320, so it carries you to 300 without a trip for Heavy Runecloth."] = "{item:14529} fica amarelo a partir de 260 (amarelo em 260, cinza em 320): cerca de 65 criações até 300. Bandagens não precisam de fogo: faça-as em qualquer lugar. {item:14529} fica amarelo até 320, então leva você até 300 sem uma ida para buscar Bandagem Grossa de Runatrama.",
 	-- ["{item:2581} is yellow from 50 (yellow at 50, grey at 100): about 46 crafts to 80. Bandages need no fire: craft them anywhere."] = "{item:2581} fica amarelo a partir de 50 (amarelo em 50, cinza em 100): cerca de 46 criações até 80. Bandagens não precisam de fogo: faça-as em qualquer lugar.",
 	-- ["{item:6450} is yellow from 150 (yellow at 150, grey at 210): about 42 crafts to 180. Bandages need no fire: craft them anywhere."] = "{item:6450} fica amarelo a partir de 150 (amarelo em 150, cinza em 210): cerca de 42 criações até 180. Bandagens não precisam de fogo: faça-as em qualquer lugar.",
+	-- ["{item:6451} is yellow from 180 (yellow at 180, green at 210, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere."] = "{item:6451} é amarela desde 180 (amarelo em 180, verde em 210, cinza em 240): cerca de 42 criações até 210. Bandagens não precisam de fogo: crie em qualquer lugar.",
 	-- ["{item:6451} is yellow from 180 (yellow at 180, grey at 240): about 42 crafts to 210. Bandages need no fire: craft them anywhere."] = "{item:6451} fica amarelo a partir de 180 (amarelo em 180, cinza em 240): cerca de 42 criações até 210. Bandagens não precisam de fogo: faça-as em qualquer lugar.",
+	-- ["{item:8544} is yellow from 210 (yellow at 210, green at 240, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere."] = "{item:8544} é amarela desde 210 (amarelo em 210, verde em 240, cinza em 270): cerca de 18 criações até 225. Bandagens não precisam de fogo: crie em qualquer lugar.",
 	-- ["{item:8544} is yellow from 210 (yellow at 210, grey at 270): about 18 crafts to 225. Bandages need no fire: craft them anywhere."] = "{item:8544} fica amarelo a partir de 210 (amarelo em 210, cinza em 270): cerca de 18 criações até 225. Bandagens não precisam de fogo: faça-as em qualquer lugar.",
 	-- ["{item:8544} is yellow from 225 (yellow at 210, grey at 270): about 88 crafts to 260. Bandages need no fire: craft them anywhere. {item:8544} stays yellow to 270; one recipe to 260 saves two trips to the doctor."] = "{item:8544} fica amarelo a partir de 225 (amarelo em 210, cinza em 270): cerca de 88 criações até 260. Bandagens não precisam de fogo: faça-as em qualquer lugar. {item:8544} fica amarelo até 270; uma só receita até 260 poupa duas idas ao médico.",
 	-- ["{quest:6622}: treat the wounded soldiers in the doctor's tent with the bandages the doctor gives you, the most critical first, before any of them die."] = "{quest:6622}: trate os soldados feridos na tenda do médico com as bandagens que ele lhe der, os mais graves primeiro, antes que algum morra.",

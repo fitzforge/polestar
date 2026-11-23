@@ -6,8 +6,8 @@
 // at 18 on the shipped Barrens guide, played 40 steps (to the coast south of
 // Ratchet).
 //
-// Built-in skins are set by id; a skin addon (addon/Polestar_Skin_<Name>) is
-// loaded after Polestar from the checkout being rendered (--checkout), the
+// Built-in skins are set by id; our other skins (addon/Polestar_Skins/Skins/<Name>)
+// are in one folder, loaded after Polestar from the checkout being rendered (--checkout), the
 // way the client loads an addon that depends on Polestar, then picked. The
 // skin's own layout preset is applied, as a player who accepted "Apply
 // <skin>'s layout" has it. Shots: <skin>-guide, <skin>-cards, <skin>-toast,
@@ -20,26 +20,27 @@ const { ROOT } = require('../../lib/paths');
 const ADDONS = process.env.POLESTAR_ADDON_DIR || path.join(ROOT, 'addon');
 
 // shot name -> [skin id, addon folder (null: built in), variant (nil: the
-// skin's default)]: the built-in skins and the skin addons in the download.
+// skin's default)]: the built-in skins and our skins (Polestar_Skins).
+const OWN = 'Polestar_Skins';
 const SKINS = {
 	polestar: ['polestar', null],
 	forever: ['forever', null],
 	blizzard: ['blizzard', null],
 	classic: ['classic', null],
 	hearth: ['hearth', null],
-	vellum: ['vellum', 'Polestar_Skin_Vellum'],
-	lumen: ['lumen', 'Polestar_Skin_Lumen'],
-	beacon: ['beacon', 'Polestar_Skin_Beacon'],
-	aurora: ['aurora', 'Polestar_Skin_Aurora'],
-	hairline: ['hairline', 'Polestar_Skin_Hairline'],
-	umbra: ['umbra', 'Polestar_Skin_Umbra'],
-	'umbra-forever': ['umbra', 'Polestar_Skin_Umbra', 'forever'],
-	'umbra-classic': ['umbra', 'Polestar_Skin_Umbra', 'classic'],
-	waymark: ['waymark', 'Polestar_Skin_Waymark'],
-	lanterns: ['lanterns', 'Polestar_Skin_Lanterns'],
-	'lanterns-tidepool': ['lanterns', 'Polestar_Skin_Lanterns', 'tidepool'],
-	'lanterns-plain': ['lanterns', 'Polestar_Skin_Lanterns', 'plain'],
-	sheen: ['sheen', 'Polestar_Skin_Sheen'],
+	vellum: ['vellum', OWN],
+	lumen: ['lumen', OWN],
+	beacon: ['beacon', OWN],
+	aurora: ['aurora', OWN],
+	hairline: ['hairline', OWN],
+	umbra: ['umbra', OWN],
+	'umbra-forever': ['umbra', OWN, 'forever'],
+	'umbra-classic': ['umbra', OWN, 'classic'],
+	waymark: ['waymark', OWN],
+	lanterns: ['lanterns', OWN],
+	'lanterns-tidepool': ['lanterns', OWN, 'tidepool'],
+	'lanterns-plain': ['lanterns', OWN, 'plain'],
+	sheen: ['sheen', OWN],
 };
 
 const luaStr = (s) => JSON.stringify(String(s));
@@ -61,12 +62,9 @@ ${files.map((f) => `assert(loadfile(${luaStr(path.join(dir, f.replace(/\\/g, '/'
 end`;
 }
 
-// A skin addon, after the Skin API's checks (Polestar_SkinAPI, the part
-// Polestar loads on demand for a registering skin) where the checkout has
-// them.
+// A skin's addon (the Skin API's checks are in Polestar since 0.4.3).
 function loadSkin(folder) {
-	const api = fs.existsSync(path.join(ADDONS, 'Polestar_SkinAPI', 'Polestar_SkinAPI.toc')) ? `${loadAddon('Polestar_SkinAPI')}\n` : '';
-	return `${api}${loadAddon(folder)}`;
+	return loadAddon(folder);
 }
 
 // The settings window's addon (Polestar_Options, loaded on demand; the

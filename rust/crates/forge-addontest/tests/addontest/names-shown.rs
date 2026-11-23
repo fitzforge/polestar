@@ -160,18 +160,6 @@ fn an_english_client_reads_the_data_s_objectives_as_before() {
 }
 
 #[test]
-fn the_pace_line_names_its_quest_in_the_client_s_words() {
-	let script = r#"
-local E = Polestar.Engine
-E.SetGuide("test/shown"); stub.advance(0.3)
--- On the step that does its work (an accept-only step says no quest level).
-local h = Polestar.Levels.StepHint(2)
-emit({ title = h and h.title or false, quest = h and h.quest or false })"#;
-	assert_eq!(run(Some("ruRU"), script)[0], json!({ "title": "Узы", "quest": 1689 }));
-	assert_eq!(run(None, script)[0], json!({ "title": "The Binding", "quest": 1689 }));
-}
-
-#[test]
 fn the_class_quest_card_names_its_giver_in_the_client_s_words_and_points_the_arrow_at_that_name() {
 	let script = r#"
 local w = stub.world

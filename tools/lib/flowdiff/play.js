@@ -7,12 +7,14 @@
 //
 //   node tools/lib/flowdiff/play.js <job.json>
 //
-// job: { tree, data, out, guides: [text] | null, skipQuests: [ids], cls, workers, cache, label }
+// job: { tree, data, out, guides: [text] | null, skipQuests: [ids], cls, levelOffset, workers, cache, label }
 //   tree     the checkout (guides/, addon/Polestar, tools/, tests/lua with data/forever beside them)
 //   data     the reference data (data/forever) every play reads
 //   guides   play each start's route only up to its last guide whose id contains one of these
 //            (null: every leveling guide on the default routes)
-//   cache    a folder of earlier plays (keyed by the engine, the compiled guide and the persona)
+//   levelOffset  the player that many levels ahead of each guide's level (../playtest-level.js: this
+//            tool's, so a tree whose playtest predates it plays it too); 0 or missing: none
+//   cache    a folder of earlier plays (keyed by the engine, the compiled guide, the persona and the level offset)
 // out: { label, engine, guides: { id: { title, faction, races, next, steps: [{ title, goals }], legs } },
 //        branches: [{ start, race, faction, guides: [ids] }],
 //        plays: { "id|faction": { race, faction, cls, ok, stuck, trace: [{ s, t, q, map, x, y, node, lv }] } } }
@@ -23,6 +25,7 @@
 const crypto = require('node:crypto');
 const fs = require('node:fs');
 const path = require('node:path');
+const { levelOffsetLua } = require('../playtest-level');
 
 const DEFAULT_RACE = { Horde: 'Orc', Alliance: 'Human' };
 
@@ -60,6 +63,14 @@ const sha = (...parts) => {
 	for (const p of parts) h.update(typeof p === 'string' ? p : JSON.stringify(p)).update('\0');
 	return h.digest('hex');
 };
+
+// A play's cache key: the engine, the compiled guide (without its source tree), the persona, what the play starts
+// with and the script; a level offset other than 0 too, so an offset play never reads a plain play's entry (nor one
+// of another offset), while a plain play keeps its keys.
+function playKey(engine, g, persona, before, script, levelOffset = 0) {
+	const { _ast, ...plain } = g;
+	return sha(engine, plain, persona, before, script, ...(levelOffset ? [{ levelOffset }] : []));
+}
 
 // Every file under dir, sorted, for the engine's key.
 function filesUnder(dir) {
@@ -206,15 +217,14 @@ async function main(jobFile) {
 						...pre.carried.map((q) => `w.onQuest(${q}, {})`),
 						...(pre.open || []).map((q) => `w.onQuest(${q}, { ${objectivesIn(g, q).map((n) => `{ required = ${n} }`).join(', ')} })`),
 					].join('\n');
-					const { _ast, ...plain } = g;
-					const key = sha(engine, plain, persona, before, script);
+					const key = playKey(engine, g, persona, before, script, job.levelOffset || 0);
 					const file = cache && path.join(cache, `${key}.json`);
 					let rec = null;
 					if (file && fs.existsSync(file)) {
 						rec = JSON.parse(fs.readFileSync(file, 'utf8'));
 						cached++;
 					} else {
-						const [out, trace] = await playGuideIn(pool, pack, g, { ...persona, before, script });
+						const [out, trace] = await playGuideIn(pool, pack, g, { ...persona, before: levelOffsetLua(job.levelOffset || 0) + before, script });
 						rec = { ...persona, ok: Boolean(out && out.done && !out.stuck), stuck: (out && out.stuck) || null, trace: Array.isArray(trace) ? trace : [] };
 						if (file) fs.writeFileSync(file, JSON.stringify(rec));
 						played++;
@@ -261,4 +271,4 @@ if (require.main === module) {
 	);
 }
 
-module.exports = { traced, branchesOf, personaFor };
+module.exports = { traced, branchesOf, personaFor, playKey };

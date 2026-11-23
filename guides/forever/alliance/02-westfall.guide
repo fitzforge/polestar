@@ -150,6 +150,16 @@ step The Binding
   kill 5676 quest 1689.1                      -- Summoned Voidwalker: use the Bloodstone Choker at the circle
   turnin 1689                                 -- Summon Voidwalker
 
+step The Binding
+  only Gnome,Warlock
+  when turnedin 1688
+  when available 1689
+  zone Stormwind City
+  tip Surena's Choker is already with Gakin the Darkbinder: take The Binding from him in the cellar of the Slaughtered Lamb, in the Mage Quarter. Use the Bloodstone Choker at the summoning circle there and defeat the voidwalker it calls.
+  accept 1689
+  kill 5676 quest 1689.1                      -- Summoned Voidwalker: use the Bloodstone Choker at the circle
+  turnin 1689                                 -- Summon Voidwalker
+
 # ---------------------------------------------------------------- The road in: the Jansen Stead and Saldean's
 
 step The Jansen Stead
@@ -321,7 +331,7 @@ step The Jansen Stead
   turnin 151                                  -- Verna Furlbrow
 
 step Harvest Watchers north of Saldean's Farm
-  tip On the way south from the Jansen Stead to Saldean's Farm: Harvest Watchers (level 14-15) and Golems work the fields west of the road; they drop the isosprings, gyrostabilizers, Okra and sometimes a Precessive Autocognition Assembly. Foe Reaper 4000, a level 20 rare, walks these fields: leave it alone.
+  tip On the way south from the Jansen Stead to Saldean's Farm: Harvest Watchers (level 14-15) work the fields west of the road. Stick to them: they are the only mechanicals that count for The Killing Fields, and they drop everything else here too: the isosprings, gyrostabilizers, Okra and sometimes a Precessive Autocognition Assembly. Harvest Golems drop some of the parts but don't count, and the Harvest Reapers (17) are too high. Foe Reaper 4000, a level 20 rare, walks these fields: leave it alone.
   kill 114 quest 9                            -- Harvest Watchers
   collect 255007 quest 92909.1
   collect 255010 quest 92909.2
@@ -369,11 +379,13 @@ step Sentinel Hill
 # ---------------------------------------------------------------- The mines
 
 step Jangolode Mine
-  tip Back north past Molsen Farm to the mine: Kobold Diggers work inside.
+  tip Back north past Molsen Farm to the mine.
+  tip Careful: pull the four Kobold Diggers from the mouth of Jangolode Mine, one at a time. There is no need to go deeper.
   kill 1236 quest 92745.1                     -- Kobold Diggers
 
 step The Gold Coast Quarry
   tip South-west to the coast, west of Molsen Farm. Riverpaw Miners work the quarry.
+  tip Careful: pull the Riverpaw Miners away from the quarry mouth. The Defias stand close together inside the cave.
   kill 1426 quest 92745.2                     -- Riverpaw Miners
 
 # ---------------------------------------------------------------- West and south
@@ -381,7 +393,7 @@ step The Gold Coast Quarry
 step Moonbrook: kill these as you meet them
   zone Westfall
   tip Defias Pillagers and Looters hold the farms west of Sentinel Hill, between the coast road and Moonbrook. Alexston's Chest stands in the farmhouse at the Alexston Farmstead, among them: Baros' compass is inside.
-  tip Careful: The Gold Coast Quarry cave holds many Defias packed together, so it is easy to pull several at once there.
+  tip Careful: the Pillagers and Looters crowd the Alexston farm and the quarry entrance. Pull one out into the open before fighting it.
   kill 589 quest 13
   kill 590 quest 13
   collect 2998 quest 399.1 @36.24,54.52       -- A Simple Compass, from Alexston's Chest
@@ -522,6 +534,10 @@ step Stormwind
   accept 353 only Human                       -- Grimand Elmore: his package for Mountaineer Stormpike in Loch Modan, later on the route
   accept 97894                                -- Borgus Steelhand, Dwarven District: for his brother in Auberdine
   turnin 399                                  -- Baros Alexston, Cathedral Square
+
+step Jennea Cannon
+  zone Stormwind City
+  when complete 1861
   turnin 1861 only Gnome,Human,Skyborne,Mage choose 9513 7508      -- Jennea Cannon, Wizard's Sanctum: Mirror Lake
 
 step Stormwind

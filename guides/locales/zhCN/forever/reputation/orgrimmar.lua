@@ -230,7 +230,7 @@ return {
 	["Prowlers, {npc:3452} and {quest:881}"] = "徘徊者、{npc:3452}和{quest:881}",
 	-- {quest:876} Serena Bloodfeather · {npc:3338} Sergra Darkthorn · {item:10327} Horn of Echeyakee · {object:147524} Echeyakee's Lair (no name in this language: may be words)
 	-- plural, as words: Savannah Prowlers = {npc:3425} Savannah Prowler
-	["Savannah Prowlers lie west and north of the Crossroads. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "草原徘徊者在十字路口西侧和北侧活动。{quest:876} 在西北远处率领巫翼鹰身人。随后 {npc:3338} 会给你 {item:10327}：到镇北 {object:147524} 的科多兽骸骨旁吹响它，击杀白狮。",
+	["Savannah Prowlers lie west and north of the Crossroads. {quest:876} leads the Witchwing harpies in the far north-west. Then {npc:3338} gives you the {item:10327}: blow it beside the kodo bones at {object:147524}, north of the town, and kill the white lion."] = "草原徘徊者在十字路口西侧和北侧活动。{quest:876} 在西北远处率领巫翼鹰身人。随后 {npc:3338} 会给你 {item:10327}：到镇北埃其亚基的巢穴的科多兽骸骨旁吹响它，击杀白狮。",
 
 	-- Step 39: Chen's Empty Keg (optional hub)
 	-- {quest:819} Chen's Empty Keg
