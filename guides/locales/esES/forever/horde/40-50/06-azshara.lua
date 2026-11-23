@@ -10,42 +10,42 @@ return {
 	-- {area:35} Booty Bay
 	["Fly to {area:35}"] = "Vuela a {area:35}",
 	-- {area:75} Stonard
-	["{area:75} flight master"] = "",
+	["{area:75} flight master"] = "Maestro de vuelo de {area:75}",
 
 	-- Step 3: Booty Bay
 	-- {area:75} Stonard · {area:35} Booty Bay · {npc:7406} Oglethorpe Obnoticus
 	["The flight from {area:75} lands on {area:35}'s upper deck. {npc:7406} has his workshop on the upper ring of the bay."] = "El vuelo desde {area:75} aterriza en la plataforma superior de {area:35}. {npc:7406} tiene su taller en el anillo superior de la bahía.",
 	-- {npc:7406} Oglethorpe Obnoticus
-	["{npc:7406}, inside"] = "",
+	["{npc:7406}, inside"] = "{npc:7406}, dentro",
 	-- {zone:1446} Tanaris
 	["\"Sea Wolf\" MacKinley, on the top floor: Stoley's shipment from {zone:1446}"] = "\"Lobo de mar\" MacKinley, en el piso superior: el cargamento de Stoley desde {zone:1446}",
 	-- {npc:2487} Fleet Master Seahorn
-	["{npc:2487}, on the balcony of the same building"] = "",
+	["{npc:2487}, on the balcony of the same building"] = "{npc:2487}, en el balcón del mismo edificio",
 
 	-- Step 4: Whiskey Slim
 	-- {npc:2491} Whiskey Slim · {area:35} Booty Bay
 	["{npc:2491} sits in the {area:35} inn."] = "",
 	-- {npc:2491} Whiskey Slim
-	["{npc:2491}, in the inn"] = "",
+	["{npc:2491}, in the inn"] = "{npc:2491}, en la posada",
 
 	-- Step 5: The Bloodsail ships
 	["The Bloodsail ships"] = "Los barcos Velasangre",
 	-- {area:43} Wild Shore · {npc:2550} Captain Stillwater · {npc:2548} Captain Keelhaul · {npc:2546} Fleet Master Firallon
-	["South of Booty Bay, three Bloodsail ships lie off the {area:43}: {npc:2550}, {npc:2548} and {npc:2546} each stand on a deck with their crews. Swim out and work from ship to ship."] = "",
+	["South of Booty Bay, three Bloodsail ships lie off the {area:43}: {npc:2550}, {npc:2548} and {npc:2546} each stand on a deck with their crews. Swim out and work from ship to ship."] = "Al sur de Bahía del Botín, tres barcos de los Maresangre están frente al {area:43}: {npc:2550}, {npc:2548} y {npc:2546} están cada uno en una cubierta con sus tripulaciones. Nada hasta ahí y trabaja de barco en barco.",
 
 	-- Step 7: Monogrammed Sash
 	-- {quest:8552} The Monogrammed Sash
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {quest:8552} needs a group of 2. Skip it if you are alone: the route has you grind the XP back."] = "Son enemigos de élite: se anima a ir en grupo, busca gente con quien hacerlo. El {quest:8552} necesita un grupo de 2. Sáltatelo si estás solo: la ruta te hace picar la experiencia de vuelta.",
 
 	-- Step 12: Fly to Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
 	["Fly to {object:3202}"] = "Vuela a {object:3202}",
 	-- {area:35} Booty Bay
-	["{area:35} flight master"] = "",
+	["{area:35} flight master"] = "Maestro de vuelo de {area:35}",
 
 	-- Step 13: Grom'gol Base Camp
 	-- {area:117} Grom'gol Base Camp · {npc:2497} Nimboya · {object:2076} Bubbling Cauldron
-	["The flight lands at {area:117}; {npc:2497} stands by the {object:2076}."] = "",
+	["The flight lands at {area:117}; {npc:2497} stands by the {object:2076}."] = "El vuelo aterriza en {area:117}; {npc:2497} está junto al {object:2076}.",
 
 	-- Step 14: Back to Grom'gol
 	-- {object:3202} Grom'gol (no name in this language: may be words)
@@ -53,7 +53,7 @@ return {
 
 	-- Step 15: The Mind's Eye
 	-- {npc:818} Mai'Zoth
-	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:818} (level 47 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\nCareful: Two elite caster guards, around level 45, stand with {npc:818} and join the fight together with him."] = "",
+	["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:818} (level 47 elite) needs a group of 2. Skip it if you are alone: the route has you grind the XP back.\nCareful: Two elite caster guards, around level 45, stand with {npc:818} and join the fight together with him."] = "Son enemigos de élite: se anima a ir en grupo, busca gente con quien hacerlo. {npc:818} (47, élite) necesita un grupo de 2. Sáltatelo si estás solo: la ruta te hace picar la experiencia de vuelta.\nCuidado: dos guardias élite lanzadores, de nivel 45 alrededor, están con {npc:818} y se unen a la pelea junto con él.",
 	["Below ground"] = "Bajo tierra",
 
 	-- Step 19: Zeppelin to Orgrimmar
@@ -94,10 +94,10 @@ return {
 
 	-- Step 27: Haldarr Encampment: kill these as you meet them
 	-- {area:1236} Haldarr Encampment
-	["{area:1236}: kill these as you meet them"] = "",
+	["{area:1236}: kill these as you meet them"] = "{area:1236}: mátalos según te los encuentres",
 	["The Highborne ghosts haunt the ruins just north of the shrine; the Haldarr satyrs camp a little further north."] = "Las apariciones de Altonato rondan las ruinas justo al norte del santuario; los sátiros Haldarr acampan un poco más al norte.",
 	-- {npc:6117} Highborne Lichling · {area:1235} Shadowsong Shrine
-	["{npc:6117} walks around {area:1235}: look inside the circle on the map"] = "",
+	["{npc:6117} walks around {area:1235}: look inside the circle on the map"] = "{npc:6117} da vueltas por {area:1235}: mira dentro del círculo del mapa",
 
 	-- Step 28: Loh'atu
 	-- {npc:11548} Loh'atu · {area:3137} Talrendis Point
@@ -113,7 +113,7 @@ return {
 	-- {zone:1447} Azshara · {area:1637} Orgrimmar · {quest:4493} March of the Silithid · {zone:1456} Thunder Bluff
 	["You reached 50 in {zone:1447}: fly back to {area:1637} for {quest:4493} and your level 50 training, then on to {zone:1456}."] = "",
 	-- {area:1237} Valormok
-	["{area:1237} flight master"] = "",
+	["{area:1237} flight master"] = "Maestro de vuelo de {area:1237}",
 
 	-- Step 31: Zilzibin Drumlore
 	-- {npc:7010} Zilzibin Drumlore
@@ -141,7 +141,7 @@ return {
 	-- {area:1099} Camp Mojache
 	["Fly to {area:1099}"] = "Vuela a {area:1099}",
 	-- {zone:1456} Thunder Bluff
-	["{zone:1456} flight master"] = "",
+	["{zone:1456} flight master"] = "Maestro de vuelo de {zone:1456}",
 
 	-- Step 38: Camp Mojache
 	-- {npc:8115} Witch Doctor Uzer'i
@@ -235,7 +235,7 @@ return {
 
 	-- Step 58: Gadgetzan
 	-- {npc:5594} Alchemist Pestlezugg
-	["{npc:5594}, inside"] = "",
+	["{npc:5594}, inside"] = "{npc:5594}, dentro",
 
 	-- Step 61: Gadgetzan
 	-- {npc:7876} Tran'rek
@@ -243,7 +243,7 @@ return {
 
 	-- Step 62: The Egg-O-Matic
 	-- {object:142071} Egg-O-Matic
-	["The {object:142071}"] = "",
+	["The {object:142071}"] = "{object:142071}",
 	-- {object:142071} Egg-O-Matic
 	["The {object:142071}, in the middle of town"] = "{object:142071}, en el centro del pueblo",
 
@@ -282,6 +282,7 @@ return {
 	-- ["Keep {npc:8659}'s payment and Ag'tor's {quest:3504}: they go back to {area:1237} on a later visit."] = "Guarda el pago de {npc:8659} y {quest:3504} de Ag'tor Puñosangre: se entregan en {area:1237} en una visita posterior.",
 	-- ["On the way through {zone:1454} to the flight master, step into the Drag: {npc:7010} takes the insect report from {zone:1446}, and its experience shortens the top-up to 50 in {zone:1447}."] = "De camino por {zone:1454} hacia el maestro de vuelo, entra en La Calada: {npc:7010} recoge el informe de insectos de {zone:1446}, y su experiencia acorta la subida hasta 50 en {zone:1447}.",
 	-- ["Only once all three robots are home"] = "Solo cuando los tres robots estén en casa",
+	-- ["Paladin trainer"] = "Instructor de paladines",
 	-- ["Ride into {area:16}"] = "Entra en {area:16}",
 	-- ["Ride north-east to the goblin's camp on the cliffs above the {area:1227}."] = "Cabalga al noreste hasta el campamento del goblin en los acantilados sobre {area:1227}.",
 	-- ["Ride north-west to the {area:1108}; {npc:14637} waits on the dock."] = "Cabalga al noroeste hasta {area:1108}; {npc:14637} espera en el muelle.",
@@ -304,6 +305,8 @@ return {
 	-- ["West from the compound, on the way to Un'Goro's ramp: {quest:3362}'s Gnarled Thistleshrubs and Rootshapers (48-50) are {npc:7876}'s, carried from your first {zone:1446} visit. They wander a lot: pull them one at a time. {npc:7876} takes them on the next guide's {area:976} stop, with {npc:11758}'s."] = "Al oeste del recinto, de camino a la rampa de Un'Goro: los Cardizales nudosos y los Moldeadores de raíces (48-50) de {quest:3362} son para {npc:7876}, misión que llevas desde tu primera visita a {zone:1446}. Deambulan mucho: atráelos de uno en uno. {npc:7876} la recoge en la parada de {area:976} de la siguiente guía, junto con la de {npc:11758}.",
 	-- ["Xylem's tower stands on the cliff just north of {area:1237}; the path winds up its north side."] = "La torre del Archimago Xylem está en el acantilado justo al norte de {area:1237}; el sendero sube serpenteando por su lado norte.",
 	-- ["Zapped giants"] = "Gigantes encogidos",
+	-- ["{area:1108}: kill these as you meet them"] = "{area:1108}: mátalos según te los encuentres",
+	-- ["{npc:246344} in {zone:1456}; {zone:1454} has no paladin trainer"] = "{npc:246344} en {zone:1456}; {zone:1454} no tiene instructor de paladines",
 	-- ["{npc:6986}, the {object:172959}"] = "{npc:6986}, {object:172959}",
 	-- ["{npc:7010}, the Drag: if you still carry it"] = "{npc:7010}, La Calada: si aún lo llevas",
 	-- ["{npc:7776}: the bears are in {zone:1448}"] = "{npc:7776}: los osos están en {zone:1448}",

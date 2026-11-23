@@ -18,7 +18,7 @@ return {
 	-- {npc:9528} Arathandris Silversky · {npc:11554} Grazle
 	["{npc:9528}, in the ruins just east of {npc:11554}"] = "{npc:9528}, en las ruinas justo al este de {npc:11554}",
 	-- {npc:9116} Eridan Bluewind
-	["{npc:9116}, inside"] = "",
+	["{npc:9116}, inside"] = "{npc:9116}, dentro",
 	-- {npc:10920} Kelek Skykeeper · {quest:86577} A Sampling of Putrescence · {zone:1448} Felwood
 	["{npc:10920}: {quest:86577}, from the bears and wolves you meet in {zone:1448}"] = "{npc:10920}: {quest:86577}, de los osos y lobos que encuentres en {zone:1448}",
 
@@ -72,7 +72,7 @@ return {
 
 	-- Step 13: Jadefire Run: kill these as you meet them
 	-- {area:2618} Jadefire Run
-	["{area:2618}: kill these as you meet them"] = "",
+	["{area:2618}: kill these as you meet them"] = "{area:2618}: mátalos según te los encuentres",
 	-- {area:2618} Jadefire Run · {npc:10648} Xavaric · {quest:939} Flute of Xavaric · {item:11674} Jadefire Felbind
 	["{area:2618} is the satyr valley in the north-west, with {npc:10648} at its far end. He drops the {quest:939}; every Jadefire satyr can drop {item:11674}.\nCareful: {npc:10648} (55) stands at the valley's far end with Hellcallers (53-54) around him: clear them one at a time before you pull him."] = "{area:2618} es el valle de sátiros del noroeste, con {npc:10648} al fondo. Él suelta la {quest:939}; cualquier sátiro Fuego de Jade puede soltar {item:11674}.\nCuidado: {npc:10648} (55) está al fondo del valle rodeado de clamainfiernos (53-54): elimínalos uno a uno antes de atraerlo.",
 
@@ -261,6 +261,7 @@ return {
 	-- ["Ends in the {zone:1413}: keep it"] = "Termina en {zone:1413}: guárdala",
 	-- ["Five feathers buy a little Timbermaw reputation"] = "Cinco plumas dan un poco de reputación con los Fauces de Madera",
 	-- ["Fly from {area:1998} to the Sanctuary's end of the road, or ride south along it."] = "Vuela desde {area:1998} al extremo del camino del Santuario, o cabalga al sur por él.",
+	-- ["Fly to {area:415}"] = "Vuela a {area:415}",
 	-- ["Follow the road north to the cratered vale and walk to each crater, killing the Entropic Beasts and Horrors between them."] = "Sigue el camino al norte hasta el valle de cráteres y ve a cada cráter, matando las bestias entrópicas y los horrores entre ellos.",
 	-- ["Keep her alive until she is out of the cave"] = "Mantenla con vida hasta que salga de la cueva",
 	-- ["Oozes"] = "Mocos",
@@ -277,6 +278,10 @@ return {
 	-- ["The Jadefire satyrs hold the glen west of the road, with {npc:9454} at its back."] = "Los sátiros Fuego de Jade ocupan el claro al oeste del camino, con {npc:9454} al fondo.",
 	-- ["The vial is filled in {zone:1457}: keep it; inside"] = "El vial se llena en {zone:1457}: guárdalo; dentro",
 	-- ["Use the {item:12922} at the corrupted moonwell in the middle of {area:1763}. If you freed {npc:11018}, go back into {area:1770} for the succubus {npc:9518}; Trey Lightforge's remains lie beside her."] = "Usa la {item:12922} en el pozo de la luna corrupto del centro de {area:1763}. Si liberaste a {npc:11018}, vuelve a {area:1770} a por la súcubo {npc:9518}; los restos de Trey Lightforge yacen a su lado.",
+	-- ["grind on {npc:7109}"] = "mata {npc:7109}",
+	-- ["grind on {npc:7153}"] = "mata {npc:7153}",
+	-- ["grind on {npc:7155}"] = "mata {npc:7155}",
+	-- ["grind on {npc:9878}"] = "mata {npc:9878}",
 	-- ["{area:1763} is the ruined temple north of the glen. Some of its cultists drop a {item:13140}, about one kill in thirty: it opens {npc:11018}'s cell in {area:1770}, the cave at the back. If it drops, clear the way out before you free her; if not, skip her quests."] = "{area:1763} es el templo en ruinas al norte del claro. Algunos de sus cultores sueltan una {item:13140}, más o menos una de cada treinta muertes: abre la celda de {npc:11018} en {area:1770}, la cueva del fondo. Si cae, despeja la salida antes de liberarla; si no, sáltate sus misiones.",
 	-- ["{area:2618} is the satyr valley in the north-west, with {npc:10648} at its far end. He drops the {quest:939}; every Jadefire satyr can drop {item:11674}."] = "{area:2618} es el valle de sátiros del noroeste, con {npc:10648} al fondo. Él suelta la {quest:939}; cualquier sátiro Fuego de Jade puede soltar {item:11674}.",
 	-- ["{item:13140}, a rare drop"] = "{item:13140}, botín poco común",
