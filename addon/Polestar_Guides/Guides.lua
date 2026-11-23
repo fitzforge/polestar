@@ -2944,7 +2944,7 @@ do
 			author = "Polestar",
 			version = 1,
 			group = true,
-			names = { ["area:1099"] = "Camp Mojache", ["area:1758"] = "Riptide", ["area:2577"] = "Dire Maul", ["item:18249"] = "Crescent Key", ["item:18299"] = "Hydrospawn Essence", ["item:18594"] = "Powerful Seaforium Charge", ["npc:14368"] = "Lorekeeper Lydros", ["quest:7463"] = "Arcane Refreshment", ["spell:10140"] = "Conjure Water", ["zone:1444"] = "Feralas" },
+			names = { ["area:1099"] = "Camp Mojache", ["area:2577"] = "Dire Maul", ["item:18249"] = "Crescent Key", ["item:18299"] = "Hydrospawn Essence", ["item:18594"] = "Powerful Seaforium Charge", ["npc:14368"] = "Lorekeeper Lydros", ["quest:7463"] = "Arcane Refreshment", ["spell:10140"] = "Conjure Water", ["zone:1444"] = "Feralas" },
 			steps = {
 				{
 					title = "{npc:14368}",
@@ -2956,7 +2956,7 @@ do
 				},
 				{
 					title = "Hydrospawn",
-					note = "Hydrospawn, a level 57 elite water elemental, lives in the Warpwood Quarter (Dire Maul East): chase the imp Pusillin until he turns to fight, clear the satyr room, then take the spiral ramp down to the pool. A group of five. Frost does nothing to him, so frost mages switch to fire or arcane. {area:1758} hits everyone within 10 yards, so ranged stand back; at a quarter health he calls Hydrolings. The essence always drops; he does not come back until the instance resets.",
+					note = "Hydrospawn, a level 57 elite water elemental, lives in the Warpwood Quarter (Dire Maul East): chase the imp Pusillin until he turns to fight, clear the satyr room, then take the spiral ramp down to the pool. A group of five. Frost does nothing to him, so frost mages switch to fire or arcane. His knockback hits everyone within 10 yards, so ranged stand back; at a quarter health he calls Hydrolings. The essence always drops; he does not come back until the instance resets.",
 					goals = {
 						{ t = "collect", quest = 7463, title = "Arcane Refreshment", item = 18299, itemName = "Hydrospawn Essence", count = 1, oi = 1, map = 1444, x = 58, y = 44.5, f = "e", note = "{item:18299}: Hydrospawn", group = { kind = "group", size = 5 } },
 					},

@@ -199,9 +199,11 @@ function buildOne(entry, codex, warn, inside = []) {
 		if (step.startItem) steps.push(...sourceSteps(step.startItem.id, codex));
 		steps.push(step);
 	};
+	// A raid Forever has not opened yet (`open: false`) may have its quests out of the data (Molten Core's,
+	// #3392): it builds no guide, without a warning.
 	const goal = (entry.goal || []).filter((id) => {
 		if (quests[id]) return true;
-		warn(`${entry.id}: goal quest ${id} is not in the Codex`);
+		if (entry.open !== false) warn(`${entry.id}: goal quest ${id} is not in the Codex`);
 		return false;
 	});
 	if ((entry.goal || []).length && !goal.length) return null;

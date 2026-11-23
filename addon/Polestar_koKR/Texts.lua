@@ -2229,7 +2229,7 @@ t.guides["forever/class/hunter/the-hunters-charm"] = (function() return {
 t.guides["forever/class/mage/arcane-refreshment"] = (function() return {
 		["Back to Lydros"] = "리드로스에게 돌아가기",
 		["Hydrospawn"] = "히드로스폰",
-		["Hydrospawn, a level 57 elite water elemental, lives in the Warpwood Quarter (Dire Maul East): chase the imp Pusillin until he turns to fight, clear the satyr room, then take the spiral ramp down to the pool. A group of five. Frost does nothing to him, so frost mages switch to fire or arcane. {area:1758} hits everyone within 10 yards, so ranged stand back; at a quarter health he calls Hydrolings. The essence always drops; he does not come back until the instance resets."] = "57레벨 정예 물의 정령 히드로스폰은 굽이나무 지구(혈투의 전장 동쪽)에 있습니다. 임프 푸실린이 돌아서서 싸울 때까지 쫓아가고, 사티로스 방을 정리한 뒤 나선형 경사로를 따라 웅덩이로 내려가십시오. 5인 파티용입니다. 냉기는 통하지 않으니 냉기 마법사는 화염이나 비전으로 바꾸십시오. {area:1758}은(는) 10미터 안의 모두를 공격하므로 원거리 공격자는 물러서 있으십시오. 생명력이 4분의 1이 되면 작은 물의 정령을 부릅니다. 정수는 항상 떨어지며, 인스턴스가 초기화될 때까지 다시 나타나지 않습니다.",
+		["Hydrospawn, a level 57 elite water elemental, lives in the Warpwood Quarter (Dire Maul East): chase the imp Pusillin until he turns to fight, clear the satyr room, then take the spiral ramp down to the pool. A group of five. Frost does nothing to him, so frost mages switch to fire or arcane. His knockback hits everyone within 10 yards, so ranged stand back; at a quarter health he calls Hydrolings. The essence always drops; he does not come back until the instance resets."] = "57레벨 정예 물의 정령 히드로스폰은 굽이나무 지구(혈투의 전장 동쪽)에 있습니다. 임프 푸실린이 돌아서서 싸울 때까지 쫓아가고, 사티로스 방을 정리한 뒤 나선형 경사로를 따라 웅덩이로 내려가십시오. 5인 파티용입니다. 냉기는 통하지 않으니 냉기 마법사는 화염이나 비전으로 바꾸십시오. 이 밀쳐내기 공격은 10미터 안의 모두를 공격하므로 원거리 공격자는 물러서 있으십시오. 생명력이 4분의 1이 되면 작은 물의 정령을 부릅니다. 정수는 항상 떨어지며, 인스턴스가 초기화될 때까지 다시 나타나지 않습니다.",
 		["Shen'dralar reputation"] = "셴드랄라 평판",
 		["The level 60 {spell:10140}, from a {area:2577} library: drink for you and your group."] = "{area:2577} 도서관에서 얻는 레벨 60 {spell:10140}: 자신과 파티원을 위한 음료.",
 		["{item:18299}: Hydrospawn"] = "{item:18299}: 히드로스폰",
@@ -2957,6 +2957,15 @@ t.guides["forever/collectibles/mounts/horde/pack-kodo"] = (function() return {
 		["6,000 Merchant's Favor"] = "Merchant's Favor 6,000",
 		["The reins need level 60 and Journeyman Riding to ride (Forever client); you can buy them earlier."] = "고삐를 타려면 60레벨과 수습 타기가 필요합니다(Forever 클라이언트). 구매는 그 전에도 할 수 있습니다.",
 		["{faction:2587} camp"] = "{faction:2587} 야영지",
+} end)()
+t.guides["forever/collectibles/mounts/horde/paladin-warhorse"] = (function() return {
+		["At 40 {npc:260093}, the paladin trainer in the {zone:1458}, sends you to {npc:246378} at {area:16602}. Train your new spells with him while you are there. Already at {area:16602}? Skip this step: {npc:246378} gives you the mount quest without it."] = "40레벨이 되면 {zone:1458}의 성기사 훈련사 {npc:260093}이(가) {area:16602}의 {npc:246378}에게 보냅니다. 그곳에 있는 동안 새 주문을 배우세요. 이미 {area:16602}에 있나요? 이 단계를 건너뛰세요: {npc:246378}은(는) 이 퀘스트 없이도 탈것 퀘스트를 줍니다.",
+		["Paladin Warhorse (Forsaken)"] = "성기사 군마 (포세이큰)",
+		["Your first mount at 40, summoned at will: a Forsaken paladin buys no horse and pays no riding trainer."] = "40레벨에 얻는 첫 탈것으로, 언제든 소환할 수 있습니다: 포세이큰 성기사는 말을 구매하지 않고 탈것 조련사에게 비용도 내지 않습니다.",
+		["{area:16602} stands on the bluffs in western Tirisfal, north-west of the {area:156}: leave the {zone:1458} and follow the road west past {area:159}. {npc:246378} is inside the keep, upstairs."] = "{area:16602}은(는) 티리스팔 서쪽 절벽 위, {area:156} 북서쪽에 있습니다: {zone:1458}을(를) 나와 {area:159}을(를) 지나 서쪽 길을 따라가세요. {npc:246378}은(는) 성채 안 위층에 있습니다.",
+		["{area:16602}'s south gate"] = "{area:16602} 남쪽 문",
+		["{npc:246378}, upstairs in {area:16602}, offers {quest:94971} at 40: accept it and hand it straight back. It teaches you {spell:1279399} and Apprentice Riding together, so you need no horse and no riding trainer."] = "{area:16602} 위층의 {npc:246378}이(가) 40레벨에 {quest:94971} 퀘스트를 줍니다: 수락하고 바로 완료하세요. {spell:1279399}와(과) 탈것 타기를 함께 배우므로 말도 탈것 조련사도 필요 없습니다.",
+		["{npc:260093}: your level 40 spells"] = "{npc:260093}: 40레벨 주문",
 } end)()
 t.guides["forever/collectibles/mounts/horde/raptor"] = (function() return {
 		["Learn to ride"] = "탈것 타기 배우기",
