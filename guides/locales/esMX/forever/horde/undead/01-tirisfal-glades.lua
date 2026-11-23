@@ -244,13 +244,13 @@ return {
 	["{npc:265944}, at the inn's north end: Camping 101 asks you to learn it"] = "{npc:265944}, en el extremo norte de la posada: Campamento 101 te pide aprenderla",
 
 	-- Step 44: The cellar stairs
-	["The cellar stairs"] = "",
+	["The cellar stairs"] = "La escalera de la bodega",
 	-- {npc:1931} Captured Scarlet Zealot
-	["The {npc:1931} is in the cellar under the inn's north end. The stairs down start at the west side of that end: go down them, then turn east to him."] = "",
+	["The {npc:1931} is in the cellar under the inn's north end. The stairs down start at the west side of that end: go down them, then turn east to him."] = "{npc:1931} está en la bodega, bajo el extremo norte de la posada. La escalera hacia abajo comienza en el lado oeste de ese extremo: baja por ella y luego gira al este, hacia él.",
 
 	-- Step 45: Gallows' End Tavern
 	-- {npc:2128} Cain Firesong · {npc:2129} Dark Cleric Beryl · {npc:2127} Rupert Boch · {npc:2130} Marion Call · {npc:2131} Austil de Mon
-	["Back up from the cellar: {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) are upstairs, {npc:2131} (warriors) on the ground floor; take the stairs inside, the arrow cannot tell the floors apart."] = "",
+	["Back up from the cellar: {npc:2128} (mages), {npc:2129} (priests), {npc:2127} (warlocks) and {npc:2130} (rogues) are upstairs, {npc:2131} (warriors) on the ground floor; take the stairs inside, the arrow cannot tell the floors apart."] = "De vuelta, desde la bodega: {npc:2128} (magos), {npc:2129} (sacerdotes), {npc:2127} (brujo) y {npc:2130} (pícaros) están arriba, {npc:2131} (guerreros) en la planta baja; toma la escalera interior, la flecha no puede distinguir los pisos.",
 	-- {npc:1931} Captured Scarlet Zealot
 	["The {npc:1931}, in the inn's cellar"] = "{npc:1931}, en el sótano de la posada",
 	-- {area:159} Brill · {npc:2131} Austil de Mon · {npc:246152} Shari Stilwell
