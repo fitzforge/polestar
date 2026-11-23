@@ -358,3 +358,35 @@ test("the Fishing guide names each band's cooking recipes with their sellers, bu
 	assert.match(text, /Darkshore Grouper bites only here: eat it as it is\. Gubber Blump \(Darkshore\) takes 6 for The Family and the Fishing Pole, which gives the Blump Family Fishing Pole\./);
 	assert.match(text, /Oily Blackmouth from the schools here is no food: alchemists make Blackmouth Oil from it \(Alchemy 80\); keep it to sell or trade\./);
 });
+
+// Hotline (#3759): the Undead's "Hillsbrad coast" pin lay on the lake south of Tarren Mill, the pool cluster nearest the
+// flight master. A coast spot takes its pools from the sea's schools; Sagefish Schools are lake and river water.
+test('the Fishing guide\'s coast spots lie by sea pools, never a lake\'s Sagefish Schools (#3759)', { skip: hasData ? false : 'data/forever not built' }, () => {
+	const { context } = require('../tools/lib/professions/gathering/common');
+	const fishing = require('../tools/lib/professions/gathering/fishing');
+	const ctx = context(DATA);
+	const text = fishing.render(ctx);
+	const coasts = [];
+	for (const s of text.split('\nstep ').slice(1)) {
+		const zone = (s.match(/\n {2}zone (.+)/) || [])[1];
+		for (const [, x, y, label] of s.matchAll(/\n {2}goto ([\d.]+),([\d.]+) "([^"]* coast)"/g)) coasts.push({ zone, x: Number(x), y: Number(y), label });
+	}
+	const hillsbrad = coasts.find((c) => c.label === 'Hillsbrad coast');
+	assert.ok(hillsbrad, 'the Hillsbrad coast spot is in the guide');
+	const zoneId = { 'Hillsbrad Foothills': 1424, Westfall: 1436, Darkshore: 1439, Wetlands: 1437, 'Stranglethorn Vale': 1434 };
+	for (const c of coasts) {
+		const map = zoneId[c.zone];
+		if (!map) continue;
+		let nearest = null;
+		for (const o of Object.values(ctx.data.objects)) {
+			if (!o.roles || !o.roles.includes('fishing')) continue;
+			const s = o.spawns && o.spawns[String(map)];
+			for (const [x, y] of (s && s.pts) || []) {
+				const d = Math.hypot(x - c.x, y - c.y);
+				if (!nearest || d < nearest.d) nearest = { d, name: o.name };
+			}
+		}
+		assert.ok(nearest, `${c.label}: pools on the map`);
+		assert.doesNotMatch(nearest.name, /Sagefish School/, `${c.label} (${c.x},${c.y}) lies by ${nearest.name}`);
+	}
+});

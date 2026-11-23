@@ -13789,7 +13789,7 @@ do
 					only = { races = { "Scourge" } },
 					section = 3,
 					goals = {
-						{ t = "goto", text = "{area:287} coast", map = 1424, x = 60.8, y = 32.1, f = "e", r = 25 },
+						{ t = "goto", text = "{area:287} coast", map = 1424, x = 56.4, y = 67.5, f = "e", r = 25 },
 						{ t = "skill", skill = "Fishing", skillLine = 356, level = 225 },
 					},
 				},
