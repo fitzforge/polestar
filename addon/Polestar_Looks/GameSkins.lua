@@ -629,8 +629,9 @@ function Theme.KitOpen(f, side)
 			end
 			for _, i in ipairs(OPEN_RIM[side] or {}) do p[i]:SetAlpha(0) end
 			-- The ground under the rim (Classic's tile, laid 3 in) reaches
-			-- the open side's edge too: no gap between it and the window.
-			local n = f.psSkin.kitFill and f.psSkin.kitInset
+			-- the open side's edge too: no gap between it and the window. A
+			-- bare frame (the transparent style) has no ground to reach it.
+			local n = not f.psBare and f.psSkin.kitFill and f.psSkin.kitInset
 			if n and n > 0 then
 				local t = P.fill(f)
 				local l, top, r, bot = n, n, -n, n
