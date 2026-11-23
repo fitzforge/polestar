@@ -7,7 +7,7 @@ const assert = require('node:assert/strict');
 const { runAddon } = require('./helpers/lua');
 const { TEST_PACK } = require('./helpers/packs');
 
-function run(first) {
+function run(first, q = 7) {
 	return runAddon({
 		stubs: ['stub_world.lua', 'stub_packs.lua'],
 		addons: ['Polestar'],
@@ -21,6 +21,10 @@ Polestar.RegisterGuide({ id = "test/list-skip", pack = "test", title = "Test gui
 		-- With 7 first, its goal is the untitled step's title.
 		{ goals = { ${first ? A7 + ', ' + A8 : A8 + ', ' + A7} } },
 		{ goals = { ${first ? T7 + ', ' + T8 : T8 + ', ' + T7} } },
+		-- Quest 9 is two steps past the live one: its skip and unskip leave
+		-- the live step's view alone (no STEP_UPDATED to redraw the list).
+		{ goals = { { t = "note", text = "Between" } } },
+		{ goals = { { t = "accept", quest = 9, title = "Far Quest" }, { t = "accept", quest = 8, title = "A Threat Within" } } },
 	},
 })
 stub.login()
@@ -42,10 +46,10 @@ local function unskips()
 	return n
 end
 local before = unskips()
-E.SkipQuest(7, true)
+E.SkipQuest(${q}, true)
 stub.advance(0.5)
 local skipped = unskips()
-E.SkipQuest(7, false)
+E.SkipQuest(${q}, false)
 stub.advance(0.5)
 emit({ open = SL.On(), live = E.GetLiveStep(), before = before, skipped = skipped, back = unskips(), skips = SL.Skips() })
 `,
@@ -64,4 +68,11 @@ for (const first of [false, true]) test(`a quest skipped or brought back with th
 	assert.equal(out.skipped, 2, 'the accept and the hand-in offer Unskip it at once: ' + JSON.stringify(out));
 	assert.equal(out.back, 0, 'brought back: the links go at once: ' + JSON.stringify(out));
 	assert.equal(out.skips, 0);
+});
+
+test('a quest outside the live step brought back elsewhere loses its Unskip it at once', () => {
+	const out = run(false, 9);
+	assert.equal(out.open, true, JSON.stringify(out));
+	assert.equal(out.skipped, 1, 'its accept offers Unskip it: ' + JSON.stringify(out));
+	assert.equal(out.back, 0, 'brought back: the link goes without another redraw: ' + JSON.stringify(out));
 });

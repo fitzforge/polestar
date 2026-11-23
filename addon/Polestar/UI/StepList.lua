@@ -156,6 +156,9 @@ function SL.Refresh()
 	local G = GF()
 	if G and G.Render then G.Render() end
 end
+-- A quest brought back elsewhere (quest log, slash command): a skip redraws
+-- through its undo banner, an unskip has nothing else to.
+ns.On("PLAYER_UNSKIPPED_QUEST", function() if SL.On() then SL.Refresh() end end)
 
 -- An accent "Unskip" link on card r, as wide as its word; onClick(self).
 local function unskipLink(r, onClick)
