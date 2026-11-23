@@ -321,6 +321,7 @@ return {
 	-- ["Ride west to the Horde camp north of {area:2744}."] = "Езжайте на запад к лагерю Орды к северу от места {area:2744}.",
 	-- ["Ride west to the walled hold in the middle of the desert."] = "Езжайте на запад к обнесенной стеной крепости в центре пустыни.",
 	-- ["Ride west to the walled hold in the middle of the desert. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "Езжайте на запад к обнесенной стеной крепости в центре пустыни. {npc:15189} стоит наверху в своем здании: поднимитесь внутри, Стрелка не различает этажи.",
+	-- ["Scare {npc:10977} with {npc:10980}"] = "Отпугните {npc:10977} с помощью {npc:10980}",
 	-- ["Scarlet Crusade"] = "Алый орден",
 	-- ["Scourge Champions"] = "Воители Плети",
 	-- ["Scourge Champions roam the {area:2270}, north of the chapel. Pass {npc:11063}'s {item:13156} over each one you kill: the skulls that resonate are the ones he wants."] = "Воители Плети бродят здесь: {area:2270}, к северу от часовни. Проведите предметом {npc:11063} ({item:13156}) над каждым убитым: нужны черепа, которые отзываются.",
@@ -330,6 +331,7 @@ return {
 	-- ["The Dredge Crushers (57-58) of the south-east are two over you below 57. First top up to 57 on the Dredge Strikers (55-56) on the sands east of {area:3425}, where Sand Skitterers and Stonelash Scorpids (54-56) roam among them, away from the Silithid Darters of the northern sands. Or, with a group, run the {area:1583} dungeon (Lower) or the {quest:838} dungeon instead."] = "Земляные сокрушители (57-58) на юго-востоке на два уровня выше вас, если вы ниже 57-го. Сначала доберите 57-й уровень на землечерпах (55-56) в песках к востоку от места {area:3425}, где среди них бродят песчаные пауки-быстроноги и камнехвостые скорпиды (54-56), подальше от силитидов-стрелков северных песков. Или пройдите с группой подземелье {area:1583} (нижнюю часть) или подземелье {quest:838}.",
 	-- ["The glowing tablet fragments lie around the Twilight camp in the far north-west; the Dust Stormers and Desert Rumblers there drop them too."] = "Светящиеся осколки табличек лежат вокруг лагеря Сумеречного Молота на дальнем северо-западе; они падают и с пылевихрей и пустынных грохотунов.",
 	-- ["The glowing tablet fragments lie around the Twilight camp in the far north-west; the Dust Stormers and Desert Rumblers there drop them too. Careful: the biggest Rumblers and the Whirling Invaders are 58: pull them one at a time."] = "Светящиеся осколки табличек лежат вокруг лагеря Сумеречного Молота на дальнем северо-западе; они падают и с пылевихрей и пустынных грохотунов. Осторожно: самые крупные грохотуны и вертящиеся захватчики – 58-го уровня: выманивайте по одному.",
+	-- ["The lake for {quest:5845}"] = "Озеро для {quest:5845}",
 	-- ["The libram lies further north, on the way to {area:190}."] = "Либрам лежит дальше к северу, по пути к месту {area:190}.",
 	-- ["The lockboxes sit in Andorhal's ruined houses around {npc:10667}'s inn. Careful: Ghouls and skeletons usually stand next to the boxes and attack when you come close. Searing ghouls also hurt anyone nearby and will break stealth."] = "Сундучки стоят в разрушенных домах Андорала вокруг таверны, где находится {npc:10667}. Осторожно: рядом с сундучками обычно стоят вурдалаки и скелеты, они нападают, когда вы подходите. Обжигающие вурдалаки также ранят всех поблизости и выводят из незаметности.",
 	-- ["The lumber mill is right beside Radley: set {npc:11615}'s termite barrel down in the middle of it."] = "Лесопилка – прямо рядом с Рэдли: поставьте бочку с термитами ({npc:11615}) в ее центре.",
@@ -366,6 +368,4 @@ return {
 	-- ["{npc:8565} walks around {area:2276}: look inside the circle on the map"] = "{npc:8565} ходит по месту {area:2276}: ищите внутри круга на карте",
 	-- ["{npc:9619} now asks for {npc:9622}'s pelt, back in the north-east cave: skip it."] = "Теперь {npc:9619} просит шкуру ({npc:9622}) из северо-восточной пещеры: пропустите.",
 	-- ["{quest:105}'s shard lies at {npc:1852}'s feet, in the middle of Andorhal: he is a level 61 elite with elite Skeletal Warlords about him, a fight for a group."] = "Осколок для задания {quest:105} лежит у ног NPC {npc:1852} в центре Андорала: это элитный противник 61-го уровня, вокруг него элитные скелеты-полководцы – бой для группы.",
-	-- ["Scare {npc:10977} with {npc:10980}"] = "Отпугните {npc:10977} с помощью {npc:10980}",
-	-- ["The lake for {quest:5845}"] = "Озеро для {quest:5845}",
 }

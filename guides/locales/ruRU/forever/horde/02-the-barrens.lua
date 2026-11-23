@@ -737,6 +737,7 @@ return {
 	-- ["Keep it: {quest:3923} stands outside {zone:1454}; a later guide hands it in"] = "Сохраните: {quest:3923} стоит у ворот города {zone:1454}; сдадите в одном из следующих гайдов",
 	-- ["Kolkar Wranglers and Stormers hold the camps south of {npc:3389}."] = "Пастухи ({npc:3272}) и буревестницы из племени Колкар занимают лагеря к югу от NPC {npc:3389}.",
 	-- ["Kolkar camps"] = "Лагеря Колкар",
+	-- ["Leave {zone:1454} by the main gate and follow the road south through {zone:1411}, then west over the {area:814} bridge: {area:379} sits just above it on the {zone:1413} side. {npc:3337}, {quest:809} and {npc:5810} stand together."] = "Выйдите из города {zone:1454} через главные ворота и идите по дороге на юг через {zone:1411}, затем на запад через мосты ({area:814}): застава {area:379} лежит сразу за ними, на стороне зоны {zone:1413}. {npc:3337}, {quest:809} и {npc:5810} стоят вместе.",
 	-- ["North to the {area:383}. {npc:3682} camps below the hills; {npc:261366}, the hermit on the ridge behind him, has work for you only once {npc:3682} sends you up."] = "На север. Цель: {area:383}. {npc:3682} стоит лагерем под холмами; у отшельника на гребне за ним ({npc:261366}) найдется работа, только когда {npc:3682} отправит вас наверх.",
 	-- ["North-east to the {area:1703}; {npc:9316} stands at the camp just south of it."] = "На северо-восток: {area:1703}; {npc:9316} стоит в лагере сразу к югу.",
 	-- ["Oasis Snapjaws crawl around {area:387}, south-west of the {area:380}, and around the {area:388}."] = "Оазисные хрустогрызы ползают вокруг места {area:387}, к юго-западу от места {area:380}, и вокруг места {area:388}.",
@@ -789,5 +790,4 @@ return {
 	-- ["{object:3972} poster"] = "Плакат: {object:3972}",
 	-- ["{quest:3301}: the {area:228} in {zone:1421}, next guide"] = "{quest:3301}: {area:228} ({zone:1421}), следующий гайд",
 	-- ["{quest:881}, a white lion, prowls the plains north of the Razormane camp."] = "{quest:881}, белый лев, рыщет по равнинам к северу от лагеря Иглогривых.",
-	-- ["Leave {zone:1454} by the main gate and follow the road south through {zone:1411}, then west over the {area:814} bridge: {area:379} sits just above it on the {zone:1413} side. {npc:3337}, {quest:809} and {npc:5810} stand together."] = "Выйдите из города {zone:1454} через главные ворота и идите по дороге на юг через {zone:1411}, затем на запад через мосты ({area:814}): застава {area:379} лежит сразу за ними, на стороне зоны {zone:1413}. {npc:3337}, {quest:809} и {npc:5810} стоят вместе.",
 }

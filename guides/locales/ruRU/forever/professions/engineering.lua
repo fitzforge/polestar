@@ -17,7 +17,6 @@ return {
 	["{skill:202} 1-75: vendor goods"] = "{skill:202} 1-75: товары торговцев",
 	-- {item:2880} Weak Flux · {item:5956} Blacksmith Hammer · {zone:1453} Stormwind City · {npc:5519} Billibub Cogspinner · {npc:5514} Brooke Stonebraid · {npc:1286} Edna Mullby
 	["Buy the whole bracket's share in one go: 18 {item:2880} (18s) and {item:5956} (a tool: one, kept in your bags, 18c); about 18s 18c in all. The arrow picks the nearest seller of your faction ({zone:1453}: {npc:5519}, {npc:5514} and {npc:1286})."] = "Купите сразу все для этого этапа: {item:2880} 18 (18с) и {item:5956} (инструмент: один, держите в сумках, 18м); всего около 18с 18м. Стрелка выбирает ближайшего продавца вашей фракции ({zone:1453}: {npc:5519}, {npc:5514} и {npc:1286}).",
-	-- was: ["{item:5956}: a tool, keep it in your bags"] = "{item:5956}: инструмент, держите его в сумке"
 	["a tool, keep it in your bags"] = "инструмент, держите его в сумках",
 
 	-- Step 3: Engineering 1-75: Auction House
@@ -249,6 +248,7 @@ return {
 	-- {item:2836} Coarse Stone
 	["{item:2836} (Horde)"] = "{item:2836} (Орда)",
 	-- {item:2836} Coarse Stone · {item:6533} Aquadynamic Fish Attractor · {skill:186} Mining · {object:1732} Tin Vein · {zone:1413} The Barrens · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills
+	-- was: ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "{item:2836} 31 для {item:6533}: {skill:186}: {object:1732} (навык 65) в {zone:1413} (10-25), {zone:1440} (18-30) и {zone:1424} (20-30). В {zone:1440} отмечено место, где {object:1732} встречается чаще всего."
 	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1413} is marked."] = "",
 
 	-- Step 48: Heavy Stone (Alliance)
@@ -417,6 +417,7 @@ return {
 	["{item:16000} is orange at 287 (yellow 295, green 305, grey 315): about 14 crafts to 300. Each takes 6 {item:12359}. The schematic binds when picked up; six Thorium Bars a craft. Needs an anvil nearby. {skill:202} 300 is a Legacy System milestone."] = "{item:16000}: оранжевый на 287 (желтый 295, зеленый 305, серый 315): около 14 изготовлений до 300. Каждое требует 6 {item:12359}. Схема становится персональной при получении; шесть ториевых слитков на изготовление. Нужна наковальня рядом. {skill:202} 300 – веха системы Наследия.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "{item:2836} 31 для {item:6533}: {skill:186}: {object:1732} (навык 65) в {zone:1413} (10-25), {zone:1440} (18-30) и {zone:1424} (20-30). В {zone:1440} отмечено место, где {object:1732} встречается чаще всего.",
 	-- ["Apprentice {skill:202}"] = "{skill:202}: Ученик",
 	-- ["Artisan needs character level 35 and {skill:202} 200; it raises the cap to 300. Materials for 225-300 are worth about 67g in all."] = "Ранг «Искусник» требует уровня персонажа 35 и навыка {skill:202} 200; предел становится 300. Материалы на 225-300 стоят всего около 67з.",
 	-- ["Back to an {skill:202} trainer: {spell:12590} is taught from {skill:202} 175."] = "Вернитесь к учителю ({skill:202}): {spell:12590} – с навыка {skill:202} 175.",
@@ -486,5 +487,4 @@ return {
 	-- ["{spell:3929} to 95"] = "{spell:3929} до 95",
 	-- ["{spell:3937} to 125"] = "{spell:3937} до 125",
 	-- ["{spell:3942} to 150"] = "{spell:3942} до 150",
-	-- ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "{item:2836} 31 для {item:6533}: {skill:186}: {object:1732} (навык 65) в {zone:1413} (10-25), {zone:1440} (18-30) и {zone:1424} (20-30). В {zone:1440} отмечено место, где {object:1732} встречается чаще всего.",
 }

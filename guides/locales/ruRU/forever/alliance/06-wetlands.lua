@@ -197,6 +197,7 @@ return {
 	-- plural, as words: Razormaw Incisors = {item:280103} Razormaw Incisor · Fen Creepers = {npc:1040} Fen Creeper
 	["Razormaw Incisors: from the raptors by the {area:1038}, after the Fen Creepers"] = "",
 	-- {quest:98246} Trying Times
+	-- was: ["{quest:98246}: the Razormaw eggs, on the same loop"] = "{quest:98246}: яйца Бритвочелюсти, на том же контуре"
 	["{quest:98246}: the Razormaw eggs, on the same walk"] = "",
 
 	-- Step 37: Einar Stonegrip
@@ -341,6 +342,7 @@ return {
 	-- {npc:3649} Thundris Windweaver · {area:442} Auberdine
 	["{npc:3649} stands at the north end of {area:442}."] = "{npc:3649} стоит на северном конце {area:442}.",
 	-- {zone:1439} Darkshore · {area:442} Auberdine
+	-- was: ["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "Ответ Алекстона, если он ещё у вас (маршрут сдаёт его на первой остановке {area:442} в 03-darkshore-return)"
 	["Alexston's reply, if you still carry it (the route hands it in on the {zone:1439} return's first {area:442} stop)"] = "",
 
 	-- Step 61: Auberdine
@@ -697,22 +699,22 @@ return {
 	["Next: fly to {area:42}."] = "Далее: летите сюда: {area:42}.",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "Ответ Алекстона, если он ещё у вас (маршрут сдаёт его на первой остановке {area:442} в 03-darkshore-return)",
+	-- ["For the Dragonmaw catapult, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "Для катапульты Драконьей Пасти, на контуре {zone:1437} в 30-40/01-hillsbrad-foothills",
 	-- ["Hearth back to {area:150} if you bound at the {area:2104}, or walk west along the road: {npc:2104} stands on the top floor of {area:2103}, {npc:2094} by the docks on the way to the boat."] = "Используйте камень возвращения, чтобы вернуться сюда: {area:150}, если вы привязаны к таверне ({area:2104}), или идите на запад по дороге: {npc:2104} стоит на верхнем этаже ({area:2103}), {npc:2094} – у причалов по пути к кораблю.",
+	-- ["Razormaw Incisors: from the raptors by the {area:1038}, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "Резцы острозуба: с ящеров у {area:1038}, на контуре {zone:1437} в 30-40/01-hillsbrad-foothills",
 	-- ["South from {npc:3987}'s camp to {area:415}: {npc:3691} in the inn, the flight master at the west end."] = "От лагеря NPC {npc:3987} на юг, сюда: {area:415}. {npc:3691} – в таверне, распорядитель полетов – в западном конце.",
+	-- ["The Forsaken's camp lies in the woods south of {area:2358}.\nRusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "Лагерь Отрекшихся лежит в лесу к югу от {area:2358}.\nРжавые сундуки лежат вокруг лагерей фурболгов Тенекущих кустов западнее Отрекшихся; открывайте их, пока в одном не окажется навершие.\nОсторожно: неэлитные Отрекшиеся примерно 28-30 уровня охраняют лагерь. Некоторые из них в скрытности, а те, что вокруг стола, часто нападают вместе.",
 	-- ["The captain walks the deck of the wrecked ship; his strongbox sits in the hold."] = "Капитан ходит по палубе разбитого корабля; его сундук стоит в трюме.",
 	-- ["The relics lie in the dig itself. {npc:1353}, a big Razormaw, prowls the raptor valley just west of it.\nGoaz Warders (elite, 32) stand among the relics and the {object:331}: pull them away one at a time, or work around them."] = "Реликвии лежат прямо на раскопках. {npc:1353}, крупный острозуб, рыщет в долине ящеров сразу к западу от них.\nСреди реликвий и у объекта {object:331} стоят хранители Гоаз (элитные, 32): выманивайте их по одному или обходите стороной.",
 	-- ["{area:2358}, the Night Elf outpost at the eastern end of the road: {npc:3848} stands there."] = "{area:2358} — застава ночных эльфов в восточном конце дороги: там стоит {npc:3848}.",
+	-- ["{npc:2094}, by the docks, on the way to the boat"] = "{npc:2094}, у причала, по пути к лодке",
+	-- ["{npc:2097}, by the north gate: {npc:1071} takes it on 30-40/01-hillsbrad-foothills' {area:205} stop"] = "{npc:2097}, у северных ворот: {npc:1071} принимает его на остановке {area:205} в 30-40/01-hillsbrad-foothills",
 	-- ["{npc:3691}, in the inn"] = "{npc:3691}, в таверне",
 	-- ["{npc:3691}: {quest:1025}, the Foulweald on the way to {npc:3897}"] = "{npc:3691}: {quest:1025}, Гиблолесье по пути к NPC {npc:3897}",
 	-- ["{npc:3691}: {quest:1054}, {npc:3987} on the way back from {area:413}"] = "{npc:3691}: {quest:1054}, {npc:3987} на обратном пути от места {area:413}",
 	-- ["{npc:3897}, a furbolg untouched by the corruption, sits south of the road below {area:421}."] = "{npc:3897}, фурболг, не тронутый порчей, сидит к югу от дороги ниже места {area:421}.",
 	-- ["{npc:4619} leads the {area:429} satyrs; he carries the branch."] = "{npc:4619} ведет сатиров ({area:429}); ветвь у него.",
-	-- ["{npc:2097}, by the north gate: {npc:1071} takes it on 30-40/01-hillsbrad-foothills' {area:205} stop"] = "{npc:2097}, у северных ворот: {npc:1071} принимает его на остановке {area:205} в 30-40/01-hillsbrad-foothills",
-	-- ["Razormaw Incisors: from the raptors by the {area:1038}, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "Резцы острозуба: с ящеров у {area:1038}, на контуре {zone:1437} в 30-40/01-hillsbrad-foothills",
 	-- ["{quest:98246}: the Razormaw eggs, on the same loop"] = "{quest:98246}: яйца Бритвочелюсти, на том же контуре",
 	-- ["{quest:98283}, an elite raptor, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "{quest:98283}, элитный ящер, на контуре {zone:1437} в 30-40/01-hillsbrad-foothills",
-	-- ["For the Dragonmaw catapult, on the {zone:1437} loop of 30-40/01-hillsbrad-foothills"] = "Для катапульты Драконьей Пасти, на контуре {zone:1437} в 30-40/01-hillsbrad-foothills",
-	-- ["{npc:2094}, by the docks, on the way to the boat"] = "{npc:2094}, у причала, по пути к лодке",
-	-- ["Alexston's reply, if you still carry it (the route hands it in on 03-darkshore-return's first {area:442} stop)"] = "Ответ Алекстона, если он ещё у вас (маршрут сдаёт его на первой остановке {area:442} в 03-darkshore-return)",
-	-- ["The Forsaken's camp lies in the woods south of {area:2358}.\nRusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel.\nCareful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together."] = "Лагерь Отрекшихся лежит в лесу к югу от {area:2358}.\nРжавые сундуки лежат вокруг лагерей фурболгов Тенекущих кустов западнее Отрекшихся; открывайте их, пока в одном не окажется навершие.\nОсторожно: неэлитные Отрекшиеся примерно 28-30 уровня охраняют лагерь. Некоторые из них в скрытности, а те, что вокруг стола, часто нападают вместе.",
 }
