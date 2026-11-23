@@ -3784,6 +3784,63 @@ do
 	register()
 end
 
+-- Source: forever/collectibles/mounts/horde/paladin-warhorse.guide
+do
+	local function register()
+		Polestar.RegisterGuide({
+			id = "forever/collectibles/mounts/horde/paladin-warhorse",
+			pack = "guides",
+			title = "Paladin Warhorse (Forsaken)",
+			faction = "Horde",
+			races = { "Scourge" },
+			classes = { "PALADIN" },
+			minLevel = 40,
+			maxLevel = 60,
+			category = "Class",
+			folder = "Paladin",
+			keywords = { "Summon Warhorse", "Report to Danitha", "A Paladin's Steed", "Garen Largo", "Danitha Morr", "Bandarion Keep", "Apprentice Riding", "Forsaken Paladin", "Paladin", "class mount" },
+			reward = { { spell = 1279399, spellName = "Summon Warhorse" } },
+			why = "Your first mount at 40, summoned at will: a Forsaken paladin buys no horse and pays no riding trainer.",
+			zone = 1458,
+			zoneName = "Undercity",
+			author = "Polestar",
+			version = 1,
+			names = { ["area:156"] = "Solliden Farmstead", ["area:159"] = "Brill", ["area:16602"] = "Bandarion Keep", ["npc:246378"] = "Danitha Morr", ["npc:260093"] = "Garen Largo", ["quest:94971"] = "A Paladin's Steed", ["quest:97022"] = "Report to Danitha", ["spell:1279399"] = "Summon Warhorse", ["zone:1458"] = "Undercity" },
+			written = { ["At 40 {npc:260093}, the paladin trainer in the {zone:1458}, sends you to {npc:246378} at {area:16602}. Train your new spells with him while you are there. Already at {area:16602}? Skip this step: {npc:246378} gives you the mount quest without it."] = "At 40 Garen Largo, the paladin trainer in the Undercity, sends you to Danitha Morr at Bandarion Keep. Train your new spells with him while you are there. Already at Bandarion Keep? Skip this step: Danitha gives you the mount quest without it." },
+			steps = {
+				{
+					title = "{quest:97022}",
+					note = "At 40 {npc:260093}, the paladin trainer in the {zone:1458}, sends you to {npc:246378} at {area:16602}. Train your new spells with him while you are there. Already at {area:16602}? Skip this step: {npc:246378} gives you the mount quest without it.",
+					goals = {
+						{ t = "level", level = 40 },
+						{ t = "accept", quest = 97022, title = "Report to Danitha", npc = 260093, npcName = "Garen Largo", minLevel = 40, qlvl = 40, map = 1458, x = 47.38, y = 15.13, z = -57.1, spotsPacked = "47.4,15.1,-57.1,15,7" },
+						{ t = "train", npc = 260093, npcName = "Garen Largo", map = 1458, x = 47.36, y = 15.24, z = -57.1, spotsPacked = "47.4,15.1,-57.1,15,7", optional = true, note = "{npc:260093}: your level 40 spells" },
+					},
+				},
+				{
+					title = "{npc:246378}",
+					note = "{area:16602} stands on the bluffs in western Tirisfal, north-west of the {area:156}: leave the {zone:1458} and follow the road west past {area:159}. {npc:246378} is inside the keep, upstairs.",
+					when = { { k = "onquest", q = { 97022 } } },
+					goals = {
+						{ t = "goto", text = "{area:16602}'s south gate", map = 1420, x = 22, y = 49.4 },
+						{ t = "turnin", quest = 97022, title = "Report to Danitha", npc = 246378, npcName = "Danitha Morr", map = 1420, x = 22, y = 44.66, z = 155.7 },
+					},
+				},
+				{
+					title = "{spell:1279399}",
+					note = "{npc:246378}, upstairs in {area:16602}, offers {quest:94971} at 40: accept it and hand it straight back. It teaches you {spell:1279399} and Apprentice Riding together, so you need no horse and no riding trainer.",
+					goals = {
+						{ t = "level", level = 40 },
+						{ t = "accept", quest = 94971, title = "A Paladin's Steed", npc = 246378, npcName = "Danitha Morr", minLevel = 40, qlvl = 40, preAll = { 97022 }, preTitles = { [97022] = "Report to Danitha" }, map = 1420, x = 22, y = 44.66, z = 155.7 },
+						{ t = "turnin", quest = 94971, title = "A Paladin's Steed", npc = 246378, npcName = "Danitha Morr", map = 1420, x = 22, y = 44.66, z = 155.7, note = "{npc:246378}: {spell:1279399}" },
+					},
+				},
+			},
+		})
+	end
+	register()
+end
+
 -- Source: forever/collectibles/mounts/horde/raptor.guide
 do
 	local function register()

@@ -26,13 +26,13 @@ return {
 
 	-- Step 4: Wrenix the Wretched
 	-- {area:392} Ratchet · {zone:1413} Barrens · {npc:7161} Wrenix the Wretched · {item:7970} E.C.A.C. · {item:5060} Thieves' Tools · {spell:1804} Pick Lock
-	["Fly or walk to {area:392} on the {zone:1413} coast. {npc:7161} stands in a small shed near the bank, up the hill to the left before the docks. His Gizmotronic Apparatus beside him hands out what the job needs: take an {item:7970} and {item:5060} ({spell:1804} does not work without the tools in your bags)."] = "",
+	["Fly or walk to {area:392} on the {zone:1413} coast. {npc:7161} stands in a small shed near the bank, up the hill to the left before the docks. His Gizmotronic Apparatus beside him hands out what the job needs: take an {item:7970} and {item:5060} ({spell:1804} does not work without the tools in your bags)."] = "Vuela o camina a {area:392} en la costa del {zone:1413}. {npc:7161} está en un cobertizo pequeño junto al banco, colina arriba a la izquierda antes de los muelles. Su aparato gizmotrónico junto a él reparte lo que pide el encargo: toma un {item:7970} y {item:5060} ({spell:1804} no funciona sin las herramientas en las bolsas).",
 
 	-- Step 5: Southsea Treasure
 	-- {area:392} Ratchet · {object:123462} The Jewel of the Southsea · {npc:7168} Polly · {item:7970} E.C.A.C. · {item:7968} Southsea Treasure
-	["Follow the coast south from {area:392} to the first beached pirate ship, the Tide Razor, and climb aboard up its bow. On the middle deck the Buccaneer's Strongboxes come back fast: pick them until your Lockpicking is about 30 (a few are trapped with a frost nova or turn you into a rat; picking still works as a rat). Keep picking while they still give skill: the poisons job at 20 ends at a lockbox that needs about 75, and these boxes are the closest practice. Then go down to the bottom hold and pick the lock of {object:123462}: it is empty, but opening it calls a giant level 50 {npc:7168} into the next room. Stay stealthed, put the {item:7970} on your action bar, target {npc:7168} and use it: the parrot shrinks to level 18. Kill it for the {item:7968}."] = "",
+	["Follow the coast south from {area:392} to the first beached pirate ship, the Tide Razor, and climb aboard up its bow. On the middle deck the Buccaneer's Strongboxes come back fast: pick them until your Lockpicking is about 30 (a few are trapped with a frost nova or turn you into a rat; picking still works as a rat). Keep picking while they still give skill: the poisons job at 20 ends at a lockbox that needs about 75, and these boxes are the closest practice. Then go down to the bottom hold and pick the lock of {object:123462}: it is empty, but opening it calls a giant level 50 {npc:7168} into the next room. Stay stealthed, put the {item:7970} on your action bar, target {npc:7168} and use it: the parrot shrinks to level 18. Kill it for the {item:7968}."] = "Sigue la costa al sur desde {area:392} hasta el primer barco pirata varado, el Desgarramareas, y sube a bordo por su proa. En la cubierta central las cajas fuertes de bucanero vuelven rápido: ábrelas hasta que tu cerradura esté en unos 30 (unas pocas tienen una trampa de nova de escarcha o te convierten en rata; abrir sigue funcionando como rata). Sigue abriendo mientras dé habilidad: el encargo de venenos de nivel 20 acaba en una caja fuerte que necesita unos 75, y estas cajas son la práctica más cercana. Luego baja al pañol inferior y abre la cerradura del {object:123462}: está vacía, pero abrirla hace entrar a un gigante de nivel 50 {npc:7168} en la sala siguiente. Mantente sigiloso, pon el {item:7970} en tu barra de acciones, selecciona a {npc:7168} y úsalo: el loro se encoge a nivel 18. Mátalo por el {item:7968}.",
 	-- {item:7968} Southsea Treasure · {npc:7168} Polly · {item:7970} E.C.A.C.
-	["{item:7968}: {npc:7168}, after the {item:7970}"] = "",
+	["{item:7968}: {npc:7168}, after the {item:7970}"] = "{item:7968}: {npc:7168}, tras el {item:7970}",
 
 	-- Step 6: Back to Wrenix the Wretched
 	-- {npc:7161} Wrenix the Wretched
@@ -42,15 +42,15 @@ return {
 
 	-- Step 7: Fenwick Thatros
 	-- {zone:1454} Orgrimmar · {zone:1458} Undercity · {quest:1998} Fenwick Thatros · {area:1338} Lordamere Lake · {area:228} Sepulcher
-	["Take the zeppelin from {zone:1454} to the {zone:1458} and head south into Silverpine. {quest:1998} (level 16) stands alone on the old ferry dock on {area:1338}, north-east of the {area:228}. His Uppercut knocks you back, so do not fight him at the dock's edge. He always drops his head and is back 4 1/2 minutes after a death."] = "",
+	["Take the zeppelin from {zone:1454} to the {zone:1458} and head south into Silverpine. {quest:1998} (level 16) stands alone on the old ferry dock on {area:1338}, north-east of the {area:228}. His Uppercut knocks you back, so do not fight him at the dock's edge. He always drops his head and is back 4 1/2 minutes after a death."] = "Toma el zepelín de {zone:1454} al {zone:1458} y dirígete al sur hasta la Pinares. El {quest:1998} (16) está solo en el viejo muelle del transbordador de {area:1338}, al noreste del {area:228}. Su gancho te empuja, así que no luches contra él en el borde del muelle. Siempre suelta su cabeza y vuelve 4 minutos y medio después de morir.",
 
 	-- Step 8: Mennet Carkad
 	-- {item:5060} Thieves' Tools · {npc:6566} Estelle Gendry · {object:36073} Rogues' Quarter
-	["If you have no {item:5060} left, ask {npc:6566}, the outfitter in the {object:36073}."] = "",
+	["If you have no {item:5060} left, ask {npc:6566}, the outfitter in the {object:36073}."] = "Si no te queda {item:5060}, pídeselo a {npc:6566}, el equipador del {object:36073}.",
 
 	-- Step 9: Ambermill
 	-- {area:233} Ambermill · {object:103815} Ambermill Strongbox · {item:5060} Thieves' Tools
-	["The Kirin Tor keep their reports in walled {area:233}, in south-east Silverpine. Facing the town hall, take the building on the right: the {object:103815} is in a corner room upstairs (any Lockpicking opens it; the {item:5060} must be in your bags). Three casters of level 19-20 guard that floor and see through stealth, one walking in and out of the strongbox room: time it or fight them one at a time."] = "",
+	["The Kirin Tor keep their reports in walled {area:233}, in south-east Silverpine. Facing the town hall, take the building on the right: the {object:103815} is in a corner room upstairs (any Lockpicking opens it; the {item:5060} must be in your bags). Three casters of level 19-20 guard that floor and see through stealth, one walking in and out of the strongbox room: time it or fight them one at a time."] = "El Kirin Tor guarda sus informes en la amurallada {area:233}, en el sureste de la Pinares. Frente al ayuntamiento, toma el edificio de la derecha: el {object:103815} está en una habitación de la esquina de arriba (cualquier cerradura la abre; el {item:5060} debe estar en tus bolsas). Tres lanzadores de nivel 19-20 guardan ese piso y ven a través del sigilo, uno entrando y saliendo de la sala de la caja fuerte: calcula el momento o lucha contra ellos de uno en uno.",
 
 	-- Step 10: Back to Mennet Carkad
 	-- {npc:6467} Mennet Carkad

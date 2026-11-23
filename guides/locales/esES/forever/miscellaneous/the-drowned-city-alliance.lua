@@ -8,92 +8,92 @@
 return {
 	-- Guide
 	-- {area:16550} The Drowned City
-	["{area:16550} (Alliance)"] = "",
+	["{area:16550} (Alliance)"] = "{area:16550} (Alianza)",
 	-- {area:16550} The Drowned City
-	["Every Alliance quest of the {area:16550} in one run, lead-ins included."] = "",
+	["Every Alliance quest of the {area:16550} in one run, lead-ins included."] = "Todas las misiones de la Alianza de {area:16550} en una sola pasada, incluidas las introductorias.",
 
 	-- Step 1: Sergeant Yohwa
 	-- {area:99} Rebel Camp
-	["At the {area:99} in northern Stranglethorn."] = "",
+	["At the {area:99} in northern Stranglethorn."] = "En {area:99}, en el norte de Tuercespina.",
 
 	-- Step 2: Kurzen's Compound
 	-- {area:99} Rebel Camp · {item:2634} Venom Fern Extract · {object:263} Kurzen Supplies
-	["South-east of the {area:99}. The medicine men, headshrinkers and witch doctors drop the remedies; the {item:2634} is in the {object:263}."] = "",
+	["South-east of the {area:99}. The medicine men, headshrinkers and witch doctors drop the remedies; the {item:2634} is in the {object:263}."] = "Al sureste de {area:99}. Los chamanes de la medicina, los reducidores de cabezas y los médicos brujos sueltan los remedios; el {item:2634} está en {object:263}.",
 
 	-- Step 4: The Emperor's Tomb
 	-- {item:2008} The Fourth Troll Legend · {area:99} Rebel Camp · {area:102} Ruins of Zul'Kunda
-	["{item:2008}, west of the {area:99} in the {area:102}, on the hill in the north-west."] = "",
+	["{item:2008}, west of the {area:99} in the {area:102}, on the hill in the north-west."] = "{item:2008}, al oeste de {area:99}, en {area:102}, en la colina del noroeste.",
 
 	-- Step 5: Fall of Gurubashi
 	-- {item:2007} The Third Troll Legend
-	["{item:2007}, a little south-west in the same ruins."] = "",
+	["{item:2007}, a little south-west in the same ruins."] = "{item:2007}, un poco al suroeste, en las mismas ruinas.",
 
 	-- Step 6: Gri'lek the Wanderer
 	-- {item:2006} The Second Troll Legend · {area:104} Vile Reef
-	["{item:2006}, further south: the tablet lies on the sea floor of the {area:104}. Mind your breath."] = "",
+	["{item:2006}, further south: the tablet lies on the sea floor of the {area:104}. Mind your breath."] = "{item:2006}, más al sur: la tablilla está en el fondo del mar de {area:104}. Cuidado con la respiración.",
 
 	-- Step 7: Moon Over the Vale
 	-- {item:2005} The First Troll Legend · {area:123} Bal'lal Ruins
-	["{item:2005}, in the {area:123} north-east of the reef."] = "",
+	["{item:2005}, in the {area:123} north-east of the reef."] = "{item:2005}, en {area:123}, al noreste del arrecife.",
 
 	-- Step 9: Skullsplitter trolls
 	["Skullsplitter trolls"] = "Trols Machacacráneos",
-	["The Skullsplitter mystics (level 39 to 40) and witch doctors (41 to 42) in the middle of Stranglethorn drop the fetishes."] = "",
+	["The Skullsplitter mystics (level 39 to 40) and witch doctors (41 to 42) in the middle of Stranglethorn drop the fetishes."] = "Los místicos Machacacráneos (nivel 39-40) y los médicos brujos (41-42) del centro de Tuercespina sueltan los fetiches.",
 
 	-- Step 11: Loremaster Dibbs
 	-- {area:271} Southshore
-	["In {area:271}."] = "",
+	["In {area:271}."] = "En {area:271}.",
 
 	-- Step 12: Archmage Timear
 	-- {area:279} Dalaran
-	["In {area:279}. He gives this from level 34."] = "",
+	["In {area:279}. He gives this from level 34."] = "En {area:279}. Lo da a partir del nivel 34.",
 
 	-- Step 13: Krazek
 	-- {area:35} Booty Bay
-	["In {area:35}. Both factions take his two quests, from level 34."] = "",
+	["In {area:35}. Both factions take his two quests, from level 34."] = "En {area:35}. Ambas facciones pueden tomar sus dos misiones, desde el nivel 34.",
 
 	-- Step 14: To the The Drowned City
 	-- {area:16550} The Drowned City
-	["To the {area:16550}"] = "",
+	["To the {area:16550}"] = "Hacia {area:16550}",
 	-- {area:17853} Sunken Hollow · {area:104} Vile Reef · {object:3202} Grom'gol (no name in this language: may be words)
-	["A dungeon for five players of level 35 to 42. Meet your group at its entrance in {area:17853}, under the {area:104}: due west of {object:3202} and south-west of the reef's tablet. {object:3202} is the Horde's camp: keep clear of its guards. Water breathing helps."] = "",
+	["A dungeon for five players of level 35 to 42. Meet your group at its entrance in {area:17853}, under the {area:104}: due west of {object:3202} and south-west of the reef's tablet. {object:3202} is the Horde's camp: keep clear of its guards. Water breathing helps."] = "Una mazmorra para cinco jugadores de nivel 35 a 42. Reúnete con tu grupo en su entrada, en {area:17853}, bajo {area:104}: justo al oeste de {object:3202} y al suroeste de la tablilla del arrecife. {object:3202} es el campamento de la Horda: mantente alejado de sus guardias. La respiración acuática ayuda.",
 
 	-- Step 15: I'lalai Fetishes
-	["I'lalai Fetishes"] = "",
+	["I'lalai Fetishes"] = "Fetiches de I'lalai",
 	-- plural, as words: Profane Necromancers = {npc:263196} Profane Necromancer · Undying Offerings = {npc:263899} Undying Offering
-	["Risen Sentries, Profane Necromancers and Undying Offerings drop them."] = "",
+	["Risen Sentries, Profane Necromancers and Undying Offerings drop them."] = "Los centinelas levantados, los nigromantes profanos y las ofrendas imperecederas los sueltan.",
 
 	-- Step 16: First tablet
-	["First tablet"] = "",
+	["First tablet"] = "Primera tablilla",
 	-- {npc:258905} Zul'Alai
 	-- plural, as words: Makrura Snappers = {npc:258897} Makrura Snapper · Chasm Crawlers = {npc:258818} Chasm Crawler
-	["Past the Makrura Snappers and Chasm Crawlers waits {npc:258905}, the first boss. The first tablet comes soon after him: click it for the rubbing."] = "",
+	["Past the Makrura Snappers and Chasm Crawlers waits {npc:258905}, the first boss. The first tablet comes soon after him: click it for the rubbing."] = "Pasando a los mordedores makrura y a los reptadores del abismo espera {npc:258905}, el primer jefe. La primera tablilla llega poco después de él: haz clic en ella para el calco.",
 
 	-- Step 17: Var'Taka
 	-- {npc:258924} Var'Taka · {npc:260042} Captain Dreadrise
 	-- plural, as words: Brinescale Explorers = {npc:258799} Brinescale Explorer
-	["Brinescale Explorers and Sorceresses guard the way to {npc:258924}, the second boss. The second tablet is close to him. No Alliance quest asks for him, but once he is dead, disrupt the barrier close to where he fell; you do it once more after {npc:260042}."] = "",
+	["Brinescale Explorers and Sorceresses guard the way to {npc:258924}, the second boss. The second tablet is close to him. No Alliance quest asks for him, but once he is dead, disrupt the barrier close to where he fell; you do it once more after {npc:260042}."] = "Los exploradores y las hechiceras Escamavil guardan el camino hacia {npc:258924}, el segundo jefe. La segunda tablilla está cerca de él. Ninguna misión de la Alianza lo pide, pero una vez muerto, interrumpe la barrera cerca de donde cayó; lo haces una vez más después de {npc:260042}.",
 
 	-- Step 18: Captain Dreadrise
-	["The Saltseer pirates hold his ground: Murderers, Manhunters, Cultists and Coroners, and any of them can drop an artifact. The third tablet is among them, before you reach the captain. After he dies, disrupt the barrier a second time."] = "",
+	["The Saltseer pirates hold his ground: Murderers, Manhunters, Cultists and Coroners, and any of them can drop an artifact. The third tablet is among them, before you reach the captain. After he dies, disrupt the barrier a second time."] = "Los piratas Vidente de la Sal custodian su terreno: asesinos, cazadores de hombres, sectarios y forenses, y cualquiera de ellos puede soltar un artefacto. La tercera tablilla está entre ellos, antes de llegar al capitán. Después de que muera, interrumpe la barrera una segunda vez.",
 	-- {npc:773} Krazek
-	["One pass through the pirates may give fewer than ten: {npc:773} takes the quest whenever you have them."] = "",
+	["One pass through the pirates may give fewer than ten: {npc:773} takes the quest whenever you have them."] = "Una pasada por los piratas puede dar menos de diez: {npc:773} acepta la misión cuando los tengas.",
 
 	-- Step 19: Deathless Marrow
 	-- {npc:260202} Deathless Marrow
-	["Past the Champions of the Deep, {npc:260202} fights with his guardians. He drops the idol."] = "",
+	["Past the Champions of the Deep, {npc:260202} fights with his guardians. He drops the idol."] = "Pasando a los campeones del Abismo, {npc:260202} pelea con sus guardianes. Suelta el ídolo.",
 
 	-- Step 20: Min'loth the Serpent
-	["The last boss. The fourth tablet is near him, and its rubbing still counts after he dies."] = "",
+	["The last boss. The fourth tablet is near him, and its rubbing still counts after he dies."] = "El último jefe. La cuarta tablilla está cerca de él, y su calco sigue contando después de que muera.",
 
 	-- Step 21: Krazek
-	["Once you have the ten artifacts."] = "",
+	["Once you have the ten artifacts."] = "Cuando tengas los diez artefactos.",
 
 	-- Step 24: Abra Cadabra
 	-- {area:279} Dalaran
-	["In {area:279}."] = "",
+	["In {area:279}."] = "En {area:279}.",
 
 	-- Step 25: Historian Karnik
 	-- {object:32356} Hall of Explorers (no name in this language: may be words)
-	["In the {object:32356}."] = "",
+	["In the {object:32356}."] = "En {object:32356}.",
 }
