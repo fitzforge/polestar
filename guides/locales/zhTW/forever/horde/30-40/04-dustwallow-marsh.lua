@@ -158,7 +158,7 @@ return {
 
 	-- Step 30: Melizza Brimbuzzle
 	-- {npc:12277} Melizza Brimbuzzle
-	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277}被關在山谷西端的瑪拉多營地；救出她並護送她到山谷以東。\n小心：指令碼刷出的隊伍是仇恨聯動的，而且只在護送期間出現，所以無法事先清掉，也不能一隻只拉。出發前把路上的普通半人馬清掉確實有幫助。",
+	["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: six centaurs attack during the escort, and you can't clear them beforehand: they appear only during the escort and come linked. In players' recordings 14 of 30 people who took it failed at least once. Bring a friend, or skip it if you are alone. Clearing the normal centaurs on the path before you start does help."] = "",
 
 	-- Step 31: Hornizz Brimbuzzle
 	-- {npc:6019} Hornizz Brimbuzzle · {area:596} Kodo Graveyard
@@ -268,6 +268,7 @@ return {
 	-- ["West from the fortress to the coast at {area:598}: the Slitherblade Myrmidons, Naga and Sorceresses hold the beach. Pull them one at a time; the Sea Witches and Oracles (34-36) cast from range."] = "從堡壘向西前往海岸的{area:598}：滑刃侍從、納迦和女巫佔據海灘。一次拉一隻；海巫和神諭者（34-36級）會從遠處施法。",
 	-- ["West to Shadowprey."] = "向西前往葬影村。",
 	-- ["{npc:11626}'s caravan stops on the road at the edge of {area:602}. Escort it east past the coven; demons attack it twice."] = "{npc:11626}的商隊停在{area:602}邊緣的道路上。護送商隊向東經過集會所；惡魔會攻擊兩次。",
+	-- ["{npc:12277} is held in the Maraudine camp at the valley's western end; free her and escort her out east of the valley.\nCareful: The scripted groups are linked and only appear during the escort, so you cannot clear them in advance or pull them one at a time. Clearing the normal centaurs on the path before you start does help."] = "{npc:12277}被關在山谷西端的瑪拉多營地；救出她並護送她到山谷以東。\n小心：指令碼刷出的隊伍是仇恨聯動的，而且只在護送期間出現，所以無法事先清掉，也不能一隻只拉。出發前把路上的普通半人馬清掉確實有幫助。",
 	-- ["{npc:3391}: for {npc:4631} in {area:35}, on the first {area:35} stop of 40-50"] = "{npc:3391}：交給{area:35}的{npc:4631}，在40-50級第一次前往{area:35}時",
 	-- ["{npc:4983} waits in the {area:2302} east of the village. Follow him to Reethe and keep him alive through the fight that breaks out."] = "{npc:4983}在村莊東邊的{area:2302}等候。跟著他去找雷瑟，在爆發的戰鬥中保住他的性命。",
 	-- ["{npc:5395} and {npc:5412} stand in the post just west of {npc:11596}'s camp."] = "{npc:5395}和{npc:5412}站在{npc:11596}營地西邊的哨站裡。",

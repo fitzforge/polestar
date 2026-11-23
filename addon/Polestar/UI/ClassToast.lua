@@ -114,10 +114,18 @@ function CT.ChainTaken(q)
 	return false
 end
 
-local function spellKnown(id)
+-- The reward's spell known: by its id, else by its name in the spellbook
+-- (Compat.KnowsSpellNamed): a chain of another race teaches the same ability
+-- under another id, and the card came back for a Highborne hunter who knew
+-- Tame Beast (#3020) and a Skyborne druid with Bear Form (#1935).
+local function spellKnown(id, english)
 	if IsPlayerSpell and IsPlayerSpell(id) then return true end
 	if IsSpellKnown and IsSpellKnown(id) then return true end
-	return false
+	local C = ns.Compat
+	if not (C and C.KnowsSpellNamed) then return false end
+	local name = C_Spell and C_Spell.GetSpellName and C_Spell.GetSpellName(id)
+	if type(name) ~= "string" or name == "" then name = english end
+	return C.KnowsSpellNamed(name) and true or false
 end
 
 local function itemOwned(id)
@@ -131,7 +139,7 @@ end
 -- too) known, or one of the items in the bags, the bank or worn.
 function CT.RewardKnown(reward)
 	if not reward then return false end
-	if reward.spell and spellKnown(reward.spell) then return true end
+	if reward.spell and spellKnown(reward.spell, reward.spellName) then return true end
 	for _, id in ipairs(reward.items or {}) do
 		if itemOwned(id) then return true end
 	end
@@ -919,6 +927,11 @@ function CT.Place(animate)
 		local edge = ran and type(own) == "table" and own.GetTop and own or w
 		-- The gaps in the edge's units; the card's anchors take them in its own (k).
 		local r = reach(edge)
+		-- The window's own parts past its edges (the edge tab style's tabs).
+		if edge == w then
+			r.top = math.max(r.top, tonumber(w.psTopReach) or 0)
+			r.bottom = math.max(r.bottom, tonumber(w.psBottomReach) or 0)
+		end
 		local gap = { above = r.top + GAP, below = r.bottom + GAP, left = r.left + GAP, right = r.right + GAP }
 		local top, bottom, left, right = edge:GetTop(), edge:GetBottom(), edge:GetLeft(), edge:GetRight()
 		local s, us = w:GetEffectiveScale() or 1, UIParent:GetEffectiveScale() or 1
@@ -1336,6 +1349,24 @@ ns.RegisterEvent("PLAYER_ENTERING_WORLD", function()
 	if loggedIn then return end
 	loggedIn = true
 	ns.After(2, function() CT.Check(nil, "login") end)
+end)
+
+-- A reward item the client had not cached showed as "#20083" (#3727): once
+-- it arrives, the card on screen names it.
+ns.RegisterEvent("GET_ITEM_INFO_RECEIVED", function(_, itemID)
+	local m = CT.current
+	local items = m and m.reward and m.reward.items
+	if not (items and f and f:IsShown() and f.psModel == m) then return end
+	for _, id in ipairs(items) do
+		if id == itemID then
+			local name = CC().RewardName(m.reward)
+			if name then
+				m.title = format(L["%s ready"], CT.ShortName(name))
+				f.Title:SetText(m.title)
+			end
+			return
+		end
+	end
 end)
 
 ns.RegisterCommand("classtoast", function(rest)
