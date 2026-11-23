@@ -93,8 +93,7 @@ return {
 	-- {npc:454} Young Goretusk
 	["{npc:454}, Coyote"] = "{npc:454}, 코요테",
 	-- {npc:833} Coyote Packleader
-	-- was: ["{npc:833}, Goretusk"] = "{npc:833}, 뿔엄니멧돼지"
-	["{npc:833}, Goretusk"] = "",
+	["{npc:833}, Goretusk"] = "{npc:833}, 뿔엄니멧돼지",
 	["Goretusk"] = "뿔엄니멧돼지",
 	-- {npc:547} Great Goretusk
 	["{npc:547}, Goretusk"] = "{npc:547}, 뿔엄니멧돼지",
@@ -288,6 +287,5 @@ return {
 	-- ["{npc:1922}, Prowler"] = "{npc:1922}, 굶주린 늑대",
 	-- ["{npc:6506}, Ravasaur"] = "{npc:6506}, 라바사우루스",
 	-- ["{npc:833}, Coyote"] = "{npc:833}, 코요테",
-	-- ["{npc:833}, Goretusk"] = "{npc:833}, 뿔엄니멧돼지",
 	-- ["{npc:9164}, Diemetradon"] = "{npc:9164}, 디메트로돈",
 }

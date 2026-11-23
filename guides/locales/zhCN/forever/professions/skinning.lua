@@ -93,8 +93,7 @@ return {
 	-- {npc:454} Young Goretusk
 	["{npc:454}, Coyote"] = "{npc:454}、山狗",
 	-- {npc:833} Coyote Packleader
-	-- was: ["{npc:833}, Goretusk"] = "{npc:833}、血牙野猪"
-	["{npc:833}, Goretusk"] = "",
+	["{npc:833}, Goretusk"] = "{npc:833}、血牙野猪",
 	["Goretusk"] = "血牙野猪",
 	-- {npc:547} Great Goretusk
 	["{npc:547}, Goretusk"] = "{npc:547}、血牙野猪",
@@ -178,8 +177,7 @@ return {
 
 	-- Step 22: Beasts 19-29: Ashenvale (125-150)
 	-- {zone:1440} Ashenvale
-	-- was: ["Beasts 19-29: {zone:1440} (125-150)"] = "19-29级野兽：{zone:1440}（125-150）"
-	["Beasts 19-29: {zone:1440} (125-150)"] = "",
+	["Beasts 19-29: {zone:1440} (125-150)"] = "19-29级野兽：{zone:1440}（125-150）",
 	-- {npc:3823} Ghostpaw Runner · {npc:3809} Ashenvale Bear · {npc:3817} Shadowhorn Stag · {npc:3810} Elder Ashenvale Bear · {npc:3818} Elder Shadowhorn Stag · {npc:3811} Giant Ashenvale Bear · {skill:393} Skinning
 	-- was: ["Kill and skin {npc:3823} (19), {npc:3809} (21), {npc:3817} (21), {npc:3810} (25), {npc:3818} (26, needs 130), {npc:3811} (29, needs 145) along the loop until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 18-30. Expect about 40 beasts for these 25 points."] = "沿环线击杀并剥取{npc:3823}（19级）、{npc:3809}（21级）、{npc:3817}（21级）、{npc:3810}（25级）、{npc:3818}（26级，需要技能130）和{npc:3811}（29级，需要技能145），直到{skill:393}150；先拾取每具尸体，再剥皮，并优先剥取技能允许的最高等级野兽。等级为 L 的野兽，在20级及以下需要技能 (L-10)x10，更高等级则需要巨翼双足飞龙。地区等级18-30。这25点预计需剥取约40只野兽。"
 	["Kill and skin {npc:3823} (19), {npc:3809} (20), {npc:3817} (21), {npc:3810} (25), {npc:3818} (26, needs 130), {npc:3811} (29, needs 145) along the loop until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 18-30. Expect about 40 beasts for these 25 points."] = "",
@@ -254,7 +252,6 @@ return {
 	-- ["Beasts 10-16: {zone:1436} (50-100)"] = "10-16级野兽：{zone:1436}（50-100）",
 	-- ["Beasts 11-19: {zone:1439} (50-100)"] = "11-19级野兽：{zone:1439}（50-100）",
 	-- ["Beasts 19-22: {zone:1440} (100-125)"] = "19-22 级野兽：{zone:1440}（100-125）",
-	-- ["Beasts 19-29: {zone:1440} (125-150)"] = "19-29级野兽：{zone:1440}（125-150）",
 	-- ["Beasts 21-23: {zone:1424} (100-125)"] = "21-23级野兽：{zone:1424}（100-125）",
 	-- ["Beasts 21-23: {zone:1442} (100-125)"] = "21-23级野兽：{zone:1442}（100-125）",
 	-- ["Beasts 21-27: {zone:1442} (125-150)"] = "21-27级野兽：{zone:1442}（125-150）",
@@ -316,6 +313,5 @@ return {
 	-- ["{npc:1922}, Prowler"] = "{npc:1922}、觅食的灰狼",
 	-- ["{npc:6506}, Ravasaur"] = "{npc:6506}、暴掠龙",
 	-- ["{npc:833}, Coyote"] = "{npc:833}、山狗",
-	-- ["{npc:833}, Goretusk"] = "{npc:833}、血牙野猪",
 	-- ["{npc:9164}, Diemetradon"] = "{npc:9164}、双帆龙",
 }

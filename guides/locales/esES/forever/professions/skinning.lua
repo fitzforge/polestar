@@ -93,8 +93,7 @@ return {
 	-- {npc:454} Young Goretusk
 	["{npc:454}, Coyote"] = "{npc:454}, Coyote",
 	-- {npc:833} Coyote Packleader
-	-- was: ["{npc:833}, Goretusk"] = "{npc:833}, Dentosangre"
-	["{npc:833}, Goretusk"] = "",
+	["{npc:833}, Goretusk"] = "{npc:833}, Dentosangre",
 	["Goretusk"] = "Dentosangre",
 	-- {npc:547} Great Goretusk
 	["{npc:547}, Goretusk"] = "{npc:547}, Dentosangre",
@@ -288,6 +287,5 @@ return {
 	-- ["{npc:1922}, Prowler"] = "{npc:1922}, Merodeador",
 	-- ["{npc:6506}, Ravasaur"] = "{npc:6506}, Ravasaurio",
 	-- ["{npc:833}, Coyote"] = "{npc:833}, Coyote",
-	-- ["{npc:833}, Goretusk"] = "{npc:833}, Dentosangre",
 	-- ["{npc:9164}, Diemetradon"] = "{npc:9164}, Diemetradón",
 }

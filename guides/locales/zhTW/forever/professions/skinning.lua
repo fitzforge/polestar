@@ -93,8 +93,7 @@ return {
 	-- {npc:454} Young Goretusk
 	["{npc:454}, Coyote"] = "{npc:454}、山狗",
 	-- {npc:833} Coyote Packleader
-	-- was: ["{npc:833}, Goretusk"] = "{npc:833}、血牙野豬"
-	["{npc:833}, Goretusk"] = "",
+	["{npc:833}, Goretusk"] = "{npc:833}、血牙野豬",
 	["Goretusk"] = "血牙野豬",
 	-- {npc:547} Great Goretusk
 	["{npc:547}, Goretusk"] = "{npc:547}、血牙野豬",
@@ -177,8 +176,7 @@ return {
 
 	-- Step 22: Beasts 19-29: Ashenvale (125-150)
 	-- {zone:1440} Ashenvale
-	-- was: ["Beasts 19-29: {zone:1440} (125-150)"] = "野獸19-29級：{zone:1440}（125-150）"
-	["Beasts 19-29: {zone:1440} (125-150)"] = "",
+	["Beasts 19-29: {zone:1440} (125-150)"] = "野獸19-29級：{zone:1440}（125-150）",
 	-- {npc:3823} Ghostpaw Runner · {npc:3809} Ashenvale Bear · {npc:3817} Shadowhorn Stag · {npc:3810} Elder Ashenvale Bear · {npc:3818} Elder Shadowhorn Stag · {npc:3811} Giant Ashenvale Bear · {skill:393} Skinning
 	["Kill and skin {npc:3823} (19), {npc:3809} (20), {npc:3817} (21), {npc:3810} (25), {npc:3818} (26, needs 130), {npc:3811} (29, needs 145) along the loop until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 18-30. Expect about 40 beasts for these 25 points."] = "",
 
@@ -251,7 +249,6 @@ return {
 	-- ["Beasts 10-16: {zone:1436} (50-100)"] = "野獸 10-16：{zone:1436}（50-100）",
 	-- ["Beasts 11-19: {zone:1439} (50-100)"] = "野獸 11-19：{zone:1439}（50-100）",
 	-- ["Beasts 19-22: {zone:1440} (100-125)"] = "野獸19-22級：{zone:1440}（100-125）",
-	-- ["Beasts 19-29: {zone:1440} (125-150)"] = "野獸19-29級：{zone:1440}（125-150）",
 	-- ["Beasts 21-23: {zone:1424} (100-125)"] = "野獸 21-23：{zone:1424}（100-125）",
 	-- ["Beasts 21-23: {zone:1442} (100-125)"] = "野獸 21-23：{zone:1442}（100-125）",
 	-- ["Beasts 21-27: {zone:1442} (125-150)"] = "野獸 21-27：{zone:1442}（125-150）",
@@ -291,6 +288,5 @@ return {
 	-- ["{npc:1922}, Prowler"] = "{npc:1922}、覓食的灰狼",
 	-- ["{npc:6506}, Ravasaur"] = "{npc:6506}、暴掠龍",
 	-- ["{npc:833}, Coyote"] = "{npc:833}、山狗",
-	-- ["{npc:833}, Goretusk"] = "{npc:833}、血牙野豬",
 	-- ["{npc:9164}, Diemetradon"] = "{npc:9164}、雙帆龍",
 }

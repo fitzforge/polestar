@@ -5990,6 +5990,7 @@ t.guides["forever/professions/skinning"] = (function() return {
 		["{npc:2961}, Plainstrider"] = "{npc:2961}, 초원타조",
 		["{npc:454}, Coyote"] = "{npc:454}, 코요테",
 		["{npc:547}, Goretusk"] = "{npc:547}, 뿔엄니멧돼지",
+		["{npc:833}, Goretusk"] = "{npc:833}, 뿔엄니멧돼지",
 } end)()
 t.guides["forever/professions/tailoring"] = (function() return {
 		["124 {item:14227} for {item:13867}: it drops from {npc:11739} (level 57-59) at the marked spot."] = "{item:13867}에 필요한 {item:14227} 124개: 표시된 지점의 {npc:11739}(57-59레벨)이(가) 떨어뜨립니다.",

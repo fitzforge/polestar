@@ -5989,6 +5989,7 @@ t.guides["forever/professions/skinning"] = (function() return {
 		["{npc:2961}, Plainstrider"] = "{npc:2961}, Zancudo de llanura",
 		["{npc:454}, Coyote"] = "{npc:454}, Coyote",
 		["{npc:547}, Goretusk"] = "{npc:547}, Dentosangre",
+		["{npc:833}, Goretusk"] = "{npc:833}, Dentosangre",
 } end)()
 t.guides["forever/professions/tailoring"] = (function() return {
 		["124 {item:14227} for {item:13867}: it drops from {npc:11739} (level 57-59) at the marked spot."] = "124 {item:14227} para {item:13867}: lo suelta {npc:11739} (nivel 57-59) en el lugar marcado.",

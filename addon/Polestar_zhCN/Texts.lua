@@ -9639,6 +9639,7 @@ t.guides["forever/professions/skinning"] = (function() return {
 		["Beasts 10-19: {zone:1439} (50-100)"] = "10-19级野兽：{zone:1439}（50-100）",
 		["Beasts 19-20: {zone:1431} (100-125)"] = "19-20级野兽：{zone:1431}（100-125）",
 		["Beasts 19-21: {zone:1440} (100-125)"] = "19-21 级野兽：{zone:1440}（100-125）",
+		["Beasts 19-29: {zone:1440} (125-150)"] = "19-29级野兽：{zone:1440}（125-150）",
 		["Beasts 21-29: {zone:1424} (125-150)"] = "21-29级野兽：{zone:1424}（125-150）",
 		["Beasts 21-33: {zone:1416} (150-175)"] = "21—33级野兽：{zone:1416}（150—175）",
 		["Beasts 35-41: {zone:1435} (200-225)"] = "35-41级野兽：{zone:1435}（200-225）",
@@ -9701,6 +9702,7 @@ t.guides["forever/professions/skinning"] = (function() return {
 		["{npc:682}, Panther"] = "{npc:682}、猎豹",
 		["{npc:684}, Panther"] = "{npc:684}、猎豹",
 		["{npc:822}, Prowler"] = "{npc:822}、森林狼",
+		["{npc:833}, Goretusk"] = "{npc:833}、血牙野猪",
 } end)()
 t.guides["forever/professions/tailoring"] = (function() return {
 		["124 {item:14227} for {item:13867}: it drops from {npc:11739} (level 57-59) at the marked spot."] = "为 {item:13867} 准备124份 {item:14227}：标记位置的 {npc:11739}（57-59级）会掉落。",

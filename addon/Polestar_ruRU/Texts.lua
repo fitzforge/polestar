@@ -7212,6 +7212,7 @@ t.guides["forever/professions/skinning"] = (function() return {
 		["{npc:2961}, Plainstrider"] = "{npc:2961}, Равнинный долгоног",
 		["{npc:454}, Coyote"] = "{npc:454}, Койот",
 		["{npc:547}, Goretusk"] = "{npc:547}, Жутеклык",
+		["{npc:833}, Goretusk"] = "{npc:833}, Жутеклык",
 } end)()
 t.guides["forever/professions/tailoring"] = (function() return {
 		["124 {item:14227} for {item:13867}: it drops from {npc:11739} (level 57-59) at the marked spot."] = "124 {item:14227} для {item:13867}: падает с NPC {npc:11739} (57-59 уровень) в отмеченном месте.",

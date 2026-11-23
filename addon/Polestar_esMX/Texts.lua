@@ -9649,6 +9649,7 @@ t.guides["forever/professions/skinning"] = (function() return {
 		["Beasts 10-19: {zone:1439} (50-100)"] = "Bestias 10-19: {zone:1439} (50-100)",
 		["Beasts 19-20: {zone:1431} (100-125)"] = "Bestias 19-20: {zone:1431} (100-125)",
 		["Beasts 19-21: {zone:1440} (100-125)"] = "Bestias 19-21: {zone:1440} (100-125)",
+		["Beasts 19-29: {zone:1440} (125-150)"] = "Bestias 19-29: {zone:1440} (125-150)",
 		["Beasts 21-29: {zone:1424} (125-150)"] = "Bestias 21-29: {zone:1424} (125-150)",
 		["Beasts 21-33: {zone:1416} (150-175)"] = "Bestias 21-33: {zone:1416} (150-175)",
 		["Beasts 35-41: {zone:1435} (200-225)"] = "Bestias 35-41: {zone:1435} (200-225)",
@@ -9711,6 +9712,7 @@ t.guides["forever/professions/skinning"] = (function() return {
 		["{npc:682}, Panther"] = "{npc:682}, Pantera",
 		["{npc:684}, Panther"] = "{npc:684}, Pantera",
 		["{npc:822}, Prowler"] = "{npc:822}, Merodeador",
+		["{npc:833}, Goretusk"] = "{npc:833}, Dentosangre",
 } end)()
 t.guides["forever/professions/tailoring"] = (function() return {
 		["124 {item:14227} for {item:13867}: it drops from {npc:11739} (level 57-59) at the marked spot."] = "124 {item:14227} para {item:13867}: lo suelta {npc:11739} (nivel 57-59) en el lugar marcado.",

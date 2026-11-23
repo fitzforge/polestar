@@ -93,8 +93,7 @@ return {
 	-- {npc:454} Young Goretusk
 	["{npc:454}, Coyote"] = "{npc:454}, Coyote",
 	-- {npc:833} Coyote Packleader
-	-- was: ["{npc:833}, Goretusk"] = "{npc:833}, Dentosangre"
-	["{npc:833}, Goretusk"] = "",
+	["{npc:833}, Goretusk"] = "{npc:833}, Dentosangre",
 	["Goretusk"] = "Dentosangre",
 	-- {npc:547} Great Goretusk
 	["{npc:547}, Goretusk"] = "{npc:547}, Dentosangre",
@@ -178,8 +177,7 @@ return {
 
 	-- Step 22: Beasts 19-29: Ashenvale (125-150)
 	-- {zone:1440} Ashenvale
-	-- was: ["Beasts 19-29: {zone:1440} (125-150)"] = "Bestias 19-29: {zone:1440} (125-150)"
-	["Beasts 19-29: {zone:1440} (125-150)"] = "",
+	["Beasts 19-29: {zone:1440} (125-150)"] = "Bestias 19-29: {zone:1440} (125-150)",
 	-- {npc:3823} Ghostpaw Runner · {npc:3809} Ashenvale Bear · {npc:3817} Shadowhorn Stag · {npc:3810} Elder Ashenvale Bear · {npc:3818} Elder Shadowhorn Stag · {npc:3811} Giant Ashenvale Bear · {skill:393} Skinning
 	-- was: ["Kill and skin {npc:3823} (19), {npc:3809} (21), {npc:3817} (21), {npc:3810} (25), {npc:3818} (26, needs 130), {npc:3811} (29, needs 145) along the loop until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 18-30. Expect about 40 beasts for these 25 points."] = "Mata y despelleja: {npc:3823} (19), {npc:3809} (21), {npc:3817} (21), {npc:3810} (25), {npc:3818} (26, requiere 130), {npc:3811} (29, requiere 145) a lo largo del circuito hasta {skill:393} 150; saquea cada cadáver, luego despelléjalo, y despelleja las bestias del nivel más alto que permita tu habilidad. Una bestia de nivel L requiere habilidad (L-10)x10 hasta el nivel 20 y Lx5 por encima. Nivel de la zona: 18-30. Cuenta con unos 40 bestias para estos 25 puntos."
 	["Kill and skin {npc:3823} (19), {npc:3809} (20), {npc:3817} (21), {npc:3810} (25), {npc:3818} (26, needs 130), {npc:3811} (29, needs 145) along the loop until {skill:393} 150; loot each corpse, then skin it, and skin the highest-level beasts your skill allows. A beast of level L needs skill (L-10)x10 up to level 20 and Lx5 above. Zone level 18-30. Expect about 40 beasts for these 25 points."] = "",
@@ -254,7 +252,6 @@ return {
 	-- ["Beasts 10-16: {zone:1436} (50-100)"] = "Bestias 10-16: {zone:1436} (50-100)",
 	-- ["Beasts 11-19: {zone:1439} (50-100)"] = "Bestias 11-19: {zone:1439} (50-100)",
 	-- ["Beasts 19-22: {zone:1440} (100-125)"] = "Bestias 19-22: {zone:1440} (100-125)",
-	-- ["Beasts 19-29: {zone:1440} (125-150)"] = "Bestias 19-29: {zone:1440} (125-150)",
 	-- ["Beasts 21-23: {zone:1424} (100-125)"] = "Bestias 21-23: {zone:1424} (100-125)",
 	-- ["Beasts 21-23: {zone:1442} (100-125)"] = "Bestias 21-23: {zone:1442} (100-125)",
 	-- ["Beasts 21-27: {zone:1442} (125-150)"] = "Bestias 21-27: {zone:1442} (125-150)",
@@ -313,6 +310,5 @@ return {
 	-- ["{npc:1922}, Prowler"] = "{npc:1922}, Merodeador",
 	-- ["{npc:6506}, Ravasaur"] = "{npc:6506}, Ravasaurio",
 	-- ["{npc:833}, Coyote"] = "{npc:833}, Coyote",
-	-- ["{npc:833}, Goretusk"] = "{npc:833}, Dentosangre",
 	-- ["{npc:9164}, Diemetradon"] = "{npc:9164}, Diemetradón",
 }

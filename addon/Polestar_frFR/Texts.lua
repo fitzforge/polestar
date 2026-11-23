@@ -9717,6 +9717,7 @@ t.guides["forever/professions/skinning"] = (function() return {
 		["Beasts 10-19: {zone:1439} (50-100)"] = "Bêtes 10-19 : {zone:1439} (50-100)",
 		["Beasts 19-20: {zone:1431} (100-125)"] = "Bêtes 19-20 : {zone:1431} (100-125)",
 		["Beasts 19-21: {zone:1440} (100-125)"] = "Bêtes 19-21 : {zone:1440} (100-125)",
+		["Beasts 19-29: {zone:1440} (125-150)"] = "Bêtes 19-29 : {zone:1440} (125-150)",
 		["Beasts 21-29: {zone:1424} (125-150)"] = "Bêtes 21-29 : {zone:1424} (125-150)",
 		["Beasts 21-33: {zone:1416} (150-175)"] = "Bêtes 21-33 : {zone:1416} (150-175)",
 		["Beasts 35-41: {zone:1435} (200-225)"] = "Bêtes 35-41 : {zone:1435} (200-225)",
@@ -9779,6 +9780,7 @@ t.guides["forever/professions/skinning"] = (function() return {
 		["{npc:682}, Panther"] = "{npc:682}, Panthère",
 		["{npc:684}, Panther"] = "{npc:684}, Panthère",
 		["{npc:822}, Prowler"] = "{npc:822}, Rôdeur",
+		["{npc:833}, Goretusk"] = "{npc:833}, Broche-tripes",
 } end)()
 t.guides["forever/professions/tailoring"] = (function() return {
 		["124 {item:14227} for {item:13867}: it drops from {npc:11739} (level 57-59) at the marked spot."] = "124 {item:14227} pour {item:13867} : il tombe sur {npc:11739} (niveau 57-59) à l'endroit indiqué.",
