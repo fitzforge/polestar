@@ -219,6 +219,20 @@
 			"pass": []
 		},
 		{
+			"id": "size-claim",
+			"scope": "prose",
+			"re": "\\b(biggest|largest|massive|huge|giant) (update|release|patch)(es)?\\b|\\b(biggest|largest) ever\\b",
+			"match": [
+				"our biggest update yet",
+				"a massive update for everyone",
+				"the largest ever"
+			],
+			"pass": [
+				"a huge raptor roams the valley",
+				"the biggest gorillas stand close together"
+			]
+		},
+		{
 			"id": "rested-xp",
 			"scope": "message",
 			"re": "\\brested ?xp\\b",

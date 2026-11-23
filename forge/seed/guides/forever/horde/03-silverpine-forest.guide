@@ -29,7 +29,7 @@ next forever/horde/02-the-barrens
 # the Sepulcher (flight path) -> the Dalaran crate and back -> north loop: the Dead Field,
 # Malden's Orchard, Erland's escort, worg hearts -> the Sepulcher -> north again: Valgan's Field,
 # Quinn, the murloc eyes on the shore -> south along the lake shore to the Decrepit Ferry ->
-# the Sepulcher -> Quinn and Ivar the Foul on the road north -> Brill ->
+# the Sepulcher -> the north-west hills (Moonrage worgen, spiders, bears) -> the Sepulcher -> Quinn and Ivar the Foul on the road north -> Brill ->
 # the Undercity (flight path; Raleigh, Zinge) -> zeppelin to Orgrimmar: the city's own
 # quests, training. The guide ends in the Valley of Wisdom.
 #
@@ -44,7 +44,7 @@ next forever/horde/02-the-barrens
 #
 # Left out: the Forever Arugal's Folly (98298): Dalar offers it only after
 # the Classic Arugal's Folly series (421-424, 99; Forever's quest chain
-# data, #51), which the route does not run past its first part. Stop the Spread (98299, Forever):
+# data, #51), which the route runs only to Arugal's Folly (423), the north-west loop. Stop the Spread (98299, Forever):
 # Dalar did not offer it to an Undead at 19 (#161) or a Tauren at 21 (#229)
 # on this route, though the data gives it to every Horde race from level 9
 # with no prerequisite; one player's report asks for the quest before
@@ -66,9 +66,11 @@ next forever/horde/02-the-barrens
 # Cairne on the Thunder Bluff stop of forever/horde/07-ashenvale, and Thrall takes it back on the
 # Orgrimmar stop of the 30-40 guides. It is optional throughout: a tour for 1150 XP.
 #
-# Dropped: A Recipe For Death (447): its Skittering Blood comes only from the
-# spiders in the north-west hills, off every walk. Rot Hide Origins (444) and Hidden Enemies
-# (5726): the route never turns them in. Wand to Bethor (491): its turn-in comes at level 56.
+# Dropped: Rot Hide Origins (444): the route never turns it in. Wand to Bethor (491): its turn-in comes at level 56.
+# Hidden Enemies (Orcs and Trolls, 0.4.2 route round): Durotar's guide takes 5726 from Thrall and the insignia in
+# Skull Rock; Thrall takes it on this guide's first Orgrimmar walk through Grommash Hold and gives 5727, a word with
+# Neeru Fireblade in the Cleft of Shadow on the last Orgrimmar walk, back to Thrall at its end. Its Ragefire Chasm
+# parts (5728-5730) are left out.
 # Ambermill Investigations (479) and The Weaver (480): Ambermill's Mages fight beside Dalaran Serpents, Conjurors
 # (17-18) stand among them and Archmage Ataeric is level 22 in the middle of the town, two to seven levels over the
 # player here (5 of 14 recorded players died there). Allister gives 479 again on the Sepulcher stop of the ride to
@@ -122,6 +124,14 @@ step Neeru Fireblade
   turnin 829
   accept 809                          -- Neeru Fireblade: Ak'Zeloth stands at Far Watch Post, on the next guide's road to the Crossroads
   turnin 832                          -- Neeru Fireblade: Burning Shadows, from the Eye of Burning Shadow in Durotar
+
+step Neeru Fireblade
+  only Orc,Troll
+  zone Orgrimmar
+  when turnedin 829
+  when available 809
+  tip Neeru Fireblade stands at the far end of the Cleft of Shadow, the canyon under the Valley of Strength.
+  accept 809                          -- Neeru Fireblade: Ak'Zeloth stands at Far Watch Post, on the next guide's road to the Crossroads
 
 step The Drag
   only Orc,Troll,Tauren,Skyborne
@@ -260,6 +270,21 @@ step Nazgrel
   when onquest 831
   turnin 831 only Orc,Troll           -- Nazgrel, in Grommash Hold
 
+step Thrall
+  only Orc,Troll
+  zone Orgrimmar
+  when complete 5726
+  tip Thrall, on his throne in Grommash Hold, takes the Lieutenant's Insignia from Skull Rock. His next errand is only a word with Neeru Fireblade, on this guide's last Orgrimmar walk.
+  turnin 5726                         -- Thrall
+
+step Thrall
+  only Orc,Troll
+  zone Orgrimmar
+  when turnedin 5726
+  when available 5727
+  tip Thrall sits on his throne in Grommash Hold. His next errand is only a word with Neeru Fireblade, on this guide's last Orgrimmar walk.
+  accept 5727                         -- Thrall
+
 step Zeppelin to Undercity
   only Orc,Troll,Tauren,Skyborne
   zone Durotar
@@ -317,6 +342,7 @@ step The Sepulcher
   accept 428                          -- High Executor Hadrec, below ground
   accept 437
   turnin 445                          -- Apothecary Renferrel: Delivery to Silverpine Forest
+  accept 447                          -- Apothecary Renferrel: bear hearts from the Grizzled Bears all over the forest, the spiders' blood in the north-west hills later
 
 step The Sepulcher
   zone Silverpine Forest
@@ -405,8 +431,24 @@ step The Sepulcher
   turnin 91920                        -- Apothecary Renferrel
   accept 91921                        -- Apothecary Renferrel: for Quinn, on the road north at the end
   turnin 422                          -- Dalar Dawnweaver, just north of Allister
+  accept 423                          -- Dalar Dawnweaver
   turnin 439                          -- High Executor Hadrec, below ground
   accept 440                          -- Magistrate Sevren in Brill, on the way to the zeppelin at the end
+
+# Arugal's Folly (423, the chain's outdoor step after Valgan's spellbooks) and A Recipe For Death (447)
+# share one loop into the north-west hills (mobs 12-13 at about 14): the Moonrage worgen first, then the
+# Moss Stalkers and Giant Grizzled Bears beyond them, back to Dalar before the road north. Renferrel's
+# recipe goes to Faranell on the Undercity stop at the end.
+step North-west hills
+  tip North-west of the Sepulcher the Moonrage Gluttons and Darksouls roam the hills between the road and the lake; their shackles drop from them. Past them, farther north-west, Moss Stalkers and Mist Creepers bleed the Skittering Blood, and Giant Grizzled Bears roam among them for the hearts (any Grizzled Bear in the forest drops one).
+  collect 3156 quest 423.1 @38.8,25.5 -- Glutton Shackle, from the Moonrage Gluttons
+  collect 3157 quest 423.2 @37.6,24.5 -- Darksoul Shackle, from the Moonrage Darksouls
+  collect 3254 quest 447.2 @35.0,15.5 -- Skittering Blood, from the Moss Stalkers and Mist Creepers
+  collect 3253 quest 447.1 @36.0,18.5 -- Grizzled Bear Heart
+
+step The Sepulcher
+  tip Back south-east to the Sepulcher.
+  turnin 423                          -- Dalar Dawnweaver
 
 step The Ivar Patch
   tip Take the road north toward Tirisfal Glades: the Yoricks' house at Malden's Orchard is on the way. Ivar the Foul lurks a short walk west of it.
@@ -443,6 +485,7 @@ step The Undercity
   accept 97891                        -- Alessandro Luca
   turnin 97891                        -- Doctor Martin Felben, in the Apothecarium
   turnin 1359                         -- Apothecary Zinge, in the Apothecarium
+  turnin 447                          -- Master Apothecary Faranell, beside Zinge
   accept 1358                         -- Apothecary Zinge: Helbrim at the Crossroads, in the next guide
   train class only Paladin            -- Garen Largo, the Undercity's paladin trainer
 
@@ -502,6 +545,12 @@ step Valley of Strength
   turnin 97246                        -- Borstan
   accept 97249
 
+step Neeru Fireblade
+  zone Orgrimmar
+  when onquest 5727
+  tip The Cleft of Shadow is the canyon under the Valley of Strength; Neeru Fireblade stands at its far end. Tell him what Thrall found.
+  talk 3216 quest 5727.1              -- Neeru Fireblade
+
 step Class trainer
   only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
   train class only Warrior,Hunter,Rogue,Priest,Shaman,Mage,Warlock
@@ -529,11 +578,17 @@ step Kor'geld
   turnin 97275                        -- Whuut
 
 step Valley of Wisdom
-  tip Thra and Migi sit behind Grommash Hold in the Valley of Wisdom; the Smooth Boulders lie around them. The next guide walks from here to Far Watch Post and the Crossroads.
+  tip Thra and Migi sit behind Grommash Hold in the Valley of Wisdom; the Smooth Boulders lie around them. The next guide walks from here to Razor Hill, then Far Watch Post and the Crossroads.
   turnin 97249                        -- Migi
   accept 97326                        -- Thra
   collect 277952 quest 97326.1
   turnin 97326
+
+step Thrall
+  zone Orgrimmar
+  when onquest 5727
+  tip Thrall waits in Grommash Hold, beside Thra and Migi.
+  turnin 5727                         -- Thrall
 
 step Zor Lonetree
   accept 1061                         -- Zor Lonetree: Seereth Stonebreak, on the road into Stonetalon in the next guide

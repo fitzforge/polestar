@@ -266,6 +266,8 @@ local function build()
 		Anim.To(h, "offset", -8, 0, Anim.BASE, "out")
 	end)
 	ns.CloseOnEscape("PolestarWhatsNew")
+	-- Closed (not hidden with the rest of Polestar): what waits on it may open (UI/LayoutCard.lua).
+	F:HookScript("OnHide", function(self) if not self:IsShown() then ns.Fire("WHATSNEW_CLOSED") end end)
 	WN.frame = F
 	if ns.Gamepad and ns.Gamepad.Register then
 		ns.Gamepad.Register(F, {

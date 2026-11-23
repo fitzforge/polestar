@@ -1245,6 +1245,15 @@
 			"box": { "x1": 35.78, "y1": 77.67, "x2": 40.24, "y2": 83.8 },
 			"z": { "min": 10, "max": 50 },
 			"note": "The mage trainers' chamber under the Wizard's Sanctum (Jennea Cannon, Maginor Dumas, Elsharin, Larimaine Purdue, Garion Wendell and the High Order Mage stand at heights 29.6 to 30.7): neither walking map, nor Polestar's walking grid, has its floor, so a goal there landed on the terrain buried under the Mage Quarter and the plan hearthed, or walked over it (#1970). Reached only by the tower's portal down (area trigger 704) and left by the one back up (702), whose ends in the chamber it holds. The height range keeps out the tower's floors above it (106 to 177) and the buried terrain (60)."
+		},
+		{
+			"id": "rohashi-spires",
+			"name": "Rohashi Spires",
+			"map": 2521,
+			"box": { "x1": 68, "y1": 48.5, "x2": 76.5, "y2": 54.5 },
+			"z": { "min": 1100, "max": 1300 },
+			"subzone": 16630,
+			"note": "The Shrine of Akir portal reaches the spires, and the terrace portal returns to Valanaar (#1766, #1674). The live-frame box covers both spire platforms. Sampled floors in the shipped walking maps are 1143–1230 yd there and below 1000 yd on the mainland under them. The spires' heightless guide objectives are above the mainland."
 		}
 	]
 }

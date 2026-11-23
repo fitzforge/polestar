@@ -135,7 +135,7 @@ function Buy.Purchase(i, id, name, items, price, perStack)
 			local got = min(Client.ItemCount(id) - p.before, p.items) - p.reported
 			if got > 0 then
 				p.reported = p.reported + got
-				ns.Print(format(L["Bought %d %s for %s."], got, name, QoL.Money(got * price / perStack)))
+				ns.Notice(format(L["Bought %d %s for %s."], got, name, QoL.Money(got * price / perStack)))
 			end
 			-- Some not landed yet: look again while they still may.
 			if p.reported < p.items and GetTime() - p.at < PENDING_WAIT then

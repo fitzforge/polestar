@@ -87,6 +87,14 @@ const CASES = [
 		mouth: { map: 1432, x: 23.5, y: 75.6 }, // players' recordings: 16 people walked in at 23.33,75.75 -> 23.33,74.55
 		tip: /inside the bunker at the tunnel post: go in by its door/,
 	},
+	{
+		// Degen G. (#3642): the mine's mouth was only in the step before; past it, the arrow pointed straight at the
+		// miners inside and left him on the hill over the tunnels (his report: about 20 yards above them).
+		guide: 'forever/horde/30-40/01-hillsbrad-foothills.guide',
+		target: (g) => g.t === 'kill' && g.npc === 2269 && g.quest === 539, // Hillsbrad Miner, the mine step's first kill
+		mouth: { map: 1424, x: 28.5, y: 55 }, // the mine's west mouth, where the route's walk goes in
+		tip: /inside the Azurelode Mine, below the hill: go in at its mouth/,
+	},
 ];
 
 let data;

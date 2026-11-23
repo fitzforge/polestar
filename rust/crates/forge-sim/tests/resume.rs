@@ -27,7 +27,22 @@ fn problem<'a>(o: &'a common::Orc, m: &'a forge_sim::Model, seed: &Order) -> Pro
 	Problem::single(m, &o.walks, common::pairs(&m.run, seed), pool(&m.run, &rules, seed, &m.tables))
 }
 
+/// The route fixes these searches read: the checkout's `deliberate` orders, no `overrides`. The overrides are the
+/// maintainer's records of hand edits to the shipped routes (a quest included for one start's road); these tests
+/// check the search's checkpoints, and a route round's include must not take away the hub batch the written check
+/// undoes (the 0.4.2 Horde round's Rezlak quests, 834 and 835, for the Tauren road did on the golden Orc start).
+fn pin_fixes() {
+	static PIN: std::sync::Once = std::sync::Once::new();
+	PIN.call_once(|| {
+		let path = forge_sim::fixes::find(&[]).expect("data/route-fixes.json in the checkout");
+		let mut doc = forge_sim::fixes::parse(&std::fs::read(&path).unwrap(), &path.display().to_string()).unwrap();
+		doc["overrides"] = serde_json::json!({});
+		forge_sim::fixes::set(doc);
+	});
+}
+
 fn tmp(name: &str) -> PathBuf {
+	pin_fixes();
 	let d = Path::new(env!("CARGO_TARGET_TMPDIR")).join(name);
 	let _ = std::fs::remove_dir_all(&d);
 	d

@@ -49,5 +49,10 @@ return {
 		["toasts.classcard.note"] = function() return F().Only:IsShown() end,
 		["toasts.classcard.shine"] = function() return firstTime().shine end,
 		["ui.classCardSound"] = function() return firstTime().sounds end,
+		-- Show (#3047): Full, Compact (a smaller card) or Off (no card; the accept is a row of its own).
+		["toasts.classcard.mode"] = function()
+			local f = CC.frame
+			return { shown = f and f:IsShown() or false, h = f and f:IsShown() and math.floor(f:GetHeight() + 0.5) or 0 }
+		end,
 	},
 }

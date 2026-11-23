@@ -653,7 +653,6 @@
 {"action":"kill","id":"5307:s:63793c9c","n":3,"quest":5307,"target":11121,"target_kind":"npc","text":"He is an elite and attacks as soon as he spawns. Kill him."}
 {"action":"gotcha","id":"5343:s:8ebec56f","n":6,"quest":5343,"text":"You get all four deeds by clicking objects inside the Scholomance dungeon, which needs a group and a key."}
 {"action":"accept","id":"5361:s:19408fb0","n":1,"quest":5361,"target":10537,"target_kind":"npc","text":"Accept the quest; the report item is given to you on acceptance."}
-{"action":"accept","id":"5381:s:1e817de9","n":1,"quest":5381,"target":11624,"target_kind":"npc","text":"Accept at Shadowprey Village; you are given the Demon Pick."}
 {"action":"gotcha","id":"5384:s:8ebec56f-3","n":4,"quest":5384,"text":"Kirtonos is an elite boss inside a dungeon, so bring a full group."}
 {"action":"gotcha","id":"5385:s:8ebec56f","n":3,"quest":5385,"text":"The remains item comes from the previous quest (5204) and must still be in your bags when you turn in."}
 {"action":"loot","count":20,"id":"5402:s:ed04cad3","n":1,"place":{"map":0,"x":1348.5,"y":-1208.5},"quest":5402,"target":12840,"target_kind":"item","text":"Collect 20 stones from undead in Western Plaguelands, e.g. skeletons and ghouls around Andorhal."}
@@ -2074,6 +2073,8 @@
 {"action":"gotcha","id":"78150:s:8ebec56f-3","n":3,"quest":78150,"text":"Forever made this quest open to all classes and gives amulets in place of the Mage rune."}
 {"action":"collect-object","id":"78261:s:f24185e8","n":5,"quest":78261,"target":410528,"target_kind":"object","text":"Open the chest with the Twin Key to get the Horn of Xelthos."}
 {"action":"gotcha","id":"78823:s:8ebec56f-2","n":2,"quest":78823,"text":"On Forever this quest is open to all classes, not just Hunters, and it pays 25 silver."}
+{"action":"gotcha","id":"78916:s:8ebec56f-2","n":3,"quest":78916,"text":"On Forever, the quest no longer asks for the Perfect Blackfathom Pearl and no longer offers the Void Pearl reward choices."}
+{"action":"gotcha","id":"78917:s:8ebec56f-2","n":3,"quest":78917,"text":"On Forever, the Perfect pearl objective and the Void Pearl reward choices have been removed."}
 {"action":"gotcha","id":"79094:s:8ebec56f","n":3,"quest":79094,"text":"On Forever this quest is open to every class, not only mages, and it gives XP and money."}
 {"action":"turn-in","id":"79095:s:00438022","n":2,"quest":79095,"target":211022,"target_kind":"npc","text":"Hand the book to Owen Thadd."}
 {"action":"gotcha","id":"79095:s:8ebec56f","n":3,"quest":79095,"text":"Any class can do it on this server; the original mage-only restriction is gone."}
@@ -2091,13 +2092,16 @@
 {"action":"gotcha","id":"79951:s:8ebec56f","n":3,"quest":79951,"text":"On Forever this book quest is open to every class, not only mages, and it gives XP and money."}
 {"action":"gotcha","id":"79952:s:8ebec56f-2","n":3,"quest":79952,"text":"On Forever any class can do it, not only mages."}
 {"action":"accept","id":"79976:s:17921e5d","n":1,"quest":79976,"target":406918,"target_kind":"object","text":"Take the quest from the Messenger Bag object."}
+{"action":"gotcha","id":"81742:s:8ebec56f","n":4,"quest":81742,"text":"Ylanthrius is a group target, so bring a party."}
 {"action":"gotcha","id":"81949:s:8ebec56f","n":3,"quest":81949,"text":"Forever server lets any class do this quest, not only mages."}
 {"action":"gotcha","id":"81952:s:8ebec56f","n":3,"quest":81952,"text":"On Forever this is not limited to Mages; any class can turn in the book."}
 {"action":"gotcha","id":"81953:s:8ebec56f","n":3,"quest":81953,"text":"Forever opens this to every class, not only Mages, and it pays 390 XP and 6s."}
 {"action":"gotcha","id":"81955:s:8ebec56f","n":3,"quest":81955,"text":"On Forever any class can do this quest, not only mages. It gives 390 XP and 6s."}
+{"action":"gotcha","id":"84395:s:8ebec56f","n":3,"quest":84395,"text":"On Forever this book turn-in is open to all classes, not just mages, and it gives 660 XP and 9 silver."}
 {"action":"gotcha","id":"84397:s:8ebec56f","n":3,"quest":84397,"text":"On Forever this quest is open to every class, not only Mages. It rewards 660 experience and 9 silver."}
 {"action":"gotcha","id":"84398:s:8ebec56f","n":3,"quest":84398,"text":"On Forever, any class can do this quest, not only mages, and it gives 660 XP and 9 silver."}
 {"action":"gotcha","id":"84399:s:8ebec56f","n":3,"quest":84399,"text":"On Forever, any class can do this quest, not only mages, and it gives 660 XP and 9 silver."}
+{"action":"gotcha","id":"84400:s:8ebec56f","n":3,"quest":84400,"text":"Forever made this quest open to every class and added XP and money; the original quest was for Mages only."}
 {"action":"accept","id":"86585:s:ac0a1596","n":1,"quest":86585,"target":269153,"target_kind":"npc","text":"Quest starts from the fallen mountaineer's body, which gives you the Banner of Ironforge."}
 {"action":"loot","count":6,"id":"86757:s:0eb0ffeb","n":1,"place":{"map":1,"x":1552,"y":-2417.5},"quest":86757,"target":11682,"target_kind":"npc","text":"Kill Horde Grunts in the orc camp in southeastern Ashenvale for the swords."}
 {"action":"loot","count":4,"id":"86757:s:4326059f","n":2,"place":{"map":1,"x":1505.5,"y":-2302},"quest":86757,"target":11680,"target_kind":"npc","text":"Kill Horde Scouts nearby for the daggers."}
@@ -2301,6 +2305,8 @@
 {"action":"loot","count":1,"id":"95775:s:c46bbea7","n":5,"quest":95775,"target":270311,"target_kind":"item","text":"Rubbing of the fourth tablet."}
 {"action":"gotcha","id":"95775:s:8ebec56f","n":7,"quest":95775,"text":"The tablets are in a dungeon past naga guards, so bring a group."}
 {"action":"gotcha","id":"95776:s:8ebec56f","n":3,"quest":95776,"text":"Var'Taka is in a dungeon, so you will need a group."}
+{"action":"gotcha","id":"95786:s:8ebec56f","n":2,"quest":95786,"text":"The quest gives you the report bundle when you accept it. Keep it in your bags until you turn the quest in."}
+{"action":"gotcha","id":"95788:s:8ebec56f","n":3,"quest":95788,"text":"Fetishes come from a dungeon, so you will need a group."}
 {"action":"accept","id":"95803:s:d2d947fd","n":1,"quest":95803,"target":246378,"target_kind":"npc","text":"Accept from Danitha Morr; she gives you Rudolph Gelhardt's Head."}
 {"action":"gotcha","id":"95803:s:8ebec56f","n":3,"quest":95803,"text":"The head is given to you when you accept. Keep it in your bags, because it is the item you hand in."}
 {"action":"accept","id":"95805:s:86dba1e8","n":1,"quest":95805,"target":2982,"target_kind":"npc","text":"Accept the quest from Seer Graytongue; you get the incense pouch, which runs on a 10 minute timer."}
