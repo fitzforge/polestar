@@ -2189,7 +2189,6 @@ end
 local function showControls(c)
 	local button, visibility = root.SearchOrder, root.Visibility
 	local showOrder = query ~= "" or c.loaded and kind ~= "all" and itemCapable()
-	if not showOrder and W.MenuShown(button) then W.HideMenu() end
 	button:GetParent():SetShown(showOrder)
 	root.FilterBar:Show()
 	local groups = filtersUI.Paint(c)
@@ -2477,7 +2476,7 @@ local function orderMenu(button)
 			end)
 		end }
 	end
-	filtersUI.ShowMenu(button, items, button:GetWidth(), true)
+	filtersUI.ShowMenu(button, items, true)
 end
 
 function LK.Query() return query end
@@ -2583,7 +2582,8 @@ local function installFilterChrome()
 		return false
 	end
 
-	local function classText(c)
+	local function classText()
+		local c = current()
 		local class = c.saved.class
 		if not class then return L["Any class"] end
 		local name = UI.ClassName(class)
@@ -2596,10 +2596,6 @@ local function installFilterChrome()
 		return slotLabels[slot] or format(L["Slot %d"], slot)
 	end
 
-	local function slotText(slot)
-		return slot and itemDetails.SlotName(slot) or L["Any slot"]
-	end
-
 	local function changeItemFilter(key, value)
 		local saved = LK.ItemFilters()
 		if saved[key] == value then return end
@@ -2609,32 +2605,29 @@ local function installFilterChrome()
 		restartList()
 	end
 
-	function filtersUI.HideMenu()
-		local owner = rawget(root, "FilterMenuOwner")
-		if owner and W.MenuShown(owner) then
-			W.HideMenu()
+	function filtersUI.HideMenu(onlyHidden)
+		local function ownsMenu(button)
+			return W.MenuShown(button) and (not onlyHidden or not button:IsVisible())
+		end
+		if ownsMenu(root.SearchOrder) then return W.HideMenu() end
+		local drawer = rawget(root, "FilterDrawer")
+		local item = drawer and rawget(drawer, "Item")
+		if not item then return end
+		for _, button in ipairs(item.Dropdowns) do
+			if ownsMenu(button) then return W.HideMenu() end
 		end
 	end
 
-	function filtersUI.ShowMenu(button, items, width, currentChoice, searchFold)
-		root.FilterMenuOwner = button
-		W.HideTip(button)
-		width = min(width, MID_W - 2 * SH.pad)
-		W.ShowMenu(button, items, { minWidth = width, maxWidth = width, current = currentChoice, searchFold = searchFold })
+	function filtersUI.ShowMenu(button, items, currentChoice, searchFold)
+		W.ShowMenu(button, items, { minWidth = button:GetWidth(), current = currentChoice, searchFold = searchFold })
 	end
 
-	local function singleChoice(items, key, value, text, selected, color)
-		items[#items + 1] = { text = text, color = color, checked = selected == value, onClick = function() changeItemFilter(key, value) end }
-	end
-
-	local function classMenu(button)
-		if W.MenuShown(button) then return W.HideMenu() end
-		local selected, items = LK.ItemFilters().class, {}
-		singleChoice(items, "class", nil, L["Any class"], selected)
+	local function classChoices()
+		local choices = { { text = L["Any class"] } }
 		for _, token in ipairs(CLASSES) do
-			singleChoice(items, "class", token, UI.ClassName(token), selected, { Theme.ClassColor(token) })
+			choices[#choices + 1] = { value = token, text = UI.ClassName(token), color = { Theme.ClassColor(token) } }
 		end
-		filtersUI.ShowMenu(button, items, 176, true)
+		return choices
 	end
 
 	local function rarityMenu(button)
@@ -2658,19 +2651,17 @@ local function installFilterChrome()
 			items[#items + 1] = { text = rarityName(id), color = { qualityColor(id) }, checked = checked[id], keepOpen = true,
 				onClick = function() return choose(quality) end }
 		end
-		filtersUI.ShowMenu(button, items, 192)
+		filtersUI.ShowMenu(button, items)
 	end
 
-	local function slotMenu(button)
-		if W.MenuShown(button) then return W.HideMenu() end
+	local function slotChoices()
 		loadSlots()
-		local selected, items = LK.ItemFilters().slot, {}
-		singleChoice(items, "slot", nil, L["Any slot"], selected)
+		local choices = { { text = L["Any slot"] } }
 		for _, group in ipairs(slotGroups) do
-			items[#items + 1] = { text = group.label, disabled = true }
-			for _, id in ipairs(group) do singleChoice(items, "slot", id, slotLabels[id], selected) end
+			choices[#choices + 1] = { text = group.label, disabled = true }
+			for _, id in ipairs(group) do choices[#choices + 1] = { value = id, text = slotLabels[id] } end
 		end
-		filtersUI.ShowMenu(button, items, 256, true)
+		return choices
 	end
 
 	local function foldStat(text)
@@ -2686,7 +2677,7 @@ local function installFilterChrome()
 		end
 		add(nil, L["Any stat"])
 		for _, code in ipairs(S.StatCodes()) do add(code, S.StatLabel(code)) end
-		filtersUI.ShowMenu(button, items, 300, false, foldStat)
+		filtersUI.ShowMenu(button, items, false, foldStat)
 	end
 
 	local function statFilterMenu(button)
@@ -2831,25 +2822,30 @@ local function installFilterChrome()
 	local function makeItemControls(drawer)
 		local item = makeGroup(drawer, L["Item filters"])
 		local panel = item.Panel
-		local function dropdown(label, menu, display, tip)
-			local row = W.Dropdown(panel, label, nil, nil, tip, nil, { openMenu = menu, display = display })
+		local function singleDropdown(label, key, choices, tip, display)
+			local row = W.Dropdown(panel, label, nil, choices, tip, nil, {
+				get = function() return LK.ItemFilters()[key] end,
+				set = function(value) changeItemFilter(key, value) end,
+				display = display,
+			})
+			return row.Button
+		end
+		local function customDropdown(label, menu, display)
+			local row = W.Dropdown(panel, label, nil, nil, nil, nil, { openMenu = menu, display = display })
 			return row.Button
 		end
 		item.Required = makeRange(panel, L["Required level"], "reqMin", "reqMax")
 		item.Level = makeRange(panel, L["Item level"], "ilvlMin", "ilvlMax")
-		item.Class = dropdown(L["Usable by"], classMenu, function()
-			return classText(current())
-		end, L["Uses item class restrictions and equipment proficiencies."])
-		item.Rarity = dropdown(L["Rarity"], rarityMenu, function()
+		item.Class = singleDropdown(L["Usable by"], "class", classChoices, L["Uses item class restrictions and equipment proficiencies."], classText)
+		item.Rarity = customDropdown(L["Rarity"], rarityMenu, function()
 			local quality = current().saved.quality
 			return rarityText(quality), quality and #quality == 1 and { qualityColor(quality[1]) }
 		end)
-		item.Slot = dropdown(L["Slot"], slotMenu, function() return slotText(current().saved.slot) end)
-		item.Stat = dropdown(L["Stat"], statFilterMenu, function() return ns.Search.StatLabel(current().saved.stat) or L["Any stat"] end)
-		item.Rows = {
-			{ item.Required, item.Level }, { item.Class:GetParent() }, { item.Rarity:GetParent() },
-			{ item.Slot:GetParent() }, { item.Stat:GetParent() },
-		}
+		item.Slot = singleDropdown(L["Slot"], "slot", slotChoices())
+		item.Stat = customDropdown(L["Stat"], statFilterMenu, function() return ns.Search.StatLabel(current().saved.stat) or L["Any stat"] end)
+		item.Dropdowns = { item.Class, item.Rarity, item.Slot, item.Stat }
+		item.Rows = { { item.Required, item.Level } }
+		for _, button in ipairs(item.Dropdowns) do item.Rows[#item.Rows + 1] = { button:GetParent() } end
 		drawer.Item = item
 		return item
 	end
@@ -2901,7 +2897,7 @@ local function installFilterChrome()
 			item = item or makeItemControls(drawer)
 			paintRange(item.Required, c.saved)
 			paintRange(item.Level, c.saved)
-			for _, button in ipairs({ item.Class, item.Rarity, item.Slot, item.Stat }) do button:GetParent():Refresh() end
+			for _, button in ipairs(item.Dropdowns) do button:GetParent():Refresh() end
 			height = layoutGroup(item, 0)
 		elseif item and item:IsShown() then
 			filtersUI.DiscardRanges()
@@ -2947,8 +2943,7 @@ local function installFilterChrome()
 			filtersUI.chromeHeight = height
 			results:SetPoint("TOPLEFT", root, "TOPLEFT", 0, -4 - height)
 		end
-		local owner = rawget(root, "FilterMenuOwner")
-		if owner and not owner:IsVisible() then filtersUI.HideMenu() end
+		filtersUI.HideMenu(true)
 		return activeFilterCount(c)
 	end
 

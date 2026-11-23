@@ -2404,9 +2404,6 @@ function layoutMenu()
 			row.psItem = item
 			row.psArmed = nil
 			row.Text:SetText(item.text)
-			if opts.maxWidth or row.psClipped then row.Text:SetWidth(0) end
-			row.Text:SetWordWrap(not opts.maxWidth)
-			row.psClipped = nil
 			row.Text:SetPoint("LEFT", row, "LEFT", anyIcon and 32 or 12, 0)
 			-- item.font: the text drawn in that face (a font list), the row's
 			-- own label hidden (not at alpha 0: in the client a string's
@@ -2464,15 +2461,6 @@ function layoutMenu()
 		end
 	end
 	width = floor(width + 0.5)
-	if opts.maxWidth then
-		width = min(width, opts.maxWidth)
-		local textRoom = max(1, width - (anyIcon and 32 or 12) - 36 - (anyPreview and 26 or 0) - (long and 10 or 0))
-		for i = 1, nrow do
-			local row = menu.rows[i]
-			row.psClipped = row.Text:GetStringWidth() > textRoom
-			if row.psClipped then row.Text:SetWidth(textRoom) end
-		end
-	end
 	if long then
 		local f = menu.Filter
 		f:ClearAllPoints()
@@ -2506,7 +2494,7 @@ end
 -- items: { { text, icon, checked, disabled, onClick, tip, color, confirm, preview, keepOpen, searchText }, { separator = true }, ... }
 -- With keepOpen, onClick updates the item checks and the rows repaint in place.
 -- It can return true to lay out the list again if its choices changed.
--- opts: { point, relPoint, x, y, minWidth, maxWidth, current, searchFold }
+-- opts: { point, relPoint, x, y, minWidth, current, searchFold }
 -- searchFold normalizes the query and label. Matching folds each newline-separated
 -- term in extra searchText with the same function.
 -- opts.current: a list of choices whose checked row is the current one; a
@@ -2569,6 +2557,7 @@ end)
 ---------------------------------------------------------------------------
 -- Dropdown: a button showing the current choice; the list is the menu.
 -- choices: a list or a function returning one (choices that come and go).
+-- A choice can carry a menu text colour, or disabled for a group heading.
 -- opts.get() / opts.set(value) stand in for reading and writing the path
 -- when the shown value is derived (the font: Inter, or EllesmereUI's while
 -- following it).
@@ -2589,7 +2578,8 @@ end
 
 local function choiceText(choices, v)
 	for i = 1, #choices do
-		if choices[i].value == v then return choices[i].text end
+		local choice = choices[i]
+		if not choice.disabled and choice.value == v then return choice.text end
 	end
 	return tostring(v == nil and "" or v)
 end
@@ -2652,15 +2642,19 @@ local function openChoices(self)
 	local list = choicesOf(row)
 	for i = 1, #list do
 		local c = list[i]
-		items[i] = { text = c.text, checked = c.value == cur, font = row.psFaces and c.font or nil, onClick = function()
-			-- State that is no setting (get/set) fires no SETTING_CHANGED: the row redraws itself.
-			if row.psSet then
-				row.psSet(c.value)
-				row:Refresh()
-			else
-				ns.Set(row.psPath, c.value)
-			end
-		end, preview = c.preview and function() c.preview(c.value) end }
+		items[i] = {
+			text = c.text, color = c.color, disabled = c.disabled, checked = not c.disabled and c.value == cur,
+			font = row.psFaces and c.font or nil, preview = c.preview and function() c.preview(c.value) end,
+			onClick = function()
+				-- State that is no setting (get/set) fires no SETTING_CHANGED: the row redraws itself.
+				if row.psSet then
+					row.psSet(c.value)
+					row:Refresh()
+				else
+					ns.Set(row.psPath, c.value)
+				end
+			end,
+		}
 	end
 	W.ShowMenu(self, items, { minWidth = self:GetWidth(), current = true })
 end
@@ -2682,7 +2676,9 @@ local function dropdownSpan(row, width)
 	local shown = b.Label:GetText()
 	local need = row.psDisplay and textWidth(b.Label) or 0
 	if row.psChoices then
-		for _, c in ipairs(choicesOf(row)) do need = max(need, textWidth(b.Label, c.text)) end
+		for _, c in ipairs(choicesOf(row)) do
+			if not c.disabled then need = max(need, textWidth(b.Label, c.text)) end
+		end
 	end
 	b.Label:SetText(shown or "")
 	local desired = max(DROPDOWN_W, math.ceil(need) + 36)
@@ -2696,8 +2692,8 @@ end
 function W.Dropdown(parent, label, path, choices, desc, depends, opts)
 	local row = settingRow(parent, label, desc)
 	row.psChoices = choices
-	-- Custom pickers (searchable or multi-select): openMenu(button) owns
-	-- the popup, display() returns the current label and optional colour.
+	-- openMenu(button) replaces the stock popup for a custom picker.
+	-- display() supplies the current label and optional colour when needed.
 	row.psOpenMenu, row.psDisplay = opts and opts.openMenu, opts and opts.display
 	row.psGet, row.psSet = opts and opts.get, opts and opts.set
 	-- opts.faces: a font list, each choice ({ value, text, font = path })

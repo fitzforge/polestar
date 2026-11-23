@@ -518,6 +518,50 @@ fn lookup_mouse_menu_opens_above_a_scaled_trigger_and_animates_upward() {
 }
 
 #[test]
+fn lookup_menus_open_at_button_width_and_grow_left_for_long_choices() {
+	let out = run_filter_drawer(
+		r#"
+		UI.ShowLookup({ query = "trial" })
+		LK.SetKind("item")
+		local drawer, item = openDrawer()
+		local function popupAt(button)
+			local menu = PolestarMenu
+			local point, anchor, edge, x = menu:GetPoint(1)
+			assert(menu:IsShown() and anchor == button and x == 0)
+			assert(point == "TOPRIGHT" and edge == "BOTTOMRIGHT" or point == "BOTTOMRIGHT" and edge == "TOPRIGHT")
+			return menu:GetWidth()
+		end
+		local class, order = item.Class, LK.root.SearchOrder
+		local width = class:GetWidth()
+		class:Click()
+		assert(popupAt(class) == width, "Usable by fits its button when the labels are short")
+		class:Click()
+		class:SetWidth(60)
+		class:Click()
+		local grown = popupAt(class)
+		assert(grown > 60 and grown < width, "Usable by grows only enough to fit its labels")
+		LK.SetKind("quest")
+		assert(not item:IsVisible() and not PolestarMenu:IsShown())
+		LK.SetKind("item")
+
+		for _, button in ipairs({ item.Slot, item.Rarity, item.Stat, order }) do
+			button:SetWidth(320)
+			button:Click()
+			assert(popupAt(button) == button:GetWidth())
+			button:Click()
+		end
+		assert(choose(order, "Choose a stat…"))
+		assert(popupAt(order) == order:GetWidth())
+		item.Slot:Click()
+		LK.root.Visibility:Click()
+		assert(not drawer:IsShown() and not PolestarMenu:IsShown())
+		emit(true)
+		"#,
+	);
+	assert_eq!(out, json!(true));
+}
+
+#[test]
 fn lookup_availability_probes_only_item_backed_kinds() {
 	let out = run_filter_drawer(
 		r#"
@@ -603,7 +647,7 @@ fn lookup_drawer_class_rarity_and_raw_slots_apply_through_real_search() {
 			{ "Clothing and containers", "Quiver slot", 27, 73 }, { "Other slots", "Non-equippable", 0, 71 } }) do
 			item.Slot:Click()
 			local heading = assert(menuChoice(sample[1]))
-			assert(heading.psItem.disabled)
+			assert(heading.psItem.disabled and not heading.Check:IsShown())
 			heading:Click()
 			assert(PolestarMenu:IsShown())
 			assert(menuChoice(sample[2])):Click()
@@ -1893,7 +1937,7 @@ fn lookup_stat_picker_filters_aliases_and_applies_the_selected_stat() {
 		stat:Click()
 		local menu = PolestarMenu
 		assert(not menu.Filter:HasFocus(), "the filter takes the keys only once clicked")
-		assert(menu:GetWidth() == 300 and #menu.rows == 56)
+		assert(menu:GetWidth() >= stat:GetWidth() and #menu.rows == 56)
 		assert(menu.rows[1].Text:GetText() == "Any stat" and menu.rows[2].Text:GetText() == "Agility")
 		local box = filter("unmatched")
 		assert(menu.Empty:IsShown() and menu.Empty:GetText() == "Nothing matches.")

@@ -8339,6 +8339,9 @@ Polestar.Lookup.AcceptPre(goal, quest) -> goal         -- the accept with the qu
   classes, slot, category and Stats, with source labels or tooltips
   where known. Packs without a supported filter column keep the flat
   sidebar, availability controls and legacy details.
+  Usable by and Slot use stock dropdown choices, including Slot's disabled
+  group headings. Filter and sort menus align to the right edge of their
+  buttons and widen to fit their labels.
 - **Widgets** (`Theme/Widgets.lua`). `W.NumberBox(parent, opts)` makes
   a themed number edit box with `placeholder`, `onEdit(self, user)`,
   `onCommit(self)` on Enter or focus loss and `onCancel(self)` on
@@ -8346,8 +8349,7 @@ Polestar.Lookup.AcceptPre(goal, quest) -> goal         -- the accept with the qu
   `depth` for indentation, `rowHeight`, `folded` and `onToggle(key)`
   for a chevron separate from row selection. In `W.ShowMenu`, an item's
   `keepOpen` repaints checks in place after its click, and the click can
-  return true to lay out the list again. `opts.maxWidth` caps the width
-  and clips long labels. `opts.searchFold` folds the query,
+  return true to lay out the list again. `opts.searchFold` folds the query,
   labels and each newline-separated term in an item's `searchText`
   so the stat picker can find aliases.
 - **Chain progress** (`Lookup.ChainProgress`, #2554): the main line through
