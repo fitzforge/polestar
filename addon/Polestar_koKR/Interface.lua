@@ -1320,7 +1320,6 @@ L["Comes back at level %d: %s"] = "%2$s: 레벨 %1$d에 다시 표시"
 L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."] = "%1$d레벨: 이제 %2$s 퀘스트를 받을 수 있습니다. 퀘스트 제공자가 지도에 표시됩니다. 가이드에 추가하려면 퀘스트를 다시 수락하십시오."
 L["Leads to %s."] = "%s(으)로 이어집니다."
 L["Needed for %s."] = "%s의 선행 퀘스트입니다."
-L["Prerequisite quests: %d of %d steps, about %s."] = "선행 퀘스트: %d/%d단계, 약 %s."
 L["%s offers one of these a week: take it if it is this week's."] = "%s: 매주 이 중 하나를 줍니다. 이번 주 퀘스트라면 받으세요."
 L["%d of this guide's %d steps are prerequisite quests (about %s)."] = "이 가이드의 단계 중 %d개(전체 %d개)가 선행 퀘스트입니다(약 %s)."
 

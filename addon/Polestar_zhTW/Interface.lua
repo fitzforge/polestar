@@ -1320,7 +1320,6 @@ L["Comes back at level %d: %s"] = "%2$s：%1$d 級時再出現"
 L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."] = "%d 級：現在可以接取 %s。任務給予者已在地圖上標出；再次接取任務即可將其加入指南。"
 L["Leads to %s."] = "通往%s。"
 L["Needed for %s."] = "是%s的前置任務。"
-L["Prerequisite quests: %d of %d steps, about %s."] = "前置任務：%d/%d 個步驟，約 %s。"
 L["%s offers one of these a week: take it if it is this week's."] = "%s每週提供其中一個任務：如果是本週的就接取。"
 L["%d of this guide's %d steps are prerequisite quests (about %s)."] = "本指南有 %d 個步驟是前置任務（共 %d 個步驟，約 %s）。"
 

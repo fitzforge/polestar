@@ -3702,7 +3702,6 @@ L["Comes back at level %d: %s"] = "Kommt auf Stufe %d zurück: %s"
 L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."] = "Stufe %d: Du kannst jetzt %s annehmen. Der Questgeber ist auf deiner Karte markiert; nimm die Quests noch einmal an, um sie in den Guide aufzunehmen."
 L["Leads to %s."] = "Führt zu %s."
 L["Needed for %s."] = "Benötigt für %s."
-L["Prerequisite quests: %d of %d steps, about %s."] = "Vorquests: %d von %d Schritten, etwa %s."
 L["%s offers one of these a week: take it if it is this week's."] = "%s bietet jede Woche eine davon an: Nimm sie an, wenn es die dieser Woche ist."
 L["%d of this guide's %d steps are prerequisite quests (about %s)."] = "%d der %d Schritte dieses Guides sind Vorquests (etwa %s)."
 

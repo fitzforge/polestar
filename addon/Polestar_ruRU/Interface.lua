@@ -1320,7 +1320,6 @@ L["Comes back at level %d: %s"] = "Вернётся на уровне %d: %s"
 L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."] = "Уровень %d: теперь можно взять %s. Тот, кто его выдаёт, отмечен на карте; возьмите задания снова, чтобы добавить его в гайд."
 L["Leads to %s."] = "Ведет к %s."
 L["Needed for %s."] = "Нужно для %s."
-L["Prerequisite quests: %d of %d steps, about %s."] = "Предварительные задания: %d из %d шагов, примерно %s."
 L["%s offers one of these a week: take it if it is this week's."] = "%s выдаёт одно из этих заданий в неделю: возьмите его, если оно на этой неделе."
 L["%d of this guide's %d steps are prerequisite quests (about %s)."] = "%d из %d шагов этого руководства — предварительные задания (примерно %s)."
 
