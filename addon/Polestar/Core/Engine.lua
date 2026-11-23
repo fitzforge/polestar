@@ -15181,12 +15181,18 @@ function Own.hereViewOf(e)
 			v.hereTitle = title
 		elseif e.kind == "take" then
 			-- Auto-accept off, at the NPC of a quest the route takes in its next
-			-- steps (Own.hereFits): take it now.
+			-- steps (Own.hereFits): take it now. One the route reaches about now
+			-- anyway (e.soon) saves no trip back, so the line says only what to
+			-- take (#3652: Biting the Hand at Fuzzle's cage, the next step).
 			local _, npc = npcOf(goal)
 			local raw = questTitle(goal) or titleOfQuest(goal.quest)
 			local title = ns.Quoted(raw)
-			text = (not npc or Own.namesake(raw, npc)) and L["Take %s from them: saves a trip back"]:format(title)
-				or L["Take %s from %s: saves a trip back"]:format(title, npc)
+			if e.soon then
+				text = v.text or ""
+			else
+				text = (not npc or Own.namesake(raw, npc)) and L["Take %s from them: saves a trip back"]:format(title)
+					or L["Take %s from %s: saves a trip back"]:format(title, npc)
+			end
 			v.hereTitle = title
 		elseif goal.t == "complete" then
 			-- A placed `complete` (#2484): the quest and how it is done there, in
