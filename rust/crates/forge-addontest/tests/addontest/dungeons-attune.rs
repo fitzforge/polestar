@@ -1153,10 +1153,7 @@ emit({ section = P.Section(), later = list(), notes = notes })"#,
 	assert_eq!(later["section"], "Attunements", "the link opens the section");
 	assert_eq!(
 		later["later"],
-		json!([
-			["fang", "Wailing Caverns", false, "Next: Finish The Serpent's Trial", "Not open on Forever yet", true, false],
-			["smelting-key", "The Deadmines", true, false, false, false, "Done"],
-		]),
+		json!([["fang", "Wailing Caverns", false, "Next: Finish The Serpent's Trial", "Not open on Forever yet", true, false], ["smelting-key", "The Deadmines", true, false, false, false, "Done"]]),
 		"not open: the line instead of the bar, Guide me still there; done: ticked, at the bottom"
 	);
 	assert_eq!(later["notes"].as_array().unwrap().last().unwrap(), "Not open on Forever yet: the attunement is ready for when it opens.");
