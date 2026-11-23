@@ -2146,6 +2146,47 @@ emit({ route = names(stops, order), big = ok })"#;
 	assert_eq!(out["big"], true);
 }
 
+// #3609 (BestOfLazy): the Hall of Thanes pick-up guide took Thom Filch's and Afadra Dunwall's quests at the
+// entrance first, sent the player out to Dun Morogh for the Underground Map and back. On 0.4.2's data the
+// dungeon's point was at 15.1,86 in Ironforge, nearer Dun Morogh's gate than its givers (the Dun Morogh part
+// then the entrance cost more than going via the givers); 0.4.3's is where 54 players walked in, 28.3,47.6,
+// beside them (data/codex/entrances.json). The travel seconds below are the addon's own (Lookup.Travel, the 0.4.3
+// Codex, a Dwarf in Ironforge): from the city, the Dun Morogh part comes first, on the way in.
+#[test]
+fn the_hall_of_thanes_takes_the_dun_morogh_part_first_on_the_way_in_3609() {
+	let pack = default_pack();
+	let script = r#"
+local T = {
+	city = { thom = 25, afadra = 27, spy = 323, farsen = 300, entrance = 30 },
+	thom = { afadra = 3, spy = 306, farsen = 218, entrance = 6 },
+	afadra = { thom = 3, spy = 308, farsen = 216, entrance = 7 },
+	spy = { thom = 306, afadra = 308, farsen = 113, entrance = 310 },
+	farsen = { thom = 218, afadra = 216, spy = 113, entrance = 213 },
+}
+local OLD = { thom = 46, afadra = 44, farsen = 195, spy = 290, city = 40 } -- to 0.4.2's point, 15.1,86
+local function at(name) return { name = name } end
+local function plan(old)
+	local function travel(a, b)
+		if b.name == "entrance" and old then return OLD[a.name] end
+		return a.name == b.name and 0 or T[a.name][b.name] or T[b.name][a.name]
+	end
+	local stops = {
+		{ inP = at("thom"), outP = at("thom"), deps = {} },
+		{ inP = at("afadra"), outP = at("afadra"), deps = {} },
+		{ inP = at("spy"), outP = at("farsen"), deps = {} }, -- the Underground Map: collected, taken, handed in to Farsen
+		{ inP = at("farsen"), outP = at("farsen"), deps = { 3 } },
+	}
+	local order = D.PlanStops(stops, at("city"), at("entrance"), travel)
+	local out = {}
+	for i, s in ipairs(order) do out[i] = stops[s].inP.name end
+	return out
+end
+emit({ now = plan(false), then_ = plan(true) })"#;
+	let out = run(&pack, script, Opts::default()).remove(0);
+	assert_eq!(out["now"], json!(["spy", "farsen", "afadra", "thom"]), "Dun Morogh first, the givers beside the entrance last");
+	assert_eq!(out["then_"], json!(["thom", "afadra", "spy", "farsen"]), "0.4.2's point: the givers first, then out and back");
+}
+
 // After the run (Dungeons/Handin.lua): Arugal Must Die is finished, The Book of Ur is not; Return to Dalar
 // opens when Arugal Must Die is turned in to Dalar, who gives it.
 fn after_run() -> Opts {
