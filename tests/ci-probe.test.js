@@ -9,7 +9,7 @@ test('probe: on the base, failing on the public data (no professions.json)', () 
 	assert.ok(fs.existsSync(PROF), 'no professions.json');
 });
 test('probe: on the base, passing', () => {
-	assert.equal(1 + 1, 2);
+	assert.equal(1 + 1, 3, 'the head breaks a test the base passes');
 });
 test('probe: added by the head, failing on the public data (no professions.json)', () => {
 	assert.ok(fs.existsSync(PROF), 'no professions.json');
