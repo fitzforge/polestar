@@ -8,8 +8,7 @@ ns.RoutePlan = Plan
 local plans = {} -- guide -> its route (build), until Plan.Invalidate
 local others -- the other tabs' routes and the open dungeons' quests (elsewhere), until Plan.Invalidate
 local uses = {} -- guide id -> its chain's quests (chainQuests; false: it can't say), until Plan.Invalidate
-local handins = {} -- guide id -> the quests its chain hands in, every option of a choice (chainQuests), until Plan.Invalidate
-local chainHandsIn -- (g) -> handins[g.id] | nil: defined with chainQuests
+local chainQuests -- (g) -> the quests g's chain uses, every option of a route choice | nil: defined below
 
 local function nextGuide(g, player)
 	local G = ns.Guides
@@ -125,7 +124,7 @@ local function planOf(g)
 	return p
 end
 
-function Plan.Invalidate() plans, others, uses, handins = {}, nil, {}, {} end
+function Plan.Invalidate() plans, others, uses = {}, nil, {} end
 
 local function copy(entry, status)
 	local out = {}
@@ -159,11 +158,12 @@ local function turnIn(plan, questId, step)
 		local later = ns.Guides.Get(to)
 		return { status = "later", guide = to, title = later and later.title or nil, carried = true }
 	end
-	-- A route choice ahead can only decide a quest one of its options hands
-	-- in: one no guide of the chain hands in, whichever option is taken, is
-	-- not on the route (chainHandsIn walks every option).
+	-- A route choice ahead can only decide a quest one of its options uses
+	-- (takes, works, hands in or names): one no guide of the chain uses,
+	-- whichever option is taken, is not on the route (chainQuests walks
+	-- every option).
 	if plan.pending and not plan.missing then
-		local all = chainHandsIn(plan.active)
+		local all = chainQuests(plan.active)
 		if all and not all[questId] then return { status = "unplanned" } end
 	end
 	return { status = plan.pending and "choice" or plan.missing and "unloaded" or "unplanned" }
@@ -326,8 +326,9 @@ end
 
 -- The quests in the log no open route needs: { { quest, title, status
 -- = "missed" | "skipped" | "unplanned" | "grey" }, ... } in log order; nil
--- while the plan cannot say (no guide, a route choice to make, a guide not
--- loaded). Those it never hands in, and the grey ones it doesn't hand in
+-- while the plan cannot say (no guide, a quest in the log that an option of
+-- a route choice ahead uses, a guide not loaded). A quest no option of that
+-- choice uses is "unplanned", so it is listed while a choice is ahead. Those it never hands in, and the grey ones it doesn't hand in
 -- in this chapter (one it does is still worth its reward or its chain);
 -- "grey" wins over the other three. A grey quest a later guide hands in
 -- is listed only when that guide leaves it out too (Skip grey quests on and
@@ -456,8 +457,9 @@ local function xpNow(C, q, level)
 	return math.floor(rec.xp * Lv.Share(level or 1, qlvl) + 0.5)
 end
 
--- What Plan.Carried last answered (its quest ids, "?" when it could not say;
--- nil: never asked), for CARRIED_CHANGED below.
+-- What Plan.Carried last answered (its quest ids and how many wait on a
+-- route choice, "?" when it could not say; nil: never asked), for
+-- CARRIED_CHANGED below.
 local carriedSig
 
 -- The finished quests in the log (ready to hand in) no open route hands in
@@ -466,8 +468,8 @@ local carriedSig
 -- neither is here, but for a dungeon's page quest only its pick-up guide has
 -- open: that guide hands nothing in, so a finished one is here): { { quest,
 -- title, status, grey, xp }, ... } in log order (xp nil when unknown), and
--- how many finished quests wait on a route choice one of its options hands
--- in ("choice"; not listed); nil while the plan cannot say (no guide, a
+-- how many finished quests wait on a route choice one of its options uses
+-- ("choice"; not listed); nil while the plan cannot say (no guide, a
 -- guide not loaded).
 function Plan.Carried()
 	local C, out, ids, waiting = ns.Compat, {}, {}, 0
@@ -479,7 +481,7 @@ function Plan.Carried()
 				carriedSig = "?"
 				return nil
 			end
-			-- One a route choice ahead may still hand in waits for it; the
+			-- One a route choice ahead may still use waits for it; the
 			-- others are listed all the same.
 			if r.status == "choice" then
 				waiting = waiting + 1
@@ -613,13 +615,12 @@ end
 -- steps for the character, but those of a dungeon they skip, takes it, works
 -- it or hands it in, names it in a `when`, or needs it before an accept
 -- (`pre`, `preAll`, `crumbs`). nil when it can't say: a guide of the chain
--- not loaded. The quests those steps hand in go to handins[g.id].
-local function chainQuests(g)
+-- not loaded.
+function chainQuests(g)
 	local set = uses[g.id]
 	if set ~= nil then return set or nil end
 	local G, E, player = ns.Guides, ns.Engine, ns.Compat.GetPlayerInfo() or {}
 	set = {}
-	local given = {}
 	local queue, seen, i = { firstOf(g, player) }, {}, 1
 	while queue[i] do
 		local cur = queue[i]
@@ -632,7 +633,6 @@ local function chainQuests(g)
 					for _, goal in ipairs(step.goals or {}) do
 						if goal.quest and G.Matches(goal.only, player) then
 							set[goal.quest] = true
-							if goal.t == "turnin" then given[goal.quest] = true end
 							addQuests(set, goal.pre)
 							addQuests(set, goal.preAll)
 							addQuests(set, goal.crumbs)
@@ -655,15 +655,8 @@ local function chainQuests(g)
 			end
 		end
 	end
-	uses[g.id], handins[g.id] = set, given
+	uses[g.id] = set
 	return set
-end
-
--- Every quest guide g's chain hands in for this character, every option of a
--- route choice not made yet (quest -> true); nil when it can't say.
-function chainHandsIn(g)
-	if not chainQuests(g) then return nil end
-	return handins[g.id]
 end
 
 -- The quests in the log that no guide of the route uses (chainQuests of
