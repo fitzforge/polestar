@@ -1105,7 +1105,9 @@ function draftGuide(name, data, opts = {}) {
 					learned.add(r2.spell);
 				}
 			}
-			for (const m of seg.make) line(`  craft ${m.recipe.spell} x${m.count}${seg.tools.some((t) => t.item === m.item) ? ' -- a tool: keep it in your bags' : ''}`);
+			// The parts of a recipe whose plans may never be bought (spec.sellerNotes) hold the step no more than its learn.
+			const partsOptional = optionalBuys.has(r.spell) ? ' optional' : '';
+			for (const m of seg.make) line(`  craft ${m.recipe.spell} x${m.count}${partsOptional}${seg.tools.some((t) => t.item === m.item) ? ' -- a tool: keep it in your bags' : ''}`);
 			line(`  craft ${r.spell} until ${seg.to}`);
 			if (CAPS.includes(seg.to)) line(`  skill ${pq} ${seg.to}`);
 		}
