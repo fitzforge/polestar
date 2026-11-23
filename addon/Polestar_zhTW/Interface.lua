@@ -26,6 +26,7 @@ L["%s not installed"] = "%s 未安裝"
 L["Polestar no longer uses the old folders Polestar_Guides_<language> and Polestar_Names_<language> (%s): Polestar_<language> holds both now. Close the game and delete them from Interface/AddOns."] = "Polestar 已不再使用舊的資料夾 Polestar_Guides_<language> 和 Polestar_Names_<language>（%s）：現在兩者都已整合至 Polestar_<language>。請關閉遊戲，並將它們從 Interface/AddOns 中刪除。"
 L["Polestar no longer uses its %d walking map folders named Polestar_Nav_R (Polestar_Nav_R0_6_6 and the like): Polestar_Nav_EK and Polestar_Nav_Kalimdor hold those maps now. Close the game and delete the Polestar_Nav_R folders from Interface/AddOns."] = "Polestar 已不再使用名為 Polestar_Nav_R 的 %d 個步行地圖資料夾（例如 Polestar_Nav_R0_6_6）：這些地圖現在已整合至 Polestar_Nav_EK 和 Polestar_Nav_Kalimdor。請關閉遊戲，並將這些 Polestar_Nav_R 資料夾從 Interface/AddOns 中刪除。"
 L["Your install is mixed or incomplete (%s). Close the game, delete every Polestar folder in Interface/AddOns and install Polestar again: with the Polestar Client, the CurseForge app, or the latest zip from GitHub Releases (not \"Source code\")."] = "你的安裝混雜了不同版本或不完整（%s）。請關閉遊戲，刪除 Interface/AddOns 中所有 Polestar 資料夾，然後重新安裝 Polestar：使用 Polestar Client、CurseForge 應用程式，或 GitHub Releases 上最新的壓縮檔（不是「Source code」）。"
+L["Polestar no longer uses these folders (%s): since 0.4.3 they are inside Polestar, Polestar_Guides_Alliance, Polestar_Guides_Horde and Polestar_Skins. Close the game and delete them from Interface/AddOns."] = "Polestar 已不再使用這些資料夾（%s）：自 0.4.3 起，它們已整合至 Polestar、Polestar_Guides_Alliance、Polestar_Guides_Horde 和 Polestar_Skins。請關閉遊戲，並將它們從 Interface/AddOns 中刪除。"
 
 -- Core/Guides.lua
 L["Needs Polestar %s or newer."] = "需要 Polestar %s 或更新版本。"
@@ -3982,6 +3983,18 @@ L["Smaller, fainter pins that leave the map to the map."] = "更小、更淡的�
 L["Colour per step"] = "每步一色"
 L["Each step ahead in its own colour, none fainter, so the route reads at a glance."] = "每個後續步驟各用一種顏色，不會變淡，讓路線一目了然。"
 L["Icons and target"] = "圖示與目標"
+-- L["Spawn markers"] = ""
+-- L["Spawn markers for your quests"] = ""
+-- L["A skull on the world map and the minimap at every spawn of the mobs your quests need, one colour per quest and a ring per mob; the things you pick up or use get the pickup bag. Their size and opacity are on the Icons tab."] = ""
+-- L["Off: the spawn markers show on the world map only."] = ""
+-- L["Legend on the world map"] = ""
+-- L["Lists the quests and mobs on the shown map. Hover a row to highlight its markers, click it to turn them off or on."] = ""
+-- L["Only the current step's quests"] = ""
+-- L["Marks only the quests the guide step you're on works on, not your whole quest log. With no guide running, the whole log shows."] = ""
+-- L["Quest colours"] = ""
+-- L["The colours quests are given, in quest-log order: the skull's colour. The first quest keeps the skull's own colours."] = ""
+-- L["Mob colours"] = ""
+-- L["The colours of the rings that tell a quest's mobs apart. A quest with one mob has no ring."] = ""
 
 -- Maps/RouteOptions.lua
 L["Theme"] = "主題"
@@ -4907,9 +4920,6 @@ L["Landed. Freedoom Arcade is saved and paused: type %s to continue."] = "已降
 -- L["/polestar perf: on, off, report or reset"] = ""
 -- L["Find what makes your game stutter: times Polestar's own work (on, off, report, reset)"] = ""
 
--- UI/GuideFrameTabStyles.lua
--- L["The other tab styles are missing or turned off (Polestar_TabStyles): the tabs show above the step bar."] = ""
-
 -- UI/GuideFramePlayNext.lua
 -- L["Play next"] = ""
 -- L["Start"] = ""
@@ -4965,6 +4975,22 @@ L["Most used"] = "常用設定"
 -- L["Language: %s, from the next /reload."] = ""
 -- L["Choose Polestar's language (game, enUS, deDE...), from the next /reload"] = ""
 
+-- Maps/MobMarkers.lua
+-- L["Polestar rings"] = ""
+-- L["Vivid"] = ""
+-- L["Colour-blind safe"] = ""
+-- L["Light & night"] = ""
+-- L["Polestar pastels"] = ""
+-- L["Gives %s"] = ""
+-- L["Drops %s"] = ""
+-- L["Quest spawns (preview)"] = ""
+-- L["Quest spawns"] = ""
+-- L["Spawn markers: preview on. Open the world map on a zone."] = ""
+-- L["Spawn markers: preview off, your quest log again."] = ""
+-- L["Spawn markers are off: Settings, Map pins, Spawn markers."] = ""
+-- L["Spawn markers: %d quests, %d spawns in world positions, %d zone marks on %d maps (%d on map %s), %d markers drawn."] = ""
+-- L["Spawn markers for your quests: what they found here (preview: 20 of this zone's quests)"] = ""
+
 -- games/skyjewels/SkyJewels.lua
 -- L["Nightbloom Glade"] = ""
 -- L["Sunstone Canyon"] = ""
@@ -5008,6 +5034,9 @@ L["Most used"] = "常用設定"
 -- L["Hold"] = ""
 -- L["Arrows move\nX/Z rotate  |  C hold\nSpace hard drop\nP pause  |  N new game"] = ""
 -- L["D-pad move\nA/B rotate  |  Y hold\nX hard drop  |  Start pause"] = ""
+-- UI/TabStyles/TabStyles.lua
+L["Open guides"] = "已開啟的指南"
+L["%d of %d"] = "%d / %d"
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "逐頁重新設定 Polestar。每項選擇立即生效。"

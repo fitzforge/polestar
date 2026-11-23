@@ -1,5 +1,5 @@
 -- env: atlas
--- The Guide window page's settings only the Atlas layout draws (the "ui" environment with Polestar_Layout_Atlas
+-- The Guide window page's settings only the Atlas layout draws (the "ui" environment with the Atlas layout
 -- loaded and picked): Journey style, read off where the layout places the Journey card.
 local J
 -- Whether the layout leaves the Journey card showing: it hides it in the foot style, where the chips stand for it.

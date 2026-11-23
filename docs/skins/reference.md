@@ -57,12 +57,9 @@ that a skin built on Polestar's own look may wear.
     under [Validation](#validation-and-error-messages).
 - Registering a scheme that a saved `ui.scheme` (or the skin in use) is
   waiting for repaints Polestar in it at once.
-- The checks a spec goes through come with Polestar in a folder of their own,
-  `Polestar_SkinAPI`, which loads on demand: the first scheme or skin another
-  addon registers loads it, so a player who uses no skin addon never does.
-  If that folder is missing or disabled in the AddOns list, every
-  registration answers `false, "the Skin API's checks did not load (is the
-  Polestar_SkinAPI folder installed and enabled?)"`.
+- The checks a spec goes through come with Polestar itself
+  (`Theme/SkinCheck.lua`; until 0.4.3 a folder of their own,
+  `Polestar_SkinAPI`, loaded on demand).
 
 ```lua
 local ADDON = ...
@@ -1388,7 +1385,6 @@ you see:
 
 | Check | Message |
 |---|---|
-| the checks are there | `the Skin API's checks did not load (is the Polestar_SkinAPI folder installed and enabled?)` |
 | spec is a table | `the spec must be a table` |
 | every field is known | `unknown field "<name>"` |
 | id shape | `the id must be a word of letters, digits, _ or - (32 at most), starting with a letter` |

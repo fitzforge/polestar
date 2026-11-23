@@ -1,6 +1,6 @@
 //! The game's looks as a login builds them (#1802): the look is in PolestarDB before ADDON_LOADED, not switched
 //! to. The guide window was skinned before it was marked the guide window, so its first paint was the big windows'
-//! (Polestar_Looks/GameSkins.lua BIG: a "Polestar" title bar and a drag strip 500 levels over the window), which
+//! (Theme/Looks/GameSkins.lua BIG: a "Polestar" title bar and a drag strip 500 levels over the window), which
 //! nothing took away: the strip lay over the bottom row of the card above the window (Later, Turn these off; the
 //! level-up spells, old ranks and update cards too). And the banner's close in the game's looks: at its own 24 unit
 //! target the red button stood larger than the card's and anything round it. Against the real Core + Theme + UI
@@ -189,7 +189,7 @@ fn polestar_s_own_look_keeps_the_banner_s_24_unit_close_and_its_glyph() {
 	}
 }
 
-// Polestar_Looks/GameSkins.lua: the guide window's paint takes away whatever a big window's paint left on the
+// Theme/Looks/GameSkins.lua: the guide window's paint takes away whatever a big window's paint left on the
 // frame. The guide window painted once as a big window (as the login did, before the window was marked), then as
 // itself in the same look, keeps none of it.
 #[test]

@@ -183,9 +183,8 @@ idempotent: create once, then show, hide, tint and place.
    text reads on the grounds) and answers `ok, message`. A refused spec
    registers nothing and says why. Ids are first come, first served, and a
    skin cannot be registered twice in a session: changes need `/reload`.
-   The checks themselves load with the first registration (Polestar's
-   `Polestar_SkinAPI` folder), so a player without skin addons never loads
-   them.
+   The checks come with Polestar itself (`Theme/SkinCheck.lua`; a folder
+   of their own, `Polestar_SkinAPI`, before 0.4.3).
 3. **Picking.** The player chooses under Settings > Look > Theme, and a
    variant under the skin's card. A saved choice that names a skin not yet
    registered draws Polestar's own look and **waits**: when the addon
