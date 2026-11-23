@@ -2007,8 +2007,7 @@ function LK.More()
 	if direct then reconcile() end
 end
 
-local navRows, navPositions, activeNavKey
-local navFocus, headerFocus
+local activeNavRow
 
 local function toggleCategory(key)
 	openBranches[key] = not openBranches[key] or nil
@@ -2023,14 +2022,14 @@ local function appendCategories(items, nodes, depth, totals)
 		local folded = not openBranches[node.key]
 		items[#items + 1] = {
 			key = node.key, label = node.label, count = count or 0, depth = depth, rowHeight = isClass and 32 or 28,
-			folded = parent and folded, onToggle = parent and toggleCategory or nil, parent = node.parent,
+			folded = parent and folded, onToggle = parent and toggleCategory or nil,
 		}
 		if parent and not folded then appendCategories(items, node.children, 2, totals) end
 	end
 end
 
-local function visibleNavKey(key, tree)
-	while key and not navPositions[key] do
+local function visibleNavKey(key, tree, rowsByKey)
+	while key and not rowsByKey[key] do
 		local node = tree.byKey[key]
 		key = node and node.parent
 	end
@@ -2066,14 +2065,12 @@ function LK.Nav()
 			end
 		end
 	end
-	navRows, navPositions, activeNavKey = items, {}, kind
-	for i, row in ipairs(items) do navPositions[row.key] = i end
-	if tree then
-		if category then activeNavKey = visibleNavKey(category.key, tree) end
-		if navFocus then navFocus = visibleNavKey(navFocus, tree) or activeNavKey end
-	end
-	if navFocus and not navPositions[navFocus] then navFocus = activeNavKey end
-	return items, activeNavKey, navFocus
+	local rowsByKey = {}
+	for _, row in ipairs(items) do rowsByKey[row.key] = row end
+	local activeKey = kind
+	if tree and category then activeKey = visibleNavKey(category.key, tree, rowsByKey) end
+	activeNavRow = rowsByKey[activeKey]
+	return items, activeKey
 end
 
 -- A drawn row's subtitle, asked for once.
@@ -2503,8 +2500,7 @@ end
 function LK.SetKind(k) setKind(k) end
 
 local function selectNav(key)
-	local row = navPositions and navRows[navPositions[key]]
-	if key == activeNavKey and row and row.onToggle then
+	if activeNavRow and activeNavRow.key == key and activeNavRow.onToggle then
 		toggleCategory(key)
 		return
 	end
@@ -2528,106 +2524,6 @@ function LK.Step(delta)
 	-- Walking the list opens no page for good: only a click or Enter does.
 	LK.Select(visible[at].kind, visible[at].id, visible[at], true)
 	reveal()
-end
-
-local function setKeyboardFocus(key, button)
-	local old = headerFocus
-	navFocus, headerFocus = key, button
-	if old and old ~= button then
-		W.SetKeyboardFocusMark(old, false)
-		W.HideTip(old)
-		if old.psRange then old:ClearFocus() end
-	end
-	W.ShellNavFocus(shell, key)
-	if button then
-		W.SetKeyboardFocusMark(button, true)
-		if button.psRange then button:SetFocus() else W.SimpleTip(button) end
-	end
-end
-
-local function focusSearch()
-	setKeyboardFocus()
-	UI.Picker.search:SetFocus()
-	return true, false
-end
-
-local function tabFilters(shifted, fromSearch)
-	local controls = filtersUI.FocusOrder()
-	if fromSearch then
-		local button = shifted and controls[#controls]
-		setKeyboardFocus(not button and activeNavKey or nil, button or nil)
-	elseif navFocus then
-		if shifted then return focusSearch() end
-		setKeyboardFocus(nil, controls[1])
-	else
-		for i, button in ipairs(controls) do
-			if button == headerFocus then
-				local nextButton = controls[i + (shifted and -1 or 1)]
-				if nextButton then setKeyboardFocus(nil, nextButton)
-				elseif shifted then setKeyboardFocus(activeNavKey)
-				else return focusSearch() end
-				break
-			end
-		end
-	end
-	return true, true
-end
-
-local function sectionKeyboard(key, fromSearch, shifted)
-	if not key then
-		filtersUI.HideMenu()
-		setKeyboardFocus()
-		return
-	end
-	if key == "ESCAPE" then
-		if filtersUI.HideMenu() then return true, true end
-		if headerFocus and headerFocus.psRange and headerFocus:HasFocus() then
-			headerFocus:GetScript("OnEscapePressed")(headerFocus)
-			return true, true
-		end
-		if filtersUI.drawerOpen then filtersUI.Toggle(); return true, true end
-		if not fromSearch then return focusSearch() end
-		return false
-	end
-	if key == "TAB" then
-		if filtersUI.HideMenu() then return true, true end
-		return tabFilters(shifted, fromSearch)
-	end
-	if fromSearch then return false end
-	if headerFocus then
-		if W.MenuKey(headerFocus, key) then return true, true end
-		if headerFocus.psRange then return false end
-		if key ~= "ENTER" and key ~= "SPACE" then return false end
-		headerFocus:Click()
-	else
-		local i = navPositions[navFocus]
-		local row = navRows[i]
-		if not row then return false end
-		if key == "UP" or key == "DOWN" then
-			local nextRow = navRows[max(1, min(#navRows, i + (key == "UP" and -1 or 1)))]
-			setKeyboardFocus(nextRow.key)
-		elseif key == "RIGHT" then
-			if row.depth == nil then return false end
-			local child = navRows[i + 1]
-			if row.onToggle and row.folded then
-				row.onToggle(row.key)
-			elseif child and child.parent == row.key then
-				setKeyboardFocus(child.key)
-			end
-		elseif key == "LEFT" then
-			if row.depth == nil then return false end
-			if row.onToggle and not row.folded then
-				row.onToggle(row.key)
-			elseif row.parent then
-				setKeyboardFocus(row.parent)
-			end
-		elseif key == "ENTER" or key == "SPACE" then
-			selectNav(row.key)
-		else
-			return false
-		end
-	end
-	return true, true
 end
 
 local function installFilterChrome()
@@ -2717,17 +2613,14 @@ local function installFilterChrome()
 		local owner = rawget(root, "FilterMenuOwner")
 		if owner and W.MenuShown(owner) then
 			W.HideMenu()
-			return true
 		end
 	end
 
 	function filtersUI.ShowMenu(button, items, width, currentChoice, searchFold)
 		root.FilterMenuOwner = button
-		local keyboard = headerFocus == button and UI.Picker.HasSectionKeys() and not ns.Compat.InCombat()
 		W.HideTip(button)
 		width = min(width, MID_W - 2 * SH.pad)
-		W.ShowMenu(button, items, { minWidth = width, maxWidth = width, current = currentChoice,
-			keyboard = keyboard or searchFold ~= nil, searchFold = searchFold })
+		W.ShowMenu(button, items, { minWidth = width, maxWidth = width, current = currentChoice, searchFold = searchFold })
 	end
 
 	local function singleChoice(items, key, value, text, selected, color)
@@ -2874,16 +2767,9 @@ local function installFilterChrome()
 					self:ClearFocus()
 				end,
 			})
-			b.psRange = range
 			b:HookScript("OnEditFocusGained", function(self)
 				if self.psTip then W.SimpleTip(self)
 				elseif label:IsTruncated() then W.Tooltip(self, "ANCHOR_TOP", text) end
-			end)
-			b:SetScript("OnTabPressed", function(self)
-				if ns.Compat.InCombat() then return end
-				if headerFocus ~= self then setKeyboardFocus(nil, self) end
-				local _, keepFocus = tabFilters(ns.Compat.IsShiftKeyDown())
-				if keepFocus then UI.Picker.FocusSectionKeys() end
 			end)
 			b:HookScript("OnEnter", function(self)
 				if not self.psTip and label:IsTruncated() then W.Tooltip(self, "ANCHOR_TOP", text) end
@@ -3063,29 +2949,7 @@ local function installFilterChrome()
 		end
 		local owner = rawget(root, "FilterMenuOwner")
 		if owner and not owner:IsVisible() then filtersUI.HideMenu() end
-		if headerFocus and not headerFocus:IsVisible() and root:IsVisible() and UI.Picker.HasSectionKeys() then
-			setKeyboardFocus(nil, root.Visibility)
-		end
 		return activeFilterCount(c)
-	end
-
-	function filtersUI.FocusOrder()
-		local controls = {}
-		if root.SearchOrder:IsVisible() then controls[#controls + 1] = root.SearchOrder end
-		controls[#controls + 1] = root.Visibility
-		local drawer = rawget(root, "FilterDrawer")
-		if drawer and drawer:IsVisible() then
-			local item = rawget(drawer, "Item")
-			if item and item:IsVisible() then
-				local first, second = item.Required, item.Level
-				for _, b in ipairs({ first.Min, first.Max, second.Min, second.Max, item.Class, item.Rarity, item.Slot, item.Stat }) do
-					controls[#controls + 1] = b
-				end
-			end
-			for _, b in ipairs(drawer.Availability) do controls[#controls + 1] = b end
-			controls[#controls + 1] = drawer.Clear
-		end
-		return controls
 	end
 
 	function filtersUI.DiscardRanges()
@@ -3249,7 +3113,7 @@ if UI.RegisterSection then
 		key = "Lookup", label = L["Lookup"], icon = "search", order = 20,
 		build = LK.Build, render = sectionRender,
 		nav = LK.Nav, onNav = selectNav,
-		search = onSearch, enter = onEnter, step = LK.Step, keyboard = sectionKeyboard,
+		search = onSearch, enter = onEnter, step = LK.Step,
 		searchPlaceholder = { L["Search items, mounts, NPCs"], L["Search items, mounts"], L["Search"] },
 	})
 end

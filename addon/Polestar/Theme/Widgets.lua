@@ -2185,7 +2185,7 @@ function W.RepaintMenuChecks(popup)
 	for _, row in ipairs(popup.rows) do
 		if row:IsShown() and row.psItem then
 			row.Check:SetShown(row.psItem.checked and true or false)
-			paintMenuRow(row, row == popup.psKeyRow or row:IsMouseOver())
+			paintMenuRow(row, row:IsMouseOver())
 		end
 	end
 end
@@ -2226,7 +2226,7 @@ local function menuRowEnter(self)
 end
 
 local function menuRowLeave(self)
-	if not self.psArmed then paintMenuRow(self, self == menu.psKeyRow) end
+	if not self.psArmed then paintMenuRow(self, false) end
 	hideTip(self)
 	previewToken = previewToken + 1
 end
@@ -2253,7 +2253,6 @@ local function buildMenu()
 	menu:SetScript("OnHide", function()
 		catcher:Hide()
 		previewToken = previewToken + 1
-		W.SetMenuKeyRow(menu, nil)
 		local f = rawget(menu, "Filter")
 		if f then f:ClearFocus() end
 	end)
@@ -2306,49 +2305,6 @@ end
 -- left, Escape empties the box, then closes the list.
 local MENU_MAX, MENU_FILTER = 12, 26
 
-function W.SetMenuKeyRow(popup, row)
-	local old = popup.psKeyRow
-	if old then
-		W.SetKeyboardFocusMark(old, false)
-		paintMenuRow(old, false)
-		hideTip(old)
-	end
-	popup.psKeyRow = row
-	if not row then return end
-	W.SetKeyboardFocusMark(row, true)
-	paintMenuRow(row, true)
-	local sc = rawget(popup, "Scroll")
-	if sc and sc:IsShown() then
-		local y = -select(5, row:GetPoint(1))
-		local top = sc:GetVerticalScroll()
-		if y < top then W.ScrollTo(sc, y)
-		elseif y + row:GetHeight() > top + sc.psView then W.ScrollTo(sc, y + row:GetHeight() - sc.psView) end
-	end
-	local item = row.psItem
-	if item.tip or row.psClipped then W.Tooltip(row, "ANCHOR_RIGHT", item.text, item.tip and { item.tip }) end
-end
-
--- Opt-in navigation for an owner that already routes keys. The long menu's
--- edit box uses this too, since it owns the keys while its filter has focus.
-function W.MenuKey(owner, key)
-	if not W.MenuShown(owner) or not menu.psOpts.keyboard then return false end
-	if key == "ESCAPE" then W.HideMenu(); return true end
-	if key == "ENTER" or key == "SPACE" then
-		if menu.psKeyRow then menuRowClick(menu.psKeyRow) end
-		return true
-	end
-	if key ~= "UP" and key ~= "DOWN" then return false end
-	local rows, at = {}, 0
-	for _, row in ipairs(menu.rows) do
-		if row:IsShown() and not row.psItem.disabled then
-			rows[#rows + 1] = row
-			if row == menu.psKeyRow then at = #rows end
-		end
-	end
-	W.SetMenuKeyRow(menu, rows[max(1, min(#rows, at + (key == "UP" and -1 or 1)))])
-	return true
-end
-
 local function menuLong()
 	local sc = rawget(menu, "Scroll")
 	if sc then return sc end
@@ -2375,14 +2331,9 @@ local function menuLong()
 		if (self:GetText() or "") ~= "" then self:SetText("") else W.HideMenu() end
 	end)
 	f:SetScript("OnEnterPressed", function()
-		if W.MenuKey(menu.psOwner, "ENTER") then return end
 		for _, r in ipairs(menu.rows) do
 			if r:IsShown() and r.psItem and not r.psItem.disabled then return menuRowClick(r) end
 		end
-	end)
-	f:SetScript("OnArrowPressed", function(_, key) W.MenuKey(menu.psOwner, key) end)
-	f:SetScript("OnTabPressed", function()
-		if menu.psOpts.keyboard then W.HideMenu() end
 	end)
 	f:SetScript("OnMouseDown", function(self) self:SetFocus() end)
 	f:SetScript("OnEditFocusGained", function(self) Theme.SetFocused(self, true) end)
@@ -2426,7 +2377,6 @@ function layoutMenu()
 	local needle = long and fold(menu.Filter:GetText() or "") or ""
 	local y = long and 0 or -pad
 	local nrow, nsep, shownRows = 0, 0, 0
-	W.SetMenuKeyRow(menu, nil)
 	menu.psCheckedY = nil
 	for i = 1, #menu.rows do menu.rows[i]:Hide() end
 	for i = 1, #menu.seps do menu.seps[i]:Hide() end
@@ -2551,22 +2501,12 @@ function layoutMenu()
 		end
 		menu:SetSize(width, -y + pad)
 	end
-	if opts.keyboard then
-		local first, checked
-		for _, row in ipairs(menu.rows) do
-			if row:IsShown() and not row.psItem.disabled then
-				first = first or row
-				if row.psItem.checked then checked = checked or row end
-			end
-		end
-		W.SetMenuKeyRow(menu, opts.current and checked or first)
-	end
 end
 
 -- items: { { text, icon, checked, disabled, onClick, tip, color, confirm, preview, keepOpen, searchText }, { separator = true }, ... }
 -- With keepOpen, onClick updates the item checks and the rows repaint in place.
 -- It can return true to lay out the list again if its choices changed.
--- opts: { point, relPoint, x, y, minWidth, maxWidth, current, keyboard, searchFold }
+-- opts: { point, relPoint, x, y, minWidth, maxWidth, current, searchFold }
 -- searchFold normalizes the query and label. Matching folds each newline-separated
 -- term in extra searchText with the same function.
 -- opts.current: a list of choices whose checked row is the current one; a
@@ -3892,19 +3832,6 @@ local function navToggle(b, pad, item)
 	hit:Show()
 end
 
--- Keyboard focus has its own hairline, separate from a selected row's bar.
-function W.SetKeyboardFocusMark(button, on)
-	local mark = rawget(button, "KeyboardFocus")
-	if on and not mark then
-		mark = W.Tex(button, "OVERLAY", nil, "accent")
-		mark:SetPoint("BOTTOMLEFT", button, "BOTTOMLEFT", 8, 2)
-		mark:SetPoint("BOTTOMRIGHT", button, "BOTTOMRIGHT", -8, 2)
-		W.Painter(mark, function(t) t:SetHeight(Theme.Pixel(button)) end)
-		button.KeyboardFocus = mark
-	end
-	if mark then mark:SetShown(on) end
-end
-
 local function navRow(b, item, on)
 	b.psKey, b.psItem, b.psOn = item.key, item, on
 	-- The right edge's parts keep their place on the sidebar when the rows
@@ -4010,26 +3937,7 @@ local function navWidth(f, content, view)
 	end
 end
 
-local function revealNav(sf, y, height)
-	local cur, view = sf:GetVerticalScroll(), sf.psView
-	if y < cur then
-		W.ScrollTo(sf, y)
-	elseif y + height > cur + view then
-		W.ScrollTo(sf, y + height - view)
-	end
-end
-
-function W.ShellNavFocus(f, key)
-	local reveal = key ~= f.NavScroll.psNavFocused
-	f.NavScroll.psNavFocused = key
-	for _, b in ipairs(f.navButtons) do
-		local focused = key ~= nil and b:IsShown() and b.psKey == key
-		W.SetKeyboardFocusMark(b, focused)
-		if focused and reveal then revealNav(f.NavScroll, -select(5, b:GetPoint(1)), b:GetHeight()) end
-	end
-end
-
-function W.ShellNav(f, items, active, onSelect, focused)
+function W.ShellNav(f, items, active, onSelect)
 	f.psOnNav = onSelect
 	local sf = f.NavScroll
 	local y, activeY, activeH = 0, nil, nil
@@ -4072,9 +3980,15 @@ function W.ShellNav(f, items, active, onSelect, focused)
 	-- A new selection is scrolled into view; a redraw with the same one (a
 	-- refresh, a guide picked in the list) keeps the place the player
 	-- scrolled to, a community guide's entry far down the list included.
-	if activeY and active ~= sf.psActive then revealNav(sf, activeY, activeH) end
+	if activeY and active ~= sf.psActive then
+		local cur = sf:GetVerticalScroll()
+		if activeY < cur then
+			W.ScrollTo(sf, activeY)
+		elseif activeY + activeH > cur + view then
+			W.ScrollTo(sf, activeY + activeH - view)
+		end
+	end
 	sf.psActive = active
-	if focused or sf.psNavFocused then W.ShellNavFocus(f, focused) end
 end
 
 -- The height the navigation rows may fill: from their top line to the

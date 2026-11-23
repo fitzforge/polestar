@@ -8347,8 +8347,7 @@ Polestar.Lookup.AcceptPre(goal, quest) -> goal         -- the accept with the qu
   for a chevron separate from row selection. In `W.ShowMenu`, an item's
   `keepOpen` repaints checks in place after its click, and the click can
   return true to lay out the list again. `opts.maxWidth` caps the width
-  and clips long labels, and `opts.keyboard` enables `W.MenuKey` for
-  Up/Down, Enter/Space and Escape. `opts.searchFold` folds the query,
+  and clips long labels. `opts.searchFold` folds the query,
   labels and each newline-separated term in an item's `searchText`
   so the stat picker can find aliases.
 - **Chain progress** (`Lookup.ChainProgress`, #2554): the main line through

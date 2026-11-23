@@ -1783,11 +1783,9 @@ end
 --   UI.RegisterSection({
 --     key, label, icon, order,
 --     build = fn(parent, hub), render = fn(),
---     nav = fn() -> items, activeKey, focusKey, -- optional: its index and keyboard focus
+--     nav = fn() -> items, activeKey,  -- optional: its index ({ key, label, icon, count })
 --     onNav = fn(key),                 -- with nav: set the state, then UI.Picker.Render()
 --     search = fn(text), enter = fn(), step = fn(delta), -- optional: the hub search drives it
---     keyboard = fn(key, fromSearch, shifted) -> handled, keepFocus,
---       -- optional: Tab from search, then keys while captured; nil key releases focus
 --     searchPlaceholder = "...",       -- optional; or a list of wordings, longest first (the first that fits shows)
 --   })
 ---------------------------------------------------------------------------
@@ -1816,44 +1814,6 @@ local function activeSection()
 end
 P.ActiveSection = activeSection
 
-local keyOwner, keyFrame
-function P.HasSectionKeys() return keyOwner ~= nil end
-
-local function releaseSectionKeys()
-	if not keyOwner then return end
-	local owner = keyOwner
-	keyOwner = nil
-	keyFrame:Hide()
-	owner.keyboard()
-end
-
-function P.FocusSectionKeys()
-	local s = activeSection()
-	if not (s and s.keyboard and win:IsVisible()) or ns.Compat.InCombat() then return end
-	win.Search:ClearFocus()
-	if not keyFrame then
-		keyFrame = CreateFrame("Frame", nil, win)
-		keyFrame:EnableKeyboard(true)
-		keyFrame:SetScript("OnKeyDown", function(self, key)
-			if not keyOwner or ns.Compat.InCombat() then return end
-			local used, keep = keyOwner.keyboard(key, false, ns.Compat.IsShiftKeyDown())
-			self:SetPropagateKeyboardInput(not used)
-			if used and not keep then releaseSectionKeys() end
-		end)
-	end
-	keyOwner = s
-	keyFrame:Show()
-end
-
-local function sectionTab()
-	local s = activeSection()
-	if not (s and s.keyboard and win:IsVisible()) or ns.Compat.InCombat() then return end
-	local handled, keepFocus = s.keyboard("TAB", true, ns.Compat.IsShiftKeyDown())
-	if handled and keepFocus then P.FocusSectionKeys() end
-end
-
-ns.RegisterEvent("PLAYER_REGEN_DISABLED", releaseSectionKeys)
-
 function P.Query() return query end
 
 -- Show a section ("Guides" or nil: the guide list). The hub search starts
@@ -1861,7 +1821,6 @@ function P.Query() return query end
 function P.ShowSection(key)
 	if key == GUIDES.key then key = nil end
 	if key ~= section and win then
-		releaseSectionKeys()
 		query = ""
 		win.Search:SetText("")
 	end
@@ -1954,10 +1913,10 @@ local function sectionNav(s)
 		W.ShellNav(win, { { key = s.key, label = s.label or s.key, icon = s.icon } }, s.key, nil)
 		return
 	end
-	local ok, items, activeKey, focusKey = pcall(s.nav)
+	local ok, items, activeKey = pcall(s.nav)
 	if not ok or type(items) ~= "table" then items, activeKey = {}, nil end
 	-- onNav changes the section's state and re-renders the hub (P.Render).
-	W.ShellNav(win, items, activeKey, function(key) if s.onNav then s.onNav(key) end end, focusKey)
+	W.ShellNav(win, items, activeKey, function(key) if s.onNav then s.onNav(key) end end)
 end
 
 function P.RenderSectionNav()
@@ -2304,12 +2263,6 @@ local function build()
 		local s = activeSection()
 		if s and s.step then s.step(d) elseif not s then step(d) end
 	end)
-	win.Search:SetScript("OnTabPressed", sectionTab)
-	win.Search:SetScript("OnEscapePressed", function(self)
-		local s = activeSection()
-		if not (s and s.keyboard and s.keyboard("ESCAPE", true)) then self:ClearFocus() end
-	end)
-	win.Search:HookScript("OnEditFocusGained", releaseSectionKeys)
 
 	-- Middle: the header, tab row and list end where the details begin; no
 	-- footer, the list runs to the window's bottom.
@@ -2345,7 +2298,6 @@ local function build()
 	-- Every search (Lookup and the guide list's Codex rows) runs in the hub:
 	-- closing it frees what only a search in progress needs.
 	win:HookScript("OnHide", function()
-		releaseSectionKeys()
 		local S = ns.Search
 		if S and S.Release then S.Release() end
 	end)

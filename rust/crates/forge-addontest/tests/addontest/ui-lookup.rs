@@ -119,11 +119,6 @@ fn run_packed_lookup(codex: &Value, script: &str) -> Value {
 		addons: vec![Addon::files("Polestar", &["Core/Core.xml", "Gear/Weights.lua", "Theme/Theme.xml", "Lookup/Lookup.xml", "UI/UI.xml"])],
 		script: [
 			r#"
-			stub.Methods.EnableKeyboard = function(self, on) self.keyboard = on end
-			stub.Methods.SetPropagateKeyboardInput = function(self, on)
-				assert(not stub.inCombat, "protected keyboard propagation in combat")
-				self.propagateKeyboard = on
-			end
 			local realCompat = Polestar.Compat
 			uistub.install()
 			stub.login()
@@ -281,128 +276,6 @@ fn clicking_the_active_item_sidebar_row_folds_without_changing_selection() {
 }
 
 #[test]
-fn item_category_sidebar_keyboard_reveals_rows_and_releases_on_hub_lifecycle() {
-	let out = run_category_lookup(
-		r#"
-		UI.ShowLookup({ query = "trial" })
-		local win, box = PolestarPicker, UI.Picker.search
-		local function route()
-			for _, f in ipairs(stub.frames) do
-				if f:GetParent() == win and f.keyboard and f:IsVisible() then return f end
-			end
-		end
-		local function key(k, shift)
-			stub.keys.shift = shift
-			stub.RunScript(assert(route()), "OnKeyDown", k)
-			stub.keys.shift = nil
-		end
-		local function focused(button)
-			local mark = rawget(button, "KeyboardFocus")
-			return mark and mark:IsShown()
-		end
-		nav("item"):Click()
-		stub.RunScript(box, "OnTabPressed")
-		assert(not box:HasFocus() and focused(nav("item")) and nav("item").Bar:IsShown())
-		local selected = LK.Selected().id
-		key("RIGHT")
-		assert(focused(nav("item")) and navLabel("Armor") and LK.Selected().id == selected)
-		key("RIGHT")
-		assert(focused(navLabel("Armor")))
-		key("DOWN")
-		assert(focused(navLabel("Category 42")) and LK.Selected().id == selected)
-		key("UP")
-		key("RIGHT")
-		key("RIGHT")
-		assert(focused(navLabel("Cloth")))
-		key("LEFT")
-		assert(focused(navLabel("Armor")) and navLabel("Cloth"))
-		key("LEFT")
-		assert(focused(navLabel("Armor")) and not navLabel("Cloth"))
-		key("ENTER")
-		assert(LK.Selected().id == 72 and win.Title:GetText() == "Items › Armor")
-		local armorResults, tunic = LK.shown, LK.Selected()
-		key("SPACE")
-		assert(navLabel("Cloth") and LK.shown == armorResults and LK.Selected() == tunic)
-		key("ENTER")
-		assert(not navLabel("Cloth") and LK.shown == armorResults and LK.Selected() == tunic)
-		key("LEFT")
-		assert(focused(nav("item")))
-		key("TAB")
-		assert(focused(LK.root.SearchOrder) and not focused(nav("item")))
-		key("TAB")
-		assert(focused(LK.root.Visibility))
-		key("TAB", true)
-		key("TAB", true)
-		assert(focused(navLabel("Armor")))
-		key("TAB", true)
-		assert(box:HasFocus() and not route())
-		stub.RunScript(box, "OnTabPressed")
-		key("ESCAPE")
-		assert(box:HasFocus() and not route() and not focused(navLabel("Armor")))
-		-- Make the sidebar short so a real scroll is needed to reveal a leaf.
-		win:SetHeight(Polestar.Widgets.SHELL.footer + win.psNavTop + 2 + 108)
-		UI.Picker.Render()
-		stub.RunScript(box, "OnTabPressed")
-		for _ = 1, 4 do key("DOWN") end
-		assert(focused(navLabel("Weapon")) and win.NavScroll:GetVerticalScroll() > 0)
-		key("RIGHT")
-		key("RIGHT")
-		key("DOWN")
-		local sword = navLabel("Sword")
-		local top = -select(5, sword:GetPoint(1))
-		local scroll = win.NavScroll:GetVerticalScroll()
-		assert(focused(sword) and top >= scroll and top + sword:GetHeight() <= scroll + win.NavScroll.psView)
-		-- A mouse scroll can leave the focused row out of view until focus moves.
-		stub.RunScript(win.NavScroll, "OnMouseWheel", 20)
-		stub.advance(0.3)
-		UI.Picker.RenderSectionNav()
-		assert(win.NavScroll:GetVerticalScroll() == 0 and focused(sword))
-		key("UP")
-		assert(focused(navLabel("Axe")) and win.NavScroll:GetVerticalScroll() > 0)
-		key("DOWN")
-		key("SPACE")
-		assert(win.Title:GetText() == "Items › Weapon › Sword")
-		navLabel("Weapon").Toggle:Click()
-		assert(focused(navLabel("Weapon")) and navLabel("Weapon").psOn)
-		key("ESCAPE")
-		stub.RunScript(box, "OnTabPressed")
-		assert(focused(navLabel("Weapon")), "Tab returns to the active visible ancestor")
-		stub.inCombat = true
-		stub.fire("PLAYER_REGEN_DISABLED")
-		assert(not route() and not focused(navLabel("Weapon")))
-		navLabel("Weapon").Toggle:Click()
-		assert(navLabel("Sword"), "the tree still works with a mouse in combat")
-		box:SetFocus()
-		stub.RunScript(box, "OnTabPressed")
-		assert(box:HasFocus() and not route())
-		stub.inCombat = false
-		stub.fire("PLAYER_REGEN_ENABLED")
-		stub.RunScript(box, "OnTabPressed")
-		assert(route())
-		win:Hide()
-		assert(not route())
-		UI.ToggleLookup()
-		assert(not route() and not navLabel("Weapon"))
-		stub.RunScript(box, "OnTabPressed")
-		assert(route())
-		UI.Picker.ShowSection("Guides")
-		assert(not route())
-		for _, b in ipairs(win.navButtons) do
-			if b:IsShown() then
-				local toggle = rawget(b, "Toggle")
-				assert(b:GetHeight() == 36 and not (toggle and toggle:IsShown()) and not focused(b))
-			end
-		end
-		box:SetFocus()
-		stub.RunScript(box, "OnTabPressed")
-		assert(box:HasFocus() and not route(), "Guides keeps its keyboard behavior")
-		emit(true)
-	"#,
-	);
-	assert_eq!(out, json!(true));
-}
-
-#[test]
 fn older_codex_pack_has_the_unchanged_flat_lookup_sidebar() {
 	let out = run_category_lookup(
 		r#"
@@ -419,18 +292,6 @@ fn older_codex_pack_has_the_unchanged_flat_lookup_sidebar() {
 		for _, b in ipairs(win.navButtons) do
 			if b:IsShown() then assert(b:GetHeight() == 36 and not rawget(b, "Toggle")) end
 		end
-		stub.RunScript(UI.Picker.search, "OnTabPressed")
-		local route
-		for _, f in ipairs(stub.frames) do
-			if f:GetParent() == win and f.keyboard and f:IsVisible() then route = f; break end
-		end
-		assert(route, "Tab enters flat sidebar navigation")
-		stub.RunScript(route, "OnKeyDown", "LEFT")
-		assert(route.propagateKeyboard, "Left passes through on a flat sidebar")
-		stub.RunScript(route, "OnKeyDown", "RIGHT")
-		assert(route.propagateKeyboard, "Right passes through on a flat sidebar")
-		stub.RunScript(route, "OnKeyDown", "DOWN")
-		assert(not route.propagateKeyboard, "Down still navigates the sidebar")
 		emit({ keys = navKeys(), counts = navCounts() })
 	"#,
 	);
@@ -473,34 +334,6 @@ fn run_filter_drawer(script: &str) -> Value {
 				local drawer = LK.root.FilterDrawer
 				assert(drawer:IsVisible())
 				return drawer, rawget(drawer, "Item")
-			end
-			local function focusMark(button)
-				local mark = rawget(button, "KeyboardFocus")
-				return mark and mark:IsShown()
-			end
-			local function keyboardFrame()
-				for _, f in ipairs(stub.frames) do
-					if f:GetParent() == PolestarPicker and f.keyboard and f:IsVisible() then return f end
-				end
-			end
-			local function key(k)
-				stub.RunScript(assert(keyboardFrame(), "No Lookup keyboard frame"), "OnKeyDown", k)
-			end
-			local function gameKey(k)
-				local route = keyboardFrame()
-				if route then
-					stub.RunScript(route, "OnKeyDown", k)
-					if not route.propagateKeyboard then return false end
-				end
-				if stub.focus then return false end
-				if k == "ESCAPE" then
-					-- Model the client's Escape handling once the key reaches it.
-					for _, name in ipairs(UISpecialFrames) do
-						local f = _G[name]
-						if f and f:IsShown() then f:Hide() end
-					end
-				end
-				return true
 			end
 			local function clickOutsideMenu()
 				for _, f in ipairs(stub.frames) do
@@ -582,7 +415,7 @@ fn lookup_drawer_ranges_commit_zero_open_bounds_and_discard_invalid_drafts() {
 }
 
 #[test]
-fn lookup_mouse_picks_leave_tab_to_the_game_and_order_escape_closes_the_hub() {
+fn lookup_mouse_menus_preserve_filter_and_order_choices() {
 	let out = run_filter_drawer(
 		r#"
 		UI.ShowLookup({ query = "trial" })
@@ -592,7 +425,6 @@ fn lookup_mouse_picks_leave_tab_to_the_game_and_order_escape_closes_the_hub() {
 		assert(menuChoice("Legendary")):Click()
 		clickOutsideMenu()
 		assert(LK.ItemFilters().quality[1] == 5)
-		assert(gameKey("TAB") and not keyboardFrame() and not focusMark(item.Rarity), "mouse menu leaves Tab to the game")
 
 		item.Slot:Click()
 		assert(not PolestarMenu.Filter:HasFocus(), "a long menu's filter leaves the keys to the game until clicked")
@@ -601,11 +433,9 @@ fn lookup_mouse_picks_leave_tab_to_the_game_and_order_escape_closes_the_hub() {
 		edit(PolestarMenu.Filter, "shield")
 		stub.RunScript(PolestarMenu.Filter, "OnEnterPressed")
 		assert(LK.ItemFilters().slot == 14 and not PolestarMenu.Filter:HasFocus())
-		assert(gameKey("TAB") and not keyboardFrame(), "the long menu releases its edit box")
 
 		LK.root.Visibility:Click()
 		assert(choose(LK.root.SearchOrder, "A to Z") and LK.Order() == "az")
-		assert(gameKey("ESCAPE") and not PolestarPicker:IsShown(), "one Escape closes the hub after a mouse order pick")
 		emit(true)
 		"#,
 	);
@@ -613,7 +443,7 @@ fn lookup_mouse_picks_leave_tab_to_the_game_and_order_escape_closes_the_hub() {
 }
 
 #[test]
-fn lookup_mouse_range_focus_loss_commits_and_leaves_tab_to_the_game() {
+fn lookup_mouse_range_focus_loss_commits() {
 	let out = run_filter_drawer(
 		r#"
 		UI.ShowLookup({ query = "trial" })
@@ -625,11 +455,6 @@ fn lookup_mouse_range_focus_loss_commits_and_leaves_tab_to_the_game() {
 		box:ClearFocus()
 		stub.RunScript(box, "OnEditFocusLost")
 		assert(LK.ItemFilters().reqMin == 10)
-		assert(gameKey("TAB") and not keyboardFrame() and not focusMark(box), "mouse focus loss leaves Tab to the game")
-		box:SetFocus()
-		stub.RunScript(box, "OnEditFocusGained")
-		stub.RunScript(box, "OnTabPressed")
-		assert(item.Required.Max:HasFocus() and keyboardFrame(), "Tab from a range still enters routing")
 		emit(true)
 		"#,
 	);
@@ -765,7 +590,7 @@ fn lookup_drawer_class_rarity_and_raw_slots_apply_through_real_search() {
 		artifact:Click(); artifact:Click()
 		assert(any.Check:IsShown() and LK.ItemFilters().quality == nil and colorIs(item.Rarity.Label, "text"))
 		clickOutsideMenu()
-		assert(not focusMark(item.Rarity) and LK.root.FilterDrawer:IsShown())
+		assert(LK.root.FilterDrawer:IsShown())
 		for _, sample in ipairs({ { "Armor and accessories", "Chest", 5, 72 }, { "Weapons and off-hand", "Shield", 14, 74 },
 			{ "Clothing and containers", "Quiver slot", 27, 73 }, { "Other slots", "Non-equippable", 0, 71 } }) do
 			item.Slot:Click()
@@ -908,7 +733,7 @@ fn lookup_filter_drawer_clears_every_displayed_group_in_one_update() {
 }
 
 #[test]
-fn lookup_filter_drawer_fits_both_hub_widths_and_keyboard_uses_the_shorter_view() {
+fn lookup_filter_drawer_fits_both_hub_widths_and_leaves_results_scrollable() {
 	for (skin, width, pad, inner) in [("polestar", 1120, 32, 442), ("halo", 1100, 28, 440)] {
 		let out = run_filter_drawer(&format!(
 			r#"
@@ -956,57 +781,12 @@ fn lookup_filter_drawer_fits_both_hub_widths_and_keyboard_uses_the_shorter_view(
 			assert(sf:GetVerticalScroll() > 0 and rowFor(sf.Child, LK.Selected().title))
 			rowFor(sf.Child, LK.Selected().title):Click()
 			assert(drawer:IsShown())
-			local historyCount = #LK.Recent()
-			-- Search -> sidebar -> order -> Filters -> range fields -> menus.
 			box:SetFocus()
-			stub.RunScript(box, "OnEditFocusGained")
-			stub.RunScript(box, "OnTabPressed")
-			assert(focusMark(nav("item")))
-			key("TAB"); assert(focusMark(LK.root.SearchOrder))
-			key("TAB"); assert(focusMark(LK.root.Visibility))
-			key("TAB"); assert(item.Required.Min:HasFocus())
-			stub.RunScript(item.Required.Min, "OnTabPressed")
-			assert(item.Required.Max:HasFocus())
-			stub.RunScript(item.Required.Max, "OnEscapePressed")
-			assert(drawer:IsShown())
-			key("ESCAPE"); assert(not drawer:IsShown())
-			assert(focusMark(LK.root.Visibility))
-			assert(sf.psView == baseline and LK.root.Visibility.Label:GetText() == "Filters (1)")
-			key("SPACE")
-			key("TAB")
-			for _, range in ipairs({{ item.Required, item.Level }}) do
-				stub.RunScript(range.Min, "OnTabPressed")
-				stub.RunScript(range.Max, "OnTabPressed")
-			end
-			assert(focusMark(item.Class))
-			key("SPACE")
-			key("DOWN"); key("ENTER")
-			assert(LK.ItemFilters().class == "WARRIOR" and focusMark(item.Class) and #LK.Recent() == historyCount)
-			key("TAB"); key("TAB")
-			assert(focusMark(item.Slot))
-			key("SPACE")
-			assert(PolestarMenu:IsShown() and not PolestarMenu.Filter:HasFocus())
-			key("ESCAPE")
-			assert(not PolestarMenu:IsShown() and focusMark(item.Slot))
-			key("SPACE")
-			stub.RunScript(PolestarMenu.Filter, "OnMouseDown", "LeftButton")
-			edit(PolestarMenu.Filter, "shield")
-			stub.RunScript(PolestarMenu.Filter, "OnEnterPressed")
-			assert(LK.ItemFilters().slot == 14 and focusMark(item.Slot) and #LK.Recent() == historyCount)
-			key("TAB")
-			assert(focusMark(item.Stat))
-			key("ENTER")
-			assert(PolestarMenu:IsShown() and not PolestarMenu.Filter:HasFocus())
-			stub.RunScript(PolestarMenu.Filter, "OnMouseDown", "LeftButton")
-			edit(PolestarMenu.Filter, "strength")
-			stub.RunScript(PolestarMenu.Filter, "OnEnterPressed")
-			assert(LK.ItemFilters().stat == 4 and focusMark(item.Stat) and #LK.Recent() == historyCount)
-			for _, button in ipairs({{ drawer.Availability[1], drawer.Availability[2], drawer.Clear }}) do
-				key("TAB")
-				assert(focusMark(button))
-			end
-			key("ENTER")
-			assert(next(LK.ItemFilters()) == nil and LK.root.Visibility.Label:GetText() == "Filters")
+			stub.RunScript(box, "OnEscapePressed")
+			assert(not box:HasFocus() and drawer:IsShown(), "Escape in search only clears search focus")
+			filters:Click()
+			assert(not drawer:IsShown() and sf.psView == baseline and filters.Label:GetText() == "Filters (1)")
+			filters:Click()
 			item.Rarity:Click()
 			UI.Picker.ShowSection("Guides")
 			assert(not PolestarMenu:IsShown() and not drawer:IsShown())
@@ -2078,7 +1858,7 @@ fn everything_in_a_to_z_previews_each_kind_s_first_five_the_top_of_its_show_all_
 }
 
 #[test]
-fn lookup_stat_picker_filters_aliases_and_routes_enter_to_the_picker() {
+fn lookup_stat_picker_filters_aliases_and_applies_the_selected_stat() {
 	let out = run_packed_lookup(
 		&json!({ "items": {
 			"71": { "name": "Trial Charm", "levelsSource": "client", "stats": { "36": 0 } },
@@ -2111,23 +1891,16 @@ fn lookup_stat_picker_filters_aliases_and_routes_enter_to_the_picker() {
 		assert(menu.Empty:IsShown() and menu.Empty:GetText() == "Nothing matches.")
 		stub.RunScript(box, "OnEnterPressed")
 		assert(menu:IsShown() and LK.ItemFilters().stat == nil)
-		box = filter("undead")
-		assert(menu.psKeyRow.Text:GetText() == "Attack Power vs Undead")
-		stub.RunScript(box, "OnArrowPressed", "DOWN")
-		assert(menu.psKeyRow.Text:GetText() == "Spell Damage vs Undead")
-		stub.RunScript(box, "OnArrowPressed", "UP")
-		assert(menu.psKeyRow.Text:GetText() == "Attack Power vs Undead")
-		stub.RunScript(box, "OnArrowPressed", "DOWN")
-		stub.RunScript(box, "OnEnterPressed")
+		filter("undead")
+		assert(menuChoice("Attack Power vs Undead"))
+		assert(menuChoice("Spell Damage vs Undead")):Click()
 		assert(LK.Selected().id == 72 and LK.shown.rows == 1 and not menu:IsShown())
 		assert(stat.Label:GetText() == "Spell Damage vs Undead")
 		assert(Polestar.CharState().ui.lookupItemFilters.stat == 136)
 
 		stat:Click()
-		filter("undead")
-		assert(menu.psKeyRow.Text:GetText() == "Attack Power vs Undead", "the first match precedes the checked match")
 		box = filter("aste rat")
-		assert(menu.psKeyRow.Text:GetText() == "Haste", "an alias substring")
+		assert(menuChoice("Haste"), "an alias substring")
 		stub.RunScript(box, "OnEnterPressed")
 		assert(LK.ItemFilters().stat == 36 and LK.Selected().id == 71 and LK.shown.rows == 1)
 		local order = LK.root.SearchOrder
