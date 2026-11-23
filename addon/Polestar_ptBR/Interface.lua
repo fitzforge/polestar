@@ -4931,6 +4931,7 @@ L["A preview of the settings in groups, with tabs, a filter and a preview beside
 
 -- UI/Essentials.lua
 L["Most used"] = "Mais usados"
+
 -- Core/Locale.lua
 -- L["Language: %s. Change it with /polestar language <name>, one of: %s."] = ""
 -- L["No language '%s'. Choose one of: %s."] = ""
