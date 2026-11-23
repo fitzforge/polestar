@@ -123,7 +123,7 @@ return {
 
 	-- Step 24: Durnholde Keep
 	-- {npc:2238} Tog'thar · {npc:2427} Jailor Eston · {item:3467} Dull Iron Key · {npc:2428} Jailor Marlgen · {item:3499} Burnished Gold Key
-	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings, and each lock needs its key: {npc:2427} carries the {item:3467} for Drull's, {npc:2428} the {item:3499} for {npc:2238}'s, both in the keep. Kill them first, then open both locks."] = "Al sureste del Molino Tarren. Drull y {npc:2238} están encadenados en los edificios del patio de la fortaleza, y cada candado necesita su llave: {npc:2427} lleva la {item:3467} para el de Drull y {npc:2428}, la {item:3499} para el de {npc:2238}, ambos dentro de la fortaleza. Mátalos primero y luego abre ambos candados.",
+	["South-east of Tarren Mill. Drull and {npc:2238} are chained in the keep's courtyard buildings, and each lock needs its key: {npc:2427} carries the {item:3467} for Drull's, {npc:2428} the {item:3499} for {npc:2238}'s, both in the keep. Kill them first, then open both locks."] = "Al sureste del Molino Tarren. Drull y {npc:2238} están encadenados en los edificios de la corte del castillo, y cada cerradura necesita su llave: {npc:2427} lleva el {item:3467} para la de Drull, {npc:2428} el {item:3499} para la de {npc:2238}, ambos en el castillo. Mátalos primero y luego abre las dos cerraduras.",
 	-- {item:3467} Dull Iron Key · {npc:2427} Jailor Eston
 	["{item:3467}, from {npc:2427}"] = "{item:3467}, de {npc:2427}",
 	-- {item:3499} Burnished Gold Key · {npc:2428} Jailor Marlgen
@@ -157,8 +157,7 @@ return {
 	-- Step 29: The smithy
 	["The smithy"] = "La herrería",
 	-- {area:287} Hillsbrad · {npc:2404} Blacksmith Verringtan · {object:1736} Shipment of Iron · {npc:2449} Citizen Wilkes · {npc:2451} Farmer Kalaba
-	-- was: ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks by the smithy; {npc:2451} works the field south-east of the town."] = "Al oeste por las laderas hasta el pueblo de {area:287}: la herrería está en el centro. {npc:2404} y sus aprendices trabajan en la forja; el {object:1736} está apilado a su lado. {npc:2449} camina junto a la herrería; {npc:2451} trabaja el campo al sureste del pueblo."
-	["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks the west side of the town; {npc:2451} works the field south-east of the town."] = "Al oeste por las laderas hasta el pueblo de {area:287}: la herrería está en el centro. {npc:2404} y sus aprendices trabajan en la forja; el {object:1736} está apilado a su lado. {npc:2449} camina por el lado oeste del pueblo; {npc:2451} trabaja el campo al sureste del pueblo.",
+	["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks the west side of the town; {npc:2451} works the field south-east of the town."] = "Al oeste, por las estribaciones, hasta el pueblo de {area:287}: la herrería está en el centro. {npc:2404} y sus aprendices trabajan en la forja; el {object:1736} está apilado junto a ella. {npc:2449} camina por el lado oeste del pueblo; {npc:2451} trabaja el campo al sureste del pueblo.",
 	["Inside"] = "Adentro",
 	-- {npc:2449} Citizen Wilkes
 	["{npc:2449}, on the west side of the town"] = "{npc:2449}, en el lado oeste del pueblo",

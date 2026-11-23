@@ -165,7 +165,7 @@ return {
 	["South-west of Rog'mar the river runs between the farms: impale the Freshwater Crocolisks with {npc:263190}'s spears. The Alliance trains its scouts and priests at a camp on the far bank. {npc:257079}, the Alliance elite, rides the road just east of the camp: pull the scouts and priests away from it.\nCareful: {npc:263380}, an elite (level 42), hunts along this river: if he comes your way, back off and let him pass."] = "Al suroeste de Rog'mar, el río corre entre las granjas: empala a los Crocoliscos de agua dulce con las lanzas de {npc:263190}. La Alianza entrena a sus exploradores y sacerdotes en un campamento en la otra orilla. {npc:257079}, el élite de la Alianza, recorre el camino justo al este del campamento: aleja a los exploradores y sacerdotes de él.\nCuidado: {npc:263380}, un élite (nivel 42), caza a lo largo de este río: si viene hacia ti, retrocede y déjalo pasar.",
 	-- {npc:263190} Tan'jani
 	-- plural, as words: Freshwater Crocolisks = {npc:259046} Freshwater Crocolisk
-	["{npc:263190}'s spears, on the Freshwater Crocolisks in the river"] = "Las lanzas de {npc:263190}, en los Freshwater Crocolisks del río",
+	["{npc:263190}'s spears, on the Freshwater Crocolisks in the river"] = "las lanzas de {npc:263190}, en los cocodrilos de agua dulce del río",
 
 	-- Step 39: Tran'gul
 	-- {npc:256710} Tran'gul · {npc:256418} Krom'rosh · {area:16743} Rog'mar · {area:16723} Sunnyglade
