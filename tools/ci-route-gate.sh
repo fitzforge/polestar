@@ -15,7 +15,7 @@ base=$1; changed=$2; out=$(realpath -m "$3")
 mkdir -p "$out"
 here=$(pwd)
 gate() { node "$here/tools/ci-route-gate.js" "$@"; }
-mapfile -t chain < <(gate chain "$base" "$changed")
+mapfile -t chain < <(gate chain "$base" "$changed" | sed '/^$/d')
 if [ "${#chain[@]}" = 0 ]; then echo "Route integrity: no leveling guide edited" | tee "$out/route-integrity.md"; exit 0; fi
 rc=0
 md=$out/route-integrity.md
