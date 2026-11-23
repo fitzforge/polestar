@@ -272,7 +272,7 @@ function Nav.RegisterTravelData(d, replace)
 		local a, b = t.a, t.b
 		if type(a) == "table" and type(b) == "table" then
 			portals[#portals + 1] = {
-				id = t.id, kind = "portal", name = t.name, area = t.area, faction = t.faction or 3, seconds = t.seconds or 5, item = t.item,
+				id = t.id, kind = "portal", name = t.name, area = t.area, faction = t.faction or 3, seconds = t.seconds or 5, item = t.item, npc = t.npc,
 				a = withBoard(point(a[1], a[2], a[3], a[4], a[5], a[6], a[7], a[8] or "e", a[9]), a[10]),
 				b = withBoard(point(b[1], b[2], b[3], b[4], b[5], b[6], b[7], b[8] or "e", b[9]), b[10]),
 			}
@@ -1684,7 +1684,13 @@ local function planBody(p, S)
 			elseif k == TAXI then
 				leg.label = ride and L["Ride to the flight master"] or L["Walk to the flight master"]
 			elseif k == DOCK then
-				leg.label = ride and (Travel.RIDE_TO[dockOf[to].kind] or Travel.RIDE_TO.boat) or (WALK_TO[dockOf[to].kind] or WALK_TO.boat)
+				local d = dockOf[to]
+				if d.npc then
+					-- An NPC's teleport (#3691: Sanath Lim-yo up Xylem's tower): the walk is to the NPC.
+					leg.label = format(ride and L["Ride to %s"] or L["Walk to %s"], d.npc)
+				else
+					leg.label = ride and (Travel.RIDE_TO[d.kind] or Travel.RIDE_TO.boat) or (WALK_TO[d.kind] or WALK_TO.boat)
+				end
 			elseif k == TARGET then
 				leg.label = tg.label
 				if tg.kind == "goto" then leg.step = "goto" end
@@ -1705,7 +1711,11 @@ local function planBody(p, S)
 		elseif how == RIDE then
 			local t = dockOf[u]
 			leg.kind = t.kind
-			leg.label = format(TAKE[t.kind] or TAKE.boat, Travel.PlaceName(dockEnd[to]))
+			if t.npc then
+				leg.label = format(L["Ask %s to teleport you to %s"], t.npc, Travel.PlaceName(dockEnd[to]))
+			else
+				leg.label = format(TAKE[t.kind] or TAKE.boat, Travel.PlaceName(dockEnd[to]))
+			end
 			leg.transport, leg.side = t, dockSide[u]
 			-- A ride into or out of a place only portals reach is over when the player is seen in it, or out of it
 			-- (Travel.Placed), never by the yards to its landing: the Wizard's Sanctum's lies a few from its entrance (#1970).
