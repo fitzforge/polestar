@@ -1,0 +1,454 @@
+{
+	"1171": {
+		"id": 1171,
+		"kind": "item",
+		"name": "Well-stitched Robe",
+		"quality": 1,
+		"repFaction": null,
+		"repStanding": null,
+		"reqLevel": null,
+		"reqSkill": null,
+		"reqSkillRank": null,
+		"sources": [
+			{
+				"choice": true,
+				"from": [
+					"web"
+				],
+				"quest": 59,
+				"type": "quest"
+			}
+		],
+		"spell": null,
+		"status": null
+	},
+	"2249": {
+		"id": 2249,
+		"kind": "item",
+		"name": "Militia Buckler",
+		"quality": 1,
+		"repFaction": null,
+		"repStanding": null,
+		"reqLevel": null,
+		"reqSkill": null,
+		"reqSkillRank": null,
+		"sources": [
+			{
+				"choice": true,
+				"from": [
+					"web"
+				],
+				"quest": 11,
+				"type": "quest"
+			}
+		],
+		"spell": null,
+		"status": null
+	},
+	"2300": {
+		"id": 2300,
+		"kind": "item",
+		"name": "Embossed Leather Vest",
+		"quality": 2,
+		"repFaction": null,
+		"repStanding": null,
+		"reqLevel": 7,
+		"reqSkill": null,
+		"reqSkillRank": null,
+		"sources": [
+			{
+				"from": [
+					"forever"
+				],
+				"profession": "Leatherworking",
+				"skill": 35,
+				"skillLine": 165,
+				"spell": 2160,
+				"type": "craft"
+			}
+		],
+		"spell": null,
+		"status": null
+	},
+	"25": {
+		"id": 25,
+		"kind": "item",
+		"name": "Worn Shortsword",
+		"quality": 1,
+		"repFaction": null,
+		"repStanding": null,
+		"reqLevel": 1,
+		"reqSkill": null,
+		"reqSkillRank": null,
+		"sources": [],
+		"spell": null,
+		"status": "nosource"
+	},
+	"279874": {
+		"id": 279874,
+		"kind": "item",
+		"name": "The Stitcher",
+		"quality": null,
+		"repFaction": null,
+		"repStanding": null,
+		"reqLevel": null,
+		"reqSkill": null,
+		"reqSkillRank": null,
+		"sources": [
+			{
+				"choice": true,
+				"from": [
+					"web"
+				],
+				"quest": 92421,
+				"type": "quest"
+			}
+		],
+		"spell": null,
+		"status": null
+	},
+	"279875": {
+		"id": 279875,
+		"kind": "item",
+		"name": "Spare Part Bindings",
+		"quality": null,
+		"repFaction": null,
+		"repStanding": null,
+		"reqLevel": null,
+		"reqSkill": null,
+		"reqSkillRank": null,
+		"sources": [
+			{
+				"choice": true,
+				"from": [
+					"web"
+				],
+				"quest": 92421,
+				"type": "quest"
+			}
+		],
+		"spell": null,
+		"status": null
+	},
+	"2903": {
+		"id": 2903,
+		"kind": "item",
+		"name": "Daryl's Hunting Bow",
+		"quality": 2,
+		"repFaction": null,
+		"repStanding": null,
+		"reqLevel": null,
+		"reqSkill": null,
+		"reqSkillRank": null,
+		"sources": [
+			{
+				"choice": true,
+				"from": [
+					"web"
+				],
+				"quest": 257,
+				"type": "quest"
+			}
+		],
+		"spell": null,
+		"status": null
+	},
+	"2950": {
+		"id": 2950,
+		"kind": "item",
+		"name": "Icicle Rod",
+		"quality": 2,
+		"repFaction": null,
+		"repStanding": null,
+		"reqLevel": null,
+		"reqSkill": null,
+		"reqSkillRank": null,
+		"sources": [
+			{
+				"choice": true,
+				"from": [
+					"web"
+				],
+				"quest": 286,
+				"type": "quest"
+			}
+		],
+		"spell": null,
+		"status": null
+	},
+	"3070": {
+		"id": 3070,
+		"kind": "item",
+		"name": "Ensign Cloak",
+		"quality": 1,
+		"repFaction": null,
+		"repStanding": null,
+		"reqLevel": null,
+		"reqSkill": null,
+		"reqSkillRank": null,
+		"sources": [
+			{
+				"choice": true,
+				"from": [
+					"web"
+				],
+				"quest": 6,
+				"type": "quest"
+			}
+		],
+		"spell": null,
+		"status": null
+	},
+	"37": {
+		"id": 37,
+		"kind": "item",
+		"name": "Worn Axe",
+		"quality": 1,
+		"repFaction": null,
+		"repStanding": null,
+		"reqLevel": 1,
+		"reqSkill": null,
+		"reqSkillRank": null,
+		"sources": [],
+		"spell": null,
+		"status": "nosource"
+	},
+	"39": {
+		"id": 39,
+		"kind": "item",
+		"name": "Recruit's Pants",
+		"quality": 0,
+		"repFaction": null,
+		"repStanding": null,
+		"reqLevel": 1,
+		"reqSkill": null,
+		"reqSkillRank": null,
+		"sources": [],
+		"spell": null,
+		"status": "nosource"
+	},
+	"4302": {
+		"id": 4302,
+		"kind": "item",
+		"name": "Small Green Dagger",
+		"quality": 2,
+		"repFaction": null,
+		"repStanding": null,
+		"reqLevel": 7,
+		"reqSkill": null,
+		"reqSkillRank": null,
+		"sources": [
+			{
+				"chance": 33,
+				"from": [
+					"questie",
+					"pfquest"
+				],
+				"npc": 1910,
+				"type": "drop"
+			},
+			{
+				"from": [
+					"questie",
+					"pfquest"
+				],
+				"npc": 299,
+				"type": "drop"
+			}
+		],
+		"spell": null,
+		"status": null
+	},
+	"4964": {
+		"id": 4964,
+		"kind": "item",
+		"name": "Goblin Smasher",
+		"quality": 2,
+		"repFaction": null,
+		"repStanding": null,
+		"reqLevel": null,
+		"reqSkill": null,
+		"reqSkillRank": null,
+		"sources": [
+			{
+				"choice": true,
+				"from": [
+					"web"
+				],
+				"quest": 765,
+				"type": "quest"
+			}
+		],
+		"spell": null,
+		"status": null
+	},
+	"5404": {
+		"id": 5404,
+		"kind": "item",
+		"name": "Serpent's Shoulders",
+		"quality": 1,
+		"repFaction": null,
+		"repStanding": null,
+		"reqLevel": 18,
+		"reqSkill": null,
+		"reqSkillRank": null,
+		"sources": [
+			{
+				"chance": 40.8,
+				"from": [
+					"questie",
+					"pfquest",
+					"web"
+				],
+				"instance": "wailing-caverns",
+				"npc": 3671,
+				"type": "drop"
+			}
+		],
+		"spell": null,
+		"status": null
+	},
+	"5587": {
+		"id": 5587,
+		"kind": "item",
+		"name": "Thornroot Club",
+		"quality": 2,
+		"repFaction": null,
+		"repStanding": null,
+		"reqLevel": null,
+		"reqSkill": null,
+		"reqSkillRank": null,
+		"sources": [
+			{
+				"choice": true,
+				"from": [
+					"web"
+				],
+				"quest": 486,
+				"type": "quest"
+			}
+		],
+		"spell": null,
+		"status": null
+	},
+	"60": {
+		"id": 60,
+		"kind": "item",
+		"name": "Layered Tunic",
+		"quality": 1,
+		"repFaction": null,
+		"repStanding": null,
+		"reqLevel": null,
+		"reqSkill": null,
+		"reqSkillRank": null,
+		"sources": [
+			{
+				"choice": true,
+				"from": [
+					"web"
+				],
+				"quest": 6,
+				"type": "quest"
+			}
+		],
+		"spell": null,
+		"status": null
+	},
+	"6076": {
+		"id": 6076,
+		"kind": "item",
+		"name": "Tapered Pants",
+		"quality": 1,
+		"repFaction": null,
+		"repStanding": null,
+		"reqLevel": null,
+		"reqSkill": null,
+		"reqSkillRank": null,
+		"sources": [
+			{
+				"choice": true,
+				"from": [
+					"web"
+				],
+				"quest": 6,
+				"type": "quest"
+			}
+		],
+		"spell": null,
+		"status": null
+	},
+	"61": {
+		"id": 61,
+		"kind": "item",
+		"name": "Dwarven Leather Pants",
+		"quality": 1,
+		"repFaction": null,
+		"repStanding": null,
+		"reqLevel": null,
+		"reqSkill": null,
+		"reqSkillRank": null,
+		"sources": [
+			{
+				"choice": true,
+				"from": [
+					"web"
+				],
+				"quest": 183,
+				"type": "quest"
+			}
+		],
+		"spell": null,
+		"status": null
+	},
+	"85": {
+		"id": 85,
+		"kind": "item",
+		"name": "Dirty Leather Vest",
+		"quality": 1,
+		"repFaction": null,
+		"repStanding": null,
+		"reqLevel": 1,
+		"reqSkill": null,
+		"reqSkillRank": null,
+		"sources": [
+			{
+				"cost": 62,
+				"from": [
+					"questie",
+					"pfquest"
+				],
+				"npc": 2113,
+				"type": "vendor"
+			},
+			{
+				"cost": 62,
+				"from": [
+					"questie",
+					"pfquest"
+				],
+				"npc": 3074,
+				"type": "vendor"
+			},
+			{
+				"cost": 62,
+				"from": [
+					"questie",
+					"pfquest"
+				],
+				"npc": 3160,
+				"type": "vendor"
+			},
+			{
+				"cost": 62,
+				"from": [
+					"questie",
+					"pfquest"
+				],
+				"npc": 4558,
+				"type": "vendor"
+			}
+		],
+		"spell": null,
+		"status": null
+	}
+}
