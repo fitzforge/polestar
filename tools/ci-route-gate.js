@@ -168,7 +168,7 @@ function main(argv) {
 		process.stdout.write(text);
 	};
 	if (cmd === 'chain' && rest.length === 2) {
-		console.log(chain(rest[0], readLines(rest[1])).join('\n'));
+		for (const id of chain(rest[0], readLines(rest[1]))) console.log(id);
 		return 0;
 	}
 	if (cmd === 'removals' && rest.length === 2) {
