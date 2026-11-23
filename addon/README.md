@@ -97,6 +97,7 @@ never in saved variables.
 | `Gather.lua` | `Gather` | While you're here's gathering spots: where each herb, ore vein and fishing pool the character gathers can spawn, the minimap's tracking and the Interact Key's pick |
 | `GatherData.lua` | (registers data) | Generated: each gathering node kind's spots and the skill it asks |
 | `ClassTrainers.lua` | (registers data) | Generated: one class trainer per town and class, for the class-training reminder |
+| `ProfessionTrainers.lua` | `ProfessionTrainers` | Which of a profession's trainers teaches the character's next rank and accepts their skill, from the Codex's rank lists (#3784); Nearby services and Lookup choose by it |
 | `Automation.lua` | `Automation` | Accepts and turns in the quests the guide wants right now |
 | `Closes.lua` | `Closes` | Quests that taking another one closes for good: a breadcrumb once its quest is taken, the rest of an exclusive group |
 | `Unlocks.lua` | `Unlocks` | What doing a quest opens up (the quests that need it, its follow-ups), for the guide window's quest tooltips |
