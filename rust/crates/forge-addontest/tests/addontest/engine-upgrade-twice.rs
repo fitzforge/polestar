@@ -162,6 +162,8 @@ fn a_pack_update_keeps_a_loch_modan_save_where_it_was() {
 		login: false,
 		script: r#"
 Polestar.Guides.Pack("guides").version = "0.3.7"
+-- The recorded player played with Skip grey quests off, the default before 0.4.3 (the save is their character's alone).
+Polestar.Set("behavior.skipGrey", false)
 stub.login(); stub.advance(0.25)
 stub.fire("QUEST_LOG_UPDATE"); stub.advance(11)
 local E = Polestar.Engine

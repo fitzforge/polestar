@@ -388,7 +388,7 @@ fn grey_session(saved: Option<&str>, script: &str) -> Value {
 }
 
 const GREY: &str = r#"local P = Polestar.Profiles
-local function stored(t) return type(t) == "table" and type(t.behavior) == "table" and t.behavior.skipGrey end
+local function stored(t) if type(t) == "table" and type(t.behavior) == "table" then return t.behavior.skipGrey end end
 local function report(extra)
 	local out = { on = Polestar.Get("behavior.skipGrey"), default = Polestar.GetDefault("behavior.skipGrey"),
 		newAccount = Polestar.IsNewAccount(), newCharacter = Polestar.IsNewCharacter(),
