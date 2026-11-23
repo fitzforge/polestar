@@ -1269,9 +1269,8 @@ fn recorded_areas(data: &Data, goal: &V, sources: &[V], known: &[V], map: &V, f:
 		let w = crate::heights::world_point(data, &obj! { "map" => map.clone(), "x" => r.x, "y" => r.y, "f" => f.clone() }.into());
 		w.truthy() && givers.iter().any(|&(gx, gy)| hypot(w.get("wx").num() - gx, w.get("wy").num() - gy) <= radius(r) + GIVER_YARDS)
 	};
-	let sourced = |r: &Spot| {
-		goal.get("t").as_str() != Some("collect") || pts.is_empty() || pts.iter().any(|p| distance(data, map, px(p), py(p), r.x, r.y) <= radius(r) + RECORDED_MISS_YARDS) || !at_giver(r)
-	};
+	let sourced =
+		|r: &Spot| goal.get("t").as_str() != Some("collect") || pts.is_empty() || pts.iter().any(|p| distance(data, map, px(p), py(p), r.x, r.y) <= radius(r) + RECORDED_MISS_YARDS) || !at_giver(r);
 	for (i, r) in rec.iter().enumerate() {
 		if !region.contains(&i) && !had.iter().any(|s| overlaps(r, s)) && sourced(r) {
 			alts.push(area(r, true));
@@ -3201,8 +3200,7 @@ fn resolve_goal(g: &V, zone_map: &V, prev: &V, r: &mut R, ctx: &Ctx) -> V {
 					let maps_of = |s: &V| -> Vec<V> { data.spawns("npc", &s.get("id")).iter().map(|sp| sp.get("map")).collect() };
 					let known = srcs.iter().filter(|s| num(s, "chance") > 0.0).count();
 					let only = !srcs.is_empty()
-						&& srcs.len() <= 2
-						&& cands.len() == srcs.len()
+						&& srcs.len() <= 2 && cands.len() == srcs.len()
 						&& srcs.iter().all(|s| s.get("kind").as_str() == Some("npc"))
 						&& vendors_of(&it).is_empty()
 						&& (known == 0 || known == srcs.len())
