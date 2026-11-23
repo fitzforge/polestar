@@ -8307,7 +8307,7 @@ Polestar.Lookup.AcceptPre(goal, quest) -> goal         -- the accept with the qu
   true, slot is raw InventoryType (0..34), class is a Gear class file
   token, and stat is a raw code requiring presence. Absent fields are
   unrestricted. Active predicates require a known value for their own
-  field. Category scopes Items, and the drawer predicates apply to all
+  field. Category scopes Items, and Search supports the other predicates for all
   five item-backed kinds. `ClassEligible` uses the mask and trainable
   armor and weapon proficiencies, returning nil if eligibility cannot
   be established and a second result indicating whether item type
@@ -8331,13 +8331,16 @@ Polestar.Lookup.AcceptPre(goal, quest) -> goal         -- the accept with the qu
   Query uses `baseOrder` (default `"best"`) and Browse uses A to Z.
 - **Lookup controls** (`UI/Lookup.lua`). Items expands to selectable
   classes and subclasses with counts from `categoryTotals`. The
-  Filters drawer holds the two level ranges, class, rarity, slot, Stat
-  and availability controls. The chip strip shows and removes active
-  filters, and drawer item filters save to
-  `CharState().ui.lookupItemFilters`. The order menu offers Most with a
-  separate stat picker. Item details show type, levels, rarity, usable
-  classes, slot, category and Stats, with source labels or tooltips
-  where known. Packs without a supported filter column keep the flat
+  Filters drawer holds the two level ranges, class, rarity and availability
+  controls. Items and Everything also offer the Slot and Stat filters and
+  the Most order with a separate stat picker. Mounts, Pets, Recipes and
+  Tabards use the base sort for search and A to Z for browse. They omit
+  Slot and Stat from both the drawer and the results' filter predicates.
+  Returning to Items or Everything reapplies the stat order and filters.
+  The chip strip shows and removes active filters, and drawer item filters
+  save to `CharState().ui.lookupItemFilters`. Item details show type, levels,
+  rarity, usable classes, slot, category and Stats, with source labels or
+  tooltips where known. Packs without a supported filter column keep the flat
   sidebar, availability controls and legacy details.
   Usable by and Slot use stock dropdown choices, including Slot's disabled
   group headings. Filter and sort menus align to the right edge of their

@@ -573,12 +573,17 @@ function LK.ClearItemFilters()
 	return LK.SetItemFilters({})
 end
 
+local function gearKind(k)
+	return k == "item" or k == "all"
+end
+
 -- Adapt the normalized saved shape to Search's predicates.
-function LK.SearchFilters(saved, category)
+function LK.SearchFilters(saved, category, viewKind)
 	if type(saved) ~= "table" then saved = {} end
+	local gear = viewKind == nil or gearKind(viewKind)
 	local filters = {
 		reqMin = saved.reqMin, reqMax = saved.reqMax, ilvlMin = saved.ilvlMin, ilvlMax = saved.ilvlMax,
-		slot = saved.slot, class = saved.class, stat = saved.stat, category = category,
+		slot = gear and saved.slot or nil, class = saved.class, stat = gear and saved.stat or nil, category = category,
 	}
 	if saved.quality and #saved.quality > 0 then
 		filters.quality = {}
@@ -1879,7 +1884,7 @@ local function mostAvailable()
 end
 
 local function effectiveOrder()
-	if order == "most" and itemCapable() and mostAvailable() and not lookupOff() then return order end
+	if order == "most" and gearKind(kind) and mostAvailable() and not lookupOff() then return order end
 	return query == "" and "az" or baseOrder
 end
 
@@ -1888,7 +1893,7 @@ local function listOptions(saved)
 		subtitles = false,
 		ids = true,
 		categoryTotals = true,
-		filters = LK.SearchFilters(saved, category),
+		filters = LK.SearchFilters(saved, category, kind),
 		hideRetired = ns.Get("lookup.hideRetired"),
 		hideNoSource = ns.Get("lookup.hideNoSource"),
 		order = effectiveOrder(), baseOrder = baseOrder, sortStat = sortStat,
@@ -2201,7 +2206,7 @@ end
 
 local function directOutsideFilters(c, s)
 	local retired, noSource = ns.Get("lookup.hideRetired"), ns.Get("lookup.hideNoSource")
-	local filters = c.filterData and LK.SearchFilters(c.saved, category)
+	local filters = c.filterData and LK.SearchFilters(c.saved, category, kind)
 	if not (retired or noSource or filters) then return false end
 	local idQuery, only = "#" .. s.id, { [s.kind] = true }
 	local _, counts = search(idQuery, only, { ids = true, limit = 0, filters = filters, hideRetired = retired, hideNoSource = noSource })
@@ -2464,7 +2469,7 @@ local function orderMenu(button)
 	end
 	if query ~= "" then addChoice("best") end
 	addChoice("az")
-	if itemCapable() and current().filterData and mostAvailable() then
+	if gearKind(kind) and current().filterData and mostAvailable() then
 		local code = sortStat or LK.ItemFilters().stat
 		if code then
 			items[#items + 1] = { text = mostLabel(code), checked = selected == "most",
@@ -2488,6 +2493,7 @@ local function setKind(k, node, categoryCommit)
 	categoryCommit = categoryCommit or category ~= nil
 	if categoryCommit then flushPending() end
 	if categoryCommit and not changed and node == category then stale() end
+	if root and gearKind(kind) ~= gearKind(k) and W.MenuShown(root.SearchOrder) then W.HideMenu() end
 	kind, category = k, node
 	if root and root:IsVisible() then
 		W.ScrollTo(results, 0)
@@ -2794,13 +2800,15 @@ local function installFilterChrome()
 		group:SetPoint("TOPLEFT", group:GetParent(), "TOPLEFT", 0, -top)
 		local y = 0
 		for _, line in ipairs(group.Rows) do
-			local width, height = group:GetWidth() / #line, 0
-			for i, row in ipairs(line) do
-				row:SetPoint("TOPLEFT", group.Panel, "TOPLEFT", (i - 1) * width, -y)
-				height = max(height, W.LayoutRow(row, width))
+			if line[1]:IsShown() then
+				local width, height = group:GetWidth() / #line, 0
+				for i, row in ipairs(line) do
+					row:SetPoint("TOPLEFT", group.Panel, "TOPLEFT", (i - 1) * width, -y)
+					height = max(height, W.LayoutRow(row, width))
+				end
+				for _, row in ipairs(line) do row:SetHeight(height) end
+				y = y + height
 			end
-			for _, row in ipairs(line) do row:SetHeight(height) end
-			y = y + height
 		end
 		group.Panel:SetHeight(y)
 		group:SetHeight(group.Header:GetHeight() + y)
@@ -2895,6 +2903,9 @@ local function installFilterChrome()
 		local height = 0
 		if showItems then
 			item = item or makeItemControls(drawer)
+			local showGear = gearKind(kind)
+			item.Slot:GetParent():SetShown(showGear)
+			item.Stat:GetParent():SetShown(showGear)
 			paintRange(item.Required, c.saved)
 			paintRange(item.Level, c.saved)
 			for _, button in ipairs(item.Dropdowns) do button:GetParent():Refresh() end
@@ -2929,7 +2940,8 @@ local function installFilterChrome()
 		if itemControls(c) then
 			local saved = c.saved
 			count = count + ((saved.reqMin or saved.reqMax) and 1 or 0) + ((saved.ilvlMin or saved.ilvlMax) and 1 or 0)
-				+ (saved.class and 1 or 0) + (saved.quality and 1 or 0) + (saved.slot and 1 or 0) + (saved.stat and 1 or 0)
+				+ (saved.class and 1 or 0) + (saved.quality and 1 or 0)
+			if gearKind(kind) then count = count + (saved.slot and 1 or 0) + (saved.stat and 1 or 0) end
 		end
 		for _, choice in ipairs(VISIBILITY_CHOICES) do
 			if ns.Get(choice.path) then count = count + 1 end

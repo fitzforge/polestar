@@ -2,9 +2,11 @@
 section: players
 ---
 - Browse items by type in the Lookup sidebar. Click a selected branch to
-  fold or unfold it. Use Sort by above the results to order items by the
-  amount of a chosen stat. Open Filters beside it to
-  filter by required level, item level, class, rarity, slot and stat. Class
+  fold or unfold it. In Items and Everything, use Sort by to order results
+  by the amount of a chosen stat and use Filters to narrow by slot or stat.
+  Mounts, Pets, Recipes and Tabards use the normal sort and keep the required
+  level, item level, Usable by and rarity filters. Returning to Items or
+  Everything reapplies your stat sort and your Slot and Stat filters. Class
   and rarity choices show their colours. Availability switches let you hide
   entries that are no longer obtainable or have no known source.
   Filter and sort menus line up with their buttons and widen to fit their choices.

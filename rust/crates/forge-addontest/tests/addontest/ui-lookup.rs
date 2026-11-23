@@ -2053,6 +2053,66 @@ fn lookup_most_draws_all_buckets_and_pages_in_preview_order_with_an_independent_
 }
 
 #[test]
+fn lookup_gear_sort_and_filters_suspend_outside_items_and_all() {
+	let out = run_packed_lookup(
+		&json!({ "items": {
+			"71": { "name": "Trial Axe", "quality": 3, "slot": 13, "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 1, "31": 0 } },
+			"72": { "name": "Trial Sword", "quality": 3, "slot": 13, "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 10, "31": 0 } },
+			"73": { "name": "Trial Mace", "quality": 3, "slot": 13, "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 100 } },
+			"74": { "name": "Trial Shield", "quality": 3, "slot": 14, "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 100, "31": 0 } },
+			"75": { "name": "Trial A Steed", "kind": "mount", "quality": 3, "slot": 0, "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 1 } },
+			"76": { "name": "Trial Z Steed", "kind": "mount", "quality": 3, "slot": 0, "levelsSource": "client", "statAmountSource": "client", "stats": { "7": 100 } },
+			"77": { "name": "Trial B Steed", "kind": "mount", "quality": 4, "slot": 0 }
+		} }),
+		r#"
+		LK.SetItemFilters({ quality = { 3 }, slot = 13, stat = 31 })
+		UI.ShowLookup({ query = "trial" })
+		LK.SetKind("item")
+		local order, filters, list = LK.root.SearchOrder, LK.root.Visibility, LK.results.Child
+		assert(choose(order, "A to Z"))
+		assert(choose(order, "Choose a stat…"))
+		local box = PolestarMenu.Filter
+		box:SetText("stamina")
+		stub.RunScript(box, "OnTextChanged", true)
+		stub.RunScript(box, "OnEnterPressed")
+		filters:Click()
+		local drawer = LK.root.FilterDrawer
+		local item, fullHeight = drawer.Item, drawer:GetHeight()
+		local slot, stat = item.Slot:GetParent(), item.Stat:GetParent()
+		local gearHeight = slot:GetHeight() + stat:GetHeight()
+		assert(order.Label:GetText() == "Most Stamina" and LK.shown.rows == 2 and rowTexts(list)[1] == "Trial Sword")
+		assert(slot:IsVisible() and stat:IsVisible() and filters.Label:GetText() == "Filters (3)")
+
+		order:Click()
+		LK.SetKind("mount")
+		assert(order.Label:GetText() == "A to Z" and LK.Order() == "most", "Mounts uses the base order")
+		assert(not PolestarMenu:IsShown(), "the menu from Items closes on switching scope")
+		order:Click()
+		assert(menuChoice("Best match") and menuChoice("A to Z"))
+		assert(not menuChoice("Most Stamina") and not menuChoice("Choose a stat…"))
+		Polestar.Widgets.HideMenu()
+		assert(not slot:IsShown() and not stat:IsShown() and drawer:GetHeight() == fullHeight - gearHeight)
+		assert(item.Required:IsVisible() and item.Level:IsVisible() and item.Class:IsVisible() and item.Rarity:IsVisible())
+		assert(filters.Label:GetText() == "Filters (1)" and LK.shown.rows == 2 and rowTexts(list)[1] == "Trial A Steed")
+		assert(LK.ItemFilters().slot == 13 and LK.ItemFilters().stat == 31)
+		type_("")
+		assert(order.Label:GetText() == "A to Z" and LK.shown.rows == 2 and rowTexts(list)[1] == "Trial A Steed")
+		type_("trial"); stub.advance(0.3)
+
+		LK.SetKind("all")
+		assert(order.Label:GetText() == "Most Stamina" and LK.shown.rows == 2 and rowTexts(list)[1] == "Trial Sword")
+		assert(slot:IsVisible() and stat:IsVisible() and drawer:GetHeight() == fullHeight)
+		LK.SetKind("item")
+		assert(order.Label:GetText() == "Most Stamina" and LK.shown.rows == 2 and rowTexts(list)[1] == "Trial Sword")
+		assert(item.Slot.Label:GetText() == "One-hand" and item.Stat.Label:GetText() == "Hit")
+		assert(filters.Label:GetText() == "Filters (3)")
+		emit(true)
+		"#,
+	);
+	assert_eq!(out, json!(true));
+}
+
+#[test]
 fn lookup_exact_ids_and_most_order_lifetime() {
 	let out = run_packed_lookup(
 		&json!({ "items": {
