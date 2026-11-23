@@ -138,28 +138,30 @@ return {
 	["Theramore"] = "Остров Терамор",
 	-- {npc:4944} Captain Garran Vimes
 	["{npc:4944}, on the top floor"] = "",
+
+	-- Step 31: Morgan Stern
 	-- {npc:4794} Morgan Stern
 	["{npc:4794}, inside"] = "{npc:4794}, внутри",
 
-	-- Step 31: Mudsprocket
+	-- Step 32: Mudsprocket
 	["Mudsprocket"] = "Шестермуть",
 	-- {area:511} Wyrmbog · {npc:270723} Drazzit Dripvalve · {npc:270727} Gizzix Grimegurgle
 	["Take the road south-west out of Theramore to Mudsprocket, the goblin camp at the edge of the {area:511}. {npc:270723} and {npc:270727} stand together in the camp."] = "Езжайте по дороге на юго-запад из Терамора в Шестермуть, лагерь гоблинов на краю места {area:511}. {npc:270723} и {npc:270727} стоят вместе в лагере.",
 
-	-- Step 32: The Wyrmbog
+	-- Step 33: The Wyrmbog
 	-- {area:511} Wyrmbog
 	["The {area:511}"] = "{area:511}",
 	-- {item:280092} Wyrmtail
 	-- plural, as words: Searing Hatchlings = {npc:4323} Searing Hatchling · Firemane Scalebanes = {npc:4328} Firemane Scalebane
 	["The {item:280092} grows in the bog east of the camp: gather it first. Then the Searing Hatchlings and Whelps (41-43) and the Firemane dragonkin nest in the bog north and west of Mudsprocket, on the way back; all of them drop the shed scales.\nCareful: the Firemane Scalebanes and Flamecallers are 43-44 and cast fire: pull them one at a time."] = "{item:280092} растет в болоте к востоку от лагеря: сначала соберите его. Затем опаляющие малыши дракона и дракончики (41-43) и драконы Огнегривых гнездятся в болоте к северу и западу от Шестермути, на обратном пути; все они роняют сброшенную чешую.\nОсторожно: огнегривые чешуйчатые губители и призыватели огня 43-44 уровня и колдуют огонь: подманивайте их по одному.",
 
-	-- Step 33: Mudsprocket
+	-- Step 34: Mudsprocket
 	["Then ride back north-east to Theramore's flight master."] = "Затем езжайте обратно на северо-восток к распорядителю полетов Терамора.",
 
-	-- Step 34: Theramore flight master
+	-- Step 35: Theramore flight master
 	["Theramore flight master"] = "Распорядитель полетов: Терамор",
 
-	-- Step 36: Warlock: Summon Felsteed
+	-- Step 37: Warlock: Summon Felsteed
 	-- {quest:3631} Summon Felsteed
 	["Warlock: {quest:3631}"] = "Чернокнижник: {quest:3631}",
 	-- {zone:1413} Barrens · {area:392} Ratchet · {npc:6251} Strahad Farsan

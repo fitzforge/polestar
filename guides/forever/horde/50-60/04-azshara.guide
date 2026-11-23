@@ -42,7 +42,7 @@ step Fly to Orgrimmar
 
 step Jes'rimon
   zone Orgrimmar
-  when onquest 4300
+  when complete 4300
   turnin 4300                         -- Jes'rimon, the Cleft of Shadow
 
 step Orgrimmar
@@ -102,8 +102,13 @@ step Zeppelin to Undercity
 
 step Chemist Cuely
   zone Undercity
-  tip Chemist Cuely and Thersa Windsong work in the Apothecarium.
+  when complete 3568
+  tip Chemist Cuely works in the Apothecarium.
   turnin 3568                         -- Chemist Cuely
+
+step Chemist Cuely
+  zone Undercity
+  tip Chemist Cuely and Thersa Windsong work in the Apothecarium.
   accept 3569
   turnin 3569                         -- Thersa Windsong, beside him
   turnin 3570 direct

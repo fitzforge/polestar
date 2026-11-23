@@ -31,7 +31,11 @@ pub const SKIN_ADDONS: &[&str] = &[
 	"Polestar_Skin_Waymark",
 	"Polestar_Skin_Lanterns",
 	"Polestar_Skin_Sheen",
+	"Polestar_Skin_Atlas",
 ];
+/// The guide window's other tab styles (title menu, top edge, side strip) and its layouts (Skin API 2: Atlas),
+/// each loaded on demand when the player picks it; shipped when present (committed), after the skins.
+pub const LAYOUT_ADDONS: &[&str] = &["Polestar_TabStyles", "Polestar_Layout_Atlas"];
 
 /// The generated data addons, shipped when built: the quest and item databases, the Codex, then the
 /// language folders `Polestar_<locale>` (our guides' texts and the game's names in each language).
@@ -59,7 +63,7 @@ pub const NAV_PARTS: [&str; 2] = ["Polestar_Nav_EK", "Polestar_Nav_Kalimdor"];
 /// The release's folders: the six always shipped, Freedoom Arcade's folder when there, the walking maps' part
 /// addons when written, our guides' faction parts and race parts once built, Polestar's own extra packs once built (Polestar_Experimental:
 /// loaded on demand, once a player switches it on), the data addons that are built (our guides' texts are in
-/// the language folders), then the skin addons.
+/// the language folders), then the skin addons, then the tab styles and layouts.
 pub fn release_addons(addons: &Path) -> Result<Release, String> {
 	let guides = forge_guide::project::OWN_FOLDER;
 	let factions = forge_guide::project::FACTION_PARTS.iter().map(|f| forge_guide::project::part_addon(guides, f));
@@ -73,6 +77,7 @@ pub fn release_addons(addons: &Path) -> Result<Release, String> {
 	names.extend(forge_guide::project::OWN_EXTRAS.iter().map(|e| e.folder.to_string()).filter(|n| has_toc(addons, n)));
 	names.extend(data);
 	names.extend(SKIN_ADDONS.iter().map(|s| s.to_string()).filter(|n| has_toc(addons, n)));
+	names.extend(LAYOUT_ADDONS.iter().map(|s| s.to_string()).filter(|n| has_toc(addons, n)));
 	Ok(Release { names, skipped })
 }
 
@@ -250,6 +255,23 @@ mod tests {
 		let at = |n: &str| names.iter().position(|x| x == n).unwrap();
 		assert_eq!(at(TETRIS), at(ARCADE) + 1);
 		assert!(at(TETRIS) < at("Polestar_Nav_EK"));
+	}
+
+	// The tab styles and the Atlas layout ship when they are there (they are committed), after the skins, Atlas's
+	// skin among them.
+	#[test]
+	fn the_tab_styles_and_layouts_ship_after_the_skins_when_they_are_there() {
+		let root = tmp("layouts");
+		for n in ["Polestar", "Polestar_Skin_Sheen", "Polestar_Skin_Atlas"] {
+			addon(&root, n);
+		}
+		assert!(!release_addons(&root).unwrap().names.iter().any(|n| LAYOUT_ADDONS.contains(&n.as_str())));
+		for n in LAYOUT_ADDONS {
+			addon(&root, n);
+		}
+		let names = release_addons(&root).unwrap().names;
+		let tail: Vec<&str> = names.iter().rev().take(4).rev().map(|s| s.as_str()).collect();
+		assert_eq!(tail, ["Polestar_Skin_Sheen", "Polestar_Skin_Atlas", "Polestar_TabStyles", "Polestar_Layout_Atlas"]);
 	}
 
 	#[test]

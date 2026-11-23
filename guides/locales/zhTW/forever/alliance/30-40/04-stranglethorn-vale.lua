@@ -197,8 +197,8 @@ return {
 	["Warlocks fly to {area:415} for the {quest:1738}, on the way west."] = "術士在往西途中飛往{area:415}處理{quest:1738}。",
 
 	-- Step 30: Heartswood
-	-- {area:415} Astranaar · {quest:1738} Heartswood · {area:413} Maestra's Post · {quest:65602} What Is Love? · {item:190309} Wooden Figurine
-	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then take the road west to Stonetalon."] = "從{area:415}向西北進入丘陵：{quest:1738}是通往{area:413}道路北側的一棵發光樹。如果你接了{quest:65602}，{item:190309}就在{area:413}以北樹林中的一座房子裡（26.6,22.0）。然後沿路向西去石爪山脈。",
+	-- {area:415} Astranaar · {quest:1738} Heartswood · {area:413} Maestra's Post · {quest:65602} What Is Love? · {item:190309} Wooden Figurine · {item:190307} Unlit Torch
+	["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0): light the {item:190307} from the table outside at a campfire and throw it onto the archaeologist's cart outside the house, which draws the figure in the house away so you can take the figurine upstairs. Then take the road west to Stonetalon."] = "",
 	-- {item:190309} Wooden Figurine · {area:413} Maestra's Post
 	["{item:190309}, north of {area:413}"] = "{item:190309}，在{area:413}北邊",
 
@@ -219,6 +219,7 @@ return {
 	-- ["Follow the west coast north; the haunted island lies off the shore west of Nesingwary's camp. Just reach it."] = "沿西海岸向北；鬧鬼的島在奈辛瓦里營地西邊的外海。只要到達那裡即可。",
 	-- ["For Archmage Ansirem in {zone:1416}"] = "給{zone:1416}的大法師安斯雷姆·魯因維沃爾",
 	-- ["From {area:108} the way leads south out of {zone:1436} into Stranglethorn's north-west, to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach its edge. Careful: its Lesser Water Elementals are 36-37: don't stay. The Bloodscalp ruins of Zul'Kunda to the north wait for the second Stranglethorn loop."] = "從{area:108}向南離開{zone:1436}，進入荊棘谷西北部，前往海岸附近的{area:310}；周圍的晶背蜥蜴會掉落碎片。\n鬧鬼的小島就在礦坑西南方的海岸外：只要到達島的邊緣即可。注意：島上的次級水元素是36-37級：別久留。北邊祖昆達的血頂廢墟留到荊棘谷第二趟路線。",
+	-- ["From {area:415} head north-west into the hills: the {quest:1738} is a glowing tree north of the road to {area:413}. If you took {quest:65602}, the {item:190309} lies in a house among the trees north of {area:413} (26.6,22.0). Then take the road west to Stonetalon."] = "從{area:415}向西北進入丘陵：{quest:1738}是通往{area:413}道路北側的一棵發光樹。如果你接了{quest:65602}，{item:190309}就在{area:413}以北樹林中的一座房子裡（26.6,22.0）。然後沿路向西去石爪山脈。",
 	-- ["From {zone:1431} take the road south into Stranglethorn; the hunters' tents stand just west of the road past the {area:99} turn-off."] = "從{zone:1431}沿道路向南進入荊棘谷；獵人的帳篷就在過了{area:99}岔路後的道路西邊。",
 	-- ["Gluggle, a rare murloc on the coast west of camp, drops the {item:4614}: take it if you meet him"] = "戈魯格爾是營地西邊海岸上的稀有魚人，會掉落{item:4614}：遇到就拿",
 	-- ["Headshrinkers stand deeper in the compound; the Commandos lurk stealthed around it and in the cave. Pick up Green Hills pages as they drop."] = "庫爾森精神醫師站在營地更深處；庫爾森特種兵潛行埋伏在營地周圍和洞穴中。掉落的荊棘谷的青山書頁都撿起來。",

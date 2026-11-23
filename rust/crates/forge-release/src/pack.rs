@@ -40,6 +40,18 @@ pub fn readme(version: &str, names: &[String]) -> String {
 		.iter()
 		.map(|s| s.to_string()),
 	);
+	if names.iter().any(|n| crate::addons::LAYOUT_ADDONS.contains(&n.as_str())) {
+		lines.extend(
+			[
+				"   Polestar_TabStyles holds the guide window's other tab styles, and",
+				"   the Polestar_Layout_ folders are layouts for the guide window",
+				"   (Atlas: the step on a timeline); each loads only when you pick it",
+				"   under Settings > Guide window.",
+			]
+			.iter()
+			.map(|s| s.to_string()),
+		);
+	}
 	if names.iter().any(|n| n == crate::addons::ARCADE) {
 		lines.extend(
 			[

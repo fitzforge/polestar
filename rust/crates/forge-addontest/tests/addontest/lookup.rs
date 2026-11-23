@@ -893,6 +893,9 @@ fn translated_search_keeps_only_the_extra_names_and_ranks_them_with_english() {
 			end
 			error("retained Lua heap did not settle")
 		end
+		-- Lua 5.1's string table doubles when full and a full collect halves it only while it is under a quarter
+		-- full: grown first, a resize the query's short-lived strings set off is not counted as kept.
+		do local t = {} for i = 1, 100000 do t[i] = "\3" .. i end end
 		local before = retainedKiB()
 		ready = true
 		Polestar.Search.Query("unmatched", opts)

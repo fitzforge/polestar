@@ -109,9 +109,9 @@ return {
 	-- Step 21: Kuramaa
 	-- {object:660848} Kuramaa's Stump (no name in this language: may be words) · {area:16638} Valanaar · {npc:268605} Kuramaa · {spell:8050} Flame Shock
 	-- plural, as words: Windsong Crawlers = {npc:254588} Windsong Crawler
-	["{object:660848} is the twisted stump on the hilltop by the Shen'dar Highlands Anchor Pylon, west of {area:16638}, in the hills south of the Windsong Crawlers' lakes. Knock on it to call {npc:268605} (level 10). The spirit shrugs off most magic: only fire hurts it, so keep {spell:8050} on it. Take its wooden mask."] = "{object:660848}是申达尔高地锚点水晶塔旁山顶上的扭曲树桩，在{area:16638}西面、风歌爬行者所在湖泊以南的山丘中。敲击它即可召出{npc:268605}（10级）。该灵体几乎不受魔法影响：只有火焰能伤到它，所以持续保持{spell:8050}。取走它的木制面具。",
+	["{object:660848} is the twisted stump on the hilltop by the Shen'dar Highlands Anchor Pylon, west of {area:16638}, in the hills south of the Windsong Crawlers' lakes. Knock on it to call {npc:268605} (level 10). The spirit shrugs off most magic: only fire hurts it, so keep {spell:8050} on it. Take its wooden mask."] = "库拉玛的树桩是申达尔高地锚点水晶塔旁山顶上的扭曲树桩，在{area:16638}西面、风歌爬行者所在湖泊以南的山丘中。敲击它即可召出{npc:268605}（10级）。该灵体几乎不受魔法影响：只有火焰能伤到它，所以持续保持{spell:8050}。取走它的木制面具。",
 	-- {object:660848} Kuramaa's Stump (no name in this language: may be words)
-	["{object:660848}: knock on the bark"] = "{object:660848}：敲击树皮",
+	["{object:660848}: knock on the bark"] = "库拉玛的树桩：敲击树皮",
 
 	-- Step 22: The Eternal Flame
 	-- {object:148418} Eternal Flame

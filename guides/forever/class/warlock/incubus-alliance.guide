@@ -68,7 +68,7 @@ step Heartswood
   collect 6912 quest 1738.1           -- Heartswood
 
 step The Wooden Figurine
-  tip The house stands alone in the trees of north-western Ashenvale, north-west of Ordil'Aran and well north of Maestra's Post: do it on the same trip as the Heartswood. Take the Unlit Torch from the table outside, light it at a campfire (a Basic Campfire of your own, or Talen's fire on Zoram Strand), and go straight back: the Burning Torch burns out after five minutes, so a fire of your own beside the house is quickest. Without it the figure in the house stops you. The figurine is upstairs.
+  tip The house stands alone in the trees of north-western Ashenvale, north-west of Ordil'Aran and well north of Maestra's Post: do it on the same trip as the Heartswood. Take the Unlit Torch from the table outside, light it at a campfire (a Basic Campfire of your own, or Talen's fire on Zoram Strand), and go straight back: the Burning Torch burns out after five minutes, so a fire of your own beside the house is quickest. Throw the lit torch onto the archaeologist's cart outside the house: that draws the figure in the house away, and you take the figurine upstairs unseen.
   collect 190307 optional             -- Unlit Torch, on the table outside
   collect 190309 quest 65602.1        -- Wooden Figurine, upstairs
 
