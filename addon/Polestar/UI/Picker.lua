@@ -494,19 +494,56 @@ function P.Entries(q, cat)
 			label[g], key[g], fid[g] = folderOf(g, mine, fac[g])
 		end
 	end
+	-- Guides in one folder, on one side, at one first level are listed as they
+	-- are played: a guide that hands over to another comes before it (a race's
+	-- lead-in "(12)" before the shared "(12-16)"; Badlands, Shen'dralas, then
+	-- Feralas, all at 45), otherwise by id (leveling) or title. The order is a
+	-- rank worked out before the sort, so guides that hand over to each other
+	-- (a community pack's starting zones offering one another, #3817) still
+	-- give table.sort one consistent order.
+	local level, groups, rank = {}, {}, {}
+	for _, g in ipairs(picked) do
+		level[g] = G.Levels(g, mine) or 0
+		local k = key[g] .. "\0" .. rankOfFaction(fac[g], mine) .. "\0" .. level[g]
+		groups[k] = groups[k] or {}
+		table.insert(groups[k], g)
+	end
+	local function byName(a, b)
+		if categoryOf(a) == "Leveling" then return (a.id or "") < (b.id or "") end
+		if (a.title or "") ~= (b.title or "") then return (a.title or "") < (b.title or "") end
+		return (a.id or "") < (b.id or "")
+	end
+	for _, members in pairs(groups) do
+		table.sort(members, byName)
+		-- Each round places the first guide (by name) that no unplaced guide
+		-- hands over to; in a loop of hand-overs, the first by name.
+		local into = {}
+		for _, g in ipairs(members) do
+			into[g] = 0
+			for _, h in ipairs(members) do
+				if h ~= g and handsTo(h, g) then into[g] = into[g] + 1 end
+			end
+		end
+		for n = 1, #members do
+			local pick
+			for _, g in ipairs(members) do
+				if not rank[g] then
+					if into[g] == 0 then pick = g break end
+					pick = pick or g
+				end
+			end
+			rank[pick] = n
+			for _, g in ipairs(members) do
+				if g ~= pick and not rank[g] and handsTo(pick, g) then into[g] = into[g] - 1 end
+			end
+		end
+	end
 	table.sort(picked, function(a, b)
 		if key[a] ~= key[b] then return key[a] < key[b] end
 		local fa, fb = rankOfFaction(fac[a], mine), rankOfFaction(fac[b], mine)
 		if fa ~= fb then return fa < fb end
-		local la, lb = G.Levels(a, mine) or 0, G.Levels(b, mine) or 0
-		if la ~= lb then return la < lb end
-		-- Same first level: a guide that hands over to the other comes first,
-		-- as it is played (a race's lead-in "(12)" before the shared "(12-16)";
-		-- Badlands, Shen'dralas, then Feralas, all at 45).
-		if handsTo(a, b) then return true end
-		if handsTo(b, a) then return false end
-		if categoryOf(a) == "Leveling" then return (a.id or "") < (b.id or "") end
-		return (a.title or "") < (b.title or "")
+		if level[a] ~= level[b] then return level[a] < level[b] end
+		return rank[a] < rank[b]
 	end)
 	local titles = P.Titles(picked)
 	local out, folder = {}, nil

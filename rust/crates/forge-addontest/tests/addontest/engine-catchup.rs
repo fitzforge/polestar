@@ -1,4 +1,4 @@
-//! The catch-up, with "Skip grey quests" on (off by default): a character who already did part of the route
+//! The catch-up, with "Skip grey quests" on (the default since 0.4.2): a character who already did part of the route
 //! opens a leveling guide and it resumes where they are, as placement does, leaving out what is too low to be
 //! worth it: grey quests anywhere, quests paying less than full XP behind the last quest progress when they are
 //! a detour (#2620: Forever pays 100% to 5 levels over a quest, 80% at 6, 60% at 7, half from 8), the way to
