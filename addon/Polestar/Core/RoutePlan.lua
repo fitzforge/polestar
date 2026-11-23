@@ -667,3 +667,29 @@ end)
 ns.On("SETTING_CHANGED", function(path)
 	if path == "behavior.dungeons" or path == "behavior" or path == nil or path == "" then Plan.Invalidate() end
 end)
+
+-- CARRIED_CHANGED: the finished quests no open route hands in (Plan.Carried)
+-- are no longer the ones last read. They change with the quest log (a quest
+-- finished or handed in off the step) and with the plan, not only with a
+-- step: the guide window's "to hand in elsewhere" row follows them, so it
+-- and the list it opens give the same answer (#3568, #3410). Read at most
+-- once a second.
+local carriedSig, carriedQueued = false, false
+function Plan.CheckCarried()
+	carriedQueued = false
+	local list, ids = Plan.Carried(), {}
+	for i, c in ipairs(list or {}) do ids[i] = c.quest end
+	local sig = list and table.concat(ids, ",") or "?"
+	if sig == carriedSig then return end
+	carriedSig = sig
+	ns.Fire("CARRIED_CHANGED")
+end
+local function queueCarried()
+	if carriedQueued then return end
+	carriedQueued = true
+	ns.After(1, Plan.CheckCarried)
+end
+ns.RegisterEvent("QUEST_LOG_UPDATE", queueCarried)
+for _, event in ipairs({ "GUIDES_REGISTERED", "PACKS_CHANGED", "ROUTE_CHOSEN", "CODEX_LOADED", "DUNGEON_ANSWERED" }) do
+	ns.On(event, queueCarried)
+end
