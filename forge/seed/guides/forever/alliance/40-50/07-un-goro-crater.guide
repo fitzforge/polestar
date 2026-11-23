@@ -32,8 +32,6 @@ pitch For characters of 49 to 50, but most quests here are level 51-53: on purpo
 # and a Broken Pillar detour on 50-60/03, which keeps both steps for a character who arrives with the quest.
 
 step Fly to Menethil Harbor
-  zone Ironforge
-  goto 55.9,47.9 "Ironforge flight master"
   fly "Menethil Harbor"
   zone Wetlands
 
