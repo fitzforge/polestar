@@ -378,8 +378,8 @@ L["Comes back at level %d: %s"] = "Vuelve en el nivel %d: %s"
 L["Level %d: you can take %s now. Its giver is marked on your map; pick up the quests again to add it to the guide."] = "Nivel %d: ya puedes tomar %s. Quien la da está marcado en tu mapa; vuelve a recoger las misiones para agregarla a la guía."
 L["Leads to %s."] = "Lleva a %s."
 L["Needed for %s."] = "Hace falta para %s."
-L["Prerequisite quests: %d of %d steps, about %s."] = "Misiones previas: %d de %d pasos, unos %s."
 L["%s offers one of these a week: take it if it is this week's."] = "%s ofrece una de estas cada semana: acéptala si es la de esta semana."
+L["%d of this guide's %d steps are prerequisite quests (about %s)."] = "%d de los %d pasos de esta guía son misiones previas (unos %s)."
 
 -- Gear/Gear.lua
 L["big upgrade"] = "gran mejora"
@@ -5079,3 +5079,4 @@ L["Find what makes your game stutter: times Polestar's own work (on, off, report
 -- L["Underwater target — no verified walk"] = "Objetivo bajo el agua — sin caminata verificada"
 -- L["Waypoint %d yd below — navigate manually"] = "Punto de ruta %d yd más abajo — navega a mano"
 -- L["Opens the gate of the Horde's way into the City of Dalaran; one key opens it for the group. The Alliance walks in through the sewer pipe in Cantrips & Crows."] = "Abre la puerta del camino de la Horda hacia la Ciudad de Dalaran; una llave la abre para el grupo. La Alianza entra por la tubería de las alcantarillas en Cantrips & Crows."
+-- L["Prerequisite quests: %d of %d steps, about %s."] = "Misiones previas: %d de %d pasos, unos %s."

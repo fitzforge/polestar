@@ -2693,10 +2693,12 @@ emit({ steps = describe(def), notes = notes, accepts = accepts, groups = groups,
 		json!([false, false, false, false, false, "In your log already: “The Book of Ur”"]),
 		"the steps' own notes (their folded tips) keep only what they had; the entrance its own (#1591)"
 	);
+	// The count reads as the guide's makeup, never as progress: "Prerequisite quests: 7 of 10 steps" was read as
+	// "you are at step 7" (#2709).
 	let head = |v: &Value| {
 		let s = v.as_str().unwrap_or_default().to_string();
-		let rest = s.strip_prefix("Prerequisite quests: 3 of 6 steps, about ").unwrap_or_else(|| panic!("the count first: {s}"));
-		let (time, tail) = rest.split_once(". ").unwrap_or_else(|| panic!("then the time: {s}"));
+		let rest = s.strip_prefix("3 of this guide's 6 steps are prerequisite quests (about ").unwrap_or_else(|| panic!("the count first: {s}"));
+		let (time, tail) = rest.split_once("). ").unwrap_or_else(|| panic!("then the time: {s}"));
 		assert!(time.ends_with(" min") && time.split(' ').next().unwrap().parse::<u32>().is_ok_and(|m| m >= 5 && m % 5 == 0), "about whole 5 minutes: {s}");
 		tail.to_string()
 	};
