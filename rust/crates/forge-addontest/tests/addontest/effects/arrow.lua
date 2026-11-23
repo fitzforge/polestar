@@ -62,7 +62,8 @@ return {
 		["nav.arrowDistSize"] = function() return font(A.distText)[2] end,
 		["nav.arrowDistance"] = function() return A.distText:IsShown() end,
 		["nav.arrowDistColor"] = function() return textColour(A.distText) end,
-		["nav.distanceUnit"] = function() return A.distText:GetText() end,
+		-- Checked through the Arrow page's reference (its home is on Guide), which carries no choices: the other unit.
+		["nav.distanceUnit"] = { value = "metres", probe = function() return A.distText:GetText() end },
 		["nav.arrowLabelSize"] = function() return font(A.labelText)[2] end,
 		["nav.arrowLabelColor"] = function() return textColour(A.labelText) end,
 		["nav.arrowLabelWidth"] = function() return A.labelText:GetWidth() end,

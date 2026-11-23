@@ -138,28 +138,30 @@ return {
 	["Theramore"] = "Ilha Theramore",
 	-- {npc:4944} Captain Garran Vimes
 	["{npc:4944}, on the top floor"] = "{npc:4944}, no último andar",
+
+	-- Step 31: Morgan Stern
 	-- {npc:4794} Morgan Stern
 	["{npc:4794}, inside"] = "{npc:4794}, lá dentro",
 
-	-- Step 31: Mudsprocket
+	-- Step 32: Mudsprocket
 	["Mudsprocket"] = "Lamaroda",
 	-- {area:511} Wyrmbog · {npc:270723} Drazzit Dripvalve · {npc:270727} Gizzix Grimegurgle
 	["Take the road south-west out of Theramore to Mudsprocket, the goblin camp at the edge of the {area:511}. {npc:270723} and {npc:270727} stand together in the camp."] = "Pegue a estrada a sudoeste de Theramore até Lamaroda, o acampamento goblin na borda de {area:511}. {npc:270723} e {npc:270727} ficam juntos no acampamento.",
 
-	-- Step 32: The Wyrmbog
+	-- Step 33: The Wyrmbog
 	-- {area:511} Wyrmbog
 	["The {area:511}"] = "{area:511}",
 	-- {item:280092} Wyrmtail
 	-- plural, as words: Searing Hatchlings = {npc:4323} Searing Hatchling · Firemane Scalebanes = {npc:4328} Firemane Scalebane
 	["The {item:280092} grows in the bog east of the camp: gather it first. Then the Searing Hatchlings and Whelps (41-43) and the Firemane dragonkin nest in the bog north and west of Mudsprocket, on the way back; all of them drop the shed scales.\nCareful: the Firemane Scalebanes and Flamecallers are 43-44 and cast fire: pull them one at a time."] = "O {item:280092} cresce no pântano a leste do acampamento: colete-o primeiro. Depois, os Dragonetes Calcinantes e Filhotes (41-43) e os dragonetes Flamigrenha fazem ninho no pântano ao norte e a oeste de Lamaroda, no caminho de volta; todos derrubam as escamas soltas.\nCuidado: os Escamortes Flamigrenha e Invocadores de Chamas são 43-44 e lançam fogo: puxe um de cada vez.",
 
-	-- Step 33: Mudsprocket
+	-- Step 34: Mudsprocket
 	["Then ride back north-east to Theramore's flight master."] = "Depois volte a nordeste até o mestre de voo de Theramore.",
 
-	-- Step 34: Theramore flight master
+	-- Step 35: Theramore flight master
 	["Theramore flight master"] = "Mestre de voo de Theramore",
 
-	-- Step 36: Warlock: Summon Felsteed
+	-- Step 37: Warlock: Summon Felsteed
 	-- {quest:3631} Summon Felsteed
 	["Warlock: {quest:3631}"] = "Bruxo: {quest:3631}",
 	-- {zone:1413} Barrens · {area:392} Ratchet · {npc:6251} Strahad Farsan

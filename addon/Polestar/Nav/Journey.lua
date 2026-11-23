@@ -667,8 +667,8 @@ local function tomtomInstalled()
 	if not A then return false end
 	if A.IsAddOnLoaded and A.IsAddOnLoaded("TomTom") then return true end
 	if A.GetAddOnInfo then
-		local name, _, _, loadable = A.GetAddOnInfo("TomTom")
-		if name and loadable then return true end
+		local name, _, _, loadable, reason = A.GetAddOnInfo("TomTom")
+		if name and (loadable or reason == "DEMAND_LOADED") then return true end
 	end
 	return false
 end

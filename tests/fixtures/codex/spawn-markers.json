@@ -1,0 +1,30 @@
+{
+	"meta": { "schema": 1, "builtAt": "2026-01-01T00:00:00.000Z", "build": "1.60.1.70338", "sources": [{ "name": "synthetic fixture", "version": "1", "licence": "MIT" }], "counts": {} },
+	"quests": {
+		"100": { "id": 100, "title": "Wolves and Bears", "level": 5, "minLevel": 1, "faction": null, "races": null, "classes": null, "start": { "npc": [], "object": [], "item": [] }, "end": { "npc": [], "object": [] },
+			"objectives": [{ "type": "kill", "id": 1, "count": 8, "text": "Wolf" }, { "type": "item", "id": 50, "count": 5, "text": "Bear Pelt" }], "pre": [], "zone": 1429, "rewards": [], "choices": [], "preAny": [] },
+		"200": { "id": 200, "title": "Spiders", "level": 5, "minLevel": 1, "faction": null, "races": null, "classes": null, "start": { "npc": [], "object": [], "item": [] }, "end": { "npc": [], "object": [] },
+			"objectives": [{ "type": "kill", "id": 3, "count": 1, "text": "Spider" }], "pre": [], "zone": 1430, "rewards": [], "choices": [], "preAny": [] },
+		"400": { "id": 400, "title": "A letter", "level": 5, "minLevel": 1, "faction": null, "races": null, "classes": null, "start": { "npc": [], "object": [], "item": [] }, "end": { "npc": [], "object": [] },
+			"objectives": [], "pre": [], "zone": 1429, "rewards": [], "choices": [], "preAny": [] },
+		"500": { "id": 500, "title": "Dry Branches", "level": 5, "minLevel": 1, "faction": null, "races": null, "classes": null, "start": { "npc": [], "object": [], "item": [] }, "end": { "npc": [], "object": [] },
+			"objectives": [{ "type": "item", "id": 60, "count": 2, "text": "Dry Branch" }], "pre": [], "zone": 1429, "rewards": [], "choices": [], "preAny": [] }
+	},
+	"npcs": {
+		"1": { "id": 1, "name": "Wolf", "level": 5, "levelMax": null, "faction": null, "rare": false, "elite": false, "boss": false, "instance": null, "roles": [], "loot": [],
+			"spawns": [{ "map": 1429, "x": 10, "y": 10 }, { "map": 1429, "x": 20, "y": 20 }] },
+		"2": { "id": 2, "name": "Bear", "level": 5, "levelMax": null, "faction": null, "rare": false, "elite": false, "boss": false, "instance": null, "roles": [], "loot": [],
+			"spawns": [{ "map": 1429, "x": 30, "y": 30 }, { "map": 1429, "x": 40, "y": 40 }, { "map": 1429, "x": 50, "y": 50 }] },
+		"3": { "id": 3, "name": "Spider", "level": 5, "levelMax": null, "faction": null, "rare": false, "elite": false, "boss": false, "instance": null, "roles": [], "loot": [],
+			"spawns": [{ "map": 1430, "x": 60, "y": 60 }] }
+	},
+	"objects": {
+		"7": { "id": 7, "name": "Dry Branch", "treasure": false, "loot": [], "spawns": [{ "map": 1429, "x": 70, "y": 70 }, { "map": 1429, "x": 80, "y": 80 }] }
+	},
+	"items": {
+		"50": { "id": 50, "name": "Bear Pelt", "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "repFaction": null, "repStanding": null, "reqSkill": null, "reqSkillRank": null,
+			"sources": [{ "type": "drop", "npc": 2, "chance": 50, "from": ["pfquest"] }] },
+		"60": { "id": 60, "name": "Dry Branch", "quality": 1, "kind": "item", "spell": null, "reqLevel": null, "repFaction": null, "repStanding": null, "reqSkill": null, "reqSkillRank": null,
+			"sources": [{ "type": "object", "object": 7, "chance": 100, "from": ["pfquest"] }] }
+	}
+}

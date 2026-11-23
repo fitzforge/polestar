@@ -150,8 +150,8 @@ lint: every compile check without writing anything; with a cached simulator worl
 The pack is the one in <dir> (or --pack), else the nearest folder holding a pack.json (this one or a
 parent), else our guides/. Another pack is checked with our guides as context and written to
 <pack>/dist/<folder>/; ours to <checkout>/addon/<folder>/, and so is Polestar's own experimental pack
-(experimental/, checked with our guides as context, into addon/Polestar_Experimental/: load on demand,
-docs/PACK_FORMAT.md \"Polestar's own extra packs\"). Nothing is written when there are errors (unless
+(experimental/, checked with our guides as context, into addon/Polestar/Experimental/: inside Polestar,
+no TOC of its own, docs/PACK_FORMAT.md \"Polestar's own extra packs\"). Nothing is written when there are errors (unless
 --force), nor without reference data: the command then stops with one error, unless --no-data.
 
 options (compile and lint):

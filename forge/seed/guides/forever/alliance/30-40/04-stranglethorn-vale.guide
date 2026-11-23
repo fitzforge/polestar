@@ -2,7 +2,7 @@
 guide forever/alliance/30-40/04-stranglethorn-vale
 title Stranglethorn Vale
 faction Alliance
-levels 32-34
+levels 33-34
 zone Stranglethorn Vale
 next forever/alliance/30-40/02-desolace
 
@@ -14,7 +14,9 @@ next forever/alliance/30-40/02-desolace
 # (30-40/04b) at 35-36. Its Booty Bay and Rebel Camp quests up to 37 are taken here, where their givers stand.
 # Since the 0.3.7 audit: Bookie Herod's Records (200) are handed in and The Hidden Key (328) taken on this loop's Kurzen
 # stop, and Krazek's Cookery (210) goes from Corporal Kaleb to Krazek on it. Level tidy (0.4.0): one top-up to 33.2 on
-# the Kurzen Jungle Fighters (32-33) before the elder tigers (34-35), where players are a level over the model.
+# the Kurzen Jungle Fighters (32-33) before the elder tigers (34-35), where players are a level over the model. Since the
+# 2026-11-20 fix round, 30-40/03's added Theramore and Raceway quests bring players here above 33.2 (level model: 0 of 28
+# runs top up, 7 did for 3-10 minutes before); the step stays only as a guard for a player who skipped them.
 # Level tidy (0.4.0): Raptor Mastery's Lashtail Raptors (195, 35-36) are hunted on the second loop (04b) at about 36 and
 # Tiger Mastery's Sin'Dall (188, level 37) is optional on that hill from level 36, otherwise on 40-50/01's visit, not here at
 # 33-34; Ajeck and Hemet give them here, where the elder tigers and raptors are handed in. Panther Mastery's Shadowmaw Panthers (192, 37-38) wait for
@@ -30,6 +32,8 @@ next forever/alliance/30-40/02-desolace
 # Doctors of 36-37, three over players here (fix round 1, 0.4.0). Kebok's and the crate's quests are taken on this loop.
 # Route review 0.4.3: Kebok's Hostile Takeover (213) is taken, worked and handed in on 40-50/01-stranglethorn-vale at about
 # 41: Venture Co. Agents (39) walk among Lake Nazferiti's Geologists, three over players on 04b's loop.
+# The Caravan Road (2026-11-20 round): Passage to Booty Bay (1040) goes in on the Booty Bay arrival, which gives The
+# Caravan Road (1041) for the Darkshire landing of 04b; Goblin Sponsorship's Booty Bay part (1180, 1181) is handed in there too.
 
 step Boat to Booty Bay
   when !zone "Stranglethorn Vale"
@@ -41,7 +45,11 @@ step Boat to Booty Bay
 
 step Booty Bay
   zone Stranglethorn Vale
-  tip Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop.
+  tip Wharfmaster Lozgil stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop.
+  turnin 1180                         -- Wharfmaster Lozgil, on the dock
+  accept 1181                         -- Wharfmaster Lozgil: for Baron Revilgaz, upstairs in the tavern
+  turnin 1040                         -- Caravaneer Ruzzgot, on the dock
+  accept 1041                         -- Caravaneer Ruzzgot: for Clerk Daltry in Darkshire, where the second Stranglethorn loop starts
   getfp "Booty Bay"
   accept 575                          -- Drizzlik, by the bank; inside
   accept 605                          -- Crank Fizzlebub, inside
@@ -54,6 +62,8 @@ step Booty Bay
   vendor nearest
   turnin 616                          -- Baron Revilgaz, upstairs in the tavern
   accept 578
+  turnin 1181                         -- Baron Revilgaz
+  note The Baron's next errand sends you into the Venture Co. house at Lake Nazferiti, among Venture Co. Agents (39): leave it.
 
 step North to Nesingwary's Expedition
   zone Stranglethorn Vale
@@ -238,7 +248,7 @@ step Fly to Astranaar
 step Heartswood
   only Warlock
   zone Ashenvale
-  tip From Astranaar head north-west into the hills: the Heartswood is a glowing tree north of the road to Maestra's Post. If you took What Is Love?, the Wooden Figurine lies in a house among the trees north of Maestra's Post (26.6,22.0). Then take the road west to Stonetalon.
+  tip From Astranaar head north-west into the hills: the Heartswood is a glowing tree north of the road to Maestra's Post. If you took What Is Love?, the Wooden Figurine lies in a house among the trees north of Maestra's Post (26.6,22.0): light the Unlit Torch from the table outside at a campfire and throw it onto the archaeologist's cart outside the house, which draws the figure in the house away so you can take the figurine upstairs. Then take the road west to Stonetalon.
   collect 6912 quest 1738.1               -- Heartswood
   collect 190309 quest 65602.1 optional   -- Wooden Figurine, north of Maestra's Post
 

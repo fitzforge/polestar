@@ -5,6 +5,8 @@
 //!   cached extracts, rebuilt from the cached dump when missing.
 //! - ItemSparse durations (corrections: corrections.rs).
 //! - Summoned vendors (SpellEffect): camp bots a player places sell nothing a guide can send to.
+//! - Gathering spells (SpellEffect): the casts that open a herb or an ore node.
+//! - Quest items (Item): the items of the client's Quest class.
 
 use std::path::{Path, PathBuf};
 
@@ -300,6 +302,53 @@ pub fn drop_recorded_summoned_spawns(ids: &[i64], npcs: &Obj) -> Vec<i64> {
 	cleared
 }
 
+// ---------------------------------------------------------------- gathering spells
+
+/// SpellEffect's OPEN_LOCK effect (33): EffectMiscValue_0 is the lock type it opens.
+const OPEN_LOCK: f64 = 33.0;
+/// LockType ids: a node only Herbalism or Mining opens.
+const LOCK_HERBALISM: f64 = 2.0;
+const LOCK_MINING: f64 = 3.0;
+
+/// The client spells that gather a herb or an ore node: an OPEN_LOCK effect on a Herbalism lock is
+/// "herb", on a Mining lock "mine" (the recordings' `gather` kinds). Classic's Herb Gathering and
+/// Mining ranks, and Forever's own (Cultivation 1312650 opens its herb nodes); Pick Lock and the
+/// other lock types are none. -> (spell, kind), by spell.
+pub fn gathering_spells(effects: &[Row]) -> Vec<(i64, &'static str)> {
+	let mut out: Vec<(i64, &'static str)> = effects
+		.iter()
+		.filter(|r| col_num(r, "Effect") == OPEN_LOCK)
+		.filter_map(|r| {
+			let lock = col_num(r, "EffectMiscValue_0");
+			let kind = if lock == LOCK_HERBALISM {
+				"herb"
+			} else if lock == LOCK_MINING {
+				"mine"
+			} else {
+				return None;
+			};
+			let spell = col_num(r, "SpellID");
+			(spell > 0.0 && spell.fract() == 0.0).then_some((spell as i64, kind))
+		})
+		.collect();
+	out.sort_unstable();
+	out.dedup_by_key(|x| x.0);
+	out
+}
+
+/// Item's Quest class (ClassID 12).
+const QUEST_CLASS: f64 = 12.0;
+
+/// The client's quest items: Item rows of the Quest class, ascending. The client's class, not the merged
+/// data's `questItem` (QuestieDB's class, before the knowledge base settles it): Forever's Burning Key (4483)
+/// is a Key in the client and a quest item in QuestieDB.
+pub fn quest_items(items: &[Row]) -> Vec<i64> {
+	let mut out: Vec<i64> = items.iter().filter(|r| col_num(r, "ClassID") == QUEST_CLASS).map(|r| col_num(r, "ID")).filter(|id| *id > 0.0 && id.fract() == 0.0).map(|id| id as i64).collect();
+	out.sort_unstable();
+	out.dedup();
+	out
+}
+
 // ---------------------------------------------------------------- place-name NPCs
 
 /// NPC records that are only a place's or a faction's name: no spawn, no service role, no quest starts, ends or
@@ -371,6 +420,28 @@ mod tests {
 		assert_eq!(stringify(&npcs.get("66").get("roles"), None), r#"["repair","vendor"]"#);
 		assert_eq!(stringify(&items.get("2880").get("vendors"), None), "[66]");
 		assert_eq!(stringify(&items.get("2901").get("vendors"), None), "[66]");
+	}
+
+	#[test]
+	fn gathering_spells_are_the_casts_that_open_a_herb_or_ore_lock() {
+		let spell = |effect: &str, misc: &str, id: &str| -> Row { [("Effect", effect), ("EffectMiscValue_0", misc), ("SpellID", id)].iter().map(|(k, v)| (k.to_string(), v.to_string())).collect() };
+		let rows = [
+			spell("33", "2", "1312650"), // Cultivation: Forever's herb nodes
+			spell("118", "182", "2366"), // Herb Gathering's skill effect: not the lock
+			spell("33", "2", "2366"),    // Herb Gathering
+			spell("33", "3", "1264639"), // Forever's Mining
+			spell("33", "1", "1804"),    // Pick Lock
+			spell("33", "0", "1291896"), // an OPEN_LOCK on no lock type
+			spell("3", "2", "1312643"),  // a dummy effect
+		];
+		assert_eq!(gathering_spells(&rows), vec![(2366, "herb"), (1264639, "mine"), (1312650, "herb")]);
+	}
+
+	#[test]
+	fn quest_items_are_the_client_s_quest_class() {
+		let item = |id: &str, class: &str| -> Row { [("ID", id), ("ClassID", class)].iter().map(|(k, v)| (k.to_string(), v.to_string())).collect() };
+		// Mudsnout Blossoms and Tirisfal Pumpkin are quest items; Burning Key is a Key, Briarthorn a herb.
+		assert_eq!(quest_items(&[item("3502", "12"), item("4483", "13"), item("2846", "12"), item("2450", "7")]), vec![2846, 3502]);
 	}
 
 	#[test]

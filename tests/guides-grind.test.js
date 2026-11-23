@@ -22,21 +22,29 @@ function guideFiles(dir) {
 	});
 }
 
+// The grind line under a `level` step (the dungeon a player could run instead, UI.DungeonToast.GrindLine) shows on
+// Leveling guides only, so a grind step stands in a guide without another `category`. No count floor: the 0.4.2
+// route round replaced grind steps with quests on purpose, so how many there are is the routes' business; the scan
+// only has to see some, so a format change can't leave it checking nothing.
 for (const dir of ['guides/forever', 'forge/seed/guides/forever']) {
-	test(`${dir}: every "grind on" level line names its mob with grind <npcId>`, () => {
+	test(`${dir}: every "grind on" level line names its mob with grind <npcId>, in a Leveling guide`, () => {
 		const missing = [];
+		const notLeveling = [];
 		let named = 0;
 		for (const file of guideFiles(path.join(ROOT, dir))) {
-			fs.readFileSync(file, 'utf8')
-				.split('\n')
-				.forEach((line, i) => {
-					const m = /^\s+level\s+[\d.+]+(.*?)\s--\s+grind on (.+?)\s*$/.exec(line);
-					if (!m) return;
-					if (/\bgrind \d+\b/.test(m[1])) named++;
-					else if (!NO_MOB.has(m[2])) missing.push(`${path.relative(ROOT, file)}:${i + 1}: ${line.trim()}`);
-				});
+			const text = fs.readFileSync(file, 'utf8');
+			const category = /^category\s+(\S+)/m.exec(text)?.[1] ?? 'Leveling';
+			text.split('\n').forEach((line, i) => {
+				const m = /^\s+level\s+[\d.+]+(.*?)\s--\s+grind on (.+?)\s*$/.exec(line);
+				if (!m) return;
+				const at = `${path.relative(ROOT, file)}:${i + 1}: ${line.trim()}`;
+				if (category !== 'Leveling') notLeveling.push(at);
+				if (/\bgrind \d+\b/.test(m[1])) named++;
+				else if (!NO_MOB.has(m[2])) missing.push(at);
+			});
 		}
 		assert.deepEqual(missing, []);
-		assert.ok(named > 40, `${named} grind lines`);
+		assert.deepEqual(notLeveling, []);
+		assert.ok(named > 0, "the scan finds the guides' named grind lines");
 	});
 }

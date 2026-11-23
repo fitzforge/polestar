@@ -7,14 +7,18 @@
 -- instance (a corpse run, a reload, a hearth back in) continues the run and
 -- does not count. "Same" means: same instance map, entered again within
 -- RESUME seconds of leaving, and no "<name> has been reset." in between. When
--- a creature GUID inside reveals a different instance copy than the run
--- remembered (another group's instance), the run is split and counted.
+-- creature GUIDs inside reveal a different instance copy than the run
+-- remembered (another group's instance), the run is split and counted. The
+-- copy is the GUID's fifth part, which Forever obfuscates: it is read only
+-- once two creatures of one visit agree on it, compared only with a value
+-- read in this session (a reload or relogin may change it), and left alone
+-- for the session once two creatures of one visit disagree.
 --
 -- Account-wide entries: PolestarDB.instances.entries = { { t, name, char }, ... }
--- (pruned to 24 hours). Per character: CharState().instanceRuns = { run, ... }
--- (last RUNS_KEPT), run = { id, name, kind, entered, since, left, time, xp,
--- level, zone, reset }. Times are server epoch seconds, so runs survive
--- reloads and logouts.
+-- (pruned to 24 hours; char as Alts.Key() forms it). Per character:
+-- CharState().instanceRuns = { run, ... } (last RUNS_KEPT), run = { id, name,
+-- kind, entered, since, left, time, xp, level, zone, reset }. Times are server
+-- epoch seconds, so runs survive reloads and logouts.
 
 local ADDON, ns = ...
 local Maps = ns.Maps
@@ -78,7 +82,10 @@ end
 ---------------------------------------------------------------------------
 
 local active          -- the run we are inside, or nil
-local visitChecked    -- this visit's instance copy has been read from a GUID
+local visitChecked    -- this visit's instance copy has been read from GUIDs
+local visitGuid, visitZone -- this visit's first creature GUID and the copy it names
+local copyIdle        -- two creatures of one visit named different copies: not read this session
+local zoneRead = setmetatable({}, { __mode = "k" }) -- runs whose zone was read in this session
 local lastLevel, lastXP, lastMax
 local lockouts, lockoutsAt = {}, 0
 
@@ -93,13 +100,35 @@ local function runs()
 end
 
 -- "Name-Realm" as Alts.Key() forms it (Compat.UnitFullName: "Ana Smith" on
--- Forever).
+-- Forever), the name alone while the client does not give the realm.
 local function charName()
 	local C = ns.Compat
 	local info = C and C.GetPlayerInfo and C.GetPlayerInfo()
 	local name = C and C.UnitFullName and C.UnitFullName("player")
 	if not (info and name) then return nil end
 	return info.realm and (name .. "-" .. info.realm) or name
+end
+
+-- With the realm unknown, this character's entries filed as "Name-Realm" take
+-- the name alone once, when they name exactly one realm; "Name-" (written
+-- while the client read "" for the realm) always does. Several realms: kept.
+local function claimEntries()
+	local C = ns.Compat
+	if not C or C.RealmName() then return end
+	local key = charName()
+	if not key then return end
+	local prefix = key .. "-"
+	local list, realms, n = entries(), {}, 0
+	for _, e in ipairs(list) do
+		local c = e.char
+		if type(c) == "string" and c ~= prefix and c:sub(1, #prefix) == prefix and not realms[c] then
+			realms[c] = true
+			n = n + 1
+		end
+	end
+	for _, e in ipairs(list) do
+		if e.char == prefix or (n == 1 and realms[e.char]) then e.char = key end
+	end
 end
 
 local function prune(now)
@@ -141,7 +170,7 @@ local function enter(name, kind, id)
 	local now = serverTime()
 	local r = runs()
 	local last = r[#r]
-	visitChecked = false
+	visitChecked, visitGuid, visitZone = false, nil, nil
 	if last and not last.left and last.id ~= id then close(last, now) end
 	if last and last.id == id and not last.reset and (not last.left or now - last.left <= RESUME) then
 		if last.left then
@@ -176,17 +205,28 @@ local function situation()
 	end
 end
 
--- A creature GUID inside names the instance copy:
--- "Creature-0-<server>-<instanceMap>-<zoneUID>-<npcID>-<spawnUID>".
+-- A creature GUID inside names the instance copy in its fifth part:
+-- "Creature-0-<realm>-<instanceMap>-<server>-<npcID>-<spawnUID>". Forever
+-- obfuscates the realm, server and spawn parts, so the copy counts only once
+-- two creatures of this visit agree on it (see the header).
 local function observe(unit)
-	if not active or visitChecked then return end
+	if not active or visitChecked or copyIdle then return end
 	local guid = readable(UnitGUID and UnitGUID(unit))
 	if type(guid) ~= "string" then return end
-	local kind, zone = guid:match("^(%a+)%-0%-%d+%-%d+%-(%d+)%-")
+	local kind, zone = guid:match("^(%a+)%-[^-]*%-[^-]*%-[^-]*%-([^-]+)%-%d+%-")
 	if kind ~= "Creature" and kind ~= "Vehicle" then return end
+	if not visitGuid or guid == visitGuid then
+		visitGuid, visitZone = guid, zone
+		return
+	end
+	if zone ~= visitZone then
+		copyIdle = true
+		return
+	end
 	visitChecked = true
-	if not active.zone then
+	if not active.zone or not zoneRead[active] then
 		active.zone = zone
+		zoneRead[active] = true
 	elseif active.zone ~= zone then
 		-- Another copy of this instance: the run we resumed ended when we
 		-- left it; this visit is a new instance and counts.
@@ -199,6 +239,7 @@ local function observe(unit)
 		end
 		active = newRun(active.name, active.kind, active.id, now)
 		active.entered, active.since, active.zone = visit, visit, zone
+		zoneRead[active] = true
 		refreshDisplay()
 	end
 end
@@ -522,6 +563,7 @@ end)
 ns.OnLogin(function()
 	buildFrame()
 	prune(serverTime())
+	claimEntries()
 	Client.RequestRaidInfo()
 	trackXP()
 	situation()

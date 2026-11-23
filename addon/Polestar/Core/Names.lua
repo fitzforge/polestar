@@ -1,8 +1,9 @@
--- Polestar.Names: quest, NPC, object and item names in the client's
--- language. Contract: docs/ARCHITECTURE.md, "Names".
+-- Polestar.Names: quest, NPC, object and item names in the language
+-- Polestar shows (the Language setting, Core/Locale.lua: the client's unless
+-- the player chose another). Contract: docs/ARCHITECTURE.md, "Names".
 --
--- The guides and data packs name things in English. On a client in another
--- language the guide window, the target button, objective matching, the quest
+-- The guides and data packs name things in English. In another language
+-- the guide window, the target button, objective matching, the quest
 -- database's names and Lookup ask here first and keep their English when the
 -- answer is nil.
 --
@@ -13,8 +14,11 @@
 --     Polestar_<locale> (built by `forge data names`; our guides' texts and
 --     the interface strings share the folder), already in through
 --     Core/Locale.lua (when that failed, loaded on demand on the first ask),
---     else nil. Always nil on an English client (enUS, enGB), which
---     loads nothing. A quest or item the client has not cached is asked for,
+--     else nil. Always nil in English (an enUS or enGB client following
+--     the game, or English chosen), which loads nothing. The client's own
+--     names count only while Polestar shows the client's language (Native):
+--     with another language chosen the pack's alone. A quest or item the
+--     client has not cached is asked for,
 --     once a session; when the asked names arrive (QUEST_DATA_LOAD_RESULT,
 --     ITEM_DATA_LOAD_RESULT) one STEP_UPDATED redraws the guide window.
 --   Names.Spell(id)       -- the client's (C_Spell.GetSpellName, GetSpellInfo)
@@ -22,7 +26,7 @@
 --   Names.Instance(mapID) -- the pack's (Map.csv), else GetRealZoneText(mapID)
 --   Names.Area(areaID)    -- the client's (C_Map.GetAreaInfo)
 --   Names.Taxi(id) / Names.Encounter(id)   -- the pack's (TaxiNodes, DungeonEncounter)
---     each -> name | nil, nil on an English client
+--     each -> name | nil, nil in English
 --   Names.Get(kind, id) -> name | nil   -- the above by kind (quest npc object
 --     item spell faction map area taxi encounter), and any other kind a pack
 --     adds (its table only): "subzone", a walking map's area by its
@@ -33,17 +37,24 @@
 --   Names.Learn(unit) -> name | nil   -- remembers the name the client shows
 --     for an NPC or a quest-giving object (by its GUID's id), per client
 --     language, in PolestarDB.names; done on target, mouseover, nameplates
---     and NPC windows. A learned name comes before the pack's; one equal to
+--     and NPC windows, while Native. A learned name comes before the pack's; one equal to
 --     the pack's is not kept; at most 2,000 per language, oldest dropped
 --     first. A change fires NAME_LEARNED(kind, id) and redraws the guide
 --     window when its current or next step names that id.
---   Names.Localised() -> bool   -- not an English client
+--   Names.Localised() -> bool   -- Polestar shows a language other than English
+--   Names.Native() -> bool      -- Polestar shows the client's language
+--   Names.Language() -> locale  -- the language Polestar shows ("deDE"; an
+--     English one as "enUS" or "enGB")
+--   Names.ClientLanguage() -> locale   -- the client's, GetLocale()
+--   Names.SetLanguage(locale)   -- Core/Locale.lua, at ADDON_LOADED, when the
+--     Language setting asks for another than the client's: drops the names
+--     the client's folder brought; that language's folder brings its own
 --   Names.Ready() -> bool       -- the pack is in, or will not load this session
 --   Names.PackName() -> "Polestar_<locale>" | nil (English)
 --   Names.AddChunk(locale, kind, lo, hi, text)   -- the pack's files: one
 --     LuaChunks chunk (Core/LuaChunks.lua) of "<id>\t<name>" lines of kind
 --     quest npc object item, or another a pack adds; ignored unless locale is
---     the client's. A name stays text in its chunk and is cut out when asked.
+--     the one Polestar shows. A name stays text in its chunk and is cut out when asked.
 
 local ADDON, ns = ...
 
@@ -53,13 +64,17 @@ ns.Names = Names
 local type, pairs, ipairs, tonumber, floor = type, pairs, ipairs, tonumber, math.floor
 
 local ENGLISH = { enUS = true, enGB = true }
-local locale = (GetLocale and GetLocale()) or "enUS"
-local localised = not ENGLISH[locale]
-local PACK = localised and ("Polestar_" .. locale) or nil
+local client = (GetLocale and GetLocale()) or "enUS"
+-- The language shown: the client's until Core/Locale.lua reads the Language
+-- setting (ADDON_LOADED).
+local shown = client
+local localised = not ENGLISH[shown]
+local native = true
+local PACK = localised and ("Polestar_" .. shown) or nil
 
 local LuaChunks = ns.LuaChunks
-local store = LuaChunks.New()
--- Names the client showed in play live in PolestarDB.names[locale]
+local chunks = LuaChunks.New()
+-- Names the client showed in play live in PolestarDB.names[<client locale>]
 -- ({ npc = { [id] = name }, object = {...}, order = { "n<id>"|"o<id>", ... } },
 -- oldest first), read through ns.DB() each time once saved variables are in
 -- (ADDON_LOADED); at most LEARN_CAP ids, the oldest dropped first.
@@ -72,12 +87,15 @@ local redrawing = false
 local deferred = false -- a load was refused in combat
 
 function Names.Localised() return localised end
+function Names.Native() return native end
+function Names.Language() return shown end
+function Names.ClientLanguage() return client end
 function Names.Ready() return ready end
 function Names.PackName() return PACK end
 
 function Names.AddChunk(loc, kind, lo, hi, text)
-	if loc ~= locale or type(kind) ~= "string" or type(text) ~= "string" then return end
-	store:Add(kind, lo, hi, text)
+	if loc ~= shown or type(kind) ~= "string" or type(text) ~= "string" then return end
+	chunks:Add(kind, lo, hi, text)
 end
 
 -- One redraw for a burst of arrivals: the guide window refills its rows
@@ -125,7 +143,7 @@ end
 
 local function fromPack(kind, id, cursor)
 	if not ready then load() end
-	return LuaChunks.Unesc(store:Raw(kind, id, cursor))
+	return LuaChunks.Unesc(chunks:Raw(kind, id, cursor))
 end
 
 -- This client language's learned names, or nil before saved variables load.
@@ -133,10 +151,10 @@ local function store()
 	if not svReady then return nil end
 	local db = ns.DB()
 	if type(db.names) ~= "table" then db.names = {} end
-	local mine = db.names[locale]
+	local mine = db.names[client]
 	if type(mine) ~= "table" then
 		mine = {}
-		db.names[locale] = mine
+		db.names[client] = mine
 	end
 	if type(mine.npc) ~= "table" then mine.npc = {} end
 	if type(mine.object) ~= "table" then mine.object = {} end
@@ -149,7 +167,9 @@ local function store()
 	return mine
 end
 
+-- What the client showed in play is in its language: none while another shows.
 local function fromPlay(kind, id)
+	if not native then return nil end
 	local mine = store()
 	local t = mine and mine[kind]
 	return t and t[id]
@@ -168,17 +188,21 @@ end
 
 function Names.Quest(id)
 	if not valid(id) then return nil end
-	local t = ns.Compat.GetQuestTitle(id)
-	if t then return t end
-	ask("quest", id)
+	if native then
+		local t = ns.Compat.GetQuestTitle(id)
+		if t then return t end
+		ask("quest", id)
+	end
 	return fromPack("quest", id)
 end
 
 function Names.Item(id)
 	if not valid(id) then return nil end
-	local n = ns.Compat.GetItemName(id)
-	if n then return n end
-	ask("item", id)
+	if native then
+		local n = ns.Compat.GetItemName(id)
+		if n then return n end
+		ask("item", id)
+	end
 	return fromPack("item", id)
 end
 
@@ -204,14 +228,14 @@ local function clientName(fn, ...)
 end
 
 function Names.Spell(id)
-	if not valid(id) then return nil end
+	if not (native and valid(id)) then return nil end
 	return clientName(C_Spell and C_Spell.GetSpellName, id) or clientName(GetSpellInfo, id)
 end
 
 -- The client knows a faction the character has not met only by the pack.
 function Names.Faction(id)
 	if not valid(id) then return nil end
-	return clientName(C_Reputation and C_Reputation.GetFactionDataByID, id) or clientName(GetFactionInfoByID, id)
+	return native and (clientName(C_Reputation and C_Reputation.GetFactionDataByID, id) or clientName(GetFactionInfoByID, id))
 		or fromPack("faction", id)
 end
 
@@ -222,7 +246,7 @@ end
 function Names.Instance(id)
 	if not valid(id) then return nil end
 	local n = fromPack("map", id)
-	if n or not GetRealZoneText then return n end
+	if n or not (native and GetRealZoneText) then return n end
 	n = clientName(GetRealZoneText, id)
 	if not n then return nil end
 	local here = GetInstanceInfo and select(8, GetInstanceInfo())
@@ -231,7 +255,7 @@ function Names.Instance(id)
 end
 
 function Names.Area(id)
-	if not valid(id) then return nil end
+	if not (native and valid(id)) then return nil end
 	return ns.Compat.GetAreaName(id)
 end
 
@@ -267,7 +291,7 @@ end
 
 function Names.Cached(kind, id, cursor)
 	if not valid(id) then return nil end
-	if kind == "quest" then
+	if kind == "quest" and native then
 		local t = ns.Compat.GetQuestTitle(id)
 		if t then return t end
 	end
@@ -318,7 +342,7 @@ end
 -- redraws the guide window when its current or next step names that id.
 -- A name the pack already gives is not kept.
 function Names.Learn(unit)
-	if not (localised and UnitGUID and UnitName) then return nil end
+	if not (localised and native and UnitGUID and UnitName) then return nil end
 	local mine = store()
 	if not mine then return nil end
 	local C = ns.Compat
@@ -356,11 +380,15 @@ local function arrived(kind, id, success)
 	scheduleRedraw()
 end
 
-if localised then
+-- The events a translated Polestar listens to: from the first files when the
+-- client's language is one, else once SetLanguage turns another on.
+local listening = false
+local function listen()
+	if listening then return end
+	listening = true
 	ns.RegisterEvent("QUEST_DATA_LOAD_RESULT", function(_, id, success) arrived("quest", id, success) end)
 	ns.RegisterEvent("ITEM_DATA_LOAD_RESULT", function(_, id, success) arrived("item", id, success) end)
 	ns.RegisterEvent("PLAYER_REGEN_ENABLED", function() if deferred and not ready then load() end end)
-	ns.OnInit(function() svReady = true end)
 	ns.RegisterEvent("PLAYER_TARGET_CHANGED", function() Names.Learn("target") end)
 	ns.RegisterEvent("UPDATE_MOUSEOVER_UNIT", function() Names.Learn("mouseover") end)
 	ns.RegisterEvent("NAME_PLATE_UNIT_ADDED", function(_, unit) Names.Learn(unit) end)
@@ -368,4 +396,19 @@ if localised then
 	for _, e in pairs({ "GOSSIP_SHOW", "QUEST_GREETING", "QUEST_DETAIL", "QUEST_PROGRESS", "QUEST_COMPLETE", "MERCHANT_SHOW", "TRAINER_SHOW" }) do
 		ns.RegisterEvent(e, talking)
 	end
+end
+
+ns.OnInit(function() svReady = true end)
+if localised then listen() end
+
+function Names.SetLanguage(loc)
+	if type(loc) ~= "string" or loc == shown then return end
+	shown = loc
+	localised = not ENGLISH[loc]
+	native = loc == client
+	PACK = localised and ("Polestar_" .. loc) or nil
+	chunks = LuaChunks.New()
+	ready = not localised
+	deferred = false
+	if localised then listen() end
 end

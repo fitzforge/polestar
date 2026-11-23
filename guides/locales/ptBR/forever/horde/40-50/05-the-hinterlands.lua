@@ -129,6 +129,8 @@ return {
 	-- Step 27: Grim Message
 	-- {item:15002} Nimboya's Pike
 	["South of the lodge the Witherbark trolls hold their villages. Every one of them carries a skull: with twenty, use {item:15002} to make the Laden Pike, then plant it inside the village."] = "Ao sul do pavilhão, os trolls Cascasseca ocupam suas aldeias. Cada um deles carrega um crânio: com vinte, use {item:15002} para fazer o Pique de Nimboya Repleto e finque-o dentro da aldeia.",
+	-- {area:1885} Hiri'watha
+	["inside {area:1885}: it can't be planted outside a village"] = "",
 
 	-- Step 28: Aerie Peak
 	-- {area:348} Aerie Peak

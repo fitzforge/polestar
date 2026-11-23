@@ -248,7 +248,7 @@ return {
 	-- {item:2836} Coarse Stone
 	["{item:2836} (Horde)"] = "{item:2836}（部落）",
 	-- {item:2836} Coarse Stone · {item:6533} Aquadynamic Fish Attractor · {skill:186} Mining · {object:1732} Tin Vein · {zone:1413} The Barrens · {zone:1440} Ashenvale · {zone:1424} Hillsbrad Foothills
-	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "為 {item:6533} 準備 31 個 {item:2836}：透過 {skill:186} 開採 {zone:1413}（10-25 級）、{zone:1440}（18-30 級）和 {zone:1424}（20-30 級）的 {object:1732}（需要技能 65）。已標記 {zone:1440} 中 {object:1732} 最密集的位置。",
+	["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1413} is marked."] = "",
 
 	-- Step 48: Heavy Stone (Alliance)
 	-- {item:2838} Heavy Stone
@@ -483,4 +483,5 @@ return {
 	-- ["{spell:3929} to 95"] = "{spell:3929}練到 95",
 	-- ["{spell:3937} to 125"] = "{spell:3937}練到 125",
 	-- ["{spell:3942} to 150"] = "{spell:3942}練到 150",
+	-- ["31 {item:2836} for {item:6533}: {skill:186}: {object:1732} (skill 65) in {zone:1413} (10-25), {zone:1440} (18-30) and {zone:1424} (20-30). The densest cluster of {object:1732} in {zone:1440} is marked."] = "為 {item:6533} 準備 31 個 {item:2836}：透過 {skill:186} 開採 {zone:1413}（10-25 級）、{zone:1440}（18-30 級）和 {zone:1424}（20-30 級）的 {object:1732}（需要技能 65）。已標記 {zone:1440} 中 {object:1732} 最密集的位置。",
 }
