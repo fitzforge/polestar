@@ -10405,17 +10405,17 @@ for (const { side, quest, after, says, todo } of FOLLOW_UPS) test(`Every ${side}
 
 // Fitz's pick on #3782 (with #3783 and #3786): three players found James Halloran no longer offers Crimson Crate
 // Delivery (98240) once Razormaw Needling (98245), the quest it leads to, is done, and 06-wetlands asked for the crate
-// after handing Needling in to Howin. A quest whose follow-up (`next` in the data) the route has already taken is
+// after handing Needling in to Howin. A quest whose follow-up (`next` in the data) the route has already handed in is
 // never accepted, on any route; the crate and its hand-in are left out of both Alliance guides.
-test('Every route (#3782, #3783, #3786): no quest is accepted after the route has taken the quest it leads to', { skip }, () => {
+test('Every route (#3782, #3783, #3786): no quest is accepted after the route has handed in the quest it leads to', { skip }, () => {
 	for (const side of ['Alliance', 'Horde']) {
 		for (const { who, list } of routes(side)) {
-			const taken = new Set();
+			const done = new Set();
 			for (const e of list) {
+				if (e.goal.t === 'turnin') done.add(e.goal.quest);
 				if (e.goal.t !== 'accept') continue;
 				const next = data.quest(e.goal.quest)?.next;
-				assert.ok(!(next && taken.has(next)), `${who}: ${where(e)} accepts ${e.goal.quest} after its follow-up ${next} was taken`);
-				taken.add(e.goal.quest);
+				assert.ok(!(next && done.has(next)), `${who}: ${where(e)} accepts ${e.goal.quest} after its follow-up ${next} was handed in`);
 			}
 		}
 	}
@@ -10427,8 +10427,8 @@ test('Every route (#3782, #3783, #3786): no quest is accepted after the route ha
 // cjtylr (#3771): Searing Gorge opened with "To Ironforge" and "Go to Ironforge flight master" before its flight to
 // Thelsamar, so a player in Redridge, a flight from Thelsamar, was sent home through Stormwind and the tram first.
 // Every leveling guide stands on its own: a guide whose first travel is a flight names no flight master to walk
-// to, and the arrow takes the way from wherever the player is. (Sweep: Searing Gorge and Un'Goro opened so; the ten
-// other fixed Ironforge flight-master steps come after the guide's own Ironforge stop.)
+// to, and the arrow takes the way from wherever the player is. (Sweep: Searing Gorge, Un'Goro and Duskwood opened so;
+// the ten other fixed Ironforge flight-master steps come after the guide's own Ironforge stop.)
 test('Every leveling guide (#3771): an opening flight sends the player to no fixed flight master', { skip }, () => {
 	for (const guide of allGuides().filter((g) => /^forever\/(alliance|horde)\//.test(g))) {
 		for (const step of compiled(guide).steps) {
