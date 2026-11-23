@@ -468,10 +468,6 @@ local function spawnSpots(goal, spawns)
 	if spread then goal.spread = true end
 	return goal
 end
--- spawnSpots for other guides built from the Codex: a hand-in guide's errand
--- from a seller who walks a circuit (#3744: Tawny Grisette's 24 places on
--- the Undercity's Trade Quarter ring, Dungeons/Handin.lua).
-Lookup.SpawnSpots = spawnSpots
 
 -- Quests to do in order to get questId, prerequisites first: every one of
 -- `pre`, and of `preAny` (unless one is done) the first this character can
@@ -856,58 +852,21 @@ local function startItemGoal(q, from)
 	return spawnSpots(at(itemFrom({ t = "collect", item = item, itemName = itemName(item), count = 1, group = eliteGroup(dropper) }, item), s), spawns)
 end
 
--- The quest whose reward is item `itemId`, for an item objective of quest
--- `self` that nothing else gives (no drop with a known chance, no object,
--- vendor, craft or other source): The Videre Elixir's elixir is Gregan
--- Brewspewer's reward for his own The Videre Elixir (4041, the Evoroot),
--- #3837. The first such quest the character can take now; nil when the
--- item has another source, the bags hold enough or none can be taken.
-local function rewardQuestFor(itemId, count, player, self)
-	local C, K = Codex(), ns.Compat
-	if (K.GetItemCount(itemId, true) or 0) >= (count or 1) then return nil end
-	local item = C.Item(itemId)
-	if not item then return nil end
-	local quests = {}
-	for _, src in ipairs(item.sources or {}) do
-		if src.type == "quest" then
-			if src.quest and src.quest ~= self then quests[#quests + 1] = src.quest end
-		elseif src.type ~= "drop" or (src.chance or 0) > 0 then
-			return nil
-		end
-	end
-	for _, id in ipairs(quests) do
-		local q = C.Quest(id)
-		if q and (K.IsOnQuest(id) or not (K.IsQuestCompleted(id) or Lookup.QuestBlock(q, player))) then return id end
-	end
-	return nil
-end
-
 -- Steps for a quest and its unfinished prerequisites; a quest started from an
--- item gets that item first (startItemGoal), and an item objective only
--- another quest's reward gives gets that quest's steps first
--- (rewardQuestFor). A giver, target or turn-in the
+-- item gets that item first (startItemGoal). A giver, target or turn-in the
 -- Codex puts inside an instance is at its entrance, the step's note saying
 -- what is inside (Dungeons.InsideEntrance, as the attunement guides do:
 -- What Comes Around...'s Head of Targorr left the arrow beside Guard Berton,
 -- who takes it, #3613); a giver or turn-in with no place at all keeps the
 -- "First do the quest" note (opts.entrances). -> steps | nil, reason
-local function questSteps(questId, player, from, visiting)
+local function questSteps(questId, player, from)
 	local C = Codex()
 	if not C.Quest(questId) then return nil, "unknown" end
-	visiting = visiting or {}
-	visiting[questId] = true
 	local chain = questChain(questId, player)
 	local D = ns.Dungeons
 	local opts = D and D.InsideEntrance and { inside = D.InsideEntrance, entrances = true } or nil
 	local steps = {}
 	for i, q in ipairs(chain) do
-		for _, o in ipairs(q.objectives or {}) do
-			local reward = o.type == "item" and o.id and rewardQuestFor(o.id, o.count, player, q.id)
-			if reward and not visiting[reward] then
-				local before = questSteps(reward, player, from, visiting)
-				for _, s in ipairs(before or {}) do steps[#steps + 1] = s end
-			end
-		end
 		local step, err = questStep(q, from, q.id == questId, opts)
 		if not step then return nil, err end
 		local first = step.goals[1]
