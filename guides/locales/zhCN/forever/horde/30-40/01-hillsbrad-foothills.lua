@@ -157,7 +157,6 @@ return {
 	-- Step 29: The smithy
 	["The smithy"] = "铁匠铺",
 	-- {area:287} Hillsbrad · {npc:2404} Blacksmith Verringtan · {object:1736} Shipment of Iron · {npc:2449} Citizen Wilkes · {npc:2451} Farmer Kalaba
-	-- was: ["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks by the smithy; {npc:2451} works the field south-east of the town."] = "向西穿过丘陵前往{area:287}镇：铁匠铺就在镇中央。{npc:2404}和他的学徒在熔炉旁工作；{object:1736}堆在旁边。{npc:2449}在铁匠铺附近走动；{npc:2451}在镇子东南边的田里干活。"
 	["West across the foothills to {area:287} town: the smithy stands in the middle of it. {npc:2404} and his apprentices work at the forge; the {object:1736} is stacked beside it. {npc:2449} walks the west side of the town; {npc:2451} works the field south-east of the town."] = "向西穿过丘陵前往{area:287}镇：铁匠铺就在镇中央。{npc:2404}和他的学徒在熔炉旁工作；{object:1736}堆在旁边。{npc:2449}在镇子西边走动；{npc:2451}在镇子东南边的田里干活。",
 	["Inside"] = "在里面",
 	-- {npc:2449} Citizen Wilkes

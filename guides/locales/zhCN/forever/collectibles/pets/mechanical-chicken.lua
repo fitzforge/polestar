@@ -21,7 +21,6 @@ return {
 	-- Step 3: Rescue OOX-22/FE
 	["Rescue OOX-22/FE"] = "营救自动导航机器人OOX-22/FE",
 	-- {area:1105} Feral Scar Vale · {area:1108} Forgotten Coast · {area:35} Booty Bay
-	-- was: ["Right-click the beacon. OOX-22/FE sits in a cave near {area:1105}, among yetis and apes. Its escort runs west along the road to the dock on the {area:1108} with three ambushes: three yetis, then three gorillas, then four or five gnolls with a caster. Bring a friend if you are under 47. The robot keeps walking unless it is hit, so stay close; if it will not move, another player has it: wait for it to come back. Its turn-in is in {area:35}; keep the quest for later."] = "右键点击定位器。OOX-22/FE 在 {area:1105} 附近的洞穴中，周围是雪人和猿。护送路线沿道路向西，到 {area:1108} 的码头，途中有三次伏击：先是三只雪人，再是三只大猩猩，最后是四五只豺狼人，其中有施法者。低于 47 级就带位朋友。机器人只要没被攻击就会一直走，注意跟紧；如果它不肯动，说明其他玩家正在护送，等它回来。任务在 {area:35} 交还，先留着以后再交。"
 	["OOX-22/FE sits in a cave near {area:1105}, among yetis and apes. Its escort runs west along the road to the dock on the {area:1108} with three ambushes: three yetis, then three gorillas, then four or five gnolls with a caster. Bring a friend if you are under 47. The robot keeps walking unless it is hit, so stay close; if it will not move, another player has it: wait for it to come back. Its turn-in is in {area:35}; keep the quest for later."] = "右键点击定位器。OOX-22/FE 在 {area:1105} 附近的洞穴中，周围是雪人和猿。护送路线沿道路向西，到 {area:1108} 的码头，途中有三次伏击：先是三只雪人，再是三只大猩猩，最后是四五只豺狼人，其中有施法者。低于 47 级就带位朋友。机器人只要没被攻击就会一直走，注意跟紧；如果它不肯动，说明其他玩家正在护送，等它回来。任务在 {area:35} 交还，先留着以后再交。",
 	["Escort OOX-22/FE"] = "护送自动导航机器人OOX-22/FE",
 

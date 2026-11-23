@@ -14,6 +14,7 @@ return {
 
 	-- Step 2: Booty Bay
 	-- {npc:4631} Wharfmaster Lozgil
+	-- was: ["Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "在旅店绑定炉石：路线末尾从丛林北边返回这里就靠它。"
 	["{npc:4631} stands on the dock where the boat lands. Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "",
 	-- {npc:4631} Wharfmaster Lozgil
 	["{npc:4631}, on the dock"] = "",
@@ -144,7 +145,6 @@ return {
 	-- Step 20: The Savage Coast
 	-- {area:310} Crystalvein Mine
 	-- plural, as words: Crystal Spine Basilisks = {npc:689} Crystal Spine Basilisk · Lesser Water Elementals = {npc:691} Lesser Water Elemental
-	-- was: ["From {area:108} the way leads south out of {zone:1436} into Stranglethorn's north-west, to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach its edge. Careful: its Lesser Water Elementals are 36-37: don't stay. The Bloodscalp ruins of Zul'Kunda to the north wait for the second Stranglethorn loop."] = "从{area:108}向南离开{zone:1436}，进入荆棘谷西北部，前往海岸附近的{area:310}；周围的晶背蜥蜴会掉落碎片。\n闹鬼的岛屿就在矿洞西南边的近海，只需抵达其边缘即可。注意：岛上的次级水元素为36-37级：不要逗留。北边的血顶巨魔废墟祖昆达留到第二轮荆棘谷路线。"
 	["From Nesingwary's camp head west to the {area:310} near the coast; the Crystal Spine Basilisks around it drop the shards.\nThe haunted island lies just off the coast south-west of the mine: just reach its edge. Careful: its Lesser Water Elementals are 36-37: don't stay. The Bloodscalp ruins of Zul'Kunda to the north wait for the second Stranglethorn loop."] = "从奈辛瓦里远征队营地向西前往海岸附近的{area:310}；周围的晶背蜥蜴会掉落碎片。\n闹鬼的岛屿就在矿洞西南边的近海，只需抵达其边缘即可。注意：岛上的次级水元素为36-37级：不要逗留。北边的血顶巨魔废墟祖昆达留到第二轮荆棘谷路线。",
 	["The haunted island"] = "闹鬼的小岛",
 
@@ -207,6 +207,7 @@ return {
 	["The road to {area:608}"] = "通往{area:608}的道路",
 
 	-- No longer in the guide (its English changed or it went away): reuse or delete.
+	-- ["Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "在旅店绑定炉石：路线末尾从丛林北边返回这里就靠它。",
 	-- ["Bloodscalp trolls"] = "血顶巨魔",
 	-- ["Down to {area:35}"] = "南下{area:35}",
 	-- ["East of Zul'Kunda"] = "祖昆达以东",
@@ -265,5 +266,4 @@ return {
 	-- ["{npc:773}, in the tavern"] = "{npc:773}，在旅店里",
 	-- ["{npc:773}, in the tavern; upstairs"] = "{npc:773}，位于旅店楼上",
 	-- ["{quest:207}: four troll legends"] = "{quest:207}：四个巨魔传说",
-	-- ["Bind your hearthstone at the inn: it is your way back here from the north of the jungle at the end of the loop."] = "在旅店绑定炉石：路线末尾从丛林北边返回这里就靠它。",
 }

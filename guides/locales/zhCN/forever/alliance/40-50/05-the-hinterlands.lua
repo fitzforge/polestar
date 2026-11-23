@@ -16,7 +16,6 @@ return {
 	["Vilebranch Soothsayers"] = "邪枝占卜者",
 	-- {area:355} Altar of Zul · {npc:7996} Qiaga the Keeper · {npc:8636} Morta'gya the Keeper
 	-- plural, as words: Vilebranch Soothsayers = {npc:4467} Vilebranch Soothsayer · Vilebranch Totems = {item:279225} Vilebranch Totem
-	-- was: ["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "邪枝占卜者（46-47）在{area:355}山脚周围游荡：他们的图腾交给先知玛雷特·火心。小心：{npc:7996}和{npc:8636}（50级，精英）站在祭坛东南侧：去祭坛西侧打占卜者，远离她们，别上祭坛。"
 	["The Vilebranch Soothsayers (46-47) walk the ground around the foot of the {area:355}: their totems are for Maret Firetend, and more Vilebranch Totems lie on the ground among them: pick those up too. Careful: {npc:7996} and {npc:8636} (50, elites) stand on the altar's south-east side: take the Soothsayers on its west side, away from them, and stay off the altar."] = "邪枝占卜者（46-47）在{area:355}山脚周围游荡：他们的图腾交给先知玛雷特·火心，还有更多邪枝图腾散落在他们中间的地上：也把它们捡起来。小心：{npc:7996}和{npc:8636}（50级，精英）站在祭坛东南侧：去祭坛西侧打占卜者，远离她们，别上祭坛。",
 
 	-- Step 3: Skulk Rock

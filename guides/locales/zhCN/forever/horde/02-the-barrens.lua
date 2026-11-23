@@ -330,7 +330,6 @@ return {
 	["North to the {area:383}: {quest:876} leads the Witchwing harpies in the hills to the west.\nCareful: The route in passes stealthed Harpy Ambushers and an elite harpy that patrols."] = "向北前往{area:383}：{quest:876}带领西边山丘中的巫翼鹰身人。\n注意：进入的路会经过隐身的巫翼伏击者和一只巡逻的精英鹰身人。",
 	-- {quest:865} Raptor Horns · {npc:3682} Vrang Wildgore
 	-- plural, as words: Sunscale Scytheclaws = {npc:3256} Sunscale Scytheclaw
-	-- was: ["{quest:865}, if still open: Sunscale Scytheclaws prowl among the lions"] = "如果 {quest:865} 还没完成：赤鳞镰爪龙就在狮群之间游荡"
 	["{quest:865}, if still open: Sunscale Scytheclaws prowl among the lions below {npc:3682}'s camp"] = "如果 {quest:865} 还没完成：赤鳞镰爪龙就在{npc:3682}营地下方的狮群之间游荡",
 
 	-- Step 69: Walton
