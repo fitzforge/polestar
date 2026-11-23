@@ -566,9 +566,11 @@ fn along_the_way_leaves_out_goals_the_step_on_screen_lists_itself() {
 #[test]
 fn the_options_offer_show_the_whole_step_and_a_maximum_height_in_guide_window() {
 	let out = run(r#"
-		UI.ShowOptions("guide")
+		UI.ShowOptions("guidewindow")
 		local O = UI.Options
-		local widgets = O.Controls("guide", "Window")
+		O.Select("guidewindow", "Parts")
+		O.Select("guidewindow", "Window")
+		local widgets = { ["ui.wholeStep"] = O.Controls("guidewindow", "Parts")["ui.wholeStep"], ["ui.maxHeight"] = O.Controls("guidewindow", "Window")["ui.maxHeight"] }
 		local found = {}
 		for _, q in ipairs({ "whole step", "maximum height" }) do
 			for _, g in ipairs(O.Search(q)) do
@@ -584,10 +586,11 @@ fn the_options_offer_show_the_whole_step_and_a_maximum_height_in_guide_window() 
 	.remove(0);
 	assert_eq!(out["defaults"], json!({ "whole": false, "max": 0.5 }), "one person at a time and half the screen by default");
 	assert_eq!(out["widgets"], json!({ "whole": true, "max": true }));
-	// Search result cards are titled page · tab · section.
-	assert_eq!(out["found"]["ui.wholeStep"], json!({ "title": "Guide  \u{b7}  Window  \u{b7}  What it shows", "kind": "toggle", "label": "Show the whole step" }));
-	assert_eq!(out["found"]["ui.maxHeight"], json!({ "title": "Guide  \u{b7}  Window  \u{b7}  What it shows", "kind": "slider", "min": 0.3, "max": 0.9, "label": "Maximum height" }));
-	assert!(is_match(text(&out["found"]["ui.maxHeight"]["title"]), "What it shows$"));
+	// Search result cards are titled page · tab · section (a section named as its tab once): both on Look > Guide
+	// window, their one home; the whole step on Parts' Step text.
+	assert_eq!(out["found"]["ui.wholeStep"], json!({ "title": "Guide window  \u{b7}  Parts  \u{b7}  Step text", "kind": "toggle", "label": "Show the whole step" }));
+	assert_eq!(out["found"]["ui.maxHeight"], json!({ "title": "Guide window  \u{b7}  Window", "kind": "slider", "min": 0.3, "max": 0.9, "label": "Max height" }));
+	assert!(is_match(text(&out["found"]["ui.maxHeight"]["title"]), "Window$"));
 }
 
 // A town hub of eight persons (Darkshore's Auberdine has seventeen): past three lines the rest share one.
@@ -949,7 +952,7 @@ fn along_the_way_up_next_and_the_next_step_s_line_wrap_to_two_lines() {
 	assert!(text(&out["along"]["text"]).contains("Echo Ridge Mine entrance"), "{}", out["along"]);
 	assert!(text(&out["up"]["text"]).contains("Northshire vineyards"), "{}", out["up"]);
 	assert_eq!(out["afterShown"], true);
-	assert_eq!(out["after"]["text"], "Then: Echo Ridge Mine, the kobold tunnels past the Northshire vineyards");
+	assert_eq!(out["after"]["text"], "Next step: Echo Ridge Mine, the kobold tunnels past the Northshire vineyards");
 	assert!(f(&out["after"]["h"]) > 28.0, "the line grows by its second line: {}", out["after"]);
 }
 

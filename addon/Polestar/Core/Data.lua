@@ -115,12 +115,13 @@ end
 -- walking routes (Polestar_Nav), the Skin API's checks (Polestar_SkinAPI:
 -- only another addon's skin needs them, and says so when they are missing),
 -- Freedoom Arcade (Polestar_Arcade: without it there is no game to offer),
--- quest and item packs and the language folder of the client's language
+-- the guide window's other tab styles (Polestar_TabStyles: without them the
+-- tabs stay above the step bar, and the chat says so), quest and item packs and the language folder of the client's language
 -- (Names.PackName(), none in English) are optional (the arrow falls back to
 -- straight lines, the interface, names and guide texts to English; a source
 -- install may not build the packs), but when present they must be the same
 -- version.
-local COMPANIONS = { "Polestar_Guides", "Polestar_Codex", "Polestar_Options", "Polestar_Looks", "Polestar_Nav", "Polestar_SkinAPI", "Polestar_Arcade", "Polestar_QuestDB", "Polestar_ItemDB" }
+local COMPANIONS = { "Polestar_Guides", "Polestar_Codex", "Polestar_Options", "Polestar_Looks", "Polestar_Nav", "Polestar_SkinAPI", "Polestar_Arcade", "Polestar_TabStyles", "Polestar_QuestDB", "Polestar_ItemDB" }
 local REQUIRED = { Polestar_Guides = true, Polestar_Codex = true, Polestar_Options = true, Polestar_Looks = true }
 
 local function installed(name)
@@ -178,15 +179,16 @@ local function retiredLocales()
 end
 
 -- Not ours to compare: the Recorder ships in a zip of its own and is updated
--- on its own, and so does a skin addon (Polestar_Skin_*, docs/SKINS-API.md:
--- the repository's example and any skin named after it).
+-- on its own, and so does a skin or layout addon (Polestar_Skin_*,
+-- Polestar_Layout_*, docs/SKINS-API.md: the repository's example and any
+-- skin or layout named after it).
 local SEPARATE = { Polestar_Recorder = true }
 
 -- Every other Polestar_* folder in the AddOns list, loaded or not: the parts
 -- for the other races and faction, the other languages, the walking maps'
 -- continents, the experimental guides (Polestar_Experimental, loaded at
 -- login unless switched off). Community addons are never named Polestar_* (pack.json
--- refuses the prefix) but a skin may be; the old language folders and 0.4.2's
+-- refuses the prefix) but a skin or a layout may be; the old language folders and 0.4.2's
 -- walking-map regions (Polestar_Nav_R<map>_<row>_<col>, inside the continent
 -- folders since 0.4.2.1) have a line of their own. -> the names, the number of
 -- region folders.
@@ -208,7 +210,7 @@ local function listed()
 		if type(name) ~= "string" then
 		elseif name:find("^Polestar_Nav_R%d+_%d+_%d+$") then
 			regions = regions + 1
-		elseif name:find("^Polestar_") and not name:find("^Polestar_Skin_") and not SEPARATE[name] and not retired[name] then
+		elseif name:find("^Polestar_") and not name:find("^Polestar_Skin_") and not name:find("^Polestar_Layout_") and not SEPARATE[name] and not retired[name] then
 			out[#out + 1] = name
 		end
 	end

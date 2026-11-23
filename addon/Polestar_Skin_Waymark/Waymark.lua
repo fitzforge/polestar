@@ -221,7 +221,14 @@ local PAINT = {
 			return
 		end
 		local card = frame.psGuide and not frame.psGuideWindow
-		chart(frame, kit, not card and 70 or nil)
+		-- A guide window's corner is the layout's: the rose only where it
+		-- leaves room for one (guideShows "ornament").
+		local rose = not card and 70 or nil
+		if rose and frame.psGuideWindow then
+			local ran, v = Theme.SkinHookValue("guideShows", "ornament", true)
+			if ran and v == false then rose = nil end
+		end
+		chart(frame, kit, rose)
 		neatline(frame, kit.store(frame), 0.55)
 		artOn(frame, kit, 128, 0.35)
 	end,
