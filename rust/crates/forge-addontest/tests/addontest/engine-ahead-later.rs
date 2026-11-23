@@ -120,11 +120,14 @@ fn walking_past_that_giver_shows_the_next_guides_quest_as_a_pick_up_line_naming_
 // says only what to take; one the route walks away from first still says why.
 #[test]
 fn a_pick_up_the_route_takes_right_there_next_claims_no_trip_saved_3652() {
-	let out = run_with(&GUIDES.replace("map = 1429, x = 60, y = 60", "map = 1429, x = 48.0, y = 42.6"), r#"
+	let out = run_with(
+		&GUIDES.replace("map = 1429, x = 60, y = 60", "map = 1429, x = 48.0, y = 42.6"),
+		r#"
 		Polestar.Set("behavior.autoAccept", false)
 		w.moveTo(1429, 48.6, 42.2); stub.advance(0.6); stub.advance(0.6)
 		emit(lines())
-	"#);
+	"#,
+	);
 	let lines: Vec<String> = serde_json::from_value(out).unwrap();
 	let take = lines.iter().find(|l| l.starts_with("2:1 ")).expect("Kobold Camp Cleanup's pick-up line");
 	assert!(take.contains("Kobold Camp Cleanup") && !take.contains("saves a trip back"), "{lines:?}");
