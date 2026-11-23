@@ -60,6 +60,8 @@ fn the_compiled_guide_carries_each_sides_range_and_guides_levels_reads_the_playe
 fn a_horde_character_at_47_to_49_is_not_told_shendralas_is_outgrown_an_alliance_one_at_49_is() {
 	let script = r#"
 		local fired = {}
+		-- The outgrown notice, not Skip grey quests' catch-up passing the guide (Engine's mayPass).
+		Polestar.Set("behavior.skipGrey", false)
 		Polestar.On("GUIDE_OUTLEVELED", function(id) fired[#fired + 1] = id end)
 		E.SetGuide("test/shendralas"); flush()
 		local at = {}

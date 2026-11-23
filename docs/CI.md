@@ -279,9 +279,11 @@ Every Monday `route-health.yml` runs the whole route on the release data:
 every leveling guide played, the level model for every race and class on
 `next` and on the last release, and the flow diff against the release
 (`polestar flow-diff`: zone visits, one-quest trips, carried quests, travel,
-moved quests). The table goes to the open issue labelled `route-health`;
-a stuck play or a guide end more than 0.3 level lower than in the release
-also files a `next-gates` issue.
+moved quests), the release's guides played on the data that release shipped
+with (the runner's `$POLESTAR_DATA/releases/<tag>/`, RELEASING.md step 11).
+The table goes to the open issue labelled `route-health`; a flow check that
+could not run says so there. A stuck play or a guide end more than 0.3 level
+lower than in the release also files a `next-gates` issue.
 
 ## After a merge
 

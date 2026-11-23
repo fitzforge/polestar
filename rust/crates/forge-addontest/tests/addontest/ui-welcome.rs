@@ -464,9 +464,9 @@ fn every_choice_page_says_skip_install_keeps_its_settings_and_skipping_keeps_the
 		emit({ keep = keep, before = before, skipped = skipped, kept = get("behavior.skipGrey") })"#);
 	let line = json!("Skip install keeps these as they are.");
 	assert_eq!(out["keep"], json!([line, line, line]), "Questing, Your route, Your look");
-	assert_eq!(out["before"], json!([true, true, false, true, "dusk", "balanced"]), "the defaults, picked on a fresh account");
+	assert_eq!(out["before"], json!([true, true, true, true, "dusk", "balanced"]), "the defaults, picked on a fresh account");
 	assert_eq!(out["skipped"], json!({ "now": out["before"].clone(), "closed": true, "stored": true }), "nothing written");
-	assert_eq!(out["kept"], true);
+	assert_eq!(out["kept"], false, "Skip grey quests turned off on the page stays off");
 }
 
 #[test]
@@ -497,11 +497,11 @@ fn the_questing_page_writes_quest_automation_both_ways_grey_quests_the_login_gui
 		local custom = cards(F.Gear)
 		emit({ start = start, off = off, on = on, partly = partly, grey = get("behavior.skipGrey"), guide = get("behavior.autoSelectGuide"),
 			gear = gear, fury = fury, reset = reset, custom = custom })"#);
-	assert_eq!(out["start"], json!({ "title": "Questing", "on": true, "grey": false, "guide": true, "desc": true, "login": true, "greyDesc": true }), "the defaults picked, descriptions shown inline");
+	assert_eq!(out["start"], json!({ "title": "Questing", "on": true, "grey": true, "guide": true, "desc": true, "login": true, "greyDesc": true }), "the defaults picked, descriptions shown inline");
 	assert_eq!(out["off"], json!([false, false, false]), "one switch turns both accepting and turning in off");
 	assert_eq!(out["on"], json!([true, true, true]));
 	assert_eq!(out["partly"], false, "on only while both are on");
-	assert_eq!(out["grey"], true);
+	assert_eq!(out["grey"], false);
 	assert_eq!(out["guide"], false);
 	assert_eq!(out["gear"], json!({ "names": ["Automatic (talents)", "Arms", "Fury", "Protection (tank)"], "picked": "Automatic (talents)", "shown": true }));
 	assert_eq!(out["fury"], json!(["fury", "Fury", "auto"]), "the class's own weights, at once; other classes keep theirs");

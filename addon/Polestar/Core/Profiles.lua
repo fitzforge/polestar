@@ -42,7 +42,7 @@
 --   P.Apply(preview, name, pick?)   -> true, undo | nil, why: into the profile in use (name = P.Active()) or as a new one
 --   P.Undo(undo)                    -> true | nil, why: an Apply taken back
 --   P.RegisterPosition(path, shape) -- a position setting a string may carry (shape "xy" | "pxy" | "ppxy" | "anchor")
---   ns.RegisterMigration(id, fn(settings))
+--   ns.RegisterMigration(id, fn(settings), opts?)   opts.strings = false: the saved profiles only, never a profile string
 -- The string functions (Export, Import, Changes, Apply, Undo, Portable,
 -- FreeName, Pack, CategoryOf, LabelOf, ValueText, Same) are the settings'
 -- addon's (Polestar_Options/Core/ProfileStrings.lua): the first call loads
@@ -509,10 +509,10 @@ ns.OnLogin(function() P.ApplyKeys() end)
 ---------------------------------------------------------------------------
 -- Migrations: a settings key moved or changed meaning, once per id, over
 -- the settings in use and every stored profile (and over a profile string
--- from before it).
+-- from before it, unless it is for the saved profiles only).
 ---------------------------------------------------------------------------
 
-local migrations, migrationOrder = {}, {}
+local migrations, migrationOrder, savedOnly = {}, {}, {}
 local loaded = false
 
 local function runMigration(id)
@@ -530,13 +530,17 @@ end
 
 -- fn(settings) gets one profile's settings table ({ ui = { ... }, nav = { ... } })
 -- and changes it in place. Register at file load; one registered later runs
--- at once. -> true | false, why
-function ns.RegisterMigration(id, fn)
+-- at once. opts.strings = false: it runs over the saved profiles only, never
+-- over a profile string from before it (a default changed for the players
+-- who had it: a string holds only what its maker changed, so what it leaves
+-- out takes today's default). -> true | false, why
+function ns.RegisterMigration(id, fn, opts)
 	if type(id) ~= "string" or id == "" then return false, "RegisterMigration: id must be a string" end
 	if type(fn) ~= "function" then return false, "RegisterMigration: fn must be a function" end
 	if migrations[id] then return false, "RegisterMigration: " .. id .. " is registered already" end
 	migrations[id] = fn
 	migrationOrder[#migrationOrder + 1] = id
+	if type(opts) == "table" and opts.strings == false then savedOnly[id] = true end
 	if loaded and runMigration(id) then ns.Fire("SETTING_CHANGED", "", nil) end
 	return true
 end
@@ -581,7 +585,7 @@ end
 ---------------------------------------------------------------------------
 
 P.Parts = { PREFIX = PREFIX, FORMAT = FORMAT, NOT_SHARED = NOT_SHARED, store = store, data = data,
-	deepCopy = deepCopy, missing = missing, migrations = migrations, migrationOrder = migrationOrder }
+	deepCopy = deepCopy, missing = missing, migrations = migrations, migrationOrder = migrationOrder, savedOnly = savedOnly }
 
 -- Position shapes given before the strings' file loads, for it to take.
 P.pendingPositions = {}
