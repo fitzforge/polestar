@@ -3,7 +3,7 @@
 
 use forge_guide::js::{num_str, str_to_num, V};
 
-use super::util::{kstr, math_round};
+use super::util::{by_num, kstr, math_round, oentries};
 
 pub const SCHEMA: f64 = 1.0;
 pub const ADDON: &str = "Polestar_Codex";
@@ -334,7 +334,14 @@ fn encode_spawns(spawns: &V) -> Result<Vec<String>, String> {
 }
 
 fn encode_npc(rec: &V) -> Result<String, String> {
-	let flags = format!("{}{}{}", if rec.get("rare").truthy() { "r" } else { "" }, if rec.get("elite").truthy() { "e" } else { "" }, if rec.get("boss").truthy() { "b" } else { "" });
+	// r rare, e elite, b boss, g seen only by a dead character (#558: Franclorn Forgewright).
+	let flags = format!(
+		"{}{}{}{}",
+		if rec.get("rare").truthy() { "r" } else { "" },
+		if rec.get("elite").truthy() { "e" } else { "" },
+		if rec.get("boss").truthy() { "b" } else { "" },
+		if rec.get("ghostOnly").truthy() { "g" } else { "" }
+	);
 	let fac = rec.get("faction");
 	let mut parts = vec![
 		num(&rec.get("level"))?,
@@ -348,6 +355,10 @@ fn encode_npc(rec: &V) -> Result<String, String> {
 	parts.extend(encode_spawns(&rec.get("spawns"))?);
 	if rec.get("subName").truthy() {
 		parts.push(format!("t{}", esc(&rec.get("subName"))));
+	}
+	// The quest after which it sells (#3138: Zorbin Fandazzle after Zapped Giants): v<quest>, last.
+	if rec.get("vendorAfter").num() > 0.0 {
+		parts.push(format!("v{}", num(&rec.get("vendorAfter"))?));
 	}
 	Ok(parts.join(";"))
 }
@@ -466,6 +477,12 @@ fn encode_quest(rec: &V) -> Result<String, String> {
 	if rec.get("direct").truthy() {
 		parts.push("d".into());
 	}
+	// One of a set the game offers one at a time (#3601: Pix's weekly In Demand quests): v<set name>. An older
+	// reader skips it (no objective kind is v).
+	let rot = rec.get("rotation");
+	if rot.truthy() {
+		parts.push(format!("v{}", esc(&rot)));
+	}
 	Ok(parts.join(";"))
 }
 
@@ -522,6 +539,28 @@ fn encode_instance(rec: &V) -> Result<String, String> {
 
 fn encode_spell(rec: &V) -> Result<String, String> {
 	Ok([esc(&rec.get("kind")), num(&rec.get("item"))?, esc(&rec.get("class"))].join(";"))
+}
+
+/// A profession's record (#3784): `minSkill,max,<Alliance ids>,<Horde ids>` per rank, then
+/// `trainerSkill` as `npc,skill,npc,skill` (sorted by npc). Id lists are space-joined, so `,` and `;`
+/// stay the field and rank separators Codex.lua's `split` knows.
+fn encode_profession(rec: &V) -> Result<String, String> {
+	let mut parts: Vec<String> = Vec::new();
+	for r in rec.get("ranks").items() {
+		let t = r.get("trainers");
+		let side = |k: &str| -> Result<String, String> {
+			let ids: Vec<String> = t.get(k).items().iter().map(num).collect::<Result<Vec<_>, _>>()?;
+			Ok(ids.join(" "))
+		};
+		parts.push(format!("{},{},{},{}", num(&r.get("minSkill"))?, num(&r.get("max"))?, side("Alliance")?, side("Horde")?));
+	}
+	let mut gates: Vec<(String, String)> = Vec::new();
+	for (npc, skill) in oentries(&rec.get("trainerSkill")) {
+		gates.push((npc.to_string(), num(&skill)?));
+	}
+	gates.sort_by(|a, b| by_num(str_to_num(&a.0), str_to_num(&b.0)));
+	parts.push(gates.iter().map(|(npc, skill)| format!("{npc},{skill}")).collect::<Vec<_>>().join(","));
+	Ok(parts.join(";"))
 }
 
 /// pack.js `luaValue(v, indent)`.
@@ -628,6 +667,7 @@ pub struct PackCodex<'a> {
 	pub spells: &'a V,
 	pub meta: &'a V,
 	pub frames: &'a V,
+	pub professions: &'a V,
 }
 
 /// `emitPack(codex, { version, build, extraFiles })` -> [(file, text)] (TOC order, then the TOC and
@@ -741,7 +781,10 @@ pub fn emit_pack(codex: &PackCodex, version: &str, build: &V, extra_files: &[(St
 	}
 	let mut roles: Vec<(String, Vec<String>)> = Vec::new();
 	for id in &npc_ids {
-		for r in npcs.get(id).get("roles").items() {
+		// `vendorAfter`: the NPCs whose selling waits on a quest (v<quest> on their record), so the addon reads only
+		// those records to filter its vendor lists (#3138).
+		let after = (npcs.get(id).get("vendorAfter").num() > 0.0).then(|| V::str("vendorAfter"));
+		for r in npcs.get(id).get("roles").items().into_iter().chain(after) {
 			let r = r.to_js_string();
 			match roles.iter_mut().find(|(x, _)| *x == r) {
 				Some(e) => e.1.push(id.clone()),
@@ -754,6 +797,16 @@ pub fn emit_pack(codex: &PackCodex, version: &str, build: &V, extra_files: &[(St
 	let role_entries: Vec<Entry> = roles.iter().map(|(r, ids)| (r.clone(), V::str(&ids.join(",")), None, String::new())).collect();
 	if !role_entries.is_empty() {
 		emit_group("role", &role_entries, "Roles", &mut out, &mut order);
+	}
+	let profession_entries: Vec<Entry> = sorted_ids(codex.professions)
+		.into_iter()
+		.map(|id| {
+			let p = codex.professions.get(&id);
+			Ok::<Entry, String>((id, p.get("name"), Some(encode_profession(&p)?), String::new()))
+		})
+		.collect::<Result<Vec<_>, String>>()?;
+	if !profession_entries.is_empty() {
+		emit_group("profession", &profession_entries, "Professions", &mut out, &mut order);
 	}
 	let obj_ids = sorted_ids(objects);
 	let obj_entries = |treasure: bool| -> Result<Vec<Entry>, String> {
@@ -964,5 +1017,28 @@ mod tests {
 		};
 		assert!(line(r#", "direct": true"#).ends_with(";x5300;d"), "Bloodpetal Sprouts: handed in at one talk");
 		assert!(line("").ends_with(";x5300"), "taken into the log: no field");
+	}
+
+	#[test]
+	fn a_ghost_only_npc_carries_g_and_a_conditional_vendor_its_quest_558_3138() {
+		let npc = |extra: &str| {
+			let rec = forge_guide::js::parse_json(&format!(
+				r#"{{ "id": 8888, "level": 60, "levelMax": null, "faction": "AH", "rare": false, "elite": false, "boss": false, "instance": null, "roles": [], "spawns": []{extra} }}"#
+			))
+			.unwrap();
+			encode_npc(&rec).unwrap()
+		};
+		assert_eq!(npc(""), "60;;AH;;;;");
+		assert_eq!(npc(r#", "ghostOnly": true"#), "60;;AH;g;;;", "Franclorn Forgewright: seen only by the dead");
+		assert_eq!(npc(r#", "vendorAfter": 7003"#), "60;;AH;;;;;v7003", "Zorbin Fandazzle sells after Zapped Giants");
+	}
+
+	#[test]
+	fn a_quest_of_a_rotation_carries_its_set_name_3601() {
+		let rec = forge_guide::js::parse_json(
+			r#"{ "id": 96075, "level": 45, "minLevel": 40, "faction": null, "races": null, "classes": null, "zone": 1444, "start": { "npc": [1], "object": [], "item": [] }, "end": { "npc": [1], "object": [] }, "pre": [], "rewards": [], "choices": [], "preAny": [], "objectives": [], "rotation": "pix-weekly" }"#,
+		)
+		.unwrap();
+		assert!(encode_quest(&rec).unwrap().ends_with(";vpix-weekly"), "{}", encode_quest(&rec).unwrap());
 	}
 }

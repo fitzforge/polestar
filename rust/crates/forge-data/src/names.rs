@@ -18,7 +18,7 @@
 //!   5. pfQuest's db/<locale>, for the names DingDB lacks.
 //!
 //! Only the ids Polestar's data names are kept: the compiled guides (addon/Polestar_Guides/Guides.lua, its
-//! faction parts and Polestar Experimental's addon/Polestar_Experimental/Guides.lua),
+//! faction parts and Polestar Experimental's addon/Polestar/Experimental/Guides.lua),
 //! the quest database (addon/Polestar_QuestDB), the Codex's data (data/forever/codex), the travel data's
 //! flight points (addon/Polestar/Nav/TravelData.lua) and the lifts' objects (Polestar_Nav's
 //! Chokepoints.lua).
@@ -84,7 +84,8 @@ local function walk(t)
   add(from, t.fromAlsoId)
 end
 Polestar = { RegisterGuide = function(g) if type(g) == "table" then walk(g) end return true end, RetireGuides = function() end,
-  RegisterExperimental = function(list) if type(list) == "table" then walk(list) end end }
+  RegisterExperimental = function(list) if type(list) == "table" then walk(list) end end,
+  DeferGuides = function(_, fn) if type(fn) == "function" then fn() end end }
 "#;
 
 /// The quest database's ids: the "\n<id>\t" lines of each kind's LuaChunks text (Q.AddChunk).
@@ -142,14 +143,14 @@ pub fn used_ids(guides: &Path, questdb: &Path, codex: &Path) -> Result<UsedIds, 
 		return Err(format!("the Codex data is not built (no {}): run forge data codex, or pass --codex <data/forever/codex folder>", c_files[0].display()));
 	}
 	// Polestar's own pack keeps each faction's guides in a part beside it (Polestar_Guides_Alliance, _Horde), and
-	// Polestar Experimental's guides (the route choices' new zones) in their own folder beside it.
+	// Polestar Experimental's guides (the route choices' new zones) inside Polestar's own folder.
 	let parts: Vec<PathBuf> = match (guides.parent(), guides.file_name()) {
 		(Some(dir), Some(file)) => {
 			let folder = dir.file_name().map(|f| f.to_string_lossy().into_owned()).unwrap_or_default();
 			let up = dir.parent().unwrap_or(Path::new("."));
 			let mut parts: Vec<PathBuf> = forge_guide::project::FACTION_PARTS.iter().map(|f| up.join(forge_guide::project::part_addon(&folder, f)).join(file)).collect();
-			if folder == "Polestar_Guides" {
-				parts.push(up.join("Polestar_Experimental").join(file));
+			if folder == forge_guide::project::OWN_FOLDER {
+				parts.extend(forge_guide::project::OWN_EXTRAS.iter().map(|e| up.join(e.dir).join(file)));
 			}
 			parts.into_iter().filter(|p| p.exists()).collect()
 		}

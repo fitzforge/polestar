@@ -174,21 +174,21 @@ return {
 	-- {quest:4882} Guarding Secrets · {npc:5770} Nara Wildmane · {faction:81} Thunder Bluff
 	["{quest:4882}, +100: to {npc:5770} in {faction:81}"] = "{quest:4882}, +100 : à {npc:5770} ({faction:81})",
 
-	-- Step 30: Thunder Bluff: Nara Wildmane
+	-- Step 31: Thunder Bluff: Nara Wildmane
 	-- {npc:5770} Nara Wildmane · {area:1639} Elder Rise · {npc:5769} Arch Druid Hamuul Runetotem
 	["{npc:5770} stands on {area:1639}, beside {npc:5769}."] = "{npc:5770} se tient sur la {area:1639}, à côté de {npc:5769}.",
 
-	-- Step 31: Morrowgrain (optional)
+	-- Step 32: Morrowgrain (optional)
 	-- {item:11040} Morrowgrain
 	["{item:11040} (optional)"] = "{item:11040} (optionnel)",
 	-- {quest:3804} Morrowgrain to Thunder Bluff · {item:11040} Morrowgrain · {item:11020} Evergreen Pouch · {quest:3761} Un'Goro Soil · {npc:6746} Innkeeper Pala · {npc:5769} Arch Druid Hamuul Runetotem · {area:1639} Elder Rise
 	["{quest:3804} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60, but it is slow: the {item:11020} grows one casing every 10 minutes and a casing holds about one {item:11040} on average, so each hand-in takes about 90 minutes of waiting, 18 {quest:3761} and 9 seed packets (90 silver). It runs beside whatever else you do: a little over 30 reputation an hour. The chain before it is level 50. {npc:6746} sends you to {npc:5769} on {area:1639}; he wants 20 {quest:3761}."] = "{quest:3804} prend 10 {item:11040} pour 50, autant de fois que vous voulez, et paie en entier au niveau 60, mais c'est lent : la {item:11020} fait pousser une enveloppe toutes les 10 minutes et une enveloppe contient en moyenne environ une {item:11040} ; chaque remise demande donc environ 90 minutes d'attente, 18 portions de terre ({quest:3761}) et 9 paquets de graines (90 pa). Cela tourne à côté de tout ce que vous faites : un peu plus de 30 de réputation par heure. La suite de quêtes qui précède est de niveau 50. {npc:6746} vous envoie voir {npc:5769} sur la {area:1639} ; il veut 20 portions de terre ({quest:3761}).",
 
-	-- Step 32: Un'Goro Crater: Un'Goro Soil
+	-- Step 33: Un'Goro Crater: Un'Goro Soil
 	-- {quest:3761} Un'Goro Soil · {item:11040} Morrowgrain
 	["Nearly every beast, plant and silithid in the crater drops {quest:3761}, about one kill in three (the Bloodpetals and the Gorishi wasps about one in two), and the dirt mounds give it too. Take far more than 20: every casing uses 2, about 18 for each {item:11040} hand-in."] = "Presque toutes les bêtes, plantes et silithides du cratère laissent de la terre ({quest:3761}), environ une fois sur trois (les Pétale-de-sang et les guêpes Gorishi environ une fois sur deux), et les monticules de terre en donnent aussi. Prenez-en bien plus de 20 : chaque enveloppe en utilise 2, environ 18 pour chaque remise de {item:11040}.",
 
-	-- Step 33: Thunder Bluff: Morrowgrain Research
+	-- Step 34: Thunder Bluff: Morrowgrain Research
 	-- {npc:9076} Ghede · {npc:9087} Bashana Runetotem · {item:11020} Evergreen Pouch · {quest:3761} Un'Goro Soil · {item:11024} Evergreen Herb Casing · {item:11040} Morrowgrain
 	["{npc:9076} takes the soil. {npc:9087} sells the {item:11020} (1 gold) and Packets of Tharlendris Seeds (10 silver each). With a seed packet and 2 {quest:3761} in your bags, use the pouch: it grows an {item:11024}, once every 10 minutes. Open each casing: about one in three holds 1 to 5 {item:11040}, the rest common herbs. Use the pouch whenever it is ready while you follow the rest of this guide."] = "{npc:9076} prend la terre. {npc:9087} vend la {item:11020} (1 po) et des paquets de graines de Tharlendris (10 pa chacun). Avec un paquet de graines et 2 portions de terre ({quest:3761}) dans vos sacs, utilisez la bourse : elle fait pousser une enveloppe ({item:11024}), une fois toutes les 10 minutes. Ouvrez chaque enveloppe : environ une sur trois contient 1 à 5 {item:11040}, les autres des herbes communes. Utilisez la bourse dès qu'elle est prête pendant que vous suivez le reste de ce guide.",
 	-- {item:11020} Evergreen Pouch
@@ -196,17 +196,17 @@ return {
 	-- {item:11022} Packet of Tharlendris Seeds
 	["{item:11022}, 10 silver each"] = "{item:11022}, 10 pa chacun",
 
-	-- Step 34: Morrowgrain as you go
+	-- Step 35: Morrowgrain as you go
 	-- {item:11040} Morrowgrain
 	["{item:11040} as you go"] = "{item:11040} en chemin",
 	-- {item:11040} Morrowgrain · {npc:9087} Bashana Runetotem
 	["{item:11040}: use the pouch every 10 minutes and open the casings; {npc:9087} takes it"] = "{item:11040} : utilisez la bourse toutes les 10 minutes et ouvrez les enveloppes ; {npc:9087} la prend",
 
-	-- Step 35: Bashana Runetotem: Morrowgrain Research
+	-- Step 36: Bashana Runetotem: Morrowgrain Research
 	-- {npc:9087} Bashana Runetotem · {area:1639} Elder Rise · {item:11040} Morrowgrain
 	["{npc:9087} stands on {area:1639}. If your 10 {item:11040} are not ready yet, skip this step and go on with the cloth: the cloth steps below list the {item:11040} hand-in too."] = "{npc:9087} se tient sur la {area:1639}. Si vos 10 {item:11040} ne sont pas encore prêtes, passez cette étape et continuez avec les étoffes : les étapes des étoffes ci-dessous indiquent aussi la remise de {item:11040}.",
 
-	-- Step 36: Additional Runecloth to Honored
+	-- Step 37: Additional Runecloth to Honored
 	-- {quest:7825} Additional Runecloth
 	["{quest:7825} to Honored"] = "{quest:7825} jusqu'à Honoré",
 	-- {quest:7825} Additional Runecloth · {item:14047} Runecloth
@@ -214,7 +214,7 @@ return {
 	-- {item:11040} Morrowgrain · {npc:9087} Bashana Runetotem
 	["{item:11040}, if you grow it: {npc:9087} takes it"] = "{item:11040}, si vous en faites pousser : {npc:9087} la prend",
 
-	-- Step 37: Additional Runecloth to Revered
+	-- Step 38: Additional Runecloth to Revered
 	-- {quest:7825} Additional Runecloth
 	["{quest:7825} to Revered"] = "{quest:7825} jusqu'à Révéré",
 	-- {item:14047} Runecloth · {item:11040} Morrowgrain · {area:1584} Blackrock Depths · {area:340} Kargath · {npc:9017} Lord Incendius
@@ -222,7 +222,7 @@ return {
 	-- {item:11040} Morrowgrain
 	["{item:11040}, if you grow it"] = "{item:11040}, si vous en faites pousser",
 
-	-- Step 38: Additional Runecloth to Exalted
+	-- Step 39: Additional Runecloth to Exalted
 	-- {quest:7825} Additional Runecloth
 	["{quest:7825} to Exalted"] = "{quest:7825} jusqu'à Exalté",
 	-- {item:14047} Runecloth · {npc:3685} Harb Clawhoof · {area:222} Bloodhoof Village

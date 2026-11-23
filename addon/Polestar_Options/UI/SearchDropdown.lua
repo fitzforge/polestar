@@ -41,12 +41,12 @@ local rows, items = {}, {}
 local lit -- the row Up and Down lit (its index), nil for none
 local typed = "" -- the words the list shows
 
--- A label with the words it matches lit: the label in textDim, those words in
--- text, the look's brighter ink.
+-- A label with the words it matches lit: the label in its own ink, those
+-- words in the accent (a font string has no bold run; the colour carries it).
 local function marked(text)
 	local spans = O.MatchSpans(text, typed)
 	if #spans == 0 then return text end
-	local open, out, at = "|c" .. Theme.Hex("text"), {}, 1
+	local open, out, at = "|c" .. Theme.Hex("accent"), {}, 1
 	for _, s in ipairs(spans) do
 		out[#out + 1] = text:sub(at, s[1] - 1)
 		out[#out + 1] = open .. text:sub(s[1], s[2]) .. "|r"
@@ -67,6 +67,7 @@ local function paint(r)
 	else
 		r.Text:SetText(it.text)
 	end
+	if it.where then r.Where:SetText(marked(it.where)) end
 end
 
 -- The lit row: the selected wash and an accent bar at its left edge, or the
@@ -199,7 +200,7 @@ local function layout()
 			r.Where:ClearAllPoints()
 			r.Where:SetPoint("LEFT", r, "LEFT", INSET, -8)
 			r.Where:SetPoint("RIGHT", r, "RIGHT", -INSET, -8)
-			r.Where:SetText(it.where)
+			r.Where:SetText(marked(it.where))
 		end
 		paintLit(r, i == lit)
 		r:Show()

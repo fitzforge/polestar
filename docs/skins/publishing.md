@@ -10,10 +10,11 @@ screenshots.
 - **Folder and TOC**: `Polestar_Skin_<Name>` (`Polestar_Skin_Ember`,
   `Polestar_Skin_Ember.toc`). Polestar's install check warns players about
   `Polestar_*` folders whose version lags behind its own; `Polestar_Skin_*`
-  is exempt, so your addon keeps its own version numbers. Any name not
-  starting with `Polestar_` is fine too. Never `Polestar_<Something>`
-  without `Skin_`: that reads as one of Polestar's own parts and trips the
-  check.
+  is exempt, so your addon keeps its own version numbers. A layout addon
+  is `Polestar_Layout_<Name>`, exempt the same way. Any name not starting
+  with `Polestar_` is fine too. Never `Polestar_<Something>` without
+  `Skin_` or `Layout_`: that reads as one of Polestar's own parts and trips
+  the check.
 - **TOC title**: `## Title: Polestar Skin: <Name>` keeps the AddOns list
   sorted with Polestar's parts; `## Category: Polestar` and `## Group:
   Polestar` group it with them on clients that support those fields.

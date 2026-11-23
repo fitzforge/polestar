@@ -700,11 +700,12 @@ fn flight_masters_not_known_count_as_missing_only_once_a_flight_map_opened_on_th
 	assert_eq!(out["listed"], json!(""), "listed: known (the Horde's roost is never one to learn)");
 }
 
-// A character that opened a flight map on a continent before the seen continents were kept keeps its lines: they
-// start, once, from the flight paths it already knows (each came from a flight map there). One that knows none starts
-// with none.
+// Only a flight map marks a continent seen (#3632, #3062, "it keeps forgetting the person has a flight path"): a flight
+// path known some other way (here West Hold, from a landing or a lost save restored in part) leaves the continent
+// unseen, so East Hold is one the character may have, never one to walk to and learn. Until 0.4.3 the seen continents
+// were made from the known nodes, and that one node made every other flight master there missing.
 #[test]
-fn the_seen_continents_start_from_the_flight_paths_already_known_1795() {
+fn a_continent_is_seen_only_once_a_flight_map_opened_there_not_from_a_node_known_otherwise_3632() {
 	let run_saved = |saved: &str| -> Value {
 		emitted(&RunAddon {
 			stubs: vec!["stub_nav.lua"],
@@ -716,7 +717,7 @@ fn the_seen_continents_start_from_the_flight_paths_already_known_1795() {
 				r#"
 				local ids = {}
 				for _, node in ipairs(N.UnknownTaxiOn(0, {})) do ids[#ids + 1] = node.id end
-				emit({ seen = N.GetTaxiSeen()[0] == true, unknown = table.concat(ids, ","), kept = Polestar.CharState().flags.taxiSeen ~= nil })"#
+				emit({ seen = N.GetTaxiSeen()[0] == true, unknown = table.concat(ids, ","), maybe = N.TaxiMaybe(2) })"#
 			),
 			..Default::default()
 		})
@@ -724,15 +725,101 @@ fn the_seen_continents_start_from_the_flight_paths_already_known_1795() {
 	};
 	assert_eq!(
 		run_saved("PolestarCharDB = { schema = 1, flags = { taxi = { [1] = true } } }"),
-		json!({ "seen": true, "unknown": "2", "kept": true }),
-		"West Hold known: a flight map opened on its continent"
+		json!({ "seen": false, "unknown": "", "maybe": true }),
+		"West Hold known without a flight map: East Hold may be known"
 	);
-	assert_eq!(run_saved("PolestarCharDB = { schema = 1 }"), json!({ "seen": false, "unknown": "", "kept": true }));
+	assert_eq!(
+		run_saved("PolestarCharDB = { schema = 1, flags = { taxi = { [1] = true }, taxiSeen = { [0] = true } } }"),
+		json!({ "seen": true, "unknown": "2", "maybe": false }),
+		"a flight map opened there before: East Hold missing, as before"
+	);
+}
+
+// A flight lands at a flight master the character has: known (Travel.Landed), whatever the saved data said.
+#[test]
+fn a_landing_marks_its_flight_master_known_3632() {
+	let out = run(r#"
+		known(1)
+		nav.place(0, 600)
+		target(0, -780, "Kobolds")
+		nav.place(0, 790)
+		nav.taxi = true
+		stub.advance(1.5)
+		nav.place(0, -795)
+		nav.taxi = false
+		stub.advance(1.5)
+		emit({ east = Polestar.CharState().flags.taxi[2] == true })"#);
+	assert_eq!(out["east"], true);
+}
+
+// The known flight paths live twice: in the character's saved data and account-wide by character
+// (PolestarFlightsDB["Name-Realm"], its own file). A lost or reset PolestarCharDB keeps them from the second copy.
+#[test]
+fn the_known_flight_paths_survive_a_lost_character_save_from_the_account_wide_copy_3632() {
+	let run_saved = |saved: &str| -> Value {
+		emitted(&RunAddon {
+			stubs: vec!["stub_nav.lua"],
+			addons: vec![nav()],
+			saved: vec![("Polestar".into(), saved.into())],
+			login: true,
+			script: format!(
+				"{PRELUDE}\nnav.faction = \"Alliance\"\nnav.useTravelWorld(nil)\n{}",
+				r#"
+				local flags = Polestar.CharState().flags
+				local m = PolestarFlightsDB and PolestarFlightsDB["Testchar-Test Realm"]
+				emit({ east = flags.taxi[2] == true, seen = flags.taxiSeen[0] == true, mirrored = m ~= nil and m.known == flags.taxi })"#
+			),
+			..Default::default()
+		})
+		.remove(0)
+	};
+	assert_eq!(
+		run_saved(
+			r#"PolestarCharDB = { schema = 1 }
+PolestarFlightsDB = { ["Testchar-Test Realm"] = { known = { [2] = true }, seen = { [0] = true } } }"#
+		),
+		json!({ "east": true, "seen": true, "mirrored": true }),
+		"the character's save lost: the account-wide copy fills it"
+	);
+	assert_eq!(run_saved("PolestarCharDB = { schema = 1, flags = { taxi = { [2] = true } } }"), json!({ "east": true, "seen": false, "mirrored": true }), "no copy yet: made from the character's");
+}
+
+// A flight map forgets a known flight path only where it proves it missing: a node one flight from one it lists, on its
+// continent, that it doesn't list (#3290: known nodes were only ever added). The other faction's stays.
+#[test]
+fn a_flight_map_forgets_a_known_node_one_flight_from_a_listed_one_that_it_does_not_list_3290() {
+	let out = run(r#"
+		known(1, 2, 3)
+		nav.taxiMap = { mapID = 1415, nodes = { 1 } }
+		stub.fire("TAXIMAP_OPENED", 1)
+		local t = Polestar.CharState().flags.taxi
+		emit({ west = t[1] == true, east = t[2] == true, third = t[3] == true })"#);
+	assert_eq!(out["west"], true);
+	assert_eq!(out["east"], false, "one flight from West Hold, not listed: missing");
+	assert_eq!(out["third"], true, "the Horde roost: not this character's, not the map's to say");
+}
+
+// A long walk a flight would beat with a flight path Polestar doesn't know of (a flight map opened there, East Hold not
+// on it): the walk stands, and Nav.FlightHint names East Hold ("Faster if you have the flight path at East Hold").
+#[test]
+fn a_long_walk_a_flight_would_beat_names_the_flight_path_it_would_need() {
+	let out = run(r#"
+		known(1)
+		nav.place(0, 600)
+		target(0, -780, "Kobolds")
+		local walk, hint = route(), N.FlightHint()
+		known(1, 2)
+		target(0, -780, "Kobolds")
+		emit({ walk = walk, flown = route(), hint = hint and hint.name or false, after = N.FlightHint() and N.FlightHint().name or false })"#);
+	assert_eq!(out["walk"], json!(["walk|Kobolds"]), "{out}");
+	assert_eq!(out["flown"], json!(["walk|Walk to the flight master", "fly|Fly to East Hold", "walk|Kobolds"]), "{out}");
+	assert_eq!(out["hint"], "East Hold, Testshire", "{out}");
+	assert_eq!(out["after"], false, "known: flown, no hint");
 }
 
 // #1795, the plan: on a continent where no flight map has opened yet for this character, a flight master Polestar
 // doesn't know may be one the character learnt before Polestar ran. The plan flies there like a known one (each
-// landing there costing 60 s more, never forbidden) and the leg says so (`maybe`); Auberdine to Astranaar is this,
+// landing there costing 15 s more, never forbidden) and the leg says so (`maybe`); Auberdine to Astranaar is this,
 // here West Hold to East Hold. Once a flight map has opened on that continent without East Hold, the character lacks
 // it: walked, as before.
 #[test]
@@ -755,6 +842,26 @@ fn an_unseen_continent_plans_a_flight_to_a_flight_master_the_player_may_have_179
 	assert_eq!(out["unseen"], json!(["walk|Walk to the flight master", "fly|Fly to East Hold", "walk|Kobolds"]));
 	assert_eq!(out["maybe"], true, "the flight lands where the player may not have the flight path");
 	assert_eq!(out["seen"], json!(["walk|Kobolds"]), "a flight map opened there without East Hold: walked");
+}
+
+// Fitz's example: on a continent no flight map has opened on, a flight master 50 yd away the character may never have
+// visited and a goal 200 yd past another one: the plan walks the 50 yd, learns the flight path there (if it is new) and
+// flies to the assumed one, never the 1,700 yd walk; the leg says to learn it. With the near one known: just the flight.
+#[test]
+fn an_unseen_continent_walks_to_the_near_flight_master_learns_it_and_flies_to_the_assumed_one() {
+	let out = run(r#"
+		local flags = Polestar.CharState().flags
+		known()
+		flags.taxiSeen = {}
+		nav.place(0, 740)
+		target(0, -1000, "Kobolds")
+		local r = { fresh = route() }
+		known(1)
+		target(0, -1000, "Kobolds")
+		r.startKnown = route()
+		emit(r)"#);
+	assert_eq!(out["fresh"], json!(["walk|Walk to the flight master", "fly|Learn the flight path at West Hold, then fly to East Hold", "walk|Kobolds"]), "{out}");
+	assert_eq!(out["startKnown"], json!(["walk|Walk to the flight master", "fly|Fly to East Hold", "walk|Kobolds"]), "{out}");
 }
 
 // The first flight map on that continent settles it, even when it adds no flight path: West Hold's map, without East

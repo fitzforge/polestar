@@ -29,7 +29,8 @@ const KEYS_CHAIN: &[&str] = &["id", "name", "open", "note", "nodes"];
 const KEYS_NODE: &[&str] = &["map", "x", "y", "z", "radius", "caption", "back", "alone", "offMap"];
 /// (`box`: x1, y1, x2, y2 in map percent of the area's uiMap.)
 /// (`z`: min and max, a height range: a place only the portals that land in it reach.)
-const KEYS_AREA: &[&str] = &["id", "name", "map", "box", "z", "note", "source"];
+/// (`subzone`: AreaTable id for a height-ranged place that also contains heightless goals.)
+const KEYS_AREA: &[&str] = &["id", "name", "map", "box", "z", "subzone", "note", "source"];
 
 /// A checked point: map percent, radius, world position (and a chain node's captions).
 #[derive(Clone, Debug)]
@@ -95,6 +96,8 @@ pub struct Area {
 	pub left: f64,
 	pub right: f64,
 	pub z: Option<(f64, f64)>,
+	/// AreaTable id for a height-ranged area that also holds heightless goals in its box.
+	pub subzone: Option<f64>,
 }
 
 #[derive(Clone, Debug, Default)]
@@ -428,9 +431,29 @@ pub fn validate_crossings(doc: &V, frames: &Frames) -> (Vec<String>, Set) {
 				}
 			}
 		};
+		let subzone = e.get("subzone");
+		let subzone = if subzone.is_undef() {
+			None
+		} else if let Some(id) = is_integer(&subzone).filter(|&id| id > 0.0 && z.is_some()) {
+			Some(id)
+		} else {
+			errors.push(format!("{at}: subzone must be a positive AreaTable id and requires z"));
+			continue;
+		};
 		let Some(map) = map else { continue };
 		let (Some(a), Some(b)) = (frames.to_world(map as i64, x1, y1), frames.to_world(map as i64, x2, y2)) else { continue };
-		out.areas.push(Area { id: e.get("id").to_js_string(), name: name.to_js_string(), map, c: a.c, top: round(a.wx, 1), bottom: round(b.wx, 1), left: round(a.wy, 1), right: round(b.wy, 1), z });
+		out.areas.push(Area {
+			id: e.get("id").to_js_string(),
+			name: name.to_js_string(),
+			map,
+			c: a.c,
+			top: round(a.wx, 1),
+			bottom: round(b.wx, 1),
+			left: round(a.wy, 1),
+			right: round(b.wy, 1),
+			z,
+			subzone,
+		});
 	}
 	(errors, out)
 }
@@ -641,8 +664,9 @@ pub fn crossings_lua(set: &Set, frames: &Frames, complete: bool, live: &Live) ->
 		l.push("\tareas = {".into());
 		for a in &set.areas {
 			let z = a.z.map_or(String::new(), |(lo, hi)| format!(", zmin = {}, zmax = {}", num_str(lo), num_str(hi)));
+			let subzone = a.subzone.map_or(String::new(), |id| format!(", subzone = {}", num_str(id)));
 			l.push(format!(
-				"\t\t{{ id = {}, name = {}, map = {}, c = {}, top = {}, bottom = {}, left = {}, right = {}{z} }},",
+				"\t\t{{ id = {}, name = {}, map = {}, c = {}, top = {}, bottom = {}, left = {}, right = {}{z}{subzone} }},",
 				lua_str(&a.id),
 				lua_str(&a.name),
 				num_str(a.map),
@@ -790,5 +814,21 @@ mod tests {
 		assert_eq!(set.areas.iter().map(|a| (a.id.as_str(), a.z)).collect::<Vec<_>>(), vec![("chamber", Some((10.0, 50.0)))]);
 		let lua = crossings_lua(&set, &frames(), true, &Live::new()).join("\n");
 		assert!(lua.contains("\t\t{ id = \"chamber\", name = \"Chamber\", map = 1438, c = 1, top = 8980.5, bottom = 8437.5, left = 1421.5, right = 454.1, zmin = 10, zmax = 50 },"), "{lua}");
+	}
+
+	#[test]
+	fn an_area_with_a_subzone_requires_a_height_range() {
+		let doc = parse_json(
+			r#"{ "schema": 1, "areas": [
+				{ "id": "spires", "name": "Spires", "map": 1438, "box": { "x1": 47, "y1": 84, "x2": 66, "y2": 100 }, "z": { "min": 1100, "max": 1300 }, "subzone": 16630 },
+				{ "id": "no-height", "name": "Ground", "map": 1438, "box": { "x1": 47, "y1": 84, "x2": 66, "y2": 100 }, "subzone": 16630 }
+			] }"#,
+		)
+		.unwrap();
+		let (errors, set) = validate_crossings(&doc, &frames());
+		assert_eq!(errors, vec!["areas[1] (no-height): subzone must be a positive AreaTable id and requires z"]);
+		assert_eq!(set.areas[0].subzone, Some(16630.0));
+		let lua = crossings_lua(&set, &frames(), true, &Live::new()).join("\n");
+		assert!(lua.contains("zmin = 1100, zmax = 1300, subzone = 16630"), "{lua}");
 	}
 }

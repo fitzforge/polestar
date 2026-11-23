@@ -101,7 +101,7 @@ end
 
 function Lookup.Show(query, kind, id)
 	if not enabled() then
-		ns.Print(L["Lookup is turned off (Options > Discovery > Lookup)."])
+		ns.Print(L["Lookup is turned off (Settings > Discovery > Lookup)."])
 		return
 	end
 	ns.Fire("SHOW_LOOKUP", query, kind, id)
@@ -561,6 +561,21 @@ function Lookup.AcceptPre(goal, q)
 	return goal
 end
 
+-- An accept or turn-in goal at an NPC only a dead character sees (the Codex's
+-- ghostOnly: Franclorn Forgewright of Dark Iron Legacy, at Forgewright's Tomb)
+-- is optional, with a note on the goal itself, which compact mode shows
+-- (the step's tip is folded away there): #558, the player saw nobody there.
+-- Returns goal.
+function Lookup.GhostOnly(goal)
+	local C = ns.Codex
+	local npc = goal and goal.npc and C and C.Npc and C.Npc(goal.npc)
+	if not (npc and npc.ghostOnly) then return goal end
+	goal.optional = true
+	local text = L["Only visible while dead: die nearby and talk to them as a ghost, or skip this quest."]
+	goal.note = goal.note and (text .. " " .. goal.note) or text
+	return goal
+end
+
 local function endGoal(t, q, e)
 	local g = { t = t, quest = q.id, title = q.title }
 	if e.npc then
@@ -568,7 +583,7 @@ local function endGoal(t, q, e)
 	else
 		g.object, g.objName = e.object, e.name
 	end
-	return at(g, e.spawn)
+	return Lookup.GhostOnly(at(g, e.spawn))
 end
 
 -- Every NPC of `ends` the character may talk to (Lookup.SideOK), each at its
@@ -659,7 +674,7 @@ local function questStep(q, from, isTarget, opts)
 		finish = insideEnd(q["end"], inside)
 		if finish then mark(finish.spawn, finish.name) end
 	end
-	if inside then
+	if inside and not (opts and opts.entrances) then
 		giver = giver or (not startItem and bareEnd(q.start)) or nil
 		finish = finish or bareEnd(q["end"])
 	end
@@ -838,14 +853,21 @@ local function startItemGoal(q, from)
 end
 
 -- Steps for a quest and its unfinished prerequisites; a quest started from an
--- item gets that item first (startItemGoal). -> steps | nil, reason
+-- item gets that item first (startItemGoal). A giver, target or turn-in the
+-- Codex puts inside an instance is at its entrance, the step's note saying
+-- what is inside (Dungeons.InsideEntrance, as the attunement guides do:
+-- What Comes Around...'s Head of Targorr left the arrow beside Guard Berton,
+-- who takes it, #3613); a giver or turn-in with no place at all keeps the
+-- "First do the quest" note (opts.entrances). -> steps | nil, reason
 local function questSteps(questId, player, from)
 	local C = Codex()
 	if not C.Quest(questId) then return nil, "unknown" end
 	local chain = questChain(questId, player)
+	local D = ns.Dungeons
+	local opts = D and D.InsideEntrance and { inside = D.InsideEntrance, entrances = true } or nil
 	local steps = {}
 	for i, q in ipairs(chain) do
-		local step, err = questStep(q, from, q.id == questId)
+		local step, err = questStep(q, from, q.id == questId, opts)
 		if not step then return nil, err end
 		local first = step.goals[1]
 		local get = first and first.t == "accept" and first.item and startItemGoal(q, from)
