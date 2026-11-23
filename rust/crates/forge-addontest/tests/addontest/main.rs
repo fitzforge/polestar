@@ -304,6 +304,8 @@ mod maps_reveal;
 mod maps_services;
 #[path = "memory-session.rs"]
 mod memory_session;
+#[path = "mob-markers.rs"]
+mod mob_markers;
 mod names;
 #[path = "names-memory.rs"]
 mod names_memory;

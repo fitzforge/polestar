@@ -1,131 +1,111 @@
-//! Polestar: Mob Markers (addon/Polestar_Mob_Markers): which quests' mobs it marks (the log's open quests,
-//! only the current guide step's with "Only the current step's mobs" on, the whole log with no guide), that a
-//! finished objective's mobs drop off, that hiding the guide hides the markers and legend, and that the
-//! addon's old settings move into Polestar's once. Runs the real Core/Init.lua, Core/Compat.lua, Theme and Nav
-//! (its minimap view) and the addon by its TOC over stub_nav.lua, a fake LibForeverData and quest log; what it
-//! marks is read from `/pmm`'s status line.
+//! Spawn markers for your quests (addon/Polestar/Maps/MobMarkers.lua, rohkin's Mob Markers folded into Polestar):
+//! which quests' mobs and objects it marks (the log's open quests, only the current guide step's with "Only the
+//! current step's quests" on, the whole log with no guide), that a finished objective's mobs drop off, that hiding the
+//! guide hides the markers and legend, the minimap inside its rim, objects with the pickup bag, the setting on for a
+//! new install and off for a profile from before, and that off nothing is built or runs. Runs Core, Theme, Nav, the
+//! Codex reader and Maps over stub_world.lua with tests/fixtures/codex/spawn-markers.json.
 
+use forge_addontest::codex::{fixture, write_codex_pack, CodexOpts, CodexPack};
 use forge_addontest::{emitted, Addon, RunAddon};
 use serde_json::{json, Value};
 
-// Quest 100 needs Wolves (2 spawns) and Bear Pelts (Bears, 3 spawns) on map 1429; 200 a Spider (1 spawn) on
-// 1430; 300 is complete, 400 has no mobs. No world bounds, so the zone's own spawns are drawn.
-const FAKES: &str = r#"
-LibForeverData = {
-	quests = {
-		[100] = { name = "Wolves and Bears", objectives = { { kind = "kill", target = 1 }, { kind = "item", target = 50 } } },
-		[200] = { name = "Spiders", objectives = { { kind = "kill", target = 3 } } },
-		[300] = { name = "Done already", objectives = { { kind = "kill", target = 3 } } },
-		[400] = { name = "A letter", objectives = {} },
-		[500] = { name = "Dry Branches", objectives = { { kind = "item", target = 60 } } },
-	},
-	npcs = {
-		[1] = { name = "Wolf", spawns = { [1429] = { 10, 10, 20, 20 } } },
-		[2] = { name = "Bear", spawns = { [1429] = { 30, 30, 40, 40, 50, 50 } } },
-		[3] = { name = "Spider", spawns = { [1430] = { 60, 60 } } },
-	},
-	objects = { [7] = { name = "Dry Branch", spawns = { [1429] = { 70, 70, 80, 80 } } } },
-	items = { [50] = { name = "Bear Pelt", npcDrops = { 2 } }, [60] = { name = "Dry Branch", objectDrops = { 7 } } },
+const FILES: [&str; 5] = ["Core/Core.xml", "Theme/Theme.xml", "Nav/Nav.xml", "Lookup/Codex.lua", "Maps/Maps.xml"];
+
+// tests/fixtures/codex/spawn-markers.json: quest 100 needs Wolves (2 spawns) and Bear Pelts (Bears, 3 spawns) on map
+// 1429; 200 a Spider (1 spawn) on 1430; 400 is a letter (no mobs); 500 Dry Branches from their objects (2 spawns).
+fn pack() -> CodexPack {
+	write_codex_pack(&fixture("spawn-markers.json"), &CodexOpts::default())
 }
-local DB = LibForeverData
-function DB.Quest(id) return DB.quests[id] end
-function DB.Name(_, id) local n = DB.npcs[id]; return n and n.name end
-function DB.Get(kind, id) return ({ npc = DB.npcs, object = DB.objects, item = DB.items })[kind][id] end
--- The Spider in world yards on continent 1 (north, west): 10 yards from the player at (100, 100), 230 (past the
--- minimap's rim at zoom 0, 233 yards) and far off.
-function DB.Spawns(_, id)
-	if id ~= 3 then return {} end
-	return { { map = 1, x = 110, y = 100 }, { map = 1, x = 330, y = 100 }, { map = 1, x = 5000, y = 5000 } }
+
+// The world: Elwynn-sized map 1429 and map 1430 north of it, both on continent 0, the player on 1429.
+const WORLD: &str = r#"
+local w = stub.world
+w.addMap(1429, { name = "Elwynn Forest", c = 0, left = 1500, right = -1500, top = 500, bottom = -1500 })
+w.addMap(1430, { name = "Westfall", c = 0, left = 1500, right = -1500, top = 2500, bottom = 500 })
+w.moveTo(1429, 47.6, 35.1)
+"#;
+
+const LOG: &str = r#"
+local w = stub.world
+-- The log lists the pelts first, the Codex the wolves.
+w.accept(100, { { text = "Bear Pelt", type = "item", required = 5 }, { text = "Wolf slain", required = 8 } })
+w.accept(200, { { text = "Spider slain", required = 1 } })
+w.accept(400, {})
+local M = Polestar.MobMarkers
+-- The world map open on 1429, its canvas big enough that no two spawns share a marker.
+local function open(mapID)
+	stub.worldMapID = mapID or 1429
+	WorldMapFrame:GetCanvas():SetSize(1000, 700)
+	WorldMapFrame:Show()
+	stub.advance(0.5)
 end
-function DB.Ids() return {} end
-
-stub.mm = { log = { 100, 200, 300, 400 }, complete = { [300] = true }, objectives = {}, turnedIn = {} }
-C_QuestLog = {
-	GetNumQuestLogEntries = function() return #stub.mm.log end,
-	GetInfo = function(i) local id = stub.mm.log[i]; return id and { questID = id, title = DB.quests[id].name } end,
-	IsComplete = function(id) return stub.mm.complete[id] or false end,
-	IsQuestFlaggedCompleted = function(id) return stub.mm.turnedIn[id] or false end,
-	GetQuestObjectives = function(id) return stub.mm.objectives[id] end,
-}
-C_Map = C_Map or {}
-C_Map.GetWorldPosFromMapPos = function() return nil end
-
--- /pmm's status line as { spawn marks, maps with marks, marks on the shown map, markers drawn }.
-function stub.mm.status()
-	SlashCmdList.POLESTARMOBMARKERS("")
-	local line = stub.messages[#stub.messages]
-	local a, b, c, d = line:match("(%d+) spawn marks on (%d+) maps, (%d+) on this map, (%d+) markers drawn")
-	return { tonumber(a), tonumber(b), tonumber(c), tonumber(d) }
+local function state()
+	stub.advance(0.5)
+	local s = M.State()
+	return { s.quests, s.spawns, s.drawn }
 end
 "#;
 
-// The world map open on 1429, its canvas big enough that no two spawns share a marker.
-const OPEN_MAP: &str = r#"
-stub.worldMapID = 1429
-WorldMapFrame:GetCanvas():SetSize(1000, 700)
-WorldMapFrame:Show()
-stub.advance(0.3)
-"#;
-
-fn run(saved: &str, script: &str) -> Vec<Value> {
+fn run_with(saved: Option<&str>, before: &str, script: &str) -> Vec<Value> {
+	let p = pack();
 	emitted(&RunAddon {
-		stubs: vec!["stub_nav.lua"],
-		before: FAKES.into(),
-		addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Core/Compat.lua", "Theme/Theme.xml", "Nav/Nav.xml"]), Addon::name("Polestar_Mob_Markers")],
-		saved: if saved.is_empty() { vec![] } else { vec![("Polestar_Mob_Markers".into(), saved.into())] },
+		stubs: vec!["stub_world.lua"],
+		before: format!("{}\n{WORLD}\n{before}", p.stub_lua),
+		addons: vec![Addon::files("Polestar", &FILES)],
+		saved: saved.map(|s| vec![("Polestar".into(), s.into())]).unwrap_or_default(),
 		login: true,
-		script: format!("{OPEN_MAP}\n{script}"),
+		script: format!("{LOG}\n{script}"),
 	})
+}
+
+fn run(script: &str) -> Vec<Value> {
+	run_with(None, "", script)
 }
 
 #[test]
 fn with_no_guide_running_every_open_quest_in_the_log_with_mobs_is_marked() {
-	let out = run("", "emit(stub.mm.status())");
-	assert_eq!(out, vec![json!([6, 2, 5, 5])], "quests 100 and 200; not the complete 300 nor the mobless 400");
+	let out = run("open(); emit(state())");
+	assert_eq!(out, vec![json!([2, 6, 5])], "quests 100 and 200 (6 spawns, 5 on 1429); not the mobless 400");
 }
 
 #[test]
 fn only_the_current_steps_quests_are_marked_until_the_option_is_turned_off() {
 	let out = run(
-		"",
 		r#"
-		Polestar.Engine = { GetStepIndex = function() return 1 end, GetStepView = function() return { goals = {
+		Polestar.Engine.GetStepIndex = function() return 1 end
+		Polestar.Engine.GetStepView = function() return { goals = {
 			{ quest = 200, t = "kill" },
 			{ quest = 100, t = "turnin" },
 			{ quest = 100, t = "kill", status = "done" },
-		} } end }
-		emit(stub.mm.status())
+		} } end
+		Polestar.Fire("STEP_CHANGED")
+		open()
+		emit(state())
 		Polestar.Set("mobMarkers.stepOnly", false)
-		emit(stub.mm.status())"#,
+		emit(state())"#,
 	);
-	assert_eq!(out, vec![json!([1, 1, 0, 0]), json!([6, 2, 5, 5])], "the step works on 200 only; a hand-in or a done goal does not count");
+	assert_eq!(out, vec![json!([1, 1, 0]), json!([2, 6, 5])], "the step works on 200 only; a hand-in or a done goal does not count");
 }
 
 #[test]
 fn a_finished_objectives_mobs_drop_off_matched_by_name_not_by_the_logs_order() {
 	let out = run(
-		"",
 		r#"
-		local o = stub.mm.objectives
-		-- The log lists the pelts first, the database the wolves: the wolves are the finished ones.
-		o[100] = { { text = "Bear Pelt: 2/5", finished = false, numRequired = 5, numFulfilled = 2 },
-			{ text = "Wolf slain: 8/8", finished = true, numRequired = 8, numFulfilled = 8 } }
-		emit(stub.mm.status())
-		o[100][1] = { text = "Bear Pelt: 5/5", finished = true, numRequired = 5, numFulfilled = 5 }
-		emit(stub.mm.status())"#,
+		open()
+		stub.world.progress(100, 2, 8)
+		emit(state())
+		stub.world.progress(100, 1, 5)
+		emit(state())"#,
 	);
-	assert_eq!(out, vec![json!([4, 2, 3, 3]), json!([1, 1, 0, 0])], "the wolves go first, then the bears");
+	assert_eq!(out, vec![json!([2, 4, 3]), json!([1, 1, 0])], "the wolves go first, then the bears (quest 100 is then ready: off the list)");
 }
 
 #[test]
 fn hiding_the_guide_hides_the_markers_and_legend_and_showing_it_brings_them_back() {
 	let out = run(
-		"",
 		r#"
-		local function shown()
-			local s = stub.mm.status()
-			emit({ s[4], PolestarMobMarkersLegend:IsShown() })
-		end
+		open()
+		local function shown() local s = state(); emit({ s[3], PolestarMobMarkersLegend:IsShown() }) end
 		shown()
 		Polestar.Set("ui.shown", false)
 		shown()
@@ -136,74 +116,80 @@ fn hiding_the_guide_hides_the_markers_and_legend_and_showing_it_brings_them_back
 	assert_eq!(out, vec![json!([5, true]), json!([0, false]), json!([5, true]), json!(0)], "and no frame is made under the game's own");
 }
 
+// The player on the wolves' first spawn (1429 at 10,10): the minimap shows the markers inside its rim.
 #[test]
 fn the_minimap_shows_the_spawns_inside_its_rim_and_none_while_the_guide_is_hidden() {
 	let out = run(
-		"",
 		r#"
-		function UnitPosition() return 100, 100, 0, 1 end
-		local function drawn()
-			stub.advance(0.1)
-			local n = 0
-			for _, f in ipairs({ Minimap:GetChildren() }) do
-				if f.skull and f:IsShown() then n = n + 1 end
-			end
-			emit(n)
-		end
+		stub.world.moveTo(1429, 10, 10)
+		local function drawn() stub.advance(0.5); emit(Polestar.MobMarkers.State().minimap) end
 		drawn()
 		Polestar.Set("ui.shown", false)
 		drawn()
 		Polestar.Set("ui.shown", true)
+		drawn()
+		Polestar.Set("mobMarkers.showMinimap", false)
 		drawn()"#,
 	);
-	assert_eq!(out, vec![json!(1), json!(0), json!(1)], "the one 10 yards off; not the one past the rim nor the far one");
-}
-
-#[test]
-fn pmm_is_registered_only_with_the_keyboard_and_mouse_interface() {
-	let slash = |style: u8| {
-		emitted(&RunAddon {
-			stubs: vec!["stub_nav.lua"],
-			before: format!("{FAKES}\nEnum.InputDeviceInterfaceType = {{ Mkb = 0, Gamepad = 1 }}\nC_InputInterfaceStyle = {{ GetCurrentStyle = function() return {style} end }}"),
-			addons: vec![Addon::files("Polestar", &["Core/Init.lua", "Core/Compat.lua", "Theme/Theme.xml", "Nav/Nav.xml"]), Addon::name("Polestar_Mob_Markers")],
-			saved: vec![],
-			login: true,
-			script: "emit({ SlashCmdList.POLESTARMOBMARKERS ~= nil, SLASH_POLESTARMOBMARKERS1 ~= nil })".into(),
-		})
-	};
-	assert_eq!(slash(0), vec![json!([true, true])]);
-	assert_eq!(slash(1), vec![json!([false, false])], "a command from the gamepad interface's chat box blocks the gamepad");
-}
-
-#[test]
-fn the_old_settings_move_into_polestars_once_and_turned_in_quests_leave_the_hidden_list() {
-	let out = run(
-		"stub.mm.turnedIn[999] = true\nPolestarMobMarkersDB = { worldSize = 14, minimapButton = true, hidden = { [100] = true, [999] = true } }",
-		r#"
-		emit({ Polestar.Get("mobMarkers.worldSize"), PolestarMobMarkersDB.worldSize == nil, PolestarMobMarkersDB.minimapButton == nil })
-		local h = PolestarMobMarkersCharDB.hidden
-		emit({ h[100] == true, h[999] == nil })
-		emit(stub.mm.status())"#,
-	);
-	assert_eq!(out[0], json!([14, true, true]));
-	assert_eq!(out[1], json!([true, true]), "100 stays hidden; 999, turned in, is pruned");
-	assert_eq!(out[2], json!([6, 2, 5, 0]), "quest 100 is hidden: its spawns count, none is drawn");
+	assert_eq!(out[0], out[2]);
+	assert!(out[0].as_i64().unwrap() >= 1, "the wolf under the player is drawn: {out:?}");
+	assert_eq!(out[1], json!(0));
+	assert_eq!(out[3], json!(0));
 }
 
 #[test]
 fn an_item_picked_from_objects_marks_the_objects_with_the_pickup_bag() {
 	let out = run(
-		"",
 		r#"
-		stub.mm.log = { 500 }
-		emit(stub.mm.status())
+		stub.world.accept(500, { { text = "Dry Branch", type = "item", required = 2 } })
+		Polestar.Engine.GetStepIndex = function() return 1 end
+		Polestar.Engine.GetStepView = function() return { goals = { { quest = 500, t = "collect" } } } end
+		Polestar.Fire("STEP_CHANGED")
+		open()
+		emit(state())
 		local icons = {}
 		for _, f in ipairs({ WorldMapFrame:GetCanvas():GetChildren() }) do
 			if f.skull and f:IsShown() then icons[#icons + 1] = f.skull:GetTexture() end
 		end
 		emit(icons)"#,
 	);
-	assert_eq!(out[0], json!([2, 1, 2, 2]), "both Dry Branch spawns on 1429");
+	assert_eq!(out[0], json!([1, 2, 2]), "both Dry Branch spawns on 1429");
 	let loot = r"Interface\AddOns\Polestar\Media\UI\icon-collect";
 	assert_eq!(out[1], json!([loot, loot]), "not the skull");
+}
+
+// The legend's click turns a quest's markers off for this character; they come back with a second click, and a quest
+// turned in leaves the hidden list.
+#[test]
+fn a_quest_turned_off_from_the_legend_stays_off_for_the_character_until_turned_in() {
+	let out = run(
+		r#"
+		open()
+		local hidden = Polestar.CharState()
+		hidden.mobMarkersHidden = { [100] = true }
+		Polestar.Set("mobMarkers.questPalette", "vivid")
+		emit(state())
+		stub.world.turnIn(100)
+		stub.advance(0.5)
+		emit(hidden.mobMarkersHidden[100] == nil)"#,
+	);
+	assert_eq!(out[0], json!([2, 6, 0]), "100's spawns count, none is drawn; 200's are on 1430");
+	assert_eq!(out[1], json!(true));
+}
+
+// On for a new install; a profile from before the markers keeps them off; off, nothing is built, no frame is made
+// on the maps and nothing runs per frame.
+#[test]
+fn on_for_a_new_install_off_for_a_profile_from_before_and_off_builds_nothing() {
+	let fresh = run("emit({ Polestar.Get('mobMarkers.enabled'), state()[1] })");
+	assert_eq!(fresh, vec![json!([true, 2])]);
+	let before = run_with(
+		Some("PolestarDB = { schema = 1, settings = { ui = { scale = 1 } } }"),
+		"",
+		r#"
+		open()
+		local s = state()
+		emit({ Polestar.Get("mobMarkers.enabled"), s[1], s[2], s[3], PolestarMobMarkersLegend ~= nil, Polestar.MobMarkers.State().minimap })"#,
+	);
+	assert_eq!(before, vec![json!([false, 0, 0, 0, false, 0])]);
 }

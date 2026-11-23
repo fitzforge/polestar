@@ -1017,8 +1017,7 @@ as `L["..."]` in `Talents/Builds.lua`. Data that names a game thing carries
 its id instead, and the display asks `Polestar.Names` (quests, NPCs, objects,
 items, spells, factions, instances, areas, flight points, encounters). The
 optional Recorder has its own `ns.L` and `Locales/<locale>.lua` (listed in
-its TOC), and so has Mob Markers (`ns.L` made in its Init.lua, Polestar's own
-words read through `Polestar.L` as `PL`); `forge i18n check` and `sync` cover them too.
+its TOC); `forge i18n check` and `sync` cover it too.
 
 `Polestar.AI_LOCALES` names the languages whose translation is AI-made
 (`status: "ai"` in locales.rs; the forge-i18n tests keep the two equal). On
@@ -7318,6 +7317,23 @@ entrances, flight masters `maps.taxiPins`, docks `maps.dockPins`, inns
 `maps.innPins`, NPC services `maps.servicePins`, and `maps.travelMinimap` for
 the minimap) default to off. The
 flight timer and the instance tracker are set under Quality of Life.
+
+- Spawn markers for your quests (`mobMarkers.*`, on for a new install and off
+  for a profile from before them, migration `mobMarkersOff`;
+  `Maps/MobMarkers.lua`, rohkin's Mob Markers, #1129; settings on the Map pins
+  page's Pins tab): a skull on its medallion at every spawn of the mobs and
+  objects the quests shown need (the quest log's open quests, only the guide
+  step's with `mobMarkers.stepOnly`), on the world map and the minimap; skull
+  colour per quest, a ring per mob (`Media/Map/mob-ring16/32/64`, from
+  `tools/media/map.js`), the pickup bag for an object. Data: the Codex's quest
+  objectives, an item's drops and giving objects, and their spawns (world yards
+  by `Compat.MapToWorld`); finished objectives from the quest log, matched by
+  name. A legend on the world map lists the quests and mobs there (clicks from
+  `GLOBAL_MOUSE_DOWN/UP`, registered only while it shows; hidden rows per
+  character in `PolestarCharDB.mobMarkersHidden`, pruned on hand-in). Size and
+  opacity follow the Icons tab. Off, nothing is built and no driver runs;
+  `/polestar spawns` reports what was found, `/polestar spawns preview` marks
+  20 of the shown zone's quests (a test view).
 
 - NPC services (`maps.servicePins`, off; `Maps/Services.lua`): one pin per
   friendly NPC spawn, with all its services in the tooltip and click-to-navigate.
