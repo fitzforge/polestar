@@ -332,6 +332,7 @@ L["Opens the doors of the Armory and the Cathedral."] = "Abre las puertas de la 
 L["Rings the gong by the sacred pool in Zul'Farrak to call Gahz'rilla; one mallet does it for the group. Qiaga the Keeper (elite) on top of the Altar of Zul in the Hinterlands drops the Sacred Mallet: use it at the altar at the very top of Jintha'Alor and it becomes the Mallet of Zul'Farrak. Both places are full of elites."] = "Toca el gong junto al estanque sagrado de Zul'Farrak para llamar a Gahz'rilla; con una marra basta para todo el grupo. Qiaga la Vigilante (élite), en lo alto del Altar de Zul en las Tierras del Interior, suelta la Marra sacra: úsala en el altar de la cima de Jintha'Alor y se convierte en la Marra de Zul'Farrak. Los dos lugares están llenos de élites."
 -- L["Use %s beside %s: it becomes %s."] = ""
 -- L["Keep %s in your quest log until you are inside: taking it gives you %s, and dropping the quest takes it back."] = ""
+-- L["Not open on Forever yet: the attunement is ready for when it opens."] = ""
 
 -- Dungeons/Dungeons.lua
 L["Dungeon quests, bosses and entrances"] = "Misiones, jefes y entradas de calabozos"
@@ -1452,6 +1453,9 @@ L["%d-%d players"] = "%d-%d jugadores"
 L["No boss drops known"] = "No se conoce botín de jefes"
 L["Drops (%d)"] = "Botín (%d)"
 -- L["Use %s beside %s"] = ""
+-- L["All attunements and keys"] = ""
+-- L["Every attunement and key, with how far you are"] = ""
+-- L["Not open on Forever yet"] = ""
 
 -- UI/GearPick.lua
 L["new"] = "nuevo"
@@ -2181,7 +2185,6 @@ L["Install's pages: questing, groups, your route and your look, a page at a time
 L["Set Polestar up again, a page at a time: questing, groups, your route, your look. Each choice works at once."] = "Volver a configurar Polestar, una página a la vez: misiones, grupos, tu ruta, tu aspecto. Cada opción se aplica al instante."
 L["Show experimental guides"] = "Mostrar guías experimentales"
 L["Polestar's guides for Forever's new zones, still being tested: listed in the guide menu under Leveling with an Experimental chip. They are never picked for you; a route choice offers their zone where it fits either way."] = "Las guías de Polestar para las zonas nuevas de Forever, todavía en pruebas: aparecen en el menú de guías, en Subir de nivel, con la etiqueta Experimental. Nunca se eligen por ti; una elección de ruta ofrece su zona donde encaja de todos modos."
-L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "Las rutas pueden empezar con un hechizo de teletransporte que conozcas cuando es más rápido: los de ciudad del mago, el Claro de la Luna del druida o el Regreso astral del chamán (como una segunda piedra de hogar). Un teletransporte a ciudad requiere una runa de teletransporte en tus bolsas."
 L["Sell and repair reminders"] = "Recordatorios de vender y reparar"
 L["When the guide is about to head out of town with your bags nearly full or your gear worn, a merchant or repairer on the way, once per visit. Click it to point the arrow there."] = "Cuando la guía está por salir del pueblo con tus bolsas casi llenas o tu equipo desgastado, muestra un mercader o un reparador en el camino, una vez por visita. Haz clic para que la flecha apunte allí."
 L["Sell: fewer free bag slots than"] = "Vender: menos espacios libres que"
@@ -2202,6 +2205,16 @@ L["Drag the guide window, the arrow, the cards and the alerts where you want the
 L["While paused, quests are not accepted or turned in for you, no reward is picked, and flight masters do not open the flight map or fly you off, until Polestar resumes."] = "Durante la pausa, no se aceptan ni se entregan misiones por ti, no se elige recompensa y los maestros de vuelo no abren el mapa de vuelo ni te llevan volando, hasta que Polestar se reanude."
 -- L["play Sky Jewels by RikyZ90"] = ""
 -- L["play Tetris by beemerwt"] = ""
+-- L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags, unless a talent does away with it (Reagent Economy)."] = ""
+-- L["The language of Polestar's windows and guides. Follow the game: your game's language. Takes effect after a /reload."] = ""
+-- L["Reload now?"] = ""
+-- L["Polestar shows the new language after a /reload."] = ""
+-- L["Follow the game"] = ""
+-- L["English"] = ""
+-- L["Simplified Chinese"] = ""
+-- L["Traditional Chinese"] = ""
+-- L["General"] = ""
+-- L["The language Polestar shows."] = ""
 
 -- UI/Packs.lua
 L["turned off in the AddOns list"] = "desactivado en la lista de AddOns"
@@ -2485,6 +2498,7 @@ L["%s has %s"] = "%s tiene %s"
 L["%s to buy"] = "%s por comprar"
 L["(only %s listed)"] = "(solo hay %s a la venta)"
 L["(old price)"] = "(precio antiguo)"
+-- L["Elites nearby"] = ""
 
 -- UI/Welcome.lua
 L["level %d %s"] = "personaje de nivel %d (%s)"
@@ -2692,6 +2706,7 @@ L["Bullets"] = "Balas"
 L["Bows & guns"] = "Arcos y armas de fuego"
 L["Mailbox"] = "Buzón"
 L["Transmogrifier"] = "Transfigurador"
+-- L["No %s for your side."] = ""
 
 -- Nav/Prompts.lua
 L["Right-click to skip this leg."] = "Clic derecho para omitir este tramo."
@@ -4663,6 +4678,8 @@ L["A look in one click: it sets the settings it names and puts the others of the
 -- L["Alpha: /reload after picking it."] = ""
 -- L["Beta: /reload after picking it."] = ""
 -- L["Any issues: @%s in a bug report or on Discord."] = ""
+-- L["Before %s (%s)"] = ""
+-- L["Your setup as it was saved: a click puts back every window setting it holds."] = ""
 
 -- Theme/SkinApi.lua
 L["The skin %s (from %s) could not be added: %s. Polestar's own look stands in."] = "No se pudo agregar el tema %s (de %s): %s. El aspecto propio de Polestar lo reemplaza."
@@ -5033,9 +5050,33 @@ L["Most used"] = "Lo más usado"
 -- L["Hold"] = ""
 -- L["Arrows move\nX/Z rotate  |  C hold\nSpace hard drop\nP pause  |  N new game"] = ""
 -- L["D-pad move\nA/B rotate  |  Y hold\nX hard drop  |  Start pause"] = ""
+
 -- UI/TabStyles/TabStyles.lua
 L["Open guides"] = "Guías abiertas"
 L["%d of %d"] = "%d de %d"
+
+-- UI/Attunements.lua
+-- L["Finish %s"] = ""
+-- L["Pick up %s from %s"] = ""
+-- L["Pick up %s"] = ""
+-- L["Every step, on the dungeon's page"] = ""
+-- L["Opens %s"] = ""
+-- L["%d of %d steps"] = ""
+-- L["Attunements"] = ""
+-- L["What lets you into each raid and opens a dungeon's doors, and how far you are"] = ""
+-- L["No attunement or key is known for your faction."] = ""
+
+-- UI/LayoutCard.lua
+-- L["Before Atlas (%s)"] = ""
+-- L["New in 0.4.3: the Atlas layout"] = ""
+-- L["Try it on your own guide window: each button switches it now, as often as you like."] = ""
+-- L["Layout"] = ""
+-- L["Your current design"] = ""
+-- L["Tabs are off in Settings > Guide window > Parts."] = ""
+-- L["Your current setup is saved; you can go back to it any time in Settings > Guide window > Presets."] = ""
+-- L["The guide window is hidden: open it to see each choice on your guide."] = ""
+-- L["Atlas layout and tab styles by %s"] = ""
+-- L["Keep this"] = ""
 
 -- No longer in the code (its English changed or it went away): reuse or delete.
 -- L["Set Polestar up again, a page at a time. Each choice works at once."] = "Volver a configurar Polestar, una página a la vez. Cada opción se aplica al instante."
@@ -5337,3 +5378,4 @@ L["%d of %d"] = "%d de %d"
 -- L["On a flight with a minute or more to go, Polestar asks if you want to play Freedoom Arcade by petllama while you wait: three levels of Freedoom, or the whole game when the Freedoom Arcade addon is installed. 10 seconds before you land, the game is saved, paused and closed. /polestar arcade opens it any time."] = "En un vuelo al que le quede un minuto o más, Polestar te pregunta si quieres jugar Freedoom Arcade de petllama mientras esperas: tres niveles de Freedoom, o el juego completo si tienes instalado el addon Freedoom Arcade. 10 segundos antes de aterrizar, el juego se guarda, se pausa y se cierra. /polestar arcade lo abre cuando quieras."
 -- L["a game: Play"] = "Jugar"
 -- L["Do you want to play Doom while waiting?"] = "¿Quieres jugar Doom mientras esperas?"
+-- L["Routes may start with a Teleport spell you know when it is faster: a mage's city teleports, a druid's Moonglade, or a shaman's Astral Recall (like a second Hearthstone). A city teleport needs a Rune of Teleportation in your bags."] = "Las rutas pueden empezar con un hechizo de teletransporte que conozcas cuando es más rápido: los de ciudad del mago, el Claro de la Luna del druida o el Regreso astral del chamán (como una segunda piedra de hogar). Un teletransporte a ciudad requiere una runa de teletransporte en tus bolsas."

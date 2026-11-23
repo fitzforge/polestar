@@ -357,6 +357,44 @@ fn class_teleports_known_spells_with_their_reagents_cooldowns_counted_the_settin
 	assert_eq!(out[4], 0);
 }
 
+// #3815 (Aireil): a mage with the legacy talent Reagent Economy casts a city teleport with no Rune of Teleportation, but
+// Polestar counted runes and never offered it. With no rune in the bags it asks the game whether the spell can be cast
+// (Compat.IsSpellUsable): the talent's plain yes offers it; a no, or a no for the mana alone (the game does not say then
+// whether the rune is there too), does not; a rune in the bags offers it whatever the game says, as before.
+#[test]
+fn class_teleports_a_talent_that_does_away_with_the_rune_offers_the_city_teleport_without_one() {
+	let out = lua(r#"
+		KNOWN = { [3567] = true }
+		RUNES, TALENT, LOW_MANA = 0, false, false
+		C_SpellBook = { IsSpellKnown = function(id) return KNOWN[id] or false end }
+		C_Item = { GetItemCount = function(id) return id == 17031 and RUNES or 0 end }
+		C_Spell = {
+			GetSpellCooldown = function() return { startTime = 0, duration = 0 } end,
+			IsSpellUsable = function(id)
+				if id ~= 3567 then return false, false end
+				if LOW_MANA then return false, true end
+				return TALENT or RUNES > 0, false
+			end,
+		}
+		local function names() local out = {} for _, t in ipairs(T.Teleports(T.Now())) do out[#out + 1] = t.name end return table.concat(out, ", ") end
+		emit({ none = names() })
+		TALENT = true
+		emit({ talent = names() })
+		LOW_MANA = true
+		emit({ lowMana = names() })
+		RUNES = 1
+		emit({ rune = names() })
+		C_Spell.IsSpellUsable = nil
+		RUNES = 0
+		emit({ noApi = names() })
+	"#);
+	assert_eq!(out[0], json!({ "none": "" }), "no rune, no talent: no teleport");
+	assert_eq!(out[1], json!({ "talent": "Teleport: Orgrimmar" }), "the talent: the game says it can be cast");
+	assert_eq!(out[2], json!({ "lowMana": "" }), "short of mana the game does not say: no rune, no offer");
+	assert_eq!(out[3], json!({ "rune": "Teleport: Orgrimmar" }), "a rune in the bags, as before");
+	assert_eq!(out[4], json!({ "noApi": "" }), "a client that cannot tell: the runes are counted");
+}
+
 // --- review fixes ---------------------------------------------------------------
 
 fn travel_data() -> PathBuf {

@@ -32,7 +32,7 @@ ns.RegisterDefaults("behavior", {
 	autoTurnin = true,
 	guideEnd = "ask", -- "ask" | "continue": at the end of a leveling guide the guide-end window asks (UI/GuideEnd.lua), or the next guide loads by itself; other guides always go on (Own.endAsks)
 	autoSelectGuide = true,
-	skipGrey = false,
+	skipGrey = true, -- on since 0.4.3 for a new account and a new profile; profiles saved before keep theirs (the migration below)
 	deathskips = false, -- `die` goals (deathskips) apply; never on a Hardcore character (Own.deathskips)
 	warnClosing = false, -- name what an offered quest closes for good, and leave its accept to the player (Closes.lua)
 	closeSkipped = true, -- close the quest window the game opens after an auto accept/turn-in when it shows only quests the guide skips (Automation.lua)
@@ -64,6 +64,18 @@ ns.OnInit(function()
 	local b = ns.DB().settings.behavior
 	if type(b) == "table" then b.autoNextGuide = nil end
 end)
+
+-- behavior.skipGrey was off by default before 0.4.3: a setting at its
+-- default is never stored, so a profile saved before then that holds no
+-- value had it off, and keeps it off (an account Polestar had seen, every
+-- stored profile, once). A fresh install starts on the new default, as does
+-- a profile made later. A profile string carries what its maker changed, so
+-- one from before 0.4.3 leaves this setting at today's default.
+ns.RegisterMigration("skipGreyOn", function(s)
+	if ns.IsNewAccount() then return end
+	if type(s.behavior) ~= "table" then s.behavior = {} end
+	if s.behavior.skipGrey == nil then s.behavior.skipGrey = false end
+end, { strings = false })
 
 local outleveled = {} -- guideId -> true, GUIDE_OUTLEVELED once per session
 
@@ -3429,16 +3441,51 @@ function Own.onePlace(goal)
 	return (goal.npc or goal.object) and not (Own.FIELD[goal.t] or goal.t == "use" or goal.t == "level" or goal.grind or goal.spread) or false
 end
 
+-- A `learn` goal taught by a recipe (`item`) has no place of its own. Until
+-- the recipe is in the bags, the arrow leads to its vendors: the candidates of
+-- the guide's `buy` of that recipe, the one of the player's side that goal
+-- picks, so a player who passed the shopping step without it is still led
+-- there (#3823: Hot Lion Chops at step 63 of Cooking 1-300). With the recipe in
+-- the bags there is nothing to walk to (it is used from there), nor once known
+-- (the goal is done). -> that `buy` goal, or nil.
+Own.recipeBuy = setmetatable({}, { __mode = "k" })
+function Own.recipeVendor(goal)
+	if goal.t ~= "learn" or not goal.item or goal.map then return nil end
+	local found = Own.recipeBuy[goal]
+	if found == nil then
+		if not guide then return nil end
+		local mine = false
+		for _, step in ipairs(guide.steps) do
+			for _, g in ipairs(step.goals) do
+				if g == goal then
+					mine = true
+				elseif not found and g.t == "buy" and g.item == goal.item and g.candidates then
+					found = g
+				end
+			end
+		end
+		-- Another tab's goal: asked again under its own guide.
+		if not mine then return nil end
+		found = found or false
+		Own.recipeBuy[goal] = found
+	end
+	if not found or (Compat().GetItemCount(goal.item) or 0) > 0 then return nil end
+	return found
+end
+
 -- map, x, y, f of the goal (the chosen candidate's when it has candidates,
 -- the chosen spawn area's when it has spots), then that area's radius in
 -- yards (none for a goal done at one NPC or object: Own.onePlace), then the
 -- height `z` there (the compiler's, from the spawn of the NPC or object it
 -- stands for): the candidate's or spawn area's own, else the goal's while the
--- position is the goal's own point.
+-- position is the goal's own point. A recipe's `learn`: its vendor's
+-- (Own.recipeVendor).
 local function posOf(goal)
 	-- A material whose rest waits in the mail or the bank: there (Own.materialPlace).
 	local held = (goal.t == "auction" or goal.gather) and Own.materialPlace(goal)
 	if held then return held.map, held.x, held.y, held.f, nil, held.z end
+	local shop = Own.recipeVendor(goal)
+	if shop then return posOf(shop) end
 	local c = chosen(goal)
 	if c then return c.map, c.x, c.y, c.f, nil, c.z end
 	local s = goal.spots and Spots.get(goal)

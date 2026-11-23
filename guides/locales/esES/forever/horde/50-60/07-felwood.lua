@@ -14,11 +14,11 @@ return {
 	-- {object:172961} Valley of Spirits
 	["In the {object:172961}."] = "En {object:172961}.",
 	-- {item:14047} Runecloth
-	["sixty {item:14047}"] = "",
+	["sixty {item:14047}"] = "sesenta {item:14047}",
 
 	-- Step 4: Fly to Splintertree Post
 	-- {area:431} Splintertree Post
-	["Fly to {area:431}"] = "",
+	["Fly to {area:431}"] = "Vuela a {area:431}",
 
 	-- Step 5: Felwood
 	-- {area:2479} Emerald Sanctuary
@@ -28,7 +28,7 @@ return {
 	-- {area:431} Splintertree Post · {zone:1440} Ashenvale · {zone:1448} Felwood · {area:2479} Emerald Sanctuary
 	["Fly to {area:431} and ride north-west along the road out of {zone:1440} into {zone:1448}. The {area:2479} is the druids' camp just past the border."] = "Vuela a {area:431} y cabalga hacia el noroeste por el camino que sale de {zone:1440} y entra en {zone:1448}. {area:2479} es el campamento de los druidas justo pasada la frontera.",
 	-- {npc:9116} Eridan Bluewind
-	["{npc:9116}, inside"] = "",
+	["{npc:9116}, inside"] = "{npc:9116}, dentro",
 	-- {quest:4084} Silver Heart · {item:11172} Silvery Claws · {item:11173} Irontree Heart · {area:1767} Irontree Woods · {npc:9116} Eridan Bluewind
 	["{quest:4084}'s {item:11172} and {item:11173} come from {area:1767} on this guide's ride north; {npc:9116} takes them at the end of the guide, back here."] = "",
 
@@ -52,13 +52,14 @@ return {
 	-- Step 11: Toxic Horrors
 	-- {zone:1448} Felwood · {area:1767} Irontree Woods · {quest:5086} Toxic Horrors · {npc:9116} Eridan Bluewind · {item:11173} Irontree Heart · {item:11172} Silvery Claws · {npc:14524} Vartrus the Ancient
 	-- plural, as words: Irontree Wanderers = {npc:7138} Irontree Wanderer · Ancient Irontree Walkers = {npc:235912} Ancient Irontree Walker
+	-- was: ["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet.\nCareful: Ancient Irontree Walkers, level 59 elites, walk among the {quest:5086}, and {npc:14524} (63, elite) roams the woods: work the Horrors at the north tip of {area:1767}, one at a time."] = "Caballa al norte por el camino de {zone:1448} hasta {area:1767}; el moco de {quest:5086} entre los árboles, y la mayoría suelta una gota.\nCuidado: los caminantes del Árbol de Hierro Ancestrales, élites de nivel 59, caminan entre los de {quest:5086}, y {npc:14524} (63, élite) ronda el bosque: trabaja los Horrores en la punta norte de {area:1767}, de uno en uno."
 	["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet. The Irontree Wanderers and Stompers (52-53) there carry {npc:9116}'s {item:11173}, the Angerclaw bears and Felpaw wolves his {item:11172}.\nCareful: Ancient Irontree Walkers, level 59 elites, walk among the {quest:5086}, and {npc:14524} (63, elite) roams the woods: work the Horrors at the north tip of {area:1767}, one at a time."] = "",
 
 	-- Step 13: Umber
 	-- {zone:1450} Moonglade · {npc:11939} Umber · {area:2361} Nighthaven
 	["Through the Timbermaw tunnel to {zone:1450}. {npc:11939} reads in a house in {area:2361}."] = "Cruza el túnel de los Fauces de Madera hasta {zone:1450}. {npc:11939} lee en una casa de {area:2361}.",
 	-- {npc:11939} Umber · {area:2361} Nighthaven
-	["{npc:11939} walks around {area:2361}: look inside the circle on the map"] = "",
+	["{npc:11939} walks around {area:2361}: look inside the circle on the map"] = "{npc:11939} da vueltas por {area:2361}: búscalo dentro del círculo del mapa",
 
 	-- Step 15: Class trainer
 	["Class trainer"] = "Instructor de clase",
@@ -74,7 +75,7 @@ return {
 
 	-- Step 20: Winterfall Runners
 	-- {area:1769} Timbermaw Hold · {area:2244} Winterfall Village · {npc:9298} Donova Snowden · {spell:5384} Feign Death
-	["The runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "",
+	["The runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate.\nCareful: Turning in spawns three or four level 56-57 Winterfall ambushers that attack you; you can escape them while mounted, in stealth or with {spell:5384}, and they then gather by the lake so you can take the next quest."] = "Los mensajeros caminan por el camino de {area:1769} hacia {area:2244} en pequeños grupos; espera junto al camino cerca de {npc:9298} y mátalos al pasar. Cada uno lleva una caja.\nCuidado: al entregar aparecen tres o cuatro emboscadores de los Cuna Invernal de nivel 56-57 que te atacan; puedes escapar de ellos montado, en sigilo o con {spell:5384}, y luego se reúnen junto al lago para que puedas tomar la siguiente misión.",
 
 	-- Step 21: Salfa
 	-- {quest:8464} Winterfall Activity · {area:2255} Everlook · {area:2256} Darkwhisper Gorge
@@ -89,7 +90,7 @@ return {
 	-- {area:1762} Felpaw Village · {area:1769} Timbermaw Hold · {npc:11558} Kernda
 	["The Deadwood totem from {area:1762}, if you are Neutral with the Timbermaw now (the {area:1769} reputation guide gets you there): {npc:11558} waits at the tunnel mouth of {area:1769}."] = "",
 	-- {npc:11558} Kernda
-	["{npc:11558} walks around here: look inside the circle on the map"] = "",
+	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558} da vueltas por aquí: mira dentro del círculo del mapa",
 
 	-- Step 24: Witch Doctor Mau'ari
 	-- {area:2255} Everlook · {npc:11755} Harlo Wigglesworth · {npc:10307} Witch Doctor Mau'ari · {area:2249} Frostwhisper Gorge
@@ -111,7 +112,7 @@ return {
 	-- plural, as words: Rabid Shardtooths = {npc:7446} Rabid Shardtooth
 	["Top up here to about level 59.7 before the last hand-ins: Umi, Vizzie, Mau'ari, {area:2244}, {npc:9298}, {npc:11556}, {npc:10306} and {npc:9116} take you the rest of the way to 60. The Rabid Shardtooths (59) of {area:2249}, just north of the strange source, give far more experience than the furbolgs by {area:1769}. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "",
 	-- {npc:7446} Rabid Shardtooth
-	["grind on {npc:7446}"] = "",
+	["grind on {npc:7446}"] = "mata {npc:7446}",
 
 	-- Step 29: Ice Thistle yetis
 	["Ice Thistle yetis"] = "Yetis Cardo Nevado",
@@ -123,7 +124,7 @@ return {
 	-- {area:2255} Everlook
 	["Ride north to {area:2255}."] = "Cabalga al norte hasta {area:2255}.",
 	-- {npc:10978} Legacki · {npc:10980} Umi's Mechanical Yeti
-	["Scare {npc:10978} with {npc:10980}"] = "",
+	["Scare {npc:10978} with {npc:10980}"] = "Asusta a {npc:10978} con {npc:10980}",
 
 	-- Step 31: Everlook
 	-- {npc:11118} Innkeeper Vizzie · {quest:93406} Unfrozen Deliveries
@@ -206,6 +207,7 @@ return {
 	-- ["Grind to 60"] = "Farmea hasta 60",
 	-- ["In {zone:1454}: fly from {area:2255}"] = "En {zone:1454}: vuela desde {area:2255}",
 	-- ["In {zone:1456}: fly from {area:2255}"] = "En {zone:1456}: vuela desde {area:2255}",
+	-- ["Level 59.9"] = "Nivel 59.9",
 	-- ["On the way back south to Greta, {npc:9529} takes the shards on the west side of the Sanctuary."] = "De vuelta al sur hacia Greta, {npc:9529} recoge los fragmentos en el lado oeste del Santuario.",
 	-- ["Only if you carry {quest:5087}: the runners walk the road from {area:1769} toward {area:2244} in small groups; wait by the road near {npc:9298} and kill them as they pass. Each one carries a crate."] = "Solo si llevas {quest:5087}: los corredores recorren en grupos pequeños el camino de {area:1769} a {area:2244}; espera junto al camino cerca de {npc:9298} y mátalos al pasar. Cada uno lleva una caja.",
 	-- ["Only if {npc:9298} gave you {quest:5086}: ride north up the {area:361} road to {area:1767}; the {quest:5086} ooze between the trees."] = "Solo si {npc:9298} te dio {quest:5086}: cabalga hacia el norte por el camino de {area:361} hasta {area:1767}; los {quest:5086} reptan entre los árboles.",
@@ -215,18 +217,23 @@ return {
 	-- ["Ride back west to {area:2246}."] = "Vuelve al oeste hasta {area:2246}.",
 	-- ["Ride east along the road to {area:2255}."] = "Cabalga hacia el este por el camino hasta {area:2255}.",
 	-- ["Ride east, then south down {area:2249}. The Frostmaul giants there are elite level 59: keep to the middle and keep moving. The strange source is at the mouth of {area:2256}, at the south end."] = "Cabalga al este y luego al sur bajando por {area:2249}. Los Gigantes Machacahielo de allí son élite de nivel 59: ve por el centro y no te detengas. La fuente extraña está en la boca de {area:2256}, en el extremo sur.",
+	-- ["Ride north up the {zone:1448} road to {area:1767}; the {quest:5086} ooze between the trees, and most of them drop a droplet.\nCareful: Ancient Irontree Walkers, level 59 elites, walk among the {quest:5086}, and {npc:14524} (63, elite) roams the woods: work the Horrors at the north tip of {area:1767}, one at a time."] = "Caballa al norte por el camino de {zone:1448} hasta {area:1767}; el moco de {quest:5086} entre los árboles, y la mayoría suelta una gota.\nCuidado: los caminantes del Árbol de Hierro Ancestrales, élites de nivel 59, caminan entre los de {quest:5086}, y {npc:14524} (63, élite) ronda el bosque: trabaja los Horrores en la punta norte de {area:1767}, de uno en uno.",
 	-- ["Ride north-west to {area:1763}. The four braziers stand among the Shadow Council's buildings; use the Cleansed Water on each one.\nCareful: Shadow Council mobs of level 53-55 fill the cave and often come in large linked groups, many with stuns. A group of 2-3 players is recommended."] = "Cabalga hacia el noroeste hasta {area:1763}. Los cuatro braseros están entre los edificios del Consejo de las Sombras; usa el agua purificada en cada uno.\nCuidado: enemigos del Consejo de las Sombras de nivel 53-55 llenan la cueva y suelen venir en grandes grupos vinculados, muchos con aturdimientos. Se recomienda un grupo de 2-3 jugadores.",
 	-- ["South to the Sanctuary once more."] = "Vuelve otra vez al sur, al Santuario.",
+	-- ["The Deadwood totem from {area:1762}, if {npc:11558} didn't take it then: she waits at the tunnel mouth of {area:1769} and speaks to you from Neutral with the Timbermaw, which the Deadwood furbolgs of {zone:1448} brought you to."] = "El tótem del Bosque Muerto de {area:1762}, si {npc:11558} no lo cogió entonces: ella espera en la entrada del túnel de {area:1769} y te habla desde Neutral con los Maderaférrea, a los que te llevaron los furbolgs del Bosque Muerto de {zone:1448}.",
 	-- ["The furbolg village fills the valley north-east of {area:2255}. Kill Shamans first; they heal. {npc:10738} (59, elite) and Xandivious (62) are in the cave at the back: stay out."] = "El poblado fúrbolg ocupa el valle al noreste de {area:2255}. Mata primero a los Chamanes, que curan. {npc:10738} (59, élite) y Xandivious (62) están en la cueva del fondo: no entres.",
 	-- ["The quests run out here. Rabid Shardtooths prowl {area:2249} in southern {area:618}, south of the road from {area:2255}."] = "Aquí se acaban las misiones. Los Dentoesquirlas rabiosos merodean por {area:2249}, en el sur de {area:618}, al sur del camino que sale de {area:2255}.",
 	-- ["The quests run out here. Rabid Shardtooths prowl {area:2249} in southern {zone:1452}, south of the road from {area:2255}."] = "Aquí se acaban las misiones. Los Dentoesquirlas rabiosos merodean por {area:2249}, en el sur de {zone:1452}, al sur del camino que sale de {area:2255}.",
+	-- ["The zeppelin towers"] = "Las torres de los zepelines",
 	-- ["Through the Timbermaw tunnel to {area:493}. {npc:11939} reads in a house in {area:2361}."] = "Cruza el túnel de los Fauces de Madera hasta {area:493}. {npc:11939} lee en una casa de {area:2361}.",
+	-- ["Top up here to level 59.9 before the hand-ins at {zone:1452}: they take you to level 60. The Rabid Shardtooths (59) of {area:2249}, just north of the strange source, give far more experience than the furbolgs by {area:1769}. Or, with a group, run the {area:2057} dungeon or the {area:2279} dungeon instead."] = "Sube aquí hasta el nivel 59.9 antes de las entregas en {zone:1452}: te llevan al nivel 60. Los dentoesquirlas rabiosos (59) de {area:2249}, justo al norte de la fuente extraña, dan mucha más experiencia que los furbolgs de {area:1769}. O, con un grupo, haz el mazmorra de {area:2057} o el de {area:2279}.",
 	-- ["Zeppelin to {zone:1454}"] = "Zepelín a {zone:1454}",
 	-- ["grind on {npc:7446} at {area:2249}, {area:618}"] = "farmea {npc:7446} en {area:2249}, {area:618}",
 	-- ["grind on {npc:7446} at {area:2249}, {zone:1452}"] = "farmea {npc:7446} en {area:2249}, {zone:1452}",
 	-- ["only if still carried: the {zone:1423} guide hands it in on its way through"] = "solo si aún la llevas: la guía de {zone:1423} la entrega de paso",
 	-- ["{npc:10306}'s next {quest:4741} would bring you back here from {area:618}. Skip it."] = "La siguiente misión de {npc:10306}, {quest:4741}, te haría volver aquí desde {area:618}. Omítela.",
 	-- ["{npc:10306}'s next {quest:4741} would bring you back here from {zone:1452}. Skip it."] = "La siguiente misión de {npc:10306}, {quest:4741}, te haría volver aquí desde {zone:1452}. Omítela.",
+	-- ["{npc:11016}, below ground"] = "{npc:11016}, bajo tierra",
 	-- ["{npc:9116}'s Silver Heart needs an {item:11173} from northern {area:361} and a ride back here. Skip it."] = "Corazón de plata, de {npc:9116}, pide un {item:11173} del norte de {area:361} y volver hasta aquí. Omítela.",
 	-- ["{npc:9116}'s Silver Heart needs an {item:11173} from northern {zone:1448} and a ride back here. Skip it."] = "Corazón de plata, de {npc:9116}, pide un {item:11173} del norte de {zone:1448} y volver hasta aquí. Omítela.",
 	-- ["{npc:9298} next sends you after {npc:10738}, an elite in his cave. Skip it."] = "Después {npc:9298} te envía a por {npc:10738}, un élite en su cueva. Omítela.",
