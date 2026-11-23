@@ -16,7 +16,7 @@ return {
 	-- {zone:2548} Riverglades · {area:3} Badlands · {area:75} Stonard · {area:340} Kargath
 	["The {zone:2548} lie south of the {area:3}. Fly from {area:75} to {area:340}: the way down into the zone starts there."] = "",
 	-- {area:75} Stonard
-	["{area:75} flight master"] = "",
+	["{area:75} flight master"] = "Maestro de vuelo de {area:75}",
 
 	-- Step 2: Into the Riverglades
 	-- {area:16591} Riverglades
@@ -36,7 +36,7 @@ return {
 
 	-- Step 5: Boat to Powderfuse Port
 	-- {area:16727} Powderfuse Port
-	["Boat to {area:16727}"] = "",
+	["Boat to {area:16727}"] = "Barco a {area:16727}",
 	-- {area:977} Steamwheedle Port · {area:976} Gadgetzan · {area:16727} Powderfuse Port
 	["{area:977} is on the coast north-east of {area:976}: wait on the pier for the goblin boat to {area:16727}."] = "{area:977} está en la costa al noreste de {area:976}: espera en el muelle el barco goblin a {area:16727}.",
 
@@ -165,7 +165,7 @@ return {
 	["South-west of Rog'mar the river runs between the farms: impale the Freshwater Crocolisks with {npc:263190}'s spears. The Alliance trains its scouts and priests at a camp on the far bank. {npc:257079}, the Alliance elite, rides the road just east of the camp: pull the scouts and priests away from it.\nCareful: {npc:263380}, an elite (level 42), hunts along this river: if he comes your way, back off and let him pass."] = "Al suroeste de Rog'mar, el río corre entre las granjas: empala a los Crocoliscos de agua dulce con las lanzas de {npc:263190}. La Alianza entrena a sus exploradores y sacerdotes en un campamento en la otra orilla. {npc:257079}, el élite de la Alianza, recorre a caballo el camino justo al este del campamento: aleja a los exploradores y sacerdotes de él.\nCuidado: {npc:263380}, un élite (nivel 42), caza a lo largo de este río: si viene hacia ti, retírate y déjalo pasar.",
 	-- {npc:263190} Tan'jani
 	-- plural, as words: Freshwater Crocolisks = {npc:259046} Freshwater Crocolisk
-	["{npc:263190}'s spears, on the Freshwater Crocolisks in the river"] = "",
+	["{npc:263190}'s spears, on the Freshwater Crocolisks in the river"] = "Las lanzas de {npc:263190}, sobre los Cocodrilos de agua dulce del río",
 
 	-- Step 39: Tran'gul
 	-- {npc:256710} Tran'gul · {npc:256418} Krom'rosh · {area:16743} Rog'mar · {area:16723} Sunnyglade
@@ -264,7 +264,7 @@ return {
 	-- {npc:258048} Jom-jom · {npc:256728} Na'zok · {area:16726} Bolder'ok
 	["{npc:258048} waits at the back of the cave by the Twilight ogres' camp north-east of {npc:256728}: go all the way in to find him, then take him home to {area:16726} and keep the cultists off him. If he falls, take the quest from him again."] = "",
 	-- {npc:258048} Jom-jom
-	["{npc:258048}, in the cave"] = "",
+	["{npc:258048}, in the cave"] = "{npc:258048}, en la cueva",
 	-- {npc:258048} Jom-jom · {area:16726} Bolder'ok
 	["help {npc:258048} reach {area:16726}"] = "ayuda a {npc:258048} a llegar a {area:16726}",
 

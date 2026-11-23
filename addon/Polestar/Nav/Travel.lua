@@ -2688,11 +2688,11 @@ local function pointWorld(p)
 	return C.MapToWorld(p.map, p.x, p.y, p.f)
 end
 
--- from, to = { map, x, y, f } (from = nil: the player); budgeted = true: the public API's call;
--- noHearth = true: the way without the Hearthstone (the Engine's hearth goal weighs the two).
--- While a quest timer runs, the player's own estimates leave out the Hearthstone and teleports, as the route does.
---   -> seconds | nil (unknown position or unreachable) | nil, "busy" (budgeted, this frame's budget is spent)
-function Nav.EstimateTravel(from, to, budgeted, noHearth)
+-- The cache's key for an estimate from `from` (nil: the player) to `to`, the
+-- two ends in world coordinates and what the plan reads besides; nil when
+-- either end can't be placed, a false key while a flight master's map is open
+-- (a live offer is never cached).
+function Travel.EstimateKey(from, to, noHearth)
 	local tc, twx, twy = pointWorld(to)
 	if not tc then return nil end
 	local fc, fwx, fwy
@@ -2717,6 +2717,28 @@ function Nav.EstimateTravel(from, to, budgeted, noHearth)
 	local key = not offer and format("%d:%.17g:%.17g:%s>%d:%.17g:%.17g:%s:%d:%d:%d", fc, fwx, fwy, fz and format("%.17g", fz) or "?",
 		tc, twx, twy, to.z and format("%.17g", to.z) or "?", from ~= nil and 0 or ghost and 5 or timed == "escort" and 4 or timed and 3 or noHearth and 2 or 1,
 		D and D.Level() or 0, playerFaction)
+	return key, fc, fwx, fwy, tc, twx, twy, timed, ghost, fz, offer
+end
+
+-- Whether Nav.EstimateTravel(from, to, nil, noHearth) answers from its cache
+-- now (no plan), or can't place an end (no plan either). An estimate made
+-- while a flight master's map is open is never cached, so it plans. A caller
+-- that spreads its estimates over frames (UI/DungeonToast.lua) asks first.
+function Nav.EstimateKnown(from, to, noHearth)
+	local key, fc = Travel.EstimateKey(from, to, noHearth)
+	if not fc then return true end
+	if not key then return false end
+	local hit = estimates[key]
+	return hit ~= nil and GetTime() - hit.at < CACHE_SECONDS
+end
+
+-- from, to = { map, x, y, f } (from = nil: the player); budgeted = true: the public API's call;
+-- noHearth = true: the way without the Hearthstone (the Engine's hearth goal weighs the two).
+-- While a quest timer runs, the player's own estimates leave out the Hearthstone and teleports, as the route does.
+--   -> seconds | nil (unknown position or unreachable) | nil, "busy" (budgeted, this frame's budget is spent)
+function Nav.EstimateTravel(from, to, budgeted, noHearth)
+	local key, fc, fwx, fwy, tc, twx, twy, timed, ghost, fz, offer = Travel.EstimateKey(from, to, noHearth)
+	if not fc then return nil end
 	local now = GetTime()
 	local hit = estimates[key]
 	if hit and now - hit.at < CACHE_SECONDS then return hit.seconds end

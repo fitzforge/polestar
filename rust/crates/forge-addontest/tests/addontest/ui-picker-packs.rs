@@ -82,6 +82,33 @@ fn a_pack_s_entry_lists_its_guides_grouped_by_its_folders_categories_and_bands()
 	assert_eq!(out["joe"], json!(["[Leveling 1–30]", "Joe's Barrens", "Joe's Redridge", "[Night routes]", "Night Run", "[Professions]", "Joe's Tailoring"]));
 }
 
+// #3817 (Catagris): a pack's four starting zones, all from level 1, each offering the other three as its `next`
+// choices. Guides that hand over to each other gave table.sort no consistent order, and the guide menu failed
+// ("Picker.lua: attempt to compare string with nil"). They are listed by id; a one-way hand-over still puts the
+// guide that hands over first, along a whole chain too, though the chain's last guide has the first id.
+#[test]
+fn guides_that_hand_over_to_each_other_are_listed_in_one_order_without_an_error() {
+	let out = run(r#"
+		assert(Polestar.RegisterPack({ addon = "StartsAddon", id = "starts", format = 1, title = "Starts", author = "Cat", version = "1.0.0", license = "MIT" }))
+		local ids = { "starts/01", "starts/02", "starts/03", "starts/04" }
+		for _, id in ipairs(ids) do
+			local others = {}
+			for _, o in ipairs(ids) do if o ~= id then others[#others + 1] = o end end
+			guide(id, "starts", { title = "Start " .. id:sub(-2), category = "Leveling", minLevel = 1, maxLevel = 12, nextChoices = others })
+		end
+		guide("starts/z-lead", "starts", { title = "Lead", category = "Leveling", minLevel = 14, maxLevel = 15, next = "starts/m-middle" })
+		guide("starts/m-middle", "starts", { title = "Middle", category = "Leveling", minLevel = 14, maxLevel = 16, next = "starts/a-last" })
+		guide("starts/a-last", "starts", { title = "Last", category = "Leveling", minLevel = 14, maxLevel = 17 })
+		local ok, entries = pcall(P.Entries, "", "pack:starts")
+		local okAll, all = pcall(P.Entries, "", "All")
+		emit({ ok = ok, okAll = okAll, err = not ok and tostring(entries) or not okAll and tostring(all) or nil,
+			list = ok and titles(entries) or nil })"#);
+	assert_eq!(out["err"], Value::Null);
+	assert_eq!((&out["ok"], &out["okAll"]), (&json!(true), &json!(true)));
+	let guides: Vec<&str> = strs(&out["list"]).into_iter().filter(|t| !t.starts_with('[')).collect();
+	assert_eq!(guides, ["Start 01", "Start 02", "Start 03", "Start 04", "Lead", "Middle", "Last"]);
+}
+
 #[test]
 fn the_community_guides_heading_and_one_entry_per_shown_pack_title_author_hiding_the_pack_removes_them() {
 	let out = run(r#"
