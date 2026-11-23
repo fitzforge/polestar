@@ -822,3 +822,48 @@ fn shendralas_the_walk_from_historian_biraxas_to_mithera_takes_the_drop_players_
 	assert!(truthy(&up), "the walk up is found");
 	assert!(yards_of(&points(&up)) > 300.0, "the walk up goes round");
 }
+
+// #3098, The Hinterlands: the Ancient Egg's cave at Jintha'Alor (57.5, 86.7) was unreachable in the walking maps from
+// the road below (the arrow drew a straight line over the mountain). The climb from the road up both terraces (62.0,
+// 71.3 to 59.0, 70.3; 17 recorded players walk it) is a grid join now. From the road at its height, both ways.
+#[test]
+fn hinterlands_the_walk_from_the_road_below_jintha_alor_to_the_ancient_eggs_cave_is_found_both_ways_3098() {
+	let road = Pt { c: 0, x: -330.2, y: -3961.5, z: Some(197.7) };
+	let egg = Pt { c: 0, x: -760.9, y: -3792.0, z: Some(233.9) };
+	joined_both_ways(road, egg, Some("Horde"), "the Ancient Egg's cave");
+	let yards = yards_of(&points(&walk(road, egg, Some("Horde"))));
+	assert!(yards < 1000.0, "the walk is {yards:.0} yd (our grid: 819)");
+}
+
+// #3618, Durotar: Telf Joolam's shrine (38.5, 58.9, height 168) joined nothing in the walking maps, so every walk to him
+// was "unreachable". The path up from the valley floor east of the shrine (9 recorded players) is a grid join now.
+#[test]
+fn durotar_the_walk_up_to_telf_joolams_shrine_is_found_both_ways_3618() {
+	let below = Pt { c: 1, x: -242.7, y: -3951.0, z: Some(110.8) };
+	let telf = Pt { c: 1, x: -270.0, y: -4000.9, z: Some(168.2) };
+	joined_both_ways(below, telf, Some("Horde"), "Telf Joolam's shrine");
+	let yards = yards_of(&points(&walk(below, telf, Some("Horde"))));
+	assert!(yards < 260.0, "the walk up is {yards:.0} yd (our grid: 184)");
+}
+
+// #3495, Northshire Abbey: the walking maps had no stair to the first floor, so a walk to Khelden Bremen (height 89.5)
+// ended on the ground floor under him with the last steps unmapped. The stair (8 recorded players walk to him) is a
+// grid join now: the walk ends beside him, on his floor.
+#[test]
+fn elwynn_the_walk_into_northshire_abbey_goes_up_the_stair_to_khelden_bremen_3495() {
+	let door = Pt { c: 0, x: -8905.0, y: -150.0, z: None };
+	let khelden = Pt { c: 0, x: -8851.6, y: -188.2, z: Some(89.5) };
+	joined_both_ways(door, khelden, Some("Alliance"), "Khelden Bremen's floor");
+}
+
+// #3581, Thandol Span: Foggy MacKreel's ledge on the broken section (height 75) joined nothing in the walking maps (a
+// walk to him at his height was not found). The way down from the lower deck onto the fallen pieces and along them (14
+// recorded players walk to him, none flagged falling) is a step join now.
+#[test]
+fn arathi_the_walk_to_foggy_mackreel_on_thandol_spans_broken_section_is_found_both_ways_3581() {
+	let arathi = Pt { c: 0, x: -2200.0, y: -2450.0, z: None };
+	let foggy = Pt { c: 0, x: -2356.7, y: -2423.4, z: Some(74.9) };
+	joined_both_ways(arathi, foggy, Some("Alliance"), "Foggy MacKreel's ledge");
+	let yards = yards_of(&points(&walk(arathi, foggy, Some("Alliance"))));
+	assert!(yards < 250.0, "the walk is {yards:.0} yd (players: about 180)");
+}
