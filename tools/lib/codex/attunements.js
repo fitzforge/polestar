@@ -32,8 +32,9 @@
 //                                          verdicts default to data/local/attunements-verdicts.md)
 //
 // Attunement: { id, name, kind: 'attunement'|'key'|'item', need: 'each'|'one', faction: 'A'|'H'|null,
-//   item: { id, name, quality }|null, note, level, any: bool, goal: [questIds], steps: [Step],
-//   inside: [{ kind: 'npc'|'object', id, instance }]|null }   (the table's `inside` its steps use)
+//   item: { id, name, quality }|null, note, level, any: bool, [open: false], goal: [questIds], steps: [Step],
+//   inside: [{ kind: 'npc'|'object', id, instance }]|null }   (the table's `inside` its steps use;
+//   `open: false` only for a raid Forever has not opened yet, #3695: the Attunements page and the guide say so)
 // Step: { kind: 'quest', id, title, level, minLevel, faction, classes, start, finish, startItem,
 //          after: [ids], afterAny: [ids], goal: bool, accept: bool (an `onAccept` goal: taking it is the end),
 //          rep: { faction, name, standing }|null }
@@ -253,6 +254,7 @@ function buildOne(entry, codex, warn, inside = []) {
 		note: entry.note || null,
 		level,
 		any: !!entry.any,
+		...(entry.open === false ? { open: false } : {}),
 		goal,
 		steps,
 		inside: placedInside(steps, codex, inside),
