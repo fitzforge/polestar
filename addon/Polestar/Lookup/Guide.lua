@@ -561,6 +561,21 @@ function Lookup.AcceptPre(goal, q)
 	return goal
 end
 
+-- An accept or turn-in goal at an NPC only a dead character sees (the Codex's
+-- ghostOnly: Franclorn Forgewright of Dark Iron Legacy, at Forgewright's Tomb)
+-- is optional, with a note on the goal itself, which compact mode shows
+-- (the step's tip is folded away there): #558, the player saw nobody there.
+-- Returns goal.
+function Lookup.GhostOnly(goal)
+	local C = ns.Codex
+	local npc = goal and goal.npc and C and C.Npc and C.Npc(goal.npc)
+	if not (npc and npc.ghostOnly) then return goal end
+	goal.optional = true
+	local text = L["Only visible while dead: die nearby and talk to them as a ghost, or skip this quest."]
+	goal.note = goal.note and (text .. " " .. goal.note) or text
+	return goal
+end
+
 local function endGoal(t, q, e)
 	local g = { t = t, quest = q.id, title = q.title }
 	if e.npc then
@@ -568,7 +583,7 @@ local function endGoal(t, q, e)
 	else
 		g.object, g.objName = e.object, e.name
 	end
-	return at(g, e.spawn)
+	return Lookup.GhostOnly(at(g, e.spawn))
 end
 
 -- Every NPC of `ends` the character may talk to (Lookup.SideOK), each at its

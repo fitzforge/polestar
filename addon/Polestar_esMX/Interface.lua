@@ -379,6 +379,7 @@ L["Level %d: you can take %s now. Its giver is marked on your map; pick up the q
 L["Leads to %s."] = "Lleva a %s."
 L["Needed for %s."] = "Hace falta para %s."
 L["Prerequisite quests: %d of %d steps, about %s."] = "Misiones previas: %d de %d pasos, unos %s."
+L["%s offers one of these a week: take it if it is this week's."] = "%s ofrece una de estas cada semana: acéptala si es la de esta semana."
 
 -- Gear/Gear.lua
 L["big upgrade"] = "gran mejora"
@@ -524,6 +525,13 @@ L["After an earlier quest"] = "Después de una misión anterior"
 L["Chain: finished, %d skipped"] = "Cadena: terminada, %d omitidas"
 L["Chain: all %d done"] = "Cadena: las %d hechas"
 L["Chain: %d of %d"] = "Cadena: %d de %d"
+-- L["%s: use %s to call it up."] = ""
+-- L["Use %s to learn it."] = ""
+-- L["After an earlier quest"] = ""
+-- L["Chain: finished, %d skipped"] = ""
+-- L["Chain: all %d done"] = ""
+-- L["Chain: %d of %d"] = ""
+L["Only visible while dead: die nearby and talk to them as a ghost, or skip this quest."] = "Solo visible estando muerto: muere cerca y háblale como espíritu, o sáltate esta misión."
 
 -- Lookup/Options.lua
 L["How to get anything"] = "Cómo conseguir cualquier cosa"

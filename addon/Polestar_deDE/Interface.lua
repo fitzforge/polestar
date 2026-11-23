@@ -311,6 +311,7 @@ L["%s: click through what they say until the quest's line is done."] = "%s: Klic
 -- L["Chain: finished, %d skipped"] = ""
 -- L["Chain: all %d done"] = ""
 -- L["Chain: %d of %d"] = ""
+L["Only visible while dead: die nearby and talk to them as a ghost, or skip this quest."] = "Nur als Toter sichtbar: Stirb in der Nähe und sprich als Geist mit ihm, oder überspringe diese Quest."
 
 -- Lookup/Sources.lua
 L["Reputation"] = "Ruf"
@@ -3702,6 +3703,7 @@ L["Level %d: you can take %s now. Its giver is marked on your map; pick up the q
 L["Leads to %s."] = "Führt zu %s."
 L["Needed for %s."] = "Benötigt für %s."
 L["Prerequisite quests: %d of %d steps, about %s."] = "Vorquests: %d von %d Schritten, etwa %s."
+L["%s offers one of these a week: take it if it is this week's."] = "%s bietet jede Woche eine davon an: Nimm sie an, wenn es die dieser Woche ist."
 
 -- Quests/Timed.lua
 L["%d h"] = "%d Std."

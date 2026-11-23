@@ -1265,6 +1265,7 @@ L["Use %s to learn it."] = "使用%s来学习。"
 L["Chain: finished, %d skipped"] = "任务链：已完成，跳过 %d 个"
 L["Chain: all %d done"] = "任务链：%d 个全部完成"
 L["Chain: %d of %d"] = "任务链：%d/%d"
+L["Only visible while dead: die nearby and talk to them as a ghost, or skip this quest."] = "只有死亡后才能看见：在附近死亡，以灵魂状态与其对话，或跳过此任务。"
 
 -- Lookup/Spotter.lua
 L["From"] = "来源"
@@ -1320,6 +1321,7 @@ L["Level %d: you can take %s now. Its giver is marked on your map; pick up the q
 L["Leads to %s."] = "通往%s。"
 L["Needed for %s."] = "是%s的前置任务。"
 L["Prerequisite quests: %d of %d steps, about %s."] = "前置任务：%d/%d 个步骤，约 %s。"
+L["%s offers one of these a week: take it if it is this week's."] = "%s每周提供其中一个任务：如果是本周的就接取。"
 
 -- Dungeons/Handin.lua
 L["Not finished yet: %s"] = "尚未完成：%s"

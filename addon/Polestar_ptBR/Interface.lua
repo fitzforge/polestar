@@ -1265,6 +1265,7 @@ L["After an earlier quest"] = "Depois de uma missão anterior"
 L["Chain: finished, %d skipped"] = "Sequência: concluída, puladas: %d"
 L["Chain: all %d done"] = "Sequência: todas as %d feitas"
 L["Chain: %d of %d"] = "Sequência: %d de %d"
+L["Only visible while dead: die nearby and talk to them as a ghost, or skip this quest."] = "Só visível quando morto: morra por perto e fale com ele como espírito, ou pule esta missão."
 
 -- Lookup/Spotter.lua
 L["From"] = "De"
@@ -1320,6 +1321,7 @@ L["Level %d: you can take %s now. Its giver is marked on your map; pick up the q
 L["Leads to %s."] = "Leva a %s."
 L["Needed for %s."] = "Necessária para %s."
 L["Prerequisite quests: %d of %d steps, about %s."] = "Missões de pré-requisito: %d de %d etapas, cerca de %s."
+L["%s offers one of these a week: take it if it is this week's."] = "%s oferece uma destas por semana: aceite se for a desta semana."
 
 -- Dungeons/Handin.lua
 L["Not finished yet: %s"] = "Ainda não concluída: %s"
