@@ -86,12 +86,8 @@ fn pack_files(name: &str) -> String {
 /// 0.4.2 triage guide fixes (2026-11-21, #3332 on next: 26 player reports' tips, steps and goals in both routes):
 /// Alliance peak 40,053 against its 40,020. The peak: that plus ~1% (a reported raise, for Fitz to confirm in the pull
 /// request); the rest stays.
-/// 0.4.3, TTik3r's pull requests (#3730; 2026-11-23): read Alliance 26,860 and Horde 25,886 against next's 26,806 and
-/// 25,833 (+54, +53). Not the pack: the login builds the guide window's new parts (the size button, the Play next and
-/// other-tab cards, the menu's icon bar, the Skin API's journey panel), frame tables in this harness; a login without
-/// the pack keeps +4 KiB. Read: 26,915 and 25,940 (Main's word, reported to Fitz); the rest stays.
 const BUDGET: [(&str, &str, [(&str, f64); 3]); 2] =
-	[("Alliance", "Human", [("resident", 18910.0), ("peak", 40455.0), ("read", 26915.0)]), ("Horde", "Orc", [("resident", 17700.0), ("peak", 37470.0), ("read", 25940.0)])];
+	[("Alliance", "Human", [("resident", 18910.0), ("peak", 40455.0), ("read", 26845.0)]), ("Horde", "Orc", [("resident", 17700.0), ("peak", 37470.0), ("read", 25860.0)])];
 
 #[test]
 fn the_guide_pack_stays_within_its_memory_budget_for_each_faction_693() {
