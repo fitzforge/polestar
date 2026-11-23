@@ -219,6 +219,7 @@ return {
 	["Back north-east to the loose soil west of Elbrim's farm: bury the {item:266148} there, one in each grave."] = "",
 	-- {object:621813} Loose Soil (no name in this language: may be words) · {item:266148} Farmers' Mementos
 	-- plural, as words: Twilight Raiders = {npc:256952} Twilight Raider
+	-- was: ["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}, a oeste da fazenda do Elbrim: cada túmulo pede uma das {item:266148} que os Saqueadores do Crepúsculo soltam, então saqueie cinco antes"
 	["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop"] = "",
 
 	-- Step 43: Apprentice Claire
@@ -582,5 +583,6 @@ return {
 	-- ["{item:17028}, from {npc:272437}"] = "{item:17028}, com {npc:272437}",
 	-- ["{npc:260026} waits beside the road east of the pass."] = "{npc:260026} espera ao lado da estrada, a leste do desfiladeiro.",
 	-- ["{npc:262031} keeps the old cathedral at the south-west corner of {area:16724}. The bats roost in its upper floor; {npc:272437} hands out the holy candles beside it; the graves are in the chapel graveyard.\n{npc:271742}, an elite of level 53, stands in the cathedral: he leaves you be, so never attack him, and pull the bats away from him."] = "{npc:262031} cuida da velha catedral no canto sudoeste de {area:16724}. Os morcegos se empoleiram no andar superior; {npc:272437} distribui as velas sagradas ao lado dela; os túmulos ficam no cemitério da capela.\n{npc:271742}, um elite de nível 53, fica na catedral: ele não ataca você, então nunca o ataque e puxe os morcegos para longe dele.",
+	-- ["{object:621813}, west of Elbrim's farm: each grave takes one of the {item:266148} the Twilight Raiders drop, so loot five first"] = "{object:621813}, a oeste da fazenda do Elbrim: cada túmulo pede uma das {item:266148} que os Saqueadores do Crepúsculo soltam, então saqueie cinco antes",
 	-- ["{object:621813}: bury the mementos"] = "{object:621813}: enterre as recordações",
 }
