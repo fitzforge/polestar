@@ -1,4 +1,5 @@
 ---
 section: players
 ---
-- Simplified Chinese: translate mounted travel, Hearthstone detours, and entrance prompts.
+- Simplified Chinese: the mounted travel, Hearthstone and entrance directions
+  read in Chinese (thanks nepyanbin, #3105).
