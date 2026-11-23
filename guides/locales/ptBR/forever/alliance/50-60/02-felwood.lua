@@ -46,8 +46,8 @@ return {
 	["Careful: {npc:9454} (54) stands at the back of the {area:2481}, at about 32.2,67.1, with Shadowstalkers around him: clear them one at a time, then pull him alone at full health."] = "Cuidado: {npc:9454} (54) fica no fundo de {area:2481}, por volta de 32.2,67.1, com Espreitadores Sombrios ao redor: elimine-os um de cada vez e depois puxe-o sozinho com a vida cheia.",
 
 	-- Step 8: Jaedenar
-	-- {area:1763} Jaedenar
-	["{area:1763} is the ruined temple north of the glen."] = "{area:1763} é o templo em ruínas ao norte do vale.",
+	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge
+	["{area:1763} is the ruined temple north of the glen.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: work the south-east, where the arrow points, and pull the cultists and hounds away from him."] = "",
 	-- {item:11949} Filled Tainted Ooze Jar · {area:1763} Jaedenar
 	-- plural, as words: Tainted Oozes = {npc:7092} Tainted Ooze
 	["{item:11949}: Tainted Oozes slide about {area:1763}'s fel pools"] = "{item:11949}: Gosmas Maculadas deslizam pelas poças vis de {area:1763}",
@@ -125,8 +125,6 @@ return {
 	-- Step 24: Salfa
 	-- {npc:11556} Salfa · {zone:1452} Winterspring · {area:1769} Timbermaw Hold
 	["{npc:11556} stands right at the {zone:1452} exit of {area:1769}'s tunnel, where you come out."] = "{npc:11556} fica bem na saída de {zone:1452} do túnel de {area:1769}, por onde você sai.",
-	-- {area:2244} Winterfall Village · {area:2255} Everlook · {zone:1452} Winterspring
-	["{area:2244} is east of {area:2255}: the next guide's {zone:1452} loop, keep it"] = "",
 
 	-- Step 25: Donova Snowden
 	-- {npc:9298} Donova Snowden
@@ -149,18 +147,24 @@ return {
 	-- Step 28: Rut'theran Village
 	-- {npc:7916} Erelas Ambersky · {quest:3661} Favored of Elune? · {zone:1425} Hinterlands
 	["{npc:7916}: {quest:3661}, the feathers from the {zone:1425}"] = "",
+
+	-- Step 29: Rut'theran Village
 	-- {npc:7916} Erelas Ambersky · {zone:1452} Winterspring
 	["{npc:7916}: the wildkin feathers lie along {zone:1452}'s road, on the next guide; {npc:7916} takes them on the Plaguelands guide's way through: keep it"] = "",
 
-	-- Step 29: Daryn Lightwind
+	-- Step 30: Daryn Lightwind
 	-- {npc:7907} Daryn Lightwind · {npc:7916} Erelas Ambersky
 	["{npc:7907} stands upstairs, above {npc:7916}: go up inside, the arrow cannot tell the floors apart."] = "{npc:7907} fica no andar de cima, acima de {npc:7916}: suba por dentro, a seta não diferencia os andares.",
 
-	-- Step 31: The Temple Gardens
+	-- Step 33: The Temple Gardens
 	-- {item:11682} Eridan's Vial
 	["Fill {item:11682} at the moonwell inside the Temple of the Moon."] = "",
 
-	-- Step 32: Gracina Spiritmight
+	-- Step 34: Astarii Starseeker
+	-- {npc:4090} Astarii Starseeker · {quest:3378} Prayer to Elune · {zone:1427} Searing Gorge
+	["{npc:4090}, in the Temple of the Moon: {quest:3378}, from the {zone:1427}"] = "",
+
+	-- Step 35: Gracina Spiritmight
 	-- {npc:7740} Gracina Spiritmight
 	["{npc:7740} stands beside Tyrande in the Temple of the Moon."] = "",
 	-- {npc:7740} Gracina Spiritmight · {quest:162} Rise of the Silithid · {area:976} Gadgetzan
@@ -168,13 +172,19 @@ return {
 	-- {npc:5594} Alchemist Pestlezugg · {area:976} Gadgetzan · {zone:1446} Tanaris · {zone:1452} Winterspring
 	["For {npc:5594} in {area:976}, on the {zone:1446} and {zone:1452} guide: keep it"] = "",
 
-	-- Step 34: Mathrengyl Bearwalker
-	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave · {npc:4217} Mathrengyl Bearwalker
-	["{npc:9047} waits in the {area:1658}; Fandral and {npc:4217} stand upstairs in its druids' building."] = "",
+	-- Step 36: Jenal
+	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave
+	["{npc:9047} waits in the {area:1658}, west of the druids' building."] = "",
 	-- {npc:9047} Jenal · {area:1658} Cenarion Enclave · {quest:3764} Un'Goro Soil
 	["{npc:9047}, in the {area:1658}: {quest:3764}"] = "",
+
+	-- Step 38: Arch Druid Fandral Staghelm
+	-- {npc:4217} Mathrengyl Bearwalker
+	["Fandral stands at the top of the druids' building; {npc:4217}, next, is lower down inside it."] = "",
 	-- {npc:3516} Arch Druid Fandral Staghelm
 	["{npc:3516}, upstairs"] = "",
+
+	-- Step 40: Mathrengyl Bearwalker
 	-- {npc:4217} Mathrengyl Bearwalker
 	["{npc:4217}, upstairs"] = "{npc:4217}, no andar de cima",
 	-- {npc:4217} Mathrengyl Bearwalker · {item:11040} Morrowgrain
@@ -182,27 +192,27 @@ return {
 	-- {zone:1455} Ironforge
 	["{zone:1455} has no druid trainer"] = "{zone:1455} não tem instrutor de druida",
 
-	-- Step 35: Portal to Teldrassil
+	-- Step 41: Portal to Teldrassil
 	-- {zone:1438} Teldrassil
 	["Portal to {zone:1438}"] = "Portal para {zone:1438}",
 
-	-- Step 36: Rut'theran Village flight master
+	-- Step 42: Rut'theran Village flight master
 	-- {area:702} Rut'theran Village
 	["{area:702} flight master"] = "Mestre de voo de {area:702}",
 
-	-- Step 37: Feathermoon Stronghold
+	-- Step 43: Feathermoon Stronghold
 	-- {area:702} Rut'theran Village · {area:1116} Feathermoon Stronghold
 	["From {area:702}, fly to {area:1116}."] = "De {area:702}, voe para {area:1116}.",
 
-	-- Step 39: Boat to The Forgotten Coast
+	-- Step 45: Boat to The Forgotten Coast
 	-- {area:1108} The Forgotten Coast
 	["Boat to {area:1108}"] = "Barco para {area:1108}",
 
-	-- Step 40: Zorbin Fandazzle
+	-- Step 46: Zorbin Fandazzle
 	-- {npc:14637} Zorbin Fandazzle
 	["Take the boat to the mainland: {npc:14637} waits on the dock where it lands."] = "",
 
-	-- Step 41: The Forgotten Coast: kill these as you meet them
+	-- Step 47: The Forgotten Coast: kill these as you meet them
 	-- {area:1108} The Forgotten Coast
 	["{area:1108}: kill these as you meet them"] = "{area:1108}: vá matando estes pelo caminho",
 	-- {item:18904} Zorbin's Ultra-Shrinker · {npc:14637} Zorbin Fandazzle
@@ -215,36 +225,36 @@ return {
 	-- plural, as words: Deep Striders = {npc:5360} Deep Strider
 	["{item:18904}, on the Wave and Deep Striders in the water"] = "{item:18904}, nos Andarilhos das Ondas e Fundívagos na água",
 
-	-- Step 42: Zorbin Fandazzle
+	-- Step 48: Zorbin Fandazzle
 	-- {npc:14637} Zorbin Fandazzle
 	["Back to {npc:14637} on the dock."] = "Volte até {npc:14637} no cais.",
 
-	-- Step 43: Gregan Brewspewer
+	-- Step 49: Gregan Brewspewer
 	-- {area:1119} Twin Colossals · {npc:7775} Gregan Brewspewer · {item:11243} Videre Elixir · {item:11242} Evoroot
 	["Ride north-east from the dock past the {area:1119} to {npc:7775}'s camp. He brews the {item:11243} from an {item:11242}: take his errand for one."] = "",
 
-	-- Step 44: Rockbiter
+	-- Step 50: Rockbiter
 	-- {npc:7765} Rockbiter · {npc:7775} Gregan Brewspewer
 	["The giant {npc:7765} sits just north-west of {npc:7775}'s camp."] = "O gigante {npc:7765} fica logo a noroeste do acampamento de {npc:7775}.",
 
-	-- Step 45: Evoroot
+	-- Step 51: Evoroot
 	-- {item:11242} Evoroot · {npc:7765} Rockbiter
 	["The {item:11242} grows inside a ruined building north of {npc:7765}: climb in through the break in its wall from the ledge beside it."] = "O {item:11242} cresce dentro de uma construção em ruínas ao norte de {npc:7765}: entre pela abertura na parede, a partir da saliência ao lado.",
 
-	-- Step 46: Shay Leafrunner
+	-- Step 52: Shay Leafrunner
 	-- {npc:7774} Shay Leafrunner · {item:9189} Shay's Bell
 	["Ride west into the Ravenwind Ruins: {npc:7774} hides in the small round building at the back. Open the chest beside her for {item:9189}: it lasts 15 minutes, like the quest."] = "Cavalgue para o oeste, até as Ruínas dos Ventos Corvejantes: {npc:7774} se esconde na pequena construção redonda dos fundos. Abra o baú ao lado dela para pegar {item:9189}: dura 15 minutos, como a missão.",
 
-	-- Step 47: Wandering Shay
+	-- Step 53: Wandering Shay
 	-- {npc:7774} Shay Leafrunner · {npc:7765} Rockbiter
 	["Lead {npc:7774} back to {npc:7765} at walking pace: she wanders off, so ring the bell to call her back (not in combat), and clear the harpies on the way before she reaches them."] = "Leve {npc:7774} de volta até {npc:7765} em ritmo de caminhada: ela se afasta, então toque o sino para chamá-la de volta (fora de combate) e limpe as harpias do caminho antes que ela chegue a elas.",
 
-	-- Step 48: Gregan Brewspewer
+	-- Step 54: Gregan Brewspewer
 	-- {npc:7775} Gregan Brewspewer · {npc:7765} Rockbiter · {item:11242} Evoroot · {npc:9298} Donova Snowden · {area:976} Gadgetzan
 	-- plural, as words: Videre Elixirs = {item:11243} Videre Elixir
 	["Back to {npc:7775}'s camp, just south-east of {npc:7765}: the {item:11242} buys three Videre Elixirs. Keep them: {npc:9298} takes one at the start of the next guide, and Gaeriyan in {area:976} shows himself only to someone who has drunk one."] = "",
 
-	-- Step 49: Feralas
+	-- Step 55: Feralas
 	-- {area:489} Thalanaar · {zone:1441} Thousand Needles
 	["Ride east along the road to {area:489}, on the {zone:1441} border: the next guide flies from there."] = "",
 
@@ -287,6 +297,7 @@ return {
 	-- ["grind on {npc:7153}"] = "mate {npc:7153} até subir",
 	-- ["grind on {npc:7155}"] = "mate {npc:7155} até subir",
 	-- ["grind on {npc:9878}"] = "mate {npc:9878} até subir",
+	-- ["{area:1763} is the ruined temple north of the glen."] = "{area:1763} é o templo em ruínas ao norte do vale.",
 	-- ["{area:1763} is the ruined temple north of the glen. Some of its cultists drop a {item:13140}, about one kill in thirty: it opens {npc:11018}'s cell in {area:1770}, the cave at the back. If it drops, clear the way out before you free her; if not, skip her quests."] = "{area:1763} é o templo em ruínas ao norte do vale. Alguns dos seus sectários deixam cair uma {item:13140}, cerca de uma vez a cada trinta mortes: ela abre a cela de {npc:11018} em {area:1770}, a caverna no fundo. Se ela cair, limpe o caminho de saída antes de libertá-la; se não, pule as missões dela.",
 	-- ["{area:2618} is the satyr valley in the north-west, with {npc:10648} at its far end. He drops the {quest:939}; every Jadefire satyr can drop {item:11674}."] = "{area:2618} é o vale dos sátiros no noroeste, com {npc:10648} no fundo. Ele deixa cair {quest:939}; todo sátiro Flamejade pode deixar cair {item:11674}.",
 	-- ["{item:13140}, a rare drop"] = "{item:13140}, um saque raro",

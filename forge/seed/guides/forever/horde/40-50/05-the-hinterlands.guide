@@ -141,8 +141,8 @@ step Highvale
 step Grim Message
   tip South of the lodge the Witherbark trolls hold their villages. Every one of them carries a skull: with twenty, use Nimboya's Pike to make the Laden Pike, then plant it inside the village.
   collect 9320 x20 "Witherbark Skull"
-  use 15002 "Nimboya's Pike" @29.5,58.5
-  use 9319 "Nimboya's Laden Pike" @29.5,58.5
+  use 15002 "Nimboya's Pike" @31.9,58.0
+  use 9319 "Nimboya's Laden Pike" @31.9,58.0  -- inside Hiri'watha: it can't be planted outside a village
   complete 2932
 
 step Violet Tragan

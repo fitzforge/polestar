@@ -30,6 +30,8 @@ return {
 	-- Step 4: Back at Aldrassil
 	-- {area:256} Aldrassil
 	["Back at {area:256}"] = "Retour à {area:256}",
+	-- {npc:3595} Shanda · {quest:97979} The Goddess Provides · {spell:1259799} Elune's Light
+	["{npc:3595}'s quest, {quest:97979}, asks for your two night elf racial spells: open your spellbook (P), cast {spell:1259799} and Shadowmeld once each, then hand it back to her."] = "",
 	-- {npc:2079} Conservator Ilthalaine · {npc:3596} Ayanna Everstride
 	["{npc:2079}: a sigil for {npc:3596}"] = "{npc:2079} : un sceau pour {npc:3596}",
 	-- {npc:2082} Gilshalan Windwalker
@@ -188,9 +190,9 @@ return {
 	-- Step 29: Teldrassil: kill these as you meet them
 	-- {quest:940} Teldrassil
 	["{quest:940}: kill these as you meet them"] = "{quest:940} : tuez-les au passage",
-	-- {area:186} Dolanaar · {area:260} Starbreeze Village
-	-- plural, as words: Strigid Owls = {npc:1995} Strigid Owl · Webwood Lurkers = {npc:1998} Webwood Lurker
-	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of {area:260}."] = "Des sabres-de-nuit, des Hiboux Strigid et des Rôdeuses Tissebois parcourent tous les environs de {area:186} et la route vers l'est ; les rôdeuses laissent aussi tomber les pattes d'araignée de la recette. Le puits de lune se trouve à la lisière ouest du {area:260}.",
+	-- {area:186} Dolanaar · {area:260} Starbreeze Village · {npc:3567} Tallonkai Swiftroot
+	-- plural, as words: Strigid Owls = {npc:1995} Strigid Owl · Webwood Lurkers = {npc:1998} Webwood Lurker · Befouled Webwoods = {npc:272096} Befouled Webwood
+	["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of {area:260}.\nCareful: the Befouled Webwoods (10-11) in the woods north-west of {area:186}, around 47-52,34-56, are over you now: take the silk from the Webwood Lurkers and leave the webwoods for {npc:3567}'s quest later. Duskstalker (9, a rare nightsaber) and Oakenscowl (9, elite) roam the woods south of {area:186}, around 54-62,73-77: leave them be."] = "",
 	["Nightsabers"] = "Sabres-de-nuit sauvages",
 	-- plural, as words: Webwood Lurkers = {npc:1998} Webwood Lurker
 	["Webwood Lurkers"] = "Rôdeuses Tissebois",
@@ -607,6 +609,7 @@ return {
 	-- ["Mangy Nightsabers and Thistle Boars roam north of {area:256}, on the way to the cave. {npc:8584} waits in the trees west of the cave mouth; {npc:1994} sits deep inside."] = "Les Sabres-de-nuit galeux et les Sangliers des chardons rôdent au nord d'{area:256}, sur le chemin de la grotte. {npc:8584} attend dans les arbres à l'ouest de l'entrée de la grotte ; {npc:1994} se tient au fond.",
 	-- ["Nightsabers, Strigid Owls and Webwood Lurkers live along the road east. The moonwell is at the west edge of {area:260}."] = "Les Sabres-de-nuit sauvages, les Hiboux Strigid et les Rôdeuses Tissebois vivent le long de la route vers l'est. Le puits de lune se trouve à la limite ouest de {area:260}.",
 	-- ["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east. The moonwell is at the west edge of {area:260}."] = "Les Sabres-de-nuit sauvages, les Hiboux Strigid et les Rôdeuses Tissebois rôdent tout autour de {area:186} et le long de la route vers l'est. Le puits de lune se trouve à la limite ouest de {area:260}.",
+	-- ["Nightsabers, Strigid Owls and Webwood Lurkers roam all around {area:186} and along the road east; the lurkers also drop the recipe's spider legs. The moonwell is at the west edge of {area:260}."] = "Des sabres-de-nuit, des Hiboux Strigid et des Rôdeuses Tissebois parcourent tous les environs de {area:186} et la route vers l'est ; les rôdeuses laissent aussi tomber les pattes d'araignée de la recette. Le puits de lune se trouve à la lisière ouest du {area:260}.",
 	-- ["North from the lake to {npc:2150}, on the road back to {area:186}."] = "Vers le nord depuis le lac jusqu'à {npc:2150}, sur la route du retour vers {area:186}.",
 	-- ["North-east from Ursal's den, back to {area:186}."] = "Au nord-est depuis l'antre d'Ursal, retour à {area:186}.",
 	-- ["South from the glade toward Ursal: Shayla walks the road west of {area:186}, from where the path down from the glade meets it south-west to the bend at about 38,54 and back."] = "Au sud de la clairière en direction d'Ursal : Shayla parcourt la route à l'ouest de {area:186}, depuis l'endroit où le chemin qui descend de la clairière la rejoint, vers le sud-ouest jusqu'au virage vers 38,54, puis revient.",

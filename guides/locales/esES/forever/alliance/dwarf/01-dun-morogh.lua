@@ -293,7 +293,8 @@ return {
 	-- Step 47: Frostmane Hold
 	-- {area:135} Frostmane Hold · {area:137} Brewnall Village
 	-- plural, as words: Frostmane Hideskinners = {npc:1122} Frostmane Hideskinner
-	["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} es la cueva de los trols en las colinas al suroeste de {area:137}. Mata Cazacabezas en la entrada y recórrela hasta el fondo.\nCuidado: los Desolladores Peloescarcha del interior son de nivel 9-10 y están en parejas: atráelos de uno en uno hasta la entrada.",
+	-- was: ["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} es la cueva de los trols en las colinas al suroeste de {area:137}. Mata Cazacabezas en la entrada y recórrela hasta el fondo.\nCuidado: los Desolladores Peloescarcha del interior son de nivel 9-10 y están en parejas: atráelos de uno en uno hasta la entrada."
+	["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth, then walk through the cave to its far end: Fully explore {area:135} ticks only in there, not on the hill above it.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "",
 	-- {npc:1123} Frostmane Headhunter
 	["{npc:1123}, below ground"] = "",
 
@@ -677,6 +678,7 @@ return {
 	-- ["Tame Beast"] = "Domesticar bestia",
 	-- ["The tram arrives in the {object:28027}. {npc:5480} trains warriors in {object:2100}; {npc:6089} and {npc:6090} stand together by the {object:2152} there. {npc:6090} fights you for his mug."] = "El tranvía llega a {object:28027}. {npc:5480} entrena a los guerreros en {object:2100}; {npc:6089} y {npc:6090} están juntos junto a {object:2152}. {npc:6090} pelea contigo por su jarra.",
 	-- ["These are elite mobs: grouping up is encouraged, look for people to do it with. {npc:1388} is a level 12 elite: take him on with a group. Alone, skip it: the {zone:1432} quests ahead make up the experience."] = "Son enemigos élite: se recomienda ir en grupo, busca gente para hacerlas. {npc:1388} es un élite de nivel 12: enfréntate a él en grupo. Si vas solo, sáltala: las misiones de {zone:1432} compensan la experiencia.",
+	-- ["{area:135} is the troll cave in the hills south-west of {area:137}. Kill Headhunters at its mouth and walk through to its far end.\nCareful: the Frostmane Hideskinners inside the Hold are level 9-10 and stand in pairs: pull them one at a time back to the mouth."] = "{area:135} es la cueva de los trols en las colinas al suroeste de {area:137}. Mata Cazacabezas en la entrada y recórrela hasta el fondo.\nCuidado: los Desolladores Peloescarcha del interior son de nivel 9-10 y están en parejas: atráelos de uno en uno hasta la entrada.",
 	-- ["{item:5026} and the {item:6652}"] = "{item:5026} y la {item:6652}",
 	-- ["{npc:1226}: {npc:11406} in {zone:1455} takes it"] = "{npc:1226}: la recoge {npc:11406} en {zone:1455}",
 	-- ["{npc:1241}, below ground: Camping 101, blacksmiths"] = "{npc:1241}, bajo tierra: Acampada básica, herreros",

@@ -174,21 +174,21 @@ return {
 	-- {quest:4882} Guarding Secrets · {npc:5770} Nara Wildmane · {faction:81} Thunder Bluff
 	["{quest:4882}, +100: to {npc:5770} in {faction:81}"] = "{quest:4882}, +100: para {npc:5770} en {faction:81}",
 
-	-- Step 30: Thunder Bluff: Nara Wildmane
+	-- Step 31: Thunder Bluff: Nara Wildmane
 	-- {npc:5770} Nara Wildmane · {area:1639} Elder Rise · {npc:5769} Arch Druid Hamuul Runetotem
 	["{npc:5770} stands on {area:1639}, beside {npc:5769}."] = "{npc:5770} está en {area:1639}, junto a {npc:5769}.",
 
-	-- Step 31: Morrowgrain (optional)
+	-- Step 32: Morrowgrain (optional)
 	-- {item:11040} Morrowgrain
 	["{item:11040} (optional)"] = "{item:11040} (opcional)",
 	-- {quest:3804} Morrowgrain to Thunder Bluff · {item:11040} Morrowgrain · {item:11020} Evergreen Pouch · {quest:3761} Un'Goro Soil · {npc:6746} Innkeeper Pala · {npc:5769} Arch Druid Hamuul Runetotem · {area:1639} Elder Rise
 	["{quest:3804} takes 10 {item:11040} for 50, as often as you like, and pays in full at 60, but it is slow: the {item:11020} grows one casing every 10 minutes and a casing holds about one {item:11040} on average, so each hand-in takes about 90 minutes of waiting, 18 {quest:3761} and 9 seed packets (90 silver). It runs beside whatever else you do: a little over 30 reputation an hour. The chain before it is level 50. {npc:6746} sends you to {npc:5769} on {area:1639}; he wants 20 {quest:3761}."] = "{quest:3804} acepta 10 {item:11040} por 50, cuantas veces quieras, y paga completo a 60, pero es lento: la {item:11020} da una vaina cada 10 minutos y una vaina tiene en promedio más o menos un {item:11040}, así que cada entrega lleva unos 90 minutos de espera, 18 {quest:3761} y 9 paquetes de semillas (90 de plata). Avanza en paralelo con lo que hagas: poco más de 30 de reputación por hora. La cadena anterior es de nivel 50. {npc:6746} te manda con {npc:5769} en {area:1639}; quiere 20 {quest:3761}.",
 
-	-- Step 32: Un'Goro Crater: Un'Goro Soil
+	-- Step 33: Un'Goro Crater: Un'Goro Soil
 	-- {quest:3761} Un'Goro Soil · {item:11040} Morrowgrain
 	["Nearly every beast, plant and silithid in the crater drops {quest:3761}, about one kill in three (the Bloodpetals and the Gorishi wasps about one in two), and the dirt mounds give it too. Take far more than 20: every casing uses 2, about 18 for each {item:11040} hand-in."] = "Casi todas las bestias, plantas y silítidos del cráter sueltan {quest:3761}, más o menos una de cada tres muertes (los Pétalo de Sangre y las avispas Gorishi más o menos una de cada dos), y los montículos de tierra también la dan. Junta mucho más de 20: cada vaina usa 2, unas 18 por cada entrega de {item:11040}.",
 
-	-- Step 33: Thunder Bluff: Morrowgrain Research
+	-- Step 34: Thunder Bluff: Morrowgrain Research
 	-- {npc:9076} Ghede · {npc:9087} Bashana Runetotem · {item:11020} Evergreen Pouch · {quest:3761} Un'Goro Soil · {item:11024} Evergreen Herb Casing · {item:11040} Morrowgrain
 	["{npc:9076} takes the soil. {npc:9087} sells the {item:11020} (1 gold) and Packets of Tharlendris Seeds (10 silver each). With a seed packet and 2 {quest:3761} in your bags, use the pouch: it grows an {item:11024}, once every 10 minutes. Open each casing: about one in three holds 1 to 5 {item:11040}, the rest common herbs. Use the pouch whenever it is ready while you follow the rest of this guide."] = "{npc:9076} recibe la tierra. {npc:9087} vende la {item:11020} (1 de oro) y paquetes de semillas de Tharlendris (10 de plata cada uno). Con un paquete de semillas y 2 {quest:3761} en tus bolsas, usa la bolsa: hace crecer una {item:11024}, una vez cada 10 minutos. Abre cada vaina: más o menos una de cada tres tiene de 1 a 5 {item:11040}, el resto hierbas comunes. Usa la bolsa cada vez que esté lista mientras sigues el resto de esta guía.",
 	-- {item:11020} Evergreen Pouch
@@ -196,17 +196,17 @@ return {
 	-- {item:11022} Packet of Tharlendris Seeds
 	["{item:11022}, 10 silver each"] = "{item:11022}, 10 de plata cada uno",
 
-	-- Step 34: Morrowgrain as you go
+	-- Step 35: Morrowgrain as you go
 	-- {item:11040} Morrowgrain
 	["{item:11040} as you go"] = "{item:11040} sobre la marcha",
 	-- {item:11040} Morrowgrain · {npc:9087} Bashana Runetotem
 	["{item:11040}: use the pouch every 10 minutes and open the casings; {npc:9087} takes it"] = "{item:11040}: usa la bolsa cada 10 minutos y abre las vainas; {npc:9087} lo recibe",
 
-	-- Step 35: Bashana Runetotem: Morrowgrain Research
+	-- Step 36: Bashana Runetotem: Morrowgrain Research
 	-- {npc:9087} Bashana Runetotem · {area:1639} Elder Rise · {item:11040} Morrowgrain
 	["{npc:9087} stands on {area:1639}. If your 10 {item:11040} are not ready yet, skip this step and go on with the cloth: the cloth steps below list the {item:11040} hand-in too."] = "{npc:9087} está en {area:1639}. Si tus 10 {item:11040} todavía no están listos, sáltate este paso y sigue con el paño: los pasos de paño de abajo también incluyen la entrega de {item:11040}.",
 
-	-- Step 36: Additional Runecloth to Honored
+	-- Step 37: Additional Runecloth to Honored
 	-- {quest:7825} Additional Runecloth
 	["{quest:7825} to Honored"] = "{quest:7825} hasta Honorable",
 	-- {quest:7825} Additional Runecloth · {item:14047} Runecloth
@@ -214,7 +214,7 @@ return {
 	-- {item:11040} Morrowgrain · {npc:9087} Bashana Runetotem
 	["{item:11040}, if you grow it: {npc:9087} takes it"] = "{item:11040}, si lo cultivas: {npc:9087} lo recibe",
 
-	-- Step 37: Additional Runecloth to Revered
+	-- Step 38: Additional Runecloth to Revered
 	-- {quest:7825} Additional Runecloth
 	["{quest:7825} to Revered"] = "{quest:7825} hasta Reverenciado",
 	-- {item:14047} Runecloth · {item:11040} Morrowgrain · {area:1584} Blackrock Depths · {area:340} Kargath · {npc:9017} Lord Incendius
@@ -222,7 +222,7 @@ return {
 	-- {item:11040} Morrowgrain
 	["{item:11040}, if you grow it"] = "{item:11040}, si lo cultivas",
 
-	-- Step 38: Additional Runecloth to Exalted
+	-- Step 39: Additional Runecloth to Exalted
 	-- {quest:7825} Additional Runecloth
 	["{quest:7825} to Exalted"] = "{quest:7825} hasta Exaltado",
 	-- {item:14047} Runecloth · {npc:3685} Harb Clawhoof · {area:222} Bloodhoof Village

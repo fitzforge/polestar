@@ -1,6 +1,6 @@
 //! The release version: kept in package.json, in our guides' pack manifest (guides/pack.json: compile
 //! writes its version into Polestar_Guides.toc) and Polestar's own extra packs' (experimental/pack.json,
-//! into Polestar_Experimental.toc), and in the `## Version` line of every addon TOC.
+//! into Polestar/Experimental/Pack.lua), and in the `## Version` line of every addon TOC.
 
 use std::path::{Path, PathBuf};
 use std::sync::LazyLock;

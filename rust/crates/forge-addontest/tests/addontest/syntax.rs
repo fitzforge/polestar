@@ -8,19 +8,21 @@ use std::collections::HashSet;
 use std::fs;
 use std::path::{Path, PathBuf};
 
-const ALLOWED_GLOBAL: &str = r"^(Polestar|PolestarDB|PolestarCharDB|PolestarRecorderDB|PolestarRecorderCharDB|PolestarRecorderAck|PolestarClientInfo|PolestarRecorder_Command|Polestar_NavEngine|PolestarPathData|PolestarNavChokepoints|SLASH_POLESTAR\d+|SLASH_POLESTARREC\d+|SLASH_POLESTARWAY\d+|SLASH_POLESTAR_RL\d+|BINDING_NAME_POLESTAR_\w+)$";
+const ALLOWED_GLOBAL: &str = r"^(Polestar|PolestarDB|PolestarCharDB|PolestarLanguage|PolestarFlightsDB|PolestarRecorderDB|PolestarRecorderCharDB|PolestarRecorderAck|PolestarClientInfo|PolestarRecorder_Command|Polestar_NavEngine|PolestarPathData|PolestarNavChokepoints|SLASH_POLESTAR\d+|SLASH_POLESTARREC\d+|SLASH_POLESTARWAY\d+|SLASH_POLESTAR_RL\d+|BINDING_NAME_POLESTAR_\w+)$";
 
 // Globals one file may write: the TomTom stand-in owns `TomTom` while TomTom is not installed; the walking
 // router's cost table is `Polestar_NavCosts` (tools and the eval harness read it); the addon compartment
 // calls the handlers the .toc names (`AddonCompartmentFunc` and friends), which must be globals. Freedoom
 // Arcade (Polestar_Arcade, a program of its own) keeps its own: its namespace, its API, its commands and its
-// compartment handler.
+// compartment handler. Tetris (Polestar_Arcade/games/tetris) keeps its engine, its API and its saved variables.
 fn file_globals(rel: &str) -> &'static [&'static str] {
 	match rel {
 		"addon/Polestar_Arcade/src/core.lua" => &["FreedoomArcade"],
 		"addon/Polestar_Arcade/src/api.lua" => &["FreedoomArcadeAPI"],
 		"addon/Polestar_Arcade/src/main.lua" => &["SLASH_FREEDOOMARCADE1", "SLASH_FREEDOOMARCADE2", "SLASH_FREEDOOMARCADE3"],
 		"addon/Polestar_Arcade/src/minimap.lua" => &["FreedoomArcade_OnAddonCompartmentClick"],
+		"addon/Polestar_Arcade/games/tetris/Engine.lua" => &["Polestar_TetrisDB", "PolestarTetris"],
+		"addon/Polestar_Arcade/games/tetris/Window.lua" => &["PolestarTetrisAPI"],
 		"addon/Polestar/Nav/Journey.lua" => &["TomTom"],
 		"addon/Polestar_Nav/Routing/Costs.lua" => &["Polestar_NavCosts"],
 		"addon/Polestar/Maps/MinimapButton.lua" => &["Polestar_OnAddonCompartmentClick", "Polestar_OnAddonCompartmentEnter", "Polestar_OnAddonCompartmentLeave"],

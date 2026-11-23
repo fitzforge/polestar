@@ -37,9 +37,9 @@ return {
 	-- Step 6: Echo Ridge Mine: kill these as you meet them
 	-- {area:34} Echo Ridge Mine
 	["{area:34}: kill these as you meet them"] = "{area:34}: Töte sie, wenn du ihnen begegnest",
-	-- {object:83763} Stolen Books
+	-- {object:83763} Stolen Books · {quest:91741} Nibbled-On Book · {npc:951} Brother Paxton
 	-- plural, as words: Kobold Workers = {npc:257} Kobold Worker
-	["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}."] = "Folge dem Weg nach Norden zur Mine. Davor wimmelt es von Koboldtagelöhnern; jeder Kobold im Tal kann {object:83763} fallen lassen.",
+	["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}.\nNow and then a kobold here drops a {quest:91741}: right-click it and hand it to {npc:951} on your next Abbey stop."] = "",
 
 	-- Step 7: Northshire Abbey
 	-- {npc:248415} Tordrin Sternblade · {npc:198} Khelden Bremen
@@ -88,10 +88,9 @@ return {
 	-- Step 14: Inside Echo Ridge Mine
 	-- {area:34} Echo Ridge Mine
 	["Inside {area:34}"] = "In {area:34}",
-	-- {npc:248362} Shinyfinder Narf
+	-- {npc:248362} Shinyfinder Narf · {quest:91741} Nibbled-On Book · {npc:951} Brother Paxton
 	-- plural, as words: Kobold Laborers = {npc:80} Kobold Laborer
-	-- was: ["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nCareful: {npc:248362} (3) is elite: leave him unless you have a friend."] = "Koboldhilfsarbeiter arbeiten in den Tunneln der Mine. {npc:248362} wartet hinter der zweiten Abzweigung rechts.\nVorsicht: {npc:248362} (3) ist eine Elite: Lass ihn in Ruhe, außer du hast einen Freund dabei."
-	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nCareful: {npc:248362} (3) is elite: below level 5, leave him be."] = "",
+	["Kobold Laborers work the tunnels inside the mine. {npc:248362} waits down the second turn on the right.\nNow and then a Laborer drops a {quest:91741}: right-click it and hand it to {npc:951} at the Abbey after the mine.\nCareful: {npc:248362} (3) is elite: below level 5, leave him be."] = "",
 	-- {npc:80} Kobold Laborer · {area:34} Echo Ridge Mine
 	["{npc:80} walks around {area:34}: look inside the circle on the map"] = "{npc:80} läuft um {area:34} umher: Schau in den Kreis auf der Karte",
 
@@ -493,6 +492,7 @@ return {
 	-- ["Bait ingredients"] = "Köderzutaten",
 	-- ["Boar meat"] = "Eberfleisch",
 	-- ["Defias Rogue Wizards camp on the shores of {area:86}; they drop the Red Linen Bandanas too. {object:56} lies in the murloc village on the north-east shore."] = "Abtrünnige Hexer der Defias lagern an den Ufern von {area:86}; sie lassen auch die Roten Leinenkopftücher fallen. {object:56} liegt im Murlocdorf am Nordostufer.",
+	-- ["Follow the path north to the mine. Kobold Workers swarm outside it; every kobold in the valley can drop the {object:83763}."] = "Folge dem Weg nach Norden zur Mine. Davor wimmelt es von Koboldtagelöhnern; jeder Kobold im Tal kann {object:83763} fallen lassen.",
 	-- ["Follow the road east past the {area:91} to the bridge."] = "Folge der Straße nach Osten an {area:91} vorbei zur Brücke.",
 	-- ["Follow the road north from {area:87} into {zone:1453}. {npc:6171} and {npc:6173} are in the Cathedral of Light; {npc:6174} stands in {object:2100} and asks for ten {item:2589} (humanoids drop it; the Auction House sells it)."] = "Folge der Straße nach Norden von {area:87} nach {zone:1453}. {npc:6171} und {npc:6173} sind in der Kathedrale des Lichts; {npc:6174} steht in {object:2100} und bittet um zehn {item:2589} (Humanoide lassen ihn fallen; das Auktionshaus verkauft ihn).",
 	-- ["Follow the road south out of the valley to {area:87}. {npc:295} is in the Lion's Pride Inn; {npc:240} stands outside the smithy across the road, {npc:253} at the inn's front and {npc:241} by the road south of it."] = "Folge der Straße nach Süden aus dem Tal nach {area:87}. {npc:295} ist im Gasthaus „Zur Höhle des Löwen“; {npc:240} steht vor der Schmiede auf der anderen Straßenseite, {npc:253} vor dem Gasthaus und {npc:241} an der Straße südlich davon.",

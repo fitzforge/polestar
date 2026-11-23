@@ -152,6 +152,7 @@ step Menethil Harbor
 step Harlo Barnaby
   zone Wetlands
   when !turnedin 304
+  when !onquest 304
   accept 472                              -- Harlo Barnaby, by the north gate: Longbraid the Grim takes it at Dun Modr, at the north end of this visit's east loop
 
 step Glorin Steelbrow
@@ -519,7 +520,7 @@ step Forest Song
 step The Dor'Danil Barrow Den: kill these as you meet them
   zone Ashenvale
   tip The Forsaken's camp lies in the woods south of Forest Song.
-  tip Rusty chests lie around the Shadethicket furbolg camps west of the Forsaken; open them until one holds the pommel.
+  tip Rotting Slimes in and around the Barrow Den leave a Rusty Chest when they die: open the chests until one holds the pommel.
   tip Careful: Non-elite Forsaken of about level 28-30 guard the camp. Some of them are stealthed, and the ones around the table often aggro together.
   collect 5519 quest 1027             -- Iron Pommel
   collect 5440 quest 1011             -- Bottle of Disease

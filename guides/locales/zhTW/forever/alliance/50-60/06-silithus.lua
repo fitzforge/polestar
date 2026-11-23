@@ -35,38 +35,35 @@ return {
 	-- {npc:13220} Layo Starstrike · {area:3077} Valor's Rest
 	["{npc:13220} stands at {area:3077}, where the pass comes out."] = "",
 
-	-- Step 8: Cenarion Hold
+	-- Step 9: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
 	["Ride on west to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "繼續向西騎到{area:3425}。{npc:15189}在他那棟樓的樓上：從裡面上樓，箭頭分不清樓層。",
-	-- {npc:17082} Rifleman Torrig · {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora
-	["{npc:17082}, at the Alliance tents: for {npc:17080} at {area:2743}"] = "{npc:17082}，在聯盟帳篷旁：交給{area:2743}的{npc:17080}",
 	-- {npc:15183} Geologist Larksbane
 	["{npc:15183}: the tablet fragments come from the Twilight dig"] = "{npc:15183}：石碑碎片來自暮光挖掘場",
 	-- {npc:15306} Bor Wildmane
 	["{npc:15306}: his Twilight texts come from the dig"] = "",
 
-	-- Step 9: Silithus: kill these as you meet them
+	-- Step 10: Silithus: kill these as you meet them
 	-- {zone:1451} Silithus
-	-- was: ["{zone:1452}: kill these as you meet them"] = "{zone:1452}：沿途擊殺以下目標"
-	["{zone:1451}: kill these as you meet them"] = "",
+	["{zone:1451}: kill these as you meet them"] = "{zone:1451}：遇到這些就殺",
 	-- {npc:15185} Brood of Nozdormu
 	-- plural, as words: Dredge Strikers = {npc:11740} Dredge Striker · Stonelash Scorpids = {npc:11735} Stonelash Scorpid · Sand Skitterers = {npc:11738} Sand Skitterer
 	["Dredge Strikers dig in the dunes north-west of the hold; Stonelash Scorpids and Sand Skitterers roam all around.\nCareful: {npc:15185} (62, elite) guard the Caverns of Time's mouth in the south-west, around 21,82: stay out of there."] = "",
 
-	-- Step 10: Cenarion Hold
+	-- Step 11: Cenarion Hold
 	-- {area:3425} Cenarion Hold · {npc:15189} Beetix Ficklespragg
 	["Back to {area:3425}. {npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "",
 	-- {npc:15189} Beetix Ficklespragg
 	["{npc:15189}, upstairs"] = "{npc:15189}，在樓上",
 
-	-- Step 11: Silithus: kill these as you meet them
+	-- Step 12: Silithus: kill these as you meet them
 	-- plural, as words: Dredge Crushers = {npc:11741} Dredge Crusher · Stonelash Pincers = {npc:11736} Stonelash Pincer · Rock Stalkers = {npc:11739} Rock Stalker
 	["From the hold, west into the sands: Dredge Crushers dig there; Stonelash Pincers, Flayers and Rock Stalkers hunt the same sands."] = "從要塞向西進入沙地：掘泥摧毀者在那裡挖掘；石鞭巨鉗蠍、剝皮者和石行蜘蛛也在同一片沙地遊蕩。",
 	-- {npc:11741} Dredge Crusher
 	-- was: ["{npc:11558}: walks around here: look inside the circle on the map"] = "{npc:11558}：在這一帶走動：看地圖上的圓圈裡"
 	["{npc:11741} walks around here: look inside the circle on the map"] = "",
 
-	-- Step 12: Cenarion Hold
+	-- Step 13: Cenarion Hold
 	-- {npc:15189} Beetix Ficklespragg
 	["{npc:15189} stands upstairs in his building: go up inside, the arrow cannot tell the floors apart."] = "{npc:15189}站在他所在建築的樓上：從室內上樓，箭頭無法區分樓層。",
 	-- {npc:15190} Noggle Ficklespragg · {npc:15189} Beetix Ficklespragg
@@ -74,7 +71,7 @@ return {
 	-- {npc:15181} Commander Mar'alith
 	["{npc:15181} (from level 58): Bronzebeard's Encampment comes later, on the way south"] = "",
 
-	-- Step 13: Hive'Ashi: kill these as you meet them
+	-- Step 14: Hive'Ashi: kill these as you meet them
 	-- {area:2742} Hive'Ashi
 	["{area:2742}: kill these as you meet them"] = "{area:2742}：遇到就殺",
 	-- {item:20404} Encrypted Twilight Text · {npc:15306} Bor Wildmane · {npc:15194} Hermit Ortell · {area:2742} Hive'Ashi · {quest:8308} Brann Bronzebeard's Lost Letter
@@ -86,11 +83,6 @@ return {
 	["Twilight Tablet Fragments"] = "暮光石碑碎片",
 	-- {quest:8323} True Believers
 	["Ten more for {quest:8323}"] = "再十份給{quest:8323}",
-
-	-- Step 14: Hive'Zora
-	-- {npc:17080} Marshal Bluewall · {area:2743} Hive'Zora · {spell:642} Divine Shield · {spell:5384} Feign Death · {spell:17} Power Word: Shield
-	["{npc:17080} camps outside {area:2743}, the western hive. Pick up a Silithyst at one of the red geysers nearby and carry it to the Alliance extractor at his camp.\nCareful: You lose the Silithyst if you mount, stealth, use {spell:642}, {spell:5384} or Vanish. Blink and {spell:17} do not drop it."] = "{npc:17080}在西邊的蟲巢{area:2743}外紮營。在附近的紅色間歇泉撿起一塊希利塞斯，帶到他營地的聯盟萃取器。\n小心：如果你上坐騎、潛行、使用{spell:642}、{spell:5384}或消失，就會失去希利塞斯。閃現和{spell:17}不會讓它掉落。",
-	["Bring a Silithyst to the Alliance extractor"] = "",
 
 	-- Step 16: Southwind Village
 	["The tortured druids and sentinels haunt the ruined village east of the hold."] = "",
@@ -315,7 +307,9 @@ return {
 	-- ["{npc:15174}, the innkeeper"] = "{npc:15174}，旅店老闆",
 	-- ["{npc:15181}: Bronzebeard's Encampment comes later, on the way south"] = "{npc:15181}：銅鬚營地稍後在往南的路上處理",
 	-- ["{npc:15306}: his Twilight texts come from the dig after the next stop here"] = "{npc:15306}：他要的暮光文件來自下一站之後的挖掘場",
+	-- ["{npc:17080} camps outside {area:2743}, the western hive. Pick up a Silithyst at one of the red geysers nearby and carry it to the Alliance extractor at his camp.\nCareful: You lose the Silithyst if you mount, stealth, use {spell:642}, {spell:5384} or Vanish. Blink and {spell:17} do not drop it."] = "{npc:17080}在西邊的蟲巢{area:2743}外紮營。在附近的紅色間歇泉撿起一塊希利塞斯，帶到他營地的聯盟萃取器。\n小心：如果你上坐騎、潛行、使用{spell:642}、{spell:5384}或消失，就會失去希利塞斯。閃現和{spell:17}不會讓它掉落。",
 	-- ["{npc:17082}, at the Alliance tents"] = "{npc:17082}，在聯盟帳篷旁",
+	-- ["{npc:17082}, at the Alliance tents: for {npc:17080} at {area:2743}"] = "{npc:17082}，在聯盟帳篷旁：交給{area:2743}的{npc:17080}",
 	-- ["{npc:1852} is a level 61 elite"] = "{npc:1852}是61級精英",
 	-- ["{npc:1855} (optional)"] = "{npc:1855}（可選）",
 	-- ["{npc:1855} lives in a small hut on the border river, north-east of the lumber camp. Hand in {quest:5781} if you finished it."] = "{npc:1855}住在伐木場東北方、邊界河畔的小屋裡。如果你已完成{quest:5781}，就交給他。",

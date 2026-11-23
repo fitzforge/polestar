@@ -122,6 +122,7 @@ fn no_chip_without_the_codex_for_a_guide_that_is_not_leveling_or_with_nothing_se
 	assert_eq!(none[0], false, "no Codex: nothing to count");
 	let other = run(r#"
 		Polestar.UI.ShowPicker()
+		P.SetCategory("All") -- Browse: Home's details follow its own list
 		P.Select("forever/professions/tailoring")
 		emit(P.details.XP:IsShown())"#);
 	assert_eq!(other[0], false, "a profession guide has no levels chip");

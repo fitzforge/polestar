@@ -516,7 +516,9 @@ elite, an escort): the player decides whether to do it. When the route
 reaches a step with `when group <quest>` or `when !group <quest>` and the
 player has not answered for that quest yet, the route waits there and the
 guide window asks: "Skip it" (the default, the solo route) or "Do it with a
-group". Quest automation leaves the quest alone until then. The answer is
+group". Quest automation leaves the quest alone until then. A quest already
+in the log and ready to hand in is not asked about: its group work is done,
+and the route goes on to the hand-in (#3402). The answer is
 kept per character, once per quest, for every guide; Options, Discovery,
 Group quests lists them and changes an answer until the route has passed
 the step. Options, Guide, Automation, "Group quests" answers every quest the
@@ -1389,7 +1391,8 @@ Written only from 10%; there is nothing to write in the guide.
 
 In the game the share left to a character is `share` scaled by the part of
 `needs` they have neither done, nor in the log, nor taken on the way (a
-lead-in step Polestar put in). From 30%, below the guide's top level and
+lead-in step Polestar put in). From 30% (in whole percent, as the note says
+it), below the guide's top level and
 with `from` a guide for them, the guide window says while the guide's live
 step is in its first third: "Fresh start: about N% of this guide's quest XP
 follows on from <guide>. Expect about M minutes of extra grinding, or start

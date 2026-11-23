@@ -13184,7 +13184,7 @@
 {"id":18317,"name":"Tempest Talisman"}
 {"id":18318,"name":"Merciful Greaves"}
 {"id":18319,"name":"Fervent Helm"}
-{"id":18320,"name":"Demonheart Spaulders"}
+{"id":18320,"name":"Demondash Spaulders"}
 {"id":18321,"name":"Energetic Rod"}
 {"id":18322,"name":"Waterspout Boots"}
 {"id":18323,"name":"Satyr's Bow"}
@@ -17092,6 +17092,7 @@
 {"id":49715,"name":"Forever-Lovely Rose"}
 {"id":74610,"name":"Lunar Lantern"}
 {"id":74611,"name":"Festival Lantern"}
+{"id":98550,"name":"Blossoming Ancient"}
 {"id":134110,"name":"Hidden Helm"}
 {"id":134111,"name":"Hidden Cloak"}
 {"id":134112,"name":"Hidden Shoulder"}
@@ -17135,26 +17136,129 @@
 {"id":191660,"name":"Thaddius' Lightning Bolts"}
 {"id":191661,"name":"Monstrous Spider Fang"}
 {"id":202251,"name":"Bag of Pet Treats"}
+{"id":202256,"name":"Privateer's Ornate Pistol"}
+{"id":202316,"name":"Runecarving Test - Crippling Poison"}
+{"id":202641,"name":"Mud-covered notebook","quest_item":true}
+{"id":203723,"name":"Cutty's Note"}
 {"id":203726,"name":"Cutty's Rune"}
+{"id":203745,"name":"Spell Notes: Ice Lance"}
+{"id":203746,"name":"Spell Notes: Living Flame"}
+{"id":203747,"name":"Spell Notes: Fingers of Frost"}
+{"id":203748,"name":"Spell Notes: Burnout"}
+{"id":203749,"name":"Spell Notes: Enlightenment"}
 {"id":203750,"name":"Elwynn Treasure Map"}
+{"id":203751,"name":"Spell Notes: CALE ENCI"}
+{"id":203752,"name":"Spell Notes: MILEGIN VALF"}
+{"id":203753,"name":"Spell Notes: RING SEFF OSTROF"}
 {"id":203754,"name":"Archmage Antonidas: The Unabridged Autobiography"}
 {"id":203755,"name":"Archmage Theocritus' Research Journal"}
+{"id":203756,"name":"Azora Apprentice Notes: Page 1"}
 {"id":203784,"name":"Top-Right Map Piece"}
 {"id":203785,"name":"Top-Left Map Piece"}
 {"id":203786,"name":"Bottom-Right Map Piece"}
 {"id":203787,"name":"Bottom-Left Map Piece"}
+{"id":203960,"name":"Azora Apprentice Notes: Page 2"}
+{"id":203961,"name":"Azora Apprentice Notes: Page 3"}
+{"id":203962,"name":"Azora Apprentice Notes: Page 4"}
+{"id":203990,"name":"Rune of Mutilation"}
+{"id":203991,"name":"Rune of Quick Draw"}
 {"id":203992,"name":"Rune of Trickery"}
+{"id":203993,"name":"Rune of Slaughter"}
+{"id":203994,"name":"Rune of Deadly Brew"}
+{"id":204174,"name":"Rune of Precision"}
+{"id":204441,"name":"Rune of Blood Frenzy"}
+{"id":204476,"name":"Severed Kobold Head"}
+{"id":204477,"name":"Severed Murloc Head"}
+{"id":204478,"name":"Severed Gnoll Head"}
 {"id":204688,"name":"Monster Hunter's First Rune Fragment"}
 {"id":204689,"name":"Monster Hunter's Second Rune Fragment"}
 {"id":204690,"name":"Monster Hunter's Third Rune Fragment"}
+{"id":204703,"name":"Rune of Devastate"}
+{"id":204716,"name":"Rune of Frenzied Assault"}
+{"id":204795,"name":"Rune of Shadowstrike"}
+{"id":204806,"name":"Rune of Victory Rush"}
+{"id":204809,"name":"Rune of Furious Thunder"}
+{"id":204864,"name":"Azora Apprentice Notes"}
+{"id":204905,"name":"Ominous Tome"}
+{"id":204906,"name":"Gnoll Blood"}
+{"id":204907,"name":"Wolf Jawbone"}
+{"id":204910,"name":"Monster - Trident, Naga (Gold)"}
+{"id":204912,"name":"Rune of Grace"}
+{"id":205019,"name":"Tainted Soul Shard"}
+{"id":205020,"name":"Pure Soul Shard"}
+{"id":205022,"name":"Rune of Soul Siphon"}
+{"id":205181,"name":"Unidentified Artifact"}
+{"id":205182,"name":"Powerless Artifact"}
+{"id":205183,"name":"Fel-Powered Artifact"}
+{"id":205184,"name":"Acolyte's Note"}
+{"id":205215,"name":"Rune of Tactics"}
+{"id":205218,"name":"Libram of Discovery"}
+{"id":205228,"name":"Rune of Chaos Bolt"}
+{"id":205230,"name":"Rune of Haunting"}
+{"id":205364,"name":"Acolyte's Knapsack"}
+{"id":205420,"name":"Libram of Judgement"}
+{"id":205683,"name":"Rune of Rebuke"}
+{"id":205685,"name":"Rune of Aegis"}
+{"id":205863,"name":"Corrupted Libram"}
+{"id":205864,"name":"Charred Note"}
+{"id":205897,"name":"Rune of Divine Light"}
+{"id":205905,"name":"Memory of a Devout Champion"}
+{"id":205932,"name":"Prophecy of a King's Demise"}
+{"id":205940,"name":"Memory of a Dark Purpose"}
+{"id":205942,"name":"Chimaeric Epiphany"}
+{"id":205943,"name":"Prophecy of a Desecrated Citadel"}
+{"id":205944,"name":"Reciprocal Epiphany"}
+{"id":205945,"name":"Memory of an Imprisoned Savior"}
+{"id":205946,"name":"Memory of a Leader's Betrayal"}
+{"id":205947,"name":"Prophecy of a Desecrated Citadel"}
+{"id":205948,"name":"Anodyne Epiphany"}
+{"id":205949,"name":"Manifold Epiphany"}
+{"id":205950,"name":"Tenebrous Epiphany"}
+{"id":205951,"name":"Memory of a Troubled Acolyte"}
 {"id":205952,"name":"Memory of a Shattered World"}
+{"id":205953,"name":"Prophecy of a Broken Vow"}
 {"id":205961,"name":"Mulgore Bird Meat"}
+{"id":205979,"name":"Rune of Flanking"}
 {"id":205995,"name":"Prairie Dog Musk"}
+{"id":206032,"name":"Rune of Carve"}
+{"id":206155,"name":"Rune of Marksmanship"}
+{"id":206157,"name":"Seaforium Mining Charge","quest_item":true}
+{"id":206159,"name":"Venture Co Disguise","quest_item":true}
+{"id":206168,"name":"Rune of the Chimera"}
+{"id":206169,"name":"Rune of Explosive Shot"}
+{"id":206170,"name":"Windfury Cone","quest_item":true}
+{"id":206175,"name":"Pine Salve","quest_item":true}
+{"id":206176,"name":"Mortar and Pestle","quest_item":true}
 {"id":206177,"name":"Pine Nut Butter"}
+{"id":206264,"name":"Rune of Inspiration"}
+{"id":206344,"name":"Knife Set","quest_item":true}
+{"id":206345,"name":"Fish Chunks","quest_item":true}
+{"id":206376,"name":"Bulwark Icon"}
+{"id":206381,"name":"Dyadic Icon"}
+{"id":206382,"name":"Tempest Icon"}
+{"id":206383,"name":"Lithic Icon"}
+{"id":206384,"name":"Astral Icon"}
+{"id":206385,"name":"Clastic Icon"}
+{"id":206386,"name":"Galvanic Icon"}
+{"id":206387,"name":"Kajaric Icon"}
+{"id":206388,"name":"Sulfurous Icon"}
+{"id":206389,"name":"Brimstone Icon"}
+{"id":206390,"name":"Ichthyan Icon"}
+{"id":206391,"name":"Syzygic Icon"}
 {"id":206466,"name":"Prairie Crown"}
 {"id":206469,"name":"Prairie Flower"}
+{"id":206954,"name":"Idol of Ursine Rage"}
+{"id":206963,"name":"Rune of Natural Potential"}
 {"id":206966,"name":"Satyrweed Bulb"}
+{"id":206970,"name":"Rune of Life"}
 {"id":206975,"name":"Artifact Storage Key"}
+{"id":206985,"name":"Echo of the Alpha"}
+{"id":206989,"name":"Rune of the Sun"}
+{"id":206992,"name":"Rune of Skull Bash"}
+{"id":206994,"name":"Severed Quilboar Head"}
+{"id":206995,"name":"Severed Harpy Head"}
+{"id":207062,"name":"Severed Centaur Head"}
+{"id":207098,"name":"Note from Ba'so"}
 {"id":207106,"name":"Bottom-Left Map Piece"}
 {"id":207107,"name":"Bottom-Right Map Piece"}
 {"id":207108,"name":"Top-Left Map Piece"}
@@ -17162,6 +17266,13 @@
 {"id":207110,"name":"Durotar Treasure Map"}
 {"id":207590,"name":"Durotar Pig Meat"}
 {"id":207631,"name":"Adder Pheromone"}
+{"id":207731,"name":"Ominous Tome"}
+{"id":207732,"name":"Makrura Leg"}
+{"id":207733,"name":"Kul Tiran Skull"}
+{"id":207972,"name":"The Lessons of Ta'zo"}
+{"id":207973,"name":"Hound Jawbone"}
+{"id":207974,"name":"Ominous Tome"}
+{"id":207975,"name":"Severed Bat Head"}
 {"id":208005,"name":"Agamand Relic Coffer Key"}
 {"id":208007,"name":"Shipwreck Cache Key"}
 {"id":208034,"name":"Tirisfal Treasure Map"}
@@ -17169,16 +17280,29 @@
 {"id":208036,"name":"Top-Left Map Piece"}
 {"id":208037,"name":"Bottom-Right Map Piece"}
 {"id":208038,"name":"Bottom-Left Map Piece"}
+{"id":208085,"name":"Scarlet Lieutenant Signet Ring"}
+{"id":208086,"name":"Forged Scarlet Memorandum"}
+{"id":208139,"name":"Ominous Tome"}
+{"id":208140,"name":"Wendigo Blood"}
+{"id":208158,"name":"Pristine Trogg Heart"}
+{"id":208159,"name":"Severed Troll Head"}
+{"id":208160,"name":"Severed Wendigo Paw"}
 {"id":208180,"name":"Rabbit Musk"}
+{"id":208183,"name":"Apothecary Notes"}
 {"id":208185,"name":"The Apothecary's Metaphysical Primer"}
 {"id":208192,"name":"Dun Morogh Pig Meat"}
+{"id":208205,"name":"Blackrat's Note"}
 {"id":208213,"name":"Top-Right Map Piece"}
 {"id":208215,"name":"Top-Left Map Piece"}
 {"id":208218,"name":"Bottom-Right Map Piece"}
 {"id":208219,"name":"Bottom-Left Map Piece"}
 {"id":208220,"name":"Dun Morogh Treasure Map"}
 {"id":208222,"name":"Old Guard Retaliator"}
+{"id":208223,"name":"Acolyte's Knapsack"}
+{"id":208224,"name":"Acolyte's Note"}
 {"id":208392,"name":"Account Bank Tab Bag (DNT)"}
+{"id":208414,"name":"Lunar Idol"}
+{"id":208424,"name":"Sun Shades"}
 {"id":208601,"name":"Top-Right Map Piece"}
 {"id":208602,"name":"Top-Left Map Piece"}
 {"id":208603,"name":"Bottom-Right Map Piece"}
@@ -17187,24 +17311,72 @@
 {"id":208607,"name":"Deer Musk"}
 {"id":208608,"name":"Teldrassil Bird Meat"}
 {"id":208609,"name":"Glade Flower"}
+{"id":208610,"name":"Severed Owl Head"}
+{"id":208611,"name":"Severed Tiger Head"}
+{"id":208612,"name":"Severed Spider Head"}
+{"id":208682,"name":"Abandoned Snapjaw Egg"}
+{"id":208687,"name":"Rune of Lacerate"}
+{"id":208689,"name":"Ferocious Idol"}
+{"id":208701,"name":"Rune of Beast Mastery"}
+{"id":208739,"name":"Horde Warbanner"}
+{"id":208741,"name":"Rune of Endless Rage"}
+{"id":208743,"name":"Soul of Greed"}
+{"id":208744,"name":"Rune of Shadowbolts"}
 {"id":208749,"name":"Gnarlpine Stash Key"}
+{"id":208750,"name":"Rune of Channeling"}
+{"id":208753,"name":"Spell Notes: Regeneration"}
+{"id":208754,"name":"Spell Notes: TENGI RONEERA"}
+{"id":208758,"name":"Earthen Rune"}
 {"id":208760,"name":"Glade Crown"}
+{"id":208764,"name":"Rune of the Mind"}
+{"id":208765,"name":"Helping Hand"}
+{"id":208766,"name":"Helping Hand"}
+{"id":208767,"name":"Rune of Mending"}
+{"id":208768,"name":"Buccaneer's Matchbox"}
+{"id":208771,"name":"Rune of Blade Dance"}
+{"id":208772,"name":"Rune of Saber Slash"}
 {"id":208773,"name":"Fishing Harpoon"}
+{"id":208777,"name":"Rune of the Sniper"}
+{"id":208778,"name":"Rune of Quick Strike"}
+{"id":208799,"name":"Spell Notes: Living Bomb"}
 {"id":208800,"name":"Baxtan: On Destructive Magics"}
 {"id":208823,"name":"Offering Coin"}
+{"id":208828,"name":"Memory of a Broken Vow"}
 {"id":208833,"name":"Malevolent Pie"}
+{"id":208838,"name":"Dark Iron Lockbox"}
 {"id":208843,"name":"Battle Totem"}
+{"id":208847,"name":"Skull-Shaped Geode"}
+{"id":208848,"name":"Cracked Skull-Shaped Geode"}
+{"id":208849,"name":"Libram of Blessings"}
+{"id":208851,"name":"Libram of Justice"}
+{"id":208853,"name":"Spell Notes: Brain Freeze"}
+{"id":208854,"name":"Chewed Spell Notes"}
 {"id":208855,"name":"Rainbow Fin Albacore Chum"}
 {"id":208860,"name":"Rumi of Gnomeregan: The Collected Works"}
 {"id":209027,"name":"Crab Treats"}
+{"id":209028,"name":"Spell Notes: BIVOLG NIMB"}
+{"id":209029,"name":"Message from Emily"}
 {"id":209030,"name":"Equipment Stash Key"}
+{"id":209031,"name":"Discreet Envelope"}
+{"id":209041,"name":"Magic Pumpkin Seeds"}
+{"id":209042,"name":"Fishy Bonemeal"}
+{"id":209043,"name":"Fertile Soil Sample"}
+{"id":209045,"name":"Soul of the Sea"}
 {"id":209047,"name":"Gnarled Harpoon"}
+{"id":209056,"name":"Spare Reaper Parts"}
 {"id":209057,"name":"Prototype Engine"}
+{"id":209058,"name":"Elemental Core"}
+{"id":209059,"name":"Goretusk Haunch"}
 {"id":209608,"name":"Captain's Skeleton Key"}
+{"id":209748,"name":"Althalaxx Orb","quest_item":true}
 {"id":209778,"name":"Summoner's Salt","quest_item":true}
 {"id":209779,"name":"Mote of Mannoroth","quest_item":true}
+{"id":209800,"name":"Orb Fragments","quest_item":true}
+{"id":209819,"name":"Wyvern Taming Wand"}
+{"id":209836,"name":"Althalaxx Orb","quest_item":true}
 {"id":209838,"name":"Hypnotic Crystal"}
 {"id":209840,"name":"Gnarled Wand of Wild Magic"}
+{"id":209841,"name":"Wild Magic Essence"}
 {"id":209843,"name":"Nar'thalas Almanac, Vol. 74"}
 {"id":209844,"name":"The Dalaran Digest, Vol. 23"}
 {"id":209845,"name":"Bewitchments and Glamours"}
@@ -17214,32 +17386,94 @@
 {"id":209849,"name":"Crimes Against Anatomy"}
 {"id":209850,"name":"Runes of the Sorcerer-Kings"}
 {"id":209851,"name":"Fury of the Land"}
+{"id":209852,"name":"Rune of Kill Command"}
+{"id":209872,"name":"Dragonslayer's Helm","quest_item":true}
+{"id":209873,"name":"Dragonslayer's Shield","quest_item":true}
+{"id":209874,"name":"Dragonslayer's Lance","quest_item":true}
+{"id":210015,"name":"Rune of Raging Blow"}
 {"id":210026,"name":"Symbol of the Third Owl","quest_item":true}
 {"id":210043,"name":"Symbol of the Second Owl","quest_item":true}
 {"id":210044,"name":"Symbol of the First Owl","quest_item":true}
+{"id":210045,"name":"Shadeleaf","quest_item":true}
+{"id":210053,"name":"Dire Wolf Paw","quest_item":true}
 {"id":210055,"name":"Hillsbrad Human Bones","quest_item":true}
+{"id":210056,"name":"Tincture of Waking Death","quest_item":true}
+{"id":210080,"name":"Voodoo Offering","quest_item":true}
+{"id":210137,"name":"Rune of Wild Growth"}
 {"id":210138,"name":"Dark Iron Ordinance"}
 {"id":210146,"name":"Shredder Turbocharger"}
 {"id":210147,"name":"Shredder Autosalvage Unit"}
-{"id":210183,"name":"Horn of Xelthos"}
-{"id":210187,"name":"Venture Co. Work Order"}
+{"id":210177,"name":"Ataeric: On Arcane Curiosities"}
+{"id":210178,"name":"Schematic: Shredder Autosalvage Unit"}
+{"id":210179,"name":"Spell Notes: ILMEGAI SARRBES"}
+{"id":210183,"name":"Horn of Xelthos","quest_item":true}
+{"id":210186,"name":"Breaching Charge"}
+{"id":210187,"name":"Venture Co. Work Order","quest_item":true}
 {"id":210188,"name":"Shredded Work Order"}
+{"id":210195,"name":"Unbalanced Idol"}
 {"id":210209,"name":"Twin Key"}
 {"id":210210,"name":"Grizzwerks Defense Industries Founder's Certificate"}
 {"id":210212,"name":"Brother's Half-Key"}
 {"id":210213,"name":"Sister's Half-Key"}
+{"id":210229,"name":"Rune of Mutilation"}
+{"id":210250,"name":"Engraved Gold Ring"}
+{"id":210251,"name":"Engraved Silver Ring"}
+{"id":210252,"name":"Rune of Shiving"}
 {"id":210253,"name":"Rot Totem"}
+{"id":210322,"name":"Rune of Venom"}
+{"id":210323,"name":"Safe Combination"}
+{"id":210329,"name":"Hillsbrad Treasure Map"}
+{"id":210330,"name":"Hot Tip"}
+{"id":210410,"name":"Freshwater Snapper Bait"}
 {"id":210499,"name":"Marshroom"}
+{"id":210500,"name":"Rune of the Stars"}
+{"id":210534,"name":"Idol of the Wild"}
+{"id":210568,"name":"Decrepit Phylactery"}
+{"id":210569,"name":"Rune of Flagellation"}
+{"id":210573,"name":"Rune of Consuming Rage"}
+{"id":210589,"name":"Echo of the Ancestors"}
+{"id":210596,"name":"Rune of Cobra Strikes"}
+{"id":210653,"name":"Rune of Main Gauche"}
+{"id":210654,"name":"Spell Notes: Rewind Time"}
+{"id":210655,"name":"Spell Notes: TERWEM DINI"}
+{"id":210665,"name":"Mote of Torrential Rage","quest_item":true}
+{"id":210667,"name":"Mote of Infernal Rage","quest_item":true}
+{"id":210668,"name":"Mote of Seismic Rage","quest_item":true}
 {"id":210708,"name":"Elixir of Coalesced Regret"}
+{"id":210709,"name":"Recipe: Elixir of Coalesced Regret"}
 {"id":210712,"name":"Elixir of Insight"}
 {"id":210713,"name":"Tortured Soul","quest_item":true}
+{"id":210724,"name":"Hirzek's Staff","quest_item":true}
+{"id":210746,"name":"Rune of Earth Shield"}
+{"id":210763,"name":"Bough of Altek","quest_item":true}
+{"id":210765,"name":"Orb of Des","quest_item":true}
 {"id":210771,"name":"Waylaid Supplies: Copper Bars"}
 {"id":210772,"name":"Supply Shipment: Copper Bars"}
+{"id":210779,"name":"Plans: Mantle of the Second War"}
+{"id":210781,"name":"Phoenix Bindings"}
+{"id":210811,"name":"Rune of Primordial Fury"}
+{"id":210817,"name":"Rune of Survival"}
+{"id":210818,"name":"Rune of Lone Wolf"}
+{"id":210820,"name":"Rune of Sacrifice"}
+{"id":210822,"name":"Harmonious Epiphany"}
+{"id":210823,"name":"Rune of Dual Wield Specialization"}
+{"id":210824,"name":"Rune of the Pact"}
+{"id":210825,"name":"Rune of the Warbringer"}
+{"id":210953,"name":"Eye of Bhossca","quest_item":true}
+{"id":210955,"name":"Scarlet Initiate's Uniform"}
 {"id":210963,"name":"Scryer's Key"}
+{"id":210966,"name":"Blood of the Legion","quest_item":true}
+{"id":210967,"name":"Confidential Message"}
 {"id":210968,"name":"Reliquary Key"}
+{"id":210979,"name":"Rune of Shadowstep"}
 {"id":210980,"name":"Rune of Metamorphosis"}
+{"id":211205,"name":"Rune of Cobra Slayer"}
 {"id":211247,"name":"Pattern: Phoenix Bindings"}
-{"id":211269,"name":"Primitive Drawing"}
+{"id":211269,"name":"Primitive Drawing","quest_item":true}
+{"id":211272,"name":"Empty Bait Cage"}
+{"id":211273,"name":"Trapped Critter"}
+{"id":211293,"name":"Crimson Trophy Quill","quest_item":true}
+{"id":211301,"name":"Rune of Expose Weakness"}
 {"id":211315,"name":"Waylaid Supplies: Light Leather"}
 {"id":211316,"name":"Waylaid Supplies: Peacebloom"}
 {"id":211317,"name":"Waylaid Supplies: Silverleaf"}
@@ -17261,20 +17495,47 @@
 {"id":211365,"name":"Supply Shipment"}
 {"id":211367,"name":"Supply Shipment"}
 {"id":211368,"name":"Supply Shipment"}
+{"id":211385,"name":"Rune of Serpent Spread"}
+{"id":211386,"name":"Spell Notes: Arcane Surge"}
+{"id":211387,"name":"Rune of Beckoning Light"}
+{"id":211390,"name":"Rune of Teasing"}
+{"id":211391,"name":"Rune of Healing Rain"}
+{"id":211392,"name":"Rune of Everlasting Affliction"}
+{"id":211393,"name":"Rune of Single-Minded Fury"}
 {"id":211419,"name":"Handful of Shifting Scales"}
+{"id":211427,"name":"Soul Vessel","quest_item":true}
+{"id":211447,"name":"Arms Shipment","quest_item":true}
+{"id":211448,"name":"Signed Procurement Contract","quest_item":true}
 {"id":211471,"name":"Cliffspring Key"}
+{"id":211472,"name":"Libram of Banishment"}
+{"id":211476,"name":"Rune of Fires Wake"}
+{"id":211477,"name":"Rune of Incinerate"}
 {"id":211482,"name":"Shatterspear Offering"}
 {"id":211487,"name":"Demolition Explosives"}
+{"id":211488,"name":"Rune of the Avenger"}
+{"id":211490,"name":"Prophecy of a Thousand Lights"}
+{"id":211498,"name":"Trainee's Sentinel Nightsaber"}
+{"id":211499,"name":"Trainee's Outrider Wolf"}
+{"id":211500,"name":"Resilient Cloth Headband"}
+{"id":211514,"name":"Spell Notes: Mass Regeneration"}
 {"id":211527,"name":"Cozy Sleeping Bag"}
 {"id":211528,"name":"Dark Insight"}
+{"id":211530,"name":"Prophecy of a City Enthralled"}
+{"id":211531,"name":"Prophecy of Seven Visitors"}
 {"id":211534,"name":"Primal Insight"}
+{"id":211691,"name":"Spell Notes: Arcane Blast"}
+{"id":211777,"name":"Naga Manuscript"}
 {"id":211779,"name":"Comprehension Charm"}
 {"id":211780,"name":"Scroll: KWYJIBO"}
 {"id":211784,"name":"Scroll: WUBBA WUBBA"}
 {"id":211785,"name":"Scroll: CWAL"}
 {"id":211786,"name":"Scroll: CHAP BALK WELLES"}
 {"id":211787,"name":"Scroll: LOWER PING WHOMEVER"}
+{"id":211799,"name":"Sack of Stolen Goods"}
 {"id":211800,"name":"Scroll of Reintegration"}
+{"id":211809,"name":"Comprehension Primer","quest_item":true}
+{"id":211813,"name":"Silverwing Sentinel Charm","quest_item":true}
+{"id":211814,"name":"Warsong Outrider Mark","quest_item":true}
 {"id":211815,"name":"Silverwing Battle Hymn"}
 {"id":211816,"name":"Warsong Battle Drum"}
 {"id":211819,"name":"Waylaid Supplies: Bronze Bars"}
@@ -17300,28 +17561,90 @@
 {"id":211839,"name":"Supply Shipment"}
 {"id":211840,"name":"Supply Shipment"}
 {"id":211841,"name":"Supply Shipment"}
+{"id":211845,"name":"Blackfathom Sharpening Stone"}
 {"id":211853,"name":"Scroll: VOCE WELL"}
 {"id":211854,"name":"Scroll: OMIT KESA"}
 {"id":211855,"name":"Scroll: STHENIC LUNATE"}
+{"id":211856,"name":"Resilient Mail Coif"}
+{"id":211857,"name":"Resilient Leather Mask"}
 {"id":211933,"name":"Waylaid Supplies: Rough Stone"}
 {"id":211934,"name":"Waylaid Supplies: Healing Potions"}
 {"id":211935,"name":"Waylaid Supplies: Elixir of Firepower"}
+{"id":211940,"name":"Ecks'av's Tribal Guardian"}
+{"id":211941,"name":"Windwalker's Yari"}
 {"id":211953,"name":"Scroll of Arcane Recovery I"}
 {"id":211954,"name":"Scroll of Arcane Accuracy I"}
 {"id":211955,"name":"Scroll of Arcane Protection - Fire I"}
 {"id":211956,"name":"Scroll of Arcane Protection - Frost I"}
 {"id":211957,"name":"Scroll of Arcane Power I"}
 {"id":212160,"name":"Chronoboon Displacer"}
+{"id":212225,"name":"Neverending Soul Vessel","quest_item":true}
+{"id":212230,"name":"Schematic: Soul Vessel"}
 {"id":212347,"name":"Illari's Key","quest_item":true}
+{"id":212548,"name":"Rune of Eclipse"}
+{"id":212549,"name":"Rune of the Trapper"}
+{"id":212551,"name":"Rune of Warfare"}
+{"id":212552,"name":"Psychosophic Epiphany"}
+{"id":212559,"name":"Rune of the Poisoned Blade"}
+{"id":212560,"name":"Rune of Ancestral Awakening"}
+{"id":212561,"name":"Rune of Burning Darkness"}
+{"id":212562,"name":"Rune of Healing Rage"}
 {"id":212568,"name":"Wolfshead Trophy"}
+{"id":212580,"name":"Lorekeeper's Staff"}
+{"id":212581,"name":"Outrunner's Bow"}
+{"id":212582,"name":"Protector's Sword"}
+{"id":212583,"name":"Sentinel's Blade"}
+{"id":212584,"name":"Advisor's Gnarled Staff"}
+{"id":212585,"name":"Outrider's Bow"}
+{"id":212586,"name":"Legionnaire's Sword"}
+{"id":212587,"name":"Scout's Blade"}
 {"id":212723,"name":"Rumbling Essence","quest_item":true}
+{"id":212724,"name":"Whirling Essence","quest_item":true}
+{"id":212726,"name":"Rushing Essence","quest_item":true}
 {"id":212748,"name":"Tattered Note"}
-{"id":212792,"name":"Eye of the Tempest"}
+{"id":212792,"name":"Eye of the Tempest","quest_item":true}
+{"id":212982,"name":"Squall-breakers Potion","quest_item":true}
 {"id":213074,"name":"Rune of Nourishing"}
 {"id":213086,"name":"Rune of the Storm"}
 {"id":213090,"name":"Rune of Synergy"}
+{"id":213093,"name":"Rune of Power"}
+{"id":213094,"name":"Rune of Fire Nova"}
+{"id":213096,"name":"Rune of Decoys"}
+{"id":213098,"name":"Rune of Invocation"}
+{"id":213100,"name":"Rune of Forbidden Knowledge"}
+{"id":213101,"name":"Rune of Shadowflames"}
+{"id":213102,"name":"Rune of Wickedness"}
 {"id":213103,"name":"Rune of Blood Surge"}
+{"id":213104,"name":"Rune of Ruthless Precision"}
+{"id":213105,"name":"Shawarmageddon"}
+{"id":213109,"name":"Rune of Focused Rage"}
+{"id":213110,"name":"Rune of the Commander"}
+{"id":213111,"name":"Rune of Intervention"}
+{"id":213112,"name":"Spell Notes: Missile Barrage"}
+{"id":213117,"name":"Rune of Berserk"}
+{"id":213118,"name":"Rune of the Jungle King"}
+{"id":213119,"name":"Rune of Instinct"}
+{"id":213120,"name":"Rune of the Dreamer"}
+{"id":213122,"name":"Rune of Steady Shot"}
+{"id":213123,"name":"Rune of Exposure"}
+{"id":213124,"name":"Rune of Close Combat"}
+{"id":213125,"name":"Rune of Invigoration"}
+{"id":213126,"name":"Rune of the Scrapper"}
 {"id":213127,"name":"Partial Mystical Notes","quest_item":true}
+{"id":213128,"name":"Rune of Piety"}
+{"id":213129,"name":"Rune of Light's Embrace"}
+{"id":213130,"name":"Rune of Infusions"}
+{"id":213131,"name":"Rune of Sacred Shields"}
+{"id":213132,"name":"Rune of the Guardian"}
+{"id":213136,"name":"Rune of Subtlety"}
+{"id":213137,"name":"Rune of the Assailant"}
+{"id":213138,"name":"Rune of the Southpaw"}
+{"id":213139,"name":"Rune of the Assassin"}
+{"id":213140,"name":"Prophecy of the Quickened Path"}
+{"id":213141,"name":"Rune of Hope"}
+{"id":213142,"name":"Prophecy of Imprisoned Malice"}
+{"id":213143,"name":"Apocryphal Epiphany"}
+{"id":213144,"name":"Luminous Epiphany"}
 {"id":213165,"name":"Basilisks: Should Petrification be Feared?"}
 {"id":213369,"name":"Faintly Glowing Leather"}
 {"id":213370,"name":"Irradiated Leather Scraps"}
@@ -17333,8 +17656,16 @@
 {"id":213381,"name":"Pile of Tarnished Gears"}
 {"id":213383,"name":"Polished Truesilver Gears"}
 {"id":213421,"name":"Singed Note","quest_item":true}
+{"id":213422,"name":"Illegible Recipe","quest_item":true}
 {"id":213426,"name":"Ogre Lightning Rod"}
 {"id":213427,"name":"Grime-Encrusted Salvage"}
+{"id":213444,"name":"Tarnished Prayer Bead I"}
+{"id":213445,"name":"Tarnished Prayer Bead II"}
+{"id":213446,"name":"Tarnished Prayer Bead III"}
+{"id":213452,"name":"Dormant Holy Rune"}
+{"id":213513,"name":"Libram of Deliverance"}
+{"id":213526,"name":"Hybrid Haunch","quest_item":true}
+{"id":213527,"name":"Smuggler's Spice Blend","quest_item":true}
 {"id":213528,"name":"Balmy Brew"}
 {"id":213529,"name":"Viscous Venom"}
 {"id":213543,"name":"Scroll: UPDOG"}
@@ -17346,16 +17677,52 @@
 {"id":213549,"name":"Scroll of Arcane Angling"}
 {"id":213550,"name":"Scroll of Polymorph: Odd Melon"}
 {"id":213551,"name":"Scroll of Controlled Displacement"}
+{"id":213552,"name":"Tear of Theradras"}
+{"id":213553,"name":"Tear of Theradras"}
+{"id":213554,"name":"Vial of Crystal Water","quest_item":true}
+{"id":213558,"name":"Elemental Salve","quest_item":true}
 {"id":213562,"name":"Bug Catching Net"}
 {"id":213563,"name":"Field Guide"}
 {"id":213564,"name":"Scroll of Minor Evocation"}
+{"id":213565,"name":"Entomology Starter Kit"}
+{"id":213566,"name":"Arbor Tarantula Specimen","quest_item":true}
+{"id":213567,"name":"Flesh Picker Specimen","quest_item":true}
+{"id":213568,"name":"Hay Weevil Specimen","quest_item":true}
+{"id":213583,"name":"Brimstone Carving","quest_item":true}
+{"id":213594,"name":"Idol of the Heckler"}
+{"id":213599,"name":"Unsettling Vision"}
+{"id":213632,"name":"Partial Spell Notes"}
+{"id":213633,"name":"Partial Spell Notes"}
+{"id":213634,"name":"Partial Spell Notes"}
 {"id":213701,"name":"Strong Harpy Feather"}
 {"id":213709,"name":"Cloud Serpent Fang"}
+{"id":213735,"name":"Pristine G-7 C.O.R.E. Processor","quest_item":true}
+{"id":213736,"name":"Corroded G-7 C.O.R.E. Processor","quest_item":true}
+{"id":213737,"name":"Offering to the Wind Spirit","quest_item":true}
 {"id":214435,"name":"Cougar Cage Key"}
+{"id":215127,"name":"High-Yield Radiation Bomb"}
+{"id":215129,"name":"Formula: Enchant Weapon - Dismantle"}
+{"id":215138,"name":"Formula: Enchant Chest - Retricutioner"}
+{"id":215141,"name":"Enchanted Sigil: Innovation"}
+{"id":215149,"name":"Pattern: Gneuro-Linked Arcano-Filament Monocle"}
+{"id":215152,"name":"Pattern: Glowing Gneuro-Linked Cowl"}
+{"id":215153,"name":"Schematic: Whirling Truesilver Gearwall"}
 {"id":215155,"name":"Plans: Tempered Interference-Negating Helmet"}
+{"id":215156,"name":"Schematic: Hyperconductive Goldwrap"}
+{"id":215163,"name":"Recipe: Mildly-Irradiated Rejuvenation Potion"}
+{"id":215168,"name":"Ez-Thro Radiation Bomb"}
+{"id":215235,"name":"2hander Animation as 1hander test copy"}
 {"id":215257,"name":"Scroll of Comprehension"}
+{"id":215367,"name":"Pattern: Faintly Glowing Leather"}
+{"id":215368,"name":"Pattern: Hyperconductive Arcano-Filament"}
 {"id":215369,"name":"Pattern: Invoker's Cord"}
 {"id":215370,"name":"Pattern: Invoker's Mantle"}
+{"id":215373,"name":"Silver Hand Training Hammer"}
+{"id":215374,"name":"Ancestral Sword"}
+{"id":215375,"name":"Tactician's Staff"}
+{"id":215376,"name":"Crusader's Mace"}
+{"id":215383,"name":"Plans: Reflective Truesilver Braincage"}
+{"id":215384,"name":"Plans: Low-Background Truesilver Plates"}
 {"id":215385,"name":"Waylaid Supplies: Gold Bars"}
 {"id":215386,"name":"Waylaid Supplies: Mithril Bars"}
 {"id":215387,"name":"Waylaid Supplies: Heavy Hide"}
@@ -17393,9 +17760,30 @@
 {"id":215419,"name":"Waylaid Supplies: Heavy Silk Bandages"}
 {"id":215420,"name":"Waylaid Supplies: Rockscale Cod"}
 {"id":215421,"name":"Waylaid Supplies: Fire Oil"}
+{"id":215422,"name":"Pattern: Glowing Hyperconductive Scale Coif"}
+{"id":215423,"name":"Pattern: Gneuro-Conductive Channeler's Hood"}
+{"id":215424,"name":"Pattern: Rad-Resistant Scale Hood"}
+{"id":215425,"name":"Swamp Echo"}
+{"id":215426,"name":"Graveyard Echo"}
+{"id":215427,"name":"Arathi Echo"}
+{"id":215428,"name":"Theramore Echo"}
+{"id":215429,"name":"Schematic: Polished Truesilver Gears"}
+{"id":215430,"name":"Gnomeregan Fallout"}
+{"id":215431,"name":"Schematic: High-Yield Radiation Bomb"}
+{"id":215432,"name":"Schematic: Ez-Thro Radiation Bomb"}
+{"id":215433,"name":"Recipe: Insulating Gniodine"}
+{"id":215441,"name":"Broken Hammer","quest_item":true}
+{"id":215443,"name":"Shattered Orb Fragment","quest_item":true}
+{"id":215450,"name":"Tabard Project (Aidan)"}
+{"id":215456,"name":"Singed Message"}
+{"id":215458,"name":"Enclosed Message"}
+{"id":215459,"name":"Enclosed Message"}
+{"id":215460,"name":"Enclosed Message"}
+{"id":215468,"name":"Orders from the Grand Crusader","quest_item":true}
 {"id":215683,"name":"Geomancy: The Stone-Cold Truth"}
 {"id":215815,"name":"Defensive Magics 101"}
 {"id":215816,"name":"A Web of Lies: Debunking Myths and Legends"}
+{"id":215817,"name":"Demons and You"}
 {"id":215820,"name":"Mummies: A Guide to the Unsavory Undead"}
 {"id":215822,"name":"RwlRwlRwlRwl!"}
 {"id":215824,"name":"A Luddite's Guide to Caring for Your Demonic Pet"}
@@ -17403,43 +17791,287 @@
 {"id":216491,"name":"Shipment of Stranglethorn Lumber"}
 {"id":216492,"name":"Whistle of the Mottled Raptor"}
 {"id":216523,"name":"Rusted Cage Key"}
+{"id":216606,"name":"Rune of Two-Handed Mastery"}
+{"id":216610,"name":"Orders from the Grand Crusader","quest_item":true}
 {"id":216616,"name":"Compound Cage Key","quest_item":true}
 {"id":216617,"name":"Kurzen Fighter's Uniform","quest_item":true}
+{"id":216618,"name":"Captain Aransas' Reward"}
 {"id":216619,"name":"Student Fodder"}
+{"id":216633,"name":"Hydraulic Truesilver Strut","quest_item":true}
 {"id":216634,"name":"GG12-082 Cartridge Fuse","quest_item":true}
+{"id":216635,"name":"Spent Voidcore","quest_item":true}
+{"id":216636,"name":"Charged Voidcore","quest_item":true}
+{"id":216637,"name":"A Pile of Random Parts"}
+{"id":216645,"name":"Mote of Darkness"}
 {"id":216696,"name":"Hidden Pants"}
 {"id":216748,"name":"Grimoire of Portal of Summoning"}
 {"id":216879,"name":"Mysterious Troll Scroll"}
 {"id":216880,"name":"Deciphered Troll Scroll"}
+{"id":216945,"name":"Curious Dalaran Relic","quest_item":true}
+{"id":216946,"name":"Glittering Dalaran Relic","quest_item":true}
+{"id":216947,"name":"Whirring Dalaran Relic","quest_item":true}
+{"id":216948,"name":"Odd Dalaran Relic","quest_item":true}
+{"id":216949,"name":"Heavy Dalaran Relic","quest_item":true}
+{"id":216950,"name":"Creepy Dalaran Relic","quest_item":true}
+{"id":216951,"name":"Slippery Dalaran Relic","quest_item":true}
 {"id":216956,"name":"Torn Letter","quest_item":true}
 {"id":217014,"name":"Supply Bag"}
+{"id":217017,"name":"Fishing Tournament!"}
 {"id":217161,"name":"Torn Mystical Scroll","quest_item":true}
+{"id":217244,"name":"Pattern: Crimson Silk Robe"}
+{"id":217249,"name":"Pattern: Earthen Silk Belt"}
+{"id":217251,"name":"Pattern: Crimson Silk Shoulders"}
+{"id":217254,"name":"Pattern: Boots of the Enchanter"}
+{"id":217258,"name":"Pattern: Enchanter's Cowl"}
+{"id":217260,"name":"Pattern: Big Voodoo Mask"}
+{"id":217262,"name":"Pattern: Big Voodoo Robe"}
+{"id":217264,"name":"Pattern: Guardian Leather Bracers"}
+{"id":217266,"name":"Pattern: Guardian Belt"}
+{"id":217270,"name":"Turtle Scale Gloves"}
+{"id":217271,"name":"Pattern: Turtle Scale Gloves"}
+{"id":217273,"name":"Golden Scale Gauntlets"}
+{"id":217274,"name":"Plans: Golden Scale Gauntlets"}
+{"id":217276,"name":"Plans: Golden Scale Boots"}
+{"id":217278,"name":"Plans: Golden Scale Cuirass"}
+{"id":217280,"name":"Plans: Golden Scale Coif"}
+{"id":217282,"name":"Plans: Moonsteel Broadsword"}
+{"id":217284,"name":"Plans: Golden Scale Shoulders"}
+{"id":217286,"name":"Plans: Golden Scale Leggings"}
+{"id":217287,"name":"Greater Mystic Wand"}
 {"id":217308,"name":"Enchanted Sigil: Innovation"}
+{"id":217314,"name":"Moonsight Rifle"}
+{"id":217315,"name":"Precision Bow"}
+{"id":217336,"name":"Monster - Incubus Whip Mace1H"}
 {"id":217337,"name":"Supply Shipment"}
 {"id":217338,"name":"Supply Shipment"}
 {"id":217339,"name":"Supply Shipment"}
+{"id":217345,"name":"Sebacious Poison"}
+{"id":217346,"name":"Numbing Poison"}
+{"id":217347,"name":"Atrophic Poison"}
 {"id":217398,"name":"Lesser Arcane Elixir"}
+{"id":217399,"name":"Recipe: Lesser Arcane Elixir"}
 {"id":217495,"name":"Scroll of Cryoblast"}
 {"id":217496,"name":"Scroll of the Blade"}
+{"id":217497,"name":"Narpas Sword"}
+{"id":217609,"name":"Talisman of Kazdor","quest_item":true}
 {"id":217693,"name":"Invisibility Potion"}
+{"id":217717,"name":"Hollow Emblem"}
+{"id":217718,"name":"Emblem of Blood Magic"}
+{"id":217719,"name":"Blood Magic Essence"}
+{"id":217720,"name":"Offering of Flesh"}
+{"id":217721,"name":"Offering of Bone"}
 {"id":217736,"name":"Rune of the Coterie"}
+{"id":217737,"name":"Modified Talisman","quest_item":true}
+{"id":219147,"name":"Rune of Grace"}
+{"id":219345,"name":"Infernal Lasso"}
 {"id":219399,"name":"Nightmare Moss"}
 {"id":219401,"name":"Cold Iron Ore"}
 {"id":219402,"name":"Dream-Touched Dragonscale"}
+{"id":219404,"name":"Shadowscythe","quest_item":true}
+{"id":219405,"name":"Ogre Magi Text","quest_item":true}
+{"id":219406,"name":"Unhatched Green Dragon Egg","quest_item":true}
+{"id":219414,"name":"Shattered Eggshells"}
 {"id":219444,"name":"Dreamroot"}
 {"id":219445,"name":"Fool's Gold Dust"}
 {"id":219446,"name":"Dream-Infused Dragonscale"}
+{"id":219447,"name":"Dream-Touched Dragon Egg","quest_item":true}
+{"id":219448,"name":"Dreamengine","quest_item":true}
+{"id":219449,"name":"Azsharan Prophecy","quest_item":true}
 {"id":219454,"name":"Star Lotus"}
 {"id":219486,"name":"Starsilver Ore"}
 {"id":219487,"name":"Starshell"}
+{"id":219488,"name":"Star-Touched Dragonegg","quest_item":true}
+{"id":219490,"name":"Elunar Relic","quest_item":true}
+{"id":219491,"name":"Dreampearl","quest_item":true}
 {"id":219514,"name":"Moonroot"}
 {"id":219515,"name":"Greater Moonstone"}
 {"id":219517,"name":"Moondragon Scale"}
+{"id":219518,"name":"Harpy Screed","quest_item":true}
+{"id":219519,"name":"Mad Keeper's Notes","quest_item":true}
+{"id":219520,"name":"Moonglow Dragonegg","quest_item":true}
+{"id":219526,"name":"Mission Brief: Duskwood"}
+{"id":219759,"name":"Charla's Field Report","quest_item":true}
+{"id":219770,"name":"Gemeron's Field Report","quest_item":true}
+{"id":219771,"name":"Thandros' Field Report","quest_item":true}
+{"id":219772,"name":"Fallia's Field Report","quest_item":true}
+{"id":219773,"name":"Mission Brief: Ashenvale"}
+{"id":219774,"name":"Mission Brief: Hinterlands"}
+{"id":219775,"name":"Mission Brief: Feralas"}
+{"id":219776,"name":"Intelligence Report: Vul'gol Ogre Mound","quest_item":true}
+{"id":219778,"name":"Intelligence Report: Rotting Orchard","quest_item":true}
+{"id":219803,"name":"Intelligence Report: Yorgen Farmstead","quest_item":true}
+{"id":219918,"name":"Bloody Missive","quest_item":true}
+{"id":219924,"name":"Intelligence Report: Forest Song","quest_item":true}
+{"id":219925,"name":"Intelligence Report: Satyrnaar","quest_item":true}
+{"id":219926,"name":"Intelligence Report: Warsong Lumber Camp","quest_item":true}
 {"id":219927,"name":"Emerald Chip","quest_item":true}
+{"id":219928,"name":"Intelligence Report: Agol'watha","quest_item":true}
+{"id":219929,"name":"Bloody Missive","quest_item":true}
+{"id":219930,"name":"Bloody Missive","quest_item":true}
 {"id":219935,"name":"Kajind's Blade","quest_item":true}
+{"id":219937,"name":"Intelligence Report: Shaol'watha","quest_item":true}
+{"id":219938,"name":"Intelligence Report: Skulk Rock","quest_item":true}
+{"id":219957,"name":"Intelligence Report: Oneiros","quest_item":true}
+{"id":219958,"name":"Intelligence Report: Twin Colossals","quest_item":true}
+{"id":219959,"name":"Intelligence Report: Ruins of Ravenwind","quest_item":true}
+{"id":219962,"name":"Nightmare Incursions: Duskwood Mission I","quest_item":true}
+{"id":219963,"name":"Deputization Authorization: Duskwood Mission I","quest_item":true}
+{"id":219965,"name":"Deputization Authorization: Duskwood Mission II","quest_item":true}
+{"id":219966,"name":"Nightmare Incursions: Duskwood Mission II","quest_item":true}
+{"id":219967,"name":"Nightmare Incursions: Duskwood Mission III","quest_item":true}
+{"id":219968,"name":"Nightmare Incursions: Duskwood Mission IV","quest_item":true}
+{"id":219969,"name":"Nightmare Incursions: Duskwood Mission V","quest_item":true}
+{"id":219970,"name":"Nightmare Incursions: Duskwood Mission VI","quest_item":true}
+{"id":219971,"name":"Nightmare Incursions: Duskwood Mission VII","quest_item":true}
+{"id":219972,"name":"Nightmare Incursions: Duskwood Mission VIII","quest_item":true}
+{"id":219973,"name":"Nightmare Incursions: Duskwood Mission IX","quest_item":true}
+{"id":219974,"name":"Nightmare Incursions: Duskwood Mission X","quest_item":true}
+{"id":219975,"name":"Nightmare Incursions: Duskwood Mission XI","quest_item":true}
+{"id":219976,"name":"Nightmare Incursions: Duskwood Mission XII","quest_item":true}
+{"id":219977,"name":"Nightmare Incursions: Duskwood Mission XIII","quest_item":true}
+{"id":219978,"name":"Nightmare Incursions: Duskwood Mission XIV","quest_item":true}
+{"id":219979,"name":"Nightmare Incursions: Duskwood Mission XV","quest_item":true}
+{"id":219980,"name":"Nightmare Incursions: Duskwood Mission XVI","quest_item":true}
+{"id":219981,"name":"Nightmare Incursions: Duskwood Mission XVII","quest_item":true}
+{"id":219982,"name":"Nightmare Incursions: Duskwood Mission XVIII","quest_item":true}
+{"id":219983,"name":"Deputization Authorization: Duskwood Mission III","quest_item":true}
+{"id":219984,"name":"Deputization Authorization: Duskwood Mission IV","quest_item":true}
+{"id":219985,"name":"Deputization Authorization: Duskwood Mission V","quest_item":true}
+{"id":219986,"name":"Deputization Authorization: Duskwood Mission VI","quest_item":true}
+{"id":219987,"name":"Deputization Authorization: Duskwood Mission VII","quest_item":true}
+{"id":219988,"name":"Deputization Authorization: Duskwood Mission VIII","quest_item":true}
+{"id":219989,"name":"Deputization Authorization: Duskwood Mission IX","quest_item":true}
+{"id":219990,"name":"Deputization Authorization: Duskwood Mission X","quest_item":true}
+{"id":219991,"name":"Deputization Authorization: Duskwood Mission XI","quest_item":true}
+{"id":219992,"name":"Deputization Authorization: Duskwood Mission XII","quest_item":true}
+{"id":219993,"name":"Deputization Authorization: Duskwood Mission XIII","quest_item":true}
+{"id":219994,"name":"Deputization Authorization: Duskwood Mission XIV","quest_item":true}
+{"id":219995,"name":"Deputization Authorization: Duskwood Mission XV","quest_item":true}
+{"id":219996,"name":"Deputization Authorization: Duskwood Mission XVI","quest_item":true}
+{"id":219997,"name":"Deputization Authorization: Duskwood Mission XVII","quest_item":true}
+{"id":219998,"name":"Deputization Authorization: Duskwood Mission XVIII","quest_item":true}
+{"id":219999,"name":"Nightmare Incursions: Ashenvale Mission I","quest_item":true}
+{"id":220000,"name":"Nightmare Incursions: Ashenvale Mission II","quest_item":true}
+{"id":220001,"name":"Nightmare Incursions: Ashenvale Mission III","quest_item":true}
+{"id":220002,"name":"Nightmare Incursions: Ashenvale Mission IV","quest_item":true}
+{"id":220003,"name":"Nightmare Incursions: Ashenvale Mission V","quest_item":true}
+{"id":220004,"name":"Nightmare Incursions: Ashenvale Mission VI","quest_item":true}
+{"id":220005,"name":"Nightmare Incursions: Ashenvale Mission VII","quest_item":true}
+{"id":220006,"name":"Nightmare Incursions: Ashenvale Mission VIII","quest_item":true}
+{"id":220007,"name":"Nightmare Incursions: Ashenvale Mission IX","quest_item":true}
+{"id":220008,"name":"Nightmare Incursions: Ashenvale Mission X","quest_item":true}
+{"id":220009,"name":"Nightmare Incursions: Ashenvale Mission XI","quest_item":true}
+{"id":220010,"name":"Nightmare Incursions: Ashenvale Mission XII","quest_item":true}
+{"id":220011,"name":"Nightmare Incursions: Ashenvale Mission XIII","quest_item":true}
+{"id":220012,"name":"Nightmare Incursions: Ashenvale Mission XIV","quest_item":true}
+{"id":220013,"name":"Nightmare Incursions: Ashenvale Mission XV","quest_item":true}
+{"id":220014,"name":"Nightmare Incursions: Ashenvale Mission XVI","quest_item":true}
+{"id":220015,"name":"Nightmare Incursions: Ashenvale Mission XVII","quest_item":true}
+{"id":220016,"name":"Nightmare Incursions: Ashenvale Mission XVIII","quest_item":true}
+{"id":220017,"name":"Nightmare Incursions: Hinterlands Mission I","quest_item":true}
+{"id":220018,"name":"Nightmare Incursions: Hinterlands Mission II","quest_item":true}
+{"id":220019,"name":"Nightmare Incursions: Hinterlands Mission III","quest_item":true}
+{"id":220020,"name":"Nightmare Incursions: Hinterlands Mission IV","quest_item":true}
+{"id":220021,"name":"Nightmare Incursions: Hinterlands Mission V","quest_item":true}
+{"id":220022,"name":"Nightmare Incursions: Hinterlands Mission VI","quest_item":true}
+{"id":220023,"name":"Nightmare Incursions: Hinterlands Mission VII","quest_item":true}
+{"id":220024,"name":"Nightmare Incursions: Hinterlands Mission VIII","quest_item":true}
+{"id":220025,"name":"Nightmare Incursions: Hinterlands Mission IX","quest_item":true}
+{"id":220026,"name":"Nightmare Incursions: Hinterlands Mission X","quest_item":true}
+{"id":220027,"name":"Nightmare Incursions: Hinterlands Mission XI","quest_item":true}
+{"id":220028,"name":"Nightmare Incursions: Hinterlands Mission XII","quest_item":true}
+{"id":220029,"name":"Nightmare Incursions: Hinterlands Mission XIII","quest_item":true}
+{"id":220030,"name":"Nightmare Incursions: Hinterlands Mission XIV","quest_item":true}
+{"id":220031,"name":"Nightmare Incursions: Hinterlands Mission XV","quest_item":true}
+{"id":220032,"name":"Nightmare Incursions: Hinterlands Mission XVI","quest_item":true}
+{"id":220033,"name":"Nightmare Incursions: Hinterlands Mission XVII","quest_item":true}
+{"id":220034,"name":"Nightmare Incursions: Hinterlands Mission XVIII","quest_item":true}
+{"id":220035,"name":"Nightmare Incursions: Feralas Mission I","quest_item":true}
+{"id":220036,"name":"Nightmare Incursions: Feralas Mission II","quest_item":true}
+{"id":220037,"name":"Nightmare Incursions: Feralas Mission III","quest_item":true}
+{"id":220038,"name":"Nightmare Incursions: Feralas Mission IV","quest_item":true}
+{"id":220039,"name":"Nightmare Incursions: Feralas Mission V","quest_item":true}
+{"id":220040,"name":"Nightmare Incursions: Feralas Mission VI","quest_item":true}
+{"id":220041,"name":"Nightmare Incursions: Feralas Mission VII","quest_item":true}
+{"id":220042,"name":"Nightmare Incursions: Feralas Mission VIII","quest_item":true}
+{"id":220043,"name":"Nightmare Incursions: Feralas Mission IX","quest_item":true}
+{"id":220044,"name":"Nightmare Incursions: Feralas Mission X","quest_item":true}
+{"id":220045,"name":"Nightmare Incursions: Feralas Mission XI","quest_item":true}
+{"id":220046,"name":"Nightmare Incursions: Feralas Mission XII","quest_item":true}
+{"id":220047,"name":"Nightmare Incursions: Feralas Mission XIII","quest_item":true}
+{"id":220048,"name":"Nightmare Incursions: Feralas Mission XIV","quest_item":true}
+{"id":220049,"name":"Nightmare Incursions: Feralas Mission XV","quest_item":true}
+{"id":220050,"name":"Nightmare Incursions: Feralas Mission XVI","quest_item":true}
+{"id":220051,"name":"Nightmare Incursions: Feralas Mission XVII","quest_item":true}
+{"id":220052,"name":"Nightmare Incursions: Feralas Mission XVIII","quest_item":true}
+{"id":220053,"name":"Deputization Authorization: Ashenvale Mission I","quest_item":true}
+{"id":220054,"name":"Deputization Authorization: Ashenvale Mission II","quest_item":true}
+{"id":220055,"name":"Deputization Authorization: Ashenvale Mission III","quest_item":true}
+{"id":220056,"name":"Deputization Authorization: Ashenvale Mission IV","quest_item":true}
+{"id":220057,"name":"Deputization Authorization: Ashenvale Mission V","quest_item":true}
+{"id":220058,"name":"Deputization Authorization: Ashenvale Mission VI","quest_item":true}
+{"id":220059,"name":"Deputization Authorization: Ashenvale Mission VII","quest_item":true}
+{"id":220060,"name":"Deputization Authorization: Ashenvale Mission VIII","quest_item":true}
+{"id":220061,"name":"Deputization Authorization: Ashenvale Mission IX","quest_item":true}
+{"id":220062,"name":"Deputization Authorization: Ashenvale Mission X","quest_item":true}
+{"id":220063,"name":"Deputization Authorization: Ashenvale Mission XI","quest_item":true}
+{"id":220064,"name":"Deputization Authorization: Ashenvale Mission XII","quest_item":true}
+{"id":220065,"name":"Deputization Authorization: Ashenvale Mission XIII","quest_item":true}
+{"id":220066,"name":"Deputization Authorization: Ashenvale Mission XIV","quest_item":true}
+{"id":220067,"name":"Deputization Authorization: Ashenvale Mission XV","quest_item":true}
+{"id":220068,"name":"Deputization Authorization: Ashenvale Mission XVI","quest_item":true}
+{"id":220069,"name":"Deputization Authorization: Ashenvale Mission XVII","quest_item":true}
+{"id":220070,"name":"Deputization Authorization: Ashenvale Mission XVIII","quest_item":true}
+{"id":220071,"name":"Deputization Authorization: Hinterlands Mission I","quest_item":true}
+{"id":220072,"name":"Deputization Authorization: Hinterlands Mission II","quest_item":true}
+{"id":220073,"name":"Deputization Authorization: Hinterlands Mission III","quest_item":true}
+{"id":220074,"name":"Deputization Authorization: Hinterlands Mission IV","quest_item":true}
+{"id":220075,"name":"Deputization Authorization: Hinterlands Mission V","quest_item":true}
+{"id":220076,"name":"Deputization Authorization: Hinterlands Mission VI","quest_item":true}
+{"id":220077,"name":"Deputization Authorization: Hinterlands Mission VII","quest_item":true}
+{"id":220078,"name":"Deputization Authorization: Hinterlands Mission VIII","quest_item":true}
+{"id":220079,"name":"Deputization Authorization: Hinterlands Mission IX","quest_item":true}
+{"id":220080,"name":"Deputization Authorization: Hinterlands Mission X","quest_item":true}
+{"id":220081,"name":"Deputization Authorization: Hinterlands Mission XI","quest_item":true}
+{"id":220082,"name":"Deputization Authorization: Hinterlands Mission XII","quest_item":true}
+{"id":220083,"name":"Deputization Authorization: Hinterlands Mission XIII","quest_item":true}
+{"id":220084,"name":"Deputization Authorization: Hinterlands Mission XIV","quest_item":true}
+{"id":220085,"name":"Deputization Authorization: Hinterlands Mission XV","quest_item":true}
+{"id":220086,"name":"Deputization Authorization: Hinterlands Mission XVI","quest_item":true}
+{"id":220087,"name":"Deputization Authorization: Hinterlands Mission XVII","quest_item":true}
+{"id":220088,"name":"Deputization Authorization: Hinterlands Mission XVIII","quest_item":true}
+{"id":220089,"name":"Deputization Authorization: Feralas Mission I","quest_item":true}
+{"id":220090,"name":"Deputization Authorization: Feralas Mission II","quest_item":true}
+{"id":220091,"name":"Deputization Authorization: Feralas Mission III","quest_item":true}
+{"id":220092,"name":"Deputization Authorization: Feralas Mission IV","quest_item":true}
+{"id":220093,"name":"Deputization Authorization: Feralas Mission V","quest_item":true}
+{"id":220094,"name":"Deputization Authorization: Feralas Mission VI","quest_item":true}
+{"id":220095,"name":"Deputization Authorization: Feralas Mission VII","quest_item":true}
+{"id":220096,"name":"Deputization Authorization: Feralas Mission VIII","quest_item":true}
+{"id":220097,"name":"Deputization Authorization: Feralas Mission IX","quest_item":true}
+{"id":220098,"name":"Deputization Authorization: Feralas Mission X","quest_item":true}
+{"id":220099,"name":"Deputization Authorization: Feralas Mission XI","quest_item":true}
+{"id":220100,"name":"Deputization Authorization: Feralas Mission XII","quest_item":true}
+{"id":220101,"name":"Deputization Authorization: Feralas Mission XIII","quest_item":true}
+{"id":220102,"name":"Deputization Authorization: Feralas Mission XIV","quest_item":true}
+{"id":220103,"name":"Deputization Authorization: Feralas Mission XV","quest_item":true}
+{"id":220104,"name":"Deputization Authorization: Feralas Mission XVI","quest_item":true}
+{"id":220105,"name":"Deputization Authorization: Feralas Mission XVII","quest_item":true}
+{"id":220106,"name":"Deputization Authorization: Feralas Mission XVIII","quest_item":true}
 {"id":220164,"name":"Rune of the Gladiator"}
+{"id":220165,"name":"Rune of Wrath"}
+{"id":220166,"name":"Fiery Infernal Core","quest_item":true}
+{"id":220167,"name":"Shimmering Grave Dust","quest_item":true}
+{"id":220168,"name":"Triple-Brewed Molten Lager","quest_item":true}
+{"id":220169,"name":"Symbol of Faith","quest_item":true}
+{"id":220170,"name":"Note from Gregory","quest_item":true}
+{"id":220213,"name":"Fel Lifeblood","quest_item":true}
+{"id":220214,"name":"Infernal Chain Link","quest_item":true}
+{"id":220216,"name":"Infernal Lasso","quest_item":true}
 {"id":220217,"name":"Rune of the Ravenous"}
 {"id":220345,"name":"Sanguine Sorcery"}
+{"id":220346,"name":"Legends of the Tidesages"}
+{"id":220347,"name":"The Liminal and the Arcane"}
 {"id":220348,"name":"Everyday Etiquette"}
 {"id":220349,"name":"Stonewrought Design"}
 {"id":220350,"name":"Venomous Journeys"}
@@ -17447,10 +18079,142 @@
 {"id":220352,"name":"A Mind of Metal"}
 {"id":220353,"name":"Conjurer's Codex"}
 {"id":220360,"name":"Rune of Efflorescence"}
+{"id":220375,"name":"Fragment of Air","quest_item":true}
 {"id":220446,"name":"Otherworldly Treasure"}
+{"id":220510,"name":"Elemental Essence","quest_item":true}
+{"id":220525,"name":"Glowing Fragment of Air","quest_item":true}
 {"id":220606,"name":"Idol of the Dream"}
+{"id":220610,"name":"Rune of Mental Dexterity"}
+{"id":220612,"name":"Rune of Tidal Waves"}
+{"id":220613,"name":"Rune of Rolling Thunder"}
+{"id":220616,"name":"Rune of Overcharged"}
+{"id":220617,"name":"Rune of Pandemic"}
+{"id":220618,"name":"Rune of Immolation Aura"}
+{"id":220682,"name":"Rune of the Unbridled"}
+{"id":220687,"name":"Rune of the Raptor"}
+{"id":220754,"name":"Rune of the Windstorm"}
 {"id":220775,"name":"Engineering Exchange Ticket","quest_item":true}
+{"id":220791,"name":"Rune of the Jungle Cat"}
 {"id":220792,"name":"Scroll of Spatial Mending"}
+{"id":220794,"name":"Knight's Plate Hauberk"}
+{"id":220795,"name":"Knight-Lieutenant's Plate Pauldrons"}
+{"id":220796,"name":"Blood Guard's Plate Pauldrons"}
+{"id":220797,"name":"Knight's Plate Leggings"}
+{"id":220798,"name":"Stone Guard's Plate Leggings"}
+{"id":220799,"name":"Sergeant Major's Plate Greaves"}
+{"id":220800,"name":"First Sergeant's Plate Greaves"}
+{"id":220801,"name":"Stone Guard's Plate Armor"}
+{"id":220803,"name":"Blood Guard's Plate Helm"}
+{"id":220804,"name":"Knight-Lieutenant's Plate Helm"}
+{"id":220806,"name":"Sergeant Major's Plate Gauntlets"}
+{"id":220807,"name":"First Sergeant's Plate Gauntlets"}
+{"id":220808,"name":"Knight-Lieutenant's Imbued Pauldrons"}
+{"id":220809,"name":"Knight's Imbued Leggings"}
+{"id":220810,"name":"Knight-Lieutenant's Imbued Helmet"}
+{"id":220811,"name":"Sergeant Major's Imbued Greaves"}
+{"id":220812,"name":"Sergeant Major's Imbued Gauntlets"}
+{"id":220813,"name":"Knight's Imbued Armor"}
+{"id":220814,"name":"Sergeant Major's Lamellar Boots"}
+{"id":220815,"name":"Knight's Lamellar Chestplate"}
+{"id":220816,"name":"Knight's Lamellar Legplates"}
+{"id":220817,"name":"Sergeant Major's Lamellar Gauntlets"}
+{"id":220818,"name":"Knight-Lieutenant's Lamellar Pauldrons"}
+{"id":220819,"name":"Knight-Lieutenant's Lamellar Helm"}
+{"id":220820,"name":"Blood Guard's Mail Helmet"}
+{"id":220821,"name":"Blood Guard's Chain Helmet"}
+{"id":220822,"name":"Knight-Lieutenant's Chain Helmet"}
+{"id":220823,"name":"Blood Guard's Mail Epaulets"}
+{"id":220824,"name":"Blood Guard's Chain Epaulets"}
+{"id":220825,"name":"Knight-Lieutenant's Chain Epaulets"}
+{"id":220826,"name":"Stone Guard's Mail Armor"}
+{"id":220827,"name":"Stone Guard's Chain Armor"}
+{"id":220828,"name":"Knight's Chain Armor"}
+{"id":220829,"name":"Sergeant Major's Chain Gauntlets"}
+{"id":220830,"name":"First Sergeant's Chain Gauntlets"}
+{"id":220831,"name":"First Sergeant's Mail Gauntlets"}
+{"id":220832,"name":"Knight's Chain Legplates"}
+{"id":220833,"name":"Stone Guard's Chain Legplates"}
+{"id":220834,"name":"Stone Guard's Mail Legplates"}
+{"id":220835,"name":"First Sergeant's Mail Sabatons"}
+{"id":220836,"name":"First Sergeant's Chain Sabatons"}
+{"id":220837,"name":"Sergeant Major's Chain Sabatons"}
+{"id":220838,"name":"Stone Guard's Inscribed Chestpiece"}
+{"id":220839,"name":"Stone Guard's Inscribed Legplates"}
+{"id":220840,"name":"First Sergeant's Inscribed Sabatons"}
+{"id":220841,"name":"Blood Guard's Inscribed Shoulder Pads"}
+{"id":220842,"name":"Blood Guard's Inscribed Skullcap"}
+{"id":220843,"name":"First Sergeant's Inscribed Gauntlets"}
+{"id":220844,"name":"Stone Guard's Pulsing Breastplate"}
+{"id":220845,"name":"First Sergeant's Pulsing Gauntlets"}
+{"id":220846,"name":"First Sergeant's Pulsing Greaves"}
+{"id":220847,"name":"Stone Guard's Pulsing Legplates"}
+{"id":220848,"name":"Blood Guard's Pulsing Helmet"}
+{"id":220849,"name":"Blood Guard's Pulsing Shoulders"}
+{"id":220850,"name":"Knight-Lieutenant's Leather Headband"}
+{"id":220851,"name":"Blood Guard's Leather Headband"}
+{"id":220852,"name":"Knight-Lieutenant's Leather Shoulders"}
+{"id":220853,"name":"Blood Guard's Leather Shoulders"}
+{"id":220854,"name":"Knight's Leather Armor"}
+{"id":220855,"name":"Stone Guard's Leather Armor"}
+{"id":220856,"name":"Sergeant Major's Leather Gauntlets"}
+{"id":220857,"name":"First Sergeant's Leather Gauntlets"}
+{"id":220858,"name":"Knight's Leather Pants"}
+{"id":220859,"name":"Stone Guard's Leather Pants"}
+{"id":220860,"name":"Sergeant Major's Leather Boots"}
+{"id":220861,"name":"First Sergeant's Leather Boots"}
+{"id":220862,"name":"Sergeant Major's Crackling Leather Boots"}
+{"id":220863,"name":"First Sergeant's Crackling Leather Boots"}
+{"id":220864,"name":"Knight's Crackling Leather Leggings"}
+{"id":220865,"name":"Stone Guard's Crackling Leather Leggings"}
+{"id":220866,"name":"Sergeant Major's Crackling Leather Gauntlets"}
+{"id":220867,"name":"First Sergeant's Crackling Leather Gauntlets"}
+{"id":220868,"name":"Knight's Crackling Leather Tunic"}
+{"id":220869,"name":"Stone Guard's Crackling Leather Tunic"}
+{"id":220870,"name":"Knight-Lieutenant's Crackling Leather Spaulders"}
+{"id":220871,"name":"Blood Guard's Crackling Leather Spaulders"}
+{"id":220872,"name":"Knight-Lieutenant's Crackling Leather Helmet"}
+{"id":220873,"name":"Blood Guard's Crackling Leather Helmet"}
+{"id":220874,"name":"Knight-Lieutenant's Restored Leather Helm"}
+{"id":220875,"name":"Blood Guard's Restored Leather Helm"}
+{"id":220876,"name":"Knight-Lieutenant's Restored Leather Spaulders"}
+{"id":220877,"name":"Blood Guard's Restored Leather Spaulders"}
+{"id":220878,"name":"Knight's Restored Leather Jerkin"}
+{"id":220879,"name":"Stone Guard's Restored Leather Jerkin"}
+{"id":220880,"name":"Sergeant Major's Restored Leather Gloves"}
+{"id":220881,"name":"First Sergeant's Restored Leather Gloves"}
+{"id":220882,"name":"Knight's Restored Leather Leggings"}
+{"id":220883,"name":"Stone Guard's Restored Leather Leggings"}
+{"id":220884,"name":"Sergeant Major's Restored Leather Boots"}
+{"id":220885,"name":"First Sergeant's Restored Leather Boots"}
+{"id":220886,"name":"Knight's Dreadweave Vest"}
+{"id":220887,"name":"Knight-Lieutenant's Dreadweave Mantle"}
+{"id":220888,"name":"Knight's Dreadweave Leggings"}
+{"id":220889,"name":"Knight-Lieutenant's Dreadweave Hat"}
+{"id":220890,"name":"Sergeant Major's Dreadweave Gloves"}
+{"id":220891,"name":"Sergeant Major's Dreadweave Boots"}
+{"id":220892,"name":"Knight's Satin Armor"}
+{"id":220893,"name":"Knight's Satin Leggings"}
+{"id":220894,"name":"Knight-Lieutenant's Satin Pads"}
+{"id":220895,"name":"Sergeant Major's Satin Boots"}
+{"id":220896,"name":"Knight-Lieutenant's Satin Cover"}
+{"id":220897,"name":"Sergeant Major's Satin Gloves"}
+{"id":220898,"name":"First Sergeant's Satin Gloves"}
+{"id":220899,"name":"Blood Guard's Satin Cover"}
+{"id":220900,"name":"First Sergeant's Satin Boots"}
+{"id":220901,"name":"Blood Guard's Satin Pads"}
+{"id":220902,"name":"Stone Guard's Satin Leggings"}
+{"id":220903,"name":"Stone Guard's Satin Armor"}
+{"id":220904,"name":"Stone Guard's Dreadweave Vest"}
+{"id":220905,"name":"Blood Guard's Dreadweave Mantle"}
+{"id":220906,"name":"Stone Guard's Dreadweave Leggings"}
+{"id":220907,"name":"Blood Guard's Dreadweave Hat"}
+{"id":220908,"name":"First Sergeant's Dreadweave Gloves"}
+{"id":220909,"name":"First Sergeant's Dreadweave Boots"}
+{"id":220913,"name":"Rune of Demolition"}
+{"id":220914,"name":"Broken Geode Hammer"}
+{"id":220915,"name":"Idol of the Raging Shambler"}
+{"id":220916,"name":"Thunderstomp Stegodon Horn","quest_item":true}
+{"id":220917,"name":"Box of Scarlet Dye","quest_item":true}
 {"id":220918,"name":"Waylaid Supplies: Undermine Clam Chowder"}
 {"id":220919,"name":"Waylaid Supplies: Nightfin Soup"}
 {"id":220920,"name":"Waylaid Supplies: Tender Wolf Steaks"}
@@ -17479,31 +18243,142 @@
 {"id":221008,"name":"Supply Shipment"}
 {"id":221009,"name":"Supply Shipment"}
 {"id":221010,"name":"Supply Shipment"}
+{"id":221017,"name":"Keldara's Log"}
+{"id":221018,"name":"Field Medicine Kit"}
+{"id":221019,"name":"Satyrweed Sample"}
+{"id":221020,"name":"Rune of the Moon Goddess"}
+{"id":221191,"name":"Dreamstone"}
+{"id":221192,"name":"Dream Journal"}
 {"id":221199,"name":"Satyrweed Tincture"}
+{"id":221256,"name":"Right Arm of the Obliterator"}
+{"id":221257,"name":"Left Arm of the Obliterator"}
+{"id":221258,"name":"Right Foot of the Obliterator"}
+{"id":221259,"name":"Left Foot of the Obliterator"}
+{"id":221260,"name":"Head of the Obliterator"}
+{"id":221261,"name":"Wildwhisper Draught"}
 {"id":221262,"name":"Wild Offering"}
+{"id":221267,"name":"Rune of the Bloodthirsty"}
+{"id":221271,"name":"Ace of Wilds"}
+{"id":221272,"name":"Wilds Deck","quest_item":true}
+{"id":221273,"name":"Two of Wilds"}
+{"id":221274,"name":"Three of Wilds"}
+{"id":221275,"name":"Four of Wilds"}
+{"id":221276,"name":"Five of Wilds"}
+{"id":221277,"name":"Six of Wilds"}
+{"id":221278,"name":"Seven of Wilds"}
+{"id":221279,"name":"Eight of Wilds"}
+{"id":221280,"name":"Plagues Deck","quest_item":true}
+{"id":221281,"name":"Ace of Plagues"}
+{"id":221282,"name":"Two of Plagues"}
+{"id":221283,"name":"Three of Plagues"}
+{"id":221284,"name":"Four of Plagues"}
+{"id":221285,"name":"Five of Plagues"}
+{"id":221286,"name":"Six of Plagues"}
+{"id":221287,"name":"Seven of Plagues"}
+{"id":221288,"name":"Eight of Plagues"}
+{"id":221289,"name":"Dunes Deck","quest_item":true}
+{"id":221290,"name":"Ace of Dunes"}
+{"id":221291,"name":"Two of Dunes"}
+{"id":221292,"name":"Three of Dunes"}
+{"id":221293,"name":"Four of Dunes"}
+{"id":221294,"name":"Five of Dunes"}
+{"id":221295,"name":"Six of Dunes"}
+{"id":221296,"name":"Seven of Dunes"}
+{"id":221297,"name":"Eight of Dunes"}
+{"id":221298,"name":"Ace of Nightmares"}
+{"id":221299,"name":"Nightmares Deck","quest_item":true}
+{"id":221300,"name":"Two of Nightmares"}
+{"id":221301,"name":"Three of Nightmares"}
+{"id":221302,"name":"Four of Nightmares"}
+{"id":221303,"name":"Five of Nightmares"}
+{"id":221304,"name":"Six of Nightmares"}
+{"id":221305,"name":"Seven of Nightmares"}
+{"id":221306,"name":"Eight of Nightmares"}
+{"id":221314,"name":"Wanted Notice","quest_item":true}
 {"id":221315,"name":"Traveler's Symbols"}
+{"id":221316,"name":"Premo's Poise-Demanding Uniform"}
 {"id":221317,"name":"Feralas Leycryst"}
 {"id":221318,"name":"Azshara Leycryst"}
 {"id":221319,"name":"Blackrock Leycryst"}
 {"id":221320,"name":"Hinterlands Leycryst"}
 {"id":221324,"name":"Brittle Key"}
+{"id":221325,"name":"EZ-Splode Blasting Charge"}
+{"id":221326,"name":"Sacred Stag Heart"}
+{"id":221336,"name":"Schematic: Goblin Mining Helmet"}
+{"id":221344,"name":"Personal Spellbook"}
+{"id":221345,"name":"Corrupted Blood of Eranikus","quest_item":true}
 {"id":221347,"name":"Murky Fire Sapta","quest_item":true}
 {"id":221348,"name":"Murky Water Sapta","quest_item":true}
 {"id":221349,"name":"Murky Earth Sapta","quest_item":true}
+{"id":221353,"name":"Fragment of Fire","quest_item":true}
+{"id":221354,"name":"Fragment of Water","quest_item":true}
+{"id":221355,"name":"Fragment of Earth","quest_item":true}
+{"id":221356,"name":"Glowing Fragment of Fire","quest_item":true}
+{"id":221357,"name":"Glowing Fragment of Water","quest_item":true}
+{"id":221358,"name":"Glowing Fragment of Earth","quest_item":true}
+{"id":221359,"name":"Pristine Owlbeast Quill","quest_item":true}
+{"id":221360,"name":"Farraki Papyrus","quest_item":true}
+{"id":221361,"name":"Zukk'ash Resin","quest_item":true}
+{"id":221370,"name":"Precious Medallion"}
+{"id":221371,"name":"Kidnapper's Coin Purse"}
+{"id":221372,"name":"Mangled Coin Purse"}
 {"id":221418,"name":"Agamaggan's Roar"}
+{"id":221428,"name":"Rune of Foul Play"}
+{"id":221433,"name":"Rune of Focus"}
+{"id":221445,"name":"Rune of Focused Fire"}
+{"id":221461,"name":"Rune of Carnage"}
+{"id":221470,"name":"Dream Emerald","quest_item":true}
+{"id":221471,"name":"Emerald Wardens Chest"}
+{"id":221473,"name":"Rune of the Watchman"}
+{"id":221480,"name":"Spell Notes: Molten Armor"}
+{"id":221481,"name":"Nihilist Epiphany"}
+{"id":221482,"name":"Rune of Affliction"}
+{"id":221483,"name":"Rune of Burn"}
+{"id":221487,"name":"Spell Notes: Advanced Warding"}
+{"id":221488,"name":"Resolute Epiphany"}
+{"id":221489,"name":"Rune of Vengeance"}
+{"id":221490,"name":"Rune of Riptide"}
 {"id":221491,"name":"Shadowtooth Bag"}
 {"id":221497,"name":"Old Key","quest_item":true}
 {"id":221498,"name":"Old Toolbox"}
+{"id":221499,"name":"Rune of the Felguard"}
+{"id":221510,"name":"Rune of the Knight"}
+{"id":221511,"name":"Rune of the Protector"}
+{"id":221512,"name":"Rune of Alacrity"}
+{"id":221513,"name":"Rune of Potency"}
+{"id":221514,"name":"Rune of Firepower"}
+{"id":221515,"name":"Rune of Detonation"}
+{"id":221516,"name":"Rune of Primal Energy"}
+{"id":221517,"name":"Rune of Bloodshed"}
 {"id":221518,"name":"Whisper"}
+{"id":221519,"name":"Mannoroc Orb","quest_item":true}
+{"id":221544,"name":"Stormcrow Egg"}
 {"id":221545,"name":"Deciphered Warlock Notes","quest_item":true}
 {"id":221547,"name":"Coded Warlock Notes","quest_item":true}
 {"id":221549,"name":"Wastewander Cipher","quest_item":true}
+{"id":221971,"name":"Dreamsworn Horn"}
+{"id":221972,"name":"Dreampyre Fire"}
+{"id":221973,"name":"Dreamhunter Fang"}
+{"id":221974,"name":"Grimtotem Necklace"}
+{"id":221975,"name":"Broken Woodpaw Staff"}
 {"id":221976,"name":"Diseased Nature Staff","quest_item":true}
+{"id":221978,"name":"Explorer's Soul"}
+{"id":221979,"name":"Prophecy of Verdant Winter"}
+{"id":221980,"name":"Prophecy of Awakened Chaos"}
+{"id":221981,"name":"Prophecy of the Lost Tribe"}
 {"id":222962,"name":"Hyjal's Wisdom"}
+{"id":223073,"name":"Knight-Lieutenant's Mail Epaulets"}
+{"id":223074,"name":"Knight's Mail Legplates"}
+{"id":223075,"name":"Knight-Lieutenant's Mail Helmet"}
+{"id":223076,"name":"Sergeant Major's Mail Gauntlets"}
+{"id":223077,"name":"Sergeant Major's Mail Sabatons"}
+{"id":223078,"name":"Knight's Mail Armor"}
+{"id":223147,"name":"Spell Notes: Balefire Bolt"}
 {"id":223148,"name":"Otherworldly Treasure"}
 {"id":223149,"name":"Otherworldly Treasure"}
 {"id":223150,"name":"Otherworldly Treasure"}
 {"id":223151,"name":"Otherworldly Treasure"}
+{"id":223163,"name":"Formula: Scroll of Spatial Mending"}
 {"id":223168,"name":"Worldcore Fragment"}
 {"id":223171,"name":"Scroll of Geomancy"}
 {"id":223173,"name":"Hidden Belt (DNT)"}
@@ -17515,6 +18390,16 @@
 {"id":223181,"name":"Hidden Shoulders (DNT)"}
 {"id":223182,"name":"Hidden Pants (DNT)"}
 {"id":223183,"name":"Hidden Chest (DNT)"}
+{"id":223288,"name":"Rune of the Hammer"}
+{"id":223323,"name":"Shirt"}
+{"id":223330,"name":"Pulsating Eye","quest_item":true}
+{"id":223331,"name":"Pulsating Eye","quest_item":true}
+{"id":223332,"name":"Vibrating Eye","quest_item":true}
+{"id":223333,"name":"Baleful Eye","quest_item":true}
+{"id":223334,"name":"Glowing Eye","quest_item":true}
+{"id":223335,"name":"Oozing Eye","quest_item":true}
+{"id":223336,"name":"Piercing Eye","quest_item":true}
+{"id":223337,"name":"Burning Eye","quest_item":true}
 {"id":223912,"name":"Purification Potion"}
 {"id":223913,"name":"Major Healing Potion"}
 {"id":223914,"name":"Greater Healing Potion"}
@@ -17526,22 +18411,510 @@
 {"id":224851,"name":"Otherworldly Treasure"}
 {"id":224893,"name":"Overcharged Portal Tuner"}
 {"id":224912,"name":"Portal Tuner Tuner"}
+{"id":225675,"name":"Sooty Obsidian Core"}
+{"id":225676,"name":"Molten Obsidian Core"}
+{"id":225686,"name":"Rune of Decimation"}
+{"id":225687,"name":"Rune of Infernal Armor"}
+{"id":225688,"name":"Rune of Mark of Chaos"}
+{"id":225690,"name":"Spell Notes: Frozen Orb"}
+{"id":225691,"name":"Spell Notes: Overheat"}
+{"id":225740,"name":"Rune of Composure"}
+{"id":225838,"name":"Voltaic Icon"}
+{"id":225914,"name":"Rune of the Bound Spirit"}
+{"id":225929,"name":"Plagued Soul Shard"}
+{"id":225938,"name":"Torn Spell Notes"}
+{"id":225939,"name":"Torn Spell Notes"}
+{"id":225940,"name":"Torn Spell Notes"}
+{"id":225941,"name":"Torn Spell Notes"}
+{"id":225942,"name":"Tainted Boar Meat"}
+{"id":225943,"name":"Rancid Hunk of Flesh"}
+{"id":225954,"name":"Charred Spell Notes"}
+{"id":225955,"name":"Rune of the Resourceful"}
+{"id":226201,"name":"Squire Cuthbert's Blade","quest_item":true}
+{"id":226207,"name":"Echo of Anastari"}
+{"id":226208,"name":"Echo of Barthilas"}
+{"id":226209,"name":"Echo of Dathrohan"}
+{"id":226210,"name":"Echo of Maleki"}
+{"id":226211,"name":"Echo of Nerub'enkan"}
+{"id":226212,"name":"Echo of Ramstein"}
+{"id":226213,"name":"Echo of Rivendare"}
+{"id":226214,"name":"Echo of Willey"}
+{"id":226252,"name":"Rune of the Guerrilla"}
+{"id":226374,"name":"Occult Poison I"}
+{"id":226404,"name":"Tarnished Undermine Real","quest_item":true}
+{"id":226405,"name":"Damaged Undermine Supply Crate"}
+{"id":226406,"name":"Rune of Sword Specialization"}
+{"id":226407,"name":"Rune of Axe Specialization"}
+{"id":226408,"name":"Rune of Mace Specialization"}
+{"id":226409,"name":"Rune of Dagger Specialization"}
+{"id":226410,"name":"Rune of Ranged Weapon Specialization"}
+{"id":226411,"name":"Rune of Fist Weapon Specialization"}
+{"id":226412,"name":"Rune of Pole Weapon Specialization"}
+{"id":226413,"name":"Rune of Arcane Specialization"}
+{"id":226414,"name":"Rune of Fire Specialization"}
+{"id":226415,"name":"Rune of Frost Specialization"}
+{"id":226416,"name":"Rune of Nature Specialization"}
+{"id":226417,"name":"Rune of Shadow Specialization"}
+{"id":226418,"name":"Rune of Holy Specialization"}
+{"id":226419,"name":"Rune of Feral Combat Specialization"}
+{"id":226420,"name":"Finely Crafted Bust"}
+{"id":226421,"name":"PLACEHOLDER_ASHBRINGER_QUESTITEM_01"}
+{"id":226472,"name":"Stratholme Shadow Jar"}
 {"id":226526,"name":"Busted Gizmo","quest_item":true}
+{"id":226546,"name":"Desert Sonar"}
+{"id":226587,"name":"Rune of Shelling"}
 {"id":226678,"name":"Premonition and Combat Foresight"}
 {"id":226679,"name":"Timeless Wanderer's Insights"}
 {"id":226680,"name":"Rune of the First Warrior"}
+{"id":226694,"name":"Rune of Defense Specialization"}
 {"id":226698,"name":"Vertically Composited Patch Hampler","quest_item":true}
 {"id":226699,"name":"Brass-fitted Flam-Tamp Flange","quest_item":true}
+{"id":226772,"name":"Feralheart Sash"}
+{"id":226773,"name":"Feralheart Cowl"}
+{"id":226774,"name":"Feralheart Galoshes"}
+{"id":226775,"name":"Feralheart Wraps"}
+{"id":226776,"name":"Feralheart Vest"}
+{"id":226777,"name":"Feralheart Hands"}
+{"id":226778,"name":"Feralheart Spaulders"}
+{"id":226779,"name":"Feralheart Kilt"}
+{"id":226780,"name":"Feralheart Cord"}
+{"id":226781,"name":"Feralheart Sandals"}
+{"id":226782,"name":"Feralheart Bindings"}
+{"id":226783,"name":"Feralheart Embrace"}
+{"id":226784,"name":"Feralheart Gauntlets"}
+{"id":226785,"name":"Feralheart Mantle"}
+{"id":226786,"name":"Feralheart Headdress"}
+{"id":226787,"name":"Feralheart Pants"}
+{"id":226788,"name":"Feralheart Bands"}
+{"id":226789,"name":"Feralheart Girdle"}
+{"id":226790,"name":"Feralheart Epaulets"}
+{"id":226791,"name":"Feralheart Trousers"}
+{"id":226792,"name":"Feralheart Cap"}
+{"id":226793,"name":"Feralheart Fists"}
+{"id":226794,"name":"Feralheart Walkers"}
+{"id":226795,"name":"Feralheart Tunic"}
+{"id":226796,"name":"Feralheart Wristguards"}
+{"id":226797,"name":"Feralheart Waistguard"}
+{"id":226798,"name":"Feralheart Pauldrons"}
+{"id":226799,"name":"Feralheart Legguards"}
+{"id":226801,"name":"Feralheart Faceguard"}
+{"id":226802,"name":"Feralheart Grips"}
+{"id":226803,"name":"Feralheart Treads"}
+{"id":226804,"name":"Feralheart Armor"}
+{"id":226825,"name":"Darkmantle Tunic"}
+{"id":226826,"name":"Darkmantle Spaulders"}
+{"id":226827,"name":"Darkmantle Pants"}
+{"id":226828,"name":"Darkmantle Grips"}
+{"id":226829,"name":"Darkmantle Cap"}
+{"id":226830,"name":"Darkmantle Bracers"}
+{"id":226831,"name":"Darkmantle Footpads"}
+{"id":226832,"name":"Darkmantle Belt"}
+{"id":226856,"name":"Guided Buoyancy Accelerant","quest_item":true}
+{"id":226857,"name":"Battleboots of Heroism"}
+{"id":226858,"name":"Spaulders of Heroism"}
+{"id":226859,"name":"Legplates of Heroism"}
+{"id":226860,"name":"Crown of Heroism"}
+{"id":226861,"name":"Gauntlets of Heroism"}
+{"id":226862,"name":"Breastplate of Heroism"}
+{"id":226863,"name":"Bracers of Heroism"}
+{"id":226864,"name":"Belt of Heroism"}
+{"id":226865,"name":"Wristguards of Heroism"}
+{"id":226866,"name":"Waistguard of Heroism"}
+{"id":226867,"name":"Pauldrons of Heroism"}
+{"id":226868,"name":"Legguards of Heroism"}
+{"id":226869,"name":"Faceguard of Heroism"}
+{"id":226870,"name":"Handguards of Heroism"}
+{"id":226871,"name":"Sabatons of Heroism"}
+{"id":226872,"name":"Chestguard of Heroism"}
+{"id":226881,"name":"Beastmaster's Treads"}
+{"id":226882,"name":"Beastmaster's Pants"}
+{"id":226883,"name":"Beastmaster's Gauntlets"}
+{"id":226884,"name":"Beastmaster's Mantle"}
+{"id":226885,"name":"Beastmaster's Bindings"}
+{"id":226886,"name":"Beastmaster's Tunic"}
+{"id":226887,"name":"Beastmaster's Cap"}
+{"id":226888,"name":"Beastmaster's Belt"}
+{"id":226905,"name":"Deathmist Belt"}
+{"id":226906,"name":"Deathmist Robe"}
+{"id":226907,"name":"Deathmist Bracers"}
+{"id":226908,"name":"Deathmist Sandals"}
+{"id":226909,"name":"Deathmist Mask"}
+{"id":226910,"name":"Deathmist Leggings"}
+{"id":226911,"name":"Deathmist Wraps"}
+{"id":226912,"name":"Deathmist Mantle"}
+{"id":226929,"name":"Sorcerer's Bindings"}
+{"id":226930,"name":"Sorcerer's Gauntlets"}
+{"id":226931,"name":"Sorcerer's Sandals"}
+{"id":226932,"name":"Sorcerer's Robes"}
+{"id":226933,"name":"Sorcerer's Leggings"}
+{"id":226934,"name":"Sorcerer's Belt"}
+{"id":226935,"name":"Sorcerer's Crown"}
+{"id":226936,"name":"Sorcerer's Mantle"}
+{"id":226945,"name":"Virtuous Robe"}
+{"id":226946,"name":"Virtuous Skirt"}
+{"id":226947,"name":"Virtuous Crown"}
+{"id":226948,"name":"Virtuous Belt"}
+{"id":226949,"name":"Virtuous Bracers"}
+{"id":226950,"name":"Virtuous Mitts"}
+{"id":226951,"name":"Virtuous Mantle"}
+{"id":226952,"name":"Virtuous Sandals"}
+{"id":226953,"name":"Virtuous Wraps"}
+{"id":226954,"name":"Virtuous Cord"}
+{"id":226955,"name":"Virtuous Epaulets"}
+{"id":226956,"name":"Virtuous Leggings"}
+{"id":226957,"name":"Virtuous Cowl"}
+{"id":226958,"name":"Virtuous Hands"}
+{"id":226959,"name":"Virtuous Slippers"}
+{"id":226960,"name":"Virtuous Gown"}
+{"id":226969,"name":"Soulforge Spaulders"}
+{"id":226970,"name":"Soulforge Bracers"}
+{"id":226971,"name":"Soulforge Belt"}
+{"id":226972,"name":"Soulforge Legplates"}
+{"id":226973,"name":"Soulforge Breastplate"}
+{"id":226974,"name":"Soulforge Warboots"}
+{"id":226975,"name":"Soulforge Gauntlets"}
+{"id":226976,"name":"Soulforge Greathelm"}
+{"id":226977,"name":"Soulforge Bindings"}
+{"id":226978,"name":"Soulforge Cord"}
+{"id":226979,"name":"Soulforge Epaulets"}
+{"id":226980,"name":"Soulforge Leggings"}
+{"id":226981,"name":"Soulforge Crown"}
+{"id":226982,"name":"Soulforge Fists"}
+{"id":226983,"name":"Soulforge Treads"}
+{"id":226984,"name":"Soulforge Embrace"}
+{"id":226985,"name":"Soulforge Wristguards"}
+{"id":226986,"name":"Soulforge Waistguard"}
+{"id":226987,"name":"Soulforge Pauldrons"}
+{"id":226988,"name":"Soulforge Legguards"}
+{"id":226989,"name":"Soulforge Faceguard"}
+{"id":226990,"name":"Soulforge Handguards"}
+{"id":226991,"name":"Soulforge Sabatons"}
+{"id":226992,"name":"Soulforge Chestguards"}
+{"id":227001,"name":"Bindings of The Five Thunders"}
+{"id":227002,"name":"Coif of The Five Thunders"}
+{"id":227003,"name":"Pauldrons of The Five Thunders"}
+{"id":227004,"name":"Vest of The Five Thunders"}
+{"id":227005,"name":"Kilt of The Five Thunders"}
+{"id":227006,"name":"Gauntlets of The Five Thunders"}
+{"id":227007,"name":"Slippers of The Five Thunders"}
+{"id":227008,"name":"Cord of The Five Thunders"}
+{"id":227009,"name":"Bracers of The Five Thunders"}
+{"id":227010,"name":"Sash of The Five Thunders"}
+{"id":227011,"name":"Mantle of The Five Thunders"}
+{"id":227012,"name":"Leggings of The Five Thunders"}
+{"id":227013,"name":"Crown of The Five Thunders"}
+{"id":227014,"name":"Grasp of The Five Thunders"}
+{"id":227015,"name":"Greaves of The Five Thunders"}
+{"id":227016,"name":"Tunic of The Five Thunders"}
+{"id":227017,"name":"Bands of The Five Thunders"}
+{"id":227018,"name":"Girdle of The Five Thunders"}
+{"id":227019,"name":"Spaulders of The Five Thunders"}
+{"id":227020,"name":"Legplates of The Five Thunders"}
+{"id":227021,"name":"Face of The Five Thunders"}
+{"id":227022,"name":"Fists of The Five Thunders"}
+{"id":227023,"name":"Treads of The Five Thunders"}
+{"id":227024,"name":"Chain of The Five Thunders"}
+{"id":227041,"name":"Scourge Shadow Scalpel","quest_item":true}
+{"id":227042,"name":"Champion's Plate Shoulders"}
+{"id":227043,"name":"Champion's Plate Helm"}
+{"id":227044,"name":"Lieutenant Commander's Plate Helm"}
+{"id":227045,"name":"Lieutenant Commander's Plate Shoulders"}
+{"id":227046,"name":"Knight-Captain's Plate Hauberk"}
+{"id":227047,"name":"Knight-Captain's Plate Leggings"}
+{"id":227048,"name":"Legionnaire's Plate Leggings"}
+{"id":227049,"name":"Legionnaire's Plate Hauberk"}
+{"id":227050,"name":"Blood Guard's Plate Gauntlets"}
+{"id":227051,"name":"Blood Guard's Plate Greaves"}
+{"id":227052,"name":"Knight-Lieutenant's Plate Greaves"}
+{"id":227053,"name":"Knight-Lieutenant's Plate Gauntlets"}
+{"id":227054,"name":"Lieutenant Commander's Leather Shoulders"}
+{"id":227055,"name":"Lieutenant Commander's Leather Helm"}
+{"id":227056,"name":"Champion's Leather Shoulders"}
+{"id":227057,"name":"Champion's Leather Helm"}
+{"id":227058,"name":"Knight-Captain's Leather Chestpiece"}
+{"id":227059,"name":"Legionnaire's Leather Legguards"}
+{"id":227060,"name":"Legionnaire's Leather Chestpiece"}
+{"id":227061,"name":"Knight-Captain's Leather Legguards"}
+{"id":227062,"name":"Blood Guard's Leather Walkers"}
+{"id":227063,"name":"Blood Guard's Leather Grips"}
+{"id":227064,"name":"Knight-Lieutenant's Leather Walkers"}
+{"id":227065,"name":"Knight-Lieutenant's Leather Grips"}
+{"id":227066,"name":"Lieutenant Commander's Chain Helm"}
+{"id":227067,"name":"Champion's Chain Helm"}
+{"id":227068,"name":"Lieutenant Commander's Chain Shoulders"}
+{"id":227069,"name":"Champion's Chain Shoulders"}
+{"id":227070,"name":"Knight-Captain's Chain Hauberk"}
+{"id":227071,"name":"Legionnaire's Chain Hauberk"}
+{"id":227072,"name":"Knight-Captain's Chain Legguards"}
+{"id":227073,"name":"Legionnaire's Chain Legguards"}
+{"id":227074,"name":"Blood Guard's Chain Greaves"}
+{"id":227075,"name":"Blood Guard's Chain Vices"}
+{"id":227076,"name":"Knight-Lieutenant's Chain Greaves"}
+{"id":227077,"name":"Knight-Lieutenant's Chain Vices"}
+{"id":227078,"name":"Champion's Chain Pauldrons"}
+{"id":227079,"name":"Legionnaire's Chain Legplates"}
+{"id":227080,"name":"Champion's Chain Greathelm"}
+{"id":227081,"name":"Blood Guard's Chain Grips"}
+{"id":227082,"name":"Blood Guard's Chain Sabatons"}
+{"id":227083,"name":"Legionnaire's Chain Armor"}
+{"id":227084,"name":"Lieutenant Commander's Chain Pauldrons"}
+{"id":227085,"name":"Knight-Captain's Chain Legplates"}
+{"id":227086,"name":"Lieutenant Commander's Chain Greathelm"}
+{"id":227087,"name":"Knight-Lieutenant's Chain Grips"}
+{"id":227088,"name":"Knight-Lieutenant's Chain Sabatons"}
+{"id":227089,"name":"Knight-Captain's Chain Armor"}
+{"id":227090,"name":"Champion's Dreadweave Cowl"}
+{"id":227091,"name":"Lieutenant Commander's Dreadweave Spaulders"}
+{"id":227092,"name":"Champion's Dreadweave Spaulders"}
+{"id":227093,"name":"Lieutenant Commander's Dreadweave Cowl"}
+{"id":227094,"name":"Legionnaire's Dreadweave Tunic"}
+{"id":227095,"name":"Knight-Captain's Dreadweave Legguards"}
+{"id":227096,"name":"Knight-Captain's Dreadweave Tunic"}
+{"id":227097,"name":"Legionnaire's Dreadweave Legguards"}
+{"id":227098,"name":"Blood Guard's Dreadweave Walkers"}
+{"id":227099,"name":"Blood Guard's Dreadweave Handwraps"}
+{"id":227100,"name":"Knight-Lieutenant's Dreadweave Handwraps"}
+{"id":227101,"name":"Knight-Lieutenant's Dreadweave Walkers"}
+{"id":227102,"name":"Lieutenant Commander's Silk Mantle"}
+{"id":227103,"name":"Lieutenant Commander's Silk Cowl"}
+{"id":227104,"name":"Champion's Silk Mantle"}
+{"id":227105,"name":"Champion's Silk Cowl"}
+{"id":227106,"name":"Legionnaire's Silk Tunic"}
+{"id":227107,"name":"Legionnaire's Silk Legguards"}
+{"id":227108,"name":"Knight-Captain's Silk Tunic"}
+{"id":227109,"name":"Knight-Captain's Silk Legguards"}
+{"id":227110,"name":"Blood Guard's Silk Walkers"}
+{"id":227111,"name":"Blood Guard's Silk Handwraps"}
+{"id":227112,"name":"Knight-Lieutenant's Silk Walkers"}
+{"id":227113,"name":"Knight-Lieutenant's Silk Handwraps"}
+{"id":227114,"name":"Knight-Lieutenant's Silk Gauntlets"}
+{"id":227115,"name":"Blood Guard's Silk Gauntlets"}
+{"id":227118,"name":"Champion's Satin Hood"}
+{"id":227119,"name":"Lieutenant Commander's Satin Mantle"}
+{"id":227120,"name":"Champion's Satin Mantle"}
+{"id":227121,"name":"Lieutenant Commander's Satin Hood"}
+{"id":227122,"name":"Knight-Captain's Satin Tunic"}
+{"id":227123,"name":"Legionnaire's Satin Legguards"}
+{"id":227124,"name":"Legionnaire's Satin Tunic"}
+{"id":227125,"name":"Knight-Captain's Satin Legguards"}
+{"id":227126,"name":"Blood Guard's Satin Handwraps"}
+{"id":227127,"name":"Blood Guard's Satin Walkers"}
+{"id":227128,"name":"Knight-Lieutenant's Satin Handwraps"}
+{"id":227129,"name":"Knight-Lieutenant's Satin Walkers"}
+{"id":227130,"name":"Champion's Satin Epaulets"}
+{"id":227131,"name":"Legionnaire's Satin Leggings"}
+{"id":227132,"name":"Champion's Satin Crown"}
+{"id":227133,"name":"Blood Guard's Satin Grips"}
+{"id":227134,"name":"Blood Guard's Satin Treads"}
+{"id":227135,"name":"Legionnaire's Satin Robe"}
+{"id":227136,"name":"Lieutenant Commander's Satin Epaulets"}
+{"id":227137,"name":"Knight-Captain's Satin Leggings"}
+{"id":227138,"name":"Lieutenant Commander's Satin Crown"}
+{"id":227139,"name":"Knight-Lieutenant's Satin Grips"}
+{"id":227140,"name":"Knight-Lieutenant's Satin Treads"}
+{"id":227141,"name":"Knight-Captain's Satin Robe"}
+{"id":227142,"name":"Knight-Captain's Lamellar Breastplate"}
+{"id":227143,"name":"Knight-Captain's Lamellar Leggings"}
+{"id":227144,"name":"Lieutenant Commander's Lamellar Headguard"}
+{"id":227145,"name":"Lieutenant Commander's Lamellar Shoulders"}
+{"id":227146,"name":"Knight-Lieutenant's Lamellar Sabatons"}
+{"id":227147,"name":"Knight-Lieutenant's Lamellar Gauntlets"}
+{"id":227148,"name":"Lieutenant Commander's Lamellar Pauldrons"}
+{"id":227149,"name":"Lieutenant Commander's Lamellar Helmet"}
+{"id":227150,"name":"Knight-Captain's Lamellar Legguards"}
+{"id":227151,"name":"Knight-Captain's Lamellar Chestplate"}
+{"id":227152,"name":"Knight-Lieutenant's Lamellar Gloves"}
+{"id":227153,"name":"Knight-Lieutenant's Lamellar Greaves"}
+{"id":227154,"name":"Champion's Mail Pauldrons"}
+{"id":227155,"name":"Champion's Mail Headguard"}
+{"id":227156,"name":"Legionnaire's Mail Legguards"}
+{"id":227157,"name":"Legionnaire's Mail Hauberk"}
+{"id":227158,"name":"Blood Guard's Mail Greaves"}
+{"id":227159,"name":"Blood Guard's Mail Vices"}
+{"id":227160,"name":"Champion's Mail Spaulders"}
+{"id":227161,"name":"Legionnaire's Mail Leggings"}
+{"id":227162,"name":"Champion's Mail Helm"}
+{"id":227163,"name":"Blood Guard's Mail Gauntlets"}
+{"id":227164,"name":"Blood Guard's Mail Sabatons"}
+{"id":227165,"name":"Legionnaire's Mail Breastplate"}
+{"id":227166,"name":"Champion's Mail Epaulets"}
+{"id":227167,"name":"Legionnaire's Mail Pants"}
+{"id":227168,"name":"Champion's Mail Skullcap"}
+{"id":227169,"name":"Blood Guard's Mail Gloves"}
+{"id":227170,"name":"Blood Guard's Mail Boots"}
+{"id":227171,"name":"Legionnaire's Mail Chestguard"}
+{"id":227172,"name":"Lieutenant Commander's Dragonhide Shoulders"}
+{"id":227173,"name":"Lieutenant Commander's Dragonhide Headguard"}
+{"id":227174,"name":"Champion's Dragonhide Headguard"}
+{"id":227175,"name":"Champion's Dragonhide Shoulders"}
+{"id":227176,"name":"Knight-Captain's Dragonhide Chestpiece"}
+{"id":227177,"name":"Legionnaire's Dragonhide Leggings"}
+{"id":227178,"name":"Knight-Captain's Dragonhide Leggings"}
+{"id":227179,"name":"Legionnaire's Dragonhide Chestpiece"}
+{"id":227180,"name":"Blood Guard's Dragonhide Grips"}
+{"id":227181,"name":"Blood Guard's Dragonhide Treads"}
+{"id":227182,"name":"Knight-Lieutenant's Dragonhide Treads"}
+{"id":227183,"name":"Knight-Lieutenant's Dragonhide Grips"}
+{"id":227184,"name":"Champion's Dragonhide Spaulders"}
+{"id":227185,"name":"Legionnaire's Dragonhide Pants"}
+{"id":227186,"name":"Champion's Dragonhide Helm"}
+{"id":227187,"name":"Blood Guard's Dragonhide Gloves"}
+{"id":227188,"name":"Blood Guard's Dragonhide Boots"}
+{"id":227189,"name":"Legionnaire's Dragonhide Armor"}
+{"id":227190,"name":"Lieutenant Commander's Dragonhide Spaulders"}
+{"id":227191,"name":"Knight-Captain's Dragonhide Pants"}
+{"id":227192,"name":"Lieutenant Commander's Dragonhide Helm"}
+{"id":227193,"name":"Knight-Lieutenant's Dragonhide Gloves"}
+{"id":227194,"name":"Knight-Lieutenant's Dragonhide Boots"}
+{"id":227195,"name":"Knight-Captain's Dragonhide Armor"}
+{"id":227196,"name":"Knight-Captain's Dragonhide Tunic"}
+{"id":227197,"name":"Knight-Lieutenant's Dragonhide Greaves"}
+{"id":227198,"name":"Knight-Lieutenant's Dragonhide Gauntlets"}
+{"id":227199,"name":"Lieutenant Commander's Dragonhide Headdress"}
+{"id":227200,"name":"Knight-Captain's Dragonhide Legguards"}
+{"id":227201,"name":"Lieutenant Commander's Dragonhide Pauldrons"}
+{"id":227202,"name":"Legionnaire's Dragonhide Tunic"}
+{"id":227203,"name":"Blood Guard's Dragonhide Greaves"}
+{"id":227204,"name":"Blood Guard's Dragonhide Gauntlets"}
+{"id":227205,"name":"Champion's Dragonhide Headdress"}
+{"id":227206,"name":"Legionnaire's Dragonhide Legguards"}
+{"id":227207,"name":"Champion's Dragonhide Pauldrons"}
 {"id":227285,"name":"Fantastic Inventions","quest_item":true}
 {"id":227286,"name":"Warmed Rumsey Rum with Cream"}
+{"id":227337,"name":"Feline Gloves and Belt Set"}
+{"id":227338,"name":"Astral Gloves and Belt Set"}
+{"id":227339,"name":"Guardian's Gloves and Belt Set"}
+{"id":227340,"name":"Mender's Gloves and Belt Set"}
+{"id":227341,"name":"Pursuer's Gloves and Belt Set"}
+{"id":227343,"name":"Merciful Gloves and Belt Set"}
+{"id":227344,"name":"Radiant Gloves and Belt Set"}
+{"id":227345,"name":"Divine Will Gloves and Belt Set"}
+{"id":227346,"name":"Dawn Gloves and Belt Set"}
+{"id":227347,"name":"Twilight Gloves and Belt Set"}
+{"id":227348,"name":"Thrill's Gloves and Belt Set"}
+{"id":227350,"name":"Relief's Gloves and Belt Set"}
+{"id":227351,"name":"Eruption's Gloves and Belt Set"}
+{"id":227352,"name":"Impact's Gloves and Belt Set"}
+{"id":227354,"name":"Corrupted Gloves and Belt Set"}
+{"id":227356,"name":"Immoveable Gloves and Belt Set"}
+{"id":227357,"name":"Unstoppable Gloves and Belt Set"}
+{"id":227359,"name":"Feline Boots, Legs, and Shoulders Set"}
+{"id":227360,"name":"Astral Boots, Legs, and Shoulders Set"}
+{"id":227361,"name":"Guardian's Boots, Legs, and Shoulders Set"}
+{"id":227365,"name":"Mender's Boots, Legs, and Shoulders Set"}
+{"id":227366,"name":"Pursuer's Boots, Legs, and Shoulders Set"}
+{"id":227368,"name":"Merciful Boots, Legs, and Shoulders Set"}
+{"id":227369,"name":"Radiant Boots, Legs, and Shoulders Set"}
+{"id":227370,"name":"Divine Will Boots, Legs, and Shoulders Set"}
+{"id":227371,"name":"Dawn Boots, Legs, and Shoulders Set"}
+{"id":227372,"name":"Twilight Boots, Legs, and Shoulders Set"}
+{"id":227373,"name":"Thrill's Boots, Legs, and Shoulders Set"}
+{"id":227375,"name":"Relief's Boots, Legs, and Shoulders Set"}
+{"id":227376,"name":"Eruption's Boots, Legs, and Shoulders Set"}
+{"id":227377,"name":"Impact's Boots, Legs, and Shoulders Set"}
+{"id":227379,"name":"Corrupted Boots, Legs, and Shoulders Set"}
+{"id":227381,"name":"Immoveable Boots, Legs, and Shoulders Set"}
+{"id":227382,"name":"Unstoppable Boots, Legs, and Shoulders Set"}
+{"id":227383,"name":"Feline Helm and Chestpiece Set"}
+{"id":227384,"name":"Astral Helm and Chestpiece Set"}
+{"id":227385,"name":"Guardian's Helm and Chestpiece Set"}
+{"id":227387,"name":"Mender's Helm and Chestpiece Set"}
+{"id":227388,"name":"Pursuer's Helm and Chestpiece Set"}
+{"id":227390,"name":"Merciful Helm and Chestpiece Set"}
+{"id":227391,"name":"Radiant Helm and Chestpiece Set"}
+{"id":227392,"name":"Divine Will Helm and Chestpiece Set"}
+{"id":227393,"name":"Dawn Helm and Chestpiece Set"}
+{"id":227394,"name":"Twilight Helm and Chestpiece Set"}
+{"id":227395,"name":"Thrill's Helm and Chestpiece Set"}
+{"id":227397,"name":"Relief's Helm and Chestpiece Set"}
+{"id":227398,"name":"Eruption's Helm and Chestpiece Set"}
+{"id":227399,"name":"Impact's Helm and Chestpiece Set"}
+{"id":227401,"name":"Corrupted Helm and Chestpiece Set"}
+{"id":227403,"name":"Immoveable Helm and Chestpiece Set"}
+{"id":227404,"name":"Unstoppable Helm and Chestpiece Set"}
+{"id":227444,"name":"Idol of the Huntress"}
+{"id":227451,"name":"Sending Sigil"}
+{"id":227456,"name":"Rune of the Crimson Tempest"}
+{"id":227549,"name":"Scrap of Parchment"}
+{"id":227552,"name":"Shredded Parchment"}
 {"id":227658,"name":"Shadowsworn Note","quest_item":true}
+{"id":227685,"name":"Modified Shadow Scalpel","quest_item":true}
+{"id":227686,"name":"Ornate Warhammer","quest_item":true}
+{"id":227687,"name":"Orthas' Favorite Gold Tooth","quest_item":true}
+{"id":227689,"name":"Partially-Digested Plate Armor","quest_item":true}
+{"id":227690,"name":"Necrotic Runestone","quest_item":true}
+{"id":227727,"name":"Plans: Sulfuron Hammer"}
+{"id":227730,"name":"Thorium Brotherhood Contract","quest_item":true}
+{"id":227743,"name":"Obsidian Power Core","quest_item":true}
+{"id":227745,"name":"Family Heirloom","quest_item":true}
+{"id":227746,"name":"Rune of the World Tree"}
+{"id":227747,"name":"Family Records","quest_item":true}
+{"id":227748,"name":"Survivor Journal","quest_item":true}
+{"id":227749,"name":"Rune of the Falling Star"}
+{"id":227767,"name":"Flamestone Cluster","quest_item":true}
+{"id":227768,"name":"Dreamjuice","quest_item":true}
 {"id":227796,"name":"Mysterious 'Darnassian' Scroll"}
 {"id":227797,"name":"Mysterious 'Darnassian' Scroll"}
 {"id":227801,"name":"Firelands Ember"}
+{"id":227802,"name":"Monster - Torch"}
+{"id":227803,"name":"Dire Warbear Harness"}
+{"id":227804,"name":"Dire Warbear Woolies"}
+{"id":227805,"name":"Ferocity of the Timbermaw"}
+{"id":227807,"name":"Dense Timbermaw Belt"}
+{"id":227808,"name":"Rugged Mantle of the Timbermaw"}
+{"id":227809,"name":"Studded Timbermaw Brawlers"}
+{"id":227810,"name":"Dense Timbermaw Boots"}
 {"id":227813,"name":"Drinkable Stratholme Holy Water"}
+{"id":227814,"name":"Radiant Girdle of the Dawn"}
+{"id":227815,"name":"Fine Dawn Treaders"}
+{"id":227816,"name":"Argent Elite Boots"}
+{"id":227817,"name":"Radiant Gloves of the Dawn"}
+{"id":227818,"name":"Glowing Mantle of the Dawn"}
+{"id":227819,"name":"Blessed Flame Mantle of the Dawn"}
+{"id":227844,"name":"Leather-Reinforced Runecloth Bag"}
+{"id":227859,"name":"Shimmering Dawnbringer Shoulders"}
+{"id":227862,"name":"Incandescent Mooncloth Boots"}
+{"id":227888,"name":"Argent Elite Shoulders"}
+{"id":227895,"name":"Pattern: Golden Mantle of the Dawn"}
+{"id":227896,"name":"Pattern: Argent Boots"}
+{"id":227897,"name":"Pattern: Argent Shoulders"}
+{"id":227898,"name":"Pattern: Honed Blue Dragonscale Breastplate"}
+{"id":227899,"name":"Pattern: Honed Blue Dragonscale Shoulders"}
+{"id":227900,"name":"Pattern: Living Green Dragonscale Leggings"}
+{"id":227901,"name":"Plans: Tempered Dark Iron Plate"}
+{"id":227902,"name":"Pattern: Hardened Black Dragonscale Breastplate"}
+{"id":227903,"name":"Pattern: Hardened Black Dragonscale Leggings"}
+{"id":227904,"name":"Pattern: Hardened Black Dragonscale Shoulders"}
+{"id":227905,"name":"Plans: Skyrider's Masterwork Stormhammer"}
+{"id":227906,"name":"Pattern: Masterwork Volcanic Breastplate"}
+{"id":227907,"name":"Pattern: Masterwork Volcanic Shoulders"}
+{"id":227908,"name":"Pattern: Masterwork Volcanic Leggings"}
+{"id":227909,"name":"Plans: Fiery Plate Gauntlets of the Hidden Technique"}
+{"id":227910,"name":"Pattern: Brilliant Chromatic Cloak"}
 {"id":227911,"name":"Head of Rend Blackhand"}
+{"id":227912,"name":"Applied Divinity","quest_item":true}
+{"id":227921,"name":"Rune of Knives"}
+{"id":227922,"name":"Rune of the Swashbuckler"}
 {"id":227924,"name":"Unusual Flask"}
+{"id":227928,"name":"Toolbox Key"}
+{"id":227930,"name":"Safe Box Key"}
+{"id":227931,"name":"Hidden Bundle"}
+{"id":227932,"name":"Rusty Crowbar"}
+{"id":227935,"name":"Hammer of the Fallen Thane"}
+{"id":227937,"name":"Puzzle Box","quest_item":true}
+{"id":227938,"name":"Shard of Light","quest_item":true}
+{"id":227939,"name":"Shard of Light","quest_item":true}
+{"id":227947,"name":"Golem Fitted Pauldrons"}
+{"id":228105,"name":"Everburning Flame Core","quest_item":true}
+{"id":228114,"name":"Plans: Refined Arcanite Reaper"}
+{"id":228117,"name":"Plans: Refined Arcanite Champion"}
+{"id":228118,"name":"Plans: Stronger-hold Gauntlets"}
+{"id":228119,"name":"Pattern: Devilcore Gauntlets"}
+{"id":228120,"name":"Pattern: Devilcore Leggings"}
+{"id":228121,"name":"Pattern: Leather-Reinforced Runecloth Bag"}
 {"id":228123,"name":"Jubilant Epiphany"}
+{"id":228124,"name":"Oneiric Epiphany"}
+{"id":228126,"name":"Aperitive Epiphany"}
 {"id":228130,"name":"Altruist Ward"}
 {"id":228131,"name":"Altruist Ward"}
 {"id":228132,"name":"Undead Potatoes"}
@@ -17549,68 +18922,499 @@
 {"id":228134,"name":"Northern Kalimdor - A Comprehensive Guide"}
 {"id":228135,"name":"A Study of the Light"}
 {"id":228136,"name":"Ka-Boom!"}
+{"id":228138,"name":"The Knight and the Lady"}
+{"id":228140,"name":"Scourge: Undead Menace or Misunderstood?"}
 {"id":228141,"name":"Necromancy 101"}
+{"id":228144,"name":"Strange Note","quest_item":true}
 {"id":228175,"name":"Libram of Holy Alacrity"}
+{"id":228176,"name":"Totem of Thunder"}
+{"id":228189,"name":"Gift of Gob"}
+{"id":228190,"name":"Knowledge of the Timbermaw"}
+{"id":228191,"name":"Shimmering Molten Mineral","quest_item":true}
 {"id":228227,"name":"Scroll of Overwhelming Power"}
+{"id":228250,"name":"Plans: Stronger-hold Gauntlets"}
+{"id":228251,"name":"Pattern: Living Green Dragonscale Gauntlets"}
+{"id":228276,"name":"Pattern: Mastercrafted Shifting Cloak"}
+{"id":228301,"name":"Pattern: Swift Flight Vambraces"}
+{"id":228303,"name":"Pattern: Incandescent Mooncloth Robe"}
+{"id":228309,"name":"Pattern: Living Green Dragonscale Breastplate"}
+{"id":228310,"name":"Plans: Hardened Frostguard"}
+{"id":228311,"name":"Plans: Finely-Enchanted Battlehammer"}
+{"id":228312,"name":"Plans: Invincible Mail"}
+{"id":228313,"name":"Plans: Tempest Gauntlets"}
+{"id":228314,"name":"Plans: Warcrest of the Great Chief"}
+{"id":228315,"name":"Plans: Sageblade of the Archmagus"}
+{"id":228316,"name":"Pattern: Incandescent Mooncloth Vest"}
+{"id":228317,"name":"Pattern: Incandescent Mooncloth Circlet"}
+{"id":228318,"name":"Pattern: Incandescent Mooncloth Leggings"}
+{"id":228319,"name":"Pattern: Girdle of Arcane Insight"}
+{"id":228324,"name":"Gold Slaughter Coin","quest_item":true}
+{"id":228327,"name":"Satchel of Silver Slaughter Coins"}
+{"id":228477,"name":"Pattern: Embroidered Belt of the Archmage"}
 {"id":228615,"name":"Otherworldly Treasure"}
+{"id":228659,"name":"Ancient Rune Etched Stave","quest_item":true}
+{"id":228695,"name":"A Dull and Flat Elven Blade","quest_item":true}
+{"id":228696,"name":"Heated Ancient Blade","quest_item":true}
+{"id":228697,"name":"Treated Ancient Blade","quest_item":true}
+{"id":228749,"name":"Splinter of Nordrassil","quest_item":true}
 {"id":228912,"name":"Artifact Storage Key","quest_item":true}
 {"id":228978,"name":"Enchanted Sigil: Flowing Waters"}
+{"id":228979,"name":"Enchanted Sigil: Flowing Waters"}
+{"id":228982,"name":"Formula: Enchant Shield - Law of Nature"}
+{"id":228993,"name":"Pattern: Bottomless Bag"}
+{"id":229008,"name":"Formula: Enchant Cloak - Greater Fire Resistance"}
+{"id":229009,"name":"Formula: Enchant Cloak - Greater Nature Resistance"}
+{"id":229055,"name":"Frayed Aranasi Silk"}
+{"id":229056,"name":"Pumice Chunk"}
+{"id":229057,"name":"Impounded Goods"}
+{"id":229362,"name":"Storehouse Key"}
+{"id":229368,"name":"Gill'el"}
+{"id":229415,"name":"Survival Supplies","quest_item":true}
 {"id":229416,"name":"Warm Fur","quest_item":true}
+{"id":229894,"name":"Dream Emerald","quest_item":true}
+{"id":229897,"name":"Scroll: Create Signet of Beckoning"}
+{"id":229965,"name":"The Eye of Az'olgothal","quest_item":true}
+{"id":230008,"name":"Linkue Combatant Icon"}
+{"id":230018,"name":"Mannoroc Orb Fragments","quest_item":true}
+{"id":230903,"name":"Scroll: Essence of Fire","quest_item":true}
 {"id":230908,"name":"Imbued Essence of Fire","quest_item":true}
+{"id":230909,"name":"Depleted Essence of Fire","quest_item":true}
+{"id":230946,"name":"Scroll: SEENECS FO ROFTS","quest_item":true}
+{"id":230947,"name":"Scroll: Essence of Frost","quest_item":true}
 {"id":230948,"name":"Imbued Essence of Frost","quest_item":true}
+{"id":230949,"name":"Depleted Essence of Frost","quest_item":true}
 {"id":231298,"name":"Scroll of Lesser Spatial Mending"}
+{"id":231304,"name":"Scroll: SERELS PATALIS GNEMIND","quest_item":true}
+{"id":231313,"name":"Grimy Rune"}
+{"id":231386,"name":"Flawless Black Dragonscale","quest_item":true}
+{"id":231530,"name":"Warlord's Plate Armor"}
+{"id":231531,"name":"General's Plate Boots"}
+{"id":231532,"name":"General's Plate Gauntlets"}
+{"id":231533,"name":"General's Plate Leggings"}
+{"id":231534,"name":"Warlord's Plate Shoulders"}
+{"id":231535,"name":"Warlord's Plate Headpiece"}
+{"id":231536,"name":"Field Marshal's Plate Armor"}
+{"id":231537,"name":"Field Marshal's Plate Shoulderguards"}
+{"id":231538,"name":"Field Marshal's Plate Helm"}
+{"id":231539,"name":"Marshal's Plate Boots"}
+{"id":231540,"name":"Marshal's Plate Legguards"}
+{"id":231541,"name":"Marshal's Plate Gauntlets"}
+{"id":231543,"name":"Field Marshal's Leather Chestpiece"}
+{"id":231544,"name":"Marshal's Leather Handgrips"}
+{"id":231545,"name":"Field Marshal's Leather Mask"}
+{"id":231546,"name":"Marshal's Leather Footguards"}
+{"id":231547,"name":"Field Marshal's Leather Epaulets"}
+{"id":231548,"name":"Marshal's Leather Leggings"}
+{"id":231549,"name":"Warlord's Leather Breastplate"}
+{"id":231551,"name":"Warlord's Leather Spaulders"}
+{"id":231552,"name":"General's Leather Treads"}
+{"id":231553,"name":"Warlord's Leather Helm"}
+{"id":231554,"name":"General's Leather Legguards"}
+{"id":231555,"name":"General's Leather Mitts"}
+{"id":231557,"name":"Field Marshal's Chain Pauldrons"}
+{"id":231558,"name":"Marshal's Chain Legplates"}
+{"id":231560,"name":"Marshal's Chain Grips"}
+{"id":231561,"name":"Marshal's Chain Sabatons"}
+{"id":231562,"name":"Field Marshal's Chain Greathelm"}
+{"id":231563,"name":"Field Marshal's Chain Armor"}
+{"id":231564,"name":"General's Chain Sabatons"}
+{"id":231565,"name":"Warlord's Chain Pauldrons"}
+{"id":231566,"name":"Warlord's Chain Armor"}
+{"id":231567,"name":"General's Chain Legplates"}
+{"id":231568,"name":"Warlord's Chain Greathelm"}
+{"id":231569,"name":"General's Chain Grips"}
+{"id":231570,"name":"General's Chain Greaves"}
+{"id":231571,"name":"Warlord's Chain Helm"}
+{"id":231572,"name":"Warlord's Chain Shoulders"}
+{"id":231573,"name":"Warlord's Chain Hauberk"}
+{"id":231574,"name":"General's Chain Legguards"}
+{"id":231575,"name":"General's Chain Vices"}
+{"id":231576,"name":"Field Marshal's Chain Shoulders"}
+{"id":231577,"name":"Marshal's Chain Legguards"}
+{"id":231578,"name":"Marshal's Chain Vices"}
+{"id":231579,"name":"Marshal's Chain Greaves"}
+{"id":231580,"name":"Field Marshal's Chain Helm"}
+{"id":231581,"name":"Field Marshal's Chain Hauberk"}
+{"id":231582,"name":"Field Marshal's Dreadweave Robe"}
+{"id":231583,"name":"Field Marshal's Dreadweave Shoulders"}
+{"id":231584,"name":"Field Marshal's Coronal"}
+{"id":231585,"name":"Marshal's Dreadweave Boots"}
+{"id":231586,"name":"Marshal's Dreadweave Gloves"}
+{"id":231587,"name":"Marshal's Dreadweave Leggings"}
+{"id":231588,"name":"General's Dreadweave Pants"}
+{"id":231589,"name":"General's Dreadweave Gloves"}
+{"id":231590,"name":"Warlord's Dreadweave Hood"}
+{"id":231591,"name":"Warlord's Dreadweave Robe"}
+{"id":231592,"name":"Warlord's Dreadweave Mantle"}
+{"id":231593,"name":"General's Dreadweave Boots"}
+{"id":231594,"name":"Warlord's Silk Amice"}
+{"id":231595,"name":"General's Silk Trousers"}
+{"id":231596,"name":"Warlord's Silk Raiment"}
+{"id":231597,"name":"General's Silk Boots"}
+{"id":231599,"name":"General's Silk Gauntlets"}
+{"id":231600,"name":"General's Silk Handwraps"}
+{"id":231601,"name":"Warlord's Silk Cowl"}
+{"id":231602,"name":"Field Marshal's Silk Spaulders"}
+{"id":231603,"name":"Field Marshal's Silk Vestments"}
+{"id":231604,"name":"Field Marshal's Coronet"}
+{"id":231605,"name":"Marshal's Silk Leggings"}
+{"id":231606,"name":"Marshal's Silk Footwraps"}
+{"id":231608,"name":"Marshal's Silk Gauntlets"}
+{"id":231609,"name":"Marshal's Silk Handwraps"}
+{"id":231610,"name":"General's Satin Treads"}
+{"id":231611,"name":"Warlord's Satin Epaulets"}
+{"id":231612,"name":"Warlord's Satin Robes"}
+{"id":231613,"name":"General's Satin Grips"}
+{"id":231614,"name":"General's Satin Leggings"}
+{"id":231615,"name":"Warlord's Satin Crown"}
+{"id":231616,"name":"Field Marshal's Satin Crown"}
+{"id":231617,"name":"Marshal's Satin Grips"}
+{"id":231618,"name":"Field Marshal's Satin Robe"}
+{"id":231619,"name":"Marshal's Satin Leggings"}
+{"id":231620,"name":"Marshal's Satin Treads"}
+{"id":231621,"name":"Field Marshal's Satin Epaulets"}
+{"id":231622,"name":"Field Marshal's Satin Hood"}
+{"id":231623,"name":"Marshal's Satin Handwraps"}
+{"id":231624,"name":"Field Marshal's Satin Tunic"}
+{"id":231626,"name":"Marshal's Satin Legguards"}
+{"id":231627,"name":"Marshal's Satin Walkers"}
+{"id":231628,"name":"Field Marshal's Satin Mantle"}
+{"id":231630,"name":"General's Satin Walkers"}
+{"id":231631,"name":"Warlord's Satin Mantle"}
+{"id":231632,"name":"Warlord's Satin Tunic"}
+{"id":231633,"name":"General's Satin Handwraps"}
+{"id":231634,"name":"General's Satin Legguards"}
+{"id":231635,"name":"Warlord's Satin Hood"}
+{"id":231639,"name":"Marshal's Lamellar Legguards"}
+{"id":231640,"name":"Field Marshal's Lamellar Helmet"}
+{"id":231641,"name":"Field Marshal's Lamellar Chestplate"}
+{"id":231642,"name":"Warden's Herb Bag"}
+{"id":231643,"name":"Marshal's Lamellar Gloves"}
+{"id":231644,"name":"Warden's Enchanting Bag"}
+{"id":231645,"name":"Field Marshal's Lamellar Pauldrons"}
+{"id":231646,"name":"Marshal's Lamellar Greaves"}
+{"id":231647,"name":"Marshal's Lamellar Leggings"}
+{"id":231648,"name":"Field Marshal's Lamellar Headguard"}
+{"id":231649,"name":"Field Marshal's Lamellar Breastplate"}
+{"id":231650,"name":"Marshal's Lamellar Gauntlets"}
+{"id":231651,"name":"Field Marshal's Lamellar Shoulders"}
+{"id":231652,"name":"Marshal's Lamellar Sabatons"}
+{"id":231653,"name":"Warlord's Mail Hauberk"}
+{"id":231654,"name":"Warlord's Mail Pauldrons"}
+{"id":231655,"name":"General's Mail Vices"}
+{"id":231656,"name":"General's Mail Greaves"}
+{"id":231657,"name":"Warlord's Mail Headguard"}
+{"id":231658,"name":"General's Mail Legguards"}
+{"id":231659,"name":"Warlord's Mail Spaulders"}
+{"id":231660,"name":"General's Mail Gauntlets"}
+{"id":231661,"name":"General's Mail Sabatons"}
+{"id":231662,"name":"Warlord's Mail Breastplate"}
+{"id":231663,"name":"Warlord's Mail Helm"}
+{"id":231664,"name":"General's Mail Leggings"}
+{"id":231665,"name":"Warlord's Mail Epaulets"}
+{"id":231666,"name":"General's Mail Gloves"}
+{"id":231667,"name":"General's Mail Boots"}
+{"id":231668,"name":"Warlord's Mail Chestguard"}
+{"id":231669,"name":"Warlord's Mail Skullcap"}
+{"id":231670,"name":"General's Mail Pants"}
+{"id":231671,"name":"General's Dragonhide Greaves"}
+{"id":231672,"name":"Warlord's Dragonhide Pauldrons"}
+{"id":231673,"name":"General's Dragonhide Legguards"}
+{"id":231674,"name":"Warlord's Dragonhide Tunic"}
+{"id":231675,"name":"Warlord's Dragonhide Headdress"}
+{"id":231676,"name":"General's Dragonhide Gauntlets"}
+{"id":231677,"name":"General's Dragonhide Gloves"}
+{"id":231678,"name":"Warlord's Dragonhide Helm"}
+{"id":231679,"name":"Warlord's Dragonhide Armor"}
+{"id":231680,"name":"General's Dragonhide Pants"}
+{"id":231681,"name":"Warlord's Dragonhide Spaulders"}
+{"id":231682,"name":"General's Dragonhide Boots"}
+{"id":231683,"name":"General's Dragonhide Treads"}
+{"id":231684,"name":"Warlord's Dragonhide Shoulders"}
+{"id":231685,"name":"General's Dragonhide Leggings"}
+{"id":231686,"name":"Warlord's Dragonhide Chestpiece"}
+{"id":231687,"name":"Warlord's Dragonhide Headguard"}
+{"id":231688,"name":"General's Dragonhide Grips"}
+{"id":231689,"name":"Field Marshal's Dragonhide Headguard"}
+{"id":231690,"name":"Field Marshal's Dragonhide Chestpiece"}
+{"id":231691,"name":"Marshal's Dragonhide Leggings"}
+{"id":231692,"name":"Marshal's Dragonhide Treads"}
+{"id":231693,"name":"Field Marshal's Dragonhide Shoulders"}
+{"id":231694,"name":"Marshal's Dragonhide Grips"}
+{"id":231695,"name":"Field Marshal's Dragonhide Helm"}
+{"id":231696,"name":"Field Marshal's Dragonhide Armor"}
+{"id":231697,"name":"Marshal's Dragonhide Pants"}
+{"id":231698,"name":"Marshal's Dragonhide Boots"}
+{"id":231699,"name":"Field Marshal's Dragonhide Spaulders"}
+{"id":231700,"name":"Marshal's Dragonhide Gloves"}
+{"id":231701,"name":"Field Marshal's Dragonhide Headdress"}
+{"id":231702,"name":"Field Marshal's Dragonhide Tunic"}
+{"id":231703,"name":"Marshal's Dragonhide Legguards"}
+{"id":231704,"name":"Marshal's Dragonhide Greaves"}
+{"id":231705,"name":"Field Marshal's Dragonhide Pauldrons"}
+{"id":231706,"name":"Marshal's Dragonhide Gauntlets"}
+{"id":231732,"name":"Suspicious Supplies","quest_item":true}
 {"id":231778,"name":"Mountain Spring Water"}
+{"id":231789,"name":"Sigil of the Keeper"}
+{"id":231792,"name":"Soul of Mischief"}
+{"id":231793,"name":"Depleted Scythe of Chaos (Mischief)","quest_item":true}
+{"id":231794,"name":"Depleted Scythe of Chaos (Void)","quest_item":true}
+{"id":231795,"name":"Depleted Scythe of Chaos (Enthralling)","quest_item":true}
+{"id":231796,"name":"Depleted Scythe of Chaos (Devouring)","quest_item":true}
+{"id":231797,"name":"Soul of the Void"}
+{"id":231798,"name":"Soul of Enthralling"}
+{"id":231799,"name":"Soul of Devouring"}
+{"id":231800,"name":"Soul of Des'Altek"}
+{"id":231828,"name":"Rune of Meditation Specialization"}
+{"id":231829,"name":"Rune of Healing Specialization"}
 {"id":231836,"name":"Glowing Scroll of Spatial Mending"}
+{"id":231837,"name":"Shadow Carving","quest_item":true}
+{"id":231841,"name":"Blood of the Lightbringer","quest_item":true}
 {"id":231843,"name":"First Sigil Fragment"}
 {"id":231844,"name":"Second Sigil Fragment"}
 {"id":231845,"name":"Third Sigil Fragment"}
 {"id":231877,"name":"Tyler's Balanced Bobble"}
+{"id":231901,"name":"Truthbearer","quest_item":true}
+{"id":231903,"name":"Scrap of Torn Cloth","quest_item":true}
+{"id":231904,"name":"Tarnished Horn","quest_item":true}
+{"id":231909,"name":"Crystallized Starlight"}
+{"id":232312,"name":"Blood of the Lightbringer","quest_item":true}
 {"id":232324,"name":"Bird Whistle"}
 {"id":232343,"name":"QAEnchant Shield - Law of Nature"}
 {"id":232344,"name":"Vick's VIP Pass"}
+{"id":232358,"name":"Empty Reliquary","quest_item":true}
+{"id":232414,"name":"Dragontooth Blade","quest_item":true}
 {"id":232433,"name":"Dense Runecloth Bandage"}
+{"id":232434,"name":"Manual: Dense Runecloth Bandage"}
 {"id":232436,"name":"Darkclaw Bisque"}
+{"id":232437,"name":"Recipe: Darkclaw Bisque"}
 {"id":232438,"name":"Smoked Redgill"}
+{"id":232443,"name":"Recipe: Smoked Redgill"}
 {"id":232454,"name":"Emblem of the Wild Gods"}
 {"id":232455,"name":"Emblem of Dishonor"}
 {"id":232456,"name":"Emblem of the Violet Eye"}
 {"id":232457,"name":"Emblem of the Worldcore"}
+{"id":232458,"name":"Rune of Improved Sanctuary"}
+{"id":232459,"name":"Rune of Backdraft"}
+{"id":232460,"name":"Rune of Displacement"}
+{"id":232461,"name":"Rune of Despair"}
+{"id":232462,"name":"Rune of Purifying Power"}
+{"id":232549,"name":"Logistics Task Briefing VI","quest_item":true}
+{"id":232610,"name":"Formula: Magnificent Trollshine"}
+{"id":232611,"name":"Magnificent Trollshine"}
+{"id":232652,"name":"Zila Amanemodas"}
+{"id":233197,"name":"Argent Training Manual"}
+{"id":233198,"name":"Horn of the Dawn"}
+{"id":233200,"name":"Songflower Seed"}
+{"id":233209,"name":"Firewater Cauldron"}
 {"id":233217,"name":"Tunneler's Incense"}
+{"id":233250,"name":"Ancient Branch"}
 {"id":234012,"name":"Hive Thistle"}
+{"id":234016,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234017,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234018,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234019,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234020,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234021,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234022,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234023,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234024,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234025,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234026,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234027,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234028,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234029,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234030,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234031,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234032,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234033,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234034,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234035,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234198,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234199,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234200,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234201,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234202,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234271,"name":"Formula: Scroll: Wrath of the Swarm"}
+{"id":234272,"name":"Formula: Enchanted Repellent"}
+{"id":234436,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234437,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234438,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234439,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234440,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234444,"name":"Occult Poison II"}
+{"id":234465,"name":"Reins of the Swift Spectral Tiger"}
+{"id":234542,"name":"High Warlord's Greatsword"}
+{"id":234543,"name":"High Warlord's Battle Axe"}
+{"id":234545,"name":"High Warlord's Pulverizer"}
+{"id":234546,"name":"High Warlord's Destroyer"}
+{"id":234547,"name":"High Warlord's Pig Sticker"}
+{"id":234548,"name":"High Warlord's Pig Poker"}
+{"id":234549,"name":"High Warlord's War Staff"}
+{"id":234550,"name":"High Warlord's Spellblade"}
+{"id":234551,"name":"High Warlord's Battle Mace"}
+{"id":234552,"name":"High Warlord's Blade"}
+{"id":234553,"name":"High Warlord's Quickblade"}
+{"id":234554,"name":"High Warlord's Cleaver"}
+{"id":234555,"name":"High Warlord's Bludgeon"}
+{"id":234556,"name":"High Warlord's Razor"}
+{"id":234557,"name":"High Warlord's Right Claw"}
+{"id":234558,"name":"High Warlord's Left Claw"}
+{"id":234559,"name":"High Warlord's Recurve"}
+{"id":234560,"name":"High Warlord's Crossbow"}
+{"id":234561,"name":"High Warlord's Street Sweeper"}
+{"id":234562,"name":"High Warlord's Shield Wall"}
+{"id":234563,"name":"High Warlord's Tome of Destruction"}
+{"id":234564,"name":"High Warlord's Tome of Mending"}
+{"id":234565,"name":"Grand Marshal's Claymore"}
+{"id":234566,"name":"Grand Marshal's Sunderer"}
+{"id":234567,"name":"Grand Marshal's Battle Hammer"}
+{"id":234568,"name":"Grand Marshal's Demolisher"}
+{"id":234569,"name":"Grand Marshal's Glaive"}
+{"id":234570,"name":"Grand Marshal's Polearm"}
+{"id":234571,"name":"Grand Marshal's Stave"}
+{"id":234574,"name":"Grand Marshal's Mageblade"}
+{"id":234576,"name":"Grand Marshal's Warhammer"}
+{"id":234578,"name":"Grand Marshal's Longsword"}
+{"id":234579,"name":"Grand Marshal's Swiftblade"}
+{"id":234580,"name":"Grand Marshal's Handaxe"}
+{"id":234581,"name":"Grand Marshal's Punisher"}
+{"id":234582,"name":"Grand Marshal's Dirk"}
+{"id":234583,"name":"Grand Marshal's Right Hand Blade"}
+{"id":234584,"name":"Grand Marshal's Left Hand Blade"}
+{"id":234585,"name":"Grand Marshal's Bullseye"}
+{"id":234586,"name":"Grand Marshal's Repeater"}
+{"id":234587,"name":"Grand Marshal's Hand Cannon"}
+{"id":234588,"name":"Grand Marshal's Aegis"}
+{"id":234589,"name":"Grand Marshal's Tome of Power"}
+{"id":234590,"name":"Grand Marshal's Tome of Restoration"}
 {"id":234728,"name":"Hakkari Summoning Token","quest_item":true}
 {"id":234817,"name":"Roots Within Stone","quest_item":true}
 {"id":234818,"name":"Essence Bottle","quest_item":true}
 {"id":234819,"name":"Demonic Gauntlet"}
 {"id":234820,"name":"Acidic Goo","quest_item":true}
+{"id":234964,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234965,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234966,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234967,"name":"Signet Ring of the Bronze Dragonflight"}
+{"id":234968,"name":"Signet Ring of the Bronze Dragonflight"}
 {"id":235044,"name":"Goo-Covered Demonic Gauntlet"}
 {"id":235256,"name":"Severed Legashi Horn","quest_item":true}
+{"id":235275,"name":"Portals Deck","quest_item":true}
+{"id":235276,"name":"Elementals Deck","quest_item":true}
+{"id":235277,"name":"Warlords Deck","quest_item":true}
+{"id":235278,"name":"Beasts Deck","quest_item":true}
 {"id":235334,"name":"Feardred's Amulet","quest_item":true}
 {"id":235470,"name":"Satyrweed","quest_item":true}
 {"id":235471,"name":"Fel Mote","quest_item":true}
 {"id":235472,"name":"Legashi Firewater","quest_item":true}
+{"id":235473,"name":"Grand Marshal's Barricade"}
+{"id":235474,"name":"High Warlord's Barricade"}
+{"id":235476,"name":"High Warlord's Hacker"}
+{"id":235477,"name":"High Warlord's Bonecracker"}
+{"id":235478,"name":"High Warlord's Shiv"}
+{"id":235479,"name":"Grand Marshal's Shiv"}
+{"id":235480,"name":"Grand Marshal's Bonecracker"}
+{"id":235481,"name":"Grand Marshal's Hacker"}
 {"id":235509,"name":"Satyrweed Tincture","quest_item":true}
 {"id":235510,"name":"Bramblesnap's Panacea","quest_item":true}
+{"id":235517,"name":"Torch"}
 {"id":235518,"name":"Timbermaw War Banner","quest_item":true}
+{"id":235597,"name":"Spell Notes: Deep Freeze"}
+{"id":235598,"name":"Spell Notes: Icy Veins"}
+{"id":235599,"name":"Spell Notes: Temporal Anomaly"}
+{"id":235600,"name":"Rune of Divine Storm"}
+{"id":235601,"name":"Rune of Fanaticism"}
+{"id":235602,"name":"Rune of Hammer of the Righteous"}
+{"id":235603,"name":"Rune of Righteous Vengeance"}
+{"id":235604,"name":"Rune of Shield of Righteousness"}
+{"id":235605,"name":"Rune of Shock and Awe"}
 {"id":235645,"name":"Legashi Firewater Recipe","quest_item":true}
 {"id":235785,"name":"Deadwind Cage \"Key\"","quest_item":true}
 {"id":235786,"name":"Karazhan Curio"}
+{"id":235787,"name":"Ancient Ironwood Branch","quest_item":true}
+{"id":235788,"name":"Enthusiastic Wisp","quest_item":true}
+{"id":235789,"name":"Flame of Life","quest_item":true}
+{"id":235790,"name":"Enchanted Firebrand","quest_item":true}
+{"id":235852,"name":"Violet Satchel","quest_item":true}
+{"id":235867,"name":"Scrap of Parchment"}
 {"id":235899,"name":"Corrupted Core","quest_item":true}
+{"id":236354,"name":"Aspirant's Seal of the Dawn"}
+{"id":236355,"name":"Initiate's Seal of the Dawn"}
+{"id":236356,"name":"Squire's Seal of the Dawn"}
+{"id":236357,"name":"Knight's Seal of the Dawn"}
+{"id":236382,"name":"Knight's Seal of the Dawn"}
+{"id":236383,"name":"Squire's Seal of the Dawn"}
+{"id":236384,"name":"Initiate's Seal of the Dawn"}
+{"id":236385,"name":"Aspirant's Seal of the Dawn"}
+{"id":236393,"name":"Knight's Seal of the Dawn"}
+{"id":236394,"name":"Squire's Seal of the Dawn"}
+{"id":236395,"name":"Initiate's Seal of the Dawn"}
+{"id":236396,"name":"Aspirant's Seal of the Dawn"}
+{"id":236414,"name":"Damaged Undermine Supply Crate"}
 {"id":236631,"name":"Bloodmaw's Basher","quest_item":true}
 {"id":236754,"name":"Recipe: Distilled Firewater"}
 {"id":236755,"name":"[TMP] Funerary Headdress"}
 {"id":236759,"name":"[TMP] Furbolg Ritual Stave"}
 {"id":236760,"name":"[TMP] Satyrbane"}
+{"id":236872,"name":"Schematic: Creepy Censor Sensors"}
 {"id":237011,"name":"Portcullis Key"}
 {"id":237023,"name":"Pop-Up Shrub"}
+{"id":237037,"name":"Haute Club Membership Card"}
+{"id":237041,"name":"Tome of Enchanted Flare"}
 {"id":237196,"name":"Suspicious Collection Equipment","quest_item":true}
 {"id":237230,"name":"Suspicious Neutralizing Compound","quest_item":true}
+{"id":237261,"name":"Fine Sand"}
 {"id":237263,"name":"Supply Bag"}
 {"id":237504,"name":"Supply Shipment"}
+{"id":237814,"name":"Sentinel's Lamellar Legguards"}
+{"id":237815,"name":"Sentinel's Silk Leggings"}
+{"id":237817,"name":"Sentinel's Lizardhide Pants"}
+{"id":237818,"name":"Sentinel's Leather Pants"}
+{"id":237819,"name":"Sentinel's Chain Leggings"}
+{"id":237820,"name":"Outrider's Silk Leggings"}
+{"id":237821,"name":"Outrider's Lizardhide Pants"}
+{"id":237822,"name":"Outrider's Leather Pants"}
+{"id":237823,"name":"Outrider's Mail Leggings"}
+{"id":237824,"name":"Outrider's Chain Leggings"}
+{"id":237825,"name":"Sentinel's Plate Legguards"}
+{"id":237826,"name":"Outrider's Plate Legguards"}
 {"id":238057,"name":"Krellian's Head","quest_item":true}
 {"id":238244,"name":"Tablet of Creation","quest_item":true}
 {"id":238245,"name":"Tablet of Manipulation","quest_item":true}
 {"id":238246,"name":"Tablet of Power","quest_item":true}
+{"id":238298,"name":"Pattern: Scarlet Augur's Hood"}
+{"id":238299,"name":"Pattern: Scarlet Augur's Mantle"}
 {"id":238300,"name":"Pattern: Scarlet Augur's Vestments"}
+{"id":238301,"name":"Pattern: Scarlet Augur's Cuffs"}
+{"id":238302,"name":"Pattern: Scarlet Augur's Mitts"}
+{"id":238303,"name":"Pattern: Scarlet Augur's Strap"}
+{"id":238304,"name":"Pattern: Scarlet Augur's Leggings"}
+{"id":238305,"name":"Pattern: Scarlet Augur's Soles"}
+{"id":238306,"name":"Pattern: Scarlet Infiltrator's Bandana"}
+{"id":238307,"name":"Pattern: Scarlet Infiltrator's Shoulderpads"}
+{"id":238308,"name":"Pattern: Scarlet Infiltrator's Vest"}
+{"id":238309,"name":"Pattern: Scarlet Infiltrator's Bracers"}
+{"id":238310,"name":"Pattern: Scarlet Infiltrator's Gloves"}
+{"id":238311,"name":"Pattern: Scarlet Infiltrator's Belt"}
+{"id":238312,"name":"Pattern: Scarlet Infiltrator's Trousers"}
+{"id":238313,"name":"Pattern: Scarlet Infiltrator's Shoes"}
+{"id":238314,"name":"Pattern: Scarlet Huntsman's Coif"}
+{"id":238315,"name":"Pattern: Scarlet Huntsman's Pauldrons"}
+{"id":238316,"name":"Pattern: Scarlet Huntsman's Chain"}
+{"id":238317,"name":"Pattern: Scarlet Huntsman's Wristguards"}
+{"id":238318,"name":"Pattern: Scarlet Huntsman's Handguards"}
+{"id":238319,"name":"Pattern: Scarlet Huntsman's Clasp"}
+{"id":238320,"name":"Pattern: Scarlet Huntsman's Legguards"}
+{"id":238321,"name":"Pattern: Scarlet Huntsman's Boots"}
+{"id":238322,"name":"Plans: Scarlet Soldier's Helmet"}
+{"id":238323,"name":"Plans: Scarlet Soldier's Spaulders"}
+{"id":238324,"name":"Plans: Scarlet Soldier's Chestplate"}
+{"id":238325,"name":"Plans: Scarlet Soldier's Protectors"}
+{"id":238326,"name":"Plans: Scarlet Soldier's Grips"}
+{"id":238327,"name":"Plans: Scarlet Soldier's Waistguard"}
+{"id":238328,"name":"Plans: Scarlet Soldier's Legplates"}
+{"id":238329,"name":"Plans: Scarlet Soldier's Stompers"}
 {"id":238345,"name":"Lady Sesspira's Key","quest_item":true}
 {"id":238347,"name":"Staff of Archmage Selwyn","quest_item":true}
 {"id":238385,"name":"Memory Crystal","quest_item":true}
@@ -17628,10 +19432,16 @@
 {"id":238641,"name":"Specklefin Feast"}
 {"id":238642,"name":"Grand Lobster Banquet"}
 {"id":238644,"name":"Demonic Energy Crystal Shard","quest_item":true}
+{"id":238645,"name":"Recipe: Prowler Steak"}
+{"id":238646,"name":"Recipe: Filet o' Flank"}
+{"id":238647,"name":"Recipe: Sunrise Omelette"}
+{"id":238649,"name":"Recipe: Specklefin Feast"}
+{"id":238650,"name":"Recipe: Grand Lobster Banquet"}
 {"id":238681,"name":"Dusty Bag"}
 {"id":238734,"name":"Tinkerbox: Teleport"}
 {"id":238735,"name":"Tinkerbox: Nitro Boosts"}
 {"id":238736,"name":"Tinkerbox: Magnetic Displacement"}
+{"id":238737,"name":"Tinkerbox"}
 {"id":238782,"name":"Schematic: Tinkerbox"}
 {"id":238783,"name":"Schematic: Tinkerbox: Teleport"}
 {"id":238784,"name":"Schematic: Tinkerbox: Nitro Boosts"}
@@ -17640,40 +19450,278 @@
 {"id":238787,"name":"Schematic: Tinker: Nitro Boosts"}
 {"id":238788,"name":"Schematic: Tinker: Magnetic Displacement"}
 {"id":238789,"name":"Schematic: Semisafe Transporter: New Avalon"}
+{"id":238794,"name":"Unappetizing Leftovers","quest_item":true}
 {"id":238797,"name":"Fel Crystal Shard","quest_item":true}
 {"id":238798,"name":"Toxic Essence","quest_item":true}
 {"id":238802,"name":"Druidic Amulet","quest_item":true}
+{"id":238811,"name":"Juicy Apple","quest_item":true}
+{"id":238830,"name":"Apple Scope","quest_item":true}
+{"id":238831,"name":"Apple Rope","quest_item":true}
+{"id":238899,"name":"Assorted Fish","quest_item":true}
+{"id":238927,"name":"Pattern: Scarlet Quiver"}
+{"id":238928,"name":"Pattern: Scarlet Ammo Pouch"}
 {"id":238935,"name":"Gently Plagued Meat","quest_item":true}
+{"id":238960,"name":"Quartermaster's Crate","quest_item":true}
+{"id":238985,"name":"Heavy Crate","quest_item":true}
 {"id":239005,"name":"Distilled Demonic Essence","quest_item":true}
 {"id":239006,"name":"Fel-Touched Flower","quest_item":true}
+{"id":239011,"name":"Shard of Crystallized Light"}
+{"id":239012,"name":"Splinter of Crystallized Light"}
+{"id":239013,"name":"Crystalline Axe"}
 {"id":239016,"name":"Holy Salts"}
 {"id":239017,"name":"Exquisite Spices"}
+{"id":239021,"name":"Carrie's Cookbook"}
+{"id":239092,"name":"Preposterously Prosed Postage","quest_item":true}
+{"id":239119,"name":"Holy Arrow","quest_item":true}
+{"id":239123,"name":"Monster - BOW_1H_STANDARD_C_01 - Red"}
+{"id":239147,"name":"Crusader's Knapsack"}
+{"id":239148,"name":"Crimson Dawnwoven Bag"}
+{"id":239149,"name":"Pattern: Crusader's Knapsack"}
+{"id":239150,"name":"Pattern: Crimson Dawnwoven Bag"}
+{"id":239218,"name":"Stoneshaper's Notes","quest_item":true}
 {"id":239222,"name":"Schematic: Pop-Up Shrub"}
+{"id":239223,"name":"House Prop","quest_item":true}
+{"id":239225,"name":"Classy Quill","quest_item":true}
+{"id":239246,"name":"Fizzlefuse's Shopping List","quest_item":true}
 {"id":239292,"name":"Forgewright's Notes"}
 {"id":239302,"name":"Scarlet Uniform Belt","quest_item":true}
+{"id":239316,"name":"Triangulation Samophlange","quest_item":true}
+{"id":239512,"name":"Lightbreaker Wrists"}
+{"id":239513,"name":"Lightbreaker Belt"}
+{"id":239514,"name":"Lightbreaker Grips"}
+{"id":239515,"name":"Lightbreaker Greaves"}
+{"id":239516,"name":"Lightbreaker Shoulders"}
+{"id":239517,"name":"Lightbreaker Greathelm"}
+{"id":239518,"name":"Lightbreaker Tassets"}
+{"id":239519,"name":"Lightbreaker Cuirass"}
+{"id":239520,"name":"Lightbreaker Bracers"}
+{"id":239521,"name":"Lightbreaker Waistguard"}
+{"id":239522,"name":"Lightbreaker Gauntlets"}
+{"id":239523,"name":"Lightbreaker Sabatons"}
+{"id":239524,"name":"Lightbreaker Pauldrons"}
+{"id":239525,"name":"Lightbreaker Helmet"}
+{"id":239526,"name":"Lightbreaker Legplates"}
+{"id":239527,"name":"Lightbreaker Breastplate"}
+{"id":239529,"name":"Dawnstalker Breastplate"}
+{"id":239530,"name":"Dawnstalker Greaves"}
+{"id":239531,"name":"Dawnstalker Gauntlets"}
+{"id":239532,"name":"Dawnstalker Visor"}
+{"id":239533,"name":"Dawnstalker Leggings"}
+{"id":239534,"name":"Dawnstalker Pauldrons"}
+{"id":239535,"name":"Dawnstalker Belt"}
+{"id":239536,"name":"Dawnstalker Vambraces"}
+{"id":239537,"name":"Dawnstalker Boots"}
+{"id":239538,"name":"Dawnstalker Girdle"}
+{"id":239539,"name":"Dawnstalker Handguards"}
+{"id":239540,"name":"Dawnstalker Headpiece"}
+{"id":239541,"name":"Dawnstalker Legguards"}
+{"id":239542,"name":"Dawnstalker Spaulders"}
+{"id":239543,"name":"Dawnstalker Tunic"}
+{"id":239544,"name":"Dawnstalker Wristguards"}
 {"id":239545,"name":"Weathered Night Elf Artifact","quest_item":true}
+{"id":239547,"name":"Duskwraith Wristguards"}
+{"id":239548,"name":"Duskwraith Chestguard"}
+{"id":239549,"name":"Duskwraith Grips"}
+{"id":239550,"name":"Duskwraith Mask"}
+{"id":239551,"name":"Duskwraith Leggings"}
+{"id":239552,"name":"Duskwraith Mantle"}
+{"id":239553,"name":"Duskwraith Treads"}
+{"id":239554,"name":"Duskwraith Belt"}
+{"id":239555,"name":"Duskwraith Bracers"}
+{"id":239556,"name":"Duskwraith Waistguard"}
+{"id":239557,"name":"Duskwraith Gauntlets"}
+{"id":239558,"name":"Duskwraith Sabatons"}
+{"id":239559,"name":"Duskwraith Pauldrons"}
+{"id":239560,"name":"Duskwraith Helmet"}
+{"id":239561,"name":"Duskwraith Legplates"}
+{"id":239562,"name":"Duskwraith Breastplate"}
+{"id":239565,"name":"Garb of Revelation"}
+{"id":239572,"name":"Boots of Revelation"}
+{"id":239574,"name":"Hands of Revelation"}
+{"id":239575,"name":"Crown of Revelation"}
+{"id":239577,"name":"Pants of Revelation"}
+{"id":239581,"name":"Mantle of Revelation"}
+{"id":239582,"name":"Girdle of Revelation"}
+{"id":239583,"name":"Wrists of Revelation"}
+{"id":239584,"name":"Gloves of Revelation"}
+{"id":239585,"name":"Circlet of Revelation"}
+{"id":239586,"name":"Shoulderpads of Revelation"}
+{"id":239587,"name":"Leggings of Revelation"}
+{"id":239588,"name":"Bindings of Revelation"}
+{"id":239589,"name":"Sandals of Revelation"}
+{"id":239590,"name":"Belt of Revelation"}
+{"id":239591,"name":"Robe of Revelation"}
 {"id":239609,"name":"Saria's Knapsack","quest_item":true}
+{"id":239618,"name":"Monster - Sword 1H - Vanquisher's Sword (Alt)"}
+{"id":239688,"name":"Monster - Spear 2H - Scarlet Cavalry - Spear"}
+{"id":239698,"name":"Dawnwoven Fabric","quest_item":true}
 {"id":239704,"name":"Amulet of Gol'gere","quest_item":true}
+{"id":239764,"name":"Crimson Bladeleaf","quest_item":true}
+{"id":240020,"name":"Inquisition Legguards"}
+{"id":240021,"name":"Inquisition Spaulders"}
+{"id":240022,"name":"Inquisition Boots"}
+{"id":240023,"name":"Inquisition Vambraces"}
+{"id":240024,"name":"Inquisition Belt"}
+{"id":240025,"name":"Inquisition Shoulderplates"}
+{"id":240026,"name":"Inquisition Leggings"}
+{"id":240027,"name":"Inquisition Helmet"}
+{"id":240028,"name":"Inquisition Gloves"}
+{"id":240029,"name":"Inquisition Greaves"}
+{"id":240030,"name":"Inquisition Breastplate"}
+{"id":240031,"name":"Inquisition Bracers"}
+{"id":240032,"name":"Inquisition Waistguard"}
+{"id":240033,"name":"Inquisition Pauldrons"}
+{"id":240034,"name":"Inquisition Legplates"}
+{"id":240035,"name":"Inquisition Crown"}
+{"id":240036,"name":"Inquisition Gauntlets"}
+{"id":240037,"name":"Inquisition Sabatons"}
+{"id":240038,"name":"Inquisition Chestguard"}
+{"id":240039,"name":"Inquisition Tunic"}
+{"id":240040,"name":"Inquisition Headpiece"}
+{"id":240041,"name":"Inquisition Handguards"}
+{"id":240042,"name":"Inquisition Wristguards"}
+{"id":240043,"name":"Inquisition Girdle"}
+{"id":240044,"name":"Fireleaf Wristwraps"}
+{"id":240045,"name":"Fireleaf Waistguard"}
+{"id":240046,"name":"Fireleaf Mantle"}
+{"id":240047,"name":"Fireleaf Pants"}
+{"id":240048,"name":"Fireleaf Hood"}
+{"id":240049,"name":"Fireleaf Mitts"}
+{"id":240050,"name":"Fireleaf Boots"}
+{"id":240051,"name":"Fireleaf Garb"}
+{"id":240052,"name":"Fireleaf Bindings"}
+{"id":240053,"name":"Fireleaf Belt"}
+{"id":240054,"name":"Fireleaf Shoulderpads"}
+{"id":240055,"name":"Fireleaf Leggings"}
+{"id":240056,"name":"Fireleaf Circlet"}
+{"id":240057,"name":"Fireleaf Gloves"}
+{"id":240058,"name":"Fireleaf Sandals"}
+{"id":240059,"name":"Fireleaf Robe"}
+{"id":240060,"name":"Waywatcher Wraps"}
+{"id":240061,"name":"Waywatcher Sash"}
+{"id":240062,"name":"Waywatcher Shoulderpads"}
+{"id":240063,"name":"Waywatcher Trousers"}
+{"id":240064,"name":"Waywatcher Cowl"}
+{"id":240065,"name":"Waywatcher Grips"}
+{"id":240066,"name":"Waywatcher Stompers"}
+{"id":240067,"name":"Waywatcher Vest"}
+{"id":240068,"name":"Waywatcher Bindings"}
+{"id":240069,"name":"Waywatcher Cord"}
+{"id":240070,"name":"Waywatcher Mantle"}
+{"id":240071,"name":"Waywatcher Kilt"}
+{"id":240072,"name":"Waywatcher Hood"}
+{"id":240073,"name":"Waywatcher Mitts"}
+{"id":240074,"name":"Waywatcher Sandals"}
+{"id":240075,"name":"Waywatcher Leathers"}
+{"id":240076,"name":"Waywatcher Bracers"}
+{"id":240077,"name":"Waywatcher Waistguard"}
+{"id":240078,"name":"Waywatcher Pauldrons"}
+{"id":240079,"name":"Waywatcher Leggings"}
+{"id":240080,"name":"Waywatcher Headdress"}
+{"id":240081,"name":"Waywatcher Gauntlets"}
+{"id":240082,"name":"Waywatcher Sabatons"}
+{"id":240083,"name":"Waywatcher Armor"}
+{"id":240084,"name":"Waywatcher Wristguards"}
+{"id":240085,"name":"Waywatcher Girdle"}
+{"id":240086,"name":"Waywatcher Spaulders"}
+{"id":240087,"name":"Waywatcher Legguards"}
+{"id":240088,"name":"Waywatcher Headpiece"}
+{"id":240089,"name":"Waywatcher Handguards"}
+{"id":240090,"name":"Waywatcher Boots"}
+{"id":240091,"name":"Waywatcher Tunic"}
+{"id":240092,"name":"Soulcrusher Tunic"}
+{"id":240093,"name":"Soulcrusher Boots"}
+{"id":240095,"name":"Soulcrusher Handguards"}
+{"id":240096,"name":"Soulcrusher Headpiece"}
+{"id":240097,"name":"Soulcrusher Legguards"}
+{"id":240098,"name":"Soulcrusher Spaulders"}
+{"id":240099,"name":"Soulcrusher Girdle"}
+{"id":240100,"name":"Soulcrusher Wristguards"}
+{"id":240101,"name":"Soulcrusher Chestguard"}
+{"id":240102,"name":"Soulcrusher Sabatons"}
+{"id":240103,"name":"Soulcrusher Gloves"}
+{"id":240104,"name":"Soulcrusher Faceguard"}
+{"id":240105,"name":"Soulcrusher Legplates"}
+{"id":240106,"name":"Soulcrusher Pauldrons"}
+{"id":240107,"name":"Soulcrusher Waistguard"}
+{"id":240108,"name":"Soulcrusher Bracers"}
+{"id":240109,"name":"Soulcrusher Embrace"}
+{"id":240110,"name":"Soulcrusher Greaves"}
+{"id":240122,"name":"Soulcrusher Mitts"}
+{"id":240123,"name":"Soulcrusher Crown"}
+{"id":240124,"name":"Soulcrusher Kilt"}
+{"id":240125,"name":"Soulcrusher Mantle"}
+{"id":240126,"name":"Soulcrusher Cord"}
+{"id":240127,"name":"Soulcrusher Bindings"}
+{"id":240128,"name":"Soulcrusher Armor"}
+{"id":240129,"name":"Soulcrusher Treads"}
+{"id":240130,"name":"Soulcrusher Grips"}
+{"id":240131,"name":"Soulcrusher Helmet"}
+{"id":240134,"name":"Soulcrusher Leggings"}
+{"id":240135,"name":"Soulcrusher Epaulets"}
+{"id":240136,"name":"Soulcrusher Belt"}
+{"id":240137,"name":"Soulcrusher Vambraces"}
+{"id":240138,"name":"Heretic Robe"}
+{"id":240139,"name":"Heretic Sandals"}
+{"id":240140,"name":"Heretic Gloves"}
+{"id":240141,"name":"Heretic Cowl"}
+{"id":240142,"name":"Heretic Leggings"}
+{"id":240143,"name":"Heretic Shoulderpads"}
+{"id":240144,"name":"Heretic Belt"}
+{"id":240145,"name":"Heretic Bindings"}
+{"id":240146,"name":"Heretic Garb"}
+{"id":240147,"name":"Heretic Handguards"}
+{"id":240148,"name":"Heretic Hood"}
+{"id":240149,"name":"Heretic Pants"}
+{"id":240150,"name":"Heretic Mantle"}
+{"id":240151,"name":"Heretic Waistguard"}
+{"id":240152,"name":"Heretic Wristguards"}
+{"id":240153,"name":"Heretic Boots"}
+{"id":240742,"name":"Monster - 1H, Shortsword, Red"}
 {"id":240836,"name":"Thisalee's Whistle"}
+{"id":240845,"name":"Prototype Magnet","quest_item":true}
+{"id":240846,"name":"Magnetic Scrap","quest_item":true}
 {"id":240945,"name":"Slice of Carrie's Apple Pie"}
 {"id":240993,"name":"Tim's Test Ranged Weapon"}
+{"id":240994,"name":"Tim's Test Ranged Weapon 2"}
+{"id":241086,"name":"Scarlet Tower Shield"}
+{"id":241087,"name":"Scarlet Staff"}
+{"id":241088,"name":"Scarlet Staff"}
+{"id":241089,"name":"Scarlet Dagger"}
+{"id":241090,"name":"Scarlet Great Axe"}
+{"id":241128,"name":"Pile of Portiporters","quest_item":true}
+{"id":241169,"name":"Prototype Nitro Boosts","quest_item":true}
+{"id":241190,"name":"Bird Whistle"}
+{"id":241191,"name":"Formula: Enchant Weapon - Grand Crusader"}
+{"id":241195,"name":"Formula: Enchant 2H Weapon - Grand Arcanist"}
+{"id":241201,"name":"Formula: Enchant Weapon - Grand Sorcerer"}
 {"id":241613,"name":"No Longer Used"}
 {"id":241650,"name":"Major Discolored Healing Potion"}
+{"id":241651,"name":"Recipe: Major Discolored Healing Potion"}
 {"id":241652,"name":"Discolored Beast Heart"}
 {"id":241655,"name":"Mishandled Healing Potion"}
 {"id":241656,"name":"Mishandled Healing Potion"}
+{"id":242018,"name":"Plaguelands Bleeding Heart","quest_item":true}
+{"id":242224,"name":"Basket of Hearts","quest_item":true}
 {"id":242266,"name":"World of Wardcraft"}
 {"id":242267,"name":"From Arcanist to Archmage"}
 {"id":242268,"name":"If You Give a Crusader an Enchant"}
 {"id":242269,"name":"Brilliance of the Grand Sorcerer"}
 {"id":242270,"name":"Brilliance of the Grand Arcanist"}
 {"id":242271,"name":"Brilliance of the Grand Crusader"}
+{"id":242361,"name":"Formula: Enchant 2H Weapon - Grand Inquisitor"}
 {"id":242362,"name":"Brilliance of the Grand Inquisitor"}
 {"id":242363,"name":"Who, What, Where, When, and Die! Five Keys to a Good Inquisition"}
 {"id":242709,"name":"Character Bank Tab Bag (DNT)"}
+{"id":243177,"name":"Ingenious Toy"}
 {"id":243203,"name":"Humongous Crystal","quest_item":true}
 {"id":243266,"name":"Fel-Tainted Giblets","quest_item":true}
 {"id":243299,"name":"Big Bag o' Gold"}
+{"id":244228,"name":"Sash of the Tipsy Sage"}
+{"id":244229,"name":"Angler's Mantle"}
+{"id":244230,"name":"Strawhat of Frosted Currents"}
+{"id":244231,"name":"Ensemble: Stillwater Fisher Attire"}
+{"id":244352,"name":"Cloak of the Veiled Paws"}
 {"id":245675,"name":"Gordok Inner Door Key"}
 {"id":245983,"name":"Ursine Heirloom","quest_item":true}
 {"id":246164,"name":"Skullthumper"}
@@ -17869,6 +19917,9 @@
 {"id":249514,"name":"Formula: Enchant Bracer - Greater Agility"}
 {"id":249515,"name":"Formula: Lesser Eternal Wand"}
 {"id":249516,"name":"Formula: Enchant Gloves - Advanced Skinning"}
+{"id":249519,"name":"Formula: Frozen Heart of the Mountain"}
+{"id":249520,"name":"Formula: Molten Heart of the Mountain"}
+{"id":249521,"name":"Formula: Dormant Heart of the Mountain"}
 {"id":249522,"name":"Formula: Greater Eternal Wand"}
 {"id":249523,"name":"Formula: Enchant 2H Weapon - Strength"}
 {"id":249524,"name":"Formula: Enchant Bracer - Superior Agility"}
@@ -17965,7 +20016,7 @@
 {"id":250188,"name":"Recipe: Breakfast Omelette"}
 {"id":250189,"name":"Recipe: Clam Linguine"}
 {"id":250217,"name":"Purveyor of Light"}
-{"id":250327,"name":"Draught of Predatory Senses"}
+{"id":250327,"name":"Potion of Predatory Senses"}
 {"id":250328,"name":"Elixir of Cunning"}
 {"id":250329,"name":"Elixir of the Phalanx"}
 {"id":250330,"name":"Minor Cleric's Elixir"}
@@ -17992,7 +20043,7 @@
 {"id":250351,"name":"Elixir of the Grizzly"}
 {"id":250353,"name":"Elixir of Lesser Intellect"}
 {"id":250354,"name":"Elixir of Intellect"}
-{"id":250363,"name":"Recipe: Draught of Predatory Senses"}
+{"id":250363,"name":"Recipe: Potion of Predatory Senses"}
 {"id":250364,"name":"Recipe: Elixir of Cunning"}
 {"id":250365,"name":"Recipe: Elixir of the Phalanx"}
 {"id":250366,"name":"Recipe: Minor Cleric's Elixir"}
@@ -18202,6 +20253,7 @@
 {"id":250988,"name":"Recipe: Minor Mender's Potion"}
 {"id":250989,"name":"Recipe: Lesser Mender's Potion"}
 {"id":250990,"name":"Recipe: Mender's Potion"}
+{"id":250991,"name":"Recipe: Greater Mender's Potion"}
 {"id":250992,"name":"Recipe: Superior Mender's Potion"}
 {"id":250993,"name":"Recipe: Major Mender's Potion"}
 {"id":250994,"name":"Recipe: Potion of Venomous Blood"}
@@ -18222,7 +20274,21 @@
 {"id":251337,"name":"Plans: Sterling Silver Gauntlet"}
 {"id":251338,"name":"Plans: Sterling Silver Shoulders"}
 {"id":251339,"name":"Plans: Sterling Silver Breastplate"}
+{"id":251340,"name":"Plans: Veteran's Chain Shirt"}
 {"id":251341,"name":"Plans: Guard's Chain Shirt"}
+{"id":251342,"name":"Plans: Protector's Chain Shirt"}
+{"id":251343,"name":"Plans: Acolyte's Chain Shirt"}
+{"id":251344,"name":"Plans: Crusader's Chain Shirt"}
+{"id":251345,"name":"Plans: Veteran's Chain Leggings"}
+{"id":251346,"name":"Plans: Guard's Chain Leggings"}
+{"id":251347,"name":"Plans: Protector's Chain Leggings"}
+{"id":251348,"name":"Plans: Acolyte's Chain Leggings"}
+{"id":251349,"name":"Plans: Crusader's Chain Leggings"}
+{"id":251350,"name":"Plans: Veteran's Chain Helm"}
+{"id":251351,"name":"Plans: Guard's Chain Helm"}
+{"id":251352,"name":"Plans: Protector's Chain Helm"}
+{"id":251353,"name":"Plans: Acolyte's Chain Helm"}
+{"id":251354,"name":"Plans: Crusader's Chain Helm"}
 {"id":251355,"name":"Plans: Veteran's Boots"}
 {"id":251356,"name":"Plans: Guard's Boots"}
 {"id":251357,"name":"Plans: Protector's Boots"}
@@ -18263,6 +20329,7 @@
 {"id":251392,"name":"Plans: Shining Mithril Breastplate"}
 {"id":251393,"name":"Plans: Shining Mithril Pauldrons"}
 {"id":251394,"name":"Plans: Shining Mithril Boots"}
+{"id":251395,"name":"Plans: Shining Mithril Helm"}
 {"id":251396,"name":"Plans: Shining Mithril Pants"}
 {"id":251397,"name":"Plans: Shining Mithril Gauntlet"}
 {"id":251398,"name":"Plans: Officer's Boots"}
@@ -18513,11 +20580,11 @@
 {"id":252531,"name":"Skulker's Leather Shoes"}
 {"id":252532,"name":"Skycaller's Leather Shoes"}
 {"id":252533,"name":"Mender's Leather Shoes"}
-{"id":252534,"name":"Prowler's Leather Shoulder"}
+{"id":252534,"name":"Prowler's Leather Shoulders"}
 {"id":252535,"name":"Skulker's Leather Shoulder"}
-{"id":252536,"name":"Warden's Leather Shoulder"}
-{"id":252537,"name":"Skycaller's Leather Shoulder"}
-{"id":252538,"name":"Mender's Leather Shoulder"}
+{"id":252536,"name":"Warden's Leather Shoulders"}
+{"id":252537,"name":"Skycaller's Leather Shoulders"}
+{"id":252538,"name":"Mender's Leather Shoulders"}
 {"id":252539,"name":"Prowler's Leather Bracers"}
 {"id":252540,"name":"Skulker's Leather Bracers"}
 {"id":252541,"name":"Warden's Leather Bracers"}
@@ -18533,9 +20600,9 @@
 {"id":252551,"name":"Mender's Leather Gauntlets"}
 {"id":252552,"name":"Tooled Leather Armor"}
 {"id":252553,"name":"Tooled Leather Gauntlets"}
-{"id":252554,"name":"Blue Suede Shoulder"}
+{"id":252554,"name":"Blue Suede Shoulders"}
 {"id":252555,"name":"Tooled Leather Crown"}
-{"id":252556,"name":"Wicked Leather Shoulder"}
+{"id":252556,"name":"Wicked Leather Shoulders"}
 {"id":252557,"name":"Tooled Leather Bracers"}
 {"id":252558,"name":"Tooled Leather Epaulets"}
 {"id":252559,"name":"Blue Suede Bracers"}
@@ -18545,10 +20612,10 @@
 {"id":252563,"name":"Skycaller's Mail Boots"}
 {"id":252564,"name":"Skirmisher's Mail Boots"}
 {"id":252565,"name":"Mender's Mail Boots"}
-{"id":252566,"name":"Stalker's Mail Shoulder"}
-{"id":252567,"name":"Skycaller's Mail Shoulder"}
-{"id":252568,"name":"Skirmisher's Mail Shoulder"}
-{"id":252569,"name":"Mender's Mail Shoulder"}
+{"id":252566,"name":"Stalker's Mail Shoulders"}
+{"id":252567,"name":"Skycaller's Mail Shoulders"}
+{"id":252568,"name":"Skirmisher's Mail Shoulders"}
+{"id":252569,"name":"Mender's Mail Shoulders"}
 {"id":252570,"name":"Stalker's Mail Bracers"}
 {"id":252571,"name":"Skycaller's Mail Bracers"}
 {"id":252572,"name":"Skirmisher's Mail Bracers"}
@@ -18562,7 +20629,7 @@
 {"id":252580,"name":"Supple Scorpid Leggings"}
 {"id":252581,"name":"Charged Scorpid Helm"}
 {"id":252582,"name":"Supple Scorpid Bracers"}
-{"id":252583,"name":"Charged Scorpid Shoulder"}
+{"id":252583,"name":"Charged Scorpid Shoulders"}
 {"id":252584,"name":"Stalker's Mail Gauntlets"}
 {"id":252585,"name":"Skycaller's Mail Gauntlets"}
 {"id":252586,"name":"Skirmisher's Mail Gauntlets"}
@@ -18571,7 +20638,7 @@
 {"id":252589,"name":"Skycaller's Mail Belt"}
 {"id":252590,"name":"Skirmisher's Mail Belt"}
 {"id":252591,"name":"Mender's Mail Belt"}
-{"id":252592,"name":"Supple Scorpid Shoulder"}
+{"id":252592,"name":"Supple Scorpid Shoulders"}
 {"id":252593,"name":"Charged Scorpid Bracers"}
 {"id":252594,"name":"Heavy Scorpid Boots"}
 {"id":252595,"name":"Supple Scorpid Belt"}
@@ -18605,6 +20672,12 @@
 {"id":252768,"name":"Pattern: Totemic Leather Belt"}
 {"id":252769,"name":"Pattern: Stormrider's Leather Belt"}
 {"id":252770,"name":"Pattern: Wisdom's Leather Belt"}
+{"id":252771,"name":"Pattern: Brawler's Leather Armor"}
+{"id":252772,"name":"Pattern: Trapper's Leather Armor"}
+{"id":252773,"name":"Pattern: Defender's Leather Armor"}
+{"id":252774,"name":"Pattern: Totemic Leather Armor"}
+{"id":252775,"name":"Pattern: Stormrider's Leather Armor"}
+{"id":252776,"name":"Pattern: Wisdom's Leather Armor"}
 {"id":252777,"name":"Pattern: Brawler's Leather Gloves"}
 {"id":252778,"name":"Pattern: Trapper's Leather Gloves"}
 {"id":252779,"name":"Pattern: Defender's Leather Gloves"}
@@ -18619,6 +20692,12 @@
 {"id":252789,"name":"Pattern: Totemic Leather Boots"}
 {"id":252790,"name":"Pattern: Stormrider's Leather Boots"}
 {"id":252791,"name":"Pattern: Wisdom's Leather Boots"}
+{"id":252792,"name":"Pattern: Brawler's Leather Pants"}
+{"id":252793,"name":"Pattern: Trapper's Leather Pants"}
+{"id":252794,"name":"Pattern: Defender's Leather Pants"}
+{"id":252795,"name":"Pattern: Totemic Leather Pants"}
+{"id":252796,"name":"Pattern: Stormrider's Leather Pants"}
+{"id":252797,"name":"Pattern: Wisdom's Leather Pants"}
 {"id":252798,"name":"Pattern: Brawler's Leather Hood"}
 {"id":252799,"name":"Pattern: Trapper's Leather Hood"}
 {"id":252800,"name":"Pattern: Defender's Leather Hood"}
@@ -18634,6 +20713,12 @@
 {"id":252810,"name":"Pattern: Wisdom's Leather Tunic"}
 {"id":252811,"name":"Pattern: Mystic Heavy Armor Kit"}
 {"id":252812,"name":"Pattern: Forceful Heavy Armor Kit"}
+{"id":252814,"name":"Pattern: Brawler's Leather Helm"}
+{"id":252815,"name":"Pattern: Trapper's Leather Helm"}
+{"id":252816,"name":"Pattern: Defender's Leather Helm"}
+{"id":252817,"name":"Pattern: Totemic Leather Helm"}
+{"id":252818,"name":"Pattern: Stormrider's Leather Helm"}
+{"id":252819,"name":"Pattern: Wisdom's Leather Helm"}
 {"id":252820,"name":"Pattern: Brawler's Leather Legguards"}
 {"id":252821,"name":"Pattern: Trapper's Leather Legguards"}
 {"id":252822,"name":"Pattern: Defender's Leather Kilt"}
@@ -18661,11 +20746,11 @@
 {"id":252845,"name":"Pattern: Warden's Leather Shoes"}
 {"id":252846,"name":"Pattern: Skycaller's Leather Shoes"}
 {"id":252847,"name":"Pattern: Mender's Leather Shoes"}
-{"id":252848,"name":"Pattern: Prowler's Leather Shoulder"}
+{"id":252848,"name":"Pattern: Prowler's Leather Shoulders"}
 {"id":252849,"name":"Pattern: Skulker's Leather Shoulder"}
-{"id":252850,"name":"Pattern: Warden's Leather Shoulder"}
-{"id":252851,"name":"Pattern: Skycaller's Leather Shoulder"}
-{"id":252852,"name":"Pattern: Mender's Leather Shoulder"}
+{"id":252850,"name":"Pattern: Warden's Leather Shoulders"}
+{"id":252851,"name":"Pattern: Skycaller's Leather Shoulders"}
+{"id":252852,"name":"Pattern: Mender's Leather Shoulders"}
 {"id":252853,"name":"Pattern: Prowler's Leather Bracers"}
 {"id":252854,"name":"Pattern: Skulker's Leather Bracers"}
 {"id":252855,"name":"Pattern: Warden's Leather Bracers"}
@@ -18694,10 +20779,10 @@
 {"id":252878,"name":"Pattern: Blue Suede Pants"}
 {"id":252879,"name":"Pattern: Wicked Leather Boots"}
 {"id":252880,"name":"Pattern: Tooled Leather Gauntlets"}
-{"id":252881,"name":"Pattern: Blue Suede Shoulder"}
+{"id":252881,"name":"Pattern: Blue Suede Shoulders"}
 {"id":252882,"name":"Pattern: Tooled Leather Crown"}
 {"id":252883,"name":"Pattern: Blue Suede Armor"}
-{"id":252884,"name":"Pattern: Wicked Leather Shoulder"}
+{"id":252884,"name":"Pattern: Wicked Leather Shoulders"}
 {"id":252885,"name":"Pattern: Tooled Leather Bracers"}
 {"id":252886,"name":"Pattern: Blue Suede Belt"}
 {"id":252887,"name":"Pattern: Tooled Leather Epaulets"}
@@ -18713,10 +20798,10 @@
 {"id":252897,"name":"Pattern: Skycaller's Mail Boots"}
 {"id":252898,"name":"Pattern: Skirmisher's Mail Boots"}
 {"id":252899,"name":"Pattern: Mender's Mail Boots"}
-{"id":252900,"name":"Pattern: Stalker's Mail Shoulder"}
-{"id":252901,"name":"Pattern: Skycaller's Mail Shoulder"}
-{"id":252902,"name":"Pattern: Skirmisher's Mail Shoulder"}
-{"id":252903,"name":"Pattern: Mender's Mail Shoulder"}
+{"id":252900,"name":"Pattern: Stalker's Mail Shoulders"}
+{"id":252901,"name":"Pattern: Skycaller's Mail Shoulders"}
+{"id":252902,"name":"Pattern: Skirmisher's Mail Shoulders"}
+{"id":252903,"name":"Pattern: Mender's Mail Shoulders"}
 {"id":252904,"name":"Pattern: Stalker's Mail Bracers"}
 {"id":252905,"name":"Pattern: Skycaller's Mail Bracers"}
 {"id":252906,"name":"Pattern: Skirmisher's Mail Bracers"}
@@ -18730,7 +20815,7 @@
 {"id":252914,"name":"Pattern: Supple Scorpid Leggings"}
 {"id":252915,"name":"Pattern: Charged Scorpid Helm"}
 {"id":252916,"name":"Pattern: Supple Scorpid Bracers"}
-{"id":252917,"name":"Pattern: Charged Scorpid Shoulder"}
+{"id":252917,"name":"Pattern: Charged Scorpid Shoulders"}
 {"id":252918,"name":"Pattern: Stalker's Mail Gauntlets"}
 {"id":252919,"name":"Pattern: Skycaller's Mail Gauntlets"}
 {"id":252920,"name":"Pattern: Skirmisher's Mail Gauntlets"}
@@ -18739,7 +20824,7 @@
 {"id":252923,"name":"Pattern: Skycaller's Mail Belt"}
 {"id":252924,"name":"Pattern: Skirmisher's Mail Belt"}
 {"id":252925,"name":"Pattern: Mender's Mail Belt"}
-{"id":252926,"name":"Pattern: Supple Scorpid Shoulder"}
+{"id":252926,"name":"Pattern: Supple Scorpid Shoulders"}
 {"id":252927,"name":"Pattern: Charged Scorpid Bracers"}
 {"id":252928,"name":"Pattern: Heavy Scorpid Boots"}
 {"id":252929,"name":"Pattern: Supple Scorpid Belt"}
@@ -19040,7 +21125,7 @@
 {"id":254378,"name":"Shriekling Talons","quest_item":true}
 {"id":254380,"name":"Arcane-Infused Net","quest_item":true}
 {"id":254392,"name":"Conqueror's Helm","quest_item":true}
-{"id":254432,"name":"Carved Centaur Totem"}
+{"id":254432,"name":"Carved Centaur Totem","quest_item":true}
 {"id":254545,"name":"Well Water Sample Kit","quest_item":true}
 {"id":254546,"name":"Jansen Stead Water Sample","quest_item":true}
 {"id":254547,"name":"Molsen Farm Water Sample","quest_item":true}
@@ -19075,7 +21160,7 @@
 {"id":254871,"name":"Bloody Note","quest_item":true}
 {"id":254877,"name":"Namida's Hoof","quest_item":true}
 {"id":255007,"name":"Golem Isospring"}
-{"id":255010,"name":"Harvester Gyrostabilizer"}
+{"id":255010,"name":"Harvester Gyrostabilizer","quest_item":true}
 {"id":255154,"name":"Ruined Gyrostabilizer"}
 {"id":255155,"name":"Precessive Autocognition Assembly","quest_item":true}
 {"id":255403,"name":"Enhanced Necromancy Staff","quest_item":true}
@@ -19182,7 +21267,7 @@
 {"id":258661,"name":"Uthek's Draenethyst Staff","quest_item":true}
 {"id":258734,"name":"Unfinished Masterwork Sword","quest_item":true}
 {"id":258735,"name":"Phantasmal Blade","quest_item":true}
-{"id":258771,"name":"Al'Alketh Cultist's Ear","quest_item":true}
+{"id":258771,"name":"Al'Aketh Cultist's Ear","quest_item":true}
 {"id":258772,"name":"Windstone Cluster","quest_item":true}
 {"id":258773,"name":"Broken Dart Trap","quest_item":true}
 {"id":258774,"name":"Gimashi's Findings","quest_item":true}
@@ -19225,8 +21310,11 @@
 {"id":260210,"name":"A Bigger Shield"}
 {"id":260211,"name":"Panic Hands"}
 {"id":260212,"name":"Bad Hat"}
+{"id":260213,"name":"Great Bear Claw"}
+{"id":260214,"name":"Staff of Wild Beasts"}
+{"id":260215,"name":"Wild Malleus"}
 {"id":260216,"name":"Ouroboros Ring"}
-{"id":260217,"name":"Eagleshead Signet"}
+{"id":260217,"name":"Eagle's Head Signet"}
 {"id":260218,"name":"Malefactor's End"}
 {"id":260219,"name":"Engraved Band"}
 {"id":260236,"name":"Scribbled Directions to Sulfur Vents"}
@@ -19658,10 +21746,11 @@
 {"id":267001,"name":"Ketharas' Empty Vial","quest_item":true}
 {"id":267003,"name":"Ketharas' Filled Vial","quest_item":true}
 {"id":267073,"name":"Twilight Finger Bone","quest_item":true}
-{"id":267079,"name":"Concoction of Cleansing","quest_item":true}
+{"id":267079,"name":"Staff of the Mountain","quest_item":true}
 {"id":267086,"name":"Eye of Mugg","quest_item":true}
 {"id":267087,"name":"Head of Zarmok","quest_item":true}
 {"id":267089,"name":"Krol'dok Compound Key"}
+{"id":267090,"name":"Semblance of Twilight"}
 {"id":267091,"name":"Cultist Ear","quest_item":true}
 {"id":267104,"name":"Tome of Twilight","quest_item":true}
 {"id":267137,"name":"Krol'dok Moulding","quest_item":true}
@@ -19908,6 +21997,7 @@
 {"id":270092,"name":"Blackwater Scimitar"}
 {"id":270093,"name":"Blackwater Cap"}
 {"id":270094,"name":"Black Whelp Boots"}
+{"id":270095,"name":"Medal of Valor"}
 {"id":270096,"name":"Rebel Breastplate"}
 {"id":270097,"name":"Archer's Leggings"}
 {"id":270098,"name":"Dank Shoulderpads"}
@@ -19927,10 +22017,17 @@
 {"id":270112,"name":"Gryphon Rider's Crop"}
 {"id":270113,"name":"Singed Cloth Robe"}
 {"id":270114,"name":"Dragonscale Pants"}
+{"id":270115,"name":"Leggings of Freedom and Sorrow"}
 {"id":270117,"name":"Shapeshifter's Helm"}
 {"id":270118,"name":"Cindercloth Gown"}
+{"id":270119,"name":"Dark Iron Signet"}
+{"id":270120,"name":"Boots of Requite"}
+{"id":270121,"name":"Private Rocknot's Spare Bracers"}
 {"id":270122,"name":"Yesterday's Pants"}
 {"id":270123,"name":"Ragnar's Favorite Hat"}
+{"id":270124,"name":"Warpwood Bracers"}
+{"id":270125,"name":"Satyrhide Armbands"}
+{"id":270127,"name":"Incanter's Pantaloons"}
 {"id":270151,"name":"Benedict's Orders","quest_item":true}
 {"id":270180,"name":"Horrible Rootcore","quest_item":true}
 {"id":270225,"name":"Jewel of the Guard Captain"}
@@ -19948,6 +22045,7 @@
 {"id":270275,"name":"Cleansed Vilebranch Medallion"}
 {"id":270276,"name":"Cleansed Vilebranch Icon"}
 {"id":270298,"name":"Unholy Icon","quest_item":true}
+{"id":270301,"name":"Ve'han's Research Notes","quest_item":true}
 {"id":270302,"name":"Chakuyak's Pelt","quest_item":true}
 {"id":270303,"name":"Monster - Trident, Naga (Brass)"}
 {"id":270304,"name":"Monster - Trident, Silver"}
@@ -20055,6 +22153,7 @@
 {"id":271674,"name":"Grove Scoundrel's Pants"}
 {"id":271675,"name":"Grove Scoundrel's Shirt"}
 {"id":271716,"name":"Explorer's League Dustcover"}
+{"id":271718,"name":"Linken's Boots of Iron"}
 {"id":271719,"name":"Furs of the Earthen Ring"}
 {"id":271720,"name":"Crocolisk Skin Gaiter"}
 {"id":271721,"name":"Krol'dok Ogre Key"}
@@ -21128,13 +23227,14 @@
 {"id":273827,"name":"Debt Collector"}
 {"id":273828,"name":"Recoiling Gnarlybark Staff"}
 {"id":273829,"name":"Concealed Hand Crossbow"}
+{"id":273830,"name":"Blackthorne Maul"}
 {"id":273832,"name":"Wicked Ritualist's Kris"}
 {"id":273839,"name":"Spiked Shell Band"}
 {"id":273840,"name":"Cursed Murloc Eye"}
 {"id":273841,"name":"Twilight Maul"}
 {"id":273842,"name":"Treacherous Treads"}
 {"id":273843,"name":"Fallenroot Longbow"}
-{"id":273845,"name":"Ashen Crystal Vial","quest_item":true}
+{"id":273845,"name":"Faintly Glowing Staff","quest_item":true}
 {"id":273846,"name":"Twilight Lord Girdle"}
 {"id":273852,"name":"Glowing Crystal","quest_item":true}
 {"id":273857,"name":"Enchanted Branch","quest_item":true}
@@ -21291,7 +23391,7 @@
 {"id":274029,"name":"Ornate Shackle Key","quest_item":true}
 {"id":274030,"name":"Malleable Essence of Nature"}
 {"id":274035,"name":"Staghide Drape"}
-{"id":274041,"name":"Document Box"}
+{"id":274041,"name":"Document Box","quest_item":true}
 {"id":274042,"name":"Skullduggery Belt"}
 {"id":274043,"name":"Irradiated Shield"}
 {"id":274044,"name":"Twisted Fire Totem","quest_item":true}
@@ -21419,12 +23519,13 @@
 {"id":274293,"name":"Spellsever Crossbow"}
 {"id":274294,"name":"Library Walkers"}
 {"id":274295,"name":"Band of Crimson Light"}
-{"id":274373,"name":"Leather-bound Flask","quest_item":true}
+{"id":274373,"name":"Barkskin Purification Tonic","quest_item":true}
 {"id":274379,"name":"Rousing Seed Pod"}
 {"id":274380,"name":"Decaying Flesh Bands"}
 {"id":274381,"name":"Coldbringer Spine"}
 {"id":274383,"name":"Kanai's Knife"}
 {"id":274384,"name":"Illegible Dogtags"}
+{"id":274385,"name":"Abomination Chain"}
 {"id":274386,"name":"Toy Soldier"}
 {"id":274387,"name":"Swiftfeather Arrow"}
 {"id":274388,"name":"Swiftstrike Shot"}
@@ -21456,6 +23557,8 @@
 {"id":274428,"name":"Dark Golem Breastplate"}
 {"id":274429,"name":"Monster Weapon"}
 {"id":274430,"name":"Rock Sentinel Slicer"}
+{"id":274431,"name":"Sandstorm Staff"}
+{"id":274432,"name":"Stone Keeper Spire"}
 {"id":274444,"name":"Greater Insignia of the Horde"}
 {"id":274445,"name":"Greater Insignia of the Alliance"}
 {"id":274460,"name":"Monster - Shield, Night Elf Huntress"}
@@ -21464,6 +23567,7 @@
 {"id":274466,"name":"Monster - Polearm, 2H NightElf"}
 {"id":274480,"name":"Monster - Staff, Druid of the Talon"}
 {"id":274483,"name":"The Walks of Shaman"}
+{"id":274484,"name":"Axe of Inevitable Ruin"}
 {"id":274485,"name":"Axe of Lingering Dread"}
 {"id":274490,"name":"Centaur Hoofwarmers"}
 {"id":274491,"name":"Pattern: Centaur Hoofwarmers"}
@@ -21485,7 +23589,24 @@
 {"id":274572,"name":"Level 60 Mail Gear"}
 {"id":274573,"name":"Level 60 Plate Gear"}
 {"id":274586,"name":"Rustleaf Fox Tail","quest_item":true}
+{"id":274598,"name":"Bloodslash Axe"}
+{"id":274599,"name":"Oathbound Bracers"}
+{"id":274600,"name":"Berserker Shackles"}
+{"id":274601,"name":"Harpoon of Command"}
+{"id":274602,"name":"Brinebelly Leggings"}
+{"id":274603,"name":"Dreadfrost Saber"}
+{"id":274604,"name":"Frosty Blunderbuss"}
 {"id":274605,"name":"Briny Sash"}
+{"id":274606,"name":"Bloodspine Staff"}
+{"id":274607,"name":"Viscera Spaulders"}
+{"id":274608,"name":"Maw of Min'loth"}
+{"id":274609,"name":"Serpentbane Crown"}
+{"id":274610,"name":"Ritual-Binder's Gloves"}
+{"id":274611,"name":"Robe of the Drowned"}
+{"id":274612,"name":"Waterlogged Burial Shroud"}
+{"id":274613,"name":"Priestess Cloak"}
+{"id":274614,"name":"Knucklebone Ring"}
+{"id":274615,"name":"Heart of the Primeval"}
 {"id":274616,"name":"Aetherstill Spirits"}
 {"id":274617,"name":"Sturdy Tree Branch","quest_item":true}
 {"id":274638,"name":"Sandfury Pauldrons"}
@@ -21495,14 +23616,18 @@
 {"id":274643,"name":"Gutcutter Hatchet"}
 {"id":274644,"name":"Undying Headdress"}
 {"id":274645,"name":"Desert Ziggurat Drape"}
+{"id":274646,"name":"Arch of the Covenant"}
 {"id":274647,"name":"Farraki Kris"}
 {"id":274648,"name":"The Desert Rose"}
 {"id":274651,"name":"Zealot Plate"}
 {"id":274652,"name":"Wall of Water"}
 {"id":274653,"name":"Deep Ritual Girdle"}
+{"id":274654,"name":"Sandfury Guillotine"}
 {"id":274655,"name":"Peacekeeper Wand"}
 {"id":274657,"name":"Hydra Leather Legs"}
 {"id":274658,"name":"Dune Hacker"}
+{"id":274659,"name":"Bloodsand Belt"}
+{"id":274660,"name":"Sandarr's Shoulders"}
 {"id":274684,"name":"Level 23 Mining Supplies"}
 {"id":274686,"name":"Level 38 Mining Supplies"}
 {"id":274687,"name":"Level 57 Mining Supplies"}
@@ -21608,6 +23733,22 @@
 {"id":274978,"name":"Leafre's Ring of Great Resistance"}
 {"id":274979,"name":"Hyjal Silphium","quest_item":true}
 {"id":274981,"name":"Rog'mar Report","quest_item":true}
+{"id":274995,"name":"Slavecrusher Scepter"}
+{"id":274996,"name":"Resistance Breaker Spaulder"}
+{"id":274997,"name":"Chain of Binding"}
+{"id":274998,"name":"Shadowlight Athame"}
+{"id":274999,"name":"Shadecaster's Leggings"}
+{"id":275000,"name":"Zarmok's Plated Signet"}
+{"id":275001,"name":"Bloodied Gutslicer"}
+{"id":275002,"name":"War Handler's Gaze"}
+{"id":275003,"name":"Worgbinder's Treads"}
+{"id":275004,"name":"Chain of the Corruptor"}
+{"id":275005,"name":"Krol'dok Warplate Chest"}
+{"id":275006,"name":"Krol'dok Warplate Helmet"}
+{"id":275007,"name":"Mugg's Jabber"}
+{"id":275008,"name":"Mugg's Crosser"}
+{"id":275009,"name":"Emblem of Slamming"}
+{"id":275010,"name":"Strongly Scented Hood"}
 {"id":275011,"name":"Thud Hammer"}
 {"id":275019,"name":"Supply Bundle","quest_item":true}
 {"id":275021,"name":"Prisoner Handwraps"}
@@ -21615,6 +23756,9 @@
 {"id":275023,"name":"Bolder'ok Loincloth"}
 {"id":275025,"name":"Dunston's Ogre Duster"}
 {"id":275028,"name":"Twilight Mine Light"}
+{"id":275036,"name":"Pauldron of Order"}
+{"id":275040,"name":"Head-Harvest Crossbow"}
+{"id":275041,"name":"Bloodied Sash"}
 {"id":275042,"name":"Farholde Keep Tabard"}
 {"id":275043,"name":"Bloodmaster's Ring"}
 {"id":275044,"name":"Bloodsport Band"}
@@ -21734,13 +23878,14 @@
 {"id":275724,"name":"Hexed Pendant"}
 {"id":275729,"name":"Rusty Propeller Blade"}
 {"id":275730,"name":"Arcane Censer"}
-{"id":275736,"name":"Horn of Ve'ho"}
-{"id":275737,"name":"Horned Pauldron"}
-{"id":275738,"name":"Jereman Band"}
+{"id":275736,"name":"Horn of Ve'han"}
+{"id":275737,"name":"Hermit's Pauldron"}
+{"id":275738,"name":"Jereman's Bauble"}
 {"id":275739,"name":"Wild Wristguards"}
 {"id":275740,"name":"Ring of Nature's Cycles"}
 {"id":275741,"name":"Ketharas' Linked Belt"}
 {"id":275742,"name":"Demonbane Blade"}
+{"id":275818,"name":"Pinky"}
 {"id":275824,"name":"Wardcleaver"}
 {"id":275827,"name":"Wool-Stitched Waistband"}
 {"id":275831,"name":"Highfeather Bangle"}
@@ -21767,22 +23912,22 @@
 {"id":275940,"name":"Solidified Mana Shard"}
 {"id":275957,"name":"Tuft of Fox Fur"}
 {"id":275958,"name":"Abandoned Supplies","quest_item":true}
-{"id":275968,"name":"Ferocious Watcher's Signet"}
-{"id":275969,"name":"Brilliant Watcher's Signet"}
-{"id":275970,"name":"Vigilant Watcher's Signet"}
-{"id":275971,"name":"Stalwart Watcher's Signet"}
-{"id":275972,"name":"Ferocious Watcher's Signet"}
-{"id":275973,"name":"Brilliant Watcher's Signet"}
-{"id":275974,"name":"Vigilant Watcher's Signet"}
-{"id":275975,"name":"Stalwart Watcher's Signet"}
-{"id":275976,"name":"Ferocious Watcher's Signet"}
-{"id":275977,"name":"Brilliant Watcher's Signet"}
-{"id":275979,"name":"Vigilant Watcher's Signet"}
-{"id":275980,"name":"Stalwart Watcher's Signet"}
-{"id":275981,"name":"Ferocious Watcher's Signet"}
-{"id":275982,"name":"Brilliant Watcher's Signet"}
-{"id":275983,"name":"Vigilant Watcher's Signet"}
-{"id":275984,"name":"Stalwart Watcher's Signet"}
+{"id":275968,"name":"Initiate's Signet of Ferocity"}
+{"id":275969,"name":"Initiate's Signet of Brilliance"}
+{"id":275970,"name":"Initiate's Signet of Resolve"}
+{"id":275971,"name":"Initiate's Signet of Vigilance"}
+{"id":275972,"name":"Tracker's Signet of Ferocity"}
+{"id":275973,"name":"Tracker's Signet of Brilliance"}
+{"id":275974,"name":"Tracker's Signet of Resolve"}
+{"id":275975,"name":"Tracker's Signet of Vigilance"}
+{"id":275976,"name":"Watcher's Signet of Ferocity"}
+{"id":275977,"name":"Watcher's Signet of Brilliance"}
+{"id":275979,"name":"Watcher's Signet of Resolve"}
+{"id":275980,"name":"Watcher's Signet of Vigilance"}
+{"id":275981,"name":"Warden's Signet of Ferocity"}
+{"id":275982,"name":"Warden's Signet of Brilliance"}
+{"id":275983,"name":"Warden's Signet of Resolve"}
+{"id":275984,"name":"Warden's Signet of Vigilance"}
 {"id":275985,"name":"Unsullied Owl Statuette"}
 {"id":275989,"name":"Tome of Dalaran"}
 {"id":275991,"name":"Galvinquam's Drinking Gourd","quest_item":true}
@@ -21799,7 +23944,7 @@
 {"id":276068,"name":"Cask of Powderfuse Port","quest_item":true}
 {"id":276070,"name":"Chol'aruk's Head","quest_item":true}
 {"id":276087,"name":"Nail","quest_item":true}
-{"id":276088,"name":"Bracket","quest_item":true}
+{"id":276088,"name":"Metal Bracket","quest_item":true}
 {"id":276099,"name":"Sawyer Family Ledger","quest_item":true}
 {"id":276100,"name":"Felhound Spike","quest_item":true}
 {"id":276101,"name":"Zizplink's Grocery List"}
@@ -21808,6 +23953,7 @@
 {"id":276145,"name":"Explosive Runeshard"}
 {"id":276158,"name":"Crystallized Shard"}
 {"id":276160,"name":"Mana Fragment"}
+{"id":276188,"name":"Eluvi'ana"}
 {"id":276199,"name":"Haughty Fellow's Monocle"}
 {"id":276200,"name":"Crawler's Clackers"}
 {"id":276201,"name":"Misplaced Pantaloons"}
@@ -21835,9 +23981,19 @@
 {"id":276339,"name":"Cured Staghide Leggings"}
 {"id":276340,"name":"Blademaster Hakama"}
 {"id":276341,"name":"Plaguecrusher Greaves"}
+{"id":276394,"name":"Luxurious Smoking Jacket"}
+{"id":276395,"name":"Grimm's Packing Gloves"}
+{"id":276396,"name":"Ezra's Seal of Authenticity"}
+{"id":276397,"name":"Hand of the Zealous"}
+{"id":276398,"name":"Scarlet Malice"}
 {"id":276399,"name":"Plate of the Scarlet Bastion"}
+{"id":276403,"name":"Scarlet Bonebreaker"}
+{"id":276404,"name":"Masterwork Crimson Hammer"}
 {"id":276419,"name":"Lightcrest Hammer"}
 {"id":276423,"name":"Unstable Elemental Core"}
+{"id":276434,"name":"Black Guard Skullcap"}
+{"id":276455,"name":"Swordsmith Mitts"}
+{"id":276456,"name":"Plague Defiled Buckler"}
 {"id":276467,"name":"Jorin's List","quest_item":true}
 {"id":276468,"name":"Consecrated Holy Salts"}
 {"id":276469,"name":"Monster - 2H Mace, Barrow Deeps - Dark"}
@@ -21871,12 +24027,30 @@
 {"id":276724,"name":"Trophy Belt"}
 {"id":276725,"name":"DNT LEGS"}
 {"id":276727,"name":"Glistening Stompers"}
+{"id":276732,"name":"Alcaz Willcrusher"}
+{"id":276733,"name":"Grips of Control"}
+{"id":276734,"name":"Wrex's Pinky Ring"}
+{"id":276735,"name":"Tidesong Wand"}
+{"id":276736,"name":"Seascale Bracers"}
+{"id":276737,"name":"Cloak of the Tidemistress"}
+{"id":276738,"name":"Katerina's Shanker"}
+{"id":276739,"name":"Cutthroat Chestguard"}
+{"id":276740,"name":"Sentimental Locket"}
+{"id":276741,"name":"Defias Enforcer's Shoulderpads"}
+{"id":276742,"name":"Girdle of Extracted Answers"}
+{"id":276743,"name":"Fingerbreaker Stamp"}
+{"id":276744,"name":"Zarla's Snack Pouch"}
+{"id":276745,"name":"Beastbond Robe"}
+{"id":276746,"name":"Defias Enforcer's Legguards"}
 {"id":276754,"name":"Sunderbark Vigil"}
 {"id":276765,"name":"Leafre's Ring of Precise Spell Power"}
 {"id":276782,"name":"Distant Communication Device"}
 {"id":276783,"name":"Spirit of Retribution","quest_item":true}
 {"id":276784,"name":"Charger's Lost Soul","quest_item":true}
 {"id":276785,"name":"Danitha's Satchel","quest_item":true}
+{"id":276877,"name":"Brewmancer Nightcap"}
+{"id":276879,"name":"Backroom Bulwark"}
+{"id":276884,"name":"Verek's Loyal Wraps"}
 {"id":276886,"name":"Chol'aruk's Trophy Sword"}
 {"id":276887,"name":"Big Bad Basher"}
 {"id":276888,"name":"Quilboar Toothpick"}
@@ -22026,30 +24200,30 @@
 {"id":277053,"name":"Azure Windraveled Drapes"}
 {"id":277054,"name":"Azure Stormsewn Cowl"}
 {"id":277055,"name":"Azure Stormsewn Epaulets"}
-{"id":277056,"name":"Al'aketh Chainmail"}
-{"id":277057,"name":"Al'aketh Wristguards"}
-{"id":277058,"name":"Al'aketh Gauntlets"}
-{"id":277059,"name":"Al'aketh Chain"}
-{"id":277060,"name":"Al'aketh Legguards"}
-{"id":277061,"name":"Al'aketh Greaves"}
-{"id":277062,"name":"Al'aketh Harness"}
-{"id":277063,"name":"Al'aketh Bracers"}
-{"id":277064,"name":"Al'aketh Gloves"}
-{"id":277065,"name":"Al'aketh Belt"}
-{"id":277066,"name":"Al'aketh Trousers"}
-{"id":277067,"name":"Al'aketh Boots"}
-{"id":277068,"name":"Al'aketh Jerkin"}
-{"id":277069,"name":"Al'aketh Armguards"}
-{"id":277070,"name":"Al'aketh Mitts"}
-{"id":277071,"name":"Al'aketh Strap"}
-{"id":277072,"name":"Al'aketh Pants"}
-{"id":277073,"name":"Al'aketh Footwraps"}
-{"id":277074,"name":"Al'aketh Vestments"}
-{"id":277075,"name":"Al'aketh Cuffs"}
-{"id":277076,"name":"Al'aketh Handwraps"}
-{"id":277077,"name":"Al'aketh Cord"}
-{"id":277078,"name":"Al'aketh Leggings"}
-{"id":277079,"name":"Al'aketh Shoes"}
+{"id":277056,"name":"Al'Aketh Chainmail"}
+{"id":277057,"name":"Al'Aketh Wristguards"}
+{"id":277058,"name":"Al'Aketh Gauntlets"}
+{"id":277059,"name":"Al'Aketh Chain"}
+{"id":277060,"name":"Al'Aketh Legguards"}
+{"id":277061,"name":"Al'Aketh Greaves"}
+{"id":277062,"name":"Al'Aketh Harness"}
+{"id":277063,"name":"Al'Aketh Bracers"}
+{"id":277064,"name":"Al'Aketh Gloves"}
+{"id":277065,"name":"Al'Aketh Belt"}
+{"id":277066,"name":"Al'Aketh Trousers"}
+{"id":277067,"name":"Al'Aketh Boots"}
+{"id":277068,"name":"Al'Aketh Jerkin"}
+{"id":277069,"name":"Al'Aketh Armguards"}
+{"id":277070,"name":"Al'Aketh Mitts"}
+{"id":277071,"name":"Al'Aketh Strap"}
+{"id":277072,"name":"Al'Aketh Pants"}
+{"id":277073,"name":"Al'Aketh Footwraps"}
+{"id":277074,"name":"Al'Aketh Vestments"}
+{"id":277075,"name":"Al'Aketh Cuffs"}
+{"id":277076,"name":"Al'Aketh Handwraps"}
+{"id":277077,"name":"Al'Aketh Cord"}
+{"id":277078,"name":"Al'Aketh Leggings"}
+{"id":277079,"name":"Al'Aketh Shoes"}
 {"id":277080,"name":"Zephrali Chainmail"}
 {"id":277081,"name":"Zephrali Wristguards"}
 {"id":277082,"name":"Zephrali Gauntlets"}
@@ -22088,7 +24262,7 @@
 {"id":277115,"name":"Apprentice's Mining Pack"}
 {"id":277117,"name":"Savage Gladiator Shoulders"}
 {"id":277119,"name":"Gatehouse Shipment","quest_item":true}
-{"id":277128,"name":"Bloodtalon Martriarch Eggs","quest_item":true}
+{"id":277128,"name":"Bloodtalon Matriarch Eggs","quest_item":true}
 {"id":277129,"name":"Fragment of the Firelands","quest_item":true}
 {"id":277132,"name":"Harvester Override Signalcaster"}
 {"id":277135,"name":"Forgotten Loa Idol","quest_item":true}
@@ -22123,14 +24297,14 @@
 {"id":277212,"name":"Soulwoven Epaulets"}
 {"id":277213,"name":"Dro'zem's Tunic"}
 {"id":277214,"name":"Crusty Cuffs"}
-{"id":277215,"name":"Nimble Gloves"}
+{"id":277215,"name":"Plain Handwraps"}
 {"id":277216,"name":"Cross-Stitched Cord"}
 {"id":277217,"name":"Patchy Pants"}
 {"id":277218,"name":"Incinerator's Boots"}
 {"id":277219,"name":"Solomon's Comfortable Hat"}
 {"id":277220,"name":"Shabby Spaulders"}
 {"id":277221,"name":"Grimtotem Naturalist's Tunic"}
-{"id":277222,"name":"Feathered Cuffs"}
+{"id":277222,"name":"War Painted Cuffs"}
 {"id":277223,"name":"Traveled Gloves"}
 {"id":277224,"name":"Kurzen Headshrinker's Cinch"}
 {"id":277225,"name":"Feathered Leggings"}
@@ -22208,9 +24382,13 @@
 {"id":277515,"name":"Dagger of Deals"}
 {"id":277518,"name":"Last Week's Ration"}
 {"id":277519,"name":"Nelanna's Enchanted Jewel"}
-{"id":277533,"name":"Fel Tained Journal"}
+{"id":277533,"name":"Fel Tainted Journal"}
 {"id":277534,"name":"Arena Spoils"}
 {"id":277555,"name":"Monster - Shield, Skyborne (Gray)"}
+{"id":277556,"name":"Razza's Heart"}
+{"id":277557,"name":"Skarr's Broken Gauntlet"}
+{"id":277558,"name":"Mushgog's Crown of Thorns"}
+{"id":277559,"name":"Shen'dralar Relic"}
 {"id":277566,"name":"Yelmak's Potion","quest_item":true}
 {"id":277648,"name":"Stormwind Library Card"}
 {"id":277649,"name":"Undercity Library Card"}
@@ -22299,6 +24477,7 @@
 {"id":278543,"name":"Pouch of Tomb Dust"}
 {"id":278567,"name":"Stromgarde Hood"}
 {"id":278569,"name":"Yesterday's Leftovers"}
+{"id":278570,"name":"Mardenholde Armbands"}
 {"id":278744,"name":"Mirage Mirror","quest_item":true}
 {"id":278796,"name":"Condensed Elemental Fragment"}
 {"id":278797,"name":"Crystallized Elemental Shard"}
@@ -22421,6 +24600,7 @@
 {"id":279394,"name":"Darthalia's Orders","quest_item":true}
 {"id":279395,"name":"Apothecary Vials","quest_item":true}
 {"id":279415,"name":"Ash of Asharell","quest_item":true}
+{"id":279448,"name":"Bloodsplattered Bandana"}
 {"id":279450,"name":"Fractured Insignia"}
 {"id":279464,"name":"Monster Shoulder (DNT)"}
 {"id":279465,"name":"Monster Chest (DNT)"}
@@ -22429,7 +24609,11 @@
 {"id":279468,"name":"Monster Feet (DNT)"}
 {"id":279469,"name":"Grimy Key","quest_item":true}
 {"id":279470,"name":"Monster Hand (DNT)"}
+{"id":279471,"name":"Alcaz Operative Insignia"}
 {"id":279472,"name":"Pristine Pesterhide Pelt","quest_item":true}
+{"id":279473,"name":"Makeshift Belt"}
+{"id":279474,"name":"Dustwallow Dirk"}
+{"id":279480,"name":"Bigger Rock on Bigger Stick"}
 {"id":279481,"name":"Package of Pristine Pelts","quest_item":true}
 {"id":279505,"name":"Jagged Orcish Sword"}
 {"id":279507,"name":"Curved Orcish Dagger"}
@@ -22441,6 +24625,12 @@
 {"id":279601,"name":"Intact Raptor Hide","quest_item":true}
 {"id":279821,"name":"Khaz Modan Timber","quest_item":true}
 {"id":279822,"name":"Khaz Modan Iron","quest_item":true}
+{"id":279824,"name":"Kor'kron Battle Gauntlets"}
+{"id":279825,"name":"Theramore Defender's Gauntlets"}
+{"id":279826,"name":"Marshdweller's Pants"}
+{"id":279829,"name":"Naga Scale Spaulders"}
+{"id":279831,"name":"Fatebound Buckler"}
+{"id":279833,"name":"Courier's Clasp"}
 {"id":279835,"name":"Vine Pruner's Cloak"}
 {"id":279836,"name":"Thorn Protecting Girdle"}
 {"id":279837,"name":"Fallen Guard's Pendant"}
@@ -22456,8 +24646,15 @@
 {"id":279847,"name":"Unstable Power Core"}
 {"id":279848,"name":"Construct Cloak"}
 {"id":279849,"name":"Runebound Gloves"}
+{"id":279850,"name":"Curio-Adorned Necklace"}
+{"id":279852,"name":"Rock on Stick"}
+{"id":279853,"name":"Stick No Rock"}
 {"id":279854,"name":"Twilight Initiate's Belt"}
 {"id":279855,"name":"Torn Cultist Cloak"}
+{"id":279857,"name":"Kroog's Backscratcher"}
+{"id":279859,"name":"Indoctrinated Choker"}
+{"id":279860,"name":"Convert's Bindings"}
+{"id":279863,"name":"Black Horn Necklace"}
 {"id":279864,"name":"Monstrous Cleaver"}
 {"id":279865,"name":"Grave Shroud"}
 {"id":279867,"name":"Slain Baron's Signet"}
@@ -22468,13 +24665,21 @@
 {"id":279875,"name":"Spare Part Bindings"}
 {"id":279876,"name":"Plaguefang"}
 {"id":279877,"name":"Blight Gloves"}
+{"id":279878,"name":"Apprentice Sorcerer's Slacks"}
+{"id":279879,"name":"Rune-Etched Epaulets"}
+{"id":279880,"name":"Ancient Voodoo Pouch"}
+{"id":279881,"name":"Intrepid Explorer's Chainmail"}
 {"id":279882,"name":"Rusted Troll War Belt"}
 {"id":279883,"name":"Mutinous Cuffs"}
 {"id":279884,"name":"South Seas Shroud"}
+{"id":279885,"name":"Ceremonial Mallet"}
+{"id":279886,"name":"Sacrificial Sword"}
+{"id":279887,"name":"I'lalai Flayer"}
 {"id":279888,"name":"Tidesoaked Leggings"}
 {"id":279889,"name":"Naga Priestess's Mantle"}
 {"id":279891,"name":"Guidance of Ursoc"}
 {"id":279892,"name":"Wisdom of Ursol"}
+{"id":279893,"name":"Nama's Cherished Necklace"}
 {"id":279894,"name":"Calibrated Blunderbuss"}
 {"id":279895,"name":"Ironforge Greathammer"}
 {"id":279896,"name":"Deepblaze"}
@@ -22482,10 +24687,21 @@
 {"id":279898,"name":"Dwarven Tome"}
 {"id":279899,"name":"Catacomb Cloak"}
 {"id":279900,"name":"Deepgrave Trousers"}
+{"id":279901,"name":"Expeditionary Legplates"}
+{"id":279902,"name":"Reinforced Muck Protectors"}
+{"id":279903,"name":"Diemetradon Scale Spaulders"}
+{"id":279904,"name":"Crystalline Pauldrons"}
+{"id":279905,"name":"Ravasaur Hide Footpads"}
+{"id":279906,"name":"Potent Treads"}
+{"id":279908,"name":"Crystal-Infused Cleaver"}
+{"id":279910,"name":"Beastslayer's Trident"}
+{"id":279912,"name":"Faintly Glowing Orb"}
 {"id":279913,"name":"Ti'ik's Head","quest_item":true}
 {"id":279915,"name":"Nord'el","quest_item":true}
 {"id":279924,"name":"Nord'el","quest_item":true}
 {"id":279930,"name":"Saltseer's Helm"}
+{"id":279931,"name":"Lost Researcher's Hood"}
+{"id":279932,"name":"Slime-Resistant Shroud"}
 {"id":279934,"name":"Shed Dark Dragonscale","quest_item":true}
 {"id":279935,"name":"Book Bag","quest_item":true}
 {"id":279936,"name":"Book Bag"}
@@ -22533,7 +24749,60 @@
 {"id":279991,"name":"Dry Branch","quest_item":true}
 {"id":279993,"name":"Titanic Keystone","quest_item":true}
 {"id":279996,"name":"Goaz Stone","quest_item":true}
+{"id":280009,"name":"Titanosaur Scale Pendant"}
+{"id":280010,"name":"Gargantuan Wristguards"}
+{"id":280011,"name":"Deeproar Cord"}
+{"id":280012,"name":"Talon of Tor'Rel"}
+{"id":280013,"name":"Frostfang Mail Vest"}
+{"id":280014,"name":"Raptorscale Bulwark"}
+{"id":280015,"name":"Venomvessel Ring"}
+{"id":280016,"name":"Spiderchitin Wrap"}
+{"id":280017,"name":"Octoclaw Chain Boots"}
+{"id":280018,"name":"Hammer of Thundering Hooves"}
+{"id":280019,"name":"Dinofrill Casque"}
+{"id":280020,"name":"Deep Jungle Rifle"}
+{"id":280021,"name":"Tooth of the Matriarch"}
+{"id":280022,"name":"Scaleguard Scimitar"}
+{"id":280023,"name":"Nanaya's Control Spire"}
+{"id":280024,"name":"Legplates of Reinforced Crystal"}
+{"id":280025,"name":"Leggings of Curation"}
+{"id":280026,"name":"Albinofur Grips"}
+{"id":280027,"name":"Crownroar Chestplate"}
+{"id":280028,"name":"Heartflame Gauntlets"}
+{"id":280029,"name":"Cinderedge Crescent"}
+{"id":280031,"name":"Sparklance Wand"}
+{"id":280032,"name":"Bolt's Charged Eyeball"}
 {"id":280042,"name":"Tattered Spellbook","quest_item":true}
+{"id":280045,"name":"Regal Direhorn Drape"}
+{"id":280056,"name":"Flameslash Crescent"}
+{"id":280057,"name":"Robes of Dark Summons"}
+{"id":280058,"name":"Impish Chain Hood"}
+{"id":280059,"name":"Tuskblade Halberd"}
+{"id":280060,"name":"Lucky Shovelnose Tuft"}
+{"id":280061,"name":"Spike Crested Bracers"}
+{"id":280062,"name":"Cloak of the Fleshborer"}
+{"id":280063,"name":"Bloodfur Bulwark"}
+{"id":280064,"name":"Withering Grips"}
+{"id":280065,"name":"Behemoth Bones"}
+{"id":280066,"name":"Trousers of the Ebon Giant"}
+{"id":280067,"name":"Blackmaw Chain Belt"}
+{"id":280068,"name":"Bloody Claws of Attack"}
+{"id":280069,"name":"Shamanic Wristguards"}
+{"id":280070,"name":"Veilpiercer Girdle"}
+{"id":280071,"name":"Flamebreak Talisman"}
+{"id":280072,"name":"Cowl of Dark Ambition"}
+{"id":280073,"name":"Burnished Pridescales"}
+{"id":280074,"name":"Scalding Flamehoof"}
+{"id":280075,"name":"Bleak Eye Shoulderplates"}
+{"id":280076,"name":"Horns of Varrox"}
+{"id":280077,"name":"Fist of Revelation"}
+{"id":280078,"name":"Apprentice's Protective Treads"}
+{"id":280079,"name":"Lunarlight Robe"}
+{"id":280080,"name":"Claymore of Two Moons"}
+{"id":280083,"name":"Truesight Rifle"}
+{"id":280084,"name":"Furbolg Rib Protector"}
+{"id":280085,"name":"Tunnelweb Pincer"}
+{"id":280086,"name":"Octofinger Gauntlets"}
 {"id":280087,"name":"Soft Nightsaber Pelt","quest_item":true}
 {"id":280088,"name":"Soft Saber Sack"}
 {"id":280092,"name":"Wyrmtail","quest_item":true}
@@ -22855,6 +25124,7 @@
 {"id":281586,"name":"Elderwild Construction Hammer"}
 {"id":281587,"name":"Greatflank Flayer"}
 {"id":281588,"name":"Nature's Cull"}
+{"id":281598,"name":"Rusthowl's Worn Collar"}
 {"id":281600,"name":"Wail of Death"}
 {"id":281628,"name":"Blade of Bandarion"}
 {"id":281629,"name":"Patrol Orders","quest_item":true}
@@ -22865,11 +25135,15 @@
 {"id":281636,"name":"Museum Keeper's Chain"}
 {"id":281637,"name":"Antique Bulwark"}
 {"id":281648,"name":"Gul'gash's Greathammer"}
+{"id":281650,"name":"Dragonscale Buckler"}
 {"id":281657,"name":"Corrupted Riverglades Pendant"}
 {"id":281660,"name":"Iron Star"}
+{"id":281661,"name":"Well-Worn Pitchfork"}
 {"id":281665,"name":"Twilight Forgehammer"}
+{"id":281666,"name":"Robes of the Blind Cultist"}
 {"id":281673,"name":"Loop of Sacrifice"}
 {"id":281675,"name":"Lakeshire Firefighter's Headband"}
+{"id":281676,"name":"Rog'mar Trainee Shoulderpads"}
 {"id":281680,"name":"Customer Service Care Package"}
 {"id":281685,"name":"Restored Cloth Helm"}
 {"id":281686,"name":"Restored Cloth Shoulders"}
@@ -22922,23 +25196,30 @@
 {"id":281746,"name":"Kurmokk's Pelt"}
 {"id":281750,"name":"Murloc Oracle's Dagger"}
 {"id":281891,"name":"Fishscale Hauberk"}
+{"id":281896,"name":"Surveyor's Gloves"}
 {"id":281925,"name":"Whelpfire Wand"}
 {"id":281926,"name":"Bound Bracers"}
 {"id":281927,"name":"Boulderheart Band"}
 {"id":281993,"name":"Gnoll Hide Boots"}
 {"id":282003,"name":"Lost Chieftain's Greatsword"}
+{"id":282004,"name":"Flesheater's Scales"}
+{"id":282005,"name":"Saltwater Shawl"}
 {"id":282006,"name":"Crumbling Hearthstone"}
 {"id":282007,"name":"Emerald Watcher's Dreamstaff"}
 {"id":282008,"name":"Wyrmak's Cuirass"}
+{"id":282009,"name":"Ravaged Leather Leggings"}
 {"id":282010,"name":"Tusk of Grunter"}
 {"id":282011,"name":"Restored Healing Potion"}
 {"id":282012,"name":"Corsepickers"}
 {"id":282013,"name":"Restored Mana Potion"}
+{"id":282014,"name":"Twisted Shadow Staff"}
 {"id":282015,"name":"Restored Small Brown Pouch"}
 {"id":282016,"name":"Restored Brown Leather Satchel"}
 {"id":282017,"name":"Restored Heavy Brown Bag"}
 {"id":282018,"name":"Restorative Bread"}
 {"id":282019,"name":"Braided Seer Stones"}
+{"id":282020,"name":"Stonegaze Wand"}
+{"id":282021,"name":"Dreadscorn's Spaulders"}
 {"id":282023,"name":"Clack's Claw"}
 {"id":282026,"name":"Unyielding Battle Signet"}
 {"id":282028,"name":"Broken Frond of Celastrus","quest_item":true}
@@ -22946,22 +25227,28 @@
 {"id":282046,"name":"Gnome Skull"}
 {"id":282047,"name":"Baby Crocolisk"}
 {"id":282048,"name":"Ragged Dark Iron Cuffs"}
+{"id":282049,"name":"Deathmaw's Guise"}
 {"id":282064,"name":"Tim's Lost Rib"}
 {"id":282065,"name":"Sealed Letter","quest_item":true}
 {"id":282070,"name":"Gruklash's Basher"}
+{"id":282071,"name":"Shin Slicers"}
 {"id":282074,"name":"Ogre Sorcerer Belt"}
 {"id":282080,"name":"Flame Seared Signet"}
 {"id":282088,"name":"Heart of Smoldar"}
+{"id":282094,"name":"Blackheart's Vest"}
 {"id":282097,"name":"Unbreakable Golem Grips"}
 {"id":282283,"name":"Malignant Root"}
 {"id":282284,"name":"Webwood Slicer"}
 {"id":282285,"name":"Clearcutter Key"}
 {"id":282286,"name":"Shipwright's Satchel"}
 {"id":282294,"name":"Guild Tabard"}
+{"id":282315,"name":"Ancient Hilt"}
+{"id":282337,"name":"Befouled Water Globe"}
 {"id":282338,"name":"Hallowed Memorandum","quest_item":true}
 {"id":282346,"name":"Tainted Tablet","quest_item":true}
 {"id":282380,"name":"Glyphic Parchment","quest_item":true}
 {"id":282400,"name":"Archaic Rune","quest_item":true}
+{"id":282404,"name":"Narassin's Tome"}
 {"id":282406,"name":"Azsharan Key"}
 {"id":282416,"name":"Glowing Recall Crystal","quest_item":true}
 {"id":282418,"name":"Humming Recall Crystal","quest_item":true}
@@ -22971,6 +25258,9 @@
 {"id":282422,"name":"Simple Note","quest_item":true}
 {"id":282423,"name":"Consecrated Scroll","quest_item":true}
 {"id":282431,"name":"Tears of Anguish"}
+{"id":282547,"name":"Abyssal Mote"}
+{"id":282548,"name":"Star of Elune"}
+{"id":282550,"name":"Combat Tuning Wrench"}
 {"id":282551,"name":"Golem Fist"}
 {"id":282555,"name":"Shadowforge Shield"}
 {"id":282556,"name":"Groundshaker's Bindings"}
@@ -22979,6 +25269,11 @@
 {"id":282559,"name":"Fallen Adventurer's Femur"}
 {"id":282560,"name":"Earth-Infused Rockguards"}
 {"id":282561,"name":"Siegebreaker's Blaster"}
+{"id":282568,"name":"Fireflare Handwraps"}
+{"id":282631,"name":"Xorothian Footwraps"}
+{"id":282632,"name":"Scalding Staff"}
+{"id":282633,"name":"Mastrogonde's Sinister Gown"}
+{"id":282635,"name":"Ancient Switches Thrown"}
 {"id":282636,"name":"Silkspun Gloves"}
 {"id":282637,"name":"Shaking Egg"}
 {"id":282639,"name":"Emogg's \"Crusher\""}
@@ -22987,12 +25282,15 @@
 {"id":282654,"name":"Gnawed Bone"}
 {"id":282655,"name":"Bog Pickers"}
 {"id":282658,"name":"Dragonmaw Battle Shroud"}
+{"id":282699,"name":"Cleansed Water Globe"}
 {"id":282702,"name":"Molok's Masher"}
 {"id":282703,"name":"Needletooth's Needletooth"}
 {"id":282704,"name":"Shadow Council Apprentice's Mantle"}
+{"id":282705,"name":"Ruul's Secondstone"}
 {"id":282706,"name":"Rotting Meat"}
 {"id":282710,"name":"Dun Garok Rifle"}
 {"id":282711,"name":"Naga Maiden's Gown"}
+{"id":282712,"name":"Libram of Binding"}
 {"id":282713,"name":"Bloodstained Pants"}
 {"id":282716,"name":"Imbued Scaled Cuffs"}
 {"id":282717,"name":"Durable Bearhide Pauldrons"}
@@ -23011,18 +25309,39 @@
 {"id":283471,"name":"Fellicent's Bindings"}
 {"id":283473,"name":"Batwing Bindings"}
 {"id":283480,"name":"Cracked Carapace Hauberk"}
+{"id":283545,"name":"Moonchaser's Headdress"}
+{"id":284040,"name":"Cliff Jumpers"}
 {"id":284041,"name":"Ironback Signet"}
+{"id":284043,"name":"Dissolved Link Legguards"}
+{"id":284046,"name":"Witherheart's Stabber"}
+{"id":284050,"name":"High Elf's Recurve"}
+{"id":284061,"name":"Berserker's Wraps"}
 {"id":284063,"name":"Witherbark Hatecleaver"}
+{"id":284064,"name":"Cliffbreaker's Pauldrons"}
+{"id":284065,"name":"Crown of Maldazzar"}
+{"id":284066,"name":"Husk of the Husk"}
 {"id":284067,"name":"Rusted Family Memento"}
+{"id":284070,"name":"Dreadwhisper's Touch"}
+{"id":284072,"name":"Scarlet Judge's Mace"}
+{"id":284079,"name":"High Clerist's Seal"}
+{"id":284086,"name":"Scarlet Executioner's Guise"}
+{"id":284091,"name":"Scarlet Forgemaster's Bindings"}
 {"id":284092,"name":"Keystone Fragment"}
 {"id":284093,"name":"Keystone Fragment"}
+{"id":284097,"name":"Everstaring Abomination Eye"}
 {"id":284100,"name":"Horseman's Unyielding Shroud"}
 {"id":284101,"name":"Blade of Senseless Slaughter"}
 {"id":284102,"name":"Signet of the Soulless Rider"}
+{"id":284104,"name":"Cultist's Cuffs"}
+{"id":284105,"name":"Wildhammer Soldier's Spaulders"}
 {"id":284146,"name":"Essene's Waterskin","quest_item":true}
 {"id":284150,"name":"Essene's Spellbook","quest_item":true}
 {"id":284151,"name":"Essene's Note","quest_item":true}
 {"id":284154,"name":"Unmovable Sabatons"}
+{"id":284157,"name":"Ranger Lord's Longsword"}
+{"id":284158,"name":"Mossflayer Warlord's Girdle"}
+{"id":284161,"name":"Treads of Rotting Flesh"}
+{"id":284162,"name":"Mossflayer Witchdoctor's Robe"}
 {"id":284165,"name":"Duskstalker's Hide"}
 {"id":284166,"name":"Gnarlpine War Staff"}
 {"id":284167,"name":"Blackmoss Robes"}
@@ -23034,7 +25353,11 @@
 {"id":284187,"name":"Crazed Firecaller's Cloak"}
 {"id":284192,"name":"Furbolg Loincloth"}
 {"id":284193,"name":"Moongazer's Wand"}
+{"id":284197,"name":"Hide of Mongress"}
+{"id":284199,"name":"Death Howl's Guise"}
 {"id":284214,"name":"Minfernal"}
+{"id":284215,"name":"Ancient Lichen Vestments"}
+{"id":284218,"name":"Slime-Coated Gloves"}
 {"id":284228,"name":"Vial of Vile Liquid"}
 {"id":284230,"name":"Rage Paw"}
 {"id":284253,"name":"Eternally Frozen Band"}
@@ -23046,6 +25369,8 @@
 {"id":284271,"name":"Emergency Cache"}
 {"id":284272,"name":"Chimaera Hide Legs"}
 {"id":284282,"name":"Queen Guard's Royal Seal"}
+{"id":284283,"name":"Horn of Antilos"}
+{"id":284285,"name":"Feardred's Gauntlets"}
 {"id":284286,"name":"Battleguard Captain's Sticker"}
 {"id":284287,"name":"Felweaver's Staff"}
 {"id":284320,"name":"Flayed Scorpid Bands"}
@@ -23067,6 +25392,7 @@
 {"id":284584,"name":"Coin Pouch"}
 {"id":284585,"name":"Coin Pouch"}
 {"id":284586,"name":"Coin Pouch"}
+{"id":284587,"name":"Ankle Slicers"}
 {"id":284597,"name":"Monster - Mace, Thaurissan Hammer"}
 {"id":284664,"name":"Packmule Treat"}
 {"id":284666,"name":"Wolf Whistle"}
@@ -23080,24 +25406,34 @@
 {"id":284704,"name":"Frostbitten Staff"}
 {"id":284705,"name":"Essene's Necklace","quest_item":true}
 {"id":284707,"name":"Basilisk Sinew Belt"}
+{"id":284708,"name":"Demonstrike Emblem"}
 {"id":284712,"name":"Hyena Hide Helm"}
 {"id":284713,"name":"Accursed Legguards"}
 {"id":284715,"name":"First Mate Band"}
 {"id":284716,"name":"Band of the Better Half"}
 {"id":284717,"name":"Royal Satyr Slicer"}
+{"id":284843,"name":"Sturdy Bearhide Legguards"}
 {"id":284844,"name":"Dragonmaw Dispatch","quest_item":true}
 {"id":284845,"name":"Thicket Raptor Hide","quest_item":true}
+{"id":284847,"name":"Hippogryph Down Leggings"}
+{"id":284848,"name":"Diamond Studded Belt"}
+{"id":284850,"name":"Naga Caster's Staff"}
+{"id":284859,"name":"Silithid Sinew Crossbow"}
 {"id":284866,"name":"Windserpent Scaled Cloak"}
 {"id":284868,"name":"Holy Hand Grenade of Alterac"}
 {"id":284869,"name":"Unsanctified Grenade"}
 {"id":284870,"name":"Schematic: Unsanctified Grenade"}
 {"id":284871,"name":"Recipe: Transmute Legionite"}
 {"id":285043,"name":"Snarling Fang"}
+{"id":285047,"name":"Yeti Hide Stompers"}
+{"id":285063,"name":"Black Brood Battleguards"}
+{"id":285088,"name":"Ooze Dripping Robes"}
 {"id":285089,"name":"Swamp Roamer's Band"}
 {"id":285093,"name":"Ripscaled Cuffs"}
 {"id":285094,"name":"Ravaged Fishing Pole"}
 {"id":285095,"name":"Twitching Eye"}
 {"id":285100,"name":"Serrated Raptor Teeth"}
+{"id":285101,"name":"Rot-Fused Greaves"}
 {"id":285102,"name":"Darkmist Dirk"}
 {"id":285103,"name":"Marsh Serpent's Scales"}
 {"id":285104,"name":"Windle's Lighter"}
@@ -23133,9 +25469,9 @@
 {"id":285279,"name":"Cracked Blacksmith Hammer"}
 {"id":285280,"name":"Mithril Blacksmith Hammer"}
 {"id":285281,"name":"Arcanite Blacksmith Hammer"}
-{"id":285282,"name":"Jagged Knives"}
+{"id":285282,"name":"Jagged Knives of the Bandit"}
 {"id":285283,"name":"Serrated Axes"}
-{"id":285284,"name":"Balanced Knives"}
+{"id":285284,"name":"Balanced Knives of the Bandit"}
 {"id":285285,"name":"Schematic: Satchel of Copper Bombs"}
 {"id":285286,"name":"Schematic: Satchel of Bronze Bombs"}
 {"id":285287,"name":"Schematic: Satchel of Iron Bombs"}
@@ -23153,7 +25489,7 @@
 {"id":285332,"name":"Puncturing Spear"}
 {"id":285338,"name":"Kodohide Legguards"}
 {"id":285339,"name":"Centaur War Chain"}
-{"id":285344,"name":"Guard Captains Barrier"}
+{"id":285344,"name":"Guard Captain's Barrier"}
 {"id":285345,"name":"Feather Padded Treads"}
 {"id":285346,"name":"Alliance Outrunner's Sword"}
 {"id":285347,"name":"Alliance Outrunner Bow"}
@@ -23268,12 +25604,16 @@
 {"id":286359,"name":"Sunhammer's Rifle","quest_item":true}
 {"id":286360,"name":"Stoneanvil's Rifle","quest_item":true}
 {"id":286405,"name":"Blooming Heart"}
+{"id":286408,"name":"Sword of Mourning"}
 {"id":286411,"name":"Plant Stem"}
 {"id":286415,"name":"Reliquary of Tyr","quest_item":true}
 {"id":286424,"name":"Monster - Sword, Scimitar Basic"}
 {"id":286425,"name":"Monster - Sword, Scimitar Basic"}
 {"id":286426,"name":"Honorbound Cloak"}
 {"id":286427,"name":"Cloak of the Honored Guest"}
+{"id":286428,"name":"Band of Bossman"}
+{"id":286429,"name":"Big-Belly Belt"}
+{"id":286430,"name":"Toofbreaker"}
 {"id":286533,"name":"Cheetah Hide Grips"}
 {"id":286534,"name":"Silithid Piercer"}
 {"id":286535,"name":"Sludge-Stained Band"}
@@ -23281,13 +25621,35 @@
 {"id":286537,"name":"Thunderstomp's Horn"}
 {"id":286540,"name":"The Skyblade"}
 {"id":286541,"name":"Bael'dun Tankard"}
+{"id":286552,"name":"Sandcaster's Mantle"}
 {"id":286554,"name":"Warleader's Signet"}
 {"id":286556,"name":"Winds of Tanaris"}
 {"id":286568,"name":"Blisterpaw Bones"}
+{"id":286569,"name":"Firebird Leggings"}
+{"id":286570,"name":"Silithid Flesh Bindings"}
+{"id":286571,"name":"Silithid Hauberk"}
 {"id":286572,"name":"Ogre Casting Cloak"}
-{"id":286639,"name":"Ambassdor's Bloodrobes"}
+{"id":286597,"name":"Calm Air Band"}
+{"id":286604,"name":"Spawn of Grubthor"}
+{"id":286609,"name":"Krellack's Carapace"}
+{"id":286612,"name":"Sand-Covered Silk Sash"}
+{"id":286613,"name":"King Mosh's Tooth"}
+{"id":286614,"name":"Gruff's Tough Tongue"}
+{"id":286616,"name":"Matriarch's Prowlers"}
+{"id":286618,"name":"Clutchmother's Guards"}
+{"id":286619,"name":"Big Basher's Belt"}
+{"id":286639,"name":"Ambassador's Bloodrobes"}
+{"id":286640,"name":"High Priestess's Kilt"}
+{"id":286646,"name":"Gill's Gills"}
 {"id":286647,"name":"Depleted Crystal Heart","quest_item":true}
 {"id":286648,"name":"Depleted Crystal Heart","quest_item":true}
+{"id":286649,"name":"Tidebound Dagger"}
+{"id":286650,"name":"Pyromancer's Baton"}
+{"id":286651,"name":"Flamestarter's Signet"}
+{"id":286658,"name":"Umbral Scaled Belt"}
+{"id":286662,"name":"Deep-Dweller's Grips"}
+{"id":286724,"name":"Verdant Sea Turtle"}
+{"id":286727,"name":"Crimson Rooster"}
 {"id":286728,"name":"Kolkar Hammer"}
 {"id":286729,"name":"Kolkar Bow"}
 {"id":286730,"name":"Pristine Orcish Dagger"}
@@ -23312,17 +25674,100 @@
 {"id":286753,"name":"Snarlsnout Shooter"}
 {"id":286754,"name":"Ukta's Conduit"}
 {"id":286755,"name":"Helm Splitter"}
+{"id":286756,"name":"Spectral Wolf Pack"}
 {"id":286977,"name":"Sword of the Fallen"}
 {"id":286978,"name":"Rotmender's Garb"}
 {"id":286979,"name":"Rotmender's Gloves"}
 {"id":286980,"name":"Rotmender's Sash"}
 {"id":286981,"name":"Death Bindings"}
+{"id":286982,"name":"Unearthed Barrier"}
+{"id":286983,"name":"Ancient Cleaver"}
+{"id":286984,"name":"Mark of the Marsh"}
+{"id":286985,"name":"Thicket Bindings"}
+{"id":286986,"name":"Abandoned Leggings"}
 {"id":286987,"name":"Violet Sorcerer's Sandals"}
 {"id":286988,"name":"Violet Sorcerer's Leggings"}
 {"id":286989,"name":"Violet Sorcerer's Wraps"}
+{"id":286990,"name":"Arcane Remnant Leggings"}
+{"id":286991,"name":"Roused Nature Footwraps"}
+{"id":286992,"name":"Construct's Grips"}
+{"id":286993,"name":"Suffused Bindings"}
+{"id":286994,"name":"Tattered Kirin Tor Cloak"}
+{"id":286995,"name":"Guardian's Emblem"}
+{"id":286996,"name":"City Guard's Tarnished Blade"}
+{"id":286997,"name":"Depth-Risen Leggings"}
+{"id":286998,"name":"Deep Flora Bindings"}
+{"id":286999,"name":"Deathcrawler's Chest"}
+{"id":287000,"name":"Skin-Flayed Footguards"}
+{"id":287001,"name":"Waterlogged Shoulderpads"}
+{"id":287002,"name":"Risen Sentry's Links"}
+{"id":287003,"name":"Corroded Handguards"}
+{"id":287004,"name":"Touch of the Depths"}
+{"id":287005,"name":"Sword of Dismemberment"}
+{"id":287006,"name":"Resurged Axe"}
+{"id":287007,"name":"Stretched Footpads"}
+{"id":287008,"name":"Ogre Magi's Mantle"}
+{"id":287009,"name":"Twilight Enforcer's Legs"}
+{"id":287010,"name":"Outrider's Gloves"}
+{"id":287011,"name":"Guise of Battle"}
+{"id":287012,"name":"Krol'dok Warplate Gauntlets"}
+{"id":287013,"name":"Krol'dok Warplate Legplates"}
+{"id":287014,"name":"Krol'dok Warplate Pauldrons"}
+{"id":287015,"name":"Supreme Smasher"}
+{"id":287016,"name":"Shadow-Seer Orb"}
+{"id":287017,"name":"Chaplain's Mitre"}
+{"id":287018,"name":"Compound Gloves"}
+{"id":287019,"name":"Defias Enforcer's Mask"}
+{"id":287020,"name":"Defias Enforcer's Chest"}
+{"id":287021,"name":"Defias Enforcer's Prowlers"}
+{"id":287022,"name":"Spaulders of Containment"}
+{"id":287023,"name":"Iron-Wrought Cuffs"}
+{"id":287024,"name":"Mark of Captivity"}
+{"id":287025,"name":"Enchantresses' Spire"}
+{"id":287026,"name":"Escape Plan"}
+{"id":287028,"name":"Tormented Cuffs"}
+{"id":287029,"name":"Nature Guardian's Legguards"}
+{"id":287030,"name":"Blackmaw Bindings"}
+{"id":287031,"name":"Spearfisher's Waders"}
+{"id":287032,"name":"Den Champion's Binding"}
+{"id":287033,"name":"Furbolg Berserker's Boots"}
+{"id":287034,"name":"Grove Subjugator's Blade"}
+{"id":287035,"name":"Demon Worshipper's Necklace"}
+{"id":287036,"name":"Satyr's Touch"}
+{"id":287037,"name":"Shaper's Robe"}
+{"id":287046,"name":"Pylon Poker"}
+{"id":287059,"name":"Footman's Pocketknife"}
+{"id":287060,"name":"Rezlak's Spare Knife"}
+{"id":287061,"name":"Cheese Knife"}
+{"id":287062,"name":"Darnassian Knife"}
+{"id":287063,"name":"Serrated Knife"}
+{"id":287064,"name":"Beastculler's Knife"}
+{"id":287066,"name":"Wizlo's Tuning Wrench"}
+{"id":287067,"name":"Dragonmaw Skinflayer"}
+{"id":287068,"name":"Excavated Dagger"}
+{"id":287069,"name":"Yeti Skinner"}
+{"id":287070,"name":"Skypierce Javelin"}
+{"id":287071,"name":"Goblin Switchblade"}
+{"id":287072,"name":"Bladewhisper's Namesake"}
+{"id":287073,"name":"Orwin's Axe"}
+{"id":287074,"name":"Lard's Lunch Slicer"}
+{"id":287075,"name":"Belgrom's Revenge"}
+{"id":287076,"name":"Noggle's Razorblade"}
+{"id":287077,"name":"Demonbane Knife"}
 {"id":287090,"name":"Letter Opener"}
 {"id":287416,"name":"Truskis' Cheesecake Slice"}
 {"id":287505,"name":"Tender Strider Meat","quest_item":true}
+{"id":287620,"name":"Rugged Totemic Backpack"}
+{"id":287621,"name":"Gilded Blademaster's Chestpiece"}
+{"id":287622,"name":"Gilded Blademaster's Belt"}
+{"id":287623,"name":"Gilded Blademaster's Legguards"}
+{"id":287624,"name":"Gilded Blademaster's Boots"}
+{"id":287625,"name":"Gilded Blademaster's Gloves"}
+{"id":287626,"name":"Gilded Blademaster's Banner"}
+{"id":287627,"name":"Gilded Blademaster's Collar"}
+{"id":287628,"name":"Gilded Blademaster's Shoulders"}
+{"id":287647,"name":"Ensemble: Gilded Blademaster's Armor"}
+{"id":287648,"name":"Gilded Blademaster's Greatsword"}
 {"id":287958,"name":"Titan Relic","quest_item":true}
 {"id":287959,"name":"Titan Relic","quest_item":true}
 {"id":287963,"name":"Roasted Quail"}
@@ -23342,3 +25787,138 @@
 {"id":287979,"name":"Lesser Wizard Oil"}
 {"id":287980,"name":"Elemental Sharpening Stone"}
 {"id":287992,"name":"Old Key"}
+{"id":288185,"name":"Adventurer's Tent"}
+{"id":288336,"name":"Blue Firework"}
+{"id":288337,"name":"Green Firework"}
+{"id":288338,"name":"Red Firework"}
+{"id":288339,"name":"Red Streaks Firework"}
+{"id":288340,"name":"Yellow Rose Firework"}
+{"id":288358,"name":"Gnoll Greataxe"}
+{"id":288823,"name":"Arcanist Crown"}
+{"id":288824,"name":"Arcanist Leggings"}
+{"id":288825,"name":"Arcanist Mantle"}
+{"id":288826,"name":"Arcanist Robes"}
+{"id":288827,"name":"Arcanist Bindings"}
+{"id":288828,"name":"Arcanist Boots"}
+{"id":288829,"name":"Arcanist Gloves"}
+{"id":288830,"name":"Arcanist Belt"}
+{"id":288831,"name":"Felheart Slippers"}
+{"id":288832,"name":"Felheart Bracers"}
+{"id":288833,"name":"Felheart Gloves"}
+{"id":288834,"name":"Felheart Belt"}
+{"id":288835,"name":"Felheart Shoulder Pads"}
+{"id":288836,"name":"Felheart Horns"}
+{"id":288837,"name":"Felheart Robes"}
+{"id":288838,"name":"Felheart Pants"}
+{"id":288839,"name":"Boots of Prophecy"}
+{"id":288840,"name":"Gloves of Prophecy"}
+{"id":288841,"name":"Circlet of Prophecy"}
+{"id":288842,"name":"Pants of Prophecy"}
+{"id":288843,"name":"Robes of Prophecy"}
+{"id":288844,"name":"Mantle of Prophecy"}
+{"id":288845,"name":"Girdle of Prophecy"}
+{"id":288846,"name":"Vambraces of Prophecy"}
+{"id":288847,"name":"Nightslayer Chestpiece"}
+{"id":288848,"name":"Nightslayer Cover"}
+{"id":288849,"name":"Nightslayer Pants"}
+{"id":288850,"name":"Nightslayer Shoulder Pads"}
+{"id":288851,"name":"Nightslayer Boots"}
+{"id":288852,"name":"Nightslayer Bracelets"}
+{"id":288853,"name":"Nightslayer Gloves"}
+{"id":288854,"name":"Nightslayer Belt"}
+{"id":288855,"name":"Cenarion Belt"}
+{"id":288856,"name":"Cenarion Boots"}
+{"id":288857,"name":"Cenarion Bracers"}
+{"id":288858,"name":"Cenarion Gloves"}
+{"id":288859,"name":"Cenarion Vestments"}
+{"id":288860,"name":"Cenarion Helm"}
+{"id":288861,"name":"Cenarion Leggings"}
+{"id":288862,"name":"Cenarion Spaulders"}
+{"id":288863,"name":"Earthfury Boots"}
+{"id":288864,"name":"Earthfury Belt"}
+{"id":288865,"name":"Earthfury Gauntlets"}
+{"id":288866,"name":"Earthfury Bracers"}
+{"id":288867,"name":"Earthfury Vestments"}
+{"id":288868,"name":"Earthfury Helmet"}
+{"id":288869,"name":"Earthfury Legguards"}
+{"id":288870,"name":"Earthfury Epaulets"}
+{"id":288871,"name":"Giantstalker's Breastplate"}
+{"id":288872,"name":"Giantstalker's Helmet"}
+{"id":288873,"name":"Giantstalker's Leggings"}
+{"id":288874,"name":"Giantstalker's Epaulets"}
+{"id":288875,"name":"Giantstalker's Boots"}
+{"id":288876,"name":"Giantstalker's Bracers"}
+{"id":288877,"name":"Giantstalker's Belt"}
+{"id":288878,"name":"Giantstalker's Gloves"}
+{"id":288879,"name":"Lawbringer Chestguard"}
+{"id":288880,"name":"Lawbringer Helm"}
+{"id":288881,"name":"Lawbringer Legplates"}
+{"id":288882,"name":"Lawbringer Spaulders"}
+{"id":288883,"name":"Lawbringer Bracers"}
+{"id":288884,"name":"Lawbringer Belt"}
+{"id":288885,"name":"Lawbringer Boots"}
+{"id":288886,"name":"Lawbringer Gauntlets"}
+{"id":288887,"name":"Bracers of Might"}
+{"id":288888,"name":"Sabatons of Might"}
+{"id":288889,"name":"Gauntlets of Might"}
+{"id":288890,"name":"Belt of Might"}
+{"id":288891,"name":"Breastplate of Might"}
+{"id":288892,"name":"Helm of Might"}
+{"id":288893,"name":"Legplates of Might"}
+{"id":288894,"name":"Pauldrons of Might"}
+{"id":288896,"name":"Superior Healing Potion"}
+{"id":288897,"name":"Superior Mana Potion"}
+{"id":288898,"name":"Swiftness Potion"}
+{"id":288900,"name":"Earthshaker"}
+{"id":288901,"name":"Spinal Reaper"}
+{"id":288902,"name":"Hyperthermically Insulated Lava Dredger"}
+{"id":288903,"name":"Shadowstrike"}
+{"id":288904,"name":"Bonereaver's Edge"}
+{"id":288905,"name":"Obsidian Edged Blade"}
+{"id":288906,"name":"Staff of Dominance"}
+{"id":288907,"name":"Gutgore Ripper"}
+{"id":288908,"name":"Aurastone Hammer"}
+{"id":288909,"name":"Perdition's Blade"}
+{"id":288910,"name":"Sorcerous Dagger"}
+{"id":288911,"name":"Striker's Mark"}
+{"id":288913,"name":"Blastershot Launcher"}
+{"id":288914,"name":"Crimson Shocker"}
+{"id":288915,"name":"Azuresong Mageblade"}
+{"id":288916,"name":"Drillborer Disk"}
+{"id":288917,"name":"Fire Runed Grimoire"}
+{"id":288918,"name":"Malistar's Defender"}
+{"id":288919,"name":"Band of Accuria"}
+{"id":288920,"name":"Medallion of Steadfast Might"}
+{"id":288921,"name":"Cloak of the Shrouded Mists"}
+{"id":288922,"name":"Dragon's Blood Cape"}
+{"id":288923,"name":"Choker of Enlightenment"}
+{"id":288924,"name":"Seal of the Archmagus"}
+{"id":288925,"name":"Fireproof Cloak"}
+{"id":288926,"name":"Choker of the Fire Lord"}
+{"id":288927,"name":"Quick Strike Ring"}
+{"id":288928,"name":"Heavy Dark Iron Ring"}
+{"id":288929,"name":"Band of Sulfuras"}
+{"id":288930,"name":"Cauterizing Band"}
+{"id":288931,"name":"Ring of Spell Power"}
+{"id":289081,"name":"Noggenfogger Elixir"}
+{"id":289082,"name":"Elixir of Endless Intellect"}
+{"id":289083,"name":"Elixir of Endless Power"}
+{"id":289084,"name":"Elixir of Endless Healing"}
+{"id":289086,"name":"Elixir of Endless Rapidity"}
+{"id":289087,"name":"Elixir of Endless Opportunity"}
+{"id":289088,"name":"Scroll of Endless Fortitude"}
+{"id":289292,"name":"Hammer of Bestial Fury"}
+{"id":289294,"name":"Thunderfury, Blessed Blade of the Windseeker"}
+{"id":289295,"name":"Sulfuras, Hand of Ragnaros"}
+{"id":289296,"name":"Benediction"}
+{"id":289297,"name":"Anathema"}
+{"id":289302,"name":"Quel'Serrar"}
+{"id":289303,"name":"Rhok'delar, Longbow of the Ancient Keepers"}
+{"id":289321,"name":"Elixir of Endless Mana"}
+{"id":289329,"name":"Elixir of Endless Growth"}
+{"id":289330,"name":"Scroll of Endless Speed"}
+{"id":289334,"name":"Elixir of Endless Experience"}
+{"id":289439,"name":"Pouch of Violet Dust"}
+{"id":289559,"name":"Enchant Boots - Speed"}
+{"id":289560,"name":"Formula: Enchant Boots - Speed"}
+{"id":290333,"name":"Berdun's Trusty Rifle"}

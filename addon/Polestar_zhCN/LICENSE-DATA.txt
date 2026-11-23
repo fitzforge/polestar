@@ -25,15 +25,15 @@ Names the World of Warcraft: Forever client showed players
 File: data/i18n/names-observed/zhCN.json in the Polestar repository
 The server's own names, read from the client's cache and from the names it
 gave units in play, collected by players and reviewed in the repository
-(#1448).
-Names taken: 179 quests, 145 NPCs, 19 objects.
+(#1448, #3226, #3236, #3237).
+Names taken: 179 quests, 179 NPCs, 24 objects.
 
 The web quest database, World of Warcraft: Forever pages
 --------------------------------------------------------
 Pages: the Chinese (simplified) list pages and tooltips
-Read: 2026-10-16 to 2026-10-16
+Read: 2026-10-16 to 2026-11-20
 Public web pages; the game's names only (facts), credited in THIRD_PARTY.md.
-Names taken: 309 quests, 543 NPCs, 69 objects, 486 items, 5 quest objectives.
+Names taken: 309 quests, 703 NPCs, 80 objects, 486 items, 5 quest objectives.
 
 DingDB, the game database of Ding! by Yendi (@moust4ki)
 -------------------------------------------------------

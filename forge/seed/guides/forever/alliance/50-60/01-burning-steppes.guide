@@ -65,6 +65,7 @@ step Royal Historian Archesonus
 
 step Fly to Aerie Peak
   when group 2944
+  when onquest 2944
   zone Ironforge
   goto 55.9,47.9 "Ironforge flight master"
   fly "Aerie Peak"
@@ -77,17 +78,26 @@ step Fly to Southshore
   fly "Southshore"
   zone Hillsbrad Foothills
 
+step Fly to Southshore
+  when group 2944
+  when !onquest 2944
+  zone Ironforge
+  goto 55.9,47.9 "Ironforge flight master"
+  fly "Southshore"
+  zone Hillsbrad Foothills
+
 # ---------------------------------------------------------------- The Hinterlands and the Western Plaguelands
 
 step The Super Snapper FX
   when group 2944
-  tip These are elite mobs: grouping up is encouraged, look for people to do it with. Gammerita (level 48 elite) needs a group of 2. Skip it if you are alone.
+  when onquest 2944
+  tip Gammerita need not die: target her and use the Super Snapper FX. She is a level 48 elite, so keep your distance.
   tip Gammerita walks the Hinterlands shore below the Overlook Cliffs, from the arrow south to about 75,66 and north to about 82,52: if she isn't at the arrow, follow the shore.
-  collect 9330 quest 2944.1 @80.4,58.2 map 1425 group 2
-  use 9328 quest 2944.1 @80.4,58.2 map 1425
+  use 9328 quest 2944.1 @80.4,58.2 map 1425 -- the Super Snapper FX on Gammerita: no kill
 
 step Fly to Southshore
   when group 2944
+  when onquest 2944
   zone The Hinterlands
   goto 11.1,46.1 "Aerie Peak flight master"
   fly "Southshore"
@@ -175,7 +185,7 @@ step Flame Crest
 step Ruins of Thaurissan: kill these as you meet them
   zone Burning Steppes
   tip Use the Draco-Incarcinatrix 900 on a Black Broodling on the slopes east of Flame Crest just before it dies, then loot the essence it leaves.
-  tip Careful: a Malfunctioning Reaver (level 56, rare) walks the slopes by the broodlings, and the Black Dragonspawn and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull.
+  tip Careful: a Malfunctioning Reaver (level 56, rare) walks the slopes by the broodlings, Volchan (60, a rare fire elemental) roams the hills east of Flame Crest, and the Black Dragonspawn and Wyrmkin around them are elite: use the Incarcinatrix on a broodling at the edge and look around before each pull.
   collect 12283 quest 4726.1
   use 12284 quest 4726.1 @81.0,28.0 map 1428
 
@@ -193,6 +203,7 @@ step Flame Crest
 step Cyrus Therepentous
   when turnedin 3481
   tip Open the Hoard of the Black Dragonflight from Searing Gorge for its Black Dragonflight Molt, then tell Cyrus you bring proof of your deeds: no drake to fight.
+  tip Careful: Volchan (60, a rare fire elemental) roams the hills around Cyrus's cave: if he is about, wait for him to pass.
   accept 4022                         -- Below ground
   collect 10575 quest 4022.1          -- Black Dragonflight Molt, from the hoard
   talk 9459 quest 4022.2 @95.1,31.6 map 1428
@@ -284,6 +295,7 @@ step Blasted Lands
   goto 52.0,35.7 "Rise of the Defiler"
 
 step Kum'isha the Collector
+  when has 10593
   tip Kum'isha waits at the Rise of the Defiler, the hill south-west of the keep. The Blasted Lands mobs on the way drop the Imperfect Draenethyst Fragments; bring her what you have. Come at her hill straight from the keep, along the road, and leave by the same way.
   tip Careful: Felcular, Razelikh the Defiler and Ilifar are all level 60 elites. Razelikh casts Mana Burn, Strong Cleave and Decimate, and as its health drops it adds Razelikh's Tear, Flames of Chaos and then Enrage at 15%.
   tip Careful: Vek'zol, a level 55 elite, stands by Kum'isha's hill (about 50,35) and to the west (about 39,32), and the Dreadmaul and Shadowsworn camps around it are 53-55: take the fragments from the mobs on the way from the keep, not beside him.
@@ -348,6 +360,7 @@ step Mountaineer Pebblebitty
 
 step Fly to Ironforge
   when group 3181
+  when onquest 3182
   zone Loch Modan
   goto 33.9,50.8 "Thelsamar flight master"
   fly "Ironforge"

@@ -141,6 +141,12 @@ step The temple: the Mana Sieve
   tip Mordent sends you for the Mana Sieve, kept inside the temple beside Historian Biraxas. Powering the Pylons asks you to gather mana with the Sieve before you repair the pylons: with it in your bags you can handle the Unstable Mana Rifts, the floating sparks of mana all along the road north.
   collect 255662 @45.9,78.2
 
+step Unstable Mana Rifts: mana for the western pylon
+  when onquest 96018
+  when !done western-pylon-repaired
+  tip Use the Mana Sieve on the Unstable Mana Rifts, the floating sparks along the road north: each pylon takes four Coalesced Mana Crystals, and the repair uses them up.
+  collect 255667 x4 npc 264149 @46.32,42.94 -- Coalesced Mana Crystal, from the Unstable Mana Rifts with the Mana Sieve
+
 step The road south of the western pylon
   label western-pylon-approach
   tip North up the road to the first pylon, gathering mana from the Unstable Mana Rifts on the way. Stop where the arrow points, on the road just south of the pylon, keeping to its west edge: the quiet side, with no Protectors behind you. Pull one Decrepit Pylon Protector at a time down to that spot, the one nearest the pylon's south side first, and kill it there; then step up to the pylon's west side and use Repair and Recharge Pylon, as players did to repair it.
@@ -149,12 +155,19 @@ step The road south of the western pylon
   goto 43.9,37.0 "the road just south of the western pylon" r 10
 
 step The western pylon: repair it
+  label western-pylon-repaired
   when done western-pylon-approach
   loop
   goto 43.97,35.59 r 4
   goto 43.89,35.64 r 4
   tip Pull a single Protector down to the road, then repair the pylon from its west side.
   kill 252711 quest 96018.2 -- Decrepit Pylon Protector, pulled to the arrow's spot, then Repair and Recharge Pylon on the pylon's west side
+
+step Unstable Mana Rifts: mana for the eastern pylon
+  when onquest 96018
+  when !complete 96018
+  tip The western repair used up your crystals: on the way east, use the Mana Sieve on the Unstable Mana Rifts again for four more Coalesced Mana Crystals.
+  collect 255667 x4 npc 264149        -- Coalesced Mana Crystal, from the Unstable Mana Rifts with the Mana Sieve
 
 step Bristleback Retreat: repair the eastern pylon
   tip East along the valley road to the eastern pylon and repair it the same way, a Decrepit Pylon Protector first, coming in from the west: Kog'thug the Brave (level 43, elite) and his bodyguards hold the south side of the quilboar camp, and a Corpsefeeder (level 45, elite) walks the road.

@@ -68,10 +68,11 @@ step Ruins of Constellas
 
 step Jaedenar
   tip Jaedenar is the ruined temple north of the glen.
-  kill 7125 quest 5155.1              -- Jaedenar Hound
-  kill 7113 quest 5155.2              -- Jaedenar Guardian
-  kill 7115 quest 5155.3              -- Jaedenar Adept
-  kill 7112 quest 5155.4              -- Jaedenar Cultist
+  tip Careful: the Spirit of Trey Lightforge (53, elite) haunts the west end of Jaedenar, around 35,60: work the south-east, where the arrow points, and pull the cultists and hounds away from him.
+  kill 7125 quest 5155.1 @38.7,61.9   -- Jaedenar Hound
+  kill 7113 quest 5155.2 @38.5,61.1   -- Jaedenar Guardian
+  kill 7115 quest 5155.3 @38.2,61.5   -- Jaedenar Adept
+  kill 7112 quest 5155.4 @38.2,61.1   -- Jaedenar Cultist
   collect 11949 quest 4512.2          -- Filled Tainted Ooze Jar: Tainted Oozes slide about Jaedenar's fel pools
 
 step Putrescent organs: kill these as you meet them
@@ -178,7 +179,6 @@ step Into Winterspring
 step Salfa
   tip Salfa stands right at the Winterspring exit of Timbermaw Hold's tunnel, where you come out.
   turnin 8465
-  accept 8464                         -- Winterfall Village is east of Everlook: the next guide's Winterspring loop, keep it
 
 step Donova Snowden
   tip Ride south to Donova's camp beside the hot springs.
@@ -200,16 +200,26 @@ step Fly to Rut'theran Village
 
 # ---------------------------------------------------------------- Teldrassil and Darnassus
 
+step Erelas Ambersky
+  zone Teldrassil
+  when complete 3661
+  turnin 3661                         -- Erelas Ambersky: Favored of Elune?, the feathers from the Hinterlands
+
 step Rut'theran Village
   zone Teldrassil
-  turnin 3661                         -- Erelas Ambersky: Favored of Elune?, the feathers from the Hinterlands
   accept 978                          -- Erelas Ambersky: the wildkin feathers lie along Winterspring's road, on the next guide; Erelas takes them on the Plaguelands guide's way through: keep it
 
 step Daryn Lightwind
   tip Daryn Lightwind stands upstairs, above Erelas Ambersky: go up inside, the arrow cannot tell the floors apart.
   when group 2944
+  when complete 2944
   zone Teldrassil
   turnin 2944
+
+step Daryn Lightwind
+  tip Daryn Lightwind stands upstairs, above Erelas Ambersky: go up inside, the arrow cannot tell the floors apart.
+  when group 2944
+  zone Teldrassil
   accept 2943
 
 step Portal to Darnassus
@@ -222,6 +232,11 @@ step The Temple Gardens
   use 11682 quest 4441.1 @39.2,85.6 map 1457
   collect 5646 quest 4441.1 @39.2,85.6 map 1457 -- Vial of Blessed Water
 
+step Astarii Starseeker
+  when complete 3378
+  zone Darnassus
+  turnin 3378                         -- Astarii Starseeker, in the Temple of the Moon: Prayer to Elune, from the Searing Gorge
+
 step Gracina Spiritmight
   when onquest 162
   zone Darnassus
@@ -229,18 +244,31 @@ step Gracina Spiritmight
   turnin 162                          -- Gracina Spiritmight: Rise of the Silithid, from Gadgetzan
   accept 4493                         -- For Alchemist Pestlezugg in Gadgetzan, on the Tanaris and Winterspring guide: keep it
 
-# Mathrengyl stands upstairs in the druids' building, and the walking maps have no way up inside it:
-# the arrow led onto a ledge outside, behind the wall (#1338). A goto at the building's door on its
-# south side, 35.8,11.6 (players' recordings walk in there), makes the arrow point straight at him.
+step Jenal
+  zone Darnassus
+  when complete 3764
+  tip Jenal waits in the Cenarion Enclave, west of the druids' building.
+  turnin 3764                         -- Jenal, in the Cenarion Enclave: Un'Goro Soil
+
+# Fandral (at the top) and Mathrengyl (upstairs) stand in the druids' building, and the walking maps have no way up
+# inside it: the arrow led onto a ledge outside, behind the wall, from the ground and from each other's floor alike
+# (#1338). Before each of them, a goto at the building's door on its south side, 35.8,11.6 (players' recordings walk
+# in there), makes the arrow point straight at him from there.
+step Cenarion Enclave
+  zone Darnassus
+  goto 35.8,11.6 "Cenarion Enclave"
+
+step Arch Druid Fandral Staghelm
+  zone Darnassus
+  tip Fandral stands at the top of the druids' building; Mathrengyl, next, is lower down inside it.
+  accept 3781                         -- Arch Druid Fandral Staghelm, upstairs
+
 step Cenarion Enclave
   zone Darnassus
   goto 35.8,11.6 "Cenarion Enclave"
 
 step Mathrengyl Bearwalker
   zone Darnassus
-  tip Jenal waits in the Cenarion Enclave; Fandral and Mathrengyl stand upstairs in its druids' building.
-  turnin 3764                         -- Jenal, in the Cenarion Enclave: Un'Goro Soil
-  accept 3781                         -- Arch Druid Fandral Staghelm, upstairs
   turnin 3781                         -- Mathrengyl Bearwalker, upstairs
   note Mathrengyl's next task grows ten Morrowgrain from a pouch over several hours: skip it.
   turnin 92345                        -- Mathrengyl Bearwalker, upstairs

@@ -204,7 +204,8 @@ return {
 	-- Step 37: Bloodsail pirates: kill these as you meet them
 	["Bloodsail pirates: kill these as you meet them"] = "血帆海盜：遇到就殺",
 	-- {npc:2493} Dizzy One-Eye · {area:43} Wild Shore
-	["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit."] = "每個血帆海盜都會掉落鼻煙，其中一個身上有{npc:2493}的眼睛：在城鎮北邊不遠、你找到信件的海灘血帆營地，從襲擊者和法師（39-41）身上取得。城鎮南邊的{area:43}營地（術士和亡命徒41-43）留到48級再去。",
+	-- was: ["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit."] = "每個血帆海盜都會掉落鼻煙，其中一個身上有{npc:2493}的眼睛：在城鎮北邊不遠、你找到信件的海灘血帆營地，從襲擊者和法師（39-41）身上取得。城鎮南邊的{area:43}營地（術士和亡命徒41-43）留到48級再去。"
+	["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit.\nCareful: Rippa (44, a rare crocolisk) swims the shore beside the camp: stay out of the water."] = "",
 
 	-- Step 38: Gorilla hills
 	["Gorilla hills"] = "猩猩山丘",
@@ -262,8 +263,10 @@ return {
 	["{npc:717}, beside the other hunters"] = "",
 
 	-- Step 49: Arbor Tarantula
-	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit
-	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: catch one with the tool from {npc:217412}'s {item:213565}."] = "",
+	-- {npc:217588} Arbor Tarantula · {area:99} Rebel Camp · {npc:217412} Amaryllis Webb · {item:213565} Entomology Starter Kit · {item:213562} Bug Catching Net
+	["An {npc:217588} crawls in the jungle south-east of Nesingwary's camp, on the way to the {area:99}: open {npc:217412}'s {item:213565} and use its {item:213562} on one. Don't kill it."] = "",
+	-- {item:213562} Bug Catching Net · {npc:217588} Arbor Tarantula · {item:213566} Arbor Tarantula Specimen
+	["{item:213562}, on an {npc:217588}: the {item:213566}"] = "",
 
 	-- Step 50: Rebel Camp
 	["Head north-east past Nesingwary's camp and follow the road north to the camp at the top of the vale."] = "向東北經過奈辛瓦里的營地，沿著道路向北走到山谷頂端的營地。",
@@ -477,6 +480,7 @@ return {
 	-- ["Bloodsail pirates"] = "血帆海盜",
 	-- ["Cold Eye Basilisks"] = "冷眼蜥蜴",
 	-- ["Cortello's scroll"] = "科泰羅的卷軸",
+	-- ["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye: take them from the Raiders and Mages (39-41) at the Bloodsail camp on the beach just north of town, where you found the letter. Leave the {area:43} camp south of town (Warlocks and Swashbucklers 41-43) for the level-48 visit."] = "每個血帆海盜都會掉落鼻煙，其中一個身上有{npc:2493}的眼睛：在城鎮北邊不遠、你找到信件的海灘血帆營地，從襲擊者和法師（39-41）身上取得。城鎮南邊的{area:43}營地（術士和亡命徒41-43）留到48級再去。",
 	-- ["Every Bloodsail drops Snuff and one of them carries {npc:2493}'s eye; the Swashbucklers walk the shore just north of town. The charts and orders lie in the pirate camp on the {area:43}, south of {area:35}.\nCareful: the {area:43} camp's Warlocks and Swashbucklers are level 41-43, a level or more above you, and stand close together: pull them singly from the edge."] = "每個血帆海盜都會掉落鼻煙，其中一個帶著{npc:2493}的眼睛；血帆流氓在城鎮北邊的岸上走動。海圖和命令在{area:35}南邊{area:43}的海盜營地裡。\n小心：{area:43}營地的血帆術士和血帆流氓是41-43級，比你高一級以上，而且站得很近：從邊緣一隻一隻拉。",
 	-- ["Every Zanzil follower can drop the mixture; {npc:2537} walks the south of the camp."] = "每個贊吉爾信徒都可能掉落混合物；{npc:2537}在營地南部走動。",
 	-- ["Fly to {area:144}"] = "飛往{area:144}",
