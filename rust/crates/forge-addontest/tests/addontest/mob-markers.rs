@@ -58,8 +58,9 @@ fn run_with(saved: Option<&str>, before: &str, script: &str) -> Vec<Value> {
 	})
 }
 
+// The Codex loaded, as the guide's engine or Lookup loads it in play.
 fn run(script: &str) -> Vec<Value> {
-	run_with(None, "", script)
+	run_with(None, "", &format!("Polestar.Codex.Load()\n{script}"))
 }
 
 #[test]
@@ -180,4 +181,21 @@ fn on_for_a_new_install_off_for_a_profile_from_before_and_off_builds_nothing() {
 		emit({ Polestar.Get("mobMarkers.enabled"), s[1], s[2], s[3], PolestarMobMarkersLegend ~= nil, Polestar.MobMarkers.State().minimap })"#,
 	);
 	assert_eq!(before, vec![json!([false, 0, 0, 0, false, 0])]);
+}
+
+// The markers never load the Codex by themselves: on at login with nothing else asking for it, they wait; the world
+// map opened (or /polestar spawns) loads it and they build.
+#[test]
+fn the_markers_wait_for_the_codex_and_opening_the_world_map_loads_it() {
+	let out = run_with(
+		None,
+		"",
+		r#"
+		local s = state()
+		emit({ Polestar.Codex.IsLoaded(), s[1] })
+		open()
+		s = state()
+		emit({ Polestar.Codex.IsLoaded(), s[1], s[3] })"#,
+	);
+	assert_eq!(out, vec![json!([false, 0]), json!([true, 2, 5])]);
 }

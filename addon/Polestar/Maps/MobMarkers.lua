@@ -16,18 +16,20 @@
 -- nav.minimapIconSize, nav.worldPinAlpha, nav.minimapPinAlpha).
 --
 -- Taint: Forever's gamepad UI reads the world map from secure code, so (as
--- in Nav/MapCanvas.lua) nothing here writes into the map: no data provider,
--- no AcquirePin, no OnMouseDown/Up scripts (the legend's clicks come from
--- GLOBAL_MOUSE_DOWN/UP while it shows). Frames are made parentless and then
--- set under the canvas (ns.CreateFrameUnder); the map is only read.
+-- everything Polestar draws there) the markers are frames under the world
+-- map's MapCanvas view (Nav/MapCanvas.lua): nothing written into the map, no
+-- data provider, no AcquirePin, no OnMouseDown/Up scripts (the legend's
+-- clicks come from GLOBAL_MOUSE_DOWN/UP while it shows); frames are made
+-- parentless and then set under their parent (ns.CreateFrameUnder).
 --
--- Cost: off, nothing is built, nothing listens but the setting, nothing runs
--- per frame. On: the marks of the quests shown (rebuilt only when the quests
--- or their finished objectives change), a watcher on the world map's canvas
--- (runs only while the map is open) and a minimap driver (returns at once
--- while the view stands still). /polestar spawns says what it found;
--- /polestar spawns preview marks 20 of this zone's quests instead of your log
--- (a test view, never saved).
+-- Cost: off, nothing is built and nothing runs per frame. On: the marks of
+-- the quests shown (rebuilt only when the quests or their finished
+-- objectives change), drawn on the world map's view as it changes and on
+-- Nav/Pins' minimap view. The Codex is never loaded for them: they build
+-- once something else has loaded it (the guide's engine, Lookup) or the
+-- world map opens with them on (CODEX_LOADED). /polestar spawns says what it
+-- found; /polestar spawns preview marks 20 of this zone's quests instead of
+-- your log (a test view, never saved).
 
 local ADDON, ns = ...
 local L = ns.L
@@ -323,7 +325,7 @@ local logIds, lastIds, lastDone = {}, {}, {}
 local lastQP, lastMP
 local function build(force)
 	local C = ns.Codex
-	if not (on() and C and C.Load and C.Load()) then
+	if not (on() and C and C.IsLoaded and C.IsLoaded() and C.Quest) then
 		if not built then return false end
 		built = false
 		wipe(lastIds)
@@ -395,7 +397,7 @@ end
 -- Drawing
 ---------------------------------------------------------------------------
 
-local map, canvas -- set by install(): Blizzard_WorldMap can load after this file
+local map, canvas, view -- set by install(): Blizzard_WorldMap can load after this file; view: its MapCanvas view
 local dots = {}
 local placed = 0 -- world map markers in use (dots[1..placed])
 
@@ -447,7 +449,7 @@ end
 
 -- A marker: the mob ring (under), the medallion, the skull.
 local function newDot(parent)
-	local f = ns.CreateFrameUnder("Frame", nil, parent or canvas)
+	local f = ns.CreateFrameUnder("Frame", nil, parent or view.frame)
 	f.ring = f:CreateTexture(nil, "ARTWORK", nil, 0)
 	f.ring:SetPoint("CENTER")
 	f.medal = f:CreateTexture(nil, "ARTWORK", nil, 1)
@@ -808,16 +810,40 @@ local function toggle(r)
 	draw(true)
 end
 
--- Redraw only when what the map shows changed; runs only while the map is open. Another map redraws at
--- once with the legend; a zoom (the scale changes every frame of it) at most every ZOOM_STEP seconds, and
--- once more when it settles.
+-- The world map's view (MapCanvas): another map or the map opened redraws with the legend; a zoom (the scale
+-- changes every frame of it) at most every ZOOM_STEP seconds, and once more when it settles; closed, or Polestar
+-- hidden, the markers and the legend go. Opened with the markers on and the Codex not loaded yet, it loads
+-- (CODEX_LOADED builds the marks).
 local ZOOM_STEP = 0.1
-local lastMap, lastW, lastH, lastS
-local zooming, lastDraw = false, 0
-local watcher
+local zooming, zoomed, lastDraw = false, false, 0
+local function onMap(_, what)
+	if what == "tick" then
+		if zoomed then
+			zoomed = false
+		elseif zooming then
+			zooming, lastDraw = false, GetTime()
+			draw()
+		end
+	elseif what == "show" or what == "map" then
+		zooming, lastDraw = false, GetTime()
+		local C = ns.Codex
+		if on() and C and C.IsLoaded and not C.IsLoaded() and C.Load then C.Load() end
+		draw(true)
+	elseif what == "size" or what == "scale" then
+		zooming, zoomed = true, true
+		local now = GetTime()
+		if now - lastDraw >= ZOOM_STEP then lastDraw = now; draw() end
+	elseif what == "hide" then
+		draw(true)
+	end
+end
+
 local function install()
-	if canvas or not (WorldMapFrame and WorldMapFrame.GetCanvas) then return end
-	map, canvas = WorldMapFrame, WorldMapFrame:GetCanvas()
+	local MC = ns.MapCanvas
+	if view or not (MC and WorldMapFrame and WorldMapFrame.GetCanvas) then return end
+	view = MC.Watch(WorldMapFrame, onMap)
+	if not view then return end
+	map, canvas = WorldMapFrame, view.canvas
 	buildLegend()
 	clicks = CreateFrame("Frame")
 	clicks:SetScript("OnEvent", function(_, event, button)
@@ -828,23 +854,6 @@ local function install()
 			local r = pressedRow
 			pressedRow = nil
 			if r and r == hoverRow and r:IsVisible() then toggle(r) end
-		end
-	end)
-	watcher = ns.CreateFrameUnder("Frame", nil, canvas)
-	watcher:SetScript("OnUpdate", function()
-		local id, w, h = map:GetMapID(), canvas:GetWidth(), canvas:GetHeight()
-		local s = map.GetCanvasScale and map:GetCanvasScale() or 1
-		local now = GetTime()
-		if id ~= lastMap then
-			lastMap, lastW, lastH, lastS, zooming = id, w, h, s, false
-			lastDraw = now
-			draw(true)
-		elseif w ~= lastW or h ~= lastH or s ~= lastS then
-			lastW, lastH, lastS, zooming = w, h, s, true
-			if now - lastDraw >= ZOOM_STEP then lastDraw = now; draw() end
-		elseif zooming then
-			zooming, lastDraw = false, now
-			draw()
 		end
 	end)
 end
@@ -935,19 +944,19 @@ local function queue()
 	C_Timer.After(0.2, queued)
 end
 
--- On or off: the world map's watcher and the minimap's driver come and go with it.
+-- On or off: the world map's view is watched from the first time they are on (off, its draws hide everything),
+-- the minimap's view while they are.
 local function apply()
 	local yes = on()
 	if yes then install() end
-	if watcher then watcher:SetShown(yes) end
 	minimapOn(yes and opt("showMinimap") and true or false)
 	rebuild(true)
+	draw(true)
 end
 
 -- A mobMarkers setting or a Map pins Icons setting changed.
 local function changed(key)
-	lastMap = nil -- the world map redraws on its next frame
-	styleVer = styleVer + 1 -- and every marker repaints
+	styleVer = styleVer + 1 -- every marker repaints on its next draw
 	if key == "preview" then previewMap = nil end -- filled on the next world map draw
 	if key == "enabled" or key == "showMinimap" or key == "" then
 		apply()
@@ -979,6 +988,10 @@ ns.OnLogin(function()
 end)
 ns.RegisterEvent("QUEST_TURNED_IN", function(_, qid) pruneHidden(qid) end)
 ns.RegisterEvent("QUEST_LOG_UPDATE", queue)
+-- The Codex loaded (by the guide's engine, Lookup, or the world map opened with the markers on): the marks build.
+ns.On("CODEX_LOADED", function() if on() then rebuild(true) end end)
+-- Polestar hidden or shown again: the minimap's markers go or come back (the world map's go with its view).
+ns.On("POLESTAR_HIDDEN", function() minimapRedraw() end)
 ns.RegisterEvent("ADDON_LOADED", function(_, name)
 	if name == "Blizzard_WorldMap" and on() then apply() end
 end)
@@ -988,6 +1001,9 @@ for _, msg in ipairs({ "STEP_CHANGED", "STEP_UPDATED", "GUIDE_CHANGED" }) do ns.
 
 -- /polestar spawns: what the markers see, for when nothing shows; "preview": 20 of this zone's quests.
 local function command(msg)
+	-- Asked for: the Codex loads now if nothing has loaded it yet (CODEX_LOADED builds the marks).
+	local C = ns.Codex
+	if on() and C and C.IsLoaded and not C.IsLoaded() and C.Load then C.Load() end
 	if msg and msg:lower():match("^%s*preview") then
 		preview = not preview
 		changed("preview")
