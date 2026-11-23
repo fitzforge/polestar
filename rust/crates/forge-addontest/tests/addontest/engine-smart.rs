@@ -218,6 +218,7 @@ fn suggest_prefers_the_current_zone_then_the_nearest_by_travel_race_chains_win_t
 }
 
 // Engine.OUTGROWN: most players run a little ahead of the route, so a guide is outgrown 3 levels past its top, not 2.
+// With Skip grey quests off: with it on, the catch-up may pass the opened guide whole and the notice waits (mayPass).
 #[test]
 fn guide_outleveled_fires_once_per_guide_three_levels_past_its_top_never_at_two() {
 	let out = run(
@@ -226,7 +227,7 @@ fn guide_outleveled_fires_once_per_guide_three_levels_past_its_top_never_at_two(
 			Polestar.RegisterGuide({ id = "test/low", pack = "test", title = "Low", faction = "Horde", minLevel = 1, maxLevel = 6, steps = { { goals = { { t = "level", level = 60 } } } } })
 			Polestar.RegisterGuide({ id = "test/mid", pack = "test", title = "Mid", faction = "Horde", minLevel = 7, maxLevel = 20, steps = { { goals = { { t = "level", level = 60 } } } } })
 		"#,
-		None,
+		SKIP_GREY_OFF,
 		r#"
 			local fired = {}
 			Polestar.On("GUIDE_OUTLEVELED", function(id, s) fired[#fired + 1] = id .. ">" .. tostring(s) end)
@@ -245,6 +246,8 @@ fn guide_outleveled_fires_once_per_guide_three_levels_past_its_top_never_at_two(
 }
 
 const SKIP_GREY_ON: Option<&str> = Some("PolestarDB = { schema = 1, settings = { behavior = { skipGrey = true } } }");
+// Skip grey quests is on by default since 0.4.3: off is a stored choice.
+const SKIP_GREY_OFF: Option<&str> = Some("PolestarDB = { schema = 1, settings = { behavior = { skipGrey = false } } }");
 
 // Wogi's report: a Human at 20 in Darkshore (16-21) was sent to grey quests. With the setting on, a grey quest
 // turned in later in the guide is left out with its turn-in; a grey quest stays when a quest down the chain that
@@ -298,7 +301,7 @@ fn skipgrey_skips_grey_accepts_and_their_turn_ins_unless_a_quest_worth_doing_nee
 			"at": 3, "accepted101": false, "grey": true, "byHand": ["done", "pending"],
 		})
 	);
-	let off = run("", guides, None, script, true);
+	let off = run("", guides, SKIP_GREY_OFF, script, true);
 	assert_eq!(off["statuses"].as_array().unwrap().iter().filter(|s| **s == "na").count(), 0, "{}", off["statuses"]);
 	assert_eq!(json!([off["at"].clone(), off["accepted101"].clone(), off["grey"].clone()]), json!([1, true, false]));
 }
@@ -344,7 +347,7 @@ fn skipgrey_a_grey_accept_kept_for_its_chain_names_the_nearest_open_quest_it_lea
 			{ "level": 23, "kept": false, "text": false, "skipped": true, "accepts": ["skipped", "skipped", "skipped"] },
 		])
 	);
-	let off = run("", guides, None, script, true);
+	let off = run("", guides, SKIP_GREY_OFF, script, true);
 	let rows = Value::Array(off.as_array().unwrap().iter().map(|r| json!([r["kept"].clone(), r["text"].clone(), r["skipped"].clone()])).collect());
 	assert_eq!(rows, json!([[false, false, false], [false, false, false], [false, false, false]]));
 }
