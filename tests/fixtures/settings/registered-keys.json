@@ -1,5 +1,6 @@
 [
 	"alts.enabled",
+	"arcade.game",
 	"behavior.autoAccept",
 	"behavior.autoSelectGuide",
 	"behavior.autoTurnin",
@@ -121,7 +122,6 @@
 	"maps.coords",
 	"maps.dockPins",
 	"maps.dungeonPins",
-	"maps.flightArcade",
 	"maps.flightTimer",
 	"maps.innPins",
 	"maps.instanceDisplay",

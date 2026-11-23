@@ -10,7 +10,7 @@ const JEWELS = ['jewel-1', 'jewel-2', 'jewel-3', 'jewel-4', 'jewel-5', 'jewel-6'
 const ZONES = ['zone-astral', 'zone-emberforge', 'zone-frostglass', 'zone-nightbloom', 'zone-stormspire', 'zone-sunstone'];
 
 function generate(addonRoot) {
-	const media = path.join(addonRoot, '..', 'Polestar_SkyJewels', 'Media');
+	const media = path.join(addonRoot, '..', 'Polestar_Arcade', 'games', 'skyjewels', 'Media');
 	const written = [];
 	for (const [names, sourceSize, size] of [[JEWELS, 64, 64], [ZONES, 512, 256]]) {
 		for (const name of names) {

@@ -843,11 +843,8 @@ function uistub.install(opts)
 		if Polestar.Nav ~= Nav then uistub.realNav = Polestar.Nav end
 		Polestar.Nav = Nav
 	end
-	-- Whether another addon is there: the real checks, over the C_AddOns stub.
-	if Polestar.Compat ~= Compat then
-		Compat.AddOnPresent = Polestar.Compat.AddOnPresent
-		Compat.AddOnAvailable = Polestar.Compat.AddOnAvailable
-	end
+	-- Whether another addon is there: the real check, over the C_AddOns stub.
+	if Polestar.Compat ~= Compat then Compat.AddOnPresent = Polestar.Compat.AddOnPresent end
 	Polestar.Compat = Compat
 	-- The real modules register these; the fakes stand in for them.
 	if not opts.noNav and Polestar.GetDefault("nav.arrow") == nil then

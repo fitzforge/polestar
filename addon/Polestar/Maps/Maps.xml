@@ -16,6 +16,5 @@
 	<Script file="RouteLines.lua"/>
 	<Script file="FlightTimer.lua"/>
 	<Script file="Arcade.lua"/>
-	<Script file="SkyJewelsLauncher.lua"/>
 	<Script file="Instances.lua"/>
 </Ui>

@@ -1,3 +1,6 @@
+-- Sky Jewels by RikyZ90, a match-three game in Polestar's Arcade (Polestar_Arcade/games/skyjewels).
+-- GPL-3.0-only, as Polestar: see CREDITS.md in this folder and LICENSE in the Polestar folder.
+-- The board: swaps, matches, bonuses, gravity and the first eight levels; no frames.
 local _, ns = ...
 
 local SIZE, COUNT = 7, 49

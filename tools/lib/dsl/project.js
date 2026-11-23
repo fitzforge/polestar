@@ -535,16 +535,16 @@ function textsDirRefusal(dir, packId) {
 // Addon folders of the release: always these (Polestar_Nav is committed:
 // Polestar's walking router and maps, `nav pack`; Polestar_Options is the
 // settings window, Polestar_SkinAPI the Skin API's checks and Polestar_Looks
-// the game looks with Hearth, all three loaded on demand), the optional games
-// when there, plus the generated
+// the game looks with Hearth, all three loaded on demand), Polestar_Arcade
+// (Freedoom Arcade by petllama, loaded on demand) when there, plus the generated
 // data addons when they have been built (each skipped while its folder or TOC
 // is missing; `pack` refuses a release without the Codex, which Lookup,
 // Dungeons and Rares read: forge-release's codex_refusal), the language
 // folders last (our guides' texts and the game's names, `forge guide
 // compile` and `forge data names`, committed; the client loads only its own).
 const RELEASE_ADDONS = ['Polestar', 'Polestar_Guides', 'Polestar_Nav', 'Polestar_Options', 'Polestar_SkinAPI', 'Polestar_Looks'];
-// The optional games in forge-release's release_addons.
-const GAMES = ['Polestar_Arcade', 'Polestar_SkyJewels'];
+// forge-release addons.rs ARCADE.
+const ARCADE = 'Polestar_Arcade';
 const RELEASE_DATA_ADDONS = [
 	'Polestar_QuestDB', 'Polestar_ItemDB', 'Polestar_Codex',
 	...LOCALE_CODES.map(languageAddon),
@@ -557,7 +557,7 @@ function releaseAddons(addonsDir) {
 	// guide compile, format 8), each once built (as forge-release's release_addons).
 	const walking = navParts(path.join(addonsDir, 'Polestar_Nav'));
 	const guides = ['Alliance', 'Horde', ...RACE_FILES].map((r) => partAddon(OWN_FOLDER, r));
-	const parts = [...GAMES, ...walking, ...guides].filter((n) => fs.existsSync(path.join(addonsDir, n, `${n}.toc`)));
+	const parts = [ARCADE, ...walking, ...guides].filter((n) => fs.existsSync(path.join(addonsDir, n, `${n}.toc`)));
 	return { names: [...RELEASE_ADDONS, ...parts, ...RELEASE_DATA_ADDONS.filter((n) => !skipped.includes(n))], skipped };
 }
 

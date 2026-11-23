@@ -1,12 +1,14 @@
+-- Sky Jewels by RikyZ90, a match-three game in Polestar's Arcade (Polestar_Arcade/games/skyjewels).
+-- GPL-3.0-only, as Polestar: see CREDITS.md in this folder and LICENSE in the Polestar folder.
+-- The window and its play; Maps/Arcade.lua opens it (the flight card, /polestar jewels, the guide
+-- menu), puts it away before a landing and in a fight on a flight, and keeps one game open at a time.
 local ADDON, game = ...
 local ns = Polestar
 local Board, L = game.SkyJewelsBoard, ns.L
 local SkyJewels = { title = L["Sky Jewels"], command = "/polestar jewels" }
-ns.SkyJewels = SkyJewels
 
 local CELL, SIDE, SIDEBAR_X = 46, 134, 354
-local LANDING = 10
-local media = "Interface\\AddOns\\" .. ADDON .. "\\Media\\"
+local media = "Interface\\AddOns\\" .. ADDON .. "\\games\\skyjewels\\Media\\"
 local zones = {
 	{ name = L["Nightbloom Glade"], art = "zone-nightbloom" },
 	{ name = L["Sunstone Canyon"], art = "zone-sunstone" },
@@ -248,26 +250,11 @@ local function click(i)
 	end
 end
 
+-- A fight with the window open (on the ground as on a flight): saved and put away.
 local function onCombat()
 	if SkyJewels.Close() then
 		ns.Print(L["Sky Jewels paused for combat. Type %s to continue."]:format(SkyJewels.command))
 	end
-end
-
-local function landingSoon()
-	if not ns.Get("maps.flightTimer") then return false end
-	local _, left, source = ns.Maps.GetFlight()
-	return source == "learned" and left and left <= LANDING
-end
-
-local function checkFlight()
-	local onTaxi = ns.Compat.IsOnTaxi()
-	if (wasOnTaxi and not onTaxi) or (onTaxi and landingSoon()) or ns.Arcade.IsOpen() then
-		if SkyJewels.Close() then ns.Print(L["Sky Jewels progress saved."]) end
-		return false
-	end
-	wasOnTaxi = onTaxi
-	return true
 end
 
 local function build()
@@ -290,7 +277,6 @@ local function build()
 	ns.CloseOnEscape("PolestarSkyJewels")
 	f:SetScript("OnHide", function(self)
 		ns.UnregisterEvent("PLAYER_REGEN_DISABLED", onCombat)
-		if ticker then ticker:Cancel(); ticker = nil end
 		motion = nil
 		self:SetScript("OnUpdate", nil)
 		selectTile(nil)
@@ -298,9 +284,7 @@ local function build()
 	end)
 	f:SetScript("OnShow", function()
 		if ns.Compat.InCombat() then onCombat(); return end
-		if not checkFlight() then return end
 		ns.RegisterEvent("PLAYER_REGEN_DISABLED", onCombat)
-		ticker = ns.NewTicker(0.5, checkFlight)
 		status()
 		render(state.tiles)
 		readout()
@@ -440,11 +424,6 @@ function SkyJewels.IsOpen() return frame and frame:IsShown() or false end
 function SkyJewels.Open()
 	if ns.Compat.InCombat() then return false end
 	if SkyJewels.IsOpen() then return true end
-	wasOnTaxi = ns.Compat.IsOnTaxi()
-	if wasOnTaxi and landingSoon() then
-		ns.Print(L["The flight is almost over. Open the arcade after landing."])
-		return false
-	end
 	if not frame then frame = build() end
 	local player = ns.CharState()
 	state = player.skyJewels
@@ -457,8 +436,11 @@ function SkyJewels.Open()
 	return SkyJewels.IsOpen()
 end
 
+-- saveAndPause: every move is saved as it settles, so closing is all there is to it.
 function SkyJewels.Close()
 	if not SkyJewels.IsOpen() then return false end
 	frame:Hide()
 	return true
 end
+
+ns.Arcade.Register("skyjewels", SkyJewels)

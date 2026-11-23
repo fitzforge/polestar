@@ -1,9 +1,9 @@
 //! A flight from Orgrimmar to the Crossroads (an Orc at the flight master, the flight map opened, the Crossroads
-//! taken, on the taxi until the timer's estimate runs out, landed at the Crossroads), with Freedoom Arcade on and
-//! off (maps.flightArcade). What the player meets:
+//! taken, on the taxi until the timer's estimate runs out, landed at the Crossroads), with the flight games offered
+//! (arcade.game at its default, Freedoom Arcade) and not ("none"). What the player meets:
 //!
-//! - off: the flight timer, nothing of the Arcade (no card, nothing loaded), no chat line, no sound;
-//! - on: the card asking "Do you want to play Doom while waiting?" once, gone with a minute left and on landing;
+//! - none: the flight timer, nothing of the Arcade (no card, nothing loaded), no chat line, no sound;
+//! - offered: the card asking "Play a game while you fly?" once, gone with a minute left and on landing;
 //!   no chat line, no sound;
 //! - on, Play pressed: the game opens; 10 seconds before landing it is saved, paused and put away; the landing says
 //!   once how to continue; two fights after the landing say nothing more (#2899: 0.4.1 ended each of them with
@@ -55,7 +55,7 @@ local function note(at)
 end
 note(0)
 if PLAY and card() then
-	stub.frame("PolestarArcadeOffer").Ask.Play:Click()
+	stub.frame("PolestarArcadeOffer").Ask.Games.freedoom:Click()
 	stub.advance(1)
 	local A = FreedoomArcade
 	if A and A.G and A.G.InitNew then A.G.InitNew(2, 1, 1) end
@@ -96,7 +96,7 @@ emit(out)
 "#;
 
 fn fly(arcade: bool, press_play: bool) -> Value {
-	let set = if arcade { "" } else { "Polestar.Set(\"maps.flightArcade\", false)" };
+	let set = if arcade { "" } else { "Polestar.Set(\"arcade.game\", \"none\")" };
 	play(&Play { stubs: vec!["stub_scenes_world.lua"], before: WORLD.into(), script: format!("{set}\nlocal PLAY = {press_play}\n{FLIGHT}"), ..Default::default() }).remove(0)
 }
 
