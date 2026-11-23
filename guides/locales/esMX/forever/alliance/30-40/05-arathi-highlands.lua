@@ -8,8 +8,7 @@
 return {
 	-- Guide
 	-- {area:327} Faldir's Cove
-	-- was: ["For characters of 35 to 37. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "Para personajes de nivel 35 a 37. {area:327}, donde los naga y los elementales de agua del profesor son de nivel 38-40, es una parada en grupo: omítela si vas solo."
-	["For characters of 36 to 38. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "",
+	["For characters of 36 to 38. {area:327}, where the naga and the professor's water elementals are 38-40, is a group stop: skip it if you are alone."] = "Para personajes de nivel 36 a 38. {area:327}, donde los naga y los elementales de agua del profesor son de nivel 38-40, es una parada en grupo: omítela si vas solo.",
 
 	-- Step 1: Fly to Darkshire
 	-- {area:42} Darkshire
@@ -19,9 +18,9 @@ return {
 
 	-- Step 2: The Scythe of Elune
 	-- {area:42} Darkshire · {area:121} Tranquil Gardens Cemetery · {zone:1430} Deadwind Pass · {npc:661} Jonathan Carevin
-	["South from {area:42} to the {area:121}, on the way to {zone:1430}: the mound of dirt by the Nightbane worgen (29-31) holds the evidence {npc:661} wants."] = "",
+	["South from {area:42} to the {area:121}, on the way to {zone:1430}: the mound of dirt by the Nightbane worgen (29-31) holds the evidence {npc:661} wants."] = "Al sur de {area:42} hasta {area:121}, de camino a {zone:1430}: el montículo de tierra junto a los huargos Nightbane (29-31) guarda las pruebas que quiere {npc:661}.",
 	-- {object:19030} Mound of Dirt
-	["the {object:19030}"] = "",
+	["the {object:19030}"] = "el {object:19030}",
 
 	-- Step 4: Watcher Biggs
 	-- {npc:5476} Watcher Biggs · {npc:217412} Amaryllis Webb · {quest:93176} My Little Friends
@@ -86,9 +85,9 @@ return {
 
 	-- Step 15: Jonathan Carevin
 	-- {npc:661} Jonathan Carevin · {area:42} Darkshire
-	["{npc:661}, in {area:42}"] = "",
+	["{npc:661}, in {area:42}"] = "{npc:661}, en {area:42}",
 	-- {zone:1457} Darnassus
-	["His next errand goes to {zone:1457}, off this route: leave it."] = "",
+	["His next errand goes to {zone:1457}, off this route: leave it."] = "Su siguiente encargo va a {zone:1457}, fuera de esta ruta: déjalo.",
 
 	-- Step 16: Fly to Stormwind
 	-- {zone:1453} Stormwind
@@ -134,7 +133,7 @@ return {
 
 	-- Step 25: Southshore
 	-- {npc:2276} Magistrate Henry Maleb · {zone:1424} Hillsbrad Foothills
-	["{npc:2276}, inside, if the {zone:1424} guide didn't take it: the Syndicate camp is on the way to Arathi"] = "",
+	["{npc:2276}, inside, if the {zone:1424} guide didn't take it: the Syndicate camp is on the way to Arathi"] = "{npc:2276}, adentro, si la guía de {zone:1424} no la tomó: el campamento de la Hermandad está de camino a Arathi",
 
 	-- Step 26: Shadowy Assassin
 	-- {npc:2434} Shadowy Assassin · {area:271} Southshore · {npc:2276} Magistrate Henry Maleb
@@ -156,7 +155,7 @@ return {
 	-- {area:1057} Thoradin's Wall · {area:320} Refuge Pointe
 	["From the Syndicate camp, follow the road east over {area:1057} to {area:320}."] = "Desde el campamento de la Hermandad, sigue el camino al este por {area:1057} hasta {area:320}.",
 	-- {npc:2700} Captain Nials · {npc:1075} Rhag Garmason · {zone:1437} Wetlands
-	["{npc:2700}: {npc:1075}'s plea, from the {zone:1437}"] = "",
+	["{npc:2700}: {npc:1075}'s plea, from the {zone:1437}"] = "{npc:2700}: la súplica de {npc:1075}, de {zone:1437}",
 
 	-- Step 32: Northfold Manor
 	-- {area:320} Refuge Pointe
@@ -196,7 +195,7 @@ return {
 	-- Step 38: Witherbark Village
 	-- {area:318} Drywhisker Gorge · {area:314} Go'Shek Farm · {area:317} Witherbark Village
 	-- plural, as words: Witherbark Goliaths = {npc:218032} Witherbark Goliath
-	["South from {area:318}, past {area:314}, to {area:317} in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk. Careful: Witherbark Goliaths (35, elite) walk the far end with the Shadow Hunters: pull the Hunters out to you one at a time, away from the Goliaths."] = "",
+	["South from {area:318}, past {area:314}, to {area:317} in the hills: the Witch Doctors stand among the huts and the Shadow Hunters guard the far end of the valley. Every troll can drop a tusk. Careful: Witherbark Goliaths (35, elite) walk the far end with the Shadow Hunters: pull the Hunters out to you one at a time, away from the Goliaths."] = "Al sur de {area:318}, pasando {area:314}, hasta {area:317} en las colinas: los médicos brujos están entre las chozas y los cazadores de las sombras vigilan el fondo del valle. Cualquier trol puede soltar un colmillo. Cuidado: los Witherbark Goliaths (35, élite) recorren el fondo con los cazadores de las sombras: atrae a los cazadores hacia ti de uno en uno, lejos de los Goliaths.",
 	-- {item:5040} Shadow Hunter Knife
 	["{item:5040}; below ground"] = "{item:5040}; bajo tierra",
 
@@ -244,7 +243,7 @@ return {
 	-- Step 51: The Drowned Reef: kill these as you meet them
 	-- {area:328} The Drowned Reef
 	["{area:328}: kill these as you meet them"] = "{area:328}: mata a estos según te los encuentres",
-	["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay.\nCareful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy."] = "",
+	["The two wrecks lie in the bay west of the cove. The charts and logs are inside them; the gems lie on the sea floor around them. Daggerspine naga swim the whole bay.\nCareful: the charts and logs lie deep inside the wrecks: watch your breath bar and come up between them; a water breathing potion makes it easy."] = "Los dos naufragios están en la bahía al oeste de la cala. Las cartas y los diarios están dentro; las gemas están en el fondo del mar a su alrededor. Los naga Espinadaga nadan por toda la bahía.\nCuidado: las cartas y los diarios están en lo profundo de los naufragios: vigila tu barra de respiración y sube a respirar entre uno y otro; una poción de respiración acuática lo hace fácil.",
 	-- {npc:2595} Daggerspine Raider
 	["{npc:2595}, underwater"] = "{npc:2595}, bajo el agua",
 	-- {item:4492} Elven Gem
@@ -368,7 +367,7 @@ return {
 
 	-- Step 77: Thelsamar
 	-- {zone:2548} Riverglades · {zone:1455} Ironforge · {area:69} Lakeshire · {area:2417} Blackrock Pass
-	["Leave the {zone:2548} for about level 41: its Western Front has elite patrols. After Stranglethorn, the {zone:2548} guide takes you from {zone:1455} to {area:69}, then through {area:2417}."] = "",
+	["Leave the {zone:2548} for about level 41: its Western Front has elite patrols. After Stranglethorn, the {zone:2548} guide takes you from {zone:1455} to {area:69}, then through {area:2417}."] = "Deja {zone:2548} para el nivel 41 más o menos: su Frente Occidental tiene patrullas élite. Después de Tuercespina, la guía de {zone:2548} te lleva de {zone:1455} a {area:69}, y luego por {area:2417}.",
 	-- {npc:1470} Ghak Healtouch
 	["{npc:1470}, below ground"] = "{npc:1470}, bajo tierra",
 

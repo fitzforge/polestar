@@ -23,7 +23,7 @@ return {
 	["The diary lies in the farmhouse, the cabinet stands inside and the outhouse is behind it. A {npc:10816} carries the outhouse key; {npc:10836} comes out when you open the outhouse and carries the cabinet key."] = "El diario está en la granja, el armario está dentro y el retrete está detrás. Un {npc:10816} lleva la llave del retrete; {npc:10836} sale cuando abres el retrete y lleva la llave del armario.",
 
 	-- Step 4: Mulgris Deepriver
-	["His next hunt, the Diseased Grizzlies (55-56), waits for the Plaguelands guide's sweep at about 55."] = "",
+	["His next hunt, the Diseased Grizzlies (55-56), waits for the Plaguelands guide's sweep at about 55."] = "Su siguiente cacería, los osos pardos malsanos (55-56), espera al recorrido de la guía de las Tierras de la Peste hacia el nivel 55.",
 
 	-- Step 6: High Executor Derrington
 	["You missed this on the route's earlier visit here: it comes first now. It is quick and opens the quests after it."] = "No hiciste esto en la visita anterior de la ruta a esta zona: ahora va primero. Es rápido y abre las misiones que le siguen.",
@@ -70,7 +70,7 @@ return {
 	-- {area:1237} Valormok
 	["Fly to {area:1237}"] = "Vuela a {area:1237}",
 	-- {zone:1447} Azshara · {zone:1454} Orgrimmar
-	["{zone:1447} is a short flight from {zone:1454}: its quests are 51-55, at your level now."] = "",
+	["{zone:1447} is a short flight from {zone:1454}: its quests are 51-55, at your level now."] = "{zone:1447} está a un vuelo corto de {zone:1454}: sus misiones son de nivel 51-55, de tu nivel ahora.",
 	-- {zone:1454} Orgrimmar
 	["{zone:1454} flight master"] = "Maestro de vuelo de {zone:1454}",
 
@@ -85,10 +85,10 @@ return {
 
 	-- Step 18: Ruins of Eldarath
 	-- {area:1231} Southridge Beach
-	["Fill Cuely's four vials at the tide pools on the shore, from {area:1231} north up the coast; Spitelash naga patrol between them."] = "",
+	["Fill Cuely's four vials at the tide pools on the shore, from {area:1231} north up the coast; Spitelash naga patrol between them."] = "Llena los cuatro viales de Cuely en las pozas de marea de la orilla, desde {area:1231} al norte subiendo por la costa; las nagas Látigo de Ira patrullan entre ellas.",
 	-- {item:10691} Filled Vial Labeled #1 · {area:1231} Southridge Beach
-	["{item:10691}: the tide pool on {area:1231}"] = "",
-	["#2, north along the shore"] = "",
+	["{item:10691}: the tide pool on {area:1231}"] = "{item:10691}: la poza de marea de {area:1231}",
+	["#2, north along the shore"] = "#2, al norte por la orilla",
 
 	-- Step 19: Makrinni Burrowers
 	-- plural, as words: Makrinni Burrowers = {npc:247470} Makrinni Burrower
@@ -132,14 +132,14 @@ return {
 
 	-- Step 25: Magus Rimtori
 	-- {npc:8578} Magus Rimtori
-	["Back to the Sin'dorei Tome: hand in the seals, then use it to call {npc:8578}.\nCareful: Rimtori is level 55, and which crystal is linked to him is random: each of the other two summons a hostile infernal instead. Start at full health."] = "",
+	["Back to the Sin'dorei Tome: hand in the seals, then use it to call {npc:8578}.\nCareful: Rimtori is level 55, and which crystal is linked to him is random: each of the other two summons a hostile infernal instead. Start at full health."] = "De vuelta al tomo sin'dorei: entrega los sellos y luego úsalo para llamar a {npc:8578}.\nCuidado: Rimtori es de nivel 55, y qué cristal está vinculado a él es aleatorio: cada uno de los otros dos invoca en cambio a un infernal hostil. Empieza con la salud llena.",
 	-- {quest:91538} Sin'dorei Tome of Summoning · {npc:8587} Jediga · {area:1237} Valormok
 	["{quest:91538}: for {npc:8587} in {area:1237}"] = "{quest:91538}: para {npc:8587} en {area:1237}",
 
 	-- Step 26: The Legashi satyrs
 	["The Legashi satyrs"] = "Los sátiros Legashi",
 	-- {npc:235903} Ekkal · {npc:235892} Prince Halanox
-	["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind.\nCareful: {npc:235892} (55, elite) stands among the satyrs at the north-east end of their hills, around 67,19: take the satyrs nearer the camp and leave him be."] = "",
+	["The Legashi satyrs (51-52) hold the hills north of the blood elves' camp: {npc:235903} wants five of each kind.\nCareful: {npc:235892} (55, elite) stands among the satyrs at the north-east end of their hills, around 67,19: take the satyrs nearer the camp and leave him be."] = "Los sátiros Legashi (51-52) ocupan las colinas al norte del campamento de los elfos de sangre: {npc:235903} quiere cinco de cada tipo.\nCuidado: {npc:235892} (55, élite) está entre los sátiros en el extremo noreste de sus colinas, alrededor de 67,19: ve por los sátiros más cercanos al campamento y déjalo en paz.",
 
 	-- Step 27: Kim'jael
 	-- {npc:8420} Kim'jael
@@ -166,11 +166,11 @@ return {
 	-- {npc:8587} Jediga · {npc:3326} Zevrost · {zone:1454} Orgrimmar
 	["{npc:8587}: the tome goes to {npc:3326} in {zone:1454}"] = "{npc:8587}: el tomo va para {npc:3326} en {zone:1454}",
 	-- {npc:8659} Jes'rimon · {npc:4485} Belgrom Rockmaul · {npc:3326} Zevrost · {zone:1454} Orgrimmar · {zone:1456} Thunder Bluff · {npc:6522} Andron Gant · {zone:1458} Undercity
-	["Keep the deliveries: {npc:8659}, {npc:4485} and {npc:3326} are in {zone:1454} next, Magatha in {zone:1456} and {npc:6522} in the {zone:1458} on the next guides."] = "",
+	["Keep the deliveries: {npc:8659}, {npc:4485} and {npc:3326} are in {zone:1454} next, Magatha in {zone:1456} and {npc:6522} in the {zone:1458} on the next guides."] = "Conserva las entregas: {npc:8659}, {npc:4485} y {npc:3326} están en {zone:1454} a continuación, Magatha en {zone:1456} y {npc:6522} en {zone:1458}, en las siguientes guías.",
 
 	-- Step 32: Sanath Lim-yo
 	-- {area:1237} Valormok · {npc:8379} Archmage Xylem
-	["Ride east from {area:1237} to Sanath's camp at the foot of the cliff and get off your mount: he teleports you up to {npc:8379}'s tower."] = "",
+	["Ride east from {area:1237} to Sanath's camp at the foot of the cliff and get off your mount: he teleports you up to {npc:8379}'s tower."] = "Cabalga al este desde {area:1237} hasta el campamento de Sanath al pie del acantilado y bájate de la montura: te teletransporta arriba, a la torre de {npc:8379}.",
 
 	-- Step 33: Archmage Xylem
 	["The apprentice at the top of the tower sends you back down."] = "El aprendiz de lo alto de la torre te manda de vuelta abajo.",
@@ -184,11 +184,11 @@ return {
 
 	-- Step 36: Belgrom Rockmaul
 	-- {npc:4485} Belgrom Rockmaul · {object:172958} Valley of Honor · {npc:3326} Zevrost · {npc:8659} Jes'rimon · {object:172960} Cleft of Shadow
-	["{npc:4485} is in the {object:172958}, {npc:3326} and {npc:8659} in the {object:172960}."] = "",
+	["{npc:4485} is in the {object:172958}, {npc:3326} and {npc:8659} in the {object:172960}."] = "{npc:4485} está en el {object:172958}; {npc:3326} y {npc:8659}, en la {object:172960}.",
 	-- {npc:3326} Zevrost · {object:172960} Cleft of Shadow
 	["{npc:3326}, the {object:172960}"] = "{npc:3326}, {object:172960}",
 	-- {npc:8659} Jes'rimon · {npc:8587} Jediga
-	["{npc:8659}: his payment goes back to {npc:8587}, on the flight out"] = "",
+	["{npc:8659}: his payment goes back to {npc:8587}, on the flight out"] = "{npc:8659}: su pago vuelve a {npc:8587}, en el vuelo de salida",
 
 	-- Step 37: Class trainer
 	["Class trainer"] = "Instructor de clase",
@@ -200,7 +200,7 @@ return {
 
 	-- Step 39: Fly to Valormok
 	-- {zone:1448} Felwood · {area:1237} Valormok · {npc:8587} Jediga · {npc:8659} Jes'rimon · {area:431} Splintertree Post
-	["{zone:1448} is next: fly by way of {area:1237}, where {npc:8587} takes {npc:8659}'s payment, then on to {area:431}."] = "",
+	["{zone:1448} is next: fly by way of {area:1237}, where {npc:8587} takes {npc:8659}'s payment, then on to {area:431}."] = "{zone:1448} viene a continuación: vuela pasando por {area:1237}, donde {npc:8587} recibe el pago de {npc:8659}, y luego sigue a {area:431}.",
 
 	-- Step 41: Fly to Splintertree Post
 	-- {area:431} Splintertree Post
@@ -223,7 +223,7 @@ return {
 	-- {area:1763} Jaedenar
 	["Southern {area:1763}"] = "Sur de {area:1763}",
 	-- {area:1763} Jaedenar · {npc:11141} Spirit of Trey Lightforge
-	["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: pull the cultists and hounds away from him."] = "",
+	["Follow the road north-west. The south of {area:1763}, around its corrupted moonwell, is held by Shadow Council cultists, adepts, guardsmen and their hounds.\nCareful: the {npc:11141} (53, elite) haunts the west end of {area:1763}, around 35,60: pull the cultists and hounds away from him."] = "Sigue el camino al noroeste. El sur de {area:1763}, alrededor de su pozo de la luna corrupto, lo ocupan sectarios, adeptos, guardias y canes del Consejo de la Sombra.\nCuidado: el {npc:11141} (53, élite) ronda el extremo oeste de {area:1763}, alrededor de 35,60: aleja de él a los sectarios y los canes.",
 
 	-- Step 47: The Jaedenar moonwell
 	-- {area:1763} Jaedenar
@@ -251,8 +251,7 @@ return {
 	-- Step 51: Irontree Woods
 	-- {area:1767} Irontree Woods · {item:11503} Blood Amber · {npc:10920} Kelek Skykeeper
 	-- plural, as words: Warpwood Moss Flayers = {npc:7100} Warpwood Moss Flayer · Felpaw Ravagers = {npc:8961} Felpaw Ravager
-	-- was: ["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo."] = "Sigue el camino al noreste hasta {area:1767}. Los arrancamusgos y machacadores Alabeo del lado este del bosque llevan cada uno un {item:11503}; los pardos Zarpira y los devastadores Zarpayel deambulan por el mismo bosque para Talo."
-	["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo, and their organs are {npc:10920}'s."] = "",
+	["Follow the road north-east to {area:1767}. The Warpwood Moss Flayers and Shredders on the east side of the woods each carry a {item:11503}; Angerclaw Grizzlies and Felpaw Ravagers roam the same woods for Talo, and their organs are {npc:10920}'s."] = "Sigue el camino al noreste hasta {area:1767}. Los arrancamusgos y machacadores Alabeo del lado este del bosque llevan cada uno un {item:11503}; los pardos Zarpira y los devastadores Zarpayel deambulan por el mismo bosque para Talo, y sus órganos son de {npc:10920}.",
 	-- {item:277958} Putrescent Bear Organs
 	["{item:277958}, from the Angerclaw bears"] = "{item:277958}, de los osos Zarpaira",
 	-- {item:277959} Putrescent Wolf Organs
@@ -263,9 +262,9 @@ return {
 
 	-- Step 53: Meilosh
 	-- {npc:11557} Meilosh · {zone:1448} Felwood · {quest:6031} Runecloth · {area:1769} Timbermaw Hold
-	["Only from Friendly with the Timbermaw: {npc:11557}, in the tunnel near its {zone:1448} mouth, gives {quest:6031} then (the {area:1769} reputation guide gets you there)."] = "",
+	["Only from Friendly with the Timbermaw: {npc:11557}, in the tunnel near its {zone:1448} mouth, gives {quest:6031} then (the {area:1769} reputation guide gets you there)."] = "Solo desde Amistoso con los Fauces de Madera: {npc:11557}, en el túnel cerca de su entrada de {zone:1448}, da entonces {quest:6031} (la guía de reputación de {area:1769} te lleva hasta ahí).",
 	-- {npc:11557} Meilosh · {quest:6031} Runecloth
-	["{npc:11557}: keep 30 {quest:6031} for him; below ground"] = "",
+	["{npc:11557}: keep 30 {quest:6031} for him; below ground"] = "{npc:11557}: guarda 30 {quest:6031} para él; bajo tierra",
 
 	-- Step 54: Nafien
 	-- {npc:15395} Nafien · {area:1769} Timbermaw Hold
@@ -274,9 +273,9 @@ return {
 	-- Step 55: Felpaw Village
 	-- {quest:8470} Deadwood Ritual Totem · {npc:11558} Kernda · {area:1769} Timbermaw Hold
 	-- plural, as words: Deadwood Avengers = {npc:7157} Deadwood Avenger
-	["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nIf one drops a {quest:8470} (about one kill in thirty), right-click it; don't stay to farm one. {npc:11558} in {area:1769} takes it only from Neutral with the Timbermaw (the {area:1769} reputation guide gets you there): now if they already are, or on the last guide's pass of the cave."] = "",
+	["Careful: Den Watchers are level 53-54 and the Deadwood Avengers 54-55; they call nearby allies within 25 yd once below 50% health and run off for help below 15%.\nIf one drops a {quest:8470} (about one kill in thirty), right-click it; don't stay to farm one. {npc:11558} in {area:1769} takes it only from Neutral with the Timbermaw (the {area:1769} reputation guide gets you there): now if they already are, or on the last guide's pass of the cave."] = "Cuidado: los vigías del cubil son de nivel 53-54 y los vengadores Muertobosque de 54-55; llaman a los aliados cercanos en 25 m al bajar del 50 % de salud y huyen a pedir ayuda por debajo del 15 %.\nSi uno suelta un {quest:8470} (más o menos una muerte de cada treinta), haz clic derecho sobre él; no te quedes a farmearlo. {npc:11558} en {area:1769} lo recibe solo desde Neutral con los Fauces de Madera (la guía de reputación de {area:1769} te lleva hasta ahí): ahora si ya lo eres, o cuando la última guía vuelva a pasar por la cueva.",
 	-- {quest:8470} Deadwood Ritual Totem
-	["{quest:8470}, a rare drop from the Deadwood furbolgs"] = "",
+	["{quest:8470}, a rare drop from the Deadwood furbolgs"] = "{quest:8470}, un botín raro de los fúrbolgs Muertobosque",
 
 	-- Step 56: Nafien
 	-- {quest:8465} Speak to Salfa · {zone:1452} Winterspring
@@ -284,7 +283,7 @@ return {
 
 	-- Step 57: Timbermaw Hold
 	-- {npc:11558} Kernda
-	["Step into the cave: {npc:11558} stands just inside. She speaks to you only from Neutral with the Timbermaw."] = "",
+	["Step into the cave: {npc:11558} stands just inside. She speaks to you only from Neutral with the Timbermaw."] = "Entra a la cueva: {npc:11558} está justo en la entrada. Solo te habla desde Neutral con los Fauces de Madera.",
 	-- {npc:11558} Kernda
 	["{npc:11558} walks around here: look inside the circle on the map"] = "{npc:11558} da vueltas por aquí: búscala dentro del círculo del mapa",
 
