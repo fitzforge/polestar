@@ -19072,7 +19072,6 @@ test('#3823 Cooking 1-300: a recipe\'s learn leads to its vendor until the recip
 // of Sorrows, the Undercity and Orgrimmar). Those stops now jump, for a player holding none of the quests the guide
 // hands in from earlier guides, to the guide's first step in its own zone; a player carrying them keeps the route.
 const FRESH_OPEN = [
-	'forever/horde/02-the-barrens.guide',
 	'forever/horde/04-the-barrens.guide',
 	'forever/horde/30-40/01-hillsbrad-foothills.guide',
 	'forever/horde/30-40/02-thousand-needles.guide',
